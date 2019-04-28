@@ -1,33 +1,33 @@
 Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBPODSXTAKGQE64WSI7A@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-io1-xd40.google.com (mail-io1-xd40.google.com [IPv6:2607:f8b0:4864:20::d40])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58447B5AE
+Received: from mail-yw1-xc3d.google.com (mail-yw1-xc3d.google.com [IPv6:2607:f8b0:4864:20::c3d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DBFCB5AD
 	for <lists+jailhouse-dev@lfdr.de>; Sun, 28 Apr 2019 10:18:07 +0200 (CEST)
-Received: by mail-io1-xd40.google.com with SMTP id e126sf6376138ioa.8
+Received: by mail-yw1-xc3d.google.com with SMTP id j62sf6323146ywe.3
         for <lists+jailhouse-dev@lfdr.de>; Sun, 28 Apr 2019 01:18:07 -0700 (PDT)
 ARC-Seal: i=2; a=rsa-sha256; t=1556439486; cv=pass;
         d=google.com; s=arc-20160816;
-        b=P5GftPMWpFRNqG3mYtnO/efQ17HBlVMikAwxbCvydwSeJP8BhzJ1fq4/l7TEjAa9uN
-         MkuwgZk4be/AYLHWuV8Rpw0xmpuJch+hourqPUK3zWJIZt6mqUvIE/3OGhUNGcQDkNe/
-         Bf+ga6oYVmuoXQIHmR1Gn0ZA+YmPocq9ttPWF1yk01y+VGsoqvqTR9MSXjo0Vzw56LIs
-         MdV9SGoe++JfC5iM1fCB9ViVKVcuKlasIb6ysRW7w3FkJtzf6ik1R7uM1BOXgsO3P2xZ
-         ZeJjbE+ljm7BvX8i6oaT/iAS7zwMKLCuTpqDJYNI7MVHN1nPw8JQxaQq7kP2baU1jK0t
-         H9Ag==
+        b=GzR1AZnomnPhMjO1KifAFCHw1r2UbukNcBECn7LEi9fN6W/e5TzoqTVsiFF3tQd60F
+         b9Ct8pb1sPAUCZ+ngL0oXOmahUWUx7W+Q/POFFtSkbXLJgFhh4R3/zpE70aiPk0bFa7r
+         aGds62XLYAQNMtRJ1aNuJ9i0Fh6tWZxCfIHVzT4m3L1x5p2ARQz36LlwQcusqxx4c7NV
+         DVV2TVOiG2vNupaZVGcKU9aXnHAY+G/MEaSv7doyB7mz8pRNdXv/bo81T+Ou8JhAmXy1
+         g21splE1OaHReqtF+wj9gTc909zbaJfCq2cxggNyfhndIG5KA3qUefN8ZsGZ0FR+wvv1
+         to/w==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:subject:message-id:to
          :from:date:sender:dkim-signature;
-        bh=S1AMuofZ8BrkX1VwPsqndU4EOCvpD5hY7iXsMJmJz1s=;
-        b=IWgr2f3uRFTumY9U2wRbELY31XYCO1CbUVRAfq+yEqSDYR49GjxDPKtK7+h4uJGrzL
-         spusUbkhP+2WGwAOUVV7wYEBqv1Y6NXR3L/2AWAsoWVLequCluTM1jfgZe8+4k1EJ8Ht
-         LNH0QWDMeGGWaHfigXyt6ZS+/5lI5opHtMc22o5fD98DX3j/ZORilON1to7tonpYcUpw
-         JDUpzBLte1qd3c9RIdjO1bGd+R0ZwxZW1+gJhlCZn9SQOG2bAqG9oB/C200bk5owbOHc
-         sCunYL2r5slMr0Ueom5C2qbV/0gZsZedmPvphOApNQWmf4pUTJ4dvs+kNLWOtoHSgdac
-         qYuA==
+        bh=emIijWDM8vMTozpIUkbbgKwciX3QFl4r6ptZfAgB9W8=;
+        b=gX/e7cxO3bqrgPQTdgvC4b0JblBIFqGe5AgDtJf6ZcWbMJYFgrOM9Rg+iFsjWmpRt7
+         zfmQVF+J9sZdv9qNKeXXj9ZRq6KYsaAJS8Ys10b5waUHoLdj4Qx59mnKN0xrmwdtG/Zd
+         JtBLgb/izfM5sXnwzQK5440ylczI9TRYOD5CjIVsRPHgUMQTH+UNeotMdXNvEXz6fzCb
+         9fh92pQXu7lSRXI9p9nLkAgK6RUl6GeVaHLsgx/wuYKAbzVAAHZeWJoGglIxl2lZwUcl
+         IWsJPXqajUKlKColmZt8K9igczMIiMq2M2Su4aWGNbyBUX4bVwJ8ioSBKcJxdFQyvvOr
+         iGGg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=hoHpgfQ9;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.254.195 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=o1LLSLgB;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.196 as permitted sender) smtp.mailfrom=noreply@github.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,79 +35,78 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=S1AMuofZ8BrkX1VwPsqndU4EOCvpD5hY7iXsMJmJz1s=;
-        b=mBx1FRBfLJRuxDEx8JEtT+B2mQ8SCv7Yup2ZNnev0WYXzIezFC25h7ZONeARFYIpQd
-         qA63z3zXL3+oiKkFdsk9Fi6Jn+hRodJaB251ZyzyuJlVNvSs+L/fv3w912qNRY3KVFII
-         0q+CE4ya8FVONvBIzYMDN/8V96ieXcH+R/8Y5FscEkBVkZH2zdaLs962qTO3zYtFngsZ
-         jCTsPBdoJji6FYYweuXe/bV+731CMnSXR23BIYlVeYoU0ht5c07abyf0RbB1TciQB9O/
-         1g1JnqThbynwg62gIkfFOlPMtR272uYuIxAswtg2tCniigGH4XlsOwibPXP9+z71tVPs
-         6TtA==
+        bh=emIijWDM8vMTozpIUkbbgKwciX3QFl4r6ptZfAgB9W8=;
+        b=H561vGh/kNh0aorQ+vckcgZg7LPY+vZLFKVZxj+/OAtRsTU691CzZNDlLuc24ZopeM
+         A5MZEa/761FrEj/0yulpEPqtmFXQs69Zkw31E5AU5N+Cq6IBjXSD0xXLwRgi5bB4hNhj
+         jiMNd3XBl591PU2kECruySB/fo1W4hB/tLELPNBI3yQRAqFhgAIWiStTjUpZ7QA/fnHR
+         BrxYrdog35zNjapFdtMSmejw4gThI7vxcRS0pAGtFPaiBqB6XSZeFDwNHbgtGl6ZdB7b
+         PcZc/maQXmbZ/AGa/4igC8xsbEk8+wiARV+3drcgBffJ1lJuTvbKWiznyQtzmLqUXPkY
+         Ml3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:date:from:to:message-id:subject
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=S1AMuofZ8BrkX1VwPsqndU4EOCvpD5hY7iXsMJmJz1s=;
-        b=E4+kXTx3S8534f2tv67XAnFz2g5kTjiHexNDhhXYRvEbu6m8EXaXo0RK8B5PaFkJo+
-         xQMwxC6mnhvnd3hRTcMfDyqhKUNEVxcYGjRl1vbMZmSc5a5HEbeHs9TqZgIFmTOP+3YO
-         Kn5YHoS5rp6d6nyyugaAXi9i7jSkUWAoIpk31p8lhCrkT/nCYjXjxKgq3F3LLgeW2R+X
-         pD/k5xElaRfb1I0lDgGLV9H2qQ5HhaVR7jtqsz9d8dqK8vodmUZuc7rCoE4q1nwtT4hh
-         u/cENdNvFzroq8D9sXbfEmg9Q0qTZ3f8JtMS7vi2Qw8YP72E/jF6egnBqBucHPKr+PkL
-         zHmg==
+        bh=emIijWDM8vMTozpIUkbbgKwciX3QFl4r6ptZfAgB9W8=;
+        b=qY6tAnFEPWUm53bLtm9zu9YstnA42zkzjEzqhZBbLJaaMEOVPcABxjTMT1M+QSlCbM
+         yAkurs2/QgczN34yNNtq4M8l4pzShqtfb5zK9ozJQGNuu4zYoXfxD420DoejQCXomaei
+         G9idjbikGDt4g7A13PAhvIVJE4/YZwEgcnhNzHrYG3qypJ12pdc4lQv1TlPoIEZUByg5
+         i72A0GSx+Y2QCAfPCCOpLHNKdMyi1D3y0wqBeJFXSPAjaRY31pavYRg1ZFVr0EKqnpk1
+         mT6PU1S0bUKG342QUe+4/IJhH2U66WO1XfBG+pb6jkq+tvL4QXZh+P8tqX52zG0VF0tX
+         fuHA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXbTIP3LHpxfy8lnaB/bLTg/TDFGs6XiJpVi6j874ptGMVm0MPZ
-	8CdmN/YA+stnW8TyGCn8+rg=
-X-Google-Smtp-Source: APXvYqxS9TrrEWcTzktrRgKQXT1zy4aNillc8FafFo53xEpCwavH2wuTE4nsslio6pKAsDKEzLGr8g==
-X-Received: by 2002:a05:6602:19a:: with SMTP id m26mr7057140ioo.176.1556439486059;
-        Sun, 28 Apr 2019 01:18:06 -0700 (PDT)
+X-Gm-Message-State: APjAAAUsY6S52Jf0Lt+acF+Qr8fHQq4V4/EXETZifxZKeMA+vDlde6jO
+	kzqFdSVkdZKvhBTE+savLu0=
+X-Google-Smtp-Source: APXvYqyMeBp1XtVAXRtIsIf3N/YX0OX2ZfW/VVXcAt3g544tuw7Gc9N3gBOsWVHkf3z9Z2Vqg2B0zw==
+X-Received: by 2002:a81:12d5:: with SMTP id 204mr27427259yws.85.1556439485974;
+        Sun, 28 Apr 2019 01:18:05 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a6b:140d:: with SMTP id 13ls2821250iou.3.gmail; Sun, 28 Apr
- 2019 01:18:05 -0700 (PDT)
-X-Received: by 2002:a6b:8b96:: with SMTP id n144mr2818055iod.156.1556439485398;
+Received: by 2002:a25:e78c:: with SMTP id e134ls8383783ybh.12.gmail; Sun, 28
+ Apr 2019 01:18:05 -0700 (PDT)
+X-Received: by 2002:a25:da13:: with SMTP id n19mr3438231ybf.257.1556439485445;
         Sun, 28 Apr 2019 01:18:05 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; t=1556439485; cv=none;
         d=google.com; s=arc-20160816;
-        b=tUXem2jD4Ga0UOmlyMwwZ4c4PgOf6Zrt3vISep9bdCMkz4SEgvC3YTiXjHOBVbKN6Q
-         gehAK185y37zyNSsX5L5bLyKQEnQxflX+c3I1fVGInTJEytD47exHh+aikX8gfWvH9M+
-         hNBSntW38yRPgMfX7iMg89Hm+tCv3/xGu4Up/H16pc9AkHhEY+/puLc+GNPlpY8TQEcF
-         Z5JHLJQ6rUptJhEZIV/8aEbT7SDa6Fv0ZjGsawu3aDCPA7jrgERuf0043V11mnF44XUi
-         7VlPDOEoZ+yUFlcX3uOENrFJ0uVNhUnamBdv7RUfb7E3Ivtmf5/enn6bhuANCOFt73Yn
-         ZIZQ==
+        b=afkkeJPITqDxrWlX52WJuzyzR+3Tc6X6OU8o8/8vUsK+Rfp/mZcMHdCOGPlWZRGtvu
+         kzjtglzUa+lOMlDMIsACS6OkKu9qhDhtH8RJniiUDRZw+GZiVgOaJMdRCYHmDvgGRgA7
+         GM7N6p8TbCId9px7syD7gTHDwjcdVzvvmJf/FKkcei/RB93aBW5axA21PlT0i/7FSGqg
+         ogXezF5MSAatkPcIUuk8Xmrm1v5wuAIR9odAEp48cNpMyB7+ErBHMJOJF9MbJ8vvZsv1
+         Ugui/PgbyJ2hMEbfnljbl6hbZQXQzUW4dHid40FeEW87C23es5jFWTTjCRQDlS16vZw1
+         cZzQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:subject:message-id:to:from
          :dkim-signature:date;
-        bh=j0OUE7BbC3mzOIuRTNvBMoxoo4FVXWMnl8wszTQJEao=;
-        b=irktCHCsC9yWApL1WPDYxeYUI6JTl0+4SK0YA/CJcl86GTTMg1rqxBQcKyZ5fuclg1
-         4+2JamhCyWkCngPCtlSuv32qax2TiqyLIgrb6D4YbPOhXodN6as0OkUH3sHgqaiZdqGl
-         pNV62vVpiZz9Fg7syNi/NiRV5BNcRk91cIbrwPuYtR4CC3yYYGfgEPNaRkZpz9oGZRkC
-         ZBHuXj6vR11F4cBxWU++PiwqbJKfBoO3nlVBBJwzAOztZAIt49WQ0KCcuE8lsJp4unyB
-         wAhaJrhswvIFaN/zGQ6DEbUvdlg9qxrxTQbMtO6evgjGX2uOE/pyLukIzirqyUfyvBt6
-         nOnQ==
+        bh=GKNjJJSVFtxlFoxlein7Zn9Hq6zDjBs05ZEXr0wSwvw=;
+        b=Qe7W9aag8IxHWZYCV6aZSHnzlnhHycb6dLXLaKnrcXOR8McXTJp6/bhH5xLYVOJ6H9
+         6rT3sCI+QWxAMwSvej5VEoHKJ+rIncrJn4k/N316P/AfS3rzPm1dgizN/HETrYFmVlbk
+         jD6xvfbPvPvZehhSlQX7rFZiHiHjgIvwFgARH6MVn47ZYvOgnyqrj5ccDvanAmnfTuhr
+         SmFZXDkLH9WeWhB9LRDk4oJwcXr4HXxREZgIJvidL8F348d4iq4sxFMpqsiDqTOcDMXH
+         coZwdFBfz+EmjN/vmnGCvSBYDtfuLEfygD61tVCc0yGXEtxu7pcVCbn+x2fR5gC/chMM
+         mREA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=hoHpgfQ9;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.254.195 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=o1LLSLgB;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.196 as permitted sender) smtp.mailfrom=noreply@github.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
-Received: from out-12.smtp.github.com (out-12.smtp.github.com. [192.30.254.195])
-        by gmr-mx.google.com with ESMTPS id x26si1530254iog.4.2019.04.28.01.18.05
+Received: from out-5.smtp.github.com (out-5.smtp.github.com. [192.30.252.196])
+        by gmr-mx.google.com with ESMTPS id t14si260444ywc.4.2019.04.28.01.18.05
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
         Sun, 28 Apr 2019 01:18:05 -0700 (PDT)
-Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.254.195 as permitted sender) client-ip=192.30.254.195;
-Date: Sun, 28 Apr 2019 01:18:04 -0700
-From: Jan Kiszka <noreply@github.com>
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.196 as permitted sender) client-ip=192.30.252.196;
+Date: Sun, 28 Apr 2019 01:18:05 -0700
+From: Lokesh <noreply@github.com>
 To: jailhouse-dev@googlegroups.com
-Message-ID: <siemens/jailhouse/push/refs/heads/next/27ca52-d235bd@github.com>
-Subject: [siemens/jailhouse] 29796b: ci: Work around incomplete ca-chain of
- scan.coveri...
+Message-ID: <siemens/jailhouse/push/refs/heads/master/12a40f-27ca52@github.com>
+Subject: [siemens/jailhouse] a48aec: Replicate and re-license printk-core
 Mime-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
 X-Auto-Response-Suppress: All
 X-Original-Sender: noreply@github.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
- mode) header.i=@github.com header.s=pf2014 header.b=hoHpgfQ9;       spf=pass
- (google.com: domain of noreply@github.com designates 192.30.254.195 as
+ mode) header.i=@github.com header.s=pf2014 header.b=o1LLSLgB;       spf=pass
+ (google.com: domain of noreply@github.com designates 192.30.252.196 as
  permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass (p=NONE
  sp=NONE dis=NONE) header.from=github.com
 Precedence: list
@@ -122,154 +121,120 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-  Branch: refs/heads/next
+  Branch: refs/heads/master
   Home:   https://github.com/siemens/jailhouse
-  Commit: 29796b562f14ef96cca0b0e3d495a7100c6cb2fa
-      https://github.com/siemens/jailhouse/commit/29796b562f14ef96cca0b0e3d495a7100c6cb2fa
+  Commit: a48aec6267c563e1203762d13774925c6bae1adb
+      https://github.com/siemens/jailhouse/commit/a48aec6267c563e1203762d13774925c6bae1adb
   Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-04-26 (Fri, 26 Apr 2019)
+  Date:   2019-04-10 (Wed, 10 Apr 2019)
 
   Changed paths:
-    M .travis.yml
+    R hypervisor/printk-core.c
+    M hypervisor/printk.c
+    M inmates/lib/printk.c
 
   Log Message:
   -----------
-  ci: Work around incomplete ca-chain of scan.coverity.com
+  Replicate and re-license printk-core
 
-It's missing the intermediate certificate from "Entrust Certification
-Authority - L1K". Download that separately and inject it into the script
-download to fix curl failing on that. See also
-https://travis-ci.community/t/certificate-issue-during-coverity-build/3153
+The inmate library currently uses printk-core.c from the hypervisor in
+order to implement printf-like output. While the library has been
+changed in 607251b44397 to dual-licensing, this part was ignored. So, if
+an inmate uses printk, it can only choose GPL as license which is not
+the intention of the re-licensing.
+
+Change this situation by forking off the printk-core into the inmate
+lib, now under dual BSD 2-clause / GPL. This is possible without hassle
+as all contributions to hypervisor/printk-core.c were done by me, thus
+are owned by Siemens. Forking avoids that people contributing to the
+hypervisor core accidentally bring in GPL-only code to this part. It
+also allows to evolve printk in the inmate library beyond what is needed
+for the hypervisor without bloating the latter.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 
 
-  Commit: 49de7b7e47e6a997941c1f45453c249c31537a49
-      https://github.com/siemens/jailhouse/commit/49de7b7e47e6a997941c1f45453c249c31537a49
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-04-28 (Sun, 28 Apr 2019)
+  Commit: f94cb9298636393aa54438642b22eefbe98a2ecf
+      https://github.com/siemens/jailhouse/commit/f94cb9298636393aa54438642b22eefbe98a2ecf
+  Author: Lokesh Vutla <lokeshvutla@ti.com>
+  Date:   2019-04-16 (Tue, 16 Apr 2019)
 
   Changed paths:
-    M hypervisor/pci.c
+    A configs/arm64/k3-am654-idk.c
 
   Log Message:
   -----------
-  pci: Refactor loops in pci_prepare_handover and pci_config_commit
+  configs: k3-am654: Add root cell configuration
 
-No functional change, just reduction of indention which will also be
-beneficial for upcoming changes.
+Add root cell configuration for TI's AM654 based idk.
 
+Linux root cell DTS should reserve the following memory:
+reg = <0x8 0xdfb00000 0x0 0x20500000>;
+
+Signed-off-by: Lokesh Vutla <lokeshvutla@ti.com>
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 
 
-  Commit: a20e9b56245d64efd9d31ab442132bc9945517e7
-      https://github.com/siemens/jailhouse/commit/a20e9b56245d64efd9d31ab442132bc9945517e7
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-04-28 (Sun, 28 Apr 2019)
+  Commit: 5f70cf2dc70d335274cb99d585c6e3cbf6b1ee27
+      https://github.com/siemens/jailhouse/commit/5f70cf2dc70d335274cb99d585c6e3cbf6b1ee27
+  Author: Lokesh Vutla <lokeshvutla@ti.com>
+  Date:   2019-04-16 (Tue, 16 Apr 2019)
 
   Changed paths:
-    M hypervisor/pci.c
+    A configs/arm64/k3-am654-gic-demo.c
+    A configs/arm64/k3-am654-uart-demo.c
 
   Log Message:
   -----------
-  pci: Only call pci_suppress_msix() for root cell
+  configs: inmates: k3-am654: Add gic and uart demo configurations
 
-It is harmless to call pci_suppress_msix(..., false) it also for
-non-root cells because it just writes back the config space register
-content. But it is unneeded and, thus, potentially confusing.
+Add UART and GIC based demos for AM654 IDK.
 
+Signed-off-by: Lokesh Vutla <lokeshvutla@ti.com>
+Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 
 
-  Commit: 699f4de9a0dd844d981a0ff869b3d725511eb54c
-      https://github.com/siemens/jailhouse/commit/699f4de9a0dd844d981a0ff869b3d725511eb54c
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-04-28 (Sun, 28 Apr 2019)
+  Commit: dfc9bb36338a71abf61d19b4ed25a1be6574b36d
+      https://github.com/siemens/jailhouse/commit/dfc9bb36338a71abf61d19b4ed25a1be6574b36d
+  Author: Lokesh Vutla <lokeshvutla@ti.com>
+  Date:   2019-04-16 (Tue, 16 Apr 2019)
 
   Changed paths:
-    M hypervisor/arch/arm-common/pci.c
-    M hypervisor/arch/x86/pci.c
-    M hypervisor/include/jailhouse/pci.h
-    M hypervisor/pci.c
+    A configs/arm64/k3-am654-idk-linux-demo.c
 
   Log Message:
   -----------
-  pci: Call arch_pci_suppress_msi also on re-enabling
+  configs: inmates: k3-am654: Add linux inmate demo configuration
 
-This will allow to move the injection to the end of the suppression
-phase.
+Add an inmate configuration file for running Linux as an inmate
+on AM654 IDK.
 
+Signed-off-by: Lokesh Vutla <lokeshvutla@ti.com>
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 
 
-  Commit: 97c68dff145689d0a14b61e8ae4132bd0696917c
-      https://github.com/siemens/jailhouse/commit/97c68dff145689d0a14b61e8ae4132bd0696917c
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-04-28 (Sun, 28 Apr 2019)
+  Commit: 27ca523c074743f10516d36df624bc6aaf4ad42d
+      https://github.com/siemens/jailhouse/commit/27ca523c074743f10516d36df624bc6aaf4ad42d
+  Author: Lokesh Vutla <lokeshvutla@ti.com>
+  Date:   2019-04-16 (Tue, 16 Apr 2019)
 
   Changed paths:
-    M hypervisor/arch/x86/pci.c
-    M hypervisor/include/jailhouse/pci.h
+    A configs/arm64/dts/inmate-k3-am654-idk.dts
 
   Log Message:
   -----------
-  pci: Move MSI vector injection to the end of suppression
+  configs: k3-am654: Add linux inmate demo dts
 
-This fixes a long-pending issue that actually prevented the injection
-when interrupt remapping was in use in the root cell on x86: We are
-unable to translate the remapping entry into a physical message before
-the 2nd level page table for the root is fully populated. This happens
-in init_late, thus after the suppression request. The result is that we
-only read invalid messages from the redirection table and did nothing.
+Add a demo device tree running Linux as an inmate on AM654 IDK.
+Linux is assigned with 256MB RAM, 1 serial port(MCU UART0)
+and ability to communicate with system firmware.
 
-By moving the injection to the config-commit phase, we have that full
-access to the guest memory and can build the correct message.
-
-Fixes: b50614282cff ("core: Virtualize legacy MSI for interrupt remapping support")
+Signed-off-by: Lokesh Vutla <lokeshvutla@ti.com>
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 
 
-  Commit: cbbb49ef51e6621ecb85fd0af1655ad584e30021
-      https://github.com/siemens/jailhouse/commit/cbbb49ef51e6621ecb85fd0af1655ad584e30021
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-04-28 (Sun, 28 Apr 2019)
-
-  Changed paths:
-    M hypervisor/arch/x86/ioapic.c
-
-  Log Message:
-  -----------
-  x86: ioapic: Move edge interrupt injection at the end of suppression
-
-Analogously to MSI: When interrupt remapping is enabled in Linux, we
-cannot evaluate the remapping table before the config-commit phase, thus
-will never inject a message when trying that earlier.
-
-Fixes: f651754c72e3 ("x86: Virtualize IOAPIC redir table for interrupt remapping support")
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: d235bde2a4738b4cddb1df926a39b8a1e11c0acc
-      https://github.com/siemens/jailhouse/commit/d235bde2a4738b4cddb1df926a39b8a1e11c0acc
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-04-28 (Sun, 28 Apr 2019)
-
-  Changed paths:
-    M hypervisor/arch/x86/ioapic.c
-
-  Log Message:
-  -----------
-  x86: ioapic: Simplify ioapic_mask_cell_pins
-
-After ioapic_get_or_add_phys is called, the shadow_redir_table is
-populated with the guest register content. As ioapic_mask_cell_pins is
-only called after that function, we can read the mask state from the
-shadow table and safe a register access.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-Compare: https://github.com/siemens/jailhouse/compare/27ca523c0747...d235bde2a473
+Compare: https://github.com/siemens/jailhouse/compare/12a40fd291c9...27ca523c0747
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
