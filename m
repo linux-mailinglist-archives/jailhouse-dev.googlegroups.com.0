@@ -1,120 +1,73 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBX7XTLTAKGQEDYI2QVA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC5J3D7HTQNBBSEKTPTAKGQEAG4RY5I@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23f.google.com (mail-lj1-x23f.google.com [IPv6:2a00:1450:4864:20::23f])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA1D6DE78
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 29 Apr 2019 10:54:55 +0200 (CEST)
-Received: by mail-lj1-x23f.google.com with SMTP id j24sf2025716ljc.6
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 29 Apr 2019 01:54:55 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1556528095; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=MTtiHNxm5xSeC1URokDXSP6Xy0FEhKSEaw5vXRRu82+RJtNSU3hVEBHVJ7Vjn4QBhC
-         meC6ELdthM/XPH+BGhMWsGTz41YykjXJQ/4zV8KtjVO2an0+R3Nd/AUZjs8/Df/Gd2nz
-         OmuOudbcXiQGdtPS4kHO+FoiGuNCbwv6LPYaq6D0dAlAHCoTuFUUL1y7Ku3LUK4isTH1
-         86Z7OOYP5YBYpdJCYXJ+JI5+S4pj+C9zrpT8Rbfl2Uos+we+IdAn9a5jebSPxJrUR4C9
-         HCyYKPsyb4/q5e4FL6gPyzQGoHPm/V8J5DgSufVUaasXVqAXBN9zwoacFpspq1+BairJ
-         jGgA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:references:in-reply-to:references
-         :in-reply-to:message-id:date:subject:to:from:mime-version:sender
-         :dkim-signature;
-        bh=AH82NplHEMxBIzcBiC90D3WDpupnSxx8IO2slnFZ6Yw=;
-        b=FRgpBfGZfCnYedb/Q4RfiNhBm8X2c4FF4DZS0ZyfJD4NR28noeZ9nGNY/wLwy/m2py
-         6I8wgLnbanYSziTRNWP1OWsTBJbSgAHWi47e/pJGXdrQUXl0ZwrsK/aO/JsgyPTp4Ctd
-         r18LUx4t99yNFLqTNoVqWafTlfc4+q+B9GNANok2LkDmHwtevuUxejZCvfuyXqiGpid4
-         l+LZLm63cAyoLz9HTv/4vqPFlKbLxoHucEUqaKqsOw5qHA+4YRH7UNPntVcfbxrd8NiD
-         mLpR1RwuJyxJMyfAR8cWa8J0G6VlD313y8iuVoTUOW7v73nHwFlPAStTVvFJOcdmwsVW
-         fUSw==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com
+Received: from mail-ot1-x338.google.com (mail-ot1-x338.google.com [IPv6:2607:f8b0:4864:20::338])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D9FEDF84
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 29 Apr 2019 11:35:06 +0200 (CEST)
+Received: by mail-ot1-x338.google.com with SMTP id f11sf5602936otl.20
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 29 Apr 2019 02:35:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:mime-version:from:to:subject:date:message-id:in-reply-to
-         :references:in-reply-to:references:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=AH82NplHEMxBIzcBiC90D3WDpupnSxx8IO2slnFZ6Yw=;
-        b=XsESZbuZv3wb7nawtCnZpABYa0kGPE1Lct6EUNAdBJSETotQFcMGm/ZEttcLt4+jtf
-         AlqtblqL+5E3PBkBLXLVHM816+omF5a4Waam9g5oUstC28t1wVkxfFW+F+iGcOS8FkeB
-         QPc10+5iBz0eX2zmH8x5sxe7Dxd0vnRAz18zRUSgUghy8Nraf6WFGA9jay58bDiFFxGi
-         OO9hwhkGohMiMXZZidk4vJ1fiuBw6SbweUv52DdkJUs4eUVF3fYNiwo1Wbs0khA9Rhhi
-         5Ka8VcMQrpuwlTP1YaN8OMU3NjCHszgQ6QC2swv0rZm45QdtytXXOF+JYDvbNKQZMmcD
-         qYCA==
+        bh=k72Bos93rDgevj/R+mKJPhWmLpGmaAd4VdvNt2yG1+Q=;
+        b=Evs+FMS43nwYqhHMoMEm7sB+X58rhR1RtZwKMYBeA6q8P0tfSyeDcpTgHVuX2VzLnO
+         Y1l0ozHpzn2z57kDT7VH2hEhbEPM/AmxUx7N5MEBv0QXrzULrDg7KkndnplJDSgvYOq+
+         FrXYNHD6iHTEyp0SCIjpom2D803W2MxILffDJ+DAgG8HTpa91OqbcIRIVuAyO83o/IP6
+         82lwPN68zlHTanFnaEhfUrz8kDzbBnX0M/4+CPLKyYk56nMeolFHbgvObJzxa2X8iZ8m
+         A+iZYlaJOL25gWTczyYytYLCaqLvxuX086aEeOn25/Iztxb/1bBzwr/oqpA7CaPMsZ3l
+         4Iyw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=k72Bos93rDgevj/R+mKJPhWmLpGmaAd4VdvNt2yG1+Q=;
+        b=lYX/i4UR7hIOygL98bccs1F75tpH31lgsIKW2eKmvRz6x7aDRAp6qvZPECY3bGvVEW
+         yExkjoSgTRfk7YgGJ6UvsfixD78640+EuTqvMTX2W57BB4q01I7ma48rEmuShXbij9Ki
+         pNKZWTmSJXPDXMPQVvbSKlS3aVhcdNe53qfkqiWKF7AoBJvJhaqaNj3+YQt6noKEvo1w
+         YiKLHtiG8P13TK+N66F8tsAK06N0SFbfMsU0GWdRB8ICWwgMJBuMbYxyci37C3hT+yVV
+         Tydpclg22msrLGUk1s88dFdV/SZ5OfgaIu9ZbXwPJo6/aHu+bIXoQZi0G0gbbiu0ZNbC
+         XJzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:mime-version:from:to:subject:date
-         :message-id:in-reply-to:references:in-reply-to:references
-         :x-original-sender:x-original-authentication-results:precedence
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=AH82NplHEMxBIzcBiC90D3WDpupnSxx8IO2slnFZ6Yw=;
-        b=r67j/xQPiclehlWcdN50rnKLbm3v01H4/cs7sMqGh5GZQJtxNUJXx5QzuiwUWQ80D8
-         9uZG9I5Sem52ulDb2vLVxzm4J8H5jec5t6YprTo91g+pba3cFIl8o0Lwt+PpD2xtiDd4
-         vLunVI7CeKs+Ka6rFW7Ukb5j3onGek9ujtmun7d3SOAkhOmRUImA+N4E7EVXVIlhAiPk
-         3F0MydToMwUfn3yuZ0vGcAaz4y01BC0/uj4vaab+0BDt22Y498Uvuz7R5twtac8PGGUe
-         172Q86VWK/U3dIAy1S93LCSef4189Uv+EpVNRguCf5Ui/g9cuNS6q+nKdBMo+YyT8leU
-         KPaA==
+        bh=k72Bos93rDgevj/R+mKJPhWmLpGmaAd4VdvNt2yG1+Q=;
+        b=GE5ibMesCQXhjUc6IUAXl8eHLbIqSo43/JwT9Vu1Fb4QP15lak3cYPsZc7W1vMvtMT
+         obsuhS7AkhIERDRN9YDIk5CeXa0RxOJ7c7MEWuIQCZPZhjOEyTof807bSV+2jp/6r5Dk
+         ZU3K6N+NPyW5I5UxanUeUrkbD+sm1WYg82eejycTOmBSlPxEEQzsudfrwpx7d3BZWQMI
+         GxU5GuPCsP4/xDe7gWFQ2zth6tufMB8HjFGgRsGo+knffrug8WzwNoNkk1oUQ8JgzP2V
+         AKMbUxW24Kplc5sZHmEm1lXwyZcTKoJDTTGVS45LdWfDlhCcJhMyW9kjGQSYYpzdvFJN
+         k2fw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVxUkBryGKpgviOubzLm4ydYVGLDYDA1aYECSrKy8Ovj372fGpD
-	dNASF+Owy3kbDWCuBY2p0y8=
-X-Google-Smtp-Source: APXvYqy0/5eNkFRF6XjyHvbuPEZZgSvx6ZCveKNMmrHP3thidHS3+U7K/Aym53oji0xd/znD6Rf5yQ==
-X-Received: by 2002:a2e:9546:: with SMTP id t6mr5738143ljh.51.1556528095300;
-        Mon, 29 Apr 2019 01:54:55 -0700 (PDT)
-MIME-Version: 1.0
+X-Gm-Message-State: APjAAAUYw2wIvyV1NDsVEAPLj7YJYjiAIlyTs9ozhbH9pH3Wajd6O1n5
+	3gaaX7ioTyjGqMJc/kQL1FM=
+X-Google-Smtp-Source: APXvYqxa8WJxx0Gr62iXKfxAXge8uejioVxasle63OIuSi5tJqT0kv200kR3ThYc4eGcDh8vSAvXhg==
+X-Received: by 2002:a9d:5e96:: with SMTP id f22mr8382957otl.53.1556530505025;
+        Mon, 29 Apr 2019 02:35:05 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:9799:: with SMTP id y25ls106464lji.16.gmail; Mon, 29 Apr
- 2019 01:54:54 -0700 (PDT)
-X-Received: by 2002:a2e:9bcf:: with SMTP id w15mr310048ljj.102.1556528094623;
-        Mon, 29 Apr 2019 01:54:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1556528094; cv=none;
-        d=google.com; s=arc-20160816;
-        b=E2aVyPL0JPN5Z+9LnH+Xr1XZxucKSlGlC0wNWrc3ACu0IqSasW88/cor3hj/wdn47F
-         /1li94N1XL75NgXwu/Z3gSz45BJnsgH/zerU5v5NYwFqEdhU2ZICnUtdiWaCS6UUV3u9
-         LW54geZhMjjW+K8lFToxz5o7qvREMfEFnacSV6IR6JUYIbhcSyJgftvP5zYQDr6pF3AR
-         zdsTntv3wff77dsp+ixKnMi/ha+AuCNkNoVnog58EcEevbL+BK553In/tmXuJg8LA2bv
-         u+G+vjJsdhcG7jVHJr9Pey8ottC6Pmqj1dmKC+HkxscQqpvJu/xZVZ/5hAEKc0JSqXmO
-         L7JA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=references:in-reply-to:references:in-reply-to:message-id:date
-         :subject:to:from;
-        bh=rBSzlh/x72GfdteORaJKXLJ+jezy54kOSM/iBbDxwtc=;
-        b=wWCdyaaPvw4pA8wwWu6/bBGvcTyLySgj6HQUn7OFgHzAC1f0bS7AbgOmBZzL6/iRqL
-         XzPEGwIjvK0naQ0NPdvflZgUHkCseIVXvjdGL9rlwU8VDpPrfvj4KRBDk4DJjZ0lPVTG
-         EpnKLrrl8iiTXi14GRv1SWkE4aTf+XaAr/V6/khs7TJo/LoOYROqMGMdQVJosWZJvrsD
-         JZjVt7beo1y2o8Pl+K+Ohxyioe1gpUhhxgL4N1XK2MlMSSIDaGzMcu3sRs4rDKhjlJI2
-         NfqGBdCmXL81Za2LWDz4JiI8GE25+heNF9uz6yZQu9ROGtLOJ36ZML45Qx69+j2SovtZ
-         bKaw==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com
-Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id w13si579884ljj.2.2019.04.29.01.54.54
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 29 Apr 2019 01:54:54 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
-Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id x3T8sr2D009568
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
-	for <jailhouse-dev@googlegroups.com>; Mon, 29 Apr 2019 10:54:53 +0200
-Received: from md1f2u6c.ad001.siemens.net ([139.22.43.249])
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x3T8spoA013612
-	for <jailhouse-dev@googlegroups.com>; Mon, 29 Apr 2019 10:54:53 +0200
-From: Jan Kiszka <jan.kiszka@siemens.com>
-To: jailhouse-dev@googlegroups.com
-Subject: [PATCH 6/6] x86: ioapic: Simplify ioapic_mask_cell_pins
-Date: Mon, 29 Apr 2019 10:54:50 +0200
-Message-Id: <d235bde2a4738b4cddb1df926a39b8a1e11c0acc.1556528090.git.jan.kiszka@siemens.com>
-X-Mailer: git-send-email 2.16.4
-In-Reply-To: <cover.1556528090.git.jan.kiszka@siemens.com>
-References: <cover.1556528090.git.jan.kiszka@siemens.com>
-In-Reply-To: <cover.1556528090.git.jan.kiszka@siemens.com>
-References: <cover.1556528090.git.jan.kiszka@siemens.com>
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com
-Content-Type: text/plain; charset="UTF-8"
+Received: by 2002:aca:2b05:: with SMTP id i5ls640639oik.2.gmail; Mon, 29 Apr
+ 2019 02:35:04 -0700 (PDT)
+X-Received: by 2002:aca:b288:: with SMTP id b130mr14417251oif.154.1556530504197;
+        Mon, 29 Apr 2019 02:35:04 -0700 (PDT)
+Date: Mon, 29 Apr 2019 02:35:03 -0700 (PDT)
+From: Nir Geller <nirgeller18@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <12d43104-c726-44a0-8724-d99bae074f64@googlegroups.com>
+In-Reply-To: <55645a57-8bee-4563-96c7-f6f0cf70ad63@googlegroups.com>
+References: <CAKBX2Q+8hYErhgVa1adF0agVFpYm5Di2HwGsUjH+3YJJQmda1w@mail.gmail.com>
+ <6c2887b6-824c-4380-a0a0-d2151a0cfef4@googlegroups.com>
+ <ed0d811d-db17-499c-880b-0d235db68c92@googlegroups.com>
+ <55645a57-8bee-4563-96c7-f6f0cf70ad63@googlegroups.com>
+Subject: Re: ARMv7: using uio_ivshmem to send interrupts between cells
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_1596_651941976.1556530503478"
+X-Original-Sender: nirgeller18@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -127,48 +80,70 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-From: Jan Kiszka <jan.kiszka@siemens.com>
+------=_Part_1596_651941976.1556530503478
+Content-Type: text/plain; charset="UTF-8"
 
-After ioapic_get_or_add_phys is called, the shadow_redir_table is
-populated with the guest register content. As ioapic_mask_cell_pins is
-only called after that function, we can read the mask state from the
-shadow table and safe a register access.
+Hi,
 
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
----
- hypervisor/arch/x86/ioapic.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+I figure there's missing code related to uio_ivshmem in Jailhouse v0.7.
 
-diff --git a/hypervisor/arch/x86/ioapic.c b/hypervisor/arch/x86/ioapic.c
-index c257c99e..ee3b77f3 100644
---- a/hypervisor/arch/x86/ioapic.c
-+++ b/hypervisor/arch/x86/ioapic.c
-@@ -165,19 +165,16 @@ static void ioapic_mask_cell_pins(struct cell_ioapic *ioapic,
- 				  enum ioapic_handover handover)
- {
- 	struct phys_ioapic *phys_ioapic = ioapic->phys_ioapic;
--	union ioapic_redir_entry entry;
- 	unsigned int pin, reg;
- 
- 	for (pin = 0; pin < phys_ioapic->pins; pin++) {
- 		if (!test_bit(pin, (unsigned long *)ioapic->pin_bitmap))
- 			continue;
- 
--		reg = IOAPIC_REDIR_TBL_START + pin * 2;
--
--		entry.raw[0] = ioapic_reg_read(phys_ioapic, reg);
--		if (entry.remap.mask)
-+		if (phys_ioapic->shadow_redir_table[pin].native.mask)
- 			continue;
- 
-+		reg = IOAPIC_REDIR_TBL_START + pin * 2;
- 		ioapic_reg_write(phys_ioapic, reg, IOAPIC_REDIR_MASK);
- 
- 		if (handover == PINS_MASKED)
--- 
-2.16.4
+I migrated to the latest jailhouse version, branch master.
+I'm using RT_PREEMPT kernel 4.14.79
+
+When I enable the root cell it seems like the hypervisor is not initialized.
+The only prints I get:
+
+
+[   35.272718] OF: PCI: host bridge /pci@0 ranges:
+[   35.306648] OF: PCI:   MEM 0x30100000..0x30101fff -> 0x30100000
+[   35.319993] pci-host-generic 30000000.pci: ECAM at [mem 0x30000000-0x300fffff] for [bus 00]
+[   35.330762] pci-host-generic 30000000.pci: PCI host bridge to bus 0001:00
+[   35.337600] pci_bus 0001:00: root bus resource [bus 00]
+[   35.347049] pci_bus 0001:00: root bus resource [mem 0x30100000-0x30101fff]
+[   35.355943] pci 0001:00:00.0: [1af4:1110] type 00 class 0xff0000
+[   35.355981] pci 0001:00:00.0: reg 0x10: [mem 0x00000000-0x000000ff 64bit]
+[   35.356355] PCI: bus0: Fast back to back transfers disabled
+[   35.367812] pci 0001:00:00.0: BAR 0: assigned [mem 0x30100000-0x301000ff 64bit]
+[   35.376191] virtio-pci 0001:00:00.0: enabling device (0000 -> 0002)
+[   35.382777] uio_ivshmem 0001:00:00.0: using jailhouse mode
+[   35.389246] The Jailhouse is opening.
+[   36.001021] Created Jailhouse cell "AM5728-IDK-RTOS"
+
+
+When enabling jailhouse v0.7 I get prints that prove entry() was indeed invoked and the hypervisor is initialized:
+
+Initializing Jailhouse hypervisor v0.7 (222-g5e1b3ea-dirty) on CPU 0
+entry(): started
+Code location: 0xf0000040
+Page pool usage after early setup: mem 30/4072, remap 32/131072
+Initializing processors:
+ CPU 0... OK
+ CPU 1... OK
+Adding virtual PCI device 00:00.0 to cell "AM5728-IDK-LINUX"
+Page pool usage after late setup: mem 44/4072, remap 38/131072
+Activating hypervisor
+[   54.734879] OF: PCI: host bridge /vpci@0 ranges:
+[   54.768094] OF: PCI:   MEM 0x30100000..0x30101fff -> 0x30100000
+[   54.774264] pci-host-generic 30000000.vpci: ECAM at [mem 0x30000000-0x300fffff] for [bus 00]
+[   54.783014] pci-host-generic 30000000.vpci: PCI host bridge to bus 0001:00
+[   54.790008] pci_bus 0001:00: root bus resource [bus 00]
+[   54.795264] pci_bus 0001:00: root bus resource [mem 0x30100000-0x30101fff]
+[   54.802663] PCI: bus0: Fast back to back transfers disabled
+[   54.808283] pci 0001:00:00.0: BAR 0: assigned [mem 0x30100000-0x301000ff 64bit]
+[   54.815988] virtio-pci 0001:00:00.0: enabling device (0000 -> 0002)
+[   54.829614] uio_ivshmem 0001:00:00.0: using jailhouse mode
+[   54.853170] The Jailhouse is opening.
+
+
+Can I apply some fix to make the hypervisor initialize?
+
+Thanks,
+
+Nir.
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
 For more options, visit https://groups.google.com/d/optout.
+
+------=_Part_1596_651941976.1556530503478--
