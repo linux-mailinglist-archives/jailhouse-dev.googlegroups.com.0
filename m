@@ -1,31 +1,31 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBXXXTLTAKGQESD4JQGI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBX7XTLTAKGQEDYI2QVA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x53f.google.com (mail-ed1-x53f.google.com [IPv6:2a00:1450:4864:20::53f])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7EEBDE77
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 29 Apr 2019 10:54:54 +0200 (CEST)
-Received: by mail-ed1-x53f.google.com with SMTP id n52sf1114290edd.2
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 29 Apr 2019 01:54:54 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1556528094; cv=pass;
+Received: from mail-lj1-x23f.google.com (mail-lj1-x23f.google.com [IPv6:2a00:1450:4864:20::23f])
+	by mail.lfdr.de (Postfix) with ESMTPS id AA1D6DE78
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 29 Apr 2019 10:54:55 +0200 (CEST)
+Received: by mail-lj1-x23f.google.com with SMTP id j24sf2025716ljc.6
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 29 Apr 2019 01:54:55 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1556528095; cv=pass;
         d=google.com; s=arc-20160816;
-        b=wZmgkMg9ZQwJLryOk0XjcaxrrexP1MBqatPB0KrUNJMOMjeAi6f5fzvSMzCTAKPo0a
-         DtcExSUbgO6z1f/aFjbtsTdG5Nw1vybabkk0kosMrOwayKsuf0KF/AMKMqOOSRT+L2Fs
-         IQqxK2SWkg1DWXSIR2rpT6HEDsWsS4/BizJQu6N8+3WDk7TbH/c81Eir2V+FEoV8HQ8y
-         nPr6eMv8LeH/otgVnoK5s3k7dQGbOlhDNSEGSOkRseQMR/dk6px9jV+X3B5BDUowSALr
-         49Wk3jzaarYEJeCwZXUpcunFKMlkWOG74krils1EbUj7KqwvzwVVohLKAK7eM1aX43k4
-         1cTg==
+        b=MTtiHNxm5xSeC1URokDXSP6Xy0FEhKSEaw5vXRRu82+RJtNSU3hVEBHVJ7Vjn4QBhC
+         meC6ELdthM/XPH+BGhMWsGTz41YykjXJQ/4zV8KtjVO2an0+R3Nd/AUZjs8/Df/Gd2nz
+         OmuOudbcXiQGdtPS4kHO+FoiGuNCbwv6LPYaq6D0dAlAHCoTuFUUL1y7Ku3LUK4isTH1
+         86Z7OOYP5YBYpdJCYXJ+JI5+S4pj+C9zrpT8Rbfl2Uos+we+IdAn9a5jebSPxJrUR4C9
+         HCyYKPsyb4/q5e4FL6gPyzQGoHPm/V8J5DgSufVUaasXVqAXBN9zwoacFpspq1+BairJ
+         jGgA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:references:in-reply-to:references
          :in-reply-to:message-id:date:subject:to:from:mime-version:sender
          :dkim-signature;
-        bh=Nqy/CBpEEict6aplva8e8IlW50mGj0ez1jq/3CZfZ84=;
-        b=IT+rw9H+YefD4PIBe4AwLYhBVvizEG8HI6YdEBWXf6lW1gPxQ4NiEfUbl7uV6H+NaV
-         Hh6eEKuwuO5IKSStV83Zb7rG0ouPJ1MGtjsdwWJYdqoPDN7ygUHjqbn7qBOaaPlcj6o4
-         GsLWwLg77D73d2ATYXsHID9JgQTUZLKDR19Aghe0/st/WgWXXppP1/ZSIYMYy4RkA25Y
-         hBGON/gnc30Szcm79PvsuX8LWuNx1hwuijostFvYIt78o8Ns/P6BzwBNI0H1ZV6C2VO4
-         TjDoMuWorG2pDTpNjzQUbltESLSPD9jqisQtfN17FwlxScDXIpGsfXkB2fB4YfTp/YD7
-         yGWg==
+        bh=AH82NplHEMxBIzcBiC90D3WDpupnSxx8IO2slnFZ6Yw=;
+        b=FRgpBfGZfCnYedb/Q4RfiNhBm8X2c4FF4DZS0ZyfJD4NR28noeZ9nGNY/wLwy/m2py
+         6I8wgLnbanYSziTRNWP1OWsTBJbSgAHWi47e/pJGXdrQUXl0ZwrsK/aO/JsgyPTp4Ctd
+         r18LUx4t99yNFLqTNoVqWafTlfc4+q+B9GNANok2LkDmHwtevuUxejZCvfuyXqiGpid4
+         l+LZLm63cAyoLz9HTv/4vqPFlKbLxoHucEUqaKqsOw5qHA+4YRH7UNPntVcfbxrd8NiD
+         mLpR1RwuJyxJMyfAR8cWa8J0G6VlD313y8iuVoTUOW7v73nHwFlPAStTVvFJOcdmwsVW
+         fUSw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
        spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
@@ -34,13 +34,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:in-reply-to:references:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=Nqy/CBpEEict6aplva8e8IlW50mGj0ez1jq/3CZfZ84=;
-        b=nj5SbpMpDFiSu8TmtjgmXwa/pBc1IzDsrT0VL1rJAz2PhcgeG02FAjKe4R2pD2wLqm
-         BBtANKN52apxa+ickCY2Cvnbn0qTL4icWQSB+G0g6gevdI4jAcnHsmoE3eM9c5or66VW
-         tCkiuj9amvWG/HqY8+UEdcQBlgxYjDsHPsJfOPQ/LLBe688GCFvkYT3IQbg9LaV6TaFE
-         gsUKcaTAlhHOCmu6aHMYQ5sgB7GIXXSUfaTh8FbwdOkRqi1RAlqkm3zcFen7KIwr0x+M
-         0BMQYCxhgeQ0xIjERXe6EYsdZqX/4Lf+m9BxQOF8wg+ZfY0EYEuUN/fSQXk65Et7JI8F
-         0k5g==
+        bh=AH82NplHEMxBIzcBiC90D3WDpupnSxx8IO2slnFZ6Yw=;
+        b=XsESZbuZv3wb7nawtCnZpABYa0kGPE1Lct6EUNAdBJSETotQFcMGm/ZEttcLt4+jtf
+         AlqtblqL+5E3PBkBLXLVHM816+omF5a4Waam9g5oUstC28t1wVkxfFW+F+iGcOS8FkeB
+         QPc10+5iBz0eX2zmH8x5sxe7Dxd0vnRAz18zRUSgUghy8Nraf6WFGA9jay58bDiFFxGi
+         OO9hwhkGohMiMXZZidk4vJ1fiuBw6SbweUv52DdkJUs4eUVF3fYNiwo1Wbs0khA9Rhhi
+         5Ka8VcMQrpuwlTP1YaN8OMU3NjCHszgQ6QC2swv0rZm45QdtytXXOF+JYDvbNKQZMmcD
+         qYCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:mime-version:from:to:subject:date
@@ -48,63 +48,63 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=Nqy/CBpEEict6aplva8e8IlW50mGj0ez1jq/3CZfZ84=;
-        b=hchaTE0G/mMDQL7NLWCRr6aTNvHDo1Z8f6yORq0IdJ6cCZtDkRl0gdyJtKg0R2ENDK
-         CvUQbuU+0ckd7K88aRGiCMB7/kmb2W5ZDSE8S/740DY9mkC/GJjAjdBdTIHmtfUfa6z3
-         8+PuaOAqYYQbcHVmVZYH054KKfMB3WTepG61676FBqYldZtlU0Ijp2inP4U4L2OiF9PW
-         YaXJ6XH4HUM/ivE9cePq7929SjMRPRmFWl4MqAvaziomM4R7ZGzw7vn4+ITadfwT88WB
-         kXO2vn4+G4X2etE7n4DKSbouZumAI+2WHeXKGngJBel+b/O3vHb4Ts97bFLaHpMcsW1Q
-         T7dA==
+        bh=AH82NplHEMxBIzcBiC90D3WDpupnSxx8IO2slnFZ6Yw=;
+        b=r67j/xQPiclehlWcdN50rnKLbm3v01H4/cs7sMqGh5GZQJtxNUJXx5QzuiwUWQ80D8
+         9uZG9I5Sem52ulDb2vLVxzm4J8H5jec5t6YprTo91g+pba3cFIl8o0Lwt+PpD2xtiDd4
+         vLunVI7CeKs+Ka6rFW7Ukb5j3onGek9ujtmun7d3SOAkhOmRUImA+N4E7EVXVIlhAiPk
+         3F0MydToMwUfn3yuZ0vGcAaz4y01BC0/uj4vaab+0BDt22Y498Uvuz7R5twtac8PGGUe
+         172Q86VWK/U3dIAy1S93LCSef4189Uv+EpVNRguCf5Ui/g9cuNS6q+nKdBMo+YyT8leU
+         KPaA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAWwN31Xm9qxWoYiY72mB/6OLOHKZ3+d0soRg3EVZa/YwmFiLn8b
-	uLcy9kqdUAaxVOCOrbP4CbI=
-X-Google-Smtp-Source: APXvYqxH5nWMgE0zwsiPsEgCBf5dHufwqm5cI1+/rwINkitKR8uA9QKF9qPqwE7xeXDFMTjL0FgiEw==
-X-Received: by 2002:a17:906:65b:: with SMTP id t27mr30655198ejb.49.1556528094532;
-        Mon, 29 Apr 2019 01:54:54 -0700 (PDT)
+X-Gm-Message-State: APjAAAVxUkBryGKpgviOubzLm4ydYVGLDYDA1aYECSrKy8Ovj372fGpD
+	dNASF+Owy3kbDWCuBY2p0y8=
+X-Google-Smtp-Source: APXvYqy0/5eNkFRF6XjyHvbuPEZZgSvx6ZCveKNMmrHP3thidHS3+U7K/Aym53oji0xd/znD6Rf5yQ==
+X-Received: by 2002:a2e:9546:: with SMTP id t6mr5738143ljh.51.1556528095300;
+        Mon, 29 Apr 2019 01:54:55 -0700 (PDT)
 MIME-Version: 1.0
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a50:b495:: with SMTP id w21ls1178804edd.16.gmail; Mon, 29
- Apr 2019 01:54:54 -0700 (PDT)
-X-Received: by 2002:a50:aeb6:: with SMTP id e51mr37959980edd.76.1556528093961;
-        Mon, 29 Apr 2019 01:54:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1556528093; cv=none;
+Received: by 2002:a2e:9799:: with SMTP id y25ls106464lji.16.gmail; Mon, 29 Apr
+ 2019 01:54:54 -0700 (PDT)
+X-Received: by 2002:a2e:9bcf:: with SMTP id w15mr310048ljj.102.1556528094623;
+        Mon, 29 Apr 2019 01:54:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1556528094; cv=none;
         d=google.com; s=arc-20160816;
-        b=dkSycRdXercwTIrm+aKlTEmIulPESx0L/t+3hS+yS+AZ0UDSmSim5oqSeX3GvY6mGc
-         AtryTh1RfputJlIwUzZx7GB0j6XAgUMQhOGzA/Ee3TjfW/FWgLheOzqozGXodPFVQ3f9
-         bATB8D5wzUECaW28IzHBgkOLSdKjA80jAjsOk5jnu/3d6KyWxL/jA3a0MxNX/Su3Js8J
-         HhvumDMc17IINoTYsY6XnfaeCICMP8UiP+44pF2wpxw0rMfQXRhkVyJ18W/t+6EdNh2R
-         DV7NGmJ4IpwY1jpdDY0uSUegR9TpE856VIMLbpukNMGse0Y+jqHr1qdHAqpNIiQ2jz2J
-         t+BQ==
+        b=E2aVyPL0JPN5Z+9LnH+Xr1XZxucKSlGlC0wNWrc3ACu0IqSasW88/cor3hj/wdn47F
+         /1li94N1XL75NgXwu/Z3gSz45BJnsgH/zerU5v5NYwFqEdhU2ZICnUtdiWaCS6UUV3u9
+         LW54geZhMjjW+K8lFToxz5o7qvREMfEFnacSV6IR6JUYIbhcSyJgftvP5zYQDr6pF3AR
+         zdsTntv3wff77dsp+ixKnMi/ha+AuCNkNoVnog58EcEevbL+BK553In/tmXuJg8LA2bv
+         u+G+vjJsdhcG7jVHJr9Pey8ottC6Pmqj1dmKC+HkxscQqpvJu/xZVZ/5hAEKc0JSqXmO
+         L7JA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=references:in-reply-to:references:in-reply-to:message-id:date
          :subject:to:from;
-        bh=dtl70tE7jmiUKxKf9rPiyhDmJ8HWO7iCf3XQw99/hWg=;
-        b=JEW0bPzK0+wsE/+B4lSLQOUkN81z0dvsE6t/y/FNejOTYACJtXdwhf3TuWyAO70zhh
-         uIGOCicgZjogxZeJaHobHc2Wag9GPunySH57xkYmphyiPD9Z4hDNIZzWFQQBh7gDbtEc
-         ch/bN3m+Gs801dw4ADgm2ot6mZLFCIam2p8z/nagUDtf0iLeKFGgPPzvCMweiYhgRQem
-         itM47gkToorNSUjGGehFOKGeteO9sNu1XptKfbpYAA1JY7li3vKoe6nPdlu/HtuRZ4pB
-         yAlDHBInRLvpgivIbQd8sY9+uo1ki6fF6m09w1YgVIWmWUXV1cfyCP74JmFVKohxGzAK
-         lINw==
+        bh=rBSzlh/x72GfdteORaJKXLJ+jezy54kOSM/iBbDxwtc=;
+        b=wWCdyaaPvw4pA8wwWu6/bBGvcTyLySgj6HQUn7OFgHzAC1f0bS7AbgOmBZzL6/iRqL
+         XzPEGwIjvK0naQ0NPdvflZgUHkCseIVXvjdGL9rlwU8VDpPrfvj4KRBDk4DJjZ0lPVTG
+         EpnKLrrl8iiTXi14GRv1SWkE4aTf+XaAr/V6/khs7TJo/LoOYROqMGMdQVJosWZJvrsD
+         JZjVt7beo1y2o8Pl+K+Ohxyioe1gpUhhxgL4N1XK2MlMSSIDaGzMcu3sRs4rDKhjlJI2
+         NfqGBdCmXL81Za2LWDz4JiI8GE25+heNF9uz6yZQu9ROGtLOJ36ZML45Qx69+j2SovtZ
+         bKaw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
        spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com
 Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id r4si1539733edh.5.2019.04.29.01.54.53
+        by gmr-mx.google.com with ESMTPS id w13si579884ljj.2.2019.04.29.01.54.54
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 29 Apr 2019 01:54:53 -0700 (PDT)
+        Mon, 29 Apr 2019 01:54:54 -0700 (PDT)
 Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
 Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id x3T8srBt009564
+	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id x3T8sr2D009568
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
 	for <jailhouse-dev@googlegroups.com>; Mon, 29 Apr 2019 10:54:53 +0200
 Received: from md1f2u6c.ad001.siemens.net ([139.22.43.249])
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x3T8spo9013612
-	for <jailhouse-dev@googlegroups.com>; Mon, 29 Apr 2019 10:54:52 +0200
+	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x3T8spoA013612
+	for <jailhouse-dev@googlegroups.com>; Mon, 29 Apr 2019 10:54:53 +0200
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [PATCH 5/6] x86: ioapic: Move edge interrupt injection at the end of suppression
-Date: Mon, 29 Apr 2019 10:54:49 +0200
-Message-Id: <cbbb49ef51e6621ecb85fd0af1655ad584e30021.1556528090.git.jan.kiszka@siemens.com>
+Subject: [PATCH 6/6] x86: ioapic: Simplify ioapic_mask_cell_pins
+Date: Mon, 29 Apr 2019 10:54:50 +0200
+Message-Id: <d235bde2a4738b4cddb1df926a39b8a1e11c0acc.1556528090.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <cover.1556528090.git.jan.kiszka@siemens.com>
 References: <cover.1556528090.git.jan.kiszka@siemens.com>
@@ -129,79 +129,42 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-Analogously to MSI: When interrupt remapping is enabled in Linux, we
-cannot evaluate the remapping table before the config-commit phase, thus
-will never inject a message when trying that earlier.
+After ioapic_get_or_add_phys is called, the shadow_redir_table is
+populated with the guest register content. As ioapic_mask_cell_pins is
+only called after that function, we can read the mask state from the
+shadow table and safe a register access.
 
-Fixes: f651754c72e3 ("x86: Virtualize IOAPIC redir table for interrupt remapping support")
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- hypervisor/arch/x86/ioapic.c | 30 ++++++++++++++++--------------
- 1 file changed, 16 insertions(+), 14 deletions(-)
+ hypervisor/arch/x86/ioapic.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
 diff --git a/hypervisor/arch/x86/ioapic.c b/hypervisor/arch/x86/ioapic.c
-index 72dd8d90..c257c99e 100644
+index c257c99e..ee3b77f3 100644
 --- a/hypervisor/arch/x86/ioapic.c
 +++ b/hypervisor/arch/x86/ioapic.c
-@@ -165,7 +165,6 @@ static void ioapic_mask_cell_pins(struct cell_ioapic *ioapic,
+@@ -165,19 +165,16 @@ static void ioapic_mask_cell_pins(struct cell_ioapic *ioapic,
  				  enum ioapic_handover handover)
  {
  	struct phys_ioapic *phys_ioapic = ioapic->phys_ioapic;
--	struct apic_irq_message irq_msg;
- 	union ioapic_redir_entry entry;
+-	union ioapic_redir_entry entry;
  	unsigned int pin, reg;
  
-@@ -181,20 +180,8 @@ static void ioapic_mask_cell_pins(struct cell_ioapic *ioapic,
+ 	for (pin = 0; pin < phys_ioapic->pins; pin++) {
+ 		if (!test_bit(pin, (unsigned long *)ioapic->pin_bitmap))
+ 			continue;
  
+-		reg = IOAPIC_REDIR_TBL_START + pin * 2;
+-
+-		entry.raw[0] = ioapic_reg_read(phys_ioapic, reg);
+-		if (entry.remap.mask)
++		if (phys_ioapic->shadow_redir_table[pin].native.mask)
+ 			continue;
+ 
++		reg = IOAPIC_REDIR_TBL_START + pin * 2;
  		ioapic_reg_write(phys_ioapic, reg, IOAPIC_REDIR_MASK);
  
--		if (handover == PINS_MASKED) {
-+		if (handover == PINS_MASKED)
- 			phys_ioapic->shadow_redir_table[pin].native.mask = 1;
--		} else if (!entry.native.level_triggered) {
--			/*
--			 * Inject edge-triggered interrupts to avoid losing
--			 * events while masked. Linux can handle rare spurious
--			 * interrupts.
--			 */
--			entry = phys_ioapic->shadow_redir_table[pin];
--			irq_msg = ioapic_translate_redir_entry(ioapic, pin,
--							       entry);
--			if (irq_msg.valid)
--				apic_send_irq(irq_msg);
--		}
- 	}
- }
- 
-@@ -426,6 +413,7 @@ static void ioapic_cell_exit(struct cell *cell)
- 
- void ioapic_config_commit(struct cell *cell_added_removed)
- {
-+	struct apic_irq_message irq_msg;
- 	union ioapic_redir_entry entry;
- 	struct cell_ioapic *ioapic;
- 	unsigned int pin, reg, n;
-@@ -451,6 +439,20 @@ void ioapic_config_commit(struct cell *cell_added_removed)
- 					     "state, pin %d\n", pin);
- 				panic_stop();
- 			}
-+
-+			if (cell_added_removed != &root_cell ||
-+			    entry.native.level_triggered)
-+				continue;
-+
-+			/*
-+			 * Inject edge-triggered interrupts to avoid losing
-+			 * events while suppressed (masked). Linux can handle
-+			 * rare spurious interrupts.
-+			 */
-+			irq_msg = ioapic_translate_redir_entry(ioapic, pin,
-+							       entry);
-+			if (irq_msg.valid)
-+				apic_send_irq(irq_msg);
- 		}
- }
- 
+ 		if (handover == PINS_MASKED)
 -- 
 2.16.4
 
