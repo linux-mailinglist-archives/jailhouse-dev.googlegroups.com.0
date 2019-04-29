@@ -1,146 +1,76 @@
-Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRB3O3TTTAKGQE7CJ6DZI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCL6VUP7RYARB56NTXTAKGQE5VVWKHI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x339.google.com (mail-wm1-x339.google.com [IPv6:2a00:1450:4864:20::339])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D541E844
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 29 Apr 2019 19:01:33 +0200 (CEST)
-Received: by mail-wm1-x339.google.com with SMTP id h13sf81547wmb.6
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 29 Apr 2019 10:01:33 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1556557293; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=l8M6xRCFcpfk4W3wCJHci218v0ITHQsa+vlPEuKkJjzX5G46dyNjAgbi/iEv8yP68D
-         FTMwKdsFtB0JOrOCDxVQRBpWymZtvU47SK1LDdG5SjZSu8dNDRBsFjzUbwaiR2Y/pXMh
-         rxtQlZZ4LDJC94IosRh/Hcpt9EdkP5+86PKaoeIheQYaeIjXiQOZCOP7IcelG+5scS3c
-         PIqASsf3V0HYPAaEOXJj2RhQjHgFniPxF+m1dWBT4SPQppBrzzSe+Ljf6A75PgrDnyNA
-         Nyj6l2NeZYTi08XcHwcp+3ApYnS0W4tcndSQZ+awutptmT3yq66U4PKhcCXWtIYTYp6/
-         HuLA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:openpgp:from:references:cc:to:subject:sender
-         :dkim-signature;
-        bh=3Gann0ahn77lkkYeQfigB/6guCP+PLYLjgGJ41/gqEA=;
-        b=i+rrIJEpoN9D4jjbOfeOIKyBrI2do0ibppv8ojh3+Q7Ee8Z58Ypwzc+R/eLD3pKHUH
-         vD9Us4c6R9q9mja9TOXkg1tRhz+ve78SnRlaS4zEiR7FlIo405PankBgkNvhXdPagQ43
-         QtevQThRbX2MUmzwnb+Nf9NuYFSB35ZnjonSNaSo9oH/hL9OdoooMhboLDlN+URTibBf
-         tilcV67YA0Ie4KAOlHWQbS1LFgnMZ/5959kAqgtjLbyDl7eYOFOjvJINUinYj46LyVrk
-         KGvkeETuS7a4UQDfPuz1179ZG6kL56tkq2nuQqGgZWmKUAmrshVGD7o5N1Lo+5g9GkaS
-         z3/A==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=IrrbEqIn;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mail-ot1-x33f.google.com (mail-ot1-x33f.google.com [IPv6:2607:f8b0:4864:20::33f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FE82EBE6
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 29 Apr 2019 23:04:57 +0200 (CEST)
+Received: by mail-ot1-x33f.google.com with SMTP id o13sf6479091otk.12
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 29 Apr 2019 14:04:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:openpgp:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=3Gann0ahn77lkkYeQfigB/6guCP+PLYLjgGJ41/gqEA=;
-        b=Shwipb3h2vnpYIOid19Y767yIHRnM6glWyMg4d7nvSkxDOZQa3ErGb2KjrAmVHuuAR
-         2ppRva9ATwGzEMF12LbMbe+nEfW1bHqTmef19hEM/cBWEyXtk0dLA7w87/sQO0+HefMl
-         XrOmMCLrNoYouACmyez+rqU6fjVU+Xiwb5xqWcSVsw+n/9ZKG+39d2MWSQQT63dAOP3H
-         d/NvFz6WJDeB7rFK03mq2KwwRBNdPq/5rUCxS9Wtefd5Bdas3C6fVraV2Kb0KJQ7uiuE
-         RCuJILAOzqKo4IJu86lcpnYFsAxBgK+xohd3ueEHhP7tinioOJUJ0CBy2pNJtRAjR+QF
-         blvw==
+        bh=xuZOyOuOicH+ApuGTTKttw7y9shc/sX0SfHDaCtcHhs=;
+        b=IVVP2MMrm28bD1+Ycs7ZqTguwl4A8ZzkgjcL+5W17591G8HWL9sKwQ0fwgboE9HrO5
+         iu6EoLsMiVDdSI4Ke3G3G+58tzqwXcHxiKnfBPBvqLvqCPxi73x7Hs87mBaPOJLO/PVm
+         cYKm95cPxR7rzTfUgeik3+xFSZ3/50zIExQK9kY+ZykoXg9VSYorhkroQhAEAMxrjs4U
+         MZizpiJu+PGsYH87S42ckWdlidpRQbc6nZP/qbrJVqmgkUkNUfWKtdqrdswCRUe/b1RI
+         iXHhs8Gv3eYR/4NU3T2p6Cudqi16yAtFmKJhjjQvcvhu59KpOT7qMT9k4J2lKBGIN8de
+         juIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:openpgp
-         :message-id:date:user-agent:mime-version:in-reply-to
-         :content-language:content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=3Gann0ahn77lkkYeQfigB/6guCP+PLYLjgGJ41/gqEA=;
-        b=S6o/BfJ1TDuH6EwgXoEAopBNHpRXycXIaJhhRmqZujvfga6blWJPl5bHgIMzhM00Zy
-         K7RXcps1mgW25maFaieS4Cc1pj3cGPSVWEnz3lCCeEXZAp9F6c9ofS7BHBTdOd5CwNZc
-         Zqicz3CGprELCiTjFoCcE2hYRWykHpYhF4s4D6ngz62KrQimxZ15Zcut1Ik3HTyCVq22
-         XxhxEsNatlldGU8ww3gzcr/hs5deEqbof4bj3yX2fTUnrXZJh5WRlJaeZJX/4G2GxkQc
-         lWnAewcWkCIdO24alg+dLNQ04xqxs3co4p91+07S0txXhTgYH+ueeZBJC7/ed+YQQvt1
-         skfA==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=xuZOyOuOicH+ApuGTTKttw7y9shc/sX0SfHDaCtcHhs=;
+        b=Wh3D2Utrv2bxXcR4Fi6JUP5srnUrblgSdd66yRriSbw3Prh1etyyEKVAHob/bL6TV/
+         EqizUlf6Og7r17TIFfnDuPWOmmIymYIGeuG5MgAZ+N3pZQJOFCoKj+1YxV4gACSvJ+RO
+         4xi3xJkgJRFdrwOWrIO79wQ/o4dzFqojKjjoAPzMKZFKzd/8bdslyDmEQhzg6tRPtXMJ
+         oBo8HIbZyJ0MSZis7cKjABOGuTUZYh2EA6vER3ZQB9R6XqxSVbdRuI6iIkN9AfGlarNJ
+         5M5oeomPybNakrM66k9BmlWqrjRjAfcMMNpuYEc1puwX07N02MDBMSmFcawxwT2VWwIz
+         4Awg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXTTHVLwisbgxl9Zoy4yzgu8CoB4j7cfot0TN8hBiIZkGncqkB/
-	OtzIwiang75TVkZx2dPtpx0=
-X-Google-Smtp-Source: APXvYqymZ/hClL2EJFLoaGG49DZkD2N8S54sdi4WcH9B2H2eBz+ztRYOxy6wG2bmgqUdqgN9w7zpFg==
-X-Received: by 2002:adf:ea83:: with SMTP id s3mr5779028wrm.139.1556557293271;
-        Mon, 29 Apr 2019 10:01:33 -0700 (PDT)
+X-Gm-Message-State: APjAAAUPS38RLSSlpYVZFR2ZWgHjdib+D+aWXGGjrsZii67vzYbDgGyI
+	iqZfHz44GT0n+J6DkEcW6qU=
+X-Google-Smtp-Source: APXvYqxI/krEEcC+ZZ1OtZTMCzw1Rgt0HigNC7TT7BwQ3SPcVPTuUOfgNRxDzDByJO/g3So8rD/A/w==
+X-Received: by 2002:aca:8d8:: with SMTP id 207mr777032oii.75.1556571896155;
+        Mon, 29 Apr 2019 14:04:56 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:9696:: with SMTP id y144ls55648wmd.2.gmail; Mon, 29 Apr
- 2019 10:01:32 -0700 (PDT)
-X-Received: by 2002:a1c:cc10:: with SMTP id h16mr35889wmb.39.1556557292689;
-        Mon, 29 Apr 2019 10:01:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1556557292; cv=none;
-        d=google.com; s=arc-20160816;
-        b=SFZlGTuuagdF48a/YFGCNHo834dHYCjoRZgX4Uqd87F+aXW5sktFRbkJCDqvtXx/qR
-         wS9XM0ZzRMOzwpi8eah2dGvI8GaYYpmyivnKZE3l1ZzGmE/kn8OMBuHsao2uOTETUh4C
-         zZwIva4PrxIZcWVRbJyTqegrtOrNo5AT7Lf9Qu85I/QFKU14z7Jvo4+pRYJwuIMVcxJh
-         20+yQl0l4+3O4mFOlZJqJx9ikjjskOISgN4FvLRHm5IX5QAEbJVwSQhH066Zg5j25sDA
-         wKIcvyk9qHCQGGSprE1mv/5uZ680W47s+llaptGDV95LB1RX+A4pZW/65jENmg+V6ZL0
-         5XXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:openpgp:from:references:cc:to:subject
-         :dkim-signature;
-        bh=c3/Q/JEOJ3FrOX43+Tps+TTsk7DINBLJsPszMNLN0Tc=;
-        b=YF4soSP6eyw35+pf1JtfQRSgwVM+zeUpdvASKeXk70PVV8qA113amKPCp9qEhHSUyX
-         b/WOMw9lpEJf/IJW2u4FKJF3HIPWOL8nCnrdn+p59pEzjaSUo6NNSFjXeemLJ+41p0Db
-         pTQHvB9oXaR6gzvkgv9P/8+1WKouh8GcpnIQ3cm1OpNp5g7wZoZFVVx2+ODwfzwqWs7T
-         RE6MIPVoOYC59vb9AzcJ8eGb+JutUT8oFX6UYoiCEsEBsDFCGersaasvSAFHeEsK/qWN
-         Jf6OuoQDNPqosgr4YYvNEHHuHSUMtZj4xuz3dAeCUk/qr+xvxh1JulnFAcIU84U6Pjdf
-         adLQ==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=IrrbEqIn;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [2001:638:a01:1096::12])
-        by gmr-mx.google.com with ESMTPS id 4si3703wmd.1.2019.04.29.10.01.32
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 29 Apr 2019 10:01:32 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) client-ip=2001:638:a01:1096::12;
-Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S02", Issuer "E16S02" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 44t9t41rlVzy9y;
-	Mon, 29 Apr 2019 19:01:32 +0200 (CEST)
-Received: from [192.168.178.10] (194.95.106.138) by E16S02.hs-regensburg.de
- (2001:638:a01:8013::92) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 29 Apr
- 2019 19:01:32 +0200
-Subject: Re: Running on AMD Ryzen
-To: Andrej Utz <andrej.utz@st.oth-regensburg.de>, Jan Kiszka
-	<jan.kiszka@web.de>
-CC: Henning Schild <henning.schild@siemens.com>,
-	<jailhouse-dev@googlegroups.com>
-References: <659b46e1-2852-ebb7-9bdb-74d057aa44d4@st.oth-regensburg.de>
- <a0b17fc8-50ad-efae-6505-96c2d8c3aa32@web.de>
- <7fc9b026-822e-3880-a50c-fafd106d3b00@oth-regensburg.de>
- <aed89b6a-35ca-7d4d-3960-597573abee4d@web.de>
- <ccdbf632-e17f-af7d-d523-92ac0be886b2@oth-regensburg.de>
- <20190327175044.46604e0d@md1za8fc.ad001.siemens.net>
- <aedf806e-0b9a-9599-b2c8-d1e2b6aed876@st.oth-regensburg.de>
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Openpgp: preference=signencrypt
-Message-ID: <b00bb829-c6f9-ace5-d94c-095155af9909@oth-regensburg.de>
-Date: Mon, 29 Apr 2019 19:01:31 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+Received: by 2002:a9d:76d2:: with SMTP id p18ls3721123otl.13.gmail; Mon, 29
+ Apr 2019 14:04:55 -0700 (PDT)
+X-Received: by 2002:a05:6830:1501:: with SMTP id k1mr2687074otp.361.1556571895164;
+        Mon, 29 Apr 2019 14:04:55 -0700 (PDT)
+Date: Mon, 29 Apr 2019 14:04:54 -0700 (PDT)
+From: =?UTF-8?Q?Hakk=C4=B1_Kurumahmut?= <hkurumahmut84@hotmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <26834bed-4a78-4bac-b093-d8f9e2646e72@googlegroups.com>
+In-Reply-To: <3cb885a7-8b66-42b4-adf2-6fc98375efa9@googlegroups.com>
+References: <16e3b6ef-37e1-4734-aba4-247bcbbc18e0@googlegroups.com>
+ <6526d7d9-09fb-c25e-0037-628998267794@siemens.com>
+ <81bb9c90-1557-47ae-990d-b1bf417a58b9@googlegroups.com>
+ <63f974a9-5944-4f1f-77a2-4bd7393ff8a6@siemens.com>
+ <05d90171-db1f-4031-a7b2-48570eb37847@googlegroups.com>
+ <fdfcd6e7-e2a5-4187-b079-ca643fb281a1@googlegroups.com>
+ <32bc2861-e11e-4ab0-bdcf-063e2c05318d@googlegroups.com>
+ <f704088f-99c1-4ec0-bd5e-90e15874cc7d@googlegroups.com>
+ <3e5ad4e4-abac-03f5-5402-661e62a83944@siemens.com>
+ <7f55a310-7bb7-4a3f-b111-0c2a24939b7c@googlegroups.com>
+ <1f880925-0420-7c15-1aa4-07d001a6efce@siemens.com>
+ <bcd32c87-28e7-4747-b3ab-ebaedf160309@googlegroups.com>
+ <32d0b346-10e4-de18-1d24-95e4e4cff977@web.de>
+ <9732f874-1271-4296-b2ef-ededba614a87@googlegroups.com>
+ <7deff203-cf29-6353-128a-8b40f8d42584@web.de>
+ <cbeb1b02-5799-472c-bb5c-f6eb62a60305@googlegroups.com>
+ <8ef112a9-2f0f-9205-3e67-f0c6fed498ba@siemens.com>
+ <3cb885a7-8b66-42b4-adf2-6fc98375efa9@googlegroups.com>
+Subject: Re: JAILHOUSE hangs with exception when trying to enable the root
+ cell
 MIME-Version: 1.0
-In-Reply-To: <aedf806e-0b9a-9599-b2c8-d1e2b6aed876@st.oth-regensburg.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: de-DE
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [194.95.106.138]
-X-ClientProxiedBy: E16S03.hs-regensburg.de (2001:638:a01:8013::93) To
- E16S02.hs-regensburg.de (2001:638:a01:8013::92)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=IrrbEqIn;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_466_1691676408.1556571894499"
+X-Original-Sender: hkurumahmut84@hotmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -153,172 +83,181 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi,
+------=_Part_466_1691676408.1556571894499
+Content-Type: text/plain; charset="UTF-8"
 
-the issues described in "JAILHOUSE hangs with exception when trying to
-enable the root cell" sound similar to what we experience on our AMD
-machine. Unfortunately, patches on latest next won't help.
+Hi Jan,
 
-In the meanwhile, we found out that we can revive 'lost' PCI devices if
-we remove broken PCI devices and rescan the whole PCI bus (IOW,
-reinitialise the whole device).
+I have write new patch that is attached below: (for jailhouse master branch)
 
-While removing PCI devices works smoothly while jailhouse is enabled,
-rescanning the whole bus will lead to crashes (basically the same issue
-that Hakki described).
+It is not touch to tree only update dmar_regions variable.
 
-During the rescan, there were some patterns of errors that occured:
 
-a) PIO access to 0xcfc for several devices (always address 0x74), like:
-FATAL: Invalid PCI config write, port: cfc, size 2, address port: 80000b74
+git diff
+diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py
+index 46c95fc2..70fe8869 100644
+--- a/pyjailhouse/sysfs_parser.py
++++ b/pyjailhouse/sysfs_parser.py
+@@ -94,14 +94,13 @@ def input_listdir(dir, wildcards):
+ 
+ 
+ def parse_iomem(pcidevices):
+-    regions = IOMemRegionTree.parse_iomem_tree(
+-        IOMemRegionTree.parse_iomem_file())
++    dmar_regions = []
++    regions = IOMemRegionTree.parse_iomem_tree(IOMemRegionTree.parse_iomem_file(), dmar_regions)
+ 
+     rom_region = MemRegion(0xc0000, 0xdffff, 'ROMs')
+     add_rom_region = False
+ 
+     ret = []
+-    dmar_regions = []
+     for r in regions:
+         append_r = True
+         # filter the list for MSI-X pages
+@@ -878,9 +877,27 @@ class IOMemRegionTree:
+ 
+         return regions
+ 
++    # find DMAR regions in tree
++    @staticmethod
++    def find_dmar_regions(tree):
++        regions = []
++
++        for tree in tree.children:
++            r = tree.region
++            s = r.typestr
++
++            if (s.find('dmar') >= 0):
++                regions.append(r)
++
++            # if the tree continues recurse further down ...
++            if (len(tree.children) > 0):
++                regions.extend(IOMemRegionTree.find_dmar_regions(tree))
++
++        return regions
++
+     # recurse down the tree
+     @staticmethod
+-    def parse_iomem_tree(tree):
++    def parse_iomem_tree(tree, dmar_regions):
+         regions = []
+ 
+         for tree in tree.children:
+@@ -904,11 +921,12 @@ class IOMemRegionTree:
+             # generally blacklisted, unless we find an HPET behind it
+             if (s.lower() == 'reserved'):
+                 regions.extend(IOMemRegionTree.find_hpet_regions(tree))
++                dmar_regions.extend(IOMemRegionTree.find_dmar_regions(tree))
+                 continue
+ 
+             # if the tree continues recurse further down ...
+             if (len(tree.children) > 0):
+-                regions.extend(IOMemRegionTree.parse_iomem_tree(tree))
++                regions.extend(IOMemRegionTree.parse_iomem_tree(tree, dmar_regions))
+                 continue
+ 
+             # add all remaining leaves
 
-b) MMIO PCI MMCONFIG writes for several devices (always reg 110), like:
-FATAL: Invalid PCI MMCONFIG write, device 03:00.0, reg: 110, size: 4
 
-c) For an rtl ethernet card, we had some:
-FATAL: Invalid PCI MMCONFIG write, device 03:00.0, reg: 70f, size: 1
-which doesn't fit to any capability entry.
 
-For each error, we added the WRITE flag to the corresponding capability.
-In some cases, we also had to expand the .len field.
+Example /proc/iomem for HP8300
 
-So this makes things kind of working for us at the moment, though I have
-no clue what I actually did. :-) I need to learn how PCI works to get a
-better understanding.
+ 
+> You can see that dmar0 under Reserved region...
+> 
+> ubuntu@ubuntu-HP8300:~$ sudo cat /proc/iomem
+> [sudo] password for ubuntu:
+> 00000000-00000fff : Reserved
+> 00001000-0009ffff : System RAM
+> 000a0000-000bffff : PCI Bus 0000:00
+> 000c0000-000ce9ff : Video ROM
+> 000cf000-000cffff : Adapter ROM
+> 000d0000-000d3fff : PCI Bus 0000:00
+> 000d4000-000d7fff : PCI Bus 0000:00
+> 000d8000-000dbfff : PCI Bus 0000:00
+> 000dc000-000dffff : PCI Bus 0000:00
+> 000f0000-000fffff : System ROM
+> 00100000-38ffffff : System RAM
+> 39000000-78ffffff : Reserved
+> 79000000-de35bfff : System RAM
+> de35c000-de365fff : Unknown E820 type
+> de366000-de3e6fff : Reserved
+> de3e7000-de414fff : Unknown E820 type
+> de415000-de93efff : Reserved
+> de93f000-deba4fff : ACPI Non-volatile Storage
+> deba5000-debb5fff : ACPI Tables
+> debb6000-debbefff : ACPI Non-volatile Storage
+> debbf000-debc3fff : ACPI Tables
+> debc4000-dec06fff : ACPI Non-volatile Storage
+> dec07000-deffffff : System RAM
+> df000000-dfffffff : RAM buffer
+> e0000000-feafffff : PCI Bus 0000:00
+>   e0000000-efffffff : PCI Bus 0000:01
+>     e0000000-efffffff : 0000:01:00.0
+>   f0000000-f0000fff : pnp 00:0a
+>   f7e00000-f7efffff : PCI Bus 0000:01
+>     f7e20000-f7e3ffff : 0000:01:00.0
+>   f7f00000-f7f1ffff : 0000:00:19.0
+>     f7f00000-f7f1ffff : e1000e
+>   f7f20000-f7f2ffff : 0000:00:14.0
+>     f7f20000-f7f2ffff : xhci-hcd
+>   f7f30000-f7f33fff : 0000:00:1b.0
+>     f7f30000-f7f33fff : ICH HD audio
+>   f7f35000-f7f350ff : 0000:00:1f.3
+>   f7f36000-f7f367ff : 0000:00:1f.2
+>     f7f36000-f7f367ff : ahci
+>   f7f37000-f7f373ff : 0000:00:1d.0
+>     f7f37000-f7f373ff : ehci_hcd
+>   f7f38000-f7f383ff : 0000:00:1a.0
+>     f7f38000-f7f383ff : ehci_hcd
+>   f7f39000-f7f39fff : 0000:00:19.0
+>     f7f39000-f7f39fff : e1000e
+>   f7f3a000-f7f3afff : 0000:00:16.3
+>   f7f3c000-f7f3c00f : 0000:00:16.0
+>     f7f3c000-f7f3c00f : mei_me
+>   f8000000-fbffffff : PCI MMCONFIG 0000 [bus 00-3f]
+>     f8000000-fbffffff : Reserved
+>       f8000000-fbffffff : pnp 00:0a
+> fec00000-fec00fff : Reserved
+>   fec00000-fec003ff : IOAPIC 0
+> fed00000-fed03fff : Reserved
+>   fed00000-fed003ff : HPET 0
+>     fed00000-fed003ff : PNP0103:00
+> fed10000-fed17fff : pnp 00:0a
+> fed18000-fed18fff : pnp 00:0a
+> fed19000-fed19fff : pnp 00:0a
+> fed1c000-fed44fff : Reserved
+>   fed1c000-fed1ffff : pnp 00:0a
+>     fed1f410-fed1f414 : iTCO_wdt.0.auto
+>   fed20000-fed3ffff : pnp 00:0a
+>   fed40000-fed44fff : pnp 00:00
+>     fed40000-fed44fff : TPM
+> fed45000-fed8ffff : pnp 00:0a
+> fed90000-fed93fff : Reserved
+>   fed90000-fed90fff : dmar0
+> fee00000-fee00fff : Local APIC
+>   fee00000-fee00fff : Reserved
+> ff000000-ffffffff : Reserved
+>   ff000000-ffffffff : INT0800:00
+>     ff000000-ffffffff : pnp 00:0a
+> 100000000-21dffffff : System RAM
+>   1fe800000-1ff4031d0 : Kernel code
+>   1ff4031d1-1ffe928ff : Kernel data
+>   200119000-200361fff : Kernel bss
+> 21e000000-21fffffff : RAM buffer
+> ubuntu@ubuntu-HP8300:~$
+> 
 
-Anyway, this raises some questions:
-  - Why is rescanning the PCI bus dangerous?
-  - Did we maybe allow some access that shouldn't be permitted?
-  - Why didn't the config generator find the right flags/lengths for
-    those caps?
+If this patch is not apply, error is throw by "config creation" whether intel_iommu On or Off because "reserved" regions are currently excluded from the generated config. HPET and DMAR under reserved section must be parsed by config parser.
 
-Last but not least:
-  - There's still something odd when enabling jailhouse, as we loose
-    those devices, and the symptoms are related to those of Hakki. Do
-    you see some overlap here?
+Thanks.
 
-    Maybe the issue that we face is not specific to AMD.
+HAKKI
 
-  Ralf
-
-On 4/4/19 11:24 PM, Andrej Utz wrote:
->=20
->=20
-> On 27/03/2019 17:50, Henning Schild wrote:
->> Am Wed, 27 Mar 2019 17:15:37 +0100
->> schrieb Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>:
->>
->>> On 3/26/19 6:03 PM, Jan Kiszka wrote:
->>>> On 26.03.19 17:41, Ralf Ramsauer wrote: =20
->>>>> Hi Jan,
->>>>>
->>>>> On 3/25/19 4:03 PM, Jan Kiszka wrote: =20
->>>>>> On 25.03.19 14:18, Andrej Utz wrote: =20
->>>>>>> Greetings Jailhouse developers,
->>>>>>>
->>>>>>> I am trying to run Jailhouse on AMD Ryzen 2700X (x86_64) with
->>>>>>> B450 chipset and
->>>>>>> got into some problems.
->>>>>>>
->>>>>>> After whitelisting some I/O ports and putting "amd_iommu=3Doff
->>>>>>> mce=3Doff" I managed
->>>>>>> to enable Jailhouse, but instantly lost some USB ports (keyboard
->>>>>>> being one of
->>>>>>> them). After some retries I noticed this happens only 80 % of
->>>>>>> the time and it
->>>>>>> seems that some interrupts are never acknowledged and keep
->>>>>>> blocking the USB hub.
->>>>>>> =20
->>>>>>
->>>>>> A typical pattern if the interrupt controller (IOAPIC or even
->>>>>> APIC) is directly
->>>>>> accesses by the guest. Or of the MSI-X page of a PCI device is
->>>>>> passed through.
->>>>>> Double-check if none of the resources is guest-assigned. Jailhouse
->>>>>> needs to
->>>>>> intercept them. =20
->>>>>
->>>>> Looks like jailhouse-config-create might have issues with parsing
->>>>> IVRS tables on AMD. This is why both irq chips had the same ID in
->>>>> our config (cf. Andrej's attachment). =20
->>>>
->>>> Hmm, another variable shadowing like we have in
->>>> jailhouse-hardware-check?=20
->>>>>
->>>>> Parsing the table with hexdump, AMD's manual and five fingers on
->>>>> two hands gave us the correct ID. Andrej will provide a patch soon.
->>>>> (BTW, the python-parsers are really hard to read) =20
->>>>
->>>> Improvement ideas welcome.
->>>>  =20
->>>>>
->>>>> So our APIC IDs were wrong in the system configuration, but still,
->>>>> this doesn't solve the issue.
->>>>>
->>>>> I double checked that the APIC region is not directly assigned to
->>>>> the guest.
->>>>>
->>>>> So in sum, we currently face two issues on AMD:
->>>>> =C2=A0=C2=A0 - Loose USB interrupts on enabling with high probability=
-.
->>>>> Disabling jailhouse works, but won't revive it.
->>>>> =C2=A0=C2=A0 - Loose our network device on cell create
->>>>>
->>>>> Somehow, those two problems smell related, and maybe the second
->>>>> one is indirectly solved after solving the first one. Let's see. =20
->>>>
->>>> Do both interrupts have something in common? Maybe something other
->>>> devices that
->>>> still have working interrupts do not? Are they INTx, MSI, MSI-X? =20
->>>
->>> We had a Vodoo-Debugging session today. All interrupts that seem to
->>> disappear are edge-triggered MSI-X interrupts. The first thing we
->>> tried was pci=3Dnomsi. This turns them to legacy IOAPIC interrupts, but
->>> the problem pattern still remains the same.
->>>
->>> When using legacy interrupts, interrupts looked like this:
->>>   - IRQ 25: xhci (some USB 3.1 ports), enp3s0
->>>   - IRQ 29: xhci (some other USB 3.0)
->>>
->>> So IRQ 25 seems to be shared. The funny thing is that while USB 3.0
->>> (IRQ 29) and enp3s0 (IRQ 25) died, USB 3.1 (also IRQ 25) still worked=
-=E2=80=A6
->>>
->>> After a while, we found that if there is no ethernet link (cable
->>> disconnected) and no USB devices connected (we use a PS/2 keyboard for
->>> enabling jh), everything seems to be stable after enabling jh. USB +
->>> Ethernet works fine if we bring up devices after enabling.
->>>
->>> Yes, we tried turning it off and on again :-) Subsequent jailhouse
->>> disable/enable sequences then seem to remain stable, it's look like
->>> that it's 'important' that those devices are disconnected before
->>> enabling jailhouse for the first time.
->>>
->>> So at least we found some pattern so far.
->>
->> Not sure if AMD has an SMI counter, but i wonder whether the BIOS is
->> messing with you. BIOSs oftern emulate "good old" input devs until the
->> OS initializes USB, for keyboard usage in the bootloader and so on.
->> The NIC could have such a thing going on for PXE.
->>
->=20
-> We disabled all kinds of legacy and emulation stuff in BIOS/UEFI and
-> also its network stack (so no PXE) but results were the same.
->=20
-> AMD has SMI counter not as a register but as a event csource from IOMMU.
-> I let 'perf stat -e smi_recv -e smi_blk' run for some minutes while
-> stessing the hardware and randomly disabling cpu cores, but none of the
-> expected SMI events occured.
-> Even more suprisingly tracing with 'hwlat' in kernel for a while
-> produced not a single trace entry. Seems the hardware is really tame at
-> least in that aspect.
->=20
-> Andrej
->=20
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
 For more options, visit https://groups.google.com/d/optout.
+
+------=_Part_466_1691676408.1556571894499--
