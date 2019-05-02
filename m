@@ -1,120 +1,150 @@
-Return-Path: <jailhouse-dev+bncBDJMJPGY2MGRBZGVVLTAKGQE5CWA3ZI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBRH4VLTAKGQEWKP3NUI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x337.google.com (mail-wm1-x337.google.com [IPv6:2a00:1450:4864:20::337])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75AE511570
-	for <lists+jailhouse-dev@lfdr.de>; Thu,  2 May 2019 10:31:33 +0200 (CEST)
-Received: by mail-wm1-x337.google.com with SMTP id z21sf1144865wmf.9
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 02 May 2019 01:31:33 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1556785893; cv=pass;
+Received: from mail-wr1-x43d.google.com (mail-wr1-x43d.google.com [IPv6:2a00:1450:4864:20::43d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 88F32116BF
+	for <lists+jailhouse-dev@lfdr.de>; Thu,  2 May 2019 11:54:13 +0200 (CEST)
+Received: by mail-wr1-x43d.google.com with SMTP id c14sf1943885wrv.5
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 02 May 2019 02:54:13 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1556790853; cv=pass;
         d=google.com; s=arc-20160816;
-        b=ns40sajWJ2Nwjkgp8hWQHA4u0oxxrhpeljwEzGTRdCmLe4L7OfaD9aYkO57Dv5p6Ca
-         aEiAAsFh0Df4jnwaoLJ3FL1aWQFoOpbL4L54NIuvasVypzIbUOG746SR8UyKKAoOq/9s
-         /weuW1lRmrpJHYRpTxlPwXD0N9JMbPA1YSieWiKcA0f8QDOiQMNF3dEEmftgPdU9KhMU
-         p8U5I1kLnGBGzzzrMcUNotE4Lgzp5yDNoII2BdZOE45y26WGpdNV7n/DvjC5cz2NUK5g
-         HNjpXfAGLrMKDisII9oXN2kjjZCbZeXGFm9DqYkXTLkwsfgbrvaYCaTM1oFGOrRuAC6Y
-         yEbQ==
+        b=Wgcr/U5oO92DnMtEhiGz+HkJqUIquAUYNk/Lo2uCHdSQX9qlRqwSFypNONJNeq2SEi
+         Pjp/W7KGsbk9eu95tnwEsozggaiwMiMbZ2GCVkULnOMSRy3BG1sIDx7f10QrrFuC6AEg
+         jesIYugAtNsOyiakl6pdrvBoiQaA3BDbXGceDVdQufY/hzzhazdQnSexQ/bQZZ5rzmSk
+         Jw8ILdsb6zFBq4TPny2ya1Kcfn/U3QrwTWYgfrUMadIMzg3xarBiNWKTEYmnVXHR9HGG
+         4W4jTAI6lsZdFI643ZABYk5IxIaXeJXeiYDs1KPKc70jcKqOBKjd1Fb+Tvhsogv30/vi
+         PGwA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:sender:dkim-signature;
-        bh=7qMkzKekIO/XP04IrevVWhxG/zshqrVPhzG1bclYfUg=;
-        b=ohkDTFYC67/fFiTK8ePgV6wWC15t1Sx1rGT7OXmRJZBzqDacqOIIk8EsToQlhaIA1L
-         sMYREDuOIVHumnKK/chyFdfxx6O4h0kK7NUmAzyzBjqBBWxPAGXBWL8zP7ENJ8/IeAPl
-         vIqVOijh/Vbr4KW02luqzcSXzCh53zFsz2F8erkCKyyL4kOxtOAjWfNzkJNGbZatWKVn
-         EMpUiYhYsErIvyNI0Jywja92OGNT6X0RDM2ID+CxEqt6LPB/Bh+g6XjVtljRZqV0xDv3
-         cw4FGwsmzbtpzhy9tnnpajpdOCwH3JaFmkwRcBG841OqRwzpZ0b5U4NI20oQCdCUxhDM
-         Y/0w==
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=T2NIbEzTgEiw9bKsBHu8GlYsbAG9HYuqd2LGHWTKHDQ=;
+        b=Yw8Kaz4Bxv0vNYWe8pcDZP86Djd8XNqHXfhZ6pDmxt+j2jVHBy9qy3qibpMGdC6TiE
+         QdMA5U4vVAyXLo+eUEn7JIa0vIRU2Ojc08+gWh6X6ErIQUB3NhQZGM8a75mShXVC9wfw
+         dI6Q04FF81qQgG4wivHUzXiJ/hPZaEsS4wJa+Yx+EVnUBJ9tUhu8rxb3txb5iADMr3Ry
+         MeqwBrWJQ72OU0DozrN+CrKF6HXa3tLg+1Vg0LMTMn7hj04qTqe+uOyK0gWCof9IrTSC
+         QcJ0T2tcJuQXejmHvBmhHrVX5mzFFRBCbQdXqB1iutYen2EaUnfqj28/JCP1tdpPILCG
+         UJDg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of henning.schild@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=henning.schild@siemens.com
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=VqqwG1Hl;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 217.72.192.78 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:cc:subject:message-id:in-reply-to:references
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=7qMkzKekIO/XP04IrevVWhxG/zshqrVPhzG1bclYfUg=;
-        b=fuaGuz127N+KNOpsxac3EoS0gSdtL1bMcbJzMKzxKSzKwpMmF9phOhJ2wqqrHla0zn
-         Cx+quVSA4NFWWSJL6rsLWe+2buox6N+ukvWbZ0gehkaNd9ufU5Tj0hAaNqC5TvYsoCGW
-         Ds6t4HV4s8pdxsafMaqRuH1dBoo5kmbGUzdxkHMBxvTB7C2jvY/yCzyTSvX7Q8XcvYni
-         W8xqEd/EwxEq2sDJLvpD6W9YuRe4K0YwKAlRtdqg7nzU380Cah7kw9rvLBXcnDsH3riE
-         P+UZnNod0gUa388tmo84MnwrKxZzs+OutKD3r5MxEup6Ut9yut8cHaRgPMle2NMv0lU3
-         G2uw==
+        bh=T2NIbEzTgEiw9bKsBHu8GlYsbAG9HYuqd2LGHWTKHDQ=;
+        b=KyrJhd0ipnev5Cg07/4yQs4Yxwqjl3G5wq+rxVSP5be6cWnMzO47znTEcTgXTW7uV+
+         sv//X42w4Z8MVZTEIRgo2ZiK4OqYoMLVXhDT7SHxJygHSEd280aLIY8+/tpznSg6ahp8
+         0iE0psDCLOrvT2Nu0O4zKWMEfHQo2yytFbS7Pii2vphSDT7moffqv1rCyFC/kWb7V9oE
+         9XU4L07EujMv1LP+ZCv+RtS/DGqiIpcrsVn6PoN+4hlb/5lAr8zW1kV0StsGr/cuB+4H
+         WNznQxZFgcB8pzPmojWyf/H6YK2mEDiIuBmTwitzOeq6RfviMvEpxNvKQveLUrzlQS17
+         jWIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:cc:subject:message-id
-         :in-reply-to:references:mime-version:x-original-sender
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=7qMkzKekIO/XP04IrevVWhxG/zshqrVPhzG1bclYfUg=;
-        b=RyG6otTd6DCf46UFGSyP/zDaeXtoADVyW+ZpJ23U3dKUtXHBD6+WaifVHEsIUoXhRK
-         awffrBAC9gAK8JedhdBNCIDh3qKWTl0N22XeyCXi2uJo7ulI+YnEtAYOntqw/AfPtQWS
-         N/E1IWzB6nbUJChX2b+drTE0py7LqwIgEt2dpx/fB5lErJrtPrdM+VQadMdKkIVMage8
-         rWSbZxFH8hNqQkIfaPgia43JX5vwu9bLPrSzIwVMkb0HFI/tGzrGbpjn9P34kRG9d6kn
-         eSfyDeLHbAvpGT/ucwUoURMz098C1eVQcpOHh8M4s/iSYJ/mkO2gI5hntAx2hnlvw+m1
-         S0jw==
+        bh=T2NIbEzTgEiw9bKsBHu8GlYsbAG9HYuqd2LGHWTKHDQ=;
+        b=RxcebVwo7dbGFB3lgPiYWxj05ApYkNRV+NKruvPkXyQnZfKBKQMMFOKKX+NVwpXoT6
+         Q848lN1A0sV3BZYL2Yx+b0+qqnhBjUB78dgNXRy/U9QxMFxnhSbu3ZOEBM9SOlREjC7g
+         rcj4Wv4ODI3wNhDaOqp1sjUi/KKejmGbaSgu3P0Npoa/xuX5muQwqsezhusJGWkomwo8
+         GcC2jyI/hco66HyvD/vyKNrwZ8vaFTQ7YSqkkcRE0U6pUgJmyj8dvKzbbgXAITdY5wdN
+         ISrQvjdrr7Gecl8I5NCB64taYauE5PaHFlwz6e3TQIk62xXyQMro6iXHvAcZqsVryW9+
+         phzQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUFRVvhY0lb+5nZBBRW+gWhYob/oC6ie8FV/kNfVZDMuMa9OhJp
-	fnPDiDPfw/NXSu+YcTxiXIc=
-X-Google-Smtp-Source: APXvYqwtTDnJLT4AGdYhk8L1jXSNJ0fLrkhT0czEmgpB0p03wI1xPoYv6bW7K8+lqrLTZUJoEgQssA==
-X-Received: by 2002:a1c:964a:: with SMTP id y71mr1473098wmd.101.1556785893173;
-        Thu, 02 May 2019 01:31:33 -0700 (PDT)
+X-Gm-Message-State: APjAAAXaMAUOlfyucO5HmhVEFZEjfoVo4EfTF8GThlP/JgZv575h2keO
+	9ILXuVUvirinSr6AzSgc8ec=
+X-Google-Smtp-Source: APXvYqwuI/h9+xvcKnXs2Bno4rI1mhPYvfG7qQCXXEiyOl5WGOdfPPw/2VqugwQPqcIdk13asa1rdg==
+X-Received: by 2002:adf:b35e:: with SMTP id k30mr2104468wrd.13.1556790853199;
+        Thu, 02 May 2019 02:54:13 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:f310:: with SMTP id q16ls429347wmq.3.gmail; Thu, 02 May
- 2019 01:31:32 -0700 (PDT)
-X-Received: by 2002:a1c:41d7:: with SMTP id o206mr1400629wma.130.1556785892544;
-        Thu, 02 May 2019 01:31:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1556785892; cv=none;
+Received: by 2002:a5d:6a8a:: with SMTP id s10ls386359wru.12.gmail; Thu, 02 May
+ 2019 02:54:12 -0700 (PDT)
+X-Received: by 2002:a05:6000:1242:: with SMTP id j2mr2185290wrx.274.1556790852596;
+        Thu, 02 May 2019 02:54:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1556790852; cv=none;
         d=google.com; s=arc-20160816;
-        b=lgUoCLfx5uZQLEG5YB21p8YjsyvbS7jgh9Ja20rmeRt4iwJ16QYmJBwpucOjf6Oc/I
-         /izp0n6nWqDoYPKe0f+cZgrdoP6BhtqkedTEEBQwPD/6IahsdkoWfFWgSAh/0LLSgr52
-         CW+BhqTra4UHLY6g9ysKgNBrjw+sgTxJ4Db7OjbFFCmNTojzI1yg5VO1B7ERY3GjM+QW
-         KNqLa97yXgjI1tqdisvah8IK/ARGMiXH+PrNhgxt4Sixp8uCYA/n2gsKzeMQNZ04DPqL
-         bz9LWVqL0/fukBezKupGE/r0dWxBUbEOL+QPxsk2RJf5FdNrRY9GQWyDwEmUNRn5pESp
-         a4Ew==
+        b=dccJosVs0oB5ZPbAyJWJKHd24pfBrEIqVf9u5Xt6UFbhbdBGFQ8OpNRECowHfHQjFY
+         kSiV+Ra1MC52csCbfG/9ysL0RhvvROt9TfdwCzoACYwS5mFXId15Gtsx4AUxZH482Hmq
+         eOZr5cyaHf8qi1R1uNMbXyZpyqrYwrSfoGxUHPzG5sgLmit7YaWlfpuFRUwrYnEBGxYp
+         Il7KgBmk0wC/BDWKa3BhW2L6OJ1HIx+iLWxyAGvJe9KvACrYYEzqYfkbXkjhBe64kpXs
+         kes4HGPFB2PBFrXSF6/zKWmuYKysQUlfpRv3BeEtbygAEKPbIdgYrzcMtEIUBuStu29z
+         mQZQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date;
-        bh=edL1IVjz2Gkz5tgGEePSkTyMcb1WrorgxSpq+faQfnY=;
-        b=JNg0KN2voKT6LcLhaeYjiRT2cMpiii+ddx4jDUZwtJsNIQKAg40AlqCA5cP3v8C6de
-         UrVb4p0khfBEcuIr405puxeu29//GfsyuCAeXxkoLtoeoD19D6Ggp7j/9WPCHN7SRTeq
-         kvnAqiyrSwB5DUroD6wYqSM0nPr8eHajoUifhtwemeP1bM2FLKd8koNR4A7919vFc4Wj
-         4JxEpKul5lVujGuQIYoOrvrPy1pXAP8MFTg3RlSy6KaxBdkn/l3XKTXxQcfYaZxZJ1GX
-         1OXHEhcfMz9s1tEbUMoI/o7m4Wr2T4zc6HR4OEJz20u45RQ2cRAGZ/+tYoEFbFxk5N72
-         xtSQ==
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject
+         :dkim-signature;
+        bh=lYAZBTDsQed4sj3l6QjFmQQkJNbs38zOvvD2L9v1QvQ=;
+        b=FqCZnkDKxt93tieOxSJ8bnnylrgARy+b0vfNFwX3xrESzKbSEh7b01/VzcDPq5iGur
+         7sgbKh6zpEwkqatMrDSyR1sMxuAjVhsOA0JxCcRcGU+eh3qTh9jRND3+4VgJXzPnfJLG
+         UGWQO/zHpAAMvc0GyrGTqipQyidsuoUYJ8lsfiHsnCTDQrOJFz83f9Bj5Rpox5efQvhJ
+         a9JZ8BjU0sxZjsaJvBsgXn2rC9xlOSwjIfI4RKllsdkjEjg4dIw5KHsUYc+4no1rhbCr
+         SblKFEDu//bwHd0EzV7R6SxYZ+cCCrdmUgQnxHe2LNXjyk8H4b87zfrgY29WTsOPrAIz
+         EX6Q==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of henning.schild@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=henning.schild@siemens.com
-Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
-        by gmr-mx.google.com with ESMTPS id f1si355009wme.1.2019.05.02.01.31.32
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=VqqwG1Hl;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 217.72.192.78 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Received: from mout.web.de (mout.web.de. [217.72.192.78])
+        by gmr-mx.google.com with ESMTPS id z70si382252wmc.2.2019.05.02.02.54.12
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 02 May 2019 01:31:32 -0700 (PDT)
-Received-SPF: pass (google.com: domain of henning.schild@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id x428VWXe022496
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 2 May 2019 10:31:32 +0200
-Received: from md1za8fc.ad001.siemens.net ([139.25.68.211])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id x428VWbm027362;
-	Thu, 2 May 2019 10:31:32 +0200
-Date: Thu, 2 May 2019 10:31:31 +0200
-From: Henning Schild <henning.schild@siemens.com>
-To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Cc: <jailhouse-dev@googlegroups.com>
-Subject: Re: [PATCH 5/5] pyjailhouse: let the generator produce speaking
- names for PCI caps
-Message-ID: <20190502103131.4dd5d0b0@md1za8fc.ad001.siemens.net>
-In-Reply-To: <20190430214504.2153-6-ralf.ramsauer@oth-regensburg.de>
-References: <20190430214504.2153-1-ralf.ramsauer@oth-regensburg.de>
-	<20190430214504.2153-6-ralf.ramsauer@oth-regensburg.de>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+        Thu, 02 May 2019 02:54:12 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 217.72.192.78 as permitted sender) client-ip=217.72.192.78;
+X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
+Received: from [192.168.1.159] ([95.157.57.47]) by smtp.web.de (mrweb103
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 0LsQTc-1gbpIi0FB2-011yHK; Thu, 02
+ May 2019 11:54:12 +0200
+Subject: Re: Building on Orange Pi
+To: =?UTF-8?Q?Arvid_Ros=c3=a9n?= <arvid@softube.com>,
+ "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
+References: <F1D21E89-5762-4890-A51F-5BFC0F0B4E0A@softube.com>
+ <75218ca9-fd8f-6afd-8972-0852c8121060@siemens.com>
+ <225DD87D-67CA-4969-A334-B1B27FB05B9E@softube.com>
+ <36943512-5495-d84b-888f-e3752adb4a4e@web.de>
+ <6CB50872-A7FF-4688-BB7D-123AF52DD87B@softube.com>
+From: Jan Kiszka <jan.kiszka@web.de>
+Message-ID: <454361b4-b5fd-de0b-5d5f-d4c51f4b786b@web.de>
+Date: Thu, 2 May 2019 11:54:11 +0200
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
+ Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-X-Original-Sender: henning.schild@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of henning.schild@siemens.com designates 192.35.17.2 as
- permitted sender) smtp.mailfrom=henning.schild@siemens.com
+In-Reply-To: <6CB50872-A7FF-4688-BB7D-123AF52DD87B@softube.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:DIyLEzjTk4zQYjJtMjEudJeFnfof7UlTyCccmqKrqU5wUXyMWc2
+ fH8+T3KOmiSrprEh0n71lHuOjIXQsKegyrilnRhhY1NUrqUwpEYIAZUaQC6a5iacCJUn8cZ
+ mK35kmb+KThGo4XTKjEKQ9sZDK7RirAG9aP+SQRhYpRknCqzRP7k+8Njrxmx6Fw/Ec6NinO
+ 4T9gC8/bKAQWZkIpraGvg==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:j+LJOPW3O6E=:d4hnIRYxzICV2YlfnY+x0K
+ pcm+qL150Vss9tTHft0nXUU8tG1atyQRAIE3bwvMDHyP0GMmD6LRpzbvjvCNuWAvePUrArotP
+ BbLUI4yc6jzQqrCqe5irNR6E4upnYttgdgu9+mA8LJv//+Hjybcxjzsg2ENZcNNbcHYM7M7/2
+ TxFck3P4Nvo2jPQEk7TwhBxK2K2KRg7pSwk7bNwe4gF523CDSx+rgimZP6UMSoe9GV+GlZtVk
+ wQnQH9zSx/Q61q1R6AxeunQttlYSdsh6dKD/PJM2zY305ty6VRyzUx6tyoq/DL+8i3g+pdzX3
+ s0x8BHAlkaq+2F76E3bbhqxH0xUq8DRY+JdLLVf667H/tqKhCBlY1Q6MHlLOfj6ScvaDked2l
+ cIcLnhpsiGAYKTKjQ8+mtjVzgOhAyjkCeODvSK67kgzRhA+lCG9WIR3MciqUVZhvDYy/ruvJ5
+ X6RGwacGO9U/Jjscq1T9Wg3eFe296ny+WJkV4VyrPuEtMB5eZqyd6qUoLeFbej2gfs8modtkC
+ Y9aaL7B73izFyP6/ZDDy1gimsmZKxdNNpvd0kuKpVuoEczh59YycJm7ZkN/DWXPX0Umz6thQQ
+ xSIZgwswGdmtmGE8fJEtPBDWzyLTHIgmT6WiANX6veXFBu3GULfX5HqNh4ypAFjFjdK4P+sR+
+ XLOJHJp5hjU1YBzZhywsqqGwOK+01GJBVGUjsNml/EJYg90mo6HOT0td6mqXhkuqCSj3z6zmP
+ Qx7/xoiGTt6qYTB9rxYpIePgjcXBt9/A0nzAqGIWIW9U8Is+sF949ddb4ZkrSSCDBN5LxHIXT
+ mK73GRFwjyTb9aQBEDDkyifTm0uWU8JrHIFBl4YG1y9w6rDqkw9qnGhtdt/oKGtHpO3omJmtN
+ 5T9ARbhlzD1On1arQr7ClSsO5RnxC4yQqqCResyhnE7RVAEGV+0Vmy1qloB8h8QkulImZJJgL
+ UP3YZu6l/AoXnIPC1z29zyy0AwNBXT74Fq0kvq5v5L0mAbjoQiT09oVGAyy1Ime9qDSR6SYTc
+ MBpiTzpbFLNcngYCL6w5Auk=
+X-Original-Sender: jan.kiszka@web.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@web.de header.s=dbaedf251592 header.b=VqqwG1Hl;       spf=pass
+ (google.com: domain of jan.kiszka@web.de designates 217.72.192.78 as
+ permitted sender) smtp.mailfrom=jan.kiszka@web.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -127,194 +157,216 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi Ralf,
+On 02.05.19 09:48, Arvid Ros=C3=A9n wrote:
+> Hi again,
+>
+> See my commands and output below.
+>
+> =EF=BB=BFOn 2019-05-01, 20:48, "jailhouse-dev@googlegroups.com on behalf =
+of Jan Kiszka" <jailhouse-dev@googlegroups.com on behalf of jan.kiszka@web.=
+de> wrote:
+>
+>      > On 30.04.19 21:56, Arvid Ros=C3=A9n wrote:
+>      >> Hi Jan,
+>      >>
+>      >> Thanks! Sorry for top posting and also being unclear. I can pull =
+the sources from the repo, and download kernel sources for the running kern=
+el. However, when I try to build it, just by typing "make", I get a build e=
+rror related to the syntax used in .S files and also something that I think=
+ is related to tumb2 instructions. I presumed that I either needed some spe=
+cial toolchain, or some custom configuration in the jailhouse tree or maybe=
+ some patch or something. Or is this supposed to work out of the box?
+>
+>      > Please describe in more details what all you installed in the targ=
+et. Also
+>      > provide a console dump from what you called and what errors you go=
+t.
+>
+> I have installed kernel headers of the running kernel, gcc, build-essenti=
+al and the packages listed in the control file.
+> Then, I try to compile jailhouse and explicitly pointing to the installed=
+ kernel headers. Is this correct btw? Or do I need to get the full kernel s=
+ource and compile on my target machine?
+>
+> arvid@orangepizero:~/jailhouse$ make KDIR=3D/usr/src/linux-headers-4.19.2=
+5-sunxi
 
-redefining the "Enum" seems not too elegant. Did you look into ways to
-use the header from python?
+Where did you get that kernel from?
 
-The "defines" should be really easy to parse without even using a
-special python library. The only real problem might be locating the
-header, it would need to be installed when running "installed" or
-relative when running "local".
+>    UPD     /home/arvid/jailhouse/hypervisor/include/generated/config.mk
+>    CC      /home/arvid/jailhouse/configs/arm/bananapi-gic-demo.o
+>    OBJCOPY /home/arvid/jailhouse/configs/arm/bananapi-gic-demo.cell
+>    CC      /home/arvid/jailhouse/configs/arm/bananapi-linux-demo.o
+>    OBJCOPY /home/arvid/jailhouse/configs/arm/bananapi-linux-demo.cell
+>    CC      /home/arvid/jailhouse/configs/arm/bananapi-uart-demo.o
+>    OBJCOPY /home/arvid/jailhouse/configs/arm/bananapi-uart-demo.cell
+>    CC      /home/arvid/jailhouse/configs/arm/bananapi.o
+>    OBJCOPY /home/arvid/jailhouse/configs/arm/bananapi.cell
+>    CC      /home/arvid/jailhouse/configs/arm/emtrion-rzg1e-linux-demo.o
+>    OBJCOPY /home/arvid/jailhouse/configs/arm/emtrion-rzg1e-linux-demo.cel=
+l
+>    CC      /home/arvid/jailhouse/configs/arm/emtrion-rzg1e-uart-demo.o
+>    OBJCOPY /home/arvid/jailhouse/configs/arm/emtrion-rzg1e-uart-demo.cell
+>    CC      /home/arvid/jailhouse/configs/arm/emtrion-rzg1e.o
+>    OBJCOPY /home/arvid/jailhouse/configs/arm/emtrion-rzg1e.cell
+>    CC      /home/arvid/jailhouse/configs/arm/emtrion-rzg1h-linux-demo.o
+>    OBJCOPY /home/arvid/jailhouse/configs/arm/emtrion-rzg1h-linux-demo.cel=
+l
+>    CC      /home/arvid/jailhouse/configs/arm/emtrion-rzg1h-uart-demo.o
+>    OBJCOPY /home/arvid/jailhouse/configs/arm/emtrion-rzg1h-uart-demo.cell
+>    CC      /home/arvid/jailhouse/configs/arm/emtrion-rzg1h.o
+>    OBJCOPY /home/arvid/jailhouse/configs/arm/emtrion-rzg1h.cell
+>    CC      /home/arvid/jailhouse/configs/arm/emtrion-rzg1m-linux-demo.o
+>    OBJCOPY /home/arvid/jailhouse/configs/arm/emtrion-rzg1m-linux-demo.cel=
+l
+>    CC      /home/arvid/jailhouse/configs/arm/emtrion-rzg1m-uart-demo.o
+>    OBJCOPY /home/arvid/jailhouse/configs/arm/emtrion-rzg1m-uart-demo.cell
+>    CC      /home/arvid/jailhouse/configs/arm/emtrion-rzg1m.o
+>    OBJCOPY /home/arvid/jailhouse/configs/arm/emtrion-rzg1m.cell
+>    CC      /home/arvid/jailhouse/configs/arm/jetson-tk1-demo.o
+>    OBJCOPY /home/arvid/jailhouse/configs/arm/jetson-tk1-demo.cell
+>    CC      /home/arvid/jailhouse/configs/arm/jetson-tk1-linux-demo.o
+>    OBJCOPY /home/arvid/jailhouse/configs/arm/jetson-tk1-linux-demo.cell
+>    CC      /home/arvid/jailhouse/configs/arm/jetson-tk1.o
+>    OBJCOPY /home/arvid/jailhouse/configs/arm/jetson-tk1.cell
+>    CC      /home/arvid/jailhouse/configs/arm/orangepi0-gic-demo.o
+>    OBJCOPY /home/arvid/jailhouse/configs/arm/orangepi0-gic-demo.cell
+>    CC      /home/arvid/jailhouse/configs/arm/orangepi0-linux-demo.o
+>    OBJCOPY /home/arvid/jailhouse/configs/arm/orangepi0-linux-demo.cell
+>    CC      /home/arvid/jailhouse/configs/arm/orangepi0.o
+>    OBJCOPY /home/arvid/jailhouse/configs/arm/orangepi0.cell
+>    DTC     /home/arvid/jailhouse/configs/arm/dts/inmate-bananapi.dtb
+>    DTC     /home/arvid/jailhouse/configs/arm/dts/inmate-emtrion-emconrzg1=
+e.dtb
+>    DTC     /home/arvid/jailhouse/configs/arm/dts/inmate-emtrion-emconrzg1=
+h.dtb
+>    DTC     /home/arvid/jailhouse/configs/arm/dts/inmate-emtrion-emconrzg1=
+m.dtb
+>    DTC     /home/arvid/jailhouse/configs/arm/dts/inmate-jetson-tk1.dtb
+>    DTC     /home/arvid/jailhouse/configs/arm/dts/inmate-orangepi0.dtb
+>    UPD     /home/arvid/jailhouse/hypervisor/include/generated/version.h
+>    CC [M]  /home/arvid/jailhouse/driver/cell.o
+>    CC [M]  /home/arvid/jailhouse/driver/main.o
+>    CC [M]  /home/arvid/jailhouse/driver/sysfs.o
+>    DTC     /home/arvid/jailhouse/driver/vpci_template.dtb
+>    DTB     /home/arvid/jailhouse/driver/vpci_template.dtb.S
+>    AS [M]  /home/arvid/jailhouse/driver/vpci_template.dtb.o
+>    LD [M]  /home/arvid/jailhouse/driver/jailhouse.o
+>    CC      /home/arvid/jailhouse/hypervisor/arch/arm/asm-defines.s
+>    GEN     /home/arvid/jailhouse/hypervisor/arch/arm/include/generated/as=
+m/asm-defines.h
+>    CC      /home/arvid/jailhouse/hypervisor/arch/arm/../arm-common/contro=
+l.o
+>    CC      /home/arvid/jailhouse/hypervisor/arch/arm/../arm-common/dbg-wr=
+ite.o
+>    CC      /home/arvid/jailhouse/hypervisor/arch/arm/../arm-common/gic-v2=
+.o
+>    CC      /home/arvid/jailhouse/hypervisor/arch/arm/../arm-common/gic-v3=
+.o
+>    CC      /home/arvid/jailhouse/hypervisor/arch/arm/../arm-common/irqchi=
+p.o
+>    CC      /home/arvid/jailhouse/hypervisor/arch/arm/../arm-common/ivshme=
+m.o
+>    CC      /home/arvid/jailhouse/hypervisor/arch/arm/../arm-common/lib.o
+>    CC      /home/arvid/jailhouse/hypervisor/arch/arm/../arm-common/mmu_ce=
+ll.o
+>    CC      /home/arvid/jailhouse/hypervisor/arch/arm/../arm-common/paging=
+.o
+>    CC      /home/arvid/jailhouse/hypervisor/arch/arm/../arm-common/pci.o
+>    CC      /home/arvid/jailhouse/hypervisor/arch/arm/../arm-common/psci.o
+>    CC      /home/arvid/jailhouse/hypervisor/arch/arm/../arm-common/setup.=
+o
+>    CC      /home/arvid/jailhouse/hypervisor/arch/arm/../arm-common/smccc.=
+o
+>    CC      /home/arvid/jailhouse/hypervisor/arch/arm/../arm-common/uart-h=
+scif.o
+>    CC      /home/arvid/jailhouse/hypervisor/arch/arm/../arm-common/uart-i=
+mx.o
+>    CC      /home/arvid/jailhouse/hypervisor/arch/arm/../arm-common/uart-m=
+vebu.o
+>    CC      /home/arvid/jailhouse/hypervisor/arch/arm/../arm-common/uart-p=
+l011.o
+>    CC      /home/arvid/jailhouse/hypervisor/arch/arm/../arm-common/uart-s=
+cifa.o
+>    CC      /home/arvid/jailhouse/hypervisor/arch/arm/../arm-common/uart-x=
+uartps.o
+>    AS      /home/arvid/jailhouse/hypervisor/arch/arm/caches.o
+> /home/arvid/jailhouse/hypervisor/arch/arm/caches.S: Assembler messages:
+> /home/arvid/jailhouse/hypervisor/arch/arm/caches.S:22: Error: invalid reg=
+ister list to push/pop instruction -- `push {r0-r10}'
+> /home/arvid/jailhouse/hypervisor/arch/arm/caches.S:26: Error: instruction=
+ not supported in Thumb16 mode -- `ands r3,r0,#0x07000000'
+> /home/arvid/jailhouse/hypervisor/arch/arm/caches.S:30: Error: only lo reg=
+s allowed with immediate -- `mov r9,#0'
+> /home/arvid/jailhouse/hypervisor/arch/arm/caches.S:33: Error: unshifted r=
+egister required -- `add r2,r9,r9,lsr#1'
+> /home/arvid/jailhouse/hypervisor/arch/arm/caches.S:34: Error: source1 and=
+ dest must be same register -- `lsr r1,r0,r2'
+> /home/arvid/jailhouse/hypervisor/arch/arm/caches.S:35: Error: unshifted r=
+egister required -- `and r1,r1,#7'
+> /home/arvid/jailhouse/hypervisor/arch/arm/caches.S:43: Error: unshifted r=
+egister required -- `and r2,r1,#7'
+> /home/arvid/jailhouse/hypervisor/arch/arm/caches.S:46: Error: instruction=
+ not supported in Thumb16 mode -- `ands r4,r4,r1,lsr#3'
+> /home/arvid/jailhouse/hypervisor/arch/arm/caches.S:52: Error: instruction=
+ not supported in Thumb16 mode -- `ands r7,r7,r1,lsr#13'
+> /home/arvid/jailhouse/hypervisor/arch/arm/caches.S:54: Error: unshifted r=
+egister required -- `orr r10,r9,r8,lsl r5'
+> /home/arvid/jailhouse/hypervisor/arch/arm/caches.S:55: Error: unshifted r=
+egister required -- `orr r10,r10,r7,lsl r2'
+> /home/arvid/jailhouse/hypervisor/arch/arm/caches.S:59: Error: instruction=
+ not supported in Thumb16 mode -- `subs r7,r7,#1'
+> /home/arvid/jailhouse/hypervisor/arch/arm/caches.S:61: Error: instruction=
+ not supported in Thumb16 mode -- `subs r8,r8,#1'
+> /home/arvid/jailhouse/hypervisor/arch/arm/caches.S:65: Error: lo register=
+ required -- `add r9,r9,#2'
+> /home/arvid/jailhouse/hypervisor/arch/arm/caches.S:71: Error: invalid reg=
+ister list to push/pop instruction -- `pop {r0-r10}'
+> scripts/Makefile.build:403: recipe for target '/home/arvid/jailhouse/hype=
+rvisor/arch/arm/caches.o' failed
+> make[4]: *** [/home/arvid/jailhouse/hypervisor/arch/arm/caches.o] Error 1
+> scripts/Makefile.build:544: recipe for target '/home/arvid/jailhouse/hype=
+rvisor/arch/arm' failed
+> make[3]: *** [/home/arvid/jailhouse/hypervisor/arch/arm] Error 2
+> scripts/Makefile.build:544: recipe for target '/home/arvid/jailhouse/hype=
+rvisor' failed
+> make[2]: *** [/home/arvid/jailhouse/hypervisor] Error 2
+> Makefile:1520: recipe for target '_module_/home/arvid/jailhouse' failed
+> make[1]: *** [_module_/home/arvid/jailhouse] Error 2
+> Makefile:40: recipe for target 'modules' failed
+> make: *** [modules] Error 2
+>
+>
+> This seems to be caused by AS using the wrong syntax or something. After =
+some searching, I can fix it by adding the line:
+> .syntax unified
+> to the top of the file.
+>
+> However, I then run into the following problem:
+>    UPD     /home/arvid/jailhouse/hypervisor/include/generated/version.h
+>    CC [M]  /home/arvid/jailhouse/driver/main.o
+>    LD [M]  /home/arvid/jailhouse/driver/jailhouse.o
+>    AS      /home/arvid/jailhouse/hypervisor/arch/arm/caches.o
+> /home/arvid/jailhouse/hypervisor/arch/arm/caches.S: Assembler messages:
+> /home/arvid/jailhouse/hypervisor/arch/arm/caches.S:55: Error: shift must =
+be constant -- `orr r10,r9,r8,lsl r5'
+> /home/arvid/jailhouse/hypervisor/arch/arm/caches.S:56: Error: shift must =
+be constant -- `orr r10,r10,r7,lsl r2'
+>
+> My guess is that this is caused by the fact that AS is trying to assemble=
+ the file for arch=3Dthumb, but the source is written for arch=3Darm.
+> I'm not good at this, so that might be totally wrong of course.
+>
 
-Henning
+It is probably related to the kernel headers package used here, because the
+whole thing works fine with our kernel. May still be a bug in the Jailhouse
+build system in the end.
 
-Am Tue, 30 Apr 2019 23:45:04 +0200
-schrieb Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>:
+Jan
 
-> Definitions on C-side are in place, so let the generator produce those
-> definitions.
-> 
-> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-> ---
->  pyjailhouse/sysfs_parser.py   | 79
-> +++++++++++++++++++++++++++++++---- tools/root-cell-config.c.tmpl |
-> 6 +-- 2 files changed, 72 insertions(+), 13 deletions(-)
-> 
-> diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py
-> index 4bb50605..368714b0 100644
-> --- a/pyjailhouse/sysfs_parser.py
-> +++ b/pyjailhouse/sysfs_parser.py
-> @@ -22,6 +22,8 @@ import struct
->  import os
->  import fnmatch
->  
-> +from enum import Enum
-> +
->  root_dir = "/"
->  
->  def set_root_dir(dir):
-> @@ -542,6 +544,65 @@ class PCIBARs:
->          f.close()
->  
->  
-> +class PCI_CAP_ID(Enum):
-> +    PM     = 0x01 # Power Management
-> +    VPD    = 0x03 # Vital Product Data
-> +    MSI    = 0x05 # Message Signalled Interrupts
-> +    HT     = 0x08 # HyperTransport
-> +    VNDR   = 0x09 # Vendor-Specific
-> +    DBG    = 0x0A # Debug port
-> +    SSVID  = 0x0D # Bridge subsystem vendor/device ID
-> +    SECDEV = 0x0F # Secure Device
-> +    EXP    = 0x10 # PCI Express
-> +    MSIX   = 0x11 # MSI-X
-> +    SATA   = 0x12 # SATA Data/Index Conf.
-> +    AF     = 0x13 # PCI Advanced Features
-> +
-> +    def __str__(self):
-> +        return "PCI_CAP_ID_" + self.name
-> +
-> +
-> +class PCI_EXT_CAP_ID(Enum):
-> +    ZERO    = 0x00 # ???
-> +
-> +    ERR     = 0x01 # Advanced Error Reporting
-> +    VC      = 0x02 # Virtual Channel Capability
-> +    DSN     = 0x03 # Device Serial Number
-> +    PWR     = 0x04 # Power Budgeting
-> +    RCLD    = 0x05 # Root Complex Link Declaration
-> +    RCILC   = 0x06 # Root Complex Internal Link Control
-> +    RCEC    = 0x07 # Root Complex Event Collector
-> +    MFVC    = 0x08 # Multi-Function VC Capability
-> +    VC9     = 0x09 # same as _VC
-> +    RCRB    = 0x0A # Root Complex RB?
-> +    VNDR    = 0x0B # Vendor-Specific
-> +    CAC     = 0x0C # Config Access - obsolete
-> +    ACS     = 0x0D # Access Control Services
-> +    ARI     = 0x0E # Alternate Routing ID
-> +    ATS     = 0x0F # Address Translation Services
-> +    SRIOV   = 0x10 # Single Root I/O Virtualization
-> +    MRIOV   = 0x11 # Multi Root I/O Virtualization
-> +    MCAST   = 0x12 # Multicast
-> +    PRI     = 0x13 # Page Request Interface
-> +    AMD_XXX = 0x14 # Reserved for AMD
-> +    REBAR   = 0x15 # Resizable BAR
-> +    DPA     = 0x16 # Dynamic Power Allocation
-> +    TPH     = 0x17 # TPH Requester
-> +    LTR     = 0x18 # Latency Tolerance Reporting
-> +    SECPCI  = 0x19 # Secondary PCIe Capability
-> +    PMUX    = 0x1A # Protocol Multiplexing
-> +    PASID   = 0x1B # Process Address Space ID
-> +    DPC     = 0x1D # Downstream Port Containment
-> +    L1SS    = 0x1E # L1 PM Substates
-> +    PTM     = 0x1F # Precision Time Measurement
-> +
-> +    def __str__(self):
-> +        id = "0x00"
-> +        if self.value != 0:
-> +            id = "PCI_EXT_CAP_ID_" + self.name
-> +        return id + " | JAILHOUSE_PCI_EXT_CAP"
-> +
-> +
->  class PCICapability:
->      def __init__(self, id, start, len, flags, content, msix_address):
->          self.id = id
-> @@ -580,11 +641,12 @@ class PCICapability:
->              msix_address = 0
->              f.seek(cap)
->              (id, next) = struct.unpack('<BB', f.read(2))
-> -            if id == 0x01:  # Power Management
-> +            id = PCI_CAP_ID(id)
-> +            if id == PCI_CAP_ID.PM:
->                  # this cap can be handed out completely
->                  len = 8
->                  flags = PCICapability.RW
-> -            elif id == 0x05:  # MSI
-> +            elif id == PCI_CAP_ID.MSI:
->                  # access will be moderated by hypervisor
->                  len = 10
->                  (msgctl,) = struct.unpack('<H', f.read(2))
-> @@ -593,7 +655,7 @@ class PCICapability:
->                  if (msgctl & (1 << 8)) != 0:  # per-vector masking
-> support len += 10
->                  flags = PCICapability.RW
-> -            elif id == 0x10:  # Express
-> +            elif id == PCI_CAP_ID.EXP:
->                  len = 20
->                  (cap_reg,) = struct.unpack('<H', f.read(2))
->                  if (cap_reg & 0xf) >= 2:  # v2 capability
-> @@ -601,7 +663,7 @@ class PCICapability:
->                  # access side effects still need to be analyzed
->                  flags = PCICapability.RD
->                  has_extended_caps = True
-> -            elif id == 0x11:  # MSI-X
-> +            elif id == PCI_CAP_ID.MSIX:
->                  # access will be moderated by hypervisor
->                  len = 12
->                  (table,) = struct.unpack('<xxI', f.read(6))
-> @@ -637,8 +699,9 @@ class PCICapability:
->                            'Extended Capability ID %x' % id)
->                      continue
->  
-> +                id = PCI_EXT_CAP_ID(id)
->                  next = version_next >> 4
-> -                if id == 0x0010:  # SR-IOV
-> +                if id == PCI_EXT_CAP_ID.SRIOV:
->                      len = 64
->                      # access side effects still need to be analyzed
->                      flags = PCICapability.RD
-> @@ -648,7 +711,6 @@ class PCICapability:
->                      flags = PCICapability.RD
->                  f.seek(cap + 4)
->                  content = f.read(len - 4)
-> -                id |= PCICapability.JAILHOUSE_PCI_EXT_CAP
->                  caps.append(PCICapability(id, cap, len, flags,
-> content, 0)) 
->          f.close()
-> @@ -674,9 +736,10 @@ class PCIDevice:
->          self.msix_region_size = 0
->          self.msix_address = 0
->          for c in caps:
-> -            if c.id in (0x05, 0x11):
-> +            if isinstance(c.id, PCI_CAP_ID) and \
-> +               c.id in (PCI_CAP_ID.MSI, PCI_CAP_ID.MSIX):
->                  msg_ctrl = struct.unpack('<H', c.content[:2])[0]
-> -                if c.id == 0x05:  # MSI
-> +                if c.id == PCI_CAP_ID.MSI:
->                      self.num_msi_vectors = 1 << ((msg_ctrl >> 1) &
-> 0x7) self.msi_64bits = (msg_ctrl >> 7) & 1
->                  else:  # MSI-X
-> diff --git a/tools/root-cell-config.c.tmpl
-> b/tools/root-cell-config.c.tmpl index b80d7889..b4d64adf 100644
-> --- a/tools/root-cell-config.c.tmpl
-> +++ b/tools/root-cell-config.c.tmpl
-> @@ -196,11 +196,7 @@ struct {
->  		/* ${comment} */
->  		% endfor
->  		{
-> -			% if (c.id & 0x8000) != 0:
-> -			.id = ${hex(c.id & 0x7fff)} |
-> JAILHOUSE_PCI_EXT_CAP,
-> -			% else:
-> -			.id = ${hex(c.id)},
-> -			% endif
-> +			.id = ${c.id},
->  			.start = ${hex(c.start)},
->  			.len = ${c.len},
->  			.flags = ${c.flags},
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
 For more options, visit https://groups.google.com/d/optout.
