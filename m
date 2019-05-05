@@ -1,34 +1,34 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBB5VXLTAKGQEIVTAGVY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBJFWXLTAKGQEWIHVEPQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x53f.google.com (mail-ed1-x53f.google.com [IPv6:2a00:1450:4864:20::53f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94CEF13E64
-	for <lists+jailhouse-dev@lfdr.de>; Sun,  5 May 2019 10:10:48 +0200 (CEST)
-Received: by mail-ed1-x53f.google.com with SMTP id z5sf8819266edz.3
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 05 May 2019 01:10:48 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1557043848; cv=pass;
+Received: from mail-lf1-x13b.google.com (mail-lf1-x13b.google.com [IPv6:2a00:1450:4864:20::13b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6155D13E67
+	for <lists+jailhouse-dev@lfdr.de>; Sun,  5 May 2019 10:13:25 +0200 (CEST)
+Received: by mail-lf1-x13b.google.com with SMTP id 134sf1148650lfk.23
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 05 May 2019 01:13:25 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1557044005; cv=pass;
         d=google.com; s=arc-20160816;
-        b=UKpG8XCnOpoEqifL1q3jFJVnPZBsxM89StOtJZQ0wxRdr03uDktKpp9l4dq+kRK0N9
-         GNQlCcR6hmRTaM8YY2f9UJpXIY/pWrPvmzd5ncL0WuQaJ4sGQBO7q3ncp6c5UDDQg+Uk
-         kHDMPtqppAt00+eHtKW2U4/qQst2hP1S5lQxA2v4om+Y2TeMWGKxK0EuwB7dBtsQ/X5j
-         L78akths1DY8LNPa5ujiKG1jVBXjTj2dTEq1ei3DSUJiFKeh+9H7kpNukUYPiE+8Cc+K
-         z31225oWS1ETD2vUvbue9O+OLO3E9pM9uRYyDILzSdNo3/uPX96ypwKAkFvx+kjahdiy
-         clBQ==
+        b=TEwPx/eRqfzZRjQRPjyu7Cb14ICzJfowXbg73tIPP08AMsbKd654Q7jPzu54HDIMgO
+         PO4/Slj+yzAXgQvc/AwUkIdgGILU1GyPzaj/lW+jBxCnz1TjfGnWQRfAwywx3eWT3vo0
+         fVp4e3OmAbMy41J5JbbNttxHyU3sQBPA5K9LAcEWaQmxr2GXB3WxjGnRYwcPVCJT8E17
+         280duGFvN6dmwUKbaHhCLtpfYynzKZxbricDYr3ICn9/5fFw0Uqmj5+uFa9V9alYvJud
+         L0SU2oSYI9XGRSZC1tnXMCrnuHoUFcCMWSaP1cF8VASf+BJkN9zoLp4JosbEl7IJpDRl
+         Ceig==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
          :content-language:in-reply-to:mime-version:user-agent:date
          :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=YjoLigcUJT3o5JevXp3KNRcAJNsW8nE6yZfmcmMv4XM=;
-        b=xzZ/p2aobtlGKdLb1qQRGl5m1J5Sgu7Y94i2zDoAQ5xAZ32jTLlhjzh9//vm8KnK5u
-         1CcoOV2pb2VgCBRSRDgkjK5ZlwPsiGZUuFuBHAvQZK40Y98BSNrN60Gd9QnIbj+j9izf
-         wbHqJFtas4N9meTCaoNHdP3kA0w9hzQ5txAb0Wop7xmJld1lpDgzhMDdhBQce4QStf44
-         jTvUZ+WZNpld38JdemLElGB6tLPMyYunawAhkDv15gbjyegnPbQLSsBJSv4cPTe1tNCu
-         gwd4vl7cMQsF1IefOmDin+3eXCeFns2gB/y16aVMDGENNjQ8MlicU6oQCqnG/9Ndhp7k
-         hqFw==
+        bh=xgFASNM2biTlpH0HhICPMhCP86IgxTOxJZ8XUYjIhI8=;
+        b=jRAgviiBf2/qmEXSCA3Qk2h8uIGioi3DrrH60TLf0vd6iLfB82WGhB7Rd6iFkU9ZEb
+         f77M8KJB/0Gz/GYdSQKLEqGnhdxHuLDoaTbiRwbDAKY5EqEDk7/+7Z03rn8Km4ijvGmz
+         uiLvPk5x0rOF6L3HF8YO4l/wIqKNSsGA1jT6rBQ0dHsk62rSn+XqMhXStRn0AAE+Y5s/
+         GyEDQ9eUUN+Pt4lCBp1HYhNkTksIaBq+UP3QiKnYJ6RTe2CJOf6K4l40Zlkun21RIKXE
+         OaSeujGtl8JIjuI61iDq0Y0cFEFnkw69M/jMwtoaZkQnmS+3ebUYTNJr1b9MHrKvNxk3
+         XskQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=lOlZFuB0;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=bTSo2pz0;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:subject:to:references:from:message-id:date:user-agent
@@ -36,13 +36,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=YjoLigcUJT3o5JevXp3KNRcAJNsW8nE6yZfmcmMv4XM=;
-        b=N3U98PjJsWYwLAfUJaZ6Kpk7we/ZqO6w3MCqNsJK2u1vIiIY5JQ2qPVh2iqrLFa76A
-         xeqqwChaqVSLcUiC6MlN+QjuTG2ZIUHFQODj07PxPQXWPZCfXMANHTmvWgE6vvHeOzB0
-         8m/rC0FiZSaFEyOGLtqYft3y+bieaesBuBs8kiTyCnvVQ3WTMgQc8z/F0fZPin0j0Phi
-         WopQNJ+h4yGsMakadiU7bsVSWYnAqrBtN7z2+ieedbka6ZuojYDCDwjxS3fkq64K4R/s
-         GhRBoWXZlH4qGqClDkpK8UVn7bVb6OjhK2nUSe+ep9oH78BWBtjuSx2xZ7iWxDaLYvEP
-         1aqg==
+        bh=xgFASNM2biTlpH0HhICPMhCP86IgxTOxJZ8XUYjIhI8=;
+        b=rEQHjfJE2XmM4eNPZ0OSjt73vFwK3z7Tu6rMg6jThahfuUocjw6smcMKyLoUzCJELb
+         sZmJsW3IFZ5DWFuus1PeTd4wCVhD5JccRLynZIbTz70XHYOp+jncWWGzz+0sx8NcYeEt
+         cIbi/lSs8N6kbBDethD6EYr7YtcgYivbxxCLrZvquo5No+f1rPT0fev1i4Op0A63M8z7
+         vn2wZSbXBJYumxb3321rRWCB66Dvbn8m96rE51xO0YjxD3mrbXbIrC2xqZhRVxLN/2OV
+         m26YOq7QeHQk/y5a6j13YyXKOt+UupaChNQpGRWDktcQEgUcnsInjcx06JnJifTzxPYK
+         PSVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:subject:to:references:from:message-id
@@ -51,112 +51,109 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=YjoLigcUJT3o5JevXp3KNRcAJNsW8nE6yZfmcmMv4XM=;
-        b=Pu3sqze+NoEiFghV9p4yjGtrJ/nBfQ1fOoH+3LjCaKFIJrRnm5sAaNHtRmcnuqkjPE
-         p4kNO8YvXiRN1PASwzBzSnWvjgm8j/unlykr5CeWYoplDUWvt//+vwayZCFmvo+dW/d+
-         o2D8G3wNwSKkrTeI9U0mDtaC+Tk4KpigilYAxK4+CiL1mnmeKBweeBImkEYKkaQNDaud
-         h+W8MW8BheJmM+nqbrQS9GuUXpo79fkW+CJXLu8JVAEQMBcVYg3ncHbulAlFGDwpcG3M
-         Biwtj8mqGHSJ5jdy9XPhrZW9kfyT/71NTaBa+WLy1u2Y/VNU2XVv3+KyOLaq3KS+Gw+O
-         DQzQ==
+        bh=xgFASNM2biTlpH0HhICPMhCP86IgxTOxJZ8XUYjIhI8=;
+        b=Nru2x8H3YbDRbwEuXrTI5tjMiu5Ya18FXRHzfZ64DlVpjlENnxlcdT1wlFtcBoDtKu
+         btY3CQIuUCjk6aWYJjZO+7CoaPzQdSoxLPPqDmHcRQ9kF5DOeGftakloaQM9dE+p+jz3
+         Cu0fes9thUtshw2DY2tD2LtdrGEbVpHaCPpHc/6aJbm4oH5dpRm2DgXhw7Z8C1QYf85l
+         FtoTX1sGAeaIUi/JkouLfzRa0HFfPxnTFsDXYJBGPVXGjDUhwXmo2sLfgyH4ATc945WY
+         TY/sTyhti6f7Pz2lJd3UhD/7yNF3FIXoWjyBwn/06oC+UG+baylj6920di31nf/OTSB8
+         ySpA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVrH7hjeYaxj/xVK9qdq+1edk/cDiLP7Ho2i5DRQj++gAxQUVNU
-	dZ3wb28NDq4xPpN/mSLoGbI=
-X-Google-Smtp-Source: APXvYqwgomU/7g6zc7dTz07JAffSiwRdGKoRNRBnRRYLqebd/QboLFf+D1Y1ykL5N3QIZctWOfqj7w==
-X-Received: by 2002:a50:a5fb:: with SMTP id b56mr19062706edc.262.1557043848315;
-        Sun, 05 May 2019 01:10:48 -0700 (PDT)
+X-Gm-Message-State: APjAAAWyCoC+E2FGE66gQ2/Oox8lqDi7snxszHOReawmnUGdO9j/C1Lo
+	eHVB0aJ6VYZZVuc7tLBfg9M=
+X-Google-Smtp-Source: APXvYqyY2VI/Q3Q4J1/hhl1Uxb9IWQuXAIXBsjvPdgr6RD03SnG/yEgN9g4ZGKG8W0A8dYRtF8LLTg==
+X-Received: by 2002:ac2:43cf:: with SMTP id u15mr9663617lfl.67.1557044004936;
+        Sun, 05 May 2019 01:13:24 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:6047:: with SMTP id p7ls1889188ejj.5.gmail; Sun, 05
- May 2019 01:10:47 -0700 (PDT)
-X-Received: by 2002:a17:906:2542:: with SMTP id j2mr13845072ejb.217.1557043847567;
-        Sun, 05 May 2019 01:10:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1557043847; cv=none;
+Received: by 2002:a2e:240b:: with SMTP id k11ls649163ljk.1.gmail; Sun, 05 May
+ 2019 01:13:24 -0700 (PDT)
+X-Received: by 2002:a2e:9350:: with SMTP id m16mr10028910ljh.38.1557044004440;
+        Sun, 05 May 2019 01:13:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1557044004; cv=none;
         d=google.com; s=arc-20160816;
-        b=RCX8+cr/4nxF2xihOSA2l2GDVWW8EXDD8ebA6RiUJJ3onMziUuUsH+2Mt2ExcoGPop
-         4yBYD4/YwigKSFqexHyB+l2mLdKGUyG5ojBO1d8WdywgpP1wH5afIOEHwRMh2AUmPI2t
-         U382czY6oFe05S6lo4KXuYx+4BfNBw467CUcxAlP5EBF/mGoUkepuFAl0WerZDU4cEt6
-         QoBhD6ySR8H4U4+zUYTxNZQRuvycXxn5xMf1cVwkLNwxNgFOA1eXyRnPdwHLy9s+1dUR
-         sVUVdWa5sGiQFGmWurTirHYf++l5t7q6vsF/eMgEroGoCQ0XAf3arHZAzjkePytBbywd
-         uwbQ==
+        b=pAk9YYYnFOxdFiOnpZnlDgSz/q0agAES5fPiDZYXG2bh3u/qq2S2lWgXQbSG1WYCfp
+         HH9yndn95aWL4QrahHI6sl4pCUnajQOMWE6EMw8svJF+HsMHRrVNrdVJliru+eHUe/+m
+         rImC8LVxCLW3S9sNfD8zV0JQ1eThB6qTXETyBQJ76Qoat3y5qaIiu94WDGnufznZT2go
+         8DGCoB1cLLQJvt1yW9lgsZmMO8947Z3gKdKVP85CANZn6Dwlm3Mss4epWzKgIxkqcDx3
+         y4N5F67+InHgbgq+CrR1AzMLOx5BY/foCvXvFwgfSKj27nJKfjZxi8YElYwNC5YH+rVS
+         phyw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
          :user-agent:date:message-id:from:references:to:subject
          :dkim-signature;
-        bh=U8NcywHbgTrhDEQwkZJreD81ruZgIR9ZUXBj5PQc71o=;
-        b=zDAOU8tSw68fyAL+G9glWteCGY3htokwVLvhKpajv7gPgLy8oE6MqOakkehdYiOOXv
-         /YIBPtYNO43hIPFn9wF3Orpzzef+esnxn/5iDaz3VP/zcdCNScqlFQP8aWQJa2sGXuuw
-         CNgcndQPpeaVAnkpA44nvgSH0iEcbiChVSD1y+6TFBpPA2dC3q/3Z0t9ltVAw2tBu/na
-         C0MQ8d/Ay9CBMl8Sz6FHCukNmOlNUsBPB0VN7Bf8CUXcFHQxgXvR4dT4/fSdX2/aWtiT
-         2pT1259mHPSE/7sZbIm1fcZ9K5c/IlcagQYfZfArmkMza03/34C+NBDWfScp9yt8IB/G
-         4neQ==
+        bh=4rEOvGqmrpRl+DZy1gNYFEbGITm0ooDWR/wLSCGURPw=;
+        b=oucEF/sy5RIfVDWcQQGkLo5xf1SFzSsXi5eFNezsGQWOGtxmJ0qw90fBo44JkgMRPz
+         BDRlbc/svbU0BHRuNv2ctMZG81EtnTqanogK7IujDLt8fTWwNJ4R+jR+Nnhex46HkTkg
+         77u5C0gGG+B8XWdTTI9uVDSp8QejSFbhScX2tQMXubvrR3/zUrSlSIYXkTT9STcRTZF8
+         TeFUxSm2FdwPSgMLMXoJwOy3APlt4509M5g98qSqkLQlrXbHOTeWWViUvV78f66cWZeW
+         PdlcKj3cq/A+3ZYExzZAlgXlu+EEV2zBRtEjm2S4TUDTUpJBruLBXk48qCuy0aF6uBe2
+         axaQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=lOlZFuB0;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
-Received: from mout.web.de (mout.web.de. [212.227.15.4])
-        by gmr-mx.google.com with ESMTPS id j5si281880ejm.1.2019.05.05.01.10.47
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=bTSo2pz0;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Received: from mout.web.de (mout.web.de. [212.227.15.3])
+        by gmr-mx.google.com with ESMTPS id y23si45465lfe.4.2019.05.05.01.13.24
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 05 May 2019 01:10:47 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) client-ip=212.227.15.4;
+        Sun, 05 May 2019 01:13:24 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) client-ip=212.227.15.3;
 X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
 Received: from [192.168.1.10] ([95.157.54.22]) by smtp.web.de (mrweb003
- [213.165.67.108]) with ESMTPSA (Nemesis) id 0Lcxw8-1gwh7O40FU-00iAjV; Sun, 05
- May 2019 10:10:47 +0200
-Subject: Re: JAILHOUSE hangs with exception when trying to enable the root
- cell
-To: =?UTF-8?Q?Hakk=c4=b1_Kurumahmut?= <hkurumahmut84@hotmail.com>,
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 0LuuSf-1gfRL93og5-0107I5; Sun, 05
+ May 2019 10:13:22 +0200
+Subject: Re: Inmate accessing RAM problem
+To: =?UTF-8?Q?Jo=c3=a3o_Reis?= <jpagsreis@gmail.com>,
  Jailhouse <jailhouse-dev@googlegroups.com>
-References: <16e3b6ef-37e1-4734-aba4-247bcbbc18e0@googlegroups.com>
- <63f974a9-5944-4f1f-77a2-4bd7393ff8a6@siemens.com>
- <05d90171-db1f-4031-a7b2-48570eb37847@googlegroups.com>
- <fdfcd6e7-e2a5-4187-b079-ca643fb281a1@googlegroups.com>
- <32bc2861-e11e-4ab0-bdcf-063e2c05318d@googlegroups.com>
- <f704088f-99c1-4ec0-bd5e-90e15874cc7d@googlegroups.com>
- <3e5ad4e4-abac-03f5-5402-661e62a83944@siemens.com>
- <7f55a310-7bb7-4a3f-b111-0c2a24939b7c@googlegroups.com>
- <1f880925-0420-7c15-1aa4-07d001a6efce@siemens.com>
- <bcd32c87-28e7-4747-b3ab-ebaedf160309@googlegroups.com>
- <32d0b346-10e4-de18-1d24-95e4e4cff977@web.de>
- <9732f874-1271-4296-b2ef-ededba614a87@googlegroups.com>
- <7deff203-cf29-6353-128a-8b40f8d42584@web.de>
- <cbeb1b02-5799-472c-bb5c-f6eb62a60305@googlegroups.com>
- <8ef112a9-2f0f-9205-3e67-f0c6fed498ba@siemens.com>
- <3cb885a7-8b66-42b4-adf2-6fc98375efa9@googlegroups.com>
- <26834bed-4a78-4bac-b093-d8f9e2646e72@googlegroups.com>
- <6ca6fe6a-27b7-4110-884f-e3c5be79134c@googlegroups.com>
+References: <e881f27c-ad5f-46dc-ab06-a69d27f54ff5@googlegroups.com>
+ <0023050e-61cd-5b6e-b876-a1aff77173b2@web.de>
+ <96357294-3e29-4db7-9017-d3e8ccfe546c@googlegroups.com>
+ <3b94fefa-7112-40eb-93a1-2590fe9bdf81@googlegroups.com>
+ <b5cb0801-614c-07ee-9997-204bed183924@web.de>
+ <49238e83-72e8-42f7-9eb9-d5462dd48d1f@googlegroups.com>
+ <fff24fa8-4cf9-5290-e550-999be52a177b@siemens.com>
+ <932629c1-7e58-4ce6-bfcb-3db823544286@googlegroups.com>
+ <08104912-32c4-4010-a7d0-55ac10a4437a@googlegroups.com>
+ <3714e03b-9d45-4050-9b6b-d30b478f3198@googlegroups.com>
+ <07630d92-4987-aae0-de76-43dd7aa1df1d@siemens.com>
+ <da87b870-8284-4bdb-a801-d451399e6c21@googlegroups.com>
+ <81b5e854-449f-bceb-9cee-c777639ec24f@siemens.com>
+ <d39b47ef-3805-46a2-b244-274f8075354c@googlegroups.com>
+ <43d1d97f-226e-8e06-80d9-e4ee63c75dfc@siemens.com>
+ <d52c2827-6022-4bad-b879-543b238deba5@googlegroups.com>
 From: Jan Kiszka <jan.kiszka@web.de>
-Message-ID: <f09baf4b-72c1-d6d8-56af-966b1afbb88a@web.de>
-Date: Sun, 5 May 2019 10:10:46 +0200
+Message-ID: <6cdcc42c-29fc-726b-fc9c-d0d4df363fb9@web.de>
+Date: Sun, 5 May 2019 10:13:22 +0200
 User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
  Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
 MIME-Version: 1.0
-In-Reply-To: <6ca6fe6a-27b7-4110-884f-e3c5be79134c@googlegroups.com>
+In-Reply-To: <d52c2827-6022-4bad-b879-543b238deba5@googlegroups.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:ONNY2n4cLIaPBqzrI+9OscCRJMetWcSDRY/ApMG4GYIqMmFDuWq
- xCb6F/1zW3a1wF66UKZvp2Y+GmRULujP9FHxuEetwVNelYddeDqV6uXiCBkdDeTbN7er6VD
- D8baYUH22WwAn6BCymRHqjse/Ah99NXAHwthgholBae8bHkYmhkjEKfcpqDpY8XmWmqftxf
- u8QvnJvf8Q9OGG66bPO3Q==
+X-Provags-ID: V03:K1:C3GARg4s+wqgCh3CdaveU0JHRO78ZMwYExQ6cKuV5ijc16gFRWt
+ PZ1mXGeZh2iK/BwgQDFgIDTrrwuTuOdS42Y21RrDwfzMjt5fOUQrGfW6VjtxjZVmwqNTwpW
+ +g+GNZhkf+R/iT3g/ky1U0UQ+/e1sryTfCCjy2w7WPqeNaqGAG1KrVJysmDYrj935jPY22p
+ kqHCS21tpjasg3uTuEzVQ==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:CXq0+roJ094=:urwKtURnVNi8MhCDIqy/AJ
- YjOQcAbpdjXjqiUteQGMJWY4qEjd4cVFeUKP3fpkqJB4zMlYf/sohECLUzsDeTd7ao96JGUac
- 1LBPSAgMDmp01sBlIbi6aZ0vqhAgd7eU8p2W7ZgSy1eI2XT9SI479y+oloMooFW7J9fSXhNku
- Ba0A5gYfeiz6F+Hq+VLBi4rW8dPXr5dMnJvJWOvCUSwdDzRFJcZtJ3CkAzFPzFYRfeWoHy0vT
- NenN4mRb0oEJ9JY7rFfqP+bs+DJyuE26hH4Xg1Tw72KXE5GI7eOtX6uSsL8+zd9rOA7fcw7uV
- 2EwfjMD6tflNGIkQ3azFwzBvx0tm2tBdLDs8WEM3bS5EYGmvPdSP24JMFRcW3+ILWSsaJObBJ
- JjeyjA+FfW3iFy5yM+a1TY30rEt4MHiZWWeWrZ2hEFZwKq/qX/IZziAgD+NENHxOtt7OELuko
- l4QbwksmMCp2fOQY5V+cPQNaflXxA7qJDftt6jseKcjFFzpB2MA8hViQuiREFgKxY2487nqNf
- ntI9w/EjRGGZNTnSPz8jQ3xTm0olKDOUZUzxjyZqyvDosNAK1sFo/3/EUZZjsYS3hYBXX7CSF
- 5FGLADLgXQhkicW5BejchG93ITrgDCDiqyMLl/CsPX1M18sQCShYX2a263Z1SQ1oEgF3xu76n
- 1aJyBri/c3ri9UJeK3jWoGSx2W4zSwSwhaGYDicp/w/lhNDWv41n7TKhy7JpEDUy+vN2RbSgl
- Zm9yW9+36+wikL5d37Cv0C4YB7oUlTp8oNxNiSff4W+2MhFi043zcAxSNSDhnr4yRoS16zh1u
- svQ03QwTvkioYyhAHhCFe3g9VYeo0rAwOcdXOF848bzJLKSNCRknTsbxJiJ+o0TI9VHhpELMk
- 27Dv5BWCLGcYsroAAW0CR/TJjPSqzuFX4+8ACY7W306jhWQfqfP9iS+w6UMYg+lIKQpzbUGhS
- smxvsyXLTvA==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:pZCMQ/+FGko=:b/ru3RiIc8tqFSm2YVHUjZ
+ whO8cgjvM9TwRwm/NkDRuuQR1t2jokNEK+zTNsc1WNexztIN05g2GSvgXH6Koof/qgf0UeWh9
+ cX4/1ZfEIo8M7XtKcF+mOjao/ZR7IMV87OEP8/BYTTMEfl0lnX5UvVV2G35yPyV4WCbD1D72J
+ x+2GLtMqu6GMh8Rc7SnA0iHyADTuQQL2qcXO5khGzJazv6kCrTjzBQ0B3VPTldLHt28LbcWTT
+ iE2GCBqAKksCZTPY8uc7shgUw4olHDwBGIBKAmtkBauh8+E/cusfVhTiRHt7AiKs+V4/WJnvZ
+ BaMNiaE43HhJFzSWrSFfdQiqJ147C1/vAu5B9dp/uwtc3JH3rZd1o3FmGKvef8vBCnBR310xt
+ mJf8waazVBHQl/5m0wAHCOEyM5TDZJyRRvwb6f2qb9C/QzMvAGpA8LE2/bHw5s2xxoj8EwawR
+ LqV3kz8jgmtAXmI/xt8W3AKWAnpq+RSlAg9EgZ3GwqxoRrAd+UfvYpgUhV3umLTVc1QU2LyKa
+ 6Ang6RESWEpd28Sb+OP4UwNYmNaiG8AyIKe7PA9EMyt/ixF98Ih7p2g/IoC8971mM6OEP+nPF
+ l4161QgA95R0p7mH0ufz/ovydnsF5GB/y214xe18qwUnjPE6RSkIGscsUAdz4eCsElCwr84RH
+ jZ6vr7lh+GOph8AFPWLANugJ7oTWbipCXFixCnygzMgZst1pt2+2FAUxyvvsGFG2WXx+VjkJC
+ OAL6K9+DK0Tm4CHRFNXZMROUtpWkIDKujbD+2c7ghQahyd0se8aGarr8ym4MVmB7LDjffEdjW
+ 2ImSsuQhbKidqjBB94Ltjye5CBI96NiHBGf+AvviKnXAMHQsOHVIBt3OweN4ytcRNd/OIhNGf
+ ps5Xp5ia/0orseAkLwx96d2jzSNleQSXBUZalUVmFx8tFlev4zhQ7N5HGOmUG04zIMkc8qx2J
+ T4UzbvOp6mQ==
 X-Original-Sender: jan.kiszka@web.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b=lOlZFuB0;       spf=pass
- (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted
+ header.i=@web.de header.s=dbaedf251592 header.b=bTSo2pz0;       spf=pass
+ (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted
  sender) smtp.mailfrom=jan.kiszka@web.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -170,85 +167,92 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 02.05.19 17:06, Hakk=C4=B1 Kurumahmut wrote:
-> Hi again,
->
-> Is my last patch in my previous message correct, I am asking for my curio=
-sity :)
-
-I still think it's papering over some other issue, but I need to regenerate=
- the
-config from your data.
-
->
-> Are you planning to support USB serial converters (/dev/ttyUSB0) for debu=
-g console?
->
-
-Nope. It would require implementing a complete USB stack consisting of host
-controller (xHCI these days) and USB serial drivers.
-
-When I last ran into a device with no easy option to add a UART PCI card, I
-briefly played with the USB debug interface. But even that is horribly comp=
-lex
-(and, at least in case of Linux, also very user-unfriendly). The outcome of=
+On 02.05.19 18:19, Jo=C3=A3o Reis wrote:
+> quinta-feira, 25 de Abril de 2019 =C3=A0s 07:39:41 UTC+1, Jan Kiszka escr=
+eveu:
+>> On 25.04.19 08:21, Jo=C3=A3o Reis wrote:
+>>> quinta-feira, 25 de Abril de 2019 =C3=A0s 06:24:26 UTC+1, Jan Kiszka es=
+creveu:
+>>>> On 25.04.19 05:11, Jo=C3=A3o Reis wrote:
+>>>>> quarta-feira, 24 de Abril de 2019 =C3=A0s 06:35:24 UTC+1, Jan Kiszka =
+escreveu:
+>>>>>> On 24.04.19 05:10, Jo=C3=A3o Reis wrote:
+>>>>>>> In few words, what i am trying to do is to access the same memory (=
+not IVSHMEM) in both cells.
+>>>>>>>
+>>>>>>
+>>>>>> JAILHOUSE_MEM_ROOTSHARED, just like for IVSHMEM regions. Otherwise, =
+the creation
+>>>>>> of the non-root cell will remove access to that region from the root=
+ cell.
+>>>>>>
+>>>>>> But this is not the problem you see when adding that region to the E=
+rika cell.
+>>>>>> You really need to debug the guest. It is creating page tables at (u=
+nknown)
+>>>>>> addresses which are not backed by guest memory.
+>>>>>>
+>>>>>> Jan
+>>>>>>
+>>>>>> --
+>>>>>> Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+>>>>>> Corporate Competence Center Embedded Linux
+>>>>>
+>>>>> Note: this error from page table translation appears when i try to is=
+sue "jailhouse cell create non-root.cell", before i even load erika-inmate.=
+bin, so probably there is nothing wrong with the inmate, it is just a cell =
+configuration problem...
+>>>>>
+>>>>
+>>>> I think you never mentioned that the error "migrated" from the non-roo=
+t" cell to
+>>>> the root one when you added that region to the non-root cell. Apparent=
+ly, you
+>>>> are now stealing memory from the root cell that is in use.
+>>>>
+>>>> So, can you please provide the complete log of your error and the comp=
+lete configs?
+>>>>
+>>>> Jan
+>>>>
+>>>> --
+>>>> Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+>>>> Corporate Competence Center Embedded Linux
+>>>
+>>> Yes, my fault for not being explicit enough.
+>>>
+>>> So the problem is that i'm trying to access from non-root cell an addre=
+ss within the memory region seen by /proc/iomem as 3fd00000-5fffffff : Syst=
+em RAM, and it gives me an error:
+>>
+>> You cannot take non-reserved memory away from Linux and expect it to con=
+tinue to
+>> run, obviously. If you want to establish a shared memory region, reserve=
  that
-was the simple EFI framebuffer driver that you now have in-tree.
+>> from Linux, assigned it to non-root as "ROOTSHARED" (I already explained=
+ that),
+>> and map it under Linux as well (that's why we have ivshmem and the uio d=
+river
+>> for it).
+>>
+>> Jan
+>>
+>> --
+>> Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+>> Corporate Competence Center Embedded Linux
+>
+> Ok, i was a little bit confused, but now i get it.
+> Regarding the map_range() function, if i pass the argument MAP_UNCACHED, =
+does it mean that the memory that i access in the inmate within the mapping=
+ range is not cached when accessed?
+>
 
->
-> I have started running inmate cell on "HP-800-G1 machine" with siemens/ja=
-ilhouse->next branch.
->
-> On this machine Root Cell running very well. I have not seen any problem =
-to running root cell. Then I try to start a inmate cell (tiny-demo) but ter=
-minal was hang. I have opened new terminal to collect some information.
->
->
-> Terminal Commands and console infos:
->
-> Page pool usage after late setup: mem 3884/32207, remap 16393/131072
-> Activating hypervisor
->
-> ---sudo tools/jailhouse cell create configs/x86/tiny-demo.cell
->
-> Created cell "tiny-demo"
-> Page pool usage after cell creation: mem 3900/32207, remap 16393/131072
->
-> ---sudo tools/jailhouse cell list
->
-> ID      Name                    State             Assigned CPUs          =
- Failed CPUs
-> 0       RootCell                running           0-1,3
-> 1       tiny-demo               shut down         2
->
-> ---sudo tools/jailhouse cell load inmates/demos/x86/tiny-demo.bin
-
-Missing target cell "tiny-demo" here, but I suspect that is just a copy&pas=
-ter
-error. Otherwise, see README or man page.
-
->
-> ---sudo tools/jailhouse cell list
->
-> List Jailhouse Cells...
-> ID      Name                    State             Assigned CPUs          =
- Failed CPUs
-> 0       RootCell                running           0-1,3                  =
- 1
-> 1       tiny-demo               shut down         2
->
->
-> Is my command list correct?
->
-> Is Loading *.bin file correct? or
->
-> Does tiny-demo.c need any edit for specific hardware (currently HP-800-G1=
-)?
-
-You may want to adjust its output channel if you have no uart. Use the virt=
-ual
-console. That will dump the cell output via shared memory to the hypervisor
-console, which may be virtual as well or efifb.
+Yes, the page table attributes will be set to that accesses are by-passing =
+the
+caches. That's needed MMIO (device registers), and it needs to be in line w=
+ith
+the hypervisor configuration for that region, or you will see weird data
+inconsistencies.
 
 Jan
 
