@@ -1,56 +1,182 @@
-Return-Path: <jailhouse-dev+bncBCL6VUP7RYARBFXWXTTAKGQECHSPJ4I@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBUFAXXTAKGQEX4P3KVA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oi1-x239.google.com (mail-oi1-x239.google.com [IPv6:2607:f8b0:4864:20::239])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04D3C1421F
-	for <lists+jailhouse-dev@lfdr.de>; Sun,  5 May 2019 21:35:52 +0200 (CEST)
-Received: by mail-oi1-x239.google.com with SMTP id w13sf251519oih.22
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 05 May 2019 12:35:51 -0700 (PDT)
+Received: from mail-wr1-x438.google.com (mail-wr1-x438.google.com [IPv6:2a00:1450:4864:20::438])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7284614266
+	for <lists+jailhouse-dev@lfdr.de>; Sun,  5 May 2019 23:06:25 +0200 (CEST)
+Received: by mail-wr1-x438.google.com with SMTP id u18sf9263903wrq.2
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 05 May 2019 14:06:25 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1557090385; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=hRsp1MVrtdxC1j9ZVv573KthwKcY98BydLqmIlCIpIGXahuMDXjUFg2RQnIYB4E4VN
+         NCPGsHXfOdAJFQL6mcfBHdvHIG66E9XD9jDIjstfohF3hOb+aOwJDn5iRE/cNz5B+uon
+         2qQTIGnsH3Kzzne+p4cJnQb9FXIHp9eGDvssqs5+6a4rDQWRoKP3L3SJCAuyA6coKKlE
+         ZzBlQ037jHjYmL0PfHhDobaVOZHtwf4LAxmqM7KqgbjhjOBmCAByIFXM1Y+p9iDtIR2N
+         wVtQhb/sa72VBVAwqMf8u4p3qz6+YyswPBxdLONIQvm2XPcEW8gb4CSL5F2/M+ihQGag
+         P2xQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:autocrypt:openpgp:from
+         :references:to:subject:sender:dkim-signature;
+        bh=1ML1gfH+u3AklZa25nubIfEQr6G6oAJPjmWVRDJH2GI=;
+        b=yucv9YvznHMm5FL4LRRXFiXkesJ/nE+ehggxsQx+c4bNk/hkiyEVPg0+Mcp/lW7OWC
+         vDVOcHixJqE8epgZfGvILRvEsX6W7fWc0D+BLxsnGZBRiK1VGwlrRq3iUOYdSUkrufbr
+         QNkDnKz3ctSgTCWo4IqfycZY9IiP7xpy8AMX8Nw8w+KHxfGUJp2BS62aEz4nqGsYcBoA
+         ZPmRlxJD1uOZji+cMJl/ijDQ34nlqV6FiLIslgwbSuMrOHen6Zqei8rK29IoqaqYLE/V
+         3HEsbyVOlB5ueSRZhnc1fFmZpT3Sa/hKMNQuSDZnYUPBkuLWuivhY781TqKeAFe1AJSI
+         rzUQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=GZy88fQd;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=g/jonP1IZitACYlT1CwQD5Ib8us/j5/XIGeoBYghIGk=;
-        b=AQhndrUu1wUL1SPQrVvIdudhcKpGvA/6jgtZkE2bJimidMvMaX2Y8aNGuxJX5JPCVg
-         bdf9oPWIfna8whD8wnxHZo+96SUJO7Y5prZapE6BQ9cCIw1sGHezYbblE+a8cDPACk3R
-         auA052P0e/9qF7n4X7/AgcoohGKcL1zkGDkpD4VJyV4L/QucLGGDtIFDdp4fvMCGMWrU
-         nMFNuxRnvJozLSqQCrwe9T3coirfvGWAzn5KmEMxW522C+2ZMew5xP4xIEz0dhiwJ5g4
-         msWGMvl4agUFZ89+Jn1tnuUwiSiid9R4Gr0zUM1UAlviu6YZaUsbZ502IU3/o8CfiP8j
-         7YPQ==
+        h=sender:subject:to:references:from:openpgp:autocrypt:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=1ML1gfH+u3AklZa25nubIfEQr6G6oAJPjmWVRDJH2GI=;
+        b=oW6AUpuLMjWRJxbX235SMKsByQ21M43UG3H2LrVI1iPSrjF0aywGTeOuMYF9vQfxQK
+         OQjFcVtDOOIsjjLh3LqyyiSpS3QcwPmF+m42Q4sIRv9vlnrKSYOJm7u8vt+AUmqK83xp
+         cWnW4UFo/kSfsZAEZxsAHioAnVIQ/xRGMsDYMEH7pTDaZ0thuaheCJbpoyIq5eoJDyOG
+         3VKQCCkolPVTi6nEPSIMf6513kFI7GXP0Uo/d/SopUImatEYjBlyjZ+qQU7I3sPO6RsX
+         xcEB1gVRuC6hBGrf7q7BtMAytscQOrPJnEghQysXa/64T7i0M2MQxcQTrfhHtTMgaUAp
+         L31w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
+        h=sender:x-gm-message-state:subject:to:references:from:openpgp
+         :autocrypt:message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=g/jonP1IZitACYlT1CwQD5Ib8us/j5/XIGeoBYghIGk=;
-        b=XPWYiFjr+dd6zkhZ+IPK7aLcRXJ8hW5sqjF3vVDSA0i84MC/tTvrpMiQrSLzuYpkJ1
-         4HPKXqD2qQhT9qtxMP2c2CYZw3OVtENeEoaczlDTuLBLWEhB5xzCE9LtuPFiU8gaNBzd
-         9+Y/rI4c57adEnPJQG44yrbPw6TSmjR1/jDiex5/WwTkrWQayFvO9X15m3WUlHlJDU33
-         QOSJ4wCT5WGpJkRpuGdHDkL7I0ICGmCOR7v9/G9WRrLgz7T8ZzDJocjkMRTvIthoxv/p
-         k+VVks7dBK2x/dgDnVAXw9qMbu4MyNX5PIKlWQ/7R0nC1l0FXzhuuTfFfGonw/mUZU/m
-         vE0g==
+        bh=1ML1gfH+u3AklZa25nubIfEQr6G6oAJPjmWVRDJH2GI=;
+        b=r76u471ftx8lrYNg4vCFaK90bcjcAa1gcSVjFkDJmiSQVG65Zsf1I80xob/nWiyKEI
+         b0rUkw4OILpKi2JpROba++Lirve92e1tOLGoGLqRlp8v2iV4M//3sKYdcfn94W2h5p+5
+         WMRfPQ5eFu0IDKmiRVOdkJJakAxs/NIyl1cBclH++fRkq5b91hXuRpLUlFlMoqK0Ay23
+         8CssUa9nNz5UJxHeufV1Y71qlf8ixzxmzHX95h92hDGpbWOvgcBJb1tQ541XBVw+anfk
+         ZvYQN6K1B36KMfvGkrAQzwbSbQMDOaMQaBGk+32QMtPG//g5OIneohUp0ufFOGLMlIL9
+         +TRA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXDwByMj7C397v6ASbauBSkQnHvNeBTE1MirXs3ggxFZp/JceAo
-	It2Q+BpcsDEIyAysuI/tEcc=
-X-Google-Smtp-Source: APXvYqxEDf8+6LbgfdZ3I/ggctLf/rqFZL97fLK8+LcEgNis80rkDej29J1sB6pYvMiHpQoOpBDAxA==
-X-Received: by 2002:a05:6830:2081:: with SMTP id y1mr1229963otq.164.1557084950949;
-        Sun, 05 May 2019 12:35:50 -0700 (PDT)
+X-Gm-Message-State: APjAAAXKzh8c+RiwiB6CP+IVZaUxHf4oFHoOKdgxK8vAcS3IHiyZksiq
+	hF04+qN4Lltd05Fvnf6CRr4=
+X-Google-Smtp-Source: APXvYqwzYg6wajTUU6G+ilbhQlIA/3I3ePKbS0qZHvgUHrqJBm8V6YS1OTt2qYWrLO+J0oB0iV/BGg==
+X-Received: by 2002:adf:eb02:: with SMTP id s2mr15316426wrn.29.1557090385184;
+        Sun, 05 May 2019 14:06:25 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6830:1116:: with SMTP id w22ls1203166otq.12.gmail; Sun,
- 05 May 2019 12:35:50 -0700 (PDT)
-X-Received: by 2002:a9d:64c1:: with SMTP id n1mr6329105otl.259.1557084950384;
-        Sun, 05 May 2019 12:35:50 -0700 (PDT)
-Date: Sun, 5 May 2019 12:35:49 -0700 (PDT)
-From: =?UTF-8?Q?Hakk=C4=B1_Kurumahmut?= <hkurumahmut84@hotmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <62e83024-118e-4109-ab5e-330bec67389f@googlegroups.com>
-Subject: [PATCH] Scripts: Fix for Parsing DMAR Region under Reserved Section
+Received: by 2002:a5d:6b10:: with SMTP id v16ls2591308wrw.11.gmail; Sun, 05
+ May 2019 14:06:24 -0700 (PDT)
+X-Received: by 2002:a5d:54c7:: with SMTP id x7mr2912131wrv.253.1557090384415;
+        Sun, 05 May 2019 14:06:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1557090384; cv=none;
+        d=google.com; s=arc-20160816;
+        b=j8rlAPmiuf+nsfvAFVleLOhf77Nv30AKWUit0KLqEE1ejiTx6pAQ4ZG599OJ27RJ/M
+         n4vc7G8dM8hLjjB9z2pixtcA/cyqvcJZ2GsXzxDr0rF+KKH4eGr70ME1WHy8l+qoxs8j
+         1bSKRWtsg68cy1oAFidFv0t67v96TGZmMkwz77WpGHU2OLHAP+f6KHqiOIuN5De3HBkI
+         PuP+P3hkZ+5i/aVq9IjNw2joDfGeir1L+1pgFBpXtrE21maxUh8drOvtbZ7+0rVGjihG
+         StnvsvHpUzMbg4oQXUm1PsVaRsq5kDXDErMpmeej1cpCbZZkqDLUY2aYF3YPdPA0CtnZ
+         zyBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:autocrypt:openpgp:from:references:to
+         :subject:dkim-signature;
+        bh=K4pQNiaMXpU/IAsV0u7RxGiGDR5Z4tm6kBAC83b0sQc=;
+        b=dUZWiET0Pb2VwQgFurxL4Ix/CXzl4MPhxS0fQdp4zKfDb5e4nX/1O6pCiym4TnL4k5
+         qFXoqYHsOAkn/bHuDkXcvhxJYuzn3J4mkN6SYXj3uCFAmoFt9F1JeaVTrwsVmI9gkRM4
+         lwXM942wiUNOaotiaXny6xyN2EaONFYgwLZFSzXi22L32HVUbEM2BI5IVv4xi8iInxKB
+         DnqorBDSFyT/xAlE8hsIAK8XrPdtChQ1TVK09vczcbPHWn4Z2SbflwRaNjnIZKEA5QN4
+         HzIyyTC1k+dX4oFq6OfcaaeDT487VvP6PinmV3LZDMrgAUqcFg31+ueGauF00LprxaNv
+         yQDw==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=GZy88fQd;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [194.95.104.11])
+        by gmr-mx.google.com with ESMTPS id u2si438398wri.2.2019.05.05.14.06.24
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 05 May 2019 14:06:24 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) client-ip=194.95.104.11;
+Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S02", Issuer "E16S02" (not verified))
+	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 44xz1r03Sczxxc
+	for <jailhouse-dev@googlegroups.com>; Sun,  5 May 2019 23:06:24 +0200 (CEST)
+Received: from [172.16.2.24] (194.95.106.138) by E16S02.hs-regensburg.de
+ (2001:638:a01:8013::92) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Sun, 5 May 2019
+ 23:06:23 +0200
+Subject: Re: [PATCH 5/5] pyjailhouse: let the generator produce speaking names
+ for PCI caps
+To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
+	<jailhouse-dev@googlegroups.com>
+References: <20190430214504.2153-1-ralf.ramsauer@oth-regensburg.de>
+ <20190430214504.2153-6-ralf.ramsauer@oth-regensburg.de>
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Openpgp: preference=signencrypt
+Autocrypt: addr=ralf.ramsauer@oth-regensburg.de; keydata=
+ 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
+ RncIIYr0LjXAAzY=
+Message-ID: <bac6fcfa-babf-9733-8f79-7002eae0ce12@oth-regensburg.de>
+Date: Sun, 5 May 2019 23:06:23 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_1562_507015569.1557084949807"
-X-Original-Sender: hkurumahmut84@hotmail.com
+In-Reply-To: <20190430214504.2153-6-ralf.ramsauer@oth-regensburg.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-PH
+X-Originating-IP: [194.95.106.138]
+X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
+ E16S02.hs-regensburg.de (2001:638:a01:8013::92)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=GZy88fQd;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -63,197 +189,108 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1562_507015569.1557084949807
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-While kernel command parameters are intel_iommu=3Don intremap=3Don at some =
-machines, cat /proc/iomem shows DMAR region under reserved section. This pa=
-tch must be done for config creation to complete because of generating DMAR=
- region not found error although it exist.
-If this patch is not apply, below error is throw by "cell create" command w=
-hether intel_iommu On or Off because "reserved" regions are currently exclu=
-ded from the generated config although DMAR region exists. Thus, DMAR under=
- reserved section must be parsed by parser.
+On 4/30/19 11:45 PM, Ralf Ramsauer wrote:
+> Definitions on C-side are in place, so let the generator produce those
+> definitions.
+> 
+> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+> ---
+>  pyjailhouse/sysfs_parser.py   | 79 +++++++++++++++++++++++++++++++----
+>  tools/root-cell-config.c.tmpl |  6 +--
+>  2 files changed, 72 insertions(+), 13 deletions(-)
+> 
+> diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py
+> index 4bb50605..368714b0 100644
+> --- a/pyjailhouse/sysfs_parser.py
+> +++ b/pyjailhouse/sysfs_parser.py
+> @@ -22,6 +22,8 @@ import struct
+>  import os
+>  import fnmatch
+>  
+> +from enum import Enum
+> +
+>  root_dir = "/"
+>  
+>  def set_root_dir(dir):
+> @@ -542,6 +544,65 @@ class PCIBARs:
+>          f.close()
+>  
+>  
+> +class PCI_CAP_ID(Enum):
+> +    PM     = 0x01 # Power Management
+> +    VPD    = 0x03 # Vital Product Data
+> +    MSI    = 0x05 # Message Signalled Interrupts
+> +    HT     = 0x08 # HyperTransport
+> +    VNDR   = 0x09 # Vendor-Specific
+> +    DBG    = 0x0A # Debug port
+> +    SSVID  = 0x0D # Bridge subsystem vendor/device ID
+> +    SECDEV = 0x0F # Secure Device
+> +    EXP    = 0x10 # PCI Express
+> +    MSIX   = 0x11 # MSI-X
+> +    SATA   = 0x12 # SATA Data/Index Conf.
+> +    AF     = 0x13 # PCI Advanced Features
+> +
+> +    def __str__(self):
+> +        return "PCI_CAP_ID_" + self.name
+> +
+> +
+> +class PCI_EXT_CAP_ID(Enum):
+> +    ZERO    = 0x00 # ???
+> +
+> +    ERR     = 0x01 # Advanced Error Reporting
+> +    VC      = 0x02 # Virtual Channel Capability
+> +    DSN     = 0x03 # Device Serial Number
+> +    PWR     = 0x04 # Power Budgeting
+> +    RCLD    = 0x05 # Root Complex Link Declaration
+> +    RCILC   = 0x06 # Root Complex Internal Link Control
+> +    RCEC    = 0x07 # Root Complex Event Collector
+> +    MFVC    = 0x08 # Multi-Function VC Capability
+> +    VC9     = 0x09 # same as _VC
+> +    RCRB    = 0x0A # Root Complex RB?
+> +    VNDR    = 0x0B # Vendor-Specific
+> +    CAC     = 0x0C # Config Access - obsolete
+> +    ACS     = 0x0D # Access Control Services
+> +    ARI     = 0x0E # Alternate Routing ID
+> +    ATS     = 0x0F # Address Translation Services
+> +    SRIOV   = 0x10 # Single Root I/O Virtualization
+> +    MRIOV   = 0x11 # Multi Root I/O Virtualization
+> +    MCAST   = 0x12 # Multicast
+> +    PRI     = 0x13 # Page Request Interface
+> +    AMD_XXX = 0x14 # Reserved for AMD
+> +    REBAR   = 0x15 # Resizable BAR
+> +    DPA     = 0x16 # Dynamic Power Allocation
+> +    TPH     = 0x17 # TPH Requester
+> +    LTR     = 0x18 # Latency Tolerance Reporting
+> +    SECPCI  = 0x19 # Secondary PCIe Capability
+> +    PMUX    = 0x1A # Protocol Multiplexing
+> +    PASID   = 0x1B # Process Address Space ID
+> +    DPC     = 0x1D # Downstream Port Containment
+> +    L1SS    = 0x1E # L1 PM Substates
+> +    PTM     = 0x1F # Precision Time Measurement
 
+Just ran the config creator on a machine with non-standardised ext.
+capability id. lspci explains:
 
-            if size =3D=3D 0:=20
-                raise RuntimeError('DMAR region size cannot be identified.\=
-n'=20
-                                   'Target Linux must run with Intel IOMMU =
-'=20
-                                   'enabled.')
+        Capabilities: [3c4 v1] Designated Vendor-Specific <?>
 
+Its id is 0x23, nothing standardised (besides Intel, they use this id
+for DVSEC, but the device behind is an AMD PCIe GPP bridge, well...). So
+it seems there are vendor specific multiple definitions for
+non-standardised cap ids.
 
-git diff=20
-diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py=20
-index 46c95fc2..70fe8869 100644=20
---- a/pyjailhouse/sysfs_parser.py=20
-+++ b/pyjailhouse/sysfs_parser.py=20
-@@ -94,14 +94,13 @@ def input_listdir(dir, wildcards):=20
- =20
- =20
- def parse_iomem(pcidevices):=20
--    regions =3D IOMemRegionTree.parse_iomem_tree(=20
--        IOMemRegionTree.parse_iomem_file())=20
-+    dmar_regions =3D []=20
-+    regions =3D IOMemRegionTree.parse_iomem_tree(IOMemRegionTree.parse_iom=
-em_file(), dmar_regions)=20
- =20
-     rom_region =3D MemRegion(0xc0000, 0xdffff, 'ROMs')=20
-     add_rom_region =3D False=20
- =20
-     ret =3D []=20
--    dmar_regions =3D []=20
-     for r in regions:=20
-         append_r =3D True=20
-         # filter the list for MSI-X pages=20
-@@ -878,9 +877,27 @@ class IOMemRegionTree:=20
- =20
-         return regions=20
- =20
-+    # find DMAR regions in tree=20
-+    @staticmethod=20
-+    def find_dmar_regions(tree):=20
-+        regions =3D []=20
-+=20
-+        for tree in tree.children:=20
-+            r =3D tree.region=20
-+            s =3D r.typestr=20
-+=20
-+            if (s.find('dmar') >=3D 0):=20
-+                regions.append(r)=20
-+=20
-+            # if the tree continues recurse further down ...=20
-+            if (len(tree.children) > 0):=20
-+                regions.extend(IOMemRegionTree.find_dmar_regions(tree))=20
-+=20
-+        return regions=20
-+=20
-     # recurse down the tree=20
-     @staticmethod=20
--    def parse_iomem_tree(tree):=20
-+    def parse_iomem_tree(tree, dmar_regions):
+This lets the python generator crashes with a ValueError. While this
+crash was actually intended (in order to expand the generator), I found
+a case where this is not possible.
 
-         regions =3D []=20
- =20
-         for tree in tree.children:=20
-@@ -904,11 +921,12 @@ class IOMemRegionTree:
+If there's no speaking name behind an entry, the generator should warn
+and fall back to the hexadecimal representation. And seems this won't
+work with python enums. I need to fix this before the next revision.
 
-             # generally blacklisted, unless we find an HPET behind it=20
-             if (s.lower() =3D=3D 'reserved'):=20
-                 regions.extend(IOMemRegionTree.find_hpet_regions(tree))=20
-+                dmar_regions.extend(IOMemRegionTree.find_dmar_regions(tree=
-))=20
-                 continue
+  Ralf
 
- =20
-             # if the tree continues recurse further down ...=20
-             if (len(tree.children) > 0):=20
--                regions.extend(IOMemRegionTree.parse_iomem_tree(tree))=20
-+                regions.extend(IOMemRegionTree.parse_iomem_tree(tree, dmar=
-_regions))=20
-                 continue=20
- =20
-             # add all remaining leaves
-
-
-Example /proc/iomem
-
-"intel_iommu=3Don intremap=3Don"
-
-You can see that dmar0 under Reserved region.
-
-ubuntu@ubuntu-HP8300:~$ sudo cat /proc/iomem=20
-00000000-00000fff : Reserved=20
-00001000-0009ffff : System RAM=20
-000a0000-000bffff : PCI Bus 0000:00=20
-000c0000-000ce9ff : Video ROM=20
-000cf000-000cffff : Adapter ROM=20
-000d0000-000d3fff : PCI Bus 0000:00=20
-000d4000-000d7fff : PCI Bus 0000:00=20
-000d8000-000dbfff : PCI Bus 0000:00=20
-000dc000-000dffff : PCI Bus 0000:00=20
-000f0000-000fffff : System ROM=20
-00100000-38ffffff : System RAM=20
-39000000-78ffffff : Reserved=20
-79000000-de35bfff : System RAM=20
-de35c000-de365fff : Unknown E820 type=20
-de366000-de3e6fff : Reserved=20
-de3e7000-de414fff : Unknown E820 type=20
-de415000-de93efff : Reserved=20
-de93f000-deba4fff : ACPI Non-volatile Storage=20
-deba5000-debb5fff : ACPI Tables=20
-debb6000-debbefff : ACPI Non-volatile Storage=20
-debbf000-debc3fff : ACPI Tables=20
-debc4000-dec06fff : ACPI Non-volatile Storage=20
-dec07000-deffffff : System RAM=20
-df000000-dfffffff : RAM buffer=20
-e0000000-feafffff : PCI Bus 0000:00=20
-  e0000000-efffffff : PCI Bus 0000:01=20
-    e0000000-efffffff : 0000:01:00.0=20
-  f0000000-f0000fff : pnp 00:0a=20
-  f7e00000-f7efffff : PCI Bus 0000:01=20
-    f7e20000-f7e3ffff : 0000:01:00.0=20
-  f7f00000-f7f1ffff : 0000:00:19.0=20
-    f7f00000-f7f1ffff : e1000e=20
-  f7f20000-f7f2ffff : 0000:00:14.0=20
-    f7f20000-f7f2ffff : xhci-hcd=20
-  f7f30000-f7f33fff : 0000:00:1b.0=20
-    f7f30000-f7f33fff : ICH HD audio=20
-  f7f35000-f7f350ff : 0000:00:1f.3=20
-  f7f36000-f7f367ff : 0000:00:1f.2=20
-    f7f36000-f7f367ff : ahci=20
-  f7f37000-f7f373ff : 0000:00:1d.0=20
-    f7f37000-f7f373ff : ehci_hcd=20
-  f7f38000-f7f383ff : 0000:00:1a.0=20
-    f7f38000-f7f383ff : ehci_hcd=20
-  f7f39000-f7f39fff : 0000:00:19.0=20
-    f7f39000-f7f39fff : e1000e=20
-  f7f3a000-f7f3afff : 0000:00:16.3=20
-  f7f3c000-f7f3c00f : 0000:00:16.0=20
-    f7f3c000-f7f3c00f : mei_me=20
-  f8000000-fbffffff : PCI MMCONFIG 0000 [bus 00-3f]=20
-    f8000000-fbffffff : Reserved=20
-      f8000000-fbffffff : pnp 00:0a=20
-fec00000-fec00fff : Reserved=20
-  fec00000-fec003ff : IOAPIC 0=20
-fed00000-fed03fff : Reserved=20
-  fed00000-fed003ff : HPET 0=20
-    fed00000-fed003ff : PNP0103:00=20
-fed10000-fed17fff : pnp 00:0a=20
-fed18000-fed18fff : pnp 00:0a=20
-fed19000-fed19fff : pnp 00:0a=20
-fed1c000-fed44fff : Reserved=20
-  fed1c000-fed1ffff : pnp 00:0a=20
-    fed1f410-fed1f414 : iTCO_wdt.0.auto=20
-  fed20000-fed3ffff : pnp 00:0a=20
-  fed40000-fed44fff : pnp 00:00=20
-    fed40000-fed44fff : TPM=20
-fed45000-fed8ffff : pnp 00:0a=20
-fed90000-fed93fff : Reserved=20
-  fed90000-fed90fff : dmar0                *****DMAR is under reserved regi=
-on, current parser ignores******=20
-fee00000-fee00fff : Local APIC=20
-  fee00000-fee00fff : Reserved=20
-ff000000-ffffffff : Reserved=20
-  ff000000-ffffffff : INT0800:00=20
-    ff000000-ffffffff : pnp 00:0a=20
-100000000-21dffffff : System RAM=20
-  1fe800000-1ff4031d0 : Kernel code=20
-  1ff4031d1-1ffe928ff : Kernel data=20
-  200119000-200361fff : Kernel bss=20
-21e000000-21fffffff : RAM buffer=20
-ubuntu@ubuntu-HP8300:~$
-
-
-HAKKI
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
 For more options, visit https://groups.google.com/d/optout.
-
-------=_Part_1562_507015569.1557084949807--
