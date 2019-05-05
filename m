@@ -1,55 +1,111 @@
-Return-Path: <jailhouse-dev+bncBCL6VUP7RYARB752XPTAKGQEF2P2GNQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBB7GJXPTAKGQEBE7MNLQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x337.google.com (mail-ot1-x337.google.com [IPv6:2607:f8b0:4864:20::337])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07BD413F7C
-	for <lists+jailhouse-dev@lfdr.de>; Sun,  5 May 2019 14:56:33 +0200 (CEST)
-Received: by mail-ot1-x337.google.com with SMTP id i21sf5809815otf.4
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 05 May 2019 05:56:32 -0700 (PDT)
+Received: from mail-ed1-x53f.google.com (mail-ed1-x53f.google.com [IPv6:2a00:1450:4864:20::53f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 89CAC13FB4
+	for <lists+jailhouse-dev@lfdr.de>; Sun,  5 May 2019 15:28:29 +0200 (CEST)
+Received: by mail-ed1-x53f.google.com with SMTP id 18sf9415050eds.5
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 05 May 2019 06:28:29 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1557062909; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=wFhpPrHH0g+MfJSmSu2uREBjNP0HunQr/D73hhITgN9OsiQkj6hIoQIYu/pgrVYCRT
+         iHUkGmuV77MqnfMLuyzEtuicJ3NNfoDGndfGtOOOPnMIv4FqVxcHngsX/mgP4AaGLH40
+         2kAchHWmvTfXMtugr/ua8K06b0q5Ft1RoXgSJd2IblDOzmsMa9uO+kEd80a3ENAiqlh/
+         VNxfabeeYJoPKDEraTh7HkwqlJCjndsLUGxfjZ3onjKF3cQciBQbwEKRfZ0N83Px45e3
+         GLAZjoFy3zGtdJDSkjiQErAZWZYcL7CeqGzwm0XUNYtmLUnSPGlI52GtSYUSF7wM9a40
+         sLGQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=4fXzNNxQSiCeqEcZR5uO75fOq4g3geTntCm1jZrPbj8=;
+        b=CbaHQ0QdPhN9tHpn1r9aL3Hc7HmXjHb4Yaqn+rwtuVQvk+dKys34Q9t8lPxDTMJ0l0
+         jTCkGfOFgSU6YuaWRK4BRe4VQe8ygoJV5Zk3DD0Nd+zELyFhAN9f0o8UuZon1uBJlU2G
+         Y3o89xdzja4M74dyD/fmfPfD5nYSVZWRFZyiQ6NM4wWpkYvV9AzzDkPpunrriMXB+nah
+         Jt9jwJf2XSTsLpgXLxpIm5YdHoUXsChDJebJR7cJAz77QAxCwpzRINogGknInK9IynGI
+         6Gr7Cz4S6+DKBqVYF3MMe0Bl3NL+x8r2hyXJSVklLRDEv5RXj0/3AfJYWrg5drkVZXzX
+         Y8zw==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=nGnHCAz7;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=jX73ArIrzS8x9xmrvy8QL1n2Wwq8nvDOIxGC1lnAnSw=;
-        b=KWSFrwuP5SF3fv2OR6ovrsQNNr3US76j8k3umQ1EcgueVqZWOmu0NNeRwIXk7O63ob
-         tiDibV1Q/9lnod5vyx/N/atAp8EM1eehXPlY44TeEGAJtD46hlIbHmy5tIyh1a4KJmy9
-         9Bo3h7blqoNNxUUsF28JZuZI/8FuLSzJ7MBNp84WQkNmzgYLHLfWSrzqlZL8in3prEmg
-         xkIi7PTZ3yB9tEpAXZdbQLo7udSieiCSxJFlD2msEKXDaOVG+pYi7vji7TEWmNARNi4O
-         Vdd3ablkeWj8J9wxbAML5wLASEkTqTUo6Lg5Z5obs5hoG29cGB/g6Rh//DTzm5oBRjD3
-         VC8g==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=4fXzNNxQSiCeqEcZR5uO75fOq4g3geTntCm1jZrPbj8=;
+        b=d0MY4nlh7YyTT4DZsMBKDL3yhKxmEmmLHquIXriRjmf0Kv8WItUxRovImvn6jVKeo6
+         jTJLGtQtk/fXSAF/TMD75pUCpO/OYN2HkaKlCV1FU4mIJ83m/vvaj8T0Xs6fWol/900N
+         T1UdSExmJrfioJGOZ8PcA/Lk6QXblLOpZ0KoLtgqCkUbudcF8MCbwmi+tyrqG2TZJl8s
+         pNi9iCjX346AcuK+xtwtffVGA/il44CZV9UBzzIm/UD5Qma7MTMwHYTenV/MpqnuwA+z
+         BsBFYA5C1iEorvvq0oEdROYIxbaMVM98kIbRtDdEUcuyccRDcwbK2LwLcrULJ5EiR+BT
+         8MLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=jX73ArIrzS8x9xmrvy8QL1n2Wwq8nvDOIxGC1lnAnSw=;
-        b=Y3MRejE2CCnB+XhSPDoT21XtuqCxj+/ECn1BwVn07vX1fLvWQ2KkfBdICQqsDnGMJx
-         uaPdx8D+UnHnEsyTCFf2e0xfuI2l1QD3aq1IP+bAJn1NoKCrQF/hin+ui9OpSNL4WMTf
-         0Sn2N6VW0Qhm7GojJZi+IyDkpcq2B3JGEDZwpnQ1o5f7vOBj78nJZmHKIzr4BfpFgWhL
-         kwN2ztEA6n2wZQOQfj0JMAxGtsXWMjBvVsqhFht+u6KPj1YVadsLOiRkZnIaRD43Guyj
-         ZJ0YMdp+c4p5PeojEnBpixrLhrmCoMY9oFewth8hOX/aBZxY/1d4QJ3g3H9qd47Si8nw
-         Cl+A==
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=4fXzNNxQSiCeqEcZR5uO75fOq4g3geTntCm1jZrPbj8=;
+        b=YUBhmyEdei4BbHx9bWvXDR4wCVtnEzip5/FiC9HRPsfrXcFKvIPJoE94/oAkdZWkbZ
+         oea9D+ziafFOPtXMWxp+qZc76Zm/xd9m9r+0/v8qLWGWNAGVrd8LaPJmB1QIzW5jeWn5
+         nFPbVFmtQAgp0Xwv/CQUR5ZgyMENSIvDQnMEKxLLPa9jo7/a8p90RfcYf2zhVuOx2o2H
+         3YrUpaQYCjm5GBVRJTWSEeQS6hBuRTtxFkO0xqrZrI1G38VsBLJVHJHwtejibDDyDEh2
+         71NfT1Js8smlBRlpwdyETN8Sq5Kvn9Pw9Oo2M1Wx0FYsER2F+Ux61q3+utEX0KwDLFZI
+         SbKQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUi0JdnXcaJRjbcvb+/bT3zGn8m+BczsAObST+DWHN2ovjcOWAk
-	MbMfTHBFT6OIqbw9qE2eIV0=
-X-Google-Smtp-Source: APXvYqx5TljbGjig0jINK/jiJBbN3OZILKh+LRMaBEQK0W7lSuPEvfy2df5TFww9/1fGFFT5CUgqqA==
-X-Received: by 2002:a05:6830:210d:: with SMTP id i13mr13143933otc.331.1557060991572;
-        Sun, 05 May 2019 05:56:31 -0700 (PDT)
+X-Gm-Message-State: APjAAAXK7jAU+ckUYRSJWv6fEoRSAtSYOzHu+5mqLB4sQ8UOOiAl484F
+	mJYCLehZC9W+maDqxtiqFWk=
+X-Google-Smtp-Source: APXvYqyAMAVIbfJwayUwtKO/uxWAZJNHpzAvPi3+Ps1hPZk1vO5Oury4Sl+fDtaaKlnkM+2ZaO7vwg==
+X-Received: by 2002:a17:906:5252:: with SMTP id y18mr14900880ejm.186.1557062909276;
+        Sun, 05 May 2019 06:28:29 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a9d:ee3:: with SMTP id 90ls1669726otj.8.gmail; Sun, 05 May
- 2019 05:56:31 -0700 (PDT)
-X-Received: by 2002:a9d:550e:: with SMTP id l14mr9020175oth.369.1557060990779;
-        Sun, 05 May 2019 05:56:30 -0700 (PDT)
-Date: Sun, 5 May 2019 05:56:30 -0700 (PDT)
-From: =?UTF-8?Q?Hakk=C4=B1_Kurumahmut?= <hkurumahmut84@hotmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <c5cfbbaa-9df7-4b63-a584-3fa5e9603780@googlegroups.com>
-In-Reply-To: <be558db9-b112-5891-119c-0290c33ef7f0@web.de>
+Received: by 2002:a17:906:7ad7:: with SMTP id k23ls1985745ejo.6.gmail; Sun, 05
+ May 2019 06:28:28 -0700 (PDT)
+X-Received: by 2002:a17:906:5950:: with SMTP id g16mr14765600ejr.57.1557062908450;
+        Sun, 05 May 2019 06:28:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1557062908; cv=none;
+        d=google.com; s=arc-20160816;
+        b=ENvyf1PwnxF9zCSZeECIV2UZfk2tu+l1Qv4sYrD/k/ejMtKHftxX0T52yc3PrV5x8U
+         HjcUeWi34lE5Jc9eixfAYqkfqpoo+3e7ClErSfP9jc6859V9sLUH5MHW9D9GZQvP66kh
+         o/om4LONBw9/eH7/3409fG4DrqJQbhYCed6+1OM6Aqpqt583cKu2MljXboTCkc+ei9Ot
+         EPeFAJQ/ok0Cmb1mbay/Pw4i6edu+0pRMywh6R/u0NRzZih6wrpMjYKlxIpLP6qBHyI7
+         1r1vyNbLxIuD3of2bMIttYZlDq6c0JGsi0qU2KB8jJaZ6RiDZHiA7CDZKDTY4kcTpRzF
+         0PcA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject
+         :dkim-signature;
+        bh=KdwLyeelYqP1HcZ5i+8UWTehjnAHXWsfpd5nDPOnJ0I=;
+        b=jpqDRFQfGWDqBjb9vuhXfX3L9MYGNVmAZcQvs6AyapL+p5ESk5CSwLILJQkwAyVG/W
+         KKSKN+fRzDFsaEyAxqoxnOckqbfp6jUo88vdJDLqIj74mDRrERjhmJudvk5VWMZM6MJZ
+         yOnSnBCsXJzwrLhSEG1sq43iiACysjwKl7xEEthZ5yOmTc+TXd77sGys57nv/Uw+Hwe1
+         wApmaVDaQivY4dJ0QT3xt8g3kf7883y+r3kvDZzQ+kmyeaVeYgBCVxdQDQbQKqIlGZHN
+         LdT66PjgH1ii9f71QkgLYNHhmKSuFasPIqN6HZsO6CRokFr2uDyJmSyx6jhV27qQ7sue
+         zPoA==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=nGnHCAz7;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Received: from mout.web.de (mout.web.de. [212.227.17.11])
+        by gmr-mx.google.com with ESMTPS id u16si245747eda.2.2019.05.05.06.28.28
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 05 May 2019 06:28:28 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) client-ip=212.227.17.11;
+X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
+Received: from [192.168.1.10] ([95.157.54.22]) by smtp.web.de (mrweb103
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 0M7bQ3-1gZJUq3GqN-00xHqQ; Sun, 05
+ May 2019 15:28:27 +0200
+Subject: Re: JAILHOUSE hangs with exception when trying to enable the root
+ cell
+To: =?UTF-8?Q?Hakk=c4=b1_Kurumahmut?= <hkurumahmut84@hotmail.com>,
+ Jailhouse <jailhouse-dev@googlegroups.com>
 References: <16e3b6ef-37e1-4734-aba4-247bcbbc18e0@googlegroups.com>
- <05d90171-db1f-4031-a7b2-48570eb37847@googlegroups.com>
- <fdfcd6e7-e2a5-4187-b079-ca643fb281a1@googlegroups.com>
  <32bc2861-e11e-4ab0-bdcf-063e2c05318d@googlegroups.com>
  <f704088f-99c1-4ec0-bd5e-90e15874cc7d@googlegroups.com>
  <3e5ad4e4-abac-03f5-5402-661e62a83944@siemens.com>
@@ -66,12 +122,42 @@ References: <16e3b6ef-37e1-4734-aba4-247bcbbc18e0@googlegroups.com>
  <6ca6fe6a-27b7-4110-884f-e3c5be79134c@googlegroups.com>
  <f09baf4b-72c1-d6d8-56af-966b1afbb88a@web.de>
  <be558db9-b112-5891-119c-0290c33ef7f0@web.de>
-Subject: Re: JAILHOUSE hangs with exception when trying to enable the root
- cell
+ <c5cfbbaa-9df7-4b63-a584-3fa5e9603780@googlegroups.com>
+From: Jan Kiszka <jan.kiszka@web.de>
+Message-ID: <3d0e75b6-6de1-d6e5-e393-309f39766d2b@web.de>
+Date: Sun, 5 May 2019 15:28:27 +0200
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
+ Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_4_1028592830.1557060990201"
-X-Original-Sender: hkurumahmut84@hotmail.com
+In-Reply-To: <c5cfbbaa-9df7-4b63-a584-3fa5e9603780@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:adjSR5YRVJfoLH6hERfO6YWT+4lBqFFlxMS7kzEbjRG+Ul6v0Sq
+ Uc2FrPrTixSAMwSbJCTbXnzrPW+YPecAA5iZnWNULLuTPVbsJdK+Egv1gEbypO8AachslCU
+ uDoLR2CEhGihc/+8TCeIhIJWgG5sNHc9YBERfKiHmwXmA5Xc0wym+xO6M3Q4VPzTAUfugJk
+ XHi+D/dMHnqKXI6AXz0SQ==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:4MQccIz5QQg=:5vhv5dtWqvWelfFWP5gNGH
+ QwPTr4g6Z9v8ocat5X3rPjc7LeKH+7KZpEh9EfiqbUycmKuhCLhkRTEQWUSmFkynQLr+XDwgf
+ JIOtUw30/TU2shEsqTCpyOcxRMsUr1ABuOhsjeiQsjfxeHMPBw+2bPjvya9kIwajd6MKpWD/c
+ 0Wtl24jVVfSPZA3ZgDtwHj1502tmaius18rBkmNW5TNTu2yg8e1lHktD8e4nuOxkeELxnzz86
+ U2N6zNzHdvhB/mH8Ktg3KmMdslFSnUSa2tHk+09mBn0vBm8OgXyOg6bltaLYfYxXPQJyvE9ya
+ sqfLssVqzh1lYObV9DjOfQu1XnQyFUDcPoCyW9o1nuHquymw/XODLWnrtjfMfFjlQLkBolgHt
+ kRc9rWt3gHlHk9EMTVqSTEGnOGC3DkOBHhNyE2uKMPNtuh3Mo0vGVXJchDVYKE/7cHRifJ6ze
+ T8H+GDd+XCzWws8ktMLluoSQOCsg65ulcor0HrdSv6ibNdpGL5+edflqW5oRUB7Ai2qKJlBzb
+ uEyPElqm39qGOb3Ro9VVGe9HuxTu+n4akn+CRb94GclvXkU9vObMhOy5jtCkVUxaiS4vbZ8sM
+ R7w6VSXQoBdbF3hGWcynEorZLutaILW0/Z7xEus7RW0bcWqkJqroaRVTob5dxRAezec2xMJ1u
+ Hhms8x5dqGqt5RjzdkL/3Ig6vW4YYIRmVnYkAERNnt+sGVZBREx53IW9ULcA57Mk9opPwckQl
+ jwUaOijxa9UA0BMBbv2qnx78EuXDRVuYTTDL26dZs8G4EvE8ADT56A0HMl9WIvvBX+0DamNlh
+ +Lwdq1/TfFseHQjn84KODAvTtB+IXnarBNnFlo93RFstWgcJyTXvM2ZcenLegENiXpm0dIFN+
+ dHE2CoYCXZ8qc8spK3q4KS7Mxonu0UJO/xB+hYoTwz5n9tAGHr0PTMWAZcuTyy2pMwY9ftEJ9
+ cLAq4fXKKiA==
+X-Original-Sender: jan.kiszka@web.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@web.de header.s=dbaedf251592 header.b=nGnHCAz7;       spf=pass
+ (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as
+ permitted sender) smtp.mailfrom=jan.kiszka@web.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -84,304 +170,133 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_4_1028592830.1557060990201
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-5 May=C4=B1s 2019 Pazar 15:18:16 UTC+3 tarihinde Jan Kiszka yazd=C4=B1:
-> On 05.05.19 10:10, Jan Kiszka wrote:
-> > On 02.05.19 17:06, Hakk=C4=B1 Kurumahmut wrote:
-> >> Hi again,
-> >>
-> >> Is my last patch in my previous message correct, I am asking for my cu=
+On 05.05.19 14:56, Hakk=C4=B1 Kurumahmut wrote:
+> 5 May=C4=B1s 2019 Pazar 15:18:16 UTC+3 tarihinde Jan Kiszka yazd=C4=B1:
+>> On 05.05.19 10:10, Jan Kiszka wrote:
+>>> On 02.05.19 17:06, Hakk=C4=B1 Kurumahmut wrote:
+>>>> Hi again,
+>>>>
+>>>> Is my last patch in my previous message correct, I am asking for my cu=
 riosity :)
-> >
-> > I still think it's papering over some other issue, but I need to regene=
+>>>
+>>> I still think it's papering over some other issue, but I need to regene=
 rate the
-> > config from your data.
->=20
-> Checked the configs that are generated from
-> HP_EliteBook_8460p_2019_04_29__18_59_data_collection.tar and
-> HP_EliteBook_8460p_2019_04_29__19_00_data_collection.tar: They seem to de=
-tect
-> the DMAR unit base addresses correctly, and they also do not map them int=
+>>> config from your data.
+>>
+>> Checked the configs that are generated from
+>> HP_EliteBook_8460p_2019_04_29__18_59_data_collection.tar and
+>> HP_EliteBook_8460p_2019_04_29__19_00_data_collection.tar: They seem to d=
+etect
+>> the DMAR unit base addresses correctly, and they also do not map them in=
+to the
+>> guest - all fine. So, there is no need need for your patch. In fact, as =
+I stated
+>> before, it would create a bug as it would map the DMAR unit directly int=
 o the
-> guest - all fine. So, there is no need need for your patch. In fact, as I=
- stated
-> before, it would create a bug as it would map the DMAR unit directly into=
+>> guest which breaks isolation and more.
+>>
+>> If you still see access violations on DMAR addresses then this may have =
+one of
+>> the following reasons:
+>>
+>>    - you forgot to disable the intel_iommu before enabling Jailhouse
+>>
+>>    - your Linux kernel uses an instruction for accessing the DMAR
+>>      interrupt remapping registers (which Jailhouse can emulate) that we
+>>      do not support yet
+>>
+>> Please post the complete access violation report if the issue persists.
+>>
+>>
+>> Regarding the different configs generate due to different kernel RAM add=
+resses:
+>> That is a harmless effect. The RAM regions, in their sum, will still map=
  the
-> guest which breaks isolation and more.
->=20
-> If you still see access violations on DMAR addresses then this may have o=
-ne of
-> the following reasons:
->=20
->   - you forgot to disable the intel_iommu before enabling Jailhouse
->=20
->   - your Linux kernel uses an instruction for accessing the DMAR
->     interrupt remapping registers (which Jailhouse can emulate) that we
->     do not support yet
->=20
-> Please post the complete access violation report if the issue persists.
->=20
->=20
-> Regarding the different configs generate due to different kernel RAM addr=
-esses:
-> That is a harmless effect. The RAM regions, in their sum, will still map =
-the
-> same memory. We could avoid that effect by detecting and coalescing neigh=
-boring
-> regions with identical parameters.
->=20
-> Jan
+>> same memory. We could avoid that effect by detecting and coalescing neig=
+hboring
+>> regions with identical parameters.
+>>
+>> Jan
+>
+>
+> Hi Jan,
+>
+> I have reported two different issues. One of them is about HP8460p machin=
+e, the other is about HP8300.
+>
+>
+> ---------------------------------------------------
+> ---------------------------------------------------
+> ---------------------------------------------------
+> One of them is about kernel code, data, bss section location that is loca=
+ted different areas when PC was restarted. I sent you below message for it.=
+ Therefore, the config file must be manually edited at every restart.
+>
+>
+> HP_EliteBook_8460p_2019_04_29__18_59_data_collection.tar
+> HP_EliteBook_8460p_2019_04_29__19_00_data_collection.tar
+>
+> I attached sequential restart --> jailhouse rebuild --> config create res=
+ults for HP8460p.
+>
+>
+> Difference for Kernel code, data and bss sections.
+>
+> First restart of PC (HP_EliteBook_8460p_2019_04_29__18_59_data_collection=
+.tar)
+> 100000000-23dffffff : System RAM
+>    146000000-146c031d0 : Kernel code
+>    146c031d1-1476928ff : Kernel data
+>    147919000-147b61fff : Kernel bss
+>
+> Second restart of PC (HP_EliteBook_8460p_2019_04_29__19_00_data_collectio=
+n.tar)
+> 7a000000-bbd90fff : System RAM
+>    adc00000-ae8031d0 : Kernel code
+>    ae8031d1-af2928ff : Kernel data
+>    af519000-af761fff : Kernel bss
+>
 
+As I said, this difference is harmless.
 
-Hi Jan,
+> Consequently, result config file is affected this changes. I think conseq=
+uently restart for IOMMU ON and OFF causes new problems. Maybe I'm misinter=
+preting.
+> ---------------------------------------------------
+> ---------------------------------------------------
+> ---------------------------------------------------
+>
+>
+>
+>
+>
+>
+> The other problem is about DMAR regions under reserved region. Config par=
+ser needs a patch. I've added the details below:
+>
+>
+> Hi Jan,
+>
+> While kernel command parameters are intel_iommu=3Don intremap=3Don at R71=
+0 and HP8300 machine, proc/iomem shows DMAR region under Reserved area. Thi=
+s patch or something else must be done for config creation to complete beca=
+use of generating DMAR region not found error although it exist.
+>
+> I have write a patch that is attached below: (for jailhouse master branch=
+)
+>
+> It is not touch to tree only update dmar_regions variable.
+>
 
-I have reported two different issues. One of them is about HP8460p machine,=
- the other is about HP8300.
+The patch is very likely incorrect.
 
+Please share the collected config for this targets - or point me to the lin=
+k to
+the one you already sent. Then I can double-check what may go wrong during
+parsing (if anything at all). If it's a runtime issue: I've sent the two
+possible reasons in the other email.
 
----------------------------------------------------
----------------------------------------------------
----------------------------------------------------
-One of them is about kernel code, data, bss section location that is locate=
-d different areas when PC was restarted. I sent you below message for it. T=
-herefore, the config file must be manually edited at every restart.
-
-
-HP_EliteBook_8460p_2019_04_29__18_59_data_collection.tar=20
-HP_EliteBook_8460p_2019_04_29__19_00_data_collection.tar
-
-I attached sequential restart --> jailhouse rebuild --> config create resul=
-ts for HP8460p.=20
-
-
-Difference for Kernel code, data and bss sections.=20
-
-First restart of PC (HP_EliteBook_8460p_2019_04_29__18_59_data_collection.t=
-ar)
-100000000-23dffffff : System RAM=20
-  146000000-146c031d0 : Kernel code=20
-  146c031d1-1476928ff : Kernel data=20
-  147919000-147b61fff : Kernel bss=20
-
-Second restart of PC (HP_EliteBook_8460p_2019_04_29__19_00_data_collection.=
-tar)
-7a000000-bbd90fff : System RAM=20
-  adc00000-ae8031d0 : Kernel code=20
-  ae8031d1-af2928ff : Kernel data=20
-  af519000-af761fff : Kernel bss=20
-
-Consequently, result config file is affected this changes. I think conseque=
-ntly restart for IOMMU ON and OFF causes new problems. Maybe I'm misinterpr=
-eting.=20
----------------------------------------------------
----------------------------------------------------
----------------------------------------------------
-
-
-
-
-
-
-The other problem is about DMAR regions under reserved region. Config parse=
-r needs a patch. I've added the details below:=20
-
-
-Hi Jan,
-
-While kernel command parameters are intel_iommu=3Don intremap=3Don at R710 =
-and HP8300 machine, proc/iomem shows DMAR region under Reserved area. This =
-patch or something else must be done for config creation to complete becaus=
-e of generating DMAR region not found error although it exist.
-
-I have write a patch that is attached below: (for jailhouse master branch)
-
-It is not touch to tree only update dmar_regions variable.
-
-
-git diff
-diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py
-index 46c95fc2..70fe8869 100644
---- a/pyjailhouse/sysfs_parser.py
-+++ b/pyjailhouse/sysfs_parser.py
-@@ -94,14 +94,13 @@ def input_listdir(dir, wildcards):
-=20
-=20
- def parse_iomem(pcidevices):
--    regions =3D IOMemRegionTree.parse_iomem_tree(
--        IOMemRegionTree.parse_iomem_file())
-+    dmar_regions =3D []
-+    regions =3D IOMemRegionTree.parse_iomem_tree(IOMemRegionTree.parse_iom=
-em_file(), dmar_regions)
-=20
-     rom_region =3D MemRegion(0xc0000, 0xdffff, 'ROMs')
-     add_rom_region =3D False
-=20
-     ret =3D []
--    dmar_regions =3D []
-     for r in regions:
-         append_r =3D True
-         # filter the list for MSI-X pages
-@@ -878,9 +877,27 @@ class IOMemRegionTree:
-=20
-         return regions
-=20
-+    # find DMAR regions in tree
-+    @staticmethod
-+    def find_dmar_regions(tree):
-+        regions =3D []
-+
-+        for tree in tree.children:
-+            r =3D tree.region
-+            s =3D r.typestr
-+
-+            if (s.find('dmar') >=3D 0):
-+                regions.append(r)
-+
-+            # if the tree continues recurse further down ...
-+            if (len(tree.children) > 0):
-+                regions.extend(IOMemRegionTree.find_dmar_regions(tree))
-+
-+        return regions
-+
-     # recurse down the tree
-     @staticmethod
--    def parse_iomem_tree(tree):
-+    def parse_iomem_tree(tree, dmar_regions):
-
-         regions =3D []
-=20
-         for tree in tree.children:
-@@ -904,11 +921,12 @@ class IOMemRegionTree:
-
-             # generally blacklisted, unless we find an HPET behind it
-             if (s.lower() =3D=3D 'reserved'):
-                 regions.extend(IOMemRegionTree.find_hpet_regions(tree))
-+                dmar_regions.extend(IOMemRegionTree.find_dmar_regions(tree=
-))
-                 continue
-
-=20
-             # if the tree continues recurse further down ...
-             if (len(tree.children) > 0):
--                regions.extend(IOMemRegionTree.parse_iomem_tree(tree))
-+                regions.extend(IOMemRegionTree.parse_iomem_tree(tree, dmar=
-_regions))
-                 continue
-=20
-             # add all remaining leaves
-
-
-Example /proc/iomem for HP8300=20
-
-"intel_iommu=3Don intremap=3Don"=20
-
-You can see that dmar0 under Reserved region for HP8300 machine...=20
-
-ubuntu@ubuntu-HP8300:~$ sudo cat /proc/iomem=20
-00000000-00000fff : Reserved=20
-00001000-0009ffff : System RAM=20
-000a0000-000bffff : PCI Bus 0000:00=20
-000c0000-000ce9ff : Video ROM=20
-000cf000-000cffff : Adapter ROM=20
-000d0000-000d3fff : PCI Bus 0000:00=20
-000d4000-000d7fff : PCI Bus 0000:00=20
-000d8000-000dbfff : PCI Bus 0000:00=20
-000dc000-000dffff : PCI Bus 0000:00=20
-000f0000-000fffff : System ROM=20
-00100000-38ffffff : System RAM=20
-39000000-78ffffff : Reserved=20
-79000000-de35bfff : System RAM=20
-de35c000-de365fff : Unknown E820 type=20
-de366000-de3e6fff : Reserved=20
-de3e7000-de414fff : Unknown E820 type=20
-de415000-de93efff : Reserved=20
-de93f000-deba4fff : ACPI Non-volatile Storage=20
-deba5000-debb5fff : ACPI Tables=20
-debb6000-debbefff : ACPI Non-volatile Storage=20
-debbf000-debc3fff : ACPI Tables=20
-debc4000-dec06fff : ACPI Non-volatile Storage=20
-dec07000-deffffff : System RAM=20
-df000000-dfffffff : RAM buffer=20
-e0000000-feafffff : PCI Bus 0000:00=20
-  e0000000-efffffff : PCI Bus 0000:01=20
-    e0000000-efffffff : 0000:01:00.0=20
-  f0000000-f0000fff : pnp 00:0a=20
-  f7e00000-f7efffff : PCI Bus 0000:01=20
-    f7e20000-f7e3ffff : 0000:01:00.0=20
-  f7f00000-f7f1ffff : 0000:00:19.0=20
-    f7f00000-f7f1ffff : e1000e=20
-  f7f20000-f7f2ffff : 0000:00:14.0=20
-    f7f20000-f7f2ffff : xhci-hcd=20
-  f7f30000-f7f33fff : 0000:00:1b.0=20
-    f7f30000-f7f33fff : ICH HD audio=20
-  f7f35000-f7f350ff : 0000:00:1f.3=20
-  f7f36000-f7f367ff : 0000:00:1f.2=20
-    f7f36000-f7f367ff : ahci=20
-  f7f37000-f7f373ff : 0000:00:1d.0=20
-    f7f37000-f7f373ff : ehci_hcd=20
-  f7f38000-f7f383ff : 0000:00:1a.0=20
-    f7f38000-f7f383ff : ehci_hcd=20
-  f7f39000-f7f39fff : 0000:00:19.0=20
-    f7f39000-f7f39fff : e1000e=20
-  f7f3a000-f7f3afff : 0000:00:16.3=20
-  f7f3c000-f7f3c00f : 0000:00:16.0=20
-    f7f3c000-f7f3c00f : mei_me=20
-  f8000000-fbffffff : PCI MMCONFIG 0000 [bus 00-3f]=20
-    f8000000-fbffffff : Reserved=20
-      f8000000-fbffffff : pnp 00:0a=20
-fec00000-fec00fff : Reserved=20
-  fec00000-fec003ff : IOAPIC 0=20
-fed00000-fed03fff : Reserved=20
-  fed00000-fed003ff : HPET 0=20
-    fed00000-fed003ff : PNP0103:00=20
-fed10000-fed17fff : pnp 00:0a=20
-fed18000-fed18fff : pnp 00:0a=20
-fed19000-fed19fff : pnp 00:0a=20
-fed1c000-fed44fff : Reserved=20
-  fed1c000-fed1ffff : pnp 00:0a=20
-    fed1f410-fed1f414 : iTCO_wdt.0.auto=20
-  fed20000-fed3ffff : pnp 00:0a=20
-  fed40000-fed44fff : pnp 00:00=20
-    fed40000-fed44fff : TPM=20
-fed45000-fed8ffff : pnp 00:0a=20
-fed90000-fed93fff : Reserved=20
-  fed90000-fed90fff : dmar0 			*****DMAR is under reserved region, current =
-parser ignores******
-fee00000-fee00fff : Local APIC=20
-  fee00000-fee00fff : Reserved=20
-ff000000-ffffffff : Reserved=20
-  ff000000-ffffffff : INT0800:00=20
-    ff000000-ffffffff : pnp 00:0a=20
-100000000-21dffffff : System RAM=20
-  1fe800000-1ff4031d0 : Kernel code=20
-  1ff4031d1-1ffe928ff : Kernel data=20
-  200119000-200361fff : Kernel bss=20
-21e000000-21fffffff : RAM buffer=20
-ubuntu@ubuntu-HP8300:~$=20
-
-If this patch is not apply, error is throw by "config creation" whether int=
-el_iommu On or Off because "reserved" regions are currently excluded from t=
-he generated config although DMAR region exists. Thus, HPET and DMAR under =
-reserved section must be parsed by config parser.
-
-
-            if size =3D=3D 0:
-                raise RuntimeError('DMAR region size cannot be identified.\=
-n'
-                                   'Target Linux must run with Intel IOMMU =
-'
-                                   'enabled.')
-
-
-
-I hope I could explain this time.
-
-Thanks.
-
-HAKKI
+Jan
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -389,5 +304,3 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 For more options, visit https://groups.google.com/d/optout.
-
-------=_Part_4_1028592830.1557060990201--
