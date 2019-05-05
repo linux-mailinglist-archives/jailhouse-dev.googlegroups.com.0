@@ -1,55 +1,55 @@
-Return-Path: <jailhouse-dev+bncBCL6VUP7RYARBH7VXTTAKGQENGBSN3I@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCL6VUP7RYARBFXWXTTAKGQECHSPJ4I@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x33e.google.com (mail-ot1-x33e.google.com [IPv6:2607:f8b0:4864:20::33e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B9EE1421D
-	for <lists+jailhouse-dev@lfdr.de>; Sun,  5 May 2019 21:33:53 +0200 (CEST)
-Received: by mail-ot1-x33e.google.com with SMTP id f11sf6300773otl.20
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 05 May 2019 12:33:53 -0700 (PDT)
+Received: from mail-oi1-x239.google.com (mail-oi1-x239.google.com [IPv6:2607:f8b0:4864:20::239])
+	by mail.lfdr.de (Postfix) with ESMTPS id 04D3C1421F
+	for <lists+jailhouse-dev@lfdr.de>; Sun,  5 May 2019 21:35:52 +0200 (CEST)
+Received: by mail-oi1-x239.google.com with SMTP id w13sf251519oih.22
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 05 May 2019 12:35:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:date:from:to:message-id:subject:mime-version
          :x-original-sender:precedence:mailing-list:list-id:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=M696wJetQetG5BaTzD6/39woFw5U0qCgYCwQsgc5/u4=;
-        b=cCInIiD8ML+xuHJIVPPVZqFweBIsYIoYDyvLRjXvzHA9EuJJgPMKlNQAYSYDlZmBpL
-         1MtUrJXQw1AKar2olv5kiFd4e6yzO3v3wVGyX1/ZgUGRoHiHKLQdzi7V28RYAJq8LKzK
-         5CCMlPOdfAXoV1qCtaeArPOH+VbYI9Qeto4I96kYRq93Rd4TVd6e2GyRgl1CGWrFZ084
-         cmvjWHKci6T7sWRgJ4TMQCAsYg+38M5sgml6uUFP+cDTf4LnwieG4Jk0DS0Re56DqvYR
-         d5LhuxgDdihZoTmkCewXvhvbWpEtsNtAYCJd/P84YEF886RbbQvnL5PczbkpZuYUm4eb
-         04Ig==
+        bh=g/jonP1IZitACYlT1CwQD5Ib8us/j5/XIGeoBYghIGk=;
+        b=AQhndrUu1wUL1SPQrVvIdudhcKpGvA/6jgtZkE2bJimidMvMaX2Y8aNGuxJX5JPCVg
+         bdf9oPWIfna8whD8wnxHZo+96SUJO7Y5prZapE6BQ9cCIw1sGHezYbblE+a8cDPACk3R
+         auA052P0e/9qF7n4X7/AgcoohGKcL1zkGDkpD4VJyV4L/QucLGGDtIFDdp4fvMCGMWrU
+         nMFNuxRnvJozLSqQCrwe9T3coirfvGWAzn5KmEMxW522C+2ZMew5xP4xIEz0dhiwJ5g4
+         msWGMvl4agUFZ89+Jn1tnuUwiSiid9R4Gr0zUM1UAlviu6YZaUsbZ502IU3/o8CfiP8j
+         7YPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:date:from:to:message-id:subject
          :mime-version:x-original-sender:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=M696wJetQetG5BaTzD6/39woFw5U0qCgYCwQsgc5/u4=;
-        b=Q46tpJc5zdRUQ/TCX5dq7bCtesrknLnObWtaBBIWLOkkiBrh80sLE9LxMA/LO9iiKJ
-         NJpuxb7t1x26M65QqmCnrJ70YfkUHeAy5ht5uZXE9Mm4MUSJFEFPjDiQuKwicgBpnqLU
-         Nbr16cMC+MbUUeYeE9aaTNvHEkoYejwSBZNtXySNP2YRH5boDu3bz7C2MgvPUAUz7pZp
-         bOfvHboQ+VuJX3zAOLG+mUrcbUsOXVUiM9AW31RzWA2AMU9F0YwcUohD1fp/5/v6EV7B
-         eV2hOXacaSYkXoJw+3Mv4bpEEf0ncwLcYYqLLHIl1DZmP/VfyA4dlXlX3B5L/s6AFX1p
-         nFLQ==
+        bh=g/jonP1IZitACYlT1CwQD5Ib8us/j5/XIGeoBYghIGk=;
+        b=XPWYiFjr+dd6zkhZ+IPK7aLcRXJ8hW5sqjF3vVDSA0i84MC/tTvrpMiQrSLzuYpkJ1
+         4HPKXqD2qQhT9qtxMP2c2CYZw3OVtENeEoaczlDTuLBLWEhB5xzCE9LtuPFiU8gaNBzd
+         9+Y/rI4c57adEnPJQG44yrbPw6TSmjR1/jDiex5/WwTkrWQayFvO9X15m3WUlHlJDU33
+         QOSJ4wCT5WGpJkRpuGdHDkL7I0ICGmCOR7v9/G9WRrLgz7T8ZzDJocjkMRTvIthoxv/p
+         k+VVks7dBK2x/dgDnVAXw9qMbu4MyNX5PIKlWQ/7R0nC1l0FXzhuuTfFfGonw/mUZU/m
+         vE0g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUWvK8SftEA/FF1TGYNUI3WLHCwAstcPh2FJJCvqz8jhBUo5lOr
-	Jzn3rQNvpb3vi89coxHOCvI=
-X-Google-Smtp-Source: APXvYqwmSr4/l31odR6HZ4s9g5CwKLXacILlexdJb+Uiy69YrzED21SogfHDD1C1zx/E28b8PPwi1w==
-X-Received: by 2002:a9d:7851:: with SMTP id c17mr8817054otm.52.1557084832122;
-        Sun, 05 May 2019 12:33:52 -0700 (PDT)
+X-Gm-Message-State: APjAAAXDwByMj7C397v6ASbauBSkQnHvNeBTE1MirXs3ggxFZp/JceAo
+	It2Q+BpcsDEIyAysuI/tEcc=
+X-Google-Smtp-Source: APXvYqxEDf8+6LbgfdZ3I/ggctLf/rqFZL97fLK8+LcEgNis80rkDej29J1sB6pYvMiHpQoOpBDAxA==
+X-Received: by 2002:a05:6830:2081:: with SMTP id y1mr1229963otq.164.1557084950949;
+        Sun, 05 May 2019 12:35:50 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aca:c003:: with SMTP id q3ls1469744oif.9.gmail; Sun, 05 May
- 2019 12:33:51 -0700 (PDT)
-X-Received: by 2002:aca:5c55:: with SMTP id q82mr6093772oib.95.1557084831180;
-        Sun, 05 May 2019 12:33:51 -0700 (PDT)
-Date: Sun, 5 May 2019 12:33:50 -0700 (PDT)
+Received: by 2002:a05:6830:1116:: with SMTP id w22ls1203166otq.12.gmail; Sun,
+ 05 May 2019 12:35:50 -0700 (PDT)
+X-Received: by 2002:a9d:64c1:: with SMTP id n1mr6329105otl.259.1557084950384;
+        Sun, 05 May 2019 12:35:50 -0700 (PDT)
+Date: Sun, 5 May 2019 12:35:49 -0700 (PDT)
 From: =?UTF-8?Q?Hakk=C4=B1_Kurumahmut?= <hkurumahmut84@hotmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <468407b6-68eb-4eee-8869-e48aeecdb4fd@googlegroups.com>
-Subject: [PATCH] Scripts: Fix fpr Parsing DMAR Region under Reserved Section
+Message-Id: <62e83024-118e-4109-ab5e-330bec67389f@googlegroups.com>
+Subject: [PATCH] Scripts: Fix for Parsing DMAR Region under Reserved Section
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_1677_1836817744.1557084830450"
+	boundary="----=_Part_1562_507015569.1557084949807"
 X-Original-Sender: hkurumahmut84@hotmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -63,19 +63,18 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1677_1836817744.1557084830450
+------=_Part_1562_507015569.1557084949807
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 While kernel command parameters are intel_iommu=3Don intremap=3Don at some =
 machines, cat /proc/iomem shows DMAR region under reserved section. This pa=
 tch must be done for config creation to complete because of generating DMAR=
- region not found error although it exist.=20
-
+ region not found error although it exist.
 If this patch is not apply, below error is throw by "cell create" command w=
 hether intel_iommu On or Off because "reserved" regions are currently exclu=
 ded from the generated config although DMAR region exists. Thus, DMAR under=
- reserved section must be parsed by parser.=20
+ reserved section must be parsed by parser.
 
 
             if size =3D=3D 0:=20
@@ -83,7 +82,7 @@ ded from the generated config although DMAR region exists. Thus, DMAR under=
 n'=20
                                    'Target Linux must run with Intel IOMMU =
 '=20
-                                   'enabled.')=20
+                                   'enabled.')
 
 
 git diff=20
@@ -134,19 +133,19 @@ em_file(), dmar_regions)=20
      # recurse down the tree=20
      @staticmethod=20
 -    def parse_iomem_tree(tree):=20
-+    def parse_iomem_tree(tree, dmar_regions):=20
++    def parse_iomem_tree(tree, dmar_regions):
 
          regions =3D []=20
  =20
          for tree in tree.children:=20
-@@ -904,11 +921,12 @@ class IOMemRegionTree:=20
+@@ -904,11 +921,12 @@ class IOMemRegionTree:
 
              # generally blacklisted, unless we find an HPET behind it=20
              if (s.lower() =3D=3D 'reserved'):=20
                  regions.extend(IOMemRegionTree.find_hpet_regions(tree))=20
 +                dmar_regions.extend(IOMemRegionTree.find_dmar_regions(tree=
 ))=20
-                 continue=20
+                 continue
 
  =20
              # if the tree continues recurse further down ...=20
@@ -156,12 +155,12 @@ em_file(), dmar_regions)=20
 _regions))=20
                  continue=20
  =20
-             # add all remaining leaves=20
+             # add all remaining leaves
 
 
-Example /proc/iomem=20
+Example /proc/iomem
 
-"intel_iommu=3Don intremap=3Don"=20
+"intel_iommu=3Don intremap=3Don"
 
 You can see that dmar0 under Reserved region.
 
@@ -245,7 +244,7 @@ ff000000-ffffffff : Reserved=20
   1ff4031d1-1ffe928ff : Kernel data=20
   200119000-200361fff : Kernel bss=20
 21e000000-21fffffff : RAM buffer=20
-ubuntu@ubuntu-HP8300:~$=20
+ubuntu@ubuntu-HP8300:~$
 
 
 HAKKI
@@ -257,4 +256,4 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 For more options, visit https://groups.google.com/d/optout.
 
-------=_Part_1677_1836817744.1557084830450--
+------=_Part_1562_507015569.1557084949807--
