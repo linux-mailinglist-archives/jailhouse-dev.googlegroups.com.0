@@ -1,63 +1,122 @@
-Return-Path: <jailhouse-dev+bncBCL6VUP7RYARB3XLY3TAKGQECPIZOLY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBCUUY7TAKGQE6DGTNUQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x33c.google.com (mail-ot1-x33c.google.com [IPv6:2607:f8b0:4864:20::33c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 387B11682B
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  7 May 2019 18:44:32 +0200 (CEST)
-Received: by mail-ot1-x33c.google.com with SMTP id f11sf9498824otl.20
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 07 May 2019 09:44:32 -0700 (PDT)
+Received: from mail-ed1-x539.google.com (mail-ed1-x539.google.com [IPv6:2a00:1450:4864:20::539])
+	by mail.lfdr.de (Postfix) with ESMTPS id 29D03169F0
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  7 May 2019 20:10:19 +0200 (CEST)
+Received: by mail-ed1-x539.google.com with SMTP id h7sf6489312edb.14
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 07 May 2019 11:10:19 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1557252619; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=kO4hB6TBMAuRYNOPI/s7mXRcab9r4DU3LbWomz3bOPdNAnxW9dGavPhkWJAJqky8n5
+         EjfZh413nGzxjeLahJYaQwifsGZHbKTRrApHpGRQhRnuYuagxaOe1RiNLsSNiuXFd1Qn
+         UX0mBeOQj3aRzKJfJxAXxFk0EOpSriVQDZp383EAYVfPcSbKaIfoA73klIyTIYfUHXCj
+         oox9HIgFk0z4vjlsztL7290JVwEFJym4EFDP2pxmXwgst6vgJ7gHwGe6Bo4uTWg7u5zi
+         OXu++7j2779zzC5hrVhRTLoJly2JTdJpaRFzyHkfaI9ydR/eHR57cE87bjgMH4OtWsPs
+         3oiQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:to:subject
+         :sender:dkim-signature;
+        bh=EudhgFU5ZFpvC521b8wOrQTKoyB3TS4zEIZD1uQKDMs=;
+        b=rueUwh6z/oqvF/ML8kayu9D6Qi+z9MyLKa4yEgI2/Sqjufgx1LeH2LecVmSUp0wHoB
+         CrDeTYYFcJ/MIuD9jNvc1Hg5pQs27D6XxHx3F4/QcMTxI1TaeqBSJ1DJUlSwuuXolC1w
+         EyWWlHCR30BQy/e+zerL9YK/4zxorXnm8LcdjCxv5Zj8sBVlbLYkWHLZWB0GeBo8hgjL
+         yuBU2A2aQ6b7e91T/OAYIQkGno73ZjjNSDYdkreY8jq5LWZeU5XqoSlcxBjcY3V+sR55
+         I+qtNDPLCB3fohCMisSV8kDjgZ0myLwZUTCPL0K7IM4x5ndiY8XUXFOo8ZY2G5xizBjl
+         TniQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=G/pRTZoaVxDiGN5H8WaQ83yvixmdS8c2E7iWsedCCaY=;
-        b=RDmDEOkZc3AL3Bhm/0UoHjR4Az36uWtoVy97vUAHkAONc88NHS5UaF5C6KZBXG5a1M
-         478jE80KgJSKSF8SRWL7YEsVh5y4TKakrYeO06L2BgDEpirkdxtiNl9MnP1/e7twCp+Z
-         O+c7443UAKqDdQs4ptQbgh4nmNa26/+dEr/h8EeksxOGc8r+2EAnLJftv0OcTfVa4sUx
-         ZLmzrT1y772AgkYDycYv2sN+a8W3joaupWuZD7taEDTGvv8Fu0ia7twFXpvGj/cKxyoo
-         Vd7Sth1QwNG2To56WhhmJBaNU8lYsdVLnSS0t3+qg9NtqOJ4ds0P4RLu0NwcK9Havpli
-         D7Dw==
+        bh=EudhgFU5ZFpvC521b8wOrQTKoyB3TS4zEIZD1uQKDMs=;
+        b=bpwXEmJmVW9tDD/AL3uwDldGzxzUBF2TzBsZFuyQUJ5T9oov2LE6cAuq0M8XUMkD5L
+         CiYL1+EyI12RgEnVZOonZXazPL/MngDFYKGSScfU39P3E+Kx66htzyD0taEK8t2ELCkT
+         z4n4lxLzdJfDirYDfQTo0nYFVAlngZrx39XA/j51IjCRpEEWvYUxknmcE/DmAhz3dNPr
+         qRbStF8cFIm4RHPV8UqzPBkemARYcifa4R5R37OwdHpmYZt8ej8TTBIXvKzUmvEDbE60
+         eeDLPEPSrtU6Ovy7JmJky17I7O7fquHcuPJ1wIWic8Xo/gQ/4PVSVJB8i6479HY/5CoK
+         dpVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=G/pRTZoaVxDiGN5H8WaQ83yvixmdS8c2E7iWsedCCaY=;
-        b=qlRw+IhjMNRCv4OOSCek/hHdQfNEb/rnIu946F2QTiWq/oggXqWjzlnSbkFJ4tgxCb
-         ydrLb5j6AbBTLCBa8hNJ/Kb2bEQ0ktC3isFN2KWDkuToEocduHwZQd4PKCo4+vULyo4T
-         ntinXn+6n2fGSV5REC/qKkoOw74Ngu9ZovHs0h2tDKGMQrmckgdhmxZ5Nv22nYq5IuY8
-         N+KdBcmr9eZqGdsQ6xbvrQ6h2sel800c4iRlfEWpAjjybWQYU03bDUMkcJP+qARQ0erA
-         mmB5U08RfZDR5JrwCtjcuI+kR63XAFVym2+/OPtSwhiWcnXkRqSACaUZhlOqWUqLWaUw
-         4Rvw==
+        bh=EudhgFU5ZFpvC521b8wOrQTKoyB3TS4zEIZD1uQKDMs=;
+        b=BIhPzTS4g5EZD5jkJdHf1uQzbqL9Br4wV/XJXLM0S/ElbscN8DTXqDYQRxqsre9Bqt
+         Fn9GpVSq57K1maFJ96tIYW13H96Rkf16zbprgDtwFqGkDijD0vXWcTq5fCA0RxMA07Xh
+         dDdgQHLBql8hcUPJoISJLGvTJsseBBUIRv+WmQu4xc1Ha/KwCNR6JQGTXElg2AnGtsPG
+         qmCVqfCWnqQImQQaOpeNNakhOZIwI3+9mvW3ztHnEiooQvFLpC587ZFbfQEXCsZgsfdH
+         JHQDzadXAY2vHVAxK4nbXKyPvmj0kIqkDGHip5PXR89BaO9GQZIbEcVWYUl6aKDFXCnA
+         rKAA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXT7CW+JqT84cziDvVVJmsDKbnr3tWIjhnLcyuc6sdq3lScIZC0
-	UiEkerVG8T044VdDLnq2/us=
-X-Google-Smtp-Source: APXvYqxcBzT/tCEC4zKt6x+up3ukiZMMAbHVDLyhUXI7Q2+6mxTDjRypirA+KFSuSnwXN9m45LTOeA==
-X-Received: by 2002:a9d:2208:: with SMTP id o8mr15388506ota.236.1557247471152;
-        Tue, 07 May 2019 09:44:31 -0700 (PDT)
+X-Gm-Message-State: APjAAAXIywjLP/CW7kvnik8bjw9bCF+AvNsl+susXtCHAcjz8YKTyWJw
+	nrDsCbPuxSojx2cw1uv+mKQ=
+X-Google-Smtp-Source: APXvYqxuH3mebH8DV2r7bUcJ2TteXPPMx1s75VqUryFoVMbvt3+Ntx75SIgi0ucSJe2oSD0ME1zmQQ==
+X-Received: by 2002:a50:9405:: with SMTP id p5mr9293730eda.111.1557252618886;
+        Tue, 07 May 2019 11:10:18 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6830:119:: with SMTP id i25ls312701otp.8.gmail; Tue, 07
- May 2019 09:44:30 -0700 (PDT)
-X-Received: by 2002:a05:6830:e:: with SMTP id c14mr16112020otp.6.1557247470470;
-        Tue, 07 May 2019 09:44:30 -0700 (PDT)
-Date: Tue, 7 May 2019 09:44:29 -0700 (PDT)
-From: =?UTF-8?Q?Hakk=C4=B1_Kurumahmut?= <hkurumahmut84@hotmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <d88d8ae0-3f95-4cbb-812c-46e9d3bf1575@googlegroups.com>
-In-Reply-To: <7a773b9f-976c-468f-a635-daefff7b9666@googlegroups.com>
-References: <62e83024-118e-4109-ab5e-330bec67389f@googlegroups.com>
- <de3120a5-36a0-a681-1642-5fbabaf6b524@siemens.com>
- <6696c5ac-a0d9-4574-9eff-dd07eb08280c@googlegroups.com>
- <1dc27db0-aaf6-3107-bfea-70e2b4b75551@siemens.com>
- <7a773b9f-976c-468f-a635-daefff7b9666@googlegroups.com>
-Subject: Re: [PATCH] Scripts: Fix for Parsing DMAR Region under Reserved
- Section
+Received: by 2002:a17:906:1dd3:: with SMTP id v19ls2652923ejh.13.gmail; Tue,
+ 07 May 2019 11:10:18 -0700 (PDT)
+X-Received: by 2002:a17:906:685:: with SMTP id u5mr26084249ejb.125.1557252617972;
+        Tue, 07 May 2019 11:10:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1557252617; cv=none;
+        d=google.com; s=arc-20160816;
+        b=WeRt6MV+XG7sk+4hg7zz2EKyMe4rrp1IIlqPlWGzRBs1ZqVhW2Du8SleQIVOAwuiAJ
+         sQxYs4UEovJjSH/Q9Ek0yg0SdICXq0A+Y7wBb4hOM46AMigbTbjUssMEKdBadOyks0ed
+         IKD6TpdK8mmMPfdH0J9dHvfFbEYjY1/WMceZkMiuh4tldjd/9qGrPAKQdUsOEomCGEkO
+         zSpVBNSeMhrQuH1TrCJxvrm0wz/dYVo4boxFAnAM+kfea4e9CI3zT39MkA5058+WrHNK
+         Q/JPv0HAhYu7G+hcfISV/cFhs+FD5rSWkG2c+giZM9wl9ekw8OrJC6EFkNvYpl+gA9T2
+         If9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=uW7L+R09Mu6H+ABKOg5lrsSUaOMfGE+VPz7jK0WZ9xo=;
+        b=inUarmsk/qZ7HMyLkS3ZJZyn8g1f9GfTJ2e0gz7gt76LcF+esxAaHxJ0BKnxmUTAwE
+         SYPwxBjIHfqbLpEwFJpGkujmjFUmASHDoKUn/JNz5hfvWATS5mW8KbI/k/hBzi4YDZxS
+         Ecv8/DmwSLA1arvyZzfRVVJWy3EoXkPjmLHAXaUFZGGTezLSqOFA36LMfImlyjzo/0vW
+         FP6zypY7oZsqpbg2N7FZR6jKJUin52ZgUZ+n7bqOQ2hCBHb47SbLvn+fmLaD5/QHQW6b
+         7aWKtH+jpY/0fBiWEChIvsJD5pQGYBfUpAdpUm9P/TOIK16cwx1C0n/x7OAU4Mcg+xOF
+         H4EA==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com
+Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
+        by gmr-mx.google.com with ESMTPS id z45si746696edc.3.2019.05.07.11.10.17
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 07 May 2019 11:10:17 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id x47IAH50010877
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 7 May 2019 20:10:17 +0200
+Received: from [139.25.68.37] (md1q0hnc.ad001.siemens.net [139.25.68.37] (may be forged))
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id x47IAHsS013149;
+	Tue, 7 May 2019 20:10:17 +0200
+Subject: Re: [PATCH v2 1/7] pci, configs: unmystify magic constants
+To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
+        Jailhouse <jailhouse-dev@googlegroups.com>
+References: <20190506221110.19495-1-ralf.ramsauer@oth-regensburg.de>
+ <20190506221110.19495-2-ralf.ramsauer@oth-regensburg.de>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <08e7bb21-24b1-0b9a-1644-f9793a28daf0@siemens.com>
+Date: Tue, 7 May 2019 20:10:16 +0200
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
+ Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_2939_22032386.1557247469723"
-X-Original-Sender: hkurumahmut84@hotmail.com
+In-Reply-To: <20190506221110.19495-2-ralf.ramsauer@oth-regensburg.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Language: en-US
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -70,122 +129,635 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_2939_22032386.1557247469723
-Content-Type: text/plain; charset="UTF-8"
+On 07.05.19 00:11, Ralf Ramsauer wrote:
+> Some sugar for the guidance of the reader. Use speaking name instead of
+> hard-coded constants.
+> 
+> This patch was supported by:
+> $ git grep -l "\.id = 0x1"  | xargs sed -i 's/id = 0x1,/id = PCI_CAP_ID_PM,/'
+> $ git grep -l "\.id = 0x3"  | xargs sed -i 's/id = 0x3,/id = PCI_CAP_ID_VPD,/'
+> $ git grep -l "\.id = 0x5"  | xargs sed -i 's/id = 0x5,/id = PCI_CAP_ID_MSI,/'
+> $ git grep -l "\.id = 0x8"  | xargs sed -i 's/id = 0x8,/id = PCI_CAP_ID_HT,/'
+> $ git grep -l "\.id = 0x9"  | xargs sed -i 's/id = 0x9,/id = PCI_CAP_ID_VNDR,/'
+> $ git grep -l "\.id = 0xa"  | xargs sed -i 's/id = 0xa,/id = PCI_CAP_ID_DBG,/'
+> $ git grep -l "\.id = 0xd"  | xargs sed -i 's/id = 0xd,/id = PCI_CAP_ID_SSVID,/'
+> $ git grep -l "\.id = 0xf"  | xargs sed -i 's/id = 0xf,/id = PCI_CAP_ID_SECDEV,/'
+> $ git grep -l "\.id = 0x10" | xargs sed -i 's/id = 0x10,/id = PCI_CAP_ID_EXP,/'
+> $ git grep -l "\.id = 0x11" | xargs sed -i 's/id = 0x11,/id = PCI_CAP_ID_MSIX,/'
+> $ git grep -l "\.id = 0x12" | xargs sed -i 's/id = 0x12,/id = PCI_CAP_ID_SATA,/'
+> $ git grep -l "\.id = 0x13" | xargs sed -i 's/id = 0x13,/id = PCI_CAP_ID_AF,/'
+> 
+> Extended cap ids were manually replaced.
+> 
+> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+> ---
+>   configs/x86/e1000-demo.c        |  2 +-
+>   configs/x86/f2a88xm-hd3.c       | 54 ++++++++++++++++-----------------
+>   configs/x86/imb-a180.c          | 52 +++++++++++++++----------------
+>   configs/x86/linux-x86-demo.c    | 12 ++++----
+>   configs/x86/pci-demo.c          |  2 +-
+>   configs/x86/qemu-x86.c          | 20 ++++++------
+>   include/jailhouse/cell-config.h | 16 ++++++++++
+>   7 files changed, 87 insertions(+), 71 deletions(-)
+> 
+> diff --git a/configs/x86/e1000-demo.c b/configs/x86/e1000-demo.c
+> index 1c602883..54823721 100644
+> --- a/configs/x86/e1000-demo.c
+> +++ b/configs/x86/e1000-demo.c
+> @@ -99,7 +99,7 @@ struct {
+>   
+>   	.pci_caps = {
+>   		{ /* Intel e1000 @00:19.0 */
+> -			.id = 0x5,
+> +			.id = PCI_CAP_ID_MSI,
+>   			.start = 0xd0,
+>   			.len = 14,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+> diff --git a/configs/x86/f2a88xm-hd3.c b/configs/x86/f2a88xm-hd3.c
+> index d5320d7b..258e33c8 100644
+> --- a/configs/x86/f2a88xm-hd3.c
+> +++ b/configs/x86/f2a88xm-hd3.c
+> @@ -739,19 +739,19 @@ struct {
+>   	.pci_caps = {
+>   		/* PCIDevice: 00:00.2 */
+>   		{
+> -			.id = 0xf,
+> +			.id = PCI_CAP_ID_SECDEV,
+>   			.start = 0x40,
+>   			.len = 2,
+>   			.flags = 0,
+>   		},
+>   		{
+> -			.id = 0x5,
+> +			.id = PCI_CAP_ID_MSI,
+>   			.start = 0x54,
+>   			.len = 14,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x8,
+> +			.id = PCI_CAP_ID_HT,
+>   			.start = 0x64,
+>   			.len = 2,
+>   			.flags = 0,
+> @@ -759,56 +759,56 @@ struct {
+>   		/* PCIDevice: 00:01.0 */
+>   		/* PCIDevice: 00:01.1 */
+>   		{
+> -			.id = 0x9,
+> +			.id = PCI_CAP_ID_VNDR,
+>   			.start = 0x48,
+>   			.len = 2,
+>   			.flags = 0,
+>   		},
+>   		{
+> -			.id = 0x1,
+> +			.id = PCI_CAP_ID_PM,
+>   			.start = 0x50,
+>   			.len = 8,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x10,
+> +			.id = PCI_CAP_ID_EXP,
+>   			.start = 0x58,
+>   			.len = 2,
+>   			.flags = 0,
+>   		},
+>   		{
+> -			.id = 0x5,
+> +			.id = PCI_CAP_ID_MSI,
+>   			.start = 0xa0,
+>   			.len = 14,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		/* PCIDevice: 00:03.1 */
+>   		{
+> -			.id = 0x1,
+> +			.id = PCI_CAP_ID_PM,
+>   			.start = 0x50,
+>   			.len = 8,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x10,
+> +			.id = PCI_CAP_ID_EXP,
+>   			.start = 0x58,
+>   			.len = 2,
+>   			.flags = 0,
+>   		},
+>   		{
+> -			.id = 0x5,
+> +			.id = PCI_CAP_ID_MSI,
+>   			.start = 0xa0,
+>   			.len = 14,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0xd,
+> +			.id = PCI_CAP_ID_SSVID,
+>   			.start = 0xb0,
+>   			.len = 2,
+>   			.flags = 0,
+>   		},
+>   		{
+> -			.id = 0x8,
+> +			.id = PCI_CAP_ID_HT,
+>   			.start = 0xb8,
+>   			.len = 2,
+>   			.flags = 0,
+> @@ -816,38 +816,38 @@ struct {
+>   		/* PCIDevice: 00:10.0 */
+>   		/* PCIDevice: 00:10.1 */
+>   		{
+> -			.id = 0x1,
+> +			.id = PCI_CAP_ID_PM,
+>   			.start = 0x50,
+>   			.len = 8,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x5,
+> +			.id = PCI_CAP_ID_MSI,
+>   			.start = 0x70,
+>   			.len = 14,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x11,
+> +			.id = PCI_CAP_ID_MSIX,
+>   			.start = 0x90,
+>   			.len = 12,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x10,
+> +			.id = PCI_CAP_ID_EXP,
+>   			.start = 0xa0,
+>   			.len = 2,
+>   			.flags = 0,
+>   		},
+>   		/* PCIDevice: 00:11.0 */
+>   		{
+> -			.id = 0x5,
+> +			.id = PCI_CAP_ID_MSI,
+>   			.start = 0x50,
+>   			.len = 14,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x12,
+> +			.id = PCI_CAP_ID_SATA,
+>   			.start = 0x70,
+>   			.len = 2,
+>   			.flags = 0,
+> @@ -855,58 +855,58 @@ struct {
+>   		/* PCIDevice: 00:12.2 */
+>   		/* PCIDevice: 00:13.2 */
+>   		{
+> -			.id = 0x1,
+> +			.id = PCI_CAP_ID_PM,
+>   			.start = 0xc0,
+>   			.len = 8,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0xa,
+> +			.id = PCI_CAP_ID_DBG,
+>   			.start = 0xe4,
+>   			.len = 2,
+>   			.flags = 0,
+>   		},
+>   		/* PCIDevice: 00:14.2 */
+>   		{
+> -			.id = 0x1,
+> +			.id = PCI_CAP_ID_PM,
+>   			.start = 0x50,
+>   			.len = 8,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		/* PCIDevice: 00:18.3 */
+>   		{
+> -			.id = 0xf,
+> +			.id = PCI_CAP_ID_SECDEV,
+>   			.start = 0xf0,
+>   			.len = 2,
+>   			.flags = 0,
+>   		},
+>   		/* PCIDevice: 01:00.0 */
+>   		{
+> -			.id = 0x1,
+> +			.id = PCI_CAP_ID_PM,
+>   			.start = 0x40,
+>   			.len = 8,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x5,
+> +			.id = PCI_CAP_ID_MSI,
+>   			.start = 0x50,
+>   			.len = 14,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x10,
+> +			.id = PCI_CAP_ID_EXP,
+>   			.start = 0x70,
+>   			.len = 2,
+>   			.flags = 0,
+>   		},
+>   		{
+> -			.id = 0x11,
+> +			.id = PCI_CAP_ID_MSIX,
+>   			.start = 0xb0,
+>   			.len = 12,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x3,
+> +			.id = PCI_CAP_ID_VPD,
+>   			.start = 0xd0,
+>   			.len = 2,
+>   			.flags = 0,
+> diff --git a/configs/x86/imb-a180.c b/configs/x86/imb-a180.c
+> index 9073a4ac..b083d341 100644
+> --- a/configs/x86/imb-a180.c
+> +++ b/configs/x86/imb-a180.c
+> @@ -615,25 +615,25 @@ struct {
+>   		/* PCIDevice: 00:01.0 */
+>   		/* PCIDevice: 00:01.1 */
+>   		{
+> -			.id = 0x9,
+> +			.id = PCI_CAP_ID_VNDR,
+>   			.start = 0x48,
+>   			.len = 2,
+>   			.flags = 0,
+>   		},
+>   		{
+> -			.id = 0x1,
+> +			.id = PCI_CAP_ID_PM,
+>   			.start = 0x50,
+>   			.len = 8,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x10,
+> +			.id = PCI_CAP_ID_EXP,
+>   			.start = 0x58,
+>   			.len = 2,
+>   			.flags = 0,
+>   		},
+>   		{
+> -			.id = 0x5,
+> +			.id = PCI_CAP_ID_MSI,
+>   			.start = 0xa0,
+>   			.len = 14,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+> @@ -641,81 +641,81 @@ struct {
+>   		/* PCIDevice: 00:02.3 */
+>   		/* PCIDevice: 00:02.4 */
+>   		{
+> -			.id = 0x1,
+> +			.id = PCI_CAP_ID_PM,
+>   			.start = 0x50,
+>   			.len = 8,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x10,
+> +			.id = PCI_CAP_ID_EXP,
+>   			.start = 0x58,
+>   			.len = 2,
+>   			.flags = 0,
+>   		},
+>   		{
+> -			.id = 0x5,
+> +			.id = PCI_CAP_ID_MSI,
+>   			.start = 0xa0,
+>   			.len = 14,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0xd,
+> +			.id = PCI_CAP_ID_SSVID,
+>   			.start = 0xb0,
+>   			.len = 2,
+>   			.flags = 0,
+>   		},
+>   		{
+> -			.id = 0x8,
+> +			.id = PCI_CAP_ID_HT,
+>   			.start = 0xb8,
+>   			.len = 2,
+>   			.flags = 0,
+>   		},
+>   		/* PCIDevice: 00:10.0 */
+>   		{
+> -			.id = 0x1,
+> +			.id = PCI_CAP_ID_PM,
+>   			.start = 0x50,
+>   			.len = 8,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x5,
+> +			.id = PCI_CAP_ID_MSI,
+>   			.start = 0x70,
+>   			.len = 14,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x11,
+> +			.id = PCI_CAP_ID_MSIX,
+>   			.start = 0x90,
+>   			.len = 12,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x10,
+> +			.id = PCI_CAP_ID_EXP,
+>   			.start = 0xa0,
+>   			.len = 2,
+>   			.flags = 0,
+>   		},
+>   		/* PCIDevice: 00:11.0 */
+>   		{
+> -			.id = 0x1,
+> +			.id = PCI_CAP_ID_PM,
+>   			.start = 0x60,
+>   			.len = 8,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x12,
+> +			.id = PCI_CAP_ID_SATA,
+>   			.start = 0x70,
+>   			.len = 2,
+>   			.flags = 0,
+>   		},
+>   		{
+> -			.id = 0x5,
+> +			.id = PCI_CAP_ID_MSI,
+>   			.start = 0x50,
+>   			.len = 14,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x13,
+> +			.id = PCI_CAP_ID_AF,
+>   			.start = 0xd0,
+>   			.len = 2,
+>   			.flags = 0,
+> @@ -723,27 +723,27 @@ struct {
+>   		/* PCIDevice: 00:12.2 */
+>   		/* PCIDevice: 00:13.2 */
+>   		{
+> -			.id = 0x1,
+> +			.id = PCI_CAP_ID_PM,
+>   			.start = 0xc0,
+>   			.len = 8,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0xa,
+> +			.id = PCI_CAP_ID_DBG,
+>   			.start = 0xe4,
+>   			.len = 2,
+>   			.flags = 0,
+>   		},
+>   		/* PCIDevice: 00:14.2 */
+>   		{
+> -			.id = 0x1,
+> +			.id = PCI_CAP_ID_PM,
+>   			.start = 0x50,
+>   			.len = 8,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		/* PCIDevice: 00:18.3 */
+>   		{
+> -			.id = 0xf,
+> +			.id = PCI_CAP_ID_SECDEV,
+>   			.start = 0xf0,
+>   			.len = 2,
+>   			.flags = 0,
+> @@ -754,31 +754,31 @@ struct {
+>   		/* PCIDevice: 01:00.3 */
+>   		/* PCIDevice: 02:00.0 */
+>   		{
+> -			.id = 0x1,
+> +			.id = PCI_CAP_ID_PM,
+>   			.start = 0x40,
+>   			.len = 8,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x5,
+> +			.id = PCI_CAP_ID_MSI,
+>   			.start = 0x50,
+>   			.len = 14,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x10,
+> +			.id = PCI_CAP_ID_EXP,
+>   			.start = 0x70,
+>   			.len = 2,
+>   			.flags = 0,
+>   		},
+>   		{
+> -			.id = 0x11,
+> +			.id = PCI_CAP_ID_MSIX,
+>   			.start = 0xb0,
+>   			.len = 12,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x3,
+> +			.id = PCI_CAP_ID_VPD,
+>   			.start = 0xd0,
+>   			.len = 2,
+>   			.flags = 0,
+> diff --git a/configs/x86/linux-x86-demo.c b/configs/x86/linux-x86-demo.c
+> index af8c6da4..67e2d849 100644
+> --- a/configs/x86/linux-x86-demo.c
+> +++ b/configs/x86/linux-x86-demo.c
+> @@ -180,37 +180,37 @@ struct {
+>   
+>   	.pci_caps = {
+>   		{ /* e1000e */
+> -			.id = 0x1,
+> +			.id = PCI_CAP_ID_PM,
+>   			.start = 0xc8,
+>   			.len = 8,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x5,
+> +			.id = PCI_CAP_ID_MSI,
+>   			.start = 0xd0,
+>   			.len = 14,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x10,
+> +			.id = PCI_CAP_ID_EXP,
+>   			.start = 0xe0,
+>   			.len = 20,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x11,
+> +			.id = PCI_CAP_ID_MSIX,
+>   			.start = 0xa0,
+>   			.len = 12,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x1 | JAILHOUSE_PCI_EXT_CAP,
+> +			.id = PCI_EXT_CAP_ID_ERR | JAILHOUSE_PCI_EXT_CAP,
+>   			.start = 0x100,
+>   			.len = 4,
+>   			.flags = 0,
+>   		},
+>   		{
+> -			.id = 0x3 | JAILHOUSE_PCI_EXT_CAP,
+> +			.id = PCI_EXT_CAP_ID_DSN | JAILHOUSE_PCI_EXT_CAP,
+>   			.start = 0x140,
+>   			.len = 4,
+>   			.flags = 0,
+> diff --git a/configs/x86/pci-demo.c b/configs/x86/pci-demo.c
+> index c5719459..df026f15 100644
+> --- a/configs/x86/pci-demo.c
+> +++ b/configs/x86/pci-demo.c
+> @@ -96,7 +96,7 @@ struct {
+>   
+>   	.pci_caps = {
+>   		{ /* Intel HDA @00:1b.0 */
+> -			.id = 0x5,
+> +			.id = PCI_CAP_ID_MSI,
+>   			.start = 0x60,
+>   			.len = 14,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+> diff --git a/configs/x86/qemu-x86.c b/configs/x86/qemu-x86.c
+> index 68b8f18d..bd789cdf 100644
+> --- a/configs/x86/qemu-x86.c
+> +++ b/configs/x86/qemu-x86.c
+> @@ -316,7 +316,7 @@ struct {
+>   
+>   	.pci_caps = {
+>   		{ /* ICH HD audio */
+> -			.id = 0x5,
+> +			.id = PCI_CAP_ID_MSI,
+>   			.start = 0x60,
+>   			.len = 14,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+> @@ -327,55 +327,55 @@ struct {
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{ /* AHCI */
+> -			.id = 0x12,
+> +			.id = PCI_CAP_ID_SATA,
+>   			.start = 0xa8,
+>   			.len = 2,
+>   			.flags = 0,
+>   		},
+>   		{
+> -			.id = 0x5,
+> +			.id = PCI_CAP_ID_MSI,
+>   			.start = 0x80,
+>   			.len = 14,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{ /* virtio-9p-pci */
+> -			.id = 0x11,
+> +			.id = PCI_CAP_ID_MSIX,
+>   			.start = 0x98,
+>   			.len = 12,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{ /* e1000e */
+> -			.id = 0x1,
+> +			.id = PCI_CAP_ID_PM,
+>   			.start = 0xc8,
+>   			.len = 8,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x5,
+> +			.id = PCI_CAP_ID_MSI,
+>   			.start = 0xd0,
+>   			.len = 14,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x10,
+> +			.id = PCI_CAP_ID_EXP,
+>   			.start = 0xe0,
+>   			.len = 20,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x11,
+> +			.id = PCI_CAP_ID_MSIX,
+>   			.start = 0xa0,
+>   			.len = 12,
+>   			.flags = JAILHOUSE_PCICAPS_WRITE,
+>   		},
+>   		{
+> -			.id = 0x1 | JAILHOUSE_PCI_EXT_CAP,
+> +			.id = PCI_EXT_CAP_ID_ERR | JAILHOUSE_PCI_EXT_CAP,
+>   			.start = 0x100,
+>   			.len = 4,
+>   			.flags = 0,
+>   		},
+>   		{
+> -			.id = 0x3 | JAILHOUSE_PCI_EXT_CAP,
+> +			.id = PCI_EXT_CAP_ID_DSN | JAILHOUSE_PCI_EXT_CAP,
+>   			.start = 0x140,
+>   			.len = 4,
+>   			.flags = 0,
+> diff --git a/include/jailhouse/cell-config.h b/include/jailhouse/cell-config.h
+> index 66e13c3d..488e43f6 100644
+> --- a/include/jailhouse/cell-config.h
+> +++ b/include/jailhouse/cell-config.h
+> @@ -178,6 +178,22 @@ struct jailhouse_pci_device {
+>   
+>   #define JAILHOUSE_PCICAPS_WRITE		0x0001
+>   
+> +#define PCI_CAP_ID_PM			0x01 /* Power Management */
+> +#define PCI_CAP_ID_VPD			0x03 /* Vital Product Data */
+> +#define PCI_CAP_ID_MSI			0x05 /* Message Signalled Interrupts */
+> +#define PCI_CAP_ID_HT			0x08 /* HyperTransport */
+> +#define PCI_CAP_ID_VNDR			0x09 /* Vendor-Specific */
+> +#define PCI_CAP_ID_DBG			0x0A /* Debug port */
+> +#define PCI_CAP_ID_SSVID		0x0D /* Bridge subsystem vendor/device ID */
+> +#define PCI_CAP_ID_SECDEV		0x0F /* Secure Device */
+> +#define PCI_CAP_ID_EXP			0x10 /* PCI Express */
+> +#define PCI_CAP_ID_MSIX			0x11 /* MSI-X */
+> +#define PCI_CAP_ID_SATA			0x12 /* SATA Data/Index Conf. */
+> +#define PCI_CAP_ID_AF			0x13 /* PCI Advanced Features */
+> +
+> +#define PCI_EXT_CAP_ID_ERR		0x01 /* Advanced Error Reporting */
+> +#define PCI_EXT_CAP_ID_DSN		0x03 /* Device Serial Number */
+> +
 
-FINAL PATCH:
+It's better to move them into some include/jailhouse/pci_caps.h or pci_defs.h. 
+That avoids, when doing a fast-forward to the last patch, that we may ever have 
+to include cell-config.h when only the IDs are needed.
 
-It is committed for jailhouse/next branch.
+Jan
 
+>   struct jailhouse_pci_capability {
+>   	__u16 id;
+>   	__u16 start;
+> 
 
-From aa9e7f0e25317d2f516da68b4163f9f08fc6c76d Mon Sep 17 00:00:00 2001
-From: HAKKI KURUMAHMUT <kurumahmut@gmail.com>
-Date: Tue, 7 May 2019 19:37:59 +0300
-Subject: [PATCHv2] Scripts: Fix for Parsing DMAR Region under Reserved Section
-
- While kernel command parameters are intel_iommu=on  intremap=on at
- some machines, cat /proc/iomem shows DMAR region under reserved section.
- This patch must be done for config creation to complete because of
- generating DMAR region not found error although it exist. If this patch is
- not apply, an error is throw by "config create" command whether
- intel_iommu On or Off because "reserved" regions are currently excluded from
- the generated config although DMAR region exists. Thus, DMAR under reserved
- section must be parsed by parser.
-
-Signed-off-by: HAKKI KURUMAHMUT <kurumahmut@gmail.com>
----
- pyjailhouse/sysfs_parser.py | 23 +++++++++++++----------
- 1 file changed, 13 insertions(+), 10 deletions(-)
-
-diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py
-index 46c95fc2..4f5da12e 100644
---- a/pyjailhouse/sysfs_parser.py
-+++ b/pyjailhouse/sysfs_parser.py
-@@ -94,14 +94,13 @@ def input_listdir(dir, wildcards):
- 
- 
- def parse_iomem(pcidevices):
--    regions = IOMemRegionTree.parse_iomem_tree(
-+    (regions, dmar_regions) = IOMemRegionTree.parse_iomem_tree(
-         IOMemRegionTree.parse_iomem_file())
- 
-     rom_region = MemRegion(0xc0000, 0xdffff, 'ROMs')
-     add_rom_region = False
- 
-     ret = []
--    dmar_regions = []
-     for r in regions:
-         append_r = True
-         # filter the list for MSI-X pages
-@@ -860,21 +859,21 @@ class IOMemRegionTree:
- 
-         return root
- 
--    # find HPET regions in tree
-+    # find specific regions in tree
-     @staticmethod
--    def find_hpet_regions(tree):
-+    def find_regions_by_name(tree, string):
-         regions = []
- 
-         for tree in tree.children:
-             r = tree.region
-             s = r.typestr
- 
--            if (s.find('HPET') >= 0):
-+            if (s.find(string) >= 0):
-                 regions.append(r)
- 
-             # if the tree continues recurse further down ...
-             if (len(tree.children) > 0):
--                regions.extend(IOMemRegionTree.find_hpet_regions(tree))
-+                regions.extend(IOMemRegionTree.find_regions_by_name(tree, string))
- 
-         return regions
- 
-@@ -882,6 +881,7 @@ class IOMemRegionTree:
-     @staticmethod
-     def parse_iomem_tree(tree):
-         regions = []
-+        dmar_regions = []
- 
-         for tree in tree.children:
-             r = tree.region
-@@ -901,20 +901,23 @@ class IOMemRegionTree:
-             ):
-                 continue
- 
--            # generally blacklisted, unless we find an HPET behind it
-+            # generally blacklisted, with a few exceptions
-             if (s.lower() == 'reserved'):
--                regions.extend(IOMemRegionTree.find_hpet_regions(tree))
-+                regions.extend(IOMemRegionTree.find_regions_by_name(tree, 'HPET'))
-+                dmar_regions.extend(IOMemRegionTree.find_regions_by_name(tree, 'dmar'))
-                 continue
- 
-             # if the tree continues recurse further down ...
-             if (len(tree.children) > 0):
--                regions.extend(IOMemRegionTree.parse_iomem_tree(tree))
-+                (temp_regions, temp_dmar_regions) = IOMemRegionTree.parse_iomem_tree(tree)
-+                regions.extend(temp_regions)
-+                dmar_regions.extend(temp_dmar_regions)
-                 continue
- 
-             # add all remaining leaves
-             regions.append(r)
- 
--        return regions
-+        return regions, dmar_regions
- 
- 
- class IOMMUConfig:
 -- 
-2.17.1
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+Corporate Competence Center Embedded Linux
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/d88d8ae0-3f95-4cbb-812c-46e9d3bf1575%40googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/08e7bb21-24b1-0b9a-1644-f9793a28daf0%40siemens.com.
 For more options, visit https://groups.google.com/d/optout.
-
-------=_Part_2939_22032386.1557247469723--
