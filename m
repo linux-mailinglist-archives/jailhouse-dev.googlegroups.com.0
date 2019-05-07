@@ -1,117 +1,62 @@
-Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBF7TYXTAKGQE36MQ6IA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCL6VUP7RYARBAPUYXTAKGQEESDNJXY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43b.google.com (mail-wr1-x43b.google.com [IPv6:2a00:1450:4864:20::43b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85A3E163B5
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  7 May 2019 14:27:03 +0200 (CEST)
-Received: by mail-wr1-x43b.google.com with SMTP id z9sf7936567wrs.17
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 07 May 2019 05:27:03 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1557232023; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=mKV9AdJ04bXK/ZTjy/0ayBs9bMrkC9m2TffPaepqnP2Ekoziq6X1IW8OgcjjrePs81
-         pIRiApqHZCatILo1aHh8ZQiFVTZqaBN7PRxMk2KBA5XVYVh8oRpmqVTYRVnKFlESFb/H
-         m8BDu2J3kP1AleSUn1SbubYhyGmIQYlnOChlTXDWNfRdJBD7Fec1NZXohRx20F+8Q6J2
-         UD8W/4zuf9Rj9Zd+5OSB6fiemVVi2H7JZp5FZkwUJwF7tSfU5EGsshABL5umtJlQjQja
-         VMsZ00nmuE3TwSx6yeG3tGpNZCpm10gimpfkk8XlG2+x2r3+1k6xThL2NmO+uv1qPZF7
-         z/IA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:message-id:date
-         :subject:cc:to:from:sender:dkim-signature;
-        bh=OMGfalZRWXu1g9DmkS2h7ZqBvroTIYmuvxHBjwdw3hc=;
-        b=rE2lyM4YlELz0SAYqpm9ICwBtdAfCN30lIZrMO730mRaLo/MqYVvS84yUs2PSb7ICc
-         cUJJLeC393M9EPReB7RToyMLWGBvRZdTBSVPkDD1MxBLIT2BhAr1JgSn+pvtAx3IxaXY
-         7OVLe+vVWfqWYEkgR+0n7mcacFh+TvocSuyMIb83E3uzXr9qJ2/7uwuUJoxiBj7GPjwc
-         GLVYrjKh8VW7dmXHjvWjrp67F/PC9tEC5YmQHTqRvj4FL21ZM+h6PcDMM0nEBwUJIkgV
-         fdzdBhWyr3KUfR+el6nKSHPDqDJ8nBjZBsQ+K2cfv6CMxab+Ou3wq335S5VldViFYm8N
-         vlxA==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mail-oi1-x239.google.com (mail-oi1-x239.google.com [IPv6:2607:f8b0:4864:20::239])
+	by mail.lfdr.de (Postfix) with ESMTPS id 251A4163BF
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  7 May 2019 14:28:51 +0200 (CEST)
+Received: by mail-oi1-x239.google.com with SMTP id r84sf5662116oia.9
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 07 May 2019 05:28:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:cc:subject:date:message-id:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=OMGfalZRWXu1g9DmkS2h7ZqBvroTIYmuvxHBjwdw3hc=;
-        b=BPnnJczO6hpx42s5/Jqw7RqNuU7lhQ0pAc0eZILProGAo7UCCKtYUJb4CnhC2uY4CR
-         aCbykYOWxN09YTgATUk7aQFRnAExEhBAORpRQxsNrpvQ8Om/Qer0omkuusE86x0BmFqV
-         Fr9AeWg8C4V+EEoMoN+BOWyd1QOm+WGxVbUdRkksy2/h2cfnU7FLNvbjz4moTtBj2/YJ
-         VUyrf9QS26kKqTNiYdoKVmgPEqd9s9SsRArh9XD1rzElIrPnktuzuM9EipDnJ9D5C6MO
-         Rr9r/eBeeiTYEUucR8jEUpkE+e1xHw3ayRHiPDrYL8uXSERBoGj8GtZQ/oRgVLCSilkO
-         k+ww==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=VcEho1cpGiYnqp3PfbGdXFHDEtvPHSnT07kgdKVOnRk=;
+        b=VWb0o7Cp8SvZQwPe2s1pWu96bvU5EQZ3cMRZo1KJJ8znHCvZtWxFEL+QEB5YAnpWs9
+         Qn3ocOuQds3KaxAhUXr6SHkNIwme6ota+5mCzMfETNf6WikM3RknIKommyrfP73kiz8L
+         m0llkPHYbeIp0VYRyG6IIcCO5l4+sgHb74roRiDh96N3WiSfdCG4BuLU5ulfqbaOLgLI
+         AhkRMZMXD8eCComtW3Wh7Kr8SNCbkY6iSSSEVZakyK87l/ZicVnMiVWMCOClGxC7V5ta
+         otSHbopcg3+XjuIVZ+hcyZc+mKLMNGVPjHIb3xT1eA62hli9BUbhVhIMwR8IsWriyvjt
+         2cZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=OMGfalZRWXu1g9DmkS2h7ZqBvroTIYmuvxHBjwdw3hc=;
-        b=JV1KT+0OPoCxD/PFa8IMKMtOly/Cl6mZp813CwMZp3K5kQVqB7cnLwxea9c6/fcUJL
-         XpwYW+36jmHpZyICcuLgfB+DN8wALpYYsWw8yi3eu5FYJ+ULPwFtqGFs5dwnUBiY+4Dj
-         Lf7j4FSUgAnF4tHZL2T1omh8gVFSDD184hj7onMVVLytSFZC7ytqCYFESA0OrIb2GygH
-         z5eVZBqGkpmCgS5VKu1tiJd1hk2Oh6+BXcsVO6ljJSYySc3AUCSKDlKqkpUv7aqy1OCH
-         zuuk/5WROT48g3BF06y9LeUIKNuUhlGqHfgYg4bcKWpimGk81RDCVnZRPqU1kWtjzm+K
-         gvsw==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=VcEho1cpGiYnqp3PfbGdXFHDEtvPHSnT07kgdKVOnRk=;
+        b=hZEMXtF93+CSmqI/pg0KjoF0BzHbw/V6TCRcUYC9FuUwcgP/6v8BDsFby0g0tTVq12
+         J1s7Hos8iZ/qF+OKMOrfA4L9Iet+/ireFFrAUxYGdDDhmD42x0efUATAN7WYA81fTKMu
+         mrtZNUD4dk4pdi7DaDQFu7NhRe0nTsuDaWpf4WVLeYXEbm/jwojgGNGfC8xasYYTXaIZ
+         R3xZA6zcMTxtMDVqVOOX7xNdZIZ11h+v7NjykOxCsZLu0lYq+XHxkfY9nVtleOZ0vARs
+         b9/hZLrzphDpODXwK5GCmqitHVQDn4s+Mi2k/PMCQ8V2scUEleoTihTvhUZoHHF4wReW
+         SgUg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUhLa4eAZWd3qkBrGTlvQsOFAKSZxyiLJSBjEjOQ0mCMgkAIkTx
-	dpsWlw+xwcMl9LvjQDgTYno=
-X-Google-Smtp-Source: APXvYqxV4hjcJoLg3oDB+6yq55dW6tFPZlaOuiCxGjpD7utqaq7aPn5gk8+FcPC2syD9t9JvG8xSAw==
-X-Received: by 2002:adf:fb0d:: with SMTP id c13mr21946585wrr.214.1557232023264;
-        Tue, 07 May 2019 05:27:03 -0700 (PDT)
+X-Gm-Message-State: APjAAAUmh4r1U1R4ae4kDknrdB8ruYtb+oq+IpPGv5/aqd05PRCVIewu
+	mI5PNi09yD30ylYgva7uB/s=
+X-Google-Smtp-Source: APXvYqwgXIPjnHc0Jg4Ln7+24FgWWYBBrpexVlFBAIwPjHpuirOWUyiTW5aZnptaSvYI1KTeEZ/93g==
+X-Received: by 2002:aca:48d8:: with SMTP id v207mr2309157oia.126.1557232129852;
+        Tue, 07 May 2019 05:28:49 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6000:6:: with SMTP id h6ls3917441wrx.16.gmail; Tue, 07
- May 2019 05:27:02 -0700 (PDT)
-X-Received: by 2002:adf:b3d4:: with SMTP id x20mr24401635wrd.284.1557232022773;
-        Tue, 07 May 2019 05:27:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1557232022; cv=none;
-        d=google.com; s=arc-20160816;
-        b=ESTzbLOGMV79eJ1RQP30/C9vNI0IOAAVxVjzOaPmkuY5vVi+29LEmmrPBTXGcvqS0C
-         LegB6CbQoBXrOx9j3RoPdaxChO+LBvVN3ah1DiJX2JYmn9mJhOAINqsw+WfTW/1Sn2eB
-         inEBipshDIQXQ2tGI5VYAlWk5/JIa7QN7GmYDSIHqT/3SO45JLh/Xj00k+Q9jnCg5tPa
-         K4O+knSS/fWsH41ZPzPxYBINrpi3De/AcPDctB1rvuI4WduWn7/Bhbd3+u0qVUvA+Tht
-         VN2bPa7iSKrW1RWZi490FwAMBwKQQqz6XY1odNhXgR77VVHs0xZHZ8C3IV5SiCYLZ2GL
-         3QLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from;
-        bh=60pewPIP50BXbMZ8lz9ftYATznxffwuRe5fKP1ixCsw=;
-        b=Dvx6hshb9/7gezZOUq0bY35i9WgIvykuj0hPWam+b4SElm9c5svZQlHRWvVhtMXTLt
-         A8I+aEzpilXXbSVxbX0s6JkeRpoNfFLIDD5jFNQLo5N6TmHdy6Tspox0A2vbN4XVh+C9
-         iCewiyYwFikpgiVqUyZze4VqlZ7bHylDr9eFVwnw68vUDYLSVJmjx95jopUhVkJDnu8l
-         OYNrHuaROEbtxHQIwvy+V7FQcwV/hmrn0wgqNfp0qKrNgSknGeN57rbvKPWuAX2CpVG6
-         qdORJ01hE13dakf6q7KxzKyqiHut5IhVb/slPbDNkfq05/8djsI45kl/gDQ9XP3O0Qoh
-         lyZw==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mtaout.hs-regensburg.de (mtaout.hs-regensburg.de. [2001:638:a01:1096::10])
-        by gmr-mx.google.com with ESMTPS id z185si752910wmb.0.2019.05.07.05.27.02
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 07 May 2019 05:27:02 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) client-ip=2001:638:a01:1096::10;
-Received: from pluto.lfdr (unknown [IPv6:2001:638:a01:8061:aefd:ceff:fef3:ba65])
-	by mtaout.hs-regensburg.de (Postfix) with ESMTP id 44yzPf2g4yzy6p;
-	Tue,  7 May 2019 14:27:02 +0200 (CEST)
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-To: jailhouse-dev@googlegroups.com
-Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Subject: [PATCH] Documentation: debug-output: fix typo
-Date: Tue,  7 May 2019 14:27:01 +0200
-Message-Id: <20190507122701.22129-1-ralf.ramsauer@oth-regensburg.de>
-X-Mailer: git-send-email 2.21.0
+Received: by 2002:a05:6830:119:: with SMTP id i25ls141000otp.8.gmail; Tue, 07
+ May 2019 05:28:49 -0700 (PDT)
+X-Received: by 2002:a05:6830:2094:: with SMTP id y20mr6699237otq.340.1557232129193;
+        Tue, 07 May 2019 05:28:49 -0700 (PDT)
+Date: Tue, 7 May 2019 05:28:48 -0700 (PDT)
+From: =?UTF-8?Q?Hakk=C4=B1_Kurumahmut?= <hkurumahmut84@hotmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <36a1c92b-732e-4f4a-81e4-159b89919f84@googlegroups.com>
+In-Reply-To: <3bcebf94-23a5-18d3-1f0b-bb25717167a3@siemens.com>
+References: <edd9ef72-beae-42c3-94c7-ac5bf29ba57d@googlegroups.com>
+ <594f54f4-eb5c-5b64-2d49-38997bcf2f8b@siemens.com>
+ <50b964d8-41e5-49af-96dc-3080cbd3966e@googlegroups.com>
+ <62d847c0-b4b6-4395-b603-ecf2f87095d7@googlegroups.com>
+ <3bcebf94-23a5-18d3-1f0b-bb25717167a3@siemens.com>
+Subject: Re: Unsupported DMAR Device Scope Structure
 MIME-Version: 1.0
-X-PMX-Version: 6.3.3.2656215, Antispam-Engine: 2.7.2.2107409, Antispam-Data: 2019.5.7.121816, AntiVirus-Engine: 5.53.0, AntiVirus-Data: 2018.10.22.5530003
-X-PMX-Spam: Gauge=IIIIIIII, Probability=8%, Report='
- HTML_00_01 0.05, HTML_00_10 0.05, BODYTEXTP_SIZE_3000_LESS 0, BODY_SIZE_1000_LESS 0, BODY_SIZE_2000_LESS 0, BODY_SIZE_5000_LESS 0, BODY_SIZE_7000_LESS 0, BODY_SIZE_700_799 0, LEGITIMATE_SIGNS 0, MULTIPLE_REAL_RCPTS 0, NO_URI_HTTPS 0, RDNS_NXDOMAIN 0, RDNS_SUSP 0, RDNS_SUSP_GENERIC 0, __ANY_URI 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CTE 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_X_MAILER 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __NO_HTML_TAG_RAW 0, __SANE_MSGID 0, __SUBJ_ALPHA_END 0, __TO_MALFORMED_2 0, __TO_NO_NAME 0, __URI_NO_WWW 0, __URI_NS '
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of ralf.ramsauer@oth-regensburg.de designates
- 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_2720_307072259.1557232128525"
+X-Original-Sender: hkurumahmut84@hotmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -124,31 +69,177 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Shoud obviously be 8250.
+------=_Part_2720_307072259.1557232128525
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
----
- Documentation/debug-output.md | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+7 May=C4=B1s 2019 Sal=C4=B1 08:52:46 UTC+3 tarihinde Jan Kiszka yazd=C4=B1:
+> On 06.05.19 20:38, Hakk=C4=B1 Kurumahmut wrote:
+> > 6 May=C4=B1s 2019 Pazartesi 18:19:07 UTC+3 tarihinde jeanne....@gmail.c=
+om yazd=C4=B1:
+> >> For sure ! You can find the requested file attached.
+> >>
+> >> best regards,
+> >>
+> >>
+> >> Le lundi 6 mai 2019 16:11:05 UTC+2, Jan Kiszka a =C3=A9crit=C2=A0:
+> >>> On 06.05.19 15:47, jeanne.romefort@gmail.com wrote:
+> >>>> Hello,
+> >>>>
+> >>>> I'm trying to run jailhouse on a HP ProLiant ML350 Gen10.
+> >>>> ACPI DMAR is available, but my hardware-check fails with this
+> >>>>
+> >>>> error :
+> >>>> 	"Unsupported DMAR Device Scope Structure"
+> >>>>
+> >>>> I also tried on a HP ProLiant DL360p Gen8 but I ended up with the sa=
+me error...
+> >>>>
+> >>>>
+> >>>> Any idea of this trouble ?
+> >>>>
+> >>>
+> >>> Can you share an archive generated by "jailhouse config collect"? The=
+n we can
+> >>> analyze locally.
+> >>>
+> >>> Jan
+> >>>
+> >>> --=20
+> >>> Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+> >>> Corporate Competence Center Embedded Linux
+> >=20
+> > DMAR region parser is detected Device Scope size more than 8 byte.
+> >=20
+> >=20
+> > VT-d Spec at 8.3.1
+> >=20
+> > If the =E2=80=98Path=E2=80=99 field length is more than 2 bytes (N > 1)=
+, the Device Scope
+> > Entry identifies a device behind one or more system software visible PC=
+I-
+> > PCI bridges. Bus rebalancing actions by system software modifying bus
+> > assignments of the device=E2=80=99s parent bridge impacts the bus numbe=
+r portion
+> > of device=E2=80=99s requester-id.
+> >=20
+> > This devices
+> >=20
+> > 1C.7.0.0
+> > 1C.7.0.2
+> >=20
+> >=20
+> > Current Script does not support this type device... Scripts must be rea=
+d Dev Scope length and than it is read the DMAR file to collect correct dat=
+a.
+> >=20
+> >=20
+> > Jan can provide technical information on this issue. I have no idea why=
+ it's not supported.
+> >=20
+>=20
+> I think I was "just" too lazy to implement the needed logic behind that.
+>=20
+> The tricky thing here is surely the identification of the final bus numbe=
+r the=20
+> BIOS or Linux as chosen for the device described that way. It will be nee=
+ded in=20
+> order to identify the device entry in our configuration. Likely, we have =
+to walk=20
+> the topology, first identify the bridge and then query that one for its b=
+us=20
+> number in order to describe the device.
+>=20
+> Jan
+>=20
+> --=20
+> Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+> Corporate Competence Center Embedded Linux
 
-diff --git a/Documentation/debug-output.md b/Documentation/debug-output.md
-index 22eb634f..e3cea6ba 100644
---- a/Documentation/debug-output.md
-+++ b/Documentation/debug-output.md
-@@ -158,7 +158,7 @@ inmate command line parameters.
- | con-virtual   | Use secondary virtual console | true / false       | true / false                    |
- 
- Available debug output drivers (con-type=):
--x86: none, 8350
-+x86: none, 8250
- arm: none, 8250, hscif, imx, mvebu, pl011, scifa, xuartps
- 
- Similar to the hypervisor configuration, a zero value for con-divider will skip
--- 
-2.21.0
+Hi,
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20190507122701.22129-1-ralf.ramsauer%40oth-regensburg.de.
+Temporary solution but is not solution is below. Change relative function w=
+ith them. Hardware check will be pass but new problems may be seen.
+
+
+def parse_dmar_devscope(f):
+    (scope_type, scope_len) =3D struct.unpack('<BB', f.read(2))
+
+    N =3D (int)((scope_len - 6) / 2) - 1
+
+    (id, starting_bus, starting_dev, starting_fn) =3D \
+            struct.unpack('<xxBBBB', f.read(6))
+
+    while N !=3D 0:
+        N-=3D1
+        (secondary_dev, secondary_fn) =3D \
+            struct.unpack('<BB', f.read(2))
+
+    return (scope_type, scope_len, id, starting_bus, starting_dev, starting=
+_fn)
+
+
+Feature                         Availability
+------------------------------  ------------------
+Number of CPUs > 1              ok
+Long mode                       ok
+x2APIC                          ok
+
+VT-x (VMX)                      ok
+  VMX outside SMX               ok
+  VMX inside SMX                ok
+  IA32_TRUE_*_CLTS              ok
+  NMI exiting                   ok
+  Preemption timer              ok
+  I/O bitmap                    ok
+  MSR bitmap                    ok
+  Secondary controls            ok
+  Optional CR3 interception     ok
+  Virtualize APIC access        ok
+  RDTSCP                        ok
+  Unrestricted guest            ok
+  EPT                           ok
+    4-level page walk           ok
+    EPTP write-back             ok
+    2M pages                    ok
+    1G pages                    missing (optional)
+    INVEPT                      ok
+      Single or all-context     ok
+  VM-exit save IA32_PAT         ok
+  VM-exit load IA32_PAT         ok
+  VM-exit save IA32_EFER        ok
+  VM-exit load IA32_EFER        ok
+  VM-entry load IA32_PAT        ok
+  VM-entry load IA32_EFER       ok
+  Activity state HLT            ok
+
+VT-d (IOMMU #0)                 ok
+  39-bit AGAW                   ok
+  48-bit AGAW                   ok
+  2M pages                      ok
+  1G pages                      ok
+  Queued invalidation           ok
+  Interrupt remapping           ok
+  Extended interrupt mode       ok
+
+VT-d (IOMMU #1)                 ok
+  39-bit AGAW                   ok
+  48-bit AGAW                   ok
+  2M pages                      ok
+  1G pages                      ok
+  Queued invalidation           ok
+  Interrupt remapping           ok
+  Extended interrupt mode       ok
+
+Check passed!
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/36a1c92b-732e-4f4a-81e4-159b89919f84%40googlegroups.com.
 For more options, visit https://groups.google.com/d/optout.
+
+------=_Part_2720_307072259.1557232128525--
