@@ -1,124 +1,117 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBVFYYXTAKGQEKTAA2GY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBRPRYXTAKGQE4UI3LRA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x13a.google.com (mail-lf1-x13a.google.com [IPv6:2a00:1450:4864:20::13a])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2E33161D6
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  7 May 2019 12:22:12 +0200 (CEST)
-Received: by mail-lf1-x13a.google.com with SMTP id c26sf99154lfm.6
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 07 May 2019 03:22:12 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1557224532; cv=pass;
+Received: from mail-lf1-x13e.google.com (mail-lf1-x13e.google.com [IPv6:2a00:1450:4864:20::13e])
+	by mail.lfdr.de (Postfix) with ESMTPS id DF40C163A5
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  7 May 2019 14:23:34 +0200 (CEST)
+Received: by mail-lf1-x13e.google.com with SMTP id a28sf2582222lfo.19
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 07 May 2019 05:23:34 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1557231814; cv=pass;
         d=google.com; s=arc-20160816;
-        b=bz28ZWx2qZmRynibhpzIwxgPRRz6xT/kJMn0HwNCW/SfwjGWGKGvamTlTSGjOWKRrC
-         AhXfxouofxUZ00yQRzwDLEMNiGxVbjs/tmTYnlYRCPTW+BrnVyJqfgXql2m/Jg/e9ag3
-         +l9kMh3i5wkLSAfjEnAiqRIJR4s5fqWBCRe6oZAsiCapAqWT98IiC3p+SAR7K6tepZF6
-         ZoUn+iEaRBgjRXmcp7JuPm8BC3tuDk3KlCkKFN5MLWcfZS6Gh6WE/6dBSSqfclEQYMRj
-         JoYSsvDG7HF4HrdFniD6np6OpC01QNbAZp9xB/KE1G4ZPJpyAD3NKzD+D4QMd4DWwn1G
-         0ZEg==
+        b=eVI2kiy6erLly0EZ9dZ+jZ6TWmHez8FuXUmNfQ/L0Vh/3oPNtAucEwjgU2lgFbvJUA
+         fvknrS6vri4dEKKhUWQ+4W7abXmACnvFh6yVLXiIv8TGTSCgwVnjzM+SxXIyPDD8RpOf
+         HQ0bvZxvG1LVdPdDdsRiEydgqZnbBDriuSnY4M8s2E1TDB/DqyD9e59WIwdOskh317qz
+         /ts5CkO8Mbow4ztsRvA5nryUEmWeUOWQ5nCdOGO6ZuWj7VGIBsxk97+Zjdc39IlPJx7Z
+         w/u+kRj7J4/nnVHQVyqUdGVbC9KLV8nOhah10fGKqBRUS2tjsfNOziHlHHBZxzIFfkmu
+         eHSg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:to:subject
-         :sender:dkim-signature;
-        bh=I23uqBdqjOYSWP4M8nzxUEz00OolqyETncRsgM1Y+5A=;
-        b=GNyvCSReZxaZtNlemNJDYT5b8YLC6i5cY9hwWAhZOI6J0kkz2CNLnS4nN+jJIKKxdd
-         E4n8RHv8BvG4VLdAK1/X75Rr8W0M0rCOq+da+7ir1mPEfbLAJxh2ji72XiJEpIxpUECg
-         VcXHTVLBWKKax4q0OudfIXW62RKvOGpHf6s8FcUJ856PkbxROO7QvEQdFs4KIrMVSJzX
-         +necZfOmNLRXWUy5XxaerKibzLlIEy9EIffAUxOMrfmA/E/KTu0fLHJnR2dgIHgTRxD8
-         9LPhuvZLfte5M4cRPbI5hkGzWeCfgRkuiDaNi63SaZ9wFSm5TrlPwm9c7nq+fniIBukp
-         v6ag==
+         :list-id:mailing-list:precedence:mime-version:message-id:date
+         :subject:cc:to:from:sender:dkim-signature;
+        bh=KipPv1O91QNMoVcObPn/ceKNnNQ2QL4h9fZIHkeF3IY=;
+        b=DitEPMocYOHrj+7kzZt8476vcJioPmJmU5aTv/EFpn6s2m429jxhdOrpYN9o2K25jO
+         OwmPpsgtbgOEtbBQ0Ow5xleV+VZzUyb1MlAOQQ+fTwGG9+/jcaBrhD+CBEwnwcFDWlHE
+         nJHPTMPlwx8w1thdlhRLpBu2V8Q8hOL4Xm5tc8vGe8lmwm8STg9nn/+c21V7xEG7D25v
+         MkHnoKnG0xrLsqmYkvifviGY8XLQE3l4dibX9kNW+8l4U2P7nKbnsHhmMvoe0k1InJI7
+         NFVWP0TRVL12TEHjNhiQ+0VuHOLn9k3yHwZu1yVfznCVQm7MHcqj7WBrNj2onZGN8i+A
+         eUmg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=I23uqBdqjOYSWP4M8nzxUEz00OolqyETncRsgM1Y+5A=;
-        b=YXa74TN6e3OmRnoci1XVXHN8hx0VLk2LamGYEFF3h9s5+NtkoHWR45m8Y/875sGxV5
-         LvoTbdxmvkPBewitRWSn/QBq0eohYtS2AE7FKMoNQpsKcpBLrLsc9L/2M6LrPGYhMx1s
-         BrAzYGY0RTSPLCfJSFG0fuZ+PcSpFo5PMEsnr/iOfq/S1zeSV4I+dh9FAim0G/HAkM/N
-         7MTNjsplnN+SKuk1dSk6AWUO45DB9m1A04v5bGYYUo/PPLfJuphbQLGIqqt3prFEOKfm
-         MPXlqJ3EIPINIuUdlxJ0n5NN3yqNn0wfCPxmQKtLdvUTSTUtAUJWCy3p/7rXeb2yl9QA
-         +uIA==
+        h=sender:from:to:cc:subject:date:message-id:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=KipPv1O91QNMoVcObPn/ceKNnNQ2QL4h9fZIHkeF3IY=;
+        b=qv6WHKm2WzskI1f7meMKPY7O/VdlNZHaNYenJcohR2hzc5I9PzKn2QZoRKb8427UWx
+         jNameIHVTFSO6Lw8zBZtRkNrZHmLff+xhps/EjEjEkEcqaW/vJRvkO86uqzGDcgNQFkY
+         TYG5Sd9qaFvtt7HdDuxNn9lDdDYfev84fLfDlyhQKoOI9jO2sU97LiAGYf0UoRlgXCrA
+         R6I/wBbkf3xs1W085y2nM2rVkC29E116z3Ab2muChgxwE4sX0Bh+fXO/k0h5QZOyShYH
+         1nyDZnEqBoo6FyXyqeKpm7fWR2ZZEGTT5/TQzl6qplnRrwZ0BNj3yZ7ZHNQW2q2aOtje
+         EMAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=I23uqBdqjOYSWP4M8nzxUEz00OolqyETncRsgM1Y+5A=;
-        b=HUwfqQHf0myOQgtk8Q3ncUpPF+kkogYwBmou20jpLGx/eL5CLeKODKa2xlXCos6koS
-         Zq/vpO++X5pF2T2SCyCB4ouEl0Gp00wPGBGj16eA/LJVSNp/ZdvOW3gx54Ce5CF5NctA
-         iSWPvJo/KGgfQH5VXszwCW6TS/2kvAsGJTq7hQJPUMj2t6Y/wDtzKXIyjbdueJnMVWTR
-         prV2M2zH/Ustghc7MDYihOPvDeAFjzk0fGNVXUHBUWnl0c9eWlJHmCHrAqk1ej8gisW1
-         LFkDvZhbYDFP4BjczGfejV34AVWGQcuSRkPoLEzZ+jAvItdrSxqjEHjwCMOUtpQJz5iZ
-         S+bw==
+        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=KipPv1O91QNMoVcObPn/ceKNnNQ2QL4h9fZIHkeF3IY=;
+        b=mW5h12sS/BQe7QXgwSxRy0y8GjBGNvf3zsEbpTpTyXhHewO9/QasHulVcgVOCEipPP
+         e+Ef9oUrLiQYZLWF6Mm2mg3e90WDNbi9CT7Eku9evL9knd1uKiVeoehxj99LGl1VKoFr
+         k8E4GyAX2GXBzlpTI8EEyP/pJ5dXj9jLgx0AFvCwj2b9ukYwEXi02euyt/M+3JDWa9fR
+         02fdNP/w8yDdH21+CFhbTKwCkhj+AKECQ7R3/e7d7G42YBnXHv6oHiyBIfavOxJzOy7x
+         Px103BG5ct+h3nYEJpPI24GoHJ0eFXIjBeLEL+/5ZqfQFMAUV0MTdQyx9iv2WlPZa4jB
+         tmGQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUOFkxOm8467mnIHjgqwdam055O8AKzAR1FHYNm7rCkhH3z3AN+
-	0eWdZ1yI/SlfKbaa+2QAxuM=
-X-Google-Smtp-Source: APXvYqzIW08FGc/f+QcRnWQHmaMTZ9gpt8+vokmgS9JCvsYBE/SyZkqggxma9aEdxYUy05qhvKq65Q==
-X-Received: by 2002:a19:4f54:: with SMTP id a20mr15834444lfk.136.1557224532460;
-        Tue, 07 May 2019 03:22:12 -0700 (PDT)
+X-Gm-Message-State: APjAAAU8P6IXg7k+QEwQxofSaN2IW3ppTbayRiM31x9yH+eNhuo5Pc85
+	SfwLiR2zonh8NOMOXv8Xssg=
+X-Google-Smtp-Source: APXvYqzCGVlpz+0JD/uMFX09OKUqO1NCf8p6iP5NE/4YGHPVt1sIKFo2SvaqyFj5eWAV8MDjb3/vTg==
+X-Received: by 2002:ac2:59d9:: with SMTP id x25mr4976405lfn.123.1557231814242;
+        Tue, 07 May 2019 05:23:34 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac2:539a:: with SMTP id g26ls1354592lfh.12.gmail; Tue, 07
- May 2019 03:22:11 -0700 (PDT)
-X-Received: by 2002:a05:6512:206:: with SMTP id a6mr1589015lfo.18.1557224531399;
-        Tue, 07 May 2019 03:22:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1557224531; cv=none;
+Received: by 2002:ac2:42ca:: with SMTP id n10ls1395169lfl.6.gmail; Tue, 07 May
+ 2019 05:23:33 -0700 (PDT)
+X-Received: by 2002:ac2:545c:: with SMTP id d28mr16143588lfn.144.1557231813414;
+        Tue, 07 May 2019 05:23:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1557231813; cv=none;
         d=google.com; s=arc-20160816;
-        b=ST3UjlqB7wlqozFKOTx3D4XMSdwzqy2f/+zIy0RAh9uREAn7eK/waa22Yo8O3uNoyK
-         IEEX1hsAhDjEguvGvNBBk/2fMdtDWPeGbhrqJFaTA5tvhBhwGeEoBZhKGQ5OhwtZeedP
-         4lloTsteRl00V2heqhuGgdRrpMSiT20KsQP86w0dmLYYMBPFrTIB5oySL+khK5j787QW
-         OAYHWIy023L695s9ulOeOSVhQAzGwDuGUmqyf2a34otEcPJ36WRWtzUVGFBk3NpKA5v5
-         wUf/gR4kFhCBomzNm2DP5Kjx9KGt3uHZJJTftzATlWR14f/wHtJehG8rbGNPsGvqEnPb
-         cnqQ==
+        b=I6y4SXfEW7iAXQBfQSdoArtaCwYhSEesB5SFY68BstpjPEkLPvbuLHf8cSAri1/Owe
+         kQ4OeXlKYTAt4m/nd84DkEcQUVGTNErYXgnGTAg68+DDgqJA9C+K9ENU+8X9BPk9ujW3
+         bCDYBOA0lGg3p9AMpKGqA+ZJqvKSt2xskt/vtixPnGN6x+0QNwtKRB/UdUNE6uT6FsBq
+         EqSS/2GcLT9RxdD7R877uLGZH/nglGW8cXH2BCw0FvYiCGBGoP5Z09mSu/VUIJiqhT42
+         U0sdUxH/ZmN59l2lEpbjCUe4DPYI+vBcQ54TZl4xzMgEVkRPsxUmrTuzJOE6WgTiaOFN
+         yAtA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=2OqkmexdBQzMkcrRoN8vwiQnCNCGjGVjM/viK26fXyI=;
-        b=GpzdNsDCME7L0CU7neDEi5WPDeinuHu2A35VC9b+UviiBeAnraScBLbiZ1lrSpFAXd
-         Nf9ujUt/VrXeOelVqpEGPwSlh4qH2CJUvW7C0NVJ/CI7jLoCUImMZNFqVlEcaTSoFn1C
-         cDdIyYiz0mhUbYt77sK5AfMzqnoEee+uudJSvXNqluN9flC/p0bh+8/NE7FeQcnkwh7N
-         7gL/wUTe6/KewtBMkEGlaVSccwjvjLdzI01tfUe1n4ooc3M5qQzUlB5bNjD3K6eqpkFC
-         jc0THLv0Ppm3UixKbOS9RnoxrGXCkYB/9Rr/+kT5DtemM1hZYQOkLQacWbMUuqBi2krm
-         6CJg==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from;
+        bh=ECMvRm758PMt6lCu3SehasKw0z/CvzdClvygB2Vbrws=;
+        b=vCD4J7miAI/FN1Bwqq8Ak2ef4wWJnH3uHYhox5fPIWjOZcSqf14cA9bPawiUAqh7T3
+         w3jGq+iCd5BXWgWpY7HMSnButeZIOHR2qEPTPSJFl/Rh77MtuzzTFIDsaiBD2OzpqUnl
+         PKB415nOmbgApnvF6I7BL5Xbixprj4IcJ21mZiiesQW6yCSCwoSu1kxy6B4uSoXdo37N
+         tKXSpuHy6PUqkxVnf9eOT4MAz1L9sxKc7HrxEPnxOea7J/ELvcj9FAf+ccc4bqRSZAl8
+         bva6HIF7xsCUzw6jWBi/yCu783LqKlCPj3HpB/OtXXPotW1iJPtLa2BGWIL+s/uij1P1
+         Tezw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id c22si504633lfh.5.2019.05.07.03.22.11
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mtaout.hs-regensburg.de (mtaout.hs-regensburg.de. [194.95.104.10])
+        by gmr-mx.google.com with ESMTPS id p12si368860ljh.5.2019.05.07.05.23.33
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 07 May 2019 03:22:11 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
-Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id x47AMAYs030220
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 7 May 2019 12:22:10 +0200
-Received: from [139.25.69.165] ([139.25.69.165])
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x47AMABb011268;
-	Tue, 7 May 2019 12:22:10 +0200
-Subject: Re: [PATCH v2] configs: define ARRAY_SIZE in cell-config.h
-To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
-        jailhouse-dev@googlegroups.com
-References: <20190506114328.32103-1-ralf.ramsauer@oth-regensburg.de>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <344b281a-30b9-80c9-d1e4-a57c2f89928c@siemens.com>
-Date: Tue, 7 May 2019 12:22:09 +0200
-User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
- Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
+        Tue, 07 May 2019 05:23:33 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) client-ip=194.95.104.10;
+Received: from pluto.lfdr (unknown [IPv6:2001:638:a01:8061:aefd:ceff:fef3:ba65])
+	by mtaout.hs-regensburg.de (Postfix) with ESMTP id 44yzKc2nHKzy6p;
+	Tue,  7 May 2019 14:23:32 +0200 (CEST)
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+To: jailhouse-dev@googlegroups.com
+Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Subject: [PATCH] Documentation: x86: test-device: document the test-device
+Date: Tue,  7 May 2019 14:23:31 +0200
+Message-Id: <20190507122331.19252-1-ralf.ramsauer@oth-regensburg.de>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-In-Reply-To: <20190506114328.32103-1-ralf.ramsauer@oth-regensburg.de>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
+X-PMX-Version: 6.3.3.2656215, Antispam-Engine: 2.7.2.2107409, Antispam-Data: 2019.5.7.121816, AntiVirus-Engine: 5.53.0, AntiVirus-Data: 2018.10.22.5530003
+X-PMX-Spam: Gauge=IIIIIIII, Probability=8%, Report='
+ HTML_00_01 0.05, HTML_00_10 0.05, BODYTEXTP_SIZE_3000_LESS 0, BODY_SIZE_1000_1099 0, BODY_SIZE_2000_LESS 0, BODY_SIZE_5000_LESS 0, BODY_SIZE_7000_LESS 0, LEGITIMATE_SIGNS 0, MULTIPLE_REAL_RCPTS 0, NO_URI_HTTPS 0, RDNS_NXDOMAIN 0, RDNS_SUSP 0, RDNS_SUSP_GENERIC 0, __ANY_URI 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CTE 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_X_MAILER 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __NO_HTML_TAG_RAW 0, __SANE_MSGID 0, __SUBJ_ALPHA_END 0, __TO_MALFORMED_2 0, __TO_NO_NAME 0, __URI_NO_WWW 0, __URI_NS '
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+ (google.com: domain of ralf.ramsauer@oth-regensburg.de designates
+ 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Content-Type: text/plain; charset="UTF-8"
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -131,1081 +124,39 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 06.05.19 13:43, Ralf Ramsauer wrote:
-> instead of defining this useful macro in every single config file.
-> 
-> There's only one quirk: ARRAY_SIZE is defined for hypervisor code in util.h,
-> which we can't include in cell-config.h, as it's GPL-only. So we have to
-> duplicate the definitions, which might lead to redefinitions of the macro.
-> Hence, surround the macro by guards.
-> 
-> Also remove the macro from the root cell template.
-> 
-> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-> ---
-> 
-> Removed this patch from the series.
-> 
-> since v1: Leave a comment why we need guards around ARRAY_SIZE
-> 
->   configs/arm/bananapi-gic-demo.c               | 2 --
->   configs/arm/bananapi-linux-demo.c             | 2 --
->   configs/arm/bananapi-uart-demo.c              | 2 --
->   configs/arm/bananapi.c                        | 2 --
->   configs/arm/emtrion-rzg1e-linux-demo.c        | 2 --
->   configs/arm/emtrion-rzg1e-uart-demo.c         | 2 --
->   configs/arm/emtrion-rzg1e.c                   | 2 --
->   configs/arm/emtrion-rzg1h-linux-demo.c        | 2 --
->   configs/arm/emtrion-rzg1h-uart-demo.c         | 2 --
->   configs/arm/emtrion-rzg1h.c                   | 2 --
->   configs/arm/emtrion-rzg1m-linux-demo.c        | 2 --
->   configs/arm/emtrion-rzg1m-uart-demo.c         | 2 --
->   configs/arm/emtrion-rzg1m.c                   | 2 --
->   configs/arm/jetson-tk1-demo.c                 | 2 --
->   configs/arm/jetson-tk1-linux-demo.c           | 2 --
->   configs/arm/jetson-tk1.c                      | 2 --
->   configs/arm/orangepi0-gic-demo.c              | 2 --
->   configs/arm/orangepi0-linux-demo.c            | 2 --
->   configs/arm/orangepi0.c                       | 2 --
->   configs/arm64/amd-seattle-gic-demo.c          | 2 --
->   configs/arm64/amd-seattle-linux-demo.c        | 2 --
->   configs/arm64/amd-seattle-uart-demo.c         | 2 --
->   configs/arm64/amd-seattle.c                   | 2 --
->   configs/arm64/espressobin-gic-demo.c          | 2 --
->   configs/arm64/espressobin-linux-demo.c        | 2 --
->   configs/arm64/espressobin.c                   | 2 --
->   configs/arm64/foundation-v8-gic-demo.c        | 2 --
->   configs/arm64/foundation-v8-linux-demo.c      | 2 --
->   configs/arm64/foundation-v8-uart-demo.c       | 2 --
->   configs/arm64/foundation-v8.c                 | 2 --
->   configs/arm64/hikey-gic-demo.c                | 2 --
->   configs/arm64/hikey-linux-demo.c              | 2 --
->   configs/arm64/hikey.c                         | 2 --
->   configs/arm64/imx8mq-gic-demo.c               | 2 --
->   configs/arm64/imx8mq.c                        | 2 --
->   configs/arm64/jetson-tx1-demo.c               | 2 --
->   configs/arm64/jetson-tx1-linux-demo.c         | 2 --
->   configs/arm64/jetson-tx1.c                    | 2 --
->   configs/arm64/jetson-tx2-demo.c               | 2 --
->   configs/arm64/jetson-tx2.c                    | 2 --
->   configs/arm64/k3-am654-gic-demo.c             | 2 --
->   configs/arm64/k3-am654-idk-linux-demo.c       | 2 --
->   configs/arm64/k3-am654-idk.c                  | 2 --
->   configs/arm64/k3-am654-uart-demo.c            | 2 --
->   configs/arm64/macchiatobin-gic-demo.c         | 2 --
->   configs/arm64/macchiatobin-linux-demo.c       | 2 --
->   configs/arm64/macchiatobin.c                  | 2 --
->   configs/arm64/miriac-sbc-ls1046a-gic-demo.c   | 2 --
->   configs/arm64/miriac-sbc-ls1046a-linux-demo.c | 2 --
->   configs/arm64/miriac-sbc-ls1046a.c            | 2 --
->   configs/arm64/qemu-arm64-gic-demo.c           | 2 --
->   configs/arm64/qemu-arm64-linux-demo.c         | 2 --
->   configs/arm64/qemu-arm64.c                    | 2 --
->   configs/arm64/ultra96-gic-demo.c              | 2 --
->   configs/arm64/ultra96-linux-demo.c            | 2 --
->   configs/arm64/ultra96.c                       | 2 --
->   configs/arm64/zynqmp-zcu102-gic-demo.c        | 2 --
->   configs/arm64/zynqmp-zcu102-linux-demo-2.c    | 2 --
->   configs/arm64/zynqmp-zcu102-linux-demo.c      | 2 --
->   configs/arm64/zynqmp-zcu102.c                 | 2 --
->   configs/x86/apic-demo.c                       | 2 --
->   configs/x86/e1000-demo.c                      | 2 --
->   configs/x86/f2a88xm-hd3.c                     | 2 --
->   configs/x86/imb-a180.c                        | 2 --
->   configs/x86/ioapic-demo.c                     | 2 --
->   configs/x86/ivshmem-demo.c                    | 2 --
->   configs/x86/linux-x86-demo.c                  | 2 --
->   configs/x86/pci-demo.c                        | 2 --
->   configs/x86/qemu-x86.c                        | 2 --
->   configs/x86/smp-demo.c                        | 2 --
->   configs/x86/tiny-demo.c                       | 2 --
->   hypervisor/include/jailhouse/utils.h          | 7 +++++++
->   include/jailhouse/cell-config.h               | 4 ++++
->   tools/root-cell-config.c.tmpl                 | 2 --
->   74 files changed, 11 insertions(+), 144 deletions(-)
-> 
-> diff --git a/configs/arm/bananapi-gic-demo.c b/configs/arm/bananapi-gic-demo.c
-> index 757d9503..855a72a7 100644
-> --- a/configs/arm/bananapi-gic-demo.c
-> +++ b/configs/arm/bananapi-gic-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm/bananapi-linux-demo.c b/configs/arm/bananapi-linux-demo.c
-> index e9e584f2..fd1931f3 100644
-> --- a/configs/arm/bananapi-linux-demo.c
-> +++ b/configs/arm/bananapi-linux-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm/bananapi-uart-demo.c b/configs/arm/bananapi-uart-demo.c
-> index aeec6f8d..0621ca52 100644
-> --- a/configs/arm/bananapi-uart-demo.c
-> +++ b/configs/arm/bananapi-uart-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm/bananapi.c b/configs/arm/bananapi.c
-> index e7e6bb1e..ffc4589c 100644
-> --- a/configs/arm/bananapi.c
-> +++ b/configs/arm/bananapi.c
-> @@ -15,8 +15,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_system header;
->   	__u64 cpus[1];
-> diff --git a/configs/arm/emtrion-rzg1e-linux-demo.c b/configs/arm/emtrion-rzg1e-linux-demo.c
-> index ea638989..1bf08b66 100644
-> --- a/configs/arm/emtrion-rzg1e-linux-demo.c
-> +++ b/configs/arm/emtrion-rzg1e-linux-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm/emtrion-rzg1e-uart-demo.c b/configs/arm/emtrion-rzg1e-uart-demo.c
-> index a2590adb..42c74127 100644
-> --- a/configs/arm/emtrion-rzg1e-uart-demo.c
-> +++ b/configs/arm/emtrion-rzg1e-uart-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm/emtrion-rzg1e.c b/configs/arm/emtrion-rzg1e.c
-> index 0a38ed8d..e3872cf2 100644
-> --- a/configs/arm/emtrion-rzg1e.c
-> +++ b/configs/arm/emtrion-rzg1e.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_system header;
->   	__u64 cpus[1];
-> diff --git a/configs/arm/emtrion-rzg1h-linux-demo.c b/configs/arm/emtrion-rzg1h-linux-demo.c
-> index 61c58666..ad2dceeb 100644
-> --- a/configs/arm/emtrion-rzg1h-linux-demo.c
-> +++ b/configs/arm/emtrion-rzg1h-linux-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm/emtrion-rzg1h-uart-demo.c b/configs/arm/emtrion-rzg1h-uart-demo.c
-> index d8076be5..f20c94cb 100644
-> --- a/configs/arm/emtrion-rzg1h-uart-demo.c
-> +++ b/configs/arm/emtrion-rzg1h-uart-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm/emtrion-rzg1h.c b/configs/arm/emtrion-rzg1h.c
-> index a23e1589..03e1be5b 100644
-> --- a/configs/arm/emtrion-rzg1h.c
-> +++ b/configs/arm/emtrion-rzg1h.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_system header;
->   	__u64 cpus[1];
-> diff --git a/configs/arm/emtrion-rzg1m-linux-demo.c b/configs/arm/emtrion-rzg1m-linux-demo.c
-> index 0c3d0cfd..d8b8441a 100644
-> --- a/configs/arm/emtrion-rzg1m-linux-demo.c
-> +++ b/configs/arm/emtrion-rzg1m-linux-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm/emtrion-rzg1m-uart-demo.c b/configs/arm/emtrion-rzg1m-uart-demo.c
-> index 3a0eda5c..c89c1d82 100644
-> --- a/configs/arm/emtrion-rzg1m-uart-demo.c
-> +++ b/configs/arm/emtrion-rzg1m-uart-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm/emtrion-rzg1m.c b/configs/arm/emtrion-rzg1m.c
-> index f97805f7..84d68f62 100644
-> --- a/configs/arm/emtrion-rzg1m.c
-> +++ b/configs/arm/emtrion-rzg1m.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_system header;
->   	__u64 cpus[1];
-> diff --git a/configs/arm/jetson-tk1-demo.c b/configs/arm/jetson-tk1-demo.c
-> index 7562222c..57ea5a3d 100644
-> --- a/configs/arm/jetson-tk1-demo.c
-> +++ b/configs/arm/jetson-tk1-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   #ifndef CONFIG_INMATE_BASE
->   #define CONFIG_INMATE_BASE 0x0
->   #endif
-> diff --git a/configs/arm/jetson-tk1-linux-demo.c b/configs/arm/jetson-tk1-linux-demo.c
-> index 16d79774..7ee83f7a 100644
-> --- a/configs/arm/jetson-tk1-linux-demo.c
-> +++ b/configs/arm/jetson-tk1-linux-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm/jetson-tk1.c b/configs/arm/jetson-tk1.c
-> index 9e2e23f9..7374ef44 100644
-> --- a/configs/arm/jetson-tk1.c
-> +++ b/configs/arm/jetson-tk1.c
-> @@ -18,8 +18,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_system header;
->   	__u64 cpus[1];
-> diff --git a/configs/arm/orangepi0-gic-demo.c b/configs/arm/orangepi0-gic-demo.c
-> index 45c38425..51b3bf8b 100644
-> --- a/configs/arm/orangepi0-gic-demo.c
-> +++ b/configs/arm/orangepi0-gic-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm/orangepi0-linux-demo.c b/configs/arm/orangepi0-linux-demo.c
-> index e7154078..49ee10e9 100644
-> --- a/configs/arm/orangepi0-linux-demo.c
-> +++ b/configs/arm/orangepi0-linux-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm/orangepi0.c b/configs/arm/orangepi0.c
-> index 9eca773d..e45c8d62 100644
-> --- a/configs/arm/orangepi0.c
-> +++ b/configs/arm/orangepi0.c
-> @@ -15,8 +15,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_system header;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/amd-seattle-gic-demo.c b/configs/arm64/amd-seattle-gic-demo.c
-> index d407d6e3..5a4d726a 100644
-> --- a/configs/arm64/amd-seattle-gic-demo.c
-> +++ b/configs/arm64/amd-seattle-gic-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/amd-seattle-linux-demo.c b/configs/arm64/amd-seattle-linux-demo.c
-> index 96edbc4f..5349323c 100644
-> --- a/configs/arm64/amd-seattle-linux-demo.c
-> +++ b/configs/arm64/amd-seattle-linux-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/amd-seattle-uart-demo.c b/configs/arm64/amd-seattle-uart-demo.c
-> index 61073486..bcaac58d 100644
-> --- a/configs/arm64/amd-seattle-uart-demo.c
-> +++ b/configs/arm64/amd-seattle-uart-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/amd-seattle.c b/configs/arm64/amd-seattle.c
-> index 911ae1da..b5cff3b3 100644
-> --- a/configs/arm64/amd-seattle.c
-> +++ b/configs/arm64/amd-seattle.c
-> @@ -15,8 +15,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-> -
->   struct {
->   	struct jailhouse_system header;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/espressobin-gic-demo.c b/configs/arm64/espressobin-gic-demo.c
-> index 452ab668..6de940d7 100644
-> --- a/configs/arm64/espressobin-gic-demo.c
-> +++ b/configs/arm64/espressobin-gic-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/espressobin-linux-demo.c b/configs/arm64/espressobin-linux-demo.c
-> index c0b09981..92da96e9 100644
-> --- a/configs/arm64/espressobin-linux-demo.c
-> +++ b/configs/arm64/espressobin-linux-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/espressobin.c b/configs/arm64/espressobin.c
-> index d620080d..a23dc24b 100644
-> --- a/configs/arm64/espressobin.c
-> +++ b/configs/arm64/espressobin.c
-> @@ -17,8 +17,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-> -
->   struct {
->   	struct jailhouse_system header;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/foundation-v8-gic-demo.c b/configs/arm64/foundation-v8-gic-demo.c
-> index 5d69e01e..8b1ff1ac 100644
-> --- a/configs/arm64/foundation-v8-gic-demo.c
-> +++ b/configs/arm64/foundation-v8-gic-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/foundation-v8-linux-demo.c b/configs/arm64/foundation-v8-linux-demo.c
-> index 86fe8ada..2a448b49 100644
-> --- a/configs/arm64/foundation-v8-linux-demo.c
-> +++ b/configs/arm64/foundation-v8-linux-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/foundation-v8-uart-demo.c b/configs/arm64/foundation-v8-uart-demo.c
-> index f057fbbc..da919d4a 100644
-> --- a/configs/arm64/foundation-v8-uart-demo.c
-> +++ b/configs/arm64/foundation-v8-uart-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/foundation-v8.c b/configs/arm64/foundation-v8.c
-> index 5109929f..7a632491 100644
-> --- a/configs/arm64/foundation-v8.c
-> +++ b/configs/arm64/foundation-v8.c
-> @@ -15,8 +15,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-> -
->   struct {
->   	struct jailhouse_system header;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/hikey-gic-demo.c b/configs/arm64/hikey-gic-demo.c
-> index 908b0c71..c7ddf469 100644
-> --- a/configs/arm64/hikey-gic-demo.c
-> +++ b/configs/arm64/hikey-gic-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/hikey-linux-demo.c b/configs/arm64/hikey-linux-demo.c
-> index 71bc7c82..76dda9da 100644
-> --- a/configs/arm64/hikey-linux-demo.c
-> +++ b/configs/arm64/hikey-linux-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/hikey.c b/configs/arm64/hikey.c
-> index bcfbe188..7e6bb952 100644
-> --- a/configs/arm64/hikey.c
-> +++ b/configs/arm64/hikey.c
-> @@ -15,8 +15,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-> -
->   struct {
->   	struct jailhouse_system header;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/imx8mq-gic-demo.c b/configs/arm64/imx8mq-gic-demo.c
-> index 041751c0..ae1877d0 100644
-> --- a/configs/arm64/imx8mq-gic-demo.c
-> +++ b/configs/arm64/imx8mq-gic-demo.c
-> @@ -13,8 +13,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/imx8mq.c b/configs/arm64/imx8mq.c
-> index 95b4b363..7d113264 100644
-> --- a/configs/arm64/imx8mq.c
-> +++ b/configs/arm64/imx8mq.c
-> @@ -15,8 +15,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-> -
->   struct {
->   	struct jailhouse_system header;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/jetson-tx1-demo.c b/configs/arm64/jetson-tx1-demo.c
-> index 446b1a6d..b16b9ba7 100644
-> --- a/configs/arm64/jetson-tx1-demo.c
-> +++ b/configs/arm64/jetson-tx1-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/jetson-tx1-linux-demo.c b/configs/arm64/jetson-tx1-linux-demo.c
-> index 4a643873..b8698259 100644
-> --- a/configs/arm64/jetson-tx1-linux-demo.c
-> +++ b/configs/arm64/jetson-tx1-linux-demo.c
-> @@ -18,8 +18,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   #ifndef CONFIG_INMATE_BASE
->   #define CONFIG_INMATE_BASE 0x0
->   #endif
-> diff --git a/configs/arm64/jetson-tx1.c b/configs/arm64/jetson-tx1.c
-> index d4a00daf..d1fb21b8 100644
-> --- a/configs/arm64/jetson-tx1.c
-> +++ b/configs/arm64/jetson-tx1.c
-> @@ -18,8 +18,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-> -
->   struct {
->   	struct jailhouse_system header;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/jetson-tx2-demo.c b/configs/arm64/jetson-tx2-demo.c
-> index 6e09226c..d500e124 100644
-> --- a/configs/arm64/jetson-tx2-demo.c
-> +++ b/configs/arm64/jetson-tx2-demo.c
-> @@ -11,8 +11,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/jetson-tx2.c b/configs/arm64/jetson-tx2.c
-> index 814a4b08..c2e17e67 100644
-> --- a/configs/arm64/jetson-tx2.c
-> +++ b/configs/arm64/jetson-tx2.c
-> @@ -21,8 +21,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-> -
->   struct {
->   	struct jailhouse_system header;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/k3-am654-gic-demo.c b/configs/arm64/k3-am654-gic-demo.c
-> index fc9deb75..556b0b4a 100644
-> --- a/configs/arm64/k3-am654-gic-demo.c
-> +++ b/configs/arm64/k3-am654-gic-demo.c
-> @@ -17,8 +17,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/k3-am654-idk-linux-demo.c b/configs/arm64/k3-am654-idk-linux-demo.c
-> index 23824890..5eab1502 100644
-> --- a/configs/arm64/k3-am654-idk-linux-demo.c
-> +++ b/configs/arm64/k3-am654-idk-linux-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   #ifndef CONFIG_INMATE_BASE
->   #define CONFIG_INMATE_BASE 0x0000000
->   #endif
-> diff --git a/configs/arm64/k3-am654-idk.c b/configs/arm64/k3-am654-idk.c
-> index edc31b8b..a951a461 100644
-> --- a/configs/arm64/k3-am654-idk.c
-> +++ b/configs/arm64/k3-am654-idk.c
-> @@ -15,8 +15,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-> -
->   struct {
->   	struct jailhouse_system header;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/k3-am654-uart-demo.c b/configs/arm64/k3-am654-uart-demo.c
-> index 10cc0365..29a022e9 100644
-> --- a/configs/arm64/k3-am654-uart-demo.c
-> +++ b/configs/arm64/k3-am654-uart-demo.c
-> @@ -17,8 +17,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/macchiatobin-gic-demo.c b/configs/arm64/macchiatobin-gic-demo.c
-> index 713319d2..63e1e433 100644
-> --- a/configs/arm64/macchiatobin-gic-demo.c
-> +++ b/configs/arm64/macchiatobin-gic-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/macchiatobin-linux-demo.c b/configs/arm64/macchiatobin-linux-demo.c
-> index 63fbbba7..6e18f62f 100644
-> --- a/configs/arm64/macchiatobin-linux-demo.c
-> +++ b/configs/arm64/macchiatobin-linux-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/macchiatobin.c b/configs/arm64/macchiatobin.c
-> index c0df0572..4811e8dd 100644
-> --- a/configs/arm64/macchiatobin.c
-> +++ b/configs/arm64/macchiatobin.c
-> @@ -17,8 +17,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-> -
->   struct {
->   	struct jailhouse_system header;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/miriac-sbc-ls1046a-gic-demo.c b/configs/arm64/miriac-sbc-ls1046a-gic-demo.c
-> index 614b572e..6a93935f 100644
-> --- a/configs/arm64/miriac-sbc-ls1046a-gic-demo.c
-> +++ b/configs/arm64/miriac-sbc-ls1046a-gic-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/miriac-sbc-ls1046a-linux-demo.c b/configs/arm64/miriac-sbc-ls1046a-linux-demo.c
-> index 1c63ae0e..ec2531b2 100644
-> --- a/configs/arm64/miriac-sbc-ls1046a-linux-demo.c
-> +++ b/configs/arm64/miriac-sbc-ls1046a-linux-demo.c
-> @@ -17,8 +17,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/miriac-sbc-ls1046a.c b/configs/arm64/miriac-sbc-ls1046a.c
-> index 9597500d..6f3ad198 100644
-> --- a/configs/arm64/miriac-sbc-ls1046a.c
-> +++ b/configs/arm64/miriac-sbc-ls1046a.c
-> @@ -17,8 +17,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-> -
->   struct {
->   	struct jailhouse_system header;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/qemu-arm64-gic-demo.c b/configs/arm64/qemu-arm64-gic-demo.c
-> index 2a50ef3f..9e51e821 100644
-> --- a/configs/arm64/qemu-arm64-gic-demo.c
-> +++ b/configs/arm64/qemu-arm64-gic-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/qemu-arm64-linux-demo.c b/configs/arm64/qemu-arm64-linux-demo.c
-> index be88e107..ed89413b 100644
-> --- a/configs/arm64/qemu-arm64-linux-demo.c
-> +++ b/configs/arm64/qemu-arm64-linux-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/qemu-arm64.c b/configs/arm64/qemu-arm64.c
-> index 0570a1dd..6eff7403 100644
-> --- a/configs/arm64/qemu-arm64.c
-> +++ b/configs/arm64/qemu-arm64.c
-> @@ -17,8 +17,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-> -
->   struct {
->   	struct jailhouse_system header;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/ultra96-gic-demo.c b/configs/arm64/ultra96-gic-demo.c
-> index 12556335..403c6972 100644
-> --- a/configs/arm64/ultra96-gic-demo.c
-> +++ b/configs/arm64/ultra96-gic-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/ultra96-linux-demo.c b/configs/arm64/ultra96-linux-demo.c
-> index e6b33466..7cbfd772 100644
-> --- a/configs/arm64/ultra96-linux-demo.c
-> +++ b/configs/arm64/ultra96-linux-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/ultra96.c b/configs/arm64/ultra96.c
-> index 1fc54356..bcf08772 100644
-> --- a/configs/arm64/ultra96.c
-> +++ b/configs/arm64/ultra96.c
-> @@ -15,8 +15,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-> -
->   struct {
->   	struct jailhouse_system header;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/zynqmp-zcu102-gic-demo.c b/configs/arm64/zynqmp-zcu102-gic-demo.c
-> index 6ca18686..15767396 100644
-> --- a/configs/arm64/zynqmp-zcu102-gic-demo.c
-> +++ b/configs/arm64/zynqmp-zcu102-gic-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/zynqmp-zcu102-linux-demo-2.c b/configs/arm64/zynqmp-zcu102-linux-demo-2.c
-> index 2fcc86c6..02ec89e8 100644
-> --- a/configs/arm64/zynqmp-zcu102-linux-demo-2.c
-> +++ b/configs/arm64/zynqmp-zcu102-linux-demo-2.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/zynqmp-zcu102-linux-demo.c b/configs/arm64/zynqmp-zcu102-linux-demo.c
-> index ca80535d..c30ed924 100644
-> --- a/configs/arm64/zynqmp-zcu102-linux-demo.c
-> +++ b/configs/arm64/zynqmp-zcu102-linux-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/arm64/zynqmp-zcu102.c b/configs/arm64/zynqmp-zcu102.c
-> index 65515e56..9de04d6c 100644
-> --- a/configs/arm64/zynqmp-zcu102.c
-> +++ b/configs/arm64/zynqmp-zcu102.c
-> @@ -17,8 +17,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-> -
->   struct {
->   	struct jailhouse_system header;
->   	__u64 cpus[1];
-> diff --git a/configs/x86/apic-demo.c b/configs/x86/apic-demo.c
-> index 969f9527..8840c632 100644
-> --- a/configs/x86/apic-demo.c
-> +++ b/configs/x86/apic-demo.c
-> @@ -15,8 +15,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/x86/e1000-demo.c b/configs/x86/e1000-demo.c
-> index 1c602883..09ca9eac 100644
-> --- a/configs/x86/e1000-demo.c
-> +++ b/configs/x86/e1000-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/x86/f2a88xm-hd3.c b/configs/x86/f2a88xm-hd3.c
-> index d5320d7b..e73cbb06 100644
-> --- a/configs/x86/f2a88xm-hd3.c
-> +++ b/configs/x86/f2a88xm-hd3.c
-> @@ -20,8 +20,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
-> -
->   struct {
->   	struct jailhouse_system header;
->   	__u64 cpus[1];
-> diff --git a/configs/x86/imb-a180.c b/configs/x86/imb-a180.c
-> index 9073a4ac..4faa0b41 100644
-> --- a/configs/x86/imb-a180.c
-> +++ b/configs/x86/imb-a180.c
-> @@ -19,8 +19,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_system header;
->   	__u64 cpus[1];
-> diff --git a/configs/x86/ioapic-demo.c b/configs/x86/ioapic-demo.c
-> index 8b47a335..30e0ac98 100644
-> --- a/configs/x86/ioapic-demo.c
-> +++ b/configs/x86/ioapic-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/x86/ivshmem-demo.c b/configs/x86/ivshmem-demo.c
-> index 501d722f..b3a12a9d 100644
-> --- a/configs/x86/ivshmem-demo.c
-> +++ b/configs/x86/ivshmem-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/x86/linux-x86-demo.c b/configs/x86/linux-x86-demo.c
-> index af8c6da4..c8f18701 100644
-> --- a/configs/x86/linux-x86-demo.c
-> +++ b/configs/x86/linux-x86-demo.c
-> @@ -15,8 +15,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/x86/pci-demo.c b/configs/x86/pci-demo.c
-> index c5719459..0b8c1aad 100644
-> --- a/configs/x86/pci-demo.c
-> +++ b/configs/x86/pci-demo.c
-> @@ -16,8 +16,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/x86/qemu-x86.c b/configs/x86/qemu-x86.c
-> index 68b8f18d..4d671cb2 100644
-> --- a/configs/x86/qemu-x86.c
-> +++ b/configs/x86/qemu-x86.c
-> @@ -19,8 +19,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_system header;
->   	__u64 cpus[1];
-> diff --git a/configs/x86/smp-demo.c b/configs/x86/smp-demo.c
-> index a9625353..d175c618 100644
-> --- a/configs/x86/smp-demo.c
-> +++ b/configs/x86/smp-demo.c
-> @@ -15,8 +15,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/configs/x86/tiny-demo.c b/configs/x86/tiny-demo.c
-> index 426333f6..493059ae 100644
-> --- a/configs/x86/tiny-demo.c
-> +++ b/configs/x86/tiny-demo.c
-> @@ -15,8 +15,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> -
->   struct {
->   	struct jailhouse_cell_desc cell;
->   	__u64 cpus[1];
-> diff --git a/hypervisor/include/jailhouse/utils.h b/hypervisor/include/jailhouse/utils.h
-> index eae0f390..411f6365 100644
-> --- a/hypervisor/include/jailhouse/utils.h
-> +++ b/hypervisor/include/jailhouse/utils.h
-> @@ -12,7 +12,14 @@
->    * Partly derived from Linux kernel code.
->    */
->   
-> +/*
-> + * We need guards around ARRAY_SIZE as there is a duplicate definition in
-> + * jailhouse/cell-config.h due to header license incompatibility. Once
-> + * ARRAY_SIZE is replaced in cell-config.h, this guard can be removed.
-> + */
-> +#ifndef ARRAY_SIZE
->   #define ARRAY_SIZE(array)	(sizeof(array) / sizeof((array)[0]))
-> +#endif
->   
->   /* sizeof() for a structure/union field */
->   #define FIELD_SIZEOF(type, fld)	(sizeof(((type *)0)->fld))
-> diff --git a/include/jailhouse/cell-config.h b/include/jailhouse/cell-config.h
-> index 66e13c3d..63eb5fa5 100644
-> --- a/include/jailhouse/cell-config.h
-> +++ b/include/jailhouse/cell-config.h
-> @@ -41,6 +41,10 @@
->   
->   #include <jailhouse/console.h>
->   
-> +#ifndef ARRAY_SIZE
-> +#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-> +#endif
-> +
->   /*
->    * Incremented on any layout or semantic change of system or cell config.
->    * Also update HEADER_REVISION in tools.
-> diff --git a/tools/root-cell-config.c.tmpl b/tools/root-cell-config.c.tmpl
-> index 5a8e1412..b80d7889 100644
-> --- a/tools/root-cell-config.c.tmpl
-> +++ b/tools/root-cell-config.c.tmpl
-> @@ -42,8 +42,6 @@
->   #include <jailhouse/types.h>
->   #include <jailhouse/cell-config.h>
->   
-> -#define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
-> -
->   struct {
->   	struct jailhouse_system header;
->   	__u64 cpus[${int((cpucount + 63) / 64)}];
-> 
+There was no documentation so far. Let's at least mention it in
+hypervisor-configuration.md.
 
-Thanks, applied to next.
+Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+---
+ Documentation/hypervisor-configuration.md | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-Jan
-
+diff --git a/Documentation/hypervisor-configuration.md b/Documentation/hypervisor-configuration.md
+index 3e975a00..93fc30a4 100644
+--- a/Documentation/hypervisor-configuration.md
++++ b/Documentation/hypervisor-configuration.md
+@@ -41,3 +41,15 @@ General configuration parameters
+      * configurations.
+      */
+     #define CONFIG_BARE_METAL 1
++
++    /*
++     * Map a second page right behind the comm_region. Access to 0xff8-0xfff
++     * within that page will be intercepted by the hypervisor. The hypervisor
++     * will redirect the access to the comm_region.
++     *
++     * This is a useful debugging option for testing the instruction parser of
++     * the hypervisor. See inmates/tests/x86/mmio-test.c.
++     *
++     * Only available on x86.
++     */
++    #define CONFIG_TEST_DEVICE 1
 -- 
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+2.21.0
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/344b281a-30b9-80c9-d1e4-a57c2f89928c%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20190507122331.19252-1-ralf.ramsauer%40oth-regensburg.de.
 For more options, visit https://groups.google.com/d/optout.
