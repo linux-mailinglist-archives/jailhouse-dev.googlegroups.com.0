@@ -1,127 +1,78 @@
-Return-Path: <jailhouse-dev+bncBCWYH5WD24EBB2WPZ7TAKGQE53RYFZY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDCN3RNB2MDRB2G6Z7TAKGQEVPXS6LA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23f.google.com (mail-lj1-x23f.google.com [IPv6:2a00:1450:4864:20::23f])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6F6C186E5
-	for <lists+jailhouse-dev@lfdr.de>; Thu,  9 May 2019 10:42:18 +0200 (CEST)
-Received: by mail-lj1-x23f.google.com with SMTP id b16sf332439ljj.5
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 09 May 2019 01:42:18 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1557391338; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=MPRXT2LzgkEPWsiGYysXlmcy+RlOn5lrKPPQgCU5Ypq66YUXejD+6tTAPqImFAc9cd
-         WxGXtYZAPjwkIyJq70QWxOZ0T+Cj0yMVLOLUVUJJpKrokgY1+J3gtHoOiaSozOIubrUD
-         Ljs9jhY9u2Bj6cRCfMBNhCP3frIh2N+y5bdL09FgO1hCAY0qZM6HDtJIXXQbqlGvLzj6
-         NX3NdBqEohTBB/OTDunWAPj8tYdMwmiKgFqBZ0qR25AvmaXXCdfULtFbtaY/eQ3G/AFP
-         entNZMHXdftk13VfVsV5A2IO+fqQKYHMiXH8x5G+NNNyYOmzTtLwEZjvmyVlpxSROzdc
-         6bsA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:to:subject:message-id:date:from
-         :mime-version:sender:dkim-signature:dkim-signature;
-        bh=7+/zd45X78a+IOCS/VOJqYgJvX2WBxlt8LLZPp6Ukjo=;
-        b=lv6YjRuEMaCqXx442L2C1FUab40oitlHGKRaL6UQxm+qBafbcqS4k8NL0cvgt/edqn
-         BClG1ae4nmTpsjZsakihEHVr6JcCD+ANXd+HzxhqyVCf3Q0y63odfSsuZc88YvXr8oFO
-         xjFiX/wHtMkeRQggLjn8SIpsB/Q4R/ym1hQxDvaS3IjITa2omW5NjjZOV/3PI2k8rlSq
-         KPuHMyDZj7rqNNxQt5JaViYwfqZ2r9cBXYW5tItouQdlKKRUhyR8B/FHHDxgvi/wIKJQ
-         UInSvYg5K9uZjt9aNTzLzD6hjXDP6lNpGMOs9CJ0z6KrbSBkyxeLOn+xnRim4sOotx3X
-         lk7w==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=nHkCJZVw;
-       spf=pass (google.com: domain of jan.hoogerbrugge@gmail.com designates 2a00:1450:4864:20::42f as permitted sender) smtp.mailfrom=jan.hoogerbrugge@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-ot1-x33d.google.com (mail-ot1-x33d.google.com [IPv6:2607:f8b0:4864:20::33d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B77B18789
+	for <lists+jailhouse-dev@lfdr.de>; Thu,  9 May 2019 11:14:17 +0200 (CEST)
+Received: by mail-ot1-x33d.google.com with SMTP id e3sf298114otk.1
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 09 May 2019 02:14:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:mime-version:from:date:message-id:subject:to
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=7+/zd45X78a+IOCS/VOJqYgJvX2WBxlt8LLZPp6Ukjo=;
-        b=iLWpgv1eufHMesZJN0j1MO5OYLSC1qmLVEtNKhh6NqBp9oSFdH3nt11YwVD4EOBl4T
-         lCWNKbrx11Sbgui7/Dwk6ZoVd4Zgyeq2IzQdugYuRSvx+hnXLmqs+AF1NMgriKEK155w
-         XWQ5EO6vkgWbn8xzgJvwD42Yx0BJjtFh9dAh2lanW8oCPYtpSEGyfiZKwPjYWXt2dBMr
-         qpZRh8XYdc7g/elyyeLSFNTedb3PtVwxLUFgcWKhm07mchSD9vIw/QUpsUmXT8hTTegw
-         nPzow6u9yCtbIWE6fgKudbUgE8twpSieSeoBVQa+tXGNUPL2THqZUEFBDBFzHx74zqLO
-         vWmw==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=lSxNkfk9GeFmTM7+Nyx4/3oGreF+VjQVqowfvordZdE=;
+        b=RlDVJsGKlr9cFFDAc9bB0Bn3Byuy9ioQ1+40FsoRr/ZmMFKKYntJevbzuu8hIUx+FS
+         /qVkulFyS1nc9gT1+r0KfjHPY8n272hV0c6BKNE2+zrK5XGQyxWKr3oEWc6shg8w57Va
+         UR0/38rt5ApQDaiQAkBHHpYmWfcUt1J/ppOPxedsntMf5vJKVdh8ikEl96GJ+ZQ4K3Vj
+         zYhGKRc2ExOdWanf3/18ZjX/mpvqYGmTMWPi0Hmx4IUMs9HbRat2lOAPHh/I7FbD+XgW
+         r+MgMfsZ9O0+ugknNkq54uW00a2O0dwGuWJJx0L2j2qosBCkFcmFUH8JMcFnJAZTBzx+
+         afXg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:from:date:message-id:subject:to:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=7+/zd45X78a+IOCS/VOJqYgJvX2WBxlt8LLZPp6Ukjo=;
-        b=uyYnVi3usiO+XUvsne97Y2DfgvAmQv49znUqYi/awFvvFm9xFbpzWk0xsb1BVAwdW7
-         uo7+JoMv3vJIbTcga1XRMdIqebYcwEr08y2s12uzUpfk4qTGoWN2UP1RAiaszagxQbbJ
-         4bbqv8PuD49ffdLSCX5S0L0VXrIqm2xYLAsDleKQGWnRsZ2rzeZyxPmz/OLAVp89K5qa
-         pBif8xps1Gi8sXh1/HAUgKphEiaqbquCn+FPlAKS8OhfFo5NgAYoC6T3P38Zj9dLE557
-         0CMrK9Q9jV1Q7gwjlWh56PSYqD0NpnV7Rtiu//+DgSbbJIKNVaDT4FIAtGQ610im6+Qx
-         vetA==
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=lSxNkfk9GeFmTM7+Nyx4/3oGreF+VjQVqowfvordZdE=;
+        b=UKWyeLfaSD6At5jyCm+tcc9/GVmsfbTiKuomYgOoMLWnE2wT584CZsnMviKpWoKJ2z
+         Ynq5L1HllVCB5T5PuYEhj++KrPu5uzPZX7HJi7VJAUcDb3tuBb6G7uK6ckShaLYNZyKC
+         VaTiSYiJZkVlyn++6Usl5VM1/hvHPxuUCyk7ceSg6+CMQTAl9sOYHXYJnwYQOlOXK990
+         fkwmLmn1KNwwmgH6AV6gEMTpVOTdUvqyzpHyOBzzntNbwI9OupJakmJVuHa/NNuETt8x
+         Big8BlfYolpfiZXyLCaJ8Nze01s/J+L/v9mOvK/G09eun1ptymajxzflJD+iiR7CxdUw
+         7Yfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:mime-version:from:date:message-id:subject
-         :to:x-original-sender:x-original-authentication-results:precedence
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=7+/zd45X78a+IOCS/VOJqYgJvX2WBxlt8LLZPp6Ukjo=;
-        b=BbVhht8JehLGDvKFegjl75GNxBJ2Js+C5gf8l4/nNt7n1A72lcAVciSmEqrh/ZzDZa
-         pgJ3YDji3w5ld7LSPP6m2GiHk+ULgGOi/C30rZBKFUR4fzEyrkIjZT8yv/urwXun1qzB
-         wBoFPT0jez7Yb+lXlcugYvJSK3vK5UZ/DzCKZOARYHWM/d467v/0oxKIYMuRD6W1wiom
-         EhSnah4Ou+UqWjk6Awz4g7vKkYxaXg84ZO0dqCLfwnjvg+zcp4YUKVdNHWXbB2DjqNFm
-         j0AjAJB0HeEylfToj7m33SbJueXtRYaeEHtBUK362xBQchQe7E9cjSLvLFFdYjj4/IOB
-         etBg==
+        bh=lSxNkfk9GeFmTM7+Nyx4/3oGreF+VjQVqowfvordZdE=;
+        b=LeCjTn8u3htJ5ySjYVWx2BN5/5ZZHRifYcOLQpRnaGuBn0IKaVlegIyahZEtutoOj9
+         JtD1IKlceMAA/agMGAcTwJfV5/LmGQl7O6VhoeLlAUUPeKYGz8aao7LaOkTmMNpA90jH
+         SOpkBYi+PZSC8T9t/+PruxN7i/vdUYRCckDTLYK0sNptHDb39M9nFe3Zv7JFd4W/VRYQ
+         7wLGmOi5fSvOre44vB5R1O49BaJFctxIA26Wy1uxCfRX804q91i2mK6js4MANwdn2X2R
+         2ucJNGdnfsa7jdmUDtkQnaaalAZU7iZO3k09hiZyzpj1zSJJXMSPk/p+JZrWOYCuGCMv
+         dloA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAWE/vxE/+xnvZ8dKr6tXp8lXmh9mKD5TxGnDYCyYmTso6iR7QIa
-	B8oVQwdiRgOltJ05M8V6miA=
-X-Google-Smtp-Source: APXvYqwUMomwid4tjixbr7Pg8+tgREgKwqeKB1jiasLBBZrzz6Xw5TRbYDtW7nmgJUl1GB80B00gYQ==
-X-Received: by 2002:a2e:984d:: with SMTP id e13mr1634562ljj.61.1557391338397;
-        Thu, 09 May 2019 01:42:18 -0700 (PDT)
+X-Gm-Message-State: APjAAAVto33TomLRfTcKWQhfC/XjDz97wTFj81tXxnAxNMKB9xlVWCpx
+	sxbvkWIS/43Bjk/gt+UqHc0=
+X-Google-Smtp-Source: APXvYqz3Jxxin+g9qSfijUDRopd8V79JYpIDBWa/Lx1ucJcarebUcLPmMiB1KNfMs1QzZGqlA2Lm6g==
+X-Received: by 2002:a05:6830:138d:: with SMTP id d13mr1427608otq.272.1557393256315;
+        Thu, 09 May 2019 02:14:16 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac2:48a7:: with SMTP id u7ls151382lfg.5.gmail; Thu, 09 May
- 2019 01:42:17 -0700 (PDT)
-X-Received: by 2002:ac2:538a:: with SMTP id g10mr1757231lfh.141.1557391337389;
-        Thu, 09 May 2019 01:42:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1557391337; cv=none;
-        d=google.com; s=arc-20160816;
-        b=nXe7zCTgdtgciJ4heqtq0Fy5XULvlyEIplDxf3Z6tKv7DnbghF23Bb9klbncdrvAPh
-         vb2IQRxqhKa/4gRqDLNFy3mzwdIuY89Afk9Ai+vi1HZKxkKZnKS6yM/1x2QwJMNremD7
-         N9jNrLIo+F7xNNCPZ0LPHjsle04v8oZ/DnwUAR+ETemve0dphhVtOSRla424iUQG3TsA
-         f2ME5Bpd7IVHzEgWcDgqBAaPrHfgwPC3izTliT4EYtJC1dRlraGUoMyZ0nDMPPq/4ajg
-         bfp4V+Jz8HrzmT10eve3+lpYYXFneW9x/KhfpulW3gr1QsLXvxWEt9qoa5FKtYakghr3
-         f55Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=apWXjuK1X8H98dZ5tppfrUihNR4Jpw+rsLudKWlqQ4s=;
-        b=E9pihIgsYyGoPLXi6VEf2BfVsZuxcpMVpfzOssxh9G4ohp279Qn8FFKKI8iRsH4wKB
-         MM4sIaLwVO38YLZd5VeiXwFcGbAZ2TSm+5nt+Gsy/g6UT4D10PQa9boPh5/eyF/31/mx
-         8zi+0hvh3G6gdjQz5OgdG//TVEpiLmOBZOxZoUIsrS0GSLkeA1IfpEVyMqXe3oEsMhMC
-         w4JkGMcZBf379WOhLPaQGD+ZKWt+FubZNrv35xSgS4DzkkeJ12Se98dyHYIpd/rOXI/6
-         5dBOJ4eVLygFqHOulJihhlnQZl2FF6Ye2P5lc+i1WdfMzJqEkS5ZSqRu+WwgOw813tFj
-         /vsg==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=nHkCJZVw;
-       spf=pass (google.com: domain of jan.hoogerbrugge@gmail.com designates 2a00:1450:4864:20::42f as permitted sender) smtp.mailfrom=jan.hoogerbrugge@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com. [2a00:1450:4864:20::42f])
-        by gmr-mx.google.com with ESMTPS id x14si512472ljh.1.2019.05.09.01.42.17
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 09 May 2019 01:42:17 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.hoogerbrugge@gmail.com designates 2a00:1450:4864:20::42f as permitted sender) client-ip=2a00:1450:4864:20::42f;
-Received: by mail-wr1-x42f.google.com with SMTP id w12so1815676wrp.2
-        for <jailhouse-dev@googlegroups.com>; Thu, 09 May 2019 01:42:17 -0700 (PDT)
-X-Received: by 2002:a5d:5701:: with SMTP id a1mr2087123wrv.52.1557391336942;
- Thu, 09 May 2019 01:42:16 -0700 (PDT)
+Received: by 2002:aca:e38f:: with SMTP id a137ls276222oih.3.gmail; Thu, 09 May
+ 2019 02:14:15 -0700 (PDT)
+X-Received: by 2002:aca:b505:: with SMTP id e5mr830193oif.136.1557393255613;
+        Thu, 09 May 2019 02:14:15 -0700 (PDT)
+Date: Thu, 9 May 2019 02:14:14 -0700 (PDT)
+From: jeanne.romefort@gmail.com
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <02568569-7d1b-4bb5-8a1e-a5cbee5a77ee@googlegroups.com>
+In-Reply-To: <71f64f49-1bcd-4ab0-947a-0bcabc2ac1e6@googlegroups.com>
+References: <edd9ef72-beae-42c3-94c7-ac5bf29ba57d@googlegroups.com>
+ <594f54f4-eb5c-5b64-2d49-38997bcf2f8b@siemens.com>
+ <50b964d8-41e5-49af-96dc-3080cbd3966e@googlegroups.com>
+ <62d847c0-b4b6-4395-b603-ecf2f87095d7@googlegroups.com>
+ <3bcebf94-23a5-18d3-1f0b-bb25717167a3@siemens.com>
+ <c238d436-5995-4c44-8a19-bc26654671d5@googlegroups.com>
+ <5c94104f-c27d-9074-1990-61fa9e9d05c1@siemens.com>
+ <cda9daa8-fbe8-46fb-aaba-75ebd38e141e@googlegroups.com>
+ <71f64f49-1bcd-4ab0-947a-0bcabc2ac1e6@googlegroups.com>
+Subject: Re: Unsupported DMAR Device Scope Structure
 MIME-Version: 1.0
-From: Jan Hoogerbrugge <jan.hoogerbrugge@gmail.com>
-Date: Thu, 9 May 2019 10:37:21 +0200
-Message-ID: <CAD9j0toHJr+grA+2xjk2Yu1kP_m3TsFzWrGzVmBm+wdWiFMk4g@mail.gmail.com>
-Subject: ARM v8a Hypervisor timer
-To: jailhouse-dev@googlegroups.com
-Content-Type: multipart/alternative; boundary="0000000000006a31d30588706d2d"
-X-Original-Sender: jan.hoogerbrugge@gmail.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20161025 header.b=nHkCJZVw;       spf=pass
- (google.com: domain of jan.hoogerbrugge@gmail.com designates
- 2a00:1450:4864:20::42f as permitted sender) smtp.mailfrom=jan.hoogerbrugge@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_219_2049835578.1557393255047"
+X-Original-Sender: jeanne.romefort@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -134,78 +85,440 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---0000000000006a31d30588706d2d
+------=_Part_219_2049835578.1557393255047
 Content-Type: text/plain; charset="UTF-8"
-
-Hi,
-
-I would like to use the ARM v8a Hypervisor timer. I assume that the
-physical hypervisor
-timer is the one that I need. What I did so far is programming it via
-CNTHP_CTL_EL2
-and CNTHP_TVAL_EL2 and then I can see in the status field of CNTHP_CTL_EL2
-that this is working as expected. Now I want to receive an interrupt and
-then things
-become harder. I learned from Jan Kiszka this is not that easy because all
-interrupts
-that Jailhouse intercepts are programmed by the cells with exception of the
-IPI
-interrupts.
-
-Is there a Jailhouse / ARM v8a expert who can tell me what is necessary to
-use the hypervisor timer interrupt in Jailhouse. I want to use it in an
-imx8qm
-system.
-
-I want to use the hypervisor timer for periodically checking the guest
-system(s) from
-the hypervisor.
-
-Thanks!
-
-Regards,
-Jan.
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CAD9j0toHJr%2BgrA%2B2xjk2Yu1kP_m3TsFzWrGzVmBm%2BwdWiFMk4g%40mail.gmail.com.
-For more options, visit https://groups.google.com/d/optout.
-
---0000000000006a31d30588706d2d
-Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div>Hi,</div><div><br><=
-/div><div>I would like to use the ARM v8a Hypervisor timer. I assume that t=
-he physical hypervisor</div><div>timer is the one that I need. What I did s=
-o far is programming it via CNTHP_CTL_EL2</div><div>and CNTHP_TVAL_EL2 and =
-then I can see in the status field of CNTHP_CTL_EL2<br></div><div>that this=
- is working as expected. Now I want to receive an interrupt and then things=
-</div><div>become harder. I learned from Jan Kiszka this is not that easy b=
-ecause all interrupts</div><div>that Jailhouse intercepts are programmed by=
- the cells with exception of the IPI</div><div>interrupts.</div><div><br></=
-div><div>Is there a Jailhouse / ARM v8a expert who can tell me what is nece=
-ssary to</div><div>use the hypervisor timer interrupt in Jailhouse. I want =
-to use it in an imx8qm</div><div>system.</div><div><br></div><div>I want to=
- use the hypervisor timer for periodically checking the guest system(s) fro=
-m</div><div>the hypervisor.</div><div><br></div><div>Thanks!</div><div><br>=
-</div><div>Regards,</div><div>Jan.<br></div></div></div></div>
+Le jeudi 9 mai 2019 09:52:51 UTC+2, jeanne....@gmail.com a =C3=A9crit=C2=A0=
+:
+> Le mardi 7 mai 2019 23:14:41 UTC+2, Hakk=C4=B1 Kurumahmut a =C3=A9crit=C2=
+=A0:
+> > Hi Jan, Jeanne
+> >=20
+> > @Jeanne
+> >=20
+> > I prepared a solution about the problem. Please apply two patch for jai=
+lhouse/next branch. Or download attached file sysfs_parser.py.
+> >=20
+> > I also sent sysconfig.c for your platform. When you use the new script,=
+ you will produce a similar file.
+> >=20
+> > Please test it.
+> >=20
+> > Could you send us below command outputs?
+> >=20
+> > sudo lspci -D
+> > sudo lspci -Dtvvv
+> > sudo lspci -Dkvvvnnxxx
+> >=20
+> >=20
+> > @Jan
+> >=20
+> > I have a question about the patch. assign_iommu_info and append_comment=
+_info methods is running for PCI-PCI bridge primary and secondary bus,dev,f=
+n.=20
+> >=20
+> > I'm not sure it should work for the primary bus,dev,fn.
+> >=20
+> > Example Device Scope:
+> >=20
+> > 01 0A 00 00 00 00 1C 07 00 00=20
+> > 01 0A 00 00 00 00 1C 07 00 02=20
+> > 01 0A 00 00 00 00 1C 07 00 04
+> >=20
+> > It is running order
+> >=20
+> > 1.) 00:1C.07
+> > 2.) sec-bus:00.00
+> > 3.) 00:1C.07
+> > 4.) sec-bus:00.02=20
+> > 5.) 00:1C.07
+> > 6.) sec-bus:00.04=20
+> >=20
+> > May be it is run for only secondary buses.
+> >=20
+> > 1.) sec-bus:00.00
+> > 2.) sec-bus:00.02=20
+> > 3.) sec-bus:00.04=20
+> >=20
+> >=20
+> > -----------------------------------------------------------------------=
+----
+> > [PATCH 1/2]
+> >=20
+> > From aa9e7f0e25317d2f516da68b4163f9f08fc6c76d Mon Sep 17 00:00:00 2001
+> > From: HAKKI KURUMAHMUT <kurumahmut@gmail.com>
+> > Date: Tue, 7 May 2019 19:37:59 +0300
+> > Subject: [PATCH 1/2] Scripts: Fix for Parsing DMAR Region under Reserve=
+d
+> >  Section
+> >=20
+> >  While kernel command parameters are intel_iommu=3Don  intremap=3Don at
+> >  some machines, cat /proc/iomem shows DMAR region under reserved sectio=
+n.
+> >  This patch must be done for config creation to complete because of
+> >  generating DMAR region not found error although it exist. If this patc=
+h is
+> >  not apply, an error is throw by "config create" command whether
+> >  intel_iommu On or Off because "reserved" regions are currently exclude=
+d from
+> >  the generated config although DMAR region exists. Thus, DMAR under res=
+erved
+> >  section must be parsed by parser.
+> >=20
+> > Signed-off-by: HAKKI KURUMAHMUT <kurumahmut@gmail.com>
+> > ---
+> >  pyjailhouse/sysfs_parser.py | 23 +++++++++++++----------
+> >  1 file changed, 13 insertions(+), 10 deletions(-)
+> >=20
+> > diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py
+> > index 46c95fc2..4f5da12e 100644
+> > --- a/pyjailhouse/sysfs_parser.py
+> > +++ b/pyjailhouse/sysfs_parser.py
+> > @@ -94,14 +94,13 @@ def input_listdir(dir, wildcards):
+> > =20
+> > =20
+> >  def parse_iomem(pcidevices):
+> > -    regions =3D IOMemRegionTree.parse_iomem_tree(
+> > +    (regions, dmar_regions) =3D IOMemRegionTree.parse_iomem_tree(
+> >          IOMemRegionTree.parse_iomem_file())
+> > =20
+> >      rom_region =3D MemRegion(0xc0000, 0xdffff, 'ROMs')
+> >      add_rom_region =3D False
+> > =20
+> >      ret =3D []
+> > -    dmar_regions =3D []
+> >      for r in regions:
+> >          append_r =3D True
+> >          # filter the list for MSI-X pages
+> > @@ -860,21 +859,21 @@ class IOMemRegionTree:
+> > =20
+> >          return root
+> > =20
+> > -    # find HPET regions in tree
+> > +    # find specific regions in tree
+> >      @staticmethod
+> > -    def find_hpet_regions(tree):
+> > +    def find_regions_by_name(tree, string):
+> >          regions =3D []
+> > =20
+> >          for tree in tree.children:
+> >              r =3D tree.region
+> >              s =3D r.typestr
+> > =20
+> > -            if (s.find('HPET') >=3D 0):
+> > +            if (s.find(string) >=3D 0):
+> >                  regions.append(r)
+> > =20
+> >              # if the tree continues recurse further down ...
+> >              if (len(tree.children) > 0):
+> > -                regions.extend(IOMemRegionTree.find_hpet_regions(tree)=
+)
+> > +                regions.extend(IOMemRegionTree.find_regions_by_name(tr=
+ee, string))
+> > =20
+> >          return regions
+> > =20
+> > @@ -882,6 +881,7 @@ class IOMemRegionTree:
+> >      @staticmethod
+> >      def parse_iomem_tree(tree):
+> >          regions =3D []
+> > +        dmar_regions =3D []
+> > =20
+> >          for tree in tree.children:
+> >              r =3D tree.region
+> > @@ -901,20 +901,23 @@ class IOMemRegionTree:
+> >              ):
+> >                  continue
+> > =20
+> > -            # generally blacklisted, unless we find an HPET behind it
+> > +            # generally blacklisted, with a few exceptions
+> >              if (s.lower() =3D=3D 'reserved'):
+> > -                regions.extend(IOMemRegionTree.find_hpet_regions(tree)=
+)
+> > +                regions.extend(IOMemRegionTree.find_regions_by_name(tr=
+ee, 'HPET'))
+> > +                dmar_regions.extend(IOMemRegionTree.find_regions_by_na=
+me(tree, 'dmar'))
+> >                  continue
+> > =20
+> >              # if the tree continues recurse further down ...
+> >              if (len(tree.children) > 0):
+> > -                regions.extend(IOMemRegionTree.parse_iomem_tree(tree))
+> > +                (temp_regions, temp_dmar_regions) =3D IOMemRegionTree.=
+parse_iomem_tree(tree)
+> > +                regions.extend(temp_regions)
+> > +                dmar_regions.extend(temp_dmar_regions)
+> >                  continue
+> > =20
+> >              # add all remaining leaves
+> >              regions.append(r)
+> > =20
+> > -        return regions
+> > +        return regions, dmar_regions
+> > =20
+> > =20
+> >  class IOMMUConfig:
+> > --=20
+> > 2.17.1
+> >=20
+> >=20
+> > -----------------------------------------------------------------------=
+----
+> > [PATCH 2/2]
+> >=20
+> > From d7f925b10f32a37b4595255afe8690abf50a4a3d Mon Sep 17 00:00:00 2001
+> > From: HAKKI KURUMAHMUT <kurumahmut@gmail.com>
+> > Date: Tue, 7 May 2019 23:25:14 +0300
+> > Subject: [PATCH 2/2] Scrits: Fix for Unsupported DMAR Device Scope Stru=
+cture
+> > MIME-Version: 1.0
+> > Content-Type: text/plain; charset=3DUTF-8
+> > Content-Transfer-Encoding: 8bit
+> >=20
+> >  Currently DMAR parser does not support parsing secondary path info for=
+ PCI-PCI bridge that is "PCI Endpoint Device" type.
+> >  For example: 8086:1d1e Patsburg PCI Express Root Port 8
+> >=20
+> >  If the =E2=80=98Path=E2=80=99 field length is more than 2 bytes (N > 1=
+), the Device Scope
+> >  Entry identifies a device behind one or more system software visible P=
+CI-
+> >  PCI bridges. Bus rebalancing actions by system software modifying bus
+> >  assignments of the device=E2=80=99s parent bridge impacts the bus numb=
+er portion
+> >  of device=E2=80=99s requester-id.
+> >=20
+> >  Please read VT-d Specification Chapter 8.3.1
+> >=20
+> > Signed-off-by: HAKKI KURUMAHMUT <kurumahmut@gmail.com>
+> > ---
+> >  pyjailhouse/sysfs_parser.py | 113 ++++++++++++++++++++++--------------
+> >  1 file changed, 70 insertions(+), 43 deletions(-)
+> >=20
+> > diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py
+> > index 4f5da12e..9e5c08d1 100644
+> > --- a/pyjailhouse/sysfs_parser.py
+> > +++ b/pyjailhouse/sysfs_parser.py
+> > @@ -194,12 +194,45 @@ def parse_madt():
+> >      return ioapics
+> > =20
+> > =20
+> > -def parse_dmar_devscope(f):
+> > -    (scope_type, scope_len, id, bus, dev, fn) =3D \
+> > -        struct.unpack('<BBxxBBBB', f.read(8))
+> > -    if scope_len !=3D 8:
+> > -        raise RuntimeError('Unsupported DMAR Device Scope Structure')
+> > -    return (scope_type, scope_len, id, bus, dev, fn)
+> > +def assign_iommu_info(flags, pcidevices, units, ioapics, scope_type, i=
+d, bus, dev, fn):
+> > +    # PCI Endpoint Device
+> > +    if scope_type =3D=3D 1:
+> > +        assert not (flags & 1)
+> > +        for d in pcidevices:
+> > +            if d.bus =3D=3D bus and d.dev =3D=3D dev and d.fn =3D=3D f=
+n:
+> > +                d.iommu =3D len(units) - 1
+> > +                break
+> > +    # PCI Sub-hierarchy
+> > +    elif scope_type =3D=3D 2:
+> > +        assert not (flags & 1)
+> > +        for d in pcidevices:
+> > +            if d.bus =3D=3D bus and d.dev =3D=3D dev and d.fn =3D=3D f=
+n:
+> > +                (secondbus, subordinate) =3D \
+> > +                    PCIPCIBridge.get_2nd_busses(d)
+> > +                for d2 in pcidevices:
+> > +                    if (
+> > +                        d2.bus >=3D secondbus and
+> > +                        d2.bus <=3D subordinate
+> > +                    ):
+> > +                        d2.iommu =3D len(units) - 1
+> > +                break
+> > +    # IOAPIC
+> > +    elif scope_type =3D=3D 3:
+> > +        ioapic =3D next(chip for chip in ioapics if chip.id =3D=3D id)
+> > +        bdf =3D (bus << 8) | (dev << 3) | fn
+> > +        for chip in ioapics:
+> > +            if chip.bdf =3D=3D bdf:
+> > +                raise RuntimeError('IOAPICs with identical BDF')
+> > +        ioapic.bdf =3D bdf
+> > +        ioapic.iommu =3D len(units) - 1
+> > +
+> > +
+> > +def append_comment_info(comments, scope_type, bus, dev, fn):
+> > +    if scope_type =3D=3D 1:
+> > +        comments.append('PCI device: %02x:%02x.%x' %
+> > +                        (bus, dev, fn))
+> > +    else:
+> > +        comments.append('DMAR parser could not decode device path')
+> > =20
+> > =20
+> >  # parsing of DMAR ACPI Table
+> > @@ -249,38 +282,22 @@ def parse_dmar(pcidevices, ioapics, dmar_regions)=
+:
+> >                          d.iommu =3D len(units) - 1
+> >              offset +=3D 16 - offset
+> >              while offset < struct_len:
+> > -                (scope_type, scope_len, id, bus, dev, fn) =3D\
+> > -                    parse_dmar_devscope(f)
+> > -                # PCI Endpoint Device
+> > -                if scope_type =3D=3D 1:
+> > -                    assert not (flags & 1)
+> > -                    for d in pcidevices:
+> > -                        if d.bus =3D=3D bus and d.dev =3D=3D dev and d=
+.fn =3D=3D fn:
+> > -                            d.iommu =3D len(units) - 1
+> > -                            break
+> > -                # PCI Sub-hierarchy
+> > -                elif scope_type =3D=3D 2:
+> > -                    assert not (flags & 1)
+> > +                (scope_type, scope_len) =3D struct.unpack('<BB', f.rea=
+d(2))
+> > +
+> > +                N =3D (int)((scope_len - 6) / 2) - 1
+> > +
+> > +                (id, starting_bus, starting_dev, starting_fn) =3D stru=
+ct.unpack('<xxBBBB', f.read(6))
+> > +
+> > +                assign_iommu_info(flags, pcidevices, units, ioapics, s=
+cope_type, id, starting_bus, starting_dev, starting_fn)
+> > +
+> > +                while N !=3D 0:
+> > +                    N-=3D1
+> > +                    (secondary_dev, secondary_fn) =3D struct.unpack('<=
+BB', f.read(2))
+> >                      for d in pcidevices:
+> > -                        if d.bus =3D=3D bus and d.dev =3D=3D dev and d=
+.fn =3D=3D fn:
+> > -                            (secondbus, subordinate) =3D \
+> > -                                PCIPCIBridge.get_2nd_busses(d)
+> > -                            for d2 in pcidevices:
+> > -                                if (
+> > -                                    d2.bus >=3D secondbus and
+> > -                                    d2.bus <=3D subordinate
+> > -                                ):
+> > -                                    d2.iommu =3D len(units) - 1
+> > +                        if d.bus =3D=3D starting_bus and d.dev =3D=3D =
+starting_dev and d.fn =3D=3D starting_fn:
+> > +                            (secondbus, subordinate) =3D PCIPCIBridge.=
+get_2nd_busses(d)
+> >                              break
+> > -                # IOAPIC
+> > -                elif scope_type =3D=3D 3:
+> > -                    ioapic =3D next(chip for chip in ioapics if chip.i=
+d =3D=3D id)
+> > -                    bdf =3D (bus << 8) | (dev << 3) | fn
+> > -                    for chip in ioapics:
+> > -                        if chip.bdf =3D=3D bdf:
+> > -                            raise RuntimeError('IOAPICs with identical=
+ BDF')
+> > -                    ioapic.bdf =3D bdf
+> > -                    ioapic.iommu =3D len(units) - 1
+> > +                    assign_iommu_info(flags, pcidevices, units, ioapic=
+s, scope_type, id, secondbus, secondary_dev, secondary_fn)
+> >                  offset +=3D scope_len
+> > =20
+> >          # Reserved Memory Region Reporting Structure
+> > @@ -292,13 +309,23 @@ def parse_dmar(pcidevices, ioapics, dmar_regions)=
+:
+> > =20
+> >              comments =3D []
+> >              while offset < struct_len:
+> > -                (scope_type, scope_len, id, bus, dev, fn) =3D\
+> > -                    parse_dmar_devscope(f)
+> > -                if scope_type =3D=3D 1:
+> > -                    comments.append('PCI device: %02x:%02x.%x' %
+> > -                                    (bus, dev, fn))
+> > -                else:
+> > -                    comments.append('DMAR parser could not decode devi=
+ce path')
+> > +                (scope_type, scope_len) =3D struct.unpack('<BB', f.rea=
+d(2))
+> > +
+> > +                N =3D (int)((scope_len - 6) / 2) - 1
+> > +
+> > +                (id, starting_bus, starting_dev, starting_fn) =3D stru=
+ct.unpack('<xxBBBB', f.read(6))
+> > +
+> > +                append_comment_info(comments, scope_type, starting_bus=
+, starting_dev, starting_fn)
+> > +
+> > +                while N !=3D 0:
+> > +                    N-=3D1
+> > +                    (secondary_dev, secondary_fn) =3D struct.unpack('<=
+BB', f.read(2))
+> > +                    for d in pcidevices:
+> > +                        if d.bus =3D=3D starting_bus and d.dev =3D=3D =
+starting_dev and d.fn =3D=3D starting_fn:
+> > +                            (secondbus, subordinate) =3D PCIPCIBridge.=
+get_2nd_busses(d)
+> > +                            break
+> > +
+> > +                    append_comment_info(comments, scope_type, secondbu=
+s, secondary_dev, secondary_fn)
+> >                  offset +=3D scope_len
+> > =20
+> >              reg =3D MemRegion(base, limit, 'ACPI DMAR RMRR', comments)
+> > --=20
+> > 2.17.1
+> >=20
+> > -----------------------------------------------------------------------=
+----
+> >=20
+> >=20
+> > Thanks.
+> >=20
+> > HAKKI
+>=20
+> Hello everyone,=20
+>=20
+> Thanks for the help now I pass the hradware check ! Unfortunately the ena=
+bling of the rootCell is not working yet. With Halli's configuration everyt=
+hing is juste freezing without giving any error. When I use my generated fi=
+le (that is similar to Hakki's one) I got this error :
+>=20
+>=20
+> [] Irq 16 : nobody cared (try booting with the "irqpoll" option)=20
+> [] Handlers :
+> [] [<ffffffff81622fa0>] usb_hcd_irq
+> [] [<ffffffffc025c360>] ilo_isr [hpilo]
+> [] Disabling IRQ # 16
+> [] NMI watchdog: BUG: soft lockup - CPU#7 stuck for 22s! [kworkers/...]
+> [] NMI watchdog: BUG: soft lockup - CPU#6 stuck for 22s! [kworkers/...]
+> [] NMI watchdog: BUG: soft lockup - CPU#8 stuck for 22s! [kworkers/...]
+> [] NMI watchdog: BUG: soft lockup - CPU#9 stuck for 22s! [kworkers/...]
+> [] NMI watchdog: BUG: soft lockup - CPU#11 stuck for 22s! [kworkers/...]
+> [] NMI watchdog: BUG: soft lockup - CPU#12 stuck for 22s! [kworkers/...]
+> [] NMI watchdog: BUG: soft lockup - CPU#13 stuck for 22s! [kworkers/...]
+> [] NMI watchdog: BUG: soft lockup - CPU#14 stuck for 22s! [kworkers/...]
+> [] NMI watchdog: BUG: soft lockup - CPU#15 stuck for 22s! [kworkers/...]
+> [] NMI watchdog: BUG: soft lockup - CPU#17 stuck for 22s! [kworkers/...]
+>=20
+> etc...
+>=20
+> I don't know why there is this error. Do you have an idea ?=20
+>=20
+>=20
+>=20
+> @Hakki you can find in attachment the lspci command lines you requested
+>=20
+> again : thanks for your help
 
-<p></p>
+Hello again,=20
 
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
+Actually my error is a kernel panic that is shutting down all the CPUs with=
+ NMI
+
+best regards,
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/CAD9j0toHJr%2BgrA%2B2xjk2Yu1kP_m3TsFzWrGzVmBm%2Bwd=
-WiFMk4g%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://gr=
-oups.google.com/d/msgid/jailhouse-dev/CAD9j0toHJr%2BgrA%2B2xjk2Yu1kP_m3TsFz=
-WrGzVmBm%2BwdWiFMk4g%40mail.gmail.com</a>.<br />
-For more options, visit <a href=3D"https://groups.google.com/d/optout">http=
-s://groups.google.com/d/optout</a>.<br />
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/02568569-7d1b-4bb5-8a1e-a5cbee5a77ee%40googlegroups.com.
+For more options, visit https://groups.google.com/d/optout.
 
---0000000000006a31d30588706d2d--
+------=_Part_219_2049835578.1557393255047--
