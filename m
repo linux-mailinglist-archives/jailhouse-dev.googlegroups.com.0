@@ -1,156 +1,117 @@
-Return-Path: <jailhouse-dev+bncBD7KJ5F42UDRBGEX2LTAKGQE5GCMI7Y@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBE5N2LTAKGQEIJWLEYI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x337.google.com (mail-wm1-x337.google.com [IPv6:2a00:1450:4864:20::337])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9887119350
-	for <lists+jailhouse-dev@lfdr.de>; Thu,  9 May 2019 22:20:40 +0200 (CEST)
-Received: by mail-wm1-x337.google.com with SMTP id u124sf2647498wmg.1
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 09 May 2019 13:20:40 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1557433240; cv=pass;
+Received: from mail-wm1-x33a.google.com (mail-wm1-x33a.google.com [IPv6:2a00:1450:4864:20::33a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AB3D19416
+	for <lists+jailhouse-dev@lfdr.de>; Thu,  9 May 2019 23:07:31 +0200 (CEST)
+Received: by mail-wm1-x33a.google.com with SMTP id f187sf2969268wme.5
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 09 May 2019 14:07:31 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1557436051; cv=pass;
         d=google.com; s=arc-20160816;
-        b=FT3kg0SZvutkXz4OEt+NoqYARExNza2BxZZ409NMLtXnixPiEm1I31ZOYHRRGauGi7
-         oMzKidURVJEMy/x3VAGNXrkAaWY4jPce5gzubBtZX61iZGvntcQgbigjD/y9kybQNEYa
-         k3aQ3T4GspI+1m4xSakdfwvp1ywy/QrwyNOXRi0z2CR3qzkN2ZpApDVVSrSoXQ5IpWQ1
-         AmzBu2eVB3aPTykFD1DUiB3NiC73FWYn/VpZ8zP8i4f56XrOspiFF9jAUHg6Hq6XfkCe
-         j8ZwAY73VE4ux3RMojel2kyufb4hfE5GqNIyqLwvHJ8ljNLyhq0srpKadID3lgPZ+0u0
-         yeuQ==
+        b=l2XtFgnkIv6Py7Rnbept5K2K/sWO5PNRLiLSvdtJTK+f3yNX8rhQTjruVnX6OWG31y
+         2AkX0GLscFPZYK2oyG1a0E+er/FIUaHwSrHnmNcNvoojWvmtQtjt9t51qLW3r7Az5FSm
+         vUegdDnvgAf/NalEflLnycJ/Hr8HnBxZzx2kvpcoyJEu08DBAfhhwYuH+tEDGqg1jDBN
+         or+r/sjrhrB6VeJP04CD8rL1+nQgy1p1UWc3ku07uou/pdj+K/dv7J9mDpDiJMvVEFnb
+         54Bo6j1Xh84gSK5YPmXWKmqh1XdtmPsnY13sx7G/JbKOXDDmNjAUXEsS9w5qhjWACPPr
+         QzvQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version
-         :content-transfer-encoding:content-id:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:to:from:sender:dkim-signature;
-        bh=nQRPfAehbSjcwZAFhU+Y+opqnRfhxASgOUBUzVAWmCc=;
-        b=iBZtOUqXXgngtoeqi09Pv54qpr5Ca3Q8YWLC0e9v+7JDztl4MUBUfC3M+J9tR55qf3
-         W8VFcM34TUlTh57d6u68mt589rszNPJKrlrFhl74jYiczQhxg9UpqePlDneEOeS+tBUi
-         Xihpx1c69PQ62I8Fb3t+tXy1/xIYNA5/+rOpf3sqFfos9NlEoU6mYDcJtkFG06Rj8TrD
-         jiAKwmMMHuy74O0ltyWpz2rPwYeDoqNrCTb5Ot4+i+wEp912KqSBSJzgAuNj9fUnZOcg
-         YZr9N+wXRRQLCTIv7mrPdrKYqXgrpmin3aDRyyX3nFuVk6+OmHYCDlWOVfjwjTEuWEME
-         wkyA==
+         :list-id:mailing-list:precedence:mime-version:message-id:date
+         :subject:cc:to:from:sender:dkim-signature;
+        bh=OTSL7CqaXXzA8MC8GxLNz5qNSY1yRCtxhUJX8P13Z/A=;
+        b=TnhX6iwF6q85K/wrDeOLM2PkTRmnIpnSEnaJFqPkNsGSfWYVhEzFuC6Jt57ek+daeB
+         L2BAJafW7odj7WxX6UiNDWIHCdLN6+slOehk21SojOp9EGqHCY+0OLjgweM9lMQVeKYe
+         ghQZZ5gN5kTHSF2ljCmdYD5BWKDn/tnmhoWIRC3gmJsEpoA2UT8ne1FTG3Yc7O92Vr7P
+         wnmUSEnoSHLCHtE8invaAo0WUNzcNl5PvyRKf+g1X8DXIPRG5KmRfKQo0GrU10rrNNlS
+         3PF5zq4GOR7nObIHEfLcsGSbx+nD01/sksc2wgmL31oOUBUstmzF4vBO+uiTMfhwoVtq
+         uQNw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@Softube.onmicrosoft.com header.s=selector1-softube-com header.b=REDcRG1J;
-       spf=pass (google.com: domain of arvid@softube.com designates 40.107.13.90 as permitted sender) smtp.mailfrom=arvid@softube.com
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:subject:thread-topic:thread-index:date:message-id
-         :references:in-reply-to:accept-language:content-language:content-id
-         :content-transfer-encoding:mime-version:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=nQRPfAehbSjcwZAFhU+Y+opqnRfhxASgOUBUzVAWmCc=;
-        b=ahQCXgnmgJ3J5Xy2+X36qvynmpDYdmCEsjim76/gcTFT/4X/WBYCiAcrxK2810xLam
-         +5ze+Pz94cS+hTSoaILdku5+b5lfD0Fr3zxLJ7Te5d7Q8Ja3PEHpTrWwKoYchscoSlFo
-         /BhStvHxtUfvA8jRvcD3JoaewXHtXAYic3+jQeQxl5RPM/SB9w1Q3rNXaS34JXnNvjjK
-         fxLi8pygsr2I6BaOjI+sjxzgl/D6ldg9G9Vrga1lqpmx4sxvkV15nbnPqPc1158lCzU7
-         ih2giXXvltYYsjScH5Z42dRtBOLpIqxoMF2UtqnSiLpw0cMEg+03ZK197VXdh4mjv+G0
-         W79Q==
+        h=sender:from:to:cc:subject:date:message-id:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=OTSL7CqaXXzA8MC8GxLNz5qNSY1yRCtxhUJX8P13Z/A=;
+        b=o0GESacazXxCddnMjFwWUMlXxsrD2ZXeDeYUMK95jg3X0c5TmXtMgPpbtC6s11s6Ry
+         B8/NXF6d4C5DMq3oo1/C5F0faVwvv51sZP1lIDs0kV8WEEFXtABqpRVfa0ygN4g/g9Om
+         aaFojwc2bKsM2gyloteFS4m2dr3ICvjvYYJXA3/UcRiBoQtMdl9R8NqfRoHZSLJP7Ni7
+         if9TqoJAe9Z+cmMKuxMtpgSGkm4x95+Olfo6GJl45N/jSXGIhkHAIj3vVf5VRl8oM0G/
+         DRAvnVtVBD/paAw7HstyYZv97HIafVawgZwOM3p6XIQbsJRzEu5r+/n5Od9b/HGcD0R4
+         15nA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:subject:thread-topic:thread-index
-         :date:message-id:references:in-reply-to:accept-language
-         :content-language:content-id:content-transfer-encoding:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=nQRPfAehbSjcwZAFhU+Y+opqnRfhxASgOUBUzVAWmCc=;
-        b=sT04vPi8r2LGMNAswuRwe4JuuBR3BdZg8AIrTztrOUlyjS36XQL1+pCStkNm3+FC34
-         fhL8jaNLSQCWZP1niz7bEkw6RNQgfTAPtUES0N+Mz6x5T1d6cVM24+bDAlLGVDQKl3cc
-         cMlqN4unGRt5X87ntgNfx0O8HSbX1v1jH0vRpxlc/aQ67dGgCWBtMov8kPfqPfMwe30P
-         dMTcWLg99GNmqpnnHHikfLdjwtxmEvS03yEu8x5oSXHPM+C1JayxhKfIMcn8NBnWjauF
-         S3mEqOERaqihfmS2Xk0NPf2GzU+aHv9j7DFyQHy0vhrpxZP5raIwvMOunWm7Zv+e/p/e
-         sLUw==
+        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=OTSL7CqaXXzA8MC8GxLNz5qNSY1yRCtxhUJX8P13Z/A=;
+        b=uYZxJP+bv+hAq61TEIflFBlxZZ+Drozs8stbvYj5TA/2aWawIFKMy5DltUMCDfpHbZ
+         jERi2oy1pM+KfehHykH2MoyhMYONePg+Dg2oPoVImRYav0LJC2M/PgOA9rYuA/ztbUM7
+         /1GGIyAbezoy0oj86FSBXeC1mS2ffnolnXpVr24wuAPh+RzHOglYZPU8Ie14JfNzrDDV
+         6QZ08cC8Mdy8emp2VESIBYZO+25OUK6ShBqiea/Q93rkiVM9pmG0R9kAV+yC0eNmY2n4
+         PtgeRx/MKNFJmRtOxlFZOSYqhqqxvZw+LtSrB4yz22FaHdjPaw44j8Zb1+10Ol5ctp9Q
+         Ai8A==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAWPrJqfzcOcp71wnL0h/qVFz0h/8w8H+2eX5C691vTAErsQ1LfE
-	oB3Nu05GYBqh+i1OiWIM3qQ=
-X-Google-Smtp-Source: APXvYqxGBFbXzvVwuW+swp7DnLwmQUkyGT+6n613nDSSl/e7Ug2xlq+y/PBbNn0+r2LfDfarFUAPhg==
-X-Received: by 2002:adf:fc8f:: with SMTP id g15mr4885547wrr.122.1557433240363;
-        Thu, 09 May 2019 13:20:40 -0700 (PDT)
+X-Gm-Message-State: APjAAAW2Z6NpciBb44sRAMnGQzkbGXvUMFSpFkHMMtqt0v3vWzJrcwV8
+	eKtazqaH4ZdsfZgcHioyops=
+X-Google-Smtp-Source: APXvYqxJuOFW2u7TMCc3mMYRnOpulrqN0aRz/oKl1+DJcbX8Wc9qCVllkzivThEY9f/cUCCOfWcbzA==
+X-Received: by 2002:a5d:6944:: with SMTP id r4mr4714562wrw.62.1557436051195;
+        Thu, 09 May 2019 14:07:31 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:db81:: with SMTP id u1ls823093wri.14.gmail; Thu, 09 May
- 2019 13:20:39 -0700 (PDT)
-X-Received: by 2002:adf:b645:: with SMTP id i5mr4765076wre.272.1557433239856;
-        Thu, 09 May 2019 13:20:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1557433239; cv=none;
+Received: by 2002:adf:8184:: with SMTP id 4ls848652wra.5.gmail; Thu, 09 May
+ 2019 14:07:30 -0700 (PDT)
+X-Received: by 2002:a5d:4ec9:: with SMTP id s9mr4895716wrv.223.1557436050714;
+        Thu, 09 May 2019 14:07:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1557436050; cv=none;
         d=google.com; s=arc-20160816;
-        b=eAlUcMETzIRs0uCol7nOr/XsChNyyuy6lZi5/C5s5CUrXXbaL1YvQOOOyPi1EQb9WS
-         i79oUbRb2eirRdl3psPl9J+qi5CtrlP65ns8waCmr/o+g3kSlXYhiD/KgTSWDGtVKnji
-         AK5iojSXQIrJ5I5vHo71Cw8ePZBhtFAMZ249EaCUQ1P44p7mg3VeWplM1vVHiSex1PT/
-         diLayJu1qclbouFAo0chHEoua3jU+6jTqFaM00WkQ1R2DqFKhDx5tZuHS8Y0JpTdwLrT
-         yMzUW7ALMIXGTwzImAltoo0YpMH8QfuGNJhxmjPizXhGWhLXa/CMYUWYdcKf61QE+9w+
-         5gZQ==
+        b=yoYNm2+Nj2hmPe49tBXHIsjjesoxeaubeCcgkuKny3KYnTqm/IzOhpRMXkh+0Cq2LI
+         EQfvcRjtnIqGORxRONssgB67y1EYQU2q2Re6ZqIdmVWYKe+kpZEbDXCg1DOpR4ujlLWq
+         m3EaTJKZlCTsOenRLJ8KVvJ4lsCyVsWULTxjaIgbUkW5FLvAVM3XGsuWVkz89fJushGL
+         GfYfFGE9w+Z++u2dffGmI1R5yqUDHcX1Zspmg/8YhSDYzX3wQ8PN4yi3aRjG+/cXAkGP
+         S7/7mwlJg94dGaUPqJqzsTqpTW0zSsmsZlSoiJ+RNxQuiVoc2hDygqp47yqTQmP1jZ9d
+         lNAw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:content-transfer-encoding:content-id:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:to:from:dkim-signature;
-        bh=UMATs/sw9gV/VhgNURAFbKBcBkaP3jz0CB5gVOMzxpc=;
-        b=O7VLZJtNpPjHz4HISwxXlKRPpHUQzJq/dH0hsghhqezyxrIaHcHOC9Xr+PQqqA0n8o
-         eolXXj9Ao1CXyfLQJ8HXoYifZEvGf/tenl3r2olQagkHi+WCjRi2YD4KXLZbVCk/tndO
-         CLJT+77JCMT/TCU9wirx1pyqrc9V66MlYE5vk07XP/PdI9QNUUMTLvNP42vIsZNFSegF
-         yHNOHb5Q+BgRYhBhfQaMydmPgZXm7bILv3mz9IKmIAwK+PzaG47WqrVYj4NfyNSBWCsh
-         qax0T7kiNWDWKeyaYOQJnUHCPn/p/yKy7KC5p2IOJw4eafI9Ff3W2AbxIySpHWm2IINK
-         nsJA==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from;
+        bh=toqEWsIVbyM86wb6XCcEDkREG58a2a0Xr5CDBvciGCM=;
+        b=m9eEJzCIXFpueYBf8cWKs3qjd9TrCJiezAnCTOUeR/x4ZTaZblEQnNjZyhPhJ4qsui
+         SMDOf/IK7bret7ewk3tF9nbbWncuACUvd0DB1my5kTYOzhb2MkDUkhNbN4DbolL01ZyX
+         2/tvqCxOpu9B2PMkzYGQakHDgNymm/gX1lsBciX2qS430NBEG6fT/LFKhdXh0ofkYRpu
+         ePeXiaIcluqGORyXMjVRWPEriSwo5hX7FD28IdhIvLgNiA65qZCBzrcZ2blbqUJBH7+R
+         TMG4o///tx1wDJJWLOQfXxb4lyc7OiZSobZbvCLHtM8/jcDoIOh0vOQ0Yes19NLj1AJX
+         67fg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@Softube.onmicrosoft.com header.s=selector1-softube-com header.b=REDcRG1J;
-       spf=pass (google.com: domain of arvid@softube.com designates 40.107.13.90 as permitted sender) smtp.mailfrom=arvid@softube.com
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com (mail-eopbgr130090.outbound.protection.outlook.com. [40.107.13.90])
-        by gmr-mx.google.com with ESMTPS id u2si1014322wri.2.2019.05.09.13.20.39
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mtaout.hs-regensburg.de (mtaout.hs-regensburg.de. [194.95.104.10])
+        by gmr-mx.google.com with ESMTPS id 207si1041444wmb.2.2019.05.09.14.07.30
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
-        Thu, 09 May 2019 13:20:39 -0700 (PDT)
-Received-SPF: pass (google.com: domain of arvid@softube.com designates 40.107.13.90 as permitted sender) client-ip=40.107.13.90;
-Received: from HE1PR0201MB2332.eurprd02.prod.outlook.com (10.168.150.22) by
- HE1PR0201MB2188.eurprd02.prod.outlook.com (10.168.29.20) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1878.21; Thu, 9 May 2019 20:20:37 +0000
-Received: from HE1PR0201MB2332.eurprd02.prod.outlook.com
- ([fe80::69ad:976d:5122:6b96]) by HE1PR0201MB2332.eurprd02.prod.outlook.com
- ([fe80::69ad:976d:5122:6b96%8]) with mapi id 15.20.1856.012; Thu, 9 May 2019
- 20:20:37 +0000
-From: =?utf-8?B?QXJ2aWQgUm9zw6lu?= <arvid@softube.com>
-To: =?utf-8?B?SGFra8SxIEt1cnVtYWhtdXQ=?= <hkurumahmut84@hotmail.com>,
-	Jailhouse <jailhouse-dev@googlegroups.com>
-Subject: Re: Building on Orange Pi part 2
-Thread-Topic: Building on Orange Pi part 2
-Thread-Index: AQHVBppHHinIiqNX3E6acQP8uXAbqaZjNDUAgAApbwA=
-Date: Thu, 9 May 2019 20:20:36 +0000
-Message-ID: <E34A3AF5-43A8-4C94-BE2B-7A9A033B7D22@softube.com>
-References: <B9572A15-BD81-4DAE-9052-931E11167750@softube.com>
- <c0798a91-b54e-4817-bb1a-9f97ba7ceeea@googlegroups.com>
-In-Reply-To: <c0798a91-b54e-4817-bb1a-9f97ba7ceeea@googlegroups.com>
-Accept-Language: en-US, sv-SE
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [81.230.58.122]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: a7717d78-40e0-4530-9d34-08d6d4bbcc43
-x-microsoft-antispam: BCL:0;PCL:0;RULEID:(2390118)(7020095)(4652040)(7021145)(8989299)(4534185)(7022145)(4603075)(4627221)(201702281549075)(8990200)(7048125)(7024125)(7027125)(7023125)(5600141)(711020)(4605104)(2017052603328)(7193020);SRVR:HE1PR0201MB2188;
-x-ms-traffictypediagnostic: HE1PR0201MB2188:
-x-microsoft-antispam-prvs: <HE1PR0201MB2188777E0C063134DDD63258A1330@HE1PR0201MB2188.eurprd02.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-forefront-prvs: 003245E729
-x-forefront-antispam-report: SFV:NSPM;SFS:(10019020)(376002)(346002)(366004)(396003)(136003)(39850400004)(199004)(189003)(6512007)(11346002)(476003)(6436002)(76176011)(110136005)(5660300002)(99286004)(6116002)(3846002)(36756003)(6486002)(14444005)(256004)(5024004)(86362001)(6246003)(53936002)(83716004)(66066001)(71190400001)(71200400001)(508600001)(25786009)(229853002)(7736002)(305945005)(316002)(82746002)(14454004)(446003)(486006)(2616005)(53546011)(6506007)(73956011)(76116006)(66556008)(66946007)(66476007)(64756008)(66446008)(26005)(102836004)(33656002)(8936002)(8676002)(81166006)(81156014)(68736007)(85202003)(2906002)(186003)(85182001);DIR:OUT;SFP:1102;SCL:1;SRVR:HE1PR0201MB2188;H:HE1PR0201MB2332.eurprd02.prod.outlook.com;FPR:;SPF:None;LANG:en;PTR:InfoNoRecords;A:1;MX:1;
-received-spf: None (protection.outlook.com: softube.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: TK2nR8UoJ0/EH7UBPjmxMVXVLa+mAMbF1QJLTTZ13PCUg+WlkEMiqqMbtcqHzgS8AxuyL2dzhu5xM26/1T3IAIAOjpIQnq19bUhO7w6lSM9C0tmzem2cUMRkHPxYWv6LOnlCScTZ32HifOhzgegVf3ab6RW+ZsIPFIIZQzStXl3e+uDozWewFnQvPpqYt+UQs8zrCpNWoxbUIAOf+NIpqJ08aPJ7g3+oee7pJr5Do8lpMNcq9su9YzFL6HQgix+CCszg9Gc+Ykv3Q9E3cti4blUKDNwrrShevjSsCZZK/O9CcUk8llHgjUEEWyBHyW74V78a8plqzK6rJhbcX+Ckh9yp3Mflx03OJ88gnKAoJEGKGVIl2Kxa8NoHcTIpK8q4UX3dKgVJAqmQlyoy77ldlPJjaiR0qRPov6JgKkFgdac=
-Content-Type: text/plain; charset="UTF-8"
-Content-ID: <79877DADFB1C444381AF6785C57EE498@eurprd02.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 09 May 2019 14:07:30 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) client-ip=194.95.104.10;
+Received: from pluto.lfdr (unknown [IPv6:2001:638:a01:8061:aefd:ceff:fef3:ba65])
+	by mtaout.hs-regensburg.de (Postfix) with ESMTP id 450QsF5RFnzyB7;
+	Thu,  9 May 2019 23:07:29 +0200 (CEST)
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Subject: [RFC PATCH 0/4] x86: enable SSE for inmates
+Date: Thu,  9 May 2019 23:07:22 +0200
+Message-Id: <20190509210726.23168-1-ralf.ramsauer@oth-regensburg.de>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-X-OriginatorOrg: softube.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7717d78-40e0-4530-9d34-08d6d4bbcc43
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 May 2019 20:20:36.9369
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8974e373-3f62-4142-9b7f-1b77262c89ea
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR0201MB2188
-X-Original-Sender: arvid@softube.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@Softube.onmicrosoft.com header.s=selector1-softube-com
- header.b=REDcRG1J;       spf=pass (google.com: domain of arvid@softube.com
- designates 40.107.13.90 as permitted sender) smtp.mailfrom=arvid@softube.com
+X-PMX-Version: 6.3.3.2656215, Antispam-Engine: 2.7.2.2107409, Antispam-Data: 2019.5.9.205716, AntiVirus-Engine: 5.60.1, AntiVirus-Data: 2019.5.9.5601002
+X-PMX-Spam: Gauge=IIIIIIII, Probability=8%, Report='
+ HTML_00_01 0.05, HTML_00_10 0.05, BODYTEXTP_SIZE_3000_LESS 0, BODY_SIZE_2000_2999 0, BODY_SIZE_5000_LESS 0, BODY_SIZE_7000_LESS 0, LEGITIMATE_SIGNS 0, MULTIPLE_REAL_RCPTS 0, NO_CTA_URI_FOUND 0, NO_URI_FOUND 0, NO_URI_HTTPS 0, RDNS_NXDOMAIN 0, RDNS_SUSP 0, RDNS_SUSP_GENERIC 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CTE 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_X_MAILER 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __NO_HTML_TAG_RAW 0, __SANE_MSGID 0, __SUBJ_ALPHA_END 0, __TO_MALFORMED_2 0, __TO_NAME 0, __TO_NAME_DIFF_FROM_ACC 0, __TO_REAL_NAMES 0'
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of ralf.ramsauer@oth-regensburg.de designates
+ 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Content-Type: text/plain; charset="UTF-8"
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -163,58 +124,66 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi Hakki,
+Hi,
 
-Se below.
+x86 32-bit inmates are broken with recent gcc versions: they will very
+likely produce SSE instructions here and there for some optimisations.
 
-On 2019-05-09, 21:52, "jailhouse-dev@googlegroups.com on behalf of Hakk=C4=
-=B1 Kurumahmut" <jailhouse-dev@googlegroups.com on behalf of hkurumahmut84@=
-hotmail.com> wrote:
+This lets inmates crash, as SSE needs to be discovered and enabled
+before it can be used.
 
-    In such cases, Jailhouse hypervisor console information is more importa=
-nt to see root cause of the problem. If you do not get the console informat=
-ion, you cannot get much help.=20
-   =20
-    Open Hypervisor console on new terminal may be ssh connection more suit=
-able against Linux hang situations.=20
-     =20
-    --sudo jailhouse console -f=20
-   =20
-    If you have uart port, it is pretty. In FAQ.md file,=20
-   =20
-    on real hardware, you'll need a serial cable. Connect it to the COM por=
-t on your motherboard. Many modern motherboards come with no COM ports, but=
- they usually have a header you can attach the socket to. Servers often hav=
-e serial console available through IPMI.=20
-   =20
-    In hypervisor-configuration.md file,=20
-   =20
-    #define CONFIG_CRASH_CELL_ON_PANIC 1=20
-   =20
-    it is suitable for hang status. please add it to "cell-config.h". And r=
-ebuild and reinstall jailhouse.=20
---=20
+The solution is to either use -mno-sse (for the hypervisor and inmates),
+or to activate SSE for inmates. Let's go for enabling them, as almost
+all CPUs that support VT-x/SVM will very likely support SSE.
 
-Thanks. I'll try that at some point. I already use serial out from the boar=
-d using a RSR232-USB cable, so I should be able to do what you describe. Ho=
-wever, my original problem, where the kernel doesn't load at all happens lo=
-ng before any jailhouse module is loaded, so that won't help in this case. =
-I guess I can try this when my machine hangs at "jailhouse enable", but to =
-be honest, I didn't really expect that to work, as I wasn't able to reserve=
- the amount of memory which was expected for the config file. Maybe I can e=
-dit the config-file (.c) and update the memory regions somehow to match my =
-memory reservations, but I have a hard time understanding how that works.
+Though unlikely, the lookup of SSE might fail. In this case, we need to
+stop the inmate, as we don't know if there might be some SSE
+instructions once we hand over to the C-entry. There are two options how
+we can stop the inmate:
+  1. cli, loop hlt
+  2. set cell failed state and then switch to option 1)
 
-Cheers,
-Arvid
+For the moment, I chose option 1.
 
+The actual SSE patch is pretty simple, but I want to avoid duplicate
+code for header*.S, and I found some other spots where we can
+deduplicate 32/64 bit code.
 
+The first three patches are preparations / consolidations. That's the
+reason why this is a RFC series -- consolidation is a bit tricky and
+needs review.
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/E34A3AF5-43A8-4C94-BE2B-7A9A033B7D22%40softube.com.
+Tested on a x86 AMD systems with the following inmates:
+  - tiny-demo
+  - apic-demo
+  - smp-demo
+  - 32-bit-demo
+  - mmio-access-32
+
+  Ralf
+
+Ralf Ramsauer (4):
+  inmates: x86: consolidate register definitions
+  inmates: x86: rename header.S to header-64.S
+  inmates: x86: introduce a common assembler entry point
+  inmates: x86: activate SSE
+
+ inmates/lib/x86/Makefile                  | 11 ++--
+ inmates/lib/x86/header-32.S               | 34 ++--------
+ inmates/lib/x86/{header.S => header-64.S} | 37 ++---------
+ inmates/lib/x86/header-common.S           | 76 +++++++++++++++++++++++
+ inmates/lib/x86/include/asm/regs.h        | 54 ++++++++++++++++
+ inmates/lib/x86/inmate.lds                |  5 +-
+ 6 files changed, 153 insertions(+), 64 deletions(-)
+ rename inmates/lib/x86/{header.S => header-64.S} (86%)
+ create mode 100644 inmates/lib/x86/header-common.S
+ create mode 100644 inmates/lib/x86/include/asm/regs.h
+
+-- 
+2.21.0
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20190509210726.23168-1-ralf.ramsauer%40oth-regensburg.de.
 For more options, visit https://groups.google.com/d/optout.
