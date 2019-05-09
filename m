@@ -1,52 +1,64 @@
-Return-Path: <jailhouse-dev+bncBCL6VUP7RYARBQ7KY7TAKGQELXTEVMY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDCN3RNB2MDRBVNYZ7TAKGQEFXLNLPI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x338.google.com (mail-ot1-x338.google.com [IPv6:2607:f8b0:4864:20::338])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D3C916CEF
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  7 May 2019 23:14:45 +0200 (CEST)
-Received: by mail-ot1-x338.google.com with SMTP id 7sf9932716otj.1
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 07 May 2019 14:14:45 -0700 (PDT)
+Received: from mail-oi1-x23e.google.com (mail-oi1-x23e.google.com [IPv6:2607:f8b0:4864:20::23e])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ACA718663
+	for <lists+jailhouse-dev@lfdr.de>; Thu,  9 May 2019 09:52:55 +0200 (CEST)
+Received: by mail-oi1-x23e.google.com with SMTP id s64sf528742oia.15
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 09 May 2019 00:52:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:date:from:to:message-id:in-reply-to:references:subject
          :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=xH+bv/3Ywp1Gm3ShTHUs62opDH0Lx2+/fL3jeFP3aMI=;
-        b=tBl4xv0//GTcr4oa1OmbeveFp1LtDfW7tHGj2xDx8doqWeb2wMr63K0WijrozlJoJG
-         hzrL3dnIgpVUv32rnfVK1gSl7dk9EHYqcFLn3fRfbMDBkl5KDC9HGSId1zcZU5gYlqYS
-         ucoU4NlGyZ2aD+2paNkUH6q1q2mjrtJsGOkYrkFdP8Qfxs//HnQPDavsvxMptJZzuWuX
-         O4bonpm0JOK9jBOF/nG++wk78kA2blA5oYKznsU+O/QbrhHaFbVt40PGGn2aSzg9gqHf
-         ET9YMtGIXoybqnOMZwAcYqTf/UqcJfKA1jI+PPeW49/kBLIrXW5q/CQsKdIH/h6g/bKj
-         RdOQ==
+        bh=kJwdjaQ4/3nOSc6SvcVyYfRuImdqfND3/DjfI03wKpc=;
+        b=QR5Dv8RyvCskh+dKfVbpxQsAWnuPisLZ/fCgJ4TcbVLrQTZ7/bQb8PmI15hdeAnY/a
+         3dVVllrlNP7s+h+zzTGqTgq8BLewQH1FE11q/J1PDsrDXSjkhTX5jgwv16PM55fHj+1Y
+         IH7VQJKCJ4DJ3KlF5HROrqH/BJWkt6LAoHbCLOJfVLxE+mw4oW38wY+1KQZfMzRnYOsz
+         aEXsdBKyiA2j69hV6YkonaVzxsfu7FSfdXrsdQ0xVBLN0F9Q29itQ1njvWHbR+XqDfUt
+         stv4F/OdCANg5bW5TtSiFCgEVqIXVlf32BgxBvdsB6KfVijD91lm2t+oRxDtZ0u+wI3n
+         tPZQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=kJwdjaQ4/3nOSc6SvcVyYfRuImdqfND3/DjfI03wKpc=;
+        b=vE66SWcyZyVhwgWRxU+2yfZ5LvJ0JWwhseno2Q/4DFmROHEHBLINrjVCQN/0RVJeX+
+         uXKqE04zinVI5m1l/dydbKUzNFhEezkjoSGOIZQixzHbjmKev6RYoCLjCNde7Gf6uT/j
+         YHhY00MNxu1YP9qj7b2fio2T87ctwfcoziM/FFgPKxhpYXJYfViQ9HipFfB2gX9srqQm
+         VxkphgwqZeRgUF/20RsEVScLw3/IYjPJNMy5b0XxOY8++dkkFnYfaDr8E3zUbqO+L7Jh
+         +ebS/j7LZoJQCcD2uRIEShwMjhsJsZy6aLls2uxDSPEUFD2Oq+yWUu85SURp6wfy+rcT
+         V7ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
          :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=xH+bv/3Ywp1Gm3ShTHUs62opDH0Lx2+/fL3jeFP3aMI=;
-        b=BUF97Bdzz7w4+krMEXDJciUNSEmpgY5/dF837EsifAmUG6sL/deyP545FPuJOQnZx+
-         zN4SARfWYa9Tl4/65AYCFRCpXEucZjayTrtgqMkcTpTapSooefVU6Q5cWp+39i8dOkKi
-         7r4Uoeo6Zp3uKhqKEwH7LL/vD4dJlSfPW61k/EgqpdHB22HZqN6Es08rcmeIz/AgiOMI
-         naX71yrOwNil0xZ4+sg3LpzafnoqTICBSr5TAUFqb0TsHXQbyNDyih22fMYkApeybD2k
-         eJ98eJUkmB9v+APDHHVhWZa+WWtfAlK0LVdv/EV4h9NCRlqY0eVx1kAnjnfR6LSqz/rQ
-         qA0A==
+        bh=kJwdjaQ4/3nOSc6SvcVyYfRuImdqfND3/DjfI03wKpc=;
+        b=NWi+oPlJIFpeYo0o3FJ8pNpDgG0yWmE68kJ1pQazXHFuZUzSEfOMH8mRfNFgR44Z6t
+         dNlNendRVUBhKfaXrrKRrMEXEduvQs20/QzIGu7xz84E6mwHJT7Lt6opW12exdi1+ay9
+         2ETtc2aCgXSeLgKRLNqKCBMrGlRbnSpL3edvrJICiTd732zTfb6l1KxqMoLUFvuFSw9p
+         p6F/qmCudr72cwfvWYEqnZzUBxgwbzXtZ3KZJdSdU0s8/5J8ICp/rWg5lJe7k6qYhTm8
+         yco4nxw1JgBmxxOU+TdKGGl2pf5EXHQd7DCXIoKV8kh4suOvczfYsnNS1EAAJ8mUwb/e
+         v76Q==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAWGKj85cDl0jFafFokkt/CAHYcONI1izuTrwm7Guipz3JyCee2c
-	5ZbOeP678KgGjWTafOzGA70=
-X-Google-Smtp-Source: APXvYqxgQOrgOnxyW8zW8M6yNntVJk/UEtEc5symDo2B7uprwdZRCEXkq7pFYbdTrAOSrgkHCwpt0w==
-X-Received: by 2002:a05:6830:155a:: with SMTP id l26mr24873829otp.101.1557263683945;
-        Tue, 07 May 2019 14:14:43 -0700 (PDT)
+X-Gm-Message-State: APjAAAUzJ90vlH4IgXYp7GtUct11gnwOYubiiNkzctqVD8yRlJkrNnrR
+	9ZPBOif/xbWisbS20emaBlU=
+X-Google-Smtp-Source: APXvYqwmXvdXhXFCIePuZCgVRYRctcDkrWEO3/oJ59TLAYxyelgz/Pmui6W6Ft2RwV8nMIg8ODR3hA==
+X-Received: by 2002:a05:6808:64f:: with SMTP id z15mr604333oih.148.1557388373664;
+        Thu, 09 May 2019 00:52:53 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aca:be41:: with SMTP id o62ls2566740oif.1.gmail; Tue, 07 May
- 2019 14:14:43 -0700 (PDT)
-X-Received: by 2002:aca:280e:: with SMTP id 14mr14590oix.7.1557263682542;
-        Tue, 07 May 2019 14:14:42 -0700 (PDT)
-Date: Tue, 7 May 2019 14:14:41 -0700 (PDT)
-From: =?UTF-8?Q?Hakk=C4=B1_Kurumahmut?= <hkurumahmut84@hotmail.com>
+Received: by 2002:a9d:748b:: with SMTP id t11ls297810otk.7.gmail; Thu, 09 May
+ 2019 00:52:52 -0700 (PDT)
+X-Received: by 2002:a9d:7346:: with SMTP id l6mr1510777otk.139.1557388372597;
+        Thu, 09 May 2019 00:52:52 -0700 (PDT)
+Date: Thu, 9 May 2019 00:52:51 -0700 (PDT)
+From: jeanne.romefort@gmail.com
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <cda9daa8-fbe8-46fb-aaba-75ebd38e141e@googlegroups.com>
-In-Reply-To: <5c94104f-c27d-9074-1990-61fa9e9d05c1@siemens.com>
+Message-Id: <71f64f49-1bcd-4ab0-947a-0bcabc2ac1e6@googlegroups.com>
+In-Reply-To: <cda9daa8-fbe8-46fb-aaba-75ebd38e141e@googlegroups.com>
 References: <edd9ef72-beae-42c3-94c7-ac5bf29ba57d@googlegroups.com>
  <594f54f4-eb5c-5b64-2d49-38997bcf2f8b@siemens.com>
  <50b964d8-41e5-49af-96dc-3080cbd3966e@googlegroups.com>
@@ -54,11 +66,12 @@ References: <edd9ef72-beae-42c3-94c7-ac5bf29ba57d@googlegroups.com>
  <3bcebf94-23a5-18d3-1f0b-bb25717167a3@siemens.com>
  <c238d436-5995-4c44-8a19-bc26654671d5@googlegroups.com>
  <5c94104f-c27d-9074-1990-61fa9e9d05c1@siemens.com>
+ <cda9daa8-fbe8-46fb-aaba-75ebd38e141e@googlegroups.com>
 Subject: Re: Unsupported DMAR Device Scope Structure
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_8_1101446795.1557263681602"
-X-Original-Sender: hkurumahmut84@hotmail.com
+	boundary="----=_Part_195_834613010.1557388371426"
+X-Original-Sender: jeanne.romefort@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -71,374 +84,416 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_8_1101446795.1557263681602
+------=_Part_195_834613010.1557388371426
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Jan, Jeanne
-
-@Jeanne
-
-I prepared a solution about the problem. Please apply two patch for jailhou=
-se/next branch. Or download attached file sysfs_parser.py.
-
-I also sent sysconfig.c for your platform. When you use the new script, you=
- will produce a similar file.
-
-Please test it.
-
-Could you send us below command outputs?
-
-sudo lspci -D
-sudo lspci -Dtvvv
-sudo lspci -Dkvvvnnxxx
-
-
-@Jan
-
-I have a question about the patch. assign_iommu_info and append_comment_inf=
-o methods is running for PCI-PCI bridge primary and secondary bus,dev,fn.=
+Le mardi 7 mai 2019 23:14:41 UTC+2, Hakk=C4=B1 Kurumahmut a =C3=A9crit=C2=
+=A0:
+> Hi Jan, Jeanne
+>=20
+> @Jeanne
+>=20
+> I prepared a solution about the problem. Please apply two patch for jailh=
+ouse/next branch. Or download attached file sysfs_parser.py.
+>=20
+> I also sent sysconfig.c for your platform. When you use the new script, y=
+ou will produce a similar file.
+>=20
+> Please test it.
+>=20
+> Could you send us below command outputs?
+>=20
+> sudo lspci -D
+> sudo lspci -Dtvvv
+> sudo lspci -Dkvvvnnxxx
+>=20
+>=20
+> @Jan
+>=20
+> I have a question about the patch. assign_iommu_info and append_comment_i=
+nfo methods is running for PCI-PCI bridge primary and secondary bus,dev,fn.=
 =20
-
-I'm not sure it should work for the primary bus,dev,fn.
-
-Example Device Scope:
-
-01 0A 00 00 00 00 1C 07 00 00=20
-01 0A 00 00 00 00 1C 07 00 02=20
-01 0A 00 00 00 00 1C 07 00 04
-
-It is running order
-
-1.) 00:1C.07
-2.) sec-bus:00.00
-3.) 00:1C.07
-4.) sec-bus:00.02=20
-5.) 00:1C.07
-6.) sec-bus:00.04=20
-
-May be it is run for only secondary buses.
-
-1.) sec-bus:00.00
-2.) sec-bus:00.02=20
-3.) sec-bus:00.04=20
-
-
----------------------------------------------------------------------------
-[PATCH 1/2]
-
-From aa9e7f0e25317d2f516da68b4163f9f08fc6c76d Mon Sep 17 00:00:00 2001
-From: HAKKI KURUMAHMUT <kurumahmut@gmail.com>
-Date: Tue, 7 May 2019 19:37:59 +0300
-Subject: [PATCH 1/2] Scripts: Fix for Parsing DMAR Region under Reserved
- Section
-
- While kernel command parameters are intel_iommu=3Don  intremap=3Don at
- some machines, cat /proc/iomem shows DMAR region under reserved section.
- This patch must be done for config creation to complete because of
- generating DMAR region not found error although it exist. If this patch is
- not apply, an error is throw by "config create" command whether
- intel_iommu On or Off because "reserved" regions are currently excluded fr=
-om
- the generated config although DMAR region exists. Thus, DMAR under reserve=
-d
- section must be parsed by parser.
-
-Signed-off-by: HAKKI KURUMAHMUT <kurumahmut@gmail.com>
----
- pyjailhouse/sysfs_parser.py | 23 +++++++++++++----------
- 1 file changed, 13 insertions(+), 10 deletions(-)
-
-diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py
-index 46c95fc2..4f5da12e 100644
---- a/pyjailhouse/sysfs_parser.py
-+++ b/pyjailhouse/sysfs_parser.py
-@@ -94,14 +94,13 @@ def input_listdir(dir, wildcards):
-=20
-=20
- def parse_iomem(pcidevices):
--    regions =3D IOMemRegionTree.parse_iomem_tree(
-+    (regions, dmar_regions) =3D IOMemRegionTree.parse_iomem_tree(
-         IOMemRegionTree.parse_iomem_file())
-=20
-     rom_region =3D MemRegion(0xc0000, 0xdffff, 'ROMs')
-     add_rom_region =3D False
-=20
-     ret =3D []
--    dmar_regions =3D []
-     for r in regions:
-         append_r =3D True
-         # filter the list for MSI-X pages
-@@ -860,21 +859,21 @@ class IOMemRegionTree:
-=20
-         return root
-=20
--    # find HPET regions in tree
-+    # find specific regions in tree
-     @staticmethod
--    def find_hpet_regions(tree):
-+    def find_regions_by_name(tree, string):
-         regions =3D []
-=20
-         for tree in tree.children:
-             r =3D tree.region
-             s =3D r.typestr
-=20
--            if (s.find('HPET') >=3D 0):
-+            if (s.find(string) >=3D 0):
-                 regions.append(r)
-=20
-             # if the tree continues recurse further down ...
-             if (len(tree.children) > 0):
--                regions.extend(IOMemRegionTree.find_hpet_regions(tree))
-+                regions.extend(IOMemRegionTree.find_regions_by_name(tree, =
-string))
-=20
-         return regions
-=20
-@@ -882,6 +881,7 @@ class IOMemRegionTree:
-     @staticmethod
-     def parse_iomem_tree(tree):
-         regions =3D []
-+        dmar_regions =3D []
-=20
-         for tree in tree.children:
-             r =3D tree.region
-@@ -901,20 +901,23 @@ class IOMemRegionTree:
-             ):
-                 continue
-=20
--            # generally blacklisted, unless we find an HPET behind it
-+            # generally blacklisted, with a few exceptions
-             if (s.lower() =3D=3D 'reserved'):
--                regions.extend(IOMemRegionTree.find_hpet_regions(tree))
-+                regions.extend(IOMemRegionTree.find_regions_by_name(tree, =
-'HPET'))
-+                dmar_regions.extend(IOMemRegionTree.find_regions_by_name(t=
-ree, 'dmar'))
-                 continue
-=20
-             # if the tree continues recurse further down ...
-             if (len(tree.children) > 0):
--                regions.extend(IOMemRegionTree.parse_iomem_tree(tree))
-+                (temp_regions, temp_dmar_regions) =3D IOMemRegionTree.pars=
-e_iomem_tree(tree)
-+                regions.extend(temp_regions)
-+                dmar_regions.extend(temp_dmar_regions)
-                 continue
-=20
-             # add all remaining leaves
-             regions.append(r)
-=20
--        return regions
-+        return regions, dmar_regions
-=20
-=20
- class IOMMUConfig:
---=20
-2.17.1
-
-
----------------------------------------------------------------------------
-[PATCH 2/2]
-
-From d7f925b10f32a37b4595255afe8690abf50a4a3d Mon Sep 17 00:00:00 2001
-From: HAKKI KURUMAHMUT <kurumahmut@gmail.com>
-Date: Tue, 7 May 2019 23:25:14 +0300
-Subject: [PATCH 2/2] Scrits: Fix for Unsupported DMAR Device Scope Structur=
-e
-MIME-Version: 1.0
-Content-Type: text/plain; charset=3DUTF-8
-Content-Transfer-Encoding: 8bit
-
- Currently DMAR parser does not support parsing secondary path info for PCI=
--PCI bridge that is "PCI Endpoint Device" type.
- For example: 8086:1d1e Patsburg PCI Express Root Port 8
-
- If the =E2=80=98Path=E2=80=99 field length is more than 2 bytes (N > 1), t=
-he Device Scope
- Entry identifies a device behind one or more system software visible PCI-
- PCI bridges. Bus rebalancing actions by system software modifying bus
- assignments of the device=E2=80=99s parent bridge impacts the bus number p=
-ortion
- of device=E2=80=99s requester-id.
-
- Please read VT-d Specification Chapter 8.3.1
-
-Signed-off-by: HAKKI KURUMAHMUT <kurumahmut@gmail.com>
----
- pyjailhouse/sysfs_parser.py | 113 ++++++++++++++++++++++--------------
- 1 file changed, 70 insertions(+), 43 deletions(-)
-
-diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py
-index 4f5da12e..9e5c08d1 100644
---- a/pyjailhouse/sysfs_parser.py
-+++ b/pyjailhouse/sysfs_parser.py
-@@ -194,12 +194,45 @@ def parse_madt():
-     return ioapics
-=20
-=20
--def parse_dmar_devscope(f):
--    (scope_type, scope_len, id, bus, dev, fn) =3D \
--        struct.unpack('<BBxxBBBB', f.read(8))
--    if scope_len !=3D 8:
--        raise RuntimeError('Unsupported DMAR Device Scope Structure')
--    return (scope_type, scope_len, id, bus, dev, fn)
-+def assign_iommu_info(flags, pcidevices, units, ioapics, scope_type, id, b=
-us, dev, fn):
-+    # PCI Endpoint Device
-+    if scope_type =3D=3D 1:
-+        assert not (flags & 1)
-+        for d in pcidevices:
-+            if d.bus =3D=3D bus and d.dev =3D=3D dev and d.fn =3D=3D fn:
-+                d.iommu =3D len(units) - 1
-+                break
-+    # PCI Sub-hierarchy
-+    elif scope_type =3D=3D 2:
-+        assert not (flags & 1)
-+        for d in pcidevices:
-+            if d.bus =3D=3D bus and d.dev =3D=3D dev and d.fn =3D=3D fn:
-+                (secondbus, subordinate) =3D \
-+                    PCIPCIBridge.get_2nd_busses(d)
-+                for d2 in pcidevices:
-+                    if (
-+                        d2.bus >=3D secondbus and
-+                        d2.bus <=3D subordinate
-+                    ):
-+                        d2.iommu =3D len(units) - 1
-+                break
-+    # IOAPIC
-+    elif scope_type =3D=3D 3:
-+        ioapic =3D next(chip for chip in ioapics if chip.id =3D=3D id)
-+        bdf =3D (bus << 8) | (dev << 3) | fn
-+        for chip in ioapics:
-+            if chip.bdf =3D=3D bdf:
-+                raise RuntimeError('IOAPICs with identical BDF')
-+        ioapic.bdf =3D bdf
-+        ioapic.iommu =3D len(units) - 1
-+
-+
-+def append_comment_info(comments, scope_type, bus, dev, fn):
-+    if scope_type =3D=3D 1:
-+        comments.append('PCI device: %02x:%02x.%x' %
-+                        (bus, dev, fn))
-+    else:
-+        comments.append('DMAR parser could not decode device path')
-=20
-=20
- # parsing of DMAR ACPI Table
-@@ -249,38 +282,22 @@ def parse_dmar(pcidevices, ioapics, dmar_regions):
-                         d.iommu =3D len(units) - 1
-             offset +=3D 16 - offset
-             while offset < struct_len:
--                (scope_type, scope_len, id, bus, dev, fn) =3D\
--                    parse_dmar_devscope(f)
--                # PCI Endpoint Device
--                if scope_type =3D=3D 1:
--                    assert not (flags & 1)
--                    for d in pcidevices:
--                        if d.bus =3D=3D bus and d.dev =3D=3D dev and d.fn =
-=3D=3D fn:
--                            d.iommu =3D len(units) - 1
--                            break
--                # PCI Sub-hierarchy
--                elif scope_type =3D=3D 2:
--                    assert not (flags & 1)
-+                (scope_type, scope_len) =3D struct.unpack('<BB', f.read(2)=
-)
-+
-+                N =3D (int)((scope_len - 6) / 2) - 1
-+
-+                (id, starting_bus, starting_dev, starting_fn) =3D struct.u=
-npack('<xxBBBB', f.read(6))
-+
-+                assign_iommu_info(flags, pcidevices, units, ioapics, scope=
-_type, id, starting_bus, starting_dev, starting_fn)
-+
-+                while N !=3D 0:
-+                    N-=3D1
-+                    (secondary_dev, secondary_fn) =3D struct.unpack('<BB',=
- f.read(2))
-                     for d in pcidevices:
--                        if d.bus =3D=3D bus and d.dev =3D=3D dev and d.fn =
-=3D=3D fn:
--                            (secondbus, subordinate) =3D \
--                                PCIPCIBridge.get_2nd_busses(d)
--                            for d2 in pcidevices:
--                                if (
--                                    d2.bus >=3D secondbus and
--                                    d2.bus <=3D subordinate
--                                ):
--                                    d2.iommu =3D len(units) - 1
-+                        if d.bus =3D=3D starting_bus and d.dev =3D=3D star=
-ting_dev and d.fn =3D=3D starting_fn:
-+                            (secondbus, subordinate) =3D PCIPCIBridge.get_=
-2nd_busses(d)
-                             break
--                # IOAPIC
--                elif scope_type =3D=3D 3:
--                    ioapic =3D next(chip for chip in ioapics if chip.id =
+>=20
+> I'm not sure it should work for the primary bus,dev,fn.
+>=20
+> Example Device Scope:
+>=20
+> 01 0A 00 00 00 00 1C 07 00 00=20
+> 01 0A 00 00 00 00 1C 07 00 02=20
+> 01 0A 00 00 00 00 1C 07 00 04
+>=20
+> It is running order
+>=20
+> 1.) 00:1C.07
+> 2.) sec-bus:00.00
+> 3.) 00:1C.07
+> 4.) sec-bus:00.02=20
+> 5.) 00:1C.07
+> 6.) sec-bus:00.04=20
+>=20
+> May be it is run for only secondary buses.
+>=20
+> 1.) sec-bus:00.00
+> 2.) sec-bus:00.02=20
+> 3.) sec-bus:00.04=20
+>=20
+>=20
+> -------------------------------------------------------------------------=
+--
+> [PATCH 1/2]
+>=20
+> From aa9e7f0e25317d2f516da68b4163f9f08fc6c76d Mon Sep 17 00:00:00 2001
+> From: HAKKI KURUMAHMUT <kurumahmut@gmail.com>
+> Date: Tue, 7 May 2019 19:37:59 +0300
+> Subject: [PATCH 1/2] Scripts: Fix for Parsing DMAR Region under Reserved
+>  Section
+>=20
+>  While kernel command parameters are intel_iommu=3Don  intremap=3Don at
+>  some machines, cat /proc/iomem shows DMAR region under reserved section.
+>  This patch must be done for config creation to complete because of
+>  generating DMAR region not found error although it exist. If this patch =
+is
+>  not apply, an error is throw by "config create" command whether
+>  intel_iommu On or Off because "reserved" regions are currently excluded =
+from
+>  the generated config although DMAR region exists. Thus, DMAR under reser=
+ved
+>  section must be parsed by parser.
+>=20
+> Signed-off-by: HAKKI KURUMAHMUT <kurumahmut@gmail.com>
+> ---
+>  pyjailhouse/sysfs_parser.py | 23 +++++++++++++----------
+>  1 file changed, 13 insertions(+), 10 deletions(-)
+>=20
+> diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py
+> index 46c95fc2..4f5da12e 100644
+> --- a/pyjailhouse/sysfs_parser.py
+> +++ b/pyjailhouse/sysfs_parser.py
+> @@ -94,14 +94,13 @@ def input_listdir(dir, wildcards):
+> =20
+> =20
+>  def parse_iomem(pcidevices):
+> -    regions =3D IOMemRegionTree.parse_iomem_tree(
+> +    (regions, dmar_regions) =3D IOMemRegionTree.parse_iomem_tree(
+>          IOMemRegionTree.parse_iomem_file())
+> =20
+>      rom_region =3D MemRegion(0xc0000, 0xdffff, 'ROMs')
+>      add_rom_region =3D False
+> =20
+>      ret =3D []
+> -    dmar_regions =3D []
+>      for r in regions:
+>          append_r =3D True
+>          # filter the list for MSI-X pages
+> @@ -860,21 +859,21 @@ class IOMemRegionTree:
+> =20
+>          return root
+> =20
+> -    # find HPET regions in tree
+> +    # find specific regions in tree
+>      @staticmethod
+> -    def find_hpet_regions(tree):
+> +    def find_regions_by_name(tree, string):
+>          regions =3D []
+> =20
+>          for tree in tree.children:
+>              r =3D tree.region
+>              s =3D r.typestr
+> =20
+> -            if (s.find('HPET') >=3D 0):
+> +            if (s.find(string) >=3D 0):
+>                  regions.append(r)
+> =20
+>              # if the tree continues recurse further down ...
+>              if (len(tree.children) > 0):
+> -                regions.extend(IOMemRegionTree.find_hpet_regions(tree))
+> +                regions.extend(IOMemRegionTree.find_regions_by_name(tree=
+, string))
+> =20
+>          return regions
+> =20
+> @@ -882,6 +881,7 @@ class IOMemRegionTree:
+>      @staticmethod
+>      def parse_iomem_tree(tree):
+>          regions =3D []
+> +        dmar_regions =3D []
+> =20
+>          for tree in tree.children:
+>              r =3D tree.region
+> @@ -901,20 +901,23 @@ class IOMemRegionTree:
+>              ):
+>                  continue
+> =20
+> -            # generally blacklisted, unless we find an HPET behind it
+> +            # generally blacklisted, with a few exceptions
+>              if (s.lower() =3D=3D 'reserved'):
+> -                regions.extend(IOMemRegionTree.find_hpet_regions(tree))
+> +                regions.extend(IOMemRegionTree.find_regions_by_name(tree=
+, 'HPET'))
+> +                dmar_regions.extend(IOMemRegionTree.find_regions_by_name=
+(tree, 'dmar'))
+>                  continue
+> =20
+>              # if the tree continues recurse further down ...
+>              if (len(tree.children) > 0):
+> -                regions.extend(IOMemRegionTree.parse_iomem_tree(tree))
+> +                (temp_regions, temp_dmar_regions) =3D IOMemRegionTree.pa=
+rse_iomem_tree(tree)
+> +                regions.extend(temp_regions)
+> +                dmar_regions.extend(temp_dmar_regions)
+>                  continue
+> =20
+>              # add all remaining leaves
+>              regions.append(r)
+> =20
+> -        return regions
+> +        return regions, dmar_regions
+> =20
+> =20
+>  class IOMMUConfig:
+> --=20
+> 2.17.1
+>=20
+>=20
+> -------------------------------------------------------------------------=
+--
+> [PATCH 2/2]
+>=20
+> From d7f925b10f32a37b4595255afe8690abf50a4a3d Mon Sep 17 00:00:00 2001
+> From: HAKKI KURUMAHMUT <kurumahmut@gmail.com>
+> Date: Tue, 7 May 2019 23:25:14 +0300
+> Subject: [PATCH 2/2] Scrits: Fix for Unsupported DMAR Device Scope Struct=
+ure
+> MIME-Version: 1.0
+> Content-Type: text/plain; charset=3DUTF-8
+> Content-Transfer-Encoding: 8bit
+>=20
+>  Currently DMAR parser does not support parsing secondary path info for P=
+CI-PCI bridge that is "PCI Endpoint Device" type.
+>  For example: 8086:1d1e Patsburg PCI Express Root Port 8
+>=20
+>  If the =E2=80=98Path=E2=80=99 field length is more than 2 bytes (N > 1),=
+ the Device Scope
+>  Entry identifies a device behind one or more system software visible PCI=
+-
+>  PCI bridges. Bus rebalancing actions by system software modifying bus
+>  assignments of the device=E2=80=99s parent bridge impacts the bus number=
+ portion
+>  of device=E2=80=99s requester-id.
+>=20
+>  Please read VT-d Specification Chapter 8.3.1
+>=20
+> Signed-off-by: HAKKI KURUMAHMUT <kurumahmut@gmail.com>
+> ---
+>  pyjailhouse/sysfs_parser.py | 113 ++++++++++++++++++++++--------------
+>  1 file changed, 70 insertions(+), 43 deletions(-)
+>=20
+> diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py
+> index 4f5da12e..9e5c08d1 100644
+> --- a/pyjailhouse/sysfs_parser.py
+> +++ b/pyjailhouse/sysfs_parser.py
+> @@ -194,12 +194,45 @@ def parse_madt():
+>      return ioapics
+> =20
+> =20
+> -def parse_dmar_devscope(f):
+> -    (scope_type, scope_len, id, bus, dev, fn) =3D \
+> -        struct.unpack('<BBxxBBBB', f.read(8))
+> -    if scope_len !=3D 8:
+> -        raise RuntimeError('Unsupported DMAR Device Scope Structure')
+> -    return (scope_type, scope_len, id, bus, dev, fn)
+> +def assign_iommu_info(flags, pcidevices, units, ioapics, scope_type, id,=
+ bus, dev, fn):
+> +    # PCI Endpoint Device
+> +    if scope_type =3D=3D 1:
+> +        assert not (flags & 1)
+> +        for d in pcidevices:
+> +            if d.bus =3D=3D bus and d.dev =3D=3D dev and d.fn =3D=3D fn:
+> +                d.iommu =3D len(units) - 1
+> +                break
+> +    # PCI Sub-hierarchy
+> +    elif scope_type =3D=3D 2:
+> +        assert not (flags & 1)
+> +        for d in pcidevices:
+> +            if d.bus =3D=3D bus and d.dev =3D=3D dev and d.fn =3D=3D fn:
+> +                (secondbus, subordinate) =3D \
+> +                    PCIPCIBridge.get_2nd_busses(d)
+> +                for d2 in pcidevices:
+> +                    if (
+> +                        d2.bus >=3D secondbus and
+> +                        d2.bus <=3D subordinate
+> +                    ):
+> +                        d2.iommu =3D len(units) - 1
+> +                break
+> +    # IOAPIC
+> +    elif scope_type =3D=3D 3:
+> +        ioapic =3D next(chip for chip in ioapics if chip.id =3D=3D id)
+> +        bdf =3D (bus << 8) | (dev << 3) | fn
+> +        for chip in ioapics:
+> +            if chip.bdf =3D=3D bdf:
+> +                raise RuntimeError('IOAPICs with identical BDF')
+> +        ioapic.bdf =3D bdf
+> +        ioapic.iommu =3D len(units) - 1
+> +
+> +
+> +def append_comment_info(comments, scope_type, bus, dev, fn):
+> +    if scope_type =3D=3D 1:
+> +        comments.append('PCI device: %02x:%02x.%x' %
+> +                        (bus, dev, fn))
+> +    else:
+> +        comments.append('DMAR parser could not decode device path')
+> =20
+> =20
+>  # parsing of DMAR ACPI Table
+> @@ -249,38 +282,22 @@ def parse_dmar(pcidevices, ioapics, dmar_regions):
+>                          d.iommu =3D len(units) - 1
+>              offset +=3D 16 - offset
+>              while offset < struct_len:
+> -                (scope_type, scope_len, id, bus, dev, fn) =3D\
+> -                    parse_dmar_devscope(f)
+> -                # PCI Endpoint Device
+> -                if scope_type =3D=3D 1:
+> -                    assert not (flags & 1)
+> -                    for d in pcidevices:
+> -                        if d.bus =3D=3D bus and d.dev =3D=3D dev and d.f=
+n =3D=3D fn:
+> -                            d.iommu =3D len(units) - 1
+> -                            break
+> -                # PCI Sub-hierarchy
+> -                elif scope_type =3D=3D 2:
+> -                    assert not (flags & 1)
+> +                (scope_type, scope_len) =3D struct.unpack('<BB', f.read(=
+2))
+> +
+> +                N =3D (int)((scope_len - 6) / 2) - 1
+> +
+> +                (id, starting_bus, starting_dev, starting_fn) =3D struct=
+.unpack('<xxBBBB', f.read(6))
+> +
+> +                assign_iommu_info(flags, pcidevices, units, ioapics, sco=
+pe_type, id, starting_bus, starting_dev, starting_fn)
+> +
+> +                while N !=3D 0:
+> +                    N-=3D1
+> +                    (secondary_dev, secondary_fn) =3D struct.unpack('<BB=
+', f.read(2))
+>                      for d in pcidevices:
+> -                        if d.bus =3D=3D bus and d.dev =3D=3D dev and d.f=
+n =3D=3D fn:
+> -                            (secondbus, subordinate) =3D \
+> -                                PCIPCIBridge.get_2nd_busses(d)
+> -                            for d2 in pcidevices:
+> -                                if (
+> -                                    d2.bus >=3D secondbus and
+> -                                    d2.bus <=3D subordinate
+> -                                ):
+> -                                    d2.iommu =3D len(units) - 1
+> +                        if d.bus =3D=3D starting_bus and d.dev =3D=3D st=
+arting_dev and d.fn =3D=3D starting_fn:
+> +                            (secondbus, subordinate) =3D PCIPCIBridge.ge=
+t_2nd_busses(d)
+>                              break
+> -                # IOAPIC
+> -                elif scope_type =3D=3D 3:
+> -                    ioapic =3D next(chip for chip in ioapics if chip.id =
 =3D=3D id)
--                    bdf =3D (bus << 8) | (dev << 3) | fn
--                    for chip in ioapics:
--                        if chip.bdf =3D=3D bdf:
--                            raise RuntimeError('IOAPICs with identical BDF=
-')
--                    ioapic.bdf =3D bdf
--                    ioapic.iommu =3D len(units) - 1
-+                    assign_iommu_info(flags, pcidevices, units, ioapics, s=
-cope_type, id, secondbus, secondary_dev, secondary_fn)
-                 offset +=3D scope_len
-=20
-         # Reserved Memory Region Reporting Structure
-@@ -292,13 +309,23 @@ def parse_dmar(pcidevices, ioapics, dmar_regions):
-=20
-             comments =3D []
-             while offset < struct_len:
--                (scope_type, scope_len, id, bus, dev, fn) =3D\
--                    parse_dmar_devscope(f)
--                if scope_type =3D=3D 1:
--                    comments.append('PCI device: %02x:%02x.%x' %
--                                    (bus, dev, fn))
--                else:
--                    comments.append('DMAR parser could not decode device p=
-ath')
-+                (scope_type, scope_len) =3D struct.unpack('<BB', f.read(2)=
-)
-+
-+                N =3D (int)((scope_len - 6) / 2) - 1
-+
-+                (id, starting_bus, starting_dev, starting_fn) =3D struct.u=
-npack('<xxBBBB', f.read(6))
-+
-+                append_comment_info(comments, scope_type, starting_bus, st=
-arting_dev, starting_fn)
-+
-+                while N !=3D 0:
-+                    N-=3D1
-+                    (secondary_dev, secondary_fn) =3D struct.unpack('<BB',=
- f.read(2))
-+                    for d in pcidevices:
-+                        if d.bus =3D=3D starting_bus and d.dev =3D=3D star=
-ting_dev and d.fn =3D=3D starting_fn:
-+                            (secondbus, subordinate) =3D PCIPCIBridge.get_=
-2nd_busses(d)
-+                            break
-+
-+                    append_comment_info(comments, scope_type, secondbus, s=
-econdary_dev, secondary_fn)
-                 offset +=3D scope_len
-=20
-             reg =3D MemRegion(base, limit, 'ACPI DMAR RMRR', comments)
---=20
-2.17.1
+> -                    bdf =3D (bus << 8) | (dev << 3) | fn
+> -                    for chip in ioapics:
+> -                        if chip.bdf =3D=3D bdf:
+> -                            raise RuntimeError('IOAPICs with identical B=
+DF')
+> -                    ioapic.bdf =3D bdf
+> -                    ioapic.iommu =3D len(units) - 1
+> +                    assign_iommu_info(flags, pcidevices, units, ioapics,=
+ scope_type, id, secondbus, secondary_dev, secondary_fn)
+>                  offset +=3D scope_len
+> =20
+>          # Reserved Memory Region Reporting Structure
+> @@ -292,13 +309,23 @@ def parse_dmar(pcidevices, ioapics, dmar_regions):
+> =20
+>              comments =3D []
+>              while offset < struct_len:
+> -                (scope_type, scope_len, id, bus, dev, fn) =3D\
+> -                    parse_dmar_devscope(f)
+> -                if scope_type =3D=3D 1:
+> -                    comments.append('PCI device: %02x:%02x.%x' %
+> -                                    (bus, dev, fn))
+> -                else:
+> -                    comments.append('DMAR parser could not decode device=
+ path')
+> +                (scope_type, scope_len) =3D struct.unpack('<BB', f.read(=
+2))
+> +
+> +                N =3D (int)((scope_len - 6) / 2) - 1
+> +
+> +                (id, starting_bus, starting_dev, starting_fn) =3D struct=
+.unpack('<xxBBBB', f.read(6))
+> +
+> +                append_comment_info(comments, scope_type, starting_bus, =
+starting_dev, starting_fn)
+> +
+> +                while N !=3D 0:
+> +                    N-=3D1
+> +                    (secondary_dev, secondary_fn) =3D struct.unpack('<BB=
+', f.read(2))
+> +                    for d in pcidevices:
+> +                        if d.bus =3D=3D starting_bus and d.dev =3D=3D st=
+arting_dev and d.fn =3D=3D starting_fn:
+> +                            (secondbus, subordinate) =3D PCIPCIBridge.ge=
+t_2nd_busses(d)
+> +                            break
+> +
+> +                    append_comment_info(comments, scope_type, secondbus,=
+ secondary_dev, secondary_fn)
+>                  offset +=3D scope_len
+> =20
+>              reg =3D MemRegion(base, limit, 'ACPI DMAR RMRR', comments)
+> --=20
+> 2.17.1
+>=20
+> -------------------------------------------------------------------------=
+--
+>=20
+>=20
+> Thanks.
+>=20
+> HAKKI
 
----------------------------------------------------------------------------
+Hello everyone,=20
+
+Thanks for the help now I pass the hradware check ! Unfortunately the enabl=
+ing of the rootCell is not working yet. With Halli's configuration everythi=
+ng is juste freezing without giving any error. When I use my generated file=
+ (that is similar to Hakki's one) I got this error :
 
 
-Thanks.
+[] Irq 16 : nobody cared (try booting with the "irqpoll" option)=20
+[] Handlers :
+[] [<ffffffff81622fa0>] usb_hcd_irq
+[] [<ffffffffc025c360>] ilo_isr [hpilo]
+[] Disabling IRQ # 16
+[] NMI watchdog: BUG: soft lockup - CPU#7 stuck for 22s! [kworkers/...]
+[] NMI watchdog: BUG: soft lockup - CPU#6 stuck for 22s! [kworkers/...]
+[] NMI watchdog: BUG: soft lockup - CPU#8 stuck for 22s! [kworkers/...]
+[] NMI watchdog: BUG: soft lockup - CPU#9 stuck for 22s! [kworkers/...]
+[] NMI watchdog: BUG: soft lockup - CPU#11 stuck for 22s! [kworkers/...]
+[] NMI watchdog: BUG: soft lockup - CPU#12 stuck for 22s! [kworkers/...]
+[] NMI watchdog: BUG: soft lockup - CPU#13 stuck for 22s! [kworkers/...]
+[] NMI watchdog: BUG: soft lockup - CPU#14 stuck for 22s! [kworkers/...]
+[] NMI watchdog: BUG: soft lockup - CPU#15 stuck for 22s! [kworkers/...]
+[] NMI watchdog: BUG: soft lockup - CPU#17 stuck for 22s! [kworkers/...]
 
-HAKKI
+etc...
+
+I don't know why there is this error. Do you have an idea ?=20
+
+
+
+@Hakki you can find in attachment the lspci command lines you requested
+
+again : thanks for your help
+
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -446,5436 +501,6516 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/cda9daa8-fbe8-46fb-aaba-75ebd38e141e%40googlegroups.com.
+jailhouse-dev/71f64f49-1bcd-4ab0-947a-0bcabc2ac1e6%40googlegroups.com.
 For more options, visit https://groups.google.com/d/optout.
 
-------=_Part_8_1101446795.1557263681602
-Content-Type: text/x-python; charset=US-ASCII; name=sysfs_parser.py
+------=_Part_195_834613010.1557388371426
+Content-Type: text/plain; charset=US-ASCII; name=lspci.txt
 Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; filename=sysfs_parser.py
-X-Attachment-Id: eee156a0-ffd5-4645-bc87-7217418f0eae
-Content-ID: <eee156a0-ffd5-4645-bc87-7217418f0eae>
-
-#
-# Jailhouse, a Linux-based partitioning hypervisor
-#
-# Copyright (c) Siemens AG, 2014-2017
-# Copyright (c) Valentine Sinitsyn, 2014-2015
-#
-# Authors:
-#  Henning Schild <henning.schild@siemens.com>
-#  Jan Kiszka <jan.kiszka@siemens.com>
-#  Valentine Sinitsyn <valentine.sinitsyn@gmail.com>
-#
-# This work is licensed under the terms of the GNU GPL, version 2.  See
-# the COPYING file in the top-level directory.
-#
-# This script should help to create a basic jailhouse configuration file.
-# It needs to be executed on the target machine, where it will gather
-# information about the system. For more advanced scenarios you will have
-# to change the generated C-code.
-
-
-import struct
-import os
-import fnmatch
-
-root_dir = "/"
-
-def set_root_dir(dir):
-    global root_dir
-    root_dir = dir
-
-inputs = {
-    'files': set(),
-    'files_opt': set(),
-    'files_intel': set(),
-    'files_amd': set()
-}
-
-# required files
-inputs['files'].add('/proc/iomem')
-inputs['files'].add('/proc/cpuinfo')
-inputs['files'].add('/proc/cmdline')
-inputs['files'].add('/proc/ioports')
-inputs['files'].add('/sys/bus/pci/devices/*/config')
-inputs['files'].add('/sys/bus/pci/devices/*/resource')
-inputs['files'].add('/sys/devices/system/cpu/cpu*/uevent')
-inputs['files'].add('/sys/firmware/acpi/tables/APIC')
-inputs['files'].add('/sys/firmware/acpi/tables/MCFG')
-# optional files
-inputs['files_opt'].add('/sys/class/dmi/id/product_name')
-inputs['files_opt'].add('/sys/class/dmi/id/sys_vendor')
-inputs['files_opt'].add('/sys/class/tty/*/iomem_base')
-inputs['files_opt'].add('/sys/class/tty/*/iomem_reg_shift')
-inputs['files_opt'].add('/sys/class/tty/*/io_type')
-inputs['files_opt'].add('/sys/class/tty/*/port')
-inputs['files_opt'].add('/sys/devices/jailhouse/enabled')
-# platform specific files
-inputs['files_intel'].add('/sys/firmware/acpi/tables/DMAR')
-inputs['files_amd'].add('/sys/firmware/acpi/tables/IVRS')
-
-
-def check_input_listed(name, optional=False):
-    set = inputs['files_opt']
-    if optional is False:
-        set = inputs['files']
-        cpuvendor = get_cpu_vendor()
-        if cpuvendor == 'GenuineIntel':
-            set = set.union(inputs['files_intel'])
-        elif cpuvendor == 'AuthenticAMD':
-            set = set.union(inputs['files_amd'])
-
-    for file in set:
-        if fnmatch.fnmatch(name, file):
-            return True
-    raise RuntimeError('"' + name + '" is not a listed input file')
-
-
-def input_open(name, mode='r', optional=False):
-    check_input_listed(name, optional)
-    try:
-        f = open(root_dir + name, mode)
-    except Exception as e:
-        if optional:
-            return open("/dev/null", mode)
-        raise e
-    return f
-
-
-def input_listdir(dir, wildcards):
-    for w in wildcards:
-        check_input_listed(os.path.join(dir, w))
-    dirs = os.listdir(root_dir + dir)
-    dirs.sort()
-    return dirs
-
-
-def parse_iomem(pcidevices):
-    (regions, dmar_regions) = IOMemRegionTree.parse_iomem_tree(
-        IOMemRegionTree.parse_iomem_file())
-
-    rom_region = MemRegion(0xc0000, 0xdffff, 'ROMs')
-    add_rom_region = False
-
-    ret = []
-    for r in regions:
-        append_r = True
-        # filter the list for MSI-X pages
-        for d in pcidevices:
-            if d.msix_address >= r.start and d.msix_address <= r.stop:
-                if d.msix_address > r.start:
-                    head_r = MemRegion(r.start, d.msix_address - 1,
-                                       r.typestr, r.comments)
-                    ret.append(head_r)
-                if d.msix_address + d.msix_region_size < r.stop:
-                    tail_r = MemRegion(d.msix_address + d.msix_region_size,
-                                       r.stop, r.typestr, r.comments)
-                    ret.append(tail_r)
-                append_r = False
-                break
-        # filter out the ROMs
-        if (r.start >= rom_region.start and r.stop <= rom_region.stop):
-            add_rom_region = True
-            append_r = False
-        # filter out and save DMAR regions
-        if r.typestr.find('dmar') >= 0:
-            dmar_regions.append(r)
-            append_r = False
-        if append_r:
-            ret.append(r)
-
-    # add a region that covers all potential ROMs
-    if add_rom_region:
-        ret.append(rom_region)
-
-    # newer Linux kernels will report the first page as reserved
-    # it is needed for CPU init so include it anyways
-    if (ret[0].typestr == 'System RAM' and ret[0].start == 0x1000):
-        ret[0].start = 0
-
-    return ret, dmar_regions
-
-
-def parse_pcidevices():
-    int_src_cnt = 0
-    devices = []
-    caps = []
-    basedir = '/sys/bus/pci/devices'
-    list = input_listdir(basedir, ['*/config'])
-    for dir in list:
-        d = PCIDevice.parse_pcidevice_sysfsdir(basedir, dir)
-        if d is not None:
-            if len(d.caps) > 0:
-                duplicate = False
-                # look for duplicate capability patterns
-                for d2 in devices:
-                    if d2.caps == d.caps:
-                        # reused existing capability list, but record all users
-                        d2.caps[0].comments.append(str(d))
-                        d.caps_start = d2.caps_start
-                        duplicate = True
-                        break
-                if not duplicate:
-                    d.caps[0].comments.append(str(d))
-                    d.caps_start = len(caps)
-                    caps.extend(d.caps)
-            int_src_cnt += max(d.num_msi_vectors, d.num_msix_vectors)
-            devices.append(d)
-    return (devices, caps, int_src_cnt)
-
-
-def parse_madt():
-    f = input_open('/sys/firmware/acpi/tables/APIC', 'rb')
-    signature = f.read(4)
-    if signature != b'APIC':
-        raise RuntimeError('MADT: incorrect input file format %s' % signature)
-    (length,) = struct.unpack('<I', f.read(4))
-    f.seek(44)
-    length -= 44
-    ioapics = []
-
-    while length > 0:
-        offset = 0
-        (struct_type, struct_len) = struct.unpack('<BB', f.read(2))
-        offset += 2
-        length -= struct_len
-
-        if struct_type == 1:
-            (id, address, gsi_base) = struct.unpack('<BxII', f.read(10))
-            offset += 10
-            ioapics.append(IOAPIC(id, address, gsi_base))
-
-        f.seek(struct_len - offset, os.SEEK_CUR)
-
-    f.close()
-    return ioapics
-
-
-def assign_iommu_info(flags, pcidevices, units, ioapics, scope_type, id, bus, dev, fn):
-    # PCI Endpoint Device
-    if scope_type == 1:
-        assert not (flags & 1)
-        for d in pcidevices:
-            if d.bus == bus and d.dev == dev and d.fn == fn:
-                d.iommu = len(units) - 1
-                break
-    # PCI Sub-hierarchy
-    elif scope_type == 2:
-        assert not (flags & 1)
-        for d in pcidevices:
-            if d.bus == bus and d.dev == dev and d.fn == fn:
-                (secondbus, subordinate) = \
-                    PCIPCIBridge.get_2nd_busses(d)
-                for d2 in pcidevices:
-                    if (
-                        d2.bus >= secondbus and
-                        d2.bus <= subordinate
-                    ):
-                        d2.iommu = len(units) - 1
-                break
-    # IOAPIC
-    elif scope_type == 3:
-        ioapic = next(chip for chip in ioapics if chip.id == id)
-        bdf = (bus << 8) | (dev << 3) | fn
-        for chip in ioapics:
-            if chip.bdf == bdf:
-                raise RuntimeError('IOAPICs with identical BDF')
-        ioapic.bdf = bdf
-        ioapic.iommu = len(units) - 1
-
-
-def append_comment_info(comments, scope_type, bus, dev, fn):
-    if scope_type == 1:
-        comments.append('PCI device: %02x:%02x.%x' %
-                        (bus, dev, fn))
-    else:
-        comments.append('DMAR parser could not decode device path')
-
-
-# parsing of DMAR ACPI Table
-# see Intel VT-d Spec chapter 8
-def parse_dmar(pcidevices, ioapics, dmar_regions):
-    f = input_open('/sys/firmware/acpi/tables/DMAR', 'rb')
-    signature = f.read(4)
-    if signature != b'DMAR':
-        raise RuntimeError('DMAR: incorrect input file format %s' % signature)
-    (length,) = struct.unpack('<I', f.read(4))
-    f.seek(48)
-    length -= 48
-    units = []
-    regions = []
-
-    while length > 0:
-        offset = 0
-        (struct_type, struct_len) = struct.unpack('<HH', f.read(4))
-        offset += 4
-        length -= struct_len
-
-        # DMA Remapping Hardware Unit Definition
-        if struct_type == 0:
-            (flags, segment, base) = struct.unpack('<BxHQ', f.read(12))
-            if segment != 0:
-                raise RuntimeError('We do not support multiple PCI segments')
-            if len(units) >= 8:
-                raise RuntimeError('Too many DMAR units. '
-                                   'Raise JAILHOUSE_MAX_IOMMU_UNITS.')
-            size = 0
-            for r in dmar_regions:
-                if base == r.start:
-                    size = r.size()
-            if size == 0:
-                raise RuntimeError('DMAR region size cannot be identified.\n'
-                                   'Target Linux must run with Intel IOMMU '
-                                   'enabled.')
-            if size > 0x3000:
-                raise RuntimeError('Unexpectedly large DMAR region.')
-            units.append(IOMMUConfig({
-                'base_addr': base,
-                'mmio_size': size
-            }))
-            if flags & 1:
-                for d in pcidevices:
-                    if d.iommu is None:
-                        d.iommu = len(units) - 1
-            offset += 16 - offset
-            while offset < struct_len:
-                (scope_type, scope_len) = struct.unpack('<BB', f.read(2))
-
-                N = (int)((scope_len - 6) / 2) - 1
-
-                (id, starting_bus, starting_dev, starting_fn) = struct.unpack('<xxBBBB', f.read(6))
-
-                assign_iommu_info(flags, pcidevices, units, ioapics, scope_type, id, starting_bus, starting_dev, starting_fn)
-
-                while N != 0:
-                    N-=1
-                    (secondary_dev, secondary_fn) = struct.unpack('<BB', f.read(2))
-                    for d in pcidevices:
-                        if d.bus == starting_bus and d.dev == starting_dev and d.fn == starting_fn:
-                            (secondbus, subordinate) = PCIPCIBridge.get_2nd_busses(d)
-                            break
-                    assign_iommu_info(flags, pcidevices, units, ioapics, scope_type, id, secondbus, secondary_dev, secondary_fn)
-                offset += scope_len
-
-        # Reserved Memory Region Reporting Structure
-        if struct_type == 1:
-            f.seek(8 - offset, os.SEEK_CUR)
-            offset += 8 - offset
-            (base, limit) = struct.unpack('<QQ', f.read(16))
-            offset += 16
-
-            comments = []
-            while offset < struct_len:
-                (scope_type, scope_len) = struct.unpack('<BB', f.read(2))
-
-                N = (int)((scope_len - 6) / 2) - 1
-
-                (id, starting_bus, starting_dev, starting_fn) = struct.unpack('<xxBBBB', f.read(6))
-
-                append_comment_info(comments, scope_type, starting_bus, starting_dev, starting_fn)
-
-                while N != 0:
-                    N-=1
-                    (secondary_dev, secondary_fn) = struct.unpack('<BB', f.read(2))
-                    for d in pcidevices:
-                        if d.bus == starting_bus and d.dev == starting_dev and d.fn == starting_fn:
-                            (secondbus, subordinate) = PCIPCIBridge.get_2nd_busses(d)
-                            break
-
-                    append_comment_info(comments, scope_type, secondbus, secondary_dev, secondary_fn)
-                offset += scope_len
-
-            reg = MemRegion(base, limit, 'ACPI DMAR RMRR', comments)
-            regions.append(reg)
-
-        f.seek(struct_len - offset, os.SEEK_CUR)
-
-    f.close()
-
-    for d in pcidevices:
-        if d.iommu is None:
-            raise RuntimeError(
-                'PCI device %02x:%02x.%x outside the scope of an '
-                'IOMMU' % (d.bus, d.dev, d.fn))
-
-    return units, regions
-
-
-def parse_ivrs(pcidevices, ioapics):
-    def format_bdf(bdf):
-        bus, dev, fun = (bdf >> 8) & 0xff, (bdf >> 3) & 0x1f, bdf & 0x7
-        return '%02x:%02x.%x' % (bus, dev, fun)
-
-    f = input_open('/sys/firmware/acpi/tables/IVRS', 'rb')
-    signature = f.read(4)
-    if signature != b'IVRS':
-        raise RuntimeError('IVRS: incorrect input file format %s' % signature)
-
-    (length, revision) = struct.unpack('<IB', f.read(5))
-    if revision > 2:
-        raise RuntimeError('IVRS: unsupported Revision %02x' % revision)
-
-    f.seek(48, os.SEEK_SET)
-    length -= 48
-
-    units = []
-    regions = []
-    # BDF of devices that are permitted outside IOMMU: root complex
-    iommu_skiplist = set([0x0])
-    ivhd_blocks = 0
-    while length > 0:
-        (block_type, block_length) = struct.unpack('<BxH', f.read(4))
-        if block_type in [0x10, 0x11]:
-            ivhd_blocks += 1
-            if ivhd_blocks > 1:
-                raise RuntimeError('Jailhouse doesn\'t support more than one '
-                                   'AMD IOMMU per PCI function.')
-            # IVHD block
-            ivhd_fields = struct.unpack('<HHQHxxL', f.read(20))
-            (iommu_bdf, base_cap_ofs,
-             base_addr, pci_seg, iommu_feat) = ivhd_fields
-
-            length -= block_length
-            block_length -= 24
-
-            if pci_seg != 0:
-                raise RuntimeError('We do not support multiple PCI segments')
-
-            if len(units) > 8:
-                raise RuntimeError('Too many IOMMU units. '
-                                   'Raise JAILHOUSE_MAX_IOMMU_UNITS.')
-
-            msi_cap_ofs = None
-
-            for i, d in enumerate(pcidevices):
-                if d.bdf() == iommu_bdf:
-                    # Extract MSI capability offset
-                    for c in d.caps:
-                        if c.id == 0x05:
-                            msi_cap_ofs = c.start
-                    # We must not map IOMMU to the cells
-                    del pcidevices[i]
-
-            if msi_cap_ofs is None:
-                raise RuntimeError('AMD IOMMU lacks MSI support, and '
-                                   'Jailhouse doesn\'t support MSI-X yet.')
-
-            if (iommu_feat & (0xF << 13)) and (iommu_feat & (0x3F << 17)):
-                # Performance Counters are supported, allocate 512K
-                mmio_size = 524288
-            else:
-                # Allocate 16K
-                mmio_size = 16384
-
-            units.append(IOMMUConfig({
-                'base_addr': base_addr,
-                'mmio_size': mmio_size,
-                'amd_bdf': iommu_bdf,
-                'amd_base_cap': base_cap_ofs,
-                'amd_msi_cap': msi_cap_ofs,
-                # IVHD block type 0x11 has exact EFR copy but type 0x10 may
-                # overwrite what hardware reports. Set reserved bit 0 in that
-                # case to indicate that the value is in use.
-                'amd_features': (iommu_feat | 0x1) if block_type == 0x10 else 0
-            }))
-
-            bdf_start_range = None
-            while block_length > 0:
-                (entry_type, device_id) = struct.unpack('<BHx', f.read(4))
-                block_length -= 4
-
-                if entry_type == 0x01:
-                    # All
-                    for d in pcidevices:
-                        d.iommu = len(units) - 1
-                elif entry_type == 0x02:
-                    # Select
-                    for d in pcidevices:
-                        if d.bdf() == device_id:
-                            d.iommu = len(units) - 1
-                elif entry_type == 0x03:
-                    # Start of range
-                    bdf_start_range = device_id
-                elif entry_type == 0x04:
-                    # End of range
-                    if bdf_start_range is None:
-                        continue
-                    for d in pcidevices:
-                        if d.bdf() >= bdf_start_range and d.bdf() <= device_id:
-                            d.iommu = len(units) - 1
-                    bdf_start_range = None
-                elif entry_type == 0x42:
-                    # Alias select
-                    (device_id_b,) = struct.unpack('<xHx', f.read(4))
-                    block_length -= 4
-                    for d in pcidevices:
-                        if d.bdf() == device_id_b:
-                            d.iommu = len(units) - 1
-                elif entry_type == 0x43:
-                    # Alias start of range
-                    (device_id_b,) = struct.unpack('<xHx', f.read(4))
-                    block_length -= 4
-                    bdf_start_range = device_id_b
-                elif entry_type == 0x48:
-                    # Special device
-                    (handle, device_id_b, variety) = struct.unpack(
-                        '<BHB', f.read(4))
-                    block_length -= 4
-                    if variety == 0x01:  # IOAPIC
-                        for chip in ioapics:
-                            if chip.id == handle:
-                                chip.bdf = device_id_b
-                                chip.iommu = len(units) - 1
-                else:
-                    # Reserved or ignored entries
-                    if entry_type >= 0x40:
-                        f.seek(4, os.SEEK_CUR)
-                        block_length -= 4
-
-        elif type in [0x20, 0x21, 0x22]:
-            # IVMD block
-            ivmd_fields = struct.unpack('<BBHHHxxxxxxxxQQ', f.read(32))
-            (block_type, block_flags, block_length,
-             device_id, aux_data, mem_addr, mem_len) = ivmd_fields
-            length -= block_length
-
-            if int(block_flags):
-                bdf_str = format_bdf(device_id)
-                print(
-                    'WARNING: Jailhouse doesn\'t support configurable '
-                    '(eg. read-only) device memory. Device %s may not '
-                    'work properly, especially in non-root cell.' % bdf_str)
-
-            if block_type == 0x20:
-                # All devices
-                comment = None
-            elif block_type == 0x21:
-                # Selected device
-                comment = 'PCI Device: %s' % format_bdf(device_id)
-            elif block_type == 0x22:
-                # Device range
-                comment = 'PCI Device: %s - %s' % (
-                    format_bdf(device_id), format_bdf(aux_data))
-
-            if comment:
-                print('WARNING: Jailhouse doesn\'t support per-device memory '
-                      'regions. The memory at 0x%x will be mapped accessible '
-                      'to all devices.' % mem_addr)
-
-            regions.append(MemRegion(mem_addr, mem_len, 'ACPI IVRS', comment))
-        elif type == 0x40:
-            raise RuntimeError(
-                'You board uses IVRS Rev. 2 feature Jailhouse doesn\'t '
-                'support yet. Please report this to '
-                'jailhouse-dev@googlegroups.com.')
-        else:
-            print(
-                'WARNING: Skipping unknown IVRS '
-                'block type 0x%02x' % block_type)
-
-        for d in pcidevices:
-            if d.bdf() not in iommu_skiplist and d.iommu is None:
-                raise RuntimeError(
-                    'PCI device %02x:%02x.%x outside the scope of an '
-                    'IOMMU' % (d.bus, d.dev, d.fn))
-
-        f.close()
-        return units, regions
-
-
-def get_cpu_vendor():
-    with open(root_dir + '/proc/cpuinfo') as f:
-        for line in f:
-            if not line.strip():
-                continue
-            key, value = line.split(':')
-            if key.strip() == 'vendor_id':
-                return value.strip()
-
-
-class PCIBARs:
-    IORESOURCE_IO = 0x00000100
-    IORESOURCE_MEM = 0x00000200
-    IORESOURCE_MEM_64 = 0x00100000
-
-    def __init__(self, dir):
-        self.mask = []
-        f = input_open(os.path.join(dir, 'resource'), 'r')
-        n = 0
-        while (n < 6):
-            (start, end, flags) = f.readline().split()
-            n += 1
-            flags = int(flags, 16)
-            if flags & PCIBARs.IORESOURCE_IO:
-                mask = ~(int(end, 16) - int(start, 16))
-            elif flags & PCIBARs.IORESOURCE_MEM:
-                if flags & PCIBARs.IORESOURCE_MEM_64:
-                    mask = int(end, 16) - int(start, 16)
-                    (start, end, flags) = f.readline().split()
-                    mask |= (int(end, 16) - int(start, 16)) << 32
-                    mask = ~(mask)
-                    self.mask.append(mask & 0xffffffff)
-                    mask >>= 32
-                    n += 1
-                else:
-                    mask = ~(int(end, 16) - int(start, 16))
-            else:
-                mask = 0
-            self.mask.append(mask & 0xffffffff)
-        f.close()
-
-
-class PCICapability:
-    def __init__(self, id, start, len, flags, content, msix_address):
-        self.id = id
-        self.start = start
-        self.len = len
-        self.flags = flags
-        self.content = content
-        self.msix_address = msix_address
-        self.comments = []
-
-    def __eq__(self, other):
-        return self.id == other.id and self.start == other.start and \
-            self.len == other.len and self.flags == other.flags
-
-    RD = '0'
-    RW = 'JAILHOUSE_PCICAPS_WRITE'
-
-    JAILHOUSE_PCI_EXT_CAP = 0x8000
-
-    @staticmethod
-    def parse_pcicaps(dir):
-        caps = []
-        has_extended_caps = False
-        f = input_open(os.path.join(dir, 'config'), 'rb')
-        f.seek(0x06)
-        (status,) = struct.unpack('<H', f.read(2))
-        # capability list supported?
-        if (status & (1 << 4)) == 0:
-            f.close()
-            return caps
-        # walk capability list
-        f.seek(0x34)
-        (next,) = struct.unpack('B', f.read(1))
-        while next != 0:
-            cap = next
-            msix_address = 0
-            f.seek(cap)
-            (id, next) = struct.unpack('<BB', f.read(2))
-            if id == 0x01:  # Power Management
-                # this cap can be handed out completely
-                len = 8
-                flags = PCICapability.RW
-            elif id == 0x05:  # MSI
-                # access will be moderated by hypervisor
-                len = 10
-                (msgctl,) = struct.unpack('<H', f.read(2))
-                if (msgctl & (1 << 7)) != 0:  # 64-bit support
-                    len += 4
-                if (msgctl & (1 << 8)) != 0:  # per-vector masking support
-                    len += 10
-                flags = PCICapability.RW
-            elif id == 0x10:  # Express
-                len = 20
-                (cap_reg,) = struct.unpack('<H', f.read(2))
-                if (cap_reg & 0xf) >= 2:  # v2 capability
-                    len = 60
-                # access side effects still need to be analyzed
-                flags = PCICapability.RD
-                has_extended_caps = True
-            elif id == 0x11:  # MSI-X
-                # access will be moderated by hypervisor
-                len = 12
-                (table,) = struct.unpack('<xxI', f.read(6))
-                f.seek(0x10 + (table & 7) * 4)
-                (bar,) = struct.unpack('<I', f.read(4))
-                if (bar & 0x3) != 0:
-                    raise RuntimeError('Invalid MSI-X BAR found')
-                if (bar & 0x4) != 0:
-                    bar |= struct.unpack('<I', f.read(4))[0] << 32
-                msix_address = \
-                    (bar & 0xfffffffffffffff0) + (table & 0xfffffff8)
-                flags = PCICapability.RW
-            else:
-                # unknown/unhandled cap, mark its existence
-                len = 2
-                flags = PCICapability.RD
-            f.seek(cap + 2)
-            content = f.read(len - 2)
-            caps.append(PCICapability(id, cap, len, flags, content,
-                                      msix_address))
-
-        if has_extended_caps:
-            # walk extended capability list
-            next = 0x100
-            while next != 0:
-                cap = next
-                f.seek(cap)
-                (id, version_next) = struct.unpack('<HH', f.read(4))
-                next = version_next >> 4
-                if id == 0xffff:
-                    break
-                elif id == 0x0010:  # SR-IOV
-                    len = 64
-                    # access side effects still need to be analyzed
-                    flags = PCICapability.RD
-                else:
-                    if (id & PCICapability.JAILHOUSE_PCI_EXT_CAP) != 0:
-                        print('WARNING: Ignoring unsupported PCI Express '
-                              'Extended Capability ID %x' % id)
-                        continue
-                    # unknown/unhandled cap, mark its existence
-                    len = 4
-                    flags = PCICapability.RD
-                f.seek(cap + 4)
-                content = f.read(len - 4)
-                id |= PCICapability.JAILHOUSE_PCI_EXT_CAP
-                caps.append(PCICapability(id, cap, len, flags, content, 0))
-
-        f.close()
-        return caps
-
-
-class PCIDevice:
-    def __init__(self, type, domain, bus, dev, fn, bars, caps, path):
-        self.type = type
-        self.iommu = None
-        self.domain = domain
-        self.bus = bus
-        self.dev = dev
-        self.fn = fn
-        self.bars = bars
-        self.caps = caps
-        self.path = path
-        self.caps_start = 0
-        self.num_caps = len(caps)
-        self.num_msi_vectors = 0
-        self.msi_64bits = 0
-        self.num_msix_vectors = 0
-        self.msix_region_size = 0
-        self.msix_address = 0
-        for c in caps:
-            if c.id in (0x05, 0x11):
-                msg_ctrl = struct.unpack('<H', c.content[:2])[0]
-                if c.id == 0x05:  # MSI
-                    self.num_msi_vectors = 1 << ((msg_ctrl >> 1) & 0x7)
-                    self.msi_64bits = (msg_ctrl >> 7) & 1
-                else:  # MSI-X
-                    if c.msix_address != 0:
-                        vectors = (msg_ctrl & 0x7ff) + 1
-                        self.num_msix_vectors = vectors
-                        self.msix_region_size = (vectors * 16 + 0xfff) & 0xf000
-                        self.msix_address = c.msix_address
-                    else:
-                        print('WARNING: Ignoring invalid MSI-X configuration'
-                              ' of device %02x:%02x.%x' % (bus, dev, fn))
-
-    def __str__(self):
-        return 'PCIDevice: %02x:%02x.%x' % (self.bus, self.dev, self.fn)
-
-    def bdf(self):
-        return self.bus << 8 | self.dev << 3 | self.fn
-
-    @staticmethod
-    def parse_pcidevice_sysfsdir(basedir, dir):
-        dpath = os.path.join(basedir, dir)
-        f = input_open(os.path.join(dpath, 'config'), 'rb')
-        (vendor_device,) = struct.unpack('<I', f.read(4))
-        if vendor_device == 0xffffffff:
-            print('WARNING: Ignoring apparently disabled PCI device %s' % dir)
-            return None
-        f.seek(0x0A)
-        (classcode,) = struct.unpack('<H', f.read(2))
-        f.close()
-        if classcode == 0x0604:
-            type = 'JAILHOUSE_PCI_TYPE_BRIDGE'
-        else:
-            type = 'JAILHOUSE_PCI_TYPE_DEVICE'
-        a = dir.split(':')
-        domain = int(a[0], 16)
-        bus = int(a[1], 16)
-        df = a[2].split('.')
-        bars = PCIBARs(dpath)
-        caps = PCICapability.parse_pcicaps(dpath)
-        return PCIDevice(type, domain, bus, int(df[0], 16), int(df[1], 16),
-                         bars, caps, dpath)
-
-
-class PCIPCIBridge(PCIDevice):
-    @staticmethod
-    def get_2nd_busses(dev):
-        assert dev.type == 'JAILHOUSE_PCI_TYPE_BRIDGE'
-        f = input_open(os.path.join(dev.path, 'config'), 'rb')
-        f.seek(0x19)
-        (secondbus, subordinate) = struct.unpack('<BB', f.read(2))
-        f.close()
-        return (secondbus, subordinate)
-
-
-class MemRegion:
-    def __init__(self, start, stop, typestr, comments=None):
-        self.start = start
-        self.stop = stop
-        self.typestr = typestr
-        self.comments = comments or []
-
-    def __str__(self):
-        return 'MemRegion: %08x-%08x : %s' % \
-            (self.start, self.stop, self.typestr)
-
-    def size(self):
-        # round up to full PAGE_SIZE
-        return int((self.stop - self.start + 0xfff) / 0x1000) * 0x1000
-
-    def flagstr(self, p=''):
-        if (
-            self.typestr == 'System RAM' or
-            self.typestr == 'Kernel' or
-            self.typestr == 'RAM buffer' or
-            self.typestr == 'ACPI DMAR RMRR' or
-            self.typestr == 'ACPI IVRS'
-        ):
-            s = 'JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |\n'
-            s += p + '\t\tJAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA'
-            return s
-        return 'JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE'
-
-
-class IOAPIC:
-    def __init__(self, id, address, gsi_base, iommu=0, bdf=0):
-        self.id = id
-        self.address = address
-        self.gsi_base = gsi_base
-        self.iommu = iommu
-        self.bdf = bdf
-
-    def __str__(self):
-        return 'IOAPIC %d, GSI base %d' % (self.id, self.gsi_base)
-
-    def irqchip_id(self):
-        # encode the IOMMU number into the irqchip ID
-        return (self.iommu << 16) | self.bdf
-
-
-class IOMemRegionTree:
-    def __init__(self, region, level):
-        self.region = region
-        self.level = level
-        self.parent = None
-        self.children = []
-
-    def __str__(self):
-        s = ''
-        if (self.region):
-            s = (' ' * (self.level - 1)) + str(self.region)
-            if self.parent and self.parent.region:
-                s += ' --> ' + self.parent.region.typestr
-            s += '\n'
-        for c in self.children:
-            s += str(c)
-        return s
-
-    def regions_split_by_kernel(self):
-        kernel = [x for x in self.children if
-                  x.region.typestr.startswith('Kernel ')]
-
-        if (len(kernel) == 0):
-            return [self.region]
-
-        r = self.region
-        s = r.typestr
-
-        kernel_start = kernel[0].region.start
-        kernel_stop = kernel[len(kernel) - 1].region.stop
-
-        # align this for 16M, but only if we have enough space
-        kernel_stop = (kernel_stop & ~0xFFFFFF) + 0xFFFFFF
-        if (kernel_stop > r.stop):
-            kernel_stop = r.stop
-
-        before_kernel = None
-        after_kernel = None
-
-        # before Kernel if any
-        if (r.start < kernel_start):
-            before_kernel = MemRegion(r.start, kernel_start - 1, s)
-
-        kernel_region = MemRegion(kernel_start, kernel_stop, "Kernel")
-
-        # after Kernel if any
-        if (r.stop > kernel_stop):
-            after_kernel = MemRegion(kernel_stop + 1, r.stop, s)
-
-        return [before_kernel, kernel_region, after_kernel]
-
-    @staticmethod
-    def parse_iomem_line(line):
-        a = line.split(':', 1)
-        level = int(a[0].count(' ') / 2) + 1
-        region = a[0].split('-', 1)
-        a[1] = a[1].strip()
-        return level, MemRegion(int(region[0], 16), int(region[1], 16), a[1])
-
-    @staticmethod
-    def parse_iomem_file():
-        root = IOMemRegionTree(None, 0)
-        f = input_open('/proc/iomem')
-        lastlevel = 0
-        lastnode = root
-        for line in f:
-            (level, r) = IOMemRegionTree.parse_iomem_line(line)
-            t = IOMemRegionTree(r, level)
-            if (t.level > lastlevel):
-                t.parent = lastnode
-            if (t.level == lastlevel):
-                t.parent = lastnode.parent
-            if (t.level < lastlevel):
-                p = lastnode.parent
-                while(t.level < p.level):
-                    p = p.parent
-                t.parent = p.parent
-
-            t.parent.children.append(t)
-            lastnode = t
-            lastlevel = t.level
-        f.close()
-
-        return root
-
-    # find specific regions in tree
-    @staticmethod
-    def find_regions_by_name(tree, string):
-        regions = []
-
-        for tree in tree.children:
-            r = tree.region
-            s = r.typestr
-
-            if (s.find(string) >= 0):
-                regions.append(r)
-
-            # if the tree continues recurse further down ...
-            if (len(tree.children) > 0):
-                regions.extend(IOMemRegionTree.find_regions_by_name(tree, string))
-
-        return regions
-
-    # recurse down the tree
-    @staticmethod
-    def parse_iomem_tree(tree):
-        regions = []
-        dmar_regions = []
-
-        for tree in tree.children:
-            r = tree.region
-            s = r.typestr
-
-            # System RAM on the first level will be added completely,
-            # if they don't contain the kernel itself, if they do,
-            # we split them
-            if (tree.level == 1 and s == 'System RAM'):
-                regions.extend(tree.regions_split_by_kernel())
-                continue
-
-            # blacklisted on all levels
-            if (
-                (s.find('PCI MMCONFIG') >= 0) or
-                (s.find('APIC') >= 0)  # covers both APIC and IOAPIC
-            ):
-                continue
-
-            # generally blacklisted, with a few exceptions
-            if (s.lower() == 'reserved'):
-                regions.extend(IOMemRegionTree.find_regions_by_name(tree, 'HPET'))
-                dmar_regions.extend(IOMemRegionTree.find_regions_by_name(tree, 'dmar'))
-                continue
-
-            # if the tree continues recurse further down ...
-            if (len(tree.children) > 0):
-                (temp_regions, temp_dmar_regions) = IOMemRegionTree.parse_iomem_tree(tree)
-                regions.extend(temp_regions)
-                dmar_regions.extend(temp_dmar_regions)
-                continue
-
-            # add all remaining leaves
-            regions.append(r)
-
-        return regions, dmar_regions
-
-
-class IOMMUConfig:
-    def __init__(self, props):
-        self.base_addr = props['base_addr']
-        self.mmio_size = props['mmio_size']
-        if 'amd_bdf' in props:
-            self.amd_bdf = props['amd_bdf']
-            self.amd_base_cap = props['amd_base_cap']
-            self.amd_msi_cap = props['amd_msi_cap']
-            self.amd_features = props['amd_features']
-
-    @property
-    def is_amd_iommu(self):
-        return hasattr(self, 'amd_bdf')
-
-------=_Part_8_1101446795.1557263681602
-Content-Type: text/x-csrc; charset=US-ASCII; name=sysconfig2.c
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; filename=sysconfig2.c
-X-Attachment-Id: 5e359ab7-a50a-4ef8-9c22-7ff0b96b1474
-Content-ID: <5e359ab7-a50a-4ef8-9c22-7ff0b96b1474>
-
-/*
- * Jailhouse, a Linux-based partitioning hypervisor
- *
- * Copyright (c) Siemens AG, 2014-2017
- *
- * This work is licensed under the terms of the GNU GPL, version 2.  See
- * the COPYING file in the top-level directory.
- *
- * Alternatively, you can use or redistribute this file under the following
- * BSD license:
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
- * THE POSSIBILITY OF SUCH DAMAGE.
- *
- * Configuration for HP ProLiant DL360p Gen8
- * created with '/home/ubuntu/repos/siemens/jailhouse/tools/jailhouse config create /home/ubuntu/repos/siemens/jailhouse/configs/x86/sysconfig2.c --mem-hv 128M --mem-inmates 256M --root /home/ubuntu/repos/siemens/jailhouse/HP_ProLiant_DL360p_Gen8'
- *
- * NOTE: This config expects the following to be appended to your kernel cmdline
- *       "memmap=0x18000000$0x3a000000"
- */
-
-#include <jailhouse/types.h>
-#include <jailhouse/cell-config.h>
-
-#define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
-
-struct {
-	struct jailhouse_system header;
-	__u64 cpus[1];
-	struct jailhouse_memory mem_regions[88];
-	struct jailhouse_irqchip irqchips[3];
-	__u8 pio_bitmap[0x2000];
-	struct jailhouse_pci_device pci_devices[149];
-	struct jailhouse_pci_capability pci_caps[81];
-} __attribute__((packed)) config = {
-	.header = {
-		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
-		.revision = JAILHOUSE_CONFIG_REVISION,
-		.flags = JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
-		.hypervisor_memory = {
-			.phys_start = 0x3a000000,
-			.size = 0x8000000,
-		},
-		.debug_console = {
-			.address = 0x3f8,
-			.type = JAILHOUSE_CON_TYPE_8250,
-			.flags = JAILHOUSE_CON_ACCESS_PIO |
-				 JAILHOUSE_CON_REGDIST_1,
-		},
-		.platform_info = {
-			.pci_mmconfig_base = 0xc0000000,
-			.pci_mmconfig_end_bus = 0xff,
-			.x86 = {
-				.pm_timer_address = 0x908,
-				.vtd_interrupt_limit = 512,
-				.iommu_units = {
-					{
-						.base = 0xfbefe000,
-						.size = 0x1000,
-					},
-					{
-						.base = 0xf4ffe000,
-						.size = 0x1000,
-					},
-				},
-			},
-		},
-		.root_cell = {
-			.name = "RootCell",
-			.cpu_set_size = sizeof(config.cpus),
-			.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-			.num_irqchips = ARRAY_SIZE(config.irqchips),
-			.pio_bitmap_size = ARRAY_SIZE(config.pio_bitmap),
-			.num_pci_devices = ARRAY_SIZE(config.pci_devices),
-			.num_pci_caps = ARRAY_SIZE(config.pci_caps),
-		},
-	},
-
-	.cpus = {
-		0x0000000000ffffff,
-	},
-
-	.mem_regions = {
-		/* MemRegion: 00000000-000967ff : System RAM */
-		{
-			.phys_start = 0x0,
-			.virt_start = 0x0,
-			.size = 0x97000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
-		},
-		/* MemRegion: 000a0000-000bffff : PCI Bus 0000:00 */
-		{
-			.phys_start = 0xa0000,
-			.virt_start = 0xa0000,
-			.size = 0x20000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: 00100000-00ffffff : System RAM */
-		{
-			.phys_start = 0x100000,
-			.virt_start = 0x100000,
-			.size = 0xf00000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
-		},
-		/* MemRegion: 01000000-02ffffff : Kernel */
-		{
-			.phys_start = 0x1000000,
-			.virt_start = 0x1000000,
-			.size = 0x2000000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
-		},
-		/* MemRegion: 03000000-39ffffff : System RAM */
-		{
-			.phys_start = 0x3000000,
-			.virt_start = 0x3000000,
-			.size = 0x37000000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
-		},
-		/* MemRegion: 52000000-bddcbfff : System RAM */
-		{
-			.phys_start = 0x52000000,
-			.virt_start = 0x52000000,
-			.size = 0x6bdcc000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
-		},
-		/* MemRegion: bddcc000-bddddfff : ACPI Tables */
-		{
-			.phys_start = 0xbddcc000,
-			.virt_start = 0xbddcc000,
-			.size = 0x12000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: bddde000-bdddefff : System RAM */
-		{
-			.phys_start = 0xbddde000,
-			.virt_start = 0xbddde000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
-		},
-		/* MemRegion: f4000000-f401ffff : 0000:03:00.0 */
-		{
-			.phys_start = 0xf4000000,
-			.virt_start = 0xf4000000,
-			.size = 0x20000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f4020000-f403ffff : 0000:03:00.1 */
-		{
-			.phys_start = 0xf4020000,
-			.virt_start = 0xf4020000,
-			.size = 0x20000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f4040000-f405ffff : 0000:03:00.2 */
-		{
-			.phys_start = 0xf4040000,
-			.virt_start = 0xf4040000,
-			.size = 0x20000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f4060000-f407ffff : 0000:03:00.3 */
-		{
-			.phys_start = 0xf4060000,
-			.virt_start = 0xf4060000,
-			.size = 0x20000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f5000000-f512ffff : vesafb */
-		{
-			.phys_start = 0xf5000000,
-			.virt_start = 0xf5000000,
-			.size = 0x130000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6b41000-f6b4ffff : tg3 */
-		{
-			.phys_start = 0xf6b41000,
-			.virt_start = 0xf6b41000,
-			.size = 0xf000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6b50000-f6b5ffff : tg3 */
-		{
-			.phys_start = 0xf6b50000,
-			.virt_start = 0xf6b50000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6b60000-f6b6ffff : tg3 */
-		{
-			.phys_start = 0xf6b60000,
-			.virt_start = 0xf6b60000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6b71000-f6b7ffff : tg3 */
-		{
-			.phys_start = 0xf6b71000,
-			.virt_start = 0xf6b71000,
-			.size = 0xf000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6b80000-f6b8ffff : tg3 */
-		{
-			.phys_start = 0xf6b80000,
-			.virt_start = 0xf6b80000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6b90000-f6b9ffff : tg3 */
-		{
-			.phys_start = 0xf6b90000,
-			.virt_start = 0xf6b90000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6ba1000-f6baffff : tg3 */
-		{
-			.phys_start = 0xf6ba1000,
-			.virt_start = 0xf6ba1000,
-			.size = 0xf000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6bb0000-f6bbffff : tg3 */
-		{
-			.phys_start = 0xf6bb0000,
-			.virt_start = 0xf6bb0000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6bc0000-f6bcffff : tg3 */
-		{
-			.phys_start = 0xf6bc0000,
-			.virt_start = 0xf6bc0000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6bd1000-f6bdffff : tg3 */
-		{
-			.phys_start = 0xf6bd1000,
-			.virt_start = 0xf6bd1000,
-			.size = 0xf000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6be0000-f6beffff : tg3 */
-		{
-			.phys_start = 0xf6be0000,
-			.virt_start = 0xf6be0000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6bf0000-f6bfffff : tg3 */
-		{
-			.phys_start = 0xf6bf0000,
-			.virt_start = 0xf6bf0000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6c50000-f6c503ff : ehci_hcd */
-		{
-			.phys_start = 0xf6c50000,
-			.virt_start = 0xf6c50000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6c60000-f6c603ff : ehci_hcd */
-		{
-			.phys_start = 0xf6c60000,
-			.virt_start = 0xf6c60000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6c70000-f6c70fff : 0000:00:05.4 */
-		{
-			.phys_start = 0xf6c70000,
-			.virt_start = 0xf6c70000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6c80000-f6c81fff : ioatdma */
-		{
-			.phys_start = 0xf6c80000,
-			.virt_start = 0xf6c80000,
-			.size = 0x2000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6c83000-f6c83fff : ioatdma */
-		{
-			.phys_start = 0xf6c83000,
-			.virt_start = 0xf6c83000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6c90000-f6c91fff : ioatdma */
-		{
-			.phys_start = 0xf6c90000,
-			.virt_start = 0xf6c90000,
-			.size = 0x2000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6c93000-f6c93fff : ioatdma */
-		{
-			.phys_start = 0xf6c93000,
-			.virt_start = 0xf6c93000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6ca0000-f6ca1fff : ioatdma */
-		{
-			.phys_start = 0xf6ca0000,
-			.virt_start = 0xf6ca0000,
-			.size = 0x2000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6ca3000-f6ca3fff : ioatdma */
-		{
-			.phys_start = 0xf6ca3000,
-			.virt_start = 0xf6ca3000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6cb0000-f6cb1fff : ioatdma */
-		{
-			.phys_start = 0xf6cb0000,
-			.virt_start = 0xf6cb0000,
-			.size = 0x2000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6cb3000-f6cb3fff : ioatdma */
-		{
-			.phys_start = 0xf6cb3000,
-			.virt_start = 0xf6cb3000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6cc0000-f6cc1fff : ioatdma */
-		{
-			.phys_start = 0xf6cc0000,
-			.virt_start = 0xf6cc0000,
-			.size = 0x2000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6cc3000-f6cc3fff : ioatdma */
-		{
-			.phys_start = 0xf6cc3000,
-			.virt_start = 0xf6cc3000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6cd0000-f6cd1fff : ioatdma */
-		{
-			.phys_start = 0xf6cd0000,
-			.virt_start = 0xf6cd0000,
-			.size = 0x2000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6cd3000-f6cd3fff : ioatdma */
-		{
-			.phys_start = 0xf6cd3000,
-			.virt_start = 0xf6cd3000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6ce0000-f6ce1fff : ioatdma */
-		{
-			.phys_start = 0xf6ce0000,
-			.virt_start = 0xf6ce0000,
-			.size = 0x2000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6ce3000-f6ce3fff : ioatdma */
-		{
-			.phys_start = 0xf6ce3000,
-			.virt_start = 0xf6ce3000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6cf0000-f6cf1fff : ioatdma */
-		{
-			.phys_start = 0xf6cf0000,
-			.virt_start = 0xf6cf0000,
-			.size = 0x2000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6cf3000-f6cf3fff : ioatdma */
-		{
-			.phys_start = 0xf6cf3000,
-			.virt_start = 0xf6cf3000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6d00000-f6d0ffff : 0000:01:00.2 */
-		{
-			.phys_start = 0xf6d00000,
-			.virt_start = 0xf6d00000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6d60000-f6d67fff : hpilo */
-		{
-			.phys_start = 0xf6d60000,
-			.virt_start = 0xf6d60000,
-			.size = 0x8000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6d70000-f6d77fff : hpilo */
-		{
-			.phys_start = 0xf6d70000,
-			.virt_start = 0xf6d70000,
-			.size = 0x8000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6d80000-f6dfffff : hpilo */
-		{
-			.phys_start = 0xf6d80000,
-			.virt_start = 0xf6d80000,
-			.size = 0x80000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6e00000-f6efffff : hpilo */
-		{
-			.phys_start = 0xf6e00000,
-			.virt_start = 0xf6e00000,
-			.size = 0x100000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f6ff0000-f6ff00ff : hpilo */
-		{
-			.phys_start = 0xf6ff0000,
-			.virt_start = 0xf6ff0000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f7000000-f77fffff : 0000:01:00.1 */
-		{
-			.phys_start = 0xf7000000,
-			.virt_start = 0xf7000000,
-			.size = 0x800000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f7de0000-f7de3fff : 0000:01:00.1 */
-		{
-			.phys_start = 0xf7de0000,
-			.virt_start = 0xf7de0000,
-			.size = 0x4000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f7df0000-f7df01ff : 0000:01:00.0 */
-		{
-			.phys_start = 0xf7df0000,
-			.virt_start = 0xf7df0000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f7e00000-f7e7ffff : 0000:02:00.0 */
-		{
-			.phys_start = 0xf7e00000,
-			.virt_start = 0xf7e00000,
-			.size = 0x80000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f7ef0000-f7ef03ff : hpsa */
-		{
-			.phys_start = 0xf7ef0000,
-			.virt_start = 0xf7ef0000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f7f00000-f7f01fff : hpsa */
-		{
-			.phys_start = 0xf7f00000,
-			.virt_start = 0xf7f00000,
-			.size = 0x2000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: f7f03000-f7ffffff : hpsa */
-		{
-			.phys_start = 0xf7f03000,
-			.virt_start = 0xf7f03000,
-			.size = 0xfd000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fbf70000-fbf70fff : 0000:20:05.4 */
-		{
-			.phys_start = 0xfbf70000,
-			.virt_start = 0xfbf70000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fbf80000-fbf81fff : ioatdma */
-		{
-			.phys_start = 0xfbf80000,
-			.virt_start = 0xfbf80000,
-			.size = 0x2000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fbf83000-fbf83fff : ioatdma */
-		{
-			.phys_start = 0xfbf83000,
-			.virt_start = 0xfbf83000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fbf90000-fbf91fff : ioatdma */
-		{
-			.phys_start = 0xfbf90000,
-			.virt_start = 0xfbf90000,
-			.size = 0x2000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fbf93000-fbf93fff : ioatdma */
-		{
-			.phys_start = 0xfbf93000,
-			.virt_start = 0xfbf93000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fbfa0000-fbfa1fff : ioatdma */
-		{
-			.phys_start = 0xfbfa0000,
-			.virt_start = 0xfbfa0000,
-			.size = 0x2000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fbfa3000-fbfa3fff : ioatdma */
-		{
-			.phys_start = 0xfbfa3000,
-			.virt_start = 0xfbfa3000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fbfb0000-fbfb1fff : ioatdma */
-		{
-			.phys_start = 0xfbfb0000,
-			.virt_start = 0xfbfb0000,
-			.size = 0x2000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fbfb3000-fbfb3fff : ioatdma */
-		{
-			.phys_start = 0xfbfb3000,
-			.virt_start = 0xfbfb3000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fbfc0000-fbfc1fff : ioatdma */
-		{
-			.phys_start = 0xfbfc0000,
-			.virt_start = 0xfbfc0000,
-			.size = 0x2000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fbfc3000-fbfc3fff : ioatdma */
-		{
-			.phys_start = 0xfbfc3000,
-			.virt_start = 0xfbfc3000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fbfd0000-fbfd1fff : ioatdma */
-		{
-			.phys_start = 0xfbfd0000,
-			.virt_start = 0xfbfd0000,
-			.size = 0x2000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fbfd3000-fbfd3fff : ioatdma */
-		{
-			.phys_start = 0xfbfd3000,
-			.virt_start = 0xfbfd3000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fbfe0000-fbfe1fff : ioatdma */
-		{
-			.phys_start = 0xfbfe0000,
-			.virt_start = 0xfbfe0000,
-			.size = 0x2000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fbfe3000-fbfe3fff : ioatdma */
-		{
-			.phys_start = 0xfbfe3000,
-			.virt_start = 0xfbfe3000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fbff0000-fbff1fff : ioatdma */
-		{
-			.phys_start = 0xfbff0000,
-			.virt_start = 0xfbff0000,
-			.size = 0x2000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fbff3000-fbff3fff : ioatdma */
-		{
-			.phys_start = 0xfbff3000,
-			.virt_start = 0xfbff3000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fc000000-fc000fff : pnp 00:01 */
-		{
-			.phys_start = 0xfc000000,
-			.virt_start = 0xfc000000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fe000000-febfffff : pnp 00:01 */
-		{
-			.phys_start = 0xfe000000,
-			.virt_start = 0xfe000000,
-			.size = 0xc00000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fed00000-fed003ff : HPET 0 */
-		{
-			.phys_start = 0xfed00000,
-			.virt_start = 0xfed00000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: 100000000-103fffefff : System RAM */
-		{
-			.phys_start = 0x100000000,
-			.virt_start = 0x100000000,
-			.size = 0xf3ffff000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
-		},
-		/* MemRegion: 103ffff000-103fffffff : RAM buffer */
-		{
-			.phys_start = 0x103ffff000,
-			.virt_start = 0x103ffff000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
-		},
-		/* MemRegion: 000c0000-000dffff : ROMs */
-		{
-			.phys_start = 0xc0000,
-			.virt_start = 0xc0000,
-			.size = 0x20000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: bdffd000-bdffffff : ACPI DMAR RMRR */
-		/* PCI device: 00:1d.0 */
-		/* PCI device: 00:1a.0 */
-		{
-			.phys_start = 0xbdffd000,
-			.virt_start = 0xbdffd000,
-			.size = 0x3000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
-		},
-		/* MemRegion: bdff6000-bdffcfff : ACPI DMAR RMRR */
-		/* PCI device: 00:1c.7 */
-		/* PCI device: 01:00.0 */
-		/* PCI device: 00:1c.7 */
-		/* PCI device: 01:00.2 */
-		/* PCI device: 00:1c.7 */
-		/* PCI device: 01:00.4 */
-		{
-			.phys_start = 0xbdff6000,
-			.virt_start = 0xbdff6000,
-			.size = 0x7000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
-		},
-		/* MemRegion: bdf83000-bdf84fff : ACPI DMAR RMRR */
-		/* PCI device: 00:02.2 */
-		/* PCI device: 02:00.0 */
-		/* PCI device: 00:1c.7 */
-		/* PCI device: 01:00.0 */
-		/* PCI device: 00:1c.7 */
-		/* PCI device: 01:00.2 */
-		/* PCI device: 00:1f.2 */
-		/* PCI device: 00:1f.5 */
-		/* PCI device: 00:02.0 */
-		/* PCI device: 03:00.0 */
-		/* PCI device: 00:02.0 */
-		/* PCI device: 03:00.1 */
-		/* PCI device: 00:02.0 */
-		/* PCI device: 03:00.2 */
-		/* PCI device: 00:02.0 */
-		/* PCI device: 03:00.3 */
-		{
-			.phys_start = 0xbdf83000,
-			.virt_start = 0xbdf83000,
-			.size = 0x2000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
-		},
-		/* MemRegion: bdf7f000-bdf82fff : ACPI DMAR RMRR */
-		/* PCI device: 00:02.2 */
-		/* PCI device: 02:00.0 */
-		/* PCI device: 00:1c.7 */
-		/* PCI device: 01:00.0 */
-		/* PCI device: 00:1c.7 */
-		/* PCI device: 01:00.2 */
-		/* PCI device: 00:1f.2 */
-		/* PCI device: 00:1f.5 */
-		/* PCI device: 00:02.0 */
-		/* PCI device: 03:00.0 */
-		/* PCI device: 00:02.0 */
-		/* PCI device: 03:00.1 */
-		/* PCI device: 00:02.0 */
-		/* PCI device: 03:00.2 */
-		/* PCI device: 00:02.0 */
-		/* PCI device: 03:00.3 */
-		{
-			.phys_start = 0xbdf7f000,
-			.virt_start = 0xbdf7f000,
-			.size = 0x4000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
-		},
-		/* MemRegion: bdf6f000-bdf7efff : ACPI DMAR RMRR */
-		/* PCI device: 00:02.2 */
-		/* PCI device: 02:00.0 */
-		/* PCI device: 00:1c.7 */
-		/* PCI device: 01:00.0 */
-		/* PCI device: 00:1c.7 */
-		/* PCI device: 01:00.2 */
-		/* PCI device: 00:1f.2 */
-		/* PCI device: 00:1f.5 */
-		/* PCI device: 00:02.0 */
-		/* PCI device: 03:00.0 */
-		/* PCI device: 00:02.0 */
-		/* PCI device: 03:00.1 */
-		/* PCI device: 00:02.0 */
-		/* PCI device: 03:00.2 */
-		/* PCI device: 00:02.0 */
-		/* PCI device: 03:00.3 */
-		{
-			.phys_start = 0xbdf6f000,
-			.virt_start = 0xbdf6f000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
-		},
-		/* MemRegion: 000f4000-000f4fff : ACPI DMAR RMRR */
-		/* PCI device: 00:02.2 */
-		/* PCI device: 02:00.0 */
-		/* PCI device: 00:1c.7 */
-		/* PCI device: 01:00.0 */
-		/* PCI device: 00:1c.7 */
-		/* PCI device: 01:00.2 */
-		/* PCI device: 00:1f.2 */
-		/* PCI device: 00:1f.5 */
-		/* PCI device: 00:02.0 */
-		/* PCI device: 03:00.0 */
-		/* PCI device: 00:02.0 */
-		/* PCI device: 03:00.1 */
-		/* PCI device: 00:02.0 */
-		/* PCI device: 03:00.2 */
-		/* PCI device: 00:02.0 */
-		/* PCI device: 03:00.3 */
-		{
-			.phys_start = 0xf4000,
-			.virt_start = 0xf4000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
-		},
-		/* MemRegion: 000e8000-000e8fff : ACPI DMAR RMRR */
-		/* PCI device: 00:02.2 */
-		/* PCI device: 02:00.0 */
-		/* PCI device: 00:1c.7 */
-		/* PCI device: 01:00.0 */
-		/* PCI device: 00:1c.7 */
-		/* PCI device: 01:00.2 */
-		/* PCI device: 00:1f.2 */
-		/* PCI device: 00:1f.5 */
-		/* PCI device: 00:02.0 */
-		/* PCI device: 03:00.0 */
-		/* PCI device: 00:02.0 */
-		/* PCI device: 03:00.1 */
-		/* PCI device: 00:02.0 */
-		/* PCI device: 03:00.2 */
-		/* PCI device: 00:02.0 */
-		/* PCI device: 03:00.3 */
-		{
-			.phys_start = 0xe8000,
-			.virt_start = 0xe8000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
-		},
-		/* MemRegion: 42000000-51ffffff : JAILHOUSE Inmate Memory */
-		{
-			.phys_start = 0x42000000,
-			.virt_start = 0x42000000,
-			.size = 0x10000000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-	},
-
-	.irqchips = {
-		/* IOAPIC 8, GSI base 0 */
-		{
-			.address = 0xfec00000,
-			.id = 0x100f1,
-			.pin_bitmap = {
-				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff
-			},
-		},
-		/* IOAPIC 0, GSI base 24 */
-		{
-			.address = 0xfec10000,
-			.id = 0x1002c,
-			.pin_bitmap = {
-				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff
-			},
-		},
-		/* IOAPIC 10, GSI base 48 */
-		{
-			.address = 0xfec40000,
-			.id = 0x202c,
-			.pin_bitmap = {
-				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff
-			},
-		},
-	},
-
-	.pio_bitmap = {
-		[     0/8 ...   0x3f/8] = -1,
-		[  0x40/8 ...   0x47/8] = 0xf0, /* PIT */
-		[  0x48/8 ...   0x5f/8] = -1,
-		[  0x60/8 ...   0x67/8] = 0xec, /* HACK: NMI status/control */
-		[  0x68/8 ...   0x6f/8] = -1,
-		[  0x70/8 ...   0x77/8] = 0xfc, /* RTC */
-		[  0x78/8 ...  0x3af/8] = -1,
-		[ 0x3b0/8 ...  0x3df/8] = 0x00, /* VGA */
-		[ 0x3e0/8 ...  0xcff/8] = -1,
-		[ 0xd00/8 ... 0xffff/8] = 0, /* HACK: PCI bus */
-	},
-
-	.pci_devices = {
-		/* PCIDevice: 00:00.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x0,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 6,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:01.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x8,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 6,
-			.num_caps = 10,
-			.num_msi_vectors = 2,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:01.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x9,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 6,
-			.num_caps = 10,
-			.num_msi_vectors = 2,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:02.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x10,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 6,
-			.num_caps = 10,
-			.num_msi_vectors = 2,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:02.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x11,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 6,
-			.num_caps = 10,
-			.num_msi_vectors = 2,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:02.2 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x12,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 6,
-			.num_caps = 10,
-			.num_msi_vectors = 2,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:02.3 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x13,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 6,
-			.num_caps = 10,
-			.num_msi_vectors = 2,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:03.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x18,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 6,
-			.num_caps = 10,
-			.num_msi_vectors = 2,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:03.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x19,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 6,
-			.num_caps = 10,
-			.num_msi_vectors = 2,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:03.2 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1a,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 6,
-			.num_caps = 10,
-			.num_msi_vectors = 2,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:03.3 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1b,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 6,
-			.num_caps = 10,
-			.num_msi_vectors = 2,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:04.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x20,
-			.bar_mask = {
-				0xffffc000, 0xffffffff, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 16,
-			.num_caps = 4,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 1,
-			.msix_region_size = 0x1000,
-			.msix_address = 0xf6cf2000,
-		},
-		/* PCIDevice: 00:04.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x21,
-			.bar_mask = {
-				0xffffc000, 0xffffffff, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 16,
-			.num_caps = 4,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 1,
-			.msix_region_size = 0x1000,
-			.msix_address = 0xf6ce2000,
-		},
-		/* PCIDevice: 00:04.2 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x22,
-			.bar_mask = {
-				0xffffc000, 0xffffffff, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 16,
-			.num_caps = 4,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 1,
-			.msix_region_size = 0x1000,
-			.msix_address = 0xf6cd2000,
-		},
-		/* PCIDevice: 00:04.3 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x23,
-			.bar_mask = {
-				0xffffc000, 0xffffffff, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 16,
-			.num_caps = 4,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 1,
-			.msix_region_size = 0x1000,
-			.msix_address = 0xf6cc2000,
-		},
-		/* PCIDevice: 00:04.4 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x24,
-			.bar_mask = {
-				0xffffc000, 0xffffffff, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 16,
-			.num_caps = 4,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 1,
-			.msix_region_size = 0x1000,
-			.msix_address = 0xf6cb2000,
-		},
-		/* PCIDevice: 00:04.5 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x25,
-			.bar_mask = {
-				0xffffc000, 0xffffffff, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 16,
-			.num_caps = 4,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 1,
-			.msix_region_size = 0x1000,
-			.msix_address = 0xf6ca2000,
-		},
-		/* PCIDevice: 00:04.6 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x26,
-			.bar_mask = {
-				0xffffc000, 0xffffffff, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 16,
-			.num_caps = 4,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 1,
-			.msix_region_size = 0x1000,
-			.msix_address = 0xf6c92000,
-		},
-		/* PCIDevice: 00:04.7 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x27,
-			.bar_mask = {
-				0xffffc000, 0xffffffff, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 16,
-			.num_caps = 4,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 1,
-			.msix_region_size = 0x1000,
-			.msix_address = 0xf6c82000,
-		},
-		/* PCIDevice: 00:05.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x28,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 20,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:05.2 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x2a,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 20,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:05.4 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x2c,
-			.bar_mask = {
-				0xfffff000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 22,
-			.num_caps = 1,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:11.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x88,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 23,
-			.num_caps = 6,
-			.num_msi_vectors = 1,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:1a.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0xd0,
-			.bar_mask = {
-				0xfffffc00, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 29,
-			.num_caps = 3,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:1c.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0xe0,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 32,
-			.num_caps = 5,
-			.num_msi_vectors = 1,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:1c.7 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0xe7,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 32,
-			.num_caps = 5,
-			.num_msi_vectors = 1,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:1d.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0xe8,
-			.bar_mask = {
-				0xfffffc00, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 29,
-			.num_caps = 3,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:1e.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0xf0,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 37,
-			.num_caps = 1,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:1f.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0xf8,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 38,
-			.num_caps = 1,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:1f.2 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0xfa,
-			.bar_mask = {
-				0xfffffff8, 0xfffffffc, 0xfffffff8,
-				0xfffffffc, 0xfffffff0, 0xfffffff0,
-			},
-			.caps_start = 39,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 01:00.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x100,
-			.bar_mask = {
-				0xffffff00, 0xfffffe00, 0xffffff00,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 41,
-			.num_caps = 4,
-			.num_msi_vectors = 1,
-			.msi_64bits = 1,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 01:00.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x101,
-			.bar_mask = {
-				0xff000000, 0xffffc000, 0xff800000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 45,
-			.num_caps = 4,
-			.num_msi_vectors = 1,
-			.msi_64bits = 1,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 01:00.2 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x102,
-			.bar_mask = {
-				0xffffff00, 0xffffff00, 0xfff00000,
-				0xfff80000, 0xffff8000, 0xffff8000,
-			},
-			.caps_start = 41,
-			.num_caps = 4,
-			.num_msi_vectors = 1,
-			.msi_64bits = 1,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 01:00.4 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x104,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0xffffffe0, 0x00000000,
-			},
-			.caps_start = 49,
-			.num_caps = 4,
-			.num_msi_vectors = 1,
-			.msi_64bits = 1,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 02:00.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x200,
-			.bar_mask = {
-				0xfff00000, 0xffffffff, 0xfffffc00,
-				0xffffffff, 0xffffff00, 0x00000000,
-			},
-			.caps_start = 53,
-			.num_caps = 6,
-			.num_msi_vectors = 32,
-			.msi_64bits = 1,
-			.num_msix_vectors = 64,
-			.msix_region_size = 0x1000,
-			.msix_address = 0xf7f02000,
-		},
-		/* PCIDevice: 03:00.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x300,
-			.bar_mask = {
-				0xffff0000, 0xffffffff, 0xffff0000,
-				0xffffffff, 0xffff0000, 0xffffffff,
-			},
-			.caps_start = 59,
-			.num_caps = 9,
-			.num_msi_vectors = 8,
-			.msi_64bits = 1,
-			.num_msix_vectors = 17,
-			.msix_region_size = 0x1000,
-			.msix_address = 0xf6bd0000,
-		},
-		/* PCIDevice: 03:00.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x301,
-			.bar_mask = {
-				0xffff0000, 0xffffffff, 0xffff0000,
-				0xffffffff, 0xffff0000, 0xffffffff,
-			},
-			.caps_start = 59,
-			.num_caps = 9,
-			.num_msi_vectors = 8,
-			.msi_64bits = 1,
-			.num_msix_vectors = 17,
-			.msix_region_size = 0x1000,
-			.msix_address = 0xf6ba0000,
-		},
-		/* PCIDevice: 03:00.2 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x302,
-			.bar_mask = {
-				0xffff0000, 0xffffffff, 0xffff0000,
-				0xffffffff, 0xffff0000, 0xffffffff,
-			},
-			.caps_start = 59,
-			.num_caps = 9,
-			.num_msi_vectors = 8,
-			.msi_64bits = 1,
-			.num_msix_vectors = 17,
-			.msix_region_size = 0x1000,
-			.msix_address = 0xf6b70000,
-		},
-		/* PCIDevice: 03:00.3 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x303,
-			.bar_mask = {
-				0xffff0000, 0xffffffff, 0xffff0000,
-				0xffffffff, 0xffff0000, 0xffffffff,
-			},
-			.caps_start = 59,
-			.num_caps = 9,
-			.num_msi_vectors = 8,
-			.msi_64bits = 1,
-			.num_msix_vectors = 17,
-			.msix_region_size = 0x1000,
-			.msix_address = 0xf6b40000,
-		},
-		/* PCIDevice: 1f:08.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f40,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:08.3 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f43,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 68,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:08.4 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f44,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:09.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f48,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:09.3 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f4b,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 68,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:09.4 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f4c,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0a.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f50,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0a.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f51,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0a.2 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f52,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0a.3 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f53,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0b.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f58,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0b.3 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f5b,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0c.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f60,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0c.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f61,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0c.2 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f62,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0c.6 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f66,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0c.7 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f67,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0d.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f68,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0d.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f69,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0d.2 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f6a,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0d.6 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f6e,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0e.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f70,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0e.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f71,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0f.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f78,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0f.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f79,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0f.2 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f7a,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0f.3 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f7b,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0f.4 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f7c,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0f.5 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f7d,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:0f.6 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f7e,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:10.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f80,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:10.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f81,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:10.2 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f82,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:10.3 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f83,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:10.4 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f84,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:10.5 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f85,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:10.6 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f86,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:10.7 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f87,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:11.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f88,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:13.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f98,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:13.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f99,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:13.4 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f9c,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:13.5 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f9d,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 1f:13.6 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x1f9e,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 20:00.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x2000,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 72,
-			.num_caps = 9,
-			.num_msi_vectors = 2,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 20:01.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x2008,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 6,
-			.num_caps = 10,
-			.num_msi_vectors = 2,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 20:01.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x2009,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 6,
-			.num_caps = 10,
-			.num_msi_vectors = 2,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 20:02.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x2010,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 6,
-			.num_caps = 10,
-			.num_msi_vectors = 2,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 20:02.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x2011,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 6,
-			.num_caps = 10,
-			.num_msi_vectors = 2,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 20:02.2 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x2012,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 6,
-			.num_caps = 10,
-			.num_msi_vectors = 2,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 20:02.3 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x2013,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 6,
-			.num_caps = 10,
-			.num_msi_vectors = 2,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 20:03.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x2018,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 6,
-			.num_caps = 10,
-			.num_msi_vectors = 2,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 20:03.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x2019,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 6,
-			.num_caps = 10,
-			.num_msi_vectors = 2,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 20:03.2 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x201a,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 6,
-			.num_caps = 10,
-			.num_msi_vectors = 2,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 20:03.3 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x201b,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 6,
-			.num_caps = 10,
-			.num_msi_vectors = 2,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 20:04.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 0,
-			.domain = 0x0,
-			.bdf = 0x2020,
-			.bar_mask = {
-				0xffffc000, 0xffffffff, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 16,
-			.num_caps = 4,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 1,
-			.msix_region_size = 0x1000,
-			.msix_address = 0xfbff2000,
-		},
-		/* PCIDevice: 20:04.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 0,
-			.domain = 0x0,
-			.bdf = 0x2021,
-			.bar_mask = {
-				0xffffc000, 0xffffffff, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 16,
-			.num_caps = 4,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 1,
-			.msix_region_size = 0x1000,
-			.msix_address = 0xfbfe2000,
-		},
-		/* PCIDevice: 20:04.2 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 0,
-			.domain = 0x0,
-			.bdf = 0x2022,
-			.bar_mask = {
-				0xffffc000, 0xffffffff, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 16,
-			.num_caps = 4,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 1,
-			.msix_region_size = 0x1000,
-			.msix_address = 0xfbfd2000,
-		},
-		/* PCIDevice: 20:04.3 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 0,
-			.domain = 0x0,
-			.bdf = 0x2023,
-			.bar_mask = {
-				0xffffc000, 0xffffffff, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 16,
-			.num_caps = 4,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 1,
-			.msix_region_size = 0x1000,
-			.msix_address = 0xfbfc2000,
-		},
-		/* PCIDevice: 20:04.4 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 0,
-			.domain = 0x0,
-			.bdf = 0x2024,
-			.bar_mask = {
-				0xffffc000, 0xffffffff, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 16,
-			.num_caps = 4,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 1,
-			.msix_region_size = 0x1000,
-			.msix_address = 0xfbfb2000,
-		},
-		/* PCIDevice: 20:04.5 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 0,
-			.domain = 0x0,
-			.bdf = 0x2025,
-			.bar_mask = {
-				0xffffc000, 0xffffffff, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 16,
-			.num_caps = 4,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 1,
-			.msix_region_size = 0x1000,
-			.msix_address = 0xfbfa2000,
-		},
-		/* PCIDevice: 20:04.6 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 0,
-			.domain = 0x0,
-			.bdf = 0x2026,
-			.bar_mask = {
-				0xffffc000, 0xffffffff, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 16,
-			.num_caps = 4,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 1,
-			.msix_region_size = 0x1000,
-			.msix_address = 0xfbf92000,
-		},
-		/* PCIDevice: 20:04.7 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 0,
-			.domain = 0x0,
-			.bdf = 0x2027,
-			.bar_mask = {
-				0xffffc000, 0xffffffff, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 16,
-			.num_caps = 4,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 1,
-			.msix_region_size = 0x1000,
-			.msix_address = 0xfbf82000,
-		},
-		/* PCIDevice: 20:05.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x2028,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 20,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 20:05.2 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x202a,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 20,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 20:05.4 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x202c,
-			.bar_mask = {
-				0xfffff000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 22,
-			.num_caps = 1,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:08.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f40,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:08.3 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f43,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 68,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:08.4 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f44,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:09.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f48,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:09.3 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f4b,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 68,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:09.4 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f4c,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0a.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f50,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0a.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f51,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0a.2 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f52,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0a.3 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f53,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0b.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f58,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0b.3 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f5b,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0c.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f60,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0c.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f61,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0c.2 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f62,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0c.6 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f66,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0c.7 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f67,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0d.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f68,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0d.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f69,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0d.2 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f6a,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0d.6 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f6e,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0e.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f70,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0e.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f71,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0f.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f78,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0f.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f79,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0f.2 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f7a,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0f.3 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f7b,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0f.4 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f7c,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0f.5 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f7d,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:0f.6 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f7e,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:10.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f80,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:10.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f81,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:10.2 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f82,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:10.3 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f83,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:10.4 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f84,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:10.5 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f85,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:10.6 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f86,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:10.7 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f87,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 70,
-			.num_caps = 2,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:11.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f88,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:13.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f98,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:13.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f99,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:13.4 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f9c,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:13.5 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f9d,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 3f:13.6 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x3f9e,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-	},
-
-	.pci_caps = {
-		/* PCIDevice: 00:00.0 */
-		{
-			.id = 0x10,
-			.start = 0x90,
-			.len = 60,
-			.flags = 0,
-		},
-		{
-			.id = 0x1,
-			.start = 0xe0,
-			.len = 8,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0xb | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x100,
-			.len = 4,
-			.flags = 0,
-		},
-		{
-			.id = 0xb | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x144,
-			.len = 4,
-			.flags = 0,
-		},
-		{
-			.id = 0xb | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x1d0,
-			.len = 4,
-			.flags = 0,
-		},
-		{
-			.id = 0xb | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x280,
-			.len = 4,
-			.flags = 0,
-		},
-		/* PCIDevice: 00:01.0 */
-		/* PCIDevice: 00:01.1 */
-		/* PCIDevice: 00:02.0 */
-		/* PCIDevice: 00:02.1 */
-		/* PCIDevice: 00:02.2 */
-		/* PCIDevice: 00:02.3 */
-		/* PCIDevice: 00:03.0 */
-		/* PCIDevice: 00:03.1 */
-		/* PCIDevice: 00:03.2 */
-		/* PCIDevice: 00:03.3 */
-		/* PCIDevice: 20:01.0 */
-		/* PCIDevice: 20:01.1 */
-		/* PCIDevice: 20:02.0 */
-		/* PCIDevice: 20:02.1 */
-		/* PCIDevice: 20:02.2 */
-		/* PCIDevice: 20:02.3 */
-		/* PCIDevice: 20:03.0 */
-		/* PCIDevice: 20:03.1 */
-		/* PCIDevice: 20:03.2 */
-		/* PCIDevice: 20:03.3 */
-		{
-			.id = 0xd,
-			.start = 0x40,
-			.len = 2,
-			.flags = 0,
-		},
-		{
-			.id = 0x5,
-			.start = 0x60,
-			.len = 20,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0x10,
-			.start = 0x90,
-			.len = 60,
-			.flags = 0,
-		},
-		{
-			.id = 0x1,
-			.start = 0xe0,
-			.len = 8,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0xb | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x100,
-			.len = 4,
-			.flags = 0,
-		},
-		{
-			.id = 0xd | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x110,
-			.len = 4,
-			.flags = 0,
-		},
-		{
-			.id = 0x1 | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x148,
-			.len = 4,
-			.flags = 0,
-		},
-		{
-			.id = 0xb | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x1d0,
-			.len = 4,
-			.flags = 0,
-		},
-		{
-			.id = 0x19 | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x250,
-			.len = 4,
-			.flags = 0,
-		},
-		{
-			.id = 0xb | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x280,
-			.len = 4,
-			.flags = 0,
-		},
-		/* PCIDevice: 00:04.0 */
-		/* PCIDevice: 00:04.1 */
-		/* PCIDevice: 00:04.2 */
-		/* PCIDevice: 00:04.3 */
-		/* PCIDevice: 00:04.4 */
-		/* PCIDevice: 00:04.5 */
-		/* PCIDevice: 00:04.6 */
-		/* PCIDevice: 00:04.7 */
-		/* PCIDevice: 20:04.0 */
-		/* PCIDevice: 20:04.1 */
-		/* PCIDevice: 20:04.2 */
-		/* PCIDevice: 20:04.3 */
-		/* PCIDevice: 20:04.4 */
-		/* PCIDevice: 20:04.5 */
-		/* PCIDevice: 20:04.6 */
-		/* PCIDevice: 20:04.7 */
-		{
-			.id = 0x11,
-			.start = 0x80,
-			.len = 12,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0x10,
-			.start = 0x90,
-			.len = 60,
-			.flags = 0,
-		},
-		{
-			.id = 0x1,
-			.start = 0xe0,
-			.len = 8,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0x0 | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x100,
-			.len = 4,
-			.flags = 0,
-		},
-		/* PCIDevice: 00:05.0 */
-		/* PCIDevice: 00:05.2 */
-		/* PCIDevice: 20:05.0 */
-		/* PCIDevice: 20:05.2 */
-		{
-			.id = 0x10,
-			.start = 0x40,
-			.len = 60,
-			.flags = 0,
-		},
-		{
-			.id = 0x0 | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x100,
-			.len = 4,
-			.flags = 0,
-		},
-		/* PCIDevice: 00:05.4 */
-		/* PCIDevice: 20:05.4 */
-		{
-			.id = 0x1,
-			.start = 0x6c,
-			.len = 8,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		/* PCIDevice: 00:11.0 */
-		{
-			.id = 0x10,
-			.start = 0x40,
-			.len = 60,
-			.flags = 0,
-		},
-		{
-			.id = 0x1,
-			.start = 0x80,
-			.len = 8,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0xd,
-			.start = 0x88,
-			.len = 2,
-			.flags = 0,
-		},
-		{
-			.id = 0x5,
-			.start = 0x90,
-			.len = 10,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0x1 | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x100,
-			.len = 4,
-			.flags = 0,
-		},
-		{
-			.id = 0xd | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x138,
-			.len = 4,
-			.flags = 0,
-		},
-		/* PCIDevice: 00:1a.0 */
-		/* PCIDevice: 00:1d.0 */
-		{
-			.id = 0x1,
-			.start = 0x50,
-			.len = 8,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0xa,
-			.start = 0x58,
-			.len = 2,
-			.flags = 0,
-		},
-		{
-			.id = 0x13,
-			.start = 0x98,
-			.len = 2,
-			.flags = 0,
-		},
-		/* PCIDevice: 00:1c.0 */
-		/* PCIDevice: 00:1c.7 */
-		{
-			.id = 0x10,
-			.start = 0x40,
-			.len = 60,
-			.flags = 0,
-		},
-		{
-			.id = 0x5,
-			.start = 0x80,
-			.len = 10,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0xd,
-			.start = 0x90,
-			.len = 2,
-			.flags = 0,
-		},
-		{
-			.id = 0x1,
-			.start = 0xa0,
-			.len = 8,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0x1 | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x100,
-			.len = 4,
-			.flags = 0,
-		},
-		/* PCIDevice: 00:1e.0 */
-		{
-			.id = 0xd,
-			.start = 0x50,
-			.len = 2,
-			.flags = 0,
-		},
-		/* PCIDevice: 00:1f.0 */
-		{
-			.id = 0x9,
-			.start = 0xe0,
-			.len = 2,
-			.flags = 0,
-		},
-		/* PCIDevice: 00:1f.2 */
-		{
-			.id = 0x1,
-			.start = 0x70,
-			.len = 8,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0x13,
-			.start = 0xb0,
-			.len = 2,
-			.flags = 0,
-		},
-		/* PCIDevice: 01:00.0 */
-		/* PCIDevice: 01:00.2 */
-		{
-			.id = 0x1,
-			.start = 0x78,
-			.len = 8,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0x5,
-			.start = 0xb0,
-			.len = 14,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0x10,
-			.start = 0xc0,
-			.len = 20,
-			.flags = 0,
-		},
-		{
-			.id = 0x0 | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x100,
-			.len = 4,
-			.flags = 0,
-		},
-		/* PCIDevice: 01:00.1 */
-		{
-			.id = 0x1,
-			.start = 0xa8,
-			.len = 8,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0x5,
-			.start = 0xb0,
-			.len = 14,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0x10,
-			.start = 0xc0,
-			.len = 20,
-			.flags = 0,
-		},
-		{
-			.id = 0x0 | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x100,
-			.len = 4,
-			.flags = 0,
-		},
-		/* PCIDevice: 01:00.4 */
-		{
-			.id = 0x5,
-			.start = 0x70,
-			.len = 14,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0x10,
-			.start = 0x80,
-			.len = 20,
-			.flags = 0,
-		},
-		{
-			.id = 0x1,
-			.start = 0xf0,
-			.len = 8,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0x0 | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x100,
-			.len = 4,
-			.flags = 0,
-		},
-		/* PCIDevice: 02:00.0 */
-		{
-			.id = 0x1,
-			.start = 0x80,
-			.len = 8,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0x5,
-			.start = 0x90,
-			.len = 24,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0x11,
-			.start = 0xb0,
-			.len = 12,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0x10,
-			.start = 0xc0,
-			.len = 60,
-			.flags = 0,
-		},
-		{
-			.id = 0x1 | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x100,
-			.len = 4,
-			.flags = 0,
-		},
-		{
-			.id = 0x19 | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x300,
-			.len = 4,
-			.flags = 0,
-		},
-		/* PCIDevice: 03:00.0 */
-		/* PCIDevice: 03:00.1 */
-		/* PCIDevice: 03:00.2 */
-		/* PCIDevice: 03:00.3 */
-		{
-			.id = 0x1,
-			.start = 0x48,
-			.len = 8,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0x3,
-			.start = 0x50,
-			.len = 2,
-			.flags = 0,
-		},
-		{
-			.id = 0x5,
-			.start = 0x58,
-			.len = 14,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0x11,
-			.start = 0xa0,
-			.len = 12,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0x10,
-			.start = 0xac,
-			.len = 60,
-			.flags = 0,
-		},
-		{
-			.id = 0x1 | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x100,
-			.len = 4,
-			.flags = 0,
-		},
-		{
-			.id = 0x3 | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x13c,
-			.len = 4,
-			.flags = 0,
-		},
-		{
-			.id = 0x4 | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x150,
-			.len = 4,
-			.flags = 0,
-		},
-		{
-			.id = 0x2 | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x160,
-			.len = 4,
-			.flags = 0,
-		},
-		/* PCIDevice: 1f:08.3 */
-		/* PCIDevice: 1f:09.3 */
-		/* PCIDevice: 3f:08.3 */
-		/* PCIDevice: 3f:09.3 */
-		{
-			.id = 0x10,
-			.start = 0x40,
-			.len = 20,
-			.flags = 0,
-		},
-		{
-			.id = 0xb | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x100,
-			.len = 4,
-			.flags = 0,
-		},
-		/* PCIDevice: 1f:08.4 */
-		/* PCIDevice: 1f:09.4 */
-		/* PCIDevice: 1f:0f.0 */
-		/* PCIDevice: 1f:0f.1 */
-		/* PCIDevice: 1f:0f.2 */
-		/* PCIDevice: 1f:0f.3 */
-		/* PCIDevice: 1f:0f.4 */
-		/* PCIDevice: 1f:0f.5 */
-		/* PCIDevice: 1f:10.0 */
-		/* PCIDevice: 1f:10.1 */
-		/* PCIDevice: 1f:10.2 */
-		/* PCIDevice: 1f:10.3 */
-		/* PCIDevice: 1f:10.4 */
-		/* PCIDevice: 1f:10.5 */
-		/* PCIDevice: 1f:10.6 */
-		/* PCIDevice: 1f:10.7 */
-		/* PCIDevice: 3f:08.4 */
-		/* PCIDevice: 3f:09.4 */
-		/* PCIDevice: 3f:0f.0 */
-		/* PCIDevice: 3f:0f.1 */
-		/* PCIDevice: 3f:0f.2 */
-		/* PCIDevice: 3f:0f.3 */
-		/* PCIDevice: 3f:0f.4 */
-		/* PCIDevice: 3f:0f.5 */
-		/* PCIDevice: 3f:10.0 */
-		/* PCIDevice: 3f:10.1 */
-		/* PCIDevice: 3f:10.2 */
-		/* PCIDevice: 3f:10.3 */
-		/* PCIDevice: 3f:10.4 */
-		/* PCIDevice: 3f:10.5 */
-		/* PCIDevice: 3f:10.6 */
-		/* PCIDevice: 3f:10.7 */
-		{
-			.id = 0x10,
-			.start = 0x40,
-			.len = 20,
-			.flags = 0,
-		},
-		{
-			.id = 0x0 | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x100,
-			.len = 4,
-			.flags = 0,
-		},
-		/* PCIDevice: 20:00.0 */
-		{
-			.id = 0xd,
-			.start = 0x40,
-			.len = 2,
-			.flags = 0,
-		},
-		{
-			.id = 0x5,
-			.start = 0x60,
-			.len = 20,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0x10,
-			.start = 0x90,
-			.len = 60,
-			.flags = 0,
-		},
-		{
-			.id = 0x1,
-			.start = 0xe0,
-			.len = 8,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0xb | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x100,
-			.len = 4,
-			.flags = 0,
-		},
-		{
-			.id = 0xd | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x110,
-			.len = 4,
-			.flags = 0,
-		},
-		{
-			.id = 0x1 | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x148,
-			.len = 4,
-			.flags = 0,
-		},
-		{
-			.id = 0xb | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x1d0,
-			.len = 4,
-			.flags = 0,
-		},
-		{
-			.id = 0xb | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x280,
-			.len = 4,
-			.flags = 0,
-		},
-	},
-};
-
-------=_Part_8_1101446795.1557263681602
-Content-Type: text/x-diff; charset=US-ASCII; 
-	name=0001-Scripts-Fix-for-Parsing-DMAR-Region-under-Reserved-S.patch
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; 
-	filename=0001-Scripts-Fix-for-Parsing-DMAR-Region-under-Reserved-S.patch
-X-Attachment-Id: 591e88ed-6274-415a-9ce4-4dc63a2f5e45
-Content-ID: <591e88ed-6274-415a-9ce4-4dc63a2f5e45>
-
-From aa9e7f0e25317d2f516da68b4163f9f08fc6c76d Mon Sep 17 00:00:00 2001
-From: HAKKI KURUMAHMUT <kurumahmut@gmail.com>
-Date: Tue, 7 May 2019 19:37:59 +0300
-Subject: [PATCH 1/2] Scripts: Fix for Parsing DMAR Region under Reserved
- Section
-
- While kernel command parameters are intel_iommu=on  intremap=on at
- some machines, cat /proc/iomem shows DMAR region under reserved section.
- This patch must be done for config creation to complete because of
- generating DMAR region not found error although it exist. If this patch is
- not apply, an error is throw by "config create" command whether
- intel_iommu On or Off because "reserved" regions are currently excluded from
- the generated config although DMAR region exists. Thus, DMAR under reserved
- section must be parsed by parser.
-
-Signed-off-by: HAKKI KURUMAHMUT <kurumahmut@gmail.com>
----
- pyjailhouse/sysfs_parser.py | 23 +++++++++++++----------
- 1 file changed, 13 insertions(+), 10 deletions(-)
-
-diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py
-index 46c95fc2..4f5da12e 100644
---- a/pyjailhouse/sysfs_parser.py
-+++ b/pyjailhouse/sysfs_parser.py
-@@ -94,14 +94,13 @@ def input_listdir(dir, wildcards):
- 
- 
- def parse_iomem(pcidevices):
--    regions = IOMemRegionTree.parse_iomem_tree(
-+    (regions, dmar_regions) = IOMemRegionTree.parse_iomem_tree(
-         IOMemRegionTree.parse_iomem_file())
- 
-     rom_region = MemRegion(0xc0000, 0xdffff, 'ROMs')
-     add_rom_region = False
- 
-     ret = []
--    dmar_regions = []
-     for r in regions:
-         append_r = True
-         # filter the list for MSI-X pages
-@@ -860,21 +859,21 @@ class IOMemRegionTree:
- 
-         return root
- 
--    # find HPET regions in tree
-+    # find specific regions in tree
-     @staticmethod
--    def find_hpet_regions(tree):
-+    def find_regions_by_name(tree, string):
-         regions = []
- 
-         for tree in tree.children:
-             r = tree.region
-             s = r.typestr
- 
--            if (s.find('HPET') >= 0):
-+            if (s.find(string) >= 0):
-                 regions.append(r)
- 
-             # if the tree continues recurse further down ...
-             if (len(tree.children) > 0):
--                regions.extend(IOMemRegionTree.find_hpet_regions(tree))
-+                regions.extend(IOMemRegionTree.find_regions_by_name(tree, string))
- 
-         return regions
- 
-@@ -882,6 +881,7 @@ class IOMemRegionTree:
-     @staticmethod
-     def parse_iomem_tree(tree):
-         regions = []
-+        dmar_regions = []
- 
-         for tree in tree.children:
-             r = tree.region
-@@ -901,20 +901,23 @@ class IOMemRegionTree:
-             ):
-                 continue
- 
--            # generally blacklisted, unless we find an HPET behind it
-+            # generally blacklisted, with a few exceptions
-             if (s.lower() == 'reserved'):
--                regions.extend(IOMemRegionTree.find_hpet_regions(tree))
-+                regions.extend(IOMemRegionTree.find_regions_by_name(tree, 'HPET'))
-+                dmar_regions.extend(IOMemRegionTree.find_regions_by_name(tree, 'dmar'))
-                 continue
- 
-             # if the tree continues recurse further down ...
-             if (len(tree.children) > 0):
--                regions.extend(IOMemRegionTree.parse_iomem_tree(tree))
-+                (temp_regions, temp_dmar_regions) = IOMemRegionTree.parse_iomem_tree(tree)
-+                regions.extend(temp_regions)
-+                dmar_regions.extend(temp_dmar_regions)
-                 continue
- 
-             # add all remaining leaves
-             regions.append(r)
- 
--        return regions
-+        return regions, dmar_regions
- 
- 
- class IOMMUConfig:
--- 
-2.17.1
-
-
-------=_Part_8_1101446795.1557263681602
-Content-Type: text/x-diff; charset=UTF-8; 
-	name=0002-Scrits-Fix-for-Unsupported-DMAR-Device-Scope-Structu.patch
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment; 
-	filename=0002-Scrits-Fix-for-Unsupported-DMAR-Device-Scope-Structu.patch
-X-Attachment-Id: b2b9ac79-67ef-4add-a224-1b746df10f17
-Content-ID: <b2b9ac79-67ef-4add-a224-1b746df10f17>
-
-From d7f925b10f32a37b4595255afe8690abf50a4a3d Mon Sep 17 00:00:00 2001
-From: HAKKI KURUMAHMUT <kurumahmut@gmail.com>
-Date: Tue, 7 May 2019 23:25:14 +0300
-Subject: [PATCH 2/2] Scrits: Fix for Unsupported DMAR Device Scope Structur=
-e
-MIME-Version: 1.0
-Content-Type: text/plain; charset=3DUTF-8
-Content-Transfer-Encoding: 8bit
-
- Currently DMAR parser does not support parsing secondary path info for PCI=
--PCI bridge that is "PCI Endpoint Device" type.
- For example: 8086:1d1e Patsburg PCI Express Root Port 8
-
- If the =E2=80=98Path=E2=80=99 field length is more than 2 bytes (N > 1), t=
-he Device Scope
- Entry identifies a device behind one or more system software visible PCI-
- PCI bridges. Bus rebalancing actions by system software modifying bus
- assignments of the device=E2=80=99s parent bridge impacts the bus number p=
-ortion
- of device=E2=80=99s requester-id.
-
- Please read VT-d Specification Chapter 8.3.1
-
-Signed-off-by: HAKKI KURUMAHMUT <kurumahmut@gmail.com>
----
- pyjailhouse/sysfs_parser.py | 113 ++++++++++++++++++++++--------------
- 1 file changed, 70 insertions(+), 43 deletions(-)
-
-diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py
-index 4f5da12e..9e5c08d1 100644
---- a/pyjailhouse/sysfs_parser.py
-+++ b/pyjailhouse/sysfs_parser.py
-@@ -194,12 +194,45 @@ def parse_madt():
-     return ioapics
-=20
-=20
--def parse_dmar_devscope(f):
--    (scope_type, scope_len, id, bus, dev, fn) =3D \
--        struct.unpack('<BBxxBBBB', f.read(8))
--    if scope_len !=3D 8:
--        raise RuntimeError('Unsupported DMAR Device Scope Structure')
--    return (scope_type, scope_len, id, bus, dev, fn)
-+def assign_iommu_info(flags, pcidevices, units, ioapics, scope_type, id, b=
-us, dev, fn):
-+    # PCI Endpoint Device
-+    if scope_type =3D=3D 1:
-+        assert not (flags & 1)
-+        for d in pcidevices:
-+            if d.bus =3D=3D bus and d.dev =3D=3D dev and d.fn =3D=3D fn:
-+                d.iommu =3D len(units) - 1
-+                break
-+    # PCI Sub-hierarchy
-+    elif scope_type =3D=3D 2:
-+        assert not (flags & 1)
-+        for d in pcidevices:
-+            if d.bus =3D=3D bus and d.dev =3D=3D dev and d.fn =3D=3D fn:
-+                (secondbus, subordinate) =3D \
-+                    PCIPCIBridge.get_2nd_busses(d)
-+                for d2 in pcidevices:
-+                    if (
-+                        d2.bus >=3D secondbus and
-+                        d2.bus <=3D subordinate
-+                    ):
-+                        d2.iommu =3D len(units) - 1
-+                break
-+    # IOAPIC
-+    elif scope_type =3D=3D 3:
-+        ioapic =3D next(chip for chip in ioapics if chip.id =3D=3D id)
-+        bdf =3D (bus << 8) | (dev << 3) | fn
-+        for chip in ioapics:
-+            if chip.bdf =3D=3D bdf:
-+                raise RuntimeError('IOAPICs with identical BDF')
-+        ioapic.bdf =3D bdf
-+        ioapic.iommu =3D len(units) - 1
-+
-+
-+def append_comment_info(comments, scope_type, bus, dev, fn):
-+    if scope_type =3D=3D 1:
-+        comments.append('PCI device: %02x:%02x.%x' %
-+                        (bus, dev, fn))
-+    else:
-+        comments.append('DMAR parser could not decode device path')
-=20
-=20
- # parsing of DMAR ACPI Table
-@@ -249,38 +282,22 @@ def parse_dmar(pcidevices, ioapics, dmar_regions):
-                         d.iommu =3D len(units) - 1
-             offset +=3D 16 - offset
-             while offset < struct_len:
--                (scope_type, scope_len, id, bus, dev, fn) =3D\
--                    parse_dmar_devscope(f)
--                # PCI Endpoint Device
--                if scope_type =3D=3D 1:
--                    assert not (flags & 1)
--                    for d in pcidevices:
--                        if d.bus =3D=3D bus and d.dev =3D=3D dev and d.fn =
-=3D=3D fn:
--                            d.iommu =3D len(units) - 1
--                            break
--                # PCI Sub-hierarchy
--                elif scope_type =3D=3D 2:
--                    assert not (flags & 1)
-+                (scope_type, scope_len) =3D struct.unpack('<BB', f.read(2)=
-)
-+
-+                N =3D (int)((scope_len - 6) / 2) - 1
-+
-+                (id, starting_bus, starting_dev, starting_fn) =3D struct.u=
-npack('<xxBBBB', f.read(6))
-+
-+                assign_iommu_info(flags, pcidevices, units, ioapics, scope=
-_type, id, starting_bus, starting_dev, starting_fn)
-+
-+                while N !=3D 0:
-+                    N-=3D1
-+                    (secondary_dev, secondary_fn) =3D struct.unpack('<BB',=
- f.read(2))
-                     for d in pcidevices:
--                        if d.bus =3D=3D bus and d.dev =3D=3D dev and d.fn =
-=3D=3D fn:
--                            (secondbus, subordinate) =3D \
--                                PCIPCIBridge.get_2nd_busses(d)
--                            for d2 in pcidevices:
--                                if (
--                                    d2.bus >=3D secondbus and
--                                    d2.bus <=3D subordinate
--                                ):
--                                    d2.iommu =3D len(units) - 1
-+                        if d.bus =3D=3D starting_bus and d.dev =3D=3D star=
-ting_dev and d.fn =3D=3D starting_fn:
-+                            (secondbus, subordinate) =3D PCIPCIBridge.get_=
-2nd_busses(d)
-                             break
--                # IOAPIC
--                elif scope_type =3D=3D 3:
--                    ioapic =3D next(chip for chip in ioapics if chip.id =
-=3D=3D id)
--                    bdf =3D (bus << 8) | (dev << 3) | fn
--                    for chip in ioapics:
--                        if chip.bdf =3D=3D bdf:
--                            raise RuntimeError('IOAPICs with identical BDF=
-')
--                    ioapic.bdf =3D bdf
--                    ioapic.iommu =3D len(units) - 1
-+                    assign_iommu_info(flags, pcidevices, units, ioapics, s=
-cope_type, id, secondbus, secondary_dev, secondary_fn)
-                 offset +=3D scope_len
-=20
-         # Reserved Memory Region Reporting Structure
-@@ -292,13 +309,23 @@ def parse_dmar(pcidevices, ioapics, dmar_regions):
-=20
-             comments =3D []
-             while offset < struct_len:
--                (scope_type, scope_len, id, bus, dev, fn) =3D\
--                    parse_dmar_devscope(f)
--                if scope_type =3D=3D 1:
--                    comments.append('PCI device: %02x:%02x.%x' %
--                                    (bus, dev, fn))
--                else:
--                    comments.append('DMAR parser could not decode device p=
-ath')
-+                (scope_type, scope_len) =3D struct.unpack('<BB', f.read(2)=
-)
-+
-+                N =3D (int)((scope_len - 6) / 2) - 1
-+
-+                (id, starting_bus, starting_dev, starting_fn) =3D struct.u=
-npack('<xxBBBB', f.read(6))
-+
-+                append_comment_info(comments, scope_type, starting_bus, st=
-arting_dev, starting_fn)
-+
-+                while N !=3D 0:
-+                    N-=3D1
-+                    (secondary_dev, secondary_fn) =3D struct.unpack('<BB',=
- f.read(2))
-+                    for d in pcidevices:
-+                        if d.bus =3D=3D starting_bus and d.dev =3D=3D star=
-ting_dev and d.fn =3D=3D starting_fn:
-+                            (secondbus, subordinate) =3D PCIPCIBridge.get_=
-2nd_busses(d)
-+                            break
-+
-+                    append_comment_info(comments, scope_type, secondbus, s=
-econdary_dev, secondary_fn)
-                 offset +=3D scope_len
-=20
-             reg =3D MemRegion(base, limit, 'ACPI DMAR RMRR', comments)
---=20
-2.17.1
-
-
-------=_Part_8_1101446795.1557263681602--
+Content-Disposition: attachment; filename=lspci.txt
+X-Attachment-Id: 8e94783c-7227-43ef-aafe-1afa37f78958
+Content-ID: <8e94783c-7227-43ef-aafe-1afa37f78958>
+
+sudo lspci -D
+
+0000:00:00.0 Host bridge: Intel Corporation Xeon E5/Core i7 DMI2 (rev 07)
+0000:00:01.0 PCI bridge: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 1a (rev 07)
+0000:00:01.1 PCI bridge: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 1b (rev 07)
+0000:00:02.0 PCI bridge: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 2a (rev 07)
+0000:00:02.1 PCI bridge: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 2b (rev 07)
+0000:00:02.2 PCI bridge: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 2c (rev 07)
+0000:00:02.3 PCI bridge: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 2d (rev 07)
+0000:00:03.0 PCI bridge: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 3a in PCI Express Mode (rev 07)
+0000:00:03.1 PCI bridge: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 3b (rev 07)
+0000:00:03.2 PCI bridge: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 3c (rev 07)
+0000:00:03.3 PCI bridge: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 3d (rev 07)
+0000:00:04.0 System peripheral: Intel Corporation Xeon E5/Core i7 DMA Channel 0 (rev 07)
+0000:00:04.1 System peripheral: Intel Corporation Xeon E5/Core i7 DMA Channel 1 (rev 07)
+0000:00:04.2 System peripheral: Intel Corporation Xeon E5/Core i7 DMA Channel 2 (rev 07)
+0000:00:04.3 System peripheral: Intel Corporation Xeon E5/Core i7 DMA Channel 3 (rev 07)
+0000:00:04.4 System peripheral: Intel Corporation Xeon E5/Core i7 DMA Channel 4 (rev 07)
+0000:00:04.5 System peripheral: Intel Corporation Xeon E5/Core i7 DMA Channel 5 (rev 07)
+0000:00:04.6 System peripheral: Intel Corporation Xeon E5/Core i7 DMA Channel 6 (rev 07)
+0000:00:04.7 System peripheral: Intel Corporation Xeon E5/Core i7 DMA Channel 7 (rev 07)
+0000:00:05.0 System peripheral: Intel Corporation Xeon E5/Core i7 Address Map, VTd_Misc, System Management (rev 07)
+0000:00:05.2 System peripheral: Intel Corporation Xeon E5/Core i7 Control Status and Global Errors (rev 07)
+0000:00:05.4 PIC: Intel Corporation Xeon E5/Core i7 I/O APIC (rev 07)
+0000:00:11.0 PCI bridge: Intel Corporation C600/X79 series chipset PCI Express Virtual Root Port (rev 05)
+0000:00:1a.0 USB controller: Intel Corporation C600/X79 series chipset USB2 Enhanced Host Controller #2 (rev 05)
+0000:00:1c.0 PCI bridge: Intel Corporation C600/X79 series chipset PCI Express Root Port 1 (rev b5)
+0000:00:1c.7 PCI bridge: Intel Corporation C600/X79 series chipset PCI Express Root Port 8 (rev b5)
+0000:00:1d.0 USB controller: Intel Corporation C600/X79 series chipset USB2 Enhanced Host Controller #1 (rev 05)
+0000:00:1e.0 PCI bridge: Intel Corporation 82801 PCI Bridge (rev a5)
+0000:00:1f.0 ISA bridge: Intel Corporation C600/X79 series chipset LPC Controller (rev 05)
+0000:00:1f.2 IDE interface: Intel Corporation C600/X79 series chipset 4-Port SATA IDE Controller (rev 05)
+0000:01:00.0 System peripheral: Hewlett-Packard Company Integrated Lights-Out Standard Slave Instrumentation & System Support (rev 05)
+0000:01:00.1 VGA compatible controller: Matrox Electronics Systems Ltd. MGA G200EH
+0000:01:00.2 System peripheral: Hewlett-Packard Company Integrated Lights-Out Standard Management Processor Support and Messaging (rev 05)
+0000:01:00.4 USB controller: Hewlett-Packard Company Integrated Lights-Out Standard Virtual USB Controller (rev 02)
+0000:02:00.0 RAID bus controller: Hewlett-Packard Company Smart Array Gen8 Controllers (rev 01)
+0000:03:00.0 Ethernet controller: Broadcom Corporation NetXtreme BCM5719 Gigabit Ethernet PCIe (rev 01)
+0000:03:00.1 Ethernet controller: Broadcom Corporation NetXtreme BCM5719 Gigabit Ethernet PCIe (rev 01)
+0000:03:00.2 Ethernet controller: Broadcom Corporation NetXtreme BCM5719 Gigabit Ethernet PCIe (rev 01)
+0000:03:00.3 Ethernet controller: Broadcom Corporation NetXtreme BCM5719 Gigabit Ethernet PCIe (rev 01)
+0000:1f:08.0 System peripheral: Intel Corporation Xeon E5/Core i7 QPI Link 0 (rev 07)
+0000:1f:08.3 System peripheral: Intel Corporation Xeon E5/Core i7 QPI Link Reut 0 (rev 07)
+0000:1f:08.4 System peripheral: Intel Corporation Xeon E5/Core i7 QPI Link Reut 0 (rev 07)
+0000:1f:09.0 System peripheral: Intel Corporation Xeon E5/Core i7 QPI Link 1 (rev 07)
+0000:1f:09.3 System peripheral: Intel Corporation Xeon E5/Core i7 QPI Link Reut 1 (rev 07)
+0000:1f:09.4 System peripheral: Intel Corporation Xeon E5/Core i7 QPI Link Reut 1 (rev 07)
+0000:1f:0a.0 System peripheral: Intel Corporation Xeon E5/Core i7 Power Control Unit 0 (rev 07)
+0000:1f:0a.1 System peripheral: Intel Corporation Xeon E5/Core i7 Power Control Unit 1 (rev 07)
+0000:1f:0a.2 System peripheral: Intel Corporation Xeon E5/Core i7 Power Control Unit 2 (rev 07)
+0000:1f:0a.3 System peripheral: Intel Corporation Xeon E5/Core i7 Power Control Unit 3 (rev 07)
+0000:1f:0b.0 System peripheral: Intel Corporation Xeon E5/Core i7 Interrupt Control Registers (rev 07)
+0000:1f:0b.3 System peripheral: Intel Corporation Xeon E5/Core i7 Semaphore and Scratchpad Configuration Registers (rev 07)
+0000:1f:0c.0 System peripheral: Intel Corporation Xeon E5/Core i7 Unicast Register 0 (rev 07)
+0000:1f:0c.1 System peripheral: Intel Corporation Xeon E5/Core i7 Unicast Register 0 (rev 07)
+0000:1f:0c.2 System peripheral: Intel Corporation Xeon E5/Core i7 Unicast Register 0 (rev 07)
+0000:1f:0c.6 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller System Address Decoder 0 (rev 07)
+0000:1f:0c.7 System peripheral: Intel Corporation Xeon E5/Core i7 System Address Decoder (rev 07)
+0000:1f:0d.0 System peripheral: Intel Corporation Xeon E5/Core i7 Unicast Register 0 (rev 07)
+0000:1f:0d.1 System peripheral: Intel Corporation Xeon E5/Core i7 Unicast Register 0 (rev 07)
+0000:1f:0d.2 System peripheral: Intel Corporation Xeon E5/Core i7 Unicast Register 0 (rev 07)
+0000:1f:0d.6 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller System Address Decoder 1 (rev 07)
+0000:1f:0e.0 System peripheral: Intel Corporation Xeon E5/Core i7 Processor Home Agent (rev 07)
+0000:1f:0e.1 Performance counters: Intel Corporation Xeon E5/Core i7 Processor Home Agent Performance Monitoring (rev 07)
+0000:1f:0f.0 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Registers (rev 07)
+0000:1f:0f.1 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller RAS Registers (rev 07)
+0000:1f:0f.2 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 0 (rev 07)
+0000:1f:0f.3 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 1 (rev 07)
+0000:1f:0f.4 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 2 (rev 07)
+0000:1f:0f.5 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 3 (rev 07)
+0000:1f:0f.6 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 4 (rev 07)
+0000:1f:10.0 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 0 (rev 07)
+0000:1f:10.1 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 1 (rev 07)
+0000:1f:10.2 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 0 (rev 07)
+0000:1f:10.3 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 1 (rev 07)
+0000:1f:10.4 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 2 (rev 07)
+0000:1f:10.5 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 3 (rev 07)
+0000:1f:10.6 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 2 (rev 07)
+0000:1f:10.7 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 3 (rev 07)
+0000:1f:11.0 System peripheral: Intel Corporation Xeon E5/Core i7 DDRIO (rev 07)
+0000:1f:13.0 System peripheral: Intel Corporation Xeon E5/Core i7 R2PCIe (rev 07)
+0000:1f:13.1 Performance counters: Intel Corporation Xeon E5/Core i7 Ring to PCI Express Performance Monitor (rev 07)
+0000:1f:13.4 Performance counters: Intel Corporation Xeon E5/Core i7 QuickPath Interconnect Agent Ring Registers (rev 07)
+0000:1f:13.5 Performance counters: Intel Corporation Xeon E5/Core i7 Ring to QuickPath Interconnect Link 0 Performance Monitor (rev 07)
+0000:1f:13.6 System peripheral: Intel Corporation Xeon E5/Core i7 Ring to QuickPath Interconnect Link 1 Performance Monitor (rev 07)
+0000:20:00.0 PCI bridge: Intel Corporation Xeon E5/Core i7 DMI2 in PCI Express Mode (rev 07)
+0000:20:01.0 PCI bridge: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 1a (rev 07)
+0000:20:01.1 PCI bridge: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 1b (rev 07)
+0000:20:02.0 PCI bridge: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 2a (rev 07)
+0000:20:02.1 PCI bridge: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 2b (rev 07)
+0000:20:02.2 PCI bridge: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 2c (rev 07)
+0000:20:02.3 PCI bridge: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 2d (rev 07)
+0000:20:03.0 PCI bridge: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 3a in PCI Express Mode (rev 07)
+0000:20:03.1 PCI bridge: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 3b (rev 07)
+0000:20:03.2 PCI bridge: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 3c (rev 07)
+0000:20:03.3 PCI bridge: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 3d (rev 07)
+0000:20:04.0 System peripheral: Intel Corporation Xeon E5/Core i7 DMA Channel 0 (rev 07)
+0000:20:04.1 System peripheral: Intel Corporation Xeon E5/Core i7 DMA Channel 1 (rev 07)
+0000:20:04.2 System peripheral: Intel Corporation Xeon E5/Core i7 DMA Channel 2 (rev 07)
+0000:20:04.3 System peripheral: Intel Corporation Xeon E5/Core i7 DMA Channel 3 (rev 07)
+0000:20:04.4 System peripheral: Intel Corporation Xeon E5/Core i7 DMA Channel 4 (rev 07)
+0000:20:04.5 System peripheral: Intel Corporation Xeon E5/Core i7 DMA Channel 5 (rev 07)
+0000:20:04.6 System peripheral: Intel Corporation Xeon E5/Core i7 DMA Channel 6 (rev 07)
+0000:20:04.7 System peripheral: Intel Corporation Xeon E5/Core i7 DMA Channel 7 (rev 07)
+0000:20:05.0 System peripheral: Intel Corporation Xeon E5/Core i7 Address Map, VTd_Misc, System Management (rev 07)
+0000:20:05.2 System peripheral: Intel Corporation Xeon E5/Core i7 Control Status and Global Errors (rev 07)
+0000:20:05.4 PIC: Intel Corporation Xeon E5/Core i7 I/O APIC (rev 07)
+0000:3f:08.0 System peripheral: Intel Corporation Xeon E5/Core i7 QPI Link 0 (rev 07)
+0000:3f:08.3 System peripheral: Intel Corporation Xeon E5/Core i7 QPI Link Reut 0 (rev 07)
+0000:3f:08.4 System peripheral: Intel Corporation Xeon E5/Core i7 QPI Link Reut 0 (rev 07)
+0000:3f:09.0 System peripheral: Intel Corporation Xeon E5/Core i7 QPI Link 1 (rev 07)
+0000:3f:09.3 System peripheral: Intel Corporation Xeon E5/Core i7 QPI Link Reut 1 (rev 07)
+0000:3f:09.4 System peripheral: Intel Corporation Xeon E5/Core i7 QPI Link Reut 1 (rev 07)
+0000:3f:0a.0 System peripheral: Intel Corporation Xeon E5/Core i7 Power Control Unit 0 (rev 07)
+0000:3f:0a.1 System peripheral: Intel Corporation Xeon E5/Core i7 Power Control Unit 1 (rev 07)
+0000:3f:0a.2 System peripheral: Intel Corporation Xeon E5/Core i7 Power Control Unit 2 (rev 07)
+0000:3f:0a.3 System peripheral: Intel Corporation Xeon E5/Core i7 Power Control Unit 3 (rev 07)
+0000:3f:0b.0 System peripheral: Intel Corporation Xeon E5/Core i7 Interrupt Control Registers (rev 07)
+0000:3f:0b.3 System peripheral: Intel Corporation Xeon E5/Core i7 Semaphore and Scratchpad Configuration Registers (rev 07)
+0000:3f:0c.0 System peripheral: Intel Corporation Xeon E5/Core i7 Unicast Register 0 (rev 07)
+0000:3f:0c.1 System peripheral: Intel Corporation Xeon E5/Core i7 Unicast Register 0 (rev 07)
+0000:3f:0c.2 System peripheral: Intel Corporation Xeon E5/Core i7 Unicast Register 0 (rev 07)
+0000:3f:0c.6 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller System Address Decoder 0 (rev 07)
+0000:3f:0c.7 System peripheral: Intel Corporation Xeon E5/Core i7 System Address Decoder (rev 07)
+0000:3f:0d.0 System peripheral: Intel Corporation Xeon E5/Core i7 Unicast Register 0 (rev 07)
+0000:3f:0d.1 System peripheral: Intel Corporation Xeon E5/Core i7 Unicast Register 0 (rev 07)
+0000:3f:0d.2 System peripheral: Intel Corporation Xeon E5/Core i7 Unicast Register 0 (rev 07)
+0000:3f:0d.6 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller System Address Decoder 1 (rev 07)
+0000:3f:0e.0 System peripheral: Intel Corporation Xeon E5/Core i7 Processor Home Agent (rev 07)
+0000:3f:0e.1 Performance counters: Intel Corporation Xeon E5/Core i7 Processor Home Agent Performance Monitoring (rev 07)
+0000:3f:0f.0 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Registers (rev 07)
+0000:3f:0f.1 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller RAS Registers (rev 07)
+0000:3f:0f.2 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 0 (rev 07)
+0000:3f:0f.3 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 1 (rev 07)
+0000:3f:0f.4 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 2 (rev 07)
+0000:3f:0f.5 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 3 (rev 07)
+0000:3f:0f.6 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 4 (rev 07)
+0000:3f:10.0 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 0 (rev 07)
+0000:3f:10.1 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 1 (rev 07)
+0000:3f:10.2 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 0 (rev 07)
+0000:3f:10.3 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 1 (rev 07)
+0000:3f:10.4 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 2 (rev 07)
+0000:3f:10.5 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 3 (rev 07)
+0000:3f:10.6 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 2 (rev 07)
+0000:3f:10.7 System peripheral: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 3 (rev 07)
+0000:3f:11.0 System peripheral: Intel Corporation Xeon E5/Core i7 DDRIO (rev 07)
+0000:3f:13.0 System peripheral: Intel Corporation Xeon E5/Core i7 R2PCIe (rev 07)
+0000:3f:13.1 Performance counters: Intel Corporation Xeon E5/Core i7 Ring to PCI Express Performance Monitor (rev 07)
+0000:3f:13.4 Performance counters: Intel Corporation Xeon E5/Core i7 QuickPath Interconnect Agent Ring Registers (rev 07)
+0000:3f:13.5 Performance counters: Intel Corporation Xeon E5/Core i7 Ring to QuickPath Interconnect Link 0 Performance Monitor (rev 07)
+0000:3f:13.6 System peripheral: Intel Corporation Xeon E5/Core i7 Ring to QuickPath Interconnect Link 1 Performance Monitor (rev 07)
+
+
+sudo lspci -Dtvvv
+
+-+-[0000:3f]-+-08.0  Intel Corporation Xeon E5/Core i7 QPI Link 0
+ |           +-08.3  Intel Corporation Xeon E5/Core i7 QPI Link Reut 0
+ |           +-08.4  Intel Corporation Xeon E5/Core i7 QPI Link Reut 0
+ |           +-09.0  Intel Corporation Xeon E5/Core i7 QPI Link 1
+ |           +-09.3  Intel Corporation Xeon E5/Core i7 QPI Link Reut 1
+ |           +-09.4  Intel Corporation Xeon E5/Core i7 QPI Link Reut 1
+ |           +-0a.0  Intel Corporation Xeon E5/Core i7 Power Control Unit 0
+ |           +-0a.1  Intel Corporation Xeon E5/Core i7 Power Control Unit 1
+ |           +-0a.2  Intel Corporation Xeon E5/Core i7 Power Control Unit 2
+ |           +-0a.3  Intel Corporation Xeon E5/Core i7 Power Control Unit 3
+ |           +-0b.0  Intel Corporation Xeon E5/Core i7 Interrupt Control Registers
+ |           +-0b.3  Intel Corporation Xeon E5/Core i7 Semaphore and Scratchpad Configuration Registers
+ |           +-0c.0  Intel Corporation Xeon E5/Core i7 Unicast Register 0
+ |           +-0c.1  Intel Corporation Xeon E5/Core i7 Unicast Register 0
+ |           +-0c.2  Intel Corporation Xeon E5/Core i7 Unicast Register 0
+ |           +-0c.6  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller System Address Decoder 0
+ |           +-0c.7  Intel Corporation Xeon E5/Core i7 System Address Decoder
+ |           +-0d.0  Intel Corporation Xeon E5/Core i7 Unicast Register 0
+ |           +-0d.1  Intel Corporation Xeon E5/Core i7 Unicast Register 0
+ |           +-0d.2  Intel Corporation Xeon E5/Core i7 Unicast Register 0
+ |           +-0d.6  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller System Address Decoder 1
+ |           +-0e.0  Intel Corporation Xeon E5/Core i7 Processor Home Agent
+ |           +-0e.1  Intel Corporation Xeon E5/Core i7 Processor Home Agent Performance Monitoring
+ |           +-0f.0  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Registers
+ |           +-0f.1  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller RAS Registers
+ |           +-0f.2  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 0
+ |           +-0f.3  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 1
+ |           +-0f.4  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 2
+ |           +-0f.5  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 3
+ |           +-0f.6  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 4
+ |           +-10.0  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 0
+ |           +-10.1  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 1
+ |           +-10.2  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 0
+ |           +-10.3  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 1
+ |           +-10.4  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 2
+ |           +-10.5  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 3
+ |           +-10.6  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 2
+ |           +-10.7  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 3
+ |           +-11.0  Intel Corporation Xeon E5/Core i7 DDRIO
+ |           +-13.0  Intel Corporation Xeon E5/Core i7 R2PCIe
+ |           +-13.1  Intel Corporation Xeon E5/Core i7 Ring to PCI Express Performance Monitor
+ |           +-13.4  Intel Corporation Xeon E5/Core i7 QuickPath Interconnect Agent Ring Registers
+ |           +-13.5  Intel Corporation Xeon E5/Core i7 Ring to QuickPath Interconnect Link 0 Performance Monitor
+ |           \-13.6  Intel Corporation Xeon E5/Core i7 Ring to QuickPath Interconnect Link 1 Performance Monitor
+ +-[0000:20]-+-00.0-[2b]--
+ |           +-01.0-[21]--
+ |           +-01.1-[22]--
+ |           +-02.0-[23]--
+ |           +-02.1-[24]--
+ |           +-02.2-[25]--
+ |           +-02.3-[26]--
+ |           +-03.0-[27]--
+ |           +-03.1-[28]--
+ |           +-03.2-[29]--
+ |           +-03.3-[2a]--
+ |           +-04.0  Intel Corporation Xeon E5/Core i7 DMA Channel 0
+ |           +-04.1  Intel Corporation Xeon E5/Core i7 DMA Channel 1
+ |           +-04.2  Intel Corporation Xeon E5/Core i7 DMA Channel 2
+ |           +-04.3  Intel Corporation Xeon E5/Core i7 DMA Channel 3
+ |           +-04.4  Intel Corporation Xeon E5/Core i7 DMA Channel 4
+ |           +-04.5  Intel Corporation Xeon E5/Core i7 DMA Channel 5
+ |           +-04.6  Intel Corporation Xeon E5/Core i7 DMA Channel 6
+ |           +-04.7  Intel Corporation Xeon E5/Core i7 DMA Channel 7
+ |           +-05.0  Intel Corporation Xeon E5/Core i7 Address Map, VTd_Misc, System Management
+ |           +-05.2  Intel Corporation Xeon E5/Core i7 Control Status and Global Errors
+ |           \-05.4  Intel Corporation Xeon E5/Core i7 I/O APIC
+ +-[0000:1f]-+-08.0  Intel Corporation Xeon E5/Core i7 QPI Link 0
+ |           +-08.3  Intel Corporation Xeon E5/Core i7 QPI Link Reut 0
+ |           +-08.4  Intel Corporation Xeon E5/Core i7 QPI Link Reut 0
+ |           +-09.0  Intel Corporation Xeon E5/Core i7 QPI Link 1
+ |           +-09.3  Intel Corporation Xeon E5/Core i7 QPI Link Reut 1
+ |           +-09.4  Intel Corporation Xeon E5/Core i7 QPI Link Reut 1
+ |           +-0a.0  Intel Corporation Xeon E5/Core i7 Power Control Unit 0
+ |           +-0a.1  Intel Corporation Xeon E5/Core i7 Power Control Unit 1
+ |           +-0a.2  Intel Corporation Xeon E5/Core i7 Power Control Unit 2
+ |           +-0a.3  Intel Corporation Xeon E5/Core i7 Power Control Unit 3
+ |           +-0b.0  Intel Corporation Xeon E5/Core i7 Interrupt Control Registers
+ |           +-0b.3  Intel Corporation Xeon E5/Core i7 Semaphore and Scratchpad Configuration Registers
+ |           +-0c.0  Intel Corporation Xeon E5/Core i7 Unicast Register 0
+ |           +-0c.1  Intel Corporation Xeon E5/Core i7 Unicast Register 0
+ |           +-0c.2  Intel Corporation Xeon E5/Core i7 Unicast Register 0
+ |           +-0c.6  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller System Address Decoder 0
+ |           +-0c.7  Intel Corporation Xeon E5/Core i7 System Address Decoder
+ |           +-0d.0  Intel Corporation Xeon E5/Core i7 Unicast Register 0
+ |           +-0d.1  Intel Corporation Xeon E5/Core i7 Unicast Register 0
+ |           +-0d.2  Intel Corporation Xeon E5/Core i7 Unicast Register 0
+ |           +-0d.6  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller System Address Decoder 1
+ |           +-0e.0  Intel Corporation Xeon E5/Core i7 Processor Home Agent
+ |           +-0e.1  Intel Corporation Xeon E5/Core i7 Processor Home Agent Performance Monitoring
+ |           +-0f.0  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Registers
+ |           +-0f.1  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller RAS Registers
+ |           +-0f.2  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 0
+ |           +-0f.3  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 1
+ |           +-0f.4  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 2
+ |           +-0f.5  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 3
+ |           +-0f.6  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 4
+ |           +-10.0  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 0
+ |           +-10.1  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 1
+ |           +-10.2  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 0
+ |           +-10.3  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 1
+ |           +-10.4  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 2
+ |           +-10.5  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 3
+ |           +-10.6  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 2
+ |           +-10.7  Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 3
+ |           +-11.0  Intel Corporation Xeon E5/Core i7 DDRIO
+ |           +-13.0  Intel Corporation Xeon E5/Core i7 R2PCIe
+ |           +-13.1  Intel Corporation Xeon E5/Core i7 Ring to PCI Express Performance Monitor
+ |           +-13.4  Intel Corporation Xeon E5/Core i7 QuickPath Interconnect Agent Ring Registers
+ |           +-13.5  Intel Corporation Xeon E5/Core i7 Ring to QuickPath Interconnect Link 0 Performance Monitor
+ |           \-13.6  Intel Corporation Xeon E5/Core i7 Ring to QuickPath Interconnect Link 1 Performance Monitor
+ \-[0000:00]-+-00.0  Intel Corporation Xeon E5/Core i7 DMI2
+             +-01.0-[04]--
+             +-01.1-[11]--
+             +-02.0-[03]--+-00.0  Broadcom Corporation NetXtreme BCM5719 Gigabit Ethernet PCIe
+             |            +-00.1  Broadcom Corporation NetXtreme BCM5719 Gigabit Ethernet PCIe
+             |            +-00.2  Broadcom Corporation NetXtreme BCM5719 Gigabit Ethernet PCIe
+             |            \-00.3  Broadcom Corporation NetXtreme BCM5719 Gigabit Ethernet PCIe
+             +-02.1-[12]--
+             +-02.2-[02]----00.0  Hewlett-Packard Company Smart Array Gen8 Controllers
+             +-02.3-[13]--
+             +-03.0-[07]--
+             +-03.1-[14]--
+             +-03.2-[15]--
+             +-03.3-[16]--
+             +-04.0  Intel Corporation Xeon E5/Core i7 DMA Channel 0
+             +-04.1  Intel Corporation Xeon E5/Core i7 DMA Channel 1
+             +-04.2  Intel Corporation Xeon E5/Core i7 DMA Channel 2
+             +-04.3  Intel Corporation Xeon E5/Core i7 DMA Channel 3
+             +-04.4  Intel Corporation Xeon E5/Core i7 DMA Channel 4
+             +-04.5  Intel Corporation Xeon E5/Core i7 DMA Channel 5
+             +-04.6  Intel Corporation Xeon E5/Core i7 DMA Channel 6
+             +-04.7  Intel Corporation Xeon E5/Core i7 DMA Channel 7
+             +-05.0  Intel Corporation Xeon E5/Core i7 Address Map, VTd_Misc, System Management
+             +-05.2  Intel Corporation Xeon E5/Core i7 Control Status and Global Errors
+             +-05.4  Intel Corporation Xeon E5/Core i7 I/O APIC
+             +-11.0-[18]--
+             +-1a.0  Intel Corporation C600/X79 series chipset USB2 Enhanced Host Controller #2
+             +-1c.0-[0a]--
+             +-1c.7-[01]--+-00.0  Hewlett-Packard Company Integrated Lights-Out Standard Slave Instrumentation & System Support
+             |            +-00.1  Matrox Electronics Systems Ltd. MGA G200EH
+             |            +-00.2  Hewlett-Packard Company Integrated Lights-Out Standard Management Processor Support and Messaging
+             |            \-00.4  Hewlett-Packard Company Integrated Lights-Out Standard Virtual USB Controller
+             +-1d.0  Intel Corporation C600/X79 series chipset USB2 Enhanced Host Controller #1
+             +-1e.0-[17]--
+             +-1f.0  Intel Corporation C600/X79 series chipset LPC Controller
+             \-1f.2  Intel Corporation C600/X79 series chipset 4-Port SATA IDE Controller
+
+
+sudo lspci -Dkvvvnnxxx 
+
+
+0000:00:00.0 Host bridge [0600]: Intel Corporation Xeon E5/Core i7 DMI2 [8086:3c00] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 DMI2 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Interrupt: pin A routed to IRQ 0
+        Capabilities: [90] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 2.5GT/s, Width x4, ASPM L1, Exit Latency L0s unlimited, L1 <16us
+                        ClockPM- Surprise+ LLActRep+ BwNot+ ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed unknown, Width x0, TrErr- Train- SlotClk- DLActive- BWMgmt- ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible-
+                RootCap: CRSVisible-
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BCD, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd-
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 2.5GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Vendor Specific Information: ID=0002 Rev=0 Len=00c <?>
+        Capabilities: [144 v1] Vendor Specific Information: ID=0004 Rev=1 Len=03c <?>
+        Capabilities: [1d0 v1] Vendor Specific Information: ID=0003 Rev=1 Len=00a <?>
+        Capabilities: [280 v1] Vendor Specific Information: ID=0004 Rev=2 Len=018 <?>
+00: 86 80 00 3c 40 01 10 00 07 00 00 06 00 00 00 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 90 00 00 00 00 00 00 00 00 01 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 01 00 00 fc 00 00 00 00 00 00 00 00 00 00 00 00
+60: 05 90 02 01 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 10 e0 42 00 00 80 00 00 00 00 00 00 41 78 7a 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 06 00 00 00
+b0: 00 00 00 00 1e 10 00 00 00 00 00 00 06 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 c8 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 10 00 00 00 00 00 00 00
+
+0000:00:01.0 PCI bridge [0604]: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 1a [8086:3c02] (rev 07) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 24
+        Bus: primary=00, secondary=04, subordinate=04, sec-latency=0
+        I/O behind bridge: 0000f000-00000fff
+        Memory behind bridge: fff00000-000fffff
+        Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Subsystem: Hewlett-Packard Company Xeon E5/Core i7 IIO PCI Express Root Port 1a [103c:18a8]
+        Capabilities: [60] MSI: Enable- Count=1/2 Maskable+ 64bit-
+                Address: 00000000  Data: 0000
+                Masking: 00000000  Pending: 00000000
+        Capabilities: [90] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 256 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #8, Speed 8GT/s, Width x8, ASPM L1, Exit Latency L0s unlimited, L1 <16us
+                        ClockPM- Surprise+ LLActRep+ BwNot+ ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x0, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible+
+                RootCap: CRSVisible+
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BCD, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd+
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Vendor Specific Information: ID=0002 Rev=0 Len=00c <?>
+        Capabilities: [110 v1] Access Control Services
+                ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl- DirectTrans-
+                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+        Capabilities: [148 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Capabilities: [1d0 v1] Vendor Specific Information: ID=0003 Rev=1 Len=00a <?>
+        Capabilities: [250 v1] #19
+        Capabilities: [280 v1] Vendor Specific Information: ID=0004 Rev=2 Len=018 <?>
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 02 3c 47 01 10 00 07 00 04 06 10 00 81 00
+10: 00 00 00 00 00 00 00 00 00 04 04 00 f0 00 00 00
+20: f0 ff 00 00 f1 ff 01 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 ff 01 03 00
+40: 0d 60 00 00 3c 10 a8 18 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 05 90 02 01 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 10 e0 42 00 01 80 00 00 26 00 00 00 83 78 7a 08
+a0: 00 00 01 10 00 00 00 00 c0 07 48 00 16 00 01 00
+b0: 00 00 00 00 3e 10 00 00 00 00 00 00 0e 00 00 00
+c0: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 c8 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:00:01.1 PCI bridge [0604]: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 1b [8086:3c03] (rev 07) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 24
+        Bus: primary=00, secondary=11, subordinate=11, sec-latency=0
+        I/O behind bridge: 0000f000-00000fff
+        Memory behind bridge: fff00000-000fffff
+        Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Subsystem: Hewlett-Packard Company Xeon E5/Core i7 IIO PCI Express Root Port 1b [103c:18a8]
+        Capabilities: [60] MSI: Enable- Count=1/2 Maskable+ 64bit-
+                Address: 00000000  Data: 0000
+                Masking: 00000000  Pending: 00000000
+        Capabilities: [90] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 256 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 8GT/s, Width x4, ASPM L1, Exit Latency L0s unlimited, L1 <16us
+                        ClockPM- Surprise+ LLActRep+ BwNot+ ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x0, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible+
+                RootCap: CRSVisible+
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BCD, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd+
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Vendor Specific Information: ID=0002 Rev=0 Len=00c <?>
+        Capabilities: [110 v1] Access Control Services
+                ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl- DirectTrans-
+                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+        Capabilities: [148 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Capabilities: [1d0 v1] Vendor Specific Information: ID=0003 Rev=1 Len=00a <?>
+        Capabilities: [250 v1] #19
+        Capabilities: [280 v1] Vendor Specific Information: ID=0004 Rev=2 Len=018 <?>
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 03 3c 47 01 10 00 07 00 04 06 10 00 81 00
+10: 00 00 00 00 00 00 00 00 00 11 11 00 f0 00 00 00
+20: f0 ff 00 00 f1 ff 01 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 ff 01 03 00
+40: 0d 60 00 00 3c 10 a8 18 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 05 90 02 01 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 10 e0 42 00 01 80 00 00 26 00 00 00 43 78 7a 00
+a0: 00 00 01 10 00 00 00 00 c0 07 48 00 16 00 01 00
+b0: 00 00 00 00 3e 10 00 00 00 00 00 00 0e 00 00 00
+c0: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 c8 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:00:02.0 PCI bridge [0604]: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 2a [8086:3c04] (rev 07) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 24
+        Bus: primary=00, secondary=03, subordinate=03, sec-latency=0
+        I/O behind bridge: 0000f000-00000fff
+        Memory behind bridge: f4000000-f40fffff
+        Prefetchable memory behind bridge: 00000000f6b00000-00000000f6bfffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort+ <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Subsystem: Hewlett-Packard Company Xeon E5/Core i7 IIO PCI Express Root Port 2a [103c:18a8]
+        Capabilities: [60] MSI: Enable- Count=1/2 Maskable+ 64bit-
+                Address: 00000000  Data: 0000
+                Masking: 00000000  Pending: 00000000
+        Capabilities: [90] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 256 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #16, Speed 8GT/s, Width x8, ASPM L1, Exit Latency L0s unlimited, L1 <16us
+                        ClockPM- Surprise+ LLActRep+ BwNot+ ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk+
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 5GT/s, Width x4, TrErr- Train- SlotClk+ DLActive+ BWMgmt+ ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible+
+                RootCap: CRSVisible+
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BCD, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd+
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Vendor Specific Information: ID=0002 Rev=0 Len=00c <?>
+        Capabilities: [110 v1] Access Control Services
+                ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl- DirectTrans-
+                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+        Capabilities: [148 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Capabilities: [1d0 v1] Vendor Specific Information: ID=0003 Rev=1 Len=00a <?>
+        Capabilities: [250 v1] #19
+        Capabilities: [280 v1] Vendor Specific Information: ID=0004 Rev=2 Len=018 <?>
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 04 3c 47 01 10 00 07 00 04 06 10 00 81 00
+10: 00 00 00 00 00 00 00 00 00 03 03 00 f0 00 00 20
+20: 00 f4 00 f4 b1 f6 b1 f6 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 ff 01 03 00
+40: 0d 60 00 00 3c 10 a8 18 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 05 90 02 01 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 10 e0 42 00 01 80 00 00 26 00 00 00 83 78 7a 10
+a0: 40 00 42 70 00 00 00 00 c0 07 48 01 16 00 01 00
+b0: 00 00 00 00 3e 10 00 00 00 00 00 00 0e 00 00 00
+c0: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 c8 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:00:02.1 PCI bridge [0604]: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 2b [8086:3c05] (rev 07) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 24
+        Bus: primary=00, secondary=12, subordinate=12, sec-latency=0
+        I/O behind bridge: 0000f000-00000fff
+        Memory behind bridge: fff00000-000fffff
+        Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Subsystem: Hewlett-Packard Company Xeon E5/Core i7 IIO PCI Express Root Port 2b [103c:18a8]
+        Capabilities: [60] MSI: Enable- Count=1/2 Maskable+ 64bit-
+                Address: 00000000  Data: 0000
+                Masking: 00000000  Pending: 00000000
+        Capabilities: [90] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 256 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 8GT/s, Width x4, ASPM L1, Exit Latency L0s unlimited, L1 <16us
+                        ClockPM- Surprise+ LLActRep+ BwNot+ ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 5GT/s, Width x0, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible+
+                RootCap: CRSVisible+
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BCD, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd+
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Vendor Specific Information: ID=0002 Rev=0 Len=00c <?>
+        Capabilities: [110 v1] Access Control Services
+                ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl- DirectTrans-
+                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+        Capabilities: [148 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Capabilities: [1d0 v1] Vendor Specific Information: ID=0003 Rev=1 Len=00a <?>
+        Capabilities: [250 v1] #19
+        Capabilities: [280 v1] Vendor Specific Information: ID=0004 Rev=2 Len=018 <?>
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 05 3c 47 01 10 00 07 00 04 06 10 00 81 00
+10: 00 00 00 00 00 00 00 00 00 12 12 00 f0 00 00 00
+20: f0 ff 00 00 f1 ff 01 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 ff 01 03 00
+40: 0d 60 00 00 3c 10 a8 18 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 05 90 02 01 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 10 e0 42 00 01 80 00 00 26 00 00 00 43 78 7a 00
+a0: 00 00 02 10 00 00 00 00 c0 07 48 00 16 00 01 00
+b0: 00 00 00 00 3e 10 00 00 00 00 00 00 0e 00 00 00
+c0: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 c8 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:00:02.2 PCI bridge [0604]: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 2c [8086:3c06] (rev 07) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 24
+        Bus: primary=00, secondary=02, subordinate=02, sec-latency=0
+        I/O behind bridge: 00005000-00005fff
+        Memory behind bridge: f7e00000-f7ffffff
+        Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Subsystem: Hewlett-Packard Company Xeon E5/Core i7 IIO PCI Express Root Port 2c [103c:18a8]
+        Capabilities: [60] MSI: Enable- Count=1/2 Maskable+ 64bit-
+                Address: 00000000  Data: 0000
+                Masking: 00000000  Pending: 00000000
+        Capabilities: [90] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 256 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #18, Speed 8GT/s, Width x8, ASPM L1, Exit Latency L0s unlimited, L1 <16us
+                        ClockPM- Surprise+ LLActRep+ BwNot- ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 8GT/s, Width x8, TrErr- Train- SlotClk+ DLActive+ BWMgmt+ ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible+
+                RootCap: CRSVisible+
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BCD, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd+
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -3.5dB, EqualizationComplete+, EqualizationPhase1+
+                         EqualizationPhase2+, EqualizationPhase3+, LinkEqualizationRequest-
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Vendor Specific Information: ID=0002 Rev=0 Len=00c <?>
+        Capabilities: [110 v1] Access Control Services
+                ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl- DirectTrans-
+                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+        Capabilities: [148 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Capabilities: [1d0 v1] Vendor Specific Information: ID=0003 Rev=1 Len=00a <?>
+        Capabilities: [250 v1] #19
+        Capabilities: [280 v1] Vendor Specific Information: ID=0004 Rev=2 Len=018 <?>
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 06 3c 47 01 10 00 07 00 04 06 10 00 81 00
+10: 00 00 00 00 00 00 00 00 00 02 02 00 50 50 00 00
+20: e0 f7 f0 f7 f1 ff 01 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 ff 01 03 00
+40: 0d 60 00 00 3c 10 a8 18 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 05 90 02 01 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 10 e0 42 00 01 80 00 00 26 00 00 00 83 78 5a 12
+a0: 00 00 83 70 00 00 00 00 c0 07 48 01 16 00 01 00
+b0: 00 00 00 00 3e 10 00 00 00 00 00 00 0e 00 00 00
+c0: 43 00 1f 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 c8 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:00:02.3 PCI bridge [0604]: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 2d [8086:3c07] (rev 07) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 24
+        Bus: primary=00, secondary=13, subordinate=13, sec-latency=0
+        I/O behind bridge: 0000f000-00000fff
+        Memory behind bridge: fff00000-000fffff
+        Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Subsystem: Hewlett-Packard Company Xeon E5/Core i7 IIO PCI Express Root Port 2d [103c:18a8]
+        Capabilities: [60] MSI: Enable- Count=1/2 Maskable+ 64bit-
+                Address: 00000000  Data: 0000
+                Masking: 00000000  Pending: 00000000
+        Capabilities: [90] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 256 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 8GT/s, Width x4, ASPM L1, Exit Latency L0s unlimited, L1 <16us
+                        ClockPM- Surprise+ LLActRep+ BwNot- ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 8GT/s, Width x0, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible+
+                RootCap: CRSVisible+
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BCD, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd+
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Vendor Specific Information: ID=0002 Rev=0 Len=00c <?>
+        Capabilities: [110 v1] Access Control Services
+                ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl- DirectTrans-
+                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+        Capabilities: [148 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Capabilities: [1d0 v1] Vendor Specific Information: ID=0003 Rev=1 Len=00a <?>
+        Capabilities: [250 v1] #19
+        Capabilities: [280 v1] Vendor Specific Information: ID=0004 Rev=2 Len=018 <?>
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 07 3c 47 01 10 00 07 00 04 06 10 00 81 00
+10: 00 00 00 00 00 00 00 00 00 13 13 00 f0 00 00 00
+20: f0 ff 00 00 f1 ff 01 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 ff 01 03 00
+40: 0d 60 00 00 3c 10 a8 18 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 05 90 02 01 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 10 e0 42 00 01 80 00 00 26 00 00 00 43 78 5a 00
+a0: 00 00 03 10 00 00 00 00 c0 07 48 00 16 00 01 00
+b0: 00 00 00 00 3e 10 00 00 00 00 00 00 0e 00 00 00
+c0: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 c8 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:00:03.0 PCI bridge [0604]: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 3a in PCI Express Mode [8086:3c08] (rev 07) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 24
+        Bus: primary=00, secondary=07, subordinate=07, sec-latency=0
+        I/O behind bridge: 0000f000-00000fff
+        Memory behind bridge: fff00000-000fffff
+        Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Subsystem: Hewlett-Packard Company Xeon E5/Core i7 IIO PCI Express Root Port 3a in PCI Express Mode [103c:18a8]
+        Capabilities: [60] MSI: Enable- Count=1/2 Maskable+ 64bit-
+                Address: 00000000  Data: 0000
+                Masking: 00000000  Pending: 00000000
+        Capabilities: [90] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0
+                        ExtTag+ RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 256 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #24, Speed 8GT/s, Width x16, ASPM L1, Exit Latency L0s unlimited, L1 <16us
+                        ClockPM- Surprise+ LLActRep+ BwNot+ ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x0, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible+
+                RootCap: CRSVisible+
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BCD, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd+
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Vendor Specific Information: ID=0002 Rev=0 Len=00c <?>
+        Capabilities: [110 v1] Access Control Services
+                ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl- DirectTrans-
+                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+        Capabilities: [148 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Capabilities: [1d0 v1] Vendor Specific Information: ID=0003 Rev=1 Len=00a <?>
+        Capabilities: [250 v1] #19
+        Capabilities: [280 v1] Vendor Specific Information: ID=0004 Rev=2 Len=018 <?>
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 08 3c 47 01 10 00 07 00 04 06 10 00 81 00
+10: 00 00 00 00 00 00 00 00 00 07 07 00 f0 00 00 00
+20: f0 ff 00 00 f1 ff 01 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 ff 01 03 00
+40: 0d 60 00 00 3c 10 a8 18 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 05 90 02 01 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 10 e0 42 00 21 80 00 00 26 00 00 00 03 79 7a 18
+a0: 00 00 01 10 00 00 00 00 c0 07 48 00 16 00 01 00
+b0: 00 00 00 00 3e 10 00 00 00 00 00 00 0e 00 00 00
+c0: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 c8 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:00:03.1 PCI bridge [0604]: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 3b [8086:3c09] (rev 07) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 24
+        Bus: primary=00, secondary=14, subordinate=14, sec-latency=0
+        I/O behind bridge: 0000f000-00000fff
+        Memory behind bridge: fff00000-000fffff
+        Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Subsystem: Hewlett-Packard Company Xeon E5/Core i7 IIO PCI Express Root Port 3b [103c:18a8]
+        Capabilities: [60] MSI: Enable- Count=1/2 Maskable+ 64bit-
+                Address: 00000000  Data: 0000
+                Masking: 00000000  Pending: 00000000
+        Capabilities: [90] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 256 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 8GT/s, Width x4, ASPM L1, Exit Latency L0s unlimited, L1 <16us
+                        ClockPM- Surprise+ LLActRep+ BwNot+ ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x0, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible+
+                RootCap: CRSVisible+
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BCD, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd+
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Vendor Specific Information: ID=0002 Rev=0 Len=00c <?>
+        Capabilities: [110 v1] Access Control Services
+                ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl- DirectTrans-
+                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+        Capabilities: [148 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Capabilities: [1d0 v1] Vendor Specific Information: ID=0003 Rev=1 Len=00a <?>
+        Capabilities: [250 v1] #19
+        Capabilities: [280 v1] Vendor Specific Information: ID=0004 Rev=2 Len=018 <?>
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 09 3c 47 01 10 00 07 00 04 06 10 00 81 00
+10: 00 00 00 00 00 00 00 00 00 14 14 00 f0 00 00 00
+20: f0 ff 00 00 f1 ff 01 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 ff 01 03 00
+40: 0d 60 00 00 3c 10 a8 18 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 05 90 02 01 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 10 e0 42 00 01 80 00 00 26 00 00 00 43 78 7a 00
+a0: 00 00 01 10 00 00 00 00 c0 07 48 00 16 00 01 00
+b0: 00 00 00 00 3e 10 00 00 00 00 00 00 0e 00 00 00
+c0: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 c8 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:00:03.2 PCI bridge [0604]: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 3c [8086:3c0a] (rev 07) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 24
+        Bus: primary=00, secondary=15, subordinate=15, sec-latency=0
+        I/O behind bridge: 0000f000-00000fff
+        Memory behind bridge: fff00000-000fffff
+        Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Subsystem: Hewlett-Packard Company Xeon E5/Core i7 IIO PCI Express Root Port 3c [103c:18a8]
+        Capabilities: [60] MSI: Enable- Count=1/2 Maskable+ 64bit-
+                Address: 00000000  Data: 0000
+                Masking: 00000000  Pending: 00000000
+        Capabilities: [90] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 256 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 8GT/s, Width x4, ASPM L1, Exit Latency L0s unlimited, L1 <16us
+                        ClockPM- Surprise+ LLActRep+ BwNot- ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x0, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible+
+                RootCap: CRSVisible+
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BCD, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd+
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Vendor Specific Information: ID=0002 Rev=0 Len=00c <?>
+        Capabilities: [110 v1] Access Control Services
+                ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl- DirectTrans-
+                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+        Capabilities: [148 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Capabilities: [1d0 v1] Vendor Specific Information: ID=0003 Rev=1 Len=00a <?>
+        Capabilities: [250 v1] #19
+        Capabilities: [280 v1] Vendor Specific Information: ID=0004 Rev=2 Len=018 <?>
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 0a 3c 47 01 10 00 07 00 04 06 10 00 81 00
+10: 00 00 00 00 00 00 00 00 00 15 15 00 f0 00 00 00
+20: f0 ff 00 00 f1 ff 01 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 ff 01 03 00
+40: 0d 60 00 00 3c 10 a8 18 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 05 90 02 01 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 10 e0 42 00 01 80 00 00 26 00 00 00 43 78 5a 00
+a0: 00 00 01 10 00 00 00 00 c0 07 48 00 16 00 01 00
+b0: 00 00 00 00 3e 10 00 00 00 00 00 00 0e 00 00 00
+c0: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 c8 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:00:03.3 PCI bridge [0604]: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 3d [8086:3c0b] (rev 07) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 24
+        Bus: primary=00, secondary=16, subordinate=16, sec-latency=0
+        I/O behind bridge: 0000f000-00000fff
+        Memory behind bridge: fff00000-000fffff
+        Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Subsystem: Hewlett-Packard Company Xeon E5/Core i7 IIO PCI Express Root Port 3d [103c:18a8]
+        Capabilities: [60] MSI: Enable- Count=1/2 Maskable+ 64bit-
+                Address: 00000000  Data: 0000
+                Masking: 00000000  Pending: 00000000
+        Capabilities: [90] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 256 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 8GT/s, Width x4, ASPM L1, Exit Latency L0s unlimited, L1 <16us
+                        ClockPM- Surprise+ LLActRep+ BwNot- ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x0, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible+
+                RootCap: CRSVisible+
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BCD, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd+
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Vendor Specific Information: ID=0002 Rev=0 Len=00c <?>
+        Capabilities: [110 v1] Access Control Services
+                ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl- DirectTrans-
+                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+        Capabilities: [148 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Capabilities: [1d0 v1] Vendor Specific Information: ID=0003 Rev=1 Len=00a <?>
+        Capabilities: [250 v1] #19
+        Capabilities: [280 v1] Vendor Specific Information: ID=0004 Rev=2 Len=018 <?>
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 0b 3c 47 01 10 00 07 00 04 06 10 00 81 00
+10: 00 00 00 00 00 00 00 00 00 16 16 00 f0 00 00 00
+20: f0 ff 00 00 f1 ff 01 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 ff 01 03 00
+40: 0d 60 00 00 3c 10 a8 18 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 05 90 02 01 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 10 e0 42 00 01 80 00 00 26 00 00 00 43 78 5a 00
+a0: 00 00 01 10 00 00 00 00 c0 07 48 00 16 00 01 00
+b0: 00 00 00 00 3e 10 00 00 00 00 00 00 0e 00 00 00
+c0: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 c8 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:00:04.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 DMA Channel 0 [8086:3c20] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 DMA Channel 0 [103c:18a8]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 5
+        Region 0: Memory at f6cf0000 (64-bit, non-prefetchable) [size=16K]
+        Capabilities: [80] MSI-X: Enable+ Count=1 Masked-
+                Vector table: BAR=0 offset=00002000
+                PBA: BAR=0 offset=00003000
+        Capabilities: [90] Express (v2) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop+
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                DevCap2: Completion Timeout: Not Supported, TimeoutDis+, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Kernel driver in use: ioatdma
+        Kernel modules: ioatdma
+00: 86 80 20 3c 06 04 10 00 07 00 80 08 10 00 80 00
+10: 04 00 cf f6 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 80 00 00 00 00 00 00 00 05 01 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 0f 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 11 90 00 80 00 20 00 00 00 30 00 00 00 00 00 00
+90: 10 e0 92 00 00 80 00 00 00 08 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 00 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:00:04.1 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 DMA Channel 1 [8086:3c21] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 DMA Channel 1 [103c:18a8]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin B routed to IRQ 7
+        Region 0: Memory at f6ce0000 (64-bit, non-prefetchable) [size=16K]
+        Capabilities: [80] MSI-X: Enable+ Count=1 Masked-
+                Vector table: BAR=0 offset=00002000
+                PBA: BAR=0 offset=00003000
+        Capabilities: [90] Express (v2) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop+
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                DevCap2: Completion Timeout: Not Supported, TimeoutDis+, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Kernel driver in use: ioatdma
+        Kernel modules: ioatdma
+00: 86 80 21 3c 06 04 10 00 07 00 80 08 10 00 80 00
+10: 04 00 ce f6 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 80 00 00 00 00 00 00 00 07 02 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 11 90 00 80 00 20 00 00 00 30 00 00 00 00 00 00
+90: 10 e0 92 00 00 80 00 00 00 08 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 00 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:00:04.2 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 DMA Channel 2 [8086:3c22] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 DMA Channel 2 [103c:18a8]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin C routed to IRQ 10
+        Region 0: Memory at f6cd0000 (64-bit, non-prefetchable) [size=16K]
+        Capabilities: [80] MSI-X: Enable+ Count=1 Masked-
+                Vector table: BAR=0 offset=00002000
+                PBA: BAR=0 offset=00003000
+        Capabilities: [90] Express (v2) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop+
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                DevCap2: Completion Timeout: Not Supported, TimeoutDis+, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Kernel driver in use: ioatdma
+        Kernel modules: ioatdma
+00: 86 80 22 3c 06 04 10 00 07 00 80 08 10 00 80 00
+10: 04 00 cd f6 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 80 00 00 00 00 00 00 00 0a 03 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 11 90 00 80 00 20 00 00 00 30 00 00 00 00 00 00
+90: 10 e0 92 00 00 80 00 00 00 08 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 00 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:00:04.3 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 DMA Channel 3 [8086:3c23] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 DMA Channel 3 [103c:18a8]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin D routed to IRQ 10
+        Region 0: Memory at f6cc0000 (64-bit, non-prefetchable) [size=16K]
+        Capabilities: [80] MSI-X: Enable+ Count=1 Masked-
+                Vector table: BAR=0 offset=00002000
+                PBA: BAR=0 offset=00003000
+        Capabilities: [90] Express (v2) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop+
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                DevCap2: Completion Timeout: Not Supported, TimeoutDis+, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Kernel driver in use: ioatdma
+        Kernel modules: ioatdma
+00: 86 80 23 3c 06 04 10 00 07 00 80 08 10 00 80 00
+10: 04 00 cc f6 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 80 00 00 00 00 00 00 00 0a 04 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 11 90 00 80 00 20 00 00 00 30 00 00 00 00 00 00
+90: 10 e0 92 00 00 80 00 00 00 08 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 00 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:00:04.4 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 DMA Channel 4 [8086:3c24] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 DMA Channel 4 [103c:18a8]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 5
+        Region 0: Memory at f6cb0000 (64-bit, non-prefetchable) [size=16K]
+        Capabilities: [80] MSI-X: Enable+ Count=1 Masked-
+                Vector table: BAR=0 offset=00002000
+                PBA: BAR=0 offset=00003000
+        Capabilities: [90] Express (v2) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop+
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                DevCap2: Completion Timeout: Not Supported, TimeoutDis+, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Kernel driver in use: ioatdma
+        Kernel modules: ioatdma
+00: 86 80 24 3c 06 04 10 00 07 00 80 08 10 00 80 00
+10: 04 00 cb f6 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 80 00 00 00 00 00 00 00 05 01 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 11 90 00 80 00 20 00 00 00 30 00 00 00 00 00 00
+90: 10 e0 92 00 00 80 00 00 00 08 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 00 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:00:04.5 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 DMA Channel 5 [8086:3c25] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 DMA Channel 5 [103c:18a8]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin B routed to IRQ 7
+        Region 0: Memory at f6ca0000 (64-bit, non-prefetchable) [size=16K]
+        Capabilities: [80] MSI-X: Enable+ Count=1 Masked-
+                Vector table: BAR=0 offset=00002000
+                PBA: BAR=0 offset=00003000
+        Capabilities: [90] Express (v2) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop+
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                DevCap2: Completion Timeout: Not Supported, TimeoutDis+, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Kernel driver in use: ioatdma
+        Kernel modules: ioatdma
+00: 86 80 25 3c 06 04 10 00 07 00 80 08 10 00 80 00
+10: 04 00 ca f6 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 80 00 00 00 00 00 00 00 07 02 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 11 90 00 80 00 20 00 00 00 30 00 00 00 00 00 00
+90: 10 e0 92 00 00 80 00 00 00 08 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 00 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:00:04.6 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 DMA Channel 6 [8086:3c26] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 DMA Channel 6 [103c:18a8]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin C routed to IRQ 10
+        Region 0: Memory at f6c90000 (64-bit, non-prefetchable) [size=16K]
+        Capabilities: [80] MSI-X: Enable+ Count=1 Masked-
+                Vector table: BAR=0 offset=00002000
+                PBA: BAR=0 offset=00003000
+        Capabilities: [90] Express (v2) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop+
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                DevCap2: Completion Timeout: Not Supported, TimeoutDis+, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Kernel driver in use: ioatdma
+        Kernel modules: ioatdma
+00: 86 80 26 3c 06 04 10 00 07 00 80 08 10 00 80 00
+10: 04 00 c9 f6 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 80 00 00 00 00 00 00 00 0a 03 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 11 90 00 80 00 20 00 00 00 30 00 00 00 00 00 00
+90: 10 e0 92 00 00 80 00 00 00 08 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 00 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:00:04.7 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 DMA Channel 7 [8086:3c27] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 DMA Channel 7 [103c:18a8]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin D routed to IRQ 10
+        Region 0: Memory at f6c80000 (64-bit, non-prefetchable) [size=16K]
+        Capabilities: [80] MSI-X: Enable+ Count=1 Masked-
+                Vector table: BAR=0 offset=00002000
+                PBA: BAR=0 offset=00003000
+        Capabilities: [90] Express (v2) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop+
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                DevCap2: Completion Timeout: Not Supported, TimeoutDis+, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Kernel driver in use: ioatdma
+        Kernel modules: ioatdma
+00: 86 80 27 3c 06 04 10 00 07 00 80 08 10 00 80 00
+10: 04 00 c8 f6 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 80 00 00 00 00 00 00 00 0a 04 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 11 90 00 80 00 20 00 00 00 30 00 00 00 00 00 00
+90: 10 e0 92 00 00 80 00 00 00 08 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 00 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:00:05.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Address Map, VTd_Misc, System Management [8086:3c28] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Address Map, VTd_Misc, System Management [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v2) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                DevCap2: Completion Timeout: Not Supported, TimeoutDis-, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+00: 86 80 28 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 92 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 c0 00 00 00 cc 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 be 00 00 f0 be
+b0: 00 00 ff ff ff ff 07 00 00 00 00 00 00 00 00 00
+c0: 00 00 ff ff ff ff 07 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 bc 00 00 00 3c 10 00 00 00 00 00 00 00
+e0: 00 00 00 fc ff ff ff ff 00 00 00 00 00 00 00 00
+f0: 00 00 f8 ff ff ff ff ff 00 00 00 00 00 00 00 00
+
+0000:00:05.2 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Control Status and Global Errors [8086:3c2a] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Control Status and Global Errors [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v2) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 4096 bytes
+                DevSta: CorrErr+ UncorrErr+ FatalErr+ UnsuppReq- AuxPwr- TransPend-
+                DevCap2: Completion Timeout: Not Supported, TimeoutDis-, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+00: 86 80 2a 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 92 00 00 00 00 00 06 50 07 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 50 01 20 28 00 00 00 00 00 00 00 00 65 15 00 00
+90: 00 00 00 00 15 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 2a 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 c4 09 96 1e
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:00:05.4 PIC [0800]: Intel Corporation Xeon E5/Core i7 I/O APIC [8086:3c2c] (rev 07) (prog-if 20 [IO(X)-APIC])
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 I/O APIC [103c:18a8]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Region 0: Memory at f6c70000 (32-bit, non-prefetchable) [size=4K]
+        Capabilities: [6c] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+00: 86 80 2c 3c 06 00 10 00 07 20 00 08 10 00 80 00
+10: 00 00 c7 f6 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 6c 00 00 00 00 00 00 00 00 00 00 00
+40: 00 81 00 00 10 e0 91 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 01 00 03 00
+70: 08 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:00:11.0 PCI bridge [0604]: Intel Corporation C600/X79 series chipset PCI Express Virtual Root Port [8086:1d3e] (rev 05) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 16
+        Bus: primary=00, secondary=18, subordinate=18, sec-latency=0
+        I/O behind bridge: 0000f000-00000fff
+        Memory behind bridge: fff00000-000fffff
+        Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort+ <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 4096 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #17, Speed 2.5GT/s, Width x1, ASPM L0s L1, Exit Latency L0s <64ns, L1 <1us
+                        ClockPM- Surprise- LLActRep- BwNot- ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled+ CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x1, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible-
+                RootCap: CRSVisible-
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Not Supported, TimeoutDis-, LTR-, OBFF Not Supported ARIFwd+
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 2.5GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [80] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [88] Subsystem: Hewlett-Packard Company C600/X79 series chipset PCI Express Virtual Root Port [103c:18a9]
+        Capabilities: [90] MSI: Enable- Count=1/1 Maskable- 64bit-
+                Address: 00000000  Data: 0000
+        Capabilities: [100 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP+ SDES- TLP- FCP+ CmpltTO- CmpltAbrt- UnxCmplt- RxOF+ MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Capabilities: [138 v1] Access Control Services
+                ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl- DirectTrans+
+                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 3e 1d 47 01 10 00 05 00 04 06 10 00 01 00
+10: 00 00 00 00 00 00 00 00 00 18 18 00 f0 00 00 20
+20: f0 ff 00 00 f1 ff 01 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 ff 01 03 00
+40: 10 80 42 00 00 80 00 00 06 50 00 00 11 0c 40 11
+50: 10 00 11 10 00 00 00 00 00 00 00 00 06 00 00 00
+60: 00 00 00 00 20 00 00 00 00 00 00 00 02 00 00 00
+70: 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 01 88 03 c8 08 00 00 00 0d 90 00 00 3c 10 a9 18
+90: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 f6 01 00 80 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 01 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:00:1a.0 USB controller [0c03]: Intel Corporation C600/X79 series chipset USB2 Enhanced Host Controller #2 [8086:1d2d] (rev 05) (prog-if 20 [EHCI])
+        Subsystem: Hewlett-Packard Company C600/X79 series chipset USB2 Enhanced Host Controller [103c:18a9]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B+ ParErr- DEVSEL=medium >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0
+        Interrupt: pin A routed to IRQ 21
+        Region 0: Memory at f6c60000 (32-bit, non-prefetchable) [size=1K]
+        Capabilities: [50] Power Management version 2
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=375mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst- PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [58] Debug port: BAR=1 offset=00a0
+        Capabilities: [98] PCI Advanced Features
+                AFCap: TP+ FLR+
+                AFCtrl: FLR-
+                AFStatus: TP-
+        Kernel driver in use: ehci-pci
+00: 86 80 2d 1d 46 01 90 02 05 20 03 0c 00 00 00 00
+10: 00 00 c6 f6 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a9 18
+30: 00 00 00 00 50 00 00 00 00 00 00 00 07 01 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 01 58 c2 c9 00 00 00 00 0a 98 a0 20 00 00 00 00
+60: 20 20 ff 07 00 00 00 00 01 00 00 01 00 00 00 c0
+70: 00 00 df 3f 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 80 00 11 88 0c 93 30 0d 08 24 00 00 00 00
+90: 00 00 00 00 00 00 00 00 13 00 06 03 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 aa ff 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 40 02 08 00 00 91 01 50 14 50 03 c5
+f0: 00 00 00 00 88 85 8f 00 87 0f 07 08 e8 97 5b 20
+
+0000:00:1c.0 PCI bridge [0604]: Intel Corporation C600/X79 series chipset PCI Express Root Port 1 [8086:1d10] (rev b5) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 16
+        Bus: primary=00, secondary=0a, subordinate=0a, sec-latency=0
+        I/O behind bridge: 0000f000-00000fff
+        Memory behind bridge: fff00000-000fffff
+        Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort+ <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr+ TransPend-
+                LnkCap: Port #1, Speed 5GT/s, Width x4, ASPM L0s L1, Exit Latency L0s <1us, L1 <4us
+                        ClockPM- Surprise- LLActRep+ BwNot- ASPMOptComp-
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x0, TrErr- Train+ SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible-
+                RootCap: CRSVisible-
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BC, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd-
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 5GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -3.5dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [80] MSI: Enable- Count=1/1 Maskable- 64bit-
+                Address: 00000000  Data: 0000
+        Capabilities: [90] Subsystem: Hewlett-Packard Company C600/X79 series chipset PCI Express Root Port 1 [103c:18a9]
+        Capabilities: [a0] Power Management version 2
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst- PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 10 1d 47 01 10 00 b5 00 04 06 10 00 81 00
+10: 00 00 00 00 00 00 00 00 00 0a 0a 00 f0 00 00 20
+20: f0 ff 00 00 f1 ff 01 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 ff 01 03 00
+40: 10 80 42 00 00 80 00 00 06 00 10 00 42 4c 11 01
+50: 00 00 01 18 60 00 04 00 00 00 40 00 06 00 00 00
+60: 00 00 00 00 16 00 00 00 00 00 00 00 00 00 00 00
+70: 02 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 05 90 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 0d a0 00 00 3c 10 a9 18 00 00 00 00 00 00 00 00
+a0: 01 00 02 c8 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 01 02 0b 00 00 00 80 11 01 00 00 00 00
+e0: 00 3c 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 87 0f 07 08 00 00 00 00
+
+0000:00:1c.7 PCI bridge [0604]: Intel Corporation C600/X79 series chipset PCI Express Root Port 8 [8086:1d1e] (rev b5) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin D routed to IRQ 19
+        Bus: primary=00, secondary=01, subordinate=01, sec-latency=0
+        I/O behind bridge: 00003000-00003fff
+        Memory behind bridge: f6d00000-f7dfffff
+        Prefetchable memory behind bridge: 00000000f5000000-00000000f5ffffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort+ <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA+ MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr+ TransPend-
+                LnkCap: Port #8, Speed 5GT/s, Width x1, ASPM L0s L1, Exit Latency L0s <1us, L1 <4us
+                        ClockPM- Surprise- LLActRep+ BwNot- ASPMOptComp-
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x1, TrErr- Train- SlotClk+ DLActive+ BWMgmt+ ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible-
+                RootCap: CRSVisible-
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BC, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd-
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 5GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -3.5dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [80] MSI: Enable- Count=1/1 Maskable- 64bit-
+                Address: 00000000  Data: 0000
+        Capabilities: [90] Subsystem: Hewlett-Packard Company C600/X79 series chipset PCI Express Root Port 8 [103c:18a9]
+        Capabilities: [a0] Power Management version 2
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst- PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 1e 1d 47 01 10 00 b5 00 04 06 10 00 81 00
+10: 00 00 00 00 00 00 00 00 00 01 01 00 30 30 00 20
+20: d0 f6 d0 f7 01 f5 f1 f5 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 ff 04 0b 00
+40: 10 80 42 00 00 80 00 00 06 00 10 00 12 4c 11 08
+50: 00 00 11 70 60 00 04 00 00 00 40 01 06 00 00 00
+60: 00 00 00 00 16 00 00 00 00 00 00 00 00 00 00 00
+70: 02 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 05 90 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 0d a0 00 00 3c 10 a9 18 00 00 00 00 00 00 00 00
+a0: 01 00 02 c8 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 01 02 0b 00 00 00 80 11 01 00 00 00 00
+e0: 00 03 00 00 00 00 00 00 01 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 87 0f 07 08 00 00 00 00
+
+0000:00:1d.0 USB controller [0c03]: Intel Corporation C600/X79 series chipset USB2 Enhanced Host Controller #1 [8086:1d26] (rev 05) (prog-if 20 [EHCI])
+        Subsystem: Hewlett-Packard Company C600/X79 series chipset USB2 Enhanced Host Controller [103c:18a9]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B+ ParErr- DEVSEL=medium >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0
+        Interrupt: pin A routed to IRQ 20
+        Region 0: Memory at f6c50000 (32-bit, non-prefetchable) [size=1K]
+        Capabilities: [50] Power Management version 2
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=375mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst- PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [58] Debug port: BAR=1 offset=00a0
+        Capabilities: [98] PCI Advanced Features
+                AFCap: TP+ FLR+
+                AFCtrl: FLR-
+                AFStatus: TP-
+        Kernel driver in use: ehci-pci
+00: 86 80 26 1d 46 01 90 02 05 20 03 0c 00 00 00 00
+10: 00 00 c5 f6 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a9 18
+30: 00 00 00 00 50 00 00 00 00 00 00 00 05 01 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 01 58 c2 c9 00 00 00 00 0a 98 a0 20 00 00 00 00
+60: 20 20 ff 07 00 00 00 00 01 00 00 01 00 00 08 c0
+70: 00 00 df 3f 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 80 00 11 88 0c 93 30 0d 08 24 00 00 00 00
+90: 00 00 00 00 00 00 00 00 13 00 06 03 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 aa ff 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 80 46 00 89 04 68 00 02 04 10 4c b9
+f0: 00 00 00 00 88 85 8f 00 87 0f 07 08 e8 97 5b 20
+
+0000:00:1e.0 PCI bridge [0604]: Intel Corporation 82801 PCI Bridge [8086:244e] (rev a5) (prog-if 01 [Subtractive decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0
+        Bus: primary=00, secondary=17, subordinate=17, sec-latency=32
+        I/O behind bridge: 0000f000-00000fff
+        Memory behind bridge: fff00000-000fffff
+        Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff
+        Secondary status: 66MHz- FastB2B+ ParErr- DEVSEL=medium >TAbort- <TAbort- <MAbort+ <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [50] Subsystem: Hewlett-Packard Company 82801 PCI Bridge [103c:18a9]
+00: 86 80 4e 24 47 01 10 00 a5 01 04 06 00 00 01 00
+10: 00 00 00 00 00 00 00 00 00 17 17 20 f0 00 80 22
+20: f0 ff 00 00 f1 ff 01 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 50 00 00 00 00 00 00 00 ff 00 03 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 12 00 10
+50: 0d 00 00 00 3c 10 a9 18 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 87 0f 07 08 00 00 00 00
+
+0000:00:1f.0 ISA bridge [0601]: Intel Corporation C600/X79 series chipset LPC Controller [8086:1d41] (rev 05)
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=medium >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0
+        Capabilities: [e0] Vendor Specific Information: Len=0c <?>
+        Kernel driver in use: lpc_ich
+        Kernel modules: lpc_ich
+00: 86 80 41 1d 47 01 10 02 05 00 01 06 00 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 e0 00 00 00 00 00 00 00 00 00 00 00
+40: 01 09 00 00 80 00 00 00 81 08 00 00 10 00 00 00
+50: f8 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 85 87 8a 8a d0 00 00 00 85 87 80 80 f1 00 00 00
+70: f8 00 f8 00 f8 00 f8 00 f8 00 f8 00 f8 00 f8 00
+80: 10 00 0b 34 01 08 fc 00 a1 0c 0c 00 d1 0c 0c 00
+90: 11 03 1c 00 30 0f 00 00 00 00 00 00 00 00 00 00
+a0: 00 0a 24 00 00 42 00 00 00 47 00 00 00 03 00 40
+b0: 00 00 00 00 00 00 00 00 00 40 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 67 45 00 00 cf ff 00 00 20 00 00 00
+e0: 09 00 0c 10 00 00 00 00 91 02 64 0c 00 00 00 00
+f0: 01 c0 d1 fe 00 00 00 00 87 0f 07 08 00 00 00 00
+
+0000:00:1f.2 IDE interface [0101]: Intel Corporation C600/X79 series chipset 4-Port SATA IDE Controller [8086:1d00] (rev 05) (prog-if 8f [Master SecP SecO PriP PriO])
+        Subsystem: Hewlett-Packard Company C600/X79 series chipset 4-Port SATA IDE Controller [103c:18a9]
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz+ UDF- FastB2B+ ParErr- DEVSEL=medium >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0
+        Interrupt: pin B routed to IRQ 17
+        Region 0: I/O ports at 4000 [size=8]
+        Region 1: I/O ports at 4008 [size=4]
+        Region 2: I/O ports at 4010 [size=8]
+        Region 3: I/O ports at 4018 [size=4]
+        Region 4: I/O ports at 4020 [size=16]
+        Region 5: I/O ports at 4030 [size=16]
+        Capabilities: [70] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [b0] PCI Advanced Features
+                AFCap: TP+ FLR+
+                AFCtrl: FLR-
+                AFStatus: TP-
+        Kernel driver in use: ata_piix
+        Kernel modules: pata_acpi
+00: 86 80 00 1d 47 00 b0 02 05 8f 01 01 00 00 00 00
+10: 01 40 00 00 09 40 00 00 11 40 00 00 19 40 00 00
+20: 21 40 00 00 31 40 00 00 00 00 00 00 3c 10 a9 18
+30: 00 00 00 00 70 00 00 00 00 00 00 00 07 02 00 00
+40: 00 80 00 80 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 01 b0 03 00 08 00 00 00 00 00 00 00 00 00 00 00
+80: 05 70 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 0f 81 83 01 00 3e 00 02 58 00 00 02 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 13 00 06 03 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 05 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 87 0f 07 08 00 00 00 00
+
+0000:01:00.0 System peripheral [0880]: Hewlett-Packard Company Integrated Lights-Out Standard Slave Instrumentation & System Support [103c:3306] (rev 05)
+        Subsystem: Hewlett-Packard Company iLO4 [103c:3381]
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 5
+        Region 0: I/O ports at 3000 [size=256]
+        Region 1: Memory at f7df0000 (32-bit, non-prefetchable) [size=512]
+        Region 2: I/O ports at 3400 [size=256]
+        Capabilities: [78] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [b0] MSI: Enable- Count=1/1 Maskable- 64bit+
+                Address: 0000000000000000  Data: 0000
+        Capabilities: [c0] Express (v1) Legacy Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0, Latency L0s unlimited, L1 unlimited
+                        ExtTag- AttnBtn- AttnInd- PwrInd- RBE+ FLReset-
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq+ AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 2.5GT/s, Width x1, ASPM L0s, Exit Latency L0s <4us, L1 <4us
+                        ClockPM- Surprise- LLActRep- BwNot- ASPMOptComp-
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x1, TrErr- Train- SlotClk- DLActive- BWMgmt- ABWMgmt-
+        Kernel modules: hpwdt
+00: 3c 10 06 33 07 00 10 00 05 00 80 08 10 00 80 00
+10: 01 30 00 00 00 00 df f7 01 34 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 81 33
+30: 00 00 00 00 78 00 00 00 00 00 00 00 05 01 00 00
+40: 27 df dc 00 51 2c 00 00 00 00 00 00 06 01 06 00
+50: 04 00 db d9 00 00 00 02 ef fe fc 77 01 00 00 5a
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 80 00 00 01 01 01 b0 03 00 08 00 00 00
+80: 00 00 00 00 00 01 00 f7 40 00 00 03 43 50 51 00
+90: 01 00 00 00 02 00 00 5f 00 00 10 00 00 00 00 60
+a0: 00 00 00 00 50 fe 02 00 2e 00 00 00 00 00 00 00
+b0: 05 c0 80 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 10 00 11 00 c0 8f 00 00 06 00 08 00 11 64 01 00
+d0: 00 00 11 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:01:00.1 VGA compatible controller [0300]: Matrox Electronics Systems Ltd. MGA G200EH [102b:0533] (prog-if 00 [VGA controller])
+        Subsystem: Hewlett-Packard Company iLO4 [103c:3381]
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin B routed to IRQ 7
+        Region 0: Memory at f5000000 (32-bit, prefetchable) [size=16M]
+        Region 1: Memory at f7de0000 (32-bit, non-prefetchable) [size=16K]
+        Region 2: Memory at f7000000 (32-bit, non-prefetchable) [size=8M]
+        Expansion ROM at <unassigned> [disabled]
+        Capabilities: [a8] Power Management version 3
+                Flags: PMEClk- DSI+ D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [b0] MSI: Enable- Count=1/1 Maskable- 64bit+
+                Address: 0000000000000000  Data: 0000
+        Capabilities: [c0] Express (v1) Legacy Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0, Latency L0s unlimited, L1 unlimited
+                        ExtTag- AttnBtn- AttnInd- PwrInd- RBE+ FLReset-
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq+ AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 2.5GT/s, Width x1, ASPM L0s, Exit Latency L0s <4us, L1 <4us
+                        ClockPM- Surprise- LLActRep- BwNot- ASPMOptComp-
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x1, TrErr- Train- SlotClk- DLActive- BWMgmt- ABWMgmt-
+00: 2b 10 33 05 47 00 10 00 00 00 00 03 10 00 80 00
+10: 08 00 00 f5 00 00 de f7 00 00 00 f7 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 81 33
+30: 00 00 00 00 a8 00 00 00 00 00 00 00 07 02 00 00
+40: 20 01 00 00 08 3c 00 00 00 00 1e 00 00 00 00 00
+50: 00 30 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 01 00 00 00 4b 00 09 00 00 00 00 00 00 03 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 03 00 00 0f 01 b0 23 00 08 00 00 00
+b0: 05 c0 80 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 10 00 11 00 c0 8f 00 00 06 00 08 00 11 64 01 00
+d0: 00 00 11 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:01:00.2 System peripheral [0880]: Hewlett-Packard Company Integrated Lights-Out Standard Management Processor Support and Messaging [103c:3307] (rev 05)
+        Subsystem: Hewlett-Packard Company iLO4 [103c:3381]
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin B routed to IRQ 16
+        Region 0: I/O ports at 3800 [size=256]
+        Region 1: Memory at f6ff0000 (32-bit, non-prefetchable) [size=256]
+        Region 2: Memory at f6e00000 (32-bit, non-prefetchable) [size=1M]
+        Region 3: Memory at f6d80000 (32-bit, non-prefetchable) [size=512K]
+        Region 4: Memory at f6d70000 (32-bit, non-prefetchable) [size=32K]
+        Region 5: Memory at f6d60000 (32-bit, non-prefetchable) [size=32K]
+        [virtual] Expansion ROM at f6d00000 [disabled] [size=64K]
+        Capabilities: [78] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [b0] MSI: Enable- Count=1/1 Maskable- 64bit+
+                Address: 0000000000000000  Data: 0000
+        Capabilities: [c0] Express (v1) Legacy Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0, Latency L0s unlimited, L1 unlimited
+                        ExtTag- AttnBtn- AttnInd- PwrInd- RBE+ FLReset-
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq+ AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 2.5GT/s, Width x1, ASPM L0s, Exit Latency L0s <4us, L1 <4us
+                        ClockPM- Surprise- LLActRep- BwNot- ASPMOptComp-
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x1, TrErr- Train- SlotClk- DLActive- BWMgmt- ABWMgmt-
+        Kernel driver in use: hpilo
+        Kernel modules: hpilo
+00: 3c 10 07 33 07 00 10 00 05 00 80 08 10 00 80 00
+10: 01 38 00 00 00 00 ff f6 00 00 e0 f6 00 00 d8 f6
+20: 00 00 d7 f6 00 00 d6 f6 00 00 00 00 3c 10 81 33
+30: 00 00 00 00 78 00 00 00 00 00 00 00 07 02 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 01 b0 03 c8 08 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 62 00 05 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 05 c0 80 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 10 00 11 00 c0 8f 00 00 06 00 08 00 11 64 01 00
+d0: 00 00 11 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:01:00.4 USB controller [0c03]: Hewlett-Packard Company Integrated Lights-Out Standard Virtual USB Controller [103c:3300] (rev 02) (prog-if 00 [UHCI])
+        Subsystem: Hewlett-Packard Company iLO4 [103c:3381]
+        Control: I/O+ Mem- BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin B routed to IRQ 16
+        Region 4: I/O ports at 3c00 [size=32]
+        Capabilities: [70] MSI: Enable- Count=1/1 Maskable- 64bit+
+                Address: 0000000000000000  Data: 0000
+        Capabilities: [80] Express (v1) Legacy Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0, Latency L0s unlimited, L1 unlimited
+                        ExtTag- AttnBtn- AttnInd- PwrInd- RBE+ FLReset-
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq+ AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 2.5GT/s, Width x1, ASPM L0s, Exit Latency L0s <4us, L1 <4us
+                        ClockPM- Surprise- LLActRep- BwNot- ASPMOptComp-
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x1, TrErr- Train- SlotClk- DLActive- BWMgmt- ABWMgmt-
+        Capabilities: [f0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Kernel driver in use: uhci_hcd
+00: 3c 10 00 33 45 00 10 00 02 00 03 0c 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 01 3c 00 00 00 00 00 00 00 00 00 00 3c 10 81 33
+30: 00 00 00 00 70 00 00 00 00 00 00 00 07 02 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 10 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 05 80 80 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 10 f0 11 00 c0 8f 00 00 06 00 08 00 11 64 01 00
+90: 00 00 11 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 20 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 01 00 03 00 08 00 00 00 00 00 00 00 00 00 00 00
+
+0000:02:00.0 RAID bus controller [0104]: Hewlett-Packard Company Smart Array Gen8 Controllers [103c:323b] (rev 01)
+        DeviceName: Storage Controller
+        Subsystem: Hewlett-Packard Company P420i [103c:3354]
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR- FastB2B- DisINTx+
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 26
+        Region 0: Memory at f7f00000 (64-bit, non-prefetchable) [size=1M]
+        Region 2: Memory at f7ef0000 (64-bit, non-prefetchable) [size=1K]
+        Region 4: I/O ports at 5000 [size=256]
+        [virtual] Expansion ROM at f7e00000 [disabled] [size=512K]
+        Capabilities: [80] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1+,D2-,D3hot+,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [90] MSI: Enable- Count=1/32 Maskable+ 64bit+
+                Address: 0000000000000000  Data: 0000
+                Masking: 00000000  Pending: 00000000
+        Capabilities: [b0] MSI-X: Enable+ Count=64 Masked-
+                Vector table: BAR=0 offset=00002000
+                PBA: BAR=0 offset=00003000
+        Capabilities: [c0] Express (v2) Endpoint, MSI 00
+                DevCap: MaxPayload 512 bytes, PhantFunc 0, Latency L0s <4us, L1 <1us
+                        ExtTag+ AttnBtn- AttnInd- PwrInd- RBE+ FLReset-
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd+ ExtTag- PhantFunc- AuxPwr- NoSnoop+
+                        MaxPayload 256 bytes, MaxReadReq 4096 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 8GT/s, Width x8, ASPM L0s L1, Exit Latency L0s unlimited, L1 <64us
+                        ClockPM- Surprise- LLActRep- BwNot- ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 8GT/s, Width x8, TrErr- Train- SlotClk- DLActive- BWMgmt- ABWMgmt-
+                DevCap2: Completion Timeout: Range B, TimeoutDis+, LTR+, OBFF Via message
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+                LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -3.5dB, EqualizationComplete+, EqualizationPhase1+
+                         EqualizationPhase2+, EqualizationPhase3+, LinkEqualizationRequest-
+        Capabilities: [100 v2] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES+ TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap+ CGenEn- ChkCap+ ChkEn-
+        Capabilities: [300 v1] #19
+        Kernel driver in use: hpsa
+        Kernel modules: hpsa
+00: 3c 10 3b 32 47 04 10 00 01 00 04 01 10 00 00 00
+10: 04 00 f0 f7 00 00 00 00 04 00 ef f7 00 00 00 00
+20: 01 50 00 00 00 00 00 00 00 00 00 00 3c 10 54 33
+30: 00 00 00 00 80 00 00 00 00 00 00 00 05 01 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 01 90 03 58 08 00 00 00 00 00 00 00 00 00 00 00
+90: 05 b0 8a 01 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 11 c0 3f 80 00 20 00 00 00 30 00 00 00 00 00 00
+c0: 10 00 02 00 a2 81 00 00 36 58 00 00 83 7c 43 00
+d0: 00 00 83 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 92 1b 04 00 00 00 00 00 0e 00 00 00
+f0: 03 00 1f 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:03:00.0 Ethernet controller [0200]: Broadcom Corporation NetXtreme BCM5719 Gigabit Ethernet PCIe [14e4:1657] (rev 01)
+        DeviceName: NIC Port 1
+        Subsystem: Hewlett-Packard Company Ethernet 1Gb 4-port 331FLR Adapter [103c:169d]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR- FastB2B- DisINTx+
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 51
+        Region 0: Memory at f6bf0000 (64-bit, prefetchable) [size=64K]
+        Region 2: Memory at f6be0000 (64-bit, prefetchable) [size=64K]
+        Region 4: Memory at f6bd0000 (64-bit, prefetchable) [size=64K]
+        [virtual] Expansion ROM at f4000000 [disabled] [size=128K]
+        Capabilities: [48] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=1 PME-
+        Capabilities: [50] Vital Product Data
+                Product Name: HP Ethernet 1Gb 4-port 331FLR Adapter
+                Read-only fields:
+                        [PN] Part number: 629133-001
+                        [EC] Engineering changes: ECdate
+                        [SN] Serial number: serial number
+                        [V0] Vendor specific: PCIe x4 gen2, PW=5W
+                        [V2] Vendor specific: MFG Date
+                        [V4] Vendor specific: MAC address
+                        [V5] Vendor specific: Rev A
+                        [RV] Reserved: checksum good, 3 byte(s) reserved
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                Read/write fields:
+                        [V1] Vendor specific: N/A
+                        [V3] Vendor specific: FW ver 1.24
+                        [V6] Vendor specific: PXE ver 15.0.12
+                        [RW] Read-write area: 99 byte(s) free
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                End
+        Capabilities: [58] MSI: Enable- Count=1/8 Maskable- 64bit+
+                Address: 0000000000000000  Data: 0000
+        Capabilities: [a0] MSI-X: Enable+ Count=17 Masked-
+                Vector table: BAR=4 offset=00000000
+                PBA: BAR=4 offset=00001000
+        Capabilities: [ac] Express (v2) Endpoint, MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0, Latency L0s <4us, L1 <64us
+                        ExtTag- AttnBtn- AttnInd- PwrInd- RBE+ FLReset+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr+ NoSnoop- FLReset-
+                        MaxPayload 256 bytes, MaxReadReq 4096 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr+ TransPend-
+                LnkCap: Port #0, Speed 5GT/s, Width x4, ASPM L0s L1, Exit Latency L0s <1us, L1 <2us
+                        ClockPM+ Surprise- LLActRep- BwNot- ASPMOptComp-
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk+
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 5GT/s, Width x4, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                DevCap2: Completion Timeout: Range ABCD, TimeoutDis+, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+                LnkCtl2: Target Link Speed: 2.5GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [100 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES+ TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr+
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap+ CGenEn- ChkCap+ ChkEn-
+        Capabilities: [13c v1] Device Serial Number 00-00-d8-9d-67-15-36-e4
+        Capabilities: [150 v1] Power Budgeting <?>
+        Capabilities: [160 v1] Virtual Channel
+                Caps:   LPEVC=0 RefClk=100ns PATEntryBits=1
+                Arb:    Fixed- WRR32- WRR64- WRR128-
+                Ctrl:   ArbSelect=Fixed
+                Status: InProgress-
+                VC0:    Caps:   PATOffset=00 MaxTimeSlots=1 RejSnoopTrans-
+                        Arb:    Fixed- WRR32- WRR64- WRR128- TWRR128- WRR256-
+                        Ctrl:   Enable+ ID=0 ArbSelect=Fixed TC/VC=ff
+                        Status: NegoPending- InProgress-
+        Kernel driver in use: tg3
+        Kernel modules: tg3
+00: e4 14 57 16 46 04 10 00 01 00 00 02 10 00 80 00
+10: 0c 00 bf f6 00 00 00 00 0c 00 be f6 00 00 00 00
+20: 0c 00 bd f6 00 00 00 00 00 00 00 00 3c 10 9d 16
+30: 00 00 00 00 48 00 00 00 00 00 00 00 05 01 00 00
+40: 00 00 00 00 00 00 00 91 01 50 03 c8 08 20 00 64
+50: 03 58 1c 83 00 00 00 78 05 a0 86 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 98 02 01 f0 81 00 38 00
+70: b0 10 07 00 61 e1 45 78 00 00 00 00 00 00 00 00
+80: e4 14 57 16 f8 00 00 80 00 00 00 00 59 01 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 05 04 00 00
+a0: 11 ac 10 80 04 00 00 00 04 10 00 00 10 00 02 00
+b0: 81 8d 00 10 26 54 10 00 42 cc 04 00 40 00 42 10
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 1f 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 01 90 71 05 00 00 00 00 00 3f 77 d6
+
+0000:03:00.1 Ethernet controller [0200]: Broadcom Corporation NetXtreme BCM5719 Gigabit Ethernet PCIe [14e4:1657] (rev 01)
+        DeviceName: NIC Port 2
+        Subsystem: Hewlett-Packard Company Ethernet 1Gb 4-port 331FLR Adapter [103c:169d]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin B routed to IRQ 52
+        Region 0: Memory at f6bc0000 (64-bit, prefetchable) [size=64K]
+        Region 2: Memory at f6bb0000 (64-bit, prefetchable) [size=64K]
+        Region 4: Memory at f6ba0000 (64-bit, prefetchable) [size=64K]
+        [virtual] Expansion ROM at f4020000 [disabled] [size=128K]
+        Capabilities: [48] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=1 PME-
+        Capabilities: [50] Vital Product Data
+                Product Name: HP Ethernet 1Gb 4-port 331FLR Adapter
+                Read-only fields:
+                        [PN] Part number: 629133-001
+                        [EC] Engineering changes: ECdate
+                        [SN] Serial number: serial number
+                        [V0] Vendor specific: PCIe x4 gen2, PW=5W
+                        [V2] Vendor specific: MFG Date
+                        [V4] Vendor specific: MAC address
+                        [V5] Vendor specific: Rev A
+                        [RV] Reserved: checksum good, 3 byte(s) reserved
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                Read/write fields:
+                        [V1] Vendor specific: N/A
+                        [V3] Vendor specific: FW ver 1.24
+                        [V6] Vendor specific: PXE ver 15.0.12
+                        [RW] Read-write area: 99 byte(s) free
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                End
+        Capabilities: [58] MSI: Enable- Count=1/8 Maskable- 64bit+
+                Address: 0000000000000000  Data: 0000
+        Capabilities: [a0] MSI-X: Enable- Count=17 Masked-
+                Vector table: BAR=4 offset=00000000
+                PBA: BAR=4 offset=00001000
+        Capabilities: [ac] Express (v2) Endpoint, MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0, Latency L0s <4us, L1 <64us
+                        ExtTag- AttnBtn- AttnInd- PwrInd- RBE+ FLReset+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd+ ExtTag- PhantFunc- AuxPwr+ NoSnoop+ FLReset-
+                        MaxPayload 256 bytes, MaxReadReq 4096 bytes
+                DevSta: CorrErr+ UncorrErr- FatalErr- UnsuppReq+ AuxPwr+ TransPend-
+                LnkCap: Port #0, Speed 5GT/s, Width x4, ASPM L0s L1, Exit Latency L0s <1us, L1 <2us
+                        ClockPM+ Surprise- LLActRep- BwNot- ASPMOptComp-
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk+
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 5GT/s, Width x4, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                DevCap2: Completion Timeout: Range ABCD, TimeoutDis+, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [100 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES+ TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr+
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap+ CGenEn- ChkCap+ ChkEn-
+        Capabilities: [13c v1] Device Serial Number 00-00-d8-9d-67-15-36-e5
+        Capabilities: [150 v1] Power Budgeting <?>
+        Capabilities: [160 v1] Virtual Channel
+                Caps:   LPEVC=0 RefClk=100ns PATEntryBits=1
+                Arb:    Fixed- WRR32- WRR64- WRR128-
+                Ctrl:   ArbSelect=Fixed
+                Status: InProgress-
+                VC0:    Caps:   PATOffset=00 MaxTimeSlots=1 RejSnoopTrans-
+                        Arb:    Fixed- WRR32- WRR64- WRR128- TWRR128- WRR256-
+                        Ctrl:   Enable+ ID=0 ArbSelect=Fixed TC/VC=ff
+                        Status: NegoPending- InProgress-
+        Kernel driver in use: tg3
+        Kernel modules: tg3
+00: e4 14 57 16 46 00 10 00 01 00 00 02 10 00 80 00
+10: 0c 00 bc f6 00 00 00 00 0c 00 bb f6 00 00 00 00
+20: 0c 00 ba f6 00 00 00 00 00 00 00 00 3c 10 9d 16
+30: 00 00 00 00 48 00 00 00 00 00 00 00 07 02 00 00
+40: 00 00 00 00 00 00 00 00 01 50 03 c8 08 20 00 64
+50: 03 58 1c 83 00 00 00 78 05 a0 86 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 9a 02 01 f0 00 00 38 00
+70: b2 10 07 00 a8 15 a4 78 00 00 00 00 00 00 00 00
+80: e4 14 57 16 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 11 ac 10 00 04 00 00 00 04 10 00 00 10 00 02 00
+b0: 81 8d 00 10 36 5c 19 00 42 cc 04 00 40 00 42 10
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 1f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 01 90 71 05 00 00 00 00 00 00 00 00
+
+0000:03:00.2 Ethernet controller [0200]: Broadcom Corporation NetXtreme BCM5719 Gigabit Ethernet PCIe [14e4:1657] (rev 01)
+        DeviceName: NIC Port 3
+        Subsystem: Hewlett-Packard Company Ethernet 1Gb 4-port 331FLR Adapter [103c:169d]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 51
+        Region 0: Memory at f6b90000 (64-bit, prefetchable) [size=64K]
+        Region 2: Memory at f6b80000 (64-bit, prefetchable) [size=64K]
+        Region 4: Memory at f6b70000 (64-bit, prefetchable) [size=64K]
+        [virtual] Expansion ROM at f4040000 [disabled] [size=128K]
+        Capabilities: [48] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=1 PME-
+        Capabilities: [50] Vital Product Data
+                Product Name: HP Ethernet 1Gb 4-port 331FLR Adapter
+                Read-only fields:
+                        [PN] Part number: 629133-001
+                        [EC] Engineering changes: ECdate
+                        [SN] Serial number: serial number
+                        [V0] Vendor specific: PCIe x4 gen2, PW=5W
+                        [V2] Vendor specific: MFG Date
+                        [V4] Vendor specific: MAC address
+                        [V5] Vendor specific: Rev A
+                        [RV] Reserved: checksum good, 3 byte(s) reserved
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                Read/write fields:
+                        [V1] Vendor specific: N/A
+                        [V3] Vendor specific: FW ver 1.24
+                        [V6] Vendor specific: PXE ver 15.0.12
+                        [RW] Read-write area: 99 byte(s) free
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                End
+        Capabilities: [58] MSI: Enable- Count=1/8 Maskable- 64bit+
+                Address: 0000000000000000  Data: 0000
+        Capabilities: [a0] MSI-X: Enable- Count=17 Masked-
+                Vector table: BAR=4 offset=00000000
+                PBA: BAR=4 offset=00001000
+        Capabilities: [ac] Express (v2) Endpoint, MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0, Latency L0s <4us, L1 <64us
+                        ExtTag- AttnBtn- AttnInd- PwrInd- RBE+ FLReset+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd+ ExtTag- PhantFunc- AuxPwr+ NoSnoop+ FLReset-
+                        MaxPayload 256 bytes, MaxReadReq 4096 bytes
+                DevSta: CorrErr+ UncorrErr- FatalErr- UnsuppReq+ AuxPwr+ TransPend-
+                LnkCap: Port #0, Speed 5GT/s, Width x4, ASPM L0s L1, Exit Latency L0s <1us, L1 <2us
+                        ClockPM+ Surprise- LLActRep- BwNot- ASPMOptComp-
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk+
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 5GT/s, Width x4, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                DevCap2: Completion Timeout: Range ABCD, TimeoutDis+, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [100 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES+ TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr+
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap+ CGenEn- ChkCap+ ChkEn-
+        Capabilities: [13c v1] Device Serial Number 00-00-d8-9d-67-15-36-e6
+        Capabilities: [150 v1] Power Budgeting <?>
+        Capabilities: [160 v1] Virtual Channel
+                Caps:   LPEVC=0 RefClk=100ns PATEntryBits=1
+                Arb:    Fixed- WRR32- WRR64- WRR128-
+                Ctrl:   ArbSelect=Fixed
+                Status: InProgress-
+                VC0:    Caps:   PATOffset=00 MaxTimeSlots=1 RejSnoopTrans-
+                        Arb:    Fixed- WRR32- WRR64- WRR128- TWRR128- WRR256-
+                        Ctrl:   Enable+ ID=0 ArbSelect=Fixed TC/VC=ff
+                        Status: NegoPending- InProgress-
+        Kernel driver in use: tg3
+        Kernel modules: tg3
+00: e4 14 57 16 46 00 10 00 01 00 00 02 10 00 80 00
+10: 0c 00 b9 f6 00 00 00 00 0c 00 b8 f6 00 00 00 00
+20: 0c 00 b7 f6 00 00 00 00 00 00 00 00 3c 10 9d 16
+30: 00 00 00 00 48 00 00 00 00 00 00 00 05 01 00 00
+40: 00 00 00 00 00 00 00 00 01 50 03 c8 08 20 00 64
+50: 03 58 1c 83 00 00 00 78 05 a0 86 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 9a 02 01 f0 00 00 38 00
+70: b2 10 07 00 d3 2b c0 bc 00 00 00 00 00 00 00 00
+80: e4 14 57 16 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 11 ac 10 00 04 00 00 00 04 10 00 00 10 00 02 00
+b0: 81 8d 00 10 36 5c 19 00 42 cc 04 00 40 00 42 10
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 1f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 01 90 71 05 00 00 00 00 00 00 00 00
+
+0000:03:00.3 Ethernet controller [0200]: Broadcom Corporation NetXtreme BCM5719 Gigabit Ethernet PCIe [14e4:1657] (rev 01)
+        DeviceName: NIC Port 4
+        Subsystem: Hewlett-Packard Company Ethernet 1Gb 4-port 331FLR Adapter [103c:169d]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin B routed to IRQ 52
+        Region 0: Memory at f6b60000 (64-bit, prefetchable) [size=64K]
+        Region 2: Memory at f6b50000 (64-bit, prefetchable) [size=64K]
+        Region 4: Memory at f6b40000 (64-bit, prefetchable) [size=64K]
+        [virtual] Expansion ROM at f4060000 [disabled] [size=128K]
+        Capabilities: [48] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=1 PME-
+        Capabilities: [50] Vital Product Data
+                Product Name: HP Ethernet 1Gb 4-port 331FLR Adapter
+                Read-only fields:
+                        [PN] Part number: 629133-001
+                        [EC] Engineering changes: ECdate
+                        [SN] Serial number: serial number
+                        [V0] Vendor specific: PCIe x4 gen2, PW=5W
+                        [V2] Vendor specific: MFG Date
+                        [V4] Vendor specific: MAC address
+                        [V5] Vendor specific: Rev A
+                        [RV] Reserved: checksum good, 3 byte(s) reserved
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                Read/write fields:
+                        [V1] Vendor specific: N/A
+                        [V3] Vendor specific: FW ver 1.24
+                        [V6] Vendor specific: PXE ver 15.0.12
+                        [RW] Read-write area: 99 byte(s) free
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                        [] Unknown:
+                End
+        Capabilities: [58] MSI: Enable- Count=1/8 Maskable- 64bit+
+                Address: 0000000000000000  Data: 0000
+        Capabilities: [a0] MSI-X: Enable- Count=17 Masked-
+                Vector table: BAR=4 offset=00000000
+                PBA: BAR=4 offset=00001000
+        Capabilities: [ac] Express (v2) Endpoint, MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0, Latency L0s <4us, L1 <64us
+                        ExtTag- AttnBtn- AttnInd- PwrInd- RBE+ FLReset+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd+ ExtTag- PhantFunc- AuxPwr+ NoSnoop+ FLReset-
+                        MaxPayload 256 bytes, MaxReadReq 4096 bytes
+                DevSta: CorrErr+ UncorrErr- FatalErr- UnsuppReq+ AuxPwr+ TransPend-
+                LnkCap: Port #0, Speed 5GT/s, Width x4, ASPM L0s L1, Exit Latency L0s <1us, L1 <2us
+                        ClockPM+ Surprise- LLActRep- BwNot- ASPMOptComp-
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk+
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 5GT/s, Width x4, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                DevCap2: Completion Timeout: Range ABCD, TimeoutDis+, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [100 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES+ TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr+
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap+ CGenEn- ChkCap+ ChkEn-
+        Capabilities: [13c v1] Device Serial Number 00-00-d8-9d-67-15-36-e7
+        Capabilities: [150 v1] Power Budgeting <?>
+        Capabilities: [160 v1] Virtual Channel
+                Caps:   LPEVC=0 RefClk=100ns PATEntryBits=1
+                Arb:    Fixed- WRR32- WRR64- WRR128-
+                Ctrl:   ArbSelect=Fixed
+                Status: InProgress-
+                VC0:    Caps:   PATOffset=00 MaxTimeSlots=1 RejSnoopTrans-
+                        Arb:    Fixed- WRR32- WRR64- WRR128- TWRR128- WRR256-
+                        Ctrl:   Enable+ ID=0 ArbSelect=Fixed TC/VC=ff
+                        Status: NegoPending- InProgress-
+        Kernel driver in use: tg3
+        Kernel modules: tg3
+00: e4 14 57 16 46 00 10 00 01 00 00 02 10 00 80 00
+10: 0c 00 b6 f6 00 00 00 00 0c 00 b5 f6 00 00 00 00
+20: 0c 00 b4 f6 00 00 00 00 00 00 00 00 3c 10 9d 16
+30: 00 00 00 00 48 00 00 00 00 00 00 00 07 02 00 00
+40: 00 00 00 00 00 00 00 00 01 50 03 c8 08 20 00 64
+50: 03 58 1c 83 00 00 00 78 05 a0 86 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 9a 02 01 f0 00 00 38 00
+70: b2 10 07 00 92 f8 07 a6 00 00 00 00 00 00 00 00
+80: e4 14 57 16 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 11 ac 10 00 04 00 00 00 04 10 00 00 10 00 02 00
+b0: 81 8d 00 10 36 5c 19 00 42 cc 04 00 40 00 42 10
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 1f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 01 90 71 05 00 00 00 00 00 00 00 00
+
+0000:1f:08.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 QPI Link 0 [8086:3c80] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 QPI Link 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 80 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 01 f8 96 08 00 00 38 00 00 fc 06 06 01 00 7f 00
+50: 85 03 00 00 00 00 e1 00 00 00 00 00 00 00 00 00
+60: 00 00 38 00 64 11 11 11 64 11 11 11 00 00 00 00
+70: 81 03 00 00 80 00 20 00 00 00 01 00 00 00 ca ff
+80: 2c 02 02 00 80 00 0e 00 02 00 00 00 80 04 00 00
+90: 00 00 00 00 10 02 66 11 10 02 66 11 68 00 02 00
+a0: e2 95 a0 13 81 f6 fc 0f 5e 93 3e 5e 2a e3 7c 00
+b0: 00 00 00 00 00 00 00 00 89 08 78 00 f9 9c 68 00
+c0: 06 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 04 00 00 00 00 00 00 00 00 68 42 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 30 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:08.3 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 QPI Link Reut 0 [8086:3c83] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 QPI Link Reut 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+        Capabilities: [100 v0] Vendor Specific Information: ID=0001 Rev=0 Len=0f0 <?>
+00: 86 80 83 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:08.4 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 QPI Link Reut 0 [8086:3c84] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 QPI Link Reut 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 84 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:09.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 QPI Link 1 [8086:3c90] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 QPI Link 1 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 90 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 01 f8 96 08 00 00 38 00 00 fc 06 06 00 00 7f 00
+50: 85 03 00 00 00 00 e1 00 00 00 00 00 00 00 00 00
+60: 00 00 38 00 64 11 11 11 64 11 11 11 00 00 00 00
+70: 81 03 00 00 80 00 20 00 00 00 01 00 00 00 ca ff
+80: 2c 02 02 00 80 00 0e 00 02 00 00 00 cd 04 00 00
+90: 00 00 00 00 10 02 66 11 10 02 66 11 68 00 02 00
+a0: 76 43 a0 10 5b e4 37 0d fc 96 46 5e 88 69 15 00
+b0: 00 00 00 00 00 00 00 00 65 b5 6b 00 a7 18 78 00
+c0: 06 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 30 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:09.3 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 QPI Link Reut 1 [8086:3c93] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 QPI Link Reut 1 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+        Capabilities: [100 v0] Vendor Specific Information: ID=0001 Rev=0 Len=0f0 <?>
+00: 86 80 93 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:09.4 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 QPI Link Reut 1 [8086:3c94] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 QPI Link Reut 1 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 94 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:0a.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Power Control Unit 0 [8086:3cc0] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Power Control Unit 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 c0 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 c7 f3 7f 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 8d 52 9c 0c
+80: 00 00 00 00 f8 02 70 01 b0 04 2f 00 03 10 0a 00
+90: ce 9d e4 1b 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 17 01 64 00 0c 00 00
+b0: 00 00 00 00 05 b0 79 85 3a 6b 6e be 1d a9 1f c2
+c0: 00 00 00 00 00 00 00 00 25 00 00 00 25 00 00 00
+d0: 00 00 00 00 56 cd 57 82 ff 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 0a 5b 00 f8 82 5a 00 90 83 06 80
+f0: 00 00 00 80 00 00 00 00 60 06 00 00 94 14 14 00
+
+0000:1f:0a.1 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Power Control Unit 1 [8086:3cc1] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Power Control Unit 1 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 c1 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 32 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 cd 00 00 00
+90: 00 00 00 00 1e 1e 00 00 0a 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ff ff
+b0: 0e 31 00 14 00 00 00 00 1a 00 00 00 00 00 00 00
+c0: 10 00 fa 00 00 b1 1d 80 a8 2f 40 06 00 00 00 00
+d0: 00 00 00 00 7e 78 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:0a.2 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Power Control Unit 2 [8086:3cc2] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Power Control Unit 2 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 c2 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 00 1f 00 80 00 00 00 00 00 00 00 00 00 00 00 00
+50: a8 2f 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 04 00 00 00
+70: 10 00 00 30 00 00 00 00 00 00 00 00 00 00 00 03
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 18 01 78 00 58 02 2f 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 80 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 83 44 02 7d dd 94 58 0c 00 00 00 00
+f0: 50 14 00 04 50 14 00 04 00 00 00 00 ff ff ff ff
+
+0000:1f:0a.3 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Power Control Unit 3 [8086:3cd0] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Power Control Unit 3 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 d0 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 80 00 00 00 00 00 00 00 00 00 00 00
+40: c0 00 00 00 c0 00 02 00 c0 4b 02 00 c0 40 02 00
+50: e0 44 02 00 40 07 02 00 60 07 02 00 40 85 02 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 09 00 18 01 84 61 18 48 81 02 00 18 00 00 00 3a
+90: 00 08 00 10 7e 00 00 20 00 00 00 00 00 00 00 00
+a0: 00 17 01 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 3f 03 3f 01 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 20 00 00 a8 01 04 00 00 00 00 00
+
+0000:1f:0b.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Interrupt Control Registers [8086:3ce0] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Interrupt Control Registers [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 e0 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 00 00 00 00 03 00 00 80 01 00 00 00 00 00 00 00
+50: 02 00 00 00 08 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:0b.3 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Semaphore and Scratchpad Configuration Registers [8086:3ce3] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Semaphore and Scratchpad Configuration Registers [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 e3 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 82 0f 00 00 12 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 e3 06 c0 00
+60: 30 02 03 00 00 00 00 00 03 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 bf
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 23 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 04 00 00 00 00 00 00 00
+b0: c0 00 00 00 c0 00 02 00 c0 4b 02 00 c0 40 02 00
+c0: c0 44 02 00 40 07 02 00 60 07 02 00 40 85 02 00
+d0: 00 1f 00 80 00 00 00 00 40 1f 00 01 00 00 00 00
+e0: ff ff ff ff ff ff ff ff 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:0c.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Unicast Register 0 [8086:3ce8] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Unicast Register 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 e8 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 80 01 c0 00 00 00 00 00 c0 01 00 01 00 00 00 00
+50: 00 08 00 00 85 20 00 80 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 40 00 00 00 00 00 00 00 ff ff 00 00 01 00 00 00
+90: 00 00 00 00 3a 07 00 00 03 00 6b 93 2b 00 48 fe
+a0: 01 00 04 00 00 00 00 00 07 00 07 00 00 00 00 00
+b0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 01 00 04 00 00 00 00 00 07 00 07 00 00 00 00 00
+d0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:0c.1 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Unicast Register 0 [8086:3ce8] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Unicast Register 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 e8 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 80 01 c0 00 00 00 00 00 c0 01 00 01 00 00 00 00
+50: 00 08 00 00 85 20 00 80 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 40 00 00 00 00 00 00 00 ff ff 00 00 01 00 00 00
+90: 00 00 00 00 3a 07 00 00 03 00 dd bf 2b 00 48 fe
+a0: 1b 00 12 00 00 00 00 00 21 00 15 00 00 00 00 00
+b0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 1b 00 12 00 00 00 00 00 21 00 15 00 00 00 00 00
+d0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:0c.2 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Unicast Register 0 [8086:3ce8] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Unicast Register 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 e8 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 80 01 c0 00 00 00 00 00 c0 01 00 01 00 00 00 00
+50: 00 08 00 00 85 20 00 80 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 40 00 00 00 00 00 00 00 ff ff 00 00 01 00 00 00
+90: 00 00 00 00 3a 07 00 00 03 00 c8 85 2b 00 48 fe
+a0: 3a 00 20 00 00 00 00 00 00 02 23 00 00 00 00 00
+b0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 3a 00 20 00 00 00 00 00 00 02 23 00 00 00 00 00
+d0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:0c.6 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller System Address Decoder 0 [8086:3cf4] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller System Address Decoder 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 f4 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 30 33 33 33 33 33 33 00 00 00 00 00 02 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: c3 83 00 00 00 00 00 00 c3 03 01 00 09 09 09 09
+90: c2 03 01 00 00 00 00 00 c2 03 01 00 00 00 00 00
+a0: c2 03 01 00 00 00 00 00 c2 03 01 00 00 00 00 00
+b0: c2 03 01 00 00 00 00 00 c2 03 01 00 00 00 00 00
+c0: c2 03 01 00 00 00 00 00 c2 03 01 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:0c.7 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 System Address Decoder [8086:3cf6] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 System Address Decoder [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 f6 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 80 a5 bf 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 0c 00 00 00 20 08 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:0d.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Unicast Register 0 [8086:3ce8] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Unicast Register 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 e8 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 80 01 c0 00 00 00 00 00 c0 01 00 01 00 00 00 00
+50: 22 08 00 00 28 24 00 80 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 40 00 00 00 00 00 00 00 ff ff 00 00 01 00 00 00
+90: 00 00 00 00 3a 07 00 00 03 00 6d 7e 2b 00 48 fe
+a0: 0e 00 0b 00 00 00 00 00 14 00 0e 00 00 00 00 00
+b0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 0e 00 0b 00 00 00 00 00 14 00 0e 00 00 00 00 00
+d0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:0d.1 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Unicast Register 0 [8086:3ce8] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Unicast Register 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 e8 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 80 01 c0 00 00 00 00 00 c0 01 00 01 00 00 00 00
+50: 22 08 00 00 28 24 00 80 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 40 00 00 00 00 00 00 00 ff ff 00 00 01 00 00 00
+90: 00 00 00 00 3a 07 00 00 03 00 66 a5 2b 00 48 fe
+a0: 28 00 19 00 00 00 00 00 2e 00 1c 00 00 00 00 00
+b0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 28 00 19 00 00 00 00 00 2e 00 1c 00 00 00 00 00
+d0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:0d.2 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Unicast Register 0 [8086:3ce8] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Unicast Register 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 e8 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 40 01 c0 00 00 00 00 00 00 02 00 01 00 00 00 00
+50: 22 08 00 00 28 24 00 80 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 40 00 00 00 00 00 00 00 ff ff 00 00 01 00 00 00
+90: 00 00 00 00 3a 07 00 00 03 00 94 e1 2b 00 48 fe
+a0: 35 00 27 00 00 00 00 00 07 02 2a 00 00 00 00 00
+b0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 35 00 27 00 00 00 00 00 07 02 2a 00 00 00 00 00
+d0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:0d.6 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller System Address Decoder 1 [8086:3cf5] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller System Address Decoder 1 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 f5 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 08 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 7b 00 00 f4 00 00 00 00 7d 00 00 f8 00 00 00 00
+90: 00 00 00 00 00 00 00 00 7e 00 00 fc 00 00 00 00
+a0: 00 00 1e 7c 00 00 00 00 40 00 1e fc 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 01 00 00 c0 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 90 24 00 08 00 00 00 08 80 00 00 40 02 00 00
+f0: 00 10 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:0e.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Processor Home Agent [8086:3ca0] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Processor Home Agent [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Kernel driver in use: sbridge_edac
+        Kernel modules: sb_edac
+00: 86 80 a0 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: e4 f3 02 00 e4 f3 10 00 04 f1 20 00 00 f0 20 00
+50: 00 f0 20 00 00 f0 20 00 00 f0 20 00 00 f0 20 00
+60: 00 f0 20 00 00 f0 20 00 00 f0 20 00 00 f0 20 00
+70: 00 00 02 00 80 ee 0e 00 00 00 88 44 00 00 00 00
+80: 02 80 00 03 98 0b 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 01 00 00 08 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:0e.1 Performance counters [1101]: Intel Corporation Xeon E5/Core i7 Processor Home Agent Performance Monitoring [8086:3c46] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Processor Home Agent Performance Monitoring [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Kernel driver in use: snbep_uncore
+00: 86 80 46 3c 00 00 00 00 07 00 01 11 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00
+
+0000:1f:0f.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Registers [8086:3ca8] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller Registers [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 a8 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 04 01 00 00
+80: e4 f3 02 00 e4 f3 10 00 04 f1 20 00 00 f0 20 00
+90: 00 f0 20 00 00 f0 20 00 00 f0 20 00 00 f0 20 00
+a0: 00 f0 20 00 00 f0 20 00 00 f0 20 00 00 f0 20 00
+b0: 00 00 00 00 8e 01 00 00 00 00 00 00 00 00 00 00
+c0: 4c 04 01 00 00 00 00 00 00 08 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:0f.1 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller RAS Registers [8086:3c71] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller RAS Registers [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 71 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 0d 6e 07 00 00 00 00 00
+a0: f1 44 03 84 ba e6 00 00 80 0c 20 03 00 00 00 00
+b0: 00 00 00 00 00 80 00 00 68 0a 00 00 00 00 00 00
+c0: 2e 4d 1b 09 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 56 63 01 20 c0 02 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:0f.2 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 0 [8086:3caa] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 aa 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 0d 40 0e 00 0d 50 0c 00 00 00 0f 00 00 00 00 00
+90: 00 00 00 00 00 04 00 00 00 24 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:0f.3 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 1 [8086:3cab] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 1 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 ab 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 0d 40 0e 00 0d 50 0c 00 00 00 0f 00 00 00 00 00
+90: 00 00 00 00 00 04 00 00 00 24 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:0f.4 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 2 [8086:3cac] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 2 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 ac 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 0d 40 0e 00 00 00 0f 00 00 00 0f 00 00 00 00 00
+90: 00 00 00 00 00 04 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:0f.5 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 3 [8086:3cad] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 3 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 ad 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 0d 40 0e 00 00 00 0f 00 00 00 0f 00 00 00 00 00
+90: 00 00 00 00 00 04 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:0f.6 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 4 [8086:3cae] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 4 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV+ VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 ae 3c 10 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:10.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 0 [8086:3cb0] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+        Kernel driver in use: snbep_uncore
+00: 86 80 b0 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00
+
+0000:1f:10.1 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 1 [8086:3cb1] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 1 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+        Kernel driver in use: snbep_uncore
+00: 86 80 b1 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00
+
+0000:1f:10.2 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 0 [8086:3cb2] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 b2 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 25 0b 0b 0b 0b 0b 0b 0b 00 00 00 00 05 00 00 00
+90: 0d 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 80 80 1f 00 00 00 00 00 20 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:10.3 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 1 [8086:3cb3] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 1 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 b3 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 23 0b 0b 0b 0b 0b 0b 0b 00 00 00 00 04 00 00 00
+90: 0d 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 80 80 1f 00 00 00 00 00 20 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:10.4 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 2 [8086:3cb4] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 2 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+        Kernel driver in use: snbep_uncore
+00: 86 80 b4 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00
+
+0000:1f:10.5 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 3 [8086:3cb5] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 3 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+        Kernel driver in use: snbep_uncore
+00: 86 80 b5 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00
+
+0000:1f:10.6 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 2 [8086:3cb6] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 2 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 b6 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 25 0b 0b 0b 25 25 0b 0b 00 00 00 00 05 00 55 00
+90: 0d 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 80 80 1f 00 00 00 00 00 20 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:10.7 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 3 [8086:3cb7] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 3 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 b7 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 23 0b 0b 0b 23 23 0b 0b 00 00 00 00 04 00 44 00
+90: 0d 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 80 80 1f 00 00 00 00 00 20 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:11.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 DDRIO [8086:3cb8] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 DDRIO [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV+ VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 b8 3c 10 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:13.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 R2PCIe [8086:3ce4] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 R2PCIe [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 e4 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 00 00 00 00 7a 17 7f 03 01 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:13.1 Performance counters [1101]: Intel Corporation Xeon E5/Core i7 Ring to PCI Express Performance Monitor [8086:3c43] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Ring to PCI Express Performance Monitor [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Kernel driver in use: snbep_uncore
+00: 86 80 43 3c 00 00 00 00 07 00 01 11 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00
+
+0000:1f:13.4 Performance counters [1101]: Intel Corporation Xeon E5/Core i7 QuickPath Interconnect Agent Ring Registers [8086:3ce6] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 QuickPath Interconnect Agent Ring Registers [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 e6 3c 00 00 00 00 07 00 01 11 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 00 00 00 00 50 01 50 01 50 01 50 01 00 00 00 00
+50: 02 21 00 00 02 21 00 00 10 01 00 00 10 01 00 00
+60: 01 00 00 00 00 00 00 00 00 00 00 00 30 24 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 bd 96 00 00 00 00 00 00
+90: 00 0c 3c 00 00 00 00 00 12 00 00 00 00 00 00 00
+a0: 0e 08 0e 10 10 08 10 10 00 00 00 00 06 06 01 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: ff ff ff ff 00 00 00 00 00 00 00 00 00 00 00 00
+d0: ff ff ff ff 00 00 00 00 00 00 00 00 64 11 11 11
+e0: 64 11 11 11 04 00 00 00 00 00 1d 0c 02 00 cf 0f
+f0: 03 00 3a 3a 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:1f:13.5 Performance counters [1101]: Intel Corporation Xeon E5/Core i7 Ring to QuickPath Interconnect Link 0 Performance Monitor [8086:3c44] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Ring to QuickPath Interconnect Link 0 Performance Monitor [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Kernel driver in use: snbep_uncore
+00: 86 80 44 3c 00 00 00 00 07 00 01 11 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00
+
+0000:1f:13.6 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Ring to QuickPath Interconnect Link 1 Performance Monitor [8086:3c45] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Ring to QuickPath Interconnect Link 1 Performance Monitor [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Kernel driver in use: snbep_uncore
+00: 86 80 45 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00
+
+0000:20:00.0 PCI bridge [0604]: Intel Corporation Xeon E5/Core i7 DMI2 in PCI Express Mode [8086:3c01] (rev 07) (prog-if 00 [Normal decode])
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Interrupt: pin A routed to IRQ 25
+        Bus: primary=20, secondary=2b, subordinate=2b, sec-latency=0
+        I/O behind bridge: 0000f000-00000fff
+        Memory behind bridge: fff00000-000fffff
+        Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Subsystem: Hewlett-Packard Company Xeon E5/Core i7 DMI2 in PCI Express Mode [103c:18a8]
+        Capabilities: [60] MSI: Enable- Count=1/2 Maskable+ 64bit-
+                Address: 00000000  Data: 0000
+                Masking: 00000000  Pending: 00000000
+        Capabilities: [90] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 2.5GT/s, Width x4, ASPM L1, Exit Latency L0s unlimited, L1 <16us
+                        ClockPM- Surprise+ LLActRep+ BwNot+ ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x0, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible-
+                RootCap: CRSVisible-
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BCD, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd-
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis+, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 5GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Vendor Specific Information: ID=0002 Rev=0 Len=00c <?>
+        Capabilities: [110 v1] Access Control Services
+                ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl- DirectTrans-
+                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+        Capabilities: [148 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Capabilities: [1d0 v1] Vendor Specific Information: ID=0003 Rev=1 Len=00a <?>
+        Capabilities: [280 v1] Vendor Specific Information: ID=0004 Rev=2 Len=018 <?>
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 01 3c 40 01 10 00 07 00 04 06 00 00 01 00
+10: 00 00 00 00 00 00 00 00 20 2b 2b 00 f0 00 00 00
+20: f0 ff 00 00 f1 ff 01 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 01 03 00
+40: 0d 60 00 00 3c 10 a8 18 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 05 90 02 01 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 10 e0 42 00 00 80 00 00 06 00 00 00 41 78 7a 00
+a0: 00 00 01 10 00 00 00 00 c0 07 48 00 06 00 00 00
+b0: 00 00 00 00 1e 10 00 00 10 00 00 00 06 00 00 00
+c0: 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 c8 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:20:01.0 PCI bridge [0604]: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 1a [8086:3c02] (rev 07) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 25
+        Bus: primary=20, secondary=21, subordinate=21, sec-latency=0
+        I/O behind bridge: 0000f000-00000fff
+        Memory behind bridge: fff00000-000fffff
+        Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Subsystem: Hewlett-Packard Company Xeon E5/Core i7 IIO PCI Express Root Port 1a [103c:18a8]
+        Capabilities: [60] MSI: Enable- Count=1/2 Maskable+ 64bit-
+                Address: 00000000  Data: 0000
+                Masking: 00000000  Pending: 00000000
+        Capabilities: [90] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 256 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 8GT/s, Width x4, ASPM L1, Exit Latency L0s unlimited, L1 <16us
+                        ClockPM- Surprise+ LLActRep+ BwNot+ ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x0, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible+
+                RootCap: CRSVisible+
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BCD, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd+
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Vendor Specific Information: ID=0002 Rev=0 Len=00c <?>
+        Capabilities: [110 v1] Access Control Services
+                ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl- DirectTrans-
+                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+        Capabilities: [148 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Capabilities: [1d0 v1] Vendor Specific Information: ID=0003 Rev=1 Len=00a <?>
+        Capabilities: [250 v1] #19
+        Capabilities: [280 v1] Vendor Specific Information: ID=0004 Rev=2 Len=018 <?>
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 02 3c 47 01 10 00 07 00 04 06 10 00 81 00
+10: 00 00 00 00 00 00 00 00 20 21 21 00 f0 00 00 00
+20: f0 ff 00 00 f1 ff 01 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 ff 01 03 00
+40: 0d 60 00 00 3c 10 a8 18 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 05 90 02 01 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 10 e0 42 00 01 80 00 00 26 00 00 00 43 78 7a 00
+a0: 00 00 01 10 00 00 00 00 c0 07 48 00 16 00 01 00
+b0: 00 00 00 00 3e 10 00 00 00 00 00 00 0e 00 00 00
+c0: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 c8 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:20:01.1 PCI bridge [0604]: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 1b [8086:3c03] (rev 07) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 25
+        Bus: primary=20, secondary=22, subordinate=22, sec-latency=0
+        I/O behind bridge: 0000f000-00000fff
+        Memory behind bridge: fff00000-000fffff
+        Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Subsystem: Hewlett-Packard Company Xeon E5/Core i7 IIO PCI Express Root Port 1b [103c:18a8]
+        Capabilities: [60] MSI: Enable- Count=1/2 Maskable+ 64bit-
+                Address: 00000000  Data: 0000
+                Masking: 00000000  Pending: 00000000
+        Capabilities: [90] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 256 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 8GT/s, Width x4, ASPM L1, Exit Latency L0s unlimited, L1 <16us
+                        ClockPM- Surprise+ LLActRep+ BwNot+ ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x0, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible+
+                RootCap: CRSVisible+
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BCD, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd+
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Vendor Specific Information: ID=0002 Rev=0 Len=00c <?>
+        Capabilities: [110 v1] Access Control Services
+                ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl- DirectTrans-
+                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+        Capabilities: [148 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Capabilities: [1d0 v1] Vendor Specific Information: ID=0003 Rev=1 Len=00a <?>
+        Capabilities: [250 v1] #19
+        Capabilities: [280 v1] Vendor Specific Information: ID=0004 Rev=2 Len=018 <?>
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 03 3c 47 01 10 00 07 00 04 06 10 00 81 00
+10: 00 00 00 00 00 00 00 00 20 22 22 00 f0 00 00 00
+20: f0 ff 00 00 f1 ff 01 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 ff 01 03 00
+40: 0d 60 00 00 3c 10 a8 18 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 05 90 02 01 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 10 e0 42 00 01 80 00 00 26 00 00 00 43 78 7a 00
+a0: 00 00 01 10 00 00 00 00 c0 07 48 00 16 00 01 00
+b0: 00 00 00 00 3e 10 00 00 00 00 00 00 0e 00 00 00
+c0: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 c8 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:20:02.0 PCI bridge [0604]: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 2a [8086:3c04] (rev 07) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 25
+        Bus: primary=20, secondary=23, subordinate=23, sec-latency=0
+        I/O behind bridge: 0000f000-00000fff
+        Memory behind bridge: fff00000-000fffff
+        Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Subsystem: Hewlett-Packard Company Xeon E5/Core i7 IIO PCI Express Root Port 2a [103c:18a8]
+        Capabilities: [60] MSI: Enable- Count=1/2 Maskable+ 64bit-
+                Address: 00000000  Data: 0000
+                Masking: 00000000  Pending: 00000000
+        Capabilities: [90] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 256 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 8GT/s, Width x4, ASPM L1, Exit Latency L0s unlimited, L1 <16us
+                        ClockPM- Surprise+ LLActRep+ BwNot+ ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x0, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible+
+                RootCap: CRSVisible+
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BCD, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd+
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Vendor Specific Information: ID=0002 Rev=0 Len=00c <?>
+        Capabilities: [110 v1] Access Control Services
+                ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl- DirectTrans-
+                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+        Capabilities: [148 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Capabilities: [1d0 v1] Vendor Specific Information: ID=0003 Rev=1 Len=00a <?>
+        Capabilities: [250 v1] #19
+        Capabilities: [280 v1] Vendor Specific Information: ID=0004 Rev=2 Len=018 <?>
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 04 3c 47 01 10 00 07 00 04 06 10 00 81 00
+10: 00 00 00 00 00 00 00 00 20 23 23 00 f0 00 00 00
+20: f0 ff 00 00 f1 ff 01 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 ff 01 03 00
+40: 0d 60 00 00 3c 10 a8 18 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 05 90 02 01 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 10 e0 42 00 01 80 00 00 26 00 00 00 43 78 7a 00
+a0: 00 00 01 10 00 00 00 00 c0 07 48 00 16 00 01 00
+b0: 00 00 00 00 3e 10 00 00 00 00 00 00 0e 00 00 00
+c0: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 c8 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:20:02.1 PCI bridge [0604]: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 2b [8086:3c05] (rev 07) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 25
+        Bus: primary=20, secondary=24, subordinate=24, sec-latency=0
+        I/O behind bridge: 0000f000-00000fff
+        Memory behind bridge: fff00000-000fffff
+        Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Subsystem: Hewlett-Packard Company Xeon E5/Core i7 IIO PCI Express Root Port 2b [103c:18a8]
+        Capabilities: [60] MSI: Enable- Count=1/2 Maskable+ 64bit-
+                Address: 00000000  Data: 0000
+                Masking: 00000000  Pending: 00000000
+        Capabilities: [90] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 256 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 8GT/s, Width x4, ASPM L1, Exit Latency L0s unlimited, L1 <16us
+                        ClockPM- Surprise+ LLActRep+ BwNot+ ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x0, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible+
+                RootCap: CRSVisible+
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BCD, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd+
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Vendor Specific Information: ID=0002 Rev=0 Len=00c <?>
+        Capabilities: [110 v1] Access Control Services
+                ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl- DirectTrans-
+                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+        Capabilities: [148 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Capabilities: [1d0 v1] Vendor Specific Information: ID=0003 Rev=1 Len=00a <?>
+        Capabilities: [250 v1] #19
+        Capabilities: [280 v1] Vendor Specific Information: ID=0004 Rev=2 Len=018 <?>
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 05 3c 47 01 10 00 07 00 04 06 10 00 81 00
+10: 00 00 00 00 00 00 00 00 20 24 24 00 f0 00 00 00
+20: f0 ff 00 00 f1 ff 01 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 ff 01 03 00
+40: 0d 60 00 00 3c 10 a8 18 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 05 90 02 01 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 10 e0 42 00 01 80 00 00 26 00 00 00 43 78 7a 00
+a0: 00 00 01 10 00 00 00 00 c0 07 48 00 16 00 01 00
+b0: 00 00 00 00 3e 10 00 00 00 00 00 00 0e 00 00 00
+c0: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 c8 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:20:02.2 PCI bridge [0604]: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 2c [8086:3c06] (rev 07) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 25
+        Bus: primary=20, secondary=25, subordinate=25, sec-latency=0
+        I/O behind bridge: 0000f000-00000fff
+        Memory behind bridge: fff00000-000fffff
+        Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Subsystem: Hewlett-Packard Company Xeon E5/Core i7 IIO PCI Express Root Port 2c [103c:18a8]
+        Capabilities: [60] MSI: Enable- Count=1/2 Maskable+ 64bit-
+                Address: 00000000  Data: 0000
+                Masking: 00000000  Pending: 00000000
+        Capabilities: [90] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 256 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 8GT/s, Width x4, ASPM L1, Exit Latency L0s unlimited, L1 <16us
+                        ClockPM- Surprise+ LLActRep+ BwNot- ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x0, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible+
+                RootCap: CRSVisible+
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BCD, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd+
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Vendor Specific Information: ID=0002 Rev=0 Len=00c <?>
+        Capabilities: [110 v1] Access Control Services
+                ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl- DirectTrans-
+                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+        Capabilities: [148 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Capabilities: [1d0 v1] Vendor Specific Information: ID=0003 Rev=1 Len=00a <?>
+        Capabilities: [250 v1] #19
+        Capabilities: [280 v1] Vendor Specific Information: ID=0004 Rev=2 Len=018 <?>
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 06 3c 47 01 10 00 07 00 04 06 10 00 81 00
+10: 00 00 00 00 00 00 00 00 20 25 25 00 f0 00 00 00
+20: f0 ff 00 00 f1 ff 01 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 ff 01 03 00
+40: 0d 60 00 00 3c 10 a8 18 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 05 90 02 01 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 10 e0 42 00 01 80 00 00 26 00 00 00 43 78 5a 00
+a0: 00 00 01 10 00 00 00 00 c0 07 48 00 16 00 01 00
+b0: 00 00 00 00 3e 10 00 00 00 00 00 00 0e 00 00 00
+c0: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 c8 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:20:02.3 PCI bridge [0604]: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 2d [8086:3c07] (rev 07) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 25
+        Bus: primary=20, secondary=26, subordinate=26, sec-latency=0
+        I/O behind bridge: 0000f000-00000fff
+        Memory behind bridge: fff00000-000fffff
+        Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Subsystem: Hewlett-Packard Company Xeon E5/Core i7 IIO PCI Express Root Port 2d [103c:18a8]
+        Capabilities: [60] MSI: Enable- Count=1/2 Maskable+ 64bit-
+                Address: 00000000  Data: 0000
+                Masking: 00000000  Pending: 00000000
+        Capabilities: [90] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 256 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 8GT/s, Width x4, ASPM L1, Exit Latency L0s unlimited, L1 <16us
+                        ClockPM- Surprise+ LLActRep+ BwNot- ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x0, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible+
+                RootCap: CRSVisible+
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BCD, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd+
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Vendor Specific Information: ID=0002 Rev=0 Len=00c <?>
+        Capabilities: [110 v1] Access Control Services
+                ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl- DirectTrans-
+                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+        Capabilities: [148 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Capabilities: [1d0 v1] Vendor Specific Information: ID=0003 Rev=1 Len=00a <?>
+        Capabilities: [250 v1] #19
+        Capabilities: [280 v1] Vendor Specific Information: ID=0004 Rev=2 Len=018 <?>
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 07 3c 47 01 10 00 07 00 04 06 10 00 81 00
+10: 00 00 00 00 00 00 00 00 20 26 26 00 f0 00 00 00
+20: f0 ff 00 00 f1 ff 01 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 ff 01 03 00
+40: 0d 60 00 00 3c 10 a8 18 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 05 90 02 01 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 10 e0 42 00 01 80 00 00 26 00 00 00 43 78 5a 00
+a0: 00 00 01 10 00 00 00 00 c0 07 48 00 16 00 01 00
+b0: 00 00 00 00 3e 10 00 00 00 00 00 00 0e 00 00 00
+c0: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 c8 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:20:03.0 PCI bridge [0604]: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 3a in PCI Express Mode [8086:3c08] (rev 07) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 25
+        Bus: primary=20, secondary=27, subordinate=27, sec-latency=0
+        I/O behind bridge: 0000f000-00000fff
+        Memory behind bridge: fff00000-000fffff
+        Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Subsystem: Hewlett-Packard Company Xeon E5/Core i7 IIO PCI Express Root Port 3a in PCI Express Mode [103c:18a8]
+        Capabilities: [60] MSI: Enable- Count=1/2 Maskable+ 64bit-
+                Address: 00000000  Data: 0000
+                Masking: 00000000  Pending: 00000000
+        Capabilities: [90] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0
+                        ExtTag+ RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 256 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 8GT/s, Width x4, ASPM L1, Exit Latency L0s unlimited, L1 <16us
+                        ClockPM- Surprise+ LLActRep+ BwNot+ ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x0, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible+
+                RootCap: CRSVisible+
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BCD, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd+
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Vendor Specific Information: ID=0002 Rev=0 Len=00c <?>
+        Capabilities: [110 v1] Access Control Services
+                ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl- DirectTrans-
+                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+        Capabilities: [148 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Capabilities: [1d0 v1] Vendor Specific Information: ID=0003 Rev=1 Len=00a <?>
+        Capabilities: [250 v1] #19
+        Capabilities: [280 v1] Vendor Specific Information: ID=0004 Rev=2 Len=018 <?>
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 08 3c 47 01 10 00 07 00 04 06 10 00 81 00
+10: 00 00 00 00 00 00 00 00 20 27 27 00 f0 00 00 00
+20: f0 ff 00 00 f1 ff 01 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 ff 01 03 00
+40: 0d 60 00 00 3c 10 a8 18 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 05 90 02 01 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 10 e0 42 00 21 80 00 00 26 00 00 00 43 78 7a 00
+a0: 00 00 01 10 00 00 00 00 c0 07 48 00 16 00 01 00
+b0: 00 00 00 00 3e 10 00 00 00 00 00 00 0e 00 00 00
+c0: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 c8 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:20:03.1 PCI bridge [0604]: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 3b [8086:3c09] (rev 07) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 25
+        Bus: primary=20, secondary=28, subordinate=28, sec-latency=0
+        I/O behind bridge: 0000f000-00000fff
+        Memory behind bridge: fff00000-000fffff
+        Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Subsystem: Hewlett-Packard Company Xeon E5/Core i7 IIO PCI Express Root Port 3b [103c:18a8]
+        Capabilities: [60] MSI: Enable- Count=1/2 Maskable+ 64bit-
+                Address: 00000000  Data: 0000
+                Masking: 00000000  Pending: 00000000
+        Capabilities: [90] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 256 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 8GT/s, Width x4, ASPM L1, Exit Latency L0s unlimited, L1 <16us
+                        ClockPM- Surprise+ LLActRep+ BwNot+ ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x0, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible+
+                RootCap: CRSVisible+
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BCD, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd+
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Vendor Specific Information: ID=0002 Rev=0 Len=00c <?>
+        Capabilities: [110 v1] Access Control Services
+                ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl- DirectTrans-
+                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+        Capabilities: [148 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Capabilities: [1d0 v1] Vendor Specific Information: ID=0003 Rev=1 Len=00a <?>
+        Capabilities: [250 v1] #19
+        Capabilities: [280 v1] Vendor Specific Information: ID=0004 Rev=2 Len=018 <?>
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 09 3c 47 01 10 00 07 00 04 06 10 00 81 00
+10: 00 00 00 00 00 00 00 00 20 28 28 00 f0 00 00 00
+20: f0 ff 00 00 f1 ff 01 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 ff 01 03 00
+40: 0d 60 00 00 3c 10 a8 18 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 05 90 02 01 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 10 e0 42 00 01 80 00 00 26 00 00 00 43 78 7a 00
+a0: 00 00 01 10 00 00 00 00 c0 07 48 00 16 00 01 00
+b0: 00 00 00 00 3e 10 00 00 00 00 00 00 0e 00 00 00
+c0: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 c8 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:20:03.2 PCI bridge [0604]: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 3c [8086:3c0a] (rev 07) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 25
+        Bus: primary=20, secondary=29, subordinate=29, sec-latency=0
+        I/O behind bridge: 0000f000-00000fff
+        Memory behind bridge: fff00000-000fffff
+        Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Subsystem: Hewlett-Packard Company Xeon E5/Core i7 IIO PCI Express Root Port 3c [103c:18a8]
+        Capabilities: [60] MSI: Enable- Count=1/2 Maskable+ 64bit-
+                Address: 00000000  Data: 0000
+                Masking: 00000000  Pending: 00000000
+        Capabilities: [90] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 256 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 8GT/s, Width x4, ASPM L1, Exit Latency L0s unlimited, L1 <16us
+                        ClockPM- Surprise+ LLActRep+ BwNot- ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x0, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible+
+                RootCap: CRSVisible+
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BCD, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd+
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Vendor Specific Information: ID=0002 Rev=0 Len=00c <?>
+        Capabilities: [110 v1] Access Control Services
+                ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl- DirectTrans-
+                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+        Capabilities: [148 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Capabilities: [1d0 v1] Vendor Specific Information: ID=0003 Rev=1 Len=00a <?>
+        Capabilities: [250 v1] #19
+        Capabilities: [280 v1] Vendor Specific Information: ID=0004 Rev=2 Len=018 <?>
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 0a 3c 47 01 10 00 07 00 04 06 10 00 81 00
+10: 00 00 00 00 00 00 00 00 20 29 29 00 f0 00 00 00
+20: f0 ff 00 00 f1 ff 01 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 ff 01 03 00
+40: 0d 60 00 00 3c 10 a8 18 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 05 90 02 01 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 10 e0 42 00 01 80 00 00 26 00 00 00 43 78 5a 00
+a0: 00 00 01 10 00 00 00 00 c0 07 48 00 16 00 01 00
+b0: 00 00 00 00 3e 10 00 00 00 00 00 00 0e 00 00 00
+c0: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 c8 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:20:03.3 PCI bridge [0604]: Intel Corporation Xeon E5/Core i7 IIO PCI Express Root Port 3d [8086:3c0b] (rev 07) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 25
+        Bus: primary=20, secondary=2a, subordinate=2a, sec-latency=0
+        I/O behind bridge: 0000f000-00000fff
+        Memory behind bridge: fff00000-000fffff
+        Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff
+        Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+        BridgeCtl: Parity+ SERR+ NoISA- VGA- MAbort- >Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+        Capabilities: [40] Subsystem: Hewlett-Packard Company Xeon E5/Core i7 IIO PCI Express Root Port 3d [103c:18a8]
+        Capabilities: [60] MSI: Enable- Count=1/2 Maskable+ 64bit-
+                Address: 00000000  Data: 0000
+                Masking: 00000000  Pending: 00000000
+        Capabilities: [90] Express (v2) Root Port (Slot-), MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 256 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 8GT/s, Width x4, ASPM L1, Exit Latency L0s unlimited, L1 <16us
+                        ClockPM- Surprise+ LLActRep+ BwNot- ASPMOptComp+
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 2.5GT/s, Width x0, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                RootCtl: ErrCorrectable- ErrNon-Fatal+ ErrFatal+ PMEIntEna- CRSVisible+
+                RootCap: CRSVisible+
+                RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+                DevCap2: Completion Timeout: Range BCD, TimeoutDis+, LTR-, OBFF Not Supported ARIFwd+
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled ARIFwd-
+                LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete-, EqualizationPhase1-
+                         EqualizationPhase2-, EqualizationPhase3-, LinkEqualizationRequest-
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [100 v1] Vendor Specific Information: ID=0002 Rev=0 Len=00c <?>
+        Capabilities: [110 v1] Access Control Services
+                ACSCap: SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl- DirectTrans-
+                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+        Capabilities: [148 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+                UESvrt: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr-
+                AERCap: First Error Pointer: 00, GenCap- CGenEn- ChkCap- ChkEn-
+        Capabilities: [1d0 v1] Vendor Specific Information: ID=0003 Rev=1 Len=00a <?>
+        Capabilities: [250 v1] #19
+        Capabilities: [280 v1] Vendor Specific Information: ID=0004 Rev=2 Len=018 <?>
+        Kernel driver in use: pcieport
+        Kernel modules: shpchp
+00: 86 80 0b 3c 47 01 10 00 07 00 04 06 10 00 81 00
+10: 00 00 00 00 00 00 00 00 20 2a 2a 00 f0 00 00 00
+20: f0 ff 00 00 f1 ff 01 00 00 00 00 00 00 00 00 00
+30: 00 00 00 00 40 00 00 00 00 00 00 00 ff 01 03 00
+40: 0d 60 00 00 3c 10 a8 18 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 05 90 02 01 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 10 e0 42 00 01 80 00 00 26 00 00 00 43 78 5a 00
+a0: 00 00 01 10 00 00 00 00 c0 07 48 00 16 00 01 00
+b0: 00 00 00 00 3e 10 00 00 00 00 00 00 0e 00 00 00
+c0: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 c8 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:20:04.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 DMA Channel 0 [8086:3c20] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 DMA Channel 0 [103c:18a8]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 5
+        Region 0: Memory at fbff0000 (64-bit, non-prefetchable) [size=16K]
+        Capabilities: [80] MSI-X: Enable+ Count=1 Masked-
+                Vector table: BAR=0 offset=00002000
+                PBA: BAR=0 offset=00003000
+        Capabilities: [90] Express (v2) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop+
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                DevCap2: Completion Timeout: Not Supported, TimeoutDis+, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Kernel driver in use: ioatdma
+        Kernel modules: ioatdma
+00: 86 80 20 3c 06 04 10 00 07 00 80 08 10 00 80 00
+10: 04 00 ff fb 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 80 00 00 00 00 00 00 00 05 01 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 0f 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 11 90 00 80 00 20 00 00 00 30 00 00 00 00 00 00
+90: 10 e0 92 00 00 80 00 00 00 08 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 00 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:20:04.1 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 DMA Channel 1 [8086:3c21] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 DMA Channel 1 [103c:18a8]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin B routed to IRQ 7
+        Region 0: Memory at fbfe0000 (64-bit, non-prefetchable) [size=16K]
+        Capabilities: [80] MSI-X: Enable+ Count=1 Masked-
+                Vector table: BAR=0 offset=00002000
+                PBA: BAR=0 offset=00003000
+        Capabilities: [90] Express (v2) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop+
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                DevCap2: Completion Timeout: Not Supported, TimeoutDis+, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Kernel driver in use: ioatdma
+        Kernel modules: ioatdma
+00: 86 80 21 3c 06 04 10 00 07 00 80 08 10 00 80 00
+10: 04 00 fe fb 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 80 00 00 00 00 00 00 00 07 02 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 11 90 00 80 00 20 00 00 00 30 00 00 00 00 00 00
+90: 10 e0 92 00 00 80 00 00 00 08 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 00 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:20:04.2 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 DMA Channel 2 [8086:3c22] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 DMA Channel 2 [103c:18a8]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin C routed to IRQ 10
+        Region 0: Memory at fbfd0000 (64-bit, non-prefetchable) [size=16K]
+        Capabilities: [80] MSI-X: Enable+ Count=1 Masked-
+                Vector table: BAR=0 offset=00002000
+                PBA: BAR=0 offset=00003000
+        Capabilities: [90] Express (v2) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop+
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                DevCap2: Completion Timeout: Not Supported, TimeoutDis+, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Kernel driver in use: ioatdma
+        Kernel modules: ioatdma
+00: 86 80 22 3c 06 04 10 00 07 00 80 08 10 00 80 00
+10: 04 00 fd fb 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 80 00 00 00 00 00 00 00 0a 03 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 11 90 00 80 00 20 00 00 00 30 00 00 00 00 00 00
+90: 10 e0 92 00 00 80 00 00 00 08 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 00 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:20:04.3 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 DMA Channel 3 [8086:3c23] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 DMA Channel 3 [103c:18a8]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin D routed to IRQ 10
+        Region 0: Memory at fbfc0000 (64-bit, non-prefetchable) [size=16K]
+        Capabilities: [80] MSI-X: Enable+ Count=1 Masked-
+                Vector table: BAR=0 offset=00002000
+                PBA: BAR=0 offset=00003000
+        Capabilities: [90] Express (v2) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop+
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                DevCap2: Completion Timeout: Not Supported, TimeoutDis+, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Kernel driver in use: ioatdma
+        Kernel modules: ioatdma
+00: 86 80 23 3c 06 04 10 00 07 00 80 08 10 00 80 00
+10: 04 00 fc fb 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 80 00 00 00 00 00 00 00 0a 04 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 11 90 00 80 00 20 00 00 00 30 00 00 00 00 00 00
+90: 10 e0 92 00 00 80 00 00 00 08 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 00 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:20:04.4 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 DMA Channel 4 [8086:3c24] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 DMA Channel 4 [103c:18a8]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin A routed to IRQ 5
+        Region 0: Memory at fbfb0000 (64-bit, non-prefetchable) [size=16K]
+        Capabilities: [80] MSI-X: Enable+ Count=1 Masked-
+                Vector table: BAR=0 offset=00002000
+                PBA: BAR=0 offset=00003000
+        Capabilities: [90] Express (v2) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop+
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                DevCap2: Completion Timeout: Not Supported, TimeoutDis+, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Kernel driver in use: ioatdma
+        Kernel modules: ioatdma
+00: 86 80 24 3c 06 04 10 00 07 00 80 08 10 00 80 00
+10: 04 00 fb fb 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 80 00 00 00 00 00 00 00 05 01 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 11 90 00 80 00 20 00 00 00 30 00 00 00 00 00 00
+90: 10 e0 92 00 00 80 00 00 00 08 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 00 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:20:04.5 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 DMA Channel 5 [8086:3c25] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 DMA Channel 5 [103c:18a8]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin B routed to IRQ 7
+        Region 0: Memory at fbfa0000 (64-bit, non-prefetchable) [size=16K]
+        Capabilities: [80] MSI-X: Enable+ Count=1 Masked-
+                Vector table: BAR=0 offset=00002000
+                PBA: BAR=0 offset=00003000
+        Capabilities: [90] Express (v2) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop+
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                DevCap2: Completion Timeout: Not Supported, TimeoutDis+, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Kernel driver in use: ioatdma
+        Kernel modules: ioatdma
+00: 86 80 25 3c 06 04 10 00 07 00 80 08 10 00 80 00
+10: 04 00 fa fb 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 80 00 00 00 00 00 00 00 07 02 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 11 90 00 80 00 20 00 00 00 30 00 00 00 00 00 00
+90: 10 e0 92 00 00 80 00 00 00 08 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 00 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:20:04.6 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 DMA Channel 6 [8086:3c26] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 DMA Channel 6 [103c:18a8]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin C routed to IRQ 10
+        Region 0: Memory at fbf90000 (64-bit, non-prefetchable) [size=16K]
+        Capabilities: [80] MSI-X: Enable+ Count=1 Masked-
+                Vector table: BAR=0 offset=00002000
+                PBA: BAR=0 offset=00003000
+        Capabilities: [90] Express (v2) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop+
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                DevCap2: Completion Timeout: Not Supported, TimeoutDis+, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Kernel driver in use: ioatdma
+        Kernel modules: ioatdma
+00: 86 80 26 3c 06 04 10 00 07 00 80 08 10 00 80 00
+10: 04 00 f9 fb 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 80 00 00 00 00 00 00 00 0a 03 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 11 90 00 80 00 20 00 00 00 30 00 00 00 00 00 00
+90: 10 e0 92 00 00 80 00 00 00 08 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 00 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:20:04.7 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 DMA Channel 7 [8086:3c27] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 DMA Channel 7 [103c:18a8]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Interrupt: pin D routed to IRQ 10
+        Region 0: Memory at fbf80000 (64-bit, non-prefetchable) [size=16K]
+        Capabilities: [80] MSI-X: Enable+ Count=1 Masked-
+                Vector table: BAR=0 offset=00002000
+                PBA: BAR=0 offset=00003000
+        Capabilities: [90] Express (v2) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE+
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop+
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                DevCap2: Completion Timeout: Not Supported, TimeoutDis+, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+        Capabilities: [e0] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Kernel driver in use: ioatdma
+        Kernel modules: ioatdma
+00: 86 80 27 3c 06 04 10 00 07 00 80 08 10 00 80 00
+10: 04 00 f8 fb 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 80 00 00 00 00 00 00 00 0a 04 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 11 90 00 80 00 20 00 00 00 30 00 00 00 00 00 00
+90: 10 e0 92 00 00 80 00 00 00 08 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 00 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:20:05.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Address Map, VTd_Misc, System Management [8086:3c28] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Address Map, VTd_Misc, System Management [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v2) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+                DevCap2: Completion Timeout: Not Supported, TimeoutDis-, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+00: 86 80 28 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 92 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 c0 00 00 00 cc 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 be 00 00 f0 be
+b0: 00 00 ff ff ff ff 07 00 00 00 00 00 00 00 00 00
+c0: 00 00 ff ff ff ff 07 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 bc 00 00 00 3c 10 00 00 00 00 00 00 00
+e0: 00 00 00 fc ff ff ff ff 00 00 00 00 00 00 00 00
+f0: 00 00 f8 ff ff ff ff ff 00 00 00 00 00 00 00 00
+
+0000:20:05.2 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Control Status and Global Errors [8086:3c2a] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Control Status and Global Errors [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v2) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 4096 bytes
+                DevSta: CorrErr+ UncorrErr+ FatalErr+ UnsuppReq- AuxPwr- TransPend-
+                DevCap2: Completion Timeout: Not Supported, TimeoutDis-, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+00: 86 80 2a 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 92 00 00 00 00 00 06 50 07 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 50 01 20 28 00 00 00 00 00 00 00 00 65 15 00 00
+90: 00 00 00 00 15 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 2a 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 c4 09 96 1e
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:20:05.4 PIC [0800]: Intel Corporation Xeon E5/Core i7 I/O APIC [8086:3c2c] (rev 07) (prog-if 20 [IO(X)-APIC])
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 I/O APIC [103c:18a8]
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 64 bytes
+        Region 0: Memory at fbf70000 (32-bit, non-prefetchable) [size=4K]
+        Capabilities: [6c] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+00: 86 80 2c 3c 06 00 10 00 07 20 00 08 10 00 80 00
+10: 00 00 f7 fb 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 6c 00 00 00 00 00 00 00 00 00 00 00
+40: 00 84 00 00 10 e0 91 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 01 00 03 00
+70: 08 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 01 00 03 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:08.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 QPI Link 0 [8086:3c80] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 QPI Link 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 80 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 01 f8 96 08 00 00 18 00 00 fc 06 06 01 00 7f 00
+50: 85 03 00 00 00 00 00 f3 00 00 00 00 00 00 00 00
+60: 00 00 18 00 64 11 11 11 64 11 11 11 00 00 00 00
+70: 81 03 00 00 80 00 20 00 00 00 01 00 00 00 ca ff
+80: 2c 02 02 00 60 00 e0 00 02 00 00 00 8f 04 00 00
+90: 00 00 00 00 10 02 66 11 10 02 66 11 86 00 20 00
+a0: 3a 55 4c 0d c6 2e a0 10 85 45 f6 5e 44 b6 6b 00
+b0: 00 00 00 00 00 00 00 00 11 bc 70 00 43 7b 1f 00
+c0: 06 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 04 00 00 00 00 00 00 00 00 68 42 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 30 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:08.3 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 QPI Link Reut 0 [8086:3c83] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 QPI Link Reut 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+        Capabilities: [100 v0] Vendor Specific Information: ID=0001 Rev=0 Len=0f0 <?>
+00: 86 80 83 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:08.4 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 QPI Link Reut 0 [8086:3c84] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 QPI Link Reut 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 84 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:09.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 QPI Link 1 [8086:3c90] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 QPI Link 1 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 90 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 01 f8 96 08 00 00 18 00 00 fc 06 06 00 00 7f 00
+50: 85 03 00 00 00 00 00 f3 00 00 00 00 00 00 00 00
+60: 00 00 18 00 64 11 11 11 64 11 11 11 00 00 00 00
+70: 81 03 00 00 80 00 20 00 00 00 01 00 00 00 ca ff
+80: 2c 02 02 00 60 00 e0 00 02 00 00 00 8f 04 00 00
+90: 00 00 00 00 10 02 66 11 10 02 66 11 86 00 20 00
+a0: 82 f2 30 10 82 6b 95 13 e8 68 fa 5e 0c 8a 4c 00
+b0: 00 00 00 00 00 00 00 00 8f 91 79 00 cd 14 44 00
+c0: 06 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 30 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:09.3 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 QPI Link Reut 1 [8086:3c93] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 QPI Link Reut 1 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+        Capabilities: [100 v0] Vendor Specific Information: ID=0001 Rev=0 Len=0f0 <?>
+00: 86 80 93 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:09.4 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 QPI Link Reut 1 [8086:3c94] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 QPI Link Reut 1 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 94 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:0a.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Power Control Unit 0 [8086:3cc0] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Power Control Unit 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 c0 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 c7 f3 7f 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 71 ae 9d 06
+80: 00 00 00 00 f8 02 70 01 b0 04 2f 00 03 10 0a 00
+90: 81 6c bd 15 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 17 01 64 00 0c 00 00
+b0: 00 00 00 00 2b 4c ec bf 5f 12 d8 e7 32 c1 02 fe
+c0: 00 00 00 00 00 00 00 00 23 00 00 00 23 00 00 00
+d0: 00 00 00 00 36 ab 7f 82 ff 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 0a 5b 00 f8 82 5a 00 90 83 06 80
+f0: 00 00 00 80 00 00 00 00 60 06 00 00 94 14 14 00
+
+0000:3f:0a.1 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Power Control Unit 1 [8086:3cc1] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Power Control Unit 1 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 c1 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 32 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 cc 00 00 00
+90: 00 00 00 00 1e 1e 00 00 0a 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ff ff
+b0: 0e 31 00 14 00 00 00 00 1a 00 00 00 00 00 00 00
+c0: 10 00 fa 00 00 b1 1d 80 a8 2f 40 06 00 00 00 00
+d0: 00 00 00 00 7e 78 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:0a.2 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Power Control Unit 2 [8086:3cc2] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Power Control Unit 2 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 c2 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 20 3f 00 80 00 00 00 00 00 00 00 00 00 00 00 00
+50: a8 2f 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00
+70: 10 00 00 30 00 00 00 00 00 00 00 00 00 00 00 03
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 18 01 78 00 58 02 2f 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 80 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 83 44 02 7d dd 94 58 0c 00 00 00 00
+f0: 50 14 00 04 50 14 00 04 00 00 00 00 ff ff ff ff
+
+0000:3f:0a.3 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Power Control Unit 3 [8086:3cd0] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Power Control Unit 3 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 d0 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 80 00 00 00 00 00 00 00 00 00 00 00
+40: c0 00 00 00 c0 00 02 00 c0 4b 02 00 c0 40 02 00
+50: e0 44 02 00 40 07 02 00 60 07 02 00 40 85 02 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 09 00 18 01 84 61 18 48 81 02 00 18 00 00 00 3a
+90: 00 08 00 10 7e 00 00 20 00 00 00 00 00 00 00 00
+a0: 00 17 01 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 3f 03 3f 01 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 20 00 00 a8 01 04 00 00 00 00 00
+
+0000:3f:0b.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Interrupt Control Registers [8086:3ce0] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Interrupt Control Registers [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 e0 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 01 00 00 00 03 00 00 80 01 00 00 00 00 00 00 00
+50: 02 00 00 00 08 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:0b.3 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Semaphore and Scratchpad Configuration Registers [8086:3ce3] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Semaphore and Scratchpad Configuration Registers [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 e3 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 02 00 00 00 02 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 e3 06 c0 00
+60: 30 02 03 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ba
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 b2 09 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: c0 00 00 00 c0 00 02 00 c0 4b 02 00 c0 40 02 00
+c0: c0 44 02 00 40 07 02 00 60 07 02 00 40 85 02 00
+d0: 20 3f 00 80 00 00 00 00 40 1f 00 01 00 00 00 00
+e0: ff ff ff ff ff ff ff ff 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:0c.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Unicast Register 0 [8086:3ce8] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Unicast Register 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 e8 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: c0 00 80 01 00 00 00 00 00 01 c0 01 00 00 00 00
+50: 11 00 00 00 28 24 00 80 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 40 00 00 00 00 00 00 00 ff ff 00 00 01 00 00 00
+90: 00 00 00 00 3a 07 00 00 03 00 10 18 2b 00 48 fe
+a0: 04 00 01 00 00 00 00 00 07 00 07 00 00 00 00 00
+b0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 04 00 01 00 00 00 00 00 07 00 07 00 00 00 00 00
+d0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:0c.1 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Unicast Register 0 [8086:3ce8] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Unicast Register 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 e8 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: c0 00 80 01 00 00 00 00 00 01 c0 01 00 00 00 00
+50: 11 00 00 00 28 24 00 80 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 40 00 00 00 00 00 00 00 ff ff 00 00 01 00 00 00
+90: 00 00 00 00 3a 07 00 00 03 00 5e e0 2b 00 48 fe
+a0: 12 00 1b 00 00 00 00 00 15 00 21 00 00 00 00 00
+b0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 12 00 1b 00 00 00 00 00 15 00 21 00 00 00 00 00
+d0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:0c.2 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Unicast Register 0 [8086:3ce8] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Unicast Register 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 e8 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: c0 00 80 01 00 00 00 00 00 01 c0 01 00 00 00 00
+50: 11 00 00 00 28 24 00 80 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 40 00 00 00 00 00 00 00 ff ff 00 00 01 00 00 00
+90: 00 00 00 00 3a 07 00 00 03 00 22 b9 2b 00 48 fe
+a0: 20 00 3a 00 00 00 00 00 23 00 00 02 00 00 00 00
+b0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 20 00 3a 00 00 00 00 00 23 00 00 02 00 00 00 00
+d0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:0c.6 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller System Address Decoder 0 [8086:3cf4] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller System Address Decoder 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 f4 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 30 33 33 33 33 33 33 00 00 00 00 00 02 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: c3 83 00 00 00 00 00 00 c3 03 01 00 09 09 09 09
+90: c2 03 01 00 00 00 00 00 c2 03 01 00 00 00 00 00
+a0: c2 03 01 00 00 00 00 00 c2 03 01 00 00 00 00 00
+b0: c2 03 01 00 00 00 00 00 c2 03 01 00 00 00 00 00
+c0: c2 03 01 00 00 00 00 00 c2 03 01 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:0c.7 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 System Address Decoder [8086:3cf6] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 System Address Decoder [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 f6 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 80 a5 bf 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 0c 00 00 00 20 08 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:0d.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Unicast Register 0 [8086:3ce8] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Unicast Register 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 e8 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: c0 00 80 01 00 00 00 00 00 01 c0 01 00 00 00 00
+50: 00 00 00 00 85 20 00 80 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 40 00 00 00 00 00 00 00 ff ff 00 00 01 00 00 00
+90: 00 00 00 00 3a 07 00 00 03 00 19 fa 2b 00 48 fe
+a0: 0b 00 0e 00 00 00 00 00 0e 00 14 00 00 00 00 00
+b0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 0b 00 0e 00 00 00 00 00 0e 00 14 00 00 00 00 00
+d0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:0d.1 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Unicast Register 0 [8086:3ce8] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Unicast Register 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 e8 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: c0 00 80 01 00 00 00 00 00 01 c0 01 00 00 00 00
+50: 00 00 00 00 85 20 00 80 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 40 00 00 00 00 00 00 00 ff ff 00 00 01 00 00 00
+90: 00 00 00 00 3a 07 00 00 03 00 fd d2 2b 00 48 fe
+a0: 19 00 28 00 00 00 00 00 1c 00 2e 00 00 00 00 00
+b0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 19 00 28 00 00 00 00 00 1c 00 2e 00 00 00 00 00
+d0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:0d.2 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Unicast Register 0 [8086:3ce8] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Unicast Register 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 e8 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: c0 00 40 01 00 00 00 00 00 01 00 02 00 00 00 00
+50: 00 00 00 00 85 20 00 80 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 40 00 00 00 00 00 00 00 ff ff 00 00 01 00 00 00
+90: 00 00 00 00 3a 07 00 00 03 00 5a ad 2b 00 48 fe
+a0: 27 00 35 00 00 00 00 00 2a 00 07 02 00 00 00 00
+b0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 27 00 35 00 00 00 00 00 2a 00 07 02 00 00 00 00
+d0: 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:0d.6 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller System Address Decoder 1 [8086:3cf5] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller System Address Decoder 1 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 f5 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 08 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 7b 00 00 f4 00 00 00 00 7d 00 00 f8 00 00 00 00
+90: 00 00 00 00 00 00 00 00 7e 00 00 fc 00 00 00 00
+a0: 00 00 1e 7c 00 00 00 00 40 00 1e fc 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 01 00 00 c0 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 90 24 00 08 00 00 00 08 80 00 00 40 02 00 00
+f0: 00 12 00 00 01 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:0e.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Processor Home Agent [8086:3ca0] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Processor Home Agent [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Kernel modules: sb_edac
+00: 86 80 a0 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: e4 f3 30 00 04 f1 40 00 00 f0 40 00 00 f0 40 00
+50: 00 f0 40 00 00 f0 40 00 00 f0 40 00 00 f0 40 00
+60: 00 f0 40 00 00 f0 40 00 00 f0 40 00 00 f0 40 00
+70: 00 00 02 00 60 ee ee 00 00 00 88 44 00 00 00 00
+80: 02 80 00 03 98 0b 00 00 00 00 00 00 00 00 00 00
+90: 10 00 00 20 00 01 00 00 08 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:0e.1 Performance counters [1101]: Intel Corporation Xeon E5/Core i7 Processor Home Agent Performance Monitoring [8086:3c46] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Processor Home Agent Performance Monitoring [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Kernel driver in use: snbep_uncore
+00: 86 80 46 3c 00 00 00 00 07 00 01 11 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00
+
+0000:3f:0f.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Registers [8086:3ca8] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller Registers [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 a8 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 04 01 00 00
+80: e4 f3 30 00 04 f1 40 00 00 f0 40 00 00 f0 40 00
+90: 00 f0 40 00 00 f0 40 00 00 f0 40 00 00 f0 40 00
+a0: 00 f0 40 00 00 f0 40 00 00 f0 40 00 00 f0 40 00
+b0: 00 00 00 00 8e 01 00 00 00 00 00 00 00 00 00 00
+c0: 4c 04 01 00 00 00 00 00 00 08 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:0f.1 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller RAS Registers [8086:3c71] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller RAS Registers [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 71 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 31 fa 06 00 00 00 00 00
+a0: f1 44 03 04 41 00 00 00 80 0c 20 03 00 00 00 00
+b0: 00 00 00 00 00 80 00 00 68 0a 00 00 00 00 00 00
+c0: 41 6a 1b 09 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 56 63 01 20 c0 02 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:0f.2 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 0 [8086:3caa] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 aa 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 0d 40 0e 00 0d 50 0c 00 00 00 0f 00 00 00 00 00
+90: 00 84 00 00 00 a4 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:0f.3 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 1 [8086:3cab] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 1 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 ab 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 0d 40 0e 00 0d 50 0c 00 00 00 0f 00 00 00 00 00
+90: 00 84 00 00 00 a4 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:0f.4 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 2 [8086:3cac] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 2 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 ac 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 0d 40 0e 00 00 00 0f 00 00 00 0f 00 00 00 00 00
+90: 00 84 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:0f.5 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 3 [8086:3cad] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 3 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 ad 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 0d 40 0e 00 00 00 0f 00 00 00 0f 00 00 00 00 00
+90: 00 84 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:0f.6 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 4 [8086:3cae] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller Target Address Decoder 4 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV+ VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 ae 3c 10 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:10.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 0 [8086:3cb0] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+        Kernel driver in use: snbep_uncore
+00: 86 80 b0 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00
+
+0000:3f:10.1 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 1 [8086:3cb1] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 1 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+        Kernel driver in use: snbep_uncore
+00: 86 80 b1 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00
+
+0000:3f:10.2 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 0 [8086:3cb2] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 0 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 b2 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 25 0b 0b 0b 0b 0b 0b 0b 00 00 00 00 05 00 00 00
+90: 0d 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 80 80 1f 00 00 00 00 00 20 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:10.3 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 1 [8086:3cb3] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 1 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 b3 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 23 0b 0b 0b 0b 0b 0b 0b 00 00 00 00 04 00 00 00
+90: 0d 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 80 80 1f 00 00 00 00 00 20 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:10.4 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 2 [8086:3cb4] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 2 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+        Kernel driver in use: snbep_uncore
+00: 86 80 b4 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00
+
+0000:3f:10.5 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 3 [8086:3cb5] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller Channel 0-3 Thermal Control 3 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+        Kernel driver in use: snbep_uncore
+00: 86 80 b5 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00
+
+0000:3f:10.6 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 2 [8086:3cb6] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 2 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 b6 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 25 0b 0b 0b 25 25 0b 0b 00 00 00 00 05 00 55 00
+90: 0d 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 80 80 1f 00 00 00 00 00 20 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:10.7 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 3 [8086:3cb7] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Integrated Memory Controller ERROR Registers 3 [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Capabilities: [40] Express (v1) Root Complex Integrated Endpoint, MSI 00
+                DevCap: MaxPayload 128 bytes, PhantFunc 0
+                        ExtTag- RBE-
+                DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop-
+                        MaxPayload 128 bytes, MaxReadReq 128 bytes
+                DevSta: CorrErr- UncorrErr- FatalErr- UnsuppReq- AuxPwr- TransPend-
+00: 86 80 b7 3c 00 00 10 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 23 0b 0b 0b 23 23 0b 0b 00 00 00 00 04 00 44 00
+90: 0d 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 80 80 1f 00 00 00 00 00 20 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:11.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 DDRIO [8086:3cb8] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 DDRIO [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV+ VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 b8 3c 10 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00
+40: 10 00 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:13.0 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 R2PCIe [8086:3ce4] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 R2PCIe [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 e4 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 00 00 00 00 c4 03 00 00 01 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 08 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:13.1 Performance counters [1101]: Intel Corporation Xeon E5/Core i7 Ring to PCI Express Performance Monitor [8086:3c43] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Ring to PCI Express Performance Monitor [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Kernel driver in use: snbep_uncore
+00: 86 80 43 3c 00 00 00 00 07 00 01 11 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00
+
+0000:3f:13.4 Performance counters [1101]: Intel Corporation Xeon E5/Core i7 QuickPath Interconnect Agent Ring Registers [8086:3ce6] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 QuickPath Interconnect Agent Ring Registers [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+00: 86 80 e6 3c 00 00 00 00 07 00 01 11 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 00 00 00 00 50 01 50 01 50 01 50 01 00 00 00 00
+50: 02 21 00 00 02 21 00 00 10 01 00 00 10 01 00 00
+60: 01 00 00 00 00 00 00 00 00 00 00 00 30 24 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 bd 96 00 00 00 00 00 00
+90: 00 0c 3c 00 00 00 00 00 12 00 00 00 00 00 00 00
+a0: 0e 08 0e 10 10 08 10 10 00 00 00 00 06 06 01 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: ff ff ff ff 00 00 00 00 00 00 00 00 00 00 00 00
+d0: ff ff ff ff 00 00 00 00 00 00 00 00 63 11 11 11
+e0: 63 11 11 11 04 00 00 00 00 00 40 0c 02 00 cf 0f
+f0: 03 00 3a 3a 00 00 00 00 00 00 00 00 00 00 00 00
+
+0000:3f:13.5 Performance counters [1101]: Intel Corporation Xeon E5/Core i7 Ring to QuickPath Interconnect Link 0 Performance Monitor [8086:3c44] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Ring to QuickPath Interconnect Link 0 Performance Monitor [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Kernel driver in use: snbep_uncore
+00: 86 80 44 3c 00 00 00 00 07 00 01 11 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00
+
+0000:3f:13.6 System peripheral [0880]: Intel Corporation Xeon E5/Core i7 Ring to QuickPath Interconnect Link 1 Performance Monitor [8086:3c45] (rev 07)
+        Subsystem: Hewlett-Packard Company Xeon E5/Core i7 Ring to QuickPath Interconnect Link 1 Performance Monitor [103c:18a8]
+        Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Kernel driver in use: snbep_uncore
+00: 86 80 45 3c 00 00 00 00 07 00 80 08 10 00 80 00
+10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 3c 10 a8 18
+30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00
+
+------=_Part_195_834613010.1557388371426--
