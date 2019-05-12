@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBC76BKUBWEKRB7PC37TAKGQEFBDFDAQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC76BKUBWEKRB7XC37TAKGQE5BC3TCA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qk1-x73c.google.com (mail-qk1-x73c.google.com [IPv6:2607:f8b0:4864:20::73c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F9261ABA7
-	for <lists+jailhouse-dev@lfdr.de>; Sun, 12 May 2019 12:12:14 +0200 (CEST)
-Received: by mail-qk1-x73c.google.com with SMTP id i124sf10094142qkf.14
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 12 May 2019 03:12:14 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1557655933; cv=pass;
+Received: from mail-qt1-x83d.google.com (mail-qt1-x83d.google.com [IPv6:2607:f8b0:4864:20::83d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A07E1ABA8
+	for <lists+jailhouse-dev@lfdr.de>; Sun, 12 May 2019 12:12:16 +0200 (CEST)
+Received: by mail-qt1-x83d.google.com with SMTP id z7sf11409941qtb.9
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 12 May 2019 03:12:16 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1557655935; cv=pass;
         d=google.com; s=arc-20160816;
-        b=PEgwcX6xb8AXr/Q3HSTAE3T0V/WL7oTOLZH+bxA1SFk3sjwdIeQM333hF5/DHo+N/J
-         OUJKASDF9gyhu41UEqycdo2LfKnYabeuAxLHIYPnfM4+JOCmog2JTQU5T9F/GfXSLOST
-         IrSd3+qoGjoVEjUhASRNMaJZ0stA7/xfS7uMGwQPBkBbvblLpozxiUs6uTeyid06e0tB
-         FiD1dlBHw/0FUFJav7dR1/JCHu+USEgwLuQRdeSs32H4jnTzHNrlIBFRKdtwZeZdd62t
-         vyQCBrMMRMqs/nX2igUYUSBcE69jLbJeuZ1hMlZjfWgaNr55tPAZjuomkWCICMJ7VVCO
-         zzGA==
+        b=GDgLlJPt+NOmtZVG0BUunPD38Dr4UlejRX+GPLpa83ZgOfbnFmDRvXekLJJz5krQbU
+         w6gMp49MP4a6rEmHNSrUgTgKDmsdSKmIJQnVwa0APAJ0HFh0teZcWDosqajrW/USm7I9
+         hmFMZZvBCBHggBzilNMs3nNiD2uERrTnP80NypGs7rOiIYJn5Qzz9VsE6P+9UM7mOa5M
+         NvIFf7Y/Bg/4aysN1a10JJeAfwFwVZh5SyD30tQ5iLMpccLgrJdXv7tFGEvw9IfKY12T
+         y/M5FdXdmWhqe3CcEoEldrM1TAl54MGAqvpOV6tF97VERVc5fi9XGQ2BnpjQO+cPoCTQ
+         NkSQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
          :mime-version:subject:message-id:to:from:date:sender:dkim-signature;
-        bh=uvcPvU5u5Oxhh/L43ZNHp+gMtXekaqkw/9zK8CiAHDo=;
-        b=jbjlCGoLd8Do36L3+pUVc/af8hC9HmkHcuyD78H6V3VR+TkyAdbTOQuFKb76wuZLf7
-         Zk7xcIznA5kqALhsV39swMUTo1K6fibPbkF7NmFV1uUtAEtl/i9rh4dqUTynXWGLRpcm
-         MLlDLC+nPWsorjqyHEGRFbVXM/bvjnqL1s50yJfeY0HFr+hQqCq7VObApKx7/5g8Y6Mt
-         TgUCzmPf8AOVWakYLji93J5KoQApFpZgbn/2nvMZx6woT7HkwSEH+FIvDFenbcOslGh3
-         BiCQyYLxYpu4qVCRO91ySOPKo2Zn8EI3PzWizcd7aFNTu80d3hFyItu7V4XYcQrla82J
-         jBLw==
+        bh=W8/eYyN45IhIUFlauwC2DKKZGp1OJI+qQoaLdh/SiBc=;
+        b=EYe2S4zTqa/GAiPzhbPZuuGxgwWKTCVMBnegMhXM4hsRULnfWWeSGuraw/Q9fnjnWM
+         619V7bF1m8lJTnicpD1XUPYcBFjycbpibtJQbuRBpn7O0C68LlcSMjjxTH6rVBqGgGNi
+         F8+F0MBiF+qqH9WBrBoXtnIefaMKyucswT3xhFGEA5H9NDDcD92NkF5YxZo/8SjkgJo4
+         BRPnYtB0ApADVuJZxkvqIE4vSKcltPxUBN6+Rsf7WMrTjIgPtX1qekWOMOE8rrSokSl4
+         Qyr2NrvdN4gAz67SNG0VTDueziWolsJkf3X8vjlmerFCCEEB/U3H1Nm5Rmjm1OhrPcKB
+         FQbQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b="wjZ22W/4";
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.196 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=LIViWPg3;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.254.199 as permitted sender) smtp.mailfrom=noreply@github.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=uvcPvU5u5Oxhh/L43ZNHp+gMtXekaqkw/9zK8CiAHDo=;
-        b=bYIunVdmTGQiXDF7lEuoqw0Uxfwm+/TNyNuAiM1OKFGamZ1zgOFRCqz3uiMNTFXGdI
-         ToeT0+hn/rHwPPReSyD7gwJMxN/mYT8h/sZRqYbMd00uJ8jjuoUgRzoNV5l4FNC744D1
-         nPLwQNnyMO+zP1dUPv0n1TjHH5GbZWhZCa8IyNxvkzm8wJIPmFB9Xl8f0a0gtG2g3oHf
-         49u1dtyWt2YuPu1r4h4sghckB9RfwEq2xaVPxr9wQt+TJNSz+Q/ut1mMSYCwApsKvtK0
-         CbXzixdmffhGdEP5AmW9TsZSB6wfngiNgMlcRGgltNCIe69DdqTNRoWj8IRKNlo2vw/b
-         8SWQ==
+        bh=W8/eYyN45IhIUFlauwC2DKKZGp1OJI+qQoaLdh/SiBc=;
+        b=ZT4vvwKrnLzqu0TgtGFojDidAd+Op+D6sC84NY6IPWHUKdmvmmKu3hsJYgwdZBBg6N
+         Icwe9mbAT+v7aKGLtmshfvNjvHcmw3sphpdVrZmZwtucbl4srAMUEa+D6ZbsjkQt+47r
+         KvvezXk6MJKQyzLR35UVZlsUH14pTMmTaHjkOwhIke87IPnwjnosqr/gk5mhkiM1zUOi
+         +yUqUQPRJ/BasmtvIPBJxwWJ0OXhlrwxvnDRqOpa8O2xmFuA+E6ncfTMiOxeVFQuUXoR
+         i0WfxrZTbjx2+mc3aIZwYDcTbaWTw2HHDNyZw5brQIK2NT+u2A1Q0sQ78bhRgxg3nhDd
+         /msg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:date:from:to:message-id:subject
@@ -49,58 +49,57 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=uvcPvU5u5Oxhh/L43ZNHp+gMtXekaqkw/9zK8CiAHDo=;
-        b=DKK3xxdUqEwO2zbb2FR7bPPxPmge6LqXCN7QZf7fJXa4LCDhjBwFiEQ9d9X6R256oX
-         yYXGbdIlh0opPeC9SQW2805wDlWR6pRGhcU8ZYQ65ZiGHftak9qGj1U2JhBygo5hH4xH
-         Wn7tHxKiqOGxfDO1qAJ7cqw5vbk8tajmeWYkYxgFW6wjWGqIvODVC7mCaZC63d4fFhmU
-         zAkloY3MFaVfqlbtvweORYdpYzrbOmSpNiWKZAAlvPeQkOybtlcJDBUkQddT97YHY4Xl
-         GRkD0D2+6889/rm/QGBtOiZIpSzzkty6Y5sVzmnepO9SVYZjq3wiOPO9SY/wNxTH5YWQ
-         6ohA==
+        bh=W8/eYyN45IhIUFlauwC2DKKZGp1OJI+qQoaLdh/SiBc=;
+        b=lScZbdAeBZnwKx5J69NL9z+WOFJzY/brKYrS61wfCSgj7nPRUZzGZSHu7YLH7CnsnU
+         jEbacceEIb2H3MV9Gq34QbD4OjRv3m9kInFs41kl3UuLD1wHJSSqA9sAZmOfwLqsrJut
+         OzBT4vW8/TMYdMzFsXzgfjxNkly942hUOwYi9Y7/3LuXGDYvCYB28JDSzBrg6JvFFe6y
+         saaryaBiB9+lG1mrr4USyg/W62r/+4T92sbcxjpo/kmt9qYSvx2fmq9CdwoxcKUctbp9
+         H4vIAs8+n7uhBkbBkbTPp6BIVLjNZ6lb6Js3JLRc0Gu8I3sV7WsKaZWqfJufqo3cnDb7
+         yHBg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAWFrRftOPZGpiX74E7duCb91Yc39z7+0sXFX2PKUh9k0WqFQ7nm
-	A9LBzubCSiK15jqETB7+81U=
-X-Google-Smtp-Source: APXvYqy4ljnCojOvo25CRyjcPQs++51JC0HxqGaccq7UEBVQazi2lyE6DOYHMRn8kHGAwU9MwsG7MA==
-X-Received: by 2002:ac8:66d3:: with SMTP id m19mr17961085qtp.359.1557655933251;
-        Sun, 12 May 2019 03:12:13 -0700 (PDT)
+X-Gm-Message-State: APjAAAV2M+87fe2JcjEZM4hV5ftSUvhwY0idbNXT/xYMzWsT6U6cyzu/
+	zjppM7yGCk/UBAKnQSFEy44=
+X-Google-Smtp-Source: APXvYqzf9xDbVETiyqBReupeYueqT4tlmd/0Xm8ztH/qMecRwVPQCMIjYEW98FXa6K+t0x3ACekjWw==
+X-Received: by 2002:ac8:f71:: with SMTP id l46mr12779321qtk.321.1557655934926;
+        Sun, 12 May 2019 03:12:14 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a37:9d45:: with SMTP id g66ls739466qke.9.gmail; Sun, 12 May
- 2019 03:12:12 -0700 (PDT)
-X-Received: by 2002:a37:34b:: with SMTP id 72mr16797284qkd.42.1557655932846;
-        Sun, 12 May 2019 03:12:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1557655932; cv=none;
+Received: by 2002:a37:88c6:: with SMTP id k189ls2910621qkd.16.gmail; Sun, 12
+ May 2019 03:12:14 -0700 (PDT)
+X-Received: by 2002:a37:8bc7:: with SMTP id n190mr16951061qkd.108.1557655934563;
+        Sun, 12 May 2019 03:12:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1557655934; cv=none;
         d=google.com; s=arc-20160816;
-        b=kdzVRZ1wC9Ljg+vtL7xu1tUSnUlAMmYfCQni7lyz6GW7BO7LDkOto6bsMieYZX+RVK
-         n/FC15Z4jVN1thEREetDGyGkuWxQGCtKiltjTvQV2uvSBPKxIh9oSAvq3fjBuLfOh8Cf
-         xgOmbd1ldb91S/TqtA+fx9r862lVzjcIG519iR8g3gPvHkTCxd37w+uJdh+3Qj9+bBTy
-         vaajMaxTtnA6c7TizX8RiRTy38W0FQx8tKgkHjCYeJNX2ZIFYNjQRE6xDbqE5hkSLrXe
-         D4HGknyFH2gSCSM3bbuEEKt1TAeZ7qRYZCXWUjB24/p/uTfvRDEaA0rzRIA0UwjrDQfd
-         361A==
+        b=cslJrKNkoJ2VKP28UvoHgVMHqH0OOX48STuMBNJ8jUWMVNKccGNMp7QFwuWUzFfO5C
+         x4wOLQ0LkfiaLz0MTZpDu282ja58ocpU6VnmYf/mbUG6FDg5eBgok4opW+GHRkbsuHsH
+         jGaviRvcD7QiRH/VRIFmhprQ2o4aQJzCrw8A/aor5O6Q6IoFd35aFdV8tgxYtpRPxkL+
+         h/cPobvSYD2XLbcf9BHXYUg7fQfZex1NuFDfSu4OqfEyHLbuESsxEIBt/+rcKum8meNN
+         rlqlLajVn+SkoYOWBkLHCq8hRwPhRDBfF2WI9QsHTs4hyTd/+aDh8uwB1j9I8Hxp/SBk
+         ZbIw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:subject:message-id:to:from
          :dkim-signature:date;
-        bh=0dOy4DhbHAbMGqwwNA0/jBkNEf1EbJzC6J5Niupl01E=;
-        b=JP2H920m8DA4iSLlCljOo2sLuHzViqK4lE1Su+EYSINh1pi2rgoY7COMgxtqb02bo6
-         dPVwfwt/vSSbA2UT/y28Er8iSrgWtPdFHXc4GwdGxjsEVH6/M0tvRMU5+Ka30JCWNFoV
-         ylH23i/O6jeNvPmRcsah9Q9laBczgh7/BflLaMdlvuj0sI5+WFHf1yZmnxIOezKTACxl
-         q7CsY1HyiJxbse7DfNeXa0Vx6osTr5aw6uP9jw7yMBTcHfgFESEvnSTV3bFYKdgnHkxt
-         NPtE7Ce85+uCBqQeGfPb1+dARtqGsfCt9AHK86YuFHcQOTm+xYsQoCuLM9uW5HWLALip
-         JXkA==
+        bh=j3KDt5ObBB6HKDj5jBOI7OXfoM8d+7fTgwQ36zJNftI=;
+        b=Fsw+o4xfy0RK+4kgbdUyZLQTYWYHRdPh4xpYb2Q0Qj8wVaeROnmRZVHADEhqY3ktcM
+         Qfp0i75oW4K0IARaHk0Uk2k1GfNkv3yrZtiVsk/pi2J9MZyVHsrz+z0zS+y1LdX4k6nk
+         mFpV7+2CqYi5Jv8SFWyOuTHbQGYCrJkAD5eANL4Jkc0q3fcFNWSduLMz9TtMclUrvkKf
+         lX2EqW3EFApHUBdz1hMY4+l1lgSSBEYC4R+2/O9YAGbOk3BnsTxl+VtyUyU8AVIe9Myd
+         mzLTc/Vhd+nTNu8DzgZJ7Gu6P3JtypomQPW1EMmSAfZ01sUYXhejmGvwqxVEVj+7qU7m
+         kIyA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b="wjZ22W/4";
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.196 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=LIViWPg3;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.254.199 as permitted sender) smtp.mailfrom=noreply@github.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
-Received: from out-5.smtp.github.com (out-5.smtp.github.com. [192.30.252.196])
-        by gmr-mx.google.com with ESMTPS id 45si1624433qtq.4.2019.05.12.03.12.12
+Received: from out-16.smtp.github.com (out-16.smtp.github.com. [192.30.254.199])
+        by gmr-mx.google.com with ESMTPS id b10si965895qtg.5.2019.05.12.03.12.14
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 12 May 2019 03:12:12 -0700 (PDT)
-Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.196 as permitted sender) client-ip=192.30.252.196;
-Date: Sun, 12 May 2019 03:12:12 -0700
+        Sun, 12 May 2019 03:12:14 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.254.199 as permitted sender) client-ip=192.30.254.199;
+Date: Sun, 12 May 2019 03:12:13 -0700
 From: Ralf Ramsauer <noreply@github.com>
 To: jailhouse-dev@googlegroups.com
-Message-ID: <siemens/jailhouse/push/refs/heads/next/7fa3f9-f27a6e@github.com>
-Subject: [siemens/jailhouse] fe7ec7: Documentation: x86: test-device: document
- the test...
+Message-ID: <siemens/jailhouse/push/refs/heads/coverity_scan/b94228-7fa3f9@github.com>
+Subject: [siemens/jailhouse] 9bd27a: README: Link cosmetics
 Mime-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -108,10 +107,10 @@ X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
 X-Auto-Response-Suppress: All
 X-Original-Sender: noreply@github.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
- mode) header.i=@github.com header.s=pf2014 header.b="wjZ22W/4";
-       spf=pass (google.com: domain of noreply@github.com designates
- 192.30.252.196 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+ mode) header.i=@github.com header.s=pf2014 header.b=LIViWPg3;       spf=pass
+ (google.com: domain of noreply@github.com designates 192.30.254.199 as
+ permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass (p=NONE
+ sp=NONE dis=NONE) header.from=github.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -124,42 +123,218 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-  Branch: refs/heads/next
+  Branch: refs/heads/coverity_scan
 
   Home:   https://github.com/siemens/jailhouse
 
-  Commit: fe7ec7cf9340cdc616bba017676f7a8092528a54
+  Commit: 9bd27afaed4f7f5d303dbe3e643e0628d4778e45
 
-      https://github.com/siemens/jailhouse/commit/fe7ec7cf9340cdc616bba0176=
-76f7a8092528a54
+      https://github.com/siemens/jailhouse/commit/9bd27afaed4f7f5d303dbe3e6=
+43e0628d4778e45
 
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
 
-  Date:   2019-05-08 (Wed, 08 May 2019)
+  Date:   2019-05-05 (Sun, 05 May 2019)
 
 
 
   Changed paths:
 
-    M Documentation/hypervisor-configuration.md
+    M README.md
+
+
+
+  Log Message:
+
+  -----------
+
+  README: Link cosmetics
+
+
+
+- gmane's web interface is dead, propose mail-archive.com instead
+
+- use clear-text project name with coverity
+
+
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+
+
+
+  Commit: faedc63365e364e03d2be590e55cca564148b374
+
+      https://github.com/siemens/jailhouse/commit/faedc63365e364e03d2be590e=
+55cca564148b374
+
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+
+  Date:   2019-05-05 (Sun, 05 May 2019)
+
+
+
+  Changed paths:
+
+    M inmates/demos/x86/apic-demo.c
+
+
+
+  Log Message:
+
+  -----------
+
+  inmates: apic-demo: Plug race around message evaluation
+
+
+
+If msg_to_cell was not JAILHOUSE_MSG_SHUTDOWN_REQUEST, we took the
+
+default path which also sent back JAILHOUSE_MSG_UNKNOWN - and cleared
+
+msg_to_cell before that. This created a race condition with the
+
+hypervisor trying to sent the cell a message. Due to the hlt, the race
+
+normally didn't matter so far. It will when moving to polling-based
+
+idle.
+
+
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+
+
+
+  Commit: 2b1abe0bf2f32b8a77ae12d98019aad2650fc498
+
+      https://github.com/siemens/jailhouse/commit/2b1abe0bf2f32b8a77ae12d98=
+019aad2650fc498
+
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+
+  Date:   2019-05-05 (Sun, 05 May 2019)
+
+
+
+  Changed paths:
+
+    M inmates/demos/x86/apic-demo.c
+
+
+
+  Log Message:
+
+  -----------
+
+  inmates: apic-demo: Use polling idle to avoid latency spikes
+
+
+
+It has been observed and also confirmed by Intel that hlt can cause
+
+wake-up delay in the order of microseconds, although no particular power
+
+management is requested this way. That's obviously because of
+
+unpredictable decisions of the CPU how to react on that internally.
+
+
+
+As the apic-demo is (also) about demonstrating the minimal possible
+
+interrupt delay, switch to polling.
+
+
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+
+
+
+  Commit: 557fa0de3f99931f80d3abd8a9fa774f474bbcb3
+
+      https://github.com/siemens/jailhouse/commit/557fa0de3f99931f80d3abd8a=
+9fa774f474bbcb3
+
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+
+  Date:   2019-05-07 (Tue, 07 May 2019)
+
+
+
+  Changed paths:
+
+    M hypervisor/Makefile
+
+    M hypervisor/arch/arm/Kbuild
+
+    M inmates/Makefile
+
+    M inmates/lib/arm/Makefile.lib
+
+
+
+  Log Message:
+
+  -----------
+
+  kbuild: Set our own KBUILD_AFLAGS for hypervisor and inmates
+
+
+
+So far we relied on the kernel for providing us with a usable
+
+KBUILD_AFLAGS. We only filtered out the enforced asm/unified.h
+
+inclusion. But this is wrong, and it breaks on ARM with Thumb-2 mode
+
+enabled. We should actually define our own, stable KBUILD_AFLAGS.
+
+
+
+Reported-by: Arvid Ros=C3=A9n <arvid@softube.com>
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+
+
+
+  Commit: 0d5bf1644a276cb6b51a54b9b565e14c83a236f8
+
+      https://github.com/siemens/jailhouse/commit/0d5bf1644a276cb6b51a54b9b=
+565e14c83a236f8
+
+  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+
+  Date:   2019-05-07 (Tue, 07 May 2019)
+
+
+
+  Changed paths:
 
     M hypervisor/arch/x86/test-device.c
 
-    M inmates/tests/x86/mmio-access.c
-
 
 
   Log Message:
 
   -----------
 
-  Documentation: x86: test-device: document the test-device
+  x86: test-device: rename comm_base to mmio_base
 
 
 
-There was no documentation so far. Let's mention it in
+the name comm_base is misleading: the adress is in fact one page inside
 
-hypervisor-configuration.md, and add some comments to the code.
+comm_base. Guests call this page mmio_base, so let's call it mmio_base
+
+as well.
 
 
 
@@ -171,142 +346,140 @@ Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 
 
 
-  Commit: 740b64fedf47a7a45d0850ea6e3b016e7a9d2cff
+  Commit: 8b8e460bd6c9d199c2477ae4faf6e4d2562c8e88
 
-      https://github.com/siemens/jailhouse/commit/740b64fedf47a7a45d0850ea6=
-e3b016e7a9d2cff
+      https://github.com/siemens/jailhouse/commit/8b8e460bd6c9d199c2477ae4f=
+af6e4d2562c8e88
 
   Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 
-  Date:   2019-05-12 (Sun, 12 May 2019)
+  Date:   2019-05-07 (Tue, 07 May 2019)
 
 
 
   Changed paths:
 
-    M inmates/lib/x86/Makefile
+    M configs/arm/bananapi-gic-demo.c
 
-    R inmates/lib/x86/hypercall.c
+    M configs/arm/bananapi-linux-demo.c
 
-    M inmates/lib/x86/include/inmate.h
+    M configs/arm/bananapi-uart-demo.c
 
-    M inmates/lib/x86/setup.c
+    M configs/arm/bananapi.c
 
+    M configs/arm/emtrion-rzg1e-linux-demo.c
 
+    M configs/arm/emtrion-rzg1e-uart-demo.c
 
-  Log Message:
+    M configs/arm/emtrion-rzg1e.c
 
-  -----------
+    M configs/arm/emtrion-rzg1h-linux-demo.c
 
-  inmates: x86: AMD: use the correct vmmcall instruction
+    M configs/arm/emtrion-rzg1h-uart-demo.c
 
+    M configs/arm/emtrion-rzg1h.c
 
+    M configs/arm/emtrion-rzg1m-linux-demo.c
 
-I silently broke AMD inmates a while ago.
+    M configs/arm/emtrion-rzg1m-uart-demo.c
 
+    M configs/arm/emtrion-rzg1m.c
 
+    M configs/arm/jetson-tk1-demo.c
 
-In 4d6eb915ca78, I removed the call of hypercall_init() without
+    M configs/arm/jetson-tk1-linux-demo.c
 
-reintroducing it at the right location again. No one noticed so far, as
+    M configs/arm/jetson-tk1.c
 
-the bug (crash of the cell due to a wrong instruction) only happens on
+    M configs/arm/orangepi0-gic-demo.c
 
-AMD machines only if they use the virtual debugging console.
+    M configs/arm/orangepi0-linux-demo.c
 
+    M configs/arm/orangepi0.c
 
+    M configs/arm64/amd-seattle-gic-demo.c
 
-Instead of calling hypercall_init() somewhere inside printk, let's move
+    M configs/arm64/amd-seattle-linux-demo.c
 
-it to setup.c, as we now have a arch_init_early() routine, which is the
+    M configs/arm64/amd-seattle-uart-demo.c
 
-right place for these kind of initialisations.
+    M configs/arm64/amd-seattle.c
 
+    M configs/arm64/espressobin-gic-demo.c
 
+    M configs/arm64/espressobin-linux-demo.c
 
-Also remove X86_FEATURE_VMX, it was never used.
+    M configs/arm64/espressobin.c
 
+    M configs/arm64/foundation-v8-gic-demo.c
 
+    M configs/arm64/foundation-v8-linux-demo.c
 
-Fixes: 4d6eb915ca78e ("inmates: x86: Use virtual console as additional cons=
-ole")
+    M configs/arm64/foundation-v8-uart-demo.c
 
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+    M configs/arm64/foundation-v8.c
 
-[Jan: also remove hypercall_init from inmate.h]
+    M configs/arm64/hikey-gic-demo.c
 
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+    M configs/arm64/hikey-linux-demo.c
 
+    M configs/arm64/hikey.c
 
+    M configs/arm64/imx8mq-gic-demo.c
 
+    M configs/arm64/imx8mq.c
 
+    M configs/arm64/jetson-tx1-demo.c
 
-  Commit: 809701153eb754a62891f580ae1d0ae5ca3932c5
+    M configs/arm64/jetson-tx1-linux-demo.c
 
-      https://github.com/siemens/jailhouse/commit/809701153eb754a62891f580a=
-e1d0ae5ca3932c5
+    M configs/arm64/jetson-tx1.c
 
-  Author: Hakk=C4=B1 Kurumahmut <kurumahmut@gmail.com>
+    M configs/arm64/jetson-tx2-demo.c
 
-  Date:   2019-05-12 (Sun, 12 May 2019)
+    M configs/arm64/jetson-tx2.c
 
+    M configs/arm64/k3-am654-gic-demo.c
 
+    M configs/arm64/k3-am654-idk-linux-demo.c
 
-  Changed paths:
+    M configs/arm64/k3-am654-idk.c
 
-    M pyjailhouse/sysfs_parser.py
+    M configs/arm64/k3-am654-uart-demo.c
 
+    M configs/arm64/macchiatobin-gic-demo.c
 
+    M configs/arm64/macchiatobin-linux-demo.c
 
-  Log Message:
+    M configs/arm64/macchiatobin.c
 
-  -----------
+    M configs/arm64/miriac-sbc-ls1046a-gic-demo.c
 
-  Scripts: Fix for Parsing DMAR Region under Reserved Section
+    M configs/arm64/miriac-sbc-ls1046a-linux-demo.c
 
+    M configs/arm64/miriac-sbc-ls1046a.c
 
+    M configs/arm64/qemu-arm64-gic-demo.c
 
-While kernel command parameters are intel_iommu=3Don  intremap=3Don at
+    M configs/arm64/qemu-arm64-linux-demo.c
 
-some machines, cat /proc/iomem shows DMAR region under reserved section.
+    M configs/arm64/qemu-arm64.c
 
-This patch must be done for config creation to complete because of
+    M configs/arm64/ultra96-gic-demo.c
 
-generating DMAR region not found error although it exist. If this patch is
+    M configs/arm64/ultra96-linux-demo.c
 
-not apply, an error is throw by "config create" command whether
+    M configs/arm64/ultra96.c
 
-intel_iommu On or Off because "reserved" regions are currently excluded fro=
-m
+    M configs/arm64/zynqmp-zcu102-gic-demo.c
 
-the generated config although DMAR region exists. Thus, DMAR under reserved
+    M configs/arm64/zynqmp-zcu102-linux-demo-2.c
 
-section must be parsed by parser.
+    M configs/arm64/zynqmp-zcu102-linux-demo.c
 
+    M configs/arm64/zynqmp-zcu102.c
 
-
-Signed-off-by: Hakk=C4=B1 Kurumahmut <kurumahmut@gmail.com>
-
-[Jan: adjust style according to pep8]
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: 710d89499782657538b4e270ad1175ff799dd65b
-
-      https://github.com/siemens/jailhouse/commit/710d89499782657538b4e270a=
-d1175ff799dd65b
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-05-12 (Sun, 12 May 2019)
-
-
-
-  Changed paths:
+    M configs/x86/apic-demo.c
 
     M configs/x86/e1000-demo.c
 
@@ -314,249 +487,23 @@ d1175ff799dd65b
 
     M configs/x86/imb-a180.c
 
+    M configs/x86/ioapic-demo.c
+
+    M configs/x86/ivshmem-demo.c
+
     M configs/x86/linux-x86-demo.c
 
     M configs/x86/pci-demo.c
 
     M configs/x86/qemu-x86.c
 
+    M configs/x86/smp-demo.c
+
+    M configs/x86/tiny-demo.c
+
+    M hypervisor/include/jailhouse/utils.h
+
     M include/jailhouse/cell-config.h
-
-    A include/jailhouse/pci_defs.h
-
-
-
-  Log Message:
-
-  -----------
-
-  pci, configs: unmystify magic constants
-
-
-
-Some sugar for the guidance of the reader. Use speaking name instead of
-
-hard-coded constants.
-
-
-
-This patch was supported by:
-
-$ git grep -l "\.id =3D 0x1"  | xargs sed -i 's/id =3D 0x1,/id =3D PCI_CAP_=
-ID_PM,/'
-
-$ git grep -l "\.id =3D 0x3"  | xargs sed -i 's/id =3D 0x3,/id =3D PCI_CAP_=
-ID_VPD,/'
-
-$ git grep -l "\.id =3D 0x5"  | xargs sed -i 's/id =3D 0x5,/id =3D PCI_CAP_=
-ID_MSI,/'
-
-$ git grep -l "\.id =3D 0x8"  | xargs sed -i 's/id =3D 0x8,/id =3D PCI_CAP_=
-ID_HT,/'
-
-$ git grep -l "\.id =3D 0x9"  | xargs sed -i 's/id =3D 0x9,/id =3D PCI_CAP_=
-ID_VNDR,/'
-
-$ git grep -l "\.id =3D 0xa"  | xargs sed -i 's/id =3D 0xa,/id =3D PCI_CAP_=
-ID_DBG,/'
-
-$ git grep -l "\.id =3D 0xd"  | xargs sed -i 's/id =3D 0xd,/id =3D PCI_CAP_=
-ID_SSVID,/'
-
-$ git grep -l "\.id =3D 0xf"  | xargs sed -i 's/id =3D 0xf,/id =3D PCI_CAP_=
-ID_SECDEV,/'
-
-$ git grep -l "\.id =3D 0x10" | xargs sed -i 's/id =3D 0x10,/id =3D PCI_CAP=
-_ID_EXP,/'
-
-$ git grep -l "\.id =3D 0x11" | xargs sed -i 's/id =3D 0x11,/id =3D PCI_CAP=
-_ID_MSIX,/'
-
-$ git grep -l "\.id =3D 0x12" | xargs sed -i 's/id =3D 0x12,/id =3D PCI_CAP=
-_ID_SATA,/'
-
-$ git grep -l "\.id =3D 0x13" | xargs sed -i 's/id =3D 0x13,/id =3D PCI_CAP=
-_ID_AF,/'
-
-
-
-Extended cap ids were manually replaced.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: 822fd81f998248d2ef7b3147662fe9000f48871b
-
-      https://github.com/siemens/jailhouse/commit/822fd81f998248d2ef7b31476=
-62fe9000f48871b
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-05-12 (Sun, 12 May 2019)
-
-
-
-  Changed paths:
-
-    M include/jailhouse/pci_defs.h
-
-
-
-  Log Message:
-
-  -----------
-
-  pci, config: add more magic extended caps constants
-
-
-
-We will need them later, as the config generator might generate them.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: c6be9c5fb5867fd7b88e099a8dfdc2141ab8efae
-
-      https://github.com/siemens/jailhouse/commit/c6be9c5fb5867fd7b88e099a8=
-dfdc2141ab8efae
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-05-12 (Sun, 12 May 2019)
-
-
-
-  Changed paths:
-
-    M pyjailhouse/sysfs_parser.py
-
-
-
-  Log Message:
-
-  -----------
-
-  pyjailhouse: sysfs_parser: rearrange ext PCI cap evaluation logic
-
-
-
-Make it easier to read for now and required for upcoming changes.
-
-
-
-No functional change.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: b71a700caf21ab59cb44333a043327175f15fd44
-
-      https://github.com/siemens/jailhouse/commit/b71a700caf21ab59cb44333a0=
-43327175f15fd44
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-05-12 (Sun, 12 May 2019)
-
-
-
-  Changed paths:
-
-    A pyjailhouse/extendedenum.py
-
-
-
-  Log Message:
-
-  -----------
-
-  pyjailhouse: implement a helper class ExtendedEnum
-
-
-
-Pythons Enums have the restriction that they only allow instances of a
-
-with qualified known values. Unknown values are not supported.
-
-
-
-In case of PCI capabilities, there might be IDs that do not have
-
-speaking names. In this case, we should use the raw representation.
-
-
-
-This helper class provides similar features to Python's enums, but is
-
-specialised for generating C definiton-like things.
-
-
-
-For very easy usage in code, I want this 'Enum'-like type to be directly
-
-accessible via attributes. This is generally no problem, but we need to mak=
-e a
-
-tiny rain dance in order to support both, python2 and python3. The
-
-with_metaclass decorator can be removed once Python 2 is EOL or we decide t=
-o
-
-only support Python3.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: eee55f900948e5fe0c840ccfe2036444dd45bf7f
-
-      https://github.com/siemens/jailhouse/commit/eee55f900948e5fe0c840ccfe=
-2036444dd45bf7f
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-05-12 (Sun, 12 May 2019)
-
-
-
-  Changed paths:
-
-    M .gitignore
-
-    M Kbuild
-
-    M Makefile
-
-    M pyjailhouse/sysfs_parser.py
-
-    A scripts/gen_pci_defs.sh
 
     M tools/root-cell-config.c.tmpl
 
@@ -566,33 +513,30 @@ Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 
   -----------
 
-  pyjailhouse: let the generator produce speaking names for PCI caps
+  configs: define ARRAY_SIZE in cell-config.h
 
 
 
-Definitions on C-side are in place, so let the generator produce those
-
-definitions.
+instead of defining this useful macro in every single config file.
 
 
 
-Therefore, we autogenerate pyjailhouse/pci_defs.py.
+There's only one quirk: ARRAY_SIZE is defined for hypervisor code in util.h=
+,
+
+which we can't include in cell-config.h, as it's GPL-only. So we have to
+
+duplicate the definitions, which might lead to redefinitions of the macro.
+
+Hence, surround the macro by guards.
 
 
 
-The generator will extract PCI_CAP_IDs with grep & sed, fill the template a=
-nd
-
-print the generated python file. The Makefile will redirect the output to t=
-he
-
-final destination.
+Also remove the macro from the root cell template.
 
 
 
 Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-[Jan: moved pci_defs.py generation, refactored extended caps ID string]
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 
@@ -600,24 +544,20 @@ Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 
 
 
-  Commit: 51858cbf72c96c11c9b7f0b0d247904d4561840f
+  Commit: 7fa3f90dabab0fd194e15eb9c2131b0176ea6002
 
-      https://github.com/siemens/jailhouse/commit/51858cbf72c96c11c9b7f0b0d=
-247904d4561840f
+      https://github.com/siemens/jailhouse/commit/7fa3f90dabab0fd194e15eb9c=
+2131b0176ea6002
 
   Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 
-  Date:   2019-05-12 (Sun, 12 May 2019)
+  Date:   2019-05-07 (Tue, 07 May 2019)
 
 
 
   Changed paths:
 
-    M hypervisor/include/jailhouse/pci.h
-
-    M hypervisor/ivshmem.c
-
-    M hypervisor/pci.c
+    M Documentation/debug-output.md
 
 
 
@@ -625,60 +565,11 @@ Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 
   -----------
 
-  pci: use new PCI_CAP_ID_ definitions from pci_defs.h
+  Documentation: debug-output: fix typo
 
 
 
-pci.h also defined two IDs for MSI and MSIX. Replace usages of these
-
-definitions with the one defined in pci_defs.h.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: f27a6ec96016ce84551be1c8dea1cd132a724935
-
-      https://github.com/siemens/jailhouse/commit/f27a6ec96016ce84551be1c8d=
-ea1cd132a724935
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-05-12 (Sun, 12 May 2019)
-
-
-
-  Changed paths:
-
-    M inmates/lib/x86/header-32.S
-
-    M inmates/lib/x86/header.S
-
-    A inmates/lib/x86/include/asm/regs.h
-
-
-
-  Log Message:
-
-  -----------
-
-  inmates: x86: consolidate register definitions
-
-
-
-More duplicate register definitions are upcoming, consolidate them
-
-first.
-
-
-
-No functional change.
+Shoud obviously be 8250.
 
 
 
@@ -690,8 +581,8 @@ Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 
 
 
-Compare: https://github.com/siemens/jailhouse/compare/7fa3f90dabab...f27a6e=
-c96016
+Compare: https://github.com/siemens/jailhouse/compare/b94228ca3ac8...7fa3f9=
+0dabab
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -699,6 +590,6 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/siemens/jailhouse/push/refs/heads/next/7fa3f9-f27a6e%40github=
-.com.
+jailhouse-dev/siemens/jailhouse/push/refs/heads/coverity_scan/b94228-7fa3f9=
+%40github.com.
 For more options, visit https://groups.google.com/d/optout.
