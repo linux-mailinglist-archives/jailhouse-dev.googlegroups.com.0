@@ -1,119 +1,119 @@
-Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRB3MG4LTAKGQEJ44LGFA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBJ4I4LTAKGQEPV4POPQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x437.google.com (mail-wr1-x437.google.com [IPv6:2a00:1450:4864:20::437])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F8161AE22
-	for <lists+jailhouse-dev@lfdr.de>; Sun, 12 May 2019 22:34:53 +0200 (CEST)
-Received: by mail-wr1-x437.google.com with SMTP id x9sf7456689wrw.20
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 12 May 2019 13:34:53 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1557693293; cv=pass;
+Received: from mail-ed1-x53d.google.com (mail-ed1-x53d.google.com [IPv6:2a00:1450:4864:20::53d])
+	by mail.lfdr.de (Postfix) with ESMTPS id EC6941AE24
+	for <lists+jailhouse-dev@lfdr.de>; Sun, 12 May 2019 22:37:59 +0200 (CEST)
+Received: by mail-ed1-x53d.google.com with SMTP id h2sf14521836edi.13
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 12 May 2019 13:37:59 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1557693479; cv=pass;
         d=google.com; s=arc-20160816;
-        b=FX8A9YZ2j9sRX/t5CGFUy+1D47spf7t2lE37V0GWL325MXRsWWuPxjm9iDPsY1WRZA
-         ich3ghP/hxAxC30b070S9rF3OQ2dbdPHclTqvjPT5qSK/adxXl8maNvskJKSFC383MUW
-         FBI3QxfuAMME8WVrGKVv9IfVvMEW2BZM2TOky47frXPUcBPL9i4v73BnxRZQwrCDwaNZ
-         XKWAkiHDnYOWCZAgCREf28izDQfj9yG+Tivh39WL9nB6+vIdpbS52oztirS9ekWdoB6g
-         ed1iM8K1a7hCQL29W7I+bnm8BOq6KWWlFhgbXhpjtRbLmQKi+3eBfzwxvrQiy18JNRcC
-         I6pA==
+        b=SB3lwbAKn4KXjiRmhUt7CXqrp8cNacdCXeqB+azsnstX8PJxYClI+6LyMs4criiE3q
+         +cSV6uNrhzjQGVX22BuEnyOH9YZrHuK/5SwZ5wRxSmgox6O7p5UpY+82a+frgF/604ac
+         zphUFE7Mg+PWoGFb2/FvXOZaqlsop67tEJJUPVeA0JlHgML/NUDEk7TJzyPzDwAC9hWY
+         s4g9NIs31Oacalj+cuu5yx0T8CFlU3pNPbL6P9Vpit3xw7LFOwkz5cB2IPdSzjhzBDie
+         dx+iQwYX+BHcuLqnfp94qrFqMU2NAKmbGqWTyz/ncACyUwuKajZVAfEphYtCgCC/HBfK
+         QzWg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
          :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:subject:autocrypt:openpgp:from:references:cc:to:sender
+         :message-id:autocrypt:openpgp:from:references:to:subject:sender
          :dkim-signature;
-        bh=DnYmeCPf9hJn3Eg3Y+X41u/UmbRfTO4XYRwe1Sl4z/I=;
-        b=mgnm+AK7zeczDYQB7Han8VZU9r9WQdVvmDpVgYvgzLJ8Ga4fN6tsZ8yTAhP3e8XXXO
-         rs8c+jnZWu+OVGA/JEbjQhT3yAPZAbMP4Kzy2Yy20+2kiXREw+oXh6SMOyJn95r3i/LV
-         RFsZIkMaVJbzpGFmgku9l/uJKPD7eQNYzLyV+t12mXL4oWJjemfPjJ65AoJgTD/6k7SZ
-         glBtERE6k9bsEQ+6G/VEw5QhXi35nT2denWLfVy8LxLLJB1KHB3Skp3KdEuVl+Bhvsub
-         THqSv3N+znkct3z9mPBYe99GOVxV+zLJhbkT9BGjxAhS4BOsO7otuaZvTOASyChvL4Tl
-         79eg==
+        bh=ktsxCYuHYWJh/1yED18pf6wszI6N514Tv0Ee8wXSzw8=;
+        b=i/kV3qYwHQkI4CmlXwGHEA1s0ys0PV3eh5qg5oni3YTLjhc4Jji9n0uQ+qWc0uuy2k
+         rcNq9DnfIy9PyYE/K0Ol2rvB/SOEXfQvMH27+1HzMpODOa1nrqhQWoQSnvVneQA36gjB
+         KHo63AsMm4Ye0X/r/XEwJIzTn0b/TPdb1pBpm+zY56BHSEZQMF5jMLJ1cptwwhbue5Fa
+         UwUCn9BzrEVKOw5jmHn/yhliVY7DiEozr2QD4cAKduvjw+wApBw4xlOXyNxKeTL/ei3x
+         XdC5vRN5Kdd79Hy2NRjKcgexhv9fjrmnP1moAKNWkbiv/uSmmmb3xN/x2cA13xnbSRiB
+         nLNg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=I89UYddR;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=RQlekO3Z;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:to:cc:references:from:openpgp:autocrypt:subject:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
+        h=sender:subject:to:references:from:openpgp:autocrypt:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=DnYmeCPf9hJn3Eg3Y+X41u/UmbRfTO4XYRwe1Sl4z/I=;
-        b=Bv6zIgcUNcZxPYy2WLkAP8Q5qYxAMAeI5bynmOzFttpw9Y83NtXhMqjWAf0M1gu4Gp
-         Lqy3GcdMYMI3dL3FoOn518lrFebtqXKh1q1XEsdQziyaBH9u00avc9NGUewkP1dmzJxZ
-         BMAB6m+qa1IzM/D+vYABGbfastjScBsKlHe+mz/F/YwmT3e7JAV1/qEyRH5bRRvQF1+U
-         S3BAWIqr/X/mCqlADuunT/RyGjowGBBKrBTby5ZEv0eL/1Y8HWow33EUtl39tc6Aa+zL
-         xD0vQ4v0iOLDC38EkwyC9qRcxkzstEvds5jodLEoy0Y0+aymcL/MFDgAcxApPOe+Yi/s
-         6sbA==
+        bh=ktsxCYuHYWJh/1yED18pf6wszI6N514Tv0Ee8wXSzw8=;
+        b=mOOM8R9nEVucXnhekSa3dzJkvIuyrlZ1+O7oLTfv1/HKbqUOakV2fy2DKMBu+tzjA+
+         JgQGQeiNufaM2/rbZxP4OkUkc5A4k+9AT4cZFU3hhnKFO6YEIAchUa//NVDTxygn9KdZ
+         RhSh7HBB08DC65NP2bflCcmm/8SgrEbtNPqF11gkcfwZ9AaEDskRNN3X/sHULuWSMyTW
+         a3MyO5Yv/2r7lgdsk+BNZl02d5QlWX4eF3ZAh9t6GzVXBjgw5vEWFXfJ1Uzf020xicon
+         Z5Njze62ok0/axDUTinu/MkAHToWtTQiZT4jdTOBmsGyceeTmvrBwZGVDgsQ/CE4piWC
+         vTyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:to:cc:references:from:openpgp:autocrypt
-         :subject:message-id:date:user-agent:mime-version:in-reply-to
+        h=sender:x-gm-message-state:subject:to:references:from:openpgp
+         :autocrypt:message-id:date:user-agent:mime-version:in-reply-to
          :content-language:content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=DnYmeCPf9hJn3Eg3Y+X41u/UmbRfTO4XYRwe1Sl4z/I=;
-        b=jNsG0gESzcMMMPlbmoRKzpWUzpJJZ/vYN9GatKmAV1u+mGsUp1t8OUq1S7qtwtH3Z2
-         wh/kVUOp7utIkzzG5eDCwXQIez2TOTEzS5W9V1Ul2C17UUie6RO15hqOg4WbfmizbOYh
-         IlldUcl43+w3yg10eh/WB/gcqYWTivtSHeZTyvImKk+u9cbuJdTgi+GHTVkvdf2THi+m
-         j5wAKsZKa12HyQLZ7EInwOa71H/TxBRui/5dq/J7vKwsVL2gjI/sXGcAALMgsrH4Fnf/
-         1LVZgAJfHT2KMgXzd+vPm0F5JiyXrDa4EOA9hoeqBFbVh3HpLCCTvpiogcA546feKiPD
-         A+rA==
+        bh=ktsxCYuHYWJh/1yED18pf6wszI6N514Tv0Ee8wXSzw8=;
+        b=pXJJrpust2MCElNd61Kr9ewMGmXs+ghV5fGtV4kjSk9JvtJPq6skIKwZZcDnB5XCNA
+         ILt2QdbSADYyGZ7fG+CYiMLr9xCKt0Bk9A1nE8IG7v88xcTIurxauAWFhH8VSUXjpsHP
+         Yxx++TUWjjoRiFwIctD/G3TeiyHPHgXMUKaw9dtrc6O2C3h0mKs82o2y1bUaZCi3jbzR
+         pSA6DlRRUUnlzdbepwpqZ6ed3JlNJw81G9RlbJw/4B58mMaFMD66AUOuyICqxVPsGzIQ
+         kCyQWrQ/SLyhF5y1X7R81ecyoPcMIRfArE2UhZB9V0w1LXxm7l7E+EI1jkqqdEr2oooo
+         Ze5A==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXQ1hThsg/Ea104lu8bCl5t4JQ+H1LmA5oS4nprK8AcKDBn+um4
-	XkPoKdhjksDeHyvcIz092sU=
-X-Google-Smtp-Source: APXvYqzO+0Ykd3sS5LPOYBOTcdG6g4yOYseZGffeOgJrGsUcI6jJhG1yCjmvpiDS3pD/OqTEk+UavQ==
-X-Received: by 2002:adf:dd52:: with SMTP id u18mr628065wrm.193.1557693293324;
-        Sun, 12 May 2019 13:34:53 -0700 (PDT)
+X-Gm-Message-State: APjAAAU50LJSyiBCx50lnDQ+uWD9LFTnfsAGOf1oeFV16dGx2eQrDtJ8
+	pfQWIbcms/4A36SMv8e2WAE=
+X-Google-Smtp-Source: APXvYqxk7xUswLdOZxDRwnoJw93bwuwEuiTXlQmJydr1AqFTDa4SgINc2y/xXNgPE1Kjm109yowOHQ==
+X-Received: by 2002:a50:ba1a:: with SMTP id g26mr25726948edc.90.1557693479617;
+        Sun, 12 May 2019 13:37:59 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:97ca:: with SMTP id t10ls2610646wrb.10.gmail; Sun, 12
- May 2019 13:34:52 -0700 (PDT)
-X-Received: by 2002:adf:e691:: with SMTP id r17mr12064013wrm.50.1557693292675;
-        Sun, 12 May 2019 13:34:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1557693292; cv=none;
+Received: by 2002:a17:906:2f91:: with SMTP id w17ls425485eji.16.gmail; Sun, 12
+ May 2019 13:37:59 -0700 (PDT)
+X-Received: by 2002:a17:906:1dd5:: with SMTP id v21mr18977558ejh.142.1557693479114;
+        Sun, 12 May 2019 13:37:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1557693479; cv=none;
         d=google.com; s=arc-20160816;
-        b=kzgFMO6FjqHBUzkYLP5E/IjtPFGPQFoqkYUbkgj6MEKPOUHrTvH5v2jcMPyZwpWe5n
-         0yQ9sdaz97XtnGcJNIcXr412Ywy5nxDiPgwunk8AfULPDhyPSTr+PpuBzJdSLHvmVa1L
-         GVXi69fu1I3AJHROUMNCji/866NBkF5jbRgjVUkXImeQMPO1iH1sGnUbefoLkYg0jFOG
-         X0zBJwP8xXYg/5qln3Ueq1NZtyWPRogK/XzamtjYrBoNTABaFBh5KMRnMmSu2CjYQIQP
-         +MOUAZi0lX0zUZ9GagPIjbcSQ1hXo9qtTshvtlgE7nTlGeedBbFNa2Zs4jWCe02Fs6+g
-         P7BQ==
+        b=zwofEpvjbMgcgcvkayO3iV0PuK96o9PJ3NfhvgqrhvyQDuNFPDyMqsfc6ykydzkjUZ
+         6kXEIiR+myDo+hSRn9qy6gnPNgH1VK+60yPa+2RP+rmlFHxe6c9jykBPEGMIFRXZviGP
+         GIV0WqYgOppXPFaQ1roeG/BuM8MPV0j6sKPh4922+2xXM4mJ06ge6BK9Kr6EUOv6lF3X
+         Tn7uA6p8VmFSfnfcTF/TnKwWFLT2tbm4U34aUoi/x7qtqZMXDHsvXGCWwSC0y6MvTt+d
+         2q3PtAXXDMfSFXdAlImcP3BiE2jqbEOzEqUzy6KPKFWKrlVdkD7ktOhJQWpb/4ad+84a
+         cTbw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:subject:autocrypt:openpgp:from
-         :references:cc:to:dkim-signature;
-        bh=vJ0duNzCXq9eUXc1H4AJihPR8mcAhnwVw8O5WUQIoz4=;
-        b=hyBuM9FgiCzobdsH4uDkyKfJsL0Ae443U6DuR92DBtEIq5VQNbB3frf4L5r+4zXm/2
-         zGjYavQyDF9dIXoGYIHoHBlbX84dRWB6LVLPj10OlaMhn5DbFaSrhFN6PmCX7KOjfegm
-         ax/YJNIb7cEkWm0UWFnhQAr+DNRGNvsqA32hyTDRzTVefKu75V+r+7iNxn9AE/G30LIU
-         yxxGZ0+LKV+KdPrwb+j37KrbiZ1TyjCWK/VfHp0qA5NkM+o++WdMB7xRAuSt6W3JTATm
-         K9nFgGWzooecs2cXYg5qa/G3Vdpltu47oqKdEXDn7hOI7mwGzloCpt2s4FtboVEwJVOJ
-         Uedw==
+         :user-agent:date:message-id:autocrypt:openpgp:from:references:to
+         :subject:dkim-signature;
+        bh=qoBEYN6QX6rc35RxH1C4NGRbgh+HAHDKDbAJtWoLbMk=;
+        b=ODaeHZiGPMX38Y8tHOXESRp11DLSj17Xgt+0yV2Aq5Adq9mdgu38ZEPDur/VQqnD1r
+         3NVbGbluUym07ik0UoF1nwbcWuu9NFcj3w94oLV+jTG3uUUY7LYNQ2wGds1c4CrA4E/G
+         OP0yikqwY41uqZ856/4f72w8JQ502lAlPsIJc5MI359zbXhdvGy4LA1q4Jf0c+1U0Hg9
+         IVvUcA20YW34C1vJtCxQu+5+6JhTM4Ddh7lV1dpO6HRSsPkKHJqhbJeJizmSw9CI655p
+         +1fojZx861r7feY0osBKhW4KmUSZVpbt5uWflLzlM4tZW+xRvGpMct3JYaDFlkTb3AAs
+         gUHQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=I89UYddR;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=RQlekO3Z;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [194.95.104.12])
-        by gmr-mx.google.com with ESMTPS id y139si169089wmd.0.2019.05.12.13.34.52
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [2001:638:a01:1096::12])
+        by gmr-mx.google.com with ESMTPS id n9si657840ejz.0.2019.05.12.13.37.59
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 12 May 2019 13:34:52 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) client-ip=194.95.104.12;
+        Sun, 12 May 2019 13:37:59 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) client-ip=2001:638:a01:1096::12;
 Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(Client CN "E16S02", Issuer "E16S02" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 452G0D1c5vzy9y;
-	Sun, 12 May 2019 22:34:52 +0200 (CEST)
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 452G3p56L5zy9f;
+	Sun, 12 May 2019 22:37:58 +0200 (CEST)
 Received: from [172.23.4.153] (194.95.106.138) by E16S02.hs-regensburg.de
  (2001:638:a01:8013::92) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Sun, 12 May
- 2019 22:34:51 +0200
-To: Jan Kiszka <jan.kiszka@web.de>, Andrej Utz
-	<andrej.utz@st.oth-regensburg.de>, <jailhouse-dev@googlegroups.com>
-CC: Valentine Sinitsyn <valentine.sinitsyn@gmail.com>
-References: <e5d2b706-ca42-9d07-3093-eb9ec547bf1c@st.oth-regensburg.de>
- <835ecb8b-3e0a-b90f-69d9-c240801d3b35@web.de>
+ 2019 22:37:58 +0200
+Subject: Re: [RFC PATCH 4/4] inmates: x86: activate SSE
+To: Jan Kiszka <jan.kiszka@web.de>, Jailhouse <jailhouse-dev@googlegroups.com>
+References: <20190509210726.23168-1-ralf.ramsauer@oth-regensburg.de>
+ <20190509210726.23168-5-ralf.ramsauer@oth-regensburg.de>
+ <9e20c6a4-6e91-a547-8040-1e9fbd9614cd@web.de>
 From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 Openpgp: preference=signencrypt
 Autocrypt: addr=ralf.ramsauer@oth-regensburg.de; keydata=
@@ -160,24 +160,23 @@ Autocrypt: addr=ralf.ramsauer@oth-regensburg.de; keydata=
  k5NkPOqUZJXq1HO+d5Udk1WdT+mkFGwIMN/U9t3gJNWkab+aAYg1mKwdz7B+10j51vbQbFgY
  2/n9jtl/AFgfYQocbJta5+0fOwIJObNFpLAotvtFNF+Q164Bc3E7Njh230nFduU/9BnmCpOQ
  RncIIYr0LjXAAzY=
-Subject: Re: Running apic-demo trapfree without x2APIC
-Message-ID: <c2c39459-478f-8adf-1b13-95af918c5c52@oth-regensburg.de>
-Date: Sun, 12 May 2019 22:34:51 +0200
+Message-ID: <9f486f2e-b7a1-eadb-3c20-2a70e6422061@oth-regensburg.de>
+Date: Sun, 12 May 2019 22:37:57 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <835ecb8b-3e0a-b90f-69d9-c240801d3b35@web.de>
+In-Reply-To: <9e20c6a4-6e91-a547-8040-1e9fbd9614cd@web.de>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-PH
 Content-Transfer-Encoding: quoted-printable
 X-Originating-IP: [194.95.106.138]
-X-ClientProxiedBy: E16S02.hs-regensburg.de (2001:638:a01:8013::92) To
+X-ClientProxiedBy: E16S01.hs-regensburg.de (2001:638:a01:8013::91) To
  E16S02.hs-regensburg.de (2001:638:a01:8013::92)
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=I89UYddR;
+ header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=RQlekO3Z;
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+ designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -191,79 +190,138 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi,
-
-On 5/12/19 9:32 AM, Jan Kiszka wrote:
-> On 09.05.19 17:19, Andrej Utz wrote:
->> Hello everyone,
->>
->> while working on Jailhouse to run on AMD Ryzen without obstacles, we
->> observed
->> high jitter (>1000 =C2=B5s; 40 MSR_OTHER traps/sec) with the apic-demo. =
-Our
->> target
->> comes with an AMD AVIC and does not implement x2APIC or tsc_deadline.
+On 5/12/19 12:01 PM, Jan Kiszka wrote:
+> On 09.05.19 23:07, Ralf Ramsauer wrote:
+>> Recent gcc versions emit SSE instructions for 32-bit inmates (e.g., in
+>> hex2str or cmdline_parse routines). Inmates aren't able to execute those
+>> instructions as SSE is not enabled and will crash.
 >=20
-> 1 ms jitter sounds like power management. This can't be explained by a
-> hand full
-> of vmexits.
+> Actually, this not only fixes automatically injected SSE instructions,
+> it also
+> enables their broader usage, specifically when doing floating point
+> stuff. We
+> should add a test or demo case for that.
 
-Ack. We don't see such high latencies with jitterdebugger/cyclictest
-running in the root cell.
+Ok, should be easy to find some reasonable test cases.
 
-Nevertheless, even if PM is involved, 1ms sounds a bit high. We didn't
-debug this deeper yet, but maybe there are some other odd things: The
-first timer interrupt fires with an 'okayish' latency, then it starts
-dropping.
+BTW: How should we handle SSE/AVX exceptions? They're currently not
+catched and disabled.
 
 >=20
->>
->> The timer implementation in the inmate library will use x2APIC access
->> methods
->> which will be translated by JH into native xAPIC access.
->>
->> If we switch to native xAPIC access in apic-demo, would it still need
->> hypervisor
->> interception?
->=20
-> Yes, because xAPIC is MMIO access that needs to be intercepted
-> completely in
-> order to filter out the sensitive accesses.
+> I addition, I would like to see AVX activated as well, where available.
+> For that
+> we also need to enable the corresponding bits in XCR0.
 
-... And it's also not MSR access: I switched from x2apic mode in inmates
-to MMIO-based xapic access, didn't help. (besides shifting exit types
-from MSR to MMIO).
+Will have a look at that.
 
-BTW, Jailhouse always emulates x2apic for inmates, even there is no real
-platform support (as in our AMD case). What's the reason behind this?
+One last thing: is it okay to just stop the inmate if discovery fails,
+or should we set an appropriate cell state in the commregion before?
 
-I guess it's simplicity, right? We would need to trap if we use xapic
-mode, and so we do with x2apic if it's not present. On the other hand,
-if it is backed by real hardware, we could save some traps on MSR-based
-x2apic accesses.
-
->=20
->>
->> Also how far is AVIC from being usable?
->=20
-> IIRC, it was implemented but didn't work as expected in all cases.
-> That's why
-> it's still off.
->=20
-> I do not remember, though, what exists it can avoid. With AVIC on, some
-> of the
-> xAPIC accesses should be handled directly by SVM. But one question is if
-> APIC
-> timer interrupts could be generated natively - I would guess not.
-
-Raises the question if there exist native AVIC timers that can be used
-without moderation. But that would require software support.
-
-Thanks
   Ralf
 
 >=20
 > Jan
+>=20
+>>
+>> Enabling SSE is the same code for 32 and 64 bit x86 and straight
+>> forward: Lookup SSE availability via cpuid and enable OSFXSR in cr4. If
+>> SSE is not available, stop the inmate.
+>>
+>> As we have a common 32/64 bit infrastructure in place, and we need to
+>> enable SSE on every CPU of a cell, simply place it there.
+>>
+>> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+>> ---
+>> =C2=A0 inmates/lib/x86/header-32.S=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 |=C2=A0 2 +-
+>> =C2=A0 inmates/lib/x86/header-64.S=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 |=C2=A0 2 +-
+>> =C2=A0 inmates/lib/x86/header-common.S=C2=A0=C2=A0=C2=A0 | 12 ++++++++++=
+++
+>> =C2=A0 inmates/lib/x86/include/asm/regs.h |=C2=A0 4 ++++
+>> =C2=A0 4 files changed, 18 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/inmates/lib/x86/header-32.S b/inmates/lib/x86/header-32.S
+>> index d789e5f5..f5fa258a 100644
+>> --- a/inmates/lib/x86/header-32.S
+>> +++ b/inmates/lib/x86/header-32.S
+>> @@ -74,7 +74,7 @@ x86_start:
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cmp $SMP_MAX_CPUS,%edi
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 jae stop
+>>
+>> -=C2=A0=C2=A0=C2=A0 mov $0x01,%eax
+>> +=C2=A0=C2=A0=C2=A0 mov $X86_CPUID_FEATURES, %eax
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cpuid
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 shr $24,%ebx
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mov %bl,smp_cpu_ids(%edi)
+>> diff --git a/inmates/lib/x86/header-64.S b/inmates/lib/x86/header-64.S
+>> index 2ccbd169..775cf6d6 100644
+>> --- a/inmates/lib/x86/header-64.S
+>> +++ b/inmates/lib/x86/header-64.S
+>> @@ -78,7 +78,7 @@ start64:
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cmp $SMP_MAX_CPUS,%edi
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 jae stop
+>>
+>> -=C2=A0=C2=A0=C2=A0 mov $0x01,%eax
+>> +=C2=A0=C2=A0=C2=A0 mov $X86_CPUID_FEATURES, %eax
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cpuid
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 shr $24,%ebx
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mov %bl,smp_cpu_ids(%edi)
+>> diff --git a/inmates/lib/x86/header-common.S
+>> b/inmates/lib/x86/header-common.S
+>> index ffede16c..afc01104 100644
+>> --- a/inmates/lib/x86/header-common.S
+>> +++ b/inmates/lib/x86/header-common.S
+>> @@ -54,6 +54,18 @@ __reset_entry:
+>>
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .code32
+>> =C2=A0 start32:
+>> +=C2=A0=C2=A0=C2=A0 mov $X86_CPUID_FEATURES, %eax
+>> +=C2=A0=C2=A0=C2=A0 cpuid
+>> +
+>> +=C2=A0=C2=A0=C2=A0 /* Check availability of SSE instructions */
+>> +=C2=A0=C2=A0=C2=A0 test $X86_FEATURE_FXSR, %edx
+>> +=C2=A0=C2=A0=C2=A0 jz stop
+>> +
+>> +=C2=A0=C2=A0=C2=A0 /* Activate SSE instructions */
+>> +=C2=A0=C2=A0=C2=A0 mov %cr4, %eax
+>> +=C2=A0=C2=A0=C2=A0 or $X86_CR4_OSFXSR, %eax
+>> +=C2=A0=C2=A0=C2=A0 mov %eax, %cr4
+>> +
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 jmp x86_start
+>>
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .section ".boot", "ax"
+>> diff --git a/inmates/lib/x86/include/asm/regs.h
+>> b/inmates/lib/x86/include/asm/regs.h
+>> index a004fdd2..f6fb4d85 100644
+>> --- a/inmates/lib/x86/include/asm/regs.h
+>> +++ b/inmates/lib/x86/include/asm/regs.h
+>> @@ -42,9 +42,13 @@
+>>
+>> =C2=A0 #define X86_CR4_PAE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x0=
+0000020
+>> =C2=A0 #define X86_CR4_PSE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x0=
+0000010
+>> +#define X86_CR4_OSFXSR=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x0000=
+0200
+>>
+>> =C2=A0 #define MSR_EFER=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0xc000=
+0080
+>> =C2=A0 #define EFER_LME=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x0000=
+0100
+>>
+>> +#define X86_CPUID_FEATURES=C2=A0=C2=A0=C2=A0 0x00000001 /* Processor In=
+fo and
+>> Feature Bits */
+>> +#define X86_FEATURE_FXSR=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (1 <=
+< 24) /* FXSAVE/FXRSTOR,
+>> CR4.OSFXSR */
+>> +
+>> =C2=A0 #define MSR_MTRR_DEF_TYPE=C2=A0=C2=A0=C2=A0 0x000002ff
+>> =C2=A0 #define MTRR_ENABLE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x0=
+0000800
+>>
+>=20
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -271,5 +329,5 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/c2c39459-478f-8adf-1b13-95af918c5c52%40oth-regensburg.de.
+jailhouse-dev/9f486f2e-b7a1-eadb-3c20-2a70e6422061%40oth-regensburg.de.
 For more options, visit https://groups.google.com/d/optout.
