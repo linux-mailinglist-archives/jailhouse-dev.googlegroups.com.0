@@ -1,47 +1,47 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBON237TAKGQEGPY5N4A@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBB2F337TAKGQE4WXREWI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x140.google.com (mail-lf1-x140.google.com [IPv6:2a00:1450:4864:20::140])
-	by mail.lfdr.de (Postfix) with ESMTPS id 672171AB47
-	for <lists+jailhouse-dev@lfdr.de>; Sun, 12 May 2019 10:45:46 +0200 (CEST)
-Received: by mail-lf1-x140.google.com with SMTP id n6sf1455244lfe.1
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 12 May 2019 01:45:46 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1557650746; cv=pass;
+Received: from mail-lj1-x23a.google.com (mail-lj1-x23a.google.com [IPv6:2a00:1450:4864:20::23a])
+	by mail.lfdr.de (Postfix) with ESMTPS id D40AD1AB4C
+	for <lists+jailhouse-dev@lfdr.de>; Sun, 12 May 2019 10:48:40 +0200 (CEST)
+Received: by mail-lj1-x23a.google.com with SMTP id 205sf1302171ljj.4
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 12 May 2019 01:48:40 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1557650920; cv=pass;
         d=google.com; s=arc-20160816;
-        b=fdMkmB9QcY5kCdHDOB81R+M/PjwtGUxN69EXr4qTn70kw/9dK/9hI1LYtyG00qosoH
-         vFUFblz8uZ2oWd0cUcWEH+fMvplN0AbJh5HnBTpk6JxlSM6EW2SPkFnembbpf5akE0Zw
-         L6ya1VeUMvGWxgoVVgiOoF12onXA9eazKQ+K9rmPg5tcDoVx0jZQRIl6t1JxmcTfili2
-         3dRU3YSSXp7YXdknbb0sOh93IYyzfLiG5mC2ATHU4vpr0gdTR0IqL1HH2MlcLBIUCD4x
-         xedYKaGnPleBQ5trqUTmz4FYBIj6IUSpq95OVBmTALf/aIKTmgXJOSQRh/HgVVVt/tJs
-         ILLQ==
+        b=hX3GMybubamBIo19h8QIUy2Ro7P27cRoa1C1U+ZPlB4mGs6zckRyoLqT1VjesdWECS
+         Vgl0o2/072/cc/+Qb2LbDmk+0c9d9FdC29FcifJwJJieIRS/JOhtxgYsLJMKyR7Ddipq
+         1RPH1HmQjbnNQwL1a5Lymv4LJ0Ji6fg7IGXQ0JiJHnP8ZTJGnngATTNpJZHgrVM+G8dP
+         9eVGWey6yyPqFtqXYJaTx387Ie3b52rfNWbHPK2cP4hkhm7TgGkYixE4etQu57uDOD68
+         bnTmxkpIBRqMROBaPm1e4rVch4tUNYU/jjEdtrFzeU92+1VsCJrV9GwfYIdKPuyAp0YW
+         ZsDw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-language:in-reply-to
          :mime-version:user-agent:date:message-id:from:references:to:subject
          :sender:dkim-signature;
-        bh=lAA6UrufzXuGrko/y+Tct9gL6D5DdKo9N+nDcVaJGZo=;
-        b=t2KBHBwmqoRRFiVNOGsNRBrF8GkF1in6VDyH1L/C7xLdueKgVCf6WkMgHWaRBC1G0Y
-         1QouO1725I9WVIUXrgpE2phFC5aQ+p29aBv5xiaG+/e7fm2qIEYpAmYGGqNRpn0cQVme
-         VHRDLUXAICMOe4xd+YotIXOqihXwmkI90DvWVyYMLKxM/fsLjFgKX8HyQ228GfuHwUoo
-         Fd9hKEGP5xwGIctjKhJ2WtPLy6rGa6wiToBQ5IknH78KUZs7TbbMSYE3i7fgog9pXV2/
-         fR63u4sYwK6PUwVVV0LoYiKkqlperptvhXCojNTfSSzce62uM4GyxN+BD8NC2lWG6At6
-         0Vbg==
+        bh=MG66TwR1HkxqXzYp6+FjKo7l945/dI3iJEhefvz0Txo=;
+        b=RQ7yX2AtqyRoG6jlulOzd6jO7eSvythQvJmHtDCIuEEMjsRjNTZRMb3aZeiuSo9OI9
+         XBGZnk895za6WUNuuMUaVIegpj4w3O9eB1VDfmeFMDbVyJBuZeW5I0z5UUxbVV92cXcw
+         CAw9yEFvGaiPo/mRRccvPtz7ORaQ/WoiYNUUiRVBTSBT51XEepFtAa0GRGT+xKyMnoDP
+         5eTgOBXfwIFAsraeF2l+iydW7nk3dI2hCB9qHUhnmAJWiH/JTmsska7ITU23YXI34eWf
+         ztJ3l39HAYYiwVd3R1BJFyKSgyLvafkbqL8oDnB2eXgOtwgx3AjRJOOGiGhkunlSewVY
+         UV2A==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=fBpsP59D;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=P8YKwESt;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=lAA6UrufzXuGrko/y+Tct9gL6D5DdKo9N+nDcVaJGZo=;
-        b=jLdK2T4VdvgkzUthcZ+c1S0LSyBz7ngXqgFpkqzO2Sn2D+ewTZKR3C0fcW5QXzH/lk
-         PLaG9aAyk1CaPo8ma+Jr5igYc+9boxemg+x6IL2PHHdHoFSbkNMby7FRox/dTSs+Dh7N
-         zxl0htI4S2U6MZDjzZIT+YSsHhuSe58jssiBB8zrVJZFXH3COjsmfEqd+jw5w2HdHMmh
-         HCtm83VTRWrihfSsG83m3kd1okLPvnZ1ZZ3WqUssHosS08ePj2RaoiEkRwfP0KWGByuj
-         EAfGcIC5SF6UgK9MpMl9xvOYPNNEvz2Di7ltrN5qB+D7/7iIDfZKpwO0vrRT1VFegToK
-         lJ6w==
+        bh=MG66TwR1HkxqXzYp6+FjKo7l945/dI3iJEhefvz0Txo=;
+        b=rZZN96Et7l1QVy+mDD9T741HTgzIi/gNn9bIg32lE0+3uojDgY91YGXxFMCUP4ebi1
+         imFvnJZe0d3ksXd61FRig+SADktu0DQShCAcAlZEf+zcIn3XZqPEJwz13SQ4COi9HBPY
+         zLwvMld9+rjaNAuVq9faS7JcjgIRy4ynjr95/lxhynCCyKLr0P00rUkcaplHBM3EE5bA
+         bn75Y6c9xOOXjohhSg1mseDNGwZHdPvx1CmOiKmqg4xLZwQ1ODZQ33mbAceKgmpkRA/b
+         O7fNl7isVAMQnbHDHx87z10O7/SCZwp5aO80uyu4xCr1ojuqj9l6A1pbadD79B2iv3fW
+         anGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:subject:to:references:from:message-id
@@ -49,96 +49,94 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=lAA6UrufzXuGrko/y+Tct9gL6D5DdKo9N+nDcVaJGZo=;
-        b=WhLrLfdCQVPhcJdUVyo58tCCfr5W2eel3x55xw2eRJTyI75KsEQ4zwEGIGQZjXhs00
-         8B5RGB/lwmaRE/9XqqlYNQLaB3ahY+Y62r1At5sFp+WJ3fBk7jBz5kgjwElfLf+ZVYf9
-         07xsDwxdmXKhUqZ1tv0T8DtDh24sZGEMLhFGY3G5RlJIqj6BXCmuG14zXys6IklRL4yO
-         dEqgodDI263VV/sUXaNLnMcAthFCfPAjdNRcdGzLCCzgKQ+fW0IOsOXOhwQYRsLCs7Pc
-         irfixqEO2OVr8higSuFm3ScieyZgj6QxLchs9xVZhq1Hl7My46Em1mVlhrGehR/zLiwl
-         qFug==
+        bh=MG66TwR1HkxqXzYp6+FjKo7l945/dI3iJEhefvz0Txo=;
+        b=X6lnlj8KXb+3pg3QwP7l0Rp18taLPilIQByYlWQ9RpU7dIpslH+0pbL9Uq998L/aZ6
+         GZQF7yJB8Uog4/ahoIZKwMumu4k0F0EwUXSLDWhJbfjnh6oXxCFzb8jEJi7PcUzPmm4a
+         /UZK9rssoGoj53EJvYiVNLI5LA/Mf3JRJB0xA5bnK26AreUzCcL4heiIq8YDKKoue1PV
+         2Lu3o7KJR9WlYT+JNeEkBG1rYaz1kO0ZB75v096nfXsov46+v2KAKvyCoWzCavqlfr5x
+         /P1MSRikJElN0rMyQ4nBFKySjXlHfotJWZ3K8OGtcMjRciqRgKUhDhvvBqKX/pMQF0Gs
+         lEtQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXMerw2yYRU4ZU4uMFP5r0mhEOKA1p4gs28VXzYrzX09NNoTE2/
-	znJuoUhtDZhnADJ9wyDTYJ8=
-X-Google-Smtp-Source: APXvYqy50j3FXnOO+tVsayBZWg0R031ila3mkFnkpWcR9J20sU6ic5lyEfNiEwnhSpo37Rkx7W8btw==
-X-Received: by 2002:a2e:81d0:: with SMTP id s16mr10422783ljg.145.1557650745970;
-        Sun, 12 May 2019 01:45:45 -0700 (PDT)
+X-Gm-Message-State: APjAAAV6shk72pp9CnnSU59LUkcdKutWoN4Tpv0VNxJdwFOfCelozYnt
+	/Yl1GV6vG57jtHy5+MMIlLI=
+X-Google-Smtp-Source: APXvYqweMGhYIfHeQOYocdiPVD3Eu2xCrQhajTJ7Mq6TjgO61xA9U3zUQIoG2ddHMWHqMossLK1CfQ==
+X-Received: by 2002:a2e:9f44:: with SMTP id v4mr10435842ljk.72.1557650920448;
+        Sun, 12 May 2019 01:48:40 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:9c54:: with SMTP id t20ls1024360ljj.9.gmail; Sun, 12 May
- 2019 01:45:45 -0700 (PDT)
-X-Received: by 2002:a2e:c41:: with SMTP id o1mr4528975ljd.23.1557650745402;
-        Sun, 12 May 2019 01:45:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1557650745; cv=none;
+Received: by 2002:ac2:558b:: with SMTP id v11ls876371lfg.10.gmail; Sun, 12 May
+ 2019 01:48:39 -0700 (PDT)
+X-Received: by 2002:a19:3f4f:: with SMTP id m76mr10429022lfa.17.1557650919922;
+        Sun, 12 May 2019 01:48:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1557650919; cv=none;
         d=google.com; s=arc-20160816;
-        b=UUNOMhbC0lpta30uGaOP4zhuQUUMM91tk3nxcVBm0phOs35uETizHye3jRSOuNUntW
-         6lQ9W35HhVwrRVYggYitSBmsT0KEj27+W0boPlCzphdLE1SqWUYjnFdTP+ru7r6cuV/y
-         E5PhFNVM0nMm3NGIJz2tGqPg5gYUUJiSYnBdGXhPW3SBwlHAmEi5FnU8T0pa6jo1PEa5
-         U8xv21TakwbBhdqsJ4o/bqq124RZ9ltfBi6wwbzcl4YaEOEJOl6jQ0MYUhouoOfcBGf6
-         TRkTGkaDoNA5IpdrXTycFxRSsB+kDVZ5VoG+9qW/+zCrsHto1WnVfES8nd6QzE9aDoHR
-         i3fQ==
+        b=o7ShmyzPfCH/HDeYzMX2kXt20CcRcK+3KtxJFrbXwtsZZDRNootU2KBodk53C1H1FS
+         CZ6XLBHVSNXTD3XcEhQk0T7sRRDpS3lo54l0gOfFBcY1pOdT2EBJftmhNUuqKG9mqL+T
+         D3vwgz5ajNFrj+qzoJRAvTH1r3oyPsFjS3uV8tjVbo6oSVU6cI2oYuDg/OX6bXMCLl8V
+         62rgcd8nIdO03vl9377EJS/mWowEjmKlo3CR4b+a11b3MvJpNVqFV6GzkkeyiyTx+XK4
+         DM+24Gp6sBSgqAsmySOKaCD5nhFqqyHPpjmSEXpu5/O+vi4mDg40JEbL17K5LVMTDy5Q
+         iyqw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
          :user-agent:date:message-id:from:references:to:subject
          :dkim-signature;
-        bh=yhXyN16vzkx6qul1NIDsccpib2HupblL8gav/FE2Mgs=;
-        b=zNhKCveeTIChqWKVJCAbRZmm0qymiwgKMKNCkASTavY/ifzBnDLiWbBabLFfJc6wa6
-         fmbKqXygA9/zSr/qgOEa1TsRNZ0EdZ/PtBfR3Ye5tPzlXbXho1xBwxOqbwsqXKVTi40Z
-         GdflkhVuRrRSBC4JOIukv5F6MfYkO+IZ86X1VY2YKbZPUlVtO1pr9id7MOBaPLjoAfJ6
-         4MiNVWYtdGfKNCEux0+nShKDZIU1SHD6XJCJqbwZHPO2MAfpNeGS6JyqMYkfz1AP1z+E
-         AqT/BcoYtHvxelkp2wB0ZTyrttFvkmHHoR6NhvSk4IdvF9iib3EvxaL//1jcJFKslsZH
-         Sdvw==
+        bh=+UxKdGAYXZU5+xV0rOjKJVyDQHwcFKNasd3OiEFmvkg=;
+        b=LOwkU8yQqOf/2kUReJmisoeT3N/TOur6NiJZtI/NOHLHEMpKND8adUbZLTouE5SKNG
+         R1PTn3U0GP8LvCsCK+UJpOC8SiujG/GM06kMXGG+RPkSzoDpwi7AHXXQfEE8bOMnN0n2
+         fzwYbXRO09Rc7STl4jkRd1bRnU6v5ZwCDly2iWbrp9i671fX1SJYnacsteXWywdv6xI+
+         Pt5j13JLW7Y7Ifyx5tTDcSpGwsQ6zHp4zlbSzFBqp9kycxwyKZcBCmNmX3/TKs5NIi74
+         W00SeJgp6QjlImjuovIm/Z/SgHJrN88ZHxxnQEpVTMr76+B9LKjSU9PYBGzadsvFDXC3
+         86BA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=fBpsP59D;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
-Received: from mout.web.de (mout.web.de. [212.227.15.14])
-        by gmr-mx.google.com with ESMTPS id c22si1911631lfh.5.2019.05.12.01.45.45
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=P8YKwESt;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Received: from mout.web.de (mout.web.de. [212.227.15.4])
+        by gmr-mx.google.com with ESMTPS id l9si1920316lfh.0.2019.05.12.01.48.39
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 12 May 2019 01:45:45 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as permitted sender) client-ip=212.227.15.14;
+        Sun, 12 May 2019 01:48:39 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) client-ip=212.227.15.4;
 X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.1.10] ([95.157.54.22]) by smtp.web.de (mrweb003
- [213.165.67.108]) with ESMTPSA (Nemesis) id 0M8zRF-1hZO5720c9-00CQJ8; Sun, 12
- May 2019 10:45:44 +0200
-Subject: [PATCH v4 5/6] pyjailhouse: let the generator produce speaking names
- for PCI caps
+Received: from [192.168.1.10] ([95.157.54.22]) by smtp.web.de (mrweb004
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 0LlayN-1goTnV432V-00bH5z; Sun, 12
+ May 2019 10:48:39 +0200
+Subject: Re: [PATCH v3 0/6] Improve pci caps config structure
 To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
  Jailhouse <jailhouse-dev@googlegroups.com>
 References: <20190509165231.18572-1-ralf.ramsauer@oth-regensburg.de>
- <20190509165231.18572-6-ralf.ramsauer@oth-regensburg.de>
 From: Jan Kiszka <jan.kiszka@web.de>
-Message-ID: <14e75933-dbd9-5070-8b55-439978fb32b1@web.de>
-Date: Sun, 12 May 2019 10:45:43 +0200
+Message-ID: <14fc075a-d249-5397-c4ff-e28ad9465b9c@web.de>
+Date: Sun, 12 May 2019 10:48:38 +0200
 User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
  Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
 MIME-Version: 1.0
-In-Reply-To: <20190509165231.18572-6-ralf.ramsauer@oth-regensburg.de>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20190509165231.18572-1-ralf.ramsauer@oth-regensburg.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Language: en-US
-X-Provags-ID: V03:K1:dplGhnGTFnvFc+/29N5lNU7DNLD2TjJznB+sIprz0vtWL9YeoSh
- OOL5IzkRkEe7VNAoVzNPcMrQS6yD9tM2xzTbCjGEZnpAhujj2mNzLzbNXnGcXOoJOX3M3p2
- ywaHDF9H9hdUOsQu06ROMeBRWrf43nEJWjTc1i598NEZp2S9gtk+c2VB3x2tZezYjh21FLv
- 1LkXKRe2gltMFAB3i0cIQ==
+X-Provags-ID: V03:K1:f46Ou2LzbnFDxiKXpIZCHNGqHTYUG23G8txXvj0E41ye79H87g7
+ rJCoOwLiSEZzZhylENF3EaB9Xsy/zg7uTmjei7YakdZXvxHiTEHPJsy2t+Lb+qu2HrfOr6T
+ wwU5yuUF7VpvQKlr1J8P+T29ZLzVXZZkzhh3RsmYs0D7/6gty5X8ZuHmWcJ5oOM6exAR+s1
+ twA87sSnYkPOGp2WVtJzA==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:gM6uEEh46JI=:yE6itnXR6rkQByAsC14KJD
- XSnXT4kSC5AiBlWiJ+sPgsNoxOeUSO0UUYPRG721VpBMpQb1oVWT1pW4/o8Y0yrahj8MdLOjV
- Xg1VcqPipD6t9clrpTzdECYbWC0HWcQVi8ZHybsSMK4G1erllnqp0gfbTO7JMUFjvfKJwEkhX
- kwM6up/X0l5/pTLFO7KCR93X9mY5aY4bRP67eMa6CbR+0bP/nZWoI+s7ZKSFh97lnLTfPDwi8
- eJVkO+dfLvjZ/Kc18CwtGOTO8Zrk5srhD2hbTCvpjVxxDGQprSZcvoUQ/UB1xreZpWtid56xJ
- SKtHvR/r1TA+p72wP05tn6klbWXO5F7tvHCRusdXD4jZQWL1ip8+O+N/BfjYLNmw5SXd3N3hW
- qq/QvEJgqRe9iDiv/2ta+yc0dGDPaADTNPPswpoYtp9P+XPk0L8XfdZ5LU5R1GyY6Qky7JFvL
- nntxtPjDsWtBGI4AkIvyrgf4Jz1qsW20Ozu2D4Vmf7xNM7nCBMN79ciCWytqnUIFKZBoQzW4M
- LXrX1e9D8+XK4Byvh1LdjrPqMn7ULaD/S8vc/73k7SE5hr7pkNfb9vEC6BnnCfljDTeHjWqwX
- JVkjfiVATHLiA/GJhSKBurnF2lwcE6YtubyF31AJtNNZw5I7v1AQMvX/AoKuTGQ8lFF3/7Vcs
- Gss8fnutjdYZuO9aBpPPz4w/NyR4VoXjbR19EaY63dk4CbgYb7XAYRNcthpJr0P61P+Jd6+s+
- 7Qn8gzo6u47LzwnBtN+ZRQNWNhFd5RGsenJsl2GW54AwN2hDw/dX6Xi7IKOoTnKoiaRVic5bj
- Jt27hbvqayU9JbjxW6BKIw6KfvsWJ9+cAaifdNufzmDt0mjf0ot4hR+LHMlXLmqqAsMchIbHe
- ffHJTpH3MT3ObQ7eNSWTgZif7KfnDVfwLjmLGmvXDs+bk1xHxYm51jOgCKogUEyu+oprbg8hE
- K3bHF5/cyWg==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:ciTgXT1Jvas=:Q5Cv+ViHY/tdRPEpft4aNw
+ I9VxnVQCqtW+l8rG7YcuJ5TtdJbqwURK0ohX9Ho1Gr74jXD7x5NHLeeEnAk433leQb/0MFb30
+ EEDqsSyJWPM9qiNCw8hWf/ib22n32Q+7zkespTceS/1CMgRxkr4bHLVYRetdhGePEOgBsBWuR
+ GS51QqIue0UVJ1nsEAPMmtshD44rVgGR+cmn4ZRWBIARYmZlJLYuLrv3TA19ocmlpuOeEm8eY
+ MA6gz82OFItvzRr3CuxFVViaRXGsfJHY//ChhgoPDHnqtls1BJ4eOgu6IH/knOxGUUdydInnL
+ 4T1zp1nE6Aw2cSrLQvWS/aRreLO/0SOfgQ8RL24Iyf7Tnm4wu1zqxxImwB3zHLlymzbEkTPMi
+ 1qKjRpVNg75KhaWL/4FzzCS199DLWl/XgUV13kSk79L7rDdET2M7cGQ52HjR2hfOSUkGznxjo
+ 8ny+8WcwL4EebP4Q/64NI+SKCCgMcQ3iOtXZr8mterr2TVIV5oGf+95Ar9LF5blJDAu1E7zRa
+ CtTppF4ew03wVzu0MpHM5R5rGlIbIfHmG2u4DBmNRTd9Ap9f4XweRO45i5QZHMJQI09qh5TlK
+ ugL/AiXYC5heGVuAWMX2vEX1QoE5GqLCaFn6+W0AcXI2+MloUdDiIMUtTEvRooFlC8JJALDjB
+ vQkceaPghU9xG1podDkM/QBrnz4hktLVd3clqdTAIe7TnEx/dtNiteJhn9pZ4ENyl//FA9Qm2
+ KzCm6tfTfm8khpc3C1AwVWafkHMudWzR8Sqn6hlGO8xvqvk9/U59NxcCv1NdXI2NaK3NhO9mG
+ LGd/gbXCDLd8IR3cXYZXleFu5qaA9cljFpIe1Bsmth4ZAlqHo67zBQtQ4HWpty3TJXk4YKWhS
+ /F+O7nIxxqTb3PL8576ylZISi7qQ6NzwTfVFLp4NAVUjAdiWy8goOd7+vbp7YoC0uUQ9VoJQj
+ L3ndHhEwMug==
 X-Original-Sender: jan.kiszka@web.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b=fBpsP59D;       spf=pass
- (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as
- permitted sender) smtp.mailfrom=jan.kiszka@web.de
+ header.i=@web.de header.s=dbaedf251592 header.b=P8YKwESt;       spf=pass
+ (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted
+ sender) smtp.mailfrom=jan.kiszka@web.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -151,281 +149,68 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+On 09.05.19 18:52, Ralf Ramsauer wrote:
+> Let's use speaking names instead of hard-coded constants. This series
+> first adds definitions on C-side and later improves the config
+> generator.
+>
+> The series can be found here:
+>    https://github.com/lfd/jailhouse/tree/pci-capsV3
+>
+> since v2:
+>    - create new own header for pci: pci_defs.h
+>    - directly use the generator instead of the back and forth
+>    - rename __str__ to gen_cfg()
+>    - Shrink copyright header of autogenerated files
+>
+> since v1:
+>    - remove the ARRAY_SIZE patch, not related to this series
+>    - Add a ExtendedEnum helper class that allows type-safe use and
+>      generation of C-like enums with syntactic sugar
+>    - Let make create pci_cap_id.py
+>        This is done in Patch 6/7. If unwanted, this patch can also be
+>        skipped without any breakages
+>    - Align some hypervisor snippets, where we used alternative
+>      definitions of PCI cap IDs.
+>
+> Ralf Ramsauer (6):
+>    pci, configs: unmystify magic constants
+>    pci, config: add more magic extended caps constants
+>    pyjailhouse: sysfs_parser: rearrange ext PCI cap evaluation logic
+>    pyjailhouse: implement a helper class ExtendedEnum
+>    pyjailhouse: let the generator produce speaking names for PCI caps
+>    pci: use new PCI_CAP_ID_ definitions from pci_defs.h
+>
+>   .gitignore                         |  1 +
+>   configs/x86/e1000-demo.c           |  2 +-
+>   configs/x86/f2a88xm-hd3.c          | 54 ++++++++++----------
+>   configs/x86/imb-a180.c             | 52 +++++++++----------
+>   configs/x86/linux-x86-demo.c       | 12 ++---
+>   configs/x86/pci-demo.c             |  2 +-
+>   configs/x86/qemu-x86.c             | 20 ++++----
+>   hypervisor/include/jailhouse/pci.h |  3 --
+>   hypervisor/ivshmem.c               |  2 +-
+>   hypervisor/pci.c                   | 26 +++++-----
+>   include/jailhouse/cell-config.h    |  1 +
+>   include/jailhouse/pci_defs.h       | 81 ++++++++++++++++++++++++++++++
+>   pyjailhouse/extendedenum.py        | 46 +++++++++++++++++
+>   pyjailhouse/sysfs_parser.py        | 32 ++++++------
+>   tools/Makefile                     | 14 +++++-
+>   tools/gen_pci_defs.sh              | 50 ++++++++++++++++++
+>   tools/root-cell-config.c.tmpl      |  6 +--
+>   17 files changed, 295 insertions(+), 109 deletions(-)
+>   create mode 100644 include/jailhouse/pci_defs.h
+>   create mode 100644 pyjailhouse/extendedenum.py
+>   create mode 100755 tools/gen_pci_defs.sh
+>
 
-Definitions on C-side are in place, so let the generator produce those
-definitions.
+Applied all to next, with v4 of patch 5.
 
-Therefore, we autogenerate pyjailhouse/pci_defs.py.
-
-The generator will extract PCI_CAP_IDs with grep & sed, fill the template and
-print the generated python file. The Makefile will redirect the output to the
-final destination.
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-[Jan: moved pci_defs.py generation, refactored extended caps ID string]
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
----
-
-I would rather go for this version unless you have concerns.
-
- .gitignore                    |  1 +
- Kbuild                        | 14 +++++++++++++-
- Makefile                      |  2 +-
- pyjailhouse/sysfs_parser.py   | 33 ++++++++++++++++++++------------
- scripts/gen_pci_defs.sh       | 44 +++++++++++++++++++++++++++++++++++++++++++
- tools/root-cell-config.c.tmpl |  6 +-----
- 6 files changed, 81 insertions(+), 19 deletions(-)
- create mode 100755 scripts/gen_pci_defs.sh
-
-diff --git a/.gitignore b/.gitignore
-index 494b9356..c8a96df0 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -19,6 +19,7 @@ include/jailhouse/config.h
- hypervisor/hypervisor.lds
- inmates/lib/arm/inmate.lds
- inmates/lib/arm64/inmate.lds
-+pyjailhouse/pci_defs.py
- tools/jailhouse
- tools/jailhouse-gcov-extract
- tools/jailhouse-config-collect
-diff --git a/Kbuild b/Kbuild
-index 71c232d4..7cbde529 100644
---- a/Kbuild
-+++ b/Kbuild
-@@ -41,6 +41,16 @@ GEN_VERSION_H := $(obj)/hypervisor/include/generated/version.h
- $(GEN_VERSION_H): $(src)/Makefile FORCE
- 	$(call filechk,version)
-
-+quiet_cmd_gen_pci_defs = GEN     $@
-+define cmd_gen_pci_defs
-+	$^ $(src)/include/jailhouse/pci_defs.h > $@
-+endef
-+
-+GEN_PCI_DEFS_PY := $(obj)/pyjailhouse/pci_defs.py
-+
-+$(GEN_PCI_DEFS_PY): $(src)/scripts/gen_pci_defs.sh
-+	$(call if_changed,gen_pci_defs)
-+
- subdir-y := driver hypervisor configs inmates tools
-
- subdir-ccflags-y := -Werror
-@@ -52,9 +62,11 @@ $(addprefix $(obj)/,$(subdir-y)): $(GEN_CONFIG_MK)
-
- $(obj)/driver $(obj)/hypervisor: $(GEN_VERSION_H)
-
-+$(obj)/tools: $(GEN_PCI_DEFS_PY)
-+
- endif
-
--clean-files := pyjailhouse/*.pyc
-+clean-files := pyjailhouse/*.pyc pyjailhouse/pci_defs.py
-
- clean-dirs := Documentation/generated hypervisor/include/generated \
- 	      pyjailhouse/__pycache__
-diff --git a/Makefile b/Makefile
-index 217b7c9f..74017395 100644
---- a/Makefile
-+++ b/Makefile
-@@ -59,4 +59,4 @@ ifeq ($(strip $(PYTHON_PIP_USABLE)), yes)
- endif
-
- .PHONY: modules_install install clean firmware_install modules tools docs \
--	docs_clean pyjailhouse_install
-+	docs_clean
-diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py
-index 08c7ed77..fa32ba48 100644
---- a/pyjailhouse/sysfs_parser.py
-+++ b/pyjailhouse/sysfs_parser.py
-@@ -22,6 +22,8 @@ import struct
- import os
- import fnmatch
-
-+from .pci_defs import PCI_CAP_ID, PCI_EXT_CAP_ID
-+
- root_dir = "/"
-
-
-@@ -368,7 +370,7 @@ def parse_ivrs(pcidevices, ioapics):
-                 if d.bdf() == iommu_bdf:
-                     # Extract MSI capability offset
-                     for c in d.caps:
--                        if c.id == 0x05:
-+                        if c.id == PCI_CAP_ID.MSI:
-                             msi_cap_ofs = c.start
-                     # We must not map IOMMU to the cells
-                     del pcidevices[i]
-@@ -543,8 +545,9 @@ class PCIBARs:
-
-
- class PCICapability:
--    def __init__(self, id, start, len, flags, content, msix_address):
-+    def __init__(self, id, extended, start, len, flags, content, msix_address):
-         self.id = id
-+        self.extended = extended
-         self.start = start
-         self.len = len
-         self.flags = flags
-@@ -556,6 +559,10 @@ class PCICapability:
-         return self.id == other.id and self.start == other.start and \
-             self.len == other.len and self.flags == other.flags
-
-+    def gen_id_str(self):
-+        return str(self.id) + \
-+            (' | JAILHOUSE_PCI_EXT_CAP' if self.extended else '')
-+
-     RD = '0'
-     RW = 'JAILHOUSE_PCICAPS_WRITE'
-
-@@ -580,11 +587,12 @@ class PCICapability:
-             msix_address = 0
-             f.seek(cap)
-             (id, next) = struct.unpack('<BB', f.read(2))
--            if id == 0x01:  # Power Management
-+            id = PCI_CAP_ID(id)
-+            if id == PCI_CAP_ID.PM:
-                 # this cap can be handed out completely
-                 len = 8
-                 flags = PCICapability.RW
--            elif id == 0x05:  # MSI
-+            elif id == PCI_CAP_ID.MSI:
-                 # access will be moderated by hypervisor
-                 len = 10
-                 (msgctl,) = struct.unpack('<H', f.read(2))
-@@ -593,7 +601,7 @@ class PCICapability:
-                 if (msgctl & (1 << 8)) != 0:  # per-vector masking support
-                     len += 10
-                 flags = PCICapability.RW
--            elif id == 0x10:  # Express
-+            elif id == PCI_CAP_ID.EXP:
-                 len = 20
-                 (cap_reg,) = struct.unpack('<H', f.read(2))
-                 if (cap_reg & 0xf) >= 2:  # v2 capability
-@@ -601,7 +609,7 @@ class PCICapability:
-                 # access side effects still need to be analyzed
-                 flags = PCICapability.RD
-                 has_extended_caps = True
--            elif id == 0x11:  # MSI-X
-+            elif id == PCI_CAP_ID.MSIX:
-                 # access will be moderated by hypervisor
-                 len = 12
-                 (table,) = struct.unpack('<xxI', f.read(6))
-@@ -620,7 +628,7 @@ class PCICapability:
-                 flags = PCICapability.RD
-             f.seek(cap + 2)
-             content = f.read(len - 2)
--            caps.append(PCICapability(id, cap, len, flags, content,
-+            caps.append(PCICapability(id, False, cap, len, flags, content,
-                                       msix_address))
-
-         if has_extended_caps:
-@@ -637,8 +645,9 @@ class PCICapability:
-                           'Extended Capability ID %x' % id)
-                     continue
-
-+                id = PCI_EXT_CAP_ID(id)
-                 next = version_next >> 4
--                if id == 0x0010:  # SR-IOV
-+                if id == PCI_EXT_CAP_ID.SRIOV:
-                     len = 64
-                     # access side effects still need to be analyzed
-                     flags = PCICapability.RD
-@@ -648,8 +657,8 @@ class PCICapability:
-                     flags = PCICapability.RD
-                 f.seek(cap + 4)
-                 content = f.read(len - 4)
--                id |= PCICapability.JAILHOUSE_PCI_EXT_CAP
--                caps.append(PCICapability(id, cap, len, flags, content, 0))
-+                caps.append(PCICapability(id, True, cap, len, flags, content,
-+                                          0))
-
-         f.close()
-         return caps
-@@ -674,9 +683,9 @@ class PCIDevice:
-         self.msix_region_size = 0
-         self.msix_address = 0
-         for c in caps:
--            if c.id in (0x05, 0x11):
-+            if c.id in (PCI_CAP_ID.MSI, PCI_CAP_ID.MSIX):
-                 msg_ctrl = struct.unpack('<H', c.content[:2])[0]
--                if c.id == 0x05:  # MSI
-+                if c.id == PCI_CAP_ID.MSI:
-                     self.num_msi_vectors = 1 << ((msg_ctrl >> 1) & 0x7)
-                     self.msi_64bits = (msg_ctrl >> 7) & 1
-                 else:  # MSI-X
-diff --git a/scripts/gen_pci_defs.sh b/scripts/gen_pci_defs.sh
-new file mode 100755
-index 00000000..40fb3a72
---- /dev/null
-+++ b/scripts/gen_pci_defs.sh
-@@ -0,0 +1,44 @@
-+#!/bin/bash
-+#
-+# Jailhouse, a Linux-based partitioning hypervisor
-+#
-+# Copyright (c) OTH Regensburg, 2019
-+#
-+# Authors:
-+#  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-+#
-+# This work is licensed under the terms of the GNU GPL, version 2.  See
-+# the COPYING file in the top-level directory.
-+
-+CELL_CONFIG_H=$1
-+
-+function find_defines() {
-+	header=$1
-+	prefix=$2
-+	search="#define\s\+${prefix}\(\S*\)\s\+\(\S*\).*"
-+	replace="        '\1'\t: \2,"
-+
-+	grep $prefix $header | sed -e "s/$search/$replace/"
-+}
-+
-+PCI_CAP_IDS=$(find_defines $CELL_CONFIG_H PCI_CAP_ID_)
-+PCI_EXT_CAP_IDS=$(find_defines $CELL_CONFIG_H PCI_EXT_CAP_ID_)
-+
-+cat <<END
-+# This file is autogenerated. If you need to change it, edit
-+# tools/gen_pci_cap_ids.py.sh instead.
-+
-+from .extendedenum import ExtendedEnum
-+
-+
-+class PCI_CAP_ID(ExtendedEnum):
-+    _ids = {
-+${PCI_CAP_IDS}
-+    }
-+
-+
-+class PCI_EXT_CAP_ID(ExtendedEnum):
-+    _ids = {
-+${PCI_EXT_CAP_IDS}
-+    }
-+END
-diff --git a/tools/root-cell-config.c.tmpl b/tools/root-cell-config.c.tmpl
-index b80d7889..b6ac8637 100644
---- a/tools/root-cell-config.c.tmpl
-+++ b/tools/root-cell-config.c.tmpl
-@@ -196,11 +196,7 @@ struct {
- 		/* ${comment} */
- 		% endfor
- 		{
--			% if (c.id & 0x8000) != 0:
--			.id = ${hex(c.id & 0x7fff)} | JAILHOUSE_PCI_EXT_CAP,
--			% else:
--			.id = ${hex(c.id)},
--			% endif
-+			.id = ${c.gen_id_str()},
- 			.start = ${hex(c.start)},
- 			.len = ${c.len},
- 			.flags = ${c.flags},
---
-2.16.4
+Thanks,
+Jan
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/14e75933-dbd9-5070-8b55-439978fb32b1%40web.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/14fc075a-d249-5397-c4ff-e28ad9465b9c%40web.de.
 For more options, visit https://groups.google.com/d/optout.
