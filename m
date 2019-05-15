@@ -1,117 +1,152 @@
-Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBMVQ57TAKGQE7UM4ARA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBB6G57TAKGQEYGKGIQQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oi1-x23f.google.com (mail-oi1-x23f.google.com [IPv6:2607:f8b0:4864:20::23f])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2D5E1EABD
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 15 May 2019 11:13:24 +0200 (CEST)
-Received: by mail-oi1-x23f.google.com with SMTP id q82sf752156oif.7
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 15 May 2019 02:13:24 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1557911603; cv=pass;
+Received: from mail-wm1-x33d.google.com (mail-wm1-x33d.google.com [IPv6:2a00:1450:4864:20::33d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D1431EB8E
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 15 May 2019 11:59:35 +0200 (CEST)
+Received: by mail-wm1-x33d.google.com with SMTP id 20sf608200wma.2
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 15 May 2019 02:59:35 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1557914375; cv=pass;
         d=google.com; s=arc-20160816;
-        b=NbuxF6MTHLewZUfOIRROve7T2eevCkQ2mI3g0ocDnhcbWl55T/uTcB/qXpzBr8kKLK
-         XnSfhis8/vwlguAanC3WOmiCKqft/aOImydkfU2+qI6g8p3EUJK0wC4LRkb12K8a1m9q
-         ZNzOS59dwv1h256kaXuUxLw7zKEfPi94DA28mzQoB2wcJALv2pRhK5N9oHTbkGlQqOHu
-         EoDEBaKtUnv88HaEU90Zs3B0awvKJPXToLai0nIjKOQzZcV4qN4EZ9XI2FZOHhraZAc7
-         U3DKB96LSF6R5gHqxdyVTOdLuLcLxNXEUCOLSuOdcmRXVEMyRf4fGDuHs8Z95kPNdEQU
-         M7kA==
+        b=qWtBe6vbSuX77ckV1etXy6F2HLPuaFzvGRjAZVT9hBfCmvciSUkeUA/b7nusGz5s1a
+         MgtTxk/+hcQKvzjOMR2MCyzy4YbwiKLNoYo8pKE9ZOjAH3PlRHwABnnTuPrvvrslQb9N
+         R947kh4OL7332Apu/Rm9rKL7ybYF9Dbhm6et62crKygxW23D+pxL325TteaUJlLKhX2D
+         r5YDD+o9eEDw7y6GZlTdatbqQ9x0dnSs6jswbogdEN4amt2gKuqCiChQ2aXM4r+0I9V7
+         VMWNFyI4yMi5bbMba548Y4Crq1ngGfLx5fTDr9lveQNIf9VIPJT2OHOHoPGTJOOe4Wy9
+         F9BQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
-         :mime-version:subject:message-id:to:from:date:sender:dkim-signature;
-        bh=vmhcXLjhLObJQScFMkiDh9n6/yVMyuoL13rWvmBEPkM=;
-        b=QdpwOEXiS2+Y/m10MTCmIDFdCN/Qgj+OalxJHGOfzambOQ9+9/Uh7oxh8qi7LSpAah
-         sjfwlu9zUcunacSIMilellsOXBYAAypyW07mMq3in9FmaHlPek1lsOgRPoheGQupV84D
-         +Exf1aBuxMs46slrqwFqEgbnrb2rKlYV8QyNZmZESHXfVc3KlBAtQhfgsEHtxC/OHkLz
-         1/EDGM2uwxPkLinwMk5JKctVEg4oxFBWLLwDs6UIuA7Ub4DRwUxbXtOWoLFIoKEeTVmL
-         SRSUiJI1nu4/VvF0CspHB1m8Wc7IRI5sl21Jgyy3RiwNckbICt8+PTzdNXxr62OwWdk7
-         nzdQ==
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=kaeKKw/9QCLewXmlWwmffl790kEuDm/rBM1FFmDnflg=;
+        b=RWLP7h/YytX/s+mzLjHdkawGHep2c0Ma2vpMSXob9uDJdxS6GpmfbZjutxGoIoK+JL
+         f4pRYBHND/TFvaihBPOni6fxfEjnEY0XEooYd0StskbutTx7sIcaCQ7mFMAuvlA7HcF8
+         0zUf2TDGKGeDbc7n2m72HUYOexKkwu2dmIK8h0+msW+1cfFPj0rMQ+a/WFWQ0WU1xwU9
+         AiGuLLZ9uSPMOITb/qnZHmeR0wQdfwMABL49qm+PbFmoflal9PCWS+FhJpF5aPbv5k3c
+         kA97UxMad5WUHNaHohz95genc6+WQgpHN/XzGUJsOYW2EA4OPgDMihqBH+in7J3CObON
+         7nlA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=NLfYxCJg;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.198 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b="nCPlle5/";
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:subject:mime-version
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=vmhcXLjhLObJQScFMkiDh9n6/yVMyuoL13rWvmBEPkM=;
-        b=gvaUgFi6PFIvult+k7+7yA5xKmDeFMCOe9qdjv9jloLxaH2WNb4qfoLL8rVmLjFAZp
-         vlhnrdFpynls+i5z3VriVeTlqu4D0VuDb09O/8NRd0ocfv2oqWNLKiEE9+z7CXG5ttGL
-         J07pcMKCX9EpEFjurqLKI4wcrMHaSPwyWcAMDOqxpI0Ve9Of0335JMJUeBdMqpVtaL2n
-         nHLDZobvAzW78LnYfCZoaCl9XG9ZcF32FxhAQP1/6V+yXF9wooQJemJQANY3wYBi9o3v
-         PlVVg2A7ES9fltsMp2FvavXxRexTuT4WoK3ugpkaOeJleizJYE7glL7/LXFebWrJQE1E
-         YRhw==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=kaeKKw/9QCLewXmlWwmffl790kEuDm/rBM1FFmDnflg=;
+        b=taqp2eDYbLpEmJm0awPnbHcQSrCk5D55aJ02pmZvC4ImBe6xlEP3b4t4O7puE2snEa
+         23br98IgRadDprDAYq/WZA12+TpJtFFdoZ4v23Eb7L5VHR10YZcpctqhLBpycENct4yu
+         s+R436zuaZWY7EgJqj1CELJs0bM95u8XRsQEabbSO8X6dDzYbrPn4AEyBXAdWf4hquy5
+         RVFtSPZQs1uMBzCKxbKAfcShpe2E1H12cMd+F8zdn0wyjlDQhoxDKprmvE8z6C4z4mNy
+         UaMQVvzD1uh7w3uZjJznW+yRmhgksZDn6F1I1eA7lJcQur86FK87JHN3v/6+jV/7uBma
+         tLSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:content-transfer-encoding:x-original-sender
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=vmhcXLjhLObJQScFMkiDh9n6/yVMyuoL13rWvmBEPkM=;
-        b=ni9AsX0at/oEJjdlF8p8H151FDt0UQxy/ehSPYG/75jvcEH2ciBhR2hcjOx9JrJqNy
-         brx/6hhMFVM5kLf7M/tku1q3vgJRYPKlP9KIUjV2Pe4ibh6O3aowgsoZK53puw425gRu
-         pN3ni6C5WU2onjqZHbAUrxRwZopM/xOMfr1XsF9wwRw7ezCl6O3T5aGcDbIrEZnGVWdb
-         fADxSH+cotzzmc8QpdXYPou1JYpXTFM8NoAAzEVfVqA85zNKhMfczlBTrCE2qXJXPuxi
-         o5K+x3cACOcmb5xqHrjHbzYWvfKNbltVWrvB+pqcG2oLGN2pndM3cPhfgzahZImmvZya
-         zUmw==
+        bh=kaeKKw/9QCLewXmlWwmffl790kEuDm/rBM1FFmDnflg=;
+        b=cMFYaf3Fj2u+5U5Em2UxTmLhz564XFIKQOAAQba3gAY/sPQ97jTROgb0rB/tJlkICQ
+         kF5YXaIziNArDLKW1emh03ELoJILs59NN0F/fahXwwRLeS0SWA6xp5B9HF/+XaYl129t
+         X3PZXkjSZONh0zbPxfRiY6wkWk59EjiJpscpeQU6o3xTDrog0SRXWrszU8vEECicYEtd
+         vXXKia7H3MXRhV3D+T284AM6ArqhjbEcUNlqI4/naCKucd1mi2nprwuXgtztsa1cjqIS
+         EN3Sp3S48a1uiAHMi6BEc6GlIGWv6wlhar1X2uIm9XcCwIKr0bqhRLbLvEnGDWHpqS3F
+         mr6Q==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXgFmyrC95XdT36G2EDceReOtxiJuL/+ZgDSB82t+asfUs3G3Jm
-	NsFtw/9CVhQo5hqq/J57uWA=
-X-Google-Smtp-Source: APXvYqwsyABMEZVfCulxwOUrSuZAZf2+skHIFemPV77iXGfpW9pg0vMWK7nadqgZEASDlruYyuD89Q==
-X-Received: by 2002:a9d:6543:: with SMTP id q3mr46487otl.370.1557911603337;
-        Wed, 15 May 2019 02:13:23 -0700 (PDT)
+X-Gm-Message-State: APjAAAXNnSg9FEKAq/n9XHVfB+gvZm94y25dwUtcTkP1THi6fp3hZanz
+	VNuIwI96ZidvAqivrbNBadA=
+X-Google-Smtp-Source: APXvYqy4bgQUGhGrZxO4+T7wAu0wKF8ZMjGTYFxuzKSb38xuEaCcJhlq0RRG5ogSReatJ+9bNvDIgw==
+X-Received: by 2002:a1c:1f47:: with SMTP id f68mr12722879wmf.57.1557914375198;
+        Wed, 15 May 2019 02:59:35 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a9d:63da:: with SMTP id e26ls306013otl.14.gmail; Wed, 15 May
- 2019 02:13:22 -0700 (PDT)
-X-Received: by 2002:a9d:664e:: with SMTP id q14mr6283326otm.8.1557911602672;
-        Wed, 15 May 2019 02:13:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1557911602; cv=none;
+Received: by 2002:a5d:66ce:: with SMTP id k14ls472529wrw.4.gmail; Wed, 15 May
+ 2019 02:59:34 -0700 (PDT)
+X-Received: by 2002:a5d:54d2:: with SMTP id x18mr25976605wrv.186.1557914374761;
+        Wed, 15 May 2019 02:59:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1557914374; cv=none;
         d=google.com; s=arc-20160816;
-        b=f2d528c39NaEF6y1hqD8wHk8kLO8vhdUxPf4Z1RCuPyEGDEm/KNKkzNg5jrIEFjsW1
-         0n92kAGEvybONudAZzc2lfKT5l75QIgEBoUcGXXbfinJ6JywwJcpmJ/zvnWBmFh0m5/z
-         W7KrPHy8TjnbwdenbF43DXjcINVzK8R+wNBxxRCpNv5vH8ll2OZLX/C9q37vTdodjafa
-         fA9ws4XxJ/zm7dJN0KzECahNepnXa5mhFMJt+4VBZWr3iy3A/q4bVQwOOeGYMmxTFsLb
-         SfDgtL2pIBoi0UmBiMWY9+LTSHcfHG9HTKO9fnb+9d3cZ8xuOqGLn5qiuclAJWnEwhZe
-         /Jig==
+        b=Aus3vf3oTevnCkTY2nuXZF/RNL9BSNhU1OWckx9oseXmDMXnFknipezAq1Xt5JabKL
+         vdkLVPPEUiLi2eeeAbU4tWYAKm/GEvrxAPp3tS2WEhCy2W0XGqaFIG1UIgJJ+ftaHR1J
+         rNMGxGXxgB/zT0xsR00XMpDpueU8NQPQzllMzhoW5wQehiHnLGnZi4O+aWmPJAaWMStb
+         W2MJhwYGnrFy/T5861XGnfrcGTs5BN4Ojs6s70K+RYTAkKhuasNheqt4z0+DLcZk+7P7
+         FW7qbLT5y5NxUAUpsyqaoNSMFsIpsaB70rDFDvpk3t+d0zhPneZulKEnD3VFJpE7BLJY
+         Hv3Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:subject:message-id:to:from
-         :dkim-signature:date;
-        bh=NDFgSrR2u8Nk4tgepFdVx88bbotXUO3WxZ6ZTeLv3kM=;
-        b=CV23I7NJNhYpgHbRK9H3/w3/LhIaham05APIaXkqJTFoesPVE0f2pa/v3oEs+NnCRD
-         kpndXZvvGHM0rknDdOMTkx1lsvpJecSoStdH57p5zP/sIGt08QCtin6UgMPtSp0GYxii
-         rCRjhMcqOirinHHZk9W6TW9hyye+rYvO3VxbAWx5H3gxD49VRfnSX//zf7THzF7qpS8c
-         zC0O/gRrOO8lJ3/7+PHfC0GJ6xy8PM7m/fMLVUUjKvXhLhb8DMLzXP8UmkrZCkFM37J/
-         CtiwCuOCPmexYBeEhPwsFXSuclFrY5X9eYSdB60IsOAjMvQu+kxSZ3laRLyyrZ7qU8jc
-         jLEw==
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject
+         :dkim-signature;
+        bh=9CG8XivFc8HHWUJbbbpFYjg1IBCSVYUli2had0P/HYo=;
+        b=m1he+oFLveS2rWRUy7S/SeI6VBh1fAdqFslszyNuDf8lpDcKRZnqUFKap0+XbJHcbt
+         NZrIi5sutQWkaChJrVdQD1f/xUCShANeK+A/U1nvJpx8Yb1zVBcg/uVol7a03G6LJfrV
+         VPZ//YHEMpsjGJLxRH93w0zFnlGU1hH5t8pBaoO2qE0foj8V+7Tq44Xp7DHnO/psu/q+
+         YTLCq0I9hL4SLFqsYHZvbiP2+1pJ/n1JGVn+6uH6dA/G5V6Nmtv902a7eSgm7AhKIoxP
+         Pp0T4bwVC5d/+oCSClTtSNgaPA3oyYNDBfhThI5+hF3P1A+M159cGavMKhTGZkioCdW1
+         Nihg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=NLfYxCJg;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.198 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
-Received: from out-7.smtp.github.com (out-7.smtp.github.com. [192.30.252.198])
-        by gmr-mx.google.com with ESMTPS id f8si92198oia.0.2019.05.15.02.13.22
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b="nCPlle5/";
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Received: from mout.web.de (mout.web.de. [212.227.17.11])
+        by gmr-mx.google.com with ESMTPS id g204si1473414wmf.1.2019.05.15.02.59.34
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 15 May 2019 02:13:22 -0700 (PDT)
-Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.198 as permitted sender) client-ip=192.30.252.198;
-Date: Wed, 15 May 2019 02:13:22 -0700
-From: Ralf Ramsauer <noreply@github.com>
-To: jailhouse-dev@googlegroups.com
-Message-ID: <siemens/jailhouse/push/refs/heads/coverity_scan/7fa3f9-f27a6e@github.com>
-Subject: [siemens/jailhouse] fe7ec7: Documentation: x86: test-device: document
- the test...
-Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+        Wed, 15 May 2019 02:59:34 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) client-ip=212.227.17.11;
+X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
+Received: from [192.168.1.10] ([95.157.54.22]) by smtp.web.de (mrweb101
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 0LhvyA-1gvLRU1HEI-00n5LT; Wed, 15
+ May 2019 11:59:34 +0200
+Subject: Re: Unsupported DMAR Device Scope Structure
+To: =?UTF-8?Q?Hakk=c4=b1_Kurumahmut?= <hkurumahmut84@hotmail.com>,
+ Jailhouse <jailhouse-dev@googlegroups.com>
+References: <edd9ef72-beae-42c3-94c7-ac5bf29ba57d@googlegroups.com>
+ <594f54f4-eb5c-5b64-2d49-38997bcf2f8b@siemens.com>
+ <50b964d8-41e5-49af-96dc-3080cbd3966e@googlegroups.com>
+ <62d847c0-b4b6-4395-b603-ecf2f87095d7@googlegroups.com>
+ <3bcebf94-23a5-18d3-1f0b-bb25717167a3@siemens.com>
+ <c238d436-5995-4c44-8a19-bc26654671d5@googlegroups.com>
+ <5c94104f-c27d-9074-1990-61fa9e9d05c1@siemens.com>
+ <cda9daa8-fbe8-46fb-aaba-75ebd38e141e@googlegroups.com>
+From: Jan Kiszka <jan.kiszka@web.de>
+Message-ID: <ab15444f-4a35-712f-3979-8b04a395ee1e@web.de>
+Date: Wed, 15 May 2019 11:59:33 +0200
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
+ Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
+MIME-Version: 1.0
+In-Reply-To: <cda9daa8-fbe8-46fb-aaba-75ebd38e141e@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
-X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
-X-Auto-Response-Suppress: All
-X-Original-Sender: noreply@github.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
- mode) header.i=@github.com header.s=pf2014 header.b=NLfYxCJg;       spf=pass
- (google.com: domain of noreply@github.com designates 192.30.252.198 as
- permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass (p=NONE
- sp=NONE dis=NONE) header.from=github.com
+X-Provags-ID: V03:K1:JrgTI+OFJbr2eHu1WnowqGBNdZDgJ3P6gS8SwqeOGlUT4Kh+/F0
+ 8UlGs4FupWZt3GZftmUy05w66c4nbFtH1EnLOyOWLTmVUv9c09Si/x+uZ1xM68vGl2sum/+
+ a/WZCxaGeNITSxh0BxTxJhnCFrSYTSOvJ5ghM6hQEyFQpYOQYAum/woRKWVF2nA83eL0iOu
+ 9zqu8m4QrXdpTBA/OfWvg==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:pkcR9qtIp20=:wm1EOMy1sM+5iwkbKZFP8c
+ 5TzU0i+dLyTqO3q8l2rHmFs0dvzxykvumGXB9iLRJlggmA4NoT0BrE+4hg/EvBVfKv8mlyijO
+ Gd7zaLUBILM2RK1yxOV/NRrxbFTsc+7KW8u8M0lii4zShoR/MrukALbdXT6IBPCEQMSNoS1b6
+ kSCjRi++DQtrfFUmw7xKXag4JQqdio7XC1YFTXbnr38JcStwzHaVpUlXLBjqEsBMxzQN9CV8q
+ +euf7d2W2ugtH3+qDqnTIdIdczB2Y6bgk8TWqxBpOkkqGMDEUItXDL5syDHFrn2fUtiT2jp/Z
+ sCBPEBO+JlAf7y6iFgiFImf1fAd55tYTTqcqj/b9UFe/3V/mnIXko7uj8WLO1gNNdnfgYlz8Y
+ 9XfsHS1C8AH5VFbE6GOG4p5QKknbJXvvsAdoa0uvZEAW2gpwCf5m3cxQYj8W1iP2G+n85lbUc
+ yrFYgsCVT9gG2cY3euQKu1sV/IxQ0MzcBOwbc7wRkiWS0bFBnbRXB/sxRjdWJy31T4kJbjyw6
+ 9OLALGzKY2J/ERoCNmrpTDpH0nDsPVZ4B6gdv7V6Tj4MDvAqsa5TgWnXA0PB3lrYI20T0Wg+f
+ sQRpC9bOQXESps9K9f7giP7dEer84Iq0AhmHifYwcLzP0jENX6kCYsfx1+WZ3vg7QjmT79fkw
+ phbKOYMVPOeXkLCHrUu/Lfhfh/O5EprG7vdqcn8aWa6nMT0yA8Pd6MhaxVYmEvyIC3yt0IWLT
+ gfuhguvX9V7EcQkqEnVdUerNZK8N8mO+Viov/2rbbYHW5BQ1wW2s4aSru3vuWcjiRbSPcJ5Gs
+ 6GgzTUG6jle2Tz/1XMdybCnOVGtbsO1KEw5ZG/V9v7wyBWZiOyG1fGTzUpQSAzMGBLmH7cbt4
+ gLpJzZpU49zGFvKGR9VTWdlKgcXnJdLJjwoOD4OZUGsvqo5VzzQkDtfHdbeyTY8WYR5o9GayA
+ LXyOFtuWbIw==
+X-Original-Sender: jan.kiszka@web.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@web.de header.s=dbaedf251592 header.b="nCPlle5/";       spf=pass
+ (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as
+ permitted sender) smtp.mailfrom=jan.kiszka@web.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -124,574 +159,50 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-  Branch: refs/heads/coverity_scan
-
-  Home:   https://github.com/siemens/jailhouse
-
-  Commit: fe7ec7cf9340cdc616bba017676f7a8092528a54
-
-      https://github.com/siemens/jailhouse/commit/fe7ec7cf9340cdc616bba0176=
-76f7a8092528a54
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-05-08 (Wed, 08 May 2019)
-
-
-
-  Changed paths:
-
-    M Documentation/hypervisor-configuration.md
-
-    M hypervisor/arch/x86/test-device.c
-
-    M inmates/tests/x86/mmio-access.c
-
-
-
-  Log Message:
-
-  -----------
-
-  Documentation: x86: test-device: document the test-device
-
-
-
-There was no documentation so far. Let's mention it in
-
-hypervisor-configuration.md, and add some comments to the code.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: 740b64fedf47a7a45d0850ea6e3b016e7a9d2cff
-
-      https://github.com/siemens/jailhouse/commit/740b64fedf47a7a45d0850ea6=
-e3b016e7a9d2cff
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-05-12 (Sun, 12 May 2019)
-
-
-
-  Changed paths:
-
-    M inmates/lib/x86/Makefile
-
-    R inmates/lib/x86/hypercall.c
-
-    M inmates/lib/x86/include/inmate.h
-
-    M inmates/lib/x86/setup.c
-
-
-
-  Log Message:
-
-  -----------
-
-  inmates: x86: AMD: use the correct vmmcall instruction
-
-
-
-I silently broke AMD inmates a while ago.
-
-
-
-In 4d6eb915ca78, I removed the call of hypercall_init() without
-
-reintroducing it at the right location again. No one noticed so far, as
-
-the bug (crash of the cell due to a wrong instruction) only happens on
-
-AMD machines only if they use the virtual debugging console.
-
-
-
-Instead of calling hypercall_init() somewhere inside printk, let's move
-
-it to setup.c, as we now have a arch_init_early() routine, which is the
-
-right place for these kind of initialisations.
-
-
-
-Also remove X86_FEATURE_VMX, it was never used.
-
-
-
-Fixes: 4d6eb915ca78e ("inmates: x86: Use virtual console as additional cons=
-ole")
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-[Jan: also remove hypercall_init from inmate.h]
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: 809701153eb754a62891f580ae1d0ae5ca3932c5
-
-      https://github.com/siemens/jailhouse/commit/809701153eb754a62891f580a=
-e1d0ae5ca3932c5
-
-  Author: Hakk=C4=B1 Kurumahmut <kurumahmut@gmail.com>
-
-  Date:   2019-05-12 (Sun, 12 May 2019)
-
-
-
-  Changed paths:
-
-    M pyjailhouse/sysfs_parser.py
-
-
-
-  Log Message:
-
-  -----------
-
-  Scripts: Fix for Parsing DMAR Region under Reserved Section
-
-
-
-While kernel command parameters are intel_iommu=3Don  intremap=3Don at
-
-some machines, cat /proc/iomem shows DMAR region under reserved section.
-
-This patch must be done for config creation to complete because of
-
-generating DMAR region not found error although it exist. If this patch is
-
-not apply, an error is throw by "config create" command whether
-
-intel_iommu On or Off because "reserved" regions are currently excluded fro=
-m
-
-the generated config although DMAR region exists. Thus, DMAR under reserved
-
-section must be parsed by parser.
-
-
-
-Signed-off-by: Hakk=C4=B1 Kurumahmut <kurumahmut@gmail.com>
-
-[Jan: adjust style according to pep8]
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: 710d89499782657538b4e270ad1175ff799dd65b
-
-      https://github.com/siemens/jailhouse/commit/710d89499782657538b4e270a=
-d1175ff799dd65b
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-05-12 (Sun, 12 May 2019)
-
-
-
-  Changed paths:
-
-    M configs/x86/e1000-demo.c
-
-    M configs/x86/f2a88xm-hd3.c
-
-    M configs/x86/imb-a180.c
-
-    M configs/x86/linux-x86-demo.c
-
-    M configs/x86/pci-demo.c
-
-    M configs/x86/qemu-x86.c
-
-    M include/jailhouse/cell-config.h
-
-    A include/jailhouse/pci_defs.h
-
-
-
-  Log Message:
-
-  -----------
-
-  pci, configs: unmystify magic constants
-
-
-
-Some sugar for the guidance of the reader. Use speaking name instead of
-
-hard-coded constants.
-
-
-
-This patch was supported by:
-
-$ git grep -l "\.id =3D 0x1"  | xargs sed -i 's/id =3D 0x1,/id =3D PCI_CAP_=
-ID_PM,/'
-
-$ git grep -l "\.id =3D 0x3"  | xargs sed -i 's/id =3D 0x3,/id =3D PCI_CAP_=
-ID_VPD,/'
-
-$ git grep -l "\.id =3D 0x5"  | xargs sed -i 's/id =3D 0x5,/id =3D PCI_CAP_=
-ID_MSI,/'
-
-$ git grep -l "\.id =3D 0x8"  | xargs sed -i 's/id =3D 0x8,/id =3D PCI_CAP_=
-ID_HT,/'
-
-$ git grep -l "\.id =3D 0x9"  | xargs sed -i 's/id =3D 0x9,/id =3D PCI_CAP_=
-ID_VNDR,/'
-
-$ git grep -l "\.id =3D 0xa"  | xargs sed -i 's/id =3D 0xa,/id =3D PCI_CAP_=
-ID_DBG,/'
-
-$ git grep -l "\.id =3D 0xd"  | xargs sed -i 's/id =3D 0xd,/id =3D PCI_CAP_=
-ID_SSVID,/'
-
-$ git grep -l "\.id =3D 0xf"  | xargs sed -i 's/id =3D 0xf,/id =3D PCI_CAP_=
-ID_SECDEV,/'
-
-$ git grep -l "\.id =3D 0x10" | xargs sed -i 's/id =3D 0x10,/id =3D PCI_CAP=
-_ID_EXP,/'
-
-$ git grep -l "\.id =3D 0x11" | xargs sed -i 's/id =3D 0x11,/id =3D PCI_CAP=
-_ID_MSIX,/'
-
-$ git grep -l "\.id =3D 0x12" | xargs sed -i 's/id =3D 0x12,/id =3D PCI_CAP=
-_ID_SATA,/'
-
-$ git grep -l "\.id =3D 0x13" | xargs sed -i 's/id =3D 0x13,/id =3D PCI_CAP=
-_ID_AF,/'
-
-
-
-Extended cap ids were manually replaced.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: 822fd81f998248d2ef7b3147662fe9000f48871b
-
-      https://github.com/siemens/jailhouse/commit/822fd81f998248d2ef7b31476=
-62fe9000f48871b
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-05-12 (Sun, 12 May 2019)
-
-
-
-  Changed paths:
-
-    M include/jailhouse/pci_defs.h
-
-
-
-  Log Message:
-
-  -----------
-
-  pci, config: add more magic extended caps constants
-
-
-
-We will need them later, as the config generator might generate them.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: c6be9c5fb5867fd7b88e099a8dfdc2141ab8efae
-
-      https://github.com/siemens/jailhouse/commit/c6be9c5fb5867fd7b88e099a8=
-dfdc2141ab8efae
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-05-12 (Sun, 12 May 2019)
-
-
-
-  Changed paths:
-
-    M pyjailhouse/sysfs_parser.py
-
-
-
-  Log Message:
-
-  -----------
-
-  pyjailhouse: sysfs_parser: rearrange ext PCI cap evaluation logic
-
-
-
-Make it easier to read for now and required for upcoming changes.
-
-
-
-No functional change.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: b71a700caf21ab59cb44333a043327175f15fd44
-
-      https://github.com/siemens/jailhouse/commit/b71a700caf21ab59cb44333a0=
-43327175f15fd44
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-05-12 (Sun, 12 May 2019)
-
-
-
-  Changed paths:
-
-    A pyjailhouse/extendedenum.py
-
-
-
-  Log Message:
-
-  -----------
-
-  pyjailhouse: implement a helper class ExtendedEnum
-
-
-
-Pythons Enums have the restriction that they only allow instances of a
-
-with qualified known values. Unknown values are not supported.
-
-
-
-In case of PCI capabilities, there might be IDs that do not have
-
-speaking names. In this case, we should use the raw representation.
-
-
-
-This helper class provides similar features to Python's enums, but is
-
-specialised for generating C definiton-like things.
-
-
-
-For very easy usage in code, I want this 'Enum'-like type to be directly
-
-accessible via attributes. This is generally no problem, but we need to mak=
-e a
-
-tiny rain dance in order to support both, python2 and python3. The
-
-with_metaclass decorator can be removed once Python 2 is EOL or we decide t=
-o
-
-only support Python3.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: eee55f900948e5fe0c840ccfe2036444dd45bf7f
-
-      https://github.com/siemens/jailhouse/commit/eee55f900948e5fe0c840ccfe=
-2036444dd45bf7f
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-05-12 (Sun, 12 May 2019)
-
-
-
-  Changed paths:
-
-    M .gitignore
-
-    M Kbuild
-
-    M Makefile
-
-    M pyjailhouse/sysfs_parser.py
-
-    A scripts/gen_pci_defs.sh
-
-    M tools/root-cell-config.c.tmpl
-
-
-
-  Log Message:
-
-  -----------
-
-  pyjailhouse: let the generator produce speaking names for PCI caps
-
-
-
-Definitions on C-side are in place, so let the generator produce those
-
-definitions.
-
-
-
-Therefore, we autogenerate pyjailhouse/pci_defs.py.
-
-
-
-The generator will extract PCI_CAP_IDs with grep & sed, fill the template a=
-nd
-
-print the generated python file. The Makefile will redirect the output to t=
-he
-
-final destination.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-[Jan: moved pci_defs.py generation, refactored extended caps ID string]
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: 51858cbf72c96c11c9b7f0b0d247904d4561840f
-
-      https://github.com/siemens/jailhouse/commit/51858cbf72c96c11c9b7f0b0d=
-247904d4561840f
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-05-12 (Sun, 12 May 2019)
-
-
-
-  Changed paths:
-
-    M hypervisor/include/jailhouse/pci.h
-
-    M hypervisor/ivshmem.c
-
-    M hypervisor/pci.c
-
-
-
-  Log Message:
-
-  -----------
-
-  pci: use new PCI_CAP_ID_ definitions from pci_defs.h
-
-
-
-pci.h also defined two IDs for MSI and MSIX. Replace usages of these
-
-definitions with the one defined in pci_defs.h.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: f27a6ec96016ce84551be1c8dea1cd132a724935
-
-      https://github.com/siemens/jailhouse/commit/f27a6ec96016ce84551be1c8d=
-ea1cd132a724935
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-05-12 (Sun, 12 May 2019)
-
-
-
-  Changed paths:
-
-    M inmates/lib/x86/header-32.S
-
-    M inmates/lib/x86/header.S
-
-    A inmates/lib/x86/include/asm/regs.h
-
-
-
-  Log Message:
-
-  -----------
-
-  inmates: x86: consolidate register definitions
-
-
-
-More duplicate register definitions are upcoming, consolidate them
-
-first.
-
-
-
-No functional change.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-Compare: https://github.com/siemens/jailhouse/compare/7fa3f90dabab...f27a6e=
-c96016
+On 07.05.19 23:14, Hakk=C4=B1 Kurumahmut wrote:
+> @Jan
+>
+> I have a question about the patch. assign_iommu_info and append_comment_i=
+nfo methods is running for PCI-PCI bridge primary and secondary bus,dev,fn.
+>
+> I'm not sure it should work for the primary bus,dev,fn.
+>
+> Example Device Scope:
+>
+> 01 0A 00 00 00 00 1C 07 00 00
+> 01 0A 00 00 00 00 1C 07 00 02
+> 01 0A 00 00 00 00 1C 07 00 04
+>
+> It is running order
+>
+> 1.) 00:1C.07
+> 2.) sec-bus:00.00
+> 3.) 00:1C.07
+> 4.) sec-bus:00.02
+> 5.) 00:1C.07
+> 6.) sec-bus:00.04
+>
+> May be it is run for only secondary buses.
+>
+> 1.) sec-bus:00.00
+> 2.) sec-bus:00.02
+> 3.) sec-bus:00.04
+>
+>
+
+I'm not yet sure I get the idea of your patch. Unfortunately, it mixes a
+refactoring with the enhancement of device scope parser. Why?
+
+I would have added this feature by simply enhancing parse_dmar_devscope. Th=
+at
+function is just missing the hierarchy walk when a more complex scope is
+provided, basically what is described in the spec, section 8.3.1, in pseudo=
+code.
+Then parse_dmar_devscope would continue to provide us (bus, dev, fn) as out=
+put,
+and no further changes to the rest would be needed.
+
+Jan
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -699,6 +210,5 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/siemens/jailhouse/push/refs/heads/coverity_scan/7fa3f9-f27a6e=
-%40github.com.
+jailhouse-dev/ab15444f-4a35-712f-3979-8b04a395ee1e%40web.de.
 For more options, visit https://groups.google.com/d/optout.
