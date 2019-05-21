@@ -1,185 +1,137 @@
-Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBLXPSDTQKGQEFIFS3OQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDK73PWO4MPBBM7RSDTQKGQEQQJW63A@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x437.google.com (mail-wr1-x437.google.com [IPv6:2a00:1450:4864:20::437])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00DD3256DA
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 21 May 2019 19:38:55 +0200 (CEST)
-Received: by mail-wr1-x437.google.com with SMTP id x1sf8344156wrd.15
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 21 May 2019 10:38:54 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1558460334; cv=pass;
+Received: from mail-lj1-x23f.google.com (mail-lj1-x23f.google.com [IPv6:2a00:1450:4864:20::23f])
+	by mail.lfdr.de (Postfix) with ESMTPS id BF849256E7
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 21 May 2019 19:43:15 +0200 (CEST)
+Received: by mail-lj1-x23f.google.com with SMTP id z15sf3287370ljj.15
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 21 May 2019 10:43:15 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1558460595; cv=pass;
         d=google.com; s=arc-20160816;
-        b=xSht7j5JHT7FlryQrGgJyanuCXr7rJf0c2w4apdVm82Czccf8HTId+3zscClErShAb
-         9Xbh+C94xdUBxuXBvU/DpIxSvRLRz0pEoVqTlR+qRDfAEtlEaC30zW1gDgUWyUN/+G3i
-         6wi1aGxdp6rfeSyDbTOqaJ38QJuNNWYXa5mrcYLPQWleGo5bl1GeXamiCqcKjzvHli1e
-         3jmDHoDkArVmGEtV0ZMo/JGQuB0kCKhQy9bPC8drHoNO1MELXdT0bu15TPaHRyOLOUT0
-         jWH+sMYtoTvoKBAlaDdaMoDraVr575lDb1IoJeTtHI2qc7BygNYB019yzlG+IDKJ8aUS
-         5dVw==
+        b=IFhtZguiach+9JIG7W2MKaXPg7Q+A5l2e3U+WOV50xHW22E4t0Fy9sXDkKTBpKMsoV
+         8bA1kzOIiqfEtzOJ0C06kqYc5yCiR9kLjm/sL1wgGXEnoTmTWf49/zeh/Upb7G/1MpE9
+         T9xGp4zCR3j0L+UUvfDupWvprtr3R2jxFziYtuhSVmlVlVqumcL8IYu2br2c7HcNZXPg
+         /Or3jxQzft01vieMeityqR5+mqJYV728u5UU6UKAjRpfVMMFYwXbehPPl6FCXqmmPp8U
+         3AcfrMMFKNTOfH1oJMIMPjJaEMqkyJhgC0Jwf2I2OQVX5/xz5EPbow6BBpRbkVgXEUkG
+         e3Rg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:autocrypt:openpgp:from
-         :references:cc:to:subject:sender:dkim-signature;
-        bh=6Slbpq8KmnZbpF4jKKz54mV0x8lf6Xq/FuZLc/6fyzk=;
-        b=EB71HU3yQo1aicbrg9YiXIJoarbdXKrEm8NrRutF5jXMVQOKvfLA0hNIEfkOaprfg+
-         bXS6TR3m4vzpODmmTfTlFkF8O781K/LMhcPWm2FbWYZbsrlrQvEe3VdFGDHze7gpsAbu
-         meNbCt2HM22WufqpQZS9QpqtYUVv0jgrv+309H4pcGtQj0PAFs1qHxOULeb+aD/L95xR
-         PKR8FwA5YgCQP/8APPtb8zKVyeRZK9bup1WijgKT6YSa2mt3ob7jwbbIKtTkaDFZIlp2
-         gdddDXHIucy0YYTFhp4lL8AYrtCxZHH4o8vEVnwU8aL3xzLV7YPDXeaP65YqVGKnYMOC
-         oPuQ==
+         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:sender:dkim-signature
+         :dkim-signature;
+        bh=aTijTNLHPLRmlgghGUrwNUvAkZYXc4sfZPwnmE4NfjU=;
+        b=pr8VPMNdC7CgyxgTDG8HXdAZppxG4O1wRbwKUS9SjyImRJwGqT8T6iKsMFi2r1GKJk
+         HXq7N7V0k5yYPVohdOoS0oKVIanJJMzAGygCMuvc5kwuOI92end83nMO/lbj7jSSEu6M
+         +h/xc4YdWEQdyrILesg83UIewRR5HNcE3wP3MuZU/eNjG+zAFQz6SRbCBQ/zkXUO6BBW
+         vbmStEK4RgsbE14YB5q3W4o+16svdC8ktpGiWxGguFcR0zeN2BGtDO11PyuC7SjCHLaO
+         HlRu4q4c8dipcRa4izJwSXaPLvjuxSu1HWeg9F4sei0UfZZ4jXhn96vxPmukscFiRnWT
+         I8nw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=pRoDEU6M;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=WaE1ugVY;
+       spf=pass (google.com: domain of yassershalabi@gmail.com designates 2a00:1450:4864:20::52c as permitted sender) smtp.mailfrom=yassershalabi@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:openpgp:autocrypt:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
+        h=sender:mime-version:references:in-reply-to:from:date:message-id
+         :subject:to:cc:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=aTijTNLHPLRmlgghGUrwNUvAkZYXc4sfZPwnmE4NfjU=;
+        b=JYyofCHC9U05IbNRpSQFRkH5PiOi/h/JouOYhbua2u7NZnuuoz8ut0rK/gKBidj8UU
+         5k+OKSEo2h+e2aIwVZo4KoOoAgyg4chzd98+OhKMV1eAECYHjuvzYOWZAyVStA2ymvAP
+         O9D9NWcrNC4r9xJOaEh0uhogzkfzGRxVA2SNfa+rONRqBhW3dp363KIP+M6Nijfj8/sj
+         3w3kmhhC+1PHlFqoE2GZVB3+5lhni2QkAZabmD1idA96BhACR8jevtdnozY27tINSOfb
+         xgcIP/ZWM3RyhaPtPLBW4n+yYiTEO1xvzYT882zblU3k6Hl3LRkRsPUsmVxq5Y/cJwPt
+         q7Tw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=6Slbpq8KmnZbpF4jKKz54mV0x8lf6Xq/FuZLc/6fyzk=;
-        b=NRvJZhk2OJKpxZXGxLfO0qMzWMEfcnIx5+6slS1DUTTIwYbuTK/D61ho/9BZYkenqi
-         4bUFaEoIMQNcBttORtDlp4E2LqobS+PkOV7seiiKlZ/vWeJasVE1rOnso0kyT7xjrYXm
-         0MvKPQ5UUIHnyYXwicTHoKVhrBnOENB0X239elxd4CJDuDn48+521Fa22Dc/Awmg+7/K
-         Q9WUcLgk+lkAtBNJbT+w6SLSpXXhGJo1+pU47J5dpmBrVdzdscU5AnEW/MXOxQzaqBR2
-         JYroLH+PV+yP+Ap2BJ1hDch8EVZC7lDHzec75G1JFyHtnkcAlEyMMFLCmyb3a25jy7lb
-         grsQ==
+        bh=aTijTNLHPLRmlgghGUrwNUvAkZYXc4sfZPwnmE4NfjU=;
+        b=Bgcsfhc7ZzvbEX53WoAY6Zq01ErUQHpKqgrr0nJYKUXzH/vvzhy/Xs2YDkJMSNL6nm
+         AFpCcm3OML/qJcO2XxJuVGUWnKvAEfbnw5u+aB2qo6tvGPJrD1fxmfaVE6f+uIGnJaWd
+         AOinlEMGMd47K8v0PDCNjsxoRGiltBv5j7yElc0tQ2WGR/oBz/cE0Oqbw81RJ9S1MUml
+         ba08orw8CFVwQbQiXSBCrWFNp391SWnrhjykns3Lbjo/X+W1OI6rAGVU9aLhAbB6kOB2
+         IOcyJstMXzTfImK6BaSfnWrlx+4P2yDAyA6VRdyegl5/eMa8hR3yhsv2I0REzGr0rtE2
+         qksQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:openpgp
-         :autocrypt:message-id:date:user-agent:mime-version:in-reply-to
-         :content-language:x-original-sender
+        h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
+         :date:message-id:subject:to:cc:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=6Slbpq8KmnZbpF4jKKz54mV0x8lf6Xq/FuZLc/6fyzk=;
-        b=dRE5oRdSs01M0g1LldNUN5ZekQCR3M5u1IG/o8QNwLlboS55SZZYlRRSOX/v4HZShr
-         OZ/DnOcoYNLjoPD3KgScvxZFFIBFysLmxJ9WD8/oemqhYi4mXrOiOufP3hyGmZCCe0SW
-         Kj4/KkhGBXzo3MndGBeFQ51gBqCDom79wVPoRIMSeNJOojDupeKcJInNKCTrBFuc+yjo
-         8lBuqf7c4NVsED0NZnQMY9Q/RmjK62OdkB4D+CbdQpOAzlMOm09s2ntcE/T50gK3VPe0
-         vv97DwAZ5EcH6qUTYup0JhIarSbPt4B0LDvEDuqz6tlx0o6zKNDpDl/+/hyIFMsqjpa2
-         F+6g==
+        bh=aTijTNLHPLRmlgghGUrwNUvAkZYXc4sfZPwnmE4NfjU=;
+        b=MjUwpadY0evbFyTCc7+XO2a6eErnA/ZsmmVmKadIpc8oFEVCladmwPlyJMiq71keCQ
+         zwig6YM6Cpfk6/og9HLTIS/9V9eRiRr2M105ibcybDCa9hdOy2lyagV6F+3A0rGtcpgE
+         jlzXif+k2FE8NLMI5pZgmIWHL8dyajYlP/rytcyuDQdlK5ZJGxvPl8bfZklzc89m3zgy
+         nk3oT1mXqVm2xDd7i4zs0IcJjOTS1yS0a1REvd07qiO2OklNvOQMo/1I2HzW3AZn6lTt
+         8Ivo+E53xo4StDPlb0t1wqEa7u5bd1lmcK7MgZchLaTiPMmCNyjECQeZwGf4Q408gpHl
+         uEjg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXIS6owKmLXEv+lqmS2HoB50lF6Ot6h+WUaIjbfL2HXjnOPaoNp
-	WK2+gM0zyMYzzv+NwciSKfI=
-X-Google-Smtp-Source: APXvYqwZCKUL50kpPMTkGFSJEPAIPC9/6TgJQ2nRjpoBCB6p4V0pOUe92Wz5teOHvke+4aVEqNoMhw==
-X-Received: by 2002:a1c:700b:: with SMTP id l11mr4593618wmc.106.1558460334738;
-        Tue, 21 May 2019 10:38:54 -0700 (PDT)
+X-Gm-Message-State: APjAAAXnsZy3UcCTbUAjwr5k70CzWdBchEyr2wUTWmS5GaJRpuqsfWIP
+	XBmPA1BIRy8YzXjT8zQFAnU=
+X-Google-Smtp-Source: APXvYqx1wlSOujKUh1iIFjd27XAG+SbafTcRM44t0P0IMLOfoGjhlpd4VWnBQ+1Zb+briT+Uya2HdA==
+X-Received: by 2002:a2e:9c09:: with SMTP id s9mr13927548lji.74.1558460595327;
+        Tue, 21 May 2019 10:43:15 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:c18b:: with SMTP id x11ls5277611wre.15.gmail; Tue, 21
- May 2019 10:38:54 -0700 (PDT)
-X-Received: by 2002:a5d:4647:: with SMTP id j7mr16245838wrs.280.1558460334156;
-        Tue, 21 May 2019 10:38:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1558460334; cv=none;
+Received: by 2002:a2e:494a:: with SMTP id b10ls2395374ljd.8.gmail; Tue, 21 May
+ 2019 10:43:14 -0700 (PDT)
+X-Received: by 2002:a2e:9692:: with SMTP id q18mr4036057lji.89.1558460594794;
+        Tue, 21 May 2019 10:43:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1558460594; cv=none;
         d=google.com; s=arc-20160816;
-        b=PbwsDW7zHNwav1aZrFCUNcCUiSaf3gFrMw9zsl/cL+HzMDHWdZYeymKxTe7eJpyct9
-         8LwBSic0okhMCCQG/mD2QlbZVFOE8r4RfRagFhyxLdBcx0f4ZkwX/c8+wiUGMb5zjyRv
-         sx9lZH06TpdgDGXnlwH/infmgFgg9LRFOsClh6TNF6YPd6i+8aTs4CUnfOQ/OYjjeoII
-         +Xs43gtz4XF3M8u7f357IBOEkfWW5vFU34ru0LOuE5PS01uL6TGGxN2BP+ED+kndnPKx
-         0pQ9rxDYRJ0lQ1vZyI37oj3t6uoeCOApoCvELeSzHOZGOEpqnWM17A91g0Q4GZM63XqE
-         DJ7Q==
+        b=SXelJdiTks811qHBu2eel3mmSsT5mN97Nv3I/26vGL+tZCpSdRH2q1CySKVOD2OgU1
+         sFqdRkL/dLJTRQdWQu2QFls9UPQIoHo32Ah3qAPuxTFy3yoqzVXAJvZELTDK8/scfE96
+         HT4cp/b6IbhNrUcXLo4Heivr05/qnCqff5ajF6LUiZce0utFbwxzhe8s8BfrC/aQ5Y3a
+         sPfJBZuqWZ3/snuQkEoK+FlS82xFjdPdLZsDthfteSWed/wFgRJR1HNLJ2OyvHpTbzHC
+         MPLDgnyfcmvxgpUsYbdryjImlzsfDVj8OtpockRYM9ufDia+fd0I5TfFkhSEOvTZInMA
+         JF9g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:autocrypt:openpgp:from:references:cc:to
-         :subject:dkim-signature;
-        bh=9zI4EnOT13k9WUKo9KgjAVA0HMlq7ebXU+ul2xKGPec=;
-        b=x+a615oR/VwNhQCKd8hSCobt+o+i9BkCyJWaZyMouBs5CCgFy/B5AM8NKrkJmqxDul
-         Mvg9PPoBLw9AoBh6+1/uwC+SJsK3qHg/JxDw1MzQh9ZU6H99ghdVdiXf6j6ILJdPcyTe
-         XKTJbN7C/0fM3Q9WIkSP2JxEWwRRLpAs90zVwGvT8iL0M5UUxqQJi5tONWCnkGHsEAcm
-         0hWa391ScCFI+RkPEqN+oUyUA74FsSELhO8VgqOblQ8HLEVa01Ga+uLsfb6QIY8aPuuz
-         ulMx8nie7NC/ID+le+xo9sz0zteWf/fNGCkSdLCCoKlq8Iu+xR1/flwjIIwdpQRsemy/
-         LvGQ==
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=0F4q6SmsIfbTXptJVgpJ6KjYznURhUT9J6P3BAofiTY=;
+        b=jjDMaRnanY/ainz9gniTpzQ91+2LNgKl2dihT4WwlaCeJ0T0Kap6QU3X2CVr80OuTc
+         ZVxYsiEzbALIbSZwVvo2YrEE7fjCk+luRrSDaWE+jn021qzoe5A8pyYfj9A+jvXoy5iO
+         IJXoQw/002AHN7o2Tmrjw77uoW4V/Un7ZzO5kwqc40GVHDDRol+Q2Z1f3fanAXfrkD0A
+         7ZvFFQmlqwjokgHfR3veH7jqcYnd9ngxQKSmHcOiZnRjjPn8OqI+hw9oDVhI7ER1YcnG
+         O8WAxgrl3tT1eTcSiu7caKBqT8y8VGSrSclTSCfw2vMumv9g3W4d7qNoxotoHbtCW9mY
+         7TVw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=pRoDEU6M;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [194.95.104.12])
-        by gmr-mx.google.com with ESMTPS id f18si182210wrm.0.2019.05.21.10.38.54
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=WaE1ugVY;
+       spf=pass (google.com: domain of yassershalabi@gmail.com designates 2a00:1450:4864:20::52c as permitted sender) smtp.mailfrom=yassershalabi@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com. [2a00:1450:4864:20::52c])
+        by gmr-mx.google.com with ESMTPS id s187si1844231lfe.4.2019.05.21.10.43.14
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 21 May 2019 10:38:54 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) client-ip=194.95.104.12;
-Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S02", Issuer "E16S02" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 457jg14z6mzyHy;
-	Tue, 21 May 2019 19:38:53 +0200 (CEST)
-Received: from [172.23.4.153] (194.95.106.138) by E16S02.hs-regensburg.de
- (2001:638:a01:8013::92) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 21 May
- 2019 19:38:53 +0200
-Subject: Re: VT-d: IOMMU exception with unknown fault reason
-To: Jailhouse <jailhouse-dev@googlegroups.com>, Yasser Shalabi
-	<yassershalabi@gmail.com>
-CC: Jan Kiszka <jan.kiszka@siemens.com>, Mario Mintel
-	<mario.mintel@st.oth-regensburg.de>
-References: <4eb2d565-fa3a-4742-435b-d4fa1469c60f@oth-regensburg.de>
- <fd82641f-4f35-3674-af69-68fb41624fd8@siemens.com>
- <db894a08-8c3a-cb64-2c84-ac595f02b6e0@oth-regensburg.de>
- <339bf164-d7b1-f9ef-2023-b6fbb9d5c098@siemens.com>
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Openpgp: preference=signencrypt
-Autocrypt: addr=ralf.ramsauer@oth-regensburg.de; keydata=
- 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
- RncIIYr0LjXAAzY=
-Message-ID: <6a8fecef-27d7-b300-4a14-e874f459ea4b@oth-regensburg.de>
-Date: Tue, 21 May 2019 19:38:52 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+        Tue, 21 May 2019 10:43:14 -0700 (PDT)
+Received-SPF: pass (google.com: domain of yassershalabi@gmail.com designates 2a00:1450:4864:20::52c as permitted sender) client-ip=2a00:1450:4864:20::52c;
+Received: by mail-ed1-x52c.google.com with SMTP id j12so30618459eds.7
+        for <jailhouse-dev@googlegroups.com>; Tue, 21 May 2019 10:43:14 -0700 (PDT)
+X-Received: by 2002:aa7:d28e:: with SMTP id w14mr85201440edq.119.1558460594029;
+ Tue, 21 May 2019 10:43:14 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <339bf164-d7b1-f9ef-2023-b6fbb9d5c098@siemens.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-PH
-X-Originating-IP: [194.95.106.138]
-X-ClientProxiedBy: E16S01.hs-regensburg.de (2001:638:a01:8013::91) To
- E16S02.hs-regensburg.de (2001:638:a01:8013::92)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+References: <4eb2d565-fa3a-4742-435b-d4fa1469c60f@oth-regensburg.de>
+ <fd82641f-4f35-3674-af69-68fb41624fd8@siemens.com> <db894a08-8c3a-cb64-2c84-ac595f02b6e0@oth-regensburg.de>
+ <339bf164-d7b1-f9ef-2023-b6fbb9d5c098@siemens.com> <6a8fecef-27d7-b300-4a14-e874f459ea4b@oth-regensburg.de>
+In-Reply-To: <6a8fecef-27d7-b300-4a14-e874f459ea4b@oth-regensburg.de>
+From: Yasser Shalabi <yassershalabi@gmail.com>
+Date: Tue, 21 May 2019 12:43:02 -0500
+Message-ID: <CACkfA5tm2H-LeU0MnQWM0TZGOOoeSjuAY8FeRNRODQCceJr-8A@mail.gmail.com>
+Subject: Re: VT-d: IOMMU exception with unknown fault reason
+To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Cc: Jailhouse <jailhouse-dev@googlegroups.com>, Jan Kiszka <jan.kiszka@siemens.com>, 
+	Mario Mintel <mario.mintel@st.oth-regensburg.de>
+Content-Type: multipart/alternative; boundary="0000000000001a88dd05896962f3"
+X-Original-Sender: yassershalabi@gmail.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=pRoDEU6M;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+ header.i=@gmail.com header.s=20161025 header.b=WaE1ugVY;       spf=pass
+ (google.com: domain of yassershalabi@gmail.com designates 2a00:1450:4864:20::52c
+ as permitted sender) smtp.mailfrom=yassershalabi@gmail.com;       dmarc=pass
+ (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -192,61 +144,189 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi Yasser,
+--0000000000001a88dd05896962f3
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I hit the same CR4 PKE-bit case as you did a month ago.
+Yeah, sorry been caught up and lost track of doing this. Will do it ASAP.
 
-May I ask you to resend the patch (with a Signed-Off line) to the
-mailing list?
+I=E2=80=99ll will also try to add some code to dynamically determine PKE su=
+pport to
+avoid setting it for older platforms (Jan previously requested this).
 
-Thanks
-  Ralf
+Thanks for the reminder.
 
-On 5/21/19 6:38 PM, Jan Kiszka wrote:
-> On 21.05.19 17:55, Ralf Ramsauer wrote:
->>
->>
->> On 5/21/19 5:09 PM, Jan Kiszka wrote:
->>> On 21.05.19 15:45, Ralf Ramsauer wrote:
->>>> Hi,
->>>>
->>>> we have some issues enabling Jailhouse on a Intel with a pretty new CPU
->>>> (Xeon Gold 5118).
->>>>
->>>> First, the CPU supports PKE and Linux will enable it (CR4, Bit 22).
->>>> Jailhouse won't start, as this bit is marked in X86_CR4_RESERVED.
->>>> Didn't
->>>> have a deeper look into this on how it affects the hypervisor or
->>>> allowing it needs some special treatment, so adding nopku to the
->>>> commandline will keep the feature disabled and suffices for the moment.
->>>>
->>>
->>> Known issue, see https://github.com/siemens/jailhouse/pull/23
->>
->> Aah, I remember that discussion a month ago...
->>
->> So I guess it is okay to allow this feature.
->>
->> What would you say, is it better to use a configuration parameter that
->> indicates the existence of PKE (as noted in the github discussion, we
->> should only respect that bit if available), or online cpuid discovery?
->>
->> I guess the latter one is a bit against the philosophy, but much simpler
->> to implement.
->>
-> 
-> Checking the code again and the comment I wrote around it, my remark in
-> github that we would need discovery was actually overkill: The whole
-> purpose of X86_CR4_RESERVED is to filter out future unknown bits. But
-> CR4.PKE is no longer unknown, and it is apparently safe to allow it to
-> the root cell. IOW, that commit was fine (if it had been submitted with
-> signed-off here).
-> 
-> Jan
-> 
+Yasser
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/6a8fecef-27d7-b300-4a14-e874f459ea4b%40oth-regensburg.de.
+On Tue, May 21, 2019 at 12:38 PM Ralf Ramsauer <
+ralf.ramsauer@oth-regensburg.de> wrote:
+
+> Hi Yasser,
+>
+> I hit the same CR4 PKE-bit case as you did a month ago.
+>
+> May I ask you to resend the patch (with a Signed-Off line) to the
+> mailing list?
+>
+> Thanks
+>   Ralf
+>
+> On 5/21/19 6:38 PM, Jan Kiszka wrote:
+> > On 21.05.19 17:55, Ralf Ramsauer wrote:
+> >>
+> >>
+> >> On 5/21/19 5:09 PM, Jan Kiszka wrote:
+> >>> On 21.05.19 15:45, Ralf Ramsauer wrote:
+> >>>> Hi,
+> >>>>
+> >>>> we have some issues enabling Jailhouse on a Intel with a pretty new
+> CPU
+> >>>> (Xeon Gold 5118).
+> >>>>
+> >>>> First, the CPU supports PKE and Linux will enable it (CR4, Bit 22).
+> >>>> Jailhouse won't start, as this bit is marked in X86_CR4_RESERVED.
+> >>>> Didn't
+> >>>> have a deeper look into this on how it affects the hypervisor or
+> >>>> allowing it needs some special treatment, so adding nopku to the
+> >>>> commandline will keep the feature disabled and suffices for the
+> moment.
+> >>>>
+> >>>
+> >>> Known issue, see https://github.com/siemens/jailhouse/pull/23
+> >>
+> >> Aah, I remember that discussion a month ago...
+> >>
+> >> So I guess it is okay to allow this feature.
+> >>
+> >> What would you say, is it better to use a configuration parameter that
+> >> indicates the existence of PKE (as noted in the github discussion, we
+> >> should only respect that bit if available), or online cpuid discovery?
+> >>
+> >> I guess the latter one is a bit against the philosophy, but much simpl=
+er
+> >> to implement.
+> >>
+> >
+> > Checking the code again and the comment I wrote around it, my remark in
+> > github that we would need discovery was actually overkill: The whole
+> > purpose of X86_CR4_RESERVED is to filter out future unknown bits. But
+> > CR4.PKE is no longer unknown, and it is apparently safe to allow it to
+> > the root cell. IOW, that commit was fine (if it had been submitted with
+> > signed-off here).
+> >
+> > Jan
+> >
+>
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/CACkfA5tm2H-LeU0MnQWM0TZGOOoeSjuAY8FeRNRODQCceJr-8A%40mail.gm=
+ail.com.
 For more options, visit https://groups.google.com/d/optout.
+
+--0000000000001a88dd05896962f3
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div><div dir=3D"auto">Yeah, sorry been caught up and lost track of doing t=
+his. Will do it ASAP.=C2=A0</div></div><div dir=3D"auto"><br></div><div dir=
+=3D"auto">I=E2=80=99ll will also try to add some code to dynamically determ=
+ine PKE support to avoid setting it for older platforms (Jan previously req=
+uested this).</div><div dir=3D"auto"><br></div><div dir=3D"auto">Thanks for=
+ the reminder.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Yasser</d=
+iv><div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr=
+">On Tue, May 21, 2019 at 12:38 PM Ralf Ramsauer &lt;<a href=3D"mailto:ralf=
+.ramsauer@oth-regensburg.de">ralf.ramsauer@oth-regensburg.de</a>&gt; wrote:=
+<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bord=
+er-left:1px #ccc solid;padding-left:1ex">Hi Yasser,<br>
+<br>
+I hit the same CR4 PKE-bit case as you did a month ago.<br>
+<br>
+May I ask you to resend the patch (with a Signed-Off line) to the<br>
+mailing list?<br>
+<br>
+Thanks<br>
+=C2=A0 Ralf<br>
+<br>
+On 5/21/19 6:38 PM, Jan Kiszka wrote:<br>
+&gt; On 21.05.19 17:55, Ralf Ramsauer wrote:<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; On 5/21/19 5:09 PM, Jan Kiszka wrote:<br>
+&gt;&gt;&gt; On 21.05.19 15:45, Ralf Ramsauer wrote:<br>
+&gt;&gt;&gt;&gt; Hi,<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; we have some issues enabling Jailhouse on a Intel with a p=
+retty new CPU<br>
+&gt;&gt;&gt;&gt; (Xeon Gold 5118).<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; First, the CPU supports PKE and Linux will enable it (CR4,=
+ Bit 22).<br>
+&gt;&gt;&gt;&gt; Jailhouse won&#39;t start, as this bit is marked in X86_CR=
+4_RESERVED.<br>
+&gt;&gt;&gt;&gt; Didn&#39;t<br>
+&gt;&gt;&gt;&gt; have a deeper look into this on how it affects the hypervi=
+sor or<br>
+&gt;&gt;&gt;&gt; allowing it needs some special treatment, so adding nopku =
+to the<br>
+&gt;&gt;&gt;&gt; commandline will keep the feature disabled and suffices fo=
+r the moment.<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Known issue, see <a href=3D"https://github.com/siemens/jailhou=
+se/pull/23" rel=3D"noreferrer" target=3D"_blank">https://github.com/siemens=
+/jailhouse/pull/23</a><br>
+&gt;&gt;<br>
+&gt;&gt; Aah, I remember that discussion a month ago...<br>
+&gt;&gt;<br>
+&gt;&gt; So I guess it is okay to allow this feature.<br>
+&gt;&gt;<br>
+&gt;&gt; What would you say, is it better to use a configuration parameter =
+that<br>
+&gt;&gt; indicates the existence of PKE (as noted in the github discussion,=
+ we<br>
+&gt;&gt; should only respect that bit if available), or online cpuid discov=
+ery?<br>
+&gt;&gt;<br>
+&gt;&gt; I guess the latter one is a bit against the philosophy, but much s=
+impler<br>
+&gt;&gt; to implement.<br>
+&gt;&gt;<br>
+&gt; <br>
+&gt; Checking the code again and the comment I wrote around it, my remark i=
+n<br>
+&gt; github that we would need discovery was actually overkill: The whole<b=
+r>
+&gt; purpose of X86_CR4_RESERVED is to filter out future unknown bits. But<=
+br>
+&gt; CR4.PKE is no longer unknown, and it is apparently safe to allow it to=
+<br>
+&gt; the root cell. IOW, that commit was fine (if it had been submitted wit=
+h<br>
+&gt; signed-off here).<br>
+&gt; <br>
+&gt; Jan<br>
+&gt; <br>
+</blockquote></div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/CACkfA5tm2H-LeU0MnQWM0TZGOOoeSjuAY8FeRNRODQCceJr-8=
+A%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.g=
+oogle.com/d/msgid/jailhouse-dev/CACkfA5tm2H-LeU0MnQWM0TZGOOoeSjuAY8FeRNRODQ=
+CceJr-8A%40mail.gmail.com</a>.<br />
+For more options, visit <a href=3D"https://groups.google.com/d/optout">http=
+s://groups.google.com/d/optout</a>.<br />
+
+--0000000000001a88dd05896962f3--
