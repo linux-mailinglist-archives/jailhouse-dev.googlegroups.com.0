@@ -1,125 +1,79 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBKOLT7TQKGQEZYF5OKA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCDJXM4674ERBMEFU3TQKGQELUPH3SQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43c.google.com (mail-wr1-x43c.google.com [IPv6:2a00:1450:4864:20::43c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DBC329823
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 24 May 2019 14:38:01 +0200 (CEST)
-Received: by mail-wr1-x43c.google.com with SMTP id r18sf3156251wra.10
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 24 May 2019 05:38:01 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1558701481; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=MFuaPUTGc5T9jrVkzGAjboK+3bUHnfk9lKmjYyIo6oZzmKFDO4pmIl7DxbhqFJtq/L
-         gQsQoO1WaAPW5MmATGUJe7ESurNTmwx4YoSghhxDeGt8NvWN7ookIY5jbwhL0e16DrEG
-         h33niBDlmrJsqcRrKSc60pVnyCVtti6s3nA3/fV2+/9GzFZLeQy86ojWXqPxQL/N9Ar3
-         2LVpxOBWSuONKiqGd9q/KF7zr2LyRWxux3xzBYwpL3oo2gaxBLwBf9exg17TEvktvZNI
-         JIzYSG3guitRuchqzG5cz6I0l980hpB7+mirTkQl6l1eCEUXgDcyAl9ycAQltzSgtxzj
-         vUfw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:to:subject
-         :sender:dkim-signature;
-        bh=Qt2rABuKQM5BuSppxAx+nQKMva+1QfG//CiXeEkwL6U=;
-        b=qMDJb3y4rECG3XaPq6qizuHfKNj2QCR7ZvfQcptg1q7a8utZ+9dgvw7gQ9tGduTyU+
-         5U//WTwZTo1aDsVigz52RFIeInjiNAijkVHqybOMft1Tg3JsdsSTpTjWUkv4yH/aMpQs
-         jQGWCVf9L2dO1Or0/0GmZb0FHE+Gw5VwChdQFCtPHg9RTrOdz4SZVAtSXEChmOg7YdlB
-         w0nM/inkTWBlRBMhQUV+vdLaeMTogijn9R6kQzzfZaJGB315BN8Z71DxfbTQRSNCW/ST
-         30yddAummhEs76J4miPHbF5WbZoABwqwb7ogOYQPiGeF7HawPjzmatBzNPBfOYe+773U
-         jjHw==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-ot1-x33e.google.com (mail-ot1-x33e.google.com [IPv6:2607:f8b0:4864:20::33e])
+	by mail.lfdr.de (Postfix) with ESMTPS id A360D2A5EC
+	for <lists+jailhouse-dev@lfdr.de>; Sat, 25 May 2019 20:00:18 +0200 (CEST)
+Received: by mail-ot1-x33e.google.com with SMTP id f18sf6355956otf.22
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 25 May 2019 11:00:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=Qt2rABuKQM5BuSppxAx+nQKMva+1QfG//CiXeEkwL6U=;
-        b=MK1NyBHVxkLOxnM/kFtxfVMgRF3VM/k1x2SrGrjEVdSXldhz2wyiV+Fb7ASKXIJrP9
-         PByCK1Jub2Cd7+WlbABWoDbyAPVp49xxyCrNek7hbHZG4TNDPHc6B/247TFMAGr2uO2N
-         goSc2L+itePLQxiv1YU+ADopwVCI01ZyjmQtMm0dWnAHrEH0nLT5LYLOWlzYzd2N9KyD
-         EoHHdI6IUndLNJFBIqXNZrEGmW0n5f9bbJ3lREGFlNE7TUePWcgnAZv7m8VZ4U1nfVau
-         YRu82ToquBF61VGdKnBSNGjeHlACTGn2IEO/l+p0jZEalq8V3OmV9RICILKbLbPPlVxQ
-         nXhg==
+        bh=Br5QPYHaAl0lQmLGJFHFZn8gIwvD8tViLEGI3SKvH90=;
+        b=tJSIwcdmk1QBSxp+5TdNQnNN2xfLfFOFtSV+0r9sFLtifh5zd1pmbmoWSozqQ8V+zk
+         962UbQSVKhdMKu9anXQ34kQu7lbGh4gBdA5OMklg+kFWag5mEWaL9Kn5wuhbM7T4dCfK
+         LM1xEpmaaH6trbaKyI3tyLWNWGd3nFVaoL7FZCxWmbNlVHRxZN9W9TkmuCt01Me2UdTP
+         OU0eiKI/zYUhE4JBHixkbRWvV1eq/+4M+zod2o36XU+eurauWvijyHx6DN7/I9c2vssi
+         Fpp4gZ4eaOSvuqRADw1eHaJdVtKBHTn4jCzSGcAaRVDDXXDhVdKTA+WywyiSGqeyuF3M
+         eVpA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=Br5QPYHaAl0lQmLGJFHFZn8gIwvD8tViLEGI3SKvH90=;
+        b=rTOE+mC0ByKzVatnARfCtjcKx5PkHWrZ44ZfKoAeB0aXEMbCdnMhGaNOLcWZlJV6aF
+         0YQPQZ1EqAGeAfkvOzhfHy18w2IbLXI5D3V7YoF946dFdZk81NB6muB115s7jE6bAGlJ
+         O0Dy0bOr8JMuKfChcznaqvp7PafhpE90jRyUVXIfwjyosKVa50OYOhn1gsgSavqzPbbj
+         PNPzWF8YZ511/w5faLferhv8xpX4OxmII0E728Ws8Vhq5rUyjKjx7afM8BE755RpvZb4
+         vasuYVZhlPHwp1sFKLhgLBVy356iSBuuRM81Mp9OPfzKTQeFyx0vG1Hk9tO4lG6iiQrT
+         0wNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=Qt2rABuKQM5BuSppxAx+nQKMva+1QfG//CiXeEkwL6U=;
-        b=YLhQTkr5EaFhlo73CgfdoYSXFndaHC+luZG06Qw/j9TCpiizEW9YkIzPt0X2TaMTAG
-         I0ZoFsIp7NG2+pPm1a7wKOnC/H1ul/9HZDJMDDyj6TJSAmKYg9Z8rd09x6NxKEk+JtdV
-         9Rg1/d1/zGMA4gwH/7LR59k/Xoml+CI2ACvedkZLkvwxeCGtN9lAK2GDhr6PFvtK51xx
-         JtVth1yI9BW72pbJfnIe6pvSlvNEWqtrwfCizcVKEWA1QpQehctsCt2/6SvZRZiA2QZM
-         G0bcEpwP1AMnP8olmDhZYle/tEETa6ExJ80Ii8vT/u6/IhH6ZWW7SsduYdsFQy/5a+VR
-         NKew==
+        bh=Br5QPYHaAl0lQmLGJFHFZn8gIwvD8tViLEGI3SKvH90=;
+        b=sF+7AhJEhd/4xtN19ALMnXkeCuuE/DouAniAWqN2cnd985g16jkaKTGrI5H/2dd1qz
+         rtNLGLU66yuON89IvED1EqOTyEwCHhsCwKis4gZuV0V0+k6Pwe39x4gbRlwXm/XZTANE
+         D8wjznZTi2FdttXJau+lRnN0US+NIIT1GcwPdvEgkkZGXs/9LGVv3muQSNaA9kU3D1jp
+         G1Coltzqn1Thwf9IWL2lCtCx6oN+amUQChlYDtsnY1iiPyWGPAQy7c3rVuDeJiz08Obk
+         bYoMzrjq/uZKNvXiLfrEBocWkOxZA8OaskEXaNaRy/kQp/xIw6R+EB3OtmKrXNLunv5J
+         wTHw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVYA5wW2D2I3pGM7CLXzFc44/4jpKgeZTvI5uGpfAiJYnswbaas
-	vJBLq7MPqTLSSprcSc8/r8E=
-X-Google-Smtp-Source: APXvYqyL6jmM2jBvGPcHdoUQgqf2A7S5GevtI8soHObm2pDS7g+63YRv7vtrzEtuYyGWAC0MZwFHwA==
-X-Received: by 2002:a7b:c301:: with SMTP id k1mr522755wmj.43.1558701481195;
-        Fri, 24 May 2019 05:38:01 -0700 (PDT)
+X-Gm-Message-State: APjAAAVPw6JQtUEsrVnB7zQ+Y98FQRcshddSn3FUjwz+n83XtrdfNpn4
+	Ev5GSdKlbMress7KLaSF6gw=
+X-Google-Smtp-Source: APXvYqy+l7OqiErDCEfY9Z69nM7E7yoTGcWPwQWxrDKL9DADL48SPZIj2YN8x96TRuqNxMZl3U5XLQ==
+X-Received: by 2002:aca:4d0c:: with SMTP id a12mr10224552oib.23.1558807216722;
+        Sat, 25 May 2019 11:00:16 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:c586:: with SMTP id v128ls2767967wmf.1.gmail; Fri, 24
- May 2019 05:38:00 -0700 (PDT)
-X-Received: by 2002:a1c:9d0f:: with SMTP id g15mr15832581wme.97.1558701480626;
-        Fri, 24 May 2019 05:38:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1558701480; cv=none;
-        d=google.com; s=arc-20160816;
-        b=YdGeX6IzpmvW6CzfOyzDA7NBkSp+s8mtxDPfXgFYzP65eJGxQ0ScoqoGn3KibtCn7F
-         UOP+m+JzSKYfEKDFLcXXClIl12XTkPBfeX0QVVl100Eoarq8iOmu1kBiIyFgPfurZnOe
-         nKCDD4Lt/VhfwRUbp8do3SMv61qpDWPfn/ApV/ldX8pbnO6Bg8IckfWo0NMCwdZ+4Umo
-         xUwRadUrNBGJVXOAVV7x6tovOpgv9qaYbNh5TIYGA4MOxUUNz5J1OuzH0BZ2RLMjvEEI
-         x+uEVXtwrANs8OQEdLoNfLyY1lH+OtwLETiEQMb9er+2NigbtzGsG8MVAYoyLr1VLHmx
-         C1ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=4YtqE+ZNlBowkU96bDGDOFaqdg8gmHQWOLpS6NGXU1w=;
-        b=jBmjZBUVgEtrJwRgylMf1GiLDIsfj68MPMPWVlbNuxlOEvtPWRaNvH/jETYhnRXLlZ
-         I4vRpLT0zv4vJ//cyC6ZgHxPyaslYrQ8mzsk/9RxLYU0qeOELCcWhlx0i7zP5brR5Tnx
-         UT6gXeTZZTpaucK79bfjtjECxmNHNz3XeAcnZBJ58E260P5st0XC1cWPTgs8j3zReQD6
-         RqUz6sqScxXkHrupUgqHkP5RbQETvrUUCV2zJ7XA6AhYn2SpAFDAEaPBIHKJNIfVOdWr
-         PtGRSDotT2Yu0+EWETR77/kDpSgxkBxSDkxshxtlu7GnIsEsgLxSV1kPPBxyFoOSQesF
-         v/XA==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id f83si133715wme.2.2019.05.24.05.38.00
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 24 May 2019 05:38:00 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id x4OCc0UN031388
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 24 May 2019 14:38:00 +0200
-Received: from [167.87.47.159] ([167.87.47.159])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id x4OCbxoR006347;
-	Fri, 24 May 2019 14:38:00 +0200
-Subject: Re: [PATCH 5/5] ci, Documentation: Add TI's K3 specific configs
-To: Nikhil Devshatwar <nikhil.nd@ti.com>, jailhouse-dev@googlegroups.com,
-        lokeshvutla@ti.com
-References: <20190523211623.9718-1-nikhil.nd@ti.com>
- <20190523211623.9718-6-nikhil.nd@ti.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <6fa30cc8-3c2d-4df6-c7e0-dbd398d157ce@siemens.com>
-Date: Fri, 24 May 2019 14:37:59 +0200
-User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
- Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
+Received: by 2002:a9d:2c21:: with SMTP id f30ls2284019otb.12.gmail; Sat, 25
+ May 2019 11:00:16 -0700 (PDT)
+X-Received: by 2002:a9d:460d:: with SMTP id y13mr41706744ote.244.1558807215942;
+        Sat, 25 May 2019 11:00:15 -0700 (PDT)
+Date: Sat, 25 May 2019 11:00:15 -0700 (PDT)
+From: michael.g.hinton@gmail.com
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <945f6563-0e61-4d00-8ec0-415b27df174a@googlegroups.com>
+In-Reply-To: <6b032366-4973-48ee-bb6d-eeb9a8f8af0a@googlegroups.com>
+References: <11b39fc2-5d7b-4118-a265-cba7558fb6f3@googlegroups.com>
+ <1839f769-4d27-3e6f-af6d-edb8ec9ee478@siemens.com>
+ <69e728e8-c543-4bb1-8c34-5db36e04d1cc@googlegroups.com>
+ <2dce448e-a8ff-b7c4-dc76-52a193dacd55@siemens.com>
+ <82eae47c-fb7a-40a5-aa48-6f123d97597e@googlegroups.com>
+ <20190206135906.7ad04428@md1za8fc.ad001.siemens.net>
+ <a9691b13-c868-42cb-a42e-0a09ffc9d7cc@googlegroups.com>
+ <20190208164015.2d9a3ee7@md1za8fc.ad001.siemens.net>
+ <eed22d42-114d-4f59-8c9d-6749a62e0674@googlegroups.com>
+ <6b032366-4973-48ee-bb6d-eeb9a8f8af0a@googlegroups.com>
+Subject: Re: How do I get ivshmem-demo working with Jailhouse Images?
 MIME-Version: 1.0
-In-Reply-To: <20190523211623.9718-6-nikhil.nd@ti.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_1325_1847657402.1558807215262"
+X-Original-Sender: Michael.G.Hinton@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -132,40 +86,232 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 23.05.19 23:16, 'Nikhil Devshatwar' via Jailhouse wrote:
-> From: Lokesh Vutla <lokeshvutla@ti.com>
-> 
-> Before building jailhouse for TI's K3 platforms,
-> ci/jailhouse-config-k3.h needs to be copied to
-> include/jailhouse/config.h
-> 
-> Signed-off-by: Lokesh Vutla <lokeshvutla@ti.com>
-> ---
->   ci/jailhouse-config-k3.h | 2 ++
->   1 file changed, 2 insertions(+)
->   create mode 100644 ci/jailhouse-config-k3.h
-> 
-> diff --git a/ci/jailhouse-config-k3.h b/ci/jailhouse-config-k3.h
-> new file mode 100644
-> index 00000000..65e02f08
-> --- /dev/null
-> +++ b/ci/jailhouse-config-k3.h
-> @@ -0,0 +1,2 @@
-> +#define CONFIG_TRACE_ERROR		1
-> +#define CONFIG_TI_16550_MDR_QUIRK	1
-> 
+------=_Part_1325_1847657402.1558807215262
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-We only track in ci/ what we enabled for ci. In any case, when following Ralf's 
-proposal for patch 4, this should be obsolete.
+On Thursday, May 23, 2019 at 3:55:24 AM UTC-6, jeanne....@gmail.com wrote:
+> Le samedi 9 f=C3=A9vrier 2019 06:26:29 UTC+1, michael...@gmail.com a =C3=
+=A9crit=C2=A0:
+> > On Friday, February 8, 2019 at 8:40:18 AM UTC-7, Henning Schild wrote:
+> > > Am Thu, 7 Feb 2019 16:53:41 -0800
+> > > schrieb <michael.***@gmail.com>:
+> > >=20
+> > > > On Wednesday, February 6, 2019 at 5:59:09 AM UTC-7, Henning Schild
+> > > > wrote:
+> > > > > Am Tue, 5 Feb 2019 19:25:28 -0800
+> > > > > schrieb <michael.***@gmail.com>:
+> > > > >  =20
+> > > > > > On Friday, February 1, 2019 at 12:32:40 AM UTC-7, J. Kiszka
+> > > > > > wrote: =20
+> > > > > > > You likely want
+> > > > > > > https://github.com/siemens/linux/commits/jailhouse-enabling/4=
+.14
+> > > > > > > or the 4.19-variant that is jailhouse-prepared. That's what
+> > > > > > > jailhouse-images is building for you. If you just rebuild the
+> > > > > > > kernel that the original image was using, only adding UIO, yo=
+u
+> > > > > > > should be fine with keeping the jailhouse kernel package
+> > > > > > > untouched. But the cleanest way is reproducing the image via
+> > > > > > > jailhouse-images after adjusting the parameter you want to
+> > > > > > > change (CONFIG_UIO, ROOTFS_EXTRA etc.).
+> > > > > > >=20
+> > > > > > > Jan
+> > > > > > >=20
+> > > > > > > --=20
+> > > > > > > Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+> > > > > > > Corporate Competence Center Embedded Linux   =20
+> > > > > >=20
+> > > > > > That worked! I was able to figure out the correct kernel to bui=
+ld
+> > > > > > by looking at
+> > > > > > jailhouse-images/recipes-kernel/linux/linux-jailhouse.bb from
+> > > > > > when I last generated my image at 4.14.73
+> > > > > > (https://github.com/siemens/linux/archive/1dd68658b3a8308a160b0=
+786fc4e1e04d8ff5216.tar.gz).
+> > > > > > With that, I supplied QEMU with the new UIO-enabled kernel imag=
+e
+> > > > > > and built jailhouse and uio_ivshmem.ko and ran the ivshmem
+> > > > > > jailhouse demo.
+> > > > > >=20
+> > > > > > However, I'm still not sure how to read in the data from the
+> > > > > > ivshmem-demo. Once I insmod uio_ivshmem.ko, shouldn't there be =
+a
+> > > > > > device called /dev/uio0 that I can read "Hello From IVSHMEM" fr=
+om
+> > > > > > and write back to? And shouldn't there be an entry
+> > > > > > in /sys/class/uio/? I don't see either of these, and I'm not
+> > > > > > quite sure how to debug this yet. =20
+> > > > >=20
+> > > > > Yes you should get that. If you do not, my first guess would be t=
+hat
+> > > > > you are not building the jailhouse branch of the guest-code repo.
+> > > > > The jailhouse version of the PCI interface is slightly different,
+> > > > > so the probing between the two is not compatible. =20
+> > > > Shouldn't I see /dev/uio0 and /sys/class/uio/ once I `insmod` it,
+> > > > regardless if it's built against a non-jailhouse-enabled kernel? Or
+> > > > will it show up once jailhouse is running?
+> > >=20
+> > > I am not actually sure what will happen, so if a /dev/uio0 will pop u=
+p
+> > > even if probing failed.
+> > > Just to clarify, i did not talk about a jailhouse enabled kernel, i
+> > > talked about checking out the jailhouse branch of the repo you got th=
+e
+> > > uio driver from. The one from branch "master" will not work!
+> >=20
+> > Thanks! That's just what I needed. I didn't realize that there was a ja=
+ilhouse branch. I rebuilt it, /dev/uio0 shows up, and the ivshmem-demo is w=
+orking! uio_read and shmem_test.py (README.jailhouse) both work great.
+> >=20
+> > But unfortunately uio_send doesn't. When I run `uio_send /dev/uio0 1 0 =
+0`, it fails to mmap() with an ENODEV/"No such device" error. The mmap man =
+page says "the underlying filesystem of the specified file does not support=
+ memory mapping."
+> >=20
+> > Do you know why this is? Isn't uio_send just trying to mmap() the PCI c=
+onfig space (the first 256 bytes)?
+> >=20
+> > Thanks,
+> > -Michael
+> >=20
+> > >=20
+> > > Henning
+> > >=20
+> > > > When I `make` uio_ivshmem, it shows that it's entering the correct
+> > > > kernel source. Is https://github.com/siemens/linux/commit/1dd68658b
+> > > > not the correct jailhouse-enabled source to build for 4.14.73?
+> > > >=20
+> > > > Does making all the UIO modules be built-in (Y) instead of (M) make
+> > > > any difference? I set them to Y because I thought it would make
+> > > > things easier.=20
+> > > >=20
+> > > > I may consider upgrading jailhouse images to the latest if I can't
+> > > > get things working.
+> > > >=20
+> > > > Thanks,
+> > > > Michael=20
+> > > > >=20
+> > > > > Henning
+> > > > >  =20
+> > > > > > The only documentation I can find on this is
+> > > > > > https://www.kernel.org/doc/html/v4.18/driver-api/uio-howto.html=
+.
+> > > > > >=20
+> > > > > > Any help is appreciated. Sorry to be a bother. Thanks!
+> > > > > > -Michael
+> > > > > > =20
+> > > >
+>=20
+> Hi Michael,
+>=20
+> I am in the same situation as you with the "no such device" during the mm=
+ap. Were you able to solve your problem? If so, how?=20
+>=20
+> Best regards,=20
+>=20
+> Jeanne
 
-Jan
+Hello,
 
--- 
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+Sorry, I wasn't able to fix it 100%, at least for the registers.=20
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/6fa30cc8-3c2d-4df6-c7e0-dbd398d157ce%40siemens.com.
+I tried mmapping the first page of uio0 for the registers like this:
+
+    static const char *UIO_FILE =3D "/dev/uio0";
+    static const char *RES_0_FILE =3D "/sys/class/uio/uio0/device/resource0=
+";
+
+    // Get the page size of the system (usually 4096)
+    PAGESIZE =3D sysconf(_SC_PAGESIZE);
+
+    // Open the files
+    uio0_fd =3D open(UIO_FILE, O_RDWR);
+    res0_fd =3D open(RES_0_FILE, O_RDWR);
+
+    if (uio0_fd =3D=3D -1) {
+        printf("ERR %d: %s\n", errno, strerror(errno));
+        exit(-1);
+    }
+    if (res0_fd =3D=3D -1) {
+        printf("ERR %d: %s\n", errno, strerror(errno));
+        exit(-1);
+    }
+    printf("Trying to mmap registers from %s\n", UIO_FILE);
+    registers =3D (unsigned int *) mmap(NULL, PAGESIZE, PROT_READ|PROT_WRIT=
+E, MAP_SHARED, uio0_fd, PAGESIZE*0);
+    if (registers =3D=3D (void *) -1) {
+        printf("registers mmap failed for %s (%p)\n", UIO_FILE, registers);
+        printf("ERR %d: %s\n", errno, strerror(errno));
+
+        // Try again, but this time use the resource 0 version
+        // This call succeeds in QEMU Jailhouse Image, but not on Inspiron
+        printf("Trying to mmap registers from %s\n", RES_0_FILE);
+        registers =3D (unsigned int *) mmap(NULL, PAGESIZE, PROT_READ|PROT_=
+WRITE, MAP_SHARED, res0_fd, PAGESIZE*0);
+        if (registers =3D=3D (void *) -1) {
+            printf("registers mmap failed for %s (%p)\n", RES_0_FILE, regis=
+ters);
+            printf("ERR %d: %s\n", errno, strerror(errno));
+            exit(-1);
+        }
+    }
+
+Mapping /dev/uio0 worked in the QEMU image built by Jailhouse, but not on m=
+y x86-64 Dell Inspiron laptop.
+
+I tried to get around this by mmapping /sys/class/uio/uio0/device/resource0=
+ instead, which mmap()s successfully on the Inspiron, but it didn't seem to=
+ read/write to the registers at all. So I don't think that will work. But m=
+aybe you'll have better luck.
+
+Of note, I also wasn't able to listen to interrupts in Inspiron by reading =
+/dev/uio0, but that could be due to a bad configuration.
+
+In both QEMU and on the Inspiron, though, I was still able to mmap the shar=
+ed memory page like this, which was the most important thing for me:
+
+    // Get the shared memory at +PAGESIZE offset of /dev/uio0
+    shmem =3D (unsigned int *) mmap(NULL, PAGESIZE, PROT_READ|PROT_WRITE, M=
+AP_SHARED, uio0_fd, PAGESIZE*1);
+    if (shmem =3D=3D (void *) -1) {
+        printf("shmem mmap failed (%p)\n", shmem);
+        printf("MGH: ERR %d: %s\n", errno, strerror(errno));
+        exit(-1);
+    }
+    printf("shmem mmap succeeded! Address:%p\n", shmem);
+
+Since I was able to at least get this working, I didn't care too much about=
+ accessing the registers or getting interrupts to work.
+
+I adapted this last snippet to Python 3 (inspired by shmem_test.py):
+
+    import mmap
+    PAGE_SIZE =3D 4096
+    device_file =3D '/dev/uio0'
+    f =3D open(device_file, 'r+b')
+    shmem =3D mmap.mmap(f.fileno(), PAGE_SIZE, offset=3DPAGE_SIZE)
+    print("Shmem content (first 30 bytes): '%s'" % shmem.read(30))
+    print("This also works: '%s'" % shmem[0:30].hex())
+
+    str_bytes =3D bytearray("Hello from root", 'utf-8')
+    str_bytes_len =3D len(str_bytes)
+    shmem[0:str_bytes_len] =3D str_bytes
+
+This is a lot more convenient for rapid prototyping (This is condensed from=
+ my actual script, so hopefully it doesn't err. But it should be mostly cor=
+rect).
+
+Hope that helps,
+-Michael
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/945f6563-0e61-4d00-8ec0-415b27df174a%40googlegroups.com.
 For more options, visit https://groups.google.com/d/optout.
+
+------=_Part_1325_1847657402.1558807215262--
