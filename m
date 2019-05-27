@@ -1,80 +1,146 @@
-Return-Path: <jailhouse-dev+bncBCDJXM4674ERBK4JU3TQKGQEVX7EGLY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDL2JD42SEIBB7WIWHTQKGQEWBDY6OY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oi1-x238.google.com (mail-oi1-x238.google.com [IPv6:2607:f8b0:4864:20::238])
-	by mail.lfdr.de (Postfix) with ESMTPS id D56DE2A5FA
-	for <lists+jailhouse-dev@lfdr.de>; Sat, 25 May 2019 20:08:44 +0200 (CEST)
-Received: by mail-oi1-x238.google.com with SMTP id k63sf2697994oih.15
-        for <lists+jailhouse-dev@lfdr.de>; Sat, 25 May 2019 11:08:44 -0700 (PDT)
+Received: from mail-yw1-xc39.google.com (mail-yw1-xc39.google.com [IPv6:2607:f8b0:4864:20::c39])
+	by mail.lfdr.de (Postfix) with ESMTPS id E25572BBF9
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 28 May 2019 00:28:15 +0200 (CEST)
+Received: by mail-yw1-xc39.google.com with SMTP id g202sf6249492ywb.1
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 27 May 2019 15:28:15 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1558996094; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=hvaj0g+HbrU8BTcL0Uii8gKB/QWFEXKud+17vlRTQIpLq2Glb5qBVe6nbLxDfA+yg0
+         E75C6F2MmLufQmHFuGOXtON4Gf+vp1onj52MgU3EFWuinDn/HpRLeAIOUs9GD5qKJ+dD
+         yvYP/wBf62UWzGzGbfzsfNgUP9MkNr0tiBgFMzB5l2784Mr+m2YFZGQrYyQMAqPQQnJf
+         Xc8+iCmlxJ+qVuM3i42OzufS6Fk/nqP0X3RyQerWKDVL8ozgrJB5YcOhuGlaPmS+1cGY
+         3Qup10P9+YhD1y9fIfFTFISV9lQCERzQy2pwG8L3E/HFnKs7B7cxavDfXqWlPGZ15toM
+         ZEWg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:reply-to:content-language
+         :content-transfer-encoding:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:dkim-signature;
+        bh=fm9Q4tVapOc2cCQzkkFCADXzVZbAWfJGrtnuz8iXx+s=;
+        b=k+wUTeKu6yUundAB/nLJTnKHDOdxvY8yXoGzXYDc5/kjmwz3hHjyNUmALNbRAd9GnC
+         5+e3jDYrJB7rO4WBMkMrwErDmQZYjnulT+TEpbOuiJsfgb2Rs4R62HDMDr1ZHZCXlbx5
+         iggIdy8v6HWnEzBfVrM6hNiNPr+t1haVh9WRz/KH2ycZTLt/+lAJ8WToWkQcr4nH6PJe
+         GPtFAzsNpjd1YFfYpfUucpfG7Nlyz8qvchyRzZgThk+87Gz5ddCM7GYaXnNGbYKhDbJU
+         u3eAnf1fNEBhB7emFMo1IilWYoe5qF7iPlZa+uihObyPwtltqn2jpbX8q2wnKB7hG462
+         sklw==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b="OGdxDN9/";
+       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.23.248 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
+       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=hhhRSbJ410mRY6wJfyyygwzRbGJcW68rbHpWXe9Qagw=;
-        b=Dg0wz+RTfXLkjf8UTHg/Chr6BYwJ413RrjTArS0/U+CQtbRt9ATCgFopMROSlkYq38
-         BrKeoNDZth6kW7G5xvVGq9NscxNqIzpKwS8sxO+IDb0tVhAz6LD29rF2RX8AunuI1cWL
-         954UimtMgAFaWaA7cXnI/o5mfQmF5gD01Ty/0iDqKoyExI4AAzlCEvPKjiYrUBOi0g5u
-         hXyMIdPpmYQX6wJKZD/bk/Jo22SFDnOiTpa948rnvrjaLIz3xXXEOO5NNdO1AFGnX1Uk
-         mumgxNwMtcoMWLZU5GiTrPbR9TrXGOjItIFDJ/lqAdDzIa8yoBoVMx0G6BdHbfVSxhpo
-         2iCw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=hhhRSbJ410mRY6wJfyyygwzRbGJcW68rbHpWXe9Qagw=;
-        b=VKomCKWAX881kOI7vfwUntnLo6uFp/CmEAQP66aBFhgmcCFt1G6baayVMz4QtqscfJ
-         BsDCxtENkfydRN9P+RtCLV6wB4joPMeLt/Mx2nVc5MtkayBUzbZwX+jQRIOzK2T7Pkqs
-         ZT/kLcSA1Xp0PED5vhiqbmGtgKBrpRwxRV0F2LSNnGH3M7sWAjMcm60eFk+TkCROyKkf
-         /BCDVm2GhIrLPIP5NZ9/S/IEaLqwcAURDR1Fy8MHf+d6w14+0GvtOY/62BYzhxFOKj8c
-         tAiJD7+VxDDVgxI2Od7Q4nR3E7sEVsHPICQQ76WzZiV6lrQkAirdi0XlKL0gcfGsRjS+
-         LNPw==
+        h=subject:to:references:from:message-id:date:user-agent:mime-version
+         :in-reply-to:content-transfer-encoding:content-language
+         :x-original-sender:x-original-authentication-results:reply-to
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=fm9Q4tVapOc2cCQzkkFCADXzVZbAWfJGrtnuz8iXx+s=;
+        b=f7GmUfZlqnulqn8JRUzt5o29VFlzFkqKRhy7mFzlDOBFF0zMbu2Lttrnq/5FS0dvui
+         73V/illyY1q7Veo/fyPlIzR8TPPpeIl50Vap+HvxvyNWhPR2Vuab1AIS1FhHhBvqOBuK
+         Nb93KROljlnyPZkhDxGDTZ47Nblaz2fIP5WgjYed3VJ8B0x1lNt7w3FTrInDZlMdF9Uh
+         OEFay53E4aoQT3dsX57by8kGfucW1BShzBuSsojzrDTS+eio7IeeTtuYuL8VjI8Mjyq3
+         Xs5Z6ucL6xpy1y8UYyc4OfhF9wln/3ZyPH+SYsnJ76fm44xWqT/n05BFfss6/U0Uuq4U
+         K8Zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=hhhRSbJ410mRY6wJfyyygwzRbGJcW68rbHpWXe9Qagw=;
-        b=j9odTTyfpbN9MqKxFNkrjqiL6CNqOWjjA+Wl6HuXOBziOte5c3KDLB0B67sjB+EUyM
-         stTtiR8ZokQSrbRDBnR3ukHi7IOE7bo7CYYi8xScBVA+ZW8SIYnjbwOh0NToLUhO7HZS
-         DwTz/zK82EmyFv94BNuXGOuB4L3RU2DFAB9HO5YXnd1uLx6hwoJ2YrV5rRj5KAtKZe1a
-         NpNc3UttodV5/kSfTIabRxBoiBrvK08yTfp41NKbA5QZnfZ4wPaQnWHALJL6p/4UuoD8
-         9bF9qBstCSpt6xSw9ndtERLzpR+m2BHPhMUZbeiTqJoE7xANDHQjdZ06A0QRHrx7hO/e
-         HBtA==
-Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAWTjm2nveKPPL0y6FUMbMafp13s4E6dHnxJk5lAwMNcQ6yB5EoM
-	C7k3kwXnouEB5Smk4CHFa+I=
-X-Google-Smtp-Source: APXvYqzhJJ9579dh/BpyXm1E6HqP4ExxYW+kszlLtOOWV/HtVxCzpTp9lvbulUV0t0cYg3SueNBVOw==
-X-Received: by 2002:a05:6830:154c:: with SMTP id l12mr13901396otp.66.1558807723568;
-        Sat, 25 May 2019 11:08:43 -0700 (PDT)
+        h=x-gm-message-state:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language:x-original-sender
+         :x-original-authentication-results:reply-to:precedence:mailing-list
+         :list-id:x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=fm9Q4tVapOc2cCQzkkFCADXzVZbAWfJGrtnuz8iXx+s=;
+        b=R0yW0WKSKrzM0qZdmBNeJBI/pL+vORaNE07YhYP1nH6YI+JPRgm97HTZPwjBXhkOAn
+         z5naW6yccdIINAQE9ZyZqCN2CLHMXrsbRmcG7zdeGuPxjPcZ7t/dau/y7V4xNR91qkNM
+         RHizAyWQgXmyZPV9kwEiPuxWENIP9SUDXKbCTVqeRKtapM+Kf1fBkmGHO5pXhSroY7cx
+         4zeKF/I/YLS3rx2Zno3cR9ZAL8oYmEcNpQDb1sVj57I7vvEWhtJGy+1/JljMSCCM6mFY
+         w+zmZq2ssCJapyxUZXRBMuH9aDU3iUQWeWtD3PywhL8Znn/LotGr/FYvItatmh6uA/Xs
+         B6DA==
+X-Gm-Message-State: APjAAAXP0nYAir3/1WokwATjmCyv2TH8TzE6ZFZB+61519ZGEY4yyTmt
+	SfVnQ0cmVoJW/3cOnDYqpHw=
+X-Google-Smtp-Source: APXvYqxZyV6tplU+V2YAKDXqn34kRCOli5PPHYAIV5CfMs4kUnS48ILtUvPjQWOUTl69MURCUDKmIA==
+X-Received: by 2002:a25:e656:: with SMTP id d83mr23039424ybh.178.1558996094813;
+        Mon, 27 May 2019 15:28:14 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a9d:774d:: with SMTP id t13ls2290282otl.6.gmail; Sat, 25 May
- 2019 11:08:43 -0700 (PDT)
-X-Received: by 2002:a9d:2c2a:: with SMTP id f39mr65311299otb.67.1558807722996;
-        Sat, 25 May 2019 11:08:42 -0700 (PDT)
-Date: Sat, 25 May 2019 11:08:42 -0700 (PDT)
-From: michael.g.hinton@gmail.com
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <ab96b376-b73c-463d-90fe-2bbac88cc035@googlegroups.com>
-In-Reply-To: <945f6563-0e61-4d00-8ec0-415b27df174a@googlegroups.com>
-References: <11b39fc2-5d7b-4118-a265-cba7558fb6f3@googlegroups.com>
- <1839f769-4d27-3e6f-af6d-edb8ec9ee478@siemens.com>
- <69e728e8-c543-4bb1-8c34-5db36e04d1cc@googlegroups.com>
- <2dce448e-a8ff-b7c4-dc76-52a193dacd55@siemens.com>
- <82eae47c-fb7a-40a5-aa48-6f123d97597e@googlegroups.com>
- <20190206135906.7ad04428@md1za8fc.ad001.siemens.net>
- <a9691b13-c868-42cb-a42e-0a09ffc9d7cc@googlegroups.com>
- <20190208164015.2d9a3ee7@md1za8fc.ad001.siemens.net>
- <eed22d42-114d-4f59-8c9d-6749a62e0674@googlegroups.com>
- <6b032366-4973-48ee-bb6d-eeb9a8f8af0a@googlegroups.com>
- <945f6563-0e61-4d00-8ec0-415b27df174a@googlegroups.com>
-Subject: Re: How do I get ivshmem-demo working with Jailhouse Images?
+Received: by 2002:a81:32ca:: with SMTP id y193ls2095865ywy.2.gmail; Mon, 27
+ May 2019 15:28:14 -0700 (PDT)
+X-Received: by 2002:a81:3c90:: with SMTP id j138mr50500086ywa.1.1558996094349;
+        Mon, 27 May 2019 15:28:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1558996094; cv=none;
+        d=google.com; s=arc-20160816;
+        b=0zy/oWeBM9YOgUnSxEGyijhjkzRCRDfLjgEVCvkv5XsziVMkCHOSPmHayon7srlpGt
+         eTOtv26bTY4c4A9jWfkPyPFHFNz6V52DKQkYF/mkMgH1V1sYIrE4DN3hbRqjhDISKf4B
+         q91xxV4ZZHWA34HMTIy6e1TJJb15L3EgdBiSyTBIm/xegeKHQnlZNgg/yI96Lue4m7yZ
+         8sxEzqR3EHzlTfLh7JZVa5Bj223kmsW9ajWltLpTzEQQdxaFSMbmixGBAFTfSvttsRF+
+         w5+7sovMzQbATCiSt+xqTKiao4yK/G1ayRK0cmrP1zaHs8MPS3AS6okNfhMa6O6zmzDD
+         leNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-language:content-transfer-encoding:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject
+         :dkim-signature;
+        bh=UmybacTFqMo4ztvFY6w9vTlE7jyXWo5cn93eDbLk5C0=;
+        b=MnBPOnCsMyzH6qJEMoJ+n4jSmglUbU9rkUv0h59VkJ8L6R5OSM92AqyL6VVrMgZNjT
+         QGPQvNvImeAL14j2MoLUW4g/KYfNMnAhAAyafsSSYp0SGtzotXCDooEw43KdG6YogQb/
+         q6sY7CzqBlGFa5sHBZKt0nZYwpWGmsIZPVxuVq9OwQ4PUT2KW1sfPsR5XQ0Hoc0kYrBq
+         ZgmEV5dlhpU3XYxXO+OGEw0KRSkoaWXJybkb/KkR8ct9nTMYlefiVIDoiLX5N6aztH7P
+         JdxStqWCk1fV4d5JTM4SK1W2VV2DXMi/93/YM+BPI3wdTdTW+fU+sm3r6IsvF7uSlBoc
+         V07Q==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b="OGdxDN9/";
+       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.23.248 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
+       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com. [198.47.23.248])
+        by gmr-mx.google.com with ESMTPS id d74si456566ybh.2.2019.05.27.15.28.14
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 27 May 2019 15:28:14 -0700 (PDT)
+Received-SPF: pass (google.com: domain of nikhil.nd@ti.com designates 198.47.23.248 as permitted sender) client-ip=198.47.23.248;
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+	by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id x4RMSDBX029818;
+	Mon, 27 May 2019 17:28:13 -0500
+Received: from DFLE102.ent.ti.com (dfle102.ent.ti.com [10.64.6.23])
+	by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x4RMSDim010495
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 27 May 2019 17:28:13 -0500
+Received: from DFLE111.ent.ti.com (10.64.6.32) by DFLE102.ent.ti.com
+ (10.64.6.23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Mon, 27
+ May 2019 17:28:13 -0500
+Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE111.ent.ti.com
+ (10.64.6.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
+ Frontend Transport; Mon, 27 May 2019 17:28:13 -0500
+Received: from [10.247.27.115] (ileax41-snat.itg.ti.com [10.172.224.153])
+	by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id x4RMSDgl067971;
+	Mon, 27 May 2019 17:28:13 -0500
+Subject: Re: [PATCH 5/5] ci, Documentation: Add TI's K3 specific configs
+To: Jan Kiszka <jan.kiszka@siemens.com>, Nikhil Devshatwar <nikhil.nd@ti.com>,
+        <jailhouse-dev@googlegroups.com>, <lokeshvutla@ti.com>
+References: <20190523211623.9718-1-nikhil.nd@ti.com>
+ <20190523211623.9718-6-nikhil.nd@ti.com>
+ <6fa30cc8-3c2d-4df6-c7e0-dbd398d157ce@siemens.com>
+From: "'Nikhil Devshatwar' via Jailhouse" <jailhouse-dev@googlegroups.com>
+Message-ID: <b8c3b24d-3975-f137-8256-c9c6159f8883@ti.com>
+Date: Mon, 27 May 2019 17:28:16 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_1332_101716046.1558807722273"
-X-Original-Sender: Michael.G.Hinton@gmail.com
+In-Reply-To: <6fa30cc8-3c2d-4df6-c7e0-dbd398d157ce@siemens.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+X-Original-Sender: nikhil.nd@ti.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@ti.com header.s=ti-com-17Q1 header.b="OGdxDN9/";       spf=pass
+ (google.com: domain of nikhil.nd@ti.com designates 198.47.23.248 as permitted
+ sender) smtp.mailfrom=nikhil.nd@ti.com;       dmarc=pass (p=QUARANTINE
+ sp=NONE dis=NONE) header.from=ti.com
+X-Original-From: Nikhil Devshatwar <a0132237@ti.com>
+Reply-To: Nikhil Devshatwar <a0132237@ti.com>
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -87,246 +153,46 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1332_101716046.1558807722273
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Saturday, May 25, 2019 at 12:00:15 PM UTC-6, michael...@gmail.com wrote:
-> On Thursday, May 23, 2019 at 3:55:24 AM UTC-6, jeanne....@gmail.com wrote=
-:
-> > Le samedi 9 f=C3=A9vrier 2019 06:26:29 UTC+1, michael...@gmail.com a =
-=C3=A9crit=C2=A0:
-> > > On Friday, February 8, 2019 at 8:40:18 AM UTC-7, Henning Schild wrote=
-:
-> > > > Am Thu, 7 Feb 2019 16:53:41 -0800
-> > > > schrieb <michael.***@gmail.com>:
-> > > >=20
-> > > > > On Wednesday, February 6, 2019 at 5:59:09 AM UTC-7, Henning Schil=
-d
-> > > > > wrote:
-> > > > > > Am Tue, 5 Feb 2019 19:25:28 -0800
-> > > > > > schrieb <michael.***@gmail.com>:
-> > > > > >  =20
-> > > > > > > On Friday, February 1, 2019 at 12:32:40 AM UTC-7, J. Kiszka
-> > > > > > > wrote: =20
-> > > > > > > > You likely want
-> > > > > > > > https://github.com/siemens/linux/commits/jailhouse-enabling=
-/4.14
-> > > > > > > > or the 4.19-variant that is jailhouse-prepared. That's what
-> > > > > > > > jailhouse-images is building for you. If you just rebuild t=
-he
-> > > > > > > > kernel that the original image was using, only adding UIO, =
-you
-> > > > > > > > should be fine with keeping the jailhouse kernel package
-> > > > > > > > untouched. But the cleanest way is reproducing the image vi=
-a
-> > > > > > > > jailhouse-images after adjusting the parameter you want to
-> > > > > > > > change (CONFIG_UIO, ROOTFS_EXTRA etc.).
-> > > > > > > >=20
-> > > > > > > > Jan
-> > > > > > > >=20
-> > > > > > > > --=20
-> > > > > > > > Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-> > > > > > > > Corporate Competence Center Embedded Linux   =20
-> > > > > > >=20
-> > > > > > > That worked! I was able to figure out the correct kernel to b=
-uild
-> > > > > > > by looking at
-> > > > > > > jailhouse-images/recipes-kernel/linux/linux-jailhouse.bb from
-> > > > > > > when I last generated my image at 4.14.73
-> > > > > > > (https://github.com/siemens/linux/archive/1dd68658b3a8308a160=
-b0786fc4e1e04d8ff5216.tar.gz).
-> > > > > > > With that, I supplied QEMU with the new UIO-enabled kernel im=
-age
-> > > > > > > and built jailhouse and uio_ivshmem.ko and ran the ivshmem
-> > > > > > > jailhouse demo.
-> > > > > > >=20
-> > > > > > > However, I'm still not sure how to read in the data from the
-> > > > > > > ivshmem-demo. Once I insmod uio_ivshmem.ko, shouldn't there b=
-e a
-> > > > > > > device called /dev/uio0 that I can read "Hello From IVSHMEM" =
-from
-> > > > > > > and write back to? And shouldn't there be an entry
-> > > > > > > in /sys/class/uio/? I don't see either of these, and I'm not
-> > > > > > > quite sure how to debug this yet. =20
-> > > > > >=20
-> > > > > > Yes you should get that. If you do not, my first guess would be=
- that
-> > > > > > you are not building the jailhouse branch of the guest-code rep=
-o.
-> > > > > > The jailhouse version of the PCI interface is slightly differen=
-t,
-> > > > > > so the probing between the two is not compatible. =20
-> > > > > Shouldn't I see /dev/uio0 and /sys/class/uio/ once I `insmod` it,
-> > > > > regardless if it's built against a non-jailhouse-enabled kernel? =
-Or
-> > > > > will it show up once jailhouse is running?
-> > > >=20
-> > > > I am not actually sure what will happen, so if a /dev/uio0 will pop=
- up
-> > > > even if probing failed.
-> > > > Just to clarify, i did not talk about a jailhouse enabled kernel, i
-> > > > talked about checking out the jailhouse branch of the repo you got =
-the
-> > > > uio driver from. The one from branch "master" will not work!
-> > >=20
-> > > Thanks! That's just what I needed. I didn't realize that there was a =
-jailhouse branch. I rebuilt it, /dev/uio0 shows up, and the ivshmem-demo is=
- working! uio_read and shmem_test.py (README.jailhouse) both work great.
-> > >=20
-> > > But unfortunately uio_send doesn't. When I run `uio_send /dev/uio0 1 =
-0 0`, it fails to mmap() with an ENODEV/"No such device" error. The mmap ma=
-n page says "the underlying filesystem of the specified file does not suppo=
-rt memory mapping."
-> > >=20
-> > > Do you know why this is? Isn't uio_send just trying to mmap() the PCI=
- config space (the first 256 bytes)?
-> > >=20
-> > > Thanks,
-> > > -Michael
-> > >=20
-> > > >=20
-> > > > Henning
-> > > >=20
-> > > > > When I `make` uio_ivshmem, it shows that it's entering the correc=
-t
-> > > > > kernel source. Is https://github.com/siemens/linux/commit/1dd6865=
-8b
-> > > > > not the correct jailhouse-enabled source to build for 4.14.73?
-> > > > >=20
-> > > > > Does making all the UIO modules be built-in (Y) instead of (M) ma=
-ke
-> > > > > any difference? I set them to Y because I thought it would make
-> > > > > things easier.=20
-> > > > >=20
-> > > > > I may consider upgrading jailhouse images to the latest if I can'=
-t
-> > > > > get things working.
-> > > > >=20
-> > > > > Thanks,
-> > > > > Michael=20
-> > > > > >=20
-> > > > > > Henning
-> > > > > >  =20
-> > > > > > > The only documentation I can find on this is
-> > > > > > > https://www.kernel.org/doc/html/v4.18/driver-api/uio-howto.ht=
-ml.
-> > > > > > >=20
-> > > > > > > Any help is appreciated. Sorry to be a bother. Thanks!
-> > > > > > > -Michael
-> > > > > > > =20
-> > > > >
-> >=20
-> > Hi Michael,
-> >=20
-> > I am in the same situation as you with the "no such device" during the =
-mmap. Were you able to solve your problem? If so, how?=20
-> >=20
-> > Best regards,=20
-> >=20
-> > Jeanne
->=20
-> Hello,
->=20
-> Sorry, I wasn't able to fix it 100%, at least for the registers.=20
->=20
-> I tried mmapping the first page of uio0 for the registers like this:
->=20
->     static const char *UIO_FILE =3D "/dev/uio0";
->     static const char *RES_0_FILE =3D "/sys/class/uio/uio0/device/resourc=
-e0";
->=20
->     // Get the page size of the system (usually 4096)
->     PAGESIZE =3D sysconf(_SC_PAGESIZE);
->=20
->     // Open the files
->     uio0_fd =3D open(UIO_FILE, O_RDWR);
->     res0_fd =3D open(RES_0_FILE, O_RDWR);
->=20
->     if (uio0_fd =3D=3D -1) {
->         printf("ERR %d: %s\n", errno, strerror(errno));
->         exit(-1);
->     }
->     if (res0_fd =3D=3D -1) {
->         printf("ERR %d: %s\n", errno, strerror(errno));
->         exit(-1);
->     }
->     printf("Trying to mmap registers from %s\n", UIO_FILE);
->     registers =3D (unsigned int *) mmap(NULL, PAGESIZE, PROT_READ|PROT_WR=
-ITE, MAP_SHARED, uio0_fd, PAGESIZE*0);
->     if (registers =3D=3D (void *) -1) {
->         printf("registers mmap failed for %s (%p)\n", UIO_FILE, registers=
-);
->         printf("ERR %d: %s\n", errno, strerror(errno));
->=20
->         // Try again, but this time use the resource 0 version
->         // This call succeeds in QEMU Jailhouse Image, but not on Inspiro=
-n
->         printf("Trying to mmap registers from %s\n", RES_0_FILE);
->         registers =3D (unsigned int *) mmap(NULL, PAGESIZE, PROT_READ|PRO=
-T_WRITE, MAP_SHARED, res0_fd, PAGESIZE*0);
->         if (registers =3D=3D (void *) -1) {
->             printf("registers mmap failed for %s (%p)\n", RES_0_FILE, reg=
-isters);
->             printf("ERR %d: %s\n", errno, strerror(errno));
->             exit(-1);
->         }
->     }
->=20
-> Mapping /dev/uio0 worked in the QEMU image built by Jailhouse, but not on=
- my x86-64 Dell Inspiron laptop.
->=20
-> I tried to get around this by mmapping /sys/class/uio/uio0/device/resourc=
-e0 instead, which mmap()s successfully on the Inspiron, but it didn't seem =
-to read/write to the registers at all. So I don't think that will work. But=
- maybe you'll have better luck.
->=20
-> Of note, I also wasn't able to listen to interrupts in Inspiron by readin=
-g /dev/uio0, but that could be due to a bad configuration.
->=20
-> In both QEMU and on the Inspiron, though, I was still able to mmap the sh=
-ared memory page like this, which was the most important thing for me:
->=20
->     // Get the shared memory at +PAGESIZE offset of /dev/uio0
->     shmem =3D (unsigned int *) mmap(NULL, PAGESIZE, PROT_READ|PROT_WRITE,=
- MAP_SHARED, uio0_fd, PAGESIZE*1);
->     if (shmem =3D=3D (void *) -1) {
->         printf("shmem mmap failed (%p)\n", shmem);
->         printf("MGH: ERR %d: %s\n", errno, strerror(errno));
->         exit(-1);
->     }
->     printf("shmem mmap succeeded! Address:%p\n", shmem);
->=20
-> Since I was able to at least get this working, I didn't care too much abo=
-ut accessing the registers or getting interrupts to work.
->=20
-> I adapted this last snippet to Python 3 (inspired by shmem_test.py):
->=20
->     import mmap
->     PAGE_SIZE =3D 4096
->     device_file =3D '/dev/uio0'
->     f =3D open(device_file, 'r+b')
->     shmem =3D mmap.mmap(f.fileno(), PAGE_SIZE, offset=3DPAGE_SIZE)
->     print("Shmem content (first 30 bytes): '%s'" % shmem.read(30))
->     print("This also works: '%s'" % shmem[0:30].hex())
->=20
->     str_bytes =3D bytearray("Hello from root", 'utf-8')
->     str_bytes_len =3D len(str_bytes)
->     shmem[0:str_bytes_len] =3D str_bytes
->=20
-> This is a lot more convenient for rapid prototyping (This is condensed fr=
-om my actual script, so hopefully it doesn't err. But it should be mostly c=
-orrect).
->=20
-> Hope that helps,
-> -Michael
+On 24/05/19 7:37 AM, Jan Kiszka wrote:
+> On 23.05.19 23:16, 'Nikhil Devshatwar' via Jailhouse wrote:
+>> From: Lokesh Vutla <lokeshvutla@ti.com>
+>>
+>> Before building jailhouse for TI's K3 platforms,
+>> ci/jailhouse-config-k3.h needs to be copied to
+>> include/jailhouse/config.h
+>>
+>> Signed-off-by: Lokesh Vutla <lokeshvutla@ti.com>
+>> ---
+>> =C2=A0 ci/jailhouse-config-k3.h | 2 ++
+>> =C2=A0 1 file changed, 2 insertions(+)
+>> =C2=A0 create mode 100644 ci/jailhouse-config-k3.h
+>>
+>> diff --git a/ci/jailhouse-config-k3.h b/ci/jailhouse-config-k3.h
+>> new file mode 100644
+>> index 00000000..65e02f08
+>> --- /dev/null
+>> +++ b/ci/jailhouse-config-k3.h
+>> @@ -0,0 +1,2 @@
+>> +#define CONFIG_TRACE_ERROR=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 1
+>> +#define CONFIG_TI_16550_MDR_QUIRK=C2=A0=C2=A0=C2=A0 1
+>>
+>
+> We only track in ci/ what we enabled for ci. In any case, when=20
+> following Ralf's proposal for patch 4, this should be obsolete. '
 
-Sorry, I think I mixed up the file names. Apparently /sys/class/uio/uio0/de=
-vice/resource0 mmapped successfully in QEMU, but NOT on Inspiron.
+Alright, I will repost the series taking into consideration the UART=20
+flag and drop this patch.
 
-At any rate, IIRC I don't believe I was able to access the registers  (door=
-bell, etc.) in either. If you make any progress out on this end, please let=
- me know. Thanks!=20
+Regards,
+
+Nikhil D
+
+
+
+>
+> Jan
+>
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -334,7 +200,5 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/ab96b376-b73c-463d-90fe-2bbac88cc035%40googlegroups.com.
+jailhouse-dev/b8c3b24d-3975-f137-8256-c9c6159f8883%40ti.com.
 For more options, visit https://groups.google.com/d/optout.
-
-------=_Part_1332_101716046.1558807722273--
