@@ -1,67 +1,67 @@
-Return-Path: <jailhouse-dev+bncBDCN3RNB2MDRBGXCWTTQKGQEXX332KQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDCN3RNB2MDRB7XLWTTQKGQEBNDK3VA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oi1-x237.google.com (mail-oi1-x237.google.com [IPv6:2607:f8b0:4864:20::237])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDE2E2C736
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 28 May 2019 15:01:15 +0200 (CEST)
-Received: by mail-oi1-x237.google.com with SMTP id l12sf6289482oii.10
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 28 May 2019 06:01:15 -0700 (PDT)
+Received: from mail-ot1-x33f.google.com (mail-ot1-x33f.google.com [IPv6:2607:f8b0:4864:20::33f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B7522C7B2
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 28 May 2019 15:22:08 +0200 (CEST)
+Received: by mail-ot1-x33f.google.com with SMTP id q12sf10268721oth.15
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 28 May 2019 06:22:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:date:from:to:message-id:subject:mime-version
          :x-original-sender:precedence:mailing-list:list-id:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=ION7E4pL8mEVQVMrNJoqX5ds4waHdc7xtdfUxLgUqHk=;
-        b=pKqNrKgF5b7m7fKlwiNKySMVWeg/nNOkrk1G7IX48fV9HjLygk6KLyScT35QthTbbe
-         5wKkmBjA06pnY5lf9XrXPGo5DeiCKaPqklxxuBobZuDuQCQTXGk0hNDrhJqsq283tmcH
-         mJ2rv7L2hwKKT6LwGzMmttdDrZsScG0P1OoPkOpXAQvNCsFXY0mIcqOFVDp68EQvTTEg
-         O8XJgrzcO5lJzDl3mEvzjliDouzOJlos11YtcLJjtAbnWBE9oFk3ZjcrfMU+vgMMrsiX
-         P2P4zz3f5eQ2uPn5lSDruaYtBx8zCMWCC76kBjMMFW6OYc2a4CJcFDEbdGL+wSygr0mk
-         KS/w==
+        bh=NixMwGnUCU/bYwM3Xd7b6/mNsfp1aAVf20GuitxchA4=;
+        b=WG5qQXhe91TF0hOTJe4O5SYt0fYrnJwUSAxzXl/InN9TYPT3CrBlyWTk3Mu/R7Ujxx
+         5lHApI8LiZSKWYm8PnZ2vMp8xuN5Ny27i4GZfDqgem4z7F3sfHV2Sq0dRmRAB+mq1Byk
+         6rZdJOdVP9rcUUFnNqmqYtRfmvSR2m2JS8eQ/sHr/Q00QwdOVJJS/fSn8uKKOXb2iGWW
+         sh9Wmo7sVPh0XlrbfHpB3QXmKLnkbUzSe2/B2HwiYbrTmtJaTHVApC4kk82TBIdf1JVH
+         5/FGdX50bNr3FblDMLN3NVjnYvpDz6Lid02zliZ97VMGn+XuUXv1iezkez7p3XjxZucT
+         s06A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:message-id:subject:mime-version:x-original-sender
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=ION7E4pL8mEVQVMrNJoqX5ds4waHdc7xtdfUxLgUqHk=;
-        b=nm/u9ivSX/i0EnnAZtkuy/HIwegSKenBZ3goAMqDeIrV25s3qMt7b/cQoChF97WrVr
-         yjN2Sx2Lo1nZ/VWe7iG8j3onrMOKtTyaEx/GD7YpmZSJpHpy+tbeQYEBacYm8/J9Jd6i
-         I35SQoZ2vCQCnwcDkvtrZ2xjTbB53a8vsbVxFw0WQTjDPoGnNCRqb0pcb1kKAuxoOcwJ
-         d0L/bq2koUjk0S/C6yUI+wXYPpMSUvtIU/jHG9cehtxfkF94ahv3Cq84mGldsnb4o/ga
-         rNujeAaOkevX4PfTHe/yR6luYImDQk1zIb9GbuF/sYSmzGVBRs8Ao9BbuUonManl4icN
-         C/OA==
+        bh=NixMwGnUCU/bYwM3Xd7b6/mNsfp1aAVf20GuitxchA4=;
+        b=RhGr2z+gXEN9fBIW12FiKRDk4SVNs4kCSe70mXEQ4dZmGr6A4GGRQR6JF75GFzh1qA
+         BG2s9EBTeBF0Bq/JH76bXUm2Yztkwr/0liT1ATlWBLPQAI6vMoKRUQAsPME3FWpw1XI7
+         UsLTp+FZ/bHDr6+RlBmJWWnLOPLhRsrBBlTMyhSIJ6GuDUvHaAMNc5vw1VJOWuGha2ua
+         e8EGNsgw89L/gu3zI6iO1/3/iGb5DdAouc9jCZm55BwPfJH0V74uIGxpelSZRKp3roV8
+         MOBm4X+kGUWR/Pu109Ze2xUyTVm7s4bmEhwHojKjSMKuBwjLElnaCa9+BZSMpAZA1gbi
+         tiaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:date:from:to:message-id:subject
          :mime-version:x-original-sender:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=ION7E4pL8mEVQVMrNJoqX5ds4waHdc7xtdfUxLgUqHk=;
-        b=AsmWYP1ZqH34jvMvbe0Rv/O2sL1Ab5Shy3q3j+NUawK6F3ffx9s/da4LQFMKwieBvA
-         KC6Q8i4CkF+P1zsyjgjzWRJHE9yh1TiOm7toIQQ8vxf/Fju5Z70DxwjgmH98MAVoNrGf
-         i+zNoHvJ3rv4I/5P6CKZVr2kOz5A04ef6Vh1qej1689AyeoEmQtfvdanwxozeXHvj83v
-         CJ+VYc6FpKpzE6yZq+M8Shs1lQ4oTdQwyb41mbGEvfH6LUoP/E2dsbyLdDdgx44M9Rqa
-         grgzkcTzcIiWAKsgnUg1tHwPwqQaNJlTElt3oMJaUwDU3qITQPYWdZX8Ls2itNR9RtbF
-         Vuvg==
+        bh=NixMwGnUCU/bYwM3Xd7b6/mNsfp1aAVf20GuitxchA4=;
+        b=S6H5/0ofIvZlpvNMxy5k6XEHVNVumi+w4Y8j4cKjkOTsR6t+AxdYm6W9CiDUBOuVlX
+         HxJoQ5szA5ZPjGS4pnKf8sNLXEs0eXSiUgpaXFGxrHahOZHuN7aAbma7WmA9lShAr5sD
+         83wPZxXKpAddD70lSNHPLiKLXochSoIq/HoTuOYdRsYcMrKUemV3zYCCznQ/vyd4ck2o
+         XKssbwxsMhTI+QUZWy9vmmOR8oBdXGiaUAR9Boj+ObkYfx/SuQdPXIggoXB2QmJwBWwA
+         X3Se9k9DszSpLOoHLU83fFB4mZL0bSEz+O9FTTOfHYvGTTteg4S6JBphIlyP76oWGz12
+         sjdA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVdacnhF1Y44O2C+dlmJFGws0Oj9eWpFGQZwSdW5c8uRvIHuKN7
-	p41hCxdu+Gby6J9sc0HvsBg=
-X-Google-Smtp-Source: APXvYqyuWdjONiln8DomyHkXX7lzxS7lcD/LUYXcnfe8kJBEcDa3qReqeK+imQvQMjBH8JU6enCWCQ==
-X-Received: by 2002:aca:d8c5:: with SMTP id p188mr2466592oig.6.1559048474318;
-        Tue, 28 May 2019 06:01:14 -0700 (PDT)
+X-Gm-Message-State: APjAAAWz51n78VnGuOauJGfpNR8oK2Lz7C24noBZLV/1IYVWAof5q9Qw
+	Apq5L2lToBN9djxnbed/Chw=
+X-Google-Smtp-Source: APXvYqymW9X5viADL3IRNB/xZfGIeMQswaS3cPpXdwIB2kVpXAMrwf3biiDRHOZT/0VJXf6vfZFgTA==
+X-Received: by 2002:aca:3887:: with SMTP id f129mr2675890oia.176.1559049726762;
+        Tue, 28 May 2019 06:22:06 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aca:55ca:: with SMTP id j193ls1098849oib.7.gmail; Tue, 28
- May 2019 06:01:13 -0700 (PDT)
-X-Received: by 2002:aca:3d46:: with SMTP id k67mr2485735oia.66.1559048473712;
-        Tue, 28 May 2019 06:01:13 -0700 (PDT)
-Date: Tue, 28 May 2019 06:01:12 -0700 (PDT)
+Received: by 2002:a9d:2c21:: with SMTP id f30ls3463761otb.12.gmail; Tue, 28
+ May 2019 06:22:06 -0700 (PDT)
+X-Received: by 2002:a9d:73c7:: with SMTP id m7mr133838otk.156.1559049726218;
+        Tue, 28 May 2019 06:22:06 -0700 (PDT)
+Date: Tue, 28 May 2019 06:22:05 -0700 (PDT)
 From: jeanne.romefort@gmail.com
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <2d7f1dcf-8e42-43d6-8279-f891cf4d3286@googlegroups.com>
+Message-Id: <e0e9eaef-1cff-4d61-a820-e007271ff7b2@googlegroups.com>
 Subject: Ivshmem-demo interrupt
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_2114_1550445114.1559048472984"
+	boundary="----=_Part_2287_1668626922.1559049725386"
 X-Original-Sender: jeanne.romefort@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -75,22 +75,21 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_2114_1550445114.1559048472984
+------=_Part_2287_1668626922.1559049725386
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 Hello everyone,=20
 
-I'm trying to run the ivshmem-demo on a "INSERER BOARD". The inmate cell se=
+I'm trying to run the ivshmem-demo on a lanner NCA-510A. The inmate cell se=
 ems to be working well. However, I can't get the interruptions between the =
 cells to work. Is this due to a configuration problem? (You will find attac=
 hed my configuration files)
 I explain : when I launch the inmate the shared memory is written but the i=
 nmate doesn't react to the uio_send and there is nothing to read in the uio=
-_read...=20
+_read...
 
-here is my=20
-
+here is my :
 grep ivshmem /proc/interrupts
  202:          0          0          0          0          0          0    =
       0          0          0          0          0          0          0  =
@@ -112,15 +111,15 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/2d7f1dcf-8e42-43d6-8279-f891cf4d3286%40googlegroups.com.
+jailhouse-dev/e0e9eaef-1cff-4d61-a820-e007271ff7b2%40googlegroups.com.
 For more options, visit https://groups.google.com/d/optout.
 
-------=_Part_2114_1550445114.1559048472984
+------=_Part_2287_1668626922.1559049725386
 Content-Type: text/x-csrc; charset=US-ASCII; name=ivshmem-demo_mistral.c
 Content-Transfer-Encoding: 7bit
 Content-Disposition: attachment; filename=ivshmem-demo_mistral.c
-X-Attachment-Id: b82ab86c-e1ab-4ac2-abae-ac4bddbd7569
-Content-ID: <b82ab86c-e1ab-4ac2-abae-ac4bddbd7569>
+X-Attachment-Id: 372a100f-b27d-4337-9c48-96f463fd3df4
+Content-ID: <372a100f-b27d-4337-9c48-96f463fd3df4>
 
 /*
  * Jailhouse, a Linux-based partitioning hypervisor
@@ -232,12 +231,12 @@ struct {
 	},
 };
 
-------=_Part_2114_1550445114.1559048472984
+------=_Part_2287_1668626922.1559049725386
 Content-Type: text/x-csrc; charset=US-ASCII; name=mistral_rootCell.c
 Content-Transfer-Encoding: 7bit
 Content-Disposition: attachment; filename=mistral_rootCell.c
-X-Attachment-Id: 8cb728cf-3c1f-49af-8a58-8920b483eee0
-Content-ID: <8cb728cf-3c1f-49af-8a58-8920b483eee0>
+X-Attachment-Id: f9b27a21-cc94-42e1-9a51-d26ebd16442a
+Content-ID: <f9b27a21-cc94-42e1-9a51-d26ebd16442a>
 
 /*
  * Jailhouse, a Linux-based partitioning hypervisor
@@ -3456,4 +3455,4 @@ struct {
 	},
 };
 
-------=_Part_2114_1550445114.1559048472984--
+------=_Part_2287_1668626922.1559049725386--
