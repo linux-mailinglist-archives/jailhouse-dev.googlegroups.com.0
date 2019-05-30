@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBYP2XXTQKGQE2EPGF6A@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBP73XXTQKGQEYY3KNII@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x537.google.com (mail-ed1-x537.google.com [IPv6:2a00:1450:4864:20::537])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D91E2F791
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 30 May 2019 08:51:14 +0200 (CEST)
-Received: by mail-ed1-x537.google.com with SMTP id r5sf7160706edd.21
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 29 May 2019 23:51:14 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1559199074; cv=pass;
+Received: from mail-lf1-x137.google.com (mail-lf1-x137.google.com [IPv6:2a00:1450:4864:20::137])
+	by mail.lfdr.de (Postfix) with ESMTPS id 703152F797
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 30 May 2019 08:52:49 +0200 (CEST)
+Received: by mail-lf1-x137.google.com with SMTP id u26sf337444lfq.8
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 29 May 2019 23:52:49 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1559199169; cv=pass;
         d=google.com; s=arc-20160816;
-        b=EQq4FlgCeELlUE594SchRfs6BVP/KU3JwDSfoe+EXRqZfwykbFjTQXraTE7p8HMMNm
-         e6Qg+WFRXHCF81dXflETuDnUOlyheE0+jCWKfzsOZJP7PS7dP18ZqncelCdQjnM8YkE/
-         V4QTAx8UVhfXCa83CF62ZjODOJ0FXudQ19JJujZd96QF+QxMaVPk52Ue15EQjHHsKiwE
-         33wbfga7dzspwbT2JSlzbj+zpehzcglyot8QbokwJtpz2YtdLAW8poplVwq0AWttZVEI
-         +j3CjDALQ2VCdYC2/JxHN2IaJxBMsYMo0ADKCtZE1V8qK7ARRiqnnG+J7uhm+9TSnHo4
-         nkmg==
+        b=LQKCP3+zGdN0Qw9DEmTF8SxSptw/E+lTC2AICdkyCJVPJ5Db7ObObKH3sMtTZ3oY1S
+         bTV9tKrpWB2wTtYF7GnB+QUQ8/8abrx8tzCnHZ/FRjC/EWchAK79cTO/tYIIp/Xux5J8
+         NhOA9h7zopzkzihUg0+r6ZzkiYa5/x1z1uS+L9QHThUZ98W6/o+Z5hpPf1QE8N9z/f1T
+         Et2qiEpCeb+TiWo0RwX4NSKGnxL0WJ18HmXXUYmOE+9Lce6jK420l4dkQVVUVXL6Ep9C
+         QGArEht4eSpXn4yqrtGScjlOvt+u7jxDk5nQcBJKcdbfcagMp0Al0sUUe3Ngs7p5eKC+
+         iHrQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-language:in-reply-to
          :mime-version:user-agent:date:message-id:from:references:to:subject
          :sender:dkim-signature;
-        bh=42gRLNcPgojRYVkaUbCfDFWu4gwa3c5NNaZM6qXX/Ss=;
-        b=N6lUvEKd5pZjP6j3TrcH/54dUmuAzyO+M5VGit11Y5pSorNg6gYbpvYgpVpnAJn4XP
-         YJgx4zscVqT1K3GoF9uPF+eCsdIMDSU06CFILTuX1lmU5MCljROXl1+lSlaK8UhXN+gH
-         6Y+PKF68A0lO0gmO/ESiUs6VIzpHc2+LOEJChvM86ml+Akjg308XOaL/YlwSELwgBE+t
-         ODfX65LmKbLkj6KA32QmhTdpf8piu6UHwZ4+FKMP/Y/1zoce1+IBDCV2kPqfujxLjYiI
-         uxFAm1oUbvp+rv3sYa3v+iQi1DAjNUtAK99c3lsz8KzdZgJiU0LPMvFTgn/Bz9paby9I
-         eEOw==
+        bh=1QhaWlmXs0H+IINtJ15k17ANAIYGym6wCVUojryczJc=;
+        b=a1iQ5FR7Bm5LJzRefkGYBPYxopm805hj2O6S607fjUbAM3rpdmvmHEPuBVMaE7Pj9k
+         ZU93BhjTgkACyyCDGjhH8eDtECZvZCrWTRvvwtghP/wgOwSwgg2F1TXVtzc5Lm4h2bjN
+         wXt+Wm3NqiNRM1v/yGuOGfd5gEK5kXnd6n+wLab2EWpc2nKeLmGlsK2+mKULUfjowFxo
+         VyOxGWzALbkUwYTxk1Byq8zmpvWTNR1/V7Sh2F96I77ZLNnDCVFifz+semQtiZHuALh7
+         afiw8Ll6tfsJ1WxALkUU8931Fg3NXZ3NivUABx5TI+sEClClw4NBm08cliqfdLi2JRRv
+         4eFQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=ikh5PWYY;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=snGrHHNo;
        spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:in-reply-to:content-language:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=42gRLNcPgojRYVkaUbCfDFWu4gwa3c5NNaZM6qXX/Ss=;
-        b=ryr+9cGxXBRsYIbguNDmpebea5SS8gJvdw3Iz429KFrwFElRFvlN/9BhlMw2iUCHwU
-         A+vouJJ98gYn6Wnw0PgG0X8GdeNOjJ0kMUAti+NrBc5Z5j6QqO8BGlsBzQ6CVFK+2wun
-         BSS4r8ut3UlenqvObqAxt5kQLOkYiyXEPEtKVH3OnSxaatjMeLy0VaMXuLMjwvxc2u03
-         x7+jikEzYlv0ri4eJE/04znKvV0ZAwIpFeYR6N7x7+smlwrTJvihQThzelXAbM4sKLPL
-         bUo2/bh9a6TGKzQpR0LwN6/XFMEt2YfUfbaWRuY2sZVMW4gjdre9WvLDu1v4cugLPeuF
-         uZVQ==
+        bh=1QhaWlmXs0H+IINtJ15k17ANAIYGym6wCVUojryczJc=;
+        b=H1HjAWHIxsAWXVAez5PL3N/E1UzpHWgH59UKc1n+r8mlN2J1AdM5S52R0730dNpVBW
+         jlyfDaDHy27E0UD2gY/0bAFQ4PBnzpDv8JMR801/9cFi/7zFtOjN2O7vhW0cXxYIQGy7
+         K6XiL9GoxyJ+ppeMS1kxyBT/MAUSmSpwHmueiChzq6qLkr/m2BXfb97ysIbxqZGYrlhP
+         m41s1Qb8Pru1rUt/WR2PAjXaBbYMRDSXSSnzuO9Gmf85iDkTpPuJhnq4Vj0x1k4dv/Vf
+         DNan8yorJ2Z4NhBBIxcgqtOs5SwFHYHcFTJStLSdAY+qDWR/P7KgvRKp0Ys4Lq8gV6Sl
+         /qFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:subject:to:references:from:message-id
@@ -49,93 +49,94 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=42gRLNcPgojRYVkaUbCfDFWu4gwa3c5NNaZM6qXX/Ss=;
-        b=Ahc+zRVOMMzTdb5a7ws9NT16qFd0Y24IMOoSSQ0hFaOCh5hejiVYoCns1hHhVLMK4j
-         /5NLvd3VsaSwcmPAsxRDP2Qv4K5uhqhYkr8y3CMi9HGty37IXBxzqGpR5W1n3HPU81N8
-         bvVFDZUy9qXQZPs5qg1LU0HCh7wgsvCxekmPT1nUBQMM3MEKimfPVhFM9WUtjc4uNqBh
-         LFzRrDj8ADc2KPp543xYyAFVTVGyfFjT8zHDuSdBNQJSshmbbTAiSFYMCVo70T5cI4T2
-         Y3vL+HI5rB6KlnnMUhHu8LudSEl8+aeGxjQuQpMi0EHUzVfDCG9Cr3ImQpQ3qRowlsoL
-         TPhg==
+        bh=1QhaWlmXs0H+IINtJ15k17ANAIYGym6wCVUojryczJc=;
+        b=B7I/f4b843cg2XROndZz5HD7ijWZEf+pATwD74zrHX++NxD+cS8/SSS9vXWZ7zYWJC
+         z5foziyVDZLSSh+SaocPkzwtFm5+x4DTp3YAqrILn+QW9oncjKh/b9Wocf0JgSu5TzGR
+         7W1eGopmUnUhjK4/X0PbISIcotJdjOPj9iCRJD+qPhKTO0MOPk6ttejfh1AptEuoupag
+         ZJO9mm1ISx3a+6T3EsIUE7mrVYqWcgrTgjhKitmERSBtWLFZXVuUexwicpmaUCp0mEKR
+         Pfw+mrBaO3GoKHdp8N+aSXd7lN5oXgwIOwh0fFeoHb4w2U13g4u5jRWxG2Im1SXTukpa
+         Sl2Q==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXGH0JPuYdfjiXGYpzMYT019lP8+zg1z3ejvgbK5RmjYJbUTS4d
-	fbNh1qkpc8kD8KGD5E9Q2YU=
-X-Google-Smtp-Source: APXvYqzmrAl6Lu3i1nYysZNnfT7vy2rR2RBJrMbKsI/dbivYn1AOjv9cgPnx4CeOJguqcWwQbgo1hw==
-X-Received: by 2002:a17:906:a302:: with SMTP id j2mr1929854ejz.155.1559199073997;
-        Wed, 29 May 2019 23:51:13 -0700 (PDT)
+X-Gm-Message-State: APjAAAWmyzc7Sej0I775LFSFLmQ/iX+w0/IFmhxHxqfil0ZcGUgtaJQL
+	36wYjmjA1X5+fL+dRBFfJaM=
+X-Google-Smtp-Source: APXvYqz63jRW9agwhOSUwtvp/IHEk9dstK5XHeWvuTqfV3Nc3nwWPpw32263bTjWY3ZF90pDmbgbTA==
+X-Received: by 2002:a2e:380c:: with SMTP id f12mr1073670lja.53.1559199167950;
+        Wed, 29 May 2019 23:52:47 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:7807:: with SMTP id u7ls1123572ejm.13.gmail; Wed, 29
- May 2019 23:51:13 -0700 (PDT)
-X-Received: by 2002:a17:906:7c42:: with SMTP id g2mr1970406ejp.168.1559199073407;
-        Wed, 29 May 2019 23:51:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1559199073; cv=none;
+Received: by 2002:a2e:5d92:: with SMTP id v18ls558055lje.2.gmail; Wed, 29 May
+ 2019 23:52:47 -0700 (PDT)
+X-Received: by 2002:a2e:b0da:: with SMTP id g26mr1102414ljl.161.1559199167375;
+        Wed, 29 May 2019 23:52:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1559199167; cv=none;
         d=google.com; s=arc-20160816;
-        b=MfTzkN/mhE4arU4bs8A04eGK7G+RD+rI+aL5SLJ+K/tsagUwtIODkPe0op14WZX5mv
-         Z97b11ZuSx/glbPbNm2pwU/WdTBIdAm8AlHDBTOk8g70ib6KR4hPbL7Fs6PKZFljf06D
-         yBE0LyzNQzYz1OVahp8qKORWEj7IHI9EIDy4mqHBUsa07F/D/5ZMQu3Sp6uXfm5cEqnY
-         W41V74GmCdYVREY5Rswfs5y8Q1Ie8JeUANZQFhet/BJTfHw/0YhdMgFa/PFlpxnK5QsT
-         WjegI/kknpANofVMe37H8ZbMW5NAftT6kDdmpdWjvYOLOWg20vI7FkTxlJxHki3n9tGe
-         uChA==
+        b=mUAdjeQQkTHVXHgXX2abMN9ktOJ3HQqTz+oZULVkHxIFif/KKiB3xKOBu54iEnhhNt
+         C9YQbIJhq5NMAcRuD94AABpwgQqho5jC3M/RJqbByIOAkEAg4m1C7Ca1o0tD3sF5uWR8
+         iI5iQWZLM/kj6Orh4tpeHPZTmQYFxHDI9HyGA+wMWSDP2pe/9wdZZGv+sAMqFJA6ubu/
+         TBITb8WXbKUQaZ35RAamc/91t8h8ElPgRKjvMTZACqe/DSpSWl2Fb8flNiRmraLUwl0I
+         wCCIlYCtW6uG17mhG5uKIvnjGNBzrJ4poNBSi0guKUWVOc9jMIs+lKSvaZFDVLEmSRbt
+         1qiA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
          :user-agent:date:message-id:from:references:to:subject
          :dkim-signature;
-        bh=/t07ztOXUhbkuzlhTA7JyPAQnqAdGiU6jP9GteN3S0s=;
-        b=W8XFq91Za84JOHFVkNKrsEyBEDD9ne9nFNDLnc7emkFzG2TXQn1Ci04wbYIKfjHx4y
-         +8n4RM0uAYyOTnbG9rUkonDYJ6csJD+1P8EnzPxvrfEO8s86PPU4OSXB424o+kA2KZ57
-         xQP0CPuRSjH6N64SHFpzLea7C5AGoqNk1xKNL3sqzHLVSfdErmCuvJ21lgeyDlx9Znkd
-         rF06xgcOxwtiVlMHovf0/mkK76O908J3CRXBs2K03S8zp3Ad+Mytm/h5GeYUiPVLz3Gz
-         C9zj/ZVBNOiR1oM/gqa8abkTuMn0pTOXoLzZZKGnaHRegafNBTBsp94a95V6Qjshc51j
-         6q3w==
+        bh=pTyzyHaVP9Ym0PipuHegf358UfusPrhZd8Tygnrrxtw=;
+        b=KiQNUPjcvhITWNKhUWY5YgEYD4JmINi0GzlarJm3PAWiuSchYXSw2MGYimRXm2mhoB
+         6aUazRu6/XWHXzYnSFqcngJgnIUm1930vaEOiz2g3xF10zbYhkcqGtC+f+bKSD91L5pU
+         Z/z983/k0A/Sx80FEGTTI4A+WSQbeCIGQeyWdWtFpEoU2kmwe0D4fze3S8MavMOIiCbN
+         JMvfdspwdNJ37aIbWQgsOS5pPPGRQ5k/LukrY3EkLLg6R7xfI9bRZ66NYcIB+A/4aEJt
+         +r3q5jQtIHzG6iiyf2R8NdV73+YUgP9BxuoE++QKvpdSV1J4Q8/XnaxkMdzKoo2YKy4Z
+         bJIQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=ikh5PWYY;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=snGrHHNo;
        spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 Received: from mout.web.de (mout.web.de. [212.227.17.11])
-        by gmr-mx.google.com with ESMTPS id w5si84960edw.1.2019.05.29.23.51.13
+        by gmr-mx.google.com with ESMTPS id c9si104283lff.2.2019.05.29.23.52.47
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 29 May 2019 23:51:13 -0700 (PDT)
+        Wed, 29 May 2019 23:52:47 -0700 (PDT)
 Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) client-ip=212.227.17.11;
 X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.1.10] ([95.157.54.22]) by smtp.web.de (mrweb103
- [213.165.67.124]) with ESMTPSA (Nemesis) id 0Le4Tw-1gpPps3cY0-00ptGg; Thu, 30
- May 2019 08:51:12 +0200
-Subject: Re: [PATCH v2 1/6] inmates: x86: rename header.S to header-64.S
+Received: from [192.168.1.10] ([95.157.54.22]) by smtp.web.de (mrweb102
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 0MJkxE-1hV8Sw2EvE-001BBf; Thu, 30
+ May 2019 08:52:46 +0200
+Subject: Re: [PATCH v2 2/6] inmates: x86: introduce a common assembler entry
+ point
 To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
  jailhouse-dev@googlegroups.com
 References: <20190521143423.17734-1-ralf.ramsauer@oth-regensburg.de>
- <20190521143423.17734-2-ralf.ramsauer@oth-regensburg.de>
+ <20190521143423.17734-3-ralf.ramsauer@oth-regensburg.de>
 From: Jan Kiszka <jan.kiszka@web.de>
-Message-ID: <6cce0fe1-3b50-3cb1-7eec-a64c6b564d79@web.de>
-Date: Thu, 30 May 2019 08:51:12 +0200
+Message-ID: <507e40c8-75c7-9ebb-745e-1ccdc4d30d72@web.de>
+Date: Thu, 30 May 2019 08:52:46 +0200
 User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
  Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
 MIME-Version: 1.0
-In-Reply-To: <20190521143423.17734-2-ralf.ramsauer@oth-regensburg.de>
+In-Reply-To: <20190521143423.17734-3-ralf.ramsauer@oth-regensburg.de>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Language: en-US
-X-Provags-ID: V03:K1:qAsocClMZ3zdGML4O40EsqXSMU5/Yr62MntxfM9x7pAR3R4JbuZ
- TnzYreerjeFRw5LJRTxUBVvGTIeJEoABH4FTR5fwKapxLbSA8RtnK8PUim2vKXi72OESjTL
- Er+KuHzkaKQZymiBVv9bH7ygx/7EaIuwje6gbMoJYBdVRWOWDQne08kX2KSFpr38dUcsSrV
- oA1ghVTh74miFderaTkvQ==
+X-Provags-ID: V03:K1:efqxZFBfQ2e4isjRegG+2TnIP/XeaxLy5g1imAoDYbS+E1c9NPG
+ fhfQq8nwQWcEkGCuvl2OJtddTZVQQhMfeMVfBNNhybwfwJKbcMwnuUMqyKyMyIFAfIfE1R+
+ MBhcsclptvB5mheYNIYDYlUNzz5RIbZriKjymmtCPpSzW7gJvatPQpLubWXmLv1CKg6ZAOA
+ xG60ryd9gnqg2+OJ9Tb4A==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:ZbChVopvgQ8=:v83CNkUg29g73fq5igphWt
- Jaxk9jrvJu9lAtTxnjRwjDambHbz5VwLBSKlxu/VmeaPtjj4TIAVxEHqAk8UwN2rzjeureN+w
- 97T/fBHAzNqfDmClgbScxnPi75o0n92BsLyHwnrXoBlWVKS3SK3gAAujDeJKen/jjHTW5P4zg
- Iy3xQKYXfvlre5Kavpbj84szPK+/hgR0IpGJAb96U4Ud8przjeXTPp6c+RBNmbuPLl8l3pZMC
- k2H8mTQ/mNi+r6rsQLMe78cCgahY76KnHNMfTk8pHEwm5xjsbtXiOa1cnrJ3PAPaKLmCJt1Pl
- b+YzRFaTSNxFubaE6JyKkD5cZBrNC0bnxbOlQCS+VaWoUWcFrIkMhY8lGobpPhZjgS6PIUHvm
- dmdKZWT+mMNgmSzPS1mC8bGQkggCVSeYHuSCcdhxzduMmzzW3PNWsIE+H4tKxkIFdCcKqt1l2
- A5xKRxBB16LmrZnVqZDSGS+kcBkfyMxWII+NgMVFvwEuheIhfx/y8owkQ3SyJby/6vdR9v2Am
- lqRdF2OoyZb0yCyHKbtFuUBrk0Jl2nokszUSs48316dIlHFqRUPWpLkds6S2Qqrr56Msar1gL
- ftjg4YSl0bPEjMVrbqZpw3Fp1zoFaeCv+n1LuzGTXd2qP8jQuwCalAbd43Xvf6qxxzBM0jbUG
- zJMOgXvS0NEhsYYyt7vu9RJ8077yC86UHIHs3XC1zMGrg72PkeqQ0ST6Abo+mDRgChYgY8zz8
- rwmRhkPalRMYgZWyBoq1cmzUGbVyRMcWdjzTopB4UGuxMs/hAJTriw2mMyVKvw2VK6dyGZAWO
- owLTZBKu5gBHRxFVdVWuKFW1GK4dajKQAP0RKW49rsM50XLD8Y76pMpkeEfcZMeQUh2NNiwyW
- 6APsOqsv6mzu256Ql/GNqXYcWtxvPS2Coy2m2bEXvPOUUOFLKbyqU/hHd3LWr4RZuOr0YU7VH
- 9WYrZjqsNThlX4QnrWPkamYJyrRhihvyKa1nJgm/z9sHmPdlVBb7Q
+X-UI-Out-Filterresults: notjunk:1;V03:K0:kHKQRz4E6oY=:DVgFcroFgDvouYNK8ImqBT
+ +vsPiisNNo3RhXnlAjNKIEUQX0jKPnEocSHX6lSdpEzfR0MiZaVQ/9QJYSXsGjvflE3yqcDsh
+ uzUrrTbQmj238f5LmqyxOAzlveM6BrDgoZ+Nfo1XWEeAqtXK4sLBl7VHHCYnpgFzlHHkPZ2Js
+ RfuB4+GrfRr6+BEzTCw18FCI13/0N3Xd1l2f6BtpB6LLGVHTAmHSeBIY/9evWABdqRQTrQ8Av
+ Hi5gLIHYG4IJ3UOgbD2kUcXM9qgH2zpPWjODYif1kqy/QFynVCbN8cPfDXtWM0RQW/3g49yug
+ pIkaBiubbftk4rtqUAYlg/aHbzM0uijIvEehLn8F5qbCOtN1Tgl2sejaLTOS/uWZH8076MU/F
+ UJMpM3reSRlZWSajvx8k//RIJRQRZ29juaFvtZBW7J4CYoAUBcY3F9BxLC5ulXccYWSngeTtz
+ sIngw9N0AZMBfJRMAQlDAegEY1iO0hq/FmvTpsPYQmgO67pyqG3jo9bXPtuTVk5aHuLuy+So/
+ MXimP5Y30Ec6L/31btDBoH8tPFno3cy/D3i/q1QaNfvVPeBaoPbAbUDPsm8Lz+b2HHcGg0sGx
+ 26AGtgekU1GU01EEZxKfslbGWBFu2R5pz9xeM0KlbmhVA0aCvA7eN2gb1vtNGf3BvM+nk7cVZ
+ PtBAH6LcIfO/shA0ooN9cayL/R6Mc7zRGtawUtFyc70Hg36Ya1oMe2ZTRD8nlvU/Br8UgkzO2
+ i/Rn10aecKmIbZ0hs7QTp58IcNYn87VqfoGfDYYGDN2rMN5s1pT5/WSMUgnJ7DfNT4kvxpb9C
+ EQ+MbMHVOcjoBCjXCPI0l5VAe4k9U5cM0e7wM10w6T8500tTWbd287ydg0+kbKK08rDqv1ezD
+ c7DWXrK24hlDIOskDW5RB3NK2d+kSh0bFCiC63g9/UqaOoaSnmZ6fwpKaWig1uUyRGhpV8zRs
+ Rog4JtLUjlrzP/dUqE0XsSfr91ul1u8VlYSQz70x7PkCfdAQyMD5s
 X-Original-Sender: jan.kiszka@web.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b=ikh5PWYY;       spf=pass
+ header.i=@web.de header.s=dbaedf251592 header.b=snGrHHNo;       spf=pass
  (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as
  permitted sender) smtp.mailfrom=jan.kiszka@web.de
 Precedence: list
@@ -151,67 +152,245 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
 On 21.05.19 16:34, Ralf Ramsauer wrote:
-> The 32-bit header is called header-32.S, so let's name the 64-bit header
-> header-64.S.
+> Early startup code is equivalent for both, 32 and 64 bit, so let's
+> consolidate them.
 >
-> With this, we can also simplify and tune the Makefile a bit. This makes
-> life easier, if we later add further 32/64-bit specific targets.
+> This patch introduces an empty start32 hook that is empty at the moment.
+> Later, we will use it to enable SSE, which, again, will be the same code
+> for 32 and 64 bit.
+>
+> There's only one drawback: We need __reset_entry at 0x0, but it's now up
+> to the linker's mood which files it places there first. Enforce to
+> linker to always place __reset_entry to 0x0 by introducing the
+> subsection .boot.reset_entry.
+>
+> Additionally, tweak the Makefile a bit.
 >
 > Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 > ---
->   inmates/lib/x86/Makefile                  | 14 +++++++-------
->   inmates/lib/x86/{header.S => header-64.S} |  0
->   2 files changed, 7 insertions(+), 7 deletions(-)
->   rename inmates/lib/x86/{header.S => header-64.S} (100%)
+>   inmates/lib/x86/Makefile        |  7 ++--
+>   inmates/lib/x86/header-32.S     | 20 ++---------
+>   inmates/lib/x86/header-64.S     | 20 ++---------
+>   inmates/lib/x86/header-common.S | 62 +++++++++++++++++++++++++++++++++
+>   inmates/lib/x86/inmate.lds      |  5 ++-
+>   5 files changed, 77 insertions(+), 37 deletions(-)
+>   create mode 100644 inmates/lib/x86/header-common.S
 >
 > diff --git a/inmates/lib/x86/Makefile b/inmates/lib/x86/Makefile
-> index 97a37341..bae59025 100644
+> index bae59025..e474ffd0 100644
 > --- a/inmates/lib/x86/Makefile
 > +++ b/inmates/lib/x86/Makefile
-> @@ -40,24 +40,24 @@ include $(INMATES_LIB)/Makefile.lib
+> @@ -40,7 +40,7 @@ include $(INMATES_LIB)/Makefile.lib
 >
 >   always := lib.a lib32.a
 >
-> -TARGETS := header.o ioapic.o printk.o setup.o smp.o uart.o
-> +TARGETS := ioapic.o printk.o setup.o smp.o uart.o
+> -TARGETS := ioapic.o printk.o setup.o smp.o uart.o
+> +TARGETS := header-common.o ioapic.o printk.o setup.o smp.o uart.o
 >   TARGETS += ../alloc.o ../pci.o ../string.o ../cmdline.o ../setup.o
 >   TARGETS += ../uart-8250.o ../printk.o
-> -TARGETS_64_ONLY := int.o mem.o pci.o timing.o
-> +TARGETS_32_ONLY := header-32.o
-> +TARGETS_64_ONLY := int.o mem.o pci.o timing.o header-64.o
+>   TARGETS_32_ONLY := header-32.o
+> @@ -57,7 +57,10 @@ $(obj)/lib32.a: $(addprefix $(obj)/,$(lib32-y))
 >
->   lib-y := $(TARGETS) $(TARGETS_64_ONLY)
-> -
-> -lib32-y := $(addprefix $(obj)/,$(TARGETS:.o=-32.o))
-> +lib32-y := $(TARGETS:.o=-32.o) $(TARGETS_32_ONLY)
->
->   quiet_cmd_link_archive32 = AR      $@
-> -cmd_link_archive32 = rm -f $@; $(AR) rcs$(KBUILD_ARFLAGS) $@ $(lib32-y)
-> +cmd_link_archive32 = rm -f $@; $(AR) rcs$(KBUILD_ARFLAGS) $@ $^
->
-> -$(obj)/lib32.a: $(lib32-y)
-> +$(obj)/lib32.a: $(addprefix $(obj)/,$(lib32-y))
->   	$(call if_changed,link_archive32)
->
-> -AFLAGS_header-32.o := -m32
 >   targets += header-32.o
 >
-> +$(obj)/%-32.o: a_flags += -m32
+> -$(obj)/%-32.o: a_flags += -m32
 >   $(obj)/%-32.o: c_flags += -m32
 >   $(obj)/%-32.o: $(src)/%.c
 >   	$(call if_changed_rule,cc_o_c)
-> diff --git a/inmates/lib/x86/header.S b/inmates/lib/x86/header-64.S
-> similarity index 100%
-> rename from inmates/lib/x86/header.S
-> rename to inmates/lib/x86/header-64.S
+> +
+> +$(obj)/%-32.o: a_flags += -m32
+> +$(obj)/%-32.o: $(src)/%.S
+> +	$(call if_changed_rule,as_o_S)
+> diff --git a/inmates/lib/x86/header-32.S b/inmates/lib/x86/header-32.S
+> index 006cce9a..30b3f5e3 100644
+> --- a/inmates/lib/x86/header-32.S
+> +++ b/inmates/lib/x86/header-32.S
+> @@ -39,21 +39,9 @@
+>   #include <inmate.h>
+>   #include <asm/regs.h>
 >
+> -	.code16
+> -	.section ".boot", "ax"
+> -
+> -	.globl __reset_entry
+> -__reset_entry:
+> -	lgdtl %cs:gdt_ptr
+> -
+> -	mov %cr0,%eax
+> -	or $X86_CR0_PE,%al
+> -	mov %eax,%cr0
+> -
+> -	ljmpl $INMATE_CS32,$start32
+> -
+> -
+>   	.code32
+> +	.section ".boot", "ax"
+> +	.globl start32
+>   start32:
+>   	mov %cr4,%eax
+>   	or $X86_CR4_PSE,%eax
+> @@ -107,11 +95,8 @@ call_entry:
+>   	mov $stack_top,%esp
+>   	call *%ebx
+>
+> -stop:	cli
+> -	hlt
+>   	jmp stop
+>
+> -
+>   	.pushsection ".data"
+>
+>   	.globl ap_entry
+> @@ -139,6 +124,7 @@ loader_gdt:
+>   	.quad	0x00af9b000000ffff
+>   	.quad	0x00cf93000000ffff
+>
+> +	.globl gdt_ptr
+>   gdt_ptr:
+>   	.short	gdt_ptr - loader_gdt - 1
+>   	.long	loader_gdt
+> diff --git a/inmates/lib/x86/header-64.S b/inmates/lib/x86/header-64.S
+> index cb886b8e..2c4caace 100644
+> --- a/inmates/lib/x86/header-64.S
+> +++ b/inmates/lib/x86/header-64.S
+> @@ -39,21 +39,9 @@
+>   #include <inmate.h>
+>   #include <asm/regs.h>
+>
+> -	.code16
+> -	.section ".boot", "ax"
+> -
+> -	.globl __reset_entry
+> -__reset_entry:
+> -	lgdtl %cs:gdt_ptr
+> -
+> -	mov %cr0,%eax
+> -	or $X86_CR0_PE,%al
+> -	mov %eax,%cr0
+> -
+> -	ljmpl $INMATE_CS32,$start32
+> -
+> -
+>   	.code32
+> +	.section ".boot", "ax"
+> +	.globl start32
+>   start32:
+>   	mov %cr4,%eax
+>   	or $X86_CR4_PAE,%eax
+> @@ -111,11 +99,8 @@ call_entry:
+>   	mov $stack_top,%rsp
+>   	callq *%rbx
+>
+> -stop:	cli
+> -	hlt
+>   	jmp stop
+>
+> -
+>   	.pushsection ".data"
+>
+>   	.globl ap_entry
+> @@ -141,6 +126,7 @@ gdt:
+>   	.quad	0x00c09b000000ffff
+>   	.quad	0x00af9b000000ffff
+>
+> +	.globl gdt_ptr
+>   gdt_ptr:
+>   	.short	gdt_ptr - gdt - 1
+>   	.long	gdt
+> diff --git a/inmates/lib/x86/header-common.S b/inmates/lib/x86/header-common.S
+> new file mode 100644
+> index 00000000..139d4ae2
+> --- /dev/null
+> +++ b/inmates/lib/x86/header-common.S
+> @@ -0,0 +1,62 @@
+> +/*
+> + * Jailhouse, a Linux-based partitioning hypervisor
+> + *
+> + * Copyright (c) OTH Regensburg, 2019
+> + *
+> + * Authors:
+> + *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+> + *
+> + * This work is licensed under the terms of the GNU GPL, version 2.  See
+> + * the COPYING file in the top-level directory.
+> + *
+> + * Alternatively, you can use or redistribute this file under the following
+> + * BSD license:
+> + *
+> + * Redistribution and use in source and binary forms, with or without
+> + * modification, are permitted provided that the following conditions
+> + * are met:
+> + *
+> + * 1. Redistributions of source code must retain the above copyright
+> + *    notice, this list of conditions and the following disclaimer.
+> + *
+> + * 2. Redistributions in binary form must reproduce the above copyright
+> + *    notice, this list of conditions and the following disclaimer in the
+> + *    documentation and/or other materials provided with the distribution.
+> + *
+> + * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+> + * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+> + * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+> + * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+> + * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+> + * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+> + * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+> + * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+> + * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+> + * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+> + * THE POSSIBILITY OF SUCH DAMAGE.
+> + */
+> +
+> +#include <inmate.h>
+> +#include <asm/regs.h>
+> +
+> +	.code16
+> +	.section ".boot.entry", "ax"
+> +
+> +	.globl __reset_entry
+> +__reset_entry:
+> +	lgdtl %cs:gdt_ptr
+> +
+> +	mov %cr0, %eax
+> +	or $X86_CR0_PE, %al
+> +	mov %eax, %cr0
+> +
+> +	ljmpl $INMATE_CS32, $start32
+> +
+> +	.code32
+> +	.section ".boot", "ax"
+> +
+> +	.globl stop
+> +stop:
+> +	cli
+> +1:	hlt
+> +	jmp 1b
 
-Not based on next.
+This is conceptually risky: If we should ever place some opcodes here that are
+not 32/64 invariant, things will subtly break. So better avoid this false sharing.
 
 Jan
+
+> diff --git a/inmates/lib/x86/inmate.lds b/inmates/lib/x86/inmate.lds
+> index 95c6ec97..a1ca242f 100644
+> --- a/inmates/lib/x86/inmate.lds
+> +++ b/inmates/lib/x86/inmate.lds
+> @@ -39,7 +39,10 @@
+>   SECTIONS
+>   {
+>   	. = 0;
+> -	.boot		: { *(.boot) }
+> +	.boot		: {
+> +		*(.boot.entry)
+> +		*(.boot)
+> +	}
+>
+>   	. = 0x1000;
+>   	.cmdline	: {
+>
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/6cce0fe1-3b50-3cb1-7eec-a64c6b564d79%40web.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/507e40c8-75c7-9ebb-745e-1ccdc4d30d72%40web.de.
 For more options, visit https://groups.google.com/d/optout.
