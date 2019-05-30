@@ -1,143 +1,115 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBHX7XXTQKGQENSBQ4JY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBHMAX3TQKGQE4HGXNVI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x539.google.com (mail-ed1-x539.google.com [IPv6:2a00:1450:4864:20::539])
-	by mail.lfdr.de (Postfix) with ESMTPS id 732FE2F7AA
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 30 May 2019 09:00:46 +0200 (CEST)
-Received: by mail-ed1-x539.google.com with SMTP id n23sf7247643edv.9
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 30 May 2019 00:00:46 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1559199646; cv=pass;
+Received: from mail-pf1-x43b.google.com (mail-pf1-x43b.google.com [IPv6:2607:f8b0:4864:20::43b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B3EF2F7B1
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 30 May 2019 09:02:55 +0200 (CEST)
+Received: by mail-pf1-x43b.google.com with SMTP id 5sf3929017pff.11
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 30 May 2019 00:02:54 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1559199773; cv=pass;
         d=google.com; s=arc-20160816;
-        b=ycr8SKwKz5bnvU5qlW2GNiMKq38K7I+5ZJ32IFbPhgzjfOArRGp6xVktGRSQy+19pU
-         l1hpagsYdSiZsT+nSrLkXRO4pGYp7dHHWOalf6WvA4febHIc9+J9s7bPmorO16nO6hCW
-         vjp9suRaiqbuxm9yetyIGPLvsZjclA2kbtQjY/p2bUsezwhN9BhoqxGINLMAM0VTONZN
-         JEpRxFvzSclyAxUIvlVcRoGCrILqR1ZojfBIzyRN+C1mVCMNcHC02GOMoDhjsZdUpM0w
-         8oEC2j6n2zUCT8HDDHXeHvOCGyBS8/q/qMt0aL/8lc/VQhnpkawb4/pXC1qTj5Lf4lwo
-         c73Q==
+        b=cZ49wUzYVSQ1sNqpxK5Gw68s9mkdYs7ijHx47ihw2kQCRCXzRz56keHUP9qgQ+JIfE
+         YVFxP5A6w8uVPsovMdV3P4ThMcYTOd823z4CngCxg17h/iapjaJ9N1D7ly7HHiFCOPLI
+         Od/ynjJfwR8rTjGXJ3s8fVOrJpY5kz4ldPFpoKFzgffAU+AH14OZWwOH7wQjlsmhDbHk
+         tMupfxiFH0dnjNozApVJKVDM7jN2AJEVJa2k4pONsy6np+xueQoz9Tk3TR2ts4uZi0Dw
+         VGOO2zysrVemNvPXM6l9lGON3f91bWuqn2ca5LuU8BGLQqjIDfT2zB9igts2/ZYX2Pyi
+         orVA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:to:subject
-         :sender:dkim-signature;
-        bh=yvDfCNbUpqpWabd1nfkOksb92fe4yB+ozpsWFHc0HRE=;
-        b=oVryoP5hXYcVyVX4ei5YqbbRZwYxPL4IZQaQRzOHrhO/hMKtad0Qz21GD+nQmwogPp
-         FF3J9XyymMiS01qGk5zyEwYSj1I0ReCwt2dRQSSrzcsVB5g9dRVGU87A34jrJT+BBM+q
-         W2SLdNUGUcvxne1AcyBbQHkGD/3rXzN/dV5f2IpStvMGAx0o/uhCgjtjnUdEu8Z0HKAP
-         E+kndFBShfgrkZD4BzEX5+5BdYqqRfz30fLGt3rLEQPyWLbhmJyc3kfQk9pK7ZQ3NF20
-         Y0jHVJtMSngf1BdKkZKczNnWGpU5xq84E8Iu6CwmIcDBV0H7wGzFUOuBU764u0ujgRG/
-         s28A==
+         :list-id:mailing-list:precedence:mime-version:subject:message-id:to
+         :from:date:sender:dkim-signature;
+        bh=hpwz8vdLmo1vehv19Is0KYwvxDlqEDpFrZJSoTo7CVs=;
+        b=R7RGwSQql0B66luKUStwjHDZu8JcaY2jLUaBZSlKOGEtvi/I2B75UdIXeL08kRzHFa
+         TcQheQ9VETA670TlPKQSEdddmYjhKycnLqzhUgFI7iLhHxL2yeFp0XuL/mjHYGxO8ze+
+         BIBthk4kK+BTFcWXKL8BSw7hNvJlpI5lPSygQIQ1TgwYxt6/Nk3pcf9gXjsByKQw+m5l
+         3Uvps+OjSdeBCUOruQlGieDlCq+RAyo1Z4SrRO1Dd1zFWAepAGCWJnnx0pbmT/F6v3BE
+         DkS1MTVIY1aU9sZ65eeBAV8eIah/pRrtTCC2/ax2Gk1Bu+2lExZq2L/WRJPkiFQYWKTh
+         bX1w==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=AoDMT7VM;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=L00dpPCH;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.194 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=yvDfCNbUpqpWabd1nfkOksb92fe4yB+ozpsWFHc0HRE=;
-        b=onlidnrBDwXyHYbgK9F96B+7q4zjRd0LArtoKM/4Cf0xe8TC00OxOfwRpFy0tN3NQa
-         WvnVGWwGmVydIoFKo6gU5RVWzT57bq+TQ0IJXTwo1AQm0tnZ86db0bc1Xi8N8IWFDG4l
-         FLZvCU77ZfaEszQDS+K7KETS4dtLF5Os97ZkuS4nRLO6YkMjTLlr/PqgE/XbsG2Q/qxJ
-         7c6N+8RyXj7yaV7j8frV4HnNIJSJAgnZZRKNcDLdLYc2BWbHzglY3HIYCspFoA09iSbD
-         g4LOxLm+0IvEUNsmO3zYdVOValp0IZkETNiBC4QFc1pDAN8yXPr1BbHOAdenTgx/DP1r
-         5OCA==
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=hpwz8vdLmo1vehv19Is0KYwvxDlqEDpFrZJSoTo7CVs=;
+        b=g1CDW6tXWDoOLDOxbsp9FrsCEnM6zBhIpBjj5v55fyejsMk5N/Y1RiC5WxkVWUyBrr
+         KnxXCYFQCFDgg2G/hyOCwTkHAw5I3BJ43t1aH4iD+sDi3fKteSU+evKYlDVfC/Mmg2nn
+         V7FbMTEAcOZ/byH6Hs3+f7pgkXHLyBfFytWvb4dZxeNvKIqD65GX+JlL35zf+xaH6bBN
+         ait8loiNowqiydbMVcVowlMy0AybCgqM6GKtCG6oDdl8glKIqGfchcDqfzjy/3KpklwE
+         SDd0HhyRyyPLBJe7f6WFyPHPMS8ahjMV1kLTvUSQ1JU9DbR9VMyAqPKW33oucT6KGhxm
+         R54w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=yvDfCNbUpqpWabd1nfkOksb92fe4yB+ozpsWFHc0HRE=;
-        b=MjTwo0XwGof8N5zbwj4aPWE8znZULjWy6AfEUJq+84950HW/7WBn/wUdcPRa5XTyVM
-         IB/n25rW3/02kG0+rTfpJWMivc379VZc/rKjDl6+RtcetJa8QTn29J6iOdOd+K8WO2eh
-         hj5hJAo9akxDUNUsN1AATAipF02SqW3v9spu5090HZMAIMLhZnvwQzur6m1USstLE03w
-         HaE7cA2jEXWkisWyZoE6zboPxZdTp6kaXbON62u318ahucQZ0LTSdO8FmYiONDXueSKL
-         ZWTsQCGiR1yMpSrp1G8dDSsKiWscoocuoRaJD3lsnDIM85HhGHYzdEyrJAZbeGZnCBD9
-         tPxQ==
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=hpwz8vdLmo1vehv19Is0KYwvxDlqEDpFrZJSoTo7CVs=;
+        b=cN0JhyuGyThQa/up9D/JkWN99tJv09e1ZIxctYhXGV9YZ05TCQ2z0YvxLnUQawy6UU
+         j/+ctEvr/o9WM8b1V3BkYgmsYfCJBboqH72oK5eV8LAkRDP92+z0WcOfy+bGpsyDrmgC
+         XsVBgVhZaH+23SYsSY11sSSUVX9j4d1we/fKmdh46LRnDO/mAlsLFD5FA9vPv5+f0NeN
+         s3dzSrLCrWLp8pZCaXKIEHFi87XZp+hwSB1LteJRZ8MdfQoqWqut4WSPISK4xaDJSOj/
+         r9sT24OcDUNzKSc0WAfU333LPQAncDemQgJP2/CeBuruY+Rvlt9usJ57SLP5jyQ7L1Pl
+         DZtQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAX+QzaLHCiuAMPAuZIZUeIcsdf55jFLeAOMvfIwrycJ5Gqv4Ycp
-	aal5pGIQtWc1IZ+5jBKfass=
-X-Google-Smtp-Source: APXvYqxUgRkhdg7UQEb9LYSLyDK3xxld+24xGHuqYkN+G9NCnxHWkQ3i0n3UFlwJ4IqAJ3X/9RampA==
-X-Received: by 2002:a50:91cc:: with SMTP id h12mr2637654eda.3.1559199646137;
-        Thu, 30 May 2019 00:00:46 -0700 (PDT)
+X-Gm-Message-State: APjAAAVu5yHS/zsAn0Cckj7eYzclFZqF7uY1AVp4PGE2u3eEEFTfrbOB
+	tiQHY2CIsEx9lyciXO7Occc=
+X-Google-Smtp-Source: APXvYqwfB9WYNZmjVnAMhgADvOZwMTwUkYnxI8gc1XTekI/zbyf7GreszFgMJPQv5tOv9+oBZuyUvg==
+X-Received: by 2002:a62:ae19:: with SMTP id q25mr2219684pff.35.1559199773393;
+        Thu, 30 May 2019 00:02:53 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a50:a58c:: with SMTP id a12ls1401422edc.10.gmail; Thu, 30
- May 2019 00:00:44 -0700 (PDT)
-X-Received: by 2002:a50:ca89:: with SMTP id x9mr1052508edh.164.1559199644790;
-        Thu, 30 May 2019 00:00:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1559199644; cv=none;
+Received: by 2002:a62:344:: with SMTP id 65ls1301472pfd.3.gmail; Thu, 30 May
+ 2019 00:02:52 -0700 (PDT)
+X-Received: by 2002:a62:ed09:: with SMTP id u9mr2243894pfh.23.1559199772883;
+        Thu, 30 May 2019 00:02:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1559199772; cv=none;
         d=google.com; s=arc-20160816;
-        b=S3H7XCedjGtj5z1apea+7H3YgiVTvSDKsxUa3s4SHnE0JBH5athftVsSWVbOLWU4UD
-         +sAhmofk20dHUnTJ+n3gKqOZilcWzZ8MKTJVHonunGlId4FAVMU/wFgbdJV0TUYXQ0qB
-         z7WvDwP3XvteM8xMGQIqT75jU+FmwsxKkuxN8teuZE/DUEjs8hXWiaUiTyrv3ZflT+Tv
-         0xBcfrKWraJD6roOjCCMGgB2mDwWdeCApJ2Vz48L0NUyR5gkKWvaQtBzfao01KBBPvOu
-         kVDDXE0eAAx6iFRvOz8vanfJoxUXmC3Inbdx1/QsMDQ6G8fnS9NszaXUy4kCh5OlouBc
-         ht+Q==
+        b=fHBvJHtCIBQYmdioTn5/2Jq2XvQzOMNvsFD2iK7mlnDpMW5dBd0KcARbPWgs3VlUdc
+         4eVFLev3Ts14vaj4zuJG6dzP+X+EQXfooUPZ94U+dcAlxVyt9pTUKG1jWr2i/RivD0fj
+         tHCp3SptcU1HfsNTQO7AqE3d9JHxJNRq5bDdjlqefyzVPzWlrlzQsaLIK4X+iNSiounc
+         DysXvrlwqlkkCGng66tYmcCG1Vy6TX6unEnFLNpOq4FiyDQ7/3SHPEYOXNtsZQAObhkr
+         bQBK7iiuUmYaN4T9gA9Z1NYMUzRfBtr8MbcOidChd6MRGZ3OxfcEVG4I4C4vxT6Cq87M
+         pb3A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject
-         :dkim-signature;
-        bh=ZuBItMYZeOk8XQgcExXnHVXnTc+eCFE+sJrAfS1FazQ=;
-        b=t7w4iS1aLWU6dSn2YwUV1KdxteeMK8WpU9y9IwMPD5wgm3MTi3db+rdDHJBx+kzjFv
-         yw9qIxCvooNZQ663QOLq1KZOgD6IFeLyqR7kRprhujcsONpVBCC5Fm5mixAgFcoinojk
-         yCrP1OSLLoQ90wDeLqin/5lBiA+XeGzRoOHWXZrDF5Bo+6dkKJsdDCjnWZBWxRv4MmQP
-         1JfCeHvs4iCd5jeGSlavDPKOOLzNp2EBq1/CjhorUpwBs/TejIDd3yashj7DN/Si7yZl
-         ZpYEeOcn+kSkFXFecqdufLl1rm/rsDgNZszLaj+ps0qK7va4VJx0DgJgdjwWs+pEwYoa
-         mJTg==
+        h=content-transfer-encoding:mime-version:subject:message-id:to:from
+         :dkim-signature:date;
+        bh=H2aG4MkpC78YjzY+Wt9esG9vS+LUlcTPRVEMtTQayX0=;
+        b=Sat5ObbgE8aHn55MwCgLSYRaF/35Tkc5fMxrSQdBiyLQtbPaw9PVe2g9LUXEA+fKKm
+         Cp8zeF+t691gOKJxZJEceTCXGzunUvEJvKxC/1wEw2yKWlg3VbCP3RylyIA+iERmc3VZ
+         qkhb+amJARPmLgCo2Z/BAJ3II/wr3pVphF1DaZjd3JUnQwbOEgOqlvnKDGN90yBDGcTN
+         v08BCkGMkyMd6u8qoYVlO11aQFbBip/wLBqKbJ6nWQ0yWwaBcg+NYBp//GYw60ZTzH5F
+         m70xgo7bJZBxm4KjXepji9RnQiGzn8SlQoRzOjNyy3FNRAPu6rIXoMvwOLefvHIk9+Ac
+         1Vnw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=AoDMT7VM;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
-Received: from mout.web.de (mout.web.de. [212.227.17.11])
-        by gmr-mx.google.com with ESMTPS id t36si61638edb.0.2019.05.30.00.00.44
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=L00dpPCH;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.194 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from out-3.smtp.github.com (out-3.smtp.github.com. [192.30.252.194])
+        by gmr-mx.google.com with ESMTPS id b11si114646pls.1.2019.05.30.00.02.52
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 30 May 2019 00:00:44 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) client-ip=212.227.17.11;
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.1.10] ([95.157.54.22]) by smtp.web.de (mrweb103
- [213.165.67.124]) with ESMTPSA (Nemesis) id 0LmuAa-1gyFbk0YGq-00h3us; Thu, 30
- May 2019 09:00:44 +0200
-Subject: Re: [PATCH v2 4/6] inmates: x86: discover and activate SSE/AVX
-To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
- jailhouse-dev@googlegroups.com
-References: <20190521143423.17734-1-ralf.ramsauer@oth-regensburg.de>
- <20190521143423.17734-5-ralf.ramsauer@oth-regensburg.de>
-From: Jan Kiszka <jan.kiszka@web.de>
-Message-ID: <eca382c5-96bb-352f-d06a-6f92f25088d0@web.de>
-Date: Thu, 30 May 2019 09:00:43 +0200
-User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
- Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
-MIME-Version: 1.0
-In-Reply-To: <20190521143423.17734-5-ralf.ramsauer@oth-regensburg.de>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
-X-Provags-ID: V03:K1:j+8Jvauu9WkTw4vifwSx1QwnRSn4IcpUvQc742sAC97QcBGVK9V
- 1J1FV3yTjrYQNMplhUQnVVUiXT1mrtG2pJYlMA7Cd2sehz/ObxXsDtBcUuapJLCf99GgLCo
- VzXO6k6HwF0yFWTZJwMtNlvooxKqoyMY0dxhgbCz8N0RS87XzdXoJa96Yv5s5aZFM+RV+Uj
- Bje6Fm6dAieaf65pCKkpA==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:3rDurK7AVJs=:xgDwpFSWROJ3gTEpTjTZpl
- lbwIXsVvj1d4t+8CQBTjHIlvvbuWUQjQMctWmPNGvHWhU1xg+b1DzVe64XkO7lEWU0ziZFL+W
- zCwSq2DKsTG2KGu8uI9ie5Sn+RULwNeydKaqN8RmDFcQ/oEqf0Jl0tVRI+F9iA0+dCCgTus4V
- d5XEmoHa1v5u3j1gneeOoQ/3L0hEkXjIHQb8onAkwKlnI0Jn+JNpYihxT1NjNA1EtMOBk2w+h
- aYqx64Qp/Qj0I5DTuw9OLf1A7HdO3jCP0ohej6DvgNq/ejixSqy9lRp4uug3tj2xmc646Mg4p
- BgV4btpHPvrTUOKI5crul6s8LvcHGjjTlTIGAgNpPk9aKJos9YBidiBLSyB4lVKPy5XEAjnDH
- NrIR8EWpQ0NEPu/A45mULQcIO2EjwzsE0mP8/PeCxqrwE32/CA3DdzOVPLMgYUbdiC6Lyk8bX
- NQVw3sHFaz4uF2rfY6Ib2GvKONMD6ACJU2WO6EOWDyCOrdw28bdOSs3NFaXCuQ4vy4rKp4sM/
- FaP6ip3pMB3/p7DxWNxB3hAD9Qpx2vasxwwIqKgAuP7jgGhqfbRcPb+MwCHBZ+uOlQZJqtgRn
- LTtCMcm3n6E8mLsU0cuNq8TUF8owxJhJPSNAWdnl5IqJWuFYpm4hJLZkw9FDtKCKQ7Ika+/hr
- CWXtFNaozvjEqify6NMGwzRAT5SzTNR/rHd/IQYtPsyqoVwErKLWPzzZXX/xDw/0I8P7ihaAp
- ET0sAHxqYv8Ux3Vtbrb20PF4frCCppX9fAo7f32q0WjwR9Lea1OPzh5fqcnVCpnRB4jJAGn/i
- klBYKyH7qtU/hjUbTQeKLQSRvpFqmfc2E7MkuHmYY/RNo5QzcAXDXZfeACRBMYQsBWQ+ZFpMh
- IpewSqC5Cjlz4zGxeVvT0UaH9MwJ8iJfgSLoWsPTfR+df6pBIuoyQhWB4uYUUxwpApZjc/Pzi
- 2m8r40Nd52Zw1PnHfxsEGju8NMSDyaJ574ohlN906cmPKbmkLJf67
-X-Original-Sender: jan.kiszka@web.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b=AoDMT7VM;       spf=pass
- (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as
- permitted sender) smtp.mailfrom=jan.kiszka@web.de
+        Thu, 30 May 2019 00:02:52 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.194 as permitted sender) client-ip=192.30.252.194;
+Date: Thu, 30 May 2019 00:02:51 -0700
+From: Yasser Shalabi <noreply@github.com>
+To: jailhouse-dev@googlegroups.com
+Message-ID: <siemens/jailhouse/push/refs/heads/coverity_scan/f27a6e-0c3e5e@github.com>
+Subject: [siemens/jailhouse] 2c86f3: configs: x86: Make Comm Region writable
+ in all con...
+Mime-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
+X-Auto-Response-Suppress: All
+X-Original-Sender: noreply@github.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
+ mode) header.i=@github.com header.s=pf2014 header.b=L00dpPCH;       spf=pass
+ (google.com: domain of noreply@github.com designates 192.30.252.194 as
+ permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass (p=NONE
+ sp=NONE dis=NONE) header.from=github.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -150,289 +122,147 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 21.05.19 16:34, Ralf Ramsauer wrote:
-> Recent gcc versions emit SSE instructions for 32-bit inmates (e.g., in
-> hex2str or cmdline_parse routines). Inmates aren't able to execute those
-> instructions as SSE is not enabled and will crash.
->
-> Enabling SSE is the same code for 32 and 64 bit x86 and straight
-> forward: Lookup SSE availability via cpuid and enable OSFXSR in cr4. If
-> SSE is not available, stop the inmate.
->
-> If AVX is available, activate it (XCR0).
->
-> Lookup features that need no explicit activation.
->
-> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-> ---
->   inmates/lib/x86/Makefile           |   6 +-
->   inmates/lib/x86/cpu-features.c     | 103 +++++++++++++++++++++++++++++
->   inmates/lib/x86/header-32.S        |   9 ++-
->   inmates/lib/x86/header-64.S        |   9 ++-
->   inmates/lib/x86/include/asm/regs.h |  36 ++++++++++
->   5 files changed, 158 insertions(+), 5 deletions(-)
->   create mode 100644 inmates/lib/x86/cpu-features.c
->
-> diff --git a/inmates/lib/x86/Makefile b/inmates/lib/x86/Makefile
-> index e474ffd0..ed3b04d5 100644
-> --- a/inmates/lib/x86/Makefile
-> +++ b/inmates/lib/x86/Makefile
-> @@ -40,7 +40,7 @@ include $(INMATES_LIB)/Makefile.lib
->
->   always := lib.a lib32.a
->
-> -TARGETS := header-common.o ioapic.o printk.o setup.o smp.o uart.o
-> +TARGETS := cpu-features.o header-common.o ioapic.o printk.o setup.o smp.o uart.o
->   TARGETS += ../alloc.o ../pci.o ../string.o ../cmdline.o ../setup.o
->   TARGETS += ../uart-8250.o ../printk.o
->   TARGETS_32_ONLY := header-32.o
-> @@ -57,6 +57,10 @@ $(obj)/lib32.a: $(addprefix $(obj)/,$(lib32-y))
->
->   targets += header-32.o
->
-> +# Code of this object is called before SSE/AVX is available. Ensure that the
-> +# compiler won't generate unsupported instructions for this file.
-> +CFLAGS_cpu-features.o += -mno-sse
-> +
->   $(obj)/%-32.o: c_flags += -m32
->   $(obj)/%-32.o: $(src)/%.c
->   	$(call if_changed_rule,cc_o_c)
-> diff --git a/inmates/lib/x86/cpu-features.c b/inmates/lib/x86/cpu-features.c
-> new file mode 100644
-> index 00000000..9cf98543
-> --- /dev/null
-> +++ b/inmates/lib/x86/cpu-features.c
-> @@ -0,0 +1,103 @@
-> +/*
-> + * Jailhouse, a Linux-based partitioning hypervisor
-> + *
-> + * Copyright (c) OTH Regensburg, 2019
-> + *
-> + * Authors:
-> + *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-> + *
-> + * This work is licensed under the terms of the GNU GPL, version 2.  See
-> + * the COPYING file in the top-level directory.
-> + *
-> + * Alternatively, you can use or redistribute this file under the following
-> + * BSD license:
-> + *
-> + * Redistribution and use in source and binary forms, with or without
-> + * modification, are permitted provided that the following conditions
-> + * are met:
-> + *
-> + * 1. Redistributions of source code must retain the above copyright
-> + *    notice, this list of conditions and the following disclaimer.
-> + *
-> + * 2. Redistributions in binary form must reproduce the above copyright
-> + *    notice, this list of conditions and the following disclaimer in the
-> + *    documentation and/or other materials provided with the distribution.
-> + *
-> + * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-> + * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-> + * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-> + * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-> + * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-> + * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-> + * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-> + * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-> + * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-> + * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
-> + * THE POSSIBILITY OF SUCH DAMAGE.
-> + */
-> +
-> +#include <inmate.h>
-> +#include <asm/regs.h>
-> +
-> +/* Must only be called from assembler via jmp */
-> +void arch_init_features(void);
-> +
-> +struct x86_cpu_features x86_cpu_features __attribute__((section(".data")));
-> +
-> +/*
-> + * We arrive here very early, and we don't have a stack. Take care.
-> + *
-> + * Every booting CPU will call this function. We make the assumption that all
-> + * CPUs have the same feature set. So we don't need any locks when writing to
-> + * x86_cpu_features.
-> + */
-> +void __attribute__((naked, noreturn, section(".boot")))
+  Branch: refs/heads/coverity_scan
+  Home:   https://github.com/siemens/jailhouse
+  Commit: 2c86f31e947394b14aa23f1ac5b2672b1e0a8044
+      https://github.com/siemens/jailhouse/commit/2c86f31e947394b14aa23f1ac5b2672b1e0a8044
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2019-05-15 (Wed, 15 May 2019)
 
-What's "naked" supposed to do here? The compilers says it will ignore it.
+  Changed paths:
+    M configs/x86/e1000-demo.c
+    M configs/x86/ioapic-demo.c
+    M configs/x86/ivshmem-demo.c
+    M configs/x86/linux-x86-demo.c
+    M configs/x86/pci-demo.c
+    M configs/x86/smp-demo.c
+    M configs/x86/tiny-demo.c
 
-> +arch_init_features(void)
-> +{
-> +	register u64 features;
-> +
-> +	features = cpuid_edx(X86_CPUID_FEATURES, 0);
-> +	/* Check availability of FPU */
-> +	x86_cpu_features.fpu = !!(features & X86_FEATURE_FPU);
-> +
-> +	/* Discover and enable FXSR */
-> +	if (features & X86_FEATURE_FXSR) {
-> +		write_cr4(read_cr4() | X86_CR4_OSFXSR);
-> +		x86_cpu_features.fxsr = true;
-> +	}
-> +
-> +	/* Check availability of SSE */
-> +	x86_cpu_features.sse = !!(features & X86_FEATURE_SSE);
-> +	x86_cpu_features.sse2 = !!(features & X86_FEATURE_SSE2);
-> +
-> +	/* ECX hides the rest */
-> +	features = cpuid_ecx(X86_CPUID_FEATURES, 0);
-> +	x86_cpu_features.sse3 = !!(features & X86_FEATURE_SSE3);
-> +	x86_cpu_features.sse4_1 = !!(features & X86_FEATURE_SSE4_1);
-> +	x86_cpu_features.sse4_2 = !!(features & X86_FEATURE_SSE4_2);
-> +	x86_cpu_features.pclmulqdq = !!(features & X86_FEATURE_PCLMULQDQ);
-> +
-> +	if (features & X86_FEATURE_XSAVE) {
-> +		/* Enable XSAVE related instructions */
-> +		write_cr4(read_cr4() | X86_CR4_OSXSAVE);
-> +		x86_cpu_features.xsave = true;
-> +
-> +		/*
-> +		 * Intel SDM 13.2: A bit can be set in XCR0 if and only if the
-> +		 * corresponding bit is set in this bitmap.  Every processor
-> +		 * that supports the XSAVE feature set will set EAX[0] (x87
-> +		 * state) and EAX[1] (SSE state).
-> +		 *
-> +		 * We can always safely write SSE + FP, but only set AVX if
-> +		 * available.
-> +		 */
-> +
-> +		features = cpuid_edax(X86_CPUID_XSTATE, 0);
-> +		write_xcr0(read_xcr0() | (features & X86_XCR0_AVX) | \
-> +			   X86_XCR0_SSE | X86_XCR0_X87);
-> +		x86_cpu_features.avx = !!(features & X86_XCR0_AVX);
-> +	}
-> +
-> +	/* hand control back to assembler */
-> +	asm volatile("jmp x86_start\t\n");
+  Log Message:
+  -----------
+  configs: x86: Make Comm Region writable in all configs
 
-Hacky... Is there no stack yet to do proper call/ret?
+Since we report startup or runtime failures this way, we need this
+permission even when not actively participating in the message exchange
+protocol.
 
-But if you want to / have to use a jmp here, you need to tell the compiler that
-this will never "return" (__builtin_unreachable).
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 
-Jan
 
-> +}
-> diff --git a/inmates/lib/x86/header-32.S b/inmates/lib/x86/header-32.S
-> index 30b3f5e3..ca9f77f9 100644
-> --- a/inmates/lib/x86/header-32.S
-> +++ b/inmates/lib/x86/header-32.S
-> @@ -63,6 +63,13 @@ start32:
->   	mov %eax,%es
->   	mov %eax,%ss
->
-> +	/* Temporarily hand over to C. Note that we don't have a valid stack. */
-> +	jmp arch_init_features
-> +
-> +	/* C will jmp back to x86_start */
-> +	.globl x86_start
-> +x86_start:
-> +
->   	xor %ebx,%ebx
->   	xchg ap_entry,%ebx
->   	or %ebx,%ebx
-> @@ -74,7 +81,7 @@ start32:
->   	cmp $SMP_MAX_CPUS,%edi
->   	jae stop
->
-> -	mov $0x01,%eax
-> +	mov $X86_CPUID_FEATURES, %eax
->   	cpuid
->   	shr $24,%ebx
->   	mov %bl,smp_cpu_ids(%edi)
-> diff --git a/inmates/lib/x86/header-64.S b/inmates/lib/x86/header-64.S
-> index 2c4caace..53b13173 100644
-> --- a/inmates/lib/x86/header-64.S
-> +++ b/inmates/lib/x86/header-64.S
-> @@ -63,10 +63,13 @@ start32:
->   	mov $(X86_CR0_PG | X86_CR0_WP | X86_CR0_PE),%eax
->   	mov %eax,%cr0
->
-> -	ljmpl $INMATE_CS64,$start64
-> +	/* Temporarily hand over to C. Note that we don't have a valid stack. */
-> +	ljmpl $INMATE_CS64, $arch_init_features
->
-> +	/* C will jmp back to x86_start. We're now in 64-bit mode. */
->   	.code64
-> -start64:
-> +	.globl x86_start
-> +x86_start:
->   	xor %rbx,%rbx
->   	xchg ap_entry,%rbx
->   	or %rbx,%rbx
-> @@ -78,7 +81,7 @@ start64:
->   	cmp $SMP_MAX_CPUS,%edi
->   	jae stop
->
-> -	mov $0x01,%eax
-> +	mov $X86_CPUID_FEATURES, %eax
->   	cpuid
->   	shr $24,%ebx
->   	mov %bl,smp_cpu_ids(%edi)
-> diff --git a/inmates/lib/x86/include/asm/regs.h b/inmates/lib/x86/include/asm/regs.h
-> index 85da043b..905d03ee 100644
-> --- a/inmates/lib/x86/include/asm/regs.h
-> +++ b/inmates/lib/x86/include/asm/regs.h
-> @@ -42,15 +42,51 @@
->
->   #define X86_CR4_PAE		0x00000020
->   #define X86_CR4_PSE		0x00000010
-> +#define X86_CR4_OSFXSR		0x00000200
-> +#define X86_CR4_OSXSAVE		0x00040000
-> +
-> +#define X86_XCR0_X87		(1 << 0)
-> +#define X86_XCR0_SSE		(1 << 1)
-> +#define X86_XCR0_AVX		(1 << 2)
->
->   #define MSR_EFER		0xc0000080
->   #define EFER_LME		0x00000100
->
-> +#define X86_CPUID_FEATURES	0x00000001 /* Processor Info and Feature Bits */
-> +/* Feature bits in EDX */
-> +# define X86_FEATURE_FPU	(1 << 0)  /* The processor contains an x87 FPU. */
-> +# define X86_FEATURE_FXSR       (1 << 24) /* FXSAVE/FXRSTOR, CR4.OSFXSR */
-> +# define X86_FEATURE_SSE	(1 << 25) /* The processor supports SSE */
-> +# define X86_FEATURE_SSE2	(1 << 26) /* The processor supports SSE2 */
-> +/* Feature bits in ECX */
-> +# define X86_FEATURE_SSE3	(1 << 0)  /* The processor supports SSE3 */
-> +# define X86_FEATURE_PCLMULQDQ	(1 << 1)  /* The processor supports PCLMULQDQ */
-> +# define X86_FEATURE_SSE4_1	(1 << 19) /* The processor supports SSE4.1 */
-> +# define X86_FEATURE_SSE4_2	(1 << 20) /* The processor supports SSE4.2 */
-> +# define X86_FEATURE_XSAVE	(1 << 26) /* XSAVE/..., CR4.OSXSAVE */
-> +
-> +#define X86_CPUID_XSTATE	0x0000000d /* Extended state features */
-> +
->   #define MSR_MTRR_DEF_TYPE	0x000002ff
->   #define MTRR_ENABLE		0x00000800
->
->   #ifndef __ASSEMBLY__
->
-> +struct x86_cpu_features {
-> +	bool avx:1;
-> +	bool sse:1;
-> +	bool sse2:1;
-> +	bool sse3:1;
-> +	bool sse4_1:1;
-> +	bool sse4_2:1;
-> +	bool fpu:1;
-> +	bool xsave:1;
-> +	bool fxsr:1;
-> +	bool pclmulqdq:1;
-> +};
-> +
-> +extern struct x86_cpu_features x86_cpu_features;
-> +
->   static unsigned long __force_order;
->
->   static inline unsigned long read_cr4(void)
->
+  Commit: cc7c3b6c5b2473f4fc09d61f218a8bf00b43a887
+      https://github.com/siemens/jailhouse/commit/cc7c3b6c5b2473f4fc09d61f218a8bf00b43a887
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2019-05-15 (Wed, 15 May 2019)
+
+  Changed paths:
+    M inmates/lib/x86/include/inmate.h
+    M inmates/lib/x86/int.c
+    M inmates/lib/x86/setup.c
+
+  Log Message:
+  -----------
+  inmates: x86: Register IDT during setup
+
+This will allow to share it between interrupt and exception handling,
+both being optional.
+
+MAX_INTERRUPT_VECTORS is introduced as public API, defining how many
+interrupts can be registered at most via int_set_handler().
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: bc75ae95de6346013d320dc85708aa737457de84
+      https://github.com/siemens/jailhouse/commit/bc75ae95de6346013d320dc85708aa737457de84
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2019-05-15 (Wed, 15 May 2019)
+
+  Changed paths:
+    M inmates/lib/x86/int.c
+
+  Log Message:
+  -----------
+  inmates: x86: Refactor interrupt handler
+
+This removes one call level by directly dispatching the target handler
+from the assembly entry and also doing the EOI from there - micro
+optimization.
+
+Also limit the supported interrupt range to 32..63 so that exception
+handling can be established for the first 32 vectors. This effectively
+removes the possibility to set an NMI handler, but those are not
+supported by Jailhouse so far anyway.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: d51321d5ed55d50057666d0af7c5ce1cc89d6621
+      https://github.com/siemens/jailhouse/commit/d51321d5ed55d50057666d0af7c5ce1cc89d6621
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2019-05-15 (Wed, 15 May 2019)
+
+  Changed paths:
+    M inmates/lib/x86/Makefile
+    M inmates/lib/x86/int.c
+
+  Log Message:
+  -----------
+  inmates: x86: Add 32-bit interrupt support
+
+Fill in the missing pieces to enable interrupt handling also in 32-bit
+inmates.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: b8fce168415c69ddcd210d7b5c862c07e59b3c91
+      https://github.com/siemens/jailhouse/commit/b8fce168415c69ddcd210d7b5c862c07e59b3c91
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2019-05-23 (Thu, 23 May 2019)
+
+  Changed paths:
+    M inmates/lib/x86/Makefile
+    A inmates/lib/x86/excp.c
+    M inmates/lib/x86/include/inmate.h
+
+  Log Message:
+  -----------
+  inmates: x86: Catch and report exceptions
+
+Add basic reporting of exceptions that are triggered by an inmate so
+that we stop translating all of them into hypervisor-caught triple
+faults. Reporting is optional and need to be enabled explicitly by an
+inmate via excp_reporting_init().
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 0c3e5eb67e17102d501942d00df7c5b6166a4a60
+      https://github.com/siemens/jailhouse/commit/0c3e5eb67e17102d501942d00df7c5b6166a4a60
+  Author: Yasser Shalabi <yassershalabi@gmail.com>
+  Date:   2019-05-23 (Thu, 23 May 2019)
+
+  Changed paths:
+    M hypervisor/arch/x86/include/asm/processor.h
+
+  Log Message:
+  -----------
+  x86: Update CR4 reserved bits to include Intel Protection Keys Extension
+
+Without this users running on recent Intel processors will not be able to
+use jailhouse.
+
+It is safe to allow guests to enabl this feature as it does not affects
+the host.
+
+Signed-off-by: Yasser Shalabi <yassershalabi@gmail.com>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+Compare: https://github.com/siemens/jailhouse/compare/f27a6ec96016...0c3e5eb67e17
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/eca382c5-96bb-352f-d06a-6f92f25088d0%40web.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/coverity_scan/f27a6e-0c3e5e%40github.com.
 For more options, visit https://groups.google.com/d/optout.
