@@ -1,117 +1,120 @@
-Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBW573PTQKGQEH57F6WI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBF6D3PTQKGQEMXVF56A@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x338.google.com (mail-wm1-x338.google.com [IPv6:2a00:1450:4864:20::338])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0A90351BC
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  4 Jun 2019 23:17:15 +0200 (CEST)
-Received: by mail-wm1-x338.google.com with SMTP id t76sf50867wmt.9
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 04 Jun 2019 14:17:15 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1559683035; cv=pass;
+Received: from mail-wr1-x43d.google.com (mail-wr1-x43d.google.com [IPv6:2a00:1450:4864:20::43d])
+	by mail.lfdr.de (Postfix) with ESMTPS id A4365351CA
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  4 Jun 2019 23:24:39 +0200 (CEST)
+Received: by mail-wr1-x43d.google.com with SMTP id e6sf7331660wrv.20
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 04 Jun 2019 14:24:39 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1559683479; cv=pass;
         d=google.com; s=arc-20160816;
-        b=vf4weCSUfVziNZy4ABWLyt8/YIBR5Xe2RxDEbXNZolYifW+gYhTtCDcrxh1jZGzPfU
-         NrUY8HwfJLXBVmFi0xNAo8BEQjg92naVB1Q9MiicT9g316AR1sa6M/AFNJgrwtNewvZ8
-         f8ak1UTIWW5J3ZZHWc49RYSG6NrPxsAIzRLBrcxMNXqWJ76TH27xzZ5M4v99to7u6N34
-         dPM034vZNps7R5eI4HZYPHdUtzV/sbcO9LgOrG5KTOtgzWR6jzD4/iHXFzNmSmB4jw9j
-         kRtXmpCqIQDbOWZW5sBLm/wEFak6YaCJSvguSEtrzbrjD22RSiDRR+kHUfKEmGnGw2lA
-         0D3g==
+        b=iRq/2KHABR+UfEqD1dCFzvm0xWUDh1vHwcHEo0vocOeY2+np/CKEOR1sBHRTAxsioD
+         HuA85VUGu/kvATHQPewED+CLP4PKmrD8uDtJWTRFlqU7dzOubeNiMIIxTjoGkeTvIJ3R
+         L1ch/Pu72HpYRxxo6kv9+DlAyXdjWNHJrSrxyVKEpVPu20PdbLA3iNP6ifXaQh1VukyZ
+         xnvRzn737dg99VYsR3gwdAkdiGlYiaHS6UWst3s8rKB3SW1g0EmkcQr1PA0wou3Fc5vz
+         Ewh3gAMyL+sIdCSSLPVYChcVT3Tf6fREN9zrbmfCEyXCi8ZMUsTFjoUkt4lBG9qRXvYV
+         zHXg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:subject:autocrypt:openpgp
-         :from:references:cc:to:sender:dkim-signature;
-        bh=vp3QUwAxeE4zDAaDQ9OU4K65L5XPlpxAMmqI6VskyS0=;
-        b=KK7P1bcbiU5SLrUSHjTdblkLIga5pgoGWi3UeETEc1DWXZndlSofZtVdAWt9nRnG3O
-         FUAIKkxu/e4zWuBXG5gk54KH7grZsZTc0wk+m/zHS1TZt+vQ1Z8drFEtXEDZKr/mNKw+
-         jj27G93J35IqY/ZsO9PVO6YAXZHHHwphAuaf6ma+2e0l2cehewG1hzR/YAXleD87KYPg
-         nGrlgfwBFirrjdvXsK/n/tyC1LG4QmI1xakeBanR/h7UWHKerkPrjdKFXcKQUK84P3H7
-         zCBrf/x95nd1/ghzdoP+dy0+5W79qnM/a1tYgCPu1nIjLMbU1uBR3apF136YfVQixlE5
-         qrVA==
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:autocrypt:openpgp:from:cc:references:to:subject:sender
+         :dkim-signature;
+        bh=S4sqiTQ330ck2MbzmmjeLcm05ZVRKWwlviJgGkgcexU=;
+        b=K1Al4az9A/LFnqJ7s3hteAlLFrNdSktdjr5Q02Sa/2Eu5a3ChsKXGFQlKfYDt+/Vpi
+         uMTri6KraXMRK/nteOwVDXdBNqUt0Kixa3HR+LTOwx4E1wGZjfzR2JkJZGEs2kxZk64M
+         bk/ZjFdOru7ZPGutNX2IGM/hG7utJBYUj4/FzIfvLgb5G6/NkpFFLPr6jgmu3x13Pytn
+         Zlcrd4SwxaeBqmc6r+10y2t6C5gT3sygkgWs/MjSDiv/psr18TbUNb9tBkbSs2leSNAx
+         LFLllgvsDEdWm+dfe2cvRIGRObEYvsTtdgTz/nCZ6qxfRzBIUF/j8WeM9Tpw7W0OrbCA
+         AfjA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=vtz3xsAj;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=u1WzeMGt;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:to:cc:references:from:openpgp:autocrypt:subject:message-id
+        h=sender:subject:to:references:cc:from:openpgp:autocrypt:message-id
          :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=vp3QUwAxeE4zDAaDQ9OU4K65L5XPlpxAMmqI6VskyS0=;
-        b=euE7umojksaW9L5LDipSZkbEzdzszOzlcoQwC28xYyiTnFG04SoFb+gJFZTUxbZpit
-         8q2kHcQHyDjW07DU6fR/TwMqNICX4W6oB027118sBFN2MpqmYYptim8Xabwah/9HMDna
-         9kgvM3JpmVWGrG9SM0cE9TlbWuPj/Axc3ZzEZwul/pkC5QAWJMLbtiNWg1/UxmLCQ28u
-         6FEvA59GSoQeeJeE+Hnb3qYs6WBskAvMHU4yDJZOjS9VZGBIGc5MVPW5pglm2S8eaVNY
-         /pRGjggyJFPNB9khRbJsSldoYhDabk9h3iQrPvw0UpA53b+BbfF0JKANwn0U646w/cHE
-         lFkA==
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=S4sqiTQ330ck2MbzmmjeLcm05ZVRKWwlviJgGkgcexU=;
+        b=quFBPXvH5cba6IplHWFVwy0etWy3zSd3D4oOpA7eaHVk4EHQC8ycFEHLF4EZ51A4US
+         msoBTTOQMTdnpsmSS7+C1IPPp9SgHN6xxFKOiSF4jOlGSslKhgWtDMAXtnb23kqsMpLz
+         bfP1DBrPK8OVAGUe8AG4TMgajdWtFIds0plGsQaHGJUm1lhOoc7BJx+rkC4CYr8tZreT
+         hdHr7logxGUCO280Ps0mFyjqeeY2W2uEunwVOVs4HCwPTbBPgiYYss6ybI4GwRmRmEbx
+         M8tp7e94oDN9+1gLkAXxtOw2xBt4/Ba82AHSzMEk6kxG8kaJ3+taXBAg4qjEjYgdfxNP
+         LYAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:to:cc:references:from:openpgp:autocrypt
-         :subject:message-id:date:user-agent:mime-version:in-reply-to
-         :content-language:x-original-sender
+        h=sender:x-gm-message-state:subject:to:references:cc:from:openpgp
+         :autocrypt:message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=vp3QUwAxeE4zDAaDQ9OU4K65L5XPlpxAMmqI6VskyS0=;
-        b=azSgRDN51jUj60qiQ148fmdumUm1YtkSUJDvKFzRLNApD1wBKv+5TyGsYI6QPUnmFc
-         sBDRSvuHXZaI4s9gdaC1CHNTBcuVLoMT4Gojpn6DN9EKw5pOY7QxmFH/7zspfAlv6HCP
-         l7lL3yrgELIFL/30/PpuswuTSdFbOzsuSmndeh656QyeCg7tgvbv3c24MF5AhwpL3ice
-         cYfCWLvUdnXFJmjLqQtLx7pu024+OyfbN6OjdqHOHXoqSzUP3rOUaPPTt2NT9rBDuWQ2
-         7Rfw4uzxylIZ3pliDdZJHBCHL0uJxnNn3G8goz5IJ5Ua6BzB38tULHjOw+rHIPfmmi/5
-         Gm2w==
+        bh=S4sqiTQ330ck2MbzmmjeLcm05ZVRKWwlviJgGkgcexU=;
+        b=iC3RIzpOljGc4ZXyFTVgLD1ttCCAMskiyzwO3TT5wJuob2gsuBHjbCYpxLyNE9MZA1
+         hKl84DtXmQ0YS5piKJnBenVEzh/W7wZVDlv9eCjWHsY9/0MnI1pveOayvwGLmryRgFTd
+         7fLK8KVt486SiuQsw/nOzHeaWGkibLmmqkAaWhMAWTtEPh/22oIbAY8zVH3yl660BbpJ
+         Nipit/IRWQ3+ZGRpMyswfU+B8tGEzGUoIZMOjIQVEj7y8HbdHmaL4axXBXmLjnsVh6n8
+         U2+ZWr+gexf2HZdbKSVEbXCv/s3pwrbAL5A98Y3bFtO6JRgxWYS72tFKpZ3R4qNF6cdv
+         92Ig==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUu/R84yrVQE7pwm+gVMB4ECfYiQYvGi1MNGaKt5FpC+92xcqbK
-	YrQBGz2b8Q0pbhY5yPh75aE=
-X-Google-Smtp-Source: APXvYqw0AOZxU3OawuLcuHfiRxnicxldaojly0URDw75kzVu+YkHmNeP0Ai6zKK2uG4nY6rKoml83w==
-X-Received: by 2002:a1c:cc0d:: with SMTP id h13mr9858372wmb.119.1559683035409;
-        Tue, 04 Jun 2019 14:17:15 -0700 (PDT)
+X-Gm-Message-State: APjAAAXIC5niR76H/g+BCJWsCHiQ56jecXcpbsAJYszawFr51QC0hrQk
+	JeAGN/Z9DQcbj0qwG7abY3k=
+X-Google-Smtp-Source: APXvYqwqehFBJMeJHgKcZO1IGkDqIvRQfKY2MFKOMu5LIIssXzFpS4uAzrLgeH5PGe0PQ+pOhXYcLw==
+X-Received: by 2002:a5d:4acf:: with SMTP id y15mr7513152wrs.32.1559683479427;
+        Tue, 04 Jun 2019 14:24:39 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:ec02:: with SMTP id x2ls1625572wrn.6.gmail; Tue, 04 Jun
- 2019 14:17:14 -0700 (PDT)
-X-Received: by 2002:adf:c5c1:: with SMTP id v1mr4678252wrg.129.1559683034878;
-        Tue, 04 Jun 2019 14:17:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1559683034; cv=none;
+Received: by 2002:a5d:5301:: with SMTP id e1ls4738135wrv.13.gmail; Tue, 04 Jun
+ 2019 14:24:38 -0700 (PDT)
+X-Received: by 2002:adf:b60f:: with SMTP id f15mr23029194wre.283.1559683478873;
+        Tue, 04 Jun 2019 14:24:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1559683478; cv=none;
         d=google.com; s=arc-20160816;
-        b=crVE2qhrekK0Uq6JZKH8l8jDJs79aUfwZfM1kORd/EYRo1X04azhWHR2VRKwCEbkhv
-         rSZapg1Dflz/EBjHgQuPoyvXIs90Mpsmi5OTnb0IT7euiczDmY4GPvj7lQwki+Q5d9sF
-         iw7TXGPlpA7JT+Lp/oflV7E5StASzLJRG8bDPV7DvVsz2kvZy2EnSpZ13v+uqm4FOubA
-         EvsmEeaEIDbNnjvIAF6Qtr5DsAx4Rwj13+gp8ocwFdDsAWfyxJsvL8ymWHxUmA4sj82K
-         oEyrhqKXWpHmZDsvgqx895CSpJ8pFamcrOBTHEISkxaiJ0ShW/FweWa0SfVZN2IVpCAC
-         6vgg==
+        b=VeYEKV4phMpFidPoObJ4W9XUn1sMroOGk2TEEYGp67e37TfQMCYbH0dZad8/CEHOmn
+         0zFwHlPzpD5ebK9POq12NV13U5P14/Z0znUKfN9zXiqIjwo2lU4DE+eUFJZRNLZDf7Dl
+         iuofl41e7od2xG3AiCc65BdCa8uG9P6KutXYo+Q3Z6WQEp4WchGn7Xu5AON//PDJcz2u
+         J5m3LqjPIVpHGBmsCWFdX5tgHW94E+RtbNeQahpkYKSBGFN5AfeYAYJsgnbGVD3lz1aO
+         Z4/6zh0Q7/CvSeTen/fDqSisGks4oVKGVZs7SJtx7m0G17oyCnygnBAPfT/kibUABcs9
+         ZxKw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:subject:autocrypt:openpgp:from
-         :references:cc:to:dkim-signature;
-        bh=Y2NcUn2QJr+5gZVqTBYBj3mZzdov36k3ykBZ90iEyUY=;
-        b=JYPdsSKRBLhFtSCRKfgmFtyhkd0mwpSXFgFgFy6u4/BtQRiz0/QJulHq9ye1rqNxAG
-         fUb9u7e0GZckyWOoheRO53OHeTtPE3TIW3InKAJxmdcTuyxUOshPYrDR1JHkPB/1IU3j
-         BiROEcEkyPXkqEu+zDK/W/FZxI2+WbaL2AEzbDeirodH9olnF5AyC6rJliJIeg3IhQil
-         3+AYQHigaZPhsNc6tVWUxpjff2vGyEs7qhRgFRVC62L/U7tRMrYNosXtKxBQX62URV/o
-         Klg6O+OWj6MbevFS8UCW+H39JO+nmpMSDzfBJF0Q/jXhEm9euoQ0Yn+ED7fukpIjstcd
-         4FBQ==
+         :user-agent:date:message-id:autocrypt:openpgp:from:cc:references:to
+         :subject:dkim-signature;
+        bh=C1qjFUnLcT3rRmvUASXOB9e4LO/tyWBlKHoNMZpCE9c=;
+        b=oyfm7Ftq3eaKMfzE7H+gPF6Zupd3GH7japtBxOqwTF/urNAaK3RJ+/3nyGqc+mnNjH
+         vIdXQj2/FV8MRS2Jbu+7xGajjD+4dtwm8NxIJ6gjS+A0nE29hkq5XKh8Gx4ai2w1mL8K
+         i7f3nu6yOw330litmchMCLc6m+TiM9vvnQYFS22YW7grU74PCV3Focms2ltD6jLS5LAc
+         qJ78Bn/YozcatfRf5GMbGFFqqFju9R7UEyFAKZu3Zg1vhznSt9nWVsGyHjml13hapSSY
+         nBxy4Z2K7a5B1iTr3L9YM6B0ItjXH55Y6CRng7V7X4sRZ0m2cISGOjF5RAFhiZd5tY7T
+         XEtQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=vtz3xsAj;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=u1WzeMGt;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [194.95.104.11])
-        by gmr-mx.google.com with ESMTPS id u18si134209wrn.5.2019.06.04.14.17.14
+Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [2001:638:a01:1096::11])
+        by gmr-mx.google.com with ESMTPS id z127si887918wmc.1.2019.06.04.14.24.38
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 04 Jun 2019 14:17:14 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) client-ip=194.95.104.11;
+        Tue, 04 Jun 2019 14:24:38 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) client-ip=2001:638:a01:1096::11;
 Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(Client CN "E16S02", Issuer "E16S02" (not verified))
-	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 45JPrV2mGvzyYc;
-	Tue,  4 Jun 2019 23:17:14 +0200 (CEST)
+	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 45JQ1238tkzyYc;
+	Tue,  4 Jun 2019 23:24:38 +0200 (CEST)
 Received: from [172.23.3.82] (194.95.106.138) by E16S02.hs-regensburg.de
  (2001:638:a01:8013::92) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 4 Jun 2019
- 23:17:14 +0200
-To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
-	<jailhouse-dev@googlegroups.com>, Jan Kiszka <jan.kiszka@siemens.com>
-CC: Mario Mintel <mario.mintel@st.oth-regensburg.de>
-References: <20190604210229.23554-1-ralf.ramsauer@oth-regensburg.de>
+ 23:24:38 +0200
+Subject: Re: [PATCH] x86: amd: fix comment in MSR bitmap
+To: Jan Kiszka <jan.kiszka@web.de>, <jailhouse-dev@googlegroups.com>,
+	Valentine Sinitsyn <valentine.sinitsyn@gmail.com>
+References: <20190510131037.18590-1-ralf.ramsauer@oth-regensburg.de>
+ <536d98a0-cb55-1726-3ff3-d7de6d5cea46@web.de>
+CC: Andrej Utz <andrej.utz@st.oth-regensburg.de>
 From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 Openpgp: preference=signencrypt
 Autocrypt: addr=ralf.ramsauer@oth-regensburg.de; keydata=
@@ -158,23 +161,23 @@ Autocrypt: addr=ralf.ramsauer@oth-regensburg.de; keydata=
  k5NkPOqUZJXq1HO+d5Udk1WdT+mkFGwIMN/U9t3gJNWkab+aAYg1mKwdz7B+10j51vbQbFgY
  2/n9jtl/AFgfYQocbJta5+0fOwIJObNFpLAotvtFNF+Q164Bc3E7Njh230nFduU/9BnmCpOQ
  RncIIYr0LjXAAzY=
-Subject: Re: [PATCH] x86: mmio: add support for 0x66 operand prefix
-Message-ID: <813d52b7-789f-acea-98a3-ed71e36a6022@oth-regensburg.de>
-Date: Tue, 4 Jun 2019 23:17:13 +0200
+Message-ID: <45c22944-7a26-547d-9a55-b7703279d0a4@oth-regensburg.de>
+Date: Tue, 4 Jun 2019 23:24:37 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.7.0
 MIME-Version: 1.0
-In-Reply-To: <20190604210229.23554-1-ralf.ramsauer@oth-regensburg.de>
+In-Reply-To: <536d98a0-cb55-1726-3ff3-d7de6d5cea46@web.de>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-PH
+Content-Transfer-Encoding: quoted-printable
 X-Originating-IP: [194.95.106.138]
-X-ClientProxiedBy: E16S02.hs-regensburg.de (2001:638:a01:8013::92) To
+X-ClientProxiedBy: E16S01.hs-regensburg.de (2001:638:a01:8013::91) To
  E16S02.hs-regensburg.de (2001:638:a01:8013::92)
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=vtz3xsAj;
+ header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=u1WzeMGt;
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+ designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -188,190 +191,94 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi,
+Hi Valentine,
 
-just a short side note:
+maybe this somehow got lost -- did you already find time to have a look
+on this?
 
-x86 opcode parsing is really a hell, by the way...
-
-All existing tests in mmio-access tests (of course) still pass. [1] This
-doesn't necessarily mean that my patch is absolutely correct. Please
-review carefully.
-
-get_op_width() returns the width according to this (really helpful) table:
-
-https://wiki.osdev.org/X86-64_Instruction_Encoding#Operand-size_and_address-size_override_prefix
-
-
-I make the assumption that if rex.w is set, we can always return 8 for
-performance reasons (we can save other useless checks in this case).
-
-rex.w must only be set in long mode, and then we always have 8b width,
-so there's no need to check for non-long mode if rex.w is set -- or
-should we? Could this maybe be exploited by faulty opcodes by guests
-running in non-long mode that inject 0x66 8b 00 e.g.? (e.g., by targeted
-access to page boundaries)
-
+Thanks
   Ralf
 
-[1] Without my SSE series, 32-bit requires -mno-sse to be tested at the
-    moment
+On 5/12/19 9:44 AM, Jan Kiszka wrote:
+> On 10.05.19 15:10, Ralf Ramsauer wrote:
+>> Writes to MSR 0x803 are intercepted, and not reads (as the comment
+>> stated).
+>>
+>> The correctness of the rest of the list was checked with a short helper
+>> tool.
+>>
+>> There's also a read-intercepted area that can be zipped.
+>>
+>> No functional change.
+>>
+>> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+>> ---
+>> =C2=A0 hypervisor/arch/x86/svm.c | 9 ++-------
+>> =C2=A0 1 file changed, 2 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/hypervisor/arch/x86/svm.c b/hypervisor/arch/x86/svm.c
+>> index 9c3e971b..60d236be 100644
+>> --- a/hypervisor/arch/x86/svm.c
+>> +++ b/hypervisor/arch/x86/svm.c
+>> @@ -64,16 +64,11 @@ static u8 __attribute__((aligned(PAGE_SIZE)))
+>> msrpm[][0x2000/4] =3D {
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [=C2=A0 0x2fc/4 .=
+..=C2=A0 0x2ff/4 ] =3D 0x80, /* 0x2ff (w) */
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [=C2=A0 0x300/4 .=
+..=C2=A0 0x7ff/4 ] =3D 0,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* x2APIC MSRs - =
+emulated if not present */
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [=C2=A0 0x800/4 ...=C2=A0 0x=
+803/4 ] =3D 0x90, /* 0x802 (r), 0x803 (r) */
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [=C2=A0 0x800/4 ...=C2=A0 0x=
+803/4 ] =3D 0x90, /* 0x802 (r), 0x803 (w) */
+>=20
+> Then we rather have a bug here: 0x802 and 0x803 are both read-only
+> registers. We
+> actually want to intercept 0x803 reads, in order to map them on xAPIC
+> reads. And
+> writes just simple be allowed as they will cause #GP then.
+>=20
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [=C2=A0 0x804/4 .=
+..=C2=A0 0x807/4 ] =3D 0,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [=C2=A0 0x808/4 .=
+..=C2=A0 0x80b/4 ] =3D 0x93, /* 0x808 (rw), 0x80a (r),
+>> 0x80b (w) */
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [=C2=A0 0x80c/4 .=
+..=C2=A0 0x80f/4 ] =3D 0xc8, /* 0x80d (w), 0x80f (rw) */
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [=C2=A0 0x810/4 ...=C2=A0 0x=
+813/4 ] =3D 0x55, /* 0x810 - 0x813 (r) */
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [=C2=A0 0x814/4 ...=C2=A0 0x=
+817/4 ] =3D 0x55, /* 0x814 - 0x817 (r) */
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [=C2=A0 0x818/4 ...=C2=A0 0x=
+81b/4 ] =3D 0x55, /* 0x818 - 0x81b (r) */
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [=C2=A0 0x81c/4 ...=C2=A0 0x=
+81f/4 ] =3D 0x55, /* 0x81c - 0x81f (r) */
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [=C2=A0 0x820/4 ...=C2=A0 0x=
+823/4 ] =3D 0x55, /* 0x820 - 0x823 (r) */
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [=C2=A0 0x824/4 ...=C2=A0 0x=
+827/4 ] =3D 0x55, /* 0x823 - 0x827 (r) */
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [=C2=A0 0x810/4 ...=C2=A0 0x=
+827/4 ] =3D 0x55, /* 0x810 - 0x827 (r) */
+>=20
+> That looks good.
+>=20
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [=C2=A0 0x828/4 .=
+..=C2=A0 0x82b/4 ] =3D 0x03, /* 0x828 (rw) */
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [=C2=A0 0x82c/4 .=
+..=C2=A0 0x82f/4 ] =3D 0xc0, /* 0x82f (rw) */
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [=C2=A0 0x830/4 .=
+..=C2=A0 0x833/4 ] =3D 0xf3, /* 0x830 (rw), 0x832 (rw),
+>> 0x833 (rw) */
+>>
+>=20
+> Jan
 
-On 6/4/19 11:02 PM, Ralf Ramsauer wrote:
-> mov (%rax), %ax is a 16-bit data MOV_FROM_MEM that will emit
-> 0x66 0x8b 0x00.
-> 
-> 0x66 is the operand-size override prefix which we currently do not support.
-> 
-> We should support it, as we can find this opcode, for example, for some
-> mmconfig space access from Linux (e.g., pci_generic_config_read).
-> 
-> This also adds appropriate mmio-access tests.
-> 
-> Tested in QEMU virtual target.
-> 
-> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-> ---
->  hypervisor/arch/x86/include/asm/processor.h |  1 +
->  hypervisor/arch/x86/mmio.c                  | 37 +++++++++++++++++----
->  inmates/tests/x86/mmio-access-32.c          |  4 +++
->  inmates/tests/x86/mmio-access.c             |  4 +++
->  4 files changed, 40 insertions(+), 6 deletions(-)
-> 
-> diff --git a/hypervisor/arch/x86/include/asm/processor.h b/hypervisor/arch/x86/include/asm/processor.h
-> index 70a6c3ff..d8111690 100644
-> --- a/hypervisor/arch/x86/include/asm/processor.h
-> +++ b/hypervisor/arch/x86/include/asm/processor.h
-> @@ -145,6 +145,7 @@
->  
->  #define X86_REX_CODE					4
->  
-> +#define X86_PREFIX_OP_SZ				0x66
->  #define X86_PREFIX_ADDR_SZ				0x67
->  
->  #define X86_OP_MOVZX_OPC1				0x0f
-> diff --git a/hypervisor/arch/x86/mmio.c b/hypervisor/arch/x86/mmio.c
-> index b234bd79..6d9ad1c5 100644
-> --- a/hypervisor/arch/x86/mmio.c
-> +++ b/hypervisor/arch/x86/mmio.c
-> @@ -79,6 +79,26 @@ static unsigned int get_address_width(bool has_addrsz_prefix)
->  		(!!(cs_attr & VCPU_CS_DB) ^ has_addrsz_prefix) ? 4 : 2;
->  }
->  
-> +static unsigned int get_op_width(bool has_rex_w, bool has_opsz_prefix)
-> +{
-> +	u16 cs_attr;
-> +	bool long_mode;
-> +
-> +	/* Op size prefix is ignored if rex.w = 1 */
-> +	if (has_rex_w)
-> +		return 8;
-> +
-> +	cs_attr = vcpu_vendor_get_cs_attr();
-> +	long_mode = (vcpu_vendor_get_efer() & EFER_LMA) &&
-> +		    (cs_attr & VCPU_CS_L);
-> +
-> +	if (long_mode)
-> +		/* CS.d is ignored in long mode */
-> +		return has_opsz_prefix ? 2 : 4;
-> +
-> +	return (!!(cs_attr & VCPU_CS_DB) ^ has_opsz_prefix) ? 4 : 2;
-> +}
-> +
->  struct mmio_instruction
->  x86_mmio_parse(const struct guest_paging_structures *pg_structs, bool is_write)
->  {
-> @@ -94,6 +114,7 @@ x86_mmio_parse(const struct guest_paging_structures *pg_structs, bool is_write)
->  	bool has_rex_w = false;
->  	bool has_rex_r = false;
->  	bool has_addrsz_prefix = false;
-> +	bool has_opsz_prefix = false;
->  
->  	if (!ctx_update(&ctx, &pc, 0, pg_structs))
->  		goto error_noinst;
-> @@ -114,9 +135,13 @@ restart:
->  	}
->  	switch (op[0].raw) {
->  	case X86_PREFIX_ADDR_SZ:
-> +	case X86_PREFIX_OP_SZ:
->  		if (!ctx_update(&ctx, &pc, 1, pg_structs))
->  			goto error_noinst;
-> -		has_addrsz_prefix = true;
-> +		if (op[0].raw == X86_PREFIX_ADDR_SZ)
-> +			has_addrsz_prefix = true;
-> +		else
-> +			has_opsz_prefix = true;
->  		goto restart;
->  	case X86_OP_MOVZX_OPC1:
->  		if (!ctx_update(&ctx, &pc, 1, pg_structs))
-> @@ -134,28 +159,28 @@ restart:
->  		does_write = true;
->  		break;
->  	case X86_OP_MOV_TO_MEM:
-> -		inst.access_size = has_rex_w ? 8 : 4;
-> +		inst.access_size = get_op_width(has_rex_w, has_opsz_prefix);
->  		does_write = true;
->  		break;
->  	case X86_OP_MOVB_FROM_MEM:
->  		inst.access_size = 1;
->  		break;
->  	case X86_OP_MOV_FROM_MEM:
-> -		inst.access_size = has_rex_w ? 8 : 4;
-> +		inst.access_size = get_op_width(has_rex_w, has_opsz_prefix);
->  		break;
->  	case X86_OP_MOV_IMMEDIATE_TO_MEM:
-> -		inst.access_size = has_rex_w ? 8 : 4;
-> +		inst.access_size = get_op_width(has_rex_w, has_opsz_prefix);
->  		has_immediate = true;
->  		does_write = true;
->  		break;
->  	case X86_OP_MOV_MEM_TO_AX:
->  		inst.inst_len += get_address_width(has_addrsz_prefix);
-> -		inst.access_size = has_rex_w ? 8 : 4;
-> +		inst.access_size = get_op_width(has_rex_w, has_opsz_prefix);
->  		inst.in_reg_num = 15;
->  		goto final;
->  	case X86_OP_MOV_AX_TO_MEM:
->  		inst.inst_len += get_address_width(has_addrsz_prefix);
-> -		inst.access_size = has_rex_w ? 8 : 4;
-> +		inst.access_size = get_op_width(has_rex_w, has_opsz_prefix);
->  		inst.out_val = guest_regs->by_index[15];
->  		does_write = true;
->  		goto final;
-> diff --git a/inmates/tests/x86/mmio-access-32.c b/inmates/tests/x86/mmio-access-32.c
-> index 2f47f211..b4f83850 100644
-> --- a/inmates/tests/x86/mmio-access-32.c
-> +++ b/inmates/tests/x86/mmio-access-32.c
-> @@ -41,6 +41,10 @@ void inmate_main(void)
->  	mmio_write32(mmio_reg, pattern);
->  	EXPECT_EQUAL(*comm_page_reg, pattern);
->  
-> +	/* MOV_FROM_MEM (8b), 16-bit data, 32-bit address, OP size prefix */
-> +	asm volatile("mov (%%eax), %%ax" : "=a" (reg32) : "a" (mmio_reg));
-> +	EXPECT_EQUAL(reg32, (u16)pattern);
-> +
->  	/* MOV_FROM_MEM (8b), 32-bit data, 32-bit address */
->  	asm volatile("movl (%%ebx), %%eax"
->  		: "=a" (reg32) : "a" (0), "b" (mmio_reg));
-> diff --git a/inmates/tests/x86/mmio-access.c b/inmates/tests/x86/mmio-access.c
-> index 0e6a56b1..86694353 100644
-> --- a/inmates/tests/x86/mmio-access.c
-> +++ b/inmates/tests/x86/mmio-access.c
-> @@ -51,6 +51,10 @@ void inmate_main(void)
->  	mmio_write64(mmio_reg, pattern);
->  	EXPECT_EQUAL(*comm_page_reg, pattern);
->  
-> +	/* MOV_FROM_MEM (8b), 16-bit data, Ox66 OP size prefix */
-> +	asm volatile("mov (%%rax), %%ax" : "=a" (reg64) : "a" (mmio_reg));
-> +	EXPECT_EQUAL(reg64, (u16)pattern);
-> +
->  	/* MOV_FROM_MEM (8b), 64-bit data, mod=0, reg=0, rm=3 */
->  	asm volatile("movq (%%rbx), %%rax"
->  		: "=a" (reg64) : "a" (0), "b" (mmio_reg));
-> 
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/813d52b7-789f-acea-98a3-ed71e36a6022%40oth-regensburg.de.
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/45c22944-7a26-547d-9a55-b7703279d0a4%40oth-regensburg.de.
 For more options, visit https://groups.google.com/d/optout.
