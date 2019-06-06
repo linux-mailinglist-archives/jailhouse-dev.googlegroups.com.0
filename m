@@ -1,30 +1,30 @@
-Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRB3FO43TQKGQENTT4ZLY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRB3NO43TQKGQEZ4VY46A@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x437.google.com (mail-wr1-x437.google.com [IPv6:2a00:1450:4864:20::437])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CF4538125
-	for <lists+jailhouse-dev@lfdr.de>; Fri,  7 Jun 2019 00:45:01 +0200 (CEST)
-Received: by mail-wr1-x437.google.com with SMTP id w14sf86020wrr.15
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 06 Jun 2019 15:45:01 -0700 (PDT)
+Received: from mail-ed1-x53d.google.com (mail-ed1-x53d.google.com [IPv6:2a00:1450:4864:20::53d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1938B38126
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  7 Jun 2019 00:45:02 +0200 (CEST)
+Received: by mail-ed1-x53d.google.com with SMTP id k15sf4233eda.6
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 06 Jun 2019 15:45:02 -0700 (PDT)
 ARC-Seal: i=2; a=rsa-sha256; t=1559861101; cv=pass;
         d=google.com; s=arc-20160816;
-        b=szg6Ywp3G0BeL20FRAdBRP/5pw4B4qifzrROjASzS/j+l9tnIcNruHXQeMPYYas9R0
-         4FjG6v/R12Y+KYZn4Kj8JIxkwQWUWA9WxsQh2gjGVeyo/BQQbFx085cE4o4UzxylbET/
-         XiMPjh67SEfR+N6359V8OlAoju1fXsONP4L3qpCIoM9xhd/OT4JrNZx+7GKBAbfB2D7+
-         yNC5YO9RyrNSrGaPsuThQwe6IXZ3T0ZFS2SzKCN+ELrRK/jVUAN/x+EiB2Em74XWmYF6
-         N82AboyD4P5MDoVsvVnBCTpH8U6EjHsqdzW8LEzKV+qGuoOql3N/bgvZVdVTHjzcIGeI
-         VfmQ==
+        b=okELTAwcpyVN5QQMRbSGbsrJk4QQ7KeyRvOs4A6UKinCotewoZES/r1SC+3lXIw+VP
+         iieCuLN2oh1bIqaXSvmF8nKnuTrLHMM/O1uP4ZK7ZJZ+VpzHoTcUoVgJiID51W6AA1Rf
+         aKtcbsHiBRwJlq1WemxgDbf7GlgBtN6eZx9RcQ9PrWCk3NihO6OPbQRE45OcZ/Fs2yiq
+         +nbo2e3qYyl2QCZiLvUzkLXeYJuuA/7BQoT3g2IjAPls2XK56KamfVYKFm7V87eLsMm1
+         L3ReugDjRgML/CSGbpR4pJ7vurUFn1zPt5KVqAZ56mvpm6d/SH/n2vI3DO3UUo0NQ1xd
+         qKWw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=dxU1BIrqR/oG6YhWS/lltE4u+dTx2l8S8BkdkD5eCzw=;
-        b=YmOlVxPbS8czD4b8bKkNXenJNsY4ZvIpkAMi2uRBTY7TrlCrNcZ5/keBEVq6aal6Sa
-         5R+yNyobDuXD544hf/Sargg1mPMWBwADeb0RSvIK/YbNvvucEmYskN9UXPOHAnyK4HgC
-         N647GaRX9L6pr9O52jUTyw/D4FlZyub7WcRSwrnLZ3n7HlB05qhy17oszyBFvqo0qEgY
-         E+ZDVYTYwH7mwQ9f/8jLRZfTxpJVHdFM9e+2+yRYk9lPy31tl0o5psmDWThpIcasI8WP
-         XEpXkoRm0Hf/p8MQsfg9naYL+E3H78ftipmLp77MqHJawkIOo6r/RTYmNqJlzi1yEzjG
-         t4aA==
+        bh=520BB93qbuORsXKs+VX7oZE7MjsPBFYZWs2uBr/JLgA=;
+        b=M+DpwZxT0VasbmKmy+23iN0N9eK7Gq2qorrV6bfyjadwJWFmoF0smlK3gjyJip61jZ
+         wKJeCcCLEO9FuaxnqsoMXGz+xNk5pgNRO+Ye4eZ5XepAAtdlFQZeZZTF3kXb5Ix14f0C
+         q4XvSF9dgZ9mh7l7I3MBXlhoX1ts09TgjU8Qz9HGT6i5IkbrTNJaCxTsGxiaYZ2fo2mp
+         GZWCzpM4I438iVGKRXD2bk6kqRiyf+U0/m6GaezVAr34wu72rEdxwcPz0USnsnsUGrXk
+         i0C29R3sEqqDDHtnSwkgS8sDQt2J7pMs3Fc/Sh5aKUuTHffELM5GXyjqzsMiDp9RyAQf
+         qQgw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
@@ -34,13 +34,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=dxU1BIrqR/oG6YhWS/lltE4u+dTx2l8S8BkdkD5eCzw=;
-        b=dueNHbXuExjGlCuE+5Dvba1dhCIQvW0a6jLALh5ni44uISpvMX8r+6jMKFTQ6GeoPN
-         7WHerbE4jNWe5Eki8CVxAaev1aQXOglr2KsZ5q1C1zTVHyUuVdQC4+4IrqM4S7DoCvza
-         YwCgZDEtDD/VLUNXEVkE5zEwi2rSnuTV3YLsTHXhvNMr3u6WFCKTjA3jQxEZBvpvDVTY
-         0i4iYpSQzPWP3DhP62js/NE+rJutlCTVumHLHh4KxXkeRkoE7KBjZQ43WwvJJqceYwUv
-         S10vAJe9R3FDFnDmMYSFHbBdJkEMpPA+3RCsDTL7OhEwqUJpCllJ0ooVUo1GAF41D4gn
-         swLw==
+        bh=520BB93qbuORsXKs+VX7oZE7MjsPBFYZWs2uBr/JLgA=;
+        b=Bx/5aBADimn3O+VnzXxYuqSI3b7i+5VyVApkfTXDS26YQ8oynaWp7w0he/dv4oa76K
+         Y2e0K2275x1lSjsCBNI+aEQK/ow+l37oNIPs1LS00Z4SN3RBV1bQ2oSsjo/gy+fZQc4F
+         RoP2LqO9YZQhQln4ambAwZeCeZdndFoUlcKu/WUZK7Wykmo8eGp1ZpZzCz0ZEYKrhRdI
+         iTpfPk4qD0H3KgeJ919LLs3iLsc9kl9T/OQdQZXBKh3yQL8NotTb8tjiY288Xslh/ih8
+         ue2TQUQpM+gF6EMTshXvRJxgEinLH8osTZPZzCs7v+gDhuVtGx6FgC3GxrodQXVD53u+
+         qSrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
@@ -48,68 +48,68 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=dxU1BIrqR/oG6YhWS/lltE4u+dTx2l8S8BkdkD5eCzw=;
-        b=SoKDVdSMyjvhW8QWS1+rD3K83jBgA65NQtsbcIeMDaYdqz1ufWv/e1kxj/WacmObpC
-         u2g7eXdqvPUyq3ZPOl4ym+DeF2dY/a/FKMxhKuF5Mo1+49XUK59Dheh8NUKacKQSMqiI
-         INudyMcerLThEjKDk0sr6hSm5OTT/FquphRM3UGdBjFLqPm+0tFZW+6cUnMnR9lB8Alk
-         /UfPenV8DLwZoE6EXM87FaoUv6Zq1HeH7RypkuAxZVuIHhWTDN3LWLvkJRxAHFmuzPDh
-         vFNK/yFl9lSdA1rolFTU11LzggC1ZmVfqeW8QhO5GjC3INehnGbX4fzzab3olorTi1Fw
-         R3mA==
+        bh=520BB93qbuORsXKs+VX7oZE7MjsPBFYZWs2uBr/JLgA=;
+        b=TyFvnsGHtlBG7Q2L6lgwnq+m06kzB8tQtNV+R1ZnaPvTlH/ugp9Fhoxr9M5+NFnvh0
+         14MvOpQSghOD/bAGm/byaepbIl8BZ/j9nYrAQLBPb7rYxmPo02PkR4byrFA+RyAS0pLX
+         moLEwsltsLGgOJtDpG6LiAr+mPH5yItaau1kB9PjWg93s6hsSS17qjurYw48VHWBLGYP
+         LEYyKzBfioDtb2bB5KHgKZAobZk0mxb4mdpxxR/Jbb0mJ4QqPo38wpsokUT4xz5EHHWh
+         TYXLeQIDqM+MJqyCGX5BeiS5jauLMYjcso5io4mi7nNuRqFyR4qhwEVrw5F3cWfz9Rww
+         yU/A==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAV4ZwOeoAp1UjHav97J+lnVWW0V4riPdbtjPzIysbx9EkOSZOft
-	bfAXKiXKE04EFuswFKTMmYw=
-X-Google-Smtp-Source: APXvYqyqpp3T1uU1/U1MRhwxHbSTWvlMvz/E4sUHhisqJw9lZIrNeweTeGdqtuaqGBv7NnKI002r5Q==
-X-Received: by 2002:a05:600c:240e:: with SMTP id 14mr1448552wmp.30.1559861100899;
-        Thu, 06 Jun 2019 15:45:00 -0700 (PDT)
+X-Gm-Message-State: APjAAAW+ykne3JC+z/fuzFyOERcx1wZ7WCZwY1XqQEoeXG24cgCzwQVx
+	+PNdDzG1BI9DBr3HoCTMUHQ=
+X-Google-Smtp-Source: APXvYqzmouyxWkxdaaW+4SXm1/NpDU4aGFmH+l8qlmKzIwnaroodl/9UJzzvgJ1vWTgmlERXLPMFaw==
+X-Received: by 2002:a17:906:af68:: with SMTP id os8mr20493160ejb.105.1559861101776;
+        Thu, 06 Jun 2019 15:45:01 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:e844:: with SMTP id d4ls1592553wrn.7.gmail; Thu, 06 Jun
- 2019 15:45:00 -0700 (PDT)
-X-Received: by 2002:adf:e50c:: with SMTP id j12mr10776558wrm.117.1559861100500;
-        Thu, 06 Jun 2019 15:45:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1559861100; cv=none;
+Received: by 2002:a17:906:7084:: with SMTP id b4ls645146ejk.6.gmail; Thu, 06
+ Jun 2019 15:45:01 -0700 (PDT)
+X-Received: by 2002:a17:906:6a90:: with SMTP id p16mr43143154ejr.75.1559861101309;
+        Thu, 06 Jun 2019 15:45:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1559861101; cv=none;
         d=google.com; s=arc-20160816;
-        b=CJdg+JSI8rNQ34FLRcEgjTijxdWMgAS3OnHvzi9qycPr4Wjf/pB7fHPlJVKnxLpYYY
-         rFUAFoqbsrWV3UFAlQfY9LBtxsOsHpaH89gOSGdgKMkvW99BEi/+EnXzcbE5QqjrHBip
-         yqHkoVtgHUwazuB6U4lMnUjYObeBk88v/zCPwHms3unhPDrKvWk6czimikkOw2rOmsV5
-         HazMibJZCvzhpQtKWOLXM80BvARMqPut5pCGyAkvE/ZVjams4zIdN1dj0aKosQph7jP5
-         NujL+wdSWsKPFlrpMUTjvKpmxM8eg5n4aM3Prg9J3zZdAEy09IC30i3ZpUpIe574H2dN
-         8LJw==
+        b=FACvT5zmzXnLGWFElFeGjHZHu/o0uifrc1FHlQrlYpiJMuxvLDMJW0T+vJUAYIGsNO
+         d9Az+34ispCJEQ7RJaos1Y5ZxmxXqsytAnlp12q0h2/wOegV8Qs78MON3IqqrtlKbFlq
+         uq+ImGfjxQXyCgW+To/tXeG56snjqhm3bBWoJ5Xy/my6JntQOcssCA2sCaEWRrnMJnH0
+         tgqfQGe9Q/U7P010G2aRCU650pJXTq30pwrc+78qB9MH6ZHujN/zDqmOjuAfcav5HSxh
+         i5ly0CKQc97MTlZ/XCTqXU3aw4k0PBQ65uL3TuUXJrJzf3ZuqqEaF1qfVzrvd28w+LjR
+         uSfA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from;
-        bh=+SnjhIsAltymHNgxVeZbl/pOhapP0Ay6ngukZYclYuw=;
-        b=WpSbr374fsPEZugHWAraCr5m8cqwM20EH4TQvu4uWWyj1F70E8WpMzzp1G5C0qUGPp
-         tY0IxTgVZFx+tQPLjm30HRX8NYrMu+jczbxWpV9AfDcFUuBE77QqZQINJWpNcP7C5bxs
-         vfS3y1xoHWbmQTlAHYoS6zE62iQQVkLO14FNM9IOdJRcAtv6S7sdXLDGknWMhlyXd5Rj
-         7wNvax7N9DMhNeQJotL1ATvkKM1TyfR+Vc4q7LH3JMMlJTWoI1ZvnArGn2hgGr+RFLeT
-         5Us0d7BqBGwhXqAI/xig/isPkTY1NwDtn83NrYIA/WWUIoYYsxiFbgf+Me2KkmxgmVhn
-         asMw==
+        bh=n58xIuteO9habLLKc5XSuyc66hqNWUdOK9vQ8VyzPXA=;
+        b=O+zfJuh5Pdl2EOmJqSEJs6dGd1EYzhMnQAwDnPrxjtxvAnqMBnCgdcqI5jDR1RQZ4p
+         J86YBe1xRLLGCxdeb0LLjIsceFT5E2sp8DOR0LG/gP6X7DIQn72gyQX/RKYoujYVak3y
+         NR7+3EmgmSh+PVoxwgEPnD58oZvqPVrhosqd1Ub9qrYngNfAk+avpVQHTDhUv/OacrNa
+         P6ZNFSyPH1PiBc9Gptxo/0k4MYy2nwHk01RNW5rpsI+d0BJliRB8JhR2QUnVvS+GJiRy
+         2Zxz9pI3zREVHfD8+GR90Mb9bgwOPZ9kMra7Fl2XPy3gkDoW0b5AgTKf+8E1tddFCrt4
+         s+PA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Received: from mtaout.hs-regensburg.de (mtaout.hs-regensburg.de. [2001:638:a01:1096::10])
-        by gmr-mx.google.com with ESMTPS id j18si15584wrc.1.2019.06.06.15.45.00
+        by gmr-mx.google.com with ESMTPS id x27si26474edd.3.2019.06.06.15.45.01
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 06 Jun 2019 15:45:00 -0700 (PDT)
+        Thu, 06 Jun 2019 15:45:01 -0700 (PDT)
 Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) client-ip=2001:638:a01:1096::10;
 Received: from pluto.lfdr (unknown [IPv6:2001:638:a01:8061:aefd:ceff:fef3:ba65])
-	by mtaout.hs-regensburg.de (Postfix) with ESMTP id 45Kghr0H5Xzy5p;
+	by mtaout.hs-regensburg.de (Postfix) with ESMTP id 45Kghr5VWTzy6H;
 	Fri,  7 Jun 2019 00:45:00 +0200 (CEST)
 From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 To: jailhouse-dev@googlegroups.com,
 	Jan Kiszka <jan.kiszka@siemens.com>
 Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Subject: [PATCH v2 2/3] x86: mmio: move flags to struct parse_context
-Date: Fri,  7 Jun 2019 00:44:56 +0200
-Message-Id: <20190606224457.1053-3-ralf.ramsauer@oth-regensburg.de>
+Subject: [PATCH v2 3/3] x86: mmio: add support for 0x66 operand prefix
+Date: Fri,  7 Jun 2019 00:44:57 +0200
+Message-Id: <20190606224457.1053-4-ralf.ramsauer@oth-regensburg.de>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20190606224457.1053-1-ralf.ramsauer@oth-regensburg.de>
 References: <20190606224457.1053-1-ralf.ramsauer@oth-regensburg.de>
 MIME-Version: 1.0
 X-PMX-Version: 6.3.3.2656215, Antispam-Engine: 2.7.2.2107409, Antispam-Data: 2019.6.6.223617, AntiVirus-Engine: 5.63.0, AntiVirus-Data: 2019.6.6.5630002
 X-PMX-Spam: Gauge=IIIIIIII, Probability=8%, Report='
- HTML_00_01 0.05, HTML_00_10 0.05, BODY_SIZE_4000_4999 0, BODY_SIZE_5000_LESS 0, BODY_SIZE_7000_LESS 0, IN_REP_TO 0, LEGITIMATE_SIGNS 0, MSG_THREAD 0, MULTIPLE_REAL_RCPTS 0, NO_URI_HTTPS 0, RDNS_NXDOMAIN 0, RDNS_SUSP 0, RDNS_SUSP_GENERIC 0, REFERENCES 0, __ANY_URI 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CTE 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_REFERENCES 0, __HAS_X_MAILER 0, __IN_REP_TO 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __REFERENCES 0, __SANE_MSGID 0, __TO_MALFORMED_2 0, __TO_NAME 0, __TO_NAME_DIFF_FROM_ACC 0, __TO_NO_NAME 0, __TO_REAL_NAMES 0, __URI_NO_WWW 0, __URI_NS '
+ HTML_00_01 0.05, HTML_00_10 0.05, IN_REP_TO 0, LEGITIMATE_SIGNS 0, MSG_THREAD 0, MULTIPLE_REAL_RCPTS 0, NO_URI_HTTPS 0, RDNS_NXDOMAIN 0, RDNS_SUSP 0, RDNS_SUSP_GENERIC 0, REFERENCES 0, __ANY_URI 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CTE 0, __FRAUD_MONEY_BIG_COIN 0, __FRAUD_MONEY_BIG_COIN_DIG 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_REFERENCES 0, __HAS_X_MAILER 0, __IN_REP_TO 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __NO_HTML_TAG_RAW 0, __PHISH_SPEAR_SUBJ_TEAM 0, __REFERENCES 0, __SANE_MSGID 0, __STOCK_PHRASE_7 0, __SUBJ_ALPHA_END 0, __TO_MALFORMED_2 0, __TO_NAME 0, __TO_NAME_DIFF_FROM_ACC 0, __TO_NO_NAME 0, __TO_REAL_NAMES 0, __URI_NO_WWW 0, __URI_NS '
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
  (google.com: domain of ralf.ramsauer@oth-regensburg.de designates
@@ -128,163 +128,232 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-We can easier pass them around if flags are stored in struct
-parse_context.
+mov (%rax), %ax is a 16-bit data MOV_FROM_MEM that will emit
+0x66 0x8b 0x00.
 
-Just a preparation, no functional change so far.
+0x66 is the operand-size override prefix which we currently do not support.
+
+We should support it, as we can find this opcode, for example, for some
+mmconfig space access from Linux (e.g., pci_generic_config_read).
+
+This also adds appropriate mmio-access tests.
+
+Tested in QEMU virtual target.
 
 Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 ---
- hypervisor/arch/x86/mmio.c | 52 +++++++++++++++++++-------------------
- 1 file changed, 26 insertions(+), 26 deletions(-)
+ hypervisor/arch/x86/include/asm/processor.h |  1 +
+ hypervisor/arch/x86/mmio.c                  | 47 +++++++++++++++------
+ inmates/tests/x86/mmio-access-32.c          | 21 ++++++++-
+ inmates/tests/x86/mmio-access.c             | 21 ++++++++-
+ 4 files changed, 76 insertions(+), 14 deletions(-)
 
+diff --git a/hypervisor/arch/x86/include/asm/processor.h b/hypervisor/arch/x86/include/asm/processor.h
+index 70a6c3ff..d8111690 100644
+--- a/hypervisor/arch/x86/include/asm/processor.h
++++ b/hypervisor/arch/x86/include/asm/processor.h
+@@ -145,6 +145,7 @@
+ 
+ #define X86_REX_CODE					4
+ 
++#define X86_PREFIX_OP_SZ				0x66
+ #define X86_PREFIX_ADDR_SZ				0x67
+ 
+ #define X86_OP_MOVZX_OPC1				0x0f
 diff --git a/hypervisor/arch/x86/mmio.c b/hypervisor/arch/x86/mmio.c
-index c04cf449..df8c97a1 100644
+index df8c97a1..b836f43c 100644
 --- a/hypervisor/arch/x86/mmio.c
 +++ b/hypervisor/arch/x86/mmio.c
-@@ -49,6 +49,11 @@ struct parse_context {
- 	unsigned int count;
- 	unsigned int size;
- 	const u8 *inst;
-+	bool has_immediate;
-+	bool does_write;
-+	bool has_rex_w;
-+	bool has_rex_r;
-+	bool has_addrsz_prefix;
+@@ -54,6 +54,7 @@ struct parse_context {
+ 	bool has_rex_w;
+ 	bool has_rex_r;
+ 	bool has_addrsz_prefix;
++	bool has_opsz_prefix;
  };
  
  static bool ctx_update(struct parse_context *ctx, u64 *pc, unsigned int advance,
-@@ -88,12 +93,7 @@ x86_mmio_parse(const struct guest_paging_structures *pg_structs, bool is_write)
- 	struct mmio_instruction inst = { 0 };
- 	u64 pc = vcpu_vendor_get_rip();
- 	unsigned int n, skip_len = 0;
--	bool has_immediate = false;
- 	union opcode op[4] = { };
--	bool does_write = false;
--	bool has_rex_w = false;
--	bool has_rex_r = false;
--	bool has_addrsz_prefix = false;
+@@ -74,14 +75,33 @@ static bool ctx_update(struct parse_context *ctx, u64 *pc, unsigned int advance,
+ 	return true;
+ }
  
- 	if (!ctx_update(&ctx, &pc, 0, pg_structs))
- 		goto error_noinst;
-@@ -102,9 +102,9 @@ restart:
- 	op[0].raw = *ctx.inst;
- 	if (op[0].rex.code == X86_REX_CODE) {
- 		if (op[0].rex.w)
--			has_rex_w = true;
-+			ctx.has_rex_w = true;
- 		if (op[0].rex.r)
--			has_rex_r = true;
-+			ctx.has_rex_r = true;
- 		if (op[0].rex.x)
- 			goto error_unsupported;
+-static unsigned int get_address_width(bool has_addrsz_prefix)
++static void parse_widths(struct parse_context *ctx,
++		         struct mmio_instruction *inst, bool parse_addr_width)
+ {
+ 	u16 cs_attr = vcpu_vendor_get_cs_attr();
+-	bool long_mode = (vcpu_vendor_get_efer() & EFER_LMA) &&
+-		(cs_attr & VCPU_CS_L);
++	bool cs_db = !!(cs_attr & VCPU_CS_DB);
++	bool long_mode =
++		(vcpu_vendor_get_efer() & EFER_LMA) && (cs_attr & VCPU_CS_L);
  
-@@ -116,7 +116,7 @@ restart:
- 	case X86_PREFIX_ADDR_SZ:
- 		if (!ctx_update(&ctx, &pc, 1, pg_structs))
+-	return long_mode ? (has_addrsz_prefix ? 4 : 8) :
+-		(!!(cs_attr & VCPU_CS_DB) ^ has_addrsz_prefix) ? 4 : 2;
++	/* Op size prefix is ignored if rex.w = 1 */
++	if (ctx->has_rex_w) {
++		inst->access_size = 8;
++	} else {
++		if (long_mode)
++		/* CS.d is ignored in long mode */
++			inst->access_size = ctx->has_opsz_prefix ? 2 : 4;
++		else
++			inst->access_size =
++				(cs_db ^ ctx->has_opsz_prefix) ? 4 : 2;
++	}
++
++	if (parse_addr_width) {
++		if (long_mode)
++			inst->inst_len += ctx->has_addrsz_prefix ? 4 : 8;
++		else
++			inst->inst_len +=
++				(cs_db ^ ctx->has_addrsz_prefix) ? 4 : 2;
++	}
+ }
+ 
+ struct mmio_instruction
+@@ -118,6 +138,11 @@ restart:
  			goto error_noinst;
--		has_addrsz_prefix = true;
-+		ctx.has_addrsz_prefix = true;
+ 		ctx.has_addrsz_prefix = true;
  		goto restart;
++	case X86_PREFIX_OP_SZ:
++		if (!ctx_update(&ctx, &pc, 1, pg_structs))
++			goto error_noinst;
++		ctx.has_opsz_prefix = true;
++		goto restart;
  	case X86_OP_MOVZX_OPC1:
  		if (!ctx_update(&ctx, &pc, 1, pg_structs))
-@@ -131,33 +131,33 @@ restart:
- 		break;
- 	case X86_OP_MOVB_TO_MEM:
- 		inst.access_size = 1;
--		does_write = true;
-+		ctx.does_write = true;
+ 			goto error_noinst;
+@@ -134,28 +159,26 @@ restart:
+ 		ctx.does_write = true;
  		break;
  	case X86_OP_MOV_TO_MEM:
--		inst.access_size = has_rex_w ? 8 : 4;
--		does_write = true;
-+		inst.access_size = ctx.has_rex_w ? 8 : 4;
-+		ctx.does_write = true;
+-		inst.access_size = ctx.has_rex_w ? 8 : 4;
++		parse_widths(&ctx, &inst, false);
+ 		ctx.does_write = true;
  		break;
  	case X86_OP_MOVB_FROM_MEM:
  		inst.access_size = 1;
  		break;
  	case X86_OP_MOV_FROM_MEM:
--		inst.access_size = has_rex_w ? 8 : 4;
-+		inst.access_size = ctx.has_rex_w ? 8 : 4;
+-		inst.access_size = ctx.has_rex_w ? 8 : 4;
++		parse_widths(&ctx, &inst, false);
  		break;
  	case X86_OP_MOV_IMMEDIATE_TO_MEM:
--		inst.access_size = has_rex_w ? 8 : 4;
--		has_immediate = true;
--		does_write = true;
-+		inst.access_size = ctx.has_rex_w ? 8 : 4;
-+		ctx.has_immediate = true;
-+		ctx.does_write = true;
+-		inst.access_size = ctx.has_rex_w ? 8 : 4;
++		parse_widths(&ctx, &inst, false);
+ 		ctx.has_immediate = true;
+ 		ctx.does_write = true;
  		break;
  	case X86_OP_MOV_MEM_TO_AX:
--		inst.inst_len += get_address_width(has_addrsz_prefix);
--		inst.access_size = has_rex_w ? 8 : 4;
-+		inst.inst_len += get_address_width(ctx.has_addrsz_prefix);
-+		inst.access_size = ctx.has_rex_w ? 8 : 4;
+-		inst.inst_len += get_address_width(ctx.has_addrsz_prefix);
+-		inst.access_size = ctx.has_rex_w ? 8 : 4;
++		parse_widths(&ctx, &inst, true);
  		inst.in_reg_num = 15;
  		goto final;
  	case X86_OP_MOV_AX_TO_MEM:
--		inst.inst_len += get_address_width(has_addrsz_prefix);
--		inst.access_size = has_rex_w ? 8 : 4;
-+		inst.inst_len += get_address_width(ctx.has_addrsz_prefix);
-+		inst.access_size = ctx.has_rex_w ? 8 : 4;
+-		inst.inst_len += get_address_width(ctx.has_addrsz_prefix);
+-		inst.access_size = ctx.has_rex_w ? 8 : 4;
++		parse_widths(&ctx, &inst, true);
  		inst.out_val = guest_regs->by_index[15];
--		does_write = true;
-+		ctx.does_write = true;
+ 		ctx.does_write = true;
  		goto final;
- 	default:
- 		goto error_unsupported;
-@@ -168,7 +168,7 @@ restart:
+diff --git a/inmates/tests/x86/mmio-access-32.c b/inmates/tests/x86/mmio-access-32.c
+index be1d470f..9c1db1d8 100644
+--- a/inmates/tests/x86/mmio-access-32.c
++++ b/inmates/tests/x86/mmio-access-32.c
+@@ -41,6 +41,10 @@ void inmate_main(void)
+ 	mmio_write32(mmio_reg, pattern);
+ 	EXPECT_EQUAL(*comm_page_reg, pattern);
  
- 	op[2].raw = *ctx.inst;
++	/* MOV_FROM_MEM (8b), 16-bit data, 32-bit address, OP size prefix */
++	asm volatile("mov (%%eax), %%ax" : "=a" (reg32) : "a" (mmio_reg));
++	EXPECT_EQUAL((u16)reg32, (u16)pattern);
++
+ 	/* MOV_FROM_MEM (8b), 32-bit data, 32-bit address */
+ 	asm volatile("movl (%%ebx), %%eax"
+ 		: "=a" (reg32) : "a" (0), "b" (mmio_reg));
+@@ -55,6 +59,13 @@ void inmate_main(void)
+ 	EXPECT_EQUAL(reg32,
+ 		     ((unsigned long)mmio_reg & ~0xffUL) | (pattern & 0xff));
  
--	if (!does_write && inst.access_size < 4)
-+	if (!ctx.does_write && inst.access_size < 4)
- 		inst.reg_preserve_mask = ~BYTE_MASK(inst.access_size);
++	/* MOV_FROM_MEM (8a), 8-bit data, 32-bit address, OP size prefix */
++	asm volatile("data16 mov (%%eax), %%al"
++		: "=a" (reg32) : "a" (mmio_reg));
++	EXPECT_EQUAL((u8)reg32, (u8)pattern);
++	EXPECT_EQUAL(reg32,
++		     ((unsigned long)mmio_reg & ~0xffUL) | (pattern & 0xff));
++
+ 	/* MOVZXB (0f b6), 32-bit data, 32-bit address */
+ 	asm volatile("movzxb (%%ebx), %%eax"
+ 		: "=a" (reg32) : "a" (0), "b" (mmio_reg));
+@@ -87,7 +98,15 @@ void inmate_main(void)
+ 	/* MOV_TO_MEM (88), 8-bit data */
+ 	asm volatile("movb %%al, (%%ebx)"
+ 		: : "a" (0x42), "b" (mmio_reg));
+-	EXPECT_EQUAL(*comm_page_reg, (pattern & 0xffffff00) | 0x42);
++	EXPECT_EQUAL(*comm_page_reg, (pattern & ~0xffUL) | 0x42);
++
++	/* MOV_TO_MEM (88), 8-bit data, OP size prefix */
++	asm volatile("data16 mov %%al, (%%ebx)" : : "a" (0x23), "b" (mmio_reg));
++	EXPECT_EQUAL(*comm_page_reg, (pattern & ~0xffUL) | 0x23);
++
++	/* MOV_TO_MEM (89), 16-bit data, OP size prefix */
++	asm volatile("mov %%ax, (%%ebx)" : : "a" (0x2342), "b" (mmio_reg));
++	EXPECT_EQUAL(*comm_page_reg, (pattern & ~0xffffUL) | 0x2342);
  
- 	/* ensure that we are actually talking about mov imm,<mem> */
-@@ -198,14 +198,14 @@ restart:
- 		goto error_unsupported;
- 	}
+ 	/* IMMEDIATE_TO_MEM (c7), 32-bit data, mod=0, reg=0, rm=3 */
+ 	asm volatile("movl %0, (%%ebx)"
+diff --git a/inmates/tests/x86/mmio-access.c b/inmates/tests/x86/mmio-access.c
+index a9d2fcaf..3794555f 100644
+--- a/inmates/tests/x86/mmio-access.c
++++ b/inmates/tests/x86/mmio-access.c
+@@ -51,6 +51,10 @@ void inmate_main(void)
+ 	mmio_write64(mmio_reg, pattern);
+ 	EXPECT_EQUAL(*comm_page_reg, pattern);
  
--	if (has_rex_r)
-+	if (ctx.has_rex_r)
- 		inst.in_reg_num = 7 - op[2].modrm.reg;
- 	else if (op[2].modrm.reg == 4)
- 		goto error_unsupported;
- 	else
- 		inst.in_reg_num = 15 - op[2].modrm.reg;
++	/* MOV_FROM_MEM (8b), 16-bit data, Ox66 OP size prefix */
++	asm volatile("mov (%%rax), %%ax" : "=a" (reg64) : "a" (mmio_reg));
++	EXPECT_EQUAL((u16)reg64, (u16)pattern);
++
+ 	/* MOV_FROM_MEM (8b), 64-bit data, mod=0, reg=0, rm=3 */
+ 	asm volatile("movq (%%rbx), %%rax"
+ 		: "=a" (reg64) : "a" (0), "b" (mmio_reg));
+@@ -75,6 +79,13 @@ void inmate_main(void)
+ 	EXPECT_EQUAL(reg64,
+ 		     ((unsigned long)mmio_reg & ~0xffUL) | (pattern & 0xff));
  
--	if (has_immediate) {
-+	if (ctx.has_immediate) {
- 		/* walk any not yet retrieved SIB or displacement bytes */
- 		if (!ctx_update(&ctx, &pc, skip_len, pg_structs))
- 			goto error_noinst;
-@@ -218,16 +218,16 @@ restart:
- 		}
++	/* MOV_FROM_MEM (8a), 8-bit data */
++	asm volatile("data16 mov (%%rax), %%al"
++		: "=a" (reg64) : "a" (mmio_reg));
++	EXPECT_EQUAL((u8)reg64, (u8)pattern);
++	EXPECT_EQUAL(reg64,
++		     ((unsigned long)mmio_reg & ~0xffUL) | (pattern & 0xff));
++
+ 	/* MOVZXB (0f b6), to 64-bit, mod=0, reg=0, rm=3 */
+ 	asm volatile("movzxb (%%rbx), %%rax"
+ 		: "=a" (reg64) : "a" (0), "b" (mmio_reg));
+@@ -129,7 +140,15 @@ void inmate_main(void)
+ 	/* MOV_TO_MEM (88), 8-bit data */
+ 	asm volatile("movb %%al, (%%rbx)"
+ 		: : "a" (0x42), "b" (mmio_reg));
+-	EXPECT_EQUAL(*comm_page_reg, (pattern & 0xffffffffffffff00) | 0x42);
++	EXPECT_EQUAL(*comm_page_reg, (pattern & ~0xffUL) | 0x42);
++
++	/* MOV_TO_MEM (88), 8-bit data, OP size prefix */
++	asm volatile("data16 mov %%al, (%%ebx)" : : "a" (0x23), "b" (mmio_reg));
++	EXPECT_EQUAL(*comm_page_reg, (pattern & ~0xffUL) | 0x23);
++
++	/* MOV_TO_MEM (89), 16-bit data, OP size prefix */
++	asm volatile("mov %%ax, (%%ebx)" : : "a" (0x2342), "b" (mmio_reg));
++	EXPECT_EQUAL(*comm_page_reg, (pattern & ~0xffffUL) | 0x2342);
  
- 		/* sign-extend immediate if the target is 64-bit */
--		if (has_rex_w)
-+		if (ctx.has_rex_w)
- 			inst.out_val = (s64)(s32)inst.out_val;
- 	} else {
- 		inst.inst_len += skip_len;
--		if (does_write)
-+		if (ctx.does_write)
- 			inst.out_val = guest_regs->by_index[inst.in_reg_num];
- 	}
- 
- final:
--	if (does_write != is_write)
-+	if (ctx.does_write != is_write)
- 		goto error_inconsitent;
- 
- 	inst.inst_len += ctx.count;
+ 	/* IMMEDIATE_TO_MEM (c7), 64-bit data, mod=0, reg=0, rm=3 */
+ 	asm volatile("movq %0, (%%rbx)"
 -- 
 2.21.0
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20190606224457.1053-3-ralf.ramsauer%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20190606224457.1053-4-ralf.ramsauer%40oth-regensburg.de.
 For more options, visit https://groups.google.com/d/optout.
