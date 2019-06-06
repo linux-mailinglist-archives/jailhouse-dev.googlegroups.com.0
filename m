@@ -1,130 +1,147 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBYWJ4TTQKGQEBZRDFUQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCTN5UU44EMBBRHN4TTQKGQEMBRGYXA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x240.google.com (mail-lj1-x240.google.com [IPv6:2a00:1450:4864:20::240])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BDF2376E2
-	for <lists+jailhouse-dev@lfdr.de>; Thu,  6 Jun 2019 16:36:19 +0200 (CEST)
-Received: by mail-lj1-x240.google.com with SMTP id q5sf587403ljq.20
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 06 Jun 2019 07:36:19 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1559831778; cv=pass;
+Received: from mail-lj1-x239.google.com (mail-lj1-x239.google.com [IPv6:2a00:1450:4864:20::239])
+	by mail.lfdr.de (Postfix) with ESMTPS id 707D73788B
+	for <lists+jailhouse-dev@lfdr.de>; Thu,  6 Jun 2019 17:52:37 +0200 (CEST)
+Received: by mail-lj1-x239.google.com with SMTP id v12sf649950ljv.7
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 06 Jun 2019 08:52:37 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1559836357; cv=pass;
         d=google.com; s=arc-20160816;
-        b=YWm7YItODUgPEn2PjYLdG3PiWWNIB3wNMffQB7zVL3jYO8s+Y1LDI7xQrLdPNmbGoH
-         I2ljoy4ycalXtu2vI1a6zOAYCSnpqoqNsLUHz/6K7xwVl+o6DWFhw6lv3lJBd+0oSs84
-         Ic6mozCYdboJi6WvRMJUalEmTXABOlLG2v1o9hv8TY/84O91MbOmuNtecr7TKFbkzNJW
-         AoLuQC2iUWXkaNjUclRSlKxveytdz2nWe9jrF9PHkn7ibbv0ZiiuXKA3FCaY0O2kyC1O
-         NvoOCATzJ5rYF1JH/ytTqTTWpZXfz04nNzKabAbKaz+540Er+4dvUGuTRDhezEesDX1S
-         qBIQ==
+        b=XKna7UZgDXKilszejomiAwl3o2xfXc9RCFKs8qp1rj8KFwqWRE2d8d3VPMrUf6gEYZ
+         05Xr2GTv8w+/XPzFyLYw7RzdFuoowrQst8bgbSPo5TQXon/EPHXENYCYWXrNhxXETMO0
+         vSU2suqvmm0NK9kPg2MnNSqszxk9f+1MKbGZR11KfrhrUZoenqgmi1hDg6ItiPP+KqFS
+         UrX4+Lp6i5RTBX8GRTfP95qnTCKTPnKCrjs0sWwsOVCqLju9xic3W3CVZVBPmT+/YntD
+         ZVMdAYsyJxulTlm1gq38Da3ZJbbTQvnGjlcRbKVCUHAz1PAkxLir9ykOaVR+EhNH2wRT
+         Ko8g==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:cc:to:subject:sender:dkim-signature;
-        bh=zIz+3yQ4MgF1TUajJ4T1LnKz3PjG2ONGcDi1h9fr8qk=;
-        b=IZh2W0c5hQse+8BPRd9kLDXocK2BtKRDLmSxoaf3zRmivrHwnQCemaLms+Gm4GH6i0
-         lQaxFl/Qf5kkqdCET0I9KG8X2p89qOJDbX3MnwylNGkwIaEUF1E/MPyy/QXqcRZ9bpld
-         du5/yL6fknGBvOug8/+XI+xGKCaoOZTRUHW11BrXHpW71KkmbT5uh5gpRWRlkdfvDFpO
-         XSvwX/0m4AilHccKO4XEDhRC3U8KF+yd3c1jSka89CIgWZpIbgpdl1r3sq771mEUUSFK
-         f2Qwjp5te2/4Ty0OyR7TGK4Torcm4pq4UAKZsMLKPCp9SfgKCxmjpnTcbLIT4TSmmtrr
-         Swjg==
+         :in-reply-to:mime-version:user-agent:date:message-id:from:references
+         :cc:to:subject:sender:dkim-signature:dkim-signature;
+        bh=grVHPGkoEvBVAjFIXZJ+K2ELlsTYYnwux+8tW1h5YSw=;
+        b=ADVAtVClmUi2UupcnCxlOti+qh7r4FGzBANn2b4kFO4BehOz8P5k6V4JefDibTc+a+
+         oXZYksin7WE/9CxNsPjDdoEGt5KiozR8GWAd5nX7yg4tsXKQ1baPlY+jiYOJmAPYJXiz
+         MYvaEXU9wOvL6+6VK9u4hthyi2MQ+72SVZ8plV+XLTY4Fx6jXSrSacQQsrH3KoRSoIO0
+         nfuNrs8G31nSDL6CPPyFA/wxEWR4dwZkobnh3J1QrfygksXhfOg/1ObYYMYfg9tUCUuS
+         Z1TeGd0/nDjWzoD3jXQdr126ZXN4vLOc0yHJTf5e2WuW1nKchqT4nNF9cq2HgicAZ7kT
+         U3wg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=COXuYehY;
+       spf=pass (google.com: domain of johannesmaisch95@gmail.com designates 2a00:1450:4864:20::332 as permitted sender) smtp.mailfrom=johannesmaisch95@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :mime-version:in-reply-to:content-transfer-encoding
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=zIz+3yQ4MgF1TUajJ4T1LnKz3PjG2ONGcDi1h9fr8qk=;
-        b=QeBB7zQdVYmrH7lFI57yme4cL81uCnWc0j+V5VbQqK11JL+D1jNoMLBymAQDT+2Kjs
-         0/UaYgJLWcaYIG+ZeF4rjlU7A4fM6KuaBZZUMwr1XUzJK29O1gaIytP97Lfy2VG559Nh
-         sBsa7tHDTXmdV8MEl0bbtR22UCWqnepLQsL+VVoUzlQzKIPgHrchbCmpSC3j6926MFli
-         PWCYS1zDURCTi7X1X8KWmHY05J+sv7cFGrL0viTANGDW8EHMOR4isoTW8YQrOPejQGhu
-         BwcWt7Puqj72eA1tpO6Qg36McSfP8enzVE5hD4agFYnStQ4Nu4pmf7/Jm4j+kA8k5+Ot
-         gaYw==
+        bh=grVHPGkoEvBVAjFIXZJ+K2ELlsTYYnwux+8tW1h5YSw=;
+        b=Qho9V/spTyIGi1SbsjM8iUEuVG8DdAihLAWXp7JdhdIBVG0lK/QTrkKZh640JLYW/h
+         4ThE9M2xz5/0yN7naTkaTyn00HPgJZ2jyiRbk502x5QOewO1TXwQK8/0wgLOrLdWwRHD
+         AW+YjT5aSjWI5nLi4Jtn9QQ/tieKyxbsJm1pcJFEfZqOLaJEIa8pQuuIe1Yvot3Gpp/F
+         w90iPknZniII0Zgnd6H2p7bMv7YJaybd/ZOahpO80CNEpYHrAxhuQCRPqCIFGMJoDfpQ
+         NNydGeGYdZpnBu+Lfh1bS+2gD9ru3uCqh/udBga5/nPJdcJaLG7azfLYrSvp/YLA48Qt
+         UpSA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=grVHPGkoEvBVAjFIXZJ+K2ELlsTYYnwux+8tW1h5YSw=;
+        b=ka07PVHZ11uoCAvbky11MIqI4mC8tSVb613xYHXT9JednSFM81PRxSraoHTev4tRtA
+         SBsfb4fEBZ3R4AihM4zHcHzuB3+HRqFmWE8GZiE3Y+AzC9RCPWBHsoQhCsW38iJgK6/f
+         BMlyiFcCKjArQUi+rzQ2aaDFrKoG1SolCjvqIuqiDgdtcu0ibDl2RP5i/qoeLzyywDq7
+         zdQpfDuaG6J7Jjsk6ij8hcn971WHg2pxXZwcwcrr1Olmpv4kLf9ga6/XOjgLxONHQavY
+         ETEHLfaFURCN34nQiKD8JaBD0e0M2R4YRPtuWq2SgcAygqfD0eDhZpPFT6AS/zi+RidZ
+         LhEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=zIz+3yQ4MgF1TUajJ4T1LnKz3PjG2ONGcDi1h9fr8qk=;
-        b=SrEOrfUDJXPGL0Sj2SZzvc5t8jA9uybx210/ypGF96xFmFalLGoNMJO+fX+Fn21m9s
-         jmfq28l6sm/7WE9UevhttP57/RE2OT1SSbX6UlaO+7A53rfHft1wg56WrZXW9rhrPlqT
-         PPnJWvjmevvQjnRNn7keOpg+EoNESYSwN1w1OL75LmERRhgaC+egWOC78jRC10ogOrwr
-         DDhkrBjWwtUfx5952AIWEBOovvWN72EIqAFnfXj+oNA2JrE8Yx+VqsIg4JCfnKUHe99A
-         IM4argXmRZe5TeaH5VHlbydcjGUNSGGVljdUWXoCxhZgdE/22nWnh0j0F9cQ85NpB4lO
-         5RWQ==
+         :date:user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=grVHPGkoEvBVAjFIXZJ+K2ELlsTYYnwux+8tW1h5YSw=;
+        b=RF+Z64ZwxV1CO4zKN8PEmUBWgQu9BLtNqvO/v5BWHh+dyE7BTLig4Yk9vMmOydcsL5
+         DaXpUw809he8zZ3qX0atSkQmsLKEi28583EetHtUjxPrlP7YxbBVM9W1JsKc/LCUTVHK
+         cNOlaf1ziF9N3yjE0mvknGJxOdByAAnT08QXWK/Cti26hVFsqYY+jM7drAwb9v9pZWUe
+         lUa7qlVGe0kKXtSdAOIQSQiloJjSa7XItEmbAojP+h6fmQZS7aBL5xq73VIVKbyVFhdr
+         qqyeeQBfSJ3q22qdxT2qp69+fVoC7OD/gJ8yjqsXEOT9+86I0tVzti+3pFcnfs/28aSR
+         7Rqw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVzZZc2IbgwHg/T3PizKkY6BQt+uBPEqJGODOCIqYXtePsJPPDN
-	zRSoYCEcqmm8vOpKTk/fJYY=
-X-Google-Smtp-Source: APXvYqyyeSX3o6NYGrrmhePv8ObW2nQakVLaVUeyCBD/xu/vzaGstjrCD6s43Ycei57wnAkZruRAHA==
-X-Received: by 2002:a2e:44ce:: with SMTP id b75mr6752778ljf.95.1559831778490;
-        Thu, 06 Jun 2019 07:36:18 -0700 (PDT)
+X-Gm-Message-State: APjAAAXkSlSXOVmH7iZ+Ibf5rtHND9LkasS0xcExy1tgRJ8jVyxuOJJV
+	X0JGCrNkZVwxVxBg6FgATKI=
+X-Google-Smtp-Source: APXvYqylTfywUzhs1YK0wVtvocepzPhcUsMqEvpBzJXsEQN/2YhOf+Z7A9rwbT4N7FjZ4pHGOa0n5w==
+X-Received: by 2002:a2e:968c:: with SMTP id q12mr25208064lji.195.1559836357077;
+        Thu, 06 Jun 2019 08:52:37 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:8998:: with SMTP id c24ls682905lji.15.gmail; Thu, 06 Jun
- 2019 07:36:17 -0700 (PDT)
-X-Received: by 2002:a2e:9753:: with SMTP id f19mr1185251ljj.113.1559831777779;
-        Thu, 06 Jun 2019 07:36:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1559831777; cv=none;
+Received: by 2002:a2e:7f09:: with SMTP id a9ls244785ljd.16.gmail; Thu, 06 Jun
+ 2019 08:52:36 -0700 (PDT)
+X-Received: by 2002:a2e:988b:: with SMTP id b11mr10562387ljj.85.1559836356206;
+        Thu, 06 Jun 2019 08:52:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1559836356; cv=none;
         d=google.com; s=arc-20160816;
-        b=uJbzJg/IXbEw8AtiYTkz9NY534JMTeUJfxDRb4f2I2KVZBN52DlBiWQPzw0wqdUYW2
-         Vchv8XjqE7dvBc4V2I3mzSZa6Nw8dSvHVuMwnjAcHmP4PkU6oURaAH7Iv1SyyZYOr/lC
-         POfNNUmP3Cj8K/+xfo5TT//8Bbb13m3W9n0lechAdN0SII3JOA3TTh1tBKKZM10U31zV
-         B6T1E4PLgEBC88GDKOePmfUeTJULt+VZYqwHegwKRasFqQki6PKLK3cnL6oTmJVJUBcm
-         AkDCh1U6u1bnoT9QGNTvYnx38Jhn7KdFv6uDn+fFCXtH5e8LYAIh35WnAc8Pzafu+Ug2
-         lE2Q==
+        b=r3z9ZKvAwZ4q6lSHVwduxOgz5qHQ49DvjmrJzetKFOqlny51g5xKGaDN/FHI8cZ0eb
+         r6ePWvcE6vcHcz5iYAFYDtndt7ASZy/Kvz3dIDHsvalIm+X9K0GHL7fZQRsfp3KP7ktf
+         uvHJ8+ERN9LGVnZ6C2+SLlmWgrSeYee4ZgT0paif4nr0eG/GCWGt1yAeO4dppI2TJZ54
+         pSM8UoXfkz4IlEecX2CKW22ZMWhDwupLJhEf8fJMc7reM53srJtt0mYxq28hLpUKK+zB
+         JLn5KLbURuq6n9cMMbOQdTZIRyjs63UCbUnDyzJ3EGplOolbOJa79FheUISSih/ubT+t
+         k/bQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=nbKAAk73nQwSR/G+C8EYWNN/ngamiQBPWcIM8+h+PdU=;
-        b=ZpSaeACy+yPqNU06Pyav83sK3/uLsOK66mrI6td9y9xZ7o8TTCN2Yxz9bt2VWycJYM
-         ImG7TuGoZq7rGDapGyy/zyz/kvKnsIaz903EnQLiY9IEKuLDI6Q3p3j7FEuYcKyhuPnE
-         yo176OS5+QXffE0iGvCVyg69a+IMJ0OwgWTjezy+8hHLsGAVml8R+d1OYL0bZ8ISBxqa
-         khZxlGC8bLVQ5LX1cgSN3+SudLXVggzX2oXBeESk4hYKvY0lUMyGjW2Ztl9tgLDNKuFh
-         uDOZlVunOXa/67wArulEwsRuiCh5Md4fKXlvTp0bBG45DXBjfXWLWpv4QqN6qN2+qZMO
-         b1Qw==
+        h=content-transfer-encoding:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:cc:to:subject:dkim-signature;
+        bh=lPg2ghgzjEa4D/yd3ZfSMNCQouvMd4xoyGHqUF6F22o=;
+        b=CPZ04bAo33I0ulkREORCnTAksY7VsnZC6ZQAaJiA+yyv5QJ4wFWBzlM5X6t89lR1UH
+         inTqJGUJcl0RtEtgDQIDZxm78uWmR/uIMuXYzUh1upVdDaVwr0v1lAD5hdh8cdG+3IJc
+         OCVt60usftAVOEmqGVC5OzdOAV+H0Fo68zDzxOS2chWz7Vnr12mBGfToJ7ThCsgpJbBr
+         RaByEktktHQUuZTZKoxz32tK3ATsnGwDBgJQ/pZSNZIJS1JSC9hyfyf9RYuGFqbtL7gz
+         YH2squnTgH6C+306iGTpxSfN+LZelUAxk7gGj99OsTaEGkKlyE6GcbB5iDGGMnnXupba
+         1ceA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
-        by gmr-mx.google.com with ESMTPS id i70si100828lfg.1.2019.06.06.07.36.17
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=COXuYehY;
+       spf=pass (google.com: domain of johannesmaisch95@gmail.com designates 2a00:1450:4864:20::332 as permitted sender) smtp.mailfrom=johannesmaisch95@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com. [2a00:1450:4864:20::332])
+        by gmr-mx.google.com with ESMTPS id v29si138890lfq.2.2019.06.06.08.52.36
         for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
+        Thu, 06 Jun 2019 08:52:36 -0700 (PDT)
+Received-SPF: pass (google.com: domain of johannesmaisch95@gmail.com designates 2a00:1450:4864:20::332 as permitted sender) client-ip=2a00:1450:4864:20::332;
+Received: by mail-wm1-x332.google.com with SMTP id t5so467455wmh.3
+        for <jailhouse-dev@googlegroups.com>; Thu, 06 Jun 2019 08:52:36 -0700 (PDT)
+X-Received: by 2002:a1c:7d4e:: with SMTP id y75mr481899wmc.169.1559836355523;
+        Thu, 06 Jun 2019 08:52:35 -0700 (PDT)
+Received: from [192.168.178.53] ([5.56.211.151])
+        by smtp.googlemail.com with ESMTPSA id y184sm2799316wmg.14.2019.06.06.08.52.34
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 06 Jun 2019 07:36:17 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id x56EaHgY003264
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 6 Jun 2019 16:36:17 +0200
-Received: from [139.25.68.37] (md1q0hnc.ad001.siemens.net [139.25.68.37] (may be forged))
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id x56EaGbj005646;
-	Thu, 6 Jun 2019 16:36:16 +0200
-Subject: Re: [PATCH] x86: mmio: add support for 0x66 operand prefix
-To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
-        jailhouse-dev@googlegroups.com
-Cc: Mario Mintel <mario.mintel@st.oth-regensburg.de>
-References: <20190604210229.23554-1-ralf.ramsauer@oth-regensburg.de>
- <f7338cdd-3f1b-3b1c-d56c-6d783688348f@siemens.com>
- <c72d9659-2d46-5aff-062b-9d7d13dfcef4@oth-regensburg.de>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <eb6da892-059f-16f7-2473-74fbff2cc2d8@siemens.com>
-Date: Thu, 6 Jun 2019 16:36:16 +0200
-User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
- Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
+        Thu, 06 Jun 2019 08:52:34 -0700 (PDT)
+Subject: Re: Freertos-demo bare-metal boot
+To: "Dr. Johann Pfefferl" <johann.pfefferl@siemens.com>,
+ Jan Kiszka <jan.kiszka@siemens.com>
+Cc: Jailhouse <jailhouse-dev@googlegroups.com>,
+ Daniel Schmid <dascit16@hs-esslingen.de>
+References: <f8c8bb48-ac7a-4bd2-a554-0f42a31fa5b6@googlegroups.com>
+ <90eb1048-d5b5-7dcd-fa9c-ff9b715bd97b@siemens.com>
+ <20190604102704.7xy42j25eq2h67rq@jpc.jpnet>
+From: Johannes Maisch <johannesmaisch95@gmail.com>
+Message-ID: <9d12161b-a004-ad5e-0dfe-1b1c249358cb@gmail.com>
+Date: Thu, 6 Jun 2019 17:52:33 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.5.1
 MIME-Version: 1.0
-In-Reply-To: <c72d9659-2d46-5aff-062b-9d7d13dfcef4@oth-regensburg.de>
+In-Reply-To: <20190604102704.7xy42j25eq2h67rq@jpc.jpnet>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+X-Original-Sender: Johannesmaisch95@gmail.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@gmail.com header.s=20161025 header.b=COXuYehY;       spf=pass
+ (google.com: domain of johannesmaisch95@gmail.com designates
+ 2a00:1450:4864:20::332 as permitted sender) smtp.mailfrom=johannesmaisch95@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -137,156 +154,87 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 06.06.19 15:53, Ralf Ramsauer wrote:
->=20
-> On 6/5/19 12:06 AM, Jan Kiszka wrote:
->> On 04.06.19 23:02, Ralf Ramsauer wrote:
->>> mov (%rax), %ax is a 16-bit data MOV_FROM_MEM that will emit
->>> 0x66 0x8b 0x00.
+Hello,
+thanks for your assistance. However, we can't boot freertos at the=20
+moment. I adapted the linker script like this and rebuilt the freertos-demo=
+:
+
+ENTRY(vectors)
+
+SECTIONS {
+ =C2=A0=C2=A0=C2=A0 /* jailhouse arm inmates have to start at address zero =
+*/
+ =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 . =3D 0x48000000;
+ =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .boot=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : { *(.boot) }
+
+ =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 . =3D ALIGN(4096);
+ =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 . =3D . + 0x1000;
+ =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 stack_top =3D .;
+ =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 . =3D . + 0x1000;
+ =C2=A0=C2=A0=C2=A0 irq_stack_top =3D .;
+ =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bss_start =3D .;
+ =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .bss=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : {
+ =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 *(.bss)
+ =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 *(COMMON)
+ =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+
+after that i tried to boot freertos in u-boot with the following commands:
+
+=3D> load mmc 0:1 0x48000000 freertos-demo.bin
+reading freertos-demo.bin
+198508 bytes read in 45 ms (4.2 MiB/s)
+=3D> go 0x48000000
+
+But the Freertos-demo still doesn't work. Is there anything else we have=20
+to do?
+
+Johannes
+
+
+Am 04.06.2019 um 12:27 schrieb Dr. Johann Pfefferl:
+> Hello,
+>
+> the start address can be adapted in the linker script file
+> "lscript.lds".
+>
+> The UART is initialized completely by FreeRTOS itself including the
+> clock gating (hopefully).
+>
+> Hans
+>
+> Jan Kiszka <jan.kiszka@siemens.com> wrote:
+>> On 04.06.19 11:09, johannesmaisch95@gmail.com wrote:
+>>> Hello,
 >>>
->>> 0x66 is the operand-size override prefix which we currently do not
->>> support.
+>>> we want to do a comparison of running FreeRTOS on the Banana Pi with Ja=
+ilhouse and running FreeRTOS bare-metal on the Banana Pi for a study-projec=
+t at Hochschule Esslingen. We were successfull in doing this with the Jailh=
+ouse hypervisor, but we currently didn't find a way to boot FreeRTOS bare-m=
+etal on the banana pi. So our question is, if there's a way to boot the fre=
+ertos-demo.bin from the freertos-cell bare-metal on the banana pi.
 >>>
->>> We should support it, as we can find this opcode, for example, for some
->>> mmconfig space access from Linux (e.g., pci_generic_config_read).
->>>
->>> This also adds appropriate mmio-access tests.
->>>
->>> Tested in QEMU virtual target.
->>>
->>> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
->>> ---
->>>  =C2=A0 hypervisor/arch/x86/include/asm/processor.h |=C2=A0 1 +
->>>  =C2=A0 hypervisor/arch/x86/mmio.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 37 +++=
-++++++++++++++----
->>>  =C2=A0 inmates/tests/x86/mmio-access-32.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 +++
->>>  =C2=A0 inmates/tests/x86/mmio-access.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 +++
->>>  =C2=A0 4 files changed, 40 insertions(+), 6 deletions(-)
->>>
->>> diff --git a/hypervisor/arch/x86/include/asm/processor.h
->>> b/hypervisor/arch/x86/include/asm/processor.h
->>> index 70a6c3ff..d8111690 100644
->>> --- a/hypervisor/arch/x86/include/asm/processor.h
->>> +++ b/hypervisor/arch/x86/include/asm/processor.h
->>> @@ -145,6 +145,7 @@
->>>  =C2=A0 =C2=A0 #define X86_REX_CODE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 4
->>>  =C2=A0 +#define X86_PREFIX_OP_SZ=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x66
->>>  =C2=A0 #define X86_PREFIX_ADDR_SZ=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x67
->>>  =C2=A0 =C2=A0 #define X86_OP_MOVZX_OPC1=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x0f
->>> diff --git a/hypervisor/arch/x86/mmio.c b/hypervisor/arch/x86/mmio.c
->>> index b234bd79..6d9ad1c5 100644
->>> --- a/hypervisor/arch/x86/mmio.c
->>> +++ b/hypervisor/arch/x86/mmio.c
->>> @@ -79,6 +79,26 @@ static unsigned int get_address_width(bool
->>> has_addrsz_prefix)
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (!!(cs_attr & V=
-CPU_CS_DB) ^ has_addrsz_prefix) ? 4 : 2;
->>>  =C2=A0 }
->>>  =C2=A0 +static unsigned int get_op_width(bool has_rex_w, bool has_opsz=
-_prefix)
+>> Conceptually, you need to make the demo executable at a different physic=
+al
+>> address (it's configured to run from address 0, but RAM starts at 0x4000=
+0000
+>> on the board), and then you could load it there via u-boot and jump to i=
+t.
+>> You also have to ensure that the demo configures its uart itself and doe=
+sn't
+>> rely on the root cell to do anything. I don't recall if that is already =
+the
+>> case. Hans may tell more about that.
 >>
->> We should move all the flags into parse_context so that we can pass them
->> around more easily.
->=20
-> Good point.
->=20
+>> Jan
 >>
->>> +{
->>> +=C2=A0=C2=A0=C2=A0 u16 cs_attr;
->>> +=C2=A0=C2=A0=C2=A0 bool long_mode;
->>> +
->>> +=C2=A0=C2=A0=C2=A0 /* Op size prefix is ignored if rex.w =3D 1 */
->>> +=C2=A0=C2=A0=C2=A0 if (has_rex_w)
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 8;
->>> +
->>> +=C2=A0=C2=A0=C2=A0 cs_attr =3D vcpu_vendor_get_cs_attr();
->>> +=C2=A0=C2=A0=C2=A0 long_mode =3D (vcpu_vendor_get_efer() & EFER_LMA) &=
-&
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (cs=
-_attr & VCPU_CS_L);
->>
->> This may mean accessing the same VMCS regs multiple times. I vaguely
->> recall from KVM that it pays off to avoid that and keep the results
->> cached (per vmexit).
->=20
-> See comment below=E2=80=A6
->=20
-> (BTW: not that it solved this issue, but we could also consider to
-> inline VCPU_VENDOR_GET_ accessors)
->=20
->>
->>> +
->>> +=C2=A0=C2=A0=C2=A0 if (long_mode)
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* CS.d is ignored in long =
-mode */
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return has_opsz_prefix ? 2 =
-: 4;
->>> +
->>> +=C2=A0=C2=A0=C2=A0 return (!!(cs_attr & VCPU_CS_DB) ^ has_opsz_prefix)=
- ? 4 : 2;
->>
->> This does the same as get_address_width (minus different output values),
->> but its code format is different. Should be aligned.
->=20
-> Yeah. I chose this style, as it took me a while to understand what
->=20
-> long_mode ? (has_addrsz_prefix ? 4 : 8) : (!!(cs_attr & VCPU_CS_DB) ^
-> has_addrsz_prefix) ? 4 : 2;
->=20
-> actually means -- with respect to ?'s operator precedence (which is
-> clear in this case, but I got confused). May I propose to rather align
-> the line mentioned above? (but let's see -- maybe we can consolidate it
-> in any case)
+>> --=20
+>> Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+>> Corporate Competence Center Embedded Linux
 
-I think you will still have two instances of the same pattern, but with=20
-different results. But when folding them into the same function, please use=
- the=20
-same format for them. Readability trumps, no question.
-
->=20
->>
->> In fact, I could imagine a combined helper:
->>
->> void parse_widths(struct parse_context *ctx,
->>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct mmio_instruction *inst,
->>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool parse_addr_width)
->>
->> That one would obtain cs_attr and long_mode only once, would do the
->> address width thing only if parse_addr_width is true, and would push its
->> results directly into *inst.
->=20
-> ... as an inlined single-user function, right?
-
-The compiler will do the inlining when it makes sense. In this case likely =
-not=20
-because there will remain multiple call sites.
-
->=20
-> Good idea, that would also save the potential double efer/cs_attr
-> access. I'm just curious: It's Intel's vmread that you worry about? At
-> least on AMD, guest's efer is directly read from vmcs region.
-
-Yes. Possibly accessing the same VMCS register twice in the same vmexit cyc=
-le is=20
-no longer as expensive as it used to be, but I doubt it will be faster than=
- not=20
-reading it twice (but rather taking it from a register or a cache).
-
-Jan
-
---=20
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -294,5 +242,5 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/eb6da892-059f-16f7-2473-74fbff2cc2d8%40siemens.com.
+jailhouse-dev/9d12161b-a004-ad5e-0dfe-1b1c249358cb%40gmail.com.
 For more options, visit https://groups.google.com/d/optout.
