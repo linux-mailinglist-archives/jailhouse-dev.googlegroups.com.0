@@ -1,138 +1,126 @@
-Return-Path: <jailhouse-dev+bncBCZ3TK6ASEDBBLFF5DTQKGQEWLEBYXY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBRWD5DTQKGQET2U6RRA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x13b.google.com (mail-lf1-x13b.google.com [IPv6:2a00:1450:4864:20::13b])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDC703850F
-	for <lists+jailhouse-dev@lfdr.de>; Fri,  7 Jun 2019 09:30:52 +0200 (CEST)
-Received: by mail-lf1-x13b.google.com with SMTP id a25sf311585lfl.0
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 07 Jun 2019 00:30:52 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1559892652; cv=pass;
+Received: from mail-ed1-x539.google.com (mail-ed1-x539.google.com [IPv6:2a00:1450:4864:20::539])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9640938662
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  7 Jun 2019 10:35:18 +0200 (CEST)
+Received: by mail-ed1-x539.google.com with SMTP id b33sf2041098edc.17
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 07 Jun 2019 01:35:18 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1559896518; cv=pass;
         d=google.com; s=arc-20160816;
-        b=u4NQ4hrnD//oGKnAU3aNJpgMVRtzyyGGvO2Q8+RprBN+z7v16fQG7KcpBUgkp6X/ha
-         tuA2+fCbt1NN/CAg23RTv6rWNO+S5f3UmgBC/4ZZCMpM5qnAgBZLCw+xC7Ns9Sn0L7zP
-         cwSmqJIPYl+0ijIXEEmWMOi75fCYnbAW3rj8Dwye0VnnZIQI4uMRIoI368d/szn7Em2O
-         1vWKFTldchGJXII5Gw0L6S8k1Bdo74QA90CBn4nP5dyM88LlHQzoyjUI4gv7NjFbRbhJ
-         O4s005kXcgwzPSjrMBFmy3YT1plfdgD/mEPq8ysM6TcLp1K5Trzetjm3CvSGoLeZhCQu
-         aUMw==
+        b=Y/AYqtr+cxQPGmp4V4wM7kc0AqMqpxdbSzEbmrzcUAqDoaJ1pRrEX+W6cPyJBwGWY6
+         rtNV/ZPadXkqIeC/ot1vR7cxlsDl/HmW+WP/L1NI4i9b6YHHHdRUWI8MzfKxCb+dIpfb
+         Nj7XHt+7Jg3AlHOabqlDRNoh/uRdUHzNsrzBUA28dn7mhApActaguNRGMcTHIhCLVHFa
+         oPUNvCsssazzR1G+wyfqY1ly0lgvq4bbVgSVGitaQWcerVlxrfbvc27S3fZCS8BdWaYW
+         T5Mye3BjdvoSj86GdDgb3ZzL4fzf517D30jFSCRShCFCdt4KT0Z+fofLgNpXWbQBGWC3
+         OYLQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:user-agent:in-reply-to
-         :content-transfer-encoding:content-disposition:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:dkim-signature;
-        bh=eNMn0Fi18FwJKvzISi9gWrRfoMUamyC3KEpHfMYaEwg=;
-        b=aUO2WPRFqv6Ygkui9FGNe+xjykKPPlCmcxxvt3aEu3dtEJJzSDep1F4Lo9khq4Z/Rz
-         v8BTm475Rrvsba+F9YguMEce/S6a7nRJl2/9I9kTWhLy1QBUkRjPUA9r5lor49SuyceE
-         11f1iblv3EQDOV0OOZjEK3Y130pPAHzrpq7DDcO1HMkB48LvVsFN5AMYj81dJaFRVfs3
-         0SRjgQVaMUoBaMaqGsBAfTs1PYx3DA4FiuRyLA2pCILiMd1Zd/56ziz84bUdHfENgeBm
-         QMu5I80qbg8PUd/PPrOKEeEh0bvJ7g7GGSo9LtTns+jfwkQwil9dMuMoROymGmiPcpo0
-         +Obw==
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:to:subject
+         :sender:dkim-signature;
+        bh=Mv7bgFs1UVF0gv/VAvhxFDYwae0aYlEIMcUOeij8D70=;
+        b=GSBMyzAOn00z4j8yyG9XF087xNMaiQCIBlFTKAuyJWwLq0+aetYH6VQ3Lgpzgh8lEW
+         UPlm1k1RFgTdsjujCkzj4B4OUw8XxMcQg7X3ZsSw5dUdPPpJqjhf5k/mx8ldRum4nkZW
+         LRNT1uS7x53nNDXPFCh9glO0vvdDZ0BAkbJNuY35IuH0iFXqcm3P1BnTfu15+sqd3hc1
+         84Nd9ulWMSHmLRQrWblnWifjR4JHHLjIn8Oubx/aDmXn4uwxtxT5JdyDsdGiZKsTtF/f
+         q3lM9oTlFcy5dV43BOv2t+OQTZ+DDhMt4SWHMDg5sTLeveyP3XOtRQawhMDvWYGfyOH/
+         fzKw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of johann.pfefferl@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=johann.pfefferl@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:content-transfer-encoding:in-reply-to
-         :user-agent:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=eNMn0Fi18FwJKvzISi9gWrRfoMUamyC3KEpHfMYaEwg=;
-        b=YUi2mTXEALjYhJHVuXIPOZXymafFHfreWhImtAf8R9PjrGABIPYbMmteJ6l8D0ZvLf
-         LA/Ve92Bl7RAD6YvrEn4s0g9CXTEU3dRClI8aMQG4KOrYlaEcdborkU8JrquTi0XFk5h
-         GMqIjvplcO3b+3dYfPRWwpP08Eo86TskKwj9C9zOrtMmnWGGHgbSAXtbvPTYryKWoadt
-         TBBJZzfark/CoQ+BN3nSqmvKPDdRFVef4ZzDWurGKOqibYmjvjItsucFwQn7EcU1vpKW
-         lCnK7JvnU1gMW6m9r6v/vxW4+RJPRRUnfX9AfJfVMHDmNbrRQK253eOS1HaTmC1BjJXK
-         /pYA==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=Mv7bgFs1UVF0gv/VAvhxFDYwae0aYlEIMcUOeij8D70=;
+        b=rcHyw5cRpO4DnABYcN/h3nvEWowH1cxG3cbAQW86iqVoOZh+6rUYomg3Yj2rBxeCLw
+         qVJO/mLeErKSgcZ5u3U9H9TjSahK5xIJeAI6JVrVeHAlBPbxRkunJU3m3GE03hjpkovI
+         tkstI/1T36BdTmCM0ZNa7b0eZW5AELNX7pzB4UNP6THkOE0GwZyTipByeq4TPBX5i3a3
+         kPRr7RlDfOjjjx76dGZHkd+qF+tdKk8bAFYgOR0Txotzr04sJSrzuHKoBoDLbKXtTb/q
+         hxUayr/N34sb66qI3ZEX07UFhH7iqyn/GhELG5k0YAQ2NgSZprR6WQyP1sz1mvnEbNeb
+         O/aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:cc:subject:message-id
-         :references:mime-version:content-disposition
-         :content-transfer-encoding:in-reply-to:user-agent:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=eNMn0Fi18FwJKvzISi9gWrRfoMUamyC3KEpHfMYaEwg=;
-        b=HtZZN6ClHe0GIwV0Skfh/SUKLq82LSxsiISeWWrWJRm/bfJcgNX/mOOxscsJbE+DNm
-         LjrABQcQpx2uzFSxY7yOOJKRTGTxUG+0E1mj9MmZJhAzp7aTBXenEHclaw4ALpRXSZvU
-         DP50del7xiaFTWs/JVWdfoPeYioBfa6uGXywqUUBMV7xvPJPZBhrchMhIdQp2RpUhqwA
-         eP3nSkfQjzDDbFIN9NRuL/0U+s84CUMxeF59/VvSUh2kxjlYf/nVY9Y1w7IEm+LtLmyP
-         gfif6glonluF4NPzc1e5hR+mDXby5fepITNSzPD8OJvLmxIoLn20JVcZudh+81Hh3zai
-         XbrQ==
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=Mv7bgFs1UVF0gv/VAvhxFDYwae0aYlEIMcUOeij8D70=;
+        b=t6PXEzZl/kNSEnMaRE3HKLb21Zmkrk1JjAn1kF3G9xWus2WgtL/P5usW2NFieQsJUS
+         HLGddQHKzhS2IX6Mi+CH/fEfM989/6vjuDbCs+/CYCmH8XpifRCt5GNdtyzwEDJx6oPo
+         KUAMQZ9u3QONYAvKzagycWuOBIMppW3S3KCfFRuxbpVib3EN/CKou9VWDsGget/2S8vL
+         QX12WCG5o6nUsiCMicgKh4DS2I4KRxwozk39/7xarzJamNLxo0ot/7joDTc7T3OAtzsv
+         5gCeqVfMHn8Cx+iK83RolO4to5M8VzjUXTrT9w1NMwWzlX3j55aNjPlPHmMPW4OTyMyo
+         ipTA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAX/r6oBFCm5vlI7tnIEGBYXdCu3wJeQ5xvXZH+BKiE33MYpLkqX
-	JnL1vHEXKe/vW34QwYF9uUU=
-X-Google-Smtp-Source: APXvYqwg/xmORiDRvMrEm8dKaA0U8TWGLEI3kbuExne7GAnFW/AUAFZLm4Fm/P6qzvtkKJT8sqFOsg==
-X-Received: by 2002:a2e:8796:: with SMTP id n22mr26927626lji.75.1559892652300;
-        Fri, 07 Jun 2019 00:30:52 -0700 (PDT)
+X-Gm-Message-State: APjAAAWyzzIQM6Q6ZVzN8AmpCnzkrvu9Kp4ewBOMrnTm10rlHxaoXS/0
+	YMQbmecU+6LSVsUOrel8HoA=
+X-Google-Smtp-Source: APXvYqy8sOxtecBeZYaII8vgKvy4BzxkyqUIp/Da199IKz4FoepaPDuNT0VgN6ZcYaXsHboFM9ysmA==
+X-Received: by 2002:a17:906:3455:: with SMTP id d21mr45889579ejb.66.1559896518363;
+        Fri, 07 Jun 2019 01:35:18 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:9e0a:: with SMTP id e10ls101563ljk.9.gmail; Fri, 07 Jun
- 2019 00:30:51 -0700 (PDT)
-X-Received: by 2002:a2e:8583:: with SMTP id b3mr8578301lji.171.1559892651800;
-        Fri, 07 Jun 2019 00:30:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1559892651; cv=none;
+Received: by 2002:a50:9728:: with SMTP id c37ls608992edb.12.gmail; Fri, 07 Jun
+ 2019 01:35:17 -0700 (PDT)
+X-Received: by 2002:aa7:c810:: with SMTP id a16mr12297033edt.188.1559896517513;
+        Fri, 07 Jun 2019 01:35:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1559896517; cv=none;
         d=google.com; s=arc-20160816;
-        b=XyoC0Zbj97BP5m2hmd52ek9lwLM2qgXn5/HDzIf0IPW7ROJWDx97uw4YH1szqVXMLG
-         QZHyJBtoeiedP7hXtGFRrEFeXdcM/cI7dX8hthifEBtB3A/vDhaZpCET5Muxh9btxFYg
-         RCLZzF802rgRH/fOU6naEyTGB9iv7jQHGwSSJYxk+yIW1IRVyUA9hqtVyfd7v53KHjQw
-         YIh3z038I3Edm8VxViF4LbngUzbdCRdlaPuIGmn1xvi5gxf8A6ZUJZrISikvCjYVo2Tr
-         orSVPOhvVsNVOZAD+D7Doy0s2CURuBcUMPlPluKItZ6ov82+6hVnCH/xTEzg3CL0zdun
-         5yHA==
+        b=SVBzAg4iQMiNkCBm8c/YDMQl+lcUtQn/qzMNDfG/9X2rYpKz/+ebUl3Oc9UHfKwgqc
+         R1PLj4P3j590GUQkEGYgJSrqcryumAHGt8ecNQhRTtHVGlRlNhbO/wawd3AB3biW49d3
+         EJKTbv1dvRxFg5duDVFmB/VZnxOfgjeXh+J5HTnpt8ZRraZ2v5xehRREtD/n6Yhr1+ZA
+         pkyajFBpmfQ42vSaDIkAmz1BFIXp956uGX+Q+NXj9VM+28gKrrZzr9MbWfeOQsH3Ymsf
+         t95tibeMyw2twMIo8t+3U53qNvY28GcVoOeMEUWp9E444w433ikSnh28iTNbYUrGzkoF
+         YXYg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:mime-version:references:message-id:subject:cc
-         :to:from:date;
-        bh=InneaWjJd1FaedTlwYBEAiDIKelxlHyVV+1XTmtXdmg=;
-        b=O+4eSr/OCIgXSmArHqocdfMGAY47AKK8d8OhDn3CnhzH9LqofIsbLLp9VwLvTQVVol
-         Mkxqu7SIQl4dpDv2Ic/n2QU+Sow5X7ZFUYOE4buE7bBCK8JenyhQNbuVThoiJePQOfUs
-         DDAD1tvd85f4x3GWgIi+sOm3d8kGWbOigIjQfh/VoK5Bka/tX+AiM6wiWyb0vfVccQQc
-         sILWwYvM1ZWIsUDq++g/HpDHqu9NKhSjRu9l3Dg/mIIDfVzr2jxug7Hajo6X5djAVEcI
-         OC8gCwNM3181CtddXvyV3SrqN8So2zdMwmQ4eFuNv314G0DIMfrX9XVNt5FJRttUQch1
-         FBFQ==
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=4GdU67VEm5P5M8Ir4qrg+9kJ27rxnMYzOhy0y8xnGJk=;
+        b=VnQNFiWThy2xF6U1ln7tHKCThFGl+ul7r4DceAn6iz9Kg6uPmek9jpk4BDDNLQyp2y
+         0/EHDrZEOU/YMXyCEn/5AuEtK6TB7Lojy4SY0T88QrHglB5jckM0W/wdDGC0S3c0gPJ5
+         hJ7Y6WNeIUp09PwZRR2HbSZT7b53u01jUHvlevb14c3dockSv225vfRxLCqgtnh9BYCC
+         Hap0eLEy86XC8aDfLICaFKmHQNR/r4qkK/2dY9P33q3ihhsjCdNFDXrxMfnIy1YsTXgG
+         9mVGHhPMRLmfJliSiDhm8+98Db2ewJTV14ehS7CNIsoB4RGzBXb7sRq2nFTeUEj6p9Ta
+         mcYA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of johann.pfefferl@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=johann.pfefferl@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id c15si73627lji.0.2019.06.07.00.30.51
+Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
+        by gmr-mx.google.com with ESMTPS id t36si45151edb.0.2019.06.07.01.35.17
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 07 Jun 2019 00:30:51 -0700 (PDT)
-Received-SPF: pass (google.com: domain of johann.pfefferl@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
+        Fri, 07 Jun 2019 01:35:17 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id x577Uo7i008306
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id x578ZHFY022482
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 7 Jun 2019 09:30:50 +0200
-Received: from jpc.jpnet (DEMCHP-JPPJ.ppmd.siemens.net [139.25.69.153])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTPS id x577UobY002493
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Fri, 7 Jun 2019 09:30:50 +0200
-Received: by jpc.jpnet (Postfix, from userid 1223)
-	id 8B04F1B20242; Fri,  7 Jun 2019 09:30:50 +0200 (CEST)
-Date: Fri, 7 Jun 2019 09:30:50 +0200
-From: "Dr. Johann Pfefferl" <johann.pfefferl@siemens.com>
-To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Cc: Johannes Maisch <johannesmaisch95@gmail.com>,
-        "Dr. Johann Pfefferl" <johann.pfefferl@siemens.com>,
-        Jan Kiszka <jan.kiszka@siemens.com>,
-        Jailhouse <jailhouse-dev@googlegroups.com>,
-        Daniel Schmid <dascit16@hs-esslingen.de>
-Subject: Re: Freertos-demo bare-metal boot
-Message-ID: <20190607073050.z6bwedzkvwvy6u5l@jpc.jpnet>
-References: <f8c8bb48-ac7a-4bd2-a554-0f42a31fa5b6@googlegroups.com>
- <90eb1048-d5b5-7dcd-fa9c-ff9b715bd97b@siemens.com>
- <20190604102704.7xy42j25eq2h67rq@jpc.jpnet>
- <9d12161b-a004-ad5e-0dfe-1b1c249358cb@gmail.com>
- <95b6464e-f439-9b8f-8df6-2ad7281c5cf9@oth-regensburg.de>
+	Fri, 7 Jun 2019 10:35:17 +0200
+Received: from [167.87.58.12] ([167.87.58.12])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id x578ZGss006697;
+	Fri, 7 Jun 2019 10:35:16 +0200
+Subject: Re: [PATCH v2 1/3] x86: mmio: fix accidental clears of bits in
+ registers
+To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
+        jailhouse-dev@googlegroups.com
+References: <20190606224457.1053-1-ralf.ramsauer@oth-regensburg.de>
+ <20190606224457.1053-2-ralf.ramsauer@oth-regensburg.de>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <d9071e5a-ae9c-5915-b81d-eafb57d27789@siemens.com>
+Date: Fri, 7 Jun 2019 10:35:16 +0200
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
+ Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <95b6464e-f439-9b8f-8df6-2ad7281c5cf9@oth-regensburg.de>
-User-Agent: NeoMutt/20170113 (1.7.2)
-X-Original-Sender: johann.pfefferl@siemens.com
+In-Reply-To: <20190606224457.1053-2-ralf.ramsauer@oth-regensburg.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Language: en-US
+X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of johann.pfefferl@siemens.com designates 194.138.37.40
- as permitted sender) smtp.mailfrom=johann.pfefferl@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -145,161 +133,146 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hello,
+On 07.06.19 00:44, Ralf Ramsauer wrote:
+> We trap certain MMIO accesses and need to emulate their access.
+> 
+> On x86, a 32-bit read will clear bits 32-63 of a register.
+> 
+> Inconsistently, on x86, 16-bit and 8-bit reads must not clear high bits.
+> Jailhouse erroneously cleared those bits. Prevent this by applying a
+> preserved mask that keeps bits alive.
+> 
+> Add tests that check correct behaviour.
+> 
+> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+> ---
+>   hypervisor/arch/x86/include/asm/mmio.h |  5 +++++
+>   hypervisor/arch/x86/mmio.c             |  5 ++++-
+>   hypervisor/arch/x86/vcpu.c             |  7 +++++--
+>   inmates/tests/x86/mmio-access-32.c     | 10 +++++++---
+>   inmates/tests/x86/mmio-access.c        | 10 +++++++---
+>   5 files changed, 28 insertions(+), 9 deletions(-)
+> 
+> diff --git a/hypervisor/arch/x86/include/asm/mmio.h b/hypervisor/arch/x86/include/asm/mmio.h
+> index 756c84a8..4b3b2ea8 100644
+> --- a/hypervisor/arch/x86/include/asm/mmio.h
+> +++ b/hypervisor/arch/x86/include/asm/mmio.h
+> @@ -30,6 +30,11 @@ struct mmio_instruction {
+>   	/** Output value, already copied either from a register or
+>            * from an immediate value */
+>   	unsigned long out_val;
+> +	/** A read must not clear the upper bits of registers, if the access
+> +	 * width is smaller than 32 bit. This mask describes the bits that have
+> +	 * to be preserved.
+> +	 */
+> +	unsigned long reg_preserve_mask;
+>   };
+>   
+>   /**
+> diff --git a/hypervisor/arch/x86/mmio.c b/hypervisor/arch/x86/mmio.c
+> index b234bd79..c04cf449 100644
+> --- a/hypervisor/arch/x86/mmio.c
+> +++ b/hypervisor/arch/x86/mmio.c
+> @@ -85,7 +85,7 @@ x86_mmio_parse(const struct guest_paging_structures *pg_structs, bool is_write)
+>   	struct parse_context ctx = { .remaining = X86_MAX_INST_LEN,
+>   				     .count = 1 };
+>   	union registers *guest_regs = &this_cpu_data()->guest_regs;
+> -	struct mmio_instruction inst = { .inst_len = 0 };
+> +	struct mmio_instruction inst = { 0 };
+>   	u64 pc = vcpu_vendor_get_rip();
+>   	unsigned int n, skip_len = 0;
+>   	bool has_immediate = false;
+> @@ -168,6 +168,9 @@ restart:
+>   
+>   	op[2].raw = *ctx.inst;
+>   
+> +	if (!does_write && inst.access_size < 4)
+> +		inst.reg_preserve_mask = ~BYTE_MASK(inst.access_size);
+> +
+>   	/* ensure that we are actually talking about mov imm,<mem> */
+>   	if (op[0].raw == X86_OP_MOV_IMMEDIATE_TO_MEM && op[2].modrm.reg != 0)
+>   		goto error_unsupported;
+> diff --git a/hypervisor/arch/x86/vcpu.c b/hypervisor/arch/x86/vcpu.c
+> index 5a557d0b..a1fb8660 100644
+> --- a/hypervisor/arch/x86/vcpu.c
+> +++ b/hypervisor/arch/x86/vcpu.c
+> @@ -231,6 +231,7 @@ bool vcpu_handle_mmio_access(void)
+>   	struct mmio_access mmio = {.size = 0};
+>   	struct vcpu_mmio_intercept intercept;
+>   	struct mmio_instruction inst;
+> +	unsigned long *reg;
+>   
+>   	vcpu_vendor_get_mmio_intercept(&intercept);
+>   
+> @@ -249,8 +250,10 @@ bool vcpu_handle_mmio_access(void)
+>   
+>   	result = mmio_handle_access(&mmio);
+>   	if (result == MMIO_HANDLED) {
+> -		if (!mmio.is_write)
+> -			guest_regs->by_index[inst.in_reg_num] = mmio.value;
+> +		if (!mmio.is_write) {
+> +			reg= &guest_regs->by_index[inst.in_reg_num];
+> +			*reg = (*reg & inst.reg_preserve_mask) | mmio.value;
+> +		}
+>   		vcpu_skip_emulated_instruction(inst.inst_len);
+>   		return true;
+>   	}
+> diff --git a/inmates/tests/x86/mmio-access-32.c b/inmates/tests/x86/mmio-access-32.c
+> index 2f47f211..be1d470f 100644
+> --- a/inmates/tests/x86/mmio-access-32.c
+> +++ b/inmates/tests/x86/mmio-access-32.c
+> @@ -47,9 +47,13 @@ void inmate_main(void)
+>   	EXPECT_EQUAL(reg32, pattern);
+>   
+>   	/* MOV_FROM_MEM (8a), 8-bit data */
+> -	asm volatile("movb (%%ebx), %%al"
+> -		: "=a" (reg32) : "a" (0), "b" (mmio_reg));
+> -	EXPECT_EQUAL(reg32, (u8)pattern);
+> +	asm volatile("movb (%%eax), %%al"
+> +		: "=a" (reg32) : "a" (mmio_reg));
+> +	EXPECT_EQUAL((u8)reg32, (u8)pattern);
 
-Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de> wrote:
-> Hi Hans,
-> hi all,
->=20
-> is the inmate actually supposed to run on bare-metal w/o jailhouse?
+Hmm, that test looks redundant to the following one. Same for other 
+double-checks in this patch and patch 3. Or am I missing something?
 
-It was never tested before.
+> +	/* %al should contain 0x44, while higher bits still hold the rest of
+> +	 * mmio_reg. Test this. */
+> +	EXPECT_EQUAL(reg32,
+> +		     ((unsigned long)mmio_reg & ~0xffUL) | (pattern & 0xff));
+>   
+>   	/* MOVZXB (0f b6), 32-bit data, 32-bit address */
+>   	asm volatile("movzxb (%%ebx), %%eax"
+> diff --git a/inmates/tests/x86/mmio-access.c b/inmates/tests/x86/mmio-access.c
+> index 0e6a56b1..a9d2fcaf 100644
+> --- a/inmates/tests/x86/mmio-access.c
+> +++ b/inmates/tests/x86/mmio-access.c
+> @@ -67,9 +67,13 @@ void inmate_main(void)
+>   	EXPECT_EQUAL(reg64, (u32)pattern);
+>   
+>   	/* MOV_FROM_MEM (8a), 8-bit data */
+> -	asm volatile("movb (%%rbx), %%al"
+> -		: "=a" (reg64) : "a" (0), "b" (mmio_reg));
+> -	EXPECT_EQUAL(reg64, (u8)pattern);
+> +	asm volatile("movb (%%rax), %%al"
+> +		: "=a" (reg64) : "a" (mmio_reg));
+> +	EXPECT_EQUAL((u8)reg64, (u8)pattern);
+> +	/* %al should contain 0x88, while high bits should still hold the rest
+> +	 * of mmio_reg */
+> +	EXPECT_EQUAL(reg64,
+> +		     ((unsigned long)mmio_reg & ~0xffUL) | (pattern & 0xff));
+>   
+>   	/* MOVZXB (0f b6), to 64-bit, mod=0, reg=0, rm=3 */
+>   	asm volatile("movzxb (%%rbx), %%rax"
+> 
 
->=20
-> Correct UART consoles are set? I'd try to add a very early printk inside
-> freertos just to check if that part is 'alive'. As you have already
-> remarked, the UART requires clock gating on bare-metal, while we in
-> Jailhouse, we may handover a gated uart device.
+Jan
 
-The UART is initialized completely by FreeRTOS itself. I do not suppose
-that the UART is already working.
+-- 
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+Corporate Competence Center Embedded Linux
 
->=20
-> And then there's paging: AFAIR, u-boot hands over with id-mapped paging
-> enabled, didn't it? On jailhouse, we hand over with paging completely
-> disabled.
-
-Yes. I think that could be the main reason why it does not start.
-FreeRTOS is configuring MMU, Caches by its own. It assumes that all this
-is off when it enters the "boot_stub.S" code. It simply starts from a
-Reset state. The reset vector is the entry point here. The inmate_main
-only runs correctly if the stack for IRQ and privileged mode are setup
-already.
-
->=20
-> On 6/6/19 5:52 PM, Johannes Maisch wrote:
-> > Hello,
-> > thanks for your assistance. However, we can't boot freertos at the
-> > moment. I adapted the linker script like this and rebuilt the
-> > freertos-demo:
-> >=20
-> > ENTRY(vectors)
-> >=20
-> > SECTIONS {
-> > =C2=A0=C2=A0=C2=A0 /* jailhouse arm inmates have to start at address ze=
-ro */
->=20
-> That comment is no longer up to date - inmates don't have to start at
-> zero, I added the CONFIG_INMATE_BASE option a while ago, for exactly
-> this case: it allows to use the same inmates on bare-metal, as well as
-> as jailhouse guests.
->=20
-> The motivation of my patches were motivated by your exact use-case:
-> Having the same inmate for both, bare-metal and in jailhouse, is ideal
-> for benchmarks or comparisons.
->=20
->   Ralf
->=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 . =3D 0x48000000;
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .boot=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : { *(.boot) }
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 . =3D ALIGN(4096);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 . =3D . + 0x1000;
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 stack_top =3D .;
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 . =3D . + 0x1000;
-> > =C2=A0=C2=A0=C2=A0 irq_stack_top =3D .;
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bss_start =3D .;
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .bss=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 *(.bss)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 *(COMMON)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> >=20
-> > after that i tried to boot freertos in u-boot with the following comman=
-ds:
-> >=20
-> > =3D> load mmc 0:1 0x48000000 freertos-demo.bin
-> > reading freertos-demo.bin
-> > 198508 bytes read in 45 ms (4.2 MiB/s)
-> > =3D> go 0x48000000
-> >=20
-> > But the Freertos-demo still doesn't work. Is there anything else we hav=
-e
-> > to do?
-> >=20
-> > Johannes
-> >=20
-> >=20
-> > Am 04.06.2019 um 12:27 schrieb Dr. Johann Pfefferl:
-> >> Hello,
-> >>
-> >> the start address can be adapted in the linker script file
-> >> "lscript.lds".
-> >>
-> >> The UART is initialized completely by FreeRTOS itself including the
-> >> clock gating (hopefully).
-> >>
-> >> Hans
-> >>
-> >> Jan Kiszka <jan.kiszka@siemens.com> wrote:
-> >>> On 04.06.19 11:09, johannesmaisch95@gmail.com wrote:
-> >>>> Hello,
-> >>>>
-> >>>> we want to do a comparison of running FreeRTOS on the Banana Pi with
-> >>>> Jailhouse and running FreeRTOS bare-metal on the Banana Pi for a
-> >>>> study-project at Hochschule Esslingen. We were successfull in doing
-> >>>> this with the Jailhouse hypervisor, but we currently didn't find a
-> >>>> way to boot FreeRTOS bare-metal on the banana pi. So our question
-> >>>> is, if there's a way to boot the freertos-demo.bin from the
-> >>>> freertos-cell bare-metal on the banana pi.
-> >>>>
-> >>> Conceptually, you need to make the demo executable at a different
-> >>> physical
-> >>> address (it's configured to run from address 0, but RAM starts at
-> >>> 0x40000000
-> >>> on the board), and then you could load it there via u-boot and jump
-> >>> to it.
-> >>> You also have to ensure that the demo configures its uart itself and
-> >>> doesn't
-> >>> rely on the root cell to do anything. I don't recall if that is
-> >>> already the
-> >>> case. Hans may tell more about that.
-> >>>
-> >>> Jan
-> >>>
-> >>> --=C2=A0
-> >>> Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-> >>> Corporate Competence Center Embedded Linux
-> >=20
-> >=20
-
---=20
-Siemens AG
-Corporate Technology
-Research & Technology Center
-CT RDA IOT SES-DE
-Otto-Hahn-Ring 6
-81739 Muenchen, Germany
-mailto: johann.pfefferl@siemens.com
-phone: +49 1520 3450 138
-fax:   +49 89 636 33045
-_____________________________________________________
-SIEMENS AG: Chairman of the Supervisory Board: Jim Hagemann Snabe
-Managing Board: Joe Kaeser, Chairman, President and Chief Executive Officer
-Roland Busch, Lisa Davis, Klaus Helmrich, Janina Kugel, Cedrik Neike,
-Michael Sen, Ralf P. Thomas
-Registered offices: Berlin and Munich, Germany
-Commercial registries: Berlin Charlottenburg, HRB 12300, Munich, HRB 6684
-WEEE-Reg.-No. DE 23691322
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/20190607073050.z6bwedzkvwvy6u5l%40jpc.jpnet.
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/d9071e5a-ae9c-5915-b81d-eafb57d27789%40siemens.com.
 For more options, visit https://groups.google.com/d/optout.
