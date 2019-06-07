@@ -1,141 +1,128 @@
-Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBGM65HTQKGQEJJ7MPZA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCC7DQPESQPRBFNR5HTQKGQESFZPHFI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x53f.google.com (mail-ed1-x53f.google.com [IPv6:2a00:1450:4864:20::53f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46C8938958
-	for <lists+jailhouse-dev@lfdr.de>; Fri,  7 Jun 2019 13:48:42 +0200 (CEST)
-Received: by mail-ed1-x53f.google.com with SMTP id y22sf2776770eds.14
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 07 Jun 2019 04:48:42 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1559908122; cv=pass;
+Received: from mail-pg1-x540.google.com (mail-pg1-x540.google.com [IPv6:2607:f8b0:4864:20::540])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3661938A47
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  7 Jun 2019 14:29:11 +0200 (CEST)
+Received: by mail-pg1-x540.google.com with SMTP id e16sf1328518pga.4
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 07 Jun 2019 05:29:11 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1559910549; cv=pass;
         d=google.com; s=arc-20160816;
-        b=mJNGS/kYuQxqe5WXEUu00SlWz2z6SzZ3aF840lephIXSuXEqGWopdFj4bhf7FJzvPd
-         tbnq3OXBtmDciGbLXqtUA8Yuy8v9i31iNDKGlZQ+2yn44F9t0ejoNP0C7Lz5t/8VGQrE
-         yY8d/y7FxqRPZ8KDZlayUJU/9CIE7DEiY5eQEhRav+MfQ8z/RgelBNjAOAdZ/BjmFtMA
-         hizpBu59Y35Mu4q0eto98VUSyCc9Kw5Dc8Lc9DRPX0Ge1IAG/NtDWMHhgVx8W+Vl5Qgb
-         6xE6jdT7C+husinrD1hCxAm5jsZCIoGr73aD04GvPUt2/V6RqZJpM1oKyNi8z+D2QSpb
-         6OfA==
+        b=YtYfmSGp73M/Taendjv4TO4B0P1Kb5Pu30ijNk7JzXDHiZE1lMs4oFLo6EAVDdW3Nl
+         n1hB5LIYuXyNb6k7p3fuj0ENXMCicuaXSeI7VDwPpmTM+GcskvfjE65Ylh0csKlbrPqf
+         V62Shgkf8xG0rps1qOVdLt9nZlBfgZiFXFUpjhHqJtOxX3gAID2+R8uZyGS5B3abIeKP
+         0lFyAUb595OUcXDN/tT2I1OrGjQcNJPc+PFOpWfuIMWlL4/QdnZqEkZVkVvl27MDtrcq
+         iNdYbXjG/sN4Vt78K2jJVMsPojmlHyArHkgvkgy1RFQ4wxWbPRpB9GJb8n7Y3qplXNq5
+         tUIA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:openpgp:from:references:to:subject:sender:dkim-signature;
-        bh=g02wdH2Bp9+EQDPXJJ0t6Bnk/L/tvDwRPMwrwAJsO+w=;
-        b=HjKUHAm527CGHul4v/Vb3zVgjmCsWiG0JO0yuEUr6OJdArj/SPqRDREbGUhkPzWAgA
-         v7r1fZ/GTvZrFuabVGev052WVd/00ljKPb1VsT4ZO1/CIDpX60oL0SBHcDoeY4ZRJeqH
-         5wmT63KcVVqbANzupm0puL7j1zHQciI66yp5wIjKvv8XwJVajykyKgkCDaqAc1511SxL
-         5ZtPgRtOkkWNVh0iRw5FKpdvCMGHOs9z8CfmQjjuHfpZs8FDnvK+sS6UjJ1PNnseX5Ra
-         ApiPAsKy/vN7BWKTFVFF5bE6FhsZI2xgcHZMpMmo828l7VpVF9lu6W1zlRtY2kfZ8eEk
-         iQfg==
+         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
+         :mime-version:sender:dkim-signature:dkim-signature;
+        bh=N/uB05m2TtMEOEnb5xDgtLZH5ks/0IlBxJNMvlKUEPU=;
+        b=ohssFnT4wihnFad7n7rGB8QY2i8d2vurOa0ebHrdDFTu6WHASNUK8mFH2G0RiVz7Js
+         A9Jd1eUp6S2nuxCMGlvwSSd5nyZwZVyKizqFAQ85p05V/HuHhh+F65XvdxGuAblgRsjd
+         TI2okjSxr0ygTh2RN+s3i0UruAkWq1iYmrLJgyr872+Qdj6ChexU0L/dPK+4L8rV1/0y
+         lDm1kqgWfh7ul5bIjfc15XTAUX4iVlpO29La2pw+088R4ydaCPAuYGAIX3YsGdzL/C9q
+         TPZ7pX7Ihwhf4e+ili6Pj/98pFVVXz1P/gkNCXCnafwr0s8JFJP8Xs7BxkLFSAAZggwS
+         l9aQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=IfR+mJNX;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=tVoFsXua;
+       spf=pass (google.com: domain of racedrive1503@gmail.com designates 2607:f8b0:4864:20::c29 as permitted sender) smtp.mailfrom=racedrive1503@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:openpgp:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
+        h=sender:mime-version:from:date:message-id:subject:to:cc
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=N/uB05m2TtMEOEnb5xDgtLZH5ks/0IlBxJNMvlKUEPU=;
+        b=GSbxtIhO81HgNEWfmHq8xrB3gc/YTjE64CWKPJuOssIh71Q4Iat8jE2sCv+bTy/c++
+         zS9uSR00xwAdv7hsWSCiqr9KZEzkY/x8dx3PyxrgEEYbtQra5pYQ2tpuguKD3qPBRHbN
+         pjm4b3xZTgW9+zHQ4Kjtw+hx/8ZOIXC1uU0H471ESPyzUHnFV/PztShCZGxSv6NzPPq8
+         afHszZZ4JxOOqWL10BXU0cCk9Y3kn/0hFM5fIBkuDl/y/6aybh3/keZsBgLBuWIfv1+y
+         bEVrf+qL+asZZ6/u5idlJ5Z1goGbvolTMTNh8Jsi5j8bfARYeoayT3uDrHU6qVaTAx5Q
+         SWDw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to:cc:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=g02wdH2Bp9+EQDPXJJ0t6Bnk/L/tvDwRPMwrwAJsO+w=;
-        b=mdaEg2xg6PgFmz2ufoWo1KGgmGbeFPnCrssN1RCjI8IAaAbRu5gaMb0O3EkuMESKIj
-         fFtYgDwctDygh3/kJ0YjHDtwq7jmrCfvsD1Z15xr+dKWwoMxkYKbDdFDea2W6M0Gig9a
-         38vpwsEgibsKu+71QEA1t2eZZUhRXNaAqOROCkJmykIwCt8Kjf8bmfpFnrGcUoZrPqmh
-         zj452CiG6fD8fPRPewsVRx5jg1Ly9QB6Cj7H6RMnIYUD2S6VhRaRJDzAgk1Acqtp2lnG
-         Z8zztjodblEbhGvde79IYpDBQO8GIRp6NItCN6CpNyTzcZoutoU3F2V45rxJiJl4dty+
-         r2zA==
+        bh=N/uB05m2TtMEOEnb5xDgtLZH5ks/0IlBxJNMvlKUEPU=;
+        b=jRiAMTywNF8jxeQ4ckW8N9CX3ksBxRj03+cQFeBEMhS1ml+ZZmcRrOjzTInfI4UZxQ
+         P7j5qdbSRZyP7Nl4yladfpogSGykhMQCoZ/RKtrbLpyf5kBCoFWNcJ0L118sqZqsN+Nx
+         OH93Es+SiOtpjDMSLY1IQhNc9G2cpDejGVTOxUKH0E1XWcQ7ChDb+hLnabiWxduk0lwW
+         t748jQ3IyE/MnlOModmGQ6yG+TJE/JweI5c4SpbYjPvTNESyYLsJXFXTA/cMdQwr2lnf
+         qSOir/8WGd+IaJ1fV9ig6GTwX2HGO0zWq4jbb8TcBfVCbFGiGQWSwpVSacNEcsC23oYt
+         qKlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:openpgp
-         :message-id:date:user-agent:mime-version:in-reply-to
-         :content-language:content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=g02wdH2Bp9+EQDPXJJ0t6Bnk/L/tvDwRPMwrwAJsO+w=;
-        b=EVJ/uDsg7vbamZRNpGK1UHL8FRqDef3nrimo/Y5+/Br5pwt0B6atwKhfXjDYeRoz6k
-         qLXTphikkF24rvg+Nf3gCCs+sSUEyYMoouc1O3mOoOxjkTfW/oDjQqgzGwApi9Rt1pJP
-         S4dxLr3TXZd6YDPeOePa18DW8tFqW7bzcLsJsiYCjVb5w2vGUWovrMyY8f+x/hIDBnNY
-         1lFqeRn9zCZUVcJKOE8TZ37+JgADZJhyiSMxdGWCgHw1umsaeZce520MpQlWsEyskQu/
-         W4spTFYc4oZCGcdssSoNPFNrKo/IKnAzuwEf5FVg1H/StTiSX4sM5Q6jjsXuCVUO3npd
-         +Osw==
+        h=sender:x-gm-message-state:mime-version:from:date:message-id:subject
+         :to:cc:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=N/uB05m2TtMEOEnb5xDgtLZH5ks/0IlBxJNMvlKUEPU=;
+        b=hcIMGuqn/SeuKrBl6S85xlrBpKXEftq5QGAk8CN7js2uVwchQQw1VlXKtSLMyhhDqZ
+         6Ey9udMEgDJ4uiNvBaIXv3DdxOkohSECszBqaZ2qZ7Y1i6SlkxzREQPaztoJVf4EgxMq
+         KmGJq+126VNRfDK8E2a4HcLdI8G6vR8zb0WVOp00drNOC3zLhNasTrlCnApUf5MsA3e+
+         ti+W8Gd6nXVjAvaQCBJyu8P5LjJh6Cfy+Hv8EwOA7YwP4TXDvdp60TxT11eqHPj6yvOD
+         4GKnZK1BaUJe2MUIFNGPzzIDuNvTGX+S+ozuZxTKlb4htjA3OOt0wUzIBVsjxQdMrYmF
+         /vDA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAV2MH4f1H54gCwoPf0SBMGwNeBLmRYwAnjnPt5ymO3jOXascC3e
-	WpiubH6Yw50VfYT8JEB76XI=
-X-Google-Smtp-Source: APXvYqz2apS6NEpCmdoAh7LbIzJ2syqvUWrGldjRp1sPDd8Tm2k5DTZeS/AYNFsTxzzF7cb8aFqIag==
-X-Received: by 2002:a50:ad01:: with SMTP id y1mr34526277edc.180.1559908122010;
-        Fri, 07 Jun 2019 04:48:42 -0700 (PDT)
+X-Gm-Message-State: APjAAAWmQhs7fJP81Smk6NJT7zrJw0n7cvdCfw+tdEtCui8tzaA63qO8
+	yu4opCvcEjMC7pMiM76GeLU=
+X-Google-Smtp-Source: APXvYqzU4d8l4ARk7XWlFDxgVqyeAdaWOsbneEg3yT26r9W5kpur2rg402HHOPU4ppKCRdO917/Srg==
+X-Received: by 2002:a17:90a:9289:: with SMTP id n9mr5169477pjo.35.1559910549488;
+        Fri, 07 Jun 2019 05:29:09 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a50:b7af:: with SMTP id h44ls2473925ede.15.gmail; Fri, 07
- Jun 2019 04:48:41 -0700 (PDT)
-X-Received: by 2002:a50:b107:: with SMTP id k7mr2236511edd.193.1559908121457;
-        Fri, 07 Jun 2019 04:48:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1559908121; cv=none;
+Received: by 2002:a17:902:b605:: with SMTP id b5ls2193166pls.12.gmail; Fri, 07
+ Jun 2019 05:29:09 -0700 (PDT)
+X-Received: by 2002:a17:902:1029:: with SMTP id b38mr54277005pla.72.1559910548990;
+        Fri, 07 Jun 2019 05:29:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1559910548; cv=none;
         d=google.com; s=arc-20160816;
-        b=XrdKaSgCN5bqMoMpquna3hzsVjYmel9/bGyh4h/1d05YbBzPxbOQ0k3fny655vIa95
-         Q2MUb+VrjU6pA3bOAnxxkATbokRfBF6sZE2f7kHRAtdjABjTMQbld4ZI0GfkfU+3cT2b
-         e4yH0l2BHRfTKAen8+gFho//YAwHCSVQCPqUsLpeW/WZs2JI6c8UzJcewKbp1LOoPOcC
-         +uWeQDea+z2mMZfTQJIZqBU93WPQ187EYZdj4a+fYfN/7pL4GCv7z9oBqpvd2yBcTC/6
-         uqQ9abl8EYcEgO+HdUIN+hYUzR6E9qOrysizLKgqVsiGEYONAUUJf94OErQgBzjbOHpQ
-         ExaQ==
+        b=wE23eYAfQw/1aR/gS1YhTbXJwZynzhNb81r++/VZOQmhIFx4tWr1qW34830U1Ms4rp
+         3IARQi3pyo8oIp+7TRkdmEViZ95gZNl+GROdf6GgzG4HuFgCtOAbi0d8z3JWMBIdR9hw
+         GC2TkkWgFx0ohT5uoermwn4nXAa6ffn296MmLtvRccYALovTZeZPfOOMenVmpRcDhD22
+         g7Z5VoBaHmi8jHC2s1l2H+51GsmGv5ibymZx0qItGvFUhT2GrVBYSJO9T1dCWdnsexrR
+         czwWaOXDRjVi5WwoWevMir8yOM9NRPRc5pyGd0cYMr/uuqvkBHpVCXtIIR+3dnXfNzc7
+         lwNw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:openpgp:from:references:to:subject
-         :dkim-signature;
-        bh=NJN8faRabR43Q9b7+qjdAWee/PPqbcin7fZ4hZuSamg=;
-        b=Htp5pCSxkE3kgfAZs6jEoIdHHUXd5SPkLfDeJz5Frz+oWeV1gHUWBeLYFOtkvr445S
-         JiVQvyoSz41kWAseAK3RTqfc4VifXpLRQJZHVwlWwhinoU395TOvHHf/FHybxTnfNrzo
-         0CywBKjxRn+y4fiw2U0Sm0SGgcxkq+MX6EWtvJhurm+eHPsJYu5jAJAEtPn4zRHaZP4/
-         4flmL6cfGCcE2nY7U+jim51tBia00Gu98mJAAUoowpyfF8/3H614EmmmMph+H07OfIba
-         yJMb81FsDoRTiAZzxl5dVY0nvmj43dajjOizwGSkUj4eugt8mxc6+6hrwX01beh2+94+
-         CQxA==
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=WzEIEHUqXEDtiXkBq9oyjYBsK4zXefwLEdGKTWBFCeA=;
+        b=pvJ/EkuLDzJPR8yPYTZO3WYhIKiGkSjO4Q44jjc+tMsWI8RWxENsMvNxpDGWxvjUFN
+         h4EYAOHRamu8Vz4bCiKwqYRtdc6xZMxUhCru7AriW87jIF5b5rgwAiOP9zqH+RNf3fK9
+         qafd2expuD6kK72RyUP5WIE6Oyq9zKOsew2FPXHiIGl2eUpHDLcXmwM/bVWj1Z5B52Dw
+         Goxr+G8wWiHvqKWUCdMoTYDtw1LkrPL+7wWIAloNMsvOUxeMaS8SyB1PZ2O10Cy5s9A6
+         e2gcBWvxIU1kjVRT1r9Ra1OzIb5go44XoP0Q+LIW4xxM+PK33120FJ9VhVROECTLEo+g
+         v7SQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=IfR+mJNX;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [194.95.104.11])
-        by gmr-mx.google.com with ESMTPS id t36si58117edb.0.2019.06.07.04.48.41
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=tVoFsXua;
+       spf=pass (google.com: domain of racedrive1503@gmail.com designates 2607:f8b0:4864:20::c29 as permitted sender) smtp.mailfrom=racedrive1503@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-yw1-xc29.google.com (mail-yw1-xc29.google.com. [2607:f8b0:4864:20::c29])
+        by gmr-mx.google.com with ESMTPS id s24si93041plr.0.2019.06.07.05.29.08
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 07 Jun 2019 04:48:41 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) client-ip=194.95.104.11;
-Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S02", Issuer "E16S02" (not verified))
-	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 45L1546N56zyMW;
-	Fri,  7 Jun 2019 13:48:40 +0200 (CEST)
-Received: from [IPv6:2001:638:a01:8061:aefd:ceff:fef3:ba65]
- (2001:638:a01:8013::138) by E16S02.hs-regensburg.de (2001:638:a01:8013::92)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 7 Jun 2019
- 13:48:40 +0200
-Subject: Re: [PATCH v2 3/3] x86: mmio: add support for 0x66 operand prefix
-To: Jan Kiszka <jan.kiszka@siemens.com>, <jailhouse-dev@googlegroups.com>
-References: <20190606224457.1053-1-ralf.ramsauer@oth-regensburg.de>
- <20190606224457.1053-4-ralf.ramsauer@oth-regensburg.de>
- <6294be2a-0ce1-1021-1691-c801456b36a3@siemens.com>
- <954cb55c-f616-ddbe-19a7-5fc336c01ad7@oth-regensburg.de>
- <705ff8a6-e48c-1257-f16a-3a3dfd1faab5@siemens.com>
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Openpgp: preference=signencrypt
-Message-ID: <bad98443-d907-352e-f7d1-ab42281bbc9e@oth-regensburg.de>
-Date: Fri, 7 Jun 2019 13:48:14 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+        (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
+        Fri, 07 Jun 2019 05:29:08 -0700 (PDT)
+Received-SPF: pass (google.com: domain of racedrive1503@gmail.com designates 2607:f8b0:4864:20::c29 as permitted sender) client-ip=2607:f8b0:4864:20::c29;
+Received: by mail-yw1-xc29.google.com with SMTP id s5so633206ywd.9
+        for <jailhouse-dev@googlegroups.com>; Fri, 07 Jun 2019 05:29:08 -0700 (PDT)
+X-Received: by 2002:a81:67c2:: with SMTP id b185mr15315533ywc.504.1559910548028;
+ Fri, 07 Jun 2019 05:29:08 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <705ff8a6-e48c-1257-f16a-3a3dfd1faab5@siemens.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: de-DE
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [2001:638:a01:8013::138]
-X-ClientProxiedBy: E16S02.hs-regensburg.de (2001:638:a01:8013::92) To
- E16S02.hs-regensburg.de (2001:638:a01:8013::92)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+From: Wayne <racedrive1503@gmail.com>
+Date: Fri, 7 Jun 2019 08:28:57 -0400
+Message-ID: <CA++Khc2iKk1J6+0huh5__dS4HyujXzV9r+LbKLzuVZ4K3Bt5eA@mail.gmail.com>
+Subject: Linux non-root node question
+To: jailhouse-dev@googlegroups.com
+Cc: jan.kiszka@siemens.com
+Content-Type: multipart/alternative; boundary="00000000000018c0cc058abafaef"
+X-Original-Sender: racedrive1503@gmail.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=IfR+mJNX;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+ header.i=@gmail.com header.s=20161025 header.b=tVoFsXua;       spf=pass
+ (google.com: domain of racedrive1503@gmail.com designates 2607:f8b0:4864:20::c29
+ as permitted sender) smtp.mailfrom=racedrive1503@gmail.com;       dmarc=pass
+ (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -148,361 +135,92 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
+--00000000000018c0cc058abafaef
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hello,
 
-On 6/7/19 1:45 PM, Jan Kiszka wrote:
-> On 07.06.19 13:22, Ralf Ramsauer wrote:
->>
->>
->> On 6/7/19 1:04 PM, Jan Kiszka wrote:
->>> On 07.06.19 00:44, Ralf Ramsauer wrote:
->>>> mov (%rax), %ax is a 16-bit data MOV_FROM_MEM that will emit
->>>> 0x66 0x8b 0x00.
->>>>
->>>> 0x66 is the operand-size override prefix which we currently do not
->>>> support.
->>>>
->>>> We should support it, as we can find this opcode, for example, for som=
-e
->>>> mmconfig space access from Linux (e.g., pci_generic_config_read).
->>>>
->>>> This also adds appropriate mmio-access tests.
->>>>
->>>> Tested in QEMU virtual target.
->>>>
->>>> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
->>>> ---
->>>> =C2=A0=C2=A0 hypervisor/arch/x86/include/asm/processor.h |=C2=A0 1 +
->>>> =C2=A0=C2=A0 hypervisor/arch/x86/mmio.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | =
-47
->>>> +++++++++++++++------
->>>> =C2=A0=C2=A0 inmates/tests/x86/mmio-access-32.c=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 21 ++++++++-
->>>> =C2=A0=C2=A0 inmates/tests/x86/mmio-access.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 21 ++++++++-
->>>> =C2=A0=C2=A0 4 files changed, 76 insertions(+), 14 deletions(-)
->>>>
->>>> diff --git a/hypervisor/arch/x86/include/asm/processor.h
->>>> b/hypervisor/arch/x86/include/asm/processor.h
->>>> index 70a6c3ff..d8111690 100644
->>>> --- a/hypervisor/arch/x86/include/asm/processor.h
->>>> +++ b/hypervisor/arch/x86/include/asm/processor.h
->>>> @@ -145,6 +145,7 @@
->>>> =C2=A0=C2=A0 =C2=A0 #define X86_REX_CODE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 4
->>>> =C2=A0=C2=A0 +#define X86_PREFIX_OP_SZ=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x66
->>>> =C2=A0=C2=A0 #define X86_PREFIX_ADDR_SZ=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x67
->>>> =C2=A0=C2=A0 =C2=A0 #define X86_OP_MOVZX_OPC1=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x0f
->>>> diff --git a/hypervisor/arch/x86/mmio.c b/hypervisor/arch/x86/mmio.c
->>>> index df8c97a1..b836f43c 100644
->>>> --- a/hypervisor/arch/x86/mmio.c
->>>> +++ b/hypervisor/arch/x86/mmio.c
->>>> @@ -54,6 +54,7 @@ struct parse_context {
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool has_rex_w;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool has_rex_r;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool has_addrsz_prefix;
->>>> +=C2=A0=C2=A0=C2=A0 bool has_opsz_prefix;
->>>> =C2=A0=C2=A0 };
->>>> =C2=A0=C2=A0 =C2=A0 static bool ctx_update(struct parse_context *ctx, =
-u64 *pc,
->>>> unsigned int advance,
->>>> @@ -74,14 +75,33 @@ static bool ctx_update(struct parse_context *ctx,
->>>> u64 *pc, unsigned int advance,
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return true;
->>>> =C2=A0=C2=A0 }
->>>> =C2=A0=C2=A0 -static unsigned int get_address_width(bool has_addrsz_pr=
-efix)
->>>> +static void parse_widths(struct parse_context *ctx,
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct mmio_instruction *inst, bool parse_addr_=
-width)
->>>> =C2=A0=C2=A0 {
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u16 cs_attr =3D vcpu_vendor_get_c=
-s_attr();
->>>> -=C2=A0=C2=A0=C2=A0 bool long_mode =3D (vcpu_vendor_get_efer() & EFER_=
-LMA) &&
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (cs_attr & VCPU_CS_L);
->>>> +=C2=A0=C2=A0=C2=A0 bool cs_db =3D !!(cs_attr & VCPU_CS_DB);
->>>> +=C2=A0=C2=A0=C2=A0 bool long_mode =3D
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (vcpu_vendor_get_efer() & =
-EFER_LMA) && (cs_attr & VCPU_CS_L);
->>>> =C2=A0=C2=A0 -=C2=A0=C2=A0=C2=A0 return long_mode ? (has_addrsz_prefix=
- ? 4 : 8) :
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (!!(cs_attr & VCPU_CS_DB) =
-^ has_addrsz_prefix) ? 4 : 2;
->>>> +=C2=A0=C2=A0=C2=A0 /* Op size prefix is ignored if rex.w =3D 1 */
->>>> +=C2=A0=C2=A0=C2=A0 if (ctx->has_rex_w) {
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 inst->access_size =3D 8;
->>>> +=C2=A0=C2=A0=C2=A0 } else {
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (long_mode)
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* CS.d is ignored in long=
- mode */
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 in=
-st->access_size =3D ctx->has_opsz_prefix ? 2 : 4;
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 in=
-st->access_size =3D
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 (cs_db ^ ctx->has_opsz_prefix) ? 4 : 2;
->>>> +=C2=A0=C2=A0=C2=A0 }
->>>> +
->>>> +=C2=A0=C2=A0=C2=A0 if (parse_addr_width) {
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (long_mode)
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 in=
-st->inst_len +=3D ctx->has_addrsz_prefix ? 4 : 8;
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 in=
-st->inst_len +=3D
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 (cs_db ^ ctx->has_addrsz_prefix) ? 4 : 2;
->>>> +=C2=A0=C2=A0=C2=A0 }
->>>> =C2=A0=C2=A0 }
->>>> =C2=A0=C2=A0 =C2=A0 struct mmio_instruction
->>>> @@ -118,6 +138,11 @@ restart:
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 goto error_noinst;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ctx.has_a=
-ddrsz_prefix =3D true;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto rest=
-art;
->>>> +=C2=A0=C2=A0=C2=A0 case X86_PREFIX_OP_SZ:
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!ctx_update(&ctx, &pc,=
- 1, pg_structs))
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 go=
-to error_noinst;
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ctx.has_opsz_prefix =3D tr=
-ue;
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto restart;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 case X86_OP_MOVZX_OPC1:
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!ctx_=
-update(&ctx, &pc, 1, pg_structs))
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 goto error_noinst;
->>>> @@ -134,28 +159,26 @@ restart:
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ctx.does_=
-write =3D true;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 case X86_OP_MOV_TO_MEM:
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 inst.access_size =3D ctx.h=
-as_rex_w ? 8 : 4;
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 parse_widths(&ctx, &inst, =
-false);
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ctx.does_=
-write =3D true;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 case X86_OP_MOVB_FROM_MEM:
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 inst.acce=
-ss_size =3D 1;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 case X86_OP_MOV_FROM_MEM:
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 inst.access_size =3D ctx.h=
-as_rex_w ? 8 : 4;
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 parse_widths(&ctx, &inst, =
-false);
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 case X86_OP_MOV_IMMEDIATE_TO_MEM:
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 inst.access_size =3D ctx.h=
-as_rex_w ? 8 : 4;
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 parse_widths(&ctx, &inst, =
-false);
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ctx.has_i=
-mmediate =3D true;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ctx.does_=
-write =3D true;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 case X86_OP_MOV_MEM_TO_AX:
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 inst.inst_len +=3D get_add=
-ress_width(ctx.has_addrsz_prefix);
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 inst.access_size =3D ctx.h=
-as_rex_w ? 8 : 4;
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 parse_widths(&ctx, &inst, =
-true);
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 inst.in_r=
-eg_num =3D 15;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto fina=
-l;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 case X86_OP_MOV_AX_TO_MEM:
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 inst.inst_len +=3D get_add=
-ress_width(ctx.has_addrsz_prefix);
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 inst.access_size =3D ctx.h=
-as_rex_w ? 8 : 4;
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 parse_widths(&ctx, &inst, =
-true);
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 inst.out_=
-val =3D guest_regs->by_index[15];
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ctx.does_=
-write =3D true;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto fina=
-l;
->>>> diff --git a/inmates/tests/x86/mmio-access-32.c
->>>> b/inmates/tests/x86/mmio-access-32.c
->>>> index be1d470f..9c1db1d8 100644
->>>> --- a/inmates/tests/x86/mmio-access-32.c
->>>> +++ b/inmates/tests/x86/mmio-access-32.c
->>>> @@ -41,6 +41,10 @@ void inmate_main(void)
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mmio_write32(mmio_reg, pattern);
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 EXPECT_EQUAL(*comm_page_reg, patt=
-ern);
->>>> =C2=A0=C2=A0 +=C2=A0=C2=A0=C2=A0 /* MOV_FROM_MEM (8b), 16-bit data, 32=
--bit address, OP size
->>>> prefix */
->>>> +=C2=A0=C2=A0=C2=A0 asm volatile("mov (%%eax), %%ax" : "=3Da" (reg32) =
-: "a" (mmio_reg));
->>>> +=C2=A0=C2=A0=C2=A0 EXPECT_EQUAL((u16)reg32, (u16)pattern);
->>>> +
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* MOV_FROM_MEM (8b), 32-bit data=
-, 32-bit address */
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 asm volatile("movl (%%ebx), %%eax=
-"
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : "=3Da" =
-(reg32) : "a" (0), "b" (mmio_reg));
->>>> @@ -55,6 +59,13 @@ void inmate_main(void)
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 EXPECT_EQUAL(reg32,
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 ((unsigned long)mmio_reg & ~0xffUL) | (pattern &
->>>> 0xff));
->>>> =C2=A0=C2=A0 +=C2=A0=C2=A0=C2=A0 /* MOV_FROM_MEM (8a), 8-bit data, 32-=
-bit address, OP size
->>>> prefix */
->>>> +=C2=A0=C2=A0=C2=A0 asm volatile("data16 mov (%%eax), %%al"
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : "=3Da" (reg32) : "a" (mm=
-io_reg));
->>>> +=C2=A0=C2=A0=C2=A0 EXPECT_EQUAL((u8)reg32, (u8)pattern);
->>>> +=C2=A0=C2=A0=C2=A0 EXPECT_EQUAL(reg32,
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 ((unsigned long)mmio_reg & ~0xffUL) | (pattern & 0xff));
->>>> +
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* MOVZXB (0f b6), 32-bit data, 3=
-2-bit address */
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 asm volatile("movzxb (%%ebx), %%e=
-ax"
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : "=3Da" =
-(reg32) : "a" (0), "b" (mmio_reg));
->>>> @@ -87,7 +98,15 @@ void inmate_main(void)
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* MOV_TO_MEM (88), 8-bit data */
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 asm volatile("movb %%al, (%%ebx)"
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : : "a" (=
-0x42), "b" (mmio_reg));
->>>> -=C2=A0=C2=A0=C2=A0 EXPECT_EQUAL(*comm_page_reg, (pattern & 0xffffff00=
-) | 0x42);
->>>> +=C2=A0=C2=A0=C2=A0 EXPECT_EQUAL(*comm_page_reg, (pattern & ~0xffUL) |=
- 0x42);
->>>> +
->>>> +=C2=A0=C2=A0=C2=A0 /* MOV_TO_MEM (88), 8-bit data, OP size prefix */
->>>> +=C2=A0=C2=A0=C2=A0 asm volatile("data16 mov %%al, (%%ebx)" : : "a" (0=
-x23), "b"
->>>> (mmio_reg));
->>>> +=C2=A0=C2=A0=C2=A0 EXPECT_EQUAL(*comm_page_reg, (pattern & ~0xffUL) |=
- 0x23);
->>>> +
->>>> +=C2=A0=C2=A0=C2=A0 /* MOV_TO_MEM (89), 16-bit data, OP size prefix */
->>>> +=C2=A0=C2=A0=C2=A0 asm volatile("mov %%ax, (%%ebx)" : : "a" (0x2342),=
- "b"
->>>> (mmio_reg));
->>>> +=C2=A0=C2=A0=C2=A0 EXPECT_EQUAL(*comm_page_reg, (pattern & ~0xffffUL)=
- | 0x2342);
->>>> =C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* IMMEDIATE_TO_MEM (c7), =
-32-bit data, mod=3D0, reg=3D0, rm=3D3 */
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 asm volatile("movl %0, (%%ebx)"
->>>> diff --git a/inmates/tests/x86/mmio-access.c
->>>> b/inmates/tests/x86/mmio-access.c
->>>> index a9d2fcaf..3794555f 100644
->>>> --- a/inmates/tests/x86/mmio-access.c
->>>> +++ b/inmates/tests/x86/mmio-access.c
->>>> @@ -51,6 +51,10 @@ void inmate_main(void)
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mmio_write64(mmio_reg, pattern);
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 EXPECT_EQUAL(*comm_page_reg, patt=
-ern);
->>>> =C2=A0=C2=A0 +=C2=A0=C2=A0=C2=A0 /* MOV_FROM_MEM (8b), 16-bit data, Ox=
-66 OP size prefix */
->>>> +=C2=A0=C2=A0=C2=A0 asm volatile("mov (%%rax), %%ax" : "=3Da" (reg64) =
-: "a" (mmio_reg));
->>>> +=C2=A0=C2=A0=C2=A0 EXPECT_EQUAL((u16)reg64, (u16)pattern);
->>>> +
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* MOV_FROM_MEM (8b), 64-bit data=
-, mod=3D0, reg=3D0, rm=3D3 */
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 asm volatile("movq (%%rbx), %%rax=
-"
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : "=3Da" =
-(reg64) : "a" (0), "b" (mmio_reg));
->>>> @@ -75,6 +79,13 @@ void inmate_main(void)
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 EXPECT_EQUAL(reg64,
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 ((unsigned long)mmio_reg & ~0xffUL) | (pattern &
->>>> 0xff));
->>>> =C2=A0=C2=A0 +=C2=A0=C2=A0=C2=A0 /* MOV_FROM_MEM (8a), 8-bit data */
->>>> +=C2=A0=C2=A0=C2=A0 asm volatile("data16 mov (%%rax), %%al"
->>>
->>> The comment should probably clarify that data16 has to be ignored in
->>> 64-bit mode, right?
->>
->> Right. In 32-bit mode it remains a 8-bit mov as well.
->>
->> /* MOV_FROM_MEM(8a), 8-bit data, 0x66 OP size prefix (ignored) */
->>
->>
->> (second comment below)
->>
->>
->>>
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : "=3Da" (reg64) : "a" (mm=
-io_reg));
->>>> +=C2=A0=C2=A0=C2=A0 EXPECT_EQUAL((u8)reg64, (u8)pattern);
->>>> +=C2=A0=C2=A0=C2=A0 EXPECT_EQUAL(reg64,
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 ((unsigned long)mmio_reg & ~0xffUL) | (pattern & 0xff));
->>>> +
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* MOVZXB (0f b6), to 64-bit, mod=
-=3D0, reg=3D0, rm=3D3 */
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 asm volatile("movzxb (%%rbx), %%r=
-ax"
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : "=3Da" =
-(reg64) : "a" (0), "b" (mmio_reg));
->>>> @@ -129,7 +140,15 @@ void inmate_main(void)
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* MOV_TO_MEM (88), 8-bit data */
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 asm volatile("movb %%al, (%%rbx)"
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : : "a" (=
-0x42), "b" (mmio_reg));
->>>> -=C2=A0=C2=A0=C2=A0 EXPECT_EQUAL(*comm_page_reg, (pattern & 0xffffffff=
-ffffff00) |
->>>> 0x42);
->>>> +=C2=A0=C2=A0=C2=A0 EXPECT_EQUAL(*comm_page_reg, (pattern & ~0xffUL) |=
- 0x42);
->>>> +
->>>> +=C2=A0=C2=A0=C2=A0 /* MOV_TO_MEM (88), 8-bit data, OP size prefix */
->>>> +=C2=A0=C2=A0=C2=A0 asm volatile("data16 mov %%al, (%%ebx)" : : "a" (0=
-x23), "b"
->>
->> Just noticed: ebx should be rbx, and=E2=80=A6
->>
->>>> (mmio_reg));
->>>> +=C2=A0=C2=A0=C2=A0 EXPECT_EQUAL(*comm_page_reg, (pattern & ~0xffUL) |=
- 0x23);
->>>> +
->>>> +=C2=A0=C2=A0=C2=A0 /* MOV_TO_MEM (89), 16-bit data, OP size prefix */
->>>> +=C2=A0=C2=A0=C2=A0 asm volatile("mov %%ax, (%%ebx)" : : "a" (0x2342),=
- "b"
->>>> (mmio_reg));
->>
->> =E2=80=A6 same here. Doesn't make a difference, but should be aligned.
->>
->=20
-> OK, integrated all - and decided to drop the duplicate tests. Merged to
-> next.
+I am new to Linux development and Jailhouse.  I have successfully booted
+the Jailhouse Hypervisor and root cell on a bare metal X86 Linux system (No
+QEMU).  I am now trying to load a non-root Linux cell and I have a few
+questions.  Jailhouse accepts and starts my non-root linux cell
+configuration and I see it as "running" through the "jailhouse cell list"
+command.  However, I don't see any serial output from the "non-root linux"
+cell booting up.  I=E2=80=99m not sure what the non-root node is doing at t=
+his
+point.
 
-Great, thanks for fixing up things.
+               My root node is a 4.16 kernel configured this way:
+                              1. CONFIG_JAILHOUSE_GUEST is not set
+                              2. CONFIG_SERIO=3Dy
+                              3. CONFIG_SERIAL_8250_RUNTIME_UARTS=3D4
 
-  Ralf
+               My non-root node is a 4.16 kernel configured this way:
+                              1. CONFIG_JAILHOUSE_GUEST=3Dy
+                              2. CONFIG_SERIO=3Dm (can't seem to disable
+completely in my config for 4.16)
+                              3. CONFIG_SERIAL_8250_RUNTIME_UARTS=3D1
 
->=20
-> Thanks,
-> Jan
->=20
+In general, do the kernel config settings have to match between the root
+node and non-linux or is the above fine?
+
+The vmlinux-4.1.16-Guest bzImage is approx 7MB, and the inmate node is
+allocated ~75MB of RAM.
+
+I have a single UART, so I have configured the root cell system config to
+output to the virtual hypervisor console:
+
+.flags =3D JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
+
+.debug_console =3D {
+.type =3D JAILHOUSE_CON_TYPE_NONE,
+},
+
+and I have configured the non-root linux cell to output to the UART:
+
+(Added serial 0x3f8 to pio bitmap for non-root linux) and started the node
+with this:
+
+./tools/jailhouse cell linux configs/x86/linux-x86.cell
+/boot/vmlinux-4.1.16-Guest -c "console=3DttyS0,115200"
+(Note I also tried "console=3Djailhouse" in the command above, and that
+produces the same result)
+
+I then see the following on my hypervisor console (./tools/jailhouse
+console -f):
+
+Created cell "linux-x86-demo"
+...
+Cell "linux-x86-demo" can be loaded
+Started cell "linux-x86-demo"
+
+After a little while I do get a parked CPU error on the root node, looks
+like its trying to do something with the UART as well:
+FATAL: Invalid PIO read, port: 3fe size: 1
+
+I would expect something to pop out on the UART from the non-root linux
+node first.  Note that root node has serial 0x3f8 disabled in its pio
+bitmap.
+
+I verifed that the UART is functioning by allowing the hypervisor to print
+to it and also performed an echo test over ttyS0.
+
+I have tried several configurations of kernel.....including your current
+"queues/jailhouse" branch head kernel for the non-root node, along with the
+kernel config for 4.7 posted in this thread below (but I get same result as
+above when I start it, no kernel output):
+               "
+https://groups.google.com/forum/#!searchin/jailhouse-dev/Re$3A$20Failed$20t=
+o$20boot$20jailhouse%7Csort:relevance/jailhouse-dev/M7UO89XFIk0/Qi40DDuMBAA=
+J
+".
+
+Any information you can provide to me will be helpful.  I'm not sure what
+might be going wrong here.
+
+Thanks,
+Wayne
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -510,5 +228,85 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/bad98443-d907-352e-f7d1-ab42281bbc9e%40oth-regensburg.de.
+jailhouse-dev/CA%2B%2BKhc2iKk1J6%2B0huh5__dS4HyujXzV9r%2BLbKLzuVZ4K3Bt5eA%4=
+0mail.gmail.com.
 For more options, visit https://groups.google.com/d/optout.
+
+--00000000000018c0cc058abafaef
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hello,<br><br>I am new to Linux development and Jailhouse.=
+=C2=A0 I have successfully booted the Jailhouse Hypervisor and root cell on=
+ a bare metal X86 Linux system (No QEMU).=C2=A0 I am now trying to load a n=
+on-root Linux cell and I have a few questions.=C2=A0 Jailhouse accepts and =
+starts my non-root linux cell configuration and I see it as &quot;running&q=
+uot; through the &quot;jailhouse cell list&quot; command.=C2=A0 However, I =
+don&#39;t see any serial output from the &quot;non-root linux&quot; cell bo=
+oting up.=C2=A0 I=E2=80=99m not sure what the non-root node is doing at thi=
+s point.<br><br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0My r=
+oot node is a 4.16 kernel configured this way:<br>=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 1. CONFIG_JAILHOUSE_GUEST is not set<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 2. CONFIG_SERIO=3Dy<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 3. CONFIG_SERIAL_8=
+250_RUNTIME_UARTS=3D4<br><br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0My non-root node is a 4.16 kernel configured this way:<br>=C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 1. CONFIG_JAILHOUSE_GUEST=3Dy<br>=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 2. CONFIG_SERIO=3Dm (can&#39;t seem to disable completely in =
+my config for 4.16)<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 3. CONFIG_SERIAL_8250_=
+RUNTIME_UARTS=3D1<br><br>In general, do the kernel config settings have to =
+match between the root node and non-linux or is the above fine?<br><br>The =
+vmlinux-4.1.16-Guest bzImage is approx 7MB, and the inmate node is allocate=
+d ~75MB of RAM.<br><br>I have a single UART, so I have configured the root =
+cell system config to output to the virtual hypervisor console:<br><br>.fla=
+gs =3D JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,<br><br>.debug_console =3D {<br>=
+	.type =3D JAILHOUSE_CON_TYPE_NONE,<br>},<br><br>and I have configured the =
+non-root linux cell to output to the UART:<br><br>(Added serial 0x3f8 to pi=
+o bitmap for non-root linux) and started the node with this:<br><br>./tools=
+/jailhouse cell linux configs/x86/linux-x86.cell /boot/vmlinux-4.1.16-Guest=
+ -c &quot;console=3DttyS0,115200&quot;<br>(Note I also tried &quot;console=
+=3Djailhouse&quot; in the command above, and that produces the same result)=
+<br><br>I then see the following on my hypervisor console (./tools/jailhous=
+e console -f):<br><br>Created cell &quot;linux-x86-demo&quot;<br>...<br>Cel=
+l &quot;linux-x86-demo&quot; can be loaded<br>Started cell &quot;linux-x86-=
+demo&quot;<br><br>After a little while I do get a parked CPU error on the r=
+oot node, looks like its trying to do something with the UART as well: <br>=
+FATAL: Invalid PIO read, port: 3fe size: 1<br><br>I would expect something =
+to pop out on the UART from the non-root linux node first.=C2=A0 Note that =
+root node has serial 0x3f8 disabled in its pio bitmap.<div><br></div><div>I=
+ verifed that the UART is functioning by allowing the hypervisor to print t=
+o it and also performed an echo test over ttyS0.<br><div><br>I have tried s=
+everal configurations of kernel.....including your current &quot;queues/jai=
+lhouse&quot; branch head kernel for the non-root node, along with the kerne=
+l config for 4.7 posted in this thread below (but I get same result as abov=
+e when I start it, no kernel output):<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0&quot;<a href=3D"https://groups.google.com/forum/#!sea=
+rchin/jailhouse-dev/Re$3A$20Failed$20to$20boot$20jailhouse%7Csort:relevance=
+/jailhouse-dev/M7UO89XFIk0/Qi40DDuMBAAJ">https://groups.google.com/forum/#!=
+searchin/jailhouse-dev/Re$3A$20Failed$20to$20boot$20jailhouse%7Csort:releva=
+nce/jailhouse-dev/M7UO89XFIk0/Qi40DDuMBAAJ</a>&quot;.<br><br>Any informatio=
+n you can provide to me will be helpful.=C2=A0 I&#39;m not sure what might =
+be going wrong here.<br><br>Thanks,<br>Wayne<br></div></div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/CA%2B%2BKhc2iKk1J6%2B0huh5__dS4HyujXzV9r%2BLbKLzuV=
+Z4K3Bt5eA%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://=
+groups.google.com/d/msgid/jailhouse-dev/CA%2B%2BKhc2iKk1J6%2B0huh5__dS4Hyuj=
+XzV9r%2BLbKLzuVZ4K3Bt5eA%40mail.gmail.com</a>.<br />
+For more options, visit <a href=3D"https://groups.google.com/d/optout">http=
+s://groups.google.com/d/optout</a>.<br />
+
+--00000000000018c0cc058abafaef--
