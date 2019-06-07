@@ -1,129 +1,123 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB6EG5HTQKGQE7LOYIGY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBSEJ5HTQKGQEKKOW6MI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x138.google.com (mail-lf1-x138.google.com [IPv6:2a00:1450:4864:20::138])
-	by mail.lfdr.de (Postfix) with ESMTPS id 078EB3885C
-	for <lists+jailhouse-dev@lfdr.de>; Fri,  7 Jun 2019 12:59:05 +0200 (CEST)
-Received: by mail-lf1-x138.google.com with SMTP id v188sf460302lfa.20
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 07 Jun 2019 03:59:05 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1559905144; cv=pass;
+Received: from mail-lf1-x13f.google.com (mail-lf1-x13f.google.com [IPv6:2a00:1450:4864:20::13f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 13FEF38874
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  7 Jun 2019 13:04:41 +0200 (CEST)
+Received: by mail-lf1-x13f.google.com with SMTP id v188sf463850lfa.20
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 07 Jun 2019 04:04:41 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1559905480; cv=pass;
         d=google.com; s=arc-20160816;
-        b=eZFhsLyvhNjX4F3s9YvuWjiBJo6oFQvSIAuBh9PIgRj/WvqJNFRWfOTYjKPMAdsD/e
-         IoVX6DeEr42NCO1K8q//X47TYS/2A07+Q4uDq6hbdK2IZXDv7/6ZPMc+0bAVva8jT8+I
-         n9NTr+Y9h2WTyGgsSLdE4sAw7fbDdqm2SvCNIzVhRZRUYgrzg7e+QvljLKBvK6qwF/cH
-         /ZF+tP14xQ7i3MY/rXrEaD7Ohm+COKbHWm3ERF85C80aEDJRMejZooxSz9vued2RJ6Mt
-         isavcGsK7912BO6pVNz7NNR3183sIC9zTEktVdb7ZABKMsY8uUP8Yf5dHMTj6L2YWU+x
-         toEg==
+        b=FxGrPm+KsTtTTIVk5trilCJl72C7aN/ugaHyuUmL6kDKujYO1RAArgKf3AOY4HsQtl
+         wKMyL3lNLTIxrfsgyz0ypbPDcUFOrH1IyPCaJPAcYcGKlUiwkmjQ45AYQfGo3epqvb0F
+         EI2f7imF2LMssiCdhiXBPEczXgd273mZxdnnmemeAeixNS269pfjohtufAnh8S7rupvo
+         RR8byVqA51cvooeP5vkbSC6r3JKUKXftocQhUgsRzMyplYf05KGBawmb3x67oF7BNaLB
+         pzXLxQa6HcDz9A6QVMfi73xb/ju7lb1wImxE2pKw8sJCgi4w2zSmyOdAiUZrxQsC3UFn
+         u4rA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=yCYj+4cDWmQsH0vDngVBN6R0ZCPTvJC6e5qK0tm+24c=;
-        b=gbZ0mf5Sdvjdn/dvBrORrOAwzDaNR2s0+SaI/r0LZZGQlV7HxoU5rfXzb8Vn9xPRH9
-         wAPIR+N6ju6Ds9uqB/Y7VnqAR6jBYqNf36YLAM7Qp7DHX9dZYv+NYieViFkQrPu+Eb+v
-         nhH7jJTr1lCoGVFAfzRv60yNmcbxf5LE6JCw9Wy2MS4C7f6uoq9f7Dp2aWzJTvIwXY96
-         Pd7R9N5AYAdrv4YIZvIFpj4hmeJbQ18QvVmFYXZamCT8TXpMsArSXWkErWn5miRjlDyN
-         6lwxX9q+/WIyKjlY06EmsRgrs/hcngjCwWwdwrQTumRJfUU4Ed3D5B73DjBNH1ZLLW9g
-         T/Bg==
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:to:subject
+         :sender:dkim-signature;
+        bh=1/sJh8a2AuC24OzO4EmVdBPW5mYNaYxT7HWpD5yYRLc=;
+        b=d8zyYgPWM57rn11EeND/NMAC4Zq6kjrRORT1g6iQbJC2/SMcYNyRSmfC+q4jHp1qsJ
+         Bbr/TMnZQ5Ram3u5rlJjVwjFZpgzoMg0Z0j1rPNWPVn9GXbmqzPbSiw+C9KT7an5tidR
+         OHyvZDJ7702AzGosVHnVjHsyGl2K5/QQiavzWS8gIIvu1MyklvN4ySxCIIcUVuIdCjc1
+         BpplQQSw3rKC0CoREQYor0Fe+Stky3obPxiJObm4c9ywVwS3rzC/OYhjrsZ7Lcz8Dw5Z
+         HnyA9t3RAlGtUJCxosk73MfWii41dFTR7wxpiLbMOnZcgshcwW4lcCC1NUr1dxW0ELlH
+         O00g==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=yCYj+4cDWmQsH0vDngVBN6R0ZCPTvJC6e5qK0tm+24c=;
-        b=eXXi0SCbeNXuDIrwq0ET1z6uqU913esbjQhTpQPdT9mbtilQXun10BEabPU5vRlLZe
-         wMrT8jOIIYbzgd5CyhC3q9Wu+QFUe/wlxKS1mW3GBv6z7htdZ6TQYhZw5ustEXfCzdj6
-         b7HBZGwA65PVc2Qzd0pHHyCMUTZlb+idWnmiervgNXg1vRQei6rxrG/ggCiTENdmkakf
-         hyJqxIg2Ap5MBKZDGCh6UfiJn/EdMncOgHS+YZueeE8dGOGhNs+3bOUhSCYtILdKOTo/
-         PsvJrDX9TGo3x8d9X8zIJ2KJXxIWKZ9JHEr0OkY+jbElkFglWyscMVWK8LlKuh3GjXR9
-         KtBw==
+         :mime-version:in-reply-to:content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=1/sJh8a2AuC24OzO4EmVdBPW5mYNaYxT7HWpD5yYRLc=;
+        b=gVKylnHT7rumlbn0m4I3P9Au8PlG9dWu0LpX/H5+X0kjc/8UmK+ogFP96z9VTvoc28
+         X0Jr1R27twO4SNL3EdXWSafGgisiUgk2Utk4QgG1aSXwZFd16TtC15g66V842i7D4c/7
+         Ww1sn4TDikIo/4HsQd5+Va7W7JHqfm7Y1kxrXY66snUiBl/KFyjFHR3cN/Wl4Ur5IqXx
+         YG4nOAaLvJORgfd4vFIIujsCjkQy2CDtzZQQnle7qf9/XWBRdrd+kTMB1hmrOPiYEoFO
+         fLa/R8qrO0SUF21L8vB03z4Lcg40Lp1KFuvflZLwdk9FLxxDqyft3OJa2S36uM10FhV1
+         SQyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:subject:to:references:from:message-id
          :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=yCYj+4cDWmQsH0vDngVBN6R0ZCPTvJC6e5qK0tm+24c=;
-        b=XA+KRpa4Of0A3StGMMCpmUQI6LemZ/i2SBipmZ6RZFtx0MBCjtlDkTaLqWtqeBPQvy
-         hCx5T71ahR3dwZVEHCk1Ud3zgKVtQRsXHSWQX0ys3oUSy7SpGrMKIqYF9Io85vmax9tk
-         7uGbnTNCthsDlKhnSLhm7k02rl1WALR2wbgS3gQXeO6eDJVhwaFUJ9dxbrbM9F+9H2/G
-         rrW7jPjvdemIaJtdOMZyimzT41C4AZdS/IrPcLiqf+DDwM2LXtKppZpzDF48qJSn1DTG
-         24/KcjgjiIP7p9pjzvWHC9Y1Q386TAbweFWkXoLhp39wHIyXNfgz2oGwug8bMKk8OMcE
-         HYjg==
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=1/sJh8a2AuC24OzO4EmVdBPW5mYNaYxT7HWpD5yYRLc=;
+        b=W3CqVbm5DJO9fBJTk+kaiQtwxAAdt2Bz6EPkdhQPmmX0s3+4tjS6qRrhHX/TxIazdR
+         WecXHia4yjKq4mpRNtBtyMnREbp51nofHm9Bx9p4c+/V2oiEcrKxJF7en92NYV1NZD5I
+         6k2d2wimn5wAdCAeNM36QOLcpAna+uGbfabusr0+qS+HiHBH33qYfd78tYDLbScCfX7a
+         65NmPNQ8wsiMwJE/h5y+BR0tbRa4OOOWhjiMITNkEv6V4wcEBKl2JLnKq+WVZMHDunBf
+         gKJXdMkbIz7N3jX+/gjD2PzpWxQH7m1Lpl2acsUIviZ06hbm7q+LcvGDL/6zJlZZI0Tk
+         cS6w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVkGF/n0VyN9yRTMI8fUTVeLYZi40XtcSY/F42G22JR1Oc7d2XD
-	jA21oSXF79xLNlVdFmHYDpc=
-X-Google-Smtp-Source: APXvYqxGMUGWkBYmswnEqLyvp5wfA5VxHsCK+A1o5oHHp6kPtqCFf15KHkFHMgBDtL+GfBnZw+qeMw==
-X-Received: by 2002:ac2:558a:: with SMTP id v10mr27232834lfg.41.1559905144616;
-        Fri, 07 Jun 2019 03:59:04 -0700 (PDT)
+X-Gm-Message-State: APjAAAU52eaneO5bwO+07FiQBeBCIlnsaw/zB00aKdNgtZwDjLenLxsa
+	ytZ26k2kTrm+OKhEbZQAL28=
+X-Google-Smtp-Source: APXvYqzlJ8cvwvL2w7VAd8M1bSHLMhT1qwf0C8Mak1qhxJdx17GTL1icO/bMkeIatDE7UUW+9asVnQ==
+X-Received: by 2002:a2e:8e90:: with SMTP id z16mr2036854ljk.4.1559905480664;
+        Fri, 07 Jun 2019 04:04:40 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac2:593b:: with SMTP id v27ls783365lfi.6.gmail; Fri, 07 Jun
- 2019 03:59:03 -0700 (PDT)
-X-Received: by 2002:a19:5007:: with SMTP id e7mr28284368lfb.76.1559905143875;
-        Fri, 07 Jun 2019 03:59:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1559905143; cv=none;
+Received: by 2002:ac2:4316:: with SMTP id l22ls785090lfh.14.gmail; Fri, 07 Jun
+ 2019 04:04:40 -0700 (PDT)
+X-Received: by 2002:ac2:5b0c:: with SMTP id v12mr12485626lfn.184.1559905480013;
+        Fri, 07 Jun 2019 04:04:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1559905480; cv=none;
         d=google.com; s=arc-20160816;
-        b=lfSm/SxyH7qZKgC9B52Kajo7I/Is/t/spRMWM8SFunhAuQPuixB49MtnoaRtYyMk5x
-         RKLffdUqRlpxouM1DhCAolBEPqoXdJOrwYJTLGsmsGIBD2lgoYzmid5++/f+i2mkUvl0
-         1J9oS8QB2SAd3r0gvGMpzTyHFoO3f+xEgGmnZJ1HTpSznB2dir9WtCfNrLUYg2OFu5Mz
-         lOd2rOyckCnRL3xL4yooPlGPryqrKN7pFnpN20+jD+JNK+XA2PiM+u91V8LiqZ8agrFz
-         7gR0Wc0qJGosE3JzANfzAXLD+CXP11hW6nRILDA52Ah44zwfVM4qHYOOYlBBTiiVa3SM
-         TTMg==
+        b=xmfXXDcrRJHy8d73TRvGShCc6lmrgeahvnbUxDuH25SJAtgoW/6BOzPt7ZjyldO/Wt
+         2Zj0Jd8sVgZ9p3hGtXi0dTM98NqAbj5MEd19UyeEbJICyfiOo6hKWhrxu43FHnemptUP
+         1/wES4lLaKDVIEqcsXASHWKynSUfkArShnxPnWDy6FcVY9FP2jUmEKcmmxeoYlW678iD
+         FhS59vQR2w6Z8b9lMHzeK4fT1Z/v+nlD2Cwmh4FuZZ6cyFQgkPQkdJ5l0auTluRTt1f4
+         3uANJfHO9TZrA3q+F13IBO5nAXAzwwwuO2QUT+JJAvY4qM+4df/IHp56NVLlY8MmHYhc
+         Z7hg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
          :user-agent:date:message-id:from:references:to:subject;
-        bh=8eONvRqhr14WxcMl1GnY87NzaYY2aW0SW+OoJwPybOo=;
-        b=anRIs6cMUGHtCeZqg6XgbAXKabkWG7dxIv3u+m4r2dXFUJ5KdfJVz05mlfo0Sv4muX
-         MLvtklHzhVjDzl2SMHgDROmjXoKj1/xBHEQj54wCJH/+TnetESsRRlevYV3JjEmNBUkd
-         wvJ8dXLgaAnDG3qV60CIkRCgq8lA+Cp8nKMErGbZVfdbKzhqMG8RCdV1DqxQbHUu/75O
-         Y//5GPsAe2+3qwpsFNNmhNP0pbEM+5zGvD5F2I/SAtsyQbsK5dbNwe9l2roysKVKpPRv
-         7lGnA9iEDwxMlGp75ncbawlNuH3oIFnRTimjz+MSFeDXKjjQJ7fLpufXKnypVIo68GJg
-         PUgw==
+        bh=A681scm0rqlclk6P/jjJsPIISi7mcMhuth3rsbMM3qw=;
+        b=a/4U4C99yXYonEMlaBc0yrQ65ErcpeUDRrxcyCzzcieoDOmQ5v69kVHVjkQq4yFWAH
+         rv0wp4nrQZ8ZM6nVouxCY0nHrXmm5DicjIgOVNjfNbzin5bAbkJ2jkXpCRhHGuH8dETi
+         iAA3Pa/z52BnKeZ0mPD42I2hh4PdaCFZ2IOGrjaY8VVFQw7vRRPWsGKLoGtw0TVIdoFE
+         Kco3KZk+9NaGMI563yrxYZZWgf+fkg75PwDs4tzBRzHJMIlWrTqHZbBps77l7XKnTOja
+         fBGhcka1l4kBRbV/w+hIxETYhfTHGqQ8yBH9+EYagALTB3/tzojM3RiUD48dqxj4l68n
+         9Mvw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id o20si70788lji.2.2019.06.07.03.59.03
+Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
+        by gmr-mx.google.com with ESMTPS id l4si87794lfh.0.2019.06.07.04.04.39
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 07 Jun 2019 03:59:03 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
+        Fri, 07 Jun 2019 04:04:40 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
 Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id x57Awx5g001069
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id x57B4dbZ008316
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 7 Jun 2019 12:59:03 +0200
+	Fri, 7 Jun 2019 13:04:39 +0200
 Received: from [139.22.33.212] ([139.22.33.212])
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x57Awr0O002015;
-	Fri, 7 Jun 2019 12:58:54 +0200
-Subject: Re: [PATCH v2 1/3] x86: mmio: fix accidental clears of bits in
- registers
+	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x57B4bvF022234;
+	Fri, 7 Jun 2019 13:04:37 +0200
+Subject: Re: [PATCH v2 3/3] x86: mmio: add support for 0x66 operand prefix
 To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
         jailhouse-dev@googlegroups.com
 References: <20190606224457.1053-1-ralf.ramsauer@oth-regensburg.de>
- <20190606224457.1053-2-ralf.ramsauer@oth-regensburg.de>
- <d9071e5a-ae9c-5915-b81d-eafb57d27789@siemens.com>
- <31132492-0d6d-5e61-ec83-9536d9d38887@oth-regensburg.de>
+ <20190606224457.1053-4-ralf.ramsauer@oth-regensburg.de>
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <90aa3d6a-25fd-4c80-64c1-f57877f5805a@siemens.com>
-Date: Fri, 7 Jun 2019 12:58:48 +0200
+Message-ID: <6294be2a-0ce1-1021-1691-c801456b36a3@siemens.com>
+Date: Fri, 7 Jun 2019 13:04:37 +0200
 User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
  Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
 MIME-Version: 1.0
-In-Reply-To: <31132492-0d6d-5e61-ec83-9536d9d38887@oth-regensburg.de>
+In-Reply-To: <20190606224457.1053-4-ralf.ramsauer@oth-regensburg.de>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
@@ -138,155 +132,242 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 07.06.19 12:24, Ralf Ramsauer wrote:
-> On 6/7/19 10:35 AM, Jan Kiszka wrote:
->> On 07.06.19 00:44, Ralf Ramsauer wrote:
->>> We trap certain MMIO accesses and need to emulate their access.
->>>
->>> On x86, a 32-bit read will clear bits 32-63 of a register.
->>>
->>> Inconsistently, on x86, 16-bit and 8-bit reads must not clear high bits=
-.
->>> Jailhouse erroneously cleared those bits. Prevent this by applying a
->>> preserved mask that keeps bits alive.
->>>
->>> Add tests that check correct behaviour.
->>>
->>> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
->>> ---
->>>  =C2=A0 hypervisor/arch/x86/include/asm/mmio.h |=C2=A0 5 +++++
->>>  =C2=A0 hypervisor/arch/x86/mmio.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 5 ++++-
->>>  =C2=A0 hypervisor/arch/x86/vcpu.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 7 +++++--
->>>  =C2=A0 inmates/tests/x86/mmio-access-32.c=C2=A0=C2=A0=C2=A0=C2=A0 | 10=
- +++++++---
->>>  =C2=A0 inmates/tests/x86/mmio-access.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 | 10 +++++++---
->>>  =C2=A0 5 files changed, 28 insertions(+), 9 deletions(-)
->>>
->>> diff --git a/hypervisor/arch/x86/include/asm/mmio.h
->>> b/hypervisor/arch/x86/include/asm/mmio.h
->>> index 756c84a8..4b3b2ea8 100644
->>> --- a/hypervisor/arch/x86/include/asm/mmio.h
->>> +++ b/hypervisor/arch/x86/include/asm/mmio.h
->>> @@ -30,6 +30,11 @@ struct mmio_instruction {
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /** Output value, already copied either=
- from a register or
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * from an=
- immediate value */
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long out_val;
->>> +=C2=A0=C2=A0=C2=A0 /** A read must not clear the upper bits of registe=
-rs, if the access
->>> +=C2=A0=C2=A0=C2=A0=C2=A0 * width is smaller than 32 bit. This mask des=
-cribes the bits
->>> that have
->>> +=C2=A0=C2=A0=C2=A0=C2=A0 * to be preserved.
->>> +=C2=A0=C2=A0=C2=A0=C2=A0 */
->>> +=C2=A0=C2=A0=C2=A0 unsigned long reg_preserve_mask;
->>>  =C2=A0 };
->>>  =C2=A0 =C2=A0 /**
->>> diff --git a/hypervisor/arch/x86/mmio.c b/hypervisor/arch/x86/mmio.c
->>> index b234bd79..c04cf449 100644
->>> --- a/hypervisor/arch/x86/mmio.c
->>> +++ b/hypervisor/arch/x86/mmio.c
->>> @@ -85,7 +85,7 @@ x86_mmio_parse(const struct guest_paging_structures
->>> *pg_structs, bool is_write)
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct parse_context ctx =3D { .remaini=
-ng =3D X86_MAX_INST_LEN,
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .count =3D =
-1 };
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 union registers *guest_regs =3D &this_c=
-pu_data()->guest_regs;
->>> -=C2=A0=C2=A0=C2=A0 struct mmio_instruction inst =3D { .inst_len =3D 0 =
-};
->>> +=C2=A0=C2=A0=C2=A0 struct mmio_instruction inst =3D { 0 };
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u64 pc =3D vcpu_vendor_get_rip();
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int n, skip_len =3D 0;
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool has_immediate =3D false;
->>> @@ -168,6 +168,9 @@ restart:
->>>  =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 op[2].raw =3D *ctx.inst;
->>>  =C2=A0 +=C2=A0=C2=A0=C2=A0 if (!does_write && inst.access_size < 4)
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 inst.reg_preserve_mask =3D =
-~BYTE_MASK(inst.access_size);
->>> +
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* ensure that we are actually talking =
-about mov imm,<mem> */
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (op[0].raw =3D=3D X86_OP_MOV_IMMEDIA=
-TE_TO_MEM && op[2].modrm.reg
->>> !=3D 0)
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto error_unsu=
-pported;
->>> diff --git a/hypervisor/arch/x86/vcpu.c b/hypervisor/arch/x86/vcpu.c
->>> index 5a557d0b..a1fb8660 100644
->>> --- a/hypervisor/arch/x86/vcpu.c
->>> +++ b/hypervisor/arch/x86/vcpu.c
->>> @@ -231,6 +231,7 @@ bool vcpu_handle_mmio_access(void)
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct mmio_access mmio =3D {.size =3D =
-0};
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct vcpu_mmio_intercept intercept;
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct mmio_instruction inst;
->>> +=C2=A0=C2=A0=C2=A0 unsigned long *reg;
->>>  =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vcpu_vendor_get_mmio_intercept(&=
-intercept);
->>>  =C2=A0 @@ -249,8 +250,10 @@ bool vcpu_handle_mmio_access(void)
->>>  =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 result =3D mmio_handle_access(&m=
-mio);
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (result =3D=3D MMIO_HANDLED) {
->>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!mmio.is_write)
->>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 gue=
-st_regs->by_index[inst.in_reg_num] =3D mmio.value;
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!mmio.is_write) {
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reg=
-=3D &guest_regs->by_index[inst.in_reg_num];
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *re=
-g =3D (*reg & inst.reg_preserve_mask) | mmio.value;
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vcpu_skip_emula=
-ted_instruction(inst.inst_len);
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return true;
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->>> diff --git a/inmates/tests/x86/mmio-access-32.c
->>> b/inmates/tests/x86/mmio-access-32.c
->>> index 2f47f211..be1d470f 100644
->>> --- a/inmates/tests/x86/mmio-access-32.c
->>> +++ b/inmates/tests/x86/mmio-access-32.c
->>> @@ -47,9 +47,13 @@ void inmate_main(void)
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 EXPECT_EQUAL(reg32, pattern);
->>>  =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* MOV_FROM_MEM (8a), 8-bit data=
- */
->>> -=C2=A0=C2=A0=C2=A0 asm volatile("movb (%%ebx), %%al"
->>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : "=3Da" (reg32) : "a" (0),=
- "b" (mmio_reg));
->>> -=C2=A0=C2=A0=C2=A0 EXPECT_EQUAL(reg32, (u8)pattern);
->>> +=C2=A0=C2=A0=C2=A0 asm volatile("movb (%%eax), %%al"
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : "=3Da" (reg32) : "a" (mmi=
-o_reg));
->>> +=C2=A0=C2=A0=C2=A0 EXPECT_EQUAL((u8)reg32, (u8)pattern);
->>
->> Hmm, that test looks redundant to the following one. Same for other
->> double-checks in this patch and patch 3. Or am I missing something?
->=20
-> If the implementation of the simulator is correct, then those tests are
-> redundant.
->=20
-> Think of cases where the first check passes, and the second check fails.
-> Was helpful during development.
+On 07.06.19 00:44, Ralf Ramsauer wrote:
+> mov (%rax), %ax is a 16-bit data MOV_FROM_MEM that will emit
+> 0x66 0x8b 0x00.
+> 
+> 0x66 is the operand-size override prefix which we currently do not support.
+> 
+> We should support it, as we can find this opcode, for example, for some
+> mmconfig space access from Linux (e.g., pci_generic_config_read).
+> 
+> This also adds appropriate mmio-access tests.
+> 
+> Tested in QEMU virtual target.
+> 
+> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+> ---
+>   hypervisor/arch/x86/include/asm/processor.h |  1 +
+>   hypervisor/arch/x86/mmio.c                  | 47 +++++++++++++++------
+>   inmates/tests/x86/mmio-access-32.c          | 21 ++++++++-
+>   inmates/tests/x86/mmio-access.c             | 21 ++++++++-
+>   4 files changed, 76 insertions(+), 14 deletions(-)
+> 
+> diff --git a/hypervisor/arch/x86/include/asm/processor.h b/hypervisor/arch/x86/include/asm/processor.h
+> index 70a6c3ff..d8111690 100644
+> --- a/hypervisor/arch/x86/include/asm/processor.h
+> +++ b/hypervisor/arch/x86/include/asm/processor.h
+> @@ -145,6 +145,7 @@
+>   
+>   #define X86_REX_CODE					4
+>   
+> +#define X86_PREFIX_OP_SZ				0x66
+>   #define X86_PREFIX_ADDR_SZ				0x67
+>   
+>   #define X86_OP_MOVZX_OPC1				0x0f
+> diff --git a/hypervisor/arch/x86/mmio.c b/hypervisor/arch/x86/mmio.c
+> index df8c97a1..b836f43c 100644
+> --- a/hypervisor/arch/x86/mmio.c
+> +++ b/hypervisor/arch/x86/mmio.c
+> @@ -54,6 +54,7 @@ struct parse_context {
+>   	bool has_rex_w;
+>   	bool has_rex_r;
+>   	bool has_addrsz_prefix;
+> +	bool has_opsz_prefix;
+>   };
+>   
+>   static bool ctx_update(struct parse_context *ctx, u64 *pc, unsigned int advance,
+> @@ -74,14 +75,33 @@ static bool ctx_update(struct parse_context *ctx, u64 *pc, unsigned int advance,
+>   	return true;
+>   }
+>   
+> -static unsigned int get_address_width(bool has_addrsz_prefix)
+> +static void parse_widths(struct parse_context *ctx,
+> +		         struct mmio_instruction *inst, bool parse_addr_width)
+>   {
+>   	u16 cs_attr = vcpu_vendor_get_cs_attr();
+> -	bool long_mode = (vcpu_vendor_get_efer() & EFER_LMA) &&
+> -		(cs_attr & VCPU_CS_L);
+> +	bool cs_db = !!(cs_attr & VCPU_CS_DB);
+> +	bool long_mode =
+> +		(vcpu_vendor_get_efer() & EFER_LMA) && (cs_attr & VCPU_CS_L);
+>   
+> -	return long_mode ? (has_addrsz_prefix ? 4 : 8) :
+> -		(!!(cs_attr & VCPU_CS_DB) ^ has_addrsz_prefix) ? 4 : 2;
+> +	/* Op size prefix is ignored if rex.w = 1 */
+> +	if (ctx->has_rex_w) {
+> +		inst->access_size = 8;
+> +	} else {
+> +		if (long_mode)
+> +		/* CS.d is ignored in long mode */
+> +			inst->access_size = ctx->has_opsz_prefix ? 2 : 4;
+> +		else
+> +			inst->access_size =
+> +				(cs_db ^ ctx->has_opsz_prefix) ? 4 : 2;
+> +	}
+> +
+> +	if (parse_addr_width) {
+> +		if (long_mode)
+> +			inst->inst_len += ctx->has_addrsz_prefix ? 4 : 8;
+> +		else
+> +			inst->inst_len +=
+> +				(cs_db ^ ctx->has_addrsz_prefix) ? 4 : 2;
+> +	}
+>   }
+>   
+>   struct mmio_instruction
+> @@ -118,6 +138,11 @@ restart:
+>   			goto error_noinst;
+>   		ctx.has_addrsz_prefix = true;
+>   		goto restart;
+> +	case X86_PREFIX_OP_SZ:
+> +		if (!ctx_update(&ctx, &pc, 1, pg_structs))
+> +			goto error_noinst;
+> +		ctx.has_opsz_prefix = true;
+> +		goto restart;
+>   	case X86_OP_MOVZX_OPC1:
+>   		if (!ctx_update(&ctx, &pc, 1, pg_structs))
+>   			goto error_noinst;
+> @@ -134,28 +159,26 @@ restart:
+>   		ctx.does_write = true;
+>   		break;
+>   	case X86_OP_MOV_TO_MEM:
+> -		inst.access_size = ctx.has_rex_w ? 8 : 4;
+> +		parse_widths(&ctx, &inst, false);
+>   		ctx.does_write = true;
+>   		break;
+>   	case X86_OP_MOVB_FROM_MEM:
+>   		inst.access_size = 1;
+>   		break;
+>   	case X86_OP_MOV_FROM_MEM:
+> -		inst.access_size = ctx.has_rex_w ? 8 : 4;
+> +		parse_widths(&ctx, &inst, false);
+>   		break;
+>   	case X86_OP_MOV_IMMEDIATE_TO_MEM:
+> -		inst.access_size = ctx.has_rex_w ? 8 : 4;
+> +		parse_widths(&ctx, &inst, false);
+>   		ctx.has_immediate = true;
+>   		ctx.does_write = true;
+>   		break;
+>   	case X86_OP_MOV_MEM_TO_AX:
+> -		inst.inst_len += get_address_width(ctx.has_addrsz_prefix);
+> -		inst.access_size = ctx.has_rex_w ? 8 : 4;
+> +		parse_widths(&ctx, &inst, true);
+>   		inst.in_reg_num = 15;
+>   		goto final;
+>   	case X86_OP_MOV_AX_TO_MEM:
+> -		inst.inst_len += get_address_width(ctx.has_addrsz_prefix);
+> -		inst.access_size = ctx.has_rex_w ? 8 : 4;
+> +		parse_widths(&ctx, &inst, true);
+>   		inst.out_val = guest_regs->by_index[15];
+>   		ctx.does_write = true;
+>   		goto final;
+> diff --git a/inmates/tests/x86/mmio-access-32.c b/inmates/tests/x86/mmio-access-32.c
+> index be1d470f..9c1db1d8 100644
+> --- a/inmates/tests/x86/mmio-access-32.c
+> +++ b/inmates/tests/x86/mmio-access-32.c
+> @@ -41,6 +41,10 @@ void inmate_main(void)
+>   	mmio_write32(mmio_reg, pattern);
+>   	EXPECT_EQUAL(*comm_page_reg, pattern);
+>   
+> +	/* MOV_FROM_MEM (8b), 16-bit data, 32-bit address, OP size prefix */
+> +	asm volatile("mov (%%eax), %%ax" : "=a" (reg32) : "a" (mmio_reg));
+> +	EXPECT_EQUAL((u16)reg32, (u16)pattern);
+> +
+>   	/* MOV_FROM_MEM (8b), 32-bit data, 32-bit address */
+>   	asm volatile("movl (%%ebx), %%eax"
+>   		: "=a" (reg32) : "a" (0), "b" (mmio_reg));
+> @@ -55,6 +59,13 @@ void inmate_main(void)
+>   	EXPECT_EQUAL(reg32,
+>   		     ((unsigned long)mmio_reg & ~0xffUL) | (pattern & 0xff));
+>   
+> +	/* MOV_FROM_MEM (8a), 8-bit data, 32-bit address, OP size prefix */
+> +	asm volatile("data16 mov (%%eax), %%al"
+> +		: "=a" (reg32) : "a" (mmio_reg));
+> +	EXPECT_EQUAL((u8)reg32, (u8)pattern);
+> +	EXPECT_EQUAL(reg32,
+> +		     ((unsigned long)mmio_reg & ~0xffUL) | (pattern & 0xff));
+> +
+>   	/* MOVZXB (0f b6), 32-bit data, 32-bit address */
+>   	asm volatile("movzxb (%%ebx), %%eax"
+>   		: "=a" (reg32) : "a" (0), "b" (mmio_reg));
+> @@ -87,7 +98,15 @@ void inmate_main(void)
+>   	/* MOV_TO_MEM (88), 8-bit data */
+>   	asm volatile("movb %%al, (%%ebx)"
+>   		: : "a" (0x42), "b" (mmio_reg));
+> -	EXPECT_EQUAL(*comm_page_reg, (pattern & 0xffffff00) | 0x42);
+> +	EXPECT_EQUAL(*comm_page_reg, (pattern & ~0xffUL) | 0x42);
+> +
+> +	/* MOV_TO_MEM (88), 8-bit data, OP size prefix */
+> +	asm volatile("data16 mov %%al, (%%ebx)" : : "a" (0x23), "b" (mmio_reg));
+> +	EXPECT_EQUAL(*comm_page_reg, (pattern & ~0xffUL) | 0x23);
+> +
+> +	/* MOV_TO_MEM (89), 16-bit data, OP size prefix */
+> +	asm volatile("mov %%ax, (%%ebx)" : : "a" (0x2342), "b" (mmio_reg));
+> +	EXPECT_EQUAL(*comm_page_reg, (pattern & ~0xffffUL) | 0x2342);
+>   
+>   	/* IMMEDIATE_TO_MEM (c7), 32-bit data, mod=0, reg=0, rm=3 */
+>   	asm volatile("movl %0, (%%ebx)"
+> diff --git a/inmates/tests/x86/mmio-access.c b/inmates/tests/x86/mmio-access.c
+> index a9d2fcaf..3794555f 100644
+> --- a/inmates/tests/x86/mmio-access.c
+> +++ b/inmates/tests/x86/mmio-access.c
+> @@ -51,6 +51,10 @@ void inmate_main(void)
+>   	mmio_write64(mmio_reg, pattern);
+>   	EXPECT_EQUAL(*comm_page_reg, pattern);
+>   
+> +	/* MOV_FROM_MEM (8b), 16-bit data, Ox66 OP size prefix */
+> +	asm volatile("mov (%%rax), %%ax" : "=a" (reg64) : "a" (mmio_reg));
+> +	EXPECT_EQUAL((u16)reg64, (u16)pattern);
+> +
+>   	/* MOV_FROM_MEM (8b), 64-bit data, mod=0, reg=0, rm=3 */
+>   	asm volatile("movq (%%rbx), %%rax"
+>   		: "=a" (reg64) : "a" (0), "b" (mmio_reg));
+> @@ -75,6 +79,13 @@ void inmate_main(void)
+>   	EXPECT_EQUAL(reg64,
+>   		     ((unsigned long)mmio_reg & ~0xffUL) | (pattern & 0xff));
+>   
+> +	/* MOV_FROM_MEM (8a), 8-bit data */
+> +	asm volatile("data16 mov (%%rax), %%al"
 
-Well, don't we print both values when the test fails?
+The comment should probably clarify that data16 has to be ignored in 64-bit 
+mode, right?
+
+> +		: "=a" (reg64) : "a" (mmio_reg));
+> +	EXPECT_EQUAL((u8)reg64, (u8)pattern);
+> +	EXPECT_EQUAL(reg64,
+> +		     ((unsigned long)mmio_reg & ~0xffUL) | (pattern & 0xff));
+> +
+>   	/* MOVZXB (0f b6), to 64-bit, mod=0, reg=0, rm=3 */
+>   	asm volatile("movzxb (%%rbx), %%rax"
+>   		: "=a" (reg64) : "a" (0), "b" (mmio_reg));
+> @@ -129,7 +140,15 @@ void inmate_main(void)
+>   	/* MOV_TO_MEM (88), 8-bit data */
+>   	asm volatile("movb %%al, (%%rbx)"
+>   		: : "a" (0x42), "b" (mmio_reg));
+> -	EXPECT_EQUAL(*comm_page_reg, (pattern & 0xffffffffffffff00) | 0x42);
+> +	EXPECT_EQUAL(*comm_page_reg, (pattern & ~0xffUL) | 0x42);
+> +
+> +	/* MOV_TO_MEM (88), 8-bit data, OP size prefix */
+> +	asm volatile("data16 mov %%al, (%%ebx)" : : "a" (0x23), "b" (mmio_reg));
+> +	EXPECT_EQUAL(*comm_page_reg, (pattern & ~0xffUL) | 0x23);
+> +
+> +	/* MOV_TO_MEM (89), 16-bit data, OP size prefix */
+> +	asm volatile("mov %%ax, (%%ebx)" : : "a" (0x2342), "b" (mmio_reg));
+> +	EXPECT_EQUAL(*comm_page_reg, (pattern & ~0xffffUL) | 0x2342);
+>   
+>   	/* IMMEDIATE_TO_MEM (c7), 64-bit data, mod=0, reg=0, rm=3 */
+>   	asm volatile("movq %0, (%%rbx)"
+> 
 
 Jan
 
---=20
+-- 
 Siemens AG, Corporate Technology, CT RDA IOT SES-DE
 Corporate Competence Center Embedded Linux
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/90aa3d6a-25fd-4c80-64c1-f57877f5805a%40siemens.com.
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/6294be2a-0ce1-1021-1691-c801456b36a3%40siemens.com.
 For more options, visit https://groups.google.com/d/optout.
