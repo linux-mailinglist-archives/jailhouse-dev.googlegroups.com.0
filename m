@@ -1,147 +1,138 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBB5U26TTQKGQEGTOIBPI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBTNN6XTQKGQEPPNKHUA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43d.google.com (mail-wr1-x43d.google.com [IPv6:2a00:1450:4864:20::43d])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCCDA3A63C
-	for <lists+jailhouse-dev@lfdr.de>; Sun,  9 Jun 2019 15:45:26 +0200 (CEST)
-Received: by mail-wr1-x43d.google.com with SMTP id i2sf3273307wrp.12
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 09 Jun 2019 06:45:26 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1560087926; cv=pass;
+Received: from mail-wr1-x43f.google.com (mail-wr1-x43f.google.com [IPv6:2a00:1450:4864:20::43f])
+	by mail.lfdr.de (Postfix) with ESMTPS id A63A73AB3F
+	for <lists+jailhouse-dev@lfdr.de>; Sun,  9 Jun 2019 20:58:21 +0200 (CEST)
+Received: by mail-wr1-x43f.google.com with SMTP id p13sf3496354wru.17
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 09 Jun 2019 11:58:21 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1560106701; cv=pass;
         d=google.com; s=arc-20160816;
-        b=Qyz9pE+8CPKUtQv+MDQAmzc+wHNciArN/su/CK4yICxMnWNencXFWeIohJpi6360RU
-         hjGbwaO1BzhRwKOdSvmwk/BdmI4ROtZ9att/ZM1BVQFfxV2uRq7QG2CT0z6eLnkoW2hu
-         Qj/bEgSqorMUkcgLuG0jhKDNMs21e5ksXPMeoINgb5NBODatPgTdpeVU9LkhvKdWvcos
-         vEFDLLxAk+QoL/U2vxetgKoPedxe0Ilh7DzhCa7UY44XrorP5WCiyZwY0sLFcIe8GfSG
-         NqXmyzYNBSfSbG9OxuBqwpR6nJ4Z4FD2VpHjpfz8nYrw2BBNXviPEMPQH/mQ485pkoMR
-         c04g==
+        b=soVIYcSgZvfsbdVTKN35aaypsCtOMq5Z4NnTkRs+flmQwc0HbmsE9CTPBiJRFmYzuA
+         RAm/oQ1fRX43ycrUQ9s01i/SfCexv0vnefZj4VW7/PIjC9Go5CF4MuKW+SA3uEL7Y9/B
+         VDsW6Qh5pAncSbVHsORfCGbldbEKyDII52LzypxSBPw1BkgtJJbmIZz9YfMSiija6wyQ
+         ekIjSygff2JMS+NvMdT01tOKyMTX0m+9WxMhAcUHH0UAH1dWYt3aoIjs4+L8KecZqS6I
+         vQrOiLKBRjZWhVJ3y8XB3jBSs0v6qbLzfVTVqKdRLoxKRlHgKnsRqP89ghBHcCqkbjg1
+         d3eA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:references:to:from:subject:sender:dkim-signature;
-        bh=RG8zsEwcOcvbSk9KpyEy7/HNQdpDK50bkyWiU0AUfwQ=;
-        b=vkCyH5gZ4YYVn86TxWz1M5Gt5KEsP37riKdmocXj8J2vAXGZmt3g2hrkjv3i1SQ47S
-         5a13hoTAszAO16kb6/fSbbBlNe7yVO7dwJ+p9MJ3P5Vuv8tiuTEN720XrZ7lwkpJMgbC
-         +iM6uYv7kBdwhTynQyzR0TheOFfwmVo61r7mpLqCMADXo+blNHq0hJkqgE6eT97ayKeX
-         QN/9RJJW4FHSvHKlYQlGMuCNzLVCiwhDaZhCq4aghaatKBBYlutJvP2ErJlhQ2ZstbYi
-         BAtqqsg/kea/PyZ/7losEExrpPlLS5mhj6MILMFtXkx4w2rUFvYncfCkzyGOFUFRGbDp
-         7vkA==
+         :list-id:mailing-list:precedence:content-language:mime-version
+         :user-agent:date:message-id:subject:from:cc:to:sender:dkim-signature;
+        bh=ELSV34LlOdAtKH+2r6cfBBXwWy19Ltrhfn3VL/HtD7Y=;
+        b=h4f/43xVTFeT+H4rP672wHozYPvD92eKTKqLvjWn7JMSiKK6LpvpVfEtQv8YUToY+z
+         WtFcABysGaC8laVYcGv6L6RWJTy8VXldatDkWXH9rc9X3MQIgWjoXbdO3n3K0Kwo7w2j
+         wGjS5bRTZpPlcc1MbViYYVHaaye2euwkgcS+cskvM5Gn+6I9nZSeTLxwPfJlQhVG84+2
+         HUPTDmsM80qsDNrjhab0crcKSk7lWkKczrQrRhGFIVSrU1An670LoxvgnS202Je5cz71
+         lUkWc3u9S0VVcwNUtUjuHZTpSAwKbVJuKVjqG+fZTGT4rc2oLAZYnTrLK11RDYGrQg59
+         VuwA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=YIfZZQ2t;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=acz6ZPfU;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:from:to:references:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=RG8zsEwcOcvbSk9KpyEy7/HNQdpDK50bkyWiU0AUfwQ=;
-        b=iBNCbHDh5UuVGTvbYyjv4JD/OOy39eEuCZX0sCsmtj2iW3Kcjo/Cm3T9atUwMJL6uL
-         T8Ns01mYdtzcfk5GNsAR0VnT0lgOVBZNQqabJ1lDKtXKoJcfFHRbEFPfXvNr9uP9EBVx
-         CefXt+RPDOQUBHOwDYVdOpLepE9Y2Rf0r6x2gTq0ZXnEv9Lxw5XV6ZssAGBbNqUILLQE
-         2U3AOOLtcv/Xc6uqc4RGlG1pMFv3MxM/WV0kqELSkqov3DqveZ2xhAI8h/rxbjK6C0XT
-         SowDn2dz+zzOYPVX3gZu/jBeVNbyp12DxcX1oO5MDUCDRtJsfYhNoGmu+Bum+k6Z1M2X
-         /KXg==
+        h=sender:to:cc:from:subject:message-id:date:user-agent:mime-version
+         :content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=ELSV34LlOdAtKH+2r6cfBBXwWy19Ltrhfn3VL/HtD7Y=;
+        b=Cnxf4zb4ajEjjqhVu1GnrSCQh7aHNNqBqr29dIg56AG0kny8THeoJu3LNtqNKdNhkU
+         tX8FVyYpsU2Y6CoOay2wbs3LS15UVGnJ/UvP+xsCGcbaqZ7H2geAFdSKXWDgZdynQpbQ
+         2fU/ULqmWFFW9mpo3uGfhu18/CBHL3YcewA4p7qex2mVIjGiNNO4ZsjRIpMeEVkheF48
+         JEwoFwC8hLrvXCzBcU+ffm7GOU9WyqTRALreX+6AbWLGq9FKD+fLZT5chW086X12MjlQ
+         Gw7F3y5Vb+qr2pgMlEufk4bwpvHRRQME9ukFUUiF/diLjOFDyA5zCnfGgn0JuEHQjs3m
+         T+tQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:from:to:references:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
+        h=sender:x-gm-message-state:to:cc:from:subject:message-id:date
+         :user-agent:mime-version:content-language:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=RG8zsEwcOcvbSk9KpyEy7/HNQdpDK50bkyWiU0AUfwQ=;
-        b=FdECseK8r6Kses82mfxGNpDkDEBRIG6mcU89J6sfgG26ZmMwFe8QDeSAoU2FcSgnWE
-         UhxOyMzStlngNNRKvYxzUnrXg/3mfo+jy/xQ1KOgJvOq0Z/wdrgKGmOwDICgxUrwBYYh
-         hcpAUy/t583dOdcCV5f07UaLljmtkg9mS0Fo794Lo8eIkD81JWlFAsOWTGlei4eBHDZr
-         xMHm6kwzu0Xu5WmBD3A1lE31qgR5gGdeM54X4B182DYrB5YeQ/A0EQI26LVpxdY1eoBF
-         tWM8NuonVVDkPXvstsg2aHuIDyujMwPksEGwWGy0zotpg326CesDQw1rRC7P3z2Dj+UR
-         DS1A==
+        bh=ELSV34LlOdAtKH+2r6cfBBXwWy19Ltrhfn3VL/HtD7Y=;
+        b=K00n+ylN+7lS6sL1bxRfib5Z1EgzgiuPjD6CQwmzesziOr69qLOf7PeYljID8/ioOC
+         ve59bkCHSfH1EgvHS/3pxCvm1/CBsXqidwhGpmPzB9p7oqzUYXAAs4r63b6Q9u17ORYx
+         UGeEd+kzBJfJe07r0U+2aHxFWlvLnM69SDOQgZ7CEStbptlxBoe/QFlClDGFW/9+l405
+         2TdAGkhYnCPbGYUiuWPS6TVCegvZrMy5CvcGQd8pugiCD08Tcsb+qMtHKxuREwmDhYKl
+         VQmlKqmwb2WdTi2fdzwRX5DzUZI9RTET2Vy83pa5Xvgi8WigYm8+xFNcJpckrGksVNjB
+         Ehhg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXvFSwRPvqiHcfgZoz7XtuU2JQObcyPB3xHaQbUW/ebcN18bpKu
-	E8k4coNsrOKMo5aP6ct7bVE=
-X-Google-Smtp-Source: APXvYqx1X5sM1nrYq9eRcKpsKLDRx/y0Xa88m/dJqzEWoGyODt3lhgOMHoS0F/Mp4DBHVRe6fX+nPA==
-X-Received: by 2002:adf:baca:: with SMTP id w10mr31862568wrg.230.1560087926558;
-        Sun, 09 Jun 2019 06:45:26 -0700 (PDT)
+X-Gm-Message-State: APjAAAXSJnsfIYAKaKbC+HVQrgrlGAiXKfGFTdVS0e70kYY5KT+riLKn
+	N/ep2m56AH/0dr/KJZfGEZc=
+X-Google-Smtp-Source: APXvYqxWhaLjP7L1vDpYbly5g007SV4utkscPC0/PdCiYLlfhR2GCCMUHlJJUhRNhxF2GogvHeRYdQ==
+X-Received: by 2002:a5d:6242:: with SMTP id m2mr30129844wrv.310.1560106701413;
+        Sun, 09 Jun 2019 11:58:21 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5d:4d05:: with SMTP id z5ls3030134wrt.15.gmail; Sun, 09 Jun
- 2019 06:45:25 -0700 (PDT)
-X-Received: by 2002:adf:b605:: with SMTP id f5mr10742703wre.305.1560087925966;
-        Sun, 09 Jun 2019 06:45:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1560087925; cv=none;
+Received: by 2002:a1c:f404:: with SMTP id z4ls4122965wma.1.canary-gmail; Sun,
+ 09 Jun 2019 11:58:20 -0700 (PDT)
+X-Received: by 2002:a1c:9dc5:: with SMTP id g188mr11281451wme.93.1560106700813;
+        Sun, 09 Jun 2019 11:58:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1560106700; cv=none;
         d=google.com; s=arc-20160816;
-        b=Zgnz276/buSw/pcv/ZkFSC3muRKufP01zo4TXcRI0aVoBKFJy10SxAqa4LpglW5Ely
-         uMCmGDmxPSx49FKUZGJPEp1old3kRG7gu+EzRtrBgTCsAPLJ+M0MgNeQPq2efcOc+SCK
-         mM4emrhh0ONwFPPRQZemBLdvwAyO8HjyXZvhZS88FEMtMa4cnwBE9JWOLS5sd06TipQp
-         1wFO4eXGDOoTBWOWIOA0CD+f0aI+L9mUXAw4DqHEqPqII4v1IYQ16iGgboDfeyfqM+rA
-         20BY5QgrKKG1lNR0jMh9oOsUOaTM0m4CkTjTqPM09h1cnBX+uxJHoogxxvtP4rwNogg2
-         /tMw==
+        b=rZ2uQ1YkQ3a6p1K0ON0EBPJ9PsYm2X8TuqYk53QPs7J41fSzFXzVraSTbDy80cNuFr
+         PCTJSCxxkh4UTCMnymdQlUIRValOG4itD+WYqimG888xy2G51PD8h3Z9VGN/2dqqwZhO
+         BpXaA0CjyCo9oWmTvLHC/Qfcw0vE0UTKAWm2RxXKUY9v3BhzbtStySOKLRtz+1WfqL13
+         k/OgDxLuqiGke7NqGyuTl3OfJKHMNRQdfv2zvwomEU90JezsjexFxB9qTJfqypvJkoX8
+         oSGPhgA+5QhxJKDJ99I9vZMn4LDcS5l6M6NoqOX/BIuVv6QUUz/6UbjqvO3PMB2dG1Yo
+         EfjA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:references:to:from:subject
-         :dkim-signature;
-        bh=HVJ7NSA9cs7ChlpQrmYM7yOrTfBPkCXd43UNXyQ3GsU=;
-        b=c8oCQ3ejHl+gbrz/KCsBn1HOp0aRyfKMMEcFwjF1rs7yasdF36hcFJKqoGk6nqn9GE
-         Hla8njKZgSd8l+jbG8X5ED7IxRKuE8kr/sZZuvgNcjLcRMerMubYbfMSclJN0m/rTbYV
-         Rbchk5+Ag2RAfbNzlk1pVoqvctUtF7TxXX2wzEMDrwJqBkQ+DCjfoWH6GtI5e1phmP0+
-         MxkyuHsItwMnlNcnsbfsjnxEgBElK0p6Ev1TTOc5I8o1qWAl6KaK7FC8ez+ogQfMctDW
-         EdOv+fLQlzX8X1klXxvphmNbg433UCYAS/5ToZRi89F8OA0wyAK6ZrIFW6RlAGYoGjxf
-         ZAig==
+        h=content-transfer-encoding:content-language:mime-version:user-agent
+         :date:message-id:subject:from:cc:to:dkim-signature;
+        bh=qgH+26K89KSR6AR8bguC+LVnWsiqTO1iWw375Q4mAgQ=;
+        b=wPyjgZv8sCRczVo40uXXm9j7ist+wrHddlTP6sWkV7cLK7LN7PZ7xKlb/NZjztjQhX
+         1QJ6oHvrzcy45piCx46zFzcGSZkVU/0UcZWl+xGabBQnniFMIUET5fUSzsiChr53+Qvc
+         Frcaw7er5vHGqoZul7ezA8EKp7cBW1yBkRaxWZeei5DwrEjAu1Xq7IS5mev1vdOFswLc
+         uYikvOKBmvrkLfMaaO12y4/RdrNBqxGCTkeRjz02Ko//sWAUG30b35gNkHdqGQhT4VgR
+         GxqmX15tUpZk93PMBGSk9tzcP/7Nbd1DuDiWq0Vh/hXAjEeks4q9JTB0pym5+E2PHBHC
+         3/Gw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=YIfZZQ2t;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
-Received: from mout.web.de (mout.web.de. [212.227.15.14])
-        by gmr-mx.google.com with ESMTPS id 194si285111wma.1.2019.06.09.06.45.25
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=acz6ZPfU;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Received: from mout.web.de (mout.web.de. [212.227.15.4])
+        by gmr-mx.google.com with ESMTPS id v11si183418wmc.0.2019.06.09.11.58.20
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 09 Jun 2019 06:45:25 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as permitted sender) client-ip=212.227.15.14;
+        Sun, 09 Jun 2019 11:58:20 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) client-ip=212.227.15.4;
 X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [10.112.120.183] ([193.96.224.60]) by smtp.web.de (mrweb001
- [213.165.67.108]) with ESMTPSA (Nemesis) id 0MQ63n-1hVrWx3WNP-005FO2; Sun, 09
- Jun 2019 15:45:25 +0200
-Subject: Re: [PATCH v3 08/13] arm64: Initialise SMCCC backend
+Received: from [192.168.43.205] ([109.41.65.91]) by smtp.web.de (mrweb004
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 0M0O2H-1gfkXJ0uGD-00ucDr; Sun, 09
+ Jun 2019 20:58:20 +0200
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 From: Jan Kiszka <jan.kiszka@web.de>
-To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
- Jailhouse <jailhouse-dev@googlegroups.com>
-References: <20190103180651.8171-1-ralf.ramsauer@oth-regensburg.de>
- <20190103180651.8171-9-ralf.ramsauer@oth-regensburg.de>
- <da6e4ea8-5b0f-c3c9-d2fb-3dfed845f158@web.de>
-Message-ID: <26dfebf4-9b80-2a77-910c-7bf846b65e17@web.de>
-Date: Sun, 9 Jun 2019 15:45:24 +0200
+Subject: [PATCH] arm: Account for non-compliant PSCI_VERSION return codes
+Message-ID: <a9ac4f9f-8c5c-6133-b9df-77cf2a8ccc31@web.de>
+Date: Sun, 9 Jun 2019 20:58:18 +0200
 User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
  Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
 MIME-Version: 1.0
-In-Reply-To: <da6e4ea8-5b0f-c3c9-d2fb-3dfed845f158@web.de>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:ZtYInG/PV3A++E9XGgEnuMbz1fBNA4k3VLlbH6aQlJ1Hu5brFby
- uXyyS29IofFezuxraFOcAzcEEcBd+fLBf4j/zFg/2TNNS47//YrB9DFinsYQoBJXEaqvKqv
- p6fT4vL03levmLNIb1c/BgWO2iyxCQa2QU4SBiCq8A0qhJUGwF7DpIm/aXVkf2Lzis7gBk3
- G3j8Xd4RprGPWwVpecPdA==
+X-Provags-ID: V03:K1:x4k8bHn8hRvdH0atqq44fURn6qsfQhYKb04xvjF4VItNb3f3k29
+ fp/HOjjS2MEe6skDbNduTKeyI1bHD/QVQSZIylw+NAZweMDh1LK6UJmv0H5osCR0alCT2gf
+ oe/HtCNiXtEfSxyh8/ssKNV4ucrCgOjaq0HoPIGTz2m7Siw7XgtV74RMuBGh+yMXO3mydF3
+ mCNq2MFHPrsDQg8YA03Kw==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:F42OxYw9Fz0=:/8GesjopVvRK9AlZC43t6P
- 6W0eH7TMNvO67bj2QOrl7Po2iwkqmivXAJ2f7pDB/H6uo1fAQQ6sD2gluLdfWAHo9XAQIaOcn
- U4Km92vl7bkUHaiG89htdYCc3gVj+Lv2SHeKjCCE8xuTeQIRoMmBXMqOS8327vXo23950cLKs
- u7+FxG6zNBepm+y0GHcsPUSvMx3VXSWs08UDJ7O9phVGDbEAl3Fc10ZxJO9kn7Hjf8/1pFfdV
- 4vq8ztjJUhHFhaF7lBTFx1HcnakrnLrXEtLI/Y1ADX7IEUZwsei/61zu6xBeoP8pkM2NHkhqx
- H+97tW4IAk0Qv9oRbQRYla0B47ns8U2fTTw8BRlhu3by5UdGqrfRlTATk2OVNLvz6vENNtowX
- z/M8oqqA4ez9PiGooCSmg4/1fMUuxPvOIcwPUpqNL3KaURYyYBxH7UuwJ03NKlcdUPUemhKqj
- oplgrAjefdjGori1AtsA221rxBdKBZXJKusNjcJ8oi1/wU+tY5n9oqTfy89jY+ki9pvksSzI9
- sfsDU3dqlkfIttC73O4gZp7ORfn+F+rJDnDLggYjSPpssaPJ55esVecuFegj0DnXywUk3YHeF
- ShBOXFw4BSL4ySQiY3UGfk2iUIqku//BerbMkB3Coi18ef7b0jG7BNb4w0bUO2XbrS7eMcCEj
- 3+Pok4xAMx9GhkSJAYYS7kMf33sQ/d2Fz2yFEBtni3+1S5i2c5JG96IFxRabibb18BEjDbSxY
- kap4rmattjEFYZV/0uU2Mtxi/DMuL5g2DXM7FurabijDyfZZmX2eSfX+b3Jzzh/ZS2aVssJN+
- GPO3NMFDeaWVbKmWREgBB10WP2vnHIb1EBvLKgBiCY3LbNC9KO0yBtC4cGng6v+omZtbdNUPR
- diuLvfa48bsktgdugInk654e0SHWpYY42lJbYlrv+oz8XnI+6vsmpaxEBZrJ/9kPYWh287APe
- cl2X4U03PhIn/3DcsVpJVrkuM5P1pHaoXa3cedNqAX3bZAITVv2+1
+X-UI-Out-Filterresults: notjunk:1;V03:K0:hKwN4wpJvzs=:o2dLkFUmbrGVFFgAjIK1k3
+ 19X/jtwAdGdRtJEQlwumz0rcSj0J+EUzLZrI8EQH8L7qZumCSLSLbMil6LhC6hwzpFxQKs7Oo
+ Vx44WB9ogNciuj0I+mt1mJfPFFhh1WuL4yvWTmLOB/xwTX+rN/e26EKl9gHF/NDzcgkF/pbvv
+ KwbwzUVJzdpNZoNbDxKIUD9ki2Gav0x6fZoaXzJLRRhylLU5SKZ7EoY1ddxWS+YbhUOUAOyD2
+ ROxgPfdkO9KuD3NWu6cnOpNvlfz3JJ6ZNPmZC7X6gK78YZCMUv/V8slp/lMav0DT4T9AKbhmq
+ D3q1wlc1rimfn6/IhA+tJ6ZFyZ5t66oPlO90Ai1IsMV6CzSrDOX48n0l6nDdWSCa4AD4ZufCh
+ SN9TIR6H5LlCsCPRd3FGN4moEESlOX7B1uzkj/8F+UYW/E9xCZ0DWBo1lIZshcP0pRn4OL4x1
+ /+xyBsqgAXW3g/OPhB++TKp4lZSdAi7+sYCxJjQRHcRLiOlKgbsfCruvyrtvsVkjdbQfK4MmJ
+ 3n0Mmln26WCzjtdA71lVZEAybX4uxT3zU6WAve1cx1ygzYhy49Yns6imcu1sGkvXTyO5Xcefy
+ rIFajDWo4IYbACvv3/nVGJogoEU/wL6YjDuQ3PjF8ShnWIRuopHbnWRhHPPtiQgZaOw0Z/K5l
+ K0AB5L2jg6PS4iDoIUtt3bK8ayRPSmjGcCkTYZweNop2WwGMcMk1mNu/KB2FQxXT/W/rDOFx5
+ VZl5Aop3oQNm6q/VPZ0qLvOZtO9TSVxL3xb2WPG1zEOBcIYKdLo4gSpaxA5nQW2mxxoOoJ5cb
+ H//qoAQpzUDenQzeHiXNha4nQdY0ncITYepnocE4L8jgjgW8Q/+gIIxUvuZaTsw4Q8E/ixImL
+ O5VGzBivdZpnrD3aVTET9aTNRSmaBSMdg6N3tz/vSeGW/xeHD8chjicGqqreednCnYQTm4bF2
+ OMyu2YBr9q4t4+2jkowEAcNmwlOFgyLTO5I8rwqtJzFwuPweu+Umz
 X-Original-Sender: jan.kiszka@web.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b=YIfZZQ2t;       spf=pass
- (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as
- permitted sender) smtp.mailfrom=jan.kiszka@web.de
+ header.i=@web.de header.s=dbaedf251592 header.b=acz6ZPfU;       spf=pass
+ (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted
+ sender) smtp.mailfrom=jan.kiszka@web.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -154,171 +145,38 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 09.06.19 15:37, Jan Kiszka wrote:
-> On 03.01.19 19:06, Ralf Ramsauer wrote:
->> by discovering its features.
->>
->> The first step is to check the PSCI version. Don't even try to do any
->> SMCCC calls without having checked the proper PSCI version (current QEMU
->> horribly crashes).
->>
->> Probe if SMCCC_ARCH_FEATURES is available. If so, probe for
->> SMCCC_ARCH_WORKAROUND_1 and expose its availability by setting a flag
->> inside the percpu structure.
->>
->> The availability is stored per-cpu, as we might have big.LITTLE systems,
->> where only a subset of cores need mitigations.
->>
->> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
->> ---
->> =C2=A0 .../arch/arm-common/include/asm/percpu.h=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 3 ++
->> =C2=A0 .../arch/arm-common/include/asm/smccc.h=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0 5 +++
->> =C2=A0 hypervisor/arch/arm-common/setup.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 ++
->> =C2=A0 hypervisor/arch/arm-common/smccc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 32 +++++++++++++++++++
->> =C2=A0 .../arch/arm/include/asm/percpu_fields.h=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 1 +
->> =C2=A0 .../arch/arm64/include/asm/percpu_fields.h=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 1 +
->> =C2=A0 6 files changed, 45 insertions(+)
->>
->> diff --git a/hypervisor/arch/arm-common/include/asm/percpu.h
->> b/hypervisor/arch/arm-common/include/asm/percpu.h
->> index b9278117..4b37e1be 100644
->> --- a/hypervisor/arch/arm-common/include/asm/percpu.h
->> +++ b/hypervisor/arch/arm-common/include/asm/percpu.h
->> @@ -15,6 +15,9 @@
->>
->> =C2=A0 #define STACK_SIZE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 PAGE_SIZE
->>
->> +#define ARM_PERCPU_FIELDS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0 bool smccc_has_workaround_1;
->> +
->> =C2=A0 #define ARCH_PUBLIC_PERCPU_FIELDS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 \
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long mpidr;=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- \
->> diff --git a/hypervisor/arch/arm-common/include/asm/smccc.h
->> b/hypervisor/arch/arm-common/include/asm/smccc.h
->> index 563ab9ef..6c490fad 100644
->> --- a/hypervisor/arch/arm-common/include/asm/smccc.h
->> +++ b/hypervisor/arch/arm-common/include/asm/smccc.h
->> @@ -12,6 +12,8 @@
->>
->> =C2=A0 #define SMCCC_VERSION=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 0x80000000
->> =C2=A0 #define SMCCC_ARCH_FEATURES=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 0x80000001
->> +#define SMCCC_ARCH_WORKAROUND_1=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 0x80008000
->> +#define SMCCC_ARCH_WORKAROUND_2=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 0x80007fff
->>
->> =C2=A0 #define ARM_SMCCC_OWNER_MASK=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 BIT_MASK(29, 24)
->> =C2=A0 #define ARM_SMCCC_OWNER_SHIFT=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 24
->> @@ -33,4 +35,7 @@
->>
->> =C2=A0 #define SMCCC_IS_CONV_64(function_id)=C2=A0=C2=A0=C2=A0 !!(functi=
-on_id & (1 << 30))
->>
->> +struct trap_context;
->> +
->> +void smccc_discover(void);
->> =C2=A0 enum trap_return handle_smc(struct trap_context *ctx);
->> diff --git a/hypervisor/arch/arm-common/setup.c
->> b/hypervisor/arch/arm-common/setup.c
->> index 4cc045ec..2a04cdb7 100644
->> --- a/hypervisor/arch/arm-common/setup.c
->> +++ b/hypervisor/arch/arm-common/setup.c
->> @@ -14,6 +14,7 @@
->> =C2=A0 #include <jailhouse/paging.h>
->> =C2=A0 #include <jailhouse/processor.h>
->> =C2=A0 #include <asm/setup.h>
->> +#include <asm/smccc.h>
->>
->> =C2=A0 static u32 __attribute__((aligned(PAGE_SIZE))) parking_code[PAGE_=
-SIZE / 4] =3D {
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ARM_PARKING_CODE
->> @@ -42,5 +43,7 @@ int arm_cpu_init(struct per_cpu *cpu_data)
->>
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 arm_paging_vcpu_init(&root_cell.arch.mm);
->>
->> +=C2=A0=C2=A0=C2=A0 smccc_discover();
->> +
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return irqchip_cpu_init(cpu_data);
->> =C2=A0 }
->> diff --git a/hypervisor/arch/arm-common/smccc.c
->> b/hypervisor/arch/arm-common/smccc.c
->> index 211d6cd7..37c05b42 100644
->> --- a/hypervisor/arch/arm-common/smccc.c
->> +++ b/hypervisor/arch/arm-common/smccc.c
->> @@ -11,10 +11,42 @@
->> =C2=A0=C2=A0 */
->>
->> =C2=A0 #include <jailhouse/control.h>
->> +#include <jailhouse/printk.h>
->> =C2=A0 #include <asm/psci.h>
->> =C2=A0 #include <asm/traps.h>
->> +#include <asm/smc.h>
->> =C2=A0 #include <asm/smccc.h>
->>
->> +void smccc_discover(void)
->> +{
->> +=C2=A0=C2=A0=C2=A0 int ret;
->> +
->> +=C2=A0=C2=A0=C2=A0 ret =3D smc(PSCI_0_2_FN_VERSION);
->> + > +=C2=A0=C2=A0=C2=A0 /* We need >=3DPSCIv1.0 for SMCCC */
->> +=C2=A0=C2=A0=C2=A0 if (PSCI_VERSION_MAJOR(ret) < 1)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
->> +
->
-> This breaks on ARMv7, at least on sunxi (Orange Pi Zero). I first thought=
- it was
-> because U-Boot returning -1, instead "0.2". But then it turns out that th=
-e smc
-> itself does not return. I'm starting to believe we do not get the call th=
-rough
-> the hyp stub of the kernel, which is still active during smccc_discover o=
-n ARMv7
-> (in contrast to ARMv8, where we take over first).
+From: Jan Kiszka <jan.kiszka@siemens.com>
 
-Hmm, not quite: We are past switch_exception_level() at that point, ie. in =
-EL2.
-I guess I need to dig deeper...
+U-Boot returns PSCI_NOT_SUPPORTED, rather than the implemented 0.2.
+Filter out all negative return codes.
 
-Jan
+Fixes: ea924a3fec98 ("arm64: Initialise SMCCC backend")
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+---
+ hypervisor/arch/arm-common/smccc.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
->
-> Do we support fixing on ARMv7 at all? Otherwise, the invocation of this s=
-hould
-> be moved to ARMv8 only.
->
-> Jan
->
-> PS: This change was untested on the Orange Pi until today and my attempt =
-to
-> demonstrate jailhouse next during a live demo at MiniDebConf...
->
+diff --git a/hypervisor/arch/arm-common/smccc.c b/hypervisor/arch/arm-common/smccc.c
+index 5affa965..7734b999 100644
+--- a/hypervisor/arch/arm-common/smccc.c
++++ b/hypervisor/arch/arm-common/smccc.c
+@@ -23,8 +23,9 @@ void smccc_discover(void)
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/26dfebf4-9b80-2a77-910c-7bf846b65e17%40web.de.
+ 	ret = smc(PSCI_0_2_FN_VERSION);
+
+-	/* We need >=PSCIv1.0 for SMCCC */
+-	if (PSCI_VERSION_MAJOR(ret) < 1)
++	/* We need >=PSCIv1.0 for SMCCC. Against the spec, U-Boot may also
++	 * return a negative error code. */
++	if (ret < 0 || PSCI_VERSION_MAJOR(ret) < 1)
+ 		return;
+
+ 	/* Check if PSCI supports SMCCC version call */
+--
+2.16.4
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/a9ac4f9f-8c5c-6133-b9df-77cf2a8ccc31%40web.de.
 For more options, visit https://groups.google.com/d/optout.
