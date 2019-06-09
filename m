@@ -1,184 +1,143 @@
-Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRB4VO5PTQKGQET4YEI2A@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBF4X6TTQKGQE6MI6S7Q@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43d.google.com (mail-wr1-x43d.google.com [IPv6:2a00:1450:4864:20::43d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6255D397C3
-	for <lists+jailhouse-dev@lfdr.de>; Fri,  7 Jun 2019 23:30:27 +0200 (CEST)
-Received: by mail-wr1-x43d.google.com with SMTP id b14sf1388597wrn.8
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 07 Jun 2019 14:30:27 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1559943027; cv=pass;
+Received: from mail-lf1-x13c.google.com (mail-lf1-x13c.google.com [IPv6:2a00:1450:4864:20::13c])
+	by mail.lfdr.de (Postfix) with ESMTPS id DF5BF3A5EE
+	for <lists+jailhouse-dev@lfdr.de>; Sun,  9 Jun 2019 15:37:28 +0200 (CEST)
+Received: by mail-lf1-x13c.google.com with SMTP id f24sf1352660lfj.17
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 09 Jun 2019 06:37:28 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1560087448; cv=pass;
         d=google.com; s=arc-20160816;
-        b=D149w85NA0L4Rzecy0ZtrGnkwoiu8qpXjEWnls9+bKzVvdqanSUpTm4mYh/2RwyxFq
-         jiR4wZ9+mbZ9qFDIdX0B02kWICRHzQ7gPCKeRSAj3MT+VVrjovI+D11fPGkMEouC5X5Z
-         zCgtNR0mR5fphIKg7gVtJVH6pkgp0Wf9ao2k7GGOh5W0bnC7pICVnSH2QTzHAVjotQhr
-         q9WVc8Nce8Lp8uYFcKKaiBuFuSmz6xOYLaY4MJjE1RyrUzGvaVVBToSNA0AsBV/WK3y6
-         mv0x+CXszbt1NMfxlpjC7nwagKtSVks5inn2ev+8RYC7bGp/YBjiD8E8wuXf25OL8Lf5
-         kmqw==
+        b=FaxVPNBQtXIJPKKP0edRa0i5v++bN//lAJnZ0tKyrA/rF4vmvCohhFV1Wnt101dKKs
+         PrcOvIPo1YOhI9vbVpQLmiaoZjNzawxMG7a1G00zYZoN+hLn/KvSE7L96TlM/2pNHSOW
+         QYrBMmNCuJ0klY+PavGXvNSsI50CcwrjhctiGkmNvIAK6rTWBl6uKJvGfx5Wrm0VeYIk
+         C6dCgS2O3WxsThkRNfNsrASJiE6+cHw+GLCt0RACWqAaZUx1DLZvLSiDVpaFUeHJh4u5
+         G5mXB6TaG3f6NNobtShAA7qmI/nNxryMxNSDyqdXOk8QbR4RXVYgS7HqlbTlXhvadB99
+         1snQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:subject:autocrypt:openpgp:from:references:cc:to:sender
-         :dkim-signature;
-        bh=uAQAEACSp7y5t6/bypaud+GPb34N9ooA8VZRWmlPvAw=;
-        b=b1URd1xvaFENZTOqPEGQpzxR4bkR0+E+OWX171QynWwocdpM1jj998Rhq2ysBCYJ1V
-         ky+0/hMjUmBUGQQ02JE2duZpaatkUdxLoqZT1ijv5HCM1PIVFAjPGHhuE1nFX7+ywdvY
-         EMuhC0JXQspQmmhnEfTqauMKYkr7+yjf+nzoZd1Z4fQOmPDrRiYt8dpaMS7cP71xRDTj
-         ZdOx3wCcp/uPg6ptXHA9uxpz12yHBvGmzMRYPGv5Y75lOFiwOTk2tbJ7xlclCgdBEUA+
-         oS8tQ561FlB9llUVxy1KtDMSCmG5cpfRUK1jxFOKS/D9/pBISr7nP1+u22EcBIhp9z/m
-         Anwg==
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:to:subject
+         :sender:dkim-signature;
+        bh=bmB+FYv6b1SylriCeaeJiWaD9Bh80bkAkhsIBJ6HlGk=;
+        b=PPjCP3XpFX0Vcy2FWhanR0tTsE1ogCRgkDwmaRKpYGT4vS7TF+nOwdBln3DSaN0vS9
+         AxcCoflwLOgAvXknrCxbSKnF3zqWC6SjaH4DBPMveNy6IoKfYepCscpV97X5XTcOcZSq
+         5cbaior14jzWb19FFFGI7ZnlDpP8T3rdfQm5SORSuxB134ICX78gzCohOFWWXU+gIlIz
+         uTRXHuYcMptbBvwwx4XLZ6flsaHy04GL9lmMqCnTzlCMlr9eD891KKkqrTrBbMckM8me
+         vEcKfBeVUahODpZoACx92EGCEfC/9NmGvcctYcyvyQkb/eMsdqlxcU64MRWisJf6W52Y
+         90rQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=HB2w7zfu;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=HFyD8Ud1;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:to:cc:references:from:openpgp:autocrypt:subject:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=uAQAEACSp7y5t6/bypaud+GPb34N9ooA8VZRWmlPvAw=;
-        b=mdv4tEwfcuCXp6mVbw0A+t5lqRaGX7vYQiYVe/Z2m8f6uEu5h9WkVi6kKB7LClbPcO
-         qQTMNflTaALjleSw+ae/sPrbUWR9g0GOZ/z2FJbnWYsuL+aXgr8ywdqeVozA8rS3rudh
-         P0Rb488BJlXclJUdbxzyaMtCqU0V2WOIzhO1Og4O0b5/8sp0iduZ95+S52nspWgT0qno
-         YgLG3l/92SdsCRdY5jyk6DH/KdHvx1WJZaRmc1LGBTNcQNnAm7fFqosib+KAhGXDift1
-         8jWrCelhZljrgUZwqniaHrhe9m8oO3joIIpqRILjKKniHyAPUrIK1tvPparEY15qMLkE
-         L5Lw==
+        bh=bmB+FYv6b1SylriCeaeJiWaD9Bh80bkAkhsIBJ6HlGk=;
+        b=DOaMfRlZz/sUW20HeiFu1F/XmeEf93xx4YKqJ2EAtsVnu4OLCNFBNpSFKCH7TbBR8g
+         E47sJ2SjxiSRcAnvC/rio8TgYaEsavQdN6UdfcpRHpAe3Zxs0/bSG2JThnrFfBmfZ0aX
+         N/pKtDS093F55zN4KiUtW8jIFrB8qe3M1zmtQGUq5XLFcfUOR+fWbvGZ9a8Rtsyro9Sh
+         Y16kXo/y5mFrA1WyvWHC0tIxIE63jwZ+gDmivNe0j1NcswDz2W4D0/v6EaOOfSwAzU1+
+         YiWdaC6EM32RBXE9+v+QpHL1LjVakFUnzMdezlk4zdsAHVpCPaO6de0P3u9rdIbKKO/E
+         FFcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:to:cc:references:from:openpgp:autocrypt
-         :subject:message-id:date:user-agent:mime-version:in-reply-to
-         :content-language:content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=uAQAEACSp7y5t6/bypaud+GPb34N9ooA8VZRWmlPvAw=;
-        b=FSKwI0nTVKae/dKy9t2FB9bVaBqE68v10xxAsFmPSFgdWMYOtQoJOZI5UYWvRHZwdS
-         xKZGgMc1Udu2KP6pFTbgNoKi+rT+JRJhgVZwWmL6pfVN81gl3G794H0lgjuMxBP2T/Rj
-         Uarvn/juVISWi9ZrzSUKdFtALRWiDvyspAqd7fAu29MZ75SyfipcdbNzpv+MH41jP0Ly
-         7+P5dvkVwEbG9w8kQjfQhwYisHedG4/jjNr9IeUJQpnK5ZicvzbO5UW657xXcuPP+T4U
-         jfYI4/wVJ/Lq7lYYQ1+tJWdddIwh/K8trz7rQbG9r7EW/phiNyHM52j7dKb7ZemBpv3p
-         mxMw==
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=bmB+FYv6b1SylriCeaeJiWaD9Bh80bkAkhsIBJ6HlGk=;
+        b=tfSIts4lilFyC3VCWy++8+9BTYrCh0jc5ywsx0pSXOwbYP59qwREbjyWj5+RME9U5G
+         2dBI9sF8+fkvGmZUteqN8IbiMzQCIn/2a7bYRC6rhEXr8wviD5u4XvBUn0u5Xg7C8oYC
+         M2BFjgEAzGyJFznGkmmJuoc7rnv5gdIdx/wC75h9HR030oMzmnRNrRAzqFfRLiUq0YVF
+         YixsgLXW6zbNFIjU9/Pouo4qBCxCt4PmmPc03W8xbAdj6V1ANGVKm2Vb+tl81IaRnq6y
+         Ftj35C96dhrJ7CjjtrO3oXyQVKWpXdFgu0XYpIVmEb0wQcuTqIXypZcLKlLGfspY4W+Z
+         sb1Q==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUIW9HvLrbfPZteJ6/Er/MnAooOZAlRkJJsrFTdNB5UrAC7j3va
-	vM2xT+xmX4wl6jBBSAbPyfI=
-X-Google-Smtp-Source: APXvYqyISAfXfdsmB5Y5QoBlW+U4NUEx6/0Witq09H5KXQXYb7B01pruVjRb5c0tyoZWmzl8owlYhw==
-X-Received: by 2002:adf:f006:: with SMTP id j6mr22128688wro.243.1559943027028;
-        Fri, 07 Jun 2019 14:30:27 -0700 (PDT)
+X-Gm-Message-State: APjAAAWSZWRWvOkG5oSeiiw5djxXHnoiD2XEf/wvVMrz+/03wKkaNJkd
+	4BwAyUp1eEh6aYAWQhitn7E=
+X-Google-Smtp-Source: APXvYqwNKUpNOkjqD/YWPEdHqf2xMt/Z5swKkjbmsyj4w2X0wTOVyZU+4Z7+QwNiKUVZpctg7JMAJg==
+X-Received: by 2002:a19:ccc6:: with SMTP id c189mr530446lfg.160.1560087448412;
+        Sun, 09 Jun 2019 06:37:28 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:9d45:: with SMTP id g66ls3111533wme.1.gmail; Fri, 07 Jun
- 2019 14:30:26 -0700 (PDT)
-X-Received: by 2002:a7b:cd84:: with SMTP id y4mr5220046wmj.41.1559943026435;
-        Fri, 07 Jun 2019 14:30:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1559943026; cv=none;
+Received: by 2002:a2e:998e:: with SMTP id w14ls56506lji.0.gmail; Sun, 09 Jun
+ 2019 06:37:27 -0700 (PDT)
+X-Received: by 2002:a2e:98d5:: with SMTP id s21mr15224071ljj.142.1560087447504;
+        Sun, 09 Jun 2019 06:37:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1560087447; cv=none;
         d=google.com; s=arc-20160816;
-        b=aAyFWnpBGTeenVjxcBf1gDH3y71WrcqzHJWQ9C2wpk3UsNdHGzi5vhVqwZA2XMFlua
-         JUaGRs8PO2bH6LKP7pFWZzBoh/C2av476Iqd9O8/ZKfN2aZOQeAcsYq8yB+UzPeoN2xd
-         Ap7qTxN8XRg36HgaY1lmF+C/HRx/AsSEjN5k4u0l29JUKeZwPIJFhzRSOpJXkg9E+FeY
-         Uqy0V6x1vdHUVXsBM0xsmFzb0zzYNPmEgJvz6238/J0om0QXf2UKzaMAXvZlMisg8VY/
-         HfHLEjn4imendX5Ftf6l3GX5Vi8JgzbO8oAciugzLF4mqssQ+BCMlcYd1sbsjYHyJZ7j
-         2tZw==
+        b=BXB+DuxfSOaMrqjZs9xxPWc54Vio1y+C6VHS5kdDJ2lLQRfFmVOHy14tyfiDtmyRLt
+         Y+4uNtRR7IMO5sQeuZTS5W0ydAebGwRifT2zYgmA0XJtMYqIuAl2He5CcaSCbz1sXhBV
+         5uHi16mj3/pZWfL4F1DJz93WO2lpXoQgQuX0/hGssTgDf0bSfxC3BxFWn5We8VKinZ4Z
+         tbrTwcwrZLpWQcv7BoBy3LZnN21GSTmWjHlYbF/SrgrSNBCIKmyz2XUN9bE4lxqj+DgT
+         HrtTfjejoDMi5qsnmf+TAyMyiaWcu5KioLEDj2BU6izQjwHAJEXL62kAsFCNq/paR3PM
+         5UqA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:subject:autocrypt:openpgp:from
-         :references:cc:to:dkim-signature;
-        bh=7cV+jKyEHwurOtS3a/13+3hLTfKp7XQITLdf/Qqqq5c=;
-        b=fJlpz7sSUH73Jw+eTo+HsezGUnger2c9H0Y9HsUsfDrrVH063QHzt4mewfn0G8R0Pn
-         LqgFF0pAWWauH0fqEMfxbU+NskqBO9l4332LyXVn8i0NJvurjx+G02hsDThiAB7UuceW
-         cq89mkjS5I31TWiUK3DWnwHJ09InUOqBsL3+kZL/FJsZWKbgUiRvxbwipmcpG+xf8Qh9
-         TX3CKS3jqOtbGYJtW/ZjgaOILyTGeNQ7KFFXgP1eQE+D4wbm1cj3EIORsY7woAqTWLKm
-         8UvWqxhluE7YtSE2ja0afonuY2LooHaettvDJFJFKmxj/Peh0OR8n7Vt+ZWed709SEoY
-         7zSA==
+         :user-agent:date:message-id:from:references:to:subject
+         :dkim-signature;
+        bh=8dIGR+EuY1IXmTSHF/0j2qVC/K7SO5RmG5i4J0zdDaM=;
+        b=FpWF575a4n+hdXDCtlGNwTXr/bCaK4+jESxmvEaOkVCPa207OCI6zlqh0zkxZoQ3Tt
+         SBIabstyVhtRke2c8bQ6yqiq6skO/1so6K9tQtNgpSMjrLGM759jejBaGNzAkRVv4Q3H
+         dP67sKsvw84qqczX5ANv3RfoaS+KEz/KdGlRsAQPbW8JWxaA16Fu1Kgp6z0D4EFMoqoU
+         Z/zqW9M5FzJlue/YDAjacBSRNgF5W5+wHdvea8F8nKh8neQGewevhvg79//9FMRuUyeo
+         zEZUSqb4s/Y0z3MH4xU47ZcFDRTwLJTsZjqRx7RPis7eJlvfQqyycJJKbWJWN3rGsQQq
+         wVaQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=HB2w7zfu;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [2001:638:a01:1096::11])
-        by gmr-mx.google.com with ESMTPS id l19si1325wmc.1.2019.06.07.14.30.26
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=HFyD8Ud1;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Received: from mout.web.de (mout.web.de. [212.227.15.4])
+        by gmr-mx.google.com with ESMTPS id o20si326706lji.2.2019.06.09.06.37.27
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 07 Jun 2019 14:30:26 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) client-ip=2001:638:a01:1096::11;
-Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S02", Issuer "E16S02" (not verified))
-	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 45LG0K62MMzyRR;
-	Fri,  7 Jun 2019 23:30:25 +0200 (CEST)
-Received: from [172.23.3.82] (194.95.106.138) by E16S02.hs-regensburg.de
- (2001:638:a01:8013::92) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 7 Jun 2019
- 23:30:25 +0200
-To: Wayne <racedrive1503@gmail.com>
-CC: <jailhouse-dev@googlegroups.com>, <jan.kiszka@siemens.com>
-References: <CA++Khc2iKk1J6+0huh5__dS4HyujXzV9r+LbKLzuVZ4K3Bt5eA@mail.gmail.com>
- <57edbc3b-cadc-c850-8310-4640fc623085@oth-regensburg.de>
- <CA++Khc3HLaSEo9z2jd6hVLuDK-zd4P6au0KP3+6db8KBR47izQ@mail.gmail.com>
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Openpgp: preference=signencrypt
-Autocrypt: addr=ralf.ramsauer@oth-regensburg.de; keydata=
- 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
- RncIIYr0LjXAAzY=
-Subject: Re: Linux non-root node question
-Message-ID: <166c6ad9-379c-bad6-f30f-8af4f97b8bb1@oth-regensburg.de>
-Date: Fri, 7 Jun 2019 23:30:15 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+        Sun, 09 Jun 2019 06:37:27 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) client-ip=212.227.15.4;
+X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
+Received: from [10.112.120.183] ([193.96.224.60]) by smtp.web.de (mrweb002
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 0MUEsc-1hADhM2imY-00R1HT; Sun, 09
+ Jun 2019 15:37:26 +0200
+Subject: Re: [PATCH v3 08/13] arm64: Initialise SMCCC backend
+To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
+ Jailhouse <jailhouse-dev@googlegroups.com>
+References: <20190103180651.8171-1-ralf.ramsauer@oth-regensburg.de>
+ <20190103180651.8171-9-ralf.ramsauer@oth-regensburg.de>
+From: Jan Kiszka <jan.kiszka@web.de>
+Message-ID: <da6e4ea8-5b0f-c3c9-d2fb-3dfed845f158@web.de>
+Date: Sun, 9 Jun 2019 15:37:25 +0200
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
+ Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
 MIME-Version: 1.0
-In-Reply-To: <CA++Khc3HLaSEo9z2jd6hVLuDK-zd4P6au0KP3+6db8KBR47izQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-PH
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [194.95.106.138]
-X-ClientProxiedBy: E16S02.hs-regensburg.de (2001:638:a01:8013::92) To
- E16S02.hs-regensburg.de (2001:638:a01:8013::92)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+In-Reply-To: <20190103180651.8171-9-ralf.ramsauer@oth-regensburg.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Language: en-US
+X-Provags-ID: V03:K1:TBxAVMsw0BEYV+hAyxpVrbiCHTg516Ur2G5LbdLx4IQQqaQFuph
+ yH4MZID1xHhEr1fdEPkhcvDbJU8Tvl0EwcbMsIfNST+/y9Necess8N3hfFlhdFHeQiH1C47
+ 0FgNcml8hE9zB4XaSShJbSBQ7jh5lA9BM6c5ZxGhaFtaG/wMOtzGxsS3EGqIyAZ8IxKb9q8
+ A/Y1GfLKHconAkQCz844w==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:BMgbdpzj19U=:CgCIbk+ShAlwbZMP2ZBhkk
+ h56e7VfcRF8ORVW8lCyG3hgiNpIFaegbpvNgbqRUcA6oHDY7/Lvtz1Q5JQPauSCE/nXfuUaP5
+ 04UVxKi+CaT+1NkIQHlI5n9ZdYgwe0yw892hWrJyqRY4iRo23oYH5AyStYkGTvIINuik+f+Pk
+ zCZ57WdAp7Una8ptGLJ/OmgD4jlClnScw9VFXr6hWPb+qFfTmcJ/5kGH93JXkygs82Mu/1INJ
+ bof7AbwTIBMFNxsgLxSo2/hKTBI0V55sCLqNVqtjnOqYVtYFGckctuBHI+d6oyPHFBHbOkBl3
+ 8Bhvi+Yqg7bOtl1L7PJDlM/BLUtk/wvXkT1aJPBRRowNEUMaWWa9exnucKWmv3kDqWTsszoY9
+ T2hVGAJVQOxSLDy19q35G6MBukau69E2pakt1C/erjGG6Ug8PSQSUcrfgApVGhL+2CbOuIxY6
+ KbMC+wcHJgptwfj+fwqAFEuOkQsE4AV761NmBftZAYDIZsYeTdUJeu0s05GDtoXcu8IkkH9/j
+ bSQPaGmzsk35gXdzM1qeRLaYKcrWBLU3imxzR8Yo3oSpJBOAIT9VlqE7hAaf+qt8A0/M28Rqx
+ w9nYZi0D/fcC3RD352U8+bC7XG0ryqEgCgdezPlBtodylIqaM48CSrw71dwJVUIN6pWxR16Ce
+ +xxwGYUl/e+lEMJP7UQJWsz+MuG0Osm+4uYU2BAe8xOcmF9cbNaKXV8uNswNeadlAXDbTsD1L
+ Bx7uXiCvXigYrjXJ/vhMK1xMN9oz0pQCY2U7bh5juFVcnWmanXCAXbonKeZG9MIIQPGBYQbU7
+ 3UrvaoqWL78Fpjn0DUJKMaqBoiK121NMlSODS7REtJN+y0CQqTZQ/97BM1nGSNH60jDZN5xcM
+ aAQSAfasK0gMILH2ROMmchnvk6BQEHrLuoVu3/9QaSOJcMBgbj1jnwgAiPAZzOZ2NfHlvxTWb
+ gcH19bOgiVvZXZxUMxLcGGWisNKc5Gip3oMRcuk/pdN5RTzI3Id0w
+X-Original-Sender: jan.kiszka@web.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=HB2w7zfu;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+ header.i=@web.de header.s=dbaedf251592 header.b=HFyD8Ud1;       spf=pass
+ (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted
+ sender) smtp.mailfrom=jan.kiszka@web.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -191,250 +150,125 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi Wayne,
+On 03.01.19 19:06, Ralf Ramsauer wrote:
+> by discovering its features.
+>
+> The first step is to check the PSCI version. Don't even try to do any
+> SMCCC calls without having checked the proper PSCI version (current QEMU
+> horribly crashes).
+>
+> Probe if SMCCC_ARCH_FEATURES is available. If so, probe for
+> SMCCC_ARCH_WORKAROUND_1 and expose its availability by setting a flag
+> inside the percpu structure.
+>
+> The availability is stored per-cpu, as we might have big.LITTLE systems,
+> where only a subset of cores need mitigations.
+>
+> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+> ---
+>   .../arch/arm-common/include/asm/percpu.h      |  3 ++
+>   .../arch/arm-common/include/asm/smccc.h       |  5 +++
+>   hypervisor/arch/arm-common/setup.c            |  3 ++
+>   hypervisor/arch/arm-common/smccc.c            | 32 +++++++++++++++++++
+>   .../arch/arm/include/asm/percpu_fields.h      |  1 +
+>   .../arch/arm64/include/asm/percpu_fields.h    |  1 +
+>   6 files changed, 45 insertions(+)
+>
+> diff --git a/hypervisor/arch/arm-common/include/asm/percpu.h b/hypervisor/arch/arm-common/include/asm/percpu.h
+> index b9278117..4b37e1be 100644
+> --- a/hypervisor/arch/arm-common/include/asm/percpu.h
+> +++ b/hypervisor/arch/arm-common/include/asm/percpu.h
+> @@ -15,6 +15,9 @@
+>
+>   #define STACK_SIZE			PAGE_SIZE
+>
+> +#define ARM_PERCPU_FIELDS						\
+> +	bool smccc_has_workaround_1;
+> +
+>   #define ARCH_PUBLIC_PERCPU_FIELDS					\
+>   	unsigned long mpidr;						\
+>   									\
+> diff --git a/hypervisor/arch/arm-common/include/asm/smccc.h b/hypervisor/arch/arm-common/include/asm/smccc.h
+> index 563ab9ef..6c490fad 100644
+> --- a/hypervisor/arch/arm-common/include/asm/smccc.h
+> +++ b/hypervisor/arch/arm-common/include/asm/smccc.h
+> @@ -12,6 +12,8 @@
+>
+>   #define SMCCC_VERSION			0x80000000
+>   #define SMCCC_ARCH_FEATURES		0x80000001
+> +#define SMCCC_ARCH_WORKAROUND_1		0x80008000
+> +#define SMCCC_ARCH_WORKAROUND_2		0x80007fff
+>
+>   #define ARM_SMCCC_OWNER_MASK		BIT_MASK(29, 24)
+>   #define ARM_SMCCC_OWNER_SHIFT		24
+> @@ -33,4 +35,7 @@
+>
+>   #define SMCCC_IS_CONV_64(function_id)	!!(function_id & (1 << 30))
+>
+> +struct trap_context;
+> +
+> +void smccc_discover(void);
+>   enum trap_return handle_smc(struct trap_context *ctx);
+> diff --git a/hypervisor/arch/arm-common/setup.c b/hypervisor/arch/arm-common/setup.c
+> index 4cc045ec..2a04cdb7 100644
+> --- a/hypervisor/arch/arm-common/setup.c
+> +++ b/hypervisor/arch/arm-common/setup.c
+> @@ -14,6 +14,7 @@
+>   #include <jailhouse/paging.h>
+>   #include <jailhouse/processor.h>
+>   #include <asm/setup.h>
+> +#include <asm/smccc.h>
+>
+>   static u32 __attribute__((aligned(PAGE_SIZE))) parking_code[PAGE_SIZE / 4] = {
+>   	ARM_PARKING_CODE
+> @@ -42,5 +43,7 @@ int arm_cpu_init(struct per_cpu *cpu_data)
+>
+>   	arm_paging_vcpu_init(&root_cell.arch.mm);
+>
+> +	smccc_discover();
+> +
+>   	return irqchip_cpu_init(cpu_data);
+>   }
+> diff --git a/hypervisor/arch/arm-common/smccc.c b/hypervisor/arch/arm-common/smccc.c
+> index 211d6cd7..37c05b42 100644
+> --- a/hypervisor/arch/arm-common/smccc.c
+> +++ b/hypervisor/arch/arm-common/smccc.c
+> @@ -11,10 +11,42 @@
+>    */
+>
+>   #include <jailhouse/control.h>
+> +#include <jailhouse/printk.h>
+>   #include <asm/psci.h>
+>   #include <asm/traps.h>
+> +#include <asm/smc.h>
+>   #include <asm/smccc.h>
+>
+> +void smccc_discover(void)
+> +{
+> +	int ret;
+> +
+> +	ret = smc(PSCI_0_2_FN_VERSION);
+> + > +	/* We need >=PSCIv1.0 for SMCCC */
+> +	if (PSCI_VERSION_MAJOR(ret) < 1)
+> +		return;
+> +
 
-On 6/7/19 10:04 PM, Wayne wrote:
-> Hi Ralf,
->=20
-> Thank you for your responses.=C2=A0 I have attached the requested config
-> files.=C2=A0 I am now just trying to use the same bzImage for the root an=
-d
-> the non-root linux node.
+This breaks on ARMv7, at least on sunxi (Orange Pi Zero). I first thought it was
+because U-Boot returning -1, instead "0.2". But then it turns out that the smc
+itself does not return. I'm starting to believe we do not get the call through
+the hyp stub of the kernel, which is still active during smccc_discover on ARMv7
+(in contrast to ARMv8, where we take over first).
 
-One question that you didn't answer: do apic-demo or tiny-demo work?
-They need to to have correct .console parameter set, so ensure that
-parameters are set if you run those demos in your linux-demo cell. Just
-compare it to tiny-demo.c or apic-demo.c
+Do we support fixing on ARMv7 at all? Otherwise, the invocation of this should
+be moved to ARMv8 only.
 
->=20
-> Yes, I am using vanilla 4.16 because the documentation indicated that it
-> is the first mainline release to officially support Jailhouse Guest
-> images.=C2=A0 Do you suggest that I use something else?
+Jan
 
-As Jan already wrote: Try to use Siemens' 4.19 branch.
+PS: This change was untested on the Orange Pi until today and my attempt to
+demonstrate jailhouse next during a live demo at MiniDebConf...
 
->=20
-> Right now i'm just trying to get some serial output from the non-root
-> Linux.=C2=A0 Hopefully, I have that configured correctly.=C2=A0 Ideally, =
-I would
-> like to share the same serial console for the Root node and non-root
-> node eventually if possible.=C2=A0 I have been OK with using the virtual
-> console (jailhouse console -f) for the Hypervisor output.
-
-In addition to Jan's comment:
-
-Currently you only have access to the jailhouse console via 'jailhouse
-console' from your root cell. Imagine your root cell crashes for some
-reason. You will never see the fault reason, which makes things hard to
-debug.
-
-I would suggest to configure the hypervisor to use the serial console.
-You can share the device with the non-root Linux, that's no problem.
-
-In this case, the non-root kernel's output will always be printed to the
-serial console. Directly, if you choose console=3DttySx, and indirectly
-via the hypervisor if you choose console=3Djailhouse.
-
-BTW: According to your config, your system is a PowerEdge, and the
-non-root cell gets both, 0x2f8 and 0x3f8. Are you sure that ttyS1 is the
-correct console that you are connected to?
-
-Just mentioning this as we have a similar machine here, and, afair, both
-platform serial device are 'usable', but one ends in the nirvana while
-it is accessible.
-
-Ah, and one last thing: try to switch to the current next branch for
-jailhouse. Jan just integrated a few patches from me that might also be
-relevant for your machine.
-
-HTH
-  Ralf
-
->=20
-> Wayne
->=20
-> On Fri, Jun 7, 2019 at 9:10 AM Ralf Ramsauer
-> <ralf.ramsauer@oth-regensburg.de
-> <mailto:ralf.ramsauer@oth-regensburg.de>> wrote:
->=20
->     Hi,
->=20
->     On 6/7/19 2:28 PM, Wayne wrote:
->     > Hello,
->     >
->     > I am new to Linux development and Jailhouse.=C2=A0 I have successfu=
-lly
->     booted
->     > the Jailhouse Hypervisor and root cell on a bare metal X86 Linux
->     system
->     > (No QEMU).=C2=A0 I am now trying to load a non-root Linux cell and =
-I have a
->     > few questions.=C2=A0 Jailhouse accepts and starts my non-root linux=
- cell
->     > configuration and I see it as "running" through the "jailhouse cell
->     > list" command.=C2=A0 However, I don't see any serial output from th=
-e
->     > "non-root linux" cell booting up.=C2=A0 I=E2=80=99m not sure what t=
-he non-root node
->     > is doing at this point.
->=20
->     Ok, first of all, can you see any output from Jailhouse's demo inmate=
-s
->     (e.g., tiny-demo or apic-demo)?
->=20
->     >
->     > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0My root node=
- is a 4.16 kernel configured this way:
->     > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 1. CONFIG_JAILHOUSE_GUEST is not set
->     > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 2. CONFIG_SERIO=3Dy
->     > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 3. CONFIG_SERIAL_8250_RUNTIME_UARTS=
-=3D4
->     >
->     > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0My non-root =
-node is a 4.16 kernel configured this way:
->     > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 1. CONFIG_JAILHOUSE_GUEST=3Dy
->     > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 2. CONFIG_SERIO=3Dm (can't seem to d=
-isable
->     > completely in my config for 4.16)
->     > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 3. CONFIG_SERIAL_8250_RUNTIME_UARTS=
-=3D1
->=20
->     Could you please provide a full .config? What branch are you exactly
->     using? Vanilla 4.16?
->=20
->     Please attach your system config and your non-root linux config as we=
-ll.
->=20
->     You may also want to try https://github.com/siemens/linux . See
->     jailhouse-enabling branches for some releases.
->=20
->     >
->     > In general, do the kernel config settings have to match between
->     the root
->     > node and non-linux or is the above fine?
->=20
->     No, they do not have to be the same, but they can. Still, an analysis
->     requires your .config.
->=20
->     >
->     > The vmlinux-4.1.16-Guest bzImage is approx 7MB, and the inmate node=
- is
->     > allocated ~75MB of RAM.
->     >
->     > I have a single UART, so I have configured the root cell system con=
-fig
->     > to output to the virtual hypervisor console:
->=20
->     Wait... You configured your root-cell to use the hypervisor debug
->     console? How? It's only available once the hypervisor is enabled. How
->     should this work?
->=20
->     But let's have a look at your configuration first.
->=20
->     So you want to:
->     =C2=A0 - Have the UART (0x3f8) available in the non-root cell
->     =C2=A0 - Use 0x3f8 as hypervisor debug console as well
->     =C2=A0 - No console for root-cell
->=20
->     Did I get this right?
->=20
->     =C2=A0 Ralf
->=20
->     >
->     > .flags =3D JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
->     >
->     > .debug_console =3D {
->     > .type =3D JAILHOUSE_CON_TYPE_NONE,
->     > },
->     >
->     > and I have configured the non-root linux cell to output to the UART=
-:
->     >
->     > (Added serial 0x3f8 to pio bitmap for non-root linux) and started t=
-he
->     > node with this:
->     >
->     > ./tools/jailhouse cell linux configs/x86/linux-x86.cell
->     > /boot/vmlinux-4.1.16-Guest -c "console=3DttyS0,115200"
->     > (Note I also tried "console=3Djailhouse" in the command above, and =
-that
->     > produces the same result)
->     >
->     > I then see the following on my hypervisor console (./tools/jailhous=
-e
->     > console -f):
->     >
->     > Created cell "linux-x86-demo"
->     > ...
->     > Cell "linux-x86-demo" can be loaded
->     > Started cell "linux-x86-demo"
->     >
->     > After a little while I do get a parked CPU error on the root node,
->     looks
->     > like its trying to do something with the UART as well:
->     > FATAL: Invalid PIO read, port: 3fe size: 1
->     >
->     > I would expect something to pop out on the UART from the non-root
->     linux
->     > node first.=C2=A0 Note that root node has serial 0x3f8 disabled in =
-its pio
->     > bitmap.
->     >
->     > I verifed that the UART is functioning by allowing the hypervisor t=
-o
->     > print to it and also performed an echo test over ttyS0.
->     >
->     > I have tried several configurations of kernel.....including your
->     current
->     > "queues/jailhouse" branch head kernel for the non-root node, along
->     with
->     > the kernel config for 4.7 posted in this thread below (but I get sa=
-me
->     > result as above when I start it, no kernel output):
->     > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
->     >
->     =C2=A0"https://groups.google.com/forum/#!searchin/jailhouse-dev/Re$3A=
-$20Failed$20to$20boot$20jailhouse%7Csort:relevance/jailhouse-dev/M7UO89XFIk=
-0/Qi40DDuMBAAJ".
->     >
->     > Any information you can provide to me will be helpful.=C2=A0 I'm no=
-t sure
->     > what might be going wrong here.
->     >
->     > Thanks,
->     > Wayne
->     >
->     > --
->     > You received this message because you are subscribed to the Google
->     > Groups "Jailhouse" group.
->     > To unsubscribe from this group and stop receiving emails from it, s=
-end
->     > an email to jailhouse-dev+unsubscribe@googlegroups.com
->     <mailto:jailhouse-dev%2Bunsubscribe@googlegroups.com>
->     > <mailto:jailhouse-dev+unsubscribe@googlegroups.com
->     <mailto:jailhouse-dev%2Bunsubscribe@googlegroups.com>>.
->     > To view this discussion on the web visit
->     >
->     https://groups.google.com/d/msgid/jailhouse-dev/CA%2B%2BKhc2iKk1J6%2B=
-0huh5__dS4HyujXzV9r%2BLbKLzuVZ4K3Bt5eA%40mail.gmail.com
->     >
->     <https://groups.google.com/d/msgid/jailhouse-dev/CA%2B%2BKhc2iKk1J6%2=
-B0huh5__dS4HyujXzV9r%2BLbKLzuVZ4K3Bt5eA%40mail.gmail.com?utm_medium=3Demail=
-&utm_source=3Dfooter>.
->     > For more options, visit https://groups.google.com/d/optout.
->=20
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/166c6ad9-379c-bad6-f30f-8af4f97b8bb1%40oth-regensburg.de.
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/da6e4ea8-5b0f-c3c9-d2fb-3dfed845f158%40web.de.
 For more options, visit https://groups.google.com/d/optout.
