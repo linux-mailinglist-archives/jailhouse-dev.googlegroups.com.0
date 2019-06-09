@@ -1,115 +1,117 @@
-Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBBUG63TQKGQE3G6CEGI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBRMV63TQKGQE7LRRHKI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x438.google.com (mail-wr1-x438.google.com [IPv6:2a00:1450:4864:20::438])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67D703AC30
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 10 Jun 2019 00:07:03 +0200 (CEST)
-Received: by mail-wr1-x438.google.com with SMTP id q2sf3635445wrr.18
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 09 Jun 2019 15:07:03 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1560118023; cv=pass;
+Received: from mail-lf1-x13c.google.com (mail-lf1-x13c.google.com [IPv6:2a00:1450:4864:20::13c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C9D03AC78
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 10 Jun 2019 00:40:06 +0200 (CEST)
+Received: by mail-lf1-x13c.google.com with SMTP id a1sf1436477lfi.16
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 09 Jun 2019 15:40:06 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1560120005; cv=pass;
         d=google.com; s=arc-20160816;
-        b=ayaPr3YMhltnK4oehFaNBevBJ0px/swT/YTckxLS+UYOwR+VoDmh8DPaDng82CQThM
-         OpMLTo+NrkGjjpPzJ1SbVl2u3TmRR8wh8UmZiZegSpR3UDcxPsBAS0tKDzAWqv40Sr9v
-         jStxFlddnt5exYSpW5M3P+bAgMG+cpLJvFLUfpJgjF03fdbef0CkMGkDAE+KQlbk2bVx
-         7OLvcx9wEflYn5uPVtPmlkxsqyW5crTciuDkfQ4t+7nZDtnjeNb6bNBVVip7UBMGzZw0
-         2QEtnKRn6oHFDQsowUU27dVoYiMGiz1FQWT4z4JCUXYSCbO+jQBPiBJOrjMsJy5FC2Sy
-         ynHA==
+        b=A+bjQMr0eeg58AHCIYD9EW9ClBvV+YFQWHobNZfOW9znj4tFFffY1lYS1O8DOSSWYz
+         1Jli/NpvtaRjiNmafa/lXbqdWMXnb6MVm0tVos2aisQl6bXX2yUZDEwbsxVsmVuP3xdy
+         K3pqqBOevE0a9cQMcXs3sO7m0BEvEMwZXY3UwQxYFzcYZ0iWbSGh7glxzF0HSfAVTVmW
+         Ovp4XTqTkeS6py0pcKVBpCcdzZE7EG1iGqeiMqEfkWuuquU43B5QOw/N0zqGc9lrhQG5
+         mLG4nHSLv8EebP0YhhgEOTdYgngtVKoltEPlwkQgcl/n7icF8GhsjKzeUrcI9eRa49x2
+         /Igg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:subject:autocrypt:openpgp
-         :from:references:to:sender:dkim-signature;
-        bh=S8FOnYf9hEWOWXG5KTrUuvfhJ8JfQl9r1RfqxS+EkQ4=;
-        b=ZBMiaEXb888DwjmKHFrmiacRg3A92Ue9Wa+mZJ3xPe5lL7PEZRUG1uvGllS6454mT3
-         WvQS3+WJfw9zpmSzm7KXAs/PXBm/w+G/P9sShn/1xlWbAwhNRcsEGmFmbD6XBezQ+Mhy
-         96eW4sviaobAKbaOHp4Yoe4QyiOMo83lgQM1xqrw9qYBuy+RgnQFDuwQ2IbTveMYsLLM
-         v+rb2IqibE9Ss7Ghi50u/XesS2KHAIgf5SD0F0jFq+Do16DmJfZE5t3kyY97bTWt50LN
-         S+gpcxY7VK4lSGS+FVDZjpnmNYT+gc/NKOhQ6bCuzL9h6YYIEVdfmXJn+7nnHNmee3oN
-         WO1w==
+         :mime-version:user-agent:date:message-id:autocrypt:openpgp:from
+         :references:to:subject:sender:dkim-signature;
+        bh=/fnThG1T9J/xwYYfESyWWIJ2hdF2eDKnecxb8h/wDJE=;
+        b=SY/nslLNC/ZLZPRazW3Ng6etiTISb9f11nq3L7S260QPED4A1ItmZZtpygV0L5jscX
+         kINuX5QjLj9hktHOYpjY5kbgePC/4d07yhUB1ZBo9LIMCQrV/KT28pZXGE1S7oC1R5tp
+         cO7x54n+re4ySYiqSONIQm7D6BDG2c3YQzIOydw73DDXmuMJWR3+mnllOVWRsdAaeHeV
+         TCouIT2dCW3C2RaEfvmZE3wl3nA6F/qQDG50xqvVlCJpqRzwizMvW3ywnij1RmmwXCGM
+         gwWiimLQbiShmhNPthdCmqvDoyHzRoqUNV4l4kIJh7nHDVScjUdLu/F9FPMc3h0k2PTQ
+         MJfw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=OAutPW5s;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=PN2xHssS;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:to:references:from:openpgp:autocrypt:subject:message-id:date
+        h=sender:subject:to:references:from:openpgp:autocrypt:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=S8FOnYf9hEWOWXG5KTrUuvfhJ8JfQl9r1RfqxS+EkQ4=;
-        b=FwOyc/1iJl6+dxCUZqPg/bYRXuz8fMGXn0So0Z7F9qVQOWJ9IPPLNTG/Pys7oWs/dz
-         BOqJN2azbpyG4hu6sAnmvhKCjejRELzN/aqmY6x18544WeNcvLApxx7ZzVKmT+VmWeSh
-         jED1D24L6LEPjy32yVLjHbEMSPGAHmWGq7EiUCHY2xQM38om1TEcSiaqLs/x3l7kIF/X
-         YQgWNxPUcw9tVr9GFn9yB9KuCViG1qBJZUVQVpAQGjge+fv/fvj87OLUX0APdYPBXalp
-         zWYnKjkwNfdaa9lzInvEBQQB9eBk5awEfmSsIhNe9m0yL90YK6jkuLdQPQOuB4/N9wnY
-         uDVw==
+        bh=/fnThG1T9J/xwYYfESyWWIJ2hdF2eDKnecxb8h/wDJE=;
+        b=H6qz50So5TrxCR5kQpa5DjyVzfmm0jWugvxK25iqWV/ErFEFrz8DxZkSqMzft0010O
+         uzs5CppZDWMaRWxC4eyN8Jk/T2iYPIH7wr/duPV27Ntua2CNPJD+/BfRPBBQ2ypetfW9
+         3ckOckPV1sTM86DkjPwDWAmnxHnyIiC8lDvlfWrR0tBDaVe1jRxXbbAqt7nl5zDtPATw
+         1AJRkYAr2gSUqVwAG+1WL9QKsnbnRaZoboEucaidT7Kgeka4D6Rwo8kL7cQ+DrT8xOsQ
+         TfKQTayfHLgiamRt4XrPsELdEQJzF/UauEtOW0TvZ0OrKXzPeXt3Z5gtimnrxujR4ksp
+         uJdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:to:references:from:openpgp:autocrypt
-         :subject:message-id:date:user-agent:mime-version:in-reply-to
+        h=sender:x-gm-message-state:subject:to:references:from:openpgp
+         :autocrypt:message-id:date:user-agent:mime-version:in-reply-to
          :content-language:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=S8FOnYf9hEWOWXG5KTrUuvfhJ8JfQl9r1RfqxS+EkQ4=;
-        b=gc6K2hDXeUyOtwTFTLqD6v+XruEBN8O6ZOVL8lTLEM7gcgJsmTLdbxEqsBgsObr4IU
-         WgaJjGZdq626Oq1KON/EGgrV25luVOgKuOUHgo6o5ImGE9IGFzwsSUzJPE0R8q+kXpgb
-         5RUr2jiFVbWhS+fuQL7vAcqmVv2GF3jfSFO7AO1nJYOeXOGjKQCixBPyGoJt/9G+gzNE
-         SR+SoMc+hFQzQdkMKcOScAoafz7wOvtApvTIJbv7Lw902XBSImmYcxhZ8I+f69Md9vFR
-         OJwrQVKvaCdmMlWFeI7ZoTZ25EeUk93LlHy4l/O6VAfSo8L4OFM3w8fk1WkAMtWyE4vA
-         G5lg==
+        bh=/fnThG1T9J/xwYYfESyWWIJ2hdF2eDKnecxb8h/wDJE=;
+        b=X6jDsWuQyXYRq5rn38T7UGfqNB1VSDBSsKVcDd6Qb4hwADPOKF49yEhO4+d5QUcXM4
+         MsZ26s6/Ot9cMuDQDOrIonwE4PkfRCH7xBu8TFXaEGCgDHxQ68V/+jVMm+pWkJG71YWt
+         Q26o2uYO6fT+oGv/h7xH32BN8AZubYppybNGYSI/rqVc2CzSHS4SoebtWvNUcvChQk7U
+         vKMGWdxOKS5BzAm+drJEDOlAzt89ilEW7oO7rEcX0APvwKPoFIP7A6sJeyMUHA/qsQML
+         P21GtaMe4/dHvNbaKbH7NCmAjCt8nrbo7jl755Ha3exUVMl9nM3BMA6GI4uilUCO6e2J
+         LY4Q==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXjRyv+mBYCHwXfwp23efKBM90aPbcEZ5jpUEGo4tDTJwL3vFZg
-	T5ZwX34lcqzL67kKeEfhPNc=
-X-Google-Smtp-Source: APXvYqy3gMiWvRY/VcgCyWh1nEJvn5NJBUhiimgO5iuSDZTR0chqT0n5e+CHHfIAr7SCCe4GmHbFuQ==
-X-Received: by 2002:a05:600c:206:: with SMTP id 6mr10647008wmi.73.1560118023122;
-        Sun, 09 Jun 2019 15:07:03 -0700 (PDT)
+X-Gm-Message-State: APjAAAWrq+YLBqxShgwmhq5Fyak21z/O+j7pwvhEr9DsQVwEWEJ/h+gD
+	kdBNVfI7OFKpHVpHekon1VQ=
+X-Google-Smtp-Source: APXvYqzdjQzpte5T0Fc/BS3+2bFhPkYQcAp5QIaIIV0hARFAx8b93ABk1FIHbWWpMlQ5YOV/gdXnuA==
+X-Received: by 2002:a2e:9950:: with SMTP id r16mr634992ljj.173.1560120005626;
+        Sun, 09 Jun 2019 15:40:05 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:99d5:: with SMTP id b204ls4183467wme.5.gmail; Sun, 09
- Jun 2019 15:07:02 -0700 (PDT)
-X-Received: by 2002:a1c:4054:: with SMTP id n81mr11371600wma.78.1560118022602;
-        Sun, 09 Jun 2019 15:07:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1560118022; cv=none;
+Received: by 2002:a19:2d4e:: with SMTP id t14ls1207423lft.7.gmail; Sun, 09 Jun
+ 2019 15:40:05 -0700 (PDT)
+X-Received: by 2002:ac2:5595:: with SMTP id v21mr17813458lfg.54.1560120005094;
+        Sun, 09 Jun 2019 15:40:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1560120005; cv=none;
         d=google.com; s=arc-20160816;
-        b=L86CqzJI1bBbwj4yttUxSAQP0rkOQRH3GNXRNtmIPqm8tDeAkzDxFhSH97VuHPVVJv
-         /fXwsHWsMPpxI8yPR/BEjyo3oEVhyDLFinyIc2srgkzXektv/4v8CgXb5OHz1amO3mRN
-         M89PFB77jPId0MmPFRnRCAL0hhHg7AjhAHSkmvtF894N6X0C6ni4OqB70cpBY/tyquv5
-         NYIEBwDLWAJ58MRPUeOqagnLrZ1p1YxQbQKhb+Sff791mj5WLpcISzJ7uGsKWigfOnQz
-         o6KvS2W+OZUY2zZADSyANg0pBepRK7BZevhdvPZ3683ZdLG0CYujUi5A0enKFkB59RsR
-         E+Dw==
+        b=nfasw6xNQyOZKk232mbB0mNHqOYvoPC/sPp4O+p2f32braJ1JeI3NtjzhkH8rE/pJ1
+         vPdQjAtt5VmwlHg59yNNNIomJjd4GV4xuatsVcaIlsC3tLTBN6KLFFvRdIdY4FQ5OqiW
+         OqsGidEkj8OBOVtw6FWjTK4hGAagw0ol7dKIOmAIBPez3P30T/46CNDQvY6JlfPbMd9E
+         PL0i9uIbLgSCznZ1Pgz7EGk3iLVAAg0P3QwkHtCL9pPD82Vy4slsAJFjMQr8sHvn5cSe
+         bTdjfhA+6HwZuA99/anfPB5TQtYIV6HTqK24UAmDTenVrt6DqoIPACbsrcopwcefRdCN
+         WHwQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:subject:autocrypt:openpgp:from
-         :references:to:dkim-signature;
-        bh=0SmDYipcxCEsiqaJnT/rp+tD0bzmPiclVFp1nd762gM=;
-        b=zi/oD0c9mbrPcksE4A5ucPJevw3nFjZtABJux4Zy5dluF7w3bTDeztPUOuWAQO5RQR
-         9X966Lhx0Yasf5hlBR3La8gPQqUms8kV+McPKKcW2I9OjDvJvBU9HeqXuQFsU84b/fTu
-         BQaIqx3Z4+AxjFfGDj0w6qns5Ma1U2DzP9TTJcfPTap0EHr0qTNaa8h9DvDB+5LvLKhq
-         Eqfu8xbMhfgehJpKUtPm+lT3NfUb0yXn7kxIJnWqxtQE0yP469yI8E5tGUCUn2z5QuQn
-         50mastxby+Ox/MHgZuSPYIprBvfYRK3O7YmPhDckxVrqWc+BGqwkWj15k5wgEdSF86Mk
-         25+w==
+         :user-agent:date:message-id:autocrypt:openpgp:from:references:to
+         :subject:dkim-signature;
+        bh=4NeCP9OJfLfYXNWIdGXIPtekpuRQVomFhr1bKvAjtKI=;
+        b=WYA6lIMuFI72cWJ65pc2E5JtKbQZ8VOt84UoiVEOB8OXsJ7yIjp/xN4pEPa8TJJRSJ
+         jrFS5xivUzQv6MwtY/98jbY3ph6tspTfbulBHxsvJgw05UsHafLvtkbs/FR8UoMR0eE/
+         teCEKVB7m11txWECobiad1eGkF4eMffk97N9tO6E8BLYERmxdx0+9ISwt2T+xh1yDgFo
+         rSdkbr3SVntmFWEWmOqVc0HZxUOYEjDxOJJvFZWxKvWlu6Dc1KVgMf/IeODQi5Iw5eGM
+         TzcHgkPB1g2gvDWRPvCYLcyVVKocUVVHA4DZCyplAQMRjrPvdK8o//KEaCAc3OOOqN0v
+         1Aow==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=OAutPW5s;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=PN2xHssS;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [194.95.104.11])
-        by gmr-mx.google.com with ESMTPS id x3si592732wmh.4.2019.06.09.15.07.02
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [2001:638:a01:1096::12])
+        by gmr-mx.google.com with ESMTPS id a20si483802ljb.3.2019.06.09.15.40.04
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 09 Jun 2019 15:07:02 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) client-ip=194.95.104.11;
+        Sun, 09 Jun 2019 15:40:04 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) client-ip=2001:638:a01:1096::12;
 Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(Client CN "E16S02", Issuer "E16S02" (not verified))
-	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 45MVjd6ZNlzyF3;
-	Mon, 10 Jun 2019 00:07:01 +0200 (CEST)
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 45MWRl707NzyBj;
+	Mon, 10 Jun 2019 00:40:03 +0200 (CEST)
 Received: from [172.23.3.82] (194.95.106.138) by E16S02.hs-regensburg.de
  (2001:638:a01:8013::92) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 10 Jun
- 2019 00:07:01 +0200
+ 2019 00:40:03 +0200
+Subject: Re: [PATCH] arm: Account for non-compliant PSCI_VERSION return codes
 To: Jan Kiszka <jan.kiszka@web.de>, Jailhouse <jailhouse-dev@googlegroups.com>
 References: <a9ac4f9f-8c5c-6133-b9df-77cf2a8ccc31@web.de>
+ <4a7ef1a0-b21c-b224-7768-2b0929349bec@oth-regensburg.de>
 From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 Openpgp: preference=signencrypt
 Autocrypt: addr=ralf.ramsauer@oth-regensburg.de; keydata=
@@ -156,23 +158,22 @@ Autocrypt: addr=ralf.ramsauer@oth-regensburg.de; keydata=
  k5NkPOqUZJXq1HO+d5Udk1WdT+mkFGwIMN/U9t3gJNWkab+aAYg1mKwdz7B+10j51vbQbFgY
  2/n9jtl/AFgfYQocbJta5+0fOwIJObNFpLAotvtFNF+Q164Bc3E7Njh230nFduU/9BnmCpOQ
  RncIIYr0LjXAAzY=
-Subject: Re: [PATCH] arm: Account for non-compliant PSCI_VERSION return codes
-Message-ID: <4a7ef1a0-b21c-b224-7768-2b0929349bec@oth-regensburg.de>
-Date: Mon, 10 Jun 2019 00:07:01 +0200
+Message-ID: <b76f46a9-afd3-216d-55fc-026651ad9bd7@oth-regensburg.de>
+Date: Mon, 10 Jun 2019 00:40:03 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.7.0
 MIME-Version: 1.0
-In-Reply-To: <a9ac4f9f-8c5c-6133-b9df-77cf2a8ccc31@web.de>
+In-Reply-To: <4a7ef1a0-b21c-b224-7768-2b0929349bec@oth-regensburg.de>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-PH
 X-Originating-IP: [194.95.106.138]
-X-ClientProxiedBy: E16S01.hs-regensburg.de (2001:638:a01:8013::91) To
+X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
  E16S02.hs-regensburg.de (2001:638:a01:8013::92)
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=OAutPW5s;
+ header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=PN2xHssS;
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+ designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -186,57 +187,65 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-
-
-On 6/9/19 8:58 PM, Jan Kiszka wrote:
-> From: Jan Kiszka <jan.kiszka@siemens.com>
+On 6/10/19 12:07 AM, Ralf Ramsauer wrote:
 > 
-> U-Boot returns PSCI_NOT_SUPPORTED, rather than the implemented 0.2.
-> Filter out all negative return codes.
-
-Oh. We should fix this as bootloaders are out there that do not stick to
-the specification. Nevertheless, should this be reported to u-boot?
-
-I remember that I definitely tested the series on a TK1, nothing
-exploded there back then. So at least the TK1 seems to behave differently.
-
-Anyway, tested this on a TX1 w/ and w/o firmware mitigations, as well as
-on a TK1. All configurations seem to work fine.
-
 > 
-> Fixes: ea924a3fec98 ("arm64: Initialise SMCCC backend")
-> Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+> On 6/9/19 8:58 PM, Jan Kiszka wrote:
+>> From: Jan Kiszka <jan.kiszka@siemens.com>
+>>
+>> U-Boot returns PSCI_NOT_SUPPORTED, rather than the implemented 0.2.
+>> Filter out all negative return codes.
+> 
+> Oh. We should fix this as bootloaders are out there that do not stick to
+> the specification. Nevertheless, should this be reported to u-boot?
+> 
+> I remember that I definitely tested the series on a TK1, nothing
+> exploded there back then. So at least the TK1 seems to behave differently.
 
-Tested-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Oh wait -- the TK1 in deed returns -1 for the version call, but the next
+call will fail. This is why it didn't break there.
 
   Ralf
 
-> ---
->  hypervisor/arch/arm-common/smccc.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
 > 
-> diff --git a/hypervisor/arch/arm-common/smccc.c b/hypervisor/arch/arm-common/smccc.c
-> index 5affa965..7734b999 100644
-> --- a/hypervisor/arch/arm-common/smccc.c
-> +++ b/hypervisor/arch/arm-common/smccc.c
-> @@ -23,8 +23,9 @@ void smccc_discover(void)
+> Anyway, tested this on a TX1 w/ and w/o firmware mitigations, as well as
+> on a TK1. All configurations seem to work fine.
 > 
->  	ret = smc(PSCI_0_2_FN_VERSION);
+>>
+>> Fixes: ea924a3fec98 ("arm64: Initialise SMCCC backend")
+>> Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 > 
-> -	/* We need >=PSCIv1.0 for SMCCC */
-> -	if (PSCI_VERSION_MAJOR(ret) < 1)
-> +	/* We need >=PSCIv1.0 for SMCCC. Against the spec, U-Boot may also
-> +	 * return a negative error code. */
-> +	if (ret < 0 || PSCI_VERSION_MAJOR(ret) < 1)
->  		return;
+> Tested-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 > 
->  	/* Check if PSCI supports SMCCC version call */
-> --
-> 2.16.4
+>   Ralf
+> 
+>> ---
+>>  hypervisor/arch/arm-common/smccc.c | 5 +++--
+>>  1 file changed, 3 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/hypervisor/arch/arm-common/smccc.c b/hypervisor/arch/arm-common/smccc.c
+>> index 5affa965..7734b999 100644
+>> --- a/hypervisor/arch/arm-common/smccc.c
+>> +++ b/hypervisor/arch/arm-common/smccc.c
+>> @@ -23,8 +23,9 @@ void smccc_discover(void)
+>>
+>>  	ret = smc(PSCI_0_2_FN_VERSION);
+>>
+>> -	/* We need >=PSCIv1.0 for SMCCC */
+>> -	if (PSCI_VERSION_MAJOR(ret) < 1)
+>> +	/* We need >=PSCIv1.0 for SMCCC. Against the spec, U-Boot may also
+>> +	 * return a negative error code. */
+>> +	if (ret < 0 || PSCI_VERSION_MAJOR(ret) < 1)
+>>  		return;
+>>
+>>  	/* Check if PSCI supports SMCCC version call */
+>> --
+>> 2.16.4
+>>
 > 
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/4a7ef1a0-b21c-b224-7768-2b0929349bec%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/b76f46a9-afd3-216d-55fc-026651ad9bd7%40oth-regensburg.de.
 For more options, visit https://groups.google.com/d/optout.
