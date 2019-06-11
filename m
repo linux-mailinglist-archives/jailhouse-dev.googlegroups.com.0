@@ -1,143 +1,149 @@
-Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBSMS77TQKGQEB4KIBYY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBJ4477TQKGQEFTXOA7Q@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x53c.google.com (mail-ed1-x53c.google.com [IPv6:2a00:1450:4864:20::53c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 627383D0D1
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 11 Jun 2019 17:31:21 +0200 (CEST)
-Received: by mail-ed1-x53c.google.com with SMTP id b12sf13915571eds.14
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 11 Jun 2019 08:31:21 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1560267081; cv=pass;
+Received: from mail-lj1-x238.google.com (mail-lj1-x238.google.com [IPv6:2a00:1450:4864:20::238])
+	by mail.lfdr.de (Postfix) with ESMTPS id C9F7B3D15E
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 11 Jun 2019 17:52:07 +0200 (CEST)
+Received: by mail-lj1-x238.google.com with SMTP id y6sf2210800ljj.5
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 11 Jun 2019 08:52:07 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1560268327; cv=pass;
         d=google.com; s=arc-20160816;
-        b=qL/focvyphO/RAeGerdupUVDCiIyhcu2AHs0nfpU09sJUEp2aTPhNAAig+mUSAklAM
-         c938zCJ1xeQiU1hCdbX2EMR/NzXXb6nXm0vdT0CR3daW84z4mnYS/vyZBGB2Awo4/Aqt
-         e7npVfItVgiqDGcGsL8Pyb8Jz9q4cnMZWJjjVPF9uYJ1i6SK/dSKD/pLdImnrz/npT+d
-         OaVGZeR8qvFund8lkJqtadGpVAxwMylGCi/V+gFWs0pkVnJnfNu8fYoflKNldGN98Lze
-         HuR6+WzQAGNqIwfZ1UA1Y07++KGlD+QUekdJGTufImGCI46QEKEn5ZZz1N/tC5MjXtXk
-         U8Nw==
+        b=W0/wH5HbRMJJfRnVyHHsLBLg/6gWPykFTtCOsYwAIHppW/ZU4BpsvLeVWLXz9X4NQ/
+         tdD9P3k76dUT5bLsIIqFdKfBeZPjSFfbNavr8UNtkuacRIpOoynuaJ+tUDjCCJSVl5b2
+         oo8Fp4UFIj9tPqCubQmYMy/mzTu+uhmGAyiklZAKiSPkLHTrxPrpOcCSkpOyk4feZs0H
+         S6NHOgHNhRjzH+f59qq4PatsoJhp7V9Lbia+7B54Mpr+hOMDBLQA+qEQDfgCZbB49B1Q
+         lFtrYQNczqEPeVPsL8FixFqAnZHF3mSSSyT8D1vh4Z2dZDhwhKCwgkgWP7/xO9MMCweX
+         pWkg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
          :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:openpgp:from:references:cc:to:subject:sender
-         :dkim-signature;
-        bh=aSZI1a6SbWkBm80nWwpCSb1kX5xH4Jti27VZYCO90HE=;
-        b=u6MUsn4GGpzVtWo6IndBED1kv3aWoWh7pLWLjf6hJKRczymGVONrsl9FObdB9P30fU
-         p7lkLKtSbgE+K0Ssxb3a6j13eGVihOdPiry5EiHVJxqha511bp0zJS3J0JAh3TAGqmI6
-         Y1cCrr1ZFH3681qfQDqAKA2v85/trbf8i68X3yw5NfCTXkPl+p8qFdT3j3yEDNfivQdZ
-         HK1h9s81xljSx9HhjW0Jvv5CzzpMoTVTiJDzbGVwaJCbJZ90RqKUcQJVwKbJUtD7EJrw
-         jcxvWHDYNKYV74UAfJd9eBTaDrBrbkWbXYzi05pDPAUN+xsqzWgdnjWCSB3enxmePS0i
-         Crcg==
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=8gBlXkKO7KzmxgzC3di44WwbixEh3ValOip/GwqAz3A=;
+        b=W7l3+YZMyuou+1J/rsPF5twSTpnU1QfUxCuCaclTn3MJ1r/EF8Fj/35cyq35wqy210
+         cwE8aMUZ+bNH8NcRvDYvEQ0091IjRAgSuj39rouqG8XsQZWlPw37XvXd2+pkMi9L/Q1l
+         OxMUIKZFUv2vydrr5jz8GPEy0J3cPFEm11876bH6dxyffTpJUfSt/n2WnVrBk37iq4Xo
+         k0c2hkye7D8Vdlq3NISVzii3LsNLCKBHhvFlIzwSATzlrNwCRw7dKNHO+FF0ZaRpVwH/
+         uDU37XHHJh7ssVqlnR9E15TI+G16Wd+EOLBToVgR1aajkH5gFJNrbM1FwErauwuCipUI
+         4mOg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=Us+xYcJ2;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=HbYWihrl;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:openpgp:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=aSZI1a6SbWkBm80nWwpCSb1kX5xH4Jti27VZYCO90HE=;
-        b=LTShXIclb7VuDfEQ4pCmc4swhVicuxIahaUbVFduDcTqwexx0D03CrlDzz1eVMb8x9
-         n28iPsLUMu35Bzr3lYTR3lwMtNgZHdw2fHlgBYtr9I9JG9DNM6cldzyYDCNMbgzKkrh3
-         KnNHNSh/QK69GIkKFBNysaYMFP6p2ZNWW94pxiLYlComq96IL3/nPYc1VgucIGrQifCn
-         NPuMG3EHLmWSUbeWztztBmcJqESv+psDhN7VX5R8+5/DUi8l0mvXTVVe2HIzFwf1IHg0
-         zXdFZ9fpbUm1ONkBzIaDeGqY2oD/RB2AuBN99ZTX55x2AQSRWOqxmsOWn6otJEX0608B
-         1xrw==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=8gBlXkKO7KzmxgzC3di44WwbixEh3ValOip/GwqAz3A=;
+        b=E+bB+IL8ick5M+6elLWRc2QB4Niv/Rppn9U31MDVs6Fl/ot8VQMLKEUh3Cw6Mmnkol
+         UpeLTHOzGLKLUBgX1vpIcP0zoDBk9gKCx6awz+KSVh5sBo6iYW0fNapYt/3tkWGR9HY7
+         BvzideJbvT4rTjXJjdb4aM08WY3itPZ1GkWQQUndezR1+wHnQBaKTbXWbcsZnk4mT+Qe
+         OrfXR3RtZ4jvlXutHkJ2bGRszYq3SoC5r65WSi0CZkNDMsuS0LDajsWEXiF1FPThJRNf
+         m5hbNA8aj5Ul+QwTEV+TAAM/+mDyUeVUuuxqLyJ792YH8BjQW8qA1pSUbtrbvHxwlnAt
+         znHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:openpgp
-         :message-id:date:user-agent:mime-version:in-reply-to
-         :content-language:content-transfer-encoding:x-original-sender
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=aSZI1a6SbWkBm80nWwpCSb1kX5xH4Jti27VZYCO90HE=;
-        b=Z1AyvLEKAZTMBE+K4Hdl5NynzzyNLpZJNBLbnXyayEpUzeFP6xwAwKK4lyyShmxBRx
-         rZmZ3GkulJbnF1rL3GO36/5M7yK8G7jfRrUi1hjngOfUyAOQdi4RfnqNjmXZBCw4d4/U
-         jYnCp23yKvUgcnvt1OPqfCm+UxQUZG3wffELeBSGhQIx3x5BU3nCiAEIi3GsE1wso7pH
-         FQnyrH2ANGqdxzRe1wI70bMwTmk2Vf+rCy+na3xfaKfD2EQowndAJyTvraRjwTAfgZmb
-         cKmLC21sLNSON54fkQ/wqIhXPRhsVIgkuiBQTEnPSOqmtGW6i3lkyOZMygO0Ukq/sskD
-         dhig==
+        bh=8gBlXkKO7KzmxgzC3di44WwbixEh3ValOip/GwqAz3A=;
+        b=MVVbrlJzvHcuo2Jzm/WKS+62JK/MoKntEEY/6JafJ0O9zKzt2Cwuhqg3kyMI8rZKhG
+         OsWJaO+Nq0Z87k6PW+7ODra6/CPHk+ZW4dy7rHPyIgWgMSd2WmFSHVRybQQRATQxn6mq
+         z3XH/ujas71oOrAz/sL9WVgs/pmCl4cZA7XgbvJ6bfusJD644L2FzJHOxHcPNSwZvR9j
+         iwFFtnCEVg61ZVcN0GXLlho48M4IroFhpr5roX5ApDDO68wYWxGXPhKdtcIa5t0kpJSi
+         nzOA6AA7z0kEi4zzVCjidgaDf4ZJjM+sY+gWHPY7qXbNfo8gKvIVg44kroRF9Q0zC31X
+         AH3A==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAW9y3ya9HwnVsrsMFhl6dMg/uO8o063s8hkLe/qGtUar3T3MHMz
-	SbepLdiAILv0/vF7gp0vITk=
-X-Google-Smtp-Source: APXvYqwKgOCdazJM6005RICF9K3hhkQ/DdXj8KZRoUJljHnPnBvYC7unm/g0N2FUWJcvy9j/d1Zmig==
-X-Received: by 2002:a05:6402:1612:: with SMTP id f18mr19950323edv.231.1560267081135;
-        Tue, 11 Jun 2019 08:31:21 -0700 (PDT)
+X-Gm-Message-State: APjAAAWaRnQND06DZY2D05KhPZFur8j38ibwWYsM+MDB59omypA7o+Tb
+	7BM6hPwhJLdTTDUhfZrERTk=
+X-Google-Smtp-Source: APXvYqyIB+KKFWKwP5xaXNgg5mZZnrvei93euDk5nQj3vKfvkbWTPXe1ugevKBNPYQh9T51dBmJNtA==
+X-Received: by 2002:ac2:5601:: with SMTP id v1mr24509797lfd.106.1560268327417;
+        Tue, 11 Jun 2019 08:52:07 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a50:9728:: with SMTP id c37ls4098741edb.12.gmail; Tue, 11
- Jun 2019 08:31:20 -0700 (PDT)
-X-Received: by 2002:a50:a56a:: with SMTP id z39mr3385629edb.107.1560267080334;
-        Tue, 11 Jun 2019 08:31:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1560267080; cv=none;
+Received: by 2002:a19:2d4e:: with SMTP id t14ls1757676lft.7.gmail; Tue, 11 Jun
+ 2019 08:52:06 -0700 (PDT)
+X-Received: by 2002:a19:d5:: with SMTP id 204mr35594364lfa.66.1560268326826;
+        Tue, 11 Jun 2019 08:52:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1560268326; cv=none;
         d=google.com; s=arc-20160816;
-        b=zIC9uTXKxlH70p8BFOtUeimXfgp5ycA9ScAzpfArEnHEHOVWlGRE0IaAzCOH6GFw04
-         CDr0OUnpatMPz2TqY74fBIcov7u9fLrhff9dp6/Lh74P26ipwpgX79vhgC3v4bTYwQfx
-         S2MYCeFkyOZQbITUxISSWwHA6iMa7JjxgssGYSrFlpOvRTs1Ss7QmuGHzcwNFqDdzlkg
-         WMly6enETnnB0ilwwgwYMXkTuY9akjb+/PgB6Gbs1M3gS6zWlYNypQItmO4IqY8UCtm5
-         cx7jRVUYazGhw2RVkQax1XkrM0TBi1VkPwEKfzes6OnqwoTEIHXHFlDvrO4aTC7DtpAs
-         tEWg==
+        b=riU0Rpepkw0Ip8wAgZq8g51O6hKlPCrOrMi4a18c/cIN7JylBqWH+o8HNU75RKQ/a4
+         be+8SI8Mfby3F2oniPy7gSZ6414RDIHLlyqJ0GenYgRosr9ssyH1hLgFPp4qYZd7Q3qK
+         zprk2ouOgGwAiPLu3G86rkXi8XMD950x2Fjgys3fGvM0d18JlQx8C0P8O+GQjy24VPK2
+         Ii+Y8YbXZToSlwuSPqrXi/8TL2/KmT5vaphKmwcqROtLgik3YMsa41P0guM1zfnxU9+H
+         tSn2SUyg/JekYhAfBWiREOeGxYkQYdgs/ffJr4WEEBjowPJjpAovBUl91WvhsI4N174v
+         tdow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:openpgp:from:references:cc:to:subject
+         :user-agent:date:message-id:from:references:to:subject
          :dkim-signature;
-        bh=spnP+WwWrlpZJbEgpZC3z7tN/jZh/GUw9Cf/jRe8I/I=;
-        b=PX3n6fRDFsHDRW7Rfy9laPHQYw4P1MtZahWDXzHGPwjzZh7Zn+EHp5FmLG0pyNjQOb
-         YEOya5+/0NdRP5TjZP7fkne4tzSm51sujw51ZJ3mpARqJNjrIehsrpCoe0dVUgb8ccZf
-         rNpAyEZ7GKA/90E3lwEGwK7a9/GOwXCpqn+FU2XsnSBAORMYoBjMmUY5D80p7TTFHpwI
-         7vW9sblV1AttnaenqArFX6rv1mViL1hVe/22WCOa6J5qHHvgWT3AnYObfin4VCHIChzP
-         pQh0YnDFuMCXNnFcLEbMurEbowWyRs2hbuyZRmRqdpoLPwQCxmXjC3Xu49kifGXxtQsX
-         qAbA==
+        bh=lJU4Tt4z30MQTOTJHee3hUYqX3aLQRyV551h/iYuJoY=;
+        b=p0FDQlvs50S7kLWfzDqAo36jK5YLSCfjjYhfvDtIZOA+X4fI7pJwstiKgKTN16qtTT
+         H2UUEX/bYdzCK+sulWMWfn2ffoC0yfo9vIrNUXzh9iXVKqcnCUpm8T6KCpTcmVSOngMQ
+         YJPohO+D618+jkD7ixLYsN7MYIbcoFwd3u3+NMnRNhS39hmBLOGcrkKb4WpYc5LNbSt2
+         Ic6JxZMfAGsBywU09fDww2X/OHIPmpF7yRoM5BPnQtHtea5REtzxiwz/BXLmmNSoTrgc
+         wodYUQa6EPw7cZd34uwsY30zhFnWWQv/7tseM0gthqjKKcYqAOD+A6oq6cHZeuPlb6cz
+         VehQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=Us+xYcJ2;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [194.95.104.12])
-        by gmr-mx.google.com with ESMTPS id z20si632301edc.1.2019.06.11.08.31.20
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=HbYWihrl;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Received: from mout.web.de (mout.web.de. [212.227.17.11])
+        by gmr-mx.google.com with ESMTPS id v29si893982lfq.2.2019.06.11.08.52.06
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 11 Jun 2019 08:31:20 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) client-ip=194.95.104.12;
-Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S02", Issuer "E16S02" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 45NYr75hsqzyBj;
-	Tue, 11 Jun 2019 17:31:19 +0200 (CEST)
-Received: from [IPv6:2001:638:a01:8061:aefd:ceff:fef3:ba65]
- (2001:638:a01:8013::138) by E16S02.hs-regensburg.de (2001:638:a01:8013::92)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 11 Jun
- 2019 17:31:19 +0200
-Subject: Re: Linux non-root node question
-To: Wayne <racedrive1503@gmail.com>
-CC: <jailhouse-dev@googlegroups.com>, <jan.kiszka@siemens.com>
-References: <CA++Khc2iKk1J6+0huh5__dS4HyujXzV9r+LbKLzuVZ4K3Bt5eA@mail.gmail.com>
- <57edbc3b-cadc-c850-8310-4640fc623085@oth-regensburg.de>
- <CA++Khc3HLaSEo9z2jd6hVLuDK-zd4P6au0KP3+6db8KBR47izQ@mail.gmail.com>
- <166c6ad9-379c-bad6-f30f-8af4f97b8bb1@oth-regensburg.de>
- <CA++Khc0yQbb3BjzCuR+6JLVqvx7EA3F5JHCFtf5FpN41CiGGVA@mail.gmail.com>
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Openpgp: preference=signencrypt
-Message-ID: <f0936088-a32d-3da7-a9ba-d552ede5052e@oth-regensburg.de>
-Date: Tue, 11 Jun 2019 17:31:19 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+        Tue, 11 Jun 2019 08:52:06 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) client-ip=212.227.17.11;
+X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
+Received: from [192.168.43.205] ([109.41.67.205]) by smtp.web.de (mrweb101
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 0MKJ7S-1hZ4N93mQI-001faM; Tue, 11
+ Jun 2019 17:52:06 +0200
+Subject: Re: [PATCH v3 01/10] inmates: x86: use correct types for
+ pm_timer_read
+To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
+ jailhouse-dev@googlegroups.com
+References: <20190610230330.21419-1-ralf.ramsauer@oth-regensburg.de>
+ <20190610230330.21419-2-ralf.ramsauer@oth-regensburg.de>
+ <3e76db5e-9fca-3064-27a2-fb8da0249692@web.de>
+ <2a46268d-4f8a-2b23-2ad0-2f7ccfa8d5a6@oth-regensburg.de>
+From: Jan Kiszka <jan.kiszka@web.de>
+Message-ID: <ca4ba28e-157e-0576-49e8-f2ef0b4689e1@web.de>
+Date: Tue, 11 Jun 2019 17:52:03 +0200
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
+ Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
 MIME-Version: 1.0
-In-Reply-To: <CA++Khc0yQbb3BjzCuR+6JLVqvx7EA3F5JHCFtf5FpN41CiGGVA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: de-DE
+In-Reply-To: <2a46268d-4f8a-2b23-2ad0-2f7ccfa8d5a6@oth-regensburg.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [2001:638:a01:8013::138]
-X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
- E16S02.hs-regensburg.de (2001:638:a01:8013::92)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+X-Provags-ID: V03:K1:GzcNa6UytYk7WrSFjTDjJTNDf5jjtW+lhMKDppFrpUR43CU8Tyy
+ osj6iGGJv94WbI/GivxZRlNnce8MOztoRANQE9cH4+udaJFVr+Jos6PBDziqOr+yStOcJ3g
+ D3eZscbg7eXAhwj4m22XpUa7TnPmrDBAATqUg5igXX4Lzi+/QxPHvMTtkFTG1VlpuZUMXY4
+ gDLhIR+ltrru18h7sVEsA==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:WoyysQha4K8=:5xzDBpiSMs4cVIAcS1XdK/
+ kGGPqrdYFLkSEi3TX11H7PRJLnAzFEBSTL00Iy5n2z2JhG19zTJtCkgzYUTG5sNvf8pt2YSln
+ ri/vlcfznLfDlOsquCTi4Kv+mael55wV3VVbP2hxLUcjv0U9nngIfd7E36AeI4IB4KfXi3Rxb
+ KE26CicwrCvnARiR/YFhs8AHhvb4dXZZZFDR34NCSAToqXs029oYYef/B6dIoOR25BL8sWZif
+ L4qt/+wB5mKELtQ0z42ttmiLeeGjcrYTYxRZ4vfbRzkNTsggP5JflKG18NLJwnNoMA+NxM4+v
+ BfjgybAK/Y3u9LaLjSHB+YbZjOfbEOfIZ9tcRHJmftRWdnbTkhBqAGTqYnSlWbTZs4QYGCnFr
+ NrGuUgH2BjyDcXHJfUKPirAQNGYx0h7bjclIb+E3vdHACUmRwLojKXZho1tRbvL8ZubrmBGLe
+ 3c+aia1R/b3Hx9g5uDIVOMCxHU60bVxnzg/9j7PX7eV1XaW6S7q3sapTYg6yv2iPzzXmBsRaZ
+ oMHRRzIiX7uMX4N7vZhr0Lqq51XRq17+7JhJDwVa9gD8qd4zhaoy3AZEav4JcVW30lnYgxIRM
+ 2pXhWbl/xdq8AWEnK3F3BNUXdwuHxTRSuYIdsBJ5WSkCb1UN+jlKNtVQuwJEzCjCcBfWEhx5C
+ 1ow6PJ6JrjuvVDXdfqu0HTGCfAjwMrF3hnxAbBjOYltL9BnDN+EdCRoN/PkUcMjGPVMU0E6Z1
+ x/9tms3X0NKp1ll5eEaIglylHNfJhqct19G2sJamCHjYQUQ3SZD5Lk6CIecpjr5bBjBufPxuG
+ eLpaHSz3mzo7JPqV6ZVQBMIksjz8yjkbIusMpNd8k81ShBs7Uf8Gp2yFlVRQ0aPiMtoHdkxos
+ kOZaLejow+JQda9JplnlHKRt6Br2MnhXACPo7vELiOVFYYeRPCsAPHg+xKtAbbiGuXTnUmdaJ
+ lVZCdQN+p7VrxXLwR4DFjdrjSqPKUzAaU5Os/Ha9HXglox6Oso08m
+X-Original-Sender: jan.kiszka@web.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=Us+xYcJ2;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+ header.i=@web.de header.s=dbaedf251592 header.b=HbYWihrl;       spf=pass
+ (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as
+ permitted sender) smtp.mailfrom=jan.kiszka@web.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -150,449 +156,90 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi,
+On 11.06.19 17:16, Ralf Ramsauer wrote:
+>
+>
+> On 6/11/19 5:07 PM, Jan Kiszka wrote:
+>> On 11.06.19 01:03, Ralf Ramsauer wrote:
+>>> If we should ever compile timing.c for 32 bit inmates, then unsigned
+>>> long is
+>>> the wrong type. A 32 bit type (aka unsigned long on 32 bit) is too
+>>> small to
+>>> hold the result.
+>>>
+>>> This ensures that we won't hit a bug when enabling on 32 bit. Once we
+>>> will
+>>> enable timing.c on 32 bit, we will have to implement 64 bit division
+>>> intrinsics.
+>>>
+>>> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+>>> ---
+>>>  =C2=A0 inmates/lib/x86/include/inmate.h | 2 +-
+>>>  =C2=A0 inmates/lib/x86/timing.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 | 8 ++++----
+>>>  =C2=A0 2 files changed, 5 insertions(+), 5 deletions(-)
+>>>
+>>> diff --git a/inmates/lib/x86/include/inmate.h
+>>> b/inmates/lib/x86/include/inmate.h
+>>> index 7664570d..e4f75206 100644
+>>> --- a/inmates/lib/x86/include/inmate.h
+>>> +++ b/inmates/lib/x86/include/inmate.h
+>>> @@ -241,7 +241,7 @@ void ioapic_pin_set_vector(unsigned int pin,
+>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 enum ioapic_trigger_mode trigger_mode,
+>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int vector);
+>>>
+>>> -unsigned long pm_timer_read(void);
+>>> +unsigned long long pm_timer_read(void);
+>>>
+>>>  =C2=A0 unsigned long tsc_read_ns(void);
+>>>  =C2=A0 unsigned long tsc_init(void);
+>>> diff --git a/inmates/lib/x86/timing.c b/inmates/lib/x86/timing.c
+>>> index de41fc35..d179da0f 100644
+>>> --- a/inmates/lib/x86/timing.c
+>>> +++ b/inmates/lib/x86/timing.c
+>>> @@ -92,13 +92,13 @@ unsigned long tsc_init(void)
+>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return tsc_freq;
+>>>  =C2=A0 }
+>>>
+>>> -unsigned long pm_timer_read(void)
+>>> +unsigned long long pm_timer_read(void)
+>>>  =C2=A0 {
+>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int cpu =3D cpu_id();
+>>> -=C2=A0=C2=A0=C2=A0 unsigned long tmr;
+>>> +=C2=A0=C2=A0=C2=A0 unsigned long long tmr;
+>>>
+>>> -=C2=A0=C2=A0=C2=A0 tmr =3D ((inl(comm_region->pm_timer_address) & 0x00=
+ffffff) *
+>>> NS_PER_SEC)
+>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 / PM_TIMER_HZ;
+>>> +=C2=A0=C2=A0=C2=A0 tmr =3D ((unsigned long long)(inl(comm_region->pm_t=
+imer_address)
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 & 0x00ffffff) * NS_PER_SEC)=
+ / PM_TIMER_HZ;
+>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (tmr < pm_timer_last[cpu])
+>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pm_timer_overfl=
+ows[cpu] +=3D PM_TIMER_OVERFLOW;
+>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pm_timer_last[cpu] =3D tmr;
+>>>
+>>
+>> This is not yet consistent: pm_timer_last is still unsigned long.
+>>
+>> Do we need the conversion in this series already?
+>
+> Nope. It's just a 'reminder' that sth. is odd there. But we can ignore
+> it. Same for 2/10.
+>
+> Just some assorted stuff that I hit when (unsuccessfully) trying to
+> enable SMP on 32 bit.
+>
 
-On 6/10/19 7:45 PM, Wayne wrote:
-> Thank you for your responses Ralf and Jan.
->=20
-> Yes, I have successfully gotten both the apic-demo and tiny-demo cells
-> to work on my system before attempting to load the non-root linux.=C2=A0 =
-I
-> can see serial output from them.
->=20
-> However, if I try to share the UART between root and inmate for them I
-> run into a crash on the hypervisor if the root linux attempts to write
-> to the UART (after creating/starting a demo).=C2=A0 Does the root linux l=
-ose
-> access once an inmate is created/started?=C2=A0 Or am I missing something
-> from my System config or tiny-demo config that allows them to share?=C2=
-=A0 I
-> attached the crash in hypervisor_output.txt.
->=20
-> Also, I noticed the tiny-demo output on the UART gets mirrored on the
+Both patches make sense. I would just address this typing consistently, rat=
+her
+then hiding the issue again.
 
-Yes, according to your config, JAILHOUSE_CELL_VIRTUAL_CONSOLE_ACTIVE is
-set. This means that the guest will use the virtual console. The virtual
-console uses the hypervisor output which depends whatever is set in your
-system configuration. In your case the hypervisor uses 3f8.
-
-And additionally, the inmate also a valid .console set. Again, 3f8. This
-means, it will use the console *and* the hypervisor debug hypercall. In
-your case, both outputs are routed to the same device which explains the
-mirroring.
-
-> Jailhouse virtual console.=C2=A0 Does that mean that its writing to the
-> serial through the hypervisor and not directly accessing ttyS0 itself?=20
-
-Exactly.
-
-> If so, is there a way to create the cell to write ttyS0 directly as a
-> test?=C2=A0 To see if it exhibits same behavior as the non-root linux.
-
-Sure, simply align the .address field of .console, and allow access to
-that port via .pio_bitmap.
-
->=20
-> FYI, I create the tiny-demo like this:
->=20
-> jailhouse cell create configs/x86/tiny-demo.cell
-> jailhouse cell load tiny-demo inmates/demos/x86/tiny-demo.cell =C2=A0
-> jailhouse cell start tiny-demo
->=20
-> Going back to my original non-root linux question, I don't see any
-> output when connected over ttyS0.=C2=A0 Its address is 0x3f8 ("serial 1")=
- in
-> the PIO, and that seems to work fine for the other simple demos, minus
-> the hypervisor crash issue above when sharing.=C2=A0 I know there is the
-> other "serial 2" port but I haven't tried to use that one.
-
-I see that port on our Dell server as well. It's present, but I don't
-know where it's connected to.
-
-Let me just summarise your issue:
-
-You only have one serial line available, right? From the root-cell's
-POV, it's ttyS0 on 3f8.
-
-I would propose to share ttyS0 between the hypervisor and non-root
-Linux. This means:
-
-  - Don't let the root-cell use ttyS0. Remove any console=3DttyS0
-    parameters from you commandline. Ensure that noone else accesses
-    ttyS0 (e.g., getty@ttyS0 or other friends)
-
-  - Set 3f8 as debug_console in your master.c (seems you already have)
-
-  - Allow 3f8 access in the linux-demo.c (already set in the default
-    linux-demo
-
-  - Disallow 2f8 access in linux-demo.c:
--               [ 0x2f8/8 ...  0x2ff/8] =3D 0, /* serial2 */
-+               [ 0x2f8/8 ...  0x2ff/8] =3D -1, /* serial2 */
-
-    I don't know how Linux enumerates serial devices, but this ensures
-    that Linux won't see the unconnected serial line and map ttyS0 to
-    3f8
-
->=20
-> non root linux launched with:
-> /tools/jailhouse cell linux configs/x86/linux-x86.cell
-> /boot/vmlinux-4.1.16-Guest -c "console=3DttyS0,115200"
-
-Then, this should actually work...
-
-And if not, then console=3Djailhouse0 should work.
-
->=20
-> I can try the 4.19 siemens kernel and "next" branch for jailhouse you
-> suggested.=C2=A0 Do you think that combination will resolve the missing
-> serial for the non-root linux?=C2=A0 Otherwise, did my kernel config, sys=
-tem
-> config, and non-root linux cell configs look OK?
-
-I didn't look at it, but we should at least - even if some flags are
-still incorrect - see the "Uncompressing kernel..." thing.
-
-Wait -- one thing you could try: Deactivate CONFIG_EFI and especially
-CONFIG_EFI_STUBS. I'm not sure, but it could be that EFI_STUBS change
-the header format that our bootloader patches.
-
->=20
-> Thanks again for your help.
-
-No problem. But it's not yet working. ;-)
-
-  Ralf
-
->=20
->=20
-> On Fri, Jun 7, 2019 at 5:30 PM Ralf Ramsauer
-> <ralf.ramsauer@oth-regensburg.de
-> <mailto:ralf.ramsauer@oth-regensburg.de>> wrote:
->=20
->     Hi Wayne,
->=20
->     On 6/7/19 10:04 PM, Wayne wrote:
->     > Hi Ralf,
->     >
->     > Thank you for your responses.=C2=A0 I have attached the requested c=
-onfig
->     > files.=C2=A0 I am now just trying to use the same bzImage for the r=
-oot and
->     > the non-root linux node.
->=20
->     One question that you didn't answer: do apic-demo or tiny-demo work?
->     They need to to have correct .console parameter set, so ensure that
->     parameters are set if you run those demos in your linux-demo cell. Ju=
-st
->     compare it to tiny-demo.c or apic-demo.c
->=20
->     >
->     > Yes, I am using vanilla 4.16 because the documentation indicated
->     that it
->     > is the first mainline release to officially support Jailhouse Guest
->     > images.=C2=A0 Do you suggest that I use something else?
->=20
->     As Jan already wrote: Try to use Siemens' 4.19 branch.
->=20
->     >
->     > Right now i'm just trying to get some serial output from the non-ro=
-ot
->     > Linux.=C2=A0 Hopefully, I have that configured correctly.=C2=A0 Ide=
-ally, I would
->     > like to share the same serial console for the Root node and non-roo=
-t
->     > node eventually if possible.=C2=A0 I have been OK with using the vi=
-rtual
->     > console (jailhouse console -f) for the Hypervisor output.
->=20
->     In addition to Jan's comment:
->=20
->     Currently you only have access to the jailhouse console via 'jailhous=
-e
->     console' from your root cell. Imagine your root cell crashes for some
->     reason. You will never see the fault reason, which makes things hard =
-to
->     debug.
->=20
->     I would suggest to configure the hypervisor to use the serial console=
-.
->     You can share the device with the non-root Linux, that's no problem.
->=20
->     In this case, the non-root kernel's output will always be printed to =
-the
->     serial console. Directly, if you choose console=3DttySx, and indirect=
-ly
->     via the hypervisor if you choose console=3Djailhouse.
->=20
->     BTW: According to your config, your system is a PowerEdge, and the
->     non-root cell gets both, 0x2f8 and 0x3f8. Are you sure that ttyS1 is =
-the
->     correct console that you are connected to?
->=20
->     Just mentioning this as we have a similar machine here, and, afair, b=
-oth
->     platform serial device are 'usable', but one ends in the nirvana whil=
-e
->     it is accessible.
->=20
->     Ah, and one last thing: try to switch to the current next branch for
->     jailhouse. Jan just integrated a few patches from me that might also =
-be
->     relevant for your machine.
->=20
->     HTH
->     =C2=A0 Ralf
->=20
->     >
->     > Wayne
->     >
->     > On Fri, Jun 7, 2019 at 9:10 AM Ralf Ramsauer
->     > <ralf.ramsauer@oth-regensburg.de
->     <mailto:ralf.ramsauer@oth-regensburg.de>
->     > <mailto:ralf.ramsauer@oth-regensburg.de
->     <mailto:ralf.ramsauer@oth-regensburg.de>>> wrote:
->     >
->     >=C2=A0 =C2=A0 =C2=A0Hi,
->     >
->     >=C2=A0 =C2=A0 =C2=A0On 6/7/19 2:28 PM, Wayne wrote:
->     >=C2=A0 =C2=A0 =C2=A0> Hello,
->     >=C2=A0 =C2=A0 =C2=A0>
->     >=C2=A0 =C2=A0 =C2=A0> I am new to Linux development and Jailhouse.=
-=C2=A0 I have
->     successfully
->     >=C2=A0 =C2=A0 =C2=A0booted
->     >=C2=A0 =C2=A0 =C2=A0> the Jailhouse Hypervisor and root cell on a ba=
-re metal X86 Linux
->     >=C2=A0 =C2=A0 =C2=A0system
->     >=C2=A0 =C2=A0 =C2=A0> (No QEMU).=C2=A0 I am now trying to load a non=
--root Linux cell
->     and I have a
->     >=C2=A0 =C2=A0 =C2=A0> few questions.=C2=A0 Jailhouse accepts and sta=
-rts my non-root
->     linux cell
->     >=C2=A0 =C2=A0 =C2=A0> configuration and I see it as "running" throug=
-h the
->     "jailhouse cell
->     >=C2=A0 =C2=A0 =C2=A0> list" command.=C2=A0 However, I don't see any =
-serial output from the
->     >=C2=A0 =C2=A0 =C2=A0> "non-root linux" cell booting up.=C2=A0 I=E2=
-=80=99m not sure what the
->     non-root node
->     >=C2=A0 =C2=A0 =C2=A0> is doing at this point.
->     >
->     >=C2=A0 =C2=A0 =C2=A0Ok, first of all, can you see any output from Ja=
-ilhouse's demo
->     inmates
->     >=C2=A0 =C2=A0 =C2=A0(e.g., tiny-demo or apic-demo)?
->     >
->     >=C2=A0 =C2=A0 =C2=A0>
->     >=C2=A0 =C2=A0 =C2=A0> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0My root node is a 4.16 kernel configured this
->     way:
->     >=C2=A0 =C2=A0 =C2=A0> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 1. CONFIG_JAILH=
-OUSE_GUEST is
->     not set
->     >=C2=A0 =C2=A0 =C2=A0> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 2. CONFIG_SERIO=
-=3Dy
->     >=C2=A0 =C2=A0 =C2=A0> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 3.
->     CONFIG_SERIAL_8250_RUNTIME_UARTS=3D4
->     >=C2=A0 =C2=A0 =C2=A0>
->     >=C2=A0 =C2=A0 =C2=A0> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0My non-root node is a 4.16 kernel configured
->     this way:
->     >=C2=A0 =C2=A0 =C2=A0> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 1. CONFIG_JAILH=
-OUSE_GUEST=3Dy
->     >=C2=A0 =C2=A0 =C2=A0> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 2. CONFIG_SERIO=
-=3Dm (can't seem
->     to disable
->     >=C2=A0 =C2=A0 =C2=A0> completely in my config for 4.16)
->     >=C2=A0 =C2=A0 =C2=A0> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 3.
->     CONFIG_SERIAL_8250_RUNTIME_UARTS=3D1
->     >
->     >=C2=A0 =C2=A0 =C2=A0Could you please provide a full .config? What br=
-anch are you
->     exactly
->     >=C2=A0 =C2=A0 =C2=A0using? Vanilla 4.16?
->     >
->     >=C2=A0 =C2=A0 =C2=A0Please attach your system config and your non-ro=
-ot linux
->     config as well.
->     >
->     >=C2=A0 =C2=A0 =C2=A0You may also want to try https://github.com/siem=
-ens/linux . See
->     >=C2=A0 =C2=A0 =C2=A0jailhouse-enabling branches for some releases.
->     >
->     >=C2=A0 =C2=A0 =C2=A0>
->     >=C2=A0 =C2=A0 =C2=A0> In general, do the kernel config settings have=
- to match between
->     >=C2=A0 =C2=A0 =C2=A0the root
->     >=C2=A0 =C2=A0 =C2=A0> node and non-linux or is the above fine?
->     >
->     >=C2=A0 =C2=A0 =C2=A0No, they do not have to be the same, but they ca=
-n. Still, an
->     analysis
->     >=C2=A0 =C2=A0 =C2=A0requires your .config.
->     >
->     >=C2=A0 =C2=A0 =C2=A0>
->     >=C2=A0 =C2=A0 =C2=A0> The vmlinux-4.1.16-Guest bzImage is approx 7MB=
-, and the
->     inmate node is
->     >=C2=A0 =C2=A0 =C2=A0> allocated ~75MB of RAM.
->     >=C2=A0 =C2=A0 =C2=A0>
->     >=C2=A0 =C2=A0 =C2=A0> I have a single UART, so I have configured the=
- root cell
->     system config
->     >=C2=A0 =C2=A0 =C2=A0> to output to the virtual hypervisor console:
->     >
->     >=C2=A0 =C2=A0 =C2=A0Wait... You configured your root-cell to use the=
- hypervisor debug
->     >=C2=A0 =C2=A0 =C2=A0console? How? It's only available once the hyper=
-visor is
->     enabled. How
->     >=C2=A0 =C2=A0 =C2=A0should this work?
->     >
->     >=C2=A0 =C2=A0 =C2=A0But let's have a look at your configuration firs=
-t.
->     >
->     >=C2=A0 =C2=A0 =C2=A0So you want to:
->     >=C2=A0 =C2=A0 =C2=A0=C2=A0 - Have the UART (0x3f8) available in the =
-non-root cell
->     >=C2=A0 =C2=A0 =C2=A0=C2=A0 - Use 0x3f8 as hypervisor debug console a=
-s well
->     >=C2=A0 =C2=A0 =C2=A0=C2=A0 - No console for root-cell
->     >
->     >=C2=A0 =C2=A0 =C2=A0Did I get this right?
->     >
->     >=C2=A0 =C2=A0 =C2=A0=C2=A0 Ralf
->     >
->     >=C2=A0 =C2=A0 =C2=A0>
->     >=C2=A0 =C2=A0 =C2=A0> .flags =3D JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE=
-,
->     >=C2=A0 =C2=A0 =C2=A0>
->     >=C2=A0 =C2=A0 =C2=A0> .debug_console =3D {
->     >=C2=A0 =C2=A0 =C2=A0> .type =3D JAILHOUSE_CON_TYPE_NONE,
->     >=C2=A0 =C2=A0 =C2=A0> },
->     >=C2=A0 =C2=A0 =C2=A0>
->     >=C2=A0 =C2=A0 =C2=A0> and I have configured the non-root linux cell =
-to output to
->     the UART:
->     >=C2=A0 =C2=A0 =C2=A0>
->     >=C2=A0 =C2=A0 =C2=A0> (Added serial 0x3f8 to pio bitmap for non-root=
- linux) and
->     started the
->     >=C2=A0 =C2=A0 =C2=A0> node with this:
->     >=C2=A0 =C2=A0 =C2=A0>
->     >=C2=A0 =C2=A0 =C2=A0> ./tools/jailhouse cell linux configs/x86/linux=
--x86.cell
->     >=C2=A0 =C2=A0 =C2=A0> /boot/vmlinux-4.1.16-Guest -c "console=3DttyS0=
-,115200"
->     >=C2=A0 =C2=A0 =C2=A0> (Note I also tried "console=3Djailhouse" in th=
-e command above,
->     and that
->     >=C2=A0 =C2=A0 =C2=A0> produces the same result)
->     >=C2=A0 =C2=A0 =C2=A0>
->     >=C2=A0 =C2=A0 =C2=A0> I then see the following on my hypervisor cons=
-ole
->     (./tools/jailhouse
->     >=C2=A0 =C2=A0 =C2=A0> console -f):
->     >=C2=A0 =C2=A0 =C2=A0>
->     >=C2=A0 =C2=A0 =C2=A0> Created cell "linux-x86-demo"
->     >=C2=A0 =C2=A0 =C2=A0> ...
->     >=C2=A0 =C2=A0 =C2=A0> Cell "linux-x86-demo" can be loaded
->     >=C2=A0 =C2=A0 =C2=A0> Started cell "linux-x86-demo"
->     >=C2=A0 =C2=A0 =C2=A0>
->     >=C2=A0 =C2=A0 =C2=A0> After a little while I do get a parked CPU err=
-or on the root
->     node,
->     >=C2=A0 =C2=A0 =C2=A0looks
->     >=C2=A0 =C2=A0 =C2=A0> like its trying to do something with the UART =
-as well:
->     >=C2=A0 =C2=A0 =C2=A0> FATAL: Invalid PIO read, port: 3fe size: 1
->     >=C2=A0 =C2=A0 =C2=A0>
->     >=C2=A0 =C2=A0 =C2=A0> I would expect something to pop out on the UAR=
-T from the
->     non-root
->     >=C2=A0 =C2=A0 =C2=A0linux
->     >=C2=A0 =C2=A0 =C2=A0> node first.=C2=A0 Note that root node has seri=
-al 0x3f8 disabled
->     in its pio
->     >=C2=A0 =C2=A0 =C2=A0> bitmap.
->     >=C2=A0 =C2=A0 =C2=A0>
->     >=C2=A0 =C2=A0 =C2=A0> I verifed that the UART is functioning by allo=
-wing the
->     hypervisor to
->     >=C2=A0 =C2=A0 =C2=A0> print to it and also performed an echo test ov=
-er ttyS0.
->     >=C2=A0 =C2=A0 =C2=A0>
->     >=C2=A0 =C2=A0 =C2=A0> I have tried several configurations of kernel.=
-....including your
->     >=C2=A0 =C2=A0 =C2=A0current
->     >=C2=A0 =C2=A0 =C2=A0> "queues/jailhouse" branch head kernel for the =
-non-root node,
->     along
->     >=C2=A0 =C2=A0 =C2=A0with
->     >=C2=A0 =C2=A0 =C2=A0> the kernel config for 4.7 posted in this threa=
-d below (but I
->     get same
->     >=C2=A0 =C2=A0 =C2=A0> result as above when I start it, no kernel out=
-put):
->     >=C2=A0 =C2=A0 =C2=A0> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0
->     >=C2=A0 =C2=A0 =C2=A0>
->     >=C2=A0 =C2=A0
->     =C2=A0=C2=A0"https://groups.google.com/forum/#!searchin/jailhouse-dev=
-/Re$3A$20Failed$20to$20boot$20jailhouse%7Csort:relevance/jailhouse-dev/M7UO=
-89XFIk0/Qi40DDuMBAAJ".
->     >=C2=A0 =C2=A0 =C2=A0>
->     >=C2=A0 =C2=A0 =C2=A0> Any information you can provide to me will be =
-helpful.=C2=A0 I'm
->     not sure
->     >=C2=A0 =C2=A0 =C2=A0> what might be going wrong here.
->     >=C2=A0 =C2=A0 =C2=A0>
->     >=C2=A0 =C2=A0 =C2=A0> Thanks,
->     >=C2=A0 =C2=A0 =C2=A0> Wayne
->     >=C2=A0 =C2=A0 =C2=A0>
->     >=C2=A0 =C2=A0 =C2=A0> --
->     >=C2=A0 =C2=A0 =C2=A0> You received this message because you are subs=
-cribed to the
->     Google
->     >=C2=A0 =C2=A0 =C2=A0> Groups "Jailhouse" group.
->     >=C2=A0 =C2=A0 =C2=A0> To unsubscribe from this group and stop receiv=
-ing emails
->     from it, send
->     >=C2=A0 =C2=A0 =C2=A0> an email to jailhouse-dev+unsubscribe@googlegr=
-oups.com
->     <mailto:jailhouse-dev%2Bunsubscribe@googlegroups.com>
->     >=C2=A0 =C2=A0 =C2=A0<mailto:jailhouse-dev%2Bunsubscribe@googlegroups=
-.com
->     <mailto:jailhouse-dev%252Bunsubscribe@googlegroups.com>>
->     >=C2=A0 =C2=A0 =C2=A0> <mailto:jailhouse-dev+unsubscribe@googlegroups=
-.com
->     <mailto:jailhouse-dev%2Bunsubscribe@googlegroups.com>
->     >=C2=A0 =C2=A0 =C2=A0<mailto:jailhouse-dev%2Bunsubscribe@googlegroups=
-.com
->     <mailto:jailhouse-dev%252Bunsubscribe@googlegroups.com>>>.
->     >=C2=A0 =C2=A0 =C2=A0> To view this discussion on the web visit
->     >=C2=A0 =C2=A0 =C2=A0>
->     >=C2=A0 =C2=A0
->     =C2=A0https://groups.google.com/d/msgid/jailhouse-dev/CA%2B%2BKhc2iKk=
-1J6%2B0huh5__dS4HyujXzV9r%2BLbKLzuVZ4K3Bt5eA%40mail.gmail.com
->     >=C2=A0 =C2=A0 =C2=A0>
->     >=C2=A0 =C2=A0
->     =C2=A0<https://groups.google.com/d/msgid/jailhouse-dev/CA%2B%2BKhc2iK=
-k1J6%2B0huh5__dS4HyujXzV9r%2BLbKLzuVZ4K3Bt5eA%40mail.gmail.com?utm_medium=
-=3Demail&utm_source=3Dfooter>.
->     >=C2=A0 =C2=A0 =C2=A0> For more options, visit https://groups.google.=
-com/d/optout.
->     >
->=20
+Jan
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -600,5 +247,5 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/f0936088-a32d-3da7-a9ba-d552ede5052e%40oth-regensburg.de.
+jailhouse-dev/ca4ba28e-157e-0576-49e8-f2ef0b4689e1%40web.de.
 For more options, visit https://groups.google.com/d/optout.
