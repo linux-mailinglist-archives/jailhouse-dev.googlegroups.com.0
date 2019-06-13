@@ -1,140 +1,123 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBOVYRLUAKGQEBVJP73A@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBSNYRLUAKGQE277ICBA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33f.google.com (mail-wm1-x33f.google.com [IPv6:2a00:1450:4864:20::33f])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF5B144B5E
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 13 Jun 2019 20:55:54 +0200 (CEST)
-Received: by mail-wm1-x33f.google.com with SMTP id t62sf2859425wmt.1
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 13 Jun 2019 11:55:54 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1560452154; cv=pass;
+Received: from mail-wr1-x440.google.com (mail-wr1-x440.google.com [IPv6:2a00:1450:4864:20::440])
+	by mail.lfdr.de (Postfix) with ESMTPS id 01AC944B69
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 13 Jun 2019 20:56:10 +0200 (CEST)
+Received: by mail-wr1-x440.google.com with SMTP id w11sf10649wrl.7
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 13 Jun 2019 11:56:09 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1560452169; cv=pass;
         d=google.com; s=arc-20160816;
-        b=IU6edC/ZVGwjIGDGLJ93MtxgnJlpJt/xUnNZUNPT8D8b9GIRQI+yfdHIYQ7JXiSA2O
-         Kc1yQrYHWGr2lJAIeKrzX3BxumyfC5o4h/HzqTNRcatrjqExHwaoKr/ZlbBjFAeusLff
-         N3Wndop1Un/HZDX9VWZXv0qpkJ7LGWiL5LzWnmv0a2oMiAGsFeSAxxiHSI8AYHbhBmRG
-         se5yf+IWp5cEsH/qfWoxhflAKq0I+YVGHQhVnk+6JdrAjl65jKItY8GIseULRTfz22A+
-         lTT4WnrMv5u2yIcfkUHo99LeAVFIrmwAWdCGOzshnxAHw3Ejpdq0l5F/lcNODz22O4EZ
-         dwPQ==
+        b=XKeN2nExsqdHmAZTiflmE0haq/8f2EVPFL0MUAfT9hy5JbhdqtwL+iVI1zaTQC+JDa
+         LlQYh4Hi7xKoog9zM5N20Ydx42a9zcy9cb+MqucXvk45UIOkBIBrQ6rXY/cpH/XF1f6F
+         dyugCmijUjFoIYJ8un9OGBwkwfOHRQEEG7IJc9NCGlFMd5duUDdfcrv/y/F6QILQp3xJ
+         87cZOFnEgAveeIEJ5v4ltD6DtlVvfaCO04lcecP/ukRoNOnkF+/jb7lxxz/VvHDh6cZ1
+         Ip0H0dEaJx70NCkSTbFGgQdRDw+z9z5P7LK+d9WqobKwPadwMEqkVdY1MplZ0EKeOibe
+         nJ4w==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:cc:to:subject:sender:dkim-signature;
-        bh=44SAS7GLDjpoKCzCnPM+FKqqVeUAGZEEEr1GYsbxFT0=;
-        b=IpUs4taYGqB3VEa751gJrN/itEiqERY9gyjEHio5VFGng511vv7FKemwypl/CuZR47
-         EooI//hW8kFGpw01tpxWyTjivipDFaokOY1ZMg4AYTTZC4XJ93NFllHRKDvpsQHhZNgR
-         o0+LY3/u9q2ymLNDTsv+SdJFFEBDw0kqjU2xb7huuarx+q2q7GVAd9btUA6gaNaAkV0L
-         Tm1IDCkIem9GQfqH6H7K9w6/k3DXLj/M7pLvOYd1L5SXxwETwj72RViuVWFZ+t+QfhJ2
-         HJDTc7PIR6mI2B2ffEzqkFXH5YbgagyWFiLkuNv2heOHVgBG4G81WuR54nyyeO2JzW/T
-         jSRQ==
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:to:subject
+         :sender:dkim-signature;
+        bh=kesyWaXDJscrNyRbBAuuGjHTy2WnSXLgufiydstCijI=;
+        b=jn3jO47y9ry2PsbggJX18FM2kU2iAOjfnjVg+5riaNzP/SoaGd9qbniZOzuHOg0dsR
+         lU35tEbjKL6wtB2vpg0wpUKqg4jFcXAPtTJd1cq1wdnHiEWxZvZ6usDnwYYU+iAk4i9B
+         KGwloDSGuJ+11kEAORruOKipkPAJhpIUEtH8s1dyskqAFymdLKzyYi9H0XGne/6UBqCe
+         V2jUlKm4chzBvCNKyyDb9LByRPjbTLZnnN0efeLBUndkDkP09o2FfEANacW0Aad6Cien
+         nNuHtP2cmGMb7lhu+XafqPY9b7n3IaFG1r8uyEC8gFQBJz+X6qXube6G4FLbK71niVhB
+         kbvA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=44SAS7GLDjpoKCzCnPM+FKqqVeUAGZEEEr1GYsbxFT0=;
-        b=VSAd4N2z9HsdUzngf7mJf+EC6W4Ng/6QvCe9m+noXhceFDYZhAOxRMk4NrZ07PugJq
-         Nky81ZUfKmp4kpoGegK8+P4ffAGjgWFp11/rKgmFwfgLCVu983aSnuIkX8SSADd7UQ7P
-         WlTpAfiQal8plEcxT6tFOeHa9Vpr1aQohEEYJo/pBt0ZsOELhUC+71FdhEBQVWm9MIvY
-         wLc4MS0EpfGm5E62yvWwWqBANgkxutQsS10SNhxLCwxmBECPRdfeFooX5xjKIQlN6olj
-         W0qnQsD+hEPTswTU/Wpj7OMNzvrLpMttUaKvfgPBfN+zK9hSr+Dryc73Nk09T/5fReNh
-         4qTQ==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=kesyWaXDJscrNyRbBAuuGjHTy2WnSXLgufiydstCijI=;
+        b=MBd1LqFsulZZ+z7D993UiSKwmNbfYlB6F7O7dO/Fc5GZSRjUI6vsFsmtEF+6p4/PgZ
+         NanhPo8Q0FNPevI15VfUxjDqEX9BlatT0o5zLNxP5HkfYMoJ0seHX2nMKnTyZPR1LxdS
+         MFhdVEA8SixnZ4I0Bml4BI9fM9Xk5VysfqhzUFkVxcEXzfBpQgEc00h2yWwJpb6IYyWz
+         AMTowt2nCm2zXS4UKBu97pim/sCADziruLbxcPg80HfyPq/NMdvSMZqBBAItC2JSTCJv
+         V2l7RUGHwz3N4IBEJGiFIArCUnKg6Cm76TfITwJxuP43J5bpIr2Gc2R3dmku5jw2HBq0
+         do4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
          :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=44SAS7GLDjpoKCzCnPM+FKqqVeUAGZEEEr1GYsbxFT0=;
-        b=pIRhuJEyX84aAx5eIUqsSeY4Alnsvd+8fauxRSNIBFePZmJGbkBE0f0hNiewZ7xs6L
-         h8hFE4blWrDu8NdQ3Ii/dDtLwyJ1I6iTO0VlGo0JnKaBjPhc4vlMJPLNI6zzWA+UozE2
-         3FXYyjn3oYL+RnbeaugupgP0vaw4ZT1F/GW3reuNhCIY5ZvYOKlLE13FmMi+GBY3Pys7
-         AK65xGYOKVoZetGWk9zkZWoqNXX87t2h3lVhalUx6N8Aziu8dkXopvLLO2H1q+zK/kyK
-         HUssdxG5zJ2NrA7apg6rYCxkNJkR1GHgtHfk+6R1izoDc5UtG/7QxTOUij394b+GdPOu
-         jp5g==
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=kesyWaXDJscrNyRbBAuuGjHTy2WnSXLgufiydstCijI=;
+        b=B3mXU6lnRICQYY232koRqoLElvv6ve/S3AHViUUEYjy00r8r8sQJa9xN1kX0jUGzDd
+         vHUp7xvwgzLm2Bq0t2xtjfNvUekLDNkRSRYajEWR+4ziCRLlaGv5JEawN69CyFVoEFDy
+         Slf0SHmLaM2tWRxT7nNr7EjnXJXqM5+461dDPNqahVZeboKibBxpM/uL6bTp155YauSl
+         AS/Kd1S6Doooeq34Tbkijsf6bIfg8L7hrgfHClUKx3TwAYq0oHb2Y66WkUkI99Arq8QL
+         pFJDnznIToAGLIDr/38EfAhefDzXBxIitYLei4vgnSCuQDmtlCbPJV0HRFCfRNfjGLpY
+         gF1Q==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXA9aHnn6q8DobCOtkI2Fds8xMBSZfuMBqnJwatvK5g0Z6Vr8SR
-	iEYjZCIu35ip/5stvD7GH2s=
-X-Google-Smtp-Source: APXvYqxHnbNUVb9dgzvcwxHPJH8q++qyvfP7YrLsJomTeG2sjc+8FLsY8IIUsJpLKumrNWmFwWwPRA==
-X-Received: by 2002:a7b:ce01:: with SMTP id m1mr4774047wmc.1.1560452154583;
-        Thu, 13 Jun 2019 11:55:54 -0700 (PDT)
+X-Gm-Message-State: APjAAAVeICWuIJjfBhXQllbC/K0fxB0YBPk3O/o8awWE3Ld26wqPG2kj
+	jmCjOABY/khSlStiJLSW8jM=
+X-Google-Smtp-Source: APXvYqwzvUVR+87IAAsdDNcrWaWu/DW3KE7vWHIcoKN0bk9RERKoFV3av5edXAPRf1zGEmeLwXXwOw==
+X-Received: by 2002:adf:b605:: with SMTP id f5mr1447183wre.305.1560452169718;
+        Thu, 13 Jun 2019 11:56:09 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:f94b:: with SMTP id q11ls1616040wrr.10.gmail; Thu, 13
- Jun 2019 11:55:54 -0700 (PDT)
-X-Received: by 2002:adf:fb0b:: with SMTP id c11mr12496485wrr.56.1560452154024;
-        Thu, 13 Jun 2019 11:55:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1560452154; cv=none;
+Received: by 2002:adf:dfc1:: with SMTP id q1ls1612504wrn.16.gmail; Thu, 13 Jun
+ 2019 11:56:09 -0700 (PDT)
+X-Received: by 2002:adf:deca:: with SMTP id i10mr6124394wrn.313.1560452169093;
+        Thu, 13 Jun 2019 11:56:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1560452169; cv=none;
         d=google.com; s=arc-20160816;
-        b=pzlI8XDaISqE1Dw3cwkEU9f1qTjMCHHKGobMAAOZnxJ/6+2u28o5KmtpcNJbuhOQR7
-         B1a744jTdVU43pzGU8Kj0Tpy6pMmSQ+vrhaNF0iztpVXuK6bNtZ/YHHoUSFRbMFBYfX2
-         VCIzz/RWFuRPswHA4sZCVCX6zczbhF6KkQNjzvKiwyTz35kvYkaVRWpAeJjkqPVbhEQS
-         H6C3QvVXbpJ8nXABQdeLPLJ7uIJ3Gr03iBBE5mPeMFk9V+/nrGCIcjWfVQgIFxVKxEoI
-         SFOtgW9gkURpjPUSs6e5pKUHHD3xNOAS4DZSGAELMjUbKKisOws6/W0Uh/H5juTWnONG
-         Vcmw==
+        b=gMiMkif8FUQ2eIEoNIpjTBV4kgJaNvrLYjcXEWMxj9kI5ysFvf89C64a+5HXVzMuZR
+         9lfYBUWiSCg7n6kpZ0k4BovTwjSa6aAaV+O3zJHAe7dnTzG4K6QKeTL4vsETIQfo8L7Q
+         84zvuJG2f2s44OUmHerkCTQuFETYiBZCZ4+nP62wakTh4Aib7YHUuVT0I/yr4/o4em5b
+         xuz/gLy7zi9VQA7/AgqTAE6pxT56Et+q5srCG5OqPoPaDjjI39E69pQ4kOeY89PU1x0i
+         IpFRviQWDHBZ5f/EJ3S6zAVq1p4nItSis/HAebLyklkr/59TdY7pvOzCrf+V0QJBOxh5
+         5dEA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=N6bZ1p3YavP46cd9X56RjxXq1qiL+r3ym7qrFRpZt1c=;
-        b=RZ07+Xm1+XpBunMm0vbhodrUprADSO+lNyVhfMBlirEAJpqbx5G4q9XAkAxK9yGkaA
-         nE1W3B8XNTkR6jmxQjawfo+ADJz+V/fSJ3izkGDMMx91Yehj9/2G3GaRiynrq2tqdUEP
-         vMbsssxUGu7b4QMGeH61hYAuJGW8TPmMLRTzhMrPvcgsMknN3e4JyVm61pZFMHltJ6EE
-         yDyM1pSRL+vajjbQt3Ac/Rh+/WdnHWaezAyPN+cORcb9INUKxaBCg1aiwt/7L6H6dzZT
-         rKzFp1fJaQ2lc/nNZI0YzPQ9L31GVlDw7Rb0R2qKlI+XxPEmFDVdgXVkr1SoJaF5Mh6P
-         3GQw==
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=qyp/8oBVUVzLVXJytPURLHs4/jYCFu4Yjksm2xwbq8c=;
+        b=0aj6cAGTmXw6kHRx1J/xbgAi7+U+KmhIwlBVMDkkATOOXnp7bgz2jcmqT++yhCU3Te
+         fAQRqBijJsRmQTV1X0+J2N95a4aPuzJ1jwCMkGLf6HLRFOy+P+2yOGdooZWeqAYSvKWk
+         ufLJc03RaZ5LcnXU7SkVKpDqXwGRlHeYvzv03Fw7nzIlFTpWdzCa3ByG/bU+hcmmhhUr
+         usRh6CwyNsaxLlsR/TrDu/5y+xZ9Z0N3gTzZ3bbcOX+HfqeWKJV1Lq7GRGA+F/B8Z6rw
+         czTa50LVIbrSIv2fkEfMmhHGWW2CWPIFYsnCXLu9RbjHuMtr/RvQOXlUAl5GaNT7Y3v5
+         JCqA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id v21si340024wmc.1.2019.06.13.11.55.53
+Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
+        by gmr-mx.google.com with ESMTPS id h10si49452wrv.3.2019.06.13.11.56.09
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 13 Jun 2019 11:55:54 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
+        Thu, 13 Jun 2019 11:56:09 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id x5DItq2U017048
+	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id x5DIu8rF009710
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 13 Jun 2019 20:55:52 +0200
+	Thu, 13 Jun 2019 20:56:08 +0200
 Received: from [139.25.68.37] (md1q0hnc.ad001.siemens.net [139.25.68.37] (may be forged))
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id x5DItpIu021538;
-	Thu, 13 Jun 2019 20:55:52 +0200
-Subject: Re: Linux non-root node question
-To: Wayne <racedrive1503@gmail.com>
-Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id x5DIu7mP021813;
+	Thu, 13 Jun 2019 20:56:07 +0200
+Subject: Re: [PATCH v2] x86: mmio: fix preserve mask for instructions with
+ zero-extend
+To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
         jailhouse-dev@googlegroups.com
-References: <CA++Khc2iKk1J6+0huh5__dS4HyujXzV9r+LbKLzuVZ4K3Bt5eA@mail.gmail.com>
- <CA++Khc0FZSWvVZZyV+4_F0TO7dHPN70Mn3LUCmq_3M2fnGN4ig@mail.gmail.com>
- <CA++Khc0O2zSeuLLY3MaeRW7cQrWbq-6Y2BHJg+x_j6nk=ECa_A@mail.gmail.com>
- <ad13aaa6-41ac-14fd-33fe-fa4f6dfc789e@oth-regensburg.de>
- <CA++Khc36sP7ABEsR5Bp+gpts0DUBENqV6eFDPazfs5kR_QRGaw@mail.gmail.com>
- <42ce8fed-792a-ac86-7611-ee9b13dd7815@oth-regensburg.de>
- <CA++Khc13nuahbog_WVD-BJi0asHEa8TxMAvB5M5damJGJ_5inA@mail.gmail.com>
- <d2e2b271-4e43-4126-5433-8304d4984e7a@oth-regensburg.de>
- <CA++Khc2LGq3gGydG2Ojxn2xcbPoc6VzvhoO4_ikFMFMdQ_aYOg@mail.gmail.com>
- <bd92264a-60c1-6f76-07f0-93cb9bd08a01@siemens.com>
- <CA++Khc0seBDnN2hD7EJh3g25unUEFqBuiRSm5HwOE+1JEX0D2Q@mail.gmail.com>
- <63552042-48d0-cb32-e893-28ae4ab29ccd@siemens.com>
- <CA++Khc3Mj=SFen+_f7RE5g1Paq1AhHQOrBX3HqNoJvvbymQh0w@mail.gmail.com>
- <5b90a899-c42a-a360-8398-c3af35920765@siemens.com>
- <CA++Khc0whU3=U86WGNEtLUZoOkKuYLiEA+nqOjW1UFcRDeGTRQ@mail.gmail.com>
+References: <20190613133052.8347-1-ralf.ramsauer@oth-regensburg.de>
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <0da95034-9bd0-4415-4d3b-5f6687a84563@siemens.com>
-Date: Thu, 13 Jun 2019 20:55:51 +0200
+Message-ID: <f5fd700b-abcf-7d6e-0f58-39c5ec506935@siemens.com>
+Date: Thu, 13 Jun 2019 20:56:07 +0200
 User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
  Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
 MIME-Version: 1.0
-In-Reply-To: <CA++Khc0whU3=U86WGNEtLUZoOkKuYLiEA+nqOjW1UFcRDeGTRQ@mail.gmail.com>
+In-Reply-To: <20190613133052.8347-1-ralf.ramsauer@oth-regensburg.de>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
@@ -149,38 +132,314 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 13.06.19 20:49, Wayne wrote:
-> I added the "-k 10" to the command and unfortunately it did not make a=20
-> difference with the unpacking.=C2=A0 If I add=C2=A0 "root=3D/dev/ram0" it=
- does get past the=20
-> unpacking, but throws the panic for "System is deadlocked on memory".
->=20
-> I have attached my current non-root kernel config.=C2=A0 Should I expect =
-to be able=20
-> to log in to the non-root if I use the same initramfs as the root linux?
->=20
+On 13.06.19 15:30, Ralf Ramsauer wrote:
+> movzx is a move with zero-extend. It will either move 1 byte (0f b6) or
+> 2 bytes (0f b7). The destination are lower 8 or 16 bits. Zero-extend
+> means that upper bits need to be cleared. The definition of upper bits
+> depends on the destination register.
+> 
+> We already have a preserve mask that allows us for to clear or preserve
+> bits when emulating the instruction. In case of movzx, the preserve mask
+> only depends on the width of the destination register. For the
+> destination register, we have the following cases:
+> 
+>    - rax -- instruction has REX prefix 0x48 (rex_w set)
+>    - eax -- default case, no prefix, nothing
+>    -  ax -- instruction has OP SZ override prefix 0x66
+>    -  al -- not possible, and doesn't make sense for movzx
+> 
+> Now, rax and eax have the same effect: Always clear all upper bits (IOW,
+> bits 8-63 if access_size is 1 or bits 16-63 if access_size is 2).
+> Solution for rax and eax is easy: Simply don't set the preserve mask at
+> all.
+> 
+> The fun part is if we have the 0x66 operand override size prefix. This
+> means that the 'visibility' of the destination register is narrowed to
+> 16 bit.
+> 
+> In case of a 1 byte move (0f b6), copy the source to bits 0-7, clear
+> bits 8-15 and preserve bits 16-63. access_width ensures that we only
+> copy 8 bit to bits 0-7, and the preserve_mask 0xffff.ffff.ffff.0000 does
+> the rest: preserve bits 16-63 and implicitely clear bits 8-15.
+> 
+> In case of a 2 byte move (0f b7), copy the source to bits 0-15, clear
+> nothing and preserve bits 16-63. access_width ensures that we only copy
+> 16 bit to bits 0-15, and the preserve_mask 0xffff.ffff.ffff.0000 does
+> the rest: preserve bits 16-63.
+> 
+> Once this pattern is clear, the fix in the hypervisor is straight forward.
+> 
+> Amend existing and add new test cases that test correct behaviour.
+> 
+> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+> ---
+> 
+> Since v1:
+>    - Rewrite commit message
+>    - Set the correct preserve_mask
+>    - Systematically, add tests for all possible combinations
+>    - Adress Jan's comments
+> 
+>   hypervisor/arch/x86/mmio.c         |  36 +++++++++-
+>   inmates/tests/x86/mmio-access-32.c |  30 +++++---
+>   inmates/tests/x86/mmio-access.c    | 108 +++++++++++++++++++++++++----
+>   3 files changed, 152 insertions(+), 22 deletions(-)
+> 
+> diff --git a/hypervisor/arch/x86/mmio.c b/hypervisor/arch/x86/mmio.c
+> index 124f9966..1fcd810a 100644
+> --- a/hypervisor/arch/x86/mmio.c
+> +++ b/hypervisor/arch/x86/mmio.c
+> @@ -55,6 +55,7 @@ struct parse_context {
+>   	bool has_rex_r;
+>   	bool has_addrsz_prefix;
+>   	bool has_opsz_prefix;
+> +	bool zero_extend;
+>   };
+>   
+>   static bool ctx_update(struct parse_context *ctx, u64 *pc, unsigned int advance,
+> @@ -144,6 +145,7 @@ restart:
+>   		ctx.has_opsz_prefix = true;
+>   		goto restart;
+>   	case X86_OP_MOVZX_OPC1:
+> +		ctx.zero_extend = true;
+>   		if (!ctx_update(&ctx, &pc, 1, pg_structs))
+>   			goto error_noinst;
+>   		op[1].raw = *ctx.inst;
+> @@ -191,8 +193,38 @@ restart:
+>   
+>   	op[2].raw = *ctx.inst;
+>   
+> -	if (!ctx.does_write && inst.access_size < 4)
+> -		inst.reg_preserve_mask = ~BYTE_MASK(inst.access_size);
+> +	/*
+> +	 * reg_preserve_mask defaults to 0, and only needs to be set in case of
+> +	 * reads
+> +	 */
+> +	if (!ctx.does_write) {
+> +		/*
+> +		 * MOVs on 32 or 64 bit destination registers need no
+> +		 * adjustment of the reg_preserve_mask, all upper bits will
+> +		 * always be cleared.
+> +		 *
+> +		 * In case of 16 or 8 bit registers, the instruction must only
+> +		 * modify bits within that width. Therefore, reg_preserve_mask
+> +		 * may be set to preserve upper bits.
+> +		 *
+> +		 * For regular instructions, this is the case if access_size < 4.
+> +		 *
+> +		 * For zero-extend instructions, this is the case if the
+> +		 * operand size override prefix is set.
+> +		 */
+> +		if(!ctx.zero_extend && inst.access_size < 4)
 
-You should at least expect to see no error messages of the kernel, possibly=
- some=20
-futile probing of devices and then likely a console prompt.
+"if (!..."
 
-Let's try my kernel config from jailhouse-images first. If that works, you =
-can=20
-tune from there towards your needs. I still think there is some sizing issu=
-e or=20
-so, but I'm not seeing the key difference immediately.
+And I'm also going to add { } to those blocks as they became multi-line with the 
+comments.
 
+> +			/*
+> +			 * Restrict access to the width of the access_size, and
+> +			 * preserve all other bits
+> +			 */
+> +			inst.reg_preserve_mask = ~BYTE_MASK(inst.access_size);
+> +		else if (ctx.zero_extend && ctx.has_opsz_prefix)
+> +			/*
+> +			 * Always preserve bits 16-63. Potential zero-extend of
+> +			 * bits 8-15 is ensured by access_size
+> +			 */
+> +			inst.reg_preserve_mask = ~BYTE_MASK(2);
+> +	}
+>   
+>   	/* ensure that we are actually talking about mov imm,<mem> */
+>   	if (op[0].raw == X86_OP_MOV_IMMEDIATE_TO_MEM && op[2].modrm.reg != 0)
+> diff --git a/inmates/tests/x86/mmio-access-32.c b/inmates/tests/x86/mmio-access-32.c
+> index db743410..566f8eaa 100644
+> --- a/inmates/tests/x86/mmio-access-32.c
+> +++ b/inmates/tests/x86/mmio-access-32.c
+> @@ -64,15 +64,29 @@ void inmate_main(void)
+>   	EXPECT_EQUAL(reg32,
+>   		     ((unsigned long)mmio_reg & ~0xffUL) | (pattern & 0xff));
+>   
+> -	/* MOVZXB (0f b6), 32-bit data, 32-bit address */
+> -	asm volatile("movzxb (%%ebx), %%eax"
+> -		: "=a" (reg32) : "a" (0), "b" (mmio_reg));
+> -	EXPECT_EQUAL(reg32, (u8)pattern);
+> +	/* MOVZXB (0f b6), 8-bit data, 32-bit address, zero extend bits 8-31 */
+> +	asm volatile("movzxb (%%eax), %%eax"
+> +		: "=a" (reg32) : "a" (mmio_reg));
+> +	EXPECT_EQUAL(reg32, pattern & 0xff);
+>   
+> -	/* MOVZXW (0f b7) */
+> -	asm volatile("movzxw (%%ebx), %%eax"
+> -		: "=a" (reg32) : "a" (0), "b" (mmio_reg));
+> -	EXPECT_EQUAL(reg32, (u16)pattern);
+> +	/* MOVZXB (66 0f b6), 8-bit data, 32-bit address, zero extend bits 8-15,
+> +	 * operand size prefix */
+> +	asm volatile("movzxb (%%eax), %%ax"
+> +		: "=a" (reg32) : "a" (mmio_reg));
+> +	EXPECT_EQUAL(reg32,
+> +		     ((unsigned long)mmio_reg & ~0xffff) | (pattern & 0xff));
+> +
+> +	/* MOVZXW (0f b7), 16-bit data, 32-bit address, zero extend bits
+> +	 * 16-31 */
+> +	asm volatile("movzxw (%%eax), %%eax"
+> +		: "=a" (reg32) : "a" (mmio_reg));
+> +	EXPECT_EQUAL(reg32, pattern & 0xffff);
+> +
+> +	/* MOVZXW (66 0f b7), 16-bit data, 32-bit address, preserve bits 16-31 */
+> +	asm volatile(".byte 0x66, 0x0f, 0xb7, 0x00"
+> +		: "=a" (reg32) : "a" (mmio_reg));
+> +	EXPECT_EQUAL(reg32, ((unsigned long)mmio_reg & ~0xffff) |
+> +			     (pattern & 0xffff));
+>   
+>   	/* MEM_TO_AX (a1), 32-bit data, 32-bit address */
+>   	asm volatile("mov (0x101ff8), %%eax"
+> diff --git a/inmates/tests/x86/mmio-access.c b/inmates/tests/x86/mmio-access.c
+> index a17455b0..328d19f0 100644
+> --- a/inmates/tests/x86/mmio-access.c
+> +++ b/inmates/tests/x86/mmio-access.c
+> @@ -84,20 +84,104 @@ void inmate_main(void)
+>   	EXPECT_EQUAL(reg64,
+>   		     ((unsigned long)mmio_reg & ~0xffUL) | (pattern & 0xff));
+>   
+> -	/* MOVZXB (0f b6), to 64-bit, mod=0, reg=0, rm=3 */
+> -	asm volatile("movzxb (%%rbx), %%rax"
+> -		: "=a" (reg64) : "a" (0), "b" (mmio_reg));
+> -	EXPECT_EQUAL(reg64, (u8)pattern);
+> +	/* MOVZX test cases */
+>   
+> -	/* MOVZXB (0f b6), 32-bit data, 32-bit address */
+> -	asm volatile("movzxb (%%ebx), %%eax"
+> -		: "=a" (reg64) : "a" (0), "b" (mmio_reg));
+> -	EXPECT_EQUAL(reg64, (u8)pattern);
+> +	/*
+> +	 * First three tests: MOVZXB (0f b6) with 64-bit address, varying
+> +	 * register width (rax, eax, ax)
+> +	 */
+>   
+> -	/* MOVZXW (0f b7) */
+> -	asm volatile("movzxw (%%rbx), %%rax"
+> -		: "=a" (reg64) : "a" (0), "b" (mmio_reg));
+> -	EXPECT_EQUAL(reg64, (u16)pattern);
+> +	/* MOVZXB (48 0f b6), 8-bit data, 64-bit address, clear bits 8-63 */
+> +	asm volatile("movzxb (%%rax), %%rax"
+> +		: "=a" (reg64) : "a" (mmio_reg));
+> +	EXPECT_EQUAL(reg64, pattern & 0xff);
+> +
+> +	/* MOVZXB (0f b6), 8-bit data, 64-bit address, clear bits 8-63
+> +	 * Exposes the same behaviour as 48 0f b6. */
+> +	asm volatile("movzxb (%%rax), %%eax"
+> +		: "=a" (reg64) : "a" (mmio_reg));
+> +	EXPECT_EQUAL(reg64, pattern & 0xff);
+> +
+> +	/* MOVZXB (66 0f b6), 8-bit data, clear bits 8-15, preserve 16-63,
+> +	 * operand size prefix */
+> +	asm volatile("movzxb (%%rax), %%ax"
+> +		: "=a" (reg64) : "a" (mmio_reg));
+> +	EXPECT_EQUAL(reg64,
+> +		     ((unsigned long)mmio_reg & ~0xffffUL) | (pattern & 0xff));
+> +
+> +	/*
+> +	 * Second three tests: MOVZXB (0f b6) with 32-bit address, varying
+> +	 * register width (rax, eax, ax).
+> +	 *
+> +	 * These pattern will cover cases, where we have, e.g., both operand
+> +	 * prefixes (address size override prefix and operand size override
+> +	 * prefix), and a REX + adress size override prefix.
+> +	 */
+> +
+> +	/* MOVZXB (67 48 0f b6), 8-bit data, clear bits 8-63, 32-bit address,
+> +	 * REX_W, AD SZ override prefix */
+> +	asm volatile("movzxb (%%eax), %%rax"
+> +		: "=a" (reg64) : "a" (mmio_reg));
+> +	EXPECT_EQUAL(reg64, pattern & 0xff);
+> +
+> +	/* MOVZXB (67 0f b6), 8-bit data, clear bits 8-63, 32-bit address,
+> +	 * AD SZ override prefix. Exposes the same behaviour as 67 48 0f b6. */
+> +	asm volatile("movzxb (%%eax), %%eax"
+> +		: "=a" (reg64) : "a" (mmio_reg));
+> +	EXPECT_EQUAL(reg64, pattern & 0xff);
+> +
+> +	/* MOVZXB (67 66 0f b6), 8-bit data, clear bits 8-15, preserve 16-63,
+> +	 * 32-bit address, AD SZ override prefix, OP SZ override prefix */
+> +	asm volatile("movzxb (%%eax), %%ax"
+> +		: "=a" (reg64) : "a" (mmio_reg));
+> +	EXPECT_EQUAL(reg64,
+> +		     ((unsigned long)mmio_reg & ~0xffffUL) | (pattern & 0xff));
+> +
+> +	/*
+> +	 * Three tests for: MOVZXW (0f b7) with 64-bit address, varying
+> +	 * register width (rax, eax, ax).
+> +	 */
+> +
+> +	/* MOVZXW (48 0f b7), 16-bit data, clear bits 16-63, 64-bit address */
+> +	asm volatile("movzxw (%%rax), %%rax"
+> +		: "=a" (reg64) : "a" (mmio_reg));
+> +	EXPECT_EQUAL(reg64, pattern & 0xffff);
+> +
+> +	/* MOVZXW (0f b7), 16-bit data, clear bits 16-63, 64-bit address.
+> +	 * Exposes the same behaviour as 48 0f b7. */
+> +	asm volatile("movzxw (%%rax), %%eax"
+> +		: "=a" (reg64) : "a" (mmio_reg));
+> +	EXPECT_EQUAL(reg64, pattern & 0xffff);
+> +
+> +	/* MOVZWW (66 0f b7), 16-bit data, preserve bits 16-63, OP SZ prefix */
+> +	asm volatile(".byte 0x66, 0x0f, 0xb7, 0x00"
+
+Just checked why we cannot encode that in assembly: There is no
+"MOVZX r16, r/m16" specified - likely because it's pointless (it's a plain mov). 
+But the disassembler understands it nevertheless.
+
+I'm adding a comment that this is a possible but unspecified instruction.
+
+BTW, "MOVXZW".
+
+> +		: "=a" (reg64) : "a" (mmio_reg));
+> +	EXPECT_EQUAL(reg64, ((unsigned long)mmio_reg & ~0xffffUL) |
+> +			     (pattern & 0xffff));
+> +
+> +	/*
+> +	 * Last but not least: MOVZXW (0f b7) with 32-bit address, varying
+> +	 * register width (rax, eax, ax).
+> +	 */
+> +
+> +	/* MOVZXW (67 48 0f b7), 16-bit data, clear bits 16-63, 32-bit address,
+> +	 * AD SZ prefix, REX_W */
+> +	asm volatile("movzxw (%%eax), %%rax"
+> +		: "=a" (reg64) : "a" (mmio_reg));
+> +	EXPECT_EQUAL(reg64, pattern & 0xffff);
+> +
+> +	/* MOVZXW (67 0f b7), 16-bit data, clear bits 16-63, 32-bit address,
+> +	 * AD SZ prefix. Exposes same behaviour as 67 48 0f b7. */
+> +	asm volatile("movzxw (%%eax), %%eax"
+> +		: "=a" (reg64) : "a" (mmio_reg));
+> +	EXPECT_EQUAL(reg64, pattern & 0xffff);
+> +
+> +	/* MOVZXW (67 66 0f b7), 16-bit data, preserve bits 16-63, 32-bit address,
+> +	 * AD SZ prefix, OP SZ prefix */
+> +	asm volatile(".byte 0x67, 0x66, 0x0f, 0xb7, 0x00"
+
+Same here.
+
+> +		: "=a" (reg64) : "a" (mmio_reg));
+> +	EXPECT_EQUAL(reg64, ((unsigned long)mmio_reg & ~0xffffUL) |
+> +			     (pattern & 0xffff));
+>   
+>   	/* MEM_TO_AX (a1), 64-bit data, 64-bit address */
+>   	asm volatile("movabs (0x101ff8), %%rax"
+> 
+
+Merged to next.
+
+Thanks,
 Jan
 
---=20
+-- 
 Siemens AG, Corporate Technology, CT RDA IOT SES-DE
 Corporate Competence Center Embedded Linux
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/0da95034-9bd0-4415-4d3b-5f6687a84563%40siemens.com.
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/f5fd700b-abcf-7d6e-0f58-39c5ec506935%40siemens.com.
 For more options, visit https://groups.google.com/d/optout.
