@@ -1,30 +1,30 @@
 Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBZWYRLUAKGQE54OSEQY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x438.google.com (mail-wr1-x438.google.com [IPv6:2a00:1450:4864:20::438])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DBC544CE0
+Received: from mail-ed1-x537.google.com (mail-ed1-x537.google.com [IPv6:2a00:1450:4864:20::537])
+	by mail.lfdr.de (Postfix) with ESMTPS id D4EB044CE2
 	for <lists+jailhouse-dev@lfdr.de>; Thu, 13 Jun 2019 22:04:54 +0200 (CEST)
-Received: by mail-wr1-x438.google.com with SMTP id s18sf58511wru.16
+Received: by mail-ed1-x537.google.com with SMTP id n49sf309240edd.15
         for <lists+jailhouse-dev@lfdr.de>; Thu, 13 Jun 2019 13:04:54 -0700 (PDT)
 ARC-Seal: i=2; a=rsa-sha256; t=1560456294; cv=pass;
         d=google.com; s=arc-20160816;
-        b=aIcF3+zQFjZSXqRN9VFgNHZOlEATBtaE1HPPEmxA2YjokOMfWfQ2n+MHOggiEaShRA
-         OGCJc3qBqr3lx8QDJK7xAhRs/DwlmJaedu/wx14JFpWmmpyv1nrg8jgLC9Sj9niOShf5
-         Q8yG0Yq2/eflPSPgslXrpIUADlJfMw9r8FhCosgumjDuuF7nDtcJb4KPPnsTJbHyfgYj
-         QHKFwtDDvBxzaQYAsHdkk+Ptyp6eOFEYQtF+gz+m7v3XmJl9A/xraDv73ctJ6aaspnk5
-         UJ8jv0BH7PJG1r/Mxdu+U2kCDyrWEiiOntJVgAQDEDMzwXvZOLvj5+cSpAS2BHrRQzuu
-         YRAg==
+        b=FNaCz3WsnYD05Jyd0u04OSM32wB8F1vtB/SoDV4bSLRtdzJvIWmkJOCa8ZSqK3MLWj
+         GMnKEuZstOoT3d4cWd+6+TKKPEQk+6VbY67MWMi6ft8CnyUGjo3I6vShsoixZuC6xe0j
+         Fse5kUkV7q5VMK5KWnYqJkKOQqSU+nNDLXKmobwH4Y7bS5KGt/1mzk5JwNyDNyLmyU9s
+         QMNQLXjHis9KaAy8234oyR11Ewb8FK19i5BcivpL/KoQLEIQU4DNPT6005uechVZoPD1
+         sQM27EDNFt9LRx3WWnXKoQuKaKKrY6Pu+mvCI6mz+GTNCJra+D/b25u1OYpPF9xxfUu2
+         poAA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=kWKLarz5iMuJU8DOS+ubGLkdF/fQq7x9nOiBC2u3Xh8=;
-        b=kqTN1s+p2ui0il/INUlJqbHDfT/WaQuq5Z9tZ2K7Sb1QveXw5YNW86Wuub3mn7xXr8
-         xcsBHapEDHddK2TPH26XzjdnxYRktYZO4N0+uHdGPiknACRDVBJ05RTu7+jR6FcL+pzQ
-         hVxUk5RDmr3lYELifxuskVVgEGGpfjdBR6UrEQ3NJQ8MnBgd7HqwUhc4d2PZOsTjHoIv
-         trOJcIz3KQkKfErx+Vts/RtlpLMOmE2/dwdGZksNRoBoxEHg+aN4fsKeOcF4c7LNCccU
-         aCpxXbYaOY6j7fa9/B98LEtGYUVthmbyq18qu59C/W/d4iQmG78amAMrd4xxXIlr9oaX
-         G+JA==
+        bh=YD7ox9jqtYMz/PIqSupiFjiFCNtRXL6rK+g5rameNY0=;
+        b=NCw7RaRn1p+SeWVnm3gAeABwc4gXiAZ9hBfvMUxAbu9L13GK5I1V5HaW8OOkxTsnSP
+         FJdP8UoTdwREwm5lzSnLKvVGPdBmZFSTwy/KIMCL6fyYAAgUmV5rUeqLpJqwewAEnIHB
+         6ybgK81uFdANzo4g3sIyHh1TCyQkQRFAM7aNQIR44jidClka/1y2cxYdHCOR5tTPJaMa
+         McOCIriPd6SaCpsWGCkv8l1Yp9DF5RMo1UTMJeE9zHVg05LoLbLk4oldavPYQsgawlVp
+         tQdl7/A35uBySN3Nod24p6+sPTIBNXCFTXrDNmV3bxarQTCfq1YmhF6iPFp6IC6y7dx4
+         sKgA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
@@ -34,13 +34,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=kWKLarz5iMuJU8DOS+ubGLkdF/fQq7x9nOiBC2u3Xh8=;
-        b=RnNiQl148DqLH+zNMIwyslXZzSkfJBXFn/ybe8c7BRMvPFKI+XoHoS5Xm4t26seic1
-         c9BXrw/rByXzbZJPQ0eTdqBEevExlUnielrW6l0KT2GtFNg7aswTCejnGRdTgmSzb+ZA
-         kGKIgVclJa6cgOk1D3jAD1eu8XymFf+h3fbdaS3WhPaJBmCj6G5p50xOqR73nkpiyGEM
-         w2gBb068pW4+rcfcBSfvMufLiQa090sLsac+C0Sv7frRL1FvPNjAXZ66035QYXD/kO7n
-         wvj+MUPCZAhfC+A/kvPLQG0smI2rGVP4okozMD9TWICEY9l+xNqIjRafsbuWDdGdLNq5
-         ZRDg==
+        bh=YD7ox9jqtYMz/PIqSupiFjiFCNtRXL6rK+g5rameNY0=;
+        b=Bv5Qx+kJRf//5FaXbMkvfbVyX1+OkwpJMf2jGHGqOJ+FQlNwCgUZ4eGfAH8Hd9PN2w
+         NzXjfQyrdaoOLeKK+eH9d19I+zzMJAGTsbLIZ1s/j96+1kEhYN8g6dWXNOswH5fGW/jA
+         htdBy8vbIJL/9Mr9FJTOAB9ZvRT/4n4CaV10nlf4G7J/CS5hI3oHhIHz375AhlfMpUFM
+         0nlsdNTj2q7ojpgO2XnfNywtt7Pr3XLfaYd2GGVvfQsmmYjhkNGl8ME0SsLF4U7YjNGh
+         /3J833syNN3YJWokMWZy8aMeH36u+9Xg2lDnI5h+HVrPgZMh5Rs+KWP/zpe7Kc7lcSb4
+         iEvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
@@ -48,68 +48,68 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=kWKLarz5iMuJU8DOS+ubGLkdF/fQq7x9nOiBC2u3Xh8=;
-        b=sprKTZe4rsQW8qcE/+tXvNkbZmXvRLTuJJVsSyHsGfO5uLxrIPwaayQAXdX3n8e4Gc
-         BEoXRv+RvlSE9JoPXWdBJDIl0v/VIzKjw8n1hk6iGCUiCrtesSb6pefEHL3l9f+QOqEe
-         HltiwDNuvZKp8OD5i4qVESnPodXohG3N83QxxkLeHfba87wAzZjPmnSDv9ZthHEovHOU
-         hKDRDXdTerj7Iz30sDEPJdP987HE41tLbxmw8JKnTqK5cWyJVdARtxD9BVmK6HqxfIR4
-         k3qRz0Hl98/Qa0dpaYPVP+lmutBjVBYBNr3Ozck/limgzn9KFWOsWbx5E8VB56JO4L+w
-         mojQ==
+        bh=YD7ox9jqtYMz/PIqSupiFjiFCNtRXL6rK+g5rameNY0=;
+        b=kqHQKuEUe2pDvghcnN+hPJgMJA9yZOcbSwtVTTlpohNzoXiAtz3sYPSUlHWreMHA9P
+         xTasywLqOunmq3Y+92ruOAJLJa7xwRklO8s2jWzxV/aT9dD2E/fufP17MkeEE9BOkNhn
+         a1b1ZnXcPOSB80/upV4tubYB3GzBZJMnbUNxokggqRQVwsPUUZCpCaHRP4T32yEEJQwN
+         AzxPpFfMq3CdXI5ZXgjGIprp6UbQ2dL3ULN7pYAzYZjmZXn3z5gBr5yVW9lSRT+OcTpz
+         oe6GiUHGHlTgbpZaFqVgI+NeQNvJo2xb4bLcA9C0Sm4tO6DeWRrssmzFbRUfjJP18UlT
+         s/7Q==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVKAI9TtritPO1mHF8xlR890EiyNoV6mOJfT/6GDVOaZYzA/CS+
-	tYKCWlIYnO1JQNwk9vFO35o=
-X-Google-Smtp-Source: APXvYqwVM+YTd9NvqAbtQGq5Wj0kQqsLQPwcYUhCgsjBJs9+JTOMUBkNkxmoruxXqN4WX16gZH9/kA==
-X-Received: by 2002:adf:e841:: with SMTP id d1mr61776383wrn.204.1560456294188;
+X-Gm-Message-State: APjAAAWPxTCCBZ5oBXS9z4WfblIRaRBtj1bKAfx3biXOaFa8mKwtaN3P
+	YzLYe0lGr6za6awcezLjjdw=
+X-Google-Smtp-Source: APXvYqy+ebYwXgAwmL7gicI0K+gX4Jz1VpZuQenG/opz0K2oPBgO2DReDIh9nA+oVSje7MIV+6/izQ==
+X-Received: by 2002:a17:906:858f:: with SMTP id v15mr32966536ejx.252.1560456294493;
         Thu, 13 Jun 2019 13:04:54 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:edce:: with SMTP id v14ls1663621wro.4.gmail; Thu, 13 Jun
- 2019 13:04:53 -0700 (PDT)
-X-Received: by 2002:a5d:6212:: with SMTP id y18mr13322577wru.178.1560456293727;
-        Thu, 13 Jun 2019 13:04:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1560456293; cv=none;
+Received: by 2002:a17:906:6c4:: with SMTP id v4ls1615565ejb.12.gmail; Thu, 13
+ Jun 2019 13:04:54 -0700 (PDT)
+X-Received: by 2002:a17:906:19c1:: with SMTP id h1mr77613846ejd.26.1560456294019;
+        Thu, 13 Jun 2019 13:04:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1560456294; cv=none;
         d=google.com; s=arc-20160816;
-        b=YVzUPBDJmdH+LxcMGM5Ht+TLrZswEf24GUMwlHQY2jl5CP+l475eojH4KNpOfUYNYE
-         C3G1y7hT0oAHu2XhMOZ5EKlOLwa5iHwfOqaiUbWvlOjbG07+dB3qzxM82ZlS3rxGwkgG
-         q/6+gTGawYcMcotkohn1qJyay6DJIkEcjsiZsAJyoiP7lUftaSv5N6qmj/8Ou8Ia3gcD
-         I3kE2wjBE/XVNfTaRrcMyhklrZbEk0xqDZmClDRfzuk4nnnT1ca3V6A/kG1Q3nBOVDpl
-         sq12iQm1ybbV0n2nGt32zizyRSaDgqZWuWyXtJInbAi+LrME1QUm/I0kDEtn/PogI22h
-         hJkw==
+        b=r8z6/aByEbrjZKwTtrbqa+AVFR+xJ6H96mBRrWNOd4zPWtzpl/d+6Up8YlkOHnHqZH
+         DC5VnVzDyj48oGkuKiI01AqvGppnwbLM+/CXBVgi/LY7XA3osISMNZxKIdJ8NRWpRsUC
+         I7JY7YHe67Bz1d5fPDT4VBJMEJj2zqZgR76Wf8lKqzRNkr1C2LJGjJCAL+ziIX2ZQvFQ
+         7FItJCbq8Mj+VhqJXfoMNwlyebN7hhOv/+B1iyYV2bXwZWAZemXpvkWLS6T5H+MEo0yN
+         /YH14tl8QJjcqqS0k/Fys6Af1dp3ug/s1yZ8Hk6jQKfV1KIfA3CXrWrRCqUj/Pwmqsv3
+         jRKQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from;
-        bh=LvWMByaZP8laeVzMhS6c8A3LzW8CvTSHuV3YOmGxaDc=;
-        b=oA5ufjFcwbTrhoPjGwLIVByhb5X3hYcg62aG6j4N77PmAUCBE81IA70S8fBJai7bJ3
-         AgyEON25rCARF5iBoMUOSknaDcp6LnPLAfOCHOjwH3uuUoPZoJSKgkAnEjDEbq1LzLN+
-         x2ofABClEjn4QbQViv5AMa+2f83L4XCQ1Xjs25vrdITUPjoXEc9Rxlt2lubJdGXJhMCj
-         5+i+rclA/kvQbVxpDNfol7c10eFE7lt7UGyThBUFtlVScqFZpQP49C8GES2VW21MxZLm
-         /sBD/625Z8ScKjLX9yPiEP9VPEkqBQ8Dz5i67P0FhPSG3X3++R9XGwzayCygYpsGVlsb
-         r8aQ==
+        bh=WR1mNMDrHK3PfFspoSWNVSgJUMaXsm2U8RLrl+Wz9Ds=;
+        b=YVuSC634iqDpwmoO3KS3o9MHokG4I9mhAmWGcPtkP2UvBogKOPNUs8/fdPrK0nssKp
+         KMvqh6nGalkr+xW451L1dvdHaRGZjVzR0l7N//WShz96c/3d1TqAaPBrJHKeoWdUCqzK
+         ZxCHJbLAEBweIyQ2jyGSce9RGbLRRSa/n6BjgcHzShPiFC4UqnOuObuGPlxRqllf1X41
+         7prDbFTSR55/bAk10yS3nX2/9NyW1bd5QXBhykizqCyfPwqzFlp12OoQTTCVL4Oo94f4
+         Tf7AT8YExe7Mf+zuAuUOPY6zUXhPRro/T5H2Rp1KZaHBQXZUoRg8eVaBW3Bb10uvR+4L
+         +BWQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Received: from mtaout.hs-regensburg.de (mtaout.hs-regensburg.de. [2001:638:a01:1096::10])
-        by gmr-mx.google.com with ESMTPS id z11si22013wmc.2.2019.06.13.13.04.53
+        by gmr-mx.google.com with ESMTPS id r27si29035edd.4.2019.06.13.13.04.53
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 13 Jun 2019 13:04:53 -0700 (PDT)
+        Thu, 13 Jun 2019 13:04:54 -0700 (PDT)
 Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) client-ip=2001:638:a01:1096::10;
 Received: from pluto.lfdr (unknown [IPv6:2001:638:a01:8061:aefd:ceff:fef3:ba65])
-	by mtaout.hs-regensburg.de (Postfix) with ESMTP id 45Pvps2GfQzy2b;
+	by mtaout.hs-regensburg.de (Postfix) with ESMTP id 45Pvps3zwMzy4D;
 	Thu, 13 Jun 2019 22:04:53 +0200 (CEST)
 From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 To: Jan Kiszka <jan.kiszka@siemens.com>,
 	jailhouse-dev@googlegroups.com
 Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Subject: [PATCH v4 3/8] inmates: x86: introduce a common assembler entry point
-Date: Thu, 13 Jun 2019 22:04:37 +0200
-Message-Id: <20190613200442.18984-4-ralf.ramsauer@oth-regensburg.de>
+Subject: [PATCH v4 4/8] inmates: Add string.h
+Date: Thu, 13 Jun 2019 22:04:38 +0200
+Message-Id: <20190613200442.18984-5-ralf.ramsauer@oth-regensburg.de>
 X-Mailer: git-send-email 2.22.0
 In-Reply-To: <20190613200442.18984-1-ralf.ramsauer@oth-regensburg.de>
 References: <20190613200442.18984-1-ralf.ramsauer@oth-regensburg.de>
 MIME-Version: 1.0
 X-PMX-Version: 6.3.3.2656215, Antispam-Engine: 2.7.2.2107409, Antispam-Data: 2019.6.13.195416, AntiVirus-Engine: 5.63.0, AntiVirus-Data: 2019.6.11.5630001
 X-PMX-Spam: Gauge=IIIIIIII, Probability=8%, Report='
- HTML_00_01 0.05, HTML_00_10 0.05, LINES_OF_YELLING_3 0.05, BODY_SIZE_5000_5999 0, BODY_SIZE_7000_LESS 0, IN_REP_TO 0, LEGITIMATE_SIGNS 0, MSG_THREAD 0, MULTIPLE_REAL_RCPTS 0, NO_URI_HTTPS 0, RDNS_NXDOMAIN 0, RDNS_SUSP 0, RDNS_SUSP_GENERIC 0, REFERENCES 0, __ANY_URI 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CTE 0, __FRAUD_MONEY_CURRENCY 0, __FRAUD_MONEY_CURRENCY_DOLLAR 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_REFERENCES 0, __HAS_X_MAILER 0, __IN_REP_TO 0, __LINES_OF_YELLING 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __NO_HTML_TAG_RAW 0, __REFERENCES 0, __SANE_MSGID 0, __SUBJ_ALPHA_END 0, __TO_MALFORMED_2 0, __TO_NAME 0, __TO_NAME_DIFF_FROM_ACC 0, __TO_REAL_NAMES 0, __URI_NO_WWW 0, __URI_NS '
+ HTML_00_01 0.05, HTML_00_10 0.05, LINES_OF_YELLING_3 0.05, BODY_SIZE_3000_3999 0, BODY_SIZE_5000_LESS 0, BODY_SIZE_7000_LESS 0, IN_REP_TO 0, LEGITIMATE_SIGNS 0, MSG_THREAD 0, MULTIPLE_REAL_RCPTS 0, NO_URI_HTTPS 0, RDNS_NXDOMAIN 0, RDNS_SUSP 0, RDNS_SUSP_GENERIC 0, REFERENCES 0, __ANY_URI 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CTE 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_REFERENCES 0, __HAS_X_MAILER 0, __IN_REP_TO 0, __LINES_OF_YELLING 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __NO_HTML_TAG_RAW 0, __REFERENCES 0, __SANE_MSGID 0, __TO_MALFORMED_2 0, __TO_NAME 0, __TO_NAME_DIFF_FROM_ACC 0, __TO_REAL_NAMES 0, __URI_NO_WWW 0, __URI_NS '
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
  (google.com: domain of ralf.ramsauer@oth-regensburg.de designates
@@ -128,133 +128,44 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Early startup code is equivalent for both, 32 and 64 bit, so let's
-consolidate them.
-
-This patch introduces an empty start32 hook that is empty at the moment.
-Later, we will use it to enable SSE, which, again, will be the same code
-for 32 and 64 bit.
-
-There's only one drawback: We need __reset_entry at 0x0, but it's now up
-to the linker's mood which files it places there first. Enforce to
-linker to always place __reset_entry to 0x0 by introducing the
-subsection .boot.reset_entry.
-
-Additionally, tweak the Makefile a bit.
+We will need it at another spot, let's share definitions.
 
 Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 ---
- inmates/lib/x86/Makefile        |  7 +++--
- inmates/lib/x86/header-32.S     | 17 ++--------
- inmates/lib/x86/header-64.S     | 17 ++--------
- inmates/lib/x86/header-common.S | 56 +++++++++++++++++++++++++++++++++
- inmates/lib/x86/inmate.lds      |  5 ++-
- 5 files changed, 71 insertions(+), 31 deletions(-)
- create mode 100644 inmates/lib/x86/header-common.S
+ inmates/lib/arm64/include/asm/sysregs.h |  5 ++--
+ inmates/lib/include/string.h            | 40 +++++++++++++++++++++++++
+ 2 files changed, 42 insertions(+), 3 deletions(-)
+ create mode 100644 inmates/lib/include/string.h
 
-diff --git a/inmates/lib/x86/Makefile b/inmates/lib/x86/Makefile
-index f54160de..6a47132a 100644
---- a/inmates/lib/x86/Makefile
-+++ b/inmates/lib/x86/Makefile
-@@ -40,7 +40,7 @@ include $(INMATES_LIB)/Makefile.lib
+diff --git a/inmates/lib/arm64/include/asm/sysregs.h b/inmates/lib/arm64/include/asm/sysregs.h
+index e30f0b7e..8065b89d 100644
+--- a/inmates/lib/arm64/include/asm/sysregs.h
++++ b/inmates/lib/arm64/include/asm/sysregs.h
+@@ -41,6 +41,8 @@
  
- always := lib.a lib32.a
+ #ifndef __ASSEMBLY__
  
--TARGETS := excp.o int.o ioapic.o printk.o setup.o uart.o
-+TARGETS := excp.o header-common.o int.o ioapic.o printk.o setup.o uart.o
- TARGETS += ../alloc.o ../pci.o ../string.o ../cmdline.o ../setup.o
- TARGETS += ../uart-8250.o ../printk.o
- TARGETS_32_ONLY := header-32.o
-@@ -57,7 +57,10 @@ $(obj)/lib32.a: $(addprefix $(obj)/,$(lib32-y))
- 
- targets += header-32.o
- 
--$(obj)/%-32.o: a_flags += -m32
- $(obj)/%-32.o: c_flags += -m32
- $(obj)/%-32.o: $(src)/%.c
- 	$(call if_changed_rule,cc_o_c)
++#include <string.h>
 +
-+$(obj)/%-32.o: a_flags += -m32
-+$(obj)/%-32.o: $(src)/%.S
-+	$(call if_changed_rule,as_o_S)
-diff --git a/inmates/lib/x86/header-32.S b/inmates/lib/x86/header-32.S
-index a0f2d878..50001b22 100644
---- a/inmates/lib/x86/header-32.S
-+++ b/inmates/lib/x86/header-32.S
-@@ -39,21 +39,9 @@
- #include <inmate.h>
- #include <asm/regs.h>
+ #define SCTLR_EL1_I	(1 << 12)
+ #define SCTLR_EL1_C	(1 << 2)
+ #define SCTLR_EL1_M	(1 << 0)
+@@ -83,9 +85,6 @@
+ #define MPIDR_AFFINITY_LEVEL(mpidr, level) \
+         (((mpidr) >> MPIDR_LEVEL_SHIFT(level)) & MPIDR_LEVEL_MASK)
  
--	.code16
--	.section ".boot", "ax"
+-#define __stringify_1(x...)     #x
+-#define __stringify(x...)       __stringify_1(x)
 -
--	.globl __reset_entry
--__reset_entry:
--	lgdtl %cs:gdt_ptr
--
--	mov %cr0,%eax
--	or $X86_CR0_PE,%al
--	mov %eax,%cr0
--
--	ljmpl $INMATE_CS32,$start32
--
--
- 	.code32
-+	.section ".boot", "ax"
-+	.globl start32
- start32:
- 	mov %cr4,%eax
- 	or $X86_CR4_PSE,%eax
-@@ -140,6 +128,7 @@ loader_gdt:
- 	.quad	0x00af9b000000ffff
- 	.quad	0x00cf93000000ffff
+ #define SYSREG_32(op1, crn, crm, op2)	s3_##op1 ##_##crn ##_##crm ##_##op2
  
-+	.globl gdt_ptr
- gdt_ptr:
- 	.short	gdt_ptr - loader_gdt - 1
- 	.long	loader_gdt
-diff --git a/inmates/lib/x86/header-64.S b/inmates/lib/x86/header-64.S
-index 978decb3..8e49d326 100644
---- a/inmates/lib/x86/header-64.S
-+++ b/inmates/lib/x86/header-64.S
-@@ -39,21 +39,9 @@
- #include <inmate.h>
- #include <asm/regs.h>
- 
--	.code16
--	.section ".boot", "ax"
--
--	.globl __reset_entry
--__reset_entry:
--	lgdtl %cs:gdt_ptr
--
--	mov %cr0,%eax
--	or $X86_CR0_PE,%al
--	mov %eax,%cr0
--
--	ljmpl $INMATE_CS32,$start32
--
--
- 	.code32
-+	.section ".boot", "ax"
-+	.globl start32
- start32:
- 	mov %cr4,%eax
- 	or $X86_CR4_PAE,%eax
-@@ -142,6 +130,7 @@ gdt:
- 	.quad	0x00c09b000000ffff
- 	.quad	0x00af9b000000ffff
- 
-+	.globl gdt_ptr
- gdt_ptr:
- 	.short	gdt_ptr - gdt - 1
- 	.long	gdt
-diff --git a/inmates/lib/x86/header-common.S b/inmates/lib/x86/header-common.S
+ #define arm_write_sysreg(sysreg, val) \
+diff --git a/inmates/lib/include/string.h b/inmates/lib/include/string.h
 new file mode 100644
-index 00000000..d40d8d5e
+index 00000000..29f5e2db
 --- /dev/null
-+++ b/inmates/lib/x86/header-common.S
-@@ -0,0 +1,56 @@
++++ b/inmates/lib/include/string.h
+@@ -0,0 +1,40 @@
 +/*
 + * Jailhouse, a Linux-based partitioning hypervisor
 + *
@@ -293,45 +204,13 @@ index 00000000..d40d8d5e
 + * THE POSSIBILITY OF SUCH DAMAGE.
 + */
 +
-+#include <inmate.h>
-+#include <asm/regs.h>
-+
-+	.code16
-+	.section ".boot.entry", "ax"
-+
-+	.globl __reset_entry
-+__reset_entry:
-+	lgdtl %cs:gdt_ptr
-+
-+	mov %cr0, %eax
-+	or $X86_CR0_PE, %al
-+	mov %eax, %cr0
-+
-+	ljmpl $INMATE_CS32, $start32
-+
-+	.code32
-+	.section ".boot", "ax"
-diff --git a/inmates/lib/x86/inmate.lds b/inmates/lib/x86/inmate.lds
-index 95c6ec97..a1ca242f 100644
---- a/inmates/lib/x86/inmate.lds
-+++ b/inmates/lib/x86/inmate.lds
-@@ -39,7 +39,10 @@
- SECTIONS
- {
- 	. = 0;
--	.boot		: { *(.boot) }
-+	.boot		: {
-+		*(.boot.entry)
-+		*(.boot)
-+	}
- 
- 	. = 0x1000;
- 	.cmdline	: {
++#define __stringify_1(x...)     #x
++#define __stringify(x...)       __stringify_1(x)
 -- 
 2.22.0
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20190613200442.18984-4-ralf.ramsauer%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20190613200442.18984-5-ralf.ramsauer%40oth-regensburg.de.
 For more options, visit https://groups.google.com/d/optout.
