@@ -1,126 +1,140 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBXWRT3UAKGQERS32S2Q@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBXGST3UAKGQE2POXATI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43e.google.com (mail-wr1-x43e.google.com [IPv6:2a00:1450:4864:20::43e])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAE9D48600
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 17 Jun 2019 16:51:10 +0200 (CEST)
-Received: by mail-wr1-x43e.google.com with SMTP id c6sf4293095wrp.11
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 17 Jun 2019 07:51:10 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1560783070; cv=pass;
+Received: from mail-ed1-x538.google.com (mail-ed1-x538.google.com [IPv6:2a00:1450:4864:20::538])
+	by mail.lfdr.de (Postfix) with ESMTPS id 66C954861B
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 17 Jun 2019 16:53:17 +0200 (CEST)
+Received: by mail-ed1-x538.google.com with SMTP id n49sf16731902edd.15
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 17 Jun 2019 07:53:17 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1560783197; cv=pass;
         d=google.com; s=arc-20160816;
-        b=Xi0mBUTnO3qYNGVT9q+R7oPP5PYygJ08iInP1jbfiD7zLALgZ/IZf9VxphTrudPccf
-         e+zvEQQMNTxH/4g1SggZw8+fo4o+UFS9q9FqHlQavZmOO4axEuD+XWneNd2HTI0P8Bx1
-         rtWAHjFCs89Sq12JV5pS1/sjHcj4jP9XD+mUc+/SzKHVxLpvZLsl3W7zrHrZXm2JfzS7
-         AJnsN06fkonaTKezbGWrZ9FJ3BgT2hujHzNmMNuKTh0+0xeB3zPLdgfDLfq0mgFOFfH2
-         iKcSgU85dg1H47/Pe70Cvpddc2FtRoKDbcMZpRP95kDgVxpdEsZH1mzfxMgT9qDNukPj
-         3OhA==
+        b=nHm+MCYyVUCbBjdY7qWzmm8SIm6AwG5t8j/EA/6ooivQAia4kwtGawgyeBisKGVoCJ
+         Z+vGh8x7gwWxjt4KXJHBHYuU8WmJZanPUKe/SvHgp7xSUWpfQjg6Hdz39dy7hqlQI7Lh
+         itJmECYmlOhNXmWxyE8T2qId/KDa+SohoFHzHsq3kb8w5XC3fb+C/sU/wIDjHf8E/DV7
+         zZitpNlZGUT4Z+ddMbkXJF967S2WeqfREzGCVYlOpLid4KI704DU9grq/0sx4tWttZ2a
+         HDcRv189yvh6Iodif5vx5096LVA4be6eE3IaQ3br4mgwiE8sV5Lmw9DlvtrOPXl0XCTa
+         ArNA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:cc:to
-         :subject:sender:dkim-signature;
-        bh=1r5qkxdRh636HZh5CRApgU/zoyhyGaQfc/IVBh2d7jw=;
-        b=bt1YEsvfnXVratAg2NQJIZSVBWZcz1IXMBeGz5J8afU5lOhRnUaaVppwhOkW3G/5Lh
-         PmCNnCY1AYIt4gf2LHNqjVSxYUJEHhubnexezJ+KrYr0odtR9uxDqStgRTdAIPReSqDP
-         gqzl7Tl4Vnxgf9q1DfA2BHUYKebmi4Zr/6Qdg+nr6X4bAOYnQkjJEnqX+6UzMi2tGKPa
-         r4nY2PqngZEOqn9wrT0k3RtA7JTnzf+wJM85uNk/mJzJFF4NOz8aZLR3H/UDuFOlT87o
-         +XOdVDhKrxQi6lWEGm16Mh4J0OuGT2sEzRuBU/Zpb5ZGAUgYlEZant8v7vqZSXMkSwoz
-         Abxg==
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:openpgp:from:references:to:subject:sender:dkim-signature;
+        bh=xOaNABDI/DI7m2qp1zty83mknq0/wB6SMPTAEYzAc3g=;
+        b=yz+fQPV21l1UnJxSK0MUgFm5Xk7muQ4OU3N1Nug7DutvIJ271afV7TWL0knusrAGdD
+         664MsxB6zen2x7yPqZjIK91hp1CSMjm+kbSdOuFAVFWf/7UUC+RMlKJzZJBqeHEIxlSQ
+         UPE0hlybWpUhHPjyUr4RvxIxAwtTIaf/OYfjhI9X/fW4kYtcesXi3Z7Md11l8Sczy+La
+         CTa64b5w1MDiOcw6O5h0wcdeAlDulHiMVEKR4418r8PBIDRJr50v0j7J6VgyZIxSfyik
+         UceIxwpz/GJesuHBR0+h2iyShqKVjfhzqq7n9UTO4sNCi6hqNLZVoCCMHE0RoixQYdiA
+         Rbjg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=HtedsCXw;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
+        h=sender:subject:to:references:from:openpgp:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=1r5qkxdRh636HZh5CRApgU/zoyhyGaQfc/IVBh2d7jw=;
-        b=prsMbleZ3ccPxpSF4CUbJw8HdKOIVDcMSTY9M2W5cFa/6GkiCWh9i+/j2KTcbk4GP7
-         suwYXLQ30Iwr/xEq8c6mlWc2W36nRqxsWECbcIG1ge3kuQI3X9PR7o1uSZEPWlEM4YYN
-         4xIpLDAi4ifAt7zZYGzwstw41pkWCD76LAuExJdMcpx/j9VNJHb96fyqSes8NT36KjGZ
-         rAEvLpB+eQeWPbGnFdA1iKsPnB4vFHMM/9awIyxhdi/SxA8dSrhlgFOxfrZ2MzI5VeKG
-         hxKMutsQvRn50unJvgW7jgXvwq5hjdkKS+PpQ28A9CaU+e//kOsEyuS8TOgAjCl8bCCi
-         N6FQ==
+        bh=xOaNABDI/DI7m2qp1zty83mknq0/wB6SMPTAEYzAc3g=;
+        b=BOVSl1a3xIZob+Zc+Y7FEJTDi1cHN7rZ1FW2Zbe4dWFENfuH+UeBKcWycZPOcnd0mm
+         uAAI7BgpvUEnb+fn1bWCkTfmBW4QXoITL6i6cunlyQFtQ3rb4RRIuxtIgJGvAVVBiZbn
+         QcJWIr0JY/fzLofvEOCtVgrXE1cc/h83rvsO8yR+TNgSrJF/5locyKfGGQFLj/kFo+Jy
+         J/yU+IhSMFmKoPzJ5WmbxTBz68d9cajF9JbdO4K54i7uqAS9zoQw3jdX2hq54SKSc7xd
+         MW3RsZ8hscd1cRk+p49DzIMJecXqqmvGv/yAK/MGXivbuqrXdtJhft3OJyT4TAl8BEST
+         IqgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=1r5qkxdRh636HZh5CRApgU/zoyhyGaQfc/IVBh2d7jw=;
-        b=YQHeXH67pOq792oWiJykAx2dRuOSsRiows9u0fRyvN4ZsMoscoY1fvLvYdRIN5cNu8
-         DxdEgxKEB1g5Jaoa0/DUFrpTkiSw0YgrWwLwAhxdBPSHgdRHu+hSlKFIUT0OoN6b49GA
-         ulPVyIgXFIZmgjeOrJnY586Jy0dbHXCa0F+cNnpDtvGSuEekjy3CrRdfw3CJ4MBFDiCQ
-         S+YVcdMAAwyU7u0zkoFvZ/Osrk4GfVd7fRVK40Q5D/b6y/5PkPpBhsTICmKxHJRgmXGm
-         IPDOuyZ/7P6NCij1SaITPf7dmH2iFiWgt5T7EB3k453wbdEeFLnqywGHuRS2gmAyojz9
-         K1og==
+        h=sender:x-gm-message-state:subject:to:references:from:openpgp
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=xOaNABDI/DI7m2qp1zty83mknq0/wB6SMPTAEYzAc3g=;
+        b=tsXNUdQDoqyBLn/MyNUfPvaCThmiYZ1uzo/jXRbguBuXlGf4vVpiRAfm1XnZt4LGMX
+         BZKBPNneKN15G/+xh0/D0Wnc+8OUuNl0w1ejvmR93fPi5bnsW46Z+sCWAvhdru88DnLx
+         mX8bdeR7VWe4jgb9yaFF/ANIJUuyD/grCPBK4LBtqMLiefNqrWkQ9J7ghBxrYiE5XHBi
+         lZk/Gw+xNk1l1ycDmcqe6dG+Wl5MaR5tiALwhS99mjvA4HH0z8bFAeqtLY6Qce4GnIA6
+         O9dbweBj+Bc3syLOCib3ceK4dUFQfudPur7fJAUulh9X5CoeKDJVd8/rUYlS7qnFySaM
+         UWmQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVBSJ4j8a+cX0WEFYF6Tfe3FuK+Mn8PMC9YVyeUkcnk/t9rsegu
-	jyuBdpN84twi+hVrEDMVTPQ=
-X-Google-Smtp-Source: APXvYqwGxxkfOpytuneOmxsqCabSOlLId1sOOULZBuLWgq1TXej7eyQ1Jnsr+r5NwKjucFEM5PU0aQ==
-X-Received: by 2002:adf:f812:: with SMTP id s18mr10729968wrp.32.1560783070476;
-        Mon, 17 Jun 2019 07:51:10 -0700 (PDT)
+X-Gm-Message-State: APjAAAWd3SfSAqNW5eeCRHtyfyX2Dohziv3oLNUNYiz6VLmj1tdkIS9h
+	yMN/0/MQ/ZWb47JD54FABsQ=
+X-Google-Smtp-Source: APXvYqwuMbvwh2EHrwOt9t1eJxdKZQ2vwmz4PzfQDo1/WM2e4I97gGmihTgAWZAbpXWrs0RdGkO1DA==
+X-Received: by 2002:a17:906:4e8f:: with SMTP id v15mr63934658eju.47.1560783197187;
+        Mon, 17 Jun 2019 07:53:17 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:9d45:: with SMTP id g66ls5038831wme.1.gmail; Mon, 17 Jun
- 2019 07:51:09 -0700 (PDT)
-X-Received: by 2002:a7b:c455:: with SMTP id l21mr19819027wmi.114.1560783069904;
-        Mon, 17 Jun 2019 07:51:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1560783069; cv=none;
+Received: by 2002:a50:8efb:: with SMTP id x56ls4924674edx.9.gmail; Mon, 17 Jun
+ 2019 07:53:16 -0700 (PDT)
+X-Received: by 2002:a50:9730:: with SMTP id c45mr29776167edb.196.1560783196656;
+        Mon, 17 Jun 2019 07:53:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1560783196; cv=none;
         d=google.com; s=arc-20160816;
-        b=bMWL2W/JeH4TAvixz0TXzr37GxSkpNjd2WJqq9Pe9LP6Mt41UzJCo8eJJ05RW1sPYl
-         nqWIO6Tl9HX8Wy9WUM4f7RHbFkN6hhVjfBttjTAby+1j6CZbc7MpPBFALuMGt57EukRU
-         m72g8ODUa+6jwNhGHBgW0oaiIQ3wNS+DnH7rg3Y64qxjPRNo5ZolhHnl8gwiIJKaIkxG
-         O2XDg9A1eRicvwotGfylvRqfa401HulbJxrMwaDzitvWisWR536IIM9EX0NXsUiRtiYf
-         oI2UHGTGujfZx/AQl00lKtI4tznGYc61RBSaD9E9yYLVxJQzT+oK+zuFs2XRdPujMiAi
-         hg/w==
+        b=Pl+hE39wpqT6ZhqSbBGuizlznq7z6nx4bVvaZWsnW1I8WZvEjQ1qM9U2Ya3n8tHNXd
+         V1GrNNaMMlLvXMyqa7IdqmQc2WFGeqZtIzB/Ib/FTpICtEUyjlGEaXKLGiL0RBrr0RhS
+         c+zdCfsV9KBDHAyqs9PRd+o8AxmbWv42G65N2WiznzeOtK5FnqxrDNssK70nt1DM35be
+         SCrZGf9V9Fx7FiMrqQNWX5PAS4lrMHHlDhhQWoQGA40HxnJbu0fawbVKDfBPc3SLH78T
+         dQic6gK7xp+tzOytLMM/l/akMPEXNNCDUnw2AobZIy0wE5KDc/t7M3UEoKf62bybixwj
+         zpeg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=ZEj+s4DDH16zTYlHpVvcai5F+ML9cUvvp93OxYIFgg4=;
-        b=Yu//wufopGotfKSpx2yyBNdVhUqwa5jWoulHPcIhPseTFRcWQzT126sxf6C6EUvNGk
-         jiKQZn56+29eoEblRTkYM5roI1zvWGoJDSKmAE320trve/MxKG83XR4ejjYyuDCWOBLN
-         eDRbL/ItW0rlakusiENyDjOxYR1AjgAaT+dPnzG+UAZwJzh6yLvWgbR5X3R37OiMO2XQ
-         Sse5ZSMfQTUUcInm+dThVcnNV/ZJx0BR+f4kE7oqmuDedV8CniFJuRDRcgdj1ICPVj4X
-         YyctzMJry1EfSPXunjuD6vIudGnBvtCThM/P9uhhCn41riIXaK62S3i6ODtdJa7C8aR6
-         gOqQ==
+         :user-agent:date:message-id:openpgp:from:references:to:subject
+         :dkim-signature;
+        bh=B8qGHCouE/x7yKsw1YNvBwaiwRDKbRhPYkiJrb5g3PM=;
+        b=iEyarSPXMe4+wFJ/mlJtJW7ZBVvUDI8K3CTLFR6sZuBKJ/AT5ZUHgizBl1XY91UeHO
+         n7J1LwLSIe6ooSw2GyandS0I1r8UcUK68DODnB8umUYC0ru4h6Ah20SQGm+l/ZpZuRUT
+         Q06LuXAZe5eOvM6NrilA1LH/CuFAhlRkl/0Xwbwws8LHsKseyxfFzElUtxqbLjj8g73I
+         NjuA5apPADkC6qI5Q+33EA1LUViMB3Ve1+QLg3QzxCPma7lyoju3kbuIYm03QbZMgK0W
+         GDrMGEU7u6MKcQ4wL+XGzds0WCGy59fz+k+/ts2Nq+mGgtrFlK/nEQxN2yIF3URJAvsV
+         WKCw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id v3si220651wrg.3.2019.06.17.07.51.09
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=HtedsCXw;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [2001:638:a01:1096::12])
+        by gmr-mx.google.com with ESMTPS id z20si676420edc.1.2019.06.17.07.53.16
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 17 Jun 2019 07:51:09 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id x5HEp9KV012443
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 17 Jun 2019 16:51:09 +0200
-Received: from [139.25.68.37] (md1q0hnc.ad001.siemens.net [139.25.68.37] (may be forged))
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id x5HEp9L5016275;
-	Mon, 17 Jun 2019 16:51:09 +0200
-Subject: Re: [PATCH 2/2] x86: vtd: Limit index of vtd_update_irte to 16 bits
-To: Mario Mintel <mario.mintel@st.oth-regensburg.de>,
-        jailhouse-dev@googlegroups.com
-Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+        Mon, 17 Jun 2019 07:53:16 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) client-ip=2001:638:a01:1096::12;
+Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S02", Issuer "E16S02" (not verified))
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 45SDjS0xjVzyFF;
+	Mon, 17 Jun 2019 16:53:16 +0200 (CEST)
+Received: from [IPv6:2001:638:a01:8061:aefd:ceff:fef3:ba65]
+ (2001:638:a01:8013::138) by E16S02.hs-regensburg.de (2001:638:a01:8013::92)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 17 Jun
+ 2019 16:53:15 +0200
+Subject: Re: [PATCH 1/2] x86: vtd: Print BDF instead of hexadecimal device
+ address
+To: Jan Kiszka <jan.kiszka@siemens.com>, Mario Mintel
+	<mario.mintel@st.oth-regensburg.de>, <jailhouse-dev@googlegroups.com>
 References: <20190617131321.8585-1-mario.mintel@st.oth-regensburg.de>
- <20190617131321.8585-2-mario.mintel@st.oth-regensburg.de>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <099b48da-a1af-a420-ab61-f8da99ec5c5d@siemens.com>
-Date: Mon, 17 Jun 2019 16:51:08 +0200
-User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
- Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
+ <38a7ba28-df47-2ac1-1dce-a381d6dc4571@siemens.com>
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Openpgp: preference=signencrypt
+Message-ID: <53528d36-2c0d-abcc-95ad-f59fe4e4238a@oth-regensburg.de>
+Date: Mon, 17 Jun 2019 16:53:15 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.0
 MIME-Version: 1.0
-In-Reply-To: <20190617131321.8585-2-mario.mintel@st.oth-regensburg.de>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+In-Reply-To: <38a7ba28-df47-2ac1-1dce-a381d6dc4571@siemens.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: de-DE
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [2001:638:a01:8013::138]
+X-ClientProxiedBy: E16S03.hs-regensburg.de (2001:638:a01:8013::93) To
+ E16S02.hs-regensburg.de (2001:638:a01:8013::92)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=HtedsCXw;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -133,44 +147,90 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 17.06.19 15:13, Mario Mintel wrote:
-> See Intels VT-d Architectures Specification, chapter 5.1.3:
-> "Maximum number of IRTEs in an Interrupt Remapping Table is 64K."
-> 
-> Hence the max numbers of IRTEs is 65535 so we can limit the index to 16
-> bits.
-> 
-> Signed-off-by: Mario Mintel <mario.mintel@st.oth-regensburg.de>
-> ---
->   hypervisor/arch/x86/vtd.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/hypervisor/arch/x86/vtd.c b/hypervisor/arch/x86/vtd.c
-> index 8e076b4b..d0dd4fd8 100644
-> --- a/hypervisor/arch/x86/vtd.c
-> +++ b/hypervisor/arch/x86/vtd.c
-> @@ -556,7 +556,7 @@ static void vtd_init_unit(void *reg_base, void *inv_queue)
->   	vtd_update_gcmd_reg(reg_base, VTD_GCMD_IRE, 1);
->   }
->   
-> -static void vtd_update_irte(unsigned int index, union vtd_irte content)
-> +static void vtd_update_irte(u16 index, union vtd_irte content)
->   {
->   	const struct vtd_entry inv_int = {
->   		.lo_word = VTD_REQ_INV_INT | VTD_INV_INT_INDEX |
-> 
 
-I don't see the value of this change, though. Actually, doesn't the compiler 
-even bark at us then when passing in a wider type (which we do so far)?
 
-Jan
+On 6/17/19 4:49 PM, Jan Kiszka wrote:
+> On 17.06.19 15:13, Mario Mintel wrote:
+>> As it improves readability of hypervisor messages for debugging purposes=
+.
+>>
+>> Signed-off-by: Mario Mintel <mario.mintel@st.oth-regensburg.de>
+>> ---
+>> =C2=A0 hypervisor/arch/x86/vtd.c | 9 +++++----
+>> =C2=A0 1 file changed, 5 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/hypervisor/arch/x86/vtd.c b/hypervisor/arch/x86/vtd.c
+>> index 1cae0dcb..8e076b4b 100644
+>> --- a/hypervisor/arch/x86/vtd.c
+>> +++ b/hypervisor/arch/x86/vtd.c
+>> @@ -621,8 +621,9 @@ static int vtd_reserve_int_remap_region(u16
+>> device_id, unsigned int length)
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (start < 0)
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 start =3D n;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (n + 1 =3D=3D =
+start + length) {
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 prin=
+tk("Reserving %u interrupt(s) for device %04x "
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "at index %d\n", length, device_id,=
+ start);
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 prin=
+tk("Reserving %u interrupt(s) for device "
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "%02x:%02x.%x at index %d\n", lengt=
+h,
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PCI_BDF_PARAMS(device_id), start);
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 for (n =3D start; n < start + length; n++) {
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int_remap_table[n].field.assigned =3D 1;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int_remap_table[n].field.sid =3D device_id;
+>> @@ -639,8 +640,8 @@ static void vtd_free_int_remap_region(u16
+>> device_id, unsigned int length)
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int pos =3D vtd_find_int_remap_region(dev=
+ice_id);
+>> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (pos >=3D 0) {
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 printk("Freeing %u interrupt=
+(s) for device %04x at index %d\n",
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 length, device_id, pos);
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 printk("Freeing %u interrupt=
+(s) for device %02x:%02x.%x at "
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 "index %d\n", length, PCI_BDF_PARAMS(device_id), pos);
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 while (length-- >=
+ 0)
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 vtd_update_irte(pos++, free_irte);
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+>>
+>=20
+> Not all devices listed here are PCI devices (actually only the IOAPIC,
+> we do not support the HPET yet). I guess the original idea was to avoid
+> confusion when a device shows up that is not visible as PCI. But
+> avoiding to parse the value for all the other devices remains a value of
+> its own.
 
--- 
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+Ah. This explains why we see, e.g., the 'non-existing' device f0:1f.0
+for the root APIC. All other apics are 'real' PCI devices that can also
+be seen in lspci.
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/099b48da-a1af-a420-ab61-f8da99ec5c5d%40siemens.com.
+  Ralf
+
+>=20
+> Applied to next, thanks.
+>=20
+> Jan
+>=20
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/53528d36-2c0d-abcc-95ad-f59fe4e4238a%40oth-regensburg.de.
 For more options, visit https://groups.google.com/d/optout.
