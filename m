@@ -1,142 +1,147 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB4UKULUAKGQEE26ZCVQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBXMWUPUAKGQEA4PURFY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33d.google.com (mail-wm1-x33d.google.com [IPv6:2a00:1450:4864:20::33d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0769B498E7
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 18 Jun 2019 08:32:19 +0200 (CEST)
-Received: by mail-wm1-x33d.google.com with SMTP id y130sf294543wmg.1
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 17 Jun 2019 23:32:19 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1560839538; cv=pass;
+Received: from mail-wr1-x43f.google.com (mail-wr1-x43f.google.com [IPv6:2a00:1450:4864:20::43f])
+	by mail.lfdr.de (Postfix) with ESMTPS id BF6C249F36
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 18 Jun 2019 13:30:40 +0200 (CEST)
+Received: by mail-wr1-x43f.google.com with SMTP id b1sf5716325wru.4
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 18 Jun 2019 04:30:40 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1560857438; cv=pass;
         d=google.com; s=arc-20160816;
-        b=Iryy82qAobEOTQU3I8H0sUAd2lSHdxEBf7OjiaDr84ibt0YIJQBWfMoyjILd9LWIfr
-         YVmqUnPlRnR3zWxqojk5AKrfN946RIy5nrlROCagSXGk70FVLE/DEq7b/GfND7OU4G9C
-         cz/WTW18ynF1ITqqGb6Rlvlnpz15N4g+JxNmyJTmVpNLgtHPxu1J9qRMxEP4O/C6N+ch
-         TaYCbEk8jTKjIN/pRry3CZgaG3vhcFcJU7RJWX8qWD+xplW5L3E8IQ2osq2oucGiZF8W
-         YfIgia1NuBThXZmYJ2laeRqtexEFKqkpqnEKPjRcJr3h+LT6ZTKlratAp/UDTqOK2kg0
-         w+jg==
+        b=pB871ci95liA0SxMXXdxJ3mTau43XfOQe+u3JFWg7WbffMeqpmSaKMINXAoWLA0zA7
+         Qp7SNhuQgBzyI70O2gMWjC2ZXy/Faq9t6DL575OQMxdpVrm799XJ0ZqaWCDnFJDcYb1z
+         dWPnPifGHpw1YHzv4C7rxkh+uXXhjzpsoZQs64NjfRyh2qnf0z7FBmGqQFYNo3f6Zki5
+         rkEV/gaLOhZ4g4cr5JK3k94HNR3Wpk8hOLlkevZR71slK89iktDcsosa0sdUUjdlNRbN
+         PiemeDlV1SuxlKPQKsou1Ucr0k8IfINiFxqZR1ghzFpNK8lV/FEJ/V1coVzBSHNAggxX
+         xx4Q==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
          :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:cc:to:subject:sender:dkim-signature;
-        bh=MmI2QLxUEutJaXFMoY7okBAUGaIsMmEocQwnvjMOtCg=;
-        b=evn7BdmUEV3yoxxdofTxtzxEqq+meGMC7gXgrVwSJrPpia1fJqMjOMdzpV+SbpM6Ek
-         I4ek9tySg8mpRm4KOm3YRER6k32Z7MyVf3LPIVSoaNCSKvZ3wqu59f2TErJ8mF77hySV
-         /PqzuzaWReuwzkoICqll8pxG1viSmpigEDu/SksEWoa+CeN03lLEjT4KeezO9PsVQHzc
-         +hs15vSBrg1Sh6PXhDqViZV+E6MxJ/UtnoFRGX5HPLOQfIhvpNm4OvBbj4P/C5ocRwp5
-         jAGD57IGiO0D2cvNqXYzlcUK6LqbUbo9E2EPkk/wGIU82TCqYKNur8s8wwQYG1cmcekS
-         rCWw==
+         :message-id:openpgp:cc:from:references:to:subject:sender
+         :dkim-signature;
+        bh=gEmbGLuXLmixkxfeWgZZYhj20cBe1sOdblNPeaDOz74=;
+        b=ZVJvCOOKn9IL0yHqYLGsY/23bBLQukHt/PQwg3xwX6NGc6VvFfnIN4Bs3pb+ppevwZ
+         pY8j2WcMoArCDaJkz5eo6inReT3IgG040XL0o6Up0XTcSyX6AGWA/30/VkkT2MYDc4T+
+         9BWakN+UVlkv4fHjocwkfjOqhDgCVqwyFCsEKmpIHv0SCGZSXd3GSsKsKazY2rISo/Fv
+         fO8F7V2TTS6aVc30bpDeBdtgxtBSzzuxcHhbcONDYba79FmwNKz64hoiWw3bYUjxm3MC
+         BsHTWNHYBfeCPBeYb4e4EA5qjAYZ6bMDZfHMnMnsENtSdwUBoFyNkQXquDMTYwonTOH2
+         SRbg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=EvRyzFxS;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=MmI2QLxUEutJaXFMoY7okBAUGaIsMmEocQwnvjMOtCg=;
-        b=SRa/ZuuJ1AaltGUL32MnLWltPse6m12+P6SHJPivADbq/Ave8uXYpPs8dxVLkNR0EL
-         2GpmN5ICmkZ6GavHslRWBsMb4JgDaELMmU/cuuttcUrlzxVw3X3Oj+KcgAU/iPktJ/Mw
-         SbEIvhC3DWcvqqzTMfEetIRNZZbM2zcsnAnfPM20I9vWgovVBtHDNk9txIrQPK34tcGi
-         YqoUXLigUvTIREJSZ6MLwn8Q4bCyDyyDsKc7G/NwxeRrtCze6Lb43a5nnkSc6RdDy85n
-         KEgcddRYrWE3xSSjYrM+pm5xR7NTyaKpOuk0pamcUzwOI0kPMmEYlj6LhRXHQpz48bM0
-         P7EQ==
+        h=sender:subject:to:references:from:cc:openpgp:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=gEmbGLuXLmixkxfeWgZZYhj20cBe1sOdblNPeaDOz74=;
+        b=hzWFVX31fz/kRkvFX7qe9R1+DGh5JdAYjNdtgK8eQZdQFftTBalhwR5kNTS119+6e/
+         gHqL2JmZDFBaoLlOHz//wHPZPsWOjOj2FUa0IO6bYgI48t8pb6sQub7wv8JWPW8J79Ut
+         Lz/nx7yTygs/6GOhUhqpB/TtQq8SJo1fHiysl8zeodwbhO1XTmpXpkTyt/MWA/UqsymF
+         OnEP5MUlSlYrisUOEBXnYM2ZNlKjUiGs7LVdzZDDh7/fkLoRO4FRy6AXJR3T1xlprF2A
+         por4PdVZfFjf1tmNszHfbDw8J6TJY/dCo+E0c0A0ukMDHlKWz5s6vu64uQRsRmZhFy6i
+         KseQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
+        h=sender:x-gm-message-state:subject:to:references:from:cc:openpgp
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=MmI2QLxUEutJaXFMoY7okBAUGaIsMmEocQwnvjMOtCg=;
-        b=qwnxGek+OJGPloZGLjcz5n9SWPqENTGOg8UjzYKaCja7Z4RSRkXufKXW956w//FBQk
-         5lm/FKmPFefmJzHJ9b3RZD4u7114hXW1Jw7cbziFX5uwEQAVY8GIPRg6w96s0JPgdtbx
-         NEk/2xq1iUZzuUB8oNolZqGKfQ1nNP94/uyS+dE+67AYEvBizvseLCpkoTG1oILiAkdQ
-         y5fBe23/y1Dz6+GSlrDvjxbqHC8DpCk4B15Fy3JcvfXZIp2JvOlc55sDNhRAhOtYCwtB
-         DTLGNYy51ioE1pAKBjjzQG8JbiZOi2jRZW7KFL3qEJ9bAqP5tr3i7haxxIkfJlrii4jr
-         ps5A==
+        bh=gEmbGLuXLmixkxfeWgZZYhj20cBe1sOdblNPeaDOz74=;
+        b=B37qUnGIQSpr/LiGV9Ai3aciBRQiRqgHn77OHiG/zy5WA24Vyj7mKtMuDUI+CRXJCk
+         3nSlUl2I0T29frkFmg5t1Jq3e8Uf3+WujJN5BUsBE/iik1eoU0P7KOHpEHCvedYOnMls
+         /7qDJ4LGDGk0u8jK11/votXZfaC/FR3E3esPdJfZCpBWI5DorUq7EnkVIUtPY7wREVxw
+         yrZU5lMp+Om+e2+EkwfxNldt04morMcabPewnbsgTgwlF9MFB/+qrfFd8Cgmqs1LshrE
+         /Bmb/5tlpzLxY3CnTnp7P96ANhts+NRV6Bt8LRDVK4JJNV1g+8jorLLzk4cAZ6hBq3DX
+         XwoA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXuD2E15pUXxfcsaXwE5RrYZsZAlxnNf833a/QkUOcfINtgIbKE
-	gPQ3aGoK+GiLVzlcHOc6m+w=
-X-Google-Smtp-Source: APXvYqxxPjX77hgdVtIW+BcJSyHSnvgJZC8vbtuGgEEzHOC1bdzf0/+/QJPIdq6oBwFAdYwClrzIaw==
-X-Received: by 2002:a1c:2e09:: with SMTP id u9mr1803982wmu.137.1560839538641;
-        Mon, 17 Jun 2019 23:32:18 -0700 (PDT)
+X-Gm-Message-State: APjAAAUC9HycLycGJ5jjJ9Mj7B0GwQhsJIxyGrIYhiXGWsCYDM845+EF
+	0FT5NjGS2guskytk4Wda/uE=
+X-Google-Smtp-Source: APXvYqwnqx7Z8lDyCAT452SuZ2FFONrXlo0o52Y7ogYdNg9LH+BDXOhrk5hC7/hjQ1g/N83BSzAbIA==
+X-Received: by 2002:a1c:b684:: with SMTP id g126mr3146705wmf.176.1560857437499;
+        Tue, 18 Jun 2019 04:30:37 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:80a3:: with SMTP id 32ls1359552wrl.16.gmail; Mon, 17 Jun
- 2019 23:32:18 -0700 (PDT)
-X-Received: by 2002:adf:9003:: with SMTP id h3mr1246601wrh.172.1560839538084;
-        Mon, 17 Jun 2019 23:32:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1560839538; cv=none;
+Received: by 2002:adf:e844:: with SMTP id d4ls4696252wrn.7.gmail; Tue, 18 Jun
+ 2019 04:30:36 -0700 (PDT)
+X-Received: by 2002:adf:c614:: with SMTP id n20mr23387119wrg.17.1560857436771;
+        Tue, 18 Jun 2019 04:30:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1560857436; cv=none;
         d=google.com; s=arc-20160816;
-        b=IZAd4Nhyee7JUMYNd4JJqlK0Q6FqdxdDpI8utGpyXh96CR3SpsGlreYJZYeaR+dLo1
-         HBdNU66UwKvV0DRbQrNeuwKpURQmnu0Txm5N0L54GWlqNhevKnR/tAZrzqdZeI1mu+aR
-         9hvFjbZ2g04ie+V/58XQwpWCcZi3o2EfzRH7YzdHL6Jx98qsocoEGkEpMDFr93qw7K38
-         6jGKJfXRr03xV/sw1WNiNfWUp8tg1Z4TlHMB2ZyU3ZcUBHuxFRwJo8lEi4snEw5SlFG7
-         LrCK+8Yy73r877QxD07PEumuIJ0rwqhh2P3/110wYzvLCJejRVi00LGnZ/IYduT6RZ57
-         MvKg==
+        b=eQmJu+nTCMX9OXKCbQek9rb27Shh514yq0XtUzPvhCh/eC8mKaP25OklW1bCh9b5xf
+         HkvZCvEVj7qYmU/a8r9RWBtjl9RbeXLFZOfJ3q8WCwG95HecqyNsrBIsXebG1nIvhm8M
+         t+WR2cy9x+xhvgA84Gg787o+0VzEKm11yk1hH+i2ZxIK1DNnyFVwsK6yKWbQ1PQz9I50
+         I8GVuZwlCWfENK54Do7eKbA1ypXjW/yxrZXu+3jG+YtTZ4qmJw3BR3raW1wyXL+e7QlA
+         PT+OFjmusKUb7rVKaATSzPx/wMyFXroiDfcci923Ch+ggh+PxgyAyauOV3OGwV9VepTO
+         lsgw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=kGcKmIbdA31VAl6O6PRDYZV20zDgNmng1RgdEvyxVIo=;
-        b=rxW9DyNQhGEHoLHyu8ct/0+CwRoY6GZiFFOtuyfqjqMAi/jgiZ8MStzWbPAVFofl3H
-         s5MxC1PBHYw5Q9ps71U46Y3VHEnjMtpwujiA0HMGgbo+5YzczUcUy322tR7/Wy+v5i/f
-         TfPHKgwAUfKCq6UZ/M55UICFJexY8bdrh7DO98+zzg/9WagKQDreauW0CoPZLtzk57I6
-         6J7y4l0bKJN5FRknZ6XCv3FkoIfiTWxE1F3+sPq7d5VfyhoQHz0VRp5/zt8GmrrByTVa
-         Rd0lMEPjfQmLn8nbJ+Q2nhZGzgKaDuRmt4oZs1oVVYW4eShV3LeT6Ty/BAxV8vJAWaRO
-         vkCw==
+         :user-agent:date:message-id:openpgp:cc:from:references:to:subject
+         :dkim-signature;
+        bh=OzkL2PvEbRcBCKH19f+1y60ThaLChYNUSb3p1h5o9DM=;
+        b=gVTQeHep+kbOdHz90ygnGSvoMPxNuP7zHl7azm3eUtbzlO4qjmiTv2vqDs3x1SbGV/
+         qwyYofhxoV3nmbSYddXE+luk6NBRDli9JRf7yvBaC7qL0GHvKQYNaE/QKyzDf5B6w9i3
+         h4OQd2BvBcVWc8YXOSmLpm2ZHQS26/cEG5Wrlj1grpuzh/AdnSsCys6HzSVXjVoRFTwy
+         UZcwLc0Uztnvd0/XxaveHCIlIPyfhE4luE9TV4AzNp6zWUMpa7rSyy9AkvV/CVVLLZRF
+         QTFlTNWg7FwaCqq8PSElpL5z5Tdcy2I/TYylbmFEh8XXEXbIH+5tDfjINPhP8h+gEKRx
+         UitQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id j1si76599wme.3.2019.06.17.23.32.18
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=EvRyzFxS;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [2001:638:a01:1096::12])
+        by gmr-mx.google.com with ESMTPS id f83si64674wme.2.2019.06.18.04.30.36
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 17 Jun 2019 23:32:18 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
-Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id x5I6WHdg031260
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 18 Jun 2019 08:32:17 +0200
-Received: from [167.87.39.124] ([167.87.39.124])
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x5I6WGpP009650;
-	Tue, 18 Jun 2019 08:32:17 +0200
-Subject: Re: Linux non-root node question
-To: Wayne <racedrive1503@gmail.com>
-Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
-        jailhouse-dev@googlegroups.com
-References: <CA++Khc2iKk1J6+0huh5__dS4HyujXzV9r+LbKLzuVZ4K3Bt5eA@mail.gmail.com>
- <ad13aaa6-41ac-14fd-33fe-fa4f6dfc789e@oth-regensburg.de>
- <CA++Khc36sP7ABEsR5Bp+gpts0DUBENqV6eFDPazfs5kR_QRGaw@mail.gmail.com>
- <42ce8fed-792a-ac86-7611-ee9b13dd7815@oth-regensburg.de>
- <CA++Khc13nuahbog_WVD-BJi0asHEa8TxMAvB5M5damJGJ_5inA@mail.gmail.com>
- <d2e2b271-4e43-4126-5433-8304d4984e7a@oth-regensburg.de>
- <CA++Khc2LGq3gGydG2Ojxn2xcbPoc6VzvhoO4_ikFMFMdQ_aYOg@mail.gmail.com>
- <bd92264a-60c1-6f76-07f0-93cb9bd08a01@siemens.com>
- <CA++Khc0seBDnN2hD7EJh3g25unUEFqBuiRSm5HwOE+1JEX0D2Q@mail.gmail.com>
- <63552042-48d0-cb32-e893-28ae4ab29ccd@siemens.com>
- <CA++Khc3Mj=SFen+_f7RE5g1Paq1AhHQOrBX3HqNoJvvbymQh0w@mail.gmail.com>
- <5b90a899-c42a-a360-8398-c3af35920765@siemens.com>
- <CA++Khc0whU3=U86WGNEtLUZoOkKuYLiEA+nqOjW1UFcRDeGTRQ@mail.gmail.com>
- <0da95034-9bd0-4415-4d3b-5f6687a84563@siemens.com>
- <CA++Khc1Xjt8yMT39shFraJnzSWp8Ctc9-Cv-mNxOqf+UkxhyxA@mail.gmail.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <36306f60-8b63-f32d-2559-3a1ca6f53e87@siemens.com>
-Date: Tue, 18 Jun 2019 08:32:16 +0200
-User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
- Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
+        Tue, 18 Jun 2019 04:30:36 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) client-ip=2001:638:a01:1096::12;
+Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S02", Issuer "E16S02" (not verified))
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 45Sm982TZLzyH8;
+	Tue, 18 Jun 2019 13:30:36 +0200 (CEST)
+Received: from [IPv6:2001:638:a01:8061:aefd:ceff:fef3:ba65]
+ (2001:638:a01:8013::138) by E16S02.hs-regensburg.de (2001:638:a01:8013::92)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 18 Jun
+ 2019 13:30:36 +0200
+Subject: Re: Finalizing 0.11
+To: Jan Kiszka <jan.kiszka@siemens.com>, Jailhouse
+	<jailhouse-dev@googlegroups.com>, Andrej Utz
+	<andrej.utz@st.oth-regensburg.de>
+References: <9a1a19fe-57c5-a5d2-f5a3-547e07bbcf8b@siemens.com>
+ <e7496701-fcd6-8c8b-ee43-84245c782943@oth-regensburg.de>
+ <dd35885b-522f-3291-0c53-297e2d2d980d@siemens.com>
+ <464227aa-f75a-9823-772c-de19242e8576@oth-regensburg.de>
+ <159a6d4d-cde4-cd0d-48cb-20be69fca730@siemens.com>
+ <cac410c5-4a74-b77b-508c-210f69b14498@oth-regensburg.de>
+ <f04f3f96-921b-67c4-2e64-1939d4f04339@siemens.com>
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+CC: Mario Mintel <mario.mintel@st.oth-regensburg.de>
+Openpgp: preference=signencrypt
+Message-ID: <5a83cab4-f342-8e08-7c34-928cfa60272d@oth-regensburg.de>
+Date: Tue, 18 Jun 2019 13:30:35 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.0
 MIME-Version: 1.0
-In-Reply-To: <CA++Khc1Xjt8yMT39shFraJnzSWp8Ctc9-Cv-mNxOqf+UkxhyxA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
+In-Reply-To: <f04f3f96-921b-67c4-2e64-1939d4f04339@siemens.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: de-DE
 Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+X-Originating-IP: [2001:638:a01:8013::138]
+X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
+ E16S02.hs-regensburg.de (2001:638:a01:8013::92)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=EvRyzFxS;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -149,153 +154,188 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 17.06.19 21:06, Wayne wrote:
-> Hi Jan,
->=20
-> I am still having trouble getting the non-root linux kernel to boot up.=
-=C2=A0 Based=20
-> on your suggestions I tried two scenarios and am using your AMD kernel co=
-nfig=20
-> you pointed me to above:
->=20
-> 1. Attempted to use the 70MB root linux initramfs (generated through kern=
-el=20
-> "make install"), but I get this error:
+Hi,
 
-What do you mean with "generated through kernel"?
+On 6/17/19 6:04 PM, Jan Kiszka wrote:
+> On 17.06.19 16:14, Ralf Ramsauer wrote:
+>> Hi Jan,
+>>
+>> On 6/17/19 12:47 PM, Jan Kiszka wrote:
+>>> On 17.06.19 12:18, Ralf Ramsauer wrote:
+>>>>
+>>>>
+>>>> On 6/17/19 12:15 PM, Jan Kiszka wrote:
+>>>>> On 17.06.19 12:11, Ralf Ramsauer wrote:
+>>>>>> Hi Jan,
+>>>>>>
+>>>>>> On 6/17/19 9:49 AM, Jan Kiszka wrote:
+>>>>>>> Hi all,
+>>>>>>>
+>>>>>>> by the end of this week, I'd like to tag a new release. If you have
+>>>>>>> anything pending that should be included, make sure to post it
+>>>>>>> soon. My
+>>>>>>> integration queue is empty, so also let me know if I missed
+>>>>>>> something.
+>>>>>>
+>>>>>> Andrej still has two patches in his queue, but they're not
+>>>>>> necessarily
+>>>>>> required for v0.11.
+>>>>>>
+>>>>>> There's still the MSR bitmap issue on AMD64. Valentine didn't respon=
+d
+>>>>>> yet, I'll have a look at that soon, it's an open issue that should b=
+e
+>>>>>> fixed.
+>>>>>
+>>>>> Let me look into that.
+>>>>
+>>>> Ok. (Maybe that could also be the issue why apic-demo shows implausibl=
+e
+>>>> timings on amd64)
+>>>>
+>>>
+>>> Followed up on that thread. Should be quickly resolvable.
+>>>
+>>>>>
+>>>>>>
+>>>>>> Other than that, I'm in the meanwhile pretty sure that there's
+>>>>>> something
+>>>>>> odd with VT-d, but I can't yet tell what it is exactly.
+>>>>>
+>>>>> Do you need me to write an instrumentation patch?
+>>>>
+>>>> Maybe. Let me try some other things I wanted to test last week.
+>>>> Otherwise I'll return to you.
+>>>>
+>>>
+>>> FWIW, please try this nevertheless:
+>>>
+>>> diff --git a/hypervisor/arch/x86/vtd.c b/hypervisor/arch/x86/vtd.c
+>>> index 1cae0dcb..110184fa 100644
+>>> --- a/hypervisor/arch/x86/vtd.c
+>>> +++ b/hypervisor/arch/x86/vtd.c
+>>> @@ -567,6 +567,7 @@ static void vtd_update_irte(unsigned int index,
+>>> union vtd_irte content)
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 void *reg_base =3D dmar_reg_base;
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int n;
+>>> =C2=A0 +printk("%s: index %d, present %d, content %016llx %016llx\n",
+>>> __func__, index, content.field.p, content.raw[0], content.raw[1]);
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (content.field.p) {
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Write up=
+per half first to preserve non-presence.
+>>> @@ -824,6 +825,7 @@ int iommu_map_interrupt(struct cell *cell, u16
+>>> device_id, unsigned int vector,
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 union vtd_irte irte;
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int base_index;
+>>> =C2=A0 +printk("%s: device %04x, vector %d, irq_msg %016llx\n", __func_=
+_,
+>>> device_id, vector, *(u64 *)&irq_msg);
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 base_index =3D vtd_find_int_remap_region=
+(device_id);
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (base_index < 0)
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return base_inde=
+x;
+>>
+>> Please find the hypervisor log and the sysconfig attached. Just for
+>> completeness, some other useful stuff is attached, including the output
+>> of jailhouse config collect.
+>>
+>> One remark to the Jailhouse output in console.txt:
+>>
+>> Everything looks unsuspicious until we add PCI device b3:00.0 that needs
+>> to reserve 97(!) interrupts.
+>=20
+> Well, that's likely what this thing could potentially use, based on its
+> MSI-X vector limit (unless we have a bug in reading that from the
+> hardware -> config generator).
+>=20
+>>
+>> This is the point where instrumentation starts to output:
+>>
+>> iommu_map_interrupt: device 0400, vector 3, irq_msg 0001080000002822
+>> vtd_update_irte: index 109, present 0, content 0000000000000100
+>> 0000000000000400
+Short intermediate analysis:
 
->=20
-> [ =C2=A0 =C2=A02.648665] rootfs image is not initramfs (write error); loo=
-ks like an initrd
-> [ =C2=A0 =C2=A02.655732] /initrd.image: incomplete write (-28 !=3D 719058=
-93)
-> [ =C2=A0 =C2=A02.672708] Freeing initrd memory: 70224K
->=20
-> Since we suspect possible image corruption by the kernel extracting,=C2=
-=A0 I doubled=20
-> my guest linux memory allocation.=C2=A0 Therefore I now have 416MB of mem=
-ory reserved=20
-> by the root linux command line for the guest.=C2=A0 I can see that the "M=
-emTotal"=20
-> available in /proc/meminfo went down by approx 416MB accordingly after up=
-dating=20
-> the root command memmap arg.=C2=A0 However, if I try to execute the "jail=
-house cell=20
-> linux ..." command with a=C2=A0 memory region .size of 400MB (or even 256=
-MB) then=20
-> jailhouse throws the following error:
->=20
-> Traceback (most recent call last):
->  =C2=A0 File "./tools/jailhouse-cell-linux", line 824, in <module>
->  =C2=A0 =C2=A0 cell =3D JailhouseCell(config)
->  =C2=A0 File "/home/test/jailhouse-next/tools/../pyjailhouse/cell.py", li=
-ne 36, in=20
-> __init__
->  =C2=A0 =C2=A0 raise e
->  =C2=A0 File "/home/test/jailhouse-next/tools/../pyjailhouse/cell.py", li=
-ne 33, in=20
-> __init__
->  =C2=A0 =C2=A0 fcntl.ioctl(self.dev <http://self.dev>,=20
-> JailhouseCell.JAILHOUSE_CELL_CREATE, create)
-> OSError: [Errno 12] Cannot allocate memory
->=20
->  =C2=A0Any thoughts here?
+The first non-present device is non-present as !irq_msg.valid. irq_msg
+is passed via arch_pci_update_msix_vector and comes from
+x86_pci_translate_msi. Inside x86_pci_translate_msi,
+iommu_cell_emulates_ir(device->cell) is true, so we call
+iommu_get_remapped_root_int.
 
-Nothing obvious in the configs. Well, you have the 0x3a600000 range twice i=
-n the=20
-root cell config. That should not cause the problem, though. Should still b=
-e fixed.
+Inside iommu_get_remapper_interrupt, irq_msg.valid will be set to zero
+in vtd.c:803:
 
-Maybe you are running out of hypervisor memory because your hardware does n=
-ot=20
-support large pages and therefore requires larger paging structure. But tha=
-t's=20
-also rather unlikely - unless the hardware is 5 years or so old. What all d=
-oes=20
-"jailhouse hardware check" report?
+        irq_msg.valid =3D
+                (root_irte.field.p && root_irte.field.sid =3D=3D device_id)=
+;
 
->=20
-> 2. If I use my 30MB guest linux 4.19 initramfs instead (generated through=
- kernel=20
-> "make install"), then it gets passed the extracting phase but falls into =
-the=20
-> dracut emergency shell.=C2=A0 The shell then keeps scrolling repeatedly o=
-n the UART=20
-> (ttyS0):
-> :/#
-> :/#
-> :/#
-> ...
-> Any thoughts on why this scrolling is occuring? I'm viewing the serial ou=
-tput on=20
-> another linux machine with "cat /dev/ttyS0".
->=20
-> Any idea why its dropping into the emergency prompt rather than continuin=
-g to=20
-> boot the kernel?=C2=A0 The initramfs was just re-generated with "make ins=
-tall" and=20
-> should match the 4.19 guest.
+This is the cause why in the end the present bit of the irte entry is
+zero. And here it's getting hot:
 
-Given all the problems and variables, I would rather recommend trying a=20
-known-to-work initrd first, ie. the one we generate via buildroot. If it he=
-lps,=20
-I can share a binary for x86 offlist. From there, you can stepwise change m=
-ore=20
-variables.
+  root_irte.field.p: 1
+  root_irte.field.sid: 401
+  devid: 400
 
-Jan
+Hmm. Either devid or sid is wrong. Let's skip a few messages and look at
+the other non-present entries. Same code path.
 
+  root_irte.field.p: 1
+  root_irte.field.sid: 400
+  devid: 401
+
+400 and 401 are two phys of the same network card. Someone twists things.
+
+Still not finished debugging, but this seems to be the root cause.
+
+  Ralf
+
+>>
+>> The hypervisor stucks for a moment when printing those lines. In sum, it
+>> takes a few seconds for Jailhouse to enable.
+>>
+>> b3:00.0 is a megaraid/megasas standard raid controller, 04:00.0 and
+>> 04:00.1 (0x400, 0x401) are the Broadcom network devices that we loose.
+>>
 >=20
-> Note that my root kernel is vanilla 4.16 and my non-root linux guest is 4=
-.19=20
-> jailhouse enabling from siemens.=C2=A0 I attached my latest System config=
- and=20
-> non-linux cell config.
+> Let's pick the first:
 >=20
+> VT-d fault event reported by IOMMU 3:
+> =C2=A0Source Identifier (bus:dev.func): 04:00.1
+> =C2=A0Fault Reason: 0x22 Fault Info: 1f000000000 Type 0
 >=20
-> Thanks for your repeated help,
+> Interestingly, we program not a single present IRTE for that device. So
+> the next thing to check is why that is the case, e.g. what happens betwee=
+n
 >=20
-> Wayne
+> iommu_map_interrupt: device 0401, vector 0, irq_msg 0001004000002822
 >=20
-> On Thu, Jun 13, 2019 at 2:55 PM Jan Kiszka <jan.kiszka@siemens.com=20
-> <mailto:jan.kiszka@siemens.com>> wrote:
+> and
 >=20
->     On 13.06.19 20:49, Wayne wrote:
->      > I added the "-k 10" to the command and unfortunately it did not ma=
-ke a
->      > difference with the unpacking.=C2=A0 If I add=C2=A0 "root=3D/dev/r=
-am0" it does get
->     past the
->      > unpacking, but throws the panic for "System is deadlocked on memor=
-y".
->      >
->      > I have attached my current non-root kernel config.=C2=A0 Should I =
-expect to be
->     able
->      > to log in to the non-root if I use the same initramfs as the root =
-linux?
->      >
+> vtd_update_irte: index 123, present 0, content 0000000000000100
+> 0000000000000401
 >=20
->     You should at least expect to see no error messages of the kernel, po=
-ssibly
->     some
->     futile probing of devices and then likely a console prompt.
+>>>
+>>> Should list the IRTE entries that are written or invalidated. When
+>>> matching their number and device ID against the fault later on, we may
+>>> see clearer. If not, we may need to go up further in the call chain, to
+>>> the callers of iommu_map_interrupt.
+>>
+>> After Jailhouse is enabled, and after the VT-d faults occur, we receive
+>> a couple of those lines
+>>
+>> vtd_update_irte: index 16, present 1, content 000100100022010d
+>> 000000000004f0f8
+>> iommu_map_interrupt: device f0f8, vector 16, irq_msg 0001001000006822
+>>
+>> on every key press of the serial line.
 >=20
->     Let's try my kernel config from jailhouse-images first. If that works=
-, you can
->     tune from there towards your needs. I still think there is some sizin=
-g issue or
->     so, but I'm not seeing the key difference immediately.
+> There is probably some mask/unmask going on that we see when it hits the
+> virtualized registers.
 >=20
->     Jan
+> Jan
 >=20
->     --=20
->     Siemens AG, Corporate Technology, CT RDA IOT SES-DE
->     Corporate Competence Center Embedded Linux
->=20
---=20
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -303,5 +343,5 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/36306f60-8b63-f32d-2559-3a1ca6f53e87%40siemens.com.
+jailhouse-dev/5a83cab4-f342-8e08-7c34-928cfa60272d%40oth-regensburg.de.
 For more options, visit https://groups.google.com/d/optout.
