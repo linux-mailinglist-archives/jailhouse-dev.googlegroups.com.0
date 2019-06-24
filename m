@@ -1,83 +1,142 @@
-Return-Path: <jailhouse-dev+bncBCZKXDNMZALBB57GYTUAKGQEXUUYFQI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCC7DQPESQPRBTHRYTUAKGQERDPU5RA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x33b.google.com (mail-ot1-x33b.google.com [IPv6:2607:f8b0:4864:20::33b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9597851C6A
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 24 Jun 2019 22:32:57 +0200 (CEST)
-Received: by mail-ot1-x33b.google.com with SMTP id a8sf7967250oti.8
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 24 Jun 2019 13:32:57 -0700 (PDT)
+Received: from mail-qk1-x73a.google.com (mail-qk1-x73a.google.com [IPv6:2607:f8b0:4864:20::73a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EC3351CA4
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 24 Jun 2019 22:55:41 +0200 (CEST)
+Received: by mail-qk1-x73a.google.com with SMTP id z13sf2832076qka.15
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 24 Jun 2019 13:55:41 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1561409740; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=T3I0WiVswb3LiwUgXmlYrRYzOLPUtFNexhETPvuPhPEH7m32bAmbs+KVcld9ghe4nB
+         rX5vznPfk1pCiGZyg51YwEOiXfwwSueAis8fRGf4uXj81YpeW7XoXa/Nth9lIdFryBKB
+         uUtMoIY4fzzOZPjT1it2I7QZXVZadRj5H51q8f3xtpbswbbLtKE1DTeFtK6ke5RuiGXa
+         ZaortuBlBtOgwYa+dCBa/cw+/qdlnp2ibWQhwG6sAOKPKbvyLUixQTfFCRetNbEvyQSu
+         Cl0+GbT8U65ESPOPVz2sdREkvVr1qlutWHqftFw3RbO39YZHlicO1Pa83t+lW65lWdbW
+         0bNg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:sender:dkim-signature
+         :dkim-signature;
+        bh=q5PsC8q0PCnMm2QsvCLbfHt4/4YHIifO0c/0erZ3hKY=;
+        b=vS3rhG5aI0UawfWVYc4CQ9LkvM+O7i1Nk5ePTz+ccYbHHxzMvbT1nDfoN0CqM6OmmL
+         t8b3nEfnZUiYVf5PZAWactQqHEu3TXD1d5B0M+ivuozaT1V6j5Qq+nWIPHUmM/IgcaYo
+         f9JZTkue2zOaBOq97OZigxw3eh397cqTgoTYlubjv3+4Ctz/pSOt3QuGXitxERXKbOq1
+         q59yQYKhZSAwMx6Rjhplt9VpTi6QfqTyeDujRRn6jtQ5kK0DHg2gLyy9Ym0sE8xX/Buq
+         fVLRRlxUzfIvHP/246XrgmgzxNoHhrNJ07cuA1x4lN7Px0LWW9NTEc7zApRY7SjZuyEV
+         XXDg==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=st6uMnxu;
+       spf=pass (google.com: domain of racedrive1503@gmail.com designates 2607:f8b0:4864:20::742 as permitted sender) smtp.mailfrom=racedrive1503@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=iYibO25v4THeWOd7cffqSouwnGhA5R5YJhVCaVT6xP8=;
-        b=EFlOSEZy7WOanW4GO8KpgspLYHBIrnm+3062GPuA4vkMKuXJ0haqMfI1cTw8Ny2Ten
-         NG9KQtTKMzlayOZfS4WfzteiK+VOvaOk7ZHYq8CbvlZVRj1owku941jenq5QqxbLBwc3
-         BWigeMl41wVZ6X4YyFKuUfzZ5UiOExgyGzl6/1qrWEtNQURWyWFMbGiL73EJIeoL+JP5
-         2yd03jt9DKQe2wZnRAS1khWQIbck/DhLNF5Rp7h4o2VFiQvAwxFm2l/DkUwEO7iIqllQ
-         mRXh5MSR+gVnyz+QYFy0Ay8Y89ECU/P12rO5Tfl/5zyPD2Wsg0mBb0OI59/+WWNGxZ8r
-         lTuQ==
+        h=sender:mime-version:references:in-reply-to:from:date:message-id
+         :subject:to:cc:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=q5PsC8q0PCnMm2QsvCLbfHt4/4YHIifO0c/0erZ3hKY=;
+        b=UT/0W8wACQRIX+K3fSzQreKVn4Epcnb+9/Aeqa72MLT+EZd9oHGWDEvzO5fNr43uLv
+         FX4K2PFCD+SaJ5V2ZsLOEp71RMemXhjIhDJuHJZoaY8RtORF8WLsTEZcCJlQypol/UTz
+         WSjRm1FnDqs/tyv7GNE7rWZ05IWxlAxkQs0nhnf3fUF8DyHLJ9eVqkeyi2L8Jqbaz1DC
+         eq6yS1oHdiN9b0uTManCUfVarmDIrpGaRbfdkHfF+WjVsKDWOi8LOj3H4dLNcOuMm4co
+         FQUTk2StWWRL0xRTb3bjpx9ssKOqlS46qsJCGohtNWwgkTUETkxliAVdQCAIG3F8qr56
+         EW7Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=iYibO25v4THeWOd7cffqSouwnGhA5R5YJhVCaVT6xP8=;
-        b=sAnQU9xyll+oHrg/Sy75e3AMlNg8nLJpryhT8awBFpf8a98TFRINmYfnD+cOZQE5n5
-         qN4tbE4pKkfIMxLa3Ccdplgw6C3QxcSHb+g7/kF7UxbJ4saKpisHuQ8hFHJ7M4d7iJtd
-         +Kp4nFab016ozPfZZzv6FTZe4Ivictng5Jl9TMnWobU9HxQEOH82YCjTuStXJcXCmFv2
-         LX4llx5RFebKHvwlrZKM7rJcB/UuvEcLB91xtPkYiVYa1Dlv43se7aEjhmgYcKOrQr3q
-         CKUXBIMssjNS65l0W6TTUZQzDKS1hybAbVJnu30CIC5WOFzvpiSH5hhOxx2L/QHV+Ny0
-         CXSw==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=q5PsC8q0PCnMm2QsvCLbfHt4/4YHIifO0c/0erZ3hKY=;
+        b=ZTg9o1jPJKvwJMyYU1qnpwGKeFlqaYDGMfUxEKq1GpqQADOl2ad7vm++0tRkAJj71A
+         oFgb7tGN407WaMAOGxkPGjl6i1cMbb2MLc1YaxL0nKWs7yJiGuTrPD1X+er5y3y4dvCy
+         0NyotdqciqOQ0boKtrQMs8TQB/p/5tdJFi4SqotvEVmqNfgElksTQ5DXz2sjBlQpc71i
+         Ki7yL8TZQeSLHuGwX7D0YddHQ/zJM6fG6x8Un1IZ51Bq2n3u61LqLSsI+AAtMPgyfQh1
+         EKACZ5rBayxGazxE9X3pEjDXb/5zsln79rJFIYy+9vFNUwvbCwpMrzeLT5gImCmeGpLE
+         ZvdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=iYibO25v4THeWOd7cffqSouwnGhA5R5YJhVCaVT6xP8=;
-        b=RCRbNl1wmU+W2MC3lOKxl/2aW1wBlecFnhX/ovaahXkylPSn0DoE8THi0b1Q7o+RWH
-         CKt+uJ27TvnXMe1fGfdyWBG1QB2wjEJU7cTYNHJ9q+h255yr7/odfyMjELn5CveoIE3w
-         /xlTHoE8kz4BgCDg9qrzAt+mAbB54SFslyJCb1zArXLA4BmpqR6tEeSZbqo7gTBXPQKC
-         BxXh89aMTbJ7w0wnBMdwamDVbqTcpZza7sqORqr4g0uNQ6vSCPcJvWOyJcpuD/8GDpJb
-         feuoqxxLvr1Yk8q6JjSE/R2IVamhzGEKJWCfQqWj4IBaglekR3XtqTYlWSVlgrTQ1iWF
-         LENw==
+        h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
+         :date:message-id:subject:to:cc:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=q5PsC8q0PCnMm2QsvCLbfHt4/4YHIifO0c/0erZ3hKY=;
+        b=RKrnzbSnodZ26dpEeSzuPYg5aB62+ZzDDysucSwEsIerqC6g8Lro3tJfFlmpaxoj2u
+         ZKS9A9ho8L3wBF4PR96gbWUsecf12zuWiN5i4IOA1hr7Vqe72kFtTUM/DEBDQpUei1K4
+         5Bk6l75aczcH9VTprbXDZBBGsBWMOtSWLKebourQ+nNIJETPPJgoYv15f+qXmPRiavjC
+         47zp0wBECW9zNZWAQHI/4jAiprNElrLagaC9JVdRfHzPC13F3Q1NNL0J7szEE0vQjGus
+         7ZyiYKswouLwS9ItHP93aEWpyZAt86FnsyHqJObvvq+cwBeBd9UHUipJ0nRDaKIH7J/m
+         kxpw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXivO/W3G2KSLnsuLuNU46yFjiKN1NY/zQ229p3nUQpwuDkWgPH
-	vmEzwDSFjRqzXRQd+raaV9g=
-X-Google-Smtp-Source: APXvYqwuigTRu8lPUcZxW2V+z3j3ETgGFCoaGiLSc20Tcru6fG2hzI52xXYLKseu2eKqQKu7RCu0xQ==
-X-Received: by 2002:a9d:6e01:: with SMTP id e1mr74398664otr.220.1561408376175;
-        Mon, 24 Jun 2019 13:32:56 -0700 (PDT)
+X-Gm-Message-State: APjAAAWfsoPlNNw+LLQUjm9NPKLdmP/A/Y/yjhUl+vCEeTnzTG//j5ey
+	/HRdJ3mNJNEP4EAtYyZd5os=
+X-Google-Smtp-Source: APXvYqxSXDp2iI7WXMqCVr//IvFdwi0qGd+uYYyv4T+iyBtreFQMHWnfjzb+bV/w9ojrsAXggJX/Ig==
+X-Received: by 2002:a0c:8701:: with SMTP id 1mr10960621qvh.214.1561409740357;
+        Mon, 24 Jun 2019 13:55:40 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a9d:6c1a:: with SMTP id f26ls113122otq.4.gmail; Mon, 24 Jun
- 2019 13:32:55 -0700 (PDT)
-X-Received: by 2002:a9d:578c:: with SMTP id q12mr4109863oth.240.1561408375528;
-        Mon, 24 Jun 2019 13:32:55 -0700 (PDT)
-Date: Mon, 24 Jun 2019 13:32:54 -0700 (PDT)
-From: Alejandro Largacha <alexlargacha@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <3f445e6c-699b-4cc0-b73e-10df44848858@googlegroups.com>
-In-Reply-To: <d51da6c7-705d-4695-867d-6d114b4abeef@googlegroups.com>
-References: <b6a945e8-0bef-4939-a412-19d1e7bc6f53@googlegroups.com>
- <0954fc59-e01b-cb24-64c1-9f44b26a6e21@siemens.com>
- <058dbed0-9c53-4b6b-acd9-bd831f8ff3a3@googlegroups.com>
- <997ea182-e94b-46ae-8eee-408541db2c4b@googlegroups.com>
- <07298146-b472-b565-ce5a-7b96258d29d8@web.de>
- <b82a848d-4c1e-4958-98c2-b4000451b256@googlegroups.com>
- <4b964f87-c2ea-49b5-bf85-3f11fd60bf88@googlegroups.com>
- <38c1bdda-dffd-3971-28dd-c8475bb774e9@siemens.com>
- <60b8cf79-5a1b-44ab-a693-7b7e129f543b@googlegroups.com>
- <01210628-e7af-3dd9-a875-199abd7c611b@siemens.com>
- <da4669b3-87aa-4dbc-b75c-a1f2a787a98c@googlegroups.com>
- <fc9f0c8e-151b-e328-7bf6-54b52ed0478d@siemens.com>
- <d51da6c7-705d-4695-867d-6d114b4abeef@googlegroups.com>
-Subject: Re: Running Jailhouse on UltraZed SOM board --stuck at enabling
- root cell
+Received: by 2002:ac8:5556:: with SMTP id o22ls1617166qtr.3.gmail; Mon, 24 Jun
+ 2019 13:55:40 -0700 (PDT)
+X-Received: by 2002:ac8:3518:: with SMTP id y24mr30813673qtb.55.1561409739989;
+        Mon, 24 Jun 2019 13:55:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1561409739; cv=none;
+        d=google.com; s=arc-20160816;
+        b=fQqL7LrfBnd/CHAC7AWXh2np+2eN1r9LVWM0ZGd+PIEWnel3dBx9XcKrnjvzunOxaI
+         vYP6PZ+YEl3q2SGi+HYIMyTIbJZOHvNz3mXEnBrRzmy5CuKo5WCKIjl+2ZJsk9b4+gii
+         UGw99FJcsecb6L6NozXeRwmNqO/toWv5OQM4JgOCpwu4LGjTkBFEzpq4f3mSw6CxtMsf
+         5IbAZZu2e3g+fp6uyiXESm04egjgOE1hiN0gaVbps0vkMv4LCJfMU3Q265R/30oj9kG1
+         FxU12wz6Sm8aNn8QIM7bZ31XH3gWRHo/QE2UJkApeQUl/Gd6us9kUzF7KQySizNciTdU
+         eRrQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=gDtPckhSvRFjLnk1xMO0DxRQZqr8z9/AwZ69GSw5JuM=;
+        b=Pw+ii+boxvwstaAeK/ShICyMAPVPxWp9CZH1gmmNww1XFXz9tkl4TDeFUAAA4XDyfn
+         oY1Nrn8drdiWB8yLnpO4KYhsFC9ALrjCI3a+taN28AOWVozLo1ekVXjxiBDEGPsYEwmD
+         SD7GLNCA2ladGMP9YezjKXDCExzZhi5OOmVWuSEqW8s7VKbU4cVMGJc/6Abz6DvVe9H8
+         xS5qJe9TvntyeX6Usge+g4/zw+4usekxrtrdqF4uXP2MRlUURnr55QnyJWhK+UF/Oe0f
+         VA/VRLeRRCx3Ncat7dhEAeFFIBDVE0Ztu0ei5lHPnvj2OFbMMvk68U3r27IcGSfhOFe+
+         eTog==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=st6uMnxu;
+       spf=pass (google.com: domain of racedrive1503@gmail.com designates 2607:f8b0:4864:20::742 as permitted sender) smtp.mailfrom=racedrive1503@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com. [2607:f8b0:4864:20::742])
+        by gmr-mx.google.com with ESMTPS id m8si599311qtp.0.2019.06.24.13.55.39
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
+        Mon, 24 Jun 2019 13:55:39 -0700 (PDT)
+Received-SPF: pass (google.com: domain of racedrive1503@gmail.com designates 2607:f8b0:4864:20::742 as permitted sender) client-ip=2607:f8b0:4864:20::742;
+Received: by mail-qk1-x742.google.com with SMTP id t8so10914831qkt.1
+        for <jailhouse-dev@googlegroups.com>; Mon, 24 Jun 2019 13:55:39 -0700 (PDT)
+X-Received: by 2002:a37:a194:: with SMTP id k142mr9964148qke.313.1561409739790;
+ Mon, 24 Jun 2019 13:55:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_1802_1695439640.1561408374902"
-X-Original-Sender: alexlargacha@gmail.com
+References: <CA++Khc2iKk1J6+0huh5__dS4HyujXzV9r+LbKLzuVZ4K3Bt5eA@mail.gmail.com>
+ <bd92264a-60c1-6f76-07f0-93cb9bd08a01@siemens.com> <CA++Khc0seBDnN2hD7EJh3g25unUEFqBuiRSm5HwOE+1JEX0D2Q@mail.gmail.com>
+ <63552042-48d0-cb32-e893-28ae4ab29ccd@siemens.com> <CA++Khc3Mj=SFen+_f7RE5g1Paq1AhHQOrBX3HqNoJvvbymQh0w@mail.gmail.com>
+ <5b90a899-c42a-a360-8398-c3af35920765@siemens.com> <CA++Khc0whU3=U86WGNEtLUZoOkKuYLiEA+nqOjW1UFcRDeGTRQ@mail.gmail.com>
+ <0da95034-9bd0-4415-4d3b-5f6687a84563@siemens.com> <CA++Khc1Xjt8yMT39shFraJnzSWp8Ctc9-Cv-mNxOqf+UkxhyxA@mail.gmail.com>
+ <36306f60-8b63-f32d-2559-3a1ca6f53e87@siemens.com> <CA++Khc3hURr3dFrw2ga=uf9A02KZ1OEEtMAPOVJyCAP3Fs+fmw@mail.gmail.com>
+ <889c96a9-a7dc-4385-28e5-437fbc4d5008@siemens.com> <CA++Khc2-Cv==+eJCS8cN-ShK7q==Qs7UpW-ZfoUcEZ2Tam5c7Q@mail.gmail.com>
+ <3bb0abe5-55ca-b9b5-edff-6bc8d0ef85af@siemens.com> <CA++Khc2YjAfFL1x-uU_N9FoUhZUMSsKQ2bKHAbd17U=HA_90Nw@mail.gmail.com>
+ <CA++Khc0Kev1DGnKeKr2Dd3B4qHWZxZFrgDsMFQ1PX+OHYxDNsA@mail.gmail.com> <3660acb8-e530-9625-bcac-177b8c84b642@siemens.com>
+In-Reply-To: <3660acb8-e530-9625-bcac-177b8c84b642@siemens.com>
+From: Wayne <racedrive1503@gmail.com>
+Date: Mon, 24 Jun 2019 16:55:28 -0400
+Message-ID: <CA++Khc0Fxz3NKS5p0ApbTtos5j5GtuJzBOJ+4jT31faXn7fbrw@mail.gmail.com>
+Subject: Re: Linux non-root node question
+To: Jan Kiszka <jan.kiszka@siemens.com>
+Cc: jailhouse-dev@googlegroups.com
+Content-Type: multipart/alternative; boundary="000000000000e39e41058c1808b7"
+X-Original-Sender: racedrive1503@gmail.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@gmail.com header.s=20161025 header.b=st6uMnxu;       spf=pass
+ (google.com: domain of racedrive1503@gmail.com designates 2607:f8b0:4864:20::742
+ as permitted sender) smtp.mailfrom=racedrive1503@gmail.com;       dmarc=pass
+ (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -90,183 +149,366 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1802_1695439640.1561408374902
+--000000000000e39e41058c1808b7
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-El mi=C3=A9rcoles, 7 de noviembre de 2018, 3:55:07 (UTC+1), JJZhu  escribi=
-=C3=B3:
-> =E5=9C=A8 2018=E5=B9=B411=E6=9C=886=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=8C U=
-TC+8=E4=B8=8B=E5=8D=887:44:37=EF=BC=8CJ. Kiszka=E5=86=99=E9=81=93=EF=BC=9A
-> > On 06.11.18 08:16, jjzhu1989@gmail.com wrote:
-> > > Hi Jan,
-> > >=20
-> > > Thank you for you help! the root cell finally booted up successfully!
-> > >=20
-> > > jh_01 login: root
-> > > Password:
-> > > root@jh_01:~# start_getty 115200 ttyPS1 &
-> > > [1] 2045
-> > > root@jh_01:~# modprobe jailhouse
-> > > [   63.894446] jailhouse: loading out-of-tree module taints kernel.
-> > > root@jh_01:~# jailhouse enable zynqmp-zcu102.cell
-> > >=20
-> > > Initializing Jailhouse hypervisor v0.10 on CPU 3
-> > > Code location: 0x0000ffffc0200800
-> > > Page pool usage after early setup: mem 39/996, remap 0/131072
-> > > Initializing processors:
-> > >   CPU 3... OK
-> > >   CPU 1... OK
-> > >   CPU 0... OK
-> > >   CPU 2... OK
-> > > Initializing unit: irqchip
-> > > Initializing unit: PCI
-> > > Adding virtual PCI device 00:00.0 to cell "ZynqMP-ZCU102"
-> > > Adding virtual PCI device 00:01.0 to cell "ZynqMP-ZCU102"
-> > > Page pool usage after late setup: mem 61/996, remap 5/131072
-> > > Activating hypervisor
-> > > [   67.785765] OF: PCI: host bridge //pci@0 ranges:
-> > > [   67.792657] OF: PCI:   MEM 0xfc100000..0xfc103fff -> 0xfc100000
-> > > [   67.800870] pci-host-generic fc000000.pci: ECAM at [mem 0xfc000000=
--0xfc0fffff] for [bus 00]
-> > > [   67.811624] pci-host-generic fc000000.pci: PCI host bridge to bus =
-0000:00
-> > > [   67.820716] pci_bus 0000:00: root bus resource [bus 00]
-> > > [   67.828212] pci_bus 0000:00: root bus resource [mem 0xfc100000-0xf=
-c103fff]
-> > > [   67.837843] pci 0000:00:00.0: BAR 0: assigned [mem 0xfc100000-0xfc=
-1000ff 64bit]
-> > > [   67.847427] pci 0000:00:01.0: BAR 0: assigned [mem 0xfc100100-0xfc=
-1001ff 64bit]
-> > > [   67.857009] The Jailhouse is opening.
-> > > root@jh_01:~# jailhouse cell create zynqmp-zcu102-gic-demo.cell
-> > > [   82.076593] CPU3: shutdown
-> > > [   82.081468] psci: CPU3 killed.
-> > > Created cell "gic-demo"
-> > > Page pool usage after cell creation: mem 75/996, remap 5/131072
-> > > [   82.116898] Created Jailhouse cell "gic-demo"
-> > > root@jh_01:~# jailhouse cell load
-> > > --name    1         gic-demo
-> > > root@jh_01:~# jailhouse cell load 1 gic-demo1.bin
-> > > Cell "gic-demo" can be loaded
-> > > root@jh_01:~# jailhouse cell  start
-> > > Usage: jailhouse { COMMAND | --help | --version }
-> > >=20
-> > > Available commands:
-> > >     enable SYSCONFIG
-> > >     disable
-> > >     console [-f | --follow]
-> > >     cell create CELLCONFIG
-> > >     cell list
-> > >     cell load { ID | [--name] NAME } { IMAGE | { -s | --string } "STR=
-ING" }
-> > >               [-a | --address ADDRESS] ...
-> > >     cell start { ID | [--name] NAME }
-> > >     cell shutdown { ID | [--name] NAME }
-> > >     cell destroy { ID | [--name] NAME }
-> > >     cell linux CELLCONFIG KERNEL [-i | --initrd FILE]
-> > >                [-c | --cmdline "STRING"] [-w | --write-params FILE]
-> > >     cell stats { ID | [--name] NAME }
-> > >     config create [-h] [-g] [-r ROOT] [--mem-inmates MEM_INMATES]
-> > >                   [--mem-hv MEM_HV] FILE
-> > >     config collect FILE.TAR
-> > >     hardware check
-> > > root@jh_01:~# jailhouse cell start 1
-> > > Started cell "gic-demo"
-> > >=20
-> > > The modification I did is as follow:
-> > > in zynqmp-zcu102.c
-> > >=20
-> > > .header =3D {
-> > > 		.signature =3D JAILHOUSE_SYSTEM_SIGNATURE,
-> > > 		.revision =3D JAILHOUSE_CONFIG_REVISION,
-> > > 		.flags =3D JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
-> > > 		.hypervisor_memory =3D {
-> > > 			.phys_start =3D 0x40000000,
-> > > 			.size =3D       0x00400000,
-> > > 		},
-> > >=20
-> > > /* RAM */ {
-> > > 			.phys_start =3D 0x0,
-> > > 			.virt_start =3D 0x0,
-> > > 			.size =3D 0x40000000,
-> > > 			.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> > > 				JAILHOUSE_MEM_EXECUTE,
-> > > 		},
-> > > 		/* RAM */ {
-> > > 			.phys_start =3D 0x40600000,
-> > > 			.virt_start =3D 0x40600000,
-> > > 			.size =3D 0x3fa00000,
-> > > 			.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> > > 				JAILHOUSE_MEM_EXECUTE,
-> > > 		},
-> > > 		/* IVSHMEM shared memory region for 00:00.0 */ {
-> > > 			.phys_start =3D 0x40400000,
-> > > 			.virt_start =3D 0x40400000,
-> > > 			.size =3D 0x100000,
-> > > 			.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-> > > 		},
-> > > 		/* IVSHMEM shared memory region for 00:01.0 */ {
-> > > 			.phys_start =3D 0x40500000,
-> > > 			.virt_start =3D 0x40500000,
-> > > 			.size =3D 0x100000,
-> > > 			.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-> > > 		},
-> > >=20
-> > > I also have changed the zynqmp-zcu102-gic-demo.c
-> > >=20
-> > > /* RAM */ {
-> > > 			.phys_start =3D 0x40600000,
-> > > 			.virt_start =3D 0,
-> > > 			.size =3D 0x00010000,
-> > > 			.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> > > 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
-> > > 		},
-> > >=20
-> > > But when I start the gic-demo cell, no print out information.
-> >=20
-> > If you are using/deriving from configs/arm64/zynqmp-zcu102-gic-demo.c, =
-you will=20
-> > see that this directs the output to the second UART. If you don't have =
-that=20
-> > port, change it to be shared with the root cell's UART.
-> >=20
-> > Jan
-> >=20
-> > --=20
-> > Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-> > Corporate Competence Center Embedded Linux
->=20
-> Hi Jan,
->=20
-> This board has the second Uart. I have tested it with=20
-> start_tty 115200 ttyPS1 &
->=20
-> Could you give some hints on how to develop a simple "hello world" image =
-from Xilinx SDK?=20
-> Than you!
+Hi Jan,
 
-Hello,
+I have a couple more questions on serial device (UART) allocation.  If I
+have two serial devices, ttyS0 (IRQ4 w/address 0x3f8) and ttyS1(IRQ3
+w/address 0x2f8).  Is the setup below the correct way to allocate ttyS0 to
+the root linux and the ttyS1 to a non-root linux guest?
 
-Where you able to see the prints in the second uart? I am facing the same p=
-roblem in UltraZed Som. I have followed this topic and been able to load th=
-e system cell and the gic-demo cell and the gic-demo.bin, but cannot see th=
-e prints in the second Uart. I tested the hardware with a baremetal app in =
-sdk and the second uart is alive.
+// .irq chips array in the root config
+.irqchips = {
+{
+.address = 0xfec00000,
+.id = 0x1f0ff,
+.pin_bitmap = {
+0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff
+},
+},
 
-I am running a 4.14 kernel from Xilinx.
+//.irq chips array in the guest config
+.irqchips = {
+{
+.address = 0xfec00000,
+.id = 0x1f0ff,
+.pin_bitmap = { 0x00008 }, /*remap ttyS1 to the linux guest, root keeps
+ttyS0 */
+},
 
-thank you in advance.
+//.pio_bitmap root (keep ttyS0, lose ttyS1)
+.pio_bitmap = {
+[ 0x2f8/8 ...  0x2ff/8] = -1, /* serial2 */
+[ 0x3f8/8 ...  0x3ff/8] = 0, /* serial1 */
+},
 
-Alex
+//.pio_bitmap guest (keep ttyS1, lost ttyS0)
+.pio_bitmap = {
+[ 0x2f8/8 ...  0x2ff/8] = -1, /* serial2 */
+[ 0x3f8/8 ...  0x3ff/8] = 0, /* serial1 */
+},
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/3f445e6c-699b-4cc0-b73e-10df44848858%40googlegroups.com.
+Also, is there any way to prevent the non-root from trying to probe against
+ttyS0 at startup and causing a memory access violation?  I'm aware of the
+8250.nr_uarts=1, but it seems to default to enumerating ttyS0.
+
+Thanks again for all of your help,
+Wayne
+
+On Wed, Jun 19, 2019 at 12:24 PM Jan Kiszka <jan.kiszka@siemens.com> wrote:
+
+> On 19.06.19 18:15, Wayne wrote:
+> > Hi Jan:
+> >
+> > I figured out my problem with Jailhouse throwing the "Cannot allocate
+> memory"
+> > error when trying to create a guest cell with more than 200MB RAM.  I
+> had to
+> > increase my hypervisor memory size from 6MB to 64MB.  Now I can unpack
+> my larger
+>
+> Ah, makes sense. You should see the allocation stats after each major
+> operation
+> on the Jailhouse console. Forgot to point to that out because I thought we
+> weren't that tight but rather had another problem that caused excessive
+> memory need.
+>
+> > root initramfs (~70MB) successfully, but now that falls into the dracut
+> > emergency shell too.  This appears to be occurring when the kernel tries
+> to
+> > pivot/switch to the "real" root filesystem.
+>
+> Yeah, dracut won't give you a "real" system without much more work.
+>
+> >
+> > I can boot into a real kernel prompt with your rootfs.cpio, but I really
+> would
+> > like to be running a copy of the full root linux....just with the
+> filesystem
+> > being entirely in the ramdisk.  Any thoughts on how to accomplish this?
+> It
+> > seems like buildroot can generate images based on busybox, with the ash
+> shell.
+> > I really would like bash support.
+> >
+>
+> You should achieve that by packing a regular rootfs into a cpio.
+>
+> Jan
+>
+> > Thanks for all of your help getting to this point,
+> > Wayne
+> >
+> > On Tue, Jun 18, 2019 at 1:09 PM Wayne <racedrive1503@gmail.com
+> > <mailto:racedrive1503@gmail.com>> wrote:
+> >
+> >     Jan:
+> >
+> >     To summarize:
+> >     1. My smaller guest initramfs (~30MB) unpacks properly, but then
+> falls into
+> >     the dracut emergency shell.  Now that i'm using minicom it no longer
+> scrolls
+> >     repeatedly.  I still can't get to a proper kernel login prompt.
+> >     2. My larger root initramfs (~70MB) fails to unpack, and also
+> jailhouse
+> >     fails to create the guest if I attempt to allocate more memory.
+> >     3. I can get to the kernel login prompt (and login successfully) if
+> I use
+> >     your rootfs.cpio binary.  This option so far is the most promising.
+> >
+> >     Thanks for your assistance,
+> >     Wayne
+> >
+> >     On Tue, Jun 18, 2019 at 12:01 PM Jan Kiszka <jan.kiszka@siemens.com
+> >     <mailto:jan.kiszka@siemens.com>> wrote:
+> >
+> >         On 18.06.19 17:48, Wayne wrote:
+> >          > Jan/Ralf:
+> >          >
+> >          > Ok, with the rootfs.cpio you just provided I can see the
+> following on
+> >         my serial
+> >          > port:
+> >          >
+> >          > Welcome to Buildroot
+> >          > jailhouse login:
+> >          >
+> >          > So that's progress.  Is there a default user name and
+> password to use to
+> >          > complete the login?  That would point to the problem being
+> booting
+> >         against my
+> >          > initramfs files.
+> >
+> >         "root" without password is the login.
+> >
+> >          >
+> >          > Also, the issue where my serial output scrolled continuously
+> was due
+> >         to the
+> >          > capture method.  I switched to minicom and no longer see that
+> occur.
+> >
+> >         OK, consistent sign. Then we are back to a size issue, not a
+> format
+> >         problem: You
+> >         larger image is too large, but enlarging the inmate does not
+> work. If it
+> >         would,
+> >         your larger image will likely boot as well.
+> >
+> >          >
+> >          > Any further thoughts on why jailhouse fails to load the guest
+> when I
+> >         set the
+> >          > memory region greater than 200MB?
+> >
+> >         I need to analyze your config, maybe try it out.
+> >
+> >         Jan
+> >
+> >         --
+> >         Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+> >         Corporate Competence Center Embedded Linux
+> >
+>
+> --
+> Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+> Corporate Competence Center Embedded Linux
+>
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CA%2B%2BKhc0Fxz3NKS5p0ApbTtos5j5GtuJzBOJ%2B4jT31faXn7fbrw%40mail.gmail.com.
 For more options, visit https://groups.google.com/d/optout.
 
-------=_Part_1802_1695439640.1561408374902--
+--000000000000e39e41058c1808b7
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Jan,<div><br>I have a couple more questions on serial d=
+evice (UART) allocation.=C2=A0 If I have two serial devices, ttyS0 (IRQ4 w/=
+address 0x3f8) and ttyS1(IRQ3 w/address 0x2f8).=C2=A0 Is the setup below th=
+e correct way to allocate ttyS0 to the root linux and the ttyS1 to a non-ro=
+ot linux guest?</div><div><br></div><div>// .irq chips array in the root co=
+nfig</div><div>.irqchips =3D {<br>{<br>			.address =3D 0xfec00000,<br>			.i=
+d =3D 0x1f0ff,<br>			.pin_bitmap =3D {<br>				0xffffffff, 0xffffffff, 0xfff=
+fffff, 0xffffffff=C2=A0<br>			},<br>		},<br></div><div><br></div><div>//.ir=
+q chips array in the guest config</div><div>.irqchips =3D {<br>{<br>.addres=
+s =3D 0xfec00000,<br>.id =3D 0x1f0ff,<br>.pin_bitmap =3D { 0x00008 }, /*rem=
+ap ttyS1 to the linux guest, root keeps ttyS0 */<br>},=C2=A0=C2=A0<br></div=
+><div><br></div><div>//.pio_bitmap root (keep ttyS0, lose ttyS1)</div><div>=
+.pio_bitmap =3D {<br></div><div>[ 0x2f8/8 ... =C2=A00x2ff/8] =3D -1, /* ser=
+ial2 */<br></div><div>[ 0x3f8/8 ... =C2=A00x3ff/8] =3D 0, /* serial1 */<br>=
+</div><div>},</div><div><br></div><div><div>//.pio_bitmap guest (keep ttyS1=
+, lost ttyS0)</div><div>.pio_bitmap =3D {<br></div><div>[ 0x2f8/8 ... =C2=
+=A00x2ff/8] =3D -1, /* serial2 */<br></div><div>[ 0x3f8/8 ... =C2=A00x3ff/8=
+] =3D 0, /* serial1 */<br></div><div>},</div></div><div><br></div><div>Also=
+, is there any way to prevent the non-root from trying to probe against tty=
+S0 at startup and causing a memory access violation?=C2=A0 I&#39;m aware of=
+ the 8250.nr_uarts=3D1, but it seems to default to enumerating ttyS0.</div>=
+<div><br></div><div>Thanks again for all of your help,<br></div><div>Wayne<=
+/div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_a=
+ttr">On Wed, Jun 19, 2019 at 12:24 PM Jan Kiszka &lt;<a href=3D"mailto:jan.=
+kiszka@siemens.com">jan.kiszka@siemens.com</a>&gt; wrote:<br></div><blockqu=
+ote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px=
+ solid rgb(204,204,204);padding-left:1ex">On 19.06.19 18:15, Wayne wrote:<b=
+r>
+&gt; Hi Jan:<br>
+&gt; <br>
+&gt; I figured out my problem with Jailhouse throwing the &quot;Cannot allo=
+cate memory&quot; <br>
+&gt; error when trying to create a guest cell with more than 200MB RAM.=C2=
+=A0 I had to <br>
+&gt; increase my hypervisor memory size from 6MB to 64MB.=C2=A0 Now I can u=
+npack my larger <br>
+<br>
+Ah, makes sense. You should see the allocation stats after each major opera=
+tion <br>
+on the Jailhouse console. Forgot to point to that out because I thought we =
+<br>
+weren&#39;t that tight but rather had another problem that caused excessive=
+ memory need.<br>
+<br>
+&gt; root initramfs (~70MB) successfully, but now that falls into the dracu=
+t <br>
+&gt; emergency shell too.=C2=A0 This appears to be occurring when the kerne=
+l tries to <br>
+&gt; pivot/switch to the &quot;real&quot; root filesystem.<br>
+<br>
+Yeah, dracut won&#39;t give you a &quot;real&quot; system without much more=
+ work.<br>
+<br>
+&gt; <br>
+&gt; I can boot into a real kernel prompt with your rootfs.cpio, but I real=
+ly would <br>
+&gt; like to be running a copy of the full root linux....just with the file=
+system <br>
+&gt; being entirely in the ramdisk.=C2=A0 Any thoughts on how to accomplish=
+ this?=C2=A0 It <br>
+&gt; seems like buildroot can generate images based on busybox, with the as=
+h shell.=C2=A0 <br>
+&gt; I really would like bash support.<br>
+&gt; <br>
+<br>
+You should achieve that by packing a regular rootfs into a cpio.<br>
+<br>
+Jan<br>
+<br>
+&gt; Thanks for all of your help getting to this point,<br>
+&gt; Wayne<br>
+&gt; <br>
+&gt; On Tue, Jun 18, 2019 at 1:09 PM Wayne &lt;<a href=3D"mailto:racedrive1=
+503@gmail.com" target=3D"_blank">racedrive1503@gmail.com</a> <br>
+&gt; &lt;mailto:<a href=3D"mailto:racedrive1503@gmail.com" target=3D"_blank=
+">racedrive1503@gmail.com</a>&gt;&gt; wrote:<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0Jan:<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0To summarize:<br>
+&gt;=C2=A0 =C2=A0 =C2=A01. My smaller guest initramfs (~30MB) unpacks prope=
+rly, but then falls into<br>
+&gt;=C2=A0 =C2=A0 =C2=A0the dracut emergency shell.=C2=A0 Now that i&#39;m =
+using minicom it no longer scrolls<br>
+&gt;=C2=A0 =C2=A0 =C2=A0repeatedly.=C2=A0 I still can&#39;t get to a proper=
+ kernel login prompt.<br>
+&gt;=C2=A0 =C2=A0 =C2=A02. My larger root initramfs (~70MB) fails to unpack=
+, and also jailhouse<br>
+&gt;=C2=A0 =C2=A0 =C2=A0fails to create the guest if I attempt to allocate =
+more memory.<br>
+&gt;=C2=A0 =C2=A0 =C2=A03. I can get to the kernel login prompt (and login =
+successfully) if I use<br>
+&gt;=C2=A0 =C2=A0 =C2=A0your rootfs.cpio binary.=C2=A0 This option so far i=
+s the most promising.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0Thanks for your assistance,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0Wayne<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0On Tue, Jun 18, 2019 at 12:01 PM Jan Kiszka &lt;<a =
+href=3D"mailto:jan.kiszka@siemens.com" target=3D"_blank">jan.kiszka@siemens=
+.com</a><br>
+&gt;=C2=A0 =C2=A0 =C2=A0&lt;mailto:<a href=3D"mailto:jan.kiszka@siemens.com=
+" target=3D"_blank">jan.kiszka@siemens.com</a>&gt;&gt; wrote:<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0On 18.06.19 17:48, Wayne wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &gt; Jan/Ralf:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &gt; Ok, with the rootfs.cpio you ju=
+st provided I can see the following on<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0my serial<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &gt; port:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &gt; Welcome to Buildroot<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &gt; jailhouse login:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &gt; So that&#39;s progress.=C2=A0 I=
+s there a default user name and password to use to<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &gt; complete the login?=C2=A0 That =
+would point to the problem being booting<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0against my<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &gt; initramfs files.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;root&quot; without password is =
+the login.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &gt; Also, the issue where my serial=
+ output scrolled continuously was due<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0to the<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &gt; capture method.=C2=A0 I switche=
+d to minicom and no longer see that occur.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0OK, consistent sign. Then we are back=
+ to a size issue, not a format<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0problem: You<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0larger image is too large, but enlarg=
+ing the inmate does not work. If it<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0would,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0your larger image will likely boot as=
+ well.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &gt; Any further thoughts on why jai=
+lhouse fails to load the guest when I<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0set the<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &gt; memory region greater than 200M=
+B?<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0I need to analyze your config, maybe =
+try it out.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Jan<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0-- <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Siemens AG, Corporate Technology, CT =
+RDA IOT SES-DE<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Corporate Competence Center Embedded =
+Linux<br>
+&gt; <br>
+<br>
+-- <br>
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE<br>
+Corporate Competence Center Embedded Linux<br>
+</blockquote></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/CA%2B%2BKhc0Fxz3NKS5p0ApbTtos5j5GtuJzBOJ%2B4jT31fa=
+Xn7fbrw%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://gr=
+oups.google.com/d/msgid/jailhouse-dev/CA%2B%2BKhc0Fxz3NKS5p0ApbTtos5j5GtuJz=
+BOJ%2B4jT31faXn7fbrw%40mail.gmail.com</a>.<br />
+For more options, visit <a href=3D"https://groups.google.com/d/optout">http=
+s://groups.google.com/d/optout</a>.<br />
+
+--000000000000e39e41058c1808b7--
