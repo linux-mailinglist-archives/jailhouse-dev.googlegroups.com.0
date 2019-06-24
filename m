@@ -1,133 +1,83 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB2HTYPUAKGQEORTETFA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCZKXDNMZALBB57GYTUAKGQEXUUYFQI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33b.google.com (mail-wm1-x33b.google.com [IPv6:2a00:1450:4864:20::33b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EAB0518A0
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 24 Jun 2019 18:27:21 +0200 (CEST)
-Received: by mail-wm1-x33b.google.com with SMTP id p16sf1735679wmi.8
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 24 Jun 2019 09:27:21 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1561393641; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=J6KdL2mUsqzMfOkGCC65Xtel8uCyiOSllouZTEcdSEmPLIDpAf31TntDh/BT7n6eAT
-         8YlITf3fLYcgHbt2yfuqDo5B25ZWZKNtyVed3myllJs/UGV8U9ZiSfQVitc8W8snLtPG
-         sKvgZUOStoDKBnRB0Ky8EZl4BDk3VbPUBdwaod+/OO7ZkrIE4PaUHrcCWmxj0rWy6JO0
-         goxh13IqtjucxHuhsFHJPclJNfUynQ8ZfvNL8s5Ykb8MsV4cOI7+Rs7rTpqGWPG1CSvO
-         K2OwoHzGI1z25N+VEribs3Ip1U3aVbdGEUJaknqVwnPrFOgUuRyJGy9IDZrOvGvBfxCD
-         2HeQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=8GS5aCvSYOFUCgRNbx3dctE5qtJzvpjUrnO7gJP4MNA=;
-        b=xVXIDe2py8Y7uktv4uOVovhktjnENek33P4CmF3YPD8DuIkDltFD4Ae/omwinB6uDi
-         pc5ax5EdRaeh4nynmiIgsJLmELiKgchkw9DAOrDDbFauKGeSLG4O+7eo8VYafu0OnrRC
-         R7mTdLIg7TZKkt5o4dO+zeqfz+PFxoPZcsF4IgKLeXmhv8isVMEG4HQSTkADIdocQiUu
-         TV17QtZwIySYae6aGjOrE3mUoQIZApwRS+/0kQFTUs//+cs/ira8OdTZIb+j7GkD7Gdy
-         LPgaTU5XpHfeeJQr/0PtOfbZjvEWw5nBtHcnewOm9AdY9VdYvH84KZwGTmfMlKDSXjfz
-         qWkw==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-ot1-x33b.google.com (mail-ot1-x33b.google.com [IPv6:2607:f8b0:4864:20::33b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9597851C6A
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 24 Jun 2019 22:32:57 +0200 (CEST)
+Received: by mail-ot1-x33b.google.com with SMTP id a8sf7967250oti.8
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 24 Jun 2019 13:32:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=8GS5aCvSYOFUCgRNbx3dctE5qtJzvpjUrnO7gJP4MNA=;
-        b=dtV+WAgCS6wZg8rJECs8kCHY0wMEzpwTvtQKWHLvZK9jZPZVyYIxL/4mhSIqqNmB0U
-         U+CNNg67AligIPzp+u1l7V79eP1j5UNQfkJcOIJaRLP6wO3DAiXeL4eMHF0AcIKYCpOY
-         xxb/3LBuf1mCZmpGmCDDN9oijPPDxmpvrQViPwdLFkxFx8TKMxMFOWqFHi9KXf5wjqMq
-         Y6PeeQBRN87NVqLaKMaP1rQYUQuspgQJdUvFxaF1/acVa0FL0E6SUZfieMWn7CILb//x
-         LrNSBgVOuwe7noYhT+hGEjGNZocXaluKaU37+Z58c6VdV08gdOnJyHJokwvgHbJ6l/jR
-         +paA==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=iYibO25v4THeWOd7cffqSouwnGhA5R5YJhVCaVT6xP8=;
+        b=EFlOSEZy7WOanW4GO8KpgspLYHBIrnm+3062GPuA4vkMKuXJ0haqMfI1cTw8Ny2Ten
+         NG9KQtTKMzlayOZfS4WfzteiK+VOvaOk7ZHYq8CbvlZVRj1owku941jenq5QqxbLBwc3
+         BWigeMl41wVZ6X4YyFKuUfzZ5UiOExgyGzl6/1qrWEtNQURWyWFMbGiL73EJIeoL+JP5
+         2yd03jt9DKQe2wZnRAS1khWQIbck/DhLNF5Rp7h4o2VFiQvAwxFm2l/DkUwEO7iIqllQ
+         mRXh5MSR+gVnyz+QYFy0Ay8Y89ECU/P12rO5Tfl/5zyPD2Wsg0mBb0OI59/+WWNGxZ8r
+         lTuQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=iYibO25v4THeWOd7cffqSouwnGhA5R5YJhVCaVT6xP8=;
+        b=sAnQU9xyll+oHrg/Sy75e3AMlNg8nLJpryhT8awBFpf8a98TFRINmYfnD+cOZQE5n5
+         qN4tbE4pKkfIMxLa3Ccdplgw6C3QxcSHb+g7/kF7UxbJ4saKpisHuQ8hFHJ7M4d7iJtd
+         +Kp4nFab016ozPfZZzv6FTZe4Ivictng5Jl9TMnWobU9HxQEOH82YCjTuStXJcXCmFv2
+         LX4llx5RFebKHvwlrZKM7rJcB/UuvEcLB91xtPkYiVYa1Dlv43se7aEjhmgYcKOrQr3q
+         CKUXBIMssjNS65l0W6TTUZQzDKS1hybAbVJnu30CIC5WOFzvpiSH5hhOxx2L/QHV+Ny0
+         CXSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=8GS5aCvSYOFUCgRNbx3dctE5qtJzvpjUrnO7gJP4MNA=;
-        b=VDzVG9g5kiHQyynk5qhHu2q3epf6Sd7xId0YikXEfXwiiX762+zX+cZQvfIzcv3C3z
-         mfqIQolFXI0OeS94fNkzNKBRQSaY9svj5ErQ7w/NDDyROk1iY/qW1pHN5KMk5cEg6Tn7
-         rOfKJWrbr/ClCJ1jOTV+uhQIG7p8jVk3djKRu+VCEOoclEC/kTf9p0HDOK3Gd7vXIA1H
-         BRP4oqt/EvWFe5MLVCdBhk9UTy7MJauIMQ6GkZwLyWhif0iaYAjzlHbGKuYUZ28xXo51
-         Mne0i/vezgodgygSKNzF+vanI9fPHFO4XnAUFQn3Ims/4D/vnHuOqKJTdcUrTd33Bte8
-         ahDg==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=iYibO25v4THeWOd7cffqSouwnGhA5R5YJhVCaVT6xP8=;
+        b=RCRbNl1wmU+W2MC3lOKxl/2aW1wBlecFnhX/ovaahXkylPSn0DoE8THi0b1Q7o+RWH
+         CKt+uJ27TvnXMe1fGfdyWBG1QB2wjEJU7cTYNHJ9q+h255yr7/odfyMjELn5CveoIE3w
+         /xlTHoE8kz4BgCDg9qrzAt+mAbB54SFslyJCb1zArXLA4BmpqR6tEeSZbqo7gTBXPQKC
+         BxXh89aMTbJ7w0wnBMdwamDVbqTcpZza7sqORqr4g0uNQ6vSCPcJvWOyJcpuD/8GDpJb
+         feuoqxxLvr1Yk8q6JjSE/R2IVamhzGEKJWCfQqWj4IBaglekR3XtqTYlWSVlgrTQ1iWF
+         LENw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVEGVYGiFVhmKuwplGwdRnw79bwAfgkx6eD0iAWn+fh6Ve7neIZ
-	3k2SciXePvdn7MqRjz3lecc=
-X-Google-Smtp-Source: APXvYqwD2tnb/Ssrqn+wW9L3mUIInNPwDalMaQXHkr5hkr7JN6pEr0gyXZHqcrUyYiWLE5aIb+p2Yw==
-X-Received: by 2002:a7b:c206:: with SMTP id x6mr16604737wmi.156.1561393641099;
-        Mon, 24 Jun 2019 09:27:21 -0700 (PDT)
+X-Gm-Message-State: APjAAAXivO/W3G2KSLnsuLuNU46yFjiKN1NY/zQ229p3nUQpwuDkWgPH
+	vmEzwDSFjRqzXRQd+raaV9g=
+X-Google-Smtp-Source: APXvYqwuigTRu8lPUcZxW2V+z3j3ETgGFCoaGiLSc20Tcru6fG2hzI52xXYLKseu2eKqQKu7RCu0xQ==
+X-Received: by 2002:a9d:6e01:: with SMTP id e1mr74398664otr.220.1561408376175;
+        Mon, 24 Jun 2019 13:32:56 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:ec02:: with SMTP id x2ls4038753wrn.6.gmail; Mon, 24 Jun
- 2019 09:27:20 -0700 (PDT)
-X-Received: by 2002:a5d:42ca:: with SMTP id t10mr32409813wrr.202.1561393640002;
-        Mon, 24 Jun 2019 09:27:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1561393639; cv=none;
-        d=google.com; s=arc-20160816;
-        b=WuZ4+00mNYbEiAut84O3V+VKNmwQpOTN23YF2MPt/yIoL7zIpLRQJoz7ONJNDUi+p7
-         NBxxyddYv7Pyg0oeBMcH9BleMdX5IT/sRu+FDSYgXF8eW2pcYlRZPOXLTHBZDFQj6km9
-         LARDgmEJvJ6esrqRsLiWZUvB7ASOZWemtlAdObI35Q5UlM9EntmMUuDOJU6qC++WxRN2
-         1kYlFVlg8lqZtrkddbFbHej6TJztM/ZbBOCTCygg5Ffp/tRQf13sOlzTmawJ9l6ZDMvI
-         DTIdH7DWrOkezY1yYGXnfRUZyEK6PyTCRWiWyvRFpakODLeV2coGocWdfrPFDH+y88nO
-         vvCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=haOVgv5PDVltK+wSYb3myk1WeW2U9KsdL7oMjcV96XY=;
-        b=iA/FFfy3hPUuv9/mCDzWLfwVKAIVAaoDxxo6yl7Uj7MbC52Yhk/qkpg82952Ffsetc
-         HZfvXwKuQBM2oEOs6cfTkLm4culALhWEcV1i1lcrzh1+XtcAuAC7WYsCwrXyjQAnutOa
-         E9urXxLHukYex4UpDJMaLf+coAVYwlrzfbJ1Jm00vMfPDH5fvR0PJSsQ3GdDTHB7KVY8
-         hE4UBZvSBVK/J9wdUlXK3gFgkcPBfaDckgOCorwDRoC1IUwqrn8maP1Vd291nZvIwbM1
-         FlGuGWfGvqESlIbY/zdMPio97DA4vSUgT13OH0HIMwzIm4O40L05MF8JyDHJ9fzEHXFw
-         A3DA==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id g15si1661wmg.0.2019.06.24.09.27.19
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 24 Jun 2019 09:27:19 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id x5OGRJ1o031833
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 24 Jun 2019 18:27:19 +0200
-Received: from [139.22.39.148] ([139.22.39.148])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id x5OGRIF6005668;
-	Mon, 24 Jun 2019 18:27:19 +0200
-Subject: Re: [EXTERNAL] Re: porting am57xx jailhouse support to v0.10 version
-To: Vitaly Andrianov <vitalya@ti.com>,
-        Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
-        Jailhouse <jailhouse-dev@googlegroups.com>
-References: <2f1c216b-71a5-5a78-79f5-416b11539d81@ti.com>
- <ace421df-a519-4509-2b97-6713009b85b9@oth-regensburg.de>
- <27491b3c-0b03-0ba4-da94-6a8cadb28006@ti.com>
- <eae01b0c-3e7b-04ac-4ae0-24c407e85bd1@ti.com>
- <8558b60f-cfcd-ddc1-62b6-b3ab9cd762ee@siemens.com>
- <c724fb1e-4c24-8562-cc3b-bd35d45d098e@ti.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <cb3304a1-b322-7f87-a67f-3c6f11fe3d7c@siemens.com>
-Date: Mon, 24 Jun 2019 18:27:17 +0200
-User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
- Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
+Received: by 2002:a9d:6c1a:: with SMTP id f26ls113122otq.4.gmail; Mon, 24 Jun
+ 2019 13:32:55 -0700 (PDT)
+X-Received: by 2002:a9d:578c:: with SMTP id q12mr4109863oth.240.1561408375528;
+        Mon, 24 Jun 2019 13:32:55 -0700 (PDT)
+Date: Mon, 24 Jun 2019 13:32:54 -0700 (PDT)
+From: Alejandro Largacha <alexlargacha@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <3f445e6c-699b-4cc0-b73e-10df44848858@googlegroups.com>
+In-Reply-To: <d51da6c7-705d-4695-867d-6d114b4abeef@googlegroups.com>
+References: <b6a945e8-0bef-4939-a412-19d1e7bc6f53@googlegroups.com>
+ <0954fc59-e01b-cb24-64c1-9f44b26a6e21@siemens.com>
+ <058dbed0-9c53-4b6b-acd9-bd831f8ff3a3@googlegroups.com>
+ <997ea182-e94b-46ae-8eee-408541db2c4b@googlegroups.com>
+ <07298146-b472-b565-ce5a-7b96258d29d8@web.de>
+ <b82a848d-4c1e-4958-98c2-b4000451b256@googlegroups.com>
+ <4b964f87-c2ea-49b5-bf85-3f11fd60bf88@googlegroups.com>
+ <38c1bdda-dffd-3971-28dd-c8475bb774e9@siemens.com>
+ <60b8cf79-5a1b-44ab-a693-7b7e129f543b@googlegroups.com>
+ <01210628-e7af-3dd9-a875-199abd7c611b@siemens.com>
+ <da4669b3-87aa-4dbc-b75c-a1f2a787a98c@googlegroups.com>
+ <fc9f0c8e-151b-e328-7bf6-54b52ed0478d@siemens.com>
+ <d51da6c7-705d-4695-867d-6d114b4abeef@googlegroups.com>
+Subject: Re: Running Jailhouse on UltraZed SOM board --stuck at enabling
+ root cell
 MIME-Version: 1.0
-In-Reply-To: <c724fb1e-4c24-8562-cc3b-bd35d45d098e@ti.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_1802_1695439640.1561408374902"
+X-Original-Sender: alexlargacha@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -140,101 +90,175 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 24.06.19 15:29, Vitaly Andrianov wrote:
-> On 06/24/2019 09:23 AM, Jan Kiszka wrote:
->> On 24.06.19 14:27, Vitaly Andrianov wrote:
->>> Hi Jan, Ralf,
->>>
->>> On 06/12/2019 03:27 PM, 'Vitaly Andrianov' via Jailhouse wrote:
->>>> Hi Ralf,
->>>> Thanks you for the quick response.
->>>>
->>>
->>> [skip]
->>>
->>>>>>
->>>>>> so, I have to implement the corresponding am57xx_init() and
->>>>>> am57xx_cell_exit().
->>>>>>
->>>>>> Here is the old mach_cell_exit function, but many of the functions i=
-t
->>>>>> uses disappeared in the v0.10 version.
->>>>>>
->>>>>> void mach_cell_exit(struct cell *cell)
->>>>>> {
->>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int cpu;
->>>>>>
->>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 for_each_cpu(cpu, cell->c=
-pu_set) {
->>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 per_cpu(cpu)->cpu_on_entry =3D
->>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mm=
-io_read32(wkupgen_base + OMAP_AUX_CORE_BOOT_0 +
->>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cpu *=
- 4);
->>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 per_cpu(cpu)->cpu_on_context =3D 0;
->>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 arch_suspend_cpu(cpu);
->>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 arch_reset_cpu(cpu);
->>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->>>>>> }
->>>>>>
->>>
->>> I have implemented the am57xx unit. At the am57xx_cell_exit() I set=20
->>> cpu_on_entry to omap5_secondary_hyp_startup() - physical address. That =
-was in=20
->>> the working v0.8 mach_cell_exit().
->>> But I'm not sure what shall I do with the remaining 3 calls:
->>>
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 per_cpu(cpu)->cpu_on_context =3D 0;
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 arch_suspend_cpu(cpu);
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 arch_reset_cpu(cpu);
->>>
->>> When I execute "jailhouse cell destroy 1" the kernel cannot bring cpu1 =
-online=20
->>> and it still in the hypervisor's WFI loop.
->>>
->>> Any advise?
->>
->> Can you share the code?
->>
->> But, again, we will likely need more redesign anyway because the previou=
-s=20
->> approach was already hacky. E.g. it was rather fishy to pass through the=
-=20
->> WakeupGen page and issuing smc calls.
->>
->> Can you describe the CPU boot flow from OS perspective, or refer to a=20
->> description? Back then, I implemented it via Linux reverse engineering.
->>
->> Jan
->>
+------=_Part_1802_1695439640.1561408374902
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+El mi=C3=A9rcoles, 7 de noviembre de 2018, 3:55:07 (UTC+1), JJZhu  escribi=
+=C3=B3:
+> =E5=9C=A8 2018=E5=B9=B411=E6=9C=886=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=8C U=
+TC+8=E4=B8=8B=E5=8D=887:44:37=EF=BC=8CJ. Kiszka=E5=86=99=E9=81=93=EF=BC=9A
+> > On 06.11.18 08:16, jjzhu1989@gmail.com wrote:
+> > > Hi Jan,
+> > >=20
+> > > Thank you for you help! the root cell finally booted up successfully!
+> > >=20
+> > > jh_01 login: root
+> > > Password:
+> > > root@jh_01:~# start_getty 115200 ttyPS1 &
+> > > [1] 2045
+> > > root@jh_01:~# modprobe jailhouse
+> > > [   63.894446] jailhouse: loading out-of-tree module taints kernel.
+> > > root@jh_01:~# jailhouse enable zynqmp-zcu102.cell
+> > >=20
+> > > Initializing Jailhouse hypervisor v0.10 on CPU 3
+> > > Code location: 0x0000ffffc0200800
+> > > Page pool usage after early setup: mem 39/996, remap 0/131072
+> > > Initializing processors:
+> > >   CPU 3... OK
+> > >   CPU 1... OK
+> > >   CPU 0... OK
+> > >   CPU 2... OK
+> > > Initializing unit: irqchip
+> > > Initializing unit: PCI
+> > > Adding virtual PCI device 00:00.0 to cell "ZynqMP-ZCU102"
+> > > Adding virtual PCI device 00:01.0 to cell "ZynqMP-ZCU102"
+> > > Page pool usage after late setup: mem 61/996, remap 5/131072
+> > > Activating hypervisor
+> > > [   67.785765] OF: PCI: host bridge //pci@0 ranges:
+> > > [   67.792657] OF: PCI:   MEM 0xfc100000..0xfc103fff -> 0xfc100000
+> > > [   67.800870] pci-host-generic fc000000.pci: ECAM at [mem 0xfc000000=
+-0xfc0fffff] for [bus 00]
+> > > [   67.811624] pci-host-generic fc000000.pci: PCI host bridge to bus =
+0000:00
+> > > [   67.820716] pci_bus 0000:00: root bus resource [bus 00]
+> > > [   67.828212] pci_bus 0000:00: root bus resource [mem 0xfc100000-0xf=
+c103fff]
+> > > [   67.837843] pci 0000:00:00.0: BAR 0: assigned [mem 0xfc100000-0xfc=
+1000ff 64bit]
+> > > [   67.847427] pci 0000:00:01.0: BAR 0: assigned [mem 0xfc100100-0xfc=
+1001ff 64bit]
+> > > [   67.857009] The Jailhouse is opening.
+> > > root@jh_01:~# jailhouse cell create zynqmp-zcu102-gic-demo.cell
+> > > [   82.076593] CPU3: shutdown
+> > > [   82.081468] psci: CPU3 killed.
+> > > Created cell "gic-demo"
+> > > Page pool usage after cell creation: mem 75/996, remap 5/131072
+> > > [   82.116898] Created Jailhouse cell "gic-demo"
+> > > root@jh_01:~# jailhouse cell load
+> > > --name    1         gic-demo
+> > > root@jh_01:~# jailhouse cell load 1 gic-demo1.bin
+> > > Cell "gic-demo" can be loaded
+> > > root@jh_01:~# jailhouse cell  start
+> > > Usage: jailhouse { COMMAND | --help | --version }
+> > >=20
+> > > Available commands:
+> > >     enable SYSCONFIG
+> > >     disable
+> > >     console [-f | --follow]
+> > >     cell create CELLCONFIG
+> > >     cell list
+> > >     cell load { ID | [--name] NAME } { IMAGE | { -s | --string } "STR=
+ING" }
+> > >               [-a | --address ADDRESS] ...
+> > >     cell start { ID | [--name] NAME }
+> > >     cell shutdown { ID | [--name] NAME }
+> > >     cell destroy { ID | [--name] NAME }
+> > >     cell linux CELLCONFIG KERNEL [-i | --initrd FILE]
+> > >                [-c | --cmdline "STRING"] [-w | --write-params FILE]
+> > >     cell stats { ID | [--name] NAME }
+> > >     config create [-h] [-g] [-r ROOT] [--mem-inmates MEM_INMATES]
+> > >                   [--mem-hv MEM_HV] FILE
+> > >     config collect FILE.TAR
+> > >     hardware check
+> > > root@jh_01:~# jailhouse cell start 1
+> > > Started cell "gic-demo"
+> > >=20
+> > > The modification I did is as follow:
+> > > in zynqmp-zcu102.c
+> > >=20
+> > > .header =3D {
+> > > 		.signature =3D JAILHOUSE_SYSTEM_SIGNATURE,
+> > > 		.revision =3D JAILHOUSE_CONFIG_REVISION,
+> > > 		.flags =3D JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
+> > > 		.hypervisor_memory =3D {
+> > > 			.phys_start =3D 0x40000000,
+> > > 			.size =3D       0x00400000,
+> > > 		},
+> > >=20
+> > > /* RAM */ {
+> > > 			.phys_start =3D 0x0,
+> > > 			.virt_start =3D 0x0,
+> > > 			.size =3D 0x40000000,
+> > > 			.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> > > 				JAILHOUSE_MEM_EXECUTE,
+> > > 		},
+> > > 		/* RAM */ {
+> > > 			.phys_start =3D 0x40600000,
+> > > 			.virt_start =3D 0x40600000,
+> > > 			.size =3D 0x3fa00000,
+> > > 			.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> > > 				JAILHOUSE_MEM_EXECUTE,
+> > > 		},
+> > > 		/* IVSHMEM shared memory region for 00:00.0 */ {
+> > > 			.phys_start =3D 0x40400000,
+> > > 			.virt_start =3D 0x40400000,
+> > > 			.size =3D 0x100000,
+> > > 			.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+> > > 		},
+> > > 		/* IVSHMEM shared memory region for 00:01.0 */ {
+> > > 			.phys_start =3D 0x40500000,
+> > > 			.virt_start =3D 0x40500000,
+> > > 			.size =3D 0x100000,
+> > > 			.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+> > > 		},
+> > >=20
+> > > I also have changed the zynqmp-zcu102-gic-demo.c
+> > >=20
+> > > /* RAM */ {
+> > > 			.phys_start =3D 0x40600000,
+> > > 			.virt_start =3D 0,
+> > > 			.size =3D 0x00010000,
+> > > 			.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> > > 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+> > > 		},
+> > >=20
+> > > But when I start the gic-demo cell, no print out information.
+> >=20
+> > If you are using/deriving from configs/arm64/zynqmp-zcu102-gic-demo.c, =
+you will=20
+> > see that this directs the output to the second UART. If you don't have =
+that=20
+> > port, change it to be shared with the root cell's UART.
+> >=20
+> > Jan
+> >=20
+> > --=20
+> > Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+> > Corporate Competence Center Embedded Linux
 >=20
-> I just made suspend_cpu() not static and called from am57xx_exit_cell(). =
-I got=20
-> cpu_up() working after that. Now I have the both uart-demo and git-demo w=
-orking=20
-> now. Let me clean the code and I push it to the temporally branch to TI e=
-xternal=20
-> git repo. After that we can discuss what I need to do to implement the co=
-rrect way.
+> Hi Jan,
 >=20
+> This board has the second Uart. I have tested it with=20
+> start_tty 115200 ttyPS1 &
+>=20
+> Could you give some hints on how to develop a simple "hello world" image =
+from Xilinx SDK?=20
+> Than you!
 
-OK, sounds good!
+Hello,
 
-Jan
+Where you able to see the prints in the second uart? I am facing the same p=
+roblem in UltraZed Som. I have followed this topic and been able to load th=
+e system cell and the gic-demo cell and the gic-demo.bin, but cannot see th=
+e prints in the second Uart. I tested the hardware with a baremetal app in =
+sdk and the second uart is alive.
 
---=20
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+I am running a 4.14 kernel from Xilinx.
+
+thank you in advance.
+
+Alex
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -242,5 +266,7 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/cb3304a1-b322-7f87-a67f-3c6f11fe3d7c%40siemens.com.
+jailhouse-dev/3f445e6c-699b-4cc0-b73e-10df44848858%40googlegroups.com.
 For more options, visit https://groups.google.com/d/optout.
+
+------=_Part_1802_1695439640.1561408374902--
