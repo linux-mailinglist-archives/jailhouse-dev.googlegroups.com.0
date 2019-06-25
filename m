@@ -1,142 +1,182 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB74OZHUAKGQEDTVQ3FY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBINSZHUAKGQEVJXZ4BQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43f.google.com (mail-wr1-x43f.google.com [IPv6:2a00:1450:4864:20::43f])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB01155410
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 25 Jun 2019 18:10:39 +0200 (CEST)
-Received: by mail-wr1-x43f.google.com with SMTP id c6sf8121351wrp.11
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 25 Jun 2019 09:10:39 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1561479039; cv=pass;
+Received: from mail-wr1-x43d.google.com (mail-wr1-x43d.google.com [IPv6:2a00:1450:4864:20::43d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 68BE4555D3
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 25 Jun 2019 19:25:54 +0200 (CEST)
+Received: by mail-wr1-x43d.google.com with SMTP id s4sf8214569wrn.1
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 25 Jun 2019 10:25:54 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1561483554; cv=pass;
         d=google.com; s=arc-20160816;
-        b=hcnmcmuzxIvI+xPAZhBJemeUjRc16c3EcKpMzgIZnH5/gOQo1ZMey+z+zgCrZGOZjt
-         yKGMi2DVkzaaKxRUB5cRVIfSsPILQTAR5xLRhJry23RsurLo6A0t3/Ox94FItfD5/+CU
-         zaCIen/AKS8MgrDVOOYQv5QSS/hepOWt6h2+shqZu7R2oeiJ1/u81E9+SONXsA2ohWQi
-         Jup02lqHSK8NguP8NeoqmKesrqPnMDzyk5mt3qbobFn9RNdcsigioqXtWdwBuIJwJe/5
-         uSPhK6Ozhylf25grVoF97g9s1Rwb+ZyYu1IaB7XDyV+7COA0vVlnd1vYLiTO6VpnNE0/
-         70SQ==
+        b=FcatI/hso+H49j1K96eQcn/cB4zE1BqMUKyBNDjvt499P8Ua5Gi+/P3MjCqp6Zsgk7
+         N4lKCXwONmZuhX3iISgnnwo7AF/vYf/K5wdHRuDVzTz1MvUPUp9Ky/c0DsVRlC7DmmGa
+         MfWvW9HAQpEUGKxECKd2YRRTMA7RdOVzkM+a6KxcZlxFWW7x9fK5MDRvEJqTQavAJ05e
+         2wFjY5rHlbOkpAzQPts9JaQhRQClIe/EEZfywg4uBr77gRMy3Frz7YUchjrGqTPus+0P
+         m05TrRvSMM9gQE38OHOmSsgOKNf4Aga+kWWdF1rFu0Y7U4YrRGCyWWW2g6pb/73nWOZn
+         276A==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
          :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:cc:to:subject:sender:dkim-signature;
-        bh=5WX8nbD0/gMNWKWWNzpng75IxIvmoS8IWwzjRCux5A8=;
-        b=jWbBXGeQIYOypSoQYZeAN/kyLoh15Mm5DhHx4PIKQJtj8JxLI4RceNKT5KT7d50wQJ
-         k9Flcg59pBmGiXO6LCofz7cGQKQ+TDW+m4HVmvClb9jo9QgEHQ2CjoVcMJ9AFFLM3DCC
-         ji/6+7ZeTD+oGVUI4FNgbfe4LgBsKhHEmwfqqgmgIwFHKYJHO+mOU6+jpE4l1iHg61Os
-         1R5NE9EDZfwrcvFK0u06h6baHUL3ub0Gsq7bvWsdWn70Qar0ZsAiun9frOpD0ndJQx+u
-         pLyn0nkx88U3Ek8I8Gvi2jkVk5QkZsxUy0pWoPFlW//79G8SEiciKcCo255AH9CS8IZm
-         6s7g==
+         :message-id:autocrypt:openpgp:from:references:to:subject:sender
+         :dkim-signature;
+        bh=4/MREkmfg8g9KX+uAIrUO47NisIfrJ4JAYQFO1LCtgc=;
+        b=QHN7inRzMraFgu+y2zrvjvFl5spuUp9bqCByYbRip/G3itQ/yCneJqH2oMhkIVpYQ1
+         CZWOGWsra/C5nA9g+sF4wDUeVNy1LKogO0UheV+UGT/9q0Lt3l7D9JpJd/Lx8KuyMkcl
+         qlQPfOglrga32ibssSzbuKU2vr9iHlDRc4M0x2f1nE8jEYrnvHxJZpbPDQgcxcFVYpVm
+         Q7KheVGJDIkjkg2KKgRRLQjcH/kImttcNPk5lbMCSykB0TteU5H9Jphc1Qk9libp4UBl
+         p/RejsQsAlTKSKlU8L3VEtiXin5frHKb7cICPqFHOcDfD/8gZ+2xTFQsGzjsOGa2I+LY
+         FZCQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=Ow9Bk1VC;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=5WX8nbD0/gMNWKWWNzpng75IxIvmoS8IWwzjRCux5A8=;
-        b=q7Bje9SoSAUkaslgGt3N+3PR4gjJvsaF7X8vzvmqGXwlLNpuPml12z/6j3NGpyMvF8
-         X5KAEWCWa9TTxU6B2AIPF8bIC4yWwRBXfYER02xnn1ipCHN6WSAsQvW6SgqjnsC1xVqQ
-         f+SsmdcrSvngwGoAFx/iPkaxVLDU8GiHyeFQOvHLhz/Y6eI36Yp3pV60G4RhnYbgRos2
-         AmZwn9h36jjQHPQmELrU5eu8Ap0julBoXskChgEdbvcNG1RJiu3T3MASoCj46pHHlV8M
-         9QrbBp1pJnOwhIbRfEkZlahgK9SGR6OzZZLvWLORgWi87WP4SS5l+LZX4pHfQA4F41q0
-         fGyg==
+        h=sender:subject:to:references:from:openpgp:autocrypt:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=4/MREkmfg8g9KX+uAIrUO47NisIfrJ4JAYQFO1LCtgc=;
+        b=hdfDLTtNxHvw7chftINhNcPQmDkZi02erhZmVOXWShh6c+FRVyccuH4AE+UHq7Z09W
+         uDRWmS8lI5tmXdVM3k7+ADpSxRp0/YtiB5Y1wD8rVfg2aplPsAenz6OwNn1SQBBxY4E+
+         FbxoRXyWvrB5ZsPcCvhIG2vhRsOHTELIfFToHEm7Po8HdcKIr3yPei3ijtJekhX0uaSN
+         mU31CkDBDIz2JZL9JUR02dg1Jeiiubq3iUPDJiYPI6Skkjs/YhGt/kGGIMqQDgjM7vW/
+         JTububeGtVj0c61muOlfFqythI8hdxFO5NdhviSVD3WCtXF2GFtmPaVOYj13LZmlx7XZ
+         0M8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
+        h=sender:x-gm-message-state:subject:to:references:from:openpgp
+         :autocrypt:message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=5WX8nbD0/gMNWKWWNzpng75IxIvmoS8IWwzjRCux5A8=;
-        b=HYRI+abSa9sOa2NZ6xSCXW9dBoSf0FcAvivadIyeKudQh9/Qq69ykAmqSM6T7mntL6
-         eAR1gMTZYmHWxWwyWbzRRzdFWnMdBU5XGzQIfxGBmDfGV77/WILO/+xtqagiHqfRPWKI
-         eVTgn0gBYfvYKef6GYYdAzS0HyDSxKtiWLayJX2/qUtKS82fwVXBZRm89wdvZNM/X/4L
-         pqTwyD1Z7uHg3hVNuyHwVWM0GDRP75AWzmLrd8mANOz+gOid3NiTUP05WWhYFvvWUcy3
-         +sX73UocTbRlMp813O68NkQlYCBhknMjfGdVElqtYb6kRmcFGGWb22U9fOm9qLNlCuA1
-         tu/w==
+        bh=4/MREkmfg8g9KX+uAIrUO47NisIfrJ4JAYQFO1LCtgc=;
+        b=WGwD2kC5S28pm/gr8ehKjP2K/aze4GGTdPI0nLdOieJ88mAw9NwtVpBUHcw8HkWDLm
+         31M74LsIoPC0EsVnWRjYaX3ZKdOfU/k3b8eZYhZfg6m/F6g2glXwx9PM0PsKYGOGpAsF
+         XOCughupxxAnYkYkwDlKG2FR9RAZKwubA0md+DCt79sUqXw1c2l1I+Clg5adsxLS221g
+         YuEaeZpm8VG8HpxZbH6r5deAuF3XtAvaAvWMXE+aSB1rZl00+j0jeDofaVrstZvJ2qo/
+         uWygW/N0k8dbSw6/zWOgaUBO60XYG3TIWs+jGi7TWvLUMLSG9teQ2cVqySlqmmigUPFQ
+         6teQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAV7sNTliTOzaZI6UUGN8Mf8r/Pi1R8xS0dPuBjtvDqMdX9eujz1
-	EPKuLHoC5vIHBL1S3CG7zng=
-X-Google-Smtp-Source: APXvYqyGlkfzQV3wo7Uv07FRiPWXAqzvtgVG9AX9dCWPoQxN0ydJBAmj6p27mkWE3YPLo6eAxj07ww==
-X-Received: by 2002:a1c:3b45:: with SMTP id i66mr21099800wma.48.1561479039503;
-        Tue, 25 Jun 2019 09:10:39 -0700 (PDT)
+X-Gm-Message-State: APjAAAXeVHD0J2hkNXascl8lA0BZL0PCQbpO/CIk3WmMwhGjxmJPlVep
+	6Vehmnj2g8KjjLK9d4f28Qs=
+X-Google-Smtp-Source: APXvYqzXYbQ0/qQ31aKoBVUNSW0mWp8MRUyXueO3bbN0VOvi5WxKVhLw1ora1oG5N829cHENwJ57ng==
+X-Received: by 2002:a05:6000:11c2:: with SMTP id i2mr16385326wrx.199.1561483554146;
+        Tue, 25 Jun 2019 10:25:54 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:5f86:: with SMTP id t128ls759791wmb.3.canary-gmail; Tue,
- 25 Jun 2019 09:10:38 -0700 (PDT)
-X-Received: by 2002:a7b:c247:: with SMTP id b7mr17431845wmj.13.1561479038933;
-        Tue, 25 Jun 2019 09:10:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1561479038; cv=none;
+Received: by 2002:a5d:4d89:: with SMTP id b9ls4929258wru.0.gmail; Tue, 25 Jun
+ 2019 10:25:53 -0700 (PDT)
+X-Received: by 2002:adf:9d4c:: with SMTP id o12mr43702665wre.340.1561483553472;
+        Tue, 25 Jun 2019 10:25:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1561483553; cv=none;
         d=google.com; s=arc-20160816;
-        b=JtQMOUQH6at4L+x/YJiX/FgSWa8GgyhISfynQTE/I9m33aTOCLet9PCeYxLdvfFbD0
-         fCmBDml5jYTUvZUb+6gPIbhZLVmEXHNcJ+CJG96OLwELRYPDr0dKtN5WaeNWpW4ToIzO
-         q69Oq2rNORwTE7TdO9AE1NnjU9NJKPyd0S+fdPM7LRKOl/Y7/jvZKdyGQath6sDN7vc+
-         Mvfyupgw303FDfgHv8sL+u56CYytFGVn1We33xZJaCeSe7CwCKI3y44BBN9NZ54ssE5F
-         WCmzMsn6KlUBCAqDCh2FKQDQ9dR7WHtTrlLvpew7wA+596/pU8POWYv45xqMnyrvrXmF
-         n9rA==
+        b=Y+K7ZO7EqaqH1V8XF6YsyxJvMPAf0CG+qkWynavb40EHtVYsm/nTs4hNdlymJuikUs
+         qg0f/+T/3W/guKFjzlbmZ2U6TXzAImWXN7IM7gN+MMPA5nV4SzTmSw11CuNHUihXITBe
+         w0psS2I/oyf+yqQ3vK/qE5NRFOBK2c2CaYJ5kzeUwS65ZSXH55/Ww6HTuOVQs7eZ8O/K
+         MUeQ5ml0mBEVSftu3TljH8Klj/ecl/wmOsCaHG1QH0Z4EXq2L/VDRiWIcVPAXmt7LaC8
+         VWKJoyM7sk8k2zde1dELTjUlphvXSb8sb2HLudvqiqBKdE4r1dBJHI8HCWWcjyJAJSlM
+         vjhQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=xTiAfIv8hdINHfYjR7h6jlOoaiB2JQ6ghGrWcsqT+2Y=;
-        b=gag4mGgIAGC4oHgtQX8NR9O1WoWxNDT7t1UD32r1mBWb9NmobEi98gX5OacrlcDTNH
-         t0FrNspoqR4hBVJJ0AFVcrVqbUzSM3WdiNVWKL96UWUM+Coisn1jTOGMBM809FdX16LH
-         xkwAQHMCYVIWUVDBxfCz7oOQUsGZCroTIpBSYmu/y3+F3xzFQuv8dvxLdpO8rxCuNTif
-         d3tyRsVNeh7BvABr2XFQZKbFV2M1y5z7l6FLFwq7dMciLtRN0fLN1jxXXAZAUPAVJHUr
-         3+uV1R1/5M9Oo0BFuucSPkiOOr4KiAe7/xuMfStFLMVX2cTJN5qxeUN7V0nQTNKzqMg3
-         M8+Q==
+         :user-agent:date:message-id:autocrypt:openpgp:from:references:to
+         :subject:dkim-signature;
+        bh=M25wFoLmr5Funq36RFNlNxVkRISVfjtRs0o4mmO6WTM=;
+        b=DLIlSrawAJ191y06p7ExLlmCmH0FgZGBWTQyMQvWj3OYPXEhPjN1FtI/82vo9yuitx
+         6dKZC2KrVmmWU4bUtdLUyBJAWgU/ot2ltDL/vHEEJ72hgcTx33GPwyGE8h2VynwafFKI
+         yjZqgXhdYEgA6jWG2QIyimXD5HxQf1WR6Ww//k9fLiwD+mKbOWQPDV5JwkdJEaHWgWsQ
+         wN0flsXoM73/BkJeh5oHv90D9DP59wyyIloeBtu04NQ/IwJ4YHdLE2Mcrd5dal0AQMMo
+         2zda0PQtzyPN86BX4AwmYXLiYkggQDK6P1kIckVEA8Zdo7EODtoJvlypd7tHRRk9pQtJ
+         Dbxw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id a1si124083wmb.2.2019.06.25.09.10.38
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=Ow9Bk1VC;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [2001:638:a01:1096::12])
+        by gmr-mx.google.com with ESMTPS id d5si1073926wrb.0.2019.06.25.10.25.53
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 25 Jun 2019 09:10:38 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id x5PGAcGc005465
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 25 Jun 2019 18:10:38 +0200
-Received: from [139.22.35.41] ([139.22.35.41])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id x5PGAbcb007707;
-	Tue, 25 Jun 2019 18:10:37 +0200
-Subject: Re: Linux non-root node question
-To: Wayne <racedrive1503@gmail.com>
-Cc: jailhouse-dev@googlegroups.com
-References: <CA++Khc2iKk1J6+0huh5__dS4HyujXzV9r+LbKLzuVZ4K3Bt5eA@mail.gmail.com>
- <63552042-48d0-cb32-e893-28ae4ab29ccd@siemens.com>
- <CA++Khc3Mj=SFen+_f7RE5g1Paq1AhHQOrBX3HqNoJvvbymQh0w@mail.gmail.com>
- <5b90a899-c42a-a360-8398-c3af35920765@siemens.com>
- <CA++Khc0whU3=U86WGNEtLUZoOkKuYLiEA+nqOjW1UFcRDeGTRQ@mail.gmail.com>
- <0da95034-9bd0-4415-4d3b-5f6687a84563@siemens.com>
- <CA++Khc1Xjt8yMT39shFraJnzSWp8Ctc9-Cv-mNxOqf+UkxhyxA@mail.gmail.com>
- <36306f60-8b63-f32d-2559-3a1ca6f53e87@siemens.com>
- <CA++Khc3hURr3dFrw2ga=uf9A02KZ1OEEtMAPOVJyCAP3Fs+fmw@mail.gmail.com>
- <889c96a9-a7dc-4385-28e5-437fbc4d5008@siemens.com>
- <CA++Khc2-Cv==+eJCS8cN-ShK7q==Qs7UpW-ZfoUcEZ2Tam5c7Q@mail.gmail.com>
- <3bb0abe5-55ca-b9b5-edff-6bc8d0ef85af@siemens.com>
- <CA++Khc2YjAfFL1x-uU_N9FoUhZUMSsKQ2bKHAbd17U=HA_90Nw@mail.gmail.com>
- <CA++Khc0Kev1DGnKeKr2Dd3B4qHWZxZFrgDsMFQ1PX+OHYxDNsA@mail.gmail.com>
- <3660acb8-e530-9625-bcac-177b8c84b642@siemens.com>
- <CA++Khc0Fxz3NKS5p0ApbTtos5j5GtuJzBOJ+4jT31faXn7fbrw@mail.gmail.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <d61ddf73-8872-23f5-23e2-06a3401aa490@siemens.com>
-Date: Tue, 25 Jun 2019 18:10:36 +0200
-User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
- Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
+        Tue, 25 Jun 2019 10:25:53 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) client-ip=2001:638:a01:1096::12;
+Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S02", Issuer "E16S02" (not verified))
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 45YCjr6t9jzyBv
+	for <jailhouse-dev@googlegroups.com>; Tue, 25 Jun 2019 19:25:52 +0200 (CEST)
+Received: from [172.16.2.24] (194.95.106.138) by E16S02.hs-regensburg.de
+ (2001:638:a01:8013::92) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 25 Jun
+ 2019 19:25:37 +0200
+Subject: Re: Having trouble setting up a shared PCI device in root cell
+To: Mario Mintel <mario.mintel@st.oth-regensburg.de>,
+	"jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
+References: <525b5e1b82474f3eaaecf83b150aa9f7@st.oth-regensburg.de>
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Openpgp: preference=signencrypt
+Autocrypt: addr=ralf.ramsauer@oth-regensburg.de; keydata=
+ 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
+ RncIIYr0LjXAAzY=
+Message-ID: <bb241636-ed0b-6803-4f34-492744389445@oth-regensburg.de>
+Date: Tue, 25 Jun 2019 19:25:37 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.1
 MIME-Version: 1.0
-In-Reply-To: <CA++Khc0Fxz3NKS5p0ApbTtos5j5GtuJzBOJ+4jT31faXn7fbrw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
+In-Reply-To: <525b5e1b82474f3eaaecf83b150aa9f7@st.oth-regensburg.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-PH
 Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+X-Originating-IP: [194.95.106.138]
+X-ClientProxiedBy: E16S02.hs-regensburg.de (2001:638:a01:8013::92) To
+ E16S02.hs-regensburg.de (2001:638:a01:8013::92)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=Ow9Bk1VC;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -149,71 +189,62 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 24.06.19 22:55, Wayne wrote:
-> Hi Jan,
+Hi,
+
+for the completeness sake: it's about ivshmem-net. The PCI device shows
+up in the root cell and can be discovered via lspci, but the driver
+fails while probing with
+
+[17061.414176] ivshmem-net 0000:00:01.0: enabling device (0000 -> 0002)
+[17061.420598] ivshmem-net 0000:00:01.0: invalid IVPosition -1
+[17061.426193] ivshmem-net: probe of 0000:00:01.0 failed with error -22
+
+AFAICT, the device is correctly set up in the system configuration.
+
+Thanks
+  Ralf
+
+
+On 6/25/19 6:07 PM, Mario Mintel wrote:
+> Hello,
 >=20
-> I have a couple more questions on serial device (UART) allocation.=C2=A0 =
-If I have=20
-> two serial devices, ttyS0 (IRQ4 w/address 0x3f8) and ttyS1(IRQ3 w/address=
-=20
-> 0x2f8).=C2=A0 Is the setup below the correct way to allocate ttyS0 to the=
- root linux=20
-> and the ttyS1 to a non-root linux guest?
 >=20
-> // .irq chips array in the root config
-> .irqchips =3D {
-> {
-> .address =3D 0xfec00000,
-> .id =3D 0x1f0ff,
-> .pin_bitmap =3D {
-> 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff
-> },
-> },
+> I want to set up a shared PCI device in the root cell but got stuck in
+> the process.
 >=20
-> //.irq chips array in the guest config
-> .irqchips =3D {
-> {
-> .address =3D 0xfec00000,
-> .id =3D 0x1f0ff,
-> .pin_bitmap =3D { 0x00008 }, /*remap ttyS1 to the linux guest, root keeps=
- ttyS0 */
-> },
-
-These look good.
-
 >=20
-> //.pio_bitmap root (keep ttyS0, lose ttyS1)
-> .pio_bitmap =3D {
-> [ 0x2f8/8 ... =C2=A00x2ff/8] =3D -1, /* serial2 */
-> [ 0x3f8/8 ... =C2=A00x3ff/8] =3D 0, /* serial1 */
-> },
+> I did the following:
 >=20
-> //.pio_bitmap guest (keep ttyS1, lost ttyS0)
-> .pio_bitmap =3D {
-> [ 0x2f8/8 ... =C2=A00x2ff/8] =3D -1, /* serial2 */
-> [ 0x3f8/8 ... =C2=A00x3ff/8] =3D 0, /* serial1 */
-> },
-
-These look identical, thus something is wrong.
-
+> I=C2=A0reserved a memory region for IVSHMEM and referenced this region in=
+ the
+> pci_devices.
 >=20
-> Also, is there any way to prevent the non-root from trying to probe again=
-st=20
-> ttyS0 at startup and causing a memory access violation?=C2=A0 I'm aware o=
-f the=20
-> 8250.nr_uarts=3D1, but it seems to default to enumerating ttyS0.
-
-I don't recall details, but the x86 platform is way less flexible in config=
-uring=20
-resources. I would recommend configuring the root cell to step away from po=
-rt 0=20
-(setserial) and use that with the non-root cell.
-
-Jan
-
---=20
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+> When checking lspci the device shows up but looking at the dmesg=C2=A0the
+> probing of the driver failed.
+>=20
+>=20
+> I attached the configuration used, lspci of the device and the dmesg.
+>=20
+>=20
+> I hope you can help me what's going wrong here.
+>=20
+>=20
+> Thanks,
+>=20
+> Mario
+>=20
+> --=20
+> You received this message because you are subscribed to the Google
+> Groups "Jailhouse" group.
+> To unsubscribe from this group and stop receiving emails from it, send
+> an email to jailhouse-dev+unsubscribe@googlegroups.com
+> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
+> To view this discussion on the web visit
+> https://groups.google.com/d/msgid/jailhouse-dev/525b5e1b82474f3eaaecf83b1=
+50aa9f7%40st.oth-regensburg.de
+> <https://groups.google.com/d/msgid/jailhouse-dev/525b5e1b82474f3eaaecf83b=
+150aa9f7%40st.oth-regensburg.de?utm_medium=3Demail&utm_source=3Dfooter>.
+> For more options, visit https://groups.google.com/d/optout.
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -221,5 +252,5 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/d61ddf73-8872-23f5-23e2-06a3401aa490%40siemens.com.
+jailhouse-dev/bb241636-ed0b-6803-4f34-492744389445%40oth-regensburg.de.
 For more options, visit https://groups.google.com/d/optout.
