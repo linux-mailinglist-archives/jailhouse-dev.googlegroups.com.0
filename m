@@ -1,148 +1,115 @@
-Return-Path: <jailhouse-dev+bncBCCMB6PY3AEBBHG25TUAKGQEIXGWOFI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBPPV5TUAKGQEMPPHOHA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qt1-x838.google.com (mail-qt1-x838.google.com [IPv6:2607:f8b0:4864:20::838])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95AE25CD54
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  2 Jul 2019 12:08:29 +0200 (CEST)
-Received: by mail-qt1-x838.google.com with SMTP id z6sf15847630qtj.7
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 02 Jul 2019 03:08:29 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1562062108; cv=pass;
+Received: from mail-qt1-x83f.google.com (mail-qt1-x83f.google.com [IPv6:2607:f8b0:4864:20::83f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 85E785CE15
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  2 Jul 2019 13:06:38 +0200 (CEST)
+Received: by mail-qt1-x83f.google.com with SMTP id q26sf16038053qtr.3
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 02 Jul 2019 04:06:38 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1562065597; cv=pass;
         d=google.com; s=arc-20160816;
-        b=abp7/HjOKKtual50Qc9t/sGz3ANL7WeyUeoEEPpVq9yB1IljuG03eEU7qzzxgVLAXx
-         WbBh+Mfmt6wT1110++QX/S3gT6QDue+zZ41pTaFlFMEVZg9oFEF4Ik1MmSOSwyt518tj
-         EiJa3vqNejDTvawc6QArhHiLtj3jQt0h+pFAcIXfVad2eFqv3vWsydyEbJE+RSpKehk4
-         /Lh18fYiR0kpPY1EgeynztD3s+mHUnp7wEpsJpN5dGVqtSw7xI+enqUpoB94QAZAQlqG
-         hRxWlDaBxGJme4D1W8iKqvLmyyHIjv16C9+iN4Te7PeD1MBQ34TkI+5NPhGLVrJjMmAe
-         h8ww==
+        b=TwYD05qAkvQPFLb2TvM+KozcPmdRambDQgxUnz4mHiSPK++CrOFOOSfNJJ6cH/tJQT
+         jSdU91TgqoOYfJz+kQvrTbClovVje4ZFik7M8UBklpZRK09vsWNXi/2xWkP4x3hd1rEL
+         Xft6NS4HQSiY7qUpnShqLW4Lp/0/6pypFtF6GyIcwi0tNSOUE+9uZzNnPSC0Zyh5XMRu
+         RADJL1ck35Ml09NFDTN1ruNiFae6ZVwVODp2YiesIFTeTJQ7zP7GPWxwUTTjujRHEhZ8
+         azf7/pcRau/q7jIUE+k06dv23v9vWk82jegY36Ni01rfc4hNkVrEOUz7IxKafWO5803B
+         NwEA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:cc:to:subject:dkim-signature;
-        bh=FGaDKjunOOL5VU6pJ1pnxBchLm3D6D+eOswJ2ecm3QQ=;
-        b=RhQPFuiHzwZm9BErDnI07UIlk9AGXhS9cgM/7pBI/ok+Y08Aj4tDAexNbU5PxgyA5J
-         RuXFHAcFcVjU+qicA1HauzXRFrAptQuQouAsPwW98HbUEAc7JRFa43pQpd4EYwfnRIQO
-         NqEIEl/5bKuu1wX8JHzxouYQDJPHbcoEcmgV3+ZEM/FJRUQWlt8HRbpaKdqt4Wkjuy5O
-         gI0NKFx1NT4jt1eKnPZ9d3/S6NuP7ZrM6ype3Uf4PuftYVZrdksuBdq5p3pXOfKqy3RE
-         bfU8lYXJ5li0UW7Y00MTMSFFWqX20Sdffk5BmIHQMm2y7qmCSYc6SDH+FTuHFEZibc3t
-         9NuA==
+         :list-id:mailing-list:precedence:mime-version:subject:message-id:to
+         :from:date:sender:dkim-signature;
+        bh=yXaeRZDD3hY6Am9gcR9nsRlc39fBXlADB4sJgHa3yaY=;
+        b=FP5PlUSRO+sXWs/sRaWIz52O5iDJS69LEExwNl8M3x61lOtCUygeHLe3VGOyve2epZ
+         D7MQacyfxtDJn2IKO1PGeSof1hEspSL9WxF2WDUi+bUzlp7Y2ts4Oy46pJgN/1bzT1Ka
+         vI0aTciJCngJtGxpLjNBaS73RoRpUWMqFPHpcVGCHf5aZpcteMvAwdVW1m4r4lv6t+KD
+         mya5JH/NE/V4zI2ebygOsPXmzDlVB5rAj2vJuBXYse7RDXRAEzB/057Y80vCc/cVyv7w
+         /i5avHpIsuYNluuGeqGEwLRH4Xk8yjZfxmK7vS0zxXbchGD05RhOVuKApJktMpvfEjWP
+         eo0w==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b="vN1LKSa/";
-       spf=pass (google.com: domain of p-yadav1@ti.com designates 198.47.23.248 as permitted sender) smtp.mailfrom=p-yadav1@ti.com;
-       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b="Q9P0/s50";
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.192 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:reply-to
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=FGaDKjunOOL5VU6pJ1pnxBchLm3D6D+eOswJ2ecm3QQ=;
-        b=IgqxBWIbg8VVeKkerNv6JqZ2Q5fj4jF+zE0RBnIl1tYbpHy/t74Me2VRSgZBuiKQ5R
-         KZj4wg1em6bzaQDFZQxtFfQhmuEKgIlQn+//uVp/5otPedVISj9B4NfqNw/Wu4/5nRcI
-         vPcAWQqfef4FfnKzxlIC3wCzHQmwSfLyXfiIf3uP/NUOP1u9CjQt7Q0CMSsG5rSTCCWG
-         d/kw+N1d/nBfPuYv55sclRSAoXjrpWmNodS+XmSMYGsvX32vLFbh6biyttMyDViL5G3C
-         Whb5cuI3BMMFlf/jEH9TYjSbNLjBDfeyNH21fUwC/vICrg1HiPjDGV3xcF5MxLwxELqf
-         bcTw==
+        bh=yXaeRZDD3hY6Am9gcR9nsRlc39fBXlADB4sJgHa3yaY=;
+        b=md3GGa1+uA5MHgLWSfyyeGvT7Q9YXyAbSlIDZCZeqB+JxUhHcS8DX8GKlfdr/C+3W9
+         1kZekqf5Pgu+EoSiJLaALOeYf9sko3DtGnBG4n+kpMJZ4q2b2+hWPEwxFbbGJiD85JoR
+         QryiXT7vClZiFrrhP8MpHFqTdVpvt2eypy0FsptWkXCorys3Jkocti4ftC63KdH4++AJ
+         ImCEugf1I33eSmfwbANCZC4RtBZCbFIBkzMgBedUL3EmytUqdcp8zMG8kPxdMWoekLIx
+         iNCoNbiXMmauC2q9wl9n0wg3yGQwyjaCVKO6ht50pW8c6tinEy552/abXFbJFFzv4oRd
+         Unjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:reply-to:precedence:mailing-list
-         :list-id:x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=FGaDKjunOOL5VU6pJ1pnxBchLm3D6D+eOswJ2ecm3QQ=;
-        b=BHNEzY9XV18EzKQAmcAi9h4PmLILkyHZjeGZKXPFPpRa+d8cQCRTWaU7VNsJoKG2SE
-         b7kbc30XfD2wWpkkzntgxzdPyOnND+MpKzWegNxozk7IitYx79BL2RAIDL/nbPjMrIgU
-         zda6Vxz75epfwr44twz9U9SC+F3AmKXTz/Oc9V5D1RRBDl08cU8RqgEVD44RLkj/WocK
-         +hkWj+CU3xNTH9NR8pv4A0SUhFLEe0+NUvuADTJnnPmPhZh959Naq8JjsiCbkKiKd0Bc
-         iPVQi4kfdNZm/MftIaQB9XYzw2PKcwNWWD71VoNKxPsqqY3FkTpB28+0kYzXyC5eCY8l
-         BVSQ==
-X-Gm-Message-State: APjAAAWQPtwC9Mxy9yap+K+BSUavkCAOqqugCAWVNd6llg59f30iqq1c
-	rruTCQsOlTyW8I3w/x4Favw=
-X-Google-Smtp-Source: APXvYqxaPQamsVe7+MrZxjKcRfo/hB9F/ZUV0tR8FNoZ2f3lDVwWmNcpbL0uDgH2SL4v5pEeZrG/Ww==
-X-Received: by 2002:ac8:768b:: with SMTP id g11mr25419386qtr.182.1562062108412;
-        Tue, 02 Jul 2019 03:08:28 -0700 (PDT)
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=yXaeRZDD3hY6Am9gcR9nsRlc39fBXlADB4sJgHa3yaY=;
+        b=TeaAH8LaFQvHSZ88WCHaOfj8EB+toCoX02QRxM9mT047tcKSyimqGdIrcZwQZqbRmd
+         zL5bu4J3LxphNkvJddW7LpkUcFr7Q88bKX8eXWHbcwWRH1opUemPe7spg/C4Kdlhj7YE
+         7Sx8kDX6Bt/QJLg+hPl91CfwApz3wu8lxdziZAFCJR8DhxrkWHaWYV3AEGJvrVEZ2yvR
+         iEH/9GTUcpGwBNoalCelqHjmOYp5CdBu2ZXwj8N4neHb61S5qNobrvV2kb3Nc9pXORfT
+         ESa+qJPCMkvFQBjaIuFxdI8cBIXQGgJ5V+ECuPduDi72e5+tL14hbJmoUfMDUlCe0BQ0
+         5rcg==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: APjAAAXe2zoYwSIjxtbx6T2FERj2itF9TzDHN5hGmqgpPpku7EAj3cU4
+	tgsmElR9UKY9T5LpsLztPKg=
+X-Google-Smtp-Source: APXvYqxfLMZTHjWpoZA+ulo5sJGS1LPKs5cLagDCQeoyT0oglGUBvzhrc5VsyrqOPP3j7kwlQR4UsQ==
+X-Received: by 2002:a37:9e4b:: with SMTP id h72mr25173871qke.297.1562065597515;
+        Tue, 02 Jul 2019 04:06:37 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a0c:91ab:: with SMTP id n40ls2322822qvn.4.gmail; Tue, 02 Jul
- 2019 03:08:28 -0700 (PDT)
-X-Received: by 2002:a0c:94a4:: with SMTP id j33mr25720584qvj.135.1562062108120;
-        Tue, 02 Jul 2019 03:08:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1562062108; cv=none;
+Received: by 2002:a37:4c97:: with SMTP id z145ls4534019qka.2.gmail; Tue, 02
+ Jul 2019 04:06:37 -0700 (PDT)
+X-Received: by 2002:a37:6ac3:: with SMTP id f186mr24287972qkc.281.1562065597217;
+        Tue, 02 Jul 2019 04:06:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1562065597; cv=none;
         d=google.com; s=arc-20160816;
-        b=LruXXMuYF3eusbtyN5jUk2aPCnMbAA+MuDkN1vJha01lMUXBhX46JcU980Gn6dA0Zq
-         jM6Z9h+O3U+mLKwL+gRLuNfXL42DVCM5AfzKddnBkXco9dSeJ+BEOicP6I1ownDZnbhq
-         DvLo9064P1+1ASISfqdtsBtSfzulyCdD90ENUA9xfQ/jHM6+9HVfENOvdEU4hmfAHdzb
-         v4bn1u0Z2xkfHntVG5kpgBqCyItW5vvCShs62Bw5AZeozQExT0BShMwiJf/TROwckOTU
-         t/t9N/dIJ+9XQmfGgbtCU7zknqMZa+ytQEWLSgVHjFdRlsG2LLxl0cc/90E5bYkW2bYP
-         wuGw==
+        b=bbOTl4PHuJ7I2gK5PaI/jzaig4sh1ES/pA/M11Bc93JJ8J9m8lwIHDIm06tYqvNAbB
+         vadEdQtN9hhqDOTekC/SCDLT5ZdD3dtHQgXgLF1axN4pe+UYxS3TZ68nwy4z5Vi6aqv9
+         wdPDhRYSPZ57Z8TSMBlZaoivVZXME0u/mGGEiuozeLSpjGIitr9/PULmYKiCph7iGir7
+         oGzeWtB9sVBco86+u0FKyXpWYzvNKG7G5G9fRofE7LxBSOT3uB/eYSMeFXVFS6rS09ku
+         cyRCcV6+kR4/+M2IsBm5hxi3dsaSR0ve5AJbLTLjHXCe1O7LABG2RvSo1DQVNTPjbnjs
+         LbyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject
-         :dkim-signature;
-        bh=apehNs1KwNJN3j3Px/6Tj/ab2xYj+KUzd7YUByMxRsg=;
-        b=Et7xLQb3em7LYOywDLD11Lg68B8d9uNgMCd2ziZ66Rb/P5gR5YifLVVpwMVLmTyIzB
-         sX1alx9l3GLIva48yd8ckKNwIyj0bY2vHIm62nU7xKFWEFDejaaYfM3lV1zgs9bFmY0H
-         Stap8JYxqkFFHnQDvrPDZ21E/V6VdqoywSH5P1+Zw8Q//oEDzTc94HRDI1sNSY+KQ7+e
-         AQghHLu0jh8rkIi+C/uFE28DOMcao7NQlyWyRUIPcZhRhY2alNzr1vwsGIdtko7koRZU
-         z3uwDaI1naD33BfnmjVXT7H220BWvPDpZC5XzY2vs95cqi0u3OQ0ZqBp+fYwdhOmmvA/
-         jOPg==
+        h=content-transfer-encoding:mime-version:subject:message-id:to:from
+         :dkim-signature:date;
+        bh=f/XJuVS7XLYXfrhGj+sqsNdWrn3FXzgXDmqh0jLYa/Q=;
+        b=o5I1a6VxYhZA2Foh0E6e3DbOqwyo7eCTabWwCkNJpfpU8fmovPUHj0zRlbrE9I0HM0
+         o7FJQYVWMB6MXVlCmsn9po/iVXj11q9MHLxyflWpzLuAy/omiN/6dxKqgLvWSjUIxb+n
+         /DEzp1Ep+9de0v/Ro/2d52kRADpu+x7Y0GGup5kg5x+6/nidmFJvJM92i+ModxI7NRNW
+         6OvEitToazvc2+MoiFEleXlBUZaFaaoWcCMsaOEjDpm0Jd128E3but97MZsR05klRVGI
+         FDNvFcv8A6gmKpdnA7fCEqbuRgPQmaDvIJzRnyYjOyL+h8/CBZrCEH0vFH3BjcTNAdDz
+         8dWQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b="vN1LKSa/";
-       spf=pass (google.com: domain of p-yadav1@ti.com designates 198.47.23.248 as permitted sender) smtp.mailfrom=p-yadav1@ti.com;
-       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com. [198.47.23.248])
-        by gmr-mx.google.com with ESMTPS id y53si707724qtj.1.2019.07.02.03.08.27
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b="Q9P0/s50";
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.192 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from out-1.smtp.github.com (out-1.smtp.github.com. [192.30.252.192])
+        by gmr-mx.google.com with ESMTPS id 34si689647qtz.2.2019.07.02.04.06.37
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 02 Jul 2019 03:08:28 -0700 (PDT)
-Received-SPF: pass (google.com: domain of p-yadav1@ti.com designates 198.47.23.248 as permitted sender) client-ip=198.47.23.248;
-Received: from fllv0035.itg.ti.com ([10.64.41.0])
-	by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id x62A8ROg101617;
-	Tue, 2 Jul 2019 05:08:27 -0500
-Received: from DLEE108.ent.ti.com (dlee108.ent.ti.com [157.170.170.38])
-	by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x62A8RHs070430
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 2 Jul 2019 05:08:27 -0500
-Received: from DLEE107.ent.ti.com (157.170.170.37) by DLEE108.ent.ti.com
- (157.170.170.38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Tue, 2 Jul
- 2019 05:08:27 -0500
-Received: from lelv0327.itg.ti.com (10.180.67.183) by DLEE107.ent.ti.com
- (157.170.170.37) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
- Frontend Transport; Tue, 2 Jul 2019 05:08:27 -0500
-Received: from [172.24.190.229] (ileax41-snat.itg.ti.com [10.172.224.153])
-	by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id x62A8O9X074780;
-	Tue, 2 Jul 2019 05:08:25 -0500
-Subject: Re: [EXTERNAL] Re: [PATCH v2] core: Fix aligned_start calculation in
- page_alloc_internal()
-To: Jan Kiszka <jan.kiszka@siemens.com>, <jailhouse-dev@googlegroups.com>
-CC: Lokesh Vutla <lokeshvutla@ti.com>, Sekhar Nori <nsekhar@ti.com>,
-        William
- Mills <wmills@ti.com>
-References: <20190701072933.10751-1-p-yadav1@ti.com>
- <ca30179b-8ffc-b273-89e7-568d2d4fb541@siemens.com>
-From: "'Pratyush Yadav' via Jailhouse" <jailhouse-dev@googlegroups.com>
-Message-ID: <dca8f6a9-6f76-f78a-2cdb-3b0203789bfb@ti.com>
-Date: Tue, 2 Jul 2019 15:38:48 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.1
-MIME-Version: 1.0
-In-Reply-To: <ca30179b-8ffc-b273-89e7-568d2d4fb541@siemens.com>
+        Tue, 02 Jul 2019 04:06:37 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.192 as permitted sender) client-ip=192.30.252.192;
+Date: Tue, 02 Jul 2019 04:06:36 -0700
+From: Jan Kiszka <noreply@github.com>
+To: jailhouse-dev@googlegroups.com
+Message-ID: <siemens/jailhouse/push/refs/heads/next/0ecdd0-877a53@github.com>
+Subject: [siemens/jailhouse] 877a53: core: Fix aligned_start calculation in
+ page_alloc_...
+Mime-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-X-Original-Sender: p-yadav1@ti.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@ti.com header.s=ti-com-17Q1 header.b="vN1LKSa/";       spf=pass
- (google.com: domain of p-yadav1@ti.com designates 198.47.23.248 as permitted
- sender) smtp.mailfrom=p-yadav1@ti.com;       dmarc=pass (p=QUARANTINE sp=NONE
- dis=NONE) header.from=ti.com
-X-Original-From: Pratyush Yadav <p-yadav1@ti.com>
-Reply-To: Pratyush Yadav <p-yadav1@ti.com>
+X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
+X-Auto-Response-Suppress: All
+X-Original-Sender: noreply@github.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
+ mode) header.i=@github.com header.s=pf2014 header.b="Q9P0/s50";
+       spf=pass (google.com: domain of noreply@github.com designates
+ 192.30.252.192 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -155,92 +122,45 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
+  Branch: refs/heads/next
+  Home:   https://github.com/siemens/jailhouse
+  Commit: 877a533caeffb11d656bb22c88a3727fc64dc1a4
+      https://github.com/siemens/jailhouse/commit/877a533caeffb11d656bb22c88a3727fc64dc1a4
+  Author: Pratyush Yadav <p-yadav1@ti.com>
+  Date:   2019-07-01 (Mon, 01 Jul 2019)
+
+  Changed paths:
+    M hypervisor/paging.c
+
+  Log Message:
+  -----------
+  core: Fix aligned_start calculation in page_alloc_internal()
+
+Right now, page_alloc_aligned() can fail to give aligned pages when more
+than one page is being allocated. This is because the aligned_start
+calculation is flawed.
+
+Taking an example from a test case, let's say 8 pages need to be
+allocated. This means an alignment of 15 bits. The mask here is 0x7. If
+the page pool's base address is 0xffffc021f000, this gives us
+aligned_start = 0x7. This start is clearly not aligned at a 15 bits
+boundary (3 bits after shifting by PAGE_SHIFT). It is exactly the
+opposite. It will never be aligned except when the page pool start also
+happens to be aligned at that boundary.
+
+In the above example, the address of the pointer returned was
+0xffffc026e000 which is clearly not 15-bit aligned.
+
+This change fixes this problem. Add align_mask to pool_start, and then
+zero out the bottom mask bits. Adding align_mask ensures that
+aligned_start is always greater than pool_start.
+
+Signed-off-by: Pratyush Yadav <p-yadav1@ti.com>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 
 
-On 01/07/19 1:05 PM, Jan Kiszka wrote:
-> On 01.07.19 09:29, Pratyush Yadav wrote:
->> Right now, page_alloc_aligned() can fail to give aligned pages when more
->> than one page is being allocated. This is because the aligned_start
->> calculation is flawed.
->>
->> Taking an example from a test case, let's say 8 pages need to be
->> allocated. This means an alignment of 15 bits. The mask here is 0x7. If
->> the page pool's base address is 0xffffc021f000, this gives us
->> aligned_start =3D 0x7. This start is clearly not aligned at a 15 bits
->> boundary (3 bits after shifting by PAGE_SHIFT). It is exactly the
->> opposite. It will never be aligned except when the page pool start also
->> happens to be aligned at that boundary.
->>
->> In the above example, the address of the pointer returned was
->> 0xffffc026e000 which is clearly not 15-bit aligned.
->>
->> This change fixes this problem. Add align_mask to pool_start, and then
->> zero out the bottom mask bits. Adding align_mask ensures that
->> aligned_start is always greater than pool_start.
->>
->> Signed-off-by: Pratyush Yadav <p-yadav1@ti.com>
->> ---
->> v2:
->> As suggested by Jan, simplify aligned_start calculation.
->>
->> =C2=A0 hypervisor/paging.c | 12 +++++++-----
->> =C2=A0 1 file changed, 7 insertions(+), 5 deletions(-)
->>
->> diff --git a/hypervisor/paging.c b/hypervisor/paging.c
->> index 16687a89..4a24c1f6 100644
->> --- a/hypervisor/paging.c
->> +++ b/hypervisor/paging.c
->> @@ -105,13 +105,15 @@ static unsigned long find_next_free_page(struct pa=
-ge_pool *pool,
->> =C2=A0 static void *page_alloc_internal(struct page_pool *pool, unsigned=
- int num,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long align_mask)
->> =C2=A0 {
->> -=C2=A0=C2=A0=C2=A0 /* The pool itself might not be aligned as required.=
- */
->> -=C2=A0=C2=A0=C2=A0 unsigned long aligned_start =3D
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ((unsigned long)pool->base_a=
-ddress >> PAGE_SHIFT) & align_mask;
->> -=C2=A0=C2=A0=C2=A0 unsigned long next =3D aligned_start;
->> -=C2=A0=C2=A0=C2=A0 unsigned long start, last;
->> +=C2=A0=C2=A0=C2=A0 unsigned long aligned_start, pool_start, next, start=
-, last;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int allocated;
->> =C2=A0 +=C2=A0=C2=A0=C2=A0 pool_start =3D (unsigned long)pool->base_addr=
-ess >> PAGE_SHIFT;
->> +
->> +=C2=A0=C2=A0=C2=A0 /* The pool itself might not be aligned as required.=
- */
->> +=C2=A0=C2=A0=C2=A0 aligned_start =3D ((pool_start + align_mask) & ~alig=
-n_mask) - pool_start;
->> +=C2=A0=C2=A0=C2=A0 next =3D aligned_start;
->> +
->> =C2=A0 restart:
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Forward the search start to the next a=
-ligned page. */
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ((next - aligned_start) & align_mask)
->>
->=20
-> Thanks, applied. This should finally close the merge window for the relea=
-se.
-
-Where do you usually push the patches to? I can't find this one in master o=
-r
-next on GitHub.
-
-> Jan
->=20
-
---=20
-Regards,
-Pratyush Yadav
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/dca8f6a9-6f76-f78a-2cdb-3b0203789bfb%40ti.com.
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/next/0ecdd0-877a53%40github.com.
 For more options, visit https://groups.google.com/d/optout.
