@@ -1,34 +1,34 @@
-Return-Path: <jailhouse-dev+bncBCCMB6PY3AEBBVPD6HUAKGQEVYHZBVA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCCMB6PY3AEBB2XE6HUAKGQEROXVPKA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qt1-x838.google.com (mail-qt1-x838.google.com [IPv6:2607:f8b0:4864:20::838])
-	by mail.lfdr.de (Postfix) with ESMTPS id D435D5E0AF
-	for <lists+jailhouse-dev@lfdr.de>; Wed,  3 Jul 2019 11:13:58 +0200 (CEST)
-Received: by mail-qt1-x838.google.com with SMTP id r57sf1452349qtj.21
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 03 Jul 2019 02:13:58 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1562145238; cv=pass;
+Received: from mail-oi1-x23a.google.com (mail-oi1-x23a.google.com [IPv6:2607:f8b0:4864:20::23a])
+	by mail.lfdr.de (Postfix) with ESMTPS id B9E295E0B6
+	for <lists+jailhouse-dev@lfdr.de>; Wed,  3 Jul 2019 11:16:27 +0200 (CEST)
+Received: by mail-oi1-x23a.google.com with SMTP id h184sf806333oif.16
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 03 Jul 2019 02:16:27 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1562145386; cv=pass;
         d=google.com; s=arc-20160816;
-        b=Z1s9GDpyWfx4Z01V8Lu1oAb+qaM/sFGsWtbqjgZtc5xtPAnbe7VZHl4nTbYmkHnISN
-         /Dj7LBT8PKSGTgprxzA1xgIHBaIAKaYt8yHqVDolKVK0RVeZBt/IZyTqOJ8oQ+OOQCfB
-         rRAKxcsaJoXWTHKd8x7znu2pGPzOaVPvPxspwzi8y6WXCKrAML4lbUKWBGA1o17xK/w3
-         C8Mcpx1+h1gk29BrN6u6+9kIYaf5XXidSKA3bgkooX53NB1I5P9SvMAJtbOy8GMsGgOa
-         bbspnWXAdQRNx7y6vitV6+T2TT6WHP3oQLfwyvQvVgXVOIsks1CbQHSpkUxR057VMWTE
-         TaPw==
+        b=pWSdDtJYsiEoIAdkQzCrmoDOkNKk/pQmfnrNdQFDEONKrso5f9gXZCCGy/mO4T+7gb
+         t55vm51itrL54pPRgwXliaGSutEsUovh4mGvi6QuDiCRqjOqF0NDfUiKdmoAGhSalUls
+         OwTarsRT7FDBF4PSGSJWg3Equb99n1UeiAuI9FZQUGlccFJDLl2b2g9BhQzd75cEBIVK
+         /a3nSV2Xle9gP4ikhsTDcBfqlRqQTgI5E+XhgUraeLxNrtAYlhQE8pozufM0tqf+GsqL
+         yEdZdpWQyoDNKt+uBheu6UtGdgnoq0zpa2oWLChAw/cuAauMBgelI36fJxEfBhUH5Flg
+         rgFg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:reply-to:content-transfer-encoding
          :content-language:in-reply-to:mime-version:user-agent:date
          :message-id:references:cc:to:subject:from:dkim-signature;
-        bh=PeAdQEH6AoZAmDrUtqzYkLzO7aMz+RccgKGe9OyCww4=;
-        b=Q3mO0PaLWcUgOZq/tuGox4jkbLQ3Glt+UMI7oimns1DGw8X2mvFTg1yDsI9Oaa0s/s
-         gs6WV6IZ3GlFnLO+c6MxCky9xGI9VogGsDb+Garw+/WXJ/v6hdVXlZncTCa3MpS3ig9H
-         Exwj0MgngfED9OksVdashjlExal2/KNsyTDauk8MpscZeeVuGY2UloWGUQVx+BbyWJw0
-         Nx/Vgl9xSh1cdxrSIffrLaA8bhLnPA3vkOgWrocOU97ZzQgJb83Qowoz2hY2Tnn41QAk
-         pV8wnaok76TqbRdyAK/16OGnGHVqHofcAW7J6irajYhd0K1DqB/ouVAMyGgSkPCQNfo0
-         u2Aw==
+        bh=x9amaFt5wsnlt96t8MgN16truAvEqHovk5I8O7o0G4M=;
+        b=nsErA9W9qnmxunx/GgOivcSnUctsAzTsFoYrIjj2lPPv0sFouWkdRSlW75FghGIsyt
+         rLsIYm5bo/YuGfV9aOnjkoI3elMzfKUx9ty+p1tsSP/BzdmqF6pb7QScMCku6pVc01mT
+         eaiSLgOcEQnOL9ZQmvQmm1NibxFiLbfvqvSUtOfJzW4vw046PK1S7AI+P4B9yui7pc7L
+         37ZAdV13cFAfADbtqHd62p6n8pLk7ZYEm/Kw8BKjpz7uTvFAqsQbg2pffPhbuEyUz8HA
+         v9RZLCa9PjYnGFwV6nLcda4CU9rcGWdhHkQN+PwGS0PUqOPWzXBtnGAYmgShE+bnrzCd
+         NnyQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=yGjWnUtM;
-       spf=pass (google.com: domain of p-yadav1@ti.com designates 198.47.23.249 as permitted sender) smtp.mailfrom=p-yadav1@ti.com;
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=YBqO8g3V;
+       spf=pass (google.com: domain of p-yadav1@ti.com designates 198.47.23.248 as permitted sender) smtp.mailfrom=p-yadav1@ti.com;
        dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -37,13 +37,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:reply-to
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=PeAdQEH6AoZAmDrUtqzYkLzO7aMz+RccgKGe9OyCww4=;
-        b=ALwtRal/Paa/5Noj84KnYz1eV5CFXp/2zG3W8z8TZTGage6HlLnjLMJGzjnCBbuVzF
-         m2OkJnBDFSaSAiolOXQWcR2BZKDWeFJFEtGBsCaOVqs85Oh6np1KnQSDsl5gdw/q0SUa
-         ysnlnA0qJoYl2Kjvw2fO4+ILV79TIc0YVUO8EZTCeHSYn5SKD+OflH9un8QG3qR5UTLZ
-         xPkQW7SNKc3TwCKobzpdNCrA8eTdJsG5GggJwQifbV6Iv99fPnp9kLKYhIlChR5MzeAx
-         gfNq7Pe8rIfWr05Dcf9kqtECHd7e6I8um6FJcovG141lZSRXRZ+0mqSAQXn7X2cuzu78
-         W3Gg==
+        bh=x9amaFt5wsnlt96t8MgN16truAvEqHovk5I8O7o0G4M=;
+        b=jboIAeI8Y/NjT4RiYzhL2oHlCNH4aXtbobwkkgnf8wTxzD41Rr8AQuyC6HLHCxs14F
+         11UOWx+plBMPiixaJx6WzEyjoH6Ih/z2KyeHw1V1sRGf522wh4CJNhJujrObL1ki41eL
+         MGl5yEMXaI5rUjaGYG23KnGvIU5lik0o3CBSWug8+1BhGm2dXdmB9XbFAmWoHVjkHP4A
+         M7R8ELf7HyJHwfMx89DkNFmH/PP/9nCx7jSNJncYZBJkSCcQL2UJyIIu4JecnfZd5CAC
+         j5999+EmbDgerL0NBj4IpXSWY87R+EAbGsEVoLd+HIGOXfSV0wJ566EdIoIwyKYjNKAW
+         TTiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:subject:to:cc:references:message-id:date
@@ -52,93 +52,96 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:reply-to:precedence:mailing-list
          :list-id:x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=PeAdQEH6AoZAmDrUtqzYkLzO7aMz+RccgKGe9OyCww4=;
-        b=SEjUWsPrCwogg5qI/EJFHCjhGrc2HGUIWNGHMJk0q7aZd5C6L4LEcbpGrNceOevPXS
-         h67FpJa2bxz/nwmsd5y/okRKo5yciMlvjjppBj7zJpQ5cJYOhmYI7dBu2JKcNzZ9QFhb
-         w6V+OeT0g+aptCowRJbNLT222hoAv1YH3GAIg4GZ4uSK7kdXpCFdLabIwd9TOYq5Rr9v
-         V2+rWqFyIL34cCrh4Rg48eAwaGzAQ/AT+MwESlk3kK/ArkzQI9GQqMBAYNgmJvQAPx2y
-         9F+6q/w4IL51AwBTBZaxpYnDwrCmLqmlmL6+L8mv1rvwjenRQQbazOwK4G4o3rOY93ia
-         r6ng==
-X-Gm-Message-State: APjAAAXAP3SpHf9uYyFIKaNJzfBjNaaibDdvFiQgccBA/Fvzxmkt/RL2
-	hACf/2M+bubBWuBQOhriw4g=
-X-Google-Smtp-Source: APXvYqw8icHIaNZGgmB/w2dpUMiPzu7Zv32Zl9NZUabQZrnKXXaP3KQIwgKpAYGVUTCu+OIPQE7h2g==
-X-Received: by 2002:ac8:4687:: with SMTP id g7mr26926588qto.213.1562145237834;
-        Wed, 03 Jul 2019 02:13:57 -0700 (PDT)
+        bh=x9amaFt5wsnlt96t8MgN16truAvEqHovk5I8O7o0G4M=;
+        b=SZnKX92quJjwjJi47uRUVKkdNZ4z1vsraxndy6UhLg1ZejhSFerqoIvaXdCeWma7Qb
+         uKKneVczV5rwhkAkotsCEBW03ufAbnYxN8nDRfN+LN1kVI04sM8VkqK0TCXni/RZzt5a
+         MZxEqb3MFxoZFS4pFaMd5dZPHS6wHKL6HZzrNffr9s6jO8SxIsVSg4AJs5qXqEVCQPKz
+         cF0tTwXvWPXLNvqVU19ynJW9MXJ3WU4ozOO9qJzDJKM4kk/GGH5BqL2PhbqEqP5WaUzc
+         UTW/Ob3MKO+iNF4llsqr5C/2ahCP7jmGngFgDpG+zPlsU+tldhLLrB8tREDcoZxpKmzk
+         wn/g==
+X-Gm-Message-State: APjAAAUjB3WsixgxWc2zYMCtcPvgY+qstGMlBa1MNalnZ+I/7bqAom5x
+	NEpJ8Gb3UkJQ17eVGohkzSA=
+X-Google-Smtp-Source: APXvYqxlSJnRfQNQefPYS3lgXKx3HqGG+fYvxA84gFnFpardecD1sUVLJjgPlgAl915+asIAsAno2Q==
+X-Received: by 2002:a9d:67d6:: with SMTP id c22mr29881694otn.327.1562145386205;
+        Wed, 03 Jul 2019 02:16:26 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a37:b147:: with SMTP id a68ls616463qkf.12.gmail; Wed, 03 Jul
- 2019 02:13:57 -0700 (PDT)
-X-Received: by 2002:a37:9ac9:: with SMTP id c192mr29966379qke.30.1562145237532;
-        Wed, 03 Jul 2019 02:13:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1562145237; cv=none;
+Received: by 2002:a9d:3db7:: with SMTP id l52ls308617otc.15.gmail; Wed, 03 Jul
+ 2019 02:16:25 -0700 (PDT)
+X-Received: by 2002:a9d:7c83:: with SMTP id q3mr28928648otn.273.1562145385837;
+        Wed, 03 Jul 2019 02:16:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1562145385; cv=none;
         d=google.com; s=arc-20160816;
-        b=ME6sWnH9BTEdLBx1MOpQjr+toWp8juExIXU5UgbCm3hRua1AgDMBKOxTDrwGLOn8g/
-         mE4Ddr48qs/Hr2a2Sp0I4ue9i/454cW6QOSJTDrNSlQGfnKWufiPvBviBREX9tFHp/tg
-         g3XbFdO1qnMHjq+uT71FUircwlLPha94+oJu+sCHsLgLsdG/uc7ule1JOQgdgKz6X0n0
-         j0bWytdljks14St5IxYtmxili5GaKa1tvOiK1xbgQxvXEnCCgWh5Yf36mnBJAP2W/Lg0
-         RQ+BqDkHWI00mvQ2qi96V/G6eX3Nf6i66ZqwA+i8GqP9oMY/tzR4yBJMww6WkFKj2KBf
-         kBnw==
+        b=c6w2jsmvUlysL4yKfq5zoNorRwjCdHm2S6KmF355AO5lyMIrsNRBT/Ra4B43ByNuzK
+         fbcgl9/W4RP2SxyVeChmBaUj1bufWm1oIcj8WXiF6EijF8o35TeFQH36mdlWgDib/hSw
+         ouYhpItbvZO5RVUkFcPe9ZuA2gM5oHqxp+dIbJEW8QZnfabN48PV/8SkajhauJqdg0v2
+         lsd5xJ9kRhndDCRwoOz1s26YRg7zYocQ1qJkS5DmWf7FjYPMTmtrw7l5TIc6qwq6geaA
+         gEqWnVGKEefRZPDPZTrBJSeHuVtpG/4nGyXA02dj4Tz+V+RC7S3ZKTkR5ityaIg9cl3i
+         x/mQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
          :user-agent:date:message-id:references:cc:to:subject:from
          :dkim-signature;
-        bh=Cq72cHNot0Ey7BOIy9YRa4P9gHQxX/Juo/OUHwiBviE=;
-        b=sBZ5pL7WLgYTH0EOso7FCLRbUfoEW0U9syYYbqMHVF398IgbcBXEqPCLFc0htDZL8U
-         nRn0Ssl8Uhn2Z4ZLUw385SqK9T2+vci3Id6gRYg2KgfKlGlAd4fYYDrhB1Lp+kOaE35/
-         WT9RXzo808isrDjBl8LtwlRGAd0oKBoufpChL4855UoJbOvdZtaM+RaxPLK8ovRXQjyA
-         G1hWD55BnW1yFf63Y9FZ6S2nYFn7HZnBemNAATJYPI+PWWSupq6NtjBJKmTAKqY0aNMr
-         TMBbZ+FAoAQiKuw56N28WBpIw7963Qz04SYozsrD3BSr0+72M0+Esm9c/qmF72J08aeH
-         MGng==
+        bh=wSdRT42x/EdS45KmiOqDFdH1Dboh2HpyQmHhI/mClxY=;
+        b=Zsd2wX46jTZCc8nD6k9uGHyQT3qn8cVJaBO4OnCgFvfxi7qvTdIlHvch7NN3mQQRxJ
+         1ZIbCQSM/4Gc4vcrwf+3aIa4pVZ7EPLEZw6OcnyePjily8FEMJSXU5ygrQBHSvxN8WUQ
+         d4oPV1szEoU0ZExIU6jWP3rBM2xIF1oQk3P2nDsvyzM2op3H14M/ZpYB4zP/fiNKYsNA
+         I50tECWh0S8mY1fTd4SVwqYa+AY5HM4S/4UWLiZ1l9b9QXBXDuu9A53eiZfXxsWMoYRY
+         Y1tZB6437p32b2QsI1YG4AhBahAo7axABxd/V+VgO9tjMtbd18akzRrJGGBS41FjgkKi
+         Boow==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=yGjWnUtM;
-       spf=pass (google.com: domain of p-yadav1@ti.com designates 198.47.23.249 as permitted sender) smtp.mailfrom=p-yadav1@ti.com;
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=YBqO8g3V;
+       spf=pass (google.com: domain of p-yadav1@ti.com designates 198.47.23.248 as permitted sender) smtp.mailfrom=p-yadav1@ti.com;
        dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
-Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com. [198.47.23.249])
-        by gmr-mx.google.com with ESMTPS id c39si96165qta.5.2019.07.03.02.13.57
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com. [198.47.23.248])
+        by gmr-mx.google.com with ESMTPS id y188si91126oig.3.2019.07.03.02.16.25
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 03 Jul 2019 02:13:57 -0700 (PDT)
-Received-SPF: pass (google.com: domain of p-yadav1@ti.com designates 198.47.23.249 as permitted sender) client-ip=198.47.23.249;
-Received: from fllv0035.itg.ti.com ([10.64.41.0])
-	by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id x639DuNG102238;
-	Wed, 3 Jul 2019 04:13:56 -0500
-Received: from DLEE103.ent.ti.com (dlee103.ent.ti.com [157.170.170.33])
-	by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x639DuKu011701
+        Wed, 03 Jul 2019 02:16:25 -0700 (PDT)
+Received-SPF: pass (google.com: domain of p-yadav1@ti.com designates 198.47.23.248 as permitted sender) client-ip=198.47.23.248;
+Received: from lelv0265.itg.ti.com ([10.180.67.224])
+	by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id x639GPDa048484;
+	Wed, 3 Jul 2019 04:16:25 -0500
+Received: from DFLE113.ent.ti.com (dfle113.ent.ti.com [10.64.6.34])
+	by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x639GPec112011
 	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 3 Jul 2019 04:13:56 -0500
-Received: from DLEE115.ent.ti.com (157.170.170.26) by DLEE103.ent.ti.com
- (157.170.170.33) with Microsoft SMTP Server (version=TLS1_2,
+	Wed, 3 Jul 2019 04:16:25 -0500
+Received: from DFLE109.ent.ti.com (10.64.6.30) by DFLE113.ent.ti.com
+ (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Wed, 3 Jul
- 2019 04:13:56 -0500
-Received: from lelv0327.itg.ti.com (10.180.67.183) by DLEE115.ent.ti.com
- (157.170.170.26) with Microsoft SMTP Server (version=TLS1_2,
+ 2019 04:16:25 -0500
+Received: from lelv0327.itg.ti.com (10.180.67.183) by DFLE109.ent.ti.com
+ (10.64.6.30) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
- Frontend Transport; Wed, 3 Jul 2019 04:13:56 -0500
+ Frontend Transport; Wed, 3 Jul 2019 04:16:25 -0500
 Received: from [172.24.190.229] (ileax41-snat.itg.ti.com [10.172.224.153])
-	by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id x639DsOP006665;
-	Wed, 3 Jul 2019 04:13:54 -0500
+	by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id x639GMA5010651;
+	Wed, 3 Jul 2019 04:16:23 -0500
 From: "'Pratyush Yadav' via Jailhouse" <jailhouse-dev@googlegroups.com>
-Subject: Re: [PATCH 3/6] core: Add stream id list in the cell config
+Subject: Re: [PATCH 6/6] arm64: iommu: smmu-v3: Add support for stage 1 and 2
+ translations
 To: Jan Kiszka <jan.kiszka@siemens.com>, <jailhouse-dev@googlegroups.com>
 CC: Lokesh Vutla <lokeshvutla@ti.com>, Sekhar Nori <nsekhar@ti.com>,
         William
  Mills <wmills@ti.com>, Nikhil Devshatwar <nikhil.nd@ti.com>
 References: <20190702143607.16525-1-p-yadav1@ti.com>
- <20190702143607.16525-4-p-yadav1@ti.com>
- <33ad2ca9-c618-1443-9fb4-ab5af325ee25@siemens.com>
-Message-ID: <0bfd4d29-4f35-5346-209d-cafcdbdb2151@ti.com>
-Date: Wed, 3 Jul 2019 14:44:18 +0530
+ <20190702143607.16525-7-p-yadav1@ti.com>
+ <47206b1b-aeec-d71c-6f4c-9b4680282ef7@siemens.com>
+ <7e76f0f4-f9b8-12db-1dd7-dc63ee7a2004@ti.com>
+ <17e77e2c-5f37-4532-858d-04fab20d9ece@siemens.com>
+Message-ID: <a01e9cb2-5c14-5451-156e-faf80bee74e7@ti.com>
+Date: Wed, 3 Jul 2019 14:46:47 +0530
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.7.1
 MIME-Version: 1.0
-In-Reply-To: <33ad2ca9-c618-1443-9fb4-ab5af325ee25@siemens.com>
+In-Reply-To: <17e77e2c-5f37-4532-858d-04fab20d9ece@siemens.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
 X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 X-Original-Sender: p-yadav1@ti.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@ti.com header.s=ti-com-17Q1 header.b=yGjWnUtM;       spf=pass
- (google.com: domain of p-yadav1@ti.com designates 198.47.23.249 as permitted
+ header.i=@ti.com header.s=ti-com-17Q1 header.b=YBqO8g3V;       spf=pass
+ (google.com: domain of p-yadav1@ti.com designates 198.47.23.248 as permitted
  sender) smtp.mailfrom=p-yadav1@ti.com;       dmarc=pass (p=QUARANTINE sp=NONE
  dis=NONE) header.from=ti.com
 X-Original-From: Pratyush Yadav <p-yadav1@ti.com>
@@ -157,111 +160,131 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 
 
-On 02/07/19 9:11 PM, Jan Kiszka wrote:
-> On 02.07.19 16:36, Pratyush Yadav wrote:
->> From: Nikhil Devshatwar <nikhil.nd@ti.com>
+On 02/07/19 8:58 PM, Jan Kiszka wrote:
+> On 02.07.19 16:57, Pratyush Yadav wrote:
 >>
->> When IOMMU drivers are supported, it will setup the IO address
->> translation tables unique for each DMA context in the system.
+>>
+>> On 02/07/19 8:12 PM, Jan Kiszka wrote:
+>>> On 02.07.19 16:36, Pratyush Yadav wrote:
+>>>> A System Memory Management Unit(SMMU) performs a task analogous to a
+>>>> CPU's MMU, translating addresses for device requests from system I/O
+>>>> devices before the requests are passed into the system interconnect.
+>>>>
+>>>> Implement a driver for SMMU v3 that maps and unmaps memory for specifi=
+ed
+>>>> stream ids.
+>>>>
+>>>> An emulated SMMU is presented to inmates by trapping access to the MMI=
+O
+>>>> registers to enable stage 1 translations.=C2=A0 Accesses to the SMMU m=
+emory
+>>>> mapped registers are trapped and then routed to the emulated SMMU. Thi=
+s
+>>>> is not emulation in the sense that we fully emulate the device top to
+>>>> bottom. The emulation is used to provide an interface to the SMMU that
+>>>> the hypervisor can control to make sure the inmates are not doing
+>>>> anything they should not. The actual translations are done by hardware=
+.
+>>>>
+>>>> Emulation is needed because both stage 1 and stage 2 parameters are
+>>>> configured in a single data structure, the stream table entry. For thi=
+s
+>>>> reason, the inmates can't be allowed to directly control the stream
+>>>> table entries, and by extension, the stream table.
+>>>>
+>>>> The guest cells are assigned stream IDs in their configs and only thos=
+e
+>>>> assigned stream IDs can be used by the cells. There is no checking in
+>>>> place to make sure two cells do not use the same stream IDs. This must
+>>>> be taken care of when creating the cell configs.
+>>>>
+>>>> This driver is implemented based on the following assumptions:
+>>>> - Running on a Little endian 64 bit core compatible with ARM v8
+>>>> =C2=A0=C2=A0=C2=A0 architecture.
+>>>> - SMMU supporting only AARCH64 mode.
+>>>> - SMMU AARCH 64 stage 2 translation configurations are compatible with
+>>>> =C2=A0=C2=A0=C2=A0 ARMv8 VMSA. So re-using the translation tables of C=
+PU for SMMU.
+>>>>
+>>>> Work left to do:
+>>>> - Route event notifications to the correct cell and identify which eve=
+nt
+>>>> =C2=A0=C2=A0=C2=A0 needs to go to which cell.
+>>>> - Add support for IRQ and MSI routing.
+>>>> - Add support for PRI queues and ATS.
+>>>> - Identify which cell caused a command queue error and notify it.
+>>>> - Support sub-streams.
+>>>>
+>>>> A lot of the work left is optional features that the SMMU provides lik=
+e
+>>>> substreams, ATS, PRI. There is little reason to add them unless there =
+is
+>>>> a use case for them.
+>>>
+>>> One quick question again, I already had it for the RFC round: Would it =
+be tricky to split up this patch into single-stage only + 2-stage support? =
+That would allow me to asses the additional complexity we import by adding =
+2-stage support. Or is 2-stage support inherently coupled with the SMMU des=
+ign so that such a split-up would neither make sense nor buy us anything?
+>>
+>> I considered splitting, but as far as I see, stage 1 and 2 are rather ti=
+ghtly coupled. If you want, I can split it into two parts where part 1 is t=
+he defines, data structure declarations, and initialization. Part 2 will ha=
+ve stage 1 emulation and stage 2.
 >=20
-> To make it clearer: When ARM IOMMUs are supported...
+> If part 1 will get away without emulating/intercepting bits of the SMMU, =
+I bet it will be a win.
 
-Will update.
+It will.
 
 >>
->> A typical DMA context is identified by an integer called stream id.
->> To setup the correct IOMMU mapping, hypervisor should know
->> list of all the streamIDs that should be setup in the IOMMU.
->>
->> Add an array of stream IDs in the cell config, bump up the config revisi=
-on.
->> Change the python struct unpacking logic in the tools to reflect
->> revised config structure.
->>
->> [p-yadav1@ti.com: Add size define for stream_ids]
->>
->> Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
->> Signed-off-by: Lokesh Vutla <lokeshvutla@ti.com>
->> Signed-off-by: Pratyush Yadav <p-yadav1@ti.com>
->> ---
->> =C2=A0 include/jailhouse/cell-config.h | 6 +++++-
->> =C2=A0 tools/jailhouse-cell-linux=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 4 ++--
->> =C2=A0 tools/jailhouse-hardware-check=C2=A0 | 2 +-
->> =C2=A0 3 files changed, 8 insertions(+), 4 deletions(-)
->>
->> diff --git a/include/jailhouse/cell-config.h b/include/jailhouse/cell-co=
-nfig.h
->> index 198fef5c..caf2fba8 100644
->> --- a/include/jailhouse/cell-config.h
->> +++ b/include/jailhouse/cell-config.h
->> @@ -50,7 +50,7 @@
->> =C2=A0=C2=A0 * Incremented on any layout or semantic change of system or=
- cell config.
->> =C2=A0=C2=A0 * Also update HEADER_REVISION in tools.
->> =C2=A0=C2=A0 */
->> -#define JAILHOUSE_CONFIG_REVISION=C2=A0=C2=A0=C2=A0 10
->> +#define JAILHOUSE_CONFIG_REVISION=C2=A0=C2=A0=C2=A0 11
->> =C2=A0 =C2=A0 #define JAILHOUSE_CELL_NAME_MAXLEN=C2=A0=C2=A0=C2=A0 31
->> =C2=A0 @@ -74,6 +74,9 @@
->> =C2=A0 =C2=A0 #define JAILHOUSE_CELL_DESC_SIGNATURE=C2=A0=C2=A0=C2=A0 "J=
-HCELL"
->> =C2=A0 +#define JAILHOUSE_MAX_STREAMIDS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 32
+>> Let me know if you'd prefer that, and I'll send the series tomorrow. It'=
+s getting late and I'm about to leave for today.
 >=20
-> At the risk of having asked this already in the RFC:
-
-I thought you meant you wanted to change the hard value of 32 to a size def=
-ine. My bad, sorry.
-
-> Is 32 really enough in the foreseeable future? Or should we rather have s=
-ome resizable array, analogously to memory regions or PCI devices? That wou=
-ld also allow to set it to 0 on non-SMMU platforms.
-
-Seems like a good number. We don't use more than 8 in our boards. But chang=
-ing it to a resizeable array should not be a problem either.
-
-Now that I think of it, it is probably a better idea. I'll change it.
-
->> +#define JAILHOUSE_INVALID_STREAMID=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (~0)
->> +
->> =C2=A0 /**
->> =C2=A0=C2=A0 * The jailhouse cell configuration.
->> =C2=A0=C2=A0 *
->> @@ -95,6 +98,7 @@ struct jailhouse_cell_desc {
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __u32 pio_bitmap_size;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __u32 num_pci_devices;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __u32 num_pci_caps;
->> +=C2=A0=C2=A0=C2=A0 __u32 stream_ids[JAILHOUSE_MAX_STREAMIDS];
->> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __u32 vpci_irq_base;
->> =C2=A0 diff --git a/tools/jailhouse-cell-linux b/tools/jailhouse-cell-li=
-nux
->> index 49babd92..4b6f504b 100755
->> --- a/tools/jailhouse-cell-linux
->> +++ b/tools/jailhouse-cell-linux
->> @@ -564,8 +564,8 @@ class Irqchip:
->> =C2=A0 =C2=A0 =C2=A0 class Config:
->> -=C2=A0=C2=A0=C2=A0 _HEADER_FORMAT =3D '6sH32s4xIIIIIIIIIQ8x32x'
->> -=C2=A0=C2=A0=C2=A0 _HEADER_REVISION =3D 10
->> +=C2=A0=C2=A0=C2=A0 _HEADER_FORMAT =3D '6sH32s4xIIIIIIII128xIQ8x32x'
->> +=C2=A0=C2=A0=C2=A0 _HEADER_REVISION =3D 11
->> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 def __init__(self, config_file):
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 self.data =3D con=
-fig_file.read()
->> diff --git a/tools/jailhouse-hardware-check b/tools/jailhouse-hardware-c=
-heck
->> index b86756ac..afd1139b 100755
->> --- a/tools/jailhouse-hardware-check
->> +++ b/tools/jailhouse-hardware-check
->> @@ -136,7 +136,7 @@ class Sysconfig:
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 X86_MAX_IOMMU_UNITS =3D 8
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 X86_IOMMU_SIZE =3D 20
->> =C2=A0 -=C2=A0=C2=A0=C2=A0 HEADER_REVISION =3D 10
->> +=C2=A0=C2=A0=C2=A0 HEADER_REVISION =3D 11
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 HEADER_FORMAT =3D '6sH'
->> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 def __init__(self, path):
->>
+> Sure, no hurry!
 >=20
+>>
+>>> Background is that the majority of use case I see will not need more th=
+an one stage. I particular, you have no need for 2-stage support in simple =
+bare-metal or RTOS cells, leaving this only potentially relevant for the ro=
+ot cell (or secondary Linux cells). If the feature is complex and can be di=
+sabled, we could skip it, reducing the code size.
+>>
+>> Hm, as far as I understand, stage 2 should be always needed because you =
+need to translate from IPA to PA every time. Stage 1 could be optional if t=
+he guest OS handles the scattering or gathering of the buffers. But don't y=
+ou always need to translate from IPA to PA (even though in case of Jailhous=
+e those translations are almost 1:1, and IPA =3D=3D PA)? When would you not=
+ need stage 2?
+>>
+>> Anyway, most of the code is setting up the SMMU and the data structures,=
+ and stage 1 emulation. Stage 2 only part is very small. Removing it won't =
+save you more than 10-15 lines.
+>=20
+> As noted above: If eliminating guest visibility of the SMMU helps getting=
+ rid of related emulation and interception logic, I'm sure it will be more =
+than 10 lines. If we need 2 stages configuration-wise in order to use the S=
+MMU at all, those 2 stages need to stay, of course.
+
+Ah, I thought you meant removing stage 2 and keeping stage 1.
+
+The SMMU can work with either or both stages enabled.
+
+> But I'm not into the details yet, just deriving from the history on IOMMU=
+ on x86 where you started with 1 stage (what we only support there so far),=
+ and only later on a second one was added in order to allow guests to map h=
+ardware directly while isolating it under own control (e.g. protect against=
+ userspace-mapped devices). The latter is a bonus feature with use cases, t=
+hough not yet in Jailhouse context.
+
+Guest visibility of the SMMU is useful when you have a device not capable o=
+f scatter-gather operations (we have some on our boards, like the video dec=
+oder). They expect a contiguous buffer of memory to work. Adding stage 1 tr=
+anslations eliminates the need for large contiguous buffers. Another use ca=
+se is when you have a multiple PCI devices under the same cell. You could e=
+asily protect memory regions of the two devices from each other with stage =
+1 translations.
+
 > Jan
 >=20
 
@@ -275,5 +298,5 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/0bfd4d29-4f35-5346-209d-cafcdbdb2151%40ti.com.
+jailhouse-dev/a01e9cb2-5c14-5451-156e-faf80bee74e7%40ti.com.
 For more options, visit https://groups.google.com/d/optout.
