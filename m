@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBCCMB6PY3AEBBH5WSLUQKGQEO2SD6ZI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCCMB6PY3AEBBINWSLUQKGQEZY2QKEI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pg1-x537.google.com (mail-pg1-x537.google.com [IPv6:2607:f8b0:4864:20::537])
-	by mail.lfdr.de (Postfix) with ESMTPS id 280686373A
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  9 Jul 2019 15:48:17 +0200 (CEST)
-Received: by mail-pg1-x537.google.com with SMTP id o16sf12708262pgk.18
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 09 Jul 2019 06:48:17 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1562680096; cv=pass;
+Received: from mail-pg1-x53d.google.com (mail-pg1-x53d.google.com [IPv6:2607:f8b0:4864:20::53d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BDC96373B
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  9 Jul 2019 15:48:19 +0200 (CEST)
+Received: by mail-pg1-x53d.google.com with SMTP id h3sf5742651pgc.19
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 09 Jul 2019 06:48:19 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1562680098; cv=pass;
         d=google.com; s=arc-20160816;
-        b=GBE3I3uwjW+GwXp6+TmNY2h1NHTqEmaMQXMIltpNlZD+/7V6usP/trwfPT6U2T6mjh
-         FQaoipEgnHCl6tbXyek3YaGQhsNZ6HQHA3BpG/sGCyYDgjLQRlad1eIrSzUp31HfDEds
-         Sl22sEjMx7hqlM+bfFW70VmpP04qtBCloFKb0dNgOT2u8tMnitcY0FPPO/ntwGmrDaA6
-         I4OkBkjKXszbUgFSBkKRKOaotojpNi1T2TlEtFbJFJ/MgdwL/2pwHunROTRDgejkRL3Z
-         6iLhGT2f82nv1vA5hQVY7moiOzH0krbpgLl0YCtv5Gd2fkSxDXLwV/nKg8hofwD4sSf2
-         Ybxw==
+        b=HC9/zJNx6qG6Gg8ZZQtOxKq4GQ5P6lSDxLCzhe9TVA2pGTHnMWhN+OfMbGNI8oqBvr
+         gJia/INERcwbtT10kAag07jayexI+uzZQ7ayGrjIk9eTribzTKMAlPqOMyIs5LLsphrx
+         Kmw++0xOaGRXw9M2JaF6mjD5b6VGALCOAVHIU+++Z6sjRReK7+oL4OJmFuNNkxjbA4B4
+         7gSstRsSXyfniZbBjr0VGyq07s0aoKiwIHF7R3fl08kfYl+L8d86b2cu7s10fBbDHhDT
+         +euTFW8v+QUYLdB/GTIT9SfySfousDlSqbH/MiX6HqkicDxy4Zb/JVZV5ZKc1M469aQV
+         36DQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:reply-to:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:dkim-signature;
-        bh=/w0ePXNkns4J9pjBUYvxW7t4yAhM5ayEE6bh2nmF3fM=;
-        b=iR8G6CUTB05y/54ffBp+FaF8NMEUQX9R1TvDyuKuHeNNfGVgJvHtsiYXpQCpA+fo1D
-         eYR4pJRmVAwVJDXJGArrR/CeTnNSrYzjgAx8c42MjvdEKiwM3I0Z9yEQJdWJzLizU940
-         vQ90dho58ZgRNpCSypPUyfUE2ewIfM/yugL10bVgw5e3JknByxWu4A8O47jdvXi8a0b1
-         9v9Q3Y/Zx8EjH0qwrerPcbjRyPFljPcbLyQrR4jJOtMr4DyzC1DhVdvv86qFzV7k+RCq
-         ZUV18g4yWWH/qC+d6mQ+hXjptxSl9SOlw4RNN6R+s5bTAGZMRnV+nZPv5Le31ShI6jfE
-         kj5g==
+        bh=PO2eeP2ga7MqOFoY0niHtDuP00kqhfaQybTRrr4GdD0=;
+        b=s28vw81nVLtgB8J1l7q7wlhaZ/YL5fN03rz/y+ni4gbwthgBcBRxl4oPcZHvDJvNFy
+         zhi4oSSFrAAvl8bSUKUGA8pBnOcO+8CU2RY+wCIh3jXS8rbZCLxrpOdb+oGJszvAgE8j
+         pTUmnZovaF7U6IvRgH+Nz1CJ/F71OgrT7nxx5DptStXgX2Q89UvS+Nn4KOfYzj1kCE7w
+         im9pNLql5CZ45iWG1MPY3TlAlN0GQ8WxtJyWc+TkJVUrOU+6LRgdd0+q8cROB2h/Vsj0
+         PbBFueMooiKyfoH4zQDqNJa/F9oGaH82/P0odC0NsJC0J7iNiUoMuO7tIJkeY5favMQH
+         HC9w==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=cjw8BVGs;
-       spf=pass (google.com: domain of p-yadav1@ti.com designates 198.47.23.249 as permitted sender) smtp.mailfrom=p-yadav1@ti.com;
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=VanRaVWl;
+       spf=pass (google.com: domain of p-yadav1@ti.com designates 198.47.23.248 as permitted sender) smtp.mailfrom=p-yadav1@ti.com;
        dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :reply-to:precedence:mailing-list:list-id:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=/w0ePXNkns4J9pjBUYvxW7t4yAhM5ayEE6bh2nmF3fM=;
-        b=XgPQDhHgb2fa/Wg1+HLI+LW3xKuCKhqA3T2SD9B12JZ/arvoEk39w0r1kOGrukQPfE
-         QZyOdgst2dohI3kq+8r0R4WqY9xEpR4DoWrMEglR2dBfX5o3u68pky9nz9EiVeFbKTjl
-         8tg2BYfAQMKhgSnitqQWBWhjMQuUJ7r8NEnKu8bOIG4q6+OBEYmcK1GrVbzg80IxKxWA
-         DXBZj392Vs0n9K98wM32ecxvoxOWlLXlnWh2fLKSpFIWCW90HLMZGmMMzdb/BdhnZSBY
-         YImSZEMJRoVPd60bt+rmt8M0g3bnPDnWAZdYs+54FHFKc5UF4U4aW6FtVuZogMNBw3/C
-         iOCw==
+        bh=PO2eeP2ga7MqOFoY0niHtDuP00kqhfaQybTRrr4GdD0=;
+        b=fcZyfsCqGoJg2GRMaCTYuKrZK4OqCUBfDSQvQuxSTU7uq4UGyleaVOxnkcV7dA3hFr
+         9L3UB/JkF0ISOPGPKUee3/hYi4T9cCxRW+cyd1fYYSXZJw71i42TnUgwjTmYNuDHCaAV
+         U4yGzuX1KzA9/RB8r69AOe4DT9nemyrPYNFfxWUcUuE2M4E95Egdcc+lsXSrd8m91Yah
+         c9mceFSTDg8bHstydIiTgrZPV5LjCB5+7uqYp0Fc7LPHEykDx89n3qoZ/2+zJTqiGmJn
+         T5zgPFTZC44zGdhcrIbMzl/IonDpA8xdBgrGkgqELpOdWI29JWS08oBQ0SY28GUXwIKS
+         LGaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
@@ -49,69 +49,69 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:reply-to:precedence:mailing-list
          :list-id:x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=/w0ePXNkns4J9pjBUYvxW7t4yAhM5ayEE6bh2nmF3fM=;
-        b=HxLKPLjsCrYyEwyZEj4MGWbKRXjzD47BWdzB9ogYiyccWvqgxUm3ff99oHUOFdPXuH
-         hcsdhfG/iltPfAyda5kXatPUFJE4eehaJ1BIr2YEM5eKut+T8RAwD2gP1TeQPwYTpP2B
-         dww5XVVsCYKQ5G8xAYyb3gWwV+3WY49lYABYdXIfRM1AjGeKsV48U+kMPXeE4GwqwaDl
-         V3+ijoWFqaQ7FmeDgLk6p0dQr4ArG6Ha+pCz6yJiKwCMANPBe2eyA19ZMjzCx/G+m8uQ
-         y8pIh0wcJV+fDlIGabx2t/AIWVaKRCgwwEvvNwC0SrAbfQzFtCh+k0HQ4EvG9UUF/PkP
-         q76w==
-X-Gm-Message-State: APjAAAXzUczTtUTc97oekAePZDfgaudFNF6hSIYXITr9wgOusHQ9Qvc6
-	l28Q5eJpHMXsrDao9GAM1TQ=
-X-Google-Smtp-Source: APXvYqwZcWXUi5JMp4dmRZoOiNbHTHhjW0dPcvIx4YJID+GSmdBqa9uwfG4DMphwU6me9eqc0DQdZQ==
-X-Received: by 2002:a17:90a:1b48:: with SMTP id q66mr107812pjq.83.1562680095819;
-        Tue, 09 Jul 2019 06:48:15 -0700 (PDT)
+        bh=PO2eeP2ga7MqOFoY0niHtDuP00kqhfaQybTRrr4GdD0=;
+        b=rYnYmXwG0UNToNLs2s2vUgtqoectnqf7ooYMNT9CTVELay8nDzSs6+qFF+uiWmw7l+
+         4kyx+PaUFR+f42t6PlanAf+TP7N43UjvyMk3bmZIFdLNE5ARjrxcgxvoP54o9bHHahpS
+         UM6GvU3Pw7ZDlFoLyTOKn/0HtIk7iR4xhFPSwlPXVm6T0ECZJRg51lV/1sWzorGxhO6i
+         LCrXxjufAerp7SEsaEU7JZMUX9+qxeNwKQ3hd8oSN94s8G7hPv+nJAGgmipWBg+gG+d8
+         NsQdd1tVVx1bKlcRiO7gcKsSk2VW6RI1twQgT7cBbTvwm8dZOQ4e38TMyX9jTTddXM8l
+         3SNQ==
+X-Gm-Message-State: APjAAAXQH00CSL1SrQiJb0GVf/KFm1Mkqty6QDiNAi4oLcA82mw/rlYw
+	u8NoYkds1lcBUdEHLq+0Jxo=
+X-Google-Smtp-Source: APXvYqxGs01hTckNlPTgvfOV1jtE9OyOIaL+vGN1DdHD1EWSURySleFmCLvp531NSNQQ2NTSg/Oo1w==
+X-Received: by 2002:a17:90a:246f:: with SMTP id h102mr159671pje.126.1562680097876;
+        Tue, 09 Jul 2019 06:48:17 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a63:c015:: with SMTP id h21ls3530565pgg.3.gmail; Tue, 09 Jul
- 2019 06:48:15 -0700 (PDT)
-X-Received: by 2002:a63:1658:: with SMTP id 24mr31724576pgw.167.1562680095236;
-        Tue, 09 Jul 2019 06:48:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1562680095; cv=none;
+Received: by 2002:a17:90b:905:: with SMTP id bo5ls1179951pjb.0.canary-gmail;
+ Tue, 09 Jul 2019 06:48:17 -0700 (PDT)
+X-Received: by 2002:a17:90a:ad41:: with SMTP id w1mr207352pjv.52.1562680097505;
+        Tue, 09 Jul 2019 06:48:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1562680097; cv=none;
         d=google.com; s=arc-20160816;
-        b=vIunnN3jnfOa3qFCPFreujEgj8Afundjs53djgnAV9SrQK6SWZGCymNplj8A8us0Is
-         Zvvydc9usUSQ6xN+WVPzk5Dg/NeYxMWMpq1H/QoMNnf6n3RG3KyNj2TjhicCCtIdAOaM
-         HDUy7T2UuLQ948PZU3i7eSAqMRLPoaTmGwLGVEIYRv8fERFRjpxwwhAyNlzX3DFz4qWw
-         E5/0LL1OvU2S+Svc2doCLLnQIzc4RCUX3/qhCPZYsE4ZGXfleM0ciWws1opm1QsKJAXW
-         0pWNCK27p5JUKj7+bAQhHWDGSbC4ZdGn3GIFC0wqmFrrAN8QfLz0wVUx+SAaB7DKRk7G
-         nVEw==
+        b=PvdoL3hMc4P29Q0+vAuvk4XRkkYRktWZ8ALydBBiu16MolR2MeYbPxhVbjgZ1XGh3l
+         Y2P81DFuw4LiLzvKqNG2gkNKRU6mBX1aoRT1kbdTjF2sKp5Iabom45W3NtvoxD7H7gnW
+         UKe7eRLd92sEUwibG3iIipjMLJehAnVBHFTNr0ckcnfLecKo6tYOfh9Oz67Tl44JBHB9
+         xwQIzLb62vudFli5KTlkZlhhx+bjEsCsJyaYBZFC9Subi3vFCJvOszr+KvW3KxQuhB9l
+         OGIeI2O95wK6o5BNcyfy5ZoDIOaOL3ojmoKNTY3SqLQ5Iui1qd/CdyLtsSc2bTZx30ze
+         wYpA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
          :from:dkim-signature;
-        bh=9pNt0oVpCVnRJ/deFf1b305SeYA12s3kdvbD9dgasx8=;
-        b=BP9DiLLLIHO1zGsBkMhd1VoBmsLN4OxG9XBvK3DYk6Tuyt9LUFXj1Qi3rQFfx4BDlW
-         3PE66eWwpznf0Y9kU2yza1YfOUIXvQ24JR7n1Jv6y8JkjVnIiLOPEnO1rk3wIIOPboDY
-         bLtTTxob0jiEB+I57TQbUVdwQLirKtcWcCiwR7QO3NZzMYyuZ7o9WPnwnvoWkehFsXVI
-         yhg6r+vZSi3sDm472W9cCiez7OlyjzmIu5sJTmlpqFsX9DGJFxkG0iWo3XkOx+LL7o8e
-         q3qizA9pcCRLNzEL+reF9LZFrC80qPdmpPj4+Rh1Ii0is/42ZoCZb/SIkraRVBkQz8Ok
-         xDJw==
+        bh=Bb56geuxHOONjiFcWHNju2q/TcTgY9WID1YWg1FQ0/Y=;
+        b=pTn/0mT/5jvUvYTDQaBzZotgcgFZr8sCIhDcBB1/sanRjnNcUBD28mrtXbZaNI60x8
+         M62a4m8VNh+4W6wohno52gIaP16nmWOcfOVodd7ETpHS3SbA3oMeLcVCv6kM6FB8ZQCY
+         7JWPKgXSdBVEaNs+BjaLdAVWRE8Hbe86Q64a/dxrxNl3eXOZ3wVXo1zjxp4fx3HBySfJ
+         WWYeQAeeo5lrcMK1PD72RAO+esEvly7lYjj59jhhtBrp6EMcUCNvSfHbVYwFL1VoxXKL
+         NW0834xk/zNNlcWbfikTLwGD28tCVPz9K9W8SXbIgbxogUhMqUBs7i5em2lPehH9hNTL
+         o5Pw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=cjw8BVGs;
-       spf=pass (google.com: domain of p-yadav1@ti.com designates 198.47.23.249 as permitted sender) smtp.mailfrom=p-yadav1@ti.com;
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=VanRaVWl;
+       spf=pass (google.com: domain of p-yadav1@ti.com designates 198.47.23.248 as permitted sender) smtp.mailfrom=p-yadav1@ti.com;
        dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
-Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com. [198.47.23.249])
-        by gmr-mx.google.com with ESMTPS id v74si641320pgb.2.2019.07.09.06.48.15
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com. [198.47.23.248])
+        by gmr-mx.google.com with ESMTPS id g189si731902pgc.3.2019.07.09.06.48.17
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 09 Jul 2019 06:48:15 -0700 (PDT)
-Received-SPF: pass (google.com: domain of p-yadav1@ti.com designates 198.47.23.249 as permitted sender) client-ip=198.47.23.249;
-Received: from lelv0266.itg.ti.com ([10.180.67.225])
-	by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id x69DmEtj066848;
-	Tue, 9 Jul 2019 08:48:14 -0500
-Received: from DLEE104.ent.ti.com (dlee104.ent.ti.com [157.170.170.34])
-	by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x69DmEDK009334
+        Tue, 09 Jul 2019 06:48:17 -0700 (PDT)
+Received-SPF: pass (google.com: domain of p-yadav1@ti.com designates 198.47.23.248 as permitted sender) client-ip=198.47.23.248;
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+	by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id x69DmG3V106105;
+	Tue, 9 Jul 2019 08:48:16 -0500
+Received: from DFLE115.ent.ti.com (dfle115.ent.ti.com [10.64.6.36])
+	by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x69DmGPA100272
 	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 9 Jul 2019 08:48:14 -0500
-Received: from DLEE115.ent.ti.com (157.170.170.26) by DLEE104.ent.ti.com
- (157.170.170.34) with Microsoft SMTP Server (version=TLS1_2,
+	Tue, 9 Jul 2019 08:48:16 -0500
+Received: from DFLE111.ent.ti.com (10.64.6.32) by DFLE115.ent.ti.com
+ (10.64.6.36) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Tue, 9 Jul
- 2019 08:48:14 -0500
-Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE115.ent.ti.com
- (157.170.170.26) with Microsoft SMTP Server (version=TLS1_2,
+ 2019 08:48:16 -0500
+Received: from lelv0326.itg.ti.com (10.180.67.84) by DFLE111.ent.ti.com
+ (10.64.6.32) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
- Frontend Transport; Tue, 9 Jul 2019 08:48:13 -0500
+ Frontend Transport; Tue, 9 Jul 2019 08:48:16 -0500
 Received: from pratyush-laptop.india.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
-	by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id x69Dm9P0107982;
-	Tue, 9 Jul 2019 08:48:12 -0500
+	by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id x69Dm9P1107982;
+	Tue, 9 Jul 2019 08:48:14 -0500
 From: "'Pratyush Yadav' via Jailhouse" <jailhouse-dev@googlegroups.com>
 To: <jailhouse-dev@googlegroups.com>, Jan Kiszka <jan.kiszka@siemens.com>
 CC: Lokesh Vutla <lokeshvutla@ti.com>, Sekhar Nori <nsekhar@ti.com>,
@@ -119,9 +119,9 @@ CC: Lokesh Vutla <lokeshvutla@ti.com>, Sekhar Nori <nsekhar@ti.com>,
  Mills <wmills@ti.com>, Nikhil Devshatwar <nikhil.nd@ti.com>,
         Pratyush Yadav
 	<p-yadav1@ti.com>
-Subject: [PATCH v3 1/6] iommu: x86: Generalize iommu definition
-Date: Tue, 9 Jul 2019 19:18:31 +0530
-Message-ID: <20190709134836.10485-2-p-yadav1@ti.com>
+Subject: [PATCH v3 2/6] arm-common: Introduce iommu functionality
+Date: Tue, 9 Jul 2019 19:18:32 +0530
+Message-ID: <20190709134836.10485-3-p-yadav1@ti.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20190709134836.10485-1-p-yadav1@ti.com>
 References: <20190709134836.10485-1-p-yadav1@ti.com>
@@ -130,8 +130,8 @@ Content-Type: text/plain; charset="UTF-8"
 X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 X-Original-Sender: p-yadav1@ti.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@ti.com header.s=ti-com-17Q1 header.b=cjw8BVGs;       spf=pass
- (google.com: domain of p-yadav1@ti.com designates 198.47.23.249 as permitted
+ header.i=@ti.com header.s=ti-com-17Q1 header.b=VanRaVWl;       spf=pass
+ (google.com: domain of p-yadav1@ti.com designates 198.47.23.248 as permitted
  sender) smtp.mailfrom=p-yadav1@ti.com;       dmarc=pass (p=QUARANTINE sp=NONE
  dis=NONE) header.from=ti.com
 X-Original-From: Pratyush Yadav <p-yadav1@ti.com>
@@ -150,169 +150,240 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Nikhil Devshatwar <nikhil.nd@ti.com>
 
-Right now, jailhouse only supports iommu for x86.
-Generalize the data structures to support iommus of different types
+Add the iommu hooks for ARM and ARM64 architectures with
+dummy implementations.
+Update the Kbuild to include new iommu files
 
-Assumption is that each jailhouse_system can define iommu
-instances of different types. Extend the jailhouse_iommu
-to add type info.
+Introduce following hooks:
+iommu_map_memory - Setup iommu mapping for the memory region
+iommu_unmap_memory - Unmap the iommu mapping for the mem region
+iommu_config_commit - Commit all the changes to the mem mapping
 
-Update the x86 config files to reflect updated data the new type field.
-
-[p-yadav1@ti.com: Add Intel IOMMU and fix compiler errors for AMD and
-VT-D]
+Call the map/unmap iommu functions in addition to CPU map/unmap and
+config_commit.
+Also add iommu_units in the platform data for ARM cells.
 
 Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
 Signed-off-by: Lokesh Vutla <lokeshvutla@ti.com>
-Signed-off-by: Pratyush Yadav <p-yadav1@ti.com>
 ---
-v2:
-- Undo removing iommu_count_units().
-- Remove the union from jailhouse_iommu.
-- Remove the stray blank in amd_iommu.h
-- Revert to using n instead of i in amd_iommu_init().
-- Fail in Intel and AMD when any other type of IOMMU is found.
-- Remove the accidental Intel configuration check.
-- Update cell config template and pyjailhouse
+ hypervisor/arch/arm-common/Kbuild             |  2 +-
+ hypervisor/arch/arm-common/control.c          |  6 ++++
+ .../arch/arm-common/include/asm/iommu.h       | 26 +++++++++++++++
+ hypervisor/arch/arm-common/iommu.c            | 32 +++++++++++++++++++
+ hypervisor/arch/arm-common/mmu_cell.c         | 25 +++++++++++++++
+ hypervisor/include/jailhouse/control.h        |  1 +
+ hypervisor/setup.c                            |  2 +-
+ include/jailhouse/cell-config.h               |  2 ++
+ 8 files changed, 94 insertions(+), 2 deletions(-)
+ create mode 100644 hypervisor/arch/arm-common/include/asm/iommu.h
+ create mode 100644 hypervisor/arch/arm-common/iommu.c
 
-Jan, please take a close look at the template and pyjailhouse update.
-I'm not sure if I missed something, or did something wrong.
-
- configs/x86/f2a88xm-hd3.c       | 1 +
- configs/x86/qemu-x86.c          | 1 +
- hypervisor/arch/x86/amd_iommu.c | 9 ++++-----
- hypervisor/arch/x86/vtd.c       | 2 ++
- include/jailhouse/cell-config.h | 7 +++++++
- pyjailhouse/sysfs_parser.py     | 2 ++
- tools/root-cell-config.c.tmpl   | 1 +
- 7 files changed, 18 insertions(+), 5 deletions(-)
-
-diff --git a/configs/x86/f2a88xm-hd3.c b/configs/x86/f2a88xm-hd3.c
-index 315d0e29..849c5756 100644
---- a/configs/x86/f2a88xm-hd3.c
-+++ b/configs/x86/f2a88xm-hd3.c
-@@ -50,6 +50,7 @@ struct {
- 				.pm_timer_address = 0x808,
- 				.iommu_units = {
- 					{
-+						.type = JAILHOUSE_IOMMU_AMD,
- 						.base = 0xfeb80000,
- 						.size = 0x80000,
- 						.amd_bdf = 0x02,
-diff --git a/configs/x86/qemu-x86.c b/configs/x86/qemu-x86.c
-index fdfa8915..2df2807a 100644
---- a/configs/x86/qemu-x86.c
-+++ b/configs/x86/qemu-x86.c
-@@ -50,6 +50,7 @@ struct {
- 				.vtd_interrupt_limit = 256,
- 				.iommu_units = {
- 					{
-+						.type = JAILHOUSE_IOMMU_INTEL,
- 						.base = 0xfed90000,
- 						.size = 0x1000,
- 					},
-diff --git a/hypervisor/arch/x86/amd_iommu.c b/hypervisor/arch/x86/amd_iommu.c
-index 02712571..2fc6d033 100644
---- a/hypervisor/arch/x86/amd_iommu.c
-+++ b/hypervisor/arch/x86/amd_iommu.c
-@@ -448,7 +448,7 @@ static void amd_iommu_init_fault_nmi(void)
- 		    &system_config->platform_info.x86.iommu_units[iommu->idx];
+diff --git a/hypervisor/arch/arm-common/Kbuild b/hypervisor/arch/arm-common/Kbuild
+index 78b9e512..6f57ef02 100644
+--- a/hypervisor/arch/arm-common/Kbuild
++++ b/hypervisor/arch/arm-common/Kbuild
+@@ -17,6 +17,6 @@ ccflags-$(CONFIG_JAILHOUSE_GCOV) += -fprofile-arcs -ftest-coverage
+ objs-y += dbg-write.o lib.o psci.o control.o paging.o mmu_cell.o setup.o
+ objs-y += irqchip.o pci.o ivshmem.o uart-pl011.o uart-xuartps.o uart-mvebu.o
+ objs-y += uart-hscif.o uart-scifa.o uart-imx.o
+-objs-y += gic-v2.o gic-v3.o smccc.o
++objs-y += gic-v2.o gic-v3.o smccc.o iommu.o
  
- 		/* Disable MSI during interrupt reprogramming. */
--		pci_write_config(cfg->amd_bdf, cfg->amd_msi_cap + 2 , 0, 2);
-+		pci_write_config(cfg->amd_bdf, cfg->amd_msi_cap + 2, 0, 2);
+ common-objs-y = $(addprefix ../arm-common/,$(objs-y))
+diff --git a/hypervisor/arch/arm-common/control.c b/hypervisor/arch/arm-common/control.c
+index b59c05d6..d712b049 100644
+--- a/hypervisor/arch/arm-common/control.c
++++ b/hypervisor/arch/arm-common/control.c
+@@ -16,6 +16,7 @@
+ #include <jailhouse/printk.h>
+ #include <asm/control.h>
+ #include <asm/psci.h>
++#include <asm/iommu.h>
  
- 		/*
- 		 * Write new MSI capability block, re-enabling interrupts with
-@@ -782,14 +782,13 @@ static int amd_iommu_init(void)
+ static void enter_cpu_off(struct public_per_cpu *cpu_public)
+ {
+@@ -208,7 +209,12 @@ void arch_flush_cell_vcpu_caches(struct cell *cell)
  
- 	iommu = &system_config->platform_info.x86.iommu_units[0];
- 	for (n = 0; iommu->base && n < iommu_count_units(); iommu++, n++) {
-+		if (iommu->type != JAILHOUSE_IOMMU_AMD)
-+			return trace_error(-EINVAL);
+ void arch_config_commit(struct cell *cell_added_removed)
+ {
++	u8 err;
 +
- 		entry = &iommu_units[iommu_units_count];
+ 	irqchip_config_commit(cell_added_removed);
++	err = iommu_config_commit(cell_added_removed);
++	if (err)
++		printk("WARNING: iommu_config_commit failed\n");
+ }
  
- 		entry->idx = n;
+ void __attribute__((noreturn)) arch_panic_stop(void)
+diff --git a/hypervisor/arch/arm-common/include/asm/iommu.h b/hypervisor/arch/arm-common/include/asm/iommu.h
+new file mode 100644
+index 00000000..d33ec17c
+--- /dev/null
++++ b/hypervisor/arch/arm-common/include/asm/iommu.h
+@@ -0,0 +1,26 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) 2018 Texas Instruments Incorporated - http://www.ti.com
++ *
++ * Authors:
++ *  Nikhil Devshatwar <nikhil.nd@ti.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++#ifndef _JAILHOUSE_ASM_IOMMU_H
++#define _JAILHOUSE_ASM_IOMMU_H
++
++#include <jailhouse/types.h>
++#include <jailhouse/utils.h>
++#include <jailhouse/config.h>
++#include <jailhouse/cell-config.h>
++
++int iommu_map_memory_region(struct cell *cell,
++			    const struct jailhouse_memory *mem);
++int iommu_unmap_memory_region(struct cell *cell,
++			      const struct jailhouse_memory *mem);
++int iommu_config_commit(struct cell *cell);
++#endif
+diff --git a/hypervisor/arch/arm-common/iommu.c b/hypervisor/arch/arm-common/iommu.c
+new file mode 100644
+index 00000000..5bc9e6a9
+--- /dev/null
++++ b/hypervisor/arch/arm-common/iommu.c
+@@ -0,0 +1,32 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) 2018 Texas Instruments Incorporated - http://www.ti.com
++ *
++ * Authors:
++ *  Nikhil Devshatwar <nikhil.nd@ti.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++#include <jailhouse/control.h>
++#include <jailhouse/config.h>
++#include <asm/iommu.h>
++
++int iommu_map_memory_region(struct cell *cell,
++			    const struct jailhouse_memory *mem)
++{
++	return 0;
++}
++
++int iommu_unmap_memory_region(struct cell *cell,
++			      const struct jailhouse_memory *mem)
++{
++	return 0;
++}
++
++int iommu_config_commit(struct cell *cell)
++{
++	return 0;
++}
+diff --git a/hypervisor/arch/arm-common/mmu_cell.c b/hypervisor/arch/arm-common/mmu_cell.c
+index 36a3016f..d51f92ca 100644
+--- a/hypervisor/arch/arm-common/mmu_cell.c
++++ b/hypervisor/arch/arm-common/mmu_cell.c
+@@ -15,12 +15,14 @@
+ #include <jailhouse/printk.h>
+ #include <asm/sysregs.h>
+ #include <asm/control.h>
++#include <asm/iommu.h>
  
--		/* Protect against accidental VT-d configs. */
--		if (!iommu->amd_bdf)
--			return trace_error(-EINVAL);
--
- 		printk("AMD IOMMU @0x%llx/0x%x\n", iommu->base, iommu->size);
+ int arch_map_memory_region(struct cell *cell,
+ 			   const struct jailhouse_memory *mem)
+ {
+ 	u64 phys_start = mem->phys_start;
+ 	u32 flags = PTE_FLAG_VALID | PTE_ACCESS_FLAG;
++	int err = 0;
  
- 		/* Initialize PCI registers and MMIO space */
-diff --git a/hypervisor/arch/x86/vtd.c b/hypervisor/arch/x86/vtd.c
-index a43632f5..dc89928f 100644
---- a/hypervisor/arch/x86/vtd.c
-+++ b/hypervisor/arch/x86/vtd.c
-@@ -1022,6 +1022,8 @@ static int vtd_init(void)
+ 	if (mem->flags & JAILHOUSE_MEM_READ)
+ 		flags |= S2_PTE_ACCESS_RO;
+@@ -37,6 +39,17 @@ int arch_map_memory_region(struct cell *cell,
+ 		flags |= S2_PAGE_ACCESS_XN;
+ 	*/
  
- 	for (n = 0; n < units; n++) {
- 		unit = &system_config->platform_info.x86.iommu_units[n];
-+		if (unit->type != JAILHOUSE_IOMMU_INTEL)
-+			return trace_error(-EINVAL);
++	/*
++	 * Entire hypervisor memory is mapped to empty_page to avoid faults
++	 * at the shutdown. We don't need this in the IOMMU mapping
++	 * Skip mapping empty_page in the iommu mapping
++	 */
++	if (mem->phys_start != paging_hvirt2phys(empty_page)) {
++		err = iommu_map_memory_region(cell, mem);
++		if (err)
++			return err;
++	}
++
+ 	return paging_create(&cell->arch.mm, phys_start, mem->size,
+ 			     mem->virt_start, flags, PAGING_COHERENT);
+ }
+@@ -44,6 +57,18 @@ int arch_map_memory_region(struct cell *cell,
+ int arch_unmap_memory_region(struct cell *cell,
+ 			     const struct jailhouse_memory *mem)
+ {
++	int err = 0;
++
++	/*
++	 * empty_page is not mapped in the iommu
++	 * Skip all the calls to unmap as well
++	 */
++	if (mem->phys_start != paging_hvirt2phys(empty_page)) {
++		err = iommu_unmap_memory_region(cell, mem);
++		if (err)
++			return err;
++	}
++
+ 	return paging_destroy(&cell->arch.mm, mem->virt_start, mem->size,
+ 			      PAGING_COHERENT);
+ }
+diff --git a/hypervisor/include/jailhouse/control.h b/hypervisor/include/jailhouse/control.h
+index 72518f6a..43dee950 100644
+--- a/hypervisor/include/jailhouse/control.h
++++ b/hypervisor/include/jailhouse/control.h
+@@ -20,6 +20,7 @@
  
- 		reg_base = dmar_reg_base + n * DMAR_MMIO_SIZE;
+ extern volatile unsigned long panic_in_progress;
+ extern unsigned long panic_cpu;
++extern const u8 empty_page[PAGE_SIZE];
  
+ /**
+  * @defgroup Control Control Subsystem
+diff --git a/hypervisor/setup.c b/hypervisor/setup.c
+index 99a2b0c3..e3b1b3c8 100644
+--- a/hypervisor/setup.c
++++ b/hypervisor/setup.c
+@@ -24,7 +24,7 @@
+ 
+ extern u8 __text_start[], __page_pool[];
+ 
+-static const __attribute__((aligned(PAGE_SIZE))) u8 empty_page[PAGE_SIZE];
++const __attribute__((aligned(PAGE_SIZE))) u8 empty_page[PAGE_SIZE];
+ 
+ static DEFINE_SPINLOCK(init_lock);
+ static unsigned int master_cpu_id = -1;
 diff --git a/include/jailhouse/cell-config.h b/include/jailhouse/cell-config.h
-index 5739f332..781aac88 100644
+index 781aac88..c988f7c5 100644
 --- a/include/jailhouse/cell-config.h
 +++ b/include/jailhouse/cell-config.h
-@@ -196,9 +196,16 @@ struct jailhouse_pci_capability {
- 
- #define JAILHOUSE_MAX_IOMMU_UNITS	8
- 
-+enum jailhouse_iommu_type {
-+	JAILHOUSE_IOMMU_AMD,
-+	JAILHOUSE_IOMMU_INTEL,
-+};
-+
- struct jailhouse_iommu {
-+	__u32 type;
- 	__u64 base;
- 	__u32 size;
-+
- 	__u16 amd_bdf;
- 	__u8 amd_base_cap;
- 	__u8 amd_msi_cap;
-diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py
-index 3db61980..06f68c87 100644
---- a/pyjailhouse/sysfs_parser.py
-+++ b/pyjailhouse/sysfs_parser.py
-@@ -243,6 +243,7 @@ def parse_dmar(pcidevices, ioapics, dmar_regions):
-             if size > 0x3000:
-                 raise RuntimeError('Unexpectedly large DMAR region.')
-             units.append(IOMMUConfig({
-+                'type': 'JAILHOUSE_IOMMU_INTEL',
-                 'base_addr': base,
-                 'mmio_size': size
-             }))
-@@ -387,6 +388,7 @@ def parse_ivrs(pcidevices, ioapics):
-                 mmio_size = 16384
- 
-             units.append(IOMMUConfig({
-+                'type': 'JAILHOUSE_IOMMU_AMD',
-                 'base_addr': base_addr,
-                 'mmio_size': mmio_size,
-                 'amd_bdf': iommu_bdf,
-diff --git a/tools/root-cell-config.c.tmpl b/tools/root-cell-config.c.tmpl
-index b6ac8637..9f904e9c 100644
---- a/tools/root-cell-config.c.tmpl
-+++ b/tools/root-cell-config.c.tmpl
-@@ -90,6 +90,7 @@ struct {
- 				.iommu_units = {
- 					% for unit in iommu_units:
- 					{
-+						.type = ${unit.type},
- 						.base = ${hex(unit.base_addr)},
- 						.size = ${hex(unit.mmio_size)},
- 						% if unit.is_amd_iommu:
+@@ -258,6 +258,8 @@ struct jailhouse_system {
+ 				u64 gich_base;
+ 				u64 gicv_base;
+ 				u64 gicr_base;
++				struct jailhouse_iommu
++					iommu_units[JAILHOUSE_MAX_IOMMU_UNITS];
+ 			} __attribute__((packed)) arm;
+ 		} __attribute__((packed));
+ 	} __attribute__((packed)) platform_info;
 -- 
 2.17.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20190709134836.10485-2-p-yadav1%40ti.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20190709134836.10485-3-p-yadav1%40ti.com.
 For more options, visit https://groups.google.com/d/optout.
