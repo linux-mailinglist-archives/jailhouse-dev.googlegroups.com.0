@@ -1,117 +1,137 @@
-Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRB3NOT3UQKGQELFHIRDQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRB3O4ULUQKGQEYSM23TQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x338.google.com (mail-wm1-x338.google.com [IPv6:2a00:1450:4864:20::338])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD44566064
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Jul 2019 22:09:17 +0200 (CEST)
-Received: by mail-wm1-x338.google.com with SMTP id u19sf2004620wmj.0
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Jul 2019 13:09:17 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1562875757; cv=pass;
+Received: from mail-ed1-x538.google.com (mail-ed1-x538.google.com [IPv6:2a00:1450:4864:20::538])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BCE8672DC
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 12 Jul 2019 17:59:42 +0200 (CEST)
+Received: by mail-ed1-x538.google.com with SMTP id m23sf8213510edr.7
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 12 Jul 2019 08:59:42 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1562947182; cv=pass;
         d=google.com; s=arc-20160816;
-        b=GIephDBXd5WWL3zB7M+33dp2y9gu+3MwraqL8SMeorBE5ATmp1rJjbX6ipX8luBVBB
-         z++BnwJzl8g65AitteTD2gVpOTdn/oxiu1oQbnaOW1MckjRM+Wo1vRbKxhw9XYAf0zvm
-         3vCm129Q5FqkAkZsD3Yt4z1GgrEOQZQ15xpgdwD2H7W63t1uAUkFya7RkqX/VbtoY0Ar
-         b9KGXE3Dswd6TUAyVO1X+XvWwaZ36ROZk2wfd3HeJ2R9DNVVHge+tWPnXxPCkmKgqqjj
-         N2y0hcnvNrWC0hRNf2RrAyDYTBrcLzPqd2m+wVgRc9f1B1bgFMqJi3Vs+iYdug9f/ajZ
-         23Eg==
+        b=KTYHW4uiq/rDtfNDTQs/OlXNZFL+KlpBLM6ESxldv9EvierLlI6lUq/iFI0aKXenUc
+         hJsew29N1wLROq1WmEbPJ0S+fAPAoSsgc0297mFwG7mUNOAm3zleDNSb0kjO+g7nOQrK
+         y6ZX7faJ+vkGuZFFvjJV4fmEljVOD0ygOyDnRe4O7TbkR0UaKlW7On8DoO/SA7+yFfad
+         Nu+gzOR9rRk3Rfd959nbnQu7qE8fkDZgu5XcKoWQmRLXz77eEPSVCNTFkkhm3+syjL+D
+         vdMOjX8YorOUT6nKNnS4KVX8gR+lVPbEnWZMsVM5c+JkwLf6YjEgO3tI0usR+UyHbadj
+         +mlQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:message-id:date
-         :subject:cc:to:from:sender:dkim-signature;
-        bh=PaDlUmKFt4nNi6KJGdcWVh6DOLDkowuVCEUyJO1hAUA=;
-        b=uKPCkiInAhidRbs8lxF5g5oBRhzvBXQwgw8yTKmXGKWD3BjRwRwifvqT738ENgMkdv
-         C2t/rrgN/JwpUwKiMms1ZObqXNRJMa6jQC0jHX8ZIVh5ObXJP8dY5YHstGJcK4jBy6WD
-         rvX/ZxGSASz/vBZrg1kFA1k3bYobPUtDuK9TjOCpHukuo16pFWiMnng/t0N6nKOBFjd8
-         cN5aArUxIK/sHbZC+UUbnQnW03JWI8XJ0EoaiElJMha/OGPFEcVaiNSXPIC2Zlsjk40Z
-         dc+lryHm/UeR2oxccYxJCnc9/4o5uvAnHK2dhUkFc5BK5AnD23e6M6Z9inHYnF+mKZoZ
-         7xtQ==
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:openpgp:from:references:to
+         :subject:sender:dkim-signature;
+        bh=ZmtwkwDcOcYk67Hts6F8YGMlBO9Ykj4OUf7/EAnjSM8=;
+        b=rPUHTbL0tCLc0JTKAj1EPnl3Y6Kkx71qyMHdK6JrmGc2Gj7i2XK9xG587HvYsfhcJG
+         /avhRePov+y11xXjBS7M2dEPtHFjKNpNsiOesY1Y2tdA7Dgt6LdZIW4ipLwb/h8dJ5/O
+         9MbT9DRaVrJXH2purkfOjTRPami3+XWi+gaLYMNGr506wEI375LprUNyWtSbnaNzF8hY
+         xIN0dfNBbsSTmzogecPrxwbkXsWiXRGTml3Be0OptDYkjpZuDBfv3tOy09cXiCg2J4eg
+         wdGzOxiNe1b83l2NeYmtux+485TyNP50Iid7ju34I6g82+8pl8UKRkheUmkyn1DvLcOT
+         zrDA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=RMDTzuSo;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:cc:subject:date:message-id:mime-version
+        h=sender:subject:to:references:from:openpgp:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=PaDlUmKFt4nNi6KJGdcWVh6DOLDkowuVCEUyJO1hAUA=;
-        b=aK/QKmmD3WGGHGD7ImhqyDr7IWHG6Fuisk+FMMO5eZK7mbmRgzLn4i7VykyA1ZMhtK
-         FqafXbjurtJSxV1BCZ3e2LHwNKGAXBaM0Pov+1FrDEwAqGtRz/flTwwIBD1Bzfd999jv
-         m8PpTjONRAYWwiWwIXEqnfjI/Nb1g2XTvu+09O/3elwk34I0cbR6mMvIFAtxQxewTe07
-         thRQAxHAJm8iiYEmS4O2lfU9OTqqG52wFveGOdvLWD/Ryqsf6dczBJWLrTqcvzzVa8EW
-         ymcmvQLO0HpuI8zWRnSq4GMIIPeegw55/lvZTxOzYaU+cKOK1Mt+hUD5SPYQvVWGX8Ax
-         SyZQ==
+        bh=ZmtwkwDcOcYk67Hts6F8YGMlBO9Ykj4OUf7/EAnjSM8=;
+        b=oj6jx2P/K1BgN8eNE1y88UdBNrC8qai8uCKux06CUWBnRz25KD+rNm5JcdtrEyxciE
+         HaAUE950BQhVD/ekVRwUiIrfYQ3vA2ZxCGcscftPAyIlyPJ1KHDCEQ7F6IiUdtr9lKnz
+         vOvhp1pQT0t+HnjEWQuEsoaQFV8/hLT3bchKThhE2ZfHD1dLXVGBCPRKSsni9oz5mzTu
+         42PyKiaGwfmOLkMjfmuOojgxNfBnTjY3Ymw/cmZKwqZX+T0W69HLxoyB9ZK+XtStnhrF
+         PcWhFwOrsYGccqO/DDbfmPbGRDTwRLzCzk/xXmMS8VCh6iZ90ZRwaiwcok2sQKkYdvbU
+         1Mgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=PaDlUmKFt4nNi6KJGdcWVh6DOLDkowuVCEUyJO1hAUA=;
-        b=nL6qwGilqU+l5eQbyPcYV6bGAdhEmVX/A5Xdg/XCaZS/v9ZuVzCH+5SlZOmRUihGeR
-         PlJZUnKkuz0N8w6XP4qwEYkRLGPn0Uskzq80/nUiGCtYhPNONCkGIxYY6GjHuo8+HQ8X
-         uwKFpf7ZWEu7M99h2ae3YYwgaCt7J+j2D1DdBu2b2KMyJW7upgEKgnuf9giqAK5eTm/l
-         7mGSC55riJJhm5CZ3lTcA4185Ok4aHQ6ZUkX4NyHsZJ386iv0AkUdddktCDdp2Acafym
-         iJR7qig+TUe+keLTqsHLRRd+SHwP5tMkPb2+7jz9sa6Ww1/x9MJUcAzdYRC4hdZ+m+j0
-         o3yQ==
+        h=sender:x-gm-message-state:subject:to:references:from:openpgp
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=ZmtwkwDcOcYk67Hts6F8YGMlBO9Ykj4OUf7/EAnjSM8=;
+        b=WTjsnhkpvFfPmuP6dlx4b3OQXtyiLNoUc3McWtC+XENQ3ECPtrGi18XkbQCm5M2ClR
+         W8Yj21vEbucQFK6oP8QhIzX4jbEB9a03FcPCQ0b73hvr4kZgHH/KEfXgPLdqHyaihJHG
+         vOm+plMgTeHxKQVKld7uX5tezTBCij2l93JT6EXWmRW96zJN9cFZCFO1CXbEIWOJrU6O
+         cH/5OBtNpIwrXqpXv9dWSxGc/NxlNUMTNK03mAFu1IToptWlJqERe9SIj7tRnOiWXXT/
+         qiaH/GyNPMAfZM1fMfsrNiLDrswYhvMtZeqaGfEd3loO1aXLhrf/sp7T//Kj47bpmXLZ
+         A0Cg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAWLgyWZ4Gy5/E8dBtZhbYdXXAN6bVqQIphIFvhBk3DD/nqEw+Fv
-	ivrIvzj8yDsDLeYu1/n0+qM=
-X-Google-Smtp-Source: APXvYqwhIU3coGiTMQaxCWVmTeM4u3DMHvtLE97McJyP7/uaHX+WEWDFS6Q5ramZCRym4CJ68vhejQ==
-X-Received: by 2002:adf:f088:: with SMTP id n8mr6755242wro.58.1562875757551;
-        Thu, 11 Jul 2019 13:09:17 -0700 (PDT)
+X-Gm-Message-State: APjAAAXhfANxXcmQoaPxLZup7u2aXa6B2Ru48r73r7K4eJkXEwVZ77Q/
+	SgE1NnxsqxgDf1TX644y5VY=
+X-Google-Smtp-Source: APXvYqwlBpMHpfBXZNDGRJnB7ZiS4qmYtBvifHbUPq7GL0p8FyIjtVd/lknds2w/lieZ1FN3QvqVCA==
+X-Received: by 2002:a50:b1e7:: with SMTP id n36mr10116911edd.227.1562947182169;
+        Fri, 12 Jul 2019 08:59:42 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:a745:: with SMTP id e5ls2317142wrd.5.gmail; Thu, 11 Jul
- 2019 13:09:16 -0700 (PDT)
-X-Received: by 2002:adf:df10:: with SMTP id y16mr6957639wrl.302.1562875756978;
-        Thu, 11 Jul 2019 13:09:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1562875756; cv=none;
+Received: by 2002:a17:906:7f15:: with SMTP id d21ls2172969ejr.1.gmail; Fri, 12
+ Jul 2019 08:59:41 -0700 (PDT)
+X-Received: by 2002:a17:906:c459:: with SMTP id ck25mr8789417ejb.32.1562947181213;
+        Fri, 12 Jul 2019 08:59:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1562947181; cv=none;
         d=google.com; s=arc-20160816;
-        b=qdveAvcDSRUWfOE33x9JYoUBNovJ59d2tLElPNq2ooHOf/GZhimafJvcpnFOeI8VWw
-         a2Tsv9mEQ3V65gYSLcWusH9jJZBEyJTt3f/r44UYUei/b436K7XmvYKCaOUuUE+3qHy/
-         83i3goqSJ1huzcTLsfLz7xDC8OJOqnOx+qlmuTDDVrf/1MHJ7pVD/P79QDLKeJgDx+Es
-         bRvV/uXfntlnUBOIiXmGveEfW0GyC30HWKFlpT0IzZWMh/isb9HfTRnOLHNhdbCk//YY
-         YvNETpKIW50X6ORLem34qHkZRLy6kucNHUt2IKkd0jzqRjC10NJJtGkG99estzdyTuIM
-         QM8Q==
+        b=BdPWxdW4zSQ2wsf1dLFzjzcpVVzPGHbNGa2AYpG4ZxobhN2OWTqkn0xRjnxfEH4BJk
+         qouUttPylvLhHQQGNFkwq+nqrAcTSHEScqDnj49DNsgo5B0akT6BV1+5uYZx8ofYv0Mu
+         S9EO5XlSQ2bVwUrAlBtmTnSn4EMdE0Ukk/s7mQ7/v+F5CUl/tzmZBTXJSm5AjmdMSUT6
+         zM4IiVH43YJIntkkxKZixU4VGs8Us36S5PLI7fhi2XplNlNqK3UoJZnWlCgzZ1Zfz7RK
+         QcXXtQzP7aEloNsNACcwPnDJucNkUJXQq8z5WxAyMgLT3ixAAc+loVzwsxH2NFTNxeot
+         4jpQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from;
-        bh=FBGkhnjo6NDOKr7gHWYmCOfMAPUxoqvzNrDdGlQRPss=;
-        b=KuJ3n3cic53umgEE4xM+7n9sYAMT3VL6mTQr1UneIVjQatYEBROr8FA+ib/oLQeulZ
-         lyzzFn13cfwO17Sds13KnhSDkv79WBtD6yXV0ADG9ynj+AJKPFUk6MOtxbUF6NfMMHmt
-         oa3YZMBNGZuSxu/KA5NC6u3dm+TnYZharvOBd9wXyCoWTkb9nk+MvXr3p5MrkIZ2GhD6
-         Io9AMwXoJtMCk5G/cEHM9zKAhaLReqMzvSNM/MHlTqeBoSVuzQxDxh3aT+Qpgb3h6eUp
-         lMLAhsYxIZV2i360wVRfF8MmkjyqUJfmGoYJ+n5nPnIRoAUEO6mq+h+yvWFMXh1dCS1N
-         4Bqw==
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:openpgp:from:references:to:subject
+         :dkim-signature;
+        bh=sVyOmF9kEyuzxfvBSgp+a4Bgzg/8lMIqItUYwUCTc6k=;
+        b=RM1WIpX2wyfAIR17VFdaf3t8Ysvo7JZcs/YPFOleoL7WPFuhz6Sq77WOlTOkF/MPDe
+         vLouwlDQwZuh515NCNjRVAqum9wCqypG5YVr23YudvCEyLo3cIv+GKRcYSMtgsxKvYJF
+         LAR/bqG01KpjwO6x1ZzWcTyf/jxvyXW/ANc0/RBnH7McnzO+JsGI46VKVQ64nydUuLBR
+         7k+sV2ugUcjzcca22haIeJ+2LKVqUSk3hRlo3d+MOar5qBWNdykMkJS/mfuCiLSvjDuO
+         mlXZTJB5yWy6qQyYmjcjIbJNR6FC2DLte9z37f9EWC5EWL1rW9OCi6t7Ic3QLFejrth9
+         iufg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=RMDTzuSo;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mtaout.hs-regensburg.de (mtaout.hs-regensburg.de. [194.95.104.10])
-        by gmr-mx.google.com with ESMTPS id q14si386755wmc.1.2019.07.11.13.09.16
+Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [2001:638:a01:1096::11])
+        by gmr-mx.google.com with ESMTPS id a41si542369edc.5.2019.07.12.08.59.41
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 11 Jul 2019 13:09:16 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) client-ip=194.95.104.10;
-Received: from pluto.lfdr (im-mob-039.hs-regensburg.de [172.20.37.154])
-	by mtaout.hs-regensburg.de (Postfix) with ESMTP id 45l6b02w46zy6p;
-	Thu, 11 Jul 2019 22:09:16 +0200 (CEST)
+        Fri, 12 Jul 2019 08:59:41 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) client-ip=2001:638:a01:1096::11;
+Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S02", Issuer "E16S02" (not verified))
+	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 45ld0X573jzxvw;
+	Fri, 12 Jul 2019 17:59:40 +0200 (CEST)
+Received: from [192.168.178.10] (194.95.106.138) by E16S02.hs-regensburg.de
+ (2001:638:a01:8013::92) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 12 Jul
+ 2019 17:59:40 +0200
+Subject: Re: [PATCH v2 2/2] pyjailhouse: x86: implement pio_bitmap generator
+To: Andrej Utz <andrej.utz@st.oth-regensburg.de>, Jailhouse
+	<jailhouse-dev@googlegroups.com>, Jan Kiszka <jan.kiszka@web.de>
+References: <20190620220614.23450-1-andrej.utz@st.oth-regensburg.de>
+ <20190620220614.23450-2-andrej.utz@st.oth-regensburg.de>
 From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Subject: [PATCH] pyjailhouse: sysfs_parser: Add more precise length of some extended caps
-Date: Thu, 11 Jul 2019 22:09:15 +0200
-Message-Id: <20190711200915.21217-1-ralf.ramsauer@oth-regensburg.de>
-X-Mailer: git-send-email 2.22.0
+Openpgp: preference=signencrypt
+Message-ID: <e369a4a6-57cf-3fae-a68c-3351394da184@oth-regensburg.de>
+Date: Fri, 12 Jul 2019 17:59:40 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-X-PMX-Version: 6.3.3.2656215, Antispam-Engine: 2.7.2.2107409, Antispam-Data: 2019.7.11.200016, AntiVirus-Engine: 5.63.0, AntiVirus-Data: 2019.7.11.5630002
-X-PMX-Spam: Gauge=IIIIIIII, Probability=8%, Report='
- HTML_00_01 0.05, HTML_00_10 0.05, BODY_SIZE_4000_4999 0, BODY_SIZE_5000_LESS 0, BODY_SIZE_7000_LESS 0, LEGITIMATE_SIGNS 0, MULTIPLE_REAL_RCPTS 0, NO_URI_HTTPS 0, __ANY_URI 0, __BODY_NO_MAILTO 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CTE 0, __FRAUD_MONEY_CURRENCY 0, __FRAUD_MONEY_CURRENCY_DOLLAR 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_X_MAILER 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __NO_HTML_TAG_RAW 0, __SANE_MSGID 0, __SUBJ_ALPHA_END 0, __TO_MALFORMED_2 0, __TO_NAME 0, __TO_NAME_DIFF_FROM_ACC 0, __TO_REAL_NAMES 0, __URI_NO_WWW 0, __URI_NS '
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of ralf.ramsauer@oth-regensburg.de designates
- 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+In-Reply-To: <20190620220614.23450-2-andrej.utz@st.oth-regensburg.de>
 Content-Type: text/plain; charset="UTF-8"
+Content-Language: de-DE
+X-Originating-IP: [194.95.106.138]
+X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
+ E16S02.hs-regensburg.de (2001:638:a01:8013::92)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=RMDTzuSo;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -124,103 +144,360 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-I often run into situations where Linux tries to write to some extended
-capabilities. E.g., Linux wants to clear Advanced Error Reporting (ERR)
-registers when probing for a device.
+Hi,
 
-At the moment, the crash dump of the cell is hard to interprete, as it
-remains unclear if the access is inside a capability, or if the device
-just accesses some PCI config space (e.g., accesses beyond PCI spec). At
-the moment, all extended capabilities have a fixed length of 4, which
-supports the confusion. Four bytes only cover the header of the
-capability.
+On 6/21/19 12:06 AM, Andrej Utz wrote:
+> This replaces the old static port list with actual port regions from
+> '/proc/ioports'. The static regions from said list are kept and override
+> the data in case of region overlap to retain compability.
+> The generated port list is virtually identicall to the old one but eases
+> manual configuration.
 
-This patch calculates the correct length of PCI caps for the
-configuration file -- at least of some capabilities. For some extended
-caps this is pretty easy, as they have a fixed length.
-  Nevertheless, other vary in their length. In some cases, it's pretty
-easy (VNDR, ACS), in other cases it's not worth it (VC, VC9) due to
-their complexity.
+just found a bug in this series. This series creates regions such as:
 
-Caps that aren't handle still result in a length of 4.
+<snip>
+[  0x80/8 ...   0x87/8] =   -1, /* 0080-0087 : dma page reg */
+[  0x88/8 ...   0x8f/8] =   -1, /* 0088-008f : dma page reg */
+[  0xa0/8 ...   0xa7/8] =   -1, /* 00a0-00a1 : pic2 */
+<snip>
 
-Additionally, switch to a hexadecimal representation of the length of
-PCI caps in config files.
+Now we have a hole between [0x90/8 ... 0x1f/8]. A hole means that this
+area will be initialised with zero -> access is permitted.
 
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
----
- pyjailhouse/sysfs_parser.py   | 35 +++++++++++++++++++++++++++++++----
- tools/root-cell-config.c.tmpl |  2 +-
- 2 files changed, 32 insertions(+), 5 deletions(-)
+Root of this bug: In addition known port regions, we must also respect
+unknown port regions and deny access.
 
-diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py
-index 0a690186..a21690db 100644
---- a/pyjailhouse/sysfs_parser.py
-+++ b/pyjailhouse/sysfs_parser.py
-@@ -655,14 +655,41 @@ class PCICapability:
- 
-                 id = PCI_EXT_CAP_ID(id)
-                 next = version_next >> 4
--                if id == PCI_EXT_CAP_ID.SRIOV:
-+                # access side effects still need to be analyzed
-+                flags = PCICapability.RD
-+
-+                if id == PCI_EXT_CAP_ID.VNDR:
-+                    (vsec_len,) = struct.unpack('<I', f.read(4))
-+                    len = 4 + (vsec_len >> 20)
-+                elif id == PCI_EXT_CAP_ID.ACS:
-+                    len = 8
-+                    vector_size = 0
-+
-+                    (acs_cap, acs_ctrl) = struct.unpack('<HH', f.read(4))
-+                    if acs_cap & (1 << 5) and acs_ctrl & (1 << 5):
-+                        vector_bits = acs_cap >> 8
-+                        if vector_bits == 0:
-+                            vector_bits = 256
-+                        vector_bytes = int((vector_bits + 31) / (8 * 4))
-+                        len += vector_bytes
-+                elif id in [PCI_EXT_CAP_ID.VC, PCI_EXT_CAP_ID.VC9]:
-+                    # parsing is too complex, but we have at least 4 DWORDS
-+                    len = 4 * 4
-+                elif id == PCI_EXT_CAP_ID.MFVC:
-+                    len = 4
-+                elif id in [PCI_EXT_CAP_ID.LTR, PCI_EXT_CAP_ID.ARI, PCI_EXT_CAP_ID.PASID]:
-+                    len = 8
-+                elif id in [PCI_EXT_CAP_ID.DSN, PCI_EXT_CAP_ID.PTM]:
-+                    len = 12
-+                elif id in [PCI_EXT_CAP_ID.PWR, PCI_EXT_CAP_ID.SECPCI]:
-+                    len = 16
-+                elif id == PCI_EXT_CAP_ID.MCAST:
-+                    len = 48
-+                elif id in [PCI_EXT_CAP_ID.SRIOV, PCI_EXT_CAP_ID.ERR]:
-                     len = 64
--                    # access side effects still need to be analyzed
--                    flags = PCICapability.RD
-                 else:
-                     # unknown/unhandled cap, mark its existence
-                     len = 4
--                    flags = PCICapability.RD
-                 f.seek(cap + 4)
-                 content = f.read(len - 4)
-                 caps.append(PCICapability(id, True, cap, len, flags, content,
-diff --git a/tools/root-cell-config.c.tmpl b/tools/root-cell-config.c.tmpl
-index 81d3a92b..512b9f0d 100644
---- a/tools/root-cell-config.c.tmpl
-+++ b/tools/root-cell-config.c.tmpl
-@@ -199,7 +199,7 @@ struct {
- 		{
- 			.id = ${c.gen_id_str()},
- 			.start = ${hex(c.start)},
--			.len = ${c.len},
-+			.len = ${hex(c.len)},
- 			.flags = ${c.flags},
- 		},
- 		% endfor
--- 
-2.22.0
+@Jan: This brings me to an idea. The TODO says that whitelist-based MSR
+bitmaps are a v1.0 target. I think the PIO bitmap would also benefit if
+it would be whitelist based. Do you agree?
+
+E.g.:
+.pio_bitmap = {
+	[ 0x3f8/8 ... 0x3ff/8 ] = -1,
+},
+
+would denote that only access to 3f8-3ff is allowed. All other ports are
+denied. Much easier to write and understand.
+
+  Ralf
+
+
+> 
+> Signed-off-by: Andrej Utz <andrej.utz@st.oth-regensburg.de>
+> ---
+>  pyjailhouse/sysfs_parser.py   | 150 ++++++++++++++++++++++++++++++++++
+>  tools/jailhouse-config-create |  26 ++----
+>  tools/root-cell-config.c.tmpl |  31 ++++---
+>  3 files changed, 176 insertions(+), 31 deletions(-)
+> 
+> diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py
+> index d612c6d3..ce490236 100644
+> --- a/pyjailhouse/sysfs_parser.py
+> +++ b/pyjailhouse/sysfs_parser.py
+> @@ -141,6 +141,52 @@ def parse_iomem(pcidevices):
+>  
+>      return ret, dmar_regions
+>  
+> +def parse_ioports():
+> +    regions = IOMapTree.parse_ioports_tree(
+> +        IOMapTree.parse_iomap_file('/proc/ioports', PortRegion))
+> +
+> +    tmp = [
+> +        # static regions
+> +        PortRegion(0x0, 0x3f, ''),
+> +        PortRegion(0x40, 0x43, 'PIT', allowed=True),
+> +        PortRegion(0x60, 0x61, 'NMI', allowed=True, comments=["HACK!"]), # NMI status/control
+> +        PortRegion(0x64, 0x64, 'NMI', allowed=True, comments=["HACK!"]), # ditto
+> +        PortRegion(0x70, 0x71, 'RTC', allowed=True),
+> +        PortRegion(0x3b0, 0x3df, 'VGA', allowed=True),
+> +        PortRegion(0xd00, 0xffff, 'PCI bus', allowed=True),
+> +    ]
+> +
+> +    pm_timer_base = None
+> +    for r in regions:
+> +        if r.typestr == 'ACPI PM_TMR':
+> +            pm_timer_base = r.start
+> +
+> +        tmp.append(r)
+> +
+> +    tmp.sort(key=lambda r: r.start)
+> +    ret = [ tmp[0] ]
+> +
+> +    # adjust overlapping regions
+> +    for r in tmp[1:]:
+> +        prev = ret[-1]
+> +
+> +        # combine multiple regions under the same bit mask
+> +        if prev.aligned_stop() >= r.aligned_start():
+> +            if r.stop > prev.stop:
+> +                n = prev
+> +                while n.neighbor != None:
+> +                    n = n.neighbor
+> +                n.neighbor = r
+> +            continue
+> +
+> +        # forbid access to unrecognized regions
+> +        if prev.aligned_stop() - r.aligned_start() > 0:
+> +            ret.append(
+> +                PortRegion(prev.aligned_stop() + 1, r.aligned_start() - 1, ''))
+> +
+> +        ret.append(r)
+> +
+> +    return (ret, pm_timer_base)
+>  
+>  def parse_pcidevices():
+>      int_src_cnt = 0
+> @@ -772,6 +818,85 @@ class MemRegion:
+>          return 'JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE'
+>  
+>  
+> +class PortRegion:
+> +    def __init__(self, start, stop, typestr, comments=None, allowed=False):
+> +        self.start = start
+> +        self.stop = stop
+> +        self.typestr = typestr or ''
+> +        self.comments = comments or []
+> +        self.allowed = allowed
+> +        self.neighbor = None
+> +
+> +    def __str__(self):
+> +        # as in MemRegion this method is purely for C comment generation
+> +
+> +        # remove consecutive duplicates
+> +        neighbor = self.neighbor
+> +        stop = self.stop
+> +        ns = ''
+> +        while neighbor:
+> +            if self.typestr != neighbor.typestr \
+> +            or self.comments != neighbor.comments:
+> +                ns += ', ' + str(neighbor)
+> +                break
+> +
+> +            stop = neighbor.stop
+> +            neighbor = neighbor.neighbor
+> +
+> +        s = ''
+> +        # pretty print single ports
+> +        if self.start == stop:
+> +            s += '%5s' % ''
+> +        else:
+> +            s += '%04x-' % self.start
+> +
+> +        s += '%04x' % stop
+> +
+> +
+> +        if self.typestr:
+> +            s += ' : ' + self.typestr
+> +
+> +        if self.comments:
+> +            s += ' (' + ', '.join(c for c in self.comments) + ')'
+> +
+> +        s += ns
+> +        return s
+> +
+> +    # used in root-cell-config.c.tmpl
+> +    def is_combined(self):
+> +        neighbor = self.neighbor
+> +        while neighbor:
+> +            if self.typestr != neighbor.typestr:
+> +                return True
+> +
+> +            neighbor = neighbor.neighbor
+> +
+> +        return False
+> +
+> +    def size(self):
+> +        return self.stop - self.start
+> +
+> +    def aligned_start(self):
+> +        return self.start - self.start % 8
+> +
+> +    def aligned_stop(self):
+> +        return self.stop + (7 - self.stop % 8)
+> +
+> +    def bits(self):
+> +        # in this method: 0 = disallowed,
+> +        # in config: 0 = allowed
+> +        if self.allowed:
+> +            bits = ((1 << (self.size() + 1)) - 1) << \
+> +                (self.start - self.aligned_start())
+> +        else:
+> +            bits = 0
+> +
+> +        if self.neighbor:
+> +            bits |= ~self.neighbor.bits()
+> +
+> +        return ~bits & 0xFF
+> +
+> +
+>  class IOAPIC:
+>      def __init__(self, id, address, gsi_base, iommu=0, bdf=0):
+>          self.id = id
+> @@ -935,6 +1060,31 @@ class IOMapTree:
+>  
+>          return regions, dmar_regions
+>  
+> +    # recurse down the tree
+> +    @staticmethod
+> +    def parse_ioports_tree(tree):
+> +        regions = []
+> +
+> +        for tree in tree.children:
+> +            r = tree.region
+> +            s = r.typestr
+> +
+> +            if len(tree.children) > 0:
+> +                regions.extend(IOMapTree.parse_ioports_tree(tree))
+> +                continue
+> +
+> +            # split in byte sized regions
+> +            while r.size() > 8:
+> +                # byte-align r.stop
+> +                sub = PortRegion(r.start, r.start + 7 - r.start % 8, r.typestr)
+> +                regions.append(sub)
+> +                r.start = sub.stop + 1
+> +
+> +            # add all remaining leaves
+> +            regions.append(r)
+> +
+> +        return regions
+> +
+>  
+>  class IOMMUConfig:
+>      def __init__(self, props):
+> diff --git a/tools/jailhouse-config-create b/tools/jailhouse-config-create
+> index 55601a6d..d154ec44 100755
+> --- a/tools/jailhouse-config-create
+> +++ b/tools/jailhouse-config-create
+> @@ -162,18 +162,6 @@ def count_cpus():
+>              count += 1
+>      return count
+>  
+> -
+> -def parse_ioports():
+> -    pm_timer_base = None
+> -    f = sysfs_parser.input_open('/proc/ioports')
+> -    for line in f:
+> -        if line.endswith('ACPI PM_TMR\n'):
+> -            pm_timer_base = int(line.split('-')[0], 16)
+> -            break
+> -    f.close()
+> -    return pm_timer_base
+> -
+> -
+>  class MMConfig:
+>      def __init__(self, base, end_bus):
+>          self.base = base
+> @@ -269,7 +257,7 @@ product = [input_readline('/sys/class/dmi/id/sys_vendor',
+>  inmatemem = kmg_multiply_str(options.mem_inmates)
+>  hvmem = [0, kmg_multiply_str(options.mem_hv)]
+>  
+> -(regions, dmar_regions) = sysfs_parser.parse_iomem(pcidevices)
+> +(mem_regions, dmar_regions) = sysfs_parser.parse_iomem(pcidevices)
+>  ourmem = parse_kernel_cmdline()
+>  total = hvmem[1] + inmatemem
+>  
+> @@ -283,11 +271,11 @@ if vendor == 'GenuineIntel':
+>                                                             dmar_regions)
+>  else:
+>      (iommu_units, extra_memregs) = sysfs_parser.parse_ivrs(pcidevices, ioapics)
+> -regions += extra_memregs
+> +mem_regions += extra_memregs
+>  
+>  # kernel does not have memmap region, pick one
+>  if ourmem is None:
+> -    ourmem = alloc_mem(regions, total)
+> +    ourmem = alloc_mem(mem_regions, total)
+>  elif (total > ourmem[1]):
+>      raise RuntimeError('Your memmap reservation is too small you need >="' +
+>                         hex(total) + '". Hint: your kernel cmd line needs '
+> @@ -298,20 +286,20 @@ hvmem[0] = ourmem[0]
+>  inmatereg = sysfs_parser.MemRegion(ourmem[0] + hvmem[1],
+>                                     ourmem[0] + hvmem[1] + inmatemem - 1,
+>                                     'JAILHOUSE Inmate Memory')
+> -regions.append(inmatereg)
+> +mem_regions.append(inmatereg)
+>  
+>  cpucount = count_cpus()
+>  
+> -pm_timer_base = parse_ioports()
+> +(port_regions, pm_timer_base) = sysfs_parser.parse_ioports()
+>  
+>  debug_console = DebugConsole(options.console)
+>  
+> -
+>  f = open(options.file, 'w')
+>  tmpl = Template(filename=os.path.join(options.template_dir,
+>                                        'root-cell-config.c.tmpl'))
+>  kwargs = {
+> -    'regions': regions,
+> +    'mem_regions': mem_regions,
+> +    'port_regions': port_regions,
+>      'ourmem': ourmem,
+>      'argstr': ' '.join(sys.argv),
+>      'hvmem': hvmem,
+> diff --git a/tools/root-cell-config.c.tmpl b/tools/root-cell-config.c.tmpl
+> index b6ac8637..9f65a72a 100644
+> --- a/tools/root-cell-config.c.tmpl
+> +++ b/tools/root-cell-config.c.tmpl
+> @@ -45,7 +45,7 @@
+>  struct {
+>  	struct jailhouse_system header;
+>  	__u64 cpus[${int((cpucount + 63) / 64)}];
+> -	struct jailhouse_memory mem_regions[${len(regions)}];
+> +	struct jailhouse_memory mem_regions[${len(mem_regions)}];
+>  	struct jailhouse_irqchip irqchips[${len(irqchips)}];
+>  	__u8 pio_bitmap[0x2000];
+>  	struct jailhouse_pci_device pci_devices[${len(pcidevices)}];
+> @@ -125,7 +125,7 @@ struct {
+>  	},
+>  
+>  	.mem_regions = {
+> -		% for r in regions:
+> +		% for r in mem_regions:
+>  		/* ${str(r)} */
+>  		% for c in r.comments:
+>  		/* ${c} */
+> @@ -153,18 +153,25 @@ struct {
+>  	},
+>  
+>  	.pio_bitmap = {
+> -		[     0/8 ...   0x3f/8] = -1,
+> -		[  0x40/8 ...   0x47/8] = 0xf0, /* PIT */
+> -		[  0x48/8 ...   0x5f/8] = -1,
+> -		[  0x60/8 ...   0x67/8] = 0xec, /* HACK: NMI status/control */
+> -		[  0x68/8 ...   0x6f/8] = -1,
+> -		[  0x70/8 ...   0x77/8] = 0xfc, /* RTC */
+> -		[  0x78/8 ...  0x3af/8] = -1,
+> -		[ 0x3b0/8 ...  0x3df/8] = 0x00, /* VGA */
+> -		[ 0x3e0/8 ...  0xcff/8] = -1,
+> -		[ 0xd00/8 ... 0xffff/8] = 0, /* HACK: PCI bus */
+> +		% for r in port_regions:
+> +		% if r.is_combined():
+> +
+> +		% for c in str(r).split(', '):
+> +		/* ${c} */
+> +		% endfor
+> +		% endif
+> +		[${
+> +			'%6s' % hex(r.aligned_start())}/8 ... ${
+> +			'%6s' % hex(r.aligned_stop())}/8] = ${
+> +			'%4s' % ('0' if r.bits() == 0 else \
+> +					'-1' if r.bits() == 0xff else \
+> +					hex(r.bits()))}, ${
+> +			('/* %s */' % str(r)) if not r.is_combined() else '\n' 
+> +		}
+> +		% endfor
+>  	},
+>  
+> +
+>  	.pci_devices = {
+>  		% for d in pcidevices:
+>  		/* ${str(d)} */
+> 
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20190711200915.21217-1-ralf.ramsauer%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/e369a4a6-57cf-3fae-a68c-3351394da184%40oth-regensburg.de.
 For more options, visit https://groups.google.com/d/optout.
