@@ -1,71 +1,129 @@
-Return-Path: <jailhouse-dev+bncBCZKXDNMZALBBNV6YLUQKGQEETJP5UA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBWFAYXUQKGQEDIGDNSI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oi1-x23c.google.com (mail-oi1-x23c.google.com [IPv6:2607:f8b0:4864:20::23c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1847F6D206
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 18 Jul 2019 18:32:56 +0200 (CEST)
-Received: by mail-oi1-x23c.google.com with SMTP id h184sf11267087oif.16
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 18 Jul 2019 09:32:56 -0700 (PDT)
+Received: from mail-wm1-x33a.google.com (mail-wm1-x33a.google.com [IPv6:2a00:1450:4864:20::33a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A7486E073
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 19 Jul 2019 07:08:41 +0200 (CEST)
+Received: by mail-wm1-x33a.google.com with SMTP id r9sf7460996wme.8
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 18 Jul 2019 22:08:41 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1563512921; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=RQ50dEjbSUIKhyrFl3qUf8Hg0j7I71ceJfsXBGFfbC5YXj/9lu0QzBMnV6nuO8bJZy
+         Fwqkd3HNfd84d/Hqa+Kh5xJ0r8zlu/Tyly6xbelG1XDm7XKyhG9pi3qB6IzIZ4NHdZtB
+         tv3TJP06u5T9AO0oxDBhkVqaAutpCVihuVhsLl/ycc5PULsFzvGBEsW7vZDaF5H55UGC
+         xHuLJUizxedHFvByuFlibAHsn7rPAKMyWQ7udCclMivZISts7rDIMjuhagVtVsinJcbO
+         cI76NRi3fHdBpolg1H5X25LDtHyWw2q6cwVmthWUGc7ZSUEH8xYXH9wGuv9sBaZUUvfm
+         qGNA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=GyHtoXGJL0kue4NpqvASEAsoovRaeLW7nHPYw/P9tmA=;
+        b=F5cOW+ezvpHUubZh4EPy0jTdBpwOSIi3XJ4KtxaJTcPZOL9JCuMTUQtf3M1M4Ccx0Z
+         ty734YrJ3xhSoJCFlZxpvkuxcTb4IUY91fAXv7A/1kNXzkHQREK5yQ3XzC0XJVePU00l
+         EiwZLUAo4XY5OaGeI1p8kS7nBCt5KBEAp9NeBt7CfMRbVbgPnqBvD9Nr82wrbcw69lCF
+         jYAkfO+VL/GaWsobPqdTGDA4P4fYn5iR+zvgWSnPGs3+1Wuxtx2hQRB39Yum4reUbh9h
+         mn8z/A/LmH4hUKaENHEvCTSQx9gFONFUSNhEjTt8kdIkXGTV9Oywo9IxIxpaRo4+BbOw
+         5deA==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=3VZoqnX1qceRESHeGqSdFIFOzD6ny2N6jHkPc8rkj8w=;
-        b=moy8sDAdM+jfM3y0uteR5WN7UU6cvZ1zUUMB5fstmg7DSSoYYBuw0Vuof9C+JGzgh8
-         /oKl/pMstC4HlyTfLvzH8soeUUgSuTDfw4r1riM9IFFRBT18GI5PKp74PXhgMbgRkIMC
-         dayA00NHp8hNRihi7gi4wJ12HVdhht6s8X6SZb24yfVySM2p+nGHBRc1Vc+FnZY7GNAt
-         n6TaTg5VJ0WSpS9OMP3OvUr2u0iCsDDRT2XGIFJJdp1ahVB+LOsydfBa24ou7hLFkKDx
-         Xfh13iberOQ/aNe9z8nRQydbpklm7cv6kMV3vhi8o/QyW4jJ14l8/Qq0G0x7fht23Rxi
-         nvTA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=3VZoqnX1qceRESHeGqSdFIFOzD6ny2N6jHkPc8rkj8w=;
-        b=ZCuKhnB7xP6n0KFKdk2iehVM6kbuwv4dU66pXjEIGdJQuOh6XZWpZxPjRPxKONjTqz
-         0d8H66xoeaSQnxGN3f6r5cReE96NOmNYgfE+X5XQjrfrip2+zdTnWcDLoHUrldx6UTkG
-         35NB5hOhW/Fg5fWFYKEXIiD2zbd9fzFIJ4JCyglioe2RDcQb1sDQ2qLikglGWXhl/0gR
-         X5b4SbnVxLpw5zheiOvcgvdajY7SWr1vrZSDK2ZgCf8z35g0RVnrd5SoZGiLXlpkIbUz
-         5nlzupivu3ReCu5C5uLPKuIRdB6cmbUMEXJzRlb5FHsnxQufs+nAo0AU9Nfe6KDdK3nV
-         5a5g==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=GyHtoXGJL0kue4NpqvASEAsoovRaeLW7nHPYw/P9tmA=;
+        b=eirrxZhkTACif/nMmmyVoNtDlJprhmfRYzb66GSoZYmnhmHwhKUV6NNG3ytalSJlME
+         y9D7nhnkKcgwKzlgr/nyyxXUUtm+ll7nruATRWOBqdugRz8lLl3vd1Q5pRc90aOYNbyr
+         /N4FtpbI1ORhL4G5TIi4iC0uROntKYtnUHD06BfzKz+ztMf06t0DDS7ypNKolDVrqwAZ
+         JWHC+y8N+VQ72Lli2CgIQS4L1QdA83ROhGnWoOxyuguxL1IhEpCsFbODrEEQ1pFDz5J7
+         mjBpVccImOtbNKtWvz6gPAJRF/ZFyT9ZNgHC8C2Ptu/GaXhUD2xO4TNGNWFTwvQsbCR4
+         GT8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=3VZoqnX1qceRESHeGqSdFIFOzD6ny2N6jHkPc8rkj8w=;
-        b=UUVrj5f9xNRiFRDCaCUWJr2Sk4xu3kbhBOBUiqVBpllbByBoiCnQG4+/PLNuyZx1ux
-         bLTanibd6zY6meNF4VMlfJNCNpbLPS2PdmikMvETXYoiUZZUYeKCxF3jbndB/Rf0a4Nu
-         aJkXf7FMF0HLevhxVzKQyBEpf/BL3pfdPbOmtAXT4HwTY5USNrX4GvecTl2otOqvckVg
-         BQZ9V/OmW9rREjU3QkdgU95FKUishZRxA55+27ogRGvvKK7SbA+oh5Kyh1A5uKf98gru
-         VCCUv8Wlg9myOPqct3lg+SoYJulhYT2TTIWd2pNM+NDiamMw7NGJleUXvNBXJf69L3bk
-         dABQ==
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=GyHtoXGJL0kue4NpqvASEAsoovRaeLW7nHPYw/P9tmA=;
+        b=gZZUkwhUTxtN0r1SOzRsf90EwKnn1F2nL9Ci8IEvgizualWLqJ2XCABejY3wyp+kpr
+         W7BxC/og15z2uhk4mDxWZEln365/KEyjQotWLcr+OSnuuqCitcdy2/Xjd4X9kXYPg4BO
+         izrd1H0E91XS+8cbbg1S24N/KQYJDHHYBm3mriuxpUoQrPeJD4Pb+5LDxQZCwMHbPFjb
+         L/KLxax8ojaTV3y5Snd+TBh/vpHqu94N/YMH7kPUg66yX0D29mCaNMvgxyl/dtVcwjAX
+         HacCsUnO1a8MP2Zj0Ar2oD8BawWZAA/4+Zqqu+vO8WCC2jJ7u05KcAdMYsTHNwWYD3K8
+         H/aA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAU6fP7omCkyTdTIicCdxdBdluZVrFjjv19VmyImkHVQ6IFIoQnr
-	mDW1wx0vA8/55KOVeUYs014=
-X-Google-Smtp-Source: APXvYqzX04lGXioXjy2BGX3Dm5kGbWYKNhCY9IRuTXqJCPmFNGtm11BEm9BD472me9R8ETcIRh42iw==
-X-Received: by 2002:aca:b808:: with SMTP id i8mr22815228oif.160.1563467574630;
-        Thu, 18 Jul 2019 09:32:54 -0700 (PDT)
+X-Gm-Message-State: APjAAAVwySjelHJE2DXhh8lH4CreNFyw4V+RA8yYkKKqv8+9c8Tfce4t
+	RLF5V0WCncTYQjxS/2OT3es=
+X-Google-Smtp-Source: APXvYqzxN63e3Cz4ufHREs/1T18J56Eil+8slXOpMt3LHbux+XsoJvSMQpr8wpxfW+D9FgN96BqhVg==
+X-Received: by 2002:a5d:5450:: with SMTP id w16mr3463227wrv.128.1563512921006;
+        Thu, 18 Jul 2019 22:08:41 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a9d:3e45:: with SMTP id h5ls5408766otg.11.gmail; Thu, 18 Jul
- 2019 09:32:54 -0700 (PDT)
-X-Received: by 2002:a9d:7f0f:: with SMTP id j15mr8530947otq.156.1563467574040;
-        Thu, 18 Jul 2019 09:32:54 -0700 (PDT)
-Date: Thu, 18 Jul 2019 09:32:53 -0700 (PDT)
-From: Alejandro Largacha <alexlargacha@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <e10f5a45-4913-4b28-b896-0ac6b381e183@googlegroups.com>
-In-Reply-To: <a1ea8f98-2709-d789-8564-6c719b58526c@siemens.com>
+Received: by 2002:a1c:a557:: with SMTP id o84ls11153333wme.3.gmail; Thu, 18
+ Jul 2019 22:08:40 -0700 (PDT)
+X-Received: by 2002:a1c:9e90:: with SMTP id h138mr47388015wme.67.1563512920270;
+        Thu, 18 Jul 2019 22:08:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1563512920; cv=none;
+        d=google.com; s=arc-20160816;
+        b=0BpawW4n4xzix9IusZqjID0oVdQE9No0zq7WHmOX70pnIFi05yVJGlF2GY4d1QZYHN
+         RUzGdpKJqopa5AIBNJJKi+AowiY1fqf4swEr9ySgYLO6DbUDtK6+cskodw0iU6UFW5rd
+         94f5/tKUq3hlEKvSCpJJheXO78BhqTSqtwhwiJvUT3P9nE6PJU+8gLWoZe9DSaSrJnna
+         17sHZ20+JmlI+fynha7fZtuCPan6FQTVwjYzrrPxxsiAhgAng3Mvte4qDcbyl0tvDn/k
+         Iok55KfLBU2dJelBZHz6TSPnuRAcjQrimEg2O3J2vg7K7TDV11FAOuD25esGkO0NBN7n
+         w4aw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=Ia+iVSR4y995TwC/yYEq+j9TDXn+n+EIDH6L3xlfeIY=;
+        b=F5PCICZ9cGV0OjpAKuIkVo1J5s/NFyf1q1cxuR4HM66szc6GJCEygUCYahsEFC3/g7
+         O12G8gdxuSOKOuEJbFMz/IIhcQghHb8kAqJlhkf8OXjQ9fwRme8cXOksWTR/w/Ca4X5x
+         wdTfRUuoavreoFodcbrxo/LehHmnNQ+9WT/l5j2Oea+MHxR6AJ7XvYFeQFBR+hN75Mxg
+         0R1gBUjRdXjh28p8BGefz+JhYEmNWV0krcXD/lIaq7aGky3jqgVIn4W4RELJYNNVE/35
+         5U0qsxmBsjjYbKHovBpO9y3aYK3gc+g/oCCe7TukJ36kQSUbw8/8dRLBA2wUfg2aLw93
+         Njng==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
+        by gmr-mx.google.com with ESMTPS id b15si892278wmg.1.2019.07.18.22.08.40
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 18 Jul 2019 22:08:40 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
+Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
+	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id x6J58dQ0012251
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 19 Jul 2019 07:08:39 +0200
+Received: from [167.87.233.149] ([167.87.233.149])
+	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x6J58b8R011088;
+	Fri, 19 Jul 2019 07:08:37 +0200
+Subject: Re: PL interrupt in UltraZed
+To: Alejandro Largacha <alexlargacha@gmail.com>,
+        Jailhouse <jailhouse-dev@googlegroups.com>
 References: <CANdaEOi5f13kg0OF+6iYrzmoJUTOhtgu4=r+0Vt+ZQ4oTtf1DQ@mail.gmail.com>
  <a1ea8f98-2709-d789-8564-6c719b58526c@siemens.com>
-Subject: Re: PL interrupt in UltraZed
+ <e10f5a45-4913-4b28-b896-0ac6b381e183@googlegroups.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <47b00372-adcd-da18-8553-d7085bc6e049@siemens.com>
+Date: Fri, 19 Jul 2019 14:08:37 +0900
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
+ Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_4060_814428380.1563467573376"
-X-Original-Sender: alexlargacha@gmail.com
+In-Reply-To: <e10f5a45-4913-4b28-b896-0ac6b381e183@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -78,72 +136,91 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_4060_814428380.1563467573376
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 19.07.19 01:32, Alejandro Largacha wrote:
+> Hello,
+>=20
+> Thank you very much for the reply. I tried adding the irqchip entry to th=
+e cell config but no success. I have a doubt about the pin_bitmap entry. Is=
+ it divided in 4 groups of 32 bits? Then, how should be the entry like for =
+the irq num 136. Like this?=20
+>=20
+> .irqchips =3D {
+>            /* GIC */ {
+>                .address =3D 0xf9010000,
+>                .pin_base =3D 32,
 
-Hello,
+This means bit 0 in the first word of pin_bitmap encodes GIC interrupt 32. =
+Then,
+when that bit is set, permission is granted.
 
-Thank you very much for the reply. I tried adding the irqchip entry to the =
-cell config but no success. I have a doubt about the pin_bitmap entry. Is i=
-t divided in 4 groups of 32 bits? Then, how should be the entry like for th=
-e irq num 136. Like this?=20
+>                .pin_bitmap =3D {
+>                    1 << (54 - 32),
 
-.irqchips =3D {
-           /* GIC */ {
-               .address =3D 0xf9010000,
-               .pin_base =3D 32,
-               .pin_bitmap =3D {
-                   1 << (54 - 32),
-                   0,
-                   0,
-                   1 << (136 - 128)
-               },
-           },
-       }
+So this one grants access to GIC int 54 - not sure if you need that.
 
+>                    0,
+>                    0,
+>                    1 << (136 - 128)
 
-I attach my new cell config file.
+And this permits access to int 136 because this 4th word controls interrupt=
+s
+128-159.
 
-El mi=C3=A9rcoles, 10 de julio de 2019, 7:20:56 (UTC+2), Jan Kiszka  escrib=
-i=C3=B3:
-> On 10.07.19 06:57, Alejandro Largacha wrote:
-> > Hello,
-> >=20
-> > I have been paying with jailhouse in a UltraZed SoM with AES-ZU-IOCC-G =
+Did you already try out the config?
+
+Jan
+
+>                },
+>            },
+>        }
+>=20
+>=20
+> I attach my new cell config file.
+>=20
+> El mi=C3=A9rcoles, 10 de julio de 2019, 7:20:56 (UTC+2), Jan Kiszka  escr=
+ibi=C3=B3:
+>> On 10.07.19 06:57, Alejandro Largacha wrote:
+>>> Hello,
+>>>
+>>> I have been paying with jailhouse in a UltraZed SoM with AES-ZU-IOCC-G =
 carrier
-> > card from avnet.
-> > So far, I have been able to enable the root cell, create a aremetal cel=
+>>> card from avnet.
+>>> So far, I have been able to enable the root cell, create a aremetal cel=
 l where I
-> > was able to load the baremetal
-> > examples like gic-demo and a custom one where I was able to turn on som=
+>>> was able to load the baremetal
+>>> examples like gic-demo and a custom one where I was able to turn on som=
 e leds
-> > via axi gpio in PL side.
-> >=20
-> > Now I'm trying to run an example where I can catch the interrupt from a=
+>>> via axi gpio in PL side.
+>>>
+>>> Now I'm trying to run an example where I can catch the interrupt from a=
 n axi
-> > gpio in PL and I am not able to do that.
-> > I'm using PL to PS interrupts in my design and the signal is being gene=
+>>> gpio in PL and I am not able to do that.
+>>> I'm using PL to PS interrupts in my design and the signal is being gene=
 rated. I
-> > also tested with Xilinx SDK.
-> > I tried with PS to PL group 0 and group 1. Irq numbers 121 and 136 and =
+>>> also tested with Xilinx SDK.
+>>> I tried with PS to PL group 0 and group 1. Irq numbers 121 and 136 and =
 no
-> > success. I don't know what I'm missing.
-> > I attach the cells and the demo source.
-> >=20
+>>> success. I don't know what I'm missing.
+>>> I attach the cells and the demo source.
+>>>
+>>
+>> Your baremetal cell config is not permitting the cell access to the GIC
+>> interrupt 136 you are using. Replicate the irqchip entry and create bitm=
+ask
+>> where only bit 136 - 32 (32 is the base) is set. See also other examples
+>> in-tree, including those for the zcu102 or the ultra96. Both grant their
+>> non-root linux cells access to certain interrupts.
+>>
+>> Jan
+>>
+>> --=20
+>> Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+>> Corporate Competence Center Embedded Linux
 >=20
-> Your baremetal cell config is not permitting the cell access to the GIC
-> interrupt 136 you are using. Replicate the irqchip entry and create bitma=
-sk
-> where only bit 136 - 32 (32 is the base) is set. See also other examples
-> in-tree, including those for the zcu102 or the ultra96. Both grant their
-> non-root linux cells access to certain interrupts.
->=20
-> Jan
->=20
-> --=20
-> Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-> Corporate Competence Center Embedded Linux
+
+--=20
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+Corporate Competence Center Embedded Linux
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -151,112 +228,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/e10f5a45-4913-4b28-b896-0ac6b381e183%40googlegroups.com.
-For more options, visit https://groups.google.com/d/optout.
-
-------=_Part_4060_814428380.1563467573376
-Content-Type: text/x-csrc; charset=US-ASCII; name=ultrazed_ehu_leds.c
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; filename=ultrazed_ehu_leds.c
-X-Attachment-Id: b5d11616-460f-4533-a068-4168e7e0870e
-Content-ID: <b5d11616-460f-4533-a068-4168e7e0870e>
-
-/*
- * Jailhouse, a Linux-based partitioning hypervisor
- *
- * Configuration for gic-demo inmate on Xilinx ZynqMP ZCU102 eval board:
- * 1 CPU, 64K RAM, 1 serial port
- *
- * Copyright (c) Siemens AG, 2016
- *
- * Authors:
- *  Jan Kiszka <jan.kiszka@siemens.com>
- *
- * This work is licensed under the terms of the GNU GPL, version 2.  See
- * the COPYING file in the top-level directory.
- */
-
-#include <jailhouse/types.h>
-#include <jailhouse/cell-config.h>
-
-struct {
-	struct jailhouse_cell_desc cell;
-	__u64 cpus[1];
-	struct jailhouse_memory mem_regions[5];
-    struct jailhouse_irqchip irqchips[1];
-} __attribute__((packed)) config = {
-	.cell = {
-		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
-		.revision = JAILHOUSE_CONFIG_REVISION,
-		.name = "gpio-leds-demo",
-		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
-
-		.cpu_set_size = sizeof(config.cpus),
-		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-		.num_irqchips = ARRAY_SIZE(config.irqchips),
-		.pio_bitmap_size = 0,
-		.num_pci_devices = 0,
-
-		.console = {
-			.address = 0xff010000,
-			.type = JAILHOUSE_CON_TYPE_XUARTPS,
-			.flags = JAILHOUSE_CON_ACCESS_MMIO |
-				 JAILHOUSE_CON_REGDIST_4,
-		},
-	},
-
-	.cpus = {
-		0x8,
-	},
-
-	.mem_regions = {
-		/* UART */ {
-			.phys_start = 0xff010000,
-			.virt_start = 0xff010000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
-		},
-		/* RAM */ {
-			.phys_start = 0x42000000,
-			.virt_start = 0,
-			.size = 0x00010000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
-		},
-		/* GPIO_SWITCHES */ {
-			.phys_start = 0x80000000,
-			.virt_start = 0x80000000,
-			.size = 0x00001000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
-		},
-		/* GPIO_LEDS */ {
-			.phys_start = 0x80001000,
-			.virt_start = 0x80001000,
-			.size = 0x00001000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
-		},
-		/* communication region */ {
-			.virt_start = 0x80000000,
-			.size = 0x00001000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_COMM_REGION,
-		},
-	},
-	.irqchips = {
-		/* GIC */ {
-			.address = 0xf9010000,
-			.pin_base = 32,
-			.pin_bitmap = {
-				1 << (54 - 32),
-				0,
-				0,
-				1 << (136 - 128)
-			},
-		},
-	}
-};
-
-------=_Part_4060_814428380.1563467573376--
+jailhouse-dev/47b00372-adcd-da18-8553-d7085bc6e049%40siemens.com.
