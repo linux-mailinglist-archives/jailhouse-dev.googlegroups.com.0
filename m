@@ -1,73 +1,151 @@
-Return-Path: <jailhouse-dev+bncBCZKXDNMZALBBEWRY7UQKGQEXG5LQJQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBKEAZLUQKGQEXUK2ZSA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oi1-x23f.google.com (mail-oi1-x23f.google.com [IPv6:2607:f8b0:4864:20::23f])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE8F46E847
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 19 Jul 2019 17:58:11 +0200 (CEST)
-Received: by mail-oi1-x23f.google.com with SMTP id n199sf12810813oig.6
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 19 Jul 2019 08:58:11 -0700 (PDT)
+Received: from mail-lj1-x239.google.com (mail-lj1-x239.google.com [IPv6:2a00:1450:4864:20::239])
+	by mail.lfdr.de (Postfix) with ESMTPS id 412796ED5D
+	for <lists+jailhouse-dev@lfdr.de>; Sat, 20 Jul 2019 04:44:57 +0200 (CEST)
+Received: by mail-lj1-x239.google.com with SMTP id c18sf7357444lji.19
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 19 Jul 2019 19:44:57 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1563590696; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=JpGEPKf14szHYxWsEi7qoH0azk8xds1eeoWTmbY0WK3q5Nwm4ZFTZ2SCVeWmPNm+Mg
+         +IsI0WscJpYCHwjdLLSAtAeR89O3iW9IFm7GYdPoWaES09twGZGuy8igpm3sZSXpUzv7
+         Q0PvTjQU7a5Y5uXXfMK9XqaiF/kHI/NIplM7n7PEbDHhOb+Jk2PYr6Z3/abgqtrWvSL8
+         +C2pIg2BDSReKPeMy2WnXTccf2MCYWgppOrk/Y4Q3jWR4szs24acJgEoQQHxcyjU55Yz
+         9+CLWveCfHt5lV4nwMjTFr42Yni3DUWBZQh4gB316oXPyN/qtXJQCX4NrVTWEfemOCoy
+         f8eg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=24Oagf7hW7XK9/yLR3X03SO3Mp8DWunpBfzDuZMyRIg=;
+        b=kbl6xbdk4nK6gMFBw+aDdDdHOgacbIBQ/4X2L7VjlRiS1tXoHwUYZcy32+Y+fKVOlR
+         Zh9iq4r+9TpCsd57Pa2e0COauAtG2p3+hix4V/Fph9qSOFQZnzJpsuZGnSULsj3CM8LT
+         WVYqWNe8iCgcvohq4baPq+nK0HVGtarriLvdszghV9lBjq76ZU2gGoSjqVztPfVi+zBo
+         uqzm+9jPUpFEt/QPUQjNW0o2063oLioxJ00nNX7D0lepj579NcgJWgHmb/DEAn5PnGLr
+         6qPyT5s7jiRMXRpwlcSpk6gaZAEKNh3tF9teUKsjtaU8OcfwvjNIZ4Pdz9DNZ+rRC2Nf
+         gp0g==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=Rp1DVPGU;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.12 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=veCzW5tKQm/ery6akwFSOWmvByBbCIavIBTheVWnLvE=;
-        b=NmKkyC+UrPn9TVBcuLx7229TgZfdfL3+b0uagtS7O+YRRsKvUf2VdWtyJocC15Gi/A
-         Fv8e8bhy+gkXfAiGWZQdFpPToFckMkM4ECXhm+jA39hG/o71Mf7B6hN/6a8kX2ilQN5c
-         wS6caZwEj/9ED2MXOie4fcSLJvyf48nEaVvKIJ8sAl5uxWKsliv/FNoBTtX445+bkdvf
-         q2UTHyNrfxxYrWJ7S7UfTA076lWIRkEZ87HtuZfps80D2xNBZaundiLs6V1ekghDxrLA
-         lsgeQK8BLAtHI98ang6+dVT2npRqkLG8zNwx7p6dM7jY7PRl4jxr94A95//naXi0bkLA
-         0w1A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=veCzW5tKQm/ery6akwFSOWmvByBbCIavIBTheVWnLvE=;
-        b=JEf2JCpFYzA20HnAQwVvc9hM1FjXdHBkste/Ke/5X6IWRxLiRXcRIEL67oA32vHP/h
-         CV5TlBYOFSd5VqiQRroO+BimmUb4KaQrFDwoLWON/zzne3KCeLeU6PvLfpWn6LcQO+fG
-         FaYSIxaQgA893EJqE0DUanKa5dn1U0RNL0XK9r1UrvVzB0QIOQaXT4aBwUtZPZ/5xege
-         /M9mdjHUJ+zm/tBeAWpSwxhmYUucifstNBrNk1XKDEz4xux+43d/E3vig8U5ec+jp0in
-         k8Sh2E7fBZRob8t1ZqnQ/LOvujI0uTRBvxP7ZuImvH5aawxUuHlu3fgT2eVSkDGaLTSJ
-         Oqfg==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=24Oagf7hW7XK9/yLR3X03SO3Mp8DWunpBfzDuZMyRIg=;
+        b=Z4Up74Z3OIOGDcQwNYJYuKyPdRkVQGaUDMGsUvzElOb4rvcAWThTf9JrtHhDsFoZ3n
+         nKM8E1x7fam+ckWmDHVU6dOskkdz5GQiLEQvLjX7lRS+9Rnt81mA3vJZOf1Tl/pMjX5t
+         Pkha8DNYeqXz5bDKLTJKPLORgOngEu9mHjHwaySxpJ7IiFtajaQpjE+PhdQjywBfrKQk
+         e5HQjMvECws5EebR+IS4SA7o0bXVIBOCuzWop+LrHVGng4SBGgBU6objvKrnNEA3wdcT
+         hUpktc5E019BZL519t/VlJbwz6aeqLrcC3ur6OCNrpvB08tyafZv4oCuFT2OsHLOHyGr
+         be3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=veCzW5tKQm/ery6akwFSOWmvByBbCIavIBTheVWnLvE=;
-        b=mrKc8nCOlax5l6wBgITFsPoxP38LY/aDTGgp7Vt1abnVgtkrQzMnjJ6JySRb0vynoj
-         ZmBYBm7f9OTjDNS3Fqe5suDs3xllFldNmWHLI29zhA3PWwkbZ4Ty1AOTLeUmayH33KSt
-         W3G7rtG9MbexSaqRN/GLs1oD/Etc+dtQ0hQr8m69rAyH8WUHqoLOd3cIyrju/4WJSPbp
-         NLS91uIVHUsfRgF8l6vkSM7iASpnTWINXIa3BUkCLJRU2ax1rniAAfSmNYU3CIZRMZBg
-         xTOc5T5KCZ+KRKm44GgiCKy5QnOvf+I727rc8KuwY4GgzXVKzIp/eOpSbFxNeBQIcuZJ
-         1dHw==
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=24Oagf7hW7XK9/yLR3X03SO3Mp8DWunpBfzDuZMyRIg=;
+        b=Ui1cK0r42KQOdqFpyw5WAtb97RlgqCcmE0MVq/jB3WcQPwzM2ZJiXDqMs45ziwYsjj
+         JtcVLetLzhOj4NxIhiqx/BMhrkqdc/pggZ57nwVN0d6VZ9czztupWPWt8Mln6cR0U4Yv
+         7BC0BaqsI7VgyPjO6PQhkLT+6D5cx7SxIl+o/K8UcjLe0/IhJVt7T7a/boAjdjlNTw3U
+         9kExGb/mDdOM6h1jZkw9F+y0OVg22/p0ftfcPv8Yekh7CL3aZrgAwEhBiZSaYYHy5Oub
+         oVs+/8G0H5ifRmOQd5nEgim4gZ6j/Rrg8pXzeO5okk0LpXbOVykM7lvGFl/hnw1gleAg
+         e42A==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXffNSM5xiV4vaVcfCVl6lXCzKdgbIIUQU8f4jq5EBSvuW1fSRH
-	furZpnuZj4OKbilQYfNA8Rc=
-X-Google-Smtp-Source: APXvYqxjCLoHDl8QzGfKyULzw2ARbtjPipzkVhNJJVdGdriXgU02Y2teJ6dRkrTza9ETgWl4Oeho4w==
-X-Received: by 2002:a9d:5788:: with SMTP id q8mr37591958oth.237.1563551890403;
-        Fri, 19 Jul 2019 08:58:10 -0700 (PDT)
+X-Gm-Message-State: APjAAAWeXGnFHYn4FR2woxb7kJzygBTq+PkhQ8Cniz7G6gJ5EHWq3LXj
+	lw6nt2cFq7Q2hdRiwn4MmG4=
+X-Google-Smtp-Source: APXvYqyX4X/Vtu39uYcf50xLYvIaa90wciHIh2MyL7tmYznkuXwRqQlTEJjhmcTTfETMPFfuxU/NNw==
+X-Received: by 2002:a2e:834e:: with SMTP id l14mr28518934ljh.158.1563590696740;
+        Fri, 19 Jul 2019 19:44:56 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aca:5015:: with SMTP id e21ls4194366oib.16.gmail; Fri, 19
- Jul 2019 08:58:09 -0700 (PDT)
-X-Received: by 2002:a54:4694:: with SMTP id k20mr27564641oic.136.1563551889692;
-        Fri, 19 Jul 2019 08:58:09 -0700 (PDT)
-Date: Fri, 19 Jul 2019 08:58:08 -0700 (PDT)
-From: Alejandro Largacha <alexlargacha@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <1fcf087a-14f5-4b96-b95b-bbbd9dafc9b8@googlegroups.com>
-In-Reply-To: <47b00372-adcd-da18-8553-d7085bc6e049@siemens.com>
+Received: by 2002:a2e:9d0c:: with SMTP id t12ls3883509lji.12.gmail; Fri, 19
+ Jul 2019 19:44:55 -0700 (PDT)
+X-Received: by 2002:a2e:980e:: with SMTP id a14mr29494430ljj.60.1563590695726;
+        Fri, 19 Jul 2019 19:44:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1563590695; cv=none;
+        d=google.com; s=arc-20160816;
+        b=jzRRPdtYRFrBxp768+3TO6a3axpMxGYOiFFxWrTr4dopHPFkL/a19/u25rxz41qFY4
+         L6FKi3lWmzBb+jslGRNCBc0dlwikKDkyWAe/MS8YIX9jEc4sqjYfP3x+M691wtLBbYms
+         59tN/4v0tJNwSDGwkxvZYJZm9KkQJRlAGdLARxDXHas0WgHlLD1HjTtuQ1eNMTDWPmxs
+         21Aj+aaffOZeed0980ZgZe+7cKc2m2gtA+/fGLPDeUstCLUdL9F/kVIjVBNKCsJFO+3N
+         SWWu08HV9RdqCLPTxP+Fmcj4OVxSbI1JG72GrLy0b1aBEV35ewHcXRnyXkfSDMgKTnM0
+         7VFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject
+         :dkim-signature;
+        bh=1JTxNtaRwMZRunTPEe7PsGg12H2G/tQCkkaT1ZTM03Q=;
+        b=glgicyaDNP4Ry0LwZ39hAsye/JKotJPLqdgA43CffA2R9A8om6WGjHtpsi3TAupjxQ
+         Q5WXP73S+rZw55PgSxO36gKvJi2sXdLN8zxTBjUm4cRTEtDN/7G/XprhCLwPfa3k2qCH
+         gv4W9sPbg5rczXyCxmr166Y0u7zu9DvHPsK/JuUn8xUDVPnsowxaJ9BRZyQrwtgQBWRZ
+         pDBuN69vbRufV5JMG/0u1oIMtwaZC8ymGbbH674kQuMaJ/gL+JOv6FHb3P23JJVtSEZa
+         Dvsi4kjL2Cb8O7KymNj++PCKvQnlrtqlaeJUHiTorI16jeWs4somx/7cREtc6e5v3RaD
+         6WRg==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=Rp1DVPGU;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.12 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Received: from mout.web.de (mout.web.de. [212.227.17.12])
+        by gmr-mx.google.com with ESMTPS id q11si1605960ljg.2.2019.07.19.19.44.55
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 19 Jul 2019 19:44:55 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.12 as permitted sender) client-ip=212.227.17.12;
+X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
+Received: from [10.216.96.244] ([210.161.158.139]) by smtp.web.de (mrweb101
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 0MINAx-1hrhu63nMF-004Ecl; Sat, 20
+ Jul 2019 04:44:54 +0200
+Subject: Re: PL interrupt in UltraZed
+To: Alejandro Largacha <alexlargacha@gmail.com>,
+ Jailhouse <jailhouse-dev@googlegroups.com>
 References: <CANdaEOi5f13kg0OF+6iYrzmoJUTOhtgu4=r+0Vt+ZQ4oTtf1DQ@mail.gmail.com>
  <a1ea8f98-2709-d789-8564-6c719b58526c@siemens.com>
  <e10f5a45-4913-4b28-b896-0ac6b381e183@googlegroups.com>
  <47b00372-adcd-da18-8553-d7085bc6e049@siemens.com>
-Subject: Re: PL interrupt in UltraZed
+ <1fcf087a-14f5-4b96-b95b-bbbd9dafc9b8@googlegroups.com>
+From: Jan Kiszka <jan.kiszka@web.de>
+Message-ID: <d4ba7f75-12df-829b-c740-f3e5f55b609c@web.de>
+Date: Sat, 20 Jul 2019 11:44:49 +0900
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
+ Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_4588_14398226.1563551889051"
-X-Original-Sender: alexlargacha@gmail.com
+In-Reply-To: <1fcf087a-14f5-4b96-b95b-bbbd9dafc9b8@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:4phfLNyMu2hDQvvcpdW842/0/X6NS9PGPCKD9DArdYbweJgtRNM
+ ap0nVz9ryULfwIj7VM5HhMeY+GryOjPsiQM9L+Ed08oS3yBv9IxqVAbC0Lvn3T47xRGHJcv
+ P8OqmhWTowqmTMm0QsnwjIjEWRhNsSYZdCpwuUnOuqzfLFCVFbCMa9kz5XcH+pH3+p539pF
+ TLKpnYddwIHMmcGV9Rt1g==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:LCqwMiNQlpk=:dpRv8gXZRsMJ0l6TroaGWv
+ TZRDKsEeUlw+Q+Ow4uMoK2qSZABB4kP/Yv17TILBYFPv1bAgDPHYYT2SgbcMEckU8EReGNzTt
+ kMvItZoEGDrMEsqwpbxH9KbtfOAdWuAvHctgSmUXCULQll8sm5DPge2fwh/lGflx9AnG5m97W
+ TR2g5ztzGH3RfilwqRpUzvmJgiLMfKFPAKgbOplu2nQbsCTGC7Y2S93PRPuA4x8p/FF4cz8lm
+ BCCQdYEq/ffz8pLGVm1QgYuSgK9LqsFel7BQbch1MTytveEPq1jlnZsZAc3AxfJiraoAE/aWq
+ AAk+HjJuxR/slILZ5u1aHU/mQbhBctQTIVCxgR9lItn4T2VAM5kpAhvK/GMBr2g47yc9o9dF9
+ zoXvLBCzuRWlJ7Ii8FOV5tulJDfevSR80XqpTE9TaGUW0oUmMb5ZagEodK0JQg2/V9Vqtw0OZ
+ 5fvby2GejXmU81RzEJw79xIUeGpEcMF2qsYaaLDQ07jm7hgPbjhsPwTjjCk5hLnVC0Yy5gg5j
+ 1SZ1Yz0j2wsVgGEH2rlmtgvDlWddvjjl8U3ZCyVUdJdhPAUiQTubz4gQuQDJKCj7lkPAwe/CL
+ JngHKZuuJIagnNYK66jl6EJx3VNsw8JyMoXA+niFw5mqqcVc/Gfh0SFDo1Jq6oVpwLA+6wY+E
+ k/pOzsPsRRIlgSC0SWxTULZdJ2HmlheraCqYf3Mnt/7P45OnbHhuePigoTX6JWXld6bftZvqR
+ 56Ca3MtJLUCdl1WiyVsL1Ed9goj5ANrzLzxETFkJI67KYUI0+VgGNUsTfwB1s5KFNOhgZeJRi
+ GPnmla+/vbIJk90BfZVpE67wAJvdxN9DRRRonlm6vRlkySySp/j6u0G3OESooQ26xdGh0fMQ0
+ hRInF6afWZXg5BxdpQfPMyWWT5qoyw0FZev8N2EMMaY319zn2CgOBPZ1F5ouW/lJDQ5HWYrgT
+ Rq19Lxt6jhDzA7BfYK+b5Q/iTk6QMxRISDvx3tlL8xLWT56PaQy8QKLK3QFo3cxIG/bNb89fl
+ iQItWebWFQABWQ4O2fPF4v/QOmo4b7d3tUXuxpnb2vgXtGveWhAEgKOGsFNBhcvgJDXAbhZTR
+ RXecxZyJHMK5w6lS+vbQICfc3qPANczLWk+
+X-Original-Sender: jan.kiszka@web.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@web.de header.s=dbaedf251592 header.b=Rp1DVPGU;       spf=pass
+ (google.com: domain of jan.kiszka@web.de designates 212.227.17.12 as
+ permitted sender) smtp.mailfrom=jan.kiszka@web.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -80,117 +158,141 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_4588_14398226.1563551889051
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_4589_841865985.1563551889051"
+On 20.07.19 00:58, Alejandro Largacha wrote:
+> I just tried and did not work. I don't know what I'm missing
+> I attach the config and the demo code
+>
 
-------=_Part_4589_841865985.1563551889051
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Config looks good, but your inmate should crash when issuing the first mmio
+accesses because you didn't map them into the inmate address space. Try add=
+ing
 
-I just tried and did not work. I don't know what I'm missing
-I attach the config and the demo code
+map_range(GPIO_SWITCH_BASE_ADDRESS, 0x2000, MAP_UNCACHED);
 
-El viernes, 19 de julio de 2019, 7:08:41 (UTC+2), Jan Kiszka escribi=C3=B3:
+before the first access.
+
+Jan
+
+> El viernes, 19 de julio de 2019, 7:08:41 (UTC+2), Jan Kiszka escribi=C3=
+=B3:
 >
-> On 19.07.19 01:32, Alejandro Largacha wrote:=20
-> > Hello,=20
-> >=20
-> > Thank you very much for the reply. I tried adding the irqchip entry to=
-=20
-> the cell config but no success. I have a doubt about the pin_bitmap entry=
-.=20
-> Is it divided in 4 groups of 32 bits? Then, how should be the entry like=
-=20
-> for the irq num 136. Like this?=20
-> >=20
-> > .irqchips =3D {=20
-> >            /* GIC */ {=20
-> >                .address =3D 0xf9010000,=20
-> >                .pin_base =3D 32,=20
+>     On 19.07.19 01:32, Alejandro Largacha wrote:
+>     > Hello,
+>     >
+>     > Thank you very much for the reply. I tried adding the irqchip entry=
+ to the
+>     cell config but no success. I have a doubt about the pin_bitmap entry=
+. Is it
+>     divided in 4 groups of 32 bits? Then, how should be the entry like fo=
+r the
+>     irq num 136. Like this?
+>     >
+>     > .irqchips =3D {
+>     > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* GIC */ {
+>     > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.address =3D=
+ 0xf9010000,
+>     > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.pin_base =
+=3D 32,
 >
-> This means bit 0 in the first word of pin_bitmap encodes GIC interrupt 32=
-.=20
-> Then,=20
-> when that bit is set, permission is granted.=20
+>     This means bit 0 in the first word of pin_bitmap encodes GIC interrup=
+t 32.
+>     Then,
+>     when that bit is set, permission is granted.
 >
-> >                .pin_bitmap =3D {=20
-> >                    1 << (54 - 32),=20
+>     > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.pin_bitmap =
+=3D {
+>     > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A01 << (54 - 32),
 >
-> So this one grants access to GIC int 54 - not sure if you need that.=20
+>     So this one grants access to GIC int 54 - not sure if you need that.
 >
-> >                    0,=20
-> >                    0,=20
-> >                    1 << (136 - 128)=20
+>     > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A00,
+>     > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A00,
+>     > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A01 << (136 - 128)
 >
-> And this permits access to int 136 because this 4th word controls=20
-> interrupts=20
-> 128-159.=20
+>     And this permits access to int 136 because this 4th word controls int=
+errupts
+>     128-159.
 >
-> Did you already try out the config?=20
+>     Did you already try out the config?
 >
-> Jan=20
+>     Jan
 >
-> >                },=20
-> >            },=20
-> >        }=20
-> >=20
-> >=20
-> > I attach my new cell config file.=20
-> >=20
-> > El mi=C3=A9rcoles, 10 de julio de 2019, 7:20:56 (UTC+2), Jan Kiszka=20
->  escribi=C3=B3:=20
-> >> On 10.07.19 06:57, Alejandro Largacha wrote:=20
-> >>> Hello,=20
-> >>>=20
-> >>> I have been paying with jailhouse in a UltraZed SoM with AES-ZU-IOCC-=
-G=20
-> carrier=20
-> >>> card from avnet.=20
-> >>> So far, I have been able to enable the root cell, create a aremetal=
-=20
-> cell where I=20
-> >>> was able to load the baremetal=20
-> >>> examples like gic-demo and a custom one where I was able to turn on=
-=20
-> some leds=20
-> >>> via axi gpio in PL side.=20
-> >>>=20
-> >>> Now I'm trying to run an example where I can catch the interrupt from=
-=20
-> an axi=20
-> >>> gpio in PL and I am not able to do that.=20
-> >>> I'm using PL to PS interrupts in my design and the signal is being=20
-> generated. I=20
-> >>> also tested with Xilinx SDK.=20
-> >>> I tried with PS to PL group 0 and group 1. Irq numbers 121 and 136 an=
-d=20
-> no=20
-> >>> success. I don't know what I'm missing.=20
-> >>> I attach the cells and the demo source.=20
-> >>>=20
-> >>=20
-> >> Your baremetal cell config is not permitting the cell access to the GI=
-C=20
-> >> interrupt 136 you are using. Replicate the irqchip entry and create=20
-> bitmask=20
-> >> where only bit 136 - 32 (32 is the base) is set. See also other=20
-> examples=20
-> >> in-tree, including those for the zcu102 or the ultra96. Both grant=20
-> their=20
-> >> non-root linux cells access to certain interrupts.=20
-> >>=20
-> >> Jan=20
-> >>=20
-> >> --=20
-> >> Siemens AG, Corporate Technology, CT RDA IOT SES-DE=20
-> >> Corporate Competence Center Embedded Linux=20
-> >=20
+>     > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0},
+>     > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0},
+>     > =C2=A0 =C2=A0 =C2=A0 =C2=A0}
+>     >
+>     >
+>     > I attach my new cell config file.
+>     >
+>     > El mi=C3=A9rcoles, 10 de julio de 2019, 7:20:56 (UTC+2), Jan Kiszka=
+ =C2=A0escribi=C3=B3:
+>     >> On 10.07.19 06:57, Alejandro Largacha wrote:
+>     >>> Hello,
+>     >>>
+>     >>> I have been paying with jailhouse in a UltraZed SoM with AES-ZU-I=
+OCC-G
+>     carrier
+>     >>> card from avnet.
+>     >>> So far, I have been able to enable the root cell, create a aremet=
+al cell
+>     where I
+>     >>> was able to load the baremetal
+>     >>> examples like gic-demo and a custom one where I was able to turn =
+on some
+>     leds
+>     >>> via axi gpio in PL side.
+>     >>>
+>     >>> Now I'm trying to run an example where I can catch the interrupt =
+from an
+>     axi
+>     >>> gpio in PL and I am not able to do that.
+>     >>> I'm using PL to PS interrupts in my design and the signal is bein=
+g
+>     generated. I
+>     >>> also tested with Xilinx SDK.
+>     >>> I tried with PS to PL group 0 and group 1. Irq numbers 121 and 13=
+6 and no
+>     >>> success. I don't know what I'm missing.
+>     >>> I attach the cells and the demo source.
+>     >>>
+>     >>
+>     >> Your baremetal cell config is not permitting the cell access to th=
+e GIC
+>     >> interrupt 136 you are using. Replicate the irqchip entry and creat=
+e bitmask
+>     >> where only bit 136 - 32 (32 is the base) is set. See also other ex=
+amples
+>     >> in-tree, including those for the zcu102 or the ultra96. Both grant=
+ their
+>     >> non-root linux cells access to certain interrupts.
+>     >>
+>     >> Jan
+>     >>
+>     >> --
+>     >> Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+>     >> Corporate Competence Center Embedded Linux
+>     >
 >
-> --=20
-> Siemens AG, Corporate Technology, CT RDA IOT SES-DE=20
-> Corporate Competence Center Embedded Linux=20
+>     --
+>     Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+>     Corporate Competence Center Embedded Linux
 >
+> --
+> You received this message because you are subscribed to the Google Groups
+> "Jailhouse" group.
+> To unsubscribe from this group and stop receiving emails from it, send an=
+ email
+> to jailhouse-dev+unsubscribe@googlegroups.com
+> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
+> To view this discussion on the web visit
+> https://groups.google.com/d/msgid/jailhouse-dev/1fcf087a-14f5-4b96-b95b-b=
+bbd9dafc9b8%40googlegroups.com
+> <https://groups.google.com/d/msgid/jailhouse-dev/1fcf087a-14f5-4b96-b95b-=
+bbbd9dafc9b8%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>.
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -198,292 +300,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/1fcf087a-14f5-4b96-b95b-bbbd9dafc9b8%40googlegroups.com.
-
-------=_Part_4589_841865985.1563551889051
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>I just tried and did not work. I don&#39;t know what =
-I&#39;m missing</div><div>I attach the config and the demo code<br></div><b=
-r>El viernes, 19 de julio de 2019, 7:08:41 (UTC+2), Jan Kiszka  escribi=C3=
-=B3:<blockquote class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex=
-;border-left: 1px #ccc solid;padding-left: 1ex;">On 19.07.19 01:32, Alejand=
-ro Largacha wrote:
-<br>&gt; Hello,
-<br>&gt;=20
-<br>&gt; Thank you very much for the reply. I tried adding the irqchip entr=
-y to the cell config but no success. I have a doubt about the pin_bitmap en=
-try. Is it divided in 4 groups of 32 bits? Then, how should be the entry li=
-ke for the irq num 136. Like this?=20
-<br>&gt;=20
-<br>&gt; .irqchips =3D {
-<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* GIC */ {
-<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.address =
-=3D 0xf9010000,
-<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.pin_base =
-=3D 32,
-<br>
-<br>This means bit 0 in the first word of pin_bitmap encodes GIC interrupt =
-32. Then,
-<br>when that bit is set, permission is granted.
-<br>
-<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.pin_bitmap=
- =3D {
-<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A01 &lt;&lt; (54 - 32),
-<br>
-<br>So this one grants access to GIC int 54 - not sure if you need that.
-<br>
-<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A00,
-<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A00,
-<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A01 &lt;&lt; (136 - 128)
-<br>
-<br>And this permits access to int 136 because this 4th word controls inter=
-rupts
-<br>128-159.
-<br>
-<br>Did you already try out the config?
-<br>
-<br>Jan
-<br>
-<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0},
-<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0},
-<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0}
-<br>&gt;=20
-<br>&gt;=20
-<br>&gt; I attach my new cell config file.
-<br>&gt;=20
-<br>&gt; El mi=C3=A9rcoles, 10 de julio de 2019, 7:20:56 (UTC+2), Jan Kiszk=
-a =C2=A0escribi=C3=B3:
-<br>&gt;&gt; On 10.07.19 06:57, Alejandro Largacha wrote:
-<br>&gt;&gt;&gt; Hello,
-<br>&gt;&gt;&gt;
-<br>&gt;&gt;&gt; I have been paying with jailhouse in a UltraZed SoM with A=
-ES-ZU-IOCC-G carrier
-<br>&gt;&gt;&gt; card from avnet.
-<br>&gt;&gt;&gt; So far, I have been able to enable the root cell, create a=
- aremetal cell where I
-<br>&gt;&gt;&gt; was able to load the baremetal
-<br>&gt;&gt;&gt; examples like gic-demo and a custom one where I was able t=
-o turn on some leds
-<br>&gt;&gt;&gt; via axi gpio in PL side.
-<br>&gt;&gt;&gt;
-<br>&gt;&gt;&gt; Now I&#39;m trying to run an example where I can catch the=
- interrupt from an axi
-<br>&gt;&gt;&gt; gpio in PL and I am not able to do that.
-<br>&gt;&gt;&gt; I&#39;m using PL to PS interrupts in my design and the sig=
-nal is being generated. I
-<br>&gt;&gt;&gt; also tested with Xilinx SDK.
-<br>&gt;&gt;&gt; I tried with PS to PL group 0 and group 1. Irq numbers 121=
- and 136 and no
-<br>&gt;&gt;&gt; success. I don&#39;t know what I&#39;m missing.
-<br>&gt;&gt;&gt; I attach the cells and the demo source.
-<br>&gt;&gt;&gt;
-<br>&gt;&gt;
-<br>&gt;&gt; Your baremetal cell config is not permitting the cell access t=
-o the GIC
-<br>&gt;&gt; interrupt 136 you are using. Replicate the irqchip entry and c=
-reate bitmask
-<br>&gt;&gt; where only bit 136 - 32 (32 is the base) is set. See also othe=
-r examples
-<br>&gt;&gt; in-tree, including those for the zcu102 or the ultra96. Both g=
-rant their
-<br>&gt;&gt; non-root linux cells access to certain interrupts.
-<br>&gt;&gt;
-<br>&gt;&gt; Jan
-<br>&gt;&gt;
-<br>&gt;&gt; --=20
-<br>&gt;&gt; Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-<br>&gt;&gt; Corporate Competence Center Embedded Linux
-<br>&gt;=20
-<br>
-<br>--=20
-<br>Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-<br>Corporate Competence Center Embedded Linux
-<br></blockquote></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/1fcf087a-14f5-4b96-b95b-bbbd9dafc9b8%40googlegroup=
-s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
-sgid/jailhouse-dev/1fcf087a-14f5-4b96-b95b-bbbd9dafc9b8%40googlegroups.com<=
-/a>.<br />
-
-------=_Part_4589_841865985.1563551889051--
-
-------=_Part_4588_14398226.1563551889051
-Content-Type: text/x-csrc; charset=US-ASCII; name=ultrazed_ehu_leds.c
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; filename=ultrazed_ehu_leds.c
-X-Attachment-Id: 7f0894d6-31b9-4c0c-b0cd-9095aea55e76
-Content-ID: <7f0894d6-31b9-4c0c-b0cd-9095aea55e76>
-
-/*
- * Jailhouse, a Linux-based partitioning hypervisor
- *
- * Configuration for gic-demo inmate on Xilinx ZynqMP ZCU102 eval board:
- * 1 CPU, 64K RAM, 1 serial port
- *
- * Copyright (c) Siemens AG, 2016
- *
- * Authors:
- *  Jan Kiszka <jan.kiszka@siemens.com>
- *
- * This work is licensed under the terms of the GNU GPL, version 2.  See
- * the COPYING file in the top-level directory.
- */
-
-#include <jailhouse/types.h>
-#include <jailhouse/cell-config.h>
-
-struct {
-	struct jailhouse_cell_desc cell;
-	__u64 cpus[1];
-	struct jailhouse_memory mem_regions[5];
-    struct jailhouse_irqchip irqchips[1];
-} __attribute__((packed)) config = {
-	.cell = {
-		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
-		.revision = JAILHOUSE_CONFIG_REVISION,
-		.name = "gpio-leds-demo",
-		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
-
-		.cpu_set_size = sizeof(config.cpus),
-		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-		.num_irqchips = ARRAY_SIZE(config.irqchips),
-		.pio_bitmap_size = 0,
-		.num_pci_devices = 0,
-
-		.console = {
-			.address = 0xff010000,
-			.type = JAILHOUSE_CON_TYPE_XUARTPS,
-			.flags = JAILHOUSE_CON_ACCESS_MMIO |
-				 JAILHOUSE_CON_REGDIST_4,
-		},
-	},
-
-	.cpus = {
-		0x8,
-	},
-
-	.mem_regions = {
-		/* UART */ {
-			.phys_start = 0xff010000,
-			.virt_start = 0xff010000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
-		},
-		/* RAM */ {
-			.phys_start = 0x42000000,
-			.virt_start = 0,
-			.size = 0x00010000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
-		},
-		/* GPIO_SWITCHES */ {
-			.phys_start = 0x80000000,
-			.virt_start = 0x80000000,
-			.size = 0x00001000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
-		},
-		/* GPIO_LEDS */ {
-			.phys_start = 0x80001000,
-			.virt_start = 0x80001000,
-			.size = 0x00001000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
-		},
-		/* communication region */ {
-			.virt_start = 0x80000000,
-			.size = 0x00001000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_COMM_REGION,
-		},
-	},
-	.irqchips = {
-		/* GIC */ {
-			.address = 0xf9010000,
-			.pin_base = 32,
-			.pin_bitmap = {
-				1 << (54 - 32),
-				0,
-				0,
-				1 << (136 - 128)
-			},
-		},
-	},
-};
-
-------=_Part_4588_14398226.1563551889051
-Content-Type: text/x-csrc; charset=US-ASCII; name=irqbutton_demo.c
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; filename=irqbutton_demo.c
-X-Attachment-Id: eb269f98-eaeb-4645-b222-d919309babba
-Content-ID: <eb269f98-eaeb-4645-b222-d919309babba>
-
-/*
- * Jailhouse, a Linux-based partitioning hypervisor
- *
- * Copyright (c) ARM Limited, 2014
- * Copyright (c) Siemens AG, 2014-2017
- *
- * Authors:
- *  Jean-Philippe Brucker <jean-philippe.brucker@arm.com>
- *  Jan Kiszka <jan.kiszka@siemens.com>
- *
- * This work is licensed under the terms of the GNU GPL, version 2.  See
- * the COPYING file in the top-level directory.
- */
-
-#include <inmate.h>
-#include <gic.h>
-
-#define GPIO_IRQ_NUM		136
-
-#define GPIO_LEDS_BASE_ADDRESS  	0x80001000 
-#define GPIO_SWITCH_BASE_ADDRESS  	0x80000000 
-
-
-static void handle_IRQ(unsigned int irqn)
-{
-
-	if (irqn != GPIO_IRQ_NUM)
-		return;
-
-	printk("Button pressed\n");
-
-}
-
-void inmate_main(void)
-{
-	char *p_gpio_leds = (char *)GPIO_LEDS_BASE_ADDRESS;
-	char *p_gpio_switch = (char *)GPIO_SWITCH_BASE_ADDRESS;
-	printk("Initializing the GIC for GPIO IRQ...\n");
-
-	mmio_write32(p_gpio_leds , 0xA5);
-	
-	/* AXI GPIO IRQ config */
-	mmio_write32((p_gpio_switch + 0x4), 0xFF); /* All inputs */
-	mmio_write32((p_gpio_switch + 0x128), 0x1); /* Enable channel 1 interrupts */
-	mmio_write32((p_gpio_switch + 0x11C), 0x80000000); /* Enable global interrupt */
-
-	gic_setup(handle_IRQ);
-	gic_enable_irq(GPIO_IRQ_NUM);
-
-	halt();
-}
-
-------=_Part_4588_14398226.1563551889051--
+jailhouse-dev/d4ba7f75-12df-829b-c740-f3e5f55b609c%40web.de.
