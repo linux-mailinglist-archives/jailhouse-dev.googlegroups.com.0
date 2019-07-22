@@ -1,129 +1,73 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBZVY23UQKGQEGWUQOVI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCR7PPMN34DRBHUR3DUQKGQEJIJWZYY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x13a.google.com (mail-lf1-x13a.google.com [IPv6:2a00:1450:4864:20::13a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93C846FEA4
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Jul 2019 13:22:14 +0200 (CEST)
-Received: by mail-lf1-x13a.google.com with SMTP id f24sf3559859lfk.6
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Jul 2019 04:22:14 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1563794534; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=jL5xz4XJG7/+lgd3ASTwSqwMmsICy9tuqj1m/totgZyvC1FlNZq8r4lifjhamftsDj
-         QHoF3RIk/bsDP+PhqYvT2nahTPIlvOYhwHJdTV2+3z6J1vgMv2ljVEx3h8vvmaCEYUUo
-         sXeaMv/cHd8qacFhvqbxKL3+Fn+sS+t4kBIuD7ci4WKoFOgENSlUpG/ojOg/yae7gs1q
-         q3CnGszaNt1rkYjsOa6arS+9QymsAjnqI7s3w1ktwx7mh+qwXbbPOgGdlF5aZOz0iNsF
-         40M7wRsKN2VOAwfGWtjTmBfngx12dGqPJyofg9WHnTSfbBIQ4Z9VzcqNGkrjYR6FKjvX
-         O0Iw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:cc:to
-         :subject:sender:dkim-signature;
-        bh=4+CK4xJVzlKkV8FW+oIUDsYCfNQX+XH4Di0Tmg6qKo8=;
-        b=k+xI8ooySgABG1q17UvyZuy41hD421lNNX5mC0cUe6cvp9x6yklxRFIrzvD9VzTCr1
-         sItiKniZASNZE5FnUkLMPUx+umFxZHWHbjFKZ9dnpc1Fw6SmvRXeCVjb+As7BagVUGxE
-         zz9mnd+cXTzTaJ4AYjiTtc4rmcmN+vX4lNpk97uzTI6vLNsRuxOAVk7Q4vfHZA8g5kOP
-         30lLnvd5ICkTixx++xwwJLJC5PWKwcjd9+nveLYUb0KqU7dI1NHLyvpelJVcXJS0F906
-         x65nPSVsAcheF631FQn4Kewiv0hO31NW2Ec9jZlcsgi35sLlzn5R6NqKRzZVL9Kf0OEW
-         XHhA==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-ot1-x33a.google.com (mail-ot1-x33a.google.com [IPv6:2607:f8b0:4864:20::33a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 60E947093A
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Jul 2019 21:04:00 +0200 (CEST)
+Received: by mail-ot1-x33a.google.com with SMTP id a17sf22684259otd.19
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Jul 2019 12:04:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=4+CK4xJVzlKkV8FW+oIUDsYCfNQX+XH4Di0Tmg6qKo8=;
-        b=H01Bzp7BWK5VJoajEAUnGex9ONJ6ul+ldQ1jz3Qz99ekdk1078sWd/n814cfYOKRtM
-         enoDik8yRyQVLFNq7zAPLJ453OdAv+RbsSqJtl8BtpIKqsmyJtPduR07yXPCuN+pFTU7
-         fu++vzSyKd/cANCofsV3kKNgpebEBoK3ZvNPfks7yx55D+I0lD2mXWJQhCJQ85ing3WR
-         CKEnQPNZBDKhaDq0p55zK1P2EVNh5XQYqTgBLQmKr9kRty2ppHwQEHM+JySyS71Kfq7g
-         yF+O2PFrxF2czEhUA50f1aFY3FtZVcQTGWOSr2cZ5bj2z0coB5m2ne74eZaIjE+akKlS
-         2lWw==
+        bh=q8XMDzqJyfMwgcfYs0lEjILAi9z5+e5j/8Qu9Qj+yCw=;
+        b=YZVFENuU8mUbLDgn+e4f6DxKaYG4lUcQ5RgW0OVQ9NXZoTJsTi1NzbG4teegApKRaa
+         iOw0lCk/tfAwukwlGp3E89B0P1W0Q4eL1UyIIARGZP5WcvlB5Tq1zOnqx918jUkQL6tg
+         7vAbHggjzvwNZ+THHhfmd3Z5L2XD7ujT181KljYBszRCCzcw9ufcKS1Lp8sdvSaldx0g
+         otNjFvrwHSXTXeE1l3v3NGq+/nzfGSnpu5j2Yu5m/STfRBNYCrZxVf2ASEHXl1PLq/sI
+         EsPnLncajpjU87XCI9B0AqEaO+F2riwhCbGE2QXaeIp/hxkF4o1NErt8ASu9m7eYJ4mQ
+         /9jw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=q8XMDzqJyfMwgcfYs0lEjILAi9z5+e5j/8Qu9Qj+yCw=;
+        b=OFbonu12pcrdJDD6o1q9gYzvsDlcBf+oFUkfHgS+0sD6dfZ4Vj1boLFeMN5Lvcna7v
+         GDs15Yv+l+vth4MPebG46xalyIMojM+Wnpq0fXzUCcEHqt/1JE6RV/uHhkM/wDbZKc2O
+         gjhnvySQCeiDlQjBGpqN21Inqnk1W/yy6/RHbiQQ+Wh/p+rlwdtEohqoqYUMslfJhqod
+         3/8LD0L+3ZcN6VbhSh4CYhKvBC/pMPw1EezXKVSlTatfSm2km+DD13qs1bgkA5O37PdX
+         Imo3OicwbvoFGkXgYJ8UQEbJd9XhLjC8tT7lVQXTGfC2c9+zJIoEXl5kpXpa7wB89W3Q
+         gpyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=4+CK4xJVzlKkV8FW+oIUDsYCfNQX+XH4Di0Tmg6qKo8=;
-        b=hI58J0wlyQPZZ8j2c3qXbSm/nWmqt+uoiOZHulj3xYc4jNkwQSiOjmwm3kx83A0X1b
-         KGeuzkE1uTHZfUNrHmWIRNu3eoB9g0b+qSHOBkY4VR+7tR0aOa2euy+t1tUms5u33Ag1
-         9Oshjo/k822UQ/mxXS8hZfQjGfBFYZA9I5CoF02fqGT24eKO1qJ0b528et9RFZn6lX6g
-         neuzBeROUnpDUt0vN8uZRWKgbDXENFKyPJ36hvsXycFV95mDYGUmEQV9vCVw9nW2i/7l
-         SmeZpbbe9Amdz0gQ7VyJqj2rn5KhcR077IRhHX2U0Xj3MkCv3d+mvLZvAcXjLpXNjD1t
-         peRw==
+        bh=q8XMDzqJyfMwgcfYs0lEjILAi9z5+e5j/8Qu9Qj+yCw=;
+        b=tX9vRzhaeI4G9ocNZeGmV9AEEibqOxBAeeWYKB1NYfYir2uk4xD9PZWyoxhD/zZ6Na
+         fQAUiGMysPEt17oEvFLy70pLspO1LBDOrhIiPqzMrYCVvIctHazBOlcOEkKHf04ZFHmH
+         AGG7PYclm+YxdOxQEKy7DAuyc/hPk5pMoDf9gGTBgPKDAnbEX8heaNHaG27zrqZUNKxS
+         jt9D+8nP1VsVNLhkk4a6PNXLRuZgOK5O3ABlYbK02n9Ib5yOqUy7LUqvn7nAMsGs5fAs
+         gEc+aYTL/0WDCCQPD9SWC9oGoyF/o0wN0ZnWLjugCDFr9ompt0E7V63ncnQOQS5mBBZC
+         uikQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAWULkSVTzOI+GqrVjuxn2no8OYb4HPIUeQVOHynnjU4NjG9eUn2
-	Xh4qDQR4XTZ5xriNTeWW3aQ=
-X-Google-Smtp-Source: APXvYqygyL0HxjUf0Hkvl5AMg2xhvf1H1WXr7vv9sPVGHwuOYUvIapnjYPAwGpiZ22d8YR+p1SO/sQ==
-X-Received: by 2002:ac2:4c84:: with SMTP id d4mr31462866lfl.1.1563794534186;
-        Mon, 22 Jul 2019 04:22:14 -0700 (PDT)
+X-Gm-Message-State: APjAAAX16MhKZEaJHazc0BzeJjwND+85hhqQdcoWrLx9i6Gbm/vp3l0k
+	SSY7v8ErTgnOk79hIQ+6+jQ=
+X-Google-Smtp-Source: APXvYqwuqMgYPTBCxZXHBiuAH0iFHHUpFf2icaJPx67w9YmCVXX5dhsa2hiwuIJ1xRb1CM+2r8B+fg==
+X-Received: by 2002:aca:90d:: with SMTP id 13mr37088766oij.126.1563822238727;
+        Mon, 22 Jul 2019 12:03:58 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac2:43ca:: with SMTP id u10ls3123284lfl.3.gmail; Mon, 22 Jul
- 2019 04:22:13 -0700 (PDT)
-X-Received: by 2002:a19:491d:: with SMTP id w29mr31889387lfa.149.1563794533530;
-        Mon, 22 Jul 2019 04:22:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1563794533; cv=none;
-        d=google.com; s=arc-20160816;
-        b=oeNii/B2qMz/Cg75lF4TWylTb1pBL0e3pBGdo7LP3/zys2e9xc9Z8kUBAMKeYKZOk1
-         udrGTb3l6sY9dMka1y7298wJ24QJun0vOvjxrUPxYiIl2seTpAOWkxZL2bW99sSuiZeU
-         Vnzsnky4b9DJfPhKePPmDdZnFJRXCQDuHQCPbJCHI4tZ+gMjc2zue9ejT5PxRR1MwvGg
-         QzAJOH77EF1BSrp3NEATJAed3C+Ro9WwCDT3jQ/9a20plkrmYCQP9EnEvZAnQYsyGwwL
-         Xr+33XKl33MPHvDeKEvbt4rqcmUpUSbUsb2ag7YgSTEqAu6f8UBdUbelIZDBEQHTguKm
-         wmqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=D2r5AW6w7cYF9APo/jAXazrid//0qgYqEGPseLqavw0=;
-        b=WnYRzaSq9O4bajROL5teGBH8cMyXKCnyF9NcokBGVO0k8l16rbPL0hMKjbpTXlp3Fr
-         Vm8m9oBpvlwycoa1ypMqBIhn6faUVIkA2oINGO5z7y2bj9GsIu/6x/K811zj+Jpp2dDz
-         vjx5tgGYTD4g1owx/cWLgeULEKRWJPUENujPvoc1ub4EceP6h+EJvGrIkZdrBqiewGG0
-         PdRzfSslcJUwtVuSZZDv7VTahN4147OvwsFXpwJ16oheycvp9KBrnGtKu8EnVIMzxdhF
-         pS11NXRLdCutZTKBjkx4sPUm/GRwQ0ktPFnds5ZbOo9fwgCRkZqdz064Qtrq73KS4EEO
-         sXqw==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id h11si2136821lja.0.2019.07.22.04.22.13
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 22 Jul 2019 04:22:13 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
-Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id x6MBMC1d002676
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 22 Jul 2019 13:22:12 +0200
-Received: from [139.23.72.197] ([139.23.72.197])
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x6MBMBLC024721;
-	Mon, 22 Jul 2019 13:22:12 +0200
-Subject: Re: [PATCH v3 5/6] arm64: iommu: smmu-v3: Add data structure
- initialization and stage 2 for SMMUv3
-To: Lokesh Vutla <lokeshvutla@ti.com>, jailhouse-dev@googlegroups.com
-Cc: Sekhar Nori <nsekhar@ti.com>, William Mills <wmills@ti.com>,
-        Nikhil Devshatwar <nikhil.nd@ti.com>
-References: <20190709134836.10485-1-p-yadav1@ti.com>
- <20190709134836.10485-6-p-yadav1@ti.com>
- <9bdee063-99c3-efd6-bb4a-2de6ebf8f1bc@siemens.com>
- <f1e97cca-4909-9c24-e0bd-72c09faed6e0@ti.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <2b98c35d-923b-3d81-b6a0-86f63e8b8377@siemens.com>
-Date: Mon, 22 Jul 2019 13:22:10 +0200
-User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
- Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
+Received: by 2002:a9d:12c3:: with SMTP id g61ls7645459otg.16.gmail; Mon, 22
+ Jul 2019 12:03:58 -0700 (PDT)
+X-Received: by 2002:a9d:5d0b:: with SMTP id b11mr9529046oti.333.1563822237923;
+        Mon, 22 Jul 2019 12:03:57 -0700 (PDT)
+Date: Mon, 22 Jul 2019 12:03:57 -0700 (PDT)
+From: =?UTF-8?Q?Jo=C3=A3o_Reis?= <jpagsreis@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <62e48ed5-ad73-44b7-ab97-74516efdbac2@googlegroups.com>
+In-Reply-To: <719d06c6-3e84-6cd0-85b5-28719dc8ef05@siemens.com>
+References: <a8a5bcdc-c3b7-459b-9116-fd4a04f2f02a@googlegroups.com>
+ <03e07418-13ad-82ea-20fa-140edcc28bff@siemens.com>
+ <523d1079-ea79-4aa2-ae37-678146ee54be@googlegroups.com>
+ <719d06c6-3e84-6cd0-85b5-28719dc8ef05@siemens.com>
+Subject: Re: JAILHOUSE_ENABLE: invalid argument error
 MIME-Version: 1.0
-In-Reply-To: <f1e97cca-4909-9c24-e0bd-72c09faed6e0@ti.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_5701_1802542276.1563822237382"
+X-Original-Sender: jpagsreis@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -136,71 +80,194 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 22.07.19 11:51, Lokesh Vutla wrote:
->>> +static int arm_smmu_init_strtab_2lvl(struct arm_smmu_device *smmu)
->>> +{
->>> +	struct arm_smmu_strtab_cfg *cfg = &smmu->strtab_cfg;
->>> +	u32 size, l1size;
->>> +	void *strtab;
->>> +	u64 reg;
->>> +	int ret;
->>> +
->>> +	/* Calculate the L1 size, capped to the SIDSIZE. */
->>> +	size = STRTAB_L1_SZ_SHIFT - 3;
->>> +	size = MIN(size, smmu->sid_bits - STRTAB_SPLIT);
->>> +	cfg->num_l1_ents = 1 << size;
->>> +
->>> +	size += STRTAB_SPLIT;
->>> +	if (size < smmu->sid_bits)
->>> +		printk("WARN: SMMU 2-level strtab only covers %u/%u bits of SID\n",
->>> +		       size, smmu->sid_bits);
->>
->> What does that mean for the user? Or the guest?
-> 
-> This specfies that the driver does not support all the stream ids that hardware
-> specifies that are supported. Driver supports for 25 sid bits(with 128K L1
-> entries and 256L2 entries). I don't think there would be any realistic use case
-> using a stream id with  >  25 bits.
-> 
+------=_Part_5701_1802542276.1563822237382
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_5702_1075557948.1563822237382"
 
-OK. Maybe worth clarify this in form of a comment.
+------=_Part_5702_1075557948.1563822237382
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-[...]
+I'm sorry for the inconvenience.
 
->>> +
->>> +static int arm_smmuv3_cell_init(struct cell *cell)
->>> +{
->>> +	struct jailhouse_iommu *iommu;
->>> +	struct arm_smmu_cmdq_ent cmd;
->>> +	int ret, i, j, sid;
->>> +
->>> +	for (i = 0; i < JAILHOUSE_MAX_IOMMU_UNITS; i++) {
->>> +		iommu = &system_config->platform_info.arm.iommu_units[i];
->>> +		if (iommu->type != JAILHOUSE_IOMMU_SMMUV3)
->>> +			continue;
->>> +
->>> +		for_each_stream_id(sid, cell->config, j) {
->>> +			ret = arm_smmu_init_ste(&smmu[i], sid, cell->config->id);
->>> +			if (ret) {
->>> +				printk("ERROR: SMMU INIT ste failed: sid = %d\n",
->>> +				       sid);
->>> +				return ret;
->>
->> Do we need any rollback in case only one of many calls fails?
-> 
-> I don't think so, as that specific stream id will not be supported and rest can
-> work as is. Do you see other reason for roll back?
+segunda-feira, 22 de Julho de 2019 =C3=A0s 10:12:31 UTC+1, Jan Kiszka escre=
+veu:
+>
+> On 22.07.19 08:42, Jo=C3=A3o Reis wrote:=20
+> > Regarding this problem there was no inconsistency in the build, it was=
+=20
+> my fault,=20
+> > i just using .cell files from master branch instead of wip/coloring=20
+> branch, that=20
+> > was the problem.=20
+>
+> Ah, yeah - happens. Thank for clarifying!=20
+>
+> Jan=20
+>
+> >=20
+> > segunda-feira, 22 de Julho de 2019 =C3=A0s 06:27:36 UTC+1, Jan Kiszka=
+=20
+> escreveu:=20
+> >=20
+> >     On 20.07.19 19:19, Jo=C3=A3o Reis wrote:=20
+> >     > Hello,=20
+> >     >=20
+> >     > I am trying to use coloring on my board, using branch=20
+> wip/coloring, but=20
+> >     when i=20
+> >     > issue "jailhouse enable root_cell.cell", the console outputs=20
+> >     "JAILHOUSE_ENABLE:=20
+> >     > invalid argument".=20
+> >     >=20
+> >     > I've modified drivers/main.c to printk some steps, and i've=20
+> noticied that the=20
+> >     > jailhouse.ko generated from wip/coloring branch doesn't get the=
+=20
+> right value=20
+> >     > for config_header.root_cell.cpu_set_size on jailhouse_cmd_enable(=
+)=20
+> function.=20
+> >     > The value for config_header.root_cell.cpu_set_size should be 8=20
+> bytes (it=20
+> >     comes=20
+> >     > from root cell config file) but somehow it reads 0 bytes.=20
+> >     >=20
+> >     > root cell config file.c=20
+> >     >=20
+> >     >     ....=20
+> >     >     __u64 cpus[1];=20
+> >     >     ...=20
+> >     >     .cpu_set_size =3D sizeof(config.cpus);=20
+> >     >     ...=20
+> >     >=20
+> >     >=20
+> >     >=20
+> >     > When i use the master branch, within jailhouse_cmd_enable(), it=
+=20
+> reads=20
+> >     correctly=20
+> >     > 8 bytes from config_header.root_cell.cpu_set_size, but with=20
+> wip/coloring=20
+> >     branch,=20
+> >     > it reads 0 bytes from the same config file.=20
+> >     >=20
+> >=20
+> >     Maybe some inconsistency in the build? I'm checking back with the=
+=20
+> folks for who=20
+> >     I created that branch for testing purposes (we are still awaiting a=
+=20
+> rework from=20
+> >     the authors), if it was working fine for them.=20
+> >=20
+> >     Jan=20
+> >=20
+> >     --=20
+> >     Siemens AG, Corporate Technology, CT RDA IOT SES-DE=20
+> >     Corporate Competence Center Embedded Linux=20
+>
 
-I didn't look into details, if arm_smmu_init_ste leaves anything rollback-worthy
-behind, was just asking this question openly to make you check that again.
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/62e48ed5-ad73-44b7-ab97-74516efdbac2%40googlegroups.com.
 
-Jan
+------=_Part_5702_1075557948.1563822237382
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
--- 
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+<div dir=3D"ltr">I&#39;m sorry for the inconvenience.<br><br>segunda-feira,=
+ 22 de Julho de 2019 =C3=A0s 10:12:31 UTC+1, Jan Kiszka escreveu:<blockquot=
+e class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-left: =
+1px #ccc solid;padding-left: 1ex;">On 22.07.19 08:42, Jo=C3=A3o Reis wrote:
+<br>&gt; Regarding this problem there was no inconsistency in the build, it=
+ was my fault,
+<br>&gt; i just using .cell files from master branch instead of wip/colorin=
+g branch, that
+<br>&gt; was the problem.
+<br>
+<br>Ah, yeah - happens. Thank for clarifying!
+<br>
+<br>Jan
+<br>
+<br>&gt;=20
+<br>&gt; segunda-feira, 22 de Julho de 2019 =C3=A0s 06:27:36 UTC+1, Jan Kis=
+zka escreveu:
+<br>&gt;=20
+<br>&gt; =C2=A0 =C2=A0 On 20.07.19 19:19, Jo=C3=A3o Reis wrote:
+<br>&gt; =C2=A0 =C2=A0 &gt; Hello,
+<br>&gt; =C2=A0 =C2=A0 &gt;
+<br>&gt; =C2=A0 =C2=A0 &gt; I am trying to use coloring on my board, using =
+branch wip/coloring, but
+<br>&gt; =C2=A0 =C2=A0 when i
+<br>&gt; =C2=A0 =C2=A0 &gt; issue &quot;jailhouse enable root_cell.cell&quo=
+t;, the console outputs
+<br>&gt; =C2=A0 =C2=A0 &quot;JAILHOUSE_ENABLE:
+<br>&gt; =C2=A0 =C2=A0 &gt; invalid argument&quot;.
+<br>&gt; =C2=A0 =C2=A0 &gt;
+<br>&gt; =C2=A0 =C2=A0 &gt; I&#39;ve modified drivers/main.c to printk some=
+ steps, and i&#39;ve noticied that the
+<br>&gt; =C2=A0 =C2=A0 &gt; jailhouse.ko generated from wip/coloring branch=
+ doesn&#39;t get the right value
+<br>&gt; =C2=A0 =C2=A0 &gt; for=C2=A0config_header.root_cell.<wbr>cpu_set_s=
+ize on=C2=A0jailhouse_cmd_enable() function.
+<br>&gt; =C2=A0 =C2=A0 &gt; The value for config_header.root_cell.cpu_<wbr>=
+set_size should be 8 bytes (it
+<br>&gt; =C2=A0 =C2=A0 comes
+<br>&gt; =C2=A0 =C2=A0 &gt; from root cell config file) but somehow it read=
+s 0 bytes.
+<br>&gt; =C2=A0 =C2=A0 &gt;
+<br>&gt; =C2=A0 =C2=A0 &gt; root cell config file.c
+<br>&gt; =C2=A0 =C2=A0 &gt;
+<br>&gt; =C2=A0 =C2=A0 &gt; =C2=A0 =C2=A0 ....
+<br>&gt; =C2=A0 =C2=A0 &gt; =C2=A0 =C2=A0 __u64 cpus[1];
+<br>&gt; =C2=A0 =C2=A0 &gt; =C2=A0 =C2=A0 ...
+<br>&gt; =C2=A0 =C2=A0 &gt; =C2=A0 =C2=A0 .cpu_set_size =3D sizeof(config.c=
+pus);
+<br>&gt; =C2=A0 =C2=A0 &gt; =C2=A0 =C2=A0 ...
+<br>&gt; =C2=A0 =C2=A0 &gt;
+<br>&gt; =C2=A0 =C2=A0 &gt;
+<br>&gt; =C2=A0 =C2=A0 &gt;
+<br>&gt; =C2=A0 =C2=A0 &gt; When i use the master branch, within jailhouse_=
+cmd_enable(), it reads
+<br>&gt; =C2=A0 =C2=A0 correctly
+<br>&gt; =C2=A0 =C2=A0 &gt; 8 bytes from config_header.root_cell.cpu_<wbr>s=
+et_size, but with wip/coloring
+<br>&gt; =C2=A0 =C2=A0 branch,
+<br>&gt; =C2=A0 =C2=A0 &gt; it reads 0 bytes from the same config file.
+<br>&gt; =C2=A0 =C2=A0 &gt;
+<br>&gt;=20
+<br>&gt; =C2=A0 =C2=A0 Maybe some inconsistency in the build? I&#39;m check=
+ing back with the folks for who
+<br>&gt; =C2=A0 =C2=A0 I created that branch for testing purposes (we are s=
+till awaiting a rework from
+<br>&gt; =C2=A0 =C2=A0 the authors), if it was working fine for them.
+<br>&gt;=20
+<br>&gt; =C2=A0 =C2=A0 Jan
+<br>&gt;=20
+<br>&gt; =C2=A0 =C2=A0 --=20
+<br>&gt; =C2=A0 =C2=A0 Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+<br>&gt; =C2=A0 =C2=A0 Corporate Competence Center Embedded Linux
+<br></blockquote></div>
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/2b98c35d-923b-3d81-b6a0-86f63e8b8377%40siemens.com.
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/62e48ed5-ad73-44b7-ab97-74516efdbac2%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/62e48ed5-ad73-44b7-ab97-74516efdbac2%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_5702_1075557948.1563822237382--
+
+------=_Part_5701_1802542276.1563822237382--
