@@ -1,141 +1,142 @@
-Return-Path: <jailhouse-dev+bncBAABBF543PUQKGQEEI4XMRQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBCF53PUQKGQE6YIQ7EY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33f.google.com (mail-wm1-x33f.google.com [IPv6:2a00:1450:4864:20::33f])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0C2A715CD
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Jul 2019 12:14:47 +0200 (CEST)
-Received: by mail-wm1-x33f.google.com with SMTP id n25sf9751892wmc.7
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Jul 2019 03:14:47 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1563876887; cv=pass;
+Received: from mail-lj1-x23b.google.com (mail-lj1-x23b.google.com [IPv6:2a00:1450:4864:20::23b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E85E715DA
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Jul 2019 12:16:41 +0200 (CEST)
+Received: by mail-lj1-x23b.google.com with SMTP id r5sf9198366ljn.1
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Jul 2019 03:16:41 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1563877001; cv=pass;
         d=google.com; s=arc-20160816;
-        b=0tj0e2w9ymJaXjem0uHSMFnDr8gDhOP8b+tF8uJoYvn05XqQnSV3pnhuhH7GLgA/zk
-         YZKQkS9Bv076w9b81AVFVgWu0GrUTbaWX6PmGp03+K+YXoIBMYUS3JZwP1yphtAUi9Eg
-         ouo/bsUwlqUAuZNMA+TOvQIeEJiVeW+G8MCe7o9b3ZdfqzR0HofcgvxCIlS0eNaFD5FH
-         VKMVchb168WL2WWwGeG1/T0HiyqNUNs6La7LosQ9r7EZHgJspKNuJjufUAwIvBTKPkYD
-         P4e36YeA7Bz6Nfo3iCRDa4Kyr3ZvmvBGQ6yL7opVfw7zO3jHV7WeNl7sjkYWFuOkcDQC
-         5iAw==
+        b=x5nAHcUpfLQQBskZ68kBgh2JUgNz19slLA27b4jWOremVKriPMy5xGwfndT3y2ITMs
+         /PuxDd6jemrOrE8ujrqxF7FowOVDoBdF073oNCLbQMcyVGQJx4aaCN6wDQXLzOJhGRLz
+         +P/szAVaL5uvXyuX+SRbC7Ouoy9xbvw/X8jyoAITwhkEWu0lqrkUB02gScaPDrZIYeGa
+         cxxBAs47xPPxdQ+lIHMiU6bScZsaghkrM7dwwx1mG+wpJoaSMVttlDX6TYRLxqAcCe4P
+         Hncz7tNAiAChI0GqMQZPRECqjMim1E6YGwtn8aJRx6Kz0Ou17CKY+6S/L6BZcXUOBFuc
+         hkIQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:acceptlanguage
-         :content-language:accept-language:in-reply-to:references:message-id
-         :thread-index:thread-topic:subject:date:cc:to:from:sender
-         :dkim-signature;
-        bh=YRR1x3TrQ+kWIsbpcwqkG1vuDQYK+e3yVTjTzdDPAfU=;
-        b=Dj7Mj1hpc80RJVbj50s/O9dhsv+DyIRV/c1tjAeoj+CxC3vL0AZxdmN5aTZxFz/muS
-         +ORBXgA4aUvlzctyOJ7P1Zl1ywNM01Cbu6YPYu2W9GLN5QkEOtsIbAvNUBQ4Q1YwvXOb
-         1y+EEb91oi+on0Ke6j7yGgo2jnC4ZnMARZaYv5mCJ5f4CFExzzjW6jWsOpmAXwCg+UR2
-         3Vvz4vKvyJsz4OIKutQZ4LPDlN0bq0guc5YW5PZCieLcHicVJS4oK90Ar3mVq7O64Ze7
-         jZw8GP3nAJg/1xwWzjQPj2AMsiS2L+m1DE2AvI3plFfv4YCwVJkOT89dYdBWWqv1OYrC
-         x96g==
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:openpgp:from:references:to
+         :subject:sender:dkim-signature;
+        bh=Gc33hcuZbXSofsce7XkMchfmvFrelFXaGqcSemC5I2Q=;
+        b=KGkTWicJ6F3Ha69TOMvO6ryHTXvaKJS4qMoYRNaGdNN+fNjQWCBJbkaTowKjCG2hO0
+         cDBp0pFLnEhaoRWhRH7T4+NgZyNAgm5VyS+s99MAgcyYTrQAwKx7v/An0SZURXY1Yeut
+         uZvJFNSSFy4tesiS/UkXXW07Qo+dkG1DJDyjHrMAiiOgdjG7xeTBOTI2beHZ8XhJH5Ff
+         h2MoFz6+fpUpNTvt+rKZzjbfrdbM4F3MqMeSR7vgoF8pfgm+qOhuS5rfUmXxhUKVEUvf
+         8Kw007sUrB+jIw/mDlun5LHoXsEhrQ4BZzygOEYbnlpKdL1IqhDGw7Ni2mY1Dd7/smim
+         fbpg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.vonwiarda@emtrion.de designates 80.150.99.69 as permitted sender) smtp.mailfrom=Jan.vonWiarda@emtrion.de
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=lLtDfD0M;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:cc:date:subject:thread-topic:thread-index:message-id
-         :references:in-reply-to:accept-language:content-language
-         :acceptlanguage:mime-version:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=YRR1x3TrQ+kWIsbpcwqkG1vuDQYK+e3yVTjTzdDPAfU=;
-        b=G63YPRdi7nDxB0WtiaAzGk/+GZc+g4bs81k0i1+iEJyzmLx+stvPJzr5K3ThfCCPU2
-         sXeCwiB+RmdVtKV6PKSCEcAsdL1crvPmt3nF3dpJs5DRei2+r4dvLTGN3KpGxC4vE7JB
-         OSYa6Eclov964MfhlEBF+5YNlG7AUwwVCQ4olDEJhzh1mQYX3BkRqk22/RiLds2UkzKZ
-         o5bPBO+WRIegkuEiwtXz1e7Pn3ngb/A0lzqylLTuVxld/ndxcP/cuMXsA9MV8rUsXJaZ
-         u8ZQbZkPYFY8cKZRR6+x1PmF6l+PiZn4S/lLn4/GHd/CBQ1GCFMcKOEQey7AQJ2tlrqx
-         Rw+Q==
+        h=sender:subject:to:references:from:openpgp:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=Gc33hcuZbXSofsce7XkMchfmvFrelFXaGqcSemC5I2Q=;
+        b=rUXqMONkp/mtOcwG2uHiQszjmI3SsqSxSUXJKQ8cVffSoLkJW1mYZqnjiaeOlhRdxc
+         ND0laLxojQrDtgKO4ODFVXzXP9UunW8Z5NMEqfFJN6A0womu1Msoz4LMP7lHPK3zVB4T
+         AWQY40qhBEUH2jup+d7nF6vIwnGwVahbSnm0KewbHcckGInBs/OrImdKW268ZalGPozJ
+         2C04c0/Y4DUM3ql14zD3HtR8/skgzQ6rtXf1wfbYHDsgNkloIdo40lOWoeDn7dZM5GOt
+         9bjJCH+AlU59+2hEIG9KBG3e2wuqgL8sMbO6DJywkFw6YJTgpGb8IsVlspbvOFjS5Ycc
+         fbFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:cc:date:subject:thread-topic
-         :thread-index:message-id:references:in-reply-to:accept-language
-         :content-language:acceptlanguage:mime-version:x-original-sender
+        h=sender:x-gm-message-state:subject:to:references:from:openpgp
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=YRR1x3TrQ+kWIsbpcwqkG1vuDQYK+e3yVTjTzdDPAfU=;
-        b=G+/5If1Gtr4yf1btL8E0Xa1ARGQSlYXTrZLeA/69oMqSKuiZi7HnU5ceXOxw62fWfD
-         8xSDqPaQXlOOy2iK7qcvZrG2Z/6vlq3M/C3kTKzxfWkAgE3kbAJy1exy9Jy5fd+n9miV
-         Ix55Bnf1ER/cr6Wr0m7LYQzCi8w/lMiEK56IMBPinZ826iA+M2wByrgPB2pHcqGAOWzG
-         aVAiqWG/OdZYfXOTuCthLFBYN81DpwLdiWCUG+cc+u1eWlY1SP2pTsZhg26QHKVj3rLJ
-         6o3jLMOzYHyeBNt64r2LV9L07wZtDE0KgVQ2+0dMz2LBsMmHJLRcdoEqdouDnjVTIA3M
-         oPQA==
+        bh=Gc33hcuZbXSofsce7XkMchfmvFrelFXaGqcSemC5I2Q=;
+        b=Nf7JDC5aAaB+JwE5qpklkQKT2hHgu0x+x5DjXWMxzhHzlE6sqIvPRedJMjBJZp8e+2
+         7n6zlIpz0Ix8TVlp5IS5H6BvQjvVECr/UIZA4gSvWxK4OVj30GqS6Iyt5tpDPCmRnk+U
+         kyTSk4oOL/ZmfDwSiuDT3BODlBEg+pZ3bkYAEWakyuim4tLbDkAmfr3FrydEK3YbYu2I
+         Eo+xA1UBI+SDx86wvEJ97tJR//2YAvvwyLAWyzxygOTRXmCTg6H567Bz4FDUqt/z5/3y
+         QEdpVERCABo50bo+Y+ON6uSoO3v5EcWTgHAcsTRWDqsTlVwQ6jmlbxCY8Zp1hEnjLxOm
+         IOaQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVYyz5uC15WFCXGa18QbhX7wPhfZDurDJVoNm4vafjEXBr+jTTR
-	GX54SB+MrQ4IT16RVUZc3Uk=
-X-Google-Smtp-Source: APXvYqwohnD5aWF1e6ddJbHpB3u4gtwugL/XxjD4El0p5zi+lwIR7Ea3giy+lE+VFUlmGwBEh0dBmw==
-X-Received: by 2002:a7b:c857:: with SMTP id c23mr72379487wml.51.1563876887473;
-        Tue, 23 Jul 2019 03:14:47 -0700 (PDT)
+X-Gm-Message-State: APjAAAVxq5dpGU+emU3CzO7NCIkTGUwsfwZyqkb1vI8N+77sMjBbIBge
+	iCEf1C56PQXmozMHKfe7HU4=
+X-Google-Smtp-Source: APXvYqyGVhvdVs1ROy8IpSEHVCk9GH9ZStwS3yh4DAz5QIM2Gfx/wc53LKP2v9xkDZEjM1sC+jIgtg==
+X-Received: by 2002:ac2:5097:: with SMTP id f23mr35313149lfm.130.1563877000885;
+        Tue, 23 Jul 2019 03:16:40 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:5411:: with SMTP id i17ls15206763wmb.2.canary-gmail;
- Tue, 23 Jul 2019 03:14:46 -0700 (PDT)
-X-Received: by 2002:a05:600c:2503:: with SMTP id d3mr70427494wma.41.1563876886763;
-        Tue, 23 Jul 2019 03:14:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1563876886; cv=none;
+Received: by 2002:a2e:8917:: with SMTP id d23ls4801097lji.14.gmail; Tue, 23
+ Jul 2019 03:16:40 -0700 (PDT)
+X-Received: by 2002:a2e:93c5:: with SMTP id p5mr38261478ljh.79.1563877000369;
+        Tue, 23 Jul 2019 03:16:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1563877000; cv=none;
         d=google.com; s=arc-20160816;
-        b=w/IaX3HNiv+nnwwQ2rQ6KUIgQyZ/6W/3iWUrXpGJ+ED6KyZiE4ACOmrqmGi0BGu6+/
-         U2l0GREZDs5IEIS91iSCggTg2rofuSHJhBaYPb5LxsWnkgNWNFEtbqfoNoXdDlyvLPfh
-         qu36nttJvqwfUQMrDejL938LxxIHxa560TnpTyNRbLej7CmHvYtamVuIUjC+fBNmqWAQ
-         NNdLkYpONKrXsgHbnsbi8ZfSs1g20zG2SSLEzI40G6Dbu1ddES0pO3IVS0E++MI+ZGw3
-         kXEPP1u+uY2rhiW5sMCTpsPGtdyE0AdQx9lVeRi53My14lMwjFbsmFlREZEJQ3vneJi4
-         KpAg==
+        b=F62qemwYSjy7aqj2x05Pn1N4Gas399uMBDiRw2pxY2JQ77JgO0CWOyaQG6TjqbBPY9
+         4Qwf+1yD9ZDcbyRDi63i716sYtSHwPOHXl/E9GOTOiHbypz6++NCmzVSLuJn0eaM6wAt
+         wxQclTv9O3VJtIkYdiCwoL7qR5n8G/0/dmSkn2HU2xvb+cWUMPgYXNS3B+r1CxodrrKz
+         BWXaKsPy70mzBq2L/lndWuMq5CwLEI5UgNdcLioWSrueTmJO37KnuZYrqCzkwFxWMjQn
+         P3mM0X/+cJFeONkS00flH0F3W/Hbj++p4ZET8Eaw01qhZujzBPJXGxMA0tueoU0NXb6t
+         ENpw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:acceptlanguage:content-language:accept-language
-         :in-reply-to:references:message-id:thread-index:thread-topic:subject
-         :date:cc:to:from;
-        bh=0RgdfikR5sgIBZ3WV2KM6KXmsMLeGWpb1pqfFvlNOls=;
-        b=lUv1e7zJlj3SZc3Ko9RcsbrdxdckZ9UfAfBzqdVcGV+WVmXW7z0w2QQQu4DNCdcsIh
-         xSZpLBDsfTryHFLF8GawyeCxONWi1shyE7K8jhP43KwTfPZvi83m3Jli7tgLyYZe8pfU
-         dTw4g+XvofAH/MDFpe1eHYlVQ84grPXjUm3ElcNvrXgulBRHNwWHi80FpvlEFwqjXZ1f
-         VpTyldieSbFvsuj2FIJwPbCpIw+sn4+NRcR3iNORXBieziNvjrDhB+ZvqmRKtVpLuk/l
-         +mmnnIw+uxAMACyC7X72LJtb3jzwq9xZ5hcl8A93CKXk8boDITh3cM4BUdElTLZSPmWV
-         NSlg==
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:openpgp:from:references:to:subject
+         :dkim-signature;
+        bh=C1C60C4xfi+9zH3URs+B9P9rcs/FhcXfRV2tK/V5/eY=;
+        b=dG9V9nTwCDGA9JNR883Typ2bc239xUwRdRT+v1qI3sfxRMDQAQIsFuW310I/HwxJj8
+         s0ncBxj4Iq004qDoqVg1vO6lzf4EAKMY4/z4axuJo7bZ0k+xUmT966Lt2C9wfyGof/yU
+         BE5CZfM8h8Gunml2/lJFVkPLcQ4bqUdE21xPXmihIdwyVl4RcWOBVIplirfsNPcb+Ofh
+         D+Oguu3T4KoUCwAJ4MwEEOp4fAuBl8YFo4ja9P+9hcgwizhTJIXtNIhyGSzTGRmVOLi0
+         Eg9UCCSUJZgwvRuXs6zHOajrPhO4ODEjIBDZaX+3cIFMC7cBR7wpQXhcArUbo+3Tx7Sc
+         lwqA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.vonwiarda@emtrion.de designates 80.150.99.69 as permitted sender) smtp.mailfrom=Jan.vonWiarda@emtrion.de
-Received: from mail3.emtrion.de (mail3.emtrion.de. [80.150.99.69])
-        by gmr-mx.google.com with ESMTPS id b15si1413309wmg.1.2019.07.23.03.14.46
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=lLtDfD0M;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [2001:638:a01:1096::12])
+        by gmr-mx.google.com with ESMTPS id z18si1903815lfh.1.2019.07.23.03.16.39
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
-        Tue, 23 Jul 2019 03:14:46 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.vonwiarda@emtrion.de designates 80.150.99.69 as permitted sender) client-ip=80.150.99.69;
-Received: from BMK019S01.emtrion.local ([fe80::85d1:497:bc1c:78d0]) by
- BMK019S01.emtrion.local ([fe80::85d1:497:bc1c:78d0%10]) with mapi; Tue, 23
- Jul 2019 12:14:33 +0200
-Content-Type: multipart/mixed;
-	boundary="_000_95F51F4B902CAC40AF459205F6322F01C4EE0E3DBDBMK019S01emtr_"
-From: "von Wiarda, Jan" <Jan.vonWiarda@emtrion.de>
-To: "Antonios Motakis (Tony)" <antonios.motakis@huawei.com>, Mark Rutland
-	<mark.rutland@arm.com>
-CC: JailhouseMailingListe <jailhouse-dev@googlegroups.com>, Jan Kiszka
-	<jan.kiszka@siemens.com>
-Date: Tue, 23 Jul 2019 12:14:14 +0200
-Subject: AW: AW: 64 bit Hypervisor crash at 32 bit WFI instruction
-Thread-Topic: AW: 64 bit Hypervisor crash at 32 bit WFI instruction
-Thread-Index: AdVBEM2xaAHq8Mo/S662uBGeOX2v2gALH+mA
-Message-ID: <95F51F4B902CAC40AF459205F6322F01C4EE0E3DBD@BMK019S01.emtrion.local>
-References: <95F51F4B902CAC40AF459205F6322F01C4EE0E3CB4@BMK019S01.emtrion.local>
- <20190722094752.GB28400@lakrids.cambridge.arm.com>
- <95F51F4B902CAC40AF459205F6322F01C4EE0E3D14@BMK019S01.emtrion.local>
- <5518ab89-15c7-c1c2-c56e-f840cc296cec@huawei.com>
-In-Reply-To: <5518ab89-15c7-c1c2-c56e-f840cc296cec@huawei.com>
-Accept-Language: de-DE
-Content-Language: de-DE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: <95F51F4B902CAC40AF459205F6322F01C4EE0E3DBD@BMK019S01.emtrion.local>
-acceptlanguage: de-DE
-x-tm-as-product-ver: SMEX-11.0.0.4283-8.100.1062-24788.000
-x-tm-as-result: No--4.124100-8.000000-31
-x-tm-as-matchedid: 700225-703140-701090-703503-139010-704053-700759-705153-7
-	01058-704074-704498-700278-704328-702975-705161-702852-701432-188019-701443
-	-705220-703949-705022-853813-853550-853702-702887-850298-702600-705249-7800
-	22-704718-702147-702500-704714-702146-704599-105700-701667-702877-105250-70
-	1803-701075-700786-703300-702301-700492-702409-702798-701901-148004-148133-
-	42000-42003-63
-x-tm-as-user-approved-sender: No
-x-tm-as-user-blocked-sender: No
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 23 Jul 2019 03:16:40 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) client-ip=2001:638:a01:1096::12;
+Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S02", Issuer "E16S02" (not verified))
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 45tDsg1Whfzy4D;
+	Tue, 23 Jul 2019 12:16:39 +0200 (CEST)
+Received: from [192.168.178.10] (194.95.106.138) by E16S02.hs-regensburg.de
+ (2001:638:a01:8013::92) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 23 Jul
+ 2019 12:16:39 +0200
+Subject: Re: Assigning a PCI device to a non-root cell
+To: Jan Kiszka <jan.kiszka@siemens.com>, Jailhouse
+	<jailhouse-dev@googlegroups.com>
+References: <7f2b8593-b6bb-353c-1eb8-604076f7da6b@oth-regensburg.de>
+ <521c1b04-ab40-e566-5625-5827d3a7f2e2@siemens.com>
+ <46aff85a-01ba-875e-1752-cb40f9080b31@oth-regensburg.de>
+ <99f6615e-3621-3a7a-7bea-33839e48653e@siemens.com>
+ <f7f0f3d4-33e7-bc74-7bb9-79cdb8c52c0d@oth-regensburg.de>
+ <c6c3d947-d6ac-be55-6094-9743a61ccbbd@siemens.com>
+ <3bd05e0d-d888-ffef-96e7-ef7ce023f2f9@oth-regensburg.de>
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Openpgp: preference=signencrypt
+Message-ID: <cea81495-4bee-2f8d-a0f9-a1c7b57027ec@oth-regensburg.de>
+Date: Tue, 23 Jul 2019 12:16:38 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-X-Original-Sender: jan.vonwiarda@emtrion.de
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.vonwiarda@emtrion.de designates 80.150.99.69 as
- permitted sender) smtp.mailfrom=Jan.vonWiarda@emtrion.de
+In-Reply-To: <3bd05e0d-d888-ffef-96e7-ef7ce023f2f9@oth-regensburg.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: de-DE
+X-Originating-IP: [194.95.106.138]
+X-ClientProxiedBy: E16S01.hs-regensburg.de (2001:638:a01:8013::91) To
+ E16S02.hs-regensburg.de (2001:638:a01:8013::92)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=lLtDfD0M;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -148,259 +149,121 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---_000_95F51F4B902CAC40AF459205F6322F01C4EE0E3DBDBMK019S01emtr_
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi!
 
-With
+On 7/11/19 1:07 AM, Ralf Ramsauer wrote:
+> On 7/10/19 7:22 PM, Jan Kiszka wrote:
+>> On 10.07.19 18:28, Ralf Ramsauer wrote:
+>>>
+>>> On 7/10/19 6:13 PM, Jan Kiszka wrote:
+>>>>> Ok, there's one chance left: According to lspci, the device actually
+>>>>> supports MSI. It's just not being used by Linux. Maybe I can somehow
+>>>>> convince Linux to switch to MSI.
+>>>> Latest kernel already?
+> 
+> Latest kernel doesn't change anything.
+> 
+>>>>
+>>>
+>>> I'm using the 4.19-rt jailhouse. Do you know of any relevant changes
+>>> upstream? Anyway, it's worth a try, let me test upstream...
+>>>
+>>> At least for 4.19, it looks like I'm not able to easily switch to MSI.
+>>> At the moment, I don't even understand why the kernel actually uses
+>>> legacy interrupts, while MSI cap is present. Something is odd there, I'd
+>>> expect that MSI is, if available, the perefered method. But even the
+>>> root-cell after boot won't enable MSI. Still investigating...
+>>>
+>>> I hope that I can switch to MSI with maybe a dirty hack, but I need more
+>>> time to dig through the kernel's PCI stack (PCI starts bugging me). You
+>>> can find things there you never wanted to know! :-)
+>>
+>> I suspect you are using some 8250 derivative with a similar driver:
+>>
+>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=172c33cb61da0df5ccbdf1a8e736c8837d165a00
+>>
+>> Check your concrete driver for its interrupt allocation.
+> 
+> Thanks for the pointer, this patch is really helpful and almost exactly
+> what I'm looking for. I want to test the required changes of the driver
+> on Linux without Jailhouse first, before I'm going to test it in a
+> non-root cell.
+> 
+> My device uses the standard 8250_pci driver. So I hooked in there, and
+> tried the following hack:
+> 
+> 
+> diff --git a/drivers/tty/serial/8250/8250_pci.c
+> b/drivers/tty/serial/8250/8250_pci.c
+> index bbe5cba21522..55f8144ef3e0 100644
+> --- a/drivers/tty/serial/8250/8250_pci.c
+> +++ b/drivers/tty/serial/8250/8250_pci.c
+> @@ -3640,10 +3640,20 @@ pciserial_init_ports(struct pci_dev *dev, const
+> struct pciserial_board *board)
+>         priv->dev = dev;
+>         priv->quirk = quirk;
+> 
+> +       pci_set_master(dev);
+> +
+> +       rc = pci_alloc_irq_vectors(dev, 1, 1, PCI_IRQ_ALL_TYPES);
+> +       if (rc < 0) {
+> +               kfree(priv);
+> +               priv = ERR_PTR(rc);
+> +               goto err_deinit;
+> +       }
+> +
+>         memset(&uart, 0, sizeof(uart));
+>         uart.port.flags = UPF_SKIP_TEST | UPF_BOOT_AUTOCONF | UPF_SHARE_IRQ;
+>         uart.port.uartclk = board->base_baud * 16;
+> -       uart.port.irq = get_pci_irq(dev, board);
+> +       uart.port.irq = pci_irq_vector(dev, 0);
+>         uart.port.dev = &dev->dev;
+> 
+>         for (i = 0; i < nr_ports; i++) {
+> 
+> 
+> Luckily, probing succeeds. For the device, lspci reports:
+> 
+> 01:00.0 Serial controller: Device 1c00:3253 (rev 10) (prog-if 05 [16850])
+> [...]
+> 	Capabilities: [68] MSI: Enable+ Count=1/32 Maskable+ 64bit+
+> 		Address: 00000000fee00438  Data: 0000
+> 		Masking: ffffffff  Pending: 00000000
+> 
+> Doesn't look bad so far. MSI is enabled and in use. And as soon as I
+> write to or read from the device (echo / cat), the MSI interrupt appears
+> in /proc/interrupts.
+> 
+> But cat won't receive anything, and echo won't write anything. In fact,
+> echoing to the device stalls until I abort with ^C. In both cases, no
+> interrupts occur (according to /proc/interrupts).
+> 
+> That would have been too easy.
 
-asm volatile("nop" : : : "memory");
+Turns out it is that easy. Code above works perfect, but the serial
+card's MSI support seems to be broken. So I went for another PCIe serial
+card, and now it works fine.
 
-instead of
+Let me just advertise this product, in case someone else runs into the
+same issue. [1] comes with two serial lines -- one PCI function per
+line, which is pretty nice. Didn't try it yet, but it should be possible
+to assign ports to different cells. Yet, the kernel needs to be patched
+in order to enable MSI.
 
-asm volatile("wfi" : : : "memory");
+  Ralf
 
-it runs just fine.
+[1] https://www.amazon.de/gp/product/B0073LM0S4
 
-> Is the root cell cpu (CPU 0) specifically crashing with an unexpected syn=
-chronous exit to Jailhouse? What is the output?
+> 
+> Thanks
+>   Ralf
+> 
+>>
+>> Jan
+>>
+> 
 
-No, CPU 0 does not crash with any kind of console output, which makes debug=
-ging even more difficult. What I observe is, that after hitting WFI, it con=
-tinues to run for a 1-2 seconds and then it stops. Last thing I see from th=
-e instrumented code is a printk() from arch_skip_instruction(), which means=
- it was handling a SYS64 exit.
-
-> This is a far shot, but maybe the code generated around the WFI is the cu=
-lprit?
-
-You might be right, when I place WFI right after inmate_main(), CPU 0 does =
-not starve. But it's completely strange and undefined behaviour, sometimes =
-it crashes if I put the WFI right after a printk(), whereas right before th=
-e printk() it doesn't crash.
-
-Works:
-
-void inmate_main(void)
-{
-		...
-		asm volatile("wfi" : : : "memory");
-		printk("IVSHMEM: Done setting up...\n");
-		printk("IVSHMEM: waiting for interrupt.\n");
-		//asm volatile("wfi" : : : "memory");
-}
-
-Does not work:
-
-void inmate_main(void)
-{
-		...
-		//asm volatile("wfi" : : : "memory");
-		printk("IVSHMEM: Done setting up...\n");
-		printk("IVSHMEM: waiting for interrupt.\n");
-		asm volatile("wfi" : : : "memory");
-}
-
-I know this sounds completely strange but I reproduced this multiple times,=
- compiler is this:
-
-gcc version 6.3.0 20170516 (Debian 6.3.0-18)
-
-BR,
-Jan
-
------Urspr=C3=BCngliche Nachricht-----
-Von: Antonios Motakis (Tony) [mailto:antonios.motakis@huawei.com]=20
-Gesendet: Dienstag, 23. Juli 2019 06:40
-An: von Wiarda, Jan; Mark Rutland
-Cc: JailhouseMailingListe; Jan Kiszka
-Betreff: Re: AW: 64 bit Hypervisor crash at 32 bit WFI instruction
-
-Hi Jan,
-
-On 22-Jul-19 7:11 PM, von Wiarda, Jan wrote:
-> Hi Mark,
->=20
-> I'm not touching bit 13 or 14 in HCR_EL2, they're both 0. HCR_EL2 is the =
-same for 64 bit and 32 bit inmates when the crash happens, except for HCR_R=
-W_BIT, obviously. HCR_EL2 value is 0x28001B at crash time.
->=20
-
-It's quite an interesting crash that you have there; I wouldn't expect this=
- to happen.
-
-The idea with trapping WFI/WFE is to be able to suspend a VM that is just w=
-aiting for something to happen. Since Jailhouse is a partitioning hyperviso=
-r, you shouldn't need to trap it, nor should its use normally influence the=
- other cores. Yet something is amiss here.
-
-Is the root cell cpu (CPU 0) specifically crashing with an unexpected synch=
-ronous exit to Jailhouse? What is the output?
-
-I don't remember what event 0x28001B maps to, I would check the ARM ARM fir=
-st to figure out what the unexpected event in CPU 0 was, for a clue to moti=
-vate further investigation.
-
-Additionally, this WFI code instructs the compiler that memory contents may=
- change, so ordering of generated instructions, inserted barriers etc, are =
-influenced. This is a far shot, but maybe the code generated around the WFI=
- is the culprit? Maybe not, but I would try to rule it out:
-(a) First I'd try replacing the WFI with a nop, to observe the behavior wit=
-hout the WFI but without changing compiler behavior and maintaining any com=
-piler barriers.
-(b) I would also try replacing it with an infinite loop ("b .") to get the =
-inmate to wait forever at this position, and see what happens.
-
-Happy debugging :)
-
-Best regards,
-Tony
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/95F51F4B902CAC40AF459205F6322F01C4EE0E3DBD%40BMK019S01.emtrio=
-n.local.
-
---_000_95F51F4B902CAC40AF459205F6322F01C4EE0E3DBDBMK019S01emtr_
-Content-Disposition: attachment; filename="winmail.dat"
-Content-Transfer-Encoding: base64
-Content-Type: application/ms-tnef; name="winmail.dat"
-
-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
-dgBvAG4AVwBpAGEAcgBkAGEAQABlAG0AdAByAGkAbwBuAC4AZABlAAAAAAAfAGQAAQAAAAoAAABT
-AE0AVABQAAAAAAACAUEAAQAAAHQAAAAAAAAAgSsfpL6jEBmdbgDdAQ9UAgAAAIB2AG8AbgAgAFcA
-aQBhAHIAZABhACwAIABKAGEAbgAAAFMATQBUAFAAAABKAGEAbgAuAHYAbwBuAFcAaQBhAHIAZABh
-AEAAZQBtAHQAcgBpAG8AbgAuAGQAZQAAAB8AGgwBAAAAIAAAAHYAbwBuACAAVwBpAGEAcgBkAGEA
-LAAgAEoAYQBuAAAAHwAfDAEAAAAyAAAASgBhAG4ALgB2AG8AbgBXAGkAYQByAGQAYQBAAGUAbQB0
-AHIAaQBvAG4ALgBkAGUAAAAAAB8AHgwBAAAACgAAAFMATQBUAFAAAAAAAAIBGQwBAAAAdAAAAAAA
-AACBKx+kvqMQGZ1uAN0BD1QCAAAAgHYAbwBuACAAVwBpAGEAcgBkAGEALAAgAEoAYQBuAAAAUwBN
-AFQAUAAAAEoAYQBuAC4AdgBvAG4AVwBpAGEAcgBkAGEAQABlAG0AdAByAGkAbwBuAC4AZABlAAAA
-HwAxQAEAAAACAAAAAAAAAAsAQDoBAAAAHwAwQAEAAAACAAAAAAAAAB8AGgABAAAAEgAAAEkAUABN
-AC4ATgBvAHQAZQAAAAAAAwDxPwcEAAALAEA6AQAAAAMA/T/kBAAAAgELMAEAAAAQAAAAG8KEtnYB
-5k+Uj308ltsjKQMAFwABAAAAQAA5AACfy2A/QdUBQAAIMNA88Gs/QdUBCwACAAEAAAALACMAAAAA
-AAMAJgAAAAAACwApAAAAAAALACsAAAAAAAMALgAAAAAAAwA2AAAAAAAfAHAAAQAAAGwAAABBAFcA
-OgAgADYANAAgAGIAaQB0ACAASAB5AHAAZQByAHYAaQBzAG8AcgAgAGMAcgBhAHMAaAAgAGEAdAAg
-ADMAMgAgAGIAaQB0ACAAVwBGAEkAIABpAG4AcwB0AHIAdQBjAHQAaQBvAG4AAAACAXEAAQAAABsA
-AAAB1UEQzbFoAerwyj9Lrra4EZ45fa/aAAsf6YAAHwA1EAEAAACKAAAAPAA5ADUARgA1ADEARgA0
-AEIAOQAwADIAQwBBAEMANAAwAEEARgA0ADUAOQAyADAANQBGADYAMwAyADIARgAwADEAQwA0AEUA
-RQAwAEUAMwBEAEIARABAAEIATQBLADAAMQA5AFMAMAAxAC4AZQBtAHQAcgBpAG8AbgAuAGwAbwBj
-AGEAbAA+AAAAAAAfADkQAQAAAN4BAAA8ADkANQBGADUAMQBGADQAQgA5ADAAMgBDAEEAQwA0ADAA
-QQBGADQANQA5ADIAMAA1AEYANgAzADIAMgBGADAAMQBDADQARQBFADAARQAzAEMAQgA0AEAAQgBN
-AEsAMAAxADkAUwAwADEALgBlAG0AdAByAGkAbwBuAC4AbABvAGMAYQBsAD4AIAA8ADIAMAAxADkA
-MAA3ADIAMgAwADkANAA3ADUAMgAuAEcAQgAyADgANAAwADAAQABsAGEAawByAGkAZABzAC4AYwBh
-AG0AYgByAGkAZABnAGUALgBhAHIAbQAuAGMAbwBtAD4AIAA8ADkANQBGADUAMQBGADQAQgA5ADAA
-MgBDAEEAQwA0ADAAQQBGADQANQA5ADIAMAA1AEYANgAzADIAMgBGADAAMQBDADQARQBFADAARQAz
-AEQAMQA0AEAAQgBNAEsAMAAxADkAUwAwADEALgBlAG0AdAByAGkAbwBuAC4AbABvAGMAYQBsAD4A
-IAA8ADUANQAxADgAYQBiADgAOQAtADEANQBjADcALQBjADEAYwAyAC0AYwA1ADYAZQAtAGYAOAA0
-ADAAYwBjADIAOQA2AGMAZQBjAEAAaAB1AGEAdwBlAGkALgBjAG8AbQA+AAAAAAAfAEIQAQAAAGQA
-AAA8ADUANQAxADgAYQBiADgAOQAtADEANQBjADcALQBjADEAYwAyAC0AYwA1ADYAZQAtAGYAOAA0
-ADAAYwBjADIAOQA2AGMAZQBjAEAAaAB1AGEAdwBlAGkALgBjAG8AbQA+AAAAAwCAEP////8fAPMQ
-AQAAAIQAAABBAFcAJQAzAEEAIABBAFcAJQAzAEEAIAA2ADQAIABiAGkAdAAgAEgAeQBwAGUAcgB2
-AGkAcwBvAHIAIABjAHIAYQBzAGgAIABhAHQAIAAzADIAIABiAGkAdAAgAFcARgBJACAAaQBuAHMA
-dAByAHUAYwB0AGkAbwBuAC4ARQBNAEwAAAALAPQQAAAAAAsA9RAAAAAACwD2EAAAAABAAAcwktrt
-az9B1QECARAwAQAAAEYAAAAAAAAAq892ocnX80KwWPR1KKRELAcAlfUfS5AsrECvRZIF9jIvAQC0
-ndcJAQAARrBVRfc5qk27e/xZnl0dTAC32mp7tQAAAAADAN4/6f0AAB8A+D8BAAAAIAAAAHYAbwBu
-ACAAVwBpAGEAcgBkAGEALAAgAEoAYQBuAAAAAgH5PwEAAACEAAAAAAAAANynQMjAQhAatLkIACsv
-4YIBAAAAAAAAAC9PPUZJUlNUIE9SR0FOSVpBVElPTi9PVT1FWENIQU5HRSBBRE1JTklTVFJBVElW
-RSBHUk9VUCAoRllESUJPSEYyM1NQRExUKS9DTj1SRUNJUElFTlRTL0NOPUpBTi5WT05XSUFSREEA
-HwD6PwEAAAAgAAAAdgBvAG4AIABXAGkAYQByAGQAYQAsACAASgBhAG4AAAACAfs/AQAAAIQAAAAA
-AAAA3KdAyMBCEBq0uQgAKy/hggEAAAAAAAAAL089RklSU1QgT1JHQU5JWkFUSU9OL09VPUVYQ0hB
-TkdFIEFETUlOSVNUUkFUSVZFIEdST1VQIChGWURJQk9IRjIzU1BETFQpL0NOPVJFQ0lQSUVOVFMv
-Q049SkFOLlZPTldJQVJEQQADABlAAAAAAAMAGkAAAAAAAwAJWQEAAAADAACACCAGAAAAAADAAAAA
-AAAARgAAAAAQhQAAAAAAAAsAAIAIIAYAAAAAAMAAAAAAAABGAAAAAAOFAAAAAAAAAwAAgAMgBgAA
-AAAAwAAAAAAAAEYAAAAAAYEAAAAAAAAFAACAAyAGAAAAAADAAAAAAAAARgAAAAACgQAAAAAAAAAA
-AAADAACAAyAGAAAAAADAAAAAAAAARgAAAAATgQAAAQAAAAsAAIADIAYAAAAAAMAAAAAAAABGAAAA
-AByBAAAAAAAACwAAgAMgBgAAAAAAwAAAAAAAAEYAAAAAJoEAAAAAAAADAACAAyAGAAAAAADAAAAA
-AAAARgAAAAAQgQAAAAAAAAMAAIADIAYAAAAAAMAAAAAAAABGAAAAABGBAAAAAAAAAwAAgAMgBgAA
-AAAAwAAAAAAAAEYAAAAAKoEAAAAAAAADAACAAyAGAAAAAADAAAAAAAAARgAAAAApgQAAAAAAAAsA
-AIADIAYAAAAAAMAAAAAAAABGAAAAACSBAAAAAAAACwAAgAMgBgAAAAAAwAAAAAAAAEYAAAAALIEA
-AAAAAAAfAACAAyAGAAAAAADAAAAAAAAARgAAAAAngQAAAQAAAAIAAAAAAAAAAwAAgAMgBgAAAAAA
-wAAAAAAAAEYAAAAAEoEAAAEAAAAfAACAAyAGAAAAAADAAAAAAAAARgAAAAAhgQAAAQAAAAIAAAAA
-AAAACwAAgAMgBgAAAAAAwAAAAAAAAEYAAAAAA4EAAAAAAAADAACAAyAGAAAAAADAAAAAAAAARgAA
-AAAjgQAA////fwsAAIAIIAYAAAAAAMAAAAAAAABGAAAAAA6FAAAAAAAAAwAAgAggBgAAAAAAwAAA
-AAAAAEYAAAAAAYUAAAAAAAADAACACCAGAAAAAADAAAAAAAAARgAAAAAYhQAAAAAAAAsAAIAIIAYA
-AAAAAMAAAAAAAABGAAAAAAaFAAAAAAAACwAAgAggBgAAAAAAwAAAAAAAAEYAAAAAgoUAAAAAAAAD
-AA00+T8AAAIBFDQBAAAAEAAAAFSUocApfxAbpYcIACsqJRcfAD0AAQAAAAoAAABBAFcAOgAgAAAA
-AAAfADcAAQAAAHQAAABBAFcAOgAgAEEAVwA6ACAANgA0ACAAYgBpAHQAIABIAHkAcABlAHIAdgBp
-AHMAbwByACAAYwByAGEAcwBoACAAYQB0ACAAMwAyACAAYgBpAHQAIABXAEYASQAgAGkAbgBzAHQA
-cgB1AGMAdABpAG8AbgAAAB8AAICGAwIAAAAAAMAAAAAAAABGAQAAAB4AAABhAGMAYwBlAHAAdABs
-AGEAbgBnAHUAYQBnAGUAAAAAAAEAAAAMAAAAZABlAC0ARABFAAAAHwAAgIYDAgAAAAAAwAAAAAAA
-AEYBAAAAIAAAAHgALQBtAHMALQBoAGEAcwAtAGEAdAB0AGEAYwBoAAAAAQAAAAIAAAAAAAAAHwAA
-gIYDAgAAAAAAwAAAAAAAAEYBAAAAKAAAAHgALQB0AG0ALQBhAHMALQBwAHIAbwBkAHUAYwB0AC0A
-dgBlAHIAAAABAAAATAAAAFMATQBFAFgALQAxADEALgAwAC4AMAAuADQAMgA4ADMALQA4AC4AMQAw
-ADAALgAxADAANgAyAC0AMgA0ADcAOAA4AC4AMAAwADAAAAAfAACAhgMCAAAAAADAAAAAAAAARgEA
-AAAeAAAAeAAtAHQAbQAtAGEAcwAtAHIAZQBzAHUAbAB0AAAAAAABAAAAMgAAAE4AbwAtAC0ANAAu
-ADEAMgA0ADEAMAAwAC0AOAAuADAAMAAwADAAMAAwAC0AMwAxAAAAAAAfAACAhgMCAAAAAADAAAAA
-AAAARgEAAAAkAAAAeAAtAHQAbQAtAGEAcwAtAG0AYQB0AGMAaABlAGQAaQBkAAAAAQAAAPICAAA3
-ADAAMAAyADIANQAtADcAMAAzADEANAAwAC0ANwAwADEAMAA5ADAALQA3ADAAMwA1ADAAMwAtADEA
-MwA5ADAAMQAwAC0ANwAwADQAMAA1ADMALQA3ADAAMAA3ADUAOQAtADcAMAA1ADEANQAzAC0ANwAJ
-ADAAMQAwADUAOAAtADcAMAA0ADAANwA0AC0ANwAwADQANAA5ADgALQA3ADAAMAAyADcAOAAtADcA
-MAA0ADMAMgA4AC0ANwAwADIAOQA3ADUALQA3ADAANQAxADYAMQAtADcAMAAyADgANQAyAC0ANwAw
-ADEANAAzADIALQAxADgAOAAwADEAOQAtADcAMAAxADQANAAzAAkALQA3ADAANQAyADIAMAAtADcA
-MAAzADkANAA5AC0ANwAwADUAMAAyADIALQA4ADUAMwA4ADEAMwAtADgANQAzADUANQAwAC0AOAA1
-ADMANwAwADIALQA3ADAAMgA4ADgANwAtADgANQAwADIAOQA4AC0ANwAwADIANgAwADAALQA3ADAA
-NQAyADQAOQAtADcAOAAwADAACQAyADIALQA3ADAANAA3ADEAOAAtADcAMAAyADEANAA3AC0ANwAw
-ADIANQAwADAALQA3ADAANAA3ADEANAAtADcAMAAyADEANAA2AC0ANwAwADQANQA5ADkALQAxADAA
-NQA3ADAAMAAtADcAMAAxADYANgA3AC0ANwAwADIAOAA3ADcALQAxADAANQAyADUAMAAtADcAMAAJ
-ADEAOAAwADMALQA3ADAAMQAwADcANQAtADcAMAAwADcAOAA2AC0ANwAwADMAMwAwADAALQA3ADAA
-MgAzADAAMQAtADcAMAAwADQAOQAyAC0ANwAwADIANAAwADkALQA3ADAAMgA3ADkAOAAtADcAMAAx
-ADkAMAAxAC0AMQA0ADgAMAAwADQALQAxADQAOAAxADMAMwAtAAkANAAyADAAMAAwAC0ANAAyADAA
-MAAzAC0ANgAzAAAAAAAfAACAhgMCAAAAAADAAAAAAAAARgEAAAA6AAAAeAAtAHQAbQAtAGEAcwAt
-AHUAcwBlAHIALQBhAHAAcAByAG8AdgBlAGQALQBzAGUAbgBkAGUAcgAAAAAAAQAAAAYAAABOAG8A
-AAAAAB8AAICGAwIAAAAAAMAAAAAAAABGAQAAADgAAAB4AC0AdABtAC0AYQBzAC0AdQBzAGUAcgAt
-AGIAbABvAGMAawBlAGQALQBzAGUAbgBkAGUAcgAAAAEAAAAGAAAATgBvAAAAAABr8A==
-
---_000_95F51F4B902CAC40AF459205F6322F01C4EE0E3DBDBMK019S01emtr_--
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/cea81495-4bee-2f8d-a0f9-a1c7b57027ec%40oth-regensburg.de.
