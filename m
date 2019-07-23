@@ -1,73 +1,129 @@
-Return-Path: <jailhouse-dev+bncBCR7PPMN34DRBHUR3DUQKGQEJIJWZYY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC7MLAM5YYDRBRE73LUQKGQE2LCIEQQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x33a.google.com (mail-ot1-x33a.google.com [IPv6:2607:f8b0:4864:20::33a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60E947093A
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Jul 2019 21:04:00 +0200 (CEST)
-Received: by mail-ot1-x33a.google.com with SMTP id a17sf22684259otd.19
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Jul 2019 12:04:00 -0700 (PDT)
+Received: from mail-ed1-x53e.google.com (mail-ed1-x53e.google.com [IPv6:2a00:1450:4864:20::53e])
+	by mail.lfdr.de (Postfix) with ESMTPS id E3FA7710AC
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Jul 2019 06:40:36 +0200 (CEST)
+Received: by mail-ed1-x53e.google.com with SMTP id f3sf27448714edx.10
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Jul 2019 21:40:36 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1563856836; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=KUFEcWxQogen/3Btiujzs4Hvp/SSsUmvucIG0ZvITQU5AOP/W0eVh6MmjJgdvxD7SA
+         xEWwz+jRzHJRje8OMO1tKA+Wwt/9QEF099Z6oSqWmE9OWpM2OAAV8rE7hV/+6ISsSWje
+         I+Cbhr1gUpQL7mODXhKdXLdZVo9u5mUGE8/Tv9JBDAJXB2Hl122MwAqLPuPLiwyHdWLI
+         Mn75LpJbcKWm9lc5wyprT2iQ7fnrNjBN8H9KF5rB+n/qS/LEv8nRsEKiCrVCWGluvj0D
+         vpWSsas/W0Q7NvPXO0q1LLEsYEnMQf/8OMaTf0lkp7INKcylxdJg/ffsKCSEcZOzwdvp
+         DCKw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:cc:to:subject:sender:dkim-signature;
+        bh=1UrqQw8kcm+6YalHvgsEyBa/Gbgfv/mdjWrrXxBMsAQ=;
+        b=f+VQOIcOd34jsv/5SgE6pH5u7ChR726+W4UV4jXZzH38HgA2TknqcWY0VfYjppfcVU
+         xvGSZ9DoEksn5WKUIoApeNAGGgps8TbqGPNvMkiZSmF6rV+4wyEcAb/vaiYXDDXBw3hY
+         gG+V2C+Y6ZHo46uED8KMKpl0jk9s12vt7fJFgLBQ1jWBIFUYPtJ5kZeJXzElCFF7Lnr/
+         DIvaVOy6emp3uT3hiDhwIjYq38nOfCt9Y6e00ks4hpvxA8FCv3ga1HhHH2+kcaGXIPK2
+         y39fCcY2+BcZqP/EVz6nbtf04LP035/SSKqfc76+opxG2AINMCaSscd3MOBoM7aTXHAZ
+         n0rg==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of antonios.motakis@huawei.com designates 185.176.76.210 as permitted sender) smtp.mailfrom=Antonios.Motakis@huawei.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=q8XMDzqJyfMwgcfYs0lEjILAi9z5+e5j/8Qu9Qj+yCw=;
-        b=YZVFENuU8mUbLDgn+e4f6DxKaYG4lUcQ5RgW0OVQ9NXZoTJsTi1NzbG4teegApKRaa
-         iOw0lCk/tfAwukwlGp3E89B0P1W0Q4eL1UyIIARGZP5WcvlB5Tq1zOnqx918jUkQL6tg
-         7vAbHggjzvwNZ+THHhfmd3Z5L2XD7ujT181KljYBszRCCzcw9ufcKS1Lp8sdvSaldx0g
-         otNjFvrwHSXTXeE1l3v3NGq+/nzfGSnpu5j2Yu5m/STfRBNYCrZxVf2ASEHXl1PLq/sI
-         EsPnLncajpjU87XCI9B0AqEaO+F2riwhCbGE2QXaeIp/hxkF4o1NErt8ASu9m7eYJ4mQ
-         /9jw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=q8XMDzqJyfMwgcfYs0lEjILAi9z5+e5j/8Qu9Qj+yCw=;
-        b=OFbonu12pcrdJDD6o1q9gYzvsDlcBf+oFUkfHgS+0sD6dfZ4Vj1boLFeMN5Lvcna7v
-         GDs15Yv+l+vth4MPebG46xalyIMojM+Wnpq0fXzUCcEHqt/1JE6RV/uHhkM/wDbZKc2O
-         gjhnvySQCeiDlQjBGpqN21Inqnk1W/yy6/RHbiQQ+Wh/p+rlwdtEohqoqYUMslfJhqod
-         3/8LD0L+3ZcN6VbhSh4CYhKvBC/pMPw1EezXKVSlTatfSm2km+DD13qs1bgkA5O37PdX
-         Imo3OicwbvoFGkXgYJ8UQEbJd9XhLjC8tT7lVQXTGfC2c9+zJIoEXl5kpXpa7wB89W3Q
-         gpyg==
+        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=1UrqQw8kcm+6YalHvgsEyBa/Gbgfv/mdjWrrXxBMsAQ=;
+        b=Poe/IoFHNBjCq3hSCfBukK+eXsitJ0BtkJWAd6dOGx2v2xLlR6NyJmHuMKOBctOB5B
+         PM5btG9D7bOlfap9tRB0yxoA33FZsc6y4J8FTtFu3pjN0cKkLUbnWZeYZCw9psBkUCDG
+         +7SG++Y1EvpT8BvivQoVFEY0TObA4EhD+9cZVXSOJ1qXZDkaBJJtAWmO65hXbBeJ5F+e
+         mlFukkV3J2kF3uolz8X7r4awzK61WMluIOtZ0Jm1jboPTtrRmKX6aqGfeNKp8AEy2KqO
+         0dO7VLnP1EJ1/RPvJ/WSkwNIJsjjnEM5+PD3VPnRUWZBNfzCbmJT0bTv98g9OlQAe2cf
+         Waaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=q8XMDzqJyfMwgcfYs0lEjILAi9z5+e5j/8Qu9Qj+yCw=;
-        b=tX9vRzhaeI4G9ocNZeGmV9AEEibqOxBAeeWYKB1NYfYir2uk4xD9PZWyoxhD/zZ6Na
-         fQAUiGMysPEt17oEvFLy70pLspO1LBDOrhIiPqzMrYCVvIctHazBOlcOEkKHf04ZFHmH
-         AGG7PYclm+YxdOxQEKy7DAuyc/hPk5pMoDf9gGTBgPKDAnbEX8heaNHaG27zrqZUNKxS
-         jt9D+8nP1VsVNLhkk4a6PNXLRuZgOK5O3ABlYbK02n9Ib5yOqUy7LUqvn7nAMsGs5fAs
-         gEc+aYTL/0WDCCQPD9SWC9oGoyF/o0wN0ZnWLjugCDFr9ompt0E7V63ncnQOQS5mBBZC
-         uikQ==
+        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=1UrqQw8kcm+6YalHvgsEyBa/Gbgfv/mdjWrrXxBMsAQ=;
+        b=mQw6d8AEWiYNPI/41NISbSFVRKY/MJ0/cjIQzgEqcyOe4y7nr8DwlwKGBcNs7vpu6G
+         +RMBTI/ox6fFRY6UnYjXC1xVkc8VNNpHtF046Iw2tbn1Hf+DXoCOK6M5qV3GuU/9tO+c
+         yzJCJonzRSfaPZb/2cl66UqNGlk889BJ75yk7DVKTnd8ldzxZ2wZMovsM/NyI9PJvbkc
+         OPyQuJ1cm5JT46P7+2tXY4LXZszR1WIbBzIIoaAAyPs79Yw7n17ml3NE8CJGVRjrSLKi
+         0pNFpKc4MkDWggY2fMWpte6H2PJ5wcCHS2NtFeeH9Co6/RYuT5C0flu79g5gvMiu/PQk
+         QPzQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAX16MhKZEaJHazc0BzeJjwND+85hhqQdcoWrLx9i6Gbm/vp3l0k
-	SSY7v8ErTgnOk79hIQ+6+jQ=
-X-Google-Smtp-Source: APXvYqwuqMgYPTBCxZXHBiuAH0iFHHUpFf2icaJPx67w9YmCVXX5dhsa2hiwuIJ1xRb1CM+2r8B+fg==
-X-Received: by 2002:aca:90d:: with SMTP id 13mr37088766oij.126.1563822238727;
-        Mon, 22 Jul 2019 12:03:58 -0700 (PDT)
+X-Gm-Message-State: APjAAAW7ZtD33y+4ex5VN9EDR5sZdaFBSgUvjqmP2rlbO3vZNBZD5YhB
+	05hi8P5zTBRocDoee4K5vm4=
+X-Google-Smtp-Source: APXvYqzWTDm0JYAERryG+0RYFG2fI3GtghlDWsQhJ83z8IDTsDFTgT3HvidMTbCwMETAXPPOL6MNcA==
+X-Received: by 2002:a17:906:2510:: with SMTP id i16mr55873308ejb.130.1563856836665;
+        Mon, 22 Jul 2019 21:40:36 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a9d:12c3:: with SMTP id g61ls7645459otg.16.gmail; Mon, 22
- Jul 2019 12:03:58 -0700 (PDT)
-X-Received: by 2002:a9d:5d0b:: with SMTP id b11mr9529046oti.333.1563822237923;
-        Mon, 22 Jul 2019 12:03:57 -0700 (PDT)
-Date: Mon, 22 Jul 2019 12:03:57 -0700 (PDT)
-From: =?UTF-8?Q?Jo=C3=A3o_Reis?= <jpagsreis@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <62e48ed5-ad73-44b7-ab97-74516efdbac2@googlegroups.com>
-In-Reply-To: <719d06c6-3e84-6cd0-85b5-28719dc8ef05@siemens.com>
-References: <a8a5bcdc-c3b7-459b-9116-fd4a04f2f02a@googlegroups.com>
- <03e07418-13ad-82ea-20fa-140edcc28bff@siemens.com>
- <523d1079-ea79-4aa2-ae37-678146ee54be@googlegroups.com>
- <719d06c6-3e84-6cd0-85b5-28719dc8ef05@siemens.com>
-Subject: Re: JAILHOUSE_ENABLE: invalid argument error
+Received: by 2002:a17:906:7a05:: with SMTP id d5ls8718351ejo.13.gmail; Mon, 22
+ Jul 2019 21:40:36 -0700 (PDT)
+X-Received: by 2002:a17:906:85d7:: with SMTP id i23mr55751186ejy.119.1563856836039;
+        Mon, 22 Jul 2019 21:40:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1563856836; cv=none;
+        d=google.com; s=arc-20160816;
+        b=Zbu/ylT40fo3Gls3x0qexifzkJmqjYw2pUJ6t0w1S95LWczre5ZRczQ21TpptwaVKS
+         xz1QU+vOwAY5r1rdA6UFc8nNyULMhaNDUbWi6t8IGWxTHBWaQhMKTmr2mgvurBi/Ivna
+         5N009yiClyHr33sN+qG89s8CbvwnT5ZMHoWzy3l+kJqi5eRSJqj7ydPseHe6zZ8Ch6v7
+         Jiwtbei2tg4vllFtlOeKKu0N7sDBqgM0aJWsxDIrsUnALewLBL4N3qrkBVzK9kIhJxAw
+         YwRM/9tQ+Uifwjrrg+ZZFfH0Qc32HvUIje3/0DCl2Zdkrsr92HhnVFcwNeTM7r0EhZTo
+         c6VA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:cc:to:subject;
+        bh=LXrDtf3EPrW0Jgmy6HVDCFs21mtbtYhbSk1AWOfcD8Y=;
+        b=tnS8YR/QDAqQ5DKUzf67enzg4kZc7Qf1hyDvmHvrKxMcvUbzBSH19Wqsm8vHhxr0O5
+         D6czfLCNfsJwFWyvrf7wQqjwIUmb38oqyKbKX8sRkM1rOaKx82yku588ANiICzLCrKPg
+         iswwmiVdadS+sWerBmM9izsMFOO1yg6s5VmKwdOK3P+bi6wXdFXfJqOSEWuljrbRx+XA
+         b/08NZKcn7RDwzS6fuedYWqIOE4LZFU/mGIlurikH2pSgX0Csk9e62w3QGtjAdvpK3yI
+         5fdSiUQn8Vxc7AzDiI46YR6IUkjA44wcYaZYMwR5jvEC1TQ02/ExpF4hQJDZGlQ1hMGu
+         5ZPw==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of antonios.motakis@huawei.com designates 185.176.76.210 as permitted sender) smtp.mailfrom=Antonios.Motakis@huawei.com
+Received: from huawei.com (lhrrgout.huawei.com. [185.176.76.210])
+        by gmr-mx.google.com with ESMTPS id jz14si1827020ejb.0.2019.07.22.21.40.36
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 22 Jul 2019 21:40:36 -0700 (PDT)
+Received-SPF: pass (google.com: domain of antonios.motakis@huawei.com designates 185.176.76.210 as permitted sender) client-ip=185.176.76.210;
+Received: from lhreml705-cah.china.huawei.com (unknown [172.18.7.108])
+	by Forcepoint Email with ESMTP id B3B7A5AF23390C4CF339;
+	Tue, 23 Jul 2019 05:40:35 +0100 (IST)
+Received: from [127.0.0.1] (10.166.199.110) by lhreml705-cah.china.huawei.com
+ (10.201.108.46) with Microsoft SMTP Server id 14.3.408.0; Tue, 23 Jul 2019
+ 05:40:32 +0100
+Subject: Re: AW: 64 bit Hypervisor crash at 32 bit WFI instruction
+To: "von Wiarda, Jan" <Jan.vonWiarda@emtrion.de>, Mark Rutland
+	<mark.rutland@arm.com>
+CC: JailhouseMailingListe <jailhouse-dev@googlegroups.com>, Jan Kiszka
+	<jan.kiszka@siemens.com>
+References: <95F51F4B902CAC40AF459205F6322F01C4EE0E3CB4@BMK019S01.emtrion.local>
+ <20190722094752.GB28400@lakrids.cambridge.arm.com>
+ <95F51F4B902CAC40AF459205F6322F01C4EE0E3D14@BMK019S01.emtrion.local>
+From: "Antonios Motakis (Tony)" <antonios.motakis@huawei.com>
+Message-ID: <5518ab89-15c7-c1c2-c56e-f840cc296cec@huawei.com>
+Date: Tue, 23 Jul 2019 12:40:27 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_5701_1802542276.1563822237382"
-X-Original-Sender: jpagsreis@gmail.com
+In-Reply-To: <95F51F4B902CAC40AF459205F6322F01C4EE0E3D14@BMK019S01.emtrion.local>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [10.166.199.110]
+X-CFilter-Loop: Reflected
+X-Original-Sender: antonios.motakis@huawei.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of antonios.motakis@huawei.com designates 185.176.76.210
+ as permitted sender) smtp.mailfrom=Antonios.Motakis@huawei.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -80,93 +136,45 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_5701_1802542276.1563822237382
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_5702_1075557948.1563822237382"
+Hi Jan,
 
-------=_Part_5702_1075557948.1563822237382
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 22-Jul-19 7:11 PM, von Wiarda, Jan wrote:
+> Hi Mark,
+>=20
+> I'm not touching bit 13 or 14 in HCR_EL2, they're both 0. HCR_EL2 is the =
+same for 64 bit and 32 bit inmates when the crash happens, except for HCR_R=
+W_BIT, obviously. HCR_EL2 value is 0x28001B at crash time.
+>=20
 
-I'm sorry for the inconvenience.
+It's quite an interesting crash that you have there; I wouldn't expect this=
+ to happen.
 
-segunda-feira, 22 de Julho de 2019 =C3=A0s 10:12:31 UTC+1, Jan Kiszka escre=
-veu:
->
-> On 22.07.19 08:42, Jo=C3=A3o Reis wrote:=20
-> > Regarding this problem there was no inconsistency in the build, it was=
-=20
-> my fault,=20
-> > i just using .cell files from master branch instead of wip/coloring=20
-> branch, that=20
-> > was the problem.=20
->
-> Ah, yeah - happens. Thank for clarifying!=20
->
-> Jan=20
->
-> >=20
-> > segunda-feira, 22 de Julho de 2019 =C3=A0s 06:27:36 UTC+1, Jan Kiszka=
-=20
-> escreveu:=20
-> >=20
-> >     On 20.07.19 19:19, Jo=C3=A3o Reis wrote:=20
-> >     > Hello,=20
-> >     >=20
-> >     > I am trying to use coloring on my board, using branch=20
-> wip/coloring, but=20
-> >     when i=20
-> >     > issue "jailhouse enable root_cell.cell", the console outputs=20
-> >     "JAILHOUSE_ENABLE:=20
-> >     > invalid argument".=20
-> >     >=20
-> >     > I've modified drivers/main.c to printk some steps, and i've=20
-> noticied that the=20
-> >     > jailhouse.ko generated from wip/coloring branch doesn't get the=
-=20
-> right value=20
-> >     > for config_header.root_cell.cpu_set_size on jailhouse_cmd_enable(=
-)=20
-> function.=20
-> >     > The value for config_header.root_cell.cpu_set_size should be 8=20
-> bytes (it=20
-> >     comes=20
-> >     > from root cell config file) but somehow it reads 0 bytes.=20
-> >     >=20
-> >     > root cell config file.c=20
-> >     >=20
-> >     >     ....=20
-> >     >     __u64 cpus[1];=20
-> >     >     ...=20
-> >     >     .cpu_set_size =3D sizeof(config.cpus);=20
-> >     >     ...=20
-> >     >=20
-> >     >=20
-> >     >=20
-> >     > When i use the master branch, within jailhouse_cmd_enable(), it=
-=20
-> reads=20
-> >     correctly=20
-> >     > 8 bytes from config_header.root_cell.cpu_set_size, but with=20
-> wip/coloring=20
-> >     branch,=20
-> >     > it reads 0 bytes from the same config file.=20
-> >     >=20
-> >=20
-> >     Maybe some inconsistency in the build? I'm checking back with the=
-=20
-> folks for who=20
-> >     I created that branch for testing purposes (we are still awaiting a=
-=20
-> rework from=20
-> >     the authors), if it was working fine for them.=20
-> >=20
-> >     Jan=20
-> >=20
-> >     --=20
-> >     Siemens AG, Corporate Technology, CT RDA IOT SES-DE=20
-> >     Corporate Competence Center Embedded Linux=20
->
+The idea with trapping WFI/WFE is to be able to suspend a VM that is just w=
+aiting for something to happen. Since Jailhouse is a partitioning hyperviso=
+r, you shouldn't need to trap it, nor should its use normally influence the=
+ other cores. Yet something is amiss here.
+
+Is the root cell cpu (CPU 0) specifically crashing with an unexpected synch=
+ronous exit to Jailhouse? What is the output?
+
+I don't remember what event 0x28001B maps to, I would check the ARM ARM fir=
+st to figure out what the unexpected event in CPU 0 was, for a clue to moti=
+vate further investigation.
+
+Additionally, this WFI code instructs the compiler that memory contents may=
+ change, so ordering of generated instructions, inserted barriers etc, are =
+influenced. This is a far shot, but maybe the code generated around the WFI=
+ is the culprit? Maybe not, but I would try to rule it out:
+(a) First I'd try replacing the WFI with a nop, to observe the behavior wit=
+hout the WFI but without changing compiler behavior and maintaining any com=
+piler barriers.
+(b) I would also try replacing it with an infinite loop ("b .") to get the =
+inmate to wait forever at this position, and see what happens.
+
+Happy debugging :)
+
+Best regards,
+Tony
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -174,100 +182,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/62e48ed5-ad73-44b7-ab97-74516efdbac2%40googlegroups.com.
-
-------=_Part_5702_1075557948.1563822237382
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">I&#39;m sorry for the inconvenience.<br><br>segunda-feira,=
- 22 de Julho de 2019 =C3=A0s 10:12:31 UTC+1, Jan Kiszka escreveu:<blockquot=
-e class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-left: =
-1px #ccc solid;padding-left: 1ex;">On 22.07.19 08:42, Jo=C3=A3o Reis wrote:
-<br>&gt; Regarding this problem there was no inconsistency in the build, it=
- was my fault,
-<br>&gt; i just using .cell files from master branch instead of wip/colorin=
-g branch, that
-<br>&gt; was the problem.
-<br>
-<br>Ah, yeah - happens. Thank for clarifying!
-<br>
-<br>Jan
-<br>
-<br>&gt;=20
-<br>&gt; segunda-feira, 22 de Julho de 2019 =C3=A0s 06:27:36 UTC+1, Jan Kis=
-zka escreveu:
-<br>&gt;=20
-<br>&gt; =C2=A0 =C2=A0 On 20.07.19 19:19, Jo=C3=A3o Reis wrote:
-<br>&gt; =C2=A0 =C2=A0 &gt; Hello,
-<br>&gt; =C2=A0 =C2=A0 &gt;
-<br>&gt; =C2=A0 =C2=A0 &gt; I am trying to use coloring on my board, using =
-branch wip/coloring, but
-<br>&gt; =C2=A0 =C2=A0 when i
-<br>&gt; =C2=A0 =C2=A0 &gt; issue &quot;jailhouse enable root_cell.cell&quo=
-t;, the console outputs
-<br>&gt; =C2=A0 =C2=A0 &quot;JAILHOUSE_ENABLE:
-<br>&gt; =C2=A0 =C2=A0 &gt; invalid argument&quot;.
-<br>&gt; =C2=A0 =C2=A0 &gt;
-<br>&gt; =C2=A0 =C2=A0 &gt; I&#39;ve modified drivers/main.c to printk some=
- steps, and i&#39;ve noticied that the
-<br>&gt; =C2=A0 =C2=A0 &gt; jailhouse.ko generated from wip/coloring branch=
- doesn&#39;t get the right value
-<br>&gt; =C2=A0 =C2=A0 &gt; for=C2=A0config_header.root_cell.<wbr>cpu_set_s=
-ize on=C2=A0jailhouse_cmd_enable() function.
-<br>&gt; =C2=A0 =C2=A0 &gt; The value for config_header.root_cell.cpu_<wbr>=
-set_size should be 8 bytes (it
-<br>&gt; =C2=A0 =C2=A0 comes
-<br>&gt; =C2=A0 =C2=A0 &gt; from root cell config file) but somehow it read=
-s 0 bytes.
-<br>&gt; =C2=A0 =C2=A0 &gt;
-<br>&gt; =C2=A0 =C2=A0 &gt; root cell config file.c
-<br>&gt; =C2=A0 =C2=A0 &gt;
-<br>&gt; =C2=A0 =C2=A0 &gt; =C2=A0 =C2=A0 ....
-<br>&gt; =C2=A0 =C2=A0 &gt; =C2=A0 =C2=A0 __u64 cpus[1];
-<br>&gt; =C2=A0 =C2=A0 &gt; =C2=A0 =C2=A0 ...
-<br>&gt; =C2=A0 =C2=A0 &gt; =C2=A0 =C2=A0 .cpu_set_size =3D sizeof(config.c=
-pus);
-<br>&gt; =C2=A0 =C2=A0 &gt; =C2=A0 =C2=A0 ...
-<br>&gt; =C2=A0 =C2=A0 &gt;
-<br>&gt; =C2=A0 =C2=A0 &gt;
-<br>&gt; =C2=A0 =C2=A0 &gt;
-<br>&gt; =C2=A0 =C2=A0 &gt; When i use the master branch, within jailhouse_=
-cmd_enable(), it reads
-<br>&gt; =C2=A0 =C2=A0 correctly
-<br>&gt; =C2=A0 =C2=A0 &gt; 8 bytes from config_header.root_cell.cpu_<wbr>s=
-et_size, but with wip/coloring
-<br>&gt; =C2=A0 =C2=A0 branch,
-<br>&gt; =C2=A0 =C2=A0 &gt; it reads 0 bytes from the same config file.
-<br>&gt; =C2=A0 =C2=A0 &gt;
-<br>&gt;=20
-<br>&gt; =C2=A0 =C2=A0 Maybe some inconsistency in the build? I&#39;m check=
-ing back with the folks for who
-<br>&gt; =C2=A0 =C2=A0 I created that branch for testing purposes (we are s=
-till awaiting a rework from
-<br>&gt; =C2=A0 =C2=A0 the authors), if it was working fine for them.
-<br>&gt;=20
-<br>&gt; =C2=A0 =C2=A0 Jan
-<br>&gt;=20
-<br>&gt; =C2=A0 =C2=A0 --=20
-<br>&gt; =C2=A0 =C2=A0 Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-<br>&gt; =C2=A0 =C2=A0 Corporate Competence Center Embedded Linux
-<br></blockquote></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/62e48ed5-ad73-44b7-ab97-74516efdbac2%40googlegroup=
-s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
-sgid/jailhouse-dev/62e48ed5-ad73-44b7-ab97-74516efdbac2%40googlegroups.com<=
-/a>.<br />
-
-------=_Part_5702_1075557948.1563822237382--
-
-------=_Part_5701_1802542276.1563822237382--
+jailhouse-dev/5518ab89-15c7-c1c2-c56e-f840cc296cec%40huawei.com.
