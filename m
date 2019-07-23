@@ -1,131 +1,129 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBW563PUQKGQEDDUHXEI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBX573PUQKGQE5OOFAUQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x539.google.com (mail-ed1-x539.google.com [IPv6:2a00:1450:4864:20::539])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD793715E9
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Jul 2019 12:20:11 +0200 (CEST)
-Received: by mail-ed1-x539.google.com with SMTP id m23sf27938308edr.7
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Jul 2019 03:20:11 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1563877211; cv=pass;
+Received: from mail-lj1-x240.google.com (mail-lj1-x240.google.com [IPv6:2a00:1450:4864:20::240])
+	by mail.lfdr.de (Postfix) with ESMTPS id 07097715F0
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Jul 2019 12:22:24 +0200 (CEST)
+Received: by mail-lj1-x240.google.com with SMTP id e14sf9164038ljj.3
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Jul 2019 03:22:24 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1563877343; cv=pass;
         d=google.com; s=arc-20160816;
-        b=gj8eCndtddpVlb+uGjIk9sFWkHnWZQDN9VgBzxTwR2tcdGMmz9tXr2j4tZRm49xVPt
-         Bnh241c9t1RPKniks/ZCbzGMI534s81uo8wYj/UuRPQpYIESCNd66cNPoPtCQJCkaz4H
-         X70apPfXnitCn+pIvoiR07lEtoFgdLJSuwiyjPF/pJ8wBqxTGt3rA5cWX248+nvqHhjS
-         bA8cvgIAUQ1VhLxCR0ORnUPjUCgYQE3qGWU4nMIgqUy5POlRjgreRJhjtykQb4DUczm5
-         vOygvWnbmmn0ZuWFWnEzDpEwbLOoraaNM70HQ7TYjoVsBQubjWgCXmcAVsdSKoTZJCv+
-         XDRA==
+        b=WeBWdWmJ/q3CtJtSUoh66N//7ZQKT6xctfkqNdF4XE90DxR7pGHOjqvOBKduRSxAMq
+         WX6tusc0kmAxKTh9K5NO1wTl/XxP6oXLR2FvMtRbPx3GTZkJ0I/9Wlmerj9DMlm4tdkt
+         VRmSCLRsOKhJm5zJsZqnVYOedX3XaO1q3hyav50ihdn7TsiSyH2D6yqMs1+oqXgZsiIp
+         EssPJpQSSA9ljDm/ayfm+zCWhZ6t9IAToNBhJgoJ0V4K3p1LLaioPCpSb+RkOdDF7sPz
+         V8pw3qGyKraJbCrArO7HJtTwtM1imrcMm4WyL47FE6vva5YZTs4bOf+sInsP9JyPWFnT
+         gjTg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:cc:to:subject:sender:dkim-signature;
-        bh=5EAJ4zSx/xP7XdkOm7dm01oh0PZ1t/PhX6cV0ByVpr4=;
-        b=eaRDWLPo2KwHNUS7VkY6lucvvJqgtm2RXr7QefsxHtw8XKHvHV0u5zaJttVGXJcSBg
-         NzEHbaMqerNVAkqRdkmOBhmK2YuLw1LiboqeAnqhbWMsi7ztyUGax5p1rC2qSF5pZgKp
-         aglyZ4xN6/N1dZd/RYYS86LIg8oMGr5HeUdUcA0sVb8piluT+J0q2WcLo/9wJfe29NwB
-         7CaAP9Pcnih3wJsyrUcRxlAlTURyJlU4xe5+8hCi0ZQ04Si0Of5DWmA73EYnTf5czYm6
-         N+bZW5e7uPbX7q6W/en1uN5XJoMfuT+WrQtco+5OBCreyHQ0IiA+/l/IlFQO0M5XbU1d
-         KDJA==
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:to:subject
+         :sender:dkim-signature;
+        bh=3t44YljT0lkU/JaRu3wfY3w/bay4BcH7h3iXZsP5tow=;
+        b=Z6AxsYoM08aTJtSQEy4RjNhgrBJ2I9Zky0uCw78lx6V9gbPBy9+IsRGhvwp35ZiUpN
+         dfkwZKQ+8CoBL1MYZNUCI0izM4YpPcIivktjZD5nKk+39k6SH+eT/KyJ0QAJD1qj1lMu
+         1nyJJm8Nt7b4hly5Z96aO5hWFuYzRfnCDVodurT5GEQFON81tsV7JDweK0Uc/hsBwlcs
+         5x2SV4zwNpUbTb5gGXqxVOzX8TOf4oHvbKKUpQLQe82wXZKwkmshFazGZGdFqiRxLYkq
+         qo/LuIV4fk34qPRLS8k1DBD+nZ4gcCHwznP+DSD7QW2hPSZOYp1iedqk/n6RGDujAuTx
+         Of0Q==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=5EAJ4zSx/xP7XdkOm7dm01oh0PZ1t/PhX6cV0ByVpr4=;
-        b=M72I/BvmcyRD5t7Gdd0ZyYqOu8zqz2hYwXAqDmT1lmi8SsEPDh4M26O3gX4UrluRC2
-         Uad9fxEygxkw6taViwyPHl2yjPwcG8ReBE4u7QkaOjTnOKgCge2UbUHHVBsCDKKO1JWZ
-         p+DjknQzHmQY6UGdk9h37bcNQfrg6UCIcgHoPGxYyWqIST2LULfBYxRvKxdM4E2B2RF/
-         4Rc243sfBpvKPalZjXaWvRayjpnlSsnyasv/Rcf23Q9krrlMiGeQ5NCMwmcCLOI4AhFE
-         KVdebDuhJV0mRy9zDbrYfxt/luJ/aRPDiTrtfo4K7NTf1trc6aquzezNHTw8i5p1qLhK
-         efKA==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=3t44YljT0lkU/JaRu3wfY3w/bay4BcH7h3iXZsP5tow=;
+        b=qQrvTcVL1zKejaEiR3hK7uZa/HA4m1GsgiyYDRn+VspH97WlGedUja+0z+Yfpmd7LK
+         7C4gHXonzFhyKL5wp7zlc30iiRqwya28TBq5cvblxcEhS4hAD405utFee+cEHk+2P3iI
+         R3RkGc+7me4avxt5e2LLlC97JslJe5i3pw94X96agZYEwB26CfRzLY1UpWkZJEjl7zwK
+         UNlx3QddicV+7HxzxcK0+i8GDRBJ1gy2c2bnF11h8qHuC1BBh6kTMTAOl6R8/oEbYfBa
+         GipZSRCksXO4OdzTwYGiDZVHdeQZqwicwyEdimAhW2Ossdi9joKzXPzoTvyGR4CyV7EV
+         uA/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
          :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=5EAJ4zSx/xP7XdkOm7dm01oh0PZ1t/PhX6cV0ByVpr4=;
-        b=ANPGmaHJcncNL46jZ6Jr2A3u9Izwph5ElMfAouF9EgOYOOjI8jr9YI2UwLlu7HAdWa
-         yjflzhOkudnY62cEPZ4/MXxSP7ik6B3zLhalTl4YNx0wiC6ZqrSQZZtwchoE2aQ4GGxM
-         2AIOIQaO0lD9YbC1v08/y2oFS1g+THE9nzBOLaWNuuppW6UPFPi0xntKKhYNw1iNzEra
-         AKZS0hfOhW91QHVp4mCbK0vZlB+vRxhp5MD92XyoF3+MaHWJ5oeyqw/rRToH4MrFFT8P
-         jknEEQEWV/DZEyZcFgOKLmVToLIwjOHj6zcdNiTXIvDXDqIGUJsRoWo6xZvPbYZ5Q2oo
-         wd+Q==
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=3t44YljT0lkU/JaRu3wfY3w/bay4BcH7h3iXZsP5tow=;
+        b=daSA/UfvubQ8KEc+iN95HVq8I4gIIAwZ4Eze6w5QIAhMRxoOcJ5WdOSF2ovJ+g7UH4
+         XlBIPKFSLOSgYMbfJnmh8o712YUwgBD8g0hXV/798fCGv14AQKro7GsmIhe+yRAZ7GPC
+         CNmsbRDnM7vSAupSd8FnwJKBaXaPnkk9c6kU2uzvg+y3TF+tEt1UKEO7pETr3slPDR8h
+         TfKuVTO1HT4lax7JCjtj1DgLqsGQaWer07lUpy5sG61xijN8zsf8eX/xMK2d2678xD5Z
+         Mbt4jqpc0SQx/KGIBS8ca6e+9ElyAMnoKGhGI0zTxcaI71Z3i9rbYzRaM7JelMtS2Le+
+         XfgA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVlCkJgpKAylYstqTx8sK6OduIPyZ93UMvaZv/TmK8JKc6LeFd0
-	YcpFMb3yqeEYWCHKyxCgv00=
-X-Google-Smtp-Source: APXvYqyyKUSElsLPIyFcWAcwC5kTYkUSMBWBjxb/qRhj9HL7OANn77/gWYpeWE+yHfjcV3ECeObTOA==
-X-Received: by 2002:a05:6402:683:: with SMTP id f3mr63381940edy.200.1563877211439;
-        Tue, 23 Jul 2019 03:20:11 -0700 (PDT)
+X-Gm-Message-State: APjAAAVD1v9+0+EM7mKeVH0LatumEPxlvYhH0hMT3VvxRbnUJuyrmYNI
+	LjeIt5sNr/51D9k3KvqIz8Y=
+X-Google-Smtp-Source: APXvYqx4qjMfBcfpEC0hhkhZj5WOblSkpxLnuAjVrI9HANgifbtqu7pDJmNWY+7wiriQ1zuj/izCiQ==
+X-Received: by 2002:a2e:989a:: with SMTP id b26mr38815332ljj.31.1563877343630;
+        Tue, 23 Jul 2019 03:22:23 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a50:94ce:: with SMTP id t14ls9975659eda.7.gmail; Tue, 23 Jul
- 2019 03:20:10 -0700 (PDT)
-X-Received: by 2002:a50:ba19:: with SMTP id g25mr64878686edc.123.1563877210703;
-        Tue, 23 Jul 2019 03:20:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1563877210; cv=none;
+Received: by 2002:a2e:6556:: with SMTP id z83ls4803196ljb.11.gmail; Tue, 23
+ Jul 2019 03:22:22 -0700 (PDT)
+X-Received: by 2002:a2e:b60f:: with SMTP id r15mr38825945ljn.172.1563877342942;
+        Tue, 23 Jul 2019 03:22:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1563877342; cv=none;
         d=google.com; s=arc-20160816;
-        b=cLc+LWOr8K0ALE2uIHxyi1v9MSFTHDsXqWca6SgMqpVOY34247tEA0QKe7h3VOY/7G
-         LcqN2ggH9jZANUO5JJtbRYVMdUQAF6tO4lp0KaY3Ys+2gl6SL1JMe4B+qc9auGqrZidF
-         Gfu1N90sJLN4qD87sBC0kDDWvNATI9iqUsOAumJq2KNWv9IEIFjcWShqCVzA9jNDXhQI
-         HLyZq9udf4p9rEBljNrqA0rBSqUSpa9qNc0T0mXfEg01bRR02AQmHRvGp74UQHQ4Uy/f
-         u788JJF+eth9+RWfZpCRv3fyWx7vC7qtlIq7zN9+go/WvVmlFOVVu3nZF2QxDAu92PHY
-         jUnw==
+        b=TMS64TekeztSVXnNUHJCxQnIFLqMQi//2oJhkOyRJk+Ui9bkC0Q9diIlTWs5q09svA
+         vOvJ/fqAsFrDg3DSi/lfI4pIGSNzFjWS1kLJESKg+zdPU27HiFdFBlPA5KdzxD8Jeebn
+         EgU70y8xxCfMCg31cxOy/0wzTnwMFYrrSoArVmZCsng9TFpTukJqvDFGYZPRPIeU9otQ
+         qEUL2e9Rzb5xLC5b23lN1UD7Q3ZIfwx9pjIRbFRm/cf9CdqVCGJRm7dtZUeH2c+9XEz6
+         S/o6tlkFo6IblQqv5vnSWjkuZiRDQubpDGGim+Fo6aiLLp6vXLmUHBp/kWtbGd1PVeGg
+         l2ag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=nTey0lLo0UcqpqRyNFxNnpLivdl9zgo4gDMAUfHRDWc=;
-        b=Y6IL4cdYEoVNOGv9+iV44UTNxW3kSrohWB5nAb9R2oiQXomVubCVuUh4oo2hjEMMX3
-         h/v+yqh+mKZaZ+e30f2INHO1y77nqMVF2M566rpy+J17cMWGIGqyOchbo/r3Qib9Z2ll
-         irBAOKNzEISnnZ9bj1Ow5WyGINzk8Kr5aODk06w2po4NwiI18Fm9PDR8b99DTdc/egWD
-         Xle1hXzE+D4+FSYtdIsfRh02qN30TW2pzdKEs0EUZwqI8vP9wzNuAaNWeNNlxg0kJQKO
-         Iofyo9Ckvl2gjWxgoZi8V9iVwCoipafrcmzQx1kVSBHPw2AtSJSBFdTmUdV9CQO1DWIq
-         4oHQ==
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=a0xZkRkBOZaGtl3ys5bgwUSePNt0LqjA8qTfOFOMrLE=;
+        b=pcga0YYtFVGnLEOXLjyQM2QuBqsD+w+t0JL2XCpJU4aqpHAAHTT0Ay0cl0vhehgqpE
+         7TRSVK5ZkGPzxzCGhAv8b9JaP+s5IavRYaOr+EkwjIU80TRFYDQKhy02Y1PVAg680Bct
+         8hPdyogkFWWCQ3xrKN7+fTYWvxBj8WwuiLSulAM9+uW556YueHZDkcu+eYo8SsgVisgT
+         5OULPe5i2ILEi4AN/2ZkDSHdgby2/NjBm+fAKPO5i8Yy+rtdQgkeUmitp47QYks8NrBQ
+         0Wrf/FzgTVk255Qctqj9KXYXYLRdo+PfmrI+5e3WfAa38W6cXS9Js9LibGL0oBUS5eZ+
+         Cmbg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id b39si2366022edb.1.2019.07.23.03.20.10
+Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
+        by gmr-mx.google.com with ESMTPS id z18si1904380lfh.1.2019.07.23.03.22.22
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 23 Jul 2019 03:20:10 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
+        Tue, 23 Jul 2019 03:22:22 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
 Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id x6NAK6LI025926
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id x6NAMMv8005416
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 23 Jul 2019 12:20:06 +0200
+	Tue, 23 Jul 2019 12:22:22 +0200
 Received: from [139.25.68.37] (md1q0hnc.ad001.siemens.net [139.25.68.37] (may be forged))
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x6NAK66o010140;
-	Tue, 23 Jul 2019 12:20:06 +0200
-Subject: Re: 64 bit Hypervisor crash at 32 bit WFI instruction
-To: "von Wiarda, Jan" <Jan.vonWiarda@emtrion.de>,
-        "Antonios Motakis (Tony)" <antonios.motakis@huawei.com>,
-        Mark Rutland <mark.rutland@arm.com>
-Cc: JailhouseMailingListe <jailhouse-dev@googlegroups.com>
-References: <95F51F4B902CAC40AF459205F6322F01C4EE0E3CB4@BMK019S01.emtrion.local>
- <20190722094752.GB28400@lakrids.cambridge.arm.com>
- <95F51F4B902CAC40AF459205F6322F01C4EE0E3D14@BMK019S01.emtrion.local>
- <5518ab89-15c7-c1c2-c56e-f840cc296cec@huawei.com>
- <95F51F4B902CAC40AF459205F6322F01C4EE0E3DBD@BMK019S01.emtrion.local>
+	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x6NALn0C013694;
+	Tue, 23 Jul 2019 12:21:49 +0200
+Subject: Re: Assigning a PCI device to a non-root cell
+To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
+        Jailhouse <jailhouse-dev@googlegroups.com>
+References: <7f2b8593-b6bb-353c-1eb8-604076f7da6b@oth-regensburg.de>
+ <521c1b04-ab40-e566-5625-5827d3a7f2e2@siemens.com>
+ <46aff85a-01ba-875e-1752-cb40f9080b31@oth-regensburg.de>
+ <99f6615e-3621-3a7a-7bea-33839e48653e@siemens.com>
+ <f7f0f3d4-33e7-bc74-7bb9-79cdb8c52c0d@oth-regensburg.de>
+ <c6c3d947-d6ac-be55-6094-9743a61ccbbd@siemens.com>
+ <3bd05e0d-d888-ffef-96e7-ef7ce023f2f9@oth-regensburg.de>
+ <cea81495-4bee-2f8d-a0f9-a1c7b57027ec@oth-regensburg.de>
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <674c6cb2-62ac-456c-2a5e-ac08e94e0262@siemens.com>
-Date: Tue, 23 Jul 2019 12:20:05 +0200
+Message-ID: <5ef2896d-0ee3-b93d-2049-4b6c3472cef0@siemens.com>
+Date: Tue, 23 Jul 2019 12:21:48 +0200
 User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
  Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
 MIME-Version: 1.0
-In-Reply-To: <95F51F4B902CAC40AF459205F6322F01C4EE0E3DBD@BMK019S01.emtrion.local>
+In-Reply-To: <cea81495-4bee-2f8d-a0f9-a1c7b57027ec@oth-regensburg.de>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
@@ -140,129 +138,132 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 23.07.19 12:14, von Wiarda, Jan wrote:
-> Hi!
->=20
-> With
->=20
-> asm volatile("nop" : : : "memory");
->=20
-> instead of
->=20
-> asm volatile("wfi" : : : "memory");
->=20
-> it runs just fine.
->=20
->> Is the root cell cpu (CPU 0) specifically crashing with an unexpected sy=
-nchronous exit to Jailhouse? What is the output?
->=20
-> No, CPU 0 does not crash with any kind of console output, which makes deb=
-ugging even more difficult. What I observe is, that after hitting WFI, it c=
-ontinues to run for a 1-2 seconds and then it stops. Last thing I see from =
-the instrumented code is a printk() from arch_skip_instruction(), which mea=
-ns it was handling a SYS64 exit.
+On 23.07.19 12:16, Ralf Ramsauer wrote:
+> 
+> 
+> On 7/11/19 1:07 AM, Ralf Ramsauer wrote:
+>> On 7/10/19 7:22 PM, Jan Kiszka wrote:
+>>> On 10.07.19 18:28, Ralf Ramsauer wrote:
+>>>>
+>>>> On 7/10/19 6:13 PM, Jan Kiszka wrote:
+>>>>>> Ok, there's one chance left: According to lspci, the device actually
+>>>>>> supports MSI. It's just not being used by Linux. Maybe I can somehow
+>>>>>> convince Linux to switch to MSI.
+>>>>> Latest kernel already?
+>>
+>> Latest kernel doesn't change anything.
+>>
+>>>>>
+>>>>
+>>>> I'm using the 4.19-rt jailhouse. Do you know of any relevant changes
+>>>> upstream? Anyway, it's worth a try, let me test upstream...
+>>>>
+>>>> At least for 4.19, it looks like I'm not able to easily switch to MSI.
+>>>> At the moment, I don't even understand why the kernel actually uses
+>>>> legacy interrupts, while MSI cap is present. Something is odd there, I'd
+>>>> expect that MSI is, if available, the perefered method. But even the
+>>>> root-cell after boot won't enable MSI. Still investigating...
+>>>>
+>>>> I hope that I can switch to MSI with maybe a dirty hack, but I need more
+>>>> time to dig through the kernel's PCI stack (PCI starts bugging me). You
+>>>> can find things there you never wanted to know! :-)
+>>>
+>>> I suspect you are using some 8250 derivative with a similar driver:
+>>>
+>>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=172c33cb61da0df5ccbdf1a8e736c8837d165a00
+>>>
+>>> Check your concrete driver for its interrupt allocation.
+>>
+>> Thanks for the pointer, this patch is really helpful and almost exactly
+>> what I'm looking for. I want to test the required changes of the driver
+>> on Linux without Jailhouse first, before I'm going to test it in a
+>> non-root cell.
+>>
+>> My device uses the standard 8250_pci driver. So I hooked in there, and
+>> tried the following hack:
+>>
+>>
+>> diff --git a/drivers/tty/serial/8250/8250_pci.c
+>> b/drivers/tty/serial/8250/8250_pci.c
+>> index bbe5cba21522..55f8144ef3e0 100644
+>> --- a/drivers/tty/serial/8250/8250_pci.c
+>> +++ b/drivers/tty/serial/8250/8250_pci.c
+>> @@ -3640,10 +3640,20 @@ pciserial_init_ports(struct pci_dev *dev, const
+>> struct pciserial_board *board)
+>>         priv->dev = dev;
+>>         priv->quirk = quirk;
+>>
+>> +       pci_set_master(dev);
+>> +
+>> +       rc = pci_alloc_irq_vectors(dev, 1, 1, PCI_IRQ_ALL_TYPES);
+>> +       if (rc < 0) {
+>> +               kfree(priv);
+>> +               priv = ERR_PTR(rc);
+>> +               goto err_deinit;
+>> +       }
+>> +
+>>         memset(&uart, 0, sizeof(uart));
+>>         uart.port.flags = UPF_SKIP_TEST | UPF_BOOT_AUTOCONF | UPF_SHARE_IRQ;
+>>         uart.port.uartclk = board->base_baud * 16;
+>> -       uart.port.irq = get_pci_irq(dev, board);
+>> +       uart.port.irq = pci_irq_vector(dev, 0);
+>>         uart.port.dev = &dev->dev;
+>>
+>>         for (i = 0; i < nr_ports; i++) {
+>>
+>>
+>> Luckily, probing succeeds. For the device, lspci reports:
+>>
+>> 01:00.0 Serial controller: Device 1c00:3253 (rev 10) (prog-if 05 [16850])
+>> [...]
+>> 	Capabilities: [68] MSI: Enable+ Count=1/32 Maskable+ 64bit+
+>> 		Address: 00000000fee00438  Data: 0000
+>> 		Masking: ffffffff  Pending: 00000000
+>>
+>> Doesn't look bad so far. MSI is enabled and in use. And as soon as I
+>> write to or read from the device (echo / cat), the MSI interrupt appears
+>> in /proc/interrupts.
+>>
+>> But cat won't receive anything, and echo won't write anything. In fact,
+>> echoing to the device stalls until I abort with ^C. In both cases, no
+>> interrupts occur (according to /proc/interrupts).
+>>
+>> That would have been too easy.
+> 
+> Turns out it is that easy. Code above works perfect, but the serial
+> card's MSI support seems to be broken. So I went for another PCIe serial
+> card, and now it works fine.
+> 
+> Let me just advertise this product, in case someone else runs into the
+> same issue. [1] comes with two serial lines -- one PCI function per
+> line, which is pretty nice. Didn't try it yet, but it should be possible
+> to assign ports to different cells. Yet, the kernel needs to be patched
+> in order to enable MSI.
 
-Maybe interrupts get stalled for the root cell - for whatever reason. Do yo=
-u
-have a hardware debugger to analyze the state of the CPUs? Or use QEMU...
+Would that patch target this particular card? Or a chipset that is different
+from the one in the broken card? Then it might be worth pushing it upstream.
 
 Jan
 
->=20
->> This is a far shot, but maybe the code generated around the WFI is the c=
-ulprit?
->=20
-> You might be right, when I place WFI right after inmate_main(), CPU 0 doe=
-s not starve. But it's completely strange and undefined behaviour, sometime=
-s it crashes if I put the WFI right after a printk(), whereas right before =
-the printk() it doesn't crash.
->=20
-> Works:
->=20
-> void inmate_main(void)
-> {
-> 		...
-> 		asm volatile("wfi" : : : "memory");
-> 		printk("IVSHMEM: Done setting up...\n");
-> 		printk("IVSHMEM: waiting for interrupt.\n");
-> 		//asm volatile("wfi" : : : "memory");
-> }
->=20
-> Does not work:
->=20
-> void inmate_main(void)
-> {
-> 		...
-> 		//asm volatile("wfi" : : : "memory");
-> 		printk("IVSHMEM: Done setting up...\n");
-> 		printk("IVSHMEM: waiting for interrupt.\n");
-> 		asm volatile("wfi" : : : "memory");
-> }
->=20
-> I know this sounds completely strange but I reproduced this multiple time=
-s, compiler is this:
->=20
-> gcc version 6.3.0 20170516 (Debian 6.3.0-18)
->=20
-> BR,
-> Jan
->=20
-> -----Urspr=C3=BCngliche Nachricht-----
-> Von: Antonios Motakis (Tony) [mailto:antonios.motakis@huawei.com]=20
-> Gesendet: Dienstag, 23. Juli 2019 06:40
-> An: von Wiarda, Jan; Mark Rutland
-> Cc: JailhouseMailingListe; Jan Kiszka
-> Betreff: Re: AW: 64 bit Hypervisor crash at 32 bit WFI instruction
->=20
-> Hi Jan,
->=20
-> On 22-Jul-19 7:11 PM, von Wiarda, Jan wrote:
->> Hi Mark,
+> 
+>   Ralf
+> 
+> [1] https://www.amazon.de/gp/product/B0073LM0S4
+> 
 >>
->> I'm not touching bit 13 or 14 in HCR_EL2, they're both 0. HCR_EL2 is the=
- same for 64 bit and 32 bit inmates when the crash happens, except for HCR_=
-RW_BIT, obviously. HCR_EL2 value is 0x28001B at crash time.
+>> Thanks
+>>   Ralf
 >>
->=20
-> It's quite an interesting crash that you have there; I wouldn't expect th=
-is to happen.
->=20
-> The idea with trapping WFI/WFE is to be able to suspend a VM that is just=
- waiting for something to happen. Since Jailhouse is a partitioning hypervi=
-sor, you shouldn't need to trap it, nor should its use normally influence t=
-he other cores. Yet something is amiss here.
->=20
-> Is the root cell cpu (CPU 0) specifically crashing with an unexpected syn=
-chronous exit to Jailhouse? What is the output?
->=20
-> I don't remember what event 0x28001B maps to, I would check the ARM ARM f=
-irst to figure out what the unexpected event in CPU 0 was, for a clue to mo=
-tivate further investigation.
->=20
-> Additionally, this WFI code instructs the compiler that memory contents m=
-ay change, so ordering of generated instructions, inserted barriers etc, ar=
-e influenced. This is a far shot, but maybe the code generated around the W=
-FI is the culprit? Maybe not, but I would try to rule it out:
-> (a) First I'd try replacing the WFI with a nop, to observe the behavior w=
-ithout the WFI but without changing compiler behavior and maintaining any c=
-ompiler barriers.
-> (b) I would also try replacing it with an infinite loop ("b .") to get th=
-e inmate to wait forever at this position, and see what happens.
->=20
-> Happy debugging :)
->=20
-> Best regards,
-> Tony
->=20
+>>>
+>>> Jan
+>>>
+>>
 
---=20
+-- 
 Siemens AG, Corporate Technology, CT RDA IOT SES-DE
 Corporate Competence Center Embedded Linux
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/674c6cb2-62ac-456c-2a5e-ac08e94e0262%40siemens.com.
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/5ef2896d-0ee3-b93d-2049-4b6c3472cef0%40siemens.com.
