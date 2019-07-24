@@ -1,129 +1,143 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBTUV3XUQKGQEW7JKOPA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBAABBAEL4HUQKGQEKNOFZMI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x13b.google.com (mail-lf1-x13b.google.com [IPv6:2a00:1450:4864:20::13b])
-	by mail.lfdr.de (Postfix) with ESMTPS id A911D71E27
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Jul 2019 19:58:38 +0200 (CEST)
-Received: by mail-lf1-x13b.google.com with SMTP id v13sf4179014lfa.20
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Jul 2019 10:58:38 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1563904718; cv=pass;
+Received: from mail-lj1-x23d.google.com (mail-lj1-x23d.google.com [IPv6:2a00:1450:4864:20::23d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 545FA72E14
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 24 Jul 2019 13:48:17 +0200 (CEST)
+Received: by mail-lj1-x23d.google.com with SMTP id e14sf9842317ljj.3
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 24 Jul 2019 04:48:17 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1563968897; cv=pass;
         d=google.com; s=arc-20160816;
-        b=XnPgrGeRw3SqtSBCziVa4YGsEDWhd6QCW11fRlZ8vfClsj0d0AZpWz/cDdkQ/DVW0/
-         PDPY/klMntEJrYdhg0hvaX325Gd5LsQYZwYcJOpgmsRB6oMVNAYG6drQmrxB71GmZc4G
-         CHHD7memSgPscqp4Q1sh8lIGNQQqh5FTXsF6ezG9DowhCl42S+yASCoCaay3Ofyk/oKi
-         SeXFGtqbm4K0oF35Vm43RX5AtvGmkzUeZULuuSQ4uB7S3r/USB6FkM129WR0uXXFZ+ld
-         GWeGLRnJxS1u1xcLXpygJvzzV5XYhqIOxuG68C6JCPsShZNXtJ4UprpeWWdBDkb+rxFP
-         /e6A==
+        b=vB6rBuVdl0kX84FDEB0/9WlfrED7/Q933uSPEzB5KevjA/XKeLfkXq1Tx4PKKLPJ7z
+         m/yd7lnnl5u3y3Y6PHvjb2EPzd32ONkWVi/bP4LoxvxBIPe1adZxg/P6ZNfAQ1u6kGgL
+         xGE/3zRWMCCyrK6DBTbvaZhSOiDBLDor4oZL3315sOJOkktKjNll9bELr41742/ggZj1
+         9QWaPkZLJPQpiBzWKYlQgRuf9sbjepkYOYQ/Z+sAGCWEbM8qLiq5ULW8wo2iMeAgQ9jb
+         WDSisna57SAoR1o2+ZtbKgW7FE7lkZzschyidjncGYYiEku4SzmhDkfJXhWyZ5ZmLz3c
+         bKbA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:to:subject
-         :sender:dkim-signature;
-        bh=FJKTPmiw9RD2BEmmSv+/zy8+ALH4TWOzMUYlpzgYaUY=;
-        b=OM3AuArW5FUxpTQRY+3eXG2GPsQYTPGiA6233n/DsjY/okh/vBqXsnATA1U8hL7jUi
-         +4CjXLU66Qg7D+Z/1d8j+ZGupRoXbieU7cMZewbL8isB/6jUWlRTNQCe/NrSHl8df33a
-         XG4yY7KDfnHKyFuZQATDJPVtnhD3JIUS254zHIYFkq4bUGLY0ihHXgT4oLNU4XHUAp3q
-         PwXJOPpdBNfr35QEkiwDhpjWhswR2ue3JKPPgvZ5aT9uCj7q5za5tP2gGCtuOkj2ROH1
-         9WH9JjA5NZKW6/iDinQ8wvgGZ5+8tLvn+HEvhXoMbYOVe1Or0HVq497ChRYZZFDGWs5w
-         FyDg==
+         :list-id:mailing-list:precedence:mime-version:acceptlanguage
+         :content-language:accept-language:in-reply-to:references:message-id
+         :thread-index:thread-topic:subject:date:cc:to:from:sender
+         :dkim-signature;
+        bh=siBeDEmrHx7VstHyyEhL8rKK1JRgtl/v6wf5GCVMtek=;
+        b=Bsn7zTB9kwSJQ8EuXtzaV+37R5V5pZcQvHC8BR9mDwiGck7Y4SMGpKJuNeVzSIKkkq
+         L3FkbtLZWCDyeew0CFDN5bGB9OzhOm+eeKgbuyOaADZkdPCdWjEPDKN+Uu4FNc2Zy7HB
+         nHdfXbZB26QCSZVE9iuishGhGJXiPig0c14dCK7p2ng/pGJfCTvkfMlg1XJblh7SNgpz
+         umxi5HwKN//6IDLXPA1QMyxV48Oiu9OSAnQMehlGQ+Xg61FzpJaNFAYODSBunojFBOTy
+         7OJC5y1mSe3fyKQOOg/oLKi9kJCk+TeBzqbCg6ko6LMJLUul8QAh+8VyxB+AIcOuc57a
+         uS5A==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       spf=pass (google.com: domain of jan.vonwiarda@emtrion.de designates 80.150.99.69 as permitted sender) smtp.mailfrom=Jan.vonWiarda@emtrion.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
+        h=sender:from:to:cc:date:subject:thread-topic:thread-index:message-id
+         :references:in-reply-to:accept-language:content-language
+         :acceptlanguage:mime-version:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=FJKTPmiw9RD2BEmmSv+/zy8+ALH4TWOzMUYlpzgYaUY=;
-        b=kK8xUyzgnRdZkdI9esqyJIzdTuFCuymv6w62NRRbjDztAsDMthtWnpcO5OY+up8Tvv
-         DOKZ2epk0gkNwUE5+NMGo7qSRrbLBj5/AgkBnnJtVtJeOsBzHht5gduKONfD0k+AjlzJ
-         UCxkQIgG1GrlxY/VRintMfg8tgmAlmsQm3vO0hQxF0I6QduwShOEHbEegy0cTNbLfxyn
-         CobaDqWJBQwaieMyCAeLLtbLm8NglXa4n+TpIL8L6gKilohSVOvNzr9meJ54SN5PWqjk
-         x9k4gFIHeSNsF3RgcMrKp3IPsVnoviQyhKDzRrfVi0L6e3Ce5/e9tm9sorfZHM7NSWcd
-         ywTA==
+        bh=siBeDEmrHx7VstHyyEhL8rKK1JRgtl/v6wf5GCVMtek=;
+        b=KE94B8LHCr6GiXxBYmuvMpvCvNWfj23M9uKtBsR4h8ZxujcwUd7nb0j+VM4vqPR1rN
+         W5Gc2bRxnWq6NavZcEHQ2eYBAn4yfXANl76uFTMj5qT/pUr854aHQQsfkJ4IocUDVNz3
+         bq3h/NmVeo9crmZwrRnu1/jI/NcrZamKW5L27DZFkBF4yflCWI2w9S9MjECH6tSaWXkr
+         maUOjc6a185zujjSYU9COcJNxxEibzrG9/4hgTlYgUPyEyz7K6ImSGqBV7yoUrPvjUQl
+         WYItsst9ImtnTBiXfAHIZlb+4IEGUl6D4zv+I3H4U2cMUEkNLDgOx98KQKagO+OKQxSJ
+         DMJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=FJKTPmiw9RD2BEmmSv+/zy8+ALH4TWOzMUYlpzgYaUY=;
-        b=BD9Oa4IBK4DQ/AZssRO9VHAnx+k7iz2a9OWZZYY+a407c/MkD7VsXRKtoc5y0YZ/4i
-         3fLDl+gpgVpZ9mdm61Cv8R4PdgWL+DIXLDneLye2l9JzVttRyv1Uv3dQR4oRAMitGkGN
-         Jehsfn1jnbNd19COTfXnu3lP0oD71kg6aB6vjiBWdGEI3SNmWrx+XxT7hFxoI23ZxVbQ
-         /3Qpd0uYjm7U/w0EHRactUOBDv9pIfbT6s9H4zSzcFPeYvydV3+pZBTtd+nB7jOnj/WK
-         iQjSOPoU7l9SxqON3ZlxdXjrFH5OTqYAFXCDp4q8QXU110W3m6OKTLVJw/L+HC1PabP4
-         mFYw==
+        h=sender:x-gm-message-state:from:to:cc:date:subject:thread-topic
+         :thread-index:message-id:references:in-reply-to:accept-language
+         :content-language:acceptlanguage:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=siBeDEmrHx7VstHyyEhL8rKK1JRgtl/v6wf5GCVMtek=;
+        b=lFt+fLb6+3wGOXZ6xbDQV2Wn8a+9/cTlarWnvAHN8pbvDbxdVIy6QA78lVQf/rFYLv
+         ilgnV3YI7yQt/sGcjOTGAa8YH2rVf7NNl30Bsbu5y+JsEhiX0McmbNbQAqhqMmwaoAhF
+         ggxWw5yysWR2OZS4qO+miUof9lGivVYOjhfVqSmQGDzyLGh443JACf/l0CLxDVjnXiUe
+         jqdjkCtm26nnI/DEQcs8HZV3EkpZJUmfUTA0EbI6yvO9KRN1khBxVyjHiOT3ARZkTPnN
+         7bLAU6uUxNOZfuu2E5+T+uGvCK6txaqaKr3TiGKvJtUcM4GrB7ZwQ2CZyWpJ9+7FiLo9
+         Jdqw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVYaYL2TskeTnOP7bZ9Ui8CovB1kMT6CiK8MioMDrp8sA3CHjOw
-	mqxEPtdu4M8viaLI5ilOoJQ=
-X-Google-Smtp-Source: APXvYqxugAKEPiMUKc5RW5LOOoyuJwSX/VA1jUC+nRLJhPds7acVD2x/sJzXD0ZX57NvDW0SaJqfjA==
-X-Received: by 2002:ac2:456d:: with SMTP id k13mr34976383lfm.77.1563904718273;
-        Tue, 23 Jul 2019 10:58:38 -0700 (PDT)
+X-Gm-Message-State: APjAAAXa1rMr1nP4tIcO70kFJeqPILNvVna1qw4pAcv4/bWFKlrDyDWQ
+	3HKS85/cmbT4mA8YJn4dbgo=
+X-Google-Smtp-Source: APXvYqxnRHinyBUvRbnryVGvkd+5hhu/IjCzsPV6gMTTciGpaZkwTrEOqrTHV5AS4bXW+LQ4d2Tkwg==
+X-Received: by 2002:a2e:980a:: with SMTP id a10mr43160780ljj.40.1563968896906;
+        Wed, 24 Jul 2019 04:48:16 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:9d0c:: with SMTP id t12ls4971701lji.12.gmail; Tue, 23
- Jul 2019 10:58:37 -0700 (PDT)
-X-Received: by 2002:a2e:980e:: with SMTP id a14mr40940142ljj.60.1563904717531;
-        Tue, 23 Jul 2019 10:58:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1563904717; cv=none;
+Received: by 2002:a2e:8917:: with SMTP id d23ls5252943lji.14.gmail; Wed, 24
+ Jul 2019 04:48:15 -0700 (PDT)
+X-Received: by 2002:a2e:7604:: with SMTP id r4mr20322201ljc.225.1563968895793;
+        Wed, 24 Jul 2019 04:48:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1563968895; cv=none;
         d=google.com; s=arc-20160816;
-        b=UwXfi4NkXeSBriKFFIvuwug9zuzS64tNtHNjmc8Adux3KRmadJOqrHA2hsepfT4x/a
-         8EfOu8Junwg40AzPTqMNYriFLELe9kpFWrzUNPR3BmB4e4WPqHA9WgkMeAi1rTWqrxbJ
-         d2zUouYfMZeMn/691lV+o1TFo5GQBGNPYBpJwQru5FmjJos/g+RRCO8+jmY6GE2O9xxM
-         5ZBA/YEt3F9Q92TqS95CiLO50fvtJG1OHg6mQGVp29jX0LvvLtn1RPI5JJFLqRg+oRVp
-         a6sg/KdGDtWH+zPw3SVX57lSLzVlU5mPP6hr9V09WYLV6UcgLOVNSsBT1Re50l/1/dZW
-         sRgg==
+        b=C5r1Zp/VEuV6/n4g53EsIxKfsfmNAu1lnK3IGupSoX++3FvdzzRUhOfU5M25QSB/Ql
+         wUqsxFfg50PoE4cb/Ns/Nx3xtDnUGuPJJ3PaR00p+mmbhCjB7rZEpcNaqoypY+Xt6dYt
+         wXjb5m4HfX54I0S/q96+KdczXooy+9e2W+bIoLUJDfsQMGJFBdyOfg1OAfDsAbmOLenF
+         58Jiti9IZoWYVY/b9CurAslp+ZtjkhUKZDgz4eRLfunoE33RJTawYzYkVr4mOB9dkyT/
+         45DdUMKdnBCDNfrMbTfXeZzfKaKlsoklMb0GVUu35QtNS1Jf4U/iAtTIkGaj7614l4NE
+         fa8w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=vDCmA7FQQ28fd/GxZDNb/JkhpKAT6ttEwyRTOTX9Xpo=;
-        b=dq7SO1hAguwALdHQd8tlmn8sEzPgZSCkt8UqBSTM+GdysY8uDHUg3VI5Qcpy9d3ACY
-         D9s1Jn6NcrXoR+wsR8tFrz9ydWWpHkYiB9f2JhMWLsyUY1ITozrVtIFQFM8V7vk2ssqo
-         b2lXnOe/cx23AJQzrpY9whzNlBTnyNUSdxn7bkz7z21UQJnWjx2F0VsdKXYJG4Fica/Y
-         POJPpg7anmORtl3Dz32hb2ub1Cfjz4+ixRH0lM9X5CIyu2D34KhRv7LX15feJro+xrMC
-         zMKSMkRBpfsTrIXSmteIY++A7n+j5Uo9+UHdXBpO2CKKK0T9EhsKQY8AaDgX4otlZ0DR
-         DVXw==
+        h=mime-version:acceptlanguage:content-language:accept-language
+         :in-reply-to:references:message-id:thread-index:thread-topic:subject
+         :date:cc:to:from;
+        bh=UNl0YI+qX+9wa7mnHFs7Z762FTidYBlCA4TcS+kfFAY=;
+        b=FAAqvtQb6QHedoeg1VpP+XuPyEEjeYXZsz4inRksjSzjCYc6K+UaZKssh9N67HsK8j
+         je7h0fPSWG4D6LXzYqLMowFIFcbKB7FFKSmv5y6ljlIlYw2j9is9a5W2KINpopOwAASd
+         iZ9OZJ872tZZJ6YTmmi9forHiuQSg0u0SnGFE8Wi4CvI6m+sbM9hXSzPwMRVINCO3G4s
+         sNXI807+LvxNNujceMJH0yfhPb27E66mOPkEwuhOpZkzg4zTLAaRrBVv+eqy4BpP0kG0
+         eumi82WxNeKfzN8x28gEa0nvzdautFmjgKIynqYPQ7mtGHDmEmtVJeOrhQqJ7qjz+B87
+         lN0A==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id q11si2083012ljg.2.2019.07.23.10.58.37
+       spf=pass (google.com: domain of jan.vonwiarda@emtrion.de designates 80.150.99.69 as permitted sender) smtp.mailfrom=Jan.vonWiarda@emtrion.de
+Received: from mail3.emtrion.de (mail3.emtrion.de. [80.150.99.69])
+        by gmr-mx.google.com with ESMTPS id q25si2190692lfp.0.2019.07.24.04.48.15
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 23 Jul 2019 10:58:37 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
-Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id x6NHwaxN024344
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 23 Jul 2019 19:58:36 +0200
-Received: from [139.25.68.37] (md1q0hnc.ad001.siemens.net [139.25.68.37] (may be forged))
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x6NHwaU5014409;
-	Tue, 23 Jul 2019 19:58:36 +0200
-Subject: Re: Jailhouse and PCI UARTs pt.2
-To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
-        Jailhouse <jailhouse-dev@googlegroups.com>
-References: <80b316b3-a6e4-35be-7cc0-578f1ac685de@oth-regensburg.de>
- <3d158812-b502-3641-f509-2508560aa51f@siemens.com>
- <c3f7bb71-cfcd-c11f-01a8-e3fe5ad971ef@siemens.com>
- <11ec656b-e07f-f6cc-12b4-87e20085924f@oth-regensburg.de>
- <00a032ec-71ae-8b66-a85d-a8f809e2f17e@siemens.com>
- <1a789cc5-8c24-9cdf-fe4d-63485379c5be@oth-regensburg.de>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <587c7a49-cf58-b9b3-3a80-454ac165636f@siemens.com>
-Date: Tue, 23 Jul 2019 19:58:36 +0200
-User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
- Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
+        (version=TLS1 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+        Wed, 24 Jul 2019 04:48:15 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.vonwiarda@emtrion.de designates 80.150.99.69 as permitted sender) client-ip=80.150.99.69;
+Received: from BMK019S01.emtrion.local ([fe80::85d1:497:bc1c:78d0]) by
+ BMK019S01.emtrion.local ([fe80::85d1:497:bc1c:78d0%10]) with mapi; Wed, 24
+ Jul 2019 13:48:03 +0200
+Content-Type: multipart/mixed;
+	boundary="_000_95F51F4B902CAC40AF459205F6322F01C4EE0E3E80BMK019S01emtr_"
+From: "von Wiarda, Jan" <Jan.vonWiarda@emtrion.de>
+To: Jan Kiszka <jan.kiszka@siemens.com>
+CC: JailhouseMailingListe <jailhouse-dev@googlegroups.com>
+Date: Wed, 24 Jul 2019 13:47:58 +0200
+Subject: AW: 64 bit Hypervisor crash at 32 bit WFI instruction
+Thread-Topic: 64 bit Hypervisor crash at 32 bit WFI instruction
+Thread-Index: AdVBQD4R1sVykNk/RpKcGrhqiiHCFgA1TJjw
+Message-ID: <95F51F4B902CAC40AF459205F6322F01C4EE0E3E80@BMK019S01.emtrion.local>
+References: <95F51F4B902CAC40AF459205F6322F01C4EE0E3CB4@BMK019S01.emtrion.local>
+ <20190722094752.GB28400@lakrids.cambridge.arm.com>
+ <95F51F4B902CAC40AF459205F6322F01C4EE0E3D14@BMK019S01.emtrion.local>
+ <5518ab89-15c7-c1c2-c56e-f840cc296cec@huawei.com>
+ <95F51F4B902CAC40AF459205F6322F01C4EE0E3DBD@BMK019S01.emtrion.local>
+ <674c6cb2-62ac-456c-2a5e-ac08e94e0262@siemens.com>
+In-Reply-To: <674c6cb2-62ac-456c-2a5e-ac08e94e0262@siemens.com>
+Accept-Language: de-DE
+Content-Language: de-DE
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: <95F51F4B902CAC40AF459205F6322F01C4EE0E3E80@BMK019S01.emtrion.local>
+acceptlanguage: de-DE
+x-tm-as-product-ver: SMEX-11.0.0.4283-8.100.1062-24792.000
+x-tm-as-result: No--6.920700-8.000000-31
+x-tm-as-matchedid: 700225-703140-701090-703503-703655-705161-701593-704053-7
+	00759-701124-702156-186035-701589-703286-703028-704625-702754-188199-188019
+	-702617-700698-703093-853813-853550-853702-702887-850298-705249-139010-7051
+	53-701058-704074-704498-700278-704328-705155-702975-702852-701432-701443-70
+	5220-703949-705022-702600-780022-704718-702147-702500-704714-702146-704599-
+	105700-701667-702877-105250-701803-701075-700786-703300-702301-700492-70240
+	9-702798-701901-701111-704673-700762-701576-148004-148133-20043-29997-42000
+	-42003-63
+x-tm-as-user-approved-sender: No
+x-tm-as-user-blocked-sender: No
 MIME-Version: 1.0
-In-Reply-To: <1a789cc5-8c24-9cdf-fe4d-63485379c5be@oth-regensburg.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Sender: jan.vonwiarda@emtrion.de
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+ (google.com: domain of jan.vonwiarda@emtrion.de designates 80.150.99.69 as
+ permitted sender) smtp.mailfrom=Jan.vonWiarda@emtrion.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -136,101 +150,422 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 23.07.19 19:53, Ralf Ramsauer wrote:
-> 
-> 
-> On 7/23/19 7:21 PM, Jan Kiszka wrote:
->> On 23.07.19 18:38, Ralf Ramsauer wrote:
->>>
->>>
->>> On 7/23/19 5:35 PM, Jan Kiszka wrote:
->>>> On 23.07.19 17:19, Jan Kiszka wrote:
->>>>> On 23.07.19 16:50, Ralf Ramsauer wrote:
->>>>>> Two bad news: Linux's 8250 driver needs patching. At least we need some
->>>>>> parameter like 8250.platform=disable to disable the probing for platform
->>>>>> uarts. Why?
->>>>>>
->>>>>> ATM, we must specify 8250.nr_uarts. Otherwise the kernel will touch
->>>>>> restricted ports. It does touch those ports, as it lacks ACPI platform
->>>>>> information and assumes 'any' platform UART is present.
->>>>>
->>>>> Yes, nr_uarts is the patch-free approach for now. I once had a hack that
->>>>> propagated the information "this is Jailhouse, you may not find platform UARTs"
->>>>> to the driver. But that was a hack, so I didn't propose that upstream along with
->>>>> the other x86 changes. Plus, there are cases where we do want to use a platform
->>>>> uart in the non-root cell.
->>>>>
->>>>>>
->>>>>> I.e.:
->>>>>>   8250.nr_uarts=1 only touches 0x3f8
->>>>>>   8250.nr_uarts=2 touches 0x3f8 and 0x2f8
->>>>>>   8250.nr_uarts=3 touches 0x3f8, 0x2f8, 0x3e9 (?)
->>>>>>
->>>>>> In addition to that I have a PCI device. And Linux won't probe it until
->>>>>> it probed all other PIO ports. If I specify 8250.nr_uarts=1 (as I do
->>>>>> want to restrict access to 0x2f8), it will never probe the PCI device.
->>>>>>
->>>>>> So at the moment, the hack is to set 8250.nr_uarts=4 and permit access
->>>>>> to all ports. Yikes. At least I now know that the PCI device basically
->>>>>> works, but still, this needs to be patched.
->>>>>>
->>>>>
->>>>> OK, that was probably not yet addressed. We once had a setup with UARTs on a PCI
->>>>> card, but that machine also had no platform UARTs IIRC.
->>>>>
->>>>> If there no other way to tell Linux the number of platform UARTs, we will have
->>>>> to introduce one, for the sake of this use case already.
->>>>>
->>>>
->>>> Maybe we can do something like arch/x86/platform/ce4100/ce4100.c to "tune" the
->>>
->>> Thanks for the pointer.
->>>
->>>> platform UARTs (ce4100_serial_fixup). But it still takes an extension of the
->>>> boot protocol to provide Linux with the information about available platform UARTs.
->>>
->>> Hm. We do have the comm region... It will hold the config's struct
->>> jailhouse_console. We could use this in combination with
->>> serial8250_set_isa_configurator.
->>>
->>> This won't enable all platform uarts, but with this we could
->>> automatically enable at least one platform uart + hypervisor debug
->>> output. This should be sufficient for most cases.
->>
->> This is x86 only: If the well-known legacy ports are open in the config and also
->> the related IRQs, cell-linux could set some to-be-defined flags in the
-> 
-> Hmm. The config (as well as the comm region) lacks the IRQs of the
-> platform UART. But they should be static for platform UARTs afaict.
+--_000_95F51F4B902CAC40AF459205F6322F01C4EE0E3E80BMK019S01emtr_
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The config has this: irqchip at standard address 0xfec00000, pins 3 & 4. If set,
-then the UART is passed. The comm region is not needed here, the setup_data is
-filled by the loader.
+Currently I have a problem when enabling the root cell in QEMU, which I cou=
+ldn't investigate further yet. Hardware Debugger should be available soon, =
+though.
 
-> 
->> setup_data, and the kernel could tune the platform UART settings accordingly.
->> "Should be simple" (TM).
-> 
-> Yep, that wouldn't require any invasive modification of the platform
-> drivers.
-> 
-> Three flags should be sufficient:
->   - Use 0x2f8
->   - Use 0x3f8
->   - Use dbgcon
+root@imx8mm:~# jailhouse enable /opt/jailhouse/configs/imx8mm.cell
+[   77.686189] Synchronous External Abort: synchronous external abort (0x96=
+000050) at 0xffff00000f800000
+[   77.688767] Internal error: : 96000050 [#1] PREEMPT SMP
+[   77.690225] Modules linked in: jailhouse(O) crc32_ce crct10dif_ce ip_tab=
+les x_tables
+[   77.694196] CPU: 2 PID: 3069 Comm: jailhouse Tainted: G           O    4=
+.14.78-05595-g94da7bdc489b #4
+[   77.697023] Hardware name: linux,dummy-virt (DT)
+[   77.698221] task: ffff800020543600 task.stack: ffff00000f410000
+[   77.701799] PC is at __memcpy+0x110/0x180
+[   77.703481] LR is at jailhouse_cmd_enable+0x2e0/0x6c8 [jailhouse]
+[   77.705048] pc : [<ffff000008f34890>] lr : [<ffff000000fbd898>] pstate: =
+20000145
+[   77.706912] sp : ffff00000f413b50
+[   77.707701] x29: ffff00000f413b50 x28: ffff800020543600=20
+[   77.709647] x27: 00000000000003be x26: ffff00000f535000=20
+[   77.710734] x25: ffff0000097e1188 x24: ffff000000fc2880=20
+[   77.712065] x23: ffff000000fc2c10 x22: ffff000000fc2070=20
+[   77.713320] x21: 00000000ffffffea x20: 0000000033b51010=20
+[   77.714700] x19: 0000000000000004 x18: 0000000000040e4e=20
+[   77.715616] x17: 0000000000413048 x16: ffff000008279c00=20
+[   77.717309] x15: 000000000000066f x14: 0000000000000000=20
 
-Nope, 4: PC-UART0..3. dbgcon has nothing to do with this.
+3: 0000000000000000 x12: 0000000000000000 3 13:.7189728:31 .5].. x1
 
-If we want to propagate the comm region settings into some "console=X", that
-would be a pure kernel command line tuning by cell-linux.
+ kernel:[[   77.723158] x1  1: 0000000000015000 77.688767] Inter x10: 0000n=
+a000000004000=20
+l error: : 96000050 [#1] PREEMPT SMP
+[   77.726580] x9 : 0000000000004000 x8 : 000000000001d000=20
+[   77.731462] x7 : 53554f484c49414a x6 : ffff00000f800000=20
+[   77.731987] x5 : ffff00000fc00000 x4 : 0000000000000000=20
+[   77.733828] x3 : ffff00000fbfffff x2 : 0000000000015788=20
+[   77.735039] x1 : ffff00000f535040 x0 : ffff00000f800000=20
+[   77.736373] Process jailhouse (pid: 3069, stack limit =3D 0xffff00000f41=
+0000)
+[   77.737641] Call trace:
+[   77.738452] Exception stack(0xffff00000f413a10 to 0xffff00000f413b50)
+[   77.739382] 3a00:                                   ffff00000f800000 fff=
+f00000f535040
+[   77.741931] 3a20: 0000000000015788 ffff00000fbfffff 0000000000000000 fff=
+f00000fc00000
+[   77.743681] 3a40: ffff00000f800000 53554f484c49414a 000000000001d000 000=
+0000000004000
+[   77.745714] 3a60: 0000000000004000 0000000000015000 0000000000000000 000=
+0000000000000
+[   77.746888] 3a80: 0000000000000000 000000000000066f ffff000008279c00 000=
+0000000413048
+[   77.747905] 3aa0: 0000000000040e4e 0000000000000004 0000000033b51010 000=
+00000ffffffea
+[   77.749358] 3ac0: ffff000000fc2070 ffff000000fc2c10 ffff000000fc2880 fff=
+f0000097e1188
+[   77.750481] 3ae0: ffff00000f535000 00000000000003be ffff800020543600 fff=
+f00000f413b50
+[   77.751226] 3b00: ffff000000fbd898 ffff00000f413b50 ffff000008f34890 000=
+0000020000145
+[   77.752980] 3b20: ffff00000f413b50 ffff000000fbd874 0000ffffffffffff 000=
+0000033b51010
+[   77.754323] 3b40: ffff00000f413b50 ffff000008f34890
+[   77.755333] [<ffff000008f34890>] __memcpy+0x110/0x180
+[   77.756909] [<ffff000000fbdd0c>] jailhouse_ioctl+0x8c/0x118 [jailhouse]
+[   77.758048] [<ffff000008291d30>] do_vfs_ioctl+0xb0/0x868
+[   77.758584] [<ffff00000829257c>] SyS_ioctl+0x94/0xa8
+[   77.759050] Exception stack(0xffff00000f413ec0 to 0xffff00000f414000)
+[   77.760369] 3ec0: 0000000000000003 0000000040080000 0000000033b51010 000=
+0000000000000
+[   77.761450] 3ee0: 0000000033b51010 00000000000003d1 0000ffff8b4460d0 000=
+0000033b72fff
+[   77.762404] 3f00: 000000000000001d 0000ffff8b4469f0 0101010101010101 000=
+0000000000018
+[   77.763412] 3f20: 00000000000003f3 0000000000000000 0000000000000000 000=
+000000000051b
+[   77.765363] 3f40: 0000ffff8b3c3150 0000000000413108 0000000000040e4e 000=
+0ffffe934fee3
+[   77.766389] 3f60: 0000000033b51010 0000000000000003 0000000000000000 000=
+0000000000000
+[   77.767384] 3f80: 0000000000000000 0000000000000000 0000000000000000 000=
+0000000000000
+[   77.769682] 3fa0: 0000000000000000 0000ffffe934f420 0000000000401014 000=
+0ffffe934f420
+[   77.770469] 3fc0: 0000ffff8b3c315c 0000000080000000 0000000000000003 000=
+000000000001d
+[   77.770915] 3fe0: 0000000000000000 0000000000000000 0000000000000000 000=
+0000000000000
+[   77.771350] [<ffff000008083ac0>] el0_svc_naked+0x34/0x38
+[   77.772570] Code: a8c12027 a8c12829 a8c1302b a8c1382d (a88120c7)=20
+[   77.773509] ---[ end trace b45069ae9849cd95 ]---
+Segmentation fault
+
+-----Urspr=C3=BCngliche Nachricht-----
+Von: Jan Kiszka [mailto:jan.kiszka@siemens.com]=20
+Gesendet: Dienstag, 23. Juli 2019 12:20
+An: von Wiarda, Jan; Antonios Motakis (Tony); Mark Rutland
+Cc: JailhouseMailingListe
+Betreff: Re: 64 bit Hypervisor crash at 32 bit WFI instruction
+
+On 23.07.19 12:14, von Wiarda, Jan wrote:
+> Hi!
+>=20
+> With
+>=20
+> asm volatile("nop" : : : "memory");
+>=20
+> instead of
+>=20
+> asm volatile("wfi" : : : "memory");
+>=20
+> it runs just fine.
+>=20
+>> Is the root cell cpu (CPU 0) specifically crashing with an unexpected sy=
+nchronous exit to Jailhouse? What is the output?
+>=20
+> No, CPU 0 does not crash with any kind of console output, which makes deb=
+ugging even more difficult. What I observe is, that after hitting WFI, it c=
+ontinues to run for a 1-2 seconds and then it stops. Last thing I see from =
+the instrumented code is a printk() from arch_skip_instruction(), which mea=
+ns it was handling a SYS64 exit.
+
+Maybe interrupts get stalled for the root cell - for whatever reason. Do yo=
+u
+have a hardware debugger to analyze the state of the CPUs? Or use QEMU...
 
 Jan
 
--- 
+>=20
+>> This is a far shot, but maybe the code generated around the WFI is the c=
+ulprit?
+>=20
+> You might be right, when I place WFI right after inmate_main(), CPU 0 doe=
+s not starve. But it's completely strange and undefined behaviour, sometime=
+s it crashes if I put the WFI right after a printk(), whereas right before =
+the printk() it doesn't crash.
+>=20
+> Works:
+>=20
+> void inmate_main(void)
+> {
+> 		...
+> 		asm volatile("wfi" : : : "memory");
+> 		printk("IVSHMEM: Done setting up...\n");
+> 		printk("IVSHMEM: waiting for interrupt.\n");
+> 		//asm volatile("wfi" : : : "memory");
+> }
+>=20
+> Does not work:
+>=20
+> void inmate_main(void)
+> {
+> 		...
+> 		//asm volatile("wfi" : : : "memory");
+> 		printk("IVSHMEM: Done setting up...\n");
+> 		printk("IVSHMEM: waiting for interrupt.\n");
+> 		asm volatile("wfi" : : : "memory");
+> }
+>=20
+> I know this sounds completely strange but I reproduced this multiple time=
+s, compiler is this:
+>=20
+> gcc version 6.3.0 20170516 (Debian 6.3.0-18)
+>=20
+> BR,
+> Jan
+>=20
+> -----Urspr=C3=BCngliche Nachricht-----
+> Von: Antonios Motakis (Tony) [mailto:antonios.motakis@huawei.com]=20
+> Gesendet: Dienstag, 23. Juli 2019 06:40
+> An: von Wiarda, Jan; Mark Rutland
+> Cc: JailhouseMailingListe; Jan Kiszka
+> Betreff: Re: AW: 64 bit Hypervisor crash at 32 bit WFI instruction
+>=20
+> Hi Jan,
+>=20
+> On 22-Jul-19 7:11 PM, von Wiarda, Jan wrote:
+>> Hi Mark,
+>>
+>> I'm not touching bit 13 or 14 in HCR_EL2, they're both 0. HCR_EL2 is the=
+ same for 64 bit and 32 bit inmates when the crash happens, except for HCR_=
+RW_BIT, obviously. HCR_EL2 value is 0x28001B at crash time.
+>>
+>=20
+> It's quite an interesting crash that you have there; I wouldn't expect th=
+is to happen.
+>=20
+> The idea with trapping WFI/WFE is to be able to suspend a VM that is just=
+ waiting for something to happen. Since Jailhouse is a partitioning hypervi=
+sor, you shouldn't need to trap it, nor should its use normally influence t=
+he other cores. Yet something is amiss here.
+>=20
+> Is the root cell cpu (CPU 0) specifically crashing with an unexpected syn=
+chronous exit to Jailhouse? What is the output?
+>=20
+> I don't remember what event 0x28001B maps to, I would check the ARM ARM f=
+irst to figure out what the unexpected event in CPU 0 was, for a clue to mo=
+tivate further investigation.
+>=20
+> Additionally, this WFI code instructs the compiler that memory contents m=
+ay change, so ordering of generated instructions, inserted barriers etc, ar=
+e influenced. This is a far shot, but maybe the code generated around the W=
+FI is the culprit? Maybe not, but I would try to rule it out:
+> (a) First I'd try replacing the WFI with a nop, to observe the behavior w=
+ithout the WFI but without changing compiler behavior and maintaining any c=
+ompiler barriers.
+> (b) I would also try replacing it with an infinite loop ("b .") to get th=
+e inmate to wait forever at this position, and see what happens.
+>=20
+> Happy debugging :)
+>=20
+> Best regards,
+> Tony
+>=20
+
+--=20
 Siemens AG, Corporate Technology, CT RDA IOT SES-DE
 Corporate Competence Center Embedded Linux
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/587c7a49-cf58-b9b3-3a80-454ac165636f%40siemens.com.
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/95F51F4B902CAC40AF459205F6322F01C4EE0E3E80%40BMK019S01.emtrio=
+n.local.
+
+--_000_95F51F4B902CAC40AF459205F6322F01C4EE0E3E80BMK019S01emtr_
+Content-Disposition: attachment; filename="winmail.dat"
+Content-Transfer-Encoding: base64
+Content-Type: application/ms-tnef; name="winmail.dat"
+
+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
+7fMhaRQwmmFmrYAsk38wu4IQGSFnToMvD/fRZIKg/46SMoKEYltBAKKMBAD1owX/5WaEg940hiNO
+UeQxkpA8If+r4q2iCsGhMIyxM0B/caFo3wDphFEA4YPwNFJiWbDvEHPn0YHwdGP2EJhyK6dk/1eQ
+nv+gD6Efoi+jOfkxkqL/ffFQRDu2X0AysIbTf/H+wdOAIWZoKGGNEEY9YwlQf1V041GmwSQjUrUz
+ZH3hcP+EYUpRg9UwYq0VlbFoYT5S/1KmUGJb1knDGUPlZltHiGL/qIL14H8wkJN+8V4oTVVD2Pwo
+Yo0QO7aT8EpBWDyP0u8zdSuhX+EYYWyU4CmAanD/0BFwwDWSk5KK9KgyNZLZsu+HMpYTPrMUkXDw
+8CajTgH/rEGKYjnjEQVD3wKREREysP2BaDrqP/1ScrH9oENw+KD/hFAd2PHBbQ7s5e+AtVYlEPM5
+YY+hQUeo4YJgaNBR0ltPEDIgaFoAZWBnRbFDUlT5gERBMCBPdABT4EVTLURF7OVymHKQt+Hgq1El
+MkOLoodgRTmRL0UQNGH70IaAeOzlfX0D7TB4wAAfAEIAAQAAACAAAAB2AG8AbgAgAFcAaQBhAHIA
+ZABhACwAIABKAGEAbgAAAB8AZQABAAAAMgAAAEoAYQBuAC4AdgBvAG4AVwBpAGEAcgBkAGEAQABl
+AG0AdAByAGkAbwBuAC4AZABlAAAAAAAfAGQAAQAAAAoAAABTAE0AVABQAAAAAAACAUEAAQAAAHQA
+AAAAAAAAgSsfpL6jEBmdbgDdAQ9UAgAAAIB2AG8AbgAgAFcAaQBhAHIAZABhACwAIABKAGEAbgAA
+AFMATQBUAFAAAABKAGEAbgAuAHYAbwBuAFcAaQBhAHIAZABhAEAAZQBtAHQAcgBpAG8AbgAuAGQA
+ZQAAAB8AGgwBAAAAIAAAAHYAbwBuACAAVwBpAGEAcgBkAGEALAAgAEoAYQBuAAAAHwAfDAEAAAAy
+AAAASgBhAG4ALgB2AG8AbgBXAGkAYQByAGQAYQBAAGUAbQB0AHIAaQBvAG4ALgBkAGUAAAAAAB8A
+HgwBAAAACgAAAFMATQBUAFAAAAAAAAIBGQwBAAAAdAAAAAAAAACBKx+kvqMQGZ1uAN0BD1QCAAAA
+gHYAbwBuACAAVwBpAGEAcgBkAGEALAAgAEoAYQBuAAAAUwBNAFQAUAAAAEoAYQBuAC4AdgBvAG4A
+VwBpAGEAcgBkAGEAQABlAG0AdAByAGkAbwBuAC4AZABlAAAAHwAxQAEAAAACAAAAAAAAAAsAQDoB
+AAAAHwAwQAEAAAACAAAAAAAAAB8AGgABAAAAEgAAAEkAUABNAC4ATgBvAHQAZQAAAAAAAwDxPwcE
+AAALAEA6AQAAAAMA/T/kBAAAAgELMAEAAAAQAAAAII0fRfgJJUuSPOR6MVDD7wMAFwABAAAAQAA5
+AACrX6MVQtUBQAAIMJ2hZKYVQtUBCwACAAEAAAALACMAAAAAAAMAJgAAAAAACwApAAAAAAALACsA
+AAAAAAMALgAAAAAAAwA2AAAAAAAfAHAAAQAAAGQAAAA2ADQAIABiAGkAdAAgAEgAeQBwAGUAcgB2
+AGkAcwBvAHIAIABjAHIAYQBzAGgAIABhAHQAIAAzADIAIABiAGkAdAAgAFcARgBJACAAaQBuAHMA
+dAByAHUAYwB0AGkAbwBuAAAAAgFxAAEAAAAbAAAAAdVBQD4R1sVykNk/RpKcGrhqiiHCFgA1TJjw
+AB8ANRABAAAAigAAADwAOQA1AEYANQAxAEYANABCADkAMAAyAEMAQQBDADQAMABBAEYANAA1ADkA
+MgAwADUARgA2ADMAMgAyAEYAMAAxAEMANABFAEUAMABFADMARQA4ADAAQABCAE0ASwAwADEAOQBT
+ADAAMQAuAGUAbQB0AHIAaQBvAG4ALgBsAG8AYwBhAGwAPgAAAAAAHwA5EAEAAADOAgAAPAA5ADUA
+RgA1ADEARgA0AEIAOQAwADIAQwBBAEMANAAwAEEARgA0ADUAOQAyADAANQBGADYAMwAyADIARgAw
+ADEAQwA0AEUARQAwAEUAMwBDAEIANABAAEIATQBLADAAMQA5AFMAMAAxAC4AZQBtAHQAcgBpAG8A
+bgAuAGwAbwBjAGEAbAA+ACAAPAAyADAAMQA5ADAANwAyADIAMAA5ADQANwA1ADIALgBHAEIAMgA4
+ADQAMAAwAEAAbABhAGsAcgBpAGQAcwAuAGMAYQBtAGIAcgBpAGQAZwBlAC4AYQByAG0ALgBjAG8A
+bQA+ACAAPAA5ADUARgA1ADEARgA0AEIAOQAwADIAQwBBAEMANAAwAEEARgA0ADUAOQAyADAANQBG
+ADYAMwAyADIARgAwADEAQwA0AEUARQAwAEUAMwBEADEANABAAEIATQBLADAAMQA5AFMAMAAxAC4A
+ZQBtAHQAcgBpAG8AbgAuAGwAbwBjAGEAbAA+ACAAPAA1ADUAMQA4AGEAYgA4ADkALQAxADUAYwA3
+AC0AYwAxAGMAMgAtAGMANQA2AGUALQBmADgANAAwAGMAYwAyADkANgBjAGUAYwBAAGgAdQBhAHcA
+ZQBpAC4AYwBvAG0APgAgADwAOQA1AEYANQAxAEYANABCADkAMAAyAEMAQQBDADQAMABBAEYANAA1
+ADkAMgAwADUARgA2ADMAMgAyAEYAMAAxAEMANABFAEUAMABFADMARABCAEQAQABCAE0ASwAwADEA
+OQBTADAAMQAuAGUAbQB0AHIAaQBvAG4ALgBsAG8AYwBhAGwAPgAgADwANgA3ADQAYwA2AGMAYgAy
+AC0ANgAyAGEAYwAtADQANQA2AGMALQAyAGEANQBlAC0AYQBjADAAOABlADkANABlADAAMgA2ADIA
+QABzAGkAZQBtAGUAbgBzAC4AYwBvAG0APgAAAAAAHwBCEAEAAABmAAAAPAA2ADcANABjADYAYwBi
+ADIALQA2ADIAYQBjAC0ANAA1ADYAYwAtADIAYQA1AGUALQBhAGMAMAA4AGUAOQA0AGUAMAAyADYA
+MgBAAHMAaQBlAG0AZQBuAHMALgBjAG8AbQA+AAAAAAADAIAQ/////x8A8xABAAAAeAAAAEEAVwAl
+ADMAQQAgADYANAAgAGIAaQB0ACAASAB5AHAAZQByAHYAaQBzAG8AcgAgAGMAcgBhAHMAaAAgAGEA
+dAAgADMAMgAgAGIAaQB0ACAAVwBGAEkAIABpAG4AcwB0AHIAdQBjAHQAaQBvAG4ALgBFAE0ATAAA
+AAsA9BAAAAAACwD1EAAAAAALAPYQAAAAAEAABzB/21+mFULVAQIBEDABAAAARgAAAAAAAACrz3ah
+ydfzQrBY9HUopEQsBwCV9R9LkCysQK9FkgX2Mi8BALSd1wkBAABGsFVF9zmqTbt7/FmeXR1MALfa
+anvCAAAAAAMA3j/p/QAAHwD4PwEAAAAgAAAAdgBvAG4AIABXAGkAYQByAGQAYQAsACAASgBhAG4A
+AAACAfk/AQAAAIQAAAAAAAAA3KdAyMBCEBq0uQgAKy/hggEAAAAAAAAAL089RklSU1QgT1JHQU5J
+WkFUSU9OL09VPUVYQ0hBTkdFIEFETUlOSVNUUkFUSVZFIEdST1VQIChGWURJQk9IRjIzU1BETFQp
+L0NOPVJFQ0lQSUVOVFMvQ049SkFOLlZPTldJQVJEQQAfAPo/AQAAACAAAAB2AG8AbgAgAFcAaQBh
+AHIAZABhACwAIABKAGEAbgAAAAIB+z8BAAAAhAAAAAAAAADcp0DIwEIQGrS5CAArL+GCAQAAAAAA
+AAAvTz1GSVJTVCBPUkdBTklaQVRJT04vT1U9RVhDSEFOR0UgQURNSU5JU1RSQVRJVkUgR1JPVVAg
+KEZZRElCT0hGMjNTUERMVCkvQ049UkVDSVBJRU5UUy9DTj1KQU4uVk9OV0lBUkRBAAMAGUAAAAAA
+AwAaQAAAAAADAAlZAQAAAAMAAIAIIAYAAAAAAMAAAAAAAABGAAAAABCFAAAAAAAACwAAgAggBgAA
+AAAAwAAAAAAAAEYAAAAAA4UAAAAAAAADAACAAyAGAAAAAADAAAAAAAAARgAAAAABgQAAAAAAAAUA
+AIADIAYAAAAAAMAAAAAAAABGAAAAAAKBAAAAAAAAAAAAAAMAAIADIAYAAAAAAMAAAAAAAABGAAAA
+ABOBAAABAAAACwAAgAMgBgAAAAAAwAAAAAAAAEYAAAAAHIEAAAAAAAALAACAAyAGAAAAAADAAAAA
+AAAARgAAAAAmgQAAAAAAAAMAAIADIAYAAAAAAMAAAAAAAABGAAAAABCBAAAAAAAAAwAAgAMgBgAA
+AAAAwAAAAAAAAEYAAAAAEYEAAAAAAAADAACAAyAGAAAAAADAAAAAAAAARgAAAAAqgQAAAAAAAAMA
+AIADIAYAAAAAAMAAAAAAAABGAAAAACmBAAAAAAAACwAAgAMgBgAAAAAAwAAAAAAAAEYAAAAAJIEA
+AAAAAAALAACAAyAGAAAAAADAAAAAAAAARgAAAAAsgQAAAAAAAB8AAIADIAYAAAAAAMAAAAAAAABG
+AAAAACeBAAABAAAAAgAAAAAAAAADAACAAyAGAAAAAADAAAAAAAAARgAAAAASgQAAAQAAAB8AAIAD
+IAYAAAAAAMAAAAAAAABGAAAAACGBAAABAAAAAgAAAAAAAAALAACAAyAGAAAAAADAAAAAAAAARgAA
+AAADgQAAAAAAAAMAAIADIAYAAAAAAMAAAAAAAABGAAAAACOBAAD///9/CwAAgAggBgAAAAAAwAAA
+AAAAAEYAAAAADoUAAAAAAAADAACACCAGAAAAAADAAAAAAAAARgAAAAABhQAAAAAAAAMAAIAIIAYA
+AAAAAMAAAAAAAABGAAAAABiFAAAAAAAACwAAgAggBgAAAAAAwAAAAAAAAEYAAAAABoUAAAAAAAAL
+AACACCAGAAAAAADAAAAAAAAARgAAAACChQAAAAAAAAMADTT5PwAAAgEUNAEAAAAQAAAAVJShwCl/
+EBulhwgAKyolFx8APQABAAAACgAAAEEAVwA6ACAAAAAAAB8ANwABAAAAbAAAAEEAVwA6ACAANgA0
+ACAAYgBpAHQAIABIAHkAcABlAHIAdgBpAHMAbwByACAAYwByAGEAcwBoACAAYQB0ACAAMwAyACAA
+YgBpAHQAIABXAEYASQAgAGkAbgBzAHQAcgB1AGMAdABpAG8AbgAAAB8AAICGAwIAAAAAAMAAAAAA
+AABGAQAAAB4AAABhAGMAYwBlAHAAdABsAGEAbgBnAHUAYQBnAGUAAAAAAAEAAAAMAAAAZABlAC0A
+RABFAAAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAIAAAAHgALQBtAHMALQBoAGEAcwAtAGEAdAB0
+AGEAYwBoAAAAAQAAAAIAAAAAAAAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAKAAAAHgALQB0AG0A
+LQBhAHMALQBwAHIAbwBkAHUAYwB0AC0AdgBlAHIAAAABAAAATAAAAFMATQBFAFgALQAxADEALgAw
+AC4AMAAuADQAMgA4ADMALQA4AC4AMQAwADAALgAxADAANgAyAC0AMgA0ADcAOQAyAC4AMAAwADAA
+AAAfAACAhgMCAAAAAADAAAAAAAAARgEAAAAeAAAAeAAtAHQAbQAtAGEAcwAtAHIAZQBzAHUAbAB0
+AAAAAAABAAAAMgAAAE4AbwAtAC0ANgAuADkAMgAwADcAMAAwAC0AOAAuADAAMAAwADAAMAAwAC0A
+MwAxAAAAAAAfAACAhgMCAAAAAADAAAAAAAAARgEAAAAkAAAAeAAtAHQAbQAtAGEAcwAtAG0AYQB0
+AGMAaABlAGQAaQBkAAAAAQAAABgEAAA3ADAAMAAyADIANQAtADcAMAAzADEANAAwAC0ANwAwADEA
+MAA5ADAALQA3ADAAMwA1ADAAMwAtADcAMAAzADYANQA1AC0ANwAwADUAMQA2ADEALQA3ADAAMQA1
+ADkAMwAtADcAMAA0ADAANQAzAC0ANwAJADAAMAA3ADUAOQAtADcAMAAxADEAMgA0AC0ANwAwADIA
+MQA1ADYALQAxADgANgAwADMANQAtADcAMAAxADUAOAA5AC0ANwAwADMAMgA4ADYALQA3ADAAMwAw
+ADIAOAAtADcAMAA0ADYAMgA1AC0ANwAwADIANwA1ADQALQAxADgAOAAxADkAOQAtADEAOAA4ADAA
+MQA5AAkALQA3ADAAMgA2ADEANwAtADcAMAAwADYAOQA4AC0ANwAwADMAMAA5ADMALQA4ADUAMwA4
+ADEAMwAtADgANQAzADUANQAwAC0AOAA1ADMANwAwADIALQA3ADAAMgA4ADgANwAtADgANQAwADIA
+OQA4AC0ANwAwADUAMgA0ADkALQAxADMAOQAwADEAMAAtADcAMAA1ADEACQA1ADMALQA3ADAAMQAw
+ADUAOAAtADcAMAA0ADAANwA0AC0ANwAwADQANAA5ADgALQA3ADAAMAAyADcAOAAtADcAMAA0ADMA
+MgA4AC0ANwAwADUAMQA1ADUALQA3ADAAMgA5ADcANQAtADcAMAAyADgANQAyAC0ANwAwADEANAAz
+ADIALQA3ADAAMQA0ADQAMwAtADcAMAAJADUAMgAyADAALQA3ADAAMwA5ADQAOQAtADcAMAA1ADAA
+MgAyAC0ANwAwADIANgAwADAALQA3ADgAMAAwADIAMgAtADcAMAA0ADcAMQA4AC0ANwAwADIAMQA0
+ADcALQA3ADAAMgA1ADAAMAAtADcAMAA0ADcAMQA0AC0ANwAwADIAMQA0ADYALQA3ADAANAA1ADkA
+OQAtAAkAMQAwADUANwAwADAALQA3ADAAMQA2ADYANwAtADcAMAAyADgANwA3AC0AMQAwADUAMgA1
+ADAALQA3ADAAMQA4ADAAMwAtADcAMAAxADAANwA1AC0ANwAwADAANwA4ADYALQA3ADAAMwAzADAA
+MAAtADcAMAAyADMAMAAxAC0ANwAwADAANAA5ADIALQA3ADAAMgA0ADAACQA5AC0ANwAwADIANwA5
+ADgALQA3ADAAMQA5ADAAMQAtADcAMAAxADEAMQAxAC0ANwAwADQANgA3ADMALQA3ADAAMAA3ADYA
+MgAtADcAMAAxADUANwA2AC0AMQA0ADgAMAAwADQALQAxADQAOAAxADMAMwAtADIAMAAwADQAMwAt
+ADIAOQA5ADkANwAtADQAMgAwADAAMAAJAC0ANAAyADAAMAAzAC0ANgAzAAAAHwAAgIYDAgAAAAAA
+wAAAAAAAAEYBAAAAOgAAAHgALQB0AG0ALQBhAHMALQB1AHMAZQByAC0AYQBwAHAAcgBvAHYAZQBk
+AC0AcwBlAG4AZABlAHIAAAAAAAEAAAAGAAAATgBvAAAAAAAfAACAhgMCAAAAAADAAAAAAAAARgEA
+AAA4AAAAeAAtAHQAbQAtAGEAcwAtAHUAcwBlAHIALQBiAGwAbwBjAGsAZQBkAC0AcwBlAG4AZABl
+AHIAAAABAAAABgAAAE4AbwAAAAAAfKk=
+
+--_000_95F51F4B902CAC40AF459205F6322F01C4EE0E3E80BMK019S01emtr_--
