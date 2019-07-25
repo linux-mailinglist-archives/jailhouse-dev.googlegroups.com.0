@@ -1,119 +1,119 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBRH34XUQKGQE7D6BXNY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBYX54XUQKGQENGTJ22I@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x338.google.com (mail-wm1-x338.google.com [IPv6:2a00:1450:4864:20::338])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48D8974AFE
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 25 Jul 2019 12:00:37 +0200 (CEST)
-Received: by mail-wm1-x338.google.com with SMTP id y130sf11323328wmg.1
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 25 Jul 2019 03:00:37 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1564048837; cv=pass;
+Received: from mail-lj1-x23d.google.com (mail-lj1-x23d.google.com [IPv6:2a00:1450:4864:20::23d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 812FD74B09
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 25 Jul 2019 12:05:23 +0200 (CEST)
+Received: by mail-lj1-x23d.google.com with SMTP id e14sf10606962ljj.3
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 25 Jul 2019 03:05:23 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1564049123; cv=pass;
         d=google.com; s=arc-20160816;
-        b=ogLKS/T/rJZgIVSpY4MNhLm1T60fgchFNghh3049lhs9YOSr3xXTne2twQbfpbCMUk
-         d19DsJTbad472EexvVveqiN2VwMY5jXkkcWZ2l5mfXPeclxwOPAlmbeHWJWSruUc/HPI
-         ttdyLXz0koH+WZPAc+G9+c3GsKFU8+M1W9OFTBt37nxTnm4PwHb1RsLAjMnPKwypUSOk
-         qKMLqqYzGh7ABPWR82Tm2ZB+LoI3DpPzS+YQko69uLwIsT0+ksvWms6NAXmRL0wIIlNK
-         qlqa603Y/xQ6WTT92fzxwhqsir7WcL3Asp9p5o+PgnjUuv2WujWBySCl+05BTmWb16CW
-         cvEg==
+        b=JHalUqy+o33Cj7KLm7pjkfHtceaQ7wXjASThnoAAYG1BEH0+xvzdqgJxcGW2QCnLBE
+         qZn1nttH3jDm0fLx9x22cIy2I0pFb8lQekUIn9wLxPctBtY5HhNZilIed+BcgWbJDAE+
+         B8FQlUCD3D8hI9xNjCz31DwtXkJYkUtx6zrdZtCXHWJa1qv7oYHlh7GOU6pG6lwSlbOv
+         jjRuhICbfsSyJFC8K8jQlxSW34e3r5ELjMLioFEswSh1pR3t/fanFXG7Fwx5Flb51HF9
+         vNktBmDXzLunBgEydoeRrjI+RcdDlYXVAhwLRhVM/0VsfAWjP2LQPkPUu8ZLaaXDve+u
+         1Ysw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
          :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=YErh2OyqHY164LfRTCPAmYyv/WNwn3d9O23xEskGPcg=;
-        b=Nkw7kJOd2KWEvFIeUJogLzM2gSL9Hk5nQNzXYlx0vpPfnWW5iAGYATrcjjjYZnUZVM
-         iR6mf9H2Y6qy6SDScP75/GqTuArlUoIsdd4CG/Ov5ATN3kDjImqNkByWqEmkxMtZU12H
-         D4zarUW9i1daLptVTmrQyBKUPhERr+cI17orEWyONB3q0uU0mX+K7jqRFH4DkmzoBEi/
-         2GxnZSQaywBgfdLmqbp+w2tepXyWblq7sp/zc8jrNH4Z6cJq/uQks2xvNEQMqZHtuEMP
-         b6At5jY9sNk90/c1lyENKjTevhPSbYRxeSZdvikBZh9T7F7aZlnNF0fiK18T3OKXDCYl
-         6SLg==
+         :message-id:references:to:from:subject:sender:dkim-signature;
+        bh=/jgY2S3on4FSet46i2sysMWGaYhrfvaz90hHWXDkYlc=;
+        b=Nw860Ux8edw0RdqNYvCiLDG37MluCB1X1Ww93ZiVrXULFd6QHWkHg7+lrA9O3hNZrR
+         uz08/zN7/SxWdZTuhqaoGvvn509/6bo2bRTeb/FtwcAkYhT1dDqtSsCX0lfiMLOTrQb5
+         V0QeWSry3DlhhZcAfP843X4V0zpKLD5oNL/9Ao+gM6oAA/mBpeVHGZV0UETU+TCdFf+j
+         Lm+MkfYpDVB7wNEY3TU0ZYac4nP7f0hZPXWCI/8r4VtJ7buO8ajfcM/cQ/lUMvrzfBoe
+         Jf1pqmzHsoUmY0cdjSFTcKw6Em69ZIvCB3iv3S7nyZCYlo3n82piO9vvp0q1CnqrLgkJ
+         qTlA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
        spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
+        h=sender:subject:from:to:references:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=YErh2OyqHY164LfRTCPAmYyv/WNwn3d9O23xEskGPcg=;
-        b=h++V7oVLrHquj2n3SOcvCbRworaDcokbk2xVNf79Lapm6Gm1QMkPHJtffHKoYjEMi9
-         IThm0qrjNwbGSIlg6vucxyC1mNiJJkUmYTPOuUcuNwjg/bcuEeTrxE5x6hEpJ1hbnG86
-         NGUb+O7I8BXgaccrfmhvB1I/dRLPGu1nn1aCyxmky2H6YnCvXlkr+vse7ousXKQGeEPt
-         YgifXwCpnHbgGyV+2OK2FLtQSXuixfV0aLiyzEFF22t2hnpcEzXGJSierB1WUZfcYvyw
-         1S4FqDUaqWK47T6qgfpUhzTTrXMrnrlynDGmTTA1OaOFJBIBZgQWIherhxzV3HJ7Vl2s
-         tO2g==
+        bh=/jgY2S3on4FSet46i2sysMWGaYhrfvaz90hHWXDkYlc=;
+        b=mRPvm7O2ioub0pjlN7NrsM7kYiivjobFXC1WWILhj5KkOi1oRk7b8L7j4KWoRZt69F
+         3J6CmfF5b1fyUcfjtrxWE5SuTZDPyJCiEHHD9ElqC/ZkkElZWW3f/uHTgOVCEiXdqSa9
+         FadNmEDJ3nOpxM1Rojh13D8qomf59ijMHuw6WKuFS5ug/9hIMZ+odk/XyxQmquIkiUvP
+         hNH3wTGdftqFanHn1T3TdCq6F7XqGL2TLLiY2rJC58JFTj6nb7NVABVuxwVEHP75luQH
+         14BbsQvn4iyIHGsxhsUHkaQWI9s8DoVgRtB3L0evfMTUwldRrTyH+8Tonm8VD49yanB9
+         n0cQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
+        h=sender:x-gm-message-state:subject:from:to:references:message-id
          :date:user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=YErh2OyqHY164LfRTCPAmYyv/WNwn3d9O23xEskGPcg=;
-        b=rtO6pSkWjeNvXbJz+mUAHNXl726fQBUjF2jQCcltrpSTn41v1fHNhr3yrqb9h2lvd+
-         7qd+FDssZkgDcj6RL3+DriH+1QeT7G0zw+TwZd3lDDFh00icONtBACB13OFT3GKtbvqE
-         sPohKERPWOvjn+EGe7uwuvXmfNeScFvKq8UbbIwQS0De9k3hiMUmNSbLg1mygPk9BCO4
-         6pHqvawptUtUtuMZDFomR05q/0++UH6lP8f6vjmpSzjT6Ss+P0dTzqu2uRA0My5VX2fN
-         exflyL+ygSJAZ+ivvorBUkHSLFQipsx/hkZjBt7n5cukBeeVs85lof8Kf+CBj++NTTay
-         7tNg==
+        bh=/jgY2S3on4FSet46i2sysMWGaYhrfvaz90hHWXDkYlc=;
+        b=KGk/FJaBd0l7bMY3pLYDNV1pGlfFaBMtnM3hDvJNCiWK+ElG5mBNlOgclU14A+rJrK
+         AJWhJ3OfaELgzIlpl+Tzgj+10lHWNdo4YTwgUeEbHIICtSs54r4LaiWd9vqBmw0v8IQ9
+         m61PmnZIrlPgp9POpI2qn6MVqXlXSRvcFy9YbCeO+YqImDZ+7hCWspqhJ8ikq9xK6T+X
+         2esS6D7NRx8Yj0oAzMsv0iIbG5dexmX1nrrapFeJ9F4sFx/nXj7KvI3CZCIJANCFoO+L
+         g+CQU7omq0yJOHKlPwd8Cu5pzu7xOULxxuqm9BxbjSY2tYgLgcbp7koLImbIoyuxCxVS
+         zIIQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXKuO0+ldnrdB3JX3Ay36xkk7zMEdQT1fcrgvTpfoZAw5BJvcE8
-	MYAMAaqWtZdFannrhZFzHfI=
-X-Google-Smtp-Source: APXvYqxvQDtaJD9BF5e9/nPcV5p1NubfTMgVYP3lt3ooELl7XACwfr/E7wMXrS/9i9/H/pGydCQmlw==
-X-Received: by 2002:a7b:cbcb:: with SMTP id n11mr76445927wmi.54.1564048836883;
-        Thu, 25 Jul 2019 03:00:36 -0700 (PDT)
+X-Gm-Message-State: APjAAAVzL25NwjOUKZjFNLk0tH1GWBHWKf/axdA+/z8n4pTHiXx1rCVj
+	W92X32BvqMccPzUvRmSK+5o=
+X-Google-Smtp-Source: APXvYqzdOzkr7wOPmBfI8GOXun5dz/DcQ6XH9BSMnqG2LUg4AK2ChSuPlq6fFV0lX0hzzpS8rwDPrg==
+X-Received: by 2002:ac2:5336:: with SMTP id f22mr39425432lfh.180.1564049123095;
+        Thu, 25 Jul 2019 03:05:23 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:9083:: with SMTP id i3ls14682640wri.14.gmail; Thu, 25
- Jul 2019 03:00:36 -0700 (PDT)
-X-Received: by 2002:adf:e602:: with SMTP id p2mr56697897wrm.306.1564048836013;
-        Thu, 25 Jul 2019 03:00:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1564048836; cv=none;
+Received: by 2002:a2e:6556:: with SMTP id z83ls5642566ljb.11.gmail; Thu, 25
+ Jul 2019 03:05:22 -0700 (PDT)
+X-Received: by 2002:a2e:5c09:: with SMTP id q9mr7792233ljb.120.1564049122241;
+        Thu, 25 Jul 2019 03:05:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1564049122; cv=none;
         d=google.com; s=arc-20160816;
-        b=Yz9J4UIkdtaxZxfNl/aEScjaRo45CTkeNcbVGMhru0VVDsJRatse+gwZvOzLg0QFAr
-         Chy+c/QM4pz90ZmFfK+TZw9/fv+ILIAh2FET1baKxL2C6Oh9SU6vA0ldswHNqsuERgGb
-         KuSOurbYGA5cwnG8VtIrlZnl8qmcfBHfsl9j5CPKPF2xQA6bovYa01tSHsopQHrJD3ME
-         oPS85kHdN1cDYNpVaCcqRO8poWZ54s20QZ44KPXf8Zvk6+gf7JjAVF7b1lfqd81mYhAW
-         hwiehBmWCQCc4eBSUoJkYhKXQAlp+G70413dcmJFksFfhuL+EAuJKHvmatRV2U2D6I7A
-         5clg==
+        b=yaQoDqDGPwclk3pxL/XEDN+awVy6PTQITkwGA8sUnY1dD7jL1HpEb5egPjz4PYhZkM
+         B+grDRcNS065I274x4bHrRaVf+yvuD0Hqg5gvz+n44Lng3KqoMaksRwvJGxwdVvWHbCO
+         iPHSx7LgiKgNg0HZ7vBmgfeHxx0z9OvuwGrdeZN9wZ6Fy3dCrC7KZiPvLTgOiZ/u+qFZ
+         /I/Cbx0E9t2ALmwH12+psDEwybH/AHdHVrEud2rEDLyrLgTaXMUq+dtg9sEdWUZS23tV
+         kVLApd/7WKmJarQXPKL29mn/f8LOFxaymA7JbgB0HHZhm5BtUwZm3R8YaBPNI9rJknQW
+         m8SQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=OJA2mx9QEwPlJKCsRYrHl1FW2HwVhdjdSCc1gHen0Jc=;
-        b=P4eE0OgzaeqSBf8vDwZzJU77nF9kKFP6Te9wXYH8IrnVtWmRz9DRNvM8qoE7OFYSZs
-         ZnqNInXkB9J40iekw1eQy0wDau0pYG2+Sdb55D6YP6wjvhQc7W5YnKsxf4c8JQNhSqpi
-         BTzbpHPayBfwWXFKpUHlUWZhn0TSmfZehcfPN9k/U3T1XKqJsQOWdbus+EQaYcMk0XX9
-         sJvmGQLSaErnLg20QuJuLV1OHJXDLXmnlgpyaai7n3GwZUaEy3Rz8eV1wilsJQDiR0hH
-         tDUI2Zb7T+ysNVno6Ai7PDgVVrSMNt4CKtGYC6/aqYFa/XInFLYduHgEE1Jl7xMZKRlp
-         MS8w==
+         :user-agent:date:message-id:references:to:from:subject;
+        bh=IfOXyMANVUgWvx+A6jGte5jm8nj43PyRN0XU3XnBW3I=;
+        b=Hal17n9dTalRhc8X4aa/YPBMOlHvF/0n4Vbs03luZ/FDKM4xa9IwFrBc6HUYKNJ9p0
+         78PnINsBpZW1ADDDR2y/vL8Hp+73GQaTD4j3Qb2ONaaxtgzvEKR3ptmaKenPD2RQOusu
+         NBCHyJuC6cjVg91cjM0duR+T7GCboL8H8K5g1yMovIIqkSV74Ew3HB6lcfDN+5nlkDgI
+         nTXIgoehl+44aifh6tRzZurHpmZLH+jYOqccuml/jg64i8ttrXt2rCn4Xp42GHOqnW5e
+         t9dsoIq4lVNUap+lLKng/pesgl9vXyfzlStPvn19P3HjPNXoW/jsmDqGi2ixOU3Lipf6
+         zlXA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
        spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id u18si2614832wri.5.2019.07.25.03.00.35
+        by gmr-mx.google.com with ESMTPS id z18si2144142lfh.1.2019.07.25.03.05.22
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 25 Jul 2019 03:00:36 -0700 (PDT)
+        Thu, 25 Jul 2019 03:05:22 -0700 (PDT)
 Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
 Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id x6PA0YNV017812
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 25 Jul 2019 12:00:34 +0200
+	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id x6PA5Lt6027687
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+	for <jailhouse-dev@googlegroups.com>; Thu, 25 Jul 2019 12:05:21 +0200
 Received: from [139.25.68.37] (md1q0hnc.ad001.siemens.net [139.25.68.37] (may be forged))
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x6PA0YIT012052;
-	Thu, 25 Jul 2019 12:00:34 +0200
-Subject: Re: Colored Linux as inmate
-To: =?UTF-8?Q?Jo=c3=a3o_Reis?= <jpagsreis@gmail.com>,
-        Jailhouse <jailhouse-dev@googlegroups.com>
-References: <885a6592-84d9-43f4-a037-10ce73f968ab@googlegroups.com>
+	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x6PA5LFa021970
+	for <jailhouse-dev@googlegroups.com>; Thu, 25 Jul 2019 12:05:21 +0200
+Subject: Re: [PATCH] driver: Account for renaming of lapic_timer_frequency in
+ 5.3
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <7f3933fc-c609-9349-4e57-a680489e9928@siemens.com>
-Date: Thu, 25 Jul 2019 12:00:33 +0200
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+References: <3ba1c1ff-a96b-bc2f-49d5-86ae7f032528@siemens.com>
+Message-ID: <a4cf3d06-0298-e569-fd81-1cea0b875ea9@siemens.com>
+Date: Thu, 25 Jul 2019 12:05:20 +0200
 User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
  Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
 MIME-Version: 1.0
-In-Reply-To: <885a6592-84d9-43f4-a037-10ce73f968ab@googlegroups.com>
+In-Reply-To: <3ba1c1ff-a96b-bc2f-49d5-86ae7f032528@siemens.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
@@ -134,67 +134,58 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 25.07.19 11:32, Jo=C3=A3o Reis wrote:
-> Hello,
+On 25.07.19 08:01, Jan Kiszka wrote:
+> "lapic_timer_frequency hei=C3=9Ft jetzt lapic_timer_period, sonst =C3=A4n=
+dert sich
+> nix."
 >=20
-> I'm trying to apply cache coloring to Linux and Erika. As root cell Linux=
- cannot
-> be colored, i intend to use colored Linux in a non-root cell and colored =
-Erika
-> in another non-root cell (the system stays as: Linux in root cell, Linux =
-and
-> Erika in non-root cells).
+> Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+> ---
+>  driver/main.c | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
 >=20
-> The problem that is occuring to me is when i issue the command: jailhouse=
- cell
-> linux ultra96-linux-demo.cell Image -i rootfs.cpio -c "console=3DttyS0, 1=
-15200"
+> diff --git a/driver/main.c b/driver/main.c
+> index fe752753..b3896609 100644
+> --- a/driver/main.c
+> +++ b/driver/main.c
+> @@ -100,7 +100,10 @@ static struct resource *hypervisor_mem_res;
+> =20
+>  static typeof(ioremap_page_range) *ioremap_page_range_sym;
+>  #ifdef CONFIG_X86
+> -static typeof(lapic_timer_frequency) *lapic_timer_frequency_sym;
+> +#if LINUX_VERSION_CODE < KERNEL_VERSION(5,3,0)
+> +#define lapic_timer_period	lapic_timer_frequency
+> +#endif
+> +static typeof(lapic_timer_period) *lapic_timer_period_sym;
+>  #endif
+>  #ifdef CONFIG_ARM
+>  static typeof(__boot_cpu_mode) *__boot_cpu_mode_sym;
+> @@ -550,7 +553,7 @@ static int jailhouse_cmd_enable(struct jailhouse_syst=
+em __user *arg)
+>  		config->platform_info.x86.tsc_khz =3D tsc_khz;
+>  	if (config->platform_info.x86.apic_khz =3D=3D 0)
+>  		config->platform_info.x86.apic_khz =3D
+> -			*lapic_timer_frequency_sym / (1000 / HZ);
+> +			*lapic_timer_period_sym / (1000 / HZ);
+>  #endif
+> =20
+>  	err =3D jailhouse_cell_prepare_root(&config->root_cell);
+> @@ -897,7 +900,7 @@ static int __init jailhouse_init(void)
+> =20
+>  	RESOLVE_EXTERNAL_SYMBOL(ioremap_page_range);
+>  #ifdef CONFIG_X86
+> -	RESOLVE_EXTERNAL_SYMBOL(lapic_timer_frequency);
+> +	RESOLVE_EXTERNAL_SYMBOL(lapic_timer_period);
+>  #endif
+>  #ifdef CONFIG_ARM
+>  	RESOLVE_EXTERNAL_SYMBOL(__boot_cpu_mode);
 >=20
-> The error is the following:
->=20
-> root@xilinx-ultra96-reva-2018_2:~# jailhouse cell linux ultra96-linux-dem=
-o.cell
-> Image -d inmate-zynqmp-zcu102-2.dtb -i rootfs.cpio -c "console=3DttyS0, 1=
-15200"
-> [=C2=A0 127.150370] python invoked oom-killer:
-> gfp_mask=3D0x16080c0(GFP_KERNEL|__GFP_ZERO|__GFP_NOTRACK), nodemask=3D(nu=
-ll),=C2=A0
-> order=3D0, oom_score_adj=3D0
 
-Looks like your inmate configuration grants too little memory for the Linux
-guest. Note that the in-tree configs may only be happily used with very sma=
-ll
-Linux images, just as the buildroot we generate via jailhouse-images.
-
-Looking at your config...
-
-	/* RAM */ {
-		.phys_start =3D 0x74000000,
-		.virt_start =3D 0x74000000,
-		.size =3D 0x7ef0000,
-		.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-			JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
-			JAILHOUSE_MEM_LOADABLE,
-	},
-
-This one is fine and will be available to the guest.
-
-	/* RAM */{
-		.phys_start =3D 0x3fd00000,
-		.virt_start =3D 0x3fd00000,
-		.size =3D 0x202f0000, //must be page size aligned
-		.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-			JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE |
-			JAILHOUSE_MEM_ROOTSHARED, //se tirar JAILHOUSE_MEM_ROOTSHARED da excepti=
-on
-fault 0x20
-	},
-
-This one isn't because it shares RAM with the root cell that is probably no=
-t
-intended to be shared. But it will also not be presented as RAM to the non-=
-root
-cell (via the devices tree) because of the ROOTSHARED tag.
+FWIW, there are more issues with 5.3, we do not even build the driver modul=
+e.
+Reported at
+https://lore.kernel.org/lkml/230d2ca1-19cd-b60e-1b1b-6d7413eea9e2@siemens.c=
+om/
 
 Jan
 
@@ -208,4 +199,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/7f3933fc-c609-9349-4e57-a680489e9928%40siemens.com.
+jailhouse-dev/a4cf3d06-0298-e569-fd81-1cea0b875ea9%40siemens.com.
