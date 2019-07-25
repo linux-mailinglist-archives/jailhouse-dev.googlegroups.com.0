@@ -1,68 +1,138 @@
-Return-Path: <jailhouse-dev+bncBC7MJ2PM5UERBUVD47UQKGQEFONS6LQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBQFY47UQKGQE2KKE4LY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x340.google.com (mail-ot1-x340.google.com [IPv6:2607:f8b0:4864:20::340])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFD0575357
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 25 Jul 2019 17:59:15 +0200 (CEST)
-Received: by mail-ot1-x340.google.com with SMTP id q16sf27615876otn.11
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 25 Jul 2019 08:59:15 -0700 (PDT)
+Received: from mail-wr1-x439.google.com (mail-wr1-x439.google.com [IPv6:2a00:1450:4864:20::439])
+	by mail.lfdr.de (Postfix) with ESMTPS id C128075476
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 25 Jul 2019 18:43:44 +0200 (CEST)
+Received: by mail-wr1-x439.google.com with SMTP id e8sf24148113wrw.15
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 25 Jul 2019 09:43:44 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1564073024; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=ta/Vl1R0mQQiOq0VmBGGcRftL/E6NuNjBBZuoseEGIAkHPSmoEIOiqNYr/E1T/O9bH
+         xmCa0ntF9C8Kd7BuW7mgKqXoJ49tzwUe7AmJ1N6IOLS35GJaSTtoTi6daiJ/gFsXswgm
+         pHw9axNmoRBB1a6Oxo3E0bzaGQ23bPS2EW0D7VVniNubrdWDgnJdfLWUwO8sY7g62/o1
+         gjDik1GrpNwTfJIE/tnm71qn0d/F7kgr3/FB1sqpBGxqWOe3uGml5qu+DWowro0LTAUh
+         LRZH9Um4kwnms4Wu9NTstEUn6THoqGgBYZPVUIZXZfB/5PSqQ67Vsx4F+AaOkmDg+EcZ
+         +gKw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:openpgp:from:references:to
+         :subject:sender:dkim-signature;
+        bh=obIh9E8jpCFMPAZbUc+kxcMXQyVxybn2k7fzXgcwn/E=;
+        b=HzJGzcaJuIJeTeS/1Tqy7Kj93I+9yZBSFXKEY1ZcaRXzt9GUpYVaQGnbg3vHoT826d
+         uGkVS/bGlPfDU9e5brOWk3Ajjj/d1P4tDfih7C3U7LLXp+kQDl4Dyz5vZ9lp6I2ounQm
+         PhWwk0HjyVFGVtJGC3LlC60HbGUBK4eDE23HEUZYy+2AblN+dgMdby4KBy+AuOf7/z6d
+         z2rfKrV6jJRDBOEehhv8lqT+zNdI/Z4u/8xYchTcEMlUOBpFGvpC7n5wn4i8BC4+ESXo
+         SWl9CWJ536KT5rj8OL+atkUE5bupFoLLEQnnwE/SgRqesO587jaGwQINMk3Mj/fIczJk
+         zsPg==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=bUHkYgW9;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=tD0mqeLO+M8cDH+153jmTl8mbQgIfjkamCglfEAZEzU=;
-        b=rfI6c6v/jRnQHIftcMKRNFZLl7uniAnx1fzAoyVG1rdHIb5M9vEIv+mthCs+rAvOOG
-         tub7f6J4M0oWqQzLZxvfzE254q9IelASnLLXQ43ldNtkxSsNo59tAvqoOsXsdGnPSKcb
-         0HW2VGKRsMZSPi2Ar89YPJ33Ri3YFMqol7Y9lt/v+D/CVmKxEr5/vQIouwOEwO+pfJS9
-         tdLpdw63cEPcItTaiQt51bM1NgTj44qMje/rUClZwC0sN9kb8e8NJ8c6HfB9elIv/v4+
-         337Dua3qxVbILI0hTq08ucTY1M3wNFH7tU2lxe+0oHPeFH3Xt+ddSL3i1mgnAQNC6c4v
-         7ctA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:subject:mime-version:x-original-sender
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:subject:to:references:from:openpgp:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=tD0mqeLO+M8cDH+153jmTl8mbQgIfjkamCglfEAZEzU=;
-        b=sn0LkwGldiP2oSanNTL/CZ3heSUiQJUMu3n0uW7/2RpzIgR5T1/mFgjgfLjckmvris
-         QIkwZvyvIvs0b4O7WgBA/6jC4w72bq5D/4ZaUc+FiNGn+31I6UWaLalJN8pqSAztrflr
-         wtIN0DF2BIZFz/Jbs6EOUgVawMUDSUlv+oMQAj+GNgxDZggZojgy0WiT/vLHa/DQZ4a8
-         ODGTpO71SFdxFwSkODquB6naFUe3UUP4FJYbg8aRslCGHm0PVhXp1Pgq8+yW8qfB7wDQ
-         bc58rmyGyNOjC5PR3oCJcwR7j1AGocwU3LrXzBkeIB2gwqMjqhfLllGW1JqLTiJr8mHt
-         PYQA==
+        bh=obIh9E8jpCFMPAZbUc+kxcMXQyVxybn2k7fzXgcwn/E=;
+        b=mpZ9YFZ0dN4DU3gxYo6o6TcwyT78ZXSEiyqK7a96XbpNfbRp5Rctm/eBzX22/noIiu
+         Xe/C4Py5PezHuA+dJpuBJBkXPJA4Tfeulh/7c63j+tpzxtVpsnye4nxX1r07zk+YIIb7
+         Jy8oWund++KUlDCvQrHOIwKaSxaZrSKs6yNE6jBnVCAdXXRNz/I6GUR08yhOru3Plo/H
+         EnFI78hON+f2Hbr0oeVzw8lt66nt2h0t5DADdtBw5QgW7Acg6z3JaKLvOSimvUqYcGK9
+         t7yinCpJy++/OK0dp/VI4TfCsHXY8YDlFQK62ArtUqe34c96CUhf05sVMCGWqcHInXHB
+         CWMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
+        h=sender:x-gm-message-state:subject:to:references:from:openpgp
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=tD0mqeLO+M8cDH+153jmTl8mbQgIfjkamCglfEAZEzU=;
-        b=GALvTAHBB8EmsY5kZWXRolcUMfdqxhLHrwODTPvmzxvlEIGoNpbDyn+k4c1wAKmi8h
-         iATLURqL8aIccg0YOFjmO3c2cnLRHHFcQ29omiJeZu4Gr4pQ9PbM+wBjwkz2NjNUYWYZ
-         fEmdhXLQwmaaPmV9bRwC/pJOYysFI90lKjRF8GW0GrchlBIcrPEzGmuOy9ISVrPvn686
-         DL9CuSMc1tlECKBDNONbAOlJhe/GIriLuxZnYxDfhp4ZR/HusmcycwYG7LQG+sPORFZD
-         LnBIQCg4d285s0J2BTzFwkBsai3pjsYSEg5CKAfW8UxyZNgdWQl9MtVv6RSE9y31hLQ2
-         CUVw==
+        bh=obIh9E8jpCFMPAZbUc+kxcMXQyVxybn2k7fzXgcwn/E=;
+        b=tkbIAjjapGbLjoxMI5IK4Z9LRlgqfAq/DMRxjh5HFTBCGR8Qboo6yLu/Th+ZhO+W42
+         iZhjfKniTQ7TChwGb00UfsDSAqPsffumFnVzpSkHTNYjm4FnZAqCtbMG13tMCinjmiCo
+         fQVYNJdcnnnrPNtR4C8MEoxbw+MoKVKgVYCUMMzNK51rnUPaTIlJVZIAsQWmlY8pJLO5
+         RKNGXncipIQrd3TJsJeM7Eo3NwQ4nwrqJca31E6JR+wnKFhrlbFn7rgWA2Zjwh19jJQO
+         ypDKPL3dgG9NhICLH+P57Z14kV1m+f0oL76SHFOcnTxjXCifUSLNwRFQSLXDcoFRqmsS
+         WhQw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAU/sKIxHta8ml2sLlpASSVBe0mp1RehrnLxcDJbDspByKZqYLYV
-	hD08Ko7UDV0RiUMv/PrV5d4=
-X-Google-Smtp-Source: APXvYqygbKsWSwNiPG5fAiAXsxiWq7iBgdtiiK+VyRXiD59C0PecNiONmxAPWVJbJzDjjRJ24eK9Mw==
-X-Received: by 2002:a9d:6ac3:: with SMTP id m3mr6344514otq.92.1564070354425;
-        Thu, 25 Jul 2019 08:59:14 -0700 (PDT)
+X-Gm-Message-State: APjAAAXsI04c4uZkPqFYrM7dlVnyoqqBcJXCnY0A0CWyDaeHjwLqom7J
+	jNTHrHHDl4cLanIexzaRaH8=
+X-Google-Smtp-Source: APXvYqx3XdRl6asfzHOsy4oijqRirmuiMfXIZle49GH0KAy0TyU4N1Xz1pXHCWuLp2CXXZTO9NkQow==
+X-Received: by 2002:adf:dcc6:: with SMTP id x6mr67244729wrm.322.1564073024542;
+        Thu, 25 Jul 2019 09:43:44 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aca:c78e:: with SMTP id x136ls6561030oif.5.gmail; Thu, 25
- Jul 2019 08:59:14 -0700 (PDT)
-X-Received: by 2002:aca:4a4e:: with SMTP id x75mr42929585oia.154.1564070353855;
-        Thu, 25 Jul 2019 08:59:13 -0700 (PDT)
-Date: Thu, 25 Jul 2019 08:59:13 -0700 (PDT)
-From: dianaramos007@gmail.com
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <15e809ef-6d04-4df6-a706-7fa43e7deee3@googlegroups.com>
-Subject: Problem with IVSHMEM on Bananapi
+Received: by 2002:adf:f78b:: with SMTP id q11ls5917489wrp.10.gmail; Thu, 25
+ Jul 2019 09:43:44 -0700 (PDT)
+X-Received: by 2002:a5d:4e8a:: with SMTP id e10mr13665055wru.26.1564073024094;
+        Thu, 25 Jul 2019 09:43:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1564073024; cv=none;
+        d=google.com; s=arc-20160816;
+        b=DhsYMfLohyKicBTitfYb2MgLfNj/lMQ9iPoqiPNlLc9s8ESKzNlS4q9NSsjxXFCcDm
+         dvB+e6km913SMBK+GkVVNBC4jOTT1Spt+JAAx4Tex4DycuP42+hWEZYu4yeJy4fPHFyu
+         Zo6kXl4gSXHvza9G6avHcctmjFHN4erTgeRODmZw0bYHA8ICqflIkNdgCw+MDcWZw2p4
+         jaj6QOYJmUHmXKgun0TZp6d+f6UE2LA6TFNmvjT03/B5yxB2NgpVywHWb8RRjLLyi88J
+         IfiODInzb6eS9NxygDgjF2y0bkHOU6gCsi3nbnVYOkh5EG0V8rzrElN1uNSrBwLyLMxl
+         NLBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:openpgp:from:references:to:subject
+         :dkim-signature;
+        bh=2lCdc24t0L5BGq6EMk+RfsWPeYJAqIY4IKNsZErDzyE=;
+        b=D0FVBkLfzU6ixSPMMTmrXsUhHI7yVwjkPVUFu0SVhJTZfVZQsKukA8cCHKl74MYkJL
+         s7Ain+pG3tqpo2ZW1FLw/XRS8tP1uAqtrJ2M2NlmpVas8KbwzUQTztuIzCvvwHFFChr/
+         YQVc41gTR2s3SstawI5lxhc+9j9PZ9xEDRNpZW6Dr3dWtQTnVr0L67SZukJeN5Unq15A
+         RGQ7yWm1nL48nP7GTIiSC8Kx9Om+K3e90iQgdhkL3dSFc2W9QjD4QwZYRPaUMDoB4zst
+         JoJ0N/13gkw/1c1occ5UWKjk9c9gCR9jibtOHRv8bYn+QOURULDzKMFHVLe75AQcISbG
+         VjEA==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=bUHkYgW9;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [194.95.104.11])
+        by gmr-mx.google.com with ESMTPS id y4si1369408wrp.0.2019.07.25.09.43.44
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 25 Jul 2019 09:43:44 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) client-ip=194.95.104.11;
+Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S02", Issuer "E16S02" (not verified))
+	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 45vdMM4hmmz102f;
+	Thu, 25 Jul 2019 18:43:43 +0200 (CEST)
+Received: from [192.168.178.10] (194.95.106.138) by E16S02.hs-regensburg.de
+ (2001:638:a01:8013::92) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 25 Jul
+ 2019 18:43:43 +0200
+Subject: Re: [PATCH 05/11] x86: drop vcpu_vendor_get_cell_io_bitmap
+To: Jan Kiszka <jan.kiszka@siemens.com>, Jailhouse
+	<jailhouse-dev@googlegroups.com>
+References: <20190713181037.4358-1-ralf.ramsauer@oth-regensburg.de>
+ <20190713181037.4358-6-ralf.ramsauer@oth-regensburg.de>
+ <22c86c43-3122-f222-6ac6-5305372e4e8f@siemens.com>
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Openpgp: preference=signencrypt
+Message-ID: <57ef7def-c89e-11ad-050f-66a2e892889d@oth-regensburg.de>
+Date: Thu, 25 Jul 2019 18:43:43 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_7206_1733242103.1564070353272"
-X-Original-Sender: dianaramos007@gmail.com
+In-Reply-To: <22c86c43-3122-f222-6ac6-5305372e4e8f@siemens.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: de-DE
+X-Originating-IP: [194.95.106.138]
+X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
+ E16S02.hs-regensburg.de (2001:638:a01:8013::92)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=bUHkYgW9;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -75,342 +145,131 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_7206_1733242103.1564070353272
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_7207_187835092.1564070353273"
 
-------=_Part_7207_187835092.1564070353273
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Dear all,
-
-I'm trying to establish an inter-cell communication between 2 cells in=20
-Banana Pi-M1 (BPI) using the IVSHMEM protocol.
-
-So far I have compiled and inserted both jailhouse.ko and uio_ivshmem.ko=20
-(from https://github.com/henning-schild-work/ivshmem-guest-code) modules in=
-=20
-BPI, running in Linux kernel 4.13.0, and gic-demo works fine.=20
-I've tried to follow this patch (
-https://groups.google.com/forum/#!topic/jailhouse-dev/IqwQsQ9JEno) in order=
-=20
-to create the config file (bananapi-gic-ivshmem-demo.c) based on gic-demo.
-
-For that I added the shared-memory region for IVSHMEM communication:
-
-/* IVSHMEM shared memory region */ {
-            .phys_start =3D 0x7bf00000,
-            .virt_start =3D 0x7bf00000,
-            .size =3D 0x100000,
-            .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-},
-
-Then, I loaded the cell with the following command:=20
-
-"jailhouse cell load 1 ../inmates/demos/arm/ivshmem-demo.bin -s=20
-"pci-cfg-base=3D0x02000000 ivshmem-irq=3D155" -a 0x1000=E2=80=9D and starte=
-d it using=20
-"jailhouse cell start 1=E2=80=9D, but only got the following output:
-"IVSHMEM: pci-cfg-base:0x2000000
-IVSHMEM: ivshmem-irq:155"
-
-This is the dmesg output that I get when I load the cell:
-
-[   66.717056] jailhouse: loading out-of-tree module taints kernel.
-[   98.515850] OF: PCI: host bridge //pci@0 ranges:
-[   98.521159] OF: PCI:   MEM 0x02100000..0x02101fff -> 0x02100000
-[   98.527811] pci-host-generic 2000000.pci: ECAM at [mem=20
-0x02000000-0x020fffff] for [bus 00]
-[   98.538938] pci-host-generic 2000000.pci: PCI host bridge to bus 0000:00
-[   98.545808] pci_bus 0000:00: root bus resource [bus 00]
-[   98.551289] pci_bus 0000:00: root bus resource [mem=20
-0x02100000-0x02101fff]
-[   98.559373] pci 0000:00:00.0: [1af4:1110] type 00 class 0xff0000
-[   98.559471] pci 0000:00:00.0: reg 0x10: [mem 0x00000000-0x000000ff 64bit=
-]
-[   98.561658] PCI: bus0: Fast back to back transfers disabled
-[   98.567901] pci 0000:00:00.0: BAR 0: assigned [mem 0x02100000-0x021000ff=
-=20
-64bit]
-[   98.578033] uio_ivshmem 0000:00:00.0: enabling device (0000 -> 0002)
-[   98.586492] The Jailhouse is opening.
-[  110.942999] Created Jailhouse cell "bananapi-gic-ivshmem-demo=E2=80=9D
-
-This is the output that I get when I execute:
-
-./jailhouse console
-Initializing Jailhouse hypervisor v0.11 on CPU 1
-Code location: 0xf0000040
-Page pool usage after early setup: mem 56/16362, remap 0/131072
-Initializing processors:
- CPU 1... OK
- CPU 0... OK
-Initializing unit: irqchip
-Initializing unit: PCI
-Adding virtual PCI device 00:00.0 to cell "Banana-Pi"
-Page pool usage after late setup: mem 68/16362, remap 5/131072
-Activating hypervisor
-Adding virtual PCI device 00:00.0 to cell "bananapi-gic-ivshmem-demo"
-Shared memory connection established: "bananapi-gic-ivshmem-demo" <-->=20
-"Banana-Pi"
-Created cell "bananapi-gic-ivshmem-demo"
-Page pool usage after cell creation: mem 82/16362, remap 5/131072
-Cell "bananapi-gic-ivshmem-demo" can be loaded
-Started cell "bananapi-gic-ivshmem-demo
-
-When I list the PCI devices, I obtain the following:
-
-lspci -v
-00:00.0 Unassigned class [ff00]: Red Hat, Inc. Inter-VM shared memory
-    Subsystem: Red Hat, Inc. Inter-VM shared memory
-    Flags: fast devsel, IRQ 86
-    Memory at 02100000 (64-bit, non-prefetchable) [size=3D256]
-
-Up until this point, everything seems to work correctly but it is supposed=
-=20
-to see the info "Kernel driver in use: uio_ivshmem=E2=80=9D when I list the=
- PCI=20
-devices. However this information does not show up.
-Moreover, as far as I understand I need to create a UIO device in order to=
-=20
-use IVSHMEM, but when a try to register a new device with  "echo "1af4=20
-1110" > /sys/bus/pci/drivers/uio_ivshmem/new_id=E2=80=9D I get the error "w=
-rite=20
-error: file exists=E2=80=9D. However, if a list all the UIO devices with =
-=E2=80=9Cls=20
-/dev/uio*=E2=80=9D, the command returns nothing.
-
-To sum up, although I have UIO support compiled into the kernel, the UIO=20
-device files are not beeing created.=20
-
-Can anyone help me in overcoming this issue and put IVSHMEM to work in=20
-Banana Pi? If needed, I can send any configuration files that I am using.
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/15e809ef-6d04-4df6-a706-7fa43e7deee3%40googlegroups.com.
-
-------=_Part_7207_187835092.1564070353273
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><font size=3D"2"><span style=3D"font-size:11pt;">Dear all,=
-<br>
-
-<br>
-
-I&#39;m trying to establish an inter-cell communication between 2 cells in =
-Banana Pi-M1 (BPI) using the IVSHMEM protocol.<br>
-
-<br>
-
-So far I have compiled and inserted both jailhouse.ko and uio_ivshmem.ko (f=
-rom <a href=3D"https://github.com/henning-schild-work/ivshmem-guest-code" t=
-arget=3D"_blank" rel=3D"noopener noreferrer" data-auth=3D"NotApplicable" id=
-=3D"LPlnk475858">
-https://github.com/henning-schild-work/ivshmem-guest-code</a>) modules in B=
-PI, running in Linux kernel 4.13.0, and gic-demo works fine.
-<br>
-
-I&#39;ve tried to follow this patch (<a href=3D"https://groups.google.com/f=
-orum/#!topic/jailhouse-dev/IqwQsQ9JEno" target=3D"_blank" rel=3D"noopener n=
-oreferrer" data-auth=3D"NotApplicable" id=3D"LPlnk680770" class=3D"OWAAutoL=
-ink">https://groups.google.com/forum/#!topic/jailhouse-dev/IqwQsQ9JEno</a>)=
- in order
-to create the config file (bananapi-gic-ivshmem-demo.c) based on gic-demo.<=
-br>
-
-<br>
-
-For that I added the shared-memory region for IVSHMEM communication:<br>
-
-<br>
-
-/* IVSHMEM shared memory region */ {<br>
-
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .phys_st=
-art =3D 0x7bf00000,<br>
-
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .virt_st=
-art =3D 0x7bf00000,<br>
-
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .size =
-=3D 0x100000,<br>
-
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .flags =
-=3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,<br>
-
-},<br>
-
-<br>
-
-Then, I loaded the cell with the following command: <br>
-
-<br>
-
-&quot;jailhouse cell load 1 ../inmates/demos/arm/ivshmem-demo.bin -s=20
-&quot;pci-cfg-base=3D0x02000000 ivshmem-irq=3D155&quot; -a 0x1000=E2=80=9D =
-and started it=20
-using &quot;jailhouse cell start 1=E2=80=9D, but only got the following out=
-put:<br>
-
-&quot;IVSHMEM: pci-cfg-base:0x2000000<br>
-
-IVSHMEM: ivshmem-irq:155&quot;<br>
-
-<br>
-
-This is the dmesg output that I get when I load the cell:<br>
-
-<br>
-
-[=C2=A0=C2=A0 66.717056] jailhouse: loading out-of-tree module taints kerne=
-l.<br>
-
-[=C2=A0=C2=A0 98.515850] OF: PCI: host bridge //pci@0 ranges:<br>
-
-[=C2=A0=C2=A0 98.521159] OF: PCI:=C2=A0=C2=A0 MEM 0x02100000..0x02101fff -&=
-gt; 0x02100000<br>
-
-[=C2=A0=C2=A0 98.527811] pci-host-generic 2000000.pci: ECAM at [mem 0x02000=
-000-0x020fffff] for [bus 00]<br>
-
-[=C2=A0=C2=A0 98.538938] pci-host-generic 2000000.pci: PCI host bridge to b=
-us 0000:00<br>
-
-[=C2=A0=C2=A0 98.545808] pci_bus 0000:00: root bus resource [bus 00]<br>
-
-[=C2=A0=C2=A0 98.551289] pci_bus 0000:00: root bus resource [mem 0x02100000=
--0x02101fff]<br>
-
-[=C2=A0=C2=A0 98.559373] pci 0000:00:00.0: [1af4:1110] type 00 class 0xff00=
-00<br>
-
-[=C2=A0=C2=A0 98.559471] pci 0000:00:00.0: reg 0x10: [mem 0x00000000-0x0000=
-00ff 64bit]<br>
-
-[=C2=A0=C2=A0 98.561658] PCI: bus0: Fast back to back transfers disabled<br=
->
-
-[=C2=A0=C2=A0 98.567901] pci 0000:00:00.0: BAR 0: assigned [mem 0x02100000-=
-0x021000ff 64bit]<br>
-
-[=C2=A0=C2=A0 98.578033] uio_ivshmem 0000:00:00.0: enabling device (0000 -&=
-gt; 0002)<br>
-
-[=C2=A0=C2=A0 98.586492] The Jailhouse is opening.<br>
-
-[=C2=A0 110.942999] Created Jailhouse cell &quot;bananapi-gic-ivshmem-demo=
-=E2=80=9D<br>
-
-<br>
-
-This is the output that I get when I execute:<br>
-
-<br>
-
-./jailhouse console<br>
-
-Initializing Jailhouse hypervisor v0.11 on CPU 1<br>
-
-Code location: 0xf0000040<br>
-
-Page pool usage after early setup: mem 56/16362, remap 0/131072<br>
-
-Initializing processors:<br>
-
-=C2=A0CPU 1... OK<br>
-
-=C2=A0CPU 0... OK<br>
-
-Initializing unit: irqchip<br>
-
-Initializing unit: PCI<br>
-
-Adding virtual PCI device 00:00.0 to cell &quot;Banana-Pi&quot;<br>
-
-Page pool usage after late setup: mem 68/16362, remap 5/131072<br>
-
-Activating hypervisor<br>
-
-Adding virtual PCI device 00:00.0 to cell &quot;bananapi-gic-ivshmem-demo&q=
-uot;<br>
-
-Shared memory connection established: &quot;bananapi-gic-ivshmem-demo&quot;=
- &lt;--&gt; &quot;Banana-Pi&quot;<br>
-
-Created cell &quot;bananapi-gic-ivshmem-demo&quot;<br>
-
-Page pool usage after cell creation: mem 82/16362, remap 5/131072<br>
-
-Cell &quot;bananapi-gic-ivshmem-demo&quot; can be loaded<br>
-
-Started cell &quot;bananapi-gic-ivshmem-demo<br>
-
-<br>
-
-When I list the PCI devices, I obtain the following:<br>
-
-<br>
-
-lspci -v<br>
-
-00:00.0 Unassigned class [ff00]: Red Hat, Inc. Inter-VM shared memory<br>
-
-=C2=A0=C2=A0=C2=A0 Subsystem: Red Hat, Inc. Inter-VM shared memory<br>
-
-=C2=A0=C2=A0=C2=A0 Flags: fast devsel, IRQ 86<br>
-
-=C2=A0=C2=A0=C2=A0 Memory at 02100000 (64-bit, non-prefetchable) [size=3D25=
-6]<br>
-
-<br>
-
-Up until this point, everything seems to work correctly but it is=20
-supposed to see the info &quot;Kernel driver in use: uio_ivshmem=E2=80=9D w=
-hen I list
- the PCI devices. However this information does not show up.<br>
-
-Moreover, as far as I understand I need to create a UIO device in order=20
-to use IVSHMEM, but when a try to register a new device with=C2=A0 &quot;ec=
-ho=20
-&quot;1af4 1110&quot; &gt; /sys/bus/pci/drivers/uio_ivshmem/new_id=E2=80=9D=
- I get the=20
-error &quot;write error: file exists=E2=80=9D. However, if a list
-all the UIO devices with =E2=80=9Cls /dev/uio*=E2=80=9D, the command return=
-s nothing.<br>
-
-<br>
-
-To sum up, although I have UIO support compiled into the kernel, the UIO de=
-vice files are not beeing created.
-<br>
-
-<br>
-
-Can anyone help me in overcoming this issue and put IVSHMEM to work in=20
-Banana Pi? If needed, I can send any configuration files that I am=20
-using.</span></font></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/15e809ef-6d04-4df6-a706-7fa43e7deee3%40googlegroup=
-s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
-sgid/jailhouse-dev/15e809ef-6d04-4df6-a706-7fa43e7deee3%40googlegroups.com<=
-/a>.<br />
-
-------=_Part_7207_187835092.1564070353273--
-
-------=_Part_7206_1733242103.1564070353272--
+On 7/25/19 7:22 AM, Jan Kiszka wrote:
+> On 13.07.19 20:10, Ralf Ramsauer wrote:
+>> They're now basically the same. Consolidate it.
+>>
+>> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+>> ---
+>>  hypervisor/arch/x86/include/asm/vcpu.h |  2 --
+>>  hypervisor/arch/x86/svm.c              |  7 -------
+>>  hypervisor/arch/x86/vcpu.c             | 13 ++++++++++---
+>>  hypervisor/arch/x86/vmx.c              |  7 -------
+>>  4 files changed, 10 insertions(+), 19 deletions(-)
+>>
+>> diff --git a/hypervisor/arch/x86/include/asm/vcpu.h b/hypervisor/arch/x86/include/asm/vcpu.h
+>> index 24872f55..cae5b554 100644
+>> --- a/hypervisor/arch/x86/include/asm/vcpu.h
+>> +++ b/hypervisor/arch/x86/include/asm/vcpu.h
+>> @@ -88,8 +88,6 @@ const u8 *vcpu_get_inst_bytes(const struct guest_paging_structures *pg_structs,
+>>  
+>>  void vcpu_skip_emulated_instruction(unsigned int inst_len);
+>>  
+>> -void vcpu_vendor_get_cell_io_bitmap(struct cell *cell,
+>> -		                    struct vcpu_io_bitmap *out);
+>>  unsigned int vcpu_vendor_get_io_bitmap_pages(void);
+>>  
+>>  #define VCPU_CS_DPL_MASK	BIT_MASK(6, 5)
+>> diff --git a/hypervisor/arch/x86/svm.c b/hypervisor/arch/x86/svm.c
+>> index f2ea313e..e1000447 100644
+>> --- a/hypervisor/arch/x86/svm.c
+>> +++ b/hypervisor/arch/x86/svm.c
+>> @@ -1008,13 +1008,6 @@ const u8 *vcpu_get_inst_bytes(const struct guest_paging_structures *pg_structs,
+>>  	}
+>>  }
+>>  
+>> -void vcpu_vendor_get_cell_io_bitmap(struct cell *cell,
+>> -		                    struct vcpu_io_bitmap *iobm)
+>> -{
+>> -	iobm->data = cell->arch.io_bitmap;
+>> -	iobm->size = IOPM_PAGES * PAGE_SIZE;
+>> -}
+>> -
+>>  unsigned int vcpu_vendor_get_io_bitmap_pages(void)
+>>  {
+>>  	return IOPM_PAGES;
+>> diff --git a/hypervisor/arch/x86/vcpu.c b/hypervisor/arch/x86/vcpu.c
+>> index 4c074669..cf8ff04c 100644
+>> --- a/hypervisor/arch/x86/vcpu.c
+>> +++ b/hypervisor/arch/x86/vcpu.c
+>> @@ -76,6 +76,13 @@ out_err:
+>>  	return NULL;
+>>  }
+>>  
+>> +static inline void vcpu_get_cell_io_bitmap(struct cell *cell,
+>> +					   struct vcpu_io_bitmap *iobm)
+>> +{
+>> +	iobm->data = cell->arch.io_bitmap;
+>> +	iobm->size = vcpu_vendor_get_io_bitmap_pages() * PAGE_SIZE;
+>> +}
+>> +
+>>  int vcpu_cell_init(struct cell *cell)
+>>  {
+>>  	const unsigned int io_bitmap_pages = vcpu_vendor_get_io_bitmap_pages();
+>> @@ -97,7 +104,7 @@ int vcpu_cell_init(struct cell *cell)
+>>  		return err;
+>>  	}
+>>  
+>> -	vcpu_vendor_get_cell_io_bitmap(cell, &cell_iobm);
+>> +	vcpu_get_cell_io_bitmap(cell, &cell_iobm);
+>>  
+>>  	/* initialize io bitmap to trap all accesses */
+>>  	memset(cell_iobm.data, -1, cell_iobm.size);
+>> @@ -115,7 +122,7 @@ int vcpu_cell_init(struct cell *cell)
+>>  		 * Shrink PIO access of root cell corresponding to new cell's
+>>  		 * access rights.
+>>  		 */
+>> -		vcpu_vendor_get_cell_io_bitmap(&root_cell, &root_cell_iobm);
+>> +		vcpu_get_cell_io_bitmap(&root_cell, &root_cell_iobm);
+>>  		pio_bitmap = jailhouse_cell_pio_bitmap(cell->config);
+>>  		for (b = root_cell_iobm.data; pio_bitmap_size > 0;
+>>  		     b++, pio_bitmap++, pio_bitmap_size--)
+>> @@ -143,7 +150,7 @@ void vcpu_cell_exit(struct cell *cell)
+>>  	struct vcpu_io_bitmap root_cell_iobm;
+>>  	u8 *b;
+>>  
+>> -	vcpu_vendor_get_cell_io_bitmap(&root_cell, &root_cell_iobm);
+>> +	vcpu_get_cell_io_bitmap(&root_cell, &root_cell_iobm);
+>>  
+>>  	if (root_cell.config->pio_bitmap_size < pio_bitmap_size)
+>>  		pio_bitmap_size = root_cell.config->pio_bitmap_size;
+>> diff --git a/hypervisor/arch/x86/vmx.c b/hypervisor/arch/x86/vmx.c
+>> index 8552cabd..2f46b7e9 100644
+>> --- a/hypervisor/arch/x86/vmx.c
+>> +++ b/hypervisor/arch/x86/vmx.c
+>> @@ -1220,13 +1220,6 @@ void vmx_entry_failure(void)
+>>  	panic_stop();
+>>  }
+>>  
+>> -void vcpu_vendor_get_cell_io_bitmap(struct cell *cell,
+>> -		                    struct vcpu_io_bitmap *iobm)
+>> -{
+>> -	iobm->data = cell->arch.io_bitmap;
+>> -	iobm->size = PIO_BITMAP_PAGES * PAGE_SIZE;
+>> -}
+>> -
+>>  unsigned int vcpu_vendor_get_io_bitmap_pages(void)
+>>  {
+>>  	return PIO_BITMAP_PAGES;
+>>
+> 
+> This is pointing in the right direction, but we can be more aggressive: There is
+> no reason for struct vcpu_io_bitmap anymore. pio_allow_access() will only use
+> the data, and for the users here, we also remove the indirection without
+> complicating things.
+
+Good point! I already implemented the removal of the structure. I'll put
+this at the end of my series. This makes it easier for me.
+
+  Ralf
+
+> 
+> Jan
+> 
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/57ef7def-c89e-11ad-050f-66a2e892889d%40oth-regensburg.de.
