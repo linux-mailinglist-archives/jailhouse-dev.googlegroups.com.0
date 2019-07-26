@@ -1,121 +1,73 @@
-Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBMMO5TUQKGQEFNRJ7LY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCR7PPMN34DRBVU45TUQKGQEOWAQXFY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x240.google.com (mail-lj1-x240.google.com [IPv6:2a00:1450:4864:20::240])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6164376A77
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 26 Jul 2019 15:59:14 +0200 (CEST)
-Received: by mail-lj1-x240.google.com with SMTP id o2sf11684525lji.14
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 26 Jul 2019 06:59:14 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1564149554; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=yIiyHMWd0YjEKOPDC9e0EXwJUWnpmCgL3z3vMH3mWzHhb5DsELaWz0W0Od9ngE25KA
-         W+GKVRRNGwPUDgsSpfh32QqW7F3w3XpuDCAort6odfuSmhM0f59aPZvelTexkBn7XxSH
-         SONPCG4DeDgoClsV2p0rTC1DrUbjntblmz/SWVJM9WuSVPaKVecCtjO1Oo1IPAQFdIsz
-         Jjj4aMvlQHIaT6bJHNYf+V673ydw5CEN8GBKKcb/7+d7NgW8EmADIZd8BoK3MeFjMtFX
-         ShvKGFjWia2jMF28f8xKk4zvtBOsxY+QxniPxLf/ZO5P+4Rh32FZDnKAj9WDVGZ8OLpg
-         TW5A==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=nTmRi50T60LpIZ2d93FwZ0qbkaiSo1+IVqZMzjem7V4=;
-        b=oNfzgrYc12I4bPws+Nk2PgYccTXhJgRT91U0Wg8lqo9O4/qAU3DTWFkKxVTJkaQb6/
-         s9EelGTtUiSPKzaph33mX9uPxRrbaSjJoi15A+VfIDN4LYP+owqGKa82iCiupEcvN+Tx
-         qcCtcn9tdp1zqFXNqQtZekcRwgWNkQMflL7poVWGqbTvwPrPqM5aQ4wtnJEELJkVjAuy
-         dmioxhi25WTNWqhQz5IrQuel8nhBQgQTb8tR7nJkxbsAbIevuilxGM/Y3JkrDSZl/7v5
-         kX955mG/YTKVcxKRVjGODV+WgEl6yhO6hYWcs2jreJIC/rx4BxV6bvv1GFM0Bv4hZ/SL
-         qrNg==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mail-oi1-x23a.google.com (mail-oi1-x23a.google.com [IPv6:2607:f8b0:4864:20::23a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E02B76BA4
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 26 Jul 2019 16:29:44 +0200 (CEST)
+Received: by mail-oi1-x23a.google.com with SMTP id w123sf21170481oie.21
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 26 Jul 2019 07:29:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=nTmRi50T60LpIZ2d93FwZ0qbkaiSo1+IVqZMzjem7V4=;
-        b=f5XFwJic5OBngO1nVLgzS8vvWk/a4x7YOdr5ii05ARYYyBj5uCUoFSC6BVfAGJOL5A
-         okai+YynXqvpueBH4jqTVCZsP4P2x5AB8H755iYqVt6YdOXk/SR9P6xqq7pe+WH7O8io
-         AjqLfjSjx2IX96Md0Ycjkk8oUq5LApO30zx821ba9jDTXi1lrIwCeBUFt29cMpsXOiyV
-         rlV9qr5ccT74r3PKjxHpgSK/VYz6O3Nqt9h1xocs3/U+DuCoYICyI6BHYsn78ap9aTgS
-         D4ONt4HAkcQXUad9nuFm4WxPf/9B3DOxNp/n3TejD/3/K8WZJOC/wq/FWhi6lqTwSTdZ
-         nmmw==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=BcBM6DgSCd5T2Ee1Wxqe5eOdsMhOufxTTXmfw421f6E=;
+        b=ntpgo3YheJ20PatuG+rQXoXA8o84BFZjWyMP/DzB33+yerzTy4sLogjT+tjnklvSLW
+         OEvXoXtVtEUWgV5t7rOOvgFafrSunEEKwCrdHxHcHsGna9Ptq5Boa5QldNd/Cy6fIeoO
+         2SOS4syBQ4XOxbj3m0HxvZZJKTsyRyL1nOhm3504q3STQbL0pfZbXXbHg5yyXVR4PN6O
+         dMJu4N8RgXlpTEqAKUQXB/sC9H/qeWqnEL+30i/nIl2Zw8k3oByQmISeBNnVXdiFXQ23
+         phDeeaIVzoaPIVrkpfWGkQSM3EB9sqNX3BDhvuGdmY1ACa//hF2CtENcbesQqQrlJOdc
+         +cFg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=BcBM6DgSCd5T2Ee1Wxqe5eOdsMhOufxTTXmfw421f6E=;
+        b=mSwAfd6ZPX3j+pVieo5kLd92I6Ifof9xGnOIiSmZWLV2VXAZDo5gZoS49F1rPC9zbC
+         ak7FPR9unsGITk3rHP3M6MOSWgSm+FYSA75fAdGYOvQhj8ztkazk2c4v770wFSa4js4B
+         5rCgIxu9GGV+XR0CArC4MB85hVgfb7VOykBXH2I16m5+rINhs0SKCs3aNwHRzD8M6yTa
+         3U5+dXGaUZLrvCgQwVVXCnFsIa9XAChmnSLw1A2n9yykCrf8MzbpkOkTB301pM5lqW7f
+         IAxYcqlT0YlJGDv5VeGf7QcWQWqgPfLfRo08XRjHgPNdW/Zs3/x5B0FeoG3vsOEw3R//
+         VVkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
-         :in-reply-to:references:mime-version:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=nTmRi50T60LpIZ2d93FwZ0qbkaiSo1+IVqZMzjem7V4=;
-        b=JwDJxYvHqAFBIQj+3D8+L18SyRxL6j/yoKiYRO+6QJT2HXM+D1TjQ2cQq5wTir6quW
-         zBFzYlNu+Zsa/JWOZGK+g3ujgQJ/rE295zushWQqcnTVij10D4eiCDUm+h26IMub685B
-         qJ+Kxr789ugqyqeziIptLqr3jWbgW/FmEvChKZnpF3SHSSwSp4WBEL/oqPG+WlDspd2j
-         WZlmuo+LFCqf5LKL1qNI2dDaEgPd6sJ9cUJD9KAEAaDw+biF2brW5JeWbqXPN8I4nj80
-         H8sa3XQlzOPj/3XdUfbCtPOZgqHsSvKZfpaBoKLbppzB5TkknVkbswX6I3XViibWqfGF
-         JkGQ==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=BcBM6DgSCd5T2Ee1Wxqe5eOdsMhOufxTTXmfw421f6E=;
+        b=sKbbRgZ8YZ0y/clwDuvZ6QrQE7agzG/6CHS0x7xkBRyIeR937VbtdRIqXS4+ILi7L6
+         6DfDcfzubH6fHzDx03YjWntDDs7tqT6r/OE3kTU+gN5/qO6pNlrYQHfpLQrkm91pUfN7
+         I3nGjtxZu6MWcSJ0A5CIjhIyW/aRo1bXoDcr2SKhUvc5SGyuKdnpLMyGfY4AqZj7F72E
+         8HptMbTNByp5YAyHIW9t+YqBmDmn7lGKEIWRwg/uthIhvgBlUuCmq2fWd7vq0YyUUrpQ
+         YGJjoSxkJIWnEz/4Jas+md4J7oCRuHeIEBzD47y112uIupj0IwRELW9vnkJuVtPCBQk5
+         2j7Q==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAV8hQ2Q/I/Lk0rneGQWMqXni4VnvH1bQ466Tbeh9hfl5teX1PdA
-	0DHGAZfLJioV6DOMn9m6gP0=
-X-Google-Smtp-Source: APXvYqwo+RWM6sGw42IsWO3DUqF1jUJAJ9LiAbM+tZeUU/UXua7DkoV4355ZdTgkqLlvQ+0wfgwbBA==
-X-Received: by 2002:a2e:7818:: with SMTP id t24mr22166929ljc.210.1564149553963;
-        Fri, 26 Jul 2019 06:59:13 -0700 (PDT)
+X-Gm-Message-State: APjAAAXBL+1hyWKtJNjXtlYasCxoZ14MA00myCCZjPqgctTIN650r2uu
+	dD+A8/HTTC7WJRoPOCNx4GQ=
+X-Google-Smtp-Source: APXvYqxQ5nv92BbDGGH0xnDi29gq+knZuTl7pf6u5BCnCC+YrOo/FA6BOuSJIGMWXa71tA2waTa1rA==
+X-Received: by 2002:aca:4d88:: with SMTP id a130mr45852427oib.167.1564151383061;
+        Fri, 26 Jul 2019 07:29:43 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:6556:: with SMTP id z83ls6150473ljb.11.gmail; Fri, 26
- Jul 2019 06:59:13 -0700 (PDT)
-X-Received: by 2002:a2e:995a:: with SMTP id r26mr49666927ljj.107.1564149553489;
-        Fri, 26 Jul 2019 06:59:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1564149553; cv=none;
-        d=google.com; s=arc-20160816;
-        b=kUMsL4ENwST/B4hKP3ormsiKfSy2Hb+gV2UWaCnxSczaWMdShmpMEgiZy+z3mY52Fm
-         BW2V5Q5VZtHd6soo1HVsdxw2tGcMbqsN2is19vYdgIUeTUIyP5I/xvWuMvyX9rCAIcck
-         G4RjouI4EAiH5bXG9kR9sySQQNC1hbiwUNM6R68mWXSvD+Y5uAEUynLeBHsTX530uD2L
-         0NJKeejq1jHTOTLOnO16nYr1ufxd7AE9ZmLVI4ssDzu61Wd5p9mZSsDi3KRrbWy+9ps1
-         bCYQMjwa4vceq+BB/D3oE5xIBUya2AX3ooTBs8FH7adwpEOjq/BRjKs7vtV0ahut7VAX
-         le+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from;
-        bh=+hEh8YQMhMk2BI+VuzLm5kzzjC3SalPEIEY6oPgY53Y=;
-        b=DAH1UIpgIlbS5/6DG+UxI+LuV9ovrjoK93awxf6lx18sqnfyL++L/gbU7kWKdhzh/B
-         /2FUF3kc8e/F4hkweFB0VHnm4KUi8fXvlO43THxsIcyvxnmbkcRHbMt5wBrcncn20UrY
-         e3WQyhbCb60OdOFlI7ETUmhxL6p2viSXA/80/rziDgUipzpW0bVJ6UtUsKqZAg13h0mj
-         szAuwb5leM+W4AxkiQf1lLa/Z5iSmaHwRQn2Xx+N600SQQ6fHJlG6E/0dKn/uJ/XDqGn
-         cP68L1/BnnczLD270W6DCqCZDef77jzEcZJcdeWUxYoxOKfjKSLpJzxW13aEu9Xz2ab/
-         v7MQ==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mtaout.hs-regensburg.de (mtaout.hs-regensburg.de. [194.95.104.10])
-        by gmr-mx.google.com with ESMTPS id v29si2642562lfq.2.2019.07.26.06.59.13
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 26 Jul 2019 06:59:13 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) client-ip=194.95.104.10;
-Received: from pluto.lfdr (im-mob-039.hs-regensburg.de [172.20.37.154])
-	by mtaout.hs-regensburg.de (Postfix) with ESMTP id 45w9g44Dktzy8l;
-	Fri, 26 Jul 2019 15:59:12 +0200 (CEST)
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-To: Jailhouse <jailhouse-dev@googlegroups.com>,
-	Jan Kiszka <jan.kiszka@siemens.com>
-Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Subject: [PATCH v3 5/5] tools: update config generator
-Date: Fri, 26 Jul 2019 15:59:11 +0200
-Message-Id: <20190726135911.16810-6-ralf.ramsauer@oth-regensburg.de>
-X-Mailer: git-send-email 2.22.0
-In-Reply-To: <20190726135911.16810-1-ralf.ramsauer@oth-regensburg.de>
-References: <20190726135911.16810-1-ralf.ramsauer@oth-regensburg.de>
+Received: by 2002:aca:47d2:: with SMTP id u201ls7424057oia.2.gmail; Fri, 26
+ Jul 2019 07:29:42 -0700 (PDT)
+X-Received: by 2002:aca:574e:: with SMTP id l75mr45018437oib.2.1564151382174;
+        Fri, 26 Jul 2019 07:29:42 -0700 (PDT)
+Date: Fri, 26 Jul 2019 07:29:41 -0700 (PDT)
+From: =?UTF-8?Q?Jo=C3=A3o_Reis?= <jpagsreis@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <fe00f482-c82c-4f93-8a0e-f73dc955888d@googlegroups.com>
+In-Reply-To: <c1a63d36-2dd0-5b52-bb16-31794ab93b62@siemens.com>
+References: <885a6592-84d9-43f4-a037-10ce73f968ab@googlegroups.com>
+ <7f3933fc-c609-9349-4e57-a680489e9928@siemens.com>
+ <320981f3-9d93-46c5-b95f-ddb68083f7ee@googlegroups.com>
+ <c1a63d36-2dd0-5b52-bb16-31794ab93b62@siemens.com>
+Subject: Re: Colored Linux as inmate
 MIME-Version: 1.0
-X-PMX-Version: 6.3.3.2656215, Antispam-Engine: 2.7.2.2107409, Antispam-Data: 2019.7.26.135117, AntiVirus-Engine: 5.63.0, AntiVirus-Data: 2019.7.26.5630001
-X-PMX-Spam: Gauge=IIIIIIII, Probability=8%, Report='
- HTML_00_01 0.05, HTML_00_10 0.05, BODYTEXTP_SIZE_3000_LESS 0, BODY_SIZE_2000_2999 0, BODY_SIZE_5000_LESS 0, BODY_SIZE_7000_LESS 0, IN_REP_TO 0, LEGITIMATE_SIGNS 0, MSG_THREAD 0, MULTIPLE_REAL_RCPTS 0, NO_URI_HTTPS 0, REFERENCES 0, __ANY_URI 0, __BODY_NO_MAILTO 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CTE 0, __FRAUD_MONEY_CURRENCY 0, __FRAUD_MONEY_CURRENCY_DOLLAR 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_REFERENCES 0, __HAS_X_MAILER 0, __IN_REP_TO 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __NO_HTML_TAG_RAW 0, __PHISH_SPEAR_SUBJ_PREDICATE 0, __REFERENCES 0, __SANE_MSGID 0, __SUBJ_ALPHA_END 0, __TO_MALFORMED_2 0, __TO_NAME 0, __TO_NAME_DIFF_FROM_ACC 0, __TO_REAL_NAMES 0, __URI_NO_WWW 0, __URI_NS '
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of ralf.ramsauer@oth-regensburg.de designates
- 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_7300_1953384863.1564151381462"
+X-Original-Sender: jpagsreis@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -128,87 +80,506 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Obvious what happens here: Align the root cell template.
+------=_Part_7300_1953384863.1564151381462
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_7301_673966262.1564151381462"
 
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
----
- tools/jailhouse-cell-linux    |  4 ++--
- tools/root-cell-config.c.tmpl | 22 +++++++++-------------
- 2 files changed, 11 insertions(+), 15 deletions(-)
+------=_Part_7301_673966262.1564151381462
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/tools/jailhouse-cell-linux b/tools/jailhouse-cell-linux
-index 49babd92..ee2c52fd 100755
---- a/tools/jailhouse-cell-linux
-+++ b/tools/jailhouse-cell-linux
-@@ -565,7 +565,7 @@ class Irqchip:
- 
- class Config:
-     _HEADER_FORMAT = '6sH32s4xIIIIIIIIIQ8x32x'
--    _HEADER_REVISION = 10
-+    _HEADER_REVISION = 11
- 
-     def __init__(self, config_file):
-         self.data = config_file.read()
-@@ -578,7 +578,7 @@ class Config:
-          self.num_memory_regions,
-          self.num_cache_regions,
-          self.num_irqchips,
--         self.pio_bitmap_size,
-+         self.num_pio_regions,
-          self.num_pci_devices,
-          self.num_pci_caps,
-          self.vpci_irq_base,
-diff --git a/tools/root-cell-config.c.tmpl b/tools/root-cell-config.c.tmpl
-index 512b9f0d..d24a3666 100644
---- a/tools/root-cell-config.c.tmpl
-+++ b/tools/root-cell-config.c.tmpl
-@@ -47,7 +47,7 @@ struct {
- 	__u64 cpus[${int((cpucount + 63) / 64)}];
- 	struct jailhouse_memory mem_regions[${len(regions)}];
- 	struct jailhouse_irqchip irqchips[${len(irqchips)}];
--	__u8 pio_bitmap[0x2000];
-+	struct jailhouse_pio pio_regions[6];
- 	struct jailhouse_pci_device pci_devices[${len(pcidevices)}];
- 	struct jailhouse_pci_capability pci_caps[${len(pcicaps)}];
- } __attribute__((packed)) config = {
-@@ -109,7 +109,7 @@ struct {
- 			.cpu_set_size = sizeof(config.cpus),
- 			.num_memory_regions = ARRAY_SIZE(config.mem_regions),
- 			.num_irqchips = ARRAY_SIZE(config.irqchips),
--			.pio_bitmap_size = ARRAY_SIZE(config.pio_bitmap),
-+			.num_pio_regions = ARRAY_SIZE(config.pio_regions),
- 			.num_pci_devices = ARRAY_SIZE(config.pci_devices),
- 			.num_pci_caps = ARRAY_SIZE(config.pci_caps),
- 		},
-@@ -152,17 +152,13 @@ struct {
- 		% endfor
- 	},
- 
--	.pio_bitmap = {
--		[     0/8 ...   0x3f/8] = -1,
--		[  0x40/8 ...   0x47/8] = 0xf0, /* PIT */
--		[  0x48/8 ...   0x5f/8] = -1,
--		[  0x60/8 ...   0x67/8] = 0xec, /* HACK: NMI status/control */
--		[  0x68/8 ...   0x6f/8] = -1,
--		[  0x70/8 ...   0x77/8] = 0xfc, /* RTC */
--		[  0x78/8 ...  0x3af/8] = -1,
--		[ 0x3b0/8 ...  0x3df/8] = 0x00, /* VGA */
--		[ 0x3e0/8 ...  0xcff/8] = -1,
--		[ 0xd00/8 ... 0xffff/8] = 0, /* HACK: PCI bus */
-+	.pio_regions = {
-+		PIO_RANGE(0x40, 4), /* PIT */
-+		PIO_RANGE(0x60, 2), /* HACK: NMI status/control */
-+		PIO_RANGE(0x64, 1), /* I8042 */
-+		PIO_RANGE(0x70, 2), /* RTC */
-+		PIO_RANGE(0x3b0, 0x30), /* VGA */
-+		PIO_RANGE(0xd00, 0xf300), /* HACK: PCI bus */
- 	},
- 
- 	.pci_devices = {
--- 
-2.22.0
+Ok, i've reduced the size of the linux image to 550MB and the rootfs.cpio=
+=20
+to 540MB, but now the output prints "No space found to load all images". I=
+=20
+have a memory region with size of 0x3bff0000 (~1GB) and another with=20
+0x24000000 (~600MB).
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20190726135911.16810-6-ralf.ramsauer%40oth-regensburg.de.
+quinta-feira, 25 de Julho de 2019 =C3=A0s 16:21:07 UTC+1, Jan Kiszka escrev=
+eu:
+>
+> On 25.07.19 14:53, Jo=C3=A3o Reis wrote:=20
+> > Even when i set all RAM regions to non rootshared, the problem continue=
+s=20
+> (send=20
+> > in attachment the newly adjusted config file). Is the linux image that =
+i=20
+> am=20
+> > using too big (1,2GB)? I've generated the image using the steps=20
+> described=20
+> > on setup-on-zynqmp-zcu102.md (Testing Jailhouse Linux).=20
+> >=20
+>
+> If I do the math right, you are even not close to that 1.2 GB when it=20
+> comes to=20
+> the RAM you assigned. It's maybe some 700 MB.=20
+>
+> Jan=20
+>
+> >=20
+> > quinta-feira, 25 de Julho de 2019 =C3=A0s 11:00:36 UTC+1, Jan Kiszka=20
+> escreveu:=20
+> >=20
+> >     On 25.07.19 11:32, Jo=C3=A3o Reis wrote:=20
+> >     > Hello,=20
+> >     >=20
+> >     > I'm trying to apply cache coloring to Linux and Erika. As root=20
+> cell Linux=20
+> >     cannot=20
+> >     > be colored, i intend to use colored Linux in a non-root cell and=
+=20
+> colored=20
+> >     Erika=20
+> >     > in another non-root cell (the system stays as: Linux in root cell=
+,=20
+> Linux and=20
+> >     > Erika in non-root cells).=20
+> >     >=20
+> >     > The problem that is occuring to me is when i issue the command:=
+=20
+> jailhouse=20
+> >     cell=20
+> >     > linux ultra96-linux-demo.cell Image -i rootfs.cpio -c=20
+> "console=3DttyS0, 115200"=20
+> >     >=20
+> >     > The error is the following:=20
+> >     >=20
+> >     > root@xilinx-ultra96-reva-2018_2:~# jailhouse cell linux=20
+> >     ultra96-linux-demo.cell=20
+> >     > Image -d inmate-zynqmp-zcu102-2.dtb -i rootfs.cpio -c=20
+> "console=3DttyS0, 115200"=20
+> >     > [  127.150370] python invoked oom-killer:=20
+> >     > gfp_mask=3D0x16080c0(GFP_KERNEL|__GFP_ZERO|__GFP_NOTRACK),=20
+> nodemask=3D(null), =20
+> >     > order=3D0, oom_score_adj=3D0=20
+> >=20
+> >     Looks like your inmate configuration grants too little memory for=
+=20
+> the Linux=20
+> >     guest. Note that the in-tree configs may only be happily used with=
+=20
+> very small=20
+> >     Linux images, just as the buildroot we generate via=20
+> jailhouse-images.=20
+> >=20
+> >     Looking at your config...=20
+> >=20
+> >             /* RAM */ {=20
+> >                     .phys_start =3D 0x74000000,=20
+> >                     .virt_start =3D 0x74000000,=20
+> >                     .size =3D 0x7ef0000,=20
+> >                     .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE=
+ |=20
+> >                             JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |=
+=20
+> >                             JAILHOUSE_MEM_LOADABLE,=20
+> >             },=20
+> >=20
+> >     This one is fine and will be available to the guest.=20
+> >=20
+> >             /* RAM */{=20
+> >                     .phys_start =3D 0x3fd00000,=20
+> >                     .virt_start =3D 0x3fd00000,=20
+> >                     .size =3D 0x202f0000, //must be page size aligned=
+=20
+> >                     .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE=
+ |=20
+> >                             JAILHOUSE_MEM_EXECUTE |=20
+> JAILHOUSE_MEM_LOADABLE |=20
+> >                             JAILHOUSE_MEM_ROOTSHARED, //se tirar=20
+> >     JAILHOUSE_MEM_ROOTSHARED da exception=20
+> >     fault 0x20=20
+> >             },=20
+> >=20
+> >     This one isn't because it shares RAM with the root cell that is=20
+> probably not=20
+> >     intended to be shared. But it will also not be presented as RAM to=
+=20
+> the non-root=20
+> >     cell (via the devices tree) because of the ROOTSHARED tag.=20
+> >=20
+> >     Jan=20
+> >=20
+> >     --=20
+> >     Siemens AG, Corporate Technology, CT RDA IOT SES-DE=20
+> >     Corporate Competence Center Embedded Linux=20
+> >=20
+> > --=20
+> > You received this message because you are subscribed to the Google=20
+> Groups=20
+> > "Jailhouse" group.=20
+> > To unsubscribe from this group and stop receiving emails from it, send=
+=20
+> an email=20
+> > to jailho...@googlegroups.com <javascript:>=20
+> > <mailto:jailhouse-dev+unsubscribe@googlegroups.com <javascript:>>.=20
+> > To view this discussion on the web visit=20
+> >=20
+> https://groups.google.com/d/msgid/jailhouse-dev/320981f3-9d93-46c5-b95f-d=
+db68083f7ee%40googlegroups.com=20
+> > <
+> https://groups.google.com/d/msgid/jailhouse-dev/320981f3-9d93-46c5-b95f-d=
+db68083f7ee%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>.=20
+>
+>
+> --=20
+> Siemens AG, Corporate Technology, CT RDA IOT SES-DE=20
+> Corporate Competence Center Embedded Linux=20
+>
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/fe00f482-c82c-4f93-8a0e-f73dc955888d%40googlegroups.com.
+
+------=_Part_7301_673966262.1564151381462
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Ok, i&#39;ve reduced the size of the linux image to 550MB =
+and the rootfs.cpio to 540MB, but now the output prints <font color=3D"#000=
+000">&quot;<span style=3D"font-family: SFMono-Regular, Consolas, &quot;Libe=
+ration Mono&quot;, Menlo, monospace; font-size: 12px; white-space: pre;">No=
+ space found to load all images&quot;. I have a memory region with size of =
+</span></font><font color=3D"#000000" face=3D"SFMono-Regular, Consolas, Lib=
+eration Mono, Menlo, monospace"><span style=3D"font-size: 12px; white-space=
+: pre;">0x3bff0000 (~1GB) and another with </span></font><span style=3D"col=
+or: rgb(0, 0, 0); font-family: SFMono-Regular, Consolas, &quot;Liberation M=
+ono&quot;, Menlo, monospace; font-size: 12px; white-space: pre;">0x24000000=
+</span><span style=3D"color: rgb(0, 0, 0); font-family: SFMono-Regular, Con=
+solas, &quot;Liberation Mono&quot;, Menlo, monospace; font-size: 12px; whit=
+e-space: pre;"> (~600MB).</span><br><br>quinta-feira, 25 de Julho de 2019 =
+=C3=A0s 16:21:07 UTC+1, Jan Kiszka escreveu:<blockquote class=3D"gmail_quot=
+e" style=3D"margin: 0;margin-left: 0.8ex;border-left: 1px #ccc solid;paddin=
+g-left: 1ex;">On 25.07.19 14:53, Jo=C3=A3o Reis wrote:
+<br>&gt; Even when i set all RAM regions to non rootshared, the problem con=
+tinues (send
+<br>&gt; in attachment the newly adjusted config file). Is the linux image =
+that i am
+<br>&gt; using too big (1,2GB)? I&#39;ve generated the image using the step=
+s described
+<br>&gt; on=C2=A0setup-on-zynqmp-zcu102.md (Testing Jailhouse Linux).
+<br>&gt;=20
+<br>
+<br>If I do the math right, you are even not close to that 1.2 GB when it c=
+omes to
+<br>the RAM you assigned. It&#39;s maybe some 700 MB.
+<br>
+<br>Jan
+<br>
+<br>&gt;=20
+<br>&gt; quinta-feira, 25 de Julho de 2019 =C3=A0s 11:00:36 UTC+1, Jan Kisz=
+ka escreveu:
+<br>&gt;=20
+<br>&gt; =C2=A0 =C2=A0 On 25.07.19 11:32, Jo=C3=A3o Reis wrote:
+<br>&gt; =C2=A0 =C2=A0 &gt; Hello,
+<br>&gt; =C2=A0 =C2=A0 &gt;
+<br>&gt; =C2=A0 =C2=A0 &gt; I&#39;m trying to apply cache coloring to Linux=
+ and Erika. As root cell Linux
+<br>&gt; =C2=A0 =C2=A0 cannot
+<br>&gt; =C2=A0 =C2=A0 &gt; be colored, i intend to use colored Linux in a =
+non-root cell and colored
+<br>&gt; =C2=A0 =C2=A0 Erika
+<br>&gt; =C2=A0 =C2=A0 &gt; in another non-root cell (the system stays as: =
+Linux in root cell, Linux and
+<br>&gt; =C2=A0 =C2=A0 &gt; Erika in non-root cells).
+<br>&gt; =C2=A0 =C2=A0 &gt;
+<br>&gt; =C2=A0 =C2=A0 &gt; The problem that is occuring to me is when i is=
+sue the command: jailhouse
+<br>&gt; =C2=A0 =C2=A0 cell
+<br>&gt; =C2=A0 =C2=A0 &gt; linux ultra96-linux-demo.cell Image -i rootfs.c=
+pio -c &quot;console=3DttyS0, 115200&quot;
+<br>&gt; =C2=A0 =C2=A0 &gt;
+<br>&gt; =C2=A0 =C2=A0 &gt; The error is the following:
+<br>&gt; =C2=A0 =C2=A0 &gt;
+<br>&gt; =C2=A0 =C2=A0 &gt; root@xilinx-ultra96-reva-2018_<wbr>2:~# jailhou=
+se cell linux
+<br>&gt; =C2=A0 =C2=A0 ultra96-linux-demo.cell
+<br>&gt; =C2=A0 =C2=A0 &gt; Image -d inmate-zynqmp-zcu102-2.dtb -i rootfs.c=
+pio -c &quot;console=3DttyS0, 115200&quot;
+<br>&gt; =C2=A0 =C2=A0 &gt; [=C2=A0 127.150370] python invoked oom-killer:
+<br>&gt; =C2=A0 =C2=A0 &gt; gfp_mask=3D0x16080c0(GFP_KERNEL|<wbr>__GFP_ZERO=
+|__GFP_NOTRACK), nodemask=3D(null),=C2=A0
+<br>&gt; =C2=A0 =C2=A0 &gt; order=3D0, oom_score_adj=3D0
+<br>&gt;=20
+<br>&gt; =C2=A0 =C2=A0 Looks like your inmate configuration grants too litt=
+le memory for the Linux
+<br>&gt; =C2=A0 =C2=A0 guest. Note that the in-tree configs may only be hap=
+pily used with very small
+<br>&gt; =C2=A0 =C2=A0 Linux images, just as the buildroot we generate via =
+jailhouse-images.
+<br>&gt;=20
+<br>&gt; =C2=A0 =C2=A0 Looking at your config...
+<br>&gt;=20
+<br>&gt; =C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* R=
+AM */ {
+<br>&gt; =C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.phys_start =3D 0x74000000,
+<br>&gt; =C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.virt_start =3D 0x74000000,
+<br>&gt; =C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.size =3D 0x7ef0000,
+<br>&gt; =C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.flags =3D JAILHOUSE_MEM_READ =
+| JAILHOUSE_MEM_WRITE |
+<br>&gt; =C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0<wbr>JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+<br>&gt; =C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0<wbr>JAILHOUSE_MEM_LOADABLE,
+<br>&gt; =C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0},
+<br>&gt;=20
+<br>&gt; =C2=A0 =C2=A0 This one is fine and will be available to the guest.
+<br>&gt;=20
+<br>&gt; =C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* R=
+AM */{
+<br>&gt; =C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.phys_start =3D 0x3fd00000,
+<br>&gt; =C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.virt_start =3D 0x3fd00000,
+<br>&gt; =C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.size =3D 0x202f0000, //must b=
+e page size aligned
+<br>&gt; =C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.flags =3D JAILHOUSE_MEM_READ =
+| JAILHOUSE_MEM_WRITE |
+<br>&gt; =C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0<wbr>JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE |
+<br>&gt; =C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0<wbr>JAILHOUSE_MEM_ROOTSHARED, //se tirar
+<br>&gt; =C2=A0 =C2=A0 JAILHOUSE_MEM_ROOTSHARED da exception
+<br>&gt; =C2=A0 =C2=A0 fault 0x20
+<br>&gt; =C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0},
+<br>&gt;=20
+<br>&gt; =C2=A0 =C2=A0 This one isn&#39;t because it shares RAM with the ro=
+ot cell that is probably not
+<br>&gt; =C2=A0 =C2=A0 intended to be shared. But it will also not be prese=
+nted as RAM to the non-root
+<br>&gt; =C2=A0 =C2=A0 cell (via the devices tree) because of the ROOTSHARE=
+D tag.
+<br>&gt;=20
+<br>&gt; =C2=A0 =C2=A0 Jan
+<br>&gt;=20
+<br>&gt; =C2=A0 =C2=A0 --=20
+<br>&gt; =C2=A0 =C2=A0 Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+<br>&gt; =C2=A0 =C2=A0 Corporate Competence Center Embedded Linux
+<br>&gt;=20
+<br>&gt; --=20
+<br>&gt; You received this message because you are subscribed to the Google=
+ Groups
+<br>&gt; &quot;Jailhouse&quot; group.
+<br>&gt; To unsubscribe from this group and stop receiving emails from it, =
+send an email
+<br>&gt; to <a href=3D"javascript:" target=3D"_blank" gdf-obfuscated-mailto=
+=3D"JglqI0MeCQAJ" rel=3D"nofollow" onmousedown=3D"this.href=3D&#39;javascri=
+pt:&#39;;return true;" onclick=3D"this.href=3D&#39;javascript:&#39;;return =
+true;">jailho...@<wbr>googlegroups.com</a>
+<br>&gt; &lt;mailto:<a href=3D"javascript:" target=3D"_blank" gdf-obfuscate=
+d-mailto=3D"JglqI0MeCQAJ" rel=3D"nofollow" onmousedown=3D"this.href=3D&#39;=
+javascript:&#39;;return true;" onclick=3D"this.href=3D&#39;javascript:&#39;=
+;return true;">jailhouse-dev+<wbr>unsubscribe@googlegroups.com</a>&gt;.
+<br>&gt; To view this discussion on the web visit
+<br>&gt; <a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/320981f=
+3-9d93-46c5-b95f-ddb68083f7ee%40googlegroups.com" target=3D"_blank" rel=3D"=
+nofollow" onmousedown=3D"this.href=3D&#39;https://groups.google.com/d/msgid=
+/jailhouse-dev/320981f3-9d93-46c5-b95f-ddb68083f7ee%40googlegroups.com&#39;=
+;return true;" onclick=3D"this.href=3D&#39;https://groups.google.com/d/msgi=
+d/jailhouse-dev/320981f3-9d93-46c5-b95f-ddb68083f7ee%40googlegroups.com&#39=
+;;return true;">https://groups.google.com/d/<wbr>msgid/jailhouse-dev/320981=
+f3-<wbr>9d93-46c5-b95f-ddb68083f7ee%<wbr>40googlegroups.com</a>
+<br>&gt; &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/320=
+981f3-9d93-46c5-b95f-ddb68083f7ee%40googlegroups.com?utm_medium=3Demail&amp=
+;utm_source=3Dfooter" target=3D"_blank" rel=3D"nofollow" onmousedown=3D"thi=
+s.href=3D&#39;https://groups.google.com/d/msgid/jailhouse-dev/320981f3-9d93=
+-46c5-b95f-ddb68083f7ee%40googlegroups.com?utm_medium\x3demail\x26utm_sourc=
+e\x3dfooter&#39;;return true;" onclick=3D"this.href=3D&#39;https://groups.g=
+oogle.com/d/msgid/jailhouse-dev/320981f3-9d93-46c5-b95f-ddb68083f7ee%40goog=
+legroups.com?utm_medium\x3demail\x26utm_source\x3dfooter&#39;;return true;"=
+>https://groups.google.com/d/<wbr>msgid/jailhouse-dev/320981f3-<wbr>9d93-46=
+c5-b95f-ddb68083f7ee%<wbr>40googlegroups.com?utm_medium=3D<wbr>email&amp;ut=
+m_source=3Dfooter</a>&gt;.
+<br>
+<br>--=20
+<br>Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+<br>Corporate Competence Center Embedded Linux
+<br></blockquote></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/fe00f482-c82c-4f93-8a0e-f73dc955888d%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/fe00f482-c82c-4f93-8a0e-f73dc955888d%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_7301_673966262.1564151381462--
+
+------=_Part_7300_1953384863.1564151381462
+Content-Type: text/x-csrc; charset=UTF-8; name=ultra96-linux-demo2.c
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment; filename=ultra96-linux-demo2.c
+X-Attachment-Id: 566eecc5-a50f-4249-b4e4-34ec65bfa3d5
+Content-ID: <566eecc5-a50f-4249-b4e4-34ec65bfa3d5>
+
+/*
+ * Jailhouse, a Linux-based partitioning hypervisor
+ *
+ * Configuration for linux-demo inmate on Avnet Ultra96 board:
+ * 2 CPUs, 128M RAM, serial port 2
+ *
+ * Copyright (c) Siemens AG, 2014-2019
+ *
+ * Authors:
+ *  Jan Kiszka <jan.kiszka@siemens.com>
+ *
+ * This work is licensed under the terms of the GNU GPL, version 2.  See
+ * the COPYING file in the top-level directory.
+ */
+
+#include <jailhouse/types.h>
+#include <jailhouse/cell-config.h>
+
+struct {
+=09struct jailhouse_cell_desc cell;
+=09__u64 cpus[1];
+=09struct jailhouse_memory mem_regions[7];
+=09struct jailhouse_irqchip irqchips[1];
+=09struct jailhouse_pci_device pci_devices[1];
+} __attribute__((packed)) config =3D {
+=09.cell =3D {
+=09=09.signature =3D JAILHOUSE_CELL_DESC_SIGNATURE,
+=09=09.revision =3D JAILHOUSE_CONFIG_REVISION,
+=09=09.name =3D "non-root",
+=09=09.flags =3D JAILHOUSE_CELL_PASSIVE_COMMREG,/* |
+=09=09JAILHOUSE_CELL_VIRTUAL_CONSOLE_ACTIVE,*/
+
+=09=09.cpu_set_size =3D sizeof(config.cpus),
+=09=09.num_memory_regions =3D ARRAY_SIZE(config.mem_regions),
+=09=09.num_irqchips =3D ARRAY_SIZE(config.irqchips),
+=09=09.num_pci_devices =3D ARRAY_SIZE(config.pci_devices),
+
+=09=09.vpci_irq_base =3D 140-32,
+
+=09=09.console =3D {
+=09=09=09.address =3D 0xff010000, /*UART1*/
+=09=09=09//.address =3D 0xff000000, /*UART0*/ //se eu meter uart0 da erro u=
+nhandled trap
+=09=09=09.type=3D JAILHOUSE_CON_TYPE_XUARTPS,
+=09=09=09.flags =3D JAILHOUSE_CON_ACCESS_MMIO |
+=09=09=09=09 JAILHOUSE_CON_REGDIST_4,
+=09=09},
+=09},
+
+=09.cpus =3D {
+=09=090xe, //1110
+=09=09//0x8, //1000 - fica com cpu3
+=09=09//0xc, //1100
+=09},
+
+=09.mem_regions =3D {
+=09=09/* UART */ {
+=09=09=09.phys_start =3D 0xff010000,
+=09=09=09.virt_start =3D 0xff010000,
+=09=09=09/*.phys_start =3D 0xff000000,
+=09=09=09.virt_start =3D 0xff000000,*/
+=09=09=09.size =3D 0x1000,
+=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+=09=09=09=09JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
+=09=09},
+=09=09/* RAM */ {
+=09=09=09.phys_start =3D 0x7bef0000,
+=09=09=09.virt_start =3D 0,
+=09=09=09.size =3D 0x10000,
+=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+=09=09=09=09JAILHOUSE_MEM_EXECUTE,// | JAILHOUSE_MEM_LOADABLE,
+=09=09},
+=09=09/* RAM */ {
+=09=09=09.phys_start =3D 0x74000000,
+=09=09=09.virt_start =3D 0x74000000,
+=09=09=09.size =3D 0x7ef0000,
+=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+=09=09=09=09JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,/* |
+=09=09=09=09JAILHOUSE_MEM_LOADABLE,*/
+=09=09},
+=09=09/* IVSHMEM shared memory region */ {
+=09=09=09.phys_start =3D 0x7bf00000,
+=09=09=09.virt_start =3D 0x7bf00000,
+=09=09=09.size =3D 0x100000,
+=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+=09=09=09=09JAILHOUSE_MEM_ROOTSHARED,
+=09=09},
+=09=09/* communication region */ {
+=09=09=09.virt_start =3D 0x80000000,
+=09=09=09.size =3D 0x00001000,
+=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+=09=09=09=09JAILHOUSE_MEM_COMM_REGION,
+=09=09},
+=09=09=09=09/* RAM */{
+=09=09=09.phys_start =3D 0x24000000,
+=09=09=09.virt_start =3D 0x24000000,
+=09=09=09.size =3D 0x3bff0000, //must be page size aligned
+=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+=09=09=09=09JAILHOUSE_MEM_EXECUTE ,/*| JAILHOUSE_MEM_LOADABLE |
+=09=09=09=09JAILHOUSE_MEM_ROOTSHARED, *///se tirar JAILHOUSE_MEM_ROOTSHARED=
+ da exception fault 0x20
+=09=09},
+=09=09{
+=09=09=09.phys_start =3D 0,
+=09=09=09.virt_start =3D 0x10000,
+=09=09=09.size =3D 0x24000000,
+=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE|
+=09=09=09=09JAILHOUSE_MEM_EXECUTE,/* | JAILHOUSE_MEM_LOADABLE |
+=09=09=09=09JAILHOUSE_MEM_ROOTSHARED,*/
+=09=09},
+=09},
+
+=09.irqchips =3D {
+=09=09/* GIC */ {
+=09=09=09.address =3D 0xf9010000, /* GICD base address - Display controller=
+ */
+=09=09=09.pin_base =3D 32, /* The first irqchip starts at .pin_base=3D32 as=
+ the first 32 interrupts are=20
+reserved for SGIs and PPIs. */
+=09=09=09.pin_bitmap =3D {
+=09=09=09=09//1 << (54 - 32),
+=09=09=09=091 << (53 - 32), // cat /proc/interrupts interrupt da UART0 AQUI=
+ ESTA A DIFEREN=C3=87A
+=09=09=09=090,
+=09=09=09=090,
+=09=09=09=09(1 << (140 - 128)) | (1 << (142 - 128)) //PL to PS interrupt si=
+gnals 8 to 15.
+=09=09=09},
+=09=09},
+=09},
+
+=09.pci_devices =3D {
+=09=09/* 00:00.0 */ {
+=09=09=09.type =3D JAILHOUSE_PCI_TYPE_IVSHMEM,
+=09=09=09.bdf =3D 0 << 3, // 00:00.0
+=09=09=09.iommu =3D 1,//
+=09=09=09.bar_mask =3D {
+=09=09=09=090xffffff00, 0xffffffff, 0x00000000,
+=09=09=09=090x00000000, 0x00000000, 0x00000000,
+=09=09=09},
+=09=09=09.shmem_region =3D 3,
+=09=09=09//.shmem_protocol =3D JAILHOUSE_SHMEM_PROTO_VETH,
+=09=09=09//.shmem_protocol =3D JAILHOUSE_SHMEM_PROTO_CUSTOM,
+=09=09=09.shmem_protocol =3D JAILHOUSE_SHMEM_PROTO_UNDEFINED,
+=09=09=09//.num_msix_vectors =3D 1,
+=09=09},
+=09},
+};
+
+------=_Part_7300_1953384863.1564151381462--
