@@ -1,64 +1,111 @@
-Return-Path: <jailhouse-dev+bncBCR7PPMN34DRBX7T5TUQKGQEC6QK4RA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBXHX5TUQKGQE4FEMAEQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x338.google.com (mail-ot1-x338.google.com [IPv6:2607:f8b0:4864:20::338])
-	by mail.lfdr.de (Postfix) with ESMTPS id B18E877057
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 26 Jul 2019 19:35:28 +0200 (CEST)
-Received: by mail-ot1-x338.google.com with SMTP id p7sf29413871otk.22
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 26 Jul 2019 10:35:28 -0700 (PDT)
+Received: from mail-wr1-x43c.google.com (mail-wr1-x43c.google.com [IPv6:2a00:1450:4864:20::43c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 65BAD77079
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 26 Jul 2019 19:43:57 +0200 (CEST)
+Received: by mail-wr1-x43c.google.com with SMTP id g8sf26004089wrw.2
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 26 Jul 2019 10:43:57 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1564163037; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=ew+R8erqbD1VTJEVjWONDSoXhC+Qz6INVnq3mt2bwx9BDKOCmFfn+7IfWlBLCVQL6r
+         Zg6HepubaZSfBP1zl+XqWTRR2MuXgL4x0TTguv2lnVmfESiDIiRBEc/VmHU5NsmU42bZ
+         H81voJdrKmn+Hfq0VH1YnE+tmq05QXvwch2JcC/S8Tqba9tthySNs35wCOBSr5tW4i05
+         Py1m+WwJOb5Rz+77XskoGc0ZKoyL7RB83ql0AA65sprBWRGaB6aeJ/17iShqXNqK77sv
+         jBJ2Y2onkftRP+l9iAy1Z0q9mzAucGQ0iSBifk6R0lvsHtZEN4QLNeaR3VEFRSRhsM19
+         Awpw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=7qBqlbxYjlyQC5WFtPpqYfI1S2E5GlH1jA4UCN8HjxE=;
+        b=YOrjXM8D2ngtPziruVlyu4aFC7Q1o9ktT4PxtYlqGIZqWWGRmP2z0GzaL677NnFcXT
+         fBNQ4aQTlx2Gv9CNDOPVuvGdL23LFn7dBe6nHBHpEStOGUwOTjWtwaGp/Qxg/xIY6LHE
+         MCN9VoqVPfV37sOLEWVrQqplF9JYUiIZiTtYo0WKGyMSkwynTB98ma+d8tnmA7hn1KkH
+         T4gU3UagsOe0zZ54xv7zpYHY/sgrTxuVLoXWcdGVR6tWAH7FQZLK/TOVQXn9DGMAcF1d
+         k9h7aBKUwNTotKtobNeRni7F+B72q7xnRMQYG0AMwELthNEuiNaalbZGH3VpTmy0ErBu
+         m8sg==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=ROjQzA+jaUJ6RDFw5s0vhKbojLmIUlPAj/k/QKIDWqQ=;
-        b=J2wZcRXsRfBCZJi8whiNvvV5buay4Lf2yrVo7vKbLQ0mEaTrPQ3S6ho2WHt9nkAn3v
-         LF+5H+X4KFnUnLCXTudrdax+yNvvn6QyYQF3JrLM5AwhCqOOIQK7FiC+dDSFZmOhlmHc
-         KG9cb4nswhWD6ztUMTzSgy2fyWizJP/BILTNK9aywpkVyVSV4hCtH3er4P5uk5xUb2oL
-         NG20lgcbwWwf87/3fU92HRLO2trRhGmAXV5rYQsA5TiwuY4m1q/z8qKuK3PshObhsGd3
-         vJvRW/PJjKGrmor9S2XaZ6ooZn4twlW6ibe280066d2i0LMYqtqYLoGFQBd4uYLipW1C
-         6d3w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=ROjQzA+jaUJ6RDFw5s0vhKbojLmIUlPAj/k/QKIDWqQ=;
-        b=mkp+PhlVgJ8rX6UwpShKuEg2ijsJxZnyyuYij4nOsLW0c7IPyMk4mwyWUshDAnHalA
-         9uSVz9DRq7e8p2+8qfluJ9VRjEylGyOXPCPMN0Ca7ErQEjsT2yAdnMyTtRbB/tlxorIU
-         PvpUCLfzBu7hfiidr1ousM1+5R+70h4uWmgvA2XoNtAOwL1A2b6kcZ/43Sq00nRKY6Xi
-         3a7UZbgSC8+58BG1tkdE6WcOxEFwl5XirAcHUXxJ2Fw87ff1tmpU1HdyYspbGa6jNYY3
-         skukKL9z9SJjjd8OfKgpyocsSNX4VaxXCzbIrO9/FSnqZxvrg4NGnEu6aCB09YAuxKGE
-         vzEw==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=7qBqlbxYjlyQC5WFtPpqYfI1S2E5GlH1jA4UCN8HjxE=;
+        b=FJEmEHaqtGFiWkjhvLMH5RcKbVlvUKRqtkwo/cREB4ed2fOv3CBMlkYHPaU2fRDLUO
+         hmbHguxnWEslqOSQPXF9cQHo7kC8zIGftNfGI7cqJLVXUm/oth/MYqLuhFODC6zvlSmN
+         Hz1uaPYgkoKlLtuCMolPxD/2Kt4H+F+BZPtQ+X6KaltKiMobXiy698Dr9b4KZOTJQtuu
+         79w6BM+5EMeXY4Yt11RZV55kwcPh+cEf3xdfgRMn/tBSWBWRaYO+y/kXc+UYZkaSrlbB
+         RuVMDQ7hRGn3Ii4vDRlC2l8NUQCzbM7yfFwBm/6J530J4xyJmotqsLtj+RNdBoiK2gM8
+         5syw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=ROjQzA+jaUJ6RDFw5s0vhKbojLmIUlPAj/k/QKIDWqQ=;
-        b=FvD7P1Mju8iQlqGQcLHlSXL5MtAi5S3/Afhww5rJFKGYDSqeutJNs+eu6GhvHNVq/f
-         uzxv7ZVroAJFOycuVTXCHidkM8NgsTyQXgX4Zh8BjUCuYCVfV0h8tKMTW4OEWOTajj2I
-         0rf8KAuurO75740JQ+JrnI0Ao++LEFVC0wR6dGBMvCsThQvSlrHbvnJIO2cDc5C+s3Vp
-         dj2jynhWYbHkOpDxi1gcx5C1RIzoYI4X23y1MOhrdRT3JqD19fIJSqxK8RKIOHtvpmZa
-         5/lgBq+AE9n1LbUq3mCaxGueD54O7LelmwukQSvfHW6YdtUKugRv1d4ws6v3KjtLUwgq
-         Mrbw==
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=7qBqlbxYjlyQC5WFtPpqYfI1S2E5GlH1jA4UCN8HjxE=;
+        b=cQ2pKsT36v3D5wOJDzwjrjV9HtAVrHIUI9nqScnaySdYsiwCUXDuFs1nuY1w9DLbMB
+         zVAaVUhLwqVyxQFM1Pq7TW+CA7pkuRXz5PVfaysSSpsQEQgwcJdKADGf0ogN2a8UXj4z
+         kYkANJSrY4sGYY98M5TL22qZMPHUluXflltj1Pc4PD1JF3lSYxQDnopgkObKXmiygi75
+         3m8fb5UI+yMr2mPxs4roVCBQZBM1Zq+3n26KKgVIoFPzSVwUck/zOMuxHhRCQlJGLMCj
+         A2Rz40oHplQheTpJn6o1BArFZdfcip1hpyba3wuKQRu2wjHn+yAZbdmMiP7y8GbyGOPF
+         Ii8g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXMMmQMsWF6F/9gt34Lawa+6y9C5zdBUzsqFhyOuobT5Obqvmxf
-	cJKpR60GROKBbBw5qmH6ltY=
-X-Google-Smtp-Source: APXvYqx6IzLkM8G29bYSI5I1uS/ttr5Q009e8fszquYbA1p3LcAfE3kXsdnFbUvz2pRNZsTPIVzwlQ==
-X-Received: by 2002:aca:d552:: with SMTP id m79mr46728010oig.3.1564162527455;
-        Fri, 26 Jul 2019 10:35:27 -0700 (PDT)
+X-Gm-Message-State: APjAAAVXReoCYcT1TlTxxa9umK4G/RCMaRZWQpB1CkJY3wXqP6YPiI23
+	/0F9clqaeBVyqLZduX6Gdqs=
+X-Google-Smtp-Source: APXvYqzZATrdsni5+K5DPWleC2a/HCdMO3WIJE4hrVzabmnXU9a9DqzZVPlNrmtiqb2ccE1tSytGtA==
+X-Received: by 2002:a1c:e009:: with SMTP id x9mr84780453wmg.5.1564163037089;
+        Fri, 26 Jul 2019 10:43:57 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aca:afd2:: with SMTP id y201ls7498019oie.7.gmail; Fri, 26
- Jul 2019 10:35:26 -0700 (PDT)
-X-Received: by 2002:aca:3158:: with SMTP id x85mr42868970oix.93.1564162526718;
-        Fri, 26 Jul 2019 10:35:26 -0700 (PDT)
-Date: Fri, 26 Jul 2019 10:35:25 -0700 (PDT)
-From: =?UTF-8?Q?Jo=C3=A3o_Reis?= <jpagsreis@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <942a4151-1921-4bd2-ad02-c9a98411ac36@googlegroups.com>
-In-Reply-To: <421d16ea-f517-a1f0-750d-65b9f856d1e6@siemens.com>
+Received: by 2002:a1c:5411:: with SMTP id i17ls19083744wmb.2.canary-gmail;
+ Fri, 26 Jul 2019 10:43:56 -0700 (PDT)
+X-Received: by 2002:a1c:a5c2:: with SMTP id o185mr84525358wme.172.1564163036390;
+        Fri, 26 Jul 2019 10:43:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1564163036; cv=none;
+        d=google.com; s=arc-20160816;
+        b=Vs/A9eD9JFmWGlSiJmM/VF4vMhwYgJfWE3SUAdwfb1UI/a27U69Rvi0vETzgSOnK0o
+         ncW5fJvIJ+9PglkFGNysPVIFtsbcgyAaVzUwgMxp2MMLMI27dLeSqufWoB873eCX6vRq
+         ECH8vxeEC3YarGi6+FFNjzPUOndi2bkjDsU+rQL9Nf35XyrBKtKHgIQfmeSR4YjPeyZ9
+         7HzTAIXFScbn/8S16JMFVqdCBjXLGoHKhryv8BhEs+DJA8CBvVK7f6Z/K7vbrLMUG16M
+         ZbtgEEy5B+9TJWUqLUP2vMSmnmdHQfTttQ1of/gO1mMNmm+/TID7IcLu4D2EmN9vK0N/
+         +XAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=oJGV3hwvZ83bomwS67YP037uUhhCLhKJGXixiF3HyNU=;
+        b=EBVTvYJ/5XnME1dx1oNvpp1M3RmzcnRwyNQ/OlxxA/vCELA5Q32XTAGa3TpQSnsO3o
+         ANf1pqEGTvAHPTRxHiDn/wi8jofQDwaFtKf6ywTCiGn0Oz4J4beoDXHv48GBHtzotB/5
+         wzJaeXfkf7D4oLuNTonnkBopcFrC1VkaqAVd7YciqqxTQdAbqNTCdZKl7haC8WIDGJAq
+         pWUPnq48faLTa5rNMPlkgmZAGbvfUT+nuLCcn5cvbk0Hd8XaxBnUjmAiALfSuTh0j1IV
+         Pa303jTc8ulanZH0q1mU0pTDPXB0NuVuvASw58HtuSmP9N7TVAgC9Ioi0l9eXjmh8dz6
+         MW0g==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
+        by gmr-mx.google.com with ESMTPS id q14si2627211wmc.1.2019.07.26.10.43.56
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 26 Jul 2019 10:43:56 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
+Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id x6QHht5H002953
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 26 Jul 2019 19:43:55 +0200
+Received: from [139.25.68.37] (md1q0hnc.ad001.siemens.net [139.25.68.37] (may be forged))
+	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x6QHhtBp032196;
+	Fri, 26 Jul 2019 19:43:55 +0200
+Subject: Re: Colored Linux as inmate
+To: =?UTF-8?Q?Jo=c3=a3o_Reis?= <jpagsreis@gmail.com>,
+        Jailhouse <jailhouse-dev@googlegroups.com>
 References: <885a6592-84d9-43f4-a037-10ce73f968ab@googlegroups.com>
  <7f3933fc-c609-9349-4e57-a680489e9928@siemens.com>
  <320981f3-9d93-46c5-b95f-ddb68083f7ee@googlegroups.com>
@@ -66,11 +113,22 @@ References: <885a6592-84d9-43f4-a037-10ce73f968ab@googlegroups.com>
  <62f33b9f-a7f6-34cb-3740-2fca02468b0f@siemens.com>
  <907a0d23-c664-432b-849f-8d536d14488f@googlegroups.com>
  <421d16ea-f517-a1f0-750d-65b9f856d1e6@siemens.com>
-Subject: Re: Colored Linux as inmate
+ <942a4151-1921-4bd2-ad02-c9a98411ac36@googlegroups.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <d3462382-811e-62dd-bd1f-cd39a1b41948@siemens.com>
+Date: Fri, 26 Jul 2019 19:43:55 +0200
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
+ Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_7763_355180868.1564162526070"
-X-Original-Sender: jpagsreis@gmail.com
+In-Reply-To: <942a4151-1921-4bd2-ad02-c9a98411ac36@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -83,84 +141,25 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_7763_355180868.1564162526070
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_7764_738401464.1564162526070"
+On 26.07.19 19:35, Jo=C3=A3o Reis wrote:
+> pyjailhouse was installed on=C2=A0/usr/local/lib/python2.7/dist-packages,=
+ and that is
+> the directory i have to add to the script in order for it to find pyjailh=
+ouse.
+>=20
 
-------=_Part_7764_738401464.1564162526070
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hmm, must be some distro thing: When I call "pip install ...", my distro di=
+rects
+the result to /usr/lib/python2.7/site-packages, and that is already in the
+search path of the python installation.
 
-pyjailhouse was installed on /usr/local/lib/python2.7/dist-packages, and=20
-that is the directory i have to add to the script in order for it to find=
-=20
-pyjailhouse.
+Which distro are you on?
 
-sexta-feira, 26 de Julho de 2019 =C3=A0s 16:13:42 UTC+1, Jan Kiszka escreve=
-u:
->
-> On 26.07.19 16:31, Jo=C3=A3o Reis wrote:=20
-> > I run make install, and using the scripts from installation directory=
-=20
-> >=20
->
-> Check where pyjailhouse actually ended up - or if it was installed at all=
-.=20
-> As=20
-> you can see from the Makefile, we just do=20
->
-> pip install --upgrade --force-reinstall --root=3D<DESTDIR> .=20
->
-> there. Provided, scripts/include.mk found out that it can set=20
-> PYTHON_PIP_USABLE=20
-> :=3D yes.=20
->
-> Jan=20
->
-> > quinta-feira, 25 de Julho de 2019 =C3=A0s 16:22:41 UTC+1, Jan Kiszka=20
-> escreveu:=20
-> >=20
-> >     On 25.07.19 15:11, Jo=C3=A3o Reis wrote:=20
-> >     > Another question that i have is: when i try to issue jailhouse=20
-> cell linux, i=20
-> >     > need to add to the script (jailhouse-cell-linux) the path of=20
-> pyjailhouse=20
-> >     > (sys.path.insert(0, "/usr/local/libexec/jailhouse")) otherwise it=
-=20
-> doesn't=20
-> >     find=20
-> >     > the module pyjailhouse.cell and it gives error.=20
-> >     >=20
-> >     > In pyjailhouse.md it says the following:=20
-> >     >=20
-> >     >     When we install any python script that uses pyjailhouse, we=
-=20
-> >     >     remove |sys.path[0] =3D os.path.dirname(...| from the install=
-ed=20
-> scripts,=20
-> >     >     leaving python to import pyjailhouse from where pip installed=
-=20
-> it.=20
-> >     >=20
-> >     > but it seems python doesn't find the path and i need to add the=
-=20
-> path=20
-> >     everytime i=20
-> >     > want to use jailhouse cell linux.  =20
-> >     >=20
-> >=20
-> >     Did you run "make install", or are you running jailhouse from the=
-=20
-> code=20
-> >     repository? Both are supposed to work without patching. Anything=20
-> else not.=20
-> >=20
-> >     Jan=20
-> >=20
-> >     --=20
-> >     Siemens AG, Corporate Technology, CT RDA IOT SES-DE=20
-> >     Corporate Competence Center Embedded Linux=20
->
+Jan
+
+--=20
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+Corporate Competence Center Embedded Linux
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -168,93 +167,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/942a4151-1921-4bd2-ad02-c9a98411ac36%40googlegroups.com.
-
-------=_Part_7764_738401464.1564162526070
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">pyjailhouse was installed on=C2=A0/usr/local/lib/python2.7=
-/dist-packages, and that is the directory i have to add to the script in or=
-der for it to find pyjailhouse.<br><br>sexta-feira, 26 de Julho de 2019 =C3=
-=A0s 16:13:42 UTC+1, Jan Kiszka escreveu:<blockquote class=3D"gmail_quote" =
-style=3D"margin: 0;margin-left: 0.8ex;border-left: 1px #ccc solid;padding-l=
-eft: 1ex;">On 26.07.19 16:31, Jo=C3=A3o Reis wrote:
-<br>&gt; I run make install, and using the scripts from installation direct=
-ory
-<br>&gt;=20
-<br>
-<br>Check where pyjailhouse actually ended up - or if it was installed at a=
-ll. As
-<br>you can see from the Makefile, we just do
-<br>
-<br>pip install --upgrade --force-reinstall --root=3D&lt;DESTDIR&gt; .
-<br>
-<br>there. Provided, scripts/<a href=3D"http://include.mk" target=3D"_blank=
-" rel=3D"nofollow" onmousedown=3D"this.href=3D&#39;http://www.google.com/ur=
-l?q\x3dhttp%3A%2F%2Finclude.mk\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQjCNE8_8=
-lJCg7QHyS5Q4qInzN6zhlBYQ&#39;;return true;" onclick=3D"this.href=3D&#39;htt=
-p://www.google.com/url?q\x3dhttp%3A%2F%2Finclude.mk\x26sa\x3dD\x26sntz\x3d1=
-\x26usg\x3dAFQjCNE8_8lJCg7QHyS5Q4qInzN6zhlBYQ&#39;;return true;">include.mk=
-</a> found out that it can set PYTHON_PIP_USABLE
-<br>:=3D yes.
-<br>
-<br>Jan
-<br>
-<br>&gt; quinta-feira, 25 de Julho de 2019 =C3=A0s 16:22:41 UTC+1, Jan Kisz=
-ka escreveu:
-<br>&gt;=20
-<br>&gt; =C2=A0 =C2=A0 On 25.07.19 15:11, Jo=C3=A3o Reis wrote:
-<br>&gt; =C2=A0 =C2=A0 &gt; Another question that i have is: when i try to =
-issue jailhouse cell linux, i
-<br>&gt; =C2=A0 =C2=A0 &gt; need to add to the script (jailhouse-cell-linux=
-) the path of pyjailhouse
-<br>&gt; =C2=A0 =C2=A0 &gt; (sys.path.insert(0, &quot;/usr/local/libexec/ja=
-ilhouse&quot;<wbr>))=C2=A0otherwise it doesn&#39;t
-<br>&gt; =C2=A0 =C2=A0 find
-<br>&gt; =C2=A0 =C2=A0 &gt; the module pyjailhouse.cell and it gives error.
-<br>&gt; =C2=A0 =C2=A0 &gt;
-<br>&gt; =C2=A0 =C2=A0 &gt; In pyjailhouse.md it says the following:
-<br>&gt; =C2=A0 =C2=A0 &gt;
-<br>&gt; =C2=A0 =C2=A0 &gt; =C2=A0 =C2=A0 When we install any python script=
- that uses pyjailhouse, we
-<br>&gt; =C2=A0 =C2=A0 &gt; =C2=A0 =C2=A0 remove=C2=A0|sys.path[0] =3D os.p=
-ath.dirname(...|=C2=A0from the installed scripts,
-<br>&gt; =C2=A0 =C2=A0 &gt; =C2=A0 =C2=A0 leaving python to import pyjailho=
-use from where pip installed it.
-<br>&gt; =C2=A0 =C2=A0 &gt;
-<br>&gt; =C2=A0 =C2=A0 &gt; but it seems python doesn&#39;t find the path a=
-nd i need to add the path
-<br>&gt; =C2=A0 =C2=A0 everytime i
-<br>&gt; =C2=A0 =C2=A0 &gt; want to use jailhouse cell linux.=C2=A0=C2=A0
-<br>&gt; =C2=A0 =C2=A0 &gt;
-<br>&gt;=20
-<br>&gt; =C2=A0 =C2=A0 Did you run &quot;make install&quot;, or are you run=
-ning jailhouse from the code
-<br>&gt; =C2=A0 =C2=A0 repository? Both are supposed to work without patchi=
-ng. Anything else not.
-<br>&gt;=20
-<br>&gt; =C2=A0 =C2=A0 Jan
-<br>&gt;=20
-<br>&gt; =C2=A0 =C2=A0 --=20
-<br>&gt; =C2=A0 =C2=A0 Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-<br>&gt; =C2=A0 =C2=A0 Corporate Competence Center Embedded Linux
-<br></blockquote></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/942a4151-1921-4bd2-ad02-c9a98411ac36%40googlegroup=
-s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
-sgid/jailhouse-dev/942a4151-1921-4bd2-ad02-c9a98411ac36%40googlegroups.com<=
-/a>.<br />
-
-------=_Part_7764_738401464.1564162526070--
-
-------=_Part_7763_355180868.1564162526070--
+jailhouse-dev/d3462382-811e-62dd-bd1f-cd39a1b41948%40siemens.com.
