@@ -1,133 +1,78 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBA7Z5TUQKGQEP33SNRA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCR7PPMN34DRBKUZ5XUQKGQEMYXGKIA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x13b.google.com (mail-lf1-x13b.google.com [IPv6:2a00:1450:4864:20::13b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58BF07708A
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 26 Jul 2019 19:46:44 +0200 (CEST)
-Received: by mail-lf1-x13b.google.com with SMTP id o20sf5536226lfb.13
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 26 Jul 2019 10:46:44 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1564163204; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=FafHSWfCnRfZ2+oc/CVMxl6a7NV8CRkj/RW++0uDanrUuUnOqBi/SYEAhVcI/tKzkA
-         wktlULTmejsJ1o/aTfFau06kAqh6RxKrtkeYyYnYV8FjlR4+947n9kVEe/T9nIVH/5on
-         k343Cdgid/nF0pUb4Op7Us5o3ao91OyjGs3Ir0eR/6ocqHdB87s87a768CP3KXcfW8fO
-         i64nuRQUFPD3oYCv+iWFjEwL7b0drYyIAtOMdL2grDSIP2sEUZ+RvQJ/QVMI5j3gkhlt
-         3xMLGSXIgnRqROnbjt5XyPQsrm8z5TvXZfP2N0XzT0TUAV75aRs+gMZ3FWaKFbSWRFRI
-         IgBA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=Q9R3c/6cbkUjsPBK+1Q7JLEDGEq1hNKpj2ohBXuN9zA=;
-        b=nzgleBs2Z39PDDRWWkjbbLA4FCz0L1/OLJXVz74N5wsOz+2lKcQDB0eC7wxY7+GC7b
-         pwnqBDPCvsq161LlXnDdO3DHice6iXUED5RTUlcCSuFrT1crZJ9CSQ6bUmBtrcxmgbSc
-         xjYtfHIcoV+uOHLjUBGqigeTB6lkpmaW6jaoSISc2P2I/NllSK4bWgcHKrBds1jnaVoL
-         36lhQuyUZFu4avP8IL25xFTns6iRPz8AcwTTNCFS4IqBHtZt5o6Xr4XdX/EUymTcjM6v
-         lVEfIhjdAWuu9LxOeDmlFtLaM0JGBQ1S4a6bGSDyA/as3ioHrF/RR9LmgDzos/byiM8e
-         RlPg==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-ot1-x33c.google.com (mail-ot1-x33c.google.com [IPv6:2607:f8b0:4864:20::33c])
+	by mail.lfdr.de (Postfix) with ESMTPS id A4AFF771AD
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 26 Jul 2019 20:55:39 +0200 (CEST)
+Received: by mail-ot1-x33c.google.com with SMTP id a21sf29543194otk.17
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 26 Jul 2019 11:55:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=Q9R3c/6cbkUjsPBK+1Q7JLEDGEq1hNKpj2ohBXuN9zA=;
-        b=LuyZrAIEYsqqkCDdDgaGti7NZKnqjbWs9q0fznkH3v9eaNSV5RH0H/dBDkA7dMpu2h
-         ygGIbt4J9BDafSPO2RJnG5RIuRiLuoOZTjclaajoYv+To3jfDnCmRQNa19c25WhJyA/N
-         5UQj2ewvRrbaQnmBJuJLdIN7JN07znQOA/qbX9n7WZE7VrmYE0MfKQGEPI23oO+Ozsdn
-         nS+9NGamlnWakO8e6YmqP3/ZWEEqRJVoqJnsp9h3jqdBh0SBgPznx6ASxxZ2HSGj09Fg
-         ZrfmhsyEhvIms4sDPv28J9stt5xLWTjPH55CWS8bKhK6ZE05luQqyVg/hrMKjyrV+2Nk
-         KXFg==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=2J0De2m4QtDzK+kQfAa6+Q0gXrRfGaiQbMCed2CDuxM=;
+        b=qu+I12LqNROm7BOwprH72DQMVlDQ0IWcBRv1SAiJwUuPjjNCGIcOGW9g/QlpTFFDfK
+         DEooynkfdpfnjLC1lagtx5Fiip6BrIakLBbuwPU4zolmWblEkrPeNlKgVEjqtVf+6Z3A
+         WlwN7bxPvoZtWo3U/EnbYQWsZ7j/h+Z7uzSbFcZXN/3UerqLnHeXJ4OAwZKiU5W4ubQf
+         QAxQtJwpC4sSufKDPu1PpASk/KxIG5yEGmq2JCitJw/VWdItkn1SL5gVApd3hm4BUkP6
+         kClkBeONVMp8oLMlzcxN6Yy2zDSKNPW8Y99bwP9UyR38MF9k7QUn8WmSagvn3MoUUI1V
+         /bIA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=2J0De2m4QtDzK+kQfAa6+Q0gXrRfGaiQbMCed2CDuxM=;
+        b=nz995gY5eEUzXR3DU71M6CaxMeOWcTZMi9xU4GiHXrUk9WX+Sm3L3D9zKeWkbQY32J
+         ns4md3PfaWRbOF0kyuuDRqiIHZRhef0wG3COTcgjAZ5kqmFaSaPDGWnmbgc6gbHTp4BO
+         Gd7agtWVZVwcNa8DscfRH7BRvVMSHRGW0guHL+TJhjO4d8aAxlSLl0Q1tc4oA0HrDarK
+         Nv9TjqcgggWVuwFXrevjouOwgCRbH4uP2grjktMZggPdZFjmpcPUTSv+ebXx+30Fm6LO
+         pT0HEl6fjnjMvc4R1cTrvzWuaJzVaMFFv63lyQbegrk/2l417JpIb1oWx/H4AfZH8LwR
+         iz+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=Q9R3c/6cbkUjsPBK+1Q7JLEDGEq1hNKpj2ohBXuN9zA=;
-        b=paKMmTklSokwLNL2jhHij+Pt+rRXSySdmU/cMefee/MwGhoFTBgycQN0Cbb1UiLhwI
-         +7uO3DCGKfbWiT4yuQ0dKUimwP3DAsbT4e0D7YI85GmKLgGDURmGQpyA8j/AB5L9RNci
-         oPqhs+d+aK/Qf6NrefAhB37tKm+ENqPX3vDu1ByvKTbL1S1KiX9t1nffeD6ZjIplRtLI
-         6EqCKqtfVSDq/8UaKEpcOO9T+XMigmGeKWdg8gkgRjPaX0fiB6nedTM2oLyCbXS3qCUs
-         agLjB97dE5h7X6yT7zrmODqXhP8K4hgQCjQYm6A3TWIl3618hr81GGqda3Ba3qu6Lmqx
-         pWOw==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=2J0De2m4QtDzK+kQfAa6+Q0gXrRfGaiQbMCed2CDuxM=;
+        b=fk+QBjfYeycTVo/Xbjx3Q/d4Bg+K/HvaCdrxRd7iOfDUxwWNdPD2QNsfW0A4n0vkKj
+         FniTX5dbBWXQ2sA/vPvwfH9oCFmSNYhI5fF4c+Uy9QaZowHcZXhnqt2q80p78Vd3j35S
+         Fyv2rhUr7ODt4RleUBbQeFURHf9pkQYRCgCtbxT7QUxfAjiL0SGJy60WKZFSMuhYtxbs
+         rZw3FJy+LSW5MM3TseH5CSTg1htcKqNf85GjRitYdru/XKx3DfC2jMH5Y5ZmeDQzCfh4
+         wVUPlfmLewHhakWHqTqAxEg6yTwkWRBRtETIMmE/rUnZkbYfoxbMxzWub1pwkFnbirNz
+         L+MQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUjb7ykP46wjv8M82uPTRLfT7MAzLNZuWobCNSQiEhqfz1lSN6w
-	Y2mbikNiY1dMz8ApWm9GB6c=
-X-Google-Smtp-Source: APXvYqwtmbqtUt6xfGPXilqAc/hbvTZ9U7TYEXY07TMwyPI8uMMLaHLMLddzD1PhdiKMCNG71ZIO8A==
-X-Received: by 2002:a19:4a50:: with SMTP id x77mr1106290lfa.91.1564163203934;
-        Fri, 26 Jul 2019 10:46:43 -0700 (PDT)
+X-Gm-Message-State: APjAAAWmwef0bn7YYNch5cine9RSdfNVclY5+bsgJJL9yRBGlU3HCIrv
+	H1pE7wnGwcK/G/87jK/uc1o=
+X-Google-Smtp-Source: APXvYqy+fN22UJmxrmMxhJs0xq7mW6HP4NPsAXgYQf3pEwp2RgYOOmEdNgcwpK9GU56nLiW1McbTPA==
+X-Received: by 2002:a05:6808:182:: with SMTP id w2mr13311865oic.56.1564167338344;
+        Fri, 26 Jul 2019 11:55:38 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:553:: with SMTP id 80ls6230063ljf.4.gmail; Fri, 26 Jul
- 2019 10:46:43 -0700 (PDT)
-X-Received: by 2002:a2e:9a87:: with SMTP id p7mr50146879lji.133.1564163203133;
-        Fri, 26 Jul 2019 10:46:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1564163203; cv=none;
-        d=google.com; s=arc-20160816;
-        b=iQ7sc+YnEGVgCvz9f/oYU30DScMw/MbZZO5YzUYwhiN/XBqP5xjk/QNWBaEfyOVA1j
-         OvLtYPB8r6H+pX4vVIWas4KnMrDPKRV37yqmmt+YWj6mCgWtgy1+l36WJK5sECZ6H9jz
-         7N54DgJ8m98ITYyHc9Mh0+xWrv+fUtIdqrbRw+h8c6nynaG7aZT7pgcLJ8HTk+nyDC4S
-         Md96eI9TTD6JI3VhYc5WPdbhdbUNX9/xuMy0nyjwSQUto5TFcJI8peJ8MoiTQBg6xyTg
-         7AoO1gFIuLPWC4pEjUv47E8j6lrVo8/o26zygatXLfxTwIrxLCJ6Ytt3SOHb3qbebp7I
-         aE5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=TrpxWUC4sY7klPjfm4stDD2qEoV8AktFnIkOcMVtzM4=;
-        b=JdxQIHLiduOL5h5yJ22reEXv9uWEYk2Mqc7lDUFwvtw6Z1aqO3IsxCn7IwDRYrPxZn
-         /1nYXJ+Gzm6ksqRo2R+tQqQXV9TcYIldqsEG5KkfFidN5ggeFcVFk2yUNMAYaO7gz0kb
-         89Y/+RGOLYVi6zxJq19HP4cwoH0Bx8bmOLFmPb7iipxZlGzwy/DttvNhuhxqiminkd2b
-         U6/ypZHAJoFQbpydngEK+LJy47NM227FUnWs8RDFb/l4eTKZtkPJb5g/eioTNaMiDan8
-         A4GCYva2bj+e6s5bdffG3dzbjzLhpjfW6b32kLKfRsmzwD6YIUlIb4wtTMdeiKtinBmD
-         gDBA==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
-        by gmr-mx.google.com with ESMTPS id q25si2493121lfp.0.2019.07.26.10.46.43
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 26 Jul 2019 10:46:43 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
-Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id x6QHkgXV027399
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 26 Jul 2019 19:46:42 +0200
-Received: from [139.25.68.37] (md1q0hnc.ad001.siemens.net [139.25.68.37] (may be forged))
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x6QHkgPq005591;
-	Fri, 26 Jul 2019 19:46:42 +0200
-Subject: Re: Colored Linux as inmate
-To: =?UTF-8?Q?Jo=c3=a3o_Reis?= <jpagsreis@gmail.com>,
-        Jailhouse <jailhouse-dev@googlegroups.com>
+Received: by 2002:aca:47d2:: with SMTP id u201ls7525954oia.2.gmail; Fri, 26
+ Jul 2019 11:55:37 -0700 (PDT)
+X-Received: by 2002:a54:4694:: with SMTP id k20mr7303554oic.136.1564167337738;
+        Fri, 26 Jul 2019 11:55:37 -0700 (PDT)
+Date: Fri, 26 Jul 2019 11:55:37 -0700 (PDT)
+From: =?UTF-8?Q?Jo=C3=A3o_Reis?= <jpagsreis@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <ce8d5010-9396-446b-821f-306272fa9e7d@googlegroups.com>
+In-Reply-To: <d3462382-811e-62dd-bd1f-cd39a1b41948@siemens.com>
 References: <885a6592-84d9-43f4-a037-10ce73f968ab@googlegroups.com>
  <7f3933fc-c609-9349-4e57-a680489e9928@siemens.com>
  <320981f3-9d93-46c5-b95f-ddb68083f7ee@googlegroups.com>
- <c1a63d36-2dd0-5b52-bb16-31794ab93b62@siemens.com>
- <fe00f482-c82c-4f93-8a0e-f73dc955888d@googlegroups.com>
- <b4e7dbee-58cd-3126-ce6b-7b54ee0ef241@siemens.com>
- <211205da-9e38-4178-895a-3ba80f214aa9@googlegroups.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <6abaf77f-e4a7-7a9a-2ae9-8d1d8f1388bf@siemens.com>
-Date: Fri, 26 Jul 2019 19:46:42 +0200
-User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
- Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
+ <de716a1a-110f-4fac-864c-54043152997e@googlegroups.com>
+ <62f33b9f-a7f6-34cb-3740-2fca02468b0f@siemens.com>
+ <907a0d23-c664-432b-849f-8d536d14488f@googlegroups.com>
+ <421d16ea-f517-a1f0-750d-65b9f856d1e6@siemens.com>
+ <942a4151-1921-4bd2-ad02-c9a98411ac36@googlegroups.com>
+ <d3462382-811e-62dd-bd1f-cd39a1b41948@siemens.com>
+Subject: Re: Colored Linux as inmate
 MIME-Version: 1.0
-In-Reply-To: <211205da-9e38-4178-895a-3ba80f214aa9@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_7923_1621464679.1564167337134"
+X-Original-Sender: jpagsreis@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -140,25 +85,42 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 26.07.19 19:28, Jo=C3=A3o Reis wrote:
-> No, the initramfs size is uncompressed (compressed is ~170MB). What -k sw=
-itch
-> are you referring to?
->=20
+------=_Part_7923_1621464679.1564167337134
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_7924_210382877.1564167337134"
 
-jailhouse cell linux --help
-[...]
-  --kernel-decomp-factor N, -k N
-                        decompression factor of the kernel image, used to
-                        reserve space between the kernel and the initramfs
+------=_Part_7924_210382877.1564167337134
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Do you have split kernel and initramfs, or both combined into one?
+My distro is Ubuntu 16.04.6 LTS
 
-Jan
-
---=20
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+sexta-feira, 26 de Julho de 2019 =C3=A0s 18:43:57 UTC+1, Jan Kiszka escreve=
+u:
+>
+> On 26.07.19 19:35, Jo=C3=A3o Reis wrote:=20
+> > pyjailhouse was installed on /usr/local/lib/python2.7/dist-packages, an=
+d=20
+> that is=20
+> > the directory i have to add to the script in order for it to find=20
+> pyjailhouse.=20
+> >=20
+>
+> Hmm, must be some distro thing: When I call "pip install ...", my distro=
+=20
+> directs=20
+> the result to /usr/lib/python2.7/site-packages, and that is already in th=
+e=20
+> search path of the python installation.=20
+>
+> Which distro are you on?=20
+>
+> Jan=20
+>
+> --=20
+> Siemens AG, Corporate Technology, CT RDA IOT SES-DE=20
+> Corporate Competence Center Embedded Linux=20
+>
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -166,4 +128,51 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/6abaf77f-e4a7-7a9a-2ae9-8d1d8f1388bf%40siemens.com.
+jailhouse-dev/ce8d5010-9396-446b-821f-306272fa9e7d%40googlegroups.com.
+
+------=_Part_7924_210382877.1564167337134
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">My distro is Ubuntu 16.04.6 LTS<br><br>sexta-feira, 26 de =
+Julho de 2019 =C3=A0s 18:43:57 UTC+1, Jan Kiszka escreveu:<blockquote class=
+=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-left: 1px #cc=
+c solid;padding-left: 1ex;">On 26.07.19 19:35, Jo=C3=A3o Reis wrote:
+<br>&gt; pyjailhouse was installed on=C2=A0/usr/local/lib/python2.7/<wbr>di=
+st-packages, and that is
+<br>&gt; the directory i have to add to the script in order for it to find =
+pyjailhouse.
+<br>&gt;=20
+<br>
+<br>Hmm, must be some distro thing: When I call &quot;pip install ...&quot;=
+, my distro directs
+<br>the result to /usr/lib/python2.7/site-<wbr>packages, and that is alread=
+y in the
+<br>search path of the python installation.
+<br>
+<br>Which distro are you on?
+<br>
+<br>Jan
+<br>
+<br>--=20
+<br>Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+<br>Corporate Competence Center Embedded Linux
+<br></blockquote></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/ce8d5010-9396-446b-821f-306272fa9e7d%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/ce8d5010-9396-446b-821f-306272fa9e7d%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_7924_210382877.1564167337134--
+
+------=_Part_7923_1621464679.1564167337134--
