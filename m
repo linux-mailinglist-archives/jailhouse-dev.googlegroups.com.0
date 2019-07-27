@@ -1,64 +1,109 @@
-Return-Path: <jailhouse-dev+bncBCR7PPMN34DRBQEJ6HUQKGQEWGJPAIY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBOUU6HUQKGQEIY45DSQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x340.google.com (mail-ot1-x340.google.com [IPv6:2607:f8b0:4864:20::340])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2538778BC
-	for <lists+jailhouse-dev@lfdr.de>; Sat, 27 Jul 2019 14:34:10 +0200 (CEST)
-Received: by mail-ot1-x340.google.com with SMTP id q22sf30686923otl.23
-        for <lists+jailhouse-dev@lfdr.de>; Sat, 27 Jul 2019 05:34:10 -0700 (PDT)
+Received: from mail-wr1-x440.google.com (mail-wr1-x440.google.com [IPv6:2a00:1450:4864:20::440])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D11B778D1
+	for <lists+jailhouse-dev@lfdr.de>; Sat, 27 Jul 2019 14:57:31 +0200 (CEST)
+Received: by mail-wr1-x440.google.com with SMTP id e8sf27129144wrw.15
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 27 Jul 2019 05:57:31 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1564232251; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=IU6NOzh1TrppPmV+7cFZNtjcK0y5O3MwsVhhUTvw2xUpXyrvCwcciTxormJXNV/iKQ
+         PmR/qdbJR0GZrM0vKG1fsYYrZm8fWNchThjJNQ3jpXTnJ3fSgb7Cn1tuoaDJAESrYVNE
+         /WCWV55R/Nvdq7N8nr5aIDCXG/iOJYk3XdQjTMoBAMMqQdKztfGgaYjOLZm8qcYlTK0F
+         GvSjHcaw8b3GPGc3XDzA8FZnPBJnbCTGadan+u5BYm2rJRdUNvVcqg39YUhxiGf9kqX0
+         YCnSFl7/x2uBYkwRBqye062UX3GrQcLR7DM4uKT2Mr8t7zpa7dupfDTe4uwid4vf4lr0
+         GT+Q==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=WTZScVl6godkkCijyuTGksg7rf1qvYVD1eYxzwv7798=;
+        b=vyE56LS8/GFRdghIGG2ZiuNSGOknpGKG7JyJbybWL4QE90QdX4eATa+LZ0ZUYEm1Ly
+         If3GoCkqusITz4A2+BG4CgTQ4tQAPEfo8DwVz+NqGsZAMG0UQj5ji/op96OR87b+/EvT
+         jp8Mje7sVswbnp7QHhncTyUIEg0mrJMXQqwOFUJafwgWlgAFsDDqLHxD6hqzzjBjDWnJ
+         JFXQ2LYOT7qQ9M8M1QLttm1XLh5CbV/7CDwc2PRAn1csrMnb+v6dQz5SD8bhQ2+7+uGE
+         JxL00TPVpuFDtXs3kElz/FcYDKyecU9eeobg1qaianXT41rWnZFwzQYHjdsz6jCEswHj
+         x2dQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b="cWpVh/16";
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=/MaHzvkW3EShWbmYUeYMOkFhaUgLHtnK/ky7wcDxN3M=;
-        b=Set280ZNttRFCrMOGvGP4+h3mAfliHF5jIPIqc2ms7wJT4SK3cK+qMaM0HmyjgRLDF
-         sHtI+3WvuiNlPjp0NWwg5ASVTyv00PkNvKlcs0kT2MmglRZW83jlKnCeN8IiX3Nixw/z
-         Kx4MttspNt28HATXfpka9EzjyIvHqrUDMiPXgfJ/6dLlAbhMNfjdUQH7Q6XS2MrkRJS0
-         Ff5ydvBNaJcvQTsGeR+T8BGJdqcT7nrqhZMbLbiJ+v7ZrbKRQnCTmtJNXXznvtMAtu0h
-         Y1oSB6bVGTVOHEpvleLS7N1iTo0PpXsz/1BDlT1FP5xfP+0LVbF4pTwaE5vk4Mz6+/8T
-         ixIw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=/MaHzvkW3EShWbmYUeYMOkFhaUgLHtnK/ky7wcDxN3M=;
-        b=HkVhQbj4dCuE46U54vHGqt75C04DUwweaz04cYFBHwV+s7oIVOj33EiIXrEJ2purBs
-         NweLILhBsEkAjawhhV7Z0O1h2tBI90Koy2Ea4eMcPX5/M0p5QQCcZoJdRXQ9FuQLrF0A
-         Ui1SLA+VG7hKcF5jV/SSQk7d34fjptifURV2u/AbxFDqs2reFQqENKcRUuHIjP5nifyC
-         TdJVKevwy8Tw264ddWcY+oqG2jYfCFoMSXgxPtKsPvk6FzEhElNF93PlmEGe/t06Ualp
-         Z/yGs1Qcd4lE2LD3f6+CPg9VukA8RWJqRg5kAdXz4m31nzuI+suYcWmircKvieS+6LQe
-         fvDQ==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=WTZScVl6godkkCijyuTGksg7rf1qvYVD1eYxzwv7798=;
+        b=AWyN4XQkvuAtU6SV1OGHWAzOuW3ZRob8CNH2LNPIrmzS7+JB7pUukuptpeNOc2ZPu7
+         MU/dUFqkABJvPV2Rm/IMi11ETf98hp45AkK2IErElnweGTFzOHK/x71Fw5znG6OSrSQD
+         mdvl+AYgmcPu8mTITHVUyE2+A2qhcj+/wcZsAX7VyYq4kgmAWlVWPyqa9bAt1EZkxIx8
+         WM0mBPr2nPF9VCAZN/kheTp0Ri4svh7yV9n+JI3byffgGPIvuCjuaYKoXSI6yFqrJ+bQ
+         ksyKeoqoAkzRw0RUYvsn83pwuObZP+IQ9BYt+rKAYlpbh8CwJQZfjCvmjg33PFHDUwYc
+         MiJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=/MaHzvkW3EShWbmYUeYMOkFhaUgLHtnK/ky7wcDxN3M=;
-        b=KYL5D0ZbvVhVfFoj934A1MUmkjpuVkjl2CGi8zLulEVNxYYiJ0S/jJRMCR+7Senet4
-         UHk5pH/JK6LnqS2MRS0LNveQdv4ZokMqW1XEacCX2jhrw4gSR15al9Art/KV5VtufleS
-         axHpiQSdHAys8v9EYP8RWjqocFzmnOwK65/XIQXqAJxmkK4G9gvXW99ui4gZF+lloXLU
-         0Z8ywzpQ822PiZ/O2hNhh7SSw89BZxHfoiMyTs+YC12rJxVLFWGL9ciXwlciZOIvBjrN
-         bTBb/GEVxxGWJ1BSQgrk8CDkLqiij3WqI828N8mQtzm+QHPjIGN3d0cJETmySRcfjZvw
-         hN8A==
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=WTZScVl6godkkCijyuTGksg7rf1qvYVD1eYxzwv7798=;
+        b=DcDRKfsXz8PTbQHTkiRMgi54UWRD/fH6O0Kr6x2bh75tGqXfZ9fI3eAcZOef/zoc/o
+         tfhhDC/uH7WOQYd1D3lC0KYt8lURbqPfTvz2rUuU/YUcgUjukU2GM1BrZZN4N/+ppaRN
+         c6X7nUkw1mo0rquA9azqaqJR+SnaqLFR+6IG4q0DMWgYFjpRu9sxNM0tfOFCIxCJZkzX
+         bCsMFi9ShZ1lftgOqbRn0G90u5dcVGK132ENqSJh6/kMa5gECnTCSPFJ3iXhqV+j9Pfk
+         myNNlUkW6brOD2I1H5VYNv9Dh5I/jtMqcgN+Ll71mL5HLxZF4nddsJWrqwcHN1Lqojfh
+         CjtA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUIImvoN1si8vcqynCI34R7pKa/Ty0uetFYX4ivank5xuawWgX+
-	Mjet2Jp5zMonx9xGoHjTnYw=
-X-Google-Smtp-Source: APXvYqzrKFaDbHU5ks9IkIYeU9pHbeUlpIT6rPCpnwl+erFqraTfH4sgN4dwqymhMXf+BGAwX7BujQ==
-X-Received: by 2002:a05:6830:2010:: with SMTP id e16mr15085845otp.344.1564230849120;
-        Sat, 27 Jul 2019 05:34:09 -0700 (PDT)
+X-Gm-Message-State: APjAAAVfhSFngknURVJrx7BMY7DLTMvmGyqGJsKgKDniO3mEgFvlJfAp
+	RpDRxTvMwagJODBXy6JzjNE=
+X-Google-Smtp-Source: APXvYqyZilnyQnLdN2axGHDmvPiOXkqQOsq9lBDFvkSRLqtDcpp6+KoPdb8ywcq3F9BNBw6ApYFrHg==
+X-Received: by 2002:adf:f6d2:: with SMTP id y18mr32931844wrp.102.1564232251101;
+        Sat, 27 Jul 2019 05:57:31 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6808:5d4:: with SMTP id d20ls7746711oij.14.gmail; Sat,
- 27 Jul 2019 05:34:08 -0700 (PDT)
-X-Received: by 2002:aca:3158:: with SMTP id x85mr44651181oix.93.1564230848381;
-        Sat, 27 Jul 2019 05:34:08 -0700 (PDT)
-Date: Sat, 27 Jul 2019 05:34:07 -0700 (PDT)
-From: =?UTF-8?Q?Jo=C3=A3o_Reis?= <jpagsreis@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <a5b27da1-b2aa-4ce0-863f-d9503a22b886@googlegroups.com>
-In-Reply-To: <19e76b74-6d6e-010d-952a-5a36e606091b@web.de>
+Received: by 2002:adf:a386:: with SMTP id l6ls16417266wrb.16.gmail; Sat, 27
+ Jul 2019 05:57:30 -0700 (PDT)
+X-Received: by 2002:adf:e883:: with SMTP id d3mr21135635wrm.330.1564232250679;
+        Sat, 27 Jul 2019 05:57:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1564232250; cv=none;
+        d=google.com; s=arc-20160816;
+        b=G5/J7ymwYoG152uxc3KqTUJUooPYISOrPt8tuvbX7DOReKzoGNGc0pjoqVKzsoWD9C
+         Pi4LXYSTdwivGts+07+8N9VQVVpVeg2d58MYyZ5xUo/8U4Wpf0oO3BDWyWF8G4Y+C07p
+         50fWdlgOlM2WXkoPx/o57dLjWs1ECAbbPCvgawuXwcggGtVkWcBPIE78C9vwjzc0kNtU
+         Agk2mpPl4zwaBsLoJ0vrnrG1Q0WM08lc67+SVabhp4oZNuAgOFWUC+uEX/r8Q21HmkwQ
+         yxZEPVcM0nM+al5WIRTatChIIpO2CHZMNO4ezPh0mrC68GFOpuJjFzrSyPO18Pf9mCUg
+         d46Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject
+         :dkim-signature;
+        bh=lnpuwPGRbF7ccitdNOxCvalT8y7Ofnnbteu+FIg739I=;
+        b=DLdwQczZ3B6ML8ll/yFEH05mUsGl5eaUgBKLBAvfAbX39G/wYwi5w//m9asIf4W/ZS
+         QG2XIcHE71Na4npwgs62dnb5H4Bo8ZygqqVcPsGH3ZufYishsmvIl+zQeEv4TpvnR1Qh
+         0waPyqs59OO+Ywq4tTRO+A4Izi/9PHXDAv6EcyF8k2U9+Iw5+P1BLG4u/PzmZm2hF6LY
+         h8PMmsh9WoIYZxUVkPQLpCaxTOhT2YqjPGG3TQG4RN2DFnsT4yhnW2x/lJxwhsKL1+Ud
+         D7hq97/bOH9/W+rXPcP+/CtIbmKRamlzDKzYEN3+PbJgRAYC5br+LpJ4G0CZB7RaMsVd
+         PSQg==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b="cWpVh/16";
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Received: from mout.web.de (mout.web.de. [212.227.15.4])
+        by gmr-mx.google.com with ESMTPS id a10si2951890wmm.2.2019.07.27.05.57.30
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Sat, 27 Jul 2019 05:57:30 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) client-ip=212.227.15.4;
+X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
+Received: from [192.168.1.10] ([95.157.55.156]) by smtp.web.de (mrweb003
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 0MYevq-1hwHwx3qVu-00VQfR; Sat, 27
+ Jul 2019 14:57:30 +0200
+Subject: Re: Colored Linux as inmate
+To: =?UTF-8?Q?Jo=c3=a3o_Reis?= <jpagsreis@gmail.com>,
+ Jailhouse <jailhouse-dev@googlegroups.com>
 References: <885a6592-84d9-43f4-a037-10ce73f968ab@googlegroups.com>
  <7f3933fc-c609-9349-4e57-a680489e9928@siemens.com>
  <320981f3-9d93-46c5-b95f-ddb68083f7ee@googlegroups.com>
@@ -69,11 +114,46 @@ References: <885a6592-84d9-43f4-a037-10ce73f968ab@googlegroups.com>
  <6abaf77f-e4a7-7a9a-2ae9-8d1d8f1388bf@siemens.com>
  <1726f6bd-680a-46ac-a7f3-937cbba84208@googlegroups.com>
  <19e76b74-6d6e-010d-952a-5a36e606091b@web.de>
-Subject: Re: Colored Linux as inmate
+ <a5b27da1-b2aa-4ce0-863f-d9503a22b886@googlegroups.com>
+From: Jan Kiszka <jan.kiszka@web.de>
+Message-ID: <885b4c3e-8d69-e516-aff4-46f2e50cb622@web.de>
+Date: Sat, 27 Jul 2019 14:57:29 +0200
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
+ Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_7985_115819774.1564230847653"
-X-Original-Sender: jpagsreis@gmail.com
+In-Reply-To: <a5b27da1-b2aa-4ce0-863f-d9503a22b886@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:UnY6km72efAbBWJ/HH/QVz7j8qKsXOlzzXR75pY40enu9qLgR5r
+ EJZgjaH+otqkoukp4qg+AlGhjtcJis59xD345MwaoxWwq73OXBwERkBS/wC25XsI2cyscZk
+ W8W6OV/NggcoQs0Hxob5tH/2qOH5ChVg69SohB7TZYuJt8V8lV0veAUAJ6TDpNMiic6CETt
+ 9ZbGfIK1VWg22LoLjDhFw==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:oz1UjO5x1mU=:Nr9Brqtz8W0KqAGjtQK6Sc
+ kW5b3FHYyUOtL3pCRYN21yXm1GHY+6gRDb9BN6/cRIjncpVqHuCYBFJpW6IydOtg4tQ/m0nOg
+ UVV6R1Z7xbnvmidbeZgvmQ9I8UOZTX6lE5gzhZhh/B/D57GK5Ho6Y4W2v8LHSGlJ68hVIs+wd
+ y+yTDjFsCguZLClmZV/h8Q67BnLVhQWYYY4aItuC7+R6JEbXzdX5lKIHSjlbvpQBQ/Ezh2WLi
+ DO/X0ChMsZMeTcFkhbPuYnP1pR0PdltACHXWk9JUYySFR1uumWENFrVftIV5IzZzK/NOOCFMn
+ EqdOEYd77ojnk5QVMteRXhRRvrS7QMlCqJXDjVJfwR+LgJNqvFLQRvS/ernznLlTiiNb1mO5S
+ LByF4EFcJFrfDsszIsvgSNmESkv8IyVcOhDjDfxYBwA3oDBYAG0J5RoYuRz70VoVtLSoZ/+y4
+ YFPkvYrRyX4GB691Dp/LpCUNlkoN9eiUOiYehAn5nwZsoQMNaRqVPmwgH14b5/P3whNF91q/4
+ u7LRCI8lGbMdMXaDy33W2/OfCKFJwx0yLfMJpEfDGdg/Mge8gxbUWn3yZhI0jl2poSID+2gPD
+ B2r4xQ0NonzpuJcX5eiLuponYtjkdbsKKSNUxIPSDdqZkgGiix9mXWAhIKNyuPLKJVTd/tqtX
+ kRYzjwrlb+emrrbMRcJ210s5TWL920XEoekQbWYZtfypmgEQC6fIEFWEmMs+EXAVpli6DMtim
+ BsEf9s/IYfcXAmSk/vfKZRRDh/lkpZWmkuza3I0n9qmM878rjSv8WBkZjDOlF8mivGv+AbkOE
+ IQdmY1ctUaqY8T149/56VHOP0XfstgYjP8ac2KqLcolhZ4G6HhYb5535IecHglr8JLVZbWf47
+ StpB39HLedRZqsaitctIiIO7KiWo83R8vQ/eroNePlYhUZm4kY82bl8fh0m8vvlYkhna94q/s
+ oO08bl17cKR/vK+lhoQpdSkVlr9fo20OJK4tAc5zU82YDoU+zVOAfGhdcoxp4eZguOQZlBDtW
+ gnUVQ2+zZu9QIIcPzovmuHhGXEnLOUjJhesm7ZWWu9S8/3pC78dRtFlMgrLsBkNyrQaSAlKMZ
+ WcoqffxBBi1i1nlTsc7l1nAj44HhLfJ0rYu/5RqpcaX9ZbVuUbvmwPEakcFk3eBhKaB0AjZx3
+ yFNEC9Z9mVeeha86C/OHdi+U0vE/rNGZbPFaqQbFzmKvwuj+8Z5Fffp/pvdDwO6B8lJ6GdQKV
+ TFYpdSVNOR7o8MCPW
+X-Original-Sender: jan.kiszka@web.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@web.de header.s=dbaedf251592 header.b="cWpVh/16";       spf=pass
+ (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted
+ sender) smtp.mailfrom=jan.kiszka@web.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -86,62 +166,24 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_7985_115819774.1564230847653
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_7986_1754567173.1564230847653"
+On 27.07.19 14:34, Jo=C3=A3o Reis wrote:
+> I reduced the kernel image to 90MB and the initramfs to 80MB. In the non =
+root
+> cell config file, i declared a memory region with size 0x5fff000 (~1.45GB=
+) (send
+> in attachment), and even when i issue "jailhouse cell linux
+> ultra96-linux-demo.cell Image -d inmate-zynqmp-zcu102-2.dtb -i rootfs.cpi=
+o -c
+> "console=3DttyS0, 115200" -k 4", it still gives me the error of no space =
+found to
+> load all images.
+>
 
-------=_Part_7986_1754567173.1564230847653
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+At least the config your attached contains no loadable RAM regions.
 
-I reduced the kernel image to 90MB and the initramfs to 80MB. In the non=20
-root cell config file, i declared a memory region with size 0x5fff000=20
-(~1.45GB) (send in attachment), and even when i issue "jailhouse cell linux=
-=20
-ultra96-linux-demo.cell Image -d inmate-zynqmp-zcu102-2.dtb -i rootfs.cpio=
-=20
--c "console=3DttyS0, 115200" -k 4", it still gives me the error of no space=
-=20
-found to load all images.
+Jan
 
-s=C3=A1bado, 27 de Julho de 2019 =C3=A0s 07:23:24 UTC+1, Jan Kiszka escreve=
-u:
->
-> On 26.07.19 21:04, Jo=C3=A3o Reis wrote:=20
-> > The kernel and initramfs are splitted. I don't know how does the=20
-> decompression=20
-> > factor works, because the kernel image is already decompressed. In this=
-=20
-> context=20
-> > what value must i place on kernel decomposition factor?=20
-> >=20
->
-> On ARM, the kernel is always compressed. It decompresses itself on=20
-> startup, and=20
-> for that it needs some extra space. We estimate that by taking the kernel=
-=20
-> image=20
-> size 4 times and add that as decompression space after the kernel image.=
-=20
-> The=20
-> initramfs is placed after that.=20
->
-> However, the placement logic in jailhouse-cell-linux is simplistic: It=20
-> only=20
-> searches for a single region that can hold both kernel image, kernel=20
-> decompression space, dtb and initramfs together. Spreading those over=20
-> multiple=20
-> regions like you created is not supported. You could either rearrange you=
-r=20
-> regions to form one (if you do not depend on DMA in the second Linux cell=
-,=20
-> you=20
-> can use virt!=3Dphys memory regions as well), reduce the size of your=20
-> initramfs or=20
-> use nfs as filesystem for the second Linux.=20
->
-> Jan=20
->
+--
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -149,216 +191,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/a5b27da1-b2aa-4ce0-863f-d9503a22b886%40googlegroups.com.
-
-------=_Part_7986_1754567173.1564230847653
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">I reduced the kernel image to 90MB and the initramfs to 80=
-MB. In the non root cell config file, i declared a memory region with size =
-0x5fff000 (~1.45GB) (send in attachment), and even when i issue &quot;jailh=
-ouse cell linux ultra96-linux-demo.cell Image -d inmate-zynqmp-zcu102-2.dtb=
- -i rootfs.cpio -c &quot;console=3DttyS0, 115200&quot; -k 4&quot;, it still=
- gives me the error of no space found to load all images.<br><br>s=C3=A1bad=
-o, 27 de Julho de 2019 =C3=A0s 07:23:24 UTC+1, Jan Kiszka escreveu:<blockqu=
-ote class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-left=
-: 1px #ccc solid;padding-left: 1ex;">On 26.07.19 21:04, Jo=C3=A3o Reis wrot=
-e:
-<br>&gt; The kernel and initramfs are splitted. I don&#39;t know how does t=
-he decompression
-<br>&gt; factor works, because the kernel image is already decompressed. In=
- this context
-<br>&gt; what value must i place on kernel decomposition factor?
-<br>&gt;
-<br>
-<br>On ARM, the kernel is always compressed. It decompresses itself on star=
-tup, and
-<br>for that it needs some extra space. We estimate that by taking the kern=
-el image
-<br>size 4 times and add that as decompression space after the kernel image=
-. The
-<br>initramfs is placed after that.
-<br>
-<br>However, the placement logic in jailhouse-cell-linux is simplistic: It =
-only
-<br>searches for a single region that can hold both kernel image, kernel
-<br>decompression space, dtb and initramfs together. Spreading those over m=
-ultiple
-<br>regions like you created is not supported. You could either rearrange y=
-our
-<br>regions to form one (if you do not depend on DMA in the second Linux ce=
-ll, you
-<br>can use virt!=3Dphys memory regions as well), reduce the size of your i=
-nitramfs or
-<br>use nfs as filesystem for the second Linux.
-<br>
-<br>Jan
-<br></blockquote></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/a5b27da1-b2aa-4ce0-863f-d9503a22b886%40googlegroup=
-s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
-sgid/jailhouse-dev/a5b27da1-b2aa-4ce0-863f-d9503a22b886%40googlegroups.com<=
-/a>.<br />
-
-------=_Part_7986_1754567173.1564230847653--
-
-------=_Part_7985_115819774.1564230847653
-Content-Type: text/x-csrc; charset=UTF-8; name=ultra96-linux-demo2.c
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment; filename=ultra96-linux-demo2.c
-X-Attachment-Id: 30075f2d-8ebc-483e-bd41-4d2f8181b2dc
-Content-ID: <30075f2d-8ebc-483e-bd41-4d2f8181b2dc>
-
-/*
- * Jailhouse, a Linux-based partitioning hypervisor
- *
- * Configuration for linux-demo inmate on Avnet Ultra96 board:
- * 2 CPUs, 128M RAM, serial port 2
- *
- * Copyright (c) Siemens AG, 2014-2019
- *
- * Authors:
- *  Jan Kiszka <jan.kiszka@siemens.com>
- *
- * This work is licensed under the terms of the GNU GPL, version 2.  See
- * the COPYING file in the top-level directory.
- */
-
-#include <jailhouse/types.h>
-#include <jailhouse/cell-config.h>
-
-struct {
-=09struct jailhouse_cell_desc cell;
-=09__u64 cpus[1];
-=09struct jailhouse_memory mem_regions[6];
-=09struct jailhouse_irqchip irqchips[1];
-=09struct jailhouse_pci_device pci_devices[1];
-} __attribute__((packed)) config =3D {
-=09.cell =3D {
-=09=09.signature =3D JAILHOUSE_CELL_DESC_SIGNATURE,
-=09=09.revision =3D JAILHOUSE_CONFIG_REVISION,
-=09=09.name =3D "non-root",
-=09=09.flags =3D JAILHOUSE_CELL_PASSIVE_COMMREG,/* |
-=09=09JAILHOUSE_CELL_VIRTUAL_CONSOLE_ACTIVE,*/
-
-=09=09.cpu_set_size =3D sizeof(config.cpus),
-=09=09.num_memory_regions =3D ARRAY_SIZE(config.mem_regions),
-=09=09.num_irqchips =3D ARRAY_SIZE(config.irqchips),
-=09=09.num_pci_devices =3D ARRAY_SIZE(config.pci_devices),
-
-=09=09.vpci_irq_base =3D 140-32,
-
-=09=09.console =3D {
-=09=09=09.address =3D 0xff010000, /*UART1*/
-=09=09=09//.address =3D 0xff000000, /*UART0*/ //se eu meter uart0 da erro u=
-nhandled trap
-=09=09=09.type=3D JAILHOUSE_CON_TYPE_XUARTPS,
-=09=09=09.flags =3D JAILHOUSE_CON_ACCESS_MMIO |
-=09=09=09=09 JAILHOUSE_CON_REGDIST_4,
-=09=09},
-=09},
-
-=09.cpus =3D {
-=09=090xe, //1110
-=09=09//0x8, //1000 - fica com cpu3
-=09=09//0xc, //1100
-=09},
-
-=09.mem_regions =3D {
-=09=09/* UART */ {
-=09=09=09.phys_start =3D 0xff010000,
-=09=09=09.virt_start =3D 0xff010000,
-=09=09=09/*.phys_start =3D 0xff000000,
-=09=09=09.virt_start =3D 0xff000000,*/
-=09=09=09.size =3D 0x1000,
-=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-=09=09=09=09JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
-=09=09},
-=09=09/* RAM */ {
-=09=09=09.phys_start =3D 0,
-=09=09=09.virt_start =3D 0,
-=09=09=09.size =3D 0x5fff0000, //must be page size aligned
-=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-=09=09=09=09JAILHOUSE_MEM_EXECUTE ,/*| JAILHOUSE_MEM_LOADABLE |
-=09=09=09=09JAILHOUSE_MEM_ROOTSHARED, *///se tirar JAILHOUSE_MEM_ROOTSHARED=
- da exception fault 0x20
-=09=09},
-=09=09/* RAM */ {
-=09=09=09.phys_start =3D 0x7bef0000,
-=09=09=09.virt_start =3D 0x7bef0000,
-=09=09=09.size =3D 0x10000,
-=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-=09=09=09=09JAILHOUSE_MEM_EXECUTE,// | JAILHOUSE_MEM_LOADABLE,
-=09=09},
-=09=09/* RAM */ {
-=09=09=09.phys_start =3D 0x74000000,
-=09=09=09.virt_start =3D 0x74000000,
-=09=09=09.size =3D 0x7ef0000,
-=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-=09=09=09=09JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,/* |
-=09=09=09=09JAILHOUSE_MEM_LOADABLE,*/
-=09=09},
-=09=09/* IVSHMEM shared memory region */ {
-=09=09=09.phys_start =3D 0x7bf00000,
-=09=09=09.virt_start =3D 0x7bf00000,
-=09=09=09.size =3D 0x100000,
-=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-=09=09=09=09JAILHOUSE_MEM_ROOTSHARED,
-=09=09},
-=09=09/* communication region */ {
-=09=09=09.virt_start =3D 0x80000000,
-=09=09=09.size =3D 0x00001000,
-=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-=09=09=09=09JAILHOUSE_MEM_COMM_REGION,
-=09=09},
-=09=09},
-=09=09
-
-=09.irqchips =3D {
-=09=09/* GIC */ {
-=09=09=09.address =3D 0xf9010000, /* GICD base address - Display controller=
- */
-=09=09=09.pin_base =3D 32, /* The first irqchip starts at .pin_base=3D32 as=
- the first 32 interrupts are=20
-reserved for SGIs and PPIs. */
-=09=09=09.pin_bitmap =3D {
-=09=09=09=09//1 << (54 - 32),
-=09=09=09=091 << (53 - 32), // cat /proc/interrupts interrupt da UART0 AQUI=
- ESTA A DIFEREN=C3=87A
-=09=09=09=090,
-=09=09=09=090,
-=09=09=09=09(1 << (140 - 128)) | (1 << (142 - 128)) //PL to PS interrupt si=
-gnals 8 to 15.
-=09=09=09},
-=09=09},
-=09},
-
-=09.pci_devices =3D {
-=09=09/* 00:00.0 */ {
-=09=09=09.type =3D JAILHOUSE_PCI_TYPE_IVSHMEM,
-=09=09=09.bdf =3D 0 << 3, // 00:00.0
-=09=09=09.iommu =3D 1,//
-=09=09=09.bar_mask =3D {
-=09=09=09=090xffffff00, 0xffffffff, 0x00000000,
-=09=09=09=090x00000000, 0x00000000, 0x00000000,
-=09=09=09},
-=09=09=09.shmem_region =3D 4,
-=09=09=09//.shmem_protocol =3D JAILHOUSE_SHMEM_PROTO_VETH,
-=09=09=09//.shmem_protocol =3D JAILHOUSE_SHMEM_PROTO_CUSTOM,
-=09=09=09.shmem_protocol =3D JAILHOUSE_SHMEM_PROTO_UNDEFINED,
-=09=09=09//.num_msix_vectors =3D 1,
-=09=09},
-=09},
-};
-
-------=_Part_7985_115819774.1564230847653--
+jailhouse-dev/885b4c3e-8d69-e516-aff4-46f2e50cb622%40web.de.
