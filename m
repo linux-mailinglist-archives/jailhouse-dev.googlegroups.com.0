@@ -1,116 +1,81 @@
-Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBYOC7PUQKGQE4CAJBQI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCR7PPMN34DRBSU47XUQKGQE3PXCEXI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qt1-x840.google.com (mail-qt1-x840.google.com [IPv6:2607:f8b0:4864:20::840])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5895678B4B
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 29 Jul 2019 14:06:58 +0200 (CEST)
-Received: by mail-qt1-x840.google.com with SMTP id o11sf46264328qtq.10
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 29 Jul 2019 05:06:58 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1564402017; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=djKZGqxrXMyMfHs2FXqiLuOImQRZOuCrEL6NtcdJmahyAsnnhvcpcSavLGqImWB245
-         2T0fDeSclYMyL6i3os1DxylPrWpnmPjDdbiJCYzqAVsGl9T5nJmCBMNq5r0NsTRuIn5C
-         lbE1mFXa9M0fEF+JY4rcsl1cID6Tic9/pHbfXAyfvTn/+TNQ09yAwrB4Tqclh6e/MifN
-         k6ooyiMyuxIhBGFh/6QF2IsMUakU8UGaa1Zn86co7Rz10CeKPW2IqHlHoi2iSmrCeDLH
-         xE7D7/eGnuCqSNx90mfNu3bUh1NFyXg0EQkKm9QsCd3p621fZKKBni8dUSakDKRxaUPB
-         SyVQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :mime-version:subject:message-id:to:from:date:sender:dkim-signature;
-        bh=IdL8IidxQMJMJGwskXGPE5vemO0IJGO/vcZYz8aSIlY=;
-        b=OozXEK4URBx/FcLxkfRZTO5TzbDGdFtLMpIonOuz87mXM0txtDe2rHCz+z3ZFv8qDG
-         1VPjt3cWEfo+HRlog8K1wklrQWgnowEMs67tkkIBXyHHJ1tytwufEEVERfwoBYUNCyBV
-         ENMNwB9/K+xK3Wf581JA3QWrxhkv2aBLSi0cA7HM1anchsZHZUlgX6JjskOL5k35imNK
-         /aVPctCZ9VcYneAryTieKjgtXunxzW/vwiPovvPpXRwck0Eucr8W2PYSztWI02L7Ygop
-         PkjJM6NghcUZvWufA+YeJP74TTZ+cR1boTAkxTbFRzpIdRJ/exrnf9CK0+l7PiuMA7Nw
-         HRjQ==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=S62rrDOP;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.205 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from mail-ot1-x340.google.com (mail-ot1-x340.google.com [IPv6:2607:f8b0:4864:20::340])
+	by mail.lfdr.de (Postfix) with ESMTPS id 654A579661
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 29 Jul 2019 21:51:40 +0200 (CEST)
+Received: by mail-ot1-x340.google.com with SMTP id n19sf34592469ota.14
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 29 Jul 2019 12:51:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:subject:mime-version
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=IdL8IidxQMJMJGwskXGPE5vemO0IJGO/vcZYz8aSIlY=;
-        b=oGRQUU/MT/8wnKEiF7lx0iqw7AiwuLQsatB0QJ7835GZgN/iudASW8SuCaUhd/GcL2
-         cpu1BqVHAHlHrHnS01gYlfxgFMpCr0kR9PE1w8zGy3Q/Mm6twQl2rLGaA1bL+tH0enBu
-         f95cIHcm0sYerHAKqM08UNTSSUxqIsjtUIeTHQhR8255JhMI5zgVNHD0jTA/sNDzJGLS
-         EjulWQbJYEgkibTKCBNeeTeik6UY9DQTvG0GdPRFPWs95CkXURBZJN89qTRtyyTwfp35
-         R27PIM5cNmPajQ52dAYiNfH+1PWm53Tq8d0Na9ksxoBUXy1Hh21OOzWeoBfQQ6U/vwiR
-         jUCQ==
+        bh=Tpa4V+nYYz2TuM2NdEGhyZVHq6GrbkoKXq5ANqvjqcc=;
+        b=iGL0V1PhBVm2gF0ISlv070uxnzRZgh4JSVVe4m9Bo1KMNm7DPO04YEVIsfM5q37+sy
+         PrO/XPc5R8uCkW3dYDAyV0TPs787fNYlxEfJdKMCt84yG/f8mrpdrTHYw4/EVlfUfOtp
+         vENhiRy0Wm591+MH3UVziNbp6jEt83JUenVZvx+9cxY4NCog3ar6q0KscObQrG6VUHHK
+         1+HVNdyZf0hZPPZ2LH5nnp9wZqlhZaXNGvfAXlz3fNiBSk38th8WGko8I3zDOiny4hlB
+         3EbbvLua20z+5urdZ2JIOnLtov/Q4eQJddeWtt16+Vv1SAtfkqNUrI3bOdiMVQCuX4nF
+         Fkbg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=Tpa4V+nYYz2TuM2NdEGhyZVHq6GrbkoKXq5ANqvjqcc=;
+        b=YKoT+XHDYmR/Dp73rAau1WIs5e1QMfY/HwaaGwgzRSQ7oGdJmj1uLki6xx76ISgTVF
+         ian21+m1IYO5y7oB1ZbNDiJH9x5ucxJPC+CjIFbpp3+9koPUDqCwX6r0lB3qVjUc49wy
+         w+jaHF27fh0KNGsvu94RF36ayMAhbn2HviiDlZD1TFnPIrJye3jKuZccup8KrmQhrDH3
+         rdtWchemrAQixDNmqh+pluRd6JeJ8zwu+sJcVZv3y4yuUVnWafQnL1kNbEo+PpfMIwRT
+         +Qd9zonbmB8Cjnzj0yWsGeCReaZVN34zUsBFBeAyIXBb/4DaEyS374XRCToAm6MwuiVy
+         ifYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=IdL8IidxQMJMJGwskXGPE5vemO0IJGO/vcZYz8aSIlY=;
-        b=c0G2smiytsk9UTXIV6npYbs/RhkZm7hlPgjU0xqw0ATJkSY19C5eRut3wl6cg8rEL6
-         Rx+Mwb607nYRPzKrZnRe//dWN8BkzSIQWnXVs5CQR0Rw2eo0D8EAVHLbFZk5oGrTfzPb
-         ZYSKkc3qqo4KuTm1EO6AYmV+XbXzIMrg8I8RegW5GX5/xmJwTkc7IAy7rU2GRg1q+zkU
-         ucJInCjoRMan0CfJSYhAlxD5w+x4ZoEzQ8X2MbNtk+au2SJRyJ8w2NHYJWoT6Ahustmt
-         w96beddVfTFAghYT4ru0Q6i+Kda3YIZ9juOoFV3SZrAYsghfiWXDiBPKEfYt7Tae50f4
-         Krow==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=Tpa4V+nYYz2TuM2NdEGhyZVHq6GrbkoKXq5ANqvjqcc=;
+        b=RZUKEEVb/L90LsMLuv5xWIqquDNjPKgfRq2DvEuMWXyo7lH4tdh2HRWHaLb4U0x3vp
+         ulFiZ/ZZcvukfnjRCul7O3n6EauRqnnF7b+FZHT5bHS/ZX1Fcwu/xX0hSGWv2N95jguo
+         +pLg+uEbY5huQNJZM/bLjWisVhBQvtF3TCl5WsoUISG9XbMJ/2CfNy1iCHKxj7n91tMr
+         1TY8MSybGM3+o3LQECOpTYB2b2tW7XftNCt/17KRgz6wCr8ZYR7nZwpNTdGMyPaziVz8
+         IrG8r07G28QhnyUBmQwYj3J+IKdlmZ6N3IXLKvhw6yfCtNYOJ2AyJGl6BVk+SBg/ghqA
+         OMGw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXBBlSayKy0GJ3O5SmEN1BeZzzM1YlJEs0YQYZX8SuaIvxXjWJX
-	O/Z77AJgMvMW23HQyVN7u3k=
-X-Google-Smtp-Source: APXvYqxsi3urNdax9bmVrs6PHqvFoulU8AE+S/nn7ZJmcCVO0gqNsvO+B58FlkOSDuJroxZv8cvDkQ==
-X-Received: by 2002:a0c:8a76:: with SMTP id 51mr79862331qvu.210.1564402017286;
-        Mon, 29 Jul 2019 05:06:57 -0700 (PDT)
+X-Gm-Message-State: APjAAAW+YciwlN143KOg/a7xrmiUrZ5zyAXcW4S73u105P7PpRiyVbPP
+	Sn+5QZ6WyTgcOf7bMTCUg4I=
+X-Google-Smtp-Source: APXvYqzRh3cQqnTOoRf1+por9OVSU296CpsslWDcBsI6hiViBmcZCLVywh+AyTnGKpekC4OkNyc3vg==
+X-Received: by 2002:a9d:6287:: with SMTP id x7mr42298857otk.359.1564429899050;
+        Mon, 29 Jul 2019 12:51:39 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a0c:91ab:: with SMTP id n40ls9929427qvn.4.gmail; Mon, 29 Jul
- 2019 05:06:56 -0700 (PDT)
-X-Received: by 2002:a0c:f193:: with SMTP id m19mr79974077qvl.20.1564402016840;
-        Mon, 29 Jul 2019 05:06:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1564402016; cv=none;
-        d=google.com; s=arc-20160816;
-        b=GEGN/YrcA0zCsWwRk2/RaAd6Bcy6bsgweIW8k7IihvG0lXjavh2YWlEnKczxTvOcfw
-         DRA8V0sYnYbDPvUsHf9pDyEd9QPk2WGbQ9xVJcxrFQw4Yt2V9IL2blvxEMY66HygPyxR
-         N8suBk9YFutihP/CofDH7Jl4hn5c5LVufDcHwNUbPoFbwpXWMc7gWTdrBFA47slqv7HO
-         DfhY1a6gBHAMPiduVodTL52SLQ5tChkGC/IFsGQx+sYrwK34liwWl8Pe2S9dWu9zcrUk
-         rc7ecg41/ZQyGLU+/U/BUO/dEp7cetlvm2G0U+7Jio8NO8VmYXeSikns9tOulMOdC5qU
-         AFvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:subject:message-id:to:from
-         :dkim-signature:date;
-        bh=SuW0nolDPiwxkWI+N1CSw7tpAIuAVtM732tC5OXTycI=;
-        b=m1CLLnbSPUQAY80VqpGQAY8/b5CRy+EEkbqWtBJ6eSHKTFmT8G3AZMLvDbHIAGcVbI
-         m4mZAcVk+GmKR3KRN9UBeQ9z9L15joZBVLdso81FVwU1WQHavd0Rp4yZA6flK7vM/29h
-         6sDkFqBgpySREaTQsRfEPrgG05GgZ+5ELvtWXDMk05gGDQ+iJPNvSNvUEWQ173HmScRF
-         S4iucPIYGTWrxSLS0rXZFTVU3GJST7M5BmSJA/d7DGYNrtH9jxyKph0qAmWVu+Y6zubj
-         vqsCSKuKbLGaukHWtS5dhURBtOP6jIqrQC1LPLeI2Po4Gzg7lxD2bbW/Af48JWRturuw
-         lYXw==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=S62rrDOP;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.205 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
-Received: from out-22.smtp.github.com (out-22.smtp.github.com. [192.30.252.205])
-        by gmr-mx.google.com with ESMTPS id o6si3074105qtj.3.2019.07.29.05.06.56
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 29 Jul 2019 05:06:56 -0700 (PDT)
-Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.205 as permitted sender) client-ip=192.30.252.205;
-Date: Mon, 29 Jul 2019 05:06:56 -0700
-From: Ralf Ramsauer <noreply@github.com>
-To: jailhouse-dev@googlegroups.com
-Message-ID: <siemens/jailhouse/push/refs/heads/master/f6fef9-ce661a@github.com>
-Subject: [siemens/jailhouse] ce87a6: core: bitops: fix type of clear_bit
-Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
-X-Auto-Response-Suppress: All
-X-Original-Sender: noreply@github.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
- mode) header.i=@github.com header.s=pf2014 header.b=S62rrDOP;       spf=pass
- (google.com: domain of noreply@github.com designates 192.30.252.205 as
- permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass (p=NONE
- sp=NONE dis=NONE) header.from=github.com
+Received: by 2002:aca:c615:: with SMTP id w21ls7496329oif.15.gmail; Mon, 29
+ Jul 2019 12:51:38 -0700 (PDT)
+X-Received: by 2002:aca:4a4e:: with SMTP id x75mr53641828oia.154.1564429898385;
+        Mon, 29 Jul 2019 12:51:38 -0700 (PDT)
+Date: Mon, 29 Jul 2019 12:51:37 -0700 (PDT)
+From: =?UTF-8?Q?Jo=C3=A3o_Reis?= <jpagsreis@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <edf7dab3-2c32-43bb-b13b-fce8bc452418@googlegroups.com>
+In-Reply-To: <885b4c3e-8d69-e516-aff4-46f2e50cb622@web.de>
+References: <885a6592-84d9-43f4-a037-10ce73f968ab@googlegroups.com>
+ <7f3933fc-c609-9349-4e57-a680489e9928@siemens.com>
+ <320981f3-9d93-46c5-b95f-ddb68083f7ee@googlegroups.com>
+ <c1a63d36-2dd0-5b52-bb16-31794ab93b62@siemens.com>
+ <fe00f482-c82c-4f93-8a0e-f73dc955888d@googlegroups.com>
+ <b4e7dbee-58cd-3126-ce6b-7b54ee0ef241@siemens.com>
+ <211205da-9e38-4178-895a-3ba80f214aa9@googlegroups.com>
+ <6abaf77f-e4a7-7a9a-2ae9-8d1d8f1388bf@siemens.com>
+ <1726f6bd-680a-46ac-a7f3-937cbba84208@googlegroups.com>
+ <19e76b74-6d6e-010d-952a-5a36e606091b@web.de>
+ <a5b27da1-b2aa-4ce0-863f-d9503a22b886@googlegroups.com>
+ <885b4c3e-8d69-e516-aff4-46f2e50cb622@web.de>
+Subject: Re: Colored Linux as inmate
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_8377_1604816126.1564429897655"
+X-Original-Sender: jpagsreis@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -123,706 +88,56 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-  Branch: refs/heads/master
-
-  Home:   https://github.com/siemens/jailhouse
-
-  Commit: ce87a6afc1de4ffdd10fba9c92ff1c89ec7d34e4
-
-      https://github.com/siemens/jailhouse/commit/ce87a6afc1de4ffdd10fba9c9=
-2ff1c89ec7d34e4
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-07-25 (Thu, 25 Jul 2019)
-
-
-
-  Changed paths:
-
-    M hypervisor/arch/arm/include/asm/bitops.h
-
-    M hypervisor/arch/arm64/include/asm/bitops.h
-
-    M hypervisor/arch/x86/include/asm/bitops.h
-
-
-
-  Log Message:
-
-  -----------
-
-  core: bitops: fix type of clear_bit
-
-
-
-I don't see a reason why nr should be unsigned for set_bit, but signed for
-
-clear_bit. This probably got copy&pasted across architectures.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: 92c1d1d9948fd0c50d6c5bf4259e1dc9ba0b3d4e
-
-      https://github.com/siemens/jailhouse/commit/92c1d1d9948fd0c50d6c5bf42=
-59e1dc9ba0b3d4e
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-07-25 (Thu, 25 Jul 2019)
-
-
-
-  Changed paths:
-
-    M hypervisor/arch/x86/svm.c
-
-    M hypervisor/arch/x86/vmx.c
-
-
-
-  Log Message:
-
-  -----------
-
-  x86: use definitions instead of constants
-
-
-
-Those definitions are used during allocating, so let's use them during
-
-deallocation as well.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: 90f392def0720107d0f0cb17f4d026cfd1c101b2
-
-      https://github.com/siemens/jailhouse/commit/90f392def0720107d0f0cb17f=
-4d026cfd1c101b2
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-07-25 (Thu, 25 Jul 2019)
-
-
-
-  Changed paths:
-
-    M hypervisor/arch/x86/include/asm/cell.h
-
-    M hypervisor/arch/x86/svm.c
-
-    M hypervisor/arch/x86/vmx.c
-
-
-
-  Log Message:
-
-  -----------
-
-  x86: use the variable io_bitmap for both
-
-
-
-Semantically, SVM and VMX don't differ that much in those regards. Let's us=
-e
-
-the same variable for both.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: 53a55842ef7e9f3695649272b37eed8cec89c271
-
-      https://github.com/siemens/jailhouse/commit/53a55842ef7e9f3695649272b=
-37eed8cec89c271
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-07-25 (Thu, 25 Jul 2019)
-
-
-
-  Changed paths:
-
-    M hypervisor/arch/x86/include/asm/vcpu.h
-
-    M hypervisor/arch/x86/svm.c
-
-    M hypervisor/arch/x86/vcpu.c
-
-    M hypervisor/arch/x86/vmx.c
-
-
-
-  Log Message:
-
-  -----------
-
-  x86: consolidate io_bitmap allocation
-
-
-
-It's pretty much the same, besides the number of pages that have to be
-
-allocated.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: c416ff7427f11d51a818bdf8683a75f200f8573d
-
-      https://github.com/siemens/jailhouse/commit/c416ff7427f11d51a818bdf86=
-83a75f200f8573d
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-07-25 (Thu, 25 Jul 2019)
-
-
-
-  Changed paths:
-
-    M hypervisor/arch/x86/svm.c
-
-    M hypervisor/arch/x86/vcpu.c
-
-    M hypervisor/arch/x86/vmx.c
-
-
-
-  Log Message:
-
-  -----------
-
-  x86: consolidate deallocation of IO bitmaps
-
-
-
-Same as before - we can now do this in vcpu.c.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: 9ad5ca85ea350eb10dd56a1994183039f5ac13f7
-
-      https://github.com/siemens/jailhouse/commit/9ad5ca85ea350eb10dd56a199=
-4183039f5ac13f7
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-07-25 (Thu, 25 Jul 2019)
-
-
-
-  Changed paths:
-
-    M hypervisor/arch/x86/vcpu.c
-
-
-
-  Log Message:
-
-  -----------
-
-  x86: remove superfluous statement
-
-
-
-pio_bitmap already is set to the cell's pio bitmap. No need to repeat the
-
-assignment.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: e4cfe90d48731cf30159d9fb8f9e7283756095f1
-
-      https://github.com/siemens/jailhouse/commit/e4cfe90d48731cf30159d9fb8=
-f9e7283756095f1
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-07-25 (Thu, 25 Jul 2019)
-
-
-
-  Changed paths:
-
-    M hypervisor/arch/x86/i8042.c
-
-    M hypervisor/arch/x86/include/asm/cell.h
-
-    M hypervisor/arch/x86/vcpu.c
-
-
-
-  Log Message:
-
-  -----------
-
-  x86: simplify check if i8042 needs moderation
-
-
-
-By adding pio_i8042_allowed boolean flag to arch cell fields.
-
-
-
-With this, we don't need to directly access the pio_bitmap in i8042.c. This
-
-does not only simplify (and speed up) the decision, it will also be helpful=
- in
-
-future patches.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: e7674ea7425fc3f968c6d50a2bffb9afae861f9f
-
-      https://github.com/siemens/jailhouse/commit/e7674ea7425fc3f968c6d50a2=
-bffb9afae861f9f
-
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-
-  Date:   2019-07-25 (Thu, 25 Jul 2019)
-
-
-
-  Changed paths:
-
-    M driver/main.c
-
-
-
-  Log Message:
-
-  -----------
-
-  driver: Account for renaming of lapic_timer_frequency in 5.3
-
-
-
-"lapic_timer_frequency hei=C3=9Ft jetzt lapic_timer_period, sonst =C3=A4nde=
-rt sich
-
-nix."
-
-
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: 4f27c75d40daa00e7bb10e2c7b8160c6da8d9732
-
-      https://github.com/siemens/jailhouse/commit/4f27c75d40daa00e7bb10e2c7=
-b8160c6da8d9732
-
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-
-  Date:   2019-07-26 (Fri, 26 Jul 2019)
-
-
-
-  Changed paths:
-
-    M Kbuild
-
-
-
-  Log Message:
-
-  -----------
-
-  kbuild: Correctly step into driver directory
-
-
-
-Descending into subdirectories with modules via subdir-y worked up to
-
-5.3-rc1 but was never designed to do so, see
-
-https://patchwork.kernel.org/patch/11059033. We are supposed to use
-
-obj-m here as well.
-
-
-
-Don't migrate the other subdirs because that causes warnings such as
-
-
-
-cat: /data/jailhouse/hypervisor/modules.order: No such file or directory
-
-
-
-due to missing module targets there.
-
-
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: 91d4db70c6f9443e27475d76d965ee5e487a61e2
-
-      https://github.com/siemens/jailhouse/commit/91d4db70c6f9443e27475d76d=
-965ee5e487a61e2
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-07-26 (Fri, 26 Jul 2019)
-
-
-
-  Changed paths:
-
-    M configs/arm64/amd-seattle-gic-demo.c
-
-    M configs/arm64/amd-seattle-uart-demo.c
-
-    M configs/arm64/espressobin-gic-demo.c
-
-    M configs/arm64/foundation-v8-gic-demo.c
-
-    M configs/arm64/foundation-v8-linux-demo.c
-
-    M configs/arm64/foundation-v8-uart-demo.c
-
-    M configs/arm64/hikey-gic-demo.c
-
-    M configs/arm64/imx8mq-gic-demo.c
-
-    M configs/arm64/k3-am654-gic-demo.c
-
-    M configs/arm64/k3-am654-uart-demo.c
-
-    M configs/arm64/macchiatobin-gic-demo.c
-
-    M configs/arm64/miriac-sbc-ls1046a-gic-demo.c
-
-    M configs/arm64/qemu-arm64-gic-demo.c
-
-    M configs/arm64/ultra96-gic-demo.c
-
-    M configs/arm64/zynqmp-zcu102-gic-demo.c
-
-
-
-  Log Message:
-
-  -----------
-
-  configs: arm64: don't set .pio_bitmap_size
-
-
-
-Needles to set them to zero:
-
-  a) The compiler will do it for us
-
-  b) ARM64 won't use it
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: a8f1af81a9e2858c9cdc62dcd47471dc5a6e70fa
-
-      https://github.com/siemens/jailhouse/commit/a8f1af81a9e2858c9cdc62dcd=
-47471dc5a6e70fa
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-07-26 (Fri, 26 Jul 2019)
-
-
-
-  Changed paths:
-
-    M hypervisor/arch/x86/include/asm/vcpu.h
-
-    M hypervisor/arch/x86/svm.c
-
-    M hypervisor/arch/x86/vcpu.c
-
-    M hypervisor/arch/x86/vmx.c
-
-
-
-  Log Message:
-
-  -----------
-
-  x86: drop vcpu_vendor_get_cell_io_bitmap and struct vcpu_io_bitmap
-
-
-
-Intel and AMD are now basically the same. No more need for those level
-
-of indirection. Consolidate it and save a lot of lines of code.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: cb4dee3cfb262cb2a184e7c62a56f1cb812e55c4
-
-      https://github.com/siemens/jailhouse/commit/cb4dee3cfb262cb2a184e7c62=
-a56f1cb812e55c4
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-07-26 (Fri, 26 Jul 2019)
-
-
-
-  Changed paths:
-
-    M include/jailhouse/cell-config.h
-
-
-
-  Log Message:
-
-  -----------
-
-  cell-config: introduce pio_whitelist structure and helpers
-
-
-
-Introduce struct jailhouse_pio_whitelist, and a macro PIO_RANGE that helps =
-to
-
-fill lists in config files.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: 654594bc0be786ae1e495abef7b322e9024f8daa
-
-      https://github.com/siemens/jailhouse/commit/654594bc0be786ae1e495abef=
-7b322e9024f8daa
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-07-26 (Fri, 26 Jul 2019)
-
-
-
-  Changed paths:
-
-    M configs/x86/apic-demo.c
-
-    M configs/x86/e1000-demo.c
-
-    M configs/x86/f2a88xm-hd3.c
-
-    M configs/x86/imb-a180.c
-
-    M configs/x86/ioapic-demo.c
-
-    M configs/x86/ivshmem-demo.c
-
-    M configs/x86/linux-x86-demo.c
-
-    M configs/x86/pci-demo.c
-
-    M configs/x86/qemu-x86.c
-
-    M configs/x86/smp-demo.c
-
-    M configs/x86/tiny-demo.c
-
-    M hypervisor/arch/x86/vcpu.c
-
-    M include/jailhouse/cell-config.h
-
-    M tools/jailhouse-hardware-check
-
-
-
-  Log Message:
-
-  -----------
-
-  x86: pio: use a whitelist instead of a permission bitmap
-
-
-
-Whitelist-based permissions align better with the Jailhouse philosophy.
-
-
-
-This patch switches the permission bitmap (which basically was (almost) a
-
-duplicate of the final io_bitmap) to a structure that whitelists a port ran=
-ge,
-
-given a base port and a length.
-
-
-
-As a side effect, this patch drastically reduces the size of config files:
-
-8404  -> 224   apic-demo.cell
-
-8488  -> 312   e1000-demo.cell
-
-11450 -> 3290  f2a88xm-hd3.cell
-
-11634 -> 3474  imb-a180.cell
-
-8424  -> 252   ioapic-demo.cell
-
-8480  -> 296   ivshmem-demo.cell
-
-8788  -> 608   linux-x86-demo.cell
-
-8488  -> 308   pci-demo.cell
-
-9730  -> 1586  qemu-x86.cell
-
-8392  -> 212   smp-demo.cell
-
-8404  -> 224   tiny-demo.cell
-
-
-
-If no whitelist is given, all PIO access will be denied. Additionally, incr=
-ease
-
-the config file revision header.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-[Jan: renamed for_each_pio -> for_each_pio_region]
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-  Commit: ce661a1b2ea6bc66d972a3d7850389f87d9556ce
-
-      https://github.com/siemens/jailhouse/commit/ce661a1b2ea6bc66d972a3d78=
-50389f87d9556ce
-
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-  Date:   2019-07-26 (Fri, 26 Jul 2019)
-
-
-
-  Changed paths:
-
-    M tools/jailhouse-cell-linux
-
-    M tools/root-cell-config.c.tmpl
-
-
-
-  Log Message:
-
-  -----------
-
-  tools: update config generator
-
-
-
-Obvious what happens here: Align the root cell template.
-
-
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-
-
-
-Compare: https://github.com/siemens/jailhouse/compare/f6fef92ffaba...ce661a=
-1b2ea6
+------=_Part_8377_1604816126.1564429897655
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_8378_442489948.1564429897655"
+
+------=_Part_8378_442489948.1564429897655
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Yeah, i forgot to set the flag and the .dtb file i was using wasn't the=20
+right one (now i am using inmate-zynqmp.dts). But even when i set the flag,=
+=20
+it still gives me the same error.
+Send here the output of /proc/iomem:
+
+00000000-3ecfffff : System RAM
+  00080000-00deffff : Kernel code
+  00e70000-01134fff : Kernel data
+3ed00000-3ed3ffff : 3ed00000.ddr
+3fd00000-5fffffff : System RAM
+7c000000-7c3fffff : Jailhouse hypervisor
+fc000000-fc0fffff : PCI ECAM
+fc100000-fc101fff : //pci@0
+  fc100000-fc1000ff : 0000:00:00.0
+
+And the config as it is now in attachment.
+
+s=C3=A1bado, 27 de Julho de 2019 =C3=A0s 13:57:31 UTC+1, Jan Kiszka escreve=
+u:
+>
+> On 27.07.19 14:34, Jo=C3=A3o Reis wrote:=20
+> > I reduced the kernel image to 90MB and the initramfs to 80MB. In the no=
+n=20
+> root=20
+> > cell config file, i declared a memory region with size 0x5fff000=20
+> (~1.45GB) (send=20
+> > in attachment), and even when i issue "jailhouse cell linux=20
+> > ultra96-linux-demo.cell Image -d inmate-zynqmp-zcu102-2.dtb -i=20
+> rootfs.cpio -c=20
+> > "console=3DttyS0, 115200" -k 4", it still gives me the error of no spac=
+e=20
+> found to=20
+> > load all images.=20
+> >=20
+>
+> At least the config your attached contains no loadable RAM regions.=20
+>
+> Jan=20
+>
+> --=20
+>
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -830,5 +145,208 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/siemens/jailhouse/push/refs/heads/master/f6fef9-ce661a%40gith=
-ub.com.
+jailhouse-dev/edf7dab3-2c32-43bb-b13b-fce8bc452418%40googlegroups.com.
+
+------=_Part_8378_442489948.1564429897655
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Yeah, i forgot to set the flag and the .dtb file i was usi=
+ng wasn&#39;t the right one (now i am using inmate-zynqmp.dts). But even wh=
+en i set the flag, it still gives me the same error.<div>Send here the outp=
+ut of /proc/iomem:</div><div><br></div><div><div>00000000-3ecfffff : System=
+ RAM</div><div>=C2=A0 00080000-00deffff : Kernel code</div><div>=C2=A0 00e7=
+0000-01134fff : Kernel data</div><div>3ed00000-3ed3ffff : 3ed00000.ddr</div=
+><div>3fd00000-5fffffff : System RAM</div><div>7c000000-7c3fffff : Jailhous=
+e hypervisor</div><div>fc000000-fc0fffff : PCI ECAM</div><div>fc100000-fc10=
+1fff : //pci@0</div><div>=C2=A0 fc100000-fc1000ff : 0000:00:00.0</div></div=
+><div><br></div><div>And the config as it is now in attachment.</div><div><=
+br>s=C3=A1bado, 27 de Julho de 2019 =C3=A0s 13:57:31 UTC+1, Jan Kiszka escr=
+eveu:<blockquote class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8e=
+x;border-left: 1px #ccc solid;padding-left: 1ex;">On 27.07.19 14:34, Jo=C3=
+=A3o Reis wrote:
+<br>&gt; I reduced the kernel image to 90MB and the initramfs to 80MB. In t=
+he non root
+<br>&gt; cell config file, i declared a memory region with size 0x5fff000 (=
+~1.45GB) (send
+<br>&gt; in attachment), and even when i issue &quot;jailhouse cell linux
+<br>&gt; ultra96-linux-demo.cell Image -d inmate-zynqmp-zcu102-2.dtb -i roo=
+tfs.cpio -c
+<br>&gt; &quot;console=3DttyS0, 115200&quot; -k 4&quot;, it still gives me =
+the error of no space found to
+<br>&gt; load all images.
+<br>&gt;
+<br>
+<br>At least the config your attached contains no loadable RAM regions.
+<br>
+<br>Jan
+<br>
+<br>--
+<br></blockquote></div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/edf7dab3-2c32-43bb-b13b-fce8bc452418%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/edf7dab3-2c32-43bb-b13b-fce8bc452418%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_8378_442489948.1564429897655--
+
+------=_Part_8377_1604816126.1564429897655
+Content-Type: text/x-csrc; charset=UTF-8; name=ultra96-linux-demo2.c
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment; filename=ultra96-linux-demo2.c
+X-Attachment-Id: a8fea2c3-2c2f-4fa2-bf6f-725aa0c32bcf
+Content-ID: <a8fea2c3-2c2f-4fa2-bf6f-725aa0c32bcf>
+
+/*
+ * Jailhouse, a Linux-based partitioning hypervisor
+ *
+ * Configuration for linux-demo inmate on Avnet Ultra96 board:
+ * 2 CPUs, 128M RAM, serial port 2
+ *
+ * Copyright (c) Siemens AG, 2014-2019
+ *
+ * Authors:
+ *  Jan Kiszka <jan.kiszka@siemens.com>
+ *
+ * This work is licensed under the terms of the GNU GPL, version 2.  See
+ * the COPYING file in the top-level directory.
+ */
+
+#include <jailhouse/types.h>
+#include <jailhouse/cell-config.h>
+
+struct {
+=09struct jailhouse_cell_desc cell;
+=09__u64 cpus[1];
+=09struct jailhouse_memory mem_regions[6];
+=09struct jailhouse_irqchip irqchips[1];
+=09struct jailhouse_pci_device pci_devices[1];
+} __attribute__((packed)) config =3D {
+=09.cell =3D {
+=09=09.signature =3D JAILHOUSE_CELL_DESC_SIGNATURE,
+=09=09.revision =3D JAILHOUSE_CONFIG_REVISION,
+=09=09.name =3D "non-root",
+=09=09.flags =3D JAILHOUSE_CELL_PASSIVE_COMMREG,/* |
+=09=09JAILHOUSE_CELL_VIRTUAL_CONSOLE_ACTIVE,*/
+
+=09=09.cpu_set_size =3D sizeof(config.cpus),
+=09=09.num_memory_regions =3D ARRAY_SIZE(config.mem_regions),
+=09=09.num_irqchips =3D ARRAY_SIZE(config.irqchips),
+=09=09.num_pci_devices =3D ARRAY_SIZE(config.pci_devices),
+
+=09=09.vpci_irq_base =3D 140-32,
+
+=09=09.console =3D {
+=09=09=09.address =3D 0xff010000, /*UART1*/
+=09=09=09//.address =3D 0xff000000, /*UART0*/ //se eu meter uart0 da erro u=
+nhandled trap
+=09=09=09.type=3D JAILHOUSE_CON_TYPE_XUARTPS,
+=09=09=09.flags =3D JAILHOUSE_CON_ACCESS_MMIO |
+=09=09=09=09 JAILHOUSE_CON_REGDIST_4,
+=09=09},
+=09},
+
+=09.cpus =3D {
+=09=09//0xe, //1110
+=09=09//0x8, //1000 - fica com cpu3
+=09=090xc, //1100
+=09},
+
+=09.mem_regions =3D {
+=09=09/* UART */ {
+=09=09=09.phys_start =3D 0xff010000,
+=09=09=09.virt_start =3D 0xff010000,
+=09=09=09/*.phys_start =3D 0xff000000,
+=09=09=09.virt_start =3D 0xff000000,*/
+=09=09=09.size =3D 0x1000,
+=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+=09=09=09=09JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
+=09=09},
+=09=09/* RAM */ {
+=09=09=09.phys_start =3D 0x3fd00000,
+=09=09=09.virt_start =3D 0x3fd00000,
+=09=09=09.size =3D 0x20300000, //must be page size aligned
+=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+=09=09=09=09JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,/* |
+=09=09=09=09JAILHOUSE_MEM_ROOTSHARED, *///se tirar JAILHOUSE_MEM_ROOTSHARED=
+ da exception fault 0x20
+=09=09},
+=09=09/* RAM */ {
+=09=09=09.phys_start =3D 0x7bef0000,
+=09=09=09.virt_start =3D 0x7bef0000,
+=09=09=09.size =3D 0x10000,
+=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+=09=09=09=09JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+=09=09},
+=09=09/* RAM */ {
+=09=09=09.phys_start =3D 0x74000000,
+=09=09=09.virt_start =3D 0x74000000,
+=09=09=09.size =3D 0x7ef0000,
+=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+=09=09=09=09JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+=09=09=09=09JAILHOUSE_MEM_LOADABLE,
+=09=09},
+=09=09/* IVSHMEM shared memory region */ {
+=09=09=09.phys_start =3D 0x7bf00000,
+=09=09=09.virt_start =3D 0x7bf00000,
+=09=09=09.size =3D 0x100000,
+=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+=09=09=09=09JAILHOUSE_MEM_ROOTSHARED,
+=09=09},
+=09=09/* communication region */ {
+=09=09=09.virt_start =3D 0x80000000,
+=09=09=09.size =3D 0x00001000,
+=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+=09=09=09=09JAILHOUSE_MEM_COMM_REGION,
+=09=09},
+=09},
+=09=09
+
+=09.irqchips =3D {
+=09=09/* GIC */ {
+=09=09=09.address =3D 0xf9010000, /* GICD base address - Display controller=
+ */
+=09=09=09.pin_base =3D 32, /* The first irqchip starts at .pin_base=3D32 as=
+ the first 32 interrupts are=20
+reserved for SGIs and PPIs. */
+=09=09=09.pin_bitmap =3D {
+=09=09=09=09//1 << (54 - 32),
+=09=09=09=091 << (53 - 32), // cat /proc/interrupts interrupt da UART0 AQUI=
+ ESTA A DIFEREN=C3=87A
+=09=09=09=090,
+=09=09=09=090,
+=09=09=09=09(1 << (140 - 128)) | (1 << (142 - 128)) //PL to PS interrupt si=
+gnals 8 to 15.
+=09=09=09},
+=09=09},
+=09},
+
+=09.pci_devices =3D {
+=09=09/* 00:00.0 */ {
+=09=09=09.type =3D JAILHOUSE_PCI_TYPE_IVSHMEM,
+=09=09=09.bdf =3D 0 << 3, // 00:00.0
+=09=09=09.iommu =3D 1,//
+=09=09=09.bar_mask =3D {
+=09=09=09=090xffffff00, 0xffffffff, 0x00000000,
+=09=09=09=090x00000000, 0x00000000, 0x00000000,
+=09=09=09},
+=09=09=09.shmem_region =3D 4,
+=09=09=09//.shmem_protocol =3D JAILHOUSE_SHMEM_PROTO_VETH,
+=09=09=09//.shmem_protocol =3D JAILHOUSE_SHMEM_PROTO_CUSTOM,
+=09=09=09.shmem_protocol =3D JAILHOUSE_SHMEM_PROTO_UNDEFINED,
+=09=09=09//.num_msix_vectors =3D 1,
+=09=09},
+=09},
+};
+
+------=_Part_8377_1604816126.1564429897655--
