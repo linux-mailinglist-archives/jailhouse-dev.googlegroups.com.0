@@ -1,64 +1,111 @@
-Return-Path: <jailhouse-dev+bncBCR7PPMN34DRBB6S73UQKGQEODNDAHI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBL5Q77UQKGQEER3PECQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oi1-x239.google.com (mail-oi1-x239.google.com [IPv6:2607:f8b0:4864:20::239])
-	by mail.lfdr.de (Postfix) with ESMTPS id E437979E8E
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 30 Jul 2019 04:18:48 +0200 (CEST)
-Received: by mail-oi1-x239.google.com with SMTP id u200sf24130148oia.23
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 29 Jul 2019 19:18:48 -0700 (PDT)
+Received: from mail-lf1-x13c.google.com (mail-lf1-x13c.google.com [IPv6:2a00:1450:4864:20::13c])
+	by mail.lfdr.de (Postfix) with ESMTPS id EA77C7A069
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 30 Jul 2019 07:39:59 +0200 (CEST)
+Received: by mail-lf1-x13c.google.com with SMTP id w27sf6506067lfk.22
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 29 Jul 2019 22:39:59 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1564465199; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=aWnosHRUv2Od6kSktXtU6oEwPx3MKXy0GPHaWYJdeEo4h+eXDoTHdozstkwQT4h0dH
+         H0UrwsZsSL7HbKbnzc2h29gmQ09+rQuHxjl0O2nKbowfZq749UvfsBJEt3GNeA07AObD
+         pCUfgRlwHsO/PORetnBfXkeS8vL7fF8EPtbnJo5xOGoyYyIpJtDI0RHU+r18B02XgaYr
+         CwQkLn985NUlLJ18K+lcnMgJwGQUOVKYCQtQuG6kcTz+mf6hHun3X43q8eqNtMUgBAoU
+         GLnEC1y4hd7+tXo8HMWbk36OyWMvt33M4ahOIofwqoRxDXI6Aaa/wXy6L1bDZFulZECq
+         iZSA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=H8jJh42ghzln86DvSGN7UUTQuogZ0TkHG+EwXhvC9ZI=;
+        b=Z89iFyctAUHdBqfstFbu7W1Z5HEWNSFFQMbnJ5d4A7CO1Ek7SzM6VVzBWvkMk0+tFf
+         2pRcASbCvvENGFuSqMsOs0yrtKwMEgArQ7ZI9UrhI1EEcUpdFdyn0c7+SsHJ1xs2bvGh
+         4ETsW6uAn+j27Q5N3D27/vNGglGZ9nwJ+I5m69AwYy46D0UG/G8Q9+zt34ta5kLzWAl7
+         IZAh5sD1ntrzatR1R3zm2I4NBrF0BTXQxFU1JMc+owJS0GMMspO1VpCYfs8nu16GPHPJ
+         vm8/f6u0wiN+EuYq2HobAJ+4Ye1uKYwMI0FmtqrQXLgnY37aAWIxyzk+2DHzzqXMcUcq
+         IPyg==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=njC3sIRpvrPUDWoE27mj2mp22n4a9CNUYh7CARgWK2M=;
-        b=dnFYyUDvV+LzMnofYk+H+4Ns0mYa2XoMYbTU+4fvLpgZ8DYJUYu5VqnNMIBqZCa7BQ
-         7Ez1TOjlbA4vy856QG5+1QQ8Fy9O70kYPWZbsy+GF4kHoKlthiBJ7BLnimge939njSs6
-         Tcwylr9wR0SUK/tuLwViLPPuWnFTgp+EXzfo0RwwiWxMrjyeNy4xG5Ihvi1/4wa/C+JZ
-         DRdtZk/42J62U+Uy10ZypnO6d82L76+OntP4bJ70EuP8TS8AMYf+WexEkTubqrJyMMvS
-         z0LSqF/AVXL+XNfW+X6xg5LQaXcLMM6yncLHvnPMUfkd8Z7OfBu1zOoBcV41FCgsZ0t8
-         Dqjg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=njC3sIRpvrPUDWoE27mj2mp22n4a9CNUYh7CARgWK2M=;
-        b=hv2eas8ydrriCHvc1SHze3amgOYbkhCgydlOv7R0cEqL9PYX5m+UMx6Uh2Qa99hOXD
-         1xHb0gj/UKqW2DIarXQgikX0fyA7ZtLxeVU5Ig1or/darKjhFuP5vqnhbga1Kc38861c
-         kz4WY2OyeG3YBoHWNIGod/zZwKwHCUIMl+OfvBwLwYGAneJYATAe4Xeoigr07xc6NGvU
-         tbIrPC8NBux5YNG2BNKoqFnM2bZRl2yxsKe5lTbdNk0Od2GFROXpNs5rPn5gpM2xJHU8
-         6o/yPCVt8MrtGlYYxeYHL59oUiBM89vkUU3YulWZmPBXHGl09wcN/58zE1THqoB0myOy
-         1P2g==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=H8jJh42ghzln86DvSGN7UUTQuogZ0TkHG+EwXhvC9ZI=;
+        b=X+sFFOXVQ/MGozbtTHrzrE/mo1oibQxeLjW4FjWoXLx1tisjGPKx9M/XfNinuvQxad
+         WGtp8tPO+WoW+uPhbngARNT7JogDJfQV6XPt/oOXkv33RYlaB3R2qgQohOFiTROctFxl
+         1GNA/iln2wbWd6uyXGfr7nzQvQZUR6tXCoe6ndA+0S9MgS6VY/XF53Dph5PyeTsygkLX
+         hJUCA9HVq5oEmFOq2Q9AbgWYo8UKM1udtyykGuKmvANpAV3hRlvt5FepoVDR7qKqpANA
+         dLlFCCkBaFICCmaISS/T60HUeaGQH2vRf8a6OgLUxTqIT7Jyl9Hc0GPzZ8VMqBgVptoL
+         H/Cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=njC3sIRpvrPUDWoE27mj2mp22n4a9CNUYh7CARgWK2M=;
-        b=dAjMCxnxWYGrLLWCR0sOfnPI9Pl2Cbq7x/bE+YGkcWCfJAa9jncyxfsRAK5jKt97nR
-         yXPlcjg0ZjfYZ65EfHn0Ei51JeaD8RqICohHzrNsDTjinZGLo00TEhoLsKSGoHFDm68/
-         xU5asjElddlp3AaxoqWQmV8Z/X2hhHTjvITPpdJatFf7eOzhlYJjBBbaxF5pgzS8Qh5L
-         7Jsp2JGnR/iMCpB3/NGLEdeuG0AYFTcgmuoYv4pitg68urhDj3QR5/o2/dh7FJFkjtO5
-         AniRGL23Joa8awxaDNGHvc7pdJvIUJ3KhaGF67ChR71QxVtir6++f7jwifJg9Tt/7cu1
-         l1UQ==
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=H8jJh42ghzln86DvSGN7UUTQuogZ0TkHG+EwXhvC9ZI=;
+        b=iIDUxaaCtEb5Xj+lfu9kUU5Cy0Q7pAmk0ZQPlJHRvQwwgP84/+I1GolZCaTO6TpSTg
+         M5+OqwkeEvc64fBS6cDAOnO9MUoQF/5X2/v0YCMQnkXBVOm4p+wa8ihecaFlgGdnqoh5
+         U7zRpqrTykoDKqvFlotoYDGCra84QK7XiVLPRDPMajuQDjT4SKhuCSjeDBTUPfcQGt5o
+         7jku+iy8wrIeMqZlQZA445ao+6LRyw0cU902bjFGixEsYP6Z1O7lK2Vb6+VOA654CejX
+         HVDv2bRF66LHXYHK7gcf/3NK7fnF0eaiLMYrOZdTsT4oG7wWKHj3swcPqTooqUbeR7/S
+         knvg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVEzDxOBDIjOTg0rwKMkctKuyfUQ/Tz3PiZpvra9wxCx0RQEOlQ
-	bMjOrY/ffZOb+Z9D+Bv7+fw=
-X-Google-Smtp-Source: APXvYqzx+8eFpr+JSSBkp1W/ySmArCRLRCd4Vi9yTj6W9Yzu0THp/j5Gv9WWoGchdwFDvBprnu2GSQ==
-X-Received: by 2002:aca:cfd0:: with SMTP id f199mr8635356oig.50.1564453127781;
-        Mon, 29 Jul 2019 19:18:47 -0700 (PDT)
+X-Gm-Message-State: APjAAAULPMbhKCg85QJrWdybsWLmuy9aoeZQMXV7eZHPh+podoOoPQo2
+	+Sza1u/FzqDofEXhbMCZEZo=
+X-Google-Smtp-Source: APXvYqyrz4mA0L8NbhoS5oVZUYj4v+hPZUYEtm9cYikK4D7yi55W8AspQRypY7XqKqn3BUSthC2I0g==
+X-Received: by 2002:a19:f703:: with SMTP id z3mr53477431lfe.171.1564465199450;
+        Mon, 29 Jul 2019 22:39:59 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a9d:2489:: with SMTP id z9ls3071555ota.9.gmail; Mon, 29 Jul
- 2019 19:18:47 -0700 (PDT)
-X-Received: by 2002:a9d:3f62:: with SMTP id m89mr86745649otc.44.1564453127069;
-        Mon, 29 Jul 2019 19:18:47 -0700 (PDT)
-Date: Mon, 29 Jul 2019 19:18:46 -0700 (PDT)
-From: =?UTF-8?Q?Jo=C3=A3o_Reis?= <jpagsreis@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <e5c36ed1-98a5-4a76-aca0-6589cf9c3108@googlegroups.com>
-In-Reply-To: <4f76dc91-7542-40b8-a0d9-eea52e1dd92a@siemens.com>
+Received: by 2002:a19:6b10:: with SMTP id d16ls5205384lfa.10.gmail; Mon, 29
+ Jul 2019 22:39:58 -0700 (PDT)
+X-Received: by 2002:a19:5e10:: with SMTP id s16mr52428375lfb.13.1564465198748;
+        Mon, 29 Jul 2019 22:39:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1564465198; cv=none;
+        d=google.com; s=arc-20160816;
+        b=hB7TVzmxkE0t2oasuDJAdvdQETmorOWzuiO1YvkLIqfYPboMZS+Z+vmjexgZ5ytlxE
+         53V3Ow8QaR9dfL+bhAH5VMVTCXpINBd/2j7AhujYWb11YN5RXIqo0jpfiyZAx2Y5NO9o
+         FjbW/gFvZ/oqFRH/9jO44C4kXEh/3a35zTjIe+T4KOYb6mY8xnhPAtRYWDuN8IOBm5tt
+         9kcjZCFalSk8VQZUk6j25lrC9avfAAGAyoqZ7vF1HZG2CL99yJ59MuGXuu2PuBLWXICn
+         ZevJKgU2Grx+6h2Yk+rdrUpnR7s8qvGqZrkH0ss0bBX8mG0RpIMAd+aG35opkhKTuQnQ
+         JGDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=r+grU0w2yaN4gyvap08rfdx2Q4ETTMZzRIYYTgwu2/s=;
+        b=AQh0JqGRiagHIer0xDs8ckMD9AU5quwlT/qWvnknaaXynqfs5IDuAvsyFEIa+1Lq2J
+         UsHcncpDSEeqAS0j/OD0XqZZ6+d2PvvgnjXmphLThdxf2g2oaBO7RSWrFPXfZ+dFdtmR
+         bGRd3xc7oQwroWeBuaqFszvhVk9FquVqqYcfffXh0dwCfufXsC3/0g7rdSiolHELjy1/
+         hWUZC27ixuODSsFQiKFfowYeELtib2ONq18hn8VAGdDP7mAkGkyJk5ubgActnV+lPo7E
+         G6YipVvG/pO3rd803xeXFREIbXPhbL/m1xjR2TVMPc/rYItnn/BXtSroesgkKiK4casO
+         VCDg==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
+        by gmr-mx.google.com with ESMTPS id f26si2978005lfp.5.2019.07.29.22.39.58
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 29 Jul 2019 22:39:58 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id x6U5dvWe028111
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 30 Jul 2019 07:39:57 +0200
+Received: from [167.87.38.173] ([167.87.38.173])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id x6U5duch029033;
+	Tue, 30 Jul 2019 07:39:57 +0200
+Subject: Re: Colored Linux as inmate
+To: =?UTF-8?Q?Jo=c3=a3o_Reis?= <jpagsreis@gmail.com>,
+        Jailhouse <jailhouse-dev@googlegroups.com>
 References: <885a6592-84d9-43f4-a037-10ce73f968ab@googlegroups.com>
  <7f3933fc-c609-9349-4e57-a680489e9928@siemens.com>
  <320981f3-9d93-46c5-b95f-ddb68083f7ee@googlegroups.com>
@@ -73,11 +120,22 @@ References: <885a6592-84d9-43f4-a037-10ce73f968ab@googlegroups.com>
  <885b4c3e-8d69-e516-aff4-46f2e50cb622@web.de>
  <edf7dab3-2c32-43bb-b13b-fce8bc452418@googlegroups.com>
  <4f76dc91-7542-40b8-a0d9-eea52e1dd92a@siemens.com>
-Subject: Re: Colored Linux as inmate
+ <e5c36ed1-98a5-4a76-aca0-6589cf9c3108@googlegroups.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <ef7a124c-e5e3-f61b-8ed0-aebf585c65d6@siemens.com>
+Date: Tue, 30 Jul 2019 07:39:56 +0200
+User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
+ Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_8484_1795940902.1564453126381"
-X-Original-Sender: jpagsreis@gmail.com
+In-Reply-To: <e5c36ed1-98a5-4a76-aca0-6589cf9c3108@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -90,105 +148,53 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_8484_1795940902.1564453126381
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_8485_1877455494.1564453126381"
+On 30.07.19 04:18, Jo=C3=A3o Reis wrote:
+> Ok, that's it. But now, another error related to that memory region appea=
+rs:
+>=20
+> FATAL: instruction abort at 0x4fffe1d0
+> FATAL: forbidden access (exception class 0x20)
+> Cell state before exception:
+> =C2=A0pc: ffffff80080971d0=C2=A0 =C2=A0lr: ffffff8008768e14 spsr: 600001c=
+5=C2=A0 =C2=A0 =C2=A0EL1
+> =C2=A0sp: ffffff8008e73ea0=C2=A0 esr: 20 1 0000086
+> =C2=A0x0: ffffffc04d2b7a00=C2=A0 =C2=A0x1: ffffffc04cff6000=C2=A0 =C2=A0x=
+2: 0000000000000000
+> =C2=A0x3: ffffff8008768de0=C2=A0 =C2=A0x4: 0000000000000015=C2=A0 =C2=A0x=
+5: 00ffffffffffffff
+> =C2=A0x6: 0000000029382596=C2=A0 =C2=A0x7: 0000000000000f94=C2=A0 =C2=A0x=
+8: ffffffc04ff79404
+> =C2=A0x9: 00000000000007df=C2=A0 x10: ffffffc04ff793e4=C2=A0 x11: 0000000=
+000001dd8
+> x12: 0000000000000000=C2=A0 x13: 00000000000094e5=C2=A0 x14: 071c71c71c71=
+c71c
+> x15: ffffff8008e78000=C2=A0 x16: ffffff800819b1e8=C2=A0 x17: 0000007fa7da=
+3718
+> x18: ffffffc04ff7a460=C2=A0 x19: ffffffc04cff6000=C2=A0 x20: ffffffc04cff=
+6018
+> x21: ffffffc04d2b7a00=C2=A0 x22: 0000000000000000=C2=A0 x23: ffffffc04cff=
+6000
+> x24: 00000009ed76160a=C2=A0 x25: ffffffc04cff6000=C2=A0 x26: ffffff8008e8=
+2100
+> x27: 0000000000000400=C2=A0 x28: 0000000000df0018=C2=A0 x29: ffffff8008e7=
+3ea0
+>=20
+> The error happens in an address within the memory region i want to put th=
+e Linux
+> images (3fd00000-5fffffff : System RAM), and that i declared on the confi=
+g file.
 
-------=_Part_8485_1877455494.1564453126381
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Which cell raises this error (you cut off that information)? If it is the r=
+oot
+cell, it may lack LOADABLE rights for the region. If it happens after loadi=
+ng,
+you forgot to reserve that memory via "mem=3D" or dtb reservations.
 
-Ok, that's it. But now, another error related to that memory region appears=
-:
+Jan
 
-FATAL: instruction abort at 0x4fffe1d0
-FATAL: forbidden access (exception class 0x20)
-Cell state before exception:
- pc: ffffff80080971d0   lr: ffffff8008768e14 spsr: 600001c5     EL1
- sp: ffffff8008e73ea0  esr: 20 1 0000086
- x0: ffffffc04d2b7a00   x1: ffffffc04cff6000   x2: 0000000000000000
- x3: ffffff8008768de0   x4: 0000000000000015   x5: 00ffffffffffffff
- x6: 0000000029382596   x7: 0000000000000f94   x8: ffffffc04ff79404
- x9: 00000000000007df  x10: ffffffc04ff793e4  x11: 0000000000001dd8
-x12: 0000000000000000  x13: 00000000000094e5  x14: 071c71c71c71c71c
-x15: ffffff8008e78000  x16: ffffff800819b1e8  x17: 0000007fa7da3718
-x18: ffffffc04ff7a460  x19: ffffffc04cff6000  x20: ffffffc04cff6018
-x21: ffffffc04d2b7a00  x22: 0000000000000000  x23: ffffffc04cff6000
-x24: 00000009ed76160a  x25: ffffffc04cff6000  x26: ffffff8008e82100
-x27: 0000000000000400  x28: 0000000000df0018  x29: ffffff8008e73ea0
-
-The error happens in an address within the memory region i want to put the=
-=20
-Linux images (3fd00000-5fffffff : System RAM), and that i declared on the=
-=20
-config file.
-
-
-segunda-feira, 29 de Julho de 2019 =C3=A0s 21:53:59 UTC+1, Jan Kiszka escre=
-veu:
->
-> On 29.07.19 21:51, Jo=C3=A3o Reis wrote:=20
-> > Yeah, i forgot to set the flag and the .dtb file i was using wasn't the=
-=20
-> right=20
-> > one (now i am using inmate-zynqmp.dts). But even when i set the flag, i=
-t=20
-> still=20
-> > gives me the same error.=20
-> > Send here the output of /proc/iomem:=20
-> >=20
-> > 00000000-3ecfffff : System RAM=20
-> >   00080000-00deffff : Kernel code=20
-> >   00e70000-01134fff : Kernel data=20
-> > 3ed00000-3ed3ffff : 3ed00000.ddr=20
-> > 3fd00000-5fffffff : System RAM=20
-> > 7c000000-7c3fffff : Jailhouse hypervisor=20
-> > fc000000-fc0fffff : PCI ECAM=20
-> > fc100000-fc101fff : //pci@0=20
-> >   fc100000-fc1000ff : 0000:00:00.0=20
-> >=20
-> > And the config as it is now in attachment.=20
->
-> If you look at tools/jailhouse-cell-linux, you can see the conditions=20
-> for considering a region as loadable RAM:=20
->
-> class ARMCommon:=20
->     def setup(self, args, config):=20
->         [...]=20
->         for region in config.memory_regions:=20
->             # Filter out non-RAM regions and small ones at the start of=
-=20
-> the=20
->             # cell address space that is used for the loader.=20
->             if region.is_ram() and \=20
->                (region.virt_start > 0 or region.size > 0x10000):=20
->
->
-> class MemoryRegion:=20
->     [...]=20
->     def is_ram(self):=20
->         return ((self.flags & (MemoryRegion.JAILHOUSE_MEM_READ |=20
->                                MemoryRegion.JAILHOUSE_MEM_WRITE |=20
->                                MemoryRegion.JAILHOUSE_MEM_EXECUTE |=20
->                                MemoryRegion.JAILHOUSE_MEM_DMA |=20
->                                MemoryRegion.JAILHOUSE_MEM_IO |=20
->                                MemoryRegion.JAILHOUSE_MEM_COMM_REGION |=
-=20
->                                MemoryRegion.JAILHOUSE_MEM_ROOTSHARED)) =
-=3D=3D=20
->                 (MemoryRegion.JAILHOUSE_MEM_READ |=20
->                  MemoryRegion.JAILHOUSE_MEM_WRITE |=20
->                  MemoryRegion.JAILHOUSE_MEM_EXECUTE |=20
->                  MemoryRegion.JAILHOUSE_MEM_DMA))=20
->
-> Means, you are missing "MEM_DMA".=20
->
-> Jan=20
->
-> --=20
-> Siemens AG, Corporate Technology, CT RDA IOT SES-DE=20
-> Corporate Competence Center Embedded Linux=20
->
+--=20
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+Corporate Competence Center Embedded Linux
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -196,126 +202,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/e5c36ed1-98a5-4a76-aca0-6589cf9c3108%40googlegroups.com.
-
-------=_Part_8485_1877455494.1564453126381
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Ok, that&#39;s it. But now, another error related to that =
-memory region appears:<div><br></div><div><div>FATAL: instruction abort at =
-0x4fffe1d0</div><div>FATAL: forbidden access (exception class 0x20)</div><d=
-iv>Cell state before exception:</div><div>=C2=A0pc: ffffff80080971d0=C2=A0 =
-=C2=A0lr: ffffff8008768e14 spsr: 600001c5=C2=A0 =C2=A0 =C2=A0EL1</div><div>=
-=C2=A0sp: ffffff8008e73ea0=C2=A0 esr: 20 1 0000086</div><div>=C2=A0x0: ffff=
-ffc04d2b7a00=C2=A0 =C2=A0x1: ffffffc04cff6000=C2=A0 =C2=A0x2: 0000000000000=
-000</div><div>=C2=A0x3: ffffff8008768de0=C2=A0 =C2=A0x4: 0000000000000015=
-=C2=A0 =C2=A0x5: 00ffffffffffffff<br></div><div>=C2=A0x6: 0000000029382596=
-=C2=A0 =C2=A0x7: 0000000000000f94=C2=A0 =C2=A0x8: ffffffc04ff79404<br></div=
-><div>=C2=A0x9: 00000000000007df=C2=A0 x10: ffffffc04ff793e4=C2=A0 x11: 000=
-0000000001dd8<br></div><div>x12: 0000000000000000=C2=A0 x13: 00000000000094=
-e5=C2=A0 x14: 071c71c71c71c71c<br></div><div>x15: ffffff8008e78000=C2=A0 x1=
-6: ffffff800819b1e8=C2=A0 x17: 0000007fa7da3718<br></div><div>x18: ffffffc0=
-4ff7a460=C2=A0 x19: ffffffc04cff6000=C2=A0 x20: ffffffc04cff6018<br></div><=
-div>x21: ffffffc04d2b7a00=C2=A0 x22: 0000000000000000=C2=A0 x23: ffffffc04c=
-ff6000<br></div><div>x24: 00000009ed76160a=C2=A0 x25: ffffffc04cff6000=C2=
-=A0 x26: ffffff8008e82100<br></div><div>x27: 0000000000000400=C2=A0 x28: 00=
-00000000df0018=C2=A0 x29: ffffff8008e73ea0<br></div><div><br></div><div>The=
- error happens in an address within the memory region i want to put the Lin=
-ux images (3fd00000-5fffffff : System RAM), and that i declared on the conf=
-ig file.</div><div><br></div><br>segunda-feira, 29 de Julho de 2019 =C3=A0s=
- 21:53:59 UTC+1, Jan Kiszka escreveu:<blockquote class=3D"gmail_quote" styl=
-e=3D"margin: 0;margin-left: 0.8ex;border-left: 1px #ccc solid;padding-left:=
- 1ex;">On 29.07.19 21:51, Jo=C3=A3o Reis wrote:
-<br>&gt; Yeah, i forgot to set the flag and the .dtb file i was using wasn&=
-#39;t the right
-<br>&gt; one (now i am using inmate-zynqmp.dts). But even when i set the fl=
-ag, it still
-<br>&gt; gives me the same error.
-<br>&gt; Send here the output of /proc/iomem:
-<br>&gt;=20
-<br>&gt; 00000000-3ecfffff : System RAM
-<br>&gt; =C2=A0 00080000-00deffff : Kernel code
-<br>&gt; =C2=A0 00e70000-01134fff : Kernel data
-<br>&gt; 3ed00000-3ed3ffff : 3ed00000.ddr
-<br>&gt; 3fd00000-5fffffff : System RAM
-<br>&gt; 7c000000-7c3fffff : Jailhouse hypervisor
-<br>&gt; fc000000-fc0fffff : PCI ECAM
-<br>&gt; fc100000-fc101fff : //pci@0
-<br>&gt; =C2=A0 fc100000-fc1000ff : 0000:00:00.0
-<br>&gt;=20
-<br>&gt; And the config as it is now in attachment.
-<br>
-<br>If you look at tools/jailhouse-cell-linux, you can see the conditions
-<br>for considering a region as loadable RAM:
-<br>
-<br>class ARMCommon:
-<br>=C2=A0 =C2=A0 def setup(self, args, config):
-<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 [...]
-<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 for region in config.memory_regions:
-<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 # Filter out non-RAM regions =
-and small ones at the start of the
-<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 # cell address space that is =
-used for the loader.
-<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if region.is_ram() and \
-<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(region.virt_sta=
-rt &gt; 0 or region.size &gt; 0x10000):
-<br>
-<br>
-<br>class MemoryRegion:
-<br>=C2=A0 =C2=A0 [...]
-<br>=C2=A0 =C2=A0 def is_ram(self):
-<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 return ((self.flags &amp; (MemoryRegion.JAI=
-LHOUSE_MEM_<wbr>READ |
-<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0MemoryRegion.JAILHOUSE_MEM_<wbr>WR=
-ITE |
-<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0MemoryRegion.JAILHOUSE_MEM_<wbr>EX=
-ECUTE |
-<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0MemoryRegion.JAILHOUSE_MEM_<wbr>DM=
-A |
-<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0MemoryRegion.JAILHOUSE_MEM_IO |
-<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0MemoryRegion.JAILHOUSE_MEM_<wbr>CO=
-MM_REGION |
-<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0MemoryRegion.JAILHOUSE_MEM_<wbr>RO=
-OTSHARED)) =3D=3D
-<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (MemoryRegion.J=
-AILHOUSE_MEM_<wbr>READ |
-<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0MemoryReg=
-ion.JAILHOUSE_MEM_<wbr>WRITE |
-<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0MemoryReg=
-ion.JAILHOUSE_MEM_<wbr>EXECUTE |
-<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0MemoryReg=
-ion.JAILHOUSE_MEM_<wbr>DMA))
-<br>
-<br>Means, you are missing &quot;MEM_DMA&quot;.
-<br>
-<br>Jan
-<br>
-<br>--=20
-<br>Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-<br>Corporate Competence Center Embedded Linux
-<br></blockquote></div></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/e5c36ed1-98a5-4a76-aca0-6589cf9c3108%40googlegroup=
-s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
-sgid/jailhouse-dev/e5c36ed1-98a5-4a76-aca0-6589cf9c3108%40googlegroups.com<=
-/a>.<br />
-
-------=_Part_8485_1877455494.1564453126381--
-
-------=_Part_8484_1795940902.1564453126381--
+jailhouse-dev/ef7a124c-e5e3-f61b-8ed0-aebf585c65d6%40siemens.com.
