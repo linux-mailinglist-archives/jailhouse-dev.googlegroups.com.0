@@ -1,135 +1,123 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBMFBSDVAKGQETV7R4VI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBIO3SDVAKGQEPNET54Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x437.google.com (mail-wr1-x437.google.com [IPv6:2a00:1450:4864:20::437])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90F647F508
-	for <lists+jailhouse-dev@lfdr.de>; Fri,  2 Aug 2019 12:30:08 +0200 (CEST)
-Received: by mail-wr1-x437.google.com with SMTP id l24sf36826037wrb.0
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 02 Aug 2019 03:30:08 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1564741808; cv=pass;
+Received: from mail-lj1-x239.google.com (mail-lj1-x239.google.com [IPv6:2a00:1450:4864:20::239])
+	by mail.lfdr.de (Postfix) with ESMTPS id ADD887F6E8
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  2 Aug 2019 14:33:38 +0200 (CEST)
+Received: by mail-lj1-x239.google.com with SMTP id v4sf16234419ljk.15
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 02 Aug 2019 05:33:38 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1564749218; cv=pass;
         d=google.com; s=arc-20160816;
-        b=nWToYb/58IxlRTtILRimNvCSjh8Rp946aS0IyMx4qW1M/lrs21cz42tkIvoNglD13E
-         OKOEMIcijDHMGoV3U5Oz2zikoRNWDQZPFyRaEWFxiq9EL+p7DoPKsX8HW6gTPkrmrOml
-         UCjSaG8nARyMnxPtzV11aetpcRnlpWcV6t7UXT3AJXoUUdlwrDiBjLA7VgyqLErn9bow
-         trT4kab7WR8/u7ZxZwKYdLWWP8jZ2pMgJkeqFz70V1UzJ3/ZWlDdRk73Z0Ai3OpkoE/v
-         S2zAf92bbKCrGovTlekyeDN8JIG/3TApQv5nXDgVw40KA3mTxlwpKXh0+57E+a5YZB/2
-         drgg==
+        b=NaRu6ggV7A4n6nMepu0UI03wnIeMHxbekwY0sYU1eD4l7TPA2En2yF1aLAGBs9nY/A
+         T1ywEfXd+MnZC484PzeW46mlhY3r43arOlx60MpPNjuwZtOpHPR72nbdlyw/atrmZpD3
+         k1PfNk7tX4OYyRYHgH5haRMbWTG8TZJNl9Spcsp0F92qchcKuwHQLgoaBY1q+zOOOuGj
+         /LQBXVQ7Hm0k69kmdGzvwoTzalijg/qyr3mmbzN1xsW+N4Xmk4OoxtbwPzLZzliFCthU
+         nPUywHtOvS4eMkP8wD+8rzNtsid/B5LEVpSmAUgfTpRCRfGkgbT+Y2yDyGxSxwhZIR0O
+         hhEg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:cc:to:subject:sender:dkim-signature;
-        bh=JbpGsSVH3CsbRCl5/D6Z4fH3MHP25b+mKDcQ+HAvrTs=;
-        b=RYJKe0j9Ii6uhZaS+qieARpmbszUy2lLMbtd7y1Y9zDtZLeXhEsO0Rcy2wxA0/cP0/
-         KJXE03nQeia6erFOpqDk4XtYZWtukNA9DWBZ0H9LaNh/wb0Yy8M/5/Jb9dP7A27Z3Lx0
-         ng6DS83+9nK/8kR+eZBuDyromUtGPsyNdwsxSvodf5cLwLj2THeAZvGU8XQTk47fzAIh
-         akIwIqS5urCOffJ9vFKCDbscG3dp08MzqXEVMNC41kG573bxicTqYqqHiNJmxtRJrUWT
-         nlRq0j3ZsY7mvC838eKNiyfSpeI1oW1bjQxNiBVmNiOOctSu1TPfiKzA8i7bb4Yie7OD
-         132A==
+         :list-id:mailing-list:precedence:mime-version:message-id:date
+         :subject:cc:to:from:sender:dkim-signature;
+        bh=C9sEYQRZFQR0sXAe5CLo6PC8AWd3q9Hf2KhPe5L3q6g=;
+        b=qRvh83d0aSHhZrEnPvTp9TiZiawxIdC+E6zNK2n7Hf6a7BNJEBGcVyXagVTj1wfXyF
+         jwCC6Iw0lFZrcq6lbP/cwDV+GUP6hJ4nILSzUnK+deh7GV95C4UUhuoaxWZx7kiIzadx
+         k/MHCJr8NEIqr4NFX1LCZ7dvv+VWUdtLflilHjhK5Xt7Atuktk++8VTngatgFUtOHtmy
+         q/95jfy+DiLdBF6TG0P6AeIyVEVi8TQpmftsAUCynFHZAhhcA0nAl3z2joqGUcj4CZ0h
+         hQPlNG3U6h7hbLvC+BxM5rdF7zFoKHVmTl3RLoG/ok49hbtnU4woVY0oNkJDZqUSP3df
+         RrTg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
+        h=sender:from:to:cc:subject:date:message-id:mime-version
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=JbpGsSVH3CsbRCl5/D6Z4fH3MHP25b+mKDcQ+HAvrTs=;
-        b=HBwMHxNZ6bI+BuL5+gQm7W19aF8ADSN5L82tH4JZ7l0m+mrV09xMSsek+4A3t+dKmw
-         LZvQEN3il9M3hTktRjg9bwgv9k8rF2J/k/i33A++NzL2WgiQBwgCHBxXLSeP3pw0TYdJ
-         pAMUkD/XEucafmWdwvpopw6CdmyLcGl68bW3ya7f9BoVOAGS1iFNDAjbmJ1keX5EeY0d
-         amYIYUYGrVox3OymRiaQlyTnZe6rM587QFYPGRu4ePHHvefqavx5uPB7cvR0D1TwzQYv
-         NQDoL5QVLET75FpgrK8e2zPxH/7i6tVnH1k+FD9CP7GYT7ZuC6GHq9D8WTkK2WthgpzQ
-         d6yA==
+        bh=C9sEYQRZFQR0sXAe5CLo6PC8AWd3q9Hf2KhPe5L3q6g=;
+        b=RBDPipqq9aVd9fp2IIM//9PhmGp+paMehL4+cLfG3EyNP5FhEZpH2RRzk1ejZG5Tcq
+         bvB1umv640/6UKIv0BjqYLqcDAVhinlWxJXdjEQh6YXtbjp1ToR4KR72D71nhTPC6ixI
+         G8X4ghtvKWX2KK7qLARU7THm/45Yr/78NBGd0/qJHSfSrKHZ/oku3CS3RIVVlFP+LiHj
+         OCb4vKTNPxETYrBalHzis4PBbA13jGEYQrd8Zzto8JNNAVFQpOdPPXCHLZcFuf/dE4ZJ
+         S1bS17YVo/CjoD34Zhz1jTPsQQK5Rvg+Te79xSvidM7VfvFrRgYpPLSYVQhFZo6YJO9e
+         BL+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=JbpGsSVH3CsbRCl5/D6Z4fH3MHP25b+mKDcQ+HAvrTs=;
-        b=ACExJtgr5g8pwv6w5MuJ803pzVlIWb/iPJ46Ubuw834JzRO3yQzOvvwkSVQOMsNXB8
-         QKHpxYys6EM2cX4TBddFnIi8XlA8OxxYnZ8hq1dRnTmfYngEKzjTPBmOetEFJgJdieiA
-         QL+rNWR52/kDTAfH2xhzJYHi/fQVRO8pkOQIlJ/iynRRRh0OQM4sWlUYAe8CrINCMOYQ
-         VwlVNJrPTXPKZ1u32bnSStsakIloo1UOUsAEWEoXmAkRD8E6deewcop0jIptGl1HZ70v
-         brRVLJDvwaPgbiiPcv2dRclViz/ikF4ilSXtHq8Q8oRhuTIpF5+wzw+lzUD71KVweI52
-         mo8w==
+        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=C9sEYQRZFQR0sXAe5CLo6PC8AWd3q9Hf2KhPe5L3q6g=;
+        b=moGD2F5kRAv+qLKXNeSbiXqMVsTIbXVrxZrEQE0z2p5DuLBhm+trNjKp2HG5iUM2/m
+         fShaM7+ojPPjGC9zAq8VDwSMRfXxnhP/0H72q3A7F1LVBheqAtNYSSQV/JOxeps82U26
+         Qpv71zRTaeO6O25+oGKZtCN9BO1raTPlWhOAw1gJuMZrUFLvZdYn2zO9nkxAkpbOocKz
+         CSjWlladw1m1pIjvMMzvtIYcsXILEtyCj4y/S0/zG+F2cSAh0smajlwy0MXf4dfxi7bH
+         ZpJgf5wnaYQUiU/NJ1rodH/tXXy3I9Pr9BxooOdXjz6FBadGxHU9aRoNg9yTw7u1+DEe
+         ++gw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVbRQH+mL15sQru3zhFbEGEh2m8y3SO72PGBJxSw+S7DWo2iC18
-	fZLp+7B5h/vQ/eotv598VDM=
-X-Google-Smtp-Source: APXvYqyaMdRoM3NfdvDa6KxMESzk+4Tbj4wn9fEakHpplaUDYpR8ukvqThj73Tp09SHCqqJMnwy0DQ==
-X-Received: by 2002:a1c:c747:: with SMTP id x68mr3979652wmf.138.1564741808282;
-        Fri, 02 Aug 2019 03:30:08 -0700 (PDT)
+X-Gm-Message-State: APjAAAUH7wF17//sneOhC61WvFHo3W+oyvozI4qcZYLhYtJi1PjpFYgJ
+	Bsw74EyRoWQB1zDiuReKVss=
+X-Google-Smtp-Source: APXvYqzSlbrs5J9MX1phS0EO02C2XHyLEFVcV46s3QFo9ii7V9Oxl7FJpj/u86pYrmgx6ckSQn+ovg==
+X-Received: by 2002:a2e:9858:: with SMTP id e24mr47094251ljj.91.1564749218255;
+        Fri, 02 Aug 2019 05:33:38 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:a745:: with SMTP id e5ls22436634wrd.5.gmail; Fri, 02 Aug
- 2019 03:30:07 -0700 (PDT)
-X-Received: by 2002:adf:c613:: with SMTP id n19mr89414649wrg.109.1564741807629;
-        Fri, 02 Aug 2019 03:30:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1564741807; cv=none;
+Received: by 2002:a05:6512:67:: with SMTP id i7ls6351355lfo.4.gmail; Fri, 02
+ Aug 2019 05:33:37 -0700 (PDT)
+X-Received: by 2002:a05:6512:51c:: with SMTP id o28mr66531002lfb.67.1564749217548;
+        Fri, 02 Aug 2019 05:33:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1564749217; cv=none;
         d=google.com; s=arc-20160816;
-        b=nRx4ws3TNgNHmAbLtP4Y7T8R2uhJT4qwFULSsq5LMWUTY84Awnjv5R6lNPrYa6Umvt
-         8xSvq4gOOvVEk3cmPn6YLMHdjXXiI4L20tR7qcjxTAiOfgHSTboLx8p4CQoSlytKdb8h
-         pEbgy8J2BObRJNJns4/IYAIGLAc+zP3DJCMKC/H4bxVToTcB8ICJqJxJD0UIY0v5W37M
-         kP9DYXGv2+/z+SAnDdNk52pcisHQUGsSCwjYKIx0yU8UMr3rAKs+PrruNVOidzS2dStP
-         m53V9DC6NvUtsERyz+80I09fw4Q+Ep6zewvG+fS8aZNOHwgYZZp+7ktWMpDr4b2u+l1G
-         6dlA==
+        b=eW5Jc/OChv9kPeIX3my2yMJ0tzQQKnqo4NKeK/Vfv1jHKRzzC9ISBBzJpGw27JKaB5
+         nHKbSS+dfCdUdIqpQyA+XAPwGr/6reFheKJyulGDxD38sc9/w3QUHK+0AGqzCfaL70xd
+         zZmL6h0bOVFGrTUFKd4sq6Cp/oXsSEjwM4J2NPp/x8f+ZUxeC22A+CQ5Jv4Su/KS+tlg
+         E31bzU9SuQX9UhDHHALH3wi1m5xWpdXdtES7G7NdtiYLj3TYjrVO3DvKnz05vXKoClww
+         CpJsSMN77GPscYpSA10kjCXx+wfAt8vZLNg4iR8l2N9CnDvsKeFXYqv6E6QVSLPGfCx+
+         6byQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=jDo02LNzagUGVcCCDDwVk2JBxrofcTV+XjqAOi7y5wo=;
-        b=BSUPA3jPptw91GReP2KZlVhYgwP3Crw9I913JlyK3kjmNXXC7inZ//SedeZ4jGcNvh
-         aclOieanpps/v8WPB22UM0gg1Vb4gQl118KXzsGQIIZL9HWou104RYSBsSGX4tZ+GDp3
-         ZAJXMMCG1d4Mzj8b1/ZJUG89JHNfgz3s9rpZt8cn5WVDIjMe0qwSpkjk6Ug1KzfZQf7x
-         iGfFeRvFahd0C9vvj4YjTp3th/RLeQZIud/7dHH66bfGLse98I42kRDlR17KjnU1c0z8
-         Qb7UmoJVfms6EgkZdozsHHuYeve6DvyNxJ/ZGydABLEGpRH4UdUpJzoYP1kluePZ+Oo2
-         j/6Q==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from;
+        bh=KRrW8Y7T1njOfqF20rr/jG/vbWiY+jkQB6bYPFNNTV4=;
+        b=SMHo7pL5lyJm344Z1YE6+rh7U+hNrzsdkSJXn9mzXt1pfU8CnalF1JcH9zfhmFKf18
+         +hVjybAaAz0byvfX4EunC67scM/z3ZIuUbmF8+4otFhT8CQHg1KdrWZL+6S5kaL6CaiL
+         6Poec9avdJNAh6H7UFaHGVIFlFxtfUUMsZYZiZpfqgv96E5GZmHaK9GVCxLQomTd+SFJ
+         UlZM4tRB2M6P6CWHMQXhXm3/M08Rxbt2e+Yi+lhBWPLLQIRycirY4yc/JT+3Pjt7xhLa
+         PTwjgBUdB65daxDPJorcOk5yy6qiDt77X/InF/Gnpamzj9oas0coDlkOnZtgQGodnUCw
+         uvgA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id 60si2283211wra.2.2019.08.02.03.30.07
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mtaout.hs-regensburg.de (mtaout.hs-regensburg.de. [2001:638:a01:1096::10])
+        by gmr-mx.google.com with ESMTPS id h11si1015202lja.0.2019.08.02.05.33.37
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 02 Aug 2019 03:30:07 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
-Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id x72AU3kI011437
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 2 Aug 2019 12:30:03 +0200
-Received: from [167.87.36.50] ([167.87.36.50])
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x72AU2i8019507;
-	Fri, 2 Aug 2019 12:30:02 +0200
-Subject: Re: 64 bit Hypervisor crash at 32 bit WFI instruction
-To: "von Wiarda, Jan" <Jan.vonWiarda@emtrion.de>,
-        "Antonios Motakis (Tony)" <antonios.motakis@huawei.com>,
-        Mark Rutland <mark.rutland@arm.com>
-Cc: JailhouseMailingListe <jailhouse-dev@googlegroups.com>
-References: <95F51F4B902CAC40AF459205F6322F01C4EE0E3CB4@BMK019S01.emtrion.local>
- <20190722094752.GB28400@lakrids.cambridge.arm.com>
- <95F51F4B902CAC40AF459205F6322F01C4EE0E3D14@BMK019S01.emtrion.local>
- <5518ab89-15c7-c1c2-c56e-f840cc296cec@huawei.com>
- <95F51F4B902CAC40AF459205F6322F01C4EE0E3DBD@BMK019S01.emtrion.local>
- <674c6cb2-62ac-456c-2a5e-ac08e94e0262@siemens.com>
- <95F51F4B902CAC40AF459205F6322F01C4EE0E41E3@BMK019S01.emtrion.local>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <93235ca9-0149-bdc8-4cf5-858bcda26ec8@siemens.com>
-Date: Fri, 2 Aug 2019 12:30:01 +0200
-User-Agent: Mozilla/5.0 (X11; U; Linux i686 (x86_64); de; rv:1.8.1.12)
- Gecko/20080226 SUSE/2.0.0.12-1.1 Thunderbird/2.0.0.12 Mnenhy/0.7.5.666
+        Fri, 02 Aug 2019 05:33:37 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) client-ip=2001:638:a01:1096::10;
+Received: from pluto.lfdr (unknown [IPv6:2001:638:a01:8061:aefd:ceff:fef3:ba65])
+	by mtaout.hs-regensburg.de (Postfix) with ESMTP id 460RR4440lzxxN;
+	Fri,  2 Aug 2019 14:33:36 +0200 (CEST)
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+To: Jan Kiszka <jan.kiszka@siemens.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Borislav Petkov <bp@alien8.de>,
+	x86@kernel.org,
+	jailhouse-dev@googlegroups.com
+Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	"H . Peter Anvin" <hpa@zytor.com>
+Subject: [PATCH] x86/jailhouse: Only enable platform UARTs if available
+Date: Fri,  2 Aug 2019 14:33:33 +0200
+Message-Id: <20190802123333.4008-1-ralf.ramsauer@oth-regensburg.de>
+X-Mailer: git-send-email 2.22.0
 MIME-Version: 1.0
-In-Reply-To: <95F51F4B902CAC40AF459205F6322F01C4EE0E41E3@BMK019S01.emtrion.local>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: jan.kiszka@siemens.com
+X-PMX-Version: 6.3.3.2656215, Antispam-Engine: 2.7.2.2107409, Antispam-Data: 2019.8.2.115716, AntiVirus-Engine: 5.63.0, AntiVirus-Data: 2019.8.2.5630000
+X-PMX-Spam: Gauge=IIIIIIII, Probability=8%, Report='
+ MULTIPLE_RCPTS 0.1, HTML_00_01 0.05, HTML_00_10 0.05, BODY_SIZE_5000_5999 0, BODY_SIZE_7000_LESS 0, LEGITIMATE_SIGNS 0, MULTIPLE_REAL_RCPTS 0, NO_URI_HTTPS 0, RDNS_NXDOMAIN 0, RDNS_SUSP 0, RDNS_SUSP_GENERIC 0, __ANY_URI 0, __BODY_NO_MAILTO 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CTE 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_X_MAILER 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __MULTIPLE_RCPTS_CC_X2 0, __MULTIPLE_RCPTS_TO_X5 0, __NO_HTML_TAG_RAW 0, __PHISH_PHRASE2 0, __SANE_MSGID 0, __SUBJ_ALPHA_END 0, __TO_MALFORMED_2 0, __TO_NAME 0, __TO_NAME_DIFF_FROM_ACC 0, __TO_REAL_NAMES 0, __URI_NO_WWW 0, __URI_NS '
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+ (google.com: domain of ralf.ramsauer@oth-regensburg.de designates
+ 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Content-Type: text/plain; charset="UTF-8"
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -142,155 +130,181 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 02.08.19 12:24, von Wiarda, Jan wrote:
-> Had another debugging session with a Lauterbach debugger. CPU0 still live=
-s, but does not respond to interrupts, as the cell does not respond to ping=
-s, nor does the serial console work. When I change the inmate WFI to NOP in=
- a live session on the target, the root cell immediately starts to process =
-interrupts again. When WFI is hit, interrupts apparently either don't reach=
- CPU0 or are not processed. Which apparently means, that the inmate's WFI s=
-omehow blocks the hypervisor, respectively the root cell. Could this be a G=
-IC routing problem?
+ACPI tables aren't available if Linux runs as guest of the hypervisor
+Jailhouse. This makes the 8250 driver probe for all platform UARTs as
+it assumes that all platform are present in case of !ACPI. Jailhouse
+will stop execution of Linux guest due to port access violation.
 
-Not sure if I asked this already, but I've seen this error pattern too ofte=
-n:
-Double-check if neither the root cell nor the non-root one accidentally got
-direct (non-intercepted) access to any of the GIC resources.
+So far, these access violations could be solved by tuning the
+8250.nr_uarts parameter but it has limitations: We can, e.g., only map
+consecutive platform UARTs to Linux, and only in the sequence 0x3f8,
+0x2f8, 0x3e8, 0x2e8.
 
-Jan
+Beginning from setup_data version 2, Jailhouse will place information of
+available platform UARTs in setup_data. This allows for selective
+activation of platform UARTs.
 
->=20
-> -----Urspr=C3=BCngliche Nachricht-----
-> Von: Jan Kiszka [mailto:jan.kiszka@siemens.com]=20
-> Gesendet: Dienstag, 23. Juli 2019 12:20
-> An: von Wiarda, Jan; Antonios Motakis (Tony); Mark Rutland
-> Cc: JailhouseMailingListe
-> Betreff: Re: 64 bit Hypervisor crash at 32 bit WFI instruction
->=20
-> On 23.07.19 12:14, von Wiarda, Jan wrote:
->> Hi!
->>
->> With
->>
->> asm volatile("nop" : : : "memory");
->>
->> instead of
->>
->> asm volatile("wfi" : : : "memory");
->>
->> it runs just fine.
->>
->>> Is the root cell cpu (CPU 0) specifically crashing with an unexpected s=
-ynchronous exit to Jailhouse? What is the output?
->>
->> No, CPU 0 does not crash with any kind of console output, which makes de=
-bugging even more difficult. What I observe is, that after hitting WFI, it =
-continues to run for a 1-2 seconds and then it stops. Last thing I see from=
- the instrumented code is a printk() from arch_skip_instruction(), which me=
-ans it was handling a SYS64 exit.
->=20
-> Maybe interrupts get stalled for the root cell - for whatever reason. Do =
-you
-> have a hardware debugger to analyze the state of the CPUs? Or use QEMU...
->=20
-> Jan
->=20
->>
->>> This is a far shot, but maybe the code generated around the WFI is the =
-culprit?
->>
->> You might be right, when I place WFI right after inmate_main(), CPU 0 do=
-es not starve. But it's completely strange and undefined behaviour, sometim=
-es it crashes if I put the WFI right after a printk(), whereas right before=
- the printk() it doesn't crash.
->>
->> Works:
->>
->> void inmate_main(void)
->> {
->> 		...
->> 		asm volatile("wfi" : : : "memory");
->> 		printk("IVSHMEM: Done setting up...\n");
->> 		printk("IVSHMEM: waiting for interrupt.\n");
->> 		//asm volatile("wfi" : : : "memory");
->> }
->>
->> Does not work:
->>
->> void inmate_main(void)
->> {
->> 		...
->> 		//asm volatile("wfi" : : : "memory");
->> 		printk("IVSHMEM: Done setting up...\n");
->> 		printk("IVSHMEM: waiting for interrupt.\n");
->> 		asm volatile("wfi" : : : "memory");
->> }
->>
->> I know this sounds completely strange but I reproduced this multiple tim=
-es, compiler is this:
->>
->> gcc version 6.3.0 20170516 (Debian 6.3.0-18)
->>
->> BR,
->> Jan
->>
->> -----Urspr=C3=BCngliche Nachricht-----
->> Von: Antonios Motakis (Tony) [mailto:antonios.motakis@huawei.com]=20
->> Gesendet: Dienstag, 23. Juli 2019 06:40
->> An: von Wiarda, Jan; Mark Rutland
->> Cc: JailhouseMailingListe; Jan Kiszka
->> Betreff: Re: AW: 64 bit Hypervisor crash at 32 bit WFI instruction
->>
->> Hi Jan,
->>
->> On 22-Jul-19 7:11 PM, von Wiarda, Jan wrote:
->>> Hi Mark,
->>>
->>> I'm not touching bit 13 or 14 in HCR_EL2, they're both 0. HCR_EL2 is th=
-e same for 64 bit and 32 bit inmates when the crash happens, except for HCR=
-_RW_BIT, obviously. HCR_EL2 value is 0x28001B at crash time.
->>>
->>
->> It's quite an interesting crash that you have there; I wouldn't expect t=
-his to happen.
->>
->> The idea with trapping WFI/WFE is to be able to suspend a VM that is jus=
-t waiting for something to happen. Since Jailhouse is a partitioning hyperv=
-isor, you shouldn't need to trap it, nor should its use normally influence =
-the other cores. Yet something is amiss here.
->>
->> Is the root cell cpu (CPU 0) specifically crashing with an unexpected sy=
-nchronous exit to Jailhouse? What is the output?
->>
->> I don't remember what event 0x28001B maps to, I would check the ARM ARM =
-first to figure out what the unexpected event in CPU 0 was, for a clue to m=
-otivate further investigation.
->>
->> Additionally, this WFI code instructs the compiler that memory contents =
-may change, so ordering of generated instructions, inserted barriers etc, a=
-re influenced. This is a far shot, but maybe the code generated around the =
-WFI is the culprit? Maybe not, but I would try to rule it out:
->> (a) First I'd try replacing the WFI with a nop, to observe the behavior =
-without the WFI but without changing compiler behavior and maintaining any =
-compiler barriers.
->> (b) I would also try replacing it with an infinite loop ("b .") to get t=
-he inmate to wait forever at this position, and see what happens.
->>
->> Happy debugging :)
->>
->> Best regards,
->> Tony
->>
->=20
+This patch queries the setup_data version and activates only available
+UARTS. It comes with backward compatibility, and will still support
+older setup_data versions. In this case, Linux falls back to the old
+behaviour.
 
---=20
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+---
+ arch/x86/include/uapi/asm/bootparam.h |  1 +
+ arch/x86/kernel/jailhouse.c           | 74 ++++++++++++++++++++++++---
+ 2 files changed, 69 insertions(+), 6 deletions(-)
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/93235ca9-0149-bdc8-4cf5-858bcda26ec8%40siemens.com.
+diff --git a/arch/x86/include/uapi/asm/bootparam.h b/arch/x86/include/uapi/asm/bootparam.h
+index a06cbf019744..2d6a40cbf3df 100644
+--- a/arch/x86/include/uapi/asm/bootparam.h
++++ b/arch/x86/include/uapi/asm/bootparam.h
+@@ -146,6 +146,7 @@ struct jailhouse_setup_data {
+ 	__u32	apic_khz;
+ 	__u8	standard_ioapic;
+ 	__u8	cpu_ids[255];
++	__u32	flags;
+ } __attribute__((packed));
+ 
+ /* The so-called "zeropage" */
+diff --git a/arch/x86/kernel/jailhouse.c b/arch/x86/kernel/jailhouse.c
+index 108c48d0d40e..3b73647b2456 100644
+--- a/arch/x86/kernel/jailhouse.c
++++ b/arch/x86/kernel/jailhouse.c
+@@ -11,6 +11,7 @@
+ #include <linux/acpi_pmtmr.h>
+ #include <linux/kernel.h>
+ #include <linux/reboot.h>
++#include <linux/serial_8250.h>
+ #include <asm/apic.h>
+ #include <asm/cpu.h>
+ #include <asm/hypervisor.h>
+@@ -20,6 +21,10 @@
+ #include <asm/reboot.h>
+ #include <asm/setup.h>
+ 
++#define SETUP_DATA_FLAGS_PERMIT_PCUART(n) (1 << (n))
++#define SETUP_DATA_FLAGS_HAS_PCUART(flags, n) \
++	!!(flags & SETUP_DATA_FLAGS_PERMIT_PCUART(n))
++
+ static __initdata struct jailhouse_setup_data setup_data;
+ static unsigned int precalibrated_tsc_khz;
+ 
+@@ -76,11 +81,13 @@ static void __init jailhouse_get_smp_config(unsigned int early)
+ 		.type = IOAPIC_DOMAIN_STRICT,
+ 		.ops = &mp_ioapic_irqdomain_ops,
+ 	};
++#ifdef CONFIG_SERIAL_8250
+ 	struct mpc_intsrc mp_irq = {
+ 		.type = MP_INTSRC,
+ 		.irqtype = mp_INT,
+ 		.irqflag = MP_IRQPOL_ACTIVE_HIGH | MP_IRQTRIG_EDGE,
+ 	};
++#endif
+ 	unsigned int cpu;
+ 
+ 	jailhouse_x2apic_init();
+@@ -97,12 +104,16 @@ static void __init jailhouse_get_smp_config(unsigned int early)
+ 	if (setup_data.standard_ioapic) {
+ 		mp_register_ioapic(0, 0xfec00000, gsi_top, &ioapic_cfg);
+ 
+-		/* Register 1:1 mapping for legacy UART IRQs 3 and 4 */
+-		mp_irq.srcbusirq = mp_irq.dstirq = 3;
+-		mp_save_irq(&mp_irq);
++#ifdef CONFIG_SERIAL_8250
++		if (setup_data.version < 2) {
++			/* Register 1:1 mapping for legacy UART IRQs 3 and 4 */
++			mp_irq.srcbusirq = mp_irq.dstirq = 3;
++			mp_save_irq(&mp_irq);
+ 
+-		mp_irq.srcbusirq = mp_irq.dstirq = 4;
+-		mp_save_irq(&mp_irq);
++			mp_irq.srcbusirq = mp_irq.dstirq = 4;
++			mp_save_irq(&mp_irq);
++		}
++#endif
+ 	}
+ }
+ 
+@@ -135,6 +146,42 @@ static int __init jailhouse_pci_arch_init(void)
+ 	return 0;
+ }
+ 
++#ifdef CONFIG_SERIAL_8250
++static const u16 pcuart_base[] = {
++	0x3f8,
++	0x2f8,
++	0x3e8,
++	0x2e8,
++};
++
++static void jailhouse_serial_fixup(int port, struct uart_port *up,
++				   u32 *capabilites)
++{
++	struct mpc_intsrc mp_irq = {
++		.type = MP_INTSRC,
++		.irqtype = mp_INT,
++		.irqflag = MP_IRQPOL_ACTIVE_HIGH | MP_IRQTRIG_EDGE,
++	};
++	unsigned int n;
++
++	for (n = 0; n < ARRAY_SIZE(pcuart_base); n++) {
++		if (pcuart_base[n] != up->iobase)
++			continue;
++
++		if (SETUP_DATA_FLAGS_HAS_PCUART(setup_data.flags, n)) {
++			pr_info("Enabling UART%u (port 0x%lx)\n", n,
++				up->iobase);
++			mp_irq.srcbusirq = mp_irq.dstirq = up->irq;
++			mp_save_irq(&mp_irq);
++		} else {
++			/* Deactivate UART if access isn't allowed */
++			up->iobase = 0;
++		}
++		break;
++	}
++}
++#endif
++
+ static void __init jailhouse_init_platform(void)
+ {
+ 	u64 pa_data = boot_params.hdr.setup_data;
+@@ -162,8 +209,12 @@ static void __init jailhouse_init_platform(void)
+ 		memcpy(&header, mapping, sizeof(header));
+ 		early_memunmap(mapping, sizeof(header));
+ 
++		/*
++		 * Version 2 extends version 1 by four byte. We still do
++		 * support version 1.
++		 */
+ 		if (header.type == SETUP_JAILHOUSE &&
+-		    header.len >= sizeof(setup_data)) {
++		    header.len >= (sizeof(setup_data) - 4)) {
+ 			pa_data += offsetof(struct setup_data, data);
+ 
+ 			mapping = early_memremap(pa_data, sizeof(setup_data));
+@@ -195,6 +246,17 @@ static void __init jailhouse_init_platform(void)
+ 	 * are none in a non-root cell.
+ 	 */
+ 	disable_acpi();
++
++#ifdef CONFIG_SERIAL_8250
++	/* Since setup_data.version 2 we have flags that indicate availability
++	 * of platform UARTs.
++	 *
++	 * In case of version 1, we don't know which UARTs belong Linux. In
++	 * this case, unconditionally register 1:1 mapping for legacy UART IRQs
++	 * 3 and 4 */
++	if (setup_data.version > 1)
++		serial8250_set_isa_configurator(jailhouse_serial_fixup);
++#endif
+ }
+ 
+ bool jailhouse_paravirt(void)
+-- 
+2.22.0
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20190802123333.4008-1-ralf.ramsauer%40oth-regensburg.de.
