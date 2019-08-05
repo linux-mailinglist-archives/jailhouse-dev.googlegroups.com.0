@@ -1,147 +1,77 @@
-Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBDELUHVAKGQE5JRX3OA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC7MJ2PM5UERBCM5UHVAKGQECXFVUZI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23e.google.com (mail-lj1-x23e.google.com [IPv6:2a00:1450:4864:20::23e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C79E81FBD
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  5 Aug 2019 17:04:45 +0200 (CEST)
-Received: by mail-lj1-x23e.google.com with SMTP id o9sf17489905ljg.11
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 05 Aug 2019 08:04:45 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1565017485; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=tiaWxcOFqCyokFmh2x/sQhuFMbv2XSfM41J5ZSAmI4zNVXB5T0IB7Hv8hJr1jnLqGC
-         Z2kngMrv/vcOKeYC2TVwnYYwfU8l5wwqvZKIfsOwjGszJmg4bN81n9hsRKex2A0OOyxt
-         CWmco6cj9IGj+D2GqipR4UhoDcHifoH6/eJU2Uuf4PgGWDQ5I0iddPyJTUNea9IX+fkb
-         8Ia2hV2eWojSI2VU1BKWxazDZTLoiFSi4VupwJa9xOnz95rwAL028OBR55F0ihN8aGBR
-         oVG2yvUj95ZuspPiNx6LJgANtE2VkLs2p76rejo9kwiG+rGltSqSbiL9Yk3RbZCiLUNo
-         HQWw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:openpgp:from:references:cc:to:subject:sender
-         :dkim-signature;
-        bh=oG1LfIyIMmhIu/j01RqL0AujoBKCUJqay3P17fuAkiM=;
-        b=VTx+2IUKVK/nnRBKuxUHhtaWvHwFbLnXVrX03eS1PP2stzfP311/gtBNsRQXMS7Jcu
-         ppUW6pBacybq0e3ewVO+caoLlhebpxODBxVIo4AvuKOs363hcMQrq5GGmNxxxVOFi7Uf
-         WlFkzXL1eD9vRIr8f5ijrNkxfFteKWFXpKFZTyWD0fl2eDDgRQV6iflXO2pMSfye6lsZ
-         3uPxeysux8EqS6HjlH1ZROeIDWTJQAuzxy7LUAf8/cIY4QbzJ12rqhfkmz+Z5asiieiJ
-         f156lwuF+XTyGt80E0p+ClnITAXsVqb0XOtzCiVbe4PfKchoAsd3BXYCwDAo4JkESUOo
-         xpcg==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=MzFyUFh9;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mail-ot1-x33d.google.com (mail-ot1-x33d.google.com [IPv6:2607:f8b0:4864:20::33d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 284B282093
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  5 Aug 2019 17:43:07 +0200 (CEST)
+Received: by mail-ot1-x33d.google.com with SMTP id q16sf46355869otn.11
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 05 Aug 2019 08:43:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:openpgp:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=oG1LfIyIMmhIu/j01RqL0AujoBKCUJqay3P17fuAkiM=;
-        b=IC9DzOmufsgrL4zKxWy125MkbBzbVmCJS9feX2P4cHQ2gaUKKj0xGYiMKTF7Vn6Yha
-         9nxrT671fgCTjMqEGqRtFgBmKz/Ys/ZTdfuP+f9qdXJ2ShjKdbsSXt0U0tmtlLcMasBH
-         G9XypIT1iaurZLkKC2P5GKayk/ckqcchovKX8rdldBZlfk+0DOpMfiFG5KEvi8Y2hxjV
-         tX4vF9K6VefzEj24uOrrVdbzT4yaO43GEALPY4rNSiHyZD03dVnI+TonzVDueJwtQLQX
-         5F7wHwDvOHmsCkdyRpf6D2Q4kV56KOpQyci2/zxKE2BUXFvZORIKcWbzxD/sJ1jiHYkU
-         7QXA==
+        bh=MXAOOMaDNGsT1KZVvwk8B0dpZf3x/4zn6aJUoIB+sDw=;
+        b=JalZRMtHhbVKc34D/yJhb9O1Yg49ZVqn3+gGv1phScVNz2eRRszpvJu5p7Op11+0Xz
+         y5vLpvtTXcVZ+fRhsOhBOLXi9d5ZvTNLyTrbmEbvzinPes+PQKaOfHN3vNPweQ5PO+u3
+         ocWggap+nL495LElc6WEFu3XfngG6s4SB4P+4FlmCszy1aMG50SVtGcVbDUm7E5MlN8P
+         2n7wEnZpRJwjUuK49ntYqCqo91wXiwCtyFoNDmsDxIPyB53XaAgVynBVtsltxM3IB4ew
+         aNKVkS/5w5m84QW4hj4J/JNeN+fL1k0UFiHRfV8RKAYY3eSsC9eFdKQvIbiAGyeNmmDg
+         obEg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=MXAOOMaDNGsT1KZVvwk8B0dpZf3x/4zn6aJUoIB+sDw=;
+        b=mDUAMPRWet9872ckjHzRP7Gpml1DU0XNFbdbP+nKIDlUh3R0xiV1y3MCp1Ur1D62Qu
+         ZPFP8iYKK+2e58ZQyUDGphxaKLjuqGJQ3xBdJx4kU1ZJ/fmXIiKGnITqa39XX/yTgD8U
+         77RIfKcPL2bgSrYSF2TyfncKsRaChJKX9P+CMVjIQyPS0sxwgB4G9oNJJOVlbSakQi3a
+         XG+sYRfYOoFeHE8wOLd08Hz6TWtX28SUE1z7H2ndvHM0R/BMhMcjgrLWavwhibB3Bns0
+         i8losbeiSmInN5+8WdDPUFkcyZlgpfo+goVJi5A9X1k7nh8hFcru1I7REONdrcMUFhWd
+         0Kag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:openpgp
-         :message-id:date:user-agent:mime-version:in-reply-to
-         :content-language:content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=oG1LfIyIMmhIu/j01RqL0AujoBKCUJqay3P17fuAkiM=;
-        b=N+hy5/kMGfLs9K5+VTIuE75t1nidiFGk9uYPz0P8mZs9uArFIhmm5gU1RhIngKnESo
-         weWHrxK0gQGfjJdrfOqz1pfUx2L3mktWBaSRghqDR1ZJXqkNED3Aq5z8KTPiqj/Xa0ZG
-         4tRdF58Tj65LVLWvCeLVSdlyCrgULKCDJ4RvolaSAqBRxqds0B83YefiBtkg5VLJZ29d
-         43I8uSgcYOu1NB009uJPulHHykydLBcYstNrVq5XVQcIc3uWtFeMi1jgUzpO2C7s5D8a
-         V6K9lEtX75efpog4G4dmyY+MpJwZbqsaNI4fTsXde7m4WPIMT9jW9agOO9o0oP91Gcy+
-         GxwA==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=MXAOOMaDNGsT1KZVvwk8B0dpZf3x/4zn6aJUoIB+sDw=;
+        b=LY0GBwlhMK/8itj6DDO9qUohzdvsSiFeHXD23Rbl4gpvW+nPnKx8SwDXJa7cADB1aQ
+         wzp/edAjErwLxs5KHvdVPYG/9SEZ+AzchdpZbWADM7ThuIMFKWwj5wlx8cES88+iAh4B
+         u27r/wKGrbvgL2J15ysUA1PNKJTWCR3V+AvenLB31A8pdM8Vo9DjOxFhCAl35Rp+Wgcx
+         FzPTi2MKls0TVniKmwPMF/vsFv7EHZTn9cx6ZAtDJl4M0mpWukdvYC90sy7oN84cbCD+
+         KMQtod/RHjGCPwOp3zKJp4Ooqak7Yz+pLJWAilmQJz/WxGY25NOp9fY2Lcn4VvkCwpj6
+         3QHQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVLuhf3Yyqhy9RGybvbVkrkUzg7DhPwG1I6Pq56NCIV0KvRL9JB
-	VJDvsUHgQOvzUfoYGHubG4M=
-X-Google-Smtp-Source: APXvYqzrCHbR5eBG5sKC6WzexTYku9fug5tceqc8kzt3z/CpIfKwBySK5GeMWQ+kOrceUphNY9CwVg==
-X-Received: by 2002:a19:4aca:: with SMTP id x193mr66642142lfa.146.1565017484960;
-        Mon, 05 Aug 2019 08:04:44 -0700 (PDT)
+X-Gm-Message-State: APjAAAWJHnqFacoYU5eedFGpRDptwbFDzXkvajqCNkbZoDfKw4oQ4m7X
+	t7Dp6f77DZF5NAMlWk6bUGo=
+X-Google-Smtp-Source: APXvYqxzkR/EuOVgOwgpM0C8LWpvZnOAfiPPa+qTHlgG8VY3WbSXhGGwbH/TeaQBharpfpsJgqArmg==
+X-Received: by 2002:a9d:6754:: with SMTP id w20mr110137976otm.41.1565019785994;
+        Mon, 05 Aug 2019 08:43:05 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:5b91:: with SMTP id m17ls9522330lje.10.gmail; Mon, 05
- Aug 2019 08:04:44 -0700 (PDT)
-X-Received: by 2002:a2e:9753:: with SMTP id f19mr78390792ljj.113.1565017484379;
-        Mon, 05 Aug 2019 08:04:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1565017484; cv=none;
-        d=google.com; s=arc-20160816;
-        b=pVk8+u4b/Ovf0UJEhOONNQNeNxFqC/2Qejvmobcd+bTflhp1gaix/3xPjc+u3aigGJ
-         TkbK/EhdjqwJCNVgs6vxDjD0TpREZKdyZ2qIGu82qYuSVOCxHoRv5MiPg6wEAnX4sFUu
-         VDlT6KpHklwBj2rfTAxkewIhvos6wxEgUiPcwILTfakEFpyjhCLUq64WA3AIfrlEQu+g
-         EhlEd/7fFfk0AScL9EKmEgPHzV4cn0GbR31lNZLCBxVG25fK+WuEgJ/PfRg+WDZo8bRo
-         6eISLaUWPup5DXgBfff/HJmz3auCis3/Rq/QUaSH0dFxAVG8Ki2TXxSFV3GpDVm0gvW0
-         GUJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:openpgp:from:references:cc:to:subject
-         :dkim-signature;
-        bh=zaxxF758gWMSwUy1BQCG9ues1TgF3EULgKTaEO70bvU=;
-        b=Nw99wTgFNY4q0VxFISDSsz04bze2quyBJ5f2rPmTdfiuy8qw3KqDXLQzrwOfNjKz+8
-         KjJWSVoi4Zxb3nsIISoHUFO2P5o/9ytS6riPkJl5e+ZQBSXRcJ+Ue1CyfS50Vz4hMp4l
-         hmh+OXWOtk6Dc5a9Pdppq/a4+67LqrSadUnlyjQj9I7H8QN/bjthsO6hE0nEG7QoowKo
-         XhaHDJjZrtZ7s5pxf6LBMLIh0bLd0f9qpnUrycsK/jS8U9cvB149CMQvtcf9+8+7NSRT
-         DkPEP9W1Tw+FUTlHCxLRphR+5p/YICQ7ybP0LNVayrkXvjAv0U2NoBcT+HRwBYa6xlU5
-         jsvw==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=MzFyUFh9;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [194.95.104.12])
-        by gmr-mx.google.com with ESMTPS id m84si3431409lje.1.2019.08.05.08.04.43
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 05 Aug 2019 08:04:43 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) client-ip=194.95.104.12;
-Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S02", Issuer "E16S02" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 462Lf30hQBzxws;
-	Mon,  5 Aug 2019 17:04:43 +0200 (CEST)
-Received: from [IPv6:2001:638:a01:8061:aefd:ceff:fef3:ba65]
- (2001:638:a01:8013::138) by E16S02.hs-regensburg.de (2001:638:a01:8013::92)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 5 Aug 2019
- 17:04:42 +0200
-Subject: Re: [PATCH v3 1/6] iommu: x86: Generalize iommu definition
-To: Jan Kiszka <jan.kiszka@siemens.com>, Lokesh Vutla <lokeshvutla@ti.com>,
-	<jailhouse-dev@googlegroups.com>
-CC: Sekhar Nori <nsekhar@ti.com>, William Mills <wmills@ti.com>, Nikhil
- Devshatwar <nikhil.nd@ti.com>
-References: <20190709134836.10485-1-p-yadav1@ti.com>
- <20190709134836.10485-2-p-yadav1@ti.com>
- <14f0f8cf-b23f-63b9-22c6-7abadbcfb57d@oth-regensburg.de>
- <29ff1833-f55b-d698-fbf5-49db43af711a@siemens.com>
- <e31985ab-b95f-d493-01e5-883a6c94cc31@ti.com>
- <4d6a7a70-6c8d-7a25-a674-03142e112caf@siemens.com>
- <d7aaf90c-94ff-9356-d1e7-db1ca5183a29@siemens.com>
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Openpgp: preference=signencrypt
-Message-ID: <ec624c9c-02d9-98e7-edfb-a0071c807afa@oth-regensburg.de>
-Date: Mon, 5 Aug 2019 17:04:42 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+Received: by 2002:a9d:6d09:: with SMTP id o9ls458044otp.7.gmail; Mon, 05 Aug
+ 2019 08:43:05 -0700 (PDT)
+X-Received: by 2002:a9d:61d8:: with SMTP id h24mr52232191otk.53.1565019785394;
+        Mon, 05 Aug 2019 08:43:05 -0700 (PDT)
+Date: Mon, 5 Aug 2019 08:43:04 -0700 (PDT)
+From: dianaramos007@gmail.com
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <0a03b7bf-fcce-4de2-9a06-bb495cf47bb7@googlegroups.com>
+In-Reply-To: <7e6377fc-e8af-c947-8218-a435a065a597@siemens.com>
+References: <15e809ef-6d04-4df6-a706-7fa43e7deee3@googlegroups.com>
+ <f6e7c240-8686-aeff-1167-a8350e0cb03f@siemens.com>
+ <0d5266f5-700e-4002-bd8d-4f3f6f65677e@googlegroups.com>
+ <64ec235d-fe28-e181-7c7b-c00956fea706@siemens.com>
+ <389dded1-c061-4966-83ac-6e1176dfc152@googlegroups.com>
+ <22c9aeae-ac3c-b07e-da80-82bc6f153dcc@siemens.com>
+ <729af1ca-261c-4f43-86a5-4582753cd864@googlegroups.com>
+ <7e6377fc-e8af-c947-8218-a435a065a597@siemens.com>
+Subject: Re: Problem with IVSHMEM on Bananapi
 MIME-Version: 1.0
-In-Reply-To: <d7aaf90c-94ff-9356-d1e7-db1ca5183a29@siemens.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: de-DE
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [2001:638:a01:8013::138]
-X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
- E16S02.hs-regensburg.de (2001:638:a01:8013::92)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=MzFyUFh9;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_1658_108058932.1565019784770"
+X-Original-Sender: dianaramos007@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -154,137 +84,173 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
+------=_Part_1658_108058932.1565019784770
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1659_1814056573.1565019784770"
 
+------=_Part_1659_1814056573.1565019784770
+Content-Type: text/plain; charset="UTF-8"
 
-On 8/5/19 5:00 PM, Jan Kiszka wrote:
-> On 05.08.19 16:54, Jan Kiszka wrote:
->> On 05.08.19 16:35, Lokesh Vutla wrote:
->>> Hi Jan,
->>>
->>> On 05/08/19 7:15 PM, Jan Kiszka wrote:
->>>> On 05.08.19 15:25, Ralf Ramsauer wrote:
->>>>> Hi,
->>>>>
->>>>> On 7/9/19 3:48 PM, 'Pratyush Yadav' via Jailhouse wrote:
->>>>>> From: Nikhil Devshatwar <nikhil.nd@ti.com>
->>>>>>
->>>>>> Right now, jailhouse only supports iommu for x86.
->>>>>> Generalize the data structures to support iommus of different types
->>>>>>
->>>>>> Assumption is that each jailhouse_system can define iommu
->>>>>> instances of different types. Extend the jailhouse_iommu
->>>>>> to add type info.
->>>>>>
->>>>>> Update the x86 config files to reflect updated data the new type fie=
-ld.
->>>>>>
->>>>>> [p-yadav1@ti.com: Add Intel IOMMU and fix compiler errors for AMD an=
-d
->>>>>> VT-D]
->>>>>>
->>>>>> Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
->>>>>> Signed-off-by: Lokesh Vutla <lokeshvutla@ti.com>
->>>>>> Signed-off-by: Pratyush Yadav <p-yadav1@ti.com>
->>>>>> ---
->>>>>> v2:
->>>>>> - Undo removing iommu_count_units().
->>>>>> - Remove the union from jailhouse_iommu.
->>>>>> - Remove the stray blank in amd_iommu.h
->>>>>> - Revert to using n instead of i in amd_iommu_init().
->>>>>> - Fail in Intel and AMD when any other type of IOMMU is found.
->>>>>> - Remove the accidental Intel configuration check.
->>>>>> - Update cell config template and pyjailhouse
->>>>>>
->>>>>> Jan, please take a close look at the template and pyjailhouse update=
-.
->>>>>> I'm not sure if I missed something, or did something wrong.
->>>>>>
->>>>>>  configs/x86/f2a88xm-hd3.c       | 1 +
->>>>>>  configs/x86/qemu-x86.c          | 1 +
->>>>>>  hypervisor/arch/x86/amd_iommu.c | 9 ++++-----
->>>>>>  hypervisor/arch/x86/vtd.c       | 2 ++
->>>>>>  include/jailhouse/cell-config.h | 7 +++++++
->>>>>>  pyjailhouse/sysfs_parser.py     | 2 ++
->>>>>>  tools/root-cell-config.c.tmpl   | 1 +
->>>>>>  7 files changed, 18 insertions(+), 5 deletions(-)
->>>>>>
->>>>>> diff --git a/configs/x86/f2a88xm-hd3.c b/configs/x86/f2a88xm-hd3.c
->>>>>> index 315d0e29..849c5756 100644
->>>>>> --- a/configs/x86/f2a88xm-hd3.c
->>>>>> +++ b/configs/x86/f2a88xm-hd3.c
->>>>>> @@ -50,6 +50,7 @@ struct {
->>>>>>  				.pm_timer_address =3D 0x808,
->>>>>>  				.iommu_units =3D {
->>>>>>  					{
->>>>>> +						.type =3D JAILHOUSE_IOMMU_AMD,
->>>>>>  						.base =3D 0xfeb80000,
->>>>>>  						.size =3D 0x80000,
->>>>>>  						.amd_bdf =3D 0x02,
->>>>>> diff --git a/configs/x86/qemu-x86.c b/configs/x86/qemu-x86.c
->>>>>> index fdfa8915..2df2807a 100644
->>>>>> --- a/configs/x86/qemu-x86.c
->>>>>> +++ b/configs/x86/qemu-x86.c
->>>>>> @@ -50,6 +50,7 @@ struct {
->>>>>>  				.vtd_interrupt_limit =3D 256,
->>>>>>  				.iommu_units =3D {
->>>>>>  					{
->>>>>> +						.type =3D JAILHOUSE_IOMMU_INTEL,
->>>>>>  						.base =3D 0xfed90000,
->>>>>>  						.size =3D 0x1000,
->>>>>>  					},
->>>>>> diff --git a/hypervisor/arch/x86/amd_iommu.c b/hypervisor/arch/x86/a=
-md_iommu.c
->>>>>> index 02712571..2fc6d033 100644
->>>>>> --- a/hypervisor/arch/x86/amd_iommu.c
->>>>>> +++ b/hypervisor/arch/x86/amd_iommu.c
->>>>>> @@ -448,7 +448,7 @@ static void amd_iommu_init_fault_nmi(void)
->>>>>>  		    &system_config->platform_info.x86.iommu_units[iommu->idx];
->>>>>> =20
->>>>>>  		/* Disable MSI during interrupt reprogramming. */
->>>>>> -		pci_write_config(cfg->amd_bdf, cfg->amd_msi_cap + 2 , 0, 2);
->>>>>> +		pci_write_config(cfg->amd_bdf, cfg->amd_msi_cap + 2, 0, 2);
->>>>>> =20
->>>>>>  		/*
->>>>>>  		 * Write new MSI capability block, re-enabling interrupts with
->>>>>> @@ -782,14 +782,13 @@ static int amd_iommu_init(void)
->>>>>> =20
->>>>>>  	iommu =3D &system_config->platform_info.x86.iommu_units[0];
->>>>>>  	for (n =3D 0; iommu->base && n < iommu_count_units(); iommu++, n++=
-) {
->>>>>> +		if (iommu->type !=3D JAILHOUSE_IOMMU_AMD)
->>>>>
->>>>> This is a comparison of an __u32 against an enum.
->>>>>
->>>>
->>>> Oops, the enum is still around?! I requested to remove it but didn't c=
-heck again...
->>>
->>>  it is fixed in v4 :) $patch is v3.
->>>
->>
->> Ah, ooh... Ralf, please use your time machine only for funny stuff! ;)
+ 
+>
+> Basically, you have to replicate that CCU block above a few times, adjust 
+> size 
+> and start addresses, e.g. 
+>
+> { 
+>         .phys_start = 0x01c200c0, 
+>         .virt_start = 0x01c200c0, 
+>         .size = 0x10, 
+>         .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | 
+>                 JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32, 
+> }, 
+>
+> in order to define a region from 0x01c200c0..0x01c200cf, permitting 32-bit 
+> accesses. Such a region could then be assigned to a non-root cell as a 
+> whole 
+> (breaking up sub-page regions on assignment is not possible, in contrast 
+> to 
+> page-aligned regions). 
+>
+>
+Thank you for your response. That seemed to solve the unhandled traps that 
+I was having. Now I'm having the following when I load the 
+bananapi-gic-demo cell:
 
-Woops, picked the wrong series. :)
-Let me just warp back and=E2=80=A6 Forget about the enum comment.
+Cell "bananapi-gic-demo" can be loaded
+Unhandled data write at 0x7bfe0000(1)
+FATAL: unhandled trap (exception class 0x24)
+pc=0xc06c770c cpsr=0x20000013 hsr=0x9000004f
+r0=0xe0184000 r1=0x00023080 r2=0x00002134 r3=0xea00000d
+r4=0xea000005 r5=0xea000005 r6=0xea000005 r7=0xea000005
+r8=0xea000005 r9=0xe0184000 r10=0x00023038 r11=0x00000001
+r12=0xea00001a r13=0xddf0be4c r14=0xea000005
+Parking CPU 0 (Cell: "Banana-Pi")
 
->>
->=20
-> ...but Ralf's suggestion to tune the values for easier conflict detection=
- or
-> resolution is still reasonable.
+This unhandled trap seems to be related to RAM. 
 
-Yep, that part still applies.
+The configuration on bananapi's file is the following:
 
-  Ralf
+/* RAM */ {
+            .phys_start = 0x40000000,
+            .virt_start = 0x40000000,
+            .size = 0x3bf00000,
+            .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+                JAILHOUSE_MEM_EXECUTE,
+        },
 
->=20
-> Jan
->=20
+And for bananapi-gic-demo:
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
+/* RAM */ {
+            .phys_start = 0x7bfe0000,
+            .virt_start = 0,
+            .size = 0x00010000,
+            .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+                JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+        },
+
+By checking the /proc/iomem file, I can see that there's a region for the 
+System RAM from 40000000 to 7a3fffff, as well for kernel 4.13.0 that I was 
+experimenting before. I have two questions:
+
+   1. The configuration defined for the RAM on bananapi's file exceeds the 
+   range defined in the iomem file. Although the gic-demo worked with kernel 
+   4.13.0 (with the same region on /proc/iomem), can this be the reason why 
+   I'm having these traps?
+   2. I've tried to replicate the block and adjust the sizes and start 
+   addresses, like you suggested above,but I kept having unhandled traps 
+   related to the gic-demo's phys_start address. How can I solve this?
+   
+
+ 
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/0a03b7bf-fcce-4de2-9a06-bb495cf47bb7%40googlegroups.com.
+
+------=_Part_1659_1814056573.1565019784770
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+=C2=A0<blockquote class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8=
+ex;border-left: 1px #ccc solid;padding-left: 1ex;">Basically, you have to r=
+eplicate that CCU block above a few times, adjust size
+<br>and start addresses, e.g.
+<br>
+<br>{
+<br>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.phys_start =3D 0x01c20=
+0c0,
+<br>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.virt_start =3D 0x01c20=
+0c0,
+<br>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.size =3D 0x10,
+<br>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.flags =3D JAILHOUSE_ME=
+M_READ | JAILHOUSE_MEM_WRITE |
+<br>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0JAILHOUSE_MEM_<wbr>IO | JAILHOUSE_MEM_IO_32,
+<br>},
+<br>
+<br>in order to define a region from 0x01c200c0..0x01c200cf, permitting 32-=
+bit
+<br>accesses. Such a region could then be assigned to a non-root cell as a =
+whole
+<br>(breaking up sub-page regions on assignment is not possible, in contras=
+t to
+<br>page-aligned regions).
+<br>
+<br></blockquote><div><br></div><div>Thank you for your response. That seem=
+ed to solve the unhandled traps that I was having. Now I&#39;m having the f=
+ollowing when I load the bananapi-gic-demo cell:</div><div><br></div><div>C=
+ell &quot;bananapi-gic-demo&quot; can be loaded<br>Unhandled data write at =
+0x7bfe0000(1)<br>FATAL: unhandled trap (exception class 0x24)<br>pc=3D0xc06=
+c770c cpsr=3D0x20000013 hsr=3D0x9000004f<br>r0=3D0xe0184000 r1=3D0x00023080=
+ r2=3D0x00002134 r3=3D0xea00000d<br>r4=3D0xea000005 r5=3D0xea000005 r6=3D0x=
+ea000005 r7=3D0xea000005<br>r8=3D0xea000005 r9=3D0xe0184000 r10=3D0x0002303=
+8 r11=3D0x00000001<br>r12=3D0xea00001a r13=3D0xddf0be4c r14=3D0xea000005<br=
+>Parking CPU 0 (Cell: &quot;Banana-Pi&quot;)</div><div><br></div><div>This =
+unhandled trap seems to be related to RAM. <br><div><br></div><div>The conf=
+iguration on bananapi&#39;s file is the following:<br></div><div><br></div>=
+<div>/* RAM */ {<br>=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=
+=A0 .phys_start =3D 0x40000000,<br>=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =
+=C2=A0=C2=A0=C2=A0 .virt_start =3D 0x40000000,<br>=C2=A0=C2=A0=C2=A0 =C2=A0=
+=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .size =3D 0x3bf00000,<br>=C2=A0=C2=A0=C2=A0=
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .flags =3D JAILHOUSE_MEM_READ | JAIL=
+HOUSE_MEM_WRITE |<br>=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=
+=A0 =C2=A0=C2=A0=C2=A0 JAILHOUSE_MEM_EXECUTE,<br>=C2=A0=C2=A0=C2=A0 =C2=A0=
+=C2=A0=C2=A0 },</div><div><br></div><div>And for bananapi-gic-demo:</div><d=
+iv><br></div><div>/* RAM */ {<br>=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=
+=A0=C2=A0=C2=A0 .phys_start =3D 0x7bfe0000,<br>=C2=A0=C2=A0=C2=A0 =C2=A0=C2=
+=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .virt_start =3D 0,<br>=C2=A0=C2=A0=C2=A0 =C2=
+=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .size =3D 0x00010000,<br>=C2=A0=C2=A0=C2=
+=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .flags =3D JAILHOUSE_MEM_READ | J=
+AILHOUSE_MEM_WRITE |<br>=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=
+=C2=A0 =C2=A0=C2=A0=C2=A0 JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,<b=
+r>=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 },</div><div><br></div><div>By chec=
+king the /proc/iomem file, I can see that there&#39;s a region for the Syst=
+em RAM from 40000000 to 7a3fffff, as well for kernel 4.13.0 that I was expe=
+rimenting before. I have two questions:</div><div><ol><li>The configuration=
+ defined for the RAM on  bananapi&#39;s file exceeds the range defined in t=
+he iomem file. Although the gic-demo worked with kernel 4.13.0 (with the sa=
+me region on /proc/iomem), can this be the reason why I&#39;m having these =
+traps?<br></li><li>I&#39;ve tried to replicate the block and adjust the siz=
+es and start addresses, like you suggested above,but I kept having unhandle=
+d traps related to the gic-demo&#39;s phys_start address. How can I solve t=
+his?<br></li></ol></div><div><br></div>=C2=A0</div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/ec624c9c-02d9-98e7-edfb-a0071c807afa%40oth-regensburg.de.
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/0a03b7bf-fcce-4de2-9a06-bb495cf47bb7%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/0a03b7bf-fcce-4de2-9a06-bb495cf47bb7%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_1659_1814056573.1565019784770--
+
+------=_Part_1658_108058932.1565019784770--
