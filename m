@@ -1,148 +1,115 @@
-Return-Path: <jailhouse-dev+bncBCB7D7MXMMIO5CE75ICRUBF4HGOHY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBBUUT7VAKGQESA3UGGI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pg1-x538.google.com (mail-pg1-x538.google.com [IPv6:2607:f8b0:4864:20::538])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F776811C9
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  5 Aug 2019 07:53:52 +0200 (CEST)
-Received: by mail-pg1-x538.google.com with SMTP id e33sf9994756pgm.20
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 04 Aug 2019 22:53:52 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1564984431; cv=pass;
+Received: from mail-pf1-x43e.google.com (mail-pf1-x43e.google.com [IPv6:2607:f8b0:4864:20::43e])
+	by mail.lfdr.de (Postfix) with ESMTPS id EE6C281222
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  5 Aug 2019 08:17:43 +0200 (CEST)
+Received: by mail-pf1-x43e.google.com with SMTP id 145sf52824772pfw.16
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 04 Aug 2019 23:17:43 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1564985862; cv=pass;
         d=google.com; s=arc-20160816;
-        b=uJK9Da8PTLkI5OnQXLMJtixpRXKGir2TMV+ch/7apAxuNFs8kVyP0+00qnFOpDq2fW
-         fZuKlRRIABlAWLMPBtK5wmY+JEENhY2NL4x4xLwD3uUJItxfZUzVwWqRJXYGig2uXWYm
-         a2WDwTlBgmrVB5Eg55BS0vmBlEd51SUkGLEeLDTO4BrB4XvBZpKTXJqSDxwqnwmqL43X
-         cD19b4UXhY4CAG1DiLeLoaml4theMgcF0/QhCiF/j+JW7rH/TKHVbCqE7VTgCerTHGMM
-         1R1jDSeaxY+pWE67D9fLnGnTaOcCa/HeZpFg+Ur6CqpzG685qNkZiapk3AoxZ8clnxW8
-         dwnw==
+        b=tsmeGjA1oe8sHgZo9bdKZtNEXNZvVwFxD7Uowez20kzZrsjIE1sz2bk8RePJa38gP9
+         quZng57VpFLKfA+2+WkvkEmkYhtWziijYSmkeaI1MetGSBslBp+Inb6JWSWrClS4Q74A
+         fGz6LResnLU/CW153h/4UIxEDeYq63fyj1xszf/3+kv3OL2gNuxKbvU1q9/zRmdBDiRr
+         XjWXC0pERsnx5mMoDw2e5ZuWTx+KVBuMabCv5Z24eGYfyXdJd649K6o/L2hvGlzRYeLt
+         KTNu8SvdkT1BMyG5dmzZRxWWC4cJSbNgycdT19n/LYvk7eNhZBN3Yj2jewSZ+iEKochF
+         nS6Q==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to:content-language
-         :in-reply-to:mime-version:user-agent:date:message-id:from:references
-         :cc:to:subject:dkim-signature;
-        bh=PHeH91g/+Q2/J4uXm/ipfYmbiZODBPKGsOANsOgncNw=;
-        b=ZQcbz4JMUtip+5SF7n7G2+tw1vkyTzRpeVhTRg2RZBWteUMEcHi9wxW598VFW7Bh3Q
-         sVkkxcu+z4/kjXTmUbmespIkP5sbF21mSSmzFQWmbKHXRIVnVODYtQrtzXBxmsS6Py8J
-         LHyiydYOPplaAeUz3z9mS4YsYJHIINHB90kV1Vp2IEPD1npAjoE0JrHx5l+L1le+mxrq
-         M8X+JxE1mzCvbl6wIeoeOHSzbaOZPREl1glPqiSCRhhEJleqtCDMIpgfR2BOwpKSZ3/1
-         KSAkl6sZs1WvudNw4ae0b0+b2ftvuBTHjVKJCSeCp3yaxKQByqNkx1zJGx0W6eS/3dSH
-         nOQA==
+         :list-id:mailing-list:precedence:mime-version:subject:message-id:to
+         :from:date:sender:dkim-signature;
+        bh=fBCfXx1zt3x22qyIlJL4MDQFGDybT55Ftbj0gSZYKzc=;
+        b=Szt0yJMq9ItWFszzku/dpTU9nuojFnlVUsbSpZP7GyX+6FnbnJ4bana7lzN73/tPuv
+         HYwiA5v/sabiCzW1ecj6EGdH5DJXcHicxsQ1kw877947V1b91bP50IQZFV7vTj6rHg1p
+         8m7Cgtnvgnl93hj8dcmELGKn6WXC8a4FDgcSSmiPbbH2JVi3ojbo2/znUILB24IkKKV9
+         BKpSHWXT8gkN3Q6qPhDSA/D0iR4HsMaQL7DP3cCeIj0GtFsoXPrz849Qo41uss9EIhE5
+         5kFA/nyxe+j6kCywHIYqsWfU88gCrzKVdDIi99ZF26SOxuyRcogPoFCgbnuEAdDdfxEs
+         MGEg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b="kWA0e/wj";
-       spf=pass (google.com: domain of lokeshvutla@ti.com designates 198.47.19.141 as permitted sender) smtp.mailfrom=lokeshvutla@ti.com;
-       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=VODOifmw;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.193 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:reply-to:precedence:mailing-list
-         :list-id:list-post:list-help:list-archive:list-subscribe
-         :list-unsubscribe;
-        bh=PHeH91g/+Q2/J4uXm/ipfYmbiZODBPKGsOANsOgncNw=;
-        b=LKFPuQ8mPSR4D+Ek6wuH7yZyBjfGVSFIWDvqmGiQzMvgPiyA60oVK3TTVC6eWxOVzg
-         ZIFO06IZHU9XbAwWc0tHOjHmuFoUCe8sNTwCGQbn2GMTlmkfukWD97yoVz/Y1tEkvVUU
-         y41+saKEb0V90E+1iNYoRmkctTwfWgA+pwOprMh2aDwVijbzazqS39FupHjCXaAx6QI4
-         GF4go1mukm6JLP4n9+jt8AjtbPQ5s4yIK6zJG6ahb4Yl46L3HLpSZJyYf+v6RlHGpf3S
-         PKTy0SXyKLEjClgxRqpWPFuhrRIXKADh+i9/R8fa6K8HDKbSfs1WJf+EKdeH7ZOgTal4
-         Mf9w==
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=fBCfXx1zt3x22qyIlJL4MDQFGDybT55Ftbj0gSZYKzc=;
+        b=sakKhinmif7eTgi744lqw8HrO4qVbWG2SuxNP4jYfegfgOSTGJqLgZXJxm+VtlHsfQ
+         nXgV5XKKwLG1yNsOlNMPYkbC4VVcwkVpGLdM1HQLaETZJZN8FX5hhKvBq8tdy5P9Otm2
+         Op5SIsTJMX9Fjq5bUttIbMZAXzZ5ULeLmc8QrBXHvvDmu0EtUzAdoN3mL72lutnAv5tC
+         Qg3nSyNJdGFEvWFbR72lSY5an6G2IfAH4NjriT6UujlnXfEpX3cjM2Bg3u5iBRYzFXke
+         RBe9OakJP27poCgxa1TwnEF9+TQuO6ZgewWXQbBryAQbTg3fhVtmG3+Z7QkR/rhKmPL1
+         cFlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:reply-to
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=PHeH91g/+Q2/J4uXm/ipfYmbiZODBPKGsOANsOgncNw=;
-        b=FDuwTgLBG5fiB4KWtBC+q7BpuZ2mXzBTWLk4rwVsrVAyIXHSWSwGhrdvtNCeHIX5BE
-         jZ9PCo8MGkiMSytTTI6j38B5QxmwqBFjVGsqiq6nGa+y2rBhkv3mepDqmvjNkwVMcpuL
-         wjxv+CH8KVe8bwNuUgmR2ZiqLVonkGf+ZLgBNvwdKZA1BwW5O4smgKRl62wFmTaTt73+
-         fpgTI9o0xNXoWQl9LH13SfZcRrOxZWfNSEjvHeQ7YtN/kh8wNfCfnV9LMTHAVRLQ7PdR
-         OALsYrvZIrayEC1rJFW8ArwNEsAzBPg5sogQiqCESndATC7urqzLUnH7+8BxPc9DxNVm
-         hziA==
-X-Gm-Message-State: APjAAAVqfOw5iCEEfENw3RnRLXPCFXHFnApU3rGC3dlfGa7OjG4aigRS
-	uDblpX4YF5OmOwqh5P1MiDo=
-X-Google-Smtp-Source: APXvYqwfJHB0yUPNHzfxRLVCFEP8R5YR0ZJW0Kd1Z7fQ4FF0k62r7NvqG26qyRv0f3oOznq2p6qEmw==
-X-Received: by 2002:a17:90a:b00b:: with SMTP id x11mr16482696pjq.120.1564984430743;
-        Sun, 04 Aug 2019 22:53:50 -0700 (PDT)
+        bh=fBCfXx1zt3x22qyIlJL4MDQFGDybT55Ftbj0gSZYKzc=;
+        b=uEoCYua3bVFO7IduTuFNYUOHVFH5cTI70v0orTcnf7uccaAMHVAiG1a6Jn+b/3bp2Y
+         10wrGgePQJv7r/ewz2K4YiO3IgquAsY/pJCa7IB7DQ+CXrEAZz90gYGvAi0lYxi8HeGy
+         NYmwbZDefgw0W07DYGyr1sVmsQCAh0UQByHDaTYlEFtT4Itme969noQySOm/vB2enw2Z
+         6td/lsx0/Rq9FGEWj8ajmx8/wSxSVZ/0CS0+HeO1DVPophmBJHLTpfVaDNMgiCl8fY4N
+         G6MOoj0OX7jLl7hxtOm9RVBANhZci/gixdm2EO6vcKofOZCgcpsvJ06OVeC+YjomsRyF
+         gsVQ==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: APjAAAU73eKPhn48jyNejkpnHd2ze3cFvW+dB/JaKoBAGuaE6OOca/XL
+	wvDdkI/uLYgCV2mMRx8lPbE=
+X-Google-Smtp-Source: APXvYqxpUcM1CxXQPP4Fq6jnkvrn7u653UDMyFfz7Ni5/7UaSDrLX2OYGvCAHgxdiKgX2nbsftYz+g==
+X-Received: by 2002:a17:902:e512:: with SMTP id ck18mr135439044plb.53.1564985862541;
+        Sun, 04 Aug 2019 23:17:42 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:90a:ca05:: with SMTP id x5ls5279498pjt.3.canary-gmail;
- Sun, 04 Aug 2019 22:53:50 -0700 (PDT)
-X-Received: by 2002:a17:902:9a04:: with SMTP id v4mr138467276plp.95.1564984430175;
-        Sun, 04 Aug 2019 22:53:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1564984430; cv=none;
+Received: by 2002:a62:75ce:: with SMTP id q197ls18512528pfc.3.gmail; Sun, 04
+ Aug 2019 23:17:42 -0700 (PDT)
+X-Received: by 2002:a62:e801:: with SMTP id c1mr16143228pfi.41.1564985862124;
+        Sun, 04 Aug 2019 23:17:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1564985862; cv=none;
         d=google.com; s=arc-20160816;
-        b=ZLnMi8CIT9tiJ1Je4n7wxOTPN77b17sc9UJ5Ds5k087mlXk41JnR09vosLNuXpzNJK
-         zQ9bCOuCQ5iMZonHWGoV/BjlklAPxQkVeTN3srizdJovm0fK1616VHgyR9Nw8DoT/7Sp
-         w6lU6O6snW5ZCvZaGoojt4EqHKE7kULOWAQuElBgHD2B4Y/SzWf35/PvE/cITRS2l5ki
-         SLkhoUt24Yf/iYUtoM1NY51wtwUSl0R4m39TtM91/umCrZa8Qwbf+9Vz3qQJyPr42eZq
-         K23jymJRR6DJD/vv7TEx1WGYN4h9BIlpmb1XWC+ehpPskUNkIR991gz/9hz7krXq5Pwb
-         /slQ==
+        b=CWAPpF2IS5EZMsiWNIKXKRp6HIwSnqIMNCsVV13N7/VJzb/YiZIv0MRRky2wHv5KEB
+         PdyNCjdqEfqlI618oDDl1C9DzNchVUgWAGMJ+yMyK4GfIkmvkmejUjksrafRoko+jm2y
+         BBZpMo8Pt7TL26T0G5r0f+Gfrqy6m5mWJki4d5RR0kZOOIv18/9PFTDTI7mSnvMJ+G4C
+         UkaqYKol4ywq8AcakC3CryEZIZFFPlQj1jE5LCe7fctryxaOQewonvxYr5kaVVmeZtG4
+         JB62GKFfp80aWDsierxMOJbWW302rrt8fwnnaEVcp7fNvoSpZ+lmVhaDz4e4z/UE/nkX
+         EY+A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject
-         :dkim-signature;
-        bh=z2stx5NUSSTdKuqilSOtilZ8NIymsZjl61zxbkbYIv8=;
-        b=guAZ6Hx9a1rBzXTNeVhx5xDbUc3TpWPZHF9JbO7y6ovkqp8vcjy+0M33kUwulOHouy
-         vDtNEnPpPiLmk9cE8coEw4mvl4eBncr2fTaDoii/pacPCoESUtPGXRDLrEd2OMhIVuCP
-         yZwEoc/BsACmoF+W/STdARhOdJxqVMM2U0EBV/+33GaCPptR53ebJ5BP/m2Z9klJP3Sn
-         yHwOpOFmZ8ARpa/Xr0i3KCP+fGRlVkjjc+//umJW9Nt5UmW1h3orvoD3eAURmdv+li6W
-         BANKC7wjsDU4Sq36E0hpAe8wckSbkVn2ThBFiqr/M/h9JSEwDLjYLUGDktwjJsSopZJX
-         RKxw==
+        h=content-transfer-encoding:mime-version:subject:message-id:to:from
+         :dkim-signature:date;
+        bh=+kkIt2ZYZp1zCN3NpJBAOpLQJ7spLFpzXhV45l54KwE=;
+        b=tb2zfRQLaJxqqYeEPOtDWonWPTShWbly7EX7cQqEywBgBNe0L2lA7cHk2+hHTBx0D7
+         dUz2ORKgOQddR+IA4IRq+orRuNYTP7sbE+NSwEa8NbpmAWrfa5W1vKJK0Bqw0sGhRBzp
+         ArCiXHh4RF0MUQmgBaUuVNBc6zqzQZTQ+T0zwV3xbpvOSXUPqTnmuLtRooNYUVRsKeI+
+         E4+T9TTS7dSeigOQN7GHV57LwhOxNFDvhKa117uVmXzaZfL7LHxV5u/D7yXCPfpqJn+I
+         4+l/r/r4a28UrtvlSNMt+FHEqMH6VEnttSFuVqxhNLtl4QQK59Jg0TctlFVfyk8xETHj
+         fSUw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b="kWA0e/wj";
-       spf=pass (google.com: domain of lokeshvutla@ti.com designates 198.47.19.141 as permitted sender) smtp.mailfrom=lokeshvutla@ti.com;
-       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
-Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com. [198.47.19.141])
-        by gmr-mx.google.com with ESMTPS id y13si3326777pfl.3.2019.08.04.22.53.50
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=VODOifmw;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.193 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from out-2.smtp.github.com (out-2.smtp.github.com. [192.30.252.193])
+        by gmr-mx.google.com with ESMTPS id q2si2857572pgq.3.2019.08.04.23.17.42
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 04 Aug 2019 22:53:50 -0700 (PDT)
-Received-SPF: pass (google.com: domain of lokeshvutla@ti.com designates 198.47.19.141 as permitted sender) client-ip=198.47.19.141;
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
-	by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id x755rnlu009661;
-	Mon, 5 Aug 2019 00:53:49 -0500
-Received: from DLEE100.ent.ti.com (dlee100.ent.ti.com [157.170.170.30])
-	by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x755rnu1087874
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 5 Aug 2019 00:53:49 -0500
-Received: from DLEE102.ent.ti.com (157.170.170.32) by DLEE100.ent.ti.com
- (157.170.170.30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Mon, 5 Aug
- 2019 00:53:49 -0500
-Received: from fllv0040.itg.ti.com (10.64.41.20) by DLEE102.ent.ti.com
- (157.170.170.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
- Frontend Transport; Mon, 5 Aug 2019 00:53:48 -0500
-Received: from [172.24.190.117] (ileax41-snat.itg.ti.com [10.172.224.153])
-	by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id x755rjqS023918;
-	Mon, 5 Aug 2019 00:53:46 -0500
-Subject: Re: [PATCH v4 5/6] arm64: iommu: smmu-v3: Add data structure
- initialization and stage 2 for SMMUv3
-To: Jan Kiszka <jan.kiszka@siemens.com>,
-        Jailhouse
-	<jailhouse-dev@googlegroups.com>
-CC: Tero Kristo <t-kristo@ti.com>, Sekhar Nori <nsekhar@ti.com>,
-        Nikhil
- Devshatwar <nikhil.nd@ti.com>
-References: <20190801112648.6569-1-lokeshvutla@ti.com>
- <20190801113547.7460-1-lokeshvutla@ti.com>
-From: "'Lokesh Vutla' via Jailhouse" <jailhouse-dev@googlegroups.com>
-Message-ID: <4106eb52-b73f-cb70-bb85-ce7b1a882e11@ti.com>
-Date: Mon, 5 Aug 2019 11:23:05 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
-MIME-Version: 1.0
-In-Reply-To: <20190801113547.7460-1-lokeshvutla@ti.com>
+        Sun, 04 Aug 2019 23:17:42 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.193 as permitted sender) client-ip=192.30.252.193;
+Date: Sun, 04 Aug 2019 23:17:41 -0700
+From: Jan Kiszka <noreply@github.com>
+To: jailhouse-dev@googlegroups.com
+Message-ID: <siemens/jailhouse/push/refs/heads/next/44bce2-fbcfb0@github.com>
+Subject: [siemens/jailhouse] fbcfb0: arm64: iommu: smmu-v3: Add data structure
+ initiali...
+Mime-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-X-Original-Sender: lokeshvutla@ti.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@ti.com header.s=ti-com-17Q1 header.b="kWA0e/wj";       spf=pass
- (google.com: domain of lokeshvutla@ti.com designates 198.47.19.141 as
- permitted sender) smtp.mailfrom=lokeshvutla@ti.com;       dmarc=pass
- (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
-X-Original-From: Lokesh Vutla <lokeshvutla@ti.com>
-Reply-To: Lokesh Vutla <lokeshvutla@ti.com>
+X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
+X-Auto-Response-Suppress: All
+X-Original-Sender: noreply@github.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
+ mode) header.i=@github.com header.s=pf2014 header.b=VODOifmw;       spf=pass
+ (google.com: domain of noreply@github.com designates 192.30.252.193 as
+ permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass (p=NONE
+ sp=NONE dis=NONE) header.from=github.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -155,109 +122,50 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi Jan,
+  Branch: refs/heads/next
+  Home:   https://github.com/siemens/jailhouse
+  Commit: fbcfb0f88e51b9ef76592ec5d3453c7d4ca19a8c
+      https://github.com/siemens/jailhouse/commit/fbcfb0f88e51b9ef76592ec5d3453c7d4ca19a8c
+  Author: Pratyush Yadav <p-yadav1@ti.com>
+  Date:   2019-08-05 (Mon, 05 Aug 2019)
 
-[..snip..]
+  Changed paths:
+    M hypervisor/arch/arm64/Kbuild
+    A hypervisor/arch/arm64/smmu-v3.c
 
-> +static int arm_smmuv3_cell_init(struct cell *cell)
-> +{
-> +	struct jailhouse_iommu *iommu;
-> +	struct arm_smmu_cmdq_ent cmd;
-> +	int ret, i, j, sid;
-> +
-> +	if (!iommu_count_units())
-> +		return 0;
-> +
-> +	iommu = &system_config->platform_info.arm.iommu_units[0];
-> +	for (i = 0; i < iommu_count_units(); iommu++, i++) {
-> +		if (iommu->type != JAILHOUSE_IOMMU_SMMUV3)
-> +			continue;
-> +
-> +		for_each_stream_id(sid, cell->config, j) {
-> +			ret = arm_smmu_init_ste(&smmu[i], sid, cell->config->id);
-> +			if (ret)
-> +				return ret;
-> +		}
-> +	}
-> +
-> +	cmd.opcode	= CMDQ_OP_TLBI_S12_VMALL;
-> +	cmd.tlbi.vmid	= cell->config->id;
-> +	arm_smmu_cmdq_issue_cmd(smmu, &cmd);
-> +	arm_smmu_cmdq_issue_sync(smmu);
-> +
-> +	return 0;
-> +}
-> +
-> +static void arm_smmuv3_cell_exit(struct cell *cell)
-> +{
-> +	struct jailhouse_iommu *iommu;
-> +	struct arm_smmu_cmdq_ent cmd;
-> +	int i, j, sid;
-> +
+  Log Message:
+  -----------
+  arm64: iommu: smmu-v3: Add data structure initialization and stage 2 for SMMUv3
 
-I missed the check for iommu_counts here. Can you take care while pushing or do
-you want me to re post the series?
+A System Memory Management Unit(SMMU) performs a task analogous to a
+CPU's MMU, translating addresses for device requests from system I/O
+devices before the requests are passed into the system interconnect.
 
-	if (!iommu_count_units())
-		return 0;
+Implement a driver for SMMU v3 that maps and unmaps memory for specified
+stream ids.
 
-> +	for (i = 0; i < JAILHOUSE_MAX_IOMMU_UNITS; i++) {
-> +		iommu = &system_config->platform_info.arm.iommu_units[i];
-> +		if (iommu->type != JAILHOUSE_IOMMU_SMMUV3)
-> +			continue;
-> +
-> +		for_each_stream_id(sid, cell->config, j) {
-> +			arm_smmu_uninit_ste(&smmu[i], sid, cell->config->id);
-> +		}
-> +	}
-> +
-> +	cmd.opcode	= CMDQ_OP_TLBI_S12_VMALL;
-> +	cmd.tlbi.vmid	= cell->config->id;
-> +	arm_smmu_cmdq_issue_cmd(smmu, &cmd);
-> +	arm_smmu_cmdq_issue_sync(smmu);
-> +}
+The guest cells are assigned stream IDs in their configs and only those
+assigned stream IDs can be used by the cells. There is no checking in
+place to make sure two cells do not use the same stream IDs. This must
+be taken care of when creating the cell configs.
 
-Thanks and regards,
-Lokesh
+This driver is implemented based on the following assumptions:
+- Running on a Little endian 64 bit core compatible with ARM v8
+  architecture.
+- SMMU supporting only AARCH64 mode.
+- SMMU AARCH 64 stage 2 translation configurations are compatible with
+  ARMv8 VMSA. So re-using the translation tables of CPU for SMMU.
 
-> +
-> +static int arm_smmuv3_init(void)
-> +{
-> +	struct jailhouse_iommu *iommu;
-> +	int ret, i;
-> +
-> +	iommu = &system_config->platform_info.arm.iommu_units[0];
-> +	for (i = 0; i < iommu_count_units(); iommu++, i++) {
-> +		if (iommu->type != JAILHOUSE_IOMMU_SMMUV3)
-> +			continue;
-> +
-> +		smmu[i].base = paging_map_device(iommu->base, iommu->size);
-> +
-> +		/* ToDo: irq allocation*/
-> +
-> +		ret = arm_smmu_device_init_features(&smmu[i]);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret = arm_smmu_init_structures(&smmu[i]);
-> +		if (ret)
-> +			return ret;
-> +
-> +		/* Reset the device */
-> +		ret = arm_smmu_device_reset(&smmu[i]);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return arm_smmuv3_cell_init(&root_cell);
-> +}
-> +
-> +DEFINE_UNIT_MMIO_COUNT_REGIONS_STUB(arm_smmuv3);
-> +DEFINE_UNIT_SHUTDOWN_STUB(arm_smmuv3);
-> +DEFINE_UNIT(arm_smmuv3, "ARM SMMU v3");
-> 
+This driver is loosely based on the Linux kernel SMMU v3 driver.
+
+Signed-off-by: Pratyush Yadav <p-yadav1@ti.com>
+Signed-off-by: Lokesh Vutla <lokeshvutla@ti.com>
+[Jan: dropped comments about SMMU emulation - not present here,
+      added iommu_count_units() check to arm_smmuv3_cell_exit]
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/4106eb52-b73f-cb70-bb85-ce7b1a882e11%40ti.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/next/44bce2-fbcfb0%40github.com.
