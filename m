@@ -1,140 +1,128 @@
-Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBT64UDVAKGQEZTSINEI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB27FUDVAKGQEWRXLUYI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x440.google.com (mail-wr1-x440.google.com [IPv6:2a00:1450:4864:20::440])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D15D81C97
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  5 Aug 2019 15:25:36 +0200 (CEST)
-Received: by mail-wr1-x440.google.com with SMTP id p13sf40722048wru.17
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 05 Aug 2019 06:25:36 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1565011536; cv=pass;
+Received: from mail-ed1-x53e.google.com (mail-ed1-x53e.google.com [IPv6:2a00:1450:4864:20::53e])
+	by mail.lfdr.de (Postfix) with ESMTPS id 53C4081DCC
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  5 Aug 2019 15:45:16 +0200 (CEST)
+Received: by mail-ed1-x53e.google.com with SMTP id y24sf51674907edb.1
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 05 Aug 2019 06:45:16 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1565012716; cv=pass;
         d=google.com; s=arc-20160816;
-        b=txOX8REiDnFtgpzWa+SidAI44+VvBcXB3i5l7f8iInyen8pg4ajlqLEYZZ4UipKTYm
-         ur2BM6n8y2umOU767evB11uQ7fGQfn4eTFBBAo2XXqtZh+LPsnj+cJG+hIv1WBNeaBBL
-         yth8wV3AaH8QN7t20wgzr0irdZhbXJmqcXnWoS2LTKzFpuBSa/XMebQ+n5JhhvBPKm8W
-         IU/6kn+mCl0zpQWo58kKhyGP4KufLlSvngqmFWPnqPTTNIAkZIMEj4NQeMKysxRBxgYi
-         JPlRkQmiPP0smdyRgeG3iVUON6e/ZaknPIEez9lXalXzTpX8ww1gQsaBp3odIRtlYJ3H
-         eEpg==
+        b=PIiKI2Yf032yO6Lbtz35OgnC5kevJJrSCqm9gagO5Fh1gAH69gFaFe8NrR/4oigwwz
+         8UlCbgd0OzXJ84rzt7PHTQk1fRduPTzByK3wtns32U+11c7XtmNR8ar2SRbNXr1WR6Uh
+         9LdHvImi2n83YAEBKecIzlReDlnfx6GsQd6PBz8m+gOAsmDQMdTM4XpbuGHcadCBHl2U
+         lnoGZXlcwtxSRG+jznXQeF57my8e/ACAhkBuHyCdjRiI3DBMe63+6tFTK0rnSuWg6waw
+         V8OY68dCrVXJA+A6uIeUXdYQDWuLpa0oFCTq5Jle8uRcyZ42PZXRdpDpZg3h1aQUDYRV
+         Ztiw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:openpgp:from:references:cc
-         :to:subject:sender:dkim-signature;
-        bh=sSvyz4o1xWOPWS+qOhTsWqTNGM0bywju8WOFWQR4ELE=;
-        b=B14FAbv73SxOPxZ/ffvdiN/pOx+E7f1tHVbEQRt/+SxUnN+LBMg1Y8vEjaWf14/Wwj
-         97mzYnYuvdN6TC/06Ti9tffb1TfwY154Prltg3jvNBn9P9REPfDEZJCLkHNO6I4GAj9S
-         /6/aLHeafvrbAqiDq4Uv0FLVUyE2G5fyM2sTtnhYWP7/Cqw1oc32WACbdoqQ/Das1BkP
-         iYwe4hRfv7JhsIhJEA0tEh9j8o2Q6jxubFusHQXw9ZgjjDiff5cIH35fWuJfIgzXykdN
-         z0fDPZxBZ7BSrTO0uJpEybhg+xgHRclzUtGr7aLX24Yf2lOeGhaIWdlTdFt87xEebBiU
-         YJnQ==
+         :mime-version:user-agent:date:message-id:from:references:cc:to
+         :subject:sender:dkim-signature;
+        bh=WNEQ9kThJMe8vQK1g6thiEeCWdrKzH8VbX1j9GuCS3g=;
+        b=BV7HABei76YZI5QNiOL4dEKkex2hoWxFq9cYf/fMiJ/dpSam38BDcUjgero5T40qcp
+         m53A3CfmWikKreOWSRobdkkob5CFtK1//Pmpp9Mm2TJfjYYKRRrA2UG4aRRbJwsjzFdB
+         oNVjwtZ7mNX6yv1/NcDw9lALNd+jKBqKKsMvtl1JmgEeZ64HRW4PJYJcHUQycej+6iAf
+         mj9ERwDaOrsu4F/aT4oyMwHNQ+HJvGWjpoVXZ9XGoocdjW9yht4LCsOI9E+BynQF58vk
+         rhPUscDO39xys1tKB0Z642Z7n8eWc80vVg1nxcSwYd+wxBo2gAkpmQsBvfE6Pf95BU+J
+         M0iQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=eJUQg6mP;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:openpgp:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=sSvyz4o1xWOPWS+qOhTsWqTNGM0bywju8WOFWQR4ELE=;
-        b=BeqI5SL3eQWb7dKtvNkI0qtL+aDn2bui+EXBtG2NSKIYRbalHGjPpfSBbKZbjEplBS
-         2skBbsFqyjD0PkaKUXLEELI8Os9ixlChzbdZtbcAIsQPbvlQaGdeCvEQZ9NZzPOD4BaY
-         790MAIAWtT408ZsRoDthW8jkjlarqFBnYAcw2Msv4YFSjzsFpCGprZrEdFs5OdKuhYXf
-         A5A5quhqaFYXtpLggzwDLEcGnbUM3ODHylPbYLidqCCn9l+kBv6pfJ6GTZvXufTZXR+0
-         wbFIWoh0ewhfCx8lvkWbxDUWhKMjoXzEkdaSncH93jVZIKLG2H76DL8BohTZzfsiOY0h
-         uK+Q==
+        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=WNEQ9kThJMe8vQK1g6thiEeCWdrKzH8VbX1j9GuCS3g=;
+        b=gVUFduvGvin6x48XNg5gDZqKHIUyydxpXcffq0h2LTz0MJi6RlbiCewX5l7oPtmmVs
+         ZxdKxSc4zQqlprpBnb0iixlSf8gW/IFIlAR3u9i1Foje8tpZDiUM3oYxa/nyX1xgmOlA
+         XkEeQXysdl+xOqc7fH+ojiYKCMfgNDx7jN+Fg0jHE7xRW2IMtPY9Xg4HXG3c5snPXyQp
+         IeLaENRU5fGjF8VQu8SpSj5BPRfrJ31g/nksvtoPDfryysX6u/kF11aHoWzpI0rJSICF
+         mj83uhfh107zZR9V3yGLNdqch7Rj74X44h5AkO45pfjCMa8MtP7OVycJMjf3rU/v4Hew
+         1MGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:openpgp
-         :message-id:date:user-agent:mime-version:in-reply-to
-         :content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=sSvyz4o1xWOPWS+qOhTsWqTNGM0bywju8WOFWQR4ELE=;
-        b=KT8RY52edsLj4dAqyTMetWOiJJtNbgLLvzY5zRONqI/pm+gFtQ308ANO9fc6wlFan9
-         S2HZ/jFl2el5kSNgI5IbbjSSwTxVObSI4WfmdXALDVJBtJDqE3/d4g34qU/AicDWJwS8
-         LPv/UGjzsn7WtsSVUV+nFMMjZngBfVTkd9YP/rWGfBTCBTDqCgCkho39eD45t0Cm6UZe
-         3T/lTTDbZob3xQigajnqHEhQ/uN/JnSo5GVoZWBbsCxV0ht7Tzrzqx4aHgWIY9koPI98
-         QyjD4SlP9Tkn2fE/4WbIdxsCpLoSHzbuZmZfqVeaSW68q9YjbQnkzXqNtK6ueNOhINGe
-         Nd+w==
+        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=WNEQ9kThJMe8vQK1g6thiEeCWdrKzH8VbX1j9GuCS3g=;
+        b=Bh718rsECJWMkKdrHRQlg7PwhXhoZ0YVsxWkujTpSdhKTxy3HaaQfqWOooPi4Cm+7D
+         BcU5G6joU07SwGrjrjmwVsV9GZRX3kK0/aTb3v08WIs/vJx4I5W/FOppJGq5Uyk3kq6F
+         Staicbyogqba0LmvlEYgkQkJ3EVQaA6ulJPszo7/OXjOO83NCYIunAVjHyZqRe1qjM9p
+         rIvrekkkq5aUuVvERsAYGoI5G2Oz2ridx0sg1ROdfneTyR+uMfmMv4YjQE5hFapM9M7G
+         jMQdJwPwXP2XKA7yqkoyPHmRrjRRRK1E588NvxvmLoJnkzgSCT9uQl4VtD7F3Nk//YUV
+         RPlA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAU/BdZtRltA+Q+8sgN+ao8b3+vbbiDQhX6PB77YM9zGKGrpT6/A
-	eLxXCPRaH6It0p1q0AnTrP4=
-X-Google-Smtp-Source: APXvYqyxMGSq7n1dT6Cc+LKxOvU0BSgt9kXxTG00dJCyYMpb1ajFKR99/uksJ7iZLXsQkR4C5PK60Q==
-X-Received: by 2002:a1c:e710:: with SMTP id e16mr19394358wmh.38.1565011536121;
-        Mon, 05 Aug 2019 06:25:36 -0700 (PDT)
+X-Gm-Message-State: APjAAAWr/+tm7u0aLPM/WzCK6jN5A0+D45Mh4HFv/q02EPO66p/8mXIa
+	SjYvkltdYrwEOOT0i9HD9oI=
+X-Google-Smtp-Source: APXvYqyTcGCKBAjjaE4HC+XEgX6OMcojlAdaZCYSnt/AbKSBYaSmT+90KIEF0EmREP27lqy7wwB1mw==
+X-Received: by 2002:a50:ba57:: with SMTP id 23mr136438475eds.196.1565012716027;
+        Mon, 05 Aug 2019 06:45:16 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a7b:c411:: with SMTP id k17ls2882wmi.1.gmail; Mon, 05 Aug
- 2019 06:25:35 -0700 (PDT)
-X-Received: by 2002:a7b:cf3a:: with SMTP id m26mr19524676wmg.6.1565011535630;
-        Mon, 05 Aug 2019 06:25:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1565011535; cv=none;
+Received: by 2002:a50:ae9a:: with SMTP id e26ls10063668edd.1.gmail; Mon, 05
+ Aug 2019 06:45:15 -0700 (PDT)
+X-Received: by 2002:a50:fb86:: with SMTP id e6mr133615447edq.203.1565012715483;
+        Mon, 05 Aug 2019 06:45:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1565012715; cv=none;
         d=google.com; s=arc-20160816;
-        b=cSHcaTr97sUSHlyP5zV+Ot8w7R+8iBpFK/l1pI/2pyCXRlxvEr61OPLkMQIyOyC9uo
-         wQ3m3uQdp1XycncdBCHLVSllgw0T8yYL2NqNjHpkzMdVQavV3hLaxJhYpft0ZA1eTdWG
-         CWSn4f+WyM0bGdN+mEBhv4izDVlOtbrjDNaUvuj8N0XnsfwM4mB8RSa2PhaZS5YCrH+Y
-         DoB1N8B7aYf6e8tzHJMdBpMFtTmHVtRte9ej/XhIOWqDKUN0SGl+aJ1xfbeB13mhCVIT
-         TITWyUXS1kFETlBnQE1LsPKiW8LeFsLLSsGtxCZSefwGH4VeeFry/x9lBzlfBEsTcI1f
-         LvsQ==
+        b=FH2vHmruWfYlJPElmJYLQm4BK5qFV6ICrvxFogVm9z6ClULTF1BNtnpf54NAJ2qtZM
+         wteat4hqcYo7QmU9l25TYRcZ69kliPEEKhKmR/hXdGSVT+bhrIGje/6XLagONg54ydKY
+         IoYfpzBoFIGYasTFf0SV601qJfxWog9EHFqprbPDygULoDzIJCaYruEzATTvrWg0TLQf
+         /VN/eXWcG7bkRpzaYQeGlSviaZtPJJYBEbaOW9HgcC2wYpqnv3NnmvNB6zFAAvnQm9oN
+         V7uvJErh8k1PFDfVS6D2wNYvBMLaTPDJxiDGXklXBlgKt8cwXNCYa12nr6XKDcnIHPPx
+         uiGw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:openpgp:from:references:cc:to:subject
-         :dkim-signature;
-        bh=1xoTLsjKxb67hnrkTX3Ph7KNhDjuhGVA5oEzA3qp31g=;
-        b=Cq1N//haqDX/oKWFz+oTbrDbvSvMjvZ+9pycfIE4xBpHNHUaocrHVmeSpqG4KRMTSZ
-         IAzVov9cE+JpwkDU5amFMz5qfLybqZ3GKDnd8lwhuJnWFU5uxrX1dgAyJZHOni48D4Mm
-         wYYpQ7yjvttQyWPn7eN7jIFNdu/OO1JEqGu2w/CXugRCwjLAGOBfpeyoSjDUAl3oIsp3
-         ANi2p017heYp1FtAeiheYqrZj9nM/Sk3syU6BrpKqsTZIhqlQFpwA3T4/cHeNe5c8eQO
-         XQxP38+/vsSgDqRJz+XVbi+brISBw+tNIpLO4T63Acb5P2+Tt6UDK+qDaThClmvc43w7
-         A3uQ==
+         :user-agent:date:message-id:from:references:cc:to:subject;
+        bh=EN6D5Ts020NL1NbVYRHXVNTTtY6JPvwCz4vsXLE7Wcc=;
+        b=W4WiwqiKrMVek40fDaTQ4VLJzpkamaQTb3coSWeYE+iGVev5eKcuiaUvar8Tpe1uhQ
+         LLJZPHWAH6cyYRPgONuxefCd49UP+2DBP9KWyeu4OUL/Hmnewy3EbogjY1j9Xd8Lopbn
+         Qxt3wg3ZobiJE6FpvrWqlImy+V5eTClMaRwR+xuRQmYlg5UPrI7h4/eRTGxvzPaIUJG1
+         11qWfMf6TcnEj2tjbYY9bJu3c55DyM6/p98CRcixfnE8YL1rAWIWicxxwstV2jWZ4eO+
+         rlRVrAPsIYOtR55AhLJprBicRTkrlyAGMuE7ho8CK+iJ2toBtKwtuU69rrgY6EPLsnm7
+         uhCQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=eJUQg6mP;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [2001:638:a01:1096::12])
-        by gmr-mx.google.com with ESMTPS id z24si391201wml.0.2019.08.05.06.25.35
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
+        by gmr-mx.google.com with ESMTPS id k51si3087067edd.0.2019.08.05.06.45.15
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 05 Aug 2019 06:25:35 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) client-ip=2001:638:a01:1096::12;
-Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S02", Issuer "E16S02" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 462JRg1Vjnzxyr;
-	Mon,  5 Aug 2019 15:25:35 +0200 (CEST)
-Received: from [IPv6:2001:638:a01:8061:aefd:ceff:fef3:ba65]
- (2001:638:a01:8013::138) by E16S02.hs-regensburg.de (2001:638:a01:8013::92)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 5 Aug 2019
- 15:25:34 +0200
+        Mon, 05 Aug 2019 06:45:15 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
+Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
+	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id x75DjESu026012
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 5 Aug 2019 15:45:15 +0200
+Received: from [139.25.68.37] (md1q0hnc.ad001.siemens.net [139.25.68.37] (may be forged))
+	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x75DjEqs013484;
+	Mon, 5 Aug 2019 15:45:14 +0200
 Subject: Re: [PATCH v3 1/6] iommu: x86: Generalize iommu definition
-To: Pratyush Yadav <p-yadav1@ti.com>, <jailhouse-dev@googlegroups.com>, Jan
- Kiszka <jan.kiszka@siemens.com>
-CC: Lokesh Vutla <lokeshvutla@ti.com>, Sekhar Nori <nsekhar@ti.com>, William
- Mills <wmills@ti.com>, Nikhil Devshatwar <nikhil.nd@ti.com>
+To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
+        Pratyush Yadav <p-yadav1@ti.com>, jailhouse-dev@googlegroups.com
+Cc: Lokesh Vutla <lokeshvutla@ti.com>, Sekhar Nori <nsekhar@ti.com>,
+        William Mills <wmills@ti.com>, Nikhil Devshatwar <nikhil.nd@ti.com>
 References: <20190709134836.10485-1-p-yadav1@ti.com>
  <20190709134836.10485-2-p-yadav1@ti.com>
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Openpgp: preference=signencrypt
-Message-ID: <14f0f8cf-b23f-63b9-22c6-7abadbcfb57d@oth-regensburg.de>
-Date: Mon, 5 Aug 2019 15:25:34 +0200
+ <14f0f8cf-b23f-63b9-22c6-7abadbcfb57d@oth-regensburg.de>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <29ff1833-f55b-d698-fbf5-49db43af711a@siemens.com>
+Date: Mon, 5 Aug 2019 15:45:13 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20190709134836.10485-2-p-yadav1@ti.com>
+In-Reply-To: <14f0f8cf-b23f-63b9-22c6-7abadbcfb57d@oth-regensburg.de>
 Content-Type: text/plain; charset="UTF-8"
-Content-Language: de-DE
-X-Originating-IP: [2001:638:a01:8013::138]
-X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
- E16S02.hs-regensburg.de (2001:638:a01:8013::92)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=eJUQg6mP;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Content-Language: en-US
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -147,200 +135,180 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi,
-
-On 7/9/19 3:48 PM, 'Pratyush Yadav' via Jailhouse wrote:
-> From: Nikhil Devshatwar <nikhil.nd@ti.com>
+On 05.08.19 15:25, Ralf Ramsauer wrote:
+> Hi,
 > 
-> Right now, jailhouse only supports iommu for x86.
-> Generalize the data structures to support iommus of different types
+> On 7/9/19 3:48 PM, 'Pratyush Yadav' via Jailhouse wrote:
+>> From: Nikhil Devshatwar <nikhil.nd@ti.com>
+>>
+>> Right now, jailhouse only supports iommu for x86.
+>> Generalize the data structures to support iommus of different types
+>>
+>> Assumption is that each jailhouse_system can define iommu
+>> instances of different types. Extend the jailhouse_iommu
+>> to add type info.
+>>
+>> Update the x86 config files to reflect updated data the new type field.
+>>
+>> [p-yadav1@ti.com: Add Intel IOMMU and fix compiler errors for AMD and
+>> VT-D]
+>>
+>> Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
+>> Signed-off-by: Lokesh Vutla <lokeshvutla@ti.com>
+>> Signed-off-by: Pratyush Yadav <p-yadav1@ti.com>
+>> ---
+>> v2:
+>> - Undo removing iommu_count_units().
+>> - Remove the union from jailhouse_iommu.
+>> - Remove the stray blank in amd_iommu.h
+>> - Revert to using n instead of i in amd_iommu_init().
+>> - Fail in Intel and AMD when any other type of IOMMU is found.
+>> - Remove the accidental Intel configuration check.
+>> - Update cell config template and pyjailhouse
+>>
+>> Jan, please take a close look at the template and pyjailhouse update.
+>> I'm not sure if I missed something, or did something wrong.
+>>
+>>  configs/x86/f2a88xm-hd3.c       | 1 +
+>>  configs/x86/qemu-x86.c          | 1 +
+>>  hypervisor/arch/x86/amd_iommu.c | 9 ++++-----
+>>  hypervisor/arch/x86/vtd.c       | 2 ++
+>>  include/jailhouse/cell-config.h | 7 +++++++
+>>  pyjailhouse/sysfs_parser.py     | 2 ++
+>>  tools/root-cell-config.c.tmpl   | 1 +
+>>  7 files changed, 18 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/configs/x86/f2a88xm-hd3.c b/configs/x86/f2a88xm-hd3.c
+>> index 315d0e29..849c5756 100644
+>> --- a/configs/x86/f2a88xm-hd3.c
+>> +++ b/configs/x86/f2a88xm-hd3.c
+>> @@ -50,6 +50,7 @@ struct {
+>>  				.pm_timer_address = 0x808,
+>>  				.iommu_units = {
+>>  					{
+>> +						.type = JAILHOUSE_IOMMU_AMD,
+>>  						.base = 0xfeb80000,
+>>  						.size = 0x80000,
+>>  						.amd_bdf = 0x02,
+>> diff --git a/configs/x86/qemu-x86.c b/configs/x86/qemu-x86.c
+>> index fdfa8915..2df2807a 100644
+>> --- a/configs/x86/qemu-x86.c
+>> +++ b/configs/x86/qemu-x86.c
+>> @@ -50,6 +50,7 @@ struct {
+>>  				.vtd_interrupt_limit = 256,
+>>  				.iommu_units = {
+>>  					{
+>> +						.type = JAILHOUSE_IOMMU_INTEL,
+>>  						.base = 0xfed90000,
+>>  						.size = 0x1000,
+>>  					},
+>> diff --git a/hypervisor/arch/x86/amd_iommu.c b/hypervisor/arch/x86/amd_iommu.c
+>> index 02712571..2fc6d033 100644
+>> --- a/hypervisor/arch/x86/amd_iommu.c
+>> +++ b/hypervisor/arch/x86/amd_iommu.c
+>> @@ -448,7 +448,7 @@ static void amd_iommu_init_fault_nmi(void)
+>>  		    &system_config->platform_info.x86.iommu_units[iommu->idx];
+>>  
+>>  		/* Disable MSI during interrupt reprogramming. */
+>> -		pci_write_config(cfg->amd_bdf, cfg->amd_msi_cap + 2 , 0, 2);
+>> +		pci_write_config(cfg->amd_bdf, cfg->amd_msi_cap + 2, 0, 2);
+>>  
+>>  		/*
+>>  		 * Write new MSI capability block, re-enabling interrupts with
+>> @@ -782,14 +782,13 @@ static int amd_iommu_init(void)
+>>  
+>>  	iommu = &system_config->platform_info.x86.iommu_units[0];
+>>  	for (n = 0; iommu->base && n < iommu_count_units(); iommu++, n++) {
+>> +		if (iommu->type != JAILHOUSE_IOMMU_AMD)
 > 
-> Assumption is that each jailhouse_system can define iommu
-> instances of different types. Extend the jailhouse_iommu
-> to add type info.
+> This is a comparison of an __u32 against an enum.
 > 
-> Update the x86 config files to reflect updated data the new type field.
+
+Oops, the enum is still around?! I requested to remove it but didn't check again...
+
+>> +			return trace_error(-EINVAL);
+>> +
+>>  		entry = &iommu_units[iommu_units_count];
+>>  
+>>  		entry->idx = n;
+>>  
+>> -		/* Protect against accidental VT-d configs. */
+>> -		if (!iommu->amd_bdf)
+>> -			return trace_error(-EINVAL);
+>> -
+>>  		printk("AMD IOMMU @0x%llx/0x%x\n", iommu->base, iommu->size);
+>>  
+>>  		/* Initialize PCI registers and MMIO space */
+>> diff --git a/hypervisor/arch/x86/vtd.c b/hypervisor/arch/x86/vtd.c
+>> index a43632f5..dc89928f 100644
+>> --- a/hypervisor/arch/x86/vtd.c
+>> +++ b/hypervisor/arch/x86/vtd.c
+>> @@ -1022,6 +1022,8 @@ static int vtd_init(void)
+>>  
+>>  	for (n = 0; n < units; n++) {
+>>  		unit = &system_config->platform_info.x86.iommu_units[n];
+>> +		if (unit->type != JAILHOUSE_IOMMU_INTEL)
 > 
-> [p-yadav1@ti.com: Add Intel IOMMU and fix compiler errors for AMD and
-> VT-D]
+> Same here.
 > 
-> Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
-> Signed-off-by: Lokesh Vutla <lokeshvutla@ti.com>
-> Signed-off-by: Pratyush Yadav <p-yadav1@ti.com>
-> ---
-> v2:
-> - Undo removing iommu_count_units().
-> - Remove the union from jailhouse_iommu.
-> - Remove the stray blank in amd_iommu.h
-> - Revert to using n instead of i in amd_iommu_init().
-> - Fail in Intel and AMD when any other type of IOMMU is found.
-> - Remove the accidental Intel configuration check.
-> - Update cell config template and pyjailhouse
+>> +			return trace_error(-EINVAL);
+>>  
+>>  		reg_base = dmar_reg_base + n * DMAR_MMIO_SIZE;
+>>  
+>> diff --git a/include/jailhouse/cell-config.h b/include/jailhouse/cell-config.h
+>> index 5739f332..781aac88 100644
+>> --- a/include/jailhouse/cell-config.h
+>> +++ b/include/jailhouse/cell-config.h
+>> @@ -196,9 +196,16 @@ struct jailhouse_pci_capability {
+>>  
+>>  #define JAILHOUSE_MAX_IOMMU_UNITS	8
+>>  
+>> +enum jailhouse_iommu_type {
+>> +	JAILHOUSE_IOMMU_AMD,
+>> +	JAILHOUSE_IOMMU_INTEL,
+>> +};
 > 
-> Jan, please take a close look at the template and pyjailhouse update.
-> I'm not sure if I missed something, or did something wrong.
+> Wouldn't it be better to use simple #defines here? As we use a __u32
+> type in the config, we don't benefit from the safer enum type.
+
+Yes, see above.
+
 > 
->  configs/x86/f2a88xm-hd3.c       | 1 +
->  configs/x86/qemu-x86.c          | 1 +
->  hypervisor/arch/x86/amd_iommu.c | 9 ++++-----
->  hypervisor/arch/x86/vtd.c       | 2 ++
->  include/jailhouse/cell-config.h | 7 +++++++
->  pyjailhouse/sysfs_parser.py     | 2 ++
->  tools/root-cell-config.c.tmpl   | 1 +
->  7 files changed, 18 insertions(+), 5 deletions(-)
+> BTW: I just rebased my local branch to next and Jailhouse failed
+> initialising due to the missing .type field of my local sysconfig. Well
+> - my bad. But if type is not set in the config, we now assume
+> JAILHOUSE_IOMMU_AMD per default.
 > 
-> diff --git a/configs/x86/f2a88xm-hd3.c b/configs/x86/f2a88xm-hd3.c
-> index 315d0e29..849c5756 100644
-> --- a/configs/x86/f2a88xm-hd3.c
-> +++ b/configs/x86/f2a88xm-hd3.c
-> @@ -50,6 +50,7 @@ struct {
->  				.pm_timer_address = 0x808,
->  				.iommu_units = {
->  					{
-> +						.type = JAILHOUSE_IOMMU_AMD,
->  						.base = 0xfeb80000,
->  						.size = 0x80000,
->  						.amd_bdf = 0x02,
-> diff --git a/configs/x86/qemu-x86.c b/configs/x86/qemu-x86.c
-> index fdfa8915..2df2807a 100644
-> --- a/configs/x86/qemu-x86.c
-> +++ b/configs/x86/qemu-x86.c
-> @@ -50,6 +50,7 @@ struct {
->  				.vtd_interrupt_limit = 256,
->  				.iommu_units = {
->  					{
-> +						.type = JAILHOUSE_IOMMU_INTEL,
->  						.base = 0xfed90000,
->  						.size = 0x1000,
->  					},
-> diff --git a/hypervisor/arch/x86/amd_iommu.c b/hypervisor/arch/x86/amd_iommu.c
-> index 02712571..2fc6d033 100644
-> --- a/hypervisor/arch/x86/amd_iommu.c
-> +++ b/hypervisor/arch/x86/amd_iommu.c
-> @@ -448,7 +448,7 @@ static void amd_iommu_init_fault_nmi(void)
->  		    &system_config->platform_info.x86.iommu_units[iommu->idx];
->  
->  		/* Disable MSI during interrupt reprogramming. */
-> -		pci_write_config(cfg->amd_bdf, cfg->amd_msi_cap + 2 , 0, 2);
-> +		pci_write_config(cfg->amd_bdf, cfg->amd_msi_cap + 2, 0, 2);
->  
->  		/*
->  		 * Write new MSI capability block, re-enabling interrupts with
-> @@ -782,14 +782,13 @@ static int amd_iommu_init(void)
->  
->  	iommu = &system_config->platform_info.x86.iommu_units[0];
->  	for (n = 0; iommu->base && n < iommu_count_units(); iommu++, n++) {
-> +		if (iommu->type != JAILHOUSE_IOMMU_AMD)
+> Would it make sense to let those definitions start from 1? This would
+> ensure, that we have a empty type fields won't default to AMD.
 
-This is a comparison of an __u32 against an enum.
+Worth to consider. Or we put Intel first, so that the common case falls back to
+the right value.
 
-> +			return trace_error(-EINVAL);
-> +
->  		entry = &iommu_units[iommu_units_count];
->  
->  		entry->idx = n;
->  
-> -		/* Protect against accidental VT-d configs. */
-> -		if (!iommu->amd_bdf)
-> -			return trace_error(-EINVAL);
-> -
->  		printk("AMD IOMMU @0x%llx/0x%x\n", iommu->base, iommu->size);
->  
->  		/* Initialize PCI registers and MMIO space */
-> diff --git a/hypervisor/arch/x86/vtd.c b/hypervisor/arch/x86/vtd.c
-> index a43632f5..dc89928f 100644
-> --- a/hypervisor/arch/x86/vtd.c
-> +++ b/hypervisor/arch/x86/vtd.c
-> @@ -1022,6 +1022,8 @@ static int vtd_init(void)
->  
->  	for (n = 0; n < units; n++) {
->  		unit = &system_config->platform_info.x86.iommu_units[n];
-> +		if (unit->type != JAILHOUSE_IOMMU_INTEL)
-
-Same here.
-
-> +			return trace_error(-EINVAL);
->  
->  		reg_base = dmar_reg_base + n * DMAR_MMIO_SIZE;
->  
-> diff --git a/include/jailhouse/cell-config.h b/include/jailhouse/cell-config.h
-> index 5739f332..781aac88 100644
-> --- a/include/jailhouse/cell-config.h
-> +++ b/include/jailhouse/cell-config.h
-> @@ -196,9 +196,16 @@ struct jailhouse_pci_capability {
->  
->  #define JAILHOUSE_MAX_IOMMU_UNITS	8
->  
-> +enum jailhouse_iommu_type {
-> +	JAILHOUSE_IOMMU_AMD,
-> +	JAILHOUSE_IOMMU_INTEL,
-> +};
-
-Wouldn't it be better to use simple #defines here? As we use a __u32
-type in the config, we don't benefit from the safer enum type.
-
-BTW: I just rebased my local branch to next and Jailhouse failed
-initialising due to the missing .type field of my local sysconfig. Well
-- my bad. But if type is not set in the config, we now assume
-JAILHOUSE_IOMMU_AMD per default.
-
-Would it make sense to let those definitions start from 1? This would
-ensure, that we have a empty type fields won't default to AMD.
-
-> +
->  struct jailhouse_iommu {
-> +	__u32 type;
-
-This field changed the configuration format, and requires to increment
-the config revision.
-
-
-... But taking a step back I wonder why we actually need the type field:
-We will never have an IOMMU_AMD on an Intel nor ARM system, et vice versa.
-
-  Ralf
-
->  	__u64 base;
->  	__u32 size;
-> +
->  	__u16 amd_bdf;
->  	__u8 amd_base_cap;
->  	__u8 amd_msi_cap;
-> diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py
-> index 3db61980..06f68c87 100644
-> --- a/pyjailhouse/sysfs_parser.py
-> +++ b/pyjailhouse/sysfs_parser.py
-> @@ -243,6 +243,7 @@ def parse_dmar(pcidevices, ioapics, dmar_regions):
->              if size > 0x3000:
->                  raise RuntimeError('Unexpectedly large DMAR region.')
->              units.append(IOMMUConfig({
-> +                'type': 'JAILHOUSE_IOMMU_INTEL',
->                  'base_addr': base,
->                  'mmio_size': size
->              }))
-> @@ -387,6 +388,7 @@ def parse_ivrs(pcidevices, ioapics):
->                  mmio_size = 16384
->  
->              units.append(IOMMUConfig({
-> +                'type': 'JAILHOUSE_IOMMU_AMD',
->                  'base_addr': base_addr,
->                  'mmio_size': mmio_size,
->                  'amd_bdf': iommu_bdf,
-> diff --git a/tools/root-cell-config.c.tmpl b/tools/root-cell-config.c.tmpl
-> index b6ac8637..9f904e9c 100644
-> --- a/tools/root-cell-config.c.tmpl
-> +++ b/tools/root-cell-config.c.tmpl
-> @@ -90,6 +90,7 @@ struct {
->  				.iommu_units = {
->  					% for unit in iommu_units:
->  					{
-> +						.type = ${unit.type},
->  						.base = ${hex(unit.base_addr)},
->  						.size = ${hex(unit.mmio_size)},
->  						% if unit.is_amd_iommu:
 > 
+>> +
+>>  struct jailhouse_iommu {
+>> +	__u32 type;
+> 
+> This field changed the configuration format, and requires to increment
+> the config revision.
+> 
+> 
+> ... But taking a step back I wonder why we actually need the type field:
+> We will never have an IOMMU_AMD on an Intel nor ARM system, et vice versa.
+
+We have different configurations for both, so this can be seen as a safety
+measure. Moreover, we will see different SMMU version on ARM without a chance to
+tell them apart by CPU vendor. So there is a use case for this type field
+outside of x86.
+
+Jan
+
+-- 
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+Corporate Competence Center Embedded Linux
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/14f0f8cf-b23f-63b9-22c6-7abadbcfb57d%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/29ff1833-f55b-d698-fbf5-49db43af711a%40siemens.com.
