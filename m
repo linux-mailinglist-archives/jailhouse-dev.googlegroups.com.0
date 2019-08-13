@@ -1,124 +1,124 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBSFSZLVAKGQEAVHF3YI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB25UZLVAKGQEPL4BBKQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23a.google.com (mail-lj1-x23a.google.com [IPv6:2a00:1450:4864:20::23a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DCBA8B63F
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 13 Aug 2019 13:04:41 +0200 (CEST)
-Received: by mail-lj1-x23a.google.com with SMTP id t25sf6894366ljc.17
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 13 Aug 2019 04:04:41 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1565694280; cv=pass;
+Received: from mail-wr1-x43c.google.com (mail-wr1-x43c.google.com [IPv6:2a00:1450:4864:20::43c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8493C8B660
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 13 Aug 2019 13:09:32 +0200 (CEST)
+Received: by mail-wr1-x43c.google.com with SMTP id w11sf704626wru.17
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 13 Aug 2019 04:09:32 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1565694572; cv=pass;
         d=google.com; s=arc-20160816;
-        b=WaQEczGcaRbRQXkQnElM4NdOwi72Cl9Zwj+GG1HrxUdFrSy8FIv7Pz0ds4eltgrsrS
-         FVKksfxQdtT9la3vk2WBRqSjLvKoEEUoUDRDMH+4Zm/lfJuPNI8cb0GpfMbxUAH9jEXu
-         K0IaJc651RMFOPMfuOBQLVGtNip1Wem7fkAI5Ji9TjPGBPVxLG3MBZfMkVvJaTcbv3qM
-         l7UpLNqsZ79eUtZol2cQH0dliCk9e3vWXLyih3qbaABHZbU6nWS8mt1D+AjEd4NMREuj
-         0Qj9pDlMyeuCMZSg//6t8AX3s+ejMlQzHWVIEIhste6vLkfIWmJxhAG64brQmFCCMlt/
-         ejeg==
+        b=OBLozwYkM7OhAv8jv6PtizkBhb3YC+c/MwqzYIjz+4Rzm9EvcMBbvLoLhE4eaU/th6
+         AupnZh1NzfggB47fWkwn2SMmm6isa86ywifMDes8srqW+M2GuCHhw1hiEf446pvxU+a7
+         nw3XveSTAti+/Lo+7LhfAbXXQlSo0XjCUxVSlQ5Xftgw70Afzkd7Xei9zMXU95sxjTF0
+         CMkOg6HbytjMjoaFSbZftSN+hMBPMD4get6QTZudbQ+MoBRYVXfyX3sZ1oEK+u+5haKL
+         QPM/ANH0pLWqCYVejJkDjgY2miIFp/cSDE9deJMnypWab7HwYRKfIP9kI/nX9Zad+XvQ
+         dqTQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:cc:to
-         :subject:sender:dkim-signature;
-        bh=S5lq7ZOS7j3berDSW5V57cIhim/i2MJvt2542IBFWtw=;
-        b=F3NC9U6HdkYaVRlH7KB7r1hj6wqmrvRbJbSPFI0VpYFhrSb9vIRMNZuROfYEvHrMwu
-         pHT0tx/+7UMnRz81DpOOUc5eUoJVFFp4WuFIGxAtBa0azWP0soqYNZpluRC+cRkxTqO/
-         9tKmZCb96sls6ejOLvDG6guS82NBA0V6Oj/yuNpkA6VPtZG7L1jbW6JX+P3zjC827Guo
-         hSIhdS/vLzdc9UabC0dofFVk7+LRN4OODIty5kEpvJQhFiRhQ7ApAN4rBoT/WuZ9U3d8
-         Z2GxFsez+lh18SisfEDjT9u4ICFxxzlA9N/lhrlSOtqEo1e+Z0FPDc4oVyptvzVlL+Zt
-         QBDQ==
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:cc:to:subject:sender:dkim-signature;
+        bh=ZROS9bmpVwjfM8hY2Mpcotqe2m+1vDOzY6eIYkZf0lg=;
+        b=aMS8d8LRpKYPdGf27piC4Na+Dxpf/8Ftjhid8scdi96/YOKQv0bV4crgdKBXGBEROV
+         RRwQuW79oRLGwydL6Y3SZ+p3huF+L6jAs9uhZNP3syePHQ61d1kzjd4I3N/Qq3uEjEhx
+         6WOwWAbelQZBtQ9QTN81FcPO3TsbC8E9z4dScyZc/lJm205cp9AHHmb8FFRl4KgZRMMb
+         UH+nF4qh5Ip+oNxp7Z/H7bf1cGAcZnAg62WYdo0w4OXq9+xWcqX3dUWO5jP0132m4ClB
+         FMAV74RsSfCacHvRLkUkayUZ1qW48QYUzWqO3Ps2UXG58v7ta+T5+PHoLODYQcn+d5N3
+         K6ow==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
        spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=S5lq7ZOS7j3berDSW5V57cIhim/i2MJvt2542IBFWtw=;
-        b=M5TFhIfexqpsa2SEFrxMTnh6lYW0Hr0dXnlK81xWDOiVX8zglZpSUpaz8yeeAeXC14
-         1L0cHEMI/B0+cyDl8dCXMaOdXjJAjktMgci30y0omnAoAbvPxbeUZDr8FvnNrMYq1pzR
-         JchZQIvoTkQpLnaYp6zQqmhucRx/5l5qfYEAqlpuBaxcEoDz6Erjm79s6JA72OhGFjpo
-         Rvfk3Mg8ZJjd2qmB+R12dSsM8YMsxrIYEFzCdyqauJVmKCDxdb8f19NJQ8yHMqpazvw8
-         YDuxKmCEF3uo0aNXxQtj2Z847EcldMT3w7GHCmGCY8MYKUuHuMmhbqlTyGvymr9GHIHF
-         DqFA==
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=ZROS9bmpVwjfM8hY2Mpcotqe2m+1vDOzY6eIYkZf0lg=;
+        b=sWaDc5+C96fomfXoHwk/mHOEnM4WuCrW9v8e4dugdifcSVwrSdo5Y4AHv2JY+BjYd/
+         N4w47nHF7mQ9Iso7TlOtlj4XhBn1zoZMQqgTHepzz2NH8SNNBtF8Bjiapk7XoQzzMtPQ
+         rEFj99yYzFm//t26O8PTS4zcpGRzMB0j+N3j0CVpYo6nm387JCyhFGlfgHM91aQd1mYY
+         ZJoZTD/WQh8NNwEw7N/lBy/b5wPBFPED+42DEWMLHT0QaxY4BjNvZ+knPNoHSFYMRwNk
+         HRQdPB9gLUtfuXbUKrvvps/d/v1jBT/NZLHti8fACmywEujs2rANmlv/bHL9AjtPV4/K
+         kDYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
          :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=S5lq7ZOS7j3berDSW5V57cIhim/i2MJvt2542IBFWtw=;
-        b=GbhQM3WrDsm+Y9eQM92FsDadhr1jD/0ZGbcAiT+AxkHWhcmlHZ5gYdvtO3D1cGRW5c
-         rgLBSpNHtHytK1k+5dfhB1NlWnx7gNQFTZU9wphO7OxyeKjnuJ3eu4c3bp9FIADn+QVl
-         iLyrBxvFP9aPvFDjAXiHUBlu14l3t64SWN67BJ/aHfXb3giOkGLML+gtSv6RtiJa5xMy
-         vXeHTaB+GRcBthAD3uQrngUNVIo+u+Z555DS13p8q8dEqAhvUQWUL6r+VQCB9Nq4A27V
-         mt8IUGrriB8wJ7moQddMW0L8o+y6rFaAkZfmMG1C8K9kq2MsDt0PYcPAsAHiKibxK9Ut
-         E3dw==
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=ZROS9bmpVwjfM8hY2Mpcotqe2m+1vDOzY6eIYkZf0lg=;
+        b=j7iAq+GmV1yJuRQKhEjVQIB9iW32mLWUkOPEt3GMd5iVLlfHvxvNOkkJIBvc9NTeLT
+         ie9F4HOHvJ5yPZh036uXAm/cLqn8tu7QtRISkXF4uVR4PKl26uqTT9xhgmC/DT/dmXqz
+         K9TW6vCmEVU4HmfgGG/ajBEPflJq1eMWmGV3cZdThdgZtvxGLhdAdKlzSHVgWN45GGEx
+         gvTAXd+hy3GKEJbnaQT5QzAPPcyAcmc1KdGUVHLJwj6UlIUNHdJ9KXwioig9dQad7r3W
+         wVRvejk6yC/jDrfkuKi+CMyhcuLnefLlxF3vMaS7Qx5b4GqUnlUQHHf91v4vuEc/ofcu
+         ri9Q==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVawFxSTlVLY4GNfpQgq2drrrxkyokz9Onczyh+AJ89U4V8NEHR
-	FEatj2r5+DeSCHkdF3wpmJc=
-X-Google-Smtp-Source: APXvYqxfTYzVyX/qtNqzXu3UYfiR7NW2KlCQOxubu5USgQILleAUeuPFe2/uC8KrNtFaCRDBYQylmw==
-X-Received: by 2002:a19:750b:: with SMTP id y11mr20386747lfe.99.1565694280602;
-        Tue, 13 Aug 2019 04:04:40 -0700 (PDT)
+X-Gm-Message-State: APjAAAXMUetYafDUN7lN5SIjP6zu6fPiIonmq0WVLhznbaXde5x93sLd
+	1z7z1sSOO+ZzKjKoT1UKIpU=
+X-Google-Smtp-Source: APXvYqyW9KgsYNVOjBKAlMbH/8VbD1HGxHBJUEJtmS6O0+nJ9Zf1hVZUrZfs28pVoVLqfkz4zlJhaw==
+X-Received: by 2002:adf:f705:: with SMTP id r5mr22217568wrp.342.1565694572251;
+        Tue, 13 Aug 2019 04:09:32 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:1288:: with SMTP id 8ls299023ljs.12.gmail; Tue, 13 Aug
- 2019 04:04:39 -0700 (PDT)
-X-Received: by 2002:a2e:2c07:: with SMTP id s7mr11007278ljs.44.1565694279810;
-        Tue, 13 Aug 2019 04:04:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1565694279; cv=none;
+Received: by 2002:adf:bac4:: with SMTP id w4ls31017908wrg.13.gmail; Tue, 13
+ Aug 2019 04:09:31 -0700 (PDT)
+X-Received: by 2002:a05:6000:148:: with SMTP id r8mr18454856wrx.312.1565694571443;
+        Tue, 13 Aug 2019 04:09:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1565694571; cv=none;
         d=google.com; s=arc-20160816;
-        b=G+pyEzAsb5qojhRtUHlRLSmaLTY3tJ1Lx6VzJQ3tYW90Wz9KxX7E7CeiSW7eHtKad5
-         /EEtcjC9QfawhnwP3Q1g+dYX7r8q2MWzi9gQ3oDvCfempbMQnthLST3Q7+HO9SgcF1HX
-         Eeo4MJw9QHIEPJ0qTLzo6JcWT90EkDqdmfTOxe73Ose+tEM9J/ZASork3xpaDIh5YHS5
-         KqUiSVK/NOTDfU9n8p6AwSiaT7iHHwwU3q3ZmZq4GEjj17Q/o7xPg7rXUBhFhzw0A4qL
-         eXCKbLvEQ+AqpMX8zMnSG9xHXfp1sPw4JwNJHXu0j3LYmCxecuVrBvSnA+x4xnfu4gz7
-         PiiQ==
+        b=T9q/8sv5xxDo355PFcA8x7OYVpNC2M7myeAWPUvNnefJM0fuv4XkwNfEqywl9Hms9k
+         IEWrxdkKzzSqAnulGJHhQlPVzim5+d9Io5kK7b7qb5IHhvN84ZurzOpLppQhgwv8kec7
+         GRL7UXqq+0vrvt7VE9MFC0eppMYk1R3IhwarFh7ayBjwC8YCrTB+3Ikm3ckGcLmsz/bU
+         mBZn2v0beCwYq4YXY8zHLQ23ZS7Fak7AVIET5+LF0z50WTIBy/+StP3G13zSMzq+xx7F
+         JFeFTq6GXrNwgOFFK9xN4if9cWBlqbcOFWZmGi5u0Gtop+5Tb+RtmE3nEacTWsdMQttC
+         D0gA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
          :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=jzYSVfjqZ1ikPsjKOuFl6SZrmLhZnuPcjlVXs/S2LzU=;
-        b=oo7EEnKZrJu2xFmwiSwxPqnBQnyG9jpKRAtDTLmmzIKLiyg5ySHOfN+VOyBwcHhc8A
-         /Mg6AcQAX7lPezudVzaRndRq51UPiCgQaBQlqg0y7yaBU7glMOv1JxBpXdTqb/vy83E7
-         7+dM7VTU7S4+5oMBZcK37fGQiBXnPTelrv1YO5w6lF5Z7cCAKE54DGfQs1ds7oIsAwCp
-         aidtCJSzkdXk+Tjprvv6eLpp7Q4sraC5u9cFAMlEWuCdck4LIKTyTqdgKnEHeIThTV93
-         87NK83bXz/ZKFOHJE6TlMlRqA0QAf+7JblHK/DkNDimCSTu4dJcOgfEFyApdBVdHKCra
-         zLkQ==
+        bh=s6aKXfqu5ST8UevnNP4OESOrX6zNPa2NiOv8a/R7ITY=;
+        b=NJq3uzTLCJooLsv9VqJgJ19JKFtQZ4e3PTEs+hL6RDw8M/VhHPAvwRbheWsqPXQN2Q
+         S4o+WPVoDWV3tM/3S7E/HHKrnfl+ojkqvZh7MyJNSS4NMsBJYZilhXr3V5KPBmc41Qgd
+         eCLXnMpTM/sjc1/6CC63zA5J8YhW/z/TYWPz9itw0+RadnPkwLqnatcJwnnYe35grhUK
+         oOKdoTzckxL7XKXEjB71Bij99yedEZGgCDtHUymBtQwRFoJrViaZVyj6yrxlmQJjfIwZ
+         w3rTXoSgnTedWxLlgYjZ4176IpFEOSitSF4N1pQNQ82Ow/hMDrX4znuuUav/NGnRxELN
+         twDg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
        spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id h19si518636ljj.3.2019.08.13.04.04.39
+        by gmr-mx.google.com with ESMTPS id y4si2483670wrp.0.2019.08.13.04.09.31
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 13 Aug 2019 04:04:39 -0700 (PDT)
+        Tue, 13 Aug 2019 04:09:31 -0700 (PDT)
 Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
 Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id x7DB4abZ012407
+	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id x7DB9Uox020329
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 13 Aug 2019 13:04:36 +0200
+	Tue, 13 Aug 2019 13:09:30 +0200
 Received: from [139.25.68.37] (md1q0hnc.ad001.siemens.net [139.25.68.37] (may be forged))
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x7DB4aXI004256;
-	Tue, 13 Aug 2019 13:04:36 +0200
-Subject: Re: [PATCH v2 2/2] x86/jailhouse: Only enable platform UARTs if
- available
-To: hpa@zytor.com, Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
-        Thomas Gleixner <tglx@linutronix.de>, Borislav Petkov <bp@alien8.de>,
-        x86@kernel.org, jailhouse-dev@googlegroups.com
-Cc: Ingo Molnar <mingo@redhat.com>
-References: <20190812110650.631305-1-ralf.ramsauer@oth-regensburg.de>
- <20190812110650.631305-3-ralf.ramsauer@oth-regensburg.de>
- <D0A95275-25B7-4206-82D8-50B2C250F275@zytor.com>
+	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x7DB9S1F012178;
+	Tue, 13 Aug 2019 13:09:29 +0200
+Subject: Re: Orange Pi Zero Jailhouse Yocto Integration
+To: =?UTF-8?Q?Cevat_Bostanc=c4=b1o=c4=9flu?= <bostancioglucevat@gmail.com>,
+        jailhouse-dev@googlegroups.com,
+        Henning Schild <henning.schild@siemens.com>
+Cc: ola@retotech.se, anders@retotech.se, jonas@retotech.se
+References: <CABPcKDPEVAW0Y1x8ndpc6LQutq8cCsEKu20inFyFhrMRwa+--w@mail.gmail.com>
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <34984d28-78cf-210a-9bbb-b00d50bee7e1@siemens.com>
-Date: Tue, 13 Aug 2019 13:04:34 +0200
+Message-ID: <a17c3513-f573-84ad-5d4e-5027121e51b5@siemens.com>
+Date: Tue, 13 Aug 2019 13:09:27 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <D0A95275-25B7-4206-82D8-50B2C250F275@zytor.com>
+In-Reply-To: <CABPcKDPEVAW0Y1x8ndpc6LQutq8cCsEKu20inFyFhrMRwa+--w@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
  (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
@@ -136,210 +136,59 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 13.08.19 11:32, hpa@zytor.com wrote:
-> On August 12, 2019 4:06:50 AM PDT, Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de> wrote:
->> ACPI tables aren't available if Linux runs as guest of the hypervisor
->> Jailhouse. This makes the 8250 driver probe for all platform UARTs as
->> it assumes that all platform are present in case of !ACPI. Jailhouse
->> will stop execution of Linux guest due to port access violation.
->>
->> So far, these access violations could be solved by tuning the
->> 8250.nr_uarts parameter but it has limitations: We can, e.g., only map
->> consecutive platform UARTs to Linux, and only in the sequence 0x3f8,
->> 0x2f8, 0x3e8, 0x2e8.
->>
->> Beginning from setup_data version 2, Jailhouse will place information
->> of
->> available platform UARTs in setup_data. This allows for selective
->> activation of platform UARTs.
->>
->> This patch queries the setup_data version and activates only available
->> UARTS. It comes with backward compatibility, and will still support
->> older setup_data versions. In this case, Linux falls back to the old
->> behaviour.
->>
->> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
->> ---
->> arch/x86/include/uapi/asm/bootparam.h |  3 ++
->> arch/x86/kernel/jailhouse.c           | 75 ++++++++++++++++++++++++---
->> 2 files changed, 72 insertions(+), 6 deletions(-)
->>
->> diff --git a/arch/x86/include/uapi/asm/bootparam.h
->> b/arch/x86/include/uapi/asm/bootparam.h
->> index 6163b1afa7b3..2244c493c3c5 100644
->> --- a/arch/x86/include/uapi/asm/bootparam.h
->> +++ b/arch/x86/include/uapi/asm/bootparam.h
->> @@ -150,6 +150,9 @@ struct jailhouse_setup_data {
->> 		__u8	standard_ioapic;
->> 		__u8	cpu_ids[255];
->> 	} __attribute__((packed)) v1;
->> +	struct {
->> +		__u32	flags;
->> +	} __attribute__((packed)) v2;
->> } __attribute__((packed));
->>
->> /* The so-called "zeropage" */
->> diff --git a/arch/x86/kernel/jailhouse.c b/arch/x86/kernel/jailhouse.c
->> index e5ac35efc4b3..1c75de1496f3 100644
->> --- a/arch/x86/kernel/jailhouse.c
->> +++ b/arch/x86/kernel/jailhouse.c
->> @@ -11,6 +11,7 @@
->> #include <linux/acpi_pmtmr.h>
->> #include <linux/kernel.h>
->> #include <linux/reboot.h>
->> +#include <linux/serial_8250.h>
->> #include <asm/apic.h>
->> #include <asm/cpu.h>
->> #include <asm/hypervisor.h>
->> @@ -20,8 +21,13 @@
->> #include <asm/reboot.h>
->> #include <asm/setup.h>
->>
->> +#define SETUP_DATA_FLAGS_PERMIT_PCUART(n) (1 << (n))
->> +#define SETUP_DATA_FLAGS_HAS_PCUART(flags, n) \
->> +	!!(flags & SETUP_DATA_FLAGS_PERMIT_PCUART(n))
->> +
->> static __initdata struct jailhouse_setup_data setup_data;
->> #define SETUP_DATA_V1_LEN	(sizeof(setup_data.hdr) +
->> sizeof(setup_data.v1))
->> +#define SETUP_DATA_V2_LEN	(SETUP_DATA_V1_LEN + sizeof(setup_data.v2))
->>
->> static unsigned int precalibrated_tsc_khz;
->>
->> @@ -78,11 +84,13 @@ static void __init
->> jailhouse_get_smp_config(unsigned int early)
->> 		.type = IOAPIC_DOMAIN_STRICT,
->> 		.ops = &mp_ioapic_irqdomain_ops,
->> 	};
->> +#ifdef CONFIG_SERIAL_8250
->> 	struct mpc_intsrc mp_irq = {
->> 		.type = MP_INTSRC,
->> 		.irqtype = mp_INT,
->> 		.irqflag = MP_IRQPOL_ACTIVE_HIGH | MP_IRQTRIG_EDGE,
->> 	};
->> +#endif
->> 	unsigned int cpu;
->>
->> 	jailhouse_x2apic_init();
->> @@ -99,12 +107,16 @@ static void __init
->> jailhouse_get_smp_config(unsigned int early)
->> 	if (setup_data.v1.standard_ioapic) {
->> 		mp_register_ioapic(0, 0xfec00000, gsi_top, &ioapic_cfg);
->>
->> -		/* Register 1:1 mapping for legacy UART IRQs 3 and 4 */
->> -		mp_irq.srcbusirq = mp_irq.dstirq = 3;
->> -		mp_save_irq(&mp_irq);
->> +#ifdef CONFIG_SERIAL_8250
->> +		if (setup_data.hdr.version < 2) {
->> +			/* Register 1:1 mapping for legacy UART IRQs 3 and 4 */
->> +			mp_irq.srcbusirq = mp_irq.dstirq = 3;
->> +			mp_save_irq(&mp_irq);
->>
->> -		mp_irq.srcbusirq = mp_irq.dstirq = 4;
->> -		mp_save_irq(&mp_irq);
->> +			mp_irq.srcbusirq = mp_irq.dstirq = 4;
->> +			mp_save_irq(&mp_irq);
->> +		}
->> +#endif
->> 	}
->> }
->>
->> @@ -137,6 +149,42 @@ static int __init jailhouse_pci_arch_init(void)
->> 	return 0;
->> }
->>
->> +#ifdef CONFIG_SERIAL_8250
->> +static const u16 pcuart_base[] = {
->> +	0x3f8,
->> +	0x2f8,
->> +	0x3e8,
->> +	0x2e8,
->> +};
->> +
->> +static void jailhouse_serial_fixup(int port, struct uart_port *up,
->> +				   u32 *capabilites)
->> +{
->> +	struct mpc_intsrc mp_irq = {
->> +		.type = MP_INTSRC,
->> +		.irqtype = mp_INT,
->> +		.irqflag = MP_IRQPOL_ACTIVE_HIGH | MP_IRQTRIG_EDGE,
->> +	};
->> +	unsigned int n;
->> +
->> +	for (n = 0; n < ARRAY_SIZE(pcuart_base); n++) {
->> +		if (pcuart_base[n] != up->iobase)
->> +			continue;
->> +
->> +		if (SETUP_DATA_FLAGS_HAS_PCUART(setup_data.v2.flags, n)) {
->> +			pr_info("Enabling UART%u (port 0x%lx)\n", n,
->> +				up->iobase);
->> +			mp_irq.srcbusirq = mp_irq.dstirq = up->irq;
->> +			mp_save_irq(&mp_irq);
->> +		} else {
->> +			/* Deactivate UART if access isn't allowed */
->> +			up->iobase = 0;
->> +		}
->> +		break;
->> +	}
->> +}
->> +#endif
->> +
->> static void __init jailhouse_init_platform(void)
->> {
->> 	u64 pa_data = boot_params.hdr.setup_data;
->> @@ -186,7 +234,8 @@ static void __init jailhouse_init_platform(void)
->> 	if (setup_data.hdr.version == 0 ||
->> 	    setup_data.hdr.compatible_version !=
->> 		JAILHOUSE_SETUP_REQUIRED_VERSION ||
->> -	    (setup_data.hdr.version >= 1 && header.len < SETUP_DATA_V1_LEN))
->> +	    (setup_data.hdr.version == 1 && header.len < SETUP_DATA_V1_LEN)
->> ||
->> +	    (setup_data.hdr.version >= 2 && header.len < SETUP_DATA_V2_LEN))
->> 		goto unsupported;
->>
->> 	pmtmr_ioport = setup_data.v1.pm_timer_address;
->> @@ -202,6 +251,20 @@ static void __init jailhouse_init_platform(void)
->> 	 * are none in a non-root cell.
->> 	 */
->> 	disable_acpi();
->> +
->> +#ifdef CONFIG_SERIAL_8250
->> +	/*
->> +	 * There are flags inside setup_data that indicate availability of
->> +	 * platform UARTs since setup data version 2.
->> +	 *
->> +	 * In case of version 1, we don't know which UARTs belong Linux. In
->> +	 * this case, unconditionally register 1:1 mapping for legacy UART
->> IRQs
->> +	 * 3 and 4.
->> +	 */
->> +	if (setup_data.hdr.version > 1)
->> +		serial8250_set_isa_configurator(jailhouse_serial_fixup);
->> +#endif
->> +
->> 	return;
->>
->> unsupported:
-> 
-> Or you could, you know, pass a data structure that already does this... it's called DSDT.
-> 
+On 13.08.19 12:39, Cevat Bostanc=C4=B1o=C4=9Flu wrote:
+> Hello,
+> I am trying to learn/play embedded virtualization tools and i saw Isar=20
+> Integrated jailhouse-image repo, tested orange pi zero(256mb) image and=
+=20
+> everything is fine.
+> I am trying to integrate latest jailhouse(0.11) into yocto project and i =
+saw=20
+> https://bitbucket.org/retotech/meta-jailhouse/src/master/=C2=A0, which is=
+ for banana=20
+> pi with jailhouse_0.8.
+>=20
+> Anyway, I ported jailhouse-images and meta-jailhouse together(meta-orange=
+pi,=20
+> https://github.com/cevatbostancioglu/meta-orangepi/tree/dev) and trying t=
+o=20
+> compile for orange pi zero(256mb) but I saw many errors while building. c=
+an you=20
+> guys can guess what is the problem?
+>=20
+> my status:
+> i am trying to build exact image with jailhouse-images so i patched u-boo=
+t &=20
+> kernel, now i am trying to compile/install jailhouse.
+>=20
+> You can see build error as follows,
+> also attached log outputs too.
+>=20
 
-At least by the time the boot process for Linux under Jailhouse was designed 
-(~2015), ACPI was not able to express the minimal hardware we are exposing. So 
-we went for "CONFIG_ACPI disabled", and that was rather simple.
+The errors look like they could get better with=20
+https://github.com/siemens/jailhouse/commit/9f233898917f8c1141132606f2f2c62=
+4405d8c81
 
-There are some new knobs now to get rid of legacy platform components. But, 
-e.g., is it ACPI-compliant to expose a PM_TMR block, but nothing else? How would 
-you communicate pre-calibrated TSC and APIC frequencies?
+> My repo:
+> https://github.com/cevatbostancioglu/meta-orangepi/tree/dev
+>=20
 
-Thanks,
+Thanks for sharing. Henning did some yocto'ization for an internal Jailhous=
+e=20
+project recently (though that was for legacy vendor BSP) - maybe he can sha=
+re=20
+some thoughts on your direction.
+
 Jan
 
--- 
+--=20
 Siemens AG, Corporate Technology, CT RDA IOT SES-DE
 Corporate Competence Center Embedded Linux
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/34984d28-78cf-210a-9bbb-b00d50bee7e1%40siemens.com.
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/a17c3513-f573-84ad-5d4e-5027121e51b5%40siemens.com.
