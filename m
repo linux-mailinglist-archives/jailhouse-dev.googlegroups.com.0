@@ -1,130 +1,134 @@
-Return-Path: <jailhouse-dev+bncBDL2JD42SEIBBMPD5LVAKGQETWUK2BA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDL2JD42SEIBBNHD5LVAKGQEMVCRDOY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x33e.google.com (mail-ot1-x33e.google.com [IPv6:2607:f8b0:4864:20::33e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 388C3926A7
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 19 Aug 2019 16:26:59 +0200 (CEST)
-Received: by mail-ot1-x33e.google.com with SMTP id 88sf2317382otc.19
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 19 Aug 2019 07:26:59 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1566224818; cv=pass;
+Received: from mail-vk1-xa3b.google.com (mail-vk1-xa3b.google.com [IPv6:2607:f8b0:4864:20::a3b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 158CC926A8
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 19 Aug 2019 16:27:02 +0200 (CEST)
+Received: by mail-vk1-xa3b.google.com with SMTP id x128sf1287698vkb.22
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 19 Aug 2019 07:27:02 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1566224821; cv=pass;
         d=google.com; s=arc-20160816;
-        b=e5XMorOHOar0LalmgG3yfrScG5M09Z4BGhVgjpCftbbUFnGWMgWjd//G08/EDneIfj
-         D2E5XFnssql8c8HjUsfLsX1BB1aCdq3dRNm8w8Es6fJ0IKR3yFpV/dRGNR0cTxmLbTIB
-         yA9ihwOuX1XqScRfqCf8l6/CoIlvUwMkt2kybjlH16E1ADRSLHQcHQBiRBUjbAxuwTwU
-         lIp67PFSWadXEm6GYQABXhkxVFIoAy8afa99/uT+2aK+b0OT4ZuFWYalQMMHUBgUgbxa
-         2JHL9YhePzkw9+7P2ysKs6TKbgBg0wHb7y07nvfwLqZtB6I0eP5OtNafgPCqtFtgVFp5
-         qZsA==
+        b=Otuczm/d0Fwp9FuC1GegZfU48gW0Do89JyEVBhpmr6tDqRGXz1jsez3VxhwBNiy4EE
+         0Trf3QXOdgYsQJBr+ZGFCv/LGSlP+a4Fc9NcDtSPtBKOWgP5NVsVV3vMpvAHc2UbuUl6
+         vgSUX/GtsPlkexUJ0yC9KBUDGiP4s0DOsk06qvnJMZxFyrXJJUrzV5Eh3PbDDllcPURp
+         uFbha1AXGIRmKeDjlwSa7sdrvmrC1Tvfu5GSEHPvpKMdOO1/1j8JO71RvUGgv4h+Ch/u
+         5SpTz9wuMa4HVDgXWXuPejoxJEu8adpD3Z6/0HdfdrORGVbTe04GbWD82k5zWFqE9MnU
+         83RA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to:mime-version:message-id
-         :date:subject:cc:to:from:dkim-signature;
-        bh=82e5Yg+JoY2SjSM6scYmdQa+wfv3KUIMKP0Si9RHnF0=;
-        b=aHncJ1CMDm3aXxhvsEi7Ggx9QVfXpLu5ScccdW62R/KdUKSr9KKq6P0QIRcceFmPaD
-         cAFe8sEi5aU4ewEioCyN4eGXy7oiY7qY5Sk6BSLioeC1FJQwRop01fMJN/hsoLFwDsa0
-         lOJgcaeD75fmpg2NE1NHMoVluum6r9L+dzsoowxUOpeEc+8Y+Hsjnw1J5+bjVOvoIoNj
-         ZwE4PA7PlCo5/NUATVihlajOwyuuGT1SlOvZnAa6pLl1cDjgMs72gQb08g26apFrCO6n
-         Y6JiK2kgJnNy4vuV0e64GIEJDa3Xw6mzujaQpXoCtobmN4PH+Ue/WxWgofMt471iy3UM
-         MJoA==
+         :list-id:mailing-list:precedence:reply-to:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:dkim-signature;
+        bh=zUYn0ChedcVE6zZ0dKWzUFKBUS3voFv6313RT2tkuQ0=;
+        b=bqN5AC231IQVWZDfEYuBFRvTMJnkMjP35XQAMpO2YCOkAQReLdxg7gj4ETpx1b7P5A
+         XZCMN5T06T9Em53g7NU6xgq7y96ItgpFJj5K4BkPEKhfl3eQLueO0NxAeLK8wFbfpYh6
+         mlJg2XGWaXqeDFNEkutrTu3uVLTjLNVNLGDUrZNuHQmxOWdxNKHqGp4qhWV8R3U4D9T4
+         U4xDjUGyR5x0goimpFjwhULbZBIKNP/DyKAavoKpAaVJrcSE4nJ82lSLfN8iyemcPUJ/
+         LzXDEo7jDyrOt2LfnSQiWAgpO80KWrYb+nle99a0pM/v+46dssy4RVFEYKMswa3i50Yc
+         zqtA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=WP5ArP8s;
-       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.23.248 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=LKVgGjaY;
+       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
        dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version:x-original-sender
-         :x-original-authentication-results:reply-to:precedence:mailing-list
-         :list-id:list-post:list-help:list-archive:list-subscribe
-         :list-unsubscribe;
-        bh=82e5Yg+JoY2SjSM6scYmdQa+wfv3KUIMKP0Si9RHnF0=;
-        b=Ok83R4EznSVuplbUeogwpoNpQxEkF46w2zQeCvBFJeVOXu/98pUVDhTY3Ix32M1kaF
-         knnp72DXhk1pcPmhyjtpGVf74SWFNnt3qb9OAh58/Zwapns5aT9bXIY+ypuy7ypGJBC5
-         L6/D3R0m3DUJJQTZ8TAxHYGTIFOkisFNE/NUFAM6Y0JTDZAXCuWPt/ZjhciI/pZ8Y4V8
-         AYnU+LgAY+7O+aOPz5ulJdVFUPGxm4UwT9jicGZ+9HyDCeKICscSDzMmjRxs66asEv9w
-         NA9X5q5Dao35R6QQySDph3uC8YTQpGeNd3+O/YhQPTV4KGBD0pr/sQS1qqzTOeOPOqEc
-         PTww==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:x-original-sender:x-original-authentication-results
+         :reply-to:precedence:mailing-list:list-id:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=zUYn0ChedcVE6zZ0dKWzUFKBUS3voFv6313RT2tkuQ0=;
+        b=Mntw2roAN6OQ3v9Y/hwdLrSWq8QvyQUradvL3KxSGIV08Vx/TV71BnMSt6aAvsHwq1
+         qSLn7UcDWgHAImP8h5GlNugT789cKRsbp9lps2HiTkCyFgv5hYYQcSZXc1NyQuV386Ld
+         xyat+KiaBTyahbjX9euV4A2DrbpV/dRc75rZysKXupOZ5O926bg5Fo5WgyCfsZH2A5LH
+         Z/13gyDl2uK3uAW3sa7im+NThmSpDBIL5/yPczctVFYzdBfo1yWZ2eKkRuL2U65SFz42
+         dHmx2pxV68T5vpHvjKBwBxhikl/G64lu5TfaJPVMy1uUzvNLLtIXb322A2ZvhECiqhxm
+         GAPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :x-original-sender:x-original-authentication-results:reply-to
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=82e5Yg+JoY2SjSM6scYmdQa+wfv3KUIMKP0Si9RHnF0=;
-        b=h+FlWOedUie1HNRjoV9zShr9DGXs9xILJ0R3MfRPNMTheQrXxnhfsOBuXa1m8DTbVC
-         MkGfvO7YsxPWoP7f+XdIAON8XBwBVaB+iGZCWpw7qNBiEK8AU56hH0iqptEhKa1b6MTo
-         IHXcWHEEhO28cELdJ/Cw9llG3WRtr5aAw5GkdNsISvC848E0naC6OErGcTwzHxEh7vy6
-         hJW1ghLefmVinge1YXwWPD6R3kp8S+XYipn8Fv4o54dNtscaV3kdReohnwjrNSmVIogY
-         lm3Vuc3KRL7FtzFzO5VyNzT75tS01zTu2KAnLHbzyzcDvvrz+9gxhuylmFK3XRaNE08c
-         /60g==
-X-Gm-Message-State: APjAAAUANtDbE77lZiHlC6E+EAswFdb6Urxmu4E/vPGHXjNV8wyVUDZZ
-	qv6m+iFycwVt9RTxEVrXB44=
-X-Google-Smtp-Source: APXvYqxmSwbWcsLFY/gEy+u81opM1Z65MclXjp/l8IZ2MMsV7HvhrGgrvK5Hh1oiMFt1L5bD6IBV7g==
-X-Received: by 2002:a9d:7a94:: with SMTP id l20mr18850325otn.66.1566224818148;
-        Mon, 19 Aug 2019 07:26:58 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:x-original-sender
+         :x-original-authentication-results:reply-to:precedence:mailing-list
+         :list-id:x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=zUYn0ChedcVE6zZ0dKWzUFKBUS3voFv6313RT2tkuQ0=;
+        b=msZnG1gNYuALtSQzh7Ri/Stv3r44F55Azcxdz0tIKlY6gYRLKQZRo+kFJvUBvETjfi
+         AsvYQfwqG6les9OkNkoeofTrEgJn9MvEJO1m6xj4vy13KdjZ5EnE78h/zUMlZsNK2Xfs
+         fzNcSY1H45gslfqhQK2wp/u0vimh/Bfz+MeUmWRkNqGNuaMsqJ1Qg4RkoqGDaSk5960g
+         VkEJK0bpLVVQ/VxKhtFr9kOnuQ/ei0VZG1e3VaVxM3BrAh1xeLI+xLy9bLC6OuQWOumX
+         xKgWVW9L35Wfg0Xd0YnYx9z7WnRqDOkau/i/uT7f5B2XKFwQ1Fq08KeaIb0znU5cFiLZ
+         piww==
+X-Gm-Message-State: APjAAAUrJfqIQj53oQMRFFrxdm3B2IwAJvcc+tku0erNhJ0D91GX1XEF
+	lm0XUU6CaOehYbCYqMpVuIo=
+X-Google-Smtp-Source: APXvYqxV4B0UsfLgUuVftjZdRMhSk93dk52tEsfoSbUjp6v3Ej7nq6HUthLezlbb9qzQgVbIXFA5Ow==
+X-Received: by 2002:ab0:6648:: with SMTP id b8mr12758501uaq.99.1566224820788;
+        Mon, 19 Aug 2019 07:27:00 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a9d:12ee:: with SMTP id g101ls3039029otg.16.gmail; Mon, 19
- Aug 2019 07:26:57 -0700 (PDT)
-X-Received: by 2002:a9d:66c5:: with SMTP id t5mr19621735otm.255.1566224817754;
-        Mon, 19 Aug 2019 07:26:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1566224817; cv=none;
+Received: by 2002:a67:f0dc:: with SMTP id j28ls1783048vsl.11.gmail; Mon, 19
+ Aug 2019 07:27:00 -0700 (PDT)
+X-Received: by 2002:a67:1b85:: with SMTP id b127mr14563720vsb.230.1566224820298;
+        Mon, 19 Aug 2019 07:27:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1566224820; cv=none;
         d=google.com; s=arc-20160816;
-        b=bzS61urht5KBFb57o+ly/kAN2FWfv/EVIso4kiPhIMmSu/Oc+YqN28jEf1pfxxd+Q2
-         0kOjf5tVyKF4z4DqTrAICNvkXychZyzBQ8PcLKkFbLiUASbr3fSDy1FiUZUNjJYsiT72
-         C7mLZ9+CbbB66LHBKmRjRA8M7G2hwNAE7vL1824XRbqneSuWqce8MQUlJtMMqCpWm9hb
-         KrGspPYsvk7pRlHfkXaWI6MTts7Va7vtHMh+ETx2vp8oYFDob1a4RMGeWWANh12Lt3cg
-         cAKDt1ByPqlbbPkkxeiWvb6JrncAy4701T+0/90Wk7sz1RNGZt/Bq5tQLt+hm8WWfQae
-         dJYg==
+        b=k1ggLi7msoy25aXt5rtNvAB6eVyM0LhlOyxH2bMN7YZ4jE9RXLLcc+uRMrrh4W/n5x
+         DHm4ijQc0gPb7+Loxl8aH+1GQsn0s7Nrb0XLs2YRBljoy5nAf8ZNDE76SuFOesqNzKu0
+         lzq8uzKQ0moC9UMKsumfOrRT0EF0qypNu7brw5zuA5y44q6QlwOo9XmFlb9KBJF+vSKp
+         lmlyW0xPu8e/+35/RihttRaZBkLaaau+wEmFd/aXCIAtkDSDPiQAZXJJZHGQ3kukWgyp
+         Nh9D1VZMBOll3FcIRMJxcroTIaVDfdUU3oqRF/1O0cH4bbI3LOIJBBm7D2XQKUMIi06R
+         QsfA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:message-id:date:subject:cc:to:from:dkim-signature;
-        bh=D3O9PCFLHFE9R5NKMPR5fopmhrwRlqRfKH1cQwWTyMk=;
-        b=vPGXvKMIVh+TPLVJgA/ZUjJJNBKmcjioZ+rPQmVoC+o6Zw7uMuNs7Ssc9ggjdxXpVH
-         w6N1Z5ygtpJQ7TRIJe+mb16cWSxDmLmDXRlx+igo36QEStP8zezULXsuU1oREPZpRqc8
-         M5HIinbPNsArdl3UY2B501liS+PcdtYHgZzRSJPmhwUqxreXGx2sDLYyO5y/HlvpR9q7
-         CBSbSykSokY4Nq/5/VwA1KOEk0lPw/mt9ufwsh8GklJ04aWhnhh6t2wnqa4WESFw5Fjf
-         CNeSqN6HJeM6t3qTkLPpZI503DFMEp3GfNeNKPMEI2LMUStd7gj3ewSfM+msJLCm8uh8
-         PzSA==
+        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
+         :from:dkim-signature;
+        bh=PvwlVphmMIP5vMTSqBV0uqbNWmJHzYQL+EefeYVWWSQ=;
+        b=oanhqXWXLjJJg2l+iUt8knaC1vDvWArvNuWf1Ad35v3cFkhlHYZ72TXqxadDKHJODk
+         ayHeg8kblZF/1RauzlZpUj9L1wRAzAj0plAEWehluR+ycJa0vfPfQKRJL4656dUSlyMn
+         T9DKAWnHgKjZqYQbOwU9br6LKXFONTUIauvYNE8SQB+19EzbgbnVDH8VjqeyEGuWzLF+
+         OhggdXahpKFY4i5+opr5+v1htRYlIg2pNMwJ7eHhkAhvF0hR8oy3VsD5rteK9uBaivRm
+         wF/iFw6QxSX8Gu9RCZYmGo5vVfrRFCLKWMN5Oq/Ys6ATwusak/qLzyb6Z4Et5g8xV+jq
+         fMHg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=WP5ArP8s;
-       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.23.248 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=LKVgGjaY;
+       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
        dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com. [198.47.23.248])
-        by gmr-mx.google.com with ESMTPS id m4si893656otk.1.2019.08.19.07.26.57
+Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com. [198.47.19.141])
+        by gmr-mx.google.com with ESMTPS id a8si860922vkm.0.2019.08.19.07.27.00
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 19 Aug 2019 07:26:57 -0700 (PDT)
-Received-SPF: pass (google.com: domain of nikhil.nd@ti.com designates 198.47.23.248 as permitted sender) client-ip=198.47.23.248;
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
-	by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id x7JEQv75084538;
-	Mon, 19 Aug 2019 09:26:57 -0500
-Received: from DLEE115.ent.ti.com (dlee115.ent.ti.com [157.170.170.26])
-	by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x7JEQvhd106776
+        Mon, 19 Aug 2019 07:27:00 -0700 (PDT)
+Received-SPF: pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted sender) client-ip=198.47.19.141;
+Received: from fllv0034.itg.ti.com ([10.64.40.246])
+	by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id x7JEQx4M120365;
+	Mon, 19 Aug 2019 09:26:59 -0500
+Received: from DLEE102.ent.ti.com (dlee102.ent.ti.com [157.170.170.32])
+	by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x7JEQxuI039138
 	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 19 Aug 2019 09:26:57 -0500
-Received: from DLEE102.ent.ti.com (157.170.170.32) by DLEE115.ent.ti.com
- (157.170.170.26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Mon, 19
- Aug 2019 09:26:57 -0500
-Received: from fllv0040.itg.ti.com (10.64.41.20) by DLEE102.ent.ti.com
+	Mon, 19 Aug 2019 09:26:59 -0500
+Received: from DLEE113.ent.ti.com (157.170.170.24) by DLEE102.ent.ti.com
  (157.170.170.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Mon, 19
+ Aug 2019 09:26:58 -0500
+Received: from fllv0040.itg.ti.com (10.64.41.20) by DLEE113.ent.ti.com
+ (157.170.170.24) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
- Frontend Transport; Mon, 19 Aug 2019 09:26:57 -0500
+ Frontend Transport; Mon, 19 Aug 2019 09:26:58 -0500
 Received: from NicksLab.india.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
-	by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id x7JEQtgw128856;
-	Mon, 19 Aug 2019 09:26:56 -0500
+	by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id x7JEQtgx128856;
+	Mon, 19 Aug 2019 09:26:57 -0500
 From: "'Nikhil Devshatwar' via Jailhouse" <jailhouse-dev@googlegroups.com>
 To: <jailhouse-dev@googlegroups.com>, <jan.kiszka@siemens.com>,
         <lokeshvutla@ti.com>
 CC: Nikhil Devshatwar <nikhil.nd@ti.com>
-Subject: [PATCH v2 0/4] Initial support for j721-evm board
-Date: Mon, 19 Aug 2019 19:56:49 +0530
-Message-ID: <1566224813-20129-1-git-send-email-nikhil.nd@ti.com>
+Subject: [PATCH v2 1/4] inmates: uart-8250: Add MDR quirk for enabling UART
+Date: Mon, 19 Aug 2019 19:56:50 +0530
+Message-ID: <1566224813-20129-2-git-send-email-nikhil.nd@ti.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1566224813-20129-1-git-send-email-nikhil.nd@ti.com>
+References: <1566224813-20129-1-git-send-email-nikhil.nd@ti.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 X-Original-Sender: nikhil.nd@ti.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@ti.com header.s=ti-com-17Q1 header.b=WP5ArP8s;       spf=pass
- (google.com: domain of nikhil.nd@ti.com designates 198.47.23.248 as permitted
+ header.i=@ti.com header.s=ti-com-17Q1 header.b=LKVgGjaY;       spf=pass
+ (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted
  sender) smtp.mailfrom=nikhil.nd@ti.com;       dmarc=pass (p=QUARANTINE
  sp=NONE dis=NONE) header.from=ti.com
 X-Original-From: Nikhil Devshatwar <nikhil.nd@ti.com>
@@ -141,35 +145,66 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-This series adds support for the Texas Instrument's j721e-evm board.
-The J721E SoC belongs to the K3 Multicore SoC architecture platform
-for automotive applications such as infotainment, cluster, premium
-Audio, Gateway, industrial and a range of broad market applications.
+UART is disabled by default on TI platforms and must be enabled
+via the MDR register.
 
-Nikhil Devshatwar (4):
-  inmates: uart-8250: Add MDR quirk for enabling UART
-  configs: arm64: Add support for k3-j721-evm board
-  configs: arm64: Add gic and uart demos for j721-evm board
-  configs: arm64: Add Linux demo for j721-evm board
+Add a new flag in the jailhouse_console and apply the quirk
+as part of uart_init for 8250 driver when this flag is present.
 
- configs/arm64/dts/inmate-k3-j721e-evm.dts | 499 ++++++++++++++++++++++++++++++
- configs/arm64/k3-j721e-evm-gic-demo.c     |  72 +++++
- configs/arm64/k3-j721e-evm-linux-demo.c   | 242 +++++++++++++++
- configs/arm64/k3-j721e-evm-uart-demo.c    |  72 +++++
- configs/arm64/k3-j721e-evm.c              | 343 ++++++++++++++++++++
- include/jailhouse/console.h               |   7 +-
- inmates/lib/uart-8250.c                   |   4 +
- 7 files changed, 1238 insertions(+), 1 deletion(-)
- create mode 100644 configs/arm64/dts/inmate-k3-j721e-evm.dts
- create mode 100644 configs/arm64/k3-j721e-evm-gic-demo.c
- create mode 100644 configs/arm64/k3-j721e-evm-linux-demo.c
- create mode 100644 configs/arm64/k3-j721e-evm-uart-demo.c
- create mode 100644 configs/arm64/k3-j721e-evm.c
+Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
+Signed-off-by: Lokesh Vutla <lokeshvutla@ti.com>
+---
+Changes from v1:
+* Use console flag for MDR quirk instead of compile time flag
 
+ include/jailhouse/console.h | 7 ++++++-
+ inmates/lib/uart-8250.c     | 4 ++++
+ 2 files changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/include/jailhouse/console.h b/include/jailhouse/console.h
+index 8961c6e..a54bb56 100644
+--- a/include/jailhouse/console.h
++++ b/include/jailhouse/console.h
+@@ -78,7 +78,12 @@
+ 
+ #define CON_HAS_INVERTED_GATE(flags)	!!((flags) & JAILHOUSE_CON_INVERTED_GATE)
+ 
+-/* Bits 13-15: Reserved */
++/* Bit 13 is used to apply(set) or skip(clear) a MDR quirk on the console */
++#define JAILHOUSE_CON_MDR_QUIRK		0x2000
++
++#define CON_HAS_MDR_QUIRK(flags)	!!((flags) & JAILHOUSE_CON_MDR_QUIRK)
++
++/* Bits 14-15: Reserved */
+ 
+ struct jailhouse_console {
+ 	__u64 address;
+diff --git a/inmates/lib/uart-8250.c b/inmates/lib/uart-8250.c
+index fb7940d..5b94b5d 100644
+--- a/inmates/lib/uart-8250.c
++++ b/inmates/lib/uart-8250.c
+@@ -49,6 +49,7 @@
+ #define  UART_LCR_DLAB		0x80
+ #define UART_LSR		0x5
+ #define  UART_LSR_THRE		0x20
++#define  UART_MDR1		0x8
+ 
+ static void reg_out_mmio32(struct uart_chip *chip, unsigned int reg, u32 value)
+ {
+@@ -67,6 +68,9 @@ static void uart_8250_init(struct uart_chip *chip)
+ 		chip->reg_out(chip, UART_DLL, chip->divider);
+ 		chip->reg_out(chip, UART_DLM, 0);
+ 		chip->reg_out(chip, UART_LCR, UART_LCR_8N1);
++		if (comm_region->console.flags & JAILHOUSE_CON_MDR_QUIRK) {
++			chip->reg_out(chip, UART_MDR1, 0);
++		}
+ 	}
+ }
+ 
 -- 
 2.7.4
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/1566224813-20129-1-git-send-email-nikhil.nd%40ti.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/1566224813-20129-2-git-send-email-nikhil.nd%40ti.com.
