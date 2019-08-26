@@ -1,148 +1,71 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBEFAQXVQKGQEAABEVIQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCR7PPMN34DRBD4HRXVQKGQELMMD5NQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43e.google.com (mail-wr1-x43e.google.com [IPv6:2a00:1450:4864:20::43e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 109169BE54
-	for <lists+jailhouse-dev@lfdr.de>; Sat, 24 Aug 2019 16:56:17 +0200 (CEST)
-Received: by mail-wr1-x43e.google.com with SMTP id j16sf6513786wrn.5
-        for <lists+jailhouse-dev@lfdr.de>; Sat, 24 Aug 2019 07:56:17 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1566658576; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=g0UooX4ghoxYO/jVJEFq5PtPObu537gFcefBNRqCWQOOLcBAikbJrh+Ifg8f1xTgjp
-         1NlHYQlgTVtaoYyk3/DBql85eynKhF3ned6paF0m1dGUYeR0btWHylj0z6PvWoVDPnsx
-         N8Msh7/oKAetBHXql3aHi9C4OGV8bZiz+oDKvZWL7KJyvUSnbm1n2jCJTYX1vnKcSOpE
-         S/JjEGru7RsA1krVJB/qKr/+SlamWKGouxP7RsNpWQ8A+ygKz6yQvPT2FYExw2P3Qv9k
-         ZFfsoDNF6IAvFK+rn+h2nbdFljWkOs4ug4KjxZZpSFbgGv2GIVNdHc/p8M+5gPKOU2Jb
-         cZ4w==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:cc:to
-         :subject:sender:dkim-signature;
-        bh=ADKQ3aaWC1Cp52zvsz/QPa0VF21Ch70rQm3N5KGxNEc=;
-        b=QWBQePWqIHoDQ0aiYbSqR7cetiLXkDTB+jqZGmXTktmStBFBn+E3Eay8A0/CohZvHK
-         5ggf/H0gjykGy3ohMQpvkywoYtZjIi3Q25JepLVlySjfWnts7w9npIIQs+GUdFoz+3o/
-         +KXOAlst5Lt7jg+Q1LJqir9yKCdI5QzNI9bOZkTf9QUmLX3WV2Kcajp7DR6imXMDWEUb
-         vAs6OEyJJmdwCIoh23ezP5DgAtJhIsw/I/q4bSUUF6uwzCfOh/Ey2RNrGDg3Mez/8S5M
-         8FmHqU1ap8lH3rdFnWkgw4gUh+wdDwK7UMbTVC1O1Ca7wqmy2XFrZWeY7YGn+e6g06SQ
-         pnoQ==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=o7Uqtcp9;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Received: from mail-ot1-x340.google.com (mail-ot1-x340.google.com [IPv6:2607:f8b0:4864:20::340])
+	by mail.lfdr.de (Postfix) with ESMTPS id 466AC9C73A
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 26 Aug 2019 04:27:30 +0200 (CEST)
+Received: by mail-ot1-x340.google.com with SMTP id k70sf9385495otk.6
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 25 Aug 2019 19:27:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=ADKQ3aaWC1Cp52zvsz/QPa0VF21Ch70rQm3N5KGxNEc=;
-        b=QEL+mrHhor61ZpffC4ki+kwk0vIf+Syoown29rIJfgEHSDw3gzfWVKRTRlSAPXXsD+
-         F53nDbG4k5e3i/Z9y9i6pyTYxCYFif/Jt6DWwfTCo+gcHey96dZHGCFLCc/kbyYHpGr7
-         jDKaQiM+I3PAtcocVeWhk0cubwKCDmlo9Ppp9Gz75iVYYRTnHMR6jHPpTGrpdaMZ9oa8
-         lYfdBi7tA0P5q4tTgPGCZLYiOMeuzYKcAUTaGNQOUzV4Z3qhWWPdoWPdUAGjKbmTe+P4
-         RROLo8hqRC6jBZROw7anvUbjjbPKUWvOl6src8mU26hL/W0QZPR4+3aq/6JKZAKRthDk
-         ZirA==
+        bh=YzKtGuHbLnQ8hZmFwjeR/uWUSrlMOBbTxfDBUNbK3uk=;
+        b=RCsh7P/rNjBlnNFlZt71sbRsQqt57REViI5iJd8FrY2Bw2f1dSmzhWNAprSQJSJRYm
+         A5Ioz9degVMq+B83ImFmBGeVsLXwANM/Xju+7mnA/BMg4n44WNAlFp6A0xEg5uF1mFlb
+         AJubfU4xUn3Gj6/HWWaVBeUYUla7RrlOmUhgKfMcrREjq4z9s5+rDzUmv/rFcniZfhIC
+         2VJt+modB3+2p5Qgazp0fjL2JW40itQMRgGzVkWov7F+0rV9Td1zCj58doL42VLzUwQ7
+         QhPtUODEPh8ZHBcaBXzV/xVY7QfRjrNQ3QNQ5iUeehrC4J38x1MJSSHZVJq4mvOZ8kZ8
+         Prfg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=YzKtGuHbLnQ8hZmFwjeR/uWUSrlMOBbTxfDBUNbK3uk=;
+        b=oo5u+f9LoTXmLGuKHMcIBxfhN2wV9QCpmXP/8sQC14r23025QrqeU1JT/m+NR5RPrR
+         l9/NVpp7KcmdOX/CPEml414mWAFWmlLy1AI37Nposr9OYELbcmfH43JCN8vCQO7g+SeS
+         ClmYtePVqc3KPpG5HwQhlzIyJTuInuNQ0QtMNUKIDlTgJkOqKUpHvGkJ48iX7zLGjOUf
+         DlxMROpb0byiaininBdj16XMof0bZS9OCIT1eY0/1SUrQuLlTo4ecQoVuvNh745bYNqc
+         zdFa2LU+j1RGgJzO8uTfPi9zNgedzTXGY4thrVwVQNXxwuy0w4z0Wjn50WYyuKw6a+rq
+         qMwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=ADKQ3aaWC1Cp52zvsz/QPa0VF21Ch70rQm3N5KGxNEc=;
-        b=HYzF1R51pbLWxW6glIR6bHQX1h5qmSYsdDQjbHj3dwbLTa3B7rPElJWe027v3uRb/0
-         GVF1ZZhWdslCV5QFZWbcLepTyeMbdCrfIdEGhgoP5d2BWY8pL9nGLQiyAy7CaBFZmIRD
-         loIOBuv+blLj/36DHnDB2kAxq8Yq+HtIl+5DFxJRxQuCLU8ZCRK0KnXgRGDvFqEL8m1J
-         /g1ncX+jAgmaBm3OW8/QqJM5lBBlRhx3Lo041haWjLUoRdadW9FQtEP2c5tAoSX/tL4i
-         zhZCu5oZvoJaTbXo6Q0RRNJPCMJfqboHu/JMmU58ldGtDhfQaAYZj0fnjtIj2R4HvhMF
-         b1SA==
+        bh=YzKtGuHbLnQ8hZmFwjeR/uWUSrlMOBbTxfDBUNbK3uk=;
+        b=ZzvXFjcrnGeBxuFiSVG1M0sHNRcok66KdzpgXoD+WxZ9hT0t6N2SV2WgxEFDo7Vlcs
+         RuhDWrClm0wil5K45MuK2xF28SrcH4X9XjWu+HaPehV8CeNrQeoe8uh1xp0aMs+wyfAE
+         ZcQ/OlmP1qj1IAMQDAloAfpC0/4dPd4KyczkZHenQ8mguMLazayqkUchoJNNgdOv+CFh
+         1MlqfJvWTPq3KCRDDfiKk/Pmgx+tdOXUzbBMk3pbKXf8h+A+BA2Mr2QsfgnMxrsNkqFO
+         w22Ny6t8+pO3Aibc/l8DwhRFvw4+sLrHBA+YNbdCEbM2bEgaDFMMEcE9amgPtest/3+n
+         nO4Q==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAX79iwVY6+22HOCLfOfA0ehhLVaAEiM7P2Qp9Svg7s5MxRflZPV
-	3Do0Awv6WA0ssRGzASrY7G4=
-X-Google-Smtp-Source: APXvYqxFkHKxwfvMtTYqH+Ig/fzXPNE9Z2tHiCIF8XurtFJmi9adoF3GVy52fC8gi8FUeMg6ygsZdw==
-X-Received: by 2002:a5d:6ccd:: with SMTP id c13mr11987473wrc.4.1566658576734;
-        Sat, 24 Aug 2019 07:56:16 -0700 (PDT)
+X-Gm-Message-State: APjAAAXxbKrOxNC4hIHhsC1zDqE9gjfxhKrxH+4gPDvo7dhHrvJ4eNwK
+	qR1kNLTF6eBmBFOyXjY7yt4=
+X-Google-Smtp-Source: APXvYqyq/FcCZHsKiILo2KIW3Kj+zCwkd+t3M8SxEyGefe7XsksZlo0T9AyCZLN7RxHGnVBKjXtjIg==
+X-Received: by 2002:aca:cf57:: with SMTP id f84mr11132561oig.40.1566786448423;
+        Sun, 25 Aug 2019 19:27:28 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:600c:283:: with SMTP id 3ls4627109wmk.5.canary-gmail;
- Sat, 24 Aug 2019 07:56:16 -0700 (PDT)
-X-Received: by 2002:a1c:c00e:: with SMTP id q14mr459073wmf.142.1566658576166;
-        Sat, 24 Aug 2019 07:56:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1566658576; cv=none;
-        d=google.com; s=arc-20160816;
-        b=W2K3NYSS8T9z5ISMQ/oz2ExEDy+1kbMJcOsuCS4KxTREf38UUrDUqtFx3TLDnbPoYq
-         ioY1Y9m4T2s7mYGMY/N7lE0oqIE7WZpPpueXmBlenbWCmQZ+7Qs4Pz2gte0F7yWmBhsy
-         A0dXCW9g8dKXy7XyoNR69dy+x61Njj/R1s3d7ouC33LwOqBHbF7RgHWTzr2mhkJeEFjU
-         /UMbcYfFNhaSn2fzgBsK5zlKHkmaxGAf178tXcam8d9IPbAtpebKWDXsgJTa9Ez4xQpl
-         7buh4h083BQ2sNV2x0w3nfAN2VG2w7jnwrGqSo+qGmHLlEFCC2Ua0VBxOPxwOvtkmGLL
-         nosQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject
-         :dkim-signature;
-        bh=x7yeBwyPUepo0yuZ/t/AQQSd2KzetwLhaZukaWnRJHE=;
-        b=EqZNIVlJuBVoBwvGV7VQd9Q/YaCBKsIybxatIJMWif0rhjYA5V+of4YpOhmDH3MoIG
-         BrRMpWnmRKWm+ei6hToTSIQSSJmmXLjZX19vNqr8N/nQr4OOCVU7Q4sKZVAuxWySYip3
-         nYJYjtK/5b9ZZ7VgywsJJCt2Pln+EhF5UR6BPIRzUhVdDfT7tl69ID9qEc5e03iGljAC
-         s0gR4u6H8vhyzhRj87TRdDtvQTPIoICPYkJ+2L5AQC6RS9Y05k0gJW/a+PemkMz9fbVT
-         zbDyxGrcfVErVmriQJYBj6LzYvqlxdbRUMX8eVHuIAzpEj2D+uKyADJyf/ElXERrumVR
-         xwaQ==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=o7Uqtcp9;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
-Received: from mout.web.de (mout.web.de. [212.227.17.11])
-        by gmr-mx.google.com with ESMTPS id p4si210345wme.2.2019.08.24.07.56.16
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Sat, 24 Aug 2019 07:56:16 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) client-ip=212.227.17.11;
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.1.10] ([95.157.55.156]) by smtp.web.de (mrweb102
- [213.165.67.124]) with ESMTPSA (Nemesis) id 0MUnYm-1hinlT171g-00Y9RH; Sat, 24
- Aug 2019 16:56:15 +0200
-Subject: Re: [PATCH v4 2/6] arm-common: Introduce iommu functionality
-To: Lokesh Vutla <lokeshvutla@ti.com>,
- Jailhouse <jailhouse-dev@googlegroups.com>
-Cc: Tero Kristo <t-kristo@ti.com>, Sekhar Nori <nsekhar@ti.com>,
- Nikhil Devshatwar <nikhil.nd@ti.com>
-References: <20190801112648.6569-1-lokeshvutla@ti.com>
- <20190801113521.7311-1-lokeshvutla@ti.com>
-From: Jan Kiszka <jan.kiszka@web.de>
-Message-ID: <2dc1d2cb-4bb4-03a4-6716-f2311cb10b06@web.de>
-Date: Sat, 24 Aug 2019 16:56:12 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+Received: by 2002:a9d:3b02:: with SMTP id z2ls2351435otb.15.gmail; Sun, 25 Aug
+ 2019 19:27:27 -0700 (PDT)
+X-Received: by 2002:a05:6830:1188:: with SMTP id u8mr6626451otq.150.1566786447536;
+        Sun, 25 Aug 2019 19:27:27 -0700 (PDT)
+Date: Sun, 25 Aug 2019 19:27:26 -0700 (PDT)
+From: =?UTF-8?Q?Jo=C3=A3o_Reis?= <jpagsreis@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <bcfed5c1-14ae-4ab3-ba97-439b4bbebf5b@googlegroups.com>
+In-Reply-To: <d14aeb57-5549-0996-5284-5a5d83cc9104@siemens.com>
+References: <325fe360-0bf4-4687-b2a2-309e9f9acd46@googlegroups.com>
+ <d14aeb57-5549-0996-5284-5a5d83cc9104@siemens.com>
+Subject: Re: Ivshmem-net driver for Linux
 MIME-Version: 1.0
-In-Reply-To: <20190801113521.7311-1-lokeshvutla@ti.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
-X-Provags-ID: V03:K1:kCTC1M/0IGRut1r1RYNj+dvmNO6l/FFHXOMwAZS1wyACtrmZSm1
- 2/uXsYX743EkNSInNX5EGVoSpp5Ey6gs4i8LoODGkSYJI7IpegHDXnbfDNBuazXYcfCur+h
- Vw/JCnof8Qts5Izanr8b5hCnHRuE8TFlc8po3LqtgxOoVs0H+LWcNg51y0ZgHbjJtWXSTKt
- RvAnLzFiJx3puhD1REhWQ==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:/ly9Dj+psHQ=:IVp2Hxx29LX5nRWtMBBaDj
- NRPhbuzyFlFQNuVtjZbuyIfFyHhVkG0BaWybfliarEXMwP4EW97TZZpNxckjfk4zGtSOtrTyw
- 8aT4z+dNS4VNdO/wwRy5FtssP4TPLwElhi0F1ImPD9s9je9vWTxgHjW9NdgYc445FMv75/U6I
- ItbwE5uXGM44vQcixYm3Snzgv2ZVYot9ecwInrcKOjKil06eGJv7noD0uCjjIy7mPXyWnincy
- 29huyUcsWwtqwtZYFunXFCxhukgm8nBYFGyhtHY0LtgXrQYDKxVxcbaCjog+gOL5p+XaA0Iak
- H0QxdAwjdIZdjvI4Tij5QsEzvV/bQLQWngWB9LT/Kfso44+/FO4U6UiiZjYEuakZRN7TDO2tI
- JcfRAGtcjMKJ9Q4pnzreLc4BJuaMfQfw9HdAQYmUKLgWw6KikY1A4DsBbuwuZLHXA6J4+hJW7
- SHsjohYYP1pwrrSnwvMKEYGUHkU4yo2SakM/LV1C/8gNXIRyKiINmGf4ZGTtgOvj8rgeVKAkX
- 2XWl9YXUF6l1PdfREnmCvwCdWMNYFn+Zek/h6uCtae4//B3uxLtJcKvNPt6SW5cOXmFXzOH3Y
- TOtrycK5ugDe4hP5uvZGm4aH3NG/UZ72e6jojV0RHeDefx4iYs3g4RjoP70ifF9pvinFlXO0V
- MdIOYaHKCk9rIYxWphWCi3N7lg9WxtGeVHpuUirYu5OYPKjmGsg8qg/2Us1yjY1+7DoCSIvQL
- OT8f38e71BV2IKzIDoDd7ei1GrGlky37oO3KBCvh/hYi6YITC/9JkKj4BEGBEquI73arK688C
- Gvml0lB0RHeUc2WFP8tnMmd9mEC/IMpJSmHVCtVL6iHIfhmNymQZ/7BSilOhGMweTBi1ygAlW
- zNGDHFLti6H2WwVXQaANWMSlwQI8Qt8u5usd9n8CtJxNKY6LYX+2409lUOB/eZmxQ6wYLmHUM
- jrXkS1e6kT8VBh0Gz2BMyvwAgsJfUUlbcJ1Dg0XQvWufiUsRpnp/e9E56DaQrUnCt9hou5ShW
- 8G5XnFdZ85JuWfLafbo3uO6aDadGhBiFXa8mMtSetWDHqHhnER0q1oRiv/TP01TJsO0P1+EQ9
- pnWquDzzU9MqoopFFBWiPf4Z/yxkK55nvMfk58TXz768XqeXf8alMnxS28haBZEt3CGbeaG/q
- OwMhXfGL45VOQRfg1GtU0RX94YcKg17YCriEZsXT11ItNwjA==
-X-Original-Sender: jan.kiszka@web.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b=o7Uqtcp9;       spf=pass
- (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as
- permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_1383_1907750917.1566786446897"
+X-Original-Sender: jpagsreis@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -155,97 +78,1172 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 01.08.19 13:35, 'Lokesh Vutla' via Jailhouse wrote:
-> From: Nikhil Devshatwar <nikhil.nd@ti.com>
->
-> Add the iommu hooks for ARM and ARM64 architectures with
-> dummy implementations and update the Kbuild to include new iommu files
->
-> Introduce following hooks:
-> iommu_map_memory - Setup iommu mapping for the memory region
-> iommu_unmap_memory - Unmap the iommu mapping for the mem region
-> iommu_config_commit - Commit all the changes to the mem mapping
->
-> Call the map/unmap iommu functions in addition to CPU map/unmap and
-> config_commit.
-> Also add iommu_units in the platform data for ARM cells.
->
-> Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
-> Signed-off-by: Lokesh Vutla <lokeshvutla@ti.com>
-> ---
->   hypervisor/arch/arm-common/Kbuild             |  2 +-
->   hypervisor/arch/arm-common/control.c          |  2 +
->   .../arch/arm-common/include/asm/iommu.h       | 27 ++++++++++++
->   hypervisor/arch/arm-common/iommu.c            | 44 +++++++++++++++++++
->   hypervisor/arch/arm-common/mmu_cell.c         | 20 ++++++++-
->   include/jailhouse/cell-config.h               |  2 +
->   6 files changed, 94 insertions(+), 3 deletions(-)
->   create mode 100644 hypervisor/arch/arm-common/include/asm/iommu.h
->   create mode 100644 hypervisor/arch/arm-common/iommu.c
->
-> diff --git a/hypervisor/arch/arm-common/Kbuild b/hypervisor/arch/arm-common/Kbuild
-> index 78b9e512..6f57ef02 100644
-> --- a/hypervisor/arch/arm-common/Kbuild
-> +++ b/hypervisor/arch/arm-common/Kbuild
-> @@ -17,6 +17,6 @@ ccflags-$(CONFIG_JAILHOUSE_GCOV) += -fprofile-arcs -ftest-coverage
->   objs-y += dbg-write.o lib.o psci.o control.o paging.o mmu_cell.o setup.o
->   objs-y += irqchip.o pci.o ivshmem.o uart-pl011.o uart-xuartps.o uart-mvebu.o
->   objs-y += uart-hscif.o uart-scifa.o uart-imx.o
-> -objs-y += gic-v2.o gic-v3.o smccc.o
-> +objs-y += gic-v2.o gic-v3.o smccc.o iommu.o
->
->   common-objs-y = $(addprefix ../arm-common/,$(objs-y))
-> diff --git a/hypervisor/arch/arm-common/control.c b/hypervisor/arch/arm-common/control.c
-> index b59c05d6..106ffad4 100644
-> --- a/hypervisor/arch/arm-common/control.c
-> +++ b/hypervisor/arch/arm-common/control.c
-> @@ -16,6 +16,7 @@
->   #include <jailhouse/printk.h>
->   #include <asm/control.h>
->   #include <asm/psci.h>
-> +#include <asm/iommu.h>
->
->   static void enter_cpu_off(struct public_per_cpu *cpu_public)
->   {
-> @@ -209,6 +210,7 @@ void arch_flush_cell_vcpu_caches(struct cell *cell)
->   void arch_config_commit(struct cell *cell_added_removed)
->   {
->   	irqchip_config_commit(cell_added_removed);
-> +	iommu_config_commit(cell_added_removed);
->   }
->
->   void __attribute__((noreturn)) arch_panic_stop(void)
-> diff --git a/hypervisor/arch/arm-common/include/asm/iommu.h b/hypervisor/arch/arm-common/include/asm/iommu.h
-> new file mode 100644
-> index 00000000..67ac34eb
-> --- /dev/null
-> +++ b/hypervisor/arch/arm-common/include/asm/iommu.h
-> @@ -0,0 +1,27 @@
-> +/*
-> + * Jailhouse, a Linux-based partitioning hypervisor
-> + *
-> + * Copyright (c) 2019 Texas Instruments Incorporated - http://www.ti.com
-> + *
-> + * Authors:
-> + *  Nikhil Devshatwar <nikhil.nd@ti.com>
-> + *
-> + * This work is licensed under the terms of the GNU GPL, version 2.  See
-> + * the COPYING file in the top-level directory.
-> + */
-> +
-> +#ifndef _JAILHOUSE_ASM_IOMMU_H
-> +#define _JAILHOUSE_ASM_IOMMU_H
-> +
-> +#include <jailhouse/types.h>
-> +#include <jailhouse/utils.h>
-> +#include <jailhouse/config.h>
+------=_Part_1383_1907750917.1566786446897
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1384_920768152.1566786446897"
 
-Just updated this commit in next: jailhouse/config.h must not be included
-directly. It is optional, and it included automatically when available.
+------=_Part_1384_920768152.1566786446897
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Jan
+I cherry picked and it didn't cause no trouble in the building. Actually i=
+=20
+made a patch out of it (send attached).
 
+sexta-feira, 23 de Agosto de 2019 =C3=A0s 07:04:45 UTC+1, Jan Kiszka escrev=
+eu:
+>
+> On 23.08.19 03:12, Jo=C3=A3o Reis wrote:=20
+> > Hello everyone,=20
+> >=20
+> > I came across Jailhouse's version of Linux=20
+> > (https://github.com/siemens/linux/tree/jailhouse-enabling/4.19=20
+> > <https://github.com/siemens/linux/tree/jailhouse-enabling/4.19>) which=
+=20
+> has=20
+> > ivshmem-net driver on it. I tried to use the 4.14 version of the fork a=
+s=20
+> Linux=20
+> > external source in Petalinux 2018.2 (due to compability), but i couldn'=
+t=20
+> boot=20
+> > the system with that external kernel source. So, i am asking if someone=
+=20
+> has the=20
+> > patch for me to apply on Petalinux's default kernel source (4.14.0), or=
+=20
+> if you=20
+> > could tell me what files do i need to change in order for ivshmem-net=
+=20
+> > functionality be available for me.=20
+>
+> Did you try to cherry-pick the patches already? Did they have conflicts=
+=20
+> (which=20
+> would be trivial to resolve) or build issues?=20
+>
+> Jan=20
+>
+> --=20
+> Siemens AG, Corporate Technology, CT RDA IOT SES-DE=20
+> Corporate Competence Center Embedded Linux=20
+>
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/bcfed5c1-14ae-4ab3-ba97-439b4bbebf5b%40googlegroups.com.
+
+------=_Part_1384_920768152.1566786446897
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">I cherry picked and it didn&#39;t cause no trouble in the =
+building. Actually i made a patch out of it (send attached).<div><div><div>=
+<br>sexta-feira, 23 de Agosto de 2019 =C3=A0s 07:04:45 UTC+1, Jan Kiszka es=
+creveu:<blockquote class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.=
+8ex;border-left: 1px #ccc solid;padding-left: 1ex;">On 23.08.19 03:12, Jo=
+=C3=A3o Reis wrote:
+<br>&gt; Hello everyone,
+<br>&gt;=20
+<br>&gt; I came across Jailhouse&#39;s version of Linux=20
+<br>&gt; (<a href=3D"https://github.com/siemens/linux/tree/jailhouse-enabli=
+ng/4.19" target=3D"_blank" rel=3D"nofollow" onmousedown=3D"this.href=3D&#39=
+;https://www.google.com/url?q\x3dhttps%3A%2F%2Fgithub.com%2Fsiemens%2Flinux=
+%2Ftree%2Fjailhouse-enabling%2F4.19\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQjC=
+NFtmzJZAL4iOXv87GPc-ceUkTh3pA&#39;;return true;" onclick=3D"this.href=3D&#3=
+9;https://www.google.com/url?q\x3dhttps%3A%2F%2Fgithub.com%2Fsiemens%2Flinu=
+x%2Ftree%2Fjailhouse-enabling%2F4.19\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQj=
+CNFtmzJZAL4iOXv87GPc-ceUkTh3pA&#39;;return true;">https://github.com/siemen=
+s/<wbr>linux/tree/jailhouse-enabling/<wbr>4.19</a>=20
+<br>&gt; &lt;<a href=3D"https://github.com/siemens/linux/tree/jailhouse-ena=
+bling/4.19" target=3D"_blank" rel=3D"nofollow" onmousedown=3D"this.href=3D&=
+#39;https://www.google.com/url?q\x3dhttps%3A%2F%2Fgithub.com%2Fsiemens%2Fli=
+nux%2Ftree%2Fjailhouse-enabling%2F4.19\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAF=
+QjCNFtmzJZAL4iOXv87GPc-ceUkTh3pA&#39;;return true;" onclick=3D"this.href=3D=
+&#39;https://www.google.com/url?q\x3dhttps%3A%2F%2Fgithub.com%2Fsiemens%2Fl=
+inux%2Ftree%2Fjailhouse-enabling%2F4.19\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dA=
+FQjCNFtmzJZAL4iOXv87GPc-ceUkTh3pA&#39;;return true;">https://github.com/sie=
+mens/<wbr>linux/tree/jailhouse-enabling/<wbr>4.19</a>&gt;) which has=20
+<br>&gt; ivshmem-net driver on it. I tried to use the 4.14 version of the f=
+ork as Linux=20
+<br>&gt; external source in Petalinux 2018.2 (due to compability), but i co=
+uldn&#39;t boot=20
+<br>&gt; the system with that external kernel source. So, i am asking if so=
+meone has the=20
+<br>&gt; patch for me to apply on Petalinux&#39;s default kernel source (4.=
+14.0), or if you=20
+<br>&gt; could tell me what files do i need to change in order for ivshmem-=
+net=20
+<br>&gt; functionality be available for me.
+<br>
+<br>Did you try to cherry-pick the patches already? Did they have conflicts=
+ (which=20
+<br>would be trivial to resolve) or build issues?
+<br>
+<br>Jan
+<br>
+<br>--=20
+<br>Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+<br>Corporate Competence Center Embedded Linux
+<br></blockquote></div></div></div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/bcfed5c1-14ae-4ab3-ba97-439b4bbebf5b%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/bcfed5c1-14ae-4ab3-ba97-439b4bbebf5b%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_1384_920768152.1566786446897--
+
+------=_Part_1383_1907750917.1566786446897
+Content-Type: text/x-diff; charset=US-ASCII; 
+	name=0001-add-ivshmem-net-support.patch
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename=0001-add-ivshmem-net-support.patch
+X-Attachment-Id: dc96a0f7-88f7-4fb8-8249-48ed4967bb71
+Content-ID: <dc96a0f7-88f7-4fb8-8249-48ed4967bb71>
+
+From 6b95c53c7b2545b76930925dd555749f09fb6f92 Mon Sep 17 00:00:00 2001
+From: Joao Reis <jpagsreis@gmail.com>
+Date: Fri, 23 Aug 2019 15:31:24 +0100
+Subject: [PATCH] add ivshmem-net support
+
+Signed-off-by: Joao Reis <jpagsreis@gmail.com>
+---
+ drivers/net/Kconfig       |   5 +
+ drivers/net/Makefile      |   2 +
+ drivers/net/ivshmem-net.c | 984 ++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 991 insertions(+)
+ create mode 100644 drivers/net/ivshmem-net.c
+
+diff --git a/drivers/net/Kconfig b/drivers/net/Kconfig
+index aba0d65..a51ac1b 100644
+--- a/drivers/net/Kconfig
++++ b/drivers/net/Kconfig
+@@ -485,4 +485,9 @@ config FUJITSU_ES
+ 
+ source "drivers/net/hyperv/Kconfig"
+ 
++config IVSHMEM_NET
++	tristate "IVSHMEM virtual network device"
++	depends on PCI
++
++
+ endif # NETDEVICES
+diff --git a/drivers/net/Makefile b/drivers/net/Makefile
+index 676a75f..40e572c 100644
+--- a/drivers/net/Makefile
++++ b/drivers/net/Makefile
+@@ -75,3 +75,5 @@ obj-$(CONFIG_HYPERV_NET) += hyperv/
+ obj-$(CONFIG_NTB_NETDEV) += ntb_netdev.o
+ 
+ obj-$(CONFIG_FUJITSU_ES) += fjes/
++
++obj-$(CONFIG_IVSHMEM_NET) += ivshmem-net.o
+diff --git a/drivers/net/ivshmem-net.c b/drivers/net/ivshmem-net.c
+new file mode 100644
+index 0000000..aba77c2
+--- /dev/null
++++ b/drivers/net/ivshmem-net.c
+@@ -0,0 +1,984 @@
++/*
++ * Copyright 2016 Mans Rullgard <mans@mansr.com>
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, see <http://www.gnu.org/licenses/>.
++ */
++
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/pci.h>
++#include <linux/io.h>
++#include <linux/bitops.h>
++#include <linux/interrupt.h>
++#include <linux/netdevice.h>
++#include <linux/etherdevice.h>
++#include <linux/rtnetlink.h>
++#include <linux/virtio_ring.h>
++
++#define DRV_NAME "ivshmem-net"
++
++#define JAILHOUSE_CFG_SHMEM_PTR	0x40
++#define JAILHOUSE_CFG_SHMEM_SZ	0x48
++
++#define IVSHMEM_INTX_ENABLE	0x1
++
++#define IVSHM_NET_STATE_RESET	0
++#define IVSHM_NET_STATE_INIT	1
++#define IVSHM_NET_STATE_READY	2
++#define IVSHM_NET_STATE_RUN	3
++
++#define IVSHM_NET_FLAG_RUN	0
++
++#define IVSHM_NET_MTU_MIN 256
++#define IVSHM_NET_MTU_MAX 65535
++#define IVSHM_NET_MTU_DEF 16384
++
++#define IVSHM_NET_FRAME_SIZE(s) ALIGN(18 + (s), SMP_CACHE_BYTES)
++
++#define IVSHM_NET_VQ_ALIGN 64
++
++struct ivshmem_regs {
++	u32 intxctrl;
++	u32 istat;
++	u32 ivpos;
++	u32 doorbell;
++	u32 lstate;
++	u32 rstate;
++};
++
++struct ivshm_net_queue {
++	struct vring vr;
++	u32 free_head;
++	u32 num_free;
++	u32 num_added;
++	u16 last_avail_idx;
++	u16 last_used_idx;
++
++	void *data;
++	void *end;
++	u32 size;
++	u32 head;
++	u32 tail;
++};
++
++struct ivshm_net_stats {
++	u32 interrupts;
++	u32 tx_packets;
++	u32 tx_notify;
++	u32 tx_pause;
++	u32 rx_packets;
++	u32 rx_notify;
++	u32 napi_poll;
++	u32 napi_complete;
++	u32 napi_poll_n[10];
++};
++
++struct ivshm_net {
++	struct ivshm_net_queue rx;
++	struct ivshm_net_queue tx;
++
++	u32 vrsize;
++	u32 qlen;
++	u32 qsize;
++
++	spinlock_t tx_free_lock;
++	spinlock_t tx_clean_lock;
++
++	struct napi_struct napi;
++
++	u32 lstate;
++	u32 rstate;
++
++	unsigned long flags;
++
++	struct workqueue_struct *state_wq;
++	struct work_struct state_work;
++
++	struct ivshm_net_stats stats;
++
++	struct ivshmem_regs __iomem *ivshm_regs;
++	void *shm;
++	phys_addr_t shmaddr;
++	resource_size_t shmlen;
++	u32 peer_id;
++
++	struct pci_dev *pdev;
++};
++
++static void *ivshm_net_desc_data(struct ivshm_net *in,
++				 struct ivshm_net_queue *q,
++				 struct vring_desc *desc,
++				 u32 *len)
++{
++	u64 offs = READ_ONCE(desc->addr);
++	u32 dlen = READ_ONCE(desc->len);
++	u16 flags = READ_ONCE(desc->flags);
++	void *data;
++
++	if (flags)
++		return NULL;
++
++	if (offs >= in->shmlen)
++		return NULL;
++
++	data = in->shm + offs;
++
++	if (data < q->data || data >= q->end)
++		return NULL;
++
++	if (dlen > q->end - data)
++		return NULL;
++
++	*len = dlen;
++
++	return data;
++}
++
++static void ivshm_net_init_queue(struct ivshm_net *in,
++				 struct ivshm_net_queue *q,
++				 void *mem, unsigned int len)
++{
++	memset(q, 0, sizeof(*q));
++
++	vring_init(&q->vr, len, mem, IVSHM_NET_VQ_ALIGN);
++	q->data = mem + in->vrsize;
++	q->end = q->data + in->qsize;
++	q->size = in->qsize;
++}
++
++static void ivshm_net_init_queues(struct net_device *ndev)
++{
++	struct ivshm_net *in = netdev_priv(ndev);
++	int ivpos = readl(&in->ivshm_regs->ivpos);
++	void *tx;
++	void *rx;
++	int i;
++
++	tx = in->shm +  ivpos * in->shmlen / 2;
++	rx = in->shm + !ivpos * in->shmlen / 2;
++
++	memset(tx, 0, in->shmlen / 2);
++
++	ivshm_net_init_queue(in, &in->rx, rx, in->qlen);
++	ivshm_net_init_queue(in, &in->tx, tx, in->qlen);
++
++	swap(in->rx.vr.used, in->tx.vr.used);
++
++	in->tx.num_free = in->tx.vr.num;
++
++	for (i = 0; i < in->tx.vr.num - 1; i++)
++		in->tx.vr.desc[i].next = i + 1;
++}
++
++static int ivshm_net_calc_qsize(struct net_device *ndev)
++{
++	struct ivshm_net *in = netdev_priv(ndev);
++	unsigned int vrsize;
++	unsigned int qsize;
++	unsigned int qlen;
++
++	for (qlen = 4096; qlen > 32; qlen >>= 1) {
++		vrsize = vring_size(qlen, IVSHM_NET_VQ_ALIGN);
++		vrsize = ALIGN(vrsize, IVSHM_NET_VQ_ALIGN);
++		if (vrsize < in->shmlen / 16)
++			break;
++	}
++
++	if (vrsize > in->shmlen / 2)
++		return -EINVAL;
++
++	qsize = in->shmlen / 2 - vrsize;
++
++	if (qsize < 4 * IVSHM_NET_MTU_MIN)
++		return -EINVAL;
++
++	in->vrsize = vrsize;
++	in->qlen = qlen;
++	in->qsize = qsize;
++
++	return 0;
++}
++
++static void ivshm_net_notify_tx(struct ivshm_net *in, unsigned int num)
++{
++	u16 evt, old, new;
++
++	virt_mb();
++
++	evt = READ_ONCE(vring_avail_event(&in->tx.vr));
++	old = in->tx.last_avail_idx - num;
++	new = in->tx.last_avail_idx;
++
++	if (vring_need_event(evt, new, old)) {
++		writel(in->peer_id << 16, &in->ivshm_regs->doorbell);
++		in->stats.tx_notify++;
++	}
++}
++
++static void ivshm_net_enable_rx_irq(struct ivshm_net *in)
++{
++	vring_avail_event(&in->rx.vr) = in->rx.last_avail_idx;
++	virt_wmb();
++}
++
++static void ivshm_net_notify_rx(struct ivshm_net *in, unsigned int num)
++{
++	u16 evt, old, new;
++
++	virt_mb();
++
++	evt = vring_used_event(&in->rx.vr);
++	old = in->rx.last_used_idx - num;
++	new = in->rx.last_used_idx;
++
++	if (vring_need_event(evt, new, old)) {
++		writel(in->peer_id << 16, &in->ivshm_regs->doorbell);
++		in->stats.rx_notify++;
++	}
++}
++
++static void ivshm_net_enable_tx_irq(struct ivshm_net *in)
++{
++	vring_used_event(&in->tx.vr) = in->tx.last_used_idx;
++	virt_wmb();
++}
++
++static bool ivshm_net_rx_avail(struct ivshm_net *in)
++{
++	virt_mb();
++	return READ_ONCE(in->rx.vr.avail->idx) != in->rx.last_avail_idx;
++}
++
++static size_t ivshm_net_tx_space(struct ivshm_net *in)
++{
++	struct ivshm_net_queue *tx = &in->tx;
++	u32 tail = tx->tail;
++	u32 head = tx->head;
++	u32 space;
++
++	if (head < tail)
++		space = tail - head;
++	else
++		space = max(tx->size - head, tail);
++
++	return space;
++}
++
++static bool ivshm_net_tx_ok(struct ivshm_net *in, unsigned int mtu)
++{
++	return in->tx.num_free >= 2 &&
++		ivshm_net_tx_space(in) >= 2 * IVSHM_NET_FRAME_SIZE(mtu);
++}
++
++static u32 ivshm_net_tx_advance(struct ivshm_net_queue *q, u32 *pos, u32 len)
++{
++	u32 p = *pos;
++
++	len = IVSHM_NET_FRAME_SIZE(len);
++
++	if (q->size - p < len)
++		p = 0;
++	*pos = p + len;
++
++	return p;
++}
++
++static int ivshm_net_tx_frame(struct net_device *ndev, struct sk_buff *skb)
++{
++	struct ivshm_net *in = netdev_priv(ndev);
++	struct ivshm_net_queue *tx = &in->tx;
++	struct vring *vr = &tx->vr;
++	struct vring_desc *desc;
++	unsigned int desc_idx;
++	unsigned int avail;
++	u32 head;
++	void *buf;
++
++	BUG_ON(tx->num_free < 1);
++
++	spin_lock(&in->tx_free_lock);
++	desc_idx = tx->free_head;
++	desc = &vr->desc[desc_idx];
++	tx->free_head = desc->next;
++	tx->num_free--;
++	spin_unlock(&in->tx_free_lock);
++
++	head = ivshm_net_tx_advance(tx, &tx->head, skb->len);
++
++	buf = tx->data + head;
++	skb_copy_and_csum_dev(skb, buf);
++
++	desc->addr = buf - in->shm;
++	desc->len = skb->len;
++	desc->flags = 0;
++
++	avail = tx->last_avail_idx++ & (vr->num - 1);
++	vr->avail->ring[avail] = desc_idx;
++	tx->num_added++;
++
++	if (!skb->xmit_more) {
++		virt_store_release(&vr->avail->idx, tx->last_avail_idx);
++		ivshm_net_notify_tx(in, tx->num_added);
++		tx->num_added = 0;
++	}
++
++	return 0;
++}
++
++static void ivshm_net_tx_clean(struct net_device *ndev)
++{
++	struct ivshm_net *in = netdev_priv(ndev);
++	struct ivshm_net_queue *tx = &in->tx;
++	struct vring_used_elem *used;
++	struct vring *vr = &tx->vr;
++	struct vring_desc *desc;
++	struct vring_desc *fdesc;
++	unsigned int num;
++	u16 used_idx;
++	u16 last;
++	u32 fhead;
++
++	if (!spin_trylock(&in->tx_clean_lock))
++		return;
++
++	used_idx = virt_load_acquire(&vr->used->idx);
++	last = tx->last_used_idx;
++
++	fdesc = NULL;
++	fhead = 0;
++	num = 0;
++
++	while (last != used_idx) {
++		void *data;
++		u32 len;
++		u32 tail;
++
++		used = vr->used->ring + (last % vr->num);
++		if (used->id >= vr->num || used->len != 1) {
++			netdev_err(ndev, "invalid tx used->id %d ->len %d\n",
++				   used->id, used->len);
++			break;
++		}
++
++		desc = &vr->desc[used->id];
++
++		data = ivshm_net_desc_data(in, &in->tx, desc, &len);
++		if (!data) {
++			netdev_err(ndev, "bad tx descriptor, data == NULL\n");
++			break;
++		}
++
++		tail = ivshm_net_tx_advance(tx, &tx->tail, len);
++		if (data != tx->data + tail) {
++			netdev_err(ndev, "bad tx descriptor\n");
++			break;
++		}
++
++		if (!num)
++			fdesc = desc;
++		else
++			desc->next = fhead;
++
++		fhead = used->id;
++		last++;
++		num++;
++	}
++
++	tx->last_used_idx = last;
++
++	spin_unlock(&in->tx_clean_lock);
++
++	if (num) {
++		spin_lock(&in->tx_free_lock);
++		fdesc->next = tx->free_head;
++		tx->free_head = fhead;
++		tx->num_free += num;
++		BUG_ON(tx->num_free > vr->num);
++		spin_unlock(&in->tx_free_lock);
++	}
++}
++
++static struct vring_desc *ivshm_net_rx_desc(struct net_device *ndev)
++{
++	struct ivshm_net *in = netdev_priv(ndev);
++	struct ivshm_net_queue *rx = &in->rx;
++	struct vring *vr = &rx->vr;
++	unsigned int avail;
++	u16 avail_idx;
++
++	avail_idx = virt_load_acquire(&vr->avail->idx);
++
++	if (avail_idx == rx->last_avail_idx)
++		return NULL;
++
++	avail = vr->avail->ring[rx->last_avail_idx++ & (vr->num - 1)];
++	if (avail >= vr->num) {
++		netdev_err(ndev, "invalid rx avail %d\n", avail);
++		return NULL;
++	}
++
++	return &vr->desc[avail];
++}
++
++static void ivshm_net_rx_finish(struct ivshm_net *in, struct vring_desc *desc)
++{
++	struct ivshm_net_queue *rx = &in->rx;
++	struct vring *vr = &rx->vr;
++	unsigned int desc_id = desc - vr->desc;
++	unsigned int used;
++
++	used = rx->last_used_idx++ & (vr->num - 1);
++	vr->used->ring[used].id = desc_id;
++	vr->used->ring[used].len = 1;
++
++	virt_store_release(&vr->used->idx, rx->last_used_idx);
++}
++
++static int ivshm_net_poll(struct napi_struct *napi, int budget)
++{
++	struct net_device *ndev = napi->dev;
++	struct ivshm_net *in = container_of(napi, struct ivshm_net, napi);
++	int received = 0;
++
++	in->stats.napi_poll++;
++
++	ivshm_net_tx_clean(ndev);
++
++	while (received < budget) {
++		struct vring_desc *desc;
++		struct sk_buff *skb;
++		void *data;
++		u32 len;
++
++		desc = ivshm_net_rx_desc(ndev);
++		if (!desc)
++			break;
++
++		data = ivshm_net_desc_data(in, &in->rx, desc, &len);
++		if (!data) {
++			netdev_err(ndev, "bad rx descriptor\n");
++			break;
++		}
++
++		skb = napi_alloc_skb(napi, len);
++
++		if (skb) {
++			memcpy(skb_put(skb, len), data, len);
++			skb->protocol = eth_type_trans(skb, ndev);
++			napi_gro_receive(napi, skb);
++		}
++
++		ndev->stats.rx_packets++;
++		ndev->stats.rx_bytes += len;
++
++		ivshm_net_rx_finish(in, desc);
++		received++;
++	}
++
++	if (received < budget) {
++		in->stats.napi_complete++;
++		napi_complete_done(napi, received);
++		ivshm_net_enable_rx_irq(in);
++		if (ivshm_net_rx_avail(in))
++			napi_schedule(napi);
++	}
++
++	if (received)
++		ivshm_net_notify_rx(in, received);
++
++	in->stats.rx_packets += received;
++	in->stats.napi_poll_n[received ? 1 + min(ilog2(received), 8) : 0]++;
++
++	if (ivshm_net_tx_ok(in, ndev->mtu))
++		netif_wake_queue(ndev);
++
++	return received;
++}
++
++static netdev_tx_t ivshm_net_xmit(struct sk_buff *skb, struct net_device *ndev)
++{
++	struct ivshm_net *in = netdev_priv(ndev);
++
++	ivshm_net_tx_clean(ndev);
++
++	if (!ivshm_net_tx_ok(in, ndev->mtu)) {
++		ivshm_net_enable_tx_irq(in);
++		netif_stop_queue(ndev);
++		skb->xmit_more = 0;
++		in->stats.tx_pause++;
++	}
++
++	ivshm_net_tx_frame(ndev, skb);
++
++	in->stats.tx_packets++;
++	ndev->stats.tx_packets++;
++	ndev->stats.tx_bytes += skb->len;
++
++	dev_consume_skb_any(skb);
++
++	return NETDEV_TX_OK;
++}
++
++static void ivshm_net_set_state(struct ivshm_net *in, u32 state)
++{
++	virt_wmb();
++	WRITE_ONCE(in->lstate, state);
++	writel(state, &in->ivshm_regs->lstate);
++}
++
++static void ivshm_net_run(struct net_device *ndev)
++{
++	struct ivshm_net *in = netdev_priv(ndev);
++
++	if (in->lstate < IVSHM_NET_STATE_READY)
++		return;
++
++	if (!netif_running(ndev))
++		return;
++
++	if (test_and_set_bit(IVSHM_NET_FLAG_RUN, &in->flags))
++		return;
++
++	netif_start_queue(ndev);
++	napi_enable(&in->napi);
++	napi_schedule(&in->napi);
++	ivshm_net_set_state(in, IVSHM_NET_STATE_RUN);
++}
++
++static void ivshm_net_do_stop(struct net_device *ndev)
++{
++	struct ivshm_net *in = netdev_priv(ndev);
++
++	ivshm_net_set_state(in, IVSHM_NET_STATE_RESET);
++
++	if (!test_and_clear_bit(IVSHM_NET_FLAG_RUN, &in->flags))
++		return;
++
++	netif_stop_queue(ndev);
++	napi_disable(&in->napi);
++}
++
++static void ivshm_net_state_change(struct work_struct *work)
++{
++	struct ivshm_net *in = container_of(work, struct ivshm_net, state_work);
++	struct net_device *ndev = in->napi.dev;
++	u32 rstate = readl(&in->ivshm_regs->rstate);
++
++	switch (in->lstate) {
++	case IVSHM_NET_STATE_RESET:
++		/*
++		 * Wait for the remote to leave READY/RUN before transitioning
++		 * to INIT.
++		 */
++		if (rstate < IVSHM_NET_STATE_READY)
++			ivshm_net_set_state(in, IVSHM_NET_STATE_INIT);
++		break;
++
++	case IVSHM_NET_STATE_INIT:
++		/*
++		 * Wait for the remote to leave RESET before performing the
++		 * initialization and moving to READY.
++		 */
++		if (rstate > IVSHM_NET_STATE_RESET) {
++			ivshm_net_init_queues(ndev);
++			ivshm_net_set_state(in, IVSHM_NET_STATE_READY);
++
++			rtnl_lock();
++			call_netdevice_notifiers(NETDEV_CHANGEADDR, ndev);
++			rtnl_unlock();
++		}
++		break;
++
++	case IVSHM_NET_STATE_READY:
++		/*
++		 * Link is up and we are running once the remote is in READY or
++		 * RUN.
++		 */
++		if (rstate >= IVSHM_NET_STATE_READY) {
++			netif_carrier_on(ndev);
++			ivshm_net_run(ndev);
++			break;
++		}
++		/* fall through */
++	case IVSHM_NET_STATE_RUN:
++		/*
++		 * If the remote goes to RESET, we need to follow immediately.
++		 */
++		if (rstate == IVSHM_NET_STATE_RESET) {
++			netif_carrier_off(ndev);
++			ivshm_net_do_stop(ndev);
++		}
++		break;
++	}
++
++	virt_wmb();
++	WRITE_ONCE(in->rstate, rstate);
++}
++
++static void ivshm_net_check_state(struct net_device *ndev)
++{
++	struct ivshm_net *in = netdev_priv(ndev);
++	u32 rstate = readl(&in->ivshm_regs->rstate);
++
++	if (rstate != in->rstate || !test_bit(IVSHM_NET_FLAG_RUN, &in->flags))
++		queue_work(in->state_wq, &in->state_work);
++}
++
++static irqreturn_t ivshm_net_int(int irq, void *data)
++{
++	struct net_device *ndev = data;
++	struct ivshm_net *in = netdev_priv(ndev);
++
++	in->stats.interrupts++;
++
++	ivshm_net_check_state(ndev);
++	napi_schedule_irqoff(&in->napi);
++
++	return IRQ_HANDLED;
++}
++
++static int ivshm_net_open(struct net_device *ndev)
++{
++	netdev_reset_queue(ndev);
++	ndev->operstate = IF_OPER_UP;
++	ivshm_net_run(ndev);
++
++	return 0;
++}
++
++static int ivshm_net_stop(struct net_device *ndev)
++{
++	ndev->operstate = IF_OPER_DOWN;
++	ivshm_net_do_stop(ndev);
++
++	return 0;
++}
++
++static int ivshm_net_change_mtu(struct net_device *ndev, int mtu)
++{
++	struct ivshm_net *in = netdev_priv(ndev);
++	struct ivshm_net_queue *tx = &in->tx;
++
++	if (mtu < IVSHM_NET_MTU_MIN || mtu > IVSHM_NET_MTU_MAX)
++		return -EINVAL;
++
++	if (in->tx.size / mtu < 4)
++		return -EINVAL;
++
++	if (ivshm_net_tx_space(in) < 2 * IVSHM_NET_FRAME_SIZE(mtu))
++		return -EBUSY;
++
++	if (in->tx.size - tx->head < IVSHM_NET_FRAME_SIZE(mtu) &&
++	    tx->head < tx->tail)
++		return -EBUSY;
++
++	netif_tx_lock_bh(ndev);
++	if (in->tx.size - tx->head < IVSHM_NET_FRAME_SIZE(mtu))
++		tx->head = 0;
++	netif_tx_unlock_bh(ndev);
++
++	ndev->mtu = mtu;
++
++	return 0;
++}
++
++#ifdef CONFIG_NET_POLL_CONTROLLER
++static void ivshm_net_poll_controller(struct net_device *ndev)
++{
++	struct ivshm_net *in = netdev_priv(ndev);
++
++	napi_schedule(&in->napi);
++}
++#endif
++
++static const struct net_device_ops ivshm_net_ops = {
++	.ndo_open		= ivshm_net_open,
++	.ndo_stop		= ivshm_net_stop,
++	.ndo_start_xmit		= ivshm_net_xmit,
++	.ndo_change_mtu		= ivshm_net_change_mtu,
++	.ndo_set_mac_address 	= eth_mac_addr,
++	.ndo_validate_addr	= eth_validate_addr,
++#ifdef CONFIG_NET_POLL_CONTROLLER
++	.ndo_poll_controller	= ivshm_net_poll_controller,
++#endif
++};
++
++static const char ivshm_net_stats[][ETH_GSTRING_LEN] = {
++	"interrupts",
++	"tx_packets",
++	"tx_notify",
++	"tx_pause",
++	"rx_packets",
++	"rx_notify",
++	"napi_poll",
++	"napi_complete",
++	"napi_poll_0",
++	"napi_poll_1",
++	"napi_poll_2",
++	"napi_poll_4",
++	"napi_poll_8",
++	"napi_poll_16",
++	"napi_poll_32",
++	"napi_poll_64",
++	"napi_poll_128",
++	"napi_poll_256",
++};
++
++#define NUM_STATS ARRAY_SIZE(ivshm_net_stats)
++
++static int ivshm_net_get_sset_count(struct net_device *ndev, int sset)
++{
++	if (sset == ETH_SS_STATS)
++		return NUM_STATS;
++
++	return -EOPNOTSUPP;
++}
++
++static void ivshm_net_get_strings(struct net_device *ndev, u32 sset, u8 *buf)
++{
++	if (sset == ETH_SS_STATS)
++		memcpy(buf, &ivshm_net_stats, sizeof(ivshm_net_stats));
++}
++
++static void ivshm_net_get_ethtool_stats(struct net_device *ndev,
++					struct ethtool_stats *estats, u64 *st)
++{
++	struct ivshm_net *in = netdev_priv(ndev);
++	unsigned int n = 0;
++	unsigned int i;
++
++	st[n++] = in->stats.interrupts;
++	st[n++] = in->stats.tx_packets;
++	st[n++] = in->stats.tx_notify;
++	st[n++] = in->stats.tx_pause;
++	st[n++] = in->stats.rx_packets;
++	st[n++] = in->stats.rx_notify;
++	st[n++] = in->stats.napi_poll;
++	st[n++] = in->stats.napi_complete;
++
++	for (i = 0; i < ARRAY_SIZE(in->stats.napi_poll_n); i++)
++		st[n++] = in->stats.napi_poll_n[i];
++
++	memset(&in->stats, 0, sizeof(in->stats));
++}
++
++#define IVSHM_NET_REGS_LEN	(3 * sizeof(u32) + 6 * sizeof(u16))
++
++static int ivshm_net_get_regs_len(struct net_device *ndev)
++{
++	return IVSHM_NET_REGS_LEN;
++}
++
++static void ivshm_net_get_regs(struct net_device *ndev,
++			       struct ethtool_regs *regs, void *p)
++{
++	struct ivshm_net *in = netdev_priv(ndev);
++	u32 *reg32 = p;
++	u16 *reg16;
++
++	*reg32++ = in->lstate;
++	*reg32++ = in->rstate;
++	*reg32++ = in->qlen;
++
++	reg16 = (u16 *)reg32;
++
++	*reg16++ = in->tx.vr.avail ? in->tx.vr.avail->idx : 0;
++	*reg16++ = in->tx.vr.used ? in->tx.vr.used->idx : 0;
++	*reg16++ = in->tx.vr.avail ? vring_avail_event(&in->tx.vr) : 0;
++
++	*reg16++ = in->rx.vr.avail ? in->rx.vr.avail->idx : 0;
++	*reg16++ = in->rx.vr.used ? in->rx.vr.used->idx : 0;
++	*reg16++ = in->rx.vr.avail ? vring_avail_event(&in->rx.vr) : 0;
++}
++
++static const struct ethtool_ops ivshm_net_ethtool_ops = {
++	.get_sset_count		= ivshm_net_get_sset_count,
++	.get_strings		= ivshm_net_get_strings,
++	.get_ethtool_stats	= ivshm_net_get_ethtool_stats,
++	.get_regs_len		= ivshm_net_get_regs_len,
++	.get_regs		= ivshm_net_get_regs,
++};
++
++static int ivshm_net_probe(struct pci_dev *pdev,
++			   const struct pci_device_id *id)
++{
++	struct net_device *ndev;
++	struct ivshm_net *in;
++	struct ivshmem_regs __iomem *regs;
++	resource_size_t shmaddr;
++	resource_size_t shmlen;
++	char *device_name;
++	void *shm;
++	u32 ivpos;
++	int ret;
++
++	ret = pcim_enable_device(pdev);
++	if (ret) {
++		dev_err(&pdev->dev, "pci_enable_device: %d\n", ret);
++		return ret;
++	}
++
++	ret = pcim_iomap_regions(pdev, BIT(0), DRV_NAME);
++	if (ret) {
++		dev_err(&pdev->dev, "pcim_iomap_regions: %d\n", ret);
++		return ret;
++	}
++
++	regs = pcim_iomap_table(pdev)[0];
++
++	shmlen = pci_resource_len(pdev, 2);
++
++	if (shmlen) {
++		shmaddr = pci_resource_start(pdev, 2);
++	} else {
++		union { u64 v; u32 hl[2]; } val;
++
++		pci_read_config_dword(pdev, JAILHOUSE_CFG_SHMEM_PTR,
++				      &val.hl[0]);
++		pci_read_config_dword(pdev, JAILHOUSE_CFG_SHMEM_PTR + 4,
++				      &val.hl[1]);
++		shmaddr = val.v;
++
++		pci_read_config_dword(pdev, JAILHOUSE_CFG_SHMEM_SZ,
++				      &val.hl[0]);
++		pci_read_config_dword(pdev, JAILHOUSE_CFG_SHMEM_SZ + 4,
++				      &val.hl[1]);
++		shmlen = val.v;
++	}
++
++
++	if (!devm_request_mem_region(&pdev->dev, shmaddr, shmlen, DRV_NAME))
++		return -EBUSY;
++
++	shm = devm_memremap(&pdev->dev, shmaddr, shmlen, MEMREMAP_WB);
++	if (!shm)
++		return -ENOMEM;
++
++	ivpos = readl(&regs->ivpos);
++	if (ivpos > 1) {
++		dev_err(&pdev->dev, "invalid IVPosition %d\n", ivpos);
++		return -EINVAL;
++	}
++
++	device_name = devm_kasprintf(&pdev->dev, GFP_KERNEL, "%s[%s]", DRV_NAME,
++				     dev_name(&pdev->dev));
++	if (!device_name)
++		return -ENOMEM;
++
++	ndev = alloc_etherdev(sizeof(*in));
++	if (!ndev)
++		return -ENOMEM;
++
++	pci_set_drvdata(pdev, ndev);
++	SET_NETDEV_DEV(ndev, &pdev->dev);
++
++	in = netdev_priv(ndev);
++	in->ivshm_regs = regs;
++	in->shm = shm;
++	in->shmaddr = shmaddr;
++	in->shmlen = shmlen;
++	in->peer_id = !ivpos;
++	in->pdev = pdev;
++	spin_lock_init(&in->tx_free_lock);
++	spin_lock_init(&in->tx_clean_lock);
++
++	ret = ivshm_net_calc_qsize(ndev);
++	if (ret)
++		goto err_free;
++
++	in->state_wq = alloc_ordered_workqueue(device_name, 0);
++	if (!in->state_wq)
++		goto err_free;
++
++	INIT_WORK(&in->state_work, ivshm_net_state_change);
++
++	eth_random_addr(ndev->dev_addr);
++	ndev->netdev_ops = &ivshm_net_ops;
++	ndev->ethtool_ops = &ivshm_net_ethtool_ops;
++	ndev->mtu = min_t(u32, IVSHM_NET_MTU_DEF, in->qsize / 16);
++	ndev->hw_features = NETIF_F_HW_CSUM | NETIF_F_SG;
++	ndev->features = ndev->hw_features;
++
++	netif_carrier_off(ndev);
++	netif_napi_add(ndev, &in->napi, ivshm_net_poll, NAPI_POLL_WEIGHT);
++
++	ret = register_netdev(ndev);
++	if (ret)
++		goto err_wq;
++
++	ret = pci_alloc_irq_vectors(pdev, 1, 1, PCI_IRQ_LEGACY | PCI_IRQ_MSIX);
++	if (ret < 0)
++		goto err_alloc_irq;
++
++	ret = request_irq(pci_irq_vector(pdev, 0), ivshm_net_int, 0,
++			  device_name, ndev);
++	if (ret)
++		goto err_request_irq;
++
++	pci_set_master(pdev);
++	if (!pdev->msix_enabled)
++		writel(IVSHMEM_INTX_ENABLE, &in->ivshm_regs->intxctrl);
++
++	writel(IVSHM_NET_STATE_RESET, &in->ivshm_regs->lstate);
++	ivshm_net_check_state(ndev);
++
++	return 0;
++
++err_request_irq:
++	pci_free_irq_vectors(pdev);
++err_alloc_irq:
++	unregister_netdev(ndev);
++err_wq:
++	destroy_workqueue(in->state_wq);
++err_free:
++	free_netdev(ndev);
++
++	return ret;
++}
++
++static void ivshm_net_remove(struct pci_dev *pdev)
++{
++	struct net_device *ndev = pci_get_drvdata(pdev);
++	struct ivshm_net *in = netdev_priv(ndev);
++
++	writel(IVSHM_NET_STATE_RESET, &in->ivshm_regs->lstate);
++
++	if (!pdev->msix_enabled)
++		writel(0, &in->ivshm_regs->intxctrl);
++	free_irq(pci_irq_vector(pdev, 0), ndev);
++	pci_free_irq_vectors(pdev);
++
++	unregister_netdev(ndev);
++	cancel_work_sync(&in->state_work);
++	destroy_workqueue(in->state_wq);
++	free_netdev(ndev);
++}
++
++static const struct pci_device_id ivshm_net_id_table[] = {
++	{ PCI_DEVICE(PCI_VENDOR_ID_REDHAT_QUMRANET, 0x1110),
++		(PCI_CLASS_OTHERS << 16) | (0x01 << 8), 0xffff00 },
++	{ 0 }
++};
++MODULE_DEVICE_TABLE(pci, ivshm_net_id_table);
++
++static struct pci_driver ivshm_net_driver = {
++	.name		= DRV_NAME,
++	.id_table	= ivshm_net_id_table,
++	.probe		= ivshm_net_probe,
++	.remove		= ivshm_net_remove,
++};
++module_pci_driver(ivshm_net_driver);
++
++MODULE_AUTHOR("Mans Rullgard <mans@mansr.com>");
++MODULE_LICENSE("GPL");
 -- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/2dc1d2cb-4bb4-03a4-6716-f2311cb10b06%40web.de.
+2.7.4
+
+
+------=_Part_1383_1907750917.1566786446897--
