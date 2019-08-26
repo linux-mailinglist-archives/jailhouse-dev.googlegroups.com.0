@@ -1,67 +1,112 @@
-Return-Path: <jailhouse-dev+bncBCR7PPMN34DRBQUWSDVQKGQECNRVNVI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB7FBSDVQKGQEYYTV5LY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x340.google.com (mail-ot1-x340.google.com [IPv6:2607:f8b0:4864:20::340])
-	by mail.lfdr.de (Postfix) with ESMTPS id B820C9D42B
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 26 Aug 2019 18:39:31 +0200 (CEST)
-Received: by mail-ot1-x340.google.com with SMTP id k70sf10410884otk.6
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 26 Aug 2019 09:39:31 -0700 (PDT)
+Received: from mail-ed1-x53c.google.com (mail-ed1-x53c.google.com [IPv6:2a00:1450:4864:20::53c])
+	by mail.lfdr.de (Postfix) with ESMTPS id BCCBF9D498
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 26 Aug 2019 19:03:56 +0200 (CEST)
+Received: by mail-ed1-x53c.google.com with SMTP id k37sf9926255eda.7
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 26 Aug 2019 10:03:56 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1566839036; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=iFi4LWqa6mzVc1a+zL62qsoP0HlFVYW06T+STlDRIEPMPJhyN8Norpy3oYh4NemyEq
+         FUg4RJKZU4DZ08P3Ye2m5+jjsPQHCREcA7CWIcmqQdCK9uCD6pQ6PDTz2EJxZTy4zCvY
+         mvyiDmlRHvk8owdY8DVpXU/GOp/zJON5JAkl1+dBIb4qs604E+cngVmDLPAfVuZYsYHZ
+         liLhdHwx4fg+ZAqdpbtKgv9SW2Hjjv7/RFMI9esSHoaHog3dfhnxlL/SiOQDUFUyhGKA
+         mUWdZYF0DpX1Y0ig5IwRAoTj0TfubwVEbscEDjLvAjxmiXe8K/I+vEJakHCv3drNrE+o
+         yPLQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=LpKmZ4cCDc0hJZfW96WJUfltfODdd/JQAf3jCaS/1xo=;
+        b=aCDWYZcRGaoKQyJKTJ2egz73gV3LtfMwi4Q3Ckhim5lzeeZ00tOD0ys8Ev0R0ozzm/
+         kUASmRN4GIU2tUpi4y+tFrN+hN5zwJx0t//x4wKeZ46tmMVn4Kht2L5ELJjYVKk06ev7
+         gmbqIWLBdHmXd0ZWfLIm2mQU9TzB8IzR7N/Osua7b1nI8J7q0kqn+85V+gdN7q3uIW1Y
+         4WmD7mPZmNHIx9gn5Wa48mIKvnBXbp2NYhkfiVlzFD6jyvzvATcWPZEtCATGKhiEi+Qi
+         tLnDlc7L3OS1Jl3P1K09zfGsgHhX2y+QJ3BzOqQctcAiqBkldTtO4D4ci4WdbWSAQWK4
+         endw==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=Te9n5T6QNQt8PN65NsX6NRk98JpuhtoWx6Uu1H2hVbY=;
-        b=py5gsJj/Gik4peY5ckighJooxTIyxHrOu90BS1ZMFbG66tQWYvZ7oKxmJyu+pRN6GZ
-         yefZDSYMDx1U0KZb1kVPztPwYokGsZd7TwV0q792+GLmtTDO95NUPv6BiLD1oh6ufO/o
-         6KEkseGRHZU+WfY/g7aYNlvYRSs3bO6KMPdS8iYkjQODQpYno+gjEuur1cxRYGGmFIes
-         QutDUUG/a0LKEW0T4kp5Xsbdmx+a2oQGIjfOnp/8axaTMnVIt1Oq/qY1LHglCWupQEhe
-         YepIcV2usT71HYXanLNxY9NF5Btg3wv0zesdVRwDLLSxPT5AZZCXq2bhYRKOWfiWC8Nc
-         BQrQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=Te9n5T6QNQt8PN65NsX6NRk98JpuhtoWx6Uu1H2hVbY=;
-        b=U1ION7Dp1NiL7lfxLNfqaMEzOQXSMcYgMiYu/A3ALQxunTJ7MTHp9cWhaYiFfb2b/l
-         O6kqnyNEc+pMi/Dr5r/ElIvDREfjHnFR1YWOJ450y9UiBenPsLDgrMGglOtl8fO4D2pW
-         Z1gjW2qKBIomh43HX1oVFwg5D6S3cq9Aw1Kj7ODl6hHYNFYJEsLkPRyUmKy1mDiX1tcp
-         go7IJW/3GsG/xDXv8m3ruOFwFjDudF78TEUNvA1w6ASg9mjlDs7bXq4eGUyk2r3XNxhw
-         bzYrUvCYzLO66vQjz8W38/P25w2ICVfl6enOaZ6HDemO33G835NrT+2Wn2DVwVabPCCw
-         bRwA==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=LpKmZ4cCDc0hJZfW96WJUfltfODdd/JQAf3jCaS/1xo=;
+        b=VUHmQdCGY4Ho0Mcd2zl/0UExuVoGcAVwXbIcAIYjAt7eovTb4r6fOYbJzvoIVBJXrT
+         ixGSf/OmRxMTjU2crJyrkui0PplUcoiJSjCy64tbkVml9ILgZ4tIN3sXJyQLD144YB+h
+         dvfPPDcCn5l5EQf2T0r3NJjeEjIJJVvNt21jrW3esIYIWYKBLtXH3Jglq8JnRkMBdF1a
+         bzgYdItya33+pUPJPdFCX9V/JOtDU1qLFuSlnrhtlLoDzjY7eCdB54lh+IqT8GUJX6Mq
+         b481CosMBsfqcoObw/OKNvZAV0HFUZ/mO1S3hL/jMv/s5PES+Ab3zMhtfVSm8eXLKF6z
+         nI+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=Te9n5T6QNQt8PN65NsX6NRk98JpuhtoWx6Uu1H2hVbY=;
-        b=BDf6qpnmXGT/heU8FXLXLEWXUt8ctcr1PsLYNa9kR4vEugXNDx8uA2Vjlj2lc1FH5o
-         T22j54blo7dqNtLYBy+3lIlTKugm1e9cur1uzPD3cNUJzV47xTHDZ4sL2GWBg4CIhPJM
-         pphyXHwMIGrbHBYP/sh0Lyy1ugst8uyWAgottVjnMBK836AGm4ynqKmGuaoLcYOa/VYE
-         opLqyMYooHCMUIbHEScgD5vieuo8cxdlAhFjLSXheW/L3QIm8xn8i82DgF9tUCxVZVzu
-         mwNqtdQ01aGgNbiRG53hx4D4Q65PIEGvafw1FVHob1ME99Qf88On8FjcSWZyGnXI9AKx
-         VdKg==
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=LpKmZ4cCDc0hJZfW96WJUfltfODdd/JQAf3jCaS/1xo=;
+        b=PzYKEomOoGOOLOGUYcopTguhvEQDjDG3uW4ufm6rxhg67XbPoEK8sLsxVqsQE45+Is
+         khEEcFzP6IXgAoEew4d45hxwdCpcISmp45F02pOoOUJN1xBtr7rbByfujbO1AJ2ewp9M
+         B5AEE0GL7II1cAXnhj4dzeMyWYetkoptYbLWvjIMUWM5t4rZAmGn9wDFkmbTSoLt8Ua5
+         AQ72mPAedmoSnhBeal6qhqe1BTNS06HU77pxu7VHjIYCm3pOB+OB+UNhBO2A1n1juovY
+         3xUDPo4VCCEmA0LedyfEpjd+fQM2D79S3NsstG3WM1ZdpMy3ex93YPYnmcazTRDkMdkt
+         Rnrw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVMIgsWyuDBk5gFdKE/Dnovw0F6bBARc30f1zjoQpugrBpeIlI0
-	Z6EXmKaGfl2io8YjwSS5Kx0=
-X-Google-Smtp-Source: APXvYqywcQMfIyNS+0LeLnNHRq9HsB5s2qJitObwSxLONrWotq+gf5d8di5CCCZsJguXJpHi/dhDrg==
-X-Received: by 2002:a9d:63c7:: with SMTP id e7mr16491774otl.165.1566837570467;
-        Mon, 26 Aug 2019 09:39:30 -0700 (PDT)
+X-Gm-Message-State: APjAAAUQRz6fnLMqKFb9llQ1PcpJb8vn4EmG6ynUMz3QldCyjKsXus2C
+	/patCByXpuzDTXpJ0S+R+PE=
+X-Google-Smtp-Source: APXvYqz9T233WGlEvF0OBpVPYZe9rcGSDvUT3ww/Bhht/5aqFeItoNq2hmAPLCsQ1RIVHZwTQ45mTw==
+X-Received: by 2002:a17:906:2a8f:: with SMTP id l15mr17861548eje.146.1566839036448;
+        Mon, 26 Aug 2019 10:03:56 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6830:1e97:: with SMTP id n23ls406884otr.5.gmail; Mon, 26
- Aug 2019 09:39:30 -0700 (PDT)
-X-Received: by 2002:a05:6830:1188:: with SMTP id u8mr9211687otq.150.1566837569948;
-        Mon, 26 Aug 2019 09:39:29 -0700 (PDT)
-Date: Mon, 26 Aug 2019 09:39:29 -0700 (PDT)
-From: =?UTF-8?Q?Jo=C3=A3o_Reis?= <jpagsreis@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <71ab42b5-b8c9-4392-9575-759f6eb899a0@googlegroups.com>
-In-Reply-To: <4fe67562-ffb1-a306-542e-c27b0450bca1@web.de>
+Received: by 2002:a17:906:8599:: with SMTP id v25ls5665288ejx.5.gmail; Mon, 26
+ Aug 2019 10:03:55 -0700 (PDT)
+X-Received: by 2002:a17:906:19d3:: with SMTP id h19mr17976749ejd.58.1566839035783;
+        Mon, 26 Aug 2019 10:03:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1566839035; cv=none;
+        d=google.com; s=arc-20160816;
+        b=vDUkGtYti1KNEtPX6zvOKZ7mNyHGVXHdNmn752jiDjsNlioW+H2Nwc6tdC5wKVVcoY
+         OROmmPhn04JzQqDqVO8TfU/G3rLKIQqTcIfPmdIiPuS1hsY8sVDDP2lxWvDOrsHIKA/G
+         N28dZKa5zupRjr/RUtvmjvNxECT5whe2FTgs8By2wsurt1wTr74/YcXl/EBF2QrLEBlK
+         2ZTF63DqMB9C0UMxlR+BHy3bSTzmuflaTYR46YiS6/dPtrCbvqcsluCwID53NIYKVzX5
+         9StLUYMhOn9LorhZySCxXZ5YE2pQsTaEylR1QpEoC6lLZXYSpBtfg/jakR7bQZeSv2bO
+         /GQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=cfAWw3c3CVr5r5cW//rzi/7sepevoPffcChbA2ePaJc=;
+        b=MYxhpBd+NPOH9MnX44UqFl6fJc2K7vkkZ3rxtzR5XZyI9odVkEKU2NXLRRzlJ9ADFP
+         7uhu08xLVQD3SZeBXZTPJgXQ7IbhFCVVbAb0YXRhN+/+zK0AKnGtAq0xeti6gAahE/Hj
+         EEqnp7nbHNdia3sE1nZerAFOulQDJF+HlwUXVJkjBrzxQw9F9uCHkjNPkO1O0QfToLDz
+         R1yUkVrZYiWHzGvKUXsjskRmAfn9Ezzkg8wJqLf8GrZZyAXH3X5x3f1h3+mgqdabZr48
+         nzntn0AW/ev5ffNqc6I+h1qOEbzPGpWHoRh6W7BduuleeuH4fEQZkEkvyyLpp/PxJBZU
+         uFzg==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
+        by gmr-mx.google.com with ESMTPS id d22si491413edq.5.2019.08.26.10.03.55
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 26 Aug 2019 10:03:55 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id x7QH3tfe012653
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 26 Aug 2019 19:03:55 +0200
+Received: from [139.25.68.37] (md1q0hnc.ad001.siemens.net [139.25.68.37] (may be forged))
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id x7QH3tbT026866;
+	Mon, 26 Aug 2019 19:03:55 +0200
+Subject: Re: Colored Linux as inmate
+To: =?UTF-8?Q?Jo=c3=a3o_Reis?= <jpagsreis@gmail.com>,
+        Jailhouse <jailhouse-dev@googlegroups.com>
 References: <885a6592-84d9-43f4-a037-10ce73f968ab@googlegroups.com>
- <43d8fdde-153f-40ec-8974-4388efab8315@googlegroups.com>
- <c30da773-76bd-3691-3828-e8f7ed592d52@siemens.com>
  <12a82b12-b9bd-4258-87fb-9525f4bb648a@googlegroups.com>
  <5fe86ed7-e82f-3fef-6eef-a888e4ef6be7@siemens.com>
  <1ebfd29b-3c2d-490d-bd2d-c7cbdad1507c@googlegroups.com>
@@ -78,11 +123,22 @@ References: <885a6592-84d9-43f4-a037-10ce73f968ab@googlegroups.com>
  <67cdfa4b-86e9-496a-3878-b5a0016b75c0@siemens.com>
  <521c355a-eacc-434e-b50d-dd7c797be08a@googlegroups.com>
  <4fe67562-ffb1-a306-542e-c27b0450bca1@web.de>
-Subject: Re: Colored Linux as inmate
+ <71ab42b5-b8c9-4392-9575-759f6eb899a0@googlegroups.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <1c8ad7db-eb23-034d-dbad-33267d4227f1@siemens.com>
+Date: Mon, 26 Aug 2019 19:03:54 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_1883_526429622.1566837569310"
-X-Original-Sender: jpagsreis@gmail.com
+In-Reply-To: <71ab42b5-b8c9-4392-9575-759f6eb899a0@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -95,53 +151,21 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1883_526429622.1566837569310
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_1884_1670630965.1566837569310"
+On 26.08.19 18:39, Jo=C3=A3o Reis wrote:
+> Thank you, that worked!
+> But when i connect to non-root cell using ssh, i issue commands like "cat=
+=20
+> /proc/iomem", and it still displays the contents if i was still in root c=
+ell. Is=20
+> it normal?
 
-------=_Part_1884_1670630965.1566837569310
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Are you using the same device tree for the non-root cell? Then no surprise.
 
-Thank you, that worked!
-But when i connect to non-root cell using ssh, i issue commands like "cat=
-=20
-/proc/iomem", and it still displays the contents if i was still in root=20
-cell. Is it normal?
+Jan
 
-segunda-feira, 26 de Agosto de 2019 =C3=A0s 07:02:08 UTC+1, Jan Kiszka escr=
-eveu:
->
-> On 26.08.19 04:39, Jo=C3=A3o Reis wrote:=20
-> > After adding the driver and starting the non-root Linux, i can see in=
-=20
-> console=20
-> > the link between root and non-root being established.=20
-> > "Adding virtual PCI device 00:01.0 to cell "linux-non-root=20
-> >    Shared memory connection established: "linux-non-root" <--> "root"".=
-=20
-> >=20
-> > I can see the interrupt of ivshmem-net in /proc/interrupts and when i=
-=20
-> issue=20
-> > "lspci" i can see the pci device listed with ivshmem-net driver attache=
-d=20
-> to it.=20
-> > But, when i issue "ifconfig" i don't find any interface besides loopbac=
-k=20
-> and my=20
-> > pc's interface, supposedly i would have to see linux non-root interface=
-.=20
-> Is=20
-> > there something missing (some driver maybe)?=20
-> >=20
->
-> ifconfig <ethX> up? If the driver is attached, the interface must exist.=
-=20
-> ifconfig -a will tell you the name.=20
->
-> Jan=20
->
+--=20
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+Corporate Competence Center Embedded Linux
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -149,59 +173,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/71ab42b5-b8c9-4392-9575-759f6eb899a0%40googlegroups.com.
-
-------=_Part_1884_1670630965.1566837569310
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Thank you, that worked!<div>But when i connect to non-root=
- cell using ssh, i issue commands like &quot;cat /proc/iomem&quot;, and it =
-still displays the contents if i was still in root cell. Is it normal?<br><=
-br>segunda-feira, 26 de Agosto de 2019 =C3=A0s 07:02:08 UTC+1, Jan Kiszka e=
-screveu:<blockquote class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0=
-.8ex;border-left: 1px #ccc solid;padding-left: 1ex;">On 26.08.19 04:39, Jo=
-=C3=A3o Reis wrote:
-<br>&gt; After adding the driver and starting the non-root Linux, i can see=
- in console
-<br>&gt; the link between root and non-root being established.
-<br>&gt; &quot;Adding virtual PCI device 00:01.0 to cell &quot;linux-non-ro=
-ot
-<br>&gt; =C2=A0=C2=A0 Shared memory connection established: &quot;linux-non=
--root&quot; &lt;--&gt; &quot;root&quot;&quot;.
-<br>&gt;
-<br>&gt; I can see the interrupt of ivshmem-net in /proc/interrupts and whe=
-n i issue
-<br>&gt; &quot;lspci&quot; i can see the pci device listed with ivshmem-net=
- driver attached to it.
-<br>&gt; But, when i issue &quot;ifconfig&quot; i don&#39;t find any interf=
-ace besides loopback and my
-<br>&gt; pc&#39;s interface, supposedly i would have to see linux non-root =
-interface. Is
-<br>&gt; there something missing (some driver maybe)?
-<br>&gt;
-<br>
-<br>ifconfig &lt;ethX&gt; up? If the driver is attached, the interface must=
- exist.
-<br>ifconfig -a will tell you the name.
-<br>
-<br>Jan
-<br></blockquote></div></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/71ab42b5-b8c9-4392-9575-759f6eb899a0%40googlegroup=
-s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
-sgid/jailhouse-dev/71ab42b5-b8c9-4392-9575-759f6eb899a0%40googlegroups.com<=
-/a>.<br />
-
-------=_Part_1884_1670630965.1566837569310--
-
-------=_Part_1883_526429622.1566837569310--
+jailhouse-dev/1c8ad7db-eb23-034d-dbad-33267d4227f1%40siemens.com.
