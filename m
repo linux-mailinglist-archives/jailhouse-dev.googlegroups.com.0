@@ -1,70 +1,87 @@
-Return-Path: <jailhouse-dev+bncBCR7PPMN34DRBD4HRXVQKGQELMMD5NQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCR7PPMN34DRBSMMRXVQKGQECEQDWCQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x340.google.com (mail-ot1-x340.google.com [IPv6:2607:f8b0:4864:20::340])
-	by mail.lfdr.de (Postfix) with ESMTPS id 466AC9C73A
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 26 Aug 2019 04:27:30 +0200 (CEST)
-Received: by mail-ot1-x340.google.com with SMTP id k70sf9385495otk.6
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 25 Aug 2019 19:27:30 -0700 (PDT)
+Received: from mail-oi1-x23a.google.com (mail-oi1-x23a.google.com [IPv6:2607:f8b0:4864:20::23a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 78A869C753
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 26 Aug 2019 04:39:07 +0200 (CEST)
+Received: by mail-oi1-x23a.google.com with SMTP id p17sf2020065oip.20
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 25 Aug 2019 19:39:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:date:from:to:message-id:in-reply-to:references:subject
          :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=YzKtGuHbLnQ8hZmFwjeR/uWUSrlMOBbTxfDBUNbK3uk=;
-        b=RCsh7P/rNjBlnNFlZt71sbRsQqt57REViI5iJd8FrY2Bw2f1dSmzhWNAprSQJSJRYm
-         A5Ioz9degVMq+B83ImFmBGeVsLXwANM/Xju+7mnA/BMg4n44WNAlFp6A0xEg5uF1mFlb
-         AJubfU4xUn3Gj6/HWWaVBeUYUla7RrlOmUhgKfMcrREjq4z9s5+rDzUmv/rFcniZfhIC
-         2VJt+modB3+2p5Qgazp0fjL2JW40itQMRgGzVkWov7F+0rV9Td1zCj58doL42VLzUwQ7
-         QhPtUODEPh8ZHBcaBXzV/xVY7QfRjrNQ3QNQ5iUeehrC4J38x1MJSSHZVJq4mvOZ8kZ8
-         Prfg==
+        bh=+QMs/MlEaKVPoLxk/ggvcrRNZVzkDhMvC1A+aDugSUU=;
+        b=l0ljfYe27fhxvtqCB9+PyCa1H4QGzwJi8+6ZWuoi0rTQndszUQGtBC8a9ezXe/Y4mI
+         +VZpUynM1QaxVL+FXPxgpsczstnslbl255cAwMm1agWUTE9uMhVbnRWdo98ig/waz+2M
+         S9JKHMKAvV39wfT6waHOAXxrcOOuu0e3fI9fDZUr5R1VwLcwyHCA0lQSJXxvu/1RsUY9
+         EWFMAUK9R02AYmCc3fBDcHqAPnNNhLy3ws+Ami0ZUFBc7S40l2Q+2mqkT7I79qtg6TUz
+         uY7qmHjvUjUxDd6pI1fvYCwRJDIkS4V2CAZOmuISFB9Ys4SUyg2DF19XbANVnuYdrmE1
+         5JWA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:message-id:in-reply-to:references:subject:mime-version
          :x-original-sender:precedence:mailing-list:list-id:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=YzKtGuHbLnQ8hZmFwjeR/uWUSrlMOBbTxfDBUNbK3uk=;
-        b=oo5u+f9LoTXmLGuKHMcIBxfhN2wV9QCpmXP/8sQC14r23025QrqeU1JT/m+NR5RPrR
-         l9/NVpp7KcmdOX/CPEml414mWAFWmlLy1AI37Nposr9OYELbcmfH43JCN8vCQO7g+SeS
-         ClmYtePVqc3KPpG5HwQhlzIyJTuInuNQ0QtMNUKIDlTgJkOqKUpHvGkJ48iX7zLGjOUf
-         DlxMROpb0byiaininBdj16XMof0bZS9OCIT1eY0/1SUrQuLlTo4ecQoVuvNh745bYNqc
-         zdFa2LU+j1RGgJzO8uTfPi9zNgedzTXGY4thrVwVQNXxwuy0w4z0Wjn50WYyuKw6a+rq
-         qMwA==
+        bh=+QMs/MlEaKVPoLxk/ggvcrRNZVzkDhMvC1A+aDugSUU=;
+        b=I+ncxycH0xGxRVDRwPsj3oa4W+UFfLXOA8etMBnxZUVBTgCW076sxqv9ILu5zhunvg
+         sIEd3z7G0tSe4GCuKTiPW1yb/Rd1yV8PSzcPgcRvjt4mcw9ELuIWu8nVwVfb7nuS63ha
+         ljfilWlD5Qs3svujPeJSqZeYhwsP9QUJjWb82x0DNXaOULIcB9exosXlzZb2EGI9fiZM
+         cTmwzT34dYeifg6LNos/ZWFfjqRJ4jGcEHu+/lF3KZJgYs5pjRq/KP1NOQ45vwBPbbRu
+         KPeZzds1H0KGkpDWlQDo8DPprw5kI8iqb6RvWxwbanBDbrp3gC7UeAXhTB7FLgLaJppH
+         r6gA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
          :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=YzKtGuHbLnQ8hZmFwjeR/uWUSrlMOBbTxfDBUNbK3uk=;
-        b=ZzvXFjcrnGeBxuFiSVG1M0sHNRcok66KdzpgXoD+WxZ9hT0t6N2SV2WgxEFDo7Vlcs
-         RuhDWrClm0wil5K45MuK2xF28SrcH4X9XjWu+HaPehV8CeNrQeoe8uh1xp0aMs+wyfAE
-         ZcQ/OlmP1qj1IAMQDAloAfpC0/4dPd4KyczkZHenQ8mguMLazayqkUchoJNNgdOv+CFh
-         1MlqfJvWTPq3KCRDDfiKk/Pmgx+tdOXUzbBMk3pbKXf8h+A+BA2Mr2QsfgnMxrsNkqFO
-         w22Ny6t8+pO3Aibc/l8DwhRFvw4+sLrHBA+YNbdCEbM2bEgaDFMMEcE9amgPtest/3+n
-         nO4Q==
+        bh=+QMs/MlEaKVPoLxk/ggvcrRNZVzkDhMvC1A+aDugSUU=;
+        b=XkvpC0Sb8lhfvuVRJNC/xPITeJG9AYPJTiuShLD6rzfpWalAOmfBOwi09VyihnOnjV
+         /0uhjg/LMBZn4HQGcJLay4zV6lJFhY9DpjO2wmBCXLvfEaBPSCEGECU6odx25vRr/VIq
+         vX1Zx5eSiKRkPqBvv/jpYlVSpxX1PE25tmBnE5Pux/YM0m4X4gbUG78eaud6gTswhK6W
+         O7+rlrlg78/QPAV5rKqEI+UzKhdl3/w7jx3j00lGH8qZ1b4WSM3V+0Zsih5o65+GH1tX
+         JwfHFlP3nD+8zEe/KqmyFrvRpdFkqIraN9qyEF63hjLlUangfh7zcO9WzroYuLXqClJT
+         Omhw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXxbKrOxNC4hIHhsC1zDqE9gjfxhKrxH+4gPDvo7dhHrvJ4eNwK
-	qR1kNLTF6eBmBFOyXjY7yt4=
-X-Google-Smtp-Source: APXvYqyq/FcCZHsKiILo2KIW3Kj+zCwkd+t3M8SxEyGefe7XsksZlo0T9AyCZLN7RxHGnVBKjXtjIg==
-X-Received: by 2002:aca:cf57:: with SMTP id f84mr11132561oig.40.1566786448423;
-        Sun, 25 Aug 2019 19:27:28 -0700 (PDT)
+X-Gm-Message-State: APjAAAVLt9Dn3dLiKV3+X4+xQ/uhUopX6dZv0Kadcr++sCxTU2Lrb22B
+	v3XHTsvrWxx3aajB1NsBLs0=
+X-Google-Smtp-Source: APXvYqx22DbRDAioMeGCbYqQ8NTuFhGv82TynRa5DP7PJG/CbRFbDZo0nGruKqSgMiWxIJ8Go1laLA==
+X-Received: by 2002:a05:6830:1f07:: with SMTP id u7mr13710354otg.328.1566787146383;
+        Sun, 25 Aug 2019 19:39:06 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a9d:3b02:: with SMTP id z2ls2351435otb.15.gmail; Sun, 25 Aug
- 2019 19:27:27 -0700 (PDT)
-X-Received: by 2002:a05:6830:1188:: with SMTP id u8mr6626451otq.150.1566786447536;
-        Sun, 25 Aug 2019 19:27:27 -0700 (PDT)
-Date: Sun, 25 Aug 2019 19:27:26 -0700 (PDT)
+Received: by 2002:a9d:36c:: with SMTP id 99ls2354406otv.3.gmail; Sun, 25 Aug
+ 2019 19:39:05 -0700 (PDT)
+X-Received: by 2002:a05:6830:15d8:: with SMTP id j24mr12861962otr.272.1566787145644;
+        Sun, 25 Aug 2019 19:39:05 -0700 (PDT)
+Date: Sun, 25 Aug 2019 19:39:04 -0700 (PDT)
 From: =?UTF-8?Q?Jo=C3=A3o_Reis?= <jpagsreis@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <bcfed5c1-14ae-4ab3-ba97-439b4bbebf5b@googlegroups.com>
-In-Reply-To: <d14aeb57-5549-0996-5284-5a5d83cc9104@siemens.com>
-References: <325fe360-0bf4-4687-b2a2-309e9f9acd46@googlegroups.com>
- <d14aeb57-5549-0996-5284-5a5d83cc9104@siemens.com>
-Subject: Re: Ivshmem-net driver for Linux
+Message-Id: <521c355a-eacc-434e-b50d-dd7c797be08a@googlegroups.com>
+In-Reply-To: <67cdfa4b-86e9-496a-3878-b5a0016b75c0@siemens.com>
+References: <885a6592-84d9-43f4-a037-10ce73f968ab@googlegroups.com>
+ <39b83770-5562-437f-a25b-415d85dc7c3b@googlegroups.com>
+ <94e3009c-aa34-e8f1-b503-d3a8b138d9a9@siemens.com>
+ <43d8fdde-153f-40ec-8974-4388efab8315@googlegroups.com>
+ <c30da773-76bd-3691-3828-e8f7ed592d52@siemens.com>
+ <12a82b12-b9bd-4258-87fb-9525f4bb648a@googlegroups.com>
+ <5fe86ed7-e82f-3fef-6eef-a888e4ef6be7@siemens.com>
+ <1ebfd29b-3c2d-490d-bd2d-c7cbdad1507c@googlegroups.com>
+ <164159e0-478e-c5e9-fc8a-e0c0cb27da7a@siemens.com>
+ <f1de42fc-bae2-4962-ace6-a38e99a441d4@googlegroups.com>
+ <dd33650a-c068-52ca-4da7-4537de652bfa@siemens.com>
+ <82a56f53-a498-4a27-8458-250d9a7e7078@googlegroups.com>
+ <211c06d2-9f92-cbd1-8215-12c577eefa62@siemens.com>
+ <2add490d-0d13-44f6-9873-d7fcbf1c4141@googlegroups.com>
+ <2dc2470b-9494-4f43-a582-06c2558fa985@googlegroups.com>
+ <df7be3b4-a447-0ff1-f43b-ee37bf6513bb@web.de>
+ <c183c116-5942-4d08-a0a7-a897e8fbed20@googlegroups.com>
+ <6dfd2128-011a-420f-860f-4ccb472c079f@googlegroups.com>
+ <67cdfa4b-86e9-496a-3878-b5a0016b75c0@siemens.com>
+Subject: Re: Colored Linux as inmate
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_1383_1907750917.1566786446897"
+	boundary="----=_Part_1384_1361904212.1566787145025"
 X-Original-Sender: jpagsreis@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -78,49 +95,50 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1383_1907750917.1566786446897
+------=_Part_1384_1361904212.1566787145025
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_1384_920768152.1566786446897"
+	boundary="----=_Part_1385_294716508.1566787145025"
 
-------=_Part_1384_920768152.1566786446897
+------=_Part_1385_294716508.1566787145025
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-I cherry picked and it didn't cause no trouble in the building. Actually i=
-=20
-made a patch out of it (send attached).
+After adding the driver and starting the non-root Linux, i can see in=20
+console the link between root and non-root being established.
+"Adding virtual PCI device 00:01.0 to cell "linux-non-root
+  Shared memory connection established: "linux-non-root" <--> "root"".=20
 
-sexta-feira, 23 de Agosto de 2019 =C3=A0s 07:04:45 UTC+1, Jan Kiszka escrev=
-eu:
+I can see the interrupt of ivshmem-net in /proc/interrupts and when i issue=
+=20
+"lspci" i can see the pci device listed with ivshmem-net driver attached to=
+=20
+it. But, when i issue "ifconfig" i don't find any interface besides=20
+loopback and my pc's interface, supposedly i would have to see linux=20
+non-root interface. Is there something missing (some driver maybe)?
+
+segunda-feira, 19 de Agosto de 2019 =C3=A0s 14:42:16 UTC+1, Jan Kiszka escr=
+eveu:
 >
-> On 23.08.19 03:12, Jo=C3=A3o Reis wrote:=20
-> > Hello everyone,=20
-> >=20
-> > I came across Jailhouse's version of Linux=20
-> > (https://github.com/siemens/linux/tree/jailhouse-enabling/4.19=20
-> > <https://github.com/siemens/linux/tree/jailhouse-enabling/4.19>) which=
+> On 15.08.19 21:42, Jo=C3=A3o Reis wrote:=20
+> >  From what i understood about VETH, is that Linux root cell and Linux=
 =20
-> has=20
-> > ivshmem-net driver on it. I tried to use the 4.14 version of the fork a=
-s=20
-> Linux=20
-> > external source in Petalinux 2018.2 (due to compability), but i couldn'=
-t=20
-> boot=20
-> > the system with that external kernel source. So, i am asking if someone=
+> non-root=20
+> > cell will be linked, and each command i will issue to root cell will be=
 =20
-> has the=20
-> > patch for me to apply on Petalinux's default kernel source (4.14.0), or=
+> > forwarded to non-root cell, through that tunnel created by ivshmem-net,=
 =20
-> if you=20
-> > could tell me what files do i need to change in order for ivshmem-net=
-=20
-> > functionality be available for me.=20
+> right?=20
+> > Doesn't that mean that the command will be executed in both cells?=20
 >
-> Did you try to cherry-pick the patches already? Did they have conflicts=
+> The Linux ivshmem-net driver will provide you a virtual peer-to-peer=20
+> Ethernet=20
+> link between two cells. If you configure those interfaces accordingly, yo=
+u=20
+> can=20
+> do whatever you like to do over that network, ssh, nfs, etc. There is no=
 =20
-> (which=20
-> would be trivial to resolve) or build issues?=20
+> magic=20
+> involved.=20
 >
 > Jan=20
 >
@@ -135,54 +153,42 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/bcfed5c1-14ae-4ab3-ba97-439b4bbebf5b%40googlegroups.com.
+jailhouse-dev/521c355a-eacc-434e-b50d-dd7c797be08a%40googlegroups.com.
 
-------=_Part_1384_920768152.1566786446897
+------=_Part_1385_294716508.1566787145025
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">I cherry picked and it didn&#39;t cause no trouble in the =
-building. Actually i made a patch out of it (send attached).<div><div><div>=
-<br>sexta-feira, 23 de Agosto de 2019 =C3=A0s 07:04:45 UTC+1, Jan Kiszka es=
-creveu:<blockquote class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.=
-8ex;border-left: 1px #ccc solid;padding-left: 1ex;">On 23.08.19 03:12, Jo=
-=C3=A3o Reis wrote:
-<br>&gt; Hello everyone,
-<br>&gt;=20
-<br>&gt; I came across Jailhouse&#39;s version of Linux=20
-<br>&gt; (<a href=3D"https://github.com/siemens/linux/tree/jailhouse-enabli=
-ng/4.19" target=3D"_blank" rel=3D"nofollow" onmousedown=3D"this.href=3D&#39=
-;https://www.google.com/url?q\x3dhttps%3A%2F%2Fgithub.com%2Fsiemens%2Flinux=
-%2Ftree%2Fjailhouse-enabling%2F4.19\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQjC=
-NFtmzJZAL4iOXv87GPc-ceUkTh3pA&#39;;return true;" onclick=3D"this.href=3D&#3=
-9;https://www.google.com/url?q\x3dhttps%3A%2F%2Fgithub.com%2Fsiemens%2Flinu=
-x%2Ftree%2Fjailhouse-enabling%2F4.19\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQj=
-CNFtmzJZAL4iOXv87GPc-ceUkTh3pA&#39;;return true;">https://github.com/siemen=
-s/<wbr>linux/tree/jailhouse-enabling/<wbr>4.19</a>=20
-<br>&gt; &lt;<a href=3D"https://github.com/siemens/linux/tree/jailhouse-ena=
-bling/4.19" target=3D"_blank" rel=3D"nofollow" onmousedown=3D"this.href=3D&=
-#39;https://www.google.com/url?q\x3dhttps%3A%2F%2Fgithub.com%2Fsiemens%2Fli=
-nux%2Ftree%2Fjailhouse-enabling%2F4.19\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAF=
-QjCNFtmzJZAL4iOXv87GPc-ceUkTh3pA&#39;;return true;" onclick=3D"this.href=3D=
-&#39;https://www.google.com/url?q\x3dhttps%3A%2F%2Fgithub.com%2Fsiemens%2Fl=
-inux%2Ftree%2Fjailhouse-enabling%2F4.19\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dA=
-FQjCNFtmzJZAL4iOXv87GPc-ceUkTh3pA&#39;;return true;">https://github.com/sie=
-mens/<wbr>linux/tree/jailhouse-enabling/<wbr>4.19</a>&gt;) which has=20
-<br>&gt; ivshmem-net driver on it. I tried to use the 4.14 version of the f=
-ork as Linux=20
-<br>&gt; external source in Petalinux 2018.2 (due to compability), but i co=
-uldn&#39;t boot=20
-<br>&gt; the system with that external kernel source. So, i am asking if so=
-meone has the=20
-<br>&gt; patch for me to apply on Petalinux&#39;s default kernel source (4.=
-14.0), or if you=20
-<br>&gt; could tell me what files do i need to change in order for ivshmem-=
-net=20
-<br>&gt; functionality be available for me.
+<div dir=3D"ltr">After adding the driver and starting the non-root Linux, i=
+ can see in console the link between root and non-root being established.<d=
+iv>&quot;Adding virtual PCI device 00:01.0 to cell &quot;linux-non-root<div=
+>=C2=A0 Shared memory connection established: &quot;linux-non-root&quot; &l=
+t;--&gt; &quot;root&quot;&quot;.=C2=A0<div><br></div><div>I can see the int=
+errupt of ivshmem-net in /proc/interrupts and when i issue &quot;lspci&quot=
+; i can see the pci device listed with ivshmem-net driver attached to it. B=
+ut, when i issue &quot;ifconfig&quot; i don&#39;t find any interface beside=
+s loopback and my pc&#39;s interface, supposedly i would have to see linux =
+non-root interface. Is there something missing (some driver maybe)?<br><br>=
+segunda-feira, 19 de Agosto de 2019 =C3=A0s 14:42:16 UTC+1, Jan Kiszka escr=
+eveu:<blockquote class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8e=
+x;border-left: 1px #ccc solid;padding-left: 1ex;">On 15.08.19 21:42, Jo=C3=
+=A3o Reis wrote:
+<br>&gt; =C2=A0From what i understood about VETH, is that Linux root cell a=
+nd Linux non-root=20
+<br>&gt; cell will be linked, and each command i will issue to root cell wi=
+ll be=20
+<br>&gt; forwarded to non-root cell, through that tunnel created by ivshmem=
+-net, right?=20
+<br>&gt; Doesn&#39;t that mean that the command will be executed in both ce=
+lls?
 <br>
-<br>Did you try to cherry-pick the patches already? Did they have conflicts=
- (which=20
-<br>would be trivial to resolve) or build issues?
+<br>The Linux ivshmem-net driver will provide you a virtual peer-to-peer Et=
+hernet=20
+<br>link between two cells. If you configure those interfaces accordingly, =
+you can=20
+<br>do whatever you like to do over that network, ssh, nfs, etc. There is n=
+o magic=20
+<br>involved.
 <br>
 <br>Jan
 <br>
@@ -200,1050 +206,307 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/bcfed5c1-14ae-4ab3-ba97-439b4bbebf5b%40googlegroup=
+om/d/msgid/jailhouse-dev/521c355a-eacc-434e-b50d-dd7c797be08a%40googlegroup=
 s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
-sgid/jailhouse-dev/bcfed5c1-14ae-4ab3-ba97-439b4bbebf5b%40googlegroups.com<=
+sgid/jailhouse-dev/521c355a-eacc-434e-b50d-dd7c797be08a%40googlegroups.com<=
 /a>.<br />
 
-------=_Part_1384_920768152.1566786446897--
+------=_Part_1385_294716508.1566787145025--
 
-------=_Part_1383_1907750917.1566786446897
-Content-Type: text/x-diff; charset=US-ASCII; 
-	name=0001-add-ivshmem-net-support.patch
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; filename=0001-add-ivshmem-net-support.patch
-X-Attachment-Id: dc96a0f7-88f7-4fb8-8249-48ed4967bb71
-Content-ID: <dc96a0f7-88f7-4fb8-8249-48ed4967bb71>
+------=_Part_1384_1361904212.1566787145025
+Content-Type: text/x-csrc; charset=UTF-8; name=ultra96-linux-demo-col.c
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment; filename=ultra96-linux-demo-col.c
+X-Attachment-Id: cabcb4be-d6ba-4ffb-b621-de77e44222ce
+Content-ID: <cabcb4be-d6ba-4ffb-b621-de77e44222ce>
 
-From 6b95c53c7b2545b76930925dd555749f09fb6f92 Mon Sep 17 00:00:00 2001
-From: Joao Reis <jpagsreis@gmail.com>
-Date: Fri, 23 Aug 2019 15:31:24 +0100
-Subject: [PATCH] add ivshmem-net support
+/*
+ * Jailhouse, a Linux-based partitioning hypervisor
+ *
+ * Configuration for linux-demo inmate on Avnet Ultra96 board:
+ * 2 CPUs, 128M RAM, serial port 2
+ *
+ * Copyright (c) Siemens AG, 2014-2019
+ *
+ * Authors:
+ *  Jan Kiszka <jan.kiszka@siemens.com>
+ *
+ * This work is licensed under the terms of the GNU GPL, version 2.  See
+ * the COPYING file in the top-level directory.
+ */
 
-Signed-off-by: Joao Reis <jpagsreis@gmail.com>
----
- drivers/net/Kconfig       |   5 +
- drivers/net/Makefile      |   2 +
- drivers/net/ivshmem-net.c | 984 ++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 991 insertions(+)
- create mode 100644 drivers/net/ivshmem-net.c
+#include <jailhouse/types.h>
+#include <jailhouse/cell-config.h>
 
-diff --git a/drivers/net/Kconfig b/drivers/net/Kconfig
-index aba0d65..a51ac1b 100644
---- a/drivers/net/Kconfig
-+++ b/drivers/net/Kconfig
-@@ -485,4 +485,9 @@ config FUJITSU_ES
- 
- source "drivers/net/hyperv/Kconfig"
- 
-+config IVSHMEM_NET
-+	tristate "IVSHMEM virtual network device"
-+	depends on PCI
-+
-+
- endif # NETDEVICES
-diff --git a/drivers/net/Makefile b/drivers/net/Makefile
-index 676a75f..40e572c 100644
---- a/drivers/net/Makefile
-+++ b/drivers/net/Makefile
-@@ -75,3 +75,5 @@ obj-$(CONFIG_HYPERV_NET) += hyperv/
- obj-$(CONFIG_NTB_NETDEV) += ntb_netdev.o
- 
- obj-$(CONFIG_FUJITSU_ES) += fjes/
-+
-+obj-$(CONFIG_IVSHMEM_NET) += ivshmem-net.o
-diff --git a/drivers/net/ivshmem-net.c b/drivers/net/ivshmem-net.c
-new file mode 100644
-index 0000000..aba77c2
---- /dev/null
-+++ b/drivers/net/ivshmem-net.c
-@@ -0,0 +1,984 @@
-+/*
-+ * Copyright 2016 Mans Rullgard <mans@mansr.com>
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation; either version 2 of the License, or
-+ * (at your option) any later version.
-+ *
-+ * This program is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+ * GNU General Public License for more details.
-+ *
-+ * You should have received a copy of the GNU General Public License
-+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
-+ */
-+
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/pci.h>
-+#include <linux/io.h>
-+#include <linux/bitops.h>
-+#include <linux/interrupt.h>
-+#include <linux/netdevice.h>
-+#include <linux/etherdevice.h>
-+#include <linux/rtnetlink.h>
-+#include <linux/virtio_ring.h>
-+
-+#define DRV_NAME "ivshmem-net"
-+
-+#define JAILHOUSE_CFG_SHMEM_PTR	0x40
-+#define JAILHOUSE_CFG_SHMEM_SZ	0x48
-+
-+#define IVSHMEM_INTX_ENABLE	0x1
-+
-+#define IVSHM_NET_STATE_RESET	0
-+#define IVSHM_NET_STATE_INIT	1
-+#define IVSHM_NET_STATE_READY	2
-+#define IVSHM_NET_STATE_RUN	3
-+
-+#define IVSHM_NET_FLAG_RUN	0
-+
-+#define IVSHM_NET_MTU_MIN 256
-+#define IVSHM_NET_MTU_MAX 65535
-+#define IVSHM_NET_MTU_DEF 16384
-+
-+#define IVSHM_NET_FRAME_SIZE(s) ALIGN(18 + (s), SMP_CACHE_BYTES)
-+
-+#define IVSHM_NET_VQ_ALIGN 64
-+
-+struct ivshmem_regs {
-+	u32 intxctrl;
-+	u32 istat;
-+	u32 ivpos;
-+	u32 doorbell;
-+	u32 lstate;
-+	u32 rstate;
-+};
-+
-+struct ivshm_net_queue {
-+	struct vring vr;
-+	u32 free_head;
-+	u32 num_free;
-+	u32 num_added;
-+	u16 last_avail_idx;
-+	u16 last_used_idx;
-+
-+	void *data;
-+	void *end;
-+	u32 size;
-+	u32 head;
-+	u32 tail;
-+};
-+
-+struct ivshm_net_stats {
-+	u32 interrupts;
-+	u32 tx_packets;
-+	u32 tx_notify;
-+	u32 tx_pause;
-+	u32 rx_packets;
-+	u32 rx_notify;
-+	u32 napi_poll;
-+	u32 napi_complete;
-+	u32 napi_poll_n[10];
-+};
-+
-+struct ivshm_net {
-+	struct ivshm_net_queue rx;
-+	struct ivshm_net_queue tx;
-+
-+	u32 vrsize;
-+	u32 qlen;
-+	u32 qsize;
-+
-+	spinlock_t tx_free_lock;
-+	spinlock_t tx_clean_lock;
-+
-+	struct napi_struct napi;
-+
-+	u32 lstate;
-+	u32 rstate;
-+
-+	unsigned long flags;
-+
-+	struct workqueue_struct *state_wq;
-+	struct work_struct state_work;
-+
-+	struct ivshm_net_stats stats;
-+
-+	struct ivshmem_regs __iomem *ivshm_regs;
-+	void *shm;
-+	phys_addr_t shmaddr;
-+	resource_size_t shmlen;
-+	u32 peer_id;
-+
-+	struct pci_dev *pdev;
-+};
-+
-+static void *ivshm_net_desc_data(struct ivshm_net *in,
-+				 struct ivshm_net_queue *q,
-+				 struct vring_desc *desc,
-+				 u32 *len)
-+{
-+	u64 offs = READ_ONCE(desc->addr);
-+	u32 dlen = READ_ONCE(desc->len);
-+	u16 flags = READ_ONCE(desc->flags);
-+	void *data;
-+
-+	if (flags)
-+		return NULL;
-+
-+	if (offs >= in->shmlen)
-+		return NULL;
-+
-+	data = in->shm + offs;
-+
-+	if (data < q->data || data >= q->end)
-+		return NULL;
-+
-+	if (dlen > q->end - data)
-+		return NULL;
-+
-+	*len = dlen;
-+
-+	return data;
-+}
-+
-+static void ivshm_net_init_queue(struct ivshm_net *in,
-+				 struct ivshm_net_queue *q,
-+				 void *mem, unsigned int len)
-+{
-+	memset(q, 0, sizeof(*q));
-+
-+	vring_init(&q->vr, len, mem, IVSHM_NET_VQ_ALIGN);
-+	q->data = mem + in->vrsize;
-+	q->end = q->data + in->qsize;
-+	q->size = in->qsize;
-+}
-+
-+static void ivshm_net_init_queues(struct net_device *ndev)
-+{
-+	struct ivshm_net *in = netdev_priv(ndev);
-+	int ivpos = readl(&in->ivshm_regs->ivpos);
-+	void *tx;
-+	void *rx;
-+	int i;
-+
-+	tx = in->shm +  ivpos * in->shmlen / 2;
-+	rx = in->shm + !ivpos * in->shmlen / 2;
-+
-+	memset(tx, 0, in->shmlen / 2);
-+
-+	ivshm_net_init_queue(in, &in->rx, rx, in->qlen);
-+	ivshm_net_init_queue(in, &in->tx, tx, in->qlen);
-+
-+	swap(in->rx.vr.used, in->tx.vr.used);
-+
-+	in->tx.num_free = in->tx.vr.num;
-+
-+	for (i = 0; i < in->tx.vr.num - 1; i++)
-+		in->tx.vr.desc[i].next = i + 1;
-+}
-+
-+static int ivshm_net_calc_qsize(struct net_device *ndev)
-+{
-+	struct ivshm_net *in = netdev_priv(ndev);
-+	unsigned int vrsize;
-+	unsigned int qsize;
-+	unsigned int qlen;
-+
-+	for (qlen = 4096; qlen > 32; qlen >>= 1) {
-+		vrsize = vring_size(qlen, IVSHM_NET_VQ_ALIGN);
-+		vrsize = ALIGN(vrsize, IVSHM_NET_VQ_ALIGN);
-+		if (vrsize < in->shmlen / 16)
-+			break;
-+	}
-+
-+	if (vrsize > in->shmlen / 2)
-+		return -EINVAL;
-+
-+	qsize = in->shmlen / 2 - vrsize;
-+
-+	if (qsize < 4 * IVSHM_NET_MTU_MIN)
-+		return -EINVAL;
-+
-+	in->vrsize = vrsize;
-+	in->qlen = qlen;
-+	in->qsize = qsize;
-+
-+	return 0;
-+}
-+
-+static void ivshm_net_notify_tx(struct ivshm_net *in, unsigned int num)
-+{
-+	u16 evt, old, new;
-+
-+	virt_mb();
-+
-+	evt = READ_ONCE(vring_avail_event(&in->tx.vr));
-+	old = in->tx.last_avail_idx - num;
-+	new = in->tx.last_avail_idx;
-+
-+	if (vring_need_event(evt, new, old)) {
-+		writel(in->peer_id << 16, &in->ivshm_regs->doorbell);
-+		in->stats.tx_notify++;
-+	}
-+}
-+
-+static void ivshm_net_enable_rx_irq(struct ivshm_net *in)
-+{
-+	vring_avail_event(&in->rx.vr) = in->rx.last_avail_idx;
-+	virt_wmb();
-+}
-+
-+static void ivshm_net_notify_rx(struct ivshm_net *in, unsigned int num)
-+{
-+	u16 evt, old, new;
-+
-+	virt_mb();
-+
-+	evt = vring_used_event(&in->rx.vr);
-+	old = in->rx.last_used_idx - num;
-+	new = in->rx.last_used_idx;
-+
-+	if (vring_need_event(evt, new, old)) {
-+		writel(in->peer_id << 16, &in->ivshm_regs->doorbell);
-+		in->stats.rx_notify++;
-+	}
-+}
-+
-+static void ivshm_net_enable_tx_irq(struct ivshm_net *in)
-+{
-+	vring_used_event(&in->tx.vr) = in->tx.last_used_idx;
-+	virt_wmb();
-+}
-+
-+static bool ivshm_net_rx_avail(struct ivshm_net *in)
-+{
-+	virt_mb();
-+	return READ_ONCE(in->rx.vr.avail->idx) != in->rx.last_avail_idx;
-+}
-+
-+static size_t ivshm_net_tx_space(struct ivshm_net *in)
-+{
-+	struct ivshm_net_queue *tx = &in->tx;
-+	u32 tail = tx->tail;
-+	u32 head = tx->head;
-+	u32 space;
-+
-+	if (head < tail)
-+		space = tail - head;
-+	else
-+		space = max(tx->size - head, tail);
-+
-+	return space;
-+}
-+
-+static bool ivshm_net_tx_ok(struct ivshm_net *in, unsigned int mtu)
-+{
-+	return in->tx.num_free >= 2 &&
-+		ivshm_net_tx_space(in) >= 2 * IVSHM_NET_FRAME_SIZE(mtu);
-+}
-+
-+static u32 ivshm_net_tx_advance(struct ivshm_net_queue *q, u32 *pos, u32 len)
-+{
-+	u32 p = *pos;
-+
-+	len = IVSHM_NET_FRAME_SIZE(len);
-+
-+	if (q->size - p < len)
-+		p = 0;
-+	*pos = p + len;
-+
-+	return p;
-+}
-+
-+static int ivshm_net_tx_frame(struct net_device *ndev, struct sk_buff *skb)
-+{
-+	struct ivshm_net *in = netdev_priv(ndev);
-+	struct ivshm_net_queue *tx = &in->tx;
-+	struct vring *vr = &tx->vr;
-+	struct vring_desc *desc;
-+	unsigned int desc_idx;
-+	unsigned int avail;
-+	u32 head;
-+	void *buf;
-+
-+	BUG_ON(tx->num_free < 1);
-+
-+	spin_lock(&in->tx_free_lock);
-+	desc_idx = tx->free_head;
-+	desc = &vr->desc[desc_idx];
-+	tx->free_head = desc->next;
-+	tx->num_free--;
-+	spin_unlock(&in->tx_free_lock);
-+
-+	head = ivshm_net_tx_advance(tx, &tx->head, skb->len);
-+
-+	buf = tx->data + head;
-+	skb_copy_and_csum_dev(skb, buf);
-+
-+	desc->addr = buf - in->shm;
-+	desc->len = skb->len;
-+	desc->flags = 0;
-+
-+	avail = tx->last_avail_idx++ & (vr->num - 1);
-+	vr->avail->ring[avail] = desc_idx;
-+	tx->num_added++;
-+
-+	if (!skb->xmit_more) {
-+		virt_store_release(&vr->avail->idx, tx->last_avail_idx);
-+		ivshm_net_notify_tx(in, tx->num_added);
-+		tx->num_added = 0;
-+	}
-+
-+	return 0;
-+}
-+
-+static void ivshm_net_tx_clean(struct net_device *ndev)
-+{
-+	struct ivshm_net *in = netdev_priv(ndev);
-+	struct ivshm_net_queue *tx = &in->tx;
-+	struct vring_used_elem *used;
-+	struct vring *vr = &tx->vr;
-+	struct vring_desc *desc;
-+	struct vring_desc *fdesc;
-+	unsigned int num;
-+	u16 used_idx;
-+	u16 last;
-+	u32 fhead;
-+
-+	if (!spin_trylock(&in->tx_clean_lock))
-+		return;
-+
-+	used_idx = virt_load_acquire(&vr->used->idx);
-+	last = tx->last_used_idx;
-+
-+	fdesc = NULL;
-+	fhead = 0;
-+	num = 0;
-+
-+	while (last != used_idx) {
-+		void *data;
-+		u32 len;
-+		u32 tail;
-+
-+		used = vr->used->ring + (last % vr->num);
-+		if (used->id >= vr->num || used->len != 1) {
-+			netdev_err(ndev, "invalid tx used->id %d ->len %d\n",
-+				   used->id, used->len);
-+			break;
-+		}
-+
-+		desc = &vr->desc[used->id];
-+
-+		data = ivshm_net_desc_data(in, &in->tx, desc, &len);
-+		if (!data) {
-+			netdev_err(ndev, "bad tx descriptor, data == NULL\n");
-+			break;
-+		}
-+
-+		tail = ivshm_net_tx_advance(tx, &tx->tail, len);
-+		if (data != tx->data + tail) {
-+			netdev_err(ndev, "bad tx descriptor\n");
-+			break;
-+		}
-+
-+		if (!num)
-+			fdesc = desc;
-+		else
-+			desc->next = fhead;
-+
-+		fhead = used->id;
-+		last++;
-+		num++;
-+	}
-+
-+	tx->last_used_idx = last;
-+
-+	spin_unlock(&in->tx_clean_lock);
-+
-+	if (num) {
-+		spin_lock(&in->tx_free_lock);
-+		fdesc->next = tx->free_head;
-+		tx->free_head = fhead;
-+		tx->num_free += num;
-+		BUG_ON(tx->num_free > vr->num);
-+		spin_unlock(&in->tx_free_lock);
-+	}
-+}
-+
-+static struct vring_desc *ivshm_net_rx_desc(struct net_device *ndev)
-+{
-+	struct ivshm_net *in = netdev_priv(ndev);
-+	struct ivshm_net_queue *rx = &in->rx;
-+	struct vring *vr = &rx->vr;
-+	unsigned int avail;
-+	u16 avail_idx;
-+
-+	avail_idx = virt_load_acquire(&vr->avail->idx);
-+
-+	if (avail_idx == rx->last_avail_idx)
-+		return NULL;
-+
-+	avail = vr->avail->ring[rx->last_avail_idx++ & (vr->num - 1)];
-+	if (avail >= vr->num) {
-+		netdev_err(ndev, "invalid rx avail %d\n", avail);
-+		return NULL;
-+	}
-+
-+	return &vr->desc[avail];
-+}
-+
-+static void ivshm_net_rx_finish(struct ivshm_net *in, struct vring_desc *desc)
-+{
-+	struct ivshm_net_queue *rx = &in->rx;
-+	struct vring *vr = &rx->vr;
-+	unsigned int desc_id = desc - vr->desc;
-+	unsigned int used;
-+
-+	used = rx->last_used_idx++ & (vr->num - 1);
-+	vr->used->ring[used].id = desc_id;
-+	vr->used->ring[used].len = 1;
-+
-+	virt_store_release(&vr->used->idx, rx->last_used_idx);
-+}
-+
-+static int ivshm_net_poll(struct napi_struct *napi, int budget)
-+{
-+	struct net_device *ndev = napi->dev;
-+	struct ivshm_net *in = container_of(napi, struct ivshm_net, napi);
-+	int received = 0;
-+
-+	in->stats.napi_poll++;
-+
-+	ivshm_net_tx_clean(ndev);
-+
-+	while (received < budget) {
-+		struct vring_desc *desc;
-+		struct sk_buff *skb;
-+		void *data;
-+		u32 len;
-+
-+		desc = ivshm_net_rx_desc(ndev);
-+		if (!desc)
-+			break;
-+
-+		data = ivshm_net_desc_data(in, &in->rx, desc, &len);
-+		if (!data) {
-+			netdev_err(ndev, "bad rx descriptor\n");
-+			break;
-+		}
-+
-+		skb = napi_alloc_skb(napi, len);
-+
-+		if (skb) {
-+			memcpy(skb_put(skb, len), data, len);
-+			skb->protocol = eth_type_trans(skb, ndev);
-+			napi_gro_receive(napi, skb);
-+		}
-+
-+		ndev->stats.rx_packets++;
-+		ndev->stats.rx_bytes += len;
-+
-+		ivshm_net_rx_finish(in, desc);
-+		received++;
-+	}
-+
-+	if (received < budget) {
-+		in->stats.napi_complete++;
-+		napi_complete_done(napi, received);
-+		ivshm_net_enable_rx_irq(in);
-+		if (ivshm_net_rx_avail(in))
-+			napi_schedule(napi);
-+	}
-+
-+	if (received)
-+		ivshm_net_notify_rx(in, received);
-+
-+	in->stats.rx_packets += received;
-+	in->stats.napi_poll_n[received ? 1 + min(ilog2(received), 8) : 0]++;
-+
-+	if (ivshm_net_tx_ok(in, ndev->mtu))
-+		netif_wake_queue(ndev);
-+
-+	return received;
-+}
-+
-+static netdev_tx_t ivshm_net_xmit(struct sk_buff *skb, struct net_device *ndev)
-+{
-+	struct ivshm_net *in = netdev_priv(ndev);
-+
-+	ivshm_net_tx_clean(ndev);
-+
-+	if (!ivshm_net_tx_ok(in, ndev->mtu)) {
-+		ivshm_net_enable_tx_irq(in);
-+		netif_stop_queue(ndev);
-+		skb->xmit_more = 0;
-+		in->stats.tx_pause++;
-+	}
-+
-+	ivshm_net_tx_frame(ndev, skb);
-+
-+	in->stats.tx_packets++;
-+	ndev->stats.tx_packets++;
-+	ndev->stats.tx_bytes += skb->len;
-+
-+	dev_consume_skb_any(skb);
-+
-+	return NETDEV_TX_OK;
-+}
-+
-+static void ivshm_net_set_state(struct ivshm_net *in, u32 state)
-+{
-+	virt_wmb();
-+	WRITE_ONCE(in->lstate, state);
-+	writel(state, &in->ivshm_regs->lstate);
-+}
-+
-+static void ivshm_net_run(struct net_device *ndev)
-+{
-+	struct ivshm_net *in = netdev_priv(ndev);
-+
-+	if (in->lstate < IVSHM_NET_STATE_READY)
-+		return;
-+
-+	if (!netif_running(ndev))
-+		return;
-+
-+	if (test_and_set_bit(IVSHM_NET_FLAG_RUN, &in->flags))
-+		return;
-+
-+	netif_start_queue(ndev);
-+	napi_enable(&in->napi);
-+	napi_schedule(&in->napi);
-+	ivshm_net_set_state(in, IVSHM_NET_STATE_RUN);
-+}
-+
-+static void ivshm_net_do_stop(struct net_device *ndev)
-+{
-+	struct ivshm_net *in = netdev_priv(ndev);
-+
-+	ivshm_net_set_state(in, IVSHM_NET_STATE_RESET);
-+
-+	if (!test_and_clear_bit(IVSHM_NET_FLAG_RUN, &in->flags))
-+		return;
-+
-+	netif_stop_queue(ndev);
-+	napi_disable(&in->napi);
-+}
-+
-+static void ivshm_net_state_change(struct work_struct *work)
-+{
-+	struct ivshm_net *in = container_of(work, struct ivshm_net, state_work);
-+	struct net_device *ndev = in->napi.dev;
-+	u32 rstate = readl(&in->ivshm_regs->rstate);
-+
-+	switch (in->lstate) {
-+	case IVSHM_NET_STATE_RESET:
-+		/*
-+		 * Wait for the remote to leave READY/RUN before transitioning
-+		 * to INIT.
-+		 */
-+		if (rstate < IVSHM_NET_STATE_READY)
-+			ivshm_net_set_state(in, IVSHM_NET_STATE_INIT);
-+		break;
-+
-+	case IVSHM_NET_STATE_INIT:
-+		/*
-+		 * Wait for the remote to leave RESET before performing the
-+		 * initialization and moving to READY.
-+		 */
-+		if (rstate > IVSHM_NET_STATE_RESET) {
-+			ivshm_net_init_queues(ndev);
-+			ivshm_net_set_state(in, IVSHM_NET_STATE_READY);
-+
-+			rtnl_lock();
-+			call_netdevice_notifiers(NETDEV_CHANGEADDR, ndev);
-+			rtnl_unlock();
-+		}
-+		break;
-+
-+	case IVSHM_NET_STATE_READY:
-+		/*
-+		 * Link is up and we are running once the remote is in READY or
-+		 * RUN.
-+		 */
-+		if (rstate >= IVSHM_NET_STATE_READY) {
-+			netif_carrier_on(ndev);
-+			ivshm_net_run(ndev);
-+			break;
-+		}
-+		/* fall through */
-+	case IVSHM_NET_STATE_RUN:
-+		/*
-+		 * If the remote goes to RESET, we need to follow immediately.
-+		 */
-+		if (rstate == IVSHM_NET_STATE_RESET) {
-+			netif_carrier_off(ndev);
-+			ivshm_net_do_stop(ndev);
-+		}
-+		break;
-+	}
-+
-+	virt_wmb();
-+	WRITE_ONCE(in->rstate, rstate);
-+}
-+
-+static void ivshm_net_check_state(struct net_device *ndev)
-+{
-+	struct ivshm_net *in = netdev_priv(ndev);
-+	u32 rstate = readl(&in->ivshm_regs->rstate);
-+
-+	if (rstate != in->rstate || !test_bit(IVSHM_NET_FLAG_RUN, &in->flags))
-+		queue_work(in->state_wq, &in->state_work);
-+}
-+
-+static irqreturn_t ivshm_net_int(int irq, void *data)
-+{
-+	struct net_device *ndev = data;
-+	struct ivshm_net *in = netdev_priv(ndev);
-+
-+	in->stats.interrupts++;
-+
-+	ivshm_net_check_state(ndev);
-+	napi_schedule_irqoff(&in->napi);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static int ivshm_net_open(struct net_device *ndev)
-+{
-+	netdev_reset_queue(ndev);
-+	ndev->operstate = IF_OPER_UP;
-+	ivshm_net_run(ndev);
-+
-+	return 0;
-+}
-+
-+static int ivshm_net_stop(struct net_device *ndev)
-+{
-+	ndev->operstate = IF_OPER_DOWN;
-+	ivshm_net_do_stop(ndev);
-+
-+	return 0;
-+}
-+
-+static int ivshm_net_change_mtu(struct net_device *ndev, int mtu)
-+{
-+	struct ivshm_net *in = netdev_priv(ndev);
-+	struct ivshm_net_queue *tx = &in->tx;
-+
-+	if (mtu < IVSHM_NET_MTU_MIN || mtu > IVSHM_NET_MTU_MAX)
-+		return -EINVAL;
-+
-+	if (in->tx.size / mtu < 4)
-+		return -EINVAL;
-+
-+	if (ivshm_net_tx_space(in) < 2 * IVSHM_NET_FRAME_SIZE(mtu))
-+		return -EBUSY;
-+
-+	if (in->tx.size - tx->head < IVSHM_NET_FRAME_SIZE(mtu) &&
-+	    tx->head < tx->tail)
-+		return -EBUSY;
-+
-+	netif_tx_lock_bh(ndev);
-+	if (in->tx.size - tx->head < IVSHM_NET_FRAME_SIZE(mtu))
-+		tx->head = 0;
-+	netif_tx_unlock_bh(ndev);
-+
-+	ndev->mtu = mtu;
-+
-+	return 0;
-+}
-+
-+#ifdef CONFIG_NET_POLL_CONTROLLER
-+static void ivshm_net_poll_controller(struct net_device *ndev)
-+{
-+	struct ivshm_net *in = netdev_priv(ndev);
-+
-+	napi_schedule(&in->napi);
-+}
-+#endif
-+
-+static const struct net_device_ops ivshm_net_ops = {
-+	.ndo_open		= ivshm_net_open,
-+	.ndo_stop		= ivshm_net_stop,
-+	.ndo_start_xmit		= ivshm_net_xmit,
-+	.ndo_change_mtu		= ivshm_net_change_mtu,
-+	.ndo_set_mac_address 	= eth_mac_addr,
-+	.ndo_validate_addr	= eth_validate_addr,
-+#ifdef CONFIG_NET_POLL_CONTROLLER
-+	.ndo_poll_controller	= ivshm_net_poll_controller,
-+#endif
-+};
-+
-+static const char ivshm_net_stats[][ETH_GSTRING_LEN] = {
-+	"interrupts",
-+	"tx_packets",
-+	"tx_notify",
-+	"tx_pause",
-+	"rx_packets",
-+	"rx_notify",
-+	"napi_poll",
-+	"napi_complete",
-+	"napi_poll_0",
-+	"napi_poll_1",
-+	"napi_poll_2",
-+	"napi_poll_4",
-+	"napi_poll_8",
-+	"napi_poll_16",
-+	"napi_poll_32",
-+	"napi_poll_64",
-+	"napi_poll_128",
-+	"napi_poll_256",
-+};
-+
-+#define NUM_STATS ARRAY_SIZE(ivshm_net_stats)
-+
-+static int ivshm_net_get_sset_count(struct net_device *ndev, int sset)
-+{
-+	if (sset == ETH_SS_STATS)
-+		return NUM_STATS;
-+
-+	return -EOPNOTSUPP;
-+}
-+
-+static void ivshm_net_get_strings(struct net_device *ndev, u32 sset, u8 *buf)
-+{
-+	if (sset == ETH_SS_STATS)
-+		memcpy(buf, &ivshm_net_stats, sizeof(ivshm_net_stats));
-+}
-+
-+static void ivshm_net_get_ethtool_stats(struct net_device *ndev,
-+					struct ethtool_stats *estats, u64 *st)
-+{
-+	struct ivshm_net *in = netdev_priv(ndev);
-+	unsigned int n = 0;
-+	unsigned int i;
-+
-+	st[n++] = in->stats.interrupts;
-+	st[n++] = in->stats.tx_packets;
-+	st[n++] = in->stats.tx_notify;
-+	st[n++] = in->stats.tx_pause;
-+	st[n++] = in->stats.rx_packets;
-+	st[n++] = in->stats.rx_notify;
-+	st[n++] = in->stats.napi_poll;
-+	st[n++] = in->stats.napi_complete;
-+
-+	for (i = 0; i < ARRAY_SIZE(in->stats.napi_poll_n); i++)
-+		st[n++] = in->stats.napi_poll_n[i];
-+
-+	memset(&in->stats, 0, sizeof(in->stats));
-+}
-+
-+#define IVSHM_NET_REGS_LEN	(3 * sizeof(u32) + 6 * sizeof(u16))
-+
-+static int ivshm_net_get_regs_len(struct net_device *ndev)
-+{
-+	return IVSHM_NET_REGS_LEN;
-+}
-+
-+static void ivshm_net_get_regs(struct net_device *ndev,
-+			       struct ethtool_regs *regs, void *p)
-+{
-+	struct ivshm_net *in = netdev_priv(ndev);
-+	u32 *reg32 = p;
-+	u16 *reg16;
-+
-+	*reg32++ = in->lstate;
-+	*reg32++ = in->rstate;
-+	*reg32++ = in->qlen;
-+
-+	reg16 = (u16 *)reg32;
-+
-+	*reg16++ = in->tx.vr.avail ? in->tx.vr.avail->idx : 0;
-+	*reg16++ = in->tx.vr.used ? in->tx.vr.used->idx : 0;
-+	*reg16++ = in->tx.vr.avail ? vring_avail_event(&in->tx.vr) : 0;
-+
-+	*reg16++ = in->rx.vr.avail ? in->rx.vr.avail->idx : 0;
-+	*reg16++ = in->rx.vr.used ? in->rx.vr.used->idx : 0;
-+	*reg16++ = in->rx.vr.avail ? vring_avail_event(&in->rx.vr) : 0;
-+}
-+
-+static const struct ethtool_ops ivshm_net_ethtool_ops = {
-+	.get_sset_count		= ivshm_net_get_sset_count,
-+	.get_strings		= ivshm_net_get_strings,
-+	.get_ethtool_stats	= ivshm_net_get_ethtool_stats,
-+	.get_regs_len		= ivshm_net_get_regs_len,
-+	.get_regs		= ivshm_net_get_regs,
-+};
-+
-+static int ivshm_net_probe(struct pci_dev *pdev,
-+			   const struct pci_device_id *id)
-+{
-+	struct net_device *ndev;
-+	struct ivshm_net *in;
-+	struct ivshmem_regs __iomem *regs;
-+	resource_size_t shmaddr;
-+	resource_size_t shmlen;
-+	char *device_name;
-+	void *shm;
-+	u32 ivpos;
-+	int ret;
-+
-+	ret = pcim_enable_device(pdev);
-+	if (ret) {
-+		dev_err(&pdev->dev, "pci_enable_device: %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = pcim_iomap_regions(pdev, BIT(0), DRV_NAME);
-+	if (ret) {
-+		dev_err(&pdev->dev, "pcim_iomap_regions: %d\n", ret);
-+		return ret;
-+	}
-+
-+	regs = pcim_iomap_table(pdev)[0];
-+
-+	shmlen = pci_resource_len(pdev, 2);
-+
-+	if (shmlen) {
-+		shmaddr = pci_resource_start(pdev, 2);
-+	} else {
-+		union { u64 v; u32 hl[2]; } val;
-+
-+		pci_read_config_dword(pdev, JAILHOUSE_CFG_SHMEM_PTR,
-+				      &val.hl[0]);
-+		pci_read_config_dword(pdev, JAILHOUSE_CFG_SHMEM_PTR + 4,
-+				      &val.hl[1]);
-+		shmaddr = val.v;
-+
-+		pci_read_config_dword(pdev, JAILHOUSE_CFG_SHMEM_SZ,
-+				      &val.hl[0]);
-+		pci_read_config_dword(pdev, JAILHOUSE_CFG_SHMEM_SZ + 4,
-+				      &val.hl[1]);
-+		shmlen = val.v;
-+	}
-+
-+
-+	if (!devm_request_mem_region(&pdev->dev, shmaddr, shmlen, DRV_NAME))
-+		return -EBUSY;
-+
-+	shm = devm_memremap(&pdev->dev, shmaddr, shmlen, MEMREMAP_WB);
-+	if (!shm)
-+		return -ENOMEM;
-+
-+	ivpos = readl(&regs->ivpos);
-+	if (ivpos > 1) {
-+		dev_err(&pdev->dev, "invalid IVPosition %d\n", ivpos);
-+		return -EINVAL;
-+	}
-+
-+	device_name = devm_kasprintf(&pdev->dev, GFP_KERNEL, "%s[%s]", DRV_NAME,
-+				     dev_name(&pdev->dev));
-+	if (!device_name)
-+		return -ENOMEM;
-+
-+	ndev = alloc_etherdev(sizeof(*in));
-+	if (!ndev)
-+		return -ENOMEM;
-+
-+	pci_set_drvdata(pdev, ndev);
-+	SET_NETDEV_DEV(ndev, &pdev->dev);
-+
-+	in = netdev_priv(ndev);
-+	in->ivshm_regs = regs;
-+	in->shm = shm;
-+	in->shmaddr = shmaddr;
-+	in->shmlen = shmlen;
-+	in->peer_id = !ivpos;
-+	in->pdev = pdev;
-+	spin_lock_init(&in->tx_free_lock);
-+	spin_lock_init(&in->tx_clean_lock);
-+
-+	ret = ivshm_net_calc_qsize(ndev);
-+	if (ret)
-+		goto err_free;
-+
-+	in->state_wq = alloc_ordered_workqueue(device_name, 0);
-+	if (!in->state_wq)
-+		goto err_free;
-+
-+	INIT_WORK(&in->state_work, ivshm_net_state_change);
-+
-+	eth_random_addr(ndev->dev_addr);
-+	ndev->netdev_ops = &ivshm_net_ops;
-+	ndev->ethtool_ops = &ivshm_net_ethtool_ops;
-+	ndev->mtu = min_t(u32, IVSHM_NET_MTU_DEF, in->qsize / 16);
-+	ndev->hw_features = NETIF_F_HW_CSUM | NETIF_F_SG;
-+	ndev->features = ndev->hw_features;
-+
-+	netif_carrier_off(ndev);
-+	netif_napi_add(ndev, &in->napi, ivshm_net_poll, NAPI_POLL_WEIGHT);
-+
-+	ret = register_netdev(ndev);
-+	if (ret)
-+		goto err_wq;
-+
-+	ret = pci_alloc_irq_vectors(pdev, 1, 1, PCI_IRQ_LEGACY | PCI_IRQ_MSIX);
-+	if (ret < 0)
-+		goto err_alloc_irq;
-+
-+	ret = request_irq(pci_irq_vector(pdev, 0), ivshm_net_int, 0,
-+			  device_name, ndev);
-+	if (ret)
-+		goto err_request_irq;
-+
-+	pci_set_master(pdev);
-+	if (!pdev->msix_enabled)
-+		writel(IVSHMEM_INTX_ENABLE, &in->ivshm_regs->intxctrl);
-+
-+	writel(IVSHM_NET_STATE_RESET, &in->ivshm_regs->lstate);
-+	ivshm_net_check_state(ndev);
-+
-+	return 0;
-+
-+err_request_irq:
-+	pci_free_irq_vectors(pdev);
-+err_alloc_irq:
-+	unregister_netdev(ndev);
-+err_wq:
-+	destroy_workqueue(in->state_wq);
-+err_free:
-+	free_netdev(ndev);
-+
-+	return ret;
-+}
-+
-+static void ivshm_net_remove(struct pci_dev *pdev)
-+{
-+	struct net_device *ndev = pci_get_drvdata(pdev);
-+	struct ivshm_net *in = netdev_priv(ndev);
-+
-+	writel(IVSHM_NET_STATE_RESET, &in->ivshm_regs->lstate);
-+
-+	if (!pdev->msix_enabled)
-+		writel(0, &in->ivshm_regs->intxctrl);
-+	free_irq(pci_irq_vector(pdev, 0), ndev);
-+	pci_free_irq_vectors(pdev);
-+
-+	unregister_netdev(ndev);
-+	cancel_work_sync(&in->state_work);
-+	destroy_workqueue(in->state_wq);
-+	free_netdev(ndev);
-+}
-+
-+static const struct pci_device_id ivshm_net_id_table[] = {
-+	{ PCI_DEVICE(PCI_VENDOR_ID_REDHAT_QUMRANET, 0x1110),
-+		(PCI_CLASS_OTHERS << 16) | (0x01 << 8), 0xffff00 },
-+	{ 0 }
-+};
-+MODULE_DEVICE_TABLE(pci, ivshm_net_id_table);
-+
-+static struct pci_driver ivshm_net_driver = {
-+	.name		= DRV_NAME,
-+	.id_table	= ivshm_net_id_table,
-+	.probe		= ivshm_net_probe,
-+	.remove		= ivshm_net_remove,
-+};
-+module_pci_driver(ivshm_net_driver);
-+
-+MODULE_AUTHOR("Mans Rullgard <mans@mansr.com>");
-+MODULE_LICENSE("GPL");
--- 
-2.7.4
+struct {
+=09struct jailhouse_cell_desc cell;
+=09__u64 cpus[1];
+=09struct jailhouse_memory mem_regions[7];
+=09struct jailhouse_irqchip irqchips[1];
+=09struct jailhouse_pci_device pci_devices[2];
+} __attribute__((packed)) config =3D {
+=09.cell =3D {
+=09=09.signature =3D JAILHOUSE_CELL_DESC_SIGNATURE,
+=09=09.revision =3D JAILHOUSE_CONFIG_REVISION,
+=09=09.name =3D "linux-non-root",
+=09=09.flags =3D JAILHOUSE_CELL_PASSIVE_COMMREG,  /* |
+=09=09JAILHOUSE_CELL_VIRTUAL_CONSOLE_ACTIVE,*/
 
+=09=09.cpu_set_size =3D sizeof(config.cpus),
+=09=09.num_memory_regions =3D ARRAY_SIZE(config.mem_regions),
+=09=09.num_irqchips =3D ARRAY_SIZE(config.irqchips),
+=09=09.num_pci_devices =3D ARRAY_SIZE(config.pci_devices),
 
-------=_Part_1383_1907750917.1566786446897--
+=09=09.vpci_irq_base =3D 140-32,
+
+=09=09.console =3D {
+=09=09=09.address =3D 0xff010000, /*UART1*/
+=09=09=09//.address =3D 0xff000000, /*UART0*/ //se eu meter uart0 da erro u=
+nhandled trap
+=09=09=09.type=3D JAILHOUSE_CON_TYPE_XUARTPS,
+=09=09=09.flags =3D JAILHOUSE_CON_ACCESS_MMIO |
+=09=09=09=09 JAILHOUSE_CON_REGDIST_4,
+=09=09},
+=09},
+
+=09.cpus =3D {
+=09=090x8, //1000 - fica com cpu3
+=09},
+
+=09.mem_regions =3D {
+=09=09/* UART */ {
+=09=09=09.phys_start =3D 0xff010000,
+=09=09=09.virt_start =3D 0xff010000,
+=09=09=09.size =3D 0x1000,
+=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+=09=09=09=09JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
+=09=09},
+=09=09/* Colored RAM for kernel image and initramfs*/ {
+=09=09=09.phys_start =3D 0x40000000,
+=09=09=09.virt_start =3D 0x40000000, //Image + rootfs.cpio =3D 200MB
+=09=09=09.size =3D 0x30000000, //must be page size aligned
+=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+=09=09=09=09JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE |
+=09=09=09=09JAILHOUSE_MEM_DMA| JAILHOUSE_MEM_COLORED_CELL,=20
+    =09=09=09.colors =3D 0xff00,
+=09=09},
+=09=09/* RAM for loader*/ {
+=09=09=09.phys_start =3D 0x7bef0000,
+=09=09=09.virt_start =3D 0, //needs to start at 0 for loader
+=09=09=09.size =3D 0x10000,
+=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+=09=09=09=09JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+=09=09},
+=09=09/* RAM */ {
+=09=09=09.phys_start =3D 0x74000000,
+=09=09=09.virt_start =3D 0x74000000,
+=09=09=09.size =3D 0x7ef0000,
+=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+=09=09=09=09JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+=09=09=09=09JAILHOUSE_MEM_LOADABLE,
+=09=09},
+=09=09/* IVSHMEM shared memory region */ {
+=09=09=09.phys_start =3D 0x7bf00000,
+=09=09=09.virt_start =3D 0x7bf00000,
+=09=09=09.size =3D 0x100000,
+=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+=09=09=09=09JAILHOUSE_MEM_ROOTSHARED,
+=09=09},
+=09=09/* communication region */ {
+=09=09=09.virt_start =3D 0x80000000,
+=09=09=09.size =3D 0x00001000,
+=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+=09=09=09=09JAILHOUSE_MEM_COMM_REGION,
+=09=09},
+=09=09/* IVSHMEM shared memory region (network) */ {
+=09=09=09.phys_start =3D 0x7c000000,
+=09=09=09.virt_start =3D 0x7c000000,
+=09=09=09.size =3D 0x100000,
+=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+=09=09=09=09JAILHOUSE_MEM_ROOTSHARED,
+=09=09},
+=09},
+=09=09
+
+=09.irqchips =3D {
+=09=09/* GIC */ {
+=09=09=09.address =3D 0xf9010000, /* GICD base address - Display controller=
+ */
+=09=09=09.pin_base =3D 32, /* The first irqchip starts at .pin_base=3D32 as=
+ the first 32 interrupts are=20
+reserved for SGIs and PPIs. */
+=09=09=09.pin_bitmap =3D {
+=09=09=09=09//1 << (54 - 32),
+=09=09=09=091 << (53 - 32), // cat /proc/interrupts interrupt da UART0 AQUI=
+ ESTA A DIFEREN=C3=87A
+=09=09=09=090,
+=09=09=09=090,
+=09=09=09=09(1 << (140 - 128)) | (1 << (142 - 128)) //PL to PS interrupt si=
+gnals 8 to 15.
+=09=09=09},
+=09=09},
+=09},
+
+=09.pci_devices =3D {
+=09=09/* 00:00.0 */ {
+=09=09=09.type =3D JAILHOUSE_PCI_TYPE_IVSHMEM,
+=09=09=09.bdf =3D 0 << 3, // 00:00.0
+=09=09=09.iommu =3D 1,//
+=09=09=09.bar_mask =3D {
+=09=09=09=090xffffff00, 0xffffffff, 0x00000000,
+=09=09=09=090x00000000, 0x00000000, 0x00000000,
+=09=09=09},
+=09=09=09.shmem_region =3D 4,
+=09=09=09.shmem_protocol =3D JAILHOUSE_SHMEM_PROTO_UNDEFINED, //Undefined t=
+ype
+=09=09=09//.num_msix_vectors =3D 1,
+=09=09},
+=09=09/* 00:01.0 */ {
+=09=09=09.type =3D JAILHOUSE_PCI_TYPE_IVSHMEM,
+=09=09=09.bdf =3D 1 << 3, // 00:01.0
+=09=09=09.iommu =3D 1,//
+=09=09=09.bar_mask =3D {
+=09=09=09=090xffffff00, 0xffffffff, 0x00000000,
+=09=09=09=090x00000000, 0x00000000, 0x00000000,
+=09=09=09},
+=09=09=09.shmem_region =3D 6,
+=09=09=09.shmem_protocol =3D JAILHOUSE_SHMEM_PROTO_VETH, //Virtual peer-to-=
+peer Ethernet
+=09=09=09//.num_msix_vectors =3D 1,
+=09=09},
+=09},
+};
+
+------=_Part_1384_1361904212.1566787145025
+Content-Type: text/x-csrc; charset=UTF-8; name=ultra96-col.c
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment; filename=ultra96-col.c
+X-Attachment-Id: 6c8704f5-6ed7-4542-9f1d-7b68d9abc591
+Content-ID: <6c8704f5-6ed7-4542-9f1d-7b68d9abc591>
+
+/*
+ * Jailhouse, a Linux-based partitioning hypervisor
+ *
+ * Configuration for Avnet Ultra96 board
+ *
+ * Copyright (c) Siemens AG, 2016-2019
+ *
+ * Authors:
+ *  Jan Kiszka <jan.kiszka@siemens.com>
+ *
+ * This work is licensed under the terms of the GNU GPL, version 2.  See
+ * the COPYING file in the top-level directory.
+ */
+
+#include <jailhouse/types.h>
+#include <jailhouse/cell-config.h>
+
+struct {
+=09struct jailhouse_system header;
+=09__u64 cpus[1];
+=09struct jailhouse_memory mem_regions[3];
+=09struct jailhouse_irqchip irqchips[1];
+=09struct jailhouse_pci_device pci_devices[1];
+} __attribute__((packed)) config =3D {
+=09.header =3D {
+=09=09.signature =3D JAILHOUSE_SYSTEM_SIGNATURE,
+=09=09.revision =3D JAILHOUSE_CONFIG_REVISION,
+=09=09.flags =3D JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
+=09=09.hypervisor_memory =3D {
+=09=09=09//.phys_start =3D 0x7c000000,
+=09=09=09//.size =3D       0x00400000,
+=09=09=09.phys_start =3D 0x7d000000,
+=09=09=09.size =3D       0x01000000,
+=09=09},
+=09=09.debug_console =3D {
+=09=09=09.address =3D 0xff010000,
+=09=09=09.size =3D 0x1000,
+=09=09=09.type =3D JAILHOUSE_CON_TYPE_XUARTPS,
+=09=09=09.flags =3D JAILHOUSE_CON_ACCESS_MMIO |
+=09=09=09=09 JAILHOUSE_CON_REGDIST_4,
+=09=09},
+=09=09.platform_info =3D {
+=09=09=09.pci_mmconfig_base =3D 0xfc000000,
+=09=09=09.pci_mmconfig_end_bus =3D 0,
+=09=09=09.pci_is_virtual =3D 1,
+=09=09=09.pci_domain =3D -1,
+=09=09=09.llc_way_size =3D 0x10000,
+=09=09=09.arm =3D {
+=09=09=09=09.gic_version =3D 2,
+=09=09=09=09.gicd_base =3D 0xf9010000,
+=09=09=09=09.gicc_base =3D 0xf902f000,
+=09=09=09=09.gich_base =3D 0xf9040000,
+=09=09=09=09.gicv_base =3D 0xf906f000,
+=09=09=09=09.maintenance_irq =3D 25,
+=09=09=09},
+=09=09},
+=09=09.root_cell =3D {
+=09=09=09.name =3D "root",
+
+=09=09=09.cpu_set_size =3D sizeof(config.cpus),
+=09=09=09.num_memory_regions =3D ARRAY_SIZE(config.mem_regions),
+=09=09=09.num_irqchips =3D ARRAY_SIZE(config.irqchips),
+=09=09=09.num_pci_devices =3D ARRAY_SIZE(config.pci_devices),
+
+=09=09=09.vpci_irq_base =3D 136-32,
+=09=09},
+=09},
+
+=09.cpus =3D {
+=09=090xf,
+=09},
+
+=09.mem_regions =3D {
+=09=09/* MMIO (permissive) */ {
+=09=09=09.phys_start =3D 0xfd000000,
+=09=09=09.virt_start =3D 0xfd000000,
+=09=09=09.size =3D=09      0x03000000,
+=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+=09=09=09=09JAILHOUSE_MEM_IO,
+=09=09},
+=09=09/* Colored RAM for inmates*/ {
+=09=09=09.phys_start =3D 0x0,
+=09=09=09.virt_start =3D 0x0,
+=09=09=09.size =3D 0x7d000000,
+=09=09=09//.size =3D 0x7c000000,
+=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+=09=09=09=09JAILHOUSE_MEM_EXECUTE,// | JAILHOUSE_MEM_COLORED,
+=09=09},
+=09=09/* IVSHMEM shared memory region for 00:01.0 (network) */ {
+=09=09=09.phys_start =3D 0x7c000000,
+=09=09=09.virt_start =3D 0x7c000000,
+=09=09=09.size =3D 0x100000,
+=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+=09=09},
+=09},
+
+=09.irqchips =3D {
+=09=09/* GIC */ {
+=09=09=09.address =3D 0xf9010000,
+=09=09=09.pin_base =3D 32,
+=09=09=09.pin_bitmap =3D {
+=09=09=09=090xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,
+=09=09=09},
+=09=09},
+=09},
+
+=09.pci_devices =3D {
+=09=09/* 0001:00:01.0 */ {
+=09=09=09.type =3D JAILHOUSE_PCI_TYPE_IVSHMEM,
+=09=09=09.iommu =3D 1,//
+=09=09=09//.domain =3D 1,
+=09=09=09.bdf =3D 1 << 3, // 00:01.0
+=09=09=09.bar_mask =3D {
+=09=09=09=090xffffff00, 0xffffffff, 0x00000000,
+=09=09=09=090x00000000, 0x00000000, 0x00000000,
+=09=09=09},
+=09=09=09.shmem_region =3D 2,
+=09=09=09.shmem_protocol =3D JAILHOUSE_SHMEM_PROTO_VETH, //Virtual peer-to-=
+peer Ethernet
+=09=09=09//.num_msix_vectors =3D 1,//se colocar isto, qd fa=C3=A7o insmod u=
+io_ivshmem.ko ele n diz "using jailhouse mode" e dps n existe /dev/uio1
+=09=09},
+=09},
+};
+
+------=_Part_1384_1361904212.1566787145025--
