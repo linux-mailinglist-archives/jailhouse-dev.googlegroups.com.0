@@ -1,129 +1,147 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBT4UT7VQKGQEYOYDYBA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDRKPIXWWIFBBQE3T7VQKGQEH4GBOYQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43f.google.com (mail-wr1-x43f.google.com [IPv6:2a00:1450:4864:20::43f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73465A1A74
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Aug 2019 14:51:28 +0200 (CEST)
-Received: by mail-wr1-x43f.google.com with SMTP id x12sf2063767wrw.0
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Aug 2019 05:51:28 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1567083088; cv=pass;
+Received: from mail-ed1-x53d.google.com (mail-ed1-x53d.google.com [IPv6:2a00:1450:4864:20::53d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C319A1AC5
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Aug 2019 15:06:09 +0200 (CEST)
+Received: by mail-ed1-x53d.google.com with SMTP id m30sf2117779eda.11
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Aug 2019 06:06:09 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1567083969; cv=pass;
         d=google.com; s=arc-20160816;
-        b=eCOWv0u2zFq7GqKwWu7/FcklM87LK5oUUL2mGL/tyrGR8+Fao32pCmGgWttMzT0PUL
-         xN2VHnOza6+kHoLxcIu6AutlVMaW6xkm9tbTupps3d6UIxM6C5IfYShfscM0AP65bWjX
-         jqDGtx/w+Jnt6BB9rNfm7gm/UAhXsIm3uePxVP1HZQs3lq9hcIOIVd6egbo0amv3U2Ig
-         WaZpQJZMqZvN/qG609gMXFITw2S6oKRAaSfbSQc1vL1QYuCdkfWBDx3PXL+3r86POehb
-         DRx0A1Wau3uYfh5yuRUJQQIGISmOeYOVtP83AjTxO2GiL6t6kNIFqXTG8ubx6337sD+r
-         2qxA==
+        b=FlqeN46rbSIIRQByWKiLJmias8W/HV525quqaZqZ5GaTaNovN4dnCN+3qjUlUyETHG
+         eaYHWLSl8++NC9EpFzUt2AP7Hk8m4a1M2gWH2jqDkJPw5i6hDJZfYCycILLm+STq3TyY
+         OwP06CCHSGDtat2s013lbRzaVcRAVfjIgYceEdM4yM16tZMKfL0sAwfViIn228GWgINf
+         g7cNRgqLTxoblYSOcSlHTqo/UdeW6+Aq+a4lf3cLsMfY48v/gNSpYxMeMtuwP/PYoTxz
+         oluEmdm5tx61zTEncAJ0Fr1IxKjFYE1prZcjRYRf/g8hHkT0WoE+rd82bIvF83Avvgul
+         fSbA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=PbjONBYeqNBb9hrw5bP2svnhhfIXPUFD5HUM6kZYBU0=;
-        b=zdHsjjDzmdBA0hTQMe4aFBxW7eK9oxvmBziyHgO9bXTNHKaOoBw9LAz5DyxPCwo4u0
-         8WGHAUDRng7+Vrk+zd749Q9oVJ3LjZvCxZEOheRhJKO8IzwSNpwInOux4yhWCDtYRXrn
-         uwhAXCwLHAoq8kzb2ELdLsDcAMuSQEaRTZQX4PnYzh2qSSUXU+tXGHyG4aKGK9HUvpLp
-         U5wresVWnV8yOzL6jbdufPHYknmIUQKXznAaZjqisFv3sjxtqwWaKIIXEmJ8Mai+4zt2
-         pe2xHmPn41gfnXjbbKNvAVZL4GQRXxrelZ4qx475mM607VYuBHaJzYCZ+Yz7op4IEp83
-         PEqA==
+         :list-id:mailing-list:precedence:to:references:message-id
+         :content-transfer-encoding:cc:date:in-reply-to:from:subject
+         :mime-version:sender:dkim-signature;
+        bh=VsV40EJCxbzKlMtbP3DImTGVN/yW5PYdnoTejsF9c/k=;
+        b=Onj/5HcPJgxIa2Gugak1d11l97GMJ19ZGU32ErDSE7b7mgRHsNTx18dBAkM0+llmr8
+         qbZT+psUs0z0WD68n3rPYReKsdNYkRj3Wq+ah1Pc32XxatlW7XlySFIQ6HB/2J7vpc/p
+         HrYmegR5Tp1BapffLpggfMMJZZKqaLUwlCaHFGhtFQ2rIfhyLaDs8UPJZ8VeDUuLTtVI
+         uX4QbQeFJ5Y1TY1CXQN3A92kycqFOqrQRUAPDxGDuhVByc+Ty22Zd7usUbyYLExGdh30
+         lRHwkP5w7sL9WNQrD25OSjjZHWaqboqBpCjnzgjueyuHhKZlCe5Y319jEdgP2Iy1eKtA
+         eAhA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b="eh/zaE7Y";
+       spf=pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.17.21 as permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
+        h=sender:mime-version:subject:from:in-reply-to:date:cc
+         :content-transfer-encoding:message-id:references:to
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=PbjONBYeqNBb9hrw5bP2svnhhfIXPUFD5HUM6kZYBU0=;
-        b=S/uxtMxbkCYNpmEvoUTYPzoSNvlXKUzRx3h6Mwz7Dxux/5e9kfVL4sk8PRZWyXpt9o
-         2/2Oc4u09T4pB76NZhomL94umWhQ0zDNQ17RTD2IrFYkhty7O4fX7MWFJyu8nZSvRNLl
-         An0BUp8YuFaNxpjMjvGZFjonfH8YR08dLUlXtdTcO4bH1vhWCmLAUYIPzSc5VpzoEf3m
-         mlAHgToGNKb761CE3bNaSZKCJDo6w7cW2GXOMIhVm0ljsl04S4+7TLPOz0g4uNuOEyk+
-         W8Hvp21do6gfQ+qeRLyeQjhkEYiduYqtix3YP0eiNZGW/6GC2THET8QaSLV4J7/u8Jn3
-         sT2w==
+        bh=VsV40EJCxbzKlMtbP3DImTGVN/yW5PYdnoTejsF9c/k=;
+        b=R6F9h4xAk0wwtXOZ/qG54Wch6m5Cxte6e/yEHi5ljep3qaaosaGA/2eHv+gW4yvzBC
+         vltBpCoGs1vyy66qTERSQ6aQpIVmj28ipbYIBzMI4R9cN0N651J79xqA4MZay0O+2Mig
+         KwF6fDvThtNqb3wQumGasIWthrtRfqDDrBOkBDa6hDjapmrvJSwsNw39iajcdh3vWSdt
+         BJQH6RQ/Qt6crmpmjLUTqDMa+7WlNpFm9RO891q2s6Ld5S6yCJmnhc1kiALNCuMdmhmp
+         rZXa70fsP87lmBp6rH/S8oVM/8FfEyDHT0vHXHCiR/dJ/mbo6a/ziV2DHM6ibNSckwzK
+         FljQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=PbjONBYeqNBb9hrw5bP2svnhhfIXPUFD5HUM6kZYBU0=;
-        b=eDC0lzAsr6UYhBCFttWZrjs8q1Fa+JD5Yg+/8l+DRu2dNI5l75xDgIjdzOMEkGlFAB
-         UyEreZSfMZGVHRPQbIjoaxzNxjx8TsowFS8Zg/LHiE6tuoSZOrF4p+NorGDZFJr2sFbY
-         QLXwTCEUqzWYqJ6c0IKUAbzO9xpbtHSelv6Vrdb7XLSY54vqLaLo0bAMp2r4H4XoP1MM
-         I8oGCYoSCB+DLvMAfvUpPvtHBt3ikte24LIE/h04oPZ3q8bfPAals8kp2zAP8mUOt3mL
-         rDFY31KNkUEBFUjm1i+qYSThbqFANew7cHBBFRs3Zjqzphq8JnFRKYWdcOXcaJUV+TGk
-         OqOw==
+        h=sender:x-gm-message-state:mime-version:subject:from:in-reply-to
+         :date:cc:content-transfer-encoding:message-id:references:to
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=VsV40EJCxbzKlMtbP3DImTGVN/yW5PYdnoTejsF9c/k=;
+        b=fLN2WR+WzDtlsRXmtKakp1NkLreYbuZDZcMR54N2Ns5uNUkXIHKLRN9r5BZmL3NTrB
+         hsgWFSdKwWGOJVdp3xdvtBizHVBBWgeokdc2t2/GMqG+xgOGewFJ/MrdTAKb+HgP3SKg
+         mbGYRXk7wjZT/LZXiquzhtFHO3bEhc75/Ob1Gw7BzXVAs6l1525/3k7JCBq6m15wezlm
+         asMcnZfMn6QKpWKJZMerokdefpupYt1SObyT1JHnl8NiIDdbsUIAUlwxbKnJsQ5go2Gz
+         036B37fvc8MynqdfSfOWDdSQAY+y3Nx/UJ1tMuu5vmaSLrIpBFhHZ3q1MolqXatuhhca
+         Samg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVXxTGIMCvyFzect7XO0BUapoYInNLHPjpfd2oSP5CNX9NKhtJg
-	n3EEsaVg7xBVsUPqg2DEwhs=
-X-Google-Smtp-Source: APXvYqw0PHYZbuAnXsGt/WUbtuDQsAzkUl1Dft+yfbT+VIw/EnbXSTtBgKJQSH/haM/sdbq+3TbaCg==
-X-Received: by 2002:adf:a348:: with SMTP id d8mr11698629wrb.235.1567083088109;
-        Thu, 29 Aug 2019 05:51:28 -0700 (PDT)
+X-Gm-Message-State: APjAAAUXcpkbK4aFRcaSi4YeTCRhLfM0sv3oKGZ9kM7PVqoFSqEdThOL
+	3fRRQ9dj8OHJX1BwjJbwAzI=
+X-Google-Smtp-Source: APXvYqzqPb4OTXgFgicyh6W4TZVRPuDsciy41oQ4VtIn4dEnCyhqiqUApVKHr0at1js4CbCFuekcmA==
+X-Received: by 2002:a50:bf4f:: with SMTP id g15mr9548501edk.92.1567083969068;
+        Thu, 29 Aug 2019 06:06:09 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5d:6942:: with SMTP id r2ls777734wrw.3.gmail; Thu, 29 Aug
- 2019 05:51:27 -0700 (PDT)
-X-Received: by 2002:a5d:4b8c:: with SMTP id b12mr12015765wrt.26.1567083087200;
-        Thu, 29 Aug 2019 05:51:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1567083087; cv=none;
+Received: by 2002:a17:906:8052:: with SMTP id x18ls761396ejw.10.gmail; Thu, 29
+ Aug 2019 06:06:08 -0700 (PDT)
+X-Received: by 2002:a17:906:3fc7:: with SMTP id k7mr8195549ejj.208.1567083968171;
+        Thu, 29 Aug 2019 06:06:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1567083968; cv=none;
         d=google.com; s=arc-20160816;
-        b=AmjCbbma3VpC1ZeRplI1Zsp/ppb2qGZ7J2MJK/B+Q9at/sXmJgBqN/f0+Sw3DbiQtD
-         C0JLw8SQ+QefzKB9+ZRDpTNY2ob/+hXRlQLC1cO8/C4FmZavBZMi6OhPBTWpW/ep564t
-         nSLFGt0IrgJaAWaYHd0nd09c8UVaxYo58LhKmGTQ+hBMvaQ1YUmxVbw3pFNULx3pibAR
-         LF7XiphbGDp3tDPqHHdfHnjUvJLmZJ6P6bUAoZGuLuvIBylLGGgbzNKQUP9rKo5EBcbP
-         jZpvTSwezBR2Tj+kkum+/ndD92eDqA3nkIfrIZiT6mwgkATu4vjJ1AmBWXCIJPhqWy7v
-         PIvg==
+        b=kUL97GF6zds0ldUvD1L3i2vY3qGuRk7B1h4uR6+t22YdF/3MTP74bzx/NpzMZrnPC1
+         +PouW5OC3ddrtABj6fprIoEmeTcLlKndbwPk37zUtMbVeZQFZMC/tOIKx5vD18xoI89+
+         lTaiqnwaw/PrZf8Q5tg37npwdDbEaPQ5wnw/OmE09W5aBgcCmrphF6XXE7gWTDi154mT
+         MuJcE7qcUPkAthIoCz9xrPuf4NbRGXP4GPC2QFy3/tc0SOrm6ZvAvcrRo9o3DjI2noOT
+         K0B8fBGgZcqsd8HaLW9aoUNsFKPYpX5h3b7j/VzT/UcLZPWZwVWgGfNGKIKFbX5moeNR
+         HeNQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=ostd63D/pHq1wEszrvnCWLljd4cbA1uBfg2xxYmiHik=;
-        b=mnoT1+k8lrh2zk23ezz366Gba40ackl7w2V8K8A3ColZCm/cr/WAVZcNNG5EmmP+cT
-         GhTo0591NBF2JIlrVcKCqO9cmu6/0+IRyCyLzLL3dCAmzzyrrqETh2dn6RBzjj/F4PkF
-         r6MoDqARwi+FPPibDX2A5so6iqfq457NfV6z61UxgBfbWoUUevEEv3zD0xyIK59b9QIg
-         rbLetq9yNA4Qa0QEIg9VsYHj1uImQtoVk/orxY4brq1ejgFrvD+e1tq0vrZG3uoY9R2P
-         lD9tP3h8G0h0J1ruyMP8/+UgSkpdq9D2IdFe858e//4CHdNZ5Q1EYAOlxwPaBXYmQoIQ
-         RDPQ==
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:dkim-signature;
+        bh=bFXceQdcCW+w7xkTEiJgs2UqZ2JA5aTkOeIu4UpVzZg=;
+        b=v1hyGt55FNB73+Cmc4EeUaVKhqbXf7781+jqsXS9gONuObPv+6synsPl1Zns94N4JV
+         9SWpokzX6OAqa4LtD1YEsj0ZQUeTILcZZKRIlwV2glsk2cICV+EwIHHYo/U7IeYMu5l8
+         NdcrNBS/okKUUWwYezBQ2I6pcsMCaX7TQ7PZgvLDv+kfhiKqt9YLb0JmdPX6IxA9iLb5
+         5t/p704apdieX/pIJGlxDPM2HHvF0I73wVhTLFIgvoZcfE4ZQNmKitAaIY3ThhOvW2vK
+         O/hnqTPyEXJRy/eWd3Ivgt6LU7OHnHNU+Db9sthUx3OVD6oXqhvfAgVK5zASGO1uWcJT
+         MdqQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id l9si140354wmc.0.2019.08.29.05.51.27
+       dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b="eh/zaE7Y";
+       spf=pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.17.21 as permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de
+Received: from mout.gmx.net (mout.gmx.net. [212.227.17.21])
+        by gmr-mx.google.com with ESMTPS id m29si158515edb.3.2019.08.29.06.06.08
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 29 Aug 2019 05:51:27 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id x7TCpQDk031221
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 29 Aug 2019 14:51:26 +0200
-Received: from [139.25.68.37] (md1q0hnc.ad001.siemens.net [139.25.68.37] (may be forged))
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id x7TCpPr7021414;
-	Thu, 29 Aug 2019 14:51:26 +0200
-Subject: Re: Unable to find IVSHMEM pci-device on root cell (ARM64)
-To: Jan Lipponen <jan.lipponen@gmail.com>,
-        Jailhouse <jailhouse-dev@googlegroups.com>
-References: <500f983d-7afc-43b1-bc9a-13768226ad64@googlegroups.com>
- <0defc7ed-1e7a-5781-bcc6-9a0a5c45b4d4@siemens.com>
- <6b4bb950-5b1e-42e2-8d54-52beb009b025@googlegroups.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <1dc9ffa7-64a6-6578-cb29-2573f680b6b3@siemens.com>
-Date: Thu, 29 Aug 2019 14:51:24 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <6b4bb950-5b1e-42e2-8d54-52beb009b025@googlegroups.com>
+        Thu, 29 Aug 2019 06:06:08 -0700 (PDT)
+Received-SPF: pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.17.21 as permitted sender) client-ip=212.227.17.21;
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [10.0.0.213] ([212.126.163.234]) by mail.gmx.com (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MMGRK-1hk0K130UQ-00JFv5; Thu, 29
+ Aug 2019 15:06:07 +0200
 Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
+Mime-Version: 1.0 (Mac OS X Mail 11.5 \(3445.9.1\))
+Subject: Re: IO access in jailhouse root cell
+From: Oliver Schwartz <Oliver.Schwartz@gmx.de>
+In-Reply-To: <a77abfcc-9856-0797-caed-0c9dcc62b07a@siemens.com>
+Date: Thu, 29 Aug 2019 15:06:07 +0200
+Cc: jailhouse-dev@googlegroups.com
 Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Message-Id: <EEE90634-7719-40E0-8AD6-056999F8EEF2@gmx.de>
+References: <76008E6A-1653-4358-AD31-4C8D332759C1@gmx.de>
+ <fc5e2fab-3339-2dac-0a61-7a3647873a42@siemens.com>
+ <7297AC93-068F-4C6F-8486-222D62F7D1EB@gmx.de>
+ <a77abfcc-9856-0797-caed-0c9dcc62b07a@siemens.com>
+To: Jan Kiszka <jan.kiszka@siemens.com>
+X-Mailer: Apple Mail (2.3445.9.1)
+X-Provags-ID: V03:K1:Vefl5zUNQTeww68x6XRNHua+nTrYjgQ7QiFrnWnvRnJziZ00fwb
+ +8Kk8ghPcSOH/qapDGiguBzwlkgiOsCqyOrupFUCsDpN2kUk5N6heD4PZG0g1RztuIQfqhG
+ 6D9lwqWcdQ/E0tz/VQlfB5w24uMRKInocqwLq4KC2cRh1ewSpfB6oB9ekp3ERmjgNfyqDdF
+ aQS5fjO+uAzOBFm5jOkBw==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:jBWuvIITWL8=:lzgH0ABAR2+qz/3ZE7bXcs
+ mBMkJkFSmSV59QwFO13u+ihzqtpqDUPYvHHpHgO46hr2e1lRBfaJfHDS2MmKMg2VI/meS7O8B
+ 4C2iuKrVChXggq3qq2apOSxdw8q85t3Iln8VSYGLDYqUYHJcLths2QL62ebqxOXjlI5Laovt7
+ xfzZnkvi8X2FfMhigE1UKLEnyzQDflYmMGcCX/FTWnmUuwUxBPAjqi3TGVWgdeQFgH9WARwaD
+ 3gJ2nGmWo+tMIXO8J2zlbGB4lOPDaUqTDG65CIIwOtShec0hQWzZdTOqpfegc/nA4TfWJJJ2J
+ gOIifR+vx9AjhZ0aG7M8QflcFqrWOOWLovchSlUsRyy9ZaulIvm7H9+ZMJpLw+CvkbOJ2YPUO
+ nPFUAVQwVC7TnHV5KR+XdPxnau7ERTDopXW8kJp/PfZu5clS+W7SexX77i4YAaorxAV5tGYNi
+ enBy5RbqtIvaKi1S+k9ceJ8XlswPctybkZcSV0FXpi+sfA/PdmkTsDr3+v7IIkrK1cS7znkAe
+ zk/AtZILUOUwegl0dzYAaHcfq/Idrs2LwKa0VcNfdz6HwzPW6f6wjzp43TZfHQ9S32HLMuHmu
+ 17Bb92OdXOp65GzsrPgTV0dNEYU9m3tAzioxmEFiwE/CSs2+76/BlV/eY/DhPsK/CSydanzwr
+ 1tLBMKCNgvd0Qjox7Iti9OLuf6Bh8oAACzEOrYnmAYZtPXckWMHhOPzhJkTKCz+loutxUgU3T
+ mGYlfUPE5Rl6vf7uP/2wuH/QXBaozYgE4KbVy4uMeX9mG5Er0LLunRtivyl0DKBrX9eJ/NE8E
+ GWGbDm/u1YXzyU88C+7VZzq/1Qzka8tXj7FS39ySdzjrhfAZflFD5V3LLFg9U9G4g+PPRE+25
+ g2HNmPHeUnPBH8w/2wK3IGiIQb2+Xzt6Kw1JLAVpTJxyDg3DcAXOti2Pqn9c+zstHLqcqLFaT
+ yXsXmkXwlp2CRXppAX0ntex2SRCq3bzzwCBzbqzGMP3bNOflTgqprX7zHmZPEQO+VPfrA2A72
+ klss4dX2VnvqG3G5HVEkIQx0ut4KDXquk64ZAPXpo+M5ePwYe7STTClW/vgdm/YhV+3fs0Eu7
+ ZNpX1X0F+qT4PHoBCaquCUPWVDXkKva5l91ru5ER2Hh04G7us+48YTFwkx8LjVJCw5f4kPyd/
+ Ovi12w8OziAsQ3C60B7RLJ4WJb7+asUQk+urRXN35HUfPKnw==
+X-Original-Sender: oliver.schwartz@gmx.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@gmx.net header.s=badeba3b8450 header.b="eh/zaE7Y";       spf=pass
+ (google.com: domain of oliver.schwartz@gmx.de designates 212.227.17.21 as
+ permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -136,220 +154,49 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 29.08.19 12:44, Jan Lipponen wrote:
-> Hi Jan,
->=20
-> thanks for your quick answer! Please find the kernel log attached.
 
-There is no report of the host controller being detected. You should=20
-find it at least in the device tree under /sys/firmware/devicetree/base/pci=
-@0.
-The kernel log should look like this:
 
-[   30.213785] pci-host-generic fc000000.pci: host bridge /pci@0 ranges:
-[   30.220268] pci-host-generic fc000000.pci:   MEM 0xfc100000..0xfc103fff =
--> 0xfc100000
-[   30.228537] pci-host-generic fc000000.pci: ECAM at [mem 0xfc000000-0xfc0=
-fffff] for [bus 00]
-[   30.237019] pci-host-generic fc000000.pci: PCI host bridge to bus 0001:0=
-0
-[   30.243837] pci_bus 0001:00: root bus resource [bus 00]
-[   30.249078] pci_bus 0001:00: root bus resource [mem 0xfc100000-0xfc103ff=
-f]
-[   30.255989] pci 0001:00:00.0: [1af4:1110] type 00 class 0xff0100
-[   30.256015] pci 0001:00:00.0: reg 0x10: [mem 0x00000000-0x000000ff 64bit=
-]
-[   30.256577] pci 0001:00:01.0: [1af4:1110] type 00 class 0xff0100
-[   30.256597] pci 0001:00:01.0: reg 0x10: [mem 0x00000000-0x000000ff 64bit=
-]
-[   30.257891] pci 0001:00:00.0: BAR 0: assigned [mem 0xfc100000-0xfc1000ff=
- 64bit]
-[   30.265272] pci 0001:00:01.0: BAR 0: assigned [mem 0xfc100100-0xfc1001ff=
- 64bit]
-[   30.272804] The Jailhouse is opening.
-[   30.299771] ivshmem-net 0001:00:00.0: enabling device (0000 -> 0002)
-[   30.307270] ivshmem-net 0001:00:01.0: enabling device (0000 -> 0002)
+> On 29 Aug 2019, at 10:08, Jan Kiszka <jan.kiszka@siemens.com> wrote:
+>=20
+> On 29.08.19 08:41, Oliver Schwartz wrote:
+>> I=E2=80=99ve now tracked down the error to power management, in particul=
+ar to clock gating when autosuspend is used in IO drivers.
+>> The drivers in question, spi-cadence.c (https://github.com/Xilinx/linux-=
+xlnx/blob/xilinx-v2018.2/drivers/spi/spi-cadence.c) and i2c-cadence.c (http=
+s://github.com/Xilinx/linux-xlnx/blob/xilinx-v2018.2/drivers/i2c/busses/i2c=
+-cadence.c), use autosuspend and turn off their clock when suspended. This =
+is done using the PMU (Power Management Unit) firmware interface (https://g=
+ithub.com/Xilinx/linux-xlnx/blob/xilinx-v2018.2/drivers/firmware/xilinx/zyn=
+qmp/firmware.c). The firmware interface can be configured to take a hypervi=
+sor into account, but my guess is that this is not yet handled in jailhouse=
+.
+>> I haven=E2=80=99t yet figured out if driver autosuspend can be disabled =
+by some kernel configuration setting. However, I can work around the issue =
+by patching the kernel drivers to disable autosuspend.
+>> This also effects any other driver that relies on PMU functions. The CAN=
+ driver (https://github.com/Xilinx/linux-xlnx/blob/xilinx-v2018.2/drivers/n=
+et/can/xilinx_can.c) spits out a message "pm_runtime_get failed(-22)=E2=80=
+=9D occasionally while jailhouse is loaded.
+>=20
+> Interesting. This driver also exist in upstream, but not yet in 4.19 that=
+ we use on the ultra96. Which of the communication methods does it use when=
+ talking to the firmware? SMC or HVC? Should also be encoded in the device =
+tree.
 
-Check if your root cell kernel is the required driver support built in.
-https://github.com/siemens/jailhouse-images/blob/master/recipes-kernel/linu=
-x/files/arm64_defconfig_4.19
-can be a reference.
+SMC is configured in the device tree (obviously, as there is no hypervisor =
+directly after boot).
 
-Jan
+> Anyway, I would try if things still work when disabling this driver (CONF=
+IG_ZYNQMP_FIRMWARE). Interpreting and moderating guest requests would be a =
+task for later then.
 
->=20
-> -Jan
->=20
-> On Thursday, 29 August 2019 13:17:49 UTC+3, Jan Kiszka wrote:
->=20
->     On 29.08.19 10:36, Jan Lipponen wrote:
->      > Hi!
->      >
->      > I have ran in a similar situation as Sebastian in a post from yest=
-erday
->      > <https://groups.google.com/forum/#!topic/jailhouse-dev/GgGrW2an4Tk
->     <https://groups.google.com/forum/#!topic/jailhouse-dev/GgGrW2an4Tk>>=
-=C2=A0but with a
->      > ARM64 device (ZCU104 board). The problem seems to be that Linux is=
- unable to
->      > detect the virtual IVSHMEM PCI device. The Jailhouse enables fine =
-with
->     following
->      > logs:
->      >
->      >
->      > |
->      > Initializing Jailhouse hypervisor=C2=A0 on CPU 0
->      > Code location: 0x0000ffffc0200800
->      > Page pool usage after early setup: mem 39/996, remap 0/131072
->      > Initializing processors:
->      > =C2=A0=C2=A0CPU 0... OK
->      > =C2=A0=C2=A0CPU 1... OK
->      > =C2=A0=C2=A0CPU 3... OK
->      > =C2=A0=C2=A0CPU 2... OK
->      > Initializing unit: irqchip
->      > Initializing unit: PCI
->      > Adding virtual PCI device 00:00.0 to cell "ZCU104-root"
->      > DEBUG pci.c: pci_cell_init returned 0
->      > Page pool usage after late setup: mem 59/996, remap 5/131072
->      > Activating hypervisor
->      > [=C2=A0 627.901240] The Jailhouse is opening.
->      > |
->      >
->      >
->      > I've just added the DEBUG print there.
->      >
->      > I do not have the /lspci/=C2=A0tool installed on the target, but I=
- can see
->     that no
->      > PCI devices are created under //sys/bus/pci/devices/=C2=A0and the =
-probe
->     function of
->      > the /uio_ivshmem/ driver never gets called. Re-scanning the PCI bu=
-s doesn't
->      > help. After enabling a guest cell I can see that Jailhouse is able=
- to
->     create a
->      > shared memory connection between the guest and root cell via the I=
-VSHMEM
->     device:
->      >
->      > |
->      > [ 1493.087945] CPU3: shutdown
->      > [ 1493.090656] psci: CPU3 killed.
->      > Adding virtual PCI device 00:00.0 to cell "ZynqMP-ZCU104-bmetal"
->      > Shared memory connection established: "ZynqMP-ZCU104-bmetal" <-->
->     "ZCU104-root"
->      > Created cell "ZynqMP-ZCU104-bmetal"
->      > |
->      >
->      > This makes me think that from the Jailhouse's point of view everyt=
-hing is
->     going
->      > great and the only problem is that Linux's PCI subsystem is just u=
-nable to
->      > discover the device. I initially thought it is a device tree issue=
- so I went
->      > ahead and added a PCI node to the device tree, following the examp=
-le in
->      > jailhouse/configs/arm64/dts/inmate-zynqmp.dts
->      >
->     <https://github.com/siemens/jailhouse/blob/8e77d610dd4869223a5209c11e=
-4314c2e1d4d334/configs/arm64/dts/inmate-zynqmp.dts#L91
->     <https://github.com/siemens/jailhouse/blob/8e77d610dd4869223a5209c11e=
-4314c2e1d4d334/configs/arm64/dts/inmate-zynqmp.dts#L91>>.
->=20
->      > It seems that the base address of this generic PCI host controller=
- needs to
->      > match the /.pci_mmconfig_base /property in the root cell config. T=
-his,
->     however,
->      > resulted in a kernel warning:
->      >
->      > |
->      > Activating hypervisor
->      > [=C2=A0 171.863249] sysfs: cannot create duplicate filename
->      > '/bus/platform/devices/fc000000.pci'
->      > [=C2=A0 171.871362] ------------[ cut here ]------------
->      > [=C2=A0 171.875977] WARNING: CPU: 1 PID: 1932 at fs/sysfs/dir.c:31
->      > sysfs_warn_dup+0x5c/0x78
->      > |
->      >
->      > So, the=C2=A0fc000000.pci device is already registered without my =
-additional
->     device
->      > tree node, but the /uio_ivshmem/=C2=A0does not get probed because =
-it's
->     registered as
->      > a PCI driver.
->      >
->      > Additioanlly, I've tried adding=C2=A0CONFIG_KALLSYMS_ALL and=C2=A0=
-CONFIG_PCI_DEBUG in
->      > kernel config, but nothing changed.
->      >
->      >
->      > To get me forward, I would have couple of questions.
->      >
->      > =C2=A0 * Should a device indeed be created under=C2=A0/sys/bus/pci=
-/devices when
->     Jailhouse
->      > =C2=A0 =C2=A0 is enabled, regardless if /uio_ivshmem /driver is in=
-serted into
->     kernel or not?
->=20
->     Yes. The device comes first (namely the virtual PCI host controller a=
-nd then,
->     via scanning it, the virtual device(s)), and then the drivers bind to=
- it (for
->     pci-generic host controller and ivshmem devices).
->=20
->      >
->      > =C2=A0 * Is the /uio_ivshmem /driver's probe called after Linux's =
-PCI subsystem
->      > =C2=A0 =C2=A0 successfully registers the IVSHMEM device?
->=20
->     See above: The generic host controller should be detected first. It's=
- added via
->     a dt overlay by the jailhouse driver to the root cell. Could you shar=
-e the
->     complete kernel log of the root cell?
->=20
->      >
->      > =C2=A0 * Should I add a device tree node for a /pci-host-generic /=
-driver
->     (/compatible
->      > =C2=A0 =C2=A0 =3D "pci-host-ecam-generic"/) or not? Initially, I o=
-nly have an entry
->     for the
->      > =C2=A0 =C2=A0 ZynqMP PCIe core (/compatible =3D "xlnx,nwl-pcie-2.1=
-1"/).
->      >
->=20
->     Nope, not needed, done automatically.
->=20
->     Jan
->=20
->     --=20
->     Siemens AG, Corporate Technology, CT RDA IOT SES-DE
->     Corporate Competence Center Embedded Linux
->=20
-> --=20
-> You received this message because you are subscribed to the Google Groups=
-=20
-> "Jailhouse" group.
-> To unsubscribe from this group and stop receiving emails from it, send an=
- email=20
-> to jailhouse-dev+unsubscribe@googlegroups.com=20
-> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
-> To view this discussion on the web visit=20
-> https://groups.google.com/d/msgid/jailhouse-dev/6b4bb950-5b1e-42e2-8d54-5=
-2beb009b025%40googlegroups.com=20
-> <https://groups.google.com/d/msgid/jailhouse-dev/6b4bb950-5b1e-42e2-8d54-=
-52beb009b025%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>.
+CONFIG_ZYNQMP_FIRMWARE is selected automatically when CONFIG_ARCH_ZYNQMP is=
+ selected (see https://github.com/Xilinx/linux-xlnx/blob/xilinx-v2018.2/arc=
+h/arm64/Kconfig.platforms). My feeling is that disabling ZYNQMP_FIRMWARE wo=
+uld be counterproductive anyway, as starting and stopping CPU cores is also=
+ done by the PMU firmware.
 
---=20
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+Oliver
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -357,4 +204,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/1dc9ffa7-64a6-6578-cb29-2573f680b6b3%40siemens.com.
+jailhouse-dev/EEE90634-7719-40E0-8AD6-056999F8EEF2%40gmx.de.
