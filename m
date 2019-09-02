@@ -1,67 +1,69 @@
-Return-Path: <jailhouse-dev+bncBC5J3D7HTQNBBEX3WPVQKGQEVFFVYHI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC5J3D7HTQNBBINKWTVQKGQEVKPJCMA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
 Received: from mail-ot1-x340.google.com (mail-ot1-x340.google.com [IPv6:2607:f8b0:4864:20::340])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0FB3A54DD
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  2 Sep 2019 13:31:31 +0200 (CEST)
-Received: by mail-ot1-x340.google.com with SMTP id w60sf253613otb.13
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 02 Sep 2019 04:31:31 -0700 (PDT)
+	by mail.lfdr.de (Postfix) with ESMTPS id 036ADA5771
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  2 Sep 2019 15:12:03 +0200 (CEST)
+Received: by mail-ot1-x340.google.com with SMTP id g8sf8824766otj.16
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 02 Sep 2019 06:12:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=X6btMh+QJaY96UUVsHTegvAtTo/eMpwxed93KbBiiUs=;
-        b=e6NeGfb6FI+4I9VxlE49oe/p3PqXMzIUDGz9pMmbgxL0GAJTWSZFO6TElEIVxsphiO
-         k+GPXpy2kzy3ogP83iq7FDcqWcgmBx+2AMi7kuB22p5ne+l0C+v23gz+buQId99AfZbb
-         2IeBmmuDXWMA5alNn7sHzWaen+tpdM2FJhur1wwweqYBchRuet1XVMwKjpHOoBDdozMI
-         /Lvu2nxajX+CzftzmaAJp9dbfzDPbXPen/Wt17SA5Zwxfq039TAQ5qLozoyWjdrERumb
-         hkMuyaYcuK2Yf7lPi0N0Aeyi+PEJ7VHuaT1ky3emqh+NkU/mySsMcNYLo/4EBUQqJgYz
-         5Ixw==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=8IBV0L3x/j0iMG5u3vsbapmZO7WQbQeirPCRQJIZGw0=;
+        b=PW9AdhhL3MUOeIjXm8y98nVaUHTU3nwrnkZnBcScwckKDzep2eQeCi0RE8Xw8ngffB
+         uX+SGfhlAjrsJ4NspLHeA857gakjKqIb5t/D49frqvhqPgiuk881XKgZ0wUSCsxZUuGJ
+         zQrMaJf4zpf1vsDDvGDcdzkvJ3CgFC4zyhPBhnoxyvjj8DnjrnpbR6mDq66hJmNj1ZR8
+         /9ksVIReuH6JSjeq8hbN15lxbHLIeDdnSUCKrnaBboqL6ARqwvJ1N25qI7rv/4/zaUia
+         IzeLCM6iFkVtE7xYqVIUpHrvNCxq3bdGa8hOictgUK339zzDwt6tVTMvL3F9Pe35BBW9
+         QRDw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:message-id:subject:mime-version:x-original-sender
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=X6btMh+QJaY96UUVsHTegvAtTo/eMpwxed93KbBiiUs=;
-        b=KE4C1KjGEVZ0TfZBmo3Wq9l1t+4ci1kSzoXPoSBurJyB6s2rYyAR+Ad9a6+qo26vvY
-         nyzii1H/G9r3WBYOnIoRchg11Wy3rXzfi7ziUckWPkBE1bKfWBd7t4JNUXOiKSxqzF/K
-         2f6LmvFcFYbjmDK/ZtkQDe6E9wxkZoYnl+UQP1HmWlErP03dQr7nOUdj9V9kX8xot23d
-         GxDISgwybDP/GSjPBrfjA5qxdUwERX/VQVsu9jEXLtF0P6Cg71NJHm20j+oCvFDRcSCn
-         kx0diRs/MPBlJqKZ1Ysd8j/ZQOBBkS/pQClGXxc6wWGPAbBuxHT2piA7NkuWefUtpsBK
-         iwcA==
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=8IBV0L3x/j0iMG5u3vsbapmZO7WQbQeirPCRQJIZGw0=;
+        b=i3D/vGnuAFvtCZ9d/9Lup2iWK9BN8p2lrgYEWoayEoIHN9Z1QFTbGJ7Hmmit3NMRaz
+         NmkD4GFatA5i0ilWSV6g0NDyJClm6HxNJArzcurewhBgbmBPrW4uD7XtO1YIiAgJaJFF
+         wTGxPm+WRghDp6livgVT5vM/qBFBN/W+vXEmS4YiashbcPZZXTeFofcuqhVIdYJ6Nv7L
+         DqDHH1Ynfe+29Z4lIhl7YjLLvpEY+khW8UUirdGDdtjzI3yuMmqKy3+r6XsoaTZH9CO8
+         Y11aLU6U0g9VUY8AWpJppFz1lh0FtXLev9Pflu2vSsy08MSa+dBz74OzNVShYn1hyXlJ
+         BKVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=X6btMh+QJaY96UUVsHTegvAtTo/eMpwxed93KbBiiUs=;
-        b=hlTLxPxlM890rqCzMqkW/P1sk4+6jp21PP7xL9tv8Pr/Zz3DWduz/V3DL3/Fpq0UV8
-         qCKjULujLu4ELL2S+q0HICVmPpRec+kn6GVzYA4aidlzcAXkJQjim4LKBj+shox3CYs9
-         9JhztusIlqW41BAR4GP0Ol+7HDvE2ahj2Dp4VN5smuIB1SJgUvyavZcmTqRcPpaN8kFS
-         ni9Qnoq4i0WUOwR0+OvRzDaQGtwFzjLfomFlApU68UHUg5mHTR3Hrig0TbtgP8iCl9dj
-         MnOa5PcyR+YPyuIEEYSt7Zw+iLOc9IcfdMOVmlDZcs+MJpefg1MlJhwyCx2tA78FhIy+
-         jPWw==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=8IBV0L3x/j0iMG5u3vsbapmZO7WQbQeirPCRQJIZGw0=;
+        b=qqA+fzKNmtnL1Z9mWgvkl65VF7AcdQUNB+2kRpBfBz1a/W+3ADNm7+8WWsPKfBNhtb
+         zXU+jmfeQslFoeAUqZFisxnpPM+tkfiPIlFUyQTPbDHI/fS/mwwfGbJMvFF2TtVV9zNM
+         z13FBLWYtZ7cgjgd5tMcvsJr7iLVeLrSEcP/5kzpCQXOBrWocS2l0XswOgoyvfx07Gl7
+         nsdvtA7aR5ScsX/2x612VLV/iTx8NssKcywn+f7UC5QvJKgowcN8sSPp0D0sZfUiS+FR
+         R8oHOWHc2ivMTNA9Sch52X0H1kClQw7Swf1y0MoM8N1tUNcP2ntlUpbKQYyldrI4fiFF
+         pqug==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVFjQ2xo0saCTu3CWJFpOhk5napno7XzoQury8JEyvKmayARZBS
-	PMPedN3Y0kuhdO0JW8wVgiE=
-X-Google-Smtp-Source: APXvYqzLxsvmWiia8f4G6rcSWMCulQhc7V605NPs7+EXKM8Xd56lhiSc5ixsNc3a6xt1vPVLBQXQYg==
-X-Received: by 2002:a9d:67cd:: with SMTP id c13mr24522408otn.196.1567423890452;
-        Mon, 02 Sep 2019 04:31:30 -0700 (PDT)
+X-Gm-Message-State: APjAAAVApLS+4rwp2lwe1UBhM6PK7TPu8bWa/fyHvPuoBe+JOtWhhX4Z
+	XK1koKXp5B3bFE+kbjeHuUo=
+X-Google-Smtp-Source: APXvYqxBmnm7XpkLjrKsmLUoNRmnJNlx7LvggHNC7CzNiKL5aszmBF8GMasKCODx6tKMCMGlsNWMXA==
+X-Received: by 2002:aca:aad4:: with SMTP id t203mr7197340oie.75.1567429921901;
+        Mon, 02 Sep 2019 06:12:01 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aca:ad92:: with SMTP id w140ls221649oie.2.gmail; Mon, 02 Sep
- 2019 04:31:30 -0700 (PDT)
-X-Received: by 2002:aca:c50a:: with SMTP id v10mr2555796oif.174.1567423889654;
-        Mon, 02 Sep 2019 04:31:29 -0700 (PDT)
-Date: Mon, 2 Sep 2019 04:31:28 -0700 (PDT)
+Received: by 2002:aca:c615:: with SMTP id w21ls1272530oif.15.gmail; Mon, 02
+ Sep 2019 06:12:01 -0700 (PDT)
+X-Received: by 2002:aca:5d82:: with SMTP id r124mr19312208oib.60.1567429920919;
+        Mon, 02 Sep 2019 06:12:00 -0700 (PDT)
+Date: Mon, 2 Sep 2019 06:12:00 -0700 (PDT)
 From: Nir Geller <nirgeller18@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <361d6548-e251-4e1e-a03b-cdcbfda1b67d@googlegroups.com>
-Subject: Interrupt Latency in RTOS inmate cell
+Message-Id: <bce2e24b-2063-4ce1-a1c9-c99efcd2ba5d@googlegroups.com>
+In-Reply-To: <361d6548-e251-4e1e-a03b-cdcbfda1b67d@googlegroups.com>
+References: <361d6548-e251-4e1e-a03b-cdcbfda1b67d@googlegroups.com>
+Subject: Re: Interrupt Latency in RTOS inmate cell
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_465_210077495.1567423888955"
+	boundary="----=_Part_179_330314991.1567429920319"
 X-Original-Sender: nirgeller18@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -75,69 +77,36 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_465_210077495.1567423888955
+------=_Part_179_330314991.1567429920319
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_466_416790309.1567423888956"
+	boundary="----=_Part_180_614082978.1567429920320"
 
-------=_Part_466_416790309.1567423888956
+------=_Part_180_614082978.1567429920320
 Content-Type: text/plain; charset="UTF-8"
 
-Hi there,
+I created a kernel module that catches/releases a spinlock and 
+disables/enables preemption, and it had no observable effect on the jitter, 
+however,
+the operations insmod and rmmod definitely cause spikes in jitter.
 
-I'm using Jailhouse 0.7 on a AM5728 based custom board, on which I'm 
-running Linux on A15 core0 and TI-RTOS on A15 core1.
-Linux kernel is 4.14.79 with RT-PREEMPT patch, supplied by TI.
+Any pointers?
 
-On the TI-RTOS side I have an interrupt driven by a togglled GPIO at duty 
-cycle of 31.25 usec, and I'm experiencing jitter of up to 40 usec.
-This happens when both Linux and RTOS are not under any load.
-
-When running the TI-RTOS natively on A15 core0 the jitter is stable and 
-doesn't get higher than 12 usec, which is acceptable.
-
-Also, I started the hypervisor and the TI-RTOS app, then I made the 
-hypervisor park core0 by attempting to read a memory address that Linux is 
-not allowed to access
-and again on core1 the jitter is stable and doesn't get higher than 12 usec.
-
-I guess that Linux is causing the interference.
-
-Does Linux postpone/disable interrupts on core 1? Can it be avoided?
-What else might cause the jitter?
-
-Does it make sense to port Jailhouse to a newer version?
-
-Thanks,
-
-Nir.
+Thanks.
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/361d6548-e251-4e1e-a03b-cdcbfda1b67d%40googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/bce2e24b-2063-4ce1-a1c9-c99efcd2ba5d%40googlegroups.com.
 
-------=_Part_466_416790309.1567423888956
+------=_Part_180_614082978.1567429920320
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div>Hi there,</div><div><br></div><div>I&#39;m using Jail=
-house 0.7 on a AM5728 based custom board, on which I&#39;m running Linux on=
- A15 core0 and TI-RTOS on A15 core1.</div><div>Linux kernel is 4.14.79 with=
- RT-PREEMPT patch, supplied by TI.</div><div><br></div><div>On the TI-RTOS =
-side I have an interrupt driven by a togglled GPIO at duty cycle of 31.25 u=
-sec, and I&#39;m experiencing jitter of up to 40 usec.</div><div>This happe=
-ns when both Linux and RTOS are not under any load.</div><div><br></div><di=
-v>When running the TI-RTOS natively on A15 core0 the jitter is stable and d=
-oesn&#39;t get higher than 12 usec, which is acceptable.</div><div><br></di=
-v><div>Also, I started the hypervisor and the TI-RTOS app, then I made the =
-hypervisor park core0 by attempting to read a memory address that Linux is =
-not allowed to access</div><div>and again on core1 the jitter is stable and=
- doesn&#39;t get higher than 12 usec.</div><div><br></div><div>I guess that=
- Linux is causing the interference.</div><div><br></div><div>Does Linux pos=
-tpone/disable interrupts on core 1? Can it be avoided?</div><div>What else =
-might cause the jitter?</div><div><br></div><div>Does it make sense to port=
- Jailhouse to a newer version?</div><div><br></div><div>Thanks,</div><div><=
-br></div><div>Nir.</div></div>
+<div dir=3D"ltr">I created a kernel module that catches/releases a spinlock=
+ and disables/enables preemption, and it had no observable effect on the ji=
+tter, however,<div>the operations insmod and rmmod definitely cause spikes =
+in jitter.</div><div><br></div><div>Any pointers?</div><div><br></div><div>=
+Thanks.</div></div>
 
 <p></p>
 
@@ -148,11 +117,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/361d6548-e251-4e1e-a03b-cdcbfda1b67d%40googlegroup=
+om/d/msgid/jailhouse-dev/bce2e24b-2063-4ce1-a1c9-c99efcd2ba5d%40googlegroup=
 s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
-sgid/jailhouse-dev/361d6548-e251-4e1e-a03b-cdcbfda1b67d%40googlegroups.com<=
+sgid/jailhouse-dev/bce2e24b-2063-4ce1-a1c9-c99efcd2ba5d%40googlegroups.com<=
 /a>.<br />
 
-------=_Part_466_416790309.1567423888956--
+------=_Part_180_614082978.1567429920320--
 
-------=_Part_465_210077495.1567423888955--
+------=_Part_179_330314991.1567429920319--
