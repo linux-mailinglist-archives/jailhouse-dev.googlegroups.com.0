@@ -1,75 +1,127 @@
-Return-Path: <jailhouse-dev+bncBC5J3D7HTQNBBLXEXDVQKGQEVN5TGGA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDJMJPGY2MGRBPNUXHVQKGQEPPYKH5Q@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x33a.google.com (mail-ot1-x33a.google.com [IPv6:2607:f8b0:4864:20::33a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1345CA6529
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  3 Sep 2019 11:28:16 +0200 (CEST)
-Received: by mail-ot1-x33a.google.com with SMTP id t26sf10283215otm.9
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 03 Sep 2019 02:28:16 -0700 (PDT)
+Received: from mail-ed1-x53c.google.com (mail-ed1-x53c.google.com [IPv6:2a00:1450:4864:20::53c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EFDEA6873
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  3 Sep 2019 14:19:10 +0200 (CEST)
+Received: by mail-ed1-x53c.google.com with SMTP id y66sf7294212ede.16
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 03 Sep 2019 05:19:10 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1567513150; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=v1ey596dlbaaGbLCq4ybagMeyYoMoEd3WuzK8vdKG6E1dS6G+chHsTyqqqSSsasZZd
+         QYUqadAwWYAGsrLucnt3pozU1s3PzufmoTOIU+AvzveEv9d8dUEeoNG3VDYTE8Xk/UQB
+         6Wm08YdiFewRUkzgOas50GU3x8sT8hT7fC69PqebjB5RGu0PHoGiUqBxEBoH+2exwwHO
+         9Jy/tpXgSykt6MIptNVMj4/X1iOI7j8LYELPK4xIQ0FCe4rPbnArFKDrle3Dv/mWL24V
+         Jri3ayMa0ZzRvwHx1eH+SvhX5D8i8Anhphsklm+YGeJkDv8JvCKXmSLHpyU22XqsB+48
+         GL5A==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:sender:dkim-signature;
+        bh=P5fGUNIw4V08fS0sYPSpjG40qHGJ/MEHKUuPitH+DSA=;
+        b=lFaQ0hEPJE8nOda7yXpmYMV9VgXgo1FiFiZSNsR12HwAgjuDfDJbHLSyyoPgXaROgk
+         VBimXYdA8u01eob9iyZge7lqZzgJpfCdKxui8p9BG49FJFHYspUfsbuohJ0kZURKy5c2
+         8W484E2X30SvglRlZwB9s9Ja28csNTchfIrlvUS722aZ+2jLB6Q40j3v2oTgAkUZJjOa
+         2t4QqaUfeks8aMeXOY4J8G4SGeFmtBsz/6sI6AsB9MC3Zo2tKrfTXs3SzPfEvhb/C6E/
+         k2VXXmUMPgWker7CpnY+q927Hx68Tsieg95rbe+YbjMRbyaS8sESZ9IYa3TV2wvs1tEg
+         CjTA==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of henning.schild@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=henning.schild@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=mnICmu9sAKFn4GRBnOs7E6WaLRylktb6JkQabd1SpB4=;
-        b=RlUkkDHBJTrArgy7nOJ/mg5Mne4u5qHFMWGthJTKhsTNeq5egE4vs4cdtodPkDb7mA
-         kgIyW9Xi101HnHE6iCqhWc4NfMmhhlAkUfN2n+UFxw/N6hN2iTyKQlfE/gXIJY/b41ob
-         7qllGnjKvlFt2wIjL+WZ3CoswpBjMtR3XKlXXz7B0PLEuZoX4Yqyi3hwi5ANpct3tC7F
-         woY6OPABvIkC/jDa/2p6GmSwsg7Weg5G2P3Akz2rmXpMA3P5P+U4Ifa6Jqnl3EGfEtPS
-         KOU7lVngdReFtfGnCDIMDH8yLXq9NdLBAoKqmHsW048I+htJepB4m4jBQyP3lfeCoBEz
-         ViPw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=mnICmu9sAKFn4GRBnOs7E6WaLRylktb6JkQabd1SpB4=;
-        b=ks4NdA6oum/JcSSUJNzeV6fua09BLuRm0QeJdlQMUcQOoZn6FhHAySA8KMwpJW8u+q
-         DQp9ud/FDJke35+MLstPX3rlSZOF/G/Dz8MlYbmyeEJD21VjwGJVHuYFZpBO86ivclQ3
-         KT0Sd6FxfJZZVcB9+cF+w6KDQhWupWdHNHUaRLNvc/dxHZdaupkaUSLP/Gn+48HRK6WH
-         QD5sZ354jR8rLcZAh9IKGzt5ZDS6PqhVV4Pf3f41SlOVBDxK2euHLB+dTikpYGVOCNlb
-         vg7um290SzYt4cu2P6OrwhrRLz0Wz51Si+7GYz4ujN/wqH9USU6LpnPuhg5MlubOKD6+
-         yvwA==
+        h=sender:date:from:to:cc:subject:message-id:in-reply-to:references
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=P5fGUNIw4V08fS0sYPSpjG40qHGJ/MEHKUuPitH+DSA=;
+        b=D8tVHmUXlOHyQ9VlrbcYO/6x0n9/h0cz/ECwks6gcd7nGu5dau1PMiHjx5EArDpewD
+         fIk5f97iJxqwoWCyw/Gipp428ZBy3XCJeRXaVuvaKoJZ4qhQCvfbJBAp5IT2HmNZJhk8
+         GfB/gJxJe33gkAleq2BRQNnsTtbGOQDQclbGzWEtjqZ8D0c2hk5Mm+rlIXkYW98BrFMW
+         8VxF9rsRFUB8cMj2+0U0g4SCzU0/T8uqPb4wN8yFY1DfFoCBwkzKwez1mLF+Tcf8PDyB
+         zc14XmAktPRTW9YDwhD/+jkFcmdjt7vOImtGbJQ++4b0e1ON+/UtUDPg82DetO5yxT68
+         58xQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=mnICmu9sAKFn4GRBnOs7E6WaLRylktb6JkQabd1SpB4=;
-        b=X23U48jqy9afyZR2emBYj7USn6ZUTXpGvLQ0I+LSTaZf07q6LhCxcWEJ6M6A/WX4AW
-         5O1TtlQpxyISY0sdoSeu4NI/kZ2uEZddkhdSy5dUnqTMsiFBs+zcBLF0LP1gtXEo5Qm3
-         nS0q0Mqc0fvcjEedtPSH2pSsx23t8F1vlljiKW61hkGzNdGT5GEJhyF9qPmdZb/mlYCD
-         GaU5XMX/NtP4ts1uLoh3vYq910D16HmMQprDr72+ExTUxoqpM6ya4nUm+/hLKcRisrZx
-         7ypNnryF+j5EwkcEvOBLQ8RftPQ7NolTe4doYZ30UtTWGALRpn3A5RnkDW7WKFYu2+Gi
-         DVpA==
+        h=sender:x-gm-message-state:date:from:to:cc:subject:message-id
+         :in-reply-to:references:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=P5fGUNIw4V08fS0sYPSpjG40qHGJ/MEHKUuPitH+DSA=;
+        b=tG1gZ8Mp+dEy+nuUXOy3YZ7AsM9PcnYz9jDvWX6xyWFvEmYlkwRbm0vK6nco7rwv4j
+         IplKWnnxUvE+LIQjnitDR8Jy8sv4GEUeciCg2kf+I0+aCfF6c8dFFBIrqNWfrlaT07Cj
+         KbPjklrxFE9RxsGsI2ajNIseD2ZtNyED845w5/lQU81Q9CZD4yPeVkD7QOy0JzHTxbNd
+         UpGjq9FKnxTu2+M8NrZ9XavQXYvLB63NzoDRaRX5uX93PeiUcZMGIDey3yt/pCxmJA7d
+         hbsoYPbv9xOQo3avKKqk6IqjNhWRC+2jbAmuqUC0QH2hEK7sX0frB/GVLzedYbtgKhOf
+         tICw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAX0voKxUt/VtZPimEmbNremtES0UpPwk2ki8qRAD1ROdJMdLzfi
-	lMpdnL/z6euslq+4ozzZW4M=
-X-Google-Smtp-Source: APXvYqxkmqAK2uxE5bjrLcGGc5/yDncHCPBvqVDMAiDzmCzL1U7kacdI/RhtNivMwBA0/dEAM0rcUQ==
-X-Received: by 2002:a9d:560f:: with SMTP id e15mr12239028oti.246.1567502894910;
-        Tue, 03 Sep 2019 02:28:14 -0700 (PDT)
+X-Gm-Message-State: APjAAAW9VRJfkezfO1H9shiZpOoDCp5p/hwxbQadErYtQ6PL3+EqLqXF
+	vv62a6trgZK32UhB6Ygurk8=
+X-Google-Smtp-Source: APXvYqyMQqI7tSH9QJoZKAGVmnTQIsMnWgMM6nS0fUCqNw15iwQae8bOOoEkCj2yexTS3NAVNVUarQ==
+X-Received: by 2002:a50:eb0a:: with SMTP id y10mr29081005edp.53.1567513150031;
+        Tue, 03 Sep 2019 05:19:10 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aca:1211:: with SMTP id 17ls530012ois.7.gmail; Tue, 03 Sep
- 2019 02:28:14 -0700 (PDT)
-X-Received: by 2002:aca:4d85:: with SMTP id a127mr6261241oib.154.1567502894240;
-        Tue, 03 Sep 2019 02:28:14 -0700 (PDT)
-Date: Tue, 3 Sep 2019 02:28:13 -0700 (PDT)
-From: Nir Geller <nirgeller18@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <7ab0b502-2efe-41fe-ae9e-ec2c8f2c1b7a@googlegroups.com>
-In-Reply-To: <20190902185713.0c54ed6b@md1za8fc.ad001.siemens.net>
-References: <361d6548-e251-4e1e-a03b-cdcbfda1b67d@googlegroups.com>
- <bce2e24b-2063-4ce1-a1c9-c99efcd2ba5d@googlegroups.com>
- <20190902165120.7cc1048b@md1za8fc.ad001.siemens.net>
- <a3c23a6a-95ee-4baa-9714-229c84d9d5b7@googlegroups.com>
- <53ebbcfc-be0b-ab8d-5cd2-477e01d1dafc@oth-regensburg.de>
- <20190902185713.0c54ed6b@md1za8fc.ad001.siemens.net>
+Received: by 2002:aa7:da85:: with SMTP id q5ls3930634eds.15.gmail; Tue, 03 Sep
+ 2019 05:19:09 -0700 (PDT)
+X-Received: by 2002:a50:fc87:: with SMTP id f7mr36181751edq.288.1567513149309;
+        Tue, 03 Sep 2019 05:19:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1567513149; cv=none;
+        d=google.com; s=arc-20160816;
+        b=yaDvfyXQO7WhtcYSEIid7xkjLrhqgCUeiCw0qqs23Ohiz8cCxTpglVFG5Inzr/YL9K
+         6rY3QRoSics10Q9bi/wWBErjuS7de8yxkQcFn1dVXY5lrYR2rDblYMs6vCAuHB3onpOL
+         ORbwcwkqYuiziUggy3rNn7fVjQvkOPo2UYB+uw7Ddt2KgunToYioVWoW4X+tmrvFApPR
+         p1B+h8dUQm4aHOJQSCKO/IOymk6PnBNIgVeFO6GfZppZ3tVhz+uR9rIvfnCHPRdC4rmi
+         SxJCazu6xKinbxmjBLAAUmoTE4+joVhieLUneuH9GcJZxSuFTmFeT+ewevgTMulE5HWc
+         3qlA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date;
+        bh=92lVJWJOukonINgEbBRqxwhCa3nEJMB0bGGL8SPN5gg=;
+        b=kLeLsmkWBUcZXwDOjB1Pd83FeVpF16r4xtofk+UIor94X6Hctdk2CBiEHEaC3w/HCV
+         5SVBW6SQHwNNGf3YpOJ1C7uUMDThy75WNa9Fj57iqp6S1+7B1PCa5bKoRFTT5vL+i5Zw
+         IcASg6qwUgcAZRwy1G+5+ET4zSL8PzFPRKEgLEM6DTYgZHge3Hd/XpVdp1Vjmu/7XwQu
+         zfz1U+0jauuRuVXKG4ASIrEUeUFIeiGyPztK0CgcKQ8OU76o/CZdSb8xkwV7BB0xlsfu
+         QL2Vttn28tRiNxw2sFCAEq3ia3z//n+uU+1Pek4xrsSTkJYwysJ1JOkKhFEAE78KWcgl
+         zyeA==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of henning.schild@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=henning.schild@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
+        by gmr-mx.google.com with ESMTPS id z31si479884edc.2.2019.09.03.05.19.09
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 03 Sep 2019 05:19:09 -0700 (PDT)
+Received-SPF: pass (google.com: domain of henning.schild@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id x83CJ8kQ018391
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 3 Sep 2019 14:19:08 +0200
+Received: from md1za8fc.ad001.siemens.net ([139.25.69.169])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id x83CJ7gO028088;
+	Tue, 3 Sep 2019 14:19:07 +0200
+Date: Tue, 3 Sep 2019 14:19:07 +0200
+From: Henning Schild <henning.schild@siemens.com>
+To: Nir Geller <nirgeller18@gmail.com>
+Cc: Jailhouse <jailhouse-dev@googlegroups.com>
 Subject: Re: Interrupt Latency in RTOS inmate cell
+Message-ID: <20190903141907.65025fe4@md1za8fc.ad001.siemens.net>
+In-Reply-To: <7ab0b502-2efe-41fe-ae9e-ec2c8f2c1b7a@googlegroups.com>
+References: <361d6548-e251-4e1e-a03b-cdcbfda1b67d@googlegroups.com>
+	<bce2e24b-2063-4ce1-a1c9-c99efcd2ba5d@googlegroups.com>
+	<20190902165120.7cc1048b@md1za8fc.ad001.siemens.net>
+	<a3c23a6a-95ee-4baa-9714-229c84d9d5b7@googlegroups.com>
+	<53ebbcfc-be0b-ab8d-5cd2-477e01d1dafc@oth-regensburg.de>
+	<20190902185713.0c54ed6b@md1za8fc.ad001.siemens.net>
+	<7ab0b502-2efe-41fe-ae9e-ec2c8f2c1b7a@googlegroups.com>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_415_41214428.1567502893727"
-X-Original-Sender: nirgeller18@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+X-Original-Sender: henning.schild@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of henning.schild@siemens.com designates 192.35.17.14 as
+ permitted sender) smtp.mailfrom=henning.schild@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -82,255 +134,129 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_415_41214428.1567502893727
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_416_637068855.1567502893727"
+Am Tue, 3 Sep 2019 02:28:13 -0700
+schrieb Nir Geller <nirgeller18@gmail.com>:
 
-------=_Part_416_637068855.1567502893727
-Content-Type: text/plain; charset="UTF-8"
+> Hi Henning
+> 
+> When I execute "sync" I get a spike on jitter.
+> When executing 
+> echo 1 > /proc/sys/vm/drop_caches
+> or
+> echo 2 > /proc/sys/vm/drop_caches
+> or
+> echo 3 > /proc/sys/vm/drop_caches
+> No spike occurs.
 
-Hi Henning
+Not those caches. The CPUs caches. If your two cores share i.e. a
+layer3 cache one core can evict all warm entries from the other.
+Forcing that other to go back to slow RAM and get it again. In the
+worst case you share and NUMA kicks in, which gets you twice the
+slowness of RAM.
 
-When I execute "sync" I get a spike on jitter.
-When executing 
-echo 1 > /proc/sys/vm/drop_caches
-or
-echo 2 > /proc/sys/vm/drop_caches
-or
-echo 3 > /proc/sys/vm/drop_caches
-No spike occurs.
+Do you share any memory i.e. a ivshmem region?
 
-I'm not familiar with AMBA, so I'm trying to learn the subject now. I guess 
-you mean giving higher priority to core1
-in attempt to narrow DMA latency?
+> I'm not familiar with AMBA, so I'm trying to learn the subject now. I
+> guess you mean giving higher priority to core1
+> in attempt to narrow DMA latency?
 
-Thanks,
+Yes i thought about DMA latency. But if that also happens for sysfs or
+proc, there is no IO and no DMA.
+What is your storage backing anyways? NFS, some filesystem on some mass
+storage ?
 
-Nir.
+Maybe your Linux UART has some shared resources with with the GPIO? Can
+you silence the UART and operate that Linux with i.e. ssh?
 
-On Monday, September 2, 2019 at 7:57:16 PM UTC+3, Henning Schild wrote:
->
-> A good way of estimating the cost of someone messing with ones caches 
-> is to flush them yourself in your test and see how much that costs you. 
->
-> I am not sure how complicated it is to read performance counters on 
-> ARM, but those might give a clue. 
->
-> AMBA QoS can maybe help raise the IO prio of your RT-cell. If a DMA 
-> request is what is slowing down your GPIO. 
-> I have never used that but maybe you can configure it from Linux before 
-> you enable Jailhouse, and make sure that your root cell config blocks 
-> future access to the configuration mechanism. 
->
-> Henning 
->
->
->
-> Am Mon, 2 Sep 2019 17:27:47 +0200 
-> schrieb Ralf Ramsauer <ralf.r...@oth-regensburg.de <javascript:>>: 
->
-> > Hi, 
-> > 
-> > On 9/2/19 5:11 PM, Nir Geller wrote: 
-> > > CPUFREQ is set to performance, and I'm setting scaling_min_freq to 
-> > > the highest available frequency (1500000) 
-> > > CPU idling is disabled 
+Henning
+
+> Thanks,
+> 
+> Nir.
+> 
+> On Monday, September 2, 2019 at 7:57:16 PM UTC+3, Henning Schild
+> wrote:
+> >
+> > A good way of estimating the cost of someone messing with ones
+> > caches is to flush them yourself in your test and see how much that
+> > costs you. 
+> >
+> > I am not sure how complicated it is to read performance counters on 
+> > ARM, but those might give a clue. 
+> >
+> > AMBA QoS can maybe help raise the IO prio of your RT-cell. If a DMA 
+> > request is what is slowing down your GPIO. 
+> > I have never used that but maybe you can configure it from Linux
+> > before you enable Jailhouse, and make sure that your root cell
+> > config blocks future access to the configuration mechanism. 
+> >
+> > Henning 
+> >
+> >
+> >
+> > Am Mon, 2 Sep 2019 17:27:47 +0200 
+> > schrieb Ralf Ramsauer <ralf.r...@oth-regensburg.de <javascript:>>: 
+> >  
+> > > Hi, 
 > > > 
-> > > Now I see that executing a simple "cat somefile" on the command line 
-> > > causes a spike in jitter   
-> > 
-> > only for the first time or also for consecutive calls on the same 
-> > file? IOW, can you observe/trigger the spike when somefile is in your 
-> > page cache? 
-> > 
-> > Does the non-root cell share any devices with the root cell? (e.g. 
-> > debug UART) 
-> > 
-> >   Ralf 
-> > 
+> > > On 9/2/19 5:11 PM, Nir Geller wrote:   
+> > > > CPUFREQ is set to performance, and I'm setting scaling_min_freq
+> > > > to the highest available frequency (1500000) 
+> > > > CPU idling is disabled 
+> > > > 
+> > > > Now I see that executing a simple "cat somefile" on the command
+> > > > line causes a spike in jitter     
 > > > 
-> > > On Monday, September 2, 2019 at 5:51:24 PM UTC+3, Henning Schild 
-> > > wrote: 
+> > > only for the first time or also for consecutive calls on the same 
+> > > file? IOW, can you observe/trigger the spike when somefile is in
+> > > your page cache? 
 > > > 
-> > >     Am Mon, 2 Sep 2019 06:12:00 -0700 
-> > >     schrieb Nir Geller <nirge...@gmail.com <javascript:>>: 
+> > > Does the non-root cell share any devices with the root cell?
+> > > (e.g. debug UART) 
+> > > 
+> > >   Ralf 
 > > >   
-> > >     > I created a kernel module that catches/releases a spinlock and 
-> > >     > disables/enables preemption, and it had no observable effect 
-> > >     > on the jitter, however, 
-> > >     > the operations insmod and rmmod definitely cause spikes in 
-> > >     > jitter. 
-> > >     > 
-> > >     > Any pointers?   
-> > > 
-> > >     Do you have any power management features enabled in that Linux? 
-> > > 
-> > >     Henning 
+> > > > 
+> > > > On Monday, September 2, 2019 at 5:51:24 PM UTC+3, Henning
+> > > > Schild wrote: 
+> > > > 
+> > > >     Am Mon, 2 Sep 2019 06:12:00 -0700 
+> > > >     schrieb Nir Geller <nirge...@gmail.com <javascript:>>: 
+> > > >     
+> > > >     > I created a kernel module that catches/releases a
+> > > >     > spinlock and disables/enables preemption, and it had no
+> > > >     > observable effect on the jitter, however, 
+> > > >     > the operations insmod and rmmod definitely cause spikes
+> > > >     > in jitter. 
+> > > >     > 
+> > > >     > Any pointers?     
+> > > > 
+> > > >     Do you have any power management features enabled in that
+> > > > Linux? 
+> > > > 
+> > > >     Henning 
+> > > >     
+> > > >     > Thanks. 
+> > > >     >     
+> > > > 
+> > > > -- 
+> > > > You received this message because you are subscribed to the
+> > > > Google Groups "Jailhouse" group. 
+> > > > To unsubscribe from this group and stop receiving emails from
+> > > > it, send an email to jailho...@googlegroups.com <javascript:> 
+> > > > <mailto:jailhouse-dev+unsubscribe@googlegroups.com
+> > > > <javascript:>>. To view this discussion on the web visit 
+> > > >   
+> > https://groups.google.com/d/msgid/jailhouse-dev/a3c23a6a-95ee-4baa-9714-229c84d9d5b7%40googlegroups.com   
+> > > > <  
+> > https://groups.google.com/d/msgid/jailhouse-dev/a3c23a6a-95ee-4baa-9714-229c84d9d5b7%40googlegroups.com?utm_medium=email&utm_source=footer>. 
+> >     
 > > >   
-> > >     > Thanks. 
-> > >     >   
-> > > 
-> > > -- 
-> > > You received this message because you are subscribed to the Google 
-> > > Groups "Jailhouse" group. 
-> > > To unsubscribe from this group and stop receiving emails from it, 
-> > > send an email to jailho...@googlegroups.com <javascript:> 
-> > > <mailto:jailhouse-dev+unsubscribe@googlegroups.com <javascript:>>. 
-> > > To view this discussion on the web visit 
-> > > 
-> https://groups.google.com/d/msgid/jailhouse-dev/a3c23a6a-95ee-4baa-9714-229c84d9d5b7%40googlegroups.com 
-> > > <
-> https://groups.google.com/d/msgid/jailhouse-dev/a3c23a6a-95ee-4baa-9714-229c84d9d5b7%40googlegroups.com?utm_medium=email&utm_source=footer>. 
->   
-> > 
->
->
+> >
+> >  
+> 
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/7ab0b502-2efe-41fe-ae9e-ec2c8f2c1b7a%40googlegroups.com.
-
-------=_Part_416_637068855.1567502893727
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi Henning<div><br></div><div>When I execute &quot;sync&qu=
-ot; I get a spike on jitter.</div><div>When executing=C2=A0</div><div>echo =
-1 &gt; /proc/sys/vm/drop_caches</div><div>or</div><div>echo 2 &gt; /proc/sy=
-s/vm/drop_caches</div><div>or</div><div>echo 3 &gt; /proc/sys/vm/drop_cache=
-s</div><div>No spike occurs.</div><div><br></div><div>I&#39;m not familiar =
-with AMBA, so I&#39;m trying to learn the subject now. I guess you mean giv=
-ing higher priority to core1</div><div>in attempt to narrow DMA latency?</d=
-iv><div><br></div><div>Thanks,</div><div><br></div><div>Nir.<br><br>On Mond=
-ay, September 2, 2019 at 7:57:16 PM UTC+3, Henning Schild wrote:<blockquote=
- class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-left: 1=
-px #ccc solid;padding-left: 1ex;">A good way of estimating the cost of some=
-one messing with ones caches
-<br>is to flush them yourself in your test and see how much that costs you.
-<br>
-<br>I am not sure how complicated it is to read performance counters on
-<br>ARM, but those might give a clue.
-<br>
-<br>AMBA QoS can maybe help raise the IO prio of your RT-cell. If a DMA
-<br>request is what is slowing down your GPIO.
-<br>I have never used that but maybe you can configure it from Linux before
-<br>you enable Jailhouse, and make sure that your root cell config blocks
-<br>future access to the configuration mechanism.
-<br>
-<br>Henning
-<br>
-<br>
-<br>
-<br>Am Mon, 2 Sep 2019 17:27:47 +0200
-<br>schrieb Ralf Ramsauer &lt;<a href=3D"javascript:" target=3D"_blank" gdf=
--obfuscated-mailto=3D"03EV89DIAAAJ" rel=3D"nofollow" onmousedown=3D"this.hr=
-ef=3D&#39;javascript:&#39;;return true;" onclick=3D"this.href=3D&#39;javasc=
-ript:&#39;;return true;">ralf.r...@oth-regensburg.<wbr>de</a>&gt;:
-<br>
-<br>&gt; Hi,
-<br>&gt;=20
-<br>&gt; On 9/2/19 5:11 PM, Nir Geller wrote:
-<br>&gt; &gt; CPUFREQ is set to performance, and I&#39;m setting scaling_mi=
-n_freq to
-<br>&gt; &gt; the highest available frequency (1500000)
-<br>&gt; &gt; CPU idling is disabled
-<br>&gt; &gt;=20
-<br>&gt; &gt; Now I see that executing a simple &quot;cat somefile&quot; on=
- the command line
-<br>&gt; &gt; causes a spike in jitter =C2=A0
-<br>&gt;=20
-<br>&gt; only for the first time or also for consecutive calls on the same
-<br>&gt; file? IOW, can you observe/trigger the spike when somefile is in y=
-our
-<br>&gt; page cache?
-<br>&gt;=20
-<br>&gt; Does the non-root cell share any devices with the root cell? (e.g.
-<br>&gt; debug UART)
-<br>&gt;=20
-<br>&gt; =C2=A0 Ralf
-<br>&gt;=20
-<br>&gt; &gt;=20
-<br>&gt; &gt; On Monday, September 2, 2019 at 5:51:24 PM UTC+3, Henning Sch=
-ild
-<br>&gt; &gt; wrote:
-<br>&gt; &gt;=20
-<br>&gt; &gt; =C2=A0 =C2=A0 Am Mon, 2 Sep 2019 06:12:00 -0700
-<br>&gt; &gt; =C2=A0 =C2=A0 schrieb Nir Geller &lt;<a>nirge...@gmail.com</a=
-> &lt;javascript:&gt;&gt;:
-<br>&gt; &gt; =C2=A0=20
-<br>&gt; &gt; =C2=A0 =C2=A0 &gt; I created a kernel module that catches/rel=
-eases a spinlock and
-<br>&gt; &gt; =C2=A0 =C2=A0 &gt; disables/enables preemption, and it had no=
- observable effect
-<br>&gt; &gt; =C2=A0 =C2=A0 &gt; on the jitter, however,
-<br>&gt; &gt; =C2=A0 =C2=A0 &gt; the operations insmod and rmmod definitely=
- cause spikes in
-<br>&gt; &gt; =C2=A0 =C2=A0 &gt; jitter.
-<br>&gt; &gt; =C2=A0 =C2=A0 &gt;
-<br>&gt; &gt; =C2=A0 =C2=A0 &gt; Any pointers? =C2=A0
-<br>&gt; &gt;=20
-<br>&gt; &gt; =C2=A0 =C2=A0 Do you have any power management features enabl=
-ed in that Linux?
-<br>&gt; &gt;=20
-<br>&gt; &gt; =C2=A0 =C2=A0 Henning
-<br>&gt; &gt; =C2=A0=20
-<br>&gt; &gt; =C2=A0 =C2=A0 &gt; Thanks.
-<br>&gt; &gt; =C2=A0 =C2=A0 &gt; =C2=A0
-<br>&gt; &gt;=20
-<br>&gt; &gt; --=20
-<br>&gt; &gt; You received this message because you are subscribed to the G=
-oogle
-<br>&gt; &gt; Groups &quot;Jailhouse&quot; group.
-<br>&gt; &gt; To unsubscribe from this group and stop receiving emails from=
- it,
-<br>&gt; &gt; send an email to <a href=3D"javascript:" target=3D"_blank" gd=
-f-obfuscated-mailto=3D"03EV89DIAAAJ" rel=3D"nofollow" onmousedown=3D"this.h=
-ref=3D&#39;javascript:&#39;;return true;" onclick=3D"this.href=3D&#39;javas=
-cript:&#39;;return true;">jailho...@<wbr>googlegroups.com</a>
-<br>&gt; &gt; &lt;mailto:<a href=3D"javascript:" target=3D"_blank" gdf-obfu=
-scated-mailto=3D"03EV89DIAAAJ" rel=3D"nofollow" onmousedown=3D"this.href=3D=
-&#39;javascript:&#39;;return true;" onclick=3D"this.href=3D&#39;javascript:=
-&#39;;return true;">jailhouse-dev+<wbr>unsubscribe@googlegroups.com</a>&gt;=
-.
-<br>&gt; &gt; To view this discussion on the web visit
-<br>&gt; &gt; <a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/a3=
-c23a6a-95ee-4baa-9714-229c84d9d5b7%40googlegroups.com" target=3D"_blank" re=
-l=3D"nofollow" onmousedown=3D"this.href=3D&#39;https://groups.google.com/d/=
-msgid/jailhouse-dev/a3c23a6a-95ee-4baa-9714-229c84d9d5b7%40googlegroups.com=
-&#39;;return true;" onclick=3D"this.href=3D&#39;https://groups.google.com/d=
-/msgid/jailhouse-dev/a3c23a6a-95ee-4baa-9714-229c84d9d5b7%40googlegroups.co=
-m&#39;;return true;">https://groups.google.com/d/<wbr>msgid/jailhouse-dev/a=
-3c23a6a-<wbr>95ee-4baa-9714-229c84d9d5b7%<wbr>40googlegroups.com</a>
-<br>&gt; &gt; &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-de=
-v/a3c23a6a-95ee-4baa-9714-229c84d9d5b7%40googlegroups.com?utm_medium=3Demai=
-l&amp;utm_source=3Dfooter" target=3D"_blank" rel=3D"nofollow" onmousedown=
-=3D"this.href=3D&#39;https://groups.google.com/d/msgid/jailhouse-dev/a3c23a=
-6a-95ee-4baa-9714-229c84d9d5b7%40googlegroups.com?utm_medium\x3demail\x26ut=
-m_source\x3dfooter&#39;;return true;" onclick=3D"this.href=3D&#39;https://g=
-roups.google.com/d/msgid/jailhouse-dev/a3c23a6a-95ee-4baa-9714-229c84d9d5b7=
-%40googlegroups.com?utm_medium\x3demail\x26utm_source\x3dfooter&#39;;return=
- true;">https://groups.google.com/d/<wbr>msgid/jailhouse-dev/a3c23a6a-<wbr>=
-95ee-4baa-9714-229c84d9d5b7%<wbr>40googlegroups.com?utm_medium=3D<wbr>email=
-&amp;utm_source=3Dfooter</a>&gt;. =C2=A0
-<br>&gt;=20
-<br>
-<br></blockquote></div></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/7ab0b502-2efe-41fe-ae9e-ec2c8f2c1b7a%40googlegroup=
-s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
-sgid/jailhouse-dev/7ab0b502-2efe-41fe-ae9e-ec2c8f2c1b7a%40googlegroups.com<=
-/a>.<br />
-
-------=_Part_416_637068855.1567502893727--
-
-------=_Part_415_41214428.1567502893727--
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20190903141907.65025fe4%40md1za8fc.ad001.siemens.net.
