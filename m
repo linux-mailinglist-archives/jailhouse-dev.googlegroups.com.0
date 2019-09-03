@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBP4CXDVQKGQEZC6ONHI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBQECXDVQKGQEP2RMEAI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x539.google.com (mail-ed1-x539.google.com [IPv6:2a00:1450:4864:20::539])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15369A60EA
+Received: from mail-lj1-x23c.google.com (mail-lj1-x23c.google.com [IPv6:2a00:1450:4864:20::23c])
+	by mail.lfdr.de (Postfix) with ESMTPS id F11C3A60EC
 	for <lists+jailhouse-dev@lfdr.de>; Tue,  3 Sep 2019 07:59:28 +0200 (CEST)
-Received: by mail-ed1-x539.google.com with SMTP id y66sf6717385ede.16
+Received: by mail-lj1-x23c.google.com with SMTP id 205sf833448ljf.13
         for <lists+jailhouse-dev@lfdr.de>; Mon, 02 Sep 2019 22:59:28 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1567490367; cv=pass;
+ARC-Seal: i=2; a=rsa-sha256; t=1567490368; cv=pass;
         d=google.com; s=arc-20160816;
-        b=KRxgDCoOf/ZvqK2tYDrsokWRseU4alYnqUjNyvjf/8t4XFlQ+Jgkm8JypLiprI8KWv
-         lUCrtXRtHWXqVKOPm//anDyrgdc0QWT8gkfTchUXhK+fxR7yt1uABX2t9vnxwv2ewlgK
-         7OwAaeStQK1gg+0nQEG009J4Pp87qK87v9YNT9HqhEoNpDmoH0GYDKMJBSRrPqFYPW6t
-         Aoe8p6af6Kh9kIKNDzB8CXeXt2DvJfP76QqaqAhQgmgIMKlMN394AN0AS33gYiMtHFNs
-         /A5m88zmSkwVoMKJCyq0c0Xi4OmY+axRG6uvUKktN9d6dWTkel8Rxn2g2Z57cGg68rZN
-         KnvA==
+        b=Yz4qB+tPhLYbrLwJJV1GUu48IbzIheoB6cpx1LXh6+phtPkgf49iyghWhsWpnOFZaA
+         f8P9s8DL/ZiFEvQP9F+lTmP6wHUPOZ5zyhdUK4sDYpCelPkpCQpEoJVVdfUPL09/zWKS
+         4zUFmWJ6luzFZHSvlOtDWv9c7Qy1DqzI37vTIwTQz63khAt+flOJbp/crKiT1169Rdx2
+         UUH/LU3OjIe/ihMyFh+0NpZFfsSIauc1sR5XVxxk2CVbj78XZhiv2Zy5Lfb7bjRszBIb
+         nRi0sDON2Fq9WDIq/MmDRaqBFjEogkmHaDyvkamsKagqyDMZaIeVKxmCjxlm2WoabD7G
+         brpg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:references:in-reply-to:references
          :in-reply-to:message-id:date:subject:to:from:mime-version:sender
          :dkim-signature;
-        bh=MWWVe3J2tA5UCcNNRa9oIj2xBFZz01YqHIxu4/aLXDU=;
-        b=O6YOHa+XUVD0lY95mP6tUoNpYDxtMwGrOyD6AzjkP2xaGcGNIlGhD4Rcg3SLT3mr24
-         wWZXCo+jDAspWo3fJmCWHxkcOt6ocsewJZWRNk/emwmtPa9CY14A/N3xG7bOF2PuGyBQ
-         NCO1dBgP0zlnn6PBMilEe0yVg4yyBUYrcszN/ATojPfEc9ZJ37YyIw4pudP+e8szb90L
-         HeHdXiGkrwaXXrNdOHDAsF9dW8YJpxEobG/T7mfdT1l+ysmaTlk5GyTgD8T7rbPR3NLh
-         7verfAgK1doI3QuXjoRWcMmvhqgQwqhU5GuQdnyiTTjTdPADlcAy0S3hL3MVWzz1wlS7
-         XdAw==
+        bh=wTTCBWWOuGzS0igcJDFa0k46iJZ637fYLzQTsVYLP8M=;
+        b=E9EG/AgT5V1RvVLGwihC9TK2ODsYALNzgbXfNUvPTPKLtxP6AGdJW4K775dIL+6csI
+         hBo0uXcDZq2c2ekgXkuu4X58T2uAEmmf6bC3MJJ5WjIAgyknMVPaxpejawSCMJsykAab
+         wkKHQlmg6WWNl/VYnrNrc8+ir6iXP+vNFh6eREREbndgdxunzMPQFxkINoSBLq80efv2
+         U0KIf2asvPWYhyPjLHfWropY4P/NYgBjjHYHTz+8jdRHSyYKarBQKn+0zv4TuoFXrPl/
+         9myyC2sNN7vaLQZ08ii6QskOWkLeWjXWM4QQYMLlyuKVjXLRfkJcZe0ZkavTayky0vEE
+         OTUg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:in-reply-to:references:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=MWWVe3J2tA5UCcNNRa9oIj2xBFZz01YqHIxu4/aLXDU=;
-        b=abnCmlzdmvELs4ENnepJam+cGqF/LH/rWOtIpXdt7Dcw+9IfiwRnPmFpjl1RPRGD3Z
-         wDGGLEKhWS/VSpG40OcwnnCGEa0Rcnb9q9ScVZKM6T+jFBvgUj7/9PJm5vINiKKfCsyH
-         aO+aw+ExhXBI0hx0a8YjQbsktZfhHU+f/qqOSj4/LsiJa4dZf5OFO93ehwX7qA+65PLN
-         uUfHUR/2rmYATz5J41dOQuH2PQ4oQO2uFjRJgkBNpYwI0rrGYeuBLs8P6mBr+5dYfh14
-         wznsIvcO1hh8DCmat32DgQ1H57M6XVV1yAyAzbsl5zCBBvHCBzoIWM5zskMytjluT/6L
-         seQg==
+        bh=wTTCBWWOuGzS0igcJDFa0k46iJZ637fYLzQTsVYLP8M=;
+        b=VDxUOjKKPU2pPLOEZy8pNYI1KUy99lCg110SuraDJTWolsQrg6Yr1+lKG0+uAj8weq
+         EOGf5PVXyhpiafVM57GEsxFhOzyY4TZEMikJC20tAOeR62wO6sn7PchqHiME3KljDhw8
+         PGgyNLZXmvnCXgQ4n7QrCjx75zBAY73n4Mcc9FzUisq56dD5Lb+ErqWU25d7//xJFbyJ
+         UkzSpI65WSeY2e3ZkYasiPOZV0ZNZOpBanDD69059Po53S4dQYfVlxtPGkZz+6QuAqtY
+         aM0Gq9em9GXvMqdedCieKeoH5t/5mIjY8KAbBgsLsQpqssDAyfQqmiwoRQ1cH8U9mA/i
+         ce7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:mime-version:from:to:subject:date
@@ -49,64 +49,64 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=MWWVe3J2tA5UCcNNRa9oIj2xBFZz01YqHIxu4/aLXDU=;
-        b=M/lsNWTkoHzHkuYFNn8tMnqzqRc/ECkvjDcdFEoxUzSfSM09GKVLWfbKEgMYf8AGqm
-         YO7Cj79SssOBkOgq/lwvfyO9GLQ3VJxOvSVEywCykanCKZXITryx4IG1VSP4X2nQ6/zR
-         iO5n46kNpTUV2TGtBfbUkmTxYkdXHxCizVpUVJw3WuQf6rDwQT4zOFE+gIgk6tkpGE8k
-         C2i04iNtWlEUd+oz0PQsTuG8mSKEP7IDQtp0SKsQM9l5Q+vHxQVRtQSbg4KEy2ozyy16
-         brOYHw/UIQ2FzMtFO6SAaEkXkoBOJI+5NX4adDR3eApEcQdNEhpqnjtlHcxdPxX8Ki8j
-         rkJg==
+        bh=wTTCBWWOuGzS0igcJDFa0k46iJZ637fYLzQTsVYLP8M=;
+        b=cX05iPvygYd5Br4nWTOhZGDIPu83FKmXvWFWw3dpCgXAPLolRJCVdH1jniel8/Lhda
+         hKvXxWRX/6bVlTzSjkXwHeUmY+zKXxIoECTwoH0c9rCsCdqB0lNi4A0TC4uHDbqe257t
+         Bt+Ic1sKY648V4F2UDILH396zNqZUsyM5aQtQkgA8uVouR1OQTcjYvu2mA0nbiG0o6lk
+         BfZJe93//GtG2I/ouFsmtuUYkGDLOo4zzf3kzrKMDR4siEMG3GQH7ftGHK/t+U5gaF9E
+         Q1ky/rfE0YD1MmZPR5Oe5nC3SRPb8xoWpdtD4i4vEIkKQf4spFrr+9Ggh5Her2FqlD0v
+         ZL2w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVbvkmovv22cxhe1FTJpPqoqLmc72EfMCugpwMx3S7okWUZUVW2
-	V/BvgZswfTiZFcksLY0p2xc=
-X-Google-Smtp-Source: APXvYqw90oxyLyLGig8GY7+OiuVrX10EdmpG8JcYbnVoxwlPnhaQ3efeD4cgrCQNVaMZR+ne42cE0Q==
-X-Received: by 2002:a17:906:7494:: with SMTP id e20mr16029975ejl.166.1567490367781;
-        Mon, 02 Sep 2019 22:59:27 -0700 (PDT)
+X-Gm-Message-State: APjAAAUD1/2gqrzxVuSGcrX5rLr9gF/isgbWmu/kAdrk8ESqxxiEelek
+	YLiTSIs7/yHv1EVt12lirLk=
+X-Google-Smtp-Source: APXvYqzxZn3pHujsFdO8opueZs/1atbMmxtXk4NiuV6V9siHLLzjCod7zBzeHWtsDihNXBgNm9DKlQ==
+X-Received: by 2002:ac2:54aa:: with SMTP id w10mr1634366lfk.67.1567490368552;
+        Mon, 02 Sep 2019 22:59:28 -0700 (PDT)
 MIME-Version: 1.0
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:f0d1:: with SMTP id dk17ls2530800ejb.12.gmail; Mon,
- 02 Sep 2019 22:59:27 -0700 (PDT)
-X-Received: by 2002:a17:906:a2d6:: with SMTP id by22mr236091ejb.133.1567490366978;
-        Mon, 02 Sep 2019 22:59:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1567490366; cv=none;
+Received: by 2002:a19:5f55:: with SMTP id a21ls118208lfj.0.gmail; Mon, 02 Sep
+ 2019 22:59:27 -0700 (PDT)
+X-Received: by 2002:a19:8c1d:: with SMTP id o29mr14898703lfd.73.1567490367609;
+        Mon, 02 Sep 2019 22:59:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1567490367; cv=none;
         d=google.com; s=arc-20160816;
-        b=WgaLNVn9FsfXOVnbDgCzyIlmBGuOETkzrycH5cj6WCOcREPwkpMMBR/cbLh2lliYiE
-         0fJNT45mZT1h1SpVbQ8h7Nr6LCTaAjrwrxMkisv3VDBbKA3RNL493HLyw3ThwjyvKi7a
-         h+ErzAO2Ttdd/u+q72OxqFogsL3ZU0WdukGmxhlFmeFFPPay5fn2VrE61HXYngQliePc
-         3qiDa171E5V0G/Lq+xNkVeXnZ1E5kAqFdqdMSAj13XwXO/rW+9otHE4b6gM2+qEcTsNI
-         zuyQqGD9rR31OMRAJ14EUKJu0gG4+EcTYUeq9PvLDeCWjkeBNK7POxgK95uXM70sT6dE
-         NsEA==
+        b=Wv2V9GxSLzIPCDElC91Zc0swFgxwj4V4og+pTpF9Sp5MSJ7oNUHLl2uV4HhquqtBlE
+         QzjWFBs83vH3ot00c+pf6h+38W/LHCnwuhzDXfo4t3PWbFLN6fyYOLp8I8Azf4onoFFj
+         N9OeMKCEUzGEwwpW70YGMY9x9+lt+S+3Io3PZI3MrKv3Y4WYKE0xMdjQoyojvROVvEiO
+         fynQa/5rWwWP+CJyYYea5X+Ydrs+p/H6f/ez73Q4mLOFS7hCH/xLhQhiF0rFd2QpRqkq
+         l8ms8tAGdxXcDB4XooQhrtqG1nDwngxqbnaVesnodSQZLlOWO+QsVQ1/XI9AWF+PBCiY
+         /fCQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=references:in-reply-to:references:in-reply-to:message-id:date
          :subject:to:from;
-        bh=hM0FQ4YNiD66ZZADSN798WygFM/moHviiJdj7U17swE=;
-        b=yAPXYiwRkpHVCKWGwVAuJxGUPI+Tb4CwIRX2rvYRbR55s21r8WVTWxvgJMssh1+t68
-         4dnuwjT8z+VbQ6DLisREuMnFnbbIbI2RLgQ5y5wvKVxmUwpCzEMo0kexGs6Nid87PG8y
-         DdrIUdhY++WjOuiVPd8S8zDK5Brn9u3O2/2ZplUenxkzJRAVKgRrJcYCosmf74VSu++k
-         cz+wu94KL6abTCa4vpTJfRfMs1fMi+dDFnrxGBVx83Kjkd1/I4nd7bCv/qSapP5Fp9bK
-         iOlmPBTOSwQjMROhAivVoYZzLEKZjQJ7ODaHJvWFFc9xdrDM0bklJjlGHrCZWD9BBcuW
-         ljrw==
+        bh=+KyAfDNP9vI1ew1rs5Td/ODKbBVOhzL3HGla2ICOZZw=;
+        b=MqY0yxEFfQJ8C9Y8nzd5I8/sehEroYrMIZjuvrSANWLjo6ImzKypvvnv1L3gXveOyX
+         3dnSD9xGC8nC0gdjzKNT+BIaRi+ApAxdZp3QNAMJN0KDZF+e32w7qbWTkDEh6OTIehQe
+         +E1SooW+CYhKMDKBAREDoE2EmGtD7JkP3+TxzttzimcvjHYeYT8gM36/chSgGo6pMkjn
+         lpXdoLIXJK02NA8jIwaULR+WyhYWp7LzwkSUdLkg3Zcom+XY+krwoNksebo4DpZMEMRm
+         Na5xCY4zJtfVABRktP7sqO9vRypTojhwyou5jySok+3aFkns1Hffq7Na/fpEWTTi+GVo
+         x4MA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id z31si404048edc.2.2019.09.02.22.59.26
+Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
+        by gmr-mx.google.com with ESMTPS id c8si403661lfm.4.2019.09.02.22.59.27
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 02 Sep 2019 22:59:26 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
+        Mon, 02 Sep 2019 22:59:27 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id x835xQwo012469
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id x835xQuP009931
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
 	for <jailhouse-dev@googlegroups.com>; Tue, 3 Sep 2019 07:59:26 +0200
 Received: from md1f2u6c.ad001.siemens.net ([167.87.40.78])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id x835xPkP010486
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id x835xPkQ010486
 	for <jailhouse-dev@googlegroups.com>; Tue, 3 Sep 2019 07:59:26 +0200
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [jh-images][PATCH 02/13] build-images: Use latest kas-docker internally
-Date: Tue,  3 Sep 2019 07:59:14 +0200
-Message-Id: <458367be5bd5bd94f0f971fdf15086c0dac3e061.1567490365.git.jan.kiszka@siemens.com>
+Subject: [jh-images][PATCH 03/13] u-boot-ultra96: Update to 2019.07 and ATF 2.1
+Date: Tue,  3 Sep 2019 07:59:15 +0200
+Message-Id: <f1ef3fe8bf5a157d18dffd6ef860cc4b978ec024.1567490365.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <cover.1567490365.git.jan.kiszka@siemens.com>
 References: <cover.1567490365.git.jan.kiszka@siemens.com>
@@ -114,7 +114,7 @@ In-Reply-To: <cover.1567490365.git.jan.kiszka@siemens.com>
 References: <cover.1567490365.git.jan.kiszka@siemens.com>
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
@@ -132,112 +132,252 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-By now, more mature starting of the kas-isar container is achieved by
-using upstream kas-docker. E.g., build-images.sh still forwards SHELL
-unconditionally, breaking on hosts with shells the container does not
-support.
+U-Boot requires an additional patch for the cross-building its tools.
+ATF can drop the previously used compilation fix but needs a new one for
+the ZynqMP specifically.
 
-Therefore, pull kas-docker on demand and use it. Expert users can define
-an own source by setting KAS_DOCKER.
+While at it, use the template mechanism for completing ultra96.bif.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- .gitignore      |  1 +
- build-images.sh | 33 ++++++++++++++++-----------------
- 2 files changed, 17 insertions(+), 17 deletions(-)
+ .../arm-trusted-firmware_2.1.inc                   | 18 ++++++
+ ...t-xilinx-zynqmp-Initialize-IPI-table-from.patch | 68 ++++++++++++++++++++++
+ .../files/0001-zynqmp-Downgrade-to-PMUFW-0.3.patch | 12 ++--
+ ...s-Makefile-fix-HOSTCFLAGS-with-CROSS_BUIL.patch | 31 ++++++++++
+ .../u-boot/files/{ultra96.bif => ultra96.bif.tmpl} |  2 +-
+ ...-atf1.6.bb => u-boot-ultra96_2019.07-atf2.1.bb} | 10 ++--
+ 6 files changed, 130 insertions(+), 11 deletions(-)
+ create mode 100644 recipes-bsp/arm-trusted-firmware/arm-trusted-firmware_2.1.inc
+ create mode 100644 recipes-bsp/arm-trusted-firmware/files/0001-plat-xilinx-zynqmp-Initialize-IPI-table-from.patch
+ create mode 100644 recipes-bsp/u-boot/files/0002-Revert-tools-Makefile-fix-HOSTCFLAGS-with-CROSS_BUIL.patch
+ rename recipes-bsp/u-boot/files/{ultra96.bif => ultra96.bif.tmpl} (87%)
+ rename recipes-bsp/u-boot/{u-boot-ultra96_2019.01-atf1.6.bb => u-boot-ultra96_2019.07-atf2.1.bb} (86%)
 
-diff --git a/.gitignore b/.gitignore
-index fe0ae1a..43892c0 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -1,3 +1,4 @@
- build/
- isar/
- recipes-core/customizations/local.inc
-+kas-docker
-diff --git a/build-images.sh b/build-images.sh
-index 50ed677..28c3a50 100755
---- a/build-images.sh
-+++ b/build-images.sh
-@@ -2,7 +2,7 @@
- #
- # Jailhouse, a Linux-based partitioning hypervisor
- #
--# Copyright (c) Siemens AG, 2018
-+# Copyright (c) Siemens AG, 2018-2019
- #
- # Authors:
- #  Jan Kiszka <jan.kiszka@siemens.com>
-@@ -21,24 +21,25 @@ usage()
- 	exit 1
+diff --git a/recipes-bsp/arm-trusted-firmware/arm-trusted-firmware_2.1.inc b/recipes-bsp/arm-trusted-firmware/arm-trusted-firmware_2.1.inc
+new file mode 100644
+index 0000000..8fd5cce
+--- /dev/null
++++ b/recipes-bsp/arm-trusted-firmware/arm-trusted-firmware_2.1.inc
+@@ -0,0 +1,18 @@
++#
++# Jailhouse, a Linux-based partitioning hypervisor
++#
++# Copyright (c) Siemens AG, 2019
++#
++# Authors:
++#  Jan Kiszka <jan.kiszka@siemens.com>
++#
++# SPDX-License-Identifier: MIT
++#
++
++FILESPATH =. "${LAYERDIR_jailhouse}/recipes-bsp/arm-trusted-firmware/files:"
++
++SRC_URI += " \
++    https://github.com/ARM-software/arm-trusted-firmware/archive/v${ATF_PV}.tar.gz;name=atf \
++    file://0001-plat-xilinx-zynqmp-Initialize-IPI-table-from.patch;patchdir=${WORKDIR}/arm-trusted-firmware-${ATF_PV} \
++    "
++SRC_URI[atf.sha256sum] = "7c4c00a4f28d3cfbb235fd1a1fb28c4d2fc1d657c9301686e7d8824ef575d059"
+diff --git a/recipes-bsp/arm-trusted-firmware/files/0001-plat-xilinx-zynqmp-Initialize-IPI-table-from.patch b/recipes-bsp/arm-trusted-firmware/files/0001-plat-xilinx-zynqmp-Initialize-IPI-table-from.patch
+new file mode 100644
+index 0000000..dec3cb2
+--- /dev/null
++++ b/recipes-bsp/arm-trusted-firmware/files/0001-plat-xilinx-zynqmp-Initialize-IPI-table-from.patch
+@@ -0,0 +1,68 @@
++From f20643624a65cc8a992cbafe245af11fcf63ab6d Mon Sep 17 00:00:00 2001
++From: Jolly Shah <jolly.shah@xilinx.com>
++Date: Tue, 27 Aug 2019 11:23:08 -0700
++Subject: [PATCH] plat: xilinx: zynqmp: Initialize IPI table from
++ zynqmp_config_setup()
++
++Common ipi_table needs to be initialized before using any
++IPI command (i.e send/receive). Move zynqmp ipi config table
++initialization from sip_svc_setup() to zynqmp_config_setup().
++
++Signed-off-by: Tejas Patel <tejas.patel@xilinx.com>
++Signed-off-by: Jolly Shah <jolly.shah@xilinx.com>
++---
++ plat/xilinx/zynqmp/aarch64/zynqmp_common.c | 6 +++++-
++ plat/xilinx/zynqmp/sip_svc_setup.c         | 4 ----
++ 2 files changed, 5 insertions(+), 5 deletions(-)
++
++diff --git a/plat/xilinx/zynqmp/aarch64/zynqmp_common.c b/plat/xilinx/zynqmp/aarch64/zynqmp_common.c
++index 8ff6c43604..ab5d95d1e2 100644
++--- a/plat/xilinx/zynqmp/aarch64/zynqmp_common.c
+++++ b/plat/xilinx/zynqmp/aarch64/zynqmp_common.c
++@@ -1,5 +1,5 @@
++ /*
++- * Copyright (c) 2013-2016, ARM Limited and Contributors. All rights reserved.
+++ * Copyright (c) 2013-2019, ARM Limited and Contributors. All rights reserved.
++  *
++  * SPDX-License-Identifier: BSD-3-Clause
++  */
++@@ -11,6 +11,7 @@
++ #include <drivers/generic_delay_timer.h>
++ #include <lib/mmio.h>
++ #include <lib/xlat_tables/xlat_tables.h>
+++#include <plat_ipi.h>
++ #include <plat_private.h>
++ #include <plat/common/platform.h>
++ 
++@@ -325,6 +326,9 @@ unsigned int zynqmp_get_bootmode(void)
++ 
++ void zynqmp_config_setup(void)
++ {
+++	/* Configure IPI data for ZynqMP */
+++	zynqmp_ipi_config_table_init();
+++
++ 	zynqmp_print_platform_name();
++ 	generic_delay_timer_init();
++ }
++diff --git a/plat/xilinx/zynqmp/sip_svc_setup.c b/plat/xilinx/zynqmp/sip_svc_setup.c
++index edb81f5c3b..9b182749cb 100644
++--- a/plat/xilinx/zynqmp/sip_svc_setup.c
+++++ b/plat/xilinx/zynqmp/sip_svc_setup.c
++@@ -9,7 +9,6 @@
++ #include <common/runtime_svc.h>
++ #include <tools_share/uuid.h>
++ 
++-#include <plat_ipi.h>
++ #include "ipi_mailbox_svc.h"
++ #include "pm_svc_main.h"
++ 
++@@ -41,9 +40,6 @@ DEFINE_SVC_UUID2(zynqmp_sip_uuid,
++  */
++ static int32_t sip_svc_setup(void)
++ {
++-	/* Configure IPI data for ZynqMP */
++-	zynqmp_ipi_config_table_init();
++-
++ 	/* PM implementation as SiP Service */
++ 	pm_setup();
++ 
+diff --git a/recipes-bsp/u-boot/files/0001-zynqmp-Downgrade-to-PMUFW-0.3.patch b/recipes-bsp/u-boot/files/0001-zynqmp-Downgrade-to-PMUFW-0.3.patch
+index ce262b6..efc0bb8 100644
+--- a/recipes-bsp/u-boot/files/0001-zynqmp-Downgrade-to-PMUFW-0.3.patch
++++ b/recipes-bsp/u-boot/files/0001-zynqmp-Downgrade-to-PMUFW-0.3.patch
+@@ -1,7 +1,7 @@
+-From 4a8103341c5420a65b80e9bbe0702bb66260b283 Mon Sep 17 00:00:00 2001
++From 1c7b8a169b9c10760debb6f35399fb2a59c3e250 Mon Sep 17 00:00:00 2001
+ From: Jan Kiszka <jan.kiszka@siemens.com>
+ Date: Sat, 5 Jan 2019 22:15:31 +0100
+-Subject: [PATCH] zynqmp: Downgrade to PMUFW 0.3
++Subject: [PATCH 1/2] zynqmp: Downgrade to PMUFW 0.3
+ 
+ We currently only have 0.3 pre-built at hand.
+ 
+@@ -9,13 +9,13 @@ Not for upstream.
+ 
+ Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+ ---
+- arch/arm/include/asm/arch-zynqmp/sys_proto.h | 4 ++--
++ arch/arm/mach-zynqmp/include/mach/sys_proto.h | 4 ++--
+  1 file changed, 2 insertions(+), 2 deletions(-)
+ 
+-diff --git a/arch/arm/include/asm/arch-zynqmp/sys_proto.h b/arch/arm/include/asm/arch-zynqmp/sys_proto.h
++diff --git a/arch/arm/mach-zynqmp/include/mach/sys_proto.h b/arch/arm/mach-zynqmp/include/mach/sys_proto.h
+ index 385c8825f2..857c512088 100644
+---- a/arch/arm/include/asm/arch-zynqmp/sys_proto.h
+-+++ b/arch/arm/include/asm/arch-zynqmp/sys_proto.h
++--- a/arch/arm/mach-zynqmp/include/mach/sys_proto.h
+++++ b/arch/arm/mach-zynqmp/include/mach/sys_proto.h
+ @@ -23,8 +23,8 @@
+  
+  #define ZYNQMP_SIP_SVC_GET_API_VERSION		0xC2000001
+diff --git a/recipes-bsp/u-boot/files/0002-Revert-tools-Makefile-fix-HOSTCFLAGS-with-CROSS_BUIL.patch b/recipes-bsp/u-boot/files/0002-Revert-tools-Makefile-fix-HOSTCFLAGS-with-CROSS_BUIL.patch
+new file mode 100644
+index 0000000..520c7f7
+--- /dev/null
++++ b/recipes-bsp/u-boot/files/0002-Revert-tools-Makefile-fix-HOSTCFLAGS-with-CROSS_BUIL.patch
+@@ -0,0 +1,31 @@
++From b8c188c02b5afc51257903a35a399fd4632978e8 Mon Sep 17 00:00:00 2001
++From: Jan Kiszka <jan.kiszka@siemens.com>
++Date: Sun, 25 Aug 2019 13:39:41 +0200
++Subject: [PATCH 2/2] Revert "tools/Makefile: fix HOSTCFLAGS with
++ CROSS_BUILD_TOOLS"
++
++This reverts commit 72c69ea8d603fd2448dd1d7c399c4f77b77773b7.
++
++Breaks CROSS_BUILD_TOOLS=y build with CONFIG_FIT and without
++CONFIG_FIT_SIGNATURE.
++
++Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
++---
++ tools/Makefile | 1 -
++ 1 file changed, 1 deletion(-)
++
++diff --git a/tools/Makefile b/tools/Makefile
++index 33e90a8025..2717304003 100644
++--- a/tools/Makefile
+++++ b/tools/Makefile
++@@ -274,7 +274,6 @@ subdir- += env
++ 
++ ifneq ($(CROSS_BUILD_TOOLS),)
++ override HOSTCC = $(CC)
++-override HOSTCFLAGS = $(CFLAGS)
++ 
++ quiet_cmd_crosstools_strip = STRIP   $^
++       cmd_crosstools_strip = $(STRIP) $^; touch $@
++-- 
++2.16.4
++
+diff --git a/recipes-bsp/u-boot/files/ultra96.bif b/recipes-bsp/u-boot/files/ultra96.bif.tmpl
+similarity index 87%
+rename from recipes-bsp/u-boot/files/ultra96.bif
+rename to recipes-bsp/u-boot/files/ultra96.bif.tmpl
+index 29add58..e4a7937 100644
+--- a/recipes-bsp/u-boot/files/ultra96.bif
++++ b/recipes-bsp/u-boot/files/ultra96.bif.tmpl
+@@ -13,6 +13,6 @@ image : {
+ 	[pmufw_image] ../usr/share/zynqmp/pmufw.elf
+ 	[bootloader, destination_cpu=a5x-0] ../usr/share/zynqmp/fsbl.elf
+ 	../design_1_wrapper.bit
+-	[destination_cpu=a5x-0, exception_level=el-3,trustzone] ../arm-trusted-firmware-@ATF_PV@/build/zynqmp/release/bl31/bl31.elf
++	[destination_cpu=a5x-0, exception_level=el-3,trustzone] ../arm-trusted-firmware-${ATF_PV}/build/zynqmp/release/bl31/bl31.elf
+ 	[destination_cpu=a5x-0, exception_level=el-2] u-boot.elf
  }
+diff --git a/recipes-bsp/u-boot/u-boot-ultra96_2019.01-atf1.6.bb b/recipes-bsp/u-boot/u-boot-ultra96_2019.07-atf2.1.bb
+similarity index 86%
+rename from recipes-bsp/u-boot/u-boot-ultra96_2019.01-atf1.6.bb
+rename to recipes-bsp/u-boot/u-boot-ultra96_2019.07-atf2.1.bb
+index f37985d..baa4ac7 100644
+--- a/recipes-bsp/u-boot/u-boot-ultra96_2019.01-atf1.6.bb
++++ b/recipes-bsp/u-boot/u-boot-ultra96_2019.07-atf2.1.bb
+@@ -18,17 +18,21 @@ require recipes-bsp/arm-trusted-firmware/arm-trusted-firmware_${ATF_PV}.inc
+ SRC_URI += " \
+     ftp://ftp.denx.de/pub/u-boot/u-boot-${U_BOOT_PV}.tar.bz2;name=u-boot \
+     file://0001-zynqmp-Downgrade-to-PMUFW-0.3.patch \
++    file://0002-Revert-tools-Makefile-fix-HOSTCFLAGS-with-CROSS_BUIL.patch \
+     https://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/Zynq:/ZCU100/standard/noarch/zynqmp-pmufw-2017.1-7.3.noarch.rpm;name=pmufw \
+     https://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/Zynq:/ZCU100/standard/aarch64/zynqmp-fsbl-2017.1-7.2.aarch64.rpm;name=fsbl \
+     https://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/Zynq:/ZCU100/standard/noarch/zynqmp-hdf-20180326-4.3.noarch.rpm;name=hdf \
+-    file://ultra96.bif \
++    file://ultra96.bif.tmpl \
+     file://ultra96-rules \
+     "
+-SRC_URI[u-boot.sha256sum] = "50bd7e5a466ab828914d080d5f6a432345b500e8fba1ad3b7b61e95e60d51c22"
++SRC_URI[u-boot.sha256sum] = "bff4fa77e8da17521c030ca4c5b947a056c1b1be4d3e6ee8637020b8d50251d0"
+ SRC_URI[pmufw.sha256sum] = "6b4fec22e76c3c44ba4bec72f6f73e85192373f2156b0af3ce9e8894312b968e"
+ SRC_URI[fsbl.sha256sum] = "6f420f4cb049eb4ddd981fb9a1c964db9771e359dc51385a886bbcb27a9a616e"
+ SRC_URI[hdf.sha256sum] = "246bef07b16cace18cc7c270dedcec89913b64fa623e590461250e3e038f88fd"
  
--KAS_FILES="/jailhouse-images/kas.yml"
-+JAILHOUSE_IMAGES=$(dirname $0)
-+KAS_FILES="${JAILHOUSE_IMAGES}/kas.yml"
- CMD="build"
++TEMPLATE_FILES += "ultra96.bif.tmpl"
++TEMPLATE_VARS += "ATF_PV"
++
+ U_BOOT_CONFIG="avnet_ultra96_rev1_defconfig"
+ U_BOOT_BIN="u-boot.elf"
  
- while [ $# -gt 0 ]; do
- 	case "$1" in
- 	--latest)
--		KAS_FILES="${KAS_FILES}:/jailhouse-images/opt-latest.yml"
-+		KAS_FILES="${KAS_FILES}:${JAILHOUSE_IMAGES}/opt-latest.yml"
- 		shift 1
- 		;;
- 	--rt)
--		KAS_FILES="${KAS_FILES}:/jailhouse-images/opt-rt.yml"
-+		KAS_FILES="${KAS_FILES}:${JAILHOUSE_IMAGES}/opt-rt.yml"
- 		shift 1
- 		;;
- 	--all)
- 		KAS_TARGET=
- 		while read MACHINE DESCRIPTION; do
- 			KAS_TARGET="${KAS_TARGET} multiconfig:${MACHINE}-jailhouse-demo:demo-image"
--		done < images.list
-+		done < ${JAILHOUSE_IMAGES}/images.list
- 		shift 1
- 		;;
- 	--shell)
-@@ -60,7 +61,7 @@ if [ -z "${KAS_TARGET}" ]; then
- 		MACHINES="${MACHINES} ${MACHINE}"
- 		NUM_MACHINES=$((NUM_MACHINES + 1))
- 		echo " ${NUM_MACHINES}: ${DESCRIPTION}"
--	done < images.list
-+	done < ${JAILHOUSE_IMAGES}/images.list
- 	echo " 0: all (may take hours...)"
- 	echo ""
+@@ -40,7 +44,5 @@ do_prepare_build_append() {
+     unzip -u -d ${WORKDIR} ${WORKDIR}/usr/share/zynqmp/system.hdf \
+         design_1_wrapper.bit
  
-@@ -93,17 +94,15 @@ if [ -z "${KAS_TARGET}" ]; then
- 		fi
- 	done
- fi
-+export KAS_TARGET
- 
--if [ -t 1 ]; then
--	INTERACTIVE="-t -i"
-+if [ -z ${KAS_DOCKER} ]; then
-+	KAS_DOCKER=./kas-docker
-+	if [ ! -e ${KAS_DOCKER} ]; then
-+		wget -q --show-progress -O ${KAS_DOCKER} \
-+		     https://raw.githubusercontent.com/siemens/kas/master/kas-docker
-+		chmod a+x ${KAS_DOCKER}
-+	fi
- fi
- 
--docker run -v $(pwd):/jailhouse-images:ro -v $(pwd):/work:rw --workdir=/work \
--	   -e USER_ID=$(id -u) -e SHELL=${SHELL} \
--	   -e KAS_TARGET="${KAS_TARGET}" -e KAS_TASK="${KAS_TASK}" \
--	   --rm ${INTERACTIVE} \
--	   --cap-add=SYS_ADMIN --cap-add=MKNOD --privileged \
--	   -e http_proxy=$http_proxy -e https_proxy=$https_proxy \
--	   -e ftp_proxy=$ftp_proxy -e no_proxy=$no_proxy \
--	   -e NO_PROXY=$NO_PROXY \
--	   kasproject/kas-isar ${CMD} ${KAS_FILES}
-+${KAS_DOCKER} --isar ${CMD} ${KAS_FILES}
+-    sed -i "s/@ATF_PV@/${ATF_PV}/g" ${WORKDIR}/ultra96.bif
+-
+     echo "boot.bin /usr/lib/u-boot/ultra96" > ${S}/debian/u-boot-ultra96.install
+ }
 -- 
 2.16.4
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/458367be5bd5bd94f0f971fdf15086c0dac3e061.1567490365.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/f1ef3fe8bf5a157d18dffd6ef860cc4b978ec024.1567490365.git.jan.kiszka%40siemens.com.
