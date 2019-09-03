@@ -1,123 +1,74 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBQ4CXDVQKGQEJ72XXAI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC5J3D7HTQNBBMPCXDVQKGQETHJ26JI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x340.google.com (mail-wm1-x340.google.com [IPv6:2a00:1450:4864:20::340])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1F3CA60F5
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  3 Sep 2019 07:59:31 +0200 (CEST)
-Received: by mail-wm1-x340.google.com with SMTP id b11sf3878875wmj.0
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 02 Sep 2019 22:59:31 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1567490371; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=wZy8Ogt5/mjJcFRuhxFJ/e7m0y1ZTIwr0eWvl35ueB2hhOjNeCKfmrH51OB5wbExTk
-         bqvl/se68Oc0TR3pRfp/X++rT0GR6IJEpIr2qzWPCAbiTXVIyxmQCdxkjnwPB1rcUW6w
-         oGMQNRPbHDRW6GrlgU6ZiIMkPmPnnCWxLo6rU341AI8uW2koSiAB5vhV6vc3eif6NRDt
-         IOn7Isvlrr0EpWCWA+3Gu4udgOQaSoshsXXDwmup+Dg03Zlc330Yf8KXpFiNkyqJwdvn
-         kx0gCtn9JUSYQzUbWJvdm35Mu7DxbstnrAPb6vnzwYK6M3EcuRxD35qh9m/5Fwu2rHaM
-         PRCw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:references:in-reply-to:references
-         :in-reply-to:message-id:date:subject:to:from:mime-version:sender
-         :dkim-signature;
-        bh=aYdaj+cPWB0Z+GhTZTWZ/SLfCJQ+Yj0hcFyVTrI4Pms=;
-        b=Hl6JmUSlHdZAqW1gfOv3rzbCRhFU+bsbOnFfmhjs8rbkgn7AT+dQMtNbRICB31dxEg
-         /a8DsaQJIs9JsFTXdKRoU3gn6FOUOXnOdizKaFt03lB4/dmDXPOn4avaNK6LiHMDjrJo
-         +uvNGTxIkPRxADmfAhcq2I8LT2SMivjfV+p5p4Z6nJRSAhzg5FXJfOYwmNvbxBwGIaov
-         Sr7+D+kuvxTZrJrdCitwqdD2Af6qofEVaDh6qYtbweJXU+N+ZGwPQ3OxppKuhafTaHHp
-         aJuHgkTO4OVfCv5tCWcwFNWtAlLc3pJa3V94NzdOW2JEpg9yTb6h0A9fl0yA2zqVg9RB
-         x++w==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-ot1-x33e.google.com (mail-ot1-x33e.google.com [IPv6:2607:f8b0:4864:20::33e])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E685A6510
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  3 Sep 2019 11:24:03 +0200 (CEST)
+Received: by mail-ot1-x33e.google.com with SMTP id 71sf10268744otl.5
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 03 Sep 2019 02:24:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:mime-version:from:to:subject:date:message-id:in-reply-to
-         :references:in-reply-to:references:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=aYdaj+cPWB0Z+GhTZTWZ/SLfCJQ+Yj0hcFyVTrI4Pms=;
-        b=B/LZJpqcD05JKPtPUTOosS2Gwljur8LaLAreIVk5gHd7SalRIHwPZ1/lgKqUo2nhhk
-         XtQzIgkhhUVwfKn1EZLVkSuxjC5srgJjLJRpnsisNkB9XhkZf9ewjqPDRdfKLDdeZ9NV
-         A6IgUcrQIsGXDSGlpIjdQbU/skeeAzIX5VLLXrlQMzQboOTQPHZWHmFw7IQjT8gedUnE
-         C0S4TXH+evzHN/Td8CkThBMZn4ykNXTjClP/BF8X/PmB92mu2HoSUKHDLDZaonXbc87N
-         UoSYneFyrNofO+K1uNmYOutsfnrOn7OtI2/fmtk5WQXfbMeds6cNPouv4MP5VtYuE5SE
-         OgzA==
+        bh=6yII6ESuBZr04c5Th04QzoYgeiSAv3M09W5NLPJs5DM=;
+        b=FEnSqSiXx2Ftviza8fGEn2kvZJO8rI5uWDlwDk3zqzhwqqlrgGt1Q6jNXZkgodf47g
+         yGQjQ5jnbnBfBq2wBn4VF3wT4CuovMGEltQBrCb3ts8H5MivTUbQtCB6thmptLSLA4is
+         eLxpcC5Ba63tyB4jiHl6u0Y1HqbtswPkmac2OaNAnTocvrmQN+VRT6kUzA1YQlzcw7Ov
+         mhFaHgCiorCm5rcJjDoKlv5LmJHIGp/hyYk0Su+Q3mQhIQlz8b7TQMqzvpCIAHcuykrO
+         dJbtXOmQKR/Y6WUkr+Y9sWRVDicyGGeDj2zPUKTsEk0iOJOlnaoI2izPRU3FwgaxfN1n
+         EzuQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=6yII6ESuBZr04c5Th04QzoYgeiSAv3M09W5NLPJs5DM=;
+        b=NVSfRpZl9PCp4VEbJGTMyYle02BXxajB6QyDmlCCCcwVsEZRVAsAEQ7GLNzoVKjf9G
+         KcIwWHrP1nNmJBmn4jwVLrvJVelJ+XXITsFy5NSv4k+AJX55cRMBGdaL0EBU09l9+rw3
+         ucVxs83H/3u2CZ8MuQcq0QXjaGuKmp9EYtWjSSNDaqHecy2Nmf6FEJVMA0mhGOAYXp8y
+         LdHmg4idLXMSbrypTfDSWnSDLf+4DAWJZYgXvAnqNiL594SB4yTe17LVm/S+qHFGVa58
+         whGBWwcTOq56N4wHSS+Z1X02Szq182BXidUCLdeqWNrVzh8MCiWZAt2aSTsYfTMRDbBN
+         XHLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:mime-version:from:to:subject:date
-         :message-id:in-reply-to:references:in-reply-to:references
-         :x-original-sender:x-original-authentication-results:precedence
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=aYdaj+cPWB0Z+GhTZTWZ/SLfCJQ+Yj0hcFyVTrI4Pms=;
-        b=P6V4F5PaZdihlCrqtoSSPvQYb6ckVC98HppmDmv3x4lfOswIlrCob0WUZDz5/gPCcy
-         pxbZ6Q1unyVbp0XlqgSqHcfDbDbXD34vuM8dIiKBcBdH7ptnw8WP/3yceqksN6tOxxMn
-         5isB5Be9urniTEsp5VzcggB+g5R0mZPj5hhA8IJCFt5mpQwoGvo9Rdj57ew1KSYeHtuw
-         FQ97S8RcTtc4HGYXaVTeaSqzCdh0OQxCIig0Kw8sAdXYHJvGeasi0DKptYO1ju+hNfaK
-         td/OFwRruxHDsziZszm2Ix62tx4vfVmj6NJKG9pruzAxphqy+I6jONLvBS7wIKLCIhd4
-         deow==
+        bh=6yII6ESuBZr04c5Th04QzoYgeiSAv3M09W5NLPJs5DM=;
+        b=t3HgCNH9Uy20Pm9CHqFoZpOCToz2gIvqneoKhHVuqK3DMY1phkrDUas5PHVg68URLc
+         Bkv26GNlTStMgzDBc+acF/UIKeJ62r9jGzG1KRH9trfzAbcoCpFo0gnwqhw1MwcBq0u8
+         BQdtY3efWSbEcHx2ZfrPG0IUw52amFmJskHU1Wsh1F5H/w5kPPdTeLdRRcKdaeI7EYIL
+         xDzOL/Hrx2tOhuF4IUA2P07aSoO0765RyRW4bRoXIrVTbHP6hnkQN1ikh1UiFKbQXYAC
+         +vAGDQAOJq+MKxKoFJYl/Bdt6C//byG88OVaK2CxADXUIiOIpgvq/XweltjHVoHPqut6
+         DW5g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXLELMEJaq8nxaX9lTNBBwbKh76UKamDVV1lyVxrcCigwzFQpfS
-	N6H5LDi0MdJUSyDIjEJREdM=
-X-Google-Smtp-Source: APXvYqzsppxhkdrwMRemlxWkPFZcPFngBsv4cmNkybsQqXvzUhhPdN8fVMWmUjLySJ5fvIEAqNGpYQ==
-X-Received: by 2002:a1c:9e03:: with SMTP id h3mr32239587wme.112.1567490371389;
-        Mon, 02 Sep 2019 22:59:31 -0700 (PDT)
-MIME-Version: 1.0
+X-Gm-Message-State: APjAAAV2CvY+s2NIAz62MsTphy424I6qSfJTaZbmGL0l7tuZt6xygBmk
+	keIde3coYyqzwD9sxplZk8E=
+X-Google-Smtp-Source: APXvYqwrzBmAAaUpJibIT7rigvXE1hkkZtRb0eOXRq8oUGIMdeZ8fioqMlb+2cciTVoefewVyvK/jw==
+X-Received: by 2002:a05:6830:1345:: with SMTP id r5mr16627348otq.158.1567502642004;
+        Tue, 03 Sep 2019 02:24:02 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a7b:cc01:: with SMTP id f1ls6225441wmh.4.canary-gmail; Mon,
- 02 Sep 2019 22:59:30 -0700 (PDT)
-X-Received: by 2002:a1c:658a:: with SMTP id z132mr41066618wmb.98.1567490370533;
-        Mon, 02 Sep 2019 22:59:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1567490370; cv=none;
-        d=google.com; s=arc-20160816;
-        b=YgvYXjIkXNo6ZtQriQln0s53hefvoLBJ7NWaXtJSKqp597lKemCAnUZvdYVB7ZrBJf
-         9fvf4Eo+dCtk0/EW3ovRkVSBJDBIRFcVT7M7FQWwUU9Nh8601+dRhFx2PPScApfSPiZa
-         sc5UJhySSwA+rDp7LeGUeX+z8jH/AC5+mhfWimhhDabwXG0JN5e/cy8HSQ34wRyrdtcj
-         B8Kxo/Jtxj8fhiCVb3AKD5JBoN/iaTgYuitOZoMR213kVye4zsUzIYnsIWyLKIDtOm1T
-         spSSznf8hG3RPnUdOEpV5zuOarK1RN6GAv08rIKlH9zwEbANrTiZHGIsW0rV1oJGd3gL
-         I0hw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=references:in-reply-to:references:in-reply-to:message-id:date
-         :subject:to:from;
-        bh=Byz6JenvYGEXOS9kUF9fI43PHoWtwaEDrNDiEe5jmas=;
-        b=s8YacE6XMqVCd2a7HggJpOFJMtK4kaluOKGFfnTp8r5YCG5HfQuJcLhpM5/hGNzgv1
-         cOguehyLdh89hUhYZmjpDopFxoxhM1pj4w0r3V+JLzSH1Z9VZFZ3cWzePga4d3TEe3AX
-         v3IJpPXtjZSbe5JEhy+8ujqk/2PAQ+7c6ikAVBLNkloZE7xpX2ihsqoAySGW+CPQn0SU
-         nXbohRJTFfloijNRhak3cZyQ/6YSBE34z+iNFTPo6AG30Cr5DRW8rp2sOFSR3Bj2R136
-         8K429RHZOKQax11Bnyj5jiI0MdLOkQ6stNm96Kv/G2+5/4L1zG4KpGntdB7J2c0C7CxI
-         kwYw==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
-        by gmr-mx.google.com with ESMTPS id l9si805024wmc.0.2019.09.02.22.59.30
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 02 Sep 2019 22:59:30 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id x835xUuE029714
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
-	for <jailhouse-dev@googlegroups.com>; Tue, 3 Sep 2019 07:59:30 +0200
-Received: from md1f2u6c.ad001.siemens.net ([167.87.40.78])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id x835xPka010486
-	for <jailhouse-dev@googlegroups.com>; Tue, 3 Sep 2019 07:59:29 +0200
-From: Jan Kiszka <jan.kiszka@siemens.com>
-To: jailhouse-dev@googlegroups.com
-Subject: [jh-images][PATCH 13/13] Update to Debian buster
-Date: Tue,  3 Sep 2019 07:59:25 +0200
-Message-Id: <77b3324d369a9e22fec6165566f4f75be4b47c71.1567490365.git.jan.kiszka@siemens.com>
-X-Mailer: git-send-email 2.16.4
-In-Reply-To: <cover.1567490365.git.jan.kiszka@siemens.com>
-References: <cover.1567490365.git.jan.kiszka@siemens.com>
-In-Reply-To: <cover.1567490365.git.jan.kiszka@siemens.com>
-References: <cover.1567490365.git.jan.kiszka@siemens.com>
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Content-Type: text/plain; charset="UTF-8"
+Received: by 2002:aca:2207:: with SMTP id b7ls1643227oic.5.gmail; Tue, 03 Sep
+ 2019 02:24:01 -0700 (PDT)
+X-Received: by 2002:aca:5957:: with SMTP id n84mr1509471oib.174.1567502641127;
+        Tue, 03 Sep 2019 02:24:01 -0700 (PDT)
+Date: Tue, 3 Sep 2019 02:24:00 -0700 (PDT)
+From: Nir Geller <nirgeller18@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <69047717-186b-4e56-b8af-50294e493caf@googlegroups.com>
+In-Reply-To: <53ebbcfc-be0b-ab8d-5cd2-477e01d1dafc@oth-regensburg.de>
+References: <361d6548-e251-4e1e-a03b-cdcbfda1b67d@googlegroups.com>
+ <bce2e24b-2063-4ce1-a1c9-c99efcd2ba5d@googlegroups.com>
+ <20190902165120.7cc1048b@md1za8fc.ad001.siemens.net>
+ <a3c23a6a-95ee-4baa-9714-229c84d9d5b7@googlegroups.com>
+ <53ebbcfc-be0b-ab8d-5cd2-477e01d1dafc@oth-regensburg.de>
+Subject: Re: Interrupt Latency in RTOS inmate cell
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_1184_417566359.1567502640420"
+X-Original-Sender: nirgeller18@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -130,193 +81,203 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-From: Jan Kiszka <jan.kiszka@siemens.com>
+------=_Part_1184_417566359.1567502640420
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1185_1152859008.1567502640421"
 
-Buster brings gcc 8, and that means we need the related patch for
-Jailhouse 0.11.
+------=_Part_1185_1152859008.1567502640421
+Content-Type: text/plain; charset="UTF-8"
 
-The non-root-initramfs has to be switches to newer rules format that
-allows to disable fakeroot reliably (to avoid the nesting issue).
+Hi Ralf,
 
-And the orangepi target can drop the u-boot backport pick - injecting
-additional apt sources via the machine conf was broken anyway and would
-have exploded when adding a second ARM target.
+I get a spike on jitter when executing consecutive "cat somefile".
+The spike happens when opening a file on the storage device, when opening a 
+file on a tmpfs,
+when opening a file on procfs and even when executing "cat" on a file that 
+doesn't exist at all.
 
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
----
- conf/distro/jailhouse-demo.conf                    |  2 +-
- conf/machine/orangepi-zero.conf                    |  3 --
- conf/machine/preferences.orangepi-zero.conf        |  7 ---
- .../non-root-initramfs/files/debian/control        |  3 +-
- recipes-core/non-root-initramfs/files/debian/rules | 10 +---
- .../files/0001-arm-Fix-build-with-gcc-8.patch      | 56 ++++++++++++++++++++++
- recipes-jailhouse/jailhouse/jailhouse_0.11.bb      |  3 +-
- 7 files changed, 62 insertions(+), 22 deletions(-)
- delete mode 100644 conf/machine/preferences.orangepi-zero.conf
- create mode 100644 recipes-jailhouse/jailhouse/files/0001-arm-Fix-build-with-gcc-8.patch
+The root and inmate cells do not share resources and the debug consoles are 
+directed to different UARTs.
+u-boot, Linux serial console and the hypervisor debug console are on UART1, 
+and the inmate is on UART10.
 
-diff --git a/conf/distro/jailhouse-demo.conf b/conf/distro/jailhouse-demo.conf
-index faf2455..93bd0a1 100644
---- a/conf/distro/jailhouse-demo.conf
-+++ b/conf/distro/jailhouse-demo.conf
-@@ -9,7 +9,7 @@
- # SPDX-License-Identifier: MIT
- #
- 
--require conf/distro/debian-stretch.conf
-+require conf/distro/debian-buster.conf
- 
- KERNEL_NAME ?= "jailhouse"
- 
-diff --git a/conf/machine/orangepi-zero.conf b/conf/machine/orangepi-zero.conf
-index 8d6c134..fb7bb2e 100644
---- a/conf/machine/orangepi-zero.conf
-+++ b/conf/machine/orangepi-zero.conf
-@@ -14,7 +14,4 @@ DISTRO_ARCH = "armhf"
- IMAGE_TYPE = "wic-img"
- IMAGER_INSTALL += "u-boot-sunxi"
- 
--DISTRO_APT_SOURCES_append = " conf/distro/debian-buster.list"
--DISTRO_APT_PREFERENCES += "conf/machine/preferences.orangepi-zero.conf"
--
- IMAGE_INSTALL += "u-boot-script xradio-${KERNEL_NAME}"
-diff --git a/conf/machine/preferences.orangepi-zero.conf b/conf/machine/preferences.orangepi-zero.conf
-deleted file mode 100644
-index 0bdd9ec..0000000
---- a/conf/machine/preferences.orangepi-zero.conf
-+++ /dev/null
-@@ -1,7 +0,0 @@
--Package: u-boot*
--Pin: release n=buster
--Pin-Priority: 501
--
--Package: *
--Pin: release n=buster
--Pin-Priority: -1
-diff --git a/recipes-core/non-root-initramfs/files/debian/control b/recipes-core/non-root-initramfs/files/debian/control
-index 059fb16..5ff2c5c 100644
---- a/recipes-core/non-root-initramfs/files/debian/control
-+++ b/recipes-core/non-root-initramfs/files/debian/control
-@@ -1,9 +1,10 @@
- Source: non-root-initramfs
- Section: misc
- Priority: optional
--Standards-Version: 3.9.6
-+Standards-Version: 4.3.0
- Build-Depends: wget, cpio, unzip, rsync, python:native, bc
- Maintainer: Jan Kiszka <jan.kiszka@siemens.com>
-+Rules-Requires-Root: no
- 
- Package: non-root-initramfs
- Architecture: any
-diff --git a/recipes-core/non-root-initramfs/files/debian/rules b/recipes-core/non-root-initramfs/files/debian/rules
-index 0f7f079..6f2638b 100755
---- a/recipes-core/non-root-initramfs/files/debian/rules
-+++ b/recipes-core/non-root-initramfs/files/debian/rules
-@@ -13,22 +13,14 @@
- DPKG_EXPORT_BUILDFLAGS = 1
- include /usr/share/dpkg/default.mk
- 
--build-image:
-+override_dh_auto_configure:
- 	cp ../.config .
- 	${MAKE} olddefconfig
--	${MAKE}
--
--# Only this target runs outside of fakeroot. We need to hook into it because
--# buildroot uses fakeroot itself.
--build: build-image
- 
- # This target saves autotools outputs from output/. But we perform a clean
- # rebuild so that restoring the files may fail and is also not needed.
- override_dh_update_autotools_config:
- 
--# We are building via build-image.
--override_dh_auto_build:
--
- # No test desired.
- override_dh_auto_test:
- 
-diff --git a/recipes-jailhouse/jailhouse/files/0001-arm-Fix-build-with-gcc-8.patch b/recipes-jailhouse/jailhouse/files/0001-arm-Fix-build-with-gcc-8.patch
-new file mode 100644
-index 0000000..ade9989
---- /dev/null
-+++ b/recipes-jailhouse/jailhouse/files/0001-arm-Fix-build-with-gcc-8.patch
-@@ -0,0 +1,56 @@
-+From 9f233898917f8c1141132606f2f2c624405d8c81 Mon Sep 17 00:00:00 2001
-+From: Jan Kiszka <jan.kiszka@siemens.com>
-+Date: Sat, 13 Jul 2019 12:08:40 +0200
-+Subject: [PATCH] arm: Fix build with gcc-8
-+
-+The inline .arch_extension statements are ignored by gcc-8. We rather
-+need -march=armv7ve now.
-+
-+To keep older gcc prior to version 5 happy, leave the inline statements
-+in place. Can be removed once we require newer gcc for other reasons.
-+
-+Reported-by: Vitaly Andrianov <vitalya@ti.com>
-+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-+---
-+ hypervisor/arch/arm/Makefile              | 2 +-
-+ hypervisor/arch/arm/include/asm/smc.h     | 1 +
-+ hypervisor/arch/arm/include/asm/sysregs.h | 1 +
-+ 3 files changed, 3 insertions(+), 1 deletion(-)
-+
-+diff --git a/hypervisor/arch/arm/Makefile b/hypervisor/arch/arm/Makefile
-+index 2f930cf3..a170b593 100644
-+--- a/hypervisor/arch/arm/Makefile
-++++ b/hypervisor/arch/arm/Makefile
-+@@ -12,4 +12,4 @@
-+ 
-+ LINUXINCLUDE += -I$(src)/arch/arm-common/include
-+ 
-+-KBUILD_CFLAGS += -marm
-++KBUILD_CFLAGS += -marm -march=armv7ve
-+diff --git a/hypervisor/arch/arm/include/asm/smc.h b/hypervisor/arch/arm/include/asm/smc.h
-+index 34944a2d..5cde3d8b 100644
-+--- a/hypervisor/arch/arm/include/asm/smc.h
-++++ b/hypervisor/arch/arm/include/asm/smc.h
-+@@ -10,6 +10,7 @@
-+  * the COPYING file in the top-level directory.
-+  */
-+ 
-++/* for gcc < 5 */
-+ asm (".arch_extension sec\n");
-+ 
-+ static inline int smc(unsigned long id)
-+diff --git a/hypervisor/arch/arm/include/asm/sysregs.h b/hypervisor/arch/arm/include/asm/sysregs.h
-+index 76dd5b55..b7eaccf6 100644
-+--- a/hypervisor/arch/arm/include/asm/sysregs.h
-++++ b/hypervisor/arch/arm/include/asm/sysregs.h
-+@@ -283,6 +283,7 @@
-+ #define arm_read_sysreg(...) _arm_read_sysreg(__VA_ARGS__)
-+ 
-+ #ifndef __ASSEMBLY__
-++/* for gcc < 5 */
-+ asm(".arch_extension virt\n");
-+ 
-+ #define arm_write_sysreg_32(op1, crn, crm, op2, val) \
-+-- 
-+2.16.4
-+
-diff --git a/recipes-jailhouse/jailhouse/jailhouse_0.11.bb b/recipes-jailhouse/jailhouse/jailhouse_0.11.bb
-index 4d7aca1..5df3597 100644
---- a/recipes-jailhouse/jailhouse/jailhouse_0.11.bb
-+++ b/recipes-jailhouse/jailhouse/jailhouse_0.11.bb
-@@ -13,7 +13,8 @@ require jailhouse.inc
- 
- SRC_URI += " \
-     file://nuc6cay_0.11.c \
--    file://linux-nuc6cay-demo_0.11.c"
-+    file://linux-nuc6cay-demo_0.11.c \
-+    file://0001-arm-Fix-build-with-gcc-8.patch"
- 
- SRCREV = "58052a7a9d1f5904d72b1637282c877172ee69f6"
- 
--- 
-2.16.4
+Thanks,
+
+Nir.
+
+On Monday, September 2, 2019 at 6:27:50 PM UTC+3, Ralf Ramsauer wrote:
+>
+> Hi, 
+>
+> On 9/2/19 5:11 PM, Nir Geller wrote: 
+> > CPUFREQ is set to performance, and I'm setting scaling_min_freq to the 
+> > highest available frequency (1500000) 
+> > CPU idling is disabled 
+> > 
+> > Now I see that executing a simple "cat somefile" on the command line 
+> > causes a spike in jitter 
+>
+> only for the first time or also for consecutive calls on the same file? 
+> IOW, can you observe/trigger the spike when somefile is in your page 
+> cache? 
+>
+> Does the non-root cell share any devices with the root cell? (e.g. debug 
+> UART) 
+>
+>   Ralf 
+>
+> > 
+> > On Monday, September 2, 2019 at 5:51:24 PM UTC+3, Henning Schild wrote: 
+> > 
+> >     Am Mon, 2 Sep 2019 06:12:00 -0700 
+> >     schrieb Nir Geller <nirge...@gmail.com <javascript:>>: 
+> > 
+> >     > I created a kernel module that catches/releases a spinlock and 
+> >     > disables/enables preemption, and it had no observable effect on 
+> the 
+> >     > jitter, however, 
+> >     > the operations insmod and rmmod definitely cause spikes in jitter. 
+> >     > 
+> >     > Any pointers? 
+> > 
+> >     Do you have any power management features enabled in that Linux? 
+> > 
+> >     Henning 
+> > 
+> >     > Thanks. 
+> >     > 
+> > 
+> > -- 
+> > You received this message because you are subscribed to the Google 
+> > Groups "Jailhouse" group. 
+> > To unsubscribe from this group and stop receiving emails from it, send 
+> > an email to jailho...@googlegroups.com <javascript:> 
+> > <mailto:jailhouse-dev+unsubscribe@googlegroups.com <javascript:>>. 
+> > To view this discussion on the web visit 
+> > 
+> https://groups.google.com/d/msgid/jailhouse-dev/a3c23a6a-95ee-4baa-9714-229c84d9d5b7%40googlegroups.com 
+> > <
+> https://groups.google.com/d/msgid/jailhouse-dev/a3c23a6a-95ee-4baa-9714-229c84d9d5b7%40googlegroups.com?utm_medium=email&utm_source=footer>. 
+>
+>
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/77b3324d369a9e22fec6165566f4f75be4b47c71.1567490365.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/69047717-186b-4e56-b8af-50294e493caf%40googlegroups.com.
+
+------=_Part_1185_1152859008.1567502640421
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Ralf,<div><br></div><div>I get a spike on jitter when e=
+xecuting consecutive &quot;cat somefile&quot;.</div><div>The spike happens =
+when opening a file on the storage device, when opening a file on a tmpfs,<=
+/div><div>when opening a file on procfs and even when executing &quot;cat&q=
+uot; on a file that doesn&#39;t exist at all.</div><div><br></div><div>The =
+root and inmate cells do not share resources and the debug consoles are dir=
+ected to different UARTs.</div><div>u-boot, Linux serial console and the hy=
+pervisor debug console are on UART1, and the inmate is on UART10.</div><div=
+><br>Thanks,</div><div><br></div><div>Nir.</div><div><br>On Monday, Septemb=
+er 2, 2019 at 6:27:50 PM UTC+3, Ralf Ramsauer wrote:<blockquote class=3D"gm=
+ail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-left: 1px #ccc soli=
+d;padding-left: 1ex;">Hi,
+<br>
+<br>On 9/2/19 5:11 PM, Nir Geller wrote:
+<br>&gt; CPUFREQ is set to performance, and I&#39;m setting scaling_min_fre=
+q to the
+<br>&gt; highest available frequency (1500000)
+<br>&gt; CPU idling is disabled
+<br>&gt;=20
+<br>&gt; Now I see that executing a simple &quot;cat somefile&quot; on the =
+command line
+<br>&gt; causes a spike in jitter
+<br>
+<br>only for the first time or also for consecutive calls on the same file?
+<br>IOW, can you observe/trigger the spike when somefile is in your page ca=
+che?
+<br>
+<br>Does the non-root cell share any devices with the root cell? (e.g. debu=
+g
+<br>UART)
+<br>
+<br>=C2=A0 Ralf
+<br>
+<br>&gt;=20
+<br>&gt; On Monday, September 2, 2019 at 5:51:24 PM UTC+3, Henning Schild w=
+rote:
+<br>&gt;=20
+<br>&gt; =C2=A0 =C2=A0 Am Mon, 2 Sep 2019 06:12:00 -0700
+<br>&gt; =C2=A0 =C2=A0 schrieb Nir Geller &lt;<a>nirge...@gmail.com</a> &lt=
+;javascript:&gt;&gt;:
+<br>&gt;=20
+<br>&gt; =C2=A0 =C2=A0 &gt; I created a kernel module that catches/releases=
+ a spinlock and
+<br>&gt; =C2=A0 =C2=A0 &gt; disables/enables preemption, and it had no obse=
+rvable effect on the
+<br>&gt; =C2=A0 =C2=A0 &gt; jitter, however,
+<br>&gt; =C2=A0 =C2=A0 &gt; the operations insmod and rmmod definitely caus=
+e spikes in jitter.
+<br>&gt; =C2=A0 =C2=A0 &gt;
+<br>&gt; =C2=A0 =C2=A0 &gt; Any pointers?
+<br>&gt;=20
+<br>&gt; =C2=A0 =C2=A0 Do you have any power management features enabled in=
+ that Linux?
+<br>&gt;=20
+<br>&gt; =C2=A0 =C2=A0 Henning
+<br>&gt;=20
+<br>&gt; =C2=A0 =C2=A0 &gt; Thanks.
+<br>&gt; =C2=A0 =C2=A0 &gt;
+<br>&gt;=20
+<br>&gt; --=20
+<br>&gt; You received this message because you are subscribed to the Google
+<br>&gt; Groups &quot;Jailhouse&quot; group.
+<br>&gt; To unsubscribe from this group and stop receiving emails from it, =
+send
+<br>&gt; an email to <a href=3D"javascript:" target=3D"_blank" gdf-obfuscat=
+ed-mailto=3D"YjhMte_DAAAJ" rel=3D"nofollow" onmousedown=3D"this.href=3D&#39=
+;javascript:&#39;;return true;" onclick=3D"this.href=3D&#39;javascript:&#39=
+;;return true;">jailho...@<wbr>googlegroups.com</a>
+<br>&gt; &lt;mailto:<a href=3D"javascript:" target=3D"_blank" gdf-obfuscate=
+d-mailto=3D"YjhMte_DAAAJ" rel=3D"nofollow" onmousedown=3D"this.href=3D&#39;=
+javascript:&#39;;return true;" onclick=3D"this.href=3D&#39;javascript:&#39;=
+;return true;">jailhouse-dev+<wbr>unsubscribe@googlegroups.com</a>&gt;.
+<br>&gt; To view this discussion on the web visit
+<br>&gt; <a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/a3c23a6=
+a-95ee-4baa-9714-229c84d9d5b7%40googlegroups.com" target=3D"_blank" rel=3D"=
+nofollow" onmousedown=3D"this.href=3D&#39;https://groups.google.com/d/msgid=
+/jailhouse-dev/a3c23a6a-95ee-4baa-9714-229c84d9d5b7%40googlegroups.com&#39;=
+;return true;" onclick=3D"this.href=3D&#39;https://groups.google.com/d/msgi=
+d/jailhouse-dev/a3c23a6a-95ee-4baa-9714-229c84d9d5b7%40googlegroups.com&#39=
+;;return true;">https://groups.google.com/d/<wbr>msgid/jailhouse-dev/a3c23a=
+6a-<wbr>95ee-4baa-9714-229c84d9d5b7%<wbr>40googlegroups.com</a>
+<br>&gt; &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/a3c=
+23a6a-95ee-4baa-9714-229c84d9d5b7%40googlegroups.com?utm_medium=3Demail&amp=
+;utm_source=3Dfooter" target=3D"_blank" rel=3D"nofollow" onmousedown=3D"thi=
+s.href=3D&#39;https://groups.google.com/d/msgid/jailhouse-dev/a3c23a6a-95ee=
+-4baa-9714-229c84d9d5b7%40googlegroups.com?utm_medium\x3demail\x26utm_sourc=
+e\x3dfooter&#39;;return true;" onclick=3D"this.href=3D&#39;https://groups.g=
+oogle.com/d/msgid/jailhouse-dev/a3c23a6a-95ee-4baa-9714-229c84d9d5b7%40goog=
+legroups.com?utm_medium\x3demail\x26utm_source\x3dfooter&#39;;return true;"=
+>https://groups.google.com/d/<wbr>msgid/jailhouse-dev/a3c23a6a-<wbr>95ee-4b=
+aa-9714-229c84d9d5b7%<wbr>40googlegroups.com?utm_medium=3D<wbr>email&amp;ut=
+m_source=3Dfooter</a>&gt;.
+<br></blockquote></div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/69047717-186b-4e56-b8af-50294e493caf%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/69047717-186b-4e56-b8af-50294e493caf%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_1185_1152859008.1567502640421--
+
+------=_Part_1184_417566359.1567502640420--
