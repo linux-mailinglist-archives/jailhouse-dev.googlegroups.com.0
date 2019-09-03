@@ -1,31 +1,31 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBQMCXDVQKGQEAVVAANI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBQECXDVQKGQEP2RMEAI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x239.google.com (mail-lj1-x239.google.com [IPv6:2a00:1450:4864:20::239])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D452A60F1
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  3 Sep 2019 07:59:30 +0200 (CEST)
-Received: by mail-lj1-x239.google.com with SMTP id h18sf2434294ljm.16
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 02 Sep 2019 22:59:30 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1567490370; cv=pass;
+Received: from mail-wr1-x43b.google.com (mail-wr1-x43b.google.com [IPv6:2a00:1450:4864:20::43b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C11DA60EF
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  3 Sep 2019 07:59:29 +0200 (CEST)
+Received: by mail-wr1-x43b.google.com with SMTP id h3sf9854625wrw.7
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 02 Sep 2019 22:59:29 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1567490369; cv=pass;
         d=google.com; s=arc-20160816;
-        b=npAz/VMyZotMSaJim6S8y9aUNPdt9w+c5Ok2qafeQebUYtgYBiMf/jIQGG4Sz7dTXT
-         YImL1gf09N1njAkHlHJSkNhVRK4Fn0yfjWcRuNI5f6wrimeYpdmLpolu9soJFnoZLL6y
-         xsNRBs3ZmxOxk6H46kpJyhJUwIjlA1yllS4KwTIz+1r/DzagJxEg4WK8+IVAfW76KgUM
-         LL8h0662hjZKIEWEWzh+XPGDa0L4usPo5odWPvFvMqPJiRpJ6G90ifmL63LjIVS33qnS
-         UCh1Sm7vHmtAzWMRu6nKTzLlR+JWrS2g7XIiftKPspq734RoOlOu3AHwCL5XPxrmnNXm
-         hhlw==
+        b=T4CVfydAbrzPNkhlbRIoLuH3kv2HzEj30HkRhYJw7+MrI/VAsPnbX46QYvKjSPSfoU
+         NOEPSMXXzF1eKeGNrMnjWQugQ6JbCQdT59ld06RDNC2ULkWdkujYWp9s4l/C3xD5MKzU
+         Yd6YYVZNdQT1nvMqr5NP87pCH+IkSZOFM2d1b0ijr3cU+yOLo3cHzM/XNgNHRf04aoRM
+         KSO89DhfpYaT+FoLC8lYehh1+tg1W6/lOAU1MxwdjAF0P6XLAsDUZivhfuz8oEOfHlCX
+         dCqhB8ytWuD1ZPZXaie6ymUNvFCLAVBBwAaYnzG68dkDGdMHyln17ztrs8nxyEICqd5e
+         y7ng==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:references:in-reply-to:references
          :in-reply-to:message-id:date:subject:to:from:mime-version:sender
          :dkim-signature;
-        bh=/dxdj/F5oeXiLdSflus4BDPwc3KOl/ZiyuXaw+2C/j0=;
-        b=w8dzw+MJOeYyeWmC1FvxXBTH6zVYuWAIRHti3uFHYI7cE8fyypqOws1MT7cPRPWwMo
-         s+0K1jDHIEWeZ+hMwbnsjO3BUhpL0bYHV/PzdsIedPkmZ+pJmqvh/FUN3EFgoDLnLkEk
-         b/olJ6A3YtJMxE36JqqVPbVTmpZv01pRhl0uNefSTlrn7kZ6cKSduoV2u6vSru1tmbgj
-         3LrLTQY0XE5LuSNosuB83U22WPjKjCBSHMSH/8nDVPN9YPtuO+4bBZHDdldl1dKozYkc
-         piu/hDjFpkt4cDmEMTT7M5W58VRZXpV2BGNSjX/yQGtM4uf48UB8IUnpeahwLGJ+rGVq
-         5t+w==
+        bh=hSKKjUtnVXcJqPNyZD/iJeQ80pQWP9uE+y5+8MK+mOw=;
+        b=JxpqqxogWL2Hgg6DmsPVmCv32dWTe9Cjf6CwWoGQPJf6FA1JDLMNHYYayqdaANtKqH
+         4ny2QGpPcfBXLaiAOqT0ITn300m0XQTsyk6I6koY7kaveW3Fm0KLwtq0FUAzGgQh5CWC
+         53UjYLZOutBmXbq4eZ+fFfuNE8m3xau1J9zfn0vPp4lePPM/ebF9QwvnEJsi2WzSPWyf
+         JCRGaE3aQu89Me1ZqWldU62n5gHNMIiifP3igfqf566UVe8VC2Vco8vTpA6DjeDIj9MJ
+         daMwXaAQtJSavhag7xPzaPtozzgryaHGA6FToXPVrdTweoJZRoDbiwxTUZDTh4bTqoHO
+         +M/w==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
        spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:in-reply-to:references:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=/dxdj/F5oeXiLdSflus4BDPwc3KOl/ZiyuXaw+2C/j0=;
-        b=Orc+Vea8sOWTuWNacdEq03rnTPIg8uoxfWRx/lrcENBk/ByyqcDBHhQO9eREK1/DjX
-         HZ8/S0uBS9h30IoWI7ivg24Z8Fm8NCzHLcdVra31F7bijT6qxDB/jXWBUVmb7eH76BuK
-         Bfn7jVnWkgOSDvyaNNzNOh2Ih23dLMvOSjGYMPcV+pL/athDWQBOtSKaabmJ2I39xGt4
-         wFqXSpKzdgubx1B8jpqijt/jjxRbDf130HHQaU56hdcYHAkwU3/4MgFHVwNSS8MEQYx0
-         +Ov13sEWu/UCIWUkvFWT4JP8RyMngCbH+/s5K59xDDsTpnrA2WSTr6wyAZXODZPFxCkY
-         VvSg==
+        bh=hSKKjUtnVXcJqPNyZD/iJeQ80pQWP9uE+y5+8MK+mOw=;
+        b=f5bMpu9OT+nj9qoKvGUE5b0k966nd2F+uN3GpJ6vI2IS0tj2t2utnn9a2ulz1gvDus
+         Lde1AJpVsVq8HfgXwZggOD9p+VgFDGeT3KqqrQyLF3KkdkJCKTIRBHWGnoHcKOZy54ju
+         cPRlMpU2hvTshlTQLWS9YadfAFIaV37nvw8cWHPqYg/3gof3+x0Tr2TZ2yBLKZ4USBHS
+         IucfSt3p8gGtg8FgeawPb9PxjEkydlWOabx4ak2RJBNceQkHKRzcmWcm7OGE+1k7P/OZ
+         WVxTXLgjyWjr6ZXjT2IxhJ5MwpEkvgKSto3rkp/hKPnISYQjqtIw6GgRpJCX1w/4cjx0
+         wYNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:mime-version:from:to:subject:date
@@ -49,64 +49,64 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=/dxdj/F5oeXiLdSflus4BDPwc3KOl/ZiyuXaw+2C/j0=;
-        b=NX5gZ8DA3BQmREdDrBYnk5bPkK1dA8SD53d2J5fE00Vksj4VS/tgKmhG3B4IyE47KO
-         BH0wDN75ywk+jiCdXZ3Obt49UqvXdlE68MfWJAikk6GaEGALcpGlbvXR8b+mdIKf6Dr8
-         8Q+Zk7bzgl85yljzpUXh5X8Rar/ZB1XS1YsQr0CGTZBEk+1r2QOC/vJWU33N5hr/9aJZ
-         NZcxIRyFu0SUMcCRcb3tU8mzwQgfl46Njbf+BDlumFm+pE/51fTl+YxKkJhGmTysJZUZ
-         y6PLubnlErdan+nwwhEvtsWbrrWW3eS3f+NtG8fhsypJaUk5SCsGRBVg3Q9Ho0iTQEx2
-         ZA0g==
+        bh=hSKKjUtnVXcJqPNyZD/iJeQ80pQWP9uE+y5+8MK+mOw=;
+        b=boUgUm1NtvT/oCBcgdqEPdAwZhLwrdYMuPQhSmITUOwCgkJ3JXxYjCll65fGfu/mIZ
+         laNYiS7LF1fZBnEZlX/P7a6Y8ijZLcLminumtUkpne5l9BBOcvZj5uFzMilCfcnYYpcO
+         XMcKeyrx9tcuA8fHpVJRosJBsDtOF8Hcfk9b9q1phh+aGU+iUon5ZaDTsZ/gAahencGN
+         7M17K2nUCGCEgjYaHColU7PFlYPOqSx28bJRQcz66Fc7gu2Ny/6ko8RU0zBFd/KPpMcO
+         TecvvNRlIpuO7AzLXvRzJ0Yn8RFkPnsCc1JDsE5IFOuAas+jDPY5lNtQdmcVJdM8my50
+         UwRw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAWlqRwZ9OmV0yPzFEwmA+q3sAiMqEvZhRSRBJu/alUScek+jrS8
-	YyvjP+xwZ91FvSAtb4O/V1U=
-X-Google-Smtp-Source: APXvYqxuvu3h1cv040K7U0uvavfWDHSLoXpXkiAZOPCyw1jRJBlxKlR2o4uS7lwcEbwIhP7Mqa/sOA==
-X-Received: by 2002:a2e:9602:: with SMTP id v2mr5972588ljh.215.1567490369913;
+X-Gm-Message-State: APjAAAW4OOSBk0KDU8VyyGFi7cman4FBbJmI2a/OYIOouzHUlF5TYPmy
+	OkCXSQxaEcNogMsKqFxdKQ8=
+X-Google-Smtp-Source: APXvYqxsTd+rxhXzoU0o+Lkb9tjlTEuuV7eEX/12tq/niE854UWrroC9aZOD/y4vvJJ5l6EBguYA7Q==
+X-Received: by 2002:a5d:68c6:: with SMTP id p6mr1531277wrw.188.1567490369263;
         Mon, 02 Sep 2019 22:59:29 -0700 (PDT)
 MIME-Version: 1.0
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:3608:: with SMTP id d8ls1750066lja.0.gmail; Mon, 02 Sep
- 2019 22:59:28 -0700 (PDT)
-X-Received: by 2002:a2e:8510:: with SMTP id j16mr18661198lji.174.1567490368612;
+Received: by 2002:a1c:c143:: with SMTP id r64ls4174913wmf.0.canary-gmail; Mon,
+ 02 Sep 2019 22:59:28 -0700 (PDT)
+X-Received: by 2002:a7b:c4c6:: with SMTP id g6mr41939457wmk.52.1567490368505;
         Mon, 02 Sep 2019 22:59:28 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; t=1567490368; cv=none;
         d=google.com; s=arc-20160816;
-        b=MVDvh7K10U+4p31pFtxwrUq4l6wwvSZueehRUAXR7Nc0+iAamFzxJcZrIHkxSush9i
-         UW8FCRjd69S+tSFVL+f3Ag4+XloAj6pTbWEingM6NeCOr74xe9hgLWlXqRsbC65byQWr
-         emYCFO89STHi5zrFnldAfRNN1GY7adj1jZ/r4Sb95qR7XQS7MoNP3UGeLvpFeVI8GMl/
-         PGfRNZc2tVhrCkF45U4FUwxh5pttkESKW6f/qU4AHQjDao2L0rCtvMCe6nF1NMhgk8ga
-         ci0wf7/E+7T++D4XzvTYx4tBlgvXoOYacBothiTtCVARffGlEDRqAkwaAgPlJvpcd69l
-         taIg==
+        b=KTmskoeOG860/qgzJzFju1tbe/hm4O27uzzM4+o5x3AQ39aF6i4jE4zW1nU/KOX9Qc
+         bRZDZfi0S8879Xvn7xk+3ndOHzgPHuC6/IgCa+6b0v6RHekZa/itoq7rKbhP7bNZHU2w
+         l4Ah/OHuDm/h+MqE8CF13Y9VenLun8HCzmjmy5RRvuzp9d2qvEIvMBzBLSN0AiKUrjYl
+         i3pFlkRw7LHIA6jAz/ADmes2D09vBqP9UyRB2qWuGI1kvfTc31MunNUUtNywiunUCAqJ
+         CUzTJSkKsQdZoUFhKOkRaZUB/uNWQtYKUILvCesMr8GfACbJUri9jwE9ARzw+jmnsOVB
+         EcTw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=references:in-reply-to:references:in-reply-to:message-id:date
          :subject:to:from;
-        bh=N44wHBQFQ6lmAcJ1g+ik//Ag7EskirIU3l/PGcPXECg=;
-        b=wgNjo4ZoeBkA+jkdxNLOgxtmR4u4Oq8ZB0mGcn1MUvD8lOvs5rLRUf+VBIFBwZmVd+
-         7GMjcmoQ/9MjAbuICuKmqpMnLVGvDG2DXD4EI0ghG9gYr9liuiWJgvsP+WkD7ADFd8Fp
-         4MqX67Cfe2Qhe55IZcQv2+QLTNIWi6fPpInn7aDY6rLG9eZJamUxSZm6VHXMKcVi+Fcm
-         lCOWjYDmK959cYrUrszFHi4p+xbEwh4+Te5bYG0OzK3jhhx2F+wzRhyQe2Oj6DOKM+Ch
-         nE9pzWhthz97ItmclAZWWUfkbW5RY1DSNUTYfhCDtR+xdVq8YoboPx/zYqC0Uv+R7iim
-         gx9w==
+        bh=nV64JzBOom1xn4AcT/3DwAOt0mBTF+/BWM8TD7Es0Ms=;
+        b=IdhCZyCMaXggFZc5gSUpXzaCiHrydooZCJJvpCGBDBdCaE27NH4wZpgDVJRaozPeF6
+         +jszm9O6Jz4hz8Ul8DyfaQm4VGJ2US0OPGuafqoVwYhDKkWXFz+zWV8JVzUDGuz/qJ9/
+         CVbpowA5E8c8Y4GX4EcjKrZZA/iB2hiYE/2fAMquAoAicP8tuY5z+URHuXXxppIaHtqN
+         TASoQyh7uIVX3wrmiDYkEggJPDaafbTgs5Q+TtEEoGwPvVCwpMatAEImsz0HTV0kk94V
+         2zxYuIf82eCQKLBtWQhPre6R5Z+gmvi8LZBPF905UQBiHWnsQIRQ9qJAWY038P2UlNBa
+         W/DQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
        spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id d3si65556lfq.1.2019.09.02.22.59.28
+        by gmr-mx.google.com with ESMTPS id r1si481853wrp.3.2019.09.02.22.59.28
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
         Mon, 02 Sep 2019 22:59:28 -0700 (PDT)
 Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id x835xSoH009953
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id x835xSqx009966
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
 	for <jailhouse-dev@googlegroups.com>; Tue, 3 Sep 2019 07:59:28 +0200
 Received: from md1f2u6c.ad001.siemens.net ([167.87.40.78])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id x835xPkU010486
-	for <jailhouse-dev@googlegroups.com>; Tue, 3 Sep 2019 07:59:27 +0200
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id x835xPkV010486
+	for <jailhouse-dev@googlegroups.com>; Tue, 3 Sep 2019 07:59:28 +0200
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [jh-images][PATCH 07/13] u-boot-macchiatobin: Update to 2019.09 and ATF 2.1
-Date: Tue,  3 Sep 2019 07:59:19 +0200
-Message-Id: <b75d5c8024bbd83812068e1a79a1932e04656107.1567490365.git.jan.kiszka@siemens.com>
+Subject: [jh-images][PATCH 08/13] jailhouse: Use template mechanism for Debian control files
+Date: Tue,  3 Sep 2019 07:59:20 +0200
+Message-Id: <19b2b9d47045107d8b6dc00da9b4707f926f38b8.1567490365.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <cover.1567490365.git.jan.kiszka@siemens.com>
 References: <cover.1567490365.git.jan.kiszka@siemens.com>
@@ -132,156 +132,99 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-This obsolates the ATF 1.6 include with its build fix. The update also
-removes one external dependency, namely ble-marvell.
-
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- .../arm-trusted-firmware_1.6.inc                   | 18 -------
- ...tools-Fix-broken-object-compilation-rules.patch | 59 ----------------------
- recipes-bsp/u-boot/files/macchiatobin-rules        |  3 +-
- ....6.bb => u-boot-macchiatobin_2019.07-atf2.1.bb} | 10 ++--
- 4 files changed, 5 insertions(+), 85 deletions(-)
- delete mode 100644 recipes-bsp/arm-trusted-firmware/arm-trusted-firmware_1.6.inc
- delete mode 100644 recipes-bsp/arm-trusted-firmware/files/0001-tools-Fix-broken-object-compilation-rules.patch
- rename recipes-bsp/u-boot/{u-boot-macchiatobin_2018.09-atf1.6.bb => u-boot-macchiatobin_2019.07-atf2.1.bb} (73%)
+ recipes-jailhouse/jailhouse/files/debian/changelog    |  5 -----
+ recipes-jailhouse/jailhouse/files/debian/control      | 13 -------------
+ recipes-jailhouse/jailhouse/files/debian/control.tmpl | 13 +++++++++++++
+ recipes-jailhouse/jailhouse/jailhouse.inc             |  6 ++++--
+ 4 files changed, 17 insertions(+), 20 deletions(-)
+ delete mode 100644 recipes-jailhouse/jailhouse/files/debian/changelog
+ delete mode 100644 recipes-jailhouse/jailhouse/files/debian/control
+ create mode 100644 recipes-jailhouse/jailhouse/files/debian/control.tmpl
 
-diff --git a/recipes-bsp/arm-trusted-firmware/arm-trusted-firmware_1.6.inc b/recipes-bsp/arm-trusted-firmware/arm-trusted-firmware_1.6.inc
+diff --git a/recipes-jailhouse/jailhouse/files/debian/changelog b/recipes-jailhouse/jailhouse/files/debian/changelog
 deleted file mode 100644
-index 0605d5d..0000000
---- a/recipes-bsp/arm-trusted-firmware/arm-trusted-firmware_1.6.inc
+index 1993260..0000000
+--- a/recipes-jailhouse/jailhouse/files/debian/changelog
 +++ /dev/null
-@@ -1,18 +0,0 @@
--#
--# Jailhouse, a Linux-based partitioning hypervisor
--#
--# Copyright (c) Siemens AG, 2018, 2019
--#
--# Authors:
--#  Jan Kiszka <jan.kiszka@siemens.com>
--#
--# SPDX-License-Identifier: MIT
--#
+@@ -1,5 +0,0 @@
+-jailhouse-@KERNEL_NAME@ (@PV@) unstable; urgency=low
 -
--FILESPATH =. "${LAYERDIR_jailhouse}/recipes-bsp/arm-trusted-firmware/files:"
+-  * Generated package.
 -
--SRC_URI += " \
--    https://github.com/ARM-software/arm-trusted-firmware/archive/v${ATF_PV}.tar.gz;name=atf \
--    file://0001-tools-Fix-broken-object-compilation-rules.patch;patchdir=${WORKDIR}/arm-trusted-firmware-${ATF_PV} \
--    "
--SRC_URI[atf.sha256sum] = "62120368f2196d3e126296c8116f3399568e100960a5122e52017d22766b7009"
-diff --git a/recipes-bsp/arm-trusted-firmware/files/0001-tools-Fix-broken-object-compilation-rules.patch b/recipes-bsp/arm-trusted-firmware/files/0001-tools-Fix-broken-object-compilation-rules.patch
+- -- Jan Kiszka <jan.kiszka@siemens.com>  Fri, 29 Dec 2017 00:00:00 +0000
+diff --git a/recipes-jailhouse/jailhouse/files/debian/control b/recipes-jailhouse/jailhouse/files/debian/control
 deleted file mode 100644
-index 9e4a08a..0000000
---- a/recipes-bsp/arm-trusted-firmware/files/0001-tools-Fix-broken-object-compilation-rules.patch
+index 817dc5e..0000000
+--- a/recipes-jailhouse/jailhouse/files/debian/control
 +++ /dev/null
-@@ -1,59 +0,0 @@
--From a8e3ae2e1f391296dc95a85ca4029ccf40e9bf14 Mon Sep 17 00:00:00 2001
--From: Jan Kiszka <jan.kiszka@siemens.com>
--Date: Tue, 2 Oct 2018 09:28:00 +0200
--Subject: [PATCH] tools: Fix broken object compilation rules
+@@ -1,13 +0,0 @@
+-Source: jailhouse-@KERNEL_NAME@
+-Section: misc
+-Priority: optional
+-Standards-Version: 3.9.6
+-Build-Depends: linux-headers-@KERNEL_NAME@, git,
+-               dh-python, python-pip:native, python-setuptools, python-mako:native
+-Maintainer: Jan Kiszka <jan.kiszka@siemens.com>
+-X-Python-Version: >= 2.7
 -
--As these rules depend on non-existing headers as well (likely copy &
--pasted from fiptool), they never matched, and the built-in rules were
--used. That led to random breakages when e.g. CPPFLAGS was suddenly
--evaluated and contained invalid options.
--
--For the stm32image, this reveals that we were relying on the built-in
--rules by passing -D_GNU_SOURCE via CPPFLAGS, rather than using CFLAGS as
--used in the local rule. Fix that as well.
--
--Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-----
-- tools/doimage/Makefile    | 2 +-
-- tools/stm32image/Makefile | 5 ++---
-- 2 files changed, 3 insertions(+), 4 deletions(-)
--
--diff --git a/tools/doimage/Makefile b/tools/doimage/Makefile
--index bc74369f..9cec681a 100644
----- a/tools/doimage/Makefile
--+++ b/tools/doimage/Makefile
--@@ -39,7 +39,7 @@ ${PROJECT}: ${OBJECTS} Makefile
-- 	@echo "Built $@ successfully"
-- 	@echo
-- 
---%.o: %.c %.h Makefile
--+%.o: %.c Makefile
-- 	@echo "  CC      $<"
-- 	${Q}${CC} -c ${CFLAGS} ${INCLUDE_PATHS} $< -o $@
-- 
--diff --git a/tools/stm32image/Makefile b/tools/stm32image/Makefile
--index 80dfbecf..a593d316 100644
----- a/tools/stm32image/Makefile
--+++ b/tools/stm32image/Makefile
--@@ -12,8 +12,7 @@ PROJECT := stm32image${BIN_EXT}
-- OBJECTS := stm32image.o
-- V := 0
-- 
---override CPPFLAGS += -D_GNU_SOURCE
---CFLAGS := -Wall -Werror -pedantic -std=c99
--+CFLAGS := -Wall -Werror -pedantic -std=c99 -D_GNU_SOURCE
-- ifeq (${DEBUG},1)
--   CFLAGS += -g -O0 -DDEBUG
-- else
--@@ -39,7 +38,7 @@ ${PROJECT}: ${OBJECTS} Makefile
-- 	@echo "Built $@ successfully"
-- 	@${ECHO_BLANK_LINE}
-- 
---%.o: %.c %.h Makefile
--+%.o: %.c Makefile
-- 	@echo "  CC      $<"
-- 	${Q}${CC} -c ${CFLAGS} $< -o $@
-- 
---- 
--2.16.4
--
-diff --git a/recipes-bsp/u-boot/files/macchiatobin-rules b/recipes-bsp/u-boot/files/macchiatobin-rules
-index 6656660..6bf28b3 100644
---- a/recipes-bsp/u-boot/files/macchiatobin-rules
-+++ b/recipes-bsp/u-boot/files/macchiatobin-rules
-@@ -27,8 +27,7 @@ override_dh_auto_build:
- 	$(MAKE) USE_COHERENT_MEM=0 \
- 	        PLAT=a80x0_mcbin \
- 	        MV_DDR_PATH=../mv-ddr-marvell \
--	        SCP_BL2=../binaries-marvell/mrvl_scp_bl2_mss_ap_cp1_a8040.img \
--	        BLE_PATH=../ble-marvell \
-+	        SCP_BL2=../binaries-marvell/mrvl_scp_bl2.img \
- 	        BL33=$(U_BOOT_DIR)/u-boot.bin \
- 	        all fip
+-Package: jailhouse-@KERNEL_NAME@
+-Architecture: any
+-Depends: ${shlibs:Depends}, ${python:Depends}, linux-image-@KERNEL_NAME@, python-mako
+-Description: Jailhouse partitioning hypervisor
+diff --git a/recipes-jailhouse/jailhouse/files/debian/control.tmpl b/recipes-jailhouse/jailhouse/files/debian/control.tmpl
+new file mode 100644
+index 0000000..c8e625f
+--- /dev/null
++++ b/recipes-jailhouse/jailhouse/files/debian/control.tmpl
+@@ -0,0 +1,13 @@
++Source: ${PN}
++Section: misc
++Priority: optional
++Standards-Version: 3.9.6
++Build-Depends: linux-headers-${KERNEL_NAME}, git,
++               dh-python, python-pip:native, python-setuptools, python-mako:native
++Maintainer: Jan Kiszka <jan.kiszka@siemens.com>
++X-Python-Version: >= 2.7
++
++Package: ${PN}
++Architecture: any
++Depends: ${shlibs:Depends}, ${python:Depends}, linux-image-${KERNEL_NAME}, python-mako
++Description: ${DESCRIPTION}
+diff --git a/recipes-jailhouse/jailhouse/jailhouse.inc b/recipes-jailhouse/jailhouse/jailhouse.inc
+index 539e9d6..cedd9c2 100644
+--- a/recipes-jailhouse/jailhouse/jailhouse.inc
++++ b/recipes-jailhouse/jailhouse/jailhouse.inc
+@@ -19,6 +19,9 @@ SRC_URI = " \
+     git://github.com/siemens/jailhouse;branch=next \
+     file://debian/"
  
-diff --git a/recipes-bsp/u-boot/u-boot-macchiatobin_2018.09-atf1.6.bb b/recipes-bsp/u-boot/u-boot-macchiatobin_2019.07-atf2.1.bb
-similarity index 73%
-rename from recipes-bsp/u-boot/u-boot-macchiatobin_2018.09-atf1.6.bb
-rename to recipes-bsp/u-boot/u-boot-macchiatobin_2019.07-atf2.1.bb
-index 5eb5153..37b41f9 100644
---- a/recipes-bsp/u-boot/u-boot-macchiatobin_2018.09-atf1.6.bb
-+++ b/recipes-bsp/u-boot/u-boot-macchiatobin_2019.07-atf2.1.bb
-@@ -19,17 +19,15 @@ SRC_URI += " \
-     ftp://ftp.denx.de/pub/u-boot/u-boot-${U_BOOT_PV}.tar.bz2;name=u-boot \
-     git://github.com/MarvellEmbeddedProcessors/mv-ddr-marvell;protocol=https;branch=mv_ddr-armada-atf-mainline;rev=${MV_DDR_REV};destsuffix=mv-ddr-marvell \
-     git://github.com/MarvellEmbeddedProcessors/binaries-marvell;protocol=https;branch=${MV_BIN_BRANCH};rev=${MV_BIN_REV};destsuffix=binaries-marvell \
--    git://github.com/MarvellEmbeddedProcessors/ble-marvell.git;protocol=https;branch=atf-mainline;rev=${MV_BLE_REV};destsuffix=ble-marvell \
-     file://macchiatobin-rules \
-     "
--SRC_URI[u-boot.sha256sum] = "839bf23cfe8ce613a77e583a60375179d0ad324e92c82fbdd07bebf0fd142268"
-+SRC_URI[u-boot.sha256sum] = "bff4fa77e8da17521c030ca4c5b947a056c1b1be4d3e6ee8637020b8d50251d0"
++TEMPLATE_FILES = "debian/control.tmpl"
++TEMPLATE_VARS += "KERNEL_NAME"
++
+ S = "${WORKDIR}/git"
  
- BUILD_DEPENDS =. "libssl-dev:native, "
+ inherit dpkg
+@@ -27,13 +30,12 @@ DEPENDS = "linux-image-${KERNEL_NAME}"
  
--MV_DDR_REV="779e860c3b81eda192dd40270f46c0ff44e52113"
--MV_BIN_BRANCH="binaries-marvell-armada-18.06"
--MV_BIN_REV="14481806e699dcc6f7025dbe3e46cf26bb787791"
--MV_BLE_REV="61d305e3869dec8c8c5b8c2fd985548f9a424688"
-+MV_DDR_REV="a881467ef0f0185e6570dd0483023fde93cbb5f5"
-+MV_BIN_BRANCH="binaries-marvell-armada-18.12"
-+MV_BIN_REV="c6c529ea3d905a28cc77331964c466c3e2dc852e"
+ do_prepare_build() {
+     cp -r ${WORKDIR}/debian ${S}/
++    deb_add_changelog
+     if [ "${DISTRO_ARCH}" != "amd64" ]; then
+         # Install device trees only on non-x86 archs as they only exist there
+         echo "configs{,/*}/dts/*.dtb etc/jailhouse/dts" >> ${S}/debian/jailhouse.install
+     fi
+     mv ${S}/debian/jailhouse.install ${S}/debian/jailhouse-${KERNEL_NAME}.install
+-    sed -e 's/@PV@/${PV}/g' -e 's/@KERNEL_NAME@/${KERNEL_NAME}/g' \
+-        -i ${S}/debian/changelog ${S}/debian/control
+ }
  
- U_BOOT_CONFIG="mvebu_mcbin-88f8040_defconfig"
- U_BOOT_BIN="u-boot.bin"
+ dpkg_runbuild_prepend() {
 -- 
 2.16.4
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/b75d5c8024bbd83812068e1a79a1932e04656107.1567490365.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/19b2b9d47045107d8b6dc00da9b4707f926f38b8.1567490365.git.jan.kiszka%40siemens.com.
