@@ -1,68 +1,124 @@
-Return-Path: <jailhouse-dev+bncBC2PTC4R4MNBBANFSLWAKGQENCPJMSA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBB6FSLWAKGQE6QY3FSY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oi1-x23f.google.com (mail-oi1-x23f.google.com [IPv6:2607:f8b0:4864:20::23f])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8484B8D2D
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 20 Sep 2019 10:49:06 +0200 (CEST)
-Received: by mail-oi1-x23f.google.com with SMTP id b187sf675631oii.23
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 20 Sep 2019 01:49:06 -0700 (PDT)
+Received: from mail-lf1-x140.google.com (mail-lf1-x140.google.com [IPv6:2a00:1450:4864:20::140])
+	by mail.lfdr.de (Postfix) with ESMTPS id A2233B8E28
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 20 Sep 2019 11:57:27 +0200 (CEST)
+Received: by mail-lf1-x140.google.com with SMTP id m17sf1064194lfl.11
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 20 Sep 2019 02:57:27 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1568973447; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=h1Ka8I2Daw2i8xmF2J4OY3nByr8jXfJVZI4iP8zKOpcKJOlZ1jkciLDJ+mgXmonlc6
+         8SF7CPjF6sZgRPU5SplaneiRsr8Z7bz+fl0HhxkfqADOQY49uGZuOLOE35w2PUzvLn3Q
+         5Ne/D9WOuUPH1Ve0Lg84b+vNAwLvCl3v2u/AIzMuXBMnjZNbjWGdPJa4+5iu98yqSF6D
+         Bsi3x8J50fpX9dMBFpsedshyylzDTRGftvPTm2jOP9mJ9Usv4nP4OOug401Iuyc/CO8C
+         ocBxRMOpNqjFRvFYs1pt0TEUWdvEw+7KAyWh0KkKYd5sXDuqb59feLtUZPhLY2fsjNL6
+         0pcg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:to:subject
+         :sender:dkim-signature;
+        bh=XCV4740evPm+Q6UIU5NFbYGNiqXcvVJZdtac1tivhNI=;
+        b=kp/zK9qW0Jgx9psrMV50FjwVPSGeZEXWByZwt9j5h/dOP/sGAyjWdqJ3p0//BjCAJI
+         EOUIvF+L9itdQJcXeco/9Di2/b0e4yfziu4ZdHzBWdoy7zQ8QSw4FEvhYKPHrSV+NewR
+         Pa52WkJJ7PSeJ6NzgOit+VWmHu5ZJRPryJIkEmGMQaL3xALvcnWsSv7+7TbWTrk1uEWc
+         KK0uamuiN5tFFKBgOSBuDcE5v12DENqyJqj2gli80AYmZk5ZYQkCfHiG9s+ZMBb3cuVA
+         m4VaRrqFTgNNueTUSBmWHZwBPuK8xLD4SEiBRrCs6nDXbfQ+l6P+ub9N1Gk9Kh/Wk3fz
+         B1qQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=XgXjvxxUMGioS3o2RIqHA+cqX6/ZTsC/A/shMz/m9Yk=;
-        b=SPt2Muku9LloGsZtoqi2GEeUgWbIF5AXQki/Xp4WNDvwwv4MEvTZSAEaZl5XZc1H2c
-         qYnQynzlsnQlra59OrKS7RnVeeZuCLnD9YE1p1DKr8zw+kSHAspdbvW2qH0ZgnzSuahL
-         p3bjgEP4I4/yP5ICJ4p7x/2WO3SXan6gx7sdhUMshxpj7R6EwsXARCHDWAh2eT7sul+i
-         wltZLYZBd+RaUdbBeP/9YK6EMZORjMLUHD6BtjDWsjusRdkF8FyrNjMH6/ZJp7hhRliq
-         A5DIRBgb9PIFqQrjibMunz2y4Uip2SKy6ZyI3muhiAWNoVcPBFyvXHlCNAgiEd89vUBB
-         0iHQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:subject:mime-version:x-original-sender
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=XgXjvxxUMGioS3o2RIqHA+cqX6/ZTsC/A/shMz/m9Yk=;
-        b=XHH9PNdnHyduLciBKG0yqCPQ6VdA3N5My8JJIGPmIfCk9Sft/J+OVSDgA3wG96Tpm0
-         PnRajtH6km5ysKN3le9aqh3qqRXAY9ATkzkSCrdcR/czIHzcjiW5GH9/QH3mhSm0FVwE
-         zAV/jXuJ0qr4VYfnA+kt/mzw+zrNg9JDzAuaxN4xF4+u8Yus0BEjZ4XmEvGYfqC3YrU3
-         e48zp9yo2OyfBG0khcVvDpeyqQNiz3O8b6n2lapYw+dLnkNtZPsnELWS4J8xP2SkaoH8
-         4ryvLgIXP/gvGBU4968F+rZ7mM8lgUhUwwmtZ2DyQlLLZeyJtZbXHz17mZoKkUP10NFp
-         XQKQ==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=XCV4740evPm+Q6UIU5NFbYGNiqXcvVJZdtac1tivhNI=;
+        b=p3ujc/1kkPsl65faadJXNrYoyZ5gbrShtvIXR/YwMge932WOqHY+aRqxuHbsG0e6uY
+         4NpreXuU05ieSWFqIUej4nZ9y034SXaBcSNhBgYjA/zvYEtNeqOFvrgpXgpd0vbR5RRD
+         VpHna4NXSRTKKfYz1p4OF6c/CAZCzyihGDsU/xfW1kfsG3ZEvvNpfMKV6zbuD63MOg/u
+         8kkVQtyyEpFpQ7zpZ5z6jSWARwWcNsl1Sgml13o8NIhYDGMbZghcxgdLxtXIaE3aAHwi
+         f3WadJYbg47mIi52bgOigduSVCNBSNnFB2s1H6zGrsATh1fixi6/1ieJSEw1cW1Vbamm
+         2tag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=XgXjvxxUMGioS3o2RIqHA+cqX6/ZTsC/A/shMz/m9Yk=;
-        b=lUOUW+/cFh5ecbHyRAaS5ixvv2ocM7NbyfuBOEu2wgHkNYlNkakWiyn0MxnW4vo9vQ
-         LKPK1SrZWulDJWz/x3IRQymTEhEi7bpYS0b9Kw9FhMkY9f3GPt3FcrlRl/WM7xqcyEdZ
-         6Uqhr2nXXL+yQrSCIaoB97w7VWIhpskwH8pYqT9uRkmRbl1wGi5lQ1rxZCAQzgVONDMj
-         CsDcBqKTB+0LoxOA64pidER4KzT+rsiy34nkGUIG4T0yyNH/IwWRDblEGaoyEW16msLu
-         kbF9A1rc7erf72zabIfdMrZdixg7g7wox8SKwTlYUt+PMVEcVSlHP4sNGm8FrWVzx5vK
-         d7ig==
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=XCV4740evPm+Q6UIU5NFbYGNiqXcvVJZdtac1tivhNI=;
+        b=VUYS4mFsmJoSsvLEObow66+2NcDnPZXrUkFh9OqA1eVmHXXCvIH0v0zCpwstNENeuV
+         YWn/baSrCNUg0t/G7JgTYoJz3TtXch/RZJW4qAssYMZBmMrA8/2xlba42lJTTh/LfWV2
+         oWNvwElXiGX9PWGLxBTH3XhkYzLjrgt2b3a9xul3gk3UtPe5zqG/0xrmW9Bws+sUH8hb
+         dh+qOZCxRnB0BikKidWpGRAWNNAa+JD75sCoM6pZVXxOm9wcj3u6jKd0agmY0QNCvqI8
+         43dOkP4WPeTlxd3YFKrbzgTszjh8euV8Sr2vXs1aDl/sT+/tuITkER+TRUHWWbAry+kH
+         z6aQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUycbAdA8rPcrwf8tzW0eC/Wb6To4MBXfRKwBQ9RteWe7p68m6x
-	g8W02e+KsraLx3GBfzNd6IY=
-X-Google-Smtp-Source: APXvYqxRGYzwPIhYRpYlyu/OoIQuIEZOp75xg7+Lo2efcT99vIdbHgV/ALgUejBcMVpJnfPgngaDcQ==
-X-Received: by 2002:a05:6830:210b:: with SMTP id i11mr10136787otc.367.1568969345327;
-        Fri, 20 Sep 2019 01:49:05 -0700 (PDT)
+X-Gm-Message-State: APjAAAVv+mLST9ecc+/Dc92DbcDlai1DC/VWc7VTelc9xubi1Sy3BJ6s
+	knO8xJdrEwgOhC6YPO4ADuU=
+X-Google-Smtp-Source: APXvYqyGy5jxPvSh6SjtPVDvXRX7E5m7qoKhIqozrTcwUMOmM4sbdWgP3onJ6tUlY8qwI1t7kiu77A==
+X-Received: by 2002:a2e:3806:: with SMTP id f6mr8808872lja.143.1568973447138;
+        Fri, 20 Sep 2019 02:57:27 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a9d:2c42:: with SMTP id f60ls1473466otb.8.gmail; Fri, 20 Sep
- 2019 01:49:04 -0700 (PDT)
-X-Received: by 2002:a9d:be4:: with SMTP id 91mr10881111oth.111.1568969344694;
-        Fri, 20 Sep 2019 01:49:04 -0700 (PDT)
-Date: Fri, 20 Sep 2019 01:49:03 -0700 (PDT)
-From: Chung-Fan Yang <sonic.tw.tp@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <f529a508-6259-43e5-a2f9-6b4c48bdf153@googlegroups.com>
-Subject: Invalid MMIO access during PCI device initialization
+Received: by 2002:a2e:8803:: with SMTP id x3ls109670ljh.10.gmail; Fri, 20 Sep
+ 2019 02:57:26 -0700 (PDT)
+X-Received: by 2002:a2e:309:: with SMTP id 9mr8724497ljd.171.1568973446484;
+        Fri, 20 Sep 2019 02:57:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1568973446; cv=none;
+        d=google.com; s=arc-20160816;
+        b=X7P9sorZ79+Q9fbIIUSZQtfPYgIcKUMAEx2h2qrDxOT+6d3AltrlrZbyUZDrG/lXaB
+         agUnmv7Z9Ht95F6pfnLkZ2hOLyAZV/7nZN1fC6WflQMADc9iiG48H+QcD6ou6UaUNAOH
+         zeWGcB9yKWiCXPQuGvR00xqPxXT975Qoua58++MJBYnuHwSzmUl38DIkjrVJXE/LXDqD
+         0mNNyLFODNYikX30XSxDoSTjnmkP//bq5/McGXEUexuCFaj871TF6upFoDOGerTulHFV
+         OACWXhoLOBYlUZZLRtL7DLSHTOXDfwm4oznvE7EqK37sZ7Iey9KAgiZK3T+4whBti9Z1
+         8iQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=sUfC9uXbgi7d7p1c6FMPqFTAQvRaPItFRkPOR5dLROM=;
+        b=nXU5JK/DGNCAow7vQLM7MG2+q7zWfqus0CQSm8PbdDAKavUB40kZVBCROQiGt8/4B1
+         1wqM0I78Dpl2V8A+VaSUqW4jXSOXBMDmbv531nVhh0pmP2ewGNINjqbJ+TEH5sEggzio
+         lnazOdEIhCjr0z84PkRCspHzzN340amcPd8VUKTNzPxtiSfH/1ZpLTEXfRoHqn2cxBKe
+         F+3cDA8eOonDiReIqwuRTYE0wISxEjcyShVT+fz3ltmGorcJx3XUFKWgc610dDX4r85F
+         R2sWxH73YEfR8PRJmi1ahXCAHgNZmAZlZIuPUQuxo6iv0pKvORaTIAawlHc2jRGrLa0d
+         SZDw==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
+        by gmr-mx.google.com with ESMTPS id y6si89701lji.0.2019.09.20.02.57.26
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 20 Sep 2019 02:57:26 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id x8K9vPHT027903
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 20 Sep 2019 11:57:25 +0200
+Received: from [139.22.77.104] ([139.22.77.104])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id x8K9vOSH021322;
+	Fri, 20 Sep 2019 11:57:24 +0200
+Subject: Re: Invalid MMIO access during PCI device initialization
+To: Chung-Fan Yang <sonic.tw.tp@gmail.com>,
+        Jailhouse <jailhouse-dev@googlegroups.com>
+References: <f529a508-6259-43e5-a2f9-6b4c48bdf153@googlegroups.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <494277d5-a425-8e0d-85da-6474878134e4@siemens.com>
+Date: Fri, 20 Sep 2019 11:57:24 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_4020_198849338.1568969343731"
-X-Original-Sender: Sonic.tw.tp@gmail.com
+In-Reply-To: <f529a508-6259-43e5-a2f9-6b4c48bdf153@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Language: en-US
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -75,425 +131,87 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_4020_198849338.1568969343731
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_4021_748690050.1568969343732"
+On 20.09.19 10:49, Chung-Fan Yang wrote:
+> Hi everyone,
+> 
+> I am having some problem with a physical PCI-e serial card and non-root Linux.
+> 
+> I have been using the serial card with the root Linux and non-root RTOS for a 
+> while whthout any problem.
+> 
+> Recently, I decided to try this card in a non-root Linux.
+> I compiled the Jailhouse enabled kernel and prepared a rootfs.
+> The non-root Linux work fine with an motherboard built-in 8250 serial.
+> 
+> I have a custom Linux driver for this PCI-e serial card.
+> Therefore, this card should be immune from the 8250.n_uart problem.
+> However, because the card is still in the COMMUNICATION_SERIAL class, 8250_pci 
+> driver still will initialize the card during boot.
+> 
+> During this initialization, it will try to setup the virtual channels.
+> When it read the VC capability structures, the system hangs with the following 
+> log(I had made jailhouse to be more verbose).
+> 
+> More specifically,
+> 
+> when it do pci_vc_do_save_buffer() in drivers/pci/vc.c and call
+> 
+> pci_read_config_word(dev, pos + PCI_VC_PORT_CTRL, (u16 *)buf);
+> 
+> it will in turn call read_pci_config() in arch/x86/pci/early.c, resulting a fault.
+> 
+> 
+> Removing PCI device 02:00.0 from cell "RootCell"
+> Freeing 8 interrupt(s) for device 0200 at index 74
+> Adding PCI device 02:00.0 to cell "linux-x86-demo"
+> Reserving 1 interrupt(s) for device 0200 at index 72
+> Removing PCI device 02:00.1 from cell "RootCell"
+> Freeing 8 interrupt(s) for device 0201 at index 119
+> Adding PCI device 02:00.1 to cell "linux-x86-demo"
+> Reserving 1 interrupt(s) for device 0201 at index 73
+> Removing PCI device 02:00.2 from cell "RootCell"
+> Freeing 1 interrupt(s) for device 0202 at index 71
+> Adding PCI device 02:00.2 to cell "linux-x86-demo"
+> Reserving 1 interrupt(s) for device 0202 at index 71
+> Created cell "linux-x86-demo"
+> Page pool usage after cell creation: mem 468/16329, remap 65711/131072
+> Cell "linux-x86-demo" can be loaded
+> CPU 7 received SIPI, vector 100
+> Started cell "linux-x86-demo"
+> FATAL: unsupported instruction (0x66 0x00 0x00 0x00)
+> FATAL: Invalid MMIO/RAM read, addr: 0x000000008020010c size: 0
+> Name: linux-x86-demo
+> RIP: 0xffffffffb2550a08 RSP: 0xffffad0cc003bc08 FLAGS: 10286
+> RAX: 0xffffad0cd020010c RBX: 0xffffad0cd0200000 RCX: 0x000000000000010c
+> RDX: 0x00000000000000ff RSI: 0x0000000000000002 RDI: 0x0000000000000000
+> CS: 10 BASE: 0x0000000000000000 AR-BYTES: a09b EFER.LMA 1
+> RBP: 0x000000000000010c
+> DS: 0
+> SS: 0
+> GDTR_BASE: 0xfffffe0000001000 GDTR_LIMIT: 0x000000000000007f
+> IDTR_BASE: 0xfffffe0000000000 IDTR_LIMIT: 0x0000000000000fff
+> CR0: 0x0000000080050033 CR3: 0x0000000006c0a001 CR4: 0x00000000003626f0
+> EFER: 0x0000000000000d01
+> CPL: 0 RPL: 0
+> Parking CPU 7 (Cell: "linux-x86-demo")
+> 
+> I do not understand why only this specific read cause a fault, but others don't.
+> Did I misconfig anything in the cell config file(as an attachment).
+> 
 
-------=_Part_4021_748690050.1568969343732
-Content-Type: text/plain; charset="UTF-8"
+I suspect your are not using current master but rather the laster release, 
+right? Could you retry with master, specifically because of [1]?
 
-Hi everyone,
+Jan
 
-I am having some problem with a physical PCI-e serial card and non-root 
-Linux.
+[1] 
+https://github.com/siemens/jailhouse/commit/96157677dfbb37cc112e4384bbd4c585f9d98af6
 
-I have been using the serial card with the root Linux and non-root RTOS for 
-a while whthout any problem.
-
-Recently, I decided to try this card in a non-root Linux.
-I compiled the Jailhouse enabled kernel and prepared a rootfs.
-The non-root Linux work fine with an motherboard built-in 8250 serial.
-
-I have a custom Linux driver for this PCI-e serial card.
-Therefore, this card should be immune from the 8250.n_uart problem.
-However, because the card is still in the COMMUNICATION_SERIAL class, 
-8250_pci driver still will initialize the card during boot.
-
-During this initialization, it will try to setup the virtual channels.
-When it read the VC capability structures, the system hangs with the 
-following log(I had made jailhouse to be more verbose).
-
-More specifically, 
-
-when it do pci_vc_do_save_buffer() in drivers/pci/vc.c and call 
-
-pci_read_config_word(dev, pos + PCI_VC_PORT_CTRL, (u16 *)buf);
-
-it will in turn call read_pci_config() in arch/x86/pci/early.c, resulting a 
-fault.
-
-
-Removing PCI device 02:00.0 from cell "RootCell"
-Freeing 8 interrupt(s) for device 0200 at index 74
-Adding PCI device 02:00.0 to cell "linux-x86-demo"
-Reserving 1 interrupt(s) for device 0200 at index 72
-Removing PCI device 02:00.1 from cell "RootCell"
-Freeing 8 interrupt(s) for device 0201 at index 119
-Adding PCI device 02:00.1 to cell "linux-x86-demo"
-Reserving 1 interrupt(s) for device 0201 at index 73
-Removing PCI device 02:00.2 from cell "RootCell"
-Freeing 1 interrupt(s) for device 0202 at index 71
-Adding PCI device 02:00.2 to cell "linux-x86-demo"
-Reserving 1 interrupt(s) for device 0202 at index 71
-Created cell "linux-x86-demo"
-Page pool usage after cell creation: mem 468/16329, remap 65711/131072
-Cell "linux-x86-demo" can be loaded
-CPU 7 received SIPI, vector 100
-Started cell "linux-x86-demo"
-FATAL: unsupported instruction (0x66 0x00 0x00 0x00)
-FATAL: Invalid MMIO/RAM read, addr: 0x000000008020010c size: 0
-Name: linux-x86-demo
-RIP: 0xffffffffb2550a08 RSP: 0xffffad0cc003bc08 FLAGS: 10286
-RAX: 0xffffad0cd020010c RBX: 0xffffad0cd0200000 RCX: 0x000000000000010c
-RDX: 0x00000000000000ff RSI: 0x0000000000000002 RDI: 0x0000000000000000
-CS: 10 BASE: 0x0000000000000000 AR-BYTES: a09b EFER.LMA 1
-RBP: 0x000000000000010c
-DS: 0
-SS: 0
-GDTR_BASE: 0xfffffe0000001000 GDTR_LIMIT: 0x000000000000007f
-IDTR_BASE: 0xfffffe0000000000 IDTR_LIMIT: 0x0000000000000fff
-CR0: 0x0000000080050033 CR3: 0x0000000006c0a001 CR4: 0x00000000003626f0
-EFER: 0x0000000000000d01
-CPL: 0 RPL: 0
-Parking CPU 7 (Cell: "linux-x86-demo")
-
-I do not understand why only this specific read cause a fault, but others 
-don't.
-Did I misconfig anything in the cell config file(as an attachment).
-
-Helps and suggestions are welcome
-
-Yang
+-- 
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+Corporate Competence Center Embedded Linux
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/f529a508-6259-43e5-a2f9-6b4c48bdf153%40googlegroups.com.
-
-------=_Part_4021_748690050.1568969343732
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hi everyone,</div><div><br></div><div>I am having som=
-e problem with a physical PCI-e serial card and non-root Linux.</div><div><=
-br></div><div>I have been using the serial card with the root Linux and non=
--root RTOS for a while whthout any problem.</div><div><br></div><div>Recent=
-ly, I decided to try this card in a non-root Linux.</div><div>I compiled th=
-e Jailhouse enabled kernel and prepared a rootfs.</div><div>The non-root Li=
-nux work fine with an motherboard built-in 8250 serial.</div><div><br></div=
-><div>I have a custom Linux driver for this PCI-e serial card.</div><div>Th=
-erefore, this card should be immune from the 8250.n_uart problem.</div><div=
->However, because the card is still in the COMMUNICATION_SERIAL class, 8250=
-_pci driver still will initialize the card during boot.</div><div><br></div=
-><div>During this initialization, it will try to setup the virtual channels=
-.</div><div>When it read the VC capability structures, the system hangs wit=
-h the following log(I had made jailhouse to be more verbose).</div><div><br=
-></div><div>More specifically, <br></div><div><br></div><div>when it do pci=
-_vc_do_save_buffer() in drivers/pci/vc.c and call <br></div><div><br></div>=
-<div>pci_read_config_word(dev, pos + PCI_VC_PORT_CTRL, (u16 *)buf);</div><d=
-iv><br></div><div>it will in turn call read_pci_config() in arch/x86/pci/ea=
-rly.c, resulting a fault.<br></div><div><br></div><div><br></div><div>Remov=
-ing PCI device 02:00.0 from cell &quot;RootCell&quot;<br>Freeing 8 interrup=
-t(s) for device 0200 at index 74<br>Adding PCI device 02:00.0 to cell &quot=
-;linux-x86-demo&quot;<br>Reserving 1 interrupt(s) for device 0200 at index =
-72<br>Removing PCI device 02:00.1 from cell &quot;RootCell&quot;<br>Freeing=
- 8 interrupt(s) for device 0201 at index 119<br>Adding PCI device 02:00.1 t=
-o cell &quot;linux-x86-demo&quot;<br>Reserving 1 interrupt(s) for device 02=
-01 at index 73<br>Removing PCI device 02:00.2 from cell &quot;RootCell&quot=
-;<br>Freeing 1 interrupt(s) for device 0202 at index 71<br>Adding PCI devic=
-e 02:00.2 to cell &quot;linux-x86-demo&quot;<br>Reserving 1 interrupt(s) fo=
-r device 0202 at index 71<br>Created cell &quot;linux-x86-demo&quot;<br>Pag=
-e pool usage after cell creation: mem 468/16329, remap 65711/131072<br>Cell=
- &quot;linux-x86-demo&quot; can be loaded<br>CPU 7 received SIPI, vector 10=
-0<br>Started cell &quot;linux-x86-demo&quot;<br>FATAL: unsupported instruct=
-ion (0x66 0x00 0x00 0x00)<br>FATAL: Invalid MMIO/RAM read, addr: 0x00000000=
-8020010c size: 0<br>Name: linux-x86-demo<br>RIP: 0xffffffffb2550a08 RSP: 0x=
-ffffad0cc003bc08 FLAGS: 10286<br>RAX: 0xffffad0cd020010c RBX: 0xffffad0cd02=
-00000 RCX: 0x000000000000010c<br>RDX: 0x00000000000000ff RSI: 0x00000000000=
-00002 RDI: 0x0000000000000000<br>CS: 10 BASE: 0x0000000000000000 AR-BYTES: =
-a09b EFER.LMA 1<br>RBP: 0x000000000000010c<br>DS: 0<br>SS: 0<br>GDTR_BASE: =
-0xfffffe0000001000 GDTR_LIMIT: 0x000000000000007f<br>IDTR_BASE: 0xfffffe000=
-0000000 IDTR_LIMIT: 0x0000000000000fff<br>CR0: 0x0000000080050033 CR3: 0x00=
-00000006c0a001 CR4: 0x00000000003626f0<br>EFER: 0x0000000000000d01<br>CPL: =
-0 RPL: 0<br>Parking CPU 7 (Cell: &quot;linux-x86-demo&quot;)<br></div><div>=
-<br></div><div>I do not understand why only this specific read cause a faul=
-t, but others don&#39;t.</div><div>Did I misconfig anything in the cell con=
-fig file(as an attachment).</div><div><br></div><div>Helps and suggestions =
-are welcome</div><div><br></div><div>Yang<br></div></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/f529a508-6259-43e5-a2f9-6b4c48bdf153%40googlegroup=
-s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
-sgid/jailhouse-dev/f529a508-6259-43e5-a2f9-6b4c48bdf153%40googlegroups.com<=
-/a>.<br />
-
-------=_Part_4021_748690050.1568969343732--
-
-------=_Part_4020_198849338.1568969343731
-Content-Type: text/x-csrc; charset=US-ASCII; name=linux-x86-demo.c
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; filename=linux-x86-demo.c
-X-Attachment-Id: 3f598416-737d-44e6-ac87-6e075aaa6f5d
-Content-ID: <3f598416-737d-44e6-ac87-6e075aaa6f5d>
-
-/*
- * Jailhouse, a Linux-based partitioning hypervisor
- *
- * Configuration for Linux inmate, 1 CPU, 74 MB RAM, ~1MB shmem, serial ports
- *
- * Copyright (c) Siemens AG, 2013-2015
- *
- * Authors:
- *  Jan Kiszka <jan.kiszka@siemens.com>
- *
- * This work is licensed under the terms of the GNU GPL, version 2.  See
- * the COPYING file in the top-level directory.
- */
-
-#include <jailhouse/types.h>
-#include <jailhouse/cell-config.h>
-
-#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-
-struct {
-	struct jailhouse_cell_desc cell;
-	__u64 cpus[1];
-	struct jailhouse_memory mem_regions[10];
-	struct jailhouse_cache cache_regions[1];
-	struct jailhouse_irqchip irqchips[1];
-	__u8 pio_bitmap[0x2000];
-	struct jailhouse_pci_device pci_devices[3];
-	struct jailhouse_pci_capability pci_caps[9];
-} __attribute__((packed)) config = {
-	.cell = {
-		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
-		.revision = JAILHOUSE_CONFIG_REVISION,
-		.name = "linux-x86-demo",
-		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG |
-			JAILHOUSE_CELL_DEBUG_CONSOLE,
-
-		.cpu_set_size = sizeof(config.cpus),
-		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-		.num_cache_regions = ARRAY_SIZE(config.cache_regions),
-		.num_irqchips = ARRAY_SIZE(config.irqchips),
-		.pio_bitmap_size = ARRAY_SIZE(config.pio_bitmap),
-		.num_pci_devices = ARRAY_SIZE(config.pci_devices),
-		.num_pci_caps = ARRAY_SIZE(config.pci_caps),
-	},
-
-	.cpus = {
-		0x80,
-	},
-
-	.mem_regions = {
-		/* low RAM */ {
-			.phys_start = 0x4100000,
-			.virt_start = 0,
-			.size = 0x00100000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
-				JAILHOUSE_MEM_LOADABLE,
-		},
-		/* communication region */ {
-			.virt_start = 0x00100000,
-			.size = 0x00001000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_COMM_REGION,
-		},
-		/* high RAM */ {
-			.phys_start = 0x04200000,
-			.virt_start = 0x00200000,
-			.size =       0x08000000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
-				JAILHOUSE_MEM_LOADABLE,
-		},
-		/* IVSHMEM shared memory regions */
-		{ 0 },
-		{
-			.phys_start = 0x44220000,
-			.virt_start = 0x40200000,
-			.size = 0x80000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_ROOTSHARED,
-		},
-		{
-			.phys_start = 0x442a0000,
-			.virt_start = 0x40280000,
-			.size = 0x80000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-		},
-		/* MemRegion: fb502000-fb502fff : 0000:02:00.1 */
-		{
-			.phys_start = 0xfb502000,
-			.virt_start = 0xfb502000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fb503000-fb503fff : 0000:02:00.1 */
-		{
-			.phys_start = 0xfb503000,
-			.virt_start = 0xfb503000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fb504000-fb504fff : 0000:02:00.0 */
-		{
-			.phys_start = 0xfb504000,
-			.virt_start = 0xfb504000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fb505000-fb505fff : 0000:02:00.0 */
-		{
-			.phys_start = 0xfb505000,
-			.virt_start = 0xfb505000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-	},
-
-	.cache_regions = {
-		{
-			.start = 10,
-			.size = 2,
-			.type = JAILHOUSE_CACHE_L3,
-		},
-	},
-
-	.irqchips = {
-		/* IOAPIC */ {
-			.address = 0xfec00000,
-			.id = 0x1f0ff,
-			.pin_bitmap = {
-				(1 << 3) | (1 << 4),
-			},
-		},
-	},
-
-	.pio_bitmap = {
-		[     0/8 ...  0x2f7/8] = -1,
-		[ 0x2f8/8 ...  0x2ff/8] = 0, /* serial2 */
-		[ 0x300/8 ...  0x3f7/8] = -1,
-		[ 0x3f8/8 ...  0x3ff/8] = 0, /* serial1 */
-		[ 0x400/8 ... 0xe00f/8] = -1,
-		[0xe010/8 ... 0xe017/8] = 0, /* OXPCIe952 serial1 */
-		[0xe018/8 ... 0xffff/8] = -1,
-	},
-
-	.pci_devices = {
-		/* PCIDevice: 02:00.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x200,
-			.bar_mask = {
-				0xfffffff8, 0xfffff000, 0x00000000,
-				0x00000000, 0x00000000, 0xfffff000,
-			},
-			.caps_start = 0,
-			.num_caps = 5,
-			.num_msi_vectors = 1,
-			.msi_64bits = 1,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 02:00.1 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x201,
-			.bar_mask = {
-				0xfffffff8, 0xfffff000, 0x00000000,
-				0x00000000, 0x00000000, 0xfffff000,
-			},
-			.caps_start = 5,
-			.num_caps = 4,
-			.num_msi_vectors = 1,
-			.msi_64bits = 1,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 02:00.2 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 1,
-			.domain = 0x0,
-			.bdf = 0x202,
-			.bar_mask = {
-				0xfffffff8, 0xfffffff8, 0xfffff000,
-				0x00000000, 0x00000000, 0xfffff000,
-			},
-			.caps_start = 5,
-			.num_caps = 4,
-			.num_msi_vectors = 1,
-			.msi_64bits = 1,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-	},
-
-	.pci_caps = {
-		/* PCIDevice: 02:00.0 */
-		{
-			.id = 0x5,
-			.start = 0x50,
-			.len = 14,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0x1,
-			.start = 0x78,
-			.len = 8,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0x10,
-			.start = 0x80,
-			.len = 20,
-			.flags = 0,
-		},
-		{
-			.id = 0x2 | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x100,
-			.len = 0x50,
-			.flags = 0,
-		},
-		{
-			.id = 0x1 | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x800,
-			.len = 20,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		/* PCIDevice: 02:00.1 */
-		/* PCIDevice: 02:00.2 */
-		{
-			.id = 0x5,
-			.start = 0x50,
-			.len = 14,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0x1,
-			.start = 0x78,
-			.len = 8,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = 0x10,
-			.start = 0x80,
-			.len = 20,
-			.flags = 0,
-		},
-		{
-			.id = 0x1 | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x100,
-			.len = 20,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-	}
-};
-
-------=_Part_4020_198849338.1568969343731--
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/494277d5-a425-8e0d-85da-6474878134e4%40siemens.com.
