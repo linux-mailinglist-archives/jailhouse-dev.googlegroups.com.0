@@ -1,130 +1,68 @@
-Return-Path: <jailhouse-dev+bncBDJMJPGY2MGRBAGWR3WAKGQEWMJURYQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC2PTC4R4MNBBANFSLWAKGQENCPJMSA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43d.google.com (mail-wr1-x43d.google.com [IPv6:2a00:1450:4864:20::43d])
-	by mail.lfdr.de (Postfix) with ESMTPS id A257BB7EF5
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 19 Sep 2019 18:21:20 +0200 (CEST)
-Received: by mail-wr1-x43d.google.com with SMTP id m14sf1258761wru.17
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 19 Sep 2019 09:21:20 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1568910080; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=OzY8z7V2XzhlTWwsjfALQIGX7IUfMfuZSfhnzN07v6wukZOCRuZeOohsrSEji99dUU
-         8eec3Om3EDrUXVrRbHcjqRZNwGDQvhumsEDt4TgZNw3OTQyZnwhlUU2GsIWULxiP8c2t
-         OqdbOZFtEf8U+o5ktBHKoDdnBIkA8Et2tdK0jATu9n4zSdYl59eIsMlk+5zWekuH07u7
-         iPHOpiur0VC7egfIkivzIq9CzapUCaCtA4RnaVUHTh9MJsKvloZt9fa5+V40qdkqqJW5
-         wZCwmHJa/yijAeWnOLtnbQOW8jBOLZMMObBLR/KhxCO9SF/BoIR4YK8pLoHagGVaPg2L
-         CKHg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :mime-version:references:in-reply-to:message-id:subject:cc:to:from
-         :date:sender:dkim-signature;
-        bh=0NSChV6O2h+7kHm4ikxxOGi9SJpWwq6SUk6eiROJHF4=;
-        b=iRzDxe2dbuw0retBIkW8tfvmXPAKgnJW3pqOvWqm7ZLp83pH2lAGPrN1pUKgvazzdq
-         rR0cqKcZqzod7D1l5l+9BQjpb47QSryuUd1uNT9BRufYoajsZ4OTNVNcOfIFJTH6fFpb
-         SLVX//ftm544xFUE+9baQqpnFl5JlGPdZJw7zukOcB2iPmzXUj1AJYk8Na3/BbWO1qJ9
-         e5ZTmEm26jrrbnCGJpfEL54g/M4/8M+ep6cCBrVRm1duH2QqiGfo38q2yDm5h7053Kt3
-         7LdvHFfjI7EK4Kz7uDMyBKD8qaa87w4V7h73ad7ddMOXcdWNm+/dBGjWeu7Y2eSdJs/J
-         zJ7g==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of henning.schild@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=henning.schild@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-oi1-x23f.google.com (mail-oi1-x23f.google.com [IPv6:2607:f8b0:4864:20::23f])
+	by mail.lfdr.de (Postfix) with ESMTPS id D8484B8D2D
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 20 Sep 2019 10:49:06 +0200 (CEST)
+Received: by mail-oi1-x23f.google.com with SMTP id b187sf675631oii.23
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 20 Sep 2019 01:49:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:cc:subject:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=0NSChV6O2h+7kHm4ikxxOGi9SJpWwq6SUk6eiROJHF4=;
-        b=Va6uKT/d48XtFaBMU1q+P4ye0azt9QNhN2BloGQQQUuaUwK4SxS08zdbiZz7SVU1NW
-         Q0bDh51c5SIMoqBcTQuXUxwgaEZ2N8nzuZrpwUrIvAMQvlObg1wkts+hNavnedZMJQxP
-         jT1jgoTGvXYgiWeRsLDY+7aNVvX81rmcb1NGfNTBBfcve93nJltJMEHB/QNtx9iwjSPR
-         g/VLoHCTb5EG/z1YXMWRwT5KOGiNWpI/MmFUn7X3xfty9Abrmj5meYuuX2eEoJOL3Rwh
-         M07/twyyKaz1+mmWitydmiE8oM+Ar4+Nzzp/by+vIukH2xB8lnk3MZwkmd0pyNlZrOY7
-         LKdw==
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=XgXjvxxUMGioS3o2RIqHA+cqX6/ZTsC/A/shMz/m9Yk=;
+        b=SPt2Muku9LloGsZtoqi2GEeUgWbIF5AXQki/Xp4WNDvwwv4MEvTZSAEaZl5XZc1H2c
+         qYnQynzlsnQlra59OrKS7RnVeeZuCLnD9YE1p1DKr8zw+kSHAspdbvW2qH0ZgnzSuahL
+         p3bjgEP4I4/yP5ICJ4p7x/2WO3SXan6gx7sdhUMshxpj7R6EwsXARCHDWAh2eT7sul+i
+         wltZLYZBd+RaUdbBeP/9YK6EMZORjMLUHD6BtjDWsjusRdkF8FyrNjMH6/ZJp7hhRliq
+         A5DIRBgb9PIFqQrjibMunz2y4Uip2SKy6ZyI3muhiAWNoVcPBFyvXHlCNAgiEd89vUBB
+         0iHQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=XgXjvxxUMGioS3o2RIqHA+cqX6/ZTsC/A/shMz/m9Yk=;
+        b=XHH9PNdnHyduLciBKG0yqCPQ6VdA3N5My8JJIGPmIfCk9Sft/J+OVSDgA3wG96Tpm0
+         PnRajtH6km5ysKN3le9aqh3qqRXAY9ATkzkSCrdcR/czIHzcjiW5GH9/QH3mhSm0FVwE
+         zAV/jXuJ0qr4VYfnA+kt/mzw+zrNg9JDzAuaxN4xF4+u8Yus0BEjZ4XmEvGYfqC3YrU3
+         e48zp9yo2OyfBG0khcVvDpeyqQNiz3O8b6n2lapYw+dLnkNtZPsnELWS4J8xP2SkaoH8
+         4ryvLgIXP/gvGBU4968F+rZ7mM8lgUhUwwmtZ2DyQlLLZeyJtZbXHz17mZoKkUP10NFp
+         XQKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:cc:subject:message-id
-         :in-reply-to:references:mime-version:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=0NSChV6O2h+7kHm4ikxxOGi9SJpWwq6SUk6eiROJHF4=;
-        b=BQgPnSmHuwmn6gJ/z87SXe5PzTo6mLMELNZ+gkLQRtcTv1UloWN9Bf56Bd9ImnszTc
-         rlBAzyKo8p/yQeF5kVt9cDHlS/eRuQYpipUC3NYOG5QnoIreWq+eDgiTEmjycZWVnJrq
-         zCaPIMeuQkL/pnuYewSr3TKPKCg1aoGdPAmX/dmIUv4BpSFPOQhU2EN5ecqGd0Qn/vxX
-         UHBU6iwqJ9UwLLp/LaHmfuYkXHaIdhB5aayAD87MRp1z2KLSs12F6RpsIBYaLoztG4vg
-         Hztuk29zJmStNGzbUAilEspThY/7Ruu5tkJMIUZo72oS9smJOydY0SpJNM5Ld4svxxyi
-         YJZQ==
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=XgXjvxxUMGioS3o2RIqHA+cqX6/ZTsC/A/shMz/m9Yk=;
+        b=lUOUW+/cFh5ecbHyRAaS5ixvv2ocM7NbyfuBOEu2wgHkNYlNkakWiyn0MxnW4vo9vQ
+         LKPK1SrZWulDJWz/x3IRQymTEhEi7bpYS0b9Kw9FhMkY9f3GPt3FcrlRl/WM7xqcyEdZ
+         6Uqhr2nXXL+yQrSCIaoB97w7VWIhpskwH8pYqT9uRkmRbl1wGi5lQ1rxZCAQzgVONDMj
+         CsDcBqKTB+0LoxOA64pidER4KzT+rsiy34nkGUIG4T0yyNH/IwWRDblEGaoyEW16msLu
+         kbF9A1rc7erf72zabIfdMrZdixg7g7wox8SKwTlYUt+PMVEcVSlHP4sNGm8FrWVzx5vK
+         d7ig==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVncc+HwlPrFlJ8hXbEzwQhnD7ptXy8BaFO4w1gc3jll3yrjxcz
-	fkpYTwejNr37pJkUsOO8jHI=
-X-Google-Smtp-Source: APXvYqz8mhSqu4j01jKAajaMvIYXaREXjXQ6FY8trU1vKn9ngok8xysTZSuGlMH3gIRAwQeCF4tN5A==
-X-Received: by 2002:a5d:408c:: with SMTP id o12mr8233195wrp.312.1568910080245;
-        Thu, 19 Sep 2019 09:21:20 -0700 (PDT)
+X-Gm-Message-State: APjAAAUycbAdA8rPcrwf8tzW0eC/Wb6To4MBXfRKwBQ9RteWe7p68m6x
+	g8W02e+KsraLx3GBfzNd6IY=
+X-Google-Smtp-Source: APXvYqxRGYzwPIhYRpYlyu/OoIQuIEZOp75xg7+Lo2efcT99vIdbHgV/ALgUejBcMVpJnfPgngaDcQ==
+X-Received: by 2002:a05:6830:210b:: with SMTP id i11mr10136787otc.367.1568969345327;
+        Fri, 20 Sep 2019 01:49:05 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:ed12:: with SMTP id l18ls1636740wmh.0.gmail; Thu, 19 Sep
- 2019 09:21:19 -0700 (PDT)
-X-Received: by 2002:a1c:6508:: with SMTP id z8mr3747301wmb.93.1568910079598;
-        Thu, 19 Sep 2019 09:21:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1568910079; cv=none;
-        d=google.com; s=arc-20160816;
-        b=0oBmbPPXRVCX8PdCLg6sABHl6FHu+0Rcvv78mtttkILn+HdgKQlSRXKMJoRmdC/2k0
-         UsnNbEvvBu4j4wFhgzMcHpX1KlTY2Xl4eE1OKkgLMiYFnTPrbDZfdjIqgBofr9EWnPU8
-         KGaomoTEOOZ+mlawOoZ33P+ih2ee1rrMmJ1+Bof1X0ZpByvoBc38rh5l9KxxFg+IU85O
-         dH5Q57mp+Aoer2g7HDmxqa6837ahnWAZHQCckw4VaIL5fh8QiAyXowtXeXVO8L9P53kE
-         /B8Y1eZ74TohKsFXYaNH6OzGYbytg5SaxLt58IhH8FtxQX2lGQlE6QMtOact8o51mlVj
-         1URw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date;
-        bh=h4HAx+cJR8S1JbZhLF9dWZBwKHpU+9m0vufqkb7hjTM=;
-        b=wPjgvOYSgH4t98cLKXdGqQcYBD0YSbnADtjjr1ifogz+Z+zxAZhvFNVCbzzS3lT7LS
-         uqHbEX7Vr4lrbljAG8V2gExT5jhIlKnLSLRJd+dX3zQGXL1L6RcKgznqHIU1iXGqeFVY
-         nHNFfzHTRMPS3aDERpeBmfVS0meX+619CIraNXiyWmS7ufFS/Stos1466MVLrRCGffAt
-         iHy4mpJ3QScNHBWZS33gMjH7WlSfI3r5Q12xNzat1JiU8EZTvQ0QV0uLFlhNkUIpTYM2
-         KEAeqJUu0wSVTq5uUv60yIPsZ/bkA1lKJPpPJKeLeQtv9FD+M2bMtM2PdMyQHmdWRLed
-         eh5A==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of henning.schild@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=henning.schild@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id m1si469121wrs.0.2019.09.19.09.21.19
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 19 Sep 2019 09:21:19 -0700 (PDT)
-Received-SPF: pass (google.com: domain of henning.schild@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
-Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id x8JGLIcs017074
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 19 Sep 2019 18:21:19 +0200
-Received: from md1za8fc.ad001.siemens.net ([139.25.69.220])
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x8JGLIx6007781;
-	Thu, 19 Sep 2019 18:21:18 +0200
-Date: Thu, 19 Sep 2019 18:21:18 +0200
-From: Henning Schild <henning.schild@siemens.com>
-To: Cevat =?UTF-8?B?Qm9zdGFuY8Sxb8SfbHU=?= <bostancioglucevat@gmail.com>
-Cc: Ola Redell <ola.redell@retotech.se>, Jan Kiszka
- <jan.kiszka@siemens.com>,
-        <jailhouse-dev@googlegroups.com>
-Subject: Re: Orange Pi Zero Jailhouse Yocto Integration
-Message-ID: <20190919182118.501a3060@md1za8fc.ad001.siemens.net>
-In-Reply-To: <CABPcKDN5izWjNsHsij8eK-3BBF5ch34peerH4EBzD8yMO-dcDw@mail.gmail.com>
-References: <CABPcKDPEVAW0Y1x8ndpc6LQutq8cCsEKu20inFyFhrMRwa+--w@mail.gmail.com>
-	<a17c3513-f573-84ad-5d4e-5027121e51b5@siemens.com>
-	<CABPcKDNb9HKXNHGoUY84WnFup2wn79zsoHzDa-i2xeaETM7VDQ@mail.gmail.com>
-	<20190814085057.43ce8c63@md1za8fc.ad001.siemens.net>
-	<f4eb47c2-7a86-3e6f-8ae5-8e84ed8b70d3@retotech.se>
-	<CABPcKDN5izWjNsHsij8eK-3BBF5ch34peerH4EBzD8yMO-dcDw@mail.gmail.com>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+Received: by 2002:a9d:2c42:: with SMTP id f60ls1473466otb.8.gmail; Fri, 20 Sep
+ 2019 01:49:04 -0700 (PDT)
+X-Received: by 2002:a9d:be4:: with SMTP id 91mr10881111oth.111.1568969344694;
+        Fri, 20 Sep 2019 01:49:04 -0700 (PDT)
+Date: Fri, 20 Sep 2019 01:49:03 -0700 (PDT)
+From: Chung-Fan Yang <sonic.tw.tp@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <f529a508-6259-43e5-a2f9-6b4c48bdf153@googlegroups.com>
+Subject: Invalid MMIO access during PCI device initialization
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: henning.schild@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of henning.schild@siemens.com designates 194.138.37.40 as
- permitted sender) smtp.mailfrom=henning.schild@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_4020_198849338.1568969343731"
+X-Original-Sender: Sonic.tw.tp@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -137,1219 +75,425 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Am Sat, 17 Aug 2019 16:46:37 +0300
-schrieb Cevat Bostanc=C4=B1o=C4=9Flu <bostancioglucevat@gmail.com>:
+------=_Part_4020_198849338.1568969343731
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_4021_748690050.1568969343732"
 
-> Hello, it's been a 3 days and i am still trying to compile, i changed
-> yocto versions, gcc compiler versions, external toolchain, checked
-> against debian build etc. but nothing worked.
->=20
-> i cant understand why this is compiled in jailhouse-images setup and
-> not compiling under this setup ?
->=20
-> my setup is:
-> https://github.com/cevatbostancioglu/meta-orangepi/blob/dev/yocto/meta-or=
-angepi/conf/machine/orange-pi-zero.conf
->=20
-> my latest error is:
-> Short log:
->=20
->=20
-> *arm-oe-linux-gnueabi-gcc: error: -mfloat-abi=3Dsoft and
-> -mfloat-abi=3Dhard may not be used together*
+------=_Part_4021_748690050.1568969343732
+Content-Type: text/plain; charset="UTF-8"
 
-That is the compiler complaining about getting instructions that make
-no nense. You tell it to use soft and hard floating point at the same
-time. Well you probably do not ... but something does.
+Hi everyone,
 
-"make V=3D1" to get the full command line
+I am having some problem with a physical PCI-e serial card and non-root 
+Linux.
 
-A first grep does not suggest that the CFLAGS come from jailhouse, they
-come from the kernel and your toolchain.
+I have been using the serial card with the root Linux and non-root RTOS for 
+a while whthout any problem.
 
-The context from V=3D1 could also lead you to which code-path added the
-FLAGS, because they often come in groups.
+Recently, I decided to try this card in a non-root Linux.
+I compiled the Jailhouse enabled kernel and prepared a rootfs.
+The non-root Linux work fine with an motherboard built-in 8250 serial.
 
-Wild guess is that your toolchain/compiler might be missing a configure
-switch.
+I have a custom Linux driver for this PCI-e serial card.
+Therefore, this card should be immune from the 8250.n_uart problem.
+However, because the card is still in the COMMUNICATION_SERIAL class, 
+8250_pci driver still will initialize the card during boot.
 
-Henning
+During this initialization, it will try to setup the virtual channels.
+When it read the VC capability structures, the system hangs with the 
+following log(I had made jailhouse to be more verbose).
 
-> Long Log:
-> DEBUG: Executing shell function do_compile
-> NOTE: make -j 8
-> KERNEL_SRC=3D/home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/=
-work-shared/orange-pi-zero/kernel-source
-> V=3D0 CC=3Darm-oe-linux-gnueabi-gcc  -mfpu=3Dneon-vfpv4 -mfloat-abi=3Dhar=
-d
-> -mcpu=3Dcortex-a7
-> --sysroot=3D/home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/w=
-ork/orange_pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0=
-/recipe-sysroot
-> CROSS_COMPILE=3Darm-oe-linux-gnueabi-
-> KDIR=3D/home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work-s=
-hared/orange-pi-zero/kernel-build-artifacts
->   CHK
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hypervi=
-sor/include/generated/
-> config.mk
->   CHK
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hypervi=
-sor/include/generated/version.h
->   UPD
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hypervi=
-sor/include/generated/
-> config.mk
->   UPD
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hypervi=
-sor/include/generated/version.h
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/../alloc.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/../cmdline.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/../printk.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/../setup.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/../string.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/asm-defines.s
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/bananapi-gic-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/../uart-8250.o
->   CC [M]
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/driver=
-/cell.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/gic-v2.o
->=20
-> *arm-oe-linux-gnueabi-gcc: error: -mfloat-abi=3Dsoft and
-> -mfloat-abi=3Dhard may not be used together*make[5]: ***
-> [/home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work-shared/=
-orange-pi-zero/kernel-source/scripts/Makefile.build:314:
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/driver/=
-cell.o]
-> Error 1
-> make[4]: ***
-> [/home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work-shared/=
-orange-pi-zero/kernel-source/scripts/Makefile.build:573:
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/driver]
-> Error 2
-> make[4]: *** Waiting for unfinished jobs....
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/bananapi-linux-demo.o
->   LDS
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hypervi=
-sor/hypervisor.lds
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/gic-v3.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/gic.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/mem.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/setup.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/bananapi-uart-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/bananapi.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/printk.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/emtrion-rzg1e-linux-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/setup.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/timer.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/emtrion-rzg1e-uart-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/uart-hscif.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/uart-imx.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/printk.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/emtrion-rzg1e.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/uart-mvebu.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/uart-pl011.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/emtrion-rzg1h-linux-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/uart-scifa.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/emtrion-rzg1h-uart-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/paging.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/control.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/uart-xuartps.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/emtrion-rzg1h.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/lib.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/uart.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/mmio.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/emtrion-rzg1m-linux-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/emtrion-rzg1m-uart-demo.o
->   AS
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/header.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/emtrion-rzg1m.o
->   LDS
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmates=
-/lib/arm/inmate.lds
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/jetson-tk1-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/pci.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/jetson-tk1-linux-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/jetson-tk1.o
->   AR
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/lib.a
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/orangepi0-gic-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/demos/arm/gic-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/ivshmem.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/demos/arm/uart-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/orangepi0-linux-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/tools/arm/linux-loader.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/orangepi0.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/uart.o
->   DTC
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/dts/inmate-bananapi.dtb
->   LD
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/demos/arm/gic-demo-linked.o
->   DTC
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/dts/inmate-emtrion-emconrzg1e.dtb
->   LD
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/tools/arm/linux-loader-linked.o
->   LD
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/demos/arm/uart-demo-linked.o
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmates=
-/demos/arm/gic-demo.bin
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmates=
-/tools/arm/linux-loader.bin
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmates=
-/demos/arm/uart-demo.bin
->   DTC
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/dts/inmate-emtrion-emconrzg1h.dtb
->   DTC
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/dts/inmate-emtrion-emconrzg1m.dtb
->   DTC
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/dts/inmate-jetson-tk1.dtb
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/uart-8250.o
->   DTC
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/dts/inmate-orangepi0.dtb
->   GEN
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hypervi=
-sor/arch/arm/include/generated/asm/asm-defines.h
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/bananapi-gic-demo.cell
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/control.o
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/bananapi-linux-demo.cell
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/dbg-write.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/gic-v2.o
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/bananapi-uart-demo.cell
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/bananapi.cell
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/emtrion-rzg1e-linux-demo.cell
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/gic-v3.o
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/emtrion-rzg1e-uart-demo.cell
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/emtrion-rzg1e.cell
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/emtrion-rzg1h-linux-demo.cell
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/emtrion-rzg1h-uart-demo.cell
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/irqchip.o
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/emtrion-rzg1h.cell
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/emtrion-rzg1m-linux-demo.cell
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/ivshmem.o
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/emtrion-rzg1m-uart-demo.cell
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/lib.o
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/emtrion-rzg1m.cell
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/mmu_cell.o
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/jetson-tk1-demo.cell
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/jetson-tk1-linux-demo.cell
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/paging.o
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/jetson-tk1.cell
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/orangepi0-gic-demo.cell
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/orangepi0-linux-demo.cell
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/pci.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/psci.o
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/orangepi0.cell
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/setup.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/smccc.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/uart-hscif.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/uart-imx.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/uart-mvebu.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/uart-pl011.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/uart-scifa.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/uart-xuartps.o
->   AS
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/caches.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/control.o
->   AS
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/entry.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/lib.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/mmio.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/mmu_hyp.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/setup.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/traps.o
->   AR
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/lib.a
->   LD
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/hypervisor.o
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hypervi=
-sor/jailhouse.bin
-> make[3]: ***
-> [/home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work-shared/=
-orange-pi-zero/kernel-source/Makefile:1503:
-> _module_/home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/=
-orange_pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git=
-]
-> Error 2
-> make[2]: *** [Makefile:146: sub-make] Error 2
-> make[1]: *** [Makefile:24: __sub-make] Error 2
-> make: *** [Makefile:40: modules] Error 2
-> ERROR: oe_runmake failed
-> WARNING: exit code 1 from a shell command.
-> ERROR: Execution of
-> '/home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/temp/run.d=
-o_compile.28600'
-> failed with exit code 1:
->   CHK
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hypervi=
-sor/include/generated/
-> config.mk
->   CHK
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hypervi=
-sor/include/generated/version.h
->   UPD
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hypervi=
-sor/include/generated/
-> config.mk
->   UPD
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hypervi=
-sor/include/generated/version.h
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/../alloc.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/../cmdline.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/../printk.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/../setup.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/../string.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/asm-defines.s
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/bananapi-gic-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/../uart-8250.o
->   CC [M]
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/driver=
-/cell.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/gic-v2.o
-> arm-oe-linux-gnueabi-gcc: error: -mfloat-abi=3Dsoft and
-> -mfloat-abi=3Dhard may not be used together
-> make[5]: ***
-> [/home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work-shared/=
-orange-pi-zero/kernel-source/scripts/Makefile.build:314:
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/driver/=
-cell.o]
-> Error 1
-> make[4]: ***
-> [/home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work-shared/=
-orange-pi-zero/kernel-source/scripts/Makefile.build:573:
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/driver]
-> Error 2
-> make[4]: *** Waiting for unfinished jobs....
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/bananapi-linux-demo.o
->   LDS
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hypervi=
-sor/hypervisor.lds
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/gic-v3.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/gic.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/mem.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/setup.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/bananapi-uart-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/bananapi.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/printk.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/emtrion-rzg1e-linux-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/setup.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/timer.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/emtrion-rzg1e-uart-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/uart-hscif.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/uart-imx.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/printk.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/emtrion-rzg1e.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/uart-mvebu.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/uart-pl011.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/emtrion-rzg1h-linux-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/uart-scifa.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/emtrion-rzg1h-uart-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/paging.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/control.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/uart-xuartps.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/emtrion-rzg1h.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/lib.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/../arm-common/uart.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/mmio.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/emtrion-rzg1m-linux-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/emtrion-rzg1m-uart-demo.o
->   AS
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/header.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/emtrion-rzg1m.o
->   LDS
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmates=
-/lib/arm/inmate.lds
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/jetson-tk1-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/pci.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/jetson-tk1-linux-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/jetson-tk1.o
->   AR
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/lib/arm/lib.a
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/orangepi0-gic-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/demos/arm/gic-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/ivshmem.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/demos/arm/uart-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/orangepi0-linux-demo.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/tools/arm/linux-loader.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/config=
-s/arm/orangepi0.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/uart.o
->   DTC
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/dts/inmate-bananapi.dtb
->   LD
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/demos/arm/gic-demo-linked.o
->   DTC
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/dts/inmate-emtrion-emconrzg1e.dtb
->   LD
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/tools/arm/linux-loader-linked.o
->   LD
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmate=
-s/demos/arm/uart-demo-linked.o
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmates=
-/demos/arm/gic-demo.bin
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmates=
-/tools/arm/linux-loader.bin
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/inmates=
-/demos/arm/uart-demo.bin
->   DTC
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/dts/inmate-emtrion-emconrzg1h.dtb
->   DTC
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/dts/inmate-emtrion-emconrzg1m.dtb
->   DTC
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/dts/inmate-jetson-tk1.dtb
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/uart-8250.o
->   DTC
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/dts/inmate-orangepi0.dtb
->   GEN
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hypervi=
-sor/arch/arm/include/generated/asm/asm-defines.h
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/bananapi-gic-demo.cell
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/control.o
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/bananapi-linux-demo.cell
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/dbg-write.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/gic-v2.o
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/bananapi-uart-demo.cell
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/bananapi.cell
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/emtrion-rzg1e-linux-demo.cell
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/gic-v3.o
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/emtrion-rzg1e-uart-demo.cell
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/emtrion-rzg1e.cell
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/emtrion-rzg1h-linux-demo.cell
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/emtrion-rzg1h-uart-demo.cell
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/irqchip.o
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/emtrion-rzg1h.cell
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/emtrion-rzg1m-linux-demo.cell
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/ivshmem.o
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/emtrion-rzg1m-uart-demo.cell
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/lib.o
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/emtrion-rzg1m.cell
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/mmu_cell.o
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/jetson-tk1-demo.cell
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/jetson-tk1-linux-demo.cell
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/paging.o
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/jetson-tk1.cell
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/orangepi0-gic-demo.cell
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/orangepi0-linux-demo.cell
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/pci.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/psci.o
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/configs=
-/arm/orangepi0.cell
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/setup.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/smccc.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/uart-hscif.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/uart-imx.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/uart-mvebu.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/uart-pl011.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/uart-scifa.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/../arm-common/uart-xuartps.o
->   AS
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/caches.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/control.o
->   AS
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/entry.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/lib.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/mmio.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/mmu_hyp.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/setup.o
->   CC
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/traps.o
->   AR
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/arch/arm/lib.a
->   LD
->  /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_=
-pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hyperv=
-isor/hypervisor.o
->   OBJCOPY
-> /home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/orange_p=
-i_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git/hypervi=
-sor/jailhouse.bin
-> make[3]: ***
-> [/home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work-shared/=
-orange-pi-zero/kernel-source/Makefile:1503:
-> _module_/home/cevat/Desktop/meta-orangepi/yocto/build_arm/tmp-glibc/work/=
-orange_pi_zero-oe-linux-gnueabi/jailhouse/0.10-gitAUTOINC+55de0454d8-r0/git=
-]
-> Error 2
-> make[2]: *** [Makefile:146: sub-make] Error 2
-> make[1]: *** [Makefile:24: __sub-make] Error 2
-> make: *** [Makefile:40: modules] Error 2
-> WARNING: exit code 1 from a shell command.
->=20
->=20
-> Ola Redell <ola.redell@retotech.se>, 14 A=C4=9Fu 2019 =C3=87ar, 10:38 tar=
-ihinde
-> =C5=9Funu yazd=C4=B1:
->=20
-> > Hi all,
-> > There is also an imx8-dev branch in
-> > bitbucket.org/retotech/meta-jailhouse.git with a jailhouse 0.10
-> > recipe and much of Henning's changes. I will look into updating
-> > master to build 0.11 and test it for BananaPi at least.
-> >
-> > Ola
-> >
-> > On 8/14/19 8:50 AM, Henning Schild wrote: =20
-> > > Hi,
-> > >
-> > > i did not look into the problem yet. But my jailhouse layer for
-> > > yocto is on github.
-> > >
-> > > https://github.com/henning-schild-work/meta-jailhouse
-> > >
-> > > Have a look at the branch henning/staging for patches to get a
-> > > more recent jailhouse to work.
-> > >
-> > > Henning
-> > >
-> > > Am Tue, 13 Aug 2019 14:31:36 +0300
-> > > schrieb Cevat Bostanc=C4=B1o=C4=9Flu <bostancioglucevat@gmail.com>:
-> > > =20
-> > >> Hello,
-> > >> Thanks for the fast reply,
-> > >>
-> > >> I tried with 9f233898917f8c1141132606f2f2c624405d8c81 commit and
-> > >> also latest commit, still have same problem.
-> > >>
-> > >> I will be appreciated if you guys can provide/help with examples.
-> > >>
-> > >> Thanks,
-> > >> Cevat
-> > >>
-> > >> Jan Kiszka <jan.kiszka@siemens.com>, 13 A=C4=9Fu 2019 Sal, 14:09
-> > >> tarihinde =C5=9Funu yazd=C4=B1:
-> > >> =20
-> > >>> On 13.08.19 12:39, Cevat Bostanc=C4=B1o=C4=9Flu wrote: =20
-> > >>>> Hello,
-> > >>>> I am trying to learn/play embedded virtualization tools and i
-> > >>>> saw Isar Integrated jailhouse-image repo, tested orange pi
-> > >>>> zero(256mb) image and everything is fine.
-> > >>>> I am trying to integrate latest jailhouse(0.11) into yocto
-> > >>>> project and i =20
-> > >>> saw =20
-> > >>>> https://bitbucket.org/retotech/meta-jailhouse/src/master/ ,
-> > >>>> which is =20
-> > >>> for banana =20
-> > >>>> pi with jailhouse_0.8.
-> > >>>>
-> > >>>> Anyway, I ported jailhouse-images and meta-jailhouse =20
-> > >>> together(meta-orangepi, =20
-> > >>>> https://github.com/cevatbostancioglu/meta-orangepi/tree/dev)
-> > >>>> and trying =20
-> > >>> to =20
-> > >>>> compile for orange pi zero(256mb) but I saw many errors while
-> > >>>> building. =20
-> > >>> can you =20
-> > >>>> guys can guess what is the problem?
-> > >>>>
-> > >>>> my status:
-> > >>>> i am trying to build exact image with jailhouse-images so i
-> > >>>> patched =20
-> > >>> u-boot & =20
-> > >>>> kernel, now i am trying to compile/install jailhouse.
-> > >>>>
-> > >>>> You can see build error as follows,
-> > >>>> also attached log outputs too.
-> > >>>> =20
-> > >>> The errors look like they could get better with
-> > >>>
-> > >>> =20
-> > https://github.com/siemens/jailhouse/commit/9f233898917f8c1141132606f2f=
-2c624405d8c81 =20
-> > >>> =20
-> > >>>> My repo:
-> > >>>> https://github.com/cevatbostancioglu/meta-orangepi/tree/dev
-> > >>>> =20
-> > >>> Thanks for sharing. Henning did some yocto'ization for an
-> > >>> internal Jailhouse
-> > >>> project recently (though that was for legacy vendor BSP) -
-> > >>> maybe he can share
-> > >>> some thoughts on your direction.
-> > >>>
-> > >>> Jan
-> > >>>
-> > >>> --
-> > >>> Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-> > >>> Corporate Competence Center Embedded Linux
-> > >>> =20
-> >
-> > =20
->=20
+More specifically, 
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
+when it do pci_vc_do_save_buffer() in drivers/pci/vc.c and call 
+
+pci_read_config_word(dev, pos + PCI_VC_PORT_CTRL, (u16 *)buf);
+
+it will in turn call read_pci_config() in arch/x86/pci/early.c, resulting a 
+fault.
+
+
+Removing PCI device 02:00.0 from cell "RootCell"
+Freeing 8 interrupt(s) for device 0200 at index 74
+Adding PCI device 02:00.0 to cell "linux-x86-demo"
+Reserving 1 interrupt(s) for device 0200 at index 72
+Removing PCI device 02:00.1 from cell "RootCell"
+Freeing 8 interrupt(s) for device 0201 at index 119
+Adding PCI device 02:00.1 to cell "linux-x86-demo"
+Reserving 1 interrupt(s) for device 0201 at index 73
+Removing PCI device 02:00.2 from cell "RootCell"
+Freeing 1 interrupt(s) for device 0202 at index 71
+Adding PCI device 02:00.2 to cell "linux-x86-demo"
+Reserving 1 interrupt(s) for device 0202 at index 71
+Created cell "linux-x86-demo"
+Page pool usage after cell creation: mem 468/16329, remap 65711/131072
+Cell "linux-x86-demo" can be loaded
+CPU 7 received SIPI, vector 100
+Started cell "linux-x86-demo"
+FATAL: unsupported instruction (0x66 0x00 0x00 0x00)
+FATAL: Invalid MMIO/RAM read, addr: 0x000000008020010c size: 0
+Name: linux-x86-demo
+RIP: 0xffffffffb2550a08 RSP: 0xffffad0cc003bc08 FLAGS: 10286
+RAX: 0xffffad0cd020010c RBX: 0xffffad0cd0200000 RCX: 0x000000000000010c
+RDX: 0x00000000000000ff RSI: 0x0000000000000002 RDI: 0x0000000000000000
+CS: 10 BASE: 0x0000000000000000 AR-BYTES: a09b EFER.LMA 1
+RBP: 0x000000000000010c
+DS: 0
+SS: 0
+GDTR_BASE: 0xfffffe0000001000 GDTR_LIMIT: 0x000000000000007f
+IDTR_BASE: 0xfffffe0000000000 IDTR_LIMIT: 0x0000000000000fff
+CR0: 0x0000000080050033 CR3: 0x0000000006c0a001 CR4: 0x00000000003626f0
+EFER: 0x0000000000000d01
+CPL: 0 RPL: 0
+Parking CPU 7 (Cell: "linux-x86-demo")
+
+I do not understand why only this specific read cause a fault, but others 
+don't.
+Did I misconfig anything in the cell config file(as an attachment).
+
+Helps and suggestions are welcome
+
+Yang
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/f529a508-6259-43e5-a2f9-6b4c48bdf153%40googlegroups.com.
+
+------=_Part_4021_748690050.1568969343732
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi everyone,</div><div><br></div><div>I am having som=
+e problem with a physical PCI-e serial card and non-root Linux.</div><div><=
+br></div><div>I have been using the serial card with the root Linux and non=
+-root RTOS for a while whthout any problem.</div><div><br></div><div>Recent=
+ly, I decided to try this card in a non-root Linux.</div><div>I compiled th=
+e Jailhouse enabled kernel and prepared a rootfs.</div><div>The non-root Li=
+nux work fine with an motherboard built-in 8250 serial.</div><div><br></div=
+><div>I have a custom Linux driver for this PCI-e serial card.</div><div>Th=
+erefore, this card should be immune from the 8250.n_uart problem.</div><div=
+>However, because the card is still in the COMMUNICATION_SERIAL class, 8250=
+_pci driver still will initialize the card during boot.</div><div><br></div=
+><div>During this initialization, it will try to setup the virtual channels=
+.</div><div>When it read the VC capability structures, the system hangs wit=
+h the following log(I had made jailhouse to be more verbose).</div><div><br=
+></div><div>More specifically, <br></div><div><br></div><div>when it do pci=
+_vc_do_save_buffer() in drivers/pci/vc.c and call <br></div><div><br></div>=
+<div>pci_read_config_word(dev, pos + PCI_VC_PORT_CTRL, (u16 *)buf);</div><d=
+iv><br></div><div>it will in turn call read_pci_config() in arch/x86/pci/ea=
+rly.c, resulting a fault.<br></div><div><br></div><div><br></div><div>Remov=
+ing PCI device 02:00.0 from cell &quot;RootCell&quot;<br>Freeing 8 interrup=
+t(s) for device 0200 at index 74<br>Adding PCI device 02:00.0 to cell &quot=
+;linux-x86-demo&quot;<br>Reserving 1 interrupt(s) for device 0200 at index =
+72<br>Removing PCI device 02:00.1 from cell &quot;RootCell&quot;<br>Freeing=
+ 8 interrupt(s) for device 0201 at index 119<br>Adding PCI device 02:00.1 t=
+o cell &quot;linux-x86-demo&quot;<br>Reserving 1 interrupt(s) for device 02=
+01 at index 73<br>Removing PCI device 02:00.2 from cell &quot;RootCell&quot=
+;<br>Freeing 1 interrupt(s) for device 0202 at index 71<br>Adding PCI devic=
+e 02:00.2 to cell &quot;linux-x86-demo&quot;<br>Reserving 1 interrupt(s) fo=
+r device 0202 at index 71<br>Created cell &quot;linux-x86-demo&quot;<br>Pag=
+e pool usage after cell creation: mem 468/16329, remap 65711/131072<br>Cell=
+ &quot;linux-x86-demo&quot; can be loaded<br>CPU 7 received SIPI, vector 10=
+0<br>Started cell &quot;linux-x86-demo&quot;<br>FATAL: unsupported instruct=
+ion (0x66 0x00 0x00 0x00)<br>FATAL: Invalid MMIO/RAM read, addr: 0x00000000=
+8020010c size: 0<br>Name: linux-x86-demo<br>RIP: 0xffffffffb2550a08 RSP: 0x=
+ffffad0cc003bc08 FLAGS: 10286<br>RAX: 0xffffad0cd020010c RBX: 0xffffad0cd02=
+00000 RCX: 0x000000000000010c<br>RDX: 0x00000000000000ff RSI: 0x00000000000=
+00002 RDI: 0x0000000000000000<br>CS: 10 BASE: 0x0000000000000000 AR-BYTES: =
+a09b EFER.LMA 1<br>RBP: 0x000000000000010c<br>DS: 0<br>SS: 0<br>GDTR_BASE: =
+0xfffffe0000001000 GDTR_LIMIT: 0x000000000000007f<br>IDTR_BASE: 0xfffffe000=
+0000000 IDTR_LIMIT: 0x0000000000000fff<br>CR0: 0x0000000080050033 CR3: 0x00=
+00000006c0a001 CR4: 0x00000000003626f0<br>EFER: 0x0000000000000d01<br>CPL: =
+0 RPL: 0<br>Parking CPU 7 (Cell: &quot;linux-x86-demo&quot;)<br></div><div>=
+<br></div><div>I do not understand why only this specific read cause a faul=
+t, but others don&#39;t.</div><div>Did I misconfig anything in the cell con=
+fig file(as an attachment).</div><div><br></div><div>Helps and suggestions =
+are welcome</div><div><br></div><div>Yang<br></div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/20190919182118.501a3060%40md1za8fc.ad001.siemens.net.
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/f529a508-6259-43e5-a2f9-6b4c48bdf153%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/f529a508-6259-43e5-a2f9-6b4c48bdf153%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_4021_748690050.1568969343732--
+
+------=_Part_4020_198849338.1568969343731
+Content-Type: text/x-csrc; charset=US-ASCII; name=linux-x86-demo.c
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename=linux-x86-demo.c
+X-Attachment-Id: 3f598416-737d-44e6-ac87-6e075aaa6f5d
+Content-ID: <3f598416-737d-44e6-ac87-6e075aaa6f5d>
+
+/*
+ * Jailhouse, a Linux-based partitioning hypervisor
+ *
+ * Configuration for Linux inmate, 1 CPU, 74 MB RAM, ~1MB shmem, serial ports
+ *
+ * Copyright (c) Siemens AG, 2013-2015
+ *
+ * Authors:
+ *  Jan Kiszka <jan.kiszka@siemens.com>
+ *
+ * This work is licensed under the terms of the GNU GPL, version 2.  See
+ * the COPYING file in the top-level directory.
+ */
+
+#include <jailhouse/types.h>
+#include <jailhouse/cell-config.h>
+
+#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
+
+struct {
+	struct jailhouse_cell_desc cell;
+	__u64 cpus[1];
+	struct jailhouse_memory mem_regions[10];
+	struct jailhouse_cache cache_regions[1];
+	struct jailhouse_irqchip irqchips[1];
+	__u8 pio_bitmap[0x2000];
+	struct jailhouse_pci_device pci_devices[3];
+	struct jailhouse_pci_capability pci_caps[9];
+} __attribute__((packed)) config = {
+	.cell = {
+		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
+		.revision = JAILHOUSE_CONFIG_REVISION,
+		.name = "linux-x86-demo",
+		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG |
+			JAILHOUSE_CELL_DEBUG_CONSOLE,
+
+		.cpu_set_size = sizeof(config.cpus),
+		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+		.num_cache_regions = ARRAY_SIZE(config.cache_regions),
+		.num_irqchips = ARRAY_SIZE(config.irqchips),
+		.pio_bitmap_size = ARRAY_SIZE(config.pio_bitmap),
+		.num_pci_devices = ARRAY_SIZE(config.pci_devices),
+		.num_pci_caps = ARRAY_SIZE(config.pci_caps),
+	},
+
+	.cpus = {
+		0x80,
+	},
+
+	.mem_regions = {
+		/* low RAM */ {
+			.phys_start = 0x4100000,
+			.virt_start = 0,
+			.size = 0x00100000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+				JAILHOUSE_MEM_LOADABLE,
+		},
+		/* communication region */ {
+			.virt_start = 0x00100000,
+			.size = 0x00001000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_COMM_REGION,
+		},
+		/* high RAM */ {
+			.phys_start = 0x04200000,
+			.virt_start = 0x00200000,
+			.size =       0x08000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+				JAILHOUSE_MEM_LOADABLE,
+		},
+		/* IVSHMEM shared memory regions */
+		{ 0 },
+		{
+			.phys_start = 0x44220000,
+			.virt_start = 0x40200000,
+			.size = 0x80000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_ROOTSHARED,
+		},
+		{
+			.phys_start = 0x442a0000,
+			.virt_start = 0x40280000,
+			.size = 0x80000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+		},
+		/* MemRegion: fb502000-fb502fff : 0000:02:00.1 */
+		{
+			.phys_start = 0xfb502000,
+			.virt_start = 0xfb502000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: fb503000-fb503fff : 0000:02:00.1 */
+		{
+			.phys_start = 0xfb503000,
+			.virt_start = 0xfb503000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: fb504000-fb504fff : 0000:02:00.0 */
+		{
+			.phys_start = 0xfb504000,
+			.virt_start = 0xfb504000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: fb505000-fb505fff : 0000:02:00.0 */
+		{
+			.phys_start = 0xfb505000,
+			.virt_start = 0xfb505000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+	},
+
+	.cache_regions = {
+		{
+			.start = 10,
+			.size = 2,
+			.type = JAILHOUSE_CACHE_L3,
+		},
+	},
+
+	.irqchips = {
+		/* IOAPIC */ {
+			.address = 0xfec00000,
+			.id = 0x1f0ff,
+			.pin_bitmap = {
+				(1 << 3) | (1 << 4),
+			},
+		},
+	},
+
+	.pio_bitmap = {
+		[     0/8 ...  0x2f7/8] = -1,
+		[ 0x2f8/8 ...  0x2ff/8] = 0, /* serial2 */
+		[ 0x300/8 ...  0x3f7/8] = -1,
+		[ 0x3f8/8 ...  0x3ff/8] = 0, /* serial1 */
+		[ 0x400/8 ... 0xe00f/8] = -1,
+		[0xe010/8 ... 0xe017/8] = 0, /* OXPCIe952 serial1 */
+		[0xe018/8 ... 0xffff/8] = -1,
+	},
+
+	.pci_devices = {
+		/* PCIDevice: 02:00.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.domain = 0x0,
+			.bdf = 0x200,
+			.bar_mask = {
+				0xfffffff8, 0xfffff000, 0x00000000,
+				0x00000000, 0x00000000, 0xfffff000,
+			},
+			.caps_start = 0,
+			.num_caps = 5,
+			.num_msi_vectors = 1,
+			.msi_64bits = 1,
+			.num_msix_vectors = 0,
+			.msix_region_size = 0x0,
+			.msix_address = 0x0,
+		},
+		/* PCIDevice: 02:00.1 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.domain = 0x0,
+			.bdf = 0x201,
+			.bar_mask = {
+				0xfffffff8, 0xfffff000, 0x00000000,
+				0x00000000, 0x00000000, 0xfffff000,
+			},
+			.caps_start = 5,
+			.num_caps = 4,
+			.num_msi_vectors = 1,
+			.msi_64bits = 1,
+			.num_msix_vectors = 0,
+			.msix_region_size = 0x0,
+			.msix_address = 0x0,
+		},
+		/* PCIDevice: 02:00.2 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.domain = 0x0,
+			.bdf = 0x202,
+			.bar_mask = {
+				0xfffffff8, 0xfffffff8, 0xfffff000,
+				0x00000000, 0x00000000, 0xfffff000,
+			},
+			.caps_start = 5,
+			.num_caps = 4,
+			.num_msi_vectors = 1,
+			.msi_64bits = 1,
+			.num_msix_vectors = 0,
+			.msix_region_size = 0x0,
+			.msix_address = 0x0,
+		},
+	},
+
+	.pci_caps = {
+		/* PCIDevice: 02:00.0 */
+		{
+			.id = 0x5,
+			.start = 0x50,
+			.len = 14,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = 0x1,
+			.start = 0x78,
+			.len = 8,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = 0x10,
+			.start = 0x80,
+			.len = 20,
+			.flags = 0,
+		},
+		{
+			.id = 0x2 | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x100,
+			.len = 0x50,
+			.flags = 0,
+		},
+		{
+			.id = 0x1 | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x800,
+			.len = 20,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		/* PCIDevice: 02:00.1 */
+		/* PCIDevice: 02:00.2 */
+		{
+			.id = 0x5,
+			.start = 0x50,
+			.len = 14,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = 0x1,
+			.start = 0x78,
+			.len = 8,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = 0x10,
+			.start = 0x80,
+			.len = 20,
+			.flags = 0,
+		},
+		{
+			.id = 0x1 | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x100,
+			.len = 20,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+	}
+};
+
+------=_Part_4020_198849338.1568969343731--
