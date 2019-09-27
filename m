@@ -1,71 +1,138 @@
-Return-Path: <jailhouse-dev+bncBC2PTC4R4MNBBIPYU3WAKGQE75BWK4I@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCB7D7MXMMINLG5X5QCRUBDHG5V7G@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x33e.google.com (mail-ot1-x33e.google.com [IPv6:2607:f8b0:4864:20::33e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83C6BBC202
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 24 Sep 2019 08:48:03 +0200 (CEST)
-Received: by mail-ot1-x33e.google.com with SMTP id l25sf609219otp.10
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 23 Sep 2019 23:48:03 -0700 (PDT)
+Received: from mail-vk1-xa3c.google.com (mail-vk1-xa3c.google.com [IPv6:2607:f8b0:4864:20::a3c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EFE0C0183
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 27 Sep 2019 10:52:39 +0200 (CEST)
+Received: by mail-vk1-xa3c.google.com with SMTP id l63sf2230063vkd.0
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 27 Sep 2019 01:52:39 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1569574358; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=UXK+afhPH8RztBx8RR8gO4rRN0Wkfs0D3NwkcaIJe/QyZowT/XQVOAjO4koWREG5Ax
+         34PwXqarUXFp9lAqlPRe0a0J/EQ1UBdqZcGBWb3Asp3lA5YB/DiyywCwUeG15Dx6rGxw
+         RcazTLKIsLV3NaPTGKD9Fvdb/t9whVhkd15n5HQeaym+M3ZYPdQb37UfauBQMSYYyiOV
+         1POoK/itjg67XJfDNUPjNcQ/HuhDna/gvpl4pZ5JDDsHBsM8yXB24Ip7vctJ4T6lG1ST
+         M77LrsAIZ5NGz7PBClCJsZ2L1Qh6dUVJEP7c6J8a99t2mx9usERFACJHu2kPb8BMcEka
+         bv7A==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:reply-to:mime-version:message-id
+         :date:subject:cc:to:from:dkim-signature;
+        bh=+V6GAYiksFY0tyaRERjkqia+3AW7k3s+EcZhnhJIUn0=;
+        b=UrwB8Vfx5yQ++qPqhHcIl+c4dPmN046PveL/mzTgFTTHB/Kr7BSHKMQtkPaIiHo5QP
+         21DQwhwwtQ/4Rp6mobpvXNeEyvB1dkzlHZJEYi5Qh2BpcmSZNOyPD2dATRR+oVhXgTPC
+         sUFY3we1qKJ6IPjG2WM/gpk3vW7FgW7QvztMKIk0euNQytKlP6zn0Ho9iCgbbuBeM+7b
+         kVO4+U6/LP/SqJ63/DQD004ycGBgoJzxt+YbnV0cn9YekI57779BtW3kYb6Li5mnIImG
+         SgC5mFxmtRRpKfqgUQLbJuiS9cPL7xz6IbXbPyFOK8AX3oI/yk5T+D3S5/hyWOkQkfep
+         Mwdw==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=ic6a35ru;
+       spf=pass (google.com: domain of lokeshvutla@ti.com designates 198.47.23.248 as permitted sender) smtp.mailfrom=lokeshvutla@ti.com;
+       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=RdORBgdPvcq2U6v/gpg0I8vqU2vJvxQYidUYxiKH+Ag=;
-        b=McsE5ay7eb8HP2GHTiSVpsJqBWq72ERm040uwSfY2hncgXAdKSrKVNLFKXte3copcR
-         RUfa5ODZvUoBeqwwiWbmehcu1/jWeriRMRRKBosLJLiBW1zRLGDLYesuWm3KEakNrB0M
-         BPK9GBywPbuxaY3+RTFzUie/KWksGku1vo+qCeAnRdbF1BsOmaX6iDiG+IjMZCaIJRV8
-         KxXlqMlUV70fpUlsIrPis1ECmjPauuNGGoHNJV8dF83lmkKgqyGrNXHw3UjDGJn4DCA7
-         LAE1n62sqZvD4UYXVCB925ol7eiLAwWCCDp/z+Squ4XDne4PKJWZYI0gRJUpjpn49dnx
-         gUVQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=RdORBgdPvcq2U6v/gpg0I8vqU2vJvxQYidUYxiKH+Ag=;
-        b=ayNxSh+dxJ6cRTc/o0Ld2zcToouXrHSbKsYFCOa7SrmmjJKl7siJbgkUwXgAdM23N6
-         ILuuJdRdD2gvIuduzVJI63y1Ud3DisiOXWefsgF5O9FkgKL4QcR7FFygECJeq1ARQe8H
-         ov8mRXKSEn8kDiIfsrAQFJy+eMyZCZFUvJqjhf29sRLTYCT9WSgKBWy4fSKpAlGW4BK8
-         4JQut8svGhjobJ/rlXIVJ8rlVJDh8jXFw0cngC4nHfMy4gcEJNrmB1EhbGOJiWWCbcNE
-         NX/WofKPzxGvvytdmP2DCfNbZ0h88G9t+xKI2ttOdv8KTMcB4PooJ9qRxmRugfHRqhx0
-         0/eg==
+        h=from:to:cc:subject:date:message-id:mime-version:x-original-sender
+         :x-original-authentication-results:reply-to:precedence:mailing-list
+         :list-id:list-post:list-help:list-archive:list-subscribe
+         :list-unsubscribe;
+        bh=+V6GAYiksFY0tyaRERjkqia+3AW7k3s+EcZhnhJIUn0=;
+        b=R8/gQFhDp8PBjqNxcktnzh9csX2hQGxrn+gapgT4e/2QIib/6BCMSLJshhasQ/MTNM
+         2mK1C99RvF5z6eoKrxYSNaTsO1jU0F+1zxBVswOmokjENgvosAlvvx3lwYsEnPPWmqQi
+         im4V2gJcURD970/ZrZvTNFEfapUFuKYvxdfym/eYV+7BtZomcOVf3joaK5Pcku4xBNmT
+         s/hCXWQWSjczAMNz8mGhHHRpYm/IO0/DPHsNBpbVTD1McEl+dU6pDglOVA/gKktsuD6w
+         gZQXHubccBKVVZ7G1mnIbGQtfWgE+Dn6EcuPLRx0TqcnZpE5FbdvKf536M7Jfokrbt97
+         rBDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=RdORBgdPvcq2U6v/gpg0I8vqU2vJvxQYidUYxiKH+Ag=;
-        b=tqj/Fvuhm56YsTxhMeeY2d9TBc1GGjZ5ZnCDPOr6Ka4nTYtjXZc1+b19q6+l8ymPkP
-         MRFII5Y4NOC3UiL+tP/0LUWQ0u9M4oGSL6kjq+iSQ7aB9Yy8Vcw/b5YnZ6dNyhuPZLxH
-         03EuFA4Zg08+z+NBtEn1DGmPFApLl9XO3UsR6OqnI6l9Z/wC8NbgRRYMs70nTVWbfFnh
-         xlMCcvs08im/niwEIdrenEkRimyZz4199kKI+SVMrwWnbpaGOXrawmh9PIxsQN4vmJut
-         d+7ERkLsccuTc8tHPKMQEz1C2e7T/49duX4YPLfb8qLf4K2sH5XpEVmTbwPIB2IH5hav
-         X1Jg==
-Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXE96SKaEL+KuxFc9K+Jdy70o/Rm6bmtmexmP5APBR3phDyqP1O
-	oZVpKqDi/XAcFoTMFOG4+1U=
-X-Google-Smtp-Source: APXvYqzYKtHa5IVrkvkrywlMkiUCBSlkwI5NPO6XCVb7T++3gwbwUtTiatOn/oEFSyUI0v6Y8G/3Qw==
-X-Received: by 2002:a9d:6405:: with SMTP id h5mr623537otl.115.1569307682194;
-        Mon, 23 Sep 2019 23:48:02 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :x-original-sender:x-original-authentication-results:reply-to
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=+V6GAYiksFY0tyaRERjkqia+3AW7k3s+EcZhnhJIUn0=;
+        b=VIwFw+MAgBXMvRlor2TNav3PnC7bhToG8vXkghic1xoPCygmAxNrN2NsIeywIiXrh5
+         OPsMgKwSI1kb3Mmx3YTNuTwudIugwUfcheitjLPV6mjZ/7Ua+/pv/ZpZHNhaKpLWXV5s
+         +r4laQDnyTF/c7PZXohXdfUaUjUIhzmpzeqS4LHX5PKq9YVuxKi/HhdOj7SD/uf18Xw1
+         QmWpdiFIYUYEpk3K7/uAMjAfqeIvp6z+Vc9WpiLlI1p53FE9O7+hj9JTPjw0pvpT2mZ+
+         xrCtjqxC3vYK9FFw52QRextYTTah37fvtGBsov6Fv+B0LQC1kzAXkWKDQ5kbPXb3LBCb
+         jfLA==
+X-Gm-Message-State: APjAAAWU9wfHhejZ0SG3cWYFVPTRv/RRVtDAhprHqQgeNUryJ3VVJKoM
+	SgSrW9RErGSDxvyc/GhFJCE=
+X-Google-Smtp-Source: APXvYqwwThEck/P1kdGxSvW77+FAT4VUWpNfc0rtygJUer9aEaPLC2d6XzHa9tRAv8i2rYIBk9B2lg==
+X-Received: by 2002:a1f:8593:: with SMTP id h141mr3900009vkd.7.1569574358362;
+        Fri, 27 Sep 2019 01:52:38 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a9d:688:: with SMTP id 8ls182502otx.9.gmail; Mon, 23 Sep
- 2019 23:48:01 -0700 (PDT)
-X-Received: by 2002:a05:6830:4a5:: with SMTP id l5mr638904otd.150.1569307681581;
-        Mon, 23 Sep 2019 23:48:01 -0700 (PDT)
-Date: Mon, 23 Sep 2019 23:48:00 -0700 (PDT)
-From: Chung-Fan Yang <sonic.tw.tp@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <8a0921f1-11ce-4231-a9ec-c115a059cfee@googlegroups.com>
-In-Reply-To: <494277d5-a425-8e0d-85da-6474878134e4@siemens.com>
-References: <f529a508-6259-43e5-a2f9-6b4c48bdf153@googlegroups.com>
- <494277d5-a425-8e0d-85da-6474878134e4@siemens.com>
-Subject: Re: Invalid MMIO access during PCI device initialization
+Received: by 2002:ab0:6181:: with SMTP id h1ls306409uan.7.gmail; Fri, 27 Sep
+ 2019 01:52:37 -0700 (PDT)
+X-Received: by 2002:ab0:42c5:: with SMTP id j63mr65470uaj.5.1569574357656;
+        Fri, 27 Sep 2019 01:52:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1569574357; cv=none;
+        d=google.com; s=arc-20160816;
+        b=YKU2XG5rB4vi0QY3mEQVJHK4xDZgw0R0jX07d6jznWHSjV2tQD/yriLPZe1IHoLweI
+         862Wf8QHPkP3UJY4FM4ceuwodQxEWZwF49zheiKfuqgrb4lM+6SBCYXgGV+29AWi4isI
+         pY7luxihwGbqyx6UESskz0G658KE10IIGeuWR62eQyNzbpN2VHNgibnVRjGAhSkKMCDh
+         4ElctWvEQpZfXnwUcJwcnrRL56d3/mLbo9XTgOAbT5RVOytANab4W4vyJw0gW0D1/knV
+         nt5YCUHbSt7ZMdBXiNykrTUh6wwXpRPV19fzGGXWd+YsuSYGnDH9f6wID9CCEtBUg1J0
+         PNaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature;
+        bh=pkVPfQhSLbbNhRYLo9QoyvZTFmcZaLlUamqAAAwvGV0=;
+        b=pKdNjGDqUcUzMCuRRfLKzqcpS11mmWpEW4EUmFUOSmS7nTeYZKInIHIufpE8QhofZf
+         wckbX3hZZRldxUB/gI8tX813AAgtb8hQr46TnNcT2Y7BGHO2Bwog8+5hiBqvmO9+5azO
+         y6v3X+1Zy/TRjpw7Ox7biG6vHxiKdW1OXM4id8oMcvPypMBDsbmd9V5Aa81pdH23uRVj
+         oCuugvVcQFnbgIwnQ5PNOWUVVbnJWVJoeZ19ZhXuDR9rAfXzYsW7aBw1oGr7gWf/ixS1
+         yqOp6lnaNWBjOxCq+yS2FoXrx8TJjo8m1/TNPN7+4mm7dY6ubgQPzi2d35FDSyNHh+Rs
+         Okpg==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=ic6a35ru;
+       spf=pass (google.com: domain of lokeshvutla@ti.com designates 198.47.23.248 as permitted sender) smtp.mailfrom=lokeshvutla@ti.com;
+       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com. [198.47.23.248])
+        by gmr-mx.google.com with ESMTPS id u65si59685vsb.0.2019.09.27.01.52.37
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 27 Sep 2019 01:52:37 -0700 (PDT)
+Received-SPF: pass (google.com: domain of lokeshvutla@ti.com designates 198.47.23.248 as permitted sender) client-ip=198.47.23.248;
+Received: from lelv0265.itg.ti.com ([10.180.67.224])
+	by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id x8R8qaOo073403;
+	Fri, 27 Sep 2019 03:52:36 -0500
+Received: from DFLE111.ent.ti.com (dfle111.ent.ti.com [10.64.6.32])
+	by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x8R8qa0f101750
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 27 Sep 2019 03:52:36 -0500
+Received: from DFLE109.ent.ti.com (10.64.6.30) by DFLE111.ent.ti.com
+ (10.64.6.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Fri, 27
+ Sep 2019 03:52:36 -0500
+Received: from fllv0039.itg.ti.com (10.64.41.19) by DFLE109.ent.ti.com
+ (10.64.6.30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
+ Frontend Transport; Fri, 27 Sep 2019 03:52:28 -0500
+Received: from uda0131933.india.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
+	by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id x8R8qX0D099819;
+	Fri, 27 Sep 2019 03:52:34 -0500
+From: "'Lokesh Vutla' via Jailhouse" <jailhouse-dev@googlegroups.com>
+To: Jan Kiszka <jan.kiszka@siemens.com>,
+        Jailhouse
+	<jailhouse-dev@googlegroups.com>
+CC: Tero Kristo <t-kristo@ti.com>, Sekhar Nori <nsekhar@ti.com>,
+        Lokesh Vutla
+	<lokeshvutla@ti.com>
+Subject: [PATCH] tools: cell-linux: arm: Do not page align the ramdisk size
+Date: Fri, 27 Sep 2019 14:21:42 +0530
+Message-ID: <20190927085142.23081-1-lokeshvutla@ti.com>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_2539_1757382215.1569307680981"
-X-Original-Sender: Sonic.tw.tp@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+X-Original-Sender: lokeshvutla@ti.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@ti.com header.s=ti-com-17Q1 header.b=ic6a35ru;       spf=pass
+ (google.com: domain of lokeshvutla@ti.com designates 198.47.23.248 as
+ permitted sender) smtp.mailfrom=lokeshvutla@ti.com;       dmarc=pass
+ (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
+X-Original-From: Lokesh Vutla <lokeshvutla@ti.com>
+Reply-To: Lokesh Vutla <lokeshvutla@ti.com>
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -78,236 +145,33 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_2539_1757382215.1569307680981
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_2540_2046482418.1569307680981"
+When updating linux initrd size in inmate DT, the size is aligned
+to page. Because of this some initrd images were not able to mount
+by inmate as Linux is seeing junk at end of specified initrd.
+Pass the exact initrd size to the Linux kernel.
 
-------=_Part_2540_2046482418.1569307680981
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Lokesh Vutla <lokeshvutla@ti.com>
+---
+ tools/jailhouse-cell-linux | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/tools/jailhouse-cell-linux b/tools/jailhouse-cell-linux
+index 242761a3..e43f8e42 100755
+--- a/tools/jailhouse-cell-linux
++++ b/tools/jailhouse-cell-linux
+@@ -317,7 +317,7 @@ class ARMCommon:
+ 
+         ramdisk_size = 0
+         if args.initrd:
+-            ramdisk_size = page_align(os.fstat(args.initrd.fileno()).st_size)
++            ramdisk_size = os.fstat(args.initrd.fileno()).st_size
+             # leave sufficient space between the kernel and the initrd
+             decompression_factor = self.default_decompression_factor()
+             if args.kernel_decomp_factor:
+-- 
+2.23.0
 
-
-2019=E5=B9=B49=E6=9C=8820=E6=97=A5=E9=87=91=E6=9B=9C=E6=97=A5 18=E6=99=8257=
-=E5=88=8627=E7=A7=92 UTC+9 Jan Kiszka:
->
-> On 20.09.19 10:49, Chung-Fan Yang wrote:=20
-> > Hi everyone,=20
-> >=20
-> > I am having some problem with a physical PCI-e serial card and non-root=
-=20
-> Linux.=20
-> >=20
-> > I have been using the serial card with the root Linux and non-root RTOS=
-=20
-> for a=20
-> > while whthout any problem.=20
-> >=20
-> > Recently, I decided to try this card in a non-root Linux.=20
-> > I compiled the Jailhouse enabled kernel and prepared a rootfs.=20
-> > The non-root Linux work fine with an motherboard built-in 8250 serial.=
-=20
-> >=20
-> > I have a custom Linux driver for this PCI-e serial card.=20
-> > Therefore, this card should be immune from the 8250.n_uart problem.=20
-> > However, because the card is still in the COMMUNICATION_SERIAL class,=
-=20
-> 8250_pci=20
-> > driver still will initialize the card during boot.=20
-> >=20
-> > During this initialization, it will try to setup the virtual channels.=
-=20
-> > When it read the VC capability structures, the system hangs with the=20
-> following=20
-> > log(I had made jailhouse to be more verbose).=20
-> >=20
-> > More specifically,=20
-> >=20
-> > when it do pci_vc_do_save_buffer() in drivers/pci/vc.c and call=20
-> >=20
-> > pci_read_config_word(dev, pos + PCI_VC_PORT_CTRL, (u16 *)buf);=20
-> >=20
-> > it will in turn call read_pci_config() in arch/x86/pci/early.c,=20
-> resulting a fault.=20
-> >=20
-> >=20
-> > Removing PCI device 02:00.0 from cell "RootCell"=20
-> > Freeing 8 interrupt(s) for device 0200 at index 74=20
-> > Adding PCI device 02:00.0 to cell "linux-x86-demo"=20
-> > Reserving 1 interrupt(s) for device 0200 at index 72=20
-> > Removing PCI device 02:00.1 from cell "RootCell"=20
-> > Freeing 8 interrupt(s) for device 0201 at index 119=20
-> > Adding PCI device 02:00.1 to cell "linux-x86-demo"=20
-> > Reserving 1 interrupt(s) for device 0201 at index 73=20
-> > Removing PCI device 02:00.2 from cell "RootCell"=20
-> > Freeing 1 interrupt(s) for device 0202 at index 71=20
-> > Adding PCI device 02:00.2 to cell "linux-x86-demo"=20
-> > Reserving 1 interrupt(s) for device 0202 at index 71=20
-> > Created cell "linux-x86-demo"=20
-> > Page pool usage after cell creation: mem 468/16329, remap 65711/131072=
-=20
-> > Cell "linux-x86-demo" can be loaded=20
-> > CPU 7 received SIPI, vector 100=20
-> > Started cell "linux-x86-demo"=20
-> > FATAL: unsupported instruction (0x66 0x00 0x00 0x00)=20
-> > FATAL: Invalid MMIO/RAM read, addr: 0x000000008020010c size: 0=20
-> > Name: linux-x86-demo=20
-> > RIP: 0xffffffffb2550a08 RSP: 0xffffad0cc003bc08 FLAGS: 10286=20
-> > RAX: 0xffffad0cd020010c RBX: 0xffffad0cd0200000 RCX: 0x000000000000010c=
-=20
-> > RDX: 0x00000000000000ff RSI: 0x0000000000000002 RDI: 0x0000000000000000=
-=20
-> > CS: 10 BASE: 0x0000000000000000 AR-BYTES: a09b EFER.LMA 1=20
-> > RBP: 0x000000000000010c=20
-> > DS: 0=20
-> > SS: 0=20
-> > GDTR_BASE: 0xfffffe0000001000 GDTR_LIMIT: 0x000000000000007f=20
-> > IDTR_BASE: 0xfffffe0000000000 IDTR_LIMIT: 0x0000000000000fff=20
-> > CR0: 0x0000000080050033 CR3: 0x0000000006c0a001 CR4: 0x00000000003626f0=
-=20
-> > EFER: 0x0000000000000d01=20
-> > CPL: 0 RPL: 0=20
-> > Parking CPU 7 (Cell: "linux-x86-demo")=20
-> >=20
-> > I do not understand why only this specific read cause a fault, but=20
-> others don't.=20
-> > Did I misconfig anything in the cell config file(as an attachment).=20
-> >=20
->
-> I suspect your are not using current master but rather the laster release=
-,=20
-> right? Could you retry with master, specifically because of [1]?=20
->
->
-Yeah, I am using an old version. I want to make my system as stable as=20
-possible during my research.
-
-Using the current master solve the problem.
-
-Thanks for the help.
-
-Yang
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/8a0921f1-11ce-4231-a9ec-c115a059cfee%40googlegroups.com.
-
-------=_Part_2540_2046482418.1569307680981
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><br><br>2019=E5=B9=B49=E6=9C=8820=E6=97=A5=E9=87=91=E6=9B=
-=9C=E6=97=A5 18=E6=99=8257=E5=88=8627=E7=A7=92 UTC+9 Jan Kiszka:<blockquote=
- class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-left: 1=
-px #ccc solid;padding-left: 1ex;">On 20.09.19 10:49, Chung-Fan Yang wrote:
-<br>&gt; Hi everyone,
-<br>&gt;=20
-<br>&gt; I am having some problem with a physical PCI-e serial card and non=
--root Linux.
-<br>&gt;=20
-<br>&gt; I have been using the serial card with the root Linux and non-root=
- RTOS for a=20
-<br>&gt; while whthout any problem.
-<br>&gt;=20
-<br>&gt; Recently, I decided to try this card in a non-root Linux.
-<br>&gt; I compiled the Jailhouse enabled kernel and prepared a rootfs.
-<br>&gt; The non-root Linux work fine with an motherboard built-in 8250 ser=
-ial.
-<br>&gt;=20
-<br>&gt; I have a custom Linux driver for this PCI-e serial card.
-<br>&gt; Therefore, this card should be immune from the 8250.n_uart problem=
-.
-<br>&gt; However, because the card is still in the COMMUNICATION_SERIAL cla=
-ss, 8250_pci=20
-<br>&gt; driver still will initialize the card during boot.
-<br>&gt;=20
-<br>&gt; During this initialization, it will try to setup the virtual chann=
-els.
-<br>&gt; When it read the VC capability structures, the system hangs with t=
-he following=20
-<br>&gt; log(I had made jailhouse to be more verbose).
-<br>&gt;=20
-<br>&gt; More specifically,
-<br>&gt;=20
-<br>&gt; when it do pci_vc_do_save_buffer() in drivers/pci/vc.c and call
-<br>&gt;=20
-<br>&gt; pci_read_config_word(dev, pos + PCI_VC_PORT_CTRL, (u16 *)buf);
-<br>&gt;=20
-<br>&gt; it will in turn call read_pci_config() in arch/x86/pci/early.c, re=
-sulting a fault.
-<br>&gt;=20
-<br>&gt;=20
-<br>&gt; Removing PCI device 02:00.0 from cell &quot;RootCell&quot;
-<br>&gt; Freeing 8 interrupt(s) for device 0200 at index 74
-<br>&gt; Adding PCI device 02:00.0 to cell &quot;linux-x86-demo&quot;
-<br>&gt; Reserving 1 interrupt(s) for device 0200 at index 72
-<br>&gt; Removing PCI device 02:00.1 from cell &quot;RootCell&quot;
-<br>&gt; Freeing 8 interrupt(s) for device 0201 at index 119
-<br>&gt; Adding PCI device 02:00.1 to cell &quot;linux-x86-demo&quot;
-<br>&gt; Reserving 1 interrupt(s) for device 0201 at index 73
-<br>&gt; Removing PCI device 02:00.2 from cell &quot;RootCell&quot;
-<br>&gt; Freeing 1 interrupt(s) for device 0202 at index 71
-<br>&gt; Adding PCI device 02:00.2 to cell &quot;linux-x86-demo&quot;
-<br>&gt; Reserving 1 interrupt(s) for device 0202 at index 71
-<br>&gt; Created cell &quot;linux-x86-demo&quot;
-<br>&gt; Page pool usage after cell creation: mem 468/16329, remap 65711/13=
-1072
-<br>&gt; Cell &quot;linux-x86-demo&quot; can be loaded
-<br>&gt; CPU 7 received SIPI, vector 100
-<br>&gt; Started cell &quot;linux-x86-demo&quot;
-<br>&gt; FATAL: unsupported instruction (0x66 0x00 0x00 0x00)
-<br>&gt; FATAL: Invalid MMIO/RAM read, addr: 0x000000008020010c size: 0
-<br>&gt; Name: linux-x86-demo
-<br>&gt; RIP: 0xffffffffb2550a08 RSP: 0xffffad0cc003bc08 FLAGS: 10286
-<br>&gt; RAX: 0xffffad0cd020010c RBX: 0xffffad0cd0200000 RCX: 0x00000000000=
-0010c
-<br>&gt; RDX: 0x00000000000000ff RSI: 0x0000000000000002 RDI: 0x00000000000=
-00000
-<br>&gt; CS: 10 BASE: 0x0000000000000000 AR-BYTES: a09b EFER.LMA 1
-<br>&gt; RBP: 0x000000000000010c
-<br>&gt; DS: 0
-<br>&gt; SS: 0
-<br>&gt; GDTR_BASE: 0xfffffe0000001000 GDTR_LIMIT: 0x000000000000007f
-<br>&gt; IDTR_BASE: 0xfffffe0000000000 IDTR_LIMIT: 0x0000000000000fff
-<br>&gt; CR0: 0x0000000080050033 CR3: 0x0000000006c0a001 CR4: 0x00000000003=
-626f0
-<br>&gt; EFER: 0x0000000000000d01
-<br>&gt; CPL: 0 RPL: 0
-<br>&gt; Parking CPU 7 (Cell: &quot;linux-x86-demo&quot;)
-<br>&gt;=20
-<br>&gt; I do not understand why only this specific read cause a fault, but=
- others don&#39;t.
-<br>&gt; Did I misconfig anything in the cell config file(as an attachment)=
-.
-<br>&gt;=20
-<br>
-<br>I suspect your are not using current master but rather the laster relea=
-se,=20
-<br>right? Could you retry with master, specifically because of [1]?
-<br>
-<br></blockquote><div><br></div><div>Yeah, I am using an old version. I wan=
-t to make my system as stable as possible during my research.</div><div><br=
-></div><div>Using the current master solve the problem.</div><div><br></div=
-><div>Thanks for the help.</div><div><br></div><div>Yang<br></div></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/8a0921f1-11ce-4231-a9ec-c115a059cfee%40googlegroup=
-s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
-sgid/jailhouse-dev/8a0921f1-11ce-4231-a9ec-c115a059cfee%40googlegroups.com<=
-/a>.<br />
-
-------=_Part_2540_2046482418.1569307680981--
-
-------=_Part_2539_1757382215.1569307680981--
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20190927085142.23081-1-lokeshvutla%40ti.com.
