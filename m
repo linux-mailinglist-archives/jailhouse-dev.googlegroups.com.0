@@ -1,115 +1,76 @@
-Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBVXM3PWAKGQEVRHQUXA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCQLFK7J4IHBBKP43TWAKGQEDNUSFFQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pf1-x43c.google.com (mail-pf1-x43c.google.com [IPv6:2607:f8b0:4864:20::43c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5353BCB50F
-	for <lists+jailhouse-dev@lfdr.de>; Fri,  4 Oct 2019 09:35:52 +0200 (CEST)
-Received: by mail-pf1-x43c.google.com with SMTP id p2sf4114066pff.4
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 04 Oct 2019 00:35:52 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1570174550; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=FBxwthj/COJn1o8YamrqIOYc6DQGi+7H9KwJlYLkgqXR10yNZXD1x4IU2HhDwJo/09
-         P7ooVdXIA9MEi27+XnMrDRlKp6wNjBmnfSptV7cMVF7/SCAf2vsTqmNyMgFE/RZ9GYm3
-         uhpHZcReVafeH1ltmcmnLbKr2PM0HrarGs5ZyYvFbp++Q/L99LiSyTe5VE4H8Jdvf7En
-         IuQMUUM6aYrZYxFjmwyq1WJBMV41wg5JX9c/q6rjTAObNQPjX8/a+KfjsxRae+/6wEOF
-         jEC718aZklwglpeJiHuJPe2pAKvoebhOZUexgQ36zLtkpeZlhuL78UWsP+2Z54Zlv+Gn
-         luhQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:subject:message-id:to
-         :from:date:sender:dkim-signature;
-        bh=qgUYVpxf4Bc6r2YsUROrwGqsw2KDqcSl6lF3gkEnT7Y=;
-        b=QjNRhNYDbcBaVD2FXxuX35l/STBx0S7ELSBGXFr+/q78XF6u2Mf1lXjIrSS2fFBnBH
-         MEhPKWTdWwO1aGKpBiXrMpt/mc16uWm6hLnJMuWBzADc7PXvIBS8dTQ8S/DP2Znrkotd
-         uQINhSafqmvBaVOadfu+mS+/t1mmY666PNM8Q4ReOJc0ybXEDsvbnz8X93kGFqJqrt4/
-         habC+kD/UzgMvvT03Y++QFvysTkLn0Av7sOwGAYj1o057YmtyNdEEpLkW1R+iziV3u1o
-         JdNizlU7u6ChbbftMumofwbPWd3hGAdriiqI0ns0HvH8m+9MF+y9DxJucyEiBfeZhV4A
-         4GwA==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.196 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from mail-ot1-x337.google.com (mail-ot1-x337.google.com [IPv6:2607:f8b0:4864:20::337])
+	by mail.lfdr.de (Postfix) with ESMTPS id B4530CBAB7
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  4 Oct 2019 14:42:19 +0200 (CEST)
+Received: by mail-ot1-x337.google.com with SMTP id f26sf2700174otq.17
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 04 Oct 2019 05:42:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:subject:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=qgUYVpxf4Bc6r2YsUROrwGqsw2KDqcSl6lF3gkEnT7Y=;
-        b=b4P/5wOkE6UMW7X53OQZwfwZXWtxHUVoew/omAlODMv2AgIs8roInH7iAOKnc8ULsJ
-         w/IaD7cFfCRtajcC2I8dlBWGlV5grVcIBgQDbdNY47rvz7em50gj/l6vWMmOLa1ivctV
-         KdRvANAShWAL8tzr3ttWkfwWz7b7cFrSpHSTSBG6Xtv0jLyyi2p5vJV5rvoX8AKDM4b2
-         JQobqOm0IYMb7FPcdj7CZy90Yoqq4YFmxEZHSrdxWjY9ivpik0uf4/Dqh1aGxys1LYD8
-         HjwyjnwLVhRlCQeQdxi5UoXAk6Bqw/ZEnUlyNM/pSPaIWRj+aVaE1o1jsf5LMUKp9EJQ
-         B30Q==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=L2gJS2hRYiD8gudmTmKNCXYIHAIIU3YI3dJoE4ZwBnA=;
+        b=KBJelLX7vci7sa2p2uFFjAiaM/Fs8lR4vAyP39BxigoCpWTqe+DdjNyCCtO88bltUc
+         lsuYxzqw4slz8khegLABmiT+ZSV9iKRey96hhPhEu8mi5tDUK4EAvkuoOQ2jUzRdGBL3
+         aQL2/HGktHYsIp5T+4g0hUwXQhdBldCYoT4VlNu66zbQkg+qzmiIrwioe60fw8rK97F9
+         9fx3BXi/S6Sqe94aDzXoWYiuuuaPGeUq7gq2VzI/9WR5qNtYjFKfEhjFlYnRD0VNwWLe
+         N/DfaEvoUMk98kC3oAv97jxw6VVT7LUjj+0L8sL4LQ9BlnEp6Fr6g2vQ/hWtolT8MG5N
+         u/4w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=L2gJS2hRYiD8gudmTmKNCXYIHAIIU3YI3dJoE4ZwBnA=;
+        b=T5gba6XdUam9wZVPB58N0mt/vO/s9xrlHjfk9pX5kpOdHAtDTf+GfeK3urlMfBGM25
+         eT7Ubx7oV6OYDpJKxDFxXbiQnKZEX1mx/1HFQARULMYRDWnyxw7v590F10BxI4drELAe
+         rRjIuY3UgflPI6CLzYD7NBasBlI7r2uwqJiOB6EOsjDWIRilTxl02DogyPV+7TIb7mqq
+         d8UPwl5cNg1e0VcrNrlsnVB/u5JsRXwaXqCWVBMpy4d7ghWa6mcXdEKuJcxxwK4qp+zl
+         qEQWCHcrbKVROBW9ppbmWuy77OoU8scvztyJmWKWKIrMFTw2EDTtwmztoKKu4gXvUA1l
+         n2Qg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=qgUYVpxf4Bc6r2YsUROrwGqsw2KDqcSl6lF3gkEnT7Y=;
-        b=bE8ieUU47m5dczc/JN8KrXVV4IIfLfhstdHxOi+egP8uDWNseGYdIPj4h6l+04xQ59
-         HZ9CccKxWPHViVF/Cjd3jt12YqpNVfnIyzrAWF6Mkb2SF6OEEcTtIeBIu/GrFXCXclYg
-         RajxjvtNSgfXyW8wHCUKe9LqIi5YlJ4NrZGEPZKyqxRzgWBMcTbKzAAVT1u4kXAHvaXc
-         j3uNtpIFRkk7N1SJwzD2r0B0PgNHnql9Czb4bO1kJDV6WZsEBeZnAX1XQGRj5I6dMcRm
-         bCjpd67uchCvsrJvDuisEItE22Hn/z1lSzRygt/FDbqWFIw00fmXwEoia4B8HeUsL2Cm
-         60yw==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=L2gJS2hRYiD8gudmTmKNCXYIHAIIU3YI3dJoE4ZwBnA=;
+        b=e/hMzA9uwkwXPMqzZstw/jFTK8tdY4jr4Du06O6DFhIq2/g9c7bR+vz8X4PPh4lCQS
+         zN1e03hHIZ8fcf+7NGVhlqbKv5RAA2bM0AgoSDVtjKGF3sKWiAoaOf5H4xJQGUgAc9XM
+         jIAubkPDMdAj40yRun2q0NrDJw/TA0Dn5Yi40qRe9olJe/nVGO4rL6D3GAlugJco+akD
+         OSG5/DzPwVv4Upj9h0EItmnueo3DzeN8DoKOD0WS07QZJV+pwq6G+zgAB/aj3/b/kzOt
+         Z6ZCkPMJHGjDBgywHSRzoGLcF6/naG/EqphYAAURV0e8TgD8HeYrEgtgHjygWE3nPj0C
+         hbVw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAWYrXpslbeSYu9VL+XShX+JN4ypMPCJmr2P70Aa9PbLtb2rBZJC
-	EzoARa1ln4i46wn2fAZBZwo=
-X-Google-Smtp-Source: APXvYqwbwnMjifZOaDB3JspLywRatsUm1Ezg2G9o99fMhIHt0vWlKXeVNeZeLFBHacjt11U7gpzoVg==
-X-Received: by 2002:a17:90a:2086:: with SMTP id f6mr15267958pjg.104.1570174550843;
-        Fri, 04 Oct 2019 00:35:50 -0700 (PDT)
+X-Gm-Message-State: APjAAAVydXyqlQCaNmEjOywJmpkHorBztesFA9KYRzKTNBfNSr+Ij57H
+	oci6w5ih6Llo2ErxiSUBuos=
+X-Google-Smtp-Source: APXvYqyLHnM+BKYVaJ7axnlJOx0Zq8crrIxxFTGiS4EhTQd9+v4cXj/JHQkoQmcpVFPDFy5yNQGRbQ==
+X-Received: by 2002:aca:4d85:: with SMTP id a127mr6641595oib.154.1570192938082;
+        Fri, 04 Oct 2019 05:42:18 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aa7:80d1:: with SMTP id a17ls2212359pfn.7.gmail; Fri, 04 Oct
- 2019 00:35:50 -0700 (PDT)
-X-Received: by 2002:a62:a518:: with SMTP id v24mr15867792pfm.126.1570174550250;
-        Fri, 04 Oct 2019 00:35:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1570174550; cv=none;
-        d=google.com; s=arc-20160816;
-        b=ooZSPuRj0zUXKOoDr/8gYc88/fsFp3C60x466Hq0e4cW2pCaq0YMdBsQ033+ROfoo1
-         fsIrIAoZ8FyOJLc2ObWLnECaUXHDUvxmL0BVemuKW7uX+EDLYy/a27fUBhAi+DPerqcm
-         Jl4l6e5GTrOYTNtL6VddTc8i0rhJIvKmncVsl6siSK4OBTjE9itt1EDZzvDctw/2BWU6
-         iSsJjvMbr2dGlGEsCUft23FrseMZ+AILRqd096USFNw3xX9E2sQVhH+dr28BAPfixs1n
-         TRx57ms9HmGmWbY4laikOhnjCZmp8d6d/3e5g+N+ddUO4Hvk5KW8IjYWqYEFQzvC95j3
-         lXiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:subject:message-id:to:from
-         :date;
-        bh=uxv9UMo42mYcCrccYikAkVmDoRLdzvKnuhD4Z5yRR7k=;
-        b=VMQwv149ZFYGwhVXTc92ZWcDUweUlHrNTuUmBIA8Obyjx+ovMz/AfGvhPHdW5nS2ik
-         0NiSjHFJo3Lt3Wq8z9CDIFwspNIlqGtLcgBU18889t3A2YnCRjBaJDuzaJkBSLlIDbu1
-         ZJojw6s8nmzv56wPeh0rksXcUi66zBE6vVtJ9N8FO5A6egakn6dTxz2pFf6nItKf7duj
-         C5TjIFqpF941CO0Ne0e7mFyfWrM3rTs06SZW5189KMNwxRYkenAlRqQtVqn4s6gV3saW
-         Nk6o+lRXMYsoxh9y8teyMjDhVFnvWGP4I77L9nI8beWZSCKqar1zqyJxM7X4M/eSF1z/
-         Nxpg==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.196 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
-Received: from out-5.smtp.github.com (out-5.smtp.github.com. [192.30.252.196])
-        by gmr-mx.google.com with ESMTPS id m186si361046pga.4.2019.10.04.00.35.50
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 04 Oct 2019 00:35:50 -0700 (PDT)
-Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.196 as permitted sender) client-ip=192.30.252.196;
-Received: from github-lowworker-ca5950c.va3-iad.github.net (github-lowworker-ca5950c.va3-iad.github.net [10.48.17.57])
-	by smtp.github.com (Postfix) with ESMTP id 74F5A96033F
-	for <jailhouse-dev@googlegroups.com>; Fri,  4 Oct 2019 00:35:49 -0700 (PDT)
-Date: Fri, 04 Oct 2019 00:35:49 -0700
-From: Andrej <noreply@github.com>
-To: jailhouse-dev@googlegroups.com
-Message-ID: <siemens/jailhouse/push/refs/heads/master/7cc0dc-edfe64@github.com>
-Subject: [siemens/jailhouse] b66f75: tools: cell-linux: arm: Do not page align
- the ramd...
-Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
-X-Auto-Response-Suppress: All
-X-Original-Sender: noreply@github.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of noreply@github.com designates 192.30.252.196 as
- permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass (p=NONE
- sp=NONE dis=NONE) header.from=github.com
+Received: by 2002:a05:6830:2049:: with SMTP id f9ls1068415otp.11.gmail; Fri,
+ 04 Oct 2019 05:42:17 -0700 (PDT)
+X-Received: by 2002:a9d:68c6:: with SMTP id i6mr10811112oto.350.1570192937168;
+        Fri, 04 Oct 2019 05:42:17 -0700 (PDT)
+Date: Fri, 4 Oct 2019 05:42:16 -0700 (PDT)
+From: andrew.nospam.elder@gmail.com
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <81512c03-363b-4a36-b351-47a22d02d734@googlegroups.com>
+In-Reply-To: <AM0PR04MB448190961184192A4FCDA89D88850@AM0PR04MB4481.eurprd04.prod.outlook.com>
+References: <1520869955737.44500.12082@webmail1>
+ <20180313041354.GA4567@shlinux2>
+ <97387b16-18c1-f4c1-e0dd-3dce680fca51@ti.com>
+ <AM0PR04MB44814CE0916D151BA9E6145188840@AM0PR04MB4481.eurprd04.prod.outlook.com>
+ <9c99b722-bc66-e6a5-6661-91d0c5ed001e@ti.com>
+ <c2ba0030-ec7f-f3f4-2c29-b281404918e3@siemens.com>
+ <AM0PR04MB448190961184192A4FCDA89D88850@AM0PR04MB4481.eurprd04.prod.outlook.com>
+Subject: Re: Jailhouse on iMX8M
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_652_1457954011.1570192936467"
+X-Original-Sender: andrew.nospam.elder@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -122,71 +83,289 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-  Branch: refs/heads/master
-  Home:   https://github.com/siemens/jailhouse
-  Commit: b66f75c353cd3b0e4b3eacd786eb3ef4908ef6f9
-      https://github.com/siemens/jailhouse/commit/b66f75c353cd3b0e4b3eacd786eb3ef4908ef6f9
-  Author: Lokesh Vutla' via Jailhouse <jailhouse-dev@googlegroups.com>
-  Date:   2019-09-27 (Fri, 27 Sep 2019)
+------=_Part_652_1457954011.1570192936467
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_653_800072163.1570192936468"
 
-  Changed paths:
-    M tools/jailhouse-cell-linux
+------=_Part_653_800072163.1570192936468
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-  Log Message:
-  -----------
-  tools: cell-linux: arm: Do not page align the ramdisk size
+Peng,
 
-When updating linux initrd size in inmate DT, the size is aligned
-to page. Because of this some initrd images were not able to mount
-by inmate as Linux is seeing junk at end of specified initrd.
-Pass the exact initrd size to the Linux kernel.
+Is there open source available somewhere that shows the changes to Linux=20
+required to get Jailhouse running on an iMX8M?
 
-Signed-off-by: Lokesh Vutla <lokeshvutla@ti.com>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+Regards,
+Andrew
 
+On Thursday, January 10, 2019 at 8:35:15 PM UTC-5, Peng Fan wrote:
+>
+>
+>
+> > -----Original Message-----=20
+> > From: Jan Kiszka [mailto:jan....@siemens.com <javascript:>]=20
+> > Sent: 2019=E5=B9=B41=E6=9C=8811=E6=97=A5 9:30=20
+> > To: Lokesh Vutla <lokes...@ti.com <javascript:>>; Peng Fan <
+> pen...@nxp.com <javascript:>>; Peng=20
+> > Fan <van.f...@gmail.com <javascript:>>=20
+> > Cc: Jailhouse <jailho...@googlegroups.com <javascript:>>=20
+> > Subject: Re: Jailhouse on iMX8M=20
+> >=20
+> > On 10.01.19 15:58, 'Lokesh Vutla' via Jailhouse wrote:=20
+> > > On 10/01/19 11:08 AM, Peng Fan wrote:=20
+> > >> Hi Lokesh=20
+> > >>=20
+> > >>> -----Original Message-----=20
+> > >>> From: 'Lokesh Vutla' via Jailhouse=20
+> > >>> [mailto:jailho...@googlegroups.com <javascript:>]=20
+> > >>> Sent: 2019=E5=B9=B41=E6=9C=888=E6=97=A5 21:24=20
+> > >>> To: Peng Fan <van.f...@gmail.com <javascript:>>=20
+> > >>> Cc: jailho...@googlegroups.com <javascript:>=20
+> > >>> Subject: Re: Jailhouse on iMX8M=20
+> > >>>=20
+> > >>> Hi Peng,=20
+> > >>>         Sorry to bring up an old thread.=20
+> > >>>=20
+> > >>> On 13/03/18 9:43 AM, Peng Fan wrote:=20
+> > >>>> Hi Anders,=20
+> > >>>> On Mon, Mar 12, 2018 at 04:52:35PM +0100, Anders T??rnqvist wrote:=
+=20
+> > >>>>> I noticed that there are development ongoing for a iMX8M based=20
+> > board.=20
+> > >>> Great!=20
+> > >>>>>=20
+> > >>>>> When reading in the reference manual for iMX8M it does not have=
+=20
+> > >>> information about that the chip has virtualization extensions.=20
+> > >>>>> The web information about another chip - iMX8 - clearly talks=20
+> > >>>>> about=20
+> > >>> virtualization extentions.=20
+> > >>>>>=20
+> > >>>>> The existing Jailhouse development for the iMX8M must be a proof=
+=20
+> > >>>>> of=20
+> > >>> some support for virtualization.=20
+> > >>>>> Right?=20
+> > >>>>=20
+> > >>>> The i.MX8M supports ARM virtualization extension.=20
+> > >>>=20
+> > >>> I am bit exited to see a doc[1] saying that iMX8Qm doesn't need a S=
+W=20
+> > >>> hypervisor for running two OSs on the same SoC. Out of curiosity,=
+=20
+> > >>> was wondering how does the IRQ routing happens without hypervisor?=
+=20
+> > >>> Also I am interested to see more details on this problem. Are there=
+=20
+> > >>> any public docs that I take a look?=20
+> > >>=20
+> > >> It is i.MX8QM, not i.MX8M :)=20
+> > >>=20
+> > >> It was developed by other team, I do not have much info.=20
+> > >> There is only one GIC controller, so need to config GIC distribute t=
+o=20
+> > >> make sure SPI are routed to cores correctly, and linux gic code also=
+=20
+> needs=20
+> > to be modified.=20
+> > >=20
+> > > If linux driver is used for configuring gic, then one VM can=20
+> > > potentially screw other VM interrupts no? But anyways it is=20
+> > > interesting to see how all the these problems are solved without=20
+> > > hypervisor :)=20
+> >=20
+> > I suppose it boils down to the questions who is in charge of configurin=
+g=20
+> the=20
+> > shared resources and who can control the access to it - or it is just=
+=20
+> standard=20
+> > collaborative AMP, something everyone did before the arrival of=20
+> virtualization.=20
+>
+> To run without hypervisor, first need to disable coherency between the=20
+> OSes,=20
+> on i.MX8QM, it is cluster coherency disabled.=20
+> The major issue is GIC. About gic, OS only need to touch gic cpu interfac=
+e=20
+> which=20
+> is per cpu, no need touch gic distributor. Anyway this has no chance to b=
+e=20
+> accepted by Linux Kernel.=20
+>
+> Regards,=20
+> Peng.=20
+>
+> >=20
+> > Jan=20
+> >=20
+> > --=20
+> > --=20
+> > Siemens AG, Corporate Technology, CT RDA IOT SES-DE Corporate=20
+> > Competence Center Embedded Linux=20
+>
 
-  Commit: 4c72146d788461c30269aa29377c51712f6c3c57
-      https://github.com/siemens/jailhouse/commit/4c72146d788461c30269aa29377c51712f6c3c57
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-09-30 (Mon, 30 Sep 2019)
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/81512c03-363b-4a36-b351-47a22d02d734%40googlegroups.com.
 
-  Changed paths:
-    M inmates/lib/printk.c
+------=_Part_653_800072163.1570192936468
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-  Log Message:
-  -----------
-  inmates: Add support for %% format
+<div dir=3D"ltr">Peng,<div><br></div><div>Is there open source available so=
+mewhere that shows the changes to Linux required to get Jailhouse running o=
+n an iMX8M?</div><div><br></div><div>Regards,</div><div>Andrew<br><br>On Th=
+ursday, January 10, 2019 at 8:35:15 PM UTC-5, Peng Fan wrote:<blockquote cl=
+ass=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-left: 1px =
+#ccc solid;padding-left: 1ex;">
+<br>
+<br>&gt; -----Original Message-----
+<br>&gt; From: Jan Kiszka [mailto:<a href=3D"javascript:" target=3D"_blank"=
+ gdf-obfuscated-mailto=3D"N4QpLDDRDwAJ" rel=3D"nofollow" onmousedown=3D"thi=
+s.href=3D&#39;javascript:&#39;;return true;" onclick=3D"this.href=3D&#39;ja=
+vascript:&#39;;return true;">jan....@siemens.com</a><wbr>]
+<br>&gt; Sent: 2019=E5=B9=B41=E6=9C=8811=E6=97=A5 9:30
+<br>&gt; To: Lokesh Vutla &lt;<a href=3D"javascript:" target=3D"_blank" gdf=
+-obfuscated-mailto=3D"N4QpLDDRDwAJ" rel=3D"nofollow" onmousedown=3D"this.hr=
+ef=3D&#39;javascript:&#39;;return true;" onclick=3D"this.href=3D&#39;javasc=
+ript:&#39;;return true;">lokes...@ti.com</a>&gt;; Peng Fan &lt;<a href=3D"j=
+avascript:" target=3D"_blank" gdf-obfuscated-mailto=3D"N4QpLDDRDwAJ" rel=3D=
+"nofollow" onmousedown=3D"this.href=3D&#39;javascript:&#39;;return true;" o=
+nclick=3D"this.href=3D&#39;javascript:&#39;;return true;">pen...@nxp.com</a=
+>&gt;; Peng
+<br>&gt; Fan &lt;<a href=3D"javascript:" target=3D"_blank" gdf-obfuscated-m=
+ailto=3D"N4QpLDDRDwAJ" rel=3D"nofollow" onmousedown=3D"this.href=3D&#39;jav=
+ascript:&#39;;return true;" onclick=3D"this.href=3D&#39;javascript:&#39;;re=
+turn true;">van.f...@gmail.com</a>&gt;
+<br>&gt; Cc: Jailhouse &lt;<a href=3D"javascript:" target=3D"_blank" gdf-ob=
+fuscated-mailto=3D"N4QpLDDRDwAJ" rel=3D"nofollow" onmousedown=3D"this.href=
+=3D&#39;javascript:&#39;;return true;" onclick=3D"this.href=3D&#39;javascri=
+pt:&#39;;return true;">jailho...@googlegroups.<wbr>com</a>&gt;
+<br>&gt; Subject: Re: Jailhouse on iMX8M
+<br>&gt;=20
+<br>&gt; On 10.01.19 15:58, &#39;Lokesh Vutla&#39; via Jailhouse wrote:
+<br>&gt; &gt; On 10/01/19 11:08 AM, Peng Fan wrote:
+<br>&gt; &gt;&gt; Hi Lokesh
+<br>&gt; &gt;&gt;
+<br>&gt; &gt;&gt;&gt; -----Original Message-----
+<br>&gt; &gt;&gt;&gt; From: &#39;Lokesh Vutla&#39; via Jailhouse
+<br>&gt; &gt;&gt;&gt; [mailto:<a href=3D"javascript:" target=3D"_blank" gdf=
+-obfuscated-mailto=3D"N4QpLDDRDwAJ" rel=3D"nofollow" onmousedown=3D"this.hr=
+ef=3D&#39;javascript:&#39;;return true;" onclick=3D"this.href=3D&#39;javasc=
+ript:&#39;;return true;">jailho...@<wbr>googlegroups.com</a>]
+<br>&gt; &gt;&gt;&gt; Sent: 2019=E5=B9=B41=E6=9C=888=E6=97=A5 21:24
+<br>&gt; &gt;&gt;&gt; To: Peng Fan &lt;<a href=3D"javascript:" target=3D"_b=
+lank" gdf-obfuscated-mailto=3D"N4QpLDDRDwAJ" rel=3D"nofollow" onmousedown=
+=3D"this.href=3D&#39;javascript:&#39;;return true;" onclick=3D"this.href=3D=
+&#39;javascript:&#39;;return true;">van.f...@gmail.com</a>&gt;
+<br>&gt; &gt;&gt;&gt; Cc: <a href=3D"javascript:" target=3D"_blank" gdf-obf=
+uscated-mailto=3D"N4QpLDDRDwAJ" rel=3D"nofollow" onmousedown=3D"this.href=
+=3D&#39;javascript:&#39;;return true;" onclick=3D"this.href=3D&#39;javascri=
+pt:&#39;;return true;">jailho...@googlegroups.com</a>
+<br>&gt; &gt;&gt;&gt; Subject: Re: Jailhouse on iMX8M
+<br>&gt; &gt;&gt;&gt;
+<br>&gt; &gt;&gt;&gt; Hi Peng,
+<br>&gt; &gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Sorry=
+ to bring up an old thread.
+<br>&gt; &gt;&gt;&gt;
+<br>&gt; &gt;&gt;&gt; On 13/03/18 9:43 AM, Peng Fan wrote:
+<br>&gt; &gt;&gt;&gt;&gt; Hi Anders,
+<br>&gt; &gt;&gt;&gt;&gt; On Mon, Mar 12, 2018 at 04:52:35PM +0100, Anders =
+T??rnqvist wrote:
+<br>&gt; &gt;&gt;&gt;&gt;&gt; I noticed that there are development ongoing =
+for a iMX8M based
+<br>&gt; board.
+<br>&gt; &gt;&gt;&gt; Great!
+<br>&gt; &gt;&gt;&gt;&gt;&gt;
+<br>&gt; &gt;&gt;&gt;&gt;&gt; When reading in the reference manual for iMX8=
+M it does not have
+<br>&gt; &gt;&gt;&gt; information about that the chip has virtualization ex=
+tensions.
+<br>&gt; &gt;&gt;&gt;&gt;&gt; The web information about another chip - iMX8=
+ - clearly talks
+<br>&gt; &gt;&gt;&gt;&gt;&gt; about
+<br>&gt; &gt;&gt;&gt; virtualization extentions.
+<br>&gt; &gt;&gt;&gt;&gt;&gt;
+<br>&gt; &gt;&gt;&gt;&gt;&gt; The existing Jailhouse development for the iM=
+X8M must be a proof
+<br>&gt; &gt;&gt;&gt;&gt;&gt; of
+<br>&gt; &gt;&gt;&gt; some support for virtualization.
+<br>&gt; &gt;&gt;&gt;&gt;&gt; Right?
+<br>&gt; &gt;&gt;&gt;&gt;
+<br>&gt; &gt;&gt;&gt;&gt; The i.MX8M supports ARM virtualization extension.
+<br>&gt; &gt;&gt;&gt;
+<br>&gt; &gt;&gt;&gt; I am bit exited to see a doc[1] saying that iMX8Qm do=
+esn&#39;t need a SW
+<br>&gt; &gt;&gt;&gt; hypervisor for running two OSs on the same SoC. Out o=
+f curiosity,
+<br>&gt; &gt;&gt;&gt; was wondering how does the IRQ routing happens withou=
+t hypervisor?
+<br>&gt; &gt;&gt;&gt; Also I am interested to see more details on this prob=
+lem. Are there
+<br>&gt; &gt;&gt;&gt; any public docs that I take a look?
+<br>&gt; &gt;&gt;
+<br>&gt; &gt;&gt; It is i.MX8QM, not i.MX8M :)
+<br>&gt; &gt;&gt;
+<br>&gt; &gt;&gt; It was developed by other team, I do not have much info.
+<br>&gt; &gt;&gt; There is only one GIC controller, so need to config GIC d=
+istribute to
+<br>&gt; &gt;&gt; make sure SPI are routed to cores correctly, and linux gi=
+c code also needs
+<br>&gt; to be modified.
+<br>&gt; &gt;
+<br>&gt; &gt; If linux driver is used for configuring gic, then one VM can
+<br>&gt; &gt; potentially screw other VM interrupts no? But anyways it is
+<br>&gt; &gt; interesting to see how all the these problems are solved with=
+out
+<br>&gt; &gt; hypervisor :)
+<br>&gt;=20
+<br>&gt; I suppose it boils down to the questions who is in charge of confi=
+guring the
+<br>&gt; shared resources and who can control the access to it - or it is j=
+ust standard
+<br>&gt; collaborative AMP, something everyone did before the arrival of vi=
+rtualization.
+<br>
+<br>To run without hypervisor, first need to disable coherency between the =
+OSes,
+<br>on i.MX8QM, it is cluster coherency disabled.
+<br>The major issue is GIC. About gic, OS only need to touch gic cpu interf=
+ace which
+<br>is per cpu, no need touch gic distributor. Anyway this has no chance to=
+ be accepted by Linux Kernel.
+<br>
+<br>Regards,
+<br>Peng.
+<br>
+<br>&gt;=20
+<br>&gt; Jan
+<br>&gt;=20
+<br>&gt; --
+<br>&gt; --
+<br>&gt; Siemens AG, Corporate Technology, CT RDA IOT SES-DE Corporate
+<br>&gt; Competence Center Embedded Linux
+<br></blockquote></div></div>
 
-Needed for warning-free output of the "%" character.
+<p></p>
 
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/81512c03-363b-4a36-b351-47a22d02d734%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/81512c03-363b-4a36-b351-47a22d02d734%40googlegroups.com<=
+/a>.<br />
 
+------=_Part_653_800072163.1570192936468--
 
-  Commit: edfe64fd80ee568d61c759d77396fd134715ede4
-      https://github.com/siemens/jailhouse/commit/edfe64fd80ee568d61c759d77396fd134715ede4
-  Author: Andrej Utz <andrej.utz@st.oth-regensburg.de>
-  Date:   2019-09-30 (Mon, 30 Sep 2019)
-
-  Changed paths:
-    M pyjailhouse/sysfs_parser.py
-
-  Log Message:
-  -----------
-  pyjailhouse: Remove superfluous definition and fix linter warnings
-
-'vector_size' was set, but not used.
-
-No functional change.
-
-Fixes: f6fef92ffaba ("pyjailhouse: sysfs_parser: Add more precise length of some extended caps")
-Signed-off-by: Andrej Utz <andrej.utz@st.oth-regensburg.de>
-[Jan: drop style conversion of tuple assignment]
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-Compare: https://github.com/siemens/jailhouse/compare/7cc0dc906976...edfe64fd80ee
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/master/7cc0dc-edfe64%40github.com.
+------=_Part_652_1457954011.1570192936467--
