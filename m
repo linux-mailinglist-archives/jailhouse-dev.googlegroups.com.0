@@ -1,161 +1,135 @@
-Return-Path: <jailhouse-dev+bncBCSM5AFK2UKBBF6H2PWAKGQEW7TAM5Y@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBL7D3PWAKGQE7PJNGDQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oi1-x237.google.com (mail-oi1-x237.google.com [IPv6:2607:f8b0:4864:20::237])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69C4FC903C
-	for <lists+jailhouse-dev@lfdr.de>; Wed,  2 Oct 2019 19:51:21 +0200 (CEST)
-Received: by mail-oi1-x237.google.com with SMTP id c205sf12142524oib.10
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 02 Oct 2019 10:51:21 -0700 (PDT)
-ARC-Seal: i=3; a=rsa-sha256; t=1570038680; cv=pass;
+Received: from mail-lj1-x239.google.com (mail-lj1-x239.google.com [IPv6:2a00:1450:4864:20::239])
+	by mail.lfdr.de (Postfix) with ESMTPS id 07DA0CB4DA
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  4 Oct 2019 09:16:01 +0200 (CEST)
+Received: by mail-lj1-x239.google.com with SMTP id b90sf1493922ljf.11
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 04 Oct 2019 00:16:00 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1570173360; cv=pass;
         d=google.com; s=arc-20160816;
-        b=eH4O9Z4oVgSeEejFEZ/jOZVcZ5fOb6LJ9nRmvYNye5K6N+giLwYoQjYsusnFn9nGU8
-         8Uq5jI/8/6qmLt6IoV3ZhTrycQGTCAbqUFdGTdYtixR6b0/GwQ2ImHWB9674cOVwJ0vF
-         iK/BIckRGK17G7L8CktMRJ1rJMcGJ904zFa7CRRjGXtEwhQO3knObpHFgY8UYlvPx/mW
-         DS9G/m7XC6hlSLvGfi8Pf21KkoltLzWMss8c/4Ep7fmpRKDYk1Ri3KiJzqNxO0Rf3ggk
-         4zZ8xY0ErFZySoX50On1JOm77cXwhoJVCNeWDbBReUOJGYvKc/sAaTJIxUD5POSngH7g
-         xLBA==
-ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        b=ao3PCOtuGku5h7NQvHXOIyyxO5GmREpAJt17lqN+L7Dm1y+9Nmhjn18SwngemA3JLy
+         u6Ega8a4c0TejibXfZ22IqI+s2oOqjSZriGOoA4eoRKS6aNLCLM85LTyO3Q+EW7bIqLW
+         YMHf/drON4vZDQUg/saqlSvXI5m+NgEgMBDob0WQ222DLC7R+jcrz9WY2pLhFku+4QV/
+         uq2/16AR/DdQBG2Dk1FcoaVm2uoQOjpQ1baC4Mvtf0OTnPVvbrbGoUicw97MIi+JLD0e
+         iYQj2M11wI/UCJgMeD5D/RgSzq4kl9PG2CyNuGRbclsLRdXw+RooUyoUCqEiNMblk095
+         xrzg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:content-language
-         :accept-language:message-id:date:thread-index:thread-topic:subject
-         :from:sender:dkim-signature;
-        bh=ZvxFGUjKM4QmBWZIML2Va8ShUJmxsdAZGrMXSNxZ23g=;
-        b=eAs9SAKuHexvh/fdDuslOUvH3kbhS6JDiVXGSB2MD1BLoLFJhRXQOaxL41RHgOFv5A
-         slwpmhv4lwGEh9TM26J70/DonTs/COQUaoRK0TL6XT8LytK10XYnTAyegIcy2MI69FmD
-         EzT7ihV0l8vImYmSv/5Nj1nD3wGuaRDxlHmg2AD52kIYyVp+SLMyUOAp4w2V95wdZ32d
-         Ew9CYs0S2chiLCD6/QJOOthcHpDSMuvLu313OzaNNFOvuF9BbbbvA+Tw/7m9onIRUcIz
-         xprpMmzHz3/QuvBpkSkX8NaXksHAjT0eULzBFA4ZUB1Lkcple2Hxzkau5PSZbESL1BVq
-         m6Nw==
-ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@hotmail.com header.s=selector1 header.b=FlABwyst;
-       arc=pass (i=1);
-       spf=pass (google.com: domain of patmikando@hotmail.com designates 40.92.10.51 as permitted sender) smtp.mailfrom=patmikando@hotmail.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=hotmail.com
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=CW0V3mHHzGOU7jc0teVDD1aL8o6BMfrwPkErAuvLvIc=;
+        b=f1rCqgDKJCDVCFKPl5m0hbiWR47Gi0poKh5kvTlVpYHo/CESUWrfhwcQ7heNuvoA+R
+         rkTO83Q+ezYUWBiuHYHA6mXfiI+Pp+E5uhN744CqwNapxXNFauS1DCx/YsqDJI2BLZ9D
+         Q7YzltDXupbS5gKsCjtxI0ZwYdLNmf6jHDcsEV4+2oqJ6j4NNtjxVQ9PbFMEo/KCQg/Z
+         2/Zso1R9OUsORVV5TucHWfDKrxXlmJuK2btMUapT9WA/iKx9gpxAQd+NRZYzC1QgJQ9L
+         jBwDPU6WRHe2QMl+BPOXtJHCziLfnYeI2UbLJzt42cgmPwP9x/qlKB/kCHq23M3tfLif
+         vLKA==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:subject:thread-topic:thread-index:date:message-id
-         :accept-language:content-language:mime-version:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=ZvxFGUjKM4QmBWZIML2Va8ShUJmxsdAZGrMXSNxZ23g=;
-        b=UTbZENMUBA3qmVD60vUG6UDy/NhomxcfJdMp3zEJNwsW7N6ILZyx2s1iF4tHzx483t
-         aoOVNXqnwJMC9EI52XnC0qIQ6f0Vm7+OJxp1AAGBaKjdXD/pT9bPSDqmpb3wZeu7uK8a
-         5oh3avQP0alrpC/VJ/fZYJXr7yfnErk6Dc5AdbLmebAjvUmaQTdYfucuAek1JKIL0IwX
-         U7V6YfEUQ/dT7cp6/0pmK08uKJuCsOpsVR9Tdn9JULa+ijZbVL1UxPJ6+nwF899NtBir
-         00cRAXptbBPqLgeE4leZOovyeyuXSU++nXui6R7IsakUkAzZOAUvQk1TNwlvSGT1PWZY
-         dIUg==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=CW0V3mHHzGOU7jc0teVDD1aL8o6BMfrwPkErAuvLvIc=;
+        b=W1Yh3FKHHMpnwrCayEYuRp14TtOujs3tAqdz7fIMg8+2RdHGd/7+jLIS3vUr11VV5D
+         e7nszFoMzC9E+jA3cpU4sK+3xIqDZ/kKJUKij/VM8q6RQKHhae1FULG+pYFFjkXOfzPB
+         24WGp9Tqn6hwbwSoIH+x9i2e/wuoG59mbog3RO8DywVUm8ighPGRXIBctxIMTlEuXOU3
+         RdzAfN3vJKDOUrhaxri7MrElLO59NllKvV73QzInOWE9TRMVyU1o1qVyawlWS6uETdum
+         SLZULDbSFWV2z2Jq/3oZHG/HEdW82cnsoB6kHV9rVWJIsPvGLWOgAFDLwiuJlEspxxJ2
+         0kZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:subject:thread-topic:thread-index
-         :date:message-id:accept-language:content-language:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=ZvxFGUjKM4QmBWZIML2Va8ShUJmxsdAZGrMXSNxZ23g=;
-        b=dY8b7m+qzJ4Hp2OXQPCy7oiecy5gxq4hLjCHcosKRrSzbX0Ff3LnRdYMBrxhkuce2Q
-         7bRXB+kXDDH1mtnhdNl6ZzsD5W3DNbwUsxO7IMm5J58Zglz/JKbgmP1tzqJ+G8Fc9wiy
-         hw0hIXHAeX3GDzLPPQNzpcMH+hfPevghaPyewZclmVwPGbbpZ/0NWq3abUVRuRXBYHS/
-         bzNOf3rn6zVKiwFh9Kjoz5aFrH7dAgAnAg95xg13MFiwlF8O2Qe2rWryF1tZLACpvk1J
-         EohR3dQKHHDlOi8chNV4ZwbJKC8L8oiyEZ+1uvpsnucnnFsL6flXR/iFqxhy6Dj6H+o7
-         kNsA==
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=CW0V3mHHzGOU7jc0teVDD1aL8o6BMfrwPkErAuvLvIc=;
+        b=HaZNJCwyU9t+Pnv7NifTy2p6MDt3QXCOG+cFmwjiVZvroTVBUWPlOGg3gUEo1YGXrw
+         JOEYVnN6n/2ErsCJn7CeO37AaWEVeyt6qfw05UPQQ3SAYhhsdpUeL2eObw90i0QH9Qrc
+         T5XiW6/UIQC5X5xfuau4okWv6CeYhcsnLE7KbPEHiJ0BSIeNFc7IKUKB1B7bNWHaDU+K
+         K6byXS+AIrBOLl6yRBrJfHl+A5XQ+6DF093Lk1W96ZH4JFBlraLIi03L2Z8faY+CuPXP
+         NzlEDDg3JyNQ9hPS3ffx/Cj8nETs/WCGd764pbWAobP4dlESGM5prqbhjLC4Kgk+a/Ra
+         5POg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUljh/mDEG/5td0EPzu7cVKxLJMoQiF1DhF7PyDBGn7U39xuxvi
-	alxPuW51Lk6FTecsYFP9cgc=
-X-Google-Smtp-Source: APXvYqx+yKVLzu5OBCQASI2iHzwe9t+YpYWUo2qKdUpO9ItJL5CjHmpboRj/DPw14+91wHoKHVDIWA==
-X-Received: by 2002:a05:6830:1d6e:: with SMTP id l14mr3536152oti.3.1570038680294;
-        Wed, 02 Oct 2019 10:51:20 -0700 (PDT)
+X-Gm-Message-State: APjAAAUSyLynEQq8RkANReO9YehN8KKjjfZfR3xGOyiTX+6/0pk2QiJ4
+	hjenOhLMogsG6rbJv4jUPGk=
+X-Google-Smtp-Source: APXvYqxznJnWyoZ4BFt8+m/KRE8Ko9ssAvIE84IMmgLNz6yr1ojnmNUc0+in4QRAdvMsTw9KEpY5vg==
+X-Received: by 2002:a2e:9750:: with SMTP id f16mr2391495ljj.239.1570173360471;
+        Fri, 04 Oct 2019 00:16:00 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aca:cc88:: with SMTP id c130ls642165oig.4.gmail; Wed, 02 Oct
- 2019 10:51:19 -0700 (PDT)
-X-Received: by 2002:aca:da87:: with SMTP id r129mr3863877oig.177.1570038679520;
-        Wed, 02 Oct 2019 10:51:19 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1570038679; cv=pass;
+Received: by 2002:a2e:9d9a:: with SMTP id c26ls1152697ljj.9.gmail; Fri, 04 Oct
+ 2019 00:15:58 -0700 (PDT)
+X-Received: by 2002:a2e:9b48:: with SMTP id o8mr8885131ljj.127.1570173358906;
+        Fri, 04 Oct 2019 00:15:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1570173358; cv=none;
         d=google.com; s=arc-20160816;
-        b=QeB1sPF/J1FxTVJZCDLHDgOLdn53G5h2MvGAiRBUM+TEYs9IpbIe3laN+fK23XBnU4
-         iqtto++JRcTAWkkYwN4jrP3cXyvZRao/QTPaLn0YlMCsbNDU3V6pVHv3BlXthqWRsmh+
-         nfqurbG8pqy6vyVxhaRJJAMF0w6gvrVvUzk3v0SbusdKHUPB/Me+ZMTiFd+wlzS3W9c7
-         w7SFRVkOwhs049UE1hIqgA9vJE692QcWOnbrECo3do0Ndbvj+qms/s+966peztUPssBK
-         xc1p49hdK1ckdAi7YSd2ic189RlxcC7k5Ay6Z+1lJoW93L54g2dgVsSWBuggE2Lz5g6l
-         NZQA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:content-language:accept-language:message-id:date
-         :thread-index:thread-topic:subject:from:dkim-signature;
-        bh=YZtYyvbx2rOAgGLhcsX0swMSOCJrlZlEXxET1LFiCTo=;
-        b=Q1WU3HKKzReepDLbXnILRpweEFj+HTXZOKeAhjEBn9z+Z76/jNMC6yoMIOmyMqG9Fw
-         G9+fg/ykewuv9bXzsVMSJiXY/BD5kmbn/sfh20PYl3YumEPXiyRxilAgey3XrfOUA9UV
-         0oONWtabSBu2oRfoKqLZrcnxBpKeyt6qa512bbDDxCAlzE5KQaDjT4hQlR2xse+HTGG8
-         4YGyfzp7o0xnqyiY4Lqm6kJPcic1LoAq223thOIbyREQAxid8VfiYr8omHRoQFdT6T20
-         3YemRuDUf01bnD3a6NKwtr2Ek1PPdinK1CgrrIehlcIpcYZ3Zx8/NgZWKPCWYUrfsItk
-         EWWw==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@hotmail.com header.s=selector1 header.b=FlABwyst;
-       arc=pass (i=1);
-       spf=pass (google.com: domain of patmikando@hotmail.com designates 40.92.10.51 as permitted sender) smtp.mailfrom=patmikando@hotmail.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=hotmail.com
-Received: from NAM04-CO1-obe.outbound.protection.outlook.com (mail-oln040092010051.outbound.protection.outlook.com. [40.92.10.51])
-        by gmr-mx.google.com with ESMTPS id n63si1071484oib.3.2019.10.02.10.51.19
+        b=ENij1d1IaMR+yM+loOIPxh4moEjq4c5Wa/8tBKyZg3wiCc37JtwmmVT3CGgV47II3v
+         6ZzHU9NGWKq8nd4zBOrWJG2vWN3chg34v14lsjpuC6gg2YfXL5G7rwnHB6M7ERPreDwD
+         cYywbyCH7Lf3Os5J7fhSt7Y2xRjudnOHci8zqqWmnyFcyb/aZlxiQEPDnFqgD/ZcO6f1
+         GstDcL1QNVHOkpayqloXOLXOgvJ14V6UQPoj0WViiQt/GrgkFlJRD/OYmo/l7v5htJut
+         lPhfv+/qkEC0ooq9owBXmrXQ7vWv2To8HpMcsc2kyrA+kPv2sSCEmB4vXNX+LYGtRPKE
+         vSYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=FEjVeYDWQOkeUkvAVO/I1htg4QdPYa6PaLlabhcXHHQ=;
+        b=TwSr3P+97o0/mJkpBUJREQg+B4hYu9v//yWa7UIrT5aAPSQb6lmiGySAMmd6pm0uIZ
+         MneIqg6WsteakmJSPlL4dQP1shsAwxce2U/WC1qisjWJENTawK5c+BnRMWKQzF4uLcwc
+         WVJGRKZiOeBl6NjmofKqFaGU+QLP8DXMYO89zhcje2AGlukrasJPk0m+/naxpwHsZjgM
+         WslGYpwiRWqfbYnQC6FLaUPvRUIhXZPEl/fj6ZMYOxliFYawQ62T+vyhLQLGao950HKv
+         Q5z3ojImPn1O6G9MaYH3gZ2afNXBWZnH10nuFrDROnPo0D3oyGt9ynLFVHHgA3q2Adef
+         zZwg==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
+        by gmr-mx.google.com with ESMTPS id z4si67696lfe.4.2019.10.04.00.15.58
+        for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 02 Oct 2019 10:51:19 -0700 (PDT)
-Received-SPF: pass (google.com: domain of patmikando@hotmail.com designates 40.92.10.51 as permitted sender) client-ip=40.92.10.51;
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eVbuEUTQw2NgKuGPjt2IL9VBrpyfDzqdgvdwB8KpT9QT25swbs5nmK/JofWQuhnsIoX28Tem1SD+cAksg734Nq6rjAWqcb0/eJT9iJZJg3JFQ5pTYukhUxXcZYYYTSB2jL8hDbWocgovhPj27dL8dj4YP+WrUW+FVgn6m9t+ELaksREOZaiREpXwuPp4ZRNGDZbeT1u1ta5d/CKut5g4xlOJTzYOVHIucssgTP1qA1+ipJ55p4LpcVamlVxvOwKL8EWgO8/GS+Qmy/8m6p3avzJWv1UMqMmWm9t4xgIa9orJg4Gz/9bqAT7vxzNzuVZBEJ2Hh5sIuG/1/AvQ0EiS2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YZtYyvbx2rOAgGLhcsX0swMSOCJrlZlEXxET1LFiCTo=;
- b=RxXbPGkWZmmVqYNjC0dO1Jigi18mtpKdDRcMtluYI2e3XJYVDOz4OkcnNVrD3BdE3K36K7dLfcdsWUNcDtpJ8iDz1+WGmfTk7XVUyvPGRAo1h2+PAxbZsjZ3GfxcraAwxSV0XgD5bUKHQYy98eVgT4VFZsYv9ciNKYYn2Zg+qlG6ByzPbYqLmH/lS9jOPoMEZDiTR1CQtozw01TFH03n4AsZbfY4AucXu56+HT3haQzJs0o62Y10+UnruSn81/rFVt7Wtu7fUHN6ciDF/w8VFXQGOiBaxf1sdpa0Du5TmDdsyARCNoESb8A2iUjXjV+QIvOfeXgZ7hwFYDcFx0+gYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-Received: from SN1NAM04FT048.eop-NAM04.prod.protection.outlook.com
- (10.152.88.60) by SN1NAM04HT187.eop-NAM04.prod.protection.outlook.com
- (10.152.89.14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.20.2305.15; Wed, 2 Oct
- 2019 17:51:17 +0000
-Received: from SN6PR05MB3935.namprd05.prod.outlook.com (10.152.88.60) by
- SN1NAM04FT048.mail.protection.outlook.com (10.152.89.195) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.2327.20 via Frontend Transport; Wed, 2 Oct 2019 17:51:17 +0000
-Received: from SN6PR05MB3935.namprd05.prod.outlook.com
- ([fe80::d561:a657:2019:ed6c]) by SN6PR05MB3935.namprd05.prod.outlook.com
- ([fe80::d561:a657:2019:ed6c%5]) with mapi id 15.20.2327.021; Wed, 2 Oct 2019
- 17:51:17 +0000
-From: Patricia Mikando <patmikando@hotmail.com>
-Subject: =?iso-8859-1?Q?W=FCnsche_dir_das_Beste?=
-Thread-Topic: =?iso-8859-1?Q?W=FCnsche_dir_das_Beste?=
-Thread-Index: AQHVeDy35jrF9+1pJ02uUhWphcHJ2Q==
-Date: Wed, 2 Oct 2019 17:51:17 +0000
-Message-ID: <SN6PR05MB39355261EBAFA196DC5BCA6FC19D0@SN6PR05MB3935.namprd05.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-incomingtopheadermarker: OriginalChecksum:E17C9F5F241E9AB22BD0A8ABF92EB4D1252EA15460330A5E4F263FBC87F9A695;UpperCasedChecksum:98FCC33C2C822B132D06695EFDC1B220395A43560E59EA7C9BD6FB2DFDC365D6;SizeAsReceived:8049;Count:40
-x-tmn: [VuESFPfoIcyNHblNaSCFoT9/niMyv3Ie]
-x-ms-publictraffictype: Email
-x-incomingheadercount: 40
-x-eopattributedmessage: 0
-x-ms-traffictypediagnostic: SN1NAM04HT187:
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: ecXQYSqnNUyJbtTbaQDXiNxRcYKQFY1wsRNz8pnks6kHIB6zw0lIVd7QzF67TdNDSowT4ognG53dUMcNW3Bw+1BbOFt6dIxdVmfV+15uX0aViHs+cdTcORZ5MLOF1lEvBO3ssOKB1yrx8dk/0prCxX8yHd8sSWThZufZP1jeoEzTnwPcOWqCzQm7pMCpVWPC
-x-ms-exchange-transport-forked: True
-Content-Type: multipart/alternative;
-	boundary="_000_SN6PR05MB39355261EBAFA196DC5BCA6FC19D0SN6PR05MB3935namp_"
+        Fri, 04 Oct 2019 00:15:58 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
+Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
+	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id x947Fvvg008319
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 4 Oct 2019 09:15:58 +0200
+Received: from [139.22.119.224] (md1y04tc.ad001.siemens.net [139.22.119.224] (may be forged))
+	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x947Fu4B003168;
+	Fri, 4 Oct 2019 09:15:57 +0200
+Subject: Re: [PATCH v3 00/14] pyjailhouse: x86: Implement config generator for
+ port I/O
+To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
+        Andrej Utz <andrej.utz@st.oth-regensburg.de>,
+        Jailhouse <jailhouse-dev@googlegroups.com>
+References: <20190930191323.32266-1-andrej.utz@st.oth-regensburg.de>
+ <0713c187-2670-7914-1ad6-561bc4073920@siemens.com>
+ <724ad1a6-00b9-b921-122c-25c26e75349c@st.oth-regensburg.de>
+ <f31ce534-911d-ccba-c96d-529eb7a5c828@siemens.com>
+ <922f18c5-418d-cfcd-1078-e632a9266464@oth-regensburg.de>
+ <eb961a5f-0ed3-b821-b9b2-666a9fdcbfd8@siemens.com>
+ <48835bb9-5fe5-852b-e538-00c7b6fb6498@oth-regensburg.de>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <b4b63fc4-87fc-909f-6b96-fe8f413a198c@siemens.com>
+Date: Fri, 4 Oct 2019 09:15:56 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-X-OriginatorOrg: hotmail.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 10b76b5a-ea92-4e9c-b7ea-08d747612029
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Oct 2019 17:51:17.2519
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Internet
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1NAM04HT187
-X-Original-Sender: patmikando@hotmail.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@hotmail.com header.s=selector1 header.b=FlABwyst;       arc=pass
- (i=1);       spf=pass (google.com: domain of patmikando@hotmail.com
- designates 40.92.10.51 as permitted sender) smtp.mailfrom=patmikando@hotmail.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=hotmail.com
+In-Reply-To: <48835bb9-5fe5-852b-e538-00c7b6fb6498@oth-regensburg.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -168,24 +142,127 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---_000_SN6PR05MB39355261EBAFA196DC5BCA6FC19D0SN6PR05MB3935namp_
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Ich hoffe diese E-Mail findet dich.
-Ich m=C3=B6chte wissen, ob Sie die letzte Nachricht erhalten haben, die ich=
- Ihnen gesendet habe?
-Ich m=C3=B6chte wirklich von dir h=C3=B6ren.
-W=C3=BCnsche dir das Beste.
-Patricia Mikando.....
-Ich freue mich auf ihre Antwort.
+On 02.10.19 16:14, Ralf Ramsauer wrote:
+> Hi,
+>=20
+> On 10/1/19 5:34 PM, Jan Kiszka wrote:
+>> On 01.10.19 17:23, Ralf Ramsauer wrote:
+>>> Hi Jan,
+>>>
+>>> On 9/30/19 9:28 PM, Jan Kiszka wrote:
+>>>> On 30.09.19 21:25, Andrej Utz wrote:
+>>>>> Hi Jan,
+>>>>>
+>>>>> On 30.09.19 21:19, Jan Kiszka wrote:
+>>>>>> On 30.09.19 21:13, Andrej Utz wrote:
+>>>>>>> This patch series eases configuration of port I/O devices for x86
+>>>>>>> plattforms by generating an initial PIO region list. To sustain
+>>>>>>> previous
+>>>>>>> behavior, most entries are disabled (commented out). Only whitelist=
+ed
+>>>>>>> device ports are allowed. This includes the peripheral PCI port
+>>>>>>> space.
+>>>>>>
+>>>>>> Did you also try what explodes when enforcing the generated list? I
+>>>>>> mean, if there is no mess like with hidden memory regions, things
+>>>>>> just Just Work (TM).
+>>>>>
+>>>>> Not yet. Analysis of additional whitelist candidates shall follow.
+>>>>
+>>>> We probably need a mixture: white-listing know-harmless thing that are
+>>>> requested in the legacy range, combined with permitting the PCI
+>>>> device-related regions.
+>>>
+>>> Ack. With a little luck we can rely on entries in /proc/ioports, at
+>>> least for PCI ports above 0xd00.
+>>>
+>>> I just compared lspci vs. ioports on some machines: Looks like ioports
+>>> contains everything that can be found in PCI config space. But ioports
+>>> contains even more.
+>>>
+>>> What are those pnp entries good for? E.g.:
+>>>  =C2=A0=C2=A0 f800-f87f : pnp 00:01
+>>>  =C2=A0=C2=A0 f880-f8ff : pnp 00:01
+>>>  =C2=A0=C2=A0 [...]
+>>>
+>>> Are these reserved areas for PCI devices?
+>>
+>> pnp, ACPI, some further platform resources.
+>=20
+> Will the root cell touch those ports? So far, it looks like it doesn't.
+>=20
+>>
+>>>
+>>> And on my laptop, I can also find ACPI stuff above 0xd00:
+>>>
+>>> 0d00-ffff : PCI Bus 0000:00
+>>>  =C2=A0=C2=A0 1640-164f : pnp 00:01
+>>>  =C2=A0=C2=A0 1800-187f : pnp 00:01
+>>>  =C2=A0=C2=A0=C2=A0=C2=A0 1800-1803 : ACPI PM1a_EVT_BLK
+>>>  =C2=A0=C2=A0=C2=A0=C2=A0 1804-1805 : ACPI PM1a_CNT_BLK
+>>>  =C2=A0=C2=A0=C2=A0=C2=A0 1808-180b : ACPI PM_TMR
+>>>  =C2=A0=C2=A0=C2=A0=C2=A0 1820-182f : ACPI GPE0_BLK
+>>>  =C2=A0=C2=A0=C2=A0=C2=A0 1850-1850 : ACPI PM2_CNT_BLK
+>>>
+>>> How should we deal with that?
+>>
+>> PM_TMR is passed through anyway, at least to non-root cells. The rest is
+>> more dangerous, potentially. But a "works by default" setting may have
+>> to include them.
+>>
+>>>
+>>> And what about VGA? We whitelist 0x3b0-0x3df on any machine. Shouldn't
+>>> VGA be listed in ioports if present? At least for qemu that's the case.
+>>> If we can rely on that, then we wouldn't even have to whitelist VGA. [1=
+]
+>>
+>> Yes. VGA, if it shall be with the root cell (common case), should be
+>> listed.
+>=20
+> Alright.
+>=20
+> So here you can find a WIP version of this series that comes with
+> support for selective whitelisting PCI devices:
+>=20
+> https://github.com/lfd/jailhouse/tree/ioports-ralf-v2
+>=20
+> So far, I successfully tested this approach on Qemu and on a real
+> machine. No crashes so far. (which I didn't expect, to be honest ;-) )
+>=20
+> Jan, could you please test this approach? Just run it on your local
+> machine, look at the output, and compare it with /proc/ioports. If this
+> is the way to go, I'll make a clean series out of it. The head commit is
+> probably the most interesting one.
+>=20
 
-I hope this email finds you.
-I want to know if you received the last message I sent you?
-I really want to hear from you.
-wish you all the best.
-Patricia Mikando
-I look forward to your response.
+Something is broken:
+
+$ jailhouse config create config.c
+Traceback (most recent call last):
+  File "~/jailhouse/tools/jailhouse-config-create", line 260, in <module>
+    mem_regions, dmar_regions =3D sysfs_parser.parse_iomem(pcidevices)
+  File "~/jailhouse/tools/../pyjailhouse/sysfs_parser.py", line 102, in par=
+se_iomem
+    tree =3D IORegionTree.parse_io_file('/proc/iomem', MemRegion)
+  File "~/jailhouse/tools/../pyjailhouse/sysfs_parser.py", line 976, in par=
+se_io_file
+    level, r =3D IORegionTree.parse_io_line(line, TargetClass)
+  File "~/jailhouse/tools/../pyjailhouse/sysfs_parser.py", line 967, in par=
+se_io_line
+    return level, TargetClass(int(region[0], 16), int(region[1], 16), type)
+  File "~/jailhouse/tools/../pyjailhouse/sysfs_parser.py", line 869, in __i=
+nit__
+    super(MemRegion, self).__init__(start, stop, typestr)
+TypeError: super() argument 1 must be type, not classobj
+
+This was run inside the qemu x86 instance.
+
+Jan
+
+--=20
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+Corporate Competence Center Embedded Linux
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -193,85 +270,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/SN6PR05MB39355261EBAFA196DC5BCA6FC19D0%40SN6PR05MB3935.namprd=
-05.prod.outlook.com.
-
---_000_SN6PR05MB39355261EBAFA196DC5BCA6FC19D0SN6PR05MB3935namp_
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family:Calibri,Helvetica,sans-serif; font-size:12pt; col=
-or:rgb(0,0,0)">
-</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif; font-size:12pt; col=
-or:rgb(0,0,0)">
-<div style=3D"margin:0px; font-size:12pt; font-family:Calibri,Helvetica,san=
-s-serif; background-color:rgb(255,255,255)">
-<span style=3D"margin:0px"><span style=3D"margin:0px">Ich hoffe diese E-Mai=
-l findet dich.<br>
-</span></span></div>
-<div style=3D"margin:0px; font-size:12pt; font-family:Calibri,Helvetica,san=
-s-serif; background-color:rgb(255,255,255)">
-<span style=3D"margin:0px">
-<div style=3D"margin:0px">Ich m=C3=B6chte wissen, ob Sie die letzte Nachric=
-ht erhalten haben, die ich Ihnen gesendet habe?<br>
-</div>
-<div style=3D"margin:0px">Ich m=C3=B6chte wirklich von dir h=C3=B6ren.<br>
-</div>
-<div style=3D"margin:0px">W=C3=BCnsche dir das Beste.<br>
-</div>
-<div style=3D"margin:0px">Patricia Mikando.....<br>
-</div>
-<span style=3D"margin:0px">Ich freue mich auf ihre Antwort.</span><br>
-</span></div>
-<div style=3D"margin:0px; font-size:12pt; font-family:Calibri,Helvetica,san=
-s-serif; background-color:rgb(255,255,255)">
-<span style=3D"margin:0px"><br>
-</span></div>
-<div style=3D"margin:0px; font-size:12pt; font-family:Calibri,Helvetica,san=
-s-serif; background-color:rgb(255,255,255)">
-<span style=3D"margin:0px">I hope this email finds you.<br>
-</span></div>
-<div style=3D"margin:0px; font-size:12pt; font-family:Calibri,Helvetica,san=
-s-serif; background-color:rgb(255,255,255)">
-<span style=3D"margin:0px"></span></div>
-<div style=3D"margin:0px; font-size:12pt; font-family:Calibri,Helvetica,san=
-s-serif; background-color:rgb(255,255,255)">
-<div style=3D"margin:0px">I want to know if you received the last message I=
- sent you?<br>
-</div>
-<div style=3D"margin:0px">I really want to hear from you.<br>
-</div>
-<div style=3D"margin:0px">wish you all the best.<br>
-</div>
-<div style=3D"margin:0px">Patricia Mikando<br>
-</div>
-<span style=3D"margin:0px">I look forward to your response.</span></div>
-<br>
-</div>
-</body>
-</html>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/SN6PR05MB39355261EBAFA196DC5BCA6FC19D0%40SN6PR05MB=
-3935.namprd05.prod.outlook.com?utm_medium=3Demail&utm_source=3Dfooter">http=
-s://groups.google.com/d/msgid/jailhouse-dev/SN6PR05MB39355261EBAFA196DC5BCA=
-6FC19D0%40SN6PR05MB3935.namprd05.prod.outlook.com</a>.<br />
-
---_000_SN6PR05MB39355261EBAFA196DC5BCA6FC19D0SN6PR05MB3935namp_--
+jailhouse-dev/b4b63fc4-87fc-909f-6b96-fe8f413a198c%40siemens.com.
