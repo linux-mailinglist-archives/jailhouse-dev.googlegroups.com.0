@@ -1,191 +1,71 @@
-Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBSGM4LWAKGQEZ2R55QQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCDJXM4674ERBONK4PWAKGQES5CEMJI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x238.google.com (mail-lj1-x238.google.com [IPv6:2a00:1450:4864:20::238])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EA4ACCA4C
-	for <lists+jailhouse-dev@lfdr.de>; Sat,  5 Oct 2019 16:18:50 +0200 (CEST)
-Received: by mail-lj1-x238.google.com with SMTP id q185sf2431751ljb.20
-        for <lists+jailhouse-dev@lfdr.de>; Sat, 05 Oct 2019 07:18:50 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1570285129; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=V4uXpsEqWOOFjbbnZDiztIXapSnu7TYipuE+5TkcFmraXzfaNStMuO5Awias07XM94
-         vzN5v8XyJasb/kSKxAMD/IbWfhRK9s5BohxpbaTHzGIxp/alHCXMRzqKMFzZN1wDGA3R
-         HWJXzbLCuIJ/Y/PlJQ1rhwxhdtzSnjEWxzJfT+GJ7O+OhHSi70uKT1DrWkQqFqq7uug/
-         47FMmSr3Ir9kHj6jCaCoq4gPSgtA+uMNEqJbP2hNodMSa6AdTiSqL9eotz7vrSm9zZIK
-         4ruATbdF9jGrIbsN01TMy/KSrXK+4UVDOlv5oatmG75qEH4vZ6DntQrX1Qy3A2zQ6HKs
-         7TVQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:subject:autocrypt:from:references:to:sender
-         :dkim-signature;
-        bh=4a6ah7rffulPtlF0xZuQOPuBrnCjC2w4GQJkTYZCn0g=;
-        b=Hm+DL+RB9WLenS5TyguviqV9dKnW3JcsX4mgp627+v2/TmjQXfbwtqFUvVGazYhmZc
-         zmgQhldQeNM6RBoURNq4OvZq28lkYNWt5sedj3d54PG+IcGGebRDM6Rm8t+Q3ys9D9AR
-         gQUHCeZXkaWTau9Z6Rel5IeSdsl6QqYY/dU1rFjAhBu46Khu5qzWkLTzCLdEP0bxfDLP
-         /q/oR+LtNcXATQDU36l+PYd+MgHoTRQUFMqnbIKaF4VJuHE7B+VI7Nw4YGRWNT260AHW
-         TZkOYUth+WR/Trc/s9nSicdXV2dT962s3IS9p/m/+ZQgPURaB36TrVPjkCRBJlFwmCi7
-         gx/g==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=D+GZzSxk;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mail-oi1-x239.google.com (mail-oi1-x239.google.com [IPv6:2607:f8b0:4864:20::239])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F53BCCBBB
+	for <lists+jailhouse-dev@lfdr.de>; Sat,  5 Oct 2019 19:39:07 +0200 (CEST)
+Received: by mail-oi1-x239.google.com with SMTP id h204sf5283518oib.17
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 05 Oct 2019 10:39:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:to:references:from:autocrypt:subject:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=4a6ah7rffulPtlF0xZuQOPuBrnCjC2w4GQJkTYZCn0g=;
-        b=rhQTLm6LfTKLTVlLc8sPSZO0a3j34LUOB7oFGRPkQN+Jy8/2QkOvdkytXcx1pRAmu5
-         bw/kH2m+xtYSRwFz1ZfK7+HsBr2IHrz2WzGhwGdZK7PJDtD6rSgyP90npn09qJRdDTLj
-         AuXxNyDXf31EP4F22To6w/AaePFhFGMAc33oPI+uv9DraFZYh2N/B402KEPlh5U68u3T
-         h5V1cWpK+uslE3Km3nTBLrAGTVJQpxNpftTIChOMstydgz/9I4/2WLMIeHf0sI5ZbW4E
-         Bl4ZTM0CIZGO+ycwiHrlz0lcUSaWW90KfpC5p3ldv77YdF3Y07NjxB+fSDaCK5mnooWj
-         sEWA==
+        bh=rQm0ztOBuFxj5oERPEoitOGJKlN70XW6v1A1fW7exg4=;
+        b=H+IaZNSGvCdENzzsRGGGGPAeanl38srrapk4ySwvosBUlkn0ztyhCcyCTs074cnEg2
+         xnThEOzC1PZvt+GIwk+/ZIvLD1TJ/Ml0iRk0IAmgHJDKqkp74apQQZX72UOUrngS0BUQ
+         8yZoQDtc1pbTMzjbJt1NL6Zvnd5saOTHIcRyDlS3kaxCn9MIod1hSvfdDCygXG6YzKF6
+         3FBiyF3/OWM7kD/iKTsMcFtPLJwkD+3YTJd1ZG4Uv4F8i86CdDPNgbmjjoH9wxA8xBTF
+         349O0VBaueZ8XKGnR+tL7WO44pAzqBVC1RZ6x3yzx2ofSb63ccljUDxTBMr0IJ7DuDAV
+         yREg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=rQm0ztOBuFxj5oERPEoitOGJKlN70XW6v1A1fW7exg4=;
+        b=QuM6mTV9lCM2LSdODsIWW4D8Mho/lAlpsPv5j1gTqldJuatH7nL6+mLsdrtCFkdleG
+         VqDjd5RcQsbVrvFPTw3JqCdYfSnsQ1HGf1APwOAu8z8FWd+t+G7a7TSOZeRLASqhqPIz
+         dS5owMEl4Yoy0ZWYRW0sq7wtR9PNrlgwghV66mMa7VZYnSEXYUeBFfTdCWSb/cylOA3m
+         +4H1A8RQ4XH8NLDlgXvhrCnGav/fFzGb7uTA9h1h6sX8vZqluQRWVnKf8QUkzUQKTnqQ
+         Gtl8LawE+q20JeufrNjKB+qVS9aCL0JBjXpNmv7AKltZR0HUR45H+kBrrn7qjdBJ20xv
+         VfQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:to:references:from:autocrypt:subject
-         :message-id:date:user-agent:mime-version:in-reply-to
-         :content-language:content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=4a6ah7rffulPtlF0xZuQOPuBrnCjC2w4GQJkTYZCn0g=;
-        b=aZ9hbK3TIjSgN+5o0pVaaRv9qkKSRcMjyaG03/5K5MmnMJOgOY92VP+ChO6xWGZeNK
-         JYnNh25UHbJ38LNT7I7WpsHp6KGgVvlhYjBbRJkFpE9HMmcCyAzeBWN/4e75+M9yDeWd
-         0MiHugtGGgq+sN+6Wa3bFoyR4DtfPz/yKtjqMjD93Fu0PBAcuYVYraNwlagWFJkqiSRY
-         okimD1mBzTBEBoKd50ZA2sAyfbnOQ01vmYMKvBYhQe23LaFt9VVZV/Oqx54dZvFEBcfH
-         p8xmbk98KSP9YM3YHL8SH8Rp5TzL+GaOmaOxeoh+sBhrfDBBUEI8usJb/3Qe8FPhndxY
-         OHww==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=rQm0ztOBuFxj5oERPEoitOGJKlN70XW6v1A1fW7exg4=;
+        b=pgoULT1pRzbGf/7t2PRnRtnDldyDknhysIjKwgTMAPIFzThfttQplFLn2gLMEf/+x4
+         ZWP6xr1xLEI/vPgJxmHflq+vTicPxye2mjizSA6bz/qlZt4mZJI50UfZTWT3hLiYxgZJ
+         Ltv7jnklw/+62NhGRZ4o/ddWjMrjwZaNaRJKz+jIAxWciOLafNAK2NOO6ovIVH9dj1SY
+         xejgYOsLJGX/E1eOCmFB8cuDwT4EphTaIEaWYn6SeyG8d5o1vtJCRkgq68592mV/32lY
+         Kk2NfhHWhwWZrZh9h9L1wvvvbZX03NGMGqyZYqGEFn2fT+GJSdfTEYYYFgdxy9Kf0XnY
+         XV2w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAX2ODVLFDWhEDbNGqt8dEqj7WOwWAZ9zCICmXGbFgjulqQu69PY
-	k+EDnyF+CAqDxEdmKYFIdwc=
-X-Google-Smtp-Source: APXvYqwAYFfEKTPGKPg43gVXLeA3v1WwtIDHkXC1XOn/Rr/LcvBEJ6rjFbqD7Esn0nD3t4NIceGhtQ==
-X-Received: by 2002:a2e:5456:: with SMTP id y22mr12704130ljd.60.1570285129819;
-        Sat, 05 Oct 2019 07:18:49 -0700 (PDT)
+X-Gm-Message-State: APjAAAWM9RJIiLvZUDEc39xcwadGrzRnVwnNdbGjP14LmerCVZYFHRqu
+	GNmJNXC8d/0ZaYjI8iwBuwo=
+X-Google-Smtp-Source: APXvYqyjvSHrxJhTvrnCwNYBXeq74GAf/EBZOZWjrKO9V5J1TUHi77w0ymClSKXyUl3/ZPzsTNkKUQ==
+X-Received: by 2002:a05:6830:160b:: with SMTP id g11mr14277934otr.136.1570297145926;
+        Sat, 05 Oct 2019 10:39:05 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:95d4:: with SMTP id y20ls1636123ljh.15.gmail; Sat, 05
- Oct 2019 07:18:48 -0700 (PDT)
-X-Received: by 2002:a2e:3004:: with SMTP id w4mr10449957ljw.242.1570285128444;
-        Sat, 05 Oct 2019 07:18:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1570285128; cv=none;
-        d=google.com; s=arc-20160816;
-        b=PK5rsgvw35qDlz9+GhQJTvSaS+TZHluWGt6tlaWFOMhEiHdlgX23dyPJlRNC04Ncr8
-         v5fd3t62vqUDMLP8F+K+H8OYDjSMxdW/KEqN0YC/lJt5A2lBcbDeVzHi2kixeDe0bYvK
-         +ZzmtbiyOUVws35mPletBhpJMkYCrBxgx7Bu8D+rN7UO7EuM57dx0JaPH77ERUAAUQ+U
-         lI1cH5Tfq75bfabp1Uo2tnrXyBZLWw+TEwvUcZOH+aTVEKgppXvUAPE6Vr7VTTndqHQ5
-         IIHvPbSuUGUjWo0Ft2EalOOytxS6YrzkbheKqu7If4d5nUQJrLkAuxRkAvkedp6lr7dX
-         oIVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:subject:autocrypt:from:references:to
-         :dkim-signature;
-        bh=qd4m3f6nVfOv3aRcqQyxGLNQtk7DrGa/7fQNAVacJzs=;
-        b=NPqCuguAnJituZAZ2ofbIYmVUHnIjyy3PGLoDqdzIiVGh3WG0OpYJtP2WY5W11Jymd
-         r3wSt1JwR56A/ZQqGUGIeORuYWZLktz/8dndiWTfg7PEFRISMvn5qN8ZGKy53uuiFt2D
-         1PqK3qYmtYyBwJcgLRhLHJAzAr3CgF5F8QQb0tbjR2/VkhrkfBU9X/OnhsexK5uPTPG8
-         iqUhvX8U96Qevt3AkPTt0JEWZI8medHRYoZgGD2VUaaX148MGtcIKINVVd6cf40Q8aG3
-         r78oL2HeLiuHltLU7e3ZasvfmU5Vvx3a3D+Qkva7DT+MVXDT0E5H4wEEd2rw11psEqTn
-         LT1g==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=D+GZzSxk;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [2001:638:a01:1096::11])
-        by gmr-mx.google.com with ESMTPS id z9si931966ljj.4.2019.10.05.07.18.48
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Sat, 05 Oct 2019 07:18:48 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) client-ip=2001:638:a01:1096::11;
-Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S02", Issuer "E16S02" (not verified))
-	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 46lpkv1ysrzxvN;
-	Sat,  5 Oct 2019 16:18:47 +0200 (CEST)
-Received: from [172.16.2.24] (194.95.106.138) by E16S02.hs-regensburg.de
- (2001:638:a01:8013::92) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Sat, 5 Oct 2019
- 16:18:46 +0200
-To: Jan Kiszka <jan.kiszka@web.de>, Andrej Utz
-	<andrej.utz@st.oth-regensburg.de>, Jailhouse <jailhouse-dev@googlegroups.com>
-References: <20190930191323.32266-1-andrej.utz@st.oth-regensburg.de>
- <0713c187-2670-7914-1ad6-561bc4073920@siemens.com>
- <724ad1a6-00b9-b921-122c-25c26e75349c@st.oth-regensburg.de>
- <f31ce534-911d-ccba-c96d-529eb7a5c828@siemens.com>
- <922f18c5-418d-cfcd-1078-e632a9266464@oth-regensburg.de>
- <eb961a5f-0ed3-b821-b9b2-666a9fdcbfd8@siemens.com>
- <48835bb9-5fe5-852b-e538-00c7b6fb6498@oth-regensburg.de>
- <b4b63fc4-87fc-909f-6b96-fe8f413a198c@siemens.com>
- <e9bea12a-1524-6289-db95-f25edc3a3074@oth-regensburg.de>
- <e635cd48-5a0f-183f-6f4d-00c017e40479@web.de>
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Autocrypt: addr=ralf.ramsauer@oth-regensburg.de; keydata=
- mQINBFsT8OUBEADEz1dVva7HkfpQUsAH71/4RzV23kannVpJhTOhy9wLEJclj0cGMvvWFyaw
- 9lTRxKfmWgDNThCvNziuPgJdaZ3KMlCuF9QOsW/e2ZKvP5N1GoIperljb3+DW3FFGC8mzCDa
- x6rVeY0MtSa9rdKbWKIwtSOPBgPk7Yg+QkF0gMHyDMjKrNPolnCZjypAIj81MQfG0s6hIwMB
- 5LXZPl9WL2NwcBWxU71NBhyTvtVMy6eCPTDIT+rDIaIjdqXUbL8QBzaApxSLAgb7Nbatkx7k
- 3LjqflPMmtQfQ67O1qS/ILe5DrYjGbwZWYb2xmXNwJvEENIDou9Wnusxphh1P1acnn+9DIjQ
- 9/A+/zCiube3tgCpv5sq8++knQChn2NLMrHlVsRCgGApciO7/0hCvcS9mGE1JM3Nmwfs2wqW
- vG9vhv3uBJHjH4C8s5UCvF/44E22+bBqsrLUlr5d+YRNtY+LCH1rwNIrzNtfZraq0hPiI8pv
- P4GpvHDmrsGTyG9YbD33XiI7DD8IaAtwld7wSkMmt07NRhyxVsPc1ZIBQMyS28VvuLbDK4f6
- WyjQMJmA8EQspEmNcTFG6LnmW+7PGad2Nt7RhHRs4e4JkT8WckWzTCRzlRusyr13SbiFWznt
- +29Q47elnVUG3nB2h1VGZofX+myYJS0uX4BQ2G7sO+LrBY4HXQARAQABtC9SYWxmIFJhbXNh
- dWVyIDxyYWxmLnJhbXNhdWVyQG90aC1yZWdlbnNidXJnLmRlPokCVAQTAQgAPhYhBMAttVrc
- MMGXiLwkKnP5TRHIUlLMBQJbE/EnAhsDBQkFo5qABQsJCAcCBhUKCQgLAgQWAgMBAh4BAheA
- AAoJEHP5TRHIUlLMICYQALEBOS5+OegeYvi/8qwcXWTtSPu6/L6z2kgh6XCii8zH8Rn9T1mB
- xzA5h1sBku1wIH+xloRxNNmZlxNyJOML5zMng8cLw/PRTDZ3JdzIFFw7bssAgDiLzr8F0gTq
- bRrAwFCDuZMNCJgJhxRrPRNSrZovqUeaSUAxw10Dea3NgcvJ1SLtClBaU2+U7dHQdBINBLXm
- UAg54P6voe/MhkPEwESRHWKsiEWBp4BBPv8AjXnYAth6F9LZksugF4KZMPWnEgXNjw6ObD6C
- T7qA46/ETXBcxI05lQFs3G9P6YpeOmH1V5pRWb2pS/f9vDudU52QRcAIUir0yjR45tmgJMLV
- oRR7xRyj/BXqBHbzjilg3GDZMiUtfjg6skr++du79b7xnoEgzHR/ByHW67MCbjcuTmpTeXBK
- Iq61He/l2NETfy+2ZnWOUNC7/lZHdfrEyHR3Q3S7TQbkm80TXE05Cfb5NXtZxlbCNxFEMtCT
- UeaUX0NtsHfRDNBzFY6pKSpg8EXDtEFe8+utLekEZ6lFgQ5ZJ1c9NfaOiRJ/NrnQfqAEXUyo
- uILPmXK+3UiFlWtmIIzSQ/Wd+4pJtM291zt0umnxboOZc1mOU9B2wKT3mnA3HxQ1LiRIT9j8
- l8iT6TwRB/aiiXa51hN4R7rfSQMxK6a93EAyUZSoWFpZiBo1/5PynB4zuQINBFsT8OUBEAC9
- HeOKJ/KJ861Q/5C1qwHRK95nJiwCCpASxip68e3ZW9vPTV3VmcQ3tPNRBLPZW1S+IV6DL8/j
- HnopXyyrFBkSJYEAtKkBI5xO6olYglCJqhJ5GdE2WIxvFfTkKwXf3gYc7zuif/5tS7D4XeEH
- wScrncFHCxDSUCXyGM/lnLhu3HfQbK49whpel67uteHrXC4tCMzaTy1SOwlXQi4nufxfARBe
- PT2udi+aZCs4a5bTqvEllPsWRsab4JjTsd831VLYCeRM6siKkzzv9nUjBjTri2cPm0FDS80X
- vQVHEw4bP+V4EvcrarNh/9VmCypuH23qRsAX33mLhB94aBoE6afCkWG5G2m24pj3NCkdA0MG
- IleuuD4/I+6+31Dip53AMvx5EDepMrA2b7gsQOKidgDe1fz/j1qkszmQlxlcb/LruXMWWY7L
- 3NcwGUjNRfH0KiSyQ6GMtU5ECu8/o4fecOee76fHTviI6h7jSL3O0AKJadUXekAfhyVS/zUD
- iZTv2zI4wAyxIWj3AFVXXeb1T4UG+k4Ea+M7+jtgGUz/K3/mDYXWWRHkT5CMZLiU8BCdfewg
- Zp94L5KOWDYCeX5LWworOwtkoePd9h5g7L2EBbeINk8Ru018FkEiqALN03vPI8KYNXb6epUg
- xhdvhaPoSD3aCnQttvU8lN70cKBGMwTZYwARAQABiQI8BBgBCAAmFiEEwC21WtwwwZeIvCQq
- c/lNEchSUswFAlsT8OUCGwwFCQWjmoAACgkQc/lNEchSUswevA//RM2YQI1Z3QMBRMr/5As0
- 2zXcJFp+j07wkO9avm8U7GwjPjLHGVvs44rTSc0IKSsIKCJDSqNod9jd2iR39lr5/FpRiRk/
- 7A1ACZUagASNC+PiyCCjlg34bWulzVmb5ozjqKQqgYww4c6D0P44JDUtedVbKd7HdwjjzP0P
- cubSgAohnXzrkp3gtVg07KeoQyiZctJqJu9Z84MiXMIQ+G75mFkIJEL4WYIkcJ9pamUHX71Y
- T1s6qtrqXemn25w87TioHUMcW4wRXhHHJ4gDbe/P9wb9XKS41ks0kiTia1ZcFsf6QQzoCoK1
- R8ahGzsqvCRHMR7fU5w25qXAPfS5ENZgH0KcAVi1bDjwDyhQk3PfPiraiHmtEz2IlthAPpRD
- Drr0lqCvDFNtqaC+ZI0eOmTvy6/zfVh7ODmaDq1KqMu5EB9ojHXM7N6XXN8OubY+lNx+q0T5
- STssqr8EKkrHp6rw2OQHCX7uaEQri2GEJW4HowVvlashmxC4bxR8B4gbm+EB8gR8PD7BSZQG
- k5NkPOqUZJXq1HO+d5Udk1WdT+mkFGwIMN/U9t3gJNWkab+aAYg1mKwdz7B+10j51vbQbFgY
- 2/n9jtl/AFgfYQocbJta5+0fOwIJObNFpLAotvtFNF+Q164Bc3E7Njh230nFduU/9BnmCpOQ
- RncIIYr0LjXAAzY=
-Subject: Re: [PATCH v3 00/14] pyjailhouse: x86: Implement config generator for
- port I/O
-Message-ID: <4015e98c-c312-6db9-0098-1c0a807a8f21@oth-regensburg.de>
-Date: Sat, 5 Oct 2019 16:18:46 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.1
+Received: by 2002:a05:6830:1441:: with SMTP id w1ls2247204otp.7.gmail; Sat, 05
+ Oct 2019 10:39:05 -0700 (PDT)
+X-Received: by 2002:a05:6830:158d:: with SMTP id i13mr15173288otr.67.1570297145029;
+        Sat, 05 Oct 2019 10:39:05 -0700 (PDT)
+Date: Sat, 5 Oct 2019 10:39:04 -0700 (PDT)
+From: michael.g.hinton@gmail.com
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <d5af7c51-1896-48a5-bfda-131aeb719b87@googlegroups.com>
+In-Reply-To: <15e0ae4a-827f-b115-876d-9a80dc07d174@web.de>
+References: <1a535df2-e53a-461a-8f2d-ad62b4600a28@googlegroups.com>
+ <15e0ae4a-827f-b115-876d-9a80dc07d174@web.de>
+Subject: Re: Increase Inmate Memory to > 1 MB
 MIME-Version: 1.0
-In-Reply-To: <e635cd48-5a0f-183f-6f4d-00c017e40479@web.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-PH
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [194.95.106.138]
-X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
- E16S02.hs-regensburg.de (2001:638:a01:8013::92)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=D+GZzSxk;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_1184_418209677.1570297144573"
+X-Original-Sender: Michael.G.Hinton@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -198,184 +78,262 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 10/5/19 9:44 AM, Jan Kiszka wrote:
-> On 04.10.19 16:41, Ralf Ramsauer wrote:
->> On 10/4/19 9:15 AM, Jan Kiszka wrote:
->>>
->>> On 02.10.19 16:14, Ralf Ramsauer wrote:
->>>> Hi,
->>>>
->>>> On 10/1/19 5:34 PM, Jan Kiszka wrote:
->>>>> On 01.10.19 17:23, Ralf Ramsauer wrote:
->>>>>> Hi Jan,
->>>>>>
->>>>>> On 9/30/19 9:28 PM, Jan Kiszka wrote:
->>>>>>> On 30.09.19 21:25, Andrej Utz wrote:
->>>>>>>> Hi Jan,
->>>>>>>>
->>>>>>>> On 30.09.19 21:19, Jan Kiszka wrote:
->>>>>>>>> On 30.09.19 21:13, Andrej Utz wrote:
->>>>>>>>>> This patch series eases configuration of port I/O devices for x8=
-6
->>>>>>>>>> plattforms by generating an initial PIO region list. To sustain
->>>>>>>>>> previous
->>>>>>>>>> behavior, most entries are disabled (commented out). Only
->>>>>>>>>> whitelisted
->>>>>>>>>> device ports are allowed. This includes the peripheral PCI port
->>>>>>>>>> space.
->>>>>>>>>
->>>>>>>>> Did you also try what explodes when enforcing the generated
->>>>>>>>> list? I
->>>>>>>>> mean, if there is no mess like with hidden memory regions, things
->>>>>>>>> just Just Work (TM).
->>>>>>>>
->>>>>>>> Not yet. Analysis of additional whitelist candidates shall follow.
->>>>>>>
->>>>>>> We probably need a mixture: white-listing know-harmless thing
->>>>>>> that are
->>>>>>> requested in the legacy range, combined with permitting the PCI
->>>>>>> device-related regions.
->>>>>>
->>>>>> Ack. With a little luck we can rely on entries in /proc/ioports, at
->>>>>> least for PCI ports above 0xd00.
->>>>>>
->>>>>> I just compared lspci vs. ioports on some machines: Looks like
->>>>>> ioports
->>>>>> contains everything that can be found in PCI config space. But
->>>>>> ioports
->>>>>> contains even more.
->>>>>>
->>>>>> What are those pnp entries good for? E.g.:
->>>>>> =C2=A0 =C2=A0=C2=A0 f800-f87f : pnp 00:01
->>>>>> =C2=A0 =C2=A0=C2=A0 f880-f8ff : pnp 00:01
->>>>>> =C2=A0 =C2=A0=C2=A0 [...]
->>>>>>
->>>>>> Are these reserved areas for PCI devices?
->>>>>
->>>>> pnp, ACPI, some further platform resources.
->>>>
->>>> Will the root cell touch those ports? So far, it looks like it doesn't=
-.
->>>>
->>>>>
->>>>>>
->>>>>> And on my laptop, I can also find ACPI stuff above 0xd00:
->>>>>>
->>>>>> 0d00-ffff : PCI Bus 0000:00
->>>>>> =C2=A0 =C2=A0=C2=A0 1640-164f : pnp 00:01
->>>>>> =C2=A0 =C2=A0=C2=A0 1800-187f : pnp 00:01
->>>>>> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0 1800-1803 : ACPI PM1a_EVT_BLK
->>>>>> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0 1804-1805 : ACPI PM1a_CNT_BLK
->>>>>> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0 1808-180b : ACPI PM_TMR
->>>>>> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0 1820-182f : ACPI GPE0_BLK
->>>>>> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0 1850-1850 : ACPI PM2_CNT_BLK
->>>>>>
->>>>>> How should we deal with that?
->>>>>
->>>>> PM_TMR is passed through anyway, at least to non-root cells. The
->>>>> rest is
->>>>> more dangerous, potentially. But a "works by default" setting may hav=
-e
->>>>> to include them.
->>>>>
->>>>>>
->>>>>> And what about VGA? We whitelist 0x3b0-0x3df on any machine.
->>>>>> Shouldn't
->>>>>> VGA be listed in ioports if present? At least for qemu that's the
->>>>>> case.
->>>>>> If we can rely on that, then we wouldn't even have to whitelist
->>>>>> VGA. [1]
->>>>>
->>>>> Yes. VGA, if it shall be with the root cell (common case), should be
->>>>> listed.
->>>>
->>>> Alright.
->>>>
->>>> So here you can find a WIP version of this series that comes with
->>>> support for selective whitelisting PCI devices:
->>>>
->>>> https://github.com/lfd/jailhouse/tree/ioports-ralf-v2
->>>>
->>>> So far, I successfully tested this approach on Qemu and on a real
->>>> machine. No crashes so far. (which I didn't expect, to be honest ;-) )
->>>>
->>>> Jan, could you please test this approach? Just run it on your local
->>>> machine, look at the output, and compare it with /proc/ioports. If thi=
-s
->>>> is the way to go, I'll make a clean series out of it. The head
->>>> commit is
->>>> probably the most interesting one.
->>>>
->>>
->>> Something is broken:
->>>
->>> $ jailhouse config create config.c
->>> Traceback (most recent call last):
->>> =C2=A0=C2=A0 File "~/jailhouse/tools/jailhouse-config-create", line 260=
-, in
->>> <module>
->>> =C2=A0=C2=A0=C2=A0=C2=A0 mem_regions, dmar_regions =3D sysfs_parser.par=
-se_iomem(pcidevices)
->>> =C2=A0=C2=A0 File "~/jailhouse/tools/../pyjailhouse/sysfs_parser.py", l=
-ine 102,
->>> in parse_iomem
->>> =C2=A0=C2=A0=C2=A0=C2=A0 tree =3D IORegionTree.parse_io_file('/proc/iom=
-em', MemRegion)
->>> =C2=A0=C2=A0 File "~/jailhouse/tools/../pyjailhouse/sysfs_parser.py", l=
-ine 976,
->>> in parse_io_file
->>> =C2=A0=C2=A0=C2=A0=C2=A0 level, r =3D IORegionTree.parse_io_line(line, =
-TargetClass)
->>> =C2=A0=C2=A0 File "~/jailhouse/tools/../pyjailhouse/sysfs_parser.py", l=
-ine 967,
->>> in parse_io_line
->>> =C2=A0=C2=A0=C2=A0=C2=A0 return level, TargetClass(int(region[0], 16), =
-int(region[1],
->>> 16), type)
->>> =C2=A0=C2=A0 File "~/jailhouse/tools/../pyjailhouse/sysfs_parser.py", l=
-ine 869,
->>> in __init__
->>> =C2=A0=C2=A0=C2=A0=C2=A0 super(MemRegion, self).__init__(start, stop, t=
-ypestr)
->>> TypeError: super() argument 1 must be type, not classobj
->>
->> Argh, seems that's a python2 compat issue, doesn't happen with python3.
->> Please pull again, should be fixed now.
->>
->=20
-> This now basically works, except where it can't. This is what I had to
-> re-add
-> manually:
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PIO_RANGE(0x61, 0x1), /* pc sp=
-eaker */
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PIO_RANGE(0x1ce, 0x3), /* vbe =
-*/
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PIO_RANGE(0x402, 0x1), /* inva=
-lid but accessed by X */
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PIO_RANGE(0x5658, 0x4), /* vmp=
-ort */
->=20
-> None of these are listed by /proc/ioports or elsewhere in the kernel. Som=
-e
-> because the drivers do not claim the resource, some because they are like=
-ly
-> driven by userspace (X server). But that's the normal set of platform
-> quirks, I would say.
+------=_Part_1184_418209677.1570297144573
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1185_2439122.1570297144573"
 
-Of course, such cases remain, yes. (plus those cases weren't covered by
-the static region in the current version as well)
+------=_Part_1185_2439122.1570297144573
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Did you run in on your local machine as well? I'd especially like to
-know if PCI regions are okay for you. Above 0xd00, I only permit regions
-where I can find a valid BDF.
+Thank you! That did the trick.
 
-Thanks
-  Ralf
+-Michael
 
->=20
-> Jan
->=20
+On Saturday, October 5, 2019 at 1:41:02 AM UTC-6, Jan Kiszka wrote:
+>
+> On 05.10.19 02:08, michael...@gmail.com <javascript:> wrote:=20
+> > Hello,=20
+> >=20
+> >=20
+> > I want to increase how much memory my inmate can use to 10 MB.=20
+> >=20
+> >=20
+> > Here=E2=80=99s the relevant memory regions of the root config:=20
+> >=20
+> >=20
+> > /* MemRegion: 3a600000-3f1fffff : JAILHOUSE Inmate Memory */=20
+> >=20
+> > {=20
+> >=20
+> > .phys_start =3D 0x3a600000,=20
+> >=20
+> > .virt_start =3D 0x3a600000,=20
+> >=20
+> > // MGH: Leave a 1 MB region for IVSHMEM (4c -> 4b)=20
+> >=20
+> > .size =3D 0x4b00000, // 75 MB=20
+> >=20
+> > .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,=20
+> >=20
+> > },=20
+> >=20
+> > /* MGH Added: IVSHMEM shared memory region (index 61)*/=20
+> >=20
+> > {=20
+> >=20
+> > .phys_start =3D 0x3f100000,=20
+> >=20
+> > .virt_start =3D 0x3f100000,=20
+> >=20
+> > .size =3D 0x100000, // 1 MB=20
+> >=20
+> > .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,=20
+> >=20
+> > },=20
+> >=20
+> >=20
+> >=20
+> > And the inmate=E2=80=99s memory regions:=20
+> >=20
+> >=20
+> > struct jailhouse_memory mem_regions[4];=20
+> >=20
+> > ...=20
+> >=20
+> > .mem_regions =3D {=20
+> >=20
+> > /* RAM */=20
+> >=20
+> > {=20
+> >=20
+> > .phys_start =3D 0x3a600000,=20
+> >=20
+> > .virt_start =3D 0,=20
+> >=20
+> > // 1 MB of RAM for the inmate's program=20
+> >=20
+> > .size =3D 0x00100000,=20
+> >=20
+> > .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |=20
+> >=20
+> > JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,=20
+> >=20
+> > },=20
+> >=20
+> > /* communication region */=20
+> >=20
+> > {=20
+> >=20
+> > .virt_start =3D 0x00100000,=20
+> >=20
+> > .size =3D 0x00001000,=20
+> >=20
+> > .flags =3D JAILHOUSE_MEM_READ |JAILHOUSE_MEM_COMM_REGION |=20
+> JAILHOUSE_MEM_WRITE,=20
+> >=20
+> > },=20
+> >=20
+> > /* MGH: IVSHMEM shared memory region */=20
+> >=20
+> > {=20
+> >=20
+> > .phys_start =3D 0x3f100000,=20
+> >=20
+> > .virt_start =3D 0x3f100000,=20
+> >=20
+> > // Create 1 MB of shared memory=20
+> >=20
+> > .size =3D 0x00100000,=20
+> >=20
+> > .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |=20
+> >=20
+> > JAILHOUSE_MEM_ROOTSHARED,=20
+> >=20
+> > },=20
+> >=20
+> >=20
+> > /* MGH: RAM - Heap */=20
+> >=20
+> > {=20
+> >=20
+> > /* Create an additional "heap" area of 10 MB to allow=20
+> >=20
+> > * the program more memory to work with. */=20
+> >=20
+> > .phys_start =3D 0x3a700000,=20
+> >=20
+> > .virt_start =3D 0x00200000,=20
+> >=20
+> > .size =3D 0x00a00000,=20
+> >=20
+> > .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |=20
+> >=20
+> > JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,=20
+> >=20
+> > },=20
+> >=20
+> > },=20
+> >=20
+> >=20
+> > And the IVSHMEM PCI device:=20
+> >=20
+> >=20
+> >=20
+> > .pci_devices =3D {=20
+> >=20
+> > {=20
+> >=20
+> > .type =3D JAILHOUSE_PCI_TYPE_IVSHMEM,=20
+> >=20
+> > .domain =3D 0x0000,=20
+> >=20
+> > .bdf =3D 0x0f << 3,=20
+> >=20
+> > .bar_mask =3D {=20
+> >=20
+> > 0xffffff00, 0xffffffff, 0x00000000,=20
+> >=20
+> > 0x00000000, 0xffffffe0, 0xffffffff,=20
+> >=20
+> > },=20
+> >=20
+> > .num_msix_vectors =3D 1,=20
+> >=20
+> > .shmem_region =3D 2,=20
+> >=20
+> > },=20
+> >=20
+> > },=20
+> >=20
+> >=20
+> > I=E2=80=99m then trying to use this new =E2=80=9Cheap=E2=80=9D region i=
+n my inmate=E2=80=99s code:=20
+> >=20
+> >=20
+> >     #define MGH_HEAP_BASE0x00200000=20
+> >=20
+> >=20
+> >     void inmate_main(void)=20
+> >=20
+> >     {=20
+> >=20
+> >     char *buffer =3D (char *)MGH_HEAP_BASE;=20
+> >=20
+> >     printk("MGH DEBUG: buffer: %p\n", buffer);=20
+> >=20
+> >     buffer[0] =3D 'M';=20
+> >=20
+> >     printk("MGH DEBUG: %c\n", buffer[0]);=20
+> >=20
+> >     }=20
+> >=20
+> >=20
+> > And I get this fault:=20
+> >=20
+> >=20
+> >     Started cell "bazooka-inmate"=20
+> >=20
+> >     MGH DEBUG: buffer: 0x0000000000200000=20
+> >=20
+> >     FATAL: Unhandled VM-Exit, reason 2=20
+> >=20
+> >     qualification 0=20
+> >=20
+> >     vectoring info: 0 interrupt info: 0=20
+> >=20
+> >     RIP: 0x0000000000001113 RSP: 0x0000000000007fe0 FLAGS: 10006=20
+> >=20
+> >     RAX: 0x0000000000007f13 RBX: 0x0000000000001cab RCX:=20
+> 0x0000000000000000=20
+> >=20
+> >     RDX: 0x00000000000003f8 RSI: 0x0000000000000000 RDI:=20
+> 0x000000000000000d=20
+> >=20
+> >     CS: 10 BASE: 0x0000000000000000 AR-BYTES: a09b EFER.LMA 1=20
+> >=20
+> >     CR0: 0x0000000080010031 CR3: 0x0000000000003000 CR4:=20
+> 0x0000000000042220=20
+> >=20
+> >     EFER: 0x0000000000000500=20
+> >=20
+> >     Parking CPU 2 (Cell: "bazooka-inmate")=20
+> >=20
+> >=20
+> > So there is a triple fault here, and it=E2=80=99s just the `buffer[0] =
+=3D 'M';`=20
+> line (from=20
+> > objdump):=20
+> >=20
+> >=20
+> >          buffer[0] =3D 'M';=20
+> >=20
+> >     1113:       c6 04 25 00 00 20 00    movb $0x4d,0x200000=20
+> >=20
+> >=20
+> > So clearly I have configured the memory incorrectly. Either Jailhouse i=
+s=20
+> denying=20
+> > the memory access, or there is just no memory page sitting behind=20
+> address=20
+> > 0x00200000. But I can=E2=80=99t see what I=E2=80=99m doing wrong. Any i=
+deas on how I can=20
+> further=20
+> > debug this? I=E2=80=99m on v0.11 (with some custom modifications).=20
+> >=20
+>
+> On x86, the inmate lib only maps the first 2M into the guest's page table=
+.=20
+> Use=20
+> map_range to map more.=20
+>
+> Jan=20
+>
+> PS: If you call excp_reporting_init() early during inmate init, you shoul=
+d=20
+> get=20
+> more proper errors than "triple fault".=20
+>
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -383,4 +341,275 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/4015e98c-c312-6db9-0098-1c0a807a8f21%40oth-regensburg.de.
+jailhouse-dev/d5af7c51-1896-48a5-bfda-131aeb719b87%40googlegroups.com.
+
+------=_Part_1185_2439122.1570297144573
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Thank you! That did the trick.<div><br></div><div>-Michael=
+<br><div><br>On Saturday, October 5, 2019 at 1:41:02 AM UTC-6, Jan Kiszka w=
+rote:<blockquote class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8e=
+x;border-left: 1px #ccc solid;padding-left: 1ex;">On 05.10.19 02:08, <a hre=
+f=3D"javascript:" target=3D"_blank" gdf-obfuscated-mailto=3D"Hfw6G4HkBQAJ" =
+rel=3D"nofollow" onmousedown=3D"this.href=3D&#39;javascript:&#39;;return tr=
+ue;" onclick=3D"this.href=3D&#39;javascript:&#39;;return true;">michael...@=
+gmail.com</a> wrote:
+<br>&gt; Hello,
+<br>&gt;
+<br>&gt;
+<br>&gt; I want to increase how much memory my inmate can use to 10 MB.
+<br>&gt;
+<br>&gt;
+<br>&gt; Here=E2=80=99s the relevant memory regions of the root config:
+<br>&gt;
+<br>&gt;
+<br>&gt; /* MemRegion: 3a600000-3f1fffff : JAILHOUSE Inmate Memory */
+<br>&gt;
+<br>&gt; {
+<br>&gt;
+<br>&gt; .phys_start =3D 0x3a600000,
+<br>&gt;
+<br>&gt; .virt_start =3D 0x3a600000,
+<br>&gt;
+<br>&gt; // MGH: Leave a 1 MB region for IVSHMEM (4c -&gt; 4b)
+<br>&gt;
+<br>&gt; .size =3D 0x4b00000, // 75 MB
+<br>&gt;
+<br>&gt; .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+<br>&gt;
+<br>&gt; },
+<br>&gt;
+<br>&gt; /* MGH Added: IVSHMEM shared memory region (index 61)*/
+<br>&gt;
+<br>&gt; {
+<br>&gt;
+<br>&gt; .phys_start =3D 0x3f100000,
+<br>&gt;
+<br>&gt; .virt_start =3D 0x3f100000,
+<br>&gt;
+<br>&gt; .size =3D 0x100000, // 1 MB
+<br>&gt;
+<br>&gt; .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+<br>&gt;
+<br>&gt; },
+<br>&gt;
+<br>&gt;
+<br>&gt;
+<br>&gt; And the inmate=E2=80=99s memory regions:
+<br>&gt;
+<br>&gt;
+<br>&gt; struct jailhouse_memory mem_regions[4];
+<br>&gt;
+<br>&gt; ...
+<br>&gt;
+<br>&gt; .mem_regions =3D {
+<br>&gt;
+<br>&gt; /* RAM */
+<br>&gt;
+<br>&gt; {
+<br>&gt;
+<br>&gt; .phys_start =3D 0x3a600000,
+<br>&gt;
+<br>&gt; .virt_start =3D 0,
+<br>&gt;
+<br>&gt; // 1 MB of RAM for the inmate&#39;s program
+<br>&gt;
+<br>&gt; .size =3D 0x00100000,
+<br>&gt;
+<br>&gt; .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+<br>&gt;
+<br>&gt; JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+<br>&gt;
+<br>&gt; },
+<br>&gt;
+<br>&gt; /* communication region */
+<br>&gt;
+<br>&gt; {
+<br>&gt;
+<br>&gt; .virt_start =3D 0x00100000,
+<br>&gt;
+<br>&gt; .size =3D 0x00001000,
+<br>&gt;
+<br>&gt; .flags =3D JAILHOUSE_MEM_READ |JAILHOUSE_MEM_COMM_REGION | JAILHOU=
+SE_MEM_WRITE,
+<br>&gt;
+<br>&gt; },
+<br>&gt;
+<br>&gt; /* MGH: IVSHMEM shared memory region */
+<br>&gt;
+<br>&gt; {
+<br>&gt;
+<br>&gt; .phys_start =3D 0x3f100000,
+<br>&gt;
+<br>&gt; .virt_start =3D 0x3f100000,
+<br>&gt;
+<br>&gt; // Create 1 MB of shared memory
+<br>&gt;
+<br>&gt; .size =3D 0x00100000,
+<br>&gt;
+<br>&gt; .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+<br>&gt;
+<br>&gt; JAILHOUSE_MEM_ROOTSHARED,
+<br>&gt;
+<br>&gt; },
+<br>&gt;
+<br>&gt;
+<br>&gt; /* MGH: RAM - Heap */
+<br>&gt;
+<br>&gt; {
+<br>&gt;
+<br>&gt; /* Create an additional &quot;heap&quot; area of 10 MB to allow
+<br>&gt;
+<br>&gt; * the program more memory to work with. */
+<br>&gt;
+<br>&gt; .phys_start =3D 0x3a700000,
+<br>&gt;
+<br>&gt; .virt_start =3D 0x00200000,
+<br>&gt;
+<br>&gt; .size =3D 0x00a00000,
+<br>&gt;
+<br>&gt; .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+<br>&gt;
+<br>&gt; JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+<br>&gt;
+<br>&gt; },
+<br>&gt;
+<br>&gt; },
+<br>&gt;
+<br>&gt;
+<br>&gt; And the IVSHMEM PCI device:
+<br>&gt;
+<br>&gt;
+<br>&gt;
+<br>&gt; .pci_devices =3D {
+<br>&gt;
+<br>&gt; {
+<br>&gt;
+<br>&gt; .type =3D JAILHOUSE_PCI_TYPE_IVSHMEM,
+<br>&gt;
+<br>&gt; .domain =3D 0x0000,
+<br>&gt;
+<br>&gt; .bdf =3D 0x0f &lt;&lt; 3,
+<br>&gt;
+<br>&gt; .bar_mask =3D {
+<br>&gt;
+<br>&gt; 0xffffff00, 0xffffffff, 0x00000000,
+<br>&gt;
+<br>&gt; 0x00000000, 0xffffffe0, 0xffffffff,
+<br>&gt;
+<br>&gt; },
+<br>&gt;
+<br>&gt; .num_msix_vectors =3D 1,
+<br>&gt;
+<br>&gt; .shmem_region =3D 2,
+<br>&gt;
+<br>&gt; },
+<br>&gt;
+<br>&gt; },
+<br>&gt;
+<br>&gt;
+<br>&gt; I=E2=80=99m then trying to use this new =E2=80=9Cheap=E2=80=9D reg=
+ion in my inmate=E2=80=99s code:
+<br>&gt;
+<br>&gt;
+<br>&gt; =C2=A0 =C2=A0 #define MGH_HEAP_BASE0x00200000
+<br>&gt;
+<br>&gt;
+<br>&gt; =C2=A0 =C2=A0 void inmate_main(void)
+<br>&gt;
+<br>&gt; =C2=A0 =C2=A0 {
+<br>&gt;
+<br>&gt; =C2=A0 =C2=A0 char *buffer =3D (char *)MGH_HEAP_BASE;
+<br>&gt;
+<br>&gt; =C2=A0 =C2=A0 printk(&quot;MGH DEBUG: buffer: %p\n&quot;, buffer);
+<br>&gt;
+<br>&gt; =C2=A0 =C2=A0 buffer[0] =3D &#39;M&#39;;
+<br>&gt;
+<br>&gt; =C2=A0 =C2=A0 printk(&quot;MGH DEBUG: %c\n&quot;, buffer[0]);
+<br>&gt;
+<br>&gt; =C2=A0 =C2=A0 }
+<br>&gt;
+<br>&gt;
+<br>&gt; And I get this fault:
+<br>&gt;
+<br>&gt;
+<br>&gt; =C2=A0 =C2=A0 Started cell &quot;bazooka-inmate&quot;
+<br>&gt;
+<br>&gt; =C2=A0 =C2=A0 MGH DEBUG: buffer: 0x0000000000200000
+<br>&gt;
+<br>&gt; =C2=A0 =C2=A0 FATAL: Unhandled VM-Exit, reason 2
+<br>&gt;
+<br>&gt; =C2=A0 =C2=A0 qualification 0
+<br>&gt;
+<br>&gt; =C2=A0 =C2=A0 vectoring info: 0 interrupt info: 0
+<br>&gt;
+<br>&gt; =C2=A0 =C2=A0 RIP: 0x0000000000001113 RSP: 0x0000000000007fe0 FLAG=
+S: 10006
+<br>&gt;
+<br>&gt; =C2=A0 =C2=A0 RAX: 0x0000000000007f13 RBX: 0x0000000000001cab RCX:=
+ 0x0000000000000000
+<br>&gt;
+<br>&gt; =C2=A0 =C2=A0 RDX: 0x00000000000003f8 RSI: 0x0000000000000000 RDI:=
+ 0x000000000000000d
+<br>&gt;
+<br>&gt; =C2=A0 =C2=A0 CS: 10 BASE: 0x0000000000000000 AR-BYTES: a09b EFER.=
+LMA 1
+<br>&gt;
+<br>&gt; =C2=A0 =C2=A0 CR0: 0x0000000080010031 CR3: 0x0000000000003000 CR4:=
+ 0x0000000000042220
+<br>&gt;
+<br>&gt; =C2=A0 =C2=A0 EFER: 0x0000000000000500
+<br>&gt;
+<br>&gt; =C2=A0 =C2=A0 Parking CPU 2 (Cell: &quot;bazooka-inmate&quot;)
+<br>&gt;
+<br>&gt;
+<br>&gt; So there is a triple fault here, and it=E2=80=99s just the `buffer=
+[0] =3D &#39;M&#39;;` line (from
+<br>&gt; objdump):
+<br>&gt;
+<br>&gt;
+<br>&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0buffer[0] =
+=3D &#39;M&#39;;
+<br>&gt;
+<br>&gt; =C2=A0=C2=A0=C2=A0=C2=A01113: =C2=A0 =C2=A0 =C2=A0 c6 04 25 00 00 =
+20 00=C2=A0 =C2=A0 movb $0x4d,0x200000
+<br>&gt;
+<br>&gt;
+<br>&gt; So clearly I have configured the memory incorrectly. Either Jailho=
+use is denying
+<br>&gt; the memory access, or there is just no memory page sitting behind =
+address
+<br>&gt; 0x00200000. But I can=E2=80=99t see what I=E2=80=99m doing wrong. =
+Any ideas on how I can further
+<br>&gt; debug this? I=E2=80=99m on v0.11 (with some custom modifications).
+<br>&gt;
+<br>
+<br>On x86, the inmate lib only maps the first 2M into the guest&#39;s page=
+ table. Use
+<br>map_range to map more.
+<br>
+<br>Jan
+<br>
+<br>PS: If you call excp_reporting_init() early during inmate init, you sho=
+uld get
+<br>more proper errors than &quot;triple fault&quot;.
+<br></blockquote></div></div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/d5af7c51-1896-48a5-bfda-131aeb719b87%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/d5af7c51-1896-48a5-bfda-131aeb719b87%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_1185_2439122.1570297144573--
+
+------=_Part_1184_418209677.1570297144573--
