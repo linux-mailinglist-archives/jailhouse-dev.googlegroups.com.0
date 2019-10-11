@@ -1,137 +1,139 @@
-Return-Path: <jailhouse-dev+bncBC33JYE2XMMRBUHP7XWAKGQEVJ2RGEI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDRKPIXWWIFBBMUHQLWQKGQEE56MZCI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ua1-x93a.google.com (mail-ua1-x93a.google.com [IPv6:2607:f8b0:4864:20::93a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F6FED305A
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 10 Oct 2019 20:26:26 +0200 (CEST)
-Received: by mail-ua1-x93a.google.com with SMTP id m45sf1812775uae.18
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 10 Oct 2019 11:26:26 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1570731985; cv=pass;
+Received: from mail-ed1-x539.google.com (mail-ed1-x539.google.com [IPv6:2a00:1450:4864:20::539])
+	by mail.lfdr.de (Postfix) with ESMTPS id AFE6FD4126
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 11 Oct 2019 15:29:22 +0200 (CEST)
+Received: by mail-ed1-x539.google.com with SMTP id y21sf5737595edr.18
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 11 Oct 2019 06:29:22 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1570800562; cv=pass;
         d=google.com; s=arc-20160816;
-        b=k50ymxDZ+KSfnaSDwK8CDTq7YIVG0XgvPigKvrJbV5PtwdygdaNQHiNlFOe4rfbJg1
-         BYyeo1WA3tqlrKbNA8dpk6CtmV8254CHQew57iBx2iu5ud/UXrIOsFsxZwpE+1UPEybk
-         7U96VugWo7WhJfUdtRKZU2P3MqcjM9Ud99uc1JxFGSSyYRxpVnVfis+um7m3qCg0ake8
-         niC9Zfq21ip0GCWeuD5OWQktNzEg3XZHgX1hD/A+6BSNZ/+Pi/Locyv/mQZbffZsuhME
-         vpCdCYpTm70yzmLs3PX3AWUu8iWfnXl4gAIi4sG5LI3apdU9s7oqwPvpEJOprSrKFx3A
-         Dp6A==
+        b=fJUWNGU2p9m33bDIiVmZBCVLp4hqEkoTo+Jd9h+0wFbbXABQtVK8IyyVjLloNJCw7w
+         iDQu5oFos3y/Y3eE3stvM9pfYEBjU2mCGXRZQhesCtidPfgyfkW6oh4eXcEhhFRsC1Jj
+         shNE/RkyJKTvqMhoUT1aMH2FvT4a84dt2OLgPxWEV8wVcOc1rccqCMm7GdBD4O4S4NPs
+         hveCeo2YiWaMxlu4i0zEZytE+8jpWqyuR/GG2JcH4I+6f1JIWY32TfzD4DuErzvYprg9
+         LbSC8qy0io0q4nGpzk70g2vkGT9YiDWzOCevCBu9Rw6iDPftTC1/ol9BnN9yrHl8Qlhy
+         flRw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:dkim-signature;
-        bh=D1kyQbo4RJEsda2PQxq3bAbYs/suB8JYNUmsOvVrVmU=;
-        b=COExt+hrrpyh2WE5AUY92E8bLf3ZBMrl6gPE16YlYdkOUtFbiNnjLUaMrj5Djmxhsq
-         lcpDu6PPA1puEUs6HZ0hx2VKc4rzWWq9Nqwg+FzuxfRDgzORdXIPA/4M2OBNSoIQmr8k
-         kbhLdu0H+Li5fL/VSfavDw6V+rUJ9sys37Y5ZvHT/Bn7CspHUJwxaXbmrvj/qp4DNQxF
-         PAsmtVUobIqqR70EErSVEz10kR/muBhlhV7i83qaPIKW7TO77jrmXk0ww+t9uIldQMRb
-         2fE3uzlu/QqSD/XK9WpdoFdXl1d3zi7puSTsURtdhDRXRU66w0iZ5TTJ8MxFxoZ2uM58
-         CLrg==
+         :list-id:mailing-list:precedence:to:date:message-id:subject
+         :mime-version:from:sender:dkim-signature;
+        bh=AcfzWe6qfUKL5oTK55AEWCShdGQ/ZHgrQU6d9uF5/Dk=;
+        b=ZsEcUHeeseRB+RnuH5Bbnj/GDsPeSKT5t+EtmLgqn0RTus4rY0c699UNIJDqKg2Gww
+         h18rfV3JeLkhZuTPN+NZU1gidW38IZG9xh8zH1BZcn1bRscwDmW97v6b8Duwv4e7UWl5
+         plXSVZUd7hDFwu1C4J1M/E+/8f7JICg9fiP0DtXLcEMr8Vh6ik9m2Y0VTK3VC+ShLDkN
+         ZQ5gtOAqGZfI7eteCH0U5nfUPKWDvep4kg2np8DBVqwTWz9FZ9d0il5pdx/4OG73MUob
+         gsu66NBCxLxd0XLsnaSZ+q6DqeOO5oxd1AnxOTDk6TcnHd9wv/SFw/cHMaNfdVALsd9D
+         d0HQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=y9mR6kfX;
-       spf=pass (google.com: domain of vitalya@ti.com designates 198.47.23.248 as permitted sender) smtp.mailfrom=vitalya@ti.com;
-       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
+       dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=RIUo1Hvn;
+       spf=pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.17.21 as permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:x-original-sender:x-original-authentication-results
-         :reply-to:precedence:mailing-list:list-id:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=D1kyQbo4RJEsda2PQxq3bAbYs/suB8JYNUmsOvVrVmU=;
-        b=fr3ZBkHgXaOCh/U1F54bRi5e9Z/YP199jXyFh6jlMP2qYHOFYFkgeL3/B6xK8WaIM7
-         DjiMlxAGCHf/IHGU9Ua4SzmeXZ4xaynFYQLIMrRykZsUDSVeF5rQCtf1EGBnnEOctzqx
-         aWMRtJnTFY7dFrVtHO3SK7z7o5IsWbX3dltdDoAW37I3HuNbqRSrUJQ9Rs0fEdFslp++
-         Jy3rwMJJzvZ3DIqnZKEBpZLpJ/IO3IKW1N2xTD6K4557i0MFxk9GlJ4tZkXLnry3n7Wz
-         T2oK9Xp7wWm099Jtj0CFlAbt43kkgTQ1KdUIskqGVf9I4cctW4KMYFEpU0fXZR5pw2SJ
-         9fgA==
+        h=sender:from:mime-version:subject:message-id:date:to
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=AcfzWe6qfUKL5oTK55AEWCShdGQ/ZHgrQU6d9uF5/Dk=;
+        b=aOqXPsFEa2YLi3q5IqZ030OGSkhgscZJGMvqCnGtOgpwVCIVsGpSfY+ztaoNVn70R7
+         WFDgmc7BLEieE5SUlTdkFqya0Gl9vMWSsVTP8j5eE3MR6DbM3ZyQ62NBfnrRy7xCv8Ze
+         F+RZYn1DmFp/RbZ4rMzgBDmpvz8vnAzCBN9yKr8kn+uS9ohY8qJ8/pfftdu+KpoBzrq5
+         xwKvGc5KIXA1cjhpc5w/z1bijqSVuTNh2eJ8NFHthFtynnIElwmtOLlNVvKrMQvY+oeo
+         VGs2KSjaLWzBHLmQkDSMgKzDKO/hZ34pmJqpynlOKHEMpCntl27Ow8Wg2ERq1W/uNrji
+         oZPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:x-original-sender
-         :x-original-authentication-results:reply-to:precedence:mailing-list
-         :list-id:x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=D1kyQbo4RJEsda2PQxq3bAbYs/suB8JYNUmsOvVrVmU=;
-        b=UXtBi8dfI3xJOzHpaRQBePzdaKtYKlbOFLUK/UJfaMPiDYGJPkczJImkfSWVstW+en
-         TPG05Wwum1wLCIqObW4SBk4jyCsAErpx5iOg2ltAvB2sMo6caqaLBrUy5iaXtLl3Xqpb
-         WgoYCq63IcLrVODv9MzYoqD2rXmVOTVkkK6EkiNa5IcPFgvsnmvSRsl91CDHMII41fbJ
-         AIvc6HGfUKo26sDmcS2ejOKPzXa+uaD6TLQU9cS+krdDR3Hi11ulddJHeU+jB78t+F4S
-         RUFXFu6DjFNwgF+OGpagDefdZZiUrmJlo1BGeH+xZf9l01ODfCFQqqSj3/yFnYfaObCY
-         mZZg==
-X-Gm-Message-State: APjAAAVfIr+1PSxywILtQVQczkfNV7pWr75aikuArxp664iiApd3h6rK
-	Qdrpj03fnz2pBB3L4YGiuz0=
-X-Google-Smtp-Source: APXvYqwQU6MmnP10MKAUz3q8BT66ldhI88sgj2rZH6goH0DobPp1cz+/vc28eMrJzOMXkfu67d3t+A==
-X-Received: by 2002:a9f:3d82:: with SMTP id c2mr3446699uai.3.1570731985203;
-        Thu, 10 Oct 2019 11:26:25 -0700 (PDT)
+        h=sender:x-gm-message-state:from:mime-version:subject:message-id:date
+         :to:x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=AcfzWe6qfUKL5oTK55AEWCShdGQ/ZHgrQU6d9uF5/Dk=;
+        b=KAT3/qHg8zk/2zWAZE42TC0Z2KKjDCiDssHGUa9kqOMMBzANQsnbjYaigff8l+UMo6
+         ORh/gReEzw3OLKhRu8ypOELEgFdzHIcHHfPL6JjqwWvf4LCLEGoKtLZ1duXoKklCPQFx
+         y+u4Y41zZ5Qmmf1GdZf0K2CBRKyD2pKSLHYxkdiriz4D8RgdhC1Cd6YAuyMqvUeG2oZq
+         SwlRcsCyda6pHPYkpcTnJnbhy6+z982OfYBg7W1hcnDUsvhVZWv6iYDUI4ksW2KVrbfa
+         GSA9Q6oahR/ywbUaFtnfFFYj5oR48MjIfXlMwSrIoqANiekuuw8UnsZeEvWNkwEr8a/I
+         ILKw==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: APjAAAX2yt3HjdYWVEiu12uxpPePtETXD4zR5rF5J1Enkuyy1oU07VyV
+	39s9yRdAnLOEH4fnhMvrdRA=
+X-Google-Smtp-Source: APXvYqzmCViSk8O7eib59UaPJVqKK4ylXy5Rm0YpTxrTTJW3w/fdIhIWaoccX1myYjNeZg8JSRoPEg==
+X-Received: by 2002:aa7:d4d9:: with SMTP id t25mr13602803edr.76.1570800562402;
+        Fri, 11 Oct 2019 06:29:22 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a67:1684:: with SMTP id 126ls489542vsw.4.gmail; Thu, 10 Oct
- 2019 11:26:24 -0700 (PDT)
-X-Received: by 2002:a05:6102:253:: with SMTP id a19mr6460213vsq.37.1570731984610;
-        Thu, 10 Oct 2019 11:26:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1570731984; cv=none;
+Received: by 2002:aa7:d98d:: with SMTP id u13ls1729229eds.12.gmail; Fri, 11
+ Oct 2019 06:29:21 -0700 (PDT)
+X-Received: by 2002:aa7:c603:: with SMTP id h3mr13524643edq.44.1570800561612;
+        Fri, 11 Oct 2019 06:29:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1570800561; cv=none;
         d=google.com; s=arc-20160816;
-        b=D12+PmneFdzJyBxznZQFp4LsGVFUNGFOh87DH9Cobh5qEUv51y6UI2rExhZvr45UnM
-         XxPY+DPbi96YySL98C9dhXLgJciKgSlVC18XkvwhavgsOpzPCvXkWxte5PvZrmoqBs9c
-         KQWFtfO7PIyansaQ6DtJv5moIyRA4/rv1/iWZk6oDrILJnNF9RzbmvbYusaOwtoQNFQw
-         fCvw7w2HohKtRifkOzKRZaoKYwcwisVtO5kZm5xTXoAZnNuK/79VUGhOGfh2NHv/E0ty
-         bkOy9EAb0dc2CgKFzxKBKbABRCEdIHPPBPY2Lxlc+xuiFjKekDfEdZB3bfqbfa8JwOn+
-         5NcQ==
+        b=Y0CnfB0DfRKuLPQUSk2XkNQ8T9shv8xmzfzYuYQ1sIXkJR+TPT5IaJRx6j4tzRsrWt
+         tuYH71oIWrIYxO+BpaVhF25dZTJukZQalplIqoJLKqkzUHoV+5AC1F4CXqEGjZa3/b3e
+         u8GP4kmSg7vv3gBFUxBmpoHe3NtuT6GiQh4jqgzXs5qRpIK7CSL5qdr/GV9T+TPQOs8v
+         bJvBDzNvJ7xq8fDBXOOY13e3LnwHYBpvBMENgTMRfze9ijUOYMVrzdcQwfhyaOX12bHL
+         0q0ygNS+Fyl/iupEbxGF3OxGazqs7ZmTD+SBy04jLFVbrERe84CSFLBdx+xe3eBp7XMh
+         sq6w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
+        h=to:date:message-id:subject:mime-version:content-transfer-encoding
          :from:dkim-signature;
-        bh=t6EjXXrF+405e7Cxyi+aZ9rIVNYO3wZ7fltlAToFApU=;
-        b=PEsq6240+ShJpE3KXZhjPTKVerqAbN6LyjSP2BV8Umyyp48MJJMi+qRRirvf/hSQKG
-         cFnwc3fJDgWU+YDDbErdSQXspY5dbyii8KBbLYZNS3fi4WlN79w4KySeZ2J3Ung7rSOv
-         0KuejcvXVyF1bjI6IRxYiN+A4Id+dmXTFc3zA5d/axEIL2KWWlGeD6F/nkb7I5raENqR
-         ab2bTmjgPclDBPjYN3iP4pde6dSiQ0QiK72fYIk8JyvdSDbPxkV/9iu2X3t77vmnZkOV
-         ZN6L76G9foaK0pwgJa9oxLcgMiZLOCKDqpwePZ74Su43OIkqeAiZAQZ7j/KjwO2wr35A
-         sNBQ==
+        bh=jzBKEgYey0B6vE5MklhYUOTEkrc+qWNdUD6pcC0hxTg=;
+        b=qzh4cU8gCu5iluSnaCuk64BjYERJxdIOValqRh7CZCQrRMFq9ybbcZ1KDXjG4n+kZK
+         hDVSZAq7pKdTEuS/RN675gqsErqhYLsIXI8trrCtWzhN2gOhq/6OFV1r+d01zEglW2Jv
+         GZXU9BemmNxXMAZXG86ibUwaWIgn5iG1iMpB5m/0FnHSDjRdH0doDXYwFwB2vPcpp9ow
+         Jows0X4aVTP6psDE26Qellbmli3eWEB3Uq3DRwLTqYBsHlIw8PrbPOSqpJPhnlg7bh9J
+         f0i+4HffAu0ncpt0kWB/G/CnokgX3SntcszaR5/CkigPJcrzQ0pVMlmqVV/PZpvr13lj
+         WGkA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=y9mR6kfX;
-       spf=pass (google.com: domain of vitalya@ti.com designates 198.47.23.248 as permitted sender) smtp.mailfrom=vitalya@ti.com;
-       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com. [198.47.23.248])
-        by gmr-mx.google.com with ESMTPS id v4si344677vka.3.2019.10.10.11.26.24
+       dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=RIUo1Hvn;
+       spf=pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.17.21 as permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de
+Received: from mout.gmx.net (mout.gmx.net. [212.227.17.21])
+        by gmr-mx.google.com with ESMTPS id a27si200266ejg.1.2019.10.11.06.29.21
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 10 Oct 2019 11:26:24 -0700 (PDT)
-Received-SPF: pass (google.com: domain of vitalya@ti.com designates 198.47.23.248 as permitted sender) client-ip=198.47.23.248;
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
-	by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id x9AIQN1O053744;
-	Thu, 10 Oct 2019 13:26:23 -0500
-Received: from DFLE115.ent.ti.com (dfle115.ent.ti.com [10.64.6.36])
-	by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x9AIQNa1120163
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 10 Oct 2019 13:26:23 -0500
-Received: from DFLE101.ent.ti.com (10.64.6.22) by DFLE115.ent.ti.com
- (10.64.6.36) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Thu, 10
- Oct 2019 13:26:19 -0500
-Received: from fllv0039.itg.ti.com (10.64.41.19) by DFLE101.ent.ti.com
- (10.64.6.22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
- Frontend Transport; Thu, 10 Oct 2019 13:26:23 -0500
-Received: from uda0794637.dhcp.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
-	by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id x9AIQLl4008251;
-	Thu, 10 Oct 2019 13:26:23 -0500
-From: "'Vitaly Andrianov' via Jailhouse" <jailhouse-dev@googlegroups.com>
-To: <jan.kiszka@siemens.com>, <jailhouse-dev@googlegroups.com>
-CC: Vitaly Andrianov <vitalya@ti.com>
-Subject: [PATCH 4/4] config: add config files for am572x-evm
-Date: Thu, 10 Oct 2019 14:20:50 -0400
-Message-ID: <1570731650-5335-5-git-send-email-vitalya@ti.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1570731650-5335-1-git-send-email-vitalya@ti.com>
-References: <1570731650-5335-1-git-send-email-vitalya@ti.com>
-MIME-Version: 1.0
+        Fri, 11 Oct 2019 06:29:21 -0700 (PDT)
+Received-SPF: pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.17.21 as permitted sender) client-ip=212.227.17.21;
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [10.0.0.213] ([212.126.163.234]) by mail.gmx.com (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1Msq24-1i3SUz0ZoW-00tA0I for
+ <jailhouse-dev@googlegroups.com>; Fri, 11 Oct 2019 15:29:21 +0200
+From: Oliver Schwartz <Oliver.Schwartz@gmx.de>
 Content-Type: text/plain; charset="UTF-8"
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-X-Original-Sender: vitalya@ti.com
+Mime-Version: 1.0 (Mac OS X Mail 11.5 \(3445.9.1\))
+Subject: [PATCH 1/3] core: Add configuration option for allowed IDs in SMC SiP
+  calls.
+Message-Id: <5115AB43-CB92-4FA6-A377-50F3243639C0@gmx.de>
+Date: Fri, 11 Oct 2019 15:29:20 +0200
+To: jailhouse-dev@googlegroups.com
+X-Mailer: Apple Mail (2.3445.9.1)
+X-Provags-ID: V03:K1:c+b6zsJUvr0dsOXzAxuG1CCZjcD29zIeqMzFIGY7/3ZkokiOSzQ
+ rJ/wwxYmjKM4Or2oQb8qEAp6PXnFnJ3l2pI/SS66t8H0EfXGGiBS9T/EAzgnqi7wskpAjyh
+ PnWbRjiEav4Qc5KaOCikjC/9YAmOauyBRSRW3s16Pj6iouSaCSKVFrFgpYirmxOy5qPVnfh
+ +Z5u5rLKvUsfv6bQ96b+w==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:Nd3mUpK8/So=:ZmXB5YpFmrr6qvQq2BGwHv
+ REe97bpTPe+I4uWrr0YSmbD53kvgZRppzvmpYS4C9BEwefUVf6PtghQlHq7bPiI1xyi7OvafZ
+ f7IRSeY9kPIHWjsbLEAr4axJ1urm7yEsUjbYw9q2ot7u3nwkWDUDHRYhw7stvm2a2lNeu4IPj
+ 8kHTh9oxsxCzJV9SU2kuHe2YccY3dub7xdOyhPYskeQ7Qy+OshBgl4SlMkr4B8TQCb0vYQ7Gj
+ 7MFdgjs3axdelm/5W638N+Znf1H9BvTVCoN/RJ79RokTWloda+gtUYJyqEIjGrataX4YnK+JE
+ MC1sh80mBry187MAY2UMW4fqiovKPc1xZ2loryLpqrvElXnV7GucY8W97iqI5BRJYkXRDgw9Q
+ diCpEbaTjBba3MCKA3tW4q+5YhDSD74zry2ODIrK/Y/ed2h9mG7dtbZEHQlzAriouKcUK7ZF2
+ hIzajhdTbjAVxkuRfH+JrRsng6K655lnfW2m8YZpvZcqtY8Wuyim06D9VBxLaxXSTUKps/0M7
+ nMPEwWZ8PvP2xVEYUJ9eODdVntErQY7VmYDMPE1N1+fsG7kIi18sLr9sqcdztA/u7vNzeAkPQ
+ c98jxVMUQXt+LEhCnsgh7Em+SdlhG3/2wQtd0ADt8he2jhbLNtXXabCw5CmJVPcRtTMSlrLh3
+ 6hO92Xjhv85l1pNGIZEwwfuIYHZ+duRBUNGR7Q4mkTPKmL5e5+iaAI7ly9ISkIh0VpaUIO23Y
+ +ieEzBmMFcDBHfCt6kIuXmlPKtDIDzxizKIgu9jxPma1UxVNSVsz68A2kNg+SIBDMTgzh9or/
+ vs3lsp6s4Za3KJs1SJntKNavXtvXZRSIZN+om4sBp1sceJ6ACcqbzmQ/32tU79ps7+jfxFaxZ
+ xDyBP+HvM91eCUQtGPJGr/spSe3OgiQ85ODAAIY43YmEiLO5O76N5770KuAvd8KZm348c4qc0
+ ZTKQuAc/C3rTJKzQtAH/KMOqgodn6Y4jPpY68cmBf9pf5vQhCO7kpMgeTabO0ESZX+D+CrRUW
+ JWsRRGFXe/z58kueKfkL/jnZGvaAfB0yOIpMcH1r5LnUHHm6lmZ4wYZT6btZq1W1tbs3X3HfV
+ DrC/5yZl7lzQGejnLCL8O1GcNSnXUr+IWUk/faI5LrqZ7xN2wpri1V1Mr7d3SQhEIPck2lpq0
+ 0fXvkzwDGAQNeYqBpMQY18oqUT85ApYXTfHXClU6HuZfK0npHHFBTv2uGsfdhf30E4njKJFZ3
+ nC63KZFAVXYc4GAu25i49vfRPRHbDvfVLpk0HHLvDw3e0NFuRC0J85avpsy0=
+X-Original-Sender: oliver.schwartz@gmx.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@ti.com header.s=ti-com-17Q1 header.b=y9mR6kfX;       spf=pass
- (google.com: domain of vitalya@ti.com designates 198.47.23.248 as permitted
- sender) smtp.mailfrom=vitalya@ti.com;       dmarc=pass (p=QUARANTINE sp=NONE
- dis=NONE) header.from=ti.com
-X-Original-From: Vitaly Andrianov <vitalya@ti.com>
-Reply-To: Vitaly Andrianov <vitalya@ti.com>
+ header.i=@gmx.net header.s=badeba3b8450 header.b=RIUo1Hvn;       spf=pass
+ (google.com: domain of oliver.schwartz@gmx.de designates 212.227.17.21 as
+ permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -144,398 +146,90 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-This commit add root cell configuration and uart and gic inmate demo
-configurations for TI AM572X-EVM evaluation board.
+This patch adds a new configuration parameter, allowed_sip_ids, as an array
+of integers to the cell configuration. It specifies the IDs of SMC SiP calls
+that are forwarded to the ARM trusted firmware.
 
-Signed-off-by: Vitaly Andrianov <vitalya@ti.com>
+Signed-off-by: Oliver Schwartz <Oliver.Schwartz@gmx.de>
 ---
- configs/arm/am57xx-evm-gic-demo.c  |  76 ++++++++++++++
- configs/arm/am57xx-evm-uart-demo.c |  76 ++++++++++++++
- configs/arm/am57xx-evm.c           | 205 +++++++++++++++++++++++++++++++++++++
- 3 files changed, 357 insertions(+)
- create mode 100644 configs/arm/am57xx-evm-gic-demo.c
- create mode 100644 configs/arm/am57xx-evm-uart-demo.c
- create mode 100644 configs/arm/am57xx-evm.c
+ include/jailhouse/cell-config.h | 13 +++++++++++--
+ tools/jailhouse-cell-linux      |  2 +-
+ tools/jailhouse-hardware-check  |  2 +-
+ 3 files changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/configs/arm/am57xx-evm-gic-demo.c b/configs/arm/am57xx-evm-gic-demo.c
-new file mode 100644
-index 0000000..b4d0fce
---- /dev/null
-+++ b/configs/arm/am57xx-evm-gic-demo.c
-@@ -0,0 +1,76 @@
-+/*
-+ * Jailhouse, a Linux-based partitioning hypervisor
-+ *
-+ * Configuration for gic-demo inmate on AM57XX-EVM:
-+ *
-+ * Copyright (c) Texas Instruments, Inc.
-+ *
-+ * Authors:
-+ *  Vitaly Andrianiov <vitalya@ti.com>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See
-+ * the COPYING file in the top-level directory.
-+ */
+diff --git a/include/jailhouse/cell-config.h b/include/jailhouse/cell-config.h
+index d435b9f..3a61e4b 100644
+--- a/include/jailhouse/cell-config.h
++++ b/include/jailhouse/cell-config.h
+@@ -50,7 +50,7 @@
+  * Incremented on any layout or semantic change of system or cell config.
+  * Also update HEADER_REVISION in tools.
+  */
+-#define JAILHOUSE_CONFIG_REVISION	12
++#define JAILHOUSE_CONFIG_REVISION	13
+ 
+ #define JAILHOUSE_CELL_NAME_MAXLEN	31
+ 
+@@ -98,6 +98,7 @@ struct jailhouse_cell_desc {
+ 	__u32 num_pci_devices;
+ 	__u32 num_pci_caps;
+ 	__u32 num_stream_ids;
++	__u32 num_allowed_sip_ids;
+ 
+ 	__u32 vpci_irq_base;
+ 
+@@ -291,7 +292,8 @@ jailhouse_cell_config_size(struct jailhouse_cell_desc *cell)
+ 		cell->num_pio_regions * sizeof(struct jailhouse_pio) +
+ 		cell->num_pci_devices * sizeof(struct jailhouse_pci_device) +
+ 		cell->num_pci_caps * sizeof(struct jailhouse_pci_capability) +
+-		cell->num_stream_ids * sizeof(__u32);
++		cell->num_stream_ids * sizeof(__u32) +
++		cell->num_allowed_sip_ids * sizeof(__u32);
+ }
+ 
+ static inline __u32
+@@ -362,4 +364,11 @@ jailhouse_cell_stream_ids(const struct jailhouse_cell_desc *cell)
+ 		cell->num_pci_caps * sizeof(struct jailhouse_pci_capability));
+ }
+ 
++static inline const __u32 *
++jailhouse_cell_allowed_sip_ids(const struct jailhouse_cell_desc *cell)
++{
++	return (const __u32 *)((void *)jailhouse_cell_stream_ids(cell) +
++		cell->num_stream_ids * sizeof(__u32));
++}
 +
-+#include <jailhouse/types.h>
-+#include <jailhouse/cell-config.h>
-+
-+#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-+
-+struct {
-+	struct jailhouse_cell_desc cell;
-+	__u64 cpus[1];
-+	struct jailhouse_memory mem_regions[4];
-+} __attribute__((packed)) config = {
-+	.cell = {
-+		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
-+		.revision = JAILHOUSE_CONFIG_REVISION,
-+		.name = "AM57xx-EVM-gic-demo",
-+		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
-+
-+		.cpu_set_size = sizeof(config.cpus),
-+		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-+
-+		.console = {
-+			.address = 0x48020000,
-+			/* .divider = 0x0d, */
-+			.type = JAILHOUSE_CON_TYPE_8250,
-+			.flags = JAILHOUSE_CON_ACCESS_MMIO |
-+				 JAILHOUSE_CON_REGDIST_4,
-+		},
-+	},
-+
-+	.cpus = {
-+		0x2,
-+	},
-+
-+	.mem_regions = {
-+		/* UART... */ {
-+			.phys_start = 0x48020000,
-+			.virt_start = 0x48020000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
-+		},
-+		/* UART... */ {
-+			.phys_start = 0x48424000,
-+			.virt_start = 0x48424000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
-+		},
-+		/* RAM */ {
-+			.phys_start = 0xee000000,
-+			.virt_start = 0,
-+			.size = 0x10000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
-+		},
-+		/* communication region */ {
-+			.virt_start = 0x80000000,
-+			.size = 0x00001000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_COMM_REGION,
-+		},
-+	},
-+};
-diff --git a/configs/arm/am57xx-evm-uart-demo.c b/configs/arm/am57xx-evm-uart-demo.c
-new file mode 100644
-index 0000000..0123e4b
---- /dev/null
-+++ b/configs/arm/am57xx-evm-uart-demo.c
-@@ -0,0 +1,76 @@
-+/*
-+ * Jailhouse, a Linux-based partitioning hypervisor
-+ *
-+ * Configuration for uart-demo inmate on AM57XX-EVM:
-+ *
-+ * Copyright (c) Texas Instruments, Inc.
-+ *
-+ * Authors:
-+ *  Vitaly Andrianiov <vitalya@ti.com>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See
-+ * the COPYING file in the top-level directory.
-+ */
-+
-+#include <jailhouse/types.h>
-+#include <jailhouse/cell-config.h>
-+
-+#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-+
-+struct {
-+	struct jailhouse_cell_desc cell;
-+	__u64 cpus[1];
-+	struct jailhouse_memory mem_regions[4];
-+} __attribute__((packed)) config = {
-+	.cell = {
-+		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
-+		.revision = JAILHOUSE_CONFIG_REVISION,
-+		.name = "AM57XX-EVM-uart-demo",
-+		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
-+
-+		.cpu_set_size = sizeof(config.cpus),
-+		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-+
-+		.console = {
-+			.address = 0x48020000,
-+			/* .divider = 0x0d, */
-+			.type = JAILHOUSE_CON_TYPE_8250,
-+			.flags = JAILHOUSE_CON_ACCESS_MMIO |
-+				 JAILHOUSE_CON_REGDIST_4,
-+		},
-+	},
-+
-+	.cpus = {
-+		0x2,
-+	},
-+
-+	.mem_regions = {
-+		/* UART... */ {
-+			.phys_start = 0x48020000,
-+			.virt_start = 0x48020000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
-+		},
-+		/* UART... */ {
-+			.phys_start = 0x48424000,
-+			.virt_start = 0x48424000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
-+		},
-+		/* RAM */ {
-+			.phys_start = 0xee000000,
-+			.virt_start = 0,
-+			.size = 0x10000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
-+		},
-+		/* communication region */ {
-+			.virt_start = 0x80000000,
-+			.size = 0x00001000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_COMM_REGION,
-+		},
-+	}
-+};
-diff --git a/configs/arm/am57xx-evm.c b/configs/arm/am57xx-evm.c
-new file mode 100644
-index 0000000..7573150
---- /dev/null
-+++ b/configs/arm/am57xx-evm.c
-@@ -0,0 +1,205 @@
-+/*
-+ * Jailhouse, a Linux-based partitioning hypervisor
-+ *
-+ * Copyright (c) Texas Insturments. Inc, 2016
-+ *
-+ * Authors:
-+ *  Vitaly Andrianov <vitalya@ti.com>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See
-+ * the COPYING file in the top-level directory.
-+ */
-+
-+#include <jailhouse/types.h>
-+#include <jailhouse/cell-config.h>
-+
-+#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-+
-+struct {
-+	struct jailhouse_system header;
-+	__u64 cpus[1];
-+	struct jailhouse_memory mem_regions[17];
-+	struct jailhouse_irqchip irqchips[2];
-+} __attribute__((packed)) config = {
-+	.header = {
-+		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
-+		.revision = JAILHOUSE_CONFIG_REVISION,
-+		.flags = JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
-+		.hypervisor_memory = {
-+			.phys_start = 0xef000000,
-+			.size = 0x1000000,
-+		},
-+		.debug_console = {
-+			.address = 0x48020000,
-+			.size = 0x1000,
-+			/* .divider = 26, */
-+			.type = JAILHOUSE_CON_TYPE_8250,
-+			.flags = JAILHOUSE_CON_ACCESS_MMIO |
-+				JAILHOUSE_CON_REGDIST_4 ,
-+		},
-+		.platform_info.arm = {
-+			.gic_version = 2,
-+			.gicd_base = 0x48211000,
-+			.gicc_base = 0x48212000,
-+			.gich_base = 0x48214000,
-+			.gicv_base = 0x48216000,
-+			.maintenance_irq = 25,
-+		},
-+		.root_cell = {
-+			.name = "AM57XX-EVM",
-+			.cpu_set_size = sizeof(config.cpus),
-+			.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-+			.num_irqchips = ARRAY_SIZE(config.irqchips),
-+		},
-+	},
-+
-+	.cpus = {
-+		0x3,
-+	},
-+
-+	.mem_regions = {
-+		/* OCMCRAM */ {
-+			.phys_start = 0x40300000,
-+			.virt_start = 0x40300000,
-+			.size = 0x80000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO,
-+		},
-+		/* 0x40380000 - 0x48020000 */ {
-+			.phys_start = 0x40380000,
-+			.virt_start = 0x40380000,
-+			.size = 0x7ca0000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO,
-+		},
-+		/* UART... */ {
-+			.phys_start = 0x48020000,
-+			.virt_start = 0x48020000,
-+			.size = 0xe0000,//0x00001000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO,
-+		},
-+		/* 0x48100000 - 0x48281000 */ {
-+			.phys_start = 0x48100000,
-+			.virt_start = 0x48100000,
-+			.size = 0x110000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO,
-+		},
-+		/*
-+		 * Leave gap for GIC controller 0x48210000 - 0x41220000
-+		 */
-+		/* 0x48220000 - 0x48281000 */ {
-+			.phys_start = 0x48220000,
-+			.virt_start = 0x48220000,
-+			.size = 0x610000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO,
-+		},
-+		/* OMAP WakeupGen */ {
-+			.phys_start = 0x48281000,
-+			.virt_start = 0x48281000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO,
-+		},
-+		/* PRCM MPU */ {
-+			.phys_start = 0x48243000,
-+			.virt_start = 0x48243000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO,
-+		},
-+		/* 0x48400000 - 0x48424000 */ {
-+			.phys_start = 0x48400000,
-+			.virt_start = 0x48400000,
-+			.size = 0x24000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO,
-+		},
-+		/* UART... */ {
-+			.phys_start = 0x48424000,
-+			.virt_start = 0x48424000,
-+			.size = 0x2000,//0x00001000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO,
-+		},
-+
-+		/* 0x48426000 - 0x48826000 */ {
-+			.phys_start = 0x48426000,
-+			.virt_start = 0x48426000,
-+			.size = 0x400000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO,
-+		},
-+		/* 0x48826000 - 0x48828000 */ {
-+			.phys_start = 0x48826000,
-+			.virt_start = 0x48826000,
-+			.size = 0x2000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO,
-+		},
-+		/* 0x48828000 - 0x4B300000 */ {
-+			.phys_start = 0x48828000,
-+			.virt_start = 0x48828000,
-+			.size = 0x2ad8000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO,
-+		},
-+
-+		/* 0x4B500000 - 0x58000000 */ {
-+			.phys_start = 0x4B500000,
-+			.virt_start = 0x4B500000,
-+			.size = 0xCB00000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO,
-+		},
-+		/* Display Subsystem & ...*/ {
-+			.phys_start = 0x58000000,
-+			.virt_start = 0x58000000,
-+			.size = 0x8000000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO,
-+		},
-+		/* RAM */ {
-+			.phys_start = 0x80000000,
-+			.virt_start = 0x80000000,
-+			.size = 0x6EF00000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_EXECUTE,
-+		},
-+		/* communication region */ {
-+			.phys_start = 0xEEF00000,
-+			.virt_start = 0xEEF00000,
-+			.size = 0x00100000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO,
-+		},
-+		/* Leave hole for hypervisor */
-+
-+		/* RAM */ {
-+			.phys_start = 0xF0000000,
-+			.virt_start = 0xF0000000,
-+			.size = 0x10000000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_EXECUTE,
-+		},
-+	},
-+	.irqchips = {
-+		/* GIC */ {
-+			.address = 0x48211000,
-+			.pin_base = 32,
-+			.pin_bitmap = {
-+				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff
-+			},
-+		},
-+		/* GIC */ {
-+			.address = 0x48211000,
-+			.pin_base = 160,
-+			.pin_bitmap = {
-+				0xffffffff, 0, 0, 0
-+			},
-+		},
-+	},
-+
-+};
+ #endif /* !_JAILHOUSE_CELL_CONFIG_H */
+diff --git a/tools/jailhouse-cell-linux b/tools/jailhouse-cell-linux
+index e43f8e4..b76bdc6 100755
+--- a/tools/jailhouse-cell-linux
++++ b/tools/jailhouse-cell-linux
+@@ -574,7 +574,7 @@ class PIORegion:
+ 
+ class Config:
+     _HEADER_FORMAT = '=6sH32s4xIIIIIIIIIIQ8x32x'
+-    _HEADER_REVISION = 12
++    _HEADER_REVISION = 13
+ 
+     def __init__(self, config_file):
+         self.data = config_file.read()
+diff --git a/tools/jailhouse-hardware-check b/tools/jailhouse-hardware-check
+index 37e02b7..e107bf9 100755
+--- a/tools/jailhouse-hardware-check
++++ b/tools/jailhouse-hardware-check
+@@ -136,7 +136,7 @@ class Sysconfig:
+     X86_MAX_IOMMU_UNITS = 8
+     X86_IOMMU_SIZE = 20
+ 
+-    HEADER_REVISION = 12
++    HEADER_REVISION = 13
+     HEADER_FORMAT = '6sH'
+ 
+     def __init__(self, path):
 -- 
 2.7.4
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/1570731650-5335-5-git-send-email-vitalya%40ti.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/5115AB43-CB92-4FA6-A377-50F3243639C0%40gmx.de.
