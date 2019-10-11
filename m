@@ -1,147 +1,150 @@
-Return-Path: <jailhouse-dev+bncBC33JYE2XMMRB4HQQLWQKGQEZTNXIKI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDRKPIXWWIFBBJURQPWQKGQE6CE2GNQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x338.google.com (mail-ot1-x338.google.com [IPv6:2607:f8b0:4864:20::338])
-	by mail.lfdr.de (Postfix) with ESMTPS id C05C6D4656
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 11 Oct 2019 19:14:29 +0200 (CEST)
-Received: by mail-ot1-x338.google.com with SMTP id i8sf5199281otc.19
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 11 Oct 2019 10:14:29 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1570814068; cv=pass;
+Received: from mail-wr1-x437.google.com (mail-wr1-x437.google.com [IPv6:2a00:1450:4864:20::437])
+	by mail.lfdr.de (Postfix) with ESMTPS id B1E44D4780
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 11 Oct 2019 20:23:34 +0200 (CEST)
+Received: by mail-wr1-x437.google.com with SMTP id z17sf4725409wru.13
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 11 Oct 2019 11:23:34 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1570818214; cv=pass;
         d=google.com; s=arc-20160816;
-        b=tViluLFKPNaC4fI+4e3A6ohpRhGNyao0fN8vnuWGGKs6QVkV2hL/hwhK5lyir7x0vD
-         AOrgNn1JDrFNuA/x/ET2txGSkIGagMkqrF0q+oD2GWgLTESZltUc449PgNknvnnbnHRZ
-         kupLgULX+ywo4xOwBAS+/ONedA+Zn9avQfTMV8Jv0fbYVg6e0W9iP//6yfnDAUvjhJDj
-         D3X+YY/MeOJt/lagQKawVOfez4XAo9PjQ1SzydT2gTczYU5awZrJbaNsbFt3gOntGhjI
-         qOR39ABCf/moo+XSSCrlCTdCUDFBbmuKjMYT2gjSwbDYyf7oaNB1CSDCDg13rgS7+Le+
-         dfsw==
+        b=Zj59a/ap3ZFomjWvzW9pyiqh+UgaEOz8qKm6hofRq41LTWzDxL49EgMKpEQ1AXa5e7
+         cscpsm6uKjNBhN73EDssNzxW/b9qNR/pgwEZ9HJqwlujYDJzj/C0SNOWgqRfL16OXuJI
+         RTJEpUJNTnfIJDDNeFhs0u2vT2cNN099TQz9dyUXqMJmhnujYOO0pmwf7TE75hs5f7Hb
+         fRRkMNWwDy7eAe/Sqx8NoDp84IKKJ67KegGagSxAhr8nkPhLaRTXF5Gb6/0ElapVlqHy
+         8wRhyVFAJOTJB3icU1NIs/zoEo6Ti/VDvT617OTaCpIBlgbVNCQadqSJiXKwTPvYjlt8
+         tdBw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:dkim-signature;
-        bh=ffXOFQFncRL62bZal4SI9o5PLA0E8dhlEq7iXzcQEz8=;
-        b=cVrYerboTWrsNJFkJ+kl6ZkdrAyVwN1xj1hdnKpnq3Yb3VbzXW+ZcR/WaHQ5VXIkg3
-         mfxp3JI0afM9XuDR8UPpeD5U0MyiPi7st4yblgLhL2uw+PyEO2dnd2YcsJ094xXn3761
-         rddCJHEtJ72qhwYXy0mJMEN4xYEgJr1BPC4uHRuVxRCOBg6Ash1bfWq6H+0Japvo6kQT
-         wexIDwCXg6UGZnI/8B/ff2NGXIX7spMebecc/GzHBaqirgljbsqeetI7rdT14wIUQCj+
-         WUGOHjj8yHUDA+049cve0ytt1R++6572/qNssJJvxvBOjV70wXmKm8H3yopjevfDHuq+
-         8jAA==
+         :list-id:mailing-list:precedence:to:references:message-id
+         :content-transfer-encoding:cc:date:in-reply-to:from:subject
+         :mime-version:sender:dkim-signature;
+        bh=Uc4z5gNq5uBWhoabqMoqb1BMJoeDZs5qu5uvrzQX4pY=;
+        b=RLaN4qukl+WYCBUk0dzSPIquKgCs3/tW6ANTlLQ3bMoLtLkP+X8kEg+zfdyhn8WsUm
+         DE/0lOK9OcxOn4YLpje3nLkXXhaUBpkKFYY1ebZDAFrOO2JYynMf8/Bs1ucoHIaBrRge
+         WDPlDRaSxA3n8j+aaeyH17kr/ymD+Qn6CCW5bwQj/KVOQylfHlxmdoBEKNipbI+2naxT
+         Y3jhb09aLyJv7g1UCf1aK3iZroP1khQqeDgYlfoHCmGve7Ty1n3VwZmuAvC0oBO34nc7
+         wrigzXEM35fxfILhkGwqcY3AnjG3mq9ZdyrCLdcdcX09VV12r4GCr+HLmTmwCOJq9HRx
+         jNfg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=uV4UlXT7;
-       spf=pass (google.com: domain of vitalya@ti.com designates 198.47.23.248 as permitted sender) smtp.mailfrom=vitalya@ti.com;
-       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
+       dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=ZVA9n+Ui;
+       spf=pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.15.19 as permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=subject:to:references:from:message-id:date:user-agent:mime-version
-         :in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:reply-to
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:mime-version:subject:from:in-reply-to:date:cc
+         :content-transfer-encoding:message-id:references:to
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=ffXOFQFncRL62bZal4SI9o5PLA0E8dhlEq7iXzcQEz8=;
-        b=BKuiv/1l3nXnYwB9fB6qjvpn4BJvcpQTQR14KiG5m3mVMLLxORRm5CZmAMpH6LsJHQ
-         eH/ZO8bW7DhgYS9M/wcoYQEaiFEKhQ4vW6+qZaKUWH9DAHoieXKxk6l3DA4ae13F1vVB
-         WRT0ANVphdtPGNlz8dwn2bQsJhwRu+oan2RRV7lpi3lOxy9hCnmnhDeax5dyH9rn4m3g
-         qQpydcgWnuWC+SBDDGG7XjhJibNj4qqSpUJ2KSQ6EHXnNJSICSccvP4eDRw1UcifgUnn
-         n/xSNtqIifVZPM54uHL+TTQcHwuyHs7mE8U8MuLSCGlBvDJqQIbdwKaKP7c8+EATkbhv
-         LZnw==
+        bh=Uc4z5gNq5uBWhoabqMoqb1BMJoeDZs5qu5uvrzQX4pY=;
+        b=JeTkwXy+aNrg6E6flKNTkFaMe9rniZj3xixmup3TJU5KtkHquRbiMNp9uJnZzOCbpr
+         4gko4jfoNVADQfe5GY+D0H1m/Pt7c0pRTGSkIf9oPCebVuSl7ZG98M6GAyiHmUZp8PEi
+         gpWrMQIARF0M9SYRnVVADpoIo9Z3KPIVwaKY7aPOqFCFsIOfrxaqsd3DlHVh1f8sORmC
+         csbjTxw+pFkRStKgiPgwngHL7dXUNwD9qpCyjJxDbkrZMqfc+SdHjJyUypjtK82pZmBl
+         HlNmA2CisNqGcPgt1DSjxaMSP1RpVXWqBbyoEbz2aohKBiPLf4BMoni6bS3MvW5hkZRf
+         KjGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:reply-to:precedence:mailing-list
-         :list-id:x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=ffXOFQFncRL62bZal4SI9o5PLA0E8dhlEq7iXzcQEz8=;
-        b=NW8MRRqBGCZ5aV6G2qvro2QVVZ0t1t9Dk0qJFNoK4fFghMvS86MeZ4aw/8W59t6Dfe
-         dgziponXkrukF9Vs0XkvFa68OZMCE7q1d8cIJUz9DpyLl5ZBuw6gyhMquXFyK1ssXEnD
-         y/EfNz9t3MmUWfvatCYu1UF0ksJZdyl6So3neu0ASgMLaKs99lkpXk93WxoMkVx+O11Z
-         ehzpgeX3aOyo/nRIMQ8pF6W4SlSwUGoMXRYiBudFK1JziS6Xkhn+DSQiKi7h9Uh54D0F
-         qrXvegmtifc03OR1Nw9XAw+0rM3BYIs8m6hTnRwYIXdiNAoXCCd3k0qJW08Rd5Rrtkhf
-         lUag==
-X-Gm-Message-State: APjAAAXhPaP1J+xIXcb8JJnhqtxuW6MLClZ872sH/nccvO9Y8Sg6sysF
-	ijazZNlVpjSAep9tHN0rigo=
-X-Google-Smtp-Source: APXvYqypXEHEXXcHadi5BQ09jx9QZqfmlo4nwGeEItOhjxhsWgcWIml6Bv1VaSU5VxT0gyAiHVrjPA==
-X-Received: by 2002:a9d:5ccd:: with SMTP id r13mr12285243oti.73.1570814064611;
-        Fri, 11 Oct 2019 10:14:24 -0700 (PDT)
+        h=sender:x-gm-message-state:mime-version:subject:from:in-reply-to
+         :date:cc:content-transfer-encoding:message-id:references:to
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=Uc4z5gNq5uBWhoabqMoqb1BMJoeDZs5qu5uvrzQX4pY=;
+        b=GeInqiXKCvK3c78q+E/yIE41m2qlt0jC8AmLddU2pqxcnwEH7HsVfrcoLRxGOWa0uJ
+         A91IxqplLAkt6DKbhQtWPcKNdI5HcpA7R0VFVxwIscN36+4HmS524FWU5g0zAeCOHh8o
+         sxcgnocKfPMksxEa1NoiynMIKJEwXrWY7EAYypfLfmqaEMBG7DLhhrI1n5yxSZbtI3AL
+         jsEZ/dizKkj7Nf+8dJ1gCFgZvi/uq9OZ7R6xbH23w015Zk7ASr3kpxXw9q688pGsghY4
+         M1kH5pRJAkNL26pcHW1ROXvxQMTtZLHkbGk7IAhi50i1Y8PoFPYTf+UGLfbpWZaicRWp
+         2nRQ==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: APjAAAVKE6IC+UF6SQ3paYTBld5NVjp5qAf9QmgaoKJtVrVPgzLlOoVS
+	pCQh6FVn+Eg8Z7UfP27JluU=
+X-Google-Smtp-Source: APXvYqzsUELWhAdvHcfr27CtX9f/uo6BnsdeTMmZbYg0IEEz+Q+2pXaWyOjvZW0L/vBowM0JKwIFAA==
+X-Received: by 2002:adf:df05:: with SMTP id y5mr11542788wrl.84.1570818214420;
+        Fri, 11 Oct 2019 11:23:34 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a9d:32a4:: with SMTP id u33ls1590650otb.16.gmail; Fri, 11
- Oct 2019 10:14:24 -0700 (PDT)
-X-Received: by 2002:a9d:66d2:: with SMTP id t18mr14079606otm.154.1570814064171;
-        Fri, 11 Oct 2019 10:14:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1570814064; cv=none;
+Received: by 2002:a1c:7304:: with SMTP id d4ls3167168wmb.0.canary-gmail; Fri,
+ 11 Oct 2019 11:23:33 -0700 (PDT)
+X-Received: by 2002:a1c:39d7:: with SMTP id g206mr4437637wma.7.1570818213629;
+        Fri, 11 Oct 2019 11:23:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1570818213; cv=none;
         d=google.com; s=arc-20160816;
-        b=t5vc6P8eFkGvH+XhaXLkvRHAofwAfWnisL4q/8P+fr/alR6wcKZjSsbjMHTrY4P8AU
-         rceY8PZWcxwxkPlhfEnUqmCXXb4oczF+AyQTE0dQd57UQYLckiqnpRn1ODFZkvioY7Kz
-         qZH9Xw2qtV/gu18o/p0BhkOuo11EoCVofX0hOgrNmQXqYdiiM/GLHkXlfdrzQ8rmL7ds
-         /gUeQBO4Iq7cWGuCItnzRFAtsUlis9q/BlWyyl/HuEPbQaTmPo9FS+u9UGtDQqbcCVVK
-         xqG28LEtnJaCkfbnjMDzDITxh9RQF1QLpQsX8ujG0coQ6sYXC15OFtZvpN16j+JGG6iM
-         8q4w==
+        b=aLswNW+VXFJN523VwM90AJc6N8YhKnD9H4sJG5mq2CczffWs2tSRRo5LGukiT8TjvW
+         vdDIc/og+XKIQIJ2oS2VdRNu8jV59wnifa9mJhv5RDWhpQjwQ3LBgApUiLCDJwr5gBqD
+         mIeb6Rpkt+o4qpqxptHAn5TbhFz7E/mh9QbITIAr3BoVZI5/dDTcHmPmwmhdr6wataFG
+         kTibgDgw1SoWzQ3X+t2DeDyUcv2AIi327gvDipCmeuWQAVV9xVGTml4Z34bvDhbC86Eu
+         e4+tpQ3fX93d9h9SA1x6WnCQDkQuxfApmhyfJYb24c0wVFlhVpztyteo6aDch4PYVWYu
+         OhpQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject
-         :dkim-signature;
-        bh=CLZwmgRbIbwIXVIo/GQUnlNk0UpWIpTOQFWj+AB1jQg=;
-        b=FxRCdN1XwcUcuh2v4L827QBxUSTaQ8Wuc7ljF5e5Spr0EZHX3W1NriS7PQc5Od1GPX
-         myePOlQaeJnayU660EpI+RST1y/+JXnSV4HD9YLDy7wv8cunfgYoSaW/xCgtIXs5VvEH
-         /lEee7+UMiJ9E0ABktdYRYTPfwN7MetuskzJV5kr/JVpvD7X3+lCV4oFIdS/d6QROTFQ
-         k2HoB2x2wJ61TOq64EY3Vbj2ZKGOgsUeC0T2aWoLj3D6/NE7onMAWHEVJ/81BBTZafnD
-         708NvDqWRWhDi0J2G7S3+ZN6dWM5loHJLMM+dJYuTmWedL3cUeYbv2zQictOvmNeStH7
-         K50w==
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:dkim-signature;
+        bh=+nX26Z/dXDptOqKwZFewvpbGjhmSR1PYbbnf43QleqU=;
+        b=0eVySPYqU62t1qeelp1kHd2UwzJo/ahi09ReBZ65K8vNYoOj4hTUAAZ6gteAkpc9kH
+         o1njlOkay3rHHP8U7QI8rSQY2ivH5CctcIKNTEtidDQslehPm5D4z4/QgV9Br1D10EjI
+         pN5ifpHzltL0PY/Qq92KYgLTcGTNvNjpVshXmALWTO75COcm23aVVlsY7SeIuR1z7iyX
+         CDfW8dZzwZk+aVXeOIOaOHZ53I1bgJ2ocGks2UySm9Aj4olOuM7JmwKXE6uwirngoV0b
+         iDVSVnB3AavtyB2UwQJ1Bbx8NdrYeRctvnv06AWrMyKTNWlb15Y8T8rxqr2I0IprI1nm
+         QCVQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=uV4UlXT7;
-       spf=pass (google.com: domain of vitalya@ti.com designates 198.47.23.248 as permitted sender) smtp.mailfrom=vitalya@ti.com;
-       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com. [198.47.23.248])
-        by gmr-mx.google.com with ESMTPS id n10si97060otf.2.2019.10.11.10.14.24
+       dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=ZVA9n+Ui;
+       spf=pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.15.19 as permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de
+Received: from mout.gmx.net (mout.gmx.net. [212.227.15.19])
+        by gmr-mx.google.com with ESMTPS id a133si879406wma.4.2019.10.11.11.23.33
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 11 Oct 2019 10:14:24 -0700 (PDT)
-Received-SPF: pass (google.com: domain of vitalya@ti.com designates 198.47.23.248 as permitted sender) client-ip=198.47.23.248;
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
-	by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id x9BHENqD012062;
-	Fri, 11 Oct 2019 12:14:23 -0500
-Received: from DFLE109.ent.ti.com (dfle109.ent.ti.com [10.64.6.30])
-	by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x9BHEN8U068044
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 11 Oct 2019 12:14:23 -0500
-Received: from DFLE108.ent.ti.com (10.64.6.29) by DFLE109.ent.ti.com
- (10.64.6.30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Fri, 11
- Oct 2019 12:14:19 -0500
-Received: from lelv0327.itg.ti.com (10.180.67.183) by DFLE108.ent.ti.com
- (10.64.6.29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
- Frontend Transport; Fri, 11 Oct 2019 12:14:19 -0500
-Received: from [158.218.117.99] (ileax41-snat.itg.ti.com [10.172.224.153])
-	by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id x9BHENqJ048102;
-	Fri, 11 Oct 2019 12:14:23 -0500
-Subject: Re: [EXTERNAL] Re: [PATCH 3/4] arm: am57xx: introduce support for TI
- am57xx SOC
-To: Jan Kiszka <jan.kiszka@siemens.com>, <jailhouse-dev@googlegroups.com>
-References: <1570731650-5335-1-git-send-email-vitalya@ti.com>
- <1570731650-5335-4-git-send-email-vitalya@ti.com>
- <0b85c51a-0078-47fb-70ba-a8f9def7b852@siemens.com>
- <357f2bee-176a-af2c-e603-9f907f1594a0@siemens.com>
-From: "'Vitaly Andrianov' via Jailhouse" <jailhouse-dev@googlegroups.com>
-Message-ID: <08dd6eee-2ea4-2c05-0309-138e2e18d5df@ti.com>
-Date: Fri, 11 Oct 2019 13:08:58 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.3.0
-MIME-Version: 1.0
-In-Reply-To: <357f2bee-176a-af2c-e603-9f907f1594a0@siemens.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
+        Fri, 11 Oct 2019 11:23:33 -0700 (PDT)
+Received-SPF: pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.15.19 as permitted sender) client-ip=212.227.15.19;
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from nethserver.fritz.box ([5.149.23.5]) by mail.gmx.com (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MkHQh-1hdMI00kav-00kjkQ; Fri, 11
+ Oct 2019 20:23:33 +0200
+Received: from olivers-mini.fritz.box (unknown [192.168.2.64])
+	(Authenticated sender: oliver)
+	by nethserver.fritz.box (Postfix) with ESMTPSA id 9B43B20289B0;
+	Fri, 11 Oct 2019 20:23:32 +0200 (CEST)
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
+Subject: Re: [PATCH 2/3] configs: Add SMC SiP IDs needed for Petalinux.
+From: Oliver Schwartz <Oliver.Schwartz@gmx.de>
+In-Reply-To: <9e1fd041-8152-9c4d-c8e4-2914a1adab1c@siemens.com>
+Date: Fri, 11 Oct 2019 20:23:32 +0200
+Cc: jailhouse-dev@googlegroups.com
 Content-Transfer-Encoding: quoted-printable
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-X-Original-Sender: vitalya@ti.com
+Message-Id: <A5DDA02F-7F4C-48F3-B28C-C31009AE8297@gmx.de>
+References: <C4A932C2-5761-4E9D-A455-988C33A9F8F3@gmx.de>
+ <9e1fd041-8152-9c4d-c8e4-2914a1adab1c@siemens.com>
+To: Jan Kiszka <jan.kiszka@siemens.com>
+X-Mailer: Apple Mail (2.3445.104.11)
+X-Provags-ID: V03:K1:ySAZcUediScKJTT4HzA/bBFUTnD0tB/1eYt75AC2nEahNCU3Kv+
+ +siRtK619vPVq3iIIQgCG9l8CwQKWeOKlSVFJ4LSkVBDNVuQRIlH6+Ozu1Zj0TveZwOCFJA
+ ptccS/cnDWUS+J6OHSjTb/GPCdBfu4jhnRIxoKPKnrV1I53RMGEGGEEEZhuantZs/H155Yv
+ o4beC7qeOiP91P3ZZIjZg==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:JSDy3YWBo/M=:kxCq59HaNgiOA+XayZaS+Z
+ I4CPnMKwxW0CX0mKPv0YV9nKn6RHv5YWIOdvzlqUhgkYjtCiu0pBY3C/Ce2ziXLkk+WfKHjro
+ SI7nQ/3rQv5SXTSB8sesjTRLbM/fe308ns8kdL5EIBphZSbMSaZboTufixnAXjd4+fxavwJNW
+ QF7TyBnsAe1cB/oSf1zOTjgOwVDHR0rgu4n8gpd08gB1IgE2kfPYlG8s+OQHWDVV8TJhCzCdd
+ 7XaYffVG8hI5CHM4UVEKvRMzPeDNZnailIE9unVM2N926PH+6Eg23Z9dMc43485a5PDht3H7e
+ PGDOG104POzuGnBtMfQvmYvIEntlJabrDuX/ZJXQnctjpC5UpIlvebc6KROoj3UGIfFvHQJKr
+ px+QPvz0CEnI4budyoSUMZSakN2zOfTGUppeQA3DNei+zOLkNcWxZoxpiWuVF0fObjznYj+3j
+ jUr38h0XyGpuIVbAYKkWSImo7GSdVfRz+jI5TXoSWuwmiDqgstpCHWI62VwXHEyhvj/3qfkVp
+ vWzEsA3bU2pLXl0NLgqDm7rz3X/MOsnBu0zQTnXjE6wO5Ncxrr6j1KniNCBn+1WAuFkEUic7D
+ C5rtU32Vr/wMbxsOz2HzAhGhDSjurAO3HAtga7V9CNuSDKX+w8/nOsSAB4fiBTYrCV55om/L3
+ zgjfSFPNI0w+HeIz0YEfPO9pPYec4byzhKoY0zq3uwTCXa/E2ocuComBIssoivcfYLTQ/LCzg
+ Z2O53qm9tdLBqsAYTs11ZhzdCMICs2Dq4UQW7Ks2Qy+u6D553Wp1lp7sB42NBvA6axxI6T6O/
+ fi7Xm5nXlYQfl9Zb9Htgxyed5mCKfVf72IF1rp/YGBeSdz2CACYRRE9dQ2dS4QwVElu2COtv6
+ M5/30Ud3gZUvsmlyGXvW8bPeE0ZI9/fXqYxHKLkGBk6qABhO48zoU1BsEkAdHXza415wzgsdl
+ V2lObGXrBR3uXQmzOQRDa3zVjjNKpUbAFxftYlI5lRtTkFjiI93lblFH2eXNEWGPWqpPUQk66
+ q7aqgA58Ug7xMIOlvJ1Hcn9CcLhy/JVON79fKXaEIM8GlOUKG2O66ctT1J374njY5dx9+BQjN
+ 3Rv4GPsT8i8NF321E01f/tJ07JiGfEXwWNT13yacaYfv4hP1cGCkSoM8rM4hXWr8BPyWWBYea
+ dA6KziMyYSGCeGnqQBDmDWZxJqminB8oixTAATdd31c4kxRnjWot5O3TR+f2qaDQXfFaDDdYZ
+ KXJ5lgYHXkSIR4apz4qc4Ey3kXh8Ie5PO7cl2/+8Nft7cL9LQiEqytuvFzPc=
+X-Original-Sender: oliver.schwartz@gmx.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@ti.com header.s=ti-com-17Q1 header.b=uV4UlXT7;       spf=pass
- (google.com: domain of vitalya@ti.com designates 198.47.23.248 as permitted
- sender) smtp.mailfrom=vitalya@ti.com;       dmarc=pass (p=QUARANTINE sp=NONE
- dis=NONE) header.from=ti.com
-X-Original-From: Vitaly Andrianov <vitalya@ti.com>
-Reply-To: Vitaly Andrianov <vitalya@ti.com>
+ header.i=@gmx.net header.s=badeba3b8450 header.b=ZVA9n+Ui;       spf=pass
+ (google.com: domain of oliver.schwartz@gmx.de designates 212.227.15.19 as
+ permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -154,253 +157,34 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Jan,
-Thanks for the quick response.
 
-On 10/11/2019 11:37 AM, Jan Kiszka wrote:
-> On 11.10.19 17:24, Jan Kiszka wrote:
->> On 10.10.19 20:20, 'Vitaly Andrianov' via Jailhouse wrote:
->>> This commit introduces support for TI AM57xx SOC. Original support was =
-done
->>> by Jan Kiszka for v0.7 version, but wasn't upstreamed yet.
->>>
->>
->> This lacks a design description. Even for me, because I always need to r=
-ecall the non-trival logic=20
->> here.
->>
->> IIRC, SMP cores on that platform are brought up during boot by writing t=
-heir continuation address=20
->> into a mailbox (OMAP_WKUPGEN_BASE + OMAP_AUX_CORE_BOOT_<CPU>). They stay=
- in that WFE state - how=20
->> do we kick them out of this, normally as well as while under Jailhouse c=
-ontrol? Where does the=20
->> code for this checker loop come from when Jailhouse is in charge? Should=
- Jailhouse better provider=20
->> it, like we do on x86 (look for parking_code)?
 
-When I ported the AM572x support to the v0.10 version I played with putting=
- cpu offline and online.=20
-If I'm not wrong in both cases (w/o Jailhouse or with) calling cpu_on() iss=
-ues an smc call. I think=20
-the parameter was #109, which sets ARM15 timer for the CPU1. Let me do some=
- research.
+> Am 11.10.2019 um 16:31 schrieb Jan Kiszka <jan.kiszka@siemens.com>:
+>=20
+> On 11.10.19 15:30, Oliver Schwartz wrote:
+>> This patch adds the SMC SiP IDs that are used by Petalinux to the root c=
+ell
+>> of zynqmp-zcu102.c. The SiP calls are:
+>> 0x0f: PM_SET_REQUIREMENT
+>> 0x24: PM_CLOCK_ENABLE
+>> 0x25: PM_CLOCK_DISABLE
+>=20
+> I suspect that this punches pretty large holes into the isolation. Don't =
+we rather need filtering on /which/ clocks a guest is allowed to control? R=
+ather than allowing to power /all/ clocks or none?
 
-Regards,
--Vitaly
+Maybe. I haven=E2=80=99t bothered yet, because in my case it=E2=80=99s only=
+ the root cell that is allowed to issue SMC calls. I agree that security-wi=
+se it=E2=80=99s more desirable to also filter by clock IDs. On the other ha=
+nd it makes the configuration considerably more difficult, because you need=
+ to synchronize devices in DTS and jailhouse configuration.=20
 
->>
->> For reference (should ideally go into the commit log or some comment as =
-well): AM572x TRM, section=20
->> "33.3.4.1. Startup".
->>
->>> Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
->>> Signed-off-by: Vitaly Andrianov <vitalya@ti.com>
->>> ---
->>> =C2=A0 hypervisor/arch/arm/Kbuild=C2=A0=C2=A0 |=C2=A0 2 +
->>> =C2=A0 hypervisor/arch/arm/am57xx.c | 98 ++++++++++++++++++++++++++++++=
-++++++++++++++
->>> =C2=A0 2 files changed, 100 insertions(+)
->>> =C2=A0 create mode 100644 hypervisor/arch/arm/am57xx.c
->>>
->>> diff --git a/hypervisor/arch/arm/Kbuild b/hypervisor/arch/arm/Kbuild
->>> index e1bec1b..2ef89c3 100644
->>> --- a/hypervisor/arch/arm/Kbuild
->>> +++ b/hypervisor/arch/arm/Kbuild
->>> @@ -26,3 +26,5 @@ lib-y +=3D mmu_hyp.o caches.o
->>> =C2=A0 #=C2=A0 gcc7 will bring a new function attribute "no_profile_ins=
-trument_function"
->>> =C2=A0 #=C2=A0 should switch to that for higher granularity, but gcc7 i=
-s not even there
->>> =C2=A0 CFLAGS_mmu_hyp.o +=3D -fno-profile-arcs -fno-test-coverage
->>> +
->>> +lib-$(CONFIG_MACH_AM57XX) +=3D am57xx.o
->>> diff --git a/hypervisor/arch/arm/am57xx.c b/hypervisor/arch/arm/am57xx.=
-c
->>> new file mode 100644
->>> index 0000000..1aa2328
->>> --- /dev/null
->>> +++ b/hypervisor/arch/arm/am57xx.c
->>> @@ -0,0 +1,98 @@
->>> +/*
->>> + * Jailhouse, a Linux-based partitioning hypervisor
->>> + *
->>> + * Copyright (c) ARM Limited, 2014
->>> + * Copyright (c) Siemens AG, 2016
->>> + * Copyright (c) Texas Instruments Incorporated, 2019
->>> + *
->>> + * Authors:
->>> + *=C2=A0 Jean-Philippe Brucker <jean-philippe.brucker@arm.com>
->>> + *=C2=A0 Jan Kiszka <jan.kiszka@siemens.com>
->>> + *=C2=A0 Vitaly Andrianov <vitalya@ti.com>
->>> + *
->>> + * This work is licensed under the terms of the GNU GPL, version 2.=C2=
-=A0 See
->>> + * the COPYING file in the top-level directory.
->>> + */
->>> +
->>> +#include <jailhouse/control.h>
->>> +#include <jailhouse/mmio.h>
->>> +#include <jailhouse/printk.h>
->>> +#include <jailhouse/unit.h>
->>> +#include <jailhouse/percpu.h>
->>> +#include <asm/control.h>
->>> +#include <asm/psci.h>
->>> +#include <asm/smccc.h>
->>> +#include <asm/setup.h>
->>> +#include <asm/traps.h>
->>> +#include <asm/sysregs.h>
->>> +
->>> +#define OMAP_WKUPGEN_BASE=C2=A0=C2=A0=C2=A0 0x48281000
->>> +#define OMAP_AUX_CORE_BOOT_0=C2=A0=C2=A0=C2=A0 0x800
->>> +
->>> +const unsigned int smp_mmio_regions;
->>
->> Unused.
->>
->>> +
->>> +static void *wkupgen_base =3D NULL;
->>> +
->>> +static int am57xx_init(void)
->>> +{
->>> +=C2=A0=C2=A0=C2=A0 wkupgen_base =3D paging_map_device(OMAP_WKUPGEN_BAS=
-E, PAGE_SIZE);
->>> +
->>> +=C2=A0=C2=A0=C2=A0 return (wkupgen_base =3D=3D NULL) ? -ENOMEM : 0;
->>> +}
->>> +
->>> +static int am57xx_cell_init(struct cell *cell)
->>> +{
->>> +=C2=A0=C2=A0=C2=A0 return 0;
->>> +}
->>> +
->>> +void suspend_cpu(unsigned int cpu_id);
->>> +static void am57xx_cell_exit(struct cell *cell)
->>> +{
->>> +=C2=A0=C2=A0=C2=A0 unsigned int cpu;
->>> +=C2=A0=C2=A0=C2=A0 for_each_cpu(cpu, cell->cpu_set) {
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 public_per_cpu(cpu)->cpu_on=
-_entry =3D
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mmi=
-o_read32(wkupgen_base + OMAP_AUX_CORE_BOOT_0 +
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cpu * 4);
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 public_per_cpu(cpu)->cpu_on=
-_context =3D 0;
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 suspend_cpu(cpu);
->>
->> Why do we need suspend_cpu? It is suspended when the cell destruction st=
-arts (via cell_suspend),=20
->> i.e. before this call.
->>
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 arch_reset_cpu(cpu);
->>
->> This resumes the CPU already here. Partly explains my questions on the t=
-op: We have no signal, we=20
->> kick the re-assigned root cell cores off immediately.
->>
->> Start address is what Linux defined for its original boot by filling OMA=
-P_AUX_CORE_BOOT_<CPU>. We=20
->> are lucky still being able to read this value back above...
->>
->> There is really no signal we could take that Linux sends when logically =
-onlining the CPUs again=20
->> after cell destruction?
->>
->> BTW, what happens when you manually offline a CPU before assigning it to=
- new cell? Then the=20
->> Jailhouse driver will not online it on destruction, but we kick it off u=
-nconditionally, don't we?
->>
->>> +=C2=A0=C2=A0=C2=A0 }
->>> +}
->>> +
->>> +int arch_handle_smc(struct trap_context *ctx)
->>> +{
->>> +=C2=A0=C2=A0=C2=A0 unsigned long *regs =3D ctx->regs;
->>> +
->>> +=C2=A0=C2=A0=C2=A0 switch (regs[12]) {
->>> +=C2=A0=C2=A0=C2=A0 case 0x102:
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 arm_write_banked_reg(ELR_hy=
-p, regs[0]);
->>
->> This is probably "API_HYP_ENTRY" for the kernel - is there an official n=
-ame?
->>
->> My current understanding is that Linux runs this during omap5_secondary_=
-hyp_startup normally in=20
->> the hope to be taking into HYP mode at the specified (r0) address. We si=
-mple jump there, but not=20
->> in SVC mode. Works by luck with Linux, right?
->>
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return TRAP_HANDLED;
->>> +=C2=A0=C2=A0=C2=A0 case 0x109:
->>
->> This is OMAP5_DRA7_MON_SET_CNTFRQ_INDEX according to Linux, and we shoul=
-d leave some words why we=20
->> can simply call that smc on behalf of the guest. I added it back then be=
-cause "then it works", not=20
->> because of "I fully understand what I'm doing".
->>
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 asm volatile(
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ".a=
-rch_extension sec\n\t"
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "pu=
-sh {r0-r12, lr}\n\t"
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "mo=
-v ip,%0\n\t"
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "mo=
-v r0,%1\n\t"
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "sm=
-c #0\n\t"
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "po=
-p {r0-r12, lr}\n\t"
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : :=
- "r" (regs[0]), "r" (regs[12]));
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 arch_skip_instruction(ctx);
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return TRAP_HANDLED;
->>> +=C2=A0=C2=A0=C2=A0 }
->>> +
->>> +=C2=A0=C2=A0=C2=A0 if (SMCCC_IS_CONV_64(regs[0]))
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return TRAP_FORBIDDEN;
->>> +
->>> +=C2=A0=C2=A0=C2=A0 if (IS_PSCI_UBOOT(regs[0])) {
->>
->> This path is here because non-root Linux is told to use PSCI for SMP man=
-agement, right?
->>
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 regs[0] =3D psci_dispatch(c=
-tx);
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 arch_skip_instruction(ctx);
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return TRAP_HANDLED;
->>> +=C2=A0=C2=A0=C2=A0 }
->>> +
->>> +=C2=A0=C2=A0=C2=A0 return handle_smc(ctx);
->>> +}
->>> +
->>> +DEFINE_UNIT_SHUTDOWN_STUB( am57xx );
->>
->> ...(am58xx);
->>
->>> +DEFINE_UNIT_MMIO_COUNT_REGIONS_STUB( am57xx );
->>> +DEFINE_UNIT( am57xx, "AM57XX" );
->>> +
->>>
->>
->> Jan
->>
->=20
-> Oh, and there should also be a note on how this platform support is enabl=
-ed (CONFIG_MACH_AM57XX...)=20
-> and that, when it's on, the hypervisor binary is no longer universal - wh=
-ich is currently the case.
->=20
-> The risk with this approach is that the optional code will silently break=
- over time because it is=20
-> not part of the main tests. We had that with vexpress in the past.
->=20
-> Jan
->=20
+So you=E2=80=99d make both the call ID and the clock ID a configuration par=
+ameter?
+
+Oliver
+
+
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -408,4 +192,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/08dd6eee-2ea4-2c05-0309-138e2e18d5df%40ti.com.
+jailhouse-dev/A5DDA02F-7F4C-48F3-B28C-C31009AE8297%40gmx.de.
