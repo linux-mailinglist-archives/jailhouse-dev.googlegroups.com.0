@@ -1,133 +1,119 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBZ7ES3WQKGQE3ROF6JQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBU7ES7WQKGQEQZLBHPA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x537.google.com (mail-ed1-x537.google.com [IPv6:2a00:1450:4864:20::537])
-	by mail.lfdr.de (Postfix) with ESMTPS id 191D9D7588
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 15 Oct 2019 13:50:00 +0200 (CEST)
-Received: by mail-ed1-x537.google.com with SMTP id s3sf12026470edr.15
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 15 Oct 2019 04:50:00 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1571140199; cv=pass;
+Received: from mail-wr1-x440.google.com (mail-wr1-x440.google.com [IPv6:2a00:1450:4864:20::440])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C8E2D7B1A
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 15 Oct 2019 18:22:44 +0200 (CEST)
+Received: by mail-wr1-x440.google.com with SMTP id j2sf1412559wrg.19
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 15 Oct 2019 09:22:44 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1571156564; cv=pass;
         d=google.com; s=arc-20160816;
-        b=BHrO893rVD7WkBInqprRthyWxLtvNevJchwmdoEtCyLF78SOGADtqxHVJR8BFTFzs6
-         Zjw2f7p8wtTZWEIvJUDaLF89JzUtodzEfOChPDVxdb+6G39EJEG+opmWmOZKSMw1wpvl
-         R4E90g+NeONDgBBa9kJj//ZbNN9rTe92bTbg/b2pMZH19Wt2DbLFAzMfC13DTqhG0yFp
-         eAWwT18cNThbdGzqQRyupsFs66v86EmvIuntp7GzAjrcGjItRf3hJg+rHQAlGxBQJNTW
-         BpbMw3WnAMDLTLDfBiK1COCDe+0Z3mz9rWWigufpBKQ9wLCPITkbk7BS0p4I593oCY6v
-         Otyg==
+        b=0qCG2L/Xw5zG/vr4iI4iP9lEZAFQI5AG8woRyWWrrvJ49E2OG49HQMnaCdy/i8hpkP
+         0byTQlD46XbAQ3oyTFwt1MJ9MY1Pdajmk6/mK/xjPEdVHREL4jZJbl6avpDCgKip8nso
+         znu7Ddnm2hgNAckvsSocxxtNa8c1Ecfo1423Ttb0H0WhpLi1mM/ySwQJlqnCcAcZJ6vH
+         7sBUaHyECjQl0Z5lJHouOjjkZ1SQZ3zXyzvOOox2DFYlN+uJM2YZCreHx39iKKOhlghl
+         6OCDd5U7ol7Myll1FDOBzrze1+hPfNQBo+/e56CnUsXjU4pMpm49BoqdUstnLm8VpGAq
+         Sy/w==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:cc:to:subject:sender:dkim-signature;
-        bh=Gm7+93TA6OyyNi8WLowD8vB8byjEwKzOz42iS/JxYKc=;
-        b=a9p2ojJxrr5MCRcZ/kLMWajBcv8rY26dTvgRoDzCP7yMVME68Zn1ABmdHd8/fHWuWS
-         D1d/EGl8K/vIsfG/IfTKGAHrn6rllfI2UEE3s0RJOcNqSh/B/kCuT1fpkbURKehZA8Qb
-         rB8r8/pdMZLbhrm8eH0TB65BgUJc61UFD7ekT64NQd164n2imoEZQrKg9Weo7EMitz5x
-         b5IkCM+TAYCpYKgCB3NECyB7Q1wLJywA7Jwr0sy07qR6PlAGxbuUypY+8LHaS/cBxroG
-         B2bjslSWBOSi4kkxRAKynRB5K029LQkMGNBhWH4rgmIjVbs8o8FbS4YeLC+9AnoRV5FC
-         raNA==
+         :list-id:mailing-list:precedence:mime-version:message-id:date
+         :subject:cc:to:from:sender:dkim-signature;
+        bh=67GiDJpM0gaebEFqVR7oXi6KIscusgB8AnGrHM0JjwA=;
+        b=c195mKBbeXfZolVwMA1M8mEWffsS46QFkSVuWXJ4yJ9fyv9/yVtStaIz0q5qJ8Rxjm
+         A1Hq892j69hAHAv2nn9rLbDiHPTveIHS7U2LOcyIiRZ9GV1+bDf4PcHoUN4qINallSj8
+         tCvTLJSAgyF7Rczq1urMbQeAEzpiGYwbeLQhSqPUAfMwl5wkTCRwlt5P3ulcftLiv+S5
+         6M9+spguluXwn3C3uzPxXAG8wt9BXc60JA4O62qbmqBwqXt1hiNzYXqciqVyr6VNv/6D
+         XyeCIm65Z3XC7nfJvfkezAYAiTcaJI3s3fkwIqIlwoZnIqHaCJOZ38XjM3BgIdevsyz7
+         NVzQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
+        h=sender:from:to:cc:subject:date:message-id:mime-version
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=Gm7+93TA6OyyNi8WLowD8vB8byjEwKzOz42iS/JxYKc=;
-        b=mGuWqWENTMNJKolxnbs7VwHUzxlvlFzNofgC4eBunG+GX9yKZaJq+YB+8r3FKi35MC
-         VrqaXMXq+7VoIhibS/0lV4TGzJ/CYFRXBg0HG1u2mP07xdF7Q/DiSPur5l8NaZteRdiG
-         A2lkVri4Ig9Rz/TNgqn5dm41BMH7w3Ui6P/OuCjSvv8R75T9WkL12dd/QI0IgbvhpTpg
-         yASAJj6yUS6VEM0lSShwqNi1FOejqeW0sO/hSn6H7h2K+XErJRN8PO0Z36vKGXmH7Bjq
-         daLjgrjShaSLwC8gO1+j13avPsElFdRQZvT3raGHPjaOcsTR3m9LgqbLHahkCeY88Qv0
-         KccQ==
+        bh=67GiDJpM0gaebEFqVR7oXi6KIscusgB8AnGrHM0JjwA=;
+        b=fOedSGRq60GT+2QT776iLU7+T0tgzB5DhGq/xCJTs9d2yW/PKT0x5UnsNKM4RgZ8QN
+         t9PRYGmFisoVv9zF0tm9RCE7+9v1lduqvHjvIIMSJbY+4GhFbZ4tggH4SaSrQb6qVhkl
+         YZ8jEqWVZEYMJfKHw7YXaTdBmXUofT0E9YZxG5o/C/vCs1a0f2qud5pAlUvR7G1Ka3s+
+         5xnf13IaQMDIGLSgpBq5YXkeFIWU3gKXEDoANToxagFrTjmBJlpMZ73M9rDu7cVJjJiu
+         nNDq85+v1wBstd7MK/DEYBq7NYdaWmB38JMUKEI+7hKlSPUcJF3j/w2VMeaUeZbe0X8t
+         XnJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=Gm7+93TA6OyyNi8WLowD8vB8byjEwKzOz42iS/JxYKc=;
-        b=bKrimRrzWEyTQLFPxSaHl2yktdwcwWRQNJ9+mfKdvmULropHcij/eWFWxPHHcO1yS3
-         sUdlak4RIL4sAkrbrD1Fu5UAORQZeydAaXBYgsi7Dl96gAykppx5XPtk39SaPPmN9Uyk
-         6OVyd34WLEdOuMCoE5Cz0b6MXZA8VpyR25teqSZQwt9CJwBRwlDdDGUn4Dvy52euLuRf
-         AESSW9DWgPcJCEkzMcbCB06p84CTZYFXx6R2+AlnEaCXCBvcWzQZO5JeRLovs3gZfeym
-         PJOtuyy26pCzHo473+FtLsLenI0Z9KjmYCaAABtg1B5gO9Sm1mthY+ohjhuGWBq5hbmT
-         Xq7g==
+        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=67GiDJpM0gaebEFqVR7oXi6KIscusgB8AnGrHM0JjwA=;
+        b=ZWHOKuSLBOyJsbDE0Nr+ZemgUry2zv658nusEt5LLd1w/nxXqXoZv/F2ilBJlHJFKx
+         zWjRVQJi2J0CGuU2rEqZq51DD0HnI1+ELg8PvhaCiFdHq6AuBRxl3fysVdpmMuVgI/6l
+         LzSPsy+oxxDrGOYey/6ufrdFnjIajG7njFipaqi0xD49IKTqqvUzjnmMA896dJ/3Fl9F
+         SrbzvCfX4fyMTVKzXSWpPBWfa8aNylBt3AW8Iourbh5Wht5KMefhGOVplqhtD83gToNI
+         oTAwUFowmsrPzD2Y3PZ1EBgp61TtN7cBpiRDA/OjujE4rQgU7IgBaS3OGheuI03AshTy
+         kyKA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUSzzlOrBWM6GrCCWtTBlYXewVX1in6VxNkrVC3H/iGlUlerwTW
-	4b+QgwkK28iIWJJMwYdFjik=
-X-Google-Smtp-Source: APXvYqy/pcNcwfgpX0HnpbwrB38/dwvE0ZGNOjZsPhJikOD2iCE6iKEOHKlBYmg0Bueuw10HFf5guA==
-X-Received: by 2002:a17:907:2132:: with SMTP id qo18mr32979576ejb.247.1571140199773;
-        Tue, 15 Oct 2019 04:49:59 -0700 (PDT)
+X-Gm-Message-State: APjAAAWzxdrgjk2LF9LuN+AYXGHHagEDdR+ZzRWKp5xlDrzkBRsJefei
+	zafmTUcABibW1TO74qqFp70=
+X-Google-Smtp-Source: APXvYqwdsbnJCB1lpMWkCAWLE+sX9Ye+qJE2T+fd0ApZKR9uzIvnEwN3NiI5Et9SIamD8vx0si63kA==
+X-Received: by 2002:adf:d848:: with SMTP id k8mr34278192wrl.189.1571156564213;
+        Tue, 15 Oct 2019 09:22:44 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:907:11c8:: with SMTP id va8ls4599559ejb.15.gmail; Tue,
- 15 Oct 2019 04:49:59 -0700 (PDT)
-X-Received: by 2002:a17:906:948d:: with SMTP id t13mr7039034ejx.112.1571140199098;
-        Tue, 15 Oct 2019 04:49:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1571140199; cv=none;
+Received: by 2002:a1c:7304:: with SMTP id d4ls8125451wmb.0.canary-gmail; Tue,
+ 15 Oct 2019 09:22:43 -0700 (PDT)
+X-Received: by 2002:a1c:9e07:: with SMTP id h7mr20606371wme.96.1571156563505;
+        Tue, 15 Oct 2019 09:22:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1571156563; cv=none;
         d=google.com; s=arc-20160816;
-        b=L90SUxrj/QoMIgVkRVl8XXUpyjytXi7ieCXoKnglCoP5pQOHABb3FA4AVI9wKBYlZX
-         +/AHwWquzBz+lu7FAv0RwdpMjb4nBAIYTQ6YVZScbjgo7aTEgm7mYqq70qPEZT15Kewk
-         JOPcRz9kY1bHXjldN5dlAhqFL01Z73LshsM7jgXB3KYov6nJ+oXTJX4iapJe77BsROK0
-         60ypIguJLLYQ+rTmK99V5p6hrD9ARZax3ihBIiHRTu31d0GDOTWV91jtg1u7M4qbjeQj
-         VdEQskMlWhgTpFxIkKPx4EiJ1eHTrmDg9z/ls1XfxktR8x5I4Yl06yH2QGl8eieTZzHJ
-         4jEw==
+        b=oCu28Uc8GCnB6/2OeJBWm2gc4ObyHiPDrpTEau55Fl8zlZAVO2/PDLdGz4OZam9qjP
+         Rz0lfvu6Ox1NnlhOsE4Y5XY1W910jeBbxEkluGDW9nz7FZSve26WaMQCncsdLT1/0Hor
+         j4YaNVpTxp7+WzaEMd+c3a8UOouMDAUW5wzrles9/dvsBjtbEUIPkkBpH1fhmUdW2NWJ
+         DjEjkWJiUb3ncowY4li1KNZhL+aekU6nV9vbS2CWSmY+maDpKE0iosLdAwKXVHh8D0hG
+         satwVcrXOBK6BZdMzpeHRthXV88+EXTDzB7IPs61jL9cEWAEzWnCWRfHmmZythTogZoa
+         1c1A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=V42VMWpEFYi4sSZFTzSNLqYI5nPoopC66IW0QkOa9M8=;
-        b=UP8Vc/sWhJSZZuGFKb7QTdGxIedoj4S4K2A9O5Xpy8UVgLkfWQEGpdBK7JycIRXGWf
-         qW98UqJy+xZf04PG9LX+WUhQolk1xkqaFMm0YEhQLbV/6C9iWFJfMstoKsb7BOEN8Gtx
-         +AjAWFari0LOc04fKO0rx0pFr1NRYyWnj2GR4IWdN44YgZJ9zF7D2yHZaH8+VHrstrLr
-         4zTa8hj5sZSR2YnaoO2avSNo99J/H/f+TSnODnaAFnJVWC1BG1YA/eonTwVjQQhPNinO
-         A9LlpwsmcE+X0r02mLfK75UfhlTTKV3zR8tH7gDtOBc3D8gnfap2GjtC1rSNgxoopOf/
-         BKJg==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from;
+        bh=QFfn4l3O30kFFJRUjS20yJJdgq4ekDbAHP0bh63tpgo=;
+        b=p2hpfYl99OfLecoA7TyvbWadY6mRBWX8WOM/nF7HzUur4sCL/wThEPB8HIF8BRR2IV
+         qiZn3ElCok669Hd4D40iXEvyeiPvfIXXgo8krTbAJiWRJIeBGO781rC4lIR7ZsHoIan2
+         c8tHhHzpqh23h9LBtvgLCJ+02xjb61rUc/2qdrsdGaDnUyM5/a7dRjNSGmZ72sFV99xT
+         FvWnfqwJ/MhClRCEWKLDISvyTtYOKNA6TyCm3UrNhq6ZP+pXKQWwH1QVwN0VAsFZMeoB
+         2t+8XARIJpG2e9SqNx5vwWj4ERz4mC0don7yM/vNM8dw/3i4QjfoEAIfU7PBcOACFfS/
+         UhSA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
-        by gmr-mx.google.com with ESMTPS id a15si571538ejj.0.2019.10.15.04.49.59
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mtaout.hs-regensburg.de (mtaout.hs-regensburg.de. [194.95.104.10])
+        by gmr-mx.google.com with ESMTPS id p5si1170479wmg.0.2019.10.15.09.22.43
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 15 Oct 2019 04:49:59 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id x9FBnwYW003364
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 15 Oct 2019 13:49:58 +0200
-Received: from [139.25.68.37] ([139.25.68.37])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id x9FBnvbT005648;
-	Tue, 15 Oct 2019 13:49:57 +0200
-Subject: Re: [PATCH 2/3] configs: Add SMC SiP IDs needed for Petalinux.
-To: Oliver Schwartz <Oliver.Schwartz@gmx.de>
-Cc: jailhouse-dev@googlegroups.com
-References: <C4A932C2-5761-4E9D-A455-988C33A9F8F3@gmx.de>
- <9e1fd041-8152-9c4d-c8e4-2914a1adab1c@siemens.com>
- <A5DDA02F-7F4C-48F3-B28C-C31009AE8297@gmx.de>
- <8a18a3e7-7cde-020a-d40b-ddf0f5d07449@web.de>
- <1D8490BB-5C2F-49C5-82FD-9623433A2DEC@gmx.de>
- <f47b63d3-5ccd-d993-3670-b41bd9b722cb@siemens.com>
- <ABFD6D83-9D51-4C56-9EAF-979D6CA0823E@gmx.de>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <55d82914-d37d-0ee0-fded-d26bb1fbe9a0@siemens.com>
-Date: Tue, 15 Oct 2019 13:49:57 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.1
+        Tue, 15 Oct 2019 09:22:43 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) client-ip=194.95.104.10;
+Received: from pluto.lfdr (unknown [IPv6:2001:638:a01:8061:aefd:ceff:fef3:ba65])
+	by mtaout.hs-regensburg.de (Postfix) with ESMTP id 46t11G70hMzxnh;
+	Tue, 15 Oct 2019 18:22:42 +0200 (CEST)
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+To: Jailhouse <jailhouse-dev@googlegroups.com>,
+	Andrej Utz <andrej.utz@st.oth-regensburg.de>,
+	Jan Kiszka <jan.kiszka@siemens.com>
+Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Subject: [PATCH v4 00/13] pyjailhouse: x86: Implement config generator for port I/O
+Date: Tue, 15 Oct 2019 18:22:29 +0200
+Message-Id: <20191015162242.1238940-1-ralf.ramsauer@oth-regensburg.de>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-In-Reply-To: <ABFD6D83-9D51-4C56-9EAF-979D6CA0823E@gmx.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: jan.kiszka@siemens.com
+X-PMX-Version: 6.4.8.2820816, Antispam-Engine: 2.7.2.2107409, Antispam-Data: 2019.10.15.161817, AntiVirus-Engine: 5.65.0, AntiVirus-Data: 2019.10.15.5650002
+X-PMX-Spam: Gauge=IIIIIIII, Probability=8%, Report='
+ HTML_00_01 0.05, HTML_00_10 0.05, BODYTEXTP_SIZE_3000_LESS 0, BODY_SIZE_1700_1799 0, BODY_SIZE_2000_LESS 0, BODY_SIZE_5000_LESS 0, BODY_SIZE_7000_LESS 0, LEGITIMATE_SIGNS 0, MULTIPLE_REAL_RCPTS 0, NO_CTA_URI_FOUND 0, NO_URI_FOUND 0, NO_URI_HTTPS 0, RDNS_NXDOMAIN 0, RDNS_SUSP 0, RDNS_SUSP_GENERIC 0, __BODY_NO_MAILTO 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CTE 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_X_MAILER 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __NO_HTML_TAG_RAW 0, __SANE_MSGID 0, __TO_MALFORMED_2 0, __TO_NAME 0, __TO_NAME_DIFF_FROM_ACC 0, __TO_REAL_NAMES 0'
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+ (google.com: domain of ralf.ramsauer@oth-regensburg.de designates
+ 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Content-Type: text/plain; charset="UTF-8"
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -140,117 +126,53 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 15.10.19 13:00, Oliver Schwartz wrote:
->> On 15 Oct 2019, at 12:35, Jan Kiszka <jan.kiszka@siemens.com> wrote:
->>
->> On 15.10.19 11:46, Oliver Schwartz wrote:
->>>
->>>
->>>> On 12 Oct 2019, at 11:41, Jan Kiszka <jan.kiszka@web.de> wrote:
->>>>
->>>> On 11.10.19 20:23, Oliver Schwartz wrote:
->>>>>
->>>>>
->>>>>> Am 11.10.2019 um 16:31 schrieb Jan Kiszka <jan.kiszka@siemens.com>:
->>>>>>
->>>>>> On 11.10.19 15:30, Oliver Schwartz wrote:
->>>>>>> This patch adds the SMC SiP IDs that are used by Petalinux to the r=
-oot cell
->>>>>>> of zynqmp-zcu102.c. The SiP calls are:
->>>>>>> 0x0f: PM_SET_REQUIREMENT
->>>>>>> 0x24: PM_CLOCK_ENABLE
->>>>>>> 0x25: PM_CLOCK_DISABLE
->>>>>>
->>>>>> I suspect that this punches pretty large holes into the isolation. D=
-on't we rather need filtering on /which/ clocks a guest is allowed to contr=
-ol? Rather than allowing to power /all/ clocks or none?
->>>>>
->>>>> Maybe. I haven=E2=80=99t bothered yet, because in my case it=E2=80=99=
-s only the root cell that is allowed to issue SMC calls. I agree that secur=
-ity-wise it=E2=80=99s more desirable to also filter by clock IDs. On the ot=
-her hand it makes the configuration considerably more difficult, because yo=
-u need to synchronize devices in DTS and jailhouse configuration.
->>>>>
->>>>> So you=E2=80=99d make both the call ID and the clock ID a configurati=
-on parameter?
->>>>
->>>> We possibly need two things here:
->>>>
->>>> 1. ZynqMP-specific filtering of PM_CLOCK_* firmware calls on clock-lev=
-el
->>>> 2. ZynqMP-specific forwarding or emulation of PM_SET_REQUIREMENT
->>>>  firmware call
->>>
->>> I=E2=80=99m not sure what part of PM_SET_REQUIREMENT can / should be em=
-ulated. Do you have something specific in mind?
->>
->> I have no idea yet what that thing does.
->=20
-> I=E2=80=99m probably as clueless as you are=E2=80=A6 I just know that thi=
-s method is being called by Petalinux.
->=20
->> Do you have a reference to some
->> API documentation?
->=20
-> See below.
->=20
->>>
->>>> There is no point in generic per-ID SMC call filtering. We will likely
->>>> only be able to moderate few of those calls with a binary filter. As i=
-n
->>>> case of the clock calls, we will have to take their parameters into
->>>> account, i.e. interpret them. You pointed out the Xen approach for thi=
-s
->>>> SoC, and that is pointing out what is needed. If not more.
->>>
->>> For what it=E2=80=99s worth, the current Xen implementation doesn=E2=80=
-=99t do any parameter inspection - it may intend to do so in the future, bu=
-t currently all filtering is reduced to checking for the hardware domain (w=
-hich is Dom0, the root cell in Xen speak). As a result, Dom0 is allowed to =
-do most SMC calls for any device, whereas all other virtual machines can=E2=
-=80=99t do SMC calls - see the implementation of domain_has_node_access() a=
-nd domain_has_reset_access() in [1].
->>
->> Ugh, missed that in all those switch-cases.
->>
->> Well, same question then: Where is this interface documented?
->=20
-> These are the best references I=E2=80=99ve found (from Xen xilinx-zynqmp-=
-eemi.c):
->=20
-> EEMI firmware API:
-> https://www.xilinx.com/support/documentation/user_guides/ug1200-eemi-api.=
-pdf
->=20
+(reusing Andrej's cover-letter)
 
-Looks like we "just" need to filter for permitted clock IDs, i.e. we
-need a list of assigned clocks to a cell.
+This patch series eases configuration of port I/O devices for x86
+plattforms by generating an initial PIO region list. To sustain previous
+behavior, most entries are disabled (commented out). Only whitelisted
+device ports are allowed. This includes the peripheral PCI port space.
 
-> IPI firmware API:
-> https://github.com/ARM-software/arm-trusted-firmware/blob/master/plat/xil=
-inx/zynqmp/ipi_mailbox_service/ipi_mailbox_svc.h
->=20
-> It doesn=E2=80=99t shed much light on the set_requirement call, though, a=
-s the parameters are =E2=80=9Cslave specific=E2=80=9D.
->=20
-> In Petalinux, it=E2=80=99s called whenever a device is powered on or off:
-> https://github.com/Xilinx/linux-xlnx/blob/master/drivers/soc/xilinx/zynqm=
-p_pm_domains.c=20
+Additionally the code paths for memory region generation are cleaned up
+and streamlined.
 
-We could try to stub the call for now, doing nothing internally. That
-will only work, though, if things are already powered when enabling
-Jailhouse.
+since v3:
+  - Address Jan's comments
+  - Dynamically whitelist some platform devices + PCI ports
+  - I (Ralf) resend the series as Andrej runs into nasty email
+    throttling issues with his account
 
-Jan
+since v2:
+  - Use new PIO whitelist structures
 
---=20
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+Andrej Utz (4):
+  tools: jailhouse-config-create: Rename regions to mem_regions in
+    preparation for port_regions
+  pyjailhouse: abstract parts of MemRegion into IORegion
+  pyjailhouse: simplify integer formatting for regions in config
+    template
+  pyjailhouse: x86: implement pio_regions generator
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/55d82914-d37d-0ee0-fded-d26bb1fbe9a0%40siemens.com.
+Ralf Ramsauer (9):
+  pyjailhouse: sysfs_parser: remove dead code
+  pyjailhouse: sysfs_parser: minor stylistic fixups
+  pyjailhouse: sysfs_parser: introduce new class IORegionTree
+  pyjailhouse: sysfs_parser: move parse_iomem_file to the new parser
+  pyjailhouse: sysfs_parser: make regions_split_by_kernel static
+  pyjailhouse: sysfs_parser: entirely separate IO parsers
+  pyjailhouse: sysfs_parser: remove parse_iomem_file
+  pyjailhouse: sysfs_parser: move find_regions_by_name to IORegionTree
+  pyjailhouse: sysfs_parser: Remove IOMemRegionTree class
+
+ pyjailhouse/sysfs_parser.py   | 340 +++++++++++++++++++++-------------
+ tools/jailhouse-config-create |  25 +--
+ tools/root-cell-config.c.tmpl |  22 +--
+ 3 files changed, 233 insertions(+), 154 deletions(-)
+
+-- 
+2.23.0
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20191015162242.1238940-1-ralf.ramsauer%40oth-regensburg.de.
