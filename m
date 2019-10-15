@@ -1,30 +1,30 @@
-Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBVHES7WQKGQEICVFMDI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBVPES7WQKGQEPWNUEKA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x439.google.com (mail-wr1-x439.google.com [IPv6:2a00:1450:4864:20::439])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0843D7B1D
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 15 Oct 2019 18:22:44 +0200 (CEST)
-Received: by mail-wr1-x439.google.com with SMTP id w10sf10387917wrl.5
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 15 Oct 2019 09:22:44 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1571156564; cv=pass;
+Received: from mail-lf1-x140.google.com (mail-lf1-x140.google.com [IPv6:2a00:1450:4864:20::140])
+	by mail.lfdr.de (Postfix) with ESMTPS id D63E9D7B20
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 15 Oct 2019 18:22:45 +0200 (CEST)
+Received: by mail-lf1-x140.google.com with SMTP id w22sf3883527lfe.2
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 15 Oct 2019 09:22:45 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1571156565; cv=pass;
         d=google.com; s=arc-20160816;
-        b=h9lZElkvMpdZL7PtdlOcIj3mIC/wcoi7reKQUGVK0gBGeeoeGsLZN3k55Qi2JFroIR
-         yQ/0T1KydKgHkrcsJXVVlU8Z9u2YbqClXi09AwqmWfwtZg95ykauEKxdudmZXKx3TA2y
-         drw6INo/l0WPFvLGVlPC6ab6TsgtvR7qZw2eJqBoDmVC242bGRXkzhs565+aM2xE7VSF
-         nw5Uj+xLaLQ6LvkEWhmcVp5xTrJ682l3IVJV17aHpRO7PqF7KVGYPmA6tPPlhi0gBzVU
-         RA+jbozIjvo9FXhzB/0XW0Ghgh6A0KBJWNWFFMqGJO7kuMAWIutakqh4jrUdfFJ3iTAF
-         yLmw==
+        b=b6dBedLpvP2pa2IicqTi4vErQgQQOQQq6AzD6zMqcQn56bTN8GY4zEPS+uY8NBQt2q
+         iS+fyo7IyvK37K5Z6m7/a58PepM2BDo9IAdonQMzLXKG5vlEE28b7zIrKW6o0gnZT3u1
+         pJxrZZgO2axVJ7TDjmT0aAH3Siuq+ooc/iidEhAj3p6mEXhjBH3xNzpdEtebRSsePK+k
+         HylYhM0f7Cwse23f0fbJQwTwzQURnowzmfhyU1DOYd9Hy0PgFb0RGnLaIUdnVp7jdYNW
+         20Th3c+JFdeqKkzG8+B6gHXw5AZEp08JK8eB7V3qtX2KaSE4dcMaQ3QOKTrj7fUhuJxv
+         PUog==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=isU1F1+V1jPEBg4pSVf+hO3lpJTQUgszjdmL9LTKJuQ=;
-        b=gOObWA2CU37VNq66YYlGzO6La9dEXD4pJIEOqlHTdFbqMT67tKp0zOjtjYdwYxW9yu
-         znpP6P/mcp2W48B21Pp7tdrNnC93d4qRZEb6+PwR9Q9hyWq/bOUK0A1A/x/i3TYYhedg
-         L7LMQz7i0uKOzOpTnnjdqUxpdbnUFxceC1Qy+CQ/78Lye6bBP5xmFOUjGU0MJB11Kr8F
-         F71JddUJRPx1UfKx6acv54RrKQbMFnmHB8MZnhIO+ku5/KXbTGLkstFdxxQt9IdHSGFP
-         OBIVGsEcqBCKsamk6hMPNPKA2Ci9anqjrbn3sbszMBmK58O/l+Alvsq++HEHLQxDTZ5P
-         hEQg==
+        bh=Ri1Qy3gvOLrEMovYFLymnSGwdxTQBScEcYouAx8b7oQ=;
+        b=SUOO37bXNhlg5DQCyrbL3XciufUhWQTlL/UxnYURUBmJ8+KTwiMtBWsYZ0Gmpv3dLp
+         3qZsjcs5ng57QqZcM44YLBiqWtvhGUbMOnAFE4Gm5kmnBHI3SX1sVIhopDMWo1YXHPoW
+         AsMFk52FxJgThxEY67m4LkiUoyu11+3PwglcM42OvAjR+H29xjkHJey/R/7IREpUvTgv
+         U90GiqAKA0tpxXypIiUPhHwn2YSx4IIwyp/+l6o4h1en7Y5Eyzlt3NbKal82wc79oFMj
+         S+hEQS8LIgL3YlEyVM9BAtPjYv9mR/rtUNlfs2oEzclFTWbmvvvlrU0prij2RGRBym1D
+         TLEA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
@@ -34,13 +34,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=isU1F1+V1jPEBg4pSVf+hO3lpJTQUgszjdmL9LTKJuQ=;
-        b=ngCS3pmUdxdTzGyQIr/Hgnw5zemZwQIwBUUHG3CXSX9Nm2FEb3GKVwQJMLT53EnzJp
-         cWD32kk2THBv12AQnKKRIpQr12hrWVNS1NGrnu7bsxXAmG9jNVgK21LQxMx0ryVF0qBy
-         E4q1ygRUMZ1fyvSPNI0ZOdQ8uB7weWXIKpNRJ4KdGcnAbgqQa3md7KhzyarypdLS2zLV
-         U4benu8G1vWk2d0jL8ZmOUAvp8iI7gjlDiw3W6yBLPY1wVaPUCxPkfOkNGp+3SiyiYk2
-         uV2geD4YtZvFfjvYhptlmpsFMbyquMoswacgVT4cODAygPtW9GQgPxsVJj3t++dtf+Gi
-         QLsw==
+        bh=Ri1Qy3gvOLrEMovYFLymnSGwdxTQBScEcYouAx8b7oQ=;
+        b=GbOwCkvQ3KFsUOXv/F6jX07TDJWao6NendxdILoprLDJ+HxZPvMvxeG2qD2NWnvmDr
+         F0eO1rRBMSejfTfFI+zh8+aB/YhwrSRjW2MwBChona2rfQfCRlkoYjsarqoIZ139mqgv
+         e+bdP5Q2917LavCJzbfqIPZjz0F5u/sXVg732xGTxHAu4tMAX8h0iTiQWK008unZ5JM8
+         nStw3Ek8XvEAYI6YUnkE1OWez3SW6sGCxr5tGYECvVCuq5aEXZ5BdK8DDKmBpbyhWZdv
+         Ws5xZ9Xf4Fgm7yBK9KhueNfQ/Kfn1jvue8uWSC+x2VpFIjysTmX+BPkTJPo8TKYCc/n9
+         FpuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
@@ -48,69 +48,69 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=isU1F1+V1jPEBg4pSVf+hO3lpJTQUgszjdmL9LTKJuQ=;
-        b=JRWUl2QYCLTyW0CLy+7tEUkTDgsLr3llj6KNy4CxRtqNZs7D6hsBBWdNgPQLuBehbh
-         /qiBTvanyLcPEChd7jeh9vNGKDayn8YqR4ym1w1fesaKulX+CX/fUK0aGcq8RwmaqZyS
-         +11AxkSSSo0IDXNY1PP910bPUFfB/gAFWN/eo+knFE3VyZtHJx0A4U6rHysgnNyNk8Ep
-         LCJD2Gf2muUemNth34Lojhl4ftnMfDkVKaZL2F28jR3XqwVdWaVEh1873f3MIUlvM3kH
-         QB2CcYlGhJJJW3wIpZQ77g74+G3aqTuGUVRGITfjZxaN7jqjD7orxhCq3shnqObQfH7+
-         QCGA==
+        bh=Ri1Qy3gvOLrEMovYFLymnSGwdxTQBScEcYouAx8b7oQ=;
+        b=WsJOjDpYcWLSZ8HqGETogExGG7EBVrKYO0V2IGzM5BZhNSo2nXpr2tpkzYHY/ATPSD
+         fZQFpQfnutlzUjZgJY560Mg0Yb+x5zGLUkWAl86ClztDDigIs0Z3YagdnFpP+CI39IGC
+         cExWH/SVLkhlkkivFqpXtZPJxgjnD5Np8+iCAvB9wT9eeennfOYdRhnB/gNE+1Jk9VWG
+         7jOtFkixUsKbbwq1YISMWejvfGU4+t4Dg0NBSGWULvyncyKaIZRxuXU1Gzwca6m3Z58i
+         T5Y5OCXDw1Jzwv6cs2alghv4tI/YYP+7hgEaB7FkcnyD5ozKUyIRHcWkmSNGhfNnz8nz
+         0wAA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVMVKv8mMZA7Tijge0e0mjmj4DibFaBU6i5DGrFkdIlaEAfXY7l
-	AU0RxXxEvor9+Qerysin9JQ=
-X-Google-Smtp-Source: APXvYqzNpgc3iMoILB4kyPbeYlAb7mtslBWYnMG20C51CY3BpZnTZjRQ+J5t5/nKupCMiktqx+sdoA==
-X-Received: by 2002:a1c:9cc6:: with SMTP id f189mr21522192wme.80.1571156564580;
-        Tue, 15 Oct 2019 09:22:44 -0700 (PDT)
+X-Gm-Message-State: APjAAAU6YNPM9ZSie/7DjH4Q2Rau4Y2nzadQba6HnYVXLW6EUvrkYR21
+	pC9fq8tZ0ZJSOVjRaJsxqz4=
+X-Google-Smtp-Source: APXvYqziiHtL6wglH3f8jbzBunnuo29Ju1Nz8TkMZxXYqsvf6khWAjp01Xga68vmheMgF7BjBB9cSg==
+X-Received: by 2002:a19:7404:: with SMTP id v4mr16248900lfe.129.1571156565456;
+        Tue, 15 Oct 2019 09:22:45 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a7b:c772:: with SMTP id x18ls8116680wmk.1.canary-gmail; Tue,
- 15 Oct 2019 09:22:44 -0700 (PDT)
-X-Received: by 2002:a1c:7305:: with SMTP id d5mr19756180wmb.84.1571156564016;
+Received: by 2002:a2e:9786:: with SMTP id y6ls2348344lji.3.gmail; Tue, 15 Oct
+ 2019 09:22:44 -0700 (PDT)
+X-Received: by 2002:a2e:878a:: with SMTP id n10mr3172285lji.229.1571156564850;
         Tue, 15 Oct 2019 09:22:44 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; t=1571156564; cv=none;
         d=google.com; s=arc-20160816;
-        b=VT8clXTo0hKth2k2nG0G8XwrOJuGR8WqWuu9519D4vJcBBv8+IVl0BseD7F+zr9Eck
-         MHjOaC0I1imfrpaKQM+Qkkz4fW/yrl3pmWuJBcUHg0Nkd4AevwYwHhbJFZA1IZZF3mug
-         xK3b1G7ajh6Qr6+tGpWsNpvjb+xfqR78zakYSlo5O3oh4y8LwssSZ5l2qXdLMnRmXx5t
-         GroOpy4IfzD//yBcYss+3XVKWOOpxcdV1GAWk6bkHK5gZ4Yk4ZcBElHio3xZXsvu03Qh
-         v97t0NcaW4pJYBF/i2QG6TpXSmPiRT4wpg2KGLTSzD0VtUH6G5N47Mw+aiSQjAdWAPs6
-         6PvQ==
+        b=D762O005Aj6KRM7aRitUP9ox7DsajtQZV3O4bKvi20xciYXw2G/prSPnnFV1jVBNho
+         kvXM3P43gyihxJvMwBuwp+VQFY6FgK/uaCZt1yhyXW3BvzgMEh7gcBmbyLpjACDcJMts
+         H5uIUF47c8D/EkMx8DjEWHTkf/fCeu5JQJUmKG/v4KHLEsmGU0VAPoi4WCr/BTpIBXH0
+         xp5O2n8Ymv3/2XbQ9QlD7tq9DQRbfVNjXbzR4EZHgZvbnG2UatuMw0hGS7P592umDmxl
+         AFi9B7ieIRNq+c1WYQ3Y/m4C9DOCcSPfolRBFbWiB30bKgjcKLFSjs3GOhnBwbXRze8D
+         9rHQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from;
-        bh=dbUocKJLNSNJyoI5HcdaXSdQcWA45D2BNE+vWNFLiRE=;
-        b=N52BjwhXTGvOaKkNYCHBb5CaUlPqCDES0y/pQBPPEmPMZrT94oqNDd1HNjbjyA4h5t
-         QCjABjKBn+gQ4yivUtbAwcxejs+AOzGV+Svza2bpZb03elPgtJY1JjXQJG4KUa+4j99e
-         DlVFCXKuCrDJSTysBQ3mLl7RSgJ/z0s0wChd3L1zsdu7ESveR5Yc+nYNGKAllRxffKoz
-         G0aeOa0HhRd2aDvqGL1d6oA1ijjfyzosCC+KKuPPEaf+q3aTkiJk433Bv/gbY2nHmrUQ
-         YPYP7ml/jTHuw6pVp2+vS4q3jqFTGWvh5Ab3L5BycmYjfGlbf+qaloCRTo032g7VRwr3
-         ZaJg==
+        bh=3jSZpOxPWoWmXHx9I1eybGx2Sjc5fV9QxPrwzHMuRQ0=;
+        b=Z4Rsm1ZgsY1HgtjplZklB5zlgOd8/FO4/YRGx87x5UqD8vFMK48tR2hWqJxDd3Rze4
+         om/DbuKcqUk2Jc9fYbZcN7+pPxZ3V3bUeoeBp8mPk7o9R/lx7x8YjZWo87/5DEJu1qWy
+         xiL7xO7PgpJMyzUcpZKiTfhhjMGjrgL2zaG+ZhnfMY4wWlE8//gdm5xFrHK+nE6t7oE2
+         /lH+QjF6uRHZkjIarcscW1Km9bgdkhNKTubCRm3s7xpz6IobDBIb8MPlDmnnah5PGcha
+         LG05fvPySANZHwTFavQXVPdWrQamWBNbiQs+YfD6ybXViNG5EGMD1B++62ThVhxuM/RJ
+         vz3w==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Received: from mtaout.hs-regensburg.de (mtaout.hs-regensburg.de. [194.95.104.10])
-        by gmr-mx.google.com with ESMTPS id o10si1786258wrm.5.2019.10.15.09.22.43
+        by gmr-mx.google.com with ESMTPS id q25si1220032ljg.5.2019.10.15.09.22.44
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
         Tue, 15 Oct 2019 09:22:44 -0700 (PDT)
 Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) client-ip=194.95.104.10;
 Received: from pluto.lfdr (unknown [IPv6:2001:638:a01:8061:aefd:ceff:fef3:ba65])
-	by mtaout.hs-regensburg.de (Postfix) with ESMTP id 46t11H4P4Pzy5p;
+	by mtaout.hs-regensburg.de (Postfix) with ESMTP id 46t11H6268zy5s;
 	Tue, 15 Oct 2019 18:22:43 +0200 (CEST)
 From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 To: Jailhouse <jailhouse-dev@googlegroups.com>,
 	Andrej Utz <andrej.utz@st.oth-regensburg.de>,
 	Jan Kiszka <jan.kiszka@siemens.com>
 Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Subject: [PATCH v4 03/13] pyjailhouse: sysfs_parser: minor stylistic fixups
-Date: Tue, 15 Oct 2019 18:22:32 +0200
-Message-Id: <20191015162242.1238940-4-ralf.ramsauer@oth-regensburg.de>
+Subject: [PATCH v4 04/13] pyjailhouse: sysfs_parser: introduce new class IORegionTree
+Date: Tue, 15 Oct 2019 18:22:33 +0200
+Message-Id: <20191015162242.1238940-5-ralf.ramsauer@oth-regensburg.de>
 X-Mailer: git-send-email 2.23.0
 In-Reply-To: <20191015162242.1238940-1-ralf.ramsauer@oth-regensburg.de>
 References: <20191015162242.1238940-1-ralf.ramsauer@oth-regensburg.de>
 MIME-Version: 1.0
 X-PMX-Version: 6.4.8.2820816, Antispam-Engine: 2.7.2.2107409, Antispam-Data: 2019.10.15.161817, AntiVirus-Engine: 5.65.0, AntiVirus-Data: 2019.10.15.5650002
 X-PMX-Spam: Gauge=IIIIIIII, Probability=8%, Report='
- HTML_00_01 0.05, HTML_00_10 0.05, BODY_SIZE_4000_4999 0, BODY_SIZE_5000_LESS 0, BODY_SIZE_7000_LESS 0, IN_REP_TO 0, LEGITIMATE_SIGNS 0, MSG_THREAD 0, MULTIPLE_REAL_RCPTS 0, NO_URI_HTTPS 0, RDNS_NXDOMAIN 0, RDNS_SUSP 0, RDNS_SUSP_GENERIC 0, REFERENCES 0, __ANY_URI 0, __BODY_NO_MAILTO 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CP_NAME_BODY 0, __CTE 0, __FRAUD_MONEY_BIG_COIN 0, __FRAUD_MONEY_BIG_COIN_DIG 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_REFERENCES 0, __HAS_X_MAILER 0, __IN_REP_TO 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __NO_HTML_TAG_RAW 0, __REFERENCES 0, __SANE_MSGID 0, __SEO_TOP_RANKING 0, __SUBJ_ALPHA_END 0, __SUBJ_ALPHA_NEGATE 0, __TO_MALFORMED_2 0, __TO_NAME 0, __TO_NAME_DIFF_FROM_ACC 0, __TO_REAL_NAMES 0, __URI_NO_WWW 0, __URI_NS '
+ HTML_00_01 0.05, HTML_00_10 0.05, BODYTEXTP_SIZE_3000_LESS 0, BODY_SIZE_2000_2999 0, BODY_SIZE_5000_LESS 0, BODY_SIZE_7000_LESS 0, IN_REP_TO 0, LEGITIMATE_SIGNS 0, MSG_THREAD 0, MULTIPLE_REAL_RCPTS 0, NO_URI_HTTPS 0, RDNS_NXDOMAIN 0, RDNS_SUSP 0, RDNS_SUSP_GENERIC 0, REFERENCES 0, __ANY_URI 0, __BODY_NO_MAILTO 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CTE 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_REFERENCES 0, __HAS_X_MAILER 0, __IN_REP_TO 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __NO_HTML_TAG_RAW 0, __REFERENCES 0, __SANE_MSGID 0, __TO_MALFORMED_2 0, __TO_NAME 0, __TO_NAME_DIFF_FROM_ACC 0, __TO_REAL_NAMES 0, __URI_NO_WWW 0, __URI_NS '
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
  (google.com: domain of ralf.ramsauer@oth-regensburg.de designates
@@ -129,122 +129,67 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-The sysfs_parser is written in python and not in C. Saves some
-parentheses.
+Do this step by step. First of all, let's create a new routine that is able to
+parse a line from /proc/iomem or /proc/ioports. Both files share the same
+layout, so they can share a common parser.
 
-No functional change.
+Passing the destination type of the entry to the parser allows to share code.
 
 Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 ---
- pyjailhouse/sysfs_parser.py | 29 +++++++++++++----------------
- 1 file changed, 13 insertions(+), 16 deletions(-)
+ pyjailhouse/sysfs_parser.py | 21 ++++++++++++---------
+ 1 file changed, 12 insertions(+), 9 deletions(-)
 
 diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py
-index f5071ca7..98717b4b 100644
+index 98717b4b..38755404 100644
 --- a/pyjailhouse/sysfs_parser.py
 +++ b/pyjailhouse/sysfs_parser.py
-@@ -125,7 +125,7 @@ def parse_iomem(pcidevices):
-                 append_r = False
-                 break
-         # filter out the ROMs
--        if (r.start >= rom_region.start and r.stop <= rom_region.stop):
-+        if r.start >= rom_region.start and r.stop <= rom_region.stop:
-             add_rom_region = True
-             append_r = False
-         # filter out and save DMAR regions
-@@ -141,7 +141,7 @@ def parse_iomem(pcidevices):
+@@ -825,6 +825,17 @@ class IOAPIC:
+         return (self.iommu << 16) | self.bdf
  
-     # newer Linux kernels will report the first page as reserved
-     # it is needed for CPU init so include it anyways
--    if (ret[0].typestr == 'System RAM' and ret[0].start == 0x1000):
-+    if ret[0].typestr == 'System RAM' and ret[0].start == 0x1000:
-         ret[0].start = 0
  
-     return ret, dmar_regions
-@@ -836,7 +836,7 @@ class IOMemRegionTree:
-         kernel = [x for x in self.children if
-                   x.region.typestr.startswith('Kernel ')]
- 
--        if (len(kernel) == 0):
-+        if len(kernel) == 0:
-             return [self.region]
- 
-         r = self.region
-@@ -847,20 +847,20 @@ class IOMemRegionTree:
- 
-         # align this for 16M, but only if we have enough space
-         kernel_stop = (kernel_stop & ~0xFFFFFF) + 0xFFFFFF
--        if (kernel_stop > r.stop):
-+        if kernel_stop > r.stop:
-             kernel_stop = r.stop
- 
-         before_kernel = None
-         after_kernel = None
- 
-         # before Kernel if any
--        if (r.start < kernel_start):
-+        if r.start < kernel_start:
-             before_kernel = MemRegion(r.start, kernel_start - 1, s)
- 
-         kernel_region = MemRegion(kernel_start, kernel_stop, "Kernel")
- 
-         # after Kernel if any
--        if (r.stop > kernel_stop):
-+        if r.stop > kernel_stop:
-             after_kernel = MemRegion(kernel_stop + 1, r.stop, s)
++class IORegionTree:
++    @staticmethod
++    def parse_io_line(line, TargetClass):
++        (region, type) = line.split(' : ', 1)
++        level = int(region.count(' ') / 2) + 1
++        type = type.strip()
++        region = [r.strip() for r in region.split('-', 1)]
++
++        return level, TargetClass(int(region[0], 16), int(region[1], 16), type)
++
++
+ class IOMemRegionTree:
+     def __init__(self, region, level):
+         self.region = region
+@@ -865,14 +876,6 @@ class IOMemRegionTree:
  
          return [before_kernel, kernel_region, after_kernel]
-@@ -908,11 +908,11 @@ class IOMemRegionTree:
-             r = tree.region
-             s = r.typestr
  
--            if (s.find(name) >= 0):
-+            if s.find(name) >= 0:
-                 regions.append(r)
- 
-             # if the tree continues recurse further down ...
--            if (len(tree.children) > 0):
-+            if len(tree.children) > 0:
-                 regions.extend(
-                     IOMemRegionTree.find_regions_by_name(tree, name))
- 
-@@ -931,19 +931,16 @@ class IOMemRegionTree:
-             # System RAM on the first level will be added completely,
-             # if they don't contain the kernel itself, if they do,
-             # we split them
--            if (tree.level == 1 and s == 'System RAM'):
-+            if tree.level == 1 and s == 'System RAM':
-                 regions.extend(tree.regions_split_by_kernel())
-                 continue
- 
--            # blacklisted on all levels
--            if (
--                (s.find('PCI MMCONFIG') >= 0) or
--                (s.find('APIC') >= 0)  # covers both APIC and IOAPIC
--            ):
-+            # blacklisted on all levels, covers both APIC and IOAPIC
-+            if s.find('PCI MMCONFIG') >= 0 or s.find('APIC') >= 0:
-                 continue
- 
-             # generally blacklisted, with a few exceptions
--            if (s.lower() == 'reserved'):
-+            if s.lower() == 'reserved':
-                 regions.extend(
-                     IOMemRegionTree.find_regions_by_name(tree, 'HPET'))
-                 dmar_regions.extend(
-@@ -951,7 +948,7 @@ class IOMemRegionTree:
-                 continue
- 
-             # if the tree continues recurse further down ...
--            if (len(tree.children) > 0):
-+            if len(tree.children) > 0:
-                 (temp_regions, temp_dmar_regions) = \
-                     IOMemRegionTree.parse_iomem_tree(tree)
-                 regions.extend(temp_regions)
+-    @staticmethod
+-    def parse_iomem_line(line):
+-        a = line.split(':', 1)
+-        level = int(a[0].count(' ') / 2) + 1
+-        region = a[0].split('-', 1)
+-        a[1] = a[1].strip()
+-        return level, MemRegion(int(region[0], 16), int(region[1], 16), a[1])
+-
+     @staticmethod
+     def parse_iomem_file():
+         root = IOMemRegionTree(None, 0)
+@@ -880,7 +883,7 @@ class IOMemRegionTree:
+         lastlevel = 0
+         lastnode = root
+         for line in f:
+-            (level, r) = IOMemRegionTree.parse_iomem_line(line)
++            (level, r) = IORegionTree.parse_io_line(line, MemRegion)
+             t = IOMemRegionTree(r, level)
+             if (t.level > lastlevel):
+                 t.parent = lastnode
 -- 
 2.23.0
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20191015162242.1238940-4-ralf.ramsauer%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20191015162242.1238940-5-ralf.ramsauer%40oth-regensburg.de.
