@@ -1,135 +1,71 @@
-Return-Path: <jailhouse-dev+bncBDD5VM7LUMHBBRHTS7WQKGQEKG76YGQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC2PTC4R4MNBBV7GTHWQKGQEO3VNZWQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43e.google.com (mail-wr1-x43e.google.com [IPv6:2a00:1450:4864:20::43e])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3182D7C63
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 15 Oct 2019 18:54:28 +0200 (CEST)
-Received: by mail-wr1-x43e.google.com with SMTP id j2sf1451097wrg.19
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 15 Oct 2019 09:54:28 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1571158468; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=rET06Gioj54lYVAIinbJsYmbaxY23ElcKaaecqLzWfw97mCoiT0fSkji2eUDGDb8t0
-         pzQg9U2sg6ryin68Igp8hdaM+Y2aihpNZ+9lFjbC8IIv3vPjbOxgsaLrnN010O808JhY
-         5UqCpacYoPX9ZNMkS4+N/sUtdz5GvJBHOUWA0O5iXYU8pBwLl931PZL7KwYnUqvQdYEw
-         2DDD6QIal1POprgFXaM0gmj6+PVz/6sbPF1rnIc1qiMc6nMoFEZUdTOSNq3+27ZHQ9m5
-         Rusr9tCcdryOkRX1dY2ky/TdHmopXFW5Ype+w0H+ocVP2AeKMKGTmSvPTz4TwsO+SwQC
-         LY8g==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:to:subject
-         :sender:dkim-signature;
-        bh=Ut3DGiFoFufriAQlUZKMj5TWE80bw6ZoD95YQOZBJ/s=;
-        b=HlgiV5/AgB2dyZQya8ZpvvmPftPRkBVjCc1n/L0A5b3ithgbNxY7KxBbsNWpntm2rG
-         K3RkvvCsJkVYXzadW5uedSpBlpwRMcAXzQJ28W9jWfgFaQ4vX+jleWudOxxxR7GeMgiw
-         jkkGCgj4mKX6pUwv8uhKVDTpshK33n/9fwUL0BReKt0yjaKaLu2cZzxnooKjgCoPAmsq
-         bHLH4uYehbmYHUI9hEf99Org48jJEFS3QExE/Q7W1Jl8qY2wCQsGrZCSVd2ufuGGQGDv
-         kZ7QYuKn8HjR69ET/cx+lz/+QMcCb6X0FiejsBr3YwlxM9vwpudPdD6CkeghAgTKPole
-         Djew==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@st.oth-regensburg.de header.s=mta01-20160622 header.b=E+mq8X+p;
-       spf=pass (google.com: domain of andrej.utz@st.oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=andrej.utz@st.oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mail-oi1-x237.google.com (mail-oi1-x237.google.com [IPv6:2607:f8b0:4864:20::237])
+	by mail.lfdr.de (Postfix) with ESMTPS id 23174D8584
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 16 Oct 2019 03:33:13 +0200 (CEST)
+Received: by mail-oi1-x237.google.com with SMTP id b2sf12794407oie.21
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 15 Oct 2019 18:33:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=Ut3DGiFoFufriAQlUZKMj5TWE80bw6ZoD95YQOZBJ/s=;
-        b=PLRDfjD9lhwH1ojSVbw9egNaDqISUvIuVIPygpgEJmh3WkdopclKe+x/E9e41WgJJk
-         UYXLUooKDLd8gqQib3NtGPm/PejkQ3orgephFacD+d0bxE2e1fOf804TOwek9SUE82hk
-         NCwHSFA04upyIm3d1XfxJWa7ZHKuRKnJa4ffo9iRfS2YcnKHk4kjIT/Qcmfh1kflLJcZ
-         wqMJl2nBz2RKW/XlrU+6nH5RdUwkUNst3/wPiXEj/AvtGoJ9Vvn7HGBsRwS+BaXXaSwG
-         WenrJ07jgGEwmiXQ5NYe5K6zKC41ZF48hxVrrwc4mUXTMS87UB6MD+2s4nMfC4NRnIIs
-         qcRQ==
+        bh=60M1tOtq/7UjmUuG2sX5odJmXSPoUoKwaMPRm4txFCY=;
+        b=cwbL8JHNdXSONeuqYGIa+0aEwCskLZmwVPfruYDpF39qyLRvqE7aOKnDZD4Yi2IfLN
+         NE/TzrF/wsfqXddAGd79nlnLUpa3lf+47UK8tfwSKrHVRkq7HJ4o+eoNmq7lezdefY6Z
+         VSqWSrl9922Ib9x/OhPH64njhZvv0H35OkS4dT/X6D/f6tW40RdfeptiH6cAiXoSO/4W
+         QJaYVYfbzugkeNKw1nEYgIcWbX6kOQhWpN38qHYnkTAkOG5epNf103+vAJ5m4pkOOjax
+         QCb1JRqhvw7/IC+NGSwd7FiPW0sSpWig3xKM/jbl5sAlgjAYi9v9pyTO9Y6kE+vyEQJu
+         5Dyw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=60M1tOtq/7UjmUuG2sX5odJmXSPoUoKwaMPRm4txFCY=;
+        b=sgfLL49Ft75uwnuAoS8BZQtc+TqK5gbjOZdYA+WjOEUkWK2QWPlpV/16lrx1AO85vj
+         su4All3bj6osjTM9zc9+HpikvxWMtH/v6BQfwuBpV+KVFt1tqSTEUvN8wptY2yE5NmkU
+         Diy29io5QqTLlphK3LFTdV7+uLM1i3DpsubSOvsmevGUw7rMUgwDOL2t8CR1JwiH2hQx
+         I4BkmQUOx9i7GOZkgGI6ZFOtSxSQiWHqZ6qyJfbQIh7PmdWPsm4928BABePy7F7XJUyd
+         JrB8l0+8DmWu4OnVCNwy6GR22pnUtMP1kYpCVzyiadmiWI5mVOK5IcCVqFRlXfcRY5mj
+         eUcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=Ut3DGiFoFufriAQlUZKMj5TWE80bw6ZoD95YQOZBJ/s=;
-        b=eNcjUqQUzlDQ/6rFlg6do675kJHgtHp7hSw6+3jRoiovCb4TMoJQErEK4+KOgAkX7u
-         XqArjXeeK//gUVwXkM+2ErM57EqyqfTM62s2Pv3vFk722IbWSSJVnWgWturNelluT7tL
-         yskg2EAqEUsXISfubc7x7MZ+aG2ELnVuDeZTbvLN8k2EMfZCao14W/kf3USTuL1gX5yO
-         CXRgoTlCgOVLePR7QqdhjTazSr8WTYPkw5PVlI3OB1g67Kh6NxdfIdWcpEbM8608e0FE
-         ItJOJRvzHgbeN/0S0mavesqETL6BGQvq9KEs59oEcy3Ps8byG+Ex0AaGXLZmlaa/nbg9
-         oSbg==
+        bh=60M1tOtq/7UjmUuG2sX5odJmXSPoUoKwaMPRm4txFCY=;
+        b=kYp8Au5sQnlJFna4H44BYuxHpMr/6bE+iD3p1Sz0aPxKg1RgNHccTn9fHAnUJySNLX
+         mni41Dcala9IK3g7xzvKeFF04/2l9GNhSPHZmYIXBvg4QuSgdANFXO17SGWpX3IVbZ8Z
+         1d2/l0H6LgTy3zSayVc39yNIJFnal4HRpzbuO25Wthe9qfzUx1ooRjnhwqcNelut0V54
+         poH1fN2YKD7P/nqXc5u3NnOguxi+TVs4B2biseZn908bVuciFVp+Ms7d1NnaP3uX88ea
+         QMrLVXqBx9BrIbN+aJFhHzeBNhSkZUoPhEAJKEetOg0bIuPEyMps8bDjkrzzMBbYAXVZ
+         VoQA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAW1LocKtL9SEDK2yJokqUJAgR+YCIDDOcshsqpYxSWZdLf9/P2z
-	sF4zADRoXVqWbFAgFZlci9E=
-X-Google-Smtp-Source: APXvYqxvsQS//Bckm7BaedOUywUYkAYERTL4lwkrpUagztseQ/179CwBhepi9LZYuTjZKB2lh3R4ag==
-X-Received: by 2002:adf:b69f:: with SMTP id j31mr31078789wre.277.1571158468269;
-        Tue, 15 Oct 2019 09:54:28 -0700 (PDT)
+X-Gm-Message-State: APjAAAUKMJb0VprcLj6JoIXw1wrpikqs7i9TcIR4nGtkFju8HYTqlo7R
+	cFHpsalf7NHk6ogohjpTJ0o=
+X-Google-Smtp-Source: APXvYqxJxW4kcTEhC45LdQ9GZ0gQx0kpMeZ59hms6TOH5reo2/q+Tqa7mv9lI7DVNEQ2mVn6Qd+HPw==
+X-Received: by 2002:aca:dec4:: with SMTP id v187mr1313982oig.46.1571189591543;
+        Tue, 15 Oct 2019 18:33:11 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5d:526c:: with SMTP id l12ls7166427wrc.12.gmail; Tue, 15
- Oct 2019 09:54:27 -0700 (PDT)
-X-Received: by 2002:a5d:46ca:: with SMTP id g10mr17188165wrs.193.1571158467658;
-        Tue, 15 Oct 2019 09:54:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1571158467; cv=none;
-        d=google.com; s=arc-20160816;
-        b=qxg1ZaF42zo66OJcwxYobIAaiLrfelwjUq3uHaQhcX2nKwu3Gi8kJhEg8zOjpnxnTs
-         9wHk9CmTeBU1fzHIr1p20y/LggH/kjX2tbi/nefMZvs8DLP8S8cuoi9nOZIZKYyxGBMV
-         nfDJraM4kfexXZRcpv/RGKXQAOBvZOoQeP3Uc5MtgnO4zp6blikWdTekXA10FOl6ysNr
-         Pxl4MsvRso4GbeMrXUhpS36fC4KF0Noil4Y/H3LWYwTTMG56h7ejEwdUNM8+qYcqs5kr
-         pKe4EEEihO/ByMNASkLoYzETZJ4aIDytrUsXICtPikFTxlhAo5iKddj66l1XLZNRkVX2
-         Mhzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject
-         :dkim-signature;
-        bh=CQtP/3lsm6tPmgROXYmKplqPYHHgASVB+JXVS5oRRh0=;
-        b=GQaB5MMNdpmw5SgPobSVMUCWw7SfpXBVjl7tGtD0LWhjyv632zhiIAY7vRW15k1Rdn
-         u+K9IJRxJd59oMBgI2qepn3fDrkT+sbH3KXtsDI+JFkXt8X/G7zZj6qd8B2lWMj7oYco
-         dTcG4Ay81ceoqMYdev+BGNIxWeZyIcohJ1DRj/JnJTxl6BOcL3LbS1hW6o+41GPjFvPv
-         zLPwS5jArh2iU5a2Svxdr872LIA2jglDll5feSHvMMZPbK6gspDZC5M2m/eTF0dHN15x
-         U9qQU/UI1mjrModh9NrRZWdfKckWRFM3J6eZ2ilh6cITsHRPkvJemD6hEfecQwWkD0o8
-         NRSA==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@st.oth-regensburg.de header.s=mta01-20160622 header.b=E+mq8X+p;
-       spf=pass (google.com: domain of andrej.utz@st.oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=andrej.utz@st.oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [194.95.104.11])
-        by gmr-mx.google.com with ESMTPS id n16si1403466wrs.4.2019.10.15.09.54.27
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 15 Oct 2019 09:54:27 -0700 (PDT)
-Received-SPF: pass (google.com: domain of andrej.utz@st.oth-regensburg.de designates 194.95.104.11 as permitted sender) client-ip=194.95.104.11;
-Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S02", Issuer "E16S02" (not verified))
-	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 46t1jv1nkRzy8J;
-	Tue, 15 Oct 2019 18:54:27 +0200 (CEST)
-Received: from [192.168.178.79] (194.95.106.138) by E16S02.hs-regensburg.de
- (2001:638:a01:8013::92) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Tue, 15 Oct
- 2019 18:54:27 +0200
-Subject: Re: [PATCH v4 12/13] pyjailhouse: x86: implement pio_regions
- generator
-To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>, Jailhouse
-	<jailhouse-dev@googlegroups.com>, Jan Kiszka <jan.kiszka@siemens.com>
-References: <20191015162242.1238940-1-ralf.ramsauer@oth-regensburg.de>
- <20191015162242.1238940-13-ralf.ramsauer@oth-regensburg.de>
-From: Andrej Utz <andrej.utz@st.oth-regensburg.de>
-Message-ID: <db6fdd43-f6f4-62b2-cfe6-d2113b99f74b@st.oth-regensburg.de>
-Date: Tue, 15 Oct 2019 18:54:07 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.1
+Received: by 2002:a05:6830:1ad9:: with SMTP id r25ls3157543otc.1.gmail; Tue,
+ 15 Oct 2019 18:33:10 -0700 (PDT)
+X-Received: by 2002:a9d:5a0b:: with SMTP id v11mr22904516oth.274.1571189590550;
+        Tue, 15 Oct 2019 18:33:10 -0700 (PDT)
+Date: Tue, 15 Oct 2019 18:33:09 -0700 (PDT)
+From: Chung-Fan Yang <sonic.tw.tp@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <e67df2f1-0967-453f-97a9-5bc2ea58a790@googlegroups.com>
+In-Reply-To: <603922dd-251c-b4ad-f4a0-1397f753a25f@siemens.com>
+References: <85f868a4-bff5-567b-fbd1-22c79406ad17@siemens.com>
+ <603922dd-251c-b4ad-f4a0-1397f753a25f@siemens.com>
+Subject: Re: PoC: virtio over ivshmem for Jailhouse
 MIME-Version: 1.0
-In-Reply-To: <20191015162242.1238940-13-ralf.ramsauer@oth-regensburg.de>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: de-CH
-X-Originating-IP: [194.95.106.138]
-X-ClientProxiedBy: E16S03.hs-regensburg.de (2001:638:a01:8013::93) To
- E16S02.hs-regensburg.de (2001:638:a01:8013::92)
-X-Original-Sender: andrej.utz@st.oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@st.oth-regensburg.de header.s=mta01-20160622 header.b=E+mq8X+p;
-       spf=pass (google.com: domain of andrej.utz@st.oth-regensburg.de
- designates 194.95.104.11 as permitted sender) smtp.mailfrom=andrej.utz@st.oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_4322_571277573.1571189589846"
+X-Original-Sender: Sonic.tw.tp@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -142,239 +78,258 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi Ralf,
+------=_Part_4322_571277573.1571189589846
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_4323_1176276728.1571189589846"
 
-On 15.10.19 18:22, Ralf Ramsauer wrote:
-> From: Andrej Utz <andrej.utz@st.oth-regensburg.de>
-> 
-> This replaces the former static port list with actual port regions as listed in
-> /proc/ioports.
-> 
-> A whitelist selectively allows access to known ports (if present). PCI devices
-> above 0xcff are permitted as well.
-> 
-> However, not all ports that are in use are listed in ioports, so the generated
-> list may still ne further tuning.
-> 
-> Signed-off-by: Andrej Utz <andrej.utz@st.oth-regensburg.de>
-> [ralf: s/permitted/whitelist/, autodetect VGA, whitelist serial,
->         whitelist PCI devices, amend commit message, improve __str__ methods,
->         ensure pep8 conformity]
-> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-> ---
->   pyjailhouse/sysfs_parser.py   | 89 +++++++++++++++++++++++++++++++++++
->   tools/jailhouse-config-create | 15 +-----
->   tools/root-cell-config.c.tmpl | 12 ++---
->   3 files changed, 96 insertions(+), 20 deletions(-)
-> 
-> diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py
-> index 1d00f364..3cefc2c7 100644
-> --- a/pyjailhouse/sysfs_parser.py
-> +++ b/pyjailhouse/sysfs_parser.py
-> @@ -18,6 +18,7 @@
->   # to change the generated C-code.
->   
->   
-> +import re
->   import struct
->   import os
->   import fnmatch
-> @@ -25,6 +26,7 @@ import fnmatch
->   from .pci_defs import PCI_CAP_ID, PCI_EXT_CAP_ID
->   
->   root_dir = "/"
-> +bdf_regex = re.compile(r'\w{4}:\w{2}:\w{2}\.\w')
->   
->   
->   def set_root_dir(dir):
-> @@ -147,6 +149,65 @@ def parse_iomem(pcidevices):
->       return ret, dmar_regions
->   
->   
-> +def ioports_search_pci_devices(tree):
-> +    ret = []
-> +
-> +    if tree.region and bdf_regex.match(tree.region.typestr):
-> +        ret.append(tree.region)
-> +    else:
-> +        for subtree in tree:
-> +            ret += ioports_search_pci_devices(subtree)
-> +
-> +    return ret
-> +
-> +
-> +def parse_ioports():
-> +    tree = IORegionTree.parse_io_file('/proc/ioports', PortRegion)
-> +
-> +    pm_timer_base = tree.find_regions_by_name('ACPI PM_TMR')
-> +    if len(pm_timer_base) != 1:
-> +        raise RuntimeError('Found %u entries for ACPI PM_TMR (expected 1)' %
-> +                           len(pm_timer_base))
-> +    pm_timer_base = pm_timer_base[0].start
-> +
-> +    leaves = tree.get_leaves()
-> +
-> +    # Never expose PCI config space ports to the user
-> +    leaves = list(filter(lambda p: p.start != 0xcf8, leaves))
-> +
-> +    # Drop everything above 0xd00
-> +    leaves = list(filter(lambda p: p.start < 0xd00, leaves))
-> +
-> +    whitelist = [
-> +        0x40,   # PIT
-> +        0x60,   # keyboard
-> +        0x61,   # HACK: NMI status/control
-> +        0x64,   # I8042
-> +        0x70,   # RTC
-> +        0x2f8,  # serial
-> +        0x3f8,  # serial
+------=_Part_4323_1176276728.1571189589846
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I see you added the onboard UARTs to the whitelist. Shouldn't we 
-disallow them if they collide with Jailhouse' own debug port?
 
-Thanks,
-Andrej Utz
 
-> +    ]
-> +
-> +    pci_devices = ioports_search_pci_devices(tree)
-> +
-> +    # Drop devices below 0xd00 as leaves already contains them. Access should
-> +    # not be permitted by default.
-> +    pci_devices = list(filter(lambda p: p.start >= 0xd00, pci_devices))
-> +    for pci_device in pci_devices:
-> +        pci_device.permit = True
-> +
-> +    for r in leaves:
-> +        typestr = r.typestr.lower()
-> +        if r.start in whitelist or \
-> +           True in [vga in typestr for vga in ['vesa', 'vga']]:
-> +            r.permit = True
-> +
-> +    leaves += pci_devices
-> +    leaves.sort(key=lambda r: r.start)
-> +
-> +    return leaves, pm_timer_base
-> +
-> +
->   def parse_pcidevices():
->       int_src_cnt = 0
->       devices = []
-> @@ -831,6 +892,19 @@ class MemRegion(IORegion):
->           return 'JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE'
->   
->   
-> +class PortRegion(IORegion):
-> +    def __init__(self, start, stop, typestr, permit=False, comments=None):
-> +        super(PortRegion, self).__init__(start, stop, typestr, comments)
-> +        self.permit = permit
-> +
-> +    def __str__(self):
-> +        return 'Port I/O: %04x-%04x : %s' % \
-> +            (self.start, self.stop, super(PortRegion, self).__str__())
-> +
-> +    def size(self):
-> +        return super(PortRegion, self).size() + 1
-> +
-> +
->   class IOAPIC:
->       def __init__(self, id, address, gsi_base, iommu=0, bdf=0):
->           self.id = id
-> @@ -854,6 +928,21 @@ class IORegionTree:
->           self.parent = None
->           self.children = []
->   
-> +    def __iter__(self):
-> +        for child in self.children:
-> +            yield child
-> +
-> +    def get_leaves(self):
-> +        leaves = []
-> +
-> +        if len(self.children):
-> +            for child in self.children:
-> +                leaves.extend(child.get_leaves())
-> +        elif self.region is not None:
-> +            leaves.append(self.region)
-> +
-> +        return leaves
-> +
->       # find specific regions in tree
->       def find_regions_by_name(self, name):
->           regions = []
-> diff --git a/tools/jailhouse-config-create b/tools/jailhouse-config-create
-> index c3226dde..250785af 100755
-> --- a/tools/jailhouse-config-create
-> +++ b/tools/jailhouse-config-create
-> @@ -162,18 +162,6 @@ def count_cpus():
->               count += 1
->       return count
->   
-> -
-> -def parse_ioports():
-> -    pm_timer_base = None
-> -    f = sysfs_parser.input_open('/proc/ioports')
-> -    for line in f:
-> -        if line.endswith('ACPI PM_TMR\n'):
-> -            pm_timer_base = int(line.split('-')[0], 16)
-> -            break
-> -    f.close()
-> -    return pm_timer_base
-> -
-> -
->   class MMConfig:
->       def __init__(self, base, end_bus):
->           self.base = base
-> @@ -302,7 +290,7 @@ mem_regions.append(inmatereg)
->   
->   cpucount = count_cpus()
->   
-> -pm_timer_base = parse_ioports()
-> +port_regions, pm_timer_base = sysfs_parser.parse_ioports()
->   
->   debug_console = DebugConsole(options.console)
->   
-> @@ -312,6 +300,7 @@ tmpl = Template(filename=os.path.join(options.template_dir,
->                                         'root-cell-config.c.tmpl'))
->   kwargs = {
->       'mem_regions': mem_regions,
-> +    'port_regions': port_regions,
->       'ourmem': ourmem,
->       'argstr': ' '.join(sys.argv),
->       'hvmem': hvmem,
-> diff --git a/tools/root-cell-config.c.tmpl b/tools/root-cell-config.c.tmpl
-> index d884089a..8f654fa7 100644
-> --- a/tools/root-cell-config.c.tmpl
-> +++ b/tools/root-cell-config.c.tmpl
-> @@ -47,7 +47,7 @@ struct {
->   	__u64 cpus[${int((cpucount + 63) / 64)}];
->   	struct jailhouse_memory mem_regions[${len(mem_regions)}];
->   	struct jailhouse_irqchip irqchips[${len(irqchips)}];
-> -	struct jailhouse_pio pio_regions[6];
-> +	struct jailhouse_pio pio_regions[${len([1 for r in port_regions if r.permit])}];
->   	struct jailhouse_pci_device pci_devices[${len(pcidevices)}];
->   	struct jailhouse_pci_capability pci_caps[${len(pcicaps)}];
->   } __attribute__((packed)) config = {
-> @@ -154,12 +154,10 @@ struct {
->   	},
->   
->   	.pio_regions = {
-> -		PIO_RANGE(0x40, 4), /* PIT */
-> -		PIO_RANGE(0x60, 2), /* HACK: NMI status/control */
-> -		PIO_RANGE(0x64, 1), /* I8042 */
-> -		PIO_RANGE(0x70, 2), /* RTC */
-> -		PIO_RANGE(0x3b0, 0x30), /* VGA */
-> -		PIO_RANGE(0xd00, 0xf300), /* HACK: PCI bus */
-> +		% for r in port_regions:
-> +		/* ${str(r)} */
-> +		${'' if r.permit else '/* '}PIO_RANGE(${r.start_str()}, ${r.size_str()}),${'' if r.permit else ' */'}
-> +		% endfor
->   	},
->   
->   	.pci_devices = {
-> 
+2019=E5=B9=B410=E6=9C=8815=E6=97=A5=E7=81=AB=E6=9B=9C=E6=97=A5 16=E6=99=821=
+8=E5=88=8639=E7=A7=92 UTC+9 Jan Kiszka:
+>
+> On 14.10.19 19:04, Jan Kiszka wrote:=20
+> > Hi all,=20
+> >=20
+> > it's still basically a PoC, not yet specified and with a lot of sharp=
+=20
+> > edges, but it works too well for not being pointed out:=20
+> >=20
+> > The queues/jailhouse-ivshmem2 branch on [1] contains a virtio-ivshmem=
+=20
+> > transport driver [2] for Linux front-end guests and a simple virtio=20
+> > console backend device model [3], also for Linux. Combining that with=
+=20
+> > the wip/ivshmem2 branch of Jailhouse, you can call in the root cell=20
+> >=20
+> > # echo "4a48 4a48 4a48 4a48 ffc003 ffffff" \=20
+> >    > /sys/bus/pci/drivers/uio_ivshm/new_id=20
+> > # virtio-ivshmem-console /dev/uio0=20
+> >=20
+> > and then start the Linux demo inmate which uses "console=3Dhvc0". You w=
+ill=20
+> > both see the (late) boot logs and be able to log into the guest, like i=
+t=20
+> > were a serial console. And all that without touching anything in=20
+> > Jailhouse (beyond generic ivshmem 2.0 support)!=20
+> >=20
+> > More to come, latest at [4].=20
+> >=20
+> > Jan=20
+> >=20
+> > [1] http://git.kiszka.org/linux.git/=20
+> > [2]=20
+> >=20
+> http://git.kiszka.org/?p=3Dlinux.git;a=3Dblob;f=3Ddrivers/virtio/virtio_i=
+vshmem.c;hb=3Drefs/heads/queues/jailhouse-ivshmem2=20
+> > [3]=20
+> >=20
+> http://git.kiszka.org/?p=3Dlinux.git;a=3Dblob;f=3Dtools/virtio/virtio-ivs=
+hmem-console.c;hb=3Drefs/heads/queues/jailhouse-ivshmem2=20
+> > [4] https://sched.co/TmxI=20
+> >=20
+>
+> Was too easy:=20
+>
+> Welcome to Buildroot=20
+> jailhouse login: root=20
+> # mount /dev/vda /mnt/=20
+> [    8.968669] EXT4-fs (vda): mounted filesystem with ordered data mode.=
+=20
+> Opts: (null)=20
+> # ls -l /mnt/=20
+> total 12=20
+> drwx------    2 root     root         12288 Oct 14  2019 lost+found=20
+>
+> You just need [5] and this to make it happen:=20
+>
+> # dd if=3D/dev/zero of=3Ddisk.img bs=3D1M count=3D64=20
+> # mkfs.ext4 disk.img=20
+> # echo "4a48 4a48 4a48 4a48 ffc002 ffffff" \=20
+>    > /sys/bus/pci/drivers/uio_ivshm/new_id=20
+> # virtio-ivshmem-block /dev/uio0 disk.img=20
+>
+> I've updated the Jailhouse wip/ivshmem2 branch with corresponding cell=20
+> configurations.=20
+>
+> Jan=20
+>
+> [5]=20
+> http://git.kiszka.org/?p=3Dlinux.git;a=3Dblob;f=3Dtools/virtio/virtio-ivs=
+hmem-block.c;hb=3Drefs/heads/queues/jailhouse-ivshmem2=20
+>
+> --=20
+> Siemens AG, Corporate Technology, CT RDA IOT SES-DE=20
+> Corporate Competence Center Embedded Linux=20
+>
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/db6fdd43-f6f4-62b2-cfe6-d2113b99f74b%40st.oth-regensburg.de.
+This will be very handy.
+
+I am current working on project require custom pipes and serial console=20
+between cells.
+I have handcrafted the drivers, but if the generic virtio model is adapted,=
+=20
+it will be much easier, at least for the Linux side.
+
+Yang
+=20
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/e67df2f1-0967-453f-97a9-5bc2ea58a790%40googlegroups.com.
+
+------=_Part_4323_1176276728.1571189589846
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><br><br>2019=E5=B9=B410=E6=9C=8815=E6=97=A5=E7=81=AB=E6=9B=
+=9C=E6=97=A5 16=E6=99=8218=E5=88=8639=E7=A7=92 UTC+9 Jan Kiszka:<blockquote=
+ class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-left: 1=
+px #ccc solid;padding-left: 1ex;">On 14.10.19 19:04, Jan Kiszka wrote:
+<br>&gt; Hi all,
+<br>&gt;=20
+<br>&gt; it&#39;s still basically a PoC, not yet specified and with a lot o=
+f sharp
+<br>&gt; edges, but it works too well for not being pointed out:
+<br>&gt;=20
+<br>&gt; The queues/jailhouse-ivshmem2 branch on [1] contains a virtio-ivsh=
+mem
+<br>&gt; transport driver [2] for Linux front-end guests and a simple virti=
+o
+<br>&gt; console backend device model [3], also for Linux. Combining that w=
+ith
+<br>&gt; the wip/ivshmem2 branch of Jailhouse, you can call in the root cel=
+l
+<br>&gt;=20
+<br>&gt; # echo &quot;4a48 4a48 4a48 4a48 ffc003 ffffff&quot; \
+<br>&gt; =C2=A0 =C2=A0&gt; /sys/bus/pci/drivers/uio_<wbr>ivshm/new_id
+<br>&gt; # virtio-ivshmem-console /dev/uio0
+<br>&gt;=20
+<br>&gt; and then start the Linux demo inmate which uses &quot;console=3Dhv=
+c0&quot;. You will
+<br>&gt; both see the (late) boot logs and be able to log into the guest, l=
+ike it
+<br>&gt; were a serial console. And all that without touching anything in
+<br>&gt; Jailhouse (beyond generic ivshmem 2.0 support)!
+<br>&gt;=20
+<br>&gt; More to come, latest at [4].
+<br>&gt;=20
+<br>&gt; Jan
+<br>&gt;=20
+<br>&gt; [1] <a href=3D"http://git.kiszka.org/linux.git/" target=3D"_blank"=
+ rel=3D"nofollow" onmousedown=3D"this.href=3D&#39;http://www.google.com/url=
+?q\x3dhttp%3A%2F%2Fgit.kiszka.org%2Flinux.git%2F\x26sa\x3dD\x26sntz\x3d1\x2=
+6usg\x3dAFQjCNFAZQJ51VxRAdXeRITL3jxxHRC5Sw&#39;;return true;" onclick=3D"th=
+is.href=3D&#39;http://www.google.com/url?q\x3dhttp%3A%2F%2Fgit.kiszka.org%2=
+Flinux.git%2F\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQjCNFAZQJ51VxRAdXeRITL3jx=
+xHRC5Sw&#39;;return true;">http://git.kiszka.org/linux.<wbr>git/</a>
+<br>&gt; [2]
+<br>&gt; <a href=3D"http://git.kiszka.org/?p=3Dlinux.git;a=3Dblob;f=3Ddrive=
+rs/virtio/virtio_ivshmem.c;hb=3Drefs/heads/queues/jailhouse-ivshmem2" targe=
+t=3D"_blank" rel=3D"nofollow" onmousedown=3D"this.href=3D&#39;http://www.go=
+ogle.com/url?q\x3dhttp%3A%2F%2Fgit.kiszka.org%2F%3Fp%3Dlinux.git%3Ba%3Dblob=
+%3Bf%3Ddrivers%2Fvirtio%2Fvirtio_ivshmem.c%3Bhb%3Drefs%2Fheads%2Fqueues%2Fj=
+ailhouse-ivshmem2\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQjCNGYIdf423Z5dwf9hSJ=
+3LVvYC5K8uw&#39;;return true;" onclick=3D"this.href=3D&#39;http://www.googl=
+e.com/url?q\x3dhttp%3A%2F%2Fgit.kiszka.org%2F%3Fp%3Dlinux.git%3Ba%3Dblob%3B=
+f%3Ddrivers%2Fvirtio%2Fvirtio_ivshmem.c%3Bhb%3Drefs%2Fheads%2Fqueues%2Fjail=
+house-ivshmem2\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQjCNGYIdf423Z5dwf9hSJ3LV=
+vYC5K8uw&#39;;return true;">http://git.kiszka.org/?p=3D<wbr>linux.git;a=3Db=
+lob;f=3Ddrivers/<wbr>virtio/virtio_ivshmem.c;hb=3D<wbr>refs/heads/queues/ja=
+ilhouse-<wbr>ivshmem2</a>
+<br>&gt; [3]
+<br>&gt; <a href=3D"http://git.kiszka.org/?p=3Dlinux.git;a=3Dblob;f=3Dtools=
+/virtio/virtio-ivshmem-console.c;hb=3Drefs/heads/queues/jailhouse-ivshmem2"=
+ target=3D"_blank" rel=3D"nofollow" onmousedown=3D"this.href=3D&#39;http://=
+www.google.com/url?q\x3dhttp%3A%2F%2Fgit.kiszka.org%2F%3Fp%3Dlinux.git%3Ba%=
+3Dblob%3Bf%3Dtools%2Fvirtio%2Fvirtio-ivshmem-console.c%3Bhb%3Drefs%2Fheads%=
+2Fqueues%2Fjailhouse-ivshmem2\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQjCNHfR1y=
+8Y8SmKR6Fief2Eunbo5w24w&#39;;return true;" onclick=3D"this.href=3D&#39;http=
+://www.google.com/url?q\x3dhttp%3A%2F%2Fgit.kiszka.org%2F%3Fp%3Dlinux.git%3=
+Ba%3Dblob%3Bf%3Dtools%2Fvirtio%2Fvirtio-ivshmem-console.c%3Bhb%3Drefs%2Fhea=
+ds%2Fqueues%2Fjailhouse-ivshmem2\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQjCNHf=
+R1y8Y8SmKR6Fief2Eunbo5w24w&#39;;return true;">http://git.kiszka.org/?p=3D<w=
+br>linux.git;a=3Dblob;f=3Dtools/<wbr>virtio/virtio-ivshmem-console.<wbr>c;h=
+b=3Drefs/heads/queues/<wbr>jailhouse-ivshmem2</a>
+<br>&gt; [4] <a href=3D"https://sched.co/TmxI" target=3D"_blank" rel=3D"nof=
+ollow" onmousedown=3D"this.href=3D&#39;https://www.google.com/url?q\x3dhttp=
+s%3A%2F%2Fsched.co%2FTmxI\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQjCNHdWzxWB28=
+gcQoDjeBuc3ZKyf7xSg&#39;;return true;" onclick=3D"this.href=3D&#39;https://=
+www.google.com/url?q\x3dhttps%3A%2F%2Fsched.co%2FTmxI\x26sa\x3dD\x26sntz\x3=
+d1\x26usg\x3dAFQjCNHdWzxWB28gcQoDjeBuc3ZKyf7xSg&#39;;return true;">https://=
+sched.co/TmxI</a>
+<br>&gt;=20
+<br>
+<br>Was too easy:
+<br>
+<br>Welcome to Buildroot
+<br>jailhouse login: root
+<br># mount /dev/vda /mnt/
+<br>[ =C2=A0 =C2=A08.968669] EXT4-fs (vda): mounted filesystem with ordered=
+ data mode. Opts: (null)
+<br># ls -l /mnt/
+<br>total 12
+<br>drwx------ =C2=A0 =C2=A02 root =C2=A0 =C2=A0 root =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 12288 Oct 14 =C2=A02019 lost+found
+<br>
+<br>You just need [5] and this to make it happen:
+<br>
+<br># dd if=3D/dev/zero of=3Ddisk.img bs=3D1M count=3D64
+<br># mkfs.ext4 disk.img
+<br># echo &quot;4a48 4a48 4a48 4a48 ffc002 ffffff&quot; \
+<br>=C2=A0 =C2=A0&gt; /sys/bus/pci/drivers/uio_<wbr>ivshm/new_id
+<br># virtio-ivshmem-block /dev/uio0 disk.img
+<br>
+<br>I&#39;ve updated the Jailhouse wip/ivshmem2 branch with corresponding c=
+ell=20
+<br>configurations.
+<br>
+<br>Jan
+<br>
+<br>[5] <a href=3D"http://git.kiszka.org/?p=3Dlinux.git;a=3Dblob;f=3Dtools/=
+virtio/virtio-ivshmem-block.c;hb=3Drefs/heads/queues/jailhouse-ivshmem2" ta=
+rget=3D"_blank" rel=3D"nofollow" onmousedown=3D"this.href=3D&#39;http://www=
+.google.com/url?q\x3dhttp%3A%2F%2Fgit.kiszka.org%2F%3Fp%3Dlinux.git%3Ba%3Db=
+lob%3Bf%3Dtools%2Fvirtio%2Fvirtio-ivshmem-block.c%3Bhb%3Drefs%2Fheads%2Fque=
+ues%2Fjailhouse-ivshmem2\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQjCNHBGYVYWckl=
+1XSYWwI9jcfJYSFKzQ&#39;;return true;" onclick=3D"this.href=3D&#39;http://ww=
+w.google.com/url?q\x3dhttp%3A%2F%2Fgit.kiszka.org%2F%3Fp%3Dlinux.git%3Ba%3D=
+blob%3Bf%3Dtools%2Fvirtio%2Fvirtio-ivshmem-block.c%3Bhb%3Drefs%2Fheads%2Fqu=
+eues%2Fjailhouse-ivshmem2\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQjCNHBGYVYWck=
+l1XSYWwI9jcfJYSFKzQ&#39;;return true;">http://git.kiszka.org/?p=3D<wbr>linu=
+x.git;a=3Dblob;f=3Dtools/<wbr>virtio/virtio-ivshmem-block.c;<wbr>hb=3Drefs/=
+heads/queues/<wbr>jailhouse-ivshmem2</a>
+<br>
+<br>--=20
+<br>Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+<br>Corporate Competence Center Embedded Linux
+<br></blockquote><div><br></div><div>This will be very handy.</div><div><br=
+></div><div>I am current working on project require custom pipes and serial=
+ console between cells.</div><div>I have handcrafted the drivers, but if th=
+e generic virtio model is adapted, it will be much easier, at least for the=
+ Linux side.</div><div><br></div><div>Yang<br></div><div>=C2=A0</div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/e67df2f1-0967-453f-97a9-5bc2ea58a790%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/e67df2f1-0967-453f-97a9-5bc2ea58a790%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_4323_1176276728.1571189589846--
+
+------=_Part_4322_571277573.1571189589846--
