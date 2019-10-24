@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBCZKXDNMZALBBZFIY7WQKGQEARZ2NWY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCZKXDNMZALBBZ5IY7WQKGQEQD262IY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x13e.google.com (mail-lf1-x13e.google.com [IPv6:2a00:1450:4864:20::13e])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8287E3867
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 24 Oct 2019 18:42:12 +0200 (CEST)
-Received: by mail-lf1-x13e.google.com with SMTP id 23sf5121287lft.15
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 24 Oct 2019 09:42:12 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1571935332; cv=pass;
+Received: from mail-ed1-x539.google.com (mail-ed1-x539.google.com [IPv6:2a00:1450:4864:20::539])
+	by mail.lfdr.de (Postfix) with ESMTPS id A6565E3868
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 24 Oct 2019 18:42:15 +0200 (CEST)
+Received: by mail-ed1-x539.google.com with SMTP id l5sf15908843edr.10
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 24 Oct 2019 09:42:15 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1571935335; cv=pass;
         d=google.com; s=arc-20160816;
-        b=fcIDsE5SK7lawXIU2D5wg/ru+Egjy7pTa5BxhRBXTF1w5/xVtnAlN4nCHg79VKVlNn
-         FUDB6djjndRrKjnlBnGixWBmBdsohmw6UQBElVH/5EOON//Phno3UugXxfe9zTM7bzR2
-         u+Vn/5dWx/nbSj/U7kyWw6p/juedOdfQF/GhZ9Z2x+HTqRmGOO27I0L+CHoenzzSmir7
-         CtLEGl0QltMMRffDHT1hi6xbhbEMFkF7qDMInl+BRT4u/eenYi/6hLl5tgJtiHEQHrWj
-         4vMJox5pBW6JAhXBLtjFFWMcK8EkWv3h80u/hgKO/0bHpfTYtDEtdMg3X7Cxg69RceFu
-         SGJg==
+        b=rXdmLhcbnpa2R3i/kuab0x02qEXMMR6vg+df6Mi3pCnpx/T8azfTNhlXMXE2aQkTZH
+         IgB53Li79xdawSnVYESgqBljTKVbfdcw3ka6NM6FiLPZPafgV5wKrV2IWuMkBuBQTbZH
+         QhTIBeqbH4L52xdUaGmaRzZ6KohoCZ73kYvZUki6Xr0rvj0CyM1+8Qhh7yc6plj/H7t/
+         bab8anTlYP3OLKHrPOyTMst3j4ui1OANPvcxShMgsXl0DrWM1X3KTLTMlg2lVb+3N/vn
+         sRSL5G/x3QkUkSACyyRJX0lJ03kMXvwHhSmKIDH4WTlV7CXDHBqIUb0pKsvwEVpsSqXa
+         8z5w==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:references:in-reply-to:message-id
          :date:subject:cc:to:from:mime-version:sender:dkim-signature
          :dkim-signature;
-        bh=MjnYVNle+NrUoFVL6s4NJCEwKZDF44+hLBErKnpd4EU=;
-        b=QTL0FVpJOxKyiPA6Q/mfn0qK5tNp4lRHyQ7PZI1kHzF4I4382H7nDVhiloO1EfYDEc
-         enj2xVFEX8CiUroQmgx4P/RtofhwcPWEax7xCzHGfxkWYhhrkJCDWnVRfrEZT9kSsqjX
-         yyXdXoL6nW0qwkpGZC7ieRkpVwfiJdVi9i8ULE6JLSkvzvvzkWnNGdW4Xh1gO74smFAG
-         EKCELHl54yrGVXll0sCJkbGnpAN97vbPzvhsY93mkcKU2w5joyC86qGj+VdnfyHWNS2k
-         DO39IBq1L+8ZswnihVQl+/tfbY35/YqgA4C4eUdTI+eAwr1AxnLD+SxJTOlxvqvAYJsk
-         ddUw==
+        bh=oVgXYqdrLWkq+ai/fFwp5GyDG7kQvZzh6zui8+IQNvA=;
+        b=x4/ZbHGYpBuULChPSLaqfjAPeZ+Ns65cLoX15ekx9vvLKdnKUHbfneDZFioLtzTbnM
+         x1fqMm9wSZgOr2TvNG86PEOLA7utplrJbsHVOulz7NS2GZgZ2AYPkKyq5dwNSttqbMU8
+         g4p0cSucEW3egOgOUNdO35+KwM7MR8mbPg9B0BaXqJCrbwEAWUK3x0dP3CxWrfBtFusj
+         s1RLYxyynhvJ607IpEyLOHIa5SlyCYrOyEFrQhW00NLCfRzDX2/DWq6otoJLv8B8/Yt0
+         rsME0hfaFrHvmyULFv1mqhZweyCBb/fffiNHeFmWNoB3YxRkeOqL029ADqInbClg6qjP
+         9ipw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=bLqq0Hoa;
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=AgzM+6ui;
        spf=pass (google.com: domain of alexlargacha@gmail.com designates 2a00:1450:4864:20::443 as permitted sender) smtp.mailfrom=alexlargacha@gmail.com;
        dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
@@ -36,26 +36,26 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=MjnYVNle+NrUoFVL6s4NJCEwKZDF44+hLBErKnpd4EU=;
-        b=kR0zS4PE7QxE/+MQuIM47c19I7jvkD1XXU7MomtDeSsMiGP1VLQ6JxP6h/koJ+lrSn
-         Sm6nYu7x8x7SaMSPvQ4s8+ILlDXE9VVc76rfbGBV4bkEAJTMWullWVFMPzhfxa4tTlnA
-         Ut4XSoVuE5AJZIMc5bPOTwvTz41Jf/bzK46nKUfGSps9MbslUZTMRLf/36SMQdmIb3Ko
-         y0pZZ1OAMKGLXNh2lv45vFSGrhbuSPXd/2ZsagVoLW29DUIbH9rNrJ3rNqKwnqn+uGRK
-         wWMxXfefL4eq7IT1FD824nYSDVW/9Z0adbi6nLGgckCKYo+zZ4b9N2KcTWUEhogRfpz7
-         wWhw==
+        bh=oVgXYqdrLWkq+ai/fFwp5GyDG7kQvZzh6zui8+IQNvA=;
+        b=gSkWWzSfx8epyvyPID6o7gy9NqPUWFQfERJG/A1usuwsTi1Jwixee+wMeVieUjwGsL
+         dzSdaLwJUYRBozUTA6qa2yLRbhqyluGAX6UEnT1TvFFsNHcU/X9sP/qZBwQD04GBKV7F
+         yMrNxgBlewypEwaYEKvTQ14wD5KUhVjBZZwKUJTPsrYBUQpXXyMpF2mriVRmKl/M+gP0
+         k49n4NlCmRe5QiMeWuvECQ6ms/6ADPpTlPV8ip0X/kaQ/yhRerPXUYItFtiILXF69Bis
+         8FC1fwvx0aD4MOENObmBjzF1QmKtW6EvTI7CFZC8uZiRi8P4UY/EQ+fANxes0xZ/efBm
+         1JAQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:from:to:cc:subject:date:message-id:in-reply-to
          :references:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=MjnYVNle+NrUoFVL6s4NJCEwKZDF44+hLBErKnpd4EU=;
-        b=DmZ2BZFLhn7NXEqHhZ09YHq+JdfzQm1n7mhAW09LtNCgkWTLIim1yNtD3XZi4UuvpC
-         rBF7RjjHe+1Li21j5NpUOF1SK+DrLRgk9au85XP0/H/I0fMUSDwReeoiYPUm7BYJvLB4
-         rWZpfppKSP6bSMMxdpxgWLB48SN5K/rI+xinOSVtvRXjqcJMjSj+H/dqggQitP3EENEd
-         HpXehYeb7Aq9CzJXzm0GdyKvBzWMZnv/WHN8cmyvkqWjt18zm0oIdD/jiGsZzMbTVSGg
-         tbo2HyCP2aLrf2rAvllpEoCuGxDR6ibAviX9IMputcRzQjEG/lC9Y3GMlBnj65u1/i7m
-         3t9Q==
+        bh=oVgXYqdrLWkq+ai/fFwp5GyDG7kQvZzh6zui8+IQNvA=;
+        b=ghVQEN/avrM25aRpDs3gUNaSc9zW3fbtIP21sBTeot+agkvehMqYVgqkmCoEURFDLI
+         yWGu1J2N3WC8g3SP2Wlr7LVcKvvkO1qbQezbV736H89k+evnFcRPG2m7S/FTRG6OXiAK
+         Ytc6JKIR0g8u8/H9iHqM9OZNzdACQ8r5smxNJAsoBg1aeNiMi0jBjHgYFHgOZZLFlcMT
+         czimjof/uf/R7uLp4qUYS+m1b7uKqvBiHqAuzzhbfvVEF/YsmYepJGK2krB5Bx41zOjS
+         W42u+G/vhuGMDA5eFT+kovECCuS55TAtpZ3yLGqBJKz8DGDXdocfNQDL1rVqIeGFsBn9
+         wH/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:mime-version:from:to:cc:subject:date
@@ -63,73 +63,73 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=MjnYVNle+NrUoFVL6s4NJCEwKZDF44+hLBErKnpd4EU=;
-        b=Eij4KAX6XOV2RlIb8jTNWQVxEDCcBPbIXAAaufYdOOGl7Znj1KnI4E80gxXCaGsI/c
-         MGog5Q06TzY8bJ0v0zH1eYmn2i9L8bRDMAelsSGmA1bmcPbHoR2KM65qKynxLzB0z/KK
-         XOERLmtQ3yqiulaxJ7Z/jFv9QiAu8HcxldAOIoPvnIpI3Xvgj+0owMdzIHvasV0+o+mM
-         PMLcw1lET5nJFvFgK+jbVCNGDSJmcemTVn5hut9MOmZwmsapN7Y001MlZNCokUuTnQsz
-         KDi3BdQM+Hpo10AxO9hnwG8tIHxMpyxhuGgeJ7c/U5ay4Cn5fwP/o/Fq62HGapthU4jo
-         ZBVg==
+        bh=oVgXYqdrLWkq+ai/fFwp5GyDG7kQvZzh6zui8+IQNvA=;
+        b=dq0B3iSg/w4+agZL7nH9ftPEW0ltkLiKc27l/Jnh8+yrTKKQxqIcbp+s5qBM/1vd4H
+         /BOwHmMcOTV9P9/IPH2xqqC4FcHLBrcsxpfLrocHrkCknVA9vgzRVTwQW24tssVOlt6r
+         o+nrHEnL0KbHOdzgvv9wVenwYfcEavftJS51eMegOcAVjwNTHXgGR3siFPyXU4vrfz3b
+         LsQqwnd3cFSfsS/pckFFbcL9zeeZIBXP4NkK2wm0EjGXHMS38h+xVkovU1H0XKpWUozM
+         rBkXvUVn7jv8kClnSNwq5Ust0KS8LeaNWlZ4sIEDOvKhVlzD3H9cNaqVvDYrLnRH2FsV
+         Z00g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAWHQWt3ZsfXNaNLdDiGU4wzPPdCNU8EMTulMwE90ASNbeWVYkZz
-	nY3nXqtd1hZOT+3OrPq8fuU=
-X-Google-Smtp-Source: APXvYqzVLYEEcQTrwOYI1PrKInjjj8xtBszXPa/JSqsTHHeCOqLIuhr1WZ49zRLg6+UFcLLJn6afRw==
-X-Received: by 2002:a05:651c:1202:: with SMTP id i2mr20486131lja.218.1571935332495;
-        Thu, 24 Oct 2019 09:42:12 -0700 (PDT)
+X-Gm-Message-State: APjAAAXnqvKs/uxRk+SN+CROGMWr1qYRCXRyi/qksmN10tXvWRsX/z7w
+	xPuZ3Zd/HkewZTLv5o1wa/4=
+X-Google-Smtp-Source: APXvYqyFL/cTSUDeINzAWY7XLnNb2hwPBJKEfQ80C5GcJRbzrsWsgn/faWnjYZaNu+k8eBQLWk9MTg==
+X-Received: by 2002:a17:906:5381:: with SMTP id g1mr38745122ejo.159.1571935335303;
+        Thu, 24 Oct 2019 09:42:15 -0700 (PDT)
 MIME-Version: 1.0
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a19:4349:: with SMTP id m9ls643825lfj.8.gmail; Thu, 24 Oct
- 2019 09:42:11 -0700 (PDT)
-X-Received: by 2002:a05:6512:4c1:: with SMTP id w1mr26878969lfq.96.1571935331930;
-        Thu, 24 Oct 2019 09:42:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1571935331; cv=none;
+Received: by 2002:a05:6402:64b:: with SMTP id u11ls1539188edx.16.gmail; Thu,
+ 24 Oct 2019 09:42:14 -0700 (PDT)
+X-Received: by 2002:a05:6402:3072:: with SMTP id bs18mr25975054edb.120.1571935334743;
+        Thu, 24 Oct 2019 09:42:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1571935334; cv=none;
         d=google.com; s=arc-20160816;
-        b=T+GpJ39m5zgyeeBJWObtmdbkaSSQh6x/hNzr6bzaCTgVd1RgVj18OCT6FGk0JgRBfB
-         hhB+D4y7rXBcTguOh0YA5PI7VmXRThC7cFY/pxQqwVELHfObkNPTiyvHLMn/RZ2tqevx
-         9N+HC1jqPd7SN/AT4owqf/xhMjGmK0KTG9JBlA4dqJO7hWSlAnVB5UUooGELPqTGngVz
-         puoD/PID4h2usPNaYlThpoDG4+3aGxks7ViqukPdMdiecZktTAb5m3WlymaaprwgEh1C
-         0OL072KwvdQiJTUq+XVPRRuY5DsFRyPKKFambHYiYchpIP239ZAC3BTfo3T2pLkOE3+/
-         84gA==
+        b=08F2kOFEsQlIYOqCXgKotoI9mt3mgM8rEgozWgx+7Rh7+VyTKz0gtqQXPwx9DPg7ZX
+         E5piwSntAloA8nGBDI26dqmp77wQTJii+NdH94H9KI/7yy8w5W/j2gx7iyx/7kBc1x0R
+         cGXSQT5RWdAw7hcyM2i9njiYw5vmulqnBazm2btGNhlSD9WX67lsE4Q7rBFjZS3oJzh9
+         sH0ox/ZbE8cTvoNml2CaknluLpgjaHE5hX6962tdlEJmMMbOB3eKzM/HSEBsAxDH6SlA
+         XwV3OFoX7jZpPjs3Q9LTZEe69GhOg2Glr2tWyJS074pKD0cbwZ1a3qqiP+YjeGXqAy3I
+         +MNA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=references:in-reply-to:message-id:date:subject:cc:to:from
          :dkim-signature;
-        bh=cWJ7f5uaaQSF3rdcV5kAgu9VvjDJqJWLgLka1atiahU=;
-        b=gybC1G2CHeDXmmR8UxD8Q+YtXFPaHAtRUokOohJ/5NiMEUl81u78Z3C76f/cX9RCkJ
-         Jpp6mitnQEQkQzM6xlFEkxd0y1RACLbqPXLGjOjY3OukmHUQIuVXLU8j01AF3/KeQlq3
-         MVi3BUkxyPiXQiYl3Aj6ICZ7PPUVAae+rm8kxeG0acq8jGIjIoZ9UrrkZGVngcjmUt7c
-         IQimACh9MjFln9w6JZsM+PHYD6f4YJh6u6FSdzCuPT5iqGNKRkZzEq1/MAwT9vGEvgka
-         72yunrpzrVYr2XwnKD5uKeY05667dEGqha/6wg/hdvnvF/F6h5TctrEPjiukTEnHgCO9
-         X4VA==
+        bh=+9jQ276ihVkB4H3M4LWFMv121WVvpiHcKY50BZ7WaQ4=;
+        b=Zwp6pz8bf1AHW49GT1ZFZqJcRc+kRGokyknWBUx0NJrXWjBwJSy39XcShmxVAzw9VL
+         qNl9EWVv6zeiBlP4v1gZ9a7bmV8LUZOfdjka/slCqz+KH7HLkz60LHvAf9ZUWTCJAPfC
+         nsOPUCNWgR+o6jdumnw16HxCR1kRxXU0QQJfvyiaim6qKVME4d/ZM2/Zu6qa6fAsPyKH
+         QqqvrBEs/zlRCWos/k6g/MEut+qsqcPw+FvuOy3p6x0MEIsiPMEJA4VVkM8fIKUPp0Q4
+         x6cnkDNKvFFifdwBFVEg1eHMTK/pi6Bsc6e7q13LJDUaoHZgsrEKz2Sus9tpo6cnR0kl
+         wh5Q==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=bLqq0Hoa;
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=AgzM+6ui;
        spf=pass (google.com: domain of alexlargacha@gmail.com designates 2a00:1450:4864:20::443 as permitted sender) smtp.mailfrom=alexlargacha@gmail.com;
        dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com. [2a00:1450:4864:20::443])
-        by gmr-mx.google.com with ESMTPS id z9si1731397ljj.4.2019.10.24.09.42.11
+        by gmr-mx.google.com with ESMTPS id q17si813965edi.1.2019.10.24.09.42.14
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Oct 2019 09:42:11 -0700 (PDT)
+        Thu, 24 Oct 2019 09:42:14 -0700 (PDT)
 Received-SPF: pass (google.com: domain of alexlargacha@gmail.com designates 2a00:1450:4864:20::443 as permitted sender) client-ip=2a00:1450:4864:20::443;
-Received: by mail-wr1-x443.google.com with SMTP id s1so18082625wro.0
-        for <jailhouse-dev@googlegroups.com>; Thu, 24 Oct 2019 09:42:11 -0700 (PDT)
-X-Received: by 2002:adf:9044:: with SMTP id h62mr2920477wrh.91.1571935331034;
-        Thu, 24 Oct 2019 09:42:11 -0700 (PDT)
+Received: by mail-wr1-x443.google.com with SMTP id t16so21721238wrr.1
+        for <jailhouse-dev@googlegroups.com>; Thu, 24 Oct 2019 09:42:14 -0700 (PDT)
+X-Received: by 2002:adf:f7d1:: with SMTP id a17mr4119921wrq.111.1571935334070;
+        Thu, 24 Oct 2019 09:42:14 -0700 (PDT)
 Received: from localhost.localdomain (27.red-79-152-66.dynamicip.rima-tde.net. [79.152.66.27])
-        by smtp.googlemail.com with ESMTPSA id 26sm3341383wmi.17.2019.10.24.09.42.10
+        by smtp.googlemail.com with ESMTPSA id 26sm3341383wmi.17.2019.10.24.09.42.13
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
-        Thu, 24 Oct 2019 09:42:10 -0700 (PDT)
+        Thu, 24 Oct 2019 09:42:13 -0700 (PDT)
 From: Alex Largacha <alexlargacha@gmail.com>
 To: jailhouse-dev@googlegroups.com
 Cc: Alex Largacha <alexlargacha@gmail.com>
-Subject: [PATCH 2/3] inmates: demos: add PL irq lattency measurement test for baremetal inmate
-Date: Thu, 24 Oct 2019 18:41:57 +0200
-Message-Id: <1571935318-25453-3-git-send-email-alexlargacha@gmail.com>
+Subject: [PATCH 3/3] Documentation: brief explanation of board and software setup for jailhouse in UltraZed
+Date: Thu, 24 Oct 2019 18:41:58 +0200
+Message-Id: <1571935318-25453-4-git-send-email-alexlargacha@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1571935318-25453-1-git-send-email-alexlargacha@gmail.com>
 References: <1571935318-25453-1-git-send-email-alexlargacha@gmail.com>
 X-Original-Sender: alexlargacha@gmail.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20161025 header.b=bLqq0Hoa;       spf=pass
+ header.i=@gmail.com header.s=20161025 header.b=AgzM+6ui;       spf=pass
  (google.com: domain of alexlargacha@gmail.com designates 2a00:1450:4864:20::443
  as permitted sender) smtp.mailfrom=alexlargacha@gmail.com;       dmarc=pass
  (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
@@ -148,207 +148,148 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 Signed-off-by: Alex Largacha <alexlargacha@gmail.com>
 ---
- inmates/demos/arm/pl-irq-demo.c | 170 ++++++++++++++++++++++++++++++++++++++++
- inmates/demos/arm64/Makefile    |   3 +-
- 2 files changed, 172 insertions(+), 1 deletion(-)
- create mode 100644 inmates/demos/arm/pl-irq-demo.c
+ Documentation/setup-on-zynqmp-ultrazed3eg.md | 128 +++++++++++++++++++++++++++
+ 1 file changed, 128 insertions(+)
+ create mode 100644 Documentation/setup-on-zynqmp-ultrazed3eg.md
 
-diff --git a/inmates/demos/arm/pl-irq-demo.c b/inmates/demos/arm/pl-irq-demo.c
+diff --git a/Documentation/setup-on-zynqmp-ultrazed3eg.md b/Documentation/setup-on-zynqmp-ultrazed3eg.md
 new file mode 100644
-index 0000000..9f7c539
+index 0000000..51972e4
 --- /dev/null
-+++ b/inmates/demos/arm/pl-irq-demo.c
-@@ -0,0 +1,170 @@
-+/*
-+ * Jailhouse, a Linux-based partitioning hypervisor
-+ *
-+ * Authors:
-+ *  Alejandro Largacha <alexlargacha@gmail.com>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See
-+ * the COPYING file in the top-level directory.
-+ */
++++ b/Documentation/setup-on-zynqmp-ultrazed3eg.md
+@@ -0,0 +1,128 @@
++Setup on Avnet UltraZed-EG SOM + UltraZed-EG IO Carrier Card
++============================================================
++The UltraZed-EG SOM target is based on ZynqMP Ultrascale+. The SoC is a
++quad-core Cortex-A53 and a dual-core R5 real-time processor. The IO Carrier
++Card provides access to the user I/O, PS MIO, 4 PS GTR, etc. Further
++information can be found on
++http://zedboard.org/product/ultrazed-EG
++http://zedboard.org/product/ultrazed-eg-io-carrier-card
 +
-+#include <inmate.h>
-+#include <gic.h>
++The Linux Image which runs Jailhouse has been built with Petalinux 2018.3.
++The bsp for the petalinux project is placed in
++https://github.com/alexlargacha/xilinx_bsps/blob/master/ultrazed_hyp_2018.3.bsp
++Petalinux uses linux-xlnx repository, and in this case it uses the
++xilinx-v2018.3 one, which is based on 4.14 kernel.
 +
-+#define NSEC_PER_SEC 1000000000
 +
-+#define GPIO_IRQ_NUM 136
++Image build
++-----------
++In order to build the Linux image with Petalinux it is necessary to set all the
++environmental variables. 
 +
-+#define PWM_TIMER_BASE_ADDRESS 0xA0004000
-+#define TIMER_0_CAPTURE_BASE_ADDRESS 0xA0002000
-+#define GPIO_STOP_TMR_BASE_ADDRESS 0xA0003000
-+#define GPIO_LEDS_BASE_ADDRESS 0xA0001000
-+#define GPIO_SWITCH_BASE_ADDRESS 0xA0000000
-+#define PL_DEVICES_BASE_ADDRESS GPIO_SWITCH_BASE_ADDRESS
-+#define PL_DEVICES_SIZE 0x5000
++    $ source /opt/pkg/settings.sh
 +
-+/* AXI GPIO offsets */
-+#define GPIO_DATA (0x0 / 4)
-+#define GPIO_TRI (0x4 / 4)
-+#define GIER (0x11C / 4)
-+#define IP_IER (0x128 / 4)
-+#define IP_ISR (0x120 / 4)
++Once petalinux environments are set, the Petalinux project is created with the
++name petalinux_jailhouse. The bsp has to be downloaded.
 +
-+/* AXI GPIO offsets */
-+#define GBL_INTR (1 << 31)
++    $ petalinux-create -t project --template zynqMP -s ./ultrazed_hyp_2018.3.bsp -n petalinux_jailhouse
 +
-+/* AXI Timer offsets */
-+#define XTC_TCSR0_OFFSET (0x0 / 4)
-+#define XTC_TLR0_OFFSET (0x4 / 4)
-+#define XTC_TCSR1_OFFSET (0x10 / 4)
-+#define XTC_TLR1_OFFSET (0x14 / 4)
++The Linux project is configured by:
 +
-+/* AXI Timer PWM */
-+#define CNT_PER_SECOND 100000000
-+#define NSEC_PER_CNT (NSEC_PER_SEC / CNT_PER_SECOND)
-+#define PWM_PERIOD (100E-3 * CNT_PER_SECOND)
-+#define PWM_DUTY (PWM_PERIOD / 2)
++    $ petalinux-config 
 +
-+/* AXI Timer registers bits */
-+#define MDT (1 << 0)
-+#define UDT (1 << 1)
-+#define GENT (1 << 2)
-+#define CAPT (1 << 3)
-+#define ARHT (1 << 4)
-+#define LOAD (1 << 5)
-+#define T0INT (1 << 8)
-+#define PWMA (1 << 9)
-+#define ENALL (1 << 10)
++A menuconfig window is opened and just enable `Root filesystem type (SD card)`:
 +
-+unsigned int *p_capture_timer = (unsigned int *)TIMER_0_CAPTURE_BASE_ADDRESS;
-+unsigned int *p_gpio_capture = (unsigned int *)GPIO_STOP_TMR_BASE_ADDRESS;
-+unsigned int *p_gpio_irq = (unsigned int *)GPIO_SWITCH_BASE_ADDRESS;
++    Image Packaging Configuration--->Root filesystem type-->SD card
 +
-+unsigned int t1;
-+unsigned int t2;
++Save project and exit. It will take some to time to configure the project.
++By default, `CONFIG_OF_OVERLAY` and `CONFIG_KALLSYMS_ALL` should be enabled in
++the bsp kernel configuration, but it's worth checking:
 +
-+static void pwm_timer_init(void) {
-+  unsigned int *p_pwm_timer = (unsigned int *)PWM_TIMER_BASE_ADDRESS;
++    $ petalinux-config -c kernel
 +
-+  mmio_write32((p_pwm_timer + XTC_TCSR0_OFFSET), ARHT | UDT);
-+  mmio_write32((p_pwm_timer + XTC_TCSR1_OFFSET), ARHT | UDT);
++Jailhouse needs the Linux kernel boot parameters `mem=` to be set in order to
++reserve memory for other cells. In this case we chose `mem=1024M`. This can be
++done through the device tree. In petalinux_jailhouse/project-spec/meta-user/recipes-bsp/device-tree/files/system-user.dtsi:
 +
-+  mmio_write32((p_pwm_timer + XTC_TLR0_OFFSET), PWM_PERIOD);
-+  mmio_write32((p_pwm_timer + XTC_TLR1_OFFSET), PWM_DUTY);
++    chosen {
++        bootargs = "earlycon console=ttyPS0,115200 clk_ignore_unused earlyprintk mem=1024M root=/dev/mmcblk1p2 rw rootwait";
++        stdout-path = "serial0:115200n8";
++    };
 +
-+  mmio_write32((p_pwm_timer + XTC_TCSR0_OFFSET), PWMA | ARHT | GENT | UDT);
-+  mmio_write32((p_pwm_timer + XTC_TCSR1_OFFSET), PWMA | ARHT | GENT | UDT);
-+}
-+static void pwm_timer_enable(void) {
-+  unsigned int reg = 0;
-+  unsigned int *p_pwm_timer = (unsigned int *)PWM_TIMER_BASE_ADDRESS;
 +
-+  reg = mmio_read32(p_pwm_timer);
++Once modified, save the changes and build the project.
 +
-+  reg |= ENALL;
-+  mmio_write32((p_pwm_timer + XTC_TCSR0_OFFSET), reg);
-+}
++    $ petalinux-build
 +
-+static void capture_timer_init(void) {
-+  unsigned int reg = 0;
++Generate the BOOT.BIN file with fsbl, bitstream, PMU firmware and u-boot.
 +
-+  reg |= T0INT;
-+  mmio_write32((p_capture_timer + XTC_TCSR0_OFFSET), reg);
-+  mmio_write32((p_capture_timer + XTC_TCSR1_OFFSET), reg);
++    $ petalinux-package --boot --fsbl --fpga --pmufw --u-boot
 +
-+  reg |= CAPT | MDT;
 +
-+  mmio_write32((p_capture_timer + XTC_TCSR0_OFFSET), reg);
-+  mmio_write32((p_capture_timer + XTC_TCSR1_OFFSET), reg);
++Jailhouse build
++---------------
++To build the project, it is necessary to set the variables `ARCH=` with arm64,
++`KDIR=` with the kernel directory inside the Petalinux project, `CROSS_COMPILE=` 
++with the compiler and `DESTDIR=` with the rootfs directory.
 +
-+  reg |= ENALL;
-+  mmio_write32((p_capture_timer + XTC_TCSR1_OFFSET), reg);
-+}
++    $ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- KDIR=../petalinux_jailhouse/build/tmp/work/plnx_zynqmp-xilinx-linux/linux-xlnx/4.14-xilinx-v2018.3+gitAUTOINC+eeab73d120-r0/linux-plnx_zynqmp-standard-build DESTDIR=/media/user/rootfs install
 +
-+static void capture_timer_reload(void) {
++This command will add the jailhouse module and its binary.
 +
-+  unsigned int reg = 0;
++Testing Jailhouse PL IRQ Demo
++--------------------------
++Copy the `configs/arm64/ultrazed3eg-iocc*.cell` to the rootfs. To test Jailhouse
++it is also interesting to copy `inmates/demos/arm64/pl-irq-demo.bin`. This demo
++creates a periodic interrupt based on the output of a pwm module and calculates its lattency. Once Linux is
++running:
 +
-+  mmio_write32((p_capture_timer + XTC_TCSR0_OFFSET), reg);
-+  mmio_write32((p_capture_timer + XTC_TCSR1_OFFSET), reg);
-+  mmio_write32((p_capture_timer + XTC_TLR0_OFFSET), 0);
-+  mmio_write32((p_capture_timer + XTC_TLR1_OFFSET), 0);
++    # insmod /lib/modules/4.14.0-xilinx-v2018.3/extra/driver/jailhouse.ko
++    [   24.309597] jailhouse: loading out-of-tree module taints kernel.
 +
-+  reg |= T0INT | LOAD;
-+  mmio_write32((p_capture_timer + XTC_TCSR0_OFFSET), reg);
-+  mmio_write32((p_capture_timer + XTC_TCSR1_OFFSET), reg);
++    # jailhouse enable ultrazed3eg-iocc.cell 
 +
-+  reg = 0;
-+  reg |= CAPT | MDT;
++    Initializing Jailhouse hypervisor v0.11 (33-g14cf4ea-dirty) on CPU 2
++    Code location: 0x0000ffffc0200800
++    Page pool usage after early setup: mem 45/4066, remap 0/131072
++    Initializing processors:
++     CPU 2... OK
++     CPU 3... OK
++     CPU 0... OK
++     CPU 1... OK
++    Initializing unit: irqchip
++    Initializing unit: ARM SMMU v3
++    Initializing unit: PCI
++    Page pool usage after late setup: mem 65/4066, remap 5/131072
++    Activating hypervisor
++    [   62.077158] The Jailhouse is opening.
 +
-+  mmio_write32((p_capture_timer + XTC_TCSR0_OFFSET), reg);
-+  mmio_write32((p_capture_timer + XTC_TCSR1_OFFSET), reg);
++    # jailhouse cell create ultrazed3eg-iocc-pl-gic-demo.cell 
++    [  177.289476] CPU3: shutdown
++    [  177.292175] psci: CPU3 killed.
++    Created cell "pl-gic-demo"
++    Page pool usage after cell creation: mem 80/4066, remap 5/131072
++    [  177.303889] Created Jailhouse cell "pl-gic-demo"
 +
-+  reg |= ENALL;
++    # jailhouse cell load 1 pl-irq-demo.bin
++    Cell "gpio-irq-demo" can be loaded
++    # jailhouse cell start 1
 +
-+  mmio_write32((p_capture_timer + XTC_TCSR1_OFFSET), reg);
-+}
-+static void gpio_init(void) {
-+  /* AXI GPIO IRQ config */
-+  /* All inputs */
-+  mmio_write32((p_gpio_irq + GPIO_TRI), 0xFF);
-+  /* Enable channel 1 interrupts */
-+  mmio_write32((p_gpio_irq + IP_IER), 0x1);
-+  /* Enable global interrupt */
-+  mmio_write32((p_gpio_irq + GIER), GBL_INTR);
-+}
++Second UART starts showing jitter data:
 +
-+static void handle_IRQ(unsigned int irqn) {
-+  unsigned int taux = 0;
-+  /* gpio to 1  */
-+  mmio_write32((p_gpio_capture + GPIO_DATA), 0x1);
++    Jailhouse IRQ lattency test ...
++    IRQ fired: lattency 1310 ns
++    IRQ fired: lattency 1230 ns
++    IRQ fired: lattency 1200 ns
++    IRQ fired: lattency 1210 ns
++    IRQ fired: lattency 1230 ns
++    IRQ fired: lattency 1190 ns
 +
-+  /* Clear channel 1 interrupts */
-+  mmio_write32((p_gpio_irq + IP_ISR), 0x1);
 +
-+  t1 = mmio_read32(p_capture_timer + XTC_TLR0_OFFSET);
-+  t2 = mmio_read32(p_capture_timer + XTC_TLR1_OFFSET);
-+  taux = t2 - t1;
++It possible to see the state of each cell:
 +
-+  /* gpio to 0  */
-+  mmio_write32((p_gpio_capture + GPIO_DATA), 0x0);
-+  printk("IRQ fired: lattency %u ns\n", taux * NSEC_PER_CNT);
-+  capture_timer_reload();
-+}
++    # jailhouse cell list
++    ID      Name                    State             Assigned CPUs           Failed CPUs             
++    0       UltraZed SoM            running           0-2                                             
++    1       gpio-irq-demo           running           3
 +
-+void inmate_main(void) {
-+  printk("Jailhouse IRQ lattency test ...\n");
 +
-+  map_range((void *)PL_DEVICES_BASE_ADDRESS, PL_DEVICES_SIZE, MAP_UNCACHED);
-+
-+  capture_timer_init();
-+  gpio_init();
-+  pwm_timer_init();
-+
-+  gic_setup(handle_IRQ);
-+  gic_enable_irq(GPIO_IRQ_NUM);
-+
-+  pwm_timer_enable();
-+
-+  halt();
-+}
-diff --git a/inmates/demos/arm64/Makefile b/inmates/demos/arm64/Makefile
-index 49abe09..9378eb9 100644
---- a/inmates/demos/arm64/Makefile
-+++ b/inmates/demos/arm64/Makefile
-@@ -12,9 +12,10 @@
- 
- include $(INMATES_LIB)/Makefile.lib
- 
--INMATES := gic-demo.bin uart-demo.bin
-+INMATES := gic-demo.bin uart-demo.bin pl-irq-demo.bin
- 
- gic-demo-y	:= ../arm/gic-demo.o
- uart-demo-y	:= ../arm/uart-demo.o
-+pl-irq-demo-y	:= ../arm/pl-irq-demo.o
- 
- $(eval $(call DECLARE_TARGETS,$(INMATES)))
 -- 
 2.7.4
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/1571935318-25453-3-git-send-email-alexlargacha%40gmail.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/1571935318-25453-4-git-send-email-alexlargacha%40gmail.com.
