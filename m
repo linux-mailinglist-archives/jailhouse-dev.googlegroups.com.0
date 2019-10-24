@@ -1,141 +1,68 @@
-Return-Path: <jailhouse-dev+bncBCB7D7MXMMIPD76E5UCRUBDNMJ3Q2@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC2PTC4R4MNBBA54YXWQKGQEC2AHMYI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qt1-x837.google.com (mail-qt1-x837.google.com [IPv6:2607:f8b0:4864:20::837])
-	by mail.lfdr.de (Postfix) with ESMTPS id 383AEE2A42
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 24 Oct 2019 08:08:51 +0200 (CEST)
-Received: by mail-qt1-x837.google.com with SMTP id i25sf16936389qtm.17
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 23 Oct 2019 23:08:51 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1571897330; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=ft3cO61EeUYbwBTQDLs9A0iI/CWP/hJXUAHqzQE2HSTMPO2F57JG4LF7vc4nUYg4qc
-         M5J9YSsFFZSa1apViXDfKAfQ1fUyZkZRZjOXay/cEEczgZFvyLrWStIKWJVj9x6CoUc3
-         bsdJX3QzXLQXBdWaTGaX7WmiDpAHjbzbckGzb+6td/V8IJLsXwzCnh1jreMfStChCbGf
-         7CeJInaMHOuNycYFpzId0eSyNcUP6GXqWHTLLsQXKnK0CDY2Y226nl6NPuzOrphlfYtn
-         D8y94ufP3AppUsxUju38JVye+ej9lcnBuUaeI5BeJMTZVVL5tJ57CnpQpVYgHpX9HtXG
-         aSuw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to:content-language
-         :in-reply-to:mime-version:user-agent:date:message-id:from:references
-         :cc:to:subject:dkim-signature;
-        bh=0YRbNw2QiCqk3UkVyIz6N4bJu9PR7oBd9VD+swiLOIc=;
-        b=AKBKKmc7RyA1zmi2qGraLdJodzLH1Ccnh68EFTBgEtyyreX9fi56vhBomBdDBJ73XR
-         tGwdyOoDz+zFJL4nKecWWMWa1/EpScS3eJVpajCi8cjfhSSx/VXN2w5c3faBITd5DTxD
-         FVOb/X0cBgpnTV0c7PdtZqWjVtuCD5RMs/hqRmk2nFwrMXhE3Wq/67eRNv35zQmrYKgD
-         d9vymCh6DvV9d7eRgI1sVwSFpyM/OWM6hOYiNRiYGbnI1320j0lfl1+ktwu53yTk9TjG
-         E3i1k3v9a8TOjtgfmIDHrcy3lykj7PT7LODY7JB5NbH5hcx9x/NqXWqdt0Ilp3M2skR/
-         hh9Q==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=pHr2B9Jf;
-       spf=pass (google.com: domain of lokeshvutla@ti.com designates 198.47.19.142 as permitted sender) smtp.mailfrom=lokeshvutla@ti.com;
-       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
+Received: from mail-oi1-x23f.google.com (mail-oi1-x23f.google.com [IPv6:2607:f8b0:4864:20::23f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 86A36E2BE6
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 24 Oct 2019 10:17:09 +0200 (CEST)
+Received: by mail-oi1-x23f.google.com with SMTP id d66sf13801485oib.11
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 24 Oct 2019 01:17:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:reply-to:precedence:mailing-list
-         :list-id:list-post:list-help:list-archive:list-subscribe
-         :list-unsubscribe;
-        bh=0YRbNw2QiCqk3UkVyIz6N4bJu9PR7oBd9VD+swiLOIc=;
-        b=UwsxZfeT97lpIUOmpwP0jagLhs+qJck0+PGWOz2/OcFPUtTl6BPNSaVK2yEp8IMGk5
-         caN3lC4ctpztAq11MloePQSZd4cVaQB3fNCQpoa0bWs/zFX71JjDje2EPdicKQXCBNcj
-         Na9JRu4x3873rRSZy9InOM5DG4khasGP2wOw/9q4tizFhg/7RFodE2X+kZ5HCtCScyb6
-         CRNeS/9oxY4Py/v83dwQsLaAyjpcLcwwuN1atdX14SWHT3PMhIrxPCjq3M1k+D8SU7cA
-         QYBe8OHT0O0D4+68/ixf80V/3/IY/paTxdzPo0cqvihTWh4HrMD/68TMM0eWznYKEKqr
-         Rf3A==
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=5Xl45novqC75txgPCOiSfhd4/97u1YqMvvSzHICpJAY=;
+        b=BSuBcBsElgIKEcZYglJD1ubaTvc78GESz20RKnYr0IOxmG6Wo+z60jSvd7CBUW81Sa
+         fUqruSbNJQNcXKxo2+RZklPCUPj/6QFhDSDykx5YQyw//YNOa6LP4fr7aC4Oqrww1CQ1
+         vceafUuHaKh/3DW/oEpY1NUUQYWeeLeDxRqizy/WUWcKGzdAbMlzCJqbk0oTYKS+ZSOz
+         MI3id9zsgEud4RIfdD9CAGvEg5znFpjj+plV2cqEog47LCkmktRIn+wLnGztiGCl82gp
+         oiR9WMS53jJML+M0Z9b5JfB/mN4YeR+4rMYLBrcLmhn8b29w7mKzAygRgXXTHA/l2cZX
+         dclA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=5Xl45novqC75txgPCOiSfhd4/97u1YqMvvSzHICpJAY=;
+        b=MaHAyXR747gUDl+J2F0iatkqRqYZJxO0KD1QydkT9Bfby5L1zWvcK1DEagz9E5ZIvt
+         Zfkv4jfvaalVJLJwfbUckVGRJUdBvcLWQoFcMm7xeRo1bKLSA5Mg8Ki7Vv7qmzp3SxDx
+         Ek6P6FYUdUIEZtT1YLHU2Bgs684wl0BtC4fiXuPHJQYaya4XY/4NS1q6L5mMdb0oSXPe
+         ttK4nTNWUwIs1v1OPtkbBnQhbsB/2S64vh/BaUTRdbAEYmycRpBREHgPVwjfSRkqTIG4
+         igZlqkK/QsYLnppCxB21JTGVki2azvld8vbxzrSGM+eJX/1qVHI2rOQyYiWtl6IH6hQu
+         hmnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:reply-to
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=0YRbNw2QiCqk3UkVyIz6N4bJu9PR7oBd9VD+swiLOIc=;
-        b=gyatprn7D1nJnz2p28cbXZMsan2tqa1/uWEuh7S1XXaNFY0P/zOZ9qqKrXsgSMfR/b
-         QI7z1zpTTq6RJXtZ6DK/gQZgCRfWt97AA0hENEO7yd0Nkvmb6mN9EeyY4rvQg4qxWX9q
-         RHtL+5Zknpoeoe0X+VGuZn8MRA7OOjbuMJyVcj3AmJHHx6iDJCrd4OzQtB8HjLnJwjSl
-         DmZ59RVhN9CFRAIDNjHkY7eBrxlSZqn4d9HrirqityrPmPremyZlJboDeK38PcXfRzhF
-         n5uzYBmRTmMV2AUM8xmxDleGXSl22m3zaxQrdxeLW0ZPMR8s+2niWzAuwXI9O6uQlj1R
-         UFeQ==
-X-Gm-Message-State: APjAAAXHtn5O7fC5VMvMDkCXaS6AyESKD6ZpVGX/rVvSyejyna4rifr6
-	BXLX5NjFqvxAi+Dkegk4TTg=
-X-Google-Smtp-Source: APXvYqxzYGz/VSGuw80CBZZnVZOy/3/REjXbzraL8ouV79ewYahlI/c32ePEXnNo+YvhEYg2nqXbFA==
-X-Received: by 2002:a0c:ee8f:: with SMTP id u15mr4723616qvr.0.1571897329905;
-        Wed, 23 Oct 2019 23:08:49 -0700 (PDT)
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=5Xl45novqC75txgPCOiSfhd4/97u1YqMvvSzHICpJAY=;
+        b=sZ6ByZTNn1oEKjHcxZ//0N0wKe2J51JtjSiDkf1gK3OduJnk22M1aq4Xns6gEdMJJV
+         ZrwRdpr0m3Z5P59JuB6SwjACX8ClqwdYU0FpswF7BKULiPAvTrfI7edvtvKo/a+bD2/a
+         eOlt6IACQflBTQoKwGzj0JF9qIuon+IzqctnJdPTRA3ZqisxoPedBG3b0orn3yFM0AhN
+         EB4CXPRhE2FMyYpEpG1xOQPRYtg7q2dgzukaww5dBMpESW54n5O3ArR2aETwF8Tp3kX/
+         5C+lTiecXCxkaQNDyna9wDFfOeeXgKr7CLyJby9MXFXTluXXxLm13K/jSJsBzHTl9R8g
+         tu/A==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: APjAAAVeSaIenJtsWNZKff+adf0DvrYaIw/RDZor5PFe4HprTYDn3LIE
+	VHilJGfU5vBxqA+X5/F3rc4=
+X-Google-Smtp-Source: APXvYqwpLi9ZHu8jJ+2JX6CxUdMHElo3oalq9LLU/x22QyT+q3Cj5OlWNG5DZbFVdu8cCDcaBw8GIw==
+X-Received: by 2002:a9d:664:: with SMTP id 91mr10406880otn.189.1571905028030;
+        Thu, 24 Oct 2019 01:17:08 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a37:9e0e:: with SMTP id h14ls1625182qke.7.gmail; Wed, 23 Oct
- 2019 23:08:49 -0700 (PDT)
-X-Received: by 2002:a37:bf05:: with SMTP id p5mr4968825qkf.111.1571897329277;
-        Wed, 23 Oct 2019 23:08:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1571897329; cv=none;
-        d=google.com; s=arc-20160816;
-        b=lMDehtrmbLW0nNh1LJpiHFfR5lh7GqipvECrg0NnYZKTtSWZM2te4o4C8shvY2M5oA
-         ZiRuBUdrJ6HskoI6hqHCAt82raujbKRxIv6oBiJ1qR52l74hPtBgGtFB+ssGmsryCYBn
-         nVjOvDAw9UKfr8UGM/oHW3kR6oJZCIMPJ+epRyCxmKigprOJI4vK2RLjU0cye+TEbr1f
-         TydWpMH5PFcqNwlFvpIw6+Bl7THFO0kLR4XKoEa7ZxWIqFo8BAzgb7P0qMK50pdYs28k
-         VzFa4hBZ61xYF6OuPdL6aBRDlINxdo/8BgU4dqJ0cVtggfiIRTyBLlVy3WjT8waGir+x
-         w6TQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject
-         :dkim-signature;
-        bh=v3ceStc3VwcMclH2PpOsZ5Te5+7h9Kep3qIRrIblPHc=;
-        b=RpEsi7xX08tNCozrK2eU05ZIG9UP+zMN4wOc83314TNh+e5F3BVCPW/7BucMghWnaS
-         tFisfW2QoHVcBOM0Va5AfwGnC6mZB8wQEtlvSyfiW8+ckJ1+5fsIcQotmhHEudBC9n6r
-         i1m+zz+7yiVK7MBliUUM9+lgCHKG/48P31h/0u1/Qeki4PgEczXWP74zURIE8GA30+g3
-         baAakum3ntNxvk716woA0Bsy3SOhIB5JA64H8BLGQ60qp7hg4khh+1JBWkZu/BOyOipa
-         io0l52fNhkzvTWzHPPpI4qlYiJeSFwHGA1snOv6Y+nfoqQReDIqV46MKAcXLV/ukJ7MR
-         RK5A==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=pHr2B9Jf;
-       spf=pass (google.com: domain of lokeshvutla@ti.com designates 198.47.19.142 as permitted sender) smtp.mailfrom=lokeshvutla@ti.com;
-       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
-Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com. [198.47.19.142])
-        by gmr-mx.google.com with ESMTPS id c78si1020742qkb.7.2019.10.23.23.08.49
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 23 Oct 2019 23:08:49 -0700 (PDT)
-Received-SPF: pass (google.com: domain of lokeshvutla@ti.com designates 198.47.19.142 as permitted sender) client-ip=198.47.19.142;
-Received: from fllv0035.itg.ti.com ([10.64.41.0])
-	by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id x9O68mM6025204;
-	Thu, 24 Oct 2019 01:08:48 -0500
-Received: from DLEE104.ent.ti.com (dlee104.ent.ti.com [157.170.170.34])
-	by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTP id x9O68mHU007666;
-	Thu, 24 Oct 2019 01:08:48 -0500
-Received: from DLEE101.ent.ti.com (157.170.170.31) by DLEE104.ent.ti.com
- (157.170.170.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Thu, 24
- Oct 2019 01:08:37 -0500
-Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE101.ent.ti.com
- (157.170.170.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
- Frontend Transport; Thu, 24 Oct 2019 01:08:37 -0500
-Received: from [172.24.190.117] (ileax41-snat.itg.ti.com [10.172.224.153])
-	by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id x9O68gpj006300;
-	Thu, 24 Oct 2019 01:08:46 -0500
-Subject: Re: kernel build failure
-To: Peng Fan <peng.fan@nxp.com>, Jan Kiszka <jan.kiszka@siemens.com>
-CC: Jailhouse <jailhouse-dev@googlegroups.com>
-References: <AM0PR04MB4481A5E90644042A0E72DBB8886B0@AM0PR04MB4481.eurprd04.prod.outlook.com>
-From: "'Lokesh Vutla' via Jailhouse" <jailhouse-dev@googlegroups.com>
-Message-ID: <5cbb3132-fc13-d4ae-9e44-bf83b6d4f70b@ti.com>
-Date: Thu, 24 Oct 2019 11:37:41 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+Received: by 2002:aca:5886:: with SMTP id m128ls1359421oib.14.gmail; Thu, 24
+ Oct 2019 01:17:07 -0700 (PDT)
+X-Received: by 2002:aca:650a:: with SMTP id m10mr3594649oim.130.1571905027200;
+        Thu, 24 Oct 2019 01:17:07 -0700 (PDT)
+Date: Thu, 24 Oct 2019 01:17:06 -0700 (PDT)
+From: Chung-Fan Yang <sonic.tw.tp@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <a54a651c-13de-4aa1-9c32-475ebddc4e6f@googlegroups.com>
+Subject: v0.9 vs v1.1 interrupt latency raise
 MIME-Version: 1.0
-In-Reply-To: <AM0PR04MB4481A5E90644042A0E72DBB8886B0@AM0PR04MB4481.eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-X-Original-Sender: lokeshvutla@ti.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@ti.com header.s=ti-com-17Q1 header.b=pHr2B9Jf;       spf=pass
- (google.com: domain of lokeshvutla@ti.com designates 198.47.19.142 as
- permitted sender) smtp.mailfrom=lokeshvutla@ti.com;       dmarc=pass
- (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
-X-Original-From: Lokesh Vutla <lokeshvutla@ti.com>
-Reply-To: Lokesh Vutla <lokeshvutla@ti.com>
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_3328_1897195641.1571905026396"
+X-Original-Sender: Sonic.tw.tp@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -148,50 +75,65 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
+------=_Part_3328_1897195641.1571905026396
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_3329_1904711175.1571905026396"
 
+------=_Part_3329_1904711175.1571905026396
+Content-Type: text/plain; charset="UTF-8"
 
-On 23/10/19 3:47 PM, Peng Fan wrote:
-> Hi Jan,
-> 
-> When MODVERSIONS and ASM_MODVERSIONS defined, your queue/jailhouse tree will have build failure for ARM64.
-> 
-> MODPOST vmlinux.o
-> WARNING: EXPORT symbol "__hyp_stub_vectors" [vmlinux] version generation failed, symbol will not be versioned.
->   MODINFO modules.builtin.modinfo
->   LD      .tmp_vmlinux1
-> aarch64-poky-linux-ld: arch/arm64/kernel/hyp-stub.o: relocation R_AARCH64_ABS32 against `__crc___hyp_stub_vectors' can not be used when making a shared object
+Hello,
 
-allmodconfig fails as well without this hack. We are also carrying something
-similar:
+I observed that the interrupt latency raise from 20us to 50us (measures in 
+an RTOS) after I upgraded from v0.9 to v1.1.
 
-http://git.ti.com/cgit/cgit.cgi/ti-linux-kernel/ti-linux-kernel.git/commit/?h=ti-linux-4.19.y&id=6c809904ef4483971166142a12302c8a0522e23f
+I am working on x86_64, so I am suspecting CPU bug mitigations. 
+I would like to ask that are there any CPU bugs mitigations in effect?
 
-Thank and regards,
-Lokesh
+However, I do find out that in Root Linux, the latency is almost the same, 
+comparing the 2 versions.
 
-> make: *** [Makefile:1074: vmlinux] Error 1
-> 
-> I did a hack, and it could build pass. ptrace.h is not a good place, but kvm_asm.h not work.
-> 
-> diff --git a/arch/arm64/include/asm/ptrace.h b/arch/arm64/include/asm/ptrace.h
-> index fbebb411ae20..3d4dcf691135 100644
-> --- a/arch/arm64/include/asm/ptrace.h
-> +++ b/arch/arm64/include/asm/ptrace.h
-> @@ -234,6 +234,8 @@ extern int regs_query_register_offset(const char *name);
->  extern unsigned long regs_get_kernel_stack_nth(struct pt_regs *regs,
->                                                unsigned int n);
-> 
-> +extern char __hyp_stub_vectors[];
-> +
->  /**
->   * regs_get_register() - get register value from its offset
->   * @regs:      pt_regs from which register value is gotten
-> 
-> Regards,
-> Peng.
-> 
+Are there any thing I should adjust my RTOS to adapt with?
+
+Does anyone has ideas of the source of such difference?
+Comments are welcome.
+
+Yang
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/5cbb3132-fc13-d4ae-9e44-bf83b6d4f70b%40ti.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/a54a651c-13de-4aa1-9c32-475ebddc4e6f%40googlegroups.com.
+
+------=_Part_3329_1904711175.1571905026396
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hello,</div><div><br></div><div>I observed that the i=
+nterrupt latency raise from 20us to 50us (measures in an RTOS) after I upgr=
+aded from v0.9 to v1.1.</div><div><br></div><div>I am working on x86_64, so=
+ I am suspecting CPU bug mitigations. <br></div><div>I would like to ask th=
+at are there any CPU bugs mitigations in effect?</div><div><br></div><div>H=
+owever, I do find out that in Root Linux, the latency is almost the same, c=
+omparing the 2 versions.</div><div><br></div><div>Are there any thing I sho=
+uld adjust my RTOS to adapt with?<br></div><div><br></div><div>Does anyone =
+has ideas of the source of such difference?</div><div>Comments are welcome.=
+</div><div><br></div><div>Yang<br></div><div><br></div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/a54a651c-13de-4aa1-9c32-475ebddc4e6f%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/a54a651c-13de-4aa1-9c32-475ebddc4e6f%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_3329_1904711175.1571905026396--
+
+------=_Part_3328_1897195641.1571905026396--
