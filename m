@@ -1,139 +1,71 @@
-Return-Path: <jailhouse-dev+bncBCZKXDNMZALBBZ5IY7WQKGQEQD262IY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC2PTC4R4MNBBDU2ZHWQKGQEGRIMMXI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x539.google.com (mail-ed1-x539.google.com [IPv6:2a00:1450:4864:20::539])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6565E3868
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 24 Oct 2019 18:42:15 +0200 (CEST)
-Received: by mail-ed1-x539.google.com with SMTP id l5sf15908843edr.10
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 24 Oct 2019 09:42:15 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1571935335; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=rXdmLhcbnpa2R3i/kuab0x02qEXMMR6vg+df6Mi3pCnpx/T8azfTNhlXMXE2aQkTZH
-         IgB53Li79xdawSnVYESgqBljTKVbfdcw3ka6NM6FiLPZPafgV5wKrV2IWuMkBuBQTbZH
-         QhTIBeqbH4L52xdUaGmaRzZ6KohoCZ73kYvZUki6Xr0rvj0CyM1+8Qhh7yc6plj/H7t/
-         bab8anTlYP3OLKHrPOyTMst3j4ui1OANPvcxShMgsXl0DrWM1X3KTLTMlg2lVb+3N/vn
-         sRSL5G/x3QkUkSACyyRJX0lJ03kMXvwHhSmKIDH4WTlV7CXDHBqIUb0pKsvwEVpsSqXa
-         8z5w==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:references:in-reply-to:message-id
-         :date:subject:cc:to:from:mime-version:sender:dkim-signature
-         :dkim-signature;
-        bh=oVgXYqdrLWkq+ai/fFwp5GyDG7kQvZzh6zui8+IQNvA=;
-        b=x4/ZbHGYpBuULChPSLaqfjAPeZ+Ns65cLoX15ekx9vvLKdnKUHbfneDZFioLtzTbnM
-         x1fqMm9wSZgOr2TvNG86PEOLA7utplrJbsHVOulz7NS2GZgZ2AYPkKyq5dwNSttqbMU8
-         g4p0cSucEW3egOgOUNdO35+KwM7MR8mbPg9B0BaXqJCrbwEAWUK3x0dP3CxWrfBtFusj
-         s1RLYxyynhvJ607IpEyLOHIa5SlyCYrOyEFrQhW00NLCfRzDX2/DWq6otoJLv8B8/Yt0
-         rsME0hfaFrHvmyULFv1mqhZweyCBb/fffiNHeFmWNoB3YxRkeOqL029ADqInbClg6qjP
-         9ipw==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=AgzM+6ui;
-       spf=pass (google.com: domain of alexlargacha@gmail.com designates 2a00:1450:4864:20::443 as permitted sender) smtp.mailfrom=alexlargacha@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-ot1-x33d.google.com (mail-ot1-x33d.google.com [IPv6:2607:f8b0:4864:20::33d])
+	by mail.lfdr.de (Postfix) with ESMTPS id F2BB1E40E9
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 25 Oct 2019 03:17:03 +0200 (CEST)
+Received: by mail-ot1-x33d.google.com with SMTP id r5sf302114otn.22
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 24 Oct 2019 18:17:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:mime-version:from:to:cc:subject:date:message-id:in-reply-to
-         :references:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=oVgXYqdrLWkq+ai/fFwp5GyDG7kQvZzh6zui8+IQNvA=;
-        b=gSkWWzSfx8epyvyPID6o7gy9NqPUWFQfERJG/A1usuwsTi1Jwixee+wMeVieUjwGsL
-         dzSdaLwJUYRBozUTA6qa2yLRbhqyluGAX6UEnT1TvFFsNHcU/X9sP/qZBwQD04GBKV7F
-         yMrNxgBlewypEwaYEKvTQ14wD5KUhVjBZZwKUJTPsrYBUQpXXyMpF2mriVRmKl/M+gP0
-         k49n4NlCmRe5QiMeWuvECQ6ms/6ADPpTlPV8ip0X/kaQ/yhRerPXUYItFtiILXF69Bis
-         8FC1fwvx0aD4MOENObmBjzF1QmKtW6EvTI7CFZC8uZiRi8P4UY/EQ+fANxes0xZ/efBm
-         1JAQ==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=/rxhgu2KMDQHLgUdZiO2ylQuiv2jFJSbo0MZZ8QlWUs=;
+        b=WEQPImRMRNZHFXRemTyS1bMGA7wOfL1DiaFbTUupIGN4efwTOHqjNm1nQrqkhXmsC+
+         FawvZeDN5KoMBnheRgrt5Ocya/JhUrBkjOhwArDT04Ni3nVQttoPlr2tDtVnqzoXGYNQ
+         uz6ho7cnFeJjRnsX9XKeVLmwzWzCG5hREOVC98aI2pTAM9EBcYTE7eMkN7IxrXc6K+3C
+         gVafUc/qTjrLr65kabaHqsvciZsfEiyKKx4Lkg8ylNR/LIagRiUBbANbtxhUeEBXg5fN
+         C3D/kHlPQPPtgsRiPiOneO9OgN0PMrhwjouo3kGVE/BeIbblngVgGT4JCSXf96Gbdlp5
+         LodQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:from:to:cc:subject:date:message-id:in-reply-to
-         :references:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=oVgXYqdrLWkq+ai/fFwp5GyDG7kQvZzh6zui8+IQNvA=;
-        b=ghVQEN/avrM25aRpDs3gUNaSc9zW3fbtIP21sBTeot+agkvehMqYVgqkmCoEURFDLI
-         yWGu1J2N3WC8g3SP2Wlr7LVcKvvkO1qbQezbV736H89k+evnFcRPG2m7S/FTRG6OXiAK
-         Ytc6JKIR0g8u8/H9iHqM9OZNzdACQ8r5smxNJAsoBg1aeNiMi0jBjHgYFHgOZZLFlcMT
-         czimjof/uf/R7uLp4qUYS+m1b7uKqvBiHqAuzzhbfvVEF/YsmYepJGK2krB5Bx41zOjS
-         W42u+G/vhuGMDA5eFT+kovECCuS55TAtpZ3yLGqBJKz8DGDXdocfNQDL1rVqIeGFsBn9
-         wH/g==
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=/rxhgu2KMDQHLgUdZiO2ylQuiv2jFJSbo0MZZ8QlWUs=;
+        b=Eq9TyydtSaQDIO4ERx89ll9eUAdM/F3UxQ/7IhWyRa47UpzULjLE3LfW3z6h02vJQZ
+         JdCq6BtiD+oJvIgTaB4AI3cdjUIJ6o7HwPsdFXmFCb6EqXYfFITC535lcRUbPUGZZrEL
+         hEA9Kweoqn6NZ3sEDs/TWFq8+2IBDY2eU4McdJQHwJ2Cyx2WLYg/dgxUxfN79aQ1JI7J
+         j+bDSmewPSa+cOXYrZfsl6ZnLA3lqiesO8UbEo0k3mF3BTu+XyiTKOZF3UE8SmX4PXBm
+         M80H5bxJWejXfVelzvQkJeEB1vKNkAyIlNZBKFuBeO/Cv1KruZWX5W7/othZtT8+8cJ0
+         RFfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:mime-version:from:to:cc:subject:date
-         :message-id:in-reply-to:references:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=oVgXYqdrLWkq+ai/fFwp5GyDG7kQvZzh6zui8+IQNvA=;
-        b=dq0B3iSg/w4+agZL7nH9ftPEW0ltkLiKc27l/Jnh8+yrTKKQxqIcbp+s5qBM/1vd4H
-         /BOwHmMcOTV9P9/IPH2xqqC4FcHLBrcsxpfLrocHrkCknVA9vgzRVTwQW24tssVOlt6r
-         o+nrHEnL0KbHOdzgvv9wVenwYfcEavftJS51eMegOcAVjwNTHXgGR3siFPyXU4vrfz3b
-         LsQqwnd3cFSfsS/pckFFbcL9zeeZIBXP4NkK2wm0EjGXHMS38h+xVkovU1H0XKpWUozM
-         rBkXvUVn7jv8kClnSNwq5Ust0KS8LeaNWlZ4sIEDOvKhVlzD3H9cNaqVvDYrLnRH2FsV
-         Z00g==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=/rxhgu2KMDQHLgUdZiO2ylQuiv2jFJSbo0MZZ8QlWUs=;
+        b=r4AhaWsj4N3IJYbYGFVUSlcO0AjRnAJ8/F+09Jurul0+SCjvFFu9nWyYc2BRSej8TP
+         CUX5QCitAvXHDCtqSI7zwGZ6GCj0qaE/2bdZBiOLZjJXfgkthVEcPzYZbEplqLgC5Gh7
+         ySCLgdc11arYmwxahKO7nNirbNPaDYunNx6p/DWYp3/2TME2c9A6HRh77GGNQjv4/VU8
+         DpqjO7qmzn5/icUgP9QPM0t5/9CjDWvvGQ3c6G1vTlEUUL0ka0kYtFngXTwCn7+MH1I9
+         hOAnoulEK9WfXNVnuSHttvAOotKwBqPG4MhFW4qy7vVZG//JrFK/9S7Jy3biHggIg+u5
+         xuTA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXnqvKs/uxRk+SN+CROGMWr1qYRCXRyi/qksmN10tXvWRsX/z7w
-	xPuZ3Zd/HkewZTLv5o1wa/4=
-X-Google-Smtp-Source: APXvYqyFL/cTSUDeINzAWY7XLnNb2hwPBJKEfQ80C5GcJRbzrsWsgn/faWnjYZaNu+k8eBQLWk9MTg==
-X-Received: by 2002:a17:906:5381:: with SMTP id g1mr38745122ejo.159.1571935335303;
-        Thu, 24 Oct 2019 09:42:15 -0700 (PDT)
-MIME-Version: 1.0
+X-Gm-Message-State: APjAAAUP2bLb09oNcH2i4G10R73pwJuJaOvh8MO4CZuPBy+/b5SOfj9Q
+	XC9pl0NdBtlAdUOndDtUlQ4=
+X-Google-Smtp-Source: APXvYqwmnFGoMIWMV8/rvybfuiyAf8/dPgqJt3zqAmxW+Yx3rN8HoFHE4kWogtqSkk7mcT0kaoZQ+g==
+X-Received: by 2002:a05:6830:1103:: with SMTP id w3mr671415otq.176.1571966222839;
+        Thu, 24 Oct 2019 18:17:02 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6402:64b:: with SMTP id u11ls1539188edx.16.gmail; Thu,
- 24 Oct 2019 09:42:14 -0700 (PDT)
-X-Received: by 2002:a05:6402:3072:: with SMTP id bs18mr25975054edb.120.1571935334743;
-        Thu, 24 Oct 2019 09:42:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1571935334; cv=none;
-        d=google.com; s=arc-20160816;
-        b=08F2kOFEsQlIYOqCXgKotoI9mt3mgM8rEgozWgx+7Rh7+VyTKz0gtqQXPwx9DPg7ZX
-         E5piwSntAloA8nGBDI26dqmp77wQTJii+NdH94H9KI/7yy8w5W/j2gx7iyx/7kBc1x0R
-         cGXSQT5RWdAw7hcyM2i9njiYw5vmulqnBazm2btGNhlSD9WX67lsE4Q7rBFjZS3oJzh9
-         sH0ox/ZbE8cTvoNml2CaknluLpgjaHE5hX6962tdlEJmMMbOB3eKzM/HSEBsAxDH6SlA
-         XwV3OFoX7jZpPjs3Q9LTZEe69GhOg2Glr2tWyJS074pKD0cbwZ1a3qqiP+YjeGXqAy3I
-         +MNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from
-         :dkim-signature;
-        bh=+9jQ276ihVkB4H3M4LWFMv121WVvpiHcKY50BZ7WaQ4=;
-        b=Zwp6pz8bf1AHW49GT1ZFZqJcRc+kRGokyknWBUx0NJrXWjBwJSy39XcShmxVAzw9VL
-         qNl9EWVv6zeiBlP4v1gZ9a7bmV8LUZOfdjka/slCqz+KH7HLkz60LHvAf9ZUWTCJAPfC
-         nsOPUCNWgR+o6jdumnw16HxCR1kRxXU0QQJfvyiaim6qKVME4d/ZM2/Zu6qa6fAsPyKH
-         QqqvrBEs/zlRCWos/k6g/MEut+qsqcPw+FvuOy3p6x0MEIsiPMEJA4VVkM8fIKUPp0Q4
-         x6cnkDNKvFFifdwBFVEg1eHMTK/pi6Bsc6e7q13LJDUaoHZgsrEKz2Sus9tpo6cnR0kl
-         wh5Q==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=AgzM+6ui;
-       spf=pass (google.com: domain of alexlargacha@gmail.com designates 2a00:1450:4864:20::443 as permitted sender) smtp.mailfrom=alexlargacha@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com. [2a00:1450:4864:20::443])
-        by gmr-mx.google.com with ESMTPS id q17si813965edi.1.2019.10.24.09.42.14
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Oct 2019 09:42:14 -0700 (PDT)
-Received-SPF: pass (google.com: domain of alexlargacha@gmail.com designates 2a00:1450:4864:20::443 as permitted sender) client-ip=2a00:1450:4864:20::443;
-Received: by mail-wr1-x443.google.com with SMTP id t16so21721238wrr.1
-        for <jailhouse-dev@googlegroups.com>; Thu, 24 Oct 2019 09:42:14 -0700 (PDT)
-X-Received: by 2002:adf:f7d1:: with SMTP id a17mr4119921wrq.111.1571935334070;
-        Thu, 24 Oct 2019 09:42:14 -0700 (PDT)
-Received: from localhost.localdomain (27.red-79-152-66.dynamicip.rima-tde.net. [79.152.66.27])
-        by smtp.googlemail.com with ESMTPSA id 26sm3341383wmi.17.2019.10.24.09.42.13
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
-        Thu, 24 Oct 2019 09:42:13 -0700 (PDT)
-From: Alex Largacha <alexlargacha@gmail.com>
-To: jailhouse-dev@googlegroups.com
-Cc: Alex Largacha <alexlargacha@gmail.com>
-Subject: [PATCH 3/3] Documentation: brief explanation of board and software setup for jailhouse in UltraZed
-Date: Thu, 24 Oct 2019 18:41:58 +0200
-Message-Id: <1571935318-25453-4-git-send-email-alexlargacha@gmail.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1571935318-25453-1-git-send-email-alexlargacha@gmail.com>
-References: <1571935318-25453-1-git-send-email-alexlargacha@gmail.com>
-X-Original-Sender: alexlargacha@gmail.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20161025 header.b=AgzM+6ui;       spf=pass
- (google.com: domain of alexlargacha@gmail.com designates 2a00:1450:4864:20::443
- as permitted sender) smtp.mailfrom=alexlargacha@gmail.com;       dmarc=pass
- (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Content-Type: text/plain; charset="UTF-8"
+Received: by 2002:a05:6830:1383:: with SMTP id d3ls2353508otq.0.gmail; Thu, 24
+ Oct 2019 18:17:02 -0700 (PDT)
+X-Received: by 2002:a9d:7843:: with SMTP id c3mr592772otm.71.1571966222222;
+        Thu, 24 Oct 2019 18:17:02 -0700 (PDT)
+Date: Thu, 24 Oct 2019 18:17:01 -0700 (PDT)
+From: Chung-Fan Yang <sonic.tw.tp@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <eed4bd9a-7020-4182-9949-d529bef7b3b2@googlegroups.com>
+In-Reply-To: <6defc2d1-96ac-c470-818d-1c9a8e1d8725@web.de>
+References: <a54a651c-13de-4aa1-9c32-475ebddc4e6f@googlegroups.com>
+ <6defc2d1-96ac-c470-818d-1c9a8e1d8725@web.de>
+Subject: Re: v0.9 vs v1.1 interrupt latency raise
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_136_759234135.1571966221644"
+X-Original-Sender: Sonic.tw.tp@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -146,150 +78,132 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Signed-off-by: Alex Largacha <alexlargacha@gmail.com>
----
- Documentation/setup-on-zynqmp-ultrazed3eg.md | 128 +++++++++++++++++++++++++++
- 1 file changed, 128 insertions(+)
- create mode 100644 Documentation/setup-on-zynqmp-ultrazed3eg.md
+------=_Part_136_759234135.1571966221644
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_137_902031613.1571966221644"
 
-diff --git a/Documentation/setup-on-zynqmp-ultrazed3eg.md b/Documentation/setup-on-zynqmp-ultrazed3eg.md
-new file mode 100644
-index 0000000..51972e4
---- /dev/null
-+++ b/Documentation/setup-on-zynqmp-ultrazed3eg.md
-@@ -0,0 +1,128 @@
-+Setup on Avnet UltraZed-EG SOM + UltraZed-EG IO Carrier Card
-+============================================================
-+The UltraZed-EG SOM target is based on ZynqMP Ultrascale+. The SoC is a
-+quad-core Cortex-A53 and a dual-core R5 real-time processor. The IO Carrier
-+Card provides access to the user I/O, PS MIO, 4 PS GTR, etc. Further
-+information can be found on
-+http://zedboard.org/product/ultrazed-EG
-+http://zedboard.org/product/ultrazed-eg-io-carrier-card
-+
-+The Linux Image which runs Jailhouse has been built with Petalinux 2018.3.
-+The bsp for the petalinux project is placed in
-+https://github.com/alexlargacha/xilinx_bsps/blob/master/ultrazed_hyp_2018.3.bsp
-+Petalinux uses linux-xlnx repository, and in this case it uses the
-+xilinx-v2018.3 one, which is based on 4.14 kernel.
-+
-+
-+Image build
-+-----------
-+In order to build the Linux image with Petalinux it is necessary to set all the
-+environmental variables. 
-+
-+    $ source /opt/pkg/settings.sh
-+
-+Once petalinux environments are set, the Petalinux project is created with the
-+name petalinux_jailhouse. The bsp has to be downloaded.
-+
-+    $ petalinux-create -t project --template zynqMP -s ./ultrazed_hyp_2018.3.bsp -n petalinux_jailhouse
-+
-+The Linux project is configured by:
-+
-+    $ petalinux-config 
-+
-+A menuconfig window is opened and just enable `Root filesystem type (SD card)`:
-+
-+    Image Packaging Configuration--->Root filesystem type-->SD card
-+
-+Save project and exit. It will take some to time to configure the project.
-+By default, `CONFIG_OF_OVERLAY` and `CONFIG_KALLSYMS_ALL` should be enabled in
-+the bsp kernel configuration, but it's worth checking:
-+
-+    $ petalinux-config -c kernel
-+
-+Jailhouse needs the Linux kernel boot parameters `mem=` to be set in order to
-+reserve memory for other cells. In this case we chose `mem=1024M`. This can be
-+done through the device tree. In petalinux_jailhouse/project-spec/meta-user/recipes-bsp/device-tree/files/system-user.dtsi:
-+
-+    chosen {
-+        bootargs = "earlycon console=ttyPS0,115200 clk_ignore_unused earlyprintk mem=1024M root=/dev/mmcblk1p2 rw rootwait";
-+        stdout-path = "serial0:115200n8";
-+    };
-+
-+
-+Once modified, save the changes and build the project.
-+
-+    $ petalinux-build
-+
-+Generate the BOOT.BIN file with fsbl, bitstream, PMU firmware and u-boot.
-+
-+    $ petalinux-package --boot --fsbl --fpga --pmufw --u-boot
-+
-+
-+Jailhouse build
-+---------------
-+To build the project, it is necessary to set the variables `ARCH=` with arm64,
-+`KDIR=` with the kernel directory inside the Petalinux project, `CROSS_COMPILE=` 
-+with the compiler and `DESTDIR=` with the rootfs directory.
-+
-+    $ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- KDIR=../petalinux_jailhouse/build/tmp/work/plnx_zynqmp-xilinx-linux/linux-xlnx/4.14-xilinx-v2018.3+gitAUTOINC+eeab73d120-r0/linux-plnx_zynqmp-standard-build DESTDIR=/media/user/rootfs install
-+
-+This command will add the jailhouse module and its binary.
-+
-+Testing Jailhouse PL IRQ Demo
-+--------------------------
-+Copy the `configs/arm64/ultrazed3eg-iocc*.cell` to the rootfs. To test Jailhouse
-+it is also interesting to copy `inmates/demos/arm64/pl-irq-demo.bin`. This demo
-+creates a periodic interrupt based on the output of a pwm module and calculates its lattency. Once Linux is
-+running:
-+
-+    # insmod /lib/modules/4.14.0-xilinx-v2018.3/extra/driver/jailhouse.ko
-+    [   24.309597] jailhouse: loading out-of-tree module taints kernel.
-+
-+    # jailhouse enable ultrazed3eg-iocc.cell 
-+
-+    Initializing Jailhouse hypervisor v0.11 (33-g14cf4ea-dirty) on CPU 2
-+    Code location: 0x0000ffffc0200800
-+    Page pool usage after early setup: mem 45/4066, remap 0/131072
-+    Initializing processors:
-+     CPU 2... OK
-+     CPU 3... OK
-+     CPU 0... OK
-+     CPU 1... OK
-+    Initializing unit: irqchip
-+    Initializing unit: ARM SMMU v3
-+    Initializing unit: PCI
-+    Page pool usage after late setup: mem 65/4066, remap 5/131072
-+    Activating hypervisor
-+    [   62.077158] The Jailhouse is opening.
-+
-+    # jailhouse cell create ultrazed3eg-iocc-pl-gic-demo.cell 
-+    [  177.289476] CPU3: shutdown
-+    [  177.292175] psci: CPU3 killed.
-+    Created cell "pl-gic-demo"
-+    Page pool usage after cell creation: mem 80/4066, remap 5/131072
-+    [  177.303889] Created Jailhouse cell "pl-gic-demo"
-+
-+    # jailhouse cell load 1 pl-irq-demo.bin
-+    Cell "gpio-irq-demo" can be loaded
-+    # jailhouse cell start 1
-+
-+Second UART starts showing jitter data:
-+
-+    Jailhouse IRQ lattency test ...
-+    IRQ fired: lattency 1310 ns
-+    IRQ fired: lattency 1230 ns
-+    IRQ fired: lattency 1200 ns
-+    IRQ fired: lattency 1210 ns
-+    IRQ fired: lattency 1230 ns
-+    IRQ fired: lattency 1190 ns
-+
-+
-+It possible to see the state of each cell:
-+
-+    # jailhouse cell list
-+    ID      Name                    State             Assigned CPUs           Failed CPUs             
-+    0       UltraZed SoM            running           0-2                                             
-+    1       gpio-irq-demo           running           3
-+
-+
--- 
-2.7.4
+------=_Part_137_902031613.1571966221644
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/1571935318-25453-4-git-send-email-alexlargacha%40gmail.com.
+
+
+>
+> Do you mean upgrading Jailhouse (and only that) from 0.9 to 0.11?=20
+>
+>
+Yes
+
+We refactored quite a bit between the two releases. Namely, 0.10 brought=20
+> per-cpu page tables.=20
+>
+
+Page table might be the cause, but I am not sure.
+I did noticed that my my process updating the page table during CTX in RTOS=
+=20
+has dramatically slowed down after upgrade.
+It was < 10us, but 250 us after upgrade.
+I did some optimization by saving the 2-level and 3-level page directory=20
+entries and managed to reduce it to 25us.
+=20
+
+>
+> You could first of try to narrow the reason down a bit: Do the exit=20
+> statistics look different for both versions?
+
+
+I don't see a large difference.
+
+With Intel x86, you should=20
+> normally have no exit for an external or timer interrupt injection.=20
+
+
+I did noticed in both version, I have a large amount of exit due to MSR=20
+access.
+Doesn't x2APIC EOI cause an exit?
+=20
+
+> From=20
+> that perspective, even 20 =C2=B5s is too high. Try to identify the path t=
+hat=20
+> causes the latency.=20
+>
+> You could also try to bisect Jailhouse between the two versions, in=20
+> order to identify the causing commit. But that is only plan B I would say=
+.=20
+>
+
+I will work on this, but bisect Jailhouse can be difficult considering the=
+=20
+ABI and config format change from time to time.
+
+ Yang
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/eed4bd9a-7020-4182-9949-d529bef7b3b2%40googlegroups.com.
+
+------=_Part_137_902031613.1571966221644
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><br><blockquote class=3D"gmail_quote" style=3D"margin: 0;m=
+argin-left: 0.8ex;border-left: 1px #ccc solid;padding-left: 1ex;">
+<br>Do you mean upgrading Jailhouse (and only that) from 0.9 to 0.11?
+<br>
+<br></blockquote><div><br></div><div>Yes</div><div> <br></div><blockquote c=
+lass=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-left: 1px=
+ #ccc solid;padding-left: 1ex;">We refactored quite a bit between the two r=
+eleases. Namely, 0.10 brought
+<br>per-cpu page tables.
+<br></blockquote><div><br></div><div>Page table might be the cause, but I a=
+m not sure.</div><div>I did noticed that my my process updating the page ta=
+ble during CTX in RTOS has dramatically slowed down after upgrade.</div><di=
+v>It was &lt; 10us, but 250 us after upgrade.</div><div>I did some optimiza=
+tion by saving the 2-level and 3-level page directory entries and managed t=
+o reduce it to 25us.<br></div><div>=C2=A0</div><blockquote class=3D"gmail_q=
+uote" style=3D"margin: 0;margin-left: 0.8ex;border-left: 1px #ccc solid;pad=
+ding-left: 1ex;">
+<br>You could first of try to narrow the reason down a bit: Do the exit
+<br>statistics look different for both versions?</blockquote><div><br></div=
+><div>I don&#39;t see a large difference.<br></div><div><br></div><blockquo=
+te class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-left:=
+ 1px #ccc solid;padding-left: 1ex;"> With Intel x86, you should
+<br>normally have no exit for an external or timer interrupt injection. </b=
+lockquote><div><br></div><div>I did noticed in both version, I have a large=
+ amount of exit due to MSR access.</div><div>Doesn&#39;t x2APIC EOI cause a=
+n exit?<br></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=
+=3D"margin: 0;margin-left: 0.8ex;border-left: 1px #ccc solid;padding-left: =
+1ex;">From
+<br>that perspective, even 20 =C2=B5s is too high. Try to identify the path=
+ that
+<br>causes the latency.
+<br>
+<br>You could also try to bisect Jailhouse between the two versions, in
+<br>order to identify the causing commit. But that is only plan B I would s=
+ay.
+<br></blockquote><div><br></div><div>I will work on this, but bisect Jailho=
+use can be difficult considering the ABI and config format change from time=
+ to time.<br></div><div><br></div><div>=C2=A0Yang</div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/eed4bd9a-7020-4182-9949-d529bef7b3b2%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/eed4bd9a-7020-4182-9949-d529bef7b3b2%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_137_902031613.1571966221644--
+
+------=_Part_136_759234135.1571966221644--
