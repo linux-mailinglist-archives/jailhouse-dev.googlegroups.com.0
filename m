@@ -1,129 +1,68 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBSOYZTWQKGQEDPFT75Q@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCDJXM4674ERBIM42DWQKGQESRV4CTA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x53d.google.com (mail-ed1-x53d.google.com [IPv6:2a00:1450:4864:20::53d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F857E520F
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 25 Oct 2019 19:09:30 +0200 (CEST)
-Received: by mail-ed1-x53d.google.com with SMTP id p20sf1833549eda.21
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 25 Oct 2019 10:09:30 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1572023370; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=AEVZFPvWI9/Jd0h/J9w2JNoy1XCKzi95KfJl4s+VWL3/T/lGE1iLJZZHCH4mzng8xQ
-         j/AmxC7DrqC5ibMghozrluE/ymM4VKAG2+UjqSTXku2KVwncuuQZhxJMFHHvtPdHfyGK
-         +lRYxCeDCxcAXFCe+gaIioE1lzmF1bRJ77pUIkLfCIXtl3XCNearxyE3i1Cz6EC/dDFN
-         xG2fqtzWrJ8s+s2qPy6X8CVkVF+yOlaQ9bnnk/qEU2OHfB5Utg9MEc8puaYMBpR2VwJ/
-         BTX9rHMzM8Zt81DqZwdEPEHIfI2cntgrAEPdVIEHoVj9ICQAy/IQvgZs1EtZOnpZq5ck
-         Jdxw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:cc:to
-         :subject:sender:dkim-signature;
-        bh=Z/sdzKsYkYPw3CtQiqc/POPiNv/HMoVh7xK476lqZew=;
-        b=wRvkNS+YDni7d6ETpJjRq+aoxDkFk2xYN89rgA+axas0qQMjn6oVmA4SNfjsBCfLrK
-         wh2gRLyPWo9QmXFcz9jwDjyWDf/oLZiUa7tUqghxIm2eON5x6WpjN+v8II0c709HVR3g
-         qOKHNx1PNfB+hT9pCY9FPiWnCbPDzluFQP4WS8/niIOlR3Dm9sVmP+hf2po6Yk4sRz7r
-         hvAq5lkPsLmOjcql5JXyVe1oRlPKkrp9CtxOlyfA2tDG5YdnBahEcSqsiOtGloZ6+K6K
-         5yNToZz9Q2WrsyzmTXiuqvxdnjUUfwzTE4M6VRkamzrEHgR9o0c9OLRaED3Qo/+ZN+3J
-         Legg==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-ot1-x340.google.com (mail-ot1-x340.google.com [IPv6:2607:f8b0:4864:20::340])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D626E596D
+	for <lists+jailhouse-dev@lfdr.de>; Sat, 26 Oct 2019 11:13:07 +0200 (CEST)
+Received: by mail-ot1-x340.google.com with SMTP id v20sf1886048ota.6
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 26 Oct 2019 02:13:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=Z/sdzKsYkYPw3CtQiqc/POPiNv/HMoVh7xK476lqZew=;
-        b=DUj6LJPcAuM+uE2o+C71Fnj7WqMFBN5CBKj0p+M8npQJSW03o7UpEPMUMWrih8WG3Q
-         6ayelJQvkzliHpN9evHw6dKFCdM7eXPbqL39Oj2fqWAzA3MLcvD1ivgIAEeYbM7uC7OQ
-         b4hX/UwgErAJh27nJquG2Ukf7E7/gbA47u1NEo8H/GFm3uknJ37LTdQJgAoZADkPV6PD
-         vK/1MFaBxFjaj1jQkF09T2OQl15DRkXCvA88COjjuwB9pw/V7HrkUigqyLGuAWTvxkf9
-         Iw2V3K7uTv3ry8PXJN46Z6TxmasS9lO4ajP5WqhxDsuDOQMjQwY1IZM3VitRPbNvtLNG
-         6n5w==
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=mYmPdlz7wa4OKuylO/Xma0GzrraPis2Efqcjnc/4VZM=;
+        b=YsJhCMlhnip3haSPgZ3gMk4NP9N3peHx81BIa2xZ9G7efCP3x3NZFaEom48or6/iOd
+         bxPCZIfiAte83hYMAf79VuVk2yBgzqZ/wLBFvtqmSq219rKSBKJy2/xC7SL4O+BudbZq
+         Rsk6J8DL/0hRWg2MPouesWNQBy08Q4LSvWuW6JXXcTsMbJerAYblVfOT4W0bZ4otOiyJ
+         V7RqYv+PiUGYoBewb7OZ0yKAzdgHSX6RyrvJG6b71/Ur0O+bIK5F1wy4amEHvwFc9YxR
+         fTFYnzThjsZ0l7ao3IR2iC9ZHqytyXXRYTuKPvzfgkkSl9NVawyFuk5DrYg2U6JOL3iC
+         LTjA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=mYmPdlz7wa4OKuylO/Xma0GzrraPis2Efqcjnc/4VZM=;
+        b=n9FyhPQy9Kq9tlAA8iBuIwKAVcKgd5IhB7oVcq88xY7fNK+TniWug2e7wHEw1aTf1T
+         rbzBfGBkThYVbG8HbCTEt4U57eFeappd9ne7UJVCY8sQUXVTyMQhJpamQdtzBgaDJs03
+         N1TBlQftH5KmIy7wKMApgJmuz8ErWdc2WUjXRnP7Of5mOnSQOf/uyrFoGooCq/EEP75e
+         Pb4qm2ilFiOOad7ScQf2LTgHVV6BapJD4Ap4Pc9CGzW0BUF9DXBVKlD0sWBsNjOHTOxo
+         9WQCtm2Q7aGkQ+Z2lPFi25mEUWBasIVsAceD9vNuPXiLK766UgRBaNVCnSy7J66zpzK9
+         Dh8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=Z/sdzKsYkYPw3CtQiqc/POPiNv/HMoVh7xK476lqZew=;
-        b=dMNQEQc1oE4cKRTKsZtfktHaWUCKBBGojFwjAnCXzHHF7iX27pqDsfl1lv1UA95W2J
-         dAwLnhSxVHZO9vAdEBrXmb8QdAAOu0FQC1o2x2SpAfTAZ4PJTcm+N3Srz3qHLCi/MhS2
-         EvrrSlG6KkK4oNxwMWMsZ88ABIqpLmhrygi/++BKqWmhV5E6+u/NU34dLuDuXHpmLi9m
-         scaqGAw7x5kf7UfdE+D23jB0mKoHZanQyMVDqmXWSXjbs4aD0hzfK/O96hObifEVJbmt
-         JWITvvJJg29VsA81oL2ZZ9KjM9R6SnXtQvlAQUjayDj4lweldF1gsp50ElWskNwlBTfH
-         yZ6A==
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=mYmPdlz7wa4OKuylO/Xma0GzrraPis2Efqcjnc/4VZM=;
+        b=G9nyhtJCPWHzk6B4E0ca0hNCaTc8aXnKXkjbd7xYzeApKugjlxGhxXyvPF5SnTZCD1
+         QMh5LFyVg1zBZjCrbSFEVxDIiD0kb0fbhX/VsR+oMPkmb8U48J6CRBVzW71vYDo6kis1
+         yYDeF1oSGmXxU5vNN81e3K55hYuORd5syc15F5FUAz17X9L6Gf7Xk9xDeM24RNeY4OE0
+         3FbqNTXReZPZbiTPhPt8j4DGngh1xP1IO7UvHVuvPiWMyJAL1QgjIzLhqaOEReJkBQvn
+         7OEb6qaFsJ+QameRD3evevHQWZLsLQ47F2370GQKBDxvOGo6RHh3eN14TyYIL5Qqa3r8
+         hAsQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVNMXN3IVFoaLcSrbl9dRjb7wsSzVOWPAGdcqvALm+9Y3ue0AJX
-	9Eo4WAoNCt0+JfMbGw7J2jM=
-X-Google-Smtp-Source: APXvYqzKd7xuKnV5Peyy+npDBAmweJPIM54gW8ahtwfHNSlm7G/WMnB8SHZUILCAhsa7lYuCh4A/2g==
-X-Received: by 2002:a50:fa84:: with SMTP id w4mr5265062edr.250.1572023370242;
-        Fri, 25 Oct 2019 10:09:30 -0700 (PDT)
+X-Gm-Message-State: APjAAAWzH2AbF1qz7Lh+o/mIL6bYAZ2pjFcrHYM+f0nZw44eHRtI+Adl
+	0raBSQChCcFzbIBjkZQ77dY=
+X-Google-Smtp-Source: APXvYqyyKeV792jnXKyzdasfgiXhC7Lb/KaxJhRJxCtzZZk+gNR7KOidaZe53YSQ3n0j2M4lUyOFvQ==
+X-Received: by 2002:a9d:39a5:: with SMTP id y34mr6058161otb.36.1572081186098;
+        Sat, 26 Oct 2019 02:13:06 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aa7:d98d:: with SMTP id u13ls2425570eds.12.gmail; Fri, 25
- Oct 2019 10:09:29 -0700 (PDT)
-X-Received: by 2002:a50:ec03:: with SMTP id g3mr5179223edr.83.1572023369344;
-        Fri, 25 Oct 2019 10:09:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1572023369; cv=none;
-        d=google.com; s=arc-20160816;
-        b=XbsOUuGUV5/P08cRypcJ9QJlkBZf9RhdSEBQtLkzVAJkw1u61vT1jJY7A2atCikPXh
-         L+kZf/UKgNq+H/xoMFm8muujy6pM81Ig/3sF1nKhoE1vhrWPXypdL8Zw2maSDts7Wy3u
-         H+Fl8rHy181lYI1uVanyT5oWyapZ0RUYchUkcObrrVCPFwCzdKCMjue9vDH9UObauc2A
-         Eyxd38tPsgKuzGSyjmopCTCh/6imWQ6cXfPORY+MI0uf6vQ81SFBRb1V55d6EL3Bs7xM
-         HONYH5ZjU03fVHu6g3uZ9VFX1pU2G16N24AxOpCa6RQLw2fyKGJdrfqF/j8LqFGg2Gtz
-         F8FQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=o5bjTpDOQ3N59ddRZaIIGUiJkG+bKPPtbmkZDepWdrw=;
-        b=B5YcDsjWYKs/x1nyUo1xiQfjIJMRCywWM0VPNm5QxMJxYoGrFokY+aiZa7qNROcEHo
-         PAwwEbVY0B77mlgaFMXIsaPMsiUVhKlrEvxj09CRY0pqHHTWwjiS8Y90ftYDtpwrY8fX
-         cvZjRsXOI/8x+06cIrMNNtqYkxZE47qy9krt2q2OsIbAWmhcBb2qx2V0BX7xn46izD0d
-         YlD0IFwBqR9NK0RgKnwIN8Uf8MuaAyraxykkQ+tTJnyx6ZDXPjPNsGJN2ugPF7uHKN5j
-         3MBcaRtq4MVfzq9mm6icTtPOTeN81kFcepawQVxr0SO5ODkQIyMHo6pD2oiFpvV4msf+
-         2mWg==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id c28si165213eda.4.2019.10.25.10.09.29
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 25 Oct 2019 10:09:29 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
-Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id x9PH9Sik016196
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 25 Oct 2019 19:09:28 +0200
-Received: from [167.87.35.116] ([167.87.35.116])
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x9PH9R1s020876;
-	Fri, 25 Oct 2019 19:09:28 +0200
-Subject: Re: v0.9 vs v1.1 interrupt latency raise
-To: Henning Schild <henning.schild@siemens.com>,
-        Chung-Fan Yang <sonic.tw.tp@gmail.com>
-Cc: Jailhouse <jailhouse-dev@googlegroups.com>
-References: <a54a651c-13de-4aa1-9c32-475ebddc4e6f@googlegroups.com>
- <6defc2d1-96ac-c470-818d-1c9a8e1d8725@web.de>
- <eed4bd9a-7020-4182-9949-d529bef7b3b2@googlegroups.com>
- <48bb5fe2-9b9f-4ad1-872e-9eae4bdd2c43@googlegroups.com>
- <20191025155257.6af12e29@md1za8fc.ad001.siemens.net>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <76ecfa10-3a69-b5bc-382a-48a59c345637@siemens.com>
-Date: Fri, 25 Oct 2019 19:09:27 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.1
+Received: by 2002:a9d:32a4:: with SMTP id u33ls2443116otb.16.gmail; Sat, 26
+ Oct 2019 02:13:05 -0700 (PDT)
+X-Received: by 2002:a9d:503:: with SMTP id 3mr6015648otw.53.1572081185312;
+        Sat, 26 Oct 2019 02:13:05 -0700 (PDT)
+Date: Sat, 26 Oct 2019 02:13:04 -0700 (PDT)
+From: michael.g.hinton@gmail.com
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <f524bf21-7361-4cac-9766-789ed9c92ab2@googlegroups.com>
+Subject: GCC 8 + 9 not compiling cell configs correctly in Kubuntu 19.10
 MIME-Version: 1.0
-In-Reply-To: <20191025155257.6af12e29@md1za8fc.ad001.siemens.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_617_60554236.1572081184643"
+X-Original-Sender: Michael.G.Hinton@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -136,60 +75,288 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 25.10.19 15:52, Henning Schild wrote:
-> Well you only have soo many shared ressources and if it is not
-> additional exits/interrupts then it is contention on shared ressources.
-> 
-> We are probably talking about caches, TLBs and buses.
-> 
-> You should be able to use i.e. "perf" on Linux to read out hardware
-> performance counters. And there you might want to look for TLB and
-> cache misses.
-> 
-> But the bisecting might be the better idea. Jan already mentioned the
-> "features" that could be responsible. With a bit of educated guessing
-> you will get away with just a few tries.
+------=_Part_617_60554236.1572081184643
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_618_1216374828.1572081184644"
 
-BTW, does your RTOS happen to use anything of the inmate bootstrap code
-to start in Jailhouse? That also changed.
+------=_Part_618_1216374828.1572081184644
+Content-Type: text/plain; charset="UTF-8"
 
-Jan
 
-> 
-> Henning
-> 
-> Am Fri, 25 Oct 2019 00:04:36 -0700
-> schrieb Chung-Fan Yang <sonic.tw.tp@gmail.com>:
-> 
->> Alright, I have test the latency from HW IRQ to application response.
->>
->> I found out that there aren't any additional VM-Exit or IRQ, nor RTOS 
->> scheduling and house-keeping.
->>
->> It feels like the processor is generally slower as everything takes
->> longer to run.
->>
->> The IRQ epilogue takes ~7.8us and iretq ~2.x us. In addition, the
->> libc and syscall interface also have slow downed a bit.
->>
->> I do notice after upgrading, even with CAT, my RTOS latency are prone
->> to be influenced by the Linux side applications.
->> This was not observed during v0.9.1.
->>
->> It's strange.
->>
->>
->> Yang.
->>
-> 
-> 
-> 
 
--- 
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+Hello,
+
+ 
+
+After updating to Kubuntu 19.10 (kernel 5.3) from 19.04, I get the 
+following error when trying to enable the root cell:
+
+ 
+
+JAILHOUSE_ENABLE: Invalid argument
+
+ 
+
+dmesg shows:
+
+ 
+
+[  475.080776] jailhouse: Not a system configuration
+
+ 
+
+which comes from this code in driver/main.c#jailhouse_cmd_enable():
+
+ 
+
+if (memcmp(config_header.signature, JAILHOUSE_SYSTEM_SIGNATURE,
+
+  sizeof(config_header.signature)) != 0) {
+
+pr_err("jailhouse: Not a system configuration\n");
+
+return -EINVAL;
+
+}
+
+ 
+
+So the header signature is not correct. Looking at the root config file 
+itself, this is what I see for the first 32 bytes (in hex):
+
+ 
+
+0400 0000 1000 0000 0500 0000 474e 5500
+
+0200 00c0 0400 0000 0300 0000 0000 0000
+
+ 
+
+Kubuntu 19.10 ships with GCC 9.2.1 as the default. I get the same output 
+above when I specify make with gcc-8. However, if I run with gcc-7:
+
+ 
+
+make CC=gcc-7
+
+ 
+
+The cell config compiles properly and I'm able to enable the root cell. 
+Here is what the first 32 bytes look like:
+
+ 
+
+4a48 5359 5354 0c00 0100 0000 0000 003a
+
+0000 0000 0000 0000 0000 0000 0000 6000
+
+ 
+
+You can clearly see JHSYST.
+
+ 
+
+Clearly, GCC 8 and 9 are not compiling the cell configs correctly. Or maybe 
+I have something weird in my development environment causing GCC to do 
+this. At any rate, just wanted to bring this to your attention. Luckily, 
+compiling with gcc-7 seems to be a good workaround.
+
+ 
+
+Thanks,
+
+-Michael
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/76ecfa10-3a69-b5bc-382a-48a59c345637%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/f524bf21-7361-4cac-9766-789ed9c92ab2%40googlegroups.com.
+
+------=_Part_618_1216374828.1572081184644
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><span id=3D"docs-internal-guid-7ebcbe8b-7fff-c123-4b54-43b=
+3432bc17a"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-b=
+ottom:0pt;"><span style=3D"font-size: 10pt; font-family: Arial; font-varian=
+t-numeric: normal; font-variant-east-asian: normal; vertical-align: baselin=
+e; white-space: pre-wrap;">Hello,</span></p><p dir=3D"ltr" style=3D"line-he=
+ight: 1.38; margin-top: 0pt; margin-bottom: 0pt;">=C2=A0</p><p dir=3D"ltr" =
+style=3D"line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"><span sty=
+le=3D"font-size: 10pt; font-family: Arial; background-color: transparent; f=
+ont-variant-numeric: normal; font-variant-east-asian: normal; vertical-alig=
+n: baseline; white-space: pre-wrap;">After updating to Kubuntu 19.10 (kerne=
+l 5.3) from 19.04, I get the following error when trying to enable the root=
+ cell:</span></p><p dir=3D"ltr" style=3D"line-height: 1.38; margin-top: 0pt=
+; margin-bottom: 0pt;">=C2=A0</p><p dir=3D"ltr" style=3D"line-height:1.38;m=
+argin-left: 60pt;margin-top:0pt;margin-bottom:0pt;"><span style=3D"font-siz=
+e: 10pt; font-family: &quot;Courier New&quot;; color: rgb(0, 0, 0); font-va=
+riant-numeric: normal; font-variant-east-asian: normal; vertical-align: bas=
+eline; white-space: pre-wrap;">JAILHOUSE_ENABLE: Invalid argument</span></p=
+><p dir=3D"ltr" style=3D"line-height: 1.38; margin-top: 0pt; margin-bottom:=
+ 0pt;">=C2=A0</p><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;ma=
+rgin-bottom:0pt;"><span style=3D"font-size: 10pt; font-family: &quot;Courie=
+r New&quot;; font-variant-numeric: normal; font-variant-east-asian: normal;=
+ vertical-align: baseline; white-space: pre-wrap;">dmesg</span><span style=
+=3D"font-size: 10pt; font-family: Arial; font-variant-numeric: normal; font=
+-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wra=
+p;"> shows:</span></p><p dir=3D"ltr" style=3D"line-height: 1.38; margin-top=
+: 0pt; margin-bottom: 0pt;">=C2=A0</p><p dir=3D"ltr" style=3D"line-height:1=
+.38;margin-left: 60pt;margin-top:0pt;margin-bottom:0pt;"><span style=3D"fon=
+t-size: 10pt; font-family: &quot;Courier New&quot;; color: rgb(24, 178, 24)=
+; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-a=
+lign: baseline; white-space: pre-wrap;">[=C2=A0 475.080776] </span><span st=
+yle=3D"font-size: 10pt; font-family: &quot;Courier New&quot;; color: rgb(17=
+8, 104, 24); font-variant-numeric: normal; font-variant-east-asian: normal;=
+ vertical-align: baseline; white-space: pre-wrap;">jailhouse</span><span st=
+yle=3D"font-size: 10pt; font-family: &quot;Courier New&quot;; color: rgb(17=
+8, 24, 24); font-variant-numeric: normal; font-variant-east-asian: normal; =
+vertical-align: baseline; white-space: pre-wrap;">: Not a system configurat=
+ion</span></p><p dir=3D"ltr" style=3D"line-height: 1.38; margin-top: 0pt; m=
+argin-bottom: 0pt;">=C2=A0</p><p dir=3D"ltr" style=3D"line-height: 1.38; ma=
+rgin-top: 0pt; margin-bottom: 0pt;"><span style=3D"font-size: 10pt; font-fa=
+mily: Arial; background-color: transparent; font-variant-numeric: normal; f=
+ont-variant-east-asian: normal; vertical-align: baseline; white-space: pre-=
+wrap;">which comes from this code in driver/main.c#jailhouse_cmd_enable():<=
+/span></p><p dir=3D"ltr" style=3D"line-height: 1.38; margin-top: 0pt; margi=
+n-bottom: 0pt;">=C2=A0</p><p dir=3D"ltr" style=3D"line-height: 1.38; margin=
+-top: 0pt; margin-bottom: 0pt;"><span style=3D"font-size: 10pt; font-family=
+: &quot;Courier New&quot;; background-color: transparent; font-variant-nume=
+ric: normal; font-variant-east-asian: normal; vertical-align: baseline; whi=
+te-space: pre-wrap;"><span class=3D"Apple-tab-span" style=3D"white-space:pr=
+e;">	</span></span><span style=3D"font-size: 10pt; font-family: &quot;Couri=
+er New&quot;; background-color: transparent; font-variant-numeric: normal; =
+font-variant-east-asian: normal; vertical-align: baseline; white-space: pre=
+-wrap;">if (memcmp(config_header.signature, JAILHOUSE_SYSTEM_SIGNATURE,</sp=
+an></p><p dir=3D"ltr" style=3D"line-height: 1.38; margin-top: 0pt; margin-b=
+ottom: 0pt;"><span style=3D"font-size: 10pt; font-family: &quot;Courier New=
+&quot;; background-color: transparent; font-variant-numeric: normal; font-v=
+ariant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;=
+"><span class=3D"Apple-tab-span" style=3D"white-space:pre;">	</span></span>=
+<span style=3D"font-size: 10pt; font-family: &quot;Courier New&quot;; backg=
+round-color: transparent; font-variant-numeric: normal; font-variant-east-a=
+sian: normal; vertical-align: baseline; white-space: pre-wrap;"><span class=
+=3D"Apple-tab-span" style=3D"white-space:pre;">	</span></span><span style=
+=3D"font-size: 10pt; font-family: &quot;Courier New&quot;; background-color=
+: transparent; font-variant-numeric: normal; font-variant-east-asian: norma=
+l; vertical-align: baseline; white-space: pre-wrap;"> =C2=A0 sizeof(config_=
+header.signature)) !=3D 0) {</span></p><p dir=3D"ltr" style=3D"line-height:=
+ 1.38; margin-top: 0pt; margin-bottom: 0pt;"><span style=3D"font-size: 10pt=
+; font-family: &quot;Courier New&quot;; background-color: transparent; font=
+-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: =
+baseline; white-space: pre-wrap;"><span class=3D"Apple-tab-span" style=3D"w=
+hite-space:pre;">	</span></span><span style=3D"font-size: 10pt; font-family=
+: &quot;Courier New&quot;; background-color: transparent; font-variant-nume=
+ric: normal; font-variant-east-asian: normal; vertical-align: baseline; whi=
+te-space: pre-wrap;"><span class=3D"Apple-tab-span" style=3D"white-space:pr=
+e;">	</span></span><span style=3D"font-size: 10pt; font-family: &quot;Couri=
+er New&quot;; background-color: transparent; font-variant-numeric: normal; =
+font-variant-east-asian: normal; vertical-align: baseline; white-space: pre=
+-wrap;">pr_err(&quot;jailhouse: Not a system configuration\n&quot;);</span>=
+</p><p dir=3D"ltr" style=3D"line-height: 1.38; margin-top: 0pt; margin-bott=
+om: 0pt;"><span style=3D"font-size: 10pt; font-family: &quot;Courier New&qu=
+ot;; background-color: transparent; font-variant-numeric: normal; font-vari=
+ant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;"><=
+span class=3D"Apple-tab-span" style=3D"white-space:pre;">	</span></span><sp=
+an style=3D"font-size: 10pt; font-family: &quot;Courier New&quot;; backgrou=
+nd-color: transparent; font-variant-numeric: normal; font-variant-east-asia=
+n: normal; vertical-align: baseline; white-space: pre-wrap;"><span class=3D=
+"Apple-tab-span" style=3D"white-space:pre;">	</span></span><span style=3D"f=
+ont-size: 10pt; font-family: &quot;Courier New&quot;; background-color: tra=
+nsparent; font-variant-numeric: normal; font-variant-east-asian: normal; ve=
+rtical-align: baseline; white-space: pre-wrap;">return -EINVAL;</span></p><=
+p dir=3D"ltr" style=3D"line-height: 1.38; margin-top: 0pt; margin-bottom: 0=
+pt;"><span style=3D"font-size: 10pt; font-family: &quot;Courier New&quot;; =
+background-color: transparent; font-variant-numeric: normal; font-variant-e=
+ast-asian: normal; vertical-align: baseline; white-space: pre-wrap;"><span =
+class=3D"Apple-tab-span" style=3D"white-space:pre;">	</span></span><span st=
+yle=3D"font-size: 10pt; font-family: &quot;Courier New&quot;; background-co=
+lor: transparent; font-variant-numeric: normal; font-variant-east-asian: no=
+rmal; vertical-align: baseline; white-space: pre-wrap;">}</span></p><p dir=
+=3D"ltr" style=3D"line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;">=
+=C2=A0</p><p dir=3D"ltr" style=3D"line-height: 1.38; margin-top: 0pt; margi=
+n-bottom: 0pt;"><span style=3D"font-size: 10pt; font-family: Arial; backgro=
+und-color: transparent; font-variant-numeric: normal; font-variant-east-asi=
+an: normal; vertical-align: baseline; white-space: pre-wrap;">So the header=
+ signature is not correct. Looking at the root config file itself, this is =
+what I see for the first 32 bytes (in hex):</span></p><p dir=3D"ltr" style=
+=3D"line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;">=C2=A0</p><p d=
+ir=3D"ltr" style=3D"line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;=
+"><span style=3D"font-size: 10pt; font-family: Arial; background-color: tra=
+nsparent; font-variant-numeric: normal; font-variant-east-asian: normal; ve=
+rtical-align: baseline; white-space: pre-wrap;">0400 0000 1000 0000 0500 00=
+00 474e 5500</span></p><p dir=3D"ltr" style=3D"line-height: 1.38; margin-to=
+p: 0pt; margin-bottom: 0pt;"><span style=3D"font-size: 10pt; font-family: A=
+rial; background-color: transparent; font-variant-numeric: normal; font-var=
+iant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;">=
+0200 00c0 0400 0000 0300 0000 0000 0000</span></p><p dir=3D"ltr" style=3D"l=
+ine-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;">=C2=A0</p><p dir=3D=
+"ltr" style=3D"line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"><sp=
+an style=3D"font-size: 10pt; font-family: Arial; background-color: transpar=
+ent; font-variant-numeric: normal; font-variant-east-asian: normal; vertica=
+l-align: baseline; white-space: pre-wrap;">Kubuntu 19.10 ships with GCC 9.2=
+.1 as the default. I get the same output above when I specify make with gcc=
+-8. However, if I run with gcc-7:</span></p><p dir=3D"ltr" style=3D"line-he=
+ight: 1.38; margin-top: 0pt; margin-bottom: 0pt;">=C2=A0</p><p dir=3D"ltr" =
+style=3D"line-height:1.38;margin-left: 60pt;margin-top:0pt;margin-bottom:0p=
+t;"><span style=3D"font-size: 10pt; font-family: &quot;Courier New&quot;; f=
+ont-variant-numeric: normal; font-variant-east-asian: normal; vertical-alig=
+n: baseline; white-space: pre-wrap;">make CC=3Dgcc-7</span></p><p dir=3D"lt=
+r" style=3D"line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;">=C2=A0=
+</p><p dir=3D"ltr" style=3D"line-height: 1.38; margin-top: 0pt; margin-bott=
+om: 0pt;"><span style=3D"font-size: 10pt; font-family: Arial; background-co=
+lor: transparent; font-variant-numeric: normal; font-variant-east-asian: no=
+rmal; vertical-align: baseline; white-space: pre-wrap;">The cell config com=
+piles properly and I&#39;m able to enable the root cell. Here is what the f=
+irst 32 bytes look like:</span></p><p dir=3D"ltr" style=3D"line-height: 1.3=
+8; margin-top: 0pt; margin-bottom: 0pt;">=C2=A0</p><p dir=3D"ltr" style=3D"=
+line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"><span style=3D"fon=
+t-size: 10pt; font-family: Arial; background-color: transparent; font-varia=
+nt-numeric: normal; font-variant-east-asian: normal; vertical-align: baseli=
+ne; white-space: pre-wrap;">4a48 5359 5354 0c00 0100 0000 0000 003a</span><=
+/p><p dir=3D"ltr" style=3D"line-height: 1.38; margin-top: 0pt; margin-botto=
+m: 0pt;"><span style=3D"font-size: 10pt; font-family: Arial; background-col=
+or: transparent; font-variant-numeric: normal; font-variant-east-asian: nor=
+mal; vertical-align: baseline; white-space: pre-wrap;">0000 0000 0000 0000 =
+0000 0000 0000 6000</span></p><p dir=3D"ltr" style=3D"line-height: 1.38; ma=
+rgin-top: 0pt; margin-bottom: 0pt;">=C2=A0</p><p dir=3D"ltr" style=3D"line-=
+height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"><span style=3D"font-siz=
+e: 10pt; font-family: Arial; background-color: transparent; font-variant-nu=
+meric: normal; font-variant-east-asian: normal; vertical-align: baseline; w=
+hite-space: pre-wrap;">You can clearly see JHSYST.</span></p><p dir=3D"ltr"=
+ style=3D"line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;">=C2=A0</=
+p><p dir=3D"ltr" style=3D"line-height: 1.38; margin-top: 0pt; margin-bottom=
+: 0pt;"><span style=3D"font-size: 10pt; font-family: Arial; background-colo=
+r: transparent; font-variant-numeric: normal; font-variant-east-asian: norm=
+al; vertical-align: baseline; white-space: pre-wrap;">Clearly, GCC 8 and 9 =
+are not compiling the cell configs correctly. Or maybe I have something wei=
+rd in my development environment causing GCC to do this. At any rate, just =
+wanted to bring this to your attention. Luckily, compiling with gcc-7 seems=
+ to be a good workaround.</span></p><p dir=3D"ltr" style=3D"line-height: 1.=
+38; margin-top: 0pt; margin-bottom: 0pt;">=C2=A0</p><p dir=3D"ltr" style=3D=
+"line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"><span style=3D"fo=
+nt-size: 10pt; font-family: Arial; background-color: transparent; font-vari=
+ant-numeric: normal; font-variant-east-asian: normal; vertical-align: basel=
+ine; white-space: pre-wrap;">Thanks,</span></p><p dir=3D"ltr" style=3D"line=
+-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"><span style=3D"font-si=
+ze: 10pt; font-family: Arial; background-color: transparent; font-variant-n=
+umeric: normal; font-variant-east-asian: normal; vertical-align: baseline; =
+white-space: pre-wrap;">-Michael</span></p></span></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/f524bf21-7361-4cac-9766-789ed9c92ab2%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/f524bf21-7361-4cac-9766-789ed9c92ab2%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_618_1216374828.1572081184644--
+
+------=_Part_617_60554236.1572081184643--
