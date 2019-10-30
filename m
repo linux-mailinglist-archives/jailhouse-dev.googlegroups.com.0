@@ -1,73 +1,174 @@
-Return-Path: <jailhouse-dev+bncBCR7PPMN34DRBHEJ43WQKGQEQO4MAAQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBEFB43WQKGQEWGBJH7Q@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x339.google.com (mail-ot1-x339.google.com [IPv6:2607:f8b0:4864:20::339])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7F67E9BA4
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 30 Oct 2019 13:39:57 +0100 (CET)
-Received: by mail-ot1-x339.google.com with SMTP id s1sf1001173oth.15
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 30 Oct 2019 05:39:57 -0700 (PDT)
+Received: from mail-wm1-x33b.google.com (mail-wm1-x33b.google.com [IPv6:2a00:1450:4864:20::33b])
+	by mail.lfdr.de (Postfix) with ESMTPS id D2746E9C4D
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 30 Oct 2019 14:30:56 +0100 (CET)
+Received: by mail-wm1-x33b.google.com with SMTP id n15sf610951wmc.3
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 30 Oct 2019 06:30:56 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1572442256; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=ythYpvGKE+uXINLia/5GLTgdO3rIdDSjpFgAjGBmZiHizmC2dPbtNfIjzi2C1txOH0
+         rHP2SyFhwCvElmGZTjJ+Ko3IETLzB8HQKGYSCVHVm7CBy7say6zM9fvaRGvRWbpd3VjQ
+         scOrDAgxVo2dvTvhktJIjH6VWp2eMmG8lXhYUNDn8qRz+ld6uS4zBsK99nzPVfrUKOLJ
+         nina0fRx7SynO3pYN2SeavjGC02FiCBEl1QXwD1CZtDnX6BxNEOi+m2pw33ZBKWpFAd2
+         gH6ZJ5yLueuwiNqluHk5Gur1cnozEWTmbzSC2Ai2mLw6sNFbnCCKX7NxJR9BsUz2+sVM
+         GgZQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-language:mime-version
+         :user-agent:date:message-id:subject:autocrypt:from:to:sender
+         :dkim-signature;
+        bh=q9VWVr/9wBmmc0by5pcH5k51UzkjrPjFPG9VvHEOrHY=;
+        b=YmqQzgFLXMF/MrUx0lSo0RxT9yfrGEDNqspZnJ1ge37uCLDDqEUX5Nhjsn1cQki0g9
+         6UwlxTqP3Ek+l0e/1nN1jKsVfMuuU8ANKN3sErkT42ISkwjR0Q51Qm6tjEwrx9+/O9Rp
+         8lySygB1KJfQu94I5zZz8gc2oKmBxen2TM3Ub+WykozT839dsaha+qfEw6NIudHdFP41
+         IT4MLvkCBFjYJ/xNNSj8qTCgPqt4S/NGVCS0yKN/tQDrC12Rw0sVuiI2JSENedZmuwmo
+         +t/BrbRhA/kBmtcOHd6CmxqEkOmV7btltC4UUM7PTx1vRWUAqG14hI+zIHtdKENmazxy
+         3pEQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=AoyhJYru;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
+        h=sender:to:from:autocrypt:subject:message-id:date:user-agent
+         :mime-version:content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=5evYjAMN45jwMcN2RSXmoPvZ1SFXtE+qY9JzUxvuFFk=;
-        b=oJjNp6lynXJfjADlLimLYYNa3aFW+KnMhlqzE/HBsonKifySs+j25NG6mfuVtqy/0h
-         rQDApZcWJ5Qx/wItLpm0sc+qXSKtBXz66k2iCwE/OM7kPmWzQKOhOGcR/TQlnjIeraBK
-         lI8172gSzJyRNJjQb6gRYQox28WSZrmjFtY7UZLPHr9z5KcwNlDgxym3y2ZbYr6krJEr
-         0IGQ61lHnSNllNyb7daCDo0lDwdi1w5Xp4zXpLgEciXItcZJgIdFSWbJBgyLliSz6XuB
-         1ME5EnXgfTgczKK+h4WYHglR63J9UWpmrw8KSuYxgqNYS8qmSn7nYQk9ufKQsIakQlsM
-         Vb1w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=5evYjAMN45jwMcN2RSXmoPvZ1SFXtE+qY9JzUxvuFFk=;
-        b=lKkLCwI7u0oA2vqJWbeiSUaCCikQULU62XIG48Ul0gfdGWHO2eiiw0qo2ZWQHJYfin
-         NeCLNl8igzH8L9aSXvjf5Z6tCrggYbTo4S+ZMWplz8NuN48PHfFf6wKyfJdS7kbhCxB5
-         w0oXqGQliql2WqPye5184MAca/aW28uGsUPtrhuDv8GzskB1Ns5j7nnQyhUv6sd2pYha
-         UuNq5qEaImNTH0LevQzBLj4vAXItQTndcK/072zP1QsfJbJxSZNIEGb6cbzAhFkfYXBK
-         oGtQ5AQ8j4HxleXKgGru4YS6AAWu550vFibzVSuX5Vu7qsyaCe6L3a3fYGt1OHZdbYfZ
-         BoDw==
+        bh=q9VWVr/9wBmmc0by5pcH5k51UzkjrPjFPG9VvHEOrHY=;
+        b=S9UPSQ6Pw38VqMsSQuImsK2wnk0n7ztsDOpbSU/mhv5IjbGxRjkPbY7HJQB8k2INZG
+         4/wReFAMpg1VkA+4DpN4QM4/ZPPW6II7dXBaGMiZMFErkVDNlHG6JiXFu010UjEqXI9A
+         ChGEeK5o9I7Y3cZRrZvacUx5tS1N3mnAmG33wcpfpEvDT/SIsiTvBZThGKIc/QQAsaCp
+         fqNnoo57ot6p0OxHnLVVgBWncdz4ptsGwuFf7Co8/YSBnoQXB09vo7Rq7VVcPXHJi66Q
+         4jlODSfNrO9XwXoJfFkRl+0N9kYk6e302c6m+9wZ7wMJ02Bq6MW1iTTcYONKC9y8uAJC
+         Az/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=5evYjAMN45jwMcN2RSXmoPvZ1SFXtE+qY9JzUxvuFFk=;
-        b=dJSk2H1rPdACpzN2CqIjIQICKx7Vt4V6REbs61yMyxtao8+yvO9AhRBs7eXfzETtOf
-         NHNe+B4e+mf++35dgqfqT+44QpsbhqX5swSoRCnSmeeFY+BMj99KDHPT21A4sGKWpYb7
-         NqAT1qWopbiwJfti703ebxmbjBvcgr5cwsF6Lue7jBGDuDX+xNGeA0lbJVe6yEugwuyc
-         ioYr8sZLIGRe8ighSVtva/J0jA4b+znYfyFXMwk3vs7JRtEzfJ4uLYbvVRhTuSyrY7Wg
-         bSSe01aoPxexCnes8jZDg5uGQj0NhUUqtCZTKCA0L82AH1h8xG+VsrPStj1NPErlAo9T
-         QHTg==
+        h=sender:x-gm-message-state:to:from:autocrypt:subject:message-id:date
+         :user-agent:mime-version:content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=q9VWVr/9wBmmc0by5pcH5k51UzkjrPjFPG9VvHEOrHY=;
+        b=t46MrCHcU7VPb84Hvu/fBOb15+ATwhsZUByqOdUtRnKq7TJqbnwfhTz26EUWkn/OcQ
+         VBi1rXokOzxabbR/cFmDKigBc+e1OE11txSY0hfTMylmSc10xQpxQgpB/ACkclH4HRjb
+         szgDU5qwNUMxp+FYM5GsnMCCrAeSFU4zClvK6JRd4h3VnDLC/WYjlY8JbWx1TjhemBJt
+         8Z/G0KjDbirLngMC7zqQGlKMTmV09ldA4z4qX0KuMbyc7/Dz6dnUYiCWyjS4/klv0LLS
+         6y2ONKBg2wedtO5j+LQYAch0UMQxcx4yl+mp6diqf7SJGm1JXMBkSQZzXImQcZm2eCr/
+         cqgA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXgLycjiQRTHQ1zIDJMV/r/i8Hkqs6w7cJGAieXpJerwKbw9gaM
-	TeTBHwLb08CZ8u/D67syIHI=
-X-Google-Smtp-Source: APXvYqxzST1TRBGVZdSisD9xchsDoLvPctAjX4MJrnPlzqnbKYXLtqaHSwiUeFUrNF5WDlfOlOm1nA==
-X-Received: by 2002:aca:3846:: with SMTP id f67mr8641189oia.71.1572439196328;
-        Wed, 30 Oct 2019 05:39:56 -0700 (PDT)
+X-Gm-Message-State: APjAAAUKUFB30KMKFsKx8Uvda+hmYlmBlm+47FED+a6FPdn7LE5UA3O/
+	sVUP9Q6+eZofsw8yIpo5KpM=
+X-Google-Smtp-Source: APXvYqx/4/mLg9VcMw3SnIpfS6sQRei+Wt/+1tQC/Vieezf+cgJXM3sF6kiuggmmZlBdXz09x4PMRQ==
+X-Received: by 2002:a7b:c924:: with SMTP id h4mr9566762wml.143.1572442256537;
+        Wed, 30 Oct 2019 06:30:56 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a9d:7483:: with SMTP id t3ls1739783otk.2.gmail; Wed, 30 Oct
- 2019 05:39:55 -0700 (PDT)
-X-Received: by 2002:a9d:a44:: with SMTP id 62mr14139870otg.111.1572439195633;
-        Wed, 30 Oct 2019 05:39:55 -0700 (PDT)
-Date: Wed, 30 Oct 2019 05:39:54 -0700 (PDT)
-From: =?UTF-8?Q?Jo=C3=A3o_Reis?= <jpagsreis@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <3487548d-b0bb-4d32-b88f-d6d97b449510@googlegroups.com>
-In-Reply-To: <a132b6de-0483-4e2f-a5e8-56d8ed4eaae5@googlegroups.com>
-References: <e0e9eaef-1cff-4d61-a820-e007271ff7b2@googlegroups.com>
- <20190528210147.6dd80c1d@md1za8fc.ad001.siemens.net>
- <ac030e22-9a4e-47b8-8c94-5e2866a80ae2@googlegroups.com>
- <a132b6de-0483-4e2f-a5e8-56d8ed4eaae5@googlegroups.com>
-Subject: Re: Ivshmem-demo interrupt
+Received: by 2002:adf:c448:: with SMTP id a8ls17402759wrg.0.gmail; Wed, 30 Oct
+ 2019 06:30:55 -0700 (PDT)
+X-Received: by 2002:adf:b199:: with SMTP id q25mr26437606wra.320.1572442255693;
+        Wed, 30 Oct 2019 06:30:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1572442255; cv=none;
+        d=google.com; s=arc-20160816;
+        b=1Jseylt3ZkBQ4JEVYFbwRRGAgf+T9wPud0JBd7drl8bwvWCMCEJZ9/jbVcSlm+c/RB
+         4sPYhZ6jkdqhqCVt3M2k8ecmxggWo+xnUlVXW0hhkL7BAKmubxz5rI1ObbXiLc3HR5A7
+         0F9GesP85WN73BV7dPWjAL+/yOrSi/lltyDTA4gmPi7Y4Mvc3iXeHtTX5jCPm67sOaNa
+         mUo8O7H0QUhn7+Q1fddpjRZ2r0XgmSMGV7WNaNAnuBV74OY5ctwecmK4gs8lLB8G9cP8
+         HMP/kHtSXBtxC094pcGR3gdWnpFmdrT5N8stPQbheSAlGuPX09eHDdSeeLrnPWe0EWnx
+         Snfw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:mime-version:user-agent
+         :date:message-id:subject:autocrypt:from:to:dkim-signature;
+        bh=xdlOdd3x8wyjAyuG87gpRxOVRtQ0e+0CprSSmDPIWDs=;
+        b=PfI8FUymbRZbZ9h9cv6FfjRO1vqCU/2tVfD6eS1CpfbEqn9C9qQF/xLEyHfj/oNmlI
+         40xD9rdflH0EE+clJNBXDlD13QownC0DY+KVIsQKyq/yoFntz+U60twJrjNi0E4Z3UHr
+         ggCNWgqjHDAx4cNnENxlLWdMUTENvYXzwPe3q0h8G9f7aA1IzKFNKtQN53DbUzFDomce
+         XSGap3clsML6VjjUWv+1HJQHgjc+EhwhURldr2qtEll++zNQGqschenHtW3KzS/GQT/V
+         aRu2BjLlbC6SqVklWh7z6BhPFohfu2O5bjsoZGYO0tQGxWDYbWBZpHwL9YRRXDm9VUnL
+         r7vQ==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=AoyhJYru;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [2001:638:a01:1096::12])
+        by gmr-mx.google.com with ESMTPS id x2si12668wrv.1.2019.10.30.06.30.55
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 30 Oct 2019 06:30:55 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) client-ip=2001:638:a01:1096::12;
+Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S02", Issuer "E16S02" (not verified))
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4738V725MFzyFF;
+	Wed, 30 Oct 2019 14:30:55 +0100 (CET)
+Received: from [172.20.54.64] (194.95.106.138) by E16S02.hs-regensburg.de
+ (2001:638:a01:8013::92) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Wed, 30 Oct
+ 2019 14:30:54 +0100
+To: Jan Kiszka <jan.kiszka@siemens.com>, Jailhouse
+	<jailhouse-dev@googlegroups.com>
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Autocrypt: addr=ralf.ramsauer@oth-regensburg.de; keydata=
+ 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
+ RncIIYr0LjXAAzY=
+Subject: Backport of patches to jailhouse-enabling
+Message-ID: <343b0acd-45a4-0ca6-f6dd-84bee630169b@oth-regensburg.de>
+Date: Wed, 30 Oct 2019 14:30:53 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_1570_2028828389.1572439194922"
-X-Original-Sender: jpagsreis@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-PH
+X-Originating-IP: [194.95.106.138]
+X-ClientProxiedBy: E16S01.hs-regensburg.de (2001:638:a01:8013::91) To
+ E16S02.hs-regensburg.de (2001:638:a01:8013::92)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=AoyhJYru;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -80,311 +181,25 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1570_2028828389.1572439194922
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_1571_1817834241.1572439194923"
+Hi Jan,
 
-------=_Part_1571_1817834241.1572439194923
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+could you consider to backport the following Linux patches to the
+jailhouse-enabling trees?
 
-Hello Jeanne,
+8428413b1d14f ("serial: 8250_pci: Implement MSI(-X) support")
+on linus/master, and
 
-Have you solved your issue regarding the /dev/uio0 not appearing?
+0935e5f7527cc ("x86/jailhouse: Improve setup data version comparison")
+7a56b81c47461 ("x86/jailhouse: Only enable platform UARTs if available")
+queued in tip/x86/platform.
 
-quarta-feira, 29 de Maio de 2019 =C3=A0s 10:56:52 UTC+1, jeanne....@gmail.c=
-om=20
-escreveu:
->
-> Le mercredi 29 mai 2019 09:42:02 UTC+2, jeanne....@gmail.com a =C3=A9crit=
- :=20
-> > Le mardi 28 mai 2019 21:01:52 UTC+2, Henning Schild a =C3=A9crit :=20
-> > > Am Tue, 28 May 2019 06:22:05 -0700=20
-> > > schrieb <jeanne.***@gmail.com>:=20
-> > >=20
-> > > > Hello everyone,=20
-> > > >=20
-> > > > I'm trying to run the ivshmem-demo on a lanner NCA-510A. The inmate=
-=20
-> > > > cell seems to be working well. However, I can't get the=20
-> interruptions=20
-> > > > between the cells to work. Is this due to a configuration problem?=
-=20
-> > > > (You will find attached my configuration files) I explain : when I=
-=20
-> > > > launch the inmate the shared memory is written but the inmate=20
-> doesn't=20
-> > > > react to the uio_send and there is nothing to read in the=20
-> uio_read...=20
-> > >=20
-> > > The ivshmem guestcode repo is not tested as well as jailhouse. And=20
-> > > together with kernels there are now 3 components to combine. So i=20
-> would=20
-> > > not be surprised if your problem has to do with that uio linux=20
-> example.=20
-> > > But it is not horribly broken and should work! The main issue with it=
-=20
-> > > is that people do not read the docs and check out the wrong branch,=
-=20
-> > > later use the python code ... which is not tested on jailhouse ...=20
-> > >=20
-> > > I would suggest two ivshmem-demo cells before you=20
-> > > even look at linux+uio. That way you get isvhmem-guestcode out of the=
-=20
-> > > picture and will start with just jailhouse.=20
-> > > Especially since you later want to run linux in another cell anyways.=
-=20
-> > >=20
-> > > > here is my :=20
-> > > > grep ivshmem /proc/interrupts=20
-> > > >  202:          0          0          0          0          0=20
-> > > > 0          0          0          0          0          0=20
-> > > > 0          0          0          0          0          0=20
-> > > > 0          0          0          0          0          0  IR-PCI-MS=
-I=20
-> > > > 229376-edge      uio_ivshmem=20
-> > > >=20
-> > >=20
-> > > > Second question: the next step of my project will be to run the=20
-> > > > uio_ivshmem driver between two linux cells. Is it possible or is th=
-e=20
-> > > > driver only for the rootCell?=20
-> > >=20
-> > > The uio stuff will work in either root or non-root, no problem. That=
-=20
-> > > is, if it works.=20
-> > >=20
-> > > Henning=20
-> > >=20
-> > > > best regards,=20
-> > > >=20
-> > > > Jeanne=20
-> > > >=20
-> >=20
-> > Hello everyone,=20
-> >=20
-> >=20
-> > First of all, thank you very much for your help!=20
-> >=20
-> >=20
-> >=20
-> > I can get two inmates ivshmem-demo to work without any problems with al=
-l=20
-> the interruptions.=20
-> >=20
-> >=20
-> >=20
-> > For the driver uio_ivhsmem I took the jailhouse branch on the git. The=
-=20
-> file /dev/uio0 pops well and my ivshmem-demo inmate writes well on it.=20
-> However, there are still no interruptions...=20
-> >=20
-> > Here is my lspci -v on my virtual PCI on the rootCell side. Is this goo=
-d=20
-> ?=20
-> >=20
-> > lspci -v=20
-> > 00:0e.0 Unassigned class [ff00]: Red Hat, Inc Inter-VM shared memory=20
-> >         I/O behind bridge: 0000e000-0000efff=20
-> >=20
-> > Best regards,=20
-> >=20
-> > Jeanne=20
->
-> Hello everyone,=20
->
->
-> Now I can get the demo-ivshmem to work with my root cell too (it seems=20
-> that removing the.shmem_protocol in the pci_device unlocked the situation=
- I=20
-> don't know why).=20
-> Now I'm trying to get this driver to work on my inmate linux but when I=
-=20
-> insert the module I don't have a /dev/uio0 that pop and I don't know why.=
-..=20
-> any ideas?=20
->
-> here is my inmate :=20
->
-> # insmod /bin/test/uio_ivshmem.ko=20
-> uio_ivshmem: loading out-of-tree module taints kernel.=20
-> uio_ivshmem 0000:00:0e.0: enabling device (0000 -> 0002)=20
-> # lsmod=20
-> Module                  Size  Used by    Tainted: G=20
-> uio_ivshmem            16384  0=20
->
-> So the module is well loaded and I don't need to modprobe uio because it'=
-s=20
-> already done in my kernel.=20
->
-> Best regards,=20
->
-> Jeanne=20
+Those patches have been accepted upstream, and it would be helpful to
+find them in the jailhouse-enabling tree.
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/3487548d-b0bb-4d32-b88f-d6d97b449510%40googlegroups.com.
+Thanks,
+  Ralf
 
-------=_Part_1571_1817834241.1572439194923
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hello Jeanne,<div><br></div><div>Have you solved your issu=
-e regarding the /dev/uio0 not appearing?<br><br>quarta-feira, 29 de Maio de=
- 2019 =C3=A0s 10:56:52 UTC+1, jeanne....@gmail.com escreveu:<blockquote cla=
-ss=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-left: 1px #=
-ccc solid;padding-left: 1ex;">Le mercredi 29 mai 2019 09:42:02 UTC+2, <a>je=
-anne....@gmail.com</a> a =C3=A9crit=C2=A0:
-<br>&gt; Le mardi 28 mai 2019 21:01:52 UTC+2, Henning Schild a =C3=A9crit=
-=C2=A0:
-<br>&gt; &gt; Am Tue, 28 May 2019 06:22:05 -0700
-<br>&gt; &gt; schrieb &lt;jeanne.***@<a href=3D"http://gmail.com" target=3D=
-"_blank" rel=3D"nofollow" onmousedown=3D"this.href=3D&#39;http://gmail.com&=
-#39;;return true;" onclick=3D"this.href=3D&#39;http://gmail.com&#39;;return=
- true;">gmail.com</a>&gt;:
-<br>&gt; &gt;=20
-<br>&gt; &gt; &gt; Hello everyone,=20
-<br>&gt; &gt; &gt;=20
-<br>&gt; &gt; &gt; I&#39;m trying to run the ivshmem-demo on a lanner NCA-5=
-10A. The inmate
-<br>&gt; &gt; &gt; cell seems to be working well. However, I can&#39;t get =
-the interruptions
-<br>&gt; &gt; &gt; between the cells to work. Is this due to a configuratio=
-n problem?
-<br>&gt; &gt; &gt; (You will find attached my configuration files) I explai=
-n : when I
-<br>&gt; &gt; &gt; launch the inmate the shared memory is written but the i=
-nmate doesn&#39;t
-<br>&gt; &gt; &gt; react to the uio_send and there is nothing to read in th=
-e uio_read...
-<br>&gt; &gt;=20
-<br>&gt; &gt; The ivshmem guestcode repo is not tested as well as jailhouse=
-. And
-<br>&gt; &gt; together with kernels there are now 3 components to combine. =
-So i would
-<br>&gt; &gt; not be surprised if your problem has to do with that uio linu=
-x example.
-<br>&gt; &gt; But it is not horribly broken and should work! The main issue=
- with it
-<br>&gt; &gt; is that people do not read the docs and check out the wrong b=
-ranch,
-<br>&gt; &gt; later use the python code ... which is not tested on jailhous=
-e ...
-<br>&gt; &gt;=20
-<br>&gt; &gt; I would suggest two ivshmem-demo cells before you
-<br>&gt; &gt; even look at linux+uio. That way you get isvhmem-guestcode ou=
-t of the
-<br>&gt; &gt; picture and will start with just jailhouse.
-<br>&gt; &gt; Especially since you later want to run linux in another cell =
-anyways.
-<br>&gt; &gt;=20
-<br>&gt; &gt; &gt; here is my :
-<br>&gt; &gt; &gt; grep ivshmem /proc/interrupts
-<br>&gt; &gt; &gt; =C2=A0202: =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00
-<br>&gt; &gt; &gt; 0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00
-<br>&gt; &gt; &gt; 0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00
-<br>&gt; &gt; &gt; 0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00 =C2=A0IR-PCI-MSI
-<br>&gt; &gt; &gt; 229376-edge =C2=A0 =C2=A0 =C2=A0uio_ivshmem
-<br>&gt; &gt; &gt;=20
-<br>&gt; &gt;=20
-<br>&gt; &gt; &gt; Second question: the next step of my project will be to =
-run the
-<br>&gt; &gt; &gt; uio_ivshmem driver between two linux cells. Is it possib=
-le or is the
-<br>&gt; &gt; &gt; driver only for the rootCell?=20
-<br>&gt; &gt;=20
-<br>&gt; &gt; The uio stuff will work in either root or non-root, no proble=
-m. That
-<br>&gt; &gt; is, if it works.
-<br>&gt; &gt;=20
-<br>&gt; &gt; Henning
-<br>&gt; &gt;=20
-<br>&gt; &gt; &gt; best regards,=20
-<br>&gt; &gt; &gt;=20
-<br>&gt; &gt; &gt; Jeanne=20
-<br>&gt; &gt; &gt;
-<br>&gt;=20
-<br>&gt; Hello everyone,=20
-<br>&gt;=20
-<br>&gt;=20
-<br>&gt; First of all, thank you very much for your help!=20
-<br>&gt;=20
-<br>&gt;=20
-<br>&gt;=20
-<br>&gt; I can get two inmates ivshmem-demo to work without any problems wi=
-th all the interruptions.=20
-<br>&gt;=20
-<br>&gt;=20
-<br>&gt;=20
-<br>&gt; For the driver uio_ivhsmem I took the jailhouse branch on the git.=
- The file /dev/uio0 pops well and my ivshmem-demo inmate writes well on it.=
- However, there are still no interruptions...=20
-<br>&gt;=20
-<br>&gt; Here is my lspci -v on my virtual PCI on the rootCell side. Is thi=
-s good ?=20
-<br>&gt;=20
-<br>&gt; lspci -v=20
-<br>&gt; 00:0e.0 Unassigned class [ff00]: Red Hat, Inc Inter-VM shared memo=
-ry
-<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 I/O behind bridge: 0000e000-0000efff
-<br>&gt;=20
-<br>&gt; Best regards,=20
-<br>&gt;=20
-<br>&gt; Jeanne
-<br>
-<br>Hello everyone,=20
-<br>
-<br>
-<br>Now I can get the demo-ivshmem to work with my root cell too (it seems =
-that removing the.shmem_protocol in the pci_device unlocked the situation I=
- don&#39;t know why).=20
-<br>Now I&#39;m trying to get this driver to work on my inmate linux but wh=
-en I insert the module I don&#39;t have a /dev/uio0 that pop and I don&#39;=
-t know why... any ideas?
-<br>
-<br>here is my inmate :=20
-<br>
-<br># insmod /bin/test/uio_ivshmem.ko
-<br>uio_ivshmem: loading out-of-tree module taints kernel.
-<br>uio_ivshmem 0000:00:0e.0: enabling device (0000 -&gt; 0002)
-<br># lsmod
-<br>Module =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Si=
-ze =C2=A0Used by =C2=A0 =C2=A0Tainted: G
-<br>uio_ivshmem =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A016384 =C2=A00
-<br>
-<br>So the module is well loaded and I don&#39;t need to modprobe uio becau=
-se it&#39;s already done in my kernel.
-<br>
-<br>Best regards,=20
-<br>
-<br>Jeanne </blockquote></div></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/3487548d-b0bb-4d32-b88f-d6d97b449510%40googlegroup=
-s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
-sgid/jailhouse-dev/3487548d-b0bb-4d32-b88f-d6d97b449510%40googlegroups.com<=
-/a>.<br />
-
-------=_Part_1571_1817834241.1572439194923--
-
-------=_Part_1570_2028828389.1572439194922--
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/343b0acd-45a4-0ca6-f6dd-84bee630169b%40oth-regensburg.de.
