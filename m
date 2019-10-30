@@ -1,134 +1,73 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBWHN4XWQKGQELRTQPCQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCR7PPMN34DRBHEJ43WQKGQEQO4MAAQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33d.google.com (mail-wm1-x33d.google.com [IPv6:2a00:1450:4864:20::33d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5968AE9AF6
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 30 Oct 2019 12:41:13 +0100 (CET)
-Received: by mail-wm1-x33d.google.com with SMTP id t203sf722098wmt.7
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 30 Oct 2019 04:41:13 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1572435673; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=z4PFTmZRAPN/obvdAazyKiG6lDFDwLwLCamZGt3SX+eJz0EW0LM4upsmVYZjhfv937
-         Eqj8EN4G0ix1MRFdTUWMDis6ApOICinZ7J7R5X23B2SIZB6jA1TVNcNW8kHEA6mFv6yE
-         f/dM+TsUg817x5N1fUZPrvrhdCwC5r0/mvaTYU735M+Ru7mtdNwhyXmp5xqXO+oSIIeh
-         t+RRKpLVlviWb8h98b8XIllpJeIqqzYXZtXvHgUvjI52UTjo/+NvTWpD2vEkb4y7ieoK
-         ayC+9vG/4j5Koor1tHgST8yUiS72oruyNlwvQu5fUurkalVI9XAtmO6TeHydPgOMLHWN
-         8n5g==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=LLBgTB9yjSkdsvporWbnXH2BlK6XgVSSaxq4z22JwLc=;
-        b=WV4cVjes30nqPYYuGMCWX80mm3S+s4DSQ6NA5iZKQXSFev6LaUQ/9RSqnxX6ZtgiQ5
-         NGBm7cfSpXjDe/GmZ3KAdLtoIKWEzS/lBFsQ87DjGZKUnfistIr4t73Db0tnYkw3A+jo
-         72VnkvEQ8RTTHv/UbrE1w0pSQjXv+BPAbVCeIMTQO8IerNOXTWU9nrHqUpQejE3Ah4C+
-         C7pn4Dmi4oOTX6wqSbrOf+BTeb2eZ/JXwQavxBbRTNxIBFFLR5zdaJK0hcsCulu+QLYY
-         6VYnVhm/AVYwsvZz1cu3536hEmnAk+EmBvKoGiVKt0I2TXj0WGkkZfEfKbQ29ym6l304
-         8+WQ==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-ot1-x339.google.com (mail-ot1-x339.google.com [IPv6:2607:f8b0:4864:20::339])
+	by mail.lfdr.de (Postfix) with ESMTPS id E7F67E9BA4
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 30 Oct 2019 13:39:57 +0100 (CET)
+Received: by mail-ot1-x339.google.com with SMTP id s1sf1001173oth.15
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 30 Oct 2019 05:39:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=LLBgTB9yjSkdsvporWbnXH2BlK6XgVSSaxq4z22JwLc=;
-        b=e+5mprE9Cvk1cJpE9ykhBzZCj2YrCVMco9zDr/JJPePOLF7uPPGKazkpn8Y6s3ore0
-         G2PtnCQXQrHzhzt75PtBqfZJPKZ4mRR6qLF7oF/6hZJSylr3doojq0xy6bUEWkdMstNu
-         zeS9TLDcs3qtarBiuxzghfyX+wR2svqWLUtl+tSY9rWv2YcijLFMmnHue5T6MEwFdczo
-         w2NP8POplBr9rRMrIyjnIvtP0mBsd/UNxDIM+e7J0Kx1B0FWA5mMRgWEDQrXfrbYWysj
-         BgI0SI3EcevKbkVsLThF6AboUNWyrxeAQWx5ok2S7zYUfyD2CMrIXTaTrzy20A3sBQlm
-         AfbA==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=5evYjAMN45jwMcN2RSXmoPvZ1SFXtE+qY9JzUxvuFFk=;
+        b=oJjNp6lynXJfjADlLimLYYNa3aFW+KnMhlqzE/HBsonKifySs+j25NG6mfuVtqy/0h
+         rQDApZcWJ5Qx/wItLpm0sc+qXSKtBXz66k2iCwE/OM7kPmWzQKOhOGcR/TQlnjIeraBK
+         lI8172gSzJyRNJjQb6gRYQox28WSZrmjFtY7UZLPHr9z5KcwNlDgxym3y2ZbYr6krJEr
+         0IGQ61lHnSNllNyb7daCDo0lDwdi1w5Xp4zXpLgEciXItcZJgIdFSWbJBgyLliSz6XuB
+         1ME5EnXgfTgczKK+h4WYHglR63J9UWpmrw8KSuYxgqNYS8qmSn7nYQk9ufKQsIakQlsM
+         Vb1w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=5evYjAMN45jwMcN2RSXmoPvZ1SFXtE+qY9JzUxvuFFk=;
+        b=lKkLCwI7u0oA2vqJWbeiSUaCCikQULU62XIG48Ul0gfdGWHO2eiiw0qo2ZWQHJYfin
+         NeCLNl8igzH8L9aSXvjf5Z6tCrggYbTo4S+ZMWplz8NuN48PHfFf6wKyfJdS7kbhCxB5
+         w0oXqGQliql2WqPye5184MAca/aW28uGsUPtrhuDv8GzskB1Ns5j7nnQyhUv6sd2pYha
+         UuNq5qEaImNTH0LevQzBLj4vAXItQTndcK/072zP1QsfJbJxSZNIEGb6cbzAhFkfYXBK
+         oGtQ5AQ8j4HxleXKgGru4YS6AAWu550vFibzVSuX5Vu7qsyaCe6L3a3fYGt1OHZdbYfZ
+         BoDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=LLBgTB9yjSkdsvporWbnXH2BlK6XgVSSaxq4z22JwLc=;
-        b=mjJRa1hUsnUTBg41bEjK3g7vim5YybpVtFfMNnHrbxO3nPMflvJ5YDAelzcc0ZSHgI
-         3tioANU67ZsGGg67u9KDFUTkvlPK+/fDSZ2rCOw+UiM9twTsNeph8TqF+oKZ+VnbEif+
-         oh3gASLvtmxBHZz8N2MsLHsIbCnptvZIPNeoMgrtZdU+4H1FgYizdaT+kV7ILaGDxS5O
-         93+EkOMuj8CfsH1QpVsFXfuMa4f8b+iu88ankplAY+4sG+sCHbMyIumRPPotyGyJTC8o
-         kP6VCVE755iFHRH4lyhzq4FXTQht3N2sGLXO0cOZmLDOqiFmsB8KO3ZIDNNCVhkjBgG/
-         uZNg==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=5evYjAMN45jwMcN2RSXmoPvZ1SFXtE+qY9JzUxvuFFk=;
+        b=dJSk2H1rPdACpzN2CqIjIQICKx7Vt4V6REbs61yMyxtao8+yvO9AhRBs7eXfzETtOf
+         NHNe+B4e+mf++35dgqfqT+44QpsbhqX5swSoRCnSmeeFY+BMj99KDHPT21A4sGKWpYb7
+         NqAT1qWopbiwJfti703ebxmbjBvcgr5cwsF6Lue7jBGDuDX+xNGeA0lbJVe6yEugwuyc
+         ioYr8sZLIGRe8ighSVtva/J0jA4b+znYfyFXMwk3vs7JRtEzfJ4uLYbvVRhTuSyrY7Wg
+         bSSe01aoPxexCnes8jZDg5uGQj0NhUUqtCZTKCA0L82AH1h8xG+VsrPStj1NPErlAo9T
+         QHTg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAX7ZtgBiahOm8//m8aFuxFYcM7ZrqWFf0eOziF5kscrU64cO+NN
-	kL2HPQUkodX+5eEBY9vod3E=
-X-Google-Smtp-Source: APXvYqwZCqOg+nN2ikzbTfKC15kDBAFNl+9wkHmN+oXuwPOJtG9n6oKLDUF48Y0lldmewj7JOw2BPQ==
-X-Received: by 2002:adf:c105:: with SMTP id r5mr24496888wre.125.1572435673106;
-        Wed, 30 Oct 2019 04:41:13 -0700 (PDT)
+X-Gm-Message-State: APjAAAXgLycjiQRTHQ1zIDJMV/r/i8Hkqs6w7cJGAieXpJerwKbw9gaM
+	TeTBHwLb08CZ8u/D67syIHI=
+X-Google-Smtp-Source: APXvYqxzST1TRBGVZdSisD9xchsDoLvPctAjX4MJrnPlzqnbKYXLtqaHSwiUeFUrNF5WDlfOlOm1nA==
+X-Received: by 2002:aca:3846:: with SMTP id f67mr8641189oia.71.1572439196328;
+        Wed, 30 Oct 2019 05:39:56 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:f091:: with SMTP id n17ls1543898wro.4.gmail; Wed, 30 Oct
- 2019 04:41:12 -0700 (PDT)
-X-Received: by 2002:adf:f945:: with SMTP id q5mr449537wrr.33.1572435672274;
-        Wed, 30 Oct 2019 04:41:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1572435672; cv=none;
-        d=google.com; s=arc-20160816;
-        b=BKqJlweSNoZCSPP+R2nHX6Y5wrUpYmnJZG81H2I+E8/Fe71u+t/HXP5PEEI8y/yoO2
-         PzMVCSRt+nzm3phO02+Z/B1AJMv44AcqSwySTu+IA3sX+D9h9nCt7Y7n8kuVbF02ceys
-         XVFrGzHwyfuaSkT7UxF98OwWvly1+VUGv0v+gpC9rG5XIs7FCsC5hzdUmk9Krq2UmpQJ
-         vv+ETe6EqlusbTXQwZRrrrncjuGtbEPgJrVJrhVqAZPJdfzeGoZL55dd8idiDN+p/vua
-         6Ajb3up0W2XM9RQ3CDrv7mjoFTFc9FS7iI7Lyx15zwMIXDid6VO2EeAUEHg8nhpSFcBE
-         Yn3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=XsiOM+8MfwohW5qMS+1D6oI0PoU47ENwzmaRRKwdUuo=;
-        b=iE2dATx9YC/Ul+Hvl4GKNspbVaEz2M2KNGkkbnrkVM1q4pBTb3UYuz2ER0o1Bfh6Ud
-         gaYPZBzvaiZMMnN9k1jL0FG/buiRQnrclArME7ZPHLCiMhvyFBjIL3wjBlfXg0fYZmzL
-         g5+OqoaGyoXwGEHPqB8shm3fz5iy7vqnYVnLwNZVspPgI2tMzR040Mc1wYhZ8Rh+z7My
-         t5rLAeAEjYuwbe4lkoN8dAH7xHCafK0/e+c/CKnfXV6m56N4d+PD7RHqNp534IkrHbyr
-         ng+WfpyOm4ksV5u2DZ+U/TB1gNV4aaLLd+B11qobvh0K+ZebYEn3B40lsp9hu7/uFpC7
-         pWBA==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id w2si84514wrn.4.2019.10.30.04.41.12
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 30 Oct 2019 04:41:12 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
-Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id x9UBfBmq006339
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 30 Oct 2019 12:41:11 +0100
-Received: from [167.87.50.140] ([167.87.50.140])
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x9UBfAqO014581;
-	Wed, 30 Oct 2019 12:41:10 +0100
-Subject: Re: v0.9 vs v1.1 interrupt latency raise
-To: Chung-Fan Yang <sonic.tw.tp@gmail.com>,
-        Jailhouse <jailhouse-dev@googlegroups.com>
-References: <a54a651c-13de-4aa1-9c32-475ebddc4e6f@googlegroups.com>
- <6defc2d1-96ac-c470-818d-1c9a8e1d8725@web.de>
- <eed4bd9a-7020-4182-9949-d529bef7b3b2@googlegroups.com>
- <48bb5fe2-9b9f-4ad1-872e-9eae4bdd2c43@googlegroups.com>
- <20191025155257.6af12e29@md1za8fc.ad001.siemens.net>
- <76ecfa10-3a69-b5bc-382a-48a59c345637@siemens.com>
- <579d40f1-a8f4-4144-9405-3bba1ea23c14@googlegroups.com>
- <2151b869-9732-4483-8659-90234a971f1b@googlegroups.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <09cf7ef6-0bb0-0d3e-cab3-493c500c6559@siemens.com>
-Date: Wed, 30 Oct 2019 12:41:10 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.1
+Received: by 2002:a9d:7483:: with SMTP id t3ls1739783otk.2.gmail; Wed, 30 Oct
+ 2019 05:39:55 -0700 (PDT)
+X-Received: by 2002:a9d:a44:: with SMTP id 62mr14139870otg.111.1572439195633;
+        Wed, 30 Oct 2019 05:39:55 -0700 (PDT)
+Date: Wed, 30 Oct 2019 05:39:54 -0700 (PDT)
+From: =?UTF-8?Q?Jo=C3=A3o_Reis?= <jpagsreis@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <3487548d-b0bb-4d32-b88f-d6d97b449510@googlegroups.com>
+In-Reply-To: <a132b6de-0483-4e2f-a5e8-56d8ed4eaae5@googlegroups.com>
+References: <e0e9eaef-1cff-4d61-a820-e007271ff7b2@googlegroups.com>
+ <20190528210147.6dd80c1d@md1za8fc.ad001.siemens.net>
+ <ac030e22-9a4e-47b8-8c94-5e2866a80ae2@googlegroups.com>
+ <a132b6de-0483-4e2f-a5e8-56d8ed4eaae5@googlegroups.com>
+Subject: Re: Ivshmem-demo interrupt
 MIME-Version: 1.0
-In-Reply-To: <2151b869-9732-4483-8659-90234a971f1b@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_1570_2028828389.1572439194922"
+X-Original-Sender: jpagsreis@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -141,69 +80,146 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 30.10.19 09:37, Chung-Fan Yang wrote:
-> =C2=A0
-> Alright, I did the bisect, checked the inmate library and PM.
->=20
-> I will summarize first, the fault seems like to be in the wip/ivshmem2.
-> P-state was already disabled (Silly me, forgot what I have already done.)
-> Code steal from inmate library seems fine.
->=20
-> Let me describe my setup first.
-> I am using the wip/ivshmem2, because my application favors
-> unidirectional pipes and multiple interrupts between cells.
-> I have been using the v0.9.1 with an old version of ivshmem2(15ee5278),
-> which has lstate/rstate, etc.
->=20
-> When I need to test with non-root-Linux, I upgraded to v0.11 for the new
-> mmio decoder.
-> Along this process, I rebased the wip/ivshmem2 to v0.11 branch, which is
-> the new, multi-peer ivshmem2(5c90e846).
-> I rewrite the drivers of RTOS, too.
->=20
-> Also, I changed the root cell Linux kernel version from 4.9 to 4.19.
-> (Both wil PREEMPT_RT patch installed)
->=20
-> So I changed:
-> =C2=A0* Linux kernel version
-> =C2=A0* Jailhouse version
-> =C2=A0* ivshmem2 version
->=20
-> Today, I cherry-picked the new multi-peer ivshmem2 onto:
-> =C2=A0* v0.11
-> =C2=A0* v0.10
-> =C2=A0* v0.9.1
-> and tested with Linux 4.19.
-> All of them has a ~25.8us latency.
->=20
-> The baseline, Linux 4.9 /w v0.9.1 /w old ivshmem2 is 10.87us.
->=20
-> Then I tested Linux 4.9 /w v0.9.1 /w new multi-peer ivshmem2. It has a
-> latency of 28.62us.
->=20
-> It seems like using the new ivshmem2 mechanism cause the execution to
-> slow down.
-> I didn't find a specific hot-spot, so certain resource contention should
-> be the cause.
+------=_Part_1570_2028828389.1572439194922
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1571_1817834241.1572439194923"
 
-Interesting findings already, but I'm afraid we will need to dig deeper:
-Can you describe what all is part of your measured latency path? Do you
-just run code in guest mode or do you also trigger VM exits, e.g. to
-issue ivshmem interrupts to a remote side? Maybe you can sample some
-latencies along the critical path so that we have a better picture about
-where we lose time, overall or rather on specific actions.
+------=_Part_1571_1817834241.1572439194923
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
->=20
-> BTW, I has code that "executes" on the ivshmem region, but I don't think
-> this should be a problem, isn't it?
+Hello Jeanne,
 
-It wasn't designed for it but it should work.
+Have you solved your issue regarding the /dev/uio0 not appearing?
 
-Jan
-
---=20
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+quarta-feira, 29 de Maio de 2019 =C3=A0s 10:56:52 UTC+1, jeanne....@gmail.c=
+om=20
+escreveu:
+>
+> Le mercredi 29 mai 2019 09:42:02 UTC+2, jeanne....@gmail.com a =C3=A9crit=
+ :=20
+> > Le mardi 28 mai 2019 21:01:52 UTC+2, Henning Schild a =C3=A9crit :=20
+> > > Am Tue, 28 May 2019 06:22:05 -0700=20
+> > > schrieb <jeanne.***@gmail.com>:=20
+> > >=20
+> > > > Hello everyone,=20
+> > > >=20
+> > > > I'm trying to run the ivshmem-demo on a lanner NCA-510A. The inmate=
+=20
+> > > > cell seems to be working well. However, I can't get the=20
+> interruptions=20
+> > > > between the cells to work. Is this due to a configuration problem?=
+=20
+> > > > (You will find attached my configuration files) I explain : when I=
+=20
+> > > > launch the inmate the shared memory is written but the inmate=20
+> doesn't=20
+> > > > react to the uio_send and there is nothing to read in the=20
+> uio_read...=20
+> > >=20
+> > > The ivshmem guestcode repo is not tested as well as jailhouse. And=20
+> > > together with kernels there are now 3 components to combine. So i=20
+> would=20
+> > > not be surprised if your problem has to do with that uio linux=20
+> example.=20
+> > > But it is not horribly broken and should work! The main issue with it=
+=20
+> > > is that people do not read the docs and check out the wrong branch,=
+=20
+> > > later use the python code ... which is not tested on jailhouse ...=20
+> > >=20
+> > > I would suggest two ivshmem-demo cells before you=20
+> > > even look at linux+uio. That way you get isvhmem-guestcode out of the=
+=20
+> > > picture and will start with just jailhouse.=20
+> > > Especially since you later want to run linux in another cell anyways.=
+=20
+> > >=20
+> > > > here is my :=20
+> > > > grep ivshmem /proc/interrupts=20
+> > > >  202:          0          0          0          0          0=20
+> > > > 0          0          0          0          0          0=20
+> > > > 0          0          0          0          0          0=20
+> > > > 0          0          0          0          0          0  IR-PCI-MS=
+I=20
+> > > > 229376-edge      uio_ivshmem=20
+> > > >=20
+> > >=20
+> > > > Second question: the next step of my project will be to run the=20
+> > > > uio_ivshmem driver between two linux cells. Is it possible or is th=
+e=20
+> > > > driver only for the rootCell?=20
+> > >=20
+> > > The uio stuff will work in either root or non-root, no problem. That=
+=20
+> > > is, if it works.=20
+> > >=20
+> > > Henning=20
+> > >=20
+> > > > best regards,=20
+> > > >=20
+> > > > Jeanne=20
+> > > >=20
+> >=20
+> > Hello everyone,=20
+> >=20
+> >=20
+> > First of all, thank you very much for your help!=20
+> >=20
+> >=20
+> >=20
+> > I can get two inmates ivshmem-demo to work without any problems with al=
+l=20
+> the interruptions.=20
+> >=20
+> >=20
+> >=20
+> > For the driver uio_ivhsmem I took the jailhouse branch on the git. The=
+=20
+> file /dev/uio0 pops well and my ivshmem-demo inmate writes well on it.=20
+> However, there are still no interruptions...=20
+> >=20
+> > Here is my lspci -v on my virtual PCI on the rootCell side. Is this goo=
+d=20
+> ?=20
+> >=20
+> > lspci -v=20
+> > 00:0e.0 Unassigned class [ff00]: Red Hat, Inc Inter-VM shared memory=20
+> >         I/O behind bridge: 0000e000-0000efff=20
+> >=20
+> > Best regards,=20
+> >=20
+> > Jeanne=20
+>
+> Hello everyone,=20
+>
+>
+> Now I can get the demo-ivshmem to work with my root cell too (it seems=20
+> that removing the.shmem_protocol in the pci_device unlocked the situation=
+ I=20
+> don't know why).=20
+> Now I'm trying to get this driver to work on my inmate linux but when I=
+=20
+> insert the module I don't have a /dev/uio0 that pop and I don't know why.=
+..=20
+> any ideas?=20
+>
+> here is my inmate :=20
+>
+> # insmod /bin/test/uio_ivshmem.ko=20
+> uio_ivshmem: loading out-of-tree module taints kernel.=20
+> uio_ivshmem 0000:00:0e.0: enabling device (0000 -> 0002)=20
+> # lsmod=20
+> Module                  Size  Used by    Tainted: G=20
+> uio_ivshmem            16384  0=20
+>
+> So the module is well loaded and I don't need to modprobe uio because it'=
+s=20
+> already done in my kernel.=20
+>
+> Best regards,=20
+>
+> Jeanne=20
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -211,4 +227,164 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/09cf7ef6-0bb0-0d3e-cab3-493c500c6559%40siemens.com.
+jailhouse-dev/3487548d-b0bb-4d32-b88f-d6d97b449510%40googlegroups.com.
+
+------=_Part_1571_1817834241.1572439194923
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hello Jeanne,<div><br></div><div>Have you solved your issu=
+e regarding the /dev/uio0 not appearing?<br><br>quarta-feira, 29 de Maio de=
+ 2019 =C3=A0s 10:56:52 UTC+1, jeanne....@gmail.com escreveu:<blockquote cla=
+ss=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-left: 1px #=
+ccc solid;padding-left: 1ex;">Le mercredi 29 mai 2019 09:42:02 UTC+2, <a>je=
+anne....@gmail.com</a> a =C3=A9crit=C2=A0:
+<br>&gt; Le mardi 28 mai 2019 21:01:52 UTC+2, Henning Schild a =C3=A9crit=
+=C2=A0:
+<br>&gt; &gt; Am Tue, 28 May 2019 06:22:05 -0700
+<br>&gt; &gt; schrieb &lt;jeanne.***@<a href=3D"http://gmail.com" target=3D=
+"_blank" rel=3D"nofollow" onmousedown=3D"this.href=3D&#39;http://gmail.com&=
+#39;;return true;" onclick=3D"this.href=3D&#39;http://gmail.com&#39;;return=
+ true;">gmail.com</a>&gt;:
+<br>&gt; &gt;=20
+<br>&gt; &gt; &gt; Hello everyone,=20
+<br>&gt; &gt; &gt;=20
+<br>&gt; &gt; &gt; I&#39;m trying to run the ivshmem-demo on a lanner NCA-5=
+10A. The inmate
+<br>&gt; &gt; &gt; cell seems to be working well. However, I can&#39;t get =
+the interruptions
+<br>&gt; &gt; &gt; between the cells to work. Is this due to a configuratio=
+n problem?
+<br>&gt; &gt; &gt; (You will find attached my configuration files) I explai=
+n : when I
+<br>&gt; &gt; &gt; launch the inmate the shared memory is written but the i=
+nmate doesn&#39;t
+<br>&gt; &gt; &gt; react to the uio_send and there is nothing to read in th=
+e uio_read...
+<br>&gt; &gt;=20
+<br>&gt; &gt; The ivshmem guestcode repo is not tested as well as jailhouse=
+. And
+<br>&gt; &gt; together with kernels there are now 3 components to combine. =
+So i would
+<br>&gt; &gt; not be surprised if your problem has to do with that uio linu=
+x example.
+<br>&gt; &gt; But it is not horribly broken and should work! The main issue=
+ with it
+<br>&gt; &gt; is that people do not read the docs and check out the wrong b=
+ranch,
+<br>&gt; &gt; later use the python code ... which is not tested on jailhous=
+e ...
+<br>&gt; &gt;=20
+<br>&gt; &gt; I would suggest two ivshmem-demo cells before you
+<br>&gt; &gt; even look at linux+uio. That way you get isvhmem-guestcode ou=
+t of the
+<br>&gt; &gt; picture and will start with just jailhouse.
+<br>&gt; &gt; Especially since you later want to run linux in another cell =
+anyways.
+<br>&gt; &gt;=20
+<br>&gt; &gt; &gt; here is my :
+<br>&gt; &gt; &gt; grep ivshmem /proc/interrupts
+<br>&gt; &gt; &gt; =C2=A0202: =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00
+<br>&gt; &gt; &gt; 0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00
+<br>&gt; &gt; &gt; 0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00
+<br>&gt; &gt; &gt; 0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00 =C2=A0IR-PCI-MSI
+<br>&gt; &gt; &gt; 229376-edge =C2=A0 =C2=A0 =C2=A0uio_ivshmem
+<br>&gt; &gt; &gt;=20
+<br>&gt; &gt;=20
+<br>&gt; &gt; &gt; Second question: the next step of my project will be to =
+run the
+<br>&gt; &gt; &gt; uio_ivshmem driver between two linux cells. Is it possib=
+le or is the
+<br>&gt; &gt; &gt; driver only for the rootCell?=20
+<br>&gt; &gt;=20
+<br>&gt; &gt; The uio stuff will work in either root or non-root, no proble=
+m. That
+<br>&gt; &gt; is, if it works.
+<br>&gt; &gt;=20
+<br>&gt; &gt; Henning
+<br>&gt; &gt;=20
+<br>&gt; &gt; &gt; best regards,=20
+<br>&gt; &gt; &gt;=20
+<br>&gt; &gt; &gt; Jeanne=20
+<br>&gt; &gt; &gt;
+<br>&gt;=20
+<br>&gt; Hello everyone,=20
+<br>&gt;=20
+<br>&gt;=20
+<br>&gt; First of all, thank you very much for your help!=20
+<br>&gt;=20
+<br>&gt;=20
+<br>&gt;=20
+<br>&gt; I can get two inmates ivshmem-demo to work without any problems wi=
+th all the interruptions.=20
+<br>&gt;=20
+<br>&gt;=20
+<br>&gt;=20
+<br>&gt; For the driver uio_ivhsmem I took the jailhouse branch on the git.=
+ The file /dev/uio0 pops well and my ivshmem-demo inmate writes well on it.=
+ However, there are still no interruptions...=20
+<br>&gt;=20
+<br>&gt; Here is my lspci -v on my virtual PCI on the rootCell side. Is thi=
+s good ?=20
+<br>&gt;=20
+<br>&gt; lspci -v=20
+<br>&gt; 00:0e.0 Unassigned class [ff00]: Red Hat, Inc Inter-VM shared memo=
+ry
+<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 I/O behind bridge: 0000e000-0000efff
+<br>&gt;=20
+<br>&gt; Best regards,=20
+<br>&gt;=20
+<br>&gt; Jeanne
+<br>
+<br>Hello everyone,=20
+<br>
+<br>
+<br>Now I can get the demo-ivshmem to work with my root cell too (it seems =
+that removing the.shmem_protocol in the pci_device unlocked the situation I=
+ don&#39;t know why).=20
+<br>Now I&#39;m trying to get this driver to work on my inmate linux but wh=
+en I insert the module I don&#39;t have a /dev/uio0 that pop and I don&#39;=
+t know why... any ideas?
+<br>
+<br>here is my inmate :=20
+<br>
+<br># insmod /bin/test/uio_ivshmem.ko
+<br>uio_ivshmem: loading out-of-tree module taints kernel.
+<br>uio_ivshmem 0000:00:0e.0: enabling device (0000 -&gt; 0002)
+<br># lsmod
+<br>Module =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Si=
+ze =C2=A0Used by =C2=A0 =C2=A0Tainted: G
+<br>uio_ivshmem =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A016384 =C2=A00
+<br>
+<br>So the module is well loaded and I don&#39;t need to modprobe uio becau=
+se it&#39;s already done in my kernel.
+<br>
+<br>Best regards,=20
+<br>
+<br>Jeanne </blockquote></div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/3487548d-b0bb-4d32-b88f-d6d97b449510%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/3487548d-b0bb-4d32-b88f-d6d97b449510%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_1571_1817834241.1572439194923--
+
+------=_Part_1570_2028828389.1572439194922--
