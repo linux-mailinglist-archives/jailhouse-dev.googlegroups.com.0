@@ -1,74 +1,75 @@
-Return-Path: <jailhouse-dev+bncBC2PTC4R4MNBBJN24PWQKGQEAK6F63Y@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC2PTC4R4MNBBOUX4XWQKGQEQM3VZNY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oi1-x23a.google.com (mail-oi1-x23a.google.com [IPv6:2607:f8b0:4864:20::23a])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4D2AE942C
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 30 Oct 2019 01:45:26 +0100 (CET)
-Received: by mail-oi1-x23a.google.com with SMTP id r67sf312046oif.18
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 29 Oct 2019 17:45:26 -0700 (PDT)
+Received: from mail-oi1-x23d.google.com (mail-oi1-x23d.google.com [IPv6:2607:f8b0:4864:20::23d])
+	by mail.lfdr.de (Postfix) with ESMTPS id D1D54E983A
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 30 Oct 2019 09:37:16 +0100 (CET)
+Received: by mail-oi1-x23d.google.com with SMTP id j13sf841330oij.3
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 30 Oct 2019 01:37:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:date:from:to:message-id:in-reply-to:references:subject
          :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=mpx02UtcLO7A1URwuKK19dZRsFZ7KKaSWXWWQxV949k=;
-        b=YDWtgIX+8U+ZBOZss9hIktCdTZaaEfmghgEHbBvIlNU/VADsp2u9u6YXSfwsDdOBYj
-         WzrRXxcXid7vATJKfaYETGwTCzX6mxeF0ay3DUvnOcUfn5GrIbO0JR+lcL+IKE2pmgpD
-         VVIri4Qi6a685nKT0R2XM7gnkxwywRMLzJkJfZ8d84DfabbrFT5ltgbK4RCtn9fc/U1+
-         ltE538KosCBWbMUSWondHPDMNJmLHjW6hcfML3cI9KgcMiSFuF6qD+2qpme3rNzhZw3/
-         YewWSv6cWZB2mLWM8OlabXoef6FWBkPo0u50b0dod2QVALG9a4BKyCdCNRgOMVE0eSsv
-         wznA==
+        bh=i1JdtUVmIPv6ObpSQ22oV7PMmViXyBwi+k8Dhw28cBc=;
+        b=APqmV9o147xA0i9d7EoYxZZKt/L06yhtebHNNMDRuEgMK3zeNh5Xt99CHTo4TzQO0f
+         pBOwqyNf0kLNgk2w/v7W9Ymeaxsaf4lS/5m6Yioc4qgGhoCUl8iHbkfuO3mGAKZzRRIB
+         w5agbKsolsh1JtIxJGOX/YBwkeNmnHc1RzKxbnklH1bkC8iiRv4/suYkoOgzZb3xv3fX
+         kYwhMdPKJgfFImwFXkAMOP0Qf+WKOYf1Mzw6blPeG7/fNftoc09sFWyVid+ISgLkfE5C
+         iUTFFVPavVHLwl906c5olXhckj7Qoi6On/hiwXgAnClyZv6FrN2B6QP7FFHBqyA0xrxr
+         ujuw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:message-id:in-reply-to:references:subject:mime-version
          :x-original-sender:precedence:mailing-list:list-id:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=mpx02UtcLO7A1URwuKK19dZRsFZ7KKaSWXWWQxV949k=;
-        b=B6k0pDxPxys1xuSubAVZDiFXHj7lZG7FrGR+OxlV0c13GXnvXpfszZRoLqNTMvu/aO
-         l+KaDaHLCcPjw/U9OtZnfgBqxudq1jctm7uCvsLhCTLsOoTD51HP86bPFQDvkJhQvodU
-         D4r1NTLwXfH9WS14IF+2SdlRPCFIYHNsMyyNiAwNingdHsM41Y/ybiGHAy4i+qRlIbc5
-         /sQEzJdekVl/UHbQMBBw3Ucv9YEHuVrHDeVRKAHs7GZWzrljL1346Qa41vm1fDMWP0MH
-         K8he+6WAcfMVtRPgtFEQkjf1B0GdoCLGaWVEQ4A1DwA1RhjbOXKu444lau8I7ZgKpOu1
-         G4mA==
+        bh=i1JdtUVmIPv6ObpSQ22oV7PMmViXyBwi+k8Dhw28cBc=;
+        b=KI/i5i7kDaLVUt3g85JgOFh5WbJNKmc/VL9GUY8HZPQxrneJh9Y4l+o7s7AtSaAiSl
+         8cAQplNRlQbrOlmvNtxoDocSEgiVoXrNHRBmNxIxN6BFN2OrIdJPIrWIAPdqIT8gd6FD
+         L+6KWGZ4i0BnKAvjbLTMDc2a9F0jV2eK9CC9exdzkiJBf+NP53EnX3mKz+FRI/U2IN7A
+         KaMtZ0OMFOsyHp+rBZmkSgOSNvtRohgboTvNuPBo0xmy9jpKAN/NN+Ovluf40yMs/2TF
+         +4njfrqWIm+z+89T6HGFesXc4uiutCBpQpql1vuHHqab+a+69TVqVREPpcUx9TaYrTiS
+         kgzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
          :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=mpx02UtcLO7A1URwuKK19dZRsFZ7KKaSWXWWQxV949k=;
-        b=ayughMkdKFxwsmZbB/7aUcf/88HRtqNu0iqLDLvCwroNuy9MuhQ1BhiuuerYIHHcsq
-         T+OuI1aRoXIREoJg/BoUR+zCUfq7zKSNwmA+nKY4nnKOJR5hFx9abTw1em7znQWUw7cw
-         Hc9LOdw38FgdgqwZZ4aar62tvHItho22Dtw1RjW3CA6qEsyiafpMWhL1pLAIq24N6+Oq
-         UOD6Th9wQd6Zs7VHbnInZ3z1Xqt4+fwQ0Sw9pmLMiyPusmGjs7/zb+bVB5cL3uJMgLSH
-         UwjJTljLkZE4LeOaN8gEVTiP7nd70vLAxQUdA7D15c//1NUKTl+JqXWY90huhrcdl8bg
-         sMbQ==
+        bh=i1JdtUVmIPv6ObpSQ22oV7PMmViXyBwi+k8Dhw28cBc=;
+        b=eONvrxYTED9bPzM+D2TXdtWNN9ozTioARfT1Hw6MQ3PxrCBSZa7pXEyrdhWkRVsFP1
+         0PuDaiwfVDWUMxjM4SGUVLcrWn+uEIV3AZOlNiUYy5tPyjRz8mGHioQqflq3Ck46UWwa
+         IiU5NsIwU04TZ1aDlKtzRvayvIBLTzNfqmqNIOmcv7rwKOcLIKpU0E4JG5JRelwjJ9t2
+         p1rEB0SqEPe7q4VnIReZYvPxgjVeZRYj65qziEUz2CpAlJKef0JiGH1PBrJ63ik0PHsX
+         p3VluL35f8Ou5Svehl0FzmkmdRhk2mQ50FCqNvM0WoFoCRnle9rwzxH6lm6YOQztTJBA
+         AGTw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAX5VkAypiCe0McX0hiYPP5wicOjCOzgxHPuE1+gx3kZ/pCpZ94r
-	UedwQxFBcKbutKtDz08wODc=
-X-Google-Smtp-Source: APXvYqzq9F+okuhNleDIThuR1OXtDlVhpZAeihbGu4nWfTCCKq9ovN7YJOk6LILveI0mogQ3PVKBmA==
-X-Received: by 2002:aca:5c89:: with SMTP id q131mr6706502oib.56.1572396325775;
-        Tue, 29 Oct 2019 17:45:25 -0700 (PDT)
+X-Gm-Message-State: APjAAAWT0DauDhzREDvBK0a70whaDx2ynp60AXbOtuMV7CtpvplCMHDA
+	QGuHIlGLZ52t7REF7m/vGlY=
+X-Google-Smtp-Source: APXvYqwi+HWVMblfqqzHT+uQFOwjgEBHhi4hD/kBLkD8Ght7l5EhTFaTt+3bRvMzEKTSHM2+BkNf1A==
+X-Received: by 2002:a05:6830:1587:: with SMTP id i7mr4092977otr.321.1572424635336;
+        Wed, 30 Oct 2019 01:37:15 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aca:d410:: with SMTP id l16ls1481911oig.2.gmail; Tue, 29 Oct
- 2019 17:45:25 -0700 (PDT)
-X-Received: by 2002:aca:2408:: with SMTP id n8mr6220005oic.154.1572396325102;
-        Tue, 29 Oct 2019 17:45:25 -0700 (PDT)
-Date: Tue, 29 Oct 2019 17:45:24 -0700 (PDT)
+Received: by 2002:a9d:65c8:: with SMTP id z8ls1938030oth.3.gmail; Wed, 30 Oct
+ 2019 01:37:14 -0700 (PDT)
+X-Received: by 2002:a9d:5a0b:: with SMTP id v11mr9434746oth.274.1572424634285;
+        Wed, 30 Oct 2019 01:37:14 -0700 (PDT)
+Date: Wed, 30 Oct 2019 01:37:13 -0700 (PDT)
 From: Chung-Fan Yang <sonic.tw.tp@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <579d40f1-a8f4-4144-9405-3bba1ea23c14@googlegroups.com>
-In-Reply-To: <76ecfa10-3a69-b5bc-382a-48a59c345637@siemens.com>
+Message-Id: <2151b869-9732-4483-8659-90234a971f1b@googlegroups.com>
+In-Reply-To: <579d40f1-a8f4-4144-9405-3bba1ea23c14@googlegroups.com>
 References: <a54a651c-13de-4aa1-9c32-475ebddc4e6f@googlegroups.com>
  <6defc2d1-96ac-c470-818d-1c9a8e1d8725@web.de>
  <eed4bd9a-7020-4182-9949-d529bef7b3b2@googlegroups.com>
  <48bb5fe2-9b9f-4ad1-872e-9eae4bdd2c43@googlegroups.com>
  <20191025155257.6af12e29@md1za8fc.ad001.siemens.net>
  <76ecfa10-3a69-b5bc-382a-48a59c345637@siemens.com>
+ <579d40f1-a8f4-4144-9405-3bba1ea23c14@googlegroups.com>
 Subject: Re: v0.9 vs v1.1 interrupt latency raise
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_1447_588798980.1572396324609"
+	boundary="----=_Part_1955_190272151.1572424633639"
 X-Original-Sender: Sonic.tw.tp@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -82,185 +83,102 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1447_588798980.1572396324609
+------=_Part_1955_190272151.1572424633639
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_1448_926460663.1572396324609"
+	boundary="----=_Part_1956_833516997.1572424633639"
 
-------=_Part_1448_926460663.1572396324609
+------=_Part_1956_833516997.1572424633639
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
+ 
+Alright, I did the bisect, checked the inmate library and PM.
 
+I will summarize first, the fault seems like to be in the wip/ivshmem2.
+P-state was already disabled (Silly me, forgot what I have already done.)
+Code steal from inmate library seems fine.
 
-2019=E5=B9=B410=E6=9C=8826=E6=97=A5=E5=9C=9F=E6=9B=9C=E6=97=A5 2=E6=99=8209=
-=E5=88=8630=E7=A7=92 UTC+9 Jan Kiszka:
->
-> On 25.10.19 15:52, Henning Schild wrote:=20
-> > Well you only have soo many shared ressources and if it is not=20
-> > additional exits/interrupts then it is contention on shared ressources.=
-=20
-> >=20
-> > We are probably talking about caches, TLBs and buses.=20
-> >=20
-> > You should be able to use i.e. "perf" on Linux to read out hardware=20
-> > performance counters. And there you might want to look for TLB and=20
-> > cache misses.=20
-> >=20
-> > But the bisecting might be the better idea. Jan already mentioned the=
-=20
-> > "features" that could be responsible. With a bit of educated guessing=
-=20
-> > you will get away with just a few tries.=20
->
-> BTW, does your RTOS happen to use anything of the inmate bootstrap code=
-=20
-> to start in Jailhouse? That also changed.=20
->
-> Jan=20
->
+Let me describe my setup first.
+I am using the wip/ivshmem2, because my application favors unidirectional 
+pipes and multiple interrupts between cells.
+I have been using the v0.9.1 with an old version of ivshmem2(15ee5278), 
+which has lstate/rstate, etc.
 
-Henning,
+When I need to test with non-root-Linux, I upgraded to v0.11 for the new 
+mmio decoder.
+Along this process, I rebased the wip/ivshmem2 to v0.11 branch, which is 
+the new, multi-peer ivshmem2(5c90e846).
+I rewrite the drivers of RTOS, too.
 
-I do think there are contentions related to memory, either TLB or=20
-Bus(assuming CAT is good).
-I will do the bisect this month, got urgent things to do.
+Also, I changed the root cell Linux kernel version from 4.9 to 4.19. (Both 
+wil PREEMPT_RT patch installed)
 
+So I changed:
+ * Linux kernel version
+ * Jailhouse version
+ * ivshmem2 version
 
-Jan,
+Today, I cherry-picked the new multi-peer ivshmem2 onto:
+ * v0.11
+ * v0.10
+ * v0.9.1
+and tested with Linux 4.19.
+All of them has a ~25.8us latency.
 
-Yes, I did steal some code.
-I will check if they fit.
+The baseline, Linux 4.9 /w v0.9.1 /w old ivshmem2 is 10.87us.
 
+Then I tested Linux 4.9 /w v0.9.1 /w new multi-peer ivshmem2. It has a 
+latency of 28.62us.
 
+It seems like using the new ivshmem2 mechanism cause the execution to slow 
+down.
+I didn't find a specific hot-spot, so certain resource contention should be 
+the cause.
+
+BTW, I has code that "executes" on the ivshmem region, but I don't think 
+this should be a problem, isn't it?
+
+------
 Yang
-=20
 
->
-> >=20
-> > Henning=20
-> >=20
-> > Am Fri, 25 Oct 2019 00:04:36 -0700=20
-> > schrieb Chung-Fan Yang <soni...@gmail.com <javascript:>>:=20
-> >=20
-> >> Alright, I have test the latency from HW IRQ to application response.=
-=20
-> >>=20
-> >> I found out that there aren't any additional VM-Exit or IRQ, nor RTOS=
-=20
-> >> scheduling and house-keeping.=20
-> >>=20
-> >> It feels like the processor is generally slower as everything takes=20
-> >> longer to run.=20
-> >>=20
-> >> The IRQ epilogue takes ~7.8us and iretq ~2.x us. In addition, the=20
-> >> libc and syscall interface also have slow downed a bit.=20
-> >>=20
-> >> I do notice after upgrading, even with CAT, my RTOS latency are prone=
-=20
-> >> to be influenced by the Linux side applications.=20
-> >> This was not observed during v0.9.1.=20
-> >>=20
-> >> It's strange.=20
-> >>=20
-> >>=20
-> >> Yang.=20
-> >>=20
-> >=20
-> >=20
-> >=20
->
-> --=20
-> Siemens AG, Corporate Technology, CT RDA IOT SES-DE=20
-> Corporate Competence Center Embedded Linux=20
->
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/2151b869-9732-4483-8659-90234a971f1b%40googlegroups.com.
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/579d40f1-a8f4-4144-9405-3bba1ea23c14%40googlegroups.com.
-
-------=_Part_1448_926460663.1572396324609
+------=_Part_1956_833516997.1572424633639
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><br><br>2019=E5=B9=B410=E6=9C=8826=E6=97=A5=E5=9C=9F=E6=9B=
-=9C=E6=97=A5 2=E6=99=8209=E5=88=8630=E7=A7=92 UTC+9 Jan Kiszka:<blockquote =
-class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-left: 1p=
-x #ccc solid;padding-left: 1ex;">On 25.10.19 15:52, Henning Schild wrote:
-<br>&gt; Well you only have soo many shared ressources and if it is not
-<br>&gt; additional exits/interrupts then it is contention on shared ressou=
-rces.
-<br>&gt;=20
-<br>&gt; We are probably talking about caches, TLBs and buses.
-<br>&gt;=20
-<br>&gt; You should be able to use i.e. &quot;perf&quot; on Linux to read o=
-ut hardware
-<br>&gt; performance counters. And there you might want to look for TLB and
-<br>&gt; cache misses.
-<br>&gt;=20
-<br>&gt; But the bisecting might be the better idea. Jan already mentioned =
-the
-<br>&gt; &quot;features&quot; that could be responsible. With a bit of educ=
-ated guessing
-<br>&gt; you will get away with just a few tries.
-<br>
-<br>BTW, does your RTOS happen to use anything of the inmate bootstrap code
-<br>to start in Jailhouse? That also changed.
-<br>
-<br>Jan
-<br></blockquote><div><br></div><div>Henning,</div><div><br></div><div>I do=
- think there are contentions related to memory, either TLB or Bus(assuming =
-CAT is good).</div><div>I will do the bisect this month, got urgent things =
-to do.</div><div><br></div><div><br></div><div>Jan,<br></div><div><br></div=
-><div>Yes, I did steal some code.</div><div>I will check if they fit.</div>=
-<div><br></div><div><br></div><div>Yang<br></div><div>=C2=A0</div><blockquo=
-te class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-left:=
- 1px #ccc solid;padding-left: 1ex;">
-<br>&gt;=20
-<br>&gt; Henning
-<br>&gt;=20
-<br>&gt; Am Fri, 25 Oct 2019 00:04:36 -0700
-<br>&gt; schrieb Chung-Fan Yang &lt;<a href=3D"javascript:" target=3D"_blan=
-k" gdf-obfuscated-mailto=3D"l6Y-lws2AQAJ" rel=3D"nofollow" onmousedown=3D"t=
-his.href=3D&#39;javascript:&#39;;return true;" onclick=3D"this.href=3D&#39;=
-javascript:&#39;;return true;">soni...@gmail.com</a>&gt;:
-<br>&gt;=20
-<br>&gt;&gt; Alright, I have test the latency from HW IRQ to application re=
-sponse.
-<br>&gt;&gt;
-<br>&gt;&gt; I found out that there aren&#39;t any additional VM-Exit or IR=
-Q, nor RTOS=20
-<br>&gt;&gt; scheduling and house-keeping.
-<br>&gt;&gt;
-<br>&gt;&gt; It feels like the processor is generally slower as everything =
-takes
-<br>&gt;&gt; longer to run.
-<br>&gt;&gt;
-<br>&gt;&gt; The IRQ epilogue takes ~7.8us and iretq ~2.x us. In addition, =
-the
-<br>&gt;&gt; libc and syscall interface also have slow downed a bit.
-<br>&gt;&gt;
-<br>&gt;&gt; I do notice after upgrading, even with CAT, my RTOS latency ar=
-e prone
-<br>&gt;&gt; to be influenced by the Linux side applications.
-<br>&gt;&gt; This was not observed during v0.9.1.
-<br>&gt;&gt;
-<br>&gt;&gt; It&#39;s strange.
-<br>&gt;&gt;
-<br>&gt;&gt;
-<br>&gt;&gt; Yang.
-<br>&gt;&gt;
-<br>&gt;=20
-<br>&gt;=20
-<br>&gt;=20
-<br>
-<br>--=20
-<br>Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-<br>Corporate Competence Center Embedded Linux
-<br></blockquote></div>
+<div dir=3D"ltr"><div>=C2=A0</div><div>Alright, I did the bisect, checked t=
+he inmate library and PM.</div><div><br></div><div>I will summarize first, =
+the fault seems like to be in the wip/ivshmem2.</div><div>P-state was alrea=
+dy disabled (Silly me, forgot what I have already done.)</div><div>Code ste=
+al from inmate library seems fine.</div><div><br></div><div>Let me describe=
+ my setup first.</div><div>I am using the wip/ivshmem2, because my applicat=
+ion favors unidirectional pipes and multiple interrupts between cells.</div=
+><div>I have been using the v0.9.1 with an old version of ivshmem2(15ee5278=
+), which has lstate/rstate, etc.</div><div><br></div><div>When I need to te=
+st with non-root-Linux, I upgraded to v0.11 for the new mmio decoder.</div>=
+<div>Along this process, I rebased the wip/ivshmem2 to v0.11 branch, which =
+is the new, multi-peer ivshmem2(5c90e846).</div><div>I rewrite the drivers =
+of RTOS, too.</div><div><br></div><div>Also, I changed the root cell Linux =
+kernel version from 4.9 to 4.19. (Both wil PREEMPT_RT patch installed)</div=
+><div><br></div><div>So I changed:</div><div>=C2=A0* Linux kernel version</=
+div><div>=C2=A0* Jailhouse version</div><div>=C2=A0* ivshmem2 version</div>=
+<div><br></div><div>Today, I cherry-picked the new multi-peer ivshmem2 onto=
+:</div><div>=C2=A0* v0.11</div><div>=C2=A0* v0.10</div><div>=C2=A0* v0.9.1<=
+/div><div>and tested with Linux 4.19.</div><div>All of them has a ~25.8us l=
+atency.</div><div><br></div><div>The baseline, Linux 4.9 /w v0.9.1 /w old i=
+vshmem2 is 10.87us.</div><div><br></div><div>Then I tested Linux 4.9 /w v0.=
+9.1 /w new multi-peer ivshmem2. It has a latency of 28.62us.</div><div><br>=
+</div><div>It seems like using the new ivshmem2 mechanism cause the executi=
+on to slow down.</div><div>I didn&#39;t find a specific hot-spot, so certai=
+n resource contention should be the cause.<br></div><div><br></div><div>BTW=
+, I has code that &quot;executes&quot; on the ivshmem region, but I don&#39=
+;t think this should be a problem, isn&#39;t it?</div><div><br></div><div>-=
+-----</div><div>Yang<br><iframe style=3D"padding: 0px; position: absolute; =
+top: 0px; left: 0px; width: 1815px; height: 188px; visibility: hidden;" fra=
+meborder=3D"0"></iframe></div></div>
 
 <p></p>
 
@@ -271,11 +189,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/579d40f1-a8f4-4144-9405-3bba1ea23c14%40googlegroup=
+om/d/msgid/jailhouse-dev/2151b869-9732-4483-8659-90234a971f1b%40googlegroup=
 s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
-sgid/jailhouse-dev/579d40f1-a8f4-4144-9405-3bba1ea23c14%40googlegroups.com<=
+sgid/jailhouse-dev/2151b869-9732-4483-8659-90234a971f1b%40googlegroups.com<=
 /a>.<br />
 
-------=_Part_1448_926460663.1572396324609--
+------=_Part_1956_833516997.1572424633639--
 
-------=_Part_1447_588798980.1572396324609--
+------=_Part_1955_190272151.1572424633639--
