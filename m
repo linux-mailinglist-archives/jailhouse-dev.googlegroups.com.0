@@ -1,124 +1,78 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBV4547WQKGQE622ZIJQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC2PTC4R4MNBBTHP5HWQKGQE6GQLZFA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43b.google.com (mail-wr1-x43b.google.com [IPv6:2a00:1450:4864:20::43b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54540EA2D8
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 30 Oct 2019 18:56:40 +0100 (CET)
-Received: by mail-wr1-x43b.google.com with SMTP id a15sf1772776wrr.0
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 30 Oct 2019 10:56:40 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1572458200; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=zpJ4DHz3IWpEJ1bFtTXWA5yH3qTgrsD3HPv81s+NW22qk7evvUAELlDsB4cCJWRXZZ
-         bQ0fVRP8PCdd6XGReC8ml7lJfF92hUf0/x4Ru7IhhZCOdSXXt+/xqgEu+Qqr02KIeN3K
-         kZJRZ9GOfgMiF8natWGA8N5kTyv8jlxwdmep0GsgUpMXnCg2tmw2hgvCNvS2WC0+ZVVh
-         hMe/d/qBLtpeqkVu9RC03cGoXe9i4YB/11S2mPZVdwfJn2pqh4w/uKDPWjLcn9eUfIhe
-         w7NPel0e6gUJPLo9zmWQKP6d2x8kPpd6cYgNux085naBHzAwL1wcgMrEfZYlkZzeAAhU
-         lCVg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:to:subject
-         :sender:dkim-signature;
-        bh=AWonH0jwtixcE4BFx3AvUWhBtMx+uUK06IBqRp0VjCk=;
-        b=W24Ce8vKJ9liMMBec6llM3QgjkquU4szXk2knUOadll4cXPNHSlQNMA9f2DGL+kPCH
-         8FArFDDK45KutPTFvs38mtOefEBkWIzYTJ8efjwp5jYqXAFXR3AH1xE/ZtKZ7AuyH/8o
-         etXwo6k5Fwd5dUQuq6ldy1C9Yrbs20NpP1cLe2SeOEAxPNajOdLdo9eFJ0LT2O0WCz4N
-         tGJEnWFzFnhqFbupoxL8xMkdUkCS7SiV5MMs994QH9qHQEtsO5WMLA+caf+eOYgUSeWJ
-         I/cH8LVdYcI+d5AM7ICn0JfvHzxfj34S31cfQdAO6zy6xya18/e6J6NnOgvtbzCYTxuE
-         JLxg==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-oi1-x237.google.com (mail-oi1-x237.google.com [IPv6:2607:f8b0:4864:20::237])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F6AAEAA82
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 31 Oct 2019 06:57:34 +0100 (CET)
+Received: by mail-oi1-x237.google.com with SMTP id 24sf1282019oiq.12
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 30 Oct 2019 22:57:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=AWonH0jwtixcE4BFx3AvUWhBtMx+uUK06IBqRp0VjCk=;
-        b=SbSs1pAwiLM/u8MIDiEEKZRsCJGIFnAAaENvRuxxUqbW/2kFcqfZQuttWq4ZTS5H/6
-         pvrMAlMDaSCUnBswElfgln1ndfDS9KnCPBRiElU3mUpdHMje8gYXTp3l5zPtLCqfCxSM
-         QOXQMZ1vGjX5eCbcW4OSOjqqtIFZX/5LQs4x415QNOTDnzX9pzeFE2hSqyhl5PxGhnmh
-         di4gW93fZCbAhSooLd2GPIJrMjNLHHx5SK1cLF06upp0FLx4X3bxO1aeqCr97Lq1/SFD
-         unswE1vL95oCNP0N9b/7O/TgPN98XkGFAImc370YWWvkQjZqn732TCsJivt7Dqxmc7G5
-         n1pA==
+        bh=aMXGvZiFoJxdekhlwZjydQfljoxQHBcBBMaxj/bgVSk=;
+        b=U6bxGrIEqeMl6QoyI5y9NO7d23LFSffbmF6PeXtTg8a8CU3ra79DQzT5IsEAADK63l
+         JpOxJQ04P7ObKETlCsz4xe0/oqlrziBm/6KjVVjPuB2pClQtvgNznoYcW2aZzpUh7AHg
+         ktqa7Rh1EMKdD3BbL34DvYSpp+GDe+yNGQ8NPV6oB6w6J1Q/4Ri/x6aB04El78ei/ebF
+         m/w+eDVqa22dSzxPQMw5nHcDkWlslCEzdsKQNg2IL0Fo/rqdD/XcQ1c972cMJg5ld+Af
+         Zqg1tiQPapSAjVGkAalSk6sEBgf+c+Xi98sTfQ4S528VzKe+lRPDMkuNPbmfkhxEHPlR
+         jiIg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=aMXGvZiFoJxdekhlwZjydQfljoxQHBcBBMaxj/bgVSk=;
+        b=Fi9N5WkekS0nuZu1I2IBDu0S/lcIoeQyKus8f9U9yYHlBc5s0a1H3ZHVenv83G5Xc2
+         uFEROiYJ86slehfF9u3WY+6/dDjKbd3z62NYr0/sThzwuXCitcQXlxru/1sYugbp8l8S
+         t7EzOuJSr+bY58e5qXLGv9oExQyq68w5cSoTOoeBdQIzRq3sUvZ5NqyIQLUcbX8F5lPA
+         mBl+SfkmPnBRk2Ohk8Xxe4j738tLXRgE57HI+oYTb376HuxspRNVc1cpfHKTyvKscNfT
+         aTf8wMlMGnwkluEAuGYakAdJsileEA3M5MKt++SA4+FxbALuo7cxRkXYjOE/JJcgzf/q
+         1RSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=AWonH0jwtixcE4BFx3AvUWhBtMx+uUK06IBqRp0VjCk=;
-        b=Islfaqgdilxcp3syzuMB6HHKtJQnEgbvzV/Mv7cTky1sI/Gie8N2k4VYuYsnCmqoA0
-         /b015GDBcpKU3tJGOxC2dHwUrG0z7afjMcCGNmLwTFR5LbmVJdFo7+AnpdBVSeRgVo9n
-         Ag0GXueFCaDSgqrtICAaimG7pOCCkBQqHSyzeJU39c+SYGbdmqO9QyF8dE1G9Ylck5Nr
-         3mfyB4dGLrkyzoP3QYV8BNF9yHO/6orNWc54DEv7+4Z72sxk+Jk8lrxDkEOtFo/8siBG
-         ISjwaG0dN/hfPEGnOKBJc81kwy/22+WGx8SU6BaNAcq93iIQWEBTsVS1KwXdHN4XOSej
-         HQjA==
+        bh=aMXGvZiFoJxdekhlwZjydQfljoxQHBcBBMaxj/bgVSk=;
+        b=APeDC/vhWI2la2YiUg6XnwAEK7d42F8yzsSesmrjQ6xub3mg+0dX34j0AwGoNr528Z
+         ifvvG8VxgEmGr1VCpocGlTITp6E0gQztWu7mwLAObvtOuS9En23lyev10JA5MrRm/R4i
+         E2MrFY/PQ7PcBD2EUg4oVF2K9W0f8wsde2sZMjWCkCNYkxF+wbn6hDBAIKWxI8qqZT/Z
+         /5y2c9QwY/yBgOGQ8c2ns1QfH/mPFIgKnr+6XDAMXGQWiBQ+vjaa70AtrGSAWv6LBvL2
+         4w+9FTTh0XHzqDnO9I4R6Rd+LpAiOxgTuuUy1OKbXT7gV31C6/MsQN8fRRKfVLNwjP/r
+         4bJQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUg8fcr05WfrAMEWWH8PICxSzzAp/l9sFAo5uyoBVSFYto1W48c
-	9IbPaJqNtQAgy/OOa2QFedM=
-X-Google-Smtp-Source: APXvYqzcYH1cJD7AgT5swzIbWjJi3ny4/wX/ntdMW0IbHCenevt/YrMp4hiBgznD4XpQZTfBT/JSmA==
-X-Received: by 2002:a7b:cbc5:: with SMTP id n5mr670512wmi.65.1572458200055;
-        Wed, 30 Oct 2019 10:56:40 -0700 (PDT)
+X-Gm-Message-State: APjAAAXCAOiNMVPVA37x+HTPSIrdcXd+oSsB0wpDhaHaejQQxKG92XcT
+	Tw3MuIXIOaR5lxfbRLtqJgg=
+X-Google-Smtp-Source: APXvYqwz06uxV210RHNYnILVB0e2dl0TP/+JtKshYGC94S7xY8sKkkMi2vtnutw54GUP8PG6c4jNuw==
+X-Received: by 2002:aca:ec81:: with SMTP id k123mr2280424oih.171.1572501452880;
+        Wed, 30 Oct 2019 22:57:32 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:f707:: with SMTP id v7ls247430wmh.4.gmail; Wed, 30 Oct
- 2019 10:56:39 -0700 (PDT)
-X-Received: by 2002:a05:600c:2247:: with SMTP id a7mr680397wmm.19.1572458199027;
-        Wed, 30 Oct 2019 10:56:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1572458199; cv=none;
-        d=google.com; s=arc-20160816;
-        b=KhuZ7gzGkMyAiwUcWFbG4O1cvlp2MJS+BBS9lskLIws5FuAojao50/Iruw5pioHqEb
-         xUojUGOshN5UMqyIWUPYoY42rpf1HvmXN7GdpUZpmbTv/KeZUoZYpptVsiYLb5wmYjOh
-         adZKjnx9aenCbh6RVLe6+8kOrPk0UlIGR8ofj+OrHBPjnkcLISjfexRIiaUqbePfr5tJ
-         1saoOK+lrY4fe9DakqVoY6QcCHCJKtCylBLMrZYXstC28KGWCCI+9mr+nWQndlX4vn17
-         iVSCnYa888b6IxoO1hrj1bA4PnLsctTyVmAtONMCooGsXMLvZImHCQZvXa9kPlOELJet
-         fMIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=90z4MmYZQd73lBNUMYypewx1zkh+PMgZdvtnSQI1Glg=;
-        b=yOhWCTYU05tVgwROSTGLCLIrEs249dpvIDWfAFL9hZKyZnL2Vyh3RhjaJWvOmxKB7L
-         /qdDQMxsnAVQ+qUcp5Y3X143KkCcgROI0kkGH2C+5teFYxkmjEo8sJeMQ3SbfFeuqNLx
-         tZZR2owPndL3PZ5lDywsXemn9p0qsA2hWM9cecBODHBap84giwak3fRQ+poMBgoGSlwc
-         oaMfBpeCizj+GPGhJeUIvYLNHb0I7VsdYlYGnLzjFKzlexkQQbP7roRbEnfTeMtlIa7s
-         Y0UTev1rMlLqP5uAqIJPMqPH19sbUNz2xmIvCLkaj9xjDe71qXm6DWKqbT4EyIXG9P45
-         KrnQ==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id w2si140036wrn.4.2019.10.30.10.56.38
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 30 Oct 2019 10:56:39 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
-Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id x9UHucdJ020818
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 30 Oct 2019 18:56:38 +0100
-Received: from [167.87.33.44] ([167.87.33.44])
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id x9UHubWp009938;
-	Wed, 30 Oct 2019 18:56:38 +0100
-Subject: Re: Backport of patches to jailhouse-enabling
-To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
-        Jailhouse <jailhouse-dev@googlegroups.com>
-References: <343b0acd-45a4-0ca6-f6dd-84bee630169b@oth-regensburg.de>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <e01e63da-43ac-b915-c8af-828491621c88@siemens.com>
-Date: Wed, 30 Oct 2019 18:56:37 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.1
+Received: by 2002:a9d:4a9c:: with SMTP id i28ls412129otf.14.gmail; Wed, 30 Oct
+ 2019 22:57:32 -0700 (PDT)
+X-Received: by 2002:a9d:3b1:: with SMTP id f46mr3151152otf.216.1572501452084;
+        Wed, 30 Oct 2019 22:57:32 -0700 (PDT)
+Date: Wed, 30 Oct 2019 22:57:31 -0700 (PDT)
+From: Chung-Fan Yang <sonic.tw.tp@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <6705dfff-635e-4182-a684-86d0b861e94e@googlegroups.com>
+In-Reply-To: <09cf7ef6-0bb0-0d3e-cab3-493c500c6559@siemens.com>
+References: <a54a651c-13de-4aa1-9c32-475ebddc4e6f@googlegroups.com>
+ <6defc2d1-96ac-c470-818d-1c9a8e1d8725@web.de>
+ <eed4bd9a-7020-4182-9949-d529bef7b3b2@googlegroups.com>
+ <48bb5fe2-9b9f-4ad1-872e-9eae4bdd2c43@googlegroups.com>
+ <20191025155257.6af12e29@md1za8fc.ad001.siemens.net>
+ <76ecfa10-3a69-b5bc-382a-48a59c345637@siemens.com>
+ <579d40f1-a8f4-4144-9405-3bba1ea23c14@googlegroups.com>
+ <2151b869-9732-4483-8659-90234a971f1b@googlegroups.com>
+ <09cf7ef6-0bb0-0d3e-cab3-493c500c6559@siemens.com>
+Subject: Re: v0.9 vs v1.1 interrupt latency raise
 MIME-Version: 1.0
-In-Reply-To: <343b0acd-45a4-0ca6-f6dd-84bee630169b@oth-regensburg.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_2477_544033734.1572501451459"
+X-Original-Sender: Sonic.tw.tp@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -131,32 +85,132 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 30.10.19 14:30, Ralf Ramsauer wrote:
-> Hi Jan,
-> 
-> could you consider to backport the following Linux patches to the
-> jailhouse-enabling trees?
-> 
-> 8428413b1d14f ("serial: 8250_pci: Implement MSI(-X) support")
-> on linus/master, and
-> 
-> 0935e5f7527cc ("x86/jailhouse: Improve setup data version comparison")
-> 7a56b81c47461 ("x86/jailhouse: Only enable platform UARTs if available")
-> queued in tip/x86/platform.
-> 
-> Those patches have been accepted upstream, and it would be helpful to
-> find them in the jailhouse-enabling tree.
-> 
+------=_Part_2477_544033734.1572501451459
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_2478_1162505902.1572501451460"
 
-Yep, will have a look soon, along with a stable update.
+------=_Part_2478_1162505902.1572501451460
+Content-Type: text/plain; charset="UTF-8"
 
-Jan
 
--- 
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+
+> Interesting findings already, but I'm afraid we will need to dig deeper: 
+> Can you describe what all is part of your measured latency path? 
+
+
+I measured using an oscillate scope and function generator.
+I am using MMIO GPIOs. The application calls a system call and waits for an 
+interrupt on a certain GPIO.
+When I send a pulse to the GPIO, the IRQ handler release a semaphore, 
+interm trigger the scheduler and wake-up the application, which send 
+another pulse to another GPIO using MMIO.
+
+FG -> Serial -> APIC -> RTOS IRQ Hnd -> Scheduler -> Application -> Serial 
+-> OSC
+
+The timing different of these 2 pulses are measured.
+
+Because of the waiting mechanism used, receiving the pulse involved the 
+system call / semaphore / interrupt handling of the RTOS.
+On the other hand, sending doesn't use any of the RTOS feature.
+
+Do you just run code in guest mode or do you also trigger VM exits, e.g. to 
+> issue ivshmem interrupts to a remote side? 
+
+
+I tried to instrument the system.
+So far there are no additional interrupts send, nor received during the 
+whole process.
+VMExit do exist for EOI(systick and serial IRQ) and when I fiddle the 
+TSC_deadline timer enable/disable bit of APIC MSR.
+The whole process is not related to any ivshmem operations. 
+
+Maybe you can sample some latencies along the critical path so that we have 
+> a better picture about  
+>
+where we lose time, overall or rather on specific actions. 
+>
+
+Basically, it is an overall slowdown.
+But code in the scheduler and application slowdown more than other places.
+
+BTW, I tested the again with a partially working setup of <kernel 
+4.19/Jailhouse v0.11/old ivshmem2>.
+Currently, I cannot get my application running, due to some mystery, but I 
+am observing some slowdown.
+Pinging the RTOS using ivshmem-net the RTT has about 2x latency:
+ * <kernel 4.19/Jailhouse v0.11/old ivshmem2>: ~0.060ms
+ * <kernel 4.19/Jailhouse v0.11/new ivshmem2>: ~0.130ms
+
+----
+Yang
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/e01e63da-43ac-b915-c8af-828491621c88%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/6705dfff-635e-4182-a684-86d0b861e94e%40googlegroups.com.
+
+------=_Part_2478_1162505902.1572501451460
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><br><blockquote class=3D"gmail_quote" style=3D"margin: 0;m=
+argin-left: 0.8ex;border-left: 1px #ccc solid;padding-left: 1ex;">Interesti=
+ng findings already, but I&#39;m afraid we will need to dig deeper:
+<br>Can you describe what all is part of your measured latency path? </bloc=
+kquote><div><br></div><div>I measured using an oscillate scope and function=
+ generator.</div><div>I am using MMIO GPIOs. The application calls a system=
+ call and waits for an interrupt on a certain GPIO.</div><div>When I send a=
+ pulse to the GPIO, the IRQ handler release a semaphore, interm trigger the=
+ scheduler and wake-up the application, which send another pulse to another=
+ GPIO using MMIO.</div><div><br></div><div>FG -&gt; Serial -&gt; APIC -&gt;=
+ RTOS IRQ Hnd -&gt; Scheduler -&gt; Application -&gt; Serial -&gt; OSC<br><=
+/div><div><br></div><div>The timing different of these 2 pulses are measure=
+d.</div><div><br></div><div>Because of the waiting mechanism used, receivin=
+g the pulse involved the system call / semaphore / interrupt handling of th=
+e RTOS.</div><div>On the other hand, sending doesn&#39;t use any of the RTO=
+S feature.<br></div><div><br></div><blockquote class=3D"gmail_quote" style=
+=3D"margin: 0;margin-left: 0.8ex;border-left: 1px #ccc solid;padding-left: =
+1ex;">Do you just run code in guest mode or do you also trigger VM exits, e=
+.g. to
+<br>issue ivshmem interrupts to a remote side? </blockquote><div><br></div>=
+<div>I tried to instrument the system.</div><div>So far there are no additi=
+onal interrupts send, nor received during the whole process.</div><div>VMEx=
+it do exist for EOI(systick and serial IRQ) and when I fiddle the TSC_deadl=
+ine timer enable/disable bit of APIC MSR.<br></div><div>The whole process i=
+s not related to any ivshmem operations. <br></div><div><br></div><blockquo=
+te class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-left:=
+ 1px #ccc solid;padding-left: 1ex;">Maybe you can sample some
+latencies along the critical path so that we have a better picture about=C2=
+=A0
+<br></blockquote><blockquote class=3D"gmail_quote" style=3D"margin: 0;margi=
+n-left: 0.8ex;border-left: 1px #ccc solid;padding-left: 1ex;">where we lose=
+ time, overall or rather on specific actions.
+<br></blockquote><div><br></div><div>Basically, it is an overall slowdown.<=
+/div><div>But code in the scheduler and application slowdown more than othe=
+r places.</div><div><br></div><div>BTW, I tested the again with a partially=
+ working setup of &lt;kernel 4.19/Jailhouse v0.11/old ivshmem2&gt;.</div><d=
+iv>Currently, I cannot get my application running, due to some mystery, but=
+ I am observing some slowdown.</div><div>Pinging the RTOS using ivshmem-net=
+ the RTT has about 2x latency:</div><div>=C2=A0* &lt;kernel 4.19/Jailhouse =
+v0.11/old ivshmem2&gt;: ~0.060ms<br></div><div>=C2=A0* &lt;kernel 4.19/Jail=
+house v0.11/new ivshmem2&gt;: ~0.130ms</div><div><br></div><div>----</div><=
+div>Yang<br></div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/6705dfff-635e-4182-a684-86d0b861e94e%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/6705dfff-635e-4182-a684-86d0b861e94e%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_2478_1162505902.1572501451460--
+
+------=_Part_2477_544033734.1572501451459--
