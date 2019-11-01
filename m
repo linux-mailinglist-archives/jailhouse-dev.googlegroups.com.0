@@ -1,70 +1,71 @@
-Return-Path: <jailhouse-dev+bncBCDJXM4674ERBVE55XWQKGQE5J2PKWY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC2PTC4R4MNBBJUT57WQKGQEKHW2WRI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oi1-x238.google.com (mail-oi1-x238.google.com [IPv6:2607:f8b0:4864:20::238])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41872EB8CB
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 31 Oct 2019 22:15:04 +0100 (CET)
-Received: by mail-oi1-x238.google.com with SMTP id x125sf4481659oig.7
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 31 Oct 2019 14:15:04 -0700 (PDT)
+Received: from mail-ot1-x340.google.com (mail-ot1-x340.google.com [IPv6:2607:f8b0:4864:20::340])
+	by mail.lfdr.de (Postfix) with ESMTPS id 81A5AEBD6A
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  1 Nov 2019 06:59:04 +0100 (CET)
+Received: by mail-ot1-x340.google.com with SMTP id p3sf4965790oth.0
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 31 Oct 2019 22:59:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:date:from:to:message-id:in-reply-to:references:subject
          :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=BsRaWyjnLl0UJV9uQP4DYJxSwFHezSIzQi4kpo4C34c=;
-        b=PtJIYT009f+qg/W/CpV7OwhmRLNp2wA2pF5Kk/yAQbjmb8CPZkpswvdmPPTjmd14CN
-         o6IyMaaOaej4slxfC1oJHFbJEHq7XBGns6X1rRo2DAXXylx9iV+nPQeRZ0GmEYqOv+Rr
-         05A7EI5+DCoCCjF7a/t3eTXgO1e0r6+vA2RbyLpcxIRY7IbM7JO8OzQ3NY/tpN/IuN0k
-         vVGPCe85mb1PLmeq4bTTl3i/eKkmg3sNK3jcYnAZSVJqv+0KjhZQjZNrGdrYLHf80i5+
-         RxhhZbDakvfmI7zShyET5Q9AQhi+YCi9izCJE0xCIYya9Qsj2Z1G0+9CTper0nz/x17I
-         Z7Ww==
+        bh=F5XiaV0jL12IEKtpj4gRJMVplx3Q22Tlf7UYOGYRWJY=;
+        b=BCyZRa4oyOK8J2QTPf/ytlN438uAfBx1ejRKm8p09gAkTbbj5dE4/BDBm7hNFH78Xs
+         K4ZQwB0gMk9ge9mqlGv55g2ThxLiX/hur7N7lvTCWLFH+IbBCKIHAwz1zvu0br2+r1vZ
+         d/aY2l9LEoNsCGtCEwWtlVC6qDF/IhlOKfcNrCyuch9bifsRxwk1RMtBTNI90d6M3938
+         Wy6rr6XKW5vd+Hvh9xNkS2wq7BJE5PvSglS0uWP+bxH4YIC+Z45GYTw7ggKyitTmPioT
+         3t6XgIkCOvrScwBrmUbAfNUhww5KLVCFdiDicFFmi39fc6CaOaeZhoSn6ace4yS/dmJC
+         tryg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:message-id:in-reply-to:references:subject:mime-version
          :x-original-sender:precedence:mailing-list:list-id:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=BsRaWyjnLl0UJV9uQP4DYJxSwFHezSIzQi4kpo4C34c=;
-        b=knTjXDrLmLhEmZCsryBewMmAbovM20lSmfNHh2fsfiZPCppTxnm3wIPj87at3Ote7b
-         is68CAF4xWYIO9WEXI2Je0HUhrVCQ/2qiVKrYZCgd3WGIHnUBVm/7kzH5CqxMVUat8me
-         yxZUBoRanrWBolww2J6zny2bMwBE0Oa8xEkQn6ZfUuFZrbKguy0eRj/B9r8UQVjAFPmi
-         tULHuGZdx9RswkGW+7qJOqx5hXc+wMmyYltCQxMGhwIkRFzn9o2SDO4dpcaznxdcqNgZ
-         ed7U4YBoKWXxym7MHSV0MrZP0lZKphIJzxThWWsSKIjzlZH/DTdQGgr71BSo5b/0xU6R
-         UiVw==
+        bh=F5XiaV0jL12IEKtpj4gRJMVplx3Q22Tlf7UYOGYRWJY=;
+        b=tem1sLhbYFZ+FlIO0M7iG5eNaCYFvlioMDhKhiaMcBWhGgaK1g725sqe7bHC+84EFB
+         sVZ5gSmeWJSjzKTpT7kwT1iUMk+iCbtRdoP4dO77CWaXzgVQJPEokUyG2iDH+47Aqwkv
+         paz5D22ofi13/jDFow8Et17hyRg1kxgytsN3x+cZRHp0EfWmHuX6gHDfZsKKtl0enCxH
+         p2v5gfSZGLrqNcvmAqAtCvwPRay2sq19E/QyploW9WEcf4MM7BGHFHlvhEG0Gkumyjsx
+         GeUgvucCvYAiHN2l6ta/zZUD0x4Vg1vn8DeR9zWOBuADhQsFVD4InXcI5y66e3HAQ+rT
+         Bxjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
          :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=BsRaWyjnLl0UJV9uQP4DYJxSwFHezSIzQi4kpo4C34c=;
-        b=qoDbb23MUQpXCTgyFGLP2Megc/od4muRWKcxzD6bBpYur/C8Hj3kWHVcYXZIrbzqMx
-         ls3qPoFbnzZvnX9jM803tBghI/WaMTBhgMMl7nX0XYR3HJXbhi9lhkSJp/oQJI/Ea8r3
-         TwXHkaj+GVwQoa3u2ZcuKVFet7XI4RllaDsU0qTxjnPrfE0icwwl3p1mXAPcpkg27SLV
-         AeNebsT1K3fu/MRSMtRf06cObc39TR5ihju/nSkadF4fVaeWlbMkkN/59h/1YangRgle
-         rnW8mmTbaS/kR+ZigA60jSrOlCklTB6IjEhOMfSBRalx1hi9g52Z/qSpfflnznnTDgbI
-         Rgkg==
+        bh=F5XiaV0jL12IEKtpj4gRJMVplx3Q22Tlf7UYOGYRWJY=;
+        b=GqftMun5QB7upLwi+JspLHZ/v2/bdZE9V6N1d+L84sP/PsoFYajnxsG7o6QbiGWpnH
+         ZUflLa80tKxQjMToQHkDpq29s071WeM69F7TJ6ZyFrZdQhTDcXxzRCoXIOp0Jivcv7SU
+         V/kwPwshgvg2ZCMgMssUoD72mMDPcBc4nJEBKbjrI7c6zMXvisCQ250cv9iPBtveB+ll
+         EhA9OP67b33VaP1MscNZCVQpye8tCa+PLuNt0OnR6HaTS06WN6UGUhuGSL5oUhlVEobs
+         9VUAbSIL+61/rhV2xRORAGRCQwnAbpeb52f+mWLf3YyXjPa6gL67C2KN+zxQ+HXEVF4y
+         /G5g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXlrpzawlPfIUrlEevbl2aEav2G7OnOuWwzPYbx/oQ0S7N4o6VW
-	1o86fWqzjaID/JZQcFZ/Pwo=
-X-Google-Smtp-Source: APXvYqwAdi+PvB8mLM4J3YZ+JhAk+RCW/o8/14kFEGHjObJtiha7T54edapnd7pqKIzIbTjY1FRvHg==
-X-Received: by 2002:aca:b445:: with SMTP id d66mr1408930oif.111.1572556501021;
-        Thu, 31 Oct 2019 14:15:01 -0700 (PDT)
+X-Gm-Message-State: APjAAAWyKcTSMTeojDv0ez+0vxHrj8WQwNm9yC38tZHFw/6p764WZviR
+	AagzUzfeiBhZ0VSDey4dZ4s=
+X-Google-Smtp-Source: APXvYqy4VWIFCczQoZfD750d5N0BXxMc9C6VkiplOyE9+8qgWnsDPRAXgbOSbBkqXYznwVV6RjGTFQ==
+X-Received: by 2002:a9d:6452:: with SMTP id m18mr7359216otl.325.1572587942914;
+        Thu, 31 Oct 2019 22:59:02 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a9d:740e:: with SMTP id n14ls896330otk.10.gmail; Thu, 31 Oct
- 2019 14:15:00 -0700 (PDT)
-X-Received: by 2002:a05:6830:1f51:: with SMTP id u17mr6392367oth.318.1572556500363;
-        Thu, 31 Oct 2019 14:15:00 -0700 (PDT)
-Date: Thu, 31 Oct 2019 14:14:59 -0700 (PDT)
-From: michael.g.hinton@gmail.com
+Received: by 2002:aca:d410:: with SMTP id l16ls1345682oig.2.gmail; Thu, 31 Oct
+ 2019 22:59:02 -0700 (PDT)
+X-Received: by 2002:a05:6808:913:: with SMTP id w19mr38139oih.110.1572587941995;
+        Thu, 31 Oct 2019 22:59:01 -0700 (PDT)
+Date: Thu, 31 Oct 2019 22:59:01 -0700 (PDT)
+From: Chung-Fan Yang <sonic.tw.tp@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <0d4ba667-fb8f-40a6-becf-69958143de2b@googlegroups.com>
-In-Reply-To: <01105881-d1d1-4931-b950-0b6028cd5ac5@googlegroups.com>
+Message-Id: <255261de-a630-4790-b91c-16c569248829@googlegroups.com>
+In-Reply-To: <0d4ba667-fb8f-40a6-becf-69958143de2b@googlegroups.com>
 References: <01105881-d1d1-4931-b950-0b6028cd5ac5@googlegroups.com>
+ <0d4ba667-fb8f-40a6-becf-69958143de2b@googlegroups.com>
 Subject: Re: TSC Frequency
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_75_160361854.1572556499842"
-X-Original-Sender: Michael.G.Hinton@gmail.com
+	boundary="----=_Part_203_570993345.1572587941226"
+X-Original-Sender: Sonic.tw.tp@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -77,31 +78,45 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_75_160361854.1572556499842
+------=_Part_203_570993345.1572587941226
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_76_1421698569.1572556499842"
+	boundary="----=_Part_204_66566121.1572587941226"
 
-------=_Part_76_1421698569.1572556499842
+------=_Part_204_66566121.1572587941226
 Content-Type: text/plain; charset="UTF-8"
 
-I guess I should clarify (for my future sake, at least) that the Jailhouse 
-driver automatically passes this Linux-derived frequency into each cell's 
-config, while I'm planning on measuring frequency information from the MSRs 
-directly within an inmate.
+
+I also noticed this.
+I am working on a Broadwell machine with 2.2Ghz of core frequency.
+
+Jailhouse get set the cpu_khz in comm region with the frequency probed by 
+Linux during boot.
+I got somthing like ~2.1997Ghz in that field.
+The difference is so small that I don't have a good way to evaluate it.
+
+It does sometimes make the process of maintain a proper systick frequency 
+in custom RTOS painful.
+
+----
+Yang
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/0d4ba667-fb8f-40a6-becf-69958143de2b%40googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/255261de-a630-4790-b91c-16c569248829%40googlegroups.com.
 
-------=_Part_76_1421698569.1572556499842
+------=_Part_204_66566121.1572587941226
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">I guess I should clarify (for my future sake, at least) th=
-at the Jailhouse driver automatically passes this Linux-derived frequency i=
-nto each cell&#39;s config, while I&#39;m planning on measuring frequency i=
-nformation from the MSRs directly within an inmate.</div>
+<div dir=3D"ltr"><div><br></div><div>I also noticed this.<br></div><div>I a=
+m working on a Broadwell machine with 2.2Ghz of core frequency.</div><div><=
+br></div><div>Jailhouse get set the cpu_khz in comm region with the frequen=
+cy probed by Linux during boot.</div><div>I got somthing like ~2.1997Ghz in=
+ that field.</div><div>The difference is so small that I don&#39;t have a g=
+ood way to evaluate it.</div><div><br></div><div>It does sometimes make the=
+ process of maintain a proper systick frequency in custom RTOS painful.</di=
+v><div><br></div><div>----</div><div>Yang<br></div><div><br></div></div>
 
 <p></p>
 
@@ -112,11 +127,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/0d4ba667-fb8f-40a6-becf-69958143de2b%40googlegroup=
+om/d/msgid/jailhouse-dev/255261de-a630-4790-b91c-16c569248829%40googlegroup=
 s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
-sgid/jailhouse-dev/0d4ba667-fb8f-40a6-becf-69958143de2b%40googlegroups.com<=
+sgid/jailhouse-dev/255261de-a630-4790-b91c-16c569248829%40googlegroups.com<=
 /a>.<br />
 
-------=_Part_76_1421698569.1572556499842--
+------=_Part_204_66566121.1572587941226--
 
-------=_Part_75_160361854.1572556499842--
+------=_Part_203_570993345.1572587941226--
