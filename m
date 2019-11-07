@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBRULSHXAKGQEKTCS6NI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC76BKUBWEKRB4E5SHXAKGQEX4WXXDY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x33d.google.com (mail-ot1-x33d.google.com [IPv6:2607:f8b0:4864:20::33d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46408F3497
-	for <lists+jailhouse-dev@lfdr.de>; Thu,  7 Nov 2019 17:26:49 +0100 (CET)
-Received: by mail-ot1-x33d.google.com with SMTP id y65sf2395222ota.18
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 07 Nov 2019 08:26:49 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1573144007; cv=pass;
+Received: from mail-pf1-x43b.google.com (mail-pf1-x43b.google.com [IPv6:2607:f8b0:4864:20::43b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 35B5FF3563
+	for <lists+jailhouse-dev@lfdr.de>; Thu,  7 Nov 2019 18:05:54 +0100 (CET)
+Received: by mail-pf1-x43b.google.com with SMTP id j2sf2245785pfa.8
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 07 Nov 2019 09:05:54 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1573146352; cv=pass;
         d=google.com; s=arc-20160816;
-        b=cGtazlFRGB/DrgBBAX54fZopHX8NsTyBCfXPaoEoSaAdpdNQEvrQFuv5FrmhZyhD4I
-         foD7TfF7n9RnJ/Nes5FyeGG8MjJKiZmgJsKSJFg2JmUWYG6OSiCFjEXVeHLjXCK8lFZx
-         eiKrLZuQ9MoTyNg5/nHPSP8kr5Z4/V32NhUeq2s2d5IUMqu9Q3toPzx0pOKodM//sYkZ
-         0TOT3rcjbvgGw8bWPKiS7iovuLMOIW4WWEHXj5dExJ3o1lei7ma642OPuAswjlleRTOr
-         rKC0pqranZ2RXR4tYikURFZ353oMTZ5WNFF0VTzZ7n+hyApczXVy/O+yTB5dSVbApPfV
-         O7IQ==
+        b=nIbFsEShx0ZOBD3QYB5w34xI9fwhHMkkThP+xp7g6U6iU9f7/7nrXRuOUpEu3Fx2lM
+         9FZMgN/HT2Ed+CiwG5j/+b9+VnC+BnFiJ8k1ZtRf3EfwWedMZLWFb8ysPUPJi5MFIEfw
+         18X0zKmzheTA0qs+suo6dpeu6O1a+NBu7wac4d1tlpMXFlNWyV+UkV+61NjjR1//mTPs
+         KOyt41RAOmiYIA1+7itdWiD0TzbxF/gHQ94HOUF0VLvJKJa1liSvK/YqKPCxFVJD/qDK
+         RpENKYCoKPja4IYV9brpSrQbj7bDACCHURlDaHDw29VuASiIJQtWMaXd63M87bSiX/Cl
+         LX7g==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:subject:message-id:to
          :from:date:sender:dkim-signature;
-        bh=Ghhb9GLyWyx0DlFfquIORoUcW94OilryL7CxPvwSSi4=;
-        b=J9N2n9Imvo0ndi41H6cmomXM81gBnzulF/4HwgoWblUtonmLR4mF+pA3ThjXs+ZLil
-         XS5q+dzTH56dEbzHMx19q4UNIdt0Mfpx0QtLHUy+YbLFA07ORi32r/Ol/3mWcdAXiC19
-         IxuC6ea/aLQAWj0gvrDNgRJQjz44rNJPMipARGpcnoK1+hI/wIGPJz8L0KOeAYR5WjTA
-         mgqkOcvV0sAJwpu4rPHuBBSQ3t7BV2LZo37feykDYr+932Dm3aCT3CBcQK21jGL59oMr
-         RukdI2EJIjRUKGF47mDErq0VyKFWKGIDTmwjsekndq44WTX0CFjIweJfa8IaDsYsBPwI
-         l1Lw==
+        bh=kuvncfcnhm9goHvQtcH0rsmyOlpGloZEiMhjO3R8NyA=;
+        b=T0s2GLV9DnG3NEc4Jhyzba0kppC0Z4In5/6HFbNiNPJB7jdQnmrnT4jUD6ixoFBB45
+         PMfVJq3IlUW6hvkQ51SbtCgjuZxn8knal6dYB3o4DvInHXiR1AZzZPRYVrKOdQQSbn7m
+         wIZaxfugUzfPt68zHiMeqHnyikgIzPqnk8VSwPBAzlP52vbsooM6qJN92rvEFB/k8TPu
+         nyW6J2Xl2YSh23hw0oOOgftCynbs9B+/DnaGWnxnPpqr49jGimFRLTw+A8oR8LgCrrA1
+         +kuI5s1eRPFl9SD8azvTYBA75DP6FEBHdx09Jy+YabHGGgptv8CWWQH3J0kfUBSKZsMQ
+         9kCQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=Vaqyi9dC;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.202 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=zCrT3JFA;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.203 as permitted sender) smtp.mailfrom=noreply@github.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,79 +35,81 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=Ghhb9GLyWyx0DlFfquIORoUcW94OilryL7CxPvwSSi4=;
-        b=Pu59TX+GCzyjCjqn1ssbkfWvhpGkrp0AohOmQPs5xK3Jb9ePfA7WqbZ+Z5hfjzwzXK
-         jJKbvC/9rEFxB6pgJfBvQQlnej+tc9463vhm2bdnClQTAAl8aNQBneaRKrOyPPU71xuY
-         B6tpanpbvyy2hVGzcIw19M9U/T8eI1d3WblHQPcOwtx0edc7oBBmjmqnCqGED59obS7e
-         dFKBm3drkb86SG1fzmrapSp2zV+IAhs6GZuArYv8bJGx5x+VHgmGkOKF7Yqmi2lrfd8h
-         5vUesbcLZzXjmX95H5U5amBzJwM4WoOv2HcUl5JeckIGmR5AY5sb2ec1J2PO4K1A5JfN
-         QVZA==
+        bh=kuvncfcnhm9goHvQtcH0rsmyOlpGloZEiMhjO3R8NyA=;
+        b=ZujncmJir9ysEwUeblXjzx8l5tKEPA7yKPqhl44ppZ4ZG64zsEEv1j4NICUbtBdz8s
+         eAFuwyzJhoCiaY7fOESH94eY7xrl3NtQUnejOW2h9qUXCAsD7PlMHkbW4sX8tREuiOk6
+         1VlVcRYDXh0Du3cM30OZAA38DD3Ay7On7PWJmt+S+5Hksa4COLPhqwdMuOSWDON3q+9S
+         LPifOr6ev8rj73SMP6lOumom5g/P9QgcIewhADKf7r21q5vhoYrYUjtZA0TEAY6jRh7w
+         m1nmZEuuPAmI352spPn22xTKrBjdS9nMvWApBoHAVgv2sG3I2Li/u3sTJb0D6Ki1PC1c
+         /PSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:date:from:to:message-id:subject
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=Ghhb9GLyWyx0DlFfquIORoUcW94OilryL7CxPvwSSi4=;
-        b=gpcqnCVNWeHcTYdlQGsq87IpicRe6z3mXnz4LYzcuQ7MLSupAxWcDG23vAOX7PyVZL
-         Q5gDSW5MvYCdqzntJqvobxIGgLJQRZUJLmbvIDDm7lOnYuq/CCkcMhBQpv2wXi82fM3M
-         4o8WLdTcTvo0MEW7YZ3avoOnWel7uikuzp4GfTpsorJWOdXHt7ncp95WkafzgPW+PRTy
-         p+9DCAQ+y9LfepzTuGlGZRtotEY5d1VTcgWg5SbR3ySBdO6AZS32QQl9OttGE6DqC9Ly
-         6mMeKHJAtid6cTEbIqgmvFfD6yx3jSWCSHNAYMVMoluC/ujiwywVlA/8Tsj+Hm4JlB1U
-         3jag==
+        bh=kuvncfcnhm9goHvQtcH0rsmyOlpGloZEiMhjO3R8NyA=;
+        b=BtSB/ugbfauWqxUVhrqxtKhdzKPAjzKrIyuNYiX/5kdhJxgKaEx/LXyS+34zCCMN6Z
+         PvEK941zwhsab+vlu33OmlyApCkSnzBKqsx3eUs5xsqGc10ucwN7SNoqrad7+iNrUDdx
+         pD07lRCxwAFg6oC8sVRC2X+vp9UEPXS8Q7La/q5wU0wMfz6eU9Zyi2X2/UCMiNwwhfZL
+         MawDrTfHEoAuvihGek9kR8pceAr7zJXauFhn8PpNE/EDQMXF2jnpc+1GsIhntmAt8/np
+         0zW5zy6PjFyIgGhm5zpM0uyWnDViRrFDneNKKbJdimJxPKCC5MwfFSzYCd+CIe0ERDre
+         xXeg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVYxVYjzt492nsIRQhArzBVIxfuFMWm3U3cTyLliQ4OFrQCzt0j
-	rPoYIwPolWNEq7a3h/YSgk4=
-X-Google-Smtp-Source: APXvYqxTH5jBkI8GP8O45n6/PCTNIXxpJNf/WpdnFWZGOEdnvBGDwF4MgIZz6mu2HON0NuuJmWuAXA==
-X-Received: by 2002:a9d:422:: with SMTP id 31mr3583224otc.107.1573144007463;
-        Thu, 07 Nov 2019 08:26:47 -0800 (PST)
+X-Gm-Message-State: APjAAAU3KCElZkwyboSvIcPH8KSZzDoyTCNxknWlYzyWcgQTB415zsdL
+	lVkhg/inIBzZu59cpZr8uzI=
+X-Google-Smtp-Source: APXvYqyakXiriNTVlb9o7x58eks+MmH08Qc86PC3KzqYsZI04wfkFXwv1TOcHiiAOloYH/ih1M7z4g==
+X-Received: by 2002:aa7:96ef:: with SMTP id i15mr5188887pfq.242.1573146352609;
+        Thu, 07 Nov 2019 09:05:52 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a9d:2c42:: with SMTP id f60ls1411158otb.8.gmail; Thu, 07 Nov
- 2019 08:26:46 -0800 (PST)
-X-Received: by 2002:a9d:518e:: with SMTP id y14mr3895667otg.75.1573144006516;
-        Thu, 07 Nov 2019 08:26:46 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1573144006; cv=none;
+Received: by 2002:a63:4458:: with SMTP id t24ls1520493pgk.4.gmail; Thu, 07 Nov
+ 2019 09:05:51 -0800 (PST)
+X-Received: by 2002:a65:4489:: with SMTP id l9mr5975878pgq.106.1573146351831;
+        Thu, 07 Nov 2019 09:05:51 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1573146351; cv=none;
         d=google.com; s=arc-20160816;
-        b=XyEeekdstALjqMk5EgsK1kG1yohVDdBD2yZP7XJAMQTFDLJpS57YNwPKd2A9Te2Ziv
-         8FUKYaQGL3tOVP2mUOrmn6jShUGmmgjS/PNQxXp42hfpyMcFI/1a2RMpUGsK7gdbymZX
-         HPYyUxmOwyBvfe+r69491qFAYPOZX6bQ0Ije7P20SNee6pIrPXuPIrRRgCbGwzaAtlSY
-         71dyJyI2CxGet29nKEteyx+71roydZIz/iZbdR8vliOmeU9mmQTRjEUEoEEGzu4KmBLx
-         x97reRCS6fTuV1rjWDuriOdk7dfVVl3Xu9yp6c0Ck3E01JCo/T5TtONb+gUcCp3BOGt2
-         nM5w==
+        b=sNPmTGvS8tFfKTfvej5Pv8eDVn3DtjIkc0ZZvaQ4uvPKJoUJx3mWzjJBoh+O86CnpS
+         J0I1bKKKxU0P4iB5rV371FBj4mSLoueJZr40YfASA63a4s0cxwxBy1CP2ZgEOtS3BBCe
+         uCgUHafA6dE2iFf5E85MaCZ8g5319Pot+fAzZK1YkAxs+g69OgzXMVrMXY7oc5oGT8Wk
+         ANSlUtSoN8jhek52HczWJZWN/jzGWe51PxtKMNLOSjlAFFJdHBAcCVu5vpCF+INWnLKQ
+         BIEXvTb4lD/+54r3l/X5OfJy5VR//GF2NwaOX3CHTPGiqqn2SbG05Pq2mgZ32aFBbne8
+         9/Mg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:subject:message-id:to:from
-         :dkim-signature:date;
-        bh=27pnpexa8lL4XS5DqMTAZfrArgzveYZIXE8+yHkHdr4=;
-        b=oHYB3R5Lpg7hP2+YY11GfPKVPtR2P0Am/HBdcPfhPbz25aqxW8HzVP6/h7j48SeTmV
-         W8WLE9zHbuhyj4cyfj3nuMg4q8awgXBU3Dv0/J+Z8EctsnT4X+T3qwntDqvajFHGJZxo
-         iOtFTVBRKxZPZBGc9YXsHiGQi742YzfrwMrYBZ8vCEBwRP6LavgbYPjD2069qoVxmQbq
-         Zle/AK2ue6pvYp0a0pceUSZ7DMccABDLrX5735bEZpR8P5zlwHnQSpCJ2S6WSA2RTna4
-         N611hCHU/LwX1SXr/EuCoRZFkGotBT40oxgu35WSEIimq9VOVvA0WS5rpnX+ReuatUk6
-         G3bA==
+         :date:dkim-signature;
+        bh=pex8CaON9Id8FBmb3E1OsHeM5gm455cDnp+fa0zO74E=;
+        b=yD1EY+QMYK7mV49K58MsfZNzCBqNAg3H+leSlk44tjK9hcU1LDIWuHzfp7W8rcuP5H
+         KpTQJP2eDFhka+gTW12sqfX0UCFB5VHmqGcYRJjKUMtBPh2r68HZuXQPt3LR24mAvwT0
+         Ga80HlEg26Eiq+x47sZtMiqq9skdbenT0NoIRRrvdG0cb3wrcAjgF/enc1s3+RniMQVy
+         eILGnv4oUOAW2Hi3FwsYZFxuEZzfh/k4ZQ4UHfUGM8bWbqOym1+vQhfcz98T1A0eANps
+         AQEcaVA7GaCK8B/lkW0DqfyjpmZzVqnKCFYVVPrHjozx4FTNboLcfDxF34JqeRtkOnPt
+         lt2g==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=Vaqyi9dC;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.202 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=zCrT3JFA;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.203 as permitted sender) smtp.mailfrom=noreply@github.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
-Received: from out-19.smtp.github.com (out-19.smtp.github.com. [192.30.252.202])
-        by gmr-mx.google.com with ESMTPS id x65si168766oig.5.2019.11.07.08.26.46
+Received: from out-20.smtp.github.com (out-20.smtp.github.com. [192.30.252.203])
+        by gmr-mx.google.com with ESMTPS id u17si114946pgg.1.2019.11.07.09.05.51
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 07 Nov 2019 08:26:46 -0800 (PST)
-Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.202 as permitted sender) client-ip=192.30.252.202;
-Date: Thu, 07 Nov 2019 08:26:46 -0800
+        Thu, 07 Nov 2019 09:05:51 -0800 (PST)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.203 as permitted sender) client-ip=192.30.252.203;
+Received: from github-lowworker-a6a2749.va3-iad.github.net (github-lowworker-a6a2749.va3-iad.github.net [10.48.16.62])
+	by smtp.github.com (Postfix) with ESMTP id 08FCF8C1E23
+	for <jailhouse-dev@googlegroups.com>; Thu,  7 Nov 2019 09:05:51 -0800 (PST)
+Date: Thu, 07 Nov 2019 09:05:50 -0800
 From: Jan Kiszka <noreply@github.com>
 To: jailhouse-dev@googlegroups.com
-Message-ID: <siemens/jailhouse/push/refs/heads/coverity_scan/8ff311-bac03e@github.com>
-Subject: [siemens/jailhouse] f3a34e: tools: jailhoues-cell-linux: cosmetic
- fixup
+Message-ID: <siemens/jailhouse/push/refs/heads/master/a179d0-bac03e@github.com>
+Subject: [siemens/jailhouse] d6ea1b: tools: Clear KBUILD_CPPFLAGS
 Mime-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
 X-Auto-Response-Suppress: All
 X-Original-Sender: noreply@github.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
- mode) header.i=@github.com header.s=pf2014 header.b=Vaqyi9dC;       spf=pass
- (google.com: domain of noreply@github.com designates 192.30.252.202 as
+ mode) header.i=@github.com header.s=pf2014 header.b=zCrT3JFA;       spf=pass
+ (google.com: domain of noreply@github.com designates 192.30.252.203 as
  permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass (p=NONE
  sp=NONE dis=NONE) header.from=github.com
 Precedence: list
@@ -122,393 +124,8 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-  Branch: refs/heads/coverity_scan
+  Branch: refs/heads/master
   Home:   https://github.com/siemens/jailhouse
-  Commit: f3a34e9773e4a64957e7dee8e99d2bfd55b08ed6
-      https://github.com/siemens/jailhouse/commit/f3a34e9773e4a64957e7dee8e99d2bfd55b08ed6
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-  Date:   2019-10-07 (Mon, 07 Oct 2019)
-
-  Changed paths:
-    M tools/jailhouse-cell-linux
-
-  Log Message:
-  -----------
-  tools: jailhoues-cell-linux: cosmetic fixup
-
-Just for the sake of consistency: s/memregion/mem_region/. This is the only
-spot where we still had memregion instead of mem_region.
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 90e8d6cee27ce04ffa19c2203b334c4e0f319283
-      https://github.com/siemens/jailhouse/commit/90e8d6cee27ce04ffa19c2203b334c4e0f319283
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-  Date:   2019-10-07 (Mon, 07 Oct 2019)
-
-  Changed paths:
-    M pyjailhouse/sysfs_parser.py
-
-  Log Message:
-  -----------
-  pyjailhouse: sysfs_parser: simplify statement
-
-No functional change.
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 8863e9d830a938e1904b8d842b29d29607ca99f4
-      https://github.com/siemens/jailhouse/commit/8863e9d830a938e1904b8d842b29d29607ca99f4
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-10-11 (Fri, 11 Oct 2019)
-
-  Changed paths:
-    M CONTRIBUTING.md
-
-  Log Message:
-  -----------
-  Fix typos in CONTRIBUTING.md
-
-Reported-by: laysan1509 <laysan1509@mail.ru>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: de49fb638e11a2e84cb8ad7963e9a8ea4a0036b2
-      https://github.com/siemens/jailhouse/commit/de49fb638e11a2e84cb8ad7963e9a8ea4a0036b2
-  Author: Andrej Utz <andrej.utz@st.oth-regensburg.de>
-  Date:   2019-10-17 (Thu, 17 Oct 2019)
-
-  Changed paths:
-    M tools/jailhouse-config-create
-    M tools/root-cell-config.c.tmpl
-
-  Log Message:
-  -----------
-  tools: jailhouse-config-create: Rename regions to mem_regions in preparation for port_regions
-
-Signed-off-by: Andrej Utz <andrej.utz@st.oth-regensburg.de>
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-[ralf: leave brackets]
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 8a8114bbfad1ff4f75fe3e9804ee5085f6b67ccc
-      https://github.com/siemens/jailhouse/commit/8a8114bbfad1ff4f75fe3e9804ee5085f6b67ccc
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-  Date:   2019-10-17 (Thu, 17 Oct 2019)
-
-  Changed paths:
-    M pyjailhouse/sysfs_parser.py
-
-  Log Message:
-  -----------
-  pyjailhouse: sysfs_parser: remove dead code
-
-There are no callers of __str__. Remove it. Seems to be a development
-artifact of earlier versions.
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 550aba917a3f9c755fdad9ded1602851e7bc523e
-      https://github.com/siemens/jailhouse/commit/550aba917a3f9c755fdad9ded1602851e7bc523e
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-  Date:   2019-10-17 (Thu, 17 Oct 2019)
-
-  Changed paths:
-    M pyjailhouse/sysfs_parser.py
-
-  Log Message:
-  -----------
-  pyjailhouse: sysfs_parser: minor stylistic fixups
-
-The sysfs_parser is written in python and not in C. Saves some
-parentheses.
-
-No functional change.
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 9daedd4953b0ea01e0f7a426356e62c404a2501e
-      https://github.com/siemens/jailhouse/commit/9daedd4953b0ea01e0f7a426356e62c404a2501e
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-  Date:   2019-10-17 (Thu, 17 Oct 2019)
-
-  Changed paths:
-    M pyjailhouse/sysfs_parser.py
-
-  Log Message:
-  -----------
-  pyjailhouse: sysfs_parser: introduce new class IORegionTree
-
-Do this step by step. First of all, let's create a new routine that is able to
-parse a line from /proc/iomem or /proc/ioports. Both files share the same
-layout, so they can share a common parser.
-
-Passing the destination type of the entry to the parser allows to share code.
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: c1d02429c3528c9a2b9abe3e5239b678c6ebbc8d
-      https://github.com/siemens/jailhouse/commit/c1d02429c3528c9a2b9abe3e5239b678c6ebbc8d
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-  Date:   2019-10-17 (Thu, 17 Oct 2019)
-
-  Changed paths:
-    M pyjailhouse/sysfs_parser.py
-
-  Log Message:
-  -----------
-  pyjailhouse: sysfs_parser: move parse_iomem_file to the new parser
-
-Move the next part to the new class: the whole file parser.
-
-For the moment, this leaves an ugly one-liner in parse_iomem_file, but let's
-keep it for the moment -- clean that up later.
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: f1d8e556c6c977454bb4288e52f81d5c35890c8a
-      https://github.com/siemens/jailhouse/commit/f1d8e556c6c977454bb4288e52f81d5c35890c8a
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-  Date:   2019-10-17 (Thu, 17 Oct 2019)
-
-  Changed paths:
-    M pyjailhouse/sysfs_parser.py
-
-  Log Message:
-  -----------
-  pyjailhouse: sysfs_parser: make regions_split_by_kernel static
-
-No need to access our own tree, make this method static. This allows to
-fully separate IORegionTree from IOMemRegionTree soon.
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 4609b9637e7883682ab06c17e38967494eb38431
-      https://github.com/siemens/jailhouse/commit/4609b9637e7883682ab06c17e38967494eb38431
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-  Date:   2019-10-17 (Thu, 17 Oct 2019)
-
-  Changed paths:
-    M pyjailhouse/sysfs_parser.py
-
-  Log Message:
-  -----------
-  pyjailhouse: sysfs_parser: entirely separate IO parsers
-
-Everything is in place, so IOMemRegionTree can be separated from IORegionTree.
-Let's give IORegionTree its own constructor.
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: fedba23702a72162bccc7732c3558efa0ce72a91
-      https://github.com/siemens/jailhouse/commit/fedba23702a72162bccc7732c3558efa0ce72a91
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-  Date:   2019-10-17 (Thu, 17 Oct 2019)
-
-  Changed paths:
-    M pyjailhouse/sysfs_parser.py
-
-  Log Message:
-  -----------
-  pyjailhouse: sysfs_parser: remove parse_iomem_file
-
-No need for it any longer, call IORegionTree parser directly.
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 5a1a3a158c718ad3b3d54f475aecac6eb19d1c7e
-      https://github.com/siemens/jailhouse/commit/5a1a3a158c718ad3b3d54f475aecac6eb19d1c7e
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-  Date:   2019-10-17 (Thu, 17 Oct 2019)
-
-  Changed paths:
-    M pyjailhouse/sysfs_parser.py
-
-  Log Message:
-  -----------
-  pyjailhouse: sysfs_parser: move find_regions_by_name to IORegionTree
-
-That function will be reused soon, but in the context if IORegionTree, where it
-actually belongs. Move it over to IORegionTree.
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 051d9dfd03e11c68afc3f961bd7a5aac92e9cfaa
-      https://github.com/siemens/jailhouse/commit/051d9dfd03e11c68afc3f961bd7a5aac92e9cfaa
-  Author: Andrej Utz <andrej.utz@st.oth-regensburg.de>
-  Date:   2019-10-17 (Thu, 17 Oct 2019)
-
-  Changed paths:
-    M pyjailhouse/sysfs_parser.py
-
-  Log Message:
-  -----------
-  pyjailhouse: abstract parts of MemRegion into IORegion
-
-This prepares for the refactor in following commits.
-
-Signed-off-by: Andrej Utz <andrej.utz@st.oth-regensburg.de>
-[ralf: add python2 compatibility, add comments to IORegion]
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: b3cbfc305429b6eab449e096bd6047638118ba87
-      https://github.com/siemens/jailhouse/commit/b3cbfc305429b6eab449e096bd6047638118ba87
-  Author: Andrej Utz <andrej.utz@st.oth-regensburg.de>
-  Date:   2019-10-17 (Thu, 17 Oct 2019)
-
-  Changed paths:
-    M pyjailhouse/sysfs_parser.py
-    M tools/root-cell-config.c.tmpl
-
-  Log Message:
-  -----------
-  pyjailhouse: simplify integer formatting for regions in config template
-
-Signed-off-by: Andrej Utz <andrej.utz@st.oth-regensburg.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 817ceabc8d947c41fa8e26b8a72e38ac3b6a6daf
-      https://github.com/siemens/jailhouse/commit/817ceabc8d947c41fa8e26b8a72e38ac3b6a6daf
-  Author: Andrej Utz <andrej.utz@st.oth-regensburg.de>
-  Date:   2019-10-17 (Thu, 17 Oct 2019)
-
-  Changed paths:
-    M pyjailhouse/sysfs_parser.py
-    M tools/jailhouse-config-create
-    M tools/root-cell-config.c.tmpl
-
-  Log Message:
-  -----------
-  pyjailhouse: x86: implement pio_regions generator
-
-This replaces the former static port list with actual port regions as listed in
-/proc/ioports.
-
-A whitelist selectively allows access to known ports (if present). PCI devices
-above 0xcff are permitted as well.
-
-However, not all ports that are in use are listed in ioports, so the generated
-list may still need further tuning.
-
-Signed-off-by: Andrej Utz <andrej.utz@st.oth-regensburg.de>
-[ralf: s/permitted/whitelist/, autodetect VGA, whitelist serial,
-       whitelist PCI devices, amend commit message, improve __str__ methods,
-       ensure pep8 conformity]
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 82a52f736e75fe2c1a51d1625f98af3fc1528fbe
-      https://github.com/siemens/jailhouse/commit/82a52f736e75fe2c1a51d1625f98af3fc1528fbe
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-  Date:   2019-10-17 (Thu, 17 Oct 2019)
-
-  Changed paths:
-    M pyjailhouse/sysfs_parser.py
-
-  Log Message:
-  -----------
-  pyjailhouse: sysfs_parser: Remove IOMemRegionTree class
-
-One last housekeeping step.
-
-Only two staticmethods were left there. Move those methods to the top of
-sysfs_parser.c and remove the empty class. Even saves some lines.
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 1730359dc430eeab272b84f8bcfb195c5b85401b
-      https://github.com/siemens/jailhouse/commit/1730359dc430eeab272b84f8bcfb195c5b85401b
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-10-17 (Thu, 17 Oct 2019)
-
-  Changed paths:
-    M pyjailhouse/cell.py
-
-  Log Message:
-  -----------
-  pyjailhouse: cell: Avoid deprecated ctypes.c_buffer
-
-pylint warning.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 2f59730eef8190816389afb1d5a60ad4155375e2
-      https://github.com/siemens/jailhouse/commit/2f59730eef8190816389afb1d5a60ad4155375e2
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-10-17 (Thu, 17 Oct 2019)
-
-  Changed paths:
-    M pyjailhouse/sysfs_parser.py
-
-  Log Message:
-  -----------
-  pyjailhouse: sysfs_parser: Fix some indentions
-
-Complaints of pylint.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: bcce372d1bf9c020a0d908f614428f366c3194bf
-      https://github.com/siemens/jailhouse/commit/bcce372d1bf9c020a0d908f614428f366c3194bf
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-10-17 (Thu, 17 Oct 2019)
-
-  Changed paths:
-    M pyjailhouse/sysfs_parser.py
-
-  Log Message:
-  -----------
-  pyjailhouse: sysfs_parser: Avoid len() == 0 like checks
-
-Complaints of pylint.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: a179d0791797693b0781fb862d39ccc31be5c454
-      https://github.com/siemens/jailhouse/commit/a179d0791797693b0781fb862d39ccc31be5c454
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-10-17 (Thu, 17 Oct 2019)
-
-  Changed paths:
-    M pyjailhouse/sysfs_parser.py
-
-  Log Message:
-  -----------
-  pyjailhouse: sysfs_parser: Raise an error if get_cpu_vendor should ever find no match
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
   Commit: d6ea1b6078602fd2fcdf7869cf3efffad5d42427
       https://github.com/siemens/jailhouse/commit/d6ea1b6078602fd2fcdf7869cf3efffad5d42427
   Author: Jan Kiszka <jan.kiszka@siemens.com>
@@ -571,9 +188,9 @@ state or with the identical value.
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 
 
-Compare: https://github.com/siemens/jailhouse/compare/8ff311b9a5a6...bac03e4d5f54
+Compare: https://github.com/siemens/jailhouse/compare/a179d0791797...bac03e4d5f54
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/coverity_scan/8ff311-bac03e%40github.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/master/a179d0-bac03e%40github.com.
