@@ -1,150 +1,121 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBWF2T7XAKGQECQKKZJY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBKVVUXXAKGQEPEUNZ7A@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33f.google.com (mail-wm1-x33f.google.com [IPv6:2a00:1450:4864:20::33f])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEF1CF6842
-	for <lists+jailhouse-dev@lfdr.de>; Sun, 10 Nov 2019 10:50:16 +0100 (CET)
-Received: by mail-wm1-x33f.google.com with SMTP id f16sf5248079wmb.2
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 10 Nov 2019 01:50:16 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1573379416; cv=pass;
+Received: from mail-ed1-x53e.google.com (mail-ed1-x53e.google.com [IPv6:2a00:1450:4864:20::53e])
+	by mail.lfdr.de (Postfix) with ESMTPS id 577EEF745E
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 11 Nov 2019 13:57:15 +0100 (CET)
+Received: by mail-ed1-x53e.google.com with SMTP id v4sf10080884edq.22
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 11 Nov 2019 04:57:15 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1573477035; cv=pass;
         d=google.com; s=arc-20160816;
-        b=uhGGjDsbIVuthpCo4YkIyFJUNu8TkSoA0C/9SAHYD9xBlOQel1ejaRLJSrQ57aRb3a
-         /rK+djzl581vRQ6tF9eDC4Ph4SgEufd+X+p1lPlafC1YCBHVsoVnCT8HeGnhavR9PefQ
-         MVE36cxZlMov2enJCzjxhlqe5TCb2khViI1R4FCAKCYTv+XCU2gnElXyUSETL4CaeZxw
-         zR0y5ob2qWP9WnMmd1Sy2Dl+JQ23MwMFx/Vkf43CfiXXublWNQK1jqNWTA4XoiyRlhGu
-         FBD7Iqk1qAOw7y3IGKqY3Y4flEc/5CKlkjBBuf73jkU7EJ+1GD4Wi6EK2ztB5a9aCC3q
-         Fhmw==
+        b=Pj8In3rr0m172UGj5YxyUqT5ZVvKwmFaMg4Z/K3qgFD+aiEMJJgDgXqW65E/JDMCv7
+         8/XDywRty3Or3s1GCxYPJnk5Fl1fShAJDBNKhRVStx2a9WnEQRJsIwCnZzwWD7dY6ecS
+         pgVcB1zhyNPEn5AS+TnGySIgG78UJFQ5PxCv1ByxlLGmtaTKrJ7DhxzRRIA7FybQX9Ee
+         Z2eR/if/ubH+p61oENuePx4CSxRN4f72Cs/8mYX4yQKUT8YngF1L4k+mvJG1AVfz+CKk
+         qxb3Xb769Tzq4UIOSfFFJhm8VwL30t+NYVUUIivPTGNmfZvcXf08aRYXE7akCxngSA6L
+         eHyQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:references:to:from:subject:sender:dkim-signature;
-        bh=rqaIyXsrqMnYpyB4sUQikWakBb/I9m9mCFLnk/d/y/g=;
-        b=pKuvvNeFx2EjhCxecTNi2DZA03w0X2feD9Dn9x74vQfF7qmO349nrPIUDcHTkAVKr1
-         nIBk5OybTS5LiRudvrVwBKF4uNYsQ1SQIAvSnQuH7Y1l4HX+btqTgxxtojHLymAVpe1+
-         q1Hx6h/cMXpATJB9rFd9tbY+ewWTep3WllahupyfMqrnWsyfij0NH2uRpjfJezk9BiJ7
-         FqqjEfc0Eg1wR0XR7hk0NEmc4Q4f5kK1YYFoqszDjUoVfb7FpG1IWTwc+ha0MQLbST8o
-         gwHBLVFlOFqf8v2fXDa2wMtjiZX9o5VMaPYXl3l22z7PP/xTNup84fBkB12BDPJI4UIe
-         eVVw==
+         :list-id:mailing-list:precedence:message-id:date:subject:cc:to:from
+         :mime-version:sender:dkim-signature;
+        bh=05C5uCIxnlcbY4dzcldAsMR60CplFU/6ecIv3exCBtU=;
+        b=quIiZTAEzz6UyVKaRMt8HUCzBt2gN0MB6aT8lCk6vewerxLuXdWjJ7vP8y+64139b8
+         fn0bucc25kU4IUEHFYOxvrZJqOLL3iI3tgtDmHEDfhVSgKzg0RxuEZoPricJBRAG+WlM
+         7KQw54mNFYwDCaQ0hj66q6CAhB/A83JtVnOUctzTDDs4GaYO7OTc6DVjU/EQDD/Crqmy
+         ALtrfdPNHHAnpe5u8QknX0yOmY81P4w3aX2s6D0wqNPnBtW2hmDoLCV9hdFfG7b+HpvU
+         biW/Zz3rvGShUnGMuJmL/+xF6dxP978qUN/kOHKyT7AQ0p4qJmvPT6+YUEvY1kDXlGOc
+         mCPg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b="YpkKkV/S";
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:from:to:references:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
+        h=sender:mime-version:from:to:cc:subject:date:message-id
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=rqaIyXsrqMnYpyB4sUQikWakBb/I9m9mCFLnk/d/y/g=;
-        b=YMFmsh7KM8wvELc70Bv/G3No1m4h5WFMWepXq2DPJ4PuUPSWU26qnw0UBHB1dSUyZi
-         yMCeteItQEAhIX1dHR/+HS04sJsHK8hIKIHK7KFRRicEbI0/pcFCoW8uA/wE342JiPht
-         yrtRwzANhsOa3eB7BwXTg+JLgryOs6Wi1ZYSGdWR3YrBQ72gNYJdRDeir6rPYk1haJ5h
-         jJ0cdR/zGzb2p3Gwp7gw2eayC13iCxrmD09/LMSwNY7cMS8hwe7KQezY/th5Z731k95n
-         s4fN5SqcPsW9sJQzTPmeohMphS9DdMt1uf0pq69TXrv5EVAnoCxdCid2FfCEHd+N4lWv
-         ka/g==
+        bh=05C5uCIxnlcbY4dzcldAsMR60CplFU/6ecIv3exCBtU=;
+        b=mZoR+rQy/lXS6+jM3CsiItRrlH0nHE/de0KvU24W+Jd0z2u9I3+iFq4d6HoBeYZu+D
+         OWX9pCknIl8ONeVyG4Q7bhBaWarJ0uH6d7G020RLGqZCb5kDTB8BZj7RoWKqiHkY1OZW
+         jVM4AwFHeIMbzR60bG/4eklwkPFQBmyYQekUkX+ilgzMXkAAmiY3niUhccZB8N0tcGc7
+         WZg1EyCiv5xHzt3XVxLOFWgNso6wcaIcf4t08i51wqy2DwY8t+95Pf9Yv8oYN/CDPRus
+         H00ipaH1KjP7XHJjF91tOSft/97Zk4my2tJMecJ8888Jc2wafahgsuvdXfea9q5gcVak
+         x3FA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:from:to:references:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=rqaIyXsrqMnYpyB4sUQikWakBb/I9m9mCFLnk/d/y/g=;
-        b=p6pQ3UJbxTlwWMeYYpVA8MnxuRj2IycusSHz+9hUERH34EFoLD+P6OvPwBJocR//Wk
-         rsY6yuhJDBx4/IfHdaX7O+aURN/XSdHt6U4My1ahAOLvXE85thRYw1qBtqng851w/WRD
-         rMQl2ZTcqWXn0u2mFuyB5SDGBgfTTdH7GifFIpKi/YKY5cMwl0MStsNNULsPNVhVEoUA
-         Ev5RSzqj7zFUJHeK5HVY2kRRyY7uqoLN1quaxEA7pDlqmfmSK8SCvdi33ZacDhnU2vgF
-         1yRcSEPLQRn0b1+QAoP3vv7lZ1tbMSzsZTKYa5LmizxPIwvSDAsEKG1ZyU98QGtGfRiU
-         Pl1g==
+        h=sender:x-gm-message-state:mime-version:from:to:cc:subject:date
+         :message-id:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=05C5uCIxnlcbY4dzcldAsMR60CplFU/6ecIv3exCBtU=;
+        b=BTi3epz5pdriT+UZD5t37mV9WS+NdJQCGoueYlST6omKFD7PKLjdpz0Qdb3cyMm3RI
+         QwPrGF5Lek4UJHBjZ1Z6Ooxm6k4Iu07vHCqSFFHdXMNlVHu5mPMoqBcS31xTyzPTPza8
+         jXkxhWlBB3TZ8LBLuWoL4PvmbtiEX6EOzSSeQuH8UMdRqKREq9d+++ba8YPiPKCZl60E
+         cCs4PVG9tg+33AAYb5rPu85Hvs28C63NtZlCX4GCGxYwktZYWJgvtoxo+YXmivXSaAua
+         tYJBzWesPGlzJVziBwMhTWvUKlZPcEBKYScccNnE1Rh2AfTT0h3Yyebb5uAf/+nKhl9I
+         Ddlw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAX38OxcD/caMinOU5a+q8ifuVbJBgLBuPodagUIdDudpR1C4LWQ
-	lJvitY0QSz9fGof3W9+X7VU=
-X-Google-Smtp-Source: APXvYqznknJs7y2JOt3sOLrsfRMCcKKny6Dpgs+vPpbpuMfvxA2epV0+D7kow5aboQhYPqYhnVgcwg==
-X-Received: by 2002:adf:f10d:: with SMTP id r13mr1854497wro.173.1573379416430;
-        Sun, 10 Nov 2019 01:50:16 -0800 (PST)
+X-Gm-Message-State: APjAAAUr0R+Flmwy5Ipv9AXkAxzZJ/lSqaQtwJdc/wVPPrRCkLkPvXLa
+	YU8frJO57jm9lVM5sq94oN8=
+X-Google-Smtp-Source: APXvYqxE2nyBO4Xvmyl4u+/tjlvF/lbuwpfdk9wHmSqaLboVCFO3JkXdyfWbF8Tz8mZVsEaxJzrBmQ==
+X-Received: by 2002:a05:6402:329:: with SMTP id q9mr11244250edw.76.1573477034983;
+        Mon, 11 Nov 2019 04:57:14 -0800 (PST)
+MIME-Version: 1.0
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:9d8b:: with SMTP id p11ls14932215wre.7.gmail; Sun, 10
- Nov 2019 01:50:15 -0800 (PST)
-X-Received: by 2002:adf:91e1:: with SMTP id 88mr17239269wri.16.1573379415838;
-        Sun, 10 Nov 2019 01:50:15 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1573379415; cv=none;
+Received: by 2002:a17:906:115a:: with SMTP id i26ls2123574eja.12.gmail; Mon,
+ 11 Nov 2019 04:57:14 -0800 (PST)
+X-Received: by 2002:a17:906:d72:: with SMTP id s18mr22737571ejh.29.1573477034046;
+        Mon, 11 Nov 2019 04:57:14 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1573477034; cv=none;
         d=google.com; s=arc-20160816;
-        b=AgjWqYLyDXYApRO9bEbKdJmOOTTv8EhVQ2UWJr6A7QUaKlCOcZ881SzWb7J6/1jbfc
-         MhDN0Nmrzkv+MPGTfCxZhBP1olr1KX54ERwYAFC3ngGv314AVP3uBmmduJU1ZTyemlu6
-         BC/tHLal/yBder4x3ksyCLDkvLnxP4H9xjIyjO+rtVwjMz9LhgcW8epZi0iE75qscsX/
-         maulCsO5yyrXKuqP0yv3XMs0ZYC5W5y9C9bBDGmiYVFSA5qMyHBA48MVfStfq6AYazC0
-         V0uwWA8hoGzNCFN0X5zr5tl3ryEbiwnwNq+8tqL9HzqG8d2EaUg5S4EXQvpQqfIb5z6c
-         YRYw==
+        b=Xk9E7ZWK0fmH1/j2jM+W9s1NrxlUnNBWdPwxMO/Pf1HOvhMVBdlrnKkM1tJ2TNgEkt
+         myNtRF4V4KZczO+ZgSGv2A5SK3rLN2dV8ZXARcw+eFdQNOAuCCsTfnb/R2W7v0pEVL7i
+         qSWUpilgIwqo4setoAm05lTTmQVaARUXHOYWBrxOah2pLhfMbPiIpNKD9RDuOP77Xuxm
+         ldLs48G2Jr5pH/P6czwq6eiSUXniOABAaYzQBHB1ghJDRpVQgk0dVfTeY/tE4BxmGNDe
+         63RqEMRMZywvkvqOS5wCZN1pqb+10sX++gxorLfI0y+6KLRs3Z05mm3hTkOaFuGKs+ZO
+         9iTA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:references:to:from:subject
-         :dkim-signature;
-        bh=4gKl5J48mXMUV6cdSlp0tKaKaO+HTwwozSFjuRzKCYA=;
-        b=YlXjKH4axtA1tPB9Em7fmFIRMir9OJRx+kSZhS5WjPHUJ18mBCMFPXLXFkhpLusQfx
-         CWptoTOSGMr2ZYduI2MeUkAHtPj9uDJYjnh/CYss7RYog9d93fpT7QXPWDlAuN4fCNCT
-         w089hTBJ647wjmIggTTRaUawYY61nbMMie2x73bT/2L4EOFwEZPjyvco3qkAfDDIuFK/
-         M5I/rYpEJOWyd7Tx3Gy5gQlbjNdg5h3bgpLFBr1/eFiq8/idAm7yI9GGqOKHGNt6UMso
-         6Ww2xJr1zHN3pZ2UMW2yT6L/qI9AZ2T+m55T+UQc1IpkDtbA45zOXzSI1jGOx54t/Ywg
-         vzDg==
+        h=message-id:date:subject:cc:to:from;
+        bh=BrMteSzO94K9bLUD/q9e4z9TpHyjfCvt7MJM6zB4oh4=;
+        b=k7NQf57rzLdqWqr+YZixT4RiN4NXcWcFM6ZsCyZ+hGiTkwHyeR7xYOkNWl1juRhNG4
+         Jrsny3Zlh+FTq8NCyRSIce9Gei0MVw5vnNdb//Q+PjHv2PGMyFP14d4KurLpps67Znvl
+         duXG64hEnosyo3snhZHkz0mpWFhary5oY3RfmO0rbRnzqlVxrO+CVWtDucmuAzF712SA
+         Vamew0UE6JJbFsTEbC2IAoTYCRITzGmmBng+3TXxWJJDroDigQ2nQVQvuh2A/aeAsaTe
+         +Ws5qnnIOomB9ezqSeeq5KYjgwVvgvun49SgnzZYzKxe+rfBrjb3TIjgqio1qBsLhHG3
+         Gdyg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b="YpkKkV/S";
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
-Received: from mout.web.de (mout.web.de. [212.227.15.3])
-        by gmr-mx.google.com with ESMTPS id i15si875764wrv.0.2019.11.10.01.50.15
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
+        by gmr-mx.google.com with ESMTPS id q17si1724973edi.1.2019.11.11.04.57.13
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 10 Nov 2019 01:50:15 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) client-ip=212.227.15.3;
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.1.10] ([95.157.55.156]) by smtp.web.de (mrweb004
- [213.165.67.108]) with ESMTPSA (Nemesis) id 0LwlY0-1hs8yd0HJQ-016Kf9; Sun, 10
- Nov 2019 10:50:15 +0100
-Subject: Re: [PATCH] tools/Makefile: fix install of jailhouse-config-collect
-From: Jan Kiszka <jan.kiszka@web.de>
-To: Fabrice Fontaine <fontaine.fabrice@gmail.com>,
- jailhouse-dev@googlegroups.com
-References: <20191109223045.26043-1-fontaine.fabrice@gmail.com>
- <80c93e40-9dc8-35eb-123e-62c688338dee@web.de>
-Message-ID: <5d247d71-d2e4-0d98-e02f-1111d6de1ac0@web.de>
-Date: Sun, 10 Nov 2019 10:50:14 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.1
-MIME-Version: 1.0
-In-Reply-To: <80c93e40-9dc8-35eb-123e-62c688338dee@web.de>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:hCtWUaSeqOSKNKSE6Wk/kEnwyABHsBjQqsBK25YvP8oYP+k0VKc
- fOC7lgVHnuEK96NTVsHaWcpdpc9uqHZICgF95hdS8OAUL6sC9PCjyDIiBOliRzn000P8Ppo
- XA1jAvAfcIqUQNuEacV14fdYpS1nRRXegn4dk7IWWUzkVbYftPCtLY+lW7A+bEnVq92G6Gg
- D04eS7a6YqCpq3kH8uAvg==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:K8TQJXUykyU=:HC9A56crLqKP7k+ZlgXPBF
- QGKFtn2HPXlIjvTeFIL6kVrpdvzCP+gFg//Lv4JroTQxgoDWo7UMqpCXf+mGji5afa017D0id
- yMOwLMmcgOxP53v/dxaCiblOma9tXs02p3Pa8xHhYb0kj0b/JAQTKfpqzjw5XCnAhSz2Sbq+8
- So8hd78Xah260blH2xaf8lU2c9S70NrOIqX+Y6KPjW3eHCa4u0q0/6IT5XHqj3u8Zwioydfss
- +3a6aLZM3cie26lt7xws3gyKFYfG/stDUw4U6FXZySzEEV1yNrBRpRAtnxITGsiv5MS/H1oyc
- 9YYH+W+Y4Zh40vmtUsHoIshWP5zIL+Kt0a6xWmpNAgDDLFIHfx+I3pbv2bNIlpHvYBOnnH8XU
- Dl5FLCq6vsrEjvhtCIThC3UKK3dHr70yHCYpO8cjjbIB6SoniX+i2I7NUNTMDLMdHOWPec5i9
- hzmoCQEy/zl7yQt0PzkMBwkkDxCbRJG2vcDl39QVbwNsAV7O/MDFGE5HBhwpfMpJV240N4nn0
- 7rxH1YKmHZ10BWc4qsaxFr2Ty8Q8UTNDLM2+4Qgn8y8OUFvYQzpOyysMChUEFpbBCiptXlPXp
- kAG5/THG2q69RKAs4aXP0lRzleNMsVFM2MkQZ2/MO4mINqvmbwWrDjA+3bZTqN7gCXtP+Rcwk
- Lftzg3OVFQlIl9sBGq4T0+WkxAwD6Gc2uv4UDeMQKOkGA/aO14jB7eqiHy23t7hZMgxgBryWa
- tTEyGi94gHN1cyUf7tgn67wfFA3lrPVUV406ii7DU0vTAi/2BeSKA4omIYBHO3Ft+ZWE++VpT
- 8N1IXuU0AB2m2jydg9n4m5t1hAT1sSBRDrb33ZTe7mRhimpCF5AZvE/VIPjSCX5y3oHb+JlE7
- rFYjKeK8JZnTVRHvNyur2BzFi+jrEpwjQcmDIeklvRMPjanyk3xM+rM2yroaN7FuC1Xx1lLxG
- 1u+6RCw8ZoCP85gu3KeEaCS/wSSMIL7SiKVgFyYcPXM7j1tH2xlwQt5w5ZSOvAN4XrwyuJ4Sq
- b0fokN+1iLs44Z/xhRkLBjWBApI1fPh9n/UfBtA5AsmOfOjBEy+9fPxR8j2inEwOjP4Vdzt6y
- x4p9PVFqNUqHpPnBvTNK5aJ1on3i3+qbiZNHIacyofz2gXBx3P/ohIeuLVSWdSzsCbNHANqnI
- ClKRnNQ6pkXsJaFANkxUe8nqjxHwdvRmOC1nSWep4AWOwuMRsVKIChl9qWXsnxgs4ZINuw2Lc
- pgzZl7RozPDxGQ6I/Y7e2T9U4j623nTNoqiiH4uANaXkKVwQ4WqKciEGXztI=
-X-Original-Sender: jan.kiszka@web.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b="YpkKkV/S";       spf=pass
- (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted
- sender) smtp.mailfrom=jan.kiszka@web.de
+        Mon, 11 Nov 2019 04:57:14 -0800 (PST)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id xABCvCZT020373
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 11 Nov 2019 13:57:12 +0100
+Received: from md1f2u6c.ad001.siemens.net ([139.25.68.37])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id xABCvCBD010919;
+	Mon, 11 Nov 2019 13:57:12 +0100
+From: Jan Kiszka <jan.kiszka@siemens.com>
+To: qemu-devel <qemu-devel@nongnu.org>
+Cc: Markus Armbruster <armbru@redhat.com>,
+        Claudio Fontana <claudio.fontana@gmail.com>, liang yan <lyan@suse.com>,
+        Stefan Hajnoczi <stefanha@redhat.com>,
+        "Michael S . Tsirkin" <mst@redhat.com>, Hannes Reinecke <hare@suse.de>,
+        Jailhouse <jailhouse-dev@googlegroups.com>
+Subject: [RFC][PATCH 0/3] IVSHMEM version 2 device for QEMU
+Date: Mon, 11 Nov 2019 13:57:09 +0100
+Message-Id: <cover.1573477032.git.jan.kiszka@siemens.com>
+X-Mailer: git-send-email 2.16.4
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: text/plain; charset="UTF-8"
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -157,89 +128,78 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 10.11.19 10:46, Jan Kiszka wrote:
-> On 09.11.19 23:30, Fabrice Fontaine wrote:
->> Since commit 37bc6c12a1b365250c0dcdd82ae1ac5a869898e1,
->> jailhouse-config-collect is not installed anymore on target as HELPERS
->> is updated after install-libexec target so fix this mistake
->>
->> Signed-off-by: Fabrice Fontaine <fontaine.fabrice@gmail.com>
->> ---
->> =C2=A0 tools/Makefile | 34 +++++++++++++++++-----------------
->> =C2=A0 1 file changed, 17 insertions(+), 17 deletions(-)
->>
->> diff --git a/tools/Makefile b/tools/Makefile
->> index c7dbc734..7f4d00ff 100644
->> --- a/tools/Makefile
->> +++ b/tools/Makefile
->> @@ -35,8 +35,24 @@ KBUILD_CFLAGS +=3D $(call cc-option, -no-pie)
->> =C2=A0 BINARIES :=3D jailhouse
->> =C2=A0 always :=3D $(BINARIES)
->> +HAS_PYTHON_MAKO :=3D \
->> +=C2=A0=C2=A0=C2=A0 $(shell $(PYTHON) -c "from mako.template import Temp=
-late"
->> 2>/dev/null \
->> +=C2=A0=C2=A0=C2=A0 && echo yes)
->> +
->> +ifeq ($(strip $(HAS_PYTHON_MAKO)), yes)
->> +always +=3D jailhouse-config-collect
->> +HELPERS :=3D jailhouse-config-collect
->> +
->> +else=C2=A0 # !HAS_PYTHON_MAKO
->> +
->> +$(info WARNING: Could not create the helper script to generate \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 configurations on remote machines =
-\
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ("jailhouse-conf-collect"). You ne=
-ed Python and the \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Mako library for it.)
->> +endif # !HAS_PYTHON_MAKO
->> +
->> =C2=A0 ifeq ($(strip $(PYTHON_PIP_USABLE)), yes)
->> -HELPERS :=3D \
->> +HELPERS +=3D \
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 jailhouse-cell-linux \
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 jailhouse-cell-stats \
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 jailhouse-config-create \
->> @@ -62,22 +78,6 @@ install::
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- Python and pip in order to install them.)
->> =C2=A0 endif # !PYTHON_PIP_USABLE
->> -HAS_PYTHON_MAKO :=3D \
->> -=C2=A0=C2=A0=C2=A0 $(shell $(PYTHON) -c "from mako.template import Temp=
-late"
->> 2>/dev/null \
->> -=C2=A0=C2=A0=C2=A0 && echo yes)
->> -
->> -ifeq ($(strip $(HAS_PYTHON_MAKO)), yes)
->> -always +=3D jailhouse-config-collect
->> -HELPERS +=3D jailhouse-config-collect
->> -
->> -else=C2=A0 # !HAS_PYTHON_MAKO
->> -
->> -$(info WARNING: Could not create the helper script to generate \
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 configurations on remote machines =
-\
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ("jailhouse-conf-collect"). You ne=
-ed Python and the \
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Mako library for it.)
->> -endif # !HAS_PYTHON_MAKO
->> -
->> =C2=A0 MAN8_PAGES :=3D jailhouse.8 jailhouse-cell.8 jailhouse-enable.8
->> =C2=A0 define patch_dirvar
->>
->
-> Good catch. I'm adding a "Fixes:" tag on merge.
->
+To get the ball rolling after my presentation of the topic at KVM Forum
+[1] and many fruitful discussions around it, this is a first concrete
+code series. As discussed, I'm starting with the IVSHMEM implementation
+of a QEMU device and server. It's RFC because, besides specification and
+implementation details, there will still be some decisions needed about
+how to integrate the new version best into the existing code bases.
 
-...and I'm adding initialization of HELPERS in the !HAS_PYTHON_MAKO case.
+If you want to play with this, the basic setup of the shared memory
+device is described in patch 1 and 3. UIO driver and also the
+virtio-ivshmem prototype can be found at
+
+    http://git.kiszka.org/?p=linux.git;a=shortlog;h=refs/heads/queues/ivshmem2
+
+Accessing the device via UIO is trivial enough. If you want to use it
+for virtio, this is additionally to the description in patch 3 needed on
+the virtio console backend side:
+
+    modprobe uio_ivshmem
+    echo "1af4 1110 1af4 1100 ffc003 ffffff" > /sys/bus/pci/drivers/uio_ivshmem/new_id
+    linux/tools/virtio/virtio-ivshmem-console /dev/uio0
+
+And for virtio block:
+
+    echo "1af4 1110 1af4 1100 ffc002 ffffff" > /sys/bus/pci/drivers/uio_ivshmem/new_id
+    linux/tools/virtio/virtio-ivshmem-console /dev/uio0 /path/to/disk.img
+
+After that, you can start the QEMU frontend instance with the
+virtio-ivshmem driver installed which can use the new /dev/hvc* or
+/dev/vda* as usual.
+
+Any feedback welcome!
 
 Jan
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/5d247d71-d2e4-0d98-e02f-1111d6de1ac0%40web.de.
+PS: Let me know if I missed someone potentially interested in this topic
+on CC - or if you would like to be dropped from the list.
+
+PPS: The Jailhouse queues are currently out of sync /wrt minor details
+of this one, primarily the device ID. Will update them when the general
+direction is clear.
+
+[1] https://kvmforum2019.sched.com/event/TmxI
+
+Jan Kiszka (3):
+  hw/misc: Add implementation of ivshmem revision 2 device
+  docs/specs: Add specification of ivshmem device revision 2
+  contrib: Add server for ivshmem revision 2
+
+ Makefile                                  |    3 +
+ Makefile.objs                             |    1 +
+ configure                                 |    1 +
+ contrib/ivshmem2-server/Makefile.objs     |    1 +
+ contrib/ivshmem2-server/ivshmem2-server.c |  462 ++++++++++++
+ contrib/ivshmem2-server/ivshmem2-server.h |  158 +++++
+ contrib/ivshmem2-server/main.c            |  313 +++++++++
+ docs/specs/ivshmem-2-device-spec.md       |  333 +++++++++
+ hw/misc/Makefile.objs                     |    2 +-
+ hw/misc/ivshmem2.c                        | 1091 +++++++++++++++++++++++++++++
+ include/hw/misc/ivshmem2.h                |   48 ++
+ 11 files changed, 2412 insertions(+), 1 deletion(-)
+ create mode 100644 contrib/ivshmem2-server/Makefile.objs
+ create mode 100644 contrib/ivshmem2-server/ivshmem2-server.c
+ create mode 100644 contrib/ivshmem2-server/ivshmem2-server.h
+ create mode 100644 contrib/ivshmem2-server/main.c
+ create mode 100644 docs/specs/ivshmem-2-device-spec.md
+ create mode 100644 hw/misc/ivshmem2.c
+ create mode 100644 include/hw/misc/ivshmem2.h
+
+-- 
+2.16.4
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/cover.1573477032.git.jan.kiszka%40siemens.com.
