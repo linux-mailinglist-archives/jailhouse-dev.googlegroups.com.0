@@ -1,129 +1,152 @@
-Return-Path: <jailhouse-dev+bncBAABBIUHVDXAKGQEMXDIRJA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCQYDA7264GRBCOPVHXAKGQE375BPKA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x540.google.com (mail-ed1-x540.google.com [IPv6:2a00:1450:4864:20::540])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32AE5F85B8
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 12 Nov 2019 01:58:11 +0100 (CET)
-Received: by mail-ed1-x540.google.com with SMTP id u3sf11366000edp.19
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 11 Nov 2019 16:58:11 -0800 (PST)
-ARC-Seal: i=3; a=rsa-sha256; t=1573520290; cv=pass;
+Received: from mail-pg1-x539.google.com (mail-pg1-x539.google.com [IPv6:2607:f8b0:4864:20::539])
+	by mail.lfdr.de (Postfix) with ESMTPS id D08A5F8A18
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 12 Nov 2019 09:04:27 +0100 (CET)
+Received: by mail-pg1-x539.google.com with SMTP id t11sf13948594pgm.2
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 12 Nov 2019 00:04:27 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1573545866; cv=pass;
         d=google.com; s=arc-20160816;
-        b=041gyf8Cl0xXXRCfpX6lg+6kGkWjYk7Pn4glHK5iGmulQp75i7paxoShjLlHjcLveR
-         YAUf7KexhquAL1dBPELukkqx4qQmuCqTy758hJeJGpi2H1TFs1/xwvB/R7WR6zm4/Tpq
-         9UkBeWQ0XwjcFhlsGFB/Q4UC13oBidrniY47fFrLAhkz3AL1YpMUJwqF7v2+2FAGDo9R
-         MW+wAxX2OkFdZWYhunC8WsXn/J0HrH8O5eYDqmlvKdg1eogEMfDAlKwLSrX6qHdEONNK
-         ZIEQ+TdriZg12B0I2nbJjZkwBGUuyZiiKwzKuvKOPHXnaKD/Yo7CPi2NJEdN7Yps5Ljo
-         UBig==
-ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        b=gXPvbDl3FKEKxBbrb6+BCRwLxXiWgq1Xz4tjGAyUofwvernDg4HOegpRBbs12xWe5V
+         Ny96cF6KiHfml4zJvgzCagRgHnPtfrWXn1xAMvjbpPu+PJTBvkDlFE3XyOGQ2zWsZWCr
+         Cf2HyYAb1iTlbeCvxhHSXYaYs2Fa9+BZD74uqWcuAJwjBG78skvlY1MwBUwbSzAqGd9i
+         YIeOw7pPM7RzxROzABkTxfe/b0N8Mz82c9U8h0Ql9thSHVYNTTIh+Za/PCH66YGzNijE
+         osU+1soLlGod7wlHh1xGaDB9xDJ2HBG2HxZelZMxYYbQMvNGEIpOaggHuBeCRKWYKYrl
+         Rmtg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:date:cc:to:from:resent-from
-         :mime-version:message-id:subject:reply-to:in-reply-to:sender
-         :dkim-signature;
-        bh=dPof+6hS0frcBjAJU/LambqnzSspzUHhrHmmSDSV93E=;
-        b=EY4OWNEwIJv7hQ4Ex0J7kdjBe1sDNGbzd5KcfF4nvGltlO7fn949nADmUVGLQpiENe
-         yswYpAZcw/JvUgp/GEpvjDJW1vZzZXx0aWTDEoC2ZdaajR6QBJIPw0Kkiooohr3OxP1f
-         rimU8cAVNTU6CNSy0UNBha206M9qnUKtKSwRIFH4ngDgdHHwHJAHIh8FFA6kqe8lA/Ut
-         tUjl+7MLfhfS3gRnsAUUrlgB/+nhGIePkzJ1jKyZf9zwfqhTxGS71uvta3WH3ODRn2gx
-         +rr74A0aUZnHDEgELP0NYa1ayOvCPo6sez0SAjFDNRPBr4CoQWk3GVYgFVune7itSB3M
-         KI2Q==
-ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       arc=pass (i=1 spf=pass spfdomain=patchew.org dkim=pass dkdomain=patchew.org dmarc=pass fromdomain=patchew.org>);
-       spf=pass (google.com: domain of no-reply@patchew.org designates 136.143.188.54 as permitted sender) smtp.mailfrom=no-reply@patchew.org
+         :list-id:mailing-list:precedence:content-disposition
+         :content-transfer-encoding:in-reply-to:mime-version:references
+         :message-id:subject:cc:to:from:date:sender:dkim-signature;
+        bh=diNv/all9du1LgsoBHA68RSdK3uKouk0oLnOdvJf4lE=;
+        b=aAPXq0MBXUpyTKBRVDCk604kFrZID8hWzOLvmxRGIuvbTaqXYrZ+LBk9qFKWNFavx5
+         uQ0Zl6lbZ6KoHpP9ftBKwUaCI+Ro3anLFZDTuAZD4djDcVsxmwLZ4OqUCc6AkHWdUHnL
+         OHLGF+Wk4yBqdrR4mzcdqU/JGTVYMqqq1eluudZ9/kam2CW7pXD4g9cCvvAw/x4Rftwq
+         vBxovrxtPK62ydLqy7N3+1rtc3Q4B/exkATQGQxKmpq+m7rRljLER6Pi9TMG3anufelF
+         z4FtQpvPFcjdxnsrHcdwye84/w74tgLfjlJdoshqjbUPXRhujS7AHMqTKA4SibQRlOcK
+         hdvw==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@redhat.com header.s=mimecast20190719 header.b=R34f184W;
+       spf=pass (google.com: domain of mst@redhat.com designates 205.139.110.61 as permitted sender) smtp.mailfrom=mst@redhat.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=redhat.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:in-reply-to:reply-to:subject:message-id:mime-version
-         :resent-from:from:to:cc:date:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=dPof+6hS0frcBjAJU/LambqnzSspzUHhrHmmSDSV93E=;
-        b=TxtQTdMrY0ZQvMHmbcI59uFf+7Wc1Xlk1j7A84Yy79xPnGJ0esOI53ervi3wYXrljq
-         ib1IDb4CBcHaCLpJP44nvwxcyH5C3H45SKmJv1lWFEVIqdvG5bqY915LEZmPzUQ7u+a/
-         CjAegy7e+b/hIuGmxzH4sMWPbdU9KzeaGRM405d4Pzz6Vvt/czn23g0AZtjJceXpDCoo
-         nXscKIaRvEvl93waFpT+jzrnUmszUPBssEbmVeQhy55DpDmEkwmT2wPO+DQAgq5XtEzF
-         8P+hsNHv+2N0FLbcBbFCD6klFnIGRaUgXzTAIP/rDyAsxC42fZeqBdLyj7JqyHaFevcQ
-         R7VQ==
+        h=sender:date:from:to:cc:subject:message-id:references:mime-version
+         :in-reply-to:content-transfer-encoding:content-disposition
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=diNv/all9du1LgsoBHA68RSdK3uKouk0oLnOdvJf4lE=;
+        b=DEL1/XJpXHjdhj4IejoqtSJlMAlXLMUH8TaNyI91rrmLHCRgFQ3/tmTaZtr9Dg7iqN
+         kiSYZBJpw1SP67OVOp4zjLljTckRmZ8mXoamlq3XNceQEILhIl2VdHGUAtcH5PJ7oDCn
+         YWWadxia40luF73Q3vgAgThgSkhI4uX/729PJdstxNi2ObSwh/XYU4WQ4YCJyDr9TR68
+         FtuMTNbZBApCwWtSrywizM+ZdUF5JGJdxZbc5PsDEePuO3Xgj1xwgNDa4eOS6OWomNhU
+         Ny9bj72FwGTAfd4e/8Q+zHnX3eDAPzolbcsfTCf7/l62apkxXd+n/+/3Mh3nL5NjugeV
+         vGRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:in-reply-to:reply-to:subject:message-id
-         :mime-version:resent-from:from:to:cc:date:x-original-sender
+        h=sender:x-gm-message-state:date:from:to:cc:subject:message-id
+         :references:mime-version:in-reply-to:content-transfer-encoding
+         :content-disposition:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=dPof+6hS0frcBjAJU/LambqnzSspzUHhrHmmSDSV93E=;
-        b=J4vD9uYp7z8fR6wRe+DEEJB0PTEBFhAexjbWtftv20MhluTe9xtbpcHCI+UMpAUMsA
-         3uzuuBwWFHRv7IOcUsRS++11tP05npfTLhkVHS4XRoAEO+GSbc2g66Du8q6X68R9acjf
-         UkfGlLIKMiUaaPkJsOqhbBi7QjfLzZpVCDdbGr2kDkbQUKTgZA+GttjRLN7tHNHiQvDA
-         zth/cz0ja4lzF2fVKYSWJMFGyFgKSlyAK0In/Wfc/8l5RrXgzHe08Rg9+XceVYc4IzIb
-         ZvAVG/HP+nAe44igd2uZMQMhGLpwDPDh5bCy1tHzXekWk+mqGWC9DT4sb6YYwzEN0EMd
-         2iDQ==
+        bh=diNv/all9du1LgsoBHA68RSdK3uKouk0oLnOdvJf4lE=;
+        b=G/emc0irnoAmOnXtSdhHRGiCILQfr7GkoI4s2K3R/AFrXEkaxJ8m7PzCj/oNOF2LYK
+         HKioeAiwOgAIiAX34LWHXvT6882g071GB/bUkaWkL+EOxy/GOc/PRtHiweuaBoKC2JAt
+         gnGRNlgsNo1FhY1DR4ulTxzwSea7tKFamZw30/j14LoIRntS3/IZ7fvHkIiNSLB6ZLyu
+         bSWfhCsNhy8NVPboAyIFNETe4Z6kdZ8JFh9IHRoj6EAugst1NcPBC79JxOCj8mLaeWXj
+         7K4WWZ+4XpJjwvD9nuMKeyYMHMXwe8br1EpXkTFa5qT2DjxLUB2OKNGycLCIkxweETwu
+         W02w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAW/1gXgvyRT0VM7qc4R90Q7HP/EFoczInIo9CmVQFnWAW7BVCT7
-	tReT2tgbv3s1gb06hzd/wLg=
-X-Google-Smtp-Source: APXvYqxTgghgF/kQaww/csYIhALpOv27htl6geZD8dYG4imBnebs8OMNlH+KSw74ULjcfwlXDruG4g==
-X-Received: by 2002:a17:906:14d4:: with SMTP id y20mr25759864ejc.21.1573520290814;
-        Mon, 11 Nov 2019 16:58:10 -0800 (PST)
+X-Gm-Message-State: APjAAAUpkN0tulV7tLuAOAeCHwEtN0zcdE8jvitcJvVO02g6ZHqkQ55+
+	moE5ZHa8DWhzkKSxTZbWuAs=
+X-Google-Smtp-Source: APXvYqzFWhPIBxzxdENKibp2OnA4qT3ySze79QVz3BaxAeYwcLyLUhg8plEVRB20lRal97/BxKThjw==
+X-Received: by 2002:a63:f916:: with SMTP id h22mr34641751pgi.423.1573545865873;
+        Tue, 12 Nov 2019 00:04:25 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a50:ef07:: with SMTP id m7ls2638656eds.12.gmail; Mon, 11 Nov
- 2019 16:58:10 -0800 (PST)
-X-Received: by 2002:a50:9fc1:: with SMTP id c59mr30486883edf.305.1573520290206;
-        Mon, 11 Nov 2019 16:58:10 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1573520290; cv=pass;
+Received: by 2002:a63:b042:: with SMTP id z2ls431322pgo.16.gmail; Tue, 12 Nov
+ 2019 00:04:25 -0800 (PST)
+X-Received: by 2002:a63:f418:: with SMTP id g24mr33743042pgi.15.1573545865151;
+        Tue, 12 Nov 2019 00:04:25 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1573545865; cv=none;
         d=google.com; s=arc-20160816;
-        b=0zzuRSjTb0aLjgG0nycbvXml70RZExsaE7sMar2A7QJqpvWaTq1IuhOH+2TgQPiaw8
-         mGqGk5K20xt7xLcbmPnOLGhpgAI2Si2edrqkFQPltQqW1YjBJBM7Qck1MNYcoFzQv3Rz
-         FXNb4+YXyQ3ZNMNWKpz9xR1+2RfXYUvH3lGoctCFOJZ1FhgCmGx2cGL3YkTgaLpcNGuF
-         GvndQq3GLF50N+L+/+mngRl5HjfnMoUz1gwvvu5Md0zaaBdw4Mk+CTCZFJ72pNwVInwO
-         lXo1+opt+3EeeVaG4aeYLonRdXcLGgfrVJAKjJU0LIr/Gow058seMekEZLI0hEiUlmHu
-         Xx6w==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=date:cc:to:from:resent-from:content-transfer-encoding:mime-version
-         :message-id:subject:reply-to:in-reply-to;
-        bh=Jk/zOz7F2HCs9k9x4jKhQUeRZGkpYKtcruteCPr0cFs=;
-        b=pRTtVzxxgzwgr9CWQEN4f57Uog5XFSX8CpBEN1/ozgre6mUyRXt3blxmKN/wkUgqxl
-         IP8YBu9AElS35T5yzXe8AhIkTi5DSqfeCZyPmbESuSzfpgoTGUuSIbtEOFlZAm6/kf4A
-         BdYlaK4tYZIQTy8RhNVbFe8fJrquV+rvxZLTELVocH18nVN6d1U5LJSX6qRXIcP2wwrr
-         hfbO24uIs/kmvukckvb3L/piHARW9mfgfwGIXPvm5yd7+Kzxjxfgqi5/liS6bwgRWVCu
-         RrMsTrNR3Ll/1no+7+6vRvSghVvvdsdngA174ISnL4CpliS4Z6UWrrjgHTcV6mFrsHFT
-         tphg==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       arc=pass (i=1 spf=pass spfdomain=patchew.org dkim=pass dkdomain=patchew.org dmarc=pass fromdomain=patchew.org>);
-       spf=pass (google.com: domain of no-reply@patchew.org designates 136.143.188.54 as permitted sender) smtp.mailfrom=no-reply@patchew.org
-Received: from sender4-of-o54.zoho.com (sender4-of-o54.zoho.com. [136.143.188.54])
-        by gmr-mx.google.com with ESMTPS id v57si1638814edc.3.2019.11.11.16.58.09
+        b=Ke+8ZobE+Z5KJtAolCOZw304pTvXMBnGoci2UWdskrA7uwXKRE8o2oku0AZX52uSo2
+         fuhN7yZg+cdRcbejbVNwLwWyTYapxeUsPB4kYrdt2EWUT4k6eZLlY/YCPcR7vm2ZjfSj
+         njLMPkGVhCGxzbrqHrgPkEb0Et1oqlD4q5lj5LXiOUFx29Advg9yBskH1EjHYGRZ04n5
+         49GQaRYGIYAYr2in+ddFxE6IxuBrQsqFpHgrKOo69G4H5nm8jlwY3oDvz/kUFHkC7cH8
+         76UieFaXI6p5jVGPXdDcV8DxGVmkfqXBvKhbzFxsx2NkonTPshvOq+NX8W+pxWFFTxKx
+         YSzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-disposition:content-transfer-encoding:in-reply-to
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :dkim-signature;
+        bh=J5g7YF7I5AGOF51+RGR5bsfcIsWbceWHvXyfqlK3BmA=;
+        b=u35UCCqQ4cg3whSJKgv/IcldC46n7kAefkka4mPYCJ2hDczlkOpsk3Yaw6NLKNiKrZ
+         mugH1hepAAOwaxLzGPvILYu7Om/Kx1QAosPqSc22ecWe/8Xbz7QbgdSjQH+yRTPQrOTE
+         g6/ufWhPRqOag1X+ndXctf/8wTWPcyDdglQtUgFNPVqvHxYucG3M1XKaCbdYvaIU8v/P
+         Spjp5/CuE6jCzI1OIff2LuDY5xlczf+0/xHZEPTIIZSAIJ1IQOFIz6d6aQnvALpd1sgs
+         tFviOS4GYNeScN9MxQpMTCOUHKJQjMxDzcCMP1bMSrcavhxgIFAfEeY69BA+pe69iu7k
+         mVxA==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@redhat.com header.s=mimecast20190719 header.b=R34f184W;
+       spf=pass (google.com: domain of mst@redhat.com designates 205.139.110.61 as permitted sender) smtp.mailfrom=mst@redhat.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=redhat.com
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com. [205.139.110.61])
+        by gmr-mx.google.com with ESMTPS id b15si1093851pgw.5.2019.11.12.00.04.24
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 11 Nov 2019 16:58:10 -0800 (PST)
-Received-SPF: pass (google.com: domain of no-reply@patchew.org designates 136.143.188.54 as permitted sender) client-ip=136.143.188.54;
-ARC-Seal: i=1; a=rsa-sha256; t=1573520185; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Jxbnp4JZh2ydYN/MU8/qEYO+BuwQFtKG8Kr3fngwkbQA7KPueOrZxCHzdIXHgCrVgllsswh8exVo4JPLQv6W0KHsHfR1fFhMt1CQgwXdrZYxxPp2cinTfEN/9Zd+ibTxMAcGs/t3/r7pUM9FGb6WkKvFE/4ya/2MLYHx5bFbatM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1573520185; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:Reply-To:Subject:To; 
-	bh=Jk/zOz7F2HCs9k9x4jKhQUeRZGkpYKtcruteCPr0cFs=; 
-	b=EYC+5LKLg7RuItH/01GCNEKEbifqFvtyvWDFFxDhtXsf1y5V4xmzg+RnpwiA+YxoHJOPuL62PEyb+gpIikNg6Y2wN9+9Jw2CSZYfIrhXLXAmG60YgUB8vt859TSkiJ6neUoLAc0UqrBaE233+osykIu6aQUg/vpF1o+BofJ/jFo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=patchew.org;
-	spf=pass  smtp.mailfrom=no-reply@patchew.org;
-	dmarc=pass header.from=<no-reply@patchew.org> header.from=<no-reply@patchew.org>
-Received: from [172.17.0.3] (23.253.156.214 [23.253.156.214]) by mx.zohomail.com
-	with SMTPS id 1573520182725997.9204563601448; Mon, 11 Nov 2019 16:56:22 -0800 (PST)
-In-Reply-To: <cover.1573477032.git.jan.kiszka@siemens.com>
-Reply-To: <qemu-devel@nongnu.org>
-Subject: Re: [RFC][PATCH 0/3] IVSHMEM version 2 device for QEMU
-Message-ID: <157352018133.9707.15852640482814208357@37313f22b938>
+        Tue, 12 Nov 2019 00:04:25 -0800 (PST)
+Received-SPF: pass (google.com: domain of mst@redhat.com designates 205.139.110.61 as permitted sender) client-ip=205.139.110.61;
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-196-6-8XrHS7O7eUB1RY1iWEDw-1; Tue, 12 Nov 2019 03:04:20 -0500
+Received: by mail-qv1-f71.google.com with SMTP id g30so7991607qvb.11
+        for <jailhouse-dev@googlegroups.com>; Tue, 12 Nov 2019 00:04:20 -0800 (PST)
+X-Received: by 2002:a37:424a:: with SMTP id p71mr4641044qka.194.1573545860398;
+        Tue, 12 Nov 2019 00:04:20 -0800 (PST)
+X-Received: by 2002:a37:424a:: with SMTP id p71mr4641026qka.194.1573545860087;
+        Tue, 12 Nov 2019 00:04:20 -0800 (PST)
+Received: from redhat.com (bzq-79-176-6-42.red.bezeqint.net. [79.176.6.42])
+        by smtp.gmail.com with ESMTPSA id x30sm8465630qtc.7.2019.11.12.00.04.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 12 Nov 2019 00:04:19 -0800 (PST)
+Date: Tue, 12 Nov 2019 03:04:13 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Jan Kiszka <jan.kiszka@siemens.com>
+Cc: Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
+	liang yan <lyan@suse.com>,
+	Jailhouse <jailhouse-dev@googlegroups.com>,
+	Claudio Fontana <claudio.fontana@gmail.com>,
+	qemu-devel <qemu-devel@nongnu.org>,
+	Markus Armbruster <armbru@redhat.com>,
+	Hannes Reinecke <hare@suse.de>,
+	Stefan Hajnoczi <stefanha@redhat.com>
+Subject: Re: [RFC][PATCH 2/3] docs/specs: Add specification of ivshmem device
+ revision 2
+Message-ID: <20191112024400-mutt-send-email-mst@kernel.org>
+References: <cover.1573477032.git.jan.kiszka@siemens.com>
+ <f5996d934d24775160bcedbf28ac975a95d91101.1573477032.git.jan.kiszka@siemens.com>
+ <20191111084327-mutt-send-email-mst@kernel.org>
+ <0b0475c1-2564-f433-46d8-ff1a06c13569@siemens.com>
+ <20191111100607-mutt-send-email-mst@kernel.org>
+ <20191111152743.GM814211@redhat.com>
+ <20191111105850-mutt-send-email-mst@kernel.org>
+ <ef21ed49-d315-4ee5-716b-096d8af1d79c@siemens.com>
 MIME-Version: 1.0
+In-Reply-To: <ef21ed49-d315-4ee5-716b-096d8af1d79c@siemens.com>
+X-MC-Unique: 6-8XrHS7O7eUB1RY1iWEDw-1
+X-Mimecast-Spam-Score: 0
 Content-Type: text/plain; charset="UTF-8"
-Resent-From: 
-From: no-reply@patchew.org
-To: jan.kiszka@siemens.com
-Cc: qemu-devel@nongnu.org, lyan@suse.com, jailhouse-dev@googlegroups.com, claudio.fontana@gmail.com, mst@redhat.com, armbru@redhat.com, hare@suse.de, stefanha@redhat.com
-Date: Mon, 11 Nov 2019 16:56:22 -0800 (PST)
-X-ZohoMailClient: External
-X-Original-Sender: no-reply@patchew.org
-X-Original-Authentication-Results: gmr-mx.google.com;       arc=pass (i=1
- spf=pass spfdomain=patchew.org dkim=pass dkdomain=patchew.org dmarc=pass
- fromdomain=patchew.org>);       spf=pass (google.com: domain of
- no-reply@patchew.org designates 136.143.188.54 as permitted sender) smtp.mailfrom=no-reply@patchew.org
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+X-Original-Sender: mst@redhat.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@redhat.com header.s=mimecast20190719 header.b=R34f184W;
+       spf=pass (google.com: domain of mst@redhat.com designates
+ 205.139.110.61 as permitted sender) smtp.mailfrom=mst@redhat.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=redhat.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -136,180 +159,87 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Patchew URL: https://patchew.org/QEMU/cover.1573477032.git.jan.kiszka@siemens.com/
+On Mon, Nov 11, 2019 at 05:38:29PM +0100, Jan Kiszka wrote:
+> On 11.11.19 17:11, Michael S. Tsirkin wrote:
+> > On Mon, Nov 11, 2019 at 03:27:43PM +0000, Daniel P. Berrang=C3=A9 wrote=
+:
+> > > On Mon, Nov 11, 2019 at 10:08:20AM -0500, Michael S. Tsirkin wrote:
+> > > > On Mon, Nov 11, 2019 at 02:59:07PM +0100, Jan Kiszka wrote:
+> > > > > On 11.11.19 14:45, Michael S. Tsirkin wrote:
+> > > > > > On Mon, Nov 11, 2019 at 01:57:11PM +0100, Jan Kiszka wrote:
+> > > > > > > +| Offset | Register               | Content                 =
+                             |
+> > > > > > > +|-------:|:-----------------------|:------------------------=
+-----------------------------|
+> > > > > > > +|    00h | Vendor ID              | 1AF4h                   =
+                             |
+> > > > > > > +|    02h | Device ID              | 1110h                   =
+                             |
+> > > > > >=20
+> > > > > > Given it's a virtio vendor ID, please reserve a device ID
+> > > > > > with the virtio TC.
+> > > > >=20
+> > > > > Yeah, QEMU's IVSHMEM was always using that. I'm happy to make thi=
+s finally
+> > > > > official.
+> > > > >=20
+> > > >=20
+> > > > And I guess we will just mark it reserved or something right?
+> > > > Since at least IVSHMEM 1 isn't a virtio device.
+> > > > And will you be reusing same ID for IVSHMEM 2 or a new one?
+> > >=20
+> > > 1110h isn't under either of the virtio PCI device ID allowed ranges
+> > > according to the spec:
+> > >=20
+> > >    "Any PCI device with PCI Vendor ID 0x1AF4, and PCI Device
+> > >     ID 0x1000 through 0x107F inclusive is a virtio device.
+> > >     ...
+> > >     Additionally, devices MAY utilize a Transitional PCI Device
+> > >     ID range, 0x1000 to 0x103F depending on the device type. "
+> > >=20
+> > > So there's no need to reserve 0x1110h from the virtio spec POV.
+> >=20
+> > Well we do have:
+> >=20
+> > 	B.3
+> > 	What Device Number?
+> > 	Device numbers can be reserved by the OASIS committee: email virtio-de=
+v@lists.oasis-open.org to secure
+> > 	a unique one.
+> > 	Meanwhile for experimental drivers, use 65535 and work backwards.
+> >=20
+> > So it seems it can  in theory conflict at least with experimental virti=
+o devices.
+> >=20
+> > Really it's messy that people are reusing the virtio vendor ID for
+> > random stuff - getting a vendor ID is only hard for a hobbyist, any big
+> > company already has an ID - but if it is a hobbyist and they at least
+> > register then doesn't cause much harm.
+>=20
+> Note that ivshmem came from a research environment. I do know if there wa=
+s a
+> check for the IDs at the point the code was merged.
+>=20
+> That said, I may get a device ID here as well, provided I can explain tha=
+t
+> not a single "product" will own it, but rather an open specification.
+>=20
+> Jan
 
+OK, up to you - if you decide you want an ID reserved, pls let us know.
 
+At this point I'm not sure I have a good grasp which IDs are
+registered where anymore. If someone can write it up, that would
+be great too!
 
-Hi,
+> --=20
+> Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+> Corporate Competence Center Embedded Linux
 
-This series seems to have some coding style problems. See output below for
-more information:
-
-Subject: [RFC][PATCH 0/3] IVSHMEM version 2 device for QEMU
-Type: series
-Message-id: cover.1573477032.git.jan.kiszka@siemens.com
-
-=== TEST SCRIPT BEGIN ===
-#!/bin/bash
-git rev-parse base > /dev/null || exit 0
-git config --local diff.renamelimit 0
-git config --local diff.renames True
-git config --local diff.algorithm histogram
-./scripts/checkpatch.pl --mailback base..
-=== TEST SCRIPT END ===
-
-Updating 3c8cf5a9c21ff8782164d1def7f44bd888713384
-Switched to a new branch 'test'
-45625de contrib: Add server for ivshmem revision 2
-df18ce0 docs/specs: Add specification of ivshmem device revision 2
-ff35318 hw/misc: Add implementation of ivshmem revision 2 device
-
-=== OUTPUT BEGIN ===
-1/3 Checking commit ff35318fdf84 (hw/misc: Add implementation of ivshmem revision 2 device)
-WARNING: added, moved or deleted file(s), does MAINTAINERS need updating?
-#63: 
-new file mode 100644
-
-ERROR: return is not a function, parentheses are not required
-#206: FILE: hw/misc/ivshmem2.c:139:
-+    return (ivs->features & (1 << feature));
-
-ERROR: memory barrier without comment
-#250: FILE: hw/misc/ivshmem2.c:183:
-+    smp_mb();
-
-ERROR: braces {} are necessary for all arms of this statement
-#625: FILE: hw/misc/ivshmem2.c:558:
-+    if (msg->vector == 0)
-[...]
-
-WARNING: Block comments use a leading /* on a separate line
-#775: FILE: hw/misc/ivshmem2.c:708:
-+/* Select the MSI-X vectors used by device.
-
-WARNING: Block comments use a trailing */ on a separate line
-#777: FILE: hw/misc/ivshmem2.c:710:
-+ * we just enable all vectors on init and after reset. */
-
-total: 3 errors, 3 warnings, 1147 lines checked
-
-Patch 1/3 has style problems, please review.  If any of these errors
-are false positives report them to the maintainer, see
-CHECKPATCH in MAINTAINERS.
-
-2/3 Checking commit df18ce079161 (docs/specs: Add specification of ivshmem device revision 2)
-WARNING: added, moved or deleted file(s), does MAINTAINERS need updating?
-#24: 
-new file mode 100644
-
-total: 0 errors, 1 warnings, 333 lines checked
-
-Patch 2/3 has style problems, please review.  If any of these errors
-are false positives report them to the maintainer, see
-CHECKPATCH in MAINTAINERS.
-3/3 Checking commit 45625def0d51 (contrib: Add server for ivshmem revision 2)
-WARNING: added, moved or deleted file(s), does MAINTAINERS need updating?
-#77: 
-new file mode 100644
-
-WARNING: Block comments use a leading /* on a separate line
-#174: FILE: contrib/ivshmem2-server/ivshmem2-server.c:86:
-+/* free a peer when the server advertises a disconnection or when the
-
-WARNING: Block comments use a trailing */ on a separate line
-#175: FILE: contrib/ivshmem2-server/ivshmem2-server.c:87:
-+ * server is freed */
-
-ERROR: memory barrier without comment
-#194: FILE: contrib/ivshmem2-server/ivshmem2-server.c:106:
-+    smp_mb();
-
-WARNING: Block comments use a leading /* on a separate line
-#276: FILE: contrib/ivshmem2-server/ivshmem2-server.c:188:
-+    /* XXX: this could use id allocation such as Linux IDA, or simply
-
-WARNING: Block comments use a trailing */ on a separate line
-#277: FILE: contrib/ivshmem2-server/ivshmem2-server.c:189:
-+     * a free-list */
-
-WARNING: Block comments use a leading /* on a separate line
-#342: FILE: contrib/ivshmem2-server/ivshmem2-server.c:254:
-+/* Try to ftruncate a file to next power of 2 of shmsize.
-
-WARNING: Block comments use a trailing */ on a separate line
-#346: FILE: contrib/ivshmem2-server/ivshmem2-server.c:258:
-+ * shm_size value. */
-
-WARNING: Block comments use a leading /* on a separate line
-#619: FILE: contrib/ivshmem2-server/ivshmem2-server.h:63:
-+    const char *shm_path;           /**< Path to the shared memory; path
-
-WARNING: Block comments use * on subsequent lines
-#620: FILE: contrib/ivshmem2-server/ivshmem2-server.h:64:
-+    const char *shm_path;           /**< Path to the shared memory; path
-+                                         corresponds to a POSIX shm name or a
-
-WARNING: Block comments use a trailing */ on a separate line
-#621: FILE: contrib/ivshmem2-server/ivshmem2-server.h:65:
-+                                         hugetlbfs mount point. */
-
-WARNING: Block comments use a leading /* on a separate line
-#622: FILE: contrib/ivshmem2-server/ivshmem2-server.h:66:
-+    bool use_shm_open;              /**< true to use shm_open, false for
-
-WARNING: Block comments use * on subsequent lines
-#623: FILE: contrib/ivshmem2-server/ivshmem2-server.h:67:
-+    bool use_shm_open;              /**< true to use shm_open, false for
-+                                         file-backed shared memory */
-
-WARNING: Block comments use a trailing */ on a separate line
-#623: FILE: contrib/ivshmem2-server/ivshmem2-server.h:67:
-+                                         file-backed shared memory */
-
-ERROR: spaces required around that '*' (ctx:VxV)
-#742: FILE: contrib/ivshmem2-server/main.c:22:
-+#define IVSHMEM_SERVER_DEFAULT_SHM_SIZE       (4*1024*1024)
-                                                 ^
-
-ERROR: spaces required around that '*' (ctx:VxV)
-#742: FILE: contrib/ivshmem2-server/main.c:22:
-+#define IVSHMEM_SERVER_DEFAULT_SHM_SIZE       (4*1024*1024)
-                                                      ^
-
-WARNING: Block comments use a leading /* on a separate line
-#906: FILE: contrib/ivshmem2-server/main.c:186:
-+/* wait for events on listening server unix socket and connected client
-
-WARNING: Block comments use a trailing */ on a separate line
-#907: FILE: contrib/ivshmem2-server/main.c:187:
-+ * sockets */
-
-WARNING: Block comments use a leading /* on a separate line
-#977: FILE: contrib/ivshmem2-server/main.c:257:
-+    /* Ignore SIGPIPE, see this link for more info:
-
-WARNING: Block comments use a trailing */ on a separate line
-#978: FILE: contrib/ivshmem2-server/main.c:258:
-+     * http://www.mail-archive.com/libevent-users@monkey.org/msg01606.html */
-
-total: 3 errors, 17 warnings, 963 lines checked
-
-Patch 3/3 has style problems, please review.  If any of these errors
-are false positives report them to the maintainer, see
-CHECKPATCH in MAINTAINERS.
-
-=== OUTPUT END ===
-
-Test command exited with code: 1
-
-
-The full log is available at
-http://patchew.org/logs/cover.1573477032.git.jan.kiszka@siemens.com/testing.checkpatch/?type=message.
----
-Email generated automatically by Patchew [https://patchew.org/].
-Please send your feedback to patchew-devel@redhat.com
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/157352018133.9707.15852640482814208357%4037313f22b938.
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/20191112024400-mutt-send-email-mst%40kernel.org.
