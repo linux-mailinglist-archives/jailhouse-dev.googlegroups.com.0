@@ -1,115 +1,80 @@
-Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBGMEV7XAKGQE4GWFVTA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC2PTC4R4MNBBYPGWPXAKGQEY5SI4UA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pf1-x43c.google.com (mail-pf1-x43c.google.com [IPv6:2607:f8b0:4864:20::43c])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2138FAC2D
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 13 Nov 2019 09:43:07 +0100 (CET)
-Received: by mail-pf1-x43c.google.com with SMTP id z2sf293397pfg.6
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 13 Nov 2019 00:43:07 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1573634586; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=aGf33fSIifCZTJs7jnctRjqZ/puvmUBEmfKyRXdJb48kEiHjtr7JdZLrmSgXPhAQfE
-         z9+4X09nIDrw13PdQxX1xNFbUKJmwJ/iFpFiXVoPdKMbp6vdlXBMPumIMJLtjC+HOhxf
-         EVq5H/ocLLbSAo9jcsLd1Qi9c+RxtCTQ/v/MCc1u5SChc7BSm7PwfjYO7lyRfSxD/WLg
-         LL396jZELdBwFTPjnAO3jnffyorus3OP2YmESQNvTxIlnhvyNs8/i9iLaxF422mzBuc/
-         TGd7zjgeLbBLmdnkqNdcsRtM1p1zwWfBQMRNuOb9RiTfjK+HODDUKCWkTMoo0+vIu3dO
-         6/iA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:subject:message-id:to
-         :from:date:sender:dkim-signature;
-        bh=GljQDftdEd5JeRR3Dt0BK67a71uaQQrT6t8tIy9c59Y=;
-        b=pxLLQ49uus0GWthuyDJ9SkhepotlfWYOX+4kKUdQ7UeExLNuW5tP+z6Q/9ksSJ6Wee
-         FCBp0yWM+UMN4/eHFqAFR/ENfO22SuU9Jlcpz0E0uXcUyVus4nprEVaMy855ioNijxTu
-         ODvwPYqh0DCRLHx+FN3EJ++rBN0MsmpxIHf498Mlg54P4MHyxcHpZhjhEyZvfygbb2fz
-         Y+y79OuSuz2MyoxaX3CCzkXTJxjNhQ5XLn4fxUXbuudvGtNMuLaXi+jUAd9j3QsjxUhU
-         eIQk3YQWs9lzpC6vvsSwdrQIzKtQO6wybmGS2VSeZkmRS7AgaJ/wknENvYXSrJnjSFlR
-         rTpQ==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=nvmzQ1V6;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.204 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from mail-ot1-x33b.google.com (mail-ot1-x33b.google.com [IPv6:2607:f8b0:4864:20::33b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BB18FC022
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 14 Nov 2019 07:25:39 +0100 (CET)
+Received: by mail-ot1-x33b.google.com with SMTP id l17sf2673233otp.13
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 13 Nov 2019 22:25:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:subject:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=GljQDftdEd5JeRR3Dt0BK67a71uaQQrT6t8tIy9c59Y=;
-        b=eqMa/s0P5wSPVrW/Xh9YkADiWaV5H69TkjhATCSnFriJBFeRzlxl59oPmMXLleHulo
-         oUaj7KwMegRkZrDLhJsFWE5hT1nGLnOAEK7tKzq0UaDloHvbUiLbAAt2MJlipR9ZUkCX
-         ZR+6QLRNB6R0gI3ktXsB8kpnOAmphx6Cccdv0aO81S5J2rcChbDECKcH26cs/W+6MKF/
-         A0eI+oiaQ0UPT8bYx7nzarWXDnq1lp12luj1nBOT3SnS9vwdyGvWscbs9CN/iJI4H6+S
-         lDFVqMWicgLhYW3VJailAxvSC1/PbyrLZWnR9J3MmuOycTFBOKvXxXd3HLq+wFC3SNb5
-         o16g==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=9r7lcLrm3FyUxjU1mYVov0wrTbksOJIKkzzAgKyPgeQ=;
+        b=NHDE3Y4wyComCo4wuLj6Pjoq8cHVNM452lCQZMvTxgscl43XVC9IU6j001pfp21sam
+         39DCbNOuMBmaHK/3KLAz9X8LegJutVY1RgoHTaXou4z9fYPkJbFYTjyDesjMBm9ygAEI
+         UxDGABd++yLZWUEtOUkJ9XA8s5uJS89JToOKl7rdVOs+Wal8OAezwQ91Ktbq0rh34Cs5
+         xCAt6gMueIl4E/p6l/15u46kLO1rxzAf5PVRzidbv38XQpIvRQI31mCxunITxPCuoXTI
+         pdn1hsilwaqYgndkNnHo8aJIF8r7ytX13PmtbgO36JH6J91mVn9+SCNmUrP0zOea2fbg
+         xv1g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=9r7lcLrm3FyUxjU1mYVov0wrTbksOJIKkzzAgKyPgeQ=;
+        b=Pg8Pk+RgRI6PYqk63P7Hevo4jx1Q4sfhHscsjbVak13M3T+B2MgYjEqSzPSTUnjq2I
+         DdkYBIVKoWn8ts+97pLDUFJEgSO4Go83Av9ETLqabxOExuv1B2pfzxQJ8O/XD9qQAXFz
+         7POoLvHld3udmk8lD0pBh4D/XStY7HLy8vNqj9iT++6z1s8KRSv+pH2I9seb4HlMsTO6
+         iPykR7L+S1GHvmO2q3OoyyUDl9gbuS0cseAPS31bR3zTP7BuCA6Yi73TjSLOvALyC8iE
+         DpRIgEdRcYlGcKvclHizje5jxi+3uow2N854fM4XuDsBu3WynfhqGPgeFBViPcF6Jz3p
+         7kyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=GljQDftdEd5JeRR3Dt0BK67a71uaQQrT6t8tIy9c59Y=;
-        b=UEyAUFSdAfDwm5JGXovOTgepOUJl84D0JQA2a9phfwJX4SE+NIDawq/7ON8MtdZijJ
-         4uuPWDiv6t0DYt0W3a2GlSRdiyXNkxkN5qTs0+BmmK4tXVTTuS8NddG79iFpt9t1AeXN
-         HX2XLVBdk0XiRpjWCnKQgnGQxrU6i28fJjVrxw+0DikXr1KPmEahw+etL7RyIdOfxqjQ
-         98IGWVjzLbZD5p74gbhBWX52unWtags8eWbTINDs2iJrcNT5IWpfKeHx/LpTGrjw2vsj
-         a3cuTR9Ppi2s4VkEbIKb4polzaCTya2WRLWx5TX2ke7ViCm3KmwJHPVNyUZL5jnrh4et
-         +amA==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=9r7lcLrm3FyUxjU1mYVov0wrTbksOJIKkzzAgKyPgeQ=;
+        b=HFOYAXR7u3M1nnPNg1BjPdGLXaPvV9x0OdhweFqA2NsyaI6DLrLB0xG5qpHbWvuPWp
+         MMxJKYIvxnerl3GuhFeUeS21wzOi+Rt8wwv3nv+vsyJVGM7MOdBB2bcwQgV93WrUxI2O
+         CKhJla2eGaZxKyrQcMhQVuq5vi5KnDkXL7DAbOZFRgNQFhAy6U2pj8LfF0/Vw3l+4vnF
+         b4SFB4GYGM9SQkCS+uAthlSILH2WsiN3/f9+quinka0O7OdbWoLkonKLehHLqrQtb68n
+         op0zHWy9CbSw81ztBptOI2zbDML8L1Offk1KVkK71QFH+gV6k+tr8VkO6o4zyvjv18C3
+         N0hg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVtXRnJdnp2DAv4hB1QI8sdZWc9asVTgIFrLha+MsycEjQkqDOm
-	9jqOYN0QvLwhaHtxCEirx6Y=
-X-Google-Smtp-Source: APXvYqy26T7SPqdftQt58+/Y0ulH4mLf7f+mW8IzeooPGflrB6n9DgxeqEN0elgY/QVnOn4HqZAEvQ==
-X-Received: by 2002:a17:90a:f491:: with SMTP id bx17mr3267670pjb.124.1573634586236;
-        Wed, 13 Nov 2019 00:43:06 -0800 (PST)
+X-Gm-Message-State: APjAAAW/3UlBtvEt8YKk9qnfq6Heg+eMnU37KYDO7VVqMH3fD97h1iaL
+	Ova7Tk7JC2eHM52pcfPV55k=
+X-Google-Smtp-Source: APXvYqxDRH8pM/LcDw4GHpCK4G5zwLfcHsfe6w2kQlt0/ipQMoVCsMgWTnck8ACoVwqXf0h9b336Cg==
+X-Received: by 2002:a05:6830:55a:: with SMTP id l26mr6634959otb.144.1573712737658;
+        Wed, 13 Nov 2019 22:25:37 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:902:7c10:: with SMTP id x16ls461472pll.0.gmail; Wed, 13
- Nov 2019 00:43:05 -0800 (PST)
-X-Received: by 2002:a17:902:7205:: with SMTP id ba5mr2439334plb.95.1573634585427;
-        Wed, 13 Nov 2019 00:43:05 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1573634585; cv=none;
-        d=google.com; s=arc-20160816;
-        b=Bl6n8sXk4831T5/nMKNmly/KpT0oFw1MbzizrD45LbZ4pzSqx2cSJKm2OABTcBGTAU
-         W1A/hPwkea4JPrebTGMzkSgdN6drMPtcIST5LxklODwY0Xgy+TIHWzYMkyV2zBeyuw0E
-         1UR4bmKBwBSAah3FoixVu5ghy3hGorte+r3UIuDtODluvzljlqS/eI3PUA5h6YKG13uf
-         GTQApBEiVEqPRgolb6ys4vBxMVzEv09pVwZQVlpc3Pq9EFwFcnTzC43/h5S7O/zu84In
-         0c21qCusnGFyMmZVEFrc/p7Z16pJD3g3PwPCdZ8UHOAPRi39kFYPgG4wGvisp4L1UovO
-         ejUw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:subject:message-id:to:from
-         :dkim-signature:date;
-        bh=tCAl8intn9VwZWhk/tQoqYqxibRqNaJPMMLHa+kxJkk=;
-        b=ONgrXqAYSDvBqURlCiyvB7zb39xxcAEo51FnsE4JUlDzsHsR7UxVN3h9Q9qx/sjTbB
-         YJZNE10FY1QW+AB2wxYUZwNAMaCikQFPyYWFhEGGfHFFSk24ALv0ilRIlTbVNEX1oUBD
-         sALockEtpzCap7oADLHOlHt12risB70oAXI3oc3poV4Ogm7HQ7PDpP84+OUJy/TUoLdB
-         gWNU/ixEQbUcswzduyZOBdIfQApV+Lep2r6imEDMalcVJC8PD9yqswf/ni8ZpQ6i9hdh
-         oXTMPK7DnsUEZqKAjhYPW9bszu0vDA66DCVenV4fK/K06p6PPEWjxabReINdIhclmFni
-         dEEQ==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=nvmzQ1V6;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.204 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
-Received: from out-21.smtp.github.com (out-21.smtp.github.com. [192.30.252.204])
-        by gmr-mx.google.com with ESMTPS id f17si49475pgk.3.2019.11.13.00.43.05
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 13 Nov 2019 00:43:05 -0800 (PST)
-Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.204 as permitted sender) client-ip=192.30.252.204;
-Date: Wed, 13 Nov 2019 00:43:04 -0800
-From: Jan Kiszka <noreply@github.com>
-To: jailhouse-dev@googlegroups.com
-Message-ID: <siemens/jailhouse/push/refs/heads/wip/cve-2018-12207/000000-e5d7aa@github.com>
-Subject: [siemens/jailhouse] 60f980: core: paging: Refactor
- paging_create/destroy param...
-Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
-X-Auto-Response-Suppress: All
-X-Original-Sender: noreply@github.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
- mode) header.i=@github.com header.s=pf2014 header.b=nvmzQ1V6;       spf=pass
- (google.com: domain of noreply@github.com designates 192.30.252.204 as
- permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass (p=NONE
- sp=NONE dis=NONE) header.from=github.com
+Received: by 2002:a9d:4815:: with SMTP id c21ls1172811otf.0.gmail; Wed, 13 Nov
+ 2019 22:25:37 -0800 (PST)
+X-Received: by 2002:a05:6830:8b:: with SMTP id a11mr6654151oto.244.1573712736513;
+        Wed, 13 Nov 2019 22:25:36 -0800 (PST)
+Date: Wed, 13 Nov 2019 22:25:35 -0800 (PST)
+From: Chung-Fan Yang <sonic.tw.tp@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <780f0dbb-4fcf-4e0e-a247-8e9f2ff0ec76@googlegroups.com>
+In-Reply-To: <22847d72-665a-7c0a-00c5-f015912df44e@siemens.com>
+References: <a54a651c-13de-4aa1-9c32-475ebddc4e6f@googlegroups.com>
+ <6defc2d1-96ac-c470-818d-1c9a8e1d8725@web.de>
+ <eed4bd9a-7020-4182-9949-d529bef7b3b2@googlegroups.com>
+ <48bb5fe2-9b9f-4ad1-872e-9eae4bdd2c43@googlegroups.com>
+ <20191025155257.6af12e29@md1za8fc.ad001.siemens.net>
+ <76ecfa10-3a69-b5bc-382a-48a59c345637@siemens.com>
+ <579d40f1-a8f4-4144-9405-3bba1ea23c14@googlegroups.com>
+ <2151b869-9732-4483-8659-90234a971f1b@googlegroups.com>
+ <09cf7ef6-0bb0-0d3e-cab3-493c500c6559@siemens.com>
+ <6705dfff-635e-4182-a684-86d0b861e94e@googlegroups.com>
+ <22847d72-665a-7c0a-00c5-f015912df44e@siemens.com>
+Subject: Re: v0.9 vs v1.1 interrupt latency raise
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_1191_854683159.1573712735848"
+X-Original-Sender: Sonic.tw.tp@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -122,75 +87,220 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-  Branch: refs/heads/wip/cve-2018-12207
-  Home:   https://github.com/siemens/jailhouse
-  Commit: 60f9803fbf64a50d997ca0cb426ccbb7a4d582ee
-      https://github.com/siemens/jailhouse/commit/60f9803fbf64a50d997ca0cb426ccbb7a4d582ee
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-13 (Wed, 13 Nov 2019)
+------=_Part_1191_854683159.1573712735848
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1192_1931512925.1573712735848"
 
-  Changed paths:
-    M hypervisor/arch/arm-common/mmu_cell.c
-    M hypervisor/arch/x86/svm.c
-    M hypervisor/arch/x86/vmx.c
-    M hypervisor/arch/x86/vtd.c
-    M hypervisor/include/jailhouse/paging.h
-    M hypervisor/paging.c
-
-  Log Message:
-  -----------
-  core: paging: Refactor paging_create/destroy parameters
-
-Change the coherent enum into paging_flags in order to allow adding more
-in the future. Rename the flags parameter to access_flags for better
-differentiation.
-
-Use this chance to align the names and types of local vars that are
-forwarded to access_flags with that parameter.
-
-No behavioral changes.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+------=_Part_1192_1931512925.1573712735848
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
 
-  Commit: e5d7aab4b55bd9f4a1bdd9ee9892823810fd20aa
-      https://github.com/siemens/jailhouse/commit/e5d7aab4b55bd9f4a1bdd9ee9892823810fd20aa
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-13 (Wed, 13 Nov 2019)
 
-  Changed paths:
-    M hypervisor/arch/arm-common/mmu_cell.c
-    M hypervisor/arch/x86/svm.c
-    M hypervisor/arch/x86/vmx.c
-    M hypervisor/arch/x86/vtd.c
-    M hypervisor/include/jailhouse/paging.h
-    M hypervisor/paging.c
-    M hypervisor/setup.c
-    M include/jailhouse/cell-config.h
+2019=E5=B9=B411=E6=9C=881=E6=97=A5=E9=87=91=E6=9B=9C=E6=97=A5 16=E6=99=8236=
+=E5=88=8616=E7=A7=92 UTC+9 Jan Kiszka:
+>
+> On 31.10.19 06:57, Chung-Fan Yang wrote:=20
+> >=20
+> >     Interesting findings already, but I'm afraid we will need to dig=20
+> >     deeper:=20
+> >     Can you describe what all is part of your measured latency path?=20
+> >=20
+> >=20
+> > I measured using an oscillate scope and function generator.=20
+> > I am using MMIO GPIOs. The application calls a system call and waits fo=
+r=20
+> > an interrupt on a certain GPIO.=20
+> > When I send a pulse to the GPIO, the IRQ handler release a semaphore,=
+=20
+> > interm trigger the scheduler and wake-up the application, which send=20
+> > another pulse to another GPIO using MMIO.=20
+> >=20
+> > FG -> Serial -> APIC -> RTOS IRQ Hnd -> Scheduler -> Application ->=20
+> > Serial -> OSC=20
+> >=20
+> > The timing different of these 2 pulses are measured.=20
+> >=20
+> > Because of the waiting mechanism used, receiving the pulse involved the=
+=20
+> > system call / semaphore / interrupt handling of the RTOS.=20
+> > On the other hand, sending doesn't use any of the RTOS feature.=20
+> >=20
+> >     Do you just run code in guest mode or do you also trigger VM exits,=
+=20
+> >     e.g. to=20
+> >     issue ivshmem interrupts to a remote side?=20
+> >=20
+> >=20
+> > I tried to instrument the system.=20
+> > So far there are no additional interrupts send, nor received during the=
+=20
+> > whole process.=20
+> > VMExit do exist for EOI(systick and serial IRQ) and when I fiddle the=
+=20
+> > TSC_deadline timer enable/disable bit of APIC MSR.=20
+> > The whole process is not related to any ivshmem operations.=20
+>
+> Use x2APIC in your guest, and you will get rid of those VMexits (due to=
+=20
+> xAPIC MMIO interception). But that's an unrelated optimization.=20
+>
+>
+Thanks for the hint.
+I override the BIOS and enabled it.
+There are no VM exits now.
+=20
 
-  Log Message:
-  -----------
-  core: Introduce JAILHOUSE_MEM_NO_HUGEPAGES memory region flag
+> >=20
+> >     Maybe you can sample some latencies along the critical path so that=
+=20
+> >     we have a better picture about =20
+> >=20
+> >     where we lose time, overall or rather on specific actions.=20
+> >=20
+> >=20
+> > Basically, it is an overall slowdown.=20
+> > But code in the scheduler and application slowdown more than other=20
+> places.=20
+> >=20
+> > BTW, I tested the again with a partially working setup of <kernel=20
+> > 4.19/Jailhouse v0.11/old ivshmem2>.=20
+> > Currently, I cannot get my application running, due to some mystery, bu=
+t=20
+> > I am observing some slowdown.=20
+> > Pinging the RTOS using ivshmem-net the RTT has about 2x latency:=20
+> >  * <kernel 4.19/Jailhouse v0.11/old ivshmem2>: ~0.060ms=20
+> >  * <kernel 4.19/Jailhouse v0.11/new ivshmem2>: ~0.130ms=20
+> >=20
+>
+> Sound like as if we have some caching related problem. You could enable=
+=20
+> access to the perf MSRs (small patch to the MSR bitmap in vmx.c) and=20
+> check if you see excessive cache misses in the counters.=20
+>
+>
+I am quite busy lately, so I might let this problem be as is and revisit it=
+=20
+later.
 
-This allows to mitigate CVE-2018-12207: On affected Intel machines, a
-guest can trigger an unrecoverable machine check exception when running
-a certain code pattern on an executable huge page. The suggested
-mitigation pattern of Intel involved on-demand break-up of huge pages
-when the guest tries to execute on them and also consolidating them into
-non-executable huge pages dynamically. This pattern is not compatible
-with the static and deterministic behavior of Jailhouse.
+I will update the thread when I made new discoveries.
 
-Therefore, this introduces a memory region flag to exclude huge page
-mappings for a region. System configurators can use this flag for
-executable regions on affected CPUs, while still allowing huge pages for
-non-executable regions.
+Yang.
 
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/780f0dbb-4fcf-4e0e-a247-8e9f2ff0ec76%40googlegroups.com.
 
+------=_Part_1192_1931512925.1573712735848
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Compare: https://github.com/siemens/jailhouse/compare/60f9803fbf64%5E...e5d7aab4b55b
+<div dir=3D"ltr"><br><br>2019=E5=B9=B411=E6=9C=881=E6=97=A5=E9=87=91=E6=9B=
+=9C=E6=97=A5 16=E6=99=8236=E5=88=8616=E7=A7=92 UTC+9 Jan Kiszka:<blockquote=
+ class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-left: 1=
+px #ccc solid;padding-left: 1ex;">On 31.10.19 06:57, Chung-Fan Yang wrote:
+<br>&gt;=20
+<br>&gt; =C2=A0 =C2=A0 Interesting findings already, but I&#39;m afraid we =
+will need to dig
+<br>&gt; =C2=A0 =C2=A0 deeper:
+<br>&gt; =C2=A0 =C2=A0 Can you describe what all is part of your measured l=
+atency path?=20
+<br>&gt;=20
+<br>&gt;=20
+<br>&gt; I measured using an oscillate scope and function generator.
+<br>&gt; I am using MMIO GPIOs. The application calls a system call and wai=
+ts for
+<br>&gt; an interrupt on a certain GPIO.
+<br>&gt; When I send a pulse to the GPIO, the IRQ handler release a semapho=
+re,
+<br>&gt; interm trigger the scheduler and wake-up the application, which se=
+nd
+<br>&gt; another pulse to another GPIO using MMIO.
+<br>&gt;=20
+<br>&gt; FG -&gt; Serial -&gt; APIC -&gt; RTOS IRQ Hnd -&gt; Scheduler -&gt=
+; Application -&gt;
+<br>&gt; Serial -&gt; OSC
+<br>&gt;=20
+<br>&gt; The timing different of these 2 pulses are measured.
+<br>&gt;=20
+<br>&gt; Because of the waiting mechanism used, receiving the pulse involve=
+d the
+<br>&gt; system call / semaphore / interrupt handling of the RTOS.
+<br>&gt; On the other hand, sending doesn&#39;t use any of the RTOS feature=
+.
+<br>&gt;=20
+<br>&gt; =C2=A0 =C2=A0 Do you just run code in guest mode or do you also tr=
+igger VM exits,
+<br>&gt; =C2=A0 =C2=A0 e.g. to
+<br>&gt; =C2=A0 =C2=A0 issue ivshmem interrupts to a remote side?=20
+<br>&gt;=20
+<br>&gt;=20
+<br>&gt; I tried to instrument the system.
+<br>&gt; So far there are no additional interrupts send, nor received durin=
+g the
+<br>&gt; whole process.
+<br>&gt; VMExit do exist for EOI(systick and serial IRQ) and when I fiddle =
+the
+<br>&gt; TSC_deadline timer enable/disable bit of APIC MSR.
+<br>&gt; The whole process is not related to any ivshmem operations.
+<br>
+<br>Use x2APIC in your guest, and you will get rid of those VMexits (due to
+<br>xAPIC MMIO interception). But that&#39;s an unrelated optimization.
+<br>
+<br></blockquote><div><br></div><div>Thanks for the hint.</div><div>I overr=
+ide the BIOS and enabled it.<br></div><div>There are no VM exits now.<br></=
+div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin: 0;m=
+argin-left: 0.8ex;border-left: 1px #ccc solid;padding-left: 1ex;">&gt;=20
+<br>&gt; =C2=A0 =C2=A0 Maybe you can sample some latencies along the critic=
+al path so that
+<br>&gt; =C2=A0 =C2=A0 we have a better picture about=C2=A0
+<br>&gt;=20
+<br>&gt; =C2=A0 =C2=A0 where we lose time, overall or rather on specific ac=
+tions.
+<br>&gt;=20
+<br>&gt;=20
+<br>&gt; Basically, it is an overall slowdown.
+<br>&gt; But code in the scheduler and application slowdown more than other=
+ places.
+<br>&gt;=20
+<br>&gt; BTW, I tested the again with a partially working setup of &lt;kern=
+el
+<br>&gt; 4.19/Jailhouse v0.11/old ivshmem2&gt;.
+<br>&gt; Currently, I cannot get my application running, due to some myster=
+y, but
+<br>&gt; I am observing some slowdown.
+<br>&gt; Pinging the RTOS using ivshmem-net the RTT has about 2x latency:
+<br>&gt; =C2=A0* &lt;kernel 4.19/Jailhouse v0.11/old ivshmem2&gt;: ~0.060ms
+<br>&gt; =C2=A0* &lt;kernel 4.19/Jailhouse v0.11/new ivshmem2&gt;: ~0.130ms
+<br>&gt;=20
+<br>
+<br>Sound like as if we have some caching related problem. You could enable
+<br>access to the perf MSRs (small patch to the MSR bitmap in vmx.c) and
+<br>check if you see excessive cache misses in the counters.
+<br>
+<br></blockquote><div><br></div><div>I am quite busy lately, so I might let=
+ this problem be as is and revisit it later.</div><div><br></div><div>I wil=
+l update the thread when I made new discoveries.</div><div><br></div><div>Y=
+ang.<br></div></div>
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/wip/cve-2018-12207/000000-e5d7aa%40github.com.
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/780f0dbb-4fcf-4e0e-a247-8e9f2ff0ec76%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/780f0dbb-4fcf-4e0e-a247-8e9f2ff0ec76%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_1192_1931512925.1573712735848--
+
+------=_Part_1191_854683159.1573712735848--
