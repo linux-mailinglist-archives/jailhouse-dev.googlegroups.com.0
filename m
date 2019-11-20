@@ -1,126 +1,139 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBCGNZPXAKGQEVL7HQFI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBQEF23XAKGQECAYQ4WY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x53f.google.com (mail-ed1-x53f.google.com [IPv6:2a00:1450:4864:20::53f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12083100BAC
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 18 Nov 2019 19:44:25 +0100 (CET)
-Received: by mail-ed1-x53f.google.com with SMTP id f17sf11966575edv.6
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 18 Nov 2019 10:44:25 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1574102664; cv=pass;
+Received: from mail-lf1-x139.google.com (mail-lf1-x139.google.com [IPv6:2a00:1450:4864:20::139])
+	by mail.lfdr.de (Postfix) with ESMTPS id 644B7104316
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 20 Nov 2019 19:15:29 +0100 (CET)
+Received: by mail-lf1-x139.google.com with SMTP id f20sf36487lfh.7
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 20 Nov 2019 10:15:29 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1574273729; cv=pass;
         d=google.com; s=arc-20160816;
-        b=AYkn/GZn8Zkq0AGilLC1/yMWDDNsibir+RB+Lp8GQHpeVq3nc9oK1jkBXSU+VUJBOv
-         NnhK4I0b9H7pmvyy8ICirNz/43rnyeQP3QCPris+gggTfV7KnHca+GODJ+W190b2WG+f
-         Xo2qTx4gRXw4b2vAYpVQG6vBcDjPm0Dj/i66usnDoFqZAWuehBjWfhbqjBReePNIEmKS
-         G939fh0A2Nez8ZERwbeCi9RfJ+PwPLtU5bLwtmptW402RT4YOSuDbXyRVX3m5RzshZnF
-         oO+00MmQjvDnIob3antf8tz/+/TTYOj1WbzVQklrcwv+XxLlahtyvWLRhVBE4e8bXTvu
-         NNLw==
+        b=aPia8KyysTfJmM1kZI/ySLpSmf3lc/GaVgIHsfmKaYckNJZaKj1/huUwEGvoDSOguZ
+         db7Dibasn2P22d5CABRZnb/IgKsXJGsbB5spZcIYaIVZiNNcKJWll6G5I+XJr6lwBlZo
+         CUzohaJIwcx5TTYa/mh556l9btpbWfWeOpC8VMDIxziHhlCuCdhII1F/UEoxF8MkFe3M
+         1MkRZNUnwx/eyzqRVeB8BkVc6Kxfqv43q//UA2nRB6t4SNskiIUX2uy/HRJL4+f8MKuu
+         Cxy2WhzZrnlABHp2bM/8QiGZvqw7HyZch+SXjQUA+nZds7D7n0F8kjOKCD2CQvOdNM+N
+         3lmw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
          :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=vAsE/2znkJu2hyEJqVm9Vy3vJ3tH/41oU4zfI7mSCxo=;
-        b=iEO6wW9UI24tfs9Ax+LlwPG/+OIo7thGlrMciKP0OQqzQSOIg2kuxpBSZxfXQt945S
-         q09z1itXPKwuphyGTceHw1asRsTXz4QQa4grPotFXn2MfHF1+zWi1tF0fNG66hYCxb/Z
-         TFULj1PusaQsn6OSbiwb9BVbGmSgxnNC2PZAP6rUDZm2T+otJj68kcZOK1GjlAt9eKVp
-         NmdGxMNNsgfvrVT3dRVgrhj3YN96dUpn6tW9eIbu+iyiaz4pwvLSIY3ZeVSYhJvrx7BF
-         22ESe7xbfrHIWgAqC3Vg6w4E/sgXnVVeGmR6pyRqhZHCGgAhQlJq9ozge3vfwel5uMj/
-         xMCg==
+         :message-id:from:references:cc:to:subject:sender:dkim-signature;
+        bh=7/dYzAwuEZn/ebGsKkIgeOok0WiGqF3YhfC8zgAjpXo=;
+        b=c0Fg+uyW3/cEBL7qZYCd8hTwKE3yvNZtScwMJXLD94mP4rO54UCIC99An2Q9LPB/fh
+         lyJsAwI5nzci55SS5e9vbBHt2d5uUgBz/d5mfI8PeZacZHedGsv3qSfhDLiKUv0nFe5X
+         LzvvqZxmkX9ec27zcOLj1yZqXNmlXBBK9cNKjVmD8BG5r4RyA69bxuEleOpEBNwYPGJN
+         1m8zIwLo5a/2JRtlVcN+AJ8P5mbdVMDPZCmbZwpqe2LEkxhvaKq7uagrb4RkFrpYdUu7
+         OkK/apOlX4UZBEuqfvqo8onWsKCqgYhWA5Mv3cMNfholMsKOASzd+nCuBME19str90nv
+         3hGA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
+        h=sender:subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=vAsE/2znkJu2hyEJqVm9Vy3vJ3tH/41oU4zfI7mSCxo=;
-        b=kB9gFHA+mD0/kYoic+y2QwcwwySprI+oIX5dGU+vpxiA0tG6Uy4HVvopOwXDU2SPWi
-         Asy2SnJ7+M93pWZONoZPNeaj21UEx9NNyiEk5zNFJkyfgvuRX0nP3/jWx6s+V589t5OG
-         jBrpgYPuNXS60TlaLkpzrf1FcERCRjPw7+8v2Mj1eqsq/5LAwBUUW3aSyirJMGFrimg2
-         1L724JnQnUnNL5tBoIR99NyupMAJmLIX+7JOENDpSW7MLlPQ1ftYZtQ6r1Mcoa43r0bE
-         wzPBurQwlVdDbJqI6UgBG0yKZHN2DwfLXKJqtrh6ygYks/DeKtBFhEmrQs8dx5GB5MNg
-         8B2A==
+        bh=7/dYzAwuEZn/ebGsKkIgeOok0WiGqF3YhfC8zgAjpXo=;
+        b=I6gmSIgOB+Rp6k7R1NOaEeYIjG02ikkZar27AQj4MNk4NCUXJiHtwcorNRNbmFyEoF
+         bxetGZ5wiAPg5uxNh1zXuQtOW/DRQ8Nqi8WJGEInzBdsge0Q1MX2HRbF6DLszLImNUuk
+         t7ZqVe0b0dH4TOKWAc9CNF07RdVAnK9zerpHxeCtESUKBQPMxjiro9HRftRIMvxJos51
+         FpSazwNX8mCnxdsFzZK5pz+iaVp4iaNni9OMZvB4od+giSAbE7TW8opUn2V1MpYF0VvZ
+         rmTRbvo7bop2Ld1AE8Z6YWNKO3IaMj0cxYByuIYrn8B0l4H/AJqOwcvn16y9gU1Enjy+
+         7kRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
+        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
          :date:user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=vAsE/2znkJu2hyEJqVm9Vy3vJ3tH/41oU4zfI7mSCxo=;
-        b=IH/Jh6+jHqkiwCJ2byXgOKyFR7HO0Wcgjx/92DZFvTa833WpLxMHCryc/qyjvJefnA
-         H+Jgcf5vhe+yvEHuYXqOtYxpwxwvj9HlUfWNgZEhlUFKKWGmCcGSrKgYqZ+DPz6rolEq
-         mM4FuERSvKpZKNeUV5yL1NrRXsqZBUZzDTLCJBzREuILiUEDXlw1/lzZvEqI/Y/vrz6m
-         3+D6V+snnMquqBWIq2/7APcH1aRUw7sM2x8S7HdVjpsupZoQ0PoVfWuMqg9XECQzHmQY
-         bEGrt3oV0bXogJGExW88ZqIshbE27rmH9PzIDeybKd3Nz9psh2PaQQZqEEdBAP55tUT3
-         /prA==
+        bh=7/dYzAwuEZn/ebGsKkIgeOok0WiGqF3YhfC8zgAjpXo=;
+        b=Foek2ezujv9bMwkBJasBpkaBca5D+oOGmTGrRD0PGaY7xpZTJMYyIuQC7NpahjRAGQ
+         dKWGOFw2Iu+iy/uFKAOU2QewpcG2RBMnDQst8RiWhm+vhfCvFOPhPNJ/Ui7gGyaEIQ52
+         FVuWgrpxv9W0GnUcry3/ojnmmNW+B+LeoltOpt6PWCucXTunHjC0gmsXxeWiwrfGh97O
+         gU4Q1r+DsB1rH2Ysp5bGQt1Hm93nbnhb3WLtDAczU0Vr8wbEWTdr0WVOgRiMzpB1xUwH
+         IP0FP85ugHe7r0al76dCn90vn9qdWn8QJjUFxu13iQgYNjggklnqcHsi2PfE97jRQGl1
+         NCfw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAU8U8t312NI5Ddhwh55r0kHS09W5uiVJRxuPNNEQAq1nMEWnrYo
-	Wt0ubyS8QPmK4n4RNdtMhyY=
-X-Google-Smtp-Source: APXvYqxvjLyeG4NM1sq0b6h9lILV6ZUoExU/yTciWngV4DbjHdW1td9LGDn8IxQoXd3XtV+LGXdXow==
-X-Received: by 2002:a17:906:e289:: with SMTP id gg9mr28199393ejb.71.1574102664732;
-        Mon, 18 Nov 2019 10:44:24 -0800 (PST)
+X-Gm-Message-State: APjAAAUuXPjMbSdaRHqCto9wMWNyJgmfudwfxRUfckjOx9q0lON7qV85
+	jkCMtfjBSZ+fNH4PKqEbe3s=
+X-Google-Smtp-Source: APXvYqy+AIPhqVKtddICdpSJXYltrjpggn4G3rHeKne9ykx75mwkY5O+4qpoZ30fF/EvLhL5CVRrQg==
+X-Received: by 2002:a2e:547:: with SMTP id 68mr4003857ljf.150.1574273728990;
+        Wed, 20 Nov 2019 10:15:28 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:80ca:: with SMTP id a10ls6018434ejx.0.gmail; Mon, 18
- Nov 2019 10:44:23 -0800 (PST)
-X-Received: by 2002:a17:906:8548:: with SMTP id h8mr28301781ejy.290.1574102663899;
-        Mon, 18 Nov 2019 10:44:23 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1574102663; cv=none;
+Received: by 2002:a19:790c:: with SMTP id u12ls13335lfc.4.gmail; Wed, 20 Nov
+ 2019 10:15:27 -0800 (PST)
+X-Received: by 2002:ac2:5935:: with SMTP id v21mr4161680lfi.19.1574273727740;
+        Wed, 20 Nov 2019 10:15:27 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1574273727; cv=none;
         d=google.com; s=arc-20160816;
-        b=ao8eI8YyLb0bRGaAVxAce+QhuEbPaX8656oDUurTz3EOUJfT8MYCiBnOrgQRdvmZoS
-         Cwzcb4G5I039ZQD+EwihTQf26W3w42ZrV3fRNtx2tPZue2r/b27nKn/vpbXga/LD7bgt
-         LVvgXjCESQrdDhE8ANsmQufRTH/QnDLjTKnB5l5LWsZADBpDzOaBXh2QqV4FbZ4B0z+t
-         d6zqRsxPGgIVvS0ODf18+5HjQJuCWGpgXct/uqUZjUKgj2eEbEcPFUJ7YoPIeNMfZjaE
-         4XW7Ii+0I7ZbuZpHLxlORHj2/wXUx67AxPuGYddwonfxg7SShS4ZDMH/12pcfk7GRh6I
-         pqVQ==
+        b=s1OThz9h09EMfQnBkJmuzyTPUOkrjm7BRIYHsgo0WKzpv+zncPMRZJCtQG3TFJfhmn
+         0tdbhdSm7zv+kYHJblrmuawu49SAyovNYzZ0auIYaOZ0OSAVCwD0XtL2N7QVDVOBFVzf
+         eLlaa1dRfrB4GAHr0Kyxmksp8lUmSdzbN6MGhrHSADq5FjK2qHNSYcGvPwwgc36rVdk2
+         0LSj/q2RNtoXcB7UnWqlWkvRdH7kqFU9Se/bGhRJJ1WN5rIro27+fLYxeUUwezaDIc4h
+         4bN3GsnLlpr2qyL8cD8hP3mxfVUtoYW9324cI/sCWPkB38lwY9ZcuYUG4tzeBG2a+qfR
+         sk0Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=YlstlOqYSlILC3KYvi4WBhkWJnWK6cbD1uisrH+fxgk=;
-        b=sA99iHGdmsStkf4EMryMlEqYEBoG+DaTIEAt6vhB7hLVS4UL2o40UJQS/BthELyI8b
-         jkGnc0/W6m/U0TmAXEqiaK9EfkBOiigEFpGCSOTHQG2pxh3LEEPrHEi75NLYjY2IJ7gR
-         Sw1QJhKkZmEy8/ywiYgIk7w7GdNEnzAUJe6tWj+s27LIVGry41TgDX2IwBvewuiXuFsD
-         NuF6HVxQ6vQfqTV1ogU/PUnGhqloEHnxpCdK+w+Rrl+3d90hPmd6HhbdHj33JcSARXgC
-         RrJCgKAao47RIDRfURT1SUD97785ngusz4BvygteWBI0JMn0ql1j0hjHn19D/xajxMp/
-         ajPg==
+         :user-agent:date:message-id:from:references:cc:to:subject;
+        bh=6qUL3f9j62kr9E7j3GGECGLP1SC/KHiWJTJVKuR0sXk=;
+        b=K4oUL6XmpeL4XmjwT5cFX9vUhD+36WbIHKTU5zZ6bM7KF3AkXTfaBEWHVDdQYqNJBx
+         S4b9EqDTcSN9FRf4MfurE0EAIpUSRPJTsetXqFyp6waMm+YukeSpV5Pn50PSn3X0pmf1
+         YP+aMAnDtlK8HE7VBL81aAehieN/QZcOwK6P5/WkTeY0b07nxcS26XrbDRL5i0X19KQS
+         FKvZjum2YTedahYIYWlsxCfrlmUl93/oHULMKg5wcrQQe33QVHv79aIzBGRgNWeoYI7D
+         umEb0BcS3CtPUJXqaw56Kx1bUNGNU2sdaQirJJnuPIL7ds0+8t9LIoZm3HchceCra9c/
+         UNpQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id c12si772851edy.1.2019.11.18.10.44.23
+Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
+        by gmr-mx.google.com with ESMTPS id k20si3968ljg.0.2019.11.20.10.15.27
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 18 Nov 2019 10:44:23 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id xAIIiNk2007818
+        Wed, 20 Nov 2019 10:15:27 -0800 (PST)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
+Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
+	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id xAKIFQ8o022684
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 18 Nov 2019 19:44:23 +0100
-Received: from [139.22.38.2] ([139.22.38.2])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id xAIIiMhl013030;
-	Mon, 18 Nov 2019 19:44:23 +0100
-Subject: Re: ITS emulation in Jailhouse
-To: "Devshatwar, Nikhil" <nikhil.nd@ti.com>,
-        "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>,
-        "Vutla, Lokesh" <lokeshvutla@ti.com>
-References: <ddc49d2b6a6f47a2b847b44aa1416074@ti.com>
+	Wed, 20 Nov 2019 19:15:26 +0100
+Received: from [139.25.68.37] ([139.25.68.37])
+	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id xAKIFMnn032384;
+	Wed, 20 Nov 2019 19:15:23 +0100
+Subject: Re: [RFC][PATCH 2/3] docs/specs: Add specification of ivshmem device
+ revision 2
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>,
+        liang yan <lyan@suse.com>, Jailhouse <jailhouse-dev@googlegroups.com>,
+        Claudio Fontana <claudio.fontana@gmail.com>,
+        qemu-devel <qemu-devel@nongnu.org>,
+        Markus Armbruster <armbru@redhat.com>, Hannes Reinecke <hare@suse.de>,
+        Stefan Hajnoczi <stefanha@redhat.com>
+References: <cover.1573477032.git.jan.kiszka@siemens.com>
+ <f5996d934d24775160bcedbf28ac975a95d91101.1573477032.git.jan.kiszka@siemens.com>
+ <20191111084327-mutt-send-email-mst@kernel.org>
+ <0b0475c1-2564-f433-46d8-ff1a06c13569@siemens.com>
+ <20191111100607-mutt-send-email-mst@kernel.org>
+ <20191111152743.GM814211@redhat.com>
+ <20191111105850-mutt-send-email-mst@kernel.org>
+ <ef21ed49-d315-4ee5-716b-096d8af1d79c@siemens.com>
+ <20191112024400-mutt-send-email-mst@kernel.org>
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <81a7f9d2-d6b5-0eac-9bb9-1fa14a56df40@siemens.com>
-Date: Mon, 18 Nov 2019 19:44:21 +0100
+Message-ID: <78228aba-6e30-806b-2d17-0d18238b84cc@siemens.com>
+Date: Wed, 20 Nov 2019 19:15:21 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.2.1
 MIME-Version: 1.0
-In-Reply-To: <ddc49d2b6a6f47a2b847b44aa1416074@ti.com>
+In-Reply-To: <20191112024400-mutt-send-email-mst@kernel.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
@@ -135,79 +148,84 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi Nikhil,
+On 12.11.19 09:04, Michael S. Tsirkin wrote:
+> On Mon, Nov 11, 2019 at 05:38:29PM +0100, Jan Kiszka wrote:
+>> On 11.11.19 17:11, Michael S. Tsirkin wrote:
+>>> On Mon, Nov 11, 2019 at 03:27:43PM +0000, Daniel P. Berrang=C3=A9 wrote=
+:
+>>>> On Mon, Nov 11, 2019 at 10:08:20AM -0500, Michael S. Tsirkin wrote:
+>>>>> On Mon, Nov 11, 2019 at 02:59:07PM +0100, Jan Kiszka wrote:
+>>>>>> On 11.11.19 14:45, Michael S. Tsirkin wrote:
+>>>>>>> On Mon, Nov 11, 2019 at 01:57:11PM +0100, Jan Kiszka wrote:
+>>>>>>>> +| Offset | Register               | Content                      =
+                        |
+>>>>>>>> +|-------:|:-----------------------|:-----------------------------=
+------------------------|
+>>>>>>>> +|    00h | Vendor ID              | 1AF4h                        =
+                        |
+>>>>>>>> +|    02h | Device ID              | 1110h                        =
+                        |
+>>>>>>>
+>>>>>>> Given it's a virtio vendor ID, please reserve a device ID
+>>>>>>> with the virtio TC.
+>>>>>>
+>>>>>> Yeah, QEMU's IVSHMEM was always using that. I'm happy to make this f=
+inally
+>>>>>> official.
+>>>>>>
+>>>>>
+>>>>> And I guess we will just mark it reserved or something right?
+>>>>> Since at least IVSHMEM 1 isn't a virtio device.
+>>>>> And will you be reusing same ID for IVSHMEM 2 or a new one?
+>>>>
+>>>> 1110h isn't under either of the virtio PCI device ID allowed ranges
+>>>> according to the spec:
+>>>>
+>>>>     "Any PCI device with PCI Vendor ID 0x1AF4, and PCI Device
+>>>>      ID 0x1000 through 0x107F inclusive is a virtio device.
+>>>>      ...
+>>>>      Additionally, devices MAY utilize a Transitional PCI Device
+>>>>      ID range, 0x1000 to 0x103F depending on the device type. "
+>>>>
+>>>> So there's no need to reserve 0x1110h from the virtio spec POV.
+>>>
+>>> Well we do have:
+>>>
+>>> 	B.3
+>>> 	What Device Number?
+>>> 	Device numbers can be reserved by the OASIS committee: email virtio-de=
+v@lists.oasis-open.org to secure
+>>> 	a unique one.
+>>> 	Meanwhile for experimental drivers, use 65535 and work backwards.
+>>>
+>>> So it seems it can  in theory conflict at least with experimental virti=
+o devices.
+>>>
+>>> Really it's messy that people are reusing the virtio vendor ID for
+>>> random stuff - getting a vendor ID is only hard for a hobbyist, any big
+>>> company already has an ID - but if it is a hobbyist and they at least
+>>> register then doesn't cause much harm.
+>>
+>> Note that ivshmem came from a research environment. I do know if there w=
+as a
+>> check for the IDs at the point the code was merged.
+>>
+>> That said, I may get a device ID here as well, provided I can explain th=
+at
+>> not a single "product" will own it, but rather an open specification.
+>>
+>> Jan
+>=20
+> OK, up to you - if you decide you want an ID reserved, pls let us know.
+>=20
 
-On 18.11.19 14:26, Devshatwar, Nikhil wrote:
-> HI Jan,
->=20
-> Current Jailhouse implementation has support for partitioning the SPI=20
-> interrupts on a GICv3.
->=20
-> However, the LPI interrupts managed by the GIC ITS cannot be partitioned.
+Turned out to be much simpler than expect:
 
-Is this something we would need a GICv4 for?
-
->=20
-> Typical usage of LPI are for connecting PCIe devices on arm64 platforms=
-=20
-> where the endpoint sends MSI interrupts.
->=20
-> Kernel drivers for GIC assumes full ownership of the ITS module.
-
-Means, it also touches registers it does not own? Or are there=20
-conceptually shared resources in the ITS that everyone needs to access=20
-when programmed own parts of it?
-
->=20
-> To enable partitioning of PCI devices/functions (from same or different=
-=20
-> PCI controller) across VMs,
->=20
-> One of the key important feature that will be needed is the ITS=20
-> virtualization.
->=20
-> Since the GIC ITS does not support per VM tables, one option would be to=
-=20
-> use emulation of the ITS module.
->=20
-> Here is the proposal for such an approach.
->=20
-> =C2=B7GIC kernel driver allocates separate ITS table in its VM address sp=
-ace
->=20
-> =C2=B7When Jailhouse is enabled, Hypervisor allocates a new ITS table and=
-=20
-> copies the descriptors from root cell
->=20
-> =C2=B7All accesses to the ITS registers are trapped and emulated in the J=
-ailhouse
->=20
-> =C2=B7Any attempt from a VM trying to setup the descriptor for a certain=
-=20
-> device needs to be policed against VM ownership
->=20
-> =C2=B7Jailhouse validates and updates the physical ITS table descriptors =
-to=20
-> match the VM maintained tables
->=20
-> This will be similar to the approach taken for SMMU stage1 emulation=20
-> developed by Pratyush Yadav.
->=20
-> What so you think about adding this support in the Jailhouse?
->=20
-> Would you be willing to accept patches for the ITS emulation?
-
-Well, we do want assignment of PCI devices to different cells when this=20
-is feasible, and we do want not only DMA partitioning but also safe &=20
-secure interrupt handling. OTW: Yes, we need something that enables that.
-
-And when the hardware does not (yet) support us in enforcing the=20
-partitions during runtime, we need to emulate that in software. It's=20
-just the question how complex that emulation needs to become, for Linux=20
-or for "educated" guests.
-
-BTW, those accesses to the ITS will not be on the interrupt handling=20
-path, will they? Only for the setup and maybe affinity adjustment?
+I reserved device ID 4106h under the vendor ID 110Ah (Siemens AG) for=20
+the purpose of specifying a shared memory device via the VIRTIO TC. Will=20
+update this "detail" in the next revision of the patches, also resetting=20
+the device revision ID to 0 as no longer need to tell us apart from the=20
+current implementation this way.
 
 Jan
 
@@ -221,4 +239,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/81a7f9d2-d6b5-0eac-9bb9-1fa14a56df40%40siemens.com.
+jailhouse-dev/78228aba-6e30-806b-2d17-0d18238b84cc%40siemens.com.
