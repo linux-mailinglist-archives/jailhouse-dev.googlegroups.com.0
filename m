@@ -1,137 +1,149 @@
-Return-Path: <jailhouse-dev+bncBDGPNAOTTIGBBAET4XXAKGQEFKIZVKY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBY6P4XXAKGQEXFQRZPY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x439.google.com (mail-wr1-x439.google.com [IPv6:2a00:1450:4864:20::439])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA3C5107EF5
-	for <lists+jailhouse-dev@lfdr.de>; Sat, 23 Nov 2019 16:00:17 +0100 (CET)
-Received: by mail-wr1-x439.google.com with SMTP id f8sf329463wrw.21
-        for <lists+jailhouse-dev@lfdr.de>; Sat, 23 Nov 2019 07:00:17 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1574521217; cv=pass;
+Received: from mail-lj1-x23f.google.com (mail-lj1-x23f.google.com [IPv6:2a00:1450:4864:20::23f])
+	by mail.lfdr.de (Postfix) with ESMTPS id EAFA2107F96
+	for <lists+jailhouse-dev@lfdr.de>; Sat, 23 Nov 2019 18:09:55 +0100 (CET)
+Received: by mail-lj1-x23f.google.com with SMTP id l12sf1872426lji.10
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 23 Nov 2019 09:09:55 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1574528995; cv=pass;
         d=google.com; s=arc-20160816;
-        b=MCsFrGoU5l3RcXxxYbAQHuFecb2VKFVb858b/7bWd0bJrpAXWGrdtuFrJbEQHie3us
-         63v1fQNIuwXG1TUa5ik94o3EqTmLzLCKA9fUApt3f0yvqPY/9tLPWXuRGWQC6GLA0St+
-         rPp6uce/m9zpo1TBIyL9o02jUMkViZJeZVey2OKGquEeQS7lDNolD6Z0HyfNBcXVQL4t
-         CmZjb59OoaudD/rrCmHZ4bQzxQ9BnNZyDb4szjnJTGfXZVJzgzz4W3p9pUwxQ13+3rT/
-         cyV+NXMgrw9Rwc3wYJr3OY7VIj9n6/sZEyAUbpkcsBZ3IM4FHowsEkVtVgx7gdABtMb7
-         uFmg==
+        b=l9S11PcBXYzrlF2nDvPpN+x/M/zppQ4lpzeaO/72VM1d2eyPpB6sffa01JLefy3O0D
+         ZymcaylIgsOIseI6wNNA7pZ3PkWQ9YMPHz/kBfel18XkSuds1xy5dBfJrwS/eqEJizr9
+         0gGCYpEH4E6eopBa5ehM4zPB9U3X0NXydZ1Q2Kv5GJhg4Yc4y45XMmGcOyDIkMcfLQgv
+         yZSTL1PVrNh5lyuZrMsfERZlCpbVQjLY347KBplyOIYmbEiY9nwrlE+l8jNIRXbbfpm/
+         9niMOreFER+o9IlsbcnpPyJ68Dn+F3O17fKSmkbVpLjz5ryxrYavg0rl7XucSBPO52lv
+         bm0g==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:importance:date:subject:from:to
-         :mime-version:message-id:sender:dkim-signature:dkim-signature;
-        bh=k4g56EkbZUSngGQdfgjmj0pxyo5D0cxO/E+OpFtE+ak=;
-        b=MzmHJxVCQj2cUOB+KJdJ8I7KkhkFTU9/tghQAAs2RMMsR4pkd92mf4k2yw8sjOl8yu
-         PcuatNnVrXjkxgQalHLSuuG1aCBU4FxVxWSFdQuC68brhIRnOTNvHL6/IfdBN0I63Nr+
-         76jNCMsXcAsUx+KRt4haSQlEU+32OkrquIRSi54bmUqP1ZcAiVhRi1QGbx09MlkFmd0P
-         ei8vb+PX/0yEY9V7/JZJDqoQbNrLA8Ljfcfu9PTSCL0sYP5dnODRjw32NkifkXTZShD5
-         XPrwOVOcGcyPaurqWZshHbAn0xCIMd/wYNT1MXgM6mcwIwiPh6jw36ONLXp5bovf2ayv
-         oKZw==
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=UuBPn1+1C9aM+Sq5QQ8/x6katmQFPDwHU7x0xI8HQDo=;
+        b=TlY5j05wLgQjHR083O2vTcGekMtMR3nCq96zL+qfwXtIfNLsego4mAB0ot3jcO6JOJ
+         M7YJLmxMFbxxPOa+QwPKZaZkiAWcgjrJEPIDwLEWCXQxYRzI9pR2dsiJcjeFSVUtF7Ll
+         iVMbUXMZ2QqW2MRlPQEj2C+wPznb5kv9C1szvGUjNSDRgCmpgBIeiSZYi8xV2/ZRmTru
+         gapsWQcn+bXwuc/bWC0SXpi4wbCxNYFDkZZpHMwvCPI4/+llmHrppkyWIviJDhto8hnJ
+         lu0OS5ZC2l2ZsK/lEYprdguvFYPvBhe+IBknZejEyVrumAWR7YkIb8TCEHgOJ7j0Mtkq
+         ZYaA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=oEsMn7ae;
-       spf=pass (google.com: domain of feusscix@gmail.com designates 2a00:1450:4864:20::432 as permitted sender) smtp.mailfrom=feusscix@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=fBkNFhJD;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:message-id:mime-version:to:from:subject:date:importance
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=k4g56EkbZUSngGQdfgjmj0pxyo5D0cxO/E+OpFtE+ak=;
-        b=CZc7mWV5Hjuc3/057OvsjO4OZnEXgPzDYZxPgaEStg0VAHTPCNyU+0VOrP1GrhZXCX
-         7rIZvz3am6vWSnNbZyKHHc0+ZEZPk5Ssn8Tymt4gLd84M5cUu1l3UdGDfztmg86Tu2l7
-         VfBKxrDlxqhRs6F4vVwqNNAZGjjmSwGULxdtkX70PWBWI/qyF22hUItUHyhRolwmdqia
-         yjJjJOI4e5cY+xksUfVbfu0sKQOIB2akGZAJnEo1s02eoxZELX+TNQR3rOYvaOuXL9NM
-         dIq5T+PF/O7lj+5tJ6n6iVxu+pjG2jYUXgbSsSqjqcg63CjpOL+2mhp65wh3sQrnia6B
-         L4jw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=message-id:mime-version:to:from:subject:date:importance
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=k4g56EkbZUSngGQdfgjmj0pxyo5D0cxO/E+OpFtE+ak=;
-        b=gdQVJsrlCL1kouescKj14Kq77gsWwo3LEpzJazh1nwcg3KRo/S0pXONs46NESIbcS1
-         jsO8fL8dOT3vNcx9B36TcT6IJwEFJq22IZFwaWCJFf/DbU51ut2UfEmDsiRT1Pq+HXWQ
-         SDQB/X6nBjNIwp4bSgR21OC072qbmdkgZubOyvHw0BgU2ulJ2hv5lEQGPYXCqy2o4HjL
-         FZY7tyu3IpTMp3yRxRqMQtYuILzdKJ9yXIhLRj5zGBTjDem1kplPiPD/KA9LLC5JcMOK
-         XQZBC+uxgBaDTl1NR2332SHSPx6bIPTcmVUnS177AJKVllrs9/oNwLMEuAp5S9KNxCAl
-         OhdA==
+        bh=UuBPn1+1C9aM+Sq5QQ8/x6katmQFPDwHU7x0xI8HQDo=;
+        b=aNaPNI1K8F1M+NVsq7Rh+MkucD3T5UoKwfxb1TVLava+YISLhI7Y0r4+oiR4r1I65V
+         fgCQZpkJrJvnk7+JDq3RdJSudvItk5TXMd5TyL818FiI7TdaYrxrc6OyacXmf10Ow/pG
+         WfmbyX8BBaiKNUajGds2HG7I0qw78881lw19Sti5LaaDeTwZoPMeUDQ5pDS6UAxMrfqa
+         eN6CTza6nnH1oD6+AX8lQFR0pia4uUhcj/xKxwMYpJOrvhbER9aVJixaFwElla0q5O9J
+         6vLdnXLILxiWBGAu2Qg1lvaTtJSJKe1lFD041OgqaihVJGdooIT3aBvVyXb/X6j4lYKg
+         S9KQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:message-id:mime-version:to:from:subject
-         :date:importance:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=k4g56EkbZUSngGQdfgjmj0pxyo5D0cxO/E+OpFtE+ak=;
-        b=QKpXPUXpiFN07f80oK/Hp0Tw2tu4hHYX/j7zb/8+GCSdVt0aR2roC6u6BYzOcS99Ww
-         AsUmLesTLCjTFpfOiSsfOgSXBf2n4lf0P4MoU36ZmfSSt5lKFd5hyHE1NDSz68kfPiA0
-         DAr3gS7mXcS5K5MebBpE36nunPwl72rVeJsedwC07JtX2eLBUexsUBXSd/XKgSC9j9ws
-         FCf+f70x8q/V79dFqDuxwhSPwyBU7928OzOdbsqmFBYzFXYxU4X+2Krvj9Ni4ocbivG1
-         YismE2kupA+tS16z5j6aI8pSXYorA/ZEmQASfvtBftFBJv0TJPLxLjK0XsXoL5Vb2Nhu
-         SwTQ==
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=UuBPn1+1C9aM+Sq5QQ8/x6katmQFPDwHU7x0xI8HQDo=;
+        b=iJ1ndyx1ZEC3+avQpV+P/djYqBtHIChHcB4KmuSvOEQScfgnQK3sNvBpRVCLh+ThO+
+         Zteiv2RN3lBZV0FUYi477L95UrTnVw9lVciUmEUhIUp/XXagVLE1UIUFRjGFYyeYCuRT
+         MNSnHaZxvqXYo80WuJJx96Ws4zrJNxU7DLUPosw0M6VwzJjQSd285aoqN3i8XCH7AVdv
+         JK15XRmrcQ/misGJsBYeVnWLyPg0/Vr/VxQU6MaPGrwxECH/LjWX45NXPeQOEqBm4HqP
+         gvHzAKquy2glLcAqe7zhGSio4tSJfaGwoBi1zKxPK5Aex7sdmIMNAxp52ZhKNRaKcEv0
+         jfjA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUz1slBVKe5qNZF/GlhrOPBJG9Cb/ZP55gyV3RSA3I4gshAAaK6
-	wSIXz4bc+TAssM14cdx1z3g=
-X-Google-Smtp-Source: APXvYqyXUOZm1YRYHrVZRaY4BxTBQXEriH5Qd6xSesbUGghCVd4fpCz57kfvEtQ+czZ2nzBD/sqFmQ==
-X-Received: by 2002:adf:f64b:: with SMTP id x11mr1562513wrp.355.1574521217209;
-        Sat, 23 Nov 2019 07:00:17 -0800 (PST)
+X-Gm-Message-State: APjAAAVK2JytgGd+bQOkWGopkFmY2STsjVNb8S1u2nTulQdq5kNL4/6W
+	d1FyQKQ5JBy6JVULVobUq8k=
+X-Google-Smtp-Source: APXvYqzWAym/oJSO8eIQt4u2+y+ORhIh0nb0+jvdKpb7Dgqh5gzvkKxQPhfxV9pIDhD4SBUY8LzHpA==
+X-Received: by 2002:a2e:89c2:: with SMTP id c2mr16394332ljk.161.1574528995498;
+        Sat, 23 Nov 2019 09:09:55 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:960a:: with SMTP id y10ls6469033wmd.0.gmail; Sat, 23 Nov
- 2019 07:00:16 -0800 (PST)
-X-Received: by 2002:a05:600c:cb:: with SMTP id u11mr21054686wmm.5.1574521216378;
-        Sat, 23 Nov 2019 07:00:16 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1574521216; cv=none;
+Received: by 2002:a2e:961a:: with SMTP id v26ls1854368ljh.5.gmail; Sat, 23 Nov
+ 2019 09:09:54 -0800 (PST)
+X-Received: by 2002:a2e:9256:: with SMTP id v22mr15630839ljg.124.1574528994817;
+        Sat, 23 Nov 2019 09:09:54 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1574528994; cv=none;
         d=google.com; s=arc-20160816;
-        b=LUEnM13camy0hnuirt2MjcHOrBKwuWn7r4HSSYol1oY2g8TtadA1U1PD3JTLXIfayM
-         zPvvi0D8dnj7erLB3TN5P9rGkMw1A7dwZLijXLQHfdbl7oAfvmZfxCno2PsbGtIhkca7
-         i27xbwo/e1Ya8m0NNHPpCblbQWo+6tHVHwX+XLeIiaUYpiB+vEMgvNPpE9I6GsCE0iPW
-         Ws5uyTwOQ25wg4wO1U4YHfzh4l+003o/HZuvl5OoK8d5W6cUOv2mA91bEG7cRyYWXIA0
-         d5V/2QJWxmKMg/UBsVoyLjEs2oiFzndF6gPwqEJcNBjsX2CXpHvt1aSVYeRl3dEGs6HX
-         Yy+g==
+        b=Ga44/vfYlUgqiodbuUDrgFvL6KFux1CR6KMods1oFFy7SE48p1ZA8NNmqKBqS87/+l
+         VY2TKpPpcx2mqjrp349ivj9sZZxyUBm+ptzdOH2AebgInRzU+CPzyYl5qpSW4uz2oMur
+         aZNDyUIEYz8TM607ER5hvOhACEVyZIG1695iCBAVr5kPNbXxecAe7fkGegDDrnygxjd9
+         n86X9oLhlpx4zQe5FfB/52bwLN/ZY/SZp9xINWZwj28jgEtResxTe3zNrlfC35egD/Yu
+         UAKenNVHRqJCSkDn6yyOkk7iikWwa/A0CIUBBxt3s3qQuCEkdJuCHU9MCe09UkGphZ9C
+         kHZw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=importance:date:subject:from:to:mime-version:message-id
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject
          :dkim-signature;
-        bh=Bg09Iub1jysv3gnzRR75wWHX+nk3GPPJxeYoG5xFG98=;
-        b=J551dS7isNuOYgQxH7zEFqvQh0BjK/e/RwH1bcEPhzXn6e645VbnyNFmH1KzrHYwGh
-         b8vIqAWfGiabzym5rKOiUojmsI2y3aRmi/DzFFCXgz2WogwHWQL/VYQykVsq7zSrtYKV
-         VZCkyLytz0ZouyL1GY7DTSU1UIQvnKeKSsezNmOOP459ZQvUekJ1ZMSQcw2xM2bmvbXh
-         BSLBx0joE8y8/xaIzTmRw13orO/k6u8KS3MBaMHqjgVpql7/zF3prnal8WeBNP8F3Bjs
-         6zlYDC4dgNotH23dS+Zww3IhA9OLTy2QyqtmqEJ+hEV3RqEuPkvo1+XVLpjLmWYcaB1o
-         AbLQ==
+        bh=AwZbFVjE7couLwLdN7aeau0EtDQPUF+e4uDxTKiS+gY=;
+        b=bCZH3E5oAWAwSeNQ/m+YpPQ7HETJeBD3wkn4mzAsF6bWyYyf14wGFSSHNSjFarxaGX
+         2Xtr5WneS9xY5WFl41n+/uWYQneapYjSpkqlROf24PE2PZBVWgpTN+j9Ju55hHYk8KX4
+         6sEYKMOa+V0i5NfG1yuACzqlN64RX+TZwHmRbIv6CPe4n6zlIBaAQJgsoX9pL2sWhpFZ
+         uLV/l+7Wr/8B3QL5HfMY7/wCQloBXWxgK8YCFOlmrpLlaQ8XofbhyIkn5KjSKi7H0U6o
+         EkfmJ1Tj/hnOO6qf0qqbW6CITwrMcOgOcR2ETAUVTmMvyJ4hw2NHmxp2J7wq4MjuLwmG
+         MDvg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=oEsMn7ae;
-       spf=pass (google.com: domain of feusscix@gmail.com designates 2a00:1450:4864:20::432 as permitted sender) smtp.mailfrom=feusscix@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com. [2a00:1450:4864:20::432])
-        by gmr-mx.google.com with ESMTPS id u23si39410wml.2.2019.11.23.07.00.16
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 23 Nov 2019 07:00:16 -0800 (PST)
-Received-SPF: pass (google.com: domain of feusscix@gmail.com designates 2a00:1450:4864:20::432 as permitted sender) client-ip=2a00:1450:4864:20::432;
-Received: by mail-wr1-x432.google.com with SMTP id t2so12172595wrr.1
-        for <jailhouse-dev@googlegroups.com>; Sat, 23 Nov 2019 07:00:16 -0800 (PST)
-X-Received: by 2002:adf:ed11:: with SMTP id a17mr23573834wro.392.1574521215774;
-        Sat, 23 Nov 2019 07:00:15 -0800 (PST)
-Received: from ?IPv6:2a02:8071:b6a5:8e00:6cfa:40e3:7d97:e0a2? ([2a02:8071:b6a5:8e00:6cfa:40e3:7d97:e0a2])
-        by smtp.gmail.com with ESMTPSA id b10sm2456360wrw.53.2019.11.23.07.00.14
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=fBkNFhJD;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Received: from mout.web.de (mout.web.de. [212.227.15.4])
+        by gmr-mx.google.com with ESMTPS id c17si58325ljb.3.2019.11.23.09.09.54
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Sat, 23 Nov 2019 07:00:15 -0800 (PST)
-Message-ID: <5dd9497f.1c69fb81.47354.a05c@mx.google.com>
+        Sat, 23 Nov 2019 09:09:54 -0800 (PST)
+Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) client-ip=212.227.15.4;
+X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
+Received: from [192.168.1.10] ([95.157.55.156]) by smtp.web.de (mrweb003
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 0LkhAC-1i0b4v2m3Q-00aSL7; Sat, 23
+ Nov 2019 18:09:53 +0100
+Subject: Re: inmate freezes when accessing GPIOs on imx8mm
+To: Felix Schwer <feusscix@gmail.com>,
+ "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
+References: <5dd9497f.1c69fb81.47354.a05c@mx.google.com>
+From: Jan Kiszka <jan.kiszka@web.de>
+Message-ID: <85183e3a-8aaf-0aa3-656d-0dd38798a29c@web.de>
+Date: Sat, 23 Nov 2019 18:09:53 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.1
 MIME-Version: 1.0
-To: "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
-From: Felix Schwer <feusscix@gmail.com>
-Subject: inmate freezes when accessing GPIOs on imx8mm
-Date: Sat, 23 Nov 2019 16:00:15 +0100
-Importance: normal
-X-Priority: 3
-Content-Type: multipart/alternative;
-	boundary="_FA235541-AABD-449A-8178-A956C136F97E_"
-X-Original-Sender: feusscix@gmail.com
+In-Reply-To: <5dd9497f.1c69fb81.47354.a05c@mx.google.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:XxTxuSJJcV/Vf0CnpJXHDwcsKPyKoyEFD4SZEdaW1dE2Fw6EfQk
+ 3q/4qdavii6m7ngO6yzn+8WZOcg7MI11dNHkfc9eaSfu0XoCoRe9AxfguyhRayDdm++39vf
+ arpSlD6eZNFy1KQ6uciAQghg17IhfcyjzXBlbw8ad3vPhljeTfS5or79gKfYPHaHAiN91Lm
+ TKQs2319gx+/Yixtx4K1Q==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:eYcok+ED8B8=:3yeCappHv0zE97Sny/97CG
+ Ki2OIP5bmC1TJPtFAEyJaPG3AB4PbIKzQt9O620k3Ycpri3uSSyzoMrZXBWsRSqjN6iYyr9s7
+ 0oyIL9Z3QPrat39cJ7KdFhbwJRmfOVc8WhCVaqRc9IFpHWfUi7Z+N+hMP3wFlRonAS9sn0DMs
+ FnjawPFy5bzQNekHx3Xsfj0VmbC4YMJkZSK3sqCR5R0Iy/YLvqLMJNtwqD2j7LaF84FcFIQSs
+ 527YY1Xjwy90H1T1dFX3NQt/GYteMv5bP0HA/8dVVDyvp564mECICnzjzbIc26GYJBVb9qPLs
+ 9UPHlhwEsSs5Mf22K74VepdfUdIJc/li6Pc2DGTnTcdPLu32OKpmC7NIu50kET7/PK24ArIO6
+ DYPsjtDd3qxxczOv+lPPSd3H5uNR9Qg7p77NW2lZnzY1phRe2h6toc7J2lLDXZF+bNP3uaN2x
+ oyHhkdxe7y2dCJEz6NIMyywR9fJmfMzGWzCCJP3wh7wnmPkW1PWwTBJ1yU9NRag0XX3RbCnLj
+ TZSuCbZBoJNzRAWiJhYJEWtT7Knm7QStW0MC2j46YpW99pB9c8OJn0CpSA3Ad9Mdedm/ntJYC
+ 8D62e95qIGD0wPh3/e/7HGRNyWD4GUJVDfwQdW7oJ1pd2WYOH/QwYkZ2mw6g3sLqHQGDM0VZ8
+ 00pF9up/0E5nR01SXyMyB98gmsX/wnHNVmMCUHCKWiSSrbYFSfEe98fktrYnrOXH/1XDVdloN
+ Ji3ahiihQlzgaEhMvR5ru2Bn/0p0lCbfZQ8WzYhV1bbKdyemh6rN8rWlp+z+nItceQ5Dfs2yG
+ 4dJ0kz6VKU+MCFPq+sKp1MOWKql1UMu/9Ebs06o8l+yh+EHxiUhwieTTyriG7Phe5XzrsaIc9
+ /nKvqaFnkDamIo7+NcH3qNrrV5aFgU9QqqBgLGiba6YP+f0+kyl6mF6FjgiTFXaPBz6svEFtG
+ 6s4dimtr5TDKT3zF9uBP8Hls5bt4yA115slzFX+WIRNfV/+LQRgx9J7pALPdMF8ZD1cyr7EGJ
+ lLaItB5dBOtl3pEPPFZwp9N8tHtuC/bTXRzVLcSi2xhsC9j6IqOTG1D166KEvJZMoBth/jK6Z
+ mEnHQMKuXB7rCDmwIbwBRDmX4I6YrWfDjqhEVAB39VTqJtisPBScFNmKEZABiDcqR76ke5sTn
+ /wv2OFg30hGPiemKjmP5ue/vahJZ1SArbAquPC4x/QtkkQjedmZc4MCVCCzovV+j7p3NY+RRe
+ KUwD9i+4c6ztpH8r5119oef+6u7OuMhCwnwk0sq9tNE9yp0ZcehvwTPV1ecA=
+X-Original-Sender: jan.kiszka@web.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20161025 header.b=oEsMn7ae;       spf=pass
- (google.com: domain of feusscix@gmail.com designates 2a00:1450:4864:20::432
- as permitted sender) smtp.mailfrom=feusscix@gmail.com;       dmarc=pass
- (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+ header.i=@web.de header.s=dbaedf251592 header.b=fBkNFhJD;       spf=pass
+ (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted
+ sender) smtp.mailfrom=jan.kiszka@web.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -144,92 +156,133 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---_FA235541-AABD-449A-8178-A956C136F97E_
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
+On 23.11.19 16:00, Felix Schwer wrote:
+> Hello everybody,
+>
+> I'm currently trying to extend the IVSHMEM demo for imx8mm
+> (_https://source.codeaurora.org/external/imx/imx-jailhouse/tree/configs/a=
+rm64?h=3Dimx_4.14.78_1.0.0_ga_
+> <https://source.codeaurora.org/external/imx/imx-jailhouse/tree/configs/ar=
+m64?h=3Dimx_4.14.98_2.2.0>)
+> to allow for access to GPIO banks.
+>
+> I added the corresponding memory regions in the cell config=E2=80=A6
+>
+> /* gpio3 */{
+>
+> .phys_start =3D 0x30220000,
+>
+> .virt_start =3D 0x30220000,
+>
+> .size =3D 0x10000,
+>
+> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,
 
+You only need JAILHOUSE_MEM_IO_<size> when defining a sub-page, i.e.
+something smaller than 4K. It's a nop here, though.
 
-Hello everybody,
+>
+> },
+> /* gpio5 */{
+>
+> .phys_start =3D 0x30240000,
+>
+> .virt_start =3D 0x30240000,
+>
+> .size =3D 0x10000,
+>
+> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,
+>
+> },
+>
+> =E2=80=A6
+>
+> I also removed this memory sections from the root cell config:
+>
+> =E2=80=A6
+>
+> /* IO */ {
+>
+> .phys_start =3D 0x00000000,
+>
+> .virt_start =3D 0x00000000,
+>
+> .size =3D 0x30220000,
+>
+> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> JAILHOUSE_MEM_IO,
+>
+> },
+>
+> /* IO */ {
+>
+> .phys_start =3D 0x30250000,
+>
+> .virt_start =3D 0x30250000,
+>
+> .size =3D 0x0FDB0000,
+>
+> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> JAILHOUSE_MEM_IO,
+>
+> },
+>
+> =E2=80=A6
+>
+> Also, I disabled the corresponding GPIOS in the fsl-imx8mm-evk-root.dts
+> And reserved the memory sections.
+>
+> =E2=80=A6
+>
+> &gpio3 {
+>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Disable gpio3 */
+>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 status =3D "disabled";
+> };
+>
+> &gpio5 {
+>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Disable gpio5*/
+>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 status =3D "disabled";
+> };
+>
+> &{/reserved-memory} {
+>
+>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 gpio3_reserved: gpio@0x30220000 {
+>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 no-map;
+>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 reg =3D <0 0x302=
+20000 0x0 0x10000>;
+>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 };
+>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 gpio5_reserved: gpio@0x30240000 {
+>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 no-map;
+>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 reg =3D <0 0x302=
+40000 0x0 0x10000>;
+>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 };
+>
+> =E2=80=A6
+>
+> The cell boots correctly and the inmate is starting and running.
+>
+> Accessing the GPIOs via the gpiochips in Linux worked (before removing
+> them from the .dts)
+>
+>
+> When I access the memory via mmio_write32(=E2=80=A6) =E2=80=A6
+>
+> mmio_write32(((*void* *)(*unsigned* *long*)(0x30240000)),0xFFFFFFFF);
+>
+> or mmio_read32(=E2=80=A6) in the inmate freezes without any message.
+>
+> Am I missing out on something? Are there any specialties or other
+> configurations I have to consider when accessing GPIOs from the cell side=
+?
+>
 
-I'm currently trying to extend the IVSHMEM demo for imx8mm (https://source.=
-codeaurora.org/external/imx/imx-jailhouse/tree/configs/arm64?h=3Dimx_4.14.7=
-8_1.0.0_ga) to allow for access to GPIO banks.=20
-I added the corresponding memory regions in the cell config=E2=80=A6
-/* gpio3 */ {=20
-.phys_start =3D 0x30220000,=20
-.virt_start =3D 0x30220000,=20
-.size =3D 0x10000,=20
-.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |=20
-JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,
-},=20
-/* gpio5 */ {=20
-.phys_start =3D 0x30240000,=20
-.virt_start =3D 0x30240000,=20
-.size =3D 0x10000,=20
-.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |=20
-JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,=20
-},
-=E2=80=A6
-I also removed this memory sections from the root cell config:
-=E2=80=A6
-/* IO */ {=20
-.phys_start =3D 0x00000000,=20
-.virt_start =3D 0x00000000,=20
-.size =3D 0x30220000,=20
-.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |=20
-JAILHOUSE_MEM_IO,=20
-},=20
-/* IO */ {=20
-.phys_start =3D 0x30250000,=20
-.virt_start =3D 0x30250000,=20
-.size =3D 0x0FDB0000,=20
-.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |=20
-JAILHOUSE_MEM_IO,=20
-},
-=E2=80=A6
-Also, I disabled the corresponding GPIOS in the fsl-imx8mm-evk-root.dts And=
- reserved the memory sections.=20
-=E2=80=A6
-&gpio3 {=20
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Disable gpio3 */=20
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 status =3D "disabled";=20
-};=20
+Likely, you are missing map_range(<phys-addr>, <size>) in the inmate.
+Those have their MMU enabled but only id-map the first 64K and a
+potential UART.
 
-&gpio5 {=20
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Disable gpio5*/=20
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 status =3D "disabled";=20
-};=20
-
-&{/reserved-memory} {=20
-
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 gpio3_reserved: gpio@0x30220000 {=20
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 no-map;=20
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 reg =3D <0 0x302200=
-00 0x0 0x10000>;=20
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 };=20
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 gpio5_reserved: gpio@0x30240000 {=20
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 no-map;=20
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 reg =3D <0 0x302400=
-00 0x0 0x10000>;=20
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 };
-=E2=80=A6
-The cell boots correctly and the inmate is starting and running.
-Accessing the GPIOs via the gpiochips in Linux worked (before removing them=
- from the .dts)
-
-When I access the memory via mmio_write32(=E2=80=A6) =E2=80=A6
-
-mmio_write32(((void *)(unsigned long)(0x30240000)),0xFFFFFFFF);
-
-or mmio_read32(=E2=80=A6) in the inmate freezes without any message.
-
-Am I missing out on something? Are there any specialties or other configura=
-tions I have to consider when accessing GPIOs from the cell side?
-
-Thanks for your help!
-
-Felix
-
+Jan
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -237,187 +290,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/5dd9497f.1c69fb81.47354.a05c%40mx.google.com.
-
---_FA235541-AABD-449A-8178-A956C136F97E_
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html; charset="UTF-8"
-
-<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:sc=
-hemas-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/of=
-fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta ht=
-tp-equiv=3DContent-Type content=3D"text/html; charset=3Dutf-8"><meta name=
-=3DGenerator content=3D"Microsoft Word 15 (filtered medium)"><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-.MsoChpDefault
-	{mso-style-type:export-only;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:70.85pt 70.85pt 2.0cm 70.85pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style></head><body lang=3DDE link=3Dblue vlink=3D"#954F72"><div class=
-=3DWordSection1><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNor=
-mal><span lang=3DEN-US>Hello everybody,<o:p></o:p></span></p><p class=3DMso=
-Normal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p><p class=3DMsoNormal>=
-<span lang=3DEN-US>I'm currently trying to extend the IVSHMEM demo for imx8=
-mm (</span><a href=3D"https://source.codeaurora.org/external/imx/imx-jailho=
-use/tree/configs/arm64?h=3Dimx_4.14.98_2.2.0"><span style=3D'color:windowte=
-xt;text-decoration:none'><u><span style=3D'color:blue'>https://source.codea=
-urora.org/external/imx/imx-jailhouse/tree/configs/arm64?h=3Dimx_4.14.78_1.0=
-.0_ga</span></u></span></a><span lang=3DEN-US>) to allow for access to GPIO=
- banks. <o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US>I add=
-ed the corresponding memory regions in the cell config=E2=80=A6<o:p></o:p><=
-/span></p><p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:10.0pt=
-;font-family:"Courier New";color:#3F8080'>/* gpio3 */</span><span lang=3DEN=
--US style=3D'font-size:10.0pt;font-family:"Courier New"'> {</span><span lan=
-g=3DEN-US> <o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US st=
-yle=3D'font-size:10.0pt;font-family:"Courier New"'>.phys_start =3D 0x302200=
-00,</span><span lang=3DEN-US> <o:p></o:p></span></p><p class=3DMsoNormal><s=
-pan lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Courier New"'>.virt=
-_start =3D 0x30220000,</span><span lang=3DEN-US> <o:p></o:p></span></p><p c=
-lass=3DMsoNormal><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"=
-Courier New"'>.size =3D 0x10000,</span><span lang=3DEN-US> <o:p></o:p></spa=
-n></p><p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:10.0pt;fon=
-t-family:"Courier New"'>.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE=
- |</span><span lang=3DEN-US> <br></span><span lang=3DEN-US style=3D'font-si=
-ze:10.0pt;font-family:"Courier New"'>JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32=
-,</span><span lang=3DEN-US><o:p></o:p></span></p><p class=3DMsoNormal><span=
- lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Courier New"'>},</span=
-><span lang=3DEN-US> <br></span><span lang=3DEN-US style=3D'font-size:10.0p=
-t;font-family:"Courier New";color:#3F8080'>/* gpio5 */</span><span lang=3DE=
-N-US style=3D'font-size:10.0pt;font-family:"Courier New"'> {</span><span la=
-ng=3DEN-US> <o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US s=
-tyle=3D'font-size:10.0pt;font-family:"Courier New"'>.phys_start =3D 0x30240=
-000,</span><span lang=3DEN-US> <o:p></o:p></span></p><p class=3DMsoNormal><=
-span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Courier New"'>.vir=
-t_start =3D 0x30240000,</span><span lang=3DEN-US> <o:p></o:p></span></p><p =
-class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:=
-"Courier New"'>.size =3D 0x10000,</span><span lang=3DEN-US> <o:p></o:p></sp=
-an></p><p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:10.0pt;fo=
-nt-family:"Courier New"'>.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRIT=
-E |</span><span lang=3DEN-US> <br></span><span lang=3DEN-US style=3D'font-s=
-ize:10.0pt;font-family:"Courier New"'>JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_3=
-2,</span><span lang=3DEN-US> <o:p></o:p></span></p><p class=3DMsoNormal><sp=
-an lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Courier New"'>},</sp=
-an><span lang=3DEN-US><o:p></o:p></span></p><p class=3DMsoNormal><span lang=
-=3DEN-US>=E2=80=A6<o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DE=
-N-US>I also removed this memory sections from the root cell config:<o:p></o=
-:p></span></p><p class=3DMsoNormal><span lang=3DEN-US>=E2=80=A6<o:p></o:p><=
-/span></p><p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:10.0pt=
-;font-family:"Courier New"'>/* IO */ { <o:p></o:p></span></p><p class=3DMso=
-Normal><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Courier Ne=
-w"'>.phys_start =3D 0x00000000, <o:p></o:p></span></p><p class=3DMsoNormal>=
-<span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Courier New"'>.vi=
-rt_start =3D 0x00000000, <o:p></o:p></span></p><p class=3DMsoNormal><span l=
-ang=3DEN-US style=3D'font-size:10.0pt;font-family:"Courier New"'>.size =3D =
-0x30220000, <o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US s=
-tyle=3D'font-size:10.0pt;font-family:"Courier New"'>.flags =3D JAILHOUSE_ME=
-M_READ | JAILHOUSE_MEM_WRITE | <br>JAILHOUSE_MEM_IO, <o:p></o:p></span></p>=
-<p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:10.0pt;font-fami=
-ly:"Courier New"'>}, <o:p></o:p></span></p><p class=3DMsoNormal><span lang=
-=3DEN-US style=3D'font-size:10.0pt;font-family:"Courier New"'>/* IO */ { <o=
-:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US style=3D'font-s=
-ize:10.0pt;font-family:"Courier New"'>.phys_start =3D 0x30250000, <o:p></o:=
-p></span></p><p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:10.=
-0pt;font-family:"Courier New"'>.virt_start =3D 0x30250000, <o:p></o:p></spa=
-n></p><p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:10.0pt;fon=
-t-family:"Courier New"'>.size =3D 0x0FDB0000, <o:p></o:p></span></p><p clas=
-s=3DMsoNormal><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Cou=
-rier New"'>.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | <br>JAILHO=
-USE_MEM_IO, <o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US s=
-tyle=3D'font-size:10.0pt;font-family:"Courier New"'>},<o:p></o:p></span></p=
-><p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:10.0pt;font-fam=
-ily:"Courier New"'>=E2=80=A6<o:p></o:p></span></p><p class=3DMsoNormal><spa=
-n lang=3DEN-US>Also, I disabled the corresponding GPIOS in the fsl-imx8mm-e=
-vk-root.dts And reserved the memory sections. <o:p></o:p></span></p><p clas=
-s=3DMsoNormal><span lang=3DEN-US>=E2=80=A6<o:p></o:p></span></p><p class=3D=
-MsoNormal><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial",=
-sans-serif'>&amp;gpio3 {</span><span lang=3DEN-US> <br></span><span lang=3D=
-EN-US style=3D'font-size:10.0pt;font-family:"Arial",sans-serif'>&nbsp; &nbs=
-p; &nbsp; &nbsp; /* Disable gpio3 */</span><span lang=3DEN-US> <br></span><=
-span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial",sans-serif'=
->&nbsp; &nbsp; &nbsp; &nbsp; status =3D &quot;disabled&quot;;</span><span l=
-ang=3DEN-US> <br></span><span lang=3DEN-US style=3D'font-size:10.0pt;font-f=
-amily:"Arial",sans-serif'>};</span><span lang=3DEN-US> <br><br></span><span=
- lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial",sans-serif'>&am=
-p;gpio5 {</span><span lang=3DEN-US> <br></span><span lang=3DEN-US style=3D'=
-font-size:10.0pt;font-family:"Arial",sans-serif'>&nbsp; &nbsp; &nbsp; &nbsp=
-; /* Disable gpio5*/</span><span lang=3DEN-US> <br></span><span lang=3DEN-U=
-S style=3D'font-size:10.0pt;font-family:"Arial",sans-serif'>&nbsp; &nbsp; &=
-nbsp; &nbsp; status =3D &quot;disabled&quot;;</span><span lang=3DEN-US> <br=
-></span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial",sa=
-ns-serif'>};</span><span lang=3DEN-US> <br><br></span><span lang=3DEN-US st=
-yle=3D'font-size:10.0pt;font-family:"Arial",sans-serif'>&amp;{/reserved-mem=
-ory} {</span><span lang=3DEN-US> <br><br></span><span lang=3DEN-US style=3D=
-'font-size:10.0pt;font-family:"Arial",sans-serif'>&nbsp; &nbsp; &nbsp; &nbs=
-p; gpio3_reserved: gpio@0x30220000 {</span><span lang=3DEN-US> <br></span><=
-span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial",sans-serif'=
->&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; no-map;</span><spa=
-n lang=3DEN-US> <br></span><span lang=3DEN-US style=3D'font-size:10.0pt;fon=
-t-family:"Arial",sans-serif'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; reg =3D &lt;0 0x30220000 0x0 0x10000&gt;;</span><span lang=3DEN-U=
-S> <br></span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Ari=
-al",sans-serif'>&nbsp; &nbsp; &nbsp; &nbsp; };</span><span lang=3DEN-US> <b=
-r></span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial",s=
-ans-serif'>&nbsp; &nbsp; &nbsp; &nbsp; gpio5_reserved: gpio@0x30240000 {</s=
-pan><span lang=3DEN-US> <br></span><span lang=3DEN-US style=3D'font-size:10=
-.0pt;font-family:"Arial",sans-serif'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; no-map;</span><span lang=3DEN-US> <br></span><span lang=
-=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial",sans-serif'>&nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; reg =3D &lt;0 0x30240000 0x=
-0 0x10000&gt;;</span><span lang=3DEN-US> <br></span><span lang=3DEN-US styl=
-e=3D'font-size:10.0pt;font-family:"Arial",sans-serif'>&nbsp; &nbsp; &nbsp; =
-&nbsp; };<o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US styl=
-e=3D'font-size:10.0pt;font-family:"Arial",sans-serif'>=E2=80=A6</span><span=
- lang=3DEN-US><o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US=
->The cell boots correctly and the inmate is starting and running.<o:p></o:p=
-></span></p><p class=3DMsoNormal><span lang=3DEN-US>Accessing the GPIOs via=
- the gpiochips in Linux worked (before removing them from the .dts)<o:p></o=
-:p></span></p><p class=3DMsoNormal><span lang=3DEN-US><br>When I access the=
- memory via mmio_write32(=E2=80=A6) =E2=80=A6<o:p></o:p></span></p><p class=
-=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p><p class=3DMsoN=
-ormal><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Courier New=
-"'>mmio_write32(((<b><span style=3D'color:#820040'>void</span></b> *)(<b><s=
-pan style=3D'color:#820040'>unsigned</span></b> <b><span style=3D'color:#82=
-0040'>long</span></b>)(0x30240000)),0xFFFFFFFF);<br><br></span><span lang=
-=3DEN-US><o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US>or m=
-mio_read32(=E2=80=A6) in the inmate freezes without any message.<o:p></o:p>=
-</span></p><p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span>=
-</p><p class=3DMsoNormal><span lang=3DEN-US>Am I missing out on something? =
-Are there any specialties or other configurations I have to consider when a=
-ccessing GPIOs from the cell side?<br><br>Thanks for your help!<br><br>Feli=
-x<br><br><o:p></o:p></span></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p></=
-div></body></html>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/5dd9497f.1c69fb81.47354.a05c%40mx.google.com?utm_m=
-edium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/msgid/jailho=
-use-dev/5dd9497f.1c69fb81.47354.a05c%40mx.google.com</a>.<br />
-
---_FA235541-AABD-449A-8178-A956C136F97E_--
-
+jailhouse-dev/85183e3a-8aaf-0aa3-656d-0dd38798a29c%40web.de.
