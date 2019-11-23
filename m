@@ -1,127 +1,117 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB5HW37XAKGQESWVIQYA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBM6H4PXAKGQEJ42PF7I@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x13e.google.com (mail-lf1-x13e.google.com [IPv6:2a00:1450:4864:20::13e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 389AB1074A7
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 22 Nov 2019 16:15:01 +0100 (CET)
-Received: by mail-lf1-x13e.google.com with SMTP id u17sf1804501lfl.9
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 22 Nov 2019 07:15:01 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1574435700; cv=pass;
+Received: from mail-ot1-x33a.google.com (mail-ot1-x33a.google.com [IPv6:2607:f8b0:4864:20::33a])
+	by mail.lfdr.de (Postfix) with ESMTPS id C3C42107D75
+	for <lists+jailhouse-dev@lfdr.de>; Sat, 23 Nov 2019 08:45:57 +0100 (CET)
+Received: by mail-ot1-x33a.google.com with SMTP id 15sf5095508oti.9
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 22 Nov 2019 23:45:57 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1574495156; cv=pass;
         d=google.com; s=arc-20160816;
-        b=lLmFkp7vpPLHabF7kmRqWV7CRYOjc0WNp3iucQ+QX2rlo413tZW6EN3/vsqKlfjYa2
-         Cy5ZPSw3HVa0dJSiNlowElOjq4Ehk3U+/K7a+JBtiqEvsiavJSr+q0h37G5sS48D3O3M
-         9CkK+0R7Jx5N147sKqKlyY1UVDkYAiCFZ6QIn22rBuW40dovBZB03sR3Cq5EmayxM/lD
-         Bl23IMkuD2gSB75CEV+NCGJbAlNH0zkhSzsaMYd5Y80bY3sXdnksSAKoObt+xNtYa5Y7
-         2fMwkjg6uDfuWVrEPOeskSbTEgBflwZaXI5xmuBGd4ZOKkFCZ9gdjp+BQM//gXNXKgNQ
-         oINA==
+        b=QADdQ7fZidjZUntlGqqAuEgdDWqPnL5tDth/NsbtWS9PPvfWy8d523xctieqMQXkiz
+         hCf73KlxwGunYdXa5jno89ZXZvhTeTXvjdFL/EZwUuDtSPWdESwaUA4HS5zNMzl3XG9u
+         kNi+9ezyc9DfqePKdfy/uf3302E98Jc8tWIj0uPouB7ypcYjn7FVsvTNnjUxXJfqDUwk
+         8PyT7DGEU+iCZYcFszIgXHpFjptyGrmLeffTKol1P0gLDY68hs36f5B0joLyccqtEHDx
+         C9h0WgRrcdwU1V68L9ZY/nNGpLrDWR1JYaAOONccs6SIcfpS5hcHDJbZ9HCXqB9f17r5
+         WuyQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=H1KFpUyfzn8hPh/ION9khliveTbAtb2ThmEuqWm9OIE=;
-        b=hoKOEgnwneh+I+uwXIhw+QRPJSbJjmzbw69e11/PMZfOibCBFFMFCPN9IKEkm+L4jc
-         /2SzvMRXBEbVOKgmCd3v1Aznuo0sWdZoabbhgs3WFvIfW7rVS0oW4dKgjBqfx+9NjGFY
-         2f8Sxevvufq/fmryllsk6ixH1SFhdBVFEh57YVYuEX7kayebsdC0m3fOabYP3kkznaaZ
-         pjo7ybyAEZSotqrBYOydnB2QyqV1HrBoie51Ek1R2EEixxMDdoNkb/Ry1NRipoep+rzw
-         nmjwKLmJxneD8/qljuLMWRzEPaLKeuAdORTvM9b4waDRMgSrBJUaiyG1q0DlR2Ac71OJ
-         BjIQ==
+         :list-id:mailing-list:precedence:mime-version:subject:message-id:to
+         :from:date:sender:dkim-signature;
+        bh=oI6RXLA1gtjhQ+fv8ZFNnInEGP6zuO/ogoxyROL5T4U=;
+        b=DWTN10lvx//LcBDErMjmCowMcgYsvY/xIOQEVB08Gs/t8Sy2/I+92tgv0IuZ2xi/5y
+         MeBtEKMfJlia6SzKRcVKykQcIN5Yw9dRevPXFOske52OfMZRh+7coBxdsXcV5GYaBn4/
+         VkMlgEO/c103jai09/XgQaBAfYgf+mpP9uDCayyuLBW0se47oAtDPGTMw0oRL+iNvNAk
+         ocrNf8lM4nGc5KX3BnurVafn4XLo8q6yp1ifBwreL2KIzJUsz12vEK5G9KXWfCUTSmd9
+         vFymG6hmKMh19PgDVKAGGpU8htlEQsIhFYUdo8gXk87QSdpvmEl5cA8xvjom+Me2tLRw
+         WmqQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b="J/bl7y/w";
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.203 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
+        h=sender:date:from:to:message-id:subject:mime-version
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=H1KFpUyfzn8hPh/ION9khliveTbAtb2ThmEuqWm9OIE=;
-        b=Qx2eNnF/yMh/YH4ljOC0/aakAr8gqmy/trcbTiZL5Q72YhekQzk/XqL6+wCmAoq+hB
-         NcWm3XHtY8ylMk13y8/EVw1jPr/IfbCv4uTsWYsX8aNPbqgdx16hgqdeEVEo95Wnu/Nu
-         f2PROjGDWUke88VkARnv2YyA+UbGccixfssEfS79sNSw+ZUXfpyuBc4TYzGBYji7Lt9G
-         T1nBIiI9G7DPmTzAWNRY+TA1ZMv7cOtmC+Q9CeFENbGdqGsx1RzzMl7Y7yD2jwpme0+A
-         kxhXDMN7MhjBYfevAEep4nLMtXQlfm3g0ASvk1E40JV4iLM6EVmLGKxbC6Ia6aWZtxVe
-         xPdQ==
+        bh=oI6RXLA1gtjhQ+fv8ZFNnInEGP6zuO/ogoxyROL5T4U=;
+        b=hPtv874R9fkGddvTn5sV+FssA2gJfAhACJEYl1FnS5k9zfVDA20fXcEJ3lrPrDhxYC
+         9/jucA4YVnhKDN3nHHNKcqWC05Q3bDPqCGePqngcXOseyB9RPdj1G9gZUIjJzdGm1nTg
+         7I2xsV25H4C9lZE1L9Uuaa/Bjc/9qemvb1XU2cuihSQUqkxf5KPdX3wEVhInOCu1bRT4
+         4YW7ChHkdtq5mN3b+VQSeNX7HLgGzJF2Gxjd/VHovsPYv+WLpgikWzBXgDKsOSj8Oifj
+         p1CCfR8NJVFps3JIYpnNlKOl61jpRBtCsmcRXzQ0BL5MizuNXq0ghm2tpA6ww7iPxDWB
+         1bUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=H1KFpUyfzn8hPh/ION9khliveTbAtb2ThmEuqWm9OIE=;
-        b=WLHfYlQWEOVb5frYWQhe6CjJGFo+JPVXwXwnHZtYv/IiUal2xCAWm0cFm8/wRJHpsn
-         M7m0eE0FsPrzxqGg15E7F3GVEc2xZyEbHbj7JLz6FS22ulUG1Ku6wWjprXRd1NMkPfdZ
-         sBtuOuBUNSJFyOrBLbYcTVBMB2ajKlypudyiHazN80Tt/ghS6ne6uJeCzuos3LL5JrWM
-         Yb0MPMQNloQGkhwISgsL2DiyU0Ok+VvwA4UeudM6A9dkKIze7MJt9+x9gPDJkMAFOWHu
-         zPfuJ2RphmHlnsYDxKd7bZCm9RmukvxqXK4vIjnV6lb9Va+pouSn9ncycjmeKuD8xHkF
-         jQNQ==
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=oI6RXLA1gtjhQ+fv8ZFNnInEGP6zuO/ogoxyROL5T4U=;
+        b=TvFSjkkLDPVDRcjqinpvpNED7mNWhqyoMiz39ekFlDUWH6AbAAdMBiREZzQbcFysF+
+         tgA3L+qbC/8MBbrT+JaG2Pu2ztMpjpnT7hqLIJuQT5pP/SzsgqD6hTFfue7FwLN2gKD9
+         X/9w4GN+HpyMTdg3cI42ivL/Dz2T9qSrt655s8yLj6nPwGOXRygIcxl6JQrsFqKGJQZU
+         xyxR2IgjDyLhkTgBiH86pTFF8APC3FaFbDqJ8SJ7sxzzAssK4Y27rmtNu+j3PNcXKvVs
+         wcPBVENnKtMCtHo9HqvMPsfOo28L7OdxUmYZFHTHk3N4kk/OpZQC/7d50yctjHuMXQ0A
+         u8pA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAV777oeotF3lLXbuyZe+lo/xyP6zC9Vedf+kHNhA+lYNDjh4qwN
-	kxc86H7/b1QvS8DzNzzIhEM=
-X-Google-Smtp-Source: APXvYqx0gpraMLGbXbNUF9rh2z0IS/CeSthLNFuE3xROmOoN4uOKf8beWJsQf99cifwauwS68xFK1A==
-X-Received: by 2002:a2e:7a07:: with SMTP id v7mr12748961ljc.208.1574435700716;
-        Fri, 22 Nov 2019 07:15:00 -0800 (PST)
+X-Gm-Message-State: APjAAAXAm5Goibm/2OFJYTIeclPQMKH9DcPoAwpKyNSOA9GCiG2jlWzh
+	kCw2xMUPAAmCTiwNVAhNowc=
+X-Google-Smtp-Source: APXvYqxrGsyX5yp+xKLeAIVJ1ou4xN7a00JsAmsvtQ9CbMKMXqQ5C0M0S++IOKeZ3BTZzKVS2poQlw==
+X-Received: by 2002:a05:6830:1003:: with SMTP id a3mr13737267otp.16.1574495156317;
+        Fri, 22 Nov 2019 23:45:56 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:864f:: with SMTP id i15ls1539176ljj.11.gmail; Fri, 22
- Nov 2019 07:14:59 -0800 (PST)
-X-Received: by 2002:a2e:94d6:: with SMTP id r22mr12567071ljh.7.1574435699835;
-        Fri, 22 Nov 2019 07:14:59 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1574435699; cv=none;
+Received: by 2002:a05:6830:1618:: with SMTP id g24ls137035otr.13.gmail; Fri,
+ 22 Nov 2019 23:45:55 -0800 (PST)
+X-Received: by 2002:a05:6830:1d93:: with SMTP id y19mr13632187oti.288.1574495155489;
+        Fri, 22 Nov 2019 23:45:55 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1574495155; cv=none;
         d=google.com; s=arc-20160816;
-        b=mEwjycUUIprTSq42BSoksAiAMfNjuoI6K82JxH08PLyjeZPgLoqydvh4ivVbjoQ/i7
-         bL7WCYqrPniH0rvrmMUj7tC0EZCt2W/Ji2+ymNrQkHmfFHr6YzWUnqHXS5kxWdSkInwH
-         wwkMCiPhHR5UPKwx6MJZoXFN+y8N+1PF1gtpBP843ocwrV6t0h6lVu9gStGQtGtDpJpH
-         KfmuEFO4ruMrQdLHU2NE6lexFSdKiau5qz+vPQzRTKms+ICfL07RBvZX0KnqGrMYSMX7
-         urF+lCsEfMyp7ZxCR9zB/avDODuyqowIaTmugAEmPOGhpYAyjhKClTUdr57krB8QUDWc
-         EPLw==
+        b=UAhbmMtEKDUJ+idQeOo52fOsROyILVbOmJWdman+mloLGCgKu/VBUgOhj3cV0m/dqW
+         KIimiWD4+HLsCTLPAtfVS15oBOSysLRwOXlICEiYpYezjL9XlIcKrd0nk37M/xgZ1kmv
+         T6+v0yty6IFCtkpRVWCuh7qtWha39fwMA33ruyo14YxaKOKrT1P5ZtjqXIe1WolcSRYD
+         tqX5kA9mNU6Ov+x8Dpva2C2ujdRVE+ANcqe38jEhVUOeXxx2yJrQqBHS1XgD+YJ2h6+E
+         i83XkxSxx7CVd0/I6COTCYE9V7rD8Tc0I3cyJw4uv1HqSbTtiC4s1Lo5Wat6zmgm3SD0
+         faPg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=TydCqWMz2pnwX/YEYjsRmLdYj3O1XU9P5R+JPM9hz/I=;
-        b=zMobDN340qhbSHrP4kaIcAwMIzLXIcNuusBdc06G/QjYNqrvvLRn+oFdwAs+keEo2i
-         8ZE9gCNFPex7kkQkz034ZxB3GAwccSNmlv9vEe/nThx5CuhcRg9BoWT2Po9H8EukWLmY
-         p6XQCUuvwglAL+Dg0jpfFBxxAvvaPdAiqcZA9CB34hI9G5oqKJagBZdJOKbf2RuHKMNf
-         lX2eGBrA3PlDRyKGo8EVfhgtem7/17mAMPQ0+DMiWjgtD62EBWANV7zMgQ/Ye04XfbC2
-         l6GWqQGNe4wWSeEbvCZ4pCBCNVbSjMeiu76DYHPnC872YdfSyUgKeDc9sEh+sXRih2JU
-         bHIg==
+        h=content-transfer-encoding:mime-version:subject:message-id:to:from
+         :date:dkim-signature;
+        bh=UqQ0/iT/v2nC8FR7L+UVAEV7dvo7TEhwbkQxdAPn3UA=;
+        b=IweMHVpGa34xU0AoZ7DmrAukNR6J1di5Pe6kHpr+twWrtZJs5sWIAo6xbOaN+xdg6C
+         lsey2ZOegbvyogz8+YdlrJJ0+Ziy8ciL/+N41Cgq0TW+wpiKEFZCbiRe54cgbdcpc8OQ
+         P060cFq2Rd8n9w2WM+1giaf7R/ZsI0Bk0UP4HPjSuttdKIXBzRRpBR/fCs5y8aQ1q+a4
+         EvpqTdbKqnlrYXud8nqw2IktDSmNwcn/OVt3Qea52sGPytnCQnv9qzHyYOJABgXdWgR1
+         ClIulvg+qM4/KGNQUMiFLB0kUONQ2xtHod0Yd8UgnYsR+8hZIZmL5Xa65pS8Gg+5pLnG
+         aBQA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id b13si402015ljk.4.2019.11.22.07.14.59
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b="J/bl7y/w";
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.203 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from out-20.smtp.github.com (out-20.smtp.github.com. [192.30.252.203])
+        by gmr-mx.google.com with ESMTPS id m7si26221oim.3.2019.11.22.23.45.55
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 22 Nov 2019 07:14:59 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id xAMFExdU002847
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 22 Nov 2019 16:14:59 +0100
-Received: from [139.25.68.37] ([139.25.68.37])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id xAMFEwSw026176;
-	Fri, 22 Nov 2019 16:14:59 +0100
-Subject: Re: jailhouse stops on cpu_down on dual socket setup
-To: Martijn Pieterse <martijn.pieterse@prodrive-technologies.com>,
-        "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
-References: <b326bfd4d6954f39989b5459b15c8b09@prodrive-technologies.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <1a1e610d-bb95-053e-8bc5-00cd0130b154@siemens.com>
-Date: Fri, 22 Nov 2019 16:14:58 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.1
-MIME-Version: 1.0
-In-Reply-To: <b326bfd4d6954f39989b5459b15c8b09@prodrive-technologies.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+        Fri, 22 Nov 2019 23:45:55 -0800 (PST)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.203 as permitted sender) client-ip=192.30.252.203;
+Received: from github-lowworker-fb56993.ac4-iad.github.net (github-lowworker-fb56993.ac4-iad.github.net [10.52.19.31])
+	by smtp.github.com (Postfix) with ESMTP id 0EA2C8C01AE
+	for <jailhouse-dev@googlegroups.com>; Fri, 22 Nov 2019 23:45:55 -0800 (PST)
+Date: Fri, 22 Nov 2019 23:45:54 -0800
+From: Jan Kiszka <noreply@github.com>
+To: jailhouse-dev@googlegroups.com
+Message-ID: <siemens/jailhouse/push/refs/heads/master/bac03e-2338c0@github.com>
+Subject: [siemens/jailhouse] a22a8d: README: Update x86 qemu command lines
+Mime-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
+X-Auto-Response-Suppress: All
+X-Original-Sender: noreply@github.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
+ mode) header.i=@github.com header.s=pf2014 header.b="J/bl7y/w";
+       spf=pass (google.com: domain of noreply@github.com designates
+ 192.30.252.203 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -134,141 +124,92 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 22.11.19 11:24, Martijn Pieterse wrote:
-> Hi,
->=20
-> After successfully installing and running jailhouse on several systems=20
-> I=E2=80=99m now trying to get jailhouse to run on a dual socket setup, wh=
-ich is=20
-> giving me some problems.
->=20
-> I=E2=80=99m running Ubuntu 18.04, kernel version 4.15.0. Enabling jailhou=
-se=20
-> works fine, it breaks when creating a cell (at the cpu_down()) call, or=
-=20
-> when disabling a cpu with a shell command:
->=20
-> =E2=80=9Cecho 0 > /sys/devices/system/cpu/cpu2/online=E2=80=9D
->=20
-> The last vmexit seems to be an NMI, after that is handled the system=20
-> stops being responsive. I=E2=80=99ve added some printk=E2=80=99s in the h=
-andle_vmexit=20
-> code, but this did not help me.
->=20
-> Because I never had problems with getting jailhouse up and running on a=
-=20
-> single socket system, I=E2=80=99m assuming it has to do with the dual soc=
-ket=20
-> setup, but I=E2=80=99m out of ideas of how to diagnose this properly. The=
-=20
-> processors are the 4109T, but I don=E2=80=99t think this matters.
->=20
-> The output on the serial port:
->=20
-> Initializing Jailhouse hypervisor v0.11 (36-gedfe64fd-dirty) on CPU 11
->=20
-> Code location: 0xfffffffff0000050
->=20
-> Using x2APIC
->=20
-> Page pool usage after early setup: mem 151/15823, remap 0/131072
->=20
-> Initializing processors:
->=20
-> CPU 11... (APIC ID 22) OK
->=20
-> CPU 6... (APIC ID 12) OK
->=20
-> CPU 3... (APIC ID 6) OK
->=20
-> CPU 1... (APIC ID 2) OK
->=20
-> CPU 12... (APIC ID 24) OK
->=20
-> CPU 13... (APIC ID 26) OK
->=20
-> CPU 9... (APIC ID 18) OK
->=20
-> CPU 0... (APIC ID 0) OK
->=20
-> CPU 5... (APIC ID 10) OK
->=20
-> CPU 7... (APIC ID 14) OK
->=20
-> CPU 4... (APIC ID 8) OK
->=20
-> CPU 14... (APIC ID 28) OK
->=20
-> CPU 2... (APIC ID 4) OK
->=20
-> CPU 10... (APIC ID 20) OK
->=20
-> CPU 8... (APIC ID 16) OK
->=20
-> CPU 15... (APIC ID 30) OK
->=20
-> Initializing unit: VT-d
->=20
-> DMAR unit @0xd37fc000/0x1000
->=20
-> DMAR unit @0xe0ffc000/0x1000
->=20
-> DMAR unit @0xee7fc000/0x1000
->=20
-> DMAR unit @0xfbffc000/0x1000
->=20
-> DMAR unit @0xaaffc000/0x1000
->=20
-> DMAR unit @0xb87fc000/0x1000
->=20
-> DMAR unit @0xc5ffc000/0x1000
->=20
-> DMAR unit @0x9d7fc000/0x1000
->=20
-> <<< Remove lots of PCI init >>>>
->=20
-> Adding PCI device d7:16.0 to cell "RootCell"
->=20
-> Adding PCI device d7:16.4 to cell "RootCell"
->=20
-> Page pool usage after late setup: mem 893/15823, remap 65598/131072
->=20
-> Activating hypervisor
->=20
+  Branch: refs/heads/master
+  Home:   https://github.com/siemens/jailhouse
+  Commit: a22a8d84d20ecfe506b89a7f4019acb3febf8fa3
+      https://github.com/siemens/jailhouse/commit/a22a8d84d20ecfe506b89a7f4019acb3febf8fa3
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2019-11-08 (Fri, 08 Nov 2019)
 
-I suppose from here onward is due to your own instrumentation of the=20
-code, right?
+  Changed paths:
+    M README.md
 
-> NMI: cpu: 0
->=20
-> RIP: 0xffffffff8b33a2b3 RSP: 0xffffad66800ebe60 FLAGS: 2
->=20
-> RAX: 0xffffffff8c014460 RBX: 0x0000000000000003 RCX: 0xffff96745f61d150
->=20
-> RDX: 0x0000000000000003 RSI: 0x0000000000000286 RDI: 0xffffad6686ee7c90
->=20
-> CS: 10 BASE: 0x0000000000000000 AR-BYTES: a09b EFER.LMA 1
->=20
-> CR0: 0x0000000080050033 CR3: 0x0000000c9ce0a002 CR4: 0x00000000007626f0
->=20
-> EFER: 0x0000000000000d01
->=20
-> VM_EXIT_INTR_INFO: 80000202
+  Log Message:
+  -----------
+  README: Update x86 qemu command lines
 
-There might be some to-be-understood reason for Linux to use NMIs while=20
-offlining CPUs. When you do that before Jailhouse is enabled, does the=20
-related counter in /proc/interrupts increment?
+With the next QEMU release, VMX CPU features will no longer be passed
+through from the host when using kvm64 as CPU. Rather use "host" as
+model and ensure that incompatible PV features are off.
 
-Jan
+Use this chance to align the AMD command line, turning off some
+additional PV feature.
 
---=20
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/1a1e610d-bb95-053e-8bc5-00cd0130b154%40siemens.com.
+
+  Commit: 45c1fe05159bb2e44e962b466ab8207f0a91606e
+      https://github.com/siemens/jailhouse/commit/45c1fe05159bb2e44e962b466ab8207f0a91606e
+  Author: Fabrice Fontaine <fontaine.fabrice@gmail.com>
+  Date:   2019-11-10 (Sun, 10 Nov 2019)
+
+  Changed paths:
+    M tools/Makefile
+
+  Log Message:
+  -----------
+  tools/Makefile: fix install of jailhouse-config-collect
+
+Since commit 37bc6c12a1b365250c0dcdd82ae1ac5a869898e1,
+jailhouse-config-collect is not installed anymore on target as HELPERS
+is updated after install-libexec target so fix this mistake
+
+Fixes: 37bc6c12a1b3 ("tools: Allow to build jailhouse-config-collect independent of PYTHON_PIP_USABLE")
+Signed-off-by: Fabrice Fontaine <fontaine.fabrice@gmail.com>
+[Jan: always initialize HELPERS]
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 6d689ad09e57f96aae32f842e9e8bbf4c4d39a17
+      https://github.com/siemens/jailhouse/commit/6d689ad09e57f96aae32f842e9e8bbf4c4d39a17
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2019-11-17 (Sun, 17 Nov 2019)
+
+  Changed paths:
+    M hypervisor/arch/x86/efifb.c
+
+  Log Message:
+  -----------
+  x86: efifb: Fix 1024x768 mode
+
+Exactly, it's *768*. This digit flip broke scrolling at best or even
+hang the box when the framebuffer mapping was sized as needed.
+
+Fixes: 790ac72a3ee5 ("x86: Add EFI framebuffer debug console")
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 2338c060b38df1b3dbafc81371574353db2e4093
+      https://github.com/siemens/jailhouse/commit/2338c060b38df1b3dbafc81371574353db2e4093
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2019-11-17 (Sun, 17 Nov 2019)
+
+  Changed paths:
+    M Documentation/debug-output.md
+
+  Log Message:
+  -----------
+  Documentation: Fix EFI framebuffer configuration help
+
+JAILHOUSE_CON_MMIO is mandatory, or the driver won't map the
+framebuffer.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+Compare: https://github.com/siemens/jailhouse/compare/bac03e4d5f54...2338c060b38d
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/master/bac03e-2338c0%40github.com.
