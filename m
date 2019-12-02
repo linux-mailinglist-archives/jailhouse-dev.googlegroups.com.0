@@ -1,133 +1,132 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBXOYSLXQKGQETDLEYBI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBQ65SLXQKGQEZKPY6AY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43e.google.com (mail-wr1-x43e.google.com [IPv6:2a00:1450:4864:20::43e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30D9610E5E4
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  2 Dec 2019 07:17:02 +0100 (CET)
-Received: by mail-wr1-x43e.google.com with SMTP id h30sf6352691wrh.5
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 01 Dec 2019 22:17:02 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1575267421; cv=pass;
+Received: from mail-ed1-x53f.google.com (mail-ed1-x53f.google.com [IPv6:2a00:1450:4864:20::53f])
+	by mail.lfdr.de (Postfix) with ESMTPS id B127410E5F3
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  2 Dec 2019 07:27:15 +0100 (CET)
+Received: by mail-ed1-x53f.google.com with SMTP id f26sf21832917edy.16
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 01 Dec 2019 22:27:15 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1575268035; cv=pass;
         d=google.com; s=arc-20160816;
-        b=wB09bDzaVaI+I77CvjNflqpUSPkRZqzxEjSrCs6iXRpaRwScsMLCjuOc80TSOnxRYm
-         HyZgxHslD5Ge+PBi+U5F91bZ/pjFBBJpWGVN5io4YkCv1kuc8xJRhyX0IKYi6vrhJ5t8
-         h4SmWkKYfJINycCe8dAOO25T7WK8g8XjArHooZ2w49HA37dLy8eg/aLSY4LIX1FTJnsW
-         1cU0rjnNTLtRW641mwkYRIs+x1UaloBfcAZyFS4yxLN6/THaqaIiNh++SEv+0QiVR/u8
-         GBirbKPIXZXUd1orIxT/BBWD0tt/EiOu6qmZ1Y6Zxp0c+sHbAiIHJ76lFzOirS6Ed1U7
-         8hlw==
+        b=FXmObDHJL1F6RRC8BXMXSNXi0hLySuvKeU/ny0v0u6+oIlsyl9PRb4UYR3fIyc07a/
+         vtEfoJRjMrNd00Y0jyyafsMX1NVmJe8Meemn4cCQvGMZPx2dqhH/CC+cXoLtTNjdg5h7
+         27koNtLj9OmxbzidWkGWO7HduId3V/DcnvDhjqyR3iUb9oZOBGS8AHKUK0XdPSCqEpKq
+         wApQyZPuqYc+izM8yLftNnyOkGAScsH6T1FSDhDy7M64znHRCW1xmAi+9xptRcS1d+jn
+         JN5Ug//Rd5OFZ+v+ecttw/bvMYVqc2c1U8VokuM6FMRgy8+Z0QZn4TOuSzBVSL6JxK3c
+         2vPA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
          :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:references:cc:to:from:subject:sender:dkim-signature;
-        bh=6HfdVuf/RNqZFjAFl8ZO6E7pu/Gp/uSrqqwQqP/okZ4=;
-        b=UfIlqk11xLQImhZNzWY3c/6m3YPUssd/vB/N8ZLKblpngkaid4Y5ju4kfPfV/BmjPR
-         rqi/c0ZHNxVggM/mPGCtvb3eDgQE4cDwvY9JhTaZ7mFEdNOR0yNVt0UeJUr41nDqAa3n
-         yf8KA1uFRGt8Wz4DqOge0Q0jy7r8YSyJLV0Wg/+Lp5bpKthfZ0Ot3C/VkS5MVK4AM72p
-         jgNHb9ZNsNDj9oWAvYIVL7GbUM0Hp0NmlDZfp6r5yQ6xxfDxTGYpDifd4SqCvXz+bQNX
-         5qsnNGyyB1Va60KSFsxzGXX/Ywzms73zX/4CufX7qs6DL36aZT5vjW0VVCuYZ6vjFx2j
-         9PlA==
+         :message-id:from:references:cc:to:subject:sender:dkim-signature;
+        bh=p7W9ma6lNyZIvmiTIyj4fS4nJA1bLelffOvrh7j7Y9Q=;
+        b=uGZgYTx/nCqtWVrsGnA0xt6e4/XkO0oKxMKiRaTDQCEajfpViNmq9PXcqCZK7QbQub
+         pCjlG8CZlpHfF02edetE5d1ux+YXpTHNBUEt3ZJcVz12d1xMaDNsrzi+9qW1klJkrNDg
+         4Daf2GF58Png+ydgrZBYMwWHlN7Bo5nvpXIp7mIkyCdiSDBi+/Am/UfGi5TViGYTDElC
+         bHB2Blv4/QhG5hZdWXkxZK5bXc429WCBV+sIkGdst2TBn7J1YvlpmNdNxELYcn+eR1O6
+         f5UZvqlifKx9KyXdrfMMgpbqgKBIGQ3Pvcw/doIkQKdrM3QbCnhLM1HRS7t/CpGc7Fht
+         /efQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:from:to:cc:references:message-id:date:user-agent
+        h=sender:subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=6HfdVuf/RNqZFjAFl8ZO6E7pu/Gp/uSrqqwQqP/okZ4=;
-        b=bNrdIKUNeH1di0+lVT8yfZz5XJv43RSDfdNR3jarqpyMGQiCAc6OnloFxE2o8RvJpB
-         LmbXrcgpDQBjhZW/x0Byer9My8YN0hzDLnFrbTN+frFHioNvOh/to8xBhsuFjMOouOcz
-         MU06Hk+0Tf5bEWLlObCBANgqyvRRVSz3rw0+IY8ESTGZTlkrhcE+VRvlGlZXcA+IUyA0
-         Rq/lZH0nemBP+4FJexZ9XUnextC3CerHTk5/IAnzl9ktk5yyS0emHh92WDigioWxqbd0
-         5AB+8CF1ns8F3WcoIFGXmCIcEthZd2Yq49SCZDZ3pr9vKTRzfGDyVIt6T+Av77zfrmTL
-         dEiA==
+        bh=p7W9ma6lNyZIvmiTIyj4fS4nJA1bLelffOvrh7j7Y9Q=;
+        b=Srt52Ef7A9RSqmo7HRsZ+iVjp+JcdDuef94NrtxQXi5uqNA1eOvNfEwJcUyqAMEk0a
+         Fc4OmSMijh/J906afrQeDUxX4owgVsCBkoXnmXJIZZci2vv4IC2xQmn+j3bU4aoE4jMY
+         DAPNXr064rRboKEAg04pqJMxxXH32/045UyKUfOv19/ep5ZaaFnHhUu66esNhisPcXsg
+         RZCjr2sHcoRJQeMr9jz6pWIqVvDzYfprrKrbrUyuXJ93lxG2KjtgSg8EV+BFNoG16XFp
+         DNw2d6PG3/dkL2n7Z+46ejscWyY4veBc0JpUENbkfZaA0CMKEnRSzqTy5nWJ/Vp/fBGB
+         ae8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:from:to:cc:references:message-id
+        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
          :date:user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=6HfdVuf/RNqZFjAFl8ZO6E7pu/Gp/uSrqqwQqP/okZ4=;
-        b=cvFix6nLYPLhOzmiBuXR+UGygGsi/iD+cHWCKC+d8CltnIxz12XIlOT7Yqj9VJfpnN
-         Ep2vxKiooHraaAkqODFAHdB4pmfVB8Perj3HHokzcJmhm2pNTCT9GJk8Cshe4rYq8Ey2
-         T1SkELhonmbaoa7NB7GujmyurIfP3hjxw4zm0XQoBNkKcveFFMxtb541mmNzJ421xXZv
-         WB6q8l7C2yF5dJyAHRoV6SWNJ2BgowUlodull28PazUl0BdWdFcilZffH+sxZ3gZEJmY
-         N9QH2m8TvmdgEckAVJ18fWhRw/vV5W5YT1jiq/dYycs4tWJ48GGvS+tadRUQujFtghKx
-         lUCg==
+        bh=p7W9ma6lNyZIvmiTIyj4fS4nJA1bLelffOvrh7j7Y9Q=;
+        b=el3t12alfmQsjX/AC3WGPxjhDWpIWABeVWk62fGEC510ucVr7qc9CvGH0IIH5au/lt
+         sA7c3Jeuypd8AztvKJelJz8l4HmwqmDnh8hVl1pG+q6Pzzg3EFRWSFfrd4H4CQY+nO2b
+         +xIAzFoDJjJfpehqpMhGLOxKKKIwnPpKfKwCk1JGhZGJimZjIwbqCVAQzLNhTsezwwpi
+         AMPGFT39E9rDFNQLr2i8i02mOzJE/1grfAFN5+hCLl8Hb70e37uM4mssrba0hD4ZniTJ
+         +uC2u1HGj0srTBEswpbeKTR33CePuV3JOy7A/h9nlUZClCWsT4FrzULI2+KMLmqnKMKH
+         s0oA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUdES6R5qxv1b+V6ddHOurXMtPJ0bUv1RdJGnA0fHyLnfqIjqWC
-	G58fcei/byyIvoY7qakCRNA=
-X-Google-Smtp-Source: APXvYqwEkmzkUwY1yoP+ba5YCbPnb088XgpJJhqLBs4sfriNqmagAZaPBJ9j9WTDcZ9l0Dl7zL0Z/g==
-X-Received: by 2002:adf:f850:: with SMTP id d16mr59198051wrq.161.1575267421818;
-        Sun, 01 Dec 2019 22:17:01 -0800 (PST)
+X-Gm-Message-State: APjAAAXJry9dBqYjH8t7Q2ZNE1PVd0e+5R59uqevTCDvdnIqzVm5vuov
+	h41+0x/hwYN6Kdb6mz+4fDI=
+X-Google-Smtp-Source: APXvYqw1SuCI+/IerHOtMRYcsw9qQ/TGLVdpoWkmMxTVwXX7YJtYL1KAw3qDidpxfOKOWmuVwSzLIQ==
+X-Received: by 2002:a17:906:c44a:: with SMTP id ck10mr52236729ejb.149.1575268035366;
+        Sun, 01 Dec 2019 22:27:15 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:bc0b:: with SMTP id m11ls1600752wmf.4.gmail; Sun, 01 Dec
- 2019 22:17:01 -0800 (PST)
-X-Received: by 2002:a1c:96c4:: with SMTP id y187mr27101242wmd.112.1575267421092;
-        Sun, 01 Dec 2019 22:17:01 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1575267421; cv=none;
+Received: by 2002:a17:906:a995:: with SMTP id jr21ls10565651ejb.16.gmail; Sun,
+ 01 Dec 2019 22:27:14 -0800 (PST)
+X-Received: by 2002:a17:906:b30f:: with SMTP id n15mr21693005ejz.236.1575268034646;
+        Sun, 01 Dec 2019 22:27:14 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1575268034; cv=none;
         d=google.com; s=arc-20160816;
-        b=SFepeP7tw5hHyj9QaBIsMCpQN3j9JHU0I9JcPy1c9z12WB2/yR4e3Em2NYmPMd/KIr
-         OjH/V++v2LLC53ctNXertRe6Op7pE3tzlcl7Tjp6/3D2jIIWJQUGoGdLbI3LPc1dXaZm
-         WnmZAMCxxPWgev4SAU4/V4vTozxZQU730E6Zq0tWY7PVBlr/UAGCwYOZIhrGI4IAyLTH
-         kWYVMBiD4pCcI3Gh7ddUo+lxoAYD2Jaeg805wQoXJKZTse+fJbMKChPcI8Spnx8jbc5p
-         PNKMAdxhM6k9AmYLmh5nSdeycyWNdJJErIE4tRP/HzZuRj+lIpqD/NN9pRiJ3ENixDio
-         g7xg==
+        b=fLHUJnklzR0Ntzd8BuLK2OFKTEjGMXwD988X+yZiXDo6VPbZQh1hoAtQkSlKFUb56i
+         choaix66DIV4Zp9vAlhKU+Cqy1aeVi3McnDfviz0qAO64tEpQ9CZgt5lq10/c7/Et1qs
+         GJNemNR6wKYo6roKn89ufc3fR/YciVoythOlhOs9Np08tR5rU5AJEfXW5tp9uYNblZip
+         TJzttGOYwjYcQ8So0FvuWXaidfkO/74Cb3KUqBLf3sDctNiQ3xL+a6wue3vqMVCf8TJR
+         9poxBC27UGLuQOVHdi7QhMI5RzozmfjiR8Z8WeNYcganFvlcugAyipHeDH131xUgWtwe
+         hsEw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:references:cc:to:from:subject;
-        bh=9gSxpZn6bO1jx0igWMuWrVd3h6OovTjfLfVlaKsvvQE=;
-        b=i0XM3vgTksftUYsqREn0ykZ0uuCyvzBm9VIHbg+RuinianVNBlNlYWl0oscRWtQ7d3
-         ZEhrr6XrvJDrjG52f39sMOh2xlZeGtpnvr/a/TKQXV5z00wScpkLSXi4cIPVdzAILOQs
-         dmODcyKhGXEtrlJ2jY+8UYesBOOTuMtrIWjriRZYgN6IHEyATargfQcHzFM1EhmIBr4N
-         ZTzhA1XZ3cvpdwtP8FzvtakKL15I0ybbJWUgw/TJkkQPySOvbjlcI8wzHSInQLg1l6vV
-         uPhOXwmnCvSnBF492J+jAPfCqQdEmMD4KAi0RFbxK0C0/9XtRFAVljG5N9o2ZjHaCEy0
-         kh8g==
+         :user-agent:date:message-id:from:references:cc:to:subject;
+        bh=zZYUTHR2yKvxeaRfvuVkdBj3HU865m2SlHsvoKXgbzs=;
+        b=EWO6nPr/Piud2BR/F7QuGUptuls+h9YjNIxOEWGBli6aB0cmscpSdEcTAYONNEYRG6
+         9wsqFtkhlRirRiqJKGmfPdBiL6zAnxyQdgBPY3MaiMCUC6ZoEQ6Y37btCPsCVeQbJQXd
+         vcLpYH+3km7BgQBCY/Jb8yASw/QV0HmtjSzbBFl7AtmETIVJQM3CfMabv76q82OtZ9Os
+         yptd736XhplG7SZUXBRuBXBsrgqaSMo9JIJXdPp55W8rPCOdFgBthGz/0dxbcOr97Rjv
+         XR/Ch7No30ZOn7Hc1HmMgS3QV+MXH3LlDqLYJOuYonzB6LOju/mchb8+1nNH5iSPNLXb
+         3eSA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
-        by gmr-mx.google.com with ESMTPS id i11si241590wml.0.2019.12.01.22.17.01
+Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
+        by gmr-mx.google.com with ESMTPS id ba12si933573edb.3.2019.12.01.22.27.14
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 01 Dec 2019 22:17:01 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
+        Sun, 01 Dec 2019 22:27:14 -0800 (PST)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
 Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id xB26GxtF019753
+	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id xB26RDPX004575
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 2 Dec 2019 07:16:59 +0100
+	Mon, 2 Dec 2019 07:27:13 +0100
 Received: from [167.87.6.91] ([167.87.6.91])
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id xB26Gv0X023939;
-	Mon, 2 Dec 2019 07:16:58 +0100
-Subject: Re: [RFC][PATCH 0/3] IVSHMEM version 2 device for QEMU
-From: Jan Kiszka <jan.kiszka@siemens.com>
-To: Liang Yan <LYan@suse.com>, qemu-devel <qemu-devel@nongnu.org>
-Cc: Markus Armbruster <armbru@redhat.com>,
-        Claudio Fontana <claudio.fontana@gmail.com>,
-        Stefan Hajnoczi <stefanha@redhat.com>,
-        "Michael S . Tsirkin"
- <mst@redhat.com>,
-        Hannes Reinecke <hare@suse.de>,
+	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id xB26RB7L001996;
+	Mon, 2 Dec 2019 07:27:12 +0100
+Subject: Re: [PATCH 0/8] Add cache coloring support for Arm
+To: Peng Fan <peng.fan@nxp.com>, Marco Solieri <ms@xt3.it>,
         Jailhouse <jailhouse-dev@googlegroups.com>
-References: <cover.1573477032.git.jan.kiszka@siemens.com>
- <efd5fa87-90de-fccc-97a5-a4fc71a050c8@suse.com>
- <fb213f9e-8bd8-6c33-7a6e-47dda982903d@siemens.com>
-Message-ID: <0c6969db-848f-f05b-2dc0-589cb422aa56@siemens.com>
-Date: Mon, 2 Dec 2019 07:16:57 +0100
+Cc: "marko.bertogna@unimore.it" <marko.bertogna@unimore.it>,
+        "tomasz.kloda@unimore.it" <tomasz.kloda@unimore.it>,
+        "giulioc@xilinx.com" <giulioc@xilinx.com>,
+        "'claudio@evidence.eu.com'" <claudio@evidence.eu.com>,
+        "fabio.federici@utrc.utc.com" <fabio.federici@utrc.utc.com>
+References: <20190327121849.1882-1-ms@xt3.it>
+ <AM0PR04MB4481B3186519C11BBFEE8DBA88430@AM0PR04MB4481.eurprd04.prod.outlook.com>
+ <AM0PR04MB44818E5F2BA11C16A6B9E70088430@AM0PR04MB4481.eurprd04.prod.outlook.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <14abb592-d8c4-6c89-1e98-d774e0dd21ad@siemens.com>
+Date: Mon, 2 Dec 2019 07:27:11 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.2.1
 MIME-Version: 1.0
-In-Reply-To: <fb213f9e-8bd8-6c33-7a6e-47dda982903d@siemens.com>
+In-Reply-To: <AM0PR04MB44818E5F2BA11C16A6B9E70088430@AM0PR04MB4481.eurprd04.prod.outlook.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
@@ -142,125 +141,147 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 27.11.19 18:19, Jan Kiszka wrote:
-> Hi Liang,
+On 02.12.19 03:52, Peng Fan wrote:
+> + jailhouse mailist.
 >=20
-> On 27.11.19 16:28, Liang Yan wrote:
+>> -----Original Message-----
+>> From: Peng Fan
+>> Sent: 2019=E5=B9=B412=E6=9C=882=E6=97=A5 10:51
+>> To: Marco Solieri <ms@xt3.it>
+>> Cc: marko.bertogna@unimore.it; tomasz.kloda@unimore.it;
+>> giulioc@xilinx.com; claudio@evidence.eu.com; fabio.federici@utrc.utc.com
+>> Subject: RE: [PATCH 0/8] Add cache coloring support for Arm
 >>
+>>> Subject: [PATCH 0/8] Add cache coloring support for Arm
+>>>
 >>
->> On 11/11/19 7:57 AM, Jan Kiszka wrote:
->>> To get the ball rolling after my presentation of the topic at KVM Forum
->>> [1] and many fruitful discussions around it, this is a first concrete
->>> code series. As discussed, I'm starting with the IVSHMEM implementation
->>> of a QEMU device and server. It's RFC because, besides specification an=
-d
->>> implementation details, there will still be some decisions needed about
->>> how to integrate the new version best into the existing code bases.
->>>
->>> If you want to play with this, the basic setup of the shared memory
->>> device is described in patch 1 and 3. UIO driver and also the
->>> virtio-ivshmem prototype can be found at
->>>
->>>     =20
->>> http://git.kiszka.org/?p=3Dlinux.git;a=3Dshortlog;h=3Drefs/heads/queues=
-/ivshmem2=20
->>>
->>>
->>> Accessing the device via UIO is trivial enough. If you want to use it
->>> for virtio, this is additionally to the description in patch 3 needed o=
-n
->>> the virtio console backend side:
->>>
->>> =C2=A0=C2=A0=C2=A0=C2=A0 modprobe uio_ivshmem
->>> =C2=A0=C2=A0=C2=A0=C2=A0 echo "1af4 1110 1af4 1100 ffc003 ffffff" >=20
->>> /sys/bus/pci/drivers/uio_ivshmem/new_id
->>> =C2=A0=C2=A0=C2=A0=C2=A0 linux/tools/virtio/virtio-ivshmem-console /dev=
-/uio0
->>>
->>> And for virtio block:
->>>
->>> =C2=A0=C2=A0=C2=A0=C2=A0 echo "1af4 1110 1af4 1100 ffc002 ffffff" >=20
->>> /sys/bus/pci/drivers/uio_ivshmem/new_id
->>> =C2=A0=C2=A0=C2=A0=C2=A0 linux/tools/virtio/virtio-ivshmem-console /dev=
-/uio0=20
->>> /path/to/disk.img
->>>
->>> After that, you can start the QEMU frontend instance with the
->>> virtio-ivshmem driver installed which can use the new /dev/hvc* or
->>> /dev/vda* as usual.
->>>
->>> Any feedback welcome!
+>> I am reading the patchset, but this patchset could not resolve the cache
+>> contention between root cell Linux and inmate cell, right? It only addre=
+ss the
+>> cache contention inside the inmate cell, if I understand correctly.
 >>
->> Hi, Jan,
+>> Is there any v2 plan to address the upper issue?
 >>
->> I have been playing your code for last few weeks, mostly study and test,
->> of course. Really nice work. I have a few questions here:
->>
->> First, qemu part looks good, I tried test between couple VMs, and device
->> could pop up correctly for all of them, but I had some problems when
->> trying load driver. For example, if set up two VMs, vm1 and vm2, start
->> ivshmem server as you suggested. vm1 could load uio_ivshmem and
->> virtio_ivshmem correctly, vm2 could load uio_ivshmem but could not show
->> up "/dev/uio0", virtio_ivshmem could not be loaded at all, these still
->> exist even I switch the load sequence of vm1 and vm2, and sometimes
->> reset "virtio_ivshmem" could crash both vm1 and vm2. Not quite sure this
->> is bug or "Ivshmem Mode" issue, but I went through ivshmem-server code,
->> did not related information.
->=20
-> If we are only talking about one ivshmem link and vm1 is the master,=20
-> there is not role for virtio_ivshmem on it as backend. That is purely a=
-=20
-> frontend driver. Vice versa for vm2: If you want to use its ivshmem=20
-> instance as virtio frontend, uio_ivshmem plays no role.
->=20
-> The "crash" is would be interesting to understand: Do you see kernel=20
-> panics of the guests? Or are they stuck? Or are the QEMU instances=20
-> stuck? Do you know that you can debug the guest kernels via gdb (and=20
-> gdb-scripts of the kernel)?
->=20
->>
->> I started some code work recently, such as fix code style issues and
->> some work based on above testing, however I know you are also working on
->> RFC V2, beside the protocol between server-client and client-client is
->> not finalized yet either, things may change, so much appreciate if you
->> could squeeze me into your develop schedule and share with me some
->> plans, :-)=C2=A0 Maybe I could send some pull request in your github rep=
-o?
->=20
-> I'm currently working on a refresh of the Jailhouse queue and the kernel=
-=20
-> patches to incorporate just two smaller changes:
->=20
->  =C2=A0- use Siemens device ID
->  =C2=A0- drop "features" register from ivshmem device
->=20
-> I have not yet touched the QEMU code for that so far, thus no conflict=20
-> yet. I would wait for your patches then.
->=20
-> If it helps us to work on this together, I can push things to github as=
-=20
-> well. Will drop you a note when done. We should just present the outcome=
-=20
-> frequently as new series to the list.
+>> To address root cell color issue, 1:1 mapping in root cell might not wor=
+k,
+>> because IPA/PA needs a remap, but this will waste PA space, if inmate on=
+ly
+>> need a small area PA space. Seems root/inmate cache contention is hard t=
+o
+>> avoid.
 
-I've updated my queues, mostly small changes, mostly to the kernel bits.=20
-Besides the already announced places, you can also find them as PR=20
-targets on
+Coloring the root cell is indeed a tricky issue as I remarked back then=20
+as well. I suspect the best way will be trying the approach that TI has=20
+a prototype for: start Jailhouse via a loader (could be a UEFI=20
+executable) and boot the root cell Linux already colored after that ->=20
+no DMA in-flight problems.
 
-https://github.com/siemens/qemu/commits/wip/ivshmem2
-https://github.com/siemens/linux/commits/queues/ivshmem2
-
-To give the whole thing broader coverage, I will now also move forward=20
-and integrate the current state into Jailhouse - at the risk of having=20
-to rework the interface there once again. But there are a number of=20
-users already requiring the extended features (or even using them), plus=20
-this gives a nice test coverage of key components and properties.
+What you cannot solve is the memory usage. That is inherent to coloring.=20
+So, what we actually want is vendors like your employer finally=20
+implementing cache partitioning in hardware. ;)
 
 Jan
 
---=20
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+>>
+>> Thanks,
+>> Peng.
+>>
+>>> Predictability of memory access latency is severely menaced by the
+>>> multi-core architectures where the last level of cache (LLC) is
+>>> shared, jeopardizing applicability of many Arm platform in real-time
+>>> critical and mixed-criticality scenarios. Support for cache coloring
+>>> is introduced, a transparent software technique allowing partitioning
+>>> the LLC to avoid mutual interference between inmates.
+>>>
+>>> By creating a cache stress environment with a memcpy bare-metal
+>>> application or with the Linux "stress" tool, it is easy to measure
+>>> performance degradations caused by inter-cell interference, e.g.
+>>> running the LMBench micro-benchmarks, or just with the GIC demo within
+>>> a L1 Instruction stress scenario. Once coloring is enabled, instead,
+>>> predictable performances are restored. Reports of extensive benchmarks
+>>> and evaluations on real application are referred in the documentation.
+>>>
+>>> We thanks Tomasz Kloda and Marko Bertogna for the prototype logic and
+>>> Renato Mancuso for suggesting low-level design improvements. The EU
+>>> Horizon 2020 IA project HERCULES (grant no. 688860) supported the
+>>> initial implementation and evaluation on NVIDIA Tegra X1 and X2; Xilinx=
+ Inc.
+>>> supported the implementation and evaluation on ZCU102; UTRC supported
+>>> the testing on ZCU104.
+>>>
+>>> A bird-eye view of the implementation and of the commit structure is gi=
+ven.
+>>> Some coloring-logic fundamentals are situated in the 'common' part
+>>> between the driver and the hypervisor [1], but only the latter
+>>> implements the whole coloring support [2]. The hypervisor also exposes
+>>> a convenient interface to ease the load operation by the driver [3],
+>>> who implements a simplified memory allocation support (only colors
+>>> have to be chosen) [4] and extends the configuration file support [5].
+>>> Examples root cell and demo configurations are provided for Xilinx
+>>> ZCU102 [6] and NVIDIA TX2 [7]. An extensive documentation details the
+>>> technique and gently explains how to use it [8].
+>>>
+>>> Luca Miccio (8):
+>>>    Common: introduce cache coloring primitives
+>>>    Hypervisor: implement cache-colored paging for Arm
+>>>    Hypervisor: add hypercall to ease loading of cache-colored images
+>>>    Driver: add support for cache-colored memory configurations
+>>>    Support cache-colored memory configurations when loading Linux inmat=
+e
+>>>    Configs: zynqmp-zcu102: add cache-coloring examples
+>>>    Configs: jetson-tx2: add cache-coloring examples
+>>>    Documentation: add description and usage of cache coloring support
+>>>
+>>>   Documentation/cache-coloring.md              | 330 ++++++++++++
+>>>   configs/arm64/jetson-tx2-col.c               | 529
+>>> +++++++++++++++++++
+>>>   configs/arm64/jetson-tx2-demo-col.c          |  76 +++
+>>>   configs/arm64/zynqmp-zcu102-col.c            | 153 ++++++
+>>>   configs/arm64/zynqmp-zcu102-demo-col.c       |  79 +++
+>>>   configs/arm64/zynqmp-zcu102-linux-demo-col.c | 137 +++++
+>>>   driver/Makefile                              |   1 +
+>>>   driver/cell.c                                |  56 +-
+>>>   driver/coloring.c                            | 239 +++++++++
+>>>   driver/coloring.h                            |  52 ++
+>>>   driver/main.c                                |   3 +
+>>>   hypervisor/arch/arm-common/mmu_cell.c        |  27 +-
+>>>   hypervisor/control.c                         |  77 +++
+>>>   hypervisor/include/jailhouse/paging.h        |  11 +
+>>>   hypervisor/paging.c                          | 168 ++++++
+>>>   include/jailhouse/cell-config.h              |   9 +
+>>>   include/jailhouse/coloring.h                 | 151 ++++++
+>>>   include/jailhouse/hypercall.h                |   1 +
+>>>   tools/jailhouse-cell-linux                   |   5 +-
+>>>   19 files changed, 2096 insertions(+), 8 deletions(-)  create mode
+>>> 100644 Documentation/cache-coloring.md  create mode 100644
+>>> configs/arm64/jetson-tx2-col.c  create mode 100644
+>>> configs/arm64/jetson-tx2-demo-col.c
+>>>   create mode 100644 configs/arm64/zynqmp-zcu102-col.c  create mode
+>>> 100644 configs/arm64/zynqmp-zcu102-demo-col.c
+>>>   create mode 100644 configs/arm64/zynqmp-zcu102-linux-demo-col.c
+>>>   create mode 100644 driver/coloring.c
+>>>   create mode 100644 driver/coloring.h
+>>>   create mode 100644 include/jailhouse/coloring.h
+>>>
+>>> --
+>>> 2.20.1
+>>>
+>>> --
+>>> You received this message because you are subscribed to the Google
+>>> Groups "Jailhouse" group.
+>>> To unsubscribe from this group and stop receiving emails from it, send
+>>> an email to jailhouse-dev+unsubscribe@googlegroups.com.
+>>> For more options, visit
+>>> https://eur01.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgro=
+u
+>>>
+>> ps .google.com%2Fd%2Foptout&amp;data=3D02%7C01%7Cpeng.fan%40nxp.co
+>> m%
+>>>
+>> 7C9a8ae20626fa48d42da808d6b2ba3eb2%7C686ea1d3bc2b4c6fa92cd99c5c
+>>>
+>> 301635%7C0%7C0%7C636892910321416684&amp;sdata=3D4VNztT05f9leIPUh
+>>> a1TUx97q8sEzTgtk%2FfIzkwV3%2FJw%3D&amp;reserved=3D0.
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -268,4 +289,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/0c6969db-848f-f05b-2dc0-589cb422aa56%40siemens.com.
+jailhouse-dev/14abb592-d8c4-6c89-1e98-d774e0dd21ad%40siemens.com.
