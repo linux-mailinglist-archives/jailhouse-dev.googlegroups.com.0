@@ -1,117 +1,179 @@
-Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBBMJSDXQKGQEEPZI75Q@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDAMFR7JZAEBBVXYSHXQKGQE6EHH3KQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oi1-x237.google.com (mail-oi1-x237.google.com [IPv6:2607:f8b0:4864:20::237])
-	by mail.lfdr.de (Postfix) with ESMTPS id D035610E300
-	for <lists+jailhouse-dev@lfdr.de>; Sun,  1 Dec 2019 19:20:55 +0100 (CET)
-Received: by mail-oi1-x237.google.com with SMTP id g189sf17161304oif.10
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 01 Dec 2019 10:20:55 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1575224454; cv=pass;
+Received: from mail-vk1-xa37.google.com (mail-vk1-xa37.google.com [IPv6:2607:f8b0:4864:20::a37])
+	by mail.lfdr.de (Postfix) with ESMTPS id 803D610E4B6
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  2 Dec 2019 03:52:07 +0100 (CET)
+Received: by mail-vk1-xa37.google.com with SMTP id x65sf17349606vkd.15
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 01 Dec 2019 18:52:07 -0800 (PST)
+ARC-Seal: i=3; a=rsa-sha256; t=1575255126; cv=pass;
         d=google.com; s=arc-20160816;
-        b=s3iFf139fDSa5isL/llD4FwY0SBB+PGSM/iSOQB81hwWNiPVssx03exWM0bBFYOo5K
-         CrOEFTm7THFt2JnJdmWgFGkp6am5GnY7c+ZKt6MH0u37Lf5DOpCMjrO4X/AN+R9ablNw
-         zAf3acgE1DLNU99kwdp50rAmQCWln0IXhidfwuOgLoJWVc5y3Iq1VxadTuJk0wRrqrDt
-         CZP7GMOsMXpeKet1GaryiZ/D7hdztm1UDc+giAxYm09NpmX4z+e1Bhft8R5JuFK3vF+5
-         ArNSOODhxpzL/bBPtd2UVRsAjE5UydTclPK7PC/HF3lWdSpU1NFVjRqdVs6FxQEuDFB9
-         NDfA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        b=meFKYBGcp1j22y9sbG5hY9LNRkfnXKdH32o7hvoFVvohMDyuG+PMLpPYp92uBD7rf/
+         WQn7I+OLHlYwxgt8rpzrYesuXYlyGU0hhVs2x+zgLlGnPjkZwVczxY5hu3l9Xf805a/+
+         upeZYhd64yxXMLtmO3JSbqiRm52cNWc65QKNdED5tn14IYPqGV9b5p56PrQi5eMzezFD
+         zUkDNVFe05c6i5QxxLdwIT38U9K+4OV+TACK7c6sKCuFXvX+AiEqv4gN/mFtYfGzkONd
+         HcUaSSSomm07cL3eoj7kN/F8I41GDMjS1XF5PGlQkbilaGKllUtxOYNClpM2combtNI3
+         hd/g==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:subject:message-id:to
-         :from:date:sender:dkim-signature;
-        bh=yanJz+m1D/WxlJ/T9XHc75TYIKIOa1Gfq59Lnqrubs4=;
-        b=CrWHCKOlNhgFSvYCKQ4rem99MIsJlyyZlgPD47JUY0PHnrLevLS5TY7l0kwHSxvrW3
-         50RlbSefe3u/I8Rnr0usFHdWliuLdCVWHqtvcy19Rctk1camoFB5ip3HRZNLZSWCojZn
-         tkUyc9xoJGR/KeaUwxL8ZWIa4VGelXk1tJbEHrOQyHvDTx2iUDNs8xMa4xnlUUxXUoYz
-         idFBJNCS/tSA+fVF2DqTJp9DngUirA+6Ji/+99PRRP2VQb3q7vt/95ougrzxHfFRr1Ux
-         kdXN+UEaiufmgjC4/ZBqUTkOeo8XsElzomnps5uebppIPEoqPo7W3Oorfmijm4MkLSNw
-         DP4w==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=i7L11BzX;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.254.196 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+         :list-id:mailing-list:precedence:mime-version
+         :content-transfer-encoding:content-language:accept-language
+         :in-reply-to:references:message-id:date:thread-index:thread-topic
+         :subject:cc:to:from:sender:dkim-signature;
+        bh=TZxPUKIohQrOUn1dbbf5Yo1RnroNMkP4YXpcgD0xCWM=;
+        b=rHIRJANoELUj9hLEkteBjUSj8kp7SeBsTtXx+cKZGXMhAcc0xemvWxfYTeqyKg5fcV
+         kC3qiABPWW5tQJ0IXoTb/a+xL0G8k6MX04jQBIo3hyExsYmdJrTra9E/BWhts+w96pT1
+         R+1dqIZa0GfcPq9S9ccTbmHSJ1fS0r/utOm9yVRCnGMY+3i25aWUVVTLY5e1NMvRgHaj
+         YsMHIsyLFxpQ/wRwYCzeWsaYAmGVYj/5PBuDKPvhuvBq0v77blg5uraZmSeKuhspoIn9
+         ILRPOm3jMDJsVRaxpwF4TJYTm6MSAjQIrKSEMzle2kRmdvQUL5sUXR/U4PKaU34BBfVi
+         9ZRg==
+ARC-Authentication-Results: i=3; gmr-mx.google.com;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=GEQ7ePur;
+       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
+       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.13.58 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:subject:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=yanJz+m1D/WxlJ/T9XHc75TYIKIOa1Gfq59Lnqrubs4=;
-        b=FusqRqAYVVDyBZdDQRV0gBUuKXFP7STSCTCBzdgvR9bb1AiyYhVke6fekFonDifSJY
-         ZdDUwqiteNz19vMHLZlWQDsCv7WE1kRsHa+iNDtfh6qMnZjNeLXMtgcYPwggLjMI83yU
-         nRN8y7UV7qGVHUXBE1AtV0PiXKTFWrk230aKyCNEu+Io7UOPltBmstteSen9ZW0sYIRt
-         NYr4feofw9ICcdRB1BhNCZ6Kf3CGu+xXj/DEU40KVwmPkxO6I1kdKvOe7S56s4uTlD4Y
-         g8rIgCvtodHAeO1kxjBxnC6utlItl+Xi1kuGVlrlGqUZvdwtl0HuNXvzgaJn7E840l9v
-         RVJA==
+        h=sender:from:to:cc:subject:thread-topic:thread-index:date:message-id
+         :references:in-reply-to:accept-language:content-language
+         :content-transfer-encoding:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=TZxPUKIohQrOUn1dbbf5Yo1RnroNMkP4YXpcgD0xCWM=;
+        b=WBiafOyAVMiohmc9a95m0rG7Zr7F1hCz2FPi08OopbuNSUrVMI6rktyeb/XDWRvbxe
+         h9/fognnd6D/XZQaQIB6oAAtMlyK7lJgx9vbgzlAaOIMw+C1yYrgH7yfEUt7Z/w3p8+m
+         N+4nPdEQ9Zpy6syOaavpIt9GX62c19r8UxG/TjhUce5gDoedQw8hP4HyVlshQpC+V6Kc
+         1Cuj8iIYIJhkMNrmRi2pQ7BfQ8jUOcg/iNL2rMIXPrmkFglyRf7+kQHn8+UeGUKw/ljX
+         lS/mESOXf28c1V9496r3QjKPowkDRFCWbWn6oiuPq/pPpvxfyJG90ppIgd3l8+kb6VrS
+         9FvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=yanJz+m1D/WxlJ/T9XHc75TYIKIOa1Gfq59Lnqrubs4=;
-        b=MRgzxT8ijek8fYGSJ97PHwM13lT9foCB0nyD7cIr2GplSZwgWwEmqbj4URi/iwKQN4
-         fJnj8HLmEmNmrarRJgT4DdWzIx0PVLa/5XypVjodqggMxv6/5E+bftZZrNY5JTYeyTwd
-         /7ApZ5dhIE50hNy4PrAkccbDChKCXaiUBzqrK6e2heRY4nXQPHmISC7ErZCn6NcRxQOD
-         QuFgVsd9rEd76Cdr2cG9E2fMuD9XjMRH6cZWPww4Lt+1w6W58eMJKeCLLSfqXCMMfC0q
-         l9/xT6QP9ujjsZiUYeQxyp1Ioh728fH+OO9e/CdXJqPZ0i0PDvcPZzjnBJ9Qagg6vgeJ
-         grxQ==
+        h=sender:x-gm-message-state:from:to:cc:subject:thread-topic
+         :thread-index:date:message-id:references:in-reply-to:accept-language
+         :content-language:content-transfer-encoding:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=TZxPUKIohQrOUn1dbbf5Yo1RnroNMkP4YXpcgD0xCWM=;
+        b=nyKK1EVJmh2L9kAWjDx5bOdPyhPF/lHSI7KYGF7QvBqw8iANMmDM3WuGOePQxLnMmq
+         mcwDern2xhgBdrZPSM4KOX6VbM7PHLc3FJ81lAzWgvqlTuZCKmIIzDon3GWsH4ZsyOi3
+         Ui8RYbWNU2yDLaCtvKk8by38dr6sWll1i2xgw2Pv0v1eDX7YEpg00JWrpoKTMLJlYh+b
+         nL7tmtf0M2Lr2hExkueKTNE8MiujWsSd0ENmreFSlbq69mbAXvG8Ae1YduYYDXyMh0EN
+         NEiCU9OhYlNSZNSl/MzpOOc+FeDaSMaQu85zQzj6u3+SlPjfQon8dIpEnhzt3rsdKwQj
+         x0Pw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVJo1I1RO29ANMeS1KTqE5zu4MI4PFHfQq1VzHhpn+4Dij5YRGy
-	09FamWAVPCK4c93y88sNeGY=
-X-Google-Smtp-Source: APXvYqxrdtqKjx1IFJkc8br715UcEf6k6+ZsBYJqdNRcNCmWeaX3VW1PqTt2SJkJHZDPc5gFshzP6A==
-X-Received: by 2002:a05:6830:11d3:: with SMTP id v19mr17041278otq.322.1575224454014;
-        Sun, 01 Dec 2019 10:20:54 -0800 (PST)
+X-Gm-Message-State: APjAAAXsR2efNKkRBPTEYoHyssttCzo54Gbed9X6110Ze6R5jYsuEw80
+	BXk9RVr+6WoB3S2dAt7QJu0=
+X-Google-Smtp-Source: APXvYqyXYmY2wNwizsFefBFxBuCzyx8DYNSbPkKvnzxCtzX4+XSvccm+3wpHEiMR+HByJT/TL7odPQ==
+X-Received: by 2002:ab0:727:: with SMTP id h36mr1222332uah.42.1575255126202;
+        Sun, 01 Dec 2019 18:52:06 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a54:4597:: with SMTP id z23ls5580012oib.15.gmail; Sun, 01
- Dec 2019 10:20:53 -0800 (PST)
-X-Received: by 2002:aca:c74e:: with SMTP id x75mr21689431oif.140.1575224453141;
-        Sun, 01 Dec 2019 10:20:53 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1575224453; cv=none;
+Received: by 2002:ab0:30d8:: with SMTP id c24ls845171uam.1.gmail; Sun, 01 Dec
+ 2019 18:52:05 -0800 (PST)
+X-Received: by 2002:a5d:4b45:: with SMTP id w5mr7539334wrs.224.1575255125310;
+        Sun, 01 Dec 2019 18:52:05 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1575255125; cv=pass;
         d=google.com; s=arc-20160816;
-        b=vlVKCFXsz8R2u/0w5VdG80WnWYkw3MPxDIpF5gK2bwMSR2LKjCiG1KJwm3zawhI8jt
-         IDnWPSJPubyYtV8GU5DBA8B96NcK4HqyVprMwY2n5AUkz8D3cUg1DvbRU2B5fzSpu2Sh
-         kC7kwf8LJCfocYxbx+r0l12RkZTqduiaKHyxSgl6fGQNP8RPzGMlu2YZ2EpY2E078jSE
-         17y3td96e7QP4ugOPbTOPCONz8KYEMpJhrsvS5KDLZi7m0J+bpJ/jtmUTldsa1CmY/Km
-         1lld32lD7XbmA4964TursQklErDSWURzlW3BwLuzCVQAndAuTKfIyaYUo9b16DQCr7lJ
-         jYwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:subject:message-id:to:from
-         :date:dkim-signature;
-        bh=wENXKGjlH4UfUd/u912q7m+/SEMz0ekyp/5hiD5CGeo=;
-        b=FZoKSCYX9B1/VhrfTtW1E3woBq36upXODBNCYOJdCZIAITXfvtbaRYSA65Anvubrq/
-         CTQYsvLPhsHf10v3qbtE6M55NlWc98p2Xc3g5QWjJ2Pe5dm3dS9jt2+xgfYnrhdd/n7m
-         CIfMSw/qfGonIWv7yjJzAZbw50ppMdkm1VAzkz+T14lTm5lkeAagviFQMaWzRWXukROw
-         olZRzMO9+9L15AVg0ZUR+QeHqMnmub5jk19XVk9VRfHIgM+hh5X9YHwUGLscjj8TJfMu
-         3LVqjm8OJIDdBUWnsB310KC2akZlgY2uj+Av1rKWPueQsQNImf++GNEk2VqA+zXtPhkr
-         d7OQ==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=i7L11BzX;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.254.196 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
-Received: from out-13.smtp.github.com (out-13.smtp.github.com. [192.30.254.196])
-        by gmr-mx.google.com with ESMTPS id x65si1186219oig.5.2019.12.01.10.20.53
+        b=kjSKVrAwc3PAqHM28YqNbnLTz7oz9zxuxb+siaXicYh6kqJnrJkZJkH7dD0k3DduYg
+         uceYlu2AE87wOtP89NyfI9CvBY8XO4vvm3xNNVvszdVboPwbNpq3vJURkXcB6cJfM7zj
+         KUJTNNgjxfskfM94y/eonAsLKMipRZU/eAMfE/Xp3xyp2SyH/Qo1e5/43GO6xQHCycpW
+         ZYEahLyuH4a2+N4Dz6ht0CmDG6+BsVYPoLXF9PwenF7XXT4XNFHkTPqu2ahONTkqiPXj
+         pXf7+Sg05jdeWwzbVXLdWnuGUT74S9D1jSo7uADv3tVFQfNhY1wkdcI+xYLKdvUK3EWr
+         RZhg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:content-transfer-encoding:content-language
+         :accept-language:in-reply-to:references:message-id:date:thread-index
+         :thread-topic:subject:cc:to:from:dkim-signature;
+        bh=3wHJIS30rb9o97odsTRRTbD89CnD3RvDlM00J6av4TM=;
+        b=tAOiGmveZ7VcyloqC5/B366MNtEjfk3CJH2/Kp0GG0huSNEkIBG4dCQeoShZW2S3fv
+         w7dolnI57zXwoFEI4yYGvGUfgib1auzztAvb9EzNJ5Oak868XSX3ZNU/IGcAhSpv6HeA
+         jbSz3O7+CC35q/S/w4o9GOakD7yC0V8pvpk7mZIYucrDkEI6sGs/SuLhq+Gi8is+8Wk6
+         W87A7UP58c9zc8zW9B1nJ0oK11xe8iIAoe3keqYlFn5J6SUHqHgnk+c4wDeQ4yxxm4qU
+         zRrgz8uZGptBw/RfkXN2ZbG4jiZYfKDdWMvhSrvJHlygLNirZI6PTljDrbu1eohXN70g
+         x//g==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=GEQ7ePur;
+       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
+       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.13.58 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com (mail-eopbgr130058.outbound.protection.outlook.com. [40.107.13.58])
+        by gmr-mx.google.com with ESMTPS id i11si215727wml.0.2019.12.01.18.52.05
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 01 Dec 2019 10:20:53 -0800 (PST)
-Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.254.196 as permitted sender) client-ip=192.30.254.196;
-Received: from github-lowworker-292e294.va3-iad.github.net (github-lowworker-292e294.va3-iad.github.net [10.48.102.70])
-	by smtp.github.com (Postfix) with ESMTP id 4A02F261576
-	for <jailhouse-dev@googlegroups.com>; Sun,  1 Dec 2019 10:20:52 -0800 (PST)
-Date: Sun, 01 Dec 2019 10:20:51 -0800
-From: Jan Kiszka <noreply@github.com>
-To: jailhouse-dev@googlegroups.com
-Message-ID: <siemens/jailhouse/push/refs/heads/coverity_scan/bac03e-446d77@github.com>
-Subject: [siemens/jailhouse] a22a8d: README: Update x86 qemu command lines
-Mime-Version: 1.0
+        Sun, 01 Dec 2019 18:52:05 -0800 (PST)
+Received-SPF: pass (google.com: domain of peng.fan@nxp.com designates 40.107.13.58 as permitted sender) client-ip=40.107.13.58;
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UTZ7iY1/LuTel2lmpzh7ZXC6XdGcCg8FMjeOqXUM2rhy4yG19HLgt/3oy5qBth8Pg0b7lJd8iD2ySxSlJP4eli25L0mOeFCNYwbsBUo0+a+jnBYNYQicjsCu+mwHsh2SKUc09gaAI1JEDp5kuLs9p7CXl/roSDmesWd6q8RUcMcPFMj+jYNDrXjboIO4vFA89X2fjE5wun6QcSW//cFsyRh8vqOE7paIeMu/qFNaz6zCj3RthtNnAUx7EwbzBPzx91IE12iPXrt/xTkS346aU42Xe9oORwJhlYHtkDT+uBooD1r2sO0CB+n3jsw0UfDMNoulz17TTbCVOs6UFrfMKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3wHJIS30rb9o97odsTRRTbD89CnD3RvDlM00J6av4TM=;
+ b=LCxNVzDwhLtrcyXIupfM6ZLZOLob52m5YvigW7js2g6aULC7S1ZvEpVo7qFG8w31lqbFzhAPxxIrwujm+9dsXxzW2MVynjbmbkJrsi+8kV62NSt1L8v1ohXbb4LtNgVa8zNLLO80SDR2NqeYKLdrjHkmpvZ3f5uPhcUNSBcJJcjxPI5kbkwTkkRk1JGrzAy8tEzzGGDIPDo2E50qYucIOLuMWHdm27cN9DqtlkONfrQtFIyYmMYXJ0c3FL7MKmlpwa6u5gZeRxa3tPAaOrelY8+nq+crzrl6pYPwE+1XRo2KszBk453FOvEJM+kMeBBKTzEt2s6cZXumc/hsDuCbQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+Received: from AM0PR04MB4481.eurprd04.prod.outlook.com (52.135.147.15) by
+ AM0PR04MB5428.eurprd04.prod.outlook.com (20.178.113.12) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2495.22; Mon, 2 Dec 2019 02:52:04 +0000
+Received: from AM0PR04MB4481.eurprd04.prod.outlook.com
+ ([fe80::f16d:a26a:840:f97c]) by AM0PR04MB4481.eurprd04.prod.outlook.com
+ ([fe80::f16d:a26a:840:f97c%4]) with mapi id 15.20.2495.014; Mon, 2 Dec 2019
+ 02:52:04 +0000
+From: Peng Fan <peng.fan@nxp.com>
+To: Marco Solieri <ms@xt3.it>, Jan Kiszka <jan.kiszka@siemens.com>, Jailhouse
+	<jailhouse-dev@googlegroups.com>
+CC: "marko.bertogna@unimore.it" <marko.bertogna@unimore.it>,
+	"tomasz.kloda@unimore.it" <tomasz.kloda@unimore.it>, "giulioc@xilinx.com"
+	<giulioc@xilinx.com>, "'claudio@evidence.eu.com'" <claudio@evidence.eu.com>,
+	"fabio.federici@utrc.utc.com" <fabio.federici@utrc.utc.com>
+Subject: RE: [PATCH 0/8] Add cache coloring support for Arm
+Thread-Topic: [PATCH 0/8] Add cache coloring support for Arm
+Thread-Index: AQHU5KMdy5hOXdbZ/EGjll5JmT7z0aenrFWQgAABNEA=
+Date: Mon, 2 Dec 2019 02:52:04 +0000
+Message-ID: <AM0PR04MB44818E5F2BA11C16A6B9E70088430@AM0PR04MB4481.eurprd04.prod.outlook.com>
+References: <20190327121849.1882-1-ms@xt3.it>
+ <AM0PR04MB4481B3186519C11BBFEE8DBA88430@AM0PR04MB4481.eurprd04.prod.outlook.com>
+In-Reply-To: <AM0PR04MB4481B3186519C11BBFEE8DBA88430@AM0PR04MB4481.eurprd04.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [114.220.170.63]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 19d6da24-d508-430b-e66a-08d776d29ccc
+x-ms-traffictypediagnostic: AM0PR04MB5428:
+x-ld-processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+x-microsoft-antispam-prvs: <AM0PR04MB5428C9DF7635B0C3F4DACFA488430@AM0PR04MB5428.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4502;
+x-forefront-prvs: 0239D46DB6
+x-forefront-antispam-report: SFV:NSPM;SFS:(10009020)(4636009)(396003)(376002)(136003)(346002)(39860400002)(366004)(199004)(189003)(13464003)(478600001)(6306002)(66446008)(76116006)(66946007)(64756008)(66476007)(66556008)(6246003)(71190400001)(55016002)(71200400001)(110136005)(14444005)(9686003)(99286004)(54906003)(5660300002)(52536014)(6436002)(4326008)(33656002)(66066001)(7736002)(74316002)(81166006)(81156014)(8936002)(25786009)(45080400002)(102836004)(316002)(6116002)(3846002)(256004)(305945005)(6506007)(53546011)(76176011)(26005)(186003)(2940100002)(7696005)(2906002)(86362001)(14454004)(966005)(44832011)(446003)(11346002)(8676002)(229853002);DIR:OUT;SFP:1101;SCL:1;SRVR:AM0PR04MB5428;H:AM0PR04MB4481.eurprd04.prod.outlook.com;FPR:;SPF:None;LANG:en;PTR:InfoNoRecords;A:1;MX:1;
+received-spf: None (protection.outlook.com: nxp.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Ishcb87rhCsIuZEZB3mLKwm8Z2a98Mcrk+dWSSD6WFYlIZjEGFATf8rpEnjQ4WCXRxHi7x12UKm89zbi/3pkdKKc1wmyaIf7q1C3prfa+5Nq4pV9T0cNJp1kxXNXes1XDKs2WWPxN5ycsGdyptaRiO1j+kQAT1iIs81ctJFRcT3Bee3LeGx5KkBSrlhQnrM6u6omL+gn6oWXD/fwzX6lVWVyQ+Wg070Cu8PZvo654Hs1+0G7cn33jPBFSHaD+UcbolqWn+A/QOIV3XnGAGFmqGJyN17Fh0rPlQ1IBvHyFuSWaLozRYKTFsh9Qv4zHwoVnO666PLTlwp/PAThDgftE84SsjD15XY8RIdOG3sEXJT0fgVpy0kp3uQR3k4mmGCn9euBPCPxdtwmPqchekH0xV7w5c+Wv20LuG5sWVbVuELPDeilHBbNkJf2EVSDOAe5
+x-ms-exchange-transport-forked: True
 Content-Type: text/plain; charset="UTF-8"
-X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
-X-Auto-Response-Suppress: All
-X-Original-Sender: noreply@github.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
- mode) header.i=@github.com header.s=pf2014 header.b=i7L11BzX;       spf=pass
- (google.com: domain of noreply@github.com designates 192.30.254.196 as
- permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass (p=NONE
- sp=NONE dis=NONE) header.from=github.com
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19d6da24-d508-430b-e66a-08d776d29ccc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Dec 2019 02:52:04.0968
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Car05LYZeRsPMtTAq2r3ulQkQLrQxXdlsIYkJa71R9ZBy370pz5pGFrwGfFYGeDy2900Xit4vs/ZwKwDOPe9ew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB5428
+X-Original-Sender: peng.fan@nxp.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@nxp.com header.s=selector2 header.b=GEQ7ePur;       arc=pass (i=1
+ spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass
+ fromdomain=nxp.com);       spf=pass (google.com: domain of peng.fan@nxp.com
+ designates 40.107.13.58 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -124,1124 +186,137 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-  Branch: refs/heads/coverity_scan
-  Home:   https://github.com/siemens/jailhouse
-  Commit: a22a8d84d20ecfe506b89a7f4019acb3febf8fa3
-      https://github.com/siemens/jailhouse/commit/a22a8d84d20ecfe506b89a7f4019acb3febf8fa3
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-08 (Fri, 08 Nov 2019)
-
-  Changed paths:
-    M README.md
-
-  Log Message:
-  -----------
-  README: Update x86 qemu command lines
-
-With the next QEMU release, VMX CPU features will no longer be passed
-through from the host when using kvm64 as CPU. Rather use "host" as
-model and ensure that incompatible PV features are off.
-
-Use this chance to align the AMD command line, turning off some
-additional PV feature.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 45c1fe05159bb2e44e962b466ab8207f0a91606e
-      https://github.com/siemens/jailhouse/commit/45c1fe05159bb2e44e962b466ab8207f0a91606e
-  Author: Fabrice Fontaine <fontaine.fabrice@gmail.com>
-  Date:   2019-11-10 (Sun, 10 Nov 2019)
-
-  Changed paths:
-    M tools/Makefile
-
-  Log Message:
-  -----------
-  tools/Makefile: fix install of jailhouse-config-collect
-
-Since commit 37bc6c12a1b365250c0dcdd82ae1ac5a869898e1,
-jailhouse-config-collect is not installed anymore on target as HELPERS
-is updated after install-libexec target so fix this mistake
-
-Fixes: 37bc6c12a1b3 ("tools: Allow to build jailhouse-config-collect independent of PYTHON_PIP_USABLE")
-Signed-off-by: Fabrice Fontaine <fontaine.fabrice@gmail.com>
-[Jan: always initialize HELPERS]
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 6d689ad09e57f96aae32f842e9e8bbf4c4d39a17
-      https://github.com/siemens/jailhouse/commit/6d689ad09e57f96aae32f842e9e8bbf4c4d39a17
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-17 (Sun, 17 Nov 2019)
-
-  Changed paths:
-    M hypervisor/arch/x86/efifb.c
-
-  Log Message:
-  -----------
-  x86: efifb: Fix 1024x768 mode
-
-Exactly, it's *768*. This digit flip broke scrolling at best or even
-hang the box when the framebuffer mapping was sized as needed.
-
-Fixes: 790ac72a3ee5 ("x86: Add EFI framebuffer debug console")
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 2338c060b38df1b3dbafc81371574353db2e4093
-      https://github.com/siemens/jailhouse/commit/2338c060b38df1b3dbafc81371574353db2e4093
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-17 (Sun, 17 Nov 2019)
-
-  Changed paths:
-    M Documentation/debug-output.md
-
-  Log Message:
-  -----------
-  Documentation: Fix EFI framebuffer configuration help
-
-JAILHOUSE_CON_MMIO is mandatory, or the driver won't map the
-framebuffer.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: cd140c5a6d858a5b23bcb3dffd55876817aa79d0
-      https://github.com/siemens/jailhouse/commit/cd140c5a6d858a5b23bcb3dffd55876817aa79d0
-  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-  Date:   2019-11-25 (Mon, 25 Nov 2019)
-
-  Changed paths:
-    M tools/jailhouse-config-create
-
-  Log Message:
-  -----------
-  tools: jailhouse-config-create: fix python warnings
-
-Python 3.8 complains:
-
-  GEN     /home/ralf/jailhouse/tools/jailhouse-config-collect
-/home/ralf/jailhouse/tools/jailhouse-config-create:230: SyntaxWarning: "is" with a literal. Did you mean "=="?
-  if ((options.root is '/') and (os.geteuid() is not 0)):
-/home/ralf/jailhouse/tools/jailhouse-config-create:230: SyntaxWarning: "is not" with a literal. Did you mean "!="?
-  if ((options.root is '/') and (os.geteuid() is not 0)):
-
-Fix it. And remove some parentheses.
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 181fa02596902975a92232282f7b53e05545b48a
-      https://github.com/siemens/jailhouse/commit/181fa02596902975a92232282f7b53e05545b48a
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core: ivshmem: Use Siemens-provided device ID
-
-We deviated too much from the original ivshmem, and we will even more.
-Therefore, Siemens reserved the device ID 4106h from its pool under the
-PCI vendor ID 110Ah. Start using it.
-
-Note though that the device interface is not yet finalized under this
-ID. Every driver developing against it must be prepared to see a moving
-target, under Jailhouse as well as other implementations, specifically
-for QEMU.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: c830d34c532bdcca69f93600152b8d3ca9045756
-      https://github.com/siemens/jailhouse/commit/c830d34c532bdcca69f93600152b8d3ca9045756
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M hypervisor/arch/arm-common/include/asm/ivshmem.h
-    M hypervisor/arch/x86/include/asm/ivshmem.h
-    M scripts/header_check
-
-  Log Message:
-  -----------
-  core: Restrict asm/ivshmem.h to inclusion by jailhouse/ivshmem.h
-
-The asm header will gain a dependency on the generic one and, thus,
-should no longer be considered for direct inclusion. Adjust the header
-check accordingly.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 7e69864e78c803de8c44c42c0c747a6bbcac2b06
-      https://github.com/siemens/jailhouse/commit/7e69864e78c803de8c44c42c0c747a6bbcac2b06
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core: ivshmem: Derive MMIO register region size from cell config
-
-The BAR mask encodes the size of a PCI device resource. Use this to
-allow a target-dependent setting via the cell configuration so that
-alignment to the cell's page size become feasible. This will enable the
-cell OS to map the MMIO region as a whole into user space.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 98fe17e291d3020b4bb8e1a0364affe6bde95abe
-      https://github.com/siemens/jailhouse/commit/98fe17e291d3020b4bb8e1a0364affe6bde95abe
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core: ivshmem: Enable unprivileged MMIO register access
-
-Make sure that unsupported accesses to the MMIO register region do not
-raise immediate panic. We should rather ignore them. This allows the
-cell OS to hand out the region to unprivileged users.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 6c0a3b9430b23b443164ce073051d8242b9fef8a
-      https://github.com/siemens/jailhouse/commit/6c0a3b9430b23b443164ce073051d8242b9fef8a
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M configs/arm/bananapi-linux-demo.c
-    M configs/arm/bananapi.c
-    M configs/arm/emtrion-rzg1e-linux-demo.c
-    M configs/arm/emtrion-rzg1e.c
-    M configs/arm/emtrion-rzg1h-linux-demo.c
-    M configs/arm/emtrion-rzg1h.c
-    M configs/arm/emtrion-rzg1m-linux-demo.c
-    M configs/arm/emtrion-rzg1m.c
-    M configs/arm/jetson-tk1-linux-demo.c
-    M configs/arm/jetson-tk1.c
-    M configs/arm/orangepi0-linux-demo.c
-    M configs/arm/orangepi0.c
-    M configs/arm64/amd-seattle-linux-demo.c
-    M configs/arm64/amd-seattle.c
-    M configs/arm64/espressobin-linux-demo.c
-    M configs/arm64/espressobin.c
-    M configs/arm64/hikey-linux-demo.c
-    M configs/arm64/hikey.c
-    M configs/arm64/jetson-tx1-linux-demo.c
-    M configs/arm64/jetson-tx1.c
-    M configs/arm64/k3-am654-idk-linux-demo.c
-    M configs/arm64/k3-am654-idk.c
-    M configs/arm64/macchiatobin-linux-demo.c
-    M configs/arm64/macchiatobin.c
-    M configs/arm64/miriac-sbc-ls1046a-linux-demo.c
-    M configs/arm64/miriac-sbc-ls1046a.c
-    M configs/arm64/qemu-arm64-linux-demo.c
-    M configs/arm64/qemu-arm64.c
-    M configs/arm64/ultra96-linux-demo.c
-    M configs/arm64/ultra96.c
-    M configs/arm64/zynqmp-zcu102-linux-demo-2.c
-    M configs/arm64/zynqmp-zcu102-linux-demo.c
-    M configs/arm64/zynqmp-zcu102.c
-    M configs/x86/ivshmem-demo.c
-    M configs/x86/linux-x86-demo.c
-    M configs/x86/qemu-x86.c
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core, configs: ivshmem: Convert MMIO register region to 4K and 32-bit
-
-Page-alignment is required so that the cell OS can map the region as a
-whole to its user space. If a cell may use larger minimal page sizes,
-the mask for BAR 0 has to be adjusted accordingly. For now we assume all
-are on 4K.
-
-While at it, reduce the MMIO region to 32-bit which saves one BAR.
-64-bit was needlessly wasteful.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: bae24f95289bff4e15879e2307110d0c6ddac901
-      https://github.com/siemens/jailhouse/commit/bae24f95289bff4e15879e2307110d0c6ddac901
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M configs/arm64/amd-seattle-linux-demo.c
-    M configs/arm64/amd-seattle.c
-    M configs/x86/ivshmem-demo.c
-    M configs/x86/linux-x86-demo.c
-    M configs/x86/qemu-x86.c
-    M hypervisor/include/jailhouse/ivshmem.h
-    M hypervisor/include/jailhouse/pci.h
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core, configs: ivshmem: Move MSI-X region into 32-bit BAR1
-
-Compact the BAR usage and also reduce the MSI-X region to 32-bit again -
-there is no need for 64-bit.
-
-As both the MMIO register and the MSI-X region are now 32-bit, convert
-their internal representation in ivshmem_endpoint to an u32 array.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: f6113c076982f4621d879e1c674672b5360eca0a
-      https://github.com/siemens/jailhouse/commit/f6113c076982f4621d879e1c674672b5360eca0a
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M hypervisor/include/jailhouse/ivshmem.h
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core: ivshmem: Move shared memory parameters into vendor specific capability
-
-This gives us more flexibility in extending the parameters we expose via
-the config space. The capability is already layed out to leave holes for
-upcoming extensions.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: e8bed05c3b6bcf95ce5785f3213a7ceff267e7db
-      https://github.com/siemens/jailhouse/commit/e8bed05c3b6bcf95ce5785f3213a7ceff267e7db
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core: ivshmem: Reorganize MMIO registers
-
-A number of changes to the MMIO registers are upcoming. This prepares
-the layout for that and renames DBELL to more telling DOORBELL.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 73821b711a9c15585cade746d5191e53851b837f
-      https://github.com/siemens/jailhouse/commit/73821b711a9c15585cade746d5191e53851b837f
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M hypervisor/include/jailhouse/ivshmem.h
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core: ivshmem: Rename IVPOS register to ID
-
-This is a more logical name for the register as it returns a unique
-identifier of the device.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 2454b08c40dc6704a121d2c879e47a5ddd0b1a38
-      https://github.com/siemens/jailhouse/commit/2454b08c40dc6704a121d2c879e47a5ddd0b1a38
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core: ivshmem: Add MAX_PEERS register
-
-This allows the guest to discover the maximum number of peers connected
-via an ivshmem device. We only support 2 so far.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 9b1c4642e70dd34a2cfd9b30d7902feb9e542ad7
-      https://github.com/siemens/jailhouse/commit/9b1c4642e70dd34a2cfd9b30d7902feb9e542ad7
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M configs/arm/bananapi-linux-demo.c
-    M configs/arm/bananapi.c
-    M configs/arm/emtrion-rzg1e-linux-demo.c
-    M configs/arm/emtrion-rzg1e.c
-    M configs/arm/emtrion-rzg1h-linux-demo.c
-    M configs/arm/emtrion-rzg1h.c
-    M configs/arm/emtrion-rzg1m-linux-demo.c
-    M configs/arm/emtrion-rzg1m.c
-    M configs/arm/jetson-tk1-linux-demo.c
-    M configs/arm/jetson-tk1.c
-    M configs/arm/orangepi0-linux-demo.c
-    M configs/arm/orangepi0.c
-    M configs/arm64/amd-seattle-linux-demo.c
-    M configs/arm64/amd-seattle.c
-    M configs/arm64/espressobin-linux-demo.c
-    M configs/arm64/espressobin.c
-    M configs/arm64/hikey-linux-demo.c
-    M configs/arm64/hikey.c
-    M configs/arm64/jetson-tx1-linux-demo.c
-    M configs/arm64/jetson-tx1.c
-    M configs/arm64/k3-am654-idk-linux-demo.c
-    M configs/arm64/k3-am654-idk.c
-    M configs/arm64/macchiatobin-linux-demo.c
-    M configs/arm64/macchiatobin.c
-    M configs/arm64/miriac-sbc-ls1046a-linux-demo.c
-    M configs/arm64/miriac-sbc-ls1046a.c
-    M configs/arm64/qemu-arm64-linux-demo.c
-    M configs/arm64/qemu-arm64.c
-    M configs/arm64/ultra96-linux-demo.c
-    M configs/arm64/ultra96.c
-    M configs/arm64/zynqmp-zcu102-linux-demo-2.c
-    M configs/arm64/zynqmp-zcu102-linux-demo.c
-    M configs/arm64/zynqmp-zcu102.c
-    M configs/x86/ivshmem-demo.c
-    M configs/x86/linux-x86-demo.c
-    M configs/x86/qemu-x86.c
-    M include/jailhouse/cell-config.h
-
-  Log Message:
-  -----------
-  configs: Add field for shmem device ID
-
-This allows to set a stable ID that is independent of the cell creation
-ordering. Such stability will be needed when when defining ID-dependent
-unidirectional shared memory regions.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 9b04ebf9dec2c1dcb1897d3fbde532335183ea29
-      https://github.com/siemens/jailhouse/commit/9b04ebf9dec2c1dcb1897d3fbde532335183ea29
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M hypervisor/include/jailhouse/ivshmem.h
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core: ivshmem: Use device ID from config
-
-Convert the creation-order based ID assignment to the one now provided
-by the cell configuration.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 7b6acb5474c449eb660ef4e4971e906a683ef99d
-      https://github.com/siemens/jailhouse/commit/7b6acb5474c449eb660ef4e4971e906a683ef99d
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M hypervisor/arch/arm-common/ivshmem.c
-    M hypervisor/arch/x86/ivshmem.c
-    M hypervisor/include/jailhouse/ivshmem.h
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core: ivshmem: Add PCI-conforming INTx mask
-
-Simple enough to add, and newer PCI specs demand this feature anyway:
-allow to mask the INTx line via the command register.
-
-For this purpose, factor out ivshmem_update_intx that determines the
-state of the line prior to calling arch_ivshmem_update_intx. It also
-skips over this call in case num_msix_vectors is non-null, offloading
-this check from the arch function. Furthermore, move the calculation if
-INTx is enabled and unmasked into that generic ivshmem_update_intx as
-well.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: f5402b8cf65e4a125a625cc1911c0da85bd2ac36
-      https://github.com/siemens/jailhouse/commit/f5402b8cf65e4a125a625cc1911c0da85bd2ac36
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core: ivshmem: Mask MSI-X vector on reset
-
-This is demanded by the PCI spec.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: cac0e7aad3ab9a3fe2f263a0b42286801939f226
-      https://github.com/siemens/jailhouse/commit/cac0e7aad3ab9a3fe2f263a0b42286801939f226
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M hypervisor/arch/arm-common/ivshmem.c
-    M hypervisor/arch/x86/ivshmem.c
-    M hypervisor/arch/x86/vtd.c
-    M hypervisor/include/jailhouse/ivshmem.h
-    M hypervisor/ivshmem.c
-    M hypervisor/pci.c
-
-  Log Message:
-  -----------
-  core: ivshmem: Reintroduce ivshmem_update_msix
-
-This function consolidates the check for num_msix_vectors > 0 and
-ivshmem_is_msix_masked, leaving arch_ivshmem_update_msix with less work.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: aea93c1717401efd80b6138afb47a780b5af0c73
-      https://github.com/siemens/jailhouse/commit/aea93c1717401efd80b6138afb47a780b5af0c73
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M hypervisor/include/jailhouse/pci.h
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core: ivshmem: Fold ivshmem_write_msix_control into caller
-
-Using pci_msix_registers to model the update of the MSI-X control
-register does not really simplify the code. Rather use a plain mask that
-contains all modifiable bits, PCI_MSIX_CTRL_RW_MASK, and perform the
-update in ivshmem_pci_cfg_write directly, analogously to the vendor
-capability.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 483cb89a0021ea21eb3fa5bee96577fe4bfce74c
-      https://github.com/siemens/jailhouse/commit/483cb89a0021ea21eb3fa5bee96577fe4bfce74c
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core: ivshmem: Rename ivshmem_data to ivshmem_link
-
-Represents more clearly what the structure is about: meta data
-describing the link between two ivshmem endpoints.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 51619b91c0891362514092591fd8f09122e1883e
-      https://github.com/siemens/jailhouse/commit/51619b91c0891362514092591fd8f09122e1883e
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core: ivshmem: Avoid assumption about size of ivshmem_link
-
-It does currently fit into one page, but there is no reason to hard-code
-this.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 4e55f2ad56a942886ac94ef65003a543ee079171
-      https://github.com/siemens/jailhouse/commit/4e55f2ad56a942886ac94ef65003a543ee079171
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M hypervisor/include/jailhouse/ivshmem.h
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core: ivshmem: Introduce link pointer to ivshmem_endpoint
-
-Will be used when looking up an interrupt target by ID.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 77801a9b5130628bb14af4939e14122bcd1c49f1
-      https://github.com/siemens/jailhouse/commit/77801a9b5130628bb14af4939e14122bcd1c49f1
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core: ivshmem: Relax peer matching rules
-
-Only match based on BDF from no one. We will rework the number of shared
-memory regions, and matching them all will an enormous effort. This
-should rather be pushed eventually into an offline check.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: e71354234f567053488d4ac9a9d6b4ec3379c3dc
-      https://github.com/siemens/jailhouse/commit/e71354234f567053488d4ac9a9d6b4ec3379c3dc
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M configs/arm/bananapi-linux-demo.c
-    M configs/arm/bananapi.c
-    M configs/arm/emtrion-rzg1e-linux-demo.c
-    M configs/arm/emtrion-rzg1e.c
-    M configs/arm/emtrion-rzg1h-linux-demo.c
-    M configs/arm/emtrion-rzg1h.c
-    M configs/arm/emtrion-rzg1m-linux-demo.c
-    M configs/arm/emtrion-rzg1m.c
-    M configs/arm/jetson-tk1-linux-demo.c
-    M configs/arm/jetson-tk1.c
-    M configs/arm/orangepi0-linux-demo.c
-    M configs/arm/orangepi0.c
-    M configs/arm64/amd-seattle-linux-demo.c
-    M configs/arm64/amd-seattle.c
-    M configs/arm64/espressobin-linux-demo.c
-    M configs/arm64/espressobin.c
-    M configs/arm64/hikey-linux-demo.c
-    M configs/arm64/hikey.c
-    M configs/arm64/jetson-tx1-linux-demo.c
-    M configs/arm64/jetson-tx1.c
-    M configs/arm64/k3-am654-idk-linux-demo.c
-    M configs/arm64/k3-am654-idk.c
-    M configs/arm64/macchiatobin-linux-demo.c
-    M configs/arm64/macchiatobin.c
-    M configs/arm64/miriac-sbc-ls1046a-linux-demo.c
-    M configs/arm64/miriac-sbc-ls1046a.c
-    M configs/arm64/qemu-arm64-linux-demo.c
-    M configs/arm64/qemu-arm64.c
-    M configs/arm64/ultra96-linux-demo.c
-    M configs/arm64/ultra96.c
-    M configs/arm64/zynqmp-zcu102-linux-demo-2.c
-    M configs/arm64/zynqmp-zcu102-linux-demo.c
-    M configs/arm64/zynqmp-zcu102.c
-    M configs/x86/ivshmem-demo.c
-    M configs/x86/linux-x86-demo.c
-    M configs/x86/qemu-x86.c
-    M hypervisor/ivshmem.c
-    M include/jailhouse/cell-config.h
-
-  Log Message:
-  -----------
-  core, configs: ivshmem: Add state table
-
-Replace the register-based remote state read-back with a state table
-that is located in read-only shared memory. Every peer has an entry in
-this table. The entry position is based on the ID. This way, all peers
-can read the other's state without causing a VM exit.
-
-The state table is located at the beginning of the share memory region.
-Its mapping size can retrieved via a register in the the vendor cap.
-
-The cell config format for PCI devices is extended: shmem_region becomes
-shmem_regions_start, pointing to two memory regions now, the read-only
-state table and the read/write shared memory. The two memory regions
-must be consecutive because the size of the first one is used by ivshmem
-drivers to derive the offset of the second one.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: da526840bf300763c2e523a4dc79231e96af33fc
-      https://github.com/siemens/jailhouse/commit/da526840bf300763c2e523a4dc79231e96af33fc
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M hypervisor/arch/arm-common/include/asm/ivshmem.h
-    M hypervisor/arch/arm-common/ivshmem.c
-    M hypervisor/arch/x86/include/asm/ivshmem.h
-    M hypervisor/arch/x86/ivshmem.c
-    M hypervisor/include/jailhouse/ivshmem.h
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core: ivshmem: Rework interrupt configuration and injection
-
-Revamp data structure, updating and locking around ivshmem interrupt
-injection.
-
-The structure arch_pci_ivshmem is renamed to arch_ivshmem_irq_cache to
-clarify the purpose of this. This allows to invalidate the case
-generically by setting it to 0.
-
-The remote_lock is redefined as irq_lock, now protecting cache update
-and usage as well as serializing updates with injections. We do not need
-a lock around ivshmem_endpoint::remote updates because the pointer will
-never reference an object that is no longer existing after removal.
-Instead, the update of irq_cache while holding irq_lock now acts as
-barrier.
-
-Furthermore, ensure irq_cache invalidation on device reset. Not
-performing that step so far could have caused bogus interrupt delivery
-between cell reset and ivshmem device re-initialization.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: ef6b80dbdd7b1933958f0578009387b71306f534
-      https://github.com/siemens/jailhouse/commit/ef6b80dbdd7b1933958f0578009387b71306f534
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core: ivshmem: Re-add target ID to doorbell register
-
-Just like the original ivshmem, use the upper 16 bits of the value
-written to the doorbell register. This allows both self signaling and
-lays the ground for multi-peer support.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 4c5b511ff7473236528c988e9ffd92fa582bbc02
-      https://github.com/siemens/jailhouse/commit/4c5b511ff7473236528c988e9ffd92fa582bbc02
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M hypervisor/arch/arm-common/ivshmem.c
-    M hypervisor/arch/x86/ivshmem.c
-    M hypervisor/include/jailhouse/ivshmem.h
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core: ivshmem: Switch to ivshmem_endpoint as parameter of arch_ivshmem_update_msix
-
-For the sake of consistency: ivshmem-internal functions should use the
-ivshmem_endpoint, external ones pci_device.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 877f0a46d6062747848e3433e7eff8f11b545c79
-      https://github.com/siemens/jailhouse/commit/877f0a46d6062747848e3433e7eff8f11b545c79
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M configs/arm64/amd-seattle-linux-demo.c
-    M configs/arm64/amd-seattle.c
-    M configs/x86/ivshmem-demo.c
-    M configs/x86/linux-x86-demo.c
-    M configs/x86/qemu-x86.c
-    M hypervisor/arch/arm-common/include/asm/ivshmem.h
-    M hypervisor/arch/arm-common/ivshmem.c
-    M hypervisor/arch/x86/include/asm/ivshmem.h
-    M hypervisor/arch/x86/ivshmem.c
-    M hypervisor/arch/x86/vtd.c
-    M hypervisor/include/jailhouse/ivshmem.h
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core, configs: ivshmem: Add support for multiple interrupt vectors
-
-This allows to spread out state-related interrupts (always vector 0) and
-other sources (e.g. RX/TX). The doorbell register accepts the desired
-vector in its lower 16 bits, ignoring anything that is not supported by
-the peers.
-
-The MSI-X MMIO region is expanded to hold the maximum possible number of
-vectors (currently 16). This static sizing keeps the hypervisor simple.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 0b71285fb36cd720589b69dbc305564b54f91363
-      https://github.com/siemens/jailhouse/commit/0b71285fb36cd720589b69dbc305564b54f91363
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M configs/arm64/amd-seattle-linux-demo.c
-    M configs/arm64/amd-seattle.c
-    M configs/x86/ivshmem-demo.c
-    M configs/x86/linux-x86-demo.c
-    M configs/x86/qemu-x86.c
-
-  Log Message:
-  -----------
-  configs: Expand number of ivshmem vectors
-
-The network devices have a use case for up to 3 (config, rx, tx). And
-the user-defined ones should get the maximum supported, i.e. 16.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 8194ed4d806e5aed5503a607c6117ecb257bcfba
-      https://github.com/siemens/jailhouse/commit/8194ed4d806e5aed5503a607c6117ecb257bcfba
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M hypervisor/include/jailhouse/ivshmem.h
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core: ivshmem: Expand interrupt control to device level
-
-This will allow to introduce a one-shot mode later on.
-
-The reworked interrupt control register starts disabled on reset.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 13b3c91ad24042462b3a5232e6865681f094a403
-      https://github.com/siemens/jailhouse/commit/13b3c91ad24042462b3a5232e6865681f094a403
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core: ivshmem: Add one-shot interrupt mode
-
-Add a control flag to the vendor capability that allows to switch
-interrupt delivery into a one-shot mode: If enabled, the interrupt
-control register is reset after each delivery.
-
-This feature is useful for guests that want to throttle the delivery of
-ivshmem interrupts to unprivileged users. The most prominent example is
-the UIO framework of Linux. It receives interrupts of UIO devices in the
-kernel on behalf of the user process, disables further events and
-signals the arrival to the process. That one has to re-enable interrupts
-in the device. Thus, it's scheduling naturally throttles the interrupt
-arrival rate. With ivshmem, this procedure requires two VM exits per
-interrupts when only using the related control register. With the
-one-shot mode, one exit can be avoided.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 73c609c0b1db5bc8f08947321d9ac99480f0e13b
-      https://github.com/siemens/jailhouse/commit/73c609c0b1db5bc8f08947321d9ac99480f0e13b
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M configs/arm/bananapi-linux-demo.c
-    M configs/arm/bananapi.c
-    M configs/arm/emtrion-rzg1e-linux-demo.c
-    M configs/arm/emtrion-rzg1e.c
-    M configs/arm/emtrion-rzg1h-linux-demo.c
-    M configs/arm/emtrion-rzg1h.c
-    M configs/arm/emtrion-rzg1m-linux-demo.c
-    M configs/arm/emtrion-rzg1m.c
-    M configs/arm/jetson-tk1-linux-demo.c
-    M configs/arm/jetson-tk1.c
-    M configs/arm/orangepi0-linux-demo.c
-    M configs/arm/orangepi0.c
-    M configs/arm64/amd-seattle-linux-demo.c
-    M configs/arm64/amd-seattle.c
-    M configs/arm64/espressobin-linux-demo.c
-    M configs/arm64/espressobin.c
-    M configs/arm64/hikey-linux-demo.c
-    M configs/arm64/hikey.c
-    M configs/arm64/jetson-tx1-linux-demo.c
-    M configs/arm64/jetson-tx1.c
-    M configs/arm64/qemu-arm64-linux-demo.c
-    M configs/arm64/qemu-arm64.c
-    M configs/arm64/zynqmp-zcu102-linux-demo-2.c
-    M configs/arm64/zynqmp-zcu102-linux-demo.c
-    M configs/arm64/zynqmp-zcu102.c
-    M configs/x86/ivshmem-demo.c
-    M configs/x86/linux-x86-demo.c
-    M configs/x86/qemu-x86.c
-    M hypervisor/ivshmem.c
-
-  Log Message:
-  -----------
-  core, configs: ivshmem: Add unidirectional shared memory support
-
-This adds optional peer-specific output sections to the shared memory
-region. Each peer will get its own read/write section that other peers
-can only read from. The benefit of such model is that senders can be
-sure their messages cannot be concurrently modified by other peers while
-they are creating and before they may have signed them. Having a
-private section avoids having to copy in complete messages in integrity
-sensitive scenarios.
-
-These output sections are located after the common read/write section.
-Their presence is signaled by non-zero value in the output section size
-register.
-
-Consequently, all configs need to append two memory regions per ivshmem
-device. We switch all ivshmem-net users to this unidirectional model,
-setting their common read/write section to zero.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: d6a6b3e9176979a416072c13a2ef5c535cbe746c
-      https://github.com/siemens/jailhouse/commit/d6a6b3e9176979a416072c13a2ef5c535cbe746c
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M configs/arm/bananapi-linux-demo.c
-    M configs/arm/bananapi.c
-    M configs/arm/emtrion-rzg1e-linux-demo.c
-    M configs/arm/emtrion-rzg1e.c
-    M configs/arm/emtrion-rzg1h-linux-demo.c
-    M configs/arm/emtrion-rzg1h.c
-    M configs/arm/emtrion-rzg1m-linux-demo.c
-    M configs/arm/emtrion-rzg1m.c
-    M configs/arm/jetson-tk1-linux-demo.c
-    M configs/arm/jetson-tk1.c
-    M configs/arm/orangepi0-linux-demo.c
-    M configs/arm/orangepi0.c
-    M configs/arm64/amd-seattle-linux-demo.c
-    M configs/arm64/amd-seattle.c
-    M configs/arm64/espressobin-linux-demo.c
-    M configs/arm64/espressobin.c
-    M configs/arm64/hikey-linux-demo.c
-    M configs/arm64/hikey.c
-    M configs/arm64/jetson-tx1-linux-demo.c
-    M configs/arm64/jetson-tx1.c
-    M configs/arm64/k3-am654-idk-linux-demo.c
-    M configs/arm64/k3-am654-idk.c
-    M configs/arm64/macchiatobin-linux-demo.c
-    M configs/arm64/macchiatobin.c
-    M configs/arm64/miriac-sbc-ls1046a-linux-demo.c
-    M configs/arm64/miriac-sbc-ls1046a.c
-    M configs/arm64/qemu-arm64-linux-demo.c
-    M configs/arm64/qemu-arm64.c
-    M configs/arm64/ultra96-linux-demo.c
-    M configs/arm64/ultra96.c
-    M configs/arm64/zynqmp-zcu102-linux-demo-2.c
-    M configs/arm64/zynqmp-zcu102-linux-demo.c
-    M configs/arm64/zynqmp-zcu102.c
-    M configs/x86/ivshmem-demo.c
-    M configs/x86/linux-x86-demo.c
-    M configs/x86/qemu-x86.c
-    M hypervisor/include/jailhouse/ivshmem.h
-    M hypervisor/ivshmem.c
-    M include/jailhouse/cell-config.h
-
-  Log Message:
-  -----------
-  core, configs: ivshmem: Add multi-peer support
-
-So far, it seemed restricting our ivshmem implementation to 2 peers
-would both simplify it significantly and fulfill the vast majority of
-use cases. Both turned out to be wrong assumption.
-
-First of all, there are users with custom protocols that like to set up
-a single ivshmem device between, e.g., the root cell and multiple
-non-root cells. They would currently have to create one device pair per
-link. This overcomes the limitation.
-
-At the same time, the implementation turned out to be rather simple. We
-basically just need to broadcast config change interrupts and rework the
-bookkeeping so that an ivshmem_link is only destroyed with the last user
-disappears. The rest was already refactored to account for multiple
-peers.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: f2d279f9ee20146e973971940e2aa935bad25769
-      https://github.com/siemens/jailhouse/commit/f2d279f9ee20146e973971940e2aa935bad25769
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M configs/x86/ivshmem-demo.c
-    M configs/x86/linux-x86-demo.c
-    M configs/x86/qemu-x86.c
-
-  Log Message:
-  -----------
-  configs: x86: Add multi-peer ivshmem demo
-
-Add the demo ivshmem device also to the linux-x86-demo and make it
-3-peers (root, ivshmem-demo, linux-x86-demo). This allows to test and
-demonstrate the new multi-peer feature. For that, we need to move
-ivshmem-demo on the 2nd CPU.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 34af32f3c6ed31c227d10645d5204e76e2219718
-      https://github.com/siemens/jailhouse/commit/34af32f3c6ed31c227d10645d5204e76e2219718
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M include/jailhouse/cell-config.h
-
-  Log Message:
-  -----------
-  core: ivshmem: Drop revision protocol ID
-
-Drop the possibility to carry ivshmem protocol revision numbers in the
-scarce 16-bit space of the protocol ID. Rather force users to either to
-revision management inside the protocol (e.g. via shared memory) or use
-a new protocol ID in case of incompatible changes - or even avoid such
-incompatible changes. This frees more space that we will need when we
-want to map virtio device types into this namespace.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: cf63efa8f3c36a32d42ca27495224672ff348b8f
-      https://github.com/siemens/jailhouse/commit/cf63efa8f3c36a32d42ca27495224672ff348b8f
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M hypervisor/include/jailhouse/ivshmem.h
-
-  Log Message:
-  -----------
-  core: ivshmem: Reorder ivshmem_endpoint fields
-
-Move state and ioregion to the end because they are not needed in
-hot-paths.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: caae0c91a05b2a836a8616c4ce6c16e5e044d07f
-      https://github.com/siemens/jailhouse/commit/caae0c91a05b2a836a8616c4ce6c16e5e044d07f
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    A Documentation/ivshmem-v2-specification.md
-
-  Log Message:
-  -----------
-  Documentation: Add specification of IVSHMEM v2 device
-
-Add a WiP specification for the new IVSHMEM version. This documents the
-current state and should not be considered stable at this point.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: a94db6b861d129f4a7e321ce6ccd3ba2e1f4b7ef
-      https://github.com/siemens/jailhouse/commit/a94db6b861d129f4a7e321ce6ccd3ba2e1f4b7ef
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-11-26 (Tue, 26 Nov 2019)
-
-  Changed paths:
-    M include/jailhouse/cell-config.h
-
-  Log Message:
-  -----------
-  configs: Add ivshmem protocol defines for virtio to cell-config.h
-
-This defines the protocol ID ranges for virtio backends and frontends
-along with a view virtio device IDs, allowing to create such devices in
-cell configs.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: dac55c615dcd8d21aff114f1829622dabde5563e
-      https://github.com/siemens/jailhouse/commit/dac55c615dcd8d21aff114f1829622dabde5563e
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-12-01 (Sun, 01 Dec 2019)
-
-  Changed paths:
-    M configs/x86/apic-demo.c
-    M configs/x86/e1000-demo.c
-    M configs/x86/ioapic-demo.c
-    M configs/x86/ivshmem-demo.c
-    M configs/x86/linux-x86-demo.c
-    M configs/x86/pci-demo.c
-    M configs/x86/qemu-x86.c
-    M configs/x86/smp-demo.c
-    M configs/x86/tiny-demo.c
-
-  Log Message:
-  -----------
-  configs: x86: Add virtio console device between qemu-x86 and linux-x86-demo
-
-This enables the root cell to provide a virtio console via ivshmem to
-the non-root Linux cell.
-
-To make space for this shared memory and another upcoming one, move the
-demo inmates one MB down in physical memory.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 446d77478239d18d5955b4f2346173c6fc65ef32
-      https://github.com/siemens/jailhouse/commit/446d77478239d18d5955b4f2346173c6fc65ef32
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2019-12-01 (Sun, 01 Dec 2019)
-
-  Changed paths:
-    M configs/x86/linux-x86-demo.c
-    M configs/x86/qemu-x86.c
-
-  Log Message:
-  -----------
-  configs: x86: Add virtio block device between qemu-x86 and linux-x86-demo
-
-This enables the root cell to provide a virtio block device via ivshmem
-to the non-root Linux cell.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-Compare: https://github.com/siemens/jailhouse/compare/bac03e4d5f54...446d77478239
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/coverity_scan/bac03e-446d77%40github.com.
++ jailhouse mailist.
+
+> -----Original Message-----
+> From: Peng Fan
+> Sent: 2019=E5=B9=B412=E6=9C=882=E6=97=A5 10:51
+> To: Marco Solieri <ms@xt3.it>
+> Cc: marko.bertogna@unimore.it; tomasz.kloda@unimore.it;
+> giulioc@xilinx.com; claudio@evidence.eu.com; fabio.federici@utrc.utc.com
+> Subject: RE: [PATCH 0/8] Add cache coloring support for Arm
+>=20
+> > Subject: [PATCH 0/8] Add cache coloring support for Arm
+> >
+>=20
+> I am reading the patchset, but this patchset could not resolve the cache
+> contention between root cell Linux and inmate cell, right? It only addres=
+s the
+> cache contention inside the inmate cell, if I understand correctly.
+>=20
+> Is there any v2 plan to address the upper issue?
+>=20
+> To address root cell color issue, 1:1 mapping in root cell might not work=
+,
+> because IPA/PA needs a remap, but this will waste PA space, if inmate onl=
+y
+> need a small area PA space. Seems root/inmate cache contention is hard to
+> avoid.
+>=20
+> Thanks,
+> Peng.
+>=20
+> > Predictability of memory access latency is severely menaced by the
+> > multi-core architectures where the last level of cache (LLC) is
+> > shared, jeopardizing applicability of many Arm platform in real-time
+> > critical and mixed-criticality scenarios. Support for cache coloring
+> > is introduced, a transparent software technique allowing partitioning
+> > the LLC to avoid mutual interference between inmates.
+> >
+> > By creating a cache stress environment with a memcpy bare-metal
+> > application or with the Linux "stress" tool, it is easy to measure
+> > performance degradations caused by inter-cell interference, e.g.
+> > running the LMBench micro-benchmarks, or just with the GIC demo within
+> > a L1 Instruction stress scenario. Once coloring is enabled, instead,
+> > predictable performances are restored. Reports of extensive benchmarks
+> > and evaluations on real application are referred in the documentation.
+> >
+> > We thanks Tomasz Kloda and Marko Bertogna for the prototype logic and
+> > Renato Mancuso for suggesting low-level design improvements. The EU
+> > Horizon 2020 IA project HERCULES (grant no. 688860) supported the
+> > initial implementation and evaluation on NVIDIA Tegra X1 and X2; Xilinx=
+ Inc.
+> > supported the implementation and evaluation on ZCU102; UTRC supported
+> > the testing on ZCU104.
+> >
+> > A bird-eye view of the implementation and of the commit structure is gi=
+ven.
+> > Some coloring-logic fundamentals are situated in the 'common' part
+> > between the driver and the hypervisor [1], but only the latter
+> > implements the whole coloring support [2]. The hypervisor also exposes
+> > a convenient interface to ease the load operation by the driver [3],
+> > who implements a simplified memory allocation support (only colors
+> > have to be chosen) [4] and extends the configuration file support [5].
+> > Examples root cell and demo configurations are provided for Xilinx
+> > ZCU102 [6] and NVIDIA TX2 [7]. An extensive documentation details the
+> > technique and gently explains how to use it [8].
+> >
+> > Luca Miccio (8):
+> >   Common: introduce cache coloring primitives
+> >   Hypervisor: implement cache-colored paging for Arm
+> >   Hypervisor: add hypercall to ease loading of cache-colored images
+> >   Driver: add support for cache-colored memory configurations
+> >   Support cache-colored memory configurations when loading Linux inmate
+> >   Configs: zynqmp-zcu102: add cache-coloring examples
+> >   Configs: jetson-tx2: add cache-coloring examples
+> >   Documentation: add description and usage of cache coloring support
+> >
+> >  Documentation/cache-coloring.md              | 330 ++++++++++++
+> >  configs/arm64/jetson-tx2-col.c               | 529
+> > +++++++++++++++++++
+> >  configs/arm64/jetson-tx2-demo-col.c          |  76 +++
+> >  configs/arm64/zynqmp-zcu102-col.c            | 153 ++++++
+> >  configs/arm64/zynqmp-zcu102-demo-col.c       |  79 +++
+> >  configs/arm64/zynqmp-zcu102-linux-demo-col.c | 137 +++++
+> >  driver/Makefile                              |   1 +
+> >  driver/cell.c                                |  56 +-
+> >  driver/coloring.c                            | 239 +++++++++
+> >  driver/coloring.h                            |  52 ++
+> >  driver/main.c                                |   3 +
+> >  hypervisor/arch/arm-common/mmu_cell.c        |  27 +-
+> >  hypervisor/control.c                         |  77 +++
+> >  hypervisor/include/jailhouse/paging.h        |  11 +
+> >  hypervisor/paging.c                          | 168 ++++++
+> >  include/jailhouse/cell-config.h              |   9 +
+> >  include/jailhouse/coloring.h                 | 151 ++++++
+> >  include/jailhouse/hypercall.h                |   1 +
+> >  tools/jailhouse-cell-linux                   |   5 +-
+> >  19 files changed, 2096 insertions(+), 8 deletions(-)  create mode
+> > 100644 Documentation/cache-coloring.md  create mode 100644
+> > configs/arm64/jetson-tx2-col.c  create mode 100644
+> > configs/arm64/jetson-tx2-demo-col.c
+> >  create mode 100644 configs/arm64/zynqmp-zcu102-col.c  create mode
+> > 100644 configs/arm64/zynqmp-zcu102-demo-col.c
+> >  create mode 100644 configs/arm64/zynqmp-zcu102-linux-demo-col.c
+> >  create mode 100644 driver/coloring.c
+> >  create mode 100644 driver/coloring.h
+> >  create mode 100644 include/jailhouse/coloring.h
+> >
+> > --
+> > 2.20.1
+> >
+> > --
+> > You received this message because you are subscribed to the Google
+> > Groups "Jailhouse" group.
+> > To unsubscribe from this group and stop receiving emails from it, send
+> > an email to jailhouse-dev+unsubscribe@googlegroups.com.
+> > For more options, visit
+> > https://eur01.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgro=
+u
+> >
+> ps .google.com%2Fd%2Foptout&amp;data=3D02%7C01%7Cpeng.fan%40nxp.co
+> m%
+> >
+> 7C9a8ae20626fa48d42da808d6b2ba3eb2%7C686ea1d3bc2b4c6fa92cd99c5c
+> >
+> 301635%7C0%7C0%7C636892910321416684&amp;sdata=3D4VNztT05f9leIPUh
+> > a1TUx97q8sEzTgtk%2FfIzkwV3%2FJw%3D&amp;reserved=3D0.
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/AM0PR04MB44818E5F2BA11C16A6B9E70088430%40AM0PR04MB4481.eurprd=
+04.prod.outlook.com.
