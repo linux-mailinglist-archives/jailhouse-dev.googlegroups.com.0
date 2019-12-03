@@ -1,138 +1,157 @@
-Return-Path: <jailhouse-dev+bncBCOKB247TIDBBCHBS3XQKGQEYEVYP2A@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCB7D7MXMMIM3KEX54CRUBHRAGDYO@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43e.google.com (mail-wr1-x43e.google.com [IPv6:2a00:1450:4864:20::43e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3435110F438
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  3 Dec 2019 01:47:05 +0100 (CET)
-Received: by mail-wr1-x43e.google.com with SMTP id f17sf826393wrt.19
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 02 Dec 2019 16:47:05 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1575334024; cv=pass;
+Received: from mail-pf1-x43b.google.com (mail-pf1-x43b.google.com [IPv6:2607:f8b0:4864:20::43b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F17610F588
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  3 Dec 2019 04:19:43 +0100 (CET)
+Received: by mail-pf1-x43b.google.com with SMTP id u13sf1276799pfl.15
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 02 Dec 2019 19:19:42 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1575343181; cv=pass;
         d=google.com; s=arc-20160816;
-        b=iQyaMabWw/PbfxJrVy9yHnWzl4AgdGrDGV4VgCfOITrnxFy40vuhnzpOzxdY9XTOU3
-         OQJLerFCq/KgeBCHs+mJUAyUK7OcjloaCMk0MCLNE+EAZuln2y8K7j+IHy2Rh2Olen3j
-         QsXB4XyOuBYHHGi0TKTJHLFEHNwdQGQJ84iDXcpv9gch8AdqzR4gHKJC2oJiTgjls8hi
-         g8JtLdcf71pwDtY937EEdzBAQ0BC7vonzbs2+oW03KNIpmFZMtNw56KIxx+YFPCDF4MI
-         xPdVTRFPJ52Edn/JBGUAY0PYeAFMYhvV3UxC+VfRy+adZz9fyOWaapFfZEzvwfL14N3g
-         4OLA==
+        b=dBNPo2IzgqTs5Zy4EjMHkuA0r/e03es6qOO64exoIB61XoZEmN620SWeH3fD+/h/bB
+         pak/3CxvkgiTtRssfVmDy2ML2NbW1NBMw5LU+8nxqU3gJnJY07mdGgRwaBWQqXZEnyG+
+         MY+enK6OQZwiA4ypmg1JYvfZubqLZF3WcsLipaepbmChcLAJGJ/WWnkXWFeJuh72MBPk
+         MMKOG2F4dcMIwztsyJe/KP2TwOoJkXPB2Ky5DC+OZmA66Hwd9Ka8+zJGDOUDasmfJGmd
+         T2LN7NemN9wLMaJqTC1fqxcRdyYe/EjXmG6Tzhu2F0xC+7BpRUCaFnhiH0utDWywiCwe
+         SKWQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to:user-agent:in-reply-to
-         :content-disposition:mime-version:references:message-id:subject:cc
-         :to:from:date:dkim-signature;
-        bh=sO1gQs4jlDWmnLh8VVsWCqt+Ize10ho39wEdXtWa+3Y=;
-        b=dU3CUxYd+QZ8uU2UR9v0nkX/9Egm5JS8Nro5DV23L8ZljBr/kB13prnJlaJn3A+ulc
-         QXmDtgDPULn6y/FJZROYXaP0CWIaIY8dT6E/k/02n+BcnCS0m71MLd3tWCWzIVpWZ0nb
-         qpePG1M60AznGI8L/xWh0Ih+F90z6cVkfPqClSkAjyrg7hqZXpgs4CpRXIgJo20Qbu8p
-         j9XTr0BOfq6fvCVnZ1KWvGyoF8qtmcAXh4UG+DYo0qTo7y2/G4afUAqStBgfs8Ybb3X+
-         /pmeHdIShGLVDB4rjuzKv9oW5OXutYfPOS4DdmwI9wz234CfeOGcJJK8TcuUYHYDhhb1
-         6w3g==
+         :list-id:mailing-list:precedence:reply-to:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:cc:to:subject:dkim-signature;
+        bh=OcU+fgA2s8Mmcx+2O4bsCSW4CQDsjwjLTb2PWYw168Q=;
+        b=teHIJiQqhk3/m/mnkDgIDY+AOo7ViPbEBOsbI7VolUp6OEJSDG4Rh7RTwRQ/e+OSsw
+         R60pe+JKXh4t3DYxL9dYlGhPfCSpxv1eS+WvUaR3SUHUuKuBfIeCuEGzH5Lh1FJ8C/lO
+         fY/o0XAbM2ywZ9h838qVLNLl+K0NMtM5CYf9D476Pa9pV0P4YTE7r9Ec7GPbyRlnsKgA
+         1Jfqn3hnb6iPTYGLaX2QVU0C97vtWx2+fgjILC3L3He5wv42zOqiWF0L546UnlAFRh37
+         jpnkVtyqPB2IVHKrCHhnSf2LyAB9oHq/FT8PqSx4K49qNbky9Mo0xLaVmO2gIMuHaafh
+         8U+w==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@unimore.it header.s=google header.b=izi6t4gC;
-       spf=pass (google.com: domain of marco.solieri@unimore.it designates 2a00:1450:4864:20::343 as permitted sender) smtp.mailfrom=marco.solieri@unimore.it;
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=unimore.it
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=c4PeKNjY;
+       spf=pass (google.com: domain of lokeshvutla@ti.com designates 198.47.23.249 as permitted sender) smtp.mailfrom=lokeshvutla@ti.com;
+       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:user-agent:x-original-sender
-         :x-original-authentication-results:reply-to:precedence:mailing-list
-         :list-id:list-post:list-help:list-archive:list-subscribe
-         :list-unsubscribe;
-        bh=sO1gQs4jlDWmnLh8VVsWCqt+Ize10ho39wEdXtWa+3Y=;
-        b=BQDt6orveyb7JE0rBKSemXh72JuFZ54/RfHIS2UnylvIKSKQdSjIn5tpYKtUkLN1c3
-         w90R1YBbxsXBTXl7u1u2+xP086wudLdkoO//A+jG31tzq3pFzgpvRoZXaoeGj5zH2aKt
-         2MXQipKUNVRfBjqlHzTCcRo22Czh8H0M5n6PdiFtVP4tKymYKN1RMCuLIogQmWh3eLLA
-         60iLtPQiLYEpJ+jY4Z0Oc1cHH7zUe98BQzXaJtDvKm3+QrR2xR8s1qY1FwyDxANSaxLa
-         T46EbuURZoP1DPGiaX/8e4Sz3kn9wvgV7ZF3WAKCGkK6AnV7UMOm0wYnHvOkKAw7YnSO
-         8wKw==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:reply-to
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=OcU+fgA2s8Mmcx+2O4bsCSW4CQDsjwjLTb2PWYw168Q=;
+        b=n8cBWbrLPkP6Te5sGgXEHEjc3EJJQKqZU/prN48NYVk6Xogxsw/qYGEoG5e5e3QwZw
+         bciQFJ9XPzyenDSKHtVQ+vSAU488zajqkAXetDlPdcipApFoVXnQXPcSoAfXwMIBTrQN
+         DFhWNQXs4GQPE4mFKiXDEh0Zct8d3HxLmnoZPcH0C7n5i+MbZW4y2ChQ+UkhZusIzzz3
+         +ZU3kssgJseaiz9Ozy8P6T311iFNFheiKt3LpQV4m9QCmUBwhzmlRgFM8qvpJIF8Xf+W
+         pizPSvZaEZJYnBAFVhVL+8DrUofztJ16wAGWTdjXEQPIUaGI/kCQPR0cPr2f+41Y/KbF
+         Z/CQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent
-         :x-original-sender:x-original-authentication-results:reply-to
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=sO1gQs4jlDWmnLh8VVsWCqt+Ize10ho39wEdXtWa+3Y=;
-        b=oDc6Gul0e3lYV212Sd0sASGGMKhAl0nTBFzhmXHZUyCinCONYwN4gEhwZ2gYBmd/j3
-         4UF+xwHere/o11arF0omvgLt6hQVF/cL8xr50MGlRg3U9ZxM+eDlwlJpIORToeygdPeP
-         G57BzS9eA81BENbHc+sF916pMlgHUzYr2XiK5OTG7sa/UVK8KLXe8dMgnka/oPv1mzi4
-         Fz0yfdx6OARJCoTXjC6JPYnPHjVPp9jhzPix6fbJFP/rs/KMSHy/p4kr9P3xOnx/uIq4
-         IooB1bUu6JhXk3+oQrsC3B1aHJbqM0uZg4thXX/r6xT23IEQhnyQ8dakXlmIVEeobLXT
-         MzZA==
-X-Gm-Message-State: APjAAAXf7ThNRJ9zg0syrawHORvMmTO0DtEd6IOdC3v0Au/7hrQ42sCS
-	I7KIfLyLO+fYeLf0uawZi78=
-X-Google-Smtp-Source: APXvYqwsIkDGI8UkKj0ufbVlUHGIUznbYwML55C5ZDkpBmZPTTMl+6v9DEUn7ABJxax2cpWiYMs5RQ==
-X-Received: by 2002:adf:e40f:: with SMTP id g15mr2016374wrm.223.1575334024812;
-        Mon, 02 Dec 2019 16:47:04 -0800 (PST)
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:reply-to:precedence:mailing-list
+         :list-id:x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=OcU+fgA2s8Mmcx+2O4bsCSW4CQDsjwjLTb2PWYw168Q=;
+        b=fomvn9J3p1gsW8ySsI5MEiWYMKcu66P5TXkFRMrg3rOokJgJ+IPc99wcyFkiohv5b1
+         YbW4bMIvQn5zSfnGoryQEPV42e3YgE/+ZhK4whw++GkypIrhi7AZM3OwW7Fb1My2I4fT
+         XR87L72HBLfCXXUcPR1BBmsFg5n1/GIn3sc4fPS5GrUtfVfO2zKQrUonkppcYiJml+30
+         FiUV83UTMF4ByU+m1SEJawC07HelWEvtqyTTwG/EbI6FrCT40vEJnzKxXj6IhSdyIUvd
+         k3wUTFoOKq7vcVsRiyYLSbwj7ZgxLgSOoATffo9Dx8dbI7qQek0n0MHwRn2TC/jtVwEj
+         6Skg==
+X-Gm-Message-State: APjAAAUFz/Q3CzO5zzMydcHZ47v+ryGbzfJENNyKO3sTXF0YwGg9cyCu
+	1aYFt3KCwOfIK1hj7CBFISc=
+X-Google-Smtp-Source: APXvYqzTY2jh1QGnH2eNjTOeDvVpwKQC4qB3e5E0YbMYFvwu9GMVQ9MYqoY8Y6zMADoq0zMUOprjaw==
+X-Received: by 2002:a65:4387:: with SMTP id m7mr2862446pgp.449.1575343181357;
+        Mon, 02 Dec 2019 19:19:41 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5d:6303:: with SMTP id i3ls516675wru.13.gmail; Mon, 02 Dec
- 2019 16:47:04 -0800 (PST)
-X-Received: by 2002:adf:c145:: with SMTP id w5mr1943249wre.205.1575334024178;
-        Mon, 02 Dec 2019 16:47:04 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1575334024; cv=none;
+Received: by 2002:a17:902:a982:: with SMTP id bh2ls439121plb.9.gmail; Mon, 02
+ Dec 2019 19:19:40 -0800 (PST)
+X-Received: by 2002:a17:90b:46cf:: with SMTP id jx15mr3219712pjb.2.1575343180794;
+        Mon, 02 Dec 2019 19:19:40 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1575343180; cv=none;
         d=google.com; s=arc-20160816;
-        b=cW9ogxGGCONCPC2iWAFiNXxvewIRRChvZ6QJnjS4+E8aacn1W4YWarhOP8VTiAUcXL
-         oDO2naBP6Mn19XQiC/fVuMGVWcRezhJDWInoaLknxu/bPZMEovsUKWGSCCymdLt3sQrs
-         0ghWN6QdpoVLEEYBCs7PEzhqt3PZ7++GZyR62pUVFPE5kj5+IP5iiOMWrQqlb/xwaYcm
-         Y2SjbnCaeftXBmJWn+S9gqPFGlVjNcuCRTAXulRL7uVzR9jq3Ix86CthjBKpkIGD2CNP
-         wZUyRPtFD4OB2E8cr+aNlhW6YDUq2rw9NMMgZfGwIHW/OwZp87iOz1PWsJZM1leREVG4
-         zQLg==
+        b=II9ZesUdB4qH/y8+ebxCOYO67BL0QXmBDkk9xlpmhK6aU+3FdasbddevdFhSeLOORt
+         5VeDkSR1e3EyzJq3msOlcUgpVvm2PoruwJ/SfI/68OgoIN0pGlmv7U1P/PhW5jz9RBT+
+         UiTMl9H7K9VOtLmDwXf0eQKJuBPhCM7FuHQd8w9KFoM/ucw+WkBwgdXuJdZwrr+fu0ih
+         SI+6ZfIIX/h/XTI8PWk32XUU7wXNWtw0uI+1dhto4iVyf0E+V4v0wJSJ2xWjWc3m/A1N
+         weg/DPgjDV6SJBsjCmZ3OH+UjwAvo/CzMKBwvxLsmLoWxi8H53rH1fkcHYsmeneM2LQH
+         gYdQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:dkim-signature;
-        bh=/IOS8SGzHkQxOXEZRhxRt8f38/BMx9BQK6mpASCFEIk=;
-        b=FNRHagOpwJClTO4q+7F6kkl6JEWEWr8c3b3ZfbP8xFK3j069O1OpBNTV/khRM2dBJb
-         BpgspY7AQBlXjxbLhyXrDB7FmMEOxh/WP1FMtTTIklmToCAhBMMl9VxWZRNfCId7ru7q
-         jxPbH/5FG0Cj9terFS3jl8jd5HTvEp5fDtrW6z5MtH2jj6M4waZl7NQuFP6DkZ+s0vSo
-         kaxqucStsi5n7p+YNx1qDA7rJ2HRtKdirHDyYND5qsFdoyGqKBp4JtRAbgGxi5wvOal5
-         ELW5llKDKLZYdkVDwzepg5vpJA/ZiRHbC8/pxnc0a4BnYot4chm9trG2Z89JXCsI+ZIK
-         +Caw==
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:cc:to:subject
+         :dkim-signature;
+        bh=Axy7mm5JtLzIJZ9b2s6sYfimFtPKiAXQP8DnYeMGQ2M=;
+        b=BaGZcby6sYvFWxmv96ytuqC4+nN/8OtUEpZSV49tybtwu6As4oWlleOvVZuwavUQCZ
+         9gcpIWxYHbnc8ZBqlQF1GlKUKaRokrfbGGMhPFKrdoxKCVD8wyoVXwmsqNi6PDg+pd2U
+         axevHFI0jNypV46ZT1ri/KBf8wWPG0AtTcuFJ/S80+qO/rGK5TmCHYpcy2gP0yis08IO
+         TU3seNlCoVUpx813vbgBCodDE82UyadAImtfm58KwRgeFPIrcX3BQy2AEXkXQe/yS/ZL
+         EF57Q2J5d96pTKwsbeGleHGYdKKwvAzSFhIAT7KPnO09M8yEVLygVb7sPH2yGNZnq0qx
+         YjQw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@unimore.it header.s=google header.b=izi6t4gC;
-       spf=pass (google.com: domain of marco.solieri@unimore.it designates 2a00:1450:4864:20::343 as permitted sender) smtp.mailfrom=marco.solieri@unimore.it;
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=unimore.it
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com. [2a00:1450:4864:20::343])
-        by gmr-mx.google.com with ESMTPS id p16si47134wre.4.2019.12.02.16.47.04
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=c4PeKNjY;
+       spf=pass (google.com: domain of lokeshvutla@ti.com designates 198.47.23.249 as permitted sender) smtp.mailfrom=lokeshvutla@ti.com;
+       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
+Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com. [198.47.23.249])
+        by gmr-mx.google.com with ESMTPS id j2si105208pfi.1.2019.12.02.19.19.40
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Dec 2019 16:47:04 -0800 (PST)
-Received-SPF: pass (google.com: domain of marco.solieri@unimore.it designates 2a00:1450:4864:20::343 as permitted sender) client-ip=2a00:1450:4864:20::343;
-Received: by mail-wm1-x343.google.com with SMTP id p17so1575283wmi.3
-        for <jailhouse-dev@googlegroups.com>; Mon, 02 Dec 2019 16:47:04 -0800 (PST)
-X-Received: by 2002:a1c:1b15:: with SMTP id b21mr24056190wmb.104.1575334023762;
-        Mon, 02 Dec 2019 16:47:03 -0800 (PST)
-Received: from localhost (217-133-116-244.static.clienti.tiscali.it. [217.133.116.244])
-        by smtp.gmail.com with ESMTPSA id h127sm1133522wme.31.2019.12.02.16.47.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Dec 2019 16:47:02 -0800 (PST)
-Date: Tue, 3 Dec 2019 01:47:00 +0100
-From: "'Marco Solieri' via Jailhouse" <jailhouse-dev@googlegroups.com>
-To: Peng Fan <peng.fan@nxp.com>
-Cc: Jan Kiszka <jan.kiszka@siemens.com>,
-	Jailhouse <jailhouse-dev@googlegroups.com>,
-	"marko.bertogna@unimore.it" <marko.bertogna@unimore.it>,
-	"tomasz.kloda@unimore.it" <tomasz.kloda@unimore.it>,
-	"giulioc@xilinx.com" <giulioc@xilinx.com>,
-	"'claudio@evidence.eu.com'" <claudio@evidence.eu.com>,
-	"fabio.federici@utrc.utc.com" <fabio.federici@utrc.utc.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 02 Dec 2019 19:19:40 -0800 (PST)
+Received-SPF: pass (google.com: domain of lokeshvutla@ti.com designates 198.47.23.249 as permitted sender) client-ip=198.47.23.249;
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+	by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id xB33Jdwp049485;
+	Mon, 2 Dec 2019 21:19:39 -0600
+Received: from DLEE109.ent.ti.com (dlee109.ent.ti.com [157.170.170.41])
+	by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTP id xB33JdTT104868;
+	Mon, 2 Dec 2019 21:19:39 -0600
+Received: from DLEE110.ent.ti.com (157.170.170.21) by DLEE109.ent.ti.com
+ (157.170.170.41) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Mon, 2 Dec
+ 2019 21:19:38 -0600
+Received: from fllv0040.itg.ti.com (10.64.41.20) by DLEE110.ent.ti.com
+ (157.170.170.21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
+ Frontend Transport; Mon, 2 Dec 2019 21:19:38 -0600
+Received: from [10.24.69.20] (ileax41-snat.itg.ti.com [10.172.224.153])
+	by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id xB33JZRW008660;
+	Mon, 2 Dec 2019 21:19:35 -0600
 Subject: Re: [PATCH 0/8] Add cache coloring support for Arm
-Message-ID: <20191203004700.cw7fgubui363mxee@carbon.xt3.it>
+To: Jan Kiszka <jan.kiszka@siemens.com>, Peng Fan <peng.fan@nxp.com>,
+        Marco
+ Solieri <ms@xt3.it>, Jailhouse <jailhouse-dev@googlegroups.com>,
+        "Devshatwar,
+ Nikhil" <nikhil.nd@ti.com>
+CC: "marko.bertogna@unimore.it" <marko.bertogna@unimore.it>,
+        "tomasz.kloda@unimore.it" <tomasz.kloda@unimore.it>,
+        "giulioc@xilinx.com"
+	<giulioc@xilinx.com>,
+        "'claudio@evidence.eu.com'" <claudio@evidence.eu.com>,
+        "fabio.federici@utrc.utc.com" <fabio.federici@utrc.utc.com>
 References: <20190327121849.1882-1-ms@xt3.it>
  <AM0PR04MB4481B3186519C11BBFEE8DBA88430@AM0PR04MB4481.eurprd04.prod.outlook.com>
  <AM0PR04MB44818E5F2BA11C16A6B9E70088430@AM0PR04MB4481.eurprd04.prod.outlook.com>
+ <14abb592-d8c4-6c89-1e98-d774e0dd21ad@siemens.com>
+ <AM0PR04MB4481E19D836B1CA3925FC88388430@AM0PR04MB4481.eurprd04.prod.outlook.com>
+ <dbfe8d28-c4e9-e7d4-1400-0868c61f89b2@siemens.com>
+From: "'Lokesh Vutla' via Jailhouse" <jailhouse-dev@googlegroups.com>
+Message-ID: <f7558cfd-7886-8b97-73fe-303a4781b486@ti.com>
+Date: Tue, 3 Dec 2019 08:48:43 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ttse5rxsvi2e2cmp"
-Content-Disposition: inline
-In-Reply-To: <AM0PR04MB44818E5F2BA11C16A6B9E70088430@AM0PR04MB4481.eurprd04.prod.outlook.com>
-User-Agent: NeoMutt/20180716
-X-Original-Sender: marco.solieri@unimore.it
+In-Reply-To: <dbfe8d28-c4e9-e7d4-1400-0868c61f89b2@siemens.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+X-Original-Sender: lokeshvutla@ti.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@unimore.it header.s=google header.b=izi6t4gC;       spf=pass
- (google.com: domain of marco.solieri@unimore.it designates
- 2a00:1450:4864:20::343 as permitted sender) smtp.mailfrom=marco.solieri@unimore.it;
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=unimore.it
-X-Original-From: Marco Solieri <marco.solieri@unimore.it>
-Reply-To: Marco Solieri <marco.solieri@unimore.it>
+ header.i=@ti.com header.s=ti-com-17Q1 header.b=c4PeKNjY;       spf=pass
+ (google.com: domain of lokeshvutla@ti.com designates 198.47.23.249 as
+ permitted sender) smtp.mailfrom=lokeshvutla@ti.com;       dmarc=pass
+ (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
+X-Original-From: Lokesh Vutla <lokeshvutla@ti.com>
+Reply-To: Lokesh Vutla <lokeshvutla@ti.com>
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -146,67 +165,106 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
 
---ttse5rxsvi2e2cmp
-Content-Type: text/plain; charset="UTF-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-Dear Peng,
+On 02/12/19 1:03 PM, Jan Kiszka wrote:
+> On 02.12.19 08:24, Peng Fan wrote:
+>> Hi Jan,
+>>
+>>> -----Original Message-----
+>>> From: jailhouse-dev@googlegroups.com <jailhouse-dev@googlegroups.com>
+>>> On Behalf Of Jan Kiszka
+>>> Sent: 2019=E5=B9=B412=E6=9C=882=E6=97=A5 14:27
+>>> To: Peng Fan <peng.fan@nxp.com>; Marco Solieri <ms@xt3.it>; Jailhouse
+>>> <jailhouse-dev@googlegroups.com>
+>>> Cc: marko.bertogna@unimore.it; tomasz.kloda@unimore.it;
+>>> giulioc@xilinx.com; 'claudio@evidence.eu.com' <claudio@evidence.eu.com>=
+;
+>>> fabio.federici@utrc.utc.com
+>>> Subject: Re: [PATCH 0/8] Add cache coloring support for Arm
+>>>
+>>> On 02.12.19 03:52, Peng Fan wrote:
+>>>> + jailhouse mailist.
+>>>>
+>>>>> -----Original Message-----
+>>>>> From: Peng Fan
+>>>>> Sent: 2019=E5=B9=B412=E6=9C=882=E6=97=A5 10:51
+>>>>> To: Marco Solieri <ms@xt3.it>
+>>>>> Cc: marko.bertogna@unimore.it; tomasz.kloda@unimore.it;
+>>>>> giulioc@xilinx.com; claudio@evidence.eu.com;
+>>>>> fabio.federici@utrc.utc.com
+>>>>> Subject: RE: [PATCH 0/8] Add cache coloring support for Arm
+>>>>>
+>>>>>> Subject: [PATCH 0/8] Add cache coloring support for Arm
+>>>>>>
+>>>>>
+>>>>> I am reading the patchset, but this patchset could not resolve the
+>>>>> cache contention between root cell Linux and inmate cell, right? It
+>>>>> only address the cache contention inside the inmate cell, if I unders=
+tand
+>>> correctly.
+>>>>>
+>>>>> Is there any v2 plan to address the upper issue?
+>>>>>
+>>>>> To address root cell color issue, 1:1 mapping in root cell might not
+>>>>> work, because IPA/PA needs a remap, but this will waste PA space, if
+>>>>> inmate only need a small area PA space. Seems root/inmate cache
+>>>>> contention is hard to avoid.
+>>>
+>>> Coloring the root cell is indeed a tricky issue as I remarked back then=
+ as
+>>> well. I
+>>> suspect the best way will be trying the approach that TI has a prototyp=
+e for:
+>>> start Jailhouse via a loader (could be a UEFI
+>>> executable) and boot the root cell Linux already colored after that -> =
+no DMA
+>>> in-flight problems.
 
-On Mon, Dec 02, 2019 at 02:52:04AM +0000, Peng Fan wrote:
-> > I am reading the patchset, but this patchset could not resolve the cach=
-e
-> > contention between root cell Linux and inmate cell, right? It only addr=
-ess
-> > the cache contention inside the inmate cell, if I understand correctly.
+This is still a prototype and not yet productized :)
 
-This is correct.  The documentation reads:
+>>
+>> To SoCs that not have SMMU, coloring the root cell will incur DMA issue,=
+ such as
+>> CMA will not work. If root cell could not be colored, does it make sense=
+ to color
+>> inmate cell?
+>=20
+> CMA is generally a problem, not only for the root cell without SMMU...
+>=20
+> If you cannot color the root cell, you can only suspend it and move all w=
+ork
+> over to non-root cells. Granted, this will waste even more resources.
+>=20
+>>
+>> Does TI has public code for their work? I not find that in list. I recal=
+led
+>> that TI mostly want to start inmate cell as soon as possible not for cac=
+he
+>> coloring.
+>=20
+> Lokesh, Nikhil?
 
-| Since Jailhouse is currently lacking SMMU support, and since the colored
-| memory mapping must be provided to DMA devices to allow them a coherent m=
-emory
-| view, coloring for this kind of devices is not available. This also expla=
-ins
-| why also coloring support for the Linux root cell is not provided, althou=
-gh
-| possible and tested with a simple hot remapping procedure.
+You might not find what you are looking for, but here is the link:
+https://git.ti.com/cgit/jailhouse/ti-jailhouse/log/?h=3Dti-jailhouse-0.10
 
-> > Is there any v2 plan to address the upper issue?
+Thanks and regards,
+Lokesh
 
-Forward porting to master and integration with SMMU support are the two mos=
-t
-important task on my team TODO list. Once these steps are done, it will be =
-very
-easy to also have root-cell colouring. I have planned the firsts for 20Q1.
-
-
-> > To address root cell color issue, 1:1 mapping in root cell might not wo=
-rk,
-> > because IPA/PA needs a remap, but this will waste PA space, if inmate o=
-nly
-> > need a small area PA space. Seems root/inmate cache contention is hard =
-to
-> > avoid.
-
-Beside root cell colouring, PA waste is a potential issue of colouring itse=
-lf,
-whenever you have heterogeneous memory needs across cells. Still, on most
-high-end systems the size of the shared cache easily allows for 8 or 16 col=
-ours,
-which means that the smallest PA granularity to assign to a given cell is 1=
-/8 or
-1/16, which is an acceptable limitation.
-
-Cheers.
-
---=20
-Marco Solieri, Ph.D.
-Research Fellow
-
-High-Performance Real-Time Lab
-Universit=C3=A0 degli Studi di Modena e Reggio Emilia
-Ufficio 1.37 - Edificio Matematica - 213/b, via Campi - 41125 Modena
-Tel: +39-059-205-55-10  -- OpenPGP: Ox75822E7E
+>=20
+>>
+>>>
+>>> What you cannot solve is the memory usage. That is inherent to coloring=
+.
+>>> So, what we actually want is vendors like your employer finally impleme=
+nting
+>>> cache partitioning in hardware. ;)
+>>
+>> That needs to purchase ARM's new hardware IP, such as ARMv8.3.
+>=20
+> Yes...
+>=20
+> Jan
+>=20
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -214,26 +272,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/20191203004700.cw7fgubui363mxee%40carbon.xt3.it.
-
---ttse5rxsvi2e2cmp
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOC2XMK2o3tvc3F09Ctn83XWCLn4FAl3lsIQACgkQCtn83XWC
-Ln5XlBAAgcMeUOl+Q3lbwypbGj1qkn2z6Sw5+zJlNcxdlFTjd9usQsKUORy2qBh6
-N4FKP3EDu8OhHCdeU6yfU8h4ZLhJRb0BkXXjB6vW1M6baXRVl1w5wcTShsDNZL/+
-sjEKdM03RTdvsKNr/m9vh30q4mDUkmgLD52KVCVQrlAWFjiJohTb/Fu4BiUto8rU
-EbJ9WtxfpBT2wjnZnPN8ajD2eLsCroFEXMbLLjZGLVh49XFJiYlvuK8lwFLDlR1l
-5zB0POThxBBH5bV4yphme9Avcg/SlvuEYvHBsUbT1q4GXcwM8BsiwQDWurM6v49o
-1tAT62gl4L60iOcSGpab2oAvOyusk9u2Tc0sMrcmHau9dxrDCxy0/Vzyw9bvFAQx
-UUkr9zJe/r8KZeM4H80503UoR64ORzOKz0ixqrMyi5IQR3hsdkwWfNcKHpjG06J1
-ZWCea6VuyQlLhaJDfRiP4CzZyUEiqb5vUDbNrH9Y6bFHK1LlootysAjZ6sVjX36v
-q3XtZ6fs5d5YEJY2v8Q7VFNd9ZCwNxhCWmvM/wu73pmHC0F3ipryeQ23wrkhC9WI
-AToa6bdsKMgUzzqdF8VtEIzxxGVpglov3Dh8xhs6Y8GSK+qwci4rY9xxomnL5MLJ
-XHYRHt4UU4a132dQ1qpUpAhJw4S5Rd+lr6NZKDYlPtODNBUchvU=
-=dQfl
------END PGP SIGNATURE-----
-
---ttse5rxsvi2e2cmp--
+jailhouse-dev/f7558cfd-7886-8b97-73fe-303a4781b486%40ti.com.
