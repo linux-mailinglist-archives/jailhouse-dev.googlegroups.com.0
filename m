@@ -1,139 +1,134 @@
-Return-Path: <jailhouse-dev+bncBCOKB247TIDBB67KUTXQKGQEU6YC6QA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBLMEUXXQKGQEZFYNDFQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x239.google.com (mail-lj1-x239.google.com [IPv6:2a00:1450:4864:20::239])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0A96114522
-	for <lists+jailhouse-dev@lfdr.de>; Thu,  5 Dec 2019 17:51:08 +0100 (CET)
-Received: by mail-lj1-x239.google.com with SMTP id d14sf1125033ljg.17
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 05 Dec 2019 08:51:08 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1575564668; cv=pass;
+Received: from mail-wm1-x33f.google.com (mail-wm1-x33f.google.com [IPv6:2a00:1450:4864:20::33f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 502DD114629
+	for <lists+jailhouse-dev@lfdr.de>; Thu,  5 Dec 2019 18:45:18 +0100 (CET)
+Received: by mail-wm1-x33f.google.com with SMTP id 18sf1267310wmp.0
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 05 Dec 2019 09:45:18 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1575567918; cv=pass;
         d=google.com; s=arc-20160816;
-        b=oHG/QX/pV9Q+EitH/HuQdTlP+Simwul3VDMj10NFZyszCJ3L7rV/952qYx3NJnAlpe
-         zZgyumkEqaUEv9OaB/ZS6Vu0K1OI57H0TKh/g+7FshtwybXfFT4uEDpfXyDJrFtaJ1IW
-         sU7ncrBC1xohoIecgTcjTQVRsRO2vPiEAOJcGPO/L27sSGk/fLhnlwCDtoDogGJQDhOO
-         OxxobJaZIU3XAAd1obCn/+Li1L475S3KLjpBS/XaTBssa8h0TTdQjhNsLuatj6yj1nO7
-         xQ6er3X2c2hWCWOAH1c0dBPZ4Yb3RvtSNkcHoXYiVlQVUTJpcQ4THj6tSLbavDpN/QjD
-         DeIw==
+        b=TogHDKgXgptQRSuexk/xYx2RSFh4Tp8R5hht3iqu+isMmmY7eGo3VSd7vdJ+Hq2gGO
+         y8O6/92n/6AtAkK91OGsIjFoT7jKODz/LOsPnFlj7NQ31R5iG5dk02Lnt+JYJyoh8tQu
+         S5j1uCyDAGdVSRS1Ul1Y4VtaxSMRc739UHynAyksv0fM1V5ihtagXcEkyA7lNTyPEjVu
+         XpU/wdgmXCXyVrvyULrfBtjQCvt2yOTREM8U4E0CCPgkIm9WIFbIVkvwPv8vERfpFugs
+         Bb6Yp0ELvvRD/5kL5D2RiX9YdVYHa+q7kf1jBES3Qsyjl/NEkrj1bKSj7mLH2b9/g/NF
+         UA+w==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to:in-reply-to
-         :content-disposition:mime-version:references:message-id:subject:cc
-         :to:from:date:dkim-signature;
-        bh=JobUaQtgpb0lVOtsawr00Yg2Rfzybio7MPeZfjJ0QDc=;
-        b=tJIsqYCV3DrB0lBzyQndNStPMPeGgCqLj6G5SiTLnLKTpwBecc/3KpJuw719Q8DL2U
-         vub3amV2hmEeppTLXLEhZt2goRjessflI3lLxZRwNe07F6eWNkYE75P3HLuH9NXHkhP/
-         qqbUwctwABSUbZqb+S/V30zBY4yhnsJlBxsNqadF3SUGobhA491b+ODDMQA+TuT8w8TJ
-         IYI98sE1qrzK34qia39ecOw4dWD4Tyz/saQV5HdrTt4MCJJtXNh8oBkgOblgLDOGcGIV
-         d/CwQblSV5HOu3/GFDJSszybQKUB5su6coV1WNZfwkJ19sQdzyVfhS0Yrwu2ECFHOFI1
-         Bldg==
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:cc:to
+         :subject:sender:dkim-signature;
+        bh=FQ6mRnpfvhPuwra407RyWzQpLfi28e4MzIpVSgnqrtA=;
+        b=Pq/HK/4SZhGEYBuIc+JHXCLRG8ffopuyiHnPZ2bkvN1maJjh8lmgXP4GVblxe5J2ET
+         kCrbzbloyYNJUDeeLVCWEmvBeS7OtbkN0j/1xdD+oO0O1koEl+P8h/oSUDf09yC6qq5w
+         TVmQObNlbpmiDGod1U0EXc8qkc6lKYoXO+AtolMO1PGMTAgfTNScCvyRgd8reFPizRwR
+         snvclr09HjyaSOoVb631sGuFz00mxzb3GOcbTEjuuRCYx9p8qlygT7e1rTJ4K/8ez4Ey
+         JaTZnqwtd8Bz28Q5M7Hhv7DuYDweRosUliXrh6xD0s65o0KiwXcGETjaq12xKdMr1npS
+         byzA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@unimore.it header.s=google header.b=XVIB7AXa;
-       spf=pass (google.com: domain of marco.solieri@unimore.it designates 2a00:1450:4864:20::444 as permitted sender) smtp.mailfrom=marco.solieri@unimore.it;
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=unimore.it
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:x-original-sender
-         :x-original-authentication-results:reply-to:precedence:mailing-list
-         :list-id:list-post:list-help:list-archive:list-subscribe
-         :list-unsubscribe;
-        bh=JobUaQtgpb0lVOtsawr00Yg2Rfzybio7MPeZfjJ0QDc=;
-        b=UtKC9k9HXu10w3L1E6qE+G49+hKqr8rs6t+JJltL2Tgbcm91JWocOwHiQ/q0rwntsy
-         hFE1Hr/o8oJghIFiQP0+K7NJk3Fa+OlsIlQnNZ6avmhA08Y9pz30cKnANzcArsuJTu7u
-         93Wc5BXFOC3UvQ0LE76JCRRJKpAZGunZdNs3/OGkq+RUYGcZmNthTmmQBtwjDP1JXi8i
-         /nu+U6RXr9AxgXMznxBUOxKT30+GfharJPpaCGl310fL/bo3GzYP5aZTbROfRljmtdGW
-         BlvgPzU3NB8nCSgFS8tCXVQ78RqoedVwDxK4o/PwyhsvFeqxcpHTgKhGupFwzIozEWGn
-         NhzA==
+        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=FQ6mRnpfvhPuwra407RyWzQpLfi28e4MzIpVSgnqrtA=;
+        b=SnuOIR9fW1lslH8RgXNnMlDS/7ozUKLfzLQp2FCC1+f2Sg+UJrj0DR7fOEnwJXyYbT
+         o6fI2Izhe0dmjNPMwJy4IClkLWAkuun1+eXAC9VVCaLLnpjdBE3m62y5oc25SvYAR8QM
+         YF9ZvzxDzzw6vvL2gsA6TGChRS7jgAgw6l5Wc5GIPgM/ufo5BHi/VH2WPprYvwF+ZkJz
+         vaQRNpCKA212/119OH3dRgzAIkkYinUGp47aUzrGu+FWxgpTn6Kz+mnloiKNEyN9Nugc
+         Ch5ibcvuLRMywNhrMoQEBVhleadunHj6c3LnI8SvPxMVHsQ2T+HvD6QvS0fiItexmJej
+         XuyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:x-original-sender
-         :x-original-authentication-results:reply-to:precedence:mailing-list
-         :list-id:x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=JobUaQtgpb0lVOtsawr00Yg2Rfzybio7MPeZfjJ0QDc=;
-        b=ecVw6xspGRObn//IT1vF3ChYRiIuLDBFJGbti0oKYUjN1qdBHEVaeLG9A8XXWy6+2y
-         cXpz2qsdexPYcZwKYaY11HXFTiwtXMXzyRkApg4Ez518JOuNWKmwjaE/MdSOfu6vcJ1C
-         /TU4ZjIz1fXrz+H4Ve1thQjBjLPu4nzEgjsNuzhkLAy7LFZG3ysIo1zaZyg5XumPQai5
-         Oc1tJCmTdGhIY2guA9trAvveRD+vUc1KBNUDMWmWqVesid/9qPR73HCyQx2KP+u/BFIo
-         5mN3WLxXuhFjSZpS7mdmIZ4VKoHxJa0kjBM9a+dFfo7UXo1FwvCz9LDsVfKIuRMkUmo0
-         UI6w==
-X-Gm-Message-State: APjAAAXhX3mpBeX03OG/MdpkWZ8A1/N+FDtNooWAPhdkNPZbi3ZxrLml
-	VLz//zd+ZJjkdbv9TgIG6+U=
-X-Google-Smtp-Source: APXvYqxmojdt5iO2O5XR0l/q4QGjhWVk63bszYbRPZihZ3J9BgdPz3+I3h6UK5aMlUborGenVrYM1A==
-X-Received: by 2002:a2e:9e03:: with SMTP id e3mr1252154ljk.186.1575564667341;
-        Thu, 05 Dec 2019 08:51:07 -0800 (PST)
+        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=FQ6mRnpfvhPuwra407RyWzQpLfi28e4MzIpVSgnqrtA=;
+        b=TzJgUuUTifJRcZya/3vJg3wlbW+7kmYwh33o2xdxRaEbMoUA+Hy8SXF8GNYncyW3tW
+         UKKMJ/oz5jsv8fkqlABIFgHSaPxJ2qI+91X3A0yEKfPl7Dga5Nctc6NmGiv+teL9HrLS
+         qq5AGqSIp1Icg5jQVKTHwHkekmPOwY6jMp0QG2bWg3HCzzWUi77n1t1EWOnT0bBLX19P
+         0oEV1fhWX2AEmvCUOtX2FySUgIf4RUnk8/B/Q1Ca7c/jCUURyBXTrAMv9bCIRB3Lf7Qb
+         S10No30SnOdpjFggHzP/WcyenI8S0ZtF/m+Dh2jvscH+pCL6JhGS6Iu40y24FfbdPqvc
+         Q+mw==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: APjAAAUW+V2xfu1E+V5OlLfH8Io5CKx1S9R5Bud9LZb2J5F4MicEC2PD
+	0jTKXJlcJ1UvhHj/2JMydYk=
+X-Google-Smtp-Source: APXvYqyrNXn1VGwkNxcZBZ1joxC0H942+8+ZfCgQN1joYwtx5JcZbpE9QEGhFgD0QiV7URbrmtBxzg==
+X-Received: by 2002:adf:ef49:: with SMTP id c9mr11161879wrp.292.1575567917959;
+        Thu, 05 Dec 2019 09:45:17 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6512:51c:: with SMTP id o28ls374527lfb.4.gmail; Thu, 05
- Dec 2019 08:51:06 -0800 (PST)
-X-Received: by 2002:ac2:4119:: with SMTP id b25mr5865059lfi.90.1575564666603;
-        Thu, 05 Dec 2019 08:51:06 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1575564666; cv=none;
+Received: by 2002:adf:ecc5:: with SMTP id s5ls1494128wro.12.gmail; Thu, 05 Dec
+ 2019 09:45:17 -0800 (PST)
+X-Received: by 2002:a5d:4e90:: with SMTP id e16mr6436309wru.318.1575567917248;
+        Thu, 05 Dec 2019 09:45:17 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1575567917; cv=none;
         d=google.com; s=arc-20160816;
-        b=MtfMWI6CEFWD8xbM3oexwOrrjEH1I0M1CdUkguoKkdQfwnEXoSi2nTmz15ywsuPjXP
-         o6YfW4thSCxDAulmMJMVun42JneeHl690G7LiJekAAdri41IdDSQQFQCa3TTvMaYjOj0
-         eTJxgxaU/e5VSKOKhShkHqpzmdY+zAQD5l8q86ENFfpeyjpgkJ+GAGRdxlEAbwaXSCAM
-         5m/+8OL9vRTQ4DL6+Hu5T13RKeW0N8sedhV5qN792x3/ySkIbJAgzFwAYOxcibbzzOnX
-         Tyjhd9fydTHTcfySMLIsXPIkKLroTZjZZZoozvNsizQzKkATT3E2WQ3A2ldQquN9QsRr
-         m2nA==
+        b=ucFCSto5F3UFuBhWM9nD5uWLTgr4wizblupZ9EDEIVv0OQzreuPdiIDi/asLmqyr9r
+         a6lRuh/mE0nhZ+qfi2eJti8go/LfS4HMRrK6eNd+waLNoKVht6dMMAu1WnbkbMmuGHXY
+         52kbr5mqK14NLsNqgdZKIBXIgcioIVgwN412SBh9FcSjIV3y3H5lyt1df8OeV4sNYD+v
+         ObZ6UAlzx/muFmUAdLayhtWs8LMI7IB4vsT56h9OOPTW4LcPB3rK4UbssjEXvvax/shO
+         1yWCaohYUNoaGgragpVVBt//lSqe9SFT3zuOniLpHp9d9AHST7eRZw1aLj6UT9MdP9Ee
+         xkVw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:dkim-signature;
-        bh=tj3Y2cwcjD5jPTATye/x1tUVgK/Eh7ttSRynbsBqeWY=;
-        b=dEVrzvNV2EF47KRZm1HmAnZK7FHlPkkVxUulz+/cL5xTFrKHB6ZAt52eukDQ9rmV25
-         rAn2FL9dERflkAMbXFuxJl4Mt3nldKFYM2SAhx+plH6//tT3BVAcNq52i1OZSNlF3I6G
-         7cPa+vdKW9F3YNF6RzBLQ+1XkzxTc/X3VtJGkO32kDFFzxic3rLijwLDxx3hCG5Jc6Pk
-         enBo3rGWJKz8DaRXya3XBkcPNMIlYCNHkxP1aFsMQ8H+EQj0AoeVouTdho1KeJIHBfd5
-         BZuO2zc6NxV/km7z5beTKhEK7VLtHUj3vIxeKSVMuPtHznbZ749qko56YMlYQK1euj7t
-         GVxw==
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:cc:to:subject;
+        bh=JwXGAIx1cdtMtnqHZGUzwVtO/8Un/VOO+JE8LVps3DM=;
+        b=xJM6y1rxroZBWKUPYNK6YYfIlefIFo+Cm7sH2+215NGDrWoYbmm4Pz8RQgwm9CNFDG
+         n3mF1zp9RSM860Ik4QYZw0ea/NFZQgCJX4oB681TCKLiZIq1S2V2QZkeb2ZS2RLdKvO4
+         EYHBcxeNAzSxtR/h+4APo85opZP0e3U7AIBtYcOoP8vkGZeFw3Z7MvYJeuwKPcZOMmQ8
+         LMycDxvBecOqJH8ad4wy0y0SuFU+H2VBv74Koh69pNiKi+IJD/k0WVCc7fQ/V52C0kqG
+         bdQ5sgKQyjUmI/yRH+YfNV3ePAduxzQ8ncUjTja6atSaHWH+SKJh9cmINVAdwXLAPDP1
+         Mbfw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@unimore.it header.s=google header.b=XVIB7AXa;
-       spf=pass (google.com: domain of marco.solieri@unimore.it designates 2a00:1450:4864:20::444 as permitted sender) smtp.mailfrom=marco.solieri@unimore.it;
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=unimore.it
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com. [2a00:1450:4864:20::444])
-        by gmr-mx.google.com with ESMTPS id x5si324644ljh.5.2019.12.05.08.51.06
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
+        by gmr-mx.google.com with ESMTPS id r11si621468wrl.3.2019.12.05.09.45.17
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Dec 2019 08:51:06 -0800 (PST)
-Received-SPF: pass (google.com: domain of marco.solieri@unimore.it designates 2a00:1450:4864:20::444 as permitted sender) client-ip=2a00:1450:4864:20::444;
-Received: by mail-wr1-x444.google.com with SMTP id z3so4492267wru.3
-        for <jailhouse-dev@googlegroups.com>; Thu, 05 Dec 2019 08:51:06 -0800 (PST)
-X-Received: by 2002:adf:8541:: with SMTP id 59mr5055986wrh.307.1575564665766;
-        Thu, 05 Dec 2019 08:51:05 -0800 (PST)
-Received: from localhost (hipert-gw1.mat.unimo.it. [155.185.5.1])
-        by smtp.gmail.com with ESMTPSA id u16sm12775619wrr.65.2019.12.05.08.51.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Dec 2019 08:51:02 -0800 (PST)
-Date: Thu, 5 Dec 2019 17:50:31 +0100
-From: "'Marco Solieri' via Jailhouse" <jailhouse-dev@googlegroups.com>
-To: Peng Fan <peng.fan@nxp.com>
-Cc: Jan Kiszka <jan.kiszka@siemens.com>,
-	Jailhouse <jailhouse-dev@googlegroups.com>,
-	"marko.bertogna@unimore.it" <marko.bertogna@unimore.it>,
-	"tomasz.kloda@unimore.it" <tomasz.kloda@unimore.it>,
-	"giulioc@xilinx.com" <giulioc@xilinx.com>,
-	"'claudio@evidence.eu.com'" <claudio@evidence.eu.com>,
-	"fabio.federici@utrc.utc.com" <fabio.federici@utrc.utc.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 05 Dec 2019 09:45:17 -0800 (PST)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id xB5HjFmd012929
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 5 Dec 2019 18:45:15 +0100
+Received: from [167.87.38.32] ([167.87.38.32])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id xB5HjDVF029772;
+	Thu, 5 Dec 2019 18:45:14 +0100
 Subject: Re: [PATCH 0/8] Add cache coloring support for Arm
-Message-ID: <20191205165031.gl2f4tbx3klq6rfy@carbon.xt3.it>
+To: Marco Solieri <marco.solieri@unimore.it>, Peng Fan <peng.fan@nxp.com>
+Cc: Jailhouse <jailhouse-dev@googlegroups.com>,
+        "marko.bertogna@unimore.it" <marko.bertogna@unimore.it>,
+        "tomasz.kloda@unimore.it" <tomasz.kloda@unimore.it>,
+        "giulioc@xilinx.com" <giulioc@xilinx.com>,
+        "'claudio@evidence.eu.com'" <claudio@evidence.eu.com>,
+        "fabio.federici@utrc.utc.com" <fabio.federici@utrc.utc.com>
 References: <20190327121849.1882-1-ms@xt3.it>
  <AM0PR04MB4481B3186519C11BBFEE8DBA88430@AM0PR04MB4481.eurprd04.prod.outlook.com>
  <AM0PR04MB44818E5F2BA11C16A6B9E70088430@AM0PR04MB4481.eurprd04.prod.outlook.com>
  <20191203004700.cw7fgubui363mxee@carbon.xt3.it>
  <AM0PR04MB44815D033BBEC85ABBBEE5DB88420@AM0PR04MB4481.eurprd04.prod.outlook.com>
+ <20191205165031.gl2f4tbx3klq6rfy@carbon.xt3.it>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <f590e962-ab8c-ec84-abe5-65b7a3fa4377@siemens.com>
+Date: Thu, 5 Dec 2019 18:45:13 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3bxi3ubqe25ztiwe"
-Content-Disposition: inline
-In-Reply-To: <AM0PR04MB44815D033BBEC85ABBBEE5DB88420@AM0PR04MB4481.eurprd04.prod.outlook.com>
-X-Original-Sender: marco.solieri@unimore.it
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@unimore.it header.s=google header.b=XVIB7AXa;       spf=pass
- (google.com: domain of marco.solieri@unimore.it designates
- 2a00:1450:4864:20::444 as permitted sender) smtp.mailfrom=marco.solieri@unimore.it;
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=unimore.it
-X-Original-From: Marco Solieri <marco.solieri@unimore.it>
-Reply-To: Marco Solieri <marco.solieri@unimore.it>
+In-Reply-To: <20191205165031.gl2f4tbx3klq6rfy@carbon.xt3.it>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -146,122 +141,56 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
+On 05.12.19 17:50, Marco Solieri wrote:
+> On Tue, Dec 03, 2019 at 08:41:13AM +0000, Peng Fan wrote:
+>>> On Mon, Dec 02, 2019 at 02:52:04AM +0000, Peng Fan wrote:
+>>>>> I am reading the patchset, but this patchset could not resolve the
+>>>>> cache contention between root cell Linux and inmate cell, right? It
+>>>>> only address the cache contention inside the inmate cell, if I understand
+>>> correctly.
+>>>
+>>> This is correct.  The documentation reads:
+>>>
+>>> | Since Jailhouse is currently lacking SMMU support, and since the
+>>> | colored memory mapping must be provided to DMA devices to allow them a
+>>> | coherent memory view, coloring for this kind of devices is not
+>>> | available. This also explains why also coloring support for the Linux
+>>> | root cell is not provided, although possible and tested with a simple hot
+>>> | remapping procedure.
+>>>
+>>>>> Is there any v2 plan to address the upper issue?
+>>>
+>>> Forward porting to master and integration with SMMU support are the two
+>>> most important task on my team TODO list. Once these steps are done, it will
+>>> be very easy to also have root-cell colouring. I have planned the firsts for
+>>> 20Q1.
+>>
+> 
+>> NXP i.MX jailhouse has smmu-v2 support, but it currently conflicts with
+>> smmu-v3 code in upstream. I have not find time to restructure v2 code. You
+>> could refer if you need v2.
+> 
+> I know. Do you have plans to merge SMMU-v2 support in upstream? It is very
+> important for colouring Linux, such as the root-cell. But I am sure that many
+> others than me are waiting for it.
+> 
+> Also, since v3 support is only preliminary and the SMMU is not really usable, as
+> far as I understand, and since v3 devices are quite less common, perhaps the v2
+> support can be integrated easier and earlier than you think.
 
---3bxi3ubqe25ztiwe
-Content-Type: text/plain; charset="UTF-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+1-level translation is complete, 2-level translation is missing. The
+latter is only needed when running CMA-requiring devices in a cell that
+cannot be mapped into physically contiguous memory (e.g. via
+pre-allocation). Due to the involved significant complexity increase, I
+decided to not take this extension yet.
 
-On Tue, Dec 03, 2019 at 08:41:13AM +0000, Peng Fan wrote:
-> > On Mon, Dec 02, 2019 at 02:52:04AM +0000, Peng Fan wrote:
-> > > > I am reading the patchset, but this patchset could not resolve the
-> > > > cache contention between root cell Linux and inmate cell, right? It
-> > > > only address the cache contention inside the inmate cell, if I unde=
-rstand
-> > correctly.
-> >=20
-> > This is correct.  The documentation reads:
-> >=20
-> > | Since Jailhouse is currently lacking SMMU support, and since the
-> > | colored memory mapping must be provided to DMA devices to allow them =
-a
-> > | coherent memory view, coloring for this kind of devices is not
-> > | available. This also explains why also coloring support for the Linux
-> > | root cell is not provided, although possible and tested with a simple=
- hot
-> > | remapping procedure.
-> >=20
-> > > > Is there any v2 plan to address the upper issue?
-> >=20
-> > Forward porting to master and integration with SMMU support are the two
-> > most important task on my team TODO list. Once these steps are done, it=
- will
-> > be very easy to also have root-cell colouring. I have planned the first=
-s for
-> > 20Q1.
->=20
+Jan
 
-> NXP i.MX jailhouse has smmu-v2 support, but it currently conflicts with
-> smmu-v3 code in upstream. I have not find time to restructure v2 code. Yo=
-u
-> could refer if you need v2.
+-- 
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+Corporate Competence Center Embedded Linux
 
-I know. Do you have plans to merge SMMU-v2 support in upstream? It is very
-important for colouring Linux, such as the root-cell. But I am sure that ma=
-ny
-others than me are waiting for it.
-
-Also, since v3 support is only preliminary and the SMMU is not really usabl=
-e, as
-far as I understand, and since v3 devices are quite less common, perhaps th=
-e v2
-support can be integrated easier and earlier than you think.
-
-> > > > To address root cell color issue, 1:1 mapping in root cell might no=
-t
-> > > > work, because IPA/PA needs a remap, but this will waste PA space, i=
-f
-> > > > inmate only need a small area PA space. Seems root/inmate cache
-> > > > contention is hard to avoid.
-> >=20
-> > Beside root cell colouring, PA waste is a potential issue of colouring
-> > itself, whenever you have heterogeneous memory needs across cells. Stil=
-l, on
-> > most high-end systems the size of the shared cache easily allows for 8 =
-or 16
-> > colours, which means that the smallest PA granularity to assign to a gi=
-ven
-> > cell is 1/8 or 1/16, which is an acceptable limitation.
->=20
-> Without SMMU, if enabling color for root-cell, it means needs to cut off =
-at
-> least 1/8 or 1/16 memory of the whole dram space from root cell.
-
-For example, 1/16 of 2GiB DRAM looks expendable.
-
-> CMA is not easy to fix here...
-
-I have not ever used CMA. Does it operate without SMMU mediation (i.e.
-translation)?
-
-
-Cheers.
-
---=20
-Marco Solieri, Ph.D.
-Research Fellow
-
-High-Performance Real-Time Lab
-Universit=C3=A0 degli Studi di Modena e Reggio Emilia
-Ufficio 1.37 - Edificio Matematica - 213/b, via Campi - 41125 Modena
-Tel: +39-059-205-55-10  -- OpenPGP: Ox75822E7E
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/20191205165031.gl2f4tbx3klq6rfy%40carbon.xt3.it.
-
---3bxi3ubqe25ztiwe
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOC2XMK2o3tvc3F09Ctn83XWCLn4FAl3pNVcACgkQCtn83XWC
-Ln470BAAgP8+EDcqyZbdiR8ZQBhQMUak8UyGNJXaFEUu662d6jgTCb2+pZqtbDew
-7ATS3PJFMTrK3sDohjNTWKANt7h5Qh1USWYCJCz8nWCxknh3xEbPihoTrYNmNbGo
-KmcvzqQ3TkMzq/ac9cc1h3uyhQIKKVmRtSHdGVOBSRGsXB37a0lI+oJMgQdv4JNy
-YlGwNU703FMlAsZUP388Nc+kXdtv73yjZTZdnZLDzcB/ZeCxoSwlkeR4Br9AKQGo
-ME7TtcOHFX7R7J+yVwEXMo6uuPmKeFCxo4ovho44cP7Vp2TFw0y9XYtrUbzn+H01
-sTO3eM+F300vmc0sT8rdydSPOdhSiOFiyoN7a63OORdMtRpJQMt9+D6v53VRR1eR
-XcHcH8NTl/e/OmfvOsKS7dElIPUFgwqIdz17PWF7G7XnqHiOTpJF0hq+hleNGQ5O
-vengTjwQuBZ7yjijc793U5IZaZ/2xhqytqK0zHbra5swjeZuub9pFF/+iKsbionF
-3bojPeRSft14LarSWRa291vEOmpwDEFNvJ3HZtg8P9Bganwk7SETymYFmpczFzu1
-F5sti022/QesHSlnVWRuUCt4k4Gq481ySoZtmRspJaKKrHUSdGJkNtyw4eaIMQS6
-+GyleJ7Qn/+nXGKawb89aOP2oPTK2DmTjPGbNLGN1tNlTVpSdQo=
-=5SnY
------END PGP SIGNATURE-----
-
---3bxi3ubqe25ztiwe--
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/f590e962-ab8c-ec84-abe5-65b7a3fa4377%40siemens.com.
