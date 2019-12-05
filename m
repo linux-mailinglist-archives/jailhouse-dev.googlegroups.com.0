@@ -1,137 +1,137 @@
-Return-Path: <jailhouse-dev+bncBCVKRBX6ZUARBLNGUPXQKGQEG56FEKI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCTYL35VU4JBBG6NUPXQKGQEZK6O7UA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yw1-xc3c.google.com (mail-yw1-xc3c.google.com [IPv6:2607:f8b0:4864:20::c3c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 137EA113E8D
-	for <lists+jailhouse-dev@lfdr.de>; Thu,  5 Dec 2019 10:51:43 +0100 (CET)
-Received: by mail-yw1-xc3c.google.com with SMTP id 16sf1994447ywz.5
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 05 Dec 2019 01:51:43 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1575539501; cv=pass;
+Received: from mail-io1-xd3c.google.com (mail-io1-xd3c.google.com [IPv6:2607:f8b0:4864:20::d3c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9081C113FF4
+	for <lists+jailhouse-dev@lfdr.de>; Thu,  5 Dec 2019 12:14:36 +0100 (CET)
+Received: by mail-io1-xd3c.google.com with SMTP id e124sf2131928iof.19
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 05 Dec 2019 03:14:36 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1575544475; cv=pass;
         d=google.com; s=arc-20160816;
-        b=S5eASivkiUEKp09BkUfl4sBQLayDDOaWLYvtPY1tMA0IM9GLHvk8etVBOryoVJNqWq
-         oJMDerHEERHuFwccEUKiUxMl/hjt0q1e7ysi0mXxbwZkYlSfLnqObeN0fHZ4yMjAcs5M
-         ogPh/RoGv5vs67wTlcOQlhSd7/7+GgURXKoZ/vBAtOMdrGvWQ6mdgtulhYyfO6fbie0f
-         noYkauCBL598b60uZgoHjWCcXtqOKudztHqzn35oBnxuGIBSbWFAhSXH4O+5K3UxeAN/
-         yCGZuT4Ff2sodAstpNB9aKpyWbpqSuRPS9nfrPxrGb2TsSTJi2MLgekGVumL0yzEFKr5
-         MYkQ==
+        b=y3puSUJqePPMtibMpdkln5HcLzHlnS7S37HiUCnnotCwACEuoIqLW1mdWeGuysWWOg
+         wmAdDtrAHuRkBTMhjzN84I3ihioZ78OHyF/x4KhpA6JaWgn7GpWY7yXwR3e5zG24whJw
+         g/cwd9EKFmKZ2MmVTVAxAqkFo3+t26OdHcpX81m43GPaR6/bmRAh0+CWwF0+Gwl1Q7Yl
+         A6k8tV4+FJmkl8RfCLwWYaXR5X+wjwuVmZX/2lNcQLn2tmZ6qOzwUIbDXMAEx4/gBW8t
+         W+mPr7FUEVm77PQlAzLzLKhPZV9/IKe39kL14xXt3b/XRG1YyIRzorI7g/CKWUYK04lX
+         qZng==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:sender:dkim-signature
+         :list-id:mailing-list:precedence:mime-version:user-agent:message-id
+         :in-reply-to:date:references:subject:cc:to:from:sender
          :dkim-signature;
-        bh=QFqdXk/zaFnohDlkAyLLHSl6HnPIuEhnZ2OvyTEW+Nc=;
-        b=fMJi8nCHobevlbPdQo/5D9UtTzuhbQEUVS/RkvX6ds8z/gLx/SZ1eiz/i1Adbq5cJD
-         1L7H9Jv65egfD47LhwukvkKWFjZf1HV7WVkTdFuK8cyLoyKYTWcIYsOJNunV+maDOvQP
-         4PU2keNodjM755/AaFEzaQ4LcV5llvZhP1TIxsxdttbIXB2XKWoIxpmVsowOjLWBecpS
-         qm/4y0j9KqZs6ZWYHQnlP8dv1pe+8Y+YacgPMW2ijH5uHJ34ob+etxlUJduHqOy4q620
-         9SowCIYsqJIklyo5T2sPFmW0sdS+Kph86PXiLZwI/6jt9fsXht2lFAdZy26azN9k1+cp
-         O2xQ==
+        bh=FjMNdSg55CoIPeVarZUVofhkpH9rU17D9tb+YCYLI1E=;
+        b=M9HO83rT2O4mpuPaziKTEHcda7qJMAp2URNGjN0wLqabs6Vj34+vMP3IdB3AflYDZ5
+         EEdM5UyeHuJTBkEhc/ThfiZ+REWtXGoxZVRG2c1HafOrYtRSd3llMMyBJxY85J5ym6ln
+         FEiSSpebQg9OtUxy8EzyhHn0WRUR7W0FBsZfmhVp329rUbcyjFJzKj0XsL6d1kPEsZfh
+         qmzaTi+UQ1vKp/8r3MjV6/PVzlwqgE0pEKCLYnIP9K8sITrr6L/VfmpmHMznZSbqSrMK
+         +8rSEPSm24XNJmzMbZtaLELqrjKZFPo/gb0dGW22B+E25pHbMtMxtb3QVuO+ZFnwTiuq
+         HE6w==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=GAfkb8Sf;
-       spf=pass (google.com: domain of manivannanece23@gmail.com designates 2607:f8b0:4864:20::331 as permitted sender) smtp.mailfrom=manivannanece23@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+       dkim=pass header.i=@redhat.com header.s=mimecast20190719 header.b=XvMWrQmE;
+       spf=pass (google.com: domain of armbru@redhat.com designates 207.211.31.120 as permitted sender) smtp.mailfrom=armbru@redhat.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=redhat.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:mime-version:references:in-reply-to:from:date:message-id
-         :subject:to:cc:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=QFqdXk/zaFnohDlkAyLLHSl6HnPIuEhnZ2OvyTEW+Nc=;
-        b=P1zujI473zs6NKwkbOQOYDvVv/118iFa/cQQVEx4Z4A7HnF+dB9uyd6RypoHc8F9Rk
-         OiqQbHHXEDq88ce8sgy4g8zLb8mnV0hKnlmo+bo3YsPdIon9ChyAjjuAhkIuBEBj0HHf
-         i7HQHtY6ZBOrh40b52p9OW6QWdEDzb5nMVP1+nqUrG30+CuWedwwMW3g/uJqZkaaiDAq
-         dqFt7h5JgA1kFrdwKd2tLfKo0lmbtxHsIyFA6yWaQJqHlYw+DBXuxUh3YDu/d0pnXhJx
-         UlcmBoM9f8KyEtEEP76djCZnusg5GusYO2cnU6S21MczSX5dco+O0qsaGhM+9RykXuAA
-         zWbA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=QFqdXk/zaFnohDlkAyLLHSl6HnPIuEhnZ2OvyTEW+Nc=;
-        b=hu1c1GdbaGEbkV4GPv26m07FP7dbgMqRRo/DAlmiQzw8KzraSo9z2zTpqtjxar9Y9o
-         QvZRRDxNj79eQ3RXp3lm+dHNzbNGPa5Q3lVNuUzMupuxbbtEd+my0p5YKlmjsvHo53If
-         wBKYnm1ktB81eJU1PCH9u+3FJI+ZisJgk2ZZ8JYIrnknOTpNxJEVqdXO9ytd+EQcdOIp
-         aLbMPm3O3cI4pVK7iYwZvx4QaEah6GDkXuv0a9On1zwsgX1RAf2lxBdhzH6bDn/J/xhs
-         sS8VBd3LswJvRkpMRGAQU2AO+LxuuU6FH/zmlvWpbjsnueSN0Kj/aRBhFEvRzdIO5o3J
-         0qTg==
+        h=sender:from:to:cc:subject:references:date:in-reply-to:message-id
+         :user-agent:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=FjMNdSg55CoIPeVarZUVofhkpH9rU17D9tb+YCYLI1E=;
+        b=fH5HYCNJQ2wInzhbmOWMJFnahjeXBihVgw0XNvVnz3E8oRpy06OVkDXrqNqFZbyyCO
+         NRcCVIhRVDGxYoC/yWeUMZjAaDfu5LtINVZCZTWeskjwmu+6oqoVZ9ztpisgr+wNpxuv
+         rxug4L//gIuYS3BbS/4T3HZPtsJd3rQmN6V6z9ajGa2yJpdmK9aKsnvR/NG1pMMuq9Dg
+         8CjNBmCimmPvoBIHzkQPGx0T22pt5aJf14Jo3CB7E8V30QnwdENYJR8XyNFEU5BeZrxA
+         TaiyAtQvAStmrG3/PLE5dVcnJ2cE0GEDjROS9KpBfNBUbsLL7iUNWD69gY8ndQWmen6t
+         BoDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
-         :date:message-id:subject:to:cc:x-original-sender
+        h=sender:x-gm-message-state:from:to:cc:subject:references:date
+         :in-reply-to:message-id:user-agent:mime-version:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=QFqdXk/zaFnohDlkAyLLHSl6HnPIuEhnZ2OvyTEW+Nc=;
-        b=WnRzmBxuxkIlJ53yygFZ1iJOB1N2k3xCwm779N8sXYRzaWg4Iud5eJoYgkUYrW4oJo
-         s7obhQumpENTc5ZFHNAH7XEipIqIs+oUUUn1dnTI8Btjd4cShGixPs8hKCFr4dTlbsUY
-         qJa5SDYnwWBgIXab0gXeoYP9HJXbQTv8VwVcQjfopNwuiznyGjMKPkzM/Jk5fSM2pjSl
-         oTWOxXJwaLxI+YQOHaX03JS68+m+7GR+GcBOJ36zSbf7LewPWloWP20J27lyotyi5jUO
-         IX4VJSYNtd4yO2SkPWmIy0n1Ek2i2zT+uVQNDzlS/QSfRsHImFYeAt6KfVIvB/FFEwxu
-         Olpg==
+        bh=FjMNdSg55CoIPeVarZUVofhkpH9rU17D9tb+YCYLI1E=;
+        b=d4h0mEhP7ipSdIWJ4r0irykPE6JQA6NXX/9Wg33u/LJhAOucmYBxtyo2GhErOL49Wx
+         T1jf7fKxmNJRwyQbjIM3UGtSUJbPGlRkhSu/95B1/zAm0ARWYQtPGbvExNhXgauH9wHl
+         XxT1Uocv0VvfWFTQQTz/8HzziQsn54Od5eFa1brzuVATS8Jiea2/U2ea9nOKgWZLa/WR
+         fHYn5QYmJSQTSNaTOgBq5NNcttiO2G11P+mLKEkQ/GA5wAda49ZuFVMJ/X0984wwE/kM
+         6c0iSItXoYxWTLq8tq0tN2i6gLtKK6tdSE5Ws4GVTeybkLmfOqDdhy9HMII0CK7qHo2B
+         ZBrg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAWnmuqydH5G93Zw3V71M18ZNs28+AdU6PysfPpeZJUxQ8RxTHZp
-	Hh3aeSqNnAauzynppwXffRI=
-X-Google-Smtp-Source: APXvYqzyZYbYhq0pTs0ZZ9gCy2/9rPdFoVrlh14ZyyHxgyH4jKcasF0wWyaEOSFguYyLCi5GZHcvfQ==
-X-Received: by 2002:a25:dc86:: with SMTP id y128mr5140026ybe.126.1575539501663;
-        Thu, 05 Dec 2019 01:51:41 -0800 (PST)
+X-Gm-Message-State: APjAAAXXtixTeZwAYUH9we6DLaLvD3Qi6JpqLrBOTKXg1h6OnpcgudjK
+	VCRqhsUV/c/CcXU4ZJ5SgZs=
+X-Google-Smtp-Source: APXvYqwISYwxz0W+gYCrmxfFehLdC3T39+NDWyq0OJR9ti998++9T8ZilVK28odjCxq74qlT9Qw5xA==
+X-Received: by 2002:a92:d30e:: with SMTP id x14mr7376249ila.108.1575544475412;
+        Thu, 05 Dec 2019 03:14:35 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:8488:: with SMTP id v8ls368053ybk.14.gmail; Thu, 05 Dec
- 2019 01:51:41 -0800 (PST)
-X-Received: by 2002:a25:b219:: with SMTP id i25mr5497141ybj.195.1575539501139;
-        Thu, 05 Dec 2019 01:51:41 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1575539501; cv=none;
+Received: by 2002:a5e:8b4a:: with SMTP id z10ls360373iom.12.gmail; Thu, 05 Dec
+ 2019 03:14:34 -0800 (PST)
+X-Received: by 2002:a6b:6202:: with SMTP id f2mr5616964iog.272.1575544474673;
+        Thu, 05 Dec 2019 03:14:34 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1575544474; cv=none;
         d=google.com; s=arc-20160816;
-        b=Mk8Y2koF9UD1VLa6DFTZnHlCioxVamrFoG++e8gMD2lmDz0kWs1Ksj7WVgEXqyrSlk
-         TzaQenKVSsmx0CI8uUrlWZH2lrWY4lSId2DVS9/WiAy39RRvZ+0d/ZOspT08/BX2gZIK
-         89NsAPcv56OghFDmDfeGD+SbY5NcriXq6E25Kc9LDNRJmutRojILoiwYargUnggCHYnH
-         UnoPG71b7uxy8lAnNV2W/E7GrvqpuZL/5+/7J3qNQdfGaSssGNC3WBkEyEwHah2OHVH/
-         sQ+2n4cojpurJQUKXPlx9456jAr9uUxBdPQkkOoQ9IanYjGgoUobo65RjCf4gE3KuMGK
-         eO+g==
+        b=lIXRnXomRqsrIKdAY7KJiQn+Yz/92afoZF/yhfIg2BquDMWjEavtDvdm5QPfOH9woX
+         etqKPxtFWxjMPZG0x8O6DtgkFmGaUg6ZK+NgiqYoZ2HO1zK4cUEhLRJOGDCAlS1IqtOe
+         sV+F+xqy5V6bsPn/23jghn5IdGGEOdJnM3MLV43bGPbOOsRGwnFYLg+cpRo9fEgT7N8N
+         A8CaDXgsshZXQ9GmQ46VcBHNNjIzsyzh+cjVUrKqsxgLY4sgSZdA4F1WoB4YJ+m2PD+V
+         JX5TIkFat0yLSi2hZnm4AeHKNOMOXWoA7x4ZnCAY1qRf+iKWJVFeo72RXByEdBv4FCa5
+         LpSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=+iQwcLj0uhzajPsMoOcV7MqpWbIW84w9M8S5RcrtkQk=;
-        b=P5kQiJ2djGPyfKfqG5PW29yuSWYpgkbqvZffCWDeZM8NRpvdvc4+j4ZtDMJDlNtIWg
-         bnsEmD1sKERJLLSIaXKmkXCR37+eqq6VutGOV9zNi6hUyecYnJcTimlgkHtkrLDG08u9
-         OEfDLLMGv41KRJe76FAx+W7/ODkWM6dlcW3zvJcctGMGKUWZEPHALlWxOq8Oz8zq8M2z
-         MKtTSJf3J+l1yTFc5qMmSM5Kb/Jn12ojeOh/CiUTAsnlWc75dZg7MgSmBGHESlyTszKv
-         ZZNZEPeCTuTAM4CNJ/Bs0lO+Om5mVGClthwpqjqhK+GscbPLh/Zu4UsprIIBYTWmADnq
-         c0iQ==
+        h=content-transfer-encoding:mime-version:user-agent:message-id
+         :in-reply-to:date:references:subject:cc:to:from:dkim-signature;
+        bh=Rgb8euoYFnCAZsAcXHn/xvyr0PLr2EPPClKi016CL2E=;
+        b=EG2eXHZbvn5Kas3OGZ+w6ybC3FbViYg1OVWwIT7wosN4S2B1wdbNblnvfkjgbPDvTS
+         mXPOoq4kbvxMlhyNcyD48TEJS95JdDbsWWJOoO2fyQ7vvQHs5lFNkVehzRMUAJ4YxSW1
+         GEnaIT6JpeVGmuXOpL1mHsE3geVh8ufqU64xg6qjZOQMttRmMhoha0ZxMjRSX1hsZOxB
+         aTIVnQqVxa5yi5z3DM+earnVddf+UAUL3XbTGD8qIaU7IDKc2E7/SZl3USpvpP8CMw29
+         yIh7Nx8PTnudHp5sp1ngISKi+8jNdnxMGVrP4oi3niC5aj0Rlp5WE7PJFTCmdbMwq//k
+         sddg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=GAfkb8Sf;
-       spf=pass (google.com: domain of manivannanece23@gmail.com designates 2607:f8b0:4864:20::331 as permitted sender) smtp.mailfrom=manivannanece23@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com. [2607:f8b0:4864:20::331])
-        by gmr-mx.google.com with ESMTPS id n82si379155yba.1.2019.12.05.01.51.41
+       dkim=pass header.i=@redhat.com header.s=mimecast20190719 header.b=XvMWrQmE;
+       spf=pass (google.com: domain of armbru@redhat.com designates 207.211.31.120 as permitted sender) smtp.mailfrom=armbru@redhat.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=redhat.com
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com. [207.211.31.120])
+        by gmr-mx.google.com with ESMTPS id g12si447129iok.4.2019.12.05.03.14.34
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Dec 2019 01:51:41 -0800 (PST)
-Received-SPF: pass (google.com: domain of manivannanece23@gmail.com designates 2607:f8b0:4864:20::331 as permitted sender) client-ip=2607:f8b0:4864:20::331;
-Received: by mail-ot1-x331.google.com with SMTP id k14so2069237otn.4
-        for <jailhouse-dev@googlegroups.com>; Thu, 05 Dec 2019 01:51:41 -0800 (PST)
-X-Received: by 2002:a9d:7590:: with SMTP id s16mr5500017otk.89.1575539500675;
- Thu, 05 Dec 2019 01:51:40 -0800 (PST)
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 05 Dec 2019 03:14:34 -0800 (PST)
+Received-SPF: pass (google.com: domain of armbru@redhat.com designates 207.211.31.120 as permitted sender) client-ip=207.211.31.120;
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-163-kHGUDLqpNziNq_bbANHhFw-1; Thu, 05 Dec 2019 06:14:30 -0500
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6077C800EC0;
+	Thu,  5 Dec 2019 11:14:28 +0000 (UTC)
+Received: from blackfin.pond.sub.org (ovpn-116-134.ams2.redhat.com [10.36.116.134])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 178215C1C3;
+	Thu,  5 Dec 2019 11:14:20 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+	id 9E03A1138606; Thu,  5 Dec 2019 12:14:18 +0100 (CET)
+From: Markus Armbruster <armbru@redhat.com>
+To: Jan Kiszka <jan.kiszka@siemens.com>
+Cc: qemu-devel <qemu-devel@nongnu.org>,  liang yan <lyan@suse.com>,  Jailhouse <jailhouse-dev@googlegroups.com>,  Claudio Fontana <claudio.fontana@gmail.com>,  "Michael S . Tsirkin" <mst@redhat.com>,  Hannes Reinecke <hare@suse.de>,  Stefan Hajnoczi <stefanha@redhat.com>
+Subject: Re: [RFC][PATCH 2/3] docs/specs: Add specification of ivshmem device revision 2
+References: <cover.1573477032.git.jan.kiszka@siemens.com>
+	<cover.1573477032.git.jan.kiszka@siemens.com>
+	<f5996d934d24775160bcedbf28ac975a95d91101.1573477032.git.jan.kiszka@siemens.com>
+Date: Thu, 05 Dec 2019 12:14:18 +0100
+In-Reply-To: <f5996d934d24775160bcedbf28ac975a95d91101.1573477032.git.jan.kiszka@siemens.com>
+	(Jan Kiszka's message of "Mon, 11 Nov 2019 13:57:11 +0100")
+Message-ID: <87blsndnxx.fsf@dusky.pond.sub.org>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.2 (gnu/linux)
 MIME-Version: 1.0
-References: <e4de0ebb-83e6-4010-8f17-7cbbdafec19f@googlegroups.com>
- <ae19eed5-afc4-ddf2-1855-4bd474790065@siemens.com> <CANBTL1VsEGSiqZe5SG4EQ3sn4KbcvKQqYLERCT-NbqxZK5ZBKQ@mail.gmail.com>
- <DB7PR04MB4490F52695B91268CBB45E78885C0@DB7PR04MB4490.eurprd04.prod.outlook.com>
- <CANBTL1VejvQBVCyjBRezpcZ4oLAue=Nbh2A0pCQfyt3Uo8Sa+Q@mail.gmail.com>
-In-Reply-To: <CANBTL1VejvQBVCyjBRezpcZ4oLAue=Nbh2A0pCQfyt3Uo8Sa+Q@mail.gmail.com>
-From: Mani Sadhasivam <manivannanece23@gmail.com>
-Date: Thu, 5 Dec 2019 15:21:29 +0530
-Message-ID: <CANBTL1Ux+0_GjkP4LjMOR0Rcc61wyc-U6=J7pnydrJHFEudpNA@mail.gmail.com>
-Subject: Re: Zephyr as a Jailhouse inmate
-To: Peng Fan <peng.fan@nxp.com>
-Cc: Jailhouse <jailhouse-dev@googlegroups.com>
-Content-Type: multipart/alternative; boundary="00000000000044778a0598f1e0f4"
-X-Original-Sender: manivannanece23@gmail.com
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-MC-Unique: kHGUDLqpNziNq_bbANHhFw-1
+X-Mimecast-Spam-Score: 0
+Content-Type: text/plain; charset="UTF-8"
+X-Original-Sender: armbru@redhat.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20161025 header.b=GAfkb8Sf;       spf=pass
- (google.com: domain of manivannanece23@gmail.com designates
- 2607:f8b0:4864:20::331 as permitted sender) smtp.mailfrom=manivannanece23@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+ header.i=@redhat.com header.s=mimecast20190719 header.b=XvMWrQmE;
+       spf=pass (google.com: domain of armbru@redhat.com designates
+ 207.211.31.120 as permitted sender) smtp.mailfrom=armbru@redhat.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=redhat.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -144,299 +144,528 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---00000000000044778a0598f1e0f4
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This has been on the list for more than three weeks already.  I
+apologize for the delay.
 
-+ mailing list
+Jan Kiszka <jan.kiszka@siemens.com> writes:
 
-On Thu, Dec 5, 2019 at 2:52 PM Mani Sadhasivam <manivannanece23@gmail.com>
-wrote:
+> From: Jan Kiszka <jan.kiszka@siemens.com>
+>
+> This imports the ivshmem v2 specification draft from Jailhouse. Its
+> final home is to be decided, this shall just simplify the review process
+> at this stage.
+>
+> Note that specifically the Features register (offset 08h) is still under
+> consideration. In particular, its bit 0 seems useless now as its benefit
+> to guests, specifically when they want to be portable, is close to zero.
+> Maybe the register should still be kept, with all bits RsvdZ, for easier
+> extensibility.
+>
+> The rest appears now rather mature and reasonably implementable, as
+> proven also by a version for Jailhouse.
+>
+> Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+> ---
+>  docs/specs/ivshmem-2-device-spec.md | 333 ++++++++++++++++++++++++++++++++++++
+>  1 file changed, 333 insertions(+)
+>  create mode 100644 docs/specs/ivshmem-2-device-spec.md
+>
+> diff --git a/docs/specs/ivshmem-2-device-spec.md b/docs/specs/ivshmem-2-device-spec.md
+> new file mode 100644
+> index 0000000000..98cfde585a
+> --- /dev/null
+> +++ b/docs/specs/ivshmem-2-device-spec.md
+> @@ -0,0 +1,333 @@
+> +IVSHMEM Device Specification
+> +============================
+> +
+> +** NOTE: THIS IS WORK-IN-PROGRESS, NOT YET A STABLE INTERFACE SPECIFICATION! **
+> +
+> +The Inter-VM Shared Memory device provides the following features to its users:
+> +
+> +- Interconnection between up to 65536 peers
+> +
+> +- Multi-purpose shared memory region
+> +
+> +    - common read/writable section
+> +
+> +    - unidirectional sections that are read/writable for one peer and only
+> +      readable for the others
+> +
+> +    - section with peer states
+> +
+> +- Event signaling via interrupt to remote sides
+> +
+> +- Support for life-cycle management via state value exchange and interrupt
+> +  notification on changes, backed by a shared memory section
+> +
+> +- Free choice of protocol to be used on top
+> +
+> +- Protocol type declaration
+> +
+> +- Unprivileged access to memory-mapped or I/O registers feasible
+> +
+> +- Discoverable and configurable via standard PCI mechanisms
 
-> Hi Peng,
->
-> On Thu, Dec 5, 2019 at 2:14 PM Peng Fan <peng.fan@nxp.com> wrote:
->
->> Sorry for top post.
->>
->> Would you mind share what products would you use i.MX8M EVK for?
->>
->
-> It is just a spare time project I'm doing for fun.
->
->
->>
->> Also Could you please share the armv8 PR for zephyr?
->>
->
-> https://github.com/zephyrproject-rtos/zephyr/pull/20263
->
-> Thanks,
-> Mani
->
->
->>
->> Thanks,
->> Peng.
->>
->> From: jailhouse-dev@googlegroups.com <jailhouse-dev@googlegroups.com> On
->> Behalf Of Mani Sadhasivam
->> Sent: 2019=E5=B9=B412=E6=9C=885=E6=97=A5 15:14
->> To: Jan Kiszka <jan.kiszka@siemens.com>
->> Cc: Jailhouse <jailhouse-dev@googlegroups.com>
->> Subject: Re: Zephyr as a Jailhouse inmate
->>
->> Hi Jan,
->>
->> On Thu, Dec 5, 2019 at 12:36 PM Jan Kiszka <mailto:jan.kiszka@siemens.co=
-m>
->> wrote:
->> On 02.12.19 19:43, Manivannan Sadhasivam wrote:
->> > Hello,
->> >
->> > I can see that the Zephyr RTOS has been mentioned in the FAQ as
->> > one of the ported OS for non-root cells.
->> >
->> > Is there any reference code I can look into?
->>
->> There is x86 support for Zephyr as Jailhouse "inmate". Check out
->> zephyr/boards/x86/x86_jailhouse/doc/board.rst. If you run into trouble,
->> report to the communities.
->>
->> Ah, just noticed that it got removed some time ago:
->>
->> https://eur01.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgith=
-ub.com%2Fzephyrproject-rtos%2Fzephyr%2Fcommit%2Ff3611fdd0c8ca54a9f19bc56a14=
-b4a2fdadaffe3%23diff-bb9445fa64739ef6a5a6b59d520deb07&data=3D02%7C01%7Cpeng=
-.fan%40nxp.com%7C3e79e9ef68d24b68d9b808d77952bcf3%7C686ea1d3bc2b4c6fa92cd99=
-c5c301635%7C0%7C0%7C637111268572956815&sdata=3D8SkuxLhNQarhgoTD8u1%2BvD6HJt=
-Byb%2BNhaTxiUbGIDIw%3D&reserved=3D0
->>
->> But this could be helpful!
->>
->>
->> We could probably also easily support ARM, but the last time this
->> question came up, there was still not A-core support in Zephyr which is
->> a precondition.
->>
->> That's what I'm trying to do on IMX8M EVK in spare time. There is an
->> ongoing
->> PR for adding Cortex-A support in Zephyr, so I'm planning to utilize tha=
-t.
->>
->> Thanks,
->> Mani
->>
->>
->> Jan
->>
->> --
->> Siemens AG, Corporate Technology, CT RDA IOT SES-DE
->> Corporate Competence Center Embedded Linux
->>
->>
->>
->> --
->> =E0=AE=AE=E0=AE=A3=E0=AE=BF=E0=AE=B5=E0=AE=A3=E0=AF=8D=E0=AE=A3=E0=AE=A9=
-=E0=AF=8D =E0=AE=9A=E0=AE=A4=E0=AE=BE=E0=AE=9A=E0=AE=BF=E0=AE=B5=E0=AE=AE=
-=E0=AF=8D
->> --
->> You received this message because you are subscribed to the Google Group=
-s
->> "Jailhouse" group.
->> To unsubscribe from this group and stop receiving emails from it, send a=
-n
->> email to mailto:jailhouse-dev+unsubscribe@googlegroups.com.
->> To view this discussion on the web visit
->> https://eur01.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgrou=
-ps.google.com%2Fd%2Fmsgid%2Fjailhouse-dev%2FCANBTL1VsEGSiqZe5SG4EQ3sn4KbcvK=
-QqYLERCT-NbqxZK5ZBKQ%2540mail.gmail.com%3Futm_medium%3Demail%26utm_source%3=
-Dfooter&data=3D02%7C01%7Cpeng.fan%40nxp.com%7C3e79e9ef68d24b68d9b808d77952b=
-cf3%7C686ea1d3bc2b4c6fa92cd99c5c301635%7C0%7C0%7C637111268572966810&sdata=
-=3DCoOfSEdyP2GQjOiwCvjWQ9UlrD0vqtKTYuaeSYca96k%3D&reserved=3D0
->> .
->>
->
->
-> --
->
-> *=E0=AE=AE=E0=AE=A3=E0=AE=BF=E0=AE=B5=E0=AE=A3=E0=AF=8D=E0=AE=A3=E0=AE=A9=
-=E0=AF=8D =E0=AE=9A=E0=AE=A4=E0=AE=BE=E0=AE=9A=E0=AE=BF=E0=AE=B5=E0=AE=AE=
-=E0=AF=8D*
->
->
+Stating requirements is much appreciated.  Design rationale would be
+even better :)
 
---=20
+As pointed out many times, shared memory is not a solution to any
+communication problem, it's merely a building block for building such
+solutions: you invariably have to layer some protocol on top.  In your
+KVM Forum talk, you mention layering virtio on top.  Makes sense to me.
+But why does *this* virtio transport have to be an independent device?
+Other transports aren't.
 
-*=E0=AE=AE=E0=AE=A3=E0=AE=BF=E0=AE=B5=E0=AE=A3=E0=AF=8D=E0=AE=A3=E0=AE=A9=
-=E0=AF=8D =E0=AE=9A=E0=AE=A4=E0=AE=BE=E0=AE=9A=E0=AE=BF=E0=AE=B5=E0=AE=AE=
-=E0=AF=8D*
+Now let me indulge in spec nitpicking :)
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/CANBTL1Ux%2B0_GjkP4LjMOR0Rcc61wyc-U6%3DJ7pnydrJHFEudpNA%40mai=
-l.gmail.com.
+> +
+> +
+> +Hypervisor Model
+> +----------------
+> +
+> +In order to provide a consistent link between peers, all connected instances of
+> +IVSHMEM devices need to be configured, created and run by the hypervisor
+> +according to the following requirements:
+> +
+> +- The instances of the device need to be accessible via PCI programming
+> +  interfaces on all sides.
 
---00000000000044778a0598f1e0f4
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+What does that mean?
 
-<div dir=3D"ltr">+ mailing list<br></div><br><div class=3D"gmail_quote"><di=
-v dir=3D"ltr" class=3D"gmail_attr">On Thu, Dec 5, 2019 at 2:52 PM Mani Sadh=
-asivam &lt;<a href=3D"mailto:manivannanece23@gmail.com">manivannanece23@gma=
-il.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"m=
-argin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left=
-:1ex"><div dir=3D"ltr"><div dir=3D"ltr">Hi Peng,</div><br><div class=3D"gma=
-il_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Dec 5, 2019 at 2:14=
- PM Peng Fan &lt;<a href=3D"mailto:peng.fan@nxp.com" target=3D"_blank">peng=
-.fan@nxp.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
-g-left:1ex">Sorry for top post.<br>
-<br>
-Would you mind share what products would you use i.MX8M EVK for?<br></block=
-quote><div><br></div><div>It is just a spare time project I&#39;m doing for=
- fun.</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"marg=
-in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
-x">
-<br>
-Also Could you please share the armv8 PR for zephyr?<br></blockquote><div><=
-br></div><div><a href=3D"https://github.com/zephyrproject-rtos/zephyr/pull/=
-20263" target=3D"_blank">https://github.com/zephyrproject-rtos/zephyr/pull/=
-20263</a><br></div><div><br></div><div>Thanks,</div><div>Mani</div><div>=C2=
-=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
-x;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-Thanks,<br>
-Peng.<br>
-<br>
-From: <a href=3D"mailto:jailhouse-dev@googlegroups.com" target=3D"_blank">j=
-ailhouse-dev@googlegroups.com</a> &lt;<a href=3D"mailto:jailhouse-dev@googl=
-egroups.com" target=3D"_blank">jailhouse-dev@googlegroups.com</a>&gt; On Be=
-half Of Mani Sadhasivam<br>
-Sent: 2019=E5=B9=B412=E6=9C=885=E6=97=A5 15:14<br>
-To: Jan Kiszka &lt;<a href=3D"mailto:jan.kiszka@siemens.com" target=3D"_bla=
-nk">jan.kiszka@siemens.com</a>&gt;<br>
-Cc: Jailhouse &lt;<a href=3D"mailto:jailhouse-dev@googlegroups.com" target=
-=3D"_blank">jailhouse-dev@googlegroups.com</a>&gt;<br>
-Subject: Re: Zephyr as a Jailhouse inmate<br>
-<br>
-Hi Jan,<br>
-<br>
-On Thu, Dec 5, 2019 at 12:36 PM Jan Kiszka &lt;mailto:<a href=3D"mailto:jan=
-.kiszka@siemens.com" target=3D"_blank">jan.kiszka@siemens.com</a>&gt; wrote=
-:<br>
-On 02.12.19 19:43, Manivannan Sadhasivam wrote:<br>
-&gt; Hello,<br>
-&gt; <br>
-&gt; I can see that the Zephyr RTOS has been mentioned in the FAQ as<br>
-&gt; one of the ported OS for non-root cells.<br>
-&gt; <br>
-&gt; Is there any reference code I can look into?<br>
-<br>
-There is x86 support for Zephyr as Jailhouse &quot;inmate&quot;. Check out<=
-br>
-zephyr/boards/x86/x86_jailhouse/doc/board.rst. If you run into trouble,<br>
-report to the communities.<br>
-<br>
-Ah, just noticed that it got removed some=C2=A0time ago:<br>
-<a href=3D"https://eur01.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Fgithub.com%2Fzephyrproject-rtos%2Fzephyr%2Fcommit%2Ff3611fdd0c8ca54a9f1=
-9bc56a14b4a2fdadaffe3%23diff-bb9445fa64739ef6a5a6b59d520deb07&amp;data=3D02=
-%7C01%7Cpeng.fan%40nxp.com%7C3e79e9ef68d24b68d9b808d77952bcf3%7C686ea1d3bc2=
-b4c6fa92cd99c5c301635%7C0%7C0%7C637111268572956815&amp;sdata=3D8SkuxLhNQarh=
-goTD8u1%2BvD6HJtByb%2BNhaTxiUbGIDIw%3D&amp;reserved=3D0" rel=3D"noreferrer"=
- target=3D"_blank">https://eur01.safelinks.protection.outlook.com/?url=3Dht=
-tps%3A%2F%2Fgithub.com%2Fzephyrproject-rtos%2Fzephyr%2Fcommit%2Ff3611fdd0c8=
-ca54a9f19bc56a14b4a2fdadaffe3%23diff-bb9445fa64739ef6a5a6b59d520deb07&amp;d=
-ata=3D02%7C01%7Cpeng.fan%40nxp.com%7C3e79e9ef68d24b68d9b808d77952bcf3%7C686=
-ea1d3bc2b4c6fa92cd99c5c301635%7C0%7C0%7C637111268572956815&amp;sdata=3D8Sku=
-xLhNQarhgoTD8u1%2BvD6HJtByb%2BNhaTxiUbGIDIw%3D&amp;reserved=3D0</a><br>
-<br>
-But this could be helpful!<br>
-=C2=A0<br>
-<br>
-We could probably also easily support ARM, but the last time this<br>
-question came up, there was still not A-core support in Zephyr which is<br>
-a precondition.<br>
-<br>
-That&#39;s what I&#39;m trying to do on IMX8M EVK in spare time. There is a=
-n ongoing<br>
-PR for adding Cortex-A support in Zephyr, so I&#39;m planning to utilize th=
-at.<br>
-<br>
-Thanks,<br>
-Mani<br>
-=C2=A0<br>
-<br>
-Jan<br>
-<br>
--- <br>
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE<br>
-Corporate Competence Center Embedded Linux<br>
-<br>
-<br>
-<br>
--- <br>
-=E0=AE=AE=E0=AE=A3=E0=AE=BF=E0=AE=B5=E0=AE=A3=E0=AF=8D=E0=AE=A3=E0=AE=A9=E0=
-=AF=8D =E0=AE=9A=E0=AE=A4=E0=AE=BE=E0=AE=9A=E0=AE=BF=E0=AE=B5=E0=AE=AE=E0=
-=AF=8D<br>
--- <br>
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br>
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to mailto:<a href=3D"mailto:jailhouse-dev%2Bunsubscribe@googlegroups.c=
-om" target=3D"_blank">jailhouse-dev+unsubscribe@googlegroups.com</a>.<br>
-To view this discussion on the web visit <a href=3D"https://eur01.safelinks=
-.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgroups.google.com%2Fd%2Fmsgid%=
-2Fjailhouse-dev%2FCANBTL1VsEGSiqZe5SG4EQ3sn4KbcvKQqYLERCT-NbqxZK5ZBKQ%2540m=
-ail.gmail.com%3Futm_medium%3Demail%26utm_source%3Dfooter&amp;data=3D02%7C01=
-%7Cpeng.fan%40nxp.com%7C3e79e9ef68d24b68d9b808d77952bcf3%7C686ea1d3bc2b4c6f=
-a92cd99c5c301635%7C0%7C0%7C637111268572966810&amp;sdata=3DCoOfSEdyP2GQjOiwC=
-vjWQ9UlrD0vqtKTYuaeSYca96k%3D&amp;reserved=3D0" rel=3D"noreferrer" target=
-=3D"_blank">https://eur01.safelinks.protection.outlook.com/?url=3Dhttps%3A%=
-2F%2Fgroups.google.com%2Fd%2Fmsgid%2Fjailhouse-dev%2FCANBTL1VsEGSiqZe5SG4EQ=
-3sn4KbcvKQqYLERCT-NbqxZK5ZBKQ%2540mail.gmail.com%3Futm_medium%3Demail%26utm=
-_source%3Dfooter&amp;data=3D02%7C01%7Cpeng.fan%40nxp.com%7C3e79e9ef68d24b68=
-d9b808d77952bcf3%7C686ea1d3bc2b4c6fa92cd99c5c301635%7C0%7C0%7C6371112685729=
-66810&amp;sdata=3DCoOfSEdyP2GQjOiwCvjWQ9UlrD0vqtKTYuaeSYca96k%3D&amp;reserv=
-ed=3D0</a>.<br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
-><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=
-=3D"ltr"><div><div dir=3D"ltr"><div><pre dir=3D"ltr" style=3D"border:none;p=
-adding:0px 0.14em 0px 0px;margin-top:0px;margin-bottom:0px;font-family:inhe=
-rit;overflow:hidden;width:275px;white-space:pre-wrap;height:36px;line-heigh=
-t:36px"><span lang=3D"ta"><i><font color=3D"#444444">=E0=AE=AE=E0=AE=A3=E0=
-=AE=BF=E0=AE=B5=E0=AE=A3=E0=AF=8D=E0=AE=A3=E0=AE=A9=E0=AF=8D =E0=AE=9A=E0=
-=AE=A4=E0=AE=BE=E0=AE=9A=E0=AE=BF=E0=AE=B5=E0=AE=AE=E0=AF=8D</font></i></sp=
-an></pre></div></div></div></div></div></div></div></div></div></div></div>=
-</div>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature"><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div=
- dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr"><div><pre dir=3D"l=
-tr" style=3D"border:none;padding:0px 0.14em 0px 0px;margin-top:0px;margin-b=
-ottom:0px;font-family:inherit;overflow:hidden;width:275px;white-space:pre-w=
-rap;height:36px;line-height:36px"><span lang=3D"ta"><i><font color=3D"#4444=
-44">=E0=AE=AE=E0=AE=A3=E0=AE=BF=E0=AE=B5=E0=AE=A3=E0=AF=8D=E0=AE=A3=E0=AE=
-=A9=E0=AF=8D =E0=AE=9A=E0=AE=A4=E0=AE=BE=E0=AE=9A=E0=AE=BF=E0=AE=B5=E0=AE=
-=AE=E0=AF=8D</font></i></span></pre></div></div></div></div></div></div></d=
-iv></div></div></div></div>
+> +
+> +- The read/write shared memory section has to be of the same size for all
+> +  peers and, if non-zero, has to reflect the same memory content for them.
 
-<p></p>
+Isn't "same memory content" redundant with "shared memory"?
 
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/CANBTL1Ux%2B0_GjkP4LjMOR0Rcc61wyc-U6%3DJ7pnydrJHFE=
-udpNA%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://grou=
-ps.google.com/d/msgid/jailhouse-dev/CANBTL1Ux%2B0_GjkP4LjMOR0Rcc61wyc-U6%3D=
-J7pnydrJHFEudpNA%40mail.gmail.com</a>.<br />
+> +
+> +- If output sections are present (non-zero section size), there must be one
+> +  reserved for each peer with exclusive write access. All output sections
+> +  must have the same size and must be readable for all peers. They have to
+> +  reflect the same memory content for all peers.
 
---00000000000044778a0598f1e0f4--
+Are these the "unidirectional sections" mentioned previously?
+
+> +
+> +- The State Table must have the same size for all peers, must be large enough to
+> +  hold a state values of all peers, and must be read-only for the user.
+
+"the state values", I guess.
+
+> +
+> +- State register changes (explicit writes, peer resets) have to be propagated
+> +  to the other peers by updating the corresponding State Table entry and issuing
+> +  an interrupt to all other peers if they enabled reception.
+> +
+> +- Interrupts events triggered by a peer have to be delivered to the target peer,
+> +  provided the receiving side is valid and has enabled the reception.
+> +
+> +- All peers must have the same interrupt delivery features available, i.e. MSI-X
+> +  with the same maximum number of vectors on platforms supporting this
+> +  mechanism, otherwise INTx with one vector.
+
+Use case for legacy INTx?
+
+For what it's worth, we removed INTx support from ivshmem v1 in rev 1,
+QEMU 2.6.
+
+> +
+> +
+> +Guest-side Programming Model
+> +----------------------------
+> +
+> +An IVSHMEM device appears as a PCI device to its users. Unless otherwise noted,
+> +it conforms to the PCI Local Bus Specification, Revision 3.0 As such, it is
+
+Uh, is there anything in it that does *not* conform to this spec?
+
+> +discoverable via the PCI configuration space and provides a number of standard
+> +and custom PCI configuration registers.
+> +
+> +### Shared Memory Region Layout
+> +
+> +The shared memory region is divided into several sections.
+> +
+> +    +-----------------------------+   -
+> +    |                             |   :
+> +    | Output Section for peer n-1 |   : Output Section Size
+> +    |     (n = Maximum Peers)     |   :
+> +    +-----------------------------+   -
+> +    :                             :
+> +    :                             :
+> +    :                             :
+> +    +-----------------------------+   -
+> +    |                             |   :
+> +    |  Output Section for peer 1  |   : Output Section Size
+> +    |                             |   :
+> +    +-----------------------------+   -
+> +    |                             |   :
+> +    |  Output Section for peer 0  |   : Output Section Size
+> +    |                             |   :
+> +    +-----------------------------+   -
+> +    |                             |   :
+> +    |     Read/Write Section      |   : R/W Section Size
+> +    |                             |   :
+> +    +-----------------------------+   -
+> +    |                             |   :
+> +    |         State Table         |   : State Table Size
+> +    |                             |   :
+> +    +-----------------------------+   <-- Shared memory base address
+> +
+> +The first section consists of the mandatory State Table. Its size is defined by
+> +the State Table Size register and cannot be zero. This section is read-only for
+> +all peers.
+> +
+> +The second section consists of shared memory that is read/writable for all
+> +peers. Its size is defined by the R/W Section Size register. A size of zero is
+> +permitted.
+> +
+> +The third and following sections are unidirectional output sections, one for
+> +each peer. Their sizes are all identical. The size of a single output section is
+> +defined by the Output Section Size register. An output section is read/writable
+> +for the corresponding peer and read-only for all other peers. E.g., only the
+> +peer with ID 3 can write to the fourths output section, but all peers can read
+> +from this section.
+> +
+> +All sizes have to be rounded up to multiples of a mappable page in order to
+> +allow access control according to the section restrictions.
+> +
+> +### Configuration Space Registers
+> +
+> +#### Header Registers
+> +
+> +| Offset | Register               | Content                                              |
+> +|-------:|:-----------------------|:-----------------------------------------------------|
+> +|    00h | Vendor ID              | 1AF4h                                                |
+> +|    02h | Device ID              | 1110h                                                |
+
+Same as ivshmem v1.  Revision ID (offset 08h) disambiguates.
+
+> +|    04h | Command Register       | 0000h on reset, implementing bits 1, 2, 10           |
+
+What does "implementing bits ..." mean?
+
+> +|    06h | Status Register        | 0010h, static value (bit 3 not implemented)          |
+
+What does "bit 3 not implemented" mean?
+
+> +|    08h | Revision ID            | 02h                                                  |
+
+ivshmem v1 is rev 0 before QEMU 2.6, rev 1 since.  Rev 1 is
+backward-compatible to rev 0 for guest software.  Is rev 2 intended to
+be backward-compatible, too?
+
+You should probably explan how your v2 relates to v1 in more detail,
+possibly in its own top-level section.
+
+> +|    09h | Class Code, Interface  | Protocol Type bits 0-7, see [Protocols](#Protocols)  |
+> +|    0Ah | Class Code, Sub-Class  | Protocol Type bits 8-15, see [Protocols](#Protocols) |
+> +|    0Bh | Class Code, Base Class | FFh                                                  |
+
+FFh means "device does not fit any defined class."  For what it's worth,
+ivshmem v1 uses 05h "Memory Controller", with sub-class and interface
+00h "RAM Controller".
+
+> +|    0Eh | Header Type            | 00h                                                  |
+> +|    10h | BAR 0                  | MMIO or I/O register region                          |
+
+Use case for I/O?
+
+For what it's worth, ivshmem v1 never supported I/O.
+
+> +|    14h | BAR 1                  | MSI-X region                                         |
+> +|    18h | BAR 2 (with BAR 3)     | optional: 64-bit shared memory region                |
+
+What does "(with BAR 3)" mean?
+
+> +|    2Ch | Subsystem Vendor ID    | same as Vendor ID, or provider-specific value        |
+> +|    2Eh | Subsystem ID           | same as Device ID, or provider-specific value        |
+
+ivshmem v1 leaves these blank.
+
+> +|    34h | Capability Pointer     | First capability                                     |
+> +|    3Eh | Interrupt Pin          | 01h-04h, must be 00h if MSI-X is available           |
+
+"If MSI-X is available"?
+
+A PCIe device always provides MSI-X, and may additionally provide legacy
+INTx.  A conventional PCI device may provide either or both.  In any
+case, the Interrupt Pin register is zero when legacy INTx is not
+provided,
+
+> +
+> +If BAR 2 is not present, the shared memory region is not relocatable by the
+> +user. In that case, the hypervisor has to implement the Base Address register in
+> +the vendor-specific capability.
+> +
+> +Other header registers may not be implemented. If not implemented, they return 0
+> +on read and ignore write accesses.
+
+Is this an example of where the device does not conform to the PCI Local
+Bus Specification?
+
+> +
+> +#### Vendor Specific Capability (ID 09h)
+> +
+> +| Offset | Register            | Content                                        |
+> +|-------:|:--------------------|:-----------------------------------------------|
+> +|    00h | ID                  | 09h                                            |
+> +|    01h | Next Capability     | Pointer to next capability or 00h              |
+> +|    02h | Length              | 18h or 20h                                     |
+> +|    03h | Privileged Control  | Bit 0 (read/write): one-shot interrupt mode    |
+> +|        |                     | Bits 1-7: RsvdZ                                |
+
+Please define RsvdZ somewhere, or use plainer language.
+
+> +|    04h | State Table Size    | 32-bit size of read-only State Table           |
+> +|    08h | R/W Section Size    | 64-bit size of common read/write section       |
+> +|    10h | Output Section Size | 64-bit size of unidirectional output sections  |
+> +|    18h | Base Address        | optional: 64-bit base address of shared memory |
+
+Length is 20h when Base Adress is present, else 18h.  Worth spelling
+that out?
+
+> +
+> +All registers are read-only, except for bit 0 of the Privileged Control
+> +register.
+
+Well, the other bits of that register are writable, they're just
+ignored.
+
+For what it's worth, existing ivshmem-spec.txt uses the terms read-only,
+write-only, read/write and reserved bits rigorously: "Software should
+only access the registers as specified [...]  Reserved bits should be
+ignored on read, and preserved on write."
+
+> +
+> +When bit 0 in the Privileged Control register is set to 1, the device clears
+> +bit 0 in the Interrupt Control register on each interrupt delivery. This enables
+> +automatic interrupt throttling when re-enabling shall be performed by a
+> +scheduled unprivileged instance on the user side.
+> +
+> +If an IVSHMEM device does not support a relocatable shared memory region, BAR 2
+> +must not be implemented by the provider. Instead, the Base Address register has
+> +to be implemented to report the location of the shared memory region in the
+> +user's address space.
+
+Rationale for not wanting to support relocatable shared memory?
+
+> +
+> +A non-existing shared memory section has to report zero in its Section Size
+> +register.
+
+This vendor-specific capability must always be present, I presume.
+Worth spelling out.
+
+> +
+> +#### MSI-X Capability (ID 11h)
+> +
+> +On platforms supporting MSI-X, IVSHMEM has to provide interrupt delivery via
+> +this mechanism. In that case, the legacy INTx delivery mechanism is not
+> +available, and the Interrupt Pin configuration register returns 0.
+
+I'm confused.  Does that mean the device shall support either MSI-X or
+legacy INTx, but never both?
+
+> +
+> +The IVSHMEM device has no notion of pending interrupts. Therefore, reading from
+> +the MSI-X Pending Bit Array will always return 0.
+
+I guess this means a polling mode of operation is not possible.
+Correct?
+
+> +
+> +The corresponding MSI-X MMIO region is configured via BAR 1.
+> +
+> +The MSI-X table size reported by the MSI-X capability structure is identical for
+> +all peers.
+> +
+> +### Register Region
+> +
+> +The register region may be implemented as MMIO or I/O.
+> +
+> +When implementing it as MMIO, the hypervisor has to ensure that the register
+> +region can be mapped as a single page into the address space of the user. Write
+
+"can be mapped as a single page" depends on the host system, not the
+device.
+
+For what it's worth, ivshmem v1 fixes the size of BAR0 to 256 bytes.
+Any particular reason to keep its size so loosely specified in v2?
+
+> +accesses to MMIO region offsets that are not backed by registers have to be
+> +ignored, read accesses have to return 0. This enables the user to hand out the
+> +complete region, along with the shared memory, to an unprivileged instance.
+> +
+> +The region location in the user's physical address space is configured via BAR
+> +0. The following table visualizes the region layout:
+> +
+> +| Offset | Register                                                            |
+> +|-------:|:--------------------------------------------------------------------|
+> +|    00h | ID                                                                  |
+> +|    04h | Maximum Peers                                                       |
+> +|    08h | Features                                                            |
+> +|    0Ch | Interrupt Control                                                   |
+> +|    10h | Doorbell                                                            |
+> +|    14h | State                                                               |
+> +
+> +All registers support only aligned 32-bit accesses.
+
+Definitely not backwards compatible to rev 1.  I figure that means v2
+should use a different Vendor ID / Device ID, not just bump the Revsion
+ID.
+
+No interrupt status register?
+
+> +
+> +#### ID Register (Offset 00h)
+> +
+> +Read-only register that reports the ID of the local device. It is unique for all
+> +of the connected devices and remains unchanged over their lifetime.
+> +
+> +#### Maximum Peers Register (Offset 04h)
+> +
+> +Read-only register that reports the maximum number of possible peers (including
+> +the local one). The supported range is between 2 and 65536 and remains constant
+> +over the lifetime of all peers.
+
+Value 1 would be boring, but is it really impossible?
+
+> +
+> +#### Features Register (Offset 08h)
+> +
+> +Read-only register that reports features of the local device or the connected
+> +peers. Its content remains constant over the lifetime of all peers.
+> +
+> +| Bits | Content                                                               |
+> +|-----:|:----------------------------------------------------------------------|
+> +|    0 | 1: Synchronized shared memory base address                            |
+> +| 1-31 | RsvdZ                                                                 |
+> +
+> +If "synchronized shared memory base address" is reported (bit 0 is set), the
+> +shared memory region is mapped at the same address into the user address spaces
+> +of all connected peers. Thus, peers can use physical addresses as pointers when
+> +exchanging information via the shared memory. This feature flag is never set
+> +when the shared memory region is relocatable via BAR 2.
+> +
+> +#### Interrupt Control Register (Offset 0Ch)
+> +
+> +This read/write register controls the generation of interrupts whenever a peer
+> +writes to the Doorbell register or changes its state.
+> +
+> +| Bits | Content                                                               |
+> +|-----:|:----------------------------------------------------------------------|
+> +|    0 | 1: Enable interrupt generation                                        |
+> +| 1-31 | RsvdZ                                                                 |
+> +
+> +Note that bit 0 is reset to 0 on interrupt delivery if one-shot interrupt mode
+> +is enabled in the Enhanced Features register.
+> +
+> +The value of this register after device reset is 0.
+
+I presume this applies only to legacy INTx.  Correct?
+
+ivshmem v1 calls this Interrupt Mask.
+
+> +
+> +#### Doorbell Register (Offset 10h)
+> +
+> +Write-only register that triggers an interrupt vector in the target device if it
+> +is enabled there.
+> +
+> +| Bits  | Content                                                              |
+> +|------:|:---------------------------------------------------------------------|
+> +|  0-15 | Vector number                                                        |
+> +| 16-31 | Target ID                                                            |
+> +
+> +Writing a vector number that is not enabled by the target has no effect. The
+> +peers can derive the number of available vectors from their own device
+> +capabilities and are expected to define or negotiate the used ones via the
+> +selected protocol.
+
+That's because all peers use the same number of vectors.  Worth spelling out?
+
+> +
+> +Addressing a non-existing or inactive target has no effect. Peers can identify
+> +active targets via the State Table.
+> +
+> +The behavior on reading from this register is undefined.
+> +
+> +#### State Register (Offset 14h)
+> +
+> +Read/write register that defines the state of the local device. Writing to this
+> +register sets the state and triggers interrupt vector 0 on the remote device if
+
+"the remote device"?  Do you mean all peers?
+
+"interrupt vector 0" assumes MSI-X.  With legacy INTx, it simply
+triggers an interrupt.
+
+How can guest software distinguish between "interrupt due to remote
+state change" and "interrupt due to doorbell"?
+
+Things become so much easier when you ditch INTx: reserve vector 0 for
+state change, done.
+
+> +the written state value differs from the previous one. The user of the remote
+> +device can read the value written to this register from the State Table.
+> +
+> +The value of this register after device reset is 0.
+
+I guess the meaning of state values depends on the protocol type.
+Correct?
+
+> +
+> +### State Table
+> +
+> +The State Table is a read-only section at the beginning of the shared memory
+> +region. It contains a 32-bit state value for each of the peers. Locating the
+> +table in shared memory allows fast checking of remote states without register
+> +accesses.
+> +
+> +The table is updated on each state change of a peers. Whenever a user of an
+> +IVSHMEM device writes a value to the Local State register, this value is copied
+> +into the corresponding entry of the State Table. When a IVSHMEM device is reset
+> +or disconnected from the other peers, zero is written into the corresponding
+> +table entry. The initial content of the table is all zeros.
+> +
+> +    +--------------------------------+
+> +    | 32-bit state value of peer n-1 |
+> +    +--------------------------------+
+> +    :                                :
+> +    +--------------------------------+
+> +    | 32-bit state value of peer 1   |
+> +    +--------------------------------+
+> +    | 32-bit state value of peer 0   |
+> +    +--------------------------------+ <-- Shared memory base address
+> +
+> +
+> +Protocols
+> +---------
+> +
+> +The IVSHMEM device shall support the peers of a connection in agreeing on the
+> +protocol used over the shared memory devices. For that purpose, the interface
+> +byte (offset 09h) and the sub-class byte (offset 0Ah) of the Class Code register
+> +encodes a 16-bit protocol type for the users. The following type values are
+> +defined:
+> +
+> +| Protocol Type | Description                                                  |
+> +|--------------:|:-------------------------------------------------------------|
+> +|         0000h | Undefined type                                               |
+> +|         0001h | Virtual peer-to-peer Ethernet                                |
+> +|   0002h-3FFFh | Reserved                                                     |
+> +|   4000h-7FFFh | User-defined protocols                                       |
+> +|   8000h-BFFFh | Virtio over Shared Memory, front-end peer                    |
+> +|   C000h-FFFFh | Virtio over Shared Memory, back-end peer                     |
+> +
+> +Details of the protocols are not in the scope of this specification.
+
+Are you sure this use of PCI class code is kosher?
+
+Final request: please break your lines around column 70 for readability.
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/87blsndnxx.fsf%40dusky.pond.sub.org.
