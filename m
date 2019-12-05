@@ -1,132 +1,130 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBYHTULXQKGQE3MHWFOY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBCHWULXQKGQEOUWQB7Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x240.google.com (mail-lj1-x240.google.com [IPv6:2a00:1450:4864:20::240])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE985113CBC
-	for <lists+jailhouse-dev@lfdr.de>; Thu,  5 Dec 2019 09:03:44 +0100 (CET)
-Received: by mail-lj1-x240.google.com with SMTP id z23sf588798ljk.21
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 05 Dec 2019 00:03:44 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1575533024; cv=pass;
+Received: from mail-wr1-x43e.google.com (mail-wr1-x43e.google.com [IPv6:2a00:1450:4864:20::43e])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A601113CCE
+	for <lists+jailhouse-dev@lfdr.de>; Thu,  5 Dec 2019 09:08:41 +0100 (CET)
+Received: by mail-wr1-x43e.google.com with SMTP id j13sf1161066wrr.20
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 05 Dec 2019 00:08:41 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1575533321; cv=pass;
         d=google.com; s=arc-20160816;
-        b=N24Ksk63XVSwgObv7DkRQTXJAvxR/sjA1e0MCH6GqJ9KMcXa1MVBNlVuzx2jUkjwAI
-         kdVWO+Ato019Wb7oipT9323sAUSAD51O3lpHA3Pm1KfqgCgucrI7o+09OG5itmNqZQYm
-         31VwhCTL8Ep7txFlxFY7btZ8WyzpCwcrT4HiaUWCZHBZxU1+t6A7lY3z8a4yr56DcW+3
-         z3k1PHUN2rkSozzURMQk5kJfym/kEspt0BpTQzwCsKinLODk3Zn06mNHJ7yscR6AOJEx
-         abtyJMW7LThu2Ix/rlwta4g09WRAz0pZe7l3B1snJd3LKBrcg7C4fThvU+gUoBhCFMDB
-         ZTUQ==
+        b=Ehfr+u8pVdZwUIU/ORjcFLlvRvrwJq4WBaqOv3q3jyAtB3tCXIOhXMqRpLS6fX0EMH
+         8ZqNAyhTU0b8xMCycz/dbfC4ln7h6znvXEIwGVcGSQMMv0h/NQIx/Zw/PQ2860P9RtXw
+         avNrvRnybAGoKnyy3QeQz3jFDzBgtaoGDBA/YNCl0iep3pgHX+/Ivrn2xQEl9OugRu3d
+         vwojr+rRie+SJzm4ljkVs90IflVwJXc8soecM5R4hqs6IrWK0yI+YyG518AbQFFSS1YN
+         +3R0hCv5jKv6XMk09ZStrAI/ENwN33lW328LQ1YLK8yNxlPlT2C1/WpyugkNKBZ+vmWj
+         X/tA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
          :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:cc:to:subject:sender:dkim-signature;
-        bh=m+GWnvLEMQFBKPIuVJq3E1N+q052izuW81eFI6MM5LQ=;
-        b=KM0yEI5qOlPM/mEVd0QXh5gRJ8pdYUHTOdYAoeSsCTUtu6Cj6vmq5teVl/4j5p6RYk
-         9mLuNmVb4/cw/PVd0UhANiujY3cqDdiIX1NdmHoZimr9Q0WVQtc9jVUhI7VI6xyEz5bK
-         N37xb4HeSfIierp/VGj7Ukz9YCuPK/rfhkE5nHTL1SY2SVhLaThh1/0w9qJg5SAfj4yA
-         b6WzXa87iUsSt57PWoyrO0Ic250F+kB0hKTHKDHbaLNL+FfT/xY/gje9oOMb2PdiTgdH
-         TPbK1u26liqu8spsT/ecyL3J/I/jsoD+qBZv6ZfZOSB0NMsCZBRTPd6zDQxoEGEMvSnV
-         O/Og==
+         :message-id:cc:references:to:from:subject:sender:dkim-signature;
+        bh=8sqesoDA776X2M2vV9F5BLq6iUWEh6pEoTrxeVV3tTI=;
+        b=cxEk2xHiXhGwwApIAR9NxqsA6gc7zfyk7N4sLuQt3W75A7sZ8yX5yFjuuQa3QwbAsc
+         QrhDMHNppalbq+DGXIdUX/3FqTjbTaw3m//u2YqisDS40UOUZ6A1Mu7/qKj2sZ8kBLW8
+         ZI6aXViRkigKNWvGidBRd45gAVNtZfhqky2sI0AD7zEb8oYjRIGo3f+iEn7Ng50gAEWx
+         ki9v1ltNvsRjasXuEMGqg24k+WOSUv8L3krfefXeed2UF6/UXE4ce9ErlQ3WDb4fS1aV
+         cMH/TTFqiO/zb7CjIbtthPM9CpUKYWZ49Mxo9p8Z4GqRttQEqHuIyTwCe+h6puMNuuCd
+         ALrQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+        h=sender:subject:from:to:references:cc:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=m+GWnvLEMQFBKPIuVJq3E1N+q052izuW81eFI6MM5LQ=;
-        b=Fc71h7hKnu4ihYRbw5vsFqiv2Rldz3cyjn8cM3SHE/12aXjQLDb397/ytqaAVdXpeO
-         F3JDMw93v8a91p90jZ1mmdSLmfrg+8O2QfabBWLvEMKSAar0Mt5dToKlXm6JPU1CACsm
-         eCrPYZ3LD8shegyVDo6o9xfuPxsXD6Y3mZpRAULDdWzuI0wvqWGq1vvp7uhzwqXn1Rz4
-         yoUnqh9RSY6Njvvhvr5VboZ8InWbMqwX+lostqO986Nl4tXISovrlRzMayX4CEeEMFS+
-         rdK4FJicTnHIp2aA98LxHiNqJtWw3x4/z9S/N+bJpWJ0GIp9bmsu5NhACw/3GO5h0fAw
-         240A==
+        bh=8sqesoDA776X2M2vV9F5BLq6iUWEh6pEoTrxeVV3tTI=;
+        b=ILQrKng1YrMkyFvhNqp7onrtoqpPzWWWK7RxZCgv+Oz+HC/S8LqFlYti4lnQmCKQ6E
+         D8cvOuS0AB7GUNrBkpSKrLIeeJcH9Nn8zAKs/rYbltiXVmCaJELmU5Z0GtBjwIS+E/Gt
+         YPD/LwVBesgkqRnM8PHinWGpb2CcArzEu6xIh+buMm4MT03LAMhOC58+dhPoYwv8jtjf
+         4Z3AXjxqcVzFAN2X5Hp1iwoa2GzSxQfLHYeEGyEMMAOXGKDN/Tl0QHNN5UAUIUMnNbb+
+         6qaeoU19PQO8Y1WoTZgsssQYfDxwJl7/qHus8hdeMKKQ4bCq0lyWvvzvlPzK0lbkgndt
+         vvtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
+        h=sender:x-gm-message-state:subject:from:to:references:cc:message-id
          :date:user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=m+GWnvLEMQFBKPIuVJq3E1N+q052izuW81eFI6MM5LQ=;
-        b=p6dYcWEcSMS1y70MAeQAmRldiMAx//WE8uJS0c5MZP2i6mlkwA3RuEEPaX7Z/OzKws
-         oG/4cegyO19x2K+f2xBH2mcUPrPsxwVGAxbKM8UrqMhUeoyPuNsYvzM1XuGdXNQmBS/h
-         Tqlq54nUZb7QHtwBcUO4BLfcaA4l+KX6563fXBKAZmjEShebtL0Q0N1AMiwDqgk1sWYn
-         dmZBmgDFH1AGggIXEnECQQCzh4DU99ptylKOyrbekUOxRtvD8pNY8jU+i3bVfZUmemTY
-         VbDzCirYeabAdZZCf6cNHt1pTRmGfOUT5KCUkFZebhp5SjMLosqNDbcOW5Yw5SRzfjdd
-         458g==
+        bh=8sqesoDA776X2M2vV9F5BLq6iUWEh6pEoTrxeVV3tTI=;
+        b=T4qo2prNoJTc5xLwfaTJDax5J2R7GRwY4ZxJu0KHZ467d10DwxwJkTdfOQDGD6Absx
+         llMbX4stKWgSHWwjy2dIIweMPs1KJ3+5J2lwTbSL9ey+e5owTPMJpG1CBQV8o8DAMMhd
+         0iJI4XaF4RxbEPiMHBH57iNK8IehNGoK9zHtxyV/nwBONCE3+g4dClA0dwSbZThvCT0v
+         OJzLc6X92m/CYXQLD0uivX6kxVCKIc2uCvGXZQGQNP8ITXuuThL81esikvu1Rpv/Km+h
+         rD6lWWeYL/vXSQZmr1kyq4GdlhvbTEP3xEsv1A/bMoUnTs1iK7kYujAmcRl0WkT5jlYN
+         cGfA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVpFY2g+M04+35Wx+Jr84tGSXCntpCgCkbKmThlQpAoUhalHjkD
-	TQQJxGol//PHly9w+pZBsU8=
-X-Google-Smtp-Source: APXvYqyxvwV3x2tXEsO7fQz28M8qTFQcPKPNlM31Cbby10g6nZphQYUr0BguGVKBdBO+WWNkU7UcMA==
-X-Received: by 2002:a19:f00d:: with SMTP id p13mr4600912lfc.37.1575533024421;
-        Thu, 05 Dec 2019 00:03:44 -0800 (PST)
+X-Gm-Message-State: APjAAAV/9fRK6dmk8QgI9pTOcsMuchUJml7M2vKqNbrxa+rTJSfFu4ka
+	F04Am5jEOfFlzytcLIiBWcc=
+X-Google-Smtp-Source: APXvYqx41tnpEZGnjxda0l1VzlAY8P0l7gVtHUnZHjZbs2pjLdr/hPA2AQJV9fliac0AqKJ55URqEw==
+X-Received: by 2002:a05:6000:1047:: with SMTP id c7mr8856211wrx.341.1575533321050;
+        Thu, 05 Dec 2019 00:08:41 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac2:4acf:: with SMTP id m15ls198847lfp.13.gmail; Thu, 05 Dec
- 2019 00:03:43 -0800 (PST)
-X-Received: by 2002:ac2:5623:: with SMTP id b3mr4121299lff.10.1575533023632;
-        Thu, 05 Dec 2019 00:03:43 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1575533023; cv=none;
+Received: by 2002:a5d:5284:: with SMTP id c4ls926154wrv.15.gmail; Thu, 05 Dec
+ 2019 00:08:40 -0800 (PST)
+X-Received: by 2002:adf:fe90:: with SMTP id l16mr9088727wrr.265.1575533320412;
+        Thu, 05 Dec 2019 00:08:40 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1575533320; cv=none;
         d=google.com; s=arc-20160816;
-        b=TR9bkDdcyhyBwH5TDbcPm/NnqdFc5n4VNmYLvSgX1u86h35+xi2DUcB88Hue5oT7dZ
-         hrrvOsmJFeCKfYx8WQuPd4IgHJHCNrVuNiAZTikQ6zjfELfNueYVC7Po0PMCa+nayd2T
-         dOiP8tL/C2ikAkEhtgVB3WgWJc0a/qaIDKxJBmzL/Ejh8kXWRxAwXLmTou9q+LnqrqIY
-         f+4mO/bwCiMrXc8leiB/PZ7j1UC1X1WGXYNcLpkXsPbno9Ad1TC17IOoZ4Epq4Be080U
-         yS5utN3qC5/r70KAz0kHXtXmzUiQADi9S8af1YEHQBy/LAJGdwq+RLeMntAtQJQyK5Gy
-         hHiQ==
+        b=LkkR5Wuq05xdqB+uDXmH8FjCi4l83FVEQ/elKQ0c1KGHNNUmtpXxpoaoVyHeKyxhDz
+         PntPuYPjh2qg1lL1f0MTj+FitrDLbvhBF6rm9BQFVij7q2S+Yt0nstFsBoIw9ZyF/LyF
+         22E9RmdECXWjigg62kx1nqJyDoK9mNW9oB8zBvigbUuHwWSHCdWcm8HESEARwt86AbyO
+         QU1k8n9TsKWW5uHjVGjaZehWfoed71+X7QjLe9aL1Owd5Q3y3p2ZxMes4Sl24c0OHC6W
+         wT+zdZF7VimhVph6WpaM0d3zoLlBJ5OqGtaLrn1wt1TnivVUBJfM7ChUzHdSzE/4NK9M
+         BcrQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=e9evYVY5Y0vEEax7rKL7DVGA89RLvl8b0JqKmDWnbZs=;
-        b=wYRm6Jfw5aQ/DtUOxVULazMSEla1m5uDkT2D7rbUfOQDdTrC0VBdHIri9zoriAP97H
-         avTwF9LkX7w8x3EWvEqwuBN/o+18UpYQhoEG4hr8RpioZ2299AjkWuA0++Hy/fy9nIDt
-         Djlr0okoo95M7ZLGjbwhI23omtjE/oDFCOHUy9F6NS/PAabuADR7EerEr+0oaprP47RI
-         b2aWfdCJShBOJSfsKxH2m0q720Q8Cn2EY5gz0vKXLF3QQMtyS5CiKGeEC5m/8KCwWZ/i
-         OvtjscaiLHjH4ybmYIZO9uyNoZStEg5Ci+s9uSb+RxSpxsMKbbzh6wgmLcof3BEUt2ii
-         3fCA==
+         :user-agent:date:message-id:cc:references:to:from:subject;
+        bh=FuzixZm2MZDm4jZsLW115XIPIZG2DHNGZ+anL8JQAlE=;
+        b=dnPPTD/TmkdL4i4Ulb50VHuUKw8n53642QpX8f94zjg70ezlM8L+EQwzFGeH7Q0S2B
+         qIX9HVZlbvMrNPEEfAnLIW2pYkp4sbDa1Iga/g+ZPPBVrSjr1L9BHCvtEfbCxiLKgjxa
+         5JhsN4bxwpO2iq7jMRcoYztajCzBLs/jaRW6ViPu2THp45gwvCapctfLvX61z4TnjlKy
+         J/4ne7us7mdDSiL5YxEQhAjlQkH3A/VK6CiiprDIeN3VpNBRT9LjatzMPIiDFzPMIQ58
+         O56tc4E+rDKsirjLezACoNcapX2AxeNzcobC5cOVW5ouesqa5ozFa/fWUz8sTnTCK/rx
+         cbNQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
-        by gmr-mx.google.com with ESMTPS id f1si502893ljg.2.2019.12.05.00.03.43
+Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
+        by gmr-mx.google.com with ESMTPS id k189si420362wma.0.2019.12.05.00.08.40
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 05 Dec 2019 00:03:43 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
+        Thu, 05 Dec 2019 00:08:40 -0800 (PST)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
 Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id xB583gZp027710
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id xB588dOI014093
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 5 Dec 2019 09:03:42 +0100
+	Thu, 5 Dec 2019 09:08:39 +0100
 Received: from [139.22.77.67] ([139.22.77.67])
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id xB583g6p028002;
-	Thu, 5 Dec 2019 09:03:42 +0100
-Subject: Re: [PATCH 1/2] arm: irqchip: add lock in irqchip_inject_pending
-To: Peng Fan <peng.fan@nxp.com>,
-        "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
-Cc: Alice Guo <alice.guo@nxp.com>
-References: <20191203084553.20669-1-peng.fan@nxp.com>
- <3408fd87-22fa-31bc-657d-8661ad3998f3@siemens.com>
- <AM0PR04MB4481FCD642715C2D03DA78EB88420@AM0PR04MB4481.eurprd04.prod.outlook.com>
- <81533a5d-8385-9872-ef22-4bcaa30c98f5@siemens.com>
- <AM0PR04MB44811BEC3EDE072313C1F3B888420@AM0PR04MB4481.eurprd04.prod.outlook.com>
- <46f71ed9-d4a2-d695-2ce5-307bfd13d1ca@siemens.com>
- <AM0PR04MB44813A2E63BF7C31B34C4E1C885C0@AM0PR04MB4481.eurprd04.prod.outlook.com>
+	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id xB588dE6005670;
+	Thu, 5 Dec 2019 09:08:39 +0100
+Subject: Re: Zephyr as a Jailhouse inmate
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <bef9b0b0-3bc0-4982-3b3d-aa829ad6ceb5@siemens.com>
-Date: Thu, 5 Dec 2019 09:03:41 +0100
+To: Mani Sadhasivam <manivannanece23@gmail.com>
+References: <e4de0ebb-83e6-4010-8f17-7cbbdafec19f@googlegroups.com>
+ <ae19eed5-afc4-ddf2-1855-4bd474790065@siemens.com>
+ <CANBTL1VsEGSiqZe5SG4EQ3sn4KbcvKQqYLERCT-NbqxZK5ZBKQ@mail.gmail.com>
+ <87131459-2a1d-91b5-21f5-3dfccd49fa81@siemens.com>
+ <CANBTL1XSjDtz5OFuMUXSM0R_=nsESgHH1WFxRk9qaA2uCy0Jww@mail.gmail.com>
+ <0660d2b8-b8e4-fcf2-69cf-068b9fc4a622@siemens.com>
+Cc: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-ID: <a27fdb7b-0c85-d967-7c8c-81d26b0157b6@siemens.com>
+Date: Thu, 5 Dec 2019 09:08:38 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.2.1
 MIME-Version: 1.0
-In-Reply-To: <AM0PR04MB44813A2E63BF7C31B34C4E1C885C0@AM0PR04MB4481.eurprd04.prod.outlook.com>
+In-Reply-To: <0660d2b8-b8e4-fcf2-69cf-068b9fc4a622@siemens.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
@@ -141,233 +139,86 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 05.12.19 03:28, Peng Fan wrote:
-> Hi Jan,
->=20
->> -----Original Message-----
->> From: Jan Kiszka <jan.kiszka@siemens.com>
->> Sent: 2019=E5=B9=B412=E6=9C=883=E6=97=A5 17:18
->> To: Peng Fan <peng.fan@nxp.com>; jailhouse-dev@googlegroups.com
->> Cc: Alice Guo <alice.guo@nxp.com>
->> Subject: Re: [PATCH 1/2] arm: irqchip: add lock in irqchip_inject_pendin=
-g
->>
->> On 03.12.19 10:15, Peng Fan wrote:
->>>> Subject: Re: [PATCH 1/2] arm: irqchip: add lock in
->>>> irqchip_inject_pending
->>>>
->>>> On 03.12.19 09:58, Peng Fan wrote:
->>>>>> Subject: Re: [PATCH 1/2] arm: irqchip: add lock in
->>>>>> irqchip_inject_pending
->>>>>>
->>>>>> On 03.12.19 09:27, Peng Fan wrote:
->>>>>>> Thinking about core0 is inject SGI to core1, core1 is handling SGI
->>>>>>> interrupt.
->>>>>>>
->>>>>>> That means core0 might be in path to enqueue SGI into the
->>>>>>> pending_irqs array, core1 might be in path handling SGI and pick
->>>>>>> one from pending_irqs array. So need to use lock to protect
->>>>>>> unqueue, not only enqueue.
->>>>>>>
->>>>>>> Signed-off-by: Peng Fan <peng.fan@nxp.com>
->>>>>>> ---
->>>>>>>
->>>>>>> V1:
->>>>>>>  The best case is only lock one entry, so no good solution,
->>>>>>> because there is possibility that inject fail.
->>>>>>>
->>>>>>>  hypervisor/arch/arm-common/irqchip.c | 5 +++++
->>>>>>>  1 file changed, 5 insertions(+)
->>>>>>>
->>>>>>> diff --git a/hypervisor/arch/arm-common/irqchip.c
->>>>>>> b/hypervisor/arch/arm-common/irqchip.c
->>>>>>> index 1c881b64..fbaa3099 100644
->>>>>>> --- a/hypervisor/arch/arm-common/irqchip.c
->>>>>>> +++ b/hypervisor/arch/arm-common/irqchip.c
->>>>>>> @@ -279,11 +279,14 @@ void irqchip_inject_pending(void)
->>>>>>>  	struct pending_irqs *pending =3D &this_cpu_public()->pending_irqs=
-;
->>>>>>>  	u16 irq_id, sender;
->>>>>>>
->>>>>>> +	spin_lock(&pending->lock);
->>>>>>> +
->>>>>>>  	while (pending->head !=3D pending->tail) {
->>>>>>>  		irq_id =3D pending->irqs[pending->head];
->>>>>>>  		sender =3D pending->sender[pending->head];
->>>>>>>
->>>>>>>  		if (irqchip.inject_irq(irq_id, sender) =3D=3D -EBUSY) {
->>>>>>> +			spin_unlock(&pending->lock);
->>>>>>>  			/*
->>>>>>>  			 * The list registers are full, trigger maintenance
->>>>>>>  			 * interrupt and leave.
->>>>>>> @@ -295,6 +298,8 @@ void irqchip_inject_pending(void)
->>>>>>>  		pending->head =3D (pending->head + 1) % MAX_PENDING_IRQS;
->>>>>>>  	}
->>>>>>>
->>>>>>> +	spin_unlock(&pending->lock);
->>>>>>> +
->>>>>>>  	/*
->>>>>>>  	 * The software interrupt queue is empty - turn off the
->>>> maintenance
->>>>>>>  	 * interrupt.
->>>>>>>
->>>>>>
->>>>>> Did you see real corruptions?
->>>>>
->>>>> No. just code inspection currently. We met some SGI inject return
->>>>> -EBUSY, so go through the code, and think this piece code needs a loc=
-k.
->>>>>
->>>>>>
->>>>>> The idea behind this was that the injection to the lock-less queue
->>>>>> happens in a way that it won't make changes visible to the consumer
->>>>>> that are inconsistent, hence the barrier in irqchip_set_pending.
->>>>>> Looking that again, though, we possibly need another barrier, right
->>>>>> before updating
->>>>>> pending->tail.
->>>>>
->>>>> Barrier could not prohibit enqueue/unqueue contention.
->>>>> enqueue will check head, unqueue will update head.
->>>>
->>>> Some topic as with lockless enqueuing: We need a barrier to shield
->>>> the readout of the head entry from the update of pending->head. So,
->>>> we are definitely lacking barriers here, but I don't think we need
->>>> the spinlock between producer and consumer because there is only one
->> consumer.
->>>
->>> Lock-free should be possible, let me work out a non-lock solution.
->>
->> This is what comes to my mind so far, but please re-check carefully:
->>
->> diff --git a/hypervisor/arch/arm-common/irqchip.c
->> b/hypervisor/arch/arm-common/irqchip.c
->> index 1c881b64..a83cd81d 100644
->> --- a/hypervisor/arch/arm-common/irqchip.c
->> +++ b/hypervisor/arch/arm-common/irqchip.c
->> @@ -246,12 +246,12 @@ void irqchip_set_pending(struct public_per_cpu
->> *cpu_public, u16 irq_id)
->>  	if (new_tail !=3D pending->head) {
->>  		pending->irqs[pending->tail] =3D irq_id;
->>  		pending->sender[pending->tail] =3D sender;
->> -		pending->tail =3D new_tail;
->>  		/*
->> -		 * Make the change to pending_irqs.tail visible before the
->> -		 * caller sends SGI_INJECT.
->> +		 * Make the entry content visible before updating the tail
->> +		 * index.
->>  		 */
->>  		memory_barrier();
->> +		pending->tail =3D new_tail;
->=20
-> The spin_unlock implies memory barrier. I think no need memory_barrier he=
-re.
+[re-adding the mailing list]
 
-We /might/ be fine here for the archs we support, but Linux is more=20
-strict:
-
-"(2) RELEASE operation implication:
-
-     Memory operations issued before the RELEASE will be completed before t=
+On 05.12.19 09:07, Jan Kiszka wrote:
+> On 05.12.19 08:49, Mani Sadhasivam wrote:
+>>
+>>
+>> On Thu, Dec 5, 2019 at 1:09 PM Jan Kiszka <jan.kiszka@siemens.com
+>> <mailto:jan.kiszka@siemens.com>> wrote:
+>>
+>>     On 05.12.19 08:14, Mani Sadhasivam wrote:
+>>     > Hi Jan,
+>>     >
+>>     > On Thu, Dec 5, 2019 at 12:36 PM Jan Kiszka <jan.kiszka@siemens.com
+>>     <mailto:jan.kiszka@siemens.com>
+>>     > <mailto:jan.kiszka@siemens.com <mailto:jan.kiszka@siemens.com>>>
+>>     wrote:
+>>     >
+>>     >=C2=A0 =C2=A0 =C2=A0On 02.12.19 19:43, Manivannan Sadhasivam wrote:
+>>     >=C2=A0 =C2=A0 =C2=A0> Hello,
+>>     >=C2=A0 =C2=A0 =C2=A0>
+>>     >=C2=A0 =C2=A0 =C2=A0> I can see that the Zephyr RTOS has been menti=
+oned in the FAQ as
+>>     >=C2=A0 =C2=A0 =C2=A0> one of the ported OS for non-root cells.
+>>     >=C2=A0 =C2=A0 =C2=A0>
+>>     >=C2=A0 =C2=A0 =C2=A0> Is there any reference code I can look into?
+>>     >
+>>     >=C2=A0 =C2=A0 =C2=A0There is x86 support for Zephyr as Jailhouse "i=
+nmate". Check out
+>>     >=C2=A0 =C2=A0 =C2=A0zephyr/boards/x86/x86_jailhouse/doc/board.rst. =
+If you run into
+>>     trouble,
+>>     >=C2=A0 =C2=A0 =C2=A0report to the communities.
+>>     >
+>>     >
+>>     > Ah, just noticed that it got removed some=C2=A0time ago:
+>>     >
+>>     https://github.com/zephyrproject-rtos/zephyr/commit/f3611fdd0c8ca54a=
+9f19bc56a14b4a2fdadaffe3#diff-bb9445fa64739ef6a5a6b59d520deb07
+>>     >
+>>
+>>     Too bad they didn't reach out...
+>>
+>>     > But this could be helpful!
+>>     > =C2=A0
+>>
+>>     Partly. For ARM, you likely don't need so may changes, see below.
+>>
+>>     >
+>>     >
+>>     >=C2=A0 =C2=A0 =C2=A0We could probably also easily support ARM, but =
+the last time this
+>>     >=C2=A0 =C2=A0 =C2=A0question came up, there was still not A-core su=
+pport in Zephyr
+>>     which is
+>>     >=C2=A0 =C2=A0 =C2=A0a precondition.
+>>     >
+>>     >
+>>     > That's what I'm trying to do on IMX8M EVK in spare time. There is
+>>     an ongoing
+>>     > PR for adding Cortex-A support in Zephyr, so I'm planning to
+>>     utilize that.
+>>
+>>     That is good news. If you combine that with the device tree descript=
+ion
+>>     for inmates, actually those for the Linux cells, you should be able =
+to
+>>     boot without code modifications.
+>>
+>>
+>> Don't we need MMU support in inmate? The current ARMv8 PR doesn't have t=
 he
-     RELEASE operation has completed.
-
-     Memory operations issued after the RELEASE may be completed before the
-     RELEASE operation has completed."
-
-Now, the x86 is ordered anyway, ARMv7 indeed has the same barrier in the=20
-unload as in the memory_barrier(). However, ARM64 is not that clear to me.
-
-Jan
-
->>  	}
->>
->>  	spin_unlock(&pending->lock);
->> @@ -264,6 +264,12 @@ void irqchip_set_pending(struct public_per_cpu
->> *cpu_public, u16 irq_id)
->>  	if (local_injection) {
->>  		irqchip.enable_maint_irq(true);
->>  	} else {
->> +		/*
->> +		 * Make the change to pending_irqs.tail visible before the
->> +		 * caller sends SGI_INJECT.
->> +		 */
->> +		memory_barrier();
+>> MMU support.
 >=20
-> Not needed, see above, spin_unlock already done this.
+> Technically, we don't. Earlier versions of our demo inmates were running
+> without MMU as well, but as that implies running without caches as well,
+> we changed that. In any case, the inmate starts in reset state, means
+> with MMU (and caches) off.
 >=20
->> +
->>  		sgi.targets =3D irqchip_get_cpu_target(cpu_public->cpu_id);
->>  		sgi.cluster_id =3D
->>  			irqchip_get_cluster_target(cpu_public->cpu_id);
->> @@ -292,6 +298,12 @@ void irqchip_inject_pending(void)
->>  			return;
->>  		}
->>
->> +		/*
->> +		 * Ensure that the entry was read befor updating the head
->> +		 * index.
->> +		 */
->> +		memory_barrier();
-> No need. The index update will not be speculative before reading pending-=
->head.
->> +
->>  		pending->head =3D (pending->head + 1) % MAX_PENDING_IRQS;
+> Jan
 >=20
-> Need a barrier here, to make update visible to producer.
->=20
->>  	}
->=20
-> My version,
->=20
-> diff --git a/hypervisor/arch/arm-common/irqchip.c b/hypervisor/arch/arm-c=
-ommon/irqchip.c
-> index 1c881b64..5abf1c37 100644
-> --- a/hypervisor/arch/arm-common/irqchip.c
-> +++ b/hypervisor/arch/arm-common/irqchip.c
-> @@ -247,13 +247,12 @@ void irqchip_set_pending(struct public_per_cpu *cpu=
-_public, u16 irq_id)
->                 pending->irqs[pending->tail] =3D irq_id;
->                 pending->sender[pending->tail] =3D sender;
->                 pending->tail =3D new_tail;
-> -               /*
-> -                * Make the change to pending_irqs.tail visible before th=
-e
-> -                * caller sends SGI_INJECT.
-> -                */
-> -               memory_barrier();
->         }
->=20
-> +       /*
-> +        * spin_unlock will make the change to pending_irqs.tail and
-> +        * entry content visible before the caller sends SGI_INJECT.
-> +        */
->         spin_unlock(&pending->lock);
->=20
->         /*
-> @@ -293,6 +292,9 @@ void irqchip_inject_pending(void)
->                 }
->=20
->                 pending->head =3D (pending->head + 1) % MAX_PENDING_IRQS;
-> +
-> +               /* Make the change to pending->head visible to enqueue. *=
-/
-> +               memory_barrier();
->         }
->=20
->         /*
->=20
-> Thanks,
-> Peng.
->>
->>
->> Thanks for bringing this up!
->>
->> Jan
->>
->> --
->> Siemens AG, Corporate Technology, CT RDA IOT SES-DE Corporate
->> Competence Center Embedded Linux
-
 
 --=20
 Siemens AG, Corporate Technology, CT RDA IOT SES-DE
@@ -379,4 +230,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/bef9b0b0-3bc0-4982-3b3d-aa829ad6ceb5%40siemens.com.
+jailhouse-dev/a27fdb7b-0c85-d967-7c8c-81d26b0157b6%40siemens.com.
