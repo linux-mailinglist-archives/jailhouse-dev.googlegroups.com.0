@@ -1,184 +1,134 @@
-Return-Path: <jailhouse-dev+bncBDAMFR7JZAEBB2GZU3XQKGQELQ7GAWQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBQEZVDXQKGQEYUIS5WI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43f.google.com (mail-wr1-x43f.google.com [IPv6:2a00:1450:4864:20::43f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F39D114A6F
-	for <lists+jailhouse-dev@lfdr.de>; Fri,  6 Dec 2019 02:20:41 +0100 (CET)
-Received: by mail-wr1-x43f.google.com with SMTP id 90sf2383140wrq.6
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 05 Dec 2019 17:20:41 -0800 (PST)
-ARC-Seal: i=3; a=rsa-sha256; t=1575595241; cv=pass;
+Received: from mail-lj1-x23b.google.com (mail-lj1-x23b.google.com [IPv6:2a00:1450:4864:20::23b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A263114D3B
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  6 Dec 2019 09:09:37 +0100 (CET)
+Received: by mail-lj1-x23b.google.com with SMTP id g28sf1798818lja.6
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 06 Dec 2019 00:09:37 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1575619777; cv=pass;
         d=google.com; s=arc-20160816;
-        b=W64M8ZIywcdZz+V+ZQdBTQjklJFh2DProoZGJWbghiDPEooOfPkF8cL+NalWL3jnUM
-         /zrq7oHIaDFXU+V45h6cHRs+mdSYtrMgG8m33j9bjtmgdbG0XQ/u/EbfhpgtfP+VRZ0q
-         CvgDBMC2pIYXTJfSm8z8gSJ4p87EpZlbq1l8zffdr6KzjXh5M+TGIbpquq6pwsytqXWA
-         cviOVq7GeHD9ykprXt5WPy9exSfbJQG4OKeTInpPqS/yCbmqql8e8opMkwTxWY1kWuHO
-         0Ocy8EuArx1jMKvBaMXb1ZzijkDKlOWEfMuvaWQM63SgV7em0MabVzH+MJgHPeCCgv6o
-         RSIQ==
-ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        b=iN/a0KlgXpIX+GHc/mmym0kJmsDuVwEQN5RR0IhbvUWBpKU7gJ5WP60Zjk0la+3TCT
+         1U7HXHhjIawp/Bv0UIRC6/MvxRrW7JaqPN+xO37bwdbsw1aTFoZeoAgz4kB+0/RflWnW
+         BXiIZ/DkVKCuGCMPv0fYcGepSFlkye6cmHRGh9ARIhsqB8WcvsYSXWN2FvFVyyXhtctB
+         EkkqqMb3c4jhuWaXAFI6JRhAArry6+sxRiX6uI9S/W+3eFHIux4AigkJev39zwggPy6Z
+         ivxNe1shE9ur+vYUFSaP5zvcE6TGkW4d0JVfG6WG58CijU5VYEvjdQqD0mGkqYu0yIBq
+         NoJA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version
-         :content-transfer-encoding:content-language:accept-language
-         :in-reply-to:references:message-id:date:thread-index:thread-topic
-         :subject:cc:to:from:sender:dkim-signature;
-        bh=2lpZD/LVKd0FMDp1iJHIwF2l+EcQuUd+aIztrNq8ls8=;
-        b=tJ3GEmtDsHebOGXACRTAoU/A31z/PgPpxNJKNx7zF1JMgzikWJcS+vSDqcpJC0PbI+
-         AO++WNrbCYy/n1BjycSbjMECdRlASAOgn839CkKTbzaw8UJJDQonmzfJsvELcxcAQbdF
-         Lg6kSqx6sMmOGoMZcVC7M/0Dzt5Lsbj4tLdOBsI4cKsEhIZNRFlv30+ZQSwcE2FA6dDz
-         HhZL1hNu2971fQ9+gAi2a6H34iGntuzreeYZn1RCjw0pxO5HgQCZicl4YRmkBp6+/vIE
-         ZO6wmoiAeW5OGe+ggOHl731/hnhtcz6jn8CNXyOynCO6Ny2hXxXITpOVz37OBGQZkX+X
-         Yk9g==
-ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@nxp.com header.s=selector2 header.b=dIUxM5wi;
-       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
-       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.4.59 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=eATfPA4STzpBMOSeclrP04sP3PjUpCg7WZuUz8+ALWA=;
+        b=M+Q6bhJTn3v0urNZoTpDyNYMYadGzzwYNFfPOCiLTESbU3nyosQwIvPzQIWum5pvnp
+         1xLmDo/LAwp0uunBEus7I2qiOZiO60F44VUSob7Q56qis+CZzOcyx7po9JJRxyKUkxoS
+         6CvagfS7PO8NB2L7Kb1JVmZ8ym8VU8LZshwi8tpoGixRw7IvbqE8zy2cQBNPm/6brNvS
+         OAKOts2592Ez5PgmmLMQtXIc1Xz6zKchG7C74SlZBz3vrob37nJM9TZjxBx/VkGDoOye
+         sidUzXxtRul27C9/y4Co7HmdjcIfRZGj6Pc1LyuIaKYfge/S6AEk6/4qwv2s5fNfgJE1
+         yZyQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:cc:subject:thread-topic:thread-index:date:message-id
-         :references:in-reply-to:accept-language:content-language
-         :content-transfer-encoding:mime-version:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=2lpZD/LVKd0FMDp1iJHIwF2l+EcQuUd+aIztrNq8ls8=;
-        b=jjASVuoAg1dQXnM8L1WNmM5DqyxR0L8eM7vi0eirFQEj3asUq5+POQlIv5FTxTH0y5
-         j5Zszzxh8nJ746E58GSpoEdNq09/MFdNO8fMX58HfVHB0KtBZH7UQhPNSTrTbe/2d8UO
-         TqbNtQM+ZnHrFQd+0mUYplMpQ+6bwQFMoE5uROBNC4IoTPVN/Q+fCeMdoN+IMcWB7/+U
-         Oz2SI/b3rOxpwJQZuvR7Oba7MmSNUuVFRObQ3xdP6eYKaUjC3A05FZAXFGqygJoPnaSV
-         eIpw0DN9dBgb2vrOQp0q9jPgy5kOhSOJRZmWVAJraNMPJ5kkMx0CO14ORaxEJ3rqrGtY
-         rPkg==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=eATfPA4STzpBMOSeclrP04sP3PjUpCg7WZuUz8+ALWA=;
+        b=k3706I9h+3ESSklh4c7YWcwsVSYJm5mg9Ai/TYm7vBErkB2tER/mSVzyOWT2sGP8Wj
+         MG69YHuVu2wjq+IBZi2Vt//I5O/0w21aHNHolHJkkyGnGK8hbsmN5ZEs4YR6zumGV5LY
+         XyrOkF8OaCSZnrCi4dqvM4CU/fmmH207UP9m+P1GkTNR7h3RzKrESjh+PYBxe/AdWq2j
+         EFUGqvReSv1sh64MBlt4iixJh27haIYM/1upvzCi1+qlQNSbbbw7QwEb4ejOl6LVE8lq
+         LMF/UcI9Y3TtvwGzV75yERWhdtVPuu8RSSmSsjkm/qIBdj7tmVwugkm0LSqVfLlC1daF
+         /14g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:cc:subject:thread-topic
-         :thread-index:date:message-id:references:in-reply-to:accept-language
-         :content-language:content-transfer-encoding:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=2lpZD/LVKd0FMDp1iJHIwF2l+EcQuUd+aIztrNq8ls8=;
-        b=osB3rn8hATFH/JZIkU9cfN62MBqc+QGcdf+4o6XU19Skchn19At+wcIyo+bW9FKjaG
-         DEYuzI/E6KrAq783nLQxRMJlpkDmTXOKFcstS7DidYmc0PgQzWGv8M6Z0OzlHvYxWPKQ
-         UznTSQT8MjanI6xI55tCqgFqp4yEy+ErimcT4P8EXQir3321c0LbmrcuwfarR0r7kC+P
-         SY6hruCv2J3Oc1YofRhjJ/6AP0YvySBcH7k0/DK4lhHvL8aF9liZ4tJ7hYJ9R1J73/Mz
-         Hh7upFVwjSkWy3vxTiB5bz4jXZSACdOshyOLrWKW49qxcl4YUrMWXf/Eq3AO6Jr6S4pb
-         QyBw==
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=eATfPA4STzpBMOSeclrP04sP3PjUpCg7WZuUz8+ALWA=;
+        b=R5OIhTcfywg/2gaqnIMGexeBHRhGzGdOPSyjyJ7NrnBMB+siGCZ/u5NhE0rQI9z3xN
+         EkW7+CcR3QAzDfdU65WOOnDmnpV/c/RbLNWDJJnvgmIS3WP8J0M1tnE1omXveBkkk6Ub
+         glPFjix4mbbwaJoPZBX+me6hDEEq4XrqT+L0r2HxT0p0l/+dOrF1AkP0Ikh+C4KpD7HW
+         upIT2MFsJpDUbvgQUtlrYKNhXMcRjvl2dlTA0gJhD3zCJosMFN35kLVrFkGeiqzkf71x
+         qXHJjSjQItEbcwdFb0evwSBeJtJWn0B7E7DUx1UHyVNcfXeqkueglh0vRJ+ZOY37WLFG
+         0EGQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAW9d4BHyYMrN48OjyuSNAVsqH1YYOzMqZuD8m1Rg7+ef5Jycqjs
-	vv1dXXGruie3Z/TL2zdAoRo=
-X-Google-Smtp-Source: APXvYqybdLwwCKFzFkIga0dzSwHiHFoVagCGnpZ2g/jtfiBZjx15l7rYRo9I4ZdAvA+OBGy931gtCQ==
-X-Received: by 2002:a5d:65cf:: with SMTP id e15mr13192289wrw.126.1575595240999;
-        Thu, 05 Dec 2019 17:20:40 -0800 (PST)
+X-Gm-Message-State: APjAAAUlkEfJ10dkWmJ5IJoa+Cay6lGWKCQLJdu43Yn5ng9+ddUwwKkh
+	YxH3jXoZ5NojaL4VvM1Uy6o=
+X-Google-Smtp-Source: APXvYqwhobd+Cao/KQ3fymWeCvOeydcN4qUHXYy4LciehoGdnFj5lO87yoatDdsPUTK8QB/ydAw7Bw==
+X-Received: by 2002:ac2:555c:: with SMTP id l28mr7300141lfk.52.1575619777029;
+        Fri, 06 Dec 2019 00:09:37 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:6385:: with SMTP id x127ls2262490wmb.2.gmail; Thu, 05
- Dec 2019 17:20:40 -0800 (PST)
-X-Received: by 2002:a1c:a906:: with SMTP id s6mr8213472wme.125.1575595240191;
-        Thu, 05 Dec 2019 17:20:40 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1575595240; cv=pass;
+Received: by 2002:a2e:864f:: with SMTP id i15ls861736ljj.11.gmail; Fri, 06 Dec
+ 2019 00:09:36 -0800 (PST)
+X-Received: by 2002:a2e:3e11:: with SMTP id l17mr8022726lja.45.1575619776199;
+        Fri, 06 Dec 2019 00:09:36 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1575619776; cv=none;
         d=google.com; s=arc-20160816;
-        b=JOwLEysHiSeeOZNZLV6/8u4PZto5ZqxvFHv4pSbadHPBdvdgzUTN5gZOAMxImktnSM
-         tNyi6LZuA1CuzR9EmOI59mtmdUMWDRICIGeBVHU/AWq1De3cJd01m29LfVKKv8p/RFU/
-         ypFvUEk0wbBh9gZwUQfR+cFM1rxC2aZ97xILYK36IZ+rZKimI51d71yTOCBMiRzOFad+
-         eMiDJhYUtK7c9UTQ4csCSo1IXWICto8muC6CLB+1CFnHMhgeeqCPTZyistgBSTTMY1L/
-         fY5R2nNt88gjbKbwqA906/JB+tEQ5hEanWhQ91f8puB4MfqC4QnH2gaFoEaaY4NsBU6g
-         q3rg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:content-transfer-encoding:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:cc:to:from:dkim-signature;
-        bh=oIfZ1z9XdIjGLixfSstNdLq9pU5ME02oAMTRd9nkTA8=;
-        b=BIMPzwdMcrVqOs0lw/8W4i9o1PysgMJ3C2rfRBUO9bs+l4PiSrXQLqi6ImXTURcX49
-         qfDz+ztppvy1qeIeRSQ55LrchOuTH1waZZLfF13ny/ZBu7q2PvgYKIOAdbUBznT4aL0h
-         d6DA/vvQ7HGy/jINjrjPm8469r0frRFufRzEf9Gt1IPw9J5l+ex0xcCRA7nISZJQB3hH
-         JJ/Iptl8IBmYkFvZuOyF/fTrUCtxYAUmkH5ZlrcANcxZiQMjzXKcly6cOUgAomapPiJy
-         yv6no+x57ooSF8cfP1spgjqXQBQXN9CRwz6fvcowyWwGwLlfSimn7Wx2Na1GDxhZVPyx
-         gbqw==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@nxp.com header.s=selector2 header.b=dIUxM5wi;
-       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
-       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.4.59 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
-Received: from EUR03-DB5-obe.outbound.protection.outlook.com (mail-eopbgr40059.outbound.protection.outlook.com. [40.107.4.59])
-        by gmr-mx.google.com with ESMTPS id n24si64216wmk.1.2019.12.05.17.20.39
+        b=VfWn2ubEQqDYxL1C0gAm/5ztPR50LPDuk8nkevWarZsfXa8r6iClQZ6CqZPEX4pWW4
+         O08VbpV0jL70CFygNJng50baGVFW6kSV0HAa+YTGYeOF3QTiGL7Hj/8YnQx7+GgHXv+i
+         0FCrO2sLWLN6Nmiw56OmtMlkjfp8WfHwWXqxYS0lnZ18jXjy05Gui3WMCrtc6ivm1ivO
+         VU5q4Bgr4frBV51zhh14HoniSPuGpWap08ahM9XjEmVRGHVeWEBjK2579x1+IFT0d2uf
+         5qio0XGinOtVzkueLVPUWjAgimzZw5aVIqYGG8ow5wPbjOO1KW/gmuf87ck1gVpvCgj4
+         NvtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=ki4dlAwkFUysPosWRZlehmATS6kqJ4mfyVRbwNUhTeM=;
+        b=QLlhbhuJDLTKgrDhds+1ZkWNqtGSnjmpyJFvXzdk4wTIlF91unbJlegvsQk5Hr2Ful
+         lquZ0ufc/hLmRldx1cpLLzssMDdqcirfoVcennJ8VG/CkqL68qgHj06B8tYh6Y0wJ10G
+         gDCu15cIsIDT1GIfs/9cSHfcnigLH3p2bB5oEjt2MV3fN9hEiva8EQQmnXfI+dHxdXL+
+         9V9Lh+l81TnlFsX7dgEUU+F5Wlvu3HIomD2BGagpjuqYoyDSstIskpx7/HHOO0EtxA7X
+         cI5brm1NnJ0vkfMrT/AKiWZHKb+p8E+HjtS0g3HLxFAWXRhjbxcN/fVF3GtxJI7WfFT3
+         DqAQ==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
+        by gmr-mx.google.com with ESMTPS id 68si532579lfi.3.2019.12.06.00.09.35
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 05 Dec 2019 17:20:40 -0800 (PST)
-Received-SPF: pass (google.com: domain of peng.fan@nxp.com designates 40.107.4.59 as permitted sender) client-ip=40.107.4.59;
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bgxwrkcOgc2cuEsVQvbiMFBaXLOU2IXARCmX8ol/rXguMqoRbW5vkWiPQiS68FwQHmnzugrCDwou4SOVB5YfdD2HTxY2pCq7whKUf15TIKQYSFUsFozJagpqmRLpWhpcUi5kvX7TrclNuK5KjdfyJr2+Cxe/pc3d9d1Qwk/149OdN2wCKCSpt1YTyIWtd635XSruMHEDgPsqli1z9s7chIPmmZ2qz/P4ngVGkoCtT0lRwz5kHZQkeXJ39PBUwaDX1f56CeJGYGp7MNbFO1XYo2F520zU4yDqYjwQcqSiZVnPfINhdYEkdCqKT/Wnjxjz+n01OIZ4uyveXlMdF81RVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oIfZ1z9XdIjGLixfSstNdLq9pU5ME02oAMTRd9nkTA8=;
- b=SJjjnvp4QjBFyUJwftPS/fNs9Cy4M2XK1uURsfRB/jgaePrii0HYluJu86IfikPEqOU3a8Oyc8ynZcnJy+vTJ/u/tQ9DGipucM5F3GD0RbHZXOXUGgrlYl3XbyU8z/sXN7Fz7s2M80nWGyxAxkareA2QEy8EcqH4INFxPg1OZ7UJuNlKx8fOcwVRhPnUyFdK8rakQLSxyfRx23Nvx5S8948lYvTfp0ADDJ99vZcLmpHpjMzZfTlceExi8Q4S/HqZnGCwNgSaCz3QAz2i9tWiSuWA7hMfFbj3i2xfiPkbAUg6Y696sslNhc4uHaQ4Mx0DgqDuPc6ND83oR4qubUO76g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-Received: from AM0PR04MB4481.eurprd04.prod.outlook.com (52.135.147.15) by
- AM0PR04MB5604.eurprd04.prod.outlook.com (20.178.203.80) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2516.16; Fri, 6 Dec 2019 01:20:38 +0000
-Received: from AM0PR04MB4481.eurprd04.prod.outlook.com
- ([fe80::505:87e7:6b49:3d29]) by AM0PR04MB4481.eurprd04.prod.outlook.com
- ([fe80::505:87e7:6b49:3d29%7]) with mapi id 15.20.2516.014; Fri, 6 Dec 2019
- 01:20:38 +0000
-From: Peng Fan <peng.fan@nxp.com>
-To: Marco Solieri <marco.solieri@unimore.it>
-CC: Jan Kiszka <jan.kiszka@siemens.com>, Jailhouse
-	<jailhouse-dev@googlegroups.com>, "marko.bertogna@unimore.it"
-	<marko.bertogna@unimore.it>, "tomasz.kloda@unimore.it"
-	<tomasz.kloda@unimore.it>, "giulioc@xilinx.com" <giulioc@xilinx.com>,
-	"'claudio@evidence.eu.com'" <claudio@evidence.eu.com>,
-	"fabio.federici@utrc.utc.com" <fabio.federici@utrc.utc.com>
-Subject: RE: [PATCH 0/8] Add cache coloring support for Arm
-Thread-Topic: [PATCH 0/8] Add cache coloring support for Arm
-Thread-Index: AQHU5KMdy5hOXdbZ/EGjll5JmT7z0aenrFWQgAABNECAAW+IAIAAgtoggAOvBICAAI2l0A==
-Date: Fri, 6 Dec 2019 01:20:38 +0000
-Message-ID: <AM0PR04MB44810D3D673BC5218341A41A885F0@AM0PR04MB4481.eurprd04.prod.outlook.com>
-References: <20190327121849.1882-1-ms@xt3.it>
- <AM0PR04MB4481B3186519C11BBFEE8DBA88430@AM0PR04MB4481.eurprd04.prod.outlook.com>
- <AM0PR04MB44818E5F2BA11C16A6B9E70088430@AM0PR04MB4481.eurprd04.prod.outlook.com>
- <20191203004700.cw7fgubui363mxee@carbon.xt3.it>
- <AM0PR04MB44815D033BBEC85ABBBEE5DB88420@AM0PR04MB4481.eurprd04.prod.outlook.com>
- <20191205165031.gl2f4tbx3klq6rfy@carbon.xt3.it>
-In-Reply-To: <20191205165031.gl2f4tbx3klq6rfy@carbon.xt3.it>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [119.31.174.71]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: fc51bb7e-efb5-46c5-b341-08d779ea80cd
-x-ms-traffictypediagnostic: AM0PR04MB5604:
-x-ld-processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-x-microsoft-antispam-prvs: <AM0PR04MB56048A3CDEE431720D4500D4885F0@AM0PR04MB5604.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-forefront-prvs: 0243E5FD68
-x-forefront-antispam-report: SFV:NSPM;SFS:(10009020)(4636009)(136003)(396003)(376002)(366004)(39860400002)(346002)(189003)(199004)(71190400001)(71200400001)(11346002)(44832011)(102836004)(186003)(26005)(66556008)(66476007)(9686003)(229853002)(6916009)(55016002)(25786009)(14454004)(99286004)(7696005)(478600001)(6506007)(316002)(54906003)(81166006)(5660300002)(76116006)(8676002)(81156014)(14444005)(64756008)(74316002)(66946007)(76176011)(2906002)(66446008)(52536014)(4326008)(8936002)(86362001)(305945005)(33656002);DIR:OUT;SFP:1101;SCL:1;SRVR:AM0PR04MB5604;H:AM0PR04MB4481.eurprd04.prod.outlook.com;FPR:;SPF:None;LANG:en;PTR:InfoNoRecords;MX:1;A:1;
-received-spf: None (protection.outlook.com: nxp.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Ph6ldVX8M6N5RZTkS11r7VLX+XlKFe0eOlI51bdXgYG5Aqi/dJT4LpuAdSgBY5Fs6kcf1hF74tH3e0A6VR+g8+UYfOZgfrUmflDSTjFD+jVY2Z35tLoTgrLD7b+VsC9HjNi3n16OEd0LjUtYGpcc8x1RuvzpsqXIyvIIJ/PAmSWe/X533R/IvsxRxc84OwRtJDN9iILgQIIwXWoRFSfK1T0KPirAKyOF3B6ji7u8TNf3+2k+NOLXCDyvEFWRmu4dp64UO57ArxPhSGycVI49v8/fIFUXuI/apyeXVUxZgbBTqKxOpSDmUWij7sdPrH4qiFrVQpKCwAQplrOXzNe4Qux6ofqsaS7cuFug8OKcJGOyZe1pQY5o8uMDJGsyTHFLKR5V9OB3aHmx3wYaAqYo5XN8hvG6JLmga7lPHIU83A6f3/Sl9NSGeqxNF+81gY4M
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+        Fri, 06 Dec 2019 00:09:36 -0800 (PST)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id xB689Yvg029875
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 6 Dec 2019 09:09:34 +0100
+Received: from [167.87.55.140] ([167.87.55.140])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id xB689YFU021378;
+	Fri, 6 Dec 2019 09:09:34 +0100
+Subject: Re: Zephyr as a Jailhouse inmate
+To: Mani Sadhasivam <manivannanece23@gmail.com>,
+        Jailhouse <jailhouse-dev@googlegroups.com>
+References: <e4de0ebb-83e6-4010-8f17-7cbbdafec19f@googlegroups.com>
+ <ae19eed5-afc4-ddf2-1855-4bd474790065@siemens.com>
+ <CANBTL1VsEGSiqZe5SG4EQ3sn4KbcvKQqYLERCT-NbqxZK5ZBKQ@mail.gmail.com>
+ <87131459-2a1d-91b5-21f5-3dfccd49fa81@siemens.com>
+ <CANBTL1XSjDtz5OFuMUXSM0R_=nsESgHH1WFxRk9qaA2uCy0Jww@mail.gmail.com>
+ <0660d2b8-b8e4-fcf2-69cf-068b9fc4a622@siemens.com>
+ <a27fdb7b-0c85-d967-7c8c-81d26b0157b6@siemens.com>
+ <CANBTL1XAj0ArLDjNq_2rfu8NXCp9h5i=atzhP8m2BCEhLtRVCg@mail.gmail.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <0c7b7542-5f48-8f77-128e-26eee1f24ad7@siemens.com>
+Date: Fri, 6 Dec 2019 09:09:34 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.1
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc51bb7e-efb5-46c5-b341-08d779ea80cd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Dec 2019 01:20:38.5817
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: uwna3/WODfx10Fx5EHn+WgLzOWMUBj8oTG3KcREK7gxcCwd+8dpLY/LtP7V7qusJFmUOpDVl8CHbLsB5cS9pzg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB5604
-X-Original-Sender: peng.fan@nxp.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@nxp.com header.s=selector2 header.b=dIUxM5wi;       arc=pass (i=1
- spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass
- fromdomain=nxp.com);       spf=pass (google.com: domain of peng.fan@nxp.com
- designates 40.107.4.59 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
+In-Reply-To: <CANBTL1XAj0ArLDjNq_2rfu8NXCp9h5i=atzhP8m2BCEhLtRVCg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -191,98 +141,130 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-> Subject: Re: [PATCH 0/8] Add cache coloring support for Arm
+On 05.12.19 20:32, Mani Sadhasivam wrote:
+> Hi=C2=A0Jan,
 >=20
-> On Tue, Dec 03, 2019 at 08:41:13AM +0000, Peng Fan wrote:
-> > > On Mon, Dec 02, 2019 at 02:52:04AM +0000, Peng Fan wrote:
-> > > > > I am reading the patchset, but this patchset could not resolve
-> > > > > the cache contention between root cell Linux and inmate cell,
-> > > > > right? It only address the cache contention inside the inmate
-> > > > > cell, if I understand
-> > > correctly.
-> > >
-> > > This is correct.  The documentation reads:
-> > >
-> > > | Since Jailhouse is currently lacking SMMU support, and since the
-> > > | colored memory mapping must be provided to DMA devices to allow
-> > > | them a coherent memory view, coloring for this kind of devices is
-> > > | not available. This also explains why also coloring support for
-> > > | the Linux root cell is not provided, although possible and tested
-> > > | with a simple hot remapping procedure.
-> > >
-> > > > > Is there any v2 plan to address the upper issue?
-> > >
-> > > Forward porting to master and integration with SMMU support are the
-> > > two most important task on my team TODO list. Once these steps are
-> > > done, it will be very easy to also have root-cell colouring. I have
-> > > planned the firsts for 20Q1.
-> >
+> On Thu, Dec 5, 2019 at 1:38 PM Jan Kiszka <jan.kiszka@siemens.com
+> <mailto:jan.kiszka@siemens.com>> wrote:
 >=20
-> > NXP i.MX jailhouse has smmu-v2 support, but it currently conflicts
-> > with
-> > smmu-v3 code in upstream. I have not find time to restructure v2 code.
-> > You could refer if you need v2.
+>     [re-adding the mailing list]
 >=20
-> I know. Do you have plans to merge SMMU-v2 support in upstream? It is ver=
-y
-> important for colouring Linux, such as the root-cell. But I am sure that =
-many
-> others than me are waiting for it.
+>     On 05.12.19 09:07, Jan Kiszka wrote:
+>     > On 05.12.19 08:49, Mani Sadhasivam wrote:
+>     >>
+>     >>
+>     >> On Thu, Dec 5, 2019 at 1:09 PM Jan Kiszka <jan.kiszka@siemens.com
+>     <mailto:jan.kiszka@siemens.com>
+>     >> <mailto:jan.kiszka@siemens.com <mailto:jan.kiszka@siemens.com>>>
+>     wrote:
+>     >>
+>     >>=C2=A0 =C2=A0 =C2=A0On 05.12.19 08:14, Mani Sadhasivam wrote:
+>     >>=C2=A0 =C2=A0 =C2=A0> Hi Jan,
+>     >>=C2=A0 =C2=A0 =C2=A0>
+>     >>=C2=A0 =C2=A0 =C2=A0> On Thu, Dec 5, 2019 at 12:36 PM Jan Kiszka
+>     <jan.kiszka@siemens.com <mailto:jan.kiszka@siemens.com>
+>     >>=C2=A0 =C2=A0 =C2=A0<mailto:jan.kiszka@siemens.com <mailto:jan.kisz=
+ka@siemens.com>>
+>     >>=C2=A0 =C2=A0 =C2=A0> <mailto:jan.kiszka@siemens.com
+>     <mailto:jan.kiszka@siemens.com> <mailto:jan.kiszka@siemens.com
+>     <mailto:jan.kiszka@siemens.com>>>>
+>     >>=C2=A0 =C2=A0 =C2=A0wrote:
+>     >>=C2=A0 =C2=A0 =C2=A0>
+>     >>=C2=A0 =C2=A0 =C2=A0>=C2=A0 =C2=A0 =C2=A0On 02.12.19 19:43, Manivan=
+nan Sadhasivam wrote:
+>     >>=C2=A0 =C2=A0 =C2=A0>=C2=A0 =C2=A0 =C2=A0> Hello,
+>     >>=C2=A0 =C2=A0 =C2=A0>=C2=A0 =C2=A0 =C2=A0>
+>     >>=C2=A0 =C2=A0 =C2=A0>=C2=A0 =C2=A0 =C2=A0> I can see that the Zephy=
+r RTOS has been mentioned in
+>     the FAQ as
+>     >>=C2=A0 =C2=A0 =C2=A0>=C2=A0 =C2=A0 =C2=A0> one of the ported OS for=
+ non-root cells.
+>     >>=C2=A0 =C2=A0 =C2=A0>=C2=A0 =C2=A0 =C2=A0>
+>     >>=C2=A0 =C2=A0 =C2=A0>=C2=A0 =C2=A0 =C2=A0> Is there any reference c=
+ode I can look into?
+>     >>=C2=A0 =C2=A0 =C2=A0>
+>     >>=C2=A0 =C2=A0 =C2=A0>=C2=A0 =C2=A0 =C2=A0There is x86 support for Z=
+ephyr as Jailhouse "inmate".
+>     Check out
+>     >>=C2=A0 =C2=A0 =C2=A0>=C2=A0 =C2=A0 =C2=A0zephyr/boards/x86/x86_jail=
+house/doc/board.rst. If you
+>     run into
+>     >>=C2=A0 =C2=A0 =C2=A0trouble,
+>     >>=C2=A0 =C2=A0 =C2=A0>=C2=A0 =C2=A0 =C2=A0report to the communities.
+>     >>=C2=A0 =C2=A0 =C2=A0>
+>     >>=C2=A0 =C2=A0 =C2=A0>
+>     >>=C2=A0 =C2=A0 =C2=A0> Ah, just noticed that it got removed some=C2=
+=A0time ago:
+>     >>=C2=A0 =C2=A0 =C2=A0>
+>     >>=C2=A0 =C2=A0
+>     =C2=A0https://github.com/zephyrproject-rtos/zephyr/commit/f3611fdd0c8=
+ca54a9f19bc56a14b4a2fdadaffe3#diff-bb9445fa64739ef6a5a6b59d520deb07
+>     >>=C2=A0 =C2=A0 =C2=A0>
+>     >>
+>     >>=C2=A0 =C2=A0 =C2=A0Too bad they didn't reach out...
+>     >>
+>     >>=C2=A0 =C2=A0 =C2=A0> But this could be helpful!
+>     >>=C2=A0 =C2=A0 =C2=A0> =C2=A0
+>     >>
+>     >>=C2=A0 =C2=A0 =C2=A0Partly. For ARM, you likely don't need so may c=
+hanges, see below.
+>     >>
+>     >>=C2=A0 =C2=A0 =C2=A0>
+>     >>=C2=A0 =C2=A0 =C2=A0>
+>     >>=C2=A0 =C2=A0 =C2=A0>=C2=A0 =C2=A0 =C2=A0We could probably also eas=
+ily support ARM, but the last
+>     time this
+>     >>=C2=A0 =C2=A0 =C2=A0>=C2=A0 =C2=A0 =C2=A0question came up, there wa=
+s still not A-core support in
+>     Zephyr
+>     >>=C2=A0 =C2=A0 =C2=A0which is
+>     >>=C2=A0 =C2=A0 =C2=A0>=C2=A0 =C2=A0 =C2=A0a precondition.
+>     >>=C2=A0 =C2=A0 =C2=A0>
+>     >>=C2=A0 =C2=A0 =C2=A0>
+>     >>=C2=A0 =C2=A0 =C2=A0> That's what I'm trying to do on IMX8M EVK in =
+spare time.
+>     There is
+>     >>=C2=A0 =C2=A0 =C2=A0an ongoing
+>     >>=C2=A0 =C2=A0 =C2=A0> PR for adding Cortex-A support in Zephyr, so =
+I'm planning to
+>     >>=C2=A0 =C2=A0 =C2=A0utilize that.
+>     >>
+>     >>=C2=A0 =C2=A0 =C2=A0That is good news. If you combine that with the=
+ device tree
+>     description
+>     >>=C2=A0 =C2=A0 =C2=A0for inmates, actually those for the Linux cells=
+, you should
+>     be able to
+>     >>=C2=A0 =C2=A0 =C2=A0boot without code modifications.
+>     >>
+>     >>
+>     >> Don't we need MMU support in inmate? The current ARMv8 PR doesn't
+>     have the
+>     >> MMU support.
+>     >
+>     > Technically, we don't. Earlier versions of our demo inmates were
+>     running
+>     > without MMU as well, but as that implies running without caches as
+>     well,
+>     > we changed that. In any case, the inmate starts in reset state, mea=
+ns
+>     > with MMU (and caches) off.
+>     >
+>=20
+>=20
+> I got it working partially(not fully though). What would be the Flash and
+> SRAM address would you recommend? The Flash start address should
+> be 0x0 since that's the CPU default start address, how about SRAM?
 
-My design only added smmu-v2 for inmate Linux, not take root cell into
-consideration. I am moving to 0.11 release, so will take some time
-to move the code to 0.11, then post upstream, mostly in Jan 2020.
+I didn't play with targets where SRAM was involved so far, but I could
+imagine that it will be easiest to map it at a location where it would
+appear physically in exclusive use as well.
 
->=20
-> Also, since v3 support is only preliminary and the SMMU is not really usa=
-ble,
-> as far as I understand, and since v3 devices are quite less common, perha=
-ps
-> the v2 support can be integrated easier and earlier than you think.
->=20
-> > > > > To address root cell color issue, 1:1 mapping in root cell might
-> > > > > not work, because IPA/PA needs a remap, but this will waste PA
-> > > > > space, if inmate only need a small area PA space. Seems
-> > > > > root/inmate cache contention is hard to avoid.
-> > >
-> > > Beside root cell colouring, PA waste is a potential issue of
-> > > colouring itself, whenever you have heterogeneous memory needs
-> > > across cells. Still, on most high-end systems the size of the shared
-> > > cache easily allows for 8 or 16 colours, which means that the
-> > > smallest PA granularity to assign to a given cell is 1/8 or 1/16, whi=
-ch is an
-> acceptable limitation.
-> >
-> > Without SMMU, if enabling color for root-cell, it means needs to cut
-> > off at least 1/8 or 1/16 memory of the whole dram space from root cell.
->=20
-> For example, 1/16 of 2GiB DRAM looks expendable.
->=20
-> > CMA is not easy to fix here...
->=20
-> I have not ever used CMA. Does it operate without SMMU mediation (i.e.
-> translation)?
+Jan
 
-CMA requires large chunk of physical continues memory, with SMMU it is not
-a problem. Without SMMU, it is not possible to find large chunk physical
-memory with color enabled.
-
-Regards,
-Peng.
-
->=20
->=20
-> Cheers.
->=20
-> --
-> Marco Solieri, Ph.D.
-> Research Fellow
->=20
-> High-Performance Real-Time Lab
-> Universit=C3=A0 degli Studi di Modena e Reggio Emilia Ufficio 1.37 - Edif=
-icio
-> Matematica - 213/b, via Campi - 41125 Modena
-> Tel: +39-059-205-55-10  -- OpenPGP: Ox75822E7E
+--=20
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+Corporate Competence Center Embedded Linux
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -290,5 +272,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/AM0PR04MB44810D3D673BC5218341A41A885F0%40AM0PR04MB4481.eurprd=
-04.prod.outlook.com.
+jailhouse-dev/0c7b7542-5f48-8f77-128e-26eee1f24ad7%40siemens.com.
