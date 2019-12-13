@@ -1,177 +1,129 @@
-Return-Path: <jailhouse-dev+bncBDAMFR7JZAEBB477ZPXQKGQEX4IOG7Y@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB47RZTXQKGQEPEDXAPA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23b.google.com (mail-lj1-x23b.google.com [IPv6:2a00:1450:4864:20::23b])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1DB411DC63
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 13 Dec 2019 04:05:23 +0100 (CET)
-Received: by mail-lj1-x23b.google.com with SMTP id d14sf289399ljg.17
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 12 Dec 2019 19:05:23 -0800 (PST)
-ARC-Seal: i=3; a=rsa-sha256; t=1576206323; cv=pass;
+Received: from mail-wm1-x33a.google.com (mail-wm1-x33a.google.com [IPv6:2a00:1450:4864:20::33a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7143E11DE69
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 13 Dec 2019 08:08:36 +0100 (CET)
+Received: by mail-wm1-x33a.google.com with SMTP id g26sf1524760wmk.6
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 12 Dec 2019 23:08:36 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1576220916; cv=pass;
         d=google.com; s=arc-20160816;
-        b=mNKgrAD5KPL0S34QCBJtdUTAtwqHbQMfP8Ps5bywXUIZdhw9D8hrHEZku+MxesLGkk
-         bjY5Qjor+voAWr8Lb6cX/DKFEF6Zc7EqnumWdN96tOb7+bWowDd68xPMfjU5aWaEliSB
-         p3wWpTtbYJo5WJCkMZ8SLYQhqp4wq8Ihv1SqpsnT0oVQjX3K+3IoaJmjqr8PHAsPZ3u+
-         ESimi4SPU8oLHbuTF36kCD9+yY+fHvX+sT9WT453Im5+7pDVceE5EuezG+RZ0nlPR3Xe
-         BJXCDEPp0L45CCPWwkNX+rWIPUwaFFEY5KOPuv3AvIj0NqnapRPNTOc/n6BFoEnl8oUd
-         xZ4A==
-ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        b=tdD+xEMHHvbQ2wEkEFkXWXX7AqDDpYWOrh6h7NtGtVT7X0c36FyvvwOvpCgmngLZ5f
+         aQhj3FG3b6dmaXiCxuIVsYGIYRENgUWFPSfV7NtUgcKAt2c1oJId52BapU+vz84AhcRc
+         ob3gu7V7zhOIZNV5o0w7szBeOt5TKTbfGaqigwONanl/cx1qrtU/AzF6IztFjsGqD3KM
+         Kt/K8zNmxPFoJMwfYo1/1jV5G89FIOwc0azp3EPmbC/iDsxBex93vu9iWN+3mx1Ie0th
+         xKUSU83UGlOtOCUVcs4DrBa4436EkYL64ch6gOmiHtQqoVXDYvy2zQPLZslMxWgQmhEB
+         OnQQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:cc:to:from:sender:dkim-signature;
-        bh=KqeOcRhFdjjeuJ9xshVtfLhhgKkY1E2uoBUXSUu1Qfc=;
-        b=IrgAnPlrpxXEIqPPdgl0cKfYxbRllAZgIL9UDfUOqimK4HKISf2yzBAqxGZdzTSICD
-         zbBrvTtTL4F7tpLJowLw0u7Xoydy95I/PkDxXdwKX0TBPuTX+I8uWBB5yUAe2WFWtTwi
-         DnCBQ0BkZ8aYvohHKdKderQ6PgH6U5AnuUxgBrUFBs5GPqsOv8/9Buy4/btPq4GhuJP+
-         lnMZAsgd3CrEXDtcZHIvem4uyBLUPI5k4LqSo39mQEs+42ETstoSXvZPF/Yjx4NrZV0T
-         sqTgm3x5J2953MRrR86E+ANkD/tjGKUeBcw0cAunIR+rhFJQiK9EENoUqoPXmns90FC0
-         cMBA==
-ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@nxp.com header.s=selector2 header.b=REGdD3St;
-       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
-       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.3.89 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=6z/gVyyQLcMB8lds+nVmAsmElBFf1hijKC0fmVt76vg=;
+        b=A/T8bML+Xei4jhgOimtVlxYtgfl2bN+1DUeBuwsH7zpI4EkBlo1ODl3H7Kt/BTaSIy
+         O+KZQCexJC9PIPWUHUh9sS6BkDkS7dd0ppPFbz2ZD6hCMCB+Hs4rZdV/l298N/QNbjyY
+         M7ZPzW460AManuQ1gaST8/drldLIFKkLye8/hImKhX7ZXWsgGF5a3IuN8fFNWkNC3SEo
+         ZCWFlLIQlkIDmdaYa90mmgNecbdGwqLYAEnetmyDOGU16dwkR/vdtu1veFft2meQxml5
+         gjWSv7AR/6wH02cYpL0wYIrXXJ8X24LZCPpVcFB+E73psAIJI3CrUlyn1xwQlb1pO4wB
+         zI2w==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:cc:subject:thread-topic:thread-index:date:message-id
-         :references:in-reply-to:accept-language:content-language
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=KqeOcRhFdjjeuJ9xshVtfLhhgKkY1E2uoBUXSUu1Qfc=;
-        b=J+h0rZP2JbPRROKOYhJGDveaIoFKtF11l0ydkB/uh2MX4GueKynarY1ITqiDQxwKrt
-         GuPJfPYq9Ncl6nG0YhaTdTiUnkSZ2fuFd3tLULaVMgaybLVHK6+pLhKKakKJrjVs4a6a
-         ZJ/H+7/qAGd6tX6ibJuibA/yGDWFplwRgYYPOfrMn9u/5fRikIXozYrD1VgXxb7vLpZX
-         qi4EmA4bLGRqIiz+6VCO83Ld3Ou1eIIDRulA5v0oUIi4mx/wfM6Vdg8DKAew2H0sXtbj
-         lz4/9oxNBROvhR/Lt6hCQiW9gp/3UiKBbLa4Ac2lwyQsyxH3iyEMhNLjBIphRgjUimqs
-         cHow==
+        bh=6z/gVyyQLcMB8lds+nVmAsmElBFf1hijKC0fmVt76vg=;
+        b=kvMhLhGQlgu39PBbIFOumN9Rbz9agIBKcwJOvdvxY37gu1kzd3PuZnwTXwQthTxxLL
+         3MfoUk1xDIHOEK1GEf4wMeU7NEFg4tNmfuYJOhgQqDLKWJFoD04xhQR7AXvzbHx2/TA2
+         vALZXIDT1aeFXFXTiZkEz5MmBUkhUExfoP2bTzcm9raXarmvh7LsHm5ymTzYVoX3YRTZ
+         Z4PSYzsTKxrxUy6IMGJQEN0zEH45aJM8Y17ZC5ZHkgTeLfLVCTg9QBNg9r5NlVTQVYg3
+         fMffby7a1OmgR9a43sKyu2Rxi0EOW5qnasxDQwMEy1+bG284Bk32UmMnEfvoq6vf9aBl
+         cLQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:cc:subject:thread-topic
-         :thread-index:date:message-id:references:in-reply-to:accept-language
-         :content-language:mime-version:x-original-sender
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=KqeOcRhFdjjeuJ9xshVtfLhhgKkY1E2uoBUXSUu1Qfc=;
-        b=NrY7pCwdDcXb6DEq4P0HBAcG0GfvFS2BRtcnbWQl3Qso0mw6NVh62Czy5iezZxYpCF
-         DIBDvlOJrvbT8WRAFKo+ZGGxSOsWRRm1Nf28st6yzeyvwFm0oA1/6hEawArjA1uyoaKX
-         HwSWdSEci/QLiIEl/2UgsqmX1o8zCBskEqKtou32M12Sygzxej+CrstT6JeyfKCiTCDD
-         okEN6bDXEH9k93PsWWf/F3PWBIXXP+kbGxXP6bqmCFerBMHq4unTxrhjEPdx7Nh5regq
-         b2a6HpcpFC950PQTVj3LmH0Da3tIX4I99sAVfgZCxPJW75puDIaRCvhsL7r90p90DFci
-         p/dw==
+        bh=6z/gVyyQLcMB8lds+nVmAsmElBFf1hijKC0fmVt76vg=;
+        b=mxUFaduyxFTvCRpta+Hytszm3U6VTaiye0Fsb/+tzmlPTwcsvfvTqwwgewYO8vSPGB
+         d09Uq1qWr1L+hHEX+Cs8Ajx6n8gYJvCQYhWsUAhqgdXdgsORpF2iex9kvbL0T+p9Id2m
+         fRKmJTErd1TXaZHn6oreEYD0lWUNt67O/3NjxWEduPJKu46sYrLP8H3xFeTKhzzkIwRZ
+         IZEDDKLO/bZ0azHbUWK40nXhacbE4mdbYdJ5byHzRa5WNeIKKCFY0OWBZwhQPcq3/WmK
+         nLWdqz2M1o+aPfncblyDEJ+A6D7RUiIg1AXZOXfMqN8QgIEQe837hNCWoLrEcbq25YNM
+         pmcg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVaGRaS760iVqsjtH87447R1PF/ifxd0QmaXMzJRVJ7icfe5tKX
-	/c5etf1v1Qtbpk2mr1JgDqE=
-X-Google-Smtp-Source: APXvYqy1R2/afVE9e0hSrKvXXAkqQm38SG/VOxbtESJa/IibKWNHuhaS05WtIr23ZymVb5+igQQoxQ==
-X-Received: by 2002:a05:651c:104:: with SMTP id a4mr8037829ljb.104.1576206323235;
-        Thu, 12 Dec 2019 19:05:23 -0800 (PST)
+X-Gm-Message-State: APjAAAXNMiMZol+Btli/5NdHF8gaksSiTraTBD2OUbEmFgnShlSJ1uEZ
+	1N14bWlJesXprJ+45ERu1oQ=
+X-Google-Smtp-Source: APXvYqz05vv/fokA3Lfp1NDoBHWFvgGcM6IEyignpu9M24T1jwInSNnub5Sai+clrupeo+j4t2DJAg==
+X-Received: by 2002:adf:a109:: with SMTP id o9mr11575433wro.189.1576220915989;
+        Thu, 12 Dec 2019 23:08:35 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:6a05:: with SMTP id f5ls1104663ljc.2.gmail; Thu, 12 Dec
- 2019 19:05:22 -0800 (PST)
-X-Received: by 2002:a2e:585e:: with SMTP id x30mr8302976ljd.141.1576206322603;
-        Thu, 12 Dec 2019 19:05:22 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1576206322; cv=pass;
+Received: by 2002:a7b:cf15:: with SMTP id l21ls4587677wmg.0.canary-gmail; Thu,
+ 12 Dec 2019 23:08:35 -0800 (PST)
+X-Received: by 2002:a7b:c19a:: with SMTP id y26mr11397662wmi.152.1576220915284;
+        Thu, 12 Dec 2019 23:08:35 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1576220915; cv=none;
         d=google.com; s=arc-20160816;
-        b=0W0Sex4mYeDi7YX0N62tJFDglqDm2P0j/N8wT40Qy9YXjwqc3QzP3OfGf85ikF6+GG
-         eVeH+1Y+7yeulkk2EOQVdf/z4Rhm+Pz/GjbOTU4gB/885fEECdBzpxnV78wb4F+tKKRG
-         PU+F9peHCQUyFgBSp4cFaRnUwiD5p1xiBwBao6Ad3Vo9b2X+4TPD0O+z4wWz9NyAds3s
-         TVOSpmv8MEFCxlRfc5XcpGqzJKImsnHg+DtTtq1fJsMa+p7nabKZG2cLPDqABFTF4qe6
-         G1qLfp0NCnFbC1eqYQcjbhwB176dkZA+grbfPKCnOGP/O8xqkMZzlnrdEhE/1OdsgKIB
-         gPpQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:content-transfer-encoding:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:cc:to:from:dkim-signature;
-        bh=GgAmowXkcfubxz+JuEwPu8ZyMRV9dnWGnriwcDU+aew=;
-        b=Vzt8aaw4U1/aOHI9WxBbFEw6xafpxQCgNhA/hXRu1pC4kxFQeAdGuGca/Tw33QpEcP
-         yZKtokC0RSVwiOJ71sT63A6qkFfAkj0GoSgPn7RpHLKad87oDS3bNRCpeAv0e5AKQ7zn
-         hZfncx9sFZS/Zp16f8eezuRciNk+n1ZFD7u0KgVmXxelMKSAsqvBHzliS2Yh5dC7FnfV
-         EWU9+r2WUpjqV7ZXbC+sSWDcMXvJebyvvndW7AaUXlV90J+fdZlaJgXg67HMRUqV5zYn
-         stt3wb2lxqV2YI2BG5syQkDt16rXhpewhezjehtCZdZG0X3TpEnDSZQAzO3Az67T13Y3
-         i+ZQ==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@nxp.com header.s=selector2 header.b=REGdD3St;
-       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
-       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.3.89 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
-Received: from EUR03-AM5-obe.outbound.protection.outlook.com (mail-eopbgr30089.outbound.protection.outlook.com. [40.107.3.89])
-        by gmr-mx.google.com with ESMTPS id x5si295950ljh.5.2019.12.12.19.05.21
+        b=cfzUE/DJK8XJuzQDto7x9W96IlWhVJMjHKZkGp+1yxm13GPD5FJMhxet03FAOh5oSM
+         y9LdllDtt978mK7m0qHTPTxX07eB0jH1b0fS5+jWAS8ZiDGtQsxlqIJruk780rkqrExD
+         CcJ/9duYY/UlvOy6xW783OmU3E/5bPKUvyGa/06aibvoWLc6g2LShDXAoajJUIFXRaI4
+         3YTlgiWYumArDzmKMgv8re7jn/01FnWb7Bl5MsHisWxReRsZpusS2a3z8C6fqMkCJBPO
+         VJeQzoOTndJYCwX9JLWDufbIlrd6lCtockSU9S0LvkSDUSNB2CVEiTEXo7jRWX3bbQI/
+         aDZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=rYLcc3iNdL+DoUlDJbWzTf3IH63dgDZwXuy6CjPMO6o=;
+        b=nk5YcSy4Y0WT4FSe0chdcyv4Zo1eHEMMisDitUrwFu3kR0l3dXbskkKGPTkih2Wz9A
+         GHQDnAE22G1BJb8Kot2cojvDW0AqUtx6cAuXFOoyipUiJwhXmQSwnTotBd3NgMgnF1k/
+         lx9nSywH86HYVvQ3BS1fw/n5xKPXDeCmzV4/pskZFyvU5DBK2WFai1ZTCCGO+eUCDBBM
+         HWT4Qhnnh47VFMKSgMIZ/hwqQfuzNl7Pm7rj5DqH8CE6tmDfERMXXhCKMhH8kz/3/z+j
+         i4oR0537HMPlDIxjwvUCpGyuVYFtPmLEyj3bu6OXn2BWjPaBhErQ27baSvX5K5bFOVoy
+         rA8g==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
+        by gmr-mx.google.com with ESMTPS id x5si233229wmk.1.2019.12.12.23.08.35
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 12 Dec 2019 19:05:21 -0800 (PST)
-Received-SPF: pass (google.com: domain of peng.fan@nxp.com designates 40.107.3.89 as permitted sender) client-ip=40.107.3.89;
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lKak3TAvCbnGO/1u54V/l2RFTtLHocDTOzM/sCxnp4/70zhF28jbZ1SfuJkqsACtXnURYpg9CcDgrFQTzlJE6kEA4o87ZfHnlbpqjFFruM31JNthIWRR6hyJlm8sB8f54Wap1wPx53Z6Exutqg2NF1pBdQ91e7YihtCpNSUrvzANbLm/OuOJuKajllTiVwVXpXoDbx/LNa70IY1qYzaW5kfMzS1nff0N050SIfNPvdiX/zjJIiKEjPf5FD36jiBmkrDbEy8TPVTWF+O2j53/InDNtAf4uJ+dsZMekFiu8GBJwQfpGffbYyr1Y+DAHT5dQHUOBpPHW8RhIyWy+jubUg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GgAmowXkcfubxz+JuEwPu8ZyMRV9dnWGnriwcDU+aew=;
- b=XhUspzpVMxamv+R50cjM+/EdoWSrNr+XpHV/91WB2kwCK+Lv771rXQmqmHyoD6j7WdvAXsADSu/nM9ZZs6a4HXzzlIX0m4xjT0DXDzHCvpAzPo6Z5R/V6jajTWEjEaJjSFG0p31azfRsyRSgIbV4usyryIs5nqwugCYMJN+keUutGc96R1Z8v7pnBv3Jjklzv2RvS+Pkea639/0xw/xYlPJG2onmeEnztf/TajmlL0Um+ApBTg9DAlTMORPCpBuWe8syqEWWZ7tWmloA/8En4x+Rk24wh/g4NGMau0CIco9IzzyavrIer+bt3XLFSXw9ju3unE3UKCgkAF2eVBAVaw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-Received: from AM0PR04MB4481.eurprd04.prod.outlook.com (52.135.147.15) by
- AM0PR04MB7123.eurprd04.prod.outlook.com (10.186.129.141) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2538.16; Fri, 13 Dec 2019 03:05:20 +0000
-Received: from AM0PR04MB4481.eurprd04.prod.outlook.com
- ([fe80::505:87e7:6b49:3d29]) by AM0PR04MB4481.eurprd04.prod.outlook.com
- ([fe80::505:87e7:6b49:3d29%7]) with mapi id 15.20.2538.017; Fri, 13 Dec 2019
- 03:05:20 +0000
-From: Peng Fan <peng.fan@nxp.com>
-To: "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>,
-	"jan.kiszka@siemens.com" <jan.kiszka@siemens.com>
-CC: Alice Guo <alice.guo@nxp.com>, Peng Fan <peng.fan@nxp.com>
-Subject: [PATCH 2/2] arm: irqchip: fix memory barrier usage
-Thread-Topic: [PATCH 2/2] arm: irqchip: fix memory barrier usage
-Thread-Index: AQHVsWIncu+svSN0AUKz5pHUEDyf+g==
-Date: Fri, 13 Dec 2019 03:05:19 +0000
-Message-ID: <20191213032352.8915-2-peng.fan@nxp.com>
-References: <20191213032352.8915-1-peng.fan@nxp.com>
-In-Reply-To: <20191213032352.8915-1-peng.fan@nxp.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: git-send-email 2.16.4
-x-clientproxiedby: HK2PR0401CA0018.apcprd04.prod.outlook.com
- (2603:1096:202:2::28) To AM0PR04MB4481.eurprd04.prod.outlook.com
- (2603:10a6:208:70::15)
-x-ms-exchange-messagesentrepresentingtype: 1
-x-originating-ip: [119.31.174.71]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 6605bed4-29ac-4cf9-a025-08d77f794966
-x-ms-traffictypediagnostic: AM0PR04MB7123:|AM0PR04MB7123:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <AM0PR04MB7123104176E66619DD7BE36988540@AM0PR04MB7123.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:612;
-x-forefront-prvs: 0250B840C1
-x-forefront-antispam-report: SFV:NSPM;SFS:(10009020)(4636009)(366004)(136003)(39860400002)(376002)(396003)(346002)(199004)(189003)(8676002)(186003)(8936002)(316002)(26005)(81166006)(5660300002)(54906003)(64756008)(66556008)(66446008)(66946007)(6486002)(66476007)(1076003)(110136005)(2906002)(4326008)(44832011)(71200400001)(52116002)(478600001)(36756003)(81156014)(6512007)(6506007)(86362001)(2616005);DIR:OUT;SFP:1101;SCL:1;SRVR:AM0PR04MB7123;H:AM0PR04MB4481.eurprd04.prod.outlook.com;FPR:;SPF:None;LANG:en;PTR:InfoNoRecords;A:1;MX:1;
-received-spf: None (protection.outlook.com: nxp.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: tq6747nyvbedsM4dHFWIIxSZ+Il43rV4CMKmsPvgU9DxbGlR7zF6o48MXGKrkOBBOh1V/kUH3wIFo5yFbdmjaXrCyAlHK40Ovr7vUpPyD/K9NI2dQXox3vEKixDOVQmXUCS9Q4HcIGNweuVUEPb0AjL4DKDHdRpA4N/60kP6NBMvqEXUu9PKXAinmyqyZP4xd9M+5XQWyocvdGhdlEHwev5RUp2d13z6a8Jo9Ez9S74zTF7abiTxqczVwnmgXaL1UW3QB64u81suL7psuBMdNdluYL4HnWnC17jy6VQo429RQdgUG22+tpYdDJIGIEWOAPuXHjfrCrK0tocxEi2/jqfdtuVgSAvazu+gSAJRJicW5GN2ypeNSQTQYP6AEecUsEn4ojo7hVcqaMWE8VK3IALLU9UMp3ay2b354uDd22fy6TV0Kuzr2cXdUwp3jVrv
-Content-Type: text/plain; charset="UTF-8"
+        Thu, 12 Dec 2019 23:08:35 -0800 (PST)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
+Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
+	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id xBD78Yt5016797
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 13 Dec 2019 08:08:34 +0100
+Received: from [167.87.38.231] ([167.87.38.231])
+	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id xBD78WvI007462;
+	Fri, 13 Dec 2019 08:08:33 +0100
+Subject: Re: Adding a shared tracing mechanism
+To: Guido Roncarolo <guido.roncarolo@gmail.com>,
+        jailhouse-dev@googlegroups.com,
+        Henning Schild <henning.schild@siemens.com>
+References: <AM0PR04MB71223156702DE74066C2511BE2550@AM0PR04MB7122.eurprd04.prod.outlook.com>
+ <CADVdfxh4=ZmDpzHHh1H+8Kucb3bDDaaOjpjJRkz3cxzYvMVXBw@mail.gmail.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <76ed1186-e38f-32e8-e0a8-c3768d44fe3e@siemens.com>
+Date: Fri, 13 Dec 2019 08:08:32 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.1
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6605bed4-29ac-4cf9-a025-08d77f794966
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Dec 2019 03:05:19.9335
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Qz6TnaqnTg9XoZnQR8KLUi0vPEBHWE2hwGB6Mlj/n5R4cU8qrE7H4oBt0FRhZ5tkCZJzYDUgJHyqXQ4ajkTkog==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB7123
-X-Original-Sender: peng.fan@nxp.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@nxp.com header.s=selector2 header.b=REGdD3St;       arc=pass (i=1
- spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass
- fromdomain=nxp.com);       spf=pass (google.com: domain of peng.fan@nxp.com
- designates 40.107.3.89 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
+In-Reply-To: <CADVdfxh4=ZmDpzHHh1H+8Kucb3bDDaaOjpjJRkz3cxzYvMVXBw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -184,52 +136,75 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-spin_unlock implies memory barrier, so no need explicit memory_barrier
-when enqueue irq. When irqchip_inject_pending, need a explicit
-memory_barrier after updating pending->header to make it
-visible to enqueue.
+On 12.12.19 16:43, Guido Roncarolo wrote:
+> Hello All,
+>=20
+> I am trying to add a small tracing mechanism developed for a RTOS inside
+> jailhouse.
 
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
----
- hypervisor/arch/arm-common/irqchip.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+Henning started to look into such a feature as well, but those were only
+early stages. The idea is similar: export a memory region to a cell for
+trace pickup. Events could come from function tracing (gcc -pg).
 
-diff --git a/hypervisor/arch/arm-common/irqchip.c b/hypervisor/arch/arm-common/irqchip.c
-index 1c881b64..5abf1c37 100644
---- a/hypervisor/arch/arm-common/irqchip.c
-+++ b/hypervisor/arch/arm-common/irqchip.c
-@@ -247,13 +247,12 @@ void irqchip_set_pending(struct public_per_cpu *cpu_public, u16 irq_id)
- 		pending->irqs[pending->tail] = irq_id;
- 		pending->sender[pending->tail] = sender;
- 		pending->tail = new_tail;
--		/*
--		 * Make the change to pending_irqs.tail visible before the
--		 * caller sends SGI_INJECT.
--		 */
--		memory_barrier();
- 	}
- 
-+	/*
-+	 * spin_unlock will make the change to pending_irqs.tail and
-+	 * entry content visible before the caller sends SGI_INJECT.
-+	 */
- 	spin_unlock(&pending->lock);
- 
- 	/*
-@@ -293,6 +292,9 @@ void irqchip_inject_pending(void)
- 		}
- 
- 		pending->head = (pending->head + 1) % MAX_PENDING_IRQS;
-+
-+		/* Make the change to pending->head visible to enqueue. */
-+		memory_barrier();
- 	}
- 
- 	/*
--- 
-2.16.4
+> It is a simple circular buffer where in constant time access you can
+> insert events, then from Linux
+> you can dump the shared memory and translate the circular buffer content
+> into babletrace format
+>=20
+> To achieve this I
+> 1) added a memory region inside the cell config
+> 2) initialize the tracer struct in init_early() hypervisor/setup.c
+> 3) try to insert a test event -> OK
+> 3.1) dump mem from linux -> OK record is there
+> 4) try to insert an event inside=C2=A0 entry()=C2=A0 or after -> NOT good
+>=20
+>=20
+> FATAL: Unhandled HYP exception: synchronous abort from EL2
+> =C2=A0pc: 0000ffffc020bf68 =C2=A0 lr: 0000ffffc02024d4 spsr: 800003c9 =C2=
+=A0 =C2=A0 EL2
+> =C2=A0sp: 0000ff0000010e90 =C2=A0esr: 25 1 0000006
+> =C2=A0x0: 000000000000002b =C2=A0 x1: 000000000000001e =C2=A0 x2: 0000fff=
+fc021d000
+> =C2=A0x3: 00000000b7e00000 =C2=A0 x4: 0000ffffc021d030 =C2=A0 x5: 0000000=
+000000000
+> =C2=A0x6: 0000000000000000 =C2=A0 x7: 0000000000000000 =C2=A0 x8: 0000000=
+000000000
+> =C2=A0x9: 0000000000000000 =C2=A0x10: 0000000000000000 =C2=A0x11: 0000000=
+000000000
+> x12: 0000000000000000 =C2=A0x13: 0000000000000000 =C2=A0x14: 000000000000=
+0000
+> x15: 0000000000000000 =C2=A0x16: 0000000000000000 =C2=A0x17: 000000000000=
+0000
+> x18: 0000000000000000 =C2=A0x19: 000000000000001e =C2=A0x20: 0000ffffc021=
+9038
+> x21: 0000000000000001 =C2=A0x22: 0000000000000001 =C2=A0x23: 000000000000=
+0002
+> x24: ffff00000969c000 =C2=A0x25: ffff000008010000 =C2=A0x26: ffff00000801=
+4000
+> x27: 0000000000000000 =C2=A0x28: ffff8000283ea880 =C2=A0x29: 0000ff000001=
+0e90
+>=20
+>=20
+> I tried to to understand from memory-layout.txt if sharing memory
+> like this is legal:what I would need a "Common memory region"
+> that stays visible to all contexts but I'm unsure if this is feasible or
+> allowed
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20191213032352.8915-2-peng.fan%40nxp.com.
+Well, for filling the region, the step that fails after early_init, you
+need a valid mapping inside the hypervisor at any point. Study what
+happens to make the console page work. That is just the same use case as
+tracing.
+
+Jan
+
+--=20
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+Corporate Competence Center Embedded Linux
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/76ed1186-e38f-32e8-e0a8-c3768d44fe3e%40siemens.com.
