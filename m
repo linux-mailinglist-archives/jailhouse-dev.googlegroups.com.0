@@ -1,133 +1,173 @@
-Return-Path: <jailhouse-dev+bncBDEJBXNQUEORBQWAZHXQKGQETXWHGPA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDAMFR7JZAEBB3P7ZPXQKGQEWRTCKFY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb3e.google.com (mail-yb1-xb3e.google.com [IPv6:2607:f8b0:4864:20::b3e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5031211D13C
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 12 Dec 2019 16:44:04 +0100 (CET)
-Received: by mail-yb1-xb3e.google.com with SMTP id g132sf1095604ybf.21
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 12 Dec 2019 07:44:04 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1576165443; cv=pass;
+Received: from mail-ed1-x540.google.com (mail-ed1-x540.google.com [IPv6:2a00:1450:4864:20::540])
+	by mail.lfdr.de (Postfix) with ESMTPS id 10AE211DC62
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 13 Dec 2019 04:05:18 +0100 (CET)
+Received: by mail-ed1-x540.google.com with SMTP id n27sf560223edb.20
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 12 Dec 2019 19:05:18 -0800 (PST)
+ARC-Seal: i=3; a=rsa-sha256; t=1576206317; cv=pass;
         d=google.com; s=arc-20160816;
-        b=bcjyRf6sKHNsmzzWl3TC+35HQ2J6dJ14lArP2oXvKEIE4rFZbaxqIhXF2OrwFTeZrq
-         2knlZ6Vn9AQVkP5EtzOydIc+TeyNZUtasp44pELvwj/H5TD/ygOKcnFwnNFmqfn4f79R
-         Fl3ZyUMFNuMOysRDm647YcMi/XH1gwLkEhRyD30lXMZzzu0+wnUrZP4aehtn6KwOsNrX
-         lU4giyKF+4YlN8qoxlWoECPlCPX8bcPfWK1U1qw6KTq3liMGFFjyYL1VLWH3vl6ZmXFU
-         XTRk9MTC5T/blru8bjNNHVw0CoZxBbES5IQdq7hnWDhlw52Qeqb/Bq9UvipYkTjsg1zO
-         VIoA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        b=G+GEB361SiGc7W2jmJNaX3k3ZD+/HlgbgO+/dlSCH5JTdxWKWbEKmAgEABUGMIpXFb
+         saeCQy+Xld3jBYMhWX6IU5JuX3VhGNkOHZcqKuNUPeXbKJzCqUqkduiPbRjE8JmxCuIE
+         iFrDDTfECl9EGI6bshc88qpiG5+KdqKMocuKtiotMwHEBm7k72kJcQVPR4QoaSZ4OQck
+         +DEx+UvAmqa9P7+UxH2Na1T8qBjg4909NuL3kfDpnwLOZSFEsJ/m/GVDjheaXVZSbblS
+         XDAYD+Ed5jrcOstZs2zwRuVQiQl4I2F6IWBe4tNrhSVMQPMz0MEcZfiQD7JCEAlbwsOG
+         KmUQ==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:sender:dkim-signature
-         :dkim-signature;
-        bh=ln63/GBTn+0R8gxJmvDXobnD9p33IBqW71fUoJCJKx4=;
-        b=YFMK+BXRtBZnrcz5MM0K5EvALOX1aYJw/UpI+HiBdrBSkaWdc49WIZPj4tCdPP0UYv
-         RCi2HXGoSfU4/woxP7wQ6Ba0Mko4sv25xUJ6yaahsb0/JNY5Uov+dg3r/WeeZm2RfWR7
-         YWuo6XB/opj50aFj7EQaWQ7vWdEcofYB3qGvrLMTXeU4OlYs2AOsBuJYin6VmSysS886
-         ZphF5bOpTYNpZugH8d16M8ikboM6CTMdEPYGMa6a/T1grOVxOp4JycJj0qPk+bYAfEWV
-         9vozUFuWSojy5crnWG/ZzWcEpO6Hy3yn8/iJFBQIUDZUG4k3fYdZi8Ubdeckc2rMAHro
-         V/MQ==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=HSdTOGfU;
-       spf=pass (google.com: domain of guido.roncarolo@gmail.com designates 2607:f8b0:4864:20::32f as permitted sender) smtp.mailfrom=guido.roncarolo@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+         :list-id:mailing-list:precedence:mime-version:content-language
+         :accept-language:message-id:date:thread-index:thread-topic:subject
+         :cc:to:from:sender:dkim-signature;
+        bh=bBK9UrC73OF7AIkcdwmh1pXm758P/tY+3KVZ0pIsMcs=;
+        b=0NjTlc3USsSyOEb//970/4lZOLkljZtbU+ZMtandH/vGIJKqIJr//xEFC2O0mMjukV
+         ywVSHkqSC4iw4qeP9V+yUMTP01nzXSp4Gv3miifAl3RXBpGQ7tgxlGphpBEFAseKADjk
+         4bZqRwGk6Xhlw4bv+tVohcWLa4615CnfBAbkZThJx1ro0SzGopH4sEHmjA4lTlMX11uZ
+         OrYdYZTEsukrUEsSkGgR29aWmY+g/OOmV7iFg402kk49+gf1lCSInCkGWrkacEMRLBa8
+         FwwJTw0kWOJdfMU9mQm6ja8Y2QA8Hxjk2nE7O1P6HxMDbfZdOzAQcSHsUkkuUdSTktqr
+         EcCg==
+ARC-Authentication-Results: i=3; gmr-mx.google.com;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=G0vNDo34;
+       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
+       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.3.68 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:mime-version:references:in-reply-to:from:date:message-id
-         :subject:to:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=ln63/GBTn+0R8gxJmvDXobnD9p33IBqW71fUoJCJKx4=;
-        b=Ls+sEdkHBNBdy/1Fv94x0ukaSkQQUHEwyvLTjyVdCTk3jgxAslyzke1BsvxoOJH+Jh
-         1JYUlShp3pJ8+0CVP5yH/1yqOAYPttiUHYymojG9JcNscBQCVXJdPA3CSrKmD6n3MqQp
-         wpdubr0BjRNvcg+rkDe7OA/6bLL7ayQ5ZRA/RBzLcdqxTZ6ENCj+VcvuWDsJDlqUudO3
-         xiVCYQuGkYtsLSKm2EhNf5XNT8N0cbiU5IyefTFaXf1TJ0FbP0uzB98naOi9hvCUZCpX
-         fwb5IFZ10rJdJy2XuwwmftZJcBMNsybLIlhZgVeUHk9nSshtyfKt+YVPBbOm0wdIRAm8
-         xkLQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=ln63/GBTn+0R8gxJmvDXobnD9p33IBqW71fUoJCJKx4=;
-        b=gP86CQ13QZ6YzuvHmh2ENbYbJ7NFEmwIRma0cCwBFN4sXrqWtbW5nZA1bxg1fKENVQ
-         pf6LZXQOf36xsDebKICKY0svsrHcGUYH5TSenCX3GrS/tKRgU3IPNrEB7o9gif8gXP0W
-         n2tA2r+oK7sqANJX9WRKnsYjWeT+PvXb2chhqdbzJfwtnK9VJ1bBRv337QGPPHj7d6O0
-         Jvc71DXb5O+aP/HCy7Rvx0XUrP6BlmGnklEyS3ApM/SX9SaB6loy4Rh5TIhCooVxEs6Z
-         PoA3wcT18NE7WRPV4qDrkBWFhrStkbAftIzLSbqG83Eu6csYaHbKtWvCfQ1USfWO5SRS
-         H/5Q==
+        h=sender:from:to:cc:subject:thread-topic:thread-index:date:message-id
+         :accept-language:content-language:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=bBK9UrC73OF7AIkcdwmh1pXm758P/tY+3KVZ0pIsMcs=;
+        b=AZYEvLT4q0GtLUtFD9M6krcMCEp2xrdYkmsbXCD41he6ZbNsKk8OhBQB0r4WsqCnPL
+         TFwH8/ohYpZHlkPH/3tBD5DZImKaOiS95m3+16IT7MO7DUmYArC0FfhpoqRCnO6wUu/G
+         Xs0qkZUXDZ8lU/lGlK8m+3jtPqSyfQTRZwnXC61m4gT364gQCTf6L3wK4EPXeQfWjSHe
+         q1FYdyU8W6JSRNXfGJDFdFxnfMbwTkWHMVhGw3r4XKEzjifJVahZ4XDFXNfa7JWWFEiP
+         0/TioisCDaJNZnzaRxee4U3c7B2d0qkT4Y3s5NFIddYiJp0hmyAEt1frRYVAJROusZUj
+         +XLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
-         :date:message-id:subject:to:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=ln63/GBTn+0R8gxJmvDXobnD9p33IBqW71fUoJCJKx4=;
-        b=PoZiipnM7Qcz+MKbmWNPRWPmbXr58V93DgLWbWRnIbtmJtEGmTPaUg3QvmbfmrCVCt
-         lHAGZF+4+4r1zMYOZHFFslN3dPZuOJ4MzWWnOEQJBWHM7gZImFNjJQV3UPAkrIv49Bal
-         WzHFe6rkdTzWK0uiJw4ilhblK2vSGz1ez2MsKZiN3G1R+1oMXGa8/FBolgaiRz5EtxRK
-         y0P/azsDTS73Y+RzyQa668K9pZUxk03L0lFULjW12XQUIWU+k0+Ug62z2p7K2U94sTRM
-         O12cTB55kotoKnRKbzkWXvHemAMIlOy5wt8VcE3dbGujysXoG/t8FPXgMGg/99NEOKpc
-         QMGQ==
+        h=sender:x-gm-message-state:from:to:cc:subject:thread-topic
+         :thread-index:date:message-id:accept-language:content-language
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=bBK9UrC73OF7AIkcdwmh1pXm758P/tY+3KVZ0pIsMcs=;
+        b=N+hTyvqDpWvFUqnjVE0GAclU/TIMYKlyKk05FEA/9z9aBjtoEd0qjFKUbqZxj4l+Bg
+         PpKv94ok1LVn12zOodD6t5pDaCI9uGQ50EWX3PQDE33GIj+wrCyIoX27gMWmRgNIYs5/
+         c9WmTbk1/rZdMLn9svo8XoeaHGh7ZCgZ10GHWcNMBxZBVVN+4X8ac7y6Rstmon/2MttS
+         140DSL0OMuid17SYbFag5HUY5ndxg6ML+O0K6+f1j0CeDh2H8tm14A5CFww3Bf2FHmws
+         cVAqLb0x6UekLnm6KrRp+v5XYUkAJrWo/DIhVxz/PXnfr+U6GFYoPtC8fqh/BKew0ljO
+         X8bw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVLvgnD0HYwXj9apAdy2M3mHm2dr0id1A8MxTSEr1I+cT0pOisy
-	m7bjUCIUg9Khc14GChi9yuM=
-X-Google-Smtp-Source: APXvYqx0Hv8iu9qparJHxThQJTitCwJ+NZ5J8sTk1wi+IdjnO2UNuLOmIOO/TfKO+pyS08BDJ8uKjA==
-X-Received: by 2002:a25:b183:: with SMTP id h3mr4618378ybj.141.1576165443009;
-        Thu, 12 Dec 2019 07:44:03 -0800 (PST)
+X-Gm-Message-State: APjAAAV1xr7y2jwaKty8W5kfj0XkmYmxkfp6faeCTR0uGwHsR3C+DllS
+	iXPhm0ci4iPXIKjAesyht/4=
+X-Google-Smtp-Source: APXvYqwdpTM+BsoPgxyeBXQjJPCspRYanmuT6IWUMBR0IWQRfcXIPrpdtHHlnhO+yI3k0C3/PX/WnA==
+X-Received: by 2002:a17:906:6b89:: with SMTP id l9mr14020815ejr.130.1576206317710;
+        Thu, 12 Dec 2019 19:05:17 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:d116:: with SMTP id i22ls935212ybg.9.gmail; Thu, 12 Dec
- 2019 07:44:02 -0800 (PST)
-X-Received: by 2002:a25:b21f:: with SMTP id i31mr4925477ybj.86.1576165442419;
-        Thu, 12 Dec 2019 07:44:02 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1576165442; cv=none;
+Received: by 2002:a17:906:69d3:: with SMTP id g19ls1058909ejs.16.gmail; Thu,
+ 12 Dec 2019 19:05:17 -0800 (PST)
+X-Received: by 2002:a17:906:af92:: with SMTP id mj18mr14076406ejb.11.1576206317007;
+        Thu, 12 Dec 2019 19:05:17 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1576206317; cv=pass;
         d=google.com; s=arc-20160816;
-        b=S0MOQbyFr3NeS13Hf6dG1V2qBOukQoIIT4m/Mz6adPayl9EJatA2og88ypf6UX0K9v
-         XaNscYGaHdgUeYIXjz2wC+SpVwXx5gyLE6Y46KpuqQSVkkgeYdmb/udFeabACsz7kyUp
-         k1fooagMvnNu9gHEV08Bzx3hnQoKoSAeBvGGgjnDGfJQUG/VIbalqqasyxSc8qJjaDxj
-         bU3FU5CAJEPDT9Z53aKxzI4JH7f2OZieRfYOdqEzORlZlPi2QdDrourvbVOFQuF1k7gw
-         kb868NyNjgy7den9V5VtjtP9zJQJQ5H+Qqo24WnagwPhu756M2U1mjoTgRQY9Vq31i1d
-         SBHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
-         :dkim-signature;
-        bh=27wCLet7mDsNbBsgyOI3RmqkX8zljEa7djrV2AWNTOs=;
-        b=FHk/wam+r/XUNDBW2i2uK9b9zbAzIHG/ByDJG2AC02v+JtDLPKoATfiQrGVcacrmex
-         2iGW8Jgf7Sm4Dopc+GI76vBZODMK8DSS2as0DowBoMJVBf1DveY1Wk6HRp83/FiD8bOc
-         EPILJ4XaABhYYI0Cb9fiSKkU85PsGJc9bazQF8Ji0GKt3zP9vvytxKdm4t878Z+h6s6s
-         69wUXukNhexcPJK+n2Ffw8mdCMmsadAWKwu/dRyZ6xUmo+fAF15lVD7XFJ6JM7sK3kmz
-         vJVyVCwhcQzZFF6GE/Nv0RQFd0um9JGqUJ+xsJ5eC57XWtnDGgHcvXDyHOJTdP354jqs
-         nRjA==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=HSdTOGfU;
-       spf=pass (google.com: domain of guido.roncarolo@gmail.com designates 2607:f8b0:4864:20::32f as permitted sender) smtp.mailfrom=guido.roncarolo@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com. [2607:f8b0:4864:20::32f])
-        by gmr-mx.google.com with ESMTPS id j84si300956ywa.5.2019.12.12.07.44.02
+        b=taFijK4vGKu5gWeYqnBZlUKDojfr69PBh9N7Ori8iHXIY9t7Dwjxko7zVBlcc53m2i
+         ZE3phm7MrlKpC9On61vpoLz5QTEqvdLVK9+ns/sV1mQGRJsOGZT0RdNkiYrkNxchbclw
+         48V1dWN2fAw4nOA9kNk3bXwvVOlbsM9hlPMJyspIy/MXWyXKQoPTDStVX8GzbiVcp+dk
+         /XbcZU34N617fCHzpZzOlBB+KUpumqOB7Z9K5KJaXk6/vOjXpyDo8VRbpNUQNwx/qZOE
+         daZCESPdQYR8pci6NI0shwaEoN3rjlTp5AuYU5oj5YIZf1zzq7s7D28oNeh2sEqOMHya
+         UXKg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:content-transfer-encoding:content-language
+         :accept-language:message-id:date:thread-index:thread-topic:subject
+         :cc:to:from:dkim-signature;
+        bh=CEY5ewsA5CDep1d9IUy/aNB3u3GV4euJmC5ZPTZRbxA=;
+        b=YkZjSQkgcQRTpKorZQASWEJ4sC9GqJXuIkYlQR+orOKABy2hYi7RyMOyEIqGs7mhkr
+         mvu/eklvPRYJ7zhlKPvEYNPLlZxG1SyryWW8NN7Wu0XK0JWkDNAl5fUMH5eJPycoaBJY
+         csLzFThc1KOMG+GBqSgbsxQDsfpsqlCeid+UFczYc7wu1ffmu3S5806j66el/4vrnQn0
+         StbmxsogyvkBg5GOpDGkaC+hwWIPwbPJwHfigbPxVsHZ4Au5+Potza+SVrMcoMrMQh+r
+         7ZmKD986PO/RZ1Pzr8N9chY6eIwnDuZqMMwXrQTkokiZFpwp2vDwKI3cH/Agvy2/QSWz
+         Utgw==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=G0vNDo34;
+       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
+       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.3.68 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
+Received: from EUR03-AM5-obe.outbound.protection.outlook.com (mail-eopbgr30068.outbound.protection.outlook.com. [40.107.3.68])
+        by gmr-mx.google.com with ESMTPS id j19si373344edv.5.2019.12.12.19.05.16
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Dec 2019 07:44:02 -0800 (PST)
-Received-SPF: pass (google.com: domain of guido.roncarolo@gmail.com designates 2607:f8b0:4864:20::32f as permitted sender) client-ip=2607:f8b0:4864:20::32f;
-Received: by mail-ot1-x32f.google.com with SMTP id o9so2436511ote.2
-        for <jailhouse-dev@googlegroups.com>; Thu, 12 Dec 2019 07:44:02 -0800 (PST)
-X-Received: by 2002:a05:6830:12cc:: with SMTP id a12mr8018012otq.73.1576165440972;
- Thu, 12 Dec 2019 07:44:00 -0800 (PST)
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 12 Dec 2019 19:05:16 -0800 (PST)
+Received-SPF: pass (google.com: domain of peng.fan@nxp.com designates 40.107.3.68 as permitted sender) client-ip=40.107.3.68;
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lsvEGP8KeirqTB7E8HnLrtacFePXrq9W0daiHf8iQbjn75WzTt6wHXUut/5+Bt6NKwondhMCo8X0tH1OblRdPmepwuWKQfM7nNF+/m00NK0pUiLMhwNmi9gxILnxuM61p1wyxaTR1BPcLqL5Pw4ryvZnpOVoYkd7qGoNaSYMHjcHgK3z5BlEIEnLi+wbf9OK5iUMan1zC9vEyyc55/hID43Uppj1wlJerGgmwSSIDhe4XW/iIEL0uFdRq/TqRkUT66glprLB5t0tHBAueU9+K2AApXL/UDtOuDtvEkMqTGakIDVbPFaghAlFaNtoaFFhJda9K+dfAwgoreT0D9Zz5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CEY5ewsA5CDep1d9IUy/aNB3u3GV4euJmC5ZPTZRbxA=;
+ b=QWAQDhqQnLF4W1xyAEus2BPtK7+fHqvVzZ9IUFuSec46vS5jRJDHhv/4c1UD5Zpqaydoel36GKSJIGamBLG/pEUvYu9U+NMkdLEL7Dy5TkqSbDoU2n/3VaY8Umd1O0BKx+Qoohb6PGI7tsd3tTPPvFmjvguYqiIKD4nH6AO3+k1bhfLuCs2BR5HFqjIpmH6fBjJ1U7Y34JZZO9/uPC9gaTzB7dGUk0eUexCqSpqZI2hDHYd+FGyIcYVxEaYOX3vUOLH5ibrZIx5mJ4G0Gn7PBWpIr2oZX39FDjwfU0dF/ZlGJUKSHZZ3bAut/OlvOfBnIA+loybgmiN63NyFUYbMTg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+Received: from AM0PR04MB4481.eurprd04.prod.outlook.com (52.135.147.15) by
+ AM0PR04MB7123.eurprd04.prod.outlook.com (10.186.129.141) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2538.16; Fri, 13 Dec 2019 03:05:16 +0000
+Received: from AM0PR04MB4481.eurprd04.prod.outlook.com
+ ([fe80::505:87e7:6b49:3d29]) by AM0PR04MB4481.eurprd04.prod.outlook.com
+ ([fe80::505:87e7:6b49:3d29%7]) with mapi id 15.20.2538.017; Fri, 13 Dec 2019
+ 03:05:16 +0000
+From: Peng Fan <peng.fan@nxp.com>
+To: "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>,
+	"jan.kiszka@siemens.com" <jan.kiszka@siemens.com>
+CC: Alice Guo <alice.guo@nxp.com>, Peng Fan <peng.fan@nxp.com>
+Subject: [PATCH 1/2] arch: arm64: add comment for spin lock/unlock
+Thread-Topic: [PATCH 1/2] arch: arm64: add comment for spin lock/unlock
+Thread-Index: AQHVsWIksU0xgft8KEiSF+xA4GnpxQ==
+Date: Fri, 13 Dec 2019 03:05:15 +0000
+Message-ID: <20191213032352.8915-1-peng.fan@nxp.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: git-send-email 2.16.4
+x-clientproxiedby: HK2PR0401CA0018.apcprd04.prod.outlook.com
+ (2603:1096:202:2::28) To AM0PR04MB4481.eurprd04.prod.outlook.com
+ (2603:10a6:208:70::15)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-originating-ip: [119.31.174.71]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 72c2f6f6-8249-4745-35eb-08d77f7946f7
+x-ms-traffictypediagnostic: AM0PR04MB7123:|AM0PR04MB7123:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <AM0PR04MB712316432BE45288F7444CA088540@AM0PR04MB7123.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2582;
+x-forefront-prvs: 0250B840C1
+x-forefront-antispam-report: SFV:NSPM;SFS:(10009020)(4636009)(366004)(136003)(39860400002)(376002)(396003)(346002)(199004)(189003)(8676002)(186003)(8936002)(316002)(26005)(81166006)(5660300002)(54906003)(64756008)(66556008)(66446008)(66946007)(6486002)(66476007)(1076003)(110136005)(2906002)(4326008)(44832011)(71200400001)(52116002)(478600001)(36756003)(81156014)(6512007)(6506007)(86362001)(2616005);DIR:OUT;SFP:1101;SCL:1;SRVR:AM0PR04MB7123;H:AM0PR04MB4481.eurprd04.prod.outlook.com;FPR:;SPF:None;LANG:en;PTR:InfoNoRecords;A:1;MX:1;
+received-spf: None (protection.outlook.com: nxp.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: gRcy1xOVoHmJby6xVdDePTTdUvXhLOCrlhzqyBGKj3PrnvzO/QVxg9HAhTN79o0eZDdKbcfnZBWxfYuDm1WNYCAdeXT70O91N9PBLLGNsSTMK2eXqicUgDTHgvP73D1F4KUrtoNBwstnk+WxvS66qxm2pylNwYzuvqDhm/yfV8jmYQ+OjE/5YSvw5ylSwAUoAeHTG0Omlx6cW8MKWJqPwdqlGO9F8akdf+OQz9bqAw2K574CkFV7hTbRJWFfr59sVnUqcRsGjUrL4xvRplCyNeZPSSr90DiiGotGhLA48CkTuOjIyHKMijB+hl79mPp2VO84+HQpU4JPpMU98zoYQD9hATT4HSof6vuf9UZaFDH02TA2gyfF2UUudp75RVeArPCdUic0dxYKDxTD4YUq3jbttL3/2PHyt6sfBdwA44kqmcECbBS1vHSeemY4JlpY
+Content-Type: text/plain; charset="UTF-8"
 MIME-Version: 1.0
-References: <AM0PR04MB71223156702DE74066C2511BE2550@AM0PR04MB7122.eurprd04.prod.outlook.com>
-In-Reply-To: <AM0PR04MB71223156702DE74066C2511BE2550@AM0PR04MB7122.eurprd04.prod.outlook.com>
-From: Guido Roncarolo <guido.roncarolo@gmail.com>
-Date: Thu, 12 Dec 2019 16:43:49 +0100
-Message-ID: <CADVdfxh4=ZmDpzHHh1H+8Kucb3bDDaaOjpjJRkz3cxzYvMVXBw@mail.gmail.com>
-Subject: Adding a shared tracing mechanism
-To: jailhouse-dev@googlegroups.com
-Content-Type: multipart/alternative; boundary="000000000000376b1b0599839d51"
-X-Original-Sender: guido.roncarolo@gmail.com
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72c2f6f6-8249-4745-35eb-08d77f7946f7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Dec 2019 03:05:15.9108
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: LC9+EEaG0pKIoFZ7hT31wvEx442JMJ3I/J5rj0cmLiJo2t3f8Sg8DrJvu2dEd7OHnSavno6XfTgJBSfFtlYWTQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB7123
+X-Original-Sender: peng.fan@nxp.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20161025 header.b=HSdTOGfU;       spf=pass
- (google.com: domain of guido.roncarolo@gmail.com designates
- 2607:f8b0:4864:20::32f as permitted sender) smtp.mailfrom=guido.roncarolo@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+ header.i=@nxp.com header.s=selector2 header.b=G0vNDo34;       arc=pass (i=1
+ spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass
+ fromdomain=nxp.com);       spf=pass (google.com: domain of peng.fan@nxp.com
+ designates 40.107.3.68 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -140,242 +180,39 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---000000000000376b1b0599839d51
-Content-Type: text/plain; charset="UTF-8"
+According to ARMv8 DDI 0487D.a, B2-108:
+"The Load-Acquire, Load-AcquirePC, and Store-Release instructions
+ can remove the requirement to use the explicit DMB instruction."
 
-Hello All,
+Document this to avoid explicit memory_barrier binded with spin_lock/unlock
 
-I am trying to add a small tracing mechanism developed for a RTOS inside
-jailhouse.
-It is a simple circular buffer where in constant time access you can insert
-events, then from Linux
-you can dump the shared memory and translate the circular buffer content
-into babletrace format
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+---
+ hypervisor/arch/arm64/include/asm/spinlock.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-To achieve this I
-1) added a memory region inside the cell config
-2) initialize the tracer struct in init_early() hypervisor/setup.c
-3) try to insert a test event -> OK
-3.1) dump mem from linux -> OK record is there
-4) try to insert an event inside  entry()  or after -> NOT good
-
-
-FATAL: Unhandled HYP exception: synchronous abort from EL2
- pc: 0000ffffc020bf68   lr: 0000ffffc02024d4 spsr: 800003c9     EL2
- sp: 0000ff0000010e90  esr: 25 1 0000006
- x0: 000000000000002b   x1: 000000000000001e   x2: 0000ffffc021d000
- x3: 00000000b7e00000   x4: 0000ffffc021d030   x5: 0000000000000000
- x6: 0000000000000000   x7: 0000000000000000   x8: 0000000000000000
- x9: 0000000000000000  x10: 0000000000000000  x11: 0000000000000000
-x12: 0000000000000000  x13: 0000000000000000  x14: 0000000000000000
-x15: 0000000000000000  x16: 0000000000000000  x17: 0000000000000000
-x18: 0000000000000000  x19: 000000000000001e  x20: 0000ffffc0219038
-x21: 0000000000000001  x22: 0000000000000001  x23: 0000000000000002
-x24: ffff00000969c000  x25: ffff000008010000  x26: ffff000008014000
-x27: 0000000000000000  x28: ffff8000283ea880  x29: 0000ff0000010e90
-
-
-I tried to to understand from memory-layout.txt if sharing memory
-like this is legal: what I would need a "Common memory region"
-that stays visible to all contexts but I'm unsure if this is feasible or
-allowed
-
-Thank you in advance
-
-Best Regards
-
-guido
+diff --git a/hypervisor/arch/arm64/include/asm/spinlock.h b/hypervisor/arch/arm64/include/asm/spinlock.h
+index de814bc2..9cb3c3e7 100644
+--- a/hypervisor/arch/arm64/include/asm/spinlock.h
++++ b/hypervisor/arch/arm64/include/asm/spinlock.h
+@@ -30,6 +30,13 @@ typedef struct {
+ 	u16 next;
+ } spinlock_t __attribute__((aligned(4)));
+ 
++/*
++ * According to ARMv8 DDI 0487D.a, B2-108:
++ * "The Load-Acquire, Load-AcquirePC, and Store-Release instructions
++ *  can remove the requirement to use the explicit DMB instruction."
++ *
++ *  So no need explicit memory_barrier binded with spin_lock/unlock
++ */
+ static inline void spin_lock(spinlock_t *lock)
+ {
+ 	unsigned int tmp;
+-- 
+2.16.4
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CADVdfxh4%3DZmDpzHHh1H%2B8Kucb3bDDaaOjpjJRkz3cxzYvMVXBw%40mail.gmail.com.
-
---000000000000376b1b0599839d51
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div class=3D"gmail_quote" dir=3D"auto"><div dir=3D"ltr" =
-class=3D"gmail_attr"><span style=3D"font-family:Calibri,Arial,Helvetica,san=
-s-serif;font-size:10pt">Hello All,</span><br></div><div dir=3D"ltr">
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-I am trying to add a small tracing mechanism developed for a RTOS inside ja=
-ilhouse.</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-It is a simple circular buffer where in constant time access you can insert=
- events, then from Linux
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-you can dump the shared memory and translate the circular buffer content in=
-to babletrace format<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-To achieve this I</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-1) added a memory region inside the cell config</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-2) initialize the tracer struct in init_early() hypervisor/setup.c</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-3) try to insert a test event -&gt; OK</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-3.1) dump mem from linux -&gt; OK record is there<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-4) try to insert an event inside=C2=A0 entry()=C2=A0 or after -&gt; NOT goo=
-d<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-<span>FATAL: Unhandled HYP exception: synchronous abort from EL2<br>
-</span>
-<div>=C2=A0pc: 0000ffffc020bf68 =C2=A0 lr: 0000ffffc02024d4 spsr: 800003c9 =
-=C2=A0 =C2=A0 EL2<br>
-</div>
-<div>=C2=A0sp: 0000ff0000010e90 =C2=A0esr: 25 1 0000006<br>
-</div>
-<div>=C2=A0x0: 000000000000002b =C2=A0 x1: 000000000000001e =C2=A0 x2: 0000=
-ffffc021d000<br>
-</div>
-<div>=C2=A0x3: 00000000b7e00000 =C2=A0 x4: 0000ffffc021d030 =C2=A0 x5: 0000=
-000000000000<br>
-</div>
-<div>=C2=A0x6: 0000000000000000 =C2=A0 x7: 0000000000000000 =C2=A0 x8: 0000=
-000000000000<br>
-</div>
-<div>=C2=A0x9: 0000000000000000 =C2=A0x10: 0000000000000000 =C2=A0x11: 0000=
-000000000000<br>
-</div>
-<div>x12: 0000000000000000 =C2=A0x13: 0000000000000000 =C2=A0x14: 000000000=
-0000000<br>
-</div>
-<div>x15: 0000000000000000 =C2=A0x16: 0000000000000000 =C2=A0x17: 000000000=
-0000000<br>
-</div>
-<div>x18: 0000000000000000 =C2=A0x19: 000000000000001e =C2=A0x20: 0000ffffc=
-0219038<br>
-</div>
-<div>x21: 0000000000000001 =C2=A0x22: 0000000000000001 =C2=A0x23: 000000000=
-0000002<br>
-</div>
-<div>x24: ffff00000969c000 =C2=A0x25: ffff000008010000 =C2=A0x26: ffff00000=
-8014000<br>
-</div>
-<div>x27: 0000000000000000 =C2=A0x28: ffff8000283ea880 =C2=A0x29: 0000ff000=
-0010e90<br>
-</div>
-<span></span></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-I tried to to understand from memory-layout.txt if sharing memory <br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-like this is legal:<span> what I would need a &quot;Common memory region&qu=
-ot; <br>
-</span></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-<span>that stays visible to all contexts but I&#39;m unsure if this is feas=
-ible or allowed
-<br>
-</span></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-<span><br>
-</span></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-<span>Thank you in advance<br>
-</span></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-<span><br>
-</span></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-<span>Best Regards</span></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-<span><br>
-</span></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-<span>guido<br>
-</span></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-<br>
-<span></span><span></span></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:10pt=
-;color:rgb(0,0,0)">
-<br>
-</div>
-</div>
-
-</div></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/CADVdfxh4%3DZmDpzHHh1H%2B8Kucb3bDDaaOjpjJRkz3cxzYv=
-MVXBw%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://grou=
-ps.google.com/d/msgid/jailhouse-dev/CADVdfxh4%3DZmDpzHHh1H%2B8Kucb3bDDaaOjp=
-jJRkz3cxzYvMVXBw%40mail.gmail.com</a>.<br />
-
---000000000000376b1b0599839d51--
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20191213032352.8915-1-peng.fan%40nxp.com.
