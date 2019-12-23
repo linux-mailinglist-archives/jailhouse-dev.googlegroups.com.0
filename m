@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBDMOQXYAKGQEF2W24GA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBF4VQXYAKGQEZSGHJRA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x440.google.com (mail-wr1-x440.google.com [IPv6:2a00:1450:4864:20::440])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE0C7129BAE
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 24 Dec 2019 00:00:29 +0100 (CET)
-Received: by mail-wr1-x440.google.com with SMTP id u12sf8646575wrt.15
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 23 Dec 2019 15:00:29 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1577142029; cv=pass;
+Received: from mail-lf1-x13d.google.com (mail-lf1-x13d.google.com [IPv6:2a00:1450:4864:20::13d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E7E5129BBE
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 24 Dec 2019 00:15:35 +0100 (CET)
+Received: by mail-lf1-x13d.google.com with SMTP id x201sf2943030lfa.0
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 23 Dec 2019 15:15:35 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1577142935; cv=pass;
         d=google.com; s=arc-20160816;
-        b=EdvUJ5vKgXTGT31Z+HXgV2uBbcAN9mA0MXg8wkv9xlRXYJ8NnQVplfnhvUCnVXYbp7
-         dLSy73TYep5elH5qfJ41ZjGT6bXcH0D7GNlq8wcRrOpoi2AZDlA2ir6gfz8awu2WXwOO
-         AcPizAh+fxb+AERhisTdZl0zCblu515QB7LeJf5IuRBl3yc9ngvSGWvpqY8/pDz9lTuB
-         2HAN9En4wbF/iyPMH6RkC+QTiqQBadjODrK5YCXVpSfxbze/UgwG28Ztd5zvPwsDy7Ii
-         KJIkB4LcAtIh4OaZ7Ngf8vm97VIyWT9pevGZO3pw8pPU8CE0ksv3nH1G6b8Lu6PQgCiV
-         e6EA==
+        b=gonigl1/aavqXFMcRMabOhFoNMXIs2ORCyqXymRL0TD7T3aqJG+xqft/szONek0aTZ
+         ijz8JntfpZpbCi62kzj97S5QQ9pPw/fiMKMGLedkAnzvjSMDG9FbY4N0nrMstQAaRBpS
+         atQ6H9/wXZbqXCf6NXG4TZoSbfcHJI65oEYJiJCSRtHRSKT5HTHwS6UnhDDUCrvMVWam
+         8S74cPRdbJI6hYKhs6+N8TAsc8xlG/ujvMBw2DrpWk7h6xGk5MaFIoln6E9RimrBjmEN
+         pXnoNUIRmXx62h6ZVbpn+7F3/C3QL4DKfm/8H7C45ccoN4yQM+d8iwWExpRu/5a0nw7p
+         RpSA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-language:in-reply-to
          :mime-version:user-agent:date:message-id:from:references:cc:to
          :subject:sender:dkim-signature;
-        bh=Xv5FbcOrW0UqzSmeUCU/9JDe5RrDjbU/K3CCZtvFdo4=;
-        b=gcRVkx49gzSygnAgj9p7GF7Z2a19M9tNz091WyZCS0JbWLXPq0NBP8Cmj3NBHlIRFG
-         iSIjxeHr5oHlvSra3pjY1kG6F8pPQUJ06BNyAlIfMJ0D9sOBCe8VLPhu91NOIYcSajzZ
-         7B3/ED1yGPBPTWnWfa0TlO5V3Mav/qWeWfn1xIbaXFRQaYeqtjFxQ/B6jHpudA8F0QfT
-         0TxBFeh10OhQfrxgS/7Gs4PxZPlucWIJ4Bj6Pet6UVHcaonepWDVAlILg/dKptXudiF3
-         z9XLQwjfWFBDiGq95xB63QezgGorxrHVYdxzh6rfEI4AtftzaLuj/7eAQcv3Plm2wdJi
-         K1ig==
+        bh=7BCrThji+d5beXbiNvC+W8Rhr9SsUy08DvfQR2bo3Zs=;
+        b=pWUPJe8rduAv3c8qB1E9VsloNT9OHIHZllhzw70HiYFdfZvUVFi/blfuQ7Cuxs8uJF
+         n9zlCa9wgBlErCDXoV/sI6pcOFjAL1oiqSw18QfoWfRDWYkZTirowzRMTi7iwmThpLHo
+         88Bqm9buFXs+qrbElfMbYX1rplFOaeM85vkIVqR9OzVQkRsgG2JkE2m6J4kTdtMmUj/Y
+         0Jp0IsHJIlDDRe2/REJYKRoP2YaNy/jxlruBg472OZEPYPyPiBlPOmvQaFQOcNtAyqDd
+         QYK4Rw80Q0l1q9hFQnPB9XNLXMi6YHJO1KuaFlEJnXNhuK+DhvTO+vhMtMGpN3LcRI2C
+         I7WA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b="bro/+PL6";
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=snD0L23G;
        spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.12 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:in-reply-to:content-language:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=Xv5FbcOrW0UqzSmeUCU/9JDe5RrDjbU/K3CCZtvFdo4=;
-        b=Jx4jcn7ZXRVbo8j1tqG7Gvu4fWDrHVm9HGdQ41dM5f0xa4Qn0jp7wOvKhWS8Lmbtxn
-         Lgx9VWsfcHm/rU3Qy5BGhSm/25DD7QeXyeD4CAnlGh/+A1xeAMgIBXWQCehPNoaMnKL7
-         22Znv6VlfkXKaftlAz4nmisa3784TC/bi6+NMxovb8/2vNlbU09MI1VllGAiKZkRLSNY
-         GiPDY9p/7pYzAQjq/LJyK6d6Pu+WmaiiiJicluQNnPWodi64bLWAY1qN/hP9qp7YOqa3
-         2I9gxYps4WnWlBCOBKmDFvQyCQTmbnCieVP6QAJeDiXwHWzWE0F1Znrn8uvKpKCqX6sp
-         4F3Q==
+        bh=7BCrThji+d5beXbiNvC+W8Rhr9SsUy08DvfQR2bo3Zs=;
+        b=TeG0iNS2xxxWQfBvV39AOzw7DZIhFh2L7a1ENk7W80PYqYxgyKIpZXLB515PWQhJJ9
+         R3IU2b2eIwIy+szhqZ8zMXq+llnpUdK5+xB8gs2JGk6q51ooCHv4tsr5vSzyoZy9j9BM
+         a0LPmdlxiT6Tcwr4lm6LI7FOQKF5TcECLK2Z5YzYT3z8OQt5HGK8elfuvW/5ncIBkk6b
+         tXrpvXfsypqdXC47bsSViTAFrmr21FEmiYpgwpaH/ABzmX7pMC8EwtacKNqGVDLGKydp
+         xMI2KV1jk9uVVsON064Atz9btUwjtxgCJvWmnPRERXA6YyNDKH4+hOo299RL/EGA4ewf
+         BdqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
@@ -49,96 +49,97 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=Xv5FbcOrW0UqzSmeUCU/9JDe5RrDjbU/K3CCZtvFdo4=;
-        b=SEmctMLq8oBr7OO0oZDIppJJqFfpMo3fHpvJBcNj/HIICf5SvqkpayHUiLV8uxMX6X
-         qTDjDZ5KixdPQkGk2aUkJDXXmr4MDv8NbrldSrF3COW8VRdkJkCIcSvZh4jK/1Nl8ASp
-         4RIJuoxf8CQ1wv/INhvDlhGt3aDK5q9d7RYJ1dpQ1faCKJfo9eLKboSuBh6jXvooz7Ex
-         8+72ReoQbJLezN9lk1pAUsuFRr+0nstOTqsVIlCoJN6LgModotyH4DAABLOWqpmxCppb
-         jVrC7jix8v7bK5HAh11n1GgmIhHzBPJi/Wfe0hY6VtG+7cmIO1nV5JdK4jrQmR9oZS3s
-         71MA==
+        bh=7BCrThji+d5beXbiNvC+W8Rhr9SsUy08DvfQR2bo3Zs=;
+        b=oEUS9+jfndgHsWBViAzfgqD3tKtfJHlZ3wHd9qMSj/4wGc1Sbvl+b6+5naFuahMeuR
+         VsEr6bqgna4YzeZWq/sVlUkh4UiDyqvCxlUJ2hToVaAmtiZNfCBwozhG6BY1Wrt1vcJt
+         qPgvS2zOyGZWq9UUB7ASuulLZown1vHXEiSEZV44U9CeSzJBcCpOQKGjwBf7jhn61xXN
+         2L21+U0QHfwxDat2joexLsgbj/bIqvrUojRRzcJ/DTbDwBkK91YG4grA9VY01ARlOpKR
+         PU5aUZYrhxMTVrDUFfc2cgHMeHivnDpnahmTEeyP6riIpyNv9vSolhOX6pkL6+bApLdZ
+         1p/A==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUXW5AZmpPsMqfkph2JHJUz7pEpqhVy3MHSgwNWA3ln7hE0xa5c
-	1lbbcCrR9/rqiypJe6RbEqk=
-X-Google-Smtp-Source: APXvYqxR3FMRH+Bik/OoTy8z+EKb2Zyyt1mL6dY2Wg3EqsENQ2SPhSUfEgRmteWhkLWtjVlobOIS3g==
-X-Received: by 2002:a7b:c392:: with SMTP id s18mr919724wmj.169.1577142029454;
-        Mon, 23 Dec 2019 15:00:29 -0800 (PST)
+X-Gm-Message-State: APjAAAUIntFff7iBOqJY3yfbtPuZDUUBaP1k3mXVVhj52ksBC7h2GUjS
+	WeUwGnE277MM7OO2I9vRdSA=
+X-Google-Smtp-Source: APXvYqwNQXvWNYv8BLuUVSXPjbvYCHQJKzPfpSyzjPJjIkdRQizzRh/w8r85B0aSDKlqfWyXXovYnA==
+X-Received: by 2002:ac2:5a43:: with SMTP id r3mr18601578lfn.150.1577142935237;
+        Mon, 23 Dec 2019 15:15:35 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5d:6303:: with SMTP id i3ls4698774wru.13.gmail; Mon, 23 Dec
- 2019 15:00:28 -0800 (PST)
-X-Received: by 2002:adf:f88c:: with SMTP id u12mr33655215wrp.323.1577142028932;
-        Mon, 23 Dec 2019 15:00:28 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1577142028; cv=none;
+Received: by 2002:a19:8808:: with SMTP id k8ls1626351lfd.6.gmail; Mon, 23 Dec
+ 2019 15:15:34 -0800 (PST)
+X-Received: by 2002:ac2:51a4:: with SMTP id f4mr19154883lfk.76.1577142934586;
+        Mon, 23 Dec 2019 15:15:34 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1577142934; cv=none;
         d=google.com; s=arc-20160816;
-        b=LA8hB0SSh4R59SwIOfCxgd0gHbIg+oYb9oQZev7UR/NtScqB6/zBxZTNcNCTC2cb6f
-         +e1a6aCH0Q1Uzl0kCbFuwIig3n3Kt8l2m16c9pTjuc+vFZhlLEWSn2gkb8bKSVcCjv2S
-         EzXc4M/GX/MPFB91czKwY8tnToHhr/VIWCZffyEEddlRAyw/49cnO4l5olriXNcptixX
-         vAathy4H48nSWfOr5I8LCmyTKulFrczJesk251uwvHuJZQUYsXB5JwuX1++/98K1qUKx
-         5FwTH7egVZRoH13QoKvOZ1SousgShotoN1x8pxaQ9N2DgpDbvOeGs7AEGlYuawlmXHFR
-         W/Mg==
+        b=E6tMs+iT8E+uj5JI+obAoIdaFk7NFkkzJs6yDvsL4SSAZkYA3WFImGsJZXkkSizEkO
+         Vio5GF9VNK81fpdGUbYmkZ3GmNjD1M001qryqjPSYjKMRvc6j+EDcKP6bsl73mfLPYFh
+         6XLB7wBDbOhTH3fBl5uHZ5jWbBnETeTJ6OyNMYAnk8byGBTNwOMLZNIQowVHG0r7rgtM
+         7dJlzYjeGSNxcqkZLybIVkShg7Xx4tQffAIn8FQ+SEJtXvURcHKhGm60mUMeLdiJ1iyd
+         Wm7dq4xyBEedq89YIipkuBNebJlq+3NA3zHVc1hkM/evUwvkD+O9/oZ0pmskGZyytzjJ
+         2HAg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
          :user-agent:date:message-id:from:references:cc:to:subject
          :dkim-signature;
-        bh=MeksQ3x+oNTKptRYLX0/WHnawMnWBRFOuoMValHP1vw=;
-        b=IEJ+iy1srFK6CudL/WiDg1pRwpAhYzQAyB/r3zy6DaFx+eFuAwslWiksxNTMDTW2uD
-         sojOSdO3KKhDJB68UhZoqZJO3ISm4/tTDG2E04J8Tw9WUfqnz9cj350tpfLchTO62Ejh
-         ZEJS4cxBsZd9TA8XR9nQ6S1RlCkwij8bpHP/EuTwxBtoeVEW/9Ha84WY2R2PJ0kEs5WH
-         VFW18IjgODjf5g0ZN46XfHDNHpIfOuGTbVrESWQlrsSavhs8v2C/WKnARBxVJ3aC7Kj3
-         99qKJ7jtMgzHSFgtrFhDsIkt2l1pYu/tgGZLvT1fFESdSdulLiR/xPqBVLs2SKyk6UVF
-         j2DA==
+        bh=uMxrZX6jLDU0S1yxFo1CIbqEFT3o55ClEwjGZTZu1HA=;
+        b=ICRpGCoRoxnQdsDEjclgFIkcwEnAZqJYh9WwH5NyyIpw35Q6AZGfn93WtWX6SVLzeR
+         YMikGPxYIjKSA655wBZP0DW8VUoqhc6wv0bFcqUpz8yHTUrcvzhvlXR4cbZcgwTw7MJw
+         UtSYsPglWWeDJUmSSI0StTf7BkNplmhvr3qbCNOINs6kOTIC8I3UwJITBaiiy0hqbeAU
+         LmZYNjE4jDnUbaGxclT/TLOvLgHh1dVuVgb0MXeauSP3dHeUHneN9HbLfZLZrXDbaYer
+         liApai1hd4DfhvvP6PuBFgCxGyXwPtES4OICG8YJrjtBTiRPLvpzg2cYPN1NG+9UgbSP
+         xVmg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b="bro/+PL6";
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=snD0L23G;
        spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.12 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 Received: from mout.web.de (mout.web.de. [212.227.17.12])
-        by gmr-mx.google.com with ESMTPS id x5si68551wmk.1.2019.12.23.15.00.28
+        by gmr-mx.google.com with ESMTPS id e3si923877ljg.2.2019.12.23.15.15.34
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 23 Dec 2019 15:00:28 -0800 (PST)
+        Mon, 23 Dec 2019 15:15:34 -0800 (PST)
 Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.12 as permitted sender) client-ip=212.227.17.12;
 X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.2.196] ([84.61.93.39]) by smtp.web.de (mrweb102
- [213.165.67.124]) with ESMTPSA (Nemesis) id 0M73WL-1jfd3R23K1-00wipk; Tue, 24
- Dec 2019 00:00:28 +0100
-Subject: Re: [PATCH v4 0/4] Initial support for j721-evm board
+Received: from [192.168.2.196] ([84.61.93.39]) by smtp.web.de (mrweb101
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 0LetYx-1jZgWg2WQ3-00qfBZ; Tue, 24
+ Dec 2019 00:15:33 +0100
+Subject: Re: [PATCH v4 4/4] configs: arm64: Add Linux demo for j721-evm board
 To: Nikhil Devshatwar <nikhil.nd@ti.com>, jailhouse-dev@googlegroups.com
 Cc: lokeshvutla@ti.com
 References: <20191223151353.22495-1-nikhil.nd@ti.com>
+ <20191223151353.22495-5-nikhil.nd@ti.com>
 From: Jan Kiszka <jan.kiszka@web.de>
-Message-ID: <c89e1a49-facb-1c7e-0625-322fbb7a604f@web.de>
-Date: Tue, 24 Dec 2019 00:00:27 +0100
+Message-ID: <fbc3620e-2e7b-ccf5-bfe7-39fd61d0af11@web.de>
+Date: Tue, 24 Dec 2019 00:15:32 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.2.1
 MIME-Version: 1.0
-In-Reply-To: <20191223151353.22495-1-nikhil.nd@ti.com>
+In-Reply-To: <20191223151353.22495-5-nikhil.nd@ti.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Language: en-US
-X-Provags-ID: V03:K1:mGrQ2R+2GMXZGjJLwonmffohsKmf928U6q0AG3bUKZwUtDbrTAz
- 04gUQm7YmKbs/1xA943Sk/jfsWM8n41466V8pt+KPPkU2FI3R1mg1MVYZytUoqW+Kg93FdM
- 8Cf8pjsbSRSx+jMd+PkdApCohNSrSBC1YMxGw6cWH9qduf6aXnbjZETpoXbkPMYWGbr6JzA
- 9zqdj3pV2mrFNmME5Qogw==
+X-Provags-ID: V03:K1:+LuekxZYJh1+jAiZwTiiQ74Hfo+XYTNojvTBRPG2DDgHhvBnKAb
+ IEaDbVXBYY2QqE0fAbcelEhEIAaLW1bL3zWCQZiNnOn/9SKh/ikzWybiwnrpSXrqF1lWy8e
+ 8jYwlHm0Qkthmrah+TQjP858XRiaGeZdOSa0lBdb0XoGollb7zPCfjJPx+db6sJAfTgl2Ev
+ u91Yy3pt8mGKhdn8axw6Q==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:0DIfK/2GX50=:3HoOK5GZ4NnL1JtsVjkcYw
- emufsTc0Z5KUnqXyTXxKaCBMux5smoJZg0w1S7vt5xjU5k/XtOYgl8117t+udnIKhVSD91n6G
- eR6CC6YQtCrQP6tJX3ES1RJdq6BjPZAIr8W2VNIAEpkWEierFVucJg9u1AJVKSzbmsjPyAffd
- Q+YqwSRKw03PEPZUet4jJWB2VB55FaU8SVvXPs3hrDDrgWeqO0AugJ99KrqfwSQKXhYCmXXP7
- 5+YHpp0JRU6jm9eB4rCI2dZHSzr3bwUiOuNpWIUvxq4YRP5Ghx8/OiGpQvbXIwb41u8m2ZD07
- So20ItFg6in1mHC2tgglkFbfsuNUCLQfQx//dr+wCb9ITT8bEReJ7VpKZRaxhgWOZuWur0ll5
- Z3SkkVojBe0tST+fNr7qH3Jn/gUsJe1zD3bDdkDTf6ekK4/9rypfmDiyXrHTQu1JgZJwqpe/e
- QIwKkuOskFWzBHXp1aN8bCcQ9MqNqkOJ/RBjVkhatsV9UbdWcZM8Z1O/aF24NDf+tR6hju4p/
- zjVecttCDrKZc4NKSobxTkMpMg09trCl+krawTNpE2N1aOsu/MkCifStV48fL65Vbmkef6O6O
- 8Tau01kIrlzUO6SO0u/sHdmDB9PRxrHnB7ykxibGLxX2UU4+iHmt1+IyRqtf+u53dBBCVgV/e
- IeWM8vSe6po4p7LrswzmC2pwjQfLcPeSltysqb71wUyD7HQa9oL19Pgazpz/Cw74AoQvx8r8T
- T66p9ikmaNgKAaUhiU73UFfCQ/x759ZYEhk+kOdCTE+oTnjhY2xxON2ASJgI2o7zzXIBOrhgb
- GOB+ZzpZvxkxy6xpqKiIepJK/jepY7Yi6m/u/pmuYAMuPqTD04J/lWurT2C5ivxXNezqPcSYL
- ejFeNuZ6fVTglqrglfgSTFksV0jg3Dvrs8al7YDwtrTMFSmJAAQ3hxKJzr+rcw6pXrQ+fCVsS
- wLdRsAi/QqvlvuJZQ3KXBZ19lIyiNdVQ0h1b4MQslZWgltsswsV+yH3ZwJuGsm5QH7ProUP2b
- TNjjPtm+c0Q0b7PvAcX5YRzxtAcdk7KyJylSDuZj/3nwW1VIGwxjAHgi1Z6VJyJhEk36ohzCk
- 7PDyA6Qy9S6uFJQksFa308OtRuj2mUrDV75gORxnY+V8KuvbgnlEY+XGWuyEQYRXzzMYfm6pn
- TP6J5+a7sOwL9J3eiM3DAL+uVNzlgMSCyRF/M3R7VVxGtbL66QtoC6p9vkrtaVXsX28n1NUY9
- ofLEG2L98FQcz7hQt4s2cdQ45l4w/6YLe/uw8Z1L2+StpQ+zXs3K5idLpRXk=
+X-UI-Out-Filterresults: notjunk:1;V03:K0:Mqv+RWtQwz8=:8OG2MYJVeqJBWSseDHdSif
+ gJnE51jGl5ARCO9HHXXrKecaAf0Kpe5hcNXnZ5Xf/bRj4eJyUUHzHl+7xckakgMGeV7NVUcrM
+ 9YW8tTmkyzhoriJuKz3d7Pdt+Sttd+EwtHNfXw+9YfAQu2lJ31N7tCNI255A6vRjRBVUUh5j5
+ qDmfmstZuIu3veQvqUVrG+PFe6I302HbIJ/8sseF/L62yY1XJVltO0fYswGsRko7uS2Pl2QDd
+ k8aGfQ2GBe8vDG65g+dZB6Hl1TAYfj/cfSVjUN+U+9Z1gExniSzdBvPFfhzPCamUOVFGj3jXS
+ 8LgnA0Y2SMBZByYMHPEwhfaTzYBSu6vIOLhZ46H+wPUUd1xj+xiVQGd22zbTuotRMZufHsHZj
+ vfluel2iLPT2en2e4VXDZzFSzyDbJR1PxpjGKDaKWi+hpOue4CZXN6Q1vT2GIRw1qXjx+AlOV
+ wlZFbobRlVOKchwSl7kAWdeMPlI4AJNzyOSZp01nTa3K7FircJtHejyqGeIhxvrt8X8VHiW/L
+ rvqIBOB8UNl/njOdpccFfQfav/thoIDDq3E0Uvekq0FjnKUwjg1Wgu9Bhx4Nf9EyN0a1RrUsm
+ xeIdQ4chJFBrZ4i1D2J+Ra1jboUhYyHdHak1yQ1X3yvLqDzCsNYXSOxS2gbC9JV/caQbkkqxx
+ O+86QKL7sMZhiAUokmi8xSO0+XppcQS7xP1peC59LSx4TTHEoHBxFGcgBsocSb3t/Y0+C8eM9
+ eY6rmGm+HfJ3ctwty5qASdhI72VaiXdcRzJoKpkkBSdj8CZNQXXpjuEVabOy2/V7T2A4BVjkd
+ 4qHq0GcphrBqwbez87q9RYjCi04eBcHl+5DSHre3MkBaJoNesr1K+zBq1k76lMcNYDzrzFBz/
+ ZWxhf4n68kd7qoYWXGlUHgZkCAhOCQbjwoPA1wh4hZIWxuT3U0yJepb5VZOQVeroak9ktGzzR
+ NPqLp+ySC5ytYT2C+o5lIlxykB0fk2gCMCFCd8hXiYSp7wBDVmHmla1BIZsYSHIev6tgxHeBZ
+ MHE9dgFr4Jip5KIqMmTkowKYp7XkXnH+Eg/6XuWo873YWM6PIAv6qHjchLSD9QAwaCya3Ikfo
+ LMe/Y8nvEdnVQNVWDg6jL9hDSI+amKmPdRWHGF55WqXx465aHIwZvf5IZQu2uSQN/u6q3W+4R
+ eUQD2w470GKvHzmmukqgc9lbkFMbosdaOKg9wVDE2cvV0KSTlAXKDzkWXI3tfNYRbWf7bWSGI
+ uSBTgmyZ5IQHt8wOTienm65HN608W27n+uTmd7M/5yzepGw0YDkXthkrsiTw=
 X-Original-Sender: jan.kiszka@web.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b="bro/+PL6";       spf=pass
+ header.i=@web.de header.s=dbaedf251592 header.b=snD0L23G;       spf=pass
  (google.com: domain of jan.kiszka@web.de designates 212.227.17.12 as
  permitted sender) smtp.mailfrom=jan.kiszka@web.de
 Precedence: list
@@ -154,40 +155,64 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
 On 23.12.19 16:13, 'Nikhil Devshatwar' via Jailhouse wrote:
-> This series adds support for the Texas Instrument's j721e-evm board.
-> The J721E SoC belongs to the K3 Multicore SoC architecture platform
-> for automotive applications such as infotainment, cluster, premium
-> Audio, Gateway, industrial and a range of broad market applications.
+> Add the linux demo cell config for j721e-evm board.
+> Also add the required device tree for booting Linux kernel
+> in the inmate cell.
 >
-> Verified with the 5.5 linux-stable kernel on J721E common processor board.
-> All DT bindings are compliant with upstream kernel.
+> This cell config acts as a reference for partitioning
+> devices across the 2 Linux cells.
+> This will be updated as support for more devices get added.
 >
-> Nikhil Devshatwar (4):
->    inmates: uart-8250: Add MDR quirk for enabling UART
->    configs: arm64: Add support for k3-j721-evm board
->    configs: arm64: Add gic and uart demos for j721-evm board
->    configs: arm64: Add Linux demo for j721-evm board
+> Signed-off-by: Lokesh Vutla <lokeshvutla@ti.com>
+> Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
+> ---
+>
+> Notes:
+>      Changes from v3:
+>      * Add gpio, emmc and USB device in the DTS with upstream bindings
+>      * Describe the irqmap for easy understanding and verification
+>      * Update power-domains properties
+>
+>      Changes from v2:
+>      * Only add the DT entries for devices with stable bindings
+>      * Organize the DTS to match the bus topology with upstream kernel
+>
+>      Changes from v1:
+>      * Split up the peripheral mem_region to match with kernel dts
+>      * Add GPU, multimedia decoder and display devices
 >
 >   configs/arm64/dts/inmate-k3-j721e-evm.dts | 433 ++++++++++++++++++++++
->   configs/arm64/k3-j721e-evm-gic-demo.c     |  72 ++++
 >   configs/arm64/k3-j721e-evm-linux-demo.c   | 262 +++++++++++++
->   configs/arm64/k3-j721e-evm-uart-demo.c    |  72 ++++
->   configs/arm64/k3-j721e-evm.c              | 363 ++++++++++++++++++
->   include/jailhouse/console.h               |   7 +-
->   inmates/lib/uart-8250.c                   |   3 +
->   7 files changed, 1211 insertions(+), 1 deletion(-)
+>   2 files changed, 695 insertions(+)
 >   create mode 100644 configs/arm64/dts/inmate-k3-j721e-evm.dts
->   create mode 100644 configs/arm64/k3-j721e-evm-gic-demo.c
 >   create mode 100644 configs/arm64/k3-j721e-evm-linux-demo.c
->   create mode 100644 configs/arm64/k3-j721e-evm-uart-demo.c
->   create mode 100644 configs/arm64/k3-j721e-evm.c
 >
+> diff --git a/configs/arm64/dts/inmate-k3-j721e-evm.dts b/configs/arm64/dts/inmate-k3-j721e-evm.dts
+> new file mode 100644
+> index 00000000..51470a57
+> --- /dev/null
+> +++ b/configs/arm64/dts/inmate-k3-j721e-evm.dts
+> @@ -0,0 +1,433 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Device Tree Source for J721E Jailhouse inmate kernel
+> + *
+> + * Copyright (C) 2016-2019 Texas Instruments Incorporated - http://www.ti.com/
+> + */
+> +
+> +/dts-v1/;
+> +
+> +#include <dt-bindings/interrupt-controller/irq.h>
+> +#include <dt-bindings/interrupt-controller/arm-gic.h>
+> +#include <dt-bindings/pinctrl/k3.h>
 
-Thanks, all applied to next.
+This is too recent for "older" kernels, even 4.19. We are building this
+unconditional, though, so we need to avoid breaking such builds. I'm
+importing the needed defines into this file.
 
 Jan
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/c89e1a49-facb-1c7e-0625-322fbb7a604f%40web.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/fbc3620e-2e7b-ccf5-bfe7-39fd61d0af11%40web.de.
