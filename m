@@ -1,123 +1,134 @@
-Return-Path: <jailhouse-dev+bncBDJMJPGY2MGRBQ776TXQKGQEDMRPM5A@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDL2JD42SEIBBXVTQPYAKGQER3K5LFY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x338.google.com (mail-wm1-x338.google.com [IPv6:2a00:1450:4864:20::338])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E58B1283FA
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 20 Dec 2019 22:40:20 +0100 (CET)
-Received: by mail-wm1-x338.google.com with SMTP id q21sf2730408wmc.7
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 20 Dec 2019 13:40:20 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1576878019; cv=pass;
+Received: from mail-oi1-x23b.google.com (mail-oi1-x23b.google.com [IPv6:2607:f8b0:4864:20::23b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 583B51297D0
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 23 Dec 2019 16:14:40 +0100 (CET)
+Received: by mail-oi1-x23b.google.com with SMTP id 21sf4264044oiy.15
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 23 Dec 2019 07:14:40 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1577114079; cv=pass;
         d=google.com; s=arc-20160816;
-        b=qfeMxtbV1HPsIM+g+unfr7Egb5OtZc+c2ZPvJzWmsbfdBH/LTHvogP5TLeGSL0R8Xh
-         bzPkD38ZULEuSF/r9PyjvqVzfW6e8vVXmlR0jIPchTXEXt7zMV0/H7GEKoOnMIjRcvCk
-         My57wmePy1sGFwFf2QDYtKe5w45Yet14sN9raHpyd8zxWcXv93uANtmWYSg+IXB7pXxz
-         1de0hkVJMg74VdLQLM0g7nuVDKq1I7y0YGWTAQiDU3z1l4Yri3Wbtq3QH1A/Dv26rxof
-         neUsvYmqM68COhSp/b2NaQ/W3nDkAe3udVn0HQCqiM4+9B99wr8vXMpQBfyJnfqhi+dX
-         JIJw==
+        b=R2iljwynQgjUF+w5aqDfADX0hka6bFwgrfSIU14cCTQq+XXl4bXOuTfsuX+42DSUvK
+         7oZgR44KXoJiTBNOXKTU5gHRGsK7uKvES4zPYJDXOMyEfyIAMAsLZtcIL/F2GqO/TEDr
+         S44RoYXq1aSYZ7K2yzMxxdSGjqUmFExw5xzONlx8CgYm1vVxdhbfnRjDLr+WHu7fFwTD
+         bMciF/hnK6e5yi73NTJWElkW6tUNBnHJYK/r2Azt0aIsSlIIHnRz8VKtjYoTco4gah0N
+         iZ6Yu+6mDaAUR2CQJCT3Gex7hhcv3Gb1xjiFIYu/Waoc4ahrgItI8It9sm2D7rIFT/+4
+         0wiQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:sender:dkim-signature;
-        bh=2BK46Hmqg/Qf95VjFHzCZeLE2E/jm9tb0XCNghDErAo=;
-        b=RfNxafDkbYLq4ke/CrCegrc04K0oyimt4BQJcEt31dTvXZhkQ0FHinfBD5Xch4R/H8
-         sxMAAt0Z0GadsVGzxV9ZEVRh3qBzB0ZCkr2ozZ43+9eMfcpw9J2AVK7XZXPeCLJM7MoV
-         V+aYaTZFXEHoIqrZceALPToOcvgdLOmk4smOdDoal5Ix3/0M9S/AVBD/WgD5YDG0ICyH
-         jsx3rAbeQexfODYjf1AIKfSsrZsAe5wL8HVhttOKeKBpgsW649qvcatT5vKLb7zLg2IR
-         8tHjDsKgtuG9Ads4VFKpgG51IMx+i47hRyW15TbjrS9jxeOGf0DWRhg5k2KlpaEchF6T
-         X2ew==
+         :list-id:mailing-list:precedence:reply-to:mime-version:message-id
+         :date:subject:cc:to:from:dkim-signature;
+        bh=iDQuiWx1N9knhDQSeBiq0D5cbkBOp2iBIthXu5Ir1wU=;
+        b=VtoyWdLiPA7GNmMhAYFnFlOjuy3CySG+NIz9VcVA+9qjCSfo364GB7rzqS5dhbHt/Q
+         +I8aYjt12ShIfchLqYH2/a1wLSXfFDVKChg3FyNo+81+TSjMaWhvlD7TWsmDdSRoOALX
+         h8/VmnvPbRjRmVonzQK+7DcviatAKvgBPiI4ZlVycWe1X9zla+GFDLLr6agGVon02hSw
+         WUU2i5hd+WLwY9KNfODI/DXsIX02hvs+LRJIotjdxK7TmKEYMYblJ/U0vuiYN7uJLkw5
+         /LonRQeNtGq4oeCPYji5BMfnqEeR4x/tY55r5T6rNiQmmWkvvBta76wfpvn/Yppgzj9p
+         NFCA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of henning.schild@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=henning.schild@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=WRcSEJb7;
+       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
+       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:cc:subject:message-id:in-reply-to:references
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=2BK46Hmqg/Qf95VjFHzCZeLE2E/jm9tb0XCNghDErAo=;
-        b=pgFvuR3q0FOT2BVhaDHUqqZc7KqtS3ly0zZ20tkl7FQRIC40yB8ncb3b13xdrOhjR8
-         7EteofvpMyFBHADQur+LnaM2z6+WUA0ejPMCu9JkNUS4iwnrSZXVrvoRtmaBF8Wgnd11
-         M/ObsUVPEMF0brZT4sRRnOMQikN67Sup0tETfs11LRo0qijwfJNC2XsYLl/ULhGUYqjN
-         0ExhafgZuLN+QFhHVyPHDkwNwY9dgG0ncRjC/DFfNYm+cL1gx8Fa9DKSrdG4fwvMjGLA
-         7L2m9Gdz4oi0DnaYhZDLpe4ob0WoYN/in3GGJ74i7MEIwLyay+61wnrbHN0v4t7ZMTX3
-         yaXg==
+        h=from:to:cc:subject:date:message-id:mime-version:x-original-sender
+         :x-original-authentication-results:reply-to:precedence:mailing-list
+         :list-id:list-post:list-help:list-archive:list-subscribe
+         :list-unsubscribe;
+        bh=iDQuiWx1N9knhDQSeBiq0D5cbkBOp2iBIthXu5Ir1wU=;
+        b=gL0Rnf0zcAPhB+WQWXKWvw5qj3uK4HkR2v114bUdPu+haCNukpM3kdnBw/K2XSLB7c
+         8KQbMWhezaWl5JvkjM4dHCRKatY9ZFEE32s47CMmIFZL5pKJtQ3dnnrlG8WSd9NyopJ/
+         7nTTRkrGTYXdTO/SC2DHQ+lKHptpcpPOqe9dn7T7GjIK7HFxZhDwUltKb9P94PG/3+7J
+         4oqbhsy56MNYhpeqBBCjv6X0pzGjPsjiRf4NPyMMZVwtMt1k0J0aB7YyCmYlVQwSf1Mz
+         FLdjAXOUmgwnq/H5YKuZWDLVUN5UJv7FxXCWAY+PiHAFrMpatYf4atQmp7ytr7pOt20H
+         lr8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:cc:subject:message-id
-         :in-reply-to:references:mime-version:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=2BK46Hmqg/Qf95VjFHzCZeLE2E/jm9tb0XCNghDErAo=;
-        b=JszhvpzHsTuoPnM64pFTJTf51EvTf4bpzGN07Xs9C5rUOHWxwuCLyq3wDh2ArtHy1K
-         2gneXcQRbp/Vt4FNIDvpl4kp3+X2tejvgUYkru9r4pRWgvqaVFZGqFDNRxFzwnOdfk98
-         6b/r/4L1v7IOGu4GnYC+V/ikwwp47jjCJSBmIiJYYr3jYJPm9i2jvkjVVYdoccE6Sks3
-         S3R2B+z/jUQdoi25VNGTkJtiMC3esDAx8Uz9ZJ/U5Kg86omQQxDhwgMq3bZW63tJCtG0
-         EDjdXI9/mJpTe6MuFIN3CpUmWoWL+YxUrVhLGVsHFHagUOUqVF+Zu6MyMY5xonojjL99
-         v2hw==
-Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAWeh46OKu3rf9LhbzbHwlxSalFUne4Rotk5ogl7eaFWazBDc7cc
-	BQrYVPx7mDqn61RqpgVWzbo=
-X-Google-Smtp-Source: APXvYqy4H2cxJextTIZA6moAY44qQtarearCZZeb4PS4FaE7yepUePnR/tpsVPEskmmY7LrE276stQ==
-X-Received: by 2002:adf:9104:: with SMTP id j4mr17371802wrj.221.1576878019543;
-        Fri, 20 Dec 2019 13:40:19 -0800 (PST)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :x-original-sender:x-original-authentication-results:reply-to
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=iDQuiWx1N9knhDQSeBiq0D5cbkBOp2iBIthXu5Ir1wU=;
+        b=TkSmO8fp5xKhDG/iiShA4Tu9oX49A4UVd/Qv7G0bhlfOBrrvP5I36NUOFQOAv6SAWO
+         YLjZTaK4ZfUqTFip3TTyXMqorA6IZ/NL6ecDqbthW/ju+veobtsnezRgoVayMnjZ/6LA
+         1g88xQ9N+/ijUhwr3dB/0wTTMuEJS9iIZfUBfDnYybkHR+U5bimsNZ/YQ+Bl34zlQOeA
+         PG0knXr3dzs/32rhO9znlfY4QBiZAKRKRqFkBdzFRHlLCiEoYpF5la5fnBJAe01KAesn
+         NpHBKSd/7LdrdO8nmFIC5UH05sT8jDDYI65iRKP++oSPB4Xv8Mm6htlmPWtnxdPeQLcO
+         QEbQ==
+X-Gm-Message-State: APjAAAXZ1F/CobB3P7gIADTHcMpRvXe85ZTILdnfgzpe+kfrovh3lVgv
+	HoDnAnSGJn6gsgDBk5R1HsY=
+X-Google-Smtp-Source: APXvYqy5iw7XZqmcQE+jmLngBGOjGRsgCKthsP/i4nf3qU2Awvov/8aJUYoxiJ4clNfOvd3M13DQaQ==
+X-Received: by 2002:aca:59c2:: with SMTP id n185mr674747oib.170.1577114078863;
+        Mon, 23 Dec 2019 07:14:38 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a7b:c3d8:: with SMTP id t24ls3463862wmj.5.canary-gmail; Fri,
- 20 Dec 2019 13:40:18 -0800 (PST)
-X-Received: by 2002:a7b:cc09:: with SMTP id f9mr18820098wmh.71.1576878018843;
-        Fri, 20 Dec 2019 13:40:18 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1576878018; cv=none;
+Received: by 2002:aca:895:: with SMTP id 143ls840659oii.1.gmail; Mon, 23 Dec
+ 2019 07:14:38 -0800 (PST)
+X-Received: by 2002:a05:6808:3c2:: with SMTP id o2mr717188oie.145.1577114078429;
+        Mon, 23 Dec 2019 07:14:38 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1577114078; cv=none;
         d=google.com; s=arc-20160816;
-        b=yFQvimBDVyT2xXMJNRKERMAmOuaiK7ZfMQG9OjjvS2ppE5uM77AO42xW5NVUHyUWL/
-         1Bty4XqdBVyCPAdZVLPTN3St6UYZP6R8DKBwrGxH0Ufc2X2DRdU83EVzkdEy8KS+kdPF
-         1rSe6ZDT1eD2VaFeYMKPLQTPmfcaRN8URYT7WRskLAeLDCfgna3g0MmgvRPtl9IgP2YT
-         AELowgv/yIsXw4gmDnYaLhElSUMDmi8tElgQ93uby9TapAF9D5q5/xU/+fcs8DfclZn1
-         cQNsfUtToJ398SgXEu6sqMonKz99hmHNcHdArrG0IXXRRXUsekiccdn1M5RvYDUO+DoV
-         BaXA==
+        b=LsGw6wVAFF8PNMFW0kqX7+V3r/Fp3YjQAeIpdIjPh1X8rw5TlhYYKoLmgDnMYDANoD
+         N8sbLFvxXRwvcdreDe4aMv89X3WDAtpuBGWdlN8EIWXtdWCMkE/0lx5zi2FhOGgTufxk
+         XUkGx0ZAzDCH8SfjWtTU3GqkYxDN7W4+JQxBjWA16wXnr4pyJOH5v6QndFMVp6Q7DfuX
+         nAHNrUqcGowYwnHjkiSl6VyZLjtfJph2bEzM0g28Box5l4YYVJV6Gprzu1oV8zm5GxCf
+         BofMfWTFFxDSSOngl2becsObAXitVJEicmJS6ZmseOTUkQVmQjuX6R05AsC5HmUiCE5Y
+         Z+Bg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date;
-        bh=n1M67h2oSd6jqysUdui1+1CMlPXuCyC3rlckTkjyVlE=;
-        b=TdRz91ghN96u9AbFVEGS3mxSUVIxaf+vvk+qCCldYjYn2gr8BwEpQhPGi54xAQIPyd
-         mkA7ejicZTIyr8UslvLnjKC5V3OWCIeftUSqwiCONaNyG/NyhDaYim1NfsNng/Tbi9Qp
-         jkFX86u4lAB3fErveJNMXlu6ZSf40Azvn0gztBRtDGYQFmCaJB5sUNqJKWJQR/dOnqFq
-         fYKkV1EWb5h9zpkG61JXZJNk0Fiws8uezMkhrCs2XwnBlnPfUj1CbJATAtlt/sAWv0Kl
-         eP0TUgCkpo/zmch6Eh7UmLIrWLl8flRvDZ63klQxOD9Yoc5/iy9MSshWn/t0FPCCuMv1
-         P5ig==
+        h=mime-version:message-id:date:subject:cc:to:from:dkim-signature;
+        bh=PX2f8aaDzq7jyYe2Otd749BswJ3rI2hGZvw2dct/jPU=;
+        b=TtpfT5vx8nxpb3mxhWKE05PKWBDhvxAeLn6qepWLKx14Uqza+b7SJGFygWI8j1db9y
+         nGfyJsxgw1uSTVo3sQSANA7iHblcw52t/2Ft9KgS553AuZC0vQLZOFXnU3Vl3f5iKmkx
+         7cDRFq9TdcBa1whWvE7/cJXFqi4X6oC0+qe3Lz8dBDJCPuVx9EBlxZZqiBwazaXYLqsa
+         qkNUgZIXzMRHrltTEujNEbn5GS2QdbZOdNhtxxdPLsm85DeIspn9d/2N9PtSMRnsOXA5
+         q3yUXKWrGn3UDki5Zf5BgRq2GtPDKuT1aOvZkXHbFfcP+tLnuWR08aYkSSpBSd8eXbK+
+         m4ew==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of henning.schild@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=henning.schild@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id m12si447071wrq.1.2019.12.20.13.40.18
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=WRcSEJb7;
+       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
+       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
+Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com. [198.47.19.141])
+        by gmr-mx.google.com with ESMTPS id a12si553286otq.5.2019.12.23.07.14.38
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 20 Dec 2019 13:40:18 -0800 (PST)
-Received-SPF: pass (google.com: domain of henning.schild@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
-Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id xBKLeIjH009539
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 20 Dec 2019 22:40:18 +0100
-Received: from md1za8fc.ad001.siemens.net ([167.87.32.179])
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id xBKLeI8L029637;
-	Fri, 20 Dec 2019 22:40:18 +0100
-Date: Fri, 20 Dec 2019 22:40:16 +0100
-From: Henning Schild <henning.schild@siemens.com>
-To: Andrej Utz <andrej.utz@st.oth-regensburg.de>
-Cc: Jailhouse <jailhouse-dev@googlegroups.com>
-Subject: Re: [PATCH 2/2] tools: gcov: Adjust Gcov counter count for GCC
- versions >= 7.0
-Message-ID: <20191220224016.41134d5d@md1za8fc.ad001.siemens.net>
-In-Reply-To: <20191220154126.1136-2-andrej.utz@st.oth-regensburg.de>
-References: <20191220154126.1136-1-andrej.utz@st.oth-regensburg.de>
-	<20191220154126.1136-2-andrej.utz@st.oth-regensburg.de>
-X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+        Mon, 23 Dec 2019 07:14:38 -0800 (PST)
+Received-SPF: pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted sender) client-ip=198.47.19.141;
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+	by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id xBNFEcSg012955;
+	Mon, 23 Dec 2019 09:14:38 -0600
+Received: from DFLE112.ent.ti.com (dfle112.ent.ti.com [10.64.6.33])
+	by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTP id xBNFEcvu018260;
+	Mon, 23 Dec 2019 09:14:38 -0600
+Received: from DFLE101.ent.ti.com (10.64.6.22) by DFLE112.ent.ti.com
+ (10.64.6.33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Mon, 23
+ Dec 2019 09:14:37 -0600
+Received: from fllv0039.itg.ti.com (10.64.41.19) by DFLE101.ent.ti.com
+ (10.64.6.22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
+ Frontend Transport; Mon, 23 Dec 2019 09:14:38 -0600
+Received: from NiksLab.india.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
+	by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id xBNFEZ1P020577;
+	Mon, 23 Dec 2019 09:14:36 -0600
+From: "'Nikhil Devshatwar' via Jailhouse" <jailhouse-dev@googlegroups.com>
+To: <jailhouse-dev@googlegroups.com>
+CC: <lokeshvutla@ti.com>, <jan.kiszka@siemens.com>,
+        Nikhil Devshatwar
+	<nikhil.nd@ti.com>
+Subject: [PATCH v4 0/4] Initial support for j721-evm board
+Date: Mon, 23 Dec 2019 20:43:49 +0530
+Message-ID: <20191223151353.22495-1-nikhil.nd@ti.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
-X-Original-Sender: henning.schild@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of henning.schild@siemens.com designates 194.138.37.39 as
- permitted sender) smtp.mailfrom=henning.schild@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+X-Original-Sender: nikhil.nd@ti.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@ti.com header.s=ti-com-17Q1 header.b=WRcSEJb7;       spf=pass
+ (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted
+ sender) smtp.mailfrom=nikhil.nd@ti.com;       dmarc=pass (p=QUARANTINE
+ sp=NONE dis=NONE) header.from=ti.com
+X-Original-From: Nikhil Devshatwar <nikhil.nd@ti.com>
+Reply-To: Nikhil Devshatwar <nikhil.nd@ti.com>
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -130,58 +141,38 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi Andrej,
+This series adds support for the Texas Instrument's j721e-evm board.
+The J721E SoC belongs to the K3 Multicore SoC architecture platform
+for automotive applications such as infotainment, cluster, premium
+Audio, Gateway, industrial and a range of broad market applications.
 
-nice to see that you exercise that feature of jailhouse! The two
-commits LGTM.
+Verified with the 5.5 linux-stable kernel on J721E common processor board.
+All DT bindings are compliant with upstream kernel.
 
-You modify a section that is enclosed with a "heavily inspired by
-linux/kernel/gcov/gcc_4.7.c"-comment so i would suggest to  maybe
-include a reference to the kernel commits that you are pulling in here.
+Nikhil Devshatwar (4):
+  inmates: uart-8250: Add MDR quirk for enabling UART
+  configs: arm64: Add support for k3-j721-evm board
+  configs: arm64: Add gic and uart demos for j721-evm board
+  configs: arm64: Add Linux demo for j721-evm board
 
-I think we can not avoid a "copy" in jailhouse, but the pointers in the
-commit messages might help some day.
+ configs/arm64/dts/inmate-k3-j721e-evm.dts | 433 ++++++++++++++++++++++
+ configs/arm64/k3-j721e-evm-gic-demo.c     |  72 ++++
+ configs/arm64/k3-j721e-evm-linux-demo.c   | 262 +++++++++++++
+ configs/arm64/k3-j721e-evm-uart-demo.c    |  72 ++++
+ configs/arm64/k3-j721e-evm.c              | 363 ++++++++++++++++++
+ include/jailhouse/console.h               |   7 +-
+ inmates/lib/uart-8250.c                   |   3 +
+ 7 files changed, 1211 insertions(+), 1 deletion(-)
+ create mode 100644 configs/arm64/dts/inmate-k3-j721e-evm.dts
+ create mode 100644 configs/arm64/k3-j721e-evm-gic-demo.c
+ create mode 100644 configs/arm64/k3-j721e-evm-linux-demo.c
+ create mode 100644 configs/arm64/k3-j721e-evm-uart-demo.c
+ create mode 100644 configs/arm64/k3-j721e-evm.c
 
-I remember that a couple of files are excluded from gcov entirely,
-because old compilers could not exclude on function-level. That was
-relevant for address-space switching code on arm. I believe that more
-recent compilers can exclude more fine-grained (on function-level
-instead of file). But that would be more patches on top of what you
-sent ... another future patch.
-
-regards,
-Henning
-
-Am Fri, 20 Dec 2019 16:41:26 +0100
-schrieb Andrej Utz <andrej.utz@st.oth-regensburg.de>:
-
-> As in linux/kernel/gcov/gcov.h.
-> 
-> Otherwise the extract tool will access Gcov data using garbage as an
-> index and segfault.
-> 
-> Signed-off-by: Andrej Utz <andrej.utz@st.oth-regensburg.de>
-> ---
->  tools/jailhouse-gcov-extract.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/tools/jailhouse-gcov-extract.c
-> b/tools/jailhouse-gcov-extract.c index c126f976..5bb337a5 100644
-> --- a/tools/jailhouse-gcov-extract.c
-> +++ b/tools/jailhouse-gcov-extract.c
-> @@ -43,7 +43,9 @@ typedef long gcov_type;
->  typedef long long gcov_type;
->  #endif
->  
-> -#if (__GNUC__ > 5) || (__GNUC__ == 5 && __GNUC_MINOR__ >= 1)
-> +#if (__GNUC__ >= 7)
-> +#define GCOV_COUNTERS			9
-> +#elif (__GNUC__ > 5) || (__GNUC__ == 5 && __GNUC_MINOR__ >= 1)
->  #define GCOV_COUNTERS			10
->  #elif __GNUC__ == 4 && __GNUC_MINOR__ >= 9
->  #define GCOV_COUNTERS			9
+-- 
+2.17.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20191220224016.41134d5d%40md1za8fc.ad001.siemens.net.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20191223151353.22495-1-nikhil.nd%40ti.com.
