@@ -1,117 +1,68 @@
-Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBSG3TXYAKGQEB6TSFHQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD7236HKXYJRBVP4T3YAKGQE2NNAXLY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-il1-x13b.google.com (mail-il1-x13b.google.com [IPv6:2607:f8b0:4864:20::13b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7946612BDD1
-	for <lists+jailhouse-dev@lfdr.de>; Sat, 28 Dec 2019 15:59:22 +0100 (CET)
-Received: by mail-il1-x13b.google.com with SMTP id t4sf25276882ili.21
-        for <lists+jailhouse-dev@lfdr.de>; Sat, 28 Dec 2019 06:59:22 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1577545161; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=WyRz489fkQ31C/uQClQ6pw885MVAgf0MnEvd3cYKDxhLCBHiYDxpSfNApVdX2MmO+S
-         lc3nz5YTIZh17rWKe3LqAV05x81YmLMxdSbWTmsBT3GfUutfJL5OaD8CKqLYDIUsVGRz
-         vp5709cLzKNt1/cEKwGYi10B8xB5s0/MNm7zpbm+Pk/dlbg6XhqC744ZgG1PlfG6ZjHL
-         GX5P3ef3PIcCZG6wx9R9EaIn6Ugoy3QR07ZbbYh/Byux+tpHo1me65nnJwtgMsJvPX+Y
-         g3O24uZgHGtIXAD7NfJmHxtLOwHfkWpnYgS4vquA9qp8mMwK/0LW67XP2+6RCzS2gJXI
-         Fqcg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:subject:message-id:to
-         :from:date:sender:dkim-signature;
-        bh=DME186U/B+IapQ2VfWwIg6yxcfQSgu+DRur7oo2dTc8=;
-        b=PmgJrN/aWFe4np8CnaWmWXvxubbZcGFXgEvXCxHr9o8WDdbkJK9g04M43PKy4qJK9U
-         MpAUtBTtZdGuDjsNFz8wn2yZKGE9DPy46UYdmOD+8TyD0/JnyuSdeCKEN91WimyxCE6U
-         fdRpMQUpGX0ksmkDHyoS/ejkpPLpPvbPoZSSaT854tq5jIvEHkyPIlrlKphaCx6Ag9oL
-         hUOPdf689tbunh2cUzlNAvXdZp3P0lNLpHs59CQFgXLMF1upWu9iU1/pdfneq1IpKa6J
-         ObxAffKZqi9FTIi3V4ALHYdR4oW2CczZyPmXb3JI8QoaWz4H30DVGRMV8nlBtz6bl97N
-         +Z1g==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=JNstR5mv;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.202 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from mail-ot1-x33a.google.com (mail-ot1-x33a.google.com [IPv6:2607:f8b0:4864:20::33a])
+	by mail.lfdr.de (Postfix) with ESMTPS id ACB3312BF27
+	for <lists+jailhouse-dev@lfdr.de>; Sat, 28 Dec 2019 21:43:02 +0100 (CET)
+Received: by mail-ot1-x33a.google.com with SMTP id l13sf11765961otn.18
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 28 Dec 2019 12:43:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:date:from:to:message-id:subject:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=HrhHuPLPQOtLpa7XQdgo4gmbxv0R597vDMRBL/1QO2I=;
+        b=lphqVkcrSWkFRBMvW6PQ4WGhOiSIH6GUUcg2XDH1LMxhJv2BXB34DymSs19Ymy4TVj
+         t4eOmrjigD2LvHQjxZDyhFROk2S9LK19MqWWn5qudovKExRsd8tDV3Q7EdUFMM0oGEOo
+         FwU6G8k7YNKm+HZhgEQ7gyUUwlwN+RfkZgvFdpTCeVDObgyA1Ae+kdfFkZD9cSIpqNn1
+         ICkSdBZSEQw7yYCsKJ/DRGWW2qgqMin82GTwWgnl3r9EzzJbYa4D/mTHm22F9PDFuQUZ
+         93ethCy0b5RMVrfvNvmgMqJCmKO4nF3hJBfVdlfdOBEC+M09v/98RKcaLf+k9Sk+UMIF
+         4O3g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=DME186U/B+IapQ2VfWwIg6yxcfQSgu+DRur7oo2dTc8=;
-        b=EpM6MFuJG2ouOcwzGBuH8oe9G/+1tvuNSwKfCcKLVDdyN+tn5xKFFRwbxKXZm38irV
-         9BhJSJ9wmAYgn6lmP1YQQv7QmolafPBJCjp2s/LNlhmYBHRNmQWuJchVKpBdRF5sGysw
-         57rJtmqZpC/WVSssrb/zOPYzozXrENBvoBSbmWOXt4WnaH79+zN1QYpevPJSIAZqOOP2
-         gNiQfv4tIAcmeB/yuoTmcoZYLVsGgd6lbhMR2qKjAUIO5SmawqdZLVWjkxo1LgefgQYV
-         AJ9y+8lexyFuTlOLWPXGsOzwSJKC56SGz60KtE98anyYGsGxxvsjSfmg72eFLb0l7sj5
-         pJKg==
+        bh=HrhHuPLPQOtLpa7XQdgo4gmbxv0R597vDMRBL/1QO2I=;
+        b=GiRIkiPbLsFFHdSEw3ampCEWUhT1JYmLv5eHQOV4PCQ+tbRRJTYgta0hADlId4ZlHG
+         khUQgPEb32uN21LuV3vXHkruugW8fvmh/kXxQ+x83ZBrusT7aQF+evK0KtFj0J4klEww
+         1xJlXcLd3azX4PVuUq6FtmCZFDLQNTw9U/T5ATco/tyvuD9NIAZV1pvWGrA3O/IwHlX4
+         IvT5jqayGxtKfqVvoXV6oIbPgh+u2TeShLfvACDMDXMK+EMuvzaiCiOna6cItVRU5Vat
+         /5yy3hzJQYkqFTtHRLqFk/l9gr8H07dbBxk1RS9AssPdmwfvaDNiy2LFPoTWzduj8M8p
+         trbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=DME186U/B+IapQ2VfWwIg6yxcfQSgu+DRur7oo2dTc8=;
-        b=pz03Jym0bO+ISWUTp9xqDP7tXtaUTKiUC45mhksvhmPTcaxzrcTHewKyOhrOywILY6
-         V2K79NFPv+uTNWp3Eu23n2aoTOezpLCdy6SZHQXPuqPASDoxiK12X62AUDdqAVJQ2wM6
-         RqyrY6oJLoe/cNCJOROZPUDnCLqOG/WENEmhsav2hmBpN+mKBVbJHo/ngYtbYufbDJIG
-         YiQUmBERWBuY5IMXdk0JpvMkAupfaBPu1VjFoUV3YaM7xAC1q8URCUl0vMVnH+859y15
-         XYIjNRo03VoHExtypvS/KGuZn68HwtDbO4LwP5G3paVybvBtCfTZ/+DABMJ5tq8WkWN7
-         HSwg==
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=HrhHuPLPQOtLpa7XQdgo4gmbxv0R597vDMRBL/1QO2I=;
+        b=s9hf6TcaL9jixKChG7oQWJz9Gb//VW8/WO6bz61ciL9Nv9QMbJkCURbb5Leike1+pV
+         IAm+S6x8UaRW8fTzUTGFo+EACQZPO77grJTFQh8SnFnDD6HGG7yqMgMbBWWPKvoRWgqi
+         S+Skdpq34fiiI8hpLRRyivgA5AfMMREil5UsbLPtrPFHUu+KJxYR8bANXcyJ6Rx5hs87
+         T45h1OiWw/7EVz2vM9ZJ8+GMw7ZxgQ3FZ/43m8VLyB0YaxYT8KTR4XkznrHRCbMpnz7b
+         /BNs/RVyFd+0j0t0LlBLPXoFzV5FbWICDxNPMb8uLF72FZMp4UZp3HAzgrC65cX4fcgl
+         OboQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVOpHkQYQc5tte1RZvdwKGEwdMW6qYd+jYqqlJ06oDOt+ag5VMU
-	wJ3eBXG5MO8m9f+fU4TnzXk=
-X-Google-Smtp-Source: APXvYqysQ//K+pPPRQiwjZoLX7NfF35irFSiV4gXUK9k/K07HaHh+8SLX6YbIpRlTH135jBl9bjPDA==
-X-Received: by 2002:a5e:de04:: with SMTP id e4mr39586003iok.47.1577545160983;
-        Sat, 28 Dec 2019 06:59:20 -0800 (PST)
+X-Gm-Message-State: APjAAAXF8LJ94Mzkc+lCviOkPkCexTjUJ8H8wMxI/+H46wUj4NVkky5v
+	oYXwcbWI1WrzcvDZgMYAupQ=
+X-Google-Smtp-Source: APXvYqwgnPADu4ncifSLEJbAVqyCleQs0SxViY20+zYFlI4B/J+/XiKOk6jaSq54ZRncKc2pVFrVbg==
+X-Received: by 2002:a9d:2264:: with SMTP id o91mr65551433ota.328.1577565781250;
+        Sat, 28 Dec 2019 12:43:01 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a6b:90f:: with SMTP id t15ls3601495ioi.15.gmail; Sat, 28 Dec
- 2019 06:59:20 -0800 (PST)
-X-Received: by 2002:a05:6602:2346:: with SMTP id r6mr40642753iot.133.1577545160508;
-        Sat, 28 Dec 2019 06:59:20 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1577545160; cv=none;
-        d=google.com; s=arc-20160816;
-        b=aVb7hN+j+HUnolkRUi6iUDIJtBWZAwkLRcJkqsYdIDqh8svHxGPwkSBDASIMocNsU6
-         fw4RnQbQzuPlc5YPBks6V01iOiTR9fYlyL5IRYAdgTMeB7E2xFDF7tOTu2oFhGjx+Fuq
-         /MFteHtiADrpP1VcwxVAR0iYLAekJcVxn6xtURILjA2HJ4X+tOOfPALzLIE7mDPQvs1d
-         y+oFhQ07QSxud0LB99y5+Dp/rAZLqENBHJLSnkVOA6BwiGxBTxmFWG3pm6EyuPtbAbo4
-         +yGFLOMo7ADTLNMOID+F/kxGayYaGqs4Db7n7+rvpGtApeSkfiVTUOXL/55kUWfwrwyO
-         Qj8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:subject:message-id:to:from
-         :date:dkim-signature;
-        bh=ksWDK1KjRPVa7vn6q4bMMeqf8Pw+5tYo63XZIntfUj4=;
-        b=UJ6+sp1jZ5hNWTu29+opFecU2MUvol9ruFti1Dza9SlYdlcH5oGrtda3vdG7h5uqET
-         xgCKgBSmgN1sWNuu8JCwPKHIbJOPlQFW4D26EZxBdaJLisWicJHv0k+MVfQz8SILiQ+L
-         OPTtTHiRHaBlEaJ0TNNCdQsAk3XgJo0iGk4pGy4re4daex3TochtndK3Wgd5Zppc6Eqz
-         U0KA9OwhV28/ifsFYsWRq2u1lJ0k47qwOIuMfG4QjtKaOu+KQhMj+a2iDfLkcNaUI83d
-         PIp7wfokoImdd9894mCVbw9e0HqlyVZboRJFE98MDJx2If72oSSUrv9q4YpcyaFWxrUY
-         1Q7Q==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=JNstR5mv;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.202 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
-Received: from out-19.smtp.github.com (out-19.smtp.github.com. [192.30.252.202])
-        by gmr-mx.google.com with ESMTPS id v82si1849270ili.0.2019.12.28.06.59.20
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Sat, 28 Dec 2019 06:59:20 -0800 (PST)
-Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.202 as permitted sender) client-ip=192.30.252.202;
-Received: from github-lowworker-2ef7ba1.ac4-iad.github.net (github-lowworker-2ef7ba1.ac4-iad.github.net [10.52.16.66])
-	by smtp.github.com (Postfix) with ESMTP id 0A52B520440
-	for <jailhouse-dev@googlegroups.com>; Sat, 28 Dec 2019 06:59:20 -0800 (PST)
-Date: Sat, 28 Dec 2019 06:59:19 -0800
-From: Jan Kiszka <noreply@github.com>
-To: jailhouse-dev@googlegroups.com
-Message-ID: <siemens/jailhouse/push/refs/heads/coverity_scan/446d77-048806@github.com>
-Subject: [siemens/jailhouse]
-Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
-X-Auto-Response-Suppress: All
-X-Original-Sender: noreply@github.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
- mode) header.i=@github.com header.s=pf2014 header.b=JNstR5mv;       spf=pass
- (google.com: domain of noreply@github.com designates 192.30.252.202 as
- permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass (p=NONE
- sp=NONE dis=NONE) header.from=github.com
+Received: by 2002:a9d:611c:: with SMTP id i28ls9258004otj.3.gmail; Sat, 28 Dec
+ 2019 12:43:00 -0800 (PST)
+X-Received: by 2002:a9d:21f4:: with SMTP id s107mr65006809otb.102.1577565780759;
+        Sat, 28 Dec 2019 12:43:00 -0800 (PST)
+Date: Sat, 28 Dec 2019 12:42:59 -0800 (PST)
+From: contact.thorsten@gmail.com
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <c6d8a14f-97c4-43f8-828d-679b08e14555@googlegroups.com>
+Subject: [jailhouse-images] qemu examples stalls to enable with -EIO
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_2209_1393955945.1577565779899"
+X-Original-Sender: contact.thorsten@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -124,10 +75,85 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-  Branch: refs/heads/coverity_scan
-  Home:   https://github.com/siemens/jailhouse
+------=_Part_2209_1393955945.1577565779899
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_2210_1314411100.1577565779900"
+
+------=_Part_2210_1314411100.1577565779900
+Content-Type: text/plain; charset="UTF-8"
+
+Hej Jailhouse community,
+
+after struggling waaay too long to get the really well prepared example 
+from Jan working, I just want to post my intermediate work-around.
+
+So, I am on a stock sid-Debian machine run by an Intel Core i5-6200U CPU 
+(X260 Thinkpad). The preparation all went well, however hitting
+jailhouse enable ...qemu-x86.cell 
+JAILHOUSE_ENABLE: Input/output error
+
+tracking it down (after creating  
+echo "#define CONFIG_TRACE_ERROR   1" > 
+./build/tmp/work/jailhouse-demo-amd64/jailhouse-jailhouse/0.11-r0/git/include/jailhouse/config.h
+), as it was recommended in the FAQ,
+I found that I ran into an odd feature mismatch at vmx.c:247, namely CPUID 
+and read_msr(MSR_IA32_VMX_PROCBASED_CTLS2) had different opinions on the 
+availability (0x101008) and usability (0x0378FF) of the XSAVES feature. No 
+idea what it is related to, e.g. processor short coming or in use by the 
+host-Linux (4.19.67-2+deb10u2), or ?? ...
+
+However, "easy" fix was to disable the feature in ./start-qemu.sh by adding 
+"-xsaves" to the line of "-cpu " features for qemu (QEMU emulator version 
+4.2.0 (Debian 1:4.2-1)).
+
+cheers,
+Thorsten
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/coverity_scan/446d77-048806%40github.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/c6d8a14f-97c4-43f8-828d-679b08e14555%40googlegroups.com.
+
+------=_Part_2210_1314411100.1577565779900
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hej Jailhouse community,</div><div><br></div><div>aft=
+er struggling waaay too long to get the really well prepared example from J=
+an working, I just want to post my intermediate work-around.</div><div><br>=
+</div><div>So, I am on a stock sid-Debian machine run by an Intel Core i5-6=
+200U CPU (X260 Thinkpad). The preparation all went well, however hitting</d=
+iv><div>jailhouse enable ...qemu-x86.cell <br></div><div>JAILHOUSE_ENABLE: =
+Input/output error</div><div><br></div><div>tracking it down (after creatin=
+g=C2=A0 <br></div><div></div><div style=3D"margin-left: 40px;"><span style=
+=3D"font-family: courier new, monospace;">echo &quot;#define CONFIG_TRACE_E=
+RROR=C2=A0=C2=A0 1&quot; &gt; ./build/tmp/work/jailhouse-demo-amd64/jailhou=
+se-jailhouse/0.11-r0/git/include/jailhouse/config.h</span></div><div></div>=
+<div>), as it was recommended in the FAQ,<br></div><div> I found that I ran=
+ into an odd feature mismatch at vmx.c:247, namely CPUID and read_msr(MSR_I=
+A32_VMX_PROCBASED_CTLS2) had different opinions on the availability (0x1010=
+08) and usability (0x0378FF) of the XSAVES feature. No idea what it is rela=
+ted to, e.g. processor short coming or in use by the host-Linux (4.19.67-2+=
+deb10u2), or ?? ...</div><div><br></div><div>However, &quot;easy&quot; fix =
+was to disable the feature in ./start-qemu.sh by adding &quot;-xsaves&quot;=
+ to the line of &quot;-cpu &quot; features for qemu (QEMU emulator version =
+4.2.0 (Debian 1:4.2-1)).</div><div><br></div><div>cheers,<br>Thorsten</div>=
+<div><br></div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/c6d8a14f-97c4-43f8-828d-679b08e14555%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/c6d8a14f-97c4-43f8-828d-679b08e14555%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_2210_1314411100.1577565779900--
+
+------=_Part_2209_1393955945.1577565779899--
