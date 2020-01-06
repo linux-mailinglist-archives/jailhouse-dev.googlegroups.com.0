@@ -1,33 +1,33 @@
 Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB4WLZTYAKGQE4A2KO3A@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33f.google.com (mail-wm1-x33f.google.com [IPv6:2a00:1450:4864:20::33f])
-	by mail.lfdr.de (Postfix) with ESMTPS id E17761311FA
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  6 Jan 2020 13:20:02 +0100 (CET)
-Received: by mail-wm1-x33f.google.com with SMTP id q26sf1327982wmq.8
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 06 Jan 2020 04:20:02 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1578313202; cv=pass;
+Received: from mail-wr1-x43b.google.com (mail-wr1-x43b.google.com [IPv6:2a00:1450:4864:20::43b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 422E01311FB
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  6 Jan 2020 13:20:03 +0100 (CET)
+Received: by mail-wr1-x43b.google.com with SMTP id u18sf26998024wrn.11
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 06 Jan 2020 04:20:03 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1578313203; cv=pass;
         d=google.com; s=arc-20160816;
-        b=r4iovZ5R2TTYXnHXAfALolBM3iPYWJPiPQbxtYV/+H7SiYxfyFmuXJYDUn+hPx6GhD
-         vQpvKpECgXp+0RCNgqk0UyJM/x9pf6rzgRlj61AgPxOBz4OIKI6HILmd2Aor12vKqp5G
-         DfJVEZUohYQbtyUeirPzKcX5mTfBSgsF6lWEY2XgREts1veVOYAPWJG4xsoAyN9pHxN2
-         G99jVQ+dfv6SJ3hewhsxKruTdTwosE15/ztavUILCy65ZdXvOdGr1hAxCTraWlXd2zSY
-         S+3O8uosad4Cab3RKnIPOThDDBvPJ772WrGFxx5dN8VEDD3+XNBFobxnaB/hkD7r8hvK
-         Xg/Q==
+        b=CZJmRh3pQfeYXRtgDGk+SNFELlJI7+oGVxKonI9G6+JzIVGJUIrsFYrZeycA4sTO2u
+         yTBIc+53gYBCInQQnabASR1U6NGUo3MYQkZ2LdX6NaG2rqL76t9wskugVhuI+fucTD+C
+         rxoSdiIFLprzomIuQamQZCY8ncXHUKuoernVCetrme1zJ/WANGr1nkiykFv0S4N4VxQi
+         G6npCPqWORO8C6xVUfmTG9Vj/finDs5sXqgK5ez0VKzTpzd7mNg1dxaq+NPEuo+zkjT6
+         QS8hHJ6jHMvnuuAbyyd138/dKqwIAebhOrxfJ3AC94OokkOzezp5G+U3izaii4Q1AU/D
+         1APg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:references:in-reply-to:references
          :in-reply-to:message-id:date:subject:to:from:mime-version:sender
          :dkim-signature;
-        bh=yShSFsYeD+o2NB30AMEwkGHjW2erdFvZVF8PXErEKE0=;
-        b=A7HtXAh4bMq2J0WYXUmPmTMB9zjLfjyDzY2KGK5os5JzmlW0U1M+hWjKjna4mrJvMN
-         SAKaWmQIiCEiHDPMbeIrDUtctvEm2m1pS2IlXk9LECTNCNUTp3ngdpoa8MmmEgZ5Zqrx
-         QhLd7fddE4bG74358Y3jLwwL1AW23nQw0+ZpbYgS+qcP/g1QUl57AcuJEs37h9gr3I1z
-         4VlVIc7W1MboH+ee6knzniugXbA1OwF9JQ99YMMyd2hQiafm7yPvJXmHXCeST7ObJFVL
-         DNDaLos+M/9vwXDoyb03CgBkZTJ3g5ID5gdEcCE3EMQheKLaA99IVF6T0AWo3b7Bt6SS
-         C4zw==
+        bh=txE/e85xjY/l6ofg9mV5kXDDC+eEhbbXdkM/WsFX0k8=;
+        b=hiMvVIB5wT4LEW901xpEf2TRZwgOI4v4YKz99Ybq29wiWcBJVpzsHcA8fgfa6Oji93
+         jolb7xG/eR8qsCp6trweREuuV5U5SqpKmtCCGN2NEH8F+D8/Hb03bKRhUiM8sxwrCygi
+         wg6Q3znM3ac37cnOqh5Mscls7tmg1YpaadVt6mbsC5xt+QFhs1GT8p7JNtmR3z0x2yse
+         8l/QwgzgKFmbgQS1D4kV1wdTuKdNOiLKNrjRYEx0/1iTSNfrIeCnN3f131kA7tcMwfuY
+         rn2jlc5stEPsi9W9K7Lk3qHxE+tfblLvYNdR7GNCPLTeheO/zHdiP0w/yy957zGW/6Dx
+         4HqA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:in-reply-to:references:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=yShSFsYeD+o2NB30AMEwkGHjW2erdFvZVF8PXErEKE0=;
-        b=oXMqWrgSQucpg0wqqO2ijp3GVvGugFYAQLBPzwREhlBfd4Gkf8nG48vjP8QDfa3Uxc
-         UF0IPp7NbaZTiTBnprvKKOVxwLtXJlB3DRXOCIvvwlsrbQvLKretKipIk7glJdSs7h/Q
-         ovBVbTCBrpAcsV1+3gbeORRfQTe+IPKjZPheo4VZA+GWmxB6s6koXzdfzbnJOqN3dctl
-         lE1PYh4nSfIs9F4GCEIRrbvLPq8CFaHtUwkpbn136Lc8AphZ3Bw8AttQrUm2VfbtKGWm
-         HlllZq1I/cDZxn3dFl6WZexaX4nuI1OdsKq5sb4t+0SIJ7RbGrpq3w5PuujQUEzQ8Yqz
-         2arg==
+        bh=txE/e85xjY/l6ofg9mV5kXDDC+eEhbbXdkM/WsFX0k8=;
+        b=dA+XLEhzYKsB9uO+NlxE5np3ZMAPpYoYZKRncM17XWKMy//KHQkCbCh81mfoBfe2Rd
+         lgWFVzBG32PdopL0f6ydNQmApPhjN8mbdjQklchdnHJ9HT3lawyvVn/s+zmoNtAVmbyP
+         nKQBQa0+bDNHSx177R4pKwyQtU41DzzL2G1bBcXIQYZMduIbxpq2kfWriRszNSb7+Cvb
+         Qq/KcvJA/ywZQnHRHzksoJRtoMYC+U9e5PTpJ89uoU5sHpNuZj0IKziJFf1/ynEDaGO0
+         3bWbVeREPjht3eGIUB/G0pDASlC3VPKYB4JZ/Gz3uAUtiWW6v541Y1pQ90B2PV6UrW1P
+         Nhug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:mime-version:from:to:subject:date
@@ -49,64 +49,64 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=yShSFsYeD+o2NB30AMEwkGHjW2erdFvZVF8PXErEKE0=;
-        b=NoAIrAlqCcOSV6p/eaiKdhpYDzneBrcyAuv2rs5ssTIoWXpEGmaVmzSu7e7jTyM275
-         sfRD5tIDuZ6d6W3YNZwkwW5Vn8eDEKHAJR+/ngblmPIOVhUI18VWbbDgZ2OyuR866Ik3
-         bkZ6sx36IOgH09zGTc/HWO0Jecz74QYEhjfVW3wCrAeL1Ie8zbTCO38JSx+XdU/lNvdC
-         zLcxqnwuBf6iuAqTAYRaBUHKEj2PX5JSbdo9avga7DslV7K7OMGepB/3h4ae34A/1Dl5
-         /+cNdeNk9SSXnRi4UCcQyXIqb1cCpghFCnyho/xmWtofNZJvI4kruefhXYUjx5FgjnqJ
-         a/ag==
+        bh=txE/e85xjY/l6ofg9mV5kXDDC+eEhbbXdkM/WsFX0k8=;
+        b=TgPhmbgO1qy6pk+H7CtC/IazZFI87LL1wj63kOLQ18y/1EG/IYQePeyMv/gb/nZ+C0
+         729AbwM7DCul6sLiSPxyG1GVi7l714I8NZSYzW+YDlshey8h1eOdqxWv/WULiroBhc07
+         C+hq9RiineZz2IIoKC4nIoUD91w4veXFl3/l10TmnYjUf/ghMCzav6eebYz5/n5sk2GI
+         5e+HBq0lgVjahCT5F74GnTIN0F6LTbyI4nv3kRNg62OsVcF37oa8QElsgNVvXwvguInV
+         4q0SrSy2rXSoj3P6FmJB4SkGqrH4mS1l7KJxpPt9RiIXBykEljWB1+BZW0TgUM9s+dtd
+         S1Vw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXw0QFNUZo+dovYweFMcYerp66tKjv/7bMkZ4p0nU+BfeW8irw4
-	QMC9TpbD+IH0xl9KMkG0PTk=
-X-Google-Smtp-Source: APXvYqzDuLg7pkREyzdukESDAPVasPgTskoApc+kWCJH2Fsa0jtxlq1tbK8F6O3YFd1NYAvCOsWuVw==
-X-Received: by 2002:adf:df90:: with SMTP id z16mr109489940wrl.273.1578313202478;
+X-Gm-Message-State: APjAAAU/sle760ZzdlTlJFRUCmlsUbfGWsGJEKrIcjwLv5HbZ9vMqt0K
+	AOL0EGYwwZUSvHZKCKFRjCo=
+X-Google-Smtp-Source: APXvYqyLFrVbTdXxmROz1nBmYPAPjquFgd/0/QA0PZF/cRBtRstfQHzHLpk/SALSYQsmhJlitSYmzQ==
+X-Received: by 2002:a5d:6b88:: with SMTP id n8mr84857015wrx.288.1578313202847;
         Mon, 06 Jan 2020 04:20:02 -0800 (PST)
 MIME-Version: 1.0
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:9808:: with SMTP id a8ls2279911wme.0.gmail; Mon, 06 Jan
- 2020 04:20:01 -0800 (PST)
-X-Received: by 2002:a7b:cc6a:: with SMTP id n10mr35742833wmj.170.1578313201709;
-        Mon, 06 Jan 2020 04:20:01 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1578313201; cv=none;
+Received: by 2002:a1c:9808:: with SMTP id a8ls2279924wme.0.gmail; Mon, 06 Jan
+ 2020 04:20:02 -0800 (PST)
+X-Received: by 2002:a7b:c750:: with SMTP id w16mr36002871wmk.46.1578313202118;
+        Mon, 06 Jan 2020 04:20:02 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1578313202; cv=none;
         d=google.com; s=arc-20160816;
-        b=n3mlx8zHa+XAzZwOw1Pdt8bWl9dhInBDYYsmGatwrRHaGRLOpPvw6MsC6dqPwuor4S
-         5k2ofwsK0Sw0iO2/TGnhyFCrtTqip5UtLBQaIpvKbGjh4CbDlfL/G2MCLucjpRg0D99K
-         Tr6bipzG6h9PAIgrOZn8ytXy5rPxN8r4IOKiQuJ+70MVeh7WEEVGieU4EWC1RL4AX1VA
-         7OVAh0pUjauuxzZE46/eX/5XxhZlJz4LakSrCGIADEOdgztIUH0/xorj2UD5ytf1RLOX
-         1g5lbySoa7+/uyJBYFbXs5/CLY+Qg8DZRMTr5kocjlaWdveQf7tZoeFJSWxWrkidvs4c
-         FsXQ==
+        b=aAlp7SSkLPTiQbFaP290LfAr94YTfMFoHrJtfaea9Xq5sadMSjF3S60w7f4fNGas88
+         HICragy8ytQ9HRM38maZRf8VJNol61arrVAAKUW/hFgGdIaKs8XznTB+4JnJGWPMzdWE
+         MqatUR5cb0vPkqSAnNz0GUl17jMr+IIFPZ3eylk902QD2baTn+ELqric5l+EAgctTuSP
+         cxewE4KII0phwZEZh16bc5NaGShZiUJOSqfSQVpma/VwiMpRmu3Pv6b8BPcyG23YUo3Q
+         W5AMXMJisfA+BRARjCN9iPhkWrcpTGIfxy+UhA7zqaNwijKuL6hhj7YasHu1zHNQg6Q5
+         52kA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=references:in-reply-to:references:in-reply-to:message-id:date
          :subject:to:from;
-        bh=qSsYJmvNHyYDmU01YVJj7Rrjm5kOm50A15C8wvVcuJQ=;
-        b=aYQ0cqCbcneIFAwb8tHIkgUAYnM9Fr+bpqbZr8He1K5SfyL3/H9mqMSmKjqRRlTUvj
-         1ywhOvGaE5dzs7VuAXcrSQoQkithe985DVqnZZHMgekiV90wEgHiHbxHPO0SP80fkHh6
-         hHUpEYoM1vxaSZ+MASfsnCBsGBClLa1exOf0KgWT30AyM/T1WAo3o6JAsn3KzBX5tWCq
-         iR7TdgyA/mfnHdKkn2ERzIswnuOhIRI7ahevSsSQsXPtLXqZFHvnnJFd7jcsjORpnAdq
-         6Rd2c84D3O/Y2PECLVH2kM6bLczGohcD/+WI4IIAeWaIYTs4tg88PnPtMBpUfE6Z894m
-         ePhw==
+        bh=p7tysDP6B8n+1WM2F12kW3FFhp4jECmvnOtiteUgpRc=;
+        b=skNjyGML7NFEVl8uExMKR9FNvpoplWh+Cgp5ObchNL9MOeZClLY4CHFJiujk6ephy8
+         nRPiLh/70yVYMpCmRSfb1DeVoZ/C6qd9gL0L0bjVqfmV6v5q9KnrD0LNKrWlLUJd65Qc
+         IuwFfdxkVSIJ4Vaaj81olVKGMt5a39H33/gSSqA2q7khnAwTzGUz8vUM8JsLWiSi7yFe
+         mR1dSjzXm41X2+xbpmYTtE/6+oZg1mM5hioK4Ipts+76bPxtvQOK8lR+S5+DhCPZdbkG
+         91jUlsU0Fzffs8atq/AEEQdUSnpR8MCvk+zPD64Q0fEBz+YzMqW9gsOkbm+1oZyN+Q1V
+         5wuA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id u9si2274945wri.3.2020.01.06.04.20.01
+Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
+        by gmr-mx.google.com with ESMTPS id y185si758249wmd.2.2020.01.06.04.20.02
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 06 Jan 2020 04:20:01 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
+        Mon, 06 Jan 2020 04:20:02 -0800 (PST)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
 Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 006CK1rh021148
+	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 006CK1b1019350
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
 	for <jailhouse-dev@googlegroups.com>; Mon, 6 Jan 2020 13:20:01 +0100
 Received: from md1f2u6c.ad001.siemens.net ([167.87.13.202])
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id 006CIKEv029483
+	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id 006CIKEw029483
 	for <jailhouse-dev@googlegroups.com>; Mon, 6 Jan 2020 13:20:01 +0100
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [PATCH 23/38] configs: Factor out ivshmem memory region macro for network devices
-Date: Mon,  6 Jan 2020 13:18:04 +0100
-Message-Id: <945028d7d210064c97963f15dd3e0a171ce46fd4.1578313099.git.jan.kiszka@siemens.com>
+Subject: [PATCH 24/38] configs: Move ivshmem memory regions at array start
+Date: Mon,  6 Jan 2020 13:18:05 +0100
+Message-Id: <c7c9cc901548895d2ecb25387a4e3ebb764160af.1578313099.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <cover.1578313099.git.jan.kiszka@siemens.com>
 References: <cover.1578313099.git.jan.kiszka@siemens.com>
@@ -114,7 +114,7 @@ In-Reply-To: <cover.1578313099.git.jan.kiszka@siemens.com>
 References: <cover.1578313099.git.jan.kiszka@siemens.com>
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
@@ -132,823 +132,1245 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-This helps with defining the default case of the memory region that an
-ivshmem network device needs. Just provide the start address, and
-JAILHOUSE_SHMEM_NET_REGIONS will create a shared 1 MB region. The macro
-already takes the device ID in order to be prepared for upcoming
-unidirectional regions.
+Simplifies index calculation and reduces risk of errors. The only
+downside is that regions are no longer ordered according to their
+physical addresses.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- configs/arm/bananapi-linux-demo.c             |  9 ++-------
- configs/arm/bananapi.c                        |  8 ++------
- configs/arm/emtrion-rzg1e-linux-demo.c        |  9 ++-------
- configs/arm/emtrion-rzg1e.c                   |  8 ++------
- configs/arm/emtrion-rzg1h-linux-demo.c        |  9 ++-------
- configs/arm/emtrion-rzg1h.c                   |  8 ++------
- configs/arm/emtrion-rzg1m-linux-demo.c        |  9 ++-------
- configs/arm/emtrion-rzg1m.c                   |  8 ++------
- configs/arm/jetson-tk1-linux-demo.c           |  9 ++-------
- configs/arm/jetson-tk1.c                      |  8 ++------
- configs/arm/orangepi0-linux-demo.c            |  9 ++-------
- configs/arm/orangepi0.c                       |  8 ++------
- configs/arm64/amd-seattle-linux-demo.c        |  9 ++-------
- configs/arm64/amd-seattle.c                   |  8 ++------
- configs/arm64/espressobin-linux-demo.c        |  9 ++-------
- configs/arm64/espressobin.c                   |  8 ++------
- configs/arm64/hikey-linux-demo.c              |  9 ++-------
- configs/arm64/hikey.c                         |  8 ++------
- configs/arm64/jetson-tx1-linux-demo.c         |  9 ++-------
- configs/arm64/jetson-tx1.c                    |  8 ++------
- configs/arm64/k3-am654-idk-linux-demo.c       |  8 ++------
- configs/arm64/k3-am654-idk.c                  |  8 ++------
- configs/arm64/k3-j721e-evm-linux-demo.c       |  9 ++-------
- configs/arm64/k3-j721e-evm.c                  |  8 ++------
- configs/arm64/macchiatobin-linux-demo.c       |  9 ++-------
- configs/arm64/macchiatobin.c                  |  8 ++------
- configs/arm64/miriac-sbc-ls1046a-linux-demo.c |  9 ++-------
- configs/arm64/miriac-sbc-ls1046a.c            |  8 ++------
- configs/arm64/qemu-arm64-linux-demo.c         |  9 ++-------
- configs/arm64/qemu-arm64.c                    |  8 ++------
- configs/arm64/ultra96-linux-demo.c            |  9 ++-------
- configs/arm64/ultra96.c                       |  8 ++------
- configs/arm64/zynqmp-zcu102-linux-demo-2.c    | 18 ++++--------------
- configs/arm64/zynqmp-zcu102-linux-demo.c      | 18 ++++--------------
- configs/arm64/zynqmp-zcu102.c                 | 16 ++++------------
- configs/x86/linux-x86-demo.c                  |  8 +-------
- configs/x86/qemu-x86.c                        |  7 +------
- include/jailhouse/cell-config.h               |  9 +++++++++
- 38 files changed, 87 insertions(+), 260 deletions(-)
+ configs/arm/bananapi-linux-demo.c             |  6 +++---
+ configs/arm/bananapi.c                        |  6 +++---
+ configs/arm/emtrion-rzg1e-linux-demo.c        |  6 +++---
+ configs/arm/emtrion-rzg1e.c                   |  6 +++---
+ configs/arm/emtrion-rzg1h-linux-demo.c        |  6 +++---
+ configs/arm/emtrion-rzg1h.c                   |  6 +++---
+ configs/arm/emtrion-rzg1m-linux-demo.c        |  6 +++---
+ configs/arm/emtrion-rzg1m.c                   |  6 +++---
+ configs/arm/jetson-tk1-linux-demo.c           |  6 +++---
+ configs/arm/jetson-tk1.c                      |  6 +++---
+ configs/arm/orangepi0-linux-demo.c            |  6 +++---
+ configs/arm/orangepi0.c                       |  6 +++---
+ configs/arm64/amd-seattle-linux-demo.c        |  6 +++---
+ configs/arm64/amd-seattle.c                   |  6 +++---
+ configs/arm64/espressobin-linux-demo.c        |  6 +++---
+ configs/arm64/espressobin.c                   |  6 +++---
+ configs/arm64/hikey-linux-demo.c              |  6 +++---
+ configs/arm64/hikey.c                         |  6 +++---
+ configs/arm64/jetson-tx1-linux-demo.c         |  6 +++---
+ configs/arm64/jetson-tx1.c                    |  7 +++----
+ configs/arm64/k3-am654-idk-linux-demo.c       |  6 +++---
+ configs/arm64/k3-am654-idk.c                  |  6 +++---
+ configs/arm64/macchiatobin-linux-demo.c       |  6 +++---
+ configs/arm64/macchiatobin.c                  |  6 +++---
+ configs/arm64/miriac-sbc-ls1046a-linux-demo.c |  6 +++---
+ configs/arm64/miriac-sbc-ls1046a.c            |  6 +++---
+ configs/arm64/qemu-arm64-linux-demo.c         |  6 +++---
+ configs/arm64/qemu-arm64.c                    |  6 +++---
+ configs/arm64/ultra96-linux-demo.c            |  6 +++---
+ configs/arm64/ultra96.c                       |  6 +++---
+ configs/arm64/zynqmp-zcu102-linux-demo-2.c    | 12 ++++++------
+ configs/arm64/zynqmp-zcu102-linux-demo.c      | 12 ++++++------
+ configs/arm64/zynqmp-zcu102.c                 | 12 ++++++------
+ configs/x86/ivshmem-demo.c                    | 18 +++++++++---------
+ configs/x86/linux-x86-demo.c                  |  6 +++---
+ configs/x86/qemu-x86.c                        | 22 +++++++++++-----------
+ 36 files changed, 131 insertions(+), 132 deletions(-)
 
 diff --git a/configs/arm/bananapi-linux-demo.c b/configs/arm/bananapi-linux-demo.c
-index 070b909e..474ad6d1 100644
+index 474ad6d1..a6714736 100644
 --- a/configs/arm/bananapi-linux-demo.c
 +++ b/configs/arm/bananapi-linux-demo.c
-@@ -81,13 +81,8 @@ struct {
+@@ -52,6 +52,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 1),
+ 		/* CCU (HACK) */ {
+ 			.phys_start = 0x01c2006c,
+ 			.virt_start = 0x01c2006c,
+@@ -81,8 +83,6 @@ struct {
  				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
  				JAILHOUSE_MEM_LOADABLE,
  		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x7bf00000,
--			.virt_start = 0x7bf00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
--				JAILHOUSE_MEM_ROOTSHARED,
--		},
-+		/* IVSHMEM shared memory region */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 1),
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 1),
  		/* communication region */ {
  			.virt_start = 0x80000000,
  			.size = 0x00001000,
+@@ -106,7 +106,7 @@ struct {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.bdf = 0x00,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 4,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 1,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm/bananapi.c b/configs/arm/bananapi.c
-index 73c8ea8e..7f7393ff 100644
+index 7f7393ff..3dd3a2a3 100644
 --- a/configs/arm/bananapi.c
 +++ b/configs/arm/bananapi.c
-@@ -182,12 +182,8 @@ struct {
+@@ -70,6 +70,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 0),
+ 		/* SPI */ {
+ 			.phys_start = 0x01c05000,
+ 			.virt_start = 0x01c05000,
+@@ -182,8 +184,6 @@ struct {
  			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
  				JAILHOUSE_MEM_EXECUTE,
  		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x7bf00000,
--			.virt_start = 0x7bf00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
--		},
-+		/* IVSHMEM shared memory region */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 0),
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 0),
  	},
  
  	.irqchips = {
+@@ -201,7 +201,7 @@ struct {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.bdf = 0x00,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 16,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 0,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm/emtrion-rzg1e-linux-demo.c b/configs/arm/emtrion-rzg1e-linux-demo.c
-index de984de8..4dbaecff 100644
+index 4dbaecff..5b24db92 100644
 --- a/configs/arm/emtrion-rzg1e-linux-demo.c
 +++ b/configs/arm/emtrion-rzg1e-linux-demo.c
-@@ -116,13 +116,8 @@ struct {
+@@ -51,6 +51,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 1),
+ 		/* RST, MODEMR */ {
+ 			.phys_start = 0xe6160060,
+ 			.virt_start = 0xe6160060,
+@@ -116,8 +118,6 @@ struct {
  				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
  				JAILHOUSE_MEM_LOADABLE,
  		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x7bf00000,
--			.virt_start = 0x7bf00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
--				JAILHOUSE_MEM_ROOTSHARED,
--		},
-+		/* IVSHMEM shared memory region */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 1),
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 1),
  		/* communication region */ {
  			.virt_start = 0x80000000,
  			.size = 0x00001000,
+@@ -155,7 +155,7 @@ struct {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.bdf = 0x00,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 4,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 1,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm/emtrion-rzg1e.c b/configs/arm/emtrion-rzg1e.c
-index 0301e97d..744e7aeb 100644
+index 744e7aeb..528b2f45 100644
 --- a/configs/arm/emtrion-rzg1e.c
 +++ b/configs/arm/emtrion-rzg1e.c
-@@ -196,12 +196,8 @@ struct {
+@@ -70,6 +70,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 0),
+ 		/* CPG */ {
+ 			.phys_start = 0xe6150000,
+ 			.virt_start = 0xe6150000,
+@@ -196,8 +198,6 @@ struct {
  			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
  				JAILHOUSE_MEM_EXECUTE,
  		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x7bf00000,
--			.virt_start = 0x7bf00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
--		},
-+		/* IVSHMEM shared memory region */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 0),
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 0),
  	},
  
  	.irqchips = {
+@@ -229,7 +229,7 @@ struct {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.bdf = 0x00,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 16,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 0,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm/emtrion-rzg1h-linux-demo.c b/configs/arm/emtrion-rzg1h-linux-demo.c
-index 77234e80..b8b1c869 100644
+index b8b1c869..c971bcc0 100644
 --- a/configs/arm/emtrion-rzg1h-linux-demo.c
 +++ b/configs/arm/emtrion-rzg1h-linux-demo.c
-@@ -130,13 +130,8 @@ struct {
+@@ -51,6 +51,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 1),
+ 		/* RST, MODEMR */ {
+ 			.phys_start = 0xe6160060,
+ 			.virt_start = 0xe6160060,
+@@ -130,8 +132,6 @@ struct {
  				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
  				JAILHOUSE_MEM_LOADABLE,
  		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x7bf00000,
--			.virt_start = 0x7bf00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
--				JAILHOUSE_MEM_ROOTSHARED,
--		},
-+		/* IVSHMEM shared memory region */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 1),
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 1),
  		/* communication region */ {
  			.virt_start = 0x80000000,
  			.size = 0x00001000,
+@@ -169,7 +169,7 @@ struct {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.bdf = 0x00,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 4,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 1,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm/emtrion-rzg1h.c b/configs/arm/emtrion-rzg1h.c
-index d8eec098..95c21d67 100644
+index 95c21d67..c2b3e16a 100644
 --- a/configs/arm/emtrion-rzg1h.c
 +++ b/configs/arm/emtrion-rzg1h.c
-@@ -322,12 +322,8 @@ struct {
+@@ -70,6 +70,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 0),
+ 		/* SYS-DMAC */ {
+ 			.phys_start = 0xe6700000,
+ 			.virt_start = 0xe6700000,
+@@ -322,8 +324,6 @@ struct {
  			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
  				JAILHOUSE_MEM_EXECUTE,
  		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x7bf00000,
--			.virt_start = 0x7bf00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
--		},
-+		/* IVSHMEM shared memory region */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 0),
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 0),
  	},
  
  	.irqchips = {
+@@ -355,7 +355,7 @@ struct {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.bdf = 0x00,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 16,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 0,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm/emtrion-rzg1m-linux-demo.c b/configs/arm/emtrion-rzg1m-linux-demo.c
-index 6e028a67..5e166fa5 100644
+index 5e166fa5..1dc57b4c 100644
 --- a/configs/arm/emtrion-rzg1m-linux-demo.c
 +++ b/configs/arm/emtrion-rzg1m-linux-demo.c
-@@ -130,13 +130,8 @@ struct {
- 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
- 				JAILHOUSE_MEM_LOADABLE,
- 		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x7bf00000,
--			.virt_start = 0x7bf00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
--				JAILHOUSE_MEM_ROOTSHARED,
--		},
+@@ -51,6 +51,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
 +		/* IVSHMEM shared memory region */
 +		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 1),
+ 		/* RST, MODEMR */ {
+ 			.phys_start = 0xe6160060,
+ 			.virt_start = 0xe6160060,
+@@ -130,8 +132,6 @@ struct {
+ 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+ 				JAILHOUSE_MEM_LOADABLE,
+ 		},
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 1),
  		/* communication region */ {
  			.virt_start = 0x80000000,
  			.size = 0x00001000,
+@@ -169,7 +169,7 @@ struct {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.bdf = 0x00,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 4,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 1,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm/emtrion-rzg1m.c b/configs/arm/emtrion-rzg1m.c
-index c8ff9ec5..41bccba9 100644
+index 41bccba9..21d05116 100644
 --- a/configs/arm/emtrion-rzg1m.c
 +++ b/configs/arm/emtrion-rzg1m.c
-@@ -231,12 +231,8 @@ struct {
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
- 				JAILHOUSE_MEM_EXECUTE,
- 		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x7bf00000,
--			.virt_start = 0x7bf00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
--		},
+@@ -70,6 +70,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
 +		/* IVSHMEM shared memory region */
 +		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 0),
+ 		/* Thermal Sensor */ {
+ 			.phys_start = 0xe61f0000,
+ 			.virt_start = 0xe61f0000,
+@@ -231,8 +233,6 @@ struct {
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ 				JAILHOUSE_MEM_EXECUTE,
+ 		},
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 0),
  	},
  
  	.irqchips = {
+@@ -264,7 +264,7 @@ struct {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.bdf = 0x00,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 16,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 0,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm/jetson-tk1-linux-demo.c b/configs/arm/jetson-tk1-linux-demo.c
-index cc605058..1fe3636a 100644
+index 1fe3636a..2e0a898c 100644
 --- a/configs/arm/jetson-tk1-linux-demo.c
 +++ b/configs/arm/jetson-tk1-linux-demo.c
-@@ -77,13 +77,8 @@ struct {
- 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
- 				JAILHOUSE_MEM_LOADABLE,
- 		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0xfbf00000,
--			.virt_start = 0xfbf00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
--				JAILHOUSE_MEM_ROOTSHARED,
--		},
+@@ -53,6 +53,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
 +		/* IVSHMEM shared memory region */
 +		JAILHOUSE_SHMEM_NET_REGIONS(0xfbf00000, 1),
+ 		/* UART */ {
+ 			.phys_start = 0x70006000,
+ 			.virt_start = 0x70006000,
+@@ -77,8 +79,6 @@ struct {
+ 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+ 				JAILHOUSE_MEM_LOADABLE,
+ 		},
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0xfbf00000, 1),
  		/* communication region */ {
  			.virt_start = 0x80000000,
  			.size = 0x00001000,
+@@ -109,7 +109,7 @@ struct {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.bdf = 0x00,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 3,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 1,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm/jetson-tk1.c b/configs/arm/jetson-tk1.c
-index 2e8c0a02..187e82a2 100644
+index 187e82a2..18a36449 100644
 --- a/configs/arm/jetson-tk1.c
 +++ b/configs/arm/jetson-tk1.c
-@@ -226,12 +226,8 @@ struct {
+@@ -74,6 +74,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region */
++		JAILHOUSE_SHMEM_NET_REGIONS(0xfbf00000, 0),
+ 		/* PCIe */ {
+ 			.phys_start = 0x01000000,
+ 			.virt_start = 0x01000000,
+@@ -226,8 +228,6 @@ struct {
  			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
  				JAILHOUSE_MEM_EXECUTE,
  		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0xfbf00000,
--			.virt_start = 0xfbf00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
--		},
-+		/* IVSHMEM shared memory region */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0xfbf00000, 0),
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0xfbf00000, 0),
  	},
  
  	.irqchips = {
+@@ -253,7 +253,7 @@ struct {
+ 			.domain = 1,
+ 			.bdf = 0x00,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 21,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 0,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm/orangepi0-linux-demo.c b/configs/arm/orangepi0-linux-demo.c
-index 06dbf559..7d3022a3 100644
+index 7d3022a3..1b0a27f6 100644
 --- a/configs/arm/orangepi0-linux-demo.c
 +++ b/configs/arm/orangepi0-linux-demo.c
-@@ -72,13 +72,8 @@ struct {
+@@ -50,6 +50,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x4f700000, 1),
+ 		/* UART 0-3 */ {
+ 			.phys_start = 0x01c28000,
+ 			.virt_start = 0x01c28000,
+@@ -72,8 +74,6 @@ struct {
  				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
  				JAILHOUSE_MEM_LOADABLE,
  		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x4f700000,
--			.virt_start = 0x4f700000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
--				JAILHOUSE_MEM_ROOTSHARED,
--		},
-+		/* IVSHMEM shared memory region */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x4f700000, 1),
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x4f700000, 1),
  		/* communication region */ {
  			.virt_start = 0x80000000,
  			.size = 0x00001000,
+@@ -97,7 +97,7 @@ struct {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.bdf = 0x00,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 3,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 1,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm/orangepi0.c b/configs/arm/orangepi0.c
-index 4cd5b49d..5e654a01 100644
+index 5e654a01..441f211c 100644
 --- a/configs/arm/orangepi0.c
 +++ b/configs/arm/orangepi0.c
-@@ -123,12 +123,8 @@ struct {
+@@ -67,6 +67,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x4f700000, 0),
+ 		/* MMIO 1 (permissive) */ {
+ 			.phys_start = 0x01c00000,
+ 			.virt_start = 0x01c00000,
+@@ -123,8 +125,6 @@ struct {
  			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
  				JAILHOUSE_MEM_EXECUTE,
  		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x4f700000,
--			.virt_start = 0x4f700000,
--			.size =         0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
--		},
-+		/* IVSHMEM shared memory region */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x4f700000, 0),
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x4f700000, 0),
  	},
  
  	.irqchips = {
+@@ -142,7 +142,7 @@ struct {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.bdf = 0x00,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 8,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 0,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm64/amd-seattle-linux-demo.c b/configs/arm64/amd-seattle-linux-demo.c
-index 1ced1d7f..df44b76e 100644
+index df44b76e..b6c6b2e0 100644
 --- a/configs/arm64/amd-seattle-linux-demo.c
 +++ b/configs/arm64/amd-seattle-linux-demo.c
-@@ -91,13 +91,8 @@ struct {
+@@ -47,6 +47,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x83e4000000, 1),
+ 		/* UART */ {
+ 			.phys_start = 0xe1010000,
+ 			.virt_start = 0xe1010000,
+@@ -91,8 +93,6 @@ struct {
  				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
  				JAILHOUSE_MEM_LOADABLE,
  		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x83e4000000,
--			.virt_start = 0x83e4000000,
--			.size =           0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
--				JAILHOUSE_MEM_ROOTSHARED,
--		},
-+		/* IVSHMEM shared memory region */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x83e4000000, 1),
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x83e4000000, 1),
  		/* v2m */ {
  			.phys_start = 0xe1180000,
  			.virt_start = 0xe1180000,
+@@ -138,7 +138,7 @@ struct {
+ 			.bdf = 0x0078,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+ 			.num_msix_vectors = 1,
+-			.shmem_region = 6,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 1,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm64/amd-seattle.c b/configs/arm64/amd-seattle.c
-index a5414d6b..dd22b324 100644
+index dd22b324..37cbb91a 100644
 --- a/configs/arm64/amd-seattle.c
 +++ b/configs/arm64/amd-seattle.c
-@@ -176,12 +176,8 @@ struct {
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
- 				JAILHOUSE_MEM_EXECUTE,
- 		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x83e4000000,
--			.virt_start = 0x83e4000000,
--			.size =           0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
--		},
+@@ -64,6 +64,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
 +		/* IVSHMEM shared memory region */
 +		JAILHOUSE_SHMEM_NET_REGIONS(0x83e4000000, 0),
+ 		/* gpio */ {
+ 			.phys_start = 0xe0030000,
+ 			.virt_start = 0xe0030000,
+@@ -176,8 +178,6 @@ struct {
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ 				JAILHOUSE_MEM_EXECUTE,
+ 		},
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x83e4000000, 0),
  	},
  	.irqchips = {
  		/* GIC */ {
+@@ -216,7 +216,7 @@ struct {
+ 			.bdf = 0x0078,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+ 			.num_msix_vectors = 1,
+-			.shmem_region = 16,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 0,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm64/espressobin-linux-demo.c b/configs/arm64/espressobin-linux-demo.c
-index d2b19988..87d0db41 100644
+index 87d0db41..dc12d2b3 100644
 --- a/configs/arm64/espressobin-linux-demo.c
 +++ b/configs/arm64/espressobin-linux-demo.c
-@@ -71,13 +71,8 @@ struct {
- 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
- 				JAILHOUSE_MEM_LOADABLE,
- 		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x3fb00000,
--			.virt_start = 0x3fb00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
--				JAILHOUSE_MEM_ROOTSHARED,
--		},
+@@ -49,6 +49,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
 +		/* IVSHMEM shared memory region */
 +		JAILHOUSE_SHMEM_NET_REGIONS(0x3fb00000, 1),
+ 		/* UART */ {
+ 			.phys_start = 0xd0012000,
+ 			.virt_start = 0xd0012000,
+@@ -71,8 +73,6 @@ struct {
+ 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+ 				JAILHOUSE_MEM_LOADABLE,
+ 		},
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x3fb00000, 1),
  		/* communication region */ {
  			.virt_start = 0x80000000,
  			.size = 0x00001000,
+@@ -99,7 +99,7 @@ struct {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.bdf = 0 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 3,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 1,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm64/espressobin.c b/configs/arm64/espressobin.c
-index e228b373..e606beae 100644
+index e606beae..c9e62077 100644
 --- a/configs/arm64/espressobin.c
 +++ b/configs/arm64/espressobin.c
-@@ -89,12 +89,8 @@ struct {
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
- 				JAILHOUSE_MEM_EXECUTE,
- 		},
--		/* IVSHMEM shared memory region for 00:00.0 */ {
--			.phys_start = 0x3fb00000,
--			.virt_start = 0x3fb00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
--		},
+@@ -68,6 +68,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
 +		/* IVSHMEM shared memory region for 00:00.0 */
 +		JAILHOUSE_SHMEM_NET_REGIONS(0x3fb00000, 0),
+ 		/* MMIO (permissive) */ {
+ 			.phys_start = 0xd0000000,
+ 			.virt_start = 0xd0000000,
+@@ -89,8 +91,6 @@ struct {
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ 				JAILHOUSE_MEM_EXECUTE,
+ 		},
+-		/* IVSHMEM shared memory region for 00:00.0 */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x3fb00000, 0),
  	},
  
  	.irqchips = {
+@@ -109,7 +109,7 @@ struct {
+ 			.domain = 1,
+ 			.bdf = 0 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 3,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 0,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm64/hikey-linux-demo.c b/configs/arm64/hikey-linux-demo.c
-index e17e0b04..384f8be8 100644
+index 384f8be8..d6cc9f2d 100644
 --- a/configs/arm64/hikey-linux-demo.c
 +++ b/configs/arm64/hikey-linux-demo.c
-@@ -71,13 +71,8 @@ struct {
+@@ -49,6 +49,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 1),
+ 		/* UART 3 */ {
+ 			.phys_start = 0xf7113000,
+ 			.virt_start = 0xf7113000,
+@@ -71,8 +73,6 @@ struct {
  				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
  				JAILHOUSE_MEM_LOADABLE,
  		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x7bf00000,
--			.virt_start = 0x7bf00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
--				JAILHOUSE_MEM_ROOTSHARED,
--		},
-+		/* IVSHMEM shared memory region */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 1),
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 1),
  		/* communication region */ {
  			.virt_start = 0x80000000,
  			.size = 0x00001000,
+@@ -96,7 +96,7 @@ struct {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.bdf = 0x00,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 3,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 1,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm64/hikey.c b/configs/arm64/hikey.c
-index e9e2cd5f..2e0ddc64 100644
+index 2e0ddc64..057dcd05 100644
 --- a/configs/arm64/hikey.c
 +++ b/configs/arm64/hikey.c
-@@ -95,12 +95,8 @@ struct {
+@@ -67,6 +67,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 0),
+ 		/* MMIO (permissive) */ {
+ 			.phys_start = 0xf4100000,
+ 			.virt_start = 0xf4100000,
+@@ -95,8 +97,6 @@ struct {
  			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
  				JAILHOUSE_MEM_EXECUTE,
  		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x7bf00000,
--			.virt_start = 0x7bf00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
--		},
-+		/* IVSHMEM shared memory region */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 0),
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 0),
  	},
  
  	.irqchips = {
+@@ -115,7 +115,7 @@ struct {
+ 			.domain = 1,
+ 			.bdf = 0x00,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 4,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 0,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm64/jetson-tx1-linux-demo.c b/configs/arm64/jetson-tx1-linux-demo.c
-index 1b7e1263..aeed067a 100644
+index aeed067a..b0518c4d 100644
 --- a/configs/arm64/jetson-tx1-linux-demo.c
 +++ b/configs/arm64/jetson-tx1-linux-demo.c
-@@ -81,13 +81,8 @@ struct {
+@@ -58,6 +58,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x17bf00000, 1),
+ 		/* UART */ {
+ 			.phys_start = 0x70006000,
+ 			.virt_start = 0x70006000,
+@@ -81,8 +83,6 @@ struct {
  				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
  				JAILHOUSE_MEM_LOADABLE,
  		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x17bf00000,
--			.virt_start = 0x17bf00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
--				JAILHOUSE_MEM_ROOTSHARED,
--		},
-+		/* IVSHMEM shared memory region */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x17bf00000, 1),
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x17bf00000, 1),
  		/* communication region */ {
  			.virt_start = 0x80000000,
  			.size = 0x00001000,
+@@ -113,7 +113,7 @@ struct {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.bdf = 0x00,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 3,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 1,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm64/jetson-tx1.c b/configs/arm64/jetson-tx1.c
-index e437d85d..a525d2b8 100644
+index a525d2b8..60a8906d 100644
 --- a/configs/arm64/jetson-tx1.c
 +++ b/configs/arm64/jetson-tx1.c
-@@ -367,12 +367,8 @@ struct {
+@@ -72,7 +72,8 @@ struct {
+ 
+ 
+ 	.mem_regions = {
+-
++		/* IVSHMEM shared memory region */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x17bf00000, 0),
+ 		/* APE 1 */ {
+ 			.phys_start = 0x00000000,
+ 			.virt_start = 0x00000000,
+@@ -367,8 +368,6 @@ struct {
  			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
  				JAILHOUSE_MEM_EXECUTE,
  		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x17bf00000,
--			.virt_start = 0x17bf00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
--		},
-+		/* IVSHMEM shared memory region */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x17bf00000, 0),
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x17bf00000, 0),
  	},
  	.irqchips = {
  		/* GIC */ {
+@@ -393,7 +392,7 @@ struct {
+ 			.domain = 1,
+ 			.bdf = 0x00,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 42,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 0,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm64/k3-am654-idk-linux-demo.c b/configs/arm64/k3-am654-idk-linux-demo.c
-index 5dab6d8a..0c39dd29 100644
+index 0c39dd29..d546add6 100644
 --- a/configs/arm64/k3-am654-idk-linux-demo.c
 +++ b/configs/arm64/k3-am654-idk-linux-demo.c
-@@ -70,12 +70,8 @@ struct {
+@@ -54,6 +54,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region for 00:00.0 */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x8dfb00000, 1),
+ 		/* RAM load */ {
+ 			.phys_start = 0x8FFFF0000,
+ 			.virt_start = 0x0,
+@@ -70,8 +72,6 @@ struct {
  				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
  				JAILHOUSE_MEM_LOADABLE,
  		},
--		/* IVSHMEM shared memory region for 00:00.0 */ {
--			.phys_start = 0x8dfb00000,
--			.virt_start = 0x8dfb00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
--		},
-+		/* IVSHMEM shared memory region for 00:00.0 */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x8dfb00000, 1),
+-		/* IVSHMEM shared memory region for 00:00.0 */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x8dfb00000, 1),
  		/* MCU UART0 */ {
  			.phys_start = 0x40a00000,
  			.virt_start = 0x40a00000,
+@@ -137,7 +137,7 @@ struct {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.bdf = 0x00,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 2,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 1,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm64/k3-am654-idk.c b/configs/arm64/k3-am654-idk.c
-index 429ccdca..750657e8 100644
+index 750657e8..4dea206a 100644
 --- a/configs/arm64/k3-am654-idk.c
 +++ b/configs/arm64/k3-am654-idk.c
-@@ -79,12 +79,8 @@ struct {
+@@ -65,6 +65,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region for 00:00.0 */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x8dfb00000, 0),
+ 		/* RAM */ {
+ 			.phys_start = 0x80000000,
+ 			.virt_start = 0x80000000,
+@@ -79,8 +81,6 @@ struct {
  			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
  				JAILHOUSE_MEM_EXECUTE,
  		},
--		/* IVSHMEM shared memory region for 00:00.0 */ {
--			.phys_start = 0x8dfb00000,
--			.virt_start = 0x8dfb00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
--		},
-+		/* IVSHMEM shared memory region for 00:00.0 */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x8dfb00000, 0),
+-		/* IVSHMEM shared memory region for 00:00.0 */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x8dfb00000, 0),
  		/* RAM. Reserved for inmates */ {
  			.phys_start = 0x8E0000000,
  			.virt_start = 0x8E0000000,
-diff --git a/configs/arm64/k3-j721e-evm-linux-demo.c b/configs/arm64/k3-j721e-evm-linux-demo.c
-index 8a2222e1..58b5f2c4 100644
---- a/configs/arm64/k3-j721e-evm-linux-demo.c
-+++ b/configs/arm64/k3-j721e-evm-linux-demo.c
-@@ -54,13 +54,8 @@ struct {
- 	},
- 
- 	.mem_regions = {
--		/* IVSHMEM shared memory region for 00:00.0 */ {
--			.phys_start = 0x89fe00000,
--			.virt_start = 0x89fe00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
--				JAILHOUSE_MEM_ROOTSHARED,
--		},
-+		/* IVSHMEM shared memory region for 00:00.0 */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x89fe00000, 1),
- 		/* ctrl mmr */ {
- 			.phys_start = 0x00100000,
- 			.virt_start = 0x00100000,
-diff --git a/configs/arm64/k3-j721e-evm.c b/configs/arm64/k3-j721e-evm.c
-index 7e0dc031..65afe570 100644
---- a/configs/arm64/k3-j721e-evm.c
-+++ b/configs/arm64/k3-j721e-evm.c
-@@ -67,12 +67,8 @@ struct {
- 	},
- 
- 	.mem_regions = {
--		/* IVSHMEM shared memory region for 00:00.0 */ {
--			.phys_start = 0x89fe00000,
--			.virt_start = 0x89fe00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
--		},
-+		/* IVSHMEM shared memory region for 00:00.0 */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x89fe00000, 0),
- 		/* ctrl mmr */ {
- 			.phys_start = 0x00100000,
- 			.virt_start = 0x00100000,
+@@ -211,7 +211,7 @@ struct {
+ 			.domain = 1,
+ 			.bdf = 0x00,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 2,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 0,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm64/macchiatobin-linux-demo.c b/configs/arm64/macchiatobin-linux-demo.c
-index 418f3b31..629da548 100644
+index 629da548..9da732d9 100644
 --- a/configs/arm64/macchiatobin-linux-demo.c
 +++ b/configs/arm64/macchiatobin-linux-demo.c
-@@ -79,13 +79,8 @@ struct {
+@@ -50,6 +50,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x13fb00000, 1),
+ 		/* UART */ {
+ 			.phys_start = 0xf0512000,
+ 			.virt_start = 0xf0512000,
+@@ -79,8 +81,6 @@ struct {
  				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
  				JAILHOUSE_MEM_LOADABLE,
  		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x13fb00000,
--			.virt_start = 0x13fb00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
--				JAILHOUSE_MEM_ROOTSHARED,
--		},
-+		/* IVSHMEM shared memory region */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x13fb00000, 1),
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x13fb00000, 1),
  		/* communication region */ {
  			.virt_start = 0x80000000,
  			.size = 0x00001000,
+@@ -107,7 +107,7 @@ struct {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.bdf = 0 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 4,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 1,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm64/macchiatobin.c b/configs/arm64/macchiatobin.c
-index 4eebaa32..12df0a7a 100644
+index 12df0a7a..893b116d 100644
 --- a/configs/arm64/macchiatobin.c
 +++ b/configs/arm64/macchiatobin.c
-@@ -98,12 +98,8 @@ struct {
+@@ -70,6 +70,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region for 00:00.0 */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x13fb00000, 0),
+ 		/* MMIO (permissive) */ {
+ 			.phys_start = 0xf0300000,
+ 			.virt_start = 0xf0300000,
+@@ -98,8 +100,6 @@ struct {
  			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
  				JAILHOUSE_MEM_EXECUTE,
  		},
--		/* IVSHMEM shared memory region for 00:00.0 */ {
--			.phys_start = 0x13fb00000,
--			.virt_start = 0x13fb00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
--		},
-+		/* IVSHMEM shared memory region for 00:00.0 */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x13fb00000, 0),
+-		/* IVSHMEM shared memory region for 00:00.0 */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x13fb00000, 0),
  	},
  
  	.irqchips = {
+@@ -118,7 +118,7 @@ struct {
+ 			.domain = 1,
+ 			.bdf = 0 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 4,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 0,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm64/miriac-sbc-ls1046a-linux-demo.c b/configs/arm64/miriac-sbc-ls1046a-linux-demo.c
-index 865fba63..cd60959c 100644
+index cd60959c..71981611 100644
 --- a/configs/arm64/miriac-sbc-ls1046a-linux-demo.c
 +++ b/configs/arm64/miriac-sbc-ls1046a-linux-demo.c
-@@ -82,13 +82,8 @@ struct {
+@@ -51,6 +51,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region */
++		JAILHOUSE_SHMEM_NET_REGIONS(0xc0400000, 1),
+ 		/* DUART1 */
+         	{
+ 			.phys_start = 0x21c0000,
+@@ -82,8 +84,6 @@ struct {
  			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
  				JAILHOUSE_MEM_COMM_REGION,
  		},
--		/* IVSHMEM shared memory region */ {
--                        .phys_start = 0xc0400000,
--                        .virt_start = 0xc0400000,
--                        .size = 0x100000,
--                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
--                                JAILHOUSE_MEM_ROOTSHARED,
--                },
-+		/* IVSHMEM shared memory region */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0xc0400000, 1),
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0xc0400000, 1),
  	},
  
  	.irqchips = {
+@@ -119,7 +119,7 @@ struct {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.bdf = 0 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 4,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 1,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm64/miriac-sbc-ls1046a.c b/configs/arm64/miriac-sbc-ls1046a.c
-index a5b54ddc..ce67cba1 100644
+index ce67cba1..1e3aa9c4 100644
 --- a/configs/arm64/miriac-sbc-ls1046a.c
 +++ b/configs/arm64/miriac-sbc-ls1046a.c
-@@ -427,12 +427,8 @@ struct {
+@@ -72,6 +72,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region for 00:00.0 */
++		JAILHOUSE_SHMEM_NET_REGIONS(0xc0400000, 0),
+ 		/* DDR memory controller */ {
+ 			.phys_start = 0x01080000,
+ 			.virt_start = 0x01080000,
+@@ -427,8 +429,6 @@ struct {
  			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
  				JAILHOUSE_MEM_IO,
  		},
--		/* IVSHMEM shared memory region for 00:00.0 */ {
--			.phys_start = 0xc0400000,
--			.virt_start = 0xc0400000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
--		},
-+		/* IVSHMEM shared memory region for 00:00.0 */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0xc0400000, 0),
+-		/* IVSHMEM shared memory region for 00:00.0 */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0xc0400000, 0),
  	},
  
  	.irqchips = {
+@@ -454,7 +454,7 @@ struct {
+ 			.domain = 1,
+ 			.bdf = 0 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = ARRAY_SIZE(config.mem_regions) - 1,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 0,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm64/qemu-arm64-linux-demo.c b/configs/arm64/qemu-arm64-linux-demo.c
-index b095900f..00cf6b99 100644
+index 00cf6b99..e0c95039 100644
 --- a/configs/arm64/qemu-arm64-linux-demo.c
 +++ b/configs/arm64/qemu-arm64-linux-demo.c
-@@ -72,13 +72,8 @@ struct {
+@@ -50,6 +50,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x7fb00000, 1),
+ 		/* UART */ {
+ 			.phys_start = 0x09000000,
+ 			.virt_start = 0x09000000,
+@@ -72,8 +74,6 @@ struct {
  				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
  				JAILHOUSE_MEM_LOADABLE,
  		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x7fb00000,
--			.virt_start = 0x7fb00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
--				JAILHOUSE_MEM_ROOTSHARED,
--		},
-+		/* IVSHMEM shared memory region */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x7fb00000, 1),
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x7fb00000, 1),
  		/* communication region */ {
  			.virt_start = 0x80000000,
  			.size = 0x00001000,
+@@ -100,7 +100,7 @@ struct {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.bdf = 0 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 3,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 1,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm64/qemu-arm64.c b/configs/arm64/qemu-arm64.c
-index 51543183..015f47d6 100644
+index 015f47d6..4b0826cd 100644
 --- a/configs/arm64/qemu-arm64.c
 +++ b/configs/arm64/qemu-arm64.c
-@@ -82,12 +82,8 @@ struct {
+@@ -68,6 +68,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region for 00:00.0 */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x7fb00000, 0),
+ 		/* MMIO (permissive) */ {
+ 			.phys_start = 0x09000000,
+ 			.virt_start = 0x09000000,
+@@ -82,8 +84,6 @@ struct {
  			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
  				JAILHOUSE_MEM_EXECUTE,
  		},
--		/* IVSHMEM shared memory region for 00:00.0 */ {
--			.phys_start = 0x7fb00000,
--			.virt_start = 0x7fb00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
--		},
-+		/* IVSHMEM shared memory region for 00:00.0 */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x7fb00000, 0),
+-		/* IVSHMEM shared memory region for 00:00.0 */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x7fb00000, 0),
  		/* "physical" PCI ECAM */ {
  			.phys_start = 0x4010000000,
  			.virt_start = 0x4010000000,
+@@ -109,7 +109,7 @@ struct {
+ 			.domain = 1,
+ 			.bdf = 0 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 2,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 0,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm64/ultra96-linux-demo.c b/configs/arm64/ultra96-linux-demo.c
-index ed65ecf5..78262146 100644
+index 78262146..4aea2922 100644
 --- a/configs/arm64/ultra96-linux-demo.c
 +++ b/configs/arm64/ultra96-linux-demo.c
-@@ -71,13 +71,8 @@ struct {
+@@ -49,6 +49,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 1),
+ 		/* UART */ {
+ 			.phys_start = 0xff010000,
+ 			.virt_start = 0xff010000,
+@@ -71,8 +73,6 @@ struct {
  				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
  				JAILHOUSE_MEM_LOADABLE,
  		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x7bf00000,
--			.virt_start = 0x7bf00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
--				JAILHOUSE_MEM_ROOTSHARED,
--		},
-+		/* IVSHMEM shared memory region */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 1),
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 1),
  		/* communication region */ {
  			.virt_start = 0x80000000,
  			.size = 0x00001000,
+@@ -99,7 +99,7 @@ struct {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.bdf = 0 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 3,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 1,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm64/ultra96.c b/configs/arm64/ultra96.c
-index 2e038ae6..c62c3a6b 100644
+index c62c3a6b..ef49b824 100644
 --- a/configs/arm64/ultra96.c
 +++ b/configs/arm64/ultra96.c
-@@ -81,12 +81,8 @@ struct {
+@@ -67,6 +67,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region for 00:00.0 */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 0),
+ 		/* MMIO (permissive) */ {
+ 			.phys_start = 0xfd000000,
+ 			.virt_start = 0xfd000000,
+@@ -81,8 +83,6 @@ struct {
  			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
  				JAILHOUSE_MEM_EXECUTE,
  		},
--		/* IVSHMEM shared memory region for 00:00.0 */ {
--			.phys_start = 0x7bf00000,
--			.virt_start = 0x7bf00000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
--		},
-+		/* IVSHMEM shared memory region for 00:00.0 */
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 0),
+-		/* IVSHMEM shared memory region for 00:00.0 */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 0),
  	},
  
  	.irqchips = {
+@@ -101,7 +101,7 @@ struct {
+ 			.domain = 1,
+ 			.bdf = 0 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 2,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 0,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm64/zynqmp-zcu102-linux-demo-2.c b/configs/arm64/zynqmp-zcu102-linux-demo-2.c
-index 683bdee4..dfae6404 100644
+index dfae6404..5248952d 100644
 --- a/configs/arm64/zynqmp-zcu102-linux-demo-2.c
 +++ b/configs/arm64/zynqmp-zcu102-linux-demo-2.c
-@@ -65,20 +65,10 @@ struct {
- 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
- 				JAILHOUSE_MEM_LOADABLE,
- 		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x800500000,
--			.virt_start = 0x800500000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
--				JAILHOUSE_MEM_ROOTSHARED,
--		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x800700000,
--			.virt_start = 0x800700000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
--				JAILHOUSE_MEM_ROOTSHARED,
--		},
+@@ -50,6 +50,10 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
 +		/* IVSHMEM shared memory region for 00:01.0 */
 +		JAILHOUSE_SHMEM_NET_REGIONS(0x800500000, 1),
 +		/* IVSHMEM shared memory region for 00:02.0 */
 +		JAILHOUSE_SHMEM_NET_REGIONS(0x800700000, 1),
- 		/* communication region */ {
- 			.virt_start = 0x80000000,
- 			.size = 0x00001000,
-diff --git a/configs/arm64/zynqmp-zcu102-linux-demo.c b/configs/arm64/zynqmp-zcu102-linux-demo.c
-index 0b93c799..de11c5c2 100644
---- a/configs/arm64/zynqmp-zcu102-linux-demo.c
-+++ b/configs/arm64/zynqmp-zcu102-linux-demo.c
-@@ -71,20 +71,10 @@ struct {
+ 		/* RAM */ {
+ 			.phys_start = 0x800610000,
+ 			.virt_start = 0,
+@@ -65,10 +69,6 @@ struct {
  				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
  				JAILHOUSE_MEM_LOADABLE,
  		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x800400000,
--			.virt_start = 0x800400000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
--				JAILHOUSE_MEM_ROOTSHARED,
--		},
--		/* IVSHMEM shared memory region */ {
--			.phys_start = 0x800700000,
--			.virt_start = 0x800700000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
--				JAILHOUSE_MEM_ROOTSHARED,
--		},
+-		/* IVSHMEM shared memory region for 00:01.0 */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x800500000, 1),
+-		/* IVSHMEM shared memory region for 00:02.0 */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x800700000, 1),
+ 		/* communication region */ {
+ 			.virt_start = 0x80000000,
+ 			.size = 0x00001000,
+@@ -95,7 +95,7 @@ struct {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 2,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 1,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
+@@ -103,7 +103,7 @@ struct {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.bdf = 2 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 3,
++			.shmem_region = 1,
+ 			.shmem_dev_id = 1,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
+diff --git a/configs/arm64/zynqmp-zcu102-linux-demo.c b/configs/arm64/zynqmp-zcu102-linux-demo.c
+index de11c5c2..f9b804a4 100644
+--- a/configs/arm64/zynqmp-zcu102-linux-demo.c
++++ b/configs/arm64/zynqmp-zcu102-linux-demo.c
+@@ -49,6 +49,10 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
 +		/* IVSHMEM shared memory region for 00:00.0 */
 +		JAILHOUSE_SHMEM_NET_REGIONS(0x800400000, 1),
 +		/* IVSHMEM shared memory region for 00:02.0 */
 +		JAILHOUSE_SHMEM_NET_REGIONS(0x800700000, 0),
+ 		/* UART */ {
+ 			.phys_start = 0xff010000,
+ 			.virt_start = 0xff010000,
+@@ -71,10 +75,6 @@ struct {
+ 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+ 				JAILHOUSE_MEM_LOADABLE,
+ 		},
+-		/* IVSHMEM shared memory region for 00:00.0 */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x800400000, 1),
+-		/* IVSHMEM shared memory region for 00:02.0 */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x800700000, 0),
  		/* communication region */ {
  			.virt_start = 0x80000000,
  			.size = 0x00001000,
+@@ -101,7 +101,7 @@ struct {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.bdf = 0 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 3,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 1,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
+@@ -109,7 +109,7 @@ struct {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.bdf = 2 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 4,
++			.shmem_region = 1,
+ 			.shmem_dev_id = 0,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/arm64/zynqmp-zcu102.c b/configs/arm64/zynqmp-zcu102.c
-index 090470dd..d009b00d 100644
+index d009b00d..efd81389 100644
 --- a/configs/arm64/zynqmp-zcu102.c
 +++ b/configs/arm64/zynqmp-zcu102.c
-@@ -91,18 +91,10 @@ struct {
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
- 				JAILHOUSE_MEM_EXECUTE,
- 		},
--		/* IVSHMEM shared memory region for 00:00.0 */ {
--			.phys_start = 0x800400000,
--			.virt_start = 0x800400000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
--		},
--		/* IVSHMEM shared memory region for 00:01.0 */ {
--			.phys_start = 0x800500000,
--			.virt_start = 0x800500000,
--			.size = 0x100000,
--			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
--		},
+@@ -70,6 +70,10 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
 +		/* IVSHMEM shared memory region for 0001:00:00.0 */
 +		JAILHOUSE_SHMEM_NET_REGIONS(0x800400000, 0),
 +		/* IVSHMEM shared memory region for 0001:00:01.0 */
 +		JAILHOUSE_SHMEM_NET_REGIONS(0x800500000, 0),
+ 		/* MMIO (permissive) */ {
+ 			.phys_start = 0xfd000000,
+ 			.virt_start = 0xfd000000,
+@@ -91,10 +95,6 @@ struct {
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ 				JAILHOUSE_MEM_EXECUTE,
+ 		},
+-		/* IVSHMEM shared memory region for 0001:00:00.0 */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x800400000, 0),
+-		/* IVSHMEM shared memory region for 0001:00:01.0 */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x800500000, 0),
  		/* PCI host bridge */ {
  			.phys_start = 0x8000000000,
  			.virt_start = 0x8000000000,
-diff --git a/configs/x86/linux-x86-demo.c b/configs/x86/linux-x86-demo.c
-index 69ea2bfa..6d076c67 100644
---- a/configs/x86/linux-x86-demo.c
-+++ b/configs/x86/linux-x86-demo.c
-@@ -77,13 +77,7 @@ struct {
- 				JAILHOUSE_MEM_LOADABLE,
+@@ -120,7 +120,7 @@ struct {
+ 			.domain = 1,
+ 			.bdf = 0 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 3,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 0,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
  		},
- 		/* IVSHMEM shared memory region */
+@@ -129,7 +129,7 @@ struct {
+ 			.domain = 1,
+ 			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_region = 4,
++			.shmem_region = 1,
+ 			.shmem_dev_id = 0,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
+diff --git a/configs/x86/ivshmem-demo.c b/configs/x86/ivshmem-demo.c
+index c6c1f4c2..e53965ff 100644
+--- a/configs/x86/ivshmem-demo.c
++++ b/configs/x86/ivshmem-demo.c
+@@ -50,6 +50,14 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region */
++		{
++			.phys_start = 0x3f0f0000,
++			.virt_start = 0x3f0f0000,
++			.size = 0x1000,
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++				JAILHOUSE_MEM_ROOTSHARED,
++		},
+ 		/* RAM */ {
+ 			.phys_start = 0x3ee00000,
+ 			.virt_start = 0,
+@@ -63,14 +71,6 @@ struct {
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ 				JAILHOUSE_MEM_COMM_REGION,
+ 		},
+-		/* IVSHMEM shared memory region */
 -		{
--			.phys_start = 0x3f100000,
--			.virt_start = 0x3f100000,
--			.size = 0x100000,
+-			.phys_start = 0x3f0f0000,
+-			.virt_start = 0x3f0f0000,
+-			.size = 0x1000,
 -			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
 -				JAILHOUSE_MEM_ROOTSHARED,
 -		},
+ 	},
+ 
+ 	.pio_regions = {
+@@ -85,7 +85,7 @@ struct {
+ 			.bdf = 0x0e << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+ 			.num_msix_vectors = 1,
+-			.shmem_region = 2,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 1,
+ 		},
+ 	},
+diff --git a/configs/x86/linux-x86-demo.c b/configs/x86/linux-x86-demo.c
+index 6d076c67..70cfc4ad 100644
+--- a/configs/x86/linux-x86-demo.c
++++ b/configs/x86/linux-x86-demo.c
+@@ -54,6 +54,8 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region */
 +		JAILHOUSE_SHMEM_NET_REGIONS(0x3f100000, 1),
+ 		/* low RAM */ {
+ 			.phys_start = 0x3a600000,
+ 			.virt_start = 0,
+@@ -76,8 +78,6 @@ struct {
+ 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+ 				JAILHOUSE_MEM_LOADABLE,
+ 		},
+-		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x3f100000, 1),
  #ifdef CONFIG_QEMU_E1000E_ASSIGNMENT
  		/* MemRegion: feb40000-feb7ffff : 0000:00:02.0 */
  		{
+@@ -141,7 +141,7 @@ struct {
+ 			.bdf = 0x0f << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+ 			.num_msix_vectors = 1,
+-			.shmem_region = 3,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 1,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 diff --git a/configs/x86/qemu-x86.c b/configs/x86/qemu-x86.c
-index 9621370c..2dcaa481 100644
+index 2dcaa481..4aa789b1 100644
 --- a/configs/x86/qemu-x86.c
 +++ b/configs/x86/qemu-x86.c
-@@ -179,12 +179,7 @@ struct {
+@@ -74,6 +74,15 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory region (demo) */
++		{
++			.phys_start = 0x3f0f0000,
++			.virt_start = 0x3f0f0000,
++			.size = 0x1000,
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
++		},
++		/* IVSHMEM shared memory region (networking) */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x3f100000, 0),
+ 		/* RAM */ {
+ 			.phys_start = 0x0,
+ 			.virt_start = 0x0,
+@@ -171,15 +180,6 @@ struct {
+ 			.size = 0x1000,
  			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
  		},
- 		/* IVSHMEM shared memory region (networking) */
+-		/* IVSHMEM shared memory region (demo) */
 -		{
--			.phys_start = 0x3f100000,
--			.virt_start = 0x3f100000,
--			.size = 0x100000,
+-			.phys_start = 0x3f0f0000,
+-			.virt_start = 0x3f0f0000,
+-			.size = 0x1000,
 -			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
 -		},
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x3f100000, 0),
+-		/* IVSHMEM shared memory region (networking) */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x3f100000, 0),
  	},
  
  	.irqchips = {
-diff --git a/include/jailhouse/cell-config.h b/include/jailhouse/cell-config.h
-index a62fa1ee..f82bbe8d 100644
---- a/include/jailhouse/cell-config.h
-+++ b/include/jailhouse/cell-config.h
-@@ -129,6 +129,15 @@ struct jailhouse_memory {
- 	__u64 flags;
- } __attribute__((packed));
- 
-+#define JAILHOUSE_SHMEM_NET_REGIONS(start, dev_id)			\
-+	{								\
-+		.phys_start = start,					\
-+		.virt_start = start,					\
-+		.size = 0x100000,					\
-+		.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |	\
-+			JAILHOUSE_MEM_ROOTSHARED,			\
-+	}
-+
- #define JAILHOUSE_MEMORY_IS_SUBPAGE(mem)	\
- 	((mem)->virt_start & PAGE_OFFS_MASK || (mem)->size & PAGE_OFFS_MASK)
- 
+@@ -277,7 +277,7 @@ struct {
+ 			.bdf = 0x0e << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+ 			.num_msix_vectors = 1,
+-			.shmem_region = 14,
++			.shmem_region = 0,
+ 			.shmem_dev_id = 0,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
+ 		},
+@@ -287,7 +287,7 @@ struct {
+ 			.bdf = 0x0f << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+ 			.num_msix_vectors = 1,
+-			.shmem_region = 15,
++			.shmem_region = 1,
+ 			.shmem_dev_id = 0,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
 -- 
 2.16.4
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/945028d7d210064c97963f15dd3e0a171ce46fd4.1578313099.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/c7c9cc901548895d2ecb25387a4e3ebb764160af.1578313099.git.jan.kiszka%40siemens.com.
