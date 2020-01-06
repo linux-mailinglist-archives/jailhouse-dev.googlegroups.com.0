@@ -1,141 +1,146 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBCXZZPYAKGQEDIPJW5I@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDL2JD42SEIBBWEPZTYAKGQEUXOOC7I@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x53f.google.com (mail-ed1-x53f.google.com [IPv6:2a00:1450:4864:20::53f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BAAC130F57
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  6 Jan 2020 10:23:23 +0100 (CET)
-Received: by mail-ed1-x53f.google.com with SMTP id cy24sf7524391edb.12
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 06 Jan 2020 01:23:23 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1578302603; cv=pass;
+Received: from mail-pj1-x1039.google.com (mail-pj1-x1039.google.com [IPv6:2607:f8b0:4864:20::1039])
+	by mail.lfdr.de (Postfix) with ESMTPS id 64D12131012
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  6 Jan 2020 11:11:38 +0100 (CET)
+Received: by mail-pj1-x1039.google.com with SMTP id h6sf10637148pju.3
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 06 Jan 2020 02:11:38 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1578305497; cv=pass;
         d=google.com; s=arc-20160816;
-        b=S74iaVooJMhG4/7p8HtGjwh/REMTkeBbJcG3bdthdP3qDop2knNvK9wP2vpV/zfHQD
-         Vu68xgtQ47oGIDlzyVl4DITEQXcu1kNsRuGH6hcoSTlQfc/t1Pa4UtSn5kVSehyhHh+O
-         3HTH14m+WfLJ7F21IxJ5NYlJpd0X0Uwp69Nx9i26tkHFFpgtVlKOntiIXMf9WGbKelcD
-         658ZTxxgnLGnsvhJzzbQK7iOZHKaRLJDaLuzsD54X737YLP0bGFd/2Q9wU+Ay1zPHNAp
-         DptYgVo4yj/5UCrNDDBeNUvFxcKokyrJpou7jMNInBBnbrIPXUvGs4hejXEVuoI9Gcs5
-         ZBTA==
+        b=VIR0cxZx/NeglcBq16Rh4h4+AAY9vqEBHOKIS8UzVNFhMrMGhv2zDdrojXRjlyhpv+
+         iNGbcNBitB96mjKL35xn+IQ9miUDsqdrQ4NPRQX7hgZyyM8lToqL+d/qqxqa0AlhB4m2
+         K3uH2W4dp8RI5TjVyMuoZUWdkMypmRmyPUFRsAdlMPYOIPb6WH9RWMj4GJmpdGH2ILip
+         dHjE74MIcIKTD7ZfOaYwrjXf9j+e2cs97J/e3yixks60ev/KXYi+eSJ+WbEA6x4YnOJx
+         jIN9YywA+K+e6RYP+YLlrk2KiKnRkqffa0uxfZzFA2UTBjXCukruRIxevRdehlLP/myp
+         FIDQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:mime-version
-         :user-agent:date:message-id:to:subject:from:sender:dkim-signature;
-        bh=LSjf5LdLgjOkESVnUbpak8swehrSC+NSpo1N5M8LTvI=;
-        b=XhkxwGOLfPiKcTEJQ9p00LZRkEwkShFzgFZr2dREXjASW3ZrPK2HSM9i2bvt0BLMbi
-         6snRVwz4j1Y6P9dZUIQcUlmolhw6nr+UGSS4JK0fs2UIi7//3bZV54siH0XsqmNmBrpC
-         13hAnVux7wN9bgOAgszL54o/4vT88bB0rhTlaOaNoUIP30g3AsNQzrAeE0m05TeAJQ7c
-         uTJjM2MjGMhJbTO1XiqkDBSD9dE+6q/60YXe1+9D0r5keVP4rjVb0EB/tEmrwrMa2bj4
-         +O3xnSuPDh5P97WTuVlj9EpJQaOhRXq5/k2sZUCH9w4M+aNTxRB81oQ1PMnmp8wRWaCG
-         9dLQ==
+         :list-id:mailing-list:precedence:reply-to:content-language
+         :in-reply-to:mime-version:user-agent:date:message-id:from:references
+         :cc:to:subject:dkim-signature;
+        bh=rfmOlZ8jir+EAMqX4PnVHLabHxKtr2ch7udqzGjAVnQ=;
+        b=R69mo0l4WWht9vfa8WrJ1Ufxti2bAqIIIgF+WQn/y33wrsQqe+1IuKhZ2miUTcw8Kx
+         N7JABwZhNrlyTGL0YP7RdSM4I8PMW6Nqg+szYDqwFzBW8SgWKJpx2ji7crZumCHfKeY5
+         pVBK60nilFNW7O+XyKsBX/pGBPjKE+LneEbb17XMR/QHBbCsDL8Sbb6aQ9wkoI5VpiMZ
+         +Yarr2M1hDUDiOQAo3VCc8FmfDItLCl9vOk/0JZCg1RiAfa3RFcwgKJeA1MS0/1hBB/9
+         qLCn4qjr11L3QoRzosBKX9ZZdblofmUaKhs+r5fH0cWopE2HmpZ/53112GcOxPDx0Hqn
+         nrlQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=OWACJ68a;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 217.72.192.78 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=mZf+PCS1;
+       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
+       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:subject:to:message-id:date:user-agent:mime-version
-         :content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=LSjf5LdLgjOkESVnUbpak8swehrSC+NSpo1N5M8LTvI=;
-        b=ApAQeFxPNWwLxeTLoNaaMCzOiyLW1DWxJ4YPQ3oJsUKLaOeWNb+lJodOfubX2qpin1
-         nAQgirs5xxQU+YJzo/hXLHOeUi5BFQJ9UUZs3eQrSffU+iaffdTG5zRSdkDyoTq4a+lC
-         3mKqJPUOidGNKAIktmgMz/D5bcfcgwsycmgj6scNvamr3wYXxYLOb+hRhxm0jxHR6AVP
-         R0X/wzZyRFwkTTnvDu9dnpawB7BZuq2cr2QRJsgyiyztPgjlzHOSmEez9AOFluCD6sE4
-         6uOQVTtkvLyJI2Qy02uMLbctqA0SkKJeSZ0Xsc639aY92gQ20NYu9F4/kGsePDKUWE6F
-         4RoA==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:x-original-sender
+         :x-original-authentication-results:reply-to:precedence:mailing-list
+         :list-id:list-post:list-help:list-archive:list-subscribe
+         :list-unsubscribe;
+        bh=rfmOlZ8jir+EAMqX4PnVHLabHxKtr2ch7udqzGjAVnQ=;
+        b=r+I6C6JE+e1lcV9HppkoW5gC62FrocVrPDyEPpEdJGbag9WiR+IjMmR31dkwKfOeuB
+         yIPZDwGvxv+VgYBpYFNScHQtXt8oJ7ARz68MUcy6EzUHfSF4XjGZgAj42elB1ysC0pXf
+         g+z4xrBv4gTH5uAUbxMTPK8DHOeI81ODcvcl9mSD4kdJ2z+eJ2yOi8Lsk3dx5JpO5ePN
+         B7LrYBgSBr8pVtGodPWcKjgcaUzEKC5ju5XUGDmDfkbv0oYRjZUrcFxfJnGUAfbmAeQC
+         T1BxNPTWdSzCa8RvtU3xdAj8zh8eHSlEfl79sFIlrUPZkljqqOB55mCUy4ZVYoe5EZYc
+         q+gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:subject:to:message-id:date
-         :user-agent:mime-version:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=LSjf5LdLgjOkESVnUbpak8swehrSC+NSpo1N5M8LTvI=;
-        b=SRsxTcA5NNCir2b8V0+FkKc6tGxBLjtTWFolKuVnxQHcbgE4YEDCuCW5UT5pE+o2Ea
-         iTU3Y0Cx2p/DWhUq5IfGCtA9b0iT7pkFXhx4KyrduPK4RbyxK52wcOmzHreUdCzN4Ax/
-         IjEmpLU9ASlyxklZo844zRG6sM0Qn6bg/NiD2b18kitJwH2CJ4BN2k8PCYvWOKQSbADF
-         6yVkiaG8n1ztTmoVpetSJufDQ8wjTHZle1nHXVur7oLKPCPtA1r+bFL5AYtywnRXmRAG
-         0ex3DP2M+PgGLaW+3Tztz1dwp3gwDyChgPnB5/iBiIsVfhUIBepXhyBV3M4osGT19F5y
-         +pVg==
-Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVnHQUJPROgGbmFcN4ju4PqaMxFMgirtnIDhBhNlqMFlWkhXr/P
-	7OArJqcLo1l+glrYFZs+q9U=
-X-Google-Smtp-Source: APXvYqwPIRd+13K2UUpobnLJL8Cp31WlL4t+ck7VoJvz9VW6RSjEqotEO8aewxOTZ4rrpgNg/NtZ3A==
-X-Received: by 2002:aa7:ce87:: with SMTP id y7mr106276508edv.82.1578302602907;
-        Mon, 06 Jan 2020 01:23:22 -0800 (PST)
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:reply-to
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=rfmOlZ8jir+EAMqX4PnVHLabHxKtr2ch7udqzGjAVnQ=;
+        b=pYquA4X6pMdSdm4TS5Nzlzr3XmJDgMSYCE5y2grseeIMXtAJb9OD/nM20PZ5GAT4rP
+         bPm3rAx3dhp9XUwgGAcAum/Qus73AJrCLlS9uQqW/CNTtifMOd6Oe6C/18chNwd6wNbV
+         mbh8Aqjcy7ZejplnOlhFrkRremhf2a/FI0mvLb0X3Q5gstu7mDThV0GQxJMxYd6bnLVL
+         xrpJeh07KvYD8+ljTsnMhS+ssZFj05qycz3RjOryQSU6Cw/r7mCuX/2fA1gyZ/g3gJL+
+         rTkD5fDTTCEMrNqrXtbThLcrg/8HQDTIGj3tdxC7lTWUGtT/zGvPtYLbwWQgmtns8fX9
+         vJ2Q==
+X-Gm-Message-State: APjAAAUyvU2ln4zavk5mGY3MIbdyDXI8FTDFvqe9f8/qtZfMiJQOHoeK
+	fY447Ojq1tIwEuJosjqWkeY=
+X-Google-Smtp-Source: APXvYqwMQpT/ABHJCQIzvCwn0tUduk7w2MnySm2scHyTbehiAxzP7Bd3wfwraLW90+yLRbU+UoN6Jw==
+X-Received: by 2002:a17:902:74c5:: with SMTP id f5mr100326788plt.229.1578305496707;
+        Mon, 06 Jan 2020 02:11:36 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:6a19:: with SMTP id o25ls9519041ejr.14.gmail; Mon,
- 06 Jan 2020 01:23:22 -0800 (PST)
-X-Received: by 2002:a17:906:19d0:: with SMTP id h16mr100093730ejd.70.1578302602260;
-        Mon, 06 Jan 2020 01:23:22 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1578302602; cv=none;
+Received: by 2002:a17:90a:fe5:: with SMTP id 92ls7296072pjz.5.canary-gmail;
+ Mon, 06 Jan 2020 02:11:36 -0800 (PST)
+X-Received: by 2002:a17:902:bd06:: with SMTP id p6mr66004029pls.27.1578305496149;
+        Mon, 06 Jan 2020 02:11:36 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1578305496; cv=none;
         d=google.com; s=arc-20160816;
-        b=EDNMTBj1vCI75jVZRMVOR9laICDRvQkkDQlInUKTMMs1J6S6F9bBEoBtMhHEWQoCRC
-         sa0SblQUdtWET1Etb2HSCujTCvX+6I6g+rkio4A7AlPAwoT5ZiqpoS1q65VFVDyMUsH8
-         864MwbCzuNVjEW43OY/pk9r9UKdHBpshdPO+uc/k2OjoP1Fcb7HZzLzzUJxqk2QbzIJn
-         xJ/zQ/2Q2SsrcgMd+J0womip0hWPhr3nRiTp/7Sroo4hWLxuflB6YCtU4ED+XdVTU/GT
-         CzLmwBBvLlntgMWXVBYI3s8Qx47/4uCjBWubF6F1T5Dpm69ts82U6pgjklt/t/Qi6w0i
-         E/MA==
+        b=02+19Ev1H+r7VD6fD20urFLzpls75+lbLwbr6+FUWcm803rUyXgfVg50cyRcWHpxfY
+         xQyVK3+QOu1iss0y0uLg9NiKdg0sZPzdOmsE/qa1bIw0NGmb1kZDerJu3mAgLP6pECpi
+         QWcaIOlObtAo2n8BCZoIY5Ogs0WfElFeDP0bERrVLolehvmil2JDC+CSA9T6cMYxLEYk
+         VDL0PMN2YmbMCyp6mfqff8O/VT6Rc5GtsXoGDoJkJ+h6L9xu6rN5ih9XURSOauRm2H79
+         AuHA+AvuPH5MAbx+sG1ohfHdQXFCW3WOLUKJ38cwBS3U0bBV2yE2wkr0OQB7M8sTXFkW
+         KEgw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:mime-version:user-agent
-         :date:message-id:to:subject:from:dkim-signature;
-        bh=gqHYwfBPXhPphttHu5FsnpfdnOHWcVY8deoQju+93PM=;
-        b=yIxSSLzL2uc0QzHFf7YV5DZwPMXYMErxd1g34sGY5Mcj4/vPfieWZBS7pdoqTRhuZ2
-         hKkEg0NUPpNW4VxdxQYCAkFDqyCE8U+POIZQ3mt5/Yv6+kPTE8ExZHBidD1/s2YdUd8j
-         ERXLaMagnAoFhcyssQgBtLXcpD8a5tVHv/KRWjyCG7ByiSFp+a5g60jX4u0wANLXkB5t
-         7wYo50ZAUbXgJbb361WBgVGogmep5W129cDBMMDQmStY8H/CQEBNIER6wNTopLx1aBJJ
-         syPknJ2zEvlTNk9NMg6foFQRhL5Bm6dKL1JV/vLEmWgNRj8sx48EtY7TuqhkNA2nHDm1
-         GP+Q==
+        h=content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:cc:to:subject:dkim-signature;
+        bh=Z5SSlnGmsxXBUjaKqpA19RUdXbWxYrkvVb5xkHL5VuE=;
+        b=iP4PCoTO8w/q+F1qlcpn6lImJC8uYdT0qEsA/s5L9COd8twk8IdjUnMvIDGuPiXTe4
+         nohxYmVVkAEN774Y9BSosbtiEwPjEgD8rbHU43ZNri7kW8LcsTtp0rp4QfR0BMZcNLxk
+         8fEqcyb6xWCT01hvJXKAQ2m3tBCHVikNKtGtH6YXczB4h6uPBluY57ICPgToCVuyyXe4
+         5xwBsRplrbpoh0fqW/rD/n9PJGclFkJMjE1LuvpKBK6UcbxpgJpYqPWQWf+jeOGI8+IT
+         9l72vsqtpssuFtV/rmeLWi2ldWobGRFxTxe6QcuaLsyq4ZBxmcObDu8aodx1QYLwaebf
+         zYtQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=OWACJ68a;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 217.72.192.78 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
-Received: from mout.web.de (mout.web.de. [217.72.192.78])
-        by gmr-mx.google.com with ESMTPS id n21si2514402eja.0.2020.01.06.01.23.22
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=mZf+PCS1;
+       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
+       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
+Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com. [198.47.19.141])
+        by gmr-mx.google.com with ESMTPS id c6si764604pjq.2.2020.01.06.02.11.35
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 06 Jan 2020 01:23:22 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 217.72.192.78 as permitted sender) client-ip=217.72.192.78;
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.1.10] ([95.157.55.156]) by smtp.web.de (mrweb103
- [213.165.67.124]) with ESMTPSA (Nemesis) id 0M8iPI-1j0Rpq3NSW-00CEbC for
- <jailhouse-dev@googlegroups.com>; Mon, 06 Jan 2020 10:23:18 +0100
-From: Jan Kiszka <jan.kiszka@web.de>
-Subject: [PATCH] core: Use PAGE_OFFS_MASK consistently
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-ID: <da1baca9-d1f2-946a-f7e0-064a74398b6b@web.de>
-Date: Mon, 6 Jan 2020 10:23:18 +0100
+        Mon, 06 Jan 2020 02:11:36 -0800 (PST)
+Received-SPF: pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted sender) client-ip=198.47.19.141;
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+	by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 006ABZYd015272;
+	Mon, 6 Jan 2020 04:11:35 -0600
+Received: from DLEE105.ent.ti.com (dlee105.ent.ti.com [157.170.170.35])
+	by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 006ABZXE091887
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 6 Jan 2020 04:11:35 -0600
+Received: from DLEE111.ent.ti.com (157.170.170.22) by DLEE105.ent.ti.com
+ (157.170.170.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Mon, 6 Jan
+ 2020 04:11:34 -0600
+Received: from fllv0039.itg.ti.com (10.64.41.19) by DLEE111.ent.ti.com
+ (157.170.170.22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
+ Frontend Transport; Mon, 6 Jan 2020 04:11:34 -0600
+Received: from [10.24.69.115] (ileax41-snat.itg.ti.com [10.172.224.153])
+	by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id 006ABWPY052078;
+	Mon, 6 Jan 2020 04:11:33 -0600
+Subject: Re: [PATCH v1 1/4] arm64: ti-pvu: Add support for ti-pvu iommu unit
+To: Jan Kiszka <jan.kiszka@web.de>, <jailhouse-dev@googlegroups.com>
+CC: <lokeshvutla@ti.com>
+References: <20191230132406.19985-1-nikhil.nd@ti.com>
+ <20191230132406.19985-2-nikhil.nd@ti.com>
+ <ca2ab556-aa49-0525-29f1-67eff0d119a1@web.de>
+ <22d04be0-c674-16a7-f36f-89f06419372c@ti.com>
+ <7cc22bb1-4b6e-3e5c-2ed8-0fb78dc31af3@web.de>
+From: "'Nikhil Devshatwar' via Jailhouse" <jailhouse-dev@googlegroups.com>
+Message-ID: <dbfd8b59-103e-2dfd-03dc-6a35559da69f@ti.com>
+Date: Mon, 6 Jan 2020 15:40:45 +0530
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.1
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <7cc22bb1-4b6e-3e5c-2ed8-0fb78dc31af3@web.de>
+Content-Type: multipart/alternative;
+	boundary="------------DB03F8DE47ADF2429E79F38C"
 Content-Language: en-US
-X-Provags-ID: V03:K1:OTWuuL9X2AkeneINu4mpmMh61a6namHImnJmvZBum3HlwzdRlp8
- FSMyvef3ZlZgYTgHwcNzB6UD/qwU78/0JZ5mMEminTeRyJUrU9XGj4sOe4RvBSvwgIjP9NH
- ZDO8ECywDcY6LYsooQmwAN5LPc7cxrEaJ6+ojSGhcmt49PYybtzkO7n7AmQw0ey34yujJlp
- wreUMpM+fLleT0kpumhlQ==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:pJ5mXpGg/SI=:KcIlY2XPAIlvMzCY8TOcRJ
- IrTRxJIYsjV0w3VByIRz47WcCrofJOVSzcSsRJdqcHxgVOaixPzOGxPbFHYjjXyi7AUmJVYua
- J3g5mKREWyWREcNK40Uyzl4RXK+GAHOEM+j/rFfNFfSA/+nOt+IyKU7I6EXuQcLXIgdImyLHN
- WAz5mXer1P9YxWIrQ+cnMraqpPYg2LazU0DaK6gjRM+dhZRgnu0Q5O6U5/H3/yMLJI8scfpvD
- B3rBu4XyHnnlIRbsU8CkL9mJYKiYEkL75otKs3+CF4CsTsZyzC9+STUAijrtwaKOdEV7B82PB
- ex74KIuaZRkGx9BAiRXSQWfxja0JxGcQJ6p7UmETyguxHRVDVw+3CgZHTffXULE6pGLW32bqK
- 6C/Qxfw6LBbL53k/P2rp0eiNM+FtgIFNFPXQp+uH6wmwyIH+vgwHMsJnPihO1gT6hJb4sEmOd
- vn/FBU9Gf9IqYoyDoL+XH0noAmoIQo2L/pFY+sfCuHHfMDu9g9pR3D0RxOUUgoqaZXQh5S8QM
- 7yg4fJ9LHFuy3bNUrC0m6H7JRwY83cS7+G/rEmn7Qv4Zb6SyYQ35bf6HLXFEikJNT7wGOjEMr
- AnoIDXWhd5d3P/smuggCXt9mDoLEp7EW8R6L01jRe6XLWzneFL34tlkKXtHsX4KUd1wcTQZud
- Z6Qx6Zi5XQWv6GiVKyPw2VokmnS/ua+mnNz8SX6KxrkymWXRaNkmV6eXktjhO79viPIGMUOXY
- YKJ4aAwfEAqAhLl+adWpGz+FacQXru1FZMLkMdo5fcR5r+89qiIk2m2WziWyJGxfH6+Jf0875
- AWbxIZDik6tvs+JoJ849H4qMbgQQWoPwbcL1W3Rnu6Wmrm/9OJrZvsbV/9pU5WcDOF16cuZx1
- jICC/r12QzQpEPRukg8yIA9eWqBLIRTc6lqLaLsI/mRMkdjHb0pw/jrib2UjETD40LOjh3mj7
- siPO0ll4C/X/28BNSftYGO0tJU8qsQAyLje7djxB+rwslrFDZFqFRfbcaAsLB48WkKZaoyueu
- Ou+qbrC8+vDJtA0PEUI0fNZhkVGO/uGXHVj4CJJBaGZ3d8CrvMKQEzj9rpKT2Y+tOBad6LcnO
- 1ylCHjw0FD3KchBL3C+8G9B/7G2mn2ELe17iiCC67RDTZtiYWS9WLyuwxbuQYM3u197U7YW7t
- SThiIS1ImA0GONhT2Y4RnigrhQqzFukyQbOX/Jl/dWWqd1UEORFjIN/cOFJHpuypNuNGfvnOT
- rjWjpRTpo28TaC1mOXHZzdlIeAlcRwRDjIC22JHAER79uyhbBtYmYaYWCtNc=
-X-Original-Sender: jan.kiszka@web.de
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+X-Original-Sender: nikhil.nd@ti.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b=OWACJ68a;       spf=pass
- (google.com: domain of jan.kiszka@web.de designates 217.72.192.78 as
- permitted sender) smtp.mailfrom=jan.kiszka@web.de
+ header.i=@ti.com header.s=ti-com-17Q1 header.b=mZf+PCS1;       spf=pass
+ (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted
+ sender) smtp.mailfrom=nikhil.nd@ti.com;       dmarc=pass (p=QUARANTINE
+ sp=NONE dis=NONE) header.from=ti.com
+X-Original-From: Nikhil Devshatwar <nikhil.nd@ti.com>
+Reply-To: Nikhil Devshatwar <nikhil.nd@ti.com>
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -148,94 +153,477 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-From: Jan Kiszka <jan.kiszka@siemens.com>
+--------------DB03F8DE47ADF2429E79F38C
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-Replace remaining ~PAGE_MASK patterns with the more readable
-PAGE_OFFS_MASK.
 
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
----
- hypervisor/arch/x86/vtd.c       | 5 +++--
- hypervisor/control.c            | 2 +-
- hypervisor/mmio.c               | 8 ++++----
- include/jailhouse/cell-config.h | 2 +-
- 4 files changed, 9 insertions(+), 8 deletions(-)
 
-diff --git a/hypervisor/arch/x86/vtd.c b/hypervisor/arch/x86/vtd.c
-index 5ce7025c..2ad7e228 100644
---- a/hypervisor/arch/x86/vtd.c
-+++ b/hypervisor/arch/x86/vtd.c
-@@ -498,7 +498,7 @@ static enum mmio_result vtd_unit_access_handler(void *arg,
- 				goto invalid_iq_entry;
+On 06/01/20 2:52 pm, Jan Kiszka wrote:
+> On 06.01.20 09:12, Nikhil Devshatwar wrote:
+>>>> +{
+>>>> +=C2=A0=C2=A0=C2=A0 /*
+>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * dummy unmap for now
+>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * PVU does not support dynamic unmap
+>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * Works well for static partitioning
+>>>
+>>> Huh!? But this breaks cell create/destroy cycles, without any user
+>>> notice, no? And will root cell devices keep access to inmate memory=20
+>>> that
+>>> is carved out during cell creation?
+>>>
+>>> Is that a hardware limitation?
+>>>
+>>> Looks like a blocker...
+>> Yes, this is a hardware limitation. I it designed for static=20
+>> partitioning.
+>
+> IOW, we can also not change the configuration by destroying and
+> recreating non-root cells with different memory layouts?
+>
 
- 			unit->iqh += 1 << VTD_IQH_QH_SHIFT;
--			unit->iqh &= ~PAGE_MASK;
-+			unit->iqh &= PAGE_OFFS_MASK;
- 		}
- 		return MMIO_HANDLED;
- 	}
-@@ -799,7 +799,8 @@ iommu_get_remapped_root_int(unsigned int iommu, u16 device_id,
- 	if (!irte_page)
- 		return irq_msg;
+For now, we have gic-demo, uart-demo and linux-demo
+You can interchangeably create/destroy cells in any order.
 
--	root_irte = *(union vtd_irte *)(irte_page + (irte_addr & ~PAGE_MASK));
-+	root_irte = *(union vtd_irte *)(irte_page +
-+					(irte_addr & PAGE_OFFS_MASK));
+>> Although, I made sure to not break memory isolatio with the following
+>> workaround:
+>>
+>> When booting a root cell for Jailhouse, you would typically carveout
+>> memory for the
+>> inmate cell. I have defined the cell configs such that, in the root cell
+>> config, RAM region for inmate is
+>> NOT marked with MEM_DMA, this way it never gets mapped in PVU.
+>>
+>> When creating cell, root cell maps the inmate RAM loadable region, here
+>> that memory is not
+>> mapped in IO space.
+>> ---> Limitation of this is that you cannot DMA copy the images in the
+>> loadable sections,
+>> =C2=A0=C2=A0=C2=A0 which we are not doing anyways
+>>
+>> When destroying the cell, Jailhouse should map the memory back to the
+>> root cell.
+>> Here, again, the inmate RAM region gets ignored in IO mapping because of
+>> lacking flag MEM_DMA
+>>
+>> cell_create=C2=A0 and cell_destroy work in regression, tested successful=
+ly.
+>>
+>
+> Please add at least a test to the unmap function that warns when a
+> config is violating the hardware constraints. It's still not clear to
+> me, though, how well that goes with changing inmate cell configs.
+>
+Let me explain via the code
 
- 	irq_msg.valid =
- 		(root_irte.field.p && root_irte.field.sid == device_id);
-diff --git a/hypervisor/control.c b/hypervisor/control.c
-index ac8e18fa..16f2cc13 100644
---- a/hypervisor/control.c
-+++ b/hypervisor/control.c
-@@ -398,7 +398,7 @@ static void cell_destroy_internal(struct cell *cell)
+root cell config for j721e-evm:
 
- static int cell_create(struct per_cpu *cpu_data, unsigned long config_address)
- {
--	unsigned long cfg_page_offs = config_address & ~PAGE_MASK;
-+	unsigned long cfg_page_offs = config_address & PAGE_OFFS_MASK;
- 	unsigned int cfg_pages, cell_pages, cpu, n;
- 	const struct jailhouse_memory *mem;
- 	struct jailhouse_cell_desc *cfg;
-diff --git a/hypervisor/mmio.c b/hypervisor/mmio.c
-index 98e98ee7..539fb110 100644
---- a/hypervisor/mmio.c
-+++ b/hypervisor/mmio.c
-@@ -337,13 +337,13 @@ static enum mmio_result mmio_handle_subpage(void *arg, struct mmio_access *mmio)
- 	 * This virt_base gives the following effective virtual address in
- 	 * mmio_perform_access:
- 	 *
--	 *     TEMPORARY_MAPPING_BASE + (mem->phys_start & ~PAGE_MASK) +
--	 *         (mmio->address & ~PAGE_MASK)
-+	 *     TEMPORARY_MAPPING_BASE + (mem->phys_start & PAGE_OFFS_MASK) +
-+	 *         (mmio->address & PAGE_OFFS_MASK)
- 	 *
- 	 * Reason: mmio_perform_access does addr = base + mmio->address.
- 	 */
--	virt_base = TEMPORARY_MAPPING_BASE + (mem->phys_start & ~PAGE_MASK) -
--		(mmio->address & PAGE_MASK);
-+	virt_base = TEMPORARY_MAPPING_BASE + (mem->phys_start & PAGE_OFFS_MASK)
-+		- (mmio->address & PAGE_MASK);
- 	mmio_perform_access((void *)virt_base, mmio);
- 	return MMIO_HANDLED;
+1=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 /* RAM - first bank*/ {
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .phys_start =3D 0=
+x80000000,
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .virt_start =3D 0=
+x80000000,
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .size =3D 0x80000=
+000,
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .flags =3D JAILHO=
+USE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=
+=A0 JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=
+=A0 JAILHOUSE_MEM_LOADABLE,
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 },
+2=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 /* RAM - second bank */ {
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .phys_start =3D 0=
+x880000000,
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .virt_start =3D 0=
+x880000000,
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .size =3D 0x1fa00=
+000,
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .flags =3D JAILHO=
+USE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=
+=A0 JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=
+=A0 JAILHOUSE_MEM_LOADABLE,
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 },
+3=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 /* RAM - reserved for ivshmem and ba=
+remetal apps */ {
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .phys_start =3D 0=
+x89fe00000,
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .virt_start =3D 0=
+x89fe00000,
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .size =3D 0x20000=
+0,
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .flags =3D JAILHO=
+USE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=
+=A0 JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 },
+4=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 /* RAM - reserved for inmate */ {
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .phys_start =3D 0=
+x8a0000000,
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .virt_start =3D 0=
+x8a0000000,
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .size =3D 0x60000=
+000,
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .flags =3D JAILHO=
+USE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=
+=A0 JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 },
 
-diff --git a/include/jailhouse/cell-config.h b/include/jailhouse/cell-config.h
-index d435b9f7..6ef9e513 100644
---- a/include/jailhouse/cell-config.h
-+++ b/include/jailhouse/cell-config.h
-@@ -130,7 +130,7 @@ struct jailhouse_memory {
- } __attribute__((packed));
+Here, note that all of 1,2,34 gets mapped in CPU MMU, but only 1,2 gets=20
+mapped in PVU
 
- #define JAILHOUSE_MEMORY_IS_SUBPAGE(mem)	\
--	((mem)->virt_start & ~PAGE_MASK || (mem)->size & ~PAGE_MASK)
-+	((mem)->virt_start & PAGE_OFFS_MASK || (mem)->size & PAGE_OFFS_MASK)
+inmate cell config for j721e-evm-linux-demo:
 
- #define JAILHOUSE_CACHE_L3_CODE		0x01
- #define JAILHOUSE_CACHE_L3_DATA		0x02
---
-2.16.4
+5=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 /* RAM. */ {
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .phys_start =3D 0=
+x8a0000000,
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .virt_start =3D 0=
+x8a0000000,
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .size =3D 0x60000=
+000,
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .flags =3D JAILHO=
+USE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=
+=A0 JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=
+=A0 JAILHOUSE_MEM_LOADABLE,
+ =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 },
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/da1baca9-d1f2-946a-f7e0-064a74398b6b%40web.de.
+
+* When enabling jailhouse:
+ =C2=A0=C2=A0=C2=A0 In ideal world, all of the 1,2,3,4(same as 5) should be=
+ mapped in=20
+CPU MMU and PVU
+ =C2=A0=C2=A0=C2=A0 With current config, only 1,2,3 is mapped. root cell ke=
+rnel=20
+continues without any trouble
+ =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Since the inmate memory is rese=
+rved, no driver attempts DMA to=20
+that region, no faults seen
+
+* When creating inmate cell:
+ =C2=A0=C2=A0=C2=A0 In ideal world, the IO mapping from PVU should be remov=
+ed from root=20
+cell stream ID and to be added in the inmate cell stream ID
+ =C2=A0=C2=A0=C2=A0 With current config, unmap return 0 because nothing was=
+ ever mapped
+
+* When loading images (SET_LOADABLE):
+ =C2=A0=C2=A0=C2=A0 In ideal world, loadable regions should be mapped in th=
+e PVU map=20
+for root cell streamID
+ =C2=A0=C2=A0=C2=A0 Since the MEM_DMA is missing, PVU unit skips this chunk=
+ and never=20
+maps to root cell
+ =C2=A0=C2=A0=C2=A0 If you DMA copy the images to the root cell view of inm=
+ate loadable=20
+memory, there will be faults
+ =C2=A0=C2=A0=C2=A0 We do not do this currently (I believe we CPU copy the =
+images)=20
+Correct me if I am wrong here
+
+* When starting cell
+ =C2=A0=C2=A0=C2=A0 Again, ideally the mapping should be removed from root =
+cell and=20
+added to inmate cell
+ =C2=A0=C2=A0=C2=A0 unmap returns 0 becasuse it was never mapped
+ =C2=A0=C2=A0=C2=A0 pvu_iommu_program_entries called in inmate 2nd time doe=
+s nothing if=20
+the pvu_tlb_is_enabled returns true
+
+Nowhere, PVU unit reprograms the memory map to add or remove entires.=20
+Because it doesn't have to do.
+
+Sure, there are some limitations of this appoach:
+* DMA copy of boot images not supported
+* Root cell memory map should be split to mark all inmate used RAM=20
+regions without MEM_DMA flag.
+
+Regards,
+Nikhil D
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/dbfd8b59-103e-2dfd-03dc-6a35559da69f%40ti.com.
+
+--------------DB03F8DE47ADF2429E79F38C
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+  <head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8=
+">
+  </head>
+  <body>
+    <br>
+    <br>
+    <div class=3D"moz-cite-prefix">On 06/01/20 2:52 pm, Jan Kiszka wrote:<b=
+r>
+    </div>
+    <blockquote type=3D"cite"
+      cite=3D"mid:7cc22bb1-4b6e-3e5c-2ed8-0fb78dc31af3@web.de">On 06.01.20
+      09:12, Nikhil Devshatwar wrote:
+      <br>
+      <blockquote type=3D"cite">
+        <blockquote type=3D"cite">
+          <blockquote type=3D"cite">+{
+            <br>
+            +=C2=A0=C2=A0=C2=A0 /*
+            <br>
+            +=C2=A0=C2=A0=C2=A0=C2=A0 * dummy unmap for now
+            <br>
+            +=C2=A0=C2=A0=C2=A0=C2=A0 * PVU does not support dynamic unmap
+            <br>
+            +=C2=A0=C2=A0=C2=A0=C2=A0 * Works well for static partitioning
+            <br>
+          </blockquote>
+          <br>
+          Huh!? But this breaks cell create/destroy cycles, without any
+          user
+          <br>
+          notice, no? And will root cell devices keep access to inmate
+          memory that
+          <br>
+          is carved out during cell creation?
+          <br>
+          <br>
+          Is that a hardware limitation?
+          <br>
+          <br>
+          Looks like a blocker...
+          <br>
+        </blockquote>
+        Yes, this is a hardware limitation. I it designed for static
+        partitioning.
+        <br>
+      </blockquote>
+      <br>
+      IOW, we can also not change the configuration by destroying and
+      <br>
+      recreating non-root cells with different memory layouts?
+      <br>
+      <br>
+    </blockquote>
+    <br>
+    For now, we have gic-demo, uart-demo and linux-demo<br>
+    You can interchangeably create/destroy cells in any order.<br>
+    <br>
+    <blockquote type=3D"cite"
+      cite=3D"mid:7cc22bb1-4b6e-3e5c-2ed8-0fb78dc31af3@web.de">
+      <blockquote type=3D"cite">Although, I made sure to not break memory
+        isolatio with the following
+        <br>
+        workaround:
+        <br>
+        <br>
+        When booting a root cell for Jailhouse, you would typically
+        carveout
+        <br>
+        memory for the
+        <br>
+        inmate cell. I have defined the cell configs such that, in the
+        root cell
+        <br>
+        config, RAM region for inmate is
+        <br>
+        NOT marked with MEM_DMA, this way it never gets mapped in PVU.
+        <br>
+        <br>
+        When creating cell, root cell maps the inmate RAM loadable
+        region, here
+        <br>
+        that memory is not
+        <br>
+        mapped in IO space.
+        <br>
+        ---&gt; Limitation of this is that you cannot DMA copy the
+        images in the
+        <br>
+        loadable sections,
+        <br>
+        =C2=A0=C2=A0=C2=A0 which we are not doing anyways
+        <br>
+        <br>
+        When destroying the cell, Jailhouse should map the memory back
+        to the
+        <br>
+        root cell.
+        <br>
+        Here, again, the inmate RAM region gets ignored in IO mapping
+        because of
+        <br>
+        lacking flag MEM_DMA
+        <br>
+        <br>
+        cell_create=C2=A0 and cell_destroy work in regression, tested
+        successfully.
+        <br>
+        <br>
+      </blockquote>
+      <br>
+      Please add at least a test to the unmap function that warns when a
+      <br>
+      config is violating the hardware constraints. It's still not clear
+      to
+      <br>
+      me, though, how well that goes with changing inmate cell configs.
+      <br>
+      <br>
+    </blockquote>
+    Let me explain via the code<br>
+    <br>
+    root cell config for j721e-evm:<br>
+    <br>
+    1=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 /* RAM - first bank*/ {<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .phys_start =
+=3D 0x80000000,<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .virt_start =
+=3D 0x80000000,<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .size =3D 0x80=
+000000,<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .flags =3D JAI=
+LHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=
+=C2=A0 JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=
+=C2=A0 JAILHOUSE_MEM_LOADABLE,<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 },<br>
+    2=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 /* RAM - second bank */ {<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .phys_start =
+=3D 0x880000000,<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .virt_start =
+=3D 0x880000000,<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .size =3D 0x1f=
+a00000,<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .flags =3D JAI=
+LHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=
+=C2=A0 JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=
+=C2=A0 JAILHOUSE_MEM_LOADABLE,<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 },<br>
+    3=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 /* RAM - reserved for ivshmem an=
+d baremetal apps */ {<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .phys_start =
+=3D 0x89fe00000,<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .virt_start =
+=3D 0x89fe00000,<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .size =3D 0x20=
+0000,<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .flags =3D JAI=
+LHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=
+=C2=A0 JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 },<br>
+    4=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 /* RAM - reserved for inmate */ =
+{<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .phys_start =
+=3D 0x8a0000000,<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .virt_start =
+=3D 0x8a0000000,<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .size =3D 0x60=
+000000,<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .flags =3D JAI=
+LHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=
+=C2=A0 JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 },<br>
+    <br>
+    Here, note that all of 1,2,34 gets mapped in CPU MMU, but only 1,2
+    gets mapped in PVU<br>
+    <br>
+    inmate cell config for j721e-evm-linux-demo:<br>
+    <br>
+    5=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 /* RAM. */ {<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .phys_start =
+=3D 0x8a0000000,<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .virt_start =
+=3D 0x8a0000000,<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .size =3D 0x60=
+000000,<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .flags =3D JAI=
+LHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=
+=C2=A0 JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=
+=C2=A0 JAILHOUSE_MEM_LOADABLE,<br>
+    =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 },<br>
+    <br>
+    <br>
+    * When enabling jailhouse:<br>
+    =C2=A0=C2=A0=C2=A0 In ideal world, all of the 1,2,3,4(same as 5) should=
+ be mapped
+    in CPU MMU and PVU<br>
+    =C2=A0=C2=A0=C2=A0 With current config, only 1,2,3 is mapped. root cell=
+ kernel
+    continues without any trouble<br>
+    =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Since the inmate memory is r=
+eserved, no driver attempts DMA
+    to that region, no faults seen<br>
+    <br>
+    * When creating inmate cell:<br>
+    =C2=A0=C2=A0=C2=A0 In ideal world, the IO mapping from PVU should be re=
+moved from
+    root cell stream ID and to be added in the inmate cell stream ID<br>
+    =C2=A0=C2=A0=C2=A0 With current config, unmap return 0 because nothing =
+was ever
+    mapped<br>
+    <br>
+    * When loading images (SET_LOADABLE):<br>
+    =C2=A0=C2=A0=C2=A0 In ideal world, loadable regions should be mapped in=
+ the PVU map
+    for root cell streamID<br>
+    =C2=A0=C2=A0=C2=A0 Since the MEM_DMA is missing, PVU unit skips this ch=
+unk and
+    never maps to root cell<br>
+    =C2=A0=C2=A0=C2=A0 If you DMA copy the images to the root cell view of =
+inmate
+    loadable memory, there will be faults<br>
+    =C2=A0=C2=A0=C2=A0 We do not do this currently (I believe we CPU copy t=
+he images)
+    Correct me if I am wrong here<br>
+    <br>
+    * When starting cell<br>
+    =C2=A0=C2=A0=C2=A0 Again, ideally the mapping should be removed from ro=
+ot cell and
+    added to inmate cell<br>
+    =C2=A0=C2=A0=C2=A0 unmap returns 0 becasuse it was never mapped<br>
+    =C2=A0=C2=A0=C2=A0 pvu_iommu_program_entries called in inmate 2nd time =
+does nothing
+    if the pvu_tlb_is_enabled returns true<br>
+    <br>
+    Nowhere, PVU unit reprograms the memory map to add or remove
+    entires. Because it doesn't have to do.<br>
+    <br>
+    Sure, there are some limitations of this appoach:<br>
+    * DMA copy of boot images not supported<br>
+    * Root cell memory map should be split to mark all inmate used RAM
+    regions without MEM_DMA flag.<br>
+    <br>
+    Regards,<br>
+    Nikhil D<br>
+  </body>
+</html>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/dbfd8b59-103e-2dfd-03dc-6a35559da69f%40ti.com?utm_=
+medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/msgid/jailh=
+ouse-dev/dbfd8b59-103e-2dfd-03dc-6a35559da69f%40ti.com</a>.<br />
+
+--------------DB03F8DE47ADF2429E79F38C--
