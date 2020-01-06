@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBNUEZXYAKGQEYJRGY3Y@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBN4EZXYAKGQEWM56NHA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x438.google.com (mail-wr1-x438.google.com [IPv6:2a00:1450:4864:20::438])
-	by mail.lfdr.de (Postfix) with ESMTPS id B99B7131371
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  6 Jan 2020 15:20:38 +0100 (CET)
-Received: by mail-wr1-x438.google.com with SMTP id j13sf12997164wrr.20
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 06 Jan 2020 06:20:38 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1578320438; cv=pass;
+Received: from mail-lj1-x237.google.com (mail-lj1-x237.google.com [IPv6:2a00:1450:4864:20::237])
+	by mail.lfdr.de (Postfix) with ESMTPS id 00251131375
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  6 Jan 2020 15:20:39 +0100 (CET)
+Received: by mail-lj1-x237.google.com with SMTP id w6sf7538661ljo.20
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 06 Jan 2020 06:20:39 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1578320439; cv=pass;
         d=google.com; s=arc-20160816;
-        b=AsrArRO0BSgIsePe/WQLiz1Wyyf7dL735bd0y8u5o5jPOVD/IymZqJwBsEOwDE48vU
-         uou/PL/4yNN/4KaSfn/pXtDgSMD+zaBDdo6vMERgaB7w62A0sZBeGNOSqAu7BqBHw9Yh
-         UuKgzgz61aVpEgAjduNu3l2ZV4Gwo9HkXIq9aSWh1X17fAUycw8P5Eo6S8oC1mgJNp+i
-         Jt3ppukB5x6Hks8JGbgXKqb3lFDZ5shap26NgMsJrcKSK+ZWiZZr37dH9/nFjdQS5IGe
-         A18xjGbDmeAICkw4kUg4abPoj9zSR2CfOmzhQZ+7WEK5SHzGt6rCd+1sYKJh5MMULdoV
-         xTTA==
+        b=RoSn0TiMvMiqB/NkQfr93M9p6B0qdKCf7IiScHdMfVylSXbaa1rR01D3ImAttAnhsD
+         ntw3+Mmp60QzOyD3wah2U3Rjsza5oHfdwj7HgxbL5NLR2EwE8jtqIRpwQVKgS/RSRUvc
+         427Y1aLEJUsV9J54NTd08tU1a+0r1hEIWLdX5TfA9KTMxWyLeC8D4+x1KaCG7zKW3p6h
+         nckwZgC967itegxhiiEFZLZfQCuR2hPIdo9B8XbnA3JMKQjEexm/NfR5gC8M2sHM5k1Q
+         L4cZHuM90+BI61W/PsxAh1tLCuTw86TPdOoMiOVc5yr8eNMTngRJ6OGr9x7A6qEQMC+s
+         cK4w==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:references:in-reply-to:references
          :in-reply-to:message-id:date:subject:to:from:mime-version:sender
          :dkim-signature;
-        bh=ALX7ADFzcJAhC8hOnvsRRfmw6AMJphpx+82v+RMl9ts=;
-        b=TgQ60rxdA7AltyoxJDGl5g7zPa1+BDJyAs/hIAg+lEjRtIt36wJURDWvoU/FpX/vGZ
-         rKUhTHsLBqnzWpkUAtzRXbA4D0aHBx2udzGuE2t5Gnro4sKS8k4fymjEjr3BbdDZHUQG
-         vzQK7bP/GKLFDaAi3EtSoBQKg6JnENHRr7BMbb1e33nfA937Z594KhisKR7oYLaUMGgT
-         AchQwYmfTvVpJogVVDJpYztoRBtKcD5qYD+LsQpUf9HelH+xRkj5zdQjmLbLtLT1JyVE
-         sMj7WRm4xm2Sf7n+hSXNy9CbGYz88RBl5ZfN9U/zDYqRgONqZ1aZgSKRMw6g5ssgYjfy
-         YU5w==
+        bh=NV2AaHTn4UYWvRml8S7nmWR9dWISGLTfRVY3g8NWq9E=;
+        b=SCMlX6AzuRl6N2qC0cLa1DDMPYr3UXeCiZX9yh5r4z6d2ZaaFfftDeG30dwhsGFYVh
+         LGy0JoAaGt0lkdtD0AMTUnjophY7OeSEZUQsOtREQGcNdWpRNnO8ElloY9Hd2cutlfrC
+         8bsMp/o31/5R4qlQ5HJC21Ns1kEZFc3BBa5aPCkXagmQweFQgDgFAhQ79+Y2WsxAj6qW
+         nYmOaunhmqWVNstaJU4w/10wIj3FAYWnIak1T+3uLb5rGc9RNkKJtnGhZz0NB9z1KYq9
+         80uc2NsWqu+cSbXfBJNBhp659p6t0kRILwSMwRTdgL3cr7w9Fv9LrbD8wcVodAV96pAG
+         xZCg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:in-reply-to:references:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=ALX7ADFzcJAhC8hOnvsRRfmw6AMJphpx+82v+RMl9ts=;
-        b=Ozud5PB2lTrCdNx/al5NGzqDWg4hYzV4TnE5I/aoDm+uWhH27VdjXfX+/Z5o8Q3oLi
-         K9wOPUkc1isqFay0eVtvOWOUcAZaQvQt1x+KYJEYYkVjgJPh4SBMrgWerhD3VYHbySWW
-         a1GkmhzEV18dktjk2e58BtQO6etTvHurgrqMNuRRoM7pF5AzOTBSMuiOrEJCgxNg4DrZ
-         oB8P2G+QpA9ZugvJhjS/NYbS0stCxzSIaa8+EtmH6dO50f6UDgMy3MYe/vOb59gSoxnn
-         mf52xxWlhJwIrP4y2wlGjOvMRPI9TwzYn0SYRW3cta3UqqpJlZcKwecwzU6qDtDscZYo
-         irVA==
+        bh=NV2AaHTn4UYWvRml8S7nmWR9dWISGLTfRVY3g8NWq9E=;
+        b=Io0rvyXX8JWQZXXFamki7dZTA3NuJAOhiqIf8jzjPAfARfb5P0bPQTYUmePSzxkAe8
+         xH31QkA5Q7VtVyh06Rz7Hl0LWMseNWW/NjceNvJjylGdd5SH7yqDmQztblj/H2pEyaz7
+         ZFwOw9GmxYaPibaIEYIVbm/F63TY8p/77Zwhibe9s0lB5ZO+fjMdtv/slGqknjO1j5FO
+         H+ffNLTWbQ0bdQm4YYofcK9Ne2VCgVctqKPyLnssZtUjfKpD/0voM+y4+MgTq3awmdnX
+         d+ClxKfzkymcrZL7eN120g3CAB+moQIlQRu7EsetWdCmnNkObSGKZncf+yEfqA/WXNfl
+         MlZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:mime-version:from:to:subject:date
@@ -49,64 +49,64 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=ALX7ADFzcJAhC8hOnvsRRfmw6AMJphpx+82v+RMl9ts=;
-        b=hf778tTJmIyL3SJMOjmiGvYAdruEIXnJ0MS3fXwMkx3f1TqD6bfM/3MmzvSF2PON9p
-         0LPMhN8FQ+SYI/xfdyWLbE5cAwkhYxIiaxjATEhQWvrsPMbZ2qSJhyO4EhWl9tIs7t++
-         OxQFjw1NvxiB4nShX6Im0GLtXII5RIpZNfTNZIWYhHQWm+CKPb4Yr/TrJ3MBv7fZbEB3
-         o2siPEL7H5lKE5om9j4tsaSZP2N+oVpQwU6v1YWu67SQpT4WYuiPpo7H645KfDXwpl/P
-         IKN+AoLQN0b+xvQJAkgKs7ZT9EVeNdOgX27heZ59wkhiAjZ5g28kyv8wHU0AEzpnn4X0
-         t0dA==
+        bh=NV2AaHTn4UYWvRml8S7nmWR9dWISGLTfRVY3g8NWq9E=;
+        b=UXGECcRzz40Crv6jxpGOD5BSDlHt6ENffXak6EQwDfVdzDRORiyUeNVig9wbjCtaP+
+         67RKF2fIo88vsli0a+k1+C2KhudyJBsSLSO6Q5RHYUavK++l4zxl+rmLkNZXQlqGG9Rq
+         VTazSAP8tP61V6nJe6XjgtFH9wpNSmNgHU/3XQNn+aofHRUGtcM31XB1K3YJ3hwfsdtR
+         PVexrE+qcQj9WtkovPlBaO0v7h5p1TZ3LoEzkYfA2MlDMZd9oCvV0lUTTjFbEAQ6b1t7
+         ljHhF65ReXzdiAyti+5Qe0yWi7gGrVc0fd32r/xkiM7AOrM2b5iVvIxnh6Qpuu7zrYXO
+         UNwQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVhjBt5/g/oomBS9xlgVV2zycCDWquNk+O7TH86Y+2twtMJK19W
-	AhsItxz4CheWOdvoz1BhLiQ=
-X-Google-Smtp-Source: APXvYqzXdiWgIoWaO5zqA8PMXNGrNW9DXHTskZpxEBSpIDHIABYbi6dMCJQWwp29h9xj9iauHpMjgQ==
-X-Received: by 2002:adf:ce87:: with SMTP id r7mr99928522wrn.245.1578320438459;
-        Mon, 06 Jan 2020 06:20:38 -0800 (PST)
+X-Gm-Message-State: APjAAAXi2i7kl+vONOt6FoZscgd5oBxN5PbAREm85ekh4OMxMa17QIgA
+	JYyTYIX0REKotWWlTBEgLhQ=
+X-Google-Smtp-Source: APXvYqybhRkVFkI7df6e9mHtyYCDi73eXIVBnxUcmPS713Bz6uMydQT3CzcIiBzVLpBVcJiRRcRX3Q==
+X-Received: by 2002:a2e:b0e3:: with SMTP id h3mr11481770ljl.56.1578320439584;
+        Mon, 06 Jan 2020 06:20:39 -0800 (PST)
 MIME-Version: 1.0
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:fdc5:: with SMTP id i5ls12996190wrs.9.gmail; Mon, 06 Jan
- 2020 06:20:37 -0800 (PST)
-X-Received: by 2002:adf:f98c:: with SMTP id f12mr99149871wrr.138.1578320437851;
-        Mon, 06 Jan 2020 06:20:37 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1578320437; cv=none;
+Received: by 2002:a2e:9709:: with SMTP id r9ls4552506lji.14.gmail; Mon, 06 Jan
+ 2020 06:20:38 -0800 (PST)
+X-Received: by 2002:a2e:b60d:: with SMTP id r13mr59907543ljn.40.1578320438457;
+        Mon, 06 Jan 2020 06:20:38 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1578320438; cv=none;
         d=google.com; s=arc-20160816;
-        b=rB8LcA0XJSoQmK7trnv+qpu+bi3zErnOL9Y7nQDMLE4hdnsUGW5OEpN1q62VDfNQCe
-         hcOxSudILK2Kkwy/kzMqABug/EqPdFexL7YtFb0DUEzOv9+QOJUplJLRq8E/X/Jrb9J+
-         3gkHdmouqVSM55jkTsJ0PfIzIjLCZg1gg92+ToSAvwSlCgH7g6+SB4KqpK/FV/K6jifd
-         gaXuZgOW1SJwx7VC0VqVcQRnrEkyc6SMdFlfr+j5pOSXLq/OK8Vkolh6dJFaB1JgEnAK
-         HMYhUI7VVoFwVATiCpiKEyKjfR3rufbX8cN3ea44KRq423MlM/akNReDhoV/B9vbsmAx
-         Wbpg==
+        b=CU2Z2MJ+Wf2B1SjWKMdmaFDQuk8jLkoPOZpFzKG06oeVUeWs5gMf2wLs0Qzsd2Tf9u
+         uasWgYIV+wf48lr675Lmkvq3W0u5hJBPMgG3QBIFgCGtTG/NwQXMSPW8AcMwoPULFK/Q
+         7c2X7Pd46bFoXZebnzO34ro8TRSJS4pSMU5FFG2uIuPfo/lWhgE6RLprSPKBYgDIcMQ2
+         I1m+p98cBZItgxmAATkCepFmXQUWnjWoQJ13lAXxyddsLemXCEUSWpE+XM8G5Xsas1pz
+         7RA3tdAvY9lrGFX6bFQWJQ0JkYdbI3OJR4Ko22CBUC+YisvwIect0yhwrNkt4M2PNdhO
+         xZqA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=references:in-reply-to:references:in-reply-to:message-id:date
          :subject:to:from;
-        bh=ktM5kgQsZva+VRVgwnArB9IAsUtVAD9PQeT5uOqR1xo=;
-        b=qIvAsH967wteOqwC5sB/LiMxGcG/OPiQ+XEhHyy/AXAHr7fE5juDTR1+6tBwEK04Yx
-         ibiQb5pIVPGUG1uFNTfeFe8tEDF3bunUdHbCo5ul5ZjKYDncd/REqiJIrPPjl5FvBqN/
-         jGIGcnbB6LMW8h3wO6ydORceEAMIAua1Xw9fSSTdgcbJXoygjQcV+382ocKoPTKWS/cG
-         RsCS/iX72n+ZpVqWuAgD1d/Fa3TGAHQLD19zO2IjiPkZB2lpq3vZSrsmcaeSRpQ+aXcj
-         JxxK9LG5aDC4LoLugyLY7BHr0reY6GRcF/ZFOrSqBwXtc+R/Tfh7h0gLDqlTv7nTZlfs
-         UWcw==
+        bh=VwMTZehykg1EwgBpseV1m6J4+wKz507bd3yfqryq+Rs=;
+        b=TydVbd6zn9htYjjeLIdDHOE45JhlHl3g714Zv6TPMTnu/9uu6I7+tITqMkWf83FLXy
+         CqTD2HNe1RkvxR0ZRLEjBn9Oy/pBq6ZSjPlTIBGk7SHpmDycDQwe29nJz91fkgiDEE2L
+         F3jgYzQesZv6+2jvc43W8ydTgWXeKUYABkLluAohGlvJXMgFzOzKL1D7SYYVHSFZ0KjL
+         NDWLxde2kxdJNTdBXvCONHfSe6H/CYITHfKSafWQf3JW72HCvL5HOK4B9FaerLpf40Kr
+         +YibtKWraM2TVtAynqNRzb4jKyBEUDsPAQ/EyfxbaBJwUaHLxx0UoLlg3JmjnBb0IOZj
+         Ybuw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id 80si765798wme.4.2020.01.06.06.20.37
+Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
+        by gmr-mx.google.com with ESMTPS id a4si2170035lfg.1.2020.01.06.06.20.38
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 06 Jan 2020 06:20:37 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
+        Mon, 06 Jan 2020 06:20:38 -0800 (PST)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 006EKbie025675
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 006EKbmA016628
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
 	for <jailhouse-dev@googlegroups.com>; Mon, 6 Jan 2020 15:20:37 +0100
 Received: from md1f2u6c.ad001.siemens.net ([167.87.36.235])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 006EKZjC008447
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 006EKZjD008447
 	for <jailhouse-dev@googlegroups.com>; Mon, 6 Jan 2020 15:20:37 +0100
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [PATCH 04/19] configs: x86: Add virtio block device between qemu-x86 and linux-x86-demo
-Date: Mon,  6 Jan 2020 15:20:20 +0100
-Message-Id: <a8c0e957d9f81bd54dd2b3a66a1132ef77ab7eab.1578320435.git.jan.kiszka@siemens.com>
+Subject: [PATCH 05/19] inmates: Rework interrupt API
+Date: Mon,  6 Jan 2020 15:20:21 +0100
+Message-Id: <925342bff4101db0065dbc942f5824acaadfc26c.1578320435.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <cover.1578320435.git.jan.kiszka@siemens.com>
 References: <cover.1578320435.git.jan.kiszka@siemens.com>
@@ -114,7 +114,7 @@ In-Reply-To: <cover.1578320435.git.jan.kiszka@siemens.com>
 References: <cover.1578320435.git.jan.kiszka@siemens.com>
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
@@ -132,197 +132,413 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-This enables the root cell to provide a virtio block device via ivshmem
-to the non-root Linux cell.
+This generalizes the API for initializing the subsystem and registering
+a handler with it. x86 now uses the same pattern as the ARM
+architectures: There is only one custom handler that is invoked with the
+triggered interrupt number as parameter.
+
+Along this, the API functions are changed to use the more readable "irq"
+prefix.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- configs/x86/linux-x86-demo.c | 42 +++++++++++++++++++++++++++++++++++-------
- configs/x86/qemu-x86.c       | 37 ++++++++++++++++++++++++++++++++-----
- 2 files changed, 67 insertions(+), 12 deletions(-)
+ inmates/demos/arm/gic-demo.c            |  2 +-
+ inmates/demos/x86/apic-demo.c           |  8 +++---
+ inmates/demos/x86/ioapic-demo.c         | 12 ++++++---
+ inmates/demos/x86/ivshmem-demo.c        |  5 ++--
+ inmates/demos/x86/pci-demo.c            | 12 ++++++---
+ inmates/demos/x86/smp-demo.c            | 10 ++++---
+ inmates/lib/arm-common/gic.c            |  4 +--
+ inmates/lib/arm-common/include/inmate.h |  2 --
+ inmates/lib/include/inmate_common.h     |  4 +++
+ inmates/lib/x86/Makefile                |  2 +-
+ inmates/lib/x86/include/inmate.h        |  6 +----
+ inmates/lib/x86/{int.c => irq.c}        | 48 ++++++++++++++++-----------------
+ 12 files changed, 62 insertions(+), 53 deletions(-)
+ rename inmates/lib/x86/{int.c => irq.c} (82%)
 
-diff --git a/configs/x86/linux-x86-demo.c b/configs/x86/linux-x86-demo.c
-index c542967d..47cb6517 100644
---- a/configs/x86/linux-x86-demo.c
-+++ b/configs/x86/linux-x86-demo.c
-@@ -19,17 +19,17 @@ struct {
- 	struct jailhouse_cell_desc cell;
- 	__u64 cpus[1];
- #ifdef CONFIG_QEMU_E1000E_ASSIGNMENT
--	struct jailhouse_memory mem_regions[20];
-+	struct jailhouse_memory mem_regions[24];
+diff --git a/inmates/demos/arm/gic-demo.c b/inmates/demos/arm/gic-demo.c
+index b2246deb..13db0a41 100644
+--- a/inmates/demos/arm/gic-demo.c
++++ b/inmates/demos/arm/gic-demo.c
+@@ -57,7 +57,7 @@ static void handle_IRQ(unsigned int irqn)
+ void inmate_main(void)
+ {
+ 	printk("Initializing the GIC...\n");
+-	gic_setup(handle_IRQ);
++	irq_init(handle_IRQ);
+ 	gic_enable_irq(TIMER_IRQ);
+ 
+ 	printk("Initializing the timer...\n");
+diff --git a/inmates/demos/x86/apic-demo.c b/inmates/demos/x86/apic-demo.c
+index 5b88f2e0..d9aada6a 100644
+--- a/inmates/demos/x86/apic-demo.c
++++ b/inmates/demos/x86/apic-demo.c
+@@ -50,11 +50,14 @@ static bool cpu_has_smi_count(void)
+ 	return false;
+ }
+ 
+-static void irq_handler(void)
++static void irq_handler(unsigned int irq)
+ {
+ 	unsigned long delta;
+ 	u32 smis;
+ 
++	if (irq != APIC_TIMER_VECTOR)
++		return;
++
+ 	delta = tsc_read_ns() - expected_time;
+ 	if (delta < min)
+ 		min = delta;
+@@ -77,8 +80,7 @@ static void init_apic(void)
+ {
+ 	unsigned long apic_freq_khz;
+ 
+-	int_init();
+-	int_set_handler(APIC_TIMER_VECTOR, irq_handler);
++	irq_init(irq_handler);
+ 
+ 	apic_freq_khz = apic_timer_init(APIC_TIMER_VECTOR);
+ 	printk("Calibrated APIC frequency: %lu kHz\n", apic_freq_khz);
+diff --git a/inmates/demos/x86/ioapic-demo.c b/inmates/demos/x86/ioapic-demo.c
+index 141bad51..dfb33b8a 100644
+--- a/inmates/demos/x86/ioapic-demo.c
++++ b/inmates/demos/x86/ioapic-demo.c
+@@ -32,9 +32,14 @@
+ 
+ static unsigned int pm_base;
+ 
+-static void irq_handler(void)
++static void irq_handler(unsigned int irq)
+ {
+-	u16 status = inw(pm_base + PM1_STATUS);
++	u16 status;
++
++	if (irq != IRQ_VECTOR)
++		return;
++
++	status = inw(pm_base + PM1_STATUS);
+ 
+ 	printk("ACPI IRQ received, status: %04x\n", status);
+ 	outw(status, pm_base);
+@@ -42,8 +47,7 @@ static void irq_handler(void)
+ 
+ void inmate_main(void)
+ {
+-	int_init();
+-	int_set_handler(IRQ_VECTOR, irq_handler);
++	irq_init(irq_handler);
+ 
+ 	ioapic_init();
+ 	ioapic_pin_set_vector(ACPI_GSI, TRIGGER_LEVEL_ACTIVE_HIGH, IRQ_VECTOR);
+diff --git a/inmates/demos/x86/ivshmem-demo.c b/inmates/demos/x86/ivshmem-demo.c
+index 65541d18..185c9ff7 100644
+--- a/inmates/demos/x86/ivshmem-demo.c
++++ b/inmates/demos/x86/ivshmem-demo.c
+@@ -107,7 +107,7 @@ static void send_irq(struct ivshmem_dev_data *d)
+ 	mmio_write32(d->registers + 3, 1);
+ }
+ 
+-static void irq_handler(void)
++static void irq_handler(unsigned int irq)
+ {
+ 	printk("IVSHMEM: got interrupt ... %d\n", irq_counter++);
+ }
+@@ -120,7 +120,7 @@ void inmate_main(void)
+ 	struct ivshmem_dev_data *d;
+ 	volatile char *shmem;
+ 
+-	int_init();
++	irq_init(irq_handler);
+ 
+ 	while ((ndevices < MAX_NDEV) &&
+ 	       (-1 != (bdf = pci_find_device(VENDORID, DEVICEID, bdf)))) {
+@@ -145,7 +145,6 @@ void inmate_main(void)
+ 
+ 		memcpy(d->shmem, str, 32);
+ 
+-		int_set_handler(IRQ_VECTOR + ndevices - 1, irq_handler);
+ 		pci_msix_set_vector(bdf, IRQ_VECTOR + ndevices - 1, 0);
+ 		bdf++;
+ 	}
+diff --git a/inmates/demos/x86/pci-demo.c b/inmates/demos/x86/pci-demo.c
+index 84d48891..3e48e050 100644
+--- a/inmates/demos/x86/pci-demo.c
++++ b/inmates/demos/x86/pci-demo.c
+@@ -26,9 +26,14 @@
+ 
+ static void *hdbar;
+ 
+-static void irq_handler(void)
++static void irq_handler(unsigned int irq)
+ {
+-	u16 statests = mmio_read16(hdbar + HDA_STATESTS);
++	u16 statests;
++
++	if (irq != IRQ_VECTOR)
++		return;
++
++	statests = mmio_read16(hdbar + HDA_STATESTS);
+ 
+ 	printk("HDA MSI received (STATESTS: %04x)\n", statests);
+ 	mmio_write16(hdbar + HDA_STATESTS, statests);
+@@ -39,8 +44,7 @@ void inmate_main(void)
+ 	u64 bar;
+ 	int bdf;
+ 
+-	int_init();
+-	int_set_handler(IRQ_VECTOR, irq_handler);
++	irq_init(irq_handler);
+ 
+ 	bdf = pci_find_device(PCI_ID_ANY, PCI_ID_ANY, 0);
+ 	if (bdf < 0) {
+diff --git a/inmates/demos/x86/smp-demo.c b/inmates/demos/x86/smp-demo.c
+index d8dac073..cd48332e 100644
+--- a/inmates/demos/x86/smp-demo.c
++++ b/inmates/demos/x86/smp-demo.c
+@@ -17,8 +17,11 @@
+ static volatile bool done;
+ static unsigned int main_cpu;
+ 
+-static void ipi_handler(void)
++static void ipi_handler(unsigned int irq)
+ {
++	if (irq != IPI_VECTOR)
++		return;
++
+ 	printk("Received IPI on %d\n", cpu_id());
+ 	done = true;
+ }
+@@ -26,7 +29,7 @@ static void ipi_handler(void)
+ static void secondary_main(void)
+ {
+ 	printk("Hello from CPU %d!\n", cpu_id());
+-	int_send_ipi(main_cpu, IPI_VECTOR);
++	irq_send_ipi(main_cpu, IPI_VECTOR);
+ }
+ 
+ void inmate_main(void)
+@@ -40,8 +43,7 @@ void inmate_main(void)
+ 	smp_wait_for_all_cpus();
+ 	printk("\nFound %d other CPU(s)\n", smp_num_cpus - 1);
+ 
+-	int_init();
+-	int_set_handler(IPI_VECTOR, ipi_handler);
++	irq_init(ipi_handler);
+ 
+ 	asm volatile("sti");
+ 
+diff --git a/inmates/lib/arm-common/gic.c b/inmates/lib/arm-common/gic.c
+index 405984f9..bf00d4a7 100644
+--- a/inmates/lib/arm-common/gic.c
++++ b/inmates/lib/arm-common/gic.c
+@@ -42,7 +42,7 @@
+ extern const struct gic gic_v2;
+ extern const struct gic gic_v3;
+ 
+-static irq_handler_t irq_handler = (irq_handler_t)NULL;
++static irq_handler_t irq_handler;
+ static const struct gic *gic = &gic_v2;
+ 
+ /* Replaces the weak reference in header.S */
+@@ -62,7 +62,7 @@ void vector_irq(void)
+ 	}
+ }
+ 
+-void gic_setup(irq_handler_t handler)
++void irq_init(irq_handler_t handler)
+ {
+ 	if (comm_region->gic_version == 3)
+ 		gic = &gic_v3;
+diff --git a/inmates/lib/arm-common/include/inmate.h b/inmates/lib/arm-common/include/inmate.h
+index 61e383a0..86c0806c 100644
+--- a/inmates/lib/arm-common/include/inmate.h
++++ b/inmates/lib/arm-common/include/inmate.h
+@@ -95,8 +95,6 @@ static inline void __attribute__((noreturn)) halt(void)
+ 		asm volatile("wfi" : : : "memory");
+ }
+ 
+-typedef void (*irq_handler_t)(unsigned int);
+-void gic_setup(irq_handler_t handler);
+ void gic_enable_irq(unsigned int irq);
+ 
+ unsigned long timer_get_frequency(void);
+diff --git a/inmates/lib/include/inmate_common.h b/inmates/lib/include/inmate_common.h
+index f2de578e..b7226bba 100644
+--- a/inmates/lib/include/inmate_common.h
++++ b/inmates/lib/include/inmate_common.h
+@@ -97,6 +97,10 @@ enum map_type { MAP_CACHED, MAP_UNCACHED };
+ 
+ void map_range(void *start, unsigned long size, enum map_type map_type);
+ 
++typedef void(*irq_handler_t)(unsigned int);
++
++void irq_init(irq_handler_t handler);
++
+ #define CMDLINE_BUFFER(size) \
+ 	const char cmdline[size] __attribute__((section(".cmdline")))
+ 
+diff --git a/inmates/lib/x86/Makefile b/inmates/lib/x86/Makefile
+index eda484fe..40d3eba2 100644
+--- a/inmates/lib/x86/Makefile
++++ b/inmates/lib/x86/Makefile
+@@ -40,7 +40,7 @@ include $(INMATES_LIB)/Makefile.lib
+ 
+ always := lib.a lib32.a
+ 
+-TARGETS := cpu-features.o excp.o header-common.o int.o ioapic.o printk.o
++TARGETS := cpu-features.o excp.o header-common.o irq.o ioapic.o printk.o
+ TARGETS += setup.o uart.o
+ TARGETS += ../alloc.o ../pci.o ../string.o ../cmdline.o ../setup.o ../test.o
+ TARGETS += ../uart-8250.o ../printk.o
+diff --git a/inmates/lib/x86/include/inmate.h b/inmates/lib/x86/include/inmate.h
+index a3d7601b..fb45a945 100644
+--- a/inmates/lib/x86/include/inmate.h
++++ b/inmates/lib/x86/include/inmate.h
+@@ -225,11 +225,7 @@ extern void *stack;
+ 
+ void excp_reporting_init(void);
+ 
+-typedef void(*int_handler_t)(void);
+-
+-void int_init(void);
+-void int_set_handler(unsigned int vector, int_handler_t handler);
+-void int_send_ipi(unsigned int cpu_id, unsigned int vector);
++void irq_send_ipi(unsigned int cpu_id, unsigned int vector);
+ 
+ enum ioapic_trigger_mode {
+ 	TRIGGER_EDGE = 0,
+diff --git a/inmates/lib/x86/int.c b/inmates/lib/x86/irq.c
+similarity index 82%
+rename from inmates/lib/x86/int.c
+rename to inmates/lib/x86/irq.c
+index 663fa65e..dfb78358 100644
+--- a/inmates/lib/x86/int.c
++++ b/inmates/lib/x86/irq.c
+@@ -44,23 +44,23 @@
+ 
+ extern u8 irq_entry[];
+ 
+-static int_handler_t __attribute__((used)) int_handler[MAX_INTERRUPT_VECTORS];
++static irq_handler_t __attribute__((used)) irq_handler;
+ 
+-void int_init(void)
++void irq_init(irq_handler_t handler)
+ {
+-	write_msr(X2APIC_SPIV, 0x1ff);
+-}
++	unsigned int vector;
++	u64 entry;
+ 
+-void int_set_handler(unsigned int vector, int_handler_t handler)
+-{
+-	unsigned int int_number = vector - 32;
+-	u64 entry = (unsigned long)irq_entry + int_number * 16;
++	write_msr(X2APIC_SPIV, 0x1ff);
+ 
+-	int_handler[int_number] = handler;
++	irq_handler = handler;
+ 
+-	idt[vector * 2] = (entry & 0xffff) | (INMATE_CS64 << 16) |
+-		((0x8e00 | (entry & 0xffff0000)) << 32);
+-	idt[vector * 2 + 1] = entry >> 32;
++	for (vector = 32; vector < 32 + MAX_INTERRUPT_VECTORS; vector++) {
++		entry = (unsigned long)irq_entry + (vector - 32) * 16;
++		idt[vector * 2] = (entry & 0xffff) | (INMATE_CS64 << 16) |
++			((0x8e00 | (entry & 0xffff0000)) << 32);
++		idt[vector * 2 + 1] = entry >> 32;
++	}
+ }
+ 
+ asm(
+@@ -74,11 +74,11 @@ asm(
+ 
+ ".macro irq_prologue irq\n\t"
+ #ifdef __x86_64__
+-	"push %rax\n\t"
+-	"mov $irq * 8,%rax\n\t"
++	"push %rdi\n\t"
++	"mov $irq,%rdi\n\t"
  #else
--	struct jailhouse_memory mem_regions[16];
-+	struct jailhouse_memory mem_regions[20];
+-	"push %eax\n\t"
+-	"mov $irq * 4,%eax\n\t"
++	"push %ecx\n\t"
++	"mov $irq,%ecx\n\t"
  #endif
- 	struct jailhouse_cache cache_regions[1];
- 	struct jailhouse_irqchip irqchips[1];
- 	struct jailhouse_pio pio_regions[3];
- #ifdef CONFIG_QEMU_E1000E_ASSIGNMENT
--	struct jailhouse_pci_device pci_devices[4];
-+	struct jailhouse_pci_device pci_devices[5];
+ 	"jmp irq_common\n"
+ 	".balign 16\n"
+@@ -87,7 +87,7 @@ asm(
+ 	".global irq_entry\n\t"
+ 	".balign 16\n"
+ "irq_entry:\n"
+-"irq=0\n"
++"irq=32\n"
+ ".rept 32\n"
+ 	"irq_prologue irq\n\t"
+ 	"irq=irq+1\n\t"
+@@ -95,16 +95,16 @@ asm(
+ 
+ "irq_common:\n\t"
+ #ifdef __x86_64__
++	"push %rax\n\t"
+ 	"push %rcx\n\t"
+ 	"push %rdx\n\t"
+ 	"push %rsi\n\t"
+-	"push %rdi\n\t"
+ 	"push %r8\n\t"
+ 	"push %r9\n\t"
+ 	"push %r10\n\t"
+ 	"push %r11\n\t"
+ 
+-	"call *int_handler(%rax)\n\t"
++	"call *irq_handler\n\t"
+ 
+ 	"eoi\n\t"
+ 
+@@ -112,34 +112,34 @@ asm(
+ 	"pop %r10\n\t"
+ 	"pop %r9\n\t"
+ 	"pop %r8\n\t"
+-	"pop %rdi\n\t"
+ 	"pop %rsi\n\t"
+ 	"pop %rdx\n\t"
+ 	"pop %rcx\n\t"
+ 	"pop %rax\n\t"
++	"pop %rdi\n\t"
+ 
+ 	"iretq"
  #else
--	struct jailhouse_pci_device pci_devices[3];
-+	struct jailhouse_pci_device pci_devices[4];
+-	"push %ecx\n\t"
++	"push %eax\n\t"
+ 	"push %edx\n\t"
+ 	"push %esi\n\t"
+ 	"push %edi\n\t"
+ 
+-	"call *int_handler(%eax)\n\t"
++	"call *irq_handler\n\t"
+ 
+ 	"eoi\n\t"
+ 
+ 	"pop %edi\n\t"
+ 	"pop %esi\n\t"
+ 	"pop %edx\n\t"
+-	"pop %ecx\n\t"
+ 	"pop %eax\n\t"
++	"pop %ecx\n\t"
+ 
+ 	"iret"
  #endif
- 	struct jailhouse_pci_capability pci_caps[6];
- } __attribute__((packed)) config = {
-@@ -54,6 +54,22 @@ struct {
- 	},
+ );
  
- 	.mem_regions = {
-+		/* IVSHMEM shared memory region (virtio-blk front) */
-+		{
-+			.phys_start = 0x3f000000,
-+			.virt_start = 0x3f000000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-+		},
-+		{
-+			.phys_start = 0x3f001000,
-+			.virt_start = 0x3f001000,
-+			.size = 0xdf000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_ROOTSHARED,
-+		},
-+		{ 0 },
-+		{ 0 },
- 		/* IVSHMEM shared memory region (virtio-con front) */
- 		{
- 			.phys_start = 0x3f0e0000,
-@@ -184,13 +200,25 @@ struct {
- 	},
- 
- 	.pci_devices = {
-+		{
-+			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-+			.domain = 0x0,
-+			.bdf = 0x0c << 3,
-+			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
-+			.num_msix_vectors = 2,
-+			.shmem_regions_start = 0,
-+			.shmem_dev_id = 1,
-+			.shmem_peers = 2,
-+			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VIRTIO_FRONT +
-+				VIRTIO_DEV_BLOCK,
-+		},
- 		{
- 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
- 			.domain = 0x0,
- 			.bdf = 0x0d << 3,
- 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
- 			.num_msix_vectors = 3,
--			.shmem_regions_start = 0,
-+			.shmem_regions_start = 4,
- 			.shmem_dev_id = 1,
- 			.shmem_peers = 2,
- 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VIRTIO_FRONT +
-@@ -202,7 +230,7 @@ struct {
- 			.bdf = 0x0e << 3,
- 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
- 			.num_msix_vectors = 16,
--			.shmem_regions_start = 4,
-+			.shmem_regions_start = 8,
- 			.shmem_dev_id = 2,
- 			.shmem_peers = 3,
- 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
-@@ -213,7 +241,7 @@ struct {
- 			.bdf = 0x0f << 3,
- 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
- 			.num_msix_vectors = 2,
--			.shmem_regions_start = 9,
-+			.shmem_regions_start = 13,
- 			.shmem_dev_id = 1,
- 			.shmem_peers = 2,
- 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
-diff --git a/configs/x86/qemu-x86.c b/configs/x86/qemu-x86.c
-index 4ef6b283..f209f372 100644
---- a/configs/x86/qemu-x86.c
-+++ b/configs/x86/qemu-x86.c
-@@ -22,10 +22,10 @@
- struct {
- 	struct jailhouse_system header;
- 	__u64 cpus[1];
--	struct jailhouse_memory mem_regions[27];
-+	struct jailhouse_memory mem_regions[31];
- 	struct jailhouse_irqchip irqchips[1];
- 	struct jailhouse_pio pio_regions[12];
--	struct jailhouse_pci_device pci_devices[10];
-+	struct jailhouse_pci_device pci_devices[11];
- 	struct jailhouse_pci_capability pci_caps[11];
- } __attribute__((packed)) config = {
- 	.header = {
-@@ -74,6 +74,21 @@ struct {
- 	},
- 
- 	.mem_regions = {
-+		/* IVSHMEM shared memory region (virtio-blk back-end) */
-+		{
-+			.phys_start = 0x3f000000,
-+			.virt_start = 0x3f000000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ,
-+		},
-+		{
-+			.phys_start = 0x3f001000,
-+			.virt_start = 0x3f001000,
-+			.size = 0xdf000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-+		},
-+		{ 0 },
-+		{ 0 },
- 		/* IVSHMEM shared memory region (virtio-con back-end) */
- 		{
- 			.phys_start = 0x3f0e0000,
-@@ -310,13 +325,25 @@ struct {
- 			.msix_region_size = 0x1000,
- 			.msix_address = 0xfebda000,
- 		},
-+		{ /* IVSHMEM (virtio-blk back-end) */
-+			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-+			.domain = 0x0,
-+			.bdf = 0x0c << 3,
-+			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
-+			.num_msix_vectors = 2,
-+			.shmem_regions_start = 0,
-+			.shmem_dev_id = 0,
-+			.shmem_peers = 2,
-+			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VIRTIO_BACK +
-+				VIRTIO_DEV_BLOCK,
-+		},
- 		{ /* IVSHMEM (virtio-con back-end) */
- 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
- 			.domain = 0x0,
- 			.bdf = 0x0d << 3,
- 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
- 			.num_msix_vectors = 3,
--			.shmem_regions_start = 0,
-+			.shmem_regions_start = 4,
- 			.shmem_dev_id = 0,
- 			.shmem_peers = 2,
- 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VIRTIO_BACK +
-@@ -328,7 +355,7 @@ struct {
- 			.bdf = 0x0e << 3,
- 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
- 			.num_msix_vectors = 16,
--			.shmem_regions_start = 4,
-+			.shmem_regions_start = 8,
- 			.shmem_dev_id = 0,
- 			.shmem_peers = 3,
- 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
-@@ -339,7 +366,7 @@ struct {
- 			.bdf = 0x0f << 3,
- 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
- 			.num_msix_vectors = 2,
--			.shmem_regions_start = 9,
-+			.shmem_regions_start = 13,
- 			.shmem_dev_id = 0,
- 			.shmem_peers = 2,
- 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+-void int_send_ipi(unsigned int cpu_id, unsigned int vector)
++void irq_send_ipi(unsigned int cpu_id, unsigned int vector)
+ {
+ 	write_msr(X2APIC_ICR, ((u64)cpu_id << 32) | APIC_LVL_ASSERT | vector);
+ }
 -- 
 2.16.4
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/a8c0e957d9f81bd54dd2b3a66a1132ef77ab7eab.1578320435.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/925342bff4101db0065dbc942f5824acaadfc26c.1578320435.git.jan.kiszka%40siemens.com.
