@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBN4EZXYAKGQEWM56NHA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBOEEZXYAKGQEUBXLI4Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x53c.google.com (mail-ed1-x53c.google.com [IPv6:2a00:1450:4864:20::53c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33E9613137A
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  6 Jan 2020 15:20:41 +0100 (CET)
-Received: by mail-ed1-x53c.google.com with SMTP id c24sf9166186edy.9
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 06 Jan 2020 06:20:41 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1578320441; cv=pass;
+Received: from mail-wm1-x340.google.com (mail-wm1-x340.google.com [IPv6:2a00:1450:4864:20::340])
+	by mail.lfdr.de (Postfix) with ESMTPS id 831A9131377
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  6 Jan 2020 15:20:40 +0100 (CET)
+Received: by mail-wm1-x340.google.com with SMTP id g26sf1383279wmk.6
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 06 Jan 2020 06:20:40 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1578320440; cv=pass;
         d=google.com; s=arc-20160816;
-        b=w6XaVKrJCu1SS28RRvgC0hHXsVrqrXasX9rMj6F9vX3FLnes9Xiuvv4iT2dhMxjH4Y
-         SYGdBXRKABqQ39gXYAJKru4jz4ZZDpru/pZZVJB2Nbcmb2FBb3Qdf9Gnxtkg5ae7tWUe
-         D9jYeEfJSVTPn9isUWrSEmQjVF6UL1swV78fSrZRopnZ3rrt9DmtuQVBui4ViZ7cMAa2
-         ighkJGGAzm3NuTOQpCI16vYFt+1nVzNPjJUTruEhApiyy+JB6641eW+sGiG433XDHwf7
-         v2xrZkdDvuPWEPDb8dkQJow73ldyjOAAexxKEMVUZsX9D1h1cecMLaFZIdVM4vYa6oPl
-         /0oQ==
+        b=Gf9Urjf7Yqq8eE7ugAglns1QCnwgUKGCmHz/f2kessjgHY3hu1dR+o2UYvr5D+a5It
+         pvmlYPOOybSq8wudSWxY+Fuk8TvyXPsc7m3/kJfjjjA4Lrfpr4amGurZC4N43d13kFFw
+         oAYZD57/4Gfz4a68H3McLR3tLOjn5RWcDQpG8F8q6Y9FebccyYFTLDi8vJUG/0VbZwbO
+         5cuPcmPEoJWJm/lFx9QlJDeit/9T4Q3q46IKrEZTtZkk0sRaGlGU2bUmCYmtK+UhhUFd
+         RrkPaulgrBSlKc872JLVh7YDme2oqTIjYsneR/CWJeHiUSHKLy5pP6E5exOu9ESfrxOs
+         owJw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:references:in-reply-to:references
          :in-reply-to:message-id:date:subject:to:from:mime-version:sender
          :dkim-signature;
-        bh=+EZaKEpTBJOH9pqusoEITvWR3wmRcy+SgrpSlf8MgLM=;
-        b=z0It4Kuzty+zG5do7/+DjctYwJY+6dCzHDYTMLg/DcAqdTmCSXDPv0vJ7Y0oFbi7XF
-         034G02LrPnP0tL8q2IMujGyRne1ZiL5qs+467TrO3ycYaUnh4p5HFs7YDdIx22JkD8e2
-         gra5Bx5iw+B2gjbAA9Eyb1ZPFHv2mKNxjIsFhWovpoBE8tRyP7bFVUe+iwE799d4U3Vs
-         ugnDwKkd6CvX9YFmg3pFrzuBTdH8P7hLWBLWUaSok5a0SqFY3r8Cxv2rokzhgFwSHKe8
-         RnmpQXZr7BkJMis76Qtd48hdPkZHjLlxI2VofvVzlRdvXKYtpKaixc4uiYfrvPhY9tGW
-         Tg8g==
+        bh=nj5Q8FrGxLfCDkYzg9WSpwAbsKGw5tVzUuQta0q8R0M=;
+        b=sdLTPGWXE4FSgAtjpHf3jXcsOBRNc6jWf21jLftRqDAYUTxb0XIfWT/yi4H9gs1lKQ
+         VKXo0+NaY4ZC4/9lZ2oJ99s4gEyntFvbDr6rjdFPUIkTMB1KQ3OtPW8AXUANv4qiObLr
+         biUdNfcZO66wf468o5jsRW/P/ZE871kYvrvVqZzczbPG5ipetqn2caIC3TRDsyRptD4d
+         JgPCgcFtTcDauXxQuYpg9d/IbTtscDQOXWealQr7zjy1qNKpDkE6ktsTD7eA/3/9NzKz
+         SAbKU9hFPNR/l+X9HsIfgZhV6hxUnpGMqX4ZpXsSg4W71Z+CXh1MZQ6FWDwFXwoZ0Mzv
+         mrVQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:in-reply-to:references:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=+EZaKEpTBJOH9pqusoEITvWR3wmRcy+SgrpSlf8MgLM=;
-        b=O/W04l/wkgLPZZU7tHLW0xooa+Jtn6QyBfnM9uipF5bqajMTXE3AMK56jrBXVFVrAK
-         8WvQzSd/oPCJsP6yop28vzoW8VNV8PCTz9CnTIRPU8idZBG0Hz8nL+w3yvgh3EhEXguY
-         rV+EW4yL4O1IlVn34ip5B4HtGLy8cOtyL8F/qEkrKWMv+SAUlcFSo7ldfJ584jQ005Uo
-         OV4biDd2kL3uQVcSTFxIWvedUh/vq6+Z1fsIHoeS4355DLw7tfFrUh8HB/uX/jf3REN/
-         8jWD5c6Dm8xpn1Yab/XXiaNSLZ/sD0a8WZnhIOhj/Y79gJqme55EbfxrkH+rr0qX3Aug
-         M9yw==
+        bh=nj5Q8FrGxLfCDkYzg9WSpwAbsKGw5tVzUuQta0q8R0M=;
+        b=dE+ENG1W5SSU6eutGKCsT7LwRdhj7sorBFYFZcrYUMg81kD/aN3uW+KSJtr1y7CeIf
+         SSZe5zuFXSM+M3hEaNF7ltfMYcLp7nL8BvOPvR1c7bjdZR8jYJuuyVX2v9y0+ttn9xKk
+         6FCeHaAyJx2ElydnghItkhC37Su7smF6Bfx7SKvmNiOTfro2Q51t6ysQjUQR0cCLIPpx
+         t0V9s6dwDF1EQseMfus6xkz927aonhY9fV4zaGb/+7+koisBbRe4/oTX8c90+YOBtA+W
+         iTy/VUejtz30cRRkt3o43iXHOI2rNOSli05D0srB40Fqux0CA1Elwym9FwR8v+yHtAoF
+         pa8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:mime-version:from:to:subject:date
@@ -49,64 +49,64 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=+EZaKEpTBJOH9pqusoEITvWR3wmRcy+SgrpSlf8MgLM=;
-        b=Su1CX/YPt883b4hFIneMnld2aPYAm2yfEeAxKxHuQhcaF6UlQO2Cg3YCPRfH2Rqtyu
-         ILYq7zjnT8fDDVXCG0LMEJFtLjqDgZlQjz5VvTqUqtjwpqYZmqxTuYDLYrGQvwNYc4HM
-         cNqfhGzTGtNUrVmtRUYhgbE74fPVcADaVN6E33GNPBCM3N5hJpGlLhsJPLAv1Z974duz
-         z/Xh5QiKaSMo0AlAlctL4btDtjhi7UhXxktSRaIhpnJdU772qZZl8BxM1m5yNy5EFh/s
-         VewEDeo/eHVZBs+rRy9EWSIJG5flJVB0C5ApxSmOl5ZKfKeLhlLXKeElmCFEwSk6ryZQ
-         v2XA==
+        bh=nj5Q8FrGxLfCDkYzg9WSpwAbsKGw5tVzUuQta0q8R0M=;
+        b=csX4DBWoWWB6vUC9X+6zb9bWyisdDdJ3M1Q/mY4T9mFGz5DTTxTmFzcW6akPcDEVe/
+         HiMWqk0zDXXrJzpqtI6F+0O6GPRE2wKkoYKMjn4EbNfdqyUel2DFkf1u22a3++VYVx4T
+         3puoXwhDPN4lNqzT/ynbKm+0Y/ahFYhBpKpr+V9kODE+l9yc/c5GPAcYLSQ6gzWKq0yx
+         Vij19VE/xUOJnOToCsdwg4fTQAl89XlFmFuBegXXVwFGpgFgvnfmq5AfC7E0BHimoW6I
+         JM2G0wA2UVVv3Lul2jQxveE0zk4gpKGTYrYcNu7/GCd7TSm7UxjiTO8xR75ez4Ad5M36
+         LofQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAWLEFw67D/dNWWdu3fyKXwQdjATwGmhPdkBIK9LJS1HlkDziLy6
-	OyJh2VOn7/8LOON4Ay9c8JE=
-X-Google-Smtp-Source: APXvYqwr2UD8ZomJbz7Z1Zzpzb02jTxF9mrFiDlc4WXVvoWTsH7gtNDydbnEaPQ59x3q/sPi2s8X7A==
-X-Received: by 2002:a17:906:90c3:: with SMTP id v3mr107847153ejw.30.1578320439907;
-        Mon, 06 Jan 2020 06:20:39 -0800 (PST)
+X-Gm-Message-State: APjAAAXRsIlYLsV+QEvb+goGLg7Lv2KRF6yY8fyJfx6QHCoQJm4fBsF2
+	ArKyVDYtZWdaP/9RBdsnAx0=
+X-Google-Smtp-Source: APXvYqzvx/JrnkNw2F5ajUd5KJWDaRwEMqSEGMHyAys9Vt7X1diUobMOaeF+6Aba0t1oc133ViDgcg==
+X-Received: by 2002:a5d:6802:: with SMTP id w2mr101440092wru.353.1578320440236;
+        Mon, 06 Jan 2020 06:20:40 -0800 (PST)
 MIME-Version: 1.0
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aa7:c98d:: with SMTP id c13ls14079071edt.0.gmail; Mon, 06
- Jan 2020 06:20:39 -0800 (PST)
-X-Received: by 2002:aa7:c994:: with SMTP id c20mr107061620edt.113.1578320439224;
+Received: by 2002:adf:fdc5:: with SMTP id i5ls12996213wrs.9.gmail; Mon, 06 Jan
+ 2020 06:20:39 -0800 (PST)
+X-Received: by 2002:adf:f847:: with SMTP id d7mr106825947wrq.35.1578320439534;
         Mon, 06 Jan 2020 06:20:39 -0800 (PST)
 ARC-Seal: i=1; a=rsa-sha256; t=1578320439; cv=none;
         d=google.com; s=arc-20160816;
-        b=m+e8BYDEpt1YSXZINOo11Yol1pk8iD6l2k3EcxrwwENB8QIdWwwEMYaEE7+2rQL36W
-         LNkzt3b4hjA3BnjRfS/qda/BnNY6Z2rVFdXzuhrKCv+GJ2PN8+V3+kmNIDZnbo3N3hW3
-         SXALNQHIBWpXhYYVm78RLyTVyW1yia0gDZi8s5CfnJ+/IH/zM3Nw0LZHRjJcWquFi0XO
-         QE3U3eaDi31YwGgXLy04zS90U+JsToDcXkJLkELXPhgcUQKHobcxG/jHQu/pHcpa1Upj
-         2Z1G2AY64x8KfWysyenE2wfz/vlMFBENMh2QvjjMClCuYYuG8zdId0mzK1iOOMOCS32s
-         5M4w==
+        b=K5I0r8jIPWEoHZxKkmSgUN7LwpUbZdu2BrR3/uWYDaFRl5bM+uQvs1BDo+BKY5HPxZ
+         +sq4hI3EbXMGAFuDz1gXOA010o95/+tOEvw5Qm/x2go3MqvwzrNzwDbsJuGP4Pb1v64N
+         5tM/AoIhwTfk4HuYGt0BYHq7B0z83RQVp6tCNFx7iyz+PjP+wK8NpO0JMDVcxZ57tuEF
+         rWiUvSmCvYiIkVN9E2c/zTTSs8Xol0sP3l6xoz6rPS4kjyuzpX4uazqVVLBq8OUzmh24
+         C1RM1Uzbc51vDCxNKqlXtOieOUXVL8wxmsZl829opNNOgPl2lOmunZANzDV6SpqEiqMk
+         8EUw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=references:in-reply-to:references:in-reply-to:message-id:date
          :subject:to:from;
-        bh=UmQJ2Ahvtrxr7X/pQfAQAW2qIj8z1cSSXLlaajBP5N4=;
-        b=tXsuwrc8yvU4GQh20Ex9HMOzD8UpyMCogawFOVyqNfPhVUkd90jVK7LR433SdyS37V
-         khSxqzC4BeZXiRHaEDRdJAyOFriJ64teLH6NptryVnit8JnbRLRtGWzih+Dcsa1d9hH1
-         a9uHWiz+vyoDpIn5E/Nj2zKHPHUz9MqXp/zxrpoWJyGMceyAs7c4GFl/fAjpvbdM23t+
-         QeK7MZLivfCLCoeaJRpBKYQ6r2IpnGrEpxg1B+YW5Wlk/8LDRbaIR+Uy9gEgDF4ZYPmv
-         Fj0JnwTrDD6Qh43fPDKFXd/igmR06LU3cPV6NhrA4oJqmU3aHAxvGJkHWYA0iHlVrEPe
-         6qcg==
+        bh=CUDynr1RCc70GG93eT6o/1Sk7aOxnWfBz2/MI++0FRI=;
+        b=BDhHRIGwBicCbDAXa0i3vfjz/lfVUjaMRQtYjW2zj4imZg0fOGp2Rjs/AXCw5R5klq
+         WJ6ZNQsDIvyHD8bpIPgbYWrsB8XHjQB6U9ugEoLWN0f82r8SRtcnl3uxgpPcT4vTdsvI
+         cQkg1WgSovpeW9N07W6G+Bs8HWWI/p8nBFFMg2G/DYp6FNYd7aiXBu/kC4PsRw/HlAET
+         gSSajZq4GUpxCJGY7Eo+4LHxtIh9jp6/Eqm6YVwEPEeFZcXRT3QbL/v87EPuTsI62XIs
+         yL/3SZGLyXb0aKgyqb21mJMR/aXbZUMEBdeMOzIBX3PLkfRMwflUq6awANbyjVZluoym
+         e3hQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id x18si2250521eds.2.2020.01.06.06.20.39
+Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
+        by gmr-mx.google.com with ESMTPS id t131si669675wmb.1.2020.01.06.06.20.39
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
         Mon, 06 Jan 2020 06:20:39 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 006EKcMB019187
+	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 006EKd7K005399
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
-	for <jailhouse-dev@googlegroups.com>; Mon, 6 Jan 2020 15:20:38 +0100
+	for <jailhouse-dev@googlegroups.com>; Mon, 6 Jan 2020 15:20:39 +0100
 Received: from md1f2u6c.ad001.siemens.net ([167.87.36.235])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 006EKZjH008447
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 006EKZjI008447
 	for <jailhouse-dev@googlegroups.com>; Mon, 6 Jan 2020 15:20:38 +0100
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [PATCH 09/19] inmates: Make PCI support generic
-Date: Mon,  6 Jan 2020 15:20:25 +0100
-Message-Id: <160f838caa791fe4eb725c9b249c74e5de4fc559.1578320435.git.jan.kiszka@siemens.com>
+Subject: [PATCH 10/19] inmates: Provide delay_us for all archs
+Date: Mon,  6 Jan 2020 15:20:26 +0100
+Message-Id: <7e5652f6cd2d7250fd03a0f89fee39dde80cf506.1578320435.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <cover.1578320435.git.jan.kiszka@siemens.com>
 References: <cover.1578320435.git.jan.kiszka@siemens.com>
@@ -114,7 +114,7 @@ In-Reply-To: <cover.1578320435.git.jan.kiszka@siemens.com>
 References: <cover.1578320435.git.jan.kiszka@siemens.com>
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
@@ -132,303 +132,84 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-Provide PCI support for ARM by implementing mmconfig-based
-pci_read/write_config and moving shared defines and prototypes into the
-common header. pci_msix_set_vector is only implemented as stub on ARM
-so far, can be enhanced later.
+Implement the ARM version and move the prototype to the common header.
+This will allow to use delay_us in arch-independent inmates.
 
-As mmconfig implies mapping of that MMIO region, pci_init is introduced.
-x86 does not need it and only implements a stub in order to allow
-arch-independent inmates.
+The addition of delay_us justifies the renaming of arm-common/timer.c to
+timing.c, also analogously to x86.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- inmates/lib/arm-common/Makefile.lib   |  4 +-
- inmates/lib/{x86 => arm-common}/pci.c | 96 ++++++++++-------------------------
- inmates/lib/include/inmate_common.h   | 34 +++++++++++++
- inmates/lib/x86/include/inmate.h      | 32 ------------
- inmates/lib/x86/pci.c                 |  4 ++
- 5 files changed, 66 insertions(+), 104 deletions(-)
- copy inmates/lib/{x86 => arm-common}/pci.c (51%)
+ inmates/lib/arm-common/Makefile.lib          | 2 +-
+ inmates/lib/arm-common/{timer.c => timing.c} | 9 +++++++++
+ inmates/lib/include/inmate_common.h          | 2 ++
+ inmates/lib/x86/include/inmate.h             | 2 --
+ 4 files changed, 12 insertions(+), 3 deletions(-)
+ rename inmates/lib/arm-common/{timer.c => timing.c} (91%)
 
 diff --git a/inmates/lib/arm-common/Makefile.lib b/inmates/lib/arm-common/Makefile.lib
-index 669ff485..8a4c2237 100644
+index 8a4c2237..3d7b335d 100644
 --- a/inmates/lib/arm-common/Makefile.lib
 +++ b/inmates/lib/arm-common/Makefile.lib
-@@ -37,8 +37,8 @@
- #
+@@ -38,7 +38,7 @@
  
  objs-y := ../string.o ../cmdline.o ../setup.o ../alloc.o ../uart-8250.o
--objs-y += ../printk.o
--objs-y += printk.o gic.o mem.o timer.o setup.o uart.o
-+objs-y += ../printk.o ../pci.o
-+objs-y += printk.o gic.o mem.o pci.o timer.o setup.o uart.o
+ objs-y += ../printk.o ../pci.o
+-objs-y += printk.o gic.o mem.o pci.o timer.o setup.o uart.o
++objs-y += printk.o gic.o mem.o pci.o timing.o setup.o uart.o
  objs-y += uart-xuartps.o uart-mvebu.o uart-hscif.o uart-scifa.o uart-imx.o
  objs-y += uart-pl011.o
  objs-y += gic-v2.o gic-v3.o
-diff --git a/inmates/lib/x86/pci.c b/inmates/lib/arm-common/pci.c
-similarity index 51%
-copy from inmates/lib/x86/pci.c
-copy to inmates/lib/arm-common/pci.c
-index 06dd193f..99210c21 100644
---- a/inmates/lib/x86/pci.c
-+++ b/inmates/lib/arm-common/pci.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Copyright (c) Siemens AG, 2014
-+ * Copyright (c) Siemens AG, 2014-2020
-  *
-  * Authors:
-  *  Jan Kiszka <jan.kiszka@siemens.com>
-@@ -38,21 +38,32 @@
- 
- #include <inmate.h>
- 
--#define PCI_REG_ADDR_PORT	0xcf8
--#define PCI_REG_DATA_PORT	0xcfc
-+void pci_init(void)
-+{
-+	void *mmcfg = (void *)(unsigned long)comm_region->pci_mmconfig_base;
-+
-+	if (mmcfg)
-+		map_range(mmcfg, 0x100000, MAP_UNCACHED);
-+}
- 
--#define PCI_CONE		(1 << 31)
-+static void *pci_get_device_mmcfg_base(u16 bdf)
-+{
-+	void *mmcfg = (void *)(unsigned long)comm_region->pci_mmconfig_base;
-+
-+        return mmcfg + ((unsigned long)bdf << 12);
-+}
- 
- u32 pci_read_config(u16 bdf, unsigned int addr, unsigned int size)
- {
--	outl(PCI_CONE | ((u32)bdf << 8) | (addr & 0xfc), PCI_REG_ADDR_PORT);
-+	void *cfgaddr = pci_get_device_mmcfg_base(bdf) + addr;
-+
- 	switch (size) {
- 	case 1:
--		return inb(PCI_REG_DATA_PORT + (addr & 0x3));
-+		return mmio_read8(cfgaddr);
- 	case 2:
--		return inw(PCI_REG_DATA_PORT + (addr & 0x3));
-+		return mmio_read16(cfgaddr);
- 	case 4:
--		return inl(PCI_REG_DATA_PORT);
-+		return mmio_read32(cfgaddr);
- 	default:
- 		return -1;
- 	}
-@@ -60,78 +71,23 @@ u32 pci_read_config(u16 bdf, unsigned int addr, unsigned int size)
- 
- void pci_write_config(u16 bdf, unsigned int addr, u32 value, unsigned int size)
- {
--	outl(PCI_CONE | ((u32)bdf << 8) | (addr & 0xfc), PCI_REG_ADDR_PORT);
-+	void *cfgaddr = pci_get_device_mmcfg_base(bdf) + addr;
-+
- 	switch (size) {
- 	case 1:
--		outb(value, PCI_REG_DATA_PORT + (addr & 0x3));
-+		mmio_write8(cfgaddr, value);
- 		break;
- 	case 2:
--		outw(value, PCI_REG_DATA_PORT + (addr & 0x3));
-+		mmio_write16(cfgaddr, value);
- 		break;
- 	case 4:
--		outl(value, PCI_REG_DATA_PORT);
-+		mmio_write32(cfgaddr, value);
- 		break;
- 	}
+diff --git a/inmates/lib/arm-common/timer.c b/inmates/lib/arm-common/timing.c
+similarity index 91%
+rename from inmates/lib/arm-common/timer.c
+rename to inmates/lib/arm-common/timing.c
+index 1a2f0c6d..b8e8c04c 100644
+--- a/inmates/lib/arm-common/timer.c
++++ b/inmates/lib/arm-common/timing.c
+@@ -79,3 +79,12 @@ void timer_start(u64 timeout)
+ 	arm_write_sysreg(CNTV_TVAL_EL0, timeout);
+ 	arm_write_sysreg(CNTV_CTL_EL0, 1);
  }
- 
- void pci_msix_set_vector(u16 bdf, unsigned int vector, u32 index)
- {
--	int cap = pci_find_cap(bdf, PCI_CAP_MSIX);
--	unsigned int bar;
--	u64 msix_table = 0;
--	u32 addr;
--	u16 ctrl;
--	u32 table;
--
--	if (cap < 0)
--		return;
--	ctrl = pci_read_config(bdf, cap + 2, 2);
--	/* bounds check */
--	if (index > (ctrl & 0x3ff))
--		return;
--	table = pci_read_config(bdf, cap + 4, 4);
--	bar = (table & 7) * 4 + PCI_CFG_BAR;
--	addr = pci_read_config(bdf, bar, 4);
--
--	if ((addr & 6) == PCI_BAR_64BIT) {
--		msix_table = pci_read_config(bdf, bar + 4, 4);
--		msix_table <<= 32;
--	}
--	msix_table |= addr & ~0xf;
--	msix_table += table & ~7;
--
--	/* enable and mask */
--	ctrl |= (MSIX_CTRL_ENABLE | MSIX_CTRL_FMASK);
--	pci_write_config(bdf, cap + 2, ctrl, 2);
--
--	msix_table += 16 * index;
--	mmio_write32((u32 *)msix_table, 0xfee00000 | cpu_id() << 12);
--	mmio_write32((u32 *)(msix_table + 4), 0);
--	mmio_write32((u32 *)(msix_table + 8), vector);
--	mmio_write32((u32 *)(msix_table + 12), 0);
--
--	/* enable and unmask */
--	ctrl &= ~MSIX_CTRL_FMASK;
--	pci_write_config(bdf, cap + 2, ctrl, 2);
--}
--
--void pci_msi_set_vector(u16 bdf, unsigned int vector)
--{
--	int cap = pci_find_cap(bdf, PCI_CAP_MSI);
--	u16 ctl, data;
--
--	if (cap < 0)
--		return;
--
--	pci_write_config(bdf, cap + 0x04, 0xfee00000 | (cpu_id() << 12), 4);
--
--	ctl = pci_read_config(bdf, cap + 0x02, 2);
--	if (ctl & (1 << 7)) {
--		pci_write_config(bdf, cap + 0x08, 0, 4);
--		data = cap + 0x0c;
--	} else
--		data = cap + 0x08;
--	pci_write_config(bdf, data, vector, 2);
--
--	pci_write_config(bdf, cap + 0x02, 0x0001, 2);
-+	/* dummy for now, should never be called */
-+	*(int *)0xdeaddead = 0;
- }
++
++void delay_us(unsigned long microsecs)
++{
++	unsigned long long timeout = timer_get_ticks() +
++		microsecs * (timer_get_frequency() / 1000 / 1000);
++
++	while ((long long)(timeout - timer_get_ticks()) > 0)
++		cpu_relax();
++}
 diff --git a/inmates/lib/include/inmate_common.h b/inmates/lib/include/inmate_common.h
-index b5ace7bf..7bccd480 100644
+index 7bccd480..6e350081 100644
 --- a/inmates/lib/include/inmate_common.h
 +++ b/inmates/lib/include/inmate_common.h
-@@ -46,6 +46,31 @@
- #define NS_PER_MSEC		1000000ULL
- #define NS_PER_SEC		1000000000ULL
+@@ -136,6 +136,8 @@ int pci_find_cap(u16 bdf, u16 cap);
+ void pci_msi_set_vector(u16 bdf, unsigned int vector);
+ void pci_msix_set_vector(u16 bdf, unsigned int vector, u32 index);
  
-+#define PCI_CFG_VENDOR_ID	0x000
-+#define PCI_CFG_DEVICE_ID	0x002
-+#define PCI_CFG_COMMAND		0x004
-+# define PCI_CMD_IO		(1 << 0)
-+# define PCI_CMD_MEM		(1 << 1)
-+# define PCI_CMD_MASTER		(1 << 2)
-+# define PCI_CMD_INTX_OFF	(1 << 10)
-+#define PCI_CFG_STATUS		0x006
-+# define PCI_STS_INT		(1 << 3)
-+# define PCI_STS_CAPS		(1 << 4)
-+#define PCI_CFG_BAR		0x010
-+# define PCI_BAR_64BIT		0x4
-+#define PCI_CFG_CAP_PTR		0x034
-+
-+#define PCI_ID_ANY		0xffff
-+
-+#define PCI_DEV_CLASS_OTHER	0xff
-+
-+#define PCI_CAP_MSI		0x05
-+#define PCI_CAP_VENDOR		0x09
-+#define PCI_CAP_MSIX		0x11
-+
-+#define MSIX_CTRL_ENABLE	0x8000
-+#define MSIX_CTRL_FMASK		0x4000
-+
- #ifndef __ASSEMBLY__
- typedef s8 __s8;
- typedef u8 __u8;
-@@ -102,6 +127,15 @@ typedef void(*irq_handler_t)(unsigned int);
- void irq_init(irq_handler_t handler);
- void irq_enable(unsigned int irq);
- 
-+void pci_init(void);
-+u32 pci_read_config(u16 bdf, unsigned int addr, unsigned int size);
-+void pci_write_config(u16 bdf, unsigned int addr, u32 value,
-+		      unsigned int size);
-+int pci_find_device(u16 vendor, u16 device, u16 start_bdf);
-+int pci_find_cap(u16 bdf, u16 cap);
-+void pci_msi_set_vector(u16 bdf, unsigned int vector);
-+void pci_msix_set_vector(u16 bdf, unsigned int vector, u32 index);
++void delay_us(unsigned long microsecs);
 +
  #define CMDLINE_BUFFER(size) \
  	const char cmdline[size] __attribute__((section(".cmdline")))
  
 diff --git a/inmates/lib/x86/include/inmate.h b/inmates/lib/x86/include/inmate.h
-index fb45a945..6de736e4 100644
+index 6de736e4..60bc91b9 100644
 --- a/inmates/lib/x86/include/inmate.h
 +++ b/inmates/lib/x86/include/inmate.h
-@@ -61,30 +61,6 @@
+@@ -219,8 +219,6 @@ unsigned long long pm_timer_read(void);
+ unsigned long tsc_read_ns(void);
+ unsigned long tsc_init(void);
  
- #define APIC_LVL_ASSERT		(1 << 14)
- 
--#define PCI_CFG_VENDOR_ID	0x000
--#define PCI_CFG_DEVICE_ID	0x002
--#define PCI_CFG_COMMAND		0x004
--# define PCI_CMD_IO		(1 << 0)
--# define PCI_CMD_MEM		(1 << 1)
--# define PCI_CMD_MASTER		(1 << 2)
--# define PCI_CMD_INTX_OFF	(1 << 10)
--#define PCI_CFG_STATUS		0x006
--# define PCI_STS_INT		(1 << 3)
--# define PCI_STS_CAPS		(1 << 4)
--#define PCI_CFG_BAR		0x010
--# define PCI_BAR_64BIT		0x4
--#define PCI_CFG_CAP_PTR		0x034
+-void delay_us(unsigned long microsecs);
 -
--#define PCI_ID_ANY		0xffff
--
--#define PCI_DEV_CLASS_OTHER	0xff
--
--#define PCI_CAP_MSI		0x05
--#define PCI_CAP_MSIX		0x11
--
--#define MSIX_CTRL_ENABLE	0x8000
--#define MSIX_CTRL_FMASK		0x4000
--
- #define SMP_MAX_CPUS		255
- 
- #ifndef __ASSEMBLY__
-@@ -248,14 +224,6 @@ void delay_us(unsigned long microsecs);
  unsigned long apic_timer_init(unsigned int vector);
  void apic_timer_set(unsigned long long timeout_ns);
  
--u32 pci_read_config(u16 bdf, unsigned int addr, unsigned int size);
--void pci_write_config(u16 bdf, unsigned int addr, u32 value,
--		      unsigned int size);
--int pci_find_device(u16 vendor, u16 device, u16 start_bdf);
--int pci_find_cap(u16 bdf, u16 cap);
--void pci_msi_set_vector(u16 bdf, unsigned int vector);
--void pci_msix_set_vector(u16 bdf, unsigned int vector, u32 index);
--
- extern volatile u32 smp_num_cpus;
- extern u8 smp_cpu_ids[SMP_MAX_CPUS];
- void smp_wait_for_all_cpus(void);
-diff --git a/inmates/lib/x86/pci.c b/inmates/lib/x86/pci.c
-index 06dd193f..a04e2db6 100644
---- a/inmates/lib/x86/pci.c
-+++ b/inmates/lib/x86/pci.c
-@@ -43,6 +43,10 @@
- 
- #define PCI_CONE		(1 << 31)
- 
-+void pci_init(void)
-+{
-+}
-+
- u32 pci_read_config(u16 bdf, unsigned int addr, unsigned int size)
- {
- 	outl(PCI_CONE | ((u32)bdf << 8) | (addr & 0xfc), PCI_REG_ADDR_PORT);
 -- 
 2.16.4
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/160f838caa791fe4eb725c9b249c74e5de4fc559.1578320435.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/7e5652f6cd2d7250fd03a0f89fee39dde80cf506.1578320435.git.jan.kiszka%40siemens.com.
