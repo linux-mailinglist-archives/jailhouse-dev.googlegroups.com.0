@@ -1,31 +1,31 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBOEEZXYAKGQEUBXLI4Y@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBOMEZXYAKGQEVNGPPNQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x337.google.com (mail-wm1-x337.google.com [IPv6:2a00:1450:4864:20::337])
-	by mail.lfdr.de (Postfix) with ESMTPS id 008C3131379
+Received: from mail-lj1-x23a.google.com (mail-lj1-x23a.google.com [IPv6:2a00:1450:4864:20::23a])
+	by mail.lfdr.de (Postfix) with ESMTPS id A62C513137B
 	for <lists+jailhouse-dev@lfdr.de>; Mon,  6 Jan 2020 15:20:41 +0100 (CET)
-Received: by mail-wm1-x337.google.com with SMTP id g26sf1383286wmk.6
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 06 Jan 2020 06:20:40 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1578320440; cv=pass;
+Received: by mail-lj1-x23a.google.com with SMTP id a19sf8143123ljp.15
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 06 Jan 2020 06:20:41 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1578320441; cv=pass;
         d=google.com; s=arc-20160816;
-        b=A4dikk/YDHoLpKSPNCTLZaGjq0wvt9pgx1zGJoyc4v1MvnZEPuBFlWI5tl0wcBVwMI
-         bOkqd07hiFynZ3NZEpERthP38CiY9savHg/1HAsDCPZTnV1dHrajKp3ev7YV9A4Lexx6
-         cI0xe1b5XTwk4pdb5dN0Vhlbx7BX2F2Mv8OdRe9Pvb0OYnv2fvN+guRW+HuDBZISCMPW
-         +5nG/yRZqp69SDZyijsRWybtkY9jppeKUqe5A0lKTTFqPGmqRwm85LHaXVhKEVkznhvq
-         ODEhCawVw6+JHTGl+3gjC/jdxh+jtZvSke9XiOjWSezrDmYCOE122Bhw1UNEzLfSeGIa
-         6glw==
+        b=OzGB8hAZU4bqKv4I5WlNo9tng/3TouC3BLIXQs0kImUOAvi1bnc5ZrfymC8S85x7gw
+         HSQ40670mvwty/ipwmiFbTCOzULMjA9o3it9DkpFO+49EEdWw0TDV/DH5HuD9WrDLzej
+         Rl3cEaz4KZlg50Db+CFXj6c7s15CZHcKAup7gpDTOaFeBXg0ZO/NeMF3IQH6RpjxqqwL
+         XcKf+lkv+VTqKSCyJsf0qidMs0bkUJ1foTYLwEQq+3r70FHP8MSi6Wu5qugV5+qCPaal
+         88Y/Wum07JeCqYzX1Y+gCH4g5PdZvVJIFxNo8EPLASxPLxUqSxKJqFYfvefDPdHfAJ0a
+         Rciw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:references:in-reply-to:references
          :in-reply-to:message-id:date:subject:to:from:mime-version:sender
          :dkim-signature;
-        bh=8+QHWXI99wX9G6HCYxBnvTlOG8ZO3Oq13kGmA4tEqik=;
-        b=H6FLXAvOKhteNn0jE898f+effwwT9fV7VMPLFZFzCdQlWKKMU3eujOttHJJyIdWcX0
-         bdcG4zZd1zywygxTmi1JjW+iWrw+fWHGGbziGOKgohzLZ/NR5MR0yNyx6Iaxd03UHVI8
-         ugFvAbdIaERjH3uRd2cEp4m1B98EdAsFcf/abLTsKxJdwNJyY5dqQk570YzXmXblYVc9
-         JFXYLq69nw0eJdlSOvKMef7PGFvOZy3LEh4dDGHbsYnCjA7LUWDPdjsr31J/ylmFChiq
-         Cs1IRXbGvLZ1Kl/k+j0MMv29TcLQDJayLWU0DC2lcok09OxACwLsKniqWJAOo6pSgWa/
-         yt4g==
+        bh=YCesyL4th3AI6YRlI9mTyAwIikHefgO0xNoAkpPB3Oo=;
+        b=i3S/Zm08ns9upbVwQwATyLuVLeEVGJbBDFZMSHE0xUqb7it6T7ZmpriAWYLdwgrJ1L
+         16MxmVLzWSQtPRctOL/YfJFFwQEyKQeV86oxu9FIzgTA9KqdpI/E/KUceQDbAOYI65pn
+         VEfUWPfPoKUlvowGzD2w53N6vNQvO5EhH4Vu6ZeOmpD3PoghQXyh2sUYqCnUyPrS0I2Q
+         ogEIArtYefx/uMeXW5PGIwznwFKDeQ30s4C9SidKOyZKWQmQYxGToOrOEIirHvbGI/Et
+         2B0QIlfIgLTF1rRAzUTm+kmfyUYLnkI/swI49iNF8SHWjC1pgDu1AqH8sy9/7YzOg1le
+         M5OA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
        spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:in-reply-to:references:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=8+QHWXI99wX9G6HCYxBnvTlOG8ZO3Oq13kGmA4tEqik=;
-        b=tQzQlPdikSBpFQFxCnB1VRHvWuztSGEvoPWWD+VnP67FxluYKrqn3N42lv7oYCrNtR
-         2WB+obM6RAkbbyGkuIGXNXxxD1+pYz8I9fGqpiG4VY5pck1yv6kC8F5Dt6ctCF1R20og
-         ARe0ofjTlDl5B/Z7LsxDB7bfN6Gz8qrNXXV5EeYY91S4Pw3/H0MfZHIaiLFlZHCKRd1y
-         7tLeWJpBBuMsYXSBheXL6GwJ1HSd/aS5xxKl63fLfvjxqUDOySJ6WYKVU3EN8BrotM7n
-         ceYv+bkjN0benwPY68tE8Apef8c/eHIAR2lX6Nxt9qZdffxCWWotavTjHIYVmJa/qZjM
-         JGWg==
+        bh=YCesyL4th3AI6YRlI9mTyAwIikHefgO0xNoAkpPB3Oo=;
+        b=ICglKTlAHeAF7WFZrVQxhxAjAvuqCd7qKvs37YRpW1EyF8POoahDZOB0MRbRrGD/xL
+         +SyZMq8KKkXtiztcH1VDaoLp84bS9l60BE6q1IfzrNcdxGWDVNIznSIaW/Q/6aKs/zWs
+         6QS53rQz7bmOiW1xufaqwGKq9Cq+6fPbkMa3qk+HxusI3q4zsHooFFeduXB8ih8dteGv
+         sGQ94PpoKI/8FxgorPMXjqWYEFQ8c6k2lOXqeqIs1n84aovGOQNcApMH4n3g8xsbu/De
+         NweHdnxQhnmzasg9pkmqhiJzKHNJdCBDK8VW80yH6jZTj1M/DgUTxk+GIyA/ZWoIGo8R
+         Tbgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:mime-version:from:to:subject:date
@@ -49,64 +49,64 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=8+QHWXI99wX9G6HCYxBnvTlOG8ZO3Oq13kGmA4tEqik=;
-        b=oQtAYoehGkPgQB/KGWQfBom8PJlaiMApfHfs9PLBwR+Jatn0Devgc4KNUcYKzl53JE
-         4qeLuoi8BfpHWtSCqi42qnKfMLEo/yL88JIGZLN+8Ga6M04tMRU86SOm4vh1pOi7IEBx
-         uzN5yZWEfvu45JBL4OeAHLuM00YbJSQALGTyqbsA7JViwPylhs9F273FvP7GV9mCXENk
-         bSsIKhsdT8iXpkdHmXFjSrZmCvZgIwJPAt2hF/Uefkdg1hPO1To7DFSv5Cv8X1lr9KM9
-         GYPwGwSbBT/HbF1hatx6Eh3kzCjGecPIT039DuSTJcir83d0W7bMgRg9x8EvRc8UqoTB
-         uKjA==
+        bh=YCesyL4th3AI6YRlI9mTyAwIikHefgO0xNoAkpPB3Oo=;
+        b=Tjl6suVW+m+EDPcBR/FDSLw1xP+/ArbN3Wmj3n4Td8SsaqY/C4o3jWOpK53v/wNKAQ
+         rK54N4j10XlWLpTBciTvlgSd92SJnLisCqBT65w559exgW5qJK1Ijdk2zPqZlk9hjT3m
+         XOxENVVoUKuQMXl1yRsbxJiqDLj2hSalKpWldJOeg8JsIh564pqGQtNMXihTxc99PUr/
+         X3gtvwsbKGw9tLMfq8/Ldsh5gkcQPtP4ZHA29eMhgT5GRivLhGCMYj/BW3epdtV8zEjX
+         xxl3+lmIgmLeoDnY74uZFdQMjLqUjYA+zwzPCS36EqvFuIfdd9yUXSjr6XSgob7QFCaq
+         +ucg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVrGmuAta/PxUNE8bHrsWQkm2O7mCBpCwchtQFT2FozKf07sTkz
-	wr4ja6NNuul7YKeGewXCUAM=
-X-Google-Smtp-Source: APXvYqx5cJvlbtMGYEiHTa9jZ/wayc90QX6c6WCa+UFVK1dBhLbhhtcS0aQgAKsVMdHZckBDq1XdVA==
-X-Received: by 2002:a5d:6652:: with SMTP id f18mr106966661wrw.246.1578320440660;
-        Mon, 06 Jan 2020 06:20:40 -0800 (PST)
+X-Gm-Message-State: APjAAAXyx9rxIEnpwAvTrQlpl0ulzRkyURB3p3Lfo4HQpOv/FFwwIty3
+	3ZYk+LkxLSi16CuhCS0HrHc=
+X-Google-Smtp-Source: APXvYqzDq7kkxN9IfVD4Duixia9ubfmECmhULC5N+EZNCUQyZx0LyTI2qlHnPi33St+1lMnKgC9eKA==
+X-Received: by 2002:a2e:8090:: with SMTP id i16mr61814598ljg.88.1578320441261;
+        Mon, 06 Jan 2020 06:20:41 -0800 (PST)
 MIME-Version: 1.0
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:e913:: with SMTP id q19ls5368106wmc.3.canary-gmail; Mon,
- 06 Jan 2020 06:20:39 -0800 (PST)
-X-Received: by 2002:a05:600c:2c13:: with SMTP id q19mr33972853wmg.144.1578320439859;
-        Mon, 06 Jan 2020 06:20:39 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1578320439; cv=none;
+Received: by 2002:a19:5056:: with SMTP id z22ls4154893lfj.2.gmail; Mon, 06 Jan
+ 2020 06:20:40 -0800 (PST)
+X-Received: by 2002:ac2:51de:: with SMTP id u30mr56102205lfm.69.1578320440530;
+        Mon, 06 Jan 2020 06:20:40 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1578320440; cv=none;
         d=google.com; s=arc-20160816;
-        b=G5zaqEsFIraOmquKEAljYDqjXTt1JQlBDJij4XLgAEcOp7EuxPJROn4pqta6PEfojR
-         E89A952AH7zxSvJbGSJuXlyeOkPoVa2XoRiLlCCd2DHZC8xrUaZF5xUs23+7aO6XFESi
-         LJx18qNkNFnoZiPAfmksmMhMJS6zZ7Bxch4oGgEs0LX/5BFTEeNIWenEGArlC+6kkMAB
-         jvvtKR8CByy0o4y89PqyjLU611IZwTf6Tg6+y8ee5OrdqUGUaH8enKM/i5Nmuse81uOM
-         +kvxZ/Xpoz2sfkMq4PVjatQEd5hOoX/tgtlgHSGkA5WsiS9zf+1sUp2kbxWbqBJ2CLtD
-         3CMw==
+        b=CQTeqZiK78rZA1wCUtR2VIphNWEJO+IkPcwEVD0bvCfZfqsjoYf6oTIU3Ov26Me52n
+         lSrXIg3jqE0zJ9EOi9+FB4vWnfnZEKBK5QgRaAZCyuCJOJSjZHmd9sgs2szLMEnt38VX
+         8UHN9LnXvoFRxJZs3vvIH4dX7PP09XEc1rfn+LlYMbZJJw5sKYJbJfo7rHrTeIffBcfJ
+         cY70n/dQrj8J60AcoJxbJ70Prr27nRVSSdtgHSK5FsCTNtLGnuA2x4siYjejcX9grbA2
+         enRT81EPpxEUzQxmhzSMCLFY1zSJVaMNpy7qTVISmCbTrdiv39MVvaVAA101CBbDk/38
+         B/Ig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=references:in-reply-to:references:in-reply-to:message-id:date
          :subject:to:from;
-        bh=kKoFsy0PopHC0IafC4+R+5nRkC1BzV9HTMaQJ+4P1+4=;
-        b=q+yf+/j1C3Sb/wN55GgSkeZmzbRuCGWmJHzIV78GOsw0SdPcbo+JFsJiUlyOKwTacC
-         pAT/28yaOB3usDRzftd2mwIgXCMSVh6HVcNOEVrqsaK2/pGkT7ldIQyZgFOY2f3bjkUB
-         ez0MaZhgm8XEB7lnzLJ3q81tJXpyXU2LkQ/hk0f2ghnxWepfZI5RsGHDUgsE0gS24J3e
-         5Jx5c9BuOvAaMZCp24hacSK+A3tPlCMCxZk/tMZazoC2BfQZWlftrCCPd0XWt0z4fWI2
-         Ex9ApxwfbtiTGny+vFMxzOqcjK0GmHkkrKKuE5ztVeL67iHa+YdZ6mAd+JOAB74FgHxu
-         FF/Q==
+        bh=22Uw22sWKQzzdPslWDasJ7NnTWlBQmrdwvvIVKhbLZY=;
+        b=WsRiOistdFa6adkcb6UzOgSlquY8YbN7KNGv6CFFz6Qy1cjTQmyMzo0Lpcr/JH6brK
+         cB6XWrg5yQaiNDf2BcfzbAZGtUMFkpGSXiA0MA7zLe8omjEcI0LFyzNpVESbqHMLNDqq
+         5dyITSmMbSyVUfYOFNwEBKGX03S29i/MlKlEA1awXNsFav5Z6o4msj3UdpwNjLxG+2RL
+         gPr/Gls4Cmg0UjhAg9aBwdop3M8Xw+1CJpn9+o5fqf8gnZbRG9OZ2cFFmWTjs2DL2hqj
+         +41SEMthlBs9x9tzkISXbtw/m0N5V2Qb7jbdhxNkC+amD+G1BXM04mZx6sS8vVBkgcU0
+         GgCQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
        spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id 80si765802wme.4.2020.01.06.06.20.39
+        by gmr-mx.google.com with ESMTPS id o193si1374709lff.4.2020.01.06.06.20.40
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 06 Jan 2020 06:20:39 -0800 (PST)
+        Mon, 06 Jan 2020 06:20:40 -0800 (PST)
 Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 006EKd6H016653
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 006EKdC5016658
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
 	for <jailhouse-dev@googlegroups.com>; Mon, 6 Jan 2020 15:20:39 +0100
 Received: from md1f2u6c.ad001.siemens.net ([167.87.36.235])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 006EKZjK008447
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 006EKZjL008447
 	for <jailhouse-dev@googlegroups.com>; Mon, 6 Jan 2020 15:20:39 +0100
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [PATCH 12/19] inmates: Rewrite ivshmem-demo
-Date: Mon,  6 Jan 2020 15:20:28 +0100
-Message-Id: <3d123343f83d3b1ff2ed4038ab4289544b7fac23.1578320435.git.jan.kiszka@siemens.com>
+Subject: [PATCH 13/19] tools: Add ivshmem-demo for Linux/UIO
+Date: Mon,  6 Jan 2020 15:20:29 +0100
+Message-Id: <87cc49f944ed756e930b70991726ca5595a30717.1578320435.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <cover.1578320435.git.jan.kiszka@siemens.com>
 References: <cover.1578320435.git.jan.kiszka@siemens.com>
@@ -132,480 +132,227 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-Provide a bare-metal demo inmate for the new ivshmem device, exploiting
-almost all its features: state table, unidirectional shared memory,
-multi-peer support, multiple interrupt vectors. This demo will be
-accompanied by a Linux tool in order to span 3-peer demo between root,
-bare-metal and a secondary Linux cell.
+This does almost the same as inmates/demos/ivshmem-demo.c, just using
+the UIO driver for ivshmem under Linux.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- inmates/demos/arm/Makefile       |   3 +-
- inmates/demos/arm64/Makefile     |   3 +-
- inmates/demos/ivshmem-demo.c     | 227 +++++++++++++++++++++++++++++++++++++++
- inmates/demos/x86/Makefile       |   2 +-
- inmates/demos/x86/ivshmem-demo.c | 169 -----------------------------
- 5 files changed, 232 insertions(+), 172 deletions(-)
- create mode 100644 inmates/demos/ivshmem-demo.c
- delete mode 100644 inmates/demos/x86/ivshmem-demo.c
+ .gitignore           |   1 +
+ tools/Makefile       |   7 ++-
+ tools/ivshmem-demo.c | 159 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 165 insertions(+), 2 deletions(-)
+ create mode 100644 tools/ivshmem-demo.c
 
-diff --git a/inmates/demos/arm/Makefile b/inmates/demos/arm/Makefile
-index b0fda4ed..b1c25497 100644
---- a/inmates/demos/arm/Makefile
-+++ b/inmates/demos/arm/Makefile
-@@ -12,9 +12,10 @@
+diff --git a/.gitignore b/.gitignore
+index 75145605..4691ff79 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -21,6 +21,7 @@ hypervisor/hypervisor.lds
+ inmates/lib/arm/inmate.lds
+ inmates/lib/arm64/inmate.lds
+ pyjailhouse/pci_defs.py
++tools/ivshmem-demo
+ tools/jailhouse
+ tools/jailhouse-gcov-extract
+ tools/jailhouse-config-collect
+diff --git a/tools/Makefile b/tools/Makefile
+index 2d6ba9a0..542127cf 100644
+--- a/tools/Makefile
++++ b/tools/Makefile
+@@ -32,7 +32,7 @@ KBUILD_LDFLAGS :=
+ KBUILD_CFLAGS += $(call cc-option, -fno-pie)
+ KBUILD_CFLAGS += $(call cc-option, -no-pie)
  
- include $(INMATES_LIB)/Makefile.lib
+-BINARIES := jailhouse
++BINARIES := jailhouse ivshmem-demo
+ always := $(BINARIES)
  
--INMATES := gic-demo.bin uart-demo.bin
-+INMATES := gic-demo.bin uart-demo.bin ivshmem-demo.bin
+ HAS_PYTHON_MAKO := \
+@@ -100,11 +100,14 @@ define cmd_gen_man
+ 	sed 's/$${VERSION}/$(shell cat $(src)/../VERSION)/g' $< > $@
+ endef
  
- gic-demo-y	:= gic-demo.o
- uart-demo-y	:= uart-demo.o
-+ivshmem-demo-y	:= ../ivshmem-demo.o
+-targets += jailhouse.o
++targets += jailhouse.o ivshmem-demo.o
  
- $(eval $(call DECLARE_TARGETS,$(INMATES)))
-diff --git a/inmates/demos/arm64/Makefile b/inmates/demos/arm64/Makefile
-index 49abe09b..2af4f0ca 100644
---- a/inmates/demos/arm64/Makefile
-+++ b/inmates/demos/arm64/Makefile
-@@ -12,9 +12,10 @@
+ $(obj)/jailhouse: $(obj)/jailhouse.o
+ 	$(call if_changed,ld)
  
- include $(INMATES_LIB)/Makefile.lib
- 
--INMATES := gic-demo.bin uart-demo.bin
-+INMATES := gic-demo.bin uart-demo.bin ivshmem-demo.bin
- 
- gic-demo-y	:= ../arm/gic-demo.o
- uart-demo-y	:= ../arm/uart-demo.o
-+ivshmem-demo-y	:= ../ivshmem-demo.o
- 
- $(eval $(call DECLARE_TARGETS,$(INMATES)))
-diff --git a/inmates/demos/ivshmem-demo.c b/inmates/demos/ivshmem-demo.c
++$(obj)/ivshmem-demo: $(obj)/ivshmem-demo.o
++	$(call if_changed,ld)
++
+ CFLAGS_jailhouse-gcov-extract.o	:= -I$(src)/../hypervisor/include \
+ 	-I$(src)/../hypervisor/arch/$(SRCARCH)/include
+ # just change ldflags not cflags, we are not profiling the tool
+diff --git a/tools/ivshmem-demo.c b/tools/ivshmem-demo.c
 new file mode 100644
-index 00000000..e7a7f711
+index 00000000..8201ad15
 --- /dev/null
-+++ b/inmates/demos/ivshmem-demo.c
-@@ -0,0 +1,227 @@
++++ b/tools/ivshmem-demo.c
+@@ -0,0 +1,159 @@
 +/*
 + * Jailhouse, a Linux-based partitioning hypervisor
 + *
-+ * Copyright (c) Siemens AG, 2014-2020
++ * Copyright (c) Siemens AG, 2019-2020
 + *
 + * Authors:
-+ *  Henning Schild <henning.schild@siemens.com>
 + *  Jan Kiszka <jan.kiszka@siemens.com>
 + *
 + * This work is licensed under the terms of the GNU GPL, version 2.  See
 + * the COPYING file in the top-level directory.
 + */
-+#include <inmate.h>
 +
-+#define VENDORID			0x110a
-+#define DEVICEID			0x4106
-+
-+#define BAR_BASE			0xff000000
-+
-+#define IVSHMEM_CFG_STATE_TAB_SZ	0x04
-+#define IVSHMEM_CFG_RW_SECTION_SZ	0x08
-+#define IVSHMEM_CFG_OUT_SECTION_SZ	0x10
-+#define IVSHMEM_CFG_ADDRESS		0x18
-+
-+#define JAILHOUSE_SHMEM_PROTO_UNDEFINED	0x0000
-+
-+#if defined(__x86_64__)
-+#define DEFAULT_IRQ_BASE	32
-+#elif defined(__arm__) || defined(__aarch64__)
-+#define DEFAULT_IRQ_BASE	(comm_region->vpci_irq_base + 32)
-+#else
-+#error Not implemented!
-+#endif
-+
-+#define MAX_VECTORS	4
-+
-+static int irq_counter[MAX_VECTORS];
-+static struct ivshmem_dev_data dev;
-+static unsigned int irq_base, vectors;
++#include <errno.h>
++#include <error.h>
++#include <libgen.h>
++#include <poll.h>
++#include <signal.h>
++#include <stdio.h>
++#include <stdint.h>
++#include <string.h>
++#include <unistd.h>
++#include <sys/mman.h>
++#include <sys/fcntl.h>
++#include <sys/signalfd.h>
 +
 +struct ivshm_regs {
-+	u32 id;
-+	u32 max_peers;
-+	u32 int_control;
-+	u32 doorbell;
-+	u32 state;
++	uint32_t id;
++	uint32_t max_peers;
++	uint32_t int_control;
++	uint32_t doorbell;
++	uint32_t state;
 +};
 +
-+struct ivshmem_dev_data {
-+	u16 bdf;
-+	struct ivshm_regs *registers;
-+	u32 *state_table;
-+	u32 state_table_sz;
-+	u32 *rw_section;
-+	u64 rw_section_sz;
-+	u32 *in_sections;
-+	u32 *out_section;
-+	u64 out_section_sz;
-+	u32 *msix_table;
-+	u32 id;
-+	int msix_cap;
-+};
++static volatile uint32_t *state, *rw, *in, *out;
++static uint32_t id, int_count;
 +
-+static u64 pci_cfg_read64(u16 bdf, unsigned int addr)
++static inline uint32_t mmio_read32(void *address)
 +{
-+	return pci_read_config(bdf, addr, 4) |
-+		((u64)pci_read_config(bdf, addr + 4, 4) << 32);
++        return *(volatile uint32_t *)address;
 +}
 +
-+static void print_shmem(struct ivshmem_dev_data *d)
++static inline void mmio_write32(void *address, uint32_t value)
 +{
-+	printk("state[0] = %d\n", d->state_table[0]);
-+	printk("state[1] = %d\n", d->state_table[1]);
-+	printk("state[2] = %d\n", d->state_table[2]);
-+	printk("rw[0] = %d\n", d->rw_section[0]);
-+	printk("rw[1] = %d\n", d->rw_section[1]);
-+	printk("rw[2] = %d\n", d->rw_section[2]);
-+	printk("in@0x0000 = %d\n", d->in_sections[0/4]);
-+	printk("in@0x2000 = %d\n", d->in_sections[0x2000/4]);
-+	printk("in@0x4000 = %d\n", d->in_sections[0x4000/4]);
++        *(volatile uint32_t *)address = value;
 +}
 +
-+static void irq_handler(unsigned int irq)
++static void print_shmem(void)
 +{
-+	unsigned int n;
-+	u32 value;
++	printf("state[0] = %d\n", state[0]);
++	printf("state[1] = %d\n", state[1]);
++	printf("state[2] = %d\n", state[2]);
++	printf("rw[0] = %d\n", rw[0]);
++	printf("rw[1] = %d\n", rw[1]);
++	printf("rw[2] = %d\n", rw[2]);
++	printf("in@0x0000 = %d\n", in[0/4]);
++	printf("in@0x2000 = %d\n", in[0x2000/4]);
++	printf("in@0x4000 = %d\n", in[0x4000/4]);
++}
 +
-+	if (irq < irq_base || irq >= irq_base + vectors)
-+		return;
++int main(int argc, char *argv[])
++{
++	char sysfs_path[64];
++	struct ivshm_regs *regs;
++	uint32_t int_no, target = 0;
++	struct signalfd_siginfo siginfo;
++	struct pollfd fds[2];
++	sigset_t sigset;
++	char *path;
++	int has_msix;
++	int ret;
 +
-+	n = irq - irq_base;
-+	irq_counter[n]++;
-+	if (dev.msix_cap > 0)
-+		value = irq_counter[dev.id];
++	if (argc < 2)
++		path = strdup("/dev/uio0");
 +	else
-+		value = irq_counter[0];
-+	dev.rw_section[dev.id] = value;
-+	dev.out_section[0] = value * 10;
-+	printk("\nIVSHMEM: got interrupt %d (#%d)\n", n, irq_counter[n]);
-+	print_shmem(&dev);
-+}
++		path = strdup(argv[1]);
++	fds[0].fd = open(path, O_RDWR);
++	if (fds[0].fd < 0)
++		error(1, errno, "open(%s)", path);
++	fds[0].events = POLLIN;
 +
-+static void init_device(struct ivshmem_dev_data *d)
-+{
-+	unsigned long baseaddr, addr, size;
-+	int vndr_cap, n;
-+	u32 max_peers;
++	snprintf(sysfs_path, sizeof(sysfs_path),
++		 "/sys/class/uio/%s/device/msi_irqs", basename(path));
++	has_msix = access(sysfs_path, R_OK) == 0;
 +
-+	vndr_cap = pci_find_cap(d->bdf, PCI_CAP_VENDOR);
-+	if (vndr_cap < 0) {
-+		printk("IVSHMEM ERROR: missing vendor capability\n");
-+		stop();
-+	}
++	regs = mmap(NULL, 4096, PROT_READ | PROT_WRITE, MAP_SHARED,
++		    fds[0].fd, 0);
++	if (regs == MAP_FAILED)
++		error(1, errno, "mmap(regs)");
 +
-+	d->registers = (struct ivshm_regs *)BAR_BASE;
-+	pci_write_config(d->bdf, PCI_CFG_BAR, (unsigned long)d->registers, 4);
-+	printk("IVSHMEM: bar0 is at %p\n", d->registers);
++	id = mmio_read32(&regs->id);
++	printf("ID = %d\n", id);
 +
-+	d->msix_table = (u32 *)(BAR_BASE + PAGE_SIZE);
-+	pci_write_config(d->bdf, PCI_CFG_BAR + 4,
-+			 (unsigned long)d->msix_table, 4);
-+	printk("IVSHMEM: bar1 is at %p\n", d->msix_table);
++	state = mmap(NULL, 4096, PROT_READ, MAP_SHARED, fds[0].fd, 4096 * 1);
++	if (state == MAP_FAILED)
++		error(1, errno, "mmap(state)");
 +
-+	pci_write_config(d->bdf, PCI_CFG_COMMAND,
-+			 (PCI_CMD_MEM | PCI_CMD_MASTER), 2);
++	rw = mmap(NULL, 4096 * 9, PROT_READ | PROT_WRITE, MAP_SHARED,
++		  fds[0].fd, 4096 * 2);
++	if (rw == MAP_FAILED)
++		error(1, errno, "mmap(rw)");
 +
-+	map_range((void *)BAR_BASE, 2 * PAGE_SIZE, MAP_UNCACHED);
++	in = mmap(NULL, 4096 * 6, PROT_READ, MAP_SHARED, fds[0].fd, 4096 * 3);
++	if (in == MAP_FAILED)
++		error(1, errno, "mmap(in)");
 +
-+	d->id = mmio_read32(&d->registers->id);
-+	printk("IVSHMEM: ID is %d\n", d->id);
++	out = mmap(NULL, 4096 * 2, PROT_READ | PROT_WRITE, MAP_SHARED,
++		   fds[0].fd, 4096 * 4);
++	if (out == MAP_FAILED)
++		error(1, errno, "mmap(out)");
 +
-+	max_peers = mmio_read32(&d->registers->max_peers);
-+	printk("IVSHMEM: max. peers is %d\n", max_peers);
++	mmio_write32(&regs->state, id + 1);
++	rw[id] = 0;
++	out[0] = 0;
 +
-+	d->state_table_sz =
-+		pci_read_config(d->bdf, vndr_cap + IVSHMEM_CFG_STATE_TAB_SZ, 4);
-+	d->rw_section_sz =
-+		pci_cfg_read64(d->bdf, vndr_cap + IVSHMEM_CFG_RW_SECTION_SZ);
-+	d->out_section_sz =
-+		pci_cfg_read64(d->bdf, vndr_cap + IVSHMEM_CFG_OUT_SECTION_SZ);
-+	baseaddr = pci_cfg_read64(d->bdf, vndr_cap + IVSHMEM_CFG_ADDRESS);
++	sigemptyset(&sigset);
++	sigaddset(&sigset, SIGALRM);
++	sigprocmask(SIG_BLOCK, &sigset, NULL);
++	fds[1].fd = signalfd(-1, &sigset, 0);
++	if (fds[1].fd < 0)
++		error(1, errno, "signalfd");
++	fds[1].events = POLLIN;
 +
-+	addr = baseaddr;
-+	d->state_table = (u32 *)addr;
++	mmio_write32(&regs->int_control, 1);
++	alarm(1);
 +
-+	addr += d->state_table_sz;
-+	d->rw_section = (u32 *)addr;
-+
-+	addr += d->rw_section_sz;
-+	d->in_sections = (u32 *)addr;
-+
-+	addr += d->id * d->out_section_sz;
-+	d->out_section = (u32 *)addr;
-+
-+	printk("IVSHMEM: state table is at %p\n", d->state_table);
-+	printk("IVSHMEM: R/W section is at %p\n", d->rw_section);
-+	printk("IVSHMEM: input sections start at %p\n", d->in_sections);
-+	printk("IVSHMEM: output section is at %p\n", d->out_section);
-+
-+	size = d->state_table_sz + d->rw_section_sz +
-+		max_peers * d->out_section_sz;
-+	map_range((void *)baseaddr, size, MAP_CACHED);
-+
-+	d->msix_cap = pci_find_cap(d->bdf, PCI_CAP_MSIX);
-+	vectors = d->msix_cap > 0 ? MAX_VECTORS : 1;
-+	for (n = 0; n < vectors; n++) {
-+		if (d->msix_cap > 0)
-+			pci_msix_set_vector(d->bdf, irq_base + n, n);
-+		irq_enable(irq_base + n);
-+	}
-+}
-+
-+static void send_irq(struct ivshmem_dev_data *d)
-+{
-+	u32 int_no = d->msix_cap > 0 ? (d->id + 1) : 0;
-+	u32 target = d->id < 2 ? (d->id + 1) : 0;
-+
-+	disable_irqs();
-+	printk("\nIVSHMEM: sending IRQ %d to peer %d\n", int_no, target);
-+	enable_irqs();
-+	mmio_write32(&d->registers->doorbell, int_no | (target << 16));
-+}
-+
-+void inmate_main(void)
-+{
-+	unsigned int class_rev;
-+	int bdf;
-+
-+	irq_base = cmdline_parse_int("irq_base", DEFAULT_IRQ_BASE);
-+
-+	irq_init(irq_handler);
-+	pci_init();
-+
-+	bdf = pci_find_device(VENDORID, DEVICEID, 0);
-+	if (bdf == -1) {
-+		printk("IVSHMEM: No PCI devices found .. nothing to do.\n");
-+		stop();
-+	}
-+
-+	printk("IVSHMEM: Found device at %02x:%02x.%x\n",
-+	       bdf >> 8, (bdf >> 3) & 0x1f, bdf & 0x3);
-+	class_rev = pci_read_config(bdf, 0x8, 4);
-+	if (class_rev != (PCI_DEV_CLASS_OTHER << 24 |
-+	    JAILHOUSE_SHMEM_PROTO_UNDEFINED << 8)) {
-+		printk("IVSHMEM: class/revision %08x, not supported\n",
-+		       class_rev);
-+		stop();
-+	}
-+
-+	dev.bdf = bdf;
-+	init_device(&dev);
-+	printk("IVSHMEM: initialized device\n");
-+
-+	mmio_write32(&dev.registers->int_control, 1);
-+
-+	mmio_write32(&dev.registers->state, dev.id + 1);
-+	dev.rw_section[dev.id] = 0;
-+	dev.out_section[0] = 0;
-+	print_shmem(&dev);
-+
-+	enable_irqs();
++	print_shmem();
 +
 +	while (1) {
-+		delay_us(1000*1000);
-+		send_irq(&dev);
++		ret = poll(fds, 2, -1);
++		if (ret < 0)
++			error(1, errno, "poll");
++
++		if (fds[0].revents & POLLIN) {
++			ret = read(fds[0].fd, &int_count, sizeof(int_count));
++			if (ret != sizeof(int_count))
++				error(1, errno, "read(uio)");
++
++			rw[id] = int_count;
++			out[0] = int_count * 10;
++			printf("\nInterrupt #%d\n", int_count);
++			print_shmem();
++
++			mmio_write32(&regs->int_control, 1);
++		}
++		if (fds[1].revents & POLLIN) {
++			ret = read(fds[1].fd, &siginfo, sizeof(siginfo));
++			if (ret != sizeof(siginfo))
++				error(1, errno, "read(sigfd)");
++
++			int_no = has_msix ? (id + 1) : 0;
++			target = (id + 1) % 3;
++			printf("\nSending interrupt %d to peer %d\n",
++			       int_no, target);
++			mmio_write32(&regs->doorbell, int_no | (target << 16));
++
++			alarm(1);
++		}
 +	}
 +}
-diff --git a/inmates/demos/x86/Makefile b/inmates/demos/x86/Makefile
-index 8defc67c..f53b739e 100644
---- a/inmates/demos/x86/Makefile
-+++ b/inmates/demos/x86/Makefile
-@@ -20,7 +20,7 @@ apic-demo-y	:= apic-demo.o
- ioapic-demo-y	:= ioapic-demo.o
- pci-demo-y	:= pci-demo.o
- e1000-demo-y	:= e1000-demo.o
--ivshmem-demo-y	:= ivshmem-demo.o
-+ivshmem-demo-y	:= ../ivshmem-demo.o
- smp-demo-y	:= smp-demo.o
- 
- $(eval $(call DECLARE_32_BIT,32-bit-demo))
-diff --git a/inmates/demos/x86/ivshmem-demo.c b/inmates/demos/x86/ivshmem-demo.c
-deleted file mode 100644
-index 185c9ff7..00000000
---- a/inmates/demos/x86/ivshmem-demo.c
-+++ /dev/null
-@@ -1,169 +0,0 @@
--/*
-- * Jailhouse, a Linux-based partitioning hypervisor
-- *
-- * Copyright (c) Siemens AG, 2014-2016
-- *
-- * Authors:
-- *  Henning Schild <henning.schild@siemens.com>
-- *
-- * This work is licensed under the terms of the GNU GPL, version 2.  See
-- * the COPYING file in the top-level directory.
-- */
--#include <inmate.h>
--
--#define VENDORID	0x1af4
--#define DEVICEID	0x1110
--
--#define IVSHMEM_CFG_SHMEM_PTR	0x40
--#define IVSHMEM_CFG_SHMEM_SZ	0x48
--
--#define JAILHOUSE_SHMEM_PROTO_UNDEFINED	0x0000
--
--#define IRQ_VECTOR	32
--
--#define MAX_NDEV	4
--#define UART_BASE	0x3F8
--
--static char str[32] = "Hello From IVSHMEM  ";
--static int ndevices;
--static int irq_counter;
--
--struct ivshmem_dev_data {
--	u16 bdf;
--	u32 *registers;
--	void *shmem;
--	u32 *msix_table;
--	u64 shmemsz;
--	u64 bar2sz;
--};
--
--static struct ivshmem_dev_data devs[MAX_NDEV];
--
--static u64 pci_cfg_read64(u16 bdf, unsigned int addr)
--{
--	u64 bar;
--
--	bar = ((u64)pci_read_config(bdf, addr + 4, 4) << 32) |
--	      pci_read_config(bdf, addr, 4);
--	return bar;
--}
--
--static void pci_cfg_write64(u16 bdf, unsigned int addr, u64 val)
--{
--	pci_write_config(bdf, addr + 4, (u32)(val >> 32), 4);
--	pci_write_config(bdf, addr, (u32)val, 4);
--}
--
--static u64 get_bar_sz(u16 bdf, u8 barn)
--{
--	u64 bar, tmp;
--	u64 barsz;
--
--	bar = pci_cfg_read64(bdf, PCI_CFG_BAR + (8 * barn));
--	pci_cfg_write64(bdf, PCI_CFG_BAR + (8 * barn), 0xffffffffffffffffULL);
--	tmp = pci_cfg_read64(bdf, PCI_CFG_BAR + (8 * barn));
--	barsz = ~(tmp & ~(0xf)) + 1;
--	pci_cfg_write64(bdf, PCI_CFG_BAR + (8 * barn), bar);
--
--	return barsz;
--}
--
--static void map_shmem_and_bars(struct ivshmem_dev_data *d)
--{
--	int cap = pci_find_cap(d->bdf, PCI_CAP_MSIX);
--
--	if (cap < 0) {
--		printk("IVSHMEM ERROR: device is not MSI-X capable\n");
--		return;
--	}
--
--	d->shmemsz = pci_cfg_read64(d->bdf, IVSHMEM_CFG_SHMEM_SZ);
--	d->shmem = (void *)pci_cfg_read64(d->bdf, IVSHMEM_CFG_SHMEM_PTR);
--
--	printk("IVSHMEM: shmem is at %p\n", d->shmem);
--	d->registers = (u32 *)((u64)(d->shmem + d->shmemsz + PAGE_SIZE - 1)
--		& PAGE_MASK);
--	pci_cfg_write64(d->bdf, PCI_CFG_BAR, (u64)d->registers);
--	printk("IVSHMEM: bar0 is at %p\n", d->registers);
--	d->bar2sz = get_bar_sz(d->bdf, 2);
--	d->msix_table = (u32 *)((u64)d->registers + PAGE_SIZE);
--	pci_cfg_write64(d->bdf, PCI_CFG_BAR + 16, (u64)d->msix_table);
--	printk("IVSHMEM: bar2 is at %p\n", d->msix_table);
--
--	pci_write_config(d->bdf, PCI_CFG_COMMAND,
--			 (PCI_CMD_MEM | PCI_CMD_MASTER), 2);
--	map_range(d->shmem, d->shmemsz + PAGE_SIZE + d->bar2sz, MAP_UNCACHED);
--}
--
--static int get_ivpos(struct ivshmem_dev_data *d)
--{
--	return mmio_read32(d->registers + 2);
--}
--
--static void send_irq(struct ivshmem_dev_data *d)
--{
--	printk("IVSHMEM: %02x:%02x.%x sending IRQ\n",
--	       d->bdf >> 8, (d->bdf >> 3) & 0x1f, d->bdf & 0x3);
--	mmio_write32(d->registers + 3, 1);
--}
--
--static void irq_handler(unsigned int irq)
--{
--	printk("IVSHMEM: got interrupt ... %d\n", irq_counter++);
--}
--
--void inmate_main(void)
--{
--	int i;
--	int bdf = 0;
--	unsigned int class_rev;
--	struct ivshmem_dev_data *d;
--	volatile char *shmem;
--
--	irq_init(irq_handler);
--
--	while ((ndevices < MAX_NDEV) &&
--	       (-1 != (bdf = pci_find_device(VENDORID, DEVICEID, bdf)))) {
--		printk("IVSHMEM: Found %04x:%04x at %02x:%02x.%x\n",
--		       pci_read_config(bdf, PCI_CFG_VENDOR_ID, 2),
--		       pci_read_config(bdf, PCI_CFG_DEVICE_ID, 2),
--		       bdf >> 8, (bdf >> 3) & 0x1f, bdf & 0x3);
--		class_rev = pci_read_config(bdf, 0x8, 4);
--		if (class_rev != (PCI_DEV_CLASS_OTHER << 24 |
--				  JAILHOUSE_SHMEM_PROTO_UNDEFINED << 8)) {
--			printk("IVSHMEM: class/revision %08x, not supported "
--			       "skipping device\n", class_rev);
--			bdf++;
--			continue;
--		}
--		ndevices++;
--		d = devs + ndevices - 1;
--		d->bdf = bdf;
--		map_shmem_and_bars(d);
--		printk("IVSHMEM: mapped the bars got position %d\n",
--			get_ivpos(d));
--
--		memcpy(d->shmem, str, 32);
--
--		pci_msix_set_vector(bdf, IRQ_VECTOR + ndevices - 1, 0);
--		bdf++;
--	}
--
--	if (!ndevices) {
--		printk("IVSHMEM: No PCI devices found .. nothing to do.\n");
--		goto out;
--	}
--
--	asm volatile("sti");
--	while (1) {
--		for (i = 0; i < ndevices; i++) {
--			d = devs + i;
--			delay_us(1000*1000);
--			shmem = d->shmem;
--			shmem[19]++;
--			send_irq(d);
--		}
--	}
--out:
--	halt();
--}
 -- 
 2.16.4
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/3d123343f83d3b1ff2ed4038ab4289544b7fac23.1578320435.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/87cc49f944ed756e930b70991726ca5595a30717.1578320435.git.jan.kiszka%40siemens.com.
