@@ -1,33 +1,33 @@
 Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBOMEZXYAKGQEVNGPPNQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23a.google.com (mail-lj1-x23a.google.com [IPv6:2a00:1450:4864:20::23a])
-	by mail.lfdr.de (Postfix) with ESMTPS id A62C513137B
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  6 Jan 2020 15:20:41 +0100 (CET)
-Received: by mail-lj1-x23a.google.com with SMTP id a19sf8143123ljp.15
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 06 Jan 2020 06:20:41 -0800 (PST)
+Received: from mail-lf1-x13d.google.com (mail-lf1-x13d.google.com [IPv6:2a00:1450:4864:20::13d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2016713137C
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  6 Jan 2020 15:20:42 +0100 (CET)
+Received: by mail-lf1-x13d.google.com with SMTP id v10sf7971075lfa.14
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 06 Jan 2020 06:20:42 -0800 (PST)
 ARC-Seal: i=2; a=rsa-sha256; t=1578320441; cv=pass;
         d=google.com; s=arc-20160816;
-        b=OzGB8hAZU4bqKv4I5WlNo9tng/3TouC3BLIXQs0kImUOAvi1bnc5ZrfymC8S85x7gw
-         HSQ40670mvwty/ipwmiFbTCOzULMjA9o3it9DkpFO+49EEdWw0TDV/DH5HuD9WrDLzej
-         Rl3cEaz4KZlg50Db+CFXj6c7s15CZHcKAup7gpDTOaFeBXg0ZO/NeMF3IQH6RpjxqqwL
-         XcKf+lkv+VTqKSCyJsf0qidMs0bkUJ1foTYLwEQq+3r70FHP8MSi6Wu5qugV5+qCPaal
-         88Y/Wum07JeCqYzX1Y+gCH4g5PdZvVJIFxNo8EPLASxPLxUqSxKJqFYfvefDPdHfAJ0a
-         Rciw==
+        b=w3F3B6U7wNhXoxlKaQ9Y+Y1NEhfvHxQ5Y3dRakzaOQSllxnZDRxBTuCVl1bWfn/EJ3
+         Wna5ssVf6zGHzkDtKcC18q7+BiEqFvBCqayLapRWFPChouxl1IJbMyRzWnCaXr+wmUB1
+         MrhyJVfpoZ5IiKlBvjZjBMVwUPY4s2Wk77nxdatxfWm4PnSOktnAGDBS3PMWKAGHDvk2
+         lLvERoFHqwY63cK3P5oKo0gN4MZIF08vxM9Z1MaOrSSnutj0sKt3hZGF0lSwdViMxpGm
+         Xz+y5NyVj6SLOUX1FCmwhShz7jEf7f4xtXPyLoXSlwg1HtPqsuHgSBDShqELT1oxZ5Q+
+         CCTA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:references:in-reply-to:references
          :in-reply-to:message-id:date:subject:to:from:mime-version:sender
          :dkim-signature;
-        bh=YCesyL4th3AI6YRlI9mTyAwIikHefgO0xNoAkpPB3Oo=;
-        b=i3S/Zm08ns9upbVwQwATyLuVLeEVGJbBDFZMSHE0xUqb7it6T7ZmpriAWYLdwgrJ1L
-         16MxmVLzWSQtPRctOL/YfJFFwQEyKQeV86oxu9FIzgTA9KqdpI/E/KUceQDbAOYI65pn
-         VEfUWPfPoKUlvowGzD2w53N6vNQvO5EhH4Vu6ZeOmpD3PoghQXyh2sUYqCnUyPrS0I2Q
-         ogEIArtYefx/uMeXW5PGIwznwFKDeQ30s4C9SidKOyZKWQmQYxGToOrOEIirHvbGI/Et
-         2B0QIlfIgLTF1rRAzUTm+kmfyUYLnkI/swI49iNF8SHWjC1pgDu1AqH8sy9/7YzOg1le
-         M5OA==
+        bh=84M/feKTqewQchnWpYjaBxhApU8KIVne4YqxGgYPjh8=;
+        b=CiBBiOuTKfaldcclJneVXK208QgW1/xS5ocFm7ArjghJnFRRk7jeq4dPr72YDJKJvn
+         74IDgHoCPbOlqr8WwQtPnYiC6jZeV1Q8BrPAziJpkWrcwLLmw37C9HUNPjg968IOf7WF
+         0LBaCfuYGZd5ZkAOqC1LhNCWcTQ23V0841v7ZfND/d1mK+qRZtBIUBZDqP++r2Nt8ecG
+         Hfz5QiQ9WwZ3EepY4w/5KCe0fFA8LKcZA6dbU3MnOP4qJyO6hra8x7frjbh78sb8Sxo0
+         LuKajoTj8da8x4V3HuTC02pZL9jq8wYoK66tZDA7xUMXYAIQdW6xq/cWOAQmmZs14uSX
+         5xnQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:in-reply-to:references:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=YCesyL4th3AI6YRlI9mTyAwIikHefgO0xNoAkpPB3Oo=;
-        b=ICglKTlAHeAF7WFZrVQxhxAjAvuqCd7qKvs37YRpW1EyF8POoahDZOB0MRbRrGD/xL
-         +SyZMq8KKkXtiztcH1VDaoLp84bS9l60BE6q1IfzrNcdxGWDVNIznSIaW/Q/6aKs/zWs
-         6QS53rQz7bmOiW1xufaqwGKq9Cq+6fPbkMa3qk+HxusI3q4zsHooFFeduXB8ih8dteGv
-         sGQ94PpoKI/8FxgorPMXjqWYEFQ8c6k2lOXqeqIs1n84aovGOQNcApMH4n3g8xsbu/De
-         NweHdnxQhnmzasg9pkmqhiJzKHNJdCBDK8VW80yH6jZTj1M/DgUTxk+GIyA/ZWoIGo8R
-         Tbgw==
+        bh=84M/feKTqewQchnWpYjaBxhApU8KIVne4YqxGgYPjh8=;
+        b=cnZMOyleWWCa2owCTvdN/75np+FjQqoECLknnrKJOFv3jY79WOp0uIL8wmyUuJiaUZ
+         dIXbC3cB21iIpp4zdfeGvmwo+S69ixZqQRtmBFTQ/3ReIsnR+CAQei7dGIH4+vuQBf1C
+         wlz6UWYyA+IlOivWVbVFV4eaN8hJfeiEJpgZGNSaPeutkA5CtmvUPpbPl7mEflrGljfU
+         cEDAx6Y/L/L3A/NP3De1tqXgP3T7Rs01DywRvOj21H/7RxcJd7z8sC2Nx7ilaEo93+lA
+         qnQz90qfbdSpl67vr7luRqh5eDpV0tK8Jz/nFGh5Ud46E6acPicX03aOony6BUHcGvN9
+         Pfog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:mime-version:from:to:subject:date
@@ -49,64 +49,64 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=YCesyL4th3AI6YRlI9mTyAwIikHefgO0xNoAkpPB3Oo=;
-        b=Tjl6suVW+m+EDPcBR/FDSLw1xP+/ArbN3Wmj3n4Td8SsaqY/C4o3jWOpK53v/wNKAQ
-         rK54N4j10XlWLpTBciTvlgSd92SJnLisCqBT65w559exgW5qJK1Ijdk2zPqZlk9hjT3m
-         XOxENVVoUKuQMXl1yRsbxJiqDLj2hSalKpWldJOeg8JsIh564pqGQtNMXihTxc99PUr/
-         X3gtvwsbKGw9tLMfq8/Ldsh5gkcQPtP4ZHA29eMhgT5GRivLhGCMYj/BW3epdtV8zEjX
-         xxl3+lmIgmLeoDnY74uZFdQMjLqUjYA+zwzPCS36EqvFuIfdd9yUXSjr6XSgob7QFCaq
-         +ucg==
+        bh=84M/feKTqewQchnWpYjaBxhApU8KIVne4YqxGgYPjh8=;
+        b=NG0kCzVC0rUNcis2amBfAr9BiN53uF+3IpCaOOCK0tNnw8q3omc595oEg32Ks18xYp
+         xn4ATXqPI2mBSuGkIqbfaH2LRc9A1COu5A08v8D1l9uQpK/TgkiH+AVDUo4iA2OCZ6Hg
+         MwJNiAqkQ/9xf186mijSM3dP2wODtAWmbxCf2V1qjAJPBSxlPsmYg0yylo7FTLqP+zyZ
+         W7e6eQocB6Jj6elV2Qf/SnyzLIMoNI9zLFNKCfZOprhjl/rm0Kq8S37obyEprcOR1Tv5
+         iWQv+grY9W9V27Bu0X6F9Fiu7q9ImFPqQtgMjV2ocvpwL2qepM5Tj3+PmMmk2ZWV4P4S
+         HgGw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXyx9rxIEnpwAvTrQlpl0ulzRkyURB3p3Lfo4HQpOv/FFwwIty3
-	3ZYk+LkxLSi16CuhCS0HrHc=
-X-Google-Smtp-Source: APXvYqzDq7kkxN9IfVD4Duixia9ubfmECmhULC5N+EZNCUQyZx0LyTI2qlHnPi33St+1lMnKgC9eKA==
-X-Received: by 2002:a2e:8090:: with SMTP id i16mr61814598ljg.88.1578320441261;
+X-Gm-Message-State: APjAAAXyJVgIgmIlyIsTXGYUzQifxPb+XwPZbmZJzIkx6E+7GBlmQBKM
+	ec2jzGGmBduCl1PDXU2R+/s=
+X-Google-Smtp-Source: APXvYqyxl0YXSg+vrEQvzyYSzQKhEnZV+OnaiTFyZzwYdGk9eZgHv4+0K6ClUoW3hlZm/yNEH73u8w==
+X-Received: by 2002:a19:6a06:: with SMTP id u6mr57603777lfu.187.1578320441679;
         Mon, 06 Jan 2020 06:20:41 -0800 (PST)
 MIME-Version: 1.0
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a19:5056:: with SMTP id z22ls4154893lfj.2.gmail; Mon, 06 Jan
- 2020 06:20:40 -0800 (PST)
-X-Received: by 2002:ac2:51de:: with SMTP id u30mr56102205lfm.69.1578320440530;
+Received: by 2002:a2e:730c:: with SMTP id o12ls4970475ljc.12.gmail; Mon, 06
+ Jan 2020 06:20:40 -0800 (PST)
+X-Received: by 2002:a2e:93d5:: with SMTP id p21mr62883707ljh.50.1578320440914;
         Mon, 06 Jan 2020 06:20:40 -0800 (PST)
 ARC-Seal: i=1; a=rsa-sha256; t=1578320440; cv=none;
         d=google.com; s=arc-20160816;
-        b=CQTeqZiK78rZA1wCUtR2VIphNWEJO+IkPcwEVD0bvCfZfqsjoYf6oTIU3Ov26Me52n
-         lSrXIg3jqE0zJ9EOi9+FB4vWnfnZEKBK5QgRaAZCyuCJOJSjZHmd9sgs2szLMEnt38VX
-         8UHN9LnXvoFRxJZs3vvIH4dX7PP09XEc1rfn+LlYMbZJJw5sKYJbJfo7rHrTeIffBcfJ
-         cY70n/dQrj8J60AcoJxbJ70Prr27nRVSSdtgHSK5FsCTNtLGnuA2x4siYjejcX9grbA2
-         enRT81EPpxEUzQxmhzSMCLFY1zSJVaMNpy7qTVISmCbTrdiv39MVvaVAA101CBbDk/38
-         B/Ig==
+        b=HszVX3LiYJxbeph40F9ZtJMsTyMOKWhz7Qkvt+UqdOveFmgLItYQizXUDFsk1jeOQo
+         Bfm+85TJdC1zTJBw0i+2fLiy4Y7CRLF4MpFjRQOCjlLIkuHD0dTp3sYJyhkqnmbkfPw2
+         q/2vhlbF9NHxqjnd+z2zrg2GFw7sDoSYxL2YmV7QWF6ETxXu2R59FIreGnzSVFgx2vDY
+         99sm0zt6gWREWamfxKOSofPjWEDH8mfZBw6b5ih3jvDERHbiUuxc9X4tIGL7sljyvcGh
+         rgh4Ty0IlRWR6tdoeTeNPwHsjxsnrU90hE/Nt8ozUes0rRW6MeKMrVoaaPnQLXhn/iYJ
+         6LTw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=references:in-reply-to:references:in-reply-to:message-id:date
          :subject:to:from;
-        bh=22Uw22sWKQzzdPslWDasJ7NnTWlBQmrdwvvIVKhbLZY=;
-        b=WsRiOistdFa6adkcb6UzOgSlquY8YbN7KNGv6CFFz6Qy1cjTQmyMzo0Lpcr/JH6brK
-         cB6XWrg5yQaiNDf2BcfzbAZGtUMFkpGSXiA0MA7zLe8omjEcI0LFyzNpVESbqHMLNDqq
-         5dyITSmMbSyVUfYOFNwEBKGX03S29i/MlKlEA1awXNsFav5Z6o4msj3UdpwNjLxG+2RL
-         gPr/Gls4Cmg0UjhAg9aBwdop3M8Xw+1CJpn9+o5fqf8gnZbRG9OZ2cFFmWTjs2DL2hqj
-         +41SEMthlBs9x9tzkISXbtw/m0N5V2Qb7jbdhxNkC+amD+G1BXM04mZx6sS8vVBkgcU0
-         GgCQ==
+        bh=wSUGtYodcYNiAQVAq5gKggnN7H2Fb6CTHUIch3oOnRE=;
+        b=RNzteESv0fh5Ff17tm5p+MwJ6QIljcVKSU/lfkKOqvGq8EnRyKECEwV39m/sV4do0p
+         vaF1I7yjiY9HXzbYhENomyuPjKKuj+80onsh2AbbdS485K64HSkk4EC1uF7C/DIgIQAc
+         m74i2iNipGj0jx3Lr7QrpljL0hlnN586WH9fTGnOQcbvWHhLUd6Jy01wh4I2SDSmL1bh
+         BXvDvENtchSeGNKgAFDEU4MrTf2trYi7XAGlg+2NuUARNGL/qEfevqyIhF56ulI0fFKX
+         d3YzpTGtU+5gvf1mjUJdrTR7J39lUQsw+7b/dMbuzDqkNIzI9a48CmY0rkM7v2pxInk3
+         xYsQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id o193si1374709lff.4.2020.01.06.06.20.40
+Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
+        by gmr-mx.google.com with ESMTPS id o24si2876511lji.4.2020.01.06.06.20.40
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
         Mon, 06 Jan 2020 06:20:40 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 006EKdC5016658
+	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 006EKelk019197
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
-	for <jailhouse-dev@googlegroups.com>; Mon, 6 Jan 2020 15:20:39 +0100
+	for <jailhouse-dev@googlegroups.com>; Mon, 6 Jan 2020 15:20:40 +0100
 Received: from md1f2u6c.ad001.siemens.net ([167.87.36.235])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 006EKZjL008447
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 006EKZjM008447
 	for <jailhouse-dev@googlegroups.com>; Mon, 6 Jan 2020 15:20:39 +0100
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [PATCH 13/19] tools: Add ivshmem-demo for Linux/UIO
-Date: Mon,  6 Jan 2020 15:20:29 +0100
-Message-Id: <87cc49f944ed756e930b70991726ca5595a30717.1578320435.git.jan.kiszka@siemens.com>
+Subject: [PATCH 14/19] configs: arm/arm64: Remove uart demos
+Date: Mon,  6 Jan 2020 15:20:30 +0100
+Message-Id: <8771cb77e4ea0e170272397bb59e491633e1b1f1.1578320435.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <cover.1578320435.git.jan.kiszka@siemens.com>
 References: <cover.1578320435.git.jan.kiszka@siemens.com>
@@ -114,7 +114,7 @@ In-Reply-To: <cover.1578320435.git.jan.kiszka@siemens.com>
 References: <cover.1578320435.git.jan.kiszka@siemens.com>
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
@@ -132,227 +132,418 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-This does almost the same as inmates/demos/ivshmem-demo.c, just using
-the UIO driver for ivshmem under Linux.
+Those add no value, compared to the gic-demo configs. They only increase
+maintenance efforts.
+
+The emtrion boards only have uart demos, no gic equivalents. Keep those
+for now.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- .gitignore           |   1 +
- tools/Makefile       |   7 ++-
- tools/ivshmem-demo.c | 159 +++++++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 165 insertions(+), 2 deletions(-)
- create mode 100644 tools/ivshmem-demo.c
+ configs/arm/bananapi-uart-demo.c        | 77 ---------------------------------
+ configs/arm64/amd-seattle-uart-demo.c   | 69 -----------------------------
+ configs/arm64/foundation-v8-uart-demo.c | 69 -----------------------------
+ configs/arm64/k3-am654-uart-demo.c      | 71 ------------------------------
+ configs/arm64/k3-j721e-evm-uart-demo.c  | 72 ------------------------------
+ 5 files changed, 358 deletions(-)
+ delete mode 100644 configs/arm/bananapi-uart-demo.c
+ delete mode 100644 configs/arm64/amd-seattle-uart-demo.c
+ delete mode 100644 configs/arm64/foundation-v8-uart-demo.c
+ delete mode 100644 configs/arm64/k3-am654-uart-demo.c
+ delete mode 100644 configs/arm64/k3-j721e-evm-uart-demo.c
 
-diff --git a/.gitignore b/.gitignore
-index 75145605..4691ff79 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -21,6 +21,7 @@ hypervisor/hypervisor.lds
- inmates/lib/arm/inmate.lds
- inmates/lib/arm64/inmate.lds
- pyjailhouse/pci_defs.py
-+tools/ivshmem-demo
- tools/jailhouse
- tools/jailhouse-gcov-extract
- tools/jailhouse-config-collect
-diff --git a/tools/Makefile b/tools/Makefile
-index 2d6ba9a0..542127cf 100644
---- a/tools/Makefile
-+++ b/tools/Makefile
-@@ -32,7 +32,7 @@ KBUILD_LDFLAGS :=
- KBUILD_CFLAGS += $(call cc-option, -fno-pie)
- KBUILD_CFLAGS += $(call cc-option, -no-pie)
- 
--BINARIES := jailhouse
-+BINARIES := jailhouse ivshmem-demo
- always := $(BINARIES)
- 
- HAS_PYTHON_MAKO := \
-@@ -100,11 +100,14 @@ define cmd_gen_man
- 	sed 's/$${VERSION}/$(shell cat $(src)/../VERSION)/g' $< > $@
- endef
- 
--targets += jailhouse.o
-+targets += jailhouse.o ivshmem-demo.o
- 
- $(obj)/jailhouse: $(obj)/jailhouse.o
- 	$(call if_changed,ld)
- 
-+$(obj)/ivshmem-demo: $(obj)/ivshmem-demo.o
-+	$(call if_changed,ld)
-+
- CFLAGS_jailhouse-gcov-extract.o	:= -I$(src)/../hypervisor/include \
- 	-I$(src)/../hypervisor/arch/$(SRCARCH)/include
- # just change ldflags not cflags, we are not profiling the tool
-diff --git a/tools/ivshmem-demo.c b/tools/ivshmem-demo.c
-new file mode 100644
-index 00000000..8201ad15
---- /dev/null
-+++ b/tools/ivshmem-demo.c
-@@ -0,0 +1,159 @@
-+/*
-+ * Jailhouse, a Linux-based partitioning hypervisor
-+ *
-+ * Copyright (c) Siemens AG, 2019-2020
-+ *
-+ * Authors:
-+ *  Jan Kiszka <jan.kiszka@siemens.com>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See
-+ * the COPYING file in the top-level directory.
-+ */
-+
-+#include <errno.h>
-+#include <error.h>
-+#include <libgen.h>
-+#include <poll.h>
-+#include <signal.h>
-+#include <stdio.h>
-+#include <stdint.h>
-+#include <string.h>
-+#include <unistd.h>
-+#include <sys/mman.h>
-+#include <sys/fcntl.h>
-+#include <sys/signalfd.h>
-+
-+struct ivshm_regs {
-+	uint32_t id;
-+	uint32_t max_peers;
-+	uint32_t int_control;
-+	uint32_t doorbell;
-+	uint32_t state;
-+};
-+
-+static volatile uint32_t *state, *rw, *in, *out;
-+static uint32_t id, int_count;
-+
-+static inline uint32_t mmio_read32(void *address)
-+{
-+        return *(volatile uint32_t *)address;
-+}
-+
-+static inline void mmio_write32(void *address, uint32_t value)
-+{
-+        *(volatile uint32_t *)address = value;
-+}
-+
-+static void print_shmem(void)
-+{
-+	printf("state[0] = %d\n", state[0]);
-+	printf("state[1] = %d\n", state[1]);
-+	printf("state[2] = %d\n", state[2]);
-+	printf("rw[0] = %d\n", rw[0]);
-+	printf("rw[1] = %d\n", rw[1]);
-+	printf("rw[2] = %d\n", rw[2]);
-+	printf("in@0x0000 = %d\n", in[0/4]);
-+	printf("in@0x2000 = %d\n", in[0x2000/4]);
-+	printf("in@0x4000 = %d\n", in[0x4000/4]);
-+}
-+
-+int main(int argc, char *argv[])
-+{
-+	char sysfs_path[64];
-+	struct ivshm_regs *regs;
-+	uint32_t int_no, target = 0;
-+	struct signalfd_siginfo siginfo;
-+	struct pollfd fds[2];
-+	sigset_t sigset;
-+	char *path;
-+	int has_msix;
-+	int ret;
-+
-+	if (argc < 2)
-+		path = strdup("/dev/uio0");
-+	else
-+		path = strdup(argv[1]);
-+	fds[0].fd = open(path, O_RDWR);
-+	if (fds[0].fd < 0)
-+		error(1, errno, "open(%s)", path);
-+	fds[0].events = POLLIN;
-+
-+	snprintf(sysfs_path, sizeof(sysfs_path),
-+		 "/sys/class/uio/%s/device/msi_irqs", basename(path));
-+	has_msix = access(sysfs_path, R_OK) == 0;
-+
-+	regs = mmap(NULL, 4096, PROT_READ | PROT_WRITE, MAP_SHARED,
-+		    fds[0].fd, 0);
-+	if (regs == MAP_FAILED)
-+		error(1, errno, "mmap(regs)");
-+
-+	id = mmio_read32(&regs->id);
-+	printf("ID = %d\n", id);
-+
-+	state = mmap(NULL, 4096, PROT_READ, MAP_SHARED, fds[0].fd, 4096 * 1);
-+	if (state == MAP_FAILED)
-+		error(1, errno, "mmap(state)");
-+
-+	rw = mmap(NULL, 4096 * 9, PROT_READ | PROT_WRITE, MAP_SHARED,
-+		  fds[0].fd, 4096 * 2);
-+	if (rw == MAP_FAILED)
-+		error(1, errno, "mmap(rw)");
-+
-+	in = mmap(NULL, 4096 * 6, PROT_READ, MAP_SHARED, fds[0].fd, 4096 * 3);
-+	if (in == MAP_FAILED)
-+		error(1, errno, "mmap(in)");
-+
-+	out = mmap(NULL, 4096 * 2, PROT_READ | PROT_WRITE, MAP_SHARED,
-+		   fds[0].fd, 4096 * 4);
-+	if (out == MAP_FAILED)
-+		error(1, errno, "mmap(out)");
-+
-+	mmio_write32(&regs->state, id + 1);
-+	rw[id] = 0;
-+	out[0] = 0;
-+
-+	sigemptyset(&sigset);
-+	sigaddset(&sigset, SIGALRM);
-+	sigprocmask(SIG_BLOCK, &sigset, NULL);
-+	fds[1].fd = signalfd(-1, &sigset, 0);
-+	if (fds[1].fd < 0)
-+		error(1, errno, "signalfd");
-+	fds[1].events = POLLIN;
-+
-+	mmio_write32(&regs->int_control, 1);
-+	alarm(1);
-+
-+	print_shmem();
-+
-+	while (1) {
-+		ret = poll(fds, 2, -1);
-+		if (ret < 0)
-+			error(1, errno, "poll");
-+
-+		if (fds[0].revents & POLLIN) {
-+			ret = read(fds[0].fd, &int_count, sizeof(int_count));
-+			if (ret != sizeof(int_count))
-+				error(1, errno, "read(uio)");
-+
-+			rw[id] = int_count;
-+			out[0] = int_count * 10;
-+			printf("\nInterrupt #%d\n", int_count);
-+			print_shmem();
-+
-+			mmio_write32(&regs->int_control, 1);
-+		}
-+		if (fds[1].revents & POLLIN) {
-+			ret = read(fds[1].fd, &siginfo, sizeof(siginfo));
-+			if (ret != sizeof(siginfo))
-+				error(1, errno, "read(sigfd)");
-+
-+			int_no = has_msix ? (id + 1) : 0;
-+			target = (id + 1) % 3;
-+			printf("\nSending interrupt %d to peer %d\n",
-+			       int_no, target);
-+			mmio_write32(&regs->doorbell, int_no | (target << 16));
-+
-+			alarm(1);
-+		}
-+	}
-+}
+diff --git a/configs/arm/bananapi-uart-demo.c b/configs/arm/bananapi-uart-demo.c
+deleted file mode 100644
+index 0621ca52..00000000
+--- a/configs/arm/bananapi-uart-demo.c
++++ /dev/null
+@@ -1,77 +0,0 @@
+-/*
+- * Jailhouse, a Linux-based partitioning hypervisor
+- *
+- * Configuration for uart-demo inmate on Banana Pi:
+- * 1 CPU, 64K RAM, serial ports 4-7, CCU
+- *
+- * Copyright (c) Siemens AG, 2014
+- *
+- * Authors:
+- *  Jan Kiszka <jan.kiszka@siemens.com>
+- *
+- * This work is licensed under the terms of the GNU GPL, version 2.  See
+- * the COPYING file in the top-level directory.
+- */
+-
+-#include <jailhouse/types.h>
+-#include <jailhouse/cell-config.h>
+-
+-struct {
+-	struct jailhouse_cell_desc cell;
+-	__u64 cpus[1];
+-	struct jailhouse_memory mem_regions[4];
+-} __attribute__((packed)) config = {
+-	.cell = {
+-		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
+-		.revision = JAILHOUSE_CONFIG_REVISION,
+-		.name = "bananapi-uart-demo",
+-		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+-
+-		.cpu_set_size = sizeof(config.cpus),
+-		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+-
+-		.console = {
+-			.address = 0x01c29c00,
+-			.clock_reg = 0x01c2006c,
+-			.gate_nr = 23,
+-			.divider = 0x0d,
+-			.type = JAILHOUSE_CON_TYPE_8250,
+-			.flags = JAILHOUSE_CON_ACCESS_MMIO |
+-				 JAILHOUSE_CON_REGDIST_4,
+-		},
+-	},
+-
+-	.cpus = {
+-		0x2,
+-	},
+-
+-	.mem_regions = {
+-		/* CCU */ {
+-			.phys_start = 0x01c20000,
+-			.virt_start = 0x01c20000,
+-			.size = 0x400,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+-				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,
+-		},
+-		/* UART 4-7 */ {
+-			.phys_start = 0x01c29000,
+-			.virt_start = 0x01c29000,
+-			.size = 0x1000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+-				JAILHOUSE_MEM_IO,
+-		},
+-		/* RAM */ {
+-			.phys_start = 0x7bff0000,
+-			.virt_start = 0,
+-			.size = 0x00010000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+-		},
+-		/* communication region */ {
+-			.virt_start = 0x80000000,
+-			.size = 0x00001000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+-				JAILHOUSE_MEM_COMM_REGION,
+-		},
+-	}
+-};
+diff --git a/configs/arm64/amd-seattle-uart-demo.c b/configs/arm64/amd-seattle-uart-demo.c
+deleted file mode 100644
+index a0b6b551..00000000
+--- a/configs/arm64/amd-seattle-uart-demo.c
++++ /dev/null
+@@ -1,69 +0,0 @@
+-/*
+- * Jailhouse, a Linux-based partitioning hypervisor
+- *
+- * Configuration for uart-demo inmate on AMD Seattle:
+- * 1 CPU, 64K RAM, serial port 2
+- *
+- * Copyright (C) 2015 Huawei Technologies Duesseldorf GmbH
+- *
+- * Authors:
+- *  Antonios Motakis <antonios.motakis@huawei.com>
+- *
+- * This work is licensed under the terms of the GNU GPL, version 2.  See
+- * the COPYING file in the top-level directory.
+- */
+-
+-#include <jailhouse/types.h>
+-#include <jailhouse/cell-config.h>
+-
+-struct {
+-	struct jailhouse_cell_desc cell;
+-	__u64 cpus[1];
+-	struct jailhouse_memory mem_regions[3];
+-} __attribute__((packed)) config = {
+-	.cell = {
+-		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
+-		.revision = JAILHOUSE_CONFIG_REVISION,
+-		.name = "pl011-demo",
+-		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+-
+-		.cpu_set_size = sizeof(config.cpus),
+-		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+-		.num_irqchips = 0,
+-		.num_pci_devices = 0,
+-
+-		.console = {
+-			.address = 0xe1010000,
+-			.type = JAILHOUSE_CON_TYPE_PL011,
+-			.flags = JAILHOUSE_CON_ACCESS_MMIO |
+-				 JAILHOUSE_CON_REGDIST_4,
+-		},
+-	},
+-
+-	.cpus = {
+-		0x4,
+-	},
+-
+-	.mem_regions = {
+-		/* UART 2 */ {
+-			.phys_start = 0xe1010000,
+-			.virt_start = 0xe1010000,
+-			.size = 0x10000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+-				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
+-		},
+-		/* RAM */ {
+-			.phys_start = 0x83b0010000,
+-			.virt_start = 0,
+-			.size = 0x00010000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+-		},
+-		/* communication region */ {
+-			.virt_start = 0x80000000,
+-			.size = 0x00001000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+-				JAILHOUSE_MEM_COMM_REGION,
+-		},
+-	}
+-};
+diff --git a/configs/arm64/foundation-v8-uart-demo.c b/configs/arm64/foundation-v8-uart-demo.c
+deleted file mode 100644
+index ca78270b..00000000
+--- a/configs/arm64/foundation-v8-uart-demo.c
++++ /dev/null
+@@ -1,69 +0,0 @@
+-/*
+- * Jailhouse, a Linux-based partitioning hypervisor
+- *
+- * Configuration for uart-demo inmate on Foundation Model v8:
+- * 1 CPU, 64K RAM, serial port 2
+- *
+- * Copyright (C) 2015 Huawei Technologies Duesseldorf GmbH
+- *
+- * Authors:
+- *  Antonios Motakis <antonios.motakis@huawei.com>
+- *
+- * This work is licensed under the terms of the GNU GPL, version 2.  See
+- * the COPYING file in the top-level directory.
+- */
+-
+-#include <jailhouse/types.h>
+-#include <jailhouse/cell-config.h>
+-
+-struct {
+-	struct jailhouse_cell_desc cell;
+-	__u64 cpus[1];
+-	struct jailhouse_memory mem_regions[3];
+-} __attribute__((packed)) config = {
+-	.cell = {
+-		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
+-		.revision = JAILHOUSE_CONFIG_REVISION,
+-		.name = "pl011-demo",
+-		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+-
+-		.cpu_set_size = sizeof(config.cpus),
+-		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+-		.num_irqchips = 0,
+-		.num_pci_devices = 0,
+-
+-		.console = {
+-			.address = 0x1c090000,
+-			.type = JAILHOUSE_CON_TYPE_PL011,
+-			.flags = JAILHOUSE_CON_ACCESS_MMIO |
+-				 JAILHOUSE_CON_REGDIST_4,
+-		},
+-	},
+-
+-	.cpus = {
+-		0x4,
+-	},
+-
+-	.mem_regions = {
+-		/* UART 2 */ {
+-			.phys_start = 0x1c0b0000,
+-			.virt_start = 0x1c090000,
+-			.size = 0x10000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+-				JAILHOUSE_MEM_IO,
+-		},
+-		/* RAM */ {
+-			.phys_start = 0xfbff0000,
+-			.virt_start = 0,
+-			.size = 0x00010000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+-		},
+-		/* communication region */ {
+-			.virt_start = 0x80000000,
+-			.size = 0x00001000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+-				JAILHOUSE_MEM_COMM_REGION,
+-		},
+-	}
+-};
+diff --git a/configs/arm64/k3-am654-uart-demo.c b/configs/arm64/k3-am654-uart-demo.c
+deleted file mode 100644
+index 28dcf86c..00000000
+--- a/configs/arm64/k3-am654-uart-demo.c
++++ /dev/null
+@@ -1,71 +0,0 @@
+-/*
+- * Jailhouse, a Linux-based partitioning hypervisor
+- *
+- * Configuration for uart-demo inmate on K3 based platforms:
+- * 1 CPU, 64K RAM, 1 serial port(MCU UART 0)
+- *
+- * Copyright (c) 2019 Texas Instruments Incorporated - http://www.ti.com/
+- *
+- * Authors:
+- *  Nikhil Devshatwar <nikhil.nd@ti.com>
+- *  Lokesh Vutla <lokeshvutla@ti.com>
+- *
+- * This work is licensed under the terms of the GNU GPL, version 2.  See
+- * the COPYING file in the top-level directory.
+- */
+-
+-#include <jailhouse/types.h>
+-#include <jailhouse/cell-config.h>
+-
+-struct {
+-	struct jailhouse_cell_desc cell;
+-	__u64 cpus[1];
+-	struct jailhouse_memory mem_regions[3];
+-} __attribute__((packed)) config = {
+-	.cell = {
+-		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
+-		.revision = JAILHOUSE_CONFIG_REVISION,
+-		.name = "uart-demo",
+-		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+-
+-		.cpu_set_size = sizeof(config.cpus),
+-		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+-		.num_irqchips = 0,
+-		.num_pci_devices = 0,
+-
+-		.console = {
+-			.address = 0x40a00000,
+-			.divider = 0x35,
+-			.type = JAILHOUSE_CON_TYPE_8250,
+-			.flags = JAILHOUSE_CON_ACCESS_MMIO |
+-				 JAILHOUSE_CON_REGDIST_4,
+-		},
+-	},
+-
+-	.cpus = {
+-		0x2,
+-	},
+-
+-	.mem_regions = {
+-		/* MCU UART 0 */ {
+-			.phys_start = 0x40a00000,
+-			.virt_start = 0x40a00000,
+-			.size = 0x10000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+-				JAILHOUSE_MEM_IO,
+-		},
+-		/* RAM */ {
+-			.phys_start = 0x8e0000000,
+-			.virt_start = 0,
+-			.size = 0x00010000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+-		},
+-		/* communication region */ {
+-			.virt_start = 0x80000000,
+-			.size = 0x00001000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+-				JAILHOUSE_MEM_COMM_REGION,
+-		},
+-	}
+-};
+diff --git a/configs/arm64/k3-j721e-evm-uart-demo.c b/configs/arm64/k3-j721e-evm-uart-demo.c
+deleted file mode 100644
+index 05dfd834..00000000
+--- a/configs/arm64/k3-j721e-evm-uart-demo.c
++++ /dev/null
+@@ -1,72 +0,0 @@
+-/*
+- * Jailhouse, a Linux-based partitioning hypervisor
+- *
+- * Configuration for uart-demo inmate on K3 based platforms:
+- * 1 CPU, 64K RAM, serial port 3
+- *
+- * Copyright (c) 2019 Texas Instruments Incorporated - http://www.ti.com/
+- *
+- * Authors:
+- *  Nikhil Devshatwar <nikhil.nd@ti.com>
+- *  Lokesh Vutla <lokeshvutla@ti.com>
+- *
+- * This work is licensed under the terms of the GNU GPL, version 2.  See
+- * the COPYING file in the top-level directory.
+- */
+-
+-#include <jailhouse/types.h>
+-#include <jailhouse/cell-config.h>
+-
+-struct {
+-	struct jailhouse_cell_desc cell;
+-	__u64 cpus[1];
+-	struct jailhouse_memory mem_regions[3];
+-} __attribute__((packed)) config = {
+-	.cell = {
+-		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
+-		.revision = JAILHOUSE_CONFIG_REVISION,
+-		.name = "uart-demo",
+-		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+-
+-		.cpu_set_size = sizeof(config.cpus),
+-		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+-		.num_irqchips = 0,
+-		.num_pci_devices = 0,
+-
+-		.console = {
+-			.address = 0x02810000,
+-			.divider = 0x1b,
+-			.type = JAILHOUSE_CON_TYPE_8250,
+-			.flags = JAILHOUSE_CON_ACCESS_MMIO |
+-				 JAILHOUSE_CON_MDR_QUIRK |
+-				 JAILHOUSE_CON_REGDIST_4,
+-		},
+-	},
+-
+-	.cpus = {
+-		0x2,
+-	},
+-
+-	.mem_regions = {
+-		/* main_uart1 */ {
+-			.phys_start = 0x02810000,
+-			.virt_start = 0x02810000,
+-			.size = 0x10000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+-				JAILHOUSE_MEM_IO,
+-		},
+-		/* RAM */ {
+-			.phys_start = 0x89ff00000,
+-			.virt_start = 0,
+-			.size = 0x00010000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+-		},
+-		/* communication region */ {
+-			.virt_start = 0x80000000,
+-			.size = 0x00001000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+-				JAILHOUSE_MEM_COMM_REGION,
+-		},
+-	}
+-};
 -- 
 2.16.4
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/87cc49f944ed756e930b70991726ca5595a30717.1578320435.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/8771cb77e4ea0e170272397bb59e491633e1b1f1.1578320435.git.jan.kiszka%40siemens.com.
