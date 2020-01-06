@@ -1,31 +1,31 @@
 Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBOUEZXYAKGQEN7GSJ3Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x537.google.com (mail-ed1-x537.google.com [IPv6:2a00:1450:4864:20::537])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7E61131380
+Received: from mail-wr1-x43a.google.com (mail-wr1-x43a.google.com [IPv6:2a00:1450:4864:20::43a])
+	by mail.lfdr.de (Postfix) with ESMTPS id D069B131381
 	for <lists+jailhouse-dev@lfdr.de>; Mon,  6 Jan 2020 15:20:42 +0100 (CET)
-Received: by mail-ed1-x537.google.com with SMTP id dd24sf28833710edb.1
+Received: by mail-wr1-x43a.google.com with SMTP id i9sf10845095wru.1
         for <lists+jailhouse-dev@lfdr.de>; Mon, 06 Jan 2020 06:20:42 -0800 (PST)
 ARC-Seal: i=2; a=rsa-sha256; t=1578320442; cv=pass;
         d=google.com; s=arc-20160816;
-        b=EGs/rBd0/TjlMHmG1uZOk/sThRKhCSb58zxmsip8sh9i3cPelqBjDWYsgMAvsMzsCx
-         bDDuIUBb3jret9rA64IWTnCgT5acdJTD3sDO7tdHcLRPUJTtqiYS1KuSrllqHY962UW6
-         FZxOAqkzLTfozyR8GYFD7K6FAe6VU203OY/G51N9gU0lW6Blfnu6+APCPFgvqAARMiZW
-         JG0d2g1PJ2iPSQhqS7o7fHDsC7MB7wElBE0y1063FhZCZZQouCYgROJOQhtW27LOLiRz
-         VK78yrq7FrOI3MkQpU+dnkK4UM0/NCCv8JINBftfxiUPFbb60KI6BTVYa5rfaRiTE37m
-         2khg==
+        b=tOBy8IqDPpURu/npqw3H+HqT7dqNWVGwN0wUZ9bZHyH9891SejWgagmLSAAcHfbN74
+         0XnNuanaqkPUpQfuAxfEkugs2fM01SgZAevThMQJ73BjAxeIRc7dqvA8p71ZwPPQOD91
+         TA419ICG6L1Unpcmmo0J8h5iPpkdwo/PLO8jKHAop26tfQqIfhNdiwH/OIDx2mD/B89V
+         rsytjX3yV5IOcmFZXYIx5+gyIVKgO/EZSYg+qIkGJN2DK1uOggbNEbmANMv4yqniIKxo
+         0ZdE4AjlpQ2RBO+abF7gUqDtzs9tBBjzAUqFxqDjWu7x7CyxetEmsCxdnP+oLCQVgbic
+         xB3A==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:references:in-reply-to:references
          :in-reply-to:message-id:date:subject:to:from:mime-version:sender
          :dkim-signature;
-        bh=07D3BQ5iAW6/PBkpXy412kFrv5YJoo6Pcz690v2YRc8=;
-        b=nSm39gV2SMJYE6pzxAAeLjkZPJcMosGEFF7c33YeuT/zyWWffkGv2650FNhWVjh71g
-         jhGaoSG+UAUFrmpX5uF80F44ilNaN3xCTXuEwkhXd/HIgVOXT4jBibcZ5y0aRio74gwG
-         uE7pKIo6a1XYTdX/qtHY5ZSQaKrDoiEbx19LOvBbDm9NIgrgA2kX/+qG7wTR6qTonRT8
-         T4nytklYnYeCurErnXAoc0RqK8hfl/J92s3br1NClLz3OptfMxxROLSxf8bzmcUEEazK
-         kDzrK5SOl09ROV2k2uTlu/1ccc3tHPHkZXIsvtOVGnyEeA2qHf51cYYifdWLBRkEN/Ua
-         NMZQ==
+        bh=Yz8hDIh1llzXfWDbQnn4zuWjbbtAzVvs7FYu+5Kc148=;
+        b=hHjySoTQPn8mGyrHRZkshQ5XvNjJx3Av4ifNG7O66hdIHiV8gau1BZqf812hkLcTqW
+         sBBfgR6X8IHjfjARfTfkAht0uvhZWa/DtrHrNIeTCzHJo1zuh7SYIbgzqSwyDwIhCoPf
+         UvCwTnSHkKD+gYXrxxhqRblGHq5nz8ClriXB/4sFZZ8qBUdNCaiVJzRhDkTZpV2Gnu+H
+         0OkGBNWzc/EagGkuOydywzfQK1MnvrsQ+4sdHdTyF+qI9fwPfaM28tYM5epOizAhVlvK
+         BAWS2L2kYYGyRcBWJHJ0bq5tHvYNwJ0JkB9d71TtkKaToZ4VUM19SuxeaeaJ3jl4Zvmo
+         Of7A==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
        spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:in-reply-to:references:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=07D3BQ5iAW6/PBkpXy412kFrv5YJoo6Pcz690v2YRc8=;
-        b=Hy1eDicQXanZSfkce8/pNJOg6kUfUIBb/O4Bs3emFK8htKy8AczdFSEDV8a93vuFGf
-         8Z0URTg3zyq3ySSIvzkGdCFAeunLauvpN2F69GRDtFmhvk1Q+Gr/vWwrgWh8MXD6g/WF
-         gOiKOn24fOMxRTGFaB8Dk2ChurAXhGd6In2071lz3hm+VPf0xorl1N7Z4z3ufsGWeywR
-         WOgY8rYCdyHj7UKkCtICBhuX+RSUzdKZy5n61Ll99i/yzJbYYO46V3lfOermXq7i2k93
-         1ohbA16J+Y5kOm+jfxzTPJEZ8+N8bLhV+OcYsnJZJ2cVrLc0EwIwLltLEerOuew3IJdy
-         V7cA==
+        bh=Yz8hDIh1llzXfWDbQnn4zuWjbbtAzVvs7FYu+5Kc148=;
+        b=AuTZLAtLr3n8tzIvFQWQwIc+YEfDXDqnpzcaHR8E/GvEVgmBabOgSTpEHwO4G4yE52
+         2grAom0PZWFq5xWx9EkTa/j70q9dH3xB6Brc9gK6RYjlruEsJpjtoQVarR+n65iqT7CQ
+         3fEzdvhfL58dyy+BP3TECK/Evh1vF/84nFRR+BtwKhYPtSPs8oQcNSlxkKDsTfyaziqy
+         pQgOO1Tql/N5hqNQmjqioKI8pwrfLFcsq7UmtnuZCpnOCD0CWyM3tMMxpN02NTq1K6h7
+         xH0J8+EPhHzWRAHVROWyhOgoQuBSHNzKDpTMVtklxSFsIC+jIeRz/E1LbFlec3qXzhmr
+         xAUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:mime-version:from:to:subject:date
@@ -49,64 +49,64 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=07D3BQ5iAW6/PBkpXy412kFrv5YJoo6Pcz690v2YRc8=;
-        b=YaU30r5anoJfAlsJCMaOY1BNAnniyyXATPfg6aciyae5WQXGjIqFo29VJlAy9k8Sku
-         S88KOFBoQMTIbaxsrs7Iu1dneESdxSOIJhphoBYV08q7HBzg8EC+7lPZz+jyTxxf6oy6
-         jwS8QwNF0wTNBNrSb2wQJe0rPdPs/4xaMAdDGjMljtvQ2RUWfGhO+qydBAqECQTyfGJE
-         eooHDtupef79YrX1ktD5w0PWoeGLx88rLWE9/lR6Vcj6lpTKignOegNorkHRuXksjAIP
-         vvMZGqZSXSM8fhmrj/E9inunfpPcnCCcxiHNQFbrckkjZgar5GZFRotS9crQuonhFTrz
-         WJxw==
+        bh=Yz8hDIh1llzXfWDbQnn4zuWjbbtAzVvs7FYu+5Kc148=;
+        b=RigS1SEIKPpG84GJEHt5wwjl9cl82AKjRjnnPZilQPh/vtt96TCVi29dzO303p+t4V
+         bVqJ5NwR/CK61GKaNGkuz1R4nKxqe9R+wRMPRlKE0xOeECWQ+eTK1npfIEUjtWIFkFkD
+         ZzSOFMyVMYLPOxRd646nvOcVMtbeIP9i7s7ytaG01aXCvywq+kCQxKhIQE75V1/njXoI
+         XnWUFbM0Wa317h01l3ts/SLK9x4wuDiOKmnjlRPO8G4pNskM8ZnsgSxXLe1p09IsVh4d
+         0InJNf2v8dyQIjrKOibnj5qhyuCUAYKH6WOLmO3tr8JhkAuNEygSGfVFZlmEViqB6gpk
+         UIsQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUcp7VcYiYXk4SiklsLzuH0JbIEU6slRMWWyBAdI1MCJIJna8IL
-	r2yCzk/OW1uCYA2bOCypv50=
-X-Google-Smtp-Source: APXvYqzYnDeuaF41NJrTaC1VetaSQaH1nT5VSNn7WetDZMj7C6iWhRxjWBcAxpCMj7YWBKN3m63H2g==
-X-Received: by 2002:a17:906:6014:: with SMTP id o20mr86808486ejj.100.1578320442315;
+X-Gm-Message-State: APjAAAUxDdPoGHldUYtId+Pu9zJayeO6uDSLX1q8+bJK2LtLcHYXjErF
+	NDUUPJ9hqGaeNyNflJ2hgXQ=
+X-Google-Smtp-Source: APXvYqzvoMfrpoVIzZyvzbmUFSbQk1g9UmFlhzHApCxnnuKgBECmpwJPo1PQmJop6KXCrqsUqT3I/Q==
+X-Received: by 2002:a1c:a543:: with SMTP id o64mr35192323wme.108.1578320442520;
         Mon, 06 Jan 2020 06:20:42 -0800 (PST)
 MIME-Version: 1.0
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:cd1b:: with SMTP id oz27ls15560517ejb.4.gmail; Mon,
- 06 Jan 2020 06:20:41 -0800 (PST)
-X-Received: by 2002:a17:906:20c5:: with SMTP id c5mr110601815ejc.330.1578320441550;
+Received: by 2002:a5d:65d0:: with SMTP id e16ls12988243wrw.1.gmail; Mon, 06
+ Jan 2020 06:20:41 -0800 (PST)
+X-Received: by 2002:adf:db84:: with SMTP id u4mr105658206wri.317.1578320441890;
         Mon, 06 Jan 2020 06:20:41 -0800 (PST)
 ARC-Seal: i=1; a=rsa-sha256; t=1578320441; cv=none;
         d=google.com; s=arc-20160816;
-        b=cARkKkf55k9RdvxEAskf/oPYyrFFKYe71tC/KjK+wljyfUeEF1JssKlvs8Ay2fYgFE
-         zsrJ/XFYkHPA8sPPRTvdhg5vMoRmJpu1JJ8zBwFYkv8W7lI5UE/64C6o1+x4QHBIKiWZ
-         2QVupZdGKQaFfvso5g2Pe/SY0nR/mYE6C2xtM4fmLmW+afCeaw0Il4+ipGZEXeCB1Fvg
-         7AFAcnSlDFGKrs6660fhKvkrk0JTXo6Yj8RniqWhM9Ox6HWFaNiD2jKrayJ5a2hT7PWE
-         glMMXVvoZCGdkjKwYEmDdGOKKqbJf3GtsBkytIiODvP/7HFC5EYsHVPMYQmT9RzpN2R7
-         TTsA==
+        b=snAeASmSU0UkD1723IKl34qi2bjlYWS8pF6ksr4bwOL5khZoGh/SyrSczGLheUKqWr
+         jbph2HI3pkVm+iThXfaf3Sa2WU2gSkL9C/tiOKd4wOahGPBlA1t+TU4Q/awKUs3yaD1v
+         WX0QPCBi9FUqHFbcCXQ8kyHH3oJnNhk6LnV+q016cjUBoud6saFedsR7d1lmqz1ZQJC0
+         uTpR6HFyHkhemu55FKSOYjm6jfD/ubaCbVfEjt5Tq2Yerwnosj0ykKjk3cs3jH6c2y4A
+         hh6TvBOMjiblqiMGRXTbyZL+JoO4G70/UfmeyIJFBXrki0WEOUuzyRh4jrZ3eKfQHNZi
+         BTGQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=references:in-reply-to:references:in-reply-to:message-id:date
          :subject:to:from;
-        bh=De8T+Ard2L8gTZKUkw97UMc1cVZYtJALI0u6BlnEDH4=;
-        b=YmXJEo7Gt5luVYbjNg+NqDiuXFjBnKu7cTVt1DqjVitpkFbXBEJq3eGRFYTyzriGwA
-         r52Wge1N49AjHoV1Xl2LPP9nS2BGmlt2xVIZgblhwsXXFy1SdOoCtertK5TGYpr7fgSw
-         HG3puXYh7jj2jLnBlihOAsnKsnNyvwTEeh3nZ59LrowoG22HKQII1v00VME+Kxoqe9Ke
-         OfxjyQLgUAQFXJCOndhgnHZjlV8TnZWdUpDUbkfbFszrUIWpgoHkm/WV4opKpMNSMRix
-         IvCwsGe2NaNuIzg67NemcyPhF1e57QyRdVUmB2uUZmojs12aBrBill8NuJ4sF6cTntgH
-         SToQ==
+        bh=3vzvcqNg0qToR5ZtW2bwxhku5KOaZ+VC4QK/64GkH0A=;
+        b=PU+VAeOaIIxx4xYooDujrDlnRdyrj6/9i5dl9JiOR/4/EKGEcWs5Lq9BuuTpmQevB2
+         znTs4NVSfi+YDAw/h/wJUUZSganwNaJYwZHGkirSFFxXiS+2RDNtrmuuWK5JNKqplnHM
+         uyRa45Wqwrzyf+PPmwlS6pkdax4DD0ZPDFRfh+u83g5lmjl4nTOeM5ocEmkDHggrk/1k
+         f0iDf3P21CK2FKRStWIh9Cj5y6EnO98esV/JfyrODY1ZMklKAszQk389N4vi0N6UnRBA
+         leB4KKE2J3LcFdo76x57bUYARdY/CbNDc4JV6+w2Me9S83PHXLMyGHXPqa+ChE7gMl7w
+         RTiw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
        spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id ba12si2243059edb.3.2020.01.06.06.20.41
+        by gmr-mx.google.com with ESMTPS id 80si765810wme.4.2020.01.06.06.20.41
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
         Mon, 06 Jan 2020 06:20:41 -0800 (PST)
 Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 006EKfDY016678
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 006EKfBg016688
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
 	for <jailhouse-dev@googlegroups.com>; Mon, 6 Jan 2020 15:20:41 +0100
 Received: from md1f2u6c.ad001.siemens.net ([167.87.36.235])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 006EKZjQ008447
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 006EKZjR008447
 	for <jailhouse-dev@googlegroups.com>; Mon, 6 Jan 2020 15:20:41 +0100
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [PATCH 18/19] configs: arm: Add ivshmem-demo support for orangepi0
-Date: Mon,  6 Jan 2020 15:20:34 +0100
-Message-Id: <c316cc753968526f1955a8958e564a8b7fa5c72d.1578320435.git.jan.kiszka@siemens.com>
+Subject: [PATCH 19/19] Documentation: Describe ivshmem demos
+Date: Mon,  6 Jan 2020 15:20:35 +0100
+Message-Id: <6a8ab13d6f2ba9f47173bdd19bd966ef4c1aea9f.1578320435.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <cover.1578320435.git.jan.kiszka@siemens.com>
 References: <cover.1578320435.git.jan.kiszka@siemens.com>
@@ -132,315 +132,86 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-Enhance the root cell config as well as gic-demo and linux-demo with a
-3-peers ivshmem device so that ivshmem-demo can be used.
+Handles all currently available demo cases: ivshmem-net, ivshmem-demo
+and virtio over ivshmem.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- configs/arm/orangepi0-inmate-demo.c | 68 +++++++++++++++++++++++++++++++++++--
- configs/arm/orangepi0-linux-demo.c  | 57 +++++++++++++++++++++++++++----
- configs/arm/orangepi0.c             | 48 +++++++++++++++++++++++---
- 3 files changed, 161 insertions(+), 12 deletions(-)
+ Documentation/inter-cell-communication.md | 54 ++++++++++++++++++++++++++++++-
+ 1 file changed, 53 insertions(+), 1 deletion(-)
 
-diff --git a/configs/arm/orangepi0-inmate-demo.c b/configs/arm/orangepi0-inmate-demo.c
-index 5b77f1ba..bcbf4823 100644
---- a/configs/arm/orangepi0-inmate-demo.c
-+++ b/configs/arm/orangepi0-inmate-demo.c
-@@ -19,7 +19,9 @@
- struct {
- 	struct jailhouse_cell_desc cell;
- 	__u64 cpus[1];
--	struct jailhouse_memory mem_regions[4];
-+	struct jailhouse_memory mem_regions[9];
-+	struct jailhouse_irqchip irqchips[1];
-+	struct jailhouse_pci_device pci_devices[1];
- } __attribute__((packed)) config = {
- 	.cell = {
- 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
-@@ -29,6 +31,10 @@ struct {
+diff --git a/Documentation/inter-cell-communication.md b/Documentation/inter-cell-communication.md
+index 02136de2..ff99a592 100644
+--- a/Documentation/inter-cell-communication.md
++++ b/Documentation/inter-cell-communication.md
+@@ -70,10 +70,62 @@ For an example have a look at the cell configuration files `qemu-x86.c`,
+ Demo code
+ ---------
  
- 		.cpu_set_size = sizeof(config.cpus),
- 		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-+		.num_irqchips = ARRAY_SIZE(config.irqchips),
-+		.num_pci_devices = ARRAY_SIZE(config.pci_devices),
+-TODO
++The first demo case is the peer-to-peer networking device ivshmem-net. Virtual
++networking is pre-configured in most ARM and ARM64 targets as well as in the
++qemu-x86 virtual one. Also all targets supported by the demo image generator
++[3] have this feature enabled. It depends on the ivshmem-net driver that is
++available through the Linux kernel for Jailhouse, see [3] and jailhouse-enabling
++branches in [4].
 +
-+		.vpci_irq_base = 125,
- 
- 		.console = {
- 			.address = 0x01c28000,
-@@ -43,6 +49,39 @@ struct {
- 	},
- 
- 	.mem_regions = {
-+		/* IVSHMEM shared memory regions (demo) */
-+		{
-+			.phys_start = 0x4f6f0000,
-+			.virt_start = 0x4f6f0000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-+		},
-+		{
-+			.phys_start = 0x4f6f1000,
-+			.virt_start = 0x4f6f1000,
-+			.size = 0x9000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_ROOTSHARED,
-+		},
-+		{
-+			.phys_start = 0x4f6fa000,
-+			.virt_start = 0x4f6fa000,
-+			.size = 0x2000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-+		},
-+		{
-+			.phys_start = 0x4f6fc000,
-+			.virt_start = 0x4f6fc000,
-+			.size = 0x2000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_ROOTSHARED,
-+		},
-+		{
-+			.phys_start = 0x4f6fe000,
-+			.virt_start = 0x4f6fe000,
-+			.size = 0x2000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-+		},
- 		/* GPIO: port A */ {
- 			.phys_start = 0x01c20800,
- 			.virt_start = 0x01c20800,
-@@ -58,7 +97,7 @@ struct {
- 				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
- 		},
- 		/* RAM */ {
--			.phys_start = 0x4f6f0000,
-+			.phys_start = 0x4f600000,
- 			.virt_start = 0,
- 			.size = 0x00010000,
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-@@ -71,4 +110,29 @@ struct {
- 				JAILHOUSE_MEM_COMM_REGION,
- 		},
- 	},
++Some targets, e.g. qemu-x86, qemu-arm64 and orangepi0, have a raw ivshmem
++multi-peer demo preconfigured. It can be used by running the ivshmem-demo
++application under Linux and loading ivshmem-demo.bin into bare-metal cell. The
++Linux application is also a demonstrator for the uio_ivshmem driver, providing
++unprivileged access to a ivshmem device it regular processes. See the code in
++`tools/ivshmem-demo.c` for details on the usage. The bare-metal ivshmem-demo is
++loaded under x86 into the ivshmem-demo.cell while ARM and ARM64 use a
++*-inmate.demo.cell corresponding to the target.
 +
-+	.irqchips = {
-+		/* GIC */ {
-+			.address = 0x01c81000,
-+			.pin_base = 32,
-+			.pin_bitmap = {
-+				0,
-+				0,
-+				0,
-+				1 << (157-128),
-+			},
-+		},
-+	},
++There is also work-in-progress support for transporting virtio over ivshmem.
++Note that this is still experimental and can change until it may become part of
++the official virtio specification.
 +
-+	.pci_devices = {
-+		{
-+			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-+			.bdf = 0 << 3,
-+			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-+			.shmem_regions_start = 0,
-+			.shmem_dev_id = 1,
-+			.shmem_peers = 3,
-+			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
-+		},
-+	},
- };
-diff --git a/configs/arm/orangepi0-linux-demo.c b/configs/arm/orangepi0-linux-demo.c
-index ee6e51b3..af0dd1a6 100644
---- a/configs/arm/orangepi0-linux-demo.c
-+++ b/configs/arm/orangepi0-linux-demo.c
-@@ -19,9 +19,9 @@
- struct {
- 	struct jailhouse_cell_desc cell;
- 	__u64 cpus[1];
--	struct jailhouse_memory mem_regions[8];
-+	struct jailhouse_memory mem_regions[13];
- 	struct jailhouse_irqchip irqchips[1];
--	struct jailhouse_pci_device pci_devices[1];
-+	struct jailhouse_pci_device pci_devices[2];
- } __attribute__((packed)) config = {
- 	.cell = {
- 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
-@@ -50,6 +50,39 @@ struct {
- 	},
++Two virtio-ivshmem demo cases are prepared so far for qemu-x86, one providing a
++virtio console from the root cell to the Linux non-root cell, the other a
++virtio block device. Starting the demo requires a number of manual steps at
++this point. Under the root cell, execute
++
++    echo "110a 4106 110a 4106 ffc003 ffffff" > \
++        /sys/bus/pci/drivers/uio_ivshmem/new_id
++
++to bind the UIO driver to the ivshmem device acting as virtio console backend.
++Then run
++
++    virtio-ivshmem-console /dev/uio1
++
++This tool can be built in the `tools/virtio` directory of [3]. Now you can
++start a non-root Linux cell with `console=hvc0`, interacting with it in the
++shell that runs the backend application. Make sure that the non-root Linux
++kernel has the driver `virtio_ivshmem` (`CONFIG_VIRTIO_IVSHMEM`) from [3]
++enabled.
++
++Analogously, you can create a virtio block backend by running
++
++    echo "110a 4106 110a 4106 ffc002 ffffff" > \
++        /sys/bus/pci/drivers/uio_ivshmem/new_id
++
++in the root cell. Then start the backend service like this:
++
++    virtio-ivshmem-console /dev/uio2 /path/to/disk.image
++
++The disk will show up as /dev/vda in the non-root Linux and can be accessed
++normally.
  
- 	.mem_regions = {
-+		/* IVSHMEM shared memory regions (demo) */
-+		{
-+			.phys_start = 0x4f6f0000,
-+			.virt_start = 0x4f6f0000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-+		},
-+		{
-+			.phys_start = 0x4f6f1000,
-+			.virt_start = 0x4f6f1000,
-+			.size = 0x9000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_ROOTSHARED,
-+		},
-+		{
-+			.phys_start = 0x4f6fa000,
-+			.virt_start = 0x4f6fa000,
-+			.size = 0x2000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-+		},
-+		{
-+			.phys_start = 0x4f6fc000,
-+			.virt_start = 0x4f6fc000,
-+			.size = 0x2000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-+		},
-+		{
-+			.phys_start = 0x4f6fe000,
-+			.virt_start = 0x4f6fe000,
-+			.size = 0x2000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_ROOTSHARED,
-+		},
- 		/* IVSHMEM shared memory region */
- 		JAILHOUSE_SHMEM_NET_REGIONS(0x4f700000, 1),
- 		/* UART 0-3 */ {
-@@ -60,7 +93,7 @@ struct {
- 				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
- 		},
- 		/* RAM */ {
--			.phys_start = 0x4f6f0000,
-+			.phys_start = 0x4f610000,
- 			.virt_start = 0,
- 			.size = 0x10000,
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-@@ -69,7 +102,7 @@ struct {
- 		/* RAM */ {
- 			.phys_start = 0x48000000,
- 			.virt_start = 0x48000000,
--			.size = 0x76f0000,
-+			.size = 0x7600000,
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
- 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
- 				JAILHOUSE_MEM_LOADABLE,
-@@ -87,7 +120,10 @@ struct {
- 			.address = 0x01c81000,
- 			.pin_base = 32,
- 			.pin_bitmap = {
--				1 << (32-32), 0, 0, 1 << (155-128),
-+				1 << (32-32),
-+				0,
-+				0,
-+				(1 << (155-128)) | (1 << (156-128)),
- 			},
- 		},
- 	},
-@@ -95,9 +131,18 @@ struct {
- 	.pci_devices = {
- 		{
- 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
--			.bdf = 1 << 3,
-+			.bdf = 0 << 3,
- 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
- 			.shmem_regions_start = 0,
-+			.shmem_dev_id = 2,
-+			.shmem_peers = 3,
-+			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
-+		},
-+		{
-+			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-+			.bdf = 1 << 3,
-+			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-+			.shmem_regions_start = 5,
- 			.shmem_dev_id = 1,
- 			.shmem_peers = 2,
- 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
-diff --git a/configs/arm/orangepi0.c b/configs/arm/orangepi0.c
-index 3f5d026b..90b19b7c 100644
---- a/configs/arm/orangepi0.c
-+++ b/configs/arm/orangepi0.c
-@@ -18,9 +18,9 @@
- struct {
- 	struct jailhouse_system header;
- 	__u64 cpus[1];
--	struct jailhouse_memory mem_regions[12];
-+	struct jailhouse_memory mem_regions[17];
- 	struct jailhouse_irqchip irqchips[1];
--	struct jailhouse_pci_device pci_devices[1];
-+	struct jailhouse_pci_device pci_devices[2];
- } __attribute__((packed)) config = {
- 	.header = {
- 		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
-@@ -67,6 +67,37 @@ struct {
- 	},
  
- 	.mem_regions = {
-+		/* IVSHMEM shared memory regions (demo) */
-+		{
-+			.phys_start = 0x4f6f0000,
-+			.virt_start = 0x4f6f0000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ,
-+		},
-+		{
-+			.phys_start = 0x4f6f1000,
-+			.virt_start = 0x4f6f1000,
-+			.size = 0x9000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-+		},
-+		{
-+			.phys_start = 0x4f6fa000,
-+			.virt_start = 0x4f6fa000,
-+			.size = 0x2000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-+		},
-+		{
-+			.phys_start = 0x4f6fc000,
-+			.virt_start = 0x4f6fc000,
-+			.size = 0x2000,
-+			.flags = JAILHOUSE_MEM_READ,
-+		},
-+		{
-+			.phys_start = 0x4f6fe000,
-+			.virt_start = 0x4f6fe000,
-+			.size = 0x2000,
-+			.flags = JAILHOUSE_MEM_READ,
-+		},
- 		/* IVSHMEM shared memory region */
- 		JAILHOUSE_SHMEM_NET_REGIONS(0x4f700000, 0),
- 		/* MMIO 1 (permissive) */ {
-@@ -121,7 +152,7 @@ struct {
- 		/* RAM */ {
- 			.phys_start = 0x40000000,
- 			.virt_start = 0x40000000,
--			.size =        0xf700000,
-+			.size =        0xf620000,
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
- 				JAILHOUSE_MEM_EXECUTE,
- 		},
-@@ -140,10 +171,19 @@ struct {
- 	.pci_devices = {
- 		{
- 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
--			.bdf = 1 << 3,
-+			.bdf = 0 << 3,
- 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
- 			.shmem_regions_start = 0,
- 			.shmem_dev_id = 0,
-+			.shmem_peers = 3,
-+			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
-+		},
-+		{
-+			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-+			.bdf = 1 << 3,
-+			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-+			.shmem_regions_start = 5,
-+			.shmem_dev_id = 0,
- 			.shmem_peers = 2,
- 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
- 		},
+ References
+ ----------
+ 
+ [1] Documentation/ivshmem-v2-specification.md
++[2] https://github.com/siemens/jailhouse-images
++[3] http://git.kiszka.org/?p=linux.git;a=shortlog;h=refs/heads/queues/jailhouse
++[4] https://github.com/siemens/linux
 -- 
 2.16.4
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/c316cc753968526f1955a8958e564a8b7fa5c72d.1578320435.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/6a8ab13d6f2ba9f47173bdd19bd966ef4c1aea9f.1578320435.git.jan.kiszka%40siemens.com.
