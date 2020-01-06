@@ -1,33 +1,33 @@
 Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBOMEZXYAKGQEVNGPPNQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x238.google.com (mail-lj1-x238.google.com [IPv6:2a00:1450:4864:20::238])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E05E13137F
+Received: from mail-ed1-x53c.google.com (mail-ed1-x53c.google.com [IPv6:2a00:1450:4864:20::53c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DC4113137E
 	for <lists+jailhouse-dev@lfdr.de>; Mon,  6 Jan 2020 15:20:42 +0100 (CET)
-Received: by mail-lj1-x238.google.com with SMTP id z2sf5689691ljh.16
+Received: by mail-ed1-x53c.google.com with SMTP id u20sf20088618eda.7
         for <lists+jailhouse-dev@lfdr.de>; Mon, 06 Jan 2020 06:20:42 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1578320441; cv=pass;
+ARC-Seal: i=2; a=rsa-sha256; t=1578320442; cv=pass;
         d=google.com; s=arc-20160816;
-        b=k9hdctV9MDBD1pQLK45XTIzp6V5PNs/P+p6vk5wWQP14iOiKDgsc/anmI3LlguJoc6
-         G7bco3uqH9cOqp1oN/zKmDmQgjadxLtnQxp3M0EDXxnX/Sz5mv3ZGV284rYOWY0vPRFD
-         71ivsMTY2qOjtDgfmuSNox5tFzSB09LsannKicwyUnuuUTKRnwmpQkURTI3pHYQxyb+a
-         AQGpbL4asqTBhUp1u6cg7qOXMB485TRco6TOieAH9CjRal7RMAjNMO6k0O4O2fVskL+T
-         aq1mGQWn/9EVJqQ8CwhzLMAE17nSfBEccD0+jd6oFedsjf54IT6erRi+AvEWJrWJnG3x
-         mZAQ==
+        b=iXopsX1j6+5+7em3i5S7SoxsmDem82DmmKg4iEPg5Y8VtRYw18VywdapMDIPIsSuM7
+         4aNT8BRPpJpfH/61wEFmd8nofolRIY4J6X/wOi4NwnNLFMiJYX5N05tb2oZxESHvxLu2
+         3gylgRpoiJLL0VbsOT2yM9s0DY+NqXsO3NQjhaNcarKPMiiiQ4VP0piEfNkikAWnNLBh
+         eI+AMG3PN+zAE7Jq/n79CBY9WIhmstuOG26jOfbhBpushCSS1sY1I8rs6wetyn3aKBew
+         Vf7MqKAmzzdb3tuJ6eXU30IoFjh/O2Qq/9ayNlPMaAb2EStliiMUj1s7TG09Ak6pjCIH
+         NMEg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:references:in-reply-to:references
          :in-reply-to:message-id:date:subject:to:from:mime-version:sender
          :dkim-signature;
-        bh=L+jSbPNkPiMfZvD+thmQ8Ur88Ac2aHgkbZKOHzi11V0=;
-        b=yl75zyjrZVIDetPT4c5qzeTTYGg4ahDUv1A0a8OkWTXGw3fnMTp9cUvNZfr6hHk6lc
-         lSBTOOcrbGHF6DKdUQ6P/E82MnT+Dy4TroRxIiV6InMvyw71/HBpjunKu9SS4kX2YQPQ
-         6FP+rlqtuDzn1Mw7j1He0fvFjTCkmM8VbpJ+lij8rRLqtNvjgz5UoXmU2+HzGSl8yRky
-         S4MdcqApiCAKjs1CEAAJVjCDJvkAIHIpSd+/qUqSvPUisDcdivtQ4qB+qaK+mLmKt5WP
-         IzQAPZU+1TlVAbZJ91TfPeM90tDGudOZy3A9J9ihRZ5GhauKIT9XLfPGzB7BdFGRFmOu
-         eOOw==
+        bh=5ArTCeoSWA2XoQXJBiaqFf28MovhIvO3dLiM/GWXQcM=;
+        b=Ir437kmQ8ITBBAFAHxrZZLipEZNjYCcbNHQqdlSvMAeBvHkJXe+U01Ch9w382D2odg
+         EPC0/SNFb+ekHJLnmfI7u0M0yDsTAtOtLe8GXfM1xXvi3Ze+iiz978XD4VDac3U2MdL+
+         Alc7qTS242CeBNvfECKd4OmmYaMRHJLGGBUOPRSsHZqoPDjeEB6RSrtD7J7ypEHZW30r
+         6SrneglZ+deE+LV5vAQ9JFoz0kmmYDSaStfiDWWFBQ3/zlOPseCuUHluP4B+nnK9f/dz
+         ICbQdPYS3iRhlFL1f3QLeUTq0d5Ikc1amBUaSMMxgySe6I1Nfo8HzptMxWPVpi/0Z5Yk
+         53kA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:in-reply-to:references:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=L+jSbPNkPiMfZvD+thmQ8Ur88Ac2aHgkbZKOHzi11V0=;
-        b=ZNFwdtIwXI1eJRMXvMorIpj45V+Q+RjCVLj4M/+8zM4DNTMbzU3PK+XAthS1kVYhvR
-         jGn1gRWXmqt435v2ippakvSCDnHQlB7+0PodbTkaphlcAEglEQn8MxuPpUXQJYrQ/0bS
-         L0gwkHcQcRfKW6dv3G5stZoFqJZbFjsNiZATMJ6prRyH6GsEYU3byU9gSAmcy520mQOb
-         RLM4Y9c8NCV2biuBF+2lFB/3mbHJbVXm1VeSYsW8b3ezPZPa4I39OyKxBJaqM/aslEQK
-         4LHcQ8Fwul+Va2NdFkayh3s0d+ct3a7cds7+q6mDInuOhihrhlvC6/ndkPTpa12MBN0C
-         mLRg==
+        bh=5ArTCeoSWA2XoQXJBiaqFf28MovhIvO3dLiM/GWXQcM=;
+        b=RtmDjNmS4ErqZTEMhLCiMKm+hcGocyp5lmD2PARF0ls971k0zjb5/QBdoe8M+m5oGa
+         2NeL5QEahjpZjACY5Pm9hO1Li9BZnxFtxJP6Tma//wyPeyZc2aisEK9h5eO1thxiYGiL
+         d85saXA9IXgdtv9v3sXUGJgua6MAAXEHied2MmwgJFCnhFbIzBh2drkd7wFIZK91EtOy
+         xtB9WXhzV9jofq+5dHHc0LpVFbp+/Hg6Jkk6b+vMVUVMDYqijF14JGXj1zAj5vgKizqU
+         l3cUIG+CVaKSZc7ci96i7ey4cm7RovraAPfsJZFniQHwXDJX5hpOXu0YD5nf2e+IsnXd
+         eUnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:mime-version:from:to:subject:date
@@ -49,64 +49,64 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=L+jSbPNkPiMfZvD+thmQ8Ur88Ac2aHgkbZKOHzi11V0=;
-        b=ljDPaGBIHv3XN77vn9/psoCW8OYuYlVsjRndU/GZLDN4ZkRqtqcTkscxNUjBwMpr28
-         lntKC1EuUl8pxQC7oVU4s/bwJBZkQLRQkMU6JwzdYQ+Ug+uz0mXFF7BIVmAZ0mNM2rAs
-         heMEHk0kTCnBTums17en6zUDESZjhTgcDI/tB+CNK59dY9rdUxKToh5ZIaC2DQfDy+HK
-         OtAp5Hz4VppPuCrx8vprlsm2Mawgsrkcb2s2V55X3O7XzmT2XnenEOihXtUHpI/iNviE
-         3Igsu4mb7gpyJ2mOCdtB8bmUA822Tq3oHNEkqaD+jkHnnCpwHSoJiOjNLkdtJ/RDzOEm
-         qFEw==
+        bh=5ArTCeoSWA2XoQXJBiaqFf28MovhIvO3dLiM/GWXQcM=;
+        b=H4E1YXpBZVlaP/PEjDVwDTZbaLu994fevHKK1nkCdbwpOF7NIEvM/VlvavvBcho5Z0
+         d2cRLWzyIls31D99kZxGHsVHHeeJWDDOQ4G/ZGbjfsZ/wbT3zyQyxTwXfvsL6wQyBAzs
+         BPY7Qn/yhk4gkvVYrFx9y7XL6T0w5yMUfzN4B0WdegAwnC7vefjjL+XFZGGu6y+DNmcS
+         uOjl7+n9/ugkU7fK16w79w+VHpHjAt8/rDGjQ6rMQXr47G/MaDkkwlgf+y6DBr4d48Q/
+         KUXYqB3WnuCiru+f2ZTY3Ajgw7aONoFyHJcRl8FG3T6kJ/RewXAjAu6cPALvQVCPeKmM
+         Ll/g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAU7bOjNPtCzLPtZ49Hbc6T8Wv31czuK5mtlS/MoMAKg+3svjG5V
-	Nw8Ztr+88WzlAyMCSEmh3is=
-X-Google-Smtp-Source: APXvYqwGLTKcPlmSzh+evKejtxktCsyCO6RrbZwcnLM+FGFYFSBJ9sbxls0PftoIn07EFx90DwU1Gw==
-X-Received: by 2002:ac2:5147:: with SMTP id q7mr56800947lfd.87.1578320441789;
+X-Gm-Message-State: APjAAAWpDxSTlgJhsJWCMSb+p8seTrSD5ph4HxkOsm/IGiDPlZUMfY2Z
+	fASWtPmsdR0QiGetR4ME+7Q=
+X-Google-Smtp-Source: APXvYqxw0z85Pfgg+6Vi7dkC/o/nCD3upuXOvX0+iQpXLL3VjYBvXpFGnW4TesE0da/fvbDUuvEFMg==
+X-Received: by 2002:a17:906:cb8d:: with SMTP id mf13mr105335179ejb.147.1578320441790;
         Mon, 06 Jan 2020 06:20:41 -0800 (PST)
 MIME-Version: 1.0
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:9e01:: with SMTP id e1ls5833574ljk.15.gmail; Mon, 06 Jan
- 2020 06:20:41 -0800 (PST)
-X-Received: by 2002:a05:651c:8f:: with SMTP id 15mr60326215ljq.109.1578320441078;
+Received: by 2002:a17:907:385:: with SMTP id ss5ls15553702ejb.7.gmail; Mon, 06
+ Jan 2020 06:20:41 -0800 (PST)
+X-Received: by 2002:a17:906:3596:: with SMTP id o22mr900097ejb.235.1578320441032;
         Mon, 06 Jan 2020 06:20:41 -0800 (PST)
 ARC-Seal: i=1; a=rsa-sha256; t=1578320441; cv=none;
         d=google.com; s=arc-20160816;
-        b=QSrY7Tez141/iM1EFAUQYVEqp8dKQe9pJ5p3hszE+wO6HJupMVvxy9sfrKHOKkPH+R
-         DJ4S4RwAAlsgM7/Odpgpl/UK9/2dtMk+eq1/XKEGL2sQlf+G9vZxgJl92O1A0msIHhZk
-         rJayaCDhpkOpLLh6Ux++BDaDxRQeLq9T7t6bm7FMFOBez15sT7sQ/rT4ozyce0YJJ0UL
-         pJY5+hfwGasSV2ST4EbkRQUtBLCVlsiFkmESJxGbeoIsJVLiblq9Ls25PBFk+N5S5IIy
-         6roCkeQ6mos41IZ0ZkNQihXbV/7TtRMXeaCh8CnJaeujatpPeKXseIsWsFAYCSSTzyAa
-         5K5Q==
+        b=0/QFaKZ2u+72AUJIUWIMeJUbP6RlfJvG6EHbssXrulQDbjnuVDIruUV0Vx5D/ThDVG
+         uHyn3/eDn6Ywmlhj5hmRmg3ruF6v0TRrYtkLw5Yn92RQzHDRYaiuOVKozsycIzkI/hLn
+         JaEVPDnIcotpjn/qD1EmacJxNAy8ens2qYjygKBZVIL2DGE5h6TLZrNMxL5bKvYKGvkC
+         EqJFHzMzyO8w18TTVLDq7+3adrz2KxHQxZ85j4KZYmLt/LxOfYCvJrKnJ0DMymq1DHxF
+         ee2JSElRlEYRKCZv7X0biqdL4KDMQrxoMoLHO2tTEYwkGA57Ndmn7+9sb2To0SPsXm1k
+         LNQQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=references:in-reply-to:references:in-reply-to:message-id:date
          :subject:to:from;
-        bh=hPLU6axciaygPe81ucJ/UrfxdiqT31UycbKdj7knGTE=;
-        b=n9EnXtTQddrLpnTU3QH3OORUcJmtTQXjmZ7eaYjKOsiz075tmtFWzPlRbZXsBGtAKW
-         kf9233BwSBASQmzHqRu9HB6DO9HKDX8dw18XJc6lwWt3ktqu8pWEeSh8oECHe1lURVed
-         Pf3EQUruV7kcUKjOCxYOLtzUmPbGD007F+6JPvyNlXj89ZbInKL3mBWlPkIyef2WiAY1
-         XASk+7v02FKI3OqDIASMq9JOsSIggDcVz+fo6Gv924dqUdR5gRPeCW/LUhq0ejegjPhb
-         ZkV0BGnuA9doQjwWHDQIBCASJvVMzyEA+WFLGAxiekExixzZD25G8VcbQvMQgDp3RExj
-         0Q6Q==
+        bh=tbWtdhz2C+MOW+DmUnP2RPlbhdHKUlRMErf1zKt2vyQ=;
+        b=qBGIB6HZjbFBuyyVIXyCJsOsV64TEEtr5R3Ud84ffdyNwPg/28VaqaUD8qRydMkH4v
+         yKhbgAh7bQImBqDKqTFpc7sv0mcl4lK326s8+gBBOOi+YhZBxk5p7Hb8jjEvs6EsVcjm
+         dtVjZbv7wctRvm77bmFWItfIrmKZcp7BRGAZFEONu5IYgR2x+fyCN6dm8B6vMk6hz9Bb
+         CL1SVweMOi7etqKaAGRv43ERjaKXygPuJe4z0qGBVxc7D6jQqSXemVcQ3UQ/RS2ox7OC
+         83GBcz4gIya2EzxpFchHB8AAWhFFD5cWJuBkTky/9ya4czdpE+dtygNQOW9pNATq4EIr
+         vCfg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id o24si2876512lji.4.2020.01.06.06.20.40
+Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
+        by gmr-mx.google.com with ESMTPS id ba12si2243055edb.3.2020.01.06.06.20.40
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
         Mon, 06 Jan 2020 06:20:41 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 006EKeNF016666
+	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 006EKeMv019202
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
 	for <jailhouse-dev@googlegroups.com>; Mon, 6 Jan 2020 15:20:40 +0100
 Received: from md1f2u6c.ad001.siemens.net ([167.87.36.235])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 006EKZjN008447
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 006EKZjO008447
 	for <jailhouse-dev@googlegroups.com>; Mon, 6 Jan 2020 15:20:40 +0100
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [PATCH 15/19] configs, Documentation: arm/arm64: Rename gic-demo to inmate-demo
-Date: Mon,  6 Jan 2020 15:20:31 +0100
-Message-Id: <e2dad765c4a86de6e24b2beb67d13effdd9605b5.1578320435.git.jan.kiszka@siemens.com>
+Subject: [PATCH 16/19] configs: arm/arm64: Consistently move ivshmem-net devices one PCI slot up
+Date: Mon,  6 Jan 2020 15:20:32 +0100
+Message-Id: <68b8ff84ae8dcf2633310bb9f448e2823c3b6df8.1578320435.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <cover.1578320435.git.jan.kiszka@siemens.com>
 References: <cover.1578320435.git.jan.kiszka@siemens.com>
@@ -114,7 +114,7 @@ In-Reply-To: <cover.1578320435.git.jan.kiszka@siemens.com>
 References: <cover.1578320435.git.jan.kiszka@siemens.com>
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
@@ -132,595 +132,699 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-This expresses that the configs can already be used for gic and uart
-demos, soon more and more also for ivshmem.
+This free 00:00.0 on the virtual PCI controllers for the demo ivshmem
+device. It should come before the networking device because it also uses
+memory located before it.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- Documentation/setup-on-zynqmp-zcu102.md                           | 8 ++++----
- README.md                                                         | 6 +++---
- configs/arm/{bananapi-gic-demo.c => bananapi-inmate-demo.c}       | 4 ++--
- .../{emtrion-rzg1e-uart-demo.c => emtrion-rzg1e-inmate-demo.c}    | 4 ++--
- .../{emtrion-rzg1h-uart-demo.c => emtrion-rzg1h-inmate-demo.c}    | 4 ++--
- .../{emtrion-rzg1m-uart-demo.c => emtrion-rzg1m-inmate-demo.c}    | 4 ++--
- configs/arm/{jetson-tk1-demo.c => jetson-tk1-inmate-demo.c}       | 4 ++--
- configs/arm/{orangepi0-gic-demo.c => orangepi0-inmate-demo.c}     | 4 ++--
- .../arm64/{amd-seattle-gic-demo.c => amd-seattle-inmate-demo.c}   | 4 ++--
- .../arm64/{espressobin-gic-demo.c => espressobin-inmate-demo.c}   | 4 ++--
- .../{foundation-v8-gic-demo.c => foundation-v8-inmate-demo.c}     | 4 ++--
- configs/arm64/{hikey-gic-demo.c => hikey-inmate-demo.c}           | 4 ++--
- configs/arm64/{imx8mq-gic-demo.c => imx8mq-inmate-demo.c}         | 4 ++--
- configs/arm64/{jetson-tx1-demo.c => jetson-tx1-inmate-demo.c}     | 4 ++--
- configs/arm64/{jetson-tx2-demo.c => jetson-tx2-inmate-demo.c}     | 4 ++--
- configs/arm64/{k3-am654-gic-demo.c => k3-am654-inmate-demo.c}     | 4 ++--
- .../arm64/{k3-j721e-evm-gic-demo.c => k3-j721e-evm-inmate-demo.c} | 4 ++--
- .../arm64/{macchiatobin-gic-demo.c => macchiatobin-inmate-demo.c} | 4 ++--
- ...ac-sbc-ls1046a-gic-demo.c => miriac-sbc-ls1046a-inmate-demo.c} | 4 ++--
- configs/arm64/{qemu-arm64-gic-demo.c => qemu-arm64-inmate-demo.c} | 4 ++--
- configs/arm64/{ultra96-gic-demo.c => ultra96-inmate-demo.c}       | 4 ++--
- .../{zynqmp-zcu102-gic-demo.c => zynqmp-zcu102-inmate-demo.c}     | 4 ++--
- 22 files changed, 47 insertions(+), 47 deletions(-)
- rename configs/arm/{bananapi-gic-demo.c => bananapi-inmate-demo.c} (96%)
- rename configs/arm/{emtrion-rzg1e-uart-demo.c => emtrion-rzg1e-inmate-demo.c} (94%)
- rename configs/arm/{emtrion-rzg1h-uart-demo.c => emtrion-rzg1h-inmate-demo.c} (94%)
- rename configs/arm/{emtrion-rzg1m-uart-demo.c => emtrion-rzg1m-inmate-demo.c} (94%)
- rename configs/arm/{jetson-tk1-demo.c => jetson-tk1-inmate-demo.c} (94%)
- rename configs/arm/{orangepi0-gic-demo.c => orangepi0-inmate-demo.c} (95%)
- rename configs/arm64/{amd-seattle-gic-demo.c => amd-seattle-inmate-demo.c} (95%)
- rename configs/arm64/{espressobin-gic-demo.c => espressobin-inmate-demo.c} (94%)
- rename configs/arm64/{foundation-v8-gic-demo.c => foundation-v8-inmate-demo.c} (94%)
- rename configs/arm64/{hikey-gic-demo.c => hikey-inmate-demo.c} (94%)
- rename configs/arm64/{imx8mq-gic-demo.c => imx8mq-inmate-demo.c} (96%)
- rename configs/arm64/{jetson-tx1-demo.c => jetson-tx1-inmate-demo.c} (93%)
- rename configs/arm64/{jetson-tx2-demo.c => jetson-tx2-inmate-demo.c} (93%)
- rename configs/arm64/{k3-am654-gic-demo.c => k3-am654-inmate-demo.c} (95%)
- rename configs/arm64/{k3-j721e-evm-gic-demo.c => k3-j721e-evm-inmate-demo.c} (95%)
- rename configs/arm64/{macchiatobin-gic-demo.c => macchiatobin-inmate-demo.c} (94%)
- rename configs/arm64/{miriac-sbc-ls1046a-gic-demo.c => miriac-sbc-ls1046a-inmate-demo.c} (95%)
- rename configs/arm64/{qemu-arm64-gic-demo.c => qemu-arm64-inmate-demo.c} (94%)
- rename configs/arm64/{ultra96-gic-demo.c => ultra96-inmate-demo.c} (95%)
- rename configs/arm64/{zynqmp-zcu102-gic-demo.c => zynqmp-zcu102-inmate-demo.c} (94%)
+ configs/arm/bananapi-linux-demo.c             |  2 +-
+ configs/arm/bananapi.c                        |  2 +-
+ configs/arm/emtrion-rzg1e-linux-demo.c        |  4 ++--
+ configs/arm/emtrion-rzg1e.c                   |  4 ++--
+ configs/arm/emtrion-rzg1h-linux-demo.c        |  4 ++--
+ configs/arm/emtrion-rzg1h.c                   |  4 ++--
+ configs/arm/emtrion-rzg1m-linux-demo.c        |  4 ++--
+ configs/arm/emtrion-rzg1m.c                   |  4 ++--
+ configs/arm/jetson-tk1-linux-demo.c           |  4 ++--
+ configs/arm/jetson-tk1.c                      |  4 ++--
+ configs/arm/orangepi0-linux-demo.c            |  2 +-
+ configs/arm/orangepi0.c                       |  2 +-
+ configs/arm64/espressobin-linux-demo.c        |  4 ++--
+ configs/arm64/espressobin.c                   |  6 +++---
+ configs/arm64/hikey-linux-demo.c              |  4 ++--
+ configs/arm64/hikey.c                         |  4 ++--
+ configs/arm64/jetson-tx1-linux-demo.c         |  4 ++--
+ configs/arm64/jetson-tx1.c                    |  4 ++--
+ configs/arm64/k3-am654-idk-linux-demo.c       |  6 +++---
+ configs/arm64/k3-am654-idk.c                  |  6 +++---
+ configs/arm64/k3-j721e-evm-linux-demo.c       |  4 ++--
+ configs/arm64/k3-j721e-evm.c                  |  6 +++---
+ configs/arm64/macchiatobin-linux-demo.c       |  4 ++--
+ configs/arm64/macchiatobin.c                  |  6 +++---
+ configs/arm64/miriac-sbc-ls1046a-linux-demo.c |  2 +-
+ configs/arm64/miriac-sbc-ls1046a.c            |  6 +++---
+ configs/arm64/qemu-arm64-linux-demo.c         |  4 ++--
+ configs/arm64/qemu-arm64.c                    |  6 +++---
+ configs/arm64/ultra96-linux-demo.c            |  4 ++--
+ configs/arm64/ultra96.c                       |  6 +++---
+ configs/arm64/zynqmp-zcu102-linux-demo-2.c    |  8 ++++----
+ configs/arm64/zynqmp-zcu102-linux-demo.c      | 12 ++++++------
+ configs/arm64/zynqmp-zcu102.c                 |  8 ++++----
+ 33 files changed, 77 insertions(+), 77 deletions(-)
 
-diff --git a/Documentation/setup-on-zynqmp-zcu102.md b/Documentation/setup-on-zynqmp-zcu102.md
-index 535933ff..613d7bcd 100644
---- a/Documentation/setup-on-zynqmp-zcu102.md
-+++ b/Documentation/setup-on-zynqmp-zcu102.md
-@@ -103,15 +103,15 @@ running:
-     Activating hypervisor
-     [   39.844953] The Jailhouse is opening.
+diff --git a/configs/arm/bananapi-linux-demo.c b/configs/arm/bananapi-linux-demo.c
+index 0aecdbcc..43c7ef36 100644
+--- a/configs/arm/bananapi-linux-demo.c
++++ b/configs/arm/bananapi-linux-demo.c
+@@ -104,7 +104,7 @@ struct {
+ 	.pci_devices = {
+ 		{
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 0x00,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 1,
+diff --git a/configs/arm/bananapi.c b/configs/arm/bananapi.c
+index a59fc869..4e566380 100644
+--- a/configs/arm/bananapi.c
++++ b/configs/arm/bananapi.c
+@@ -199,7 +199,7 @@ struct {
+ 	.pci_devices = {
+ 		{
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 0x00,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 0,
+diff --git a/configs/arm/emtrion-rzg1e-linux-demo.c b/configs/arm/emtrion-rzg1e-linux-demo.c
+index ee3cf79f..b76b8e84 100644
+--- a/configs/arm/emtrion-rzg1e-linux-demo.c
++++ b/configs/arm/emtrion-rzg1e-linux-demo.c
+@@ -151,9 +151,9 @@ struct {
+ 	},
  
--    # jailhouse cell create zynqmp-zcu102-gic-demo.cell
-+    # jailhouse cell create zynqmp-zcu102-inmate-demo.cell
-     [   55.351670] CPU3: shutdown
-     [   55.354303] psci: CPU3 killed.
--    Created cell "gic-demo"
-+    Created cell "inmate-demo"
-     Page pool usage after cell creation: mem 56/993, remap 69/131072
--    [   55.388029] Created Jailhouse cell "gic-demo"
-+    [   55.388029] Created Jailhouse cell "inmate-demo"
+ 	.pci_devices = {
+-		/* 00:00.0 */ {
++		/* 00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 0x00,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 1,
+diff --git a/configs/arm/emtrion-rzg1e.c b/configs/arm/emtrion-rzg1e.c
+index c1c01b3d..f392bf00 100644
+--- a/configs/arm/emtrion-rzg1e.c
++++ b/configs/arm/emtrion-rzg1e.c
+@@ -225,9 +225,9 @@ struct {
+ 	},
  
-     # jailhouse cell load 1 gic-demo.bin
--    Cell "gic-demo" can be loaded
-+    Cell "inmate-demo" can be loaded
-     # jailhouse cell start 1
+ 	.pci_devices = {
+-		/* 00:00.0 */ {
++		/* 00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 0x00,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 0,
+diff --git a/configs/arm/emtrion-rzg1h-linux-demo.c b/configs/arm/emtrion-rzg1h-linux-demo.c
+index c175e206..a41c94dd 100644
+--- a/configs/arm/emtrion-rzg1h-linux-demo.c
++++ b/configs/arm/emtrion-rzg1h-linux-demo.c
+@@ -165,9 +165,9 @@ struct {
+ 	},
  
- Second UART starts showing jitter data:
-diff --git a/README.md b/README.md
-index de70a8c7..2413aba2 100644
---- a/README.md
-+++ b/README.md
-@@ -381,6 +381,6 @@ Jailhouse can be started after loading its kernel module. Run:
+ 	.pci_devices = {
+-		/* 00:00.0 */ {
++		/* 00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 0x00,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 1,
+diff --git a/configs/arm/emtrion-rzg1h.c b/configs/arm/emtrion-rzg1h.c
+index c020372d..26fa624a 100644
+--- a/configs/arm/emtrion-rzg1h.c
++++ b/configs/arm/emtrion-rzg1h.c
+@@ -351,9 +351,9 @@ struct {
+ 	},
  
- The corresponding test to apic-demo on x86 is the gic-demo:
+ 	.pci_devices = {
+-		/* 00:00.0 */ {
++		/* 00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 0x00,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 0,
+diff --git a/configs/arm/emtrion-rzg1m-linux-demo.c b/configs/arm/emtrion-rzg1m-linux-demo.c
+index 083777df..75f34e72 100644
+--- a/configs/arm/emtrion-rzg1m-linux-demo.c
++++ b/configs/arm/emtrion-rzg1m-linux-demo.c
+@@ -165,9 +165,9 @@ struct {
+ 	},
  
--    jailhouse cell create /path/to/qemu-arm64-gic-demo.cell
--    jailhouse cell load gic-demo /path/to/gic-demo.bin
--    jailhouse cell start gic-demo
-+    jailhouse cell create /path/to/qemu-arm64-inmate-demo.cell
-+    jailhouse cell load inmate-demo /path/to/gic-demo.bin
-+    jailhouse cell start inmate-demo
-diff --git a/configs/arm/bananapi-gic-demo.c b/configs/arm/bananapi-inmate-demo.c
-similarity index 96%
-rename from configs/arm/bananapi-gic-demo.c
-rename to configs/arm/bananapi-inmate-demo.c
-index 855a72a7..a83aff88 100644
---- a/configs/arm/bananapi-gic-demo.c
-+++ b/configs/arm/bananapi-inmate-demo.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Configuration for gic-demo inmate on Banana Pi:
-+ * Configuration for demo inmate on Banana Pi:
-  * 1 CPU, 64K RAM, serial ports 4-7, CCU+GPIO
-  *
-  * Copyright (c) Siemens AG, 2014
-@@ -24,7 +24,7 @@ struct {
- 	.cell = {
- 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
- 		.revision = JAILHOUSE_CONFIG_REVISION,
--		.name = "bananapi-gic-demo",
-+		.name = "bananapi-inmate-demo",
- 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+ 	.pci_devices = {
+-		/* 00:00.0 */ {
++		/* 00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 0x00,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 1,
+diff --git a/configs/arm/emtrion-rzg1m.c b/configs/arm/emtrion-rzg1m.c
+index e0a8a1c3..4ee1a40c 100644
+--- a/configs/arm/emtrion-rzg1m.c
++++ b/configs/arm/emtrion-rzg1m.c
+@@ -260,9 +260,9 @@ struct {
+ 	},
  
- 		.cpu_set_size = sizeof(config.cpus),
-diff --git a/configs/arm/emtrion-rzg1e-uart-demo.c b/configs/arm/emtrion-rzg1e-inmate-demo.c
-similarity index 94%
-rename from configs/arm/emtrion-rzg1e-uart-demo.c
-rename to configs/arm/emtrion-rzg1e-inmate-demo.c
-index 42c74127..d8f21a70 100644
---- a/configs/arm/emtrion-rzg1e-uart-demo.c
-+++ b/configs/arm/emtrion-rzg1e-inmate-demo.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Configuration for uart-demo inmate on emCON-RZ/G1E:
-+ * Configuration for demo inmate on emCON-RZ/G1E:
-  * 1 CPU, 64K RAM, serial ports SCIF4, CCU
-  *
-  * Copyright (c) emtrion GmbH, 2017
-@@ -24,7 +24,7 @@ struct {
- 	.cell = {
- 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
- 		.revision = JAILHOUSE_CONFIG_REVISION,
--		.name = "emtrion-emconrzg1e-uart-demo",
-+		.name = "emtrion-emconrzg1e-inmate-demo",
- 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+ 	.pci_devices = {
+-		/* 00:00.0 */ {
++		/* 00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 0x00,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 0,
+diff --git a/configs/arm/jetson-tk1-linux-demo.c b/configs/arm/jetson-tk1-linux-demo.c
+index 010d2022..13a7c00e 100644
+--- a/configs/arm/jetson-tk1-linux-demo.c
++++ b/configs/arm/jetson-tk1-linux-demo.c
+@@ -105,9 +105,9 @@ struct {
+ 	},
  
- 		.cpu_set_size = sizeof(config.cpus),
-diff --git a/configs/arm/emtrion-rzg1h-uart-demo.c b/configs/arm/emtrion-rzg1h-inmate-demo.c
-similarity index 94%
-rename from configs/arm/emtrion-rzg1h-uart-demo.c
-rename to configs/arm/emtrion-rzg1h-inmate-demo.c
-index f20c94cb..11695b75 100644
---- a/configs/arm/emtrion-rzg1h-uart-demo.c
-+++ b/configs/arm/emtrion-rzg1h-inmate-demo.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Configuration for uart-demo inmate on emCON-RZ/G1H:
-+ * Configuration for demo inmate on emCON-RZ/G1H:
-  * 1 CPU, 64K RAM, serial ports SCIFA0, CCU
-  *
-  * Copyright (c) emtrion GmbH, 2017
-@@ -24,7 +24,7 @@ struct {
- 	.cell = {
- 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
- 		.revision = JAILHOUSE_CONFIG_REVISION,
--		.name = "emtrion-emconrzg1h-uart-demo",
-+		.name = "emtrion-emconrzg1h-inmate-demo",
- 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+ 	.pci_devices = {
+-		/* 00:00.0 */ {
++		/* 00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 0x00,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 1,
+diff --git a/configs/arm/jetson-tk1.c b/configs/arm/jetson-tk1.c
+index 3a6eb1fa..f815218d 100644
+--- a/configs/arm/jetson-tk1.c
++++ b/configs/arm/jetson-tk1.c
+@@ -248,10 +248,10 @@ struct {
+ 	},
  
- 		.cpu_set_size = sizeof(config.cpus),
-diff --git a/configs/arm/emtrion-rzg1m-uart-demo.c b/configs/arm/emtrion-rzg1m-inmate-demo.c
-similarity index 94%
-rename from configs/arm/emtrion-rzg1m-uart-demo.c
-rename to configs/arm/emtrion-rzg1m-inmate-demo.c
-index c89c1d82..b406b8bd 100644
---- a/configs/arm/emtrion-rzg1m-uart-demo.c
-+++ b/configs/arm/emtrion-rzg1m-inmate-demo.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Configuration for uart-demo inmate on emCON-RZ/G1M:
-+ * Configuration for demo inmate on emCON-RZ/G1M:
-  * 1 CPU, 64K RAM, serial ports SCIF4, CCU
-  *
-  * Copyright (c) emtrion GmbH, 2017
-@@ -24,7 +24,7 @@ struct {
- 	.cell = {
- 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
- 		.revision = JAILHOUSE_CONFIG_REVISION,
--		.name = "emtrion-emconrzg1m-uart-demo",
-+		.name = "emtrion-emconrzg1m-inmate-demo",
- 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+ 	.pci_devices = {
+-		/* 0001:00:00.0 */ {
++		/* 0001:00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.domain = 1,
+-			.bdf = 0x00,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 0,
+diff --git a/configs/arm/orangepi0-linux-demo.c b/configs/arm/orangepi0-linux-demo.c
+index 5ea4e34d..ee6e51b3 100644
+--- a/configs/arm/orangepi0-linux-demo.c
++++ b/configs/arm/orangepi0-linux-demo.c
+@@ -95,7 +95,7 @@ struct {
+ 	.pci_devices = {
+ 		{
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 0x00,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 1,
+diff --git a/configs/arm/orangepi0.c b/configs/arm/orangepi0.c
+index 9aa2876c..3f5d026b 100644
+--- a/configs/arm/orangepi0.c
++++ b/configs/arm/orangepi0.c
+@@ -140,7 +140,7 @@ struct {
+ 	.pci_devices = {
+ 		{
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 0x00,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 0,
+diff --git a/configs/arm64/espressobin-linux-demo.c b/configs/arm64/espressobin-linux-demo.c
+index 75602beb..e94bc63f 100644
+--- a/configs/arm64/espressobin-linux-demo.c
++++ b/configs/arm64/espressobin-linux-demo.c
+@@ -95,9 +95,9 @@ struct {
+ 	},
  
- 		.cpu_set_size = sizeof(config.cpus),
-diff --git a/configs/arm/jetson-tk1-demo.c b/configs/arm/jetson-tk1-inmate-demo.c
-similarity index 94%
-rename from configs/arm/jetson-tk1-demo.c
-rename to configs/arm/jetson-tk1-inmate-demo.c
-index 57ea5a3d..a4dd0a34 100644
---- a/configs/arm/jetson-tk1-demo.c
-+++ b/configs/arm/jetson-tk1-inmate-demo.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Configuration for gic-demo or uart-demo inmate on Nvidia Jetson TK1:
-+ * Configuration for demo inmate on Nvidia Jetson TK1:
-  * 1 CPU, 64K RAM, serial port 0
-  *
-  * Copyright (c) Siemens AG, 2015
-@@ -28,7 +28,7 @@ struct {
- 	.cell = {
- 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
- 		.revision = JAILHOUSE_CONFIG_REVISION,
--		.name = "jetson-tk1-demo",
-+		.name = "jetson-tk1-inmate-demo",
- 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+ 	.pci_devices = {
+-		/* 00:00.0 */ {
++		/* 00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 0 << 3,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 1,
+diff --git a/configs/arm64/espressobin.c b/configs/arm64/espressobin.c
+index d17c9db3..79d79fa2 100644
+--- a/configs/arm64/espressobin.c
++++ b/configs/arm64/espressobin.c
+@@ -68,7 +68,7 @@ struct {
+ 	},
  
- 		.cpu_set_size = sizeof(config.cpus),
-diff --git a/configs/arm/orangepi0-gic-demo.c b/configs/arm/orangepi0-inmate-demo.c
-similarity index 95%
-rename from configs/arm/orangepi0-gic-demo.c
-rename to configs/arm/orangepi0-inmate-demo.c
-index 51b3bf8b..5b77f1ba 100644
---- a/configs/arm/orangepi0-gic-demo.c
-+++ b/configs/arm/orangepi0-inmate-demo.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Configuration for gic-demo inmate on Orange Pi Zero:
-+ * Configuration for demo inmate on Orange Pi Zero:
-  * 1 CPU, 64K RAM, serial ports 0-3, GPIO PA
-  *
-  * Copyright (c) Siemens AG, 2014-2016
-@@ -24,7 +24,7 @@ struct {
- 	.cell = {
- 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
- 		.revision = JAILHOUSE_CONFIG_REVISION,
--		.name = "orangepi0-gic-demo",
-+		.name = "orangepi0-inmate-demo",
- 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+ 	.mem_regions = {
+-		/* IVSHMEM shared memory region for 00:00.0 */
++		/* IVSHMEM shared memory region for 00:01.0 */
+ 		JAILHOUSE_SHMEM_NET_REGIONS(0x3fb00000, 0),
+ 		/* MMIO (permissive) */ {
+ 			.phys_start = 0xd0000000,
+@@ -104,10 +104,10 @@ struct {
+ 	},
  
- 		.cpu_set_size = sizeof(config.cpus),
-diff --git a/configs/arm64/amd-seattle-gic-demo.c b/configs/arm64/amd-seattle-inmate-demo.c
-similarity index 95%
-rename from configs/arm64/amd-seattle-gic-demo.c
-rename to configs/arm64/amd-seattle-inmate-demo.c
-index 7cc871a7..d920804c 100644
---- a/configs/arm64/amd-seattle-gic-demo.c
-+++ b/configs/arm64/amd-seattle-inmate-demo.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Configuration for gic-demo inmate on AMD Seattle:
-+ * Configuration for demo inmate on AMD Seattle:
-  * 1 CPU, 64K RAM, 1 serial port
-  *
-  * Copyright (C) 2015 Huawei Technologies Duesseldorf GmbH
-@@ -24,7 +24,7 @@ struct {
- 	.cell = {
- 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
- 		.revision = JAILHOUSE_CONFIG_REVISION,
--		.name = "gic-demo",
-+		.name = "inmate-demo",
- 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+ 	.pci_devices = {
+-		/* 0001:00:00.0 */ {
++		/* 0001:00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.domain = 1,
+-			.bdf = 0 << 3,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 0,
+diff --git a/configs/arm64/hikey-linux-demo.c b/configs/arm64/hikey-linux-demo.c
+index 2bdca488..aefc429d 100644
+--- a/configs/arm64/hikey-linux-demo.c
++++ b/configs/arm64/hikey-linux-demo.c
+@@ -92,9 +92,9 @@ struct {
+ 	},
  
- 		.cpu_set_size = sizeof(config.cpus),
-diff --git a/configs/arm64/espressobin-gic-demo.c b/configs/arm64/espressobin-inmate-demo.c
-similarity index 94%
-rename from configs/arm64/espressobin-gic-demo.c
-rename to configs/arm64/espressobin-inmate-demo.c
-index e5da1997..921b93b0 100644
---- a/configs/arm64/espressobin-gic-demo.c
-+++ b/configs/arm64/espressobin-inmate-demo.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Configuration for gic-demo inmate on Marvell ESPRESSObin board:
-+ * Configuration for demo inmate on Marvell ESPRESSObin board:
-  * 1 CPU, 64K RAM, 1 serial port
-  *
-  * Copyright (c) Siemens AG, 2017
-@@ -24,7 +24,7 @@ struct {
- 	.cell = {
- 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
- 		.revision = JAILHOUSE_CONFIG_REVISION,
--		.name = "gic-demo",
-+		.name = "inmate-demo",
- 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+ 	.pci_devices = {
+-		/* 00:00.0 */ {
++		/* 00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 0x00,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 1,
+diff --git a/configs/arm64/hikey.c b/configs/arm64/hikey.c
+index f8a6c2a2..71489abf 100644
+--- a/configs/arm64/hikey.c
++++ b/configs/arm64/hikey.c
+@@ -110,10 +110,10 @@ struct {
+ 	},
  
- 		.cpu_set_size = sizeof(config.cpus),
-diff --git a/configs/arm64/foundation-v8-gic-demo.c b/configs/arm64/foundation-v8-inmate-demo.c
-similarity index 94%
-rename from configs/arm64/foundation-v8-gic-demo.c
-rename to configs/arm64/foundation-v8-inmate-demo.c
-index 44402a18..2dda3adf 100644
---- a/configs/arm64/foundation-v8-gic-demo.c
-+++ b/configs/arm64/foundation-v8-inmate-demo.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Configuration for gic-demo inmate on Foundation Model v8:
-+ * Configuration for demo inmate on Foundation Model v8:
-  * 1 CPU, 64K RAM, serial port 1
-  *
-  * Copyright (c) ARM Limited, 2014
-@@ -24,7 +24,7 @@ struct {
- 	.cell = {
- 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
- 		.revision = JAILHOUSE_CONFIG_REVISION,
--		.name = "gic-demo",
-+		.name = "inmate-demo",
- 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+ 	.pci_devices = {
+-		/* 0001:00:00.0 */ {
++		/* 0001:00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.domain = 1,
+-			.bdf = 0x00,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 0,
+diff --git a/configs/arm64/jetson-tx1-linux-demo.c b/configs/arm64/jetson-tx1-linux-demo.c
+index e51549b6..a14f865b 100644
+--- a/configs/arm64/jetson-tx1-linux-demo.c
++++ b/configs/arm64/jetson-tx1-linux-demo.c
+@@ -109,9 +109,9 @@ struct {
+ 	},
  
- 		.cpu_set_size = sizeof(config.cpus),
-diff --git a/configs/arm64/hikey-gic-demo.c b/configs/arm64/hikey-inmate-demo.c
-similarity index 94%
-rename from configs/arm64/hikey-gic-demo.c
-rename to configs/arm64/hikey-inmate-demo.c
-index 48a9634f..ce5eb91b 100644
---- a/configs/arm64/hikey-gic-demo.c
-+++ b/configs/arm64/hikey-inmate-demo.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Configuration for gic-demo inmate on LeMaker HiKey board, 2GiB:
-+ * Configuration for demo inmate on LeMaker HiKey board, 2GiB:
-  * 1 CPU, 64K RAM, 1 serial port
-  *
-  * Copyright (c) Siemens AG, 2016
-@@ -24,7 +24,7 @@ struct {
- 	.cell = {
- 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
- 		.revision = JAILHOUSE_CONFIG_REVISION,
--		.name = "gic-demo",
-+		.name = "inmate-demo",
- 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+ 	.pci_devices = {
+-		/* 00:00.0 */ {
++		/* 00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 0x00,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 1,
+diff --git a/configs/arm64/jetson-tx1.c b/configs/arm64/jetson-tx1.c
+index 2798fed8..60ed2630 100644
+--- a/configs/arm64/jetson-tx1.c
++++ b/configs/arm64/jetson-tx1.c
+@@ -387,10 +387,10 @@ struct {
+ 	},
  
- 		.cpu_set_size = sizeof(config.cpus),
-diff --git a/configs/arm64/imx8mq-gic-demo.c b/configs/arm64/imx8mq-inmate-demo.c
-similarity index 96%
-rename from configs/arm64/imx8mq-gic-demo.c
-rename to configs/arm64/imx8mq-inmate-demo.c
-index 02a2b480..8c1ad624 100644
---- a/configs/arm64/imx8mq-gic-demo.c
-+++ b/configs/arm64/imx8mq-inmate-demo.c
-@@ -1,5 +1,5 @@
- /*
-- * iMX8MQ target - gic-demo
-+ * iMX8MQ target - inmate demo
-  *
-  * Copyright NXP 2018
-  *
-@@ -21,7 +21,7 @@ struct {
- 	.cell = {
- 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
- 		.revision = JAILHOUSE_CONFIG_REVISION,
--		.name = "gic-demo",
-+		.name = "inmate-demo",
- 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+ 	.pci_devices = {
+-		/* 0001:00:00.0 */ {
++		/* 0001:00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.domain = 1,
+-			.bdf = 0x00,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 0,
+diff --git a/configs/arm64/k3-am654-idk-linux-demo.c b/configs/arm64/k3-am654-idk-linux-demo.c
+index ceb4eca2..02bd2b18 100644
+--- a/configs/arm64/k3-am654-idk-linux-demo.c
++++ b/configs/arm64/k3-am654-idk-linux-demo.c
+@@ -54,7 +54,7 @@ struct {
+ 	},
  
- 		.cpu_set_size = sizeof(config.cpus),
-diff --git a/configs/arm64/jetson-tx1-demo.c b/configs/arm64/jetson-tx1-inmate-demo.c
-similarity index 93%
-rename from configs/arm64/jetson-tx1-demo.c
-rename to configs/arm64/jetson-tx1-inmate-demo.c
-index b16b9ba7..1cfbe7f7 100644
---- a/configs/arm64/jetson-tx1-demo.c
-+++ b/configs/arm64/jetson-tx1-inmate-demo.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Configuration for gic-demo or uart-demo inmate on Nvidia Jetson TX1:
-+ * Configuration for demo inmate on Nvidia Jetson TX1:
-  * 1 CPU, 64K RAM, serial port 0
-  *
-  * Copyright (c) Siemens AG, 2015
-@@ -24,7 +24,7 @@ struct {
- 	.cell = {
- 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
- 		.revision = JAILHOUSE_CONFIG_REVISION,
--		.name = "jetson-tx1-demo",
-+		.name = "jetson-tx1-inmate-demo",
- 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+ 	.mem_regions = {
+-		/* IVSHMEM shared memory region for 00:00.0 */
++		/* IVSHMEM shared memory region for 00:01.0 */
+ 		JAILHOUSE_SHMEM_NET_REGIONS(0x8dfb00000, 1),
+ 		/* RAM load */ {
+ 			.phys_start = 0x8FFFF0000,
+@@ -133,9 +133,9 @@ struct {
+ 	},
  
- 		.cpu_set_size = sizeof(config.cpus),
-diff --git a/configs/arm64/jetson-tx2-demo.c b/configs/arm64/jetson-tx2-inmate-demo.c
-similarity index 93%
-rename from configs/arm64/jetson-tx2-demo.c
-rename to configs/arm64/jetson-tx2-inmate-demo.c
-index d500e124..ed1a7d97 100644
---- a/configs/arm64/jetson-tx2-demo.c
-+++ b/configs/arm64/jetson-tx2-inmate-demo.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Configuration for gic-demo or uart-demo inmate on Nvidia Jetson TX2:
-+ * Configuration for demo inmate on Nvidia Jetson TX2:
-  * 1 CPU, 64 MB RAM, serial port 0
-  *
-  * This work is licensed under the terms of the GNU GPL, version 2.  See
-@@ -19,7 +19,7 @@ struct {
- 	.cell = {
- 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
- 		.revision = JAILHOUSE_CONFIG_REVISION,
--		.name = "jetson-tx2-demo",
-+		.name = "jetson-tx2-inmate-demo",
- 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+ 	.pci_devices = {
+-		/* 00:00.0 */ {
++		/* 00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 0x00,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 1,
+diff --git a/configs/arm64/k3-am654-idk.c b/configs/arm64/k3-am654-idk.c
+index 9ac32dbb..ddd770fe 100644
+--- a/configs/arm64/k3-am654-idk.c
++++ b/configs/arm64/k3-am654-idk.c
+@@ -65,7 +65,7 @@ struct {
+ 	},
  
- 		.cpu_set_size = sizeof(config.cpus),
-diff --git a/configs/arm64/k3-am654-gic-demo.c b/configs/arm64/k3-am654-inmate-demo.c
-similarity index 95%
-rename from configs/arm64/k3-am654-gic-demo.c
-rename to configs/arm64/k3-am654-inmate-demo.c
-index 9ced1007..00367471 100644
---- a/configs/arm64/k3-am654-gic-demo.c
-+++ b/configs/arm64/k3-am654-inmate-demo.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Configuration for gic-demo inmate on K3 based platforms.
-+ * Configuration for demo inmate on K3 based platforms.
-  * 1CPU, 64K RAM, 1 serial port(MCU UART 0).
-  *
-  * Copyright (c) 2019 Texas Instruments Incorporated - http://www.ti.com/
-@@ -25,7 +25,7 @@ struct {
- 	.cell = {
- 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
- 		.revision = JAILHOUSE_CONFIG_REVISION,
--		.name = "gic-demo",
-+		.name = "inmate-demo",
- 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+ 	.mem_regions = {
+-		/* IVSHMEM shared memory region for 00:00.0 */
++		/* IVSHMEM shared memory region for 00:01.0 */
+ 		JAILHOUSE_SHMEM_NET_REGIONS(0x8dfb00000, 0),
+ 		/* RAM */ {
+ 			.phys_start = 0x80000000,
+@@ -206,10 +206,10 @@ struct {
+ 	},
  
- 		.cpu_set_size = sizeof(config.cpus),
-diff --git a/configs/arm64/k3-j721e-evm-gic-demo.c b/configs/arm64/k3-j721e-evm-inmate-demo.c
-similarity index 95%
-rename from configs/arm64/k3-j721e-evm-gic-demo.c
-rename to configs/arm64/k3-j721e-evm-inmate-demo.c
-index 0c122fee..7440a258 100644
---- a/configs/arm64/k3-j721e-evm-gic-demo.c
-+++ b/configs/arm64/k3-j721e-evm-inmate-demo.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Configuration for gic-demo inmate on K3 based platforms.
-+ * Configuration for demo inmate on K3 based platforms.
-  * 1CPU, 64K RAM, 1 serial port.
-  *
-  * Copyright (c) 2019 Texas Instruments Incorporated - http://www.ti.com/
-@@ -25,7 +25,7 @@ struct {
- 	.cell = {
- 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
- 		.revision = JAILHOUSE_CONFIG_REVISION,
--		.name = "gic-demo",
-+		.name = "inmate-demo",
- 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+ 	.pci_devices = {
+-		/* 0001:00:00.0 */ {
++		/* 0001:00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.domain = 1,
+-			.bdf = 0x00,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 0,
+diff --git a/configs/arm64/k3-j721e-evm-linux-demo.c b/configs/arm64/k3-j721e-evm-linux-demo.c
+index 27662452..ed6dfe34 100644
+--- a/configs/arm64/k3-j721e-evm-linux-demo.c
++++ b/configs/arm64/k3-j721e-evm-linux-demo.c
+@@ -54,7 +54,7 @@ struct {
+ 	},
  
- 		.cpu_set_size = sizeof(config.cpus),
-diff --git a/configs/arm64/macchiatobin-gic-demo.c b/configs/arm64/macchiatobin-inmate-demo.c
-similarity index 94%
-rename from configs/arm64/macchiatobin-gic-demo.c
-rename to configs/arm64/macchiatobin-inmate-demo.c
-index 2bb1d85d..9c76f606 100644
---- a/configs/arm64/macchiatobin-gic-demo.c
-+++ b/configs/arm64/macchiatobin-inmate-demo.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Configuration for gic-demo inmate on Marvell MACCHIATObin board:
-+ * Configuration for demo inmate on Marvell MACCHIATObin board:
-  * 1 CPU, 64K RAM, 1 serial port
-  *
-  * Copyright (c) Siemens AG, 2017-2018
-@@ -24,7 +24,7 @@ struct {
- 	.cell = {
- 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
- 		.revision = JAILHOUSE_CONFIG_REVISION,
--		.name = "gic-demo",
-+		.name = "inmate-demo",
- 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+ 	.mem_regions = {
+-		/* IVSHMEM shared memory region for 00:00.0 */
++		/* IVSHMEM shared memory region for 00:01.0 */
+ 		JAILHOUSE_SHMEM_NET_REGIONS(0x89fe00000, 1),
+ 		/* ctrl mmr */ {
+ 			.phys_start = 0x00100000,
+@@ -259,7 +259,7 @@ struct {
+ 	.pci_devices = {
+ 		/* 00:00.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 0x00,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 1,
+diff --git a/configs/arm64/k3-j721e-evm.c b/configs/arm64/k3-j721e-evm.c
+index b180d272..17ffb0f4 100644
+--- a/configs/arm64/k3-j721e-evm.c
++++ b/configs/arm64/k3-j721e-evm.c
+@@ -67,7 +67,7 @@ struct {
+ 	},
  
- 		.cpu_set_size = sizeof(config.cpus),
-diff --git a/configs/arm64/miriac-sbc-ls1046a-gic-demo.c b/configs/arm64/miriac-sbc-ls1046a-inmate-demo.c
-similarity index 95%
-rename from configs/arm64/miriac-sbc-ls1046a-gic-demo.c
-rename to configs/arm64/miriac-sbc-ls1046a-inmate-demo.c
-index 73e8e891..39e97888 100644
---- a/configs/arm64/miriac-sbc-ls1046a-gic-demo.c
-+++ b/configs/arm64/miriac-sbc-ls1046a-inmate-demo.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * GIC-demo for Microsys miriac SBC-LS1046A board
-+ * Demo inmate for Microsys miriac SBC-LS1046A board
-  *
-  * Copyright (c) Linutronix GmbH, 2019
-  *
-@@ -24,7 +24,7 @@ struct {
- 	.cell = {
- 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
- 		.revision = JAILHOUSE_CONFIG_REVISION,
--		.name = "gic-demo",
-+		.name = "inmate-demo",
- 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+ 	.mem_regions = {
+-		/* IVSHMEM shared memory region for 00:00.0 */
++		/* IVSHMEM shared memory region for 00:01.0 */
+ 		JAILHOUSE_SHMEM_NET_REGIONS(0x89fe00000, 0),
+ 		/* ctrl mmr */ {
+ 			.phys_start = 0x00100000,
+@@ -344,10 +344,10 @@ struct {
+ 	},
  
- 		.cpu_set_size = sizeof(config.cpus),
-diff --git a/configs/arm64/qemu-arm64-gic-demo.c b/configs/arm64/qemu-arm64-inmate-demo.c
-similarity index 94%
-rename from configs/arm64/qemu-arm64-gic-demo.c
-rename to configs/arm64/qemu-arm64-inmate-demo.c
-index 7752167e..502e3705 100644
---- a/configs/arm64/qemu-arm64-gic-demo.c
-+++ b/configs/arm64/qemu-arm64-inmate-demo.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Configuration for gic-demo inmate on QEMU arm64 virtual target
-+ * Configuration for demo inmate on QEMU arm64 virtual target
-  * 1 CPU, 64K RAM, 1 serial port
-  *
-  * Copyright (c) Siemens AG, 2017
-@@ -24,7 +24,7 @@ struct {
- 	.cell = {
- 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
- 		.revision = JAILHOUSE_CONFIG_REVISION,
--		.name = "gic-demo",
-+		.name = "inmate-demo",
- 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+ 	.pci_devices = {
+-		/* 0001:00:00.0 */ {
++		/* 0003:00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.domain = 3,
+-			.bdf = 0x00,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 0,
+diff --git a/configs/arm64/macchiatobin-linux-demo.c b/configs/arm64/macchiatobin-linux-demo.c
+index b1c475f4..f7675e8a 100644
+--- a/configs/arm64/macchiatobin-linux-demo.c
++++ b/configs/arm64/macchiatobin-linux-demo.c
+@@ -103,9 +103,9 @@ struct {
+ 	},
  
- 		.cpu_set_size = sizeof(config.cpus),
-diff --git a/configs/arm64/ultra96-gic-demo.c b/configs/arm64/ultra96-inmate-demo.c
-similarity index 95%
-rename from configs/arm64/ultra96-gic-demo.c
-rename to configs/arm64/ultra96-inmate-demo.c
-index 23bad983..b9524c37 100644
---- a/configs/arm64/ultra96-gic-demo.c
-+++ b/configs/arm64/ultra96-inmate-demo.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Configuration for gic-demo inmate on Avnet Ultra96 board:
-+ * Configuration for demo inmate on Avnet Ultra96 board:
-  * 1 CPU, 64K RAM, 1 serial port
-  *
-  * Copyright (c) Siemens AG, 2016-2019
-@@ -24,7 +24,7 @@ struct {
- 	.cell = {
- 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
- 		.revision = JAILHOUSE_CONFIG_REVISION,
--		.name = "gic-demo",
-+		.name = "inmate-demo",
- 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+ 	.pci_devices = {
+-		/* 00:00.0 */ {
++		/* 00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 0 << 3,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 1,
+diff --git a/configs/arm64/macchiatobin.c b/configs/arm64/macchiatobin.c
+index 0b79409e..db158824 100644
+--- a/configs/arm64/macchiatobin.c
++++ b/configs/arm64/macchiatobin.c
+@@ -70,7 +70,7 @@ struct {
+ 	},
  
- 		.cpu_set_size = sizeof(config.cpus),
-diff --git a/configs/arm64/zynqmp-zcu102-gic-demo.c b/configs/arm64/zynqmp-zcu102-inmate-demo.c
-similarity index 94%
-rename from configs/arm64/zynqmp-zcu102-gic-demo.c
-rename to configs/arm64/zynqmp-zcu102-inmate-demo.c
-index 138b3e44..304b4cda 100644
---- a/configs/arm64/zynqmp-zcu102-gic-demo.c
-+++ b/configs/arm64/zynqmp-zcu102-inmate-demo.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Configuration for gic-demo inmate on Xilinx ZynqMP ZCU102 eval board:
-+ * Configuration for demo inmate on Xilinx ZynqMP ZCU102 eval board:
-  * 1 CPU, 64K RAM, 1 serial port
-  *
-  * Copyright (c) Siemens AG, 2016
-@@ -24,7 +24,7 @@ struct {
- 	.cell = {
- 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
- 		.revision = JAILHOUSE_CONFIG_REVISION,
--		.name = "gic-demo",
-+		.name = "inmate-demo",
- 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+ 	.mem_regions = {
+-		/* IVSHMEM shared memory region for 00:00.0 */
++		/* IVSHMEM shared memory region for 00:01.0 */
+ 		JAILHOUSE_SHMEM_NET_REGIONS(0x13fb00000, 0),
+ 		/* MMIO (permissive) */ {
+ 			.phys_start = 0xf0300000,
+@@ -113,10 +113,10 @@ struct {
+ 	},
  
- 		.cpu_set_size = sizeof(config.cpus),
+ 	.pci_devices = {
+-		/* 0001:00:00.0 */ {
++		/* 0001:00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.domain = 1,
+-			.bdf = 0 << 3,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 0,
+diff --git a/configs/arm64/miriac-sbc-ls1046a-linux-demo.c b/configs/arm64/miriac-sbc-ls1046a-linux-demo.c
+index 27fa5064..841c21a4 100644
+--- a/configs/arm64/miriac-sbc-ls1046a-linux-demo.c
++++ b/configs/arm64/miriac-sbc-ls1046a-linux-demo.c
+@@ -116,7 +116,7 @@ struct {
+ 	{
+ 		/* 00:00.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 0 << 3,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 1,
+diff --git a/configs/arm64/miriac-sbc-ls1046a.c b/configs/arm64/miriac-sbc-ls1046a.c
+index 93279716..96a7139e 100644
+--- a/configs/arm64/miriac-sbc-ls1046a.c
++++ b/configs/arm64/miriac-sbc-ls1046a.c
+@@ -72,7 +72,7 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
+-		/* IVSHMEM shared memory region for 00:00.0 */
++		/* IVSHMEM shared memory region for 00:01.0 */
+ 		JAILHOUSE_SHMEM_NET_REGIONS(0xc0400000, 0),
+ 		/* DDR memory controller */ {
+ 			.phys_start = 0x01080000,
+@@ -449,10 +449,10 @@ struct {
+         },
+ 
+ 	.pci_devices = {
+-		/* 0000:00:00.0 */ {
++		/* 0001:00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.domain = 1,
+-			.bdf = 0 << 3,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 0,
+diff --git a/configs/arm64/qemu-arm64-linux-demo.c b/configs/arm64/qemu-arm64-linux-demo.c
+index 90e686ba..a661beb3 100644
+--- a/configs/arm64/qemu-arm64-linux-demo.c
++++ b/configs/arm64/qemu-arm64-linux-demo.c
+@@ -96,9 +96,9 @@ struct {
+ 	},
+ 
+ 	.pci_devices = {
+-		/* 00:00.0 */ {
++		/* 00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 0 << 3,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 1,
+diff --git a/configs/arm64/qemu-arm64.c b/configs/arm64/qemu-arm64.c
+index a75b60f7..e69c0da3 100644
+--- a/configs/arm64/qemu-arm64.c
++++ b/configs/arm64/qemu-arm64.c
+@@ -68,7 +68,7 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
+-		/* IVSHMEM shared memory region for 00:00.0 */
++		/* IVSHMEM shared memory region for 00:01.0 */
+ 		JAILHOUSE_SHMEM_NET_REGIONS(0x7fb00000, 0),
+ 		/* MMIO (permissive) */ {
+ 			.phys_start = 0x09000000,
+@@ -104,10 +104,10 @@ struct {
+ 	},
+ 
+ 	.pci_devices = {
+-		/* 0001:00:00.0 */ {
++		/* 0001:00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.domain = 1,
+-			.bdf = 0 << 3,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 0,
+diff --git a/configs/arm64/ultra96-linux-demo.c b/configs/arm64/ultra96-linux-demo.c
+index 94fa51ba..7054f5f0 100644
+--- a/configs/arm64/ultra96-linux-demo.c
++++ b/configs/arm64/ultra96-linux-demo.c
+@@ -95,9 +95,9 @@ struct {
+ 	},
+ 
+ 	.pci_devices = {
+-		/* 00:00.0 */ {
++		/* 00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 0 << 3,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 1,
+diff --git a/configs/arm64/ultra96.c b/configs/arm64/ultra96.c
+index 83762c41..51996861 100644
+--- a/configs/arm64/ultra96.c
++++ b/configs/arm64/ultra96.c
+@@ -67,7 +67,7 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
+-		/* IVSHMEM shared memory region for 00:00.0 */
++		/* IVSHMEM shared memory region for 00:01.0 */
+ 		JAILHOUSE_SHMEM_NET_REGIONS(0x7bf00000, 0),
+ 		/* MMIO (permissive) */ {
+ 			.phys_start = 0xfd000000,
+@@ -96,10 +96,10 @@ struct {
+ 	},
+ 
+ 	.pci_devices = {
+-		/* 0001:00:00.0 */ {
++		/* 0001:00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.domain = 1,
+-			.bdf = 0 << 3,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 0,
+diff --git a/configs/arm64/zynqmp-zcu102-linux-demo-2.c b/configs/arm64/zynqmp-zcu102-linux-demo-2.c
+index da4d1162..4fbd46a8 100644
+--- a/configs/arm64/zynqmp-zcu102-linux-demo-2.c
++++ b/configs/arm64/zynqmp-zcu102-linux-demo-2.c
+@@ -91,18 +91,18 @@ struct {
+ 	},
+ 
+ 	.pci_devices = {
+-		/* 00:01.0 */ {
++		/* 00:02.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 1 << 3,
++			.bdf = 2 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 1,
+ 			.shmem_peers = 2,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
+-		/* 00:02.0 */ {
++		/* 00:03.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 2 << 3,
++			.bdf = 3 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 4,
+ 			.shmem_dev_id = 1,
+diff --git a/configs/arm64/zynqmp-zcu102-linux-demo.c b/configs/arm64/zynqmp-zcu102-linux-demo.c
+index 9e8ba801..c944fa56 100644
+--- a/configs/arm64/zynqmp-zcu102-linux-demo.c
++++ b/configs/arm64/zynqmp-zcu102-linux-demo.c
+@@ -49,9 +49,9 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
+-		/* IVSHMEM shared memory region for 00:00.0 */
++		/* IVSHMEM shared memory region for 00:01.0 */
+ 		JAILHOUSE_SHMEM_NET_REGIONS(0x800400000, 1),
+-		/* IVSHMEM shared memory region for 00:02.0 */
++		/* IVSHMEM shared memory region for 00:03.0 */
+ 		JAILHOUSE_SHMEM_NET_REGIONS(0x800700000, 0),
+ 		/* UART */ {
+ 			.phys_start = 0xff010000,
+@@ -97,18 +97,18 @@ struct {
+ 	},
+ 
+ 	.pci_devices = {
+-		/* 00:00.0 */ {
++		/* 00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 0 << 3,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 1,
+ 			.shmem_peers = 2,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
+-		/* 00:02.0 */ {
++		/* 00:03.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.bdf = 2 << 3,
++			.bdf = 3 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 4,
+ 			.shmem_dev_id = 0,
+diff --git a/configs/arm64/zynqmp-zcu102.c b/configs/arm64/zynqmp-zcu102.c
+index 0130c0da..151285f0 100644
+--- a/configs/arm64/zynqmp-zcu102.c
++++ b/configs/arm64/zynqmp-zcu102.c
+@@ -115,20 +115,20 @@ struct {
+ 	},
+ 
+ 	.pci_devices = {
+-		/* 0001:00:00.0 */ {
++		/* 0001:00:01.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.domain = 1,
+-			.bdf = 0 << 3,
++			.bdf = 1 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 0,
+ 			.shmem_dev_id = 0,
+ 			.shmem_peers = 2,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
+-		/* 0001:00:00.0 */ {
++		/* 0001:00:02.0 */ {
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.domain = 1,
+-			.bdf = 1 << 3,
++			.bdf = 2 << 3,
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+ 			.shmem_regions_start = 4,
+ 			.shmem_dev_id = 0,
 -- 
 2.16.4
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/e2dad765c4a86de6e24b2beb67d13effdd9605b5.1578320435.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/68b8ff84ae8dcf2633310bb9f448e2823c3b6df8.1578320435.git.jan.kiszka%40siemens.com.
