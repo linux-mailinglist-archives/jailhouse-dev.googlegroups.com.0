@@ -1,31 +1,31 @@
 Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB7VO2LYAKGQE6OOVK6Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x337.google.com (mail-wm1-x337.google.com [IPv6:2a00:1450:4864:20::337])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C536132909
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  7 Jan 2020 15:36:47 +0100 (CET)
-Received: by mail-wm1-x337.google.com with SMTP id y125sf3263023wmg.1
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 07 Jan 2020 06:36:47 -0800 (PST)
+Received: from mail-wm1-x33e.google.com (mail-wm1-x33e.google.com [IPv6:2a00:1450:4864:20::33e])
+	by mail.lfdr.de (Postfix) with ESMTPS id E2CB5132908
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  7 Jan 2020 15:36:46 +0100 (CET)
+Received: by mail-wm1-x33e.google.com with SMTP id q26sf2006096wmq.8
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 07 Jan 2020 06:36:46 -0800 (PST)
 ARC-Seal: i=2; a=rsa-sha256; t=1578407806; cv=pass;
         d=google.com; s=arc-20160816;
-        b=l8mc0QxPsfd0MdzpjeCsAf7UU24Zl0Zu+P7WGFOQ5Ym8h/xGc5wkTGtseUB0WYr1IA
-         KBMDd1x9CqJ1UyGh2CF1t/jYPloKAeoOpy8m/smnr09mgrylC1FQZ7WOm9Zle+SsCnWG
-         SxkUKaSLXGkancNojdqHa/ETxngn75rt9It5MWxycaApnkDNVGPzS83dDE/mmRgQ6iim
-         LqO4//XVZUVZirVkQLINntAoBBHv7/RreR4lOWnQZmGRttTDCraopGBybiSrNxuTStQI
-         kK2t0ivpdoJ2n6/dEqXWRL8NdpnqGt2jX050t1uDrtoxQ21by4Ck3RjxoEfqQDRhwaNo
-         UJxg==
+        b=ZqrS61B8a2ggS7hOhUXLdxuMA4Ak6xUUIQgoOluRXR/eNeeC9CuxyE/hjuGQ9R1+xc
+         6D304qkzBciyueVQLbNrBhKUfvE1wBz2s5kU8VwHwmOLTnMM7uSjqm75fWpfys8ROTdR
+         2HxY490okgYUxc16ht+ESVeIdvq6N21eOyQJtsczMIxplmCQ+wIr5ZWaHpC/xbiGsNMz
+         PPsy4XuUxQFyB9TPINuAG+N1ZVI860ZlBlNX7g4q4IvhWlD4LeeO5eP79u6/CXMpVKnz
+         PlrgIdZAV/rkHqFvXuLj605uHP9Ok6rftlSdMv6zgm5Z5THW85i10zDJ7cHZF0D4NajK
+         GtWQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:references:in-reply-to:references
          :in-reply-to:message-id:date:subject:cc:to:from:mime-version:sender
          :dkim-signature;
-        bh=VcngD9TBNm/khvaKWtZT5cEsbWgSbIKUb3Fr6AI6VbQ=;
-        b=jNfnYK8jiAV188g3BdU4DOpjdBgh9LuQQyRp+1cweN5fOgA6jRB7F7zefeizS0Y2PJ
-         lRSGEV9pou4EegPy5GAqRiso21zVldbsq78nkgxYfybI+SDj+FZBTXJhqt5+mEXy7HfT
-         mkpMLPE50v1FbOiL5Jf4o0UbPohtLi60PGDFTy42BGHVAD9HWShVXsbQqdArDrcVCji+
-         /oSDtssnf8ZPl+BHVrd5BKAVWtRWf3Bgu/dBuxGipx13zZyixz9ipo1G5BmHMrLCHPCc
-         YjNs0Zd/3Axj96RZYER2XdWa7nyENIvqhWraLEyuEUYCLvbF+F6lzymfuPvK0D6DODbs
-         lUog==
+        bh=wRDNh7tfu/i7pNtQ6DmXPjysNQJqzPL6ldbSiyPaB3M=;
+        b=I6c9vRQPQ90d6k2y8Mgt5gz8OO56kyf6eXXlcQco5buC8/RGyOXHBP0pvyUO9XBqMy
+         wqJ9TxJ1SWzVeQWUo2LRypfhQnfmjmUWCHdQ5yBFaRZOVILXx3B9+W44u2goNnL5gOe3
+         tLppWcwjGGjS7hNPhx7dlxcM4m6tRYQr/fMruxziAym0S1CP2YebxFjw5yR0OMQK/wFK
+         YW/nvNnJ14/SQGhJQWO1b9sp+K4U/ZSPNI/V3q2srtGuzHb7P6Ss2UuktVMx0Vcfldm3
+         eM0ccbTiSnwEDEmu467q45i4Dh/Vdsjth8jFYvAiAAqQYLmBQXigrA/+X+Y1bYjiVJcK
+         pGtg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
        spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:in-reply-to:references:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=VcngD9TBNm/khvaKWtZT5cEsbWgSbIKUb3Fr6AI6VbQ=;
-        b=VtNmz33dT7zUjiZd7TcDs3H3cOhSXxo22cEUBfc+wHCjO87lLdY2pm1JUhyG3Q/mRx
-         uskyl7pU2LQ4gYP0eSTBzP26T45jhX11JbCkH50VoKTQ8Xfvma8+0y/B5r1VUzjM+L8j
-         D9CrR8FAumRxujxiG7+onIPwqsF4tLdtbqM1xw+WF499G+i4sb2NONwC/gWsU87yLIYR
-         HHC0dxmnieaYvXXXJnRq2k3CD5lTpj8RV1yJCbpckqUsukFtyboQBoX7DMpwdnW5wszm
-         OpOQsAaPCqtDpffFt4Exu/B+SEVvAxuuvmKPbiPHmpemxq7eAfPvviGY+DBM1txp39uD
-         dB9w==
+        bh=wRDNh7tfu/i7pNtQ6DmXPjysNQJqzPL6ldbSiyPaB3M=;
+        b=tgJ8GBBK+yEIGzdCwg8UTvOpnK0/+sruoapbiUAw7BHfveLaj58V+/P0F6bLL+lh2X
+         PwN5lF/TPOxVFwUBk7jzYNDrCHC2x7uUPZQSCItbed4xg60vW1XxiSHKi9RCuMcNgnUw
+         jUL2sUokBFrISpGdUBRGjFSe9aoYIZpQF2o/87q3Zp4JeueNUtDocjIK1pUi59jjyqe0
+         WSMyC3gMLq94xZyxasgZAaPyf9zfSOVYrFPn6sgkvWz7FNYr4ep4PFLrHjmU5RIVMfSV
+         8wSd8w3vKfZfe7YpQv/oMuM7ZJT1uE39mogMz5ADfaBR6rnd02F1sWwizArVshHdfgd3
+         icvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:mime-version:from:to:cc:subject:date
@@ -49,58 +49,58 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=VcngD9TBNm/khvaKWtZT5cEsbWgSbIKUb3Fr6AI6VbQ=;
-        b=lCRuPIroNmirU9fm0xtuCjpLVcHHfcrTUC25z94VkGgGFIPlj1E8IWEI0oCHxcDpz2
-         ufm2pTovSLGRSIOiJ4z6GVkFaMI70wpNTKUkdbfsFWNZQpmf9Gdp2pFHBtxFEenebWLb
-         DShefBXQT2v6jJ0tsDWN/EYrqIbAwE0gnr+F+U024CFAi25KRIJbLq1Aj5O3Yyw9FJlV
-         jxAhYhjdazffAOe23/b3WtSIdB/VWWakYQlU4TURnqgWWnaVUhLh7CeijOMSFVluctiO
-         1SQRGVY3JlsbU1dzi7bDEEi8o5ElJC+ClGVdyfBO+a9k3IdJMlzorsILQP4ZhRyrnx4t
-         WswQ==
+        bh=wRDNh7tfu/i7pNtQ6DmXPjysNQJqzPL6ldbSiyPaB3M=;
+        b=JxSyQb6rUUci64SME1GWt0eJocFkMdA58e4dP7421a/MsKDihVVoXv6fQuanTJvK2N
+         hNsluqIxAwkGyeQFTfLFO3PQ5yg54WHt82wB74L1JXLCZ5kdqCdycpy4W3j7ZeAE5D9l
+         p5n7pxPzB/vUCdfixzoGAaHnOOY0S3mdXawKuqH6NVzuCTJiRl2xefuC4nVZX2kOp2XW
+         8KzyJdLjGTOfXMJGhJzx+4WJWDApcbVGlkPGRstx2sesTWPSY25PxRUFk7rTNRgghgoQ
+         3O2AJ4mLIjvSbXgU3ml7OalUvYsFZUBznoTVewYcmaWLmoDmG3ZuOHUSUW7tkasWx+qa
+         0fIg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXFBYQTlaxdtH8bDIEeEI3N39i8CZZT28w88AprmzxxG43v4CF1
-	5WzG/mKC04LrXWDNnlO5v7k=
-X-Google-Smtp-Source: APXvYqyKbPH5S1lVlJTfk6buXyA9apg9At2r7e8+L0P3RXOdGW30Z7xXvvMjS+t2NXsUJHnEXr7hDg==
-X-Received: by 2002:a5d:4c8c:: with SMTP id z12mr79086329wrs.222.1578407806629;
+X-Gm-Message-State: APjAAAWXLqIxj5n9i24YPO7i+WBeBVlLHUEXO7O0DCK/wzcJlHqQSDI+
+	0boKDMAcQhOjxbeSZpVR9dE=
+X-Google-Smtp-Source: APXvYqzeLd4BQTcLIN7pU99S9EMLLXFqJ5D/maNe85Zfcfxa7IZw4Iny4iXtvOHwX9bWwReMEZblzA==
+X-Received: by 2002:a7b:c851:: with SMTP id c17mr42263239wml.71.1578407806485;
         Tue, 07 Jan 2020 06:36:46 -0800 (PST)
 MIME-Version: 1.0
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5d:6912:: with SMTP id t18ls13956144wru.7.gmail; Tue, 07
- Jan 2020 06:36:45 -0800 (PST)
-X-Received: by 2002:adf:db41:: with SMTP id f1mr112418973wrj.392.1578407805820;
+Received: by 2002:a1c:9808:: with SMTP id a8ls1033920wme.0.gmail; Tue, 07 Jan
+ 2020 06:36:45 -0800 (PST)
+X-Received: by 2002:a05:600c:22d1:: with SMTP id 17mr42174227wmg.23.1578407805775;
         Tue, 07 Jan 2020 06:36:45 -0800 (PST)
 ARC-Seal: i=1; a=rsa-sha256; t=1578407805; cv=none;
         d=google.com; s=arc-20160816;
-        b=IMsxMzoc6nNhfds7e1T57ovwi2Mzh5pN9Y61shWraQ32GsRAaZBV0RrsyTKvZR0lpW
-         upxguzIy8YQQ5koWrkgFnVoJ7L6M0Lk14xr4Yx8RZfj2/dvq7GbeBzRkB32eUznEqtig
-         lolCl1p9KX52Q5+STCbDKtqBk9B4kuPGbHbhIdPnap/gxNySIdk4iz5a56TXbAHzcmzT
-         mdLw3t1OA2GruvnTKpCf3o+Mi/MmJ98Q7dDSz8LseLwxXwlyuqtLcuqYPo0r3T+C2W1h
-         1ILtl6/SuI4FAT+CfDgXaQDjbOX0a3Hik2HREy8b8u6j9+Vg3kA0CpOXYgt/apXqDziV
-         tCTQ==
+        b=sthCTsr79DVbwdVKVFXYLa3d3yUOAGeYAaZfut7H6tZrMAs10cLgNHHNoVbO4k0BlC
+         45vkubG8OD/6dxOEA8kK/zCIdkj/vQKxG4NINWjkDXQEEX/dFheZr59nL52Gw59XNwzs
+         BUtfazHUyesd8Mk5MWzKIh8e++e5IlpD58xWk6RPP6MJkSgLSPfP8jypgprKIpPG5FS6
+         7owkU30Eq9B6wmBknCvyLySwadEWuM7y0THASwZBqEA6UaV6RFjPFYPwqBPPqDhfmjKy
+         AswlvegQlyvD1SfXjuN6n0LyEBU7ASlsIpbjqGHklx45ezE2JhnKPecqSy4/Ve2Mm1SR
+         CxMw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=references:in-reply-to:references:in-reply-to:message-id:date
          :subject:cc:to:from;
-        bh=WY/onnM5Iswc/wY6kPlu8TkYKAxVWv1+JPZcUKElmKI=;
-        b=G7Qf0V5WndNK7dGQFEgpxVLNb2dPjZta9DH5/JbSrHrowiikF91dCBDtq7yzMRDp5h
-         lrVrQdC5FiINhG7syn8q8VwVTjzCr3bmGvHD87ojV2LLZa/yaxLJG7ZIt9eBsDolo4Si
-         TQLqaF9DccYs82Z4kdv0SH+mX/I0F+OnK6EzCl0CTKlgOzBYbam2e4McH0vlpUVvdSrL
-         zJCusqFb3zC7+gV1ZZVquk04g1p41UqySkVm1wP9y1YZ0xkoGLtY5yzDLeXqUJys9qoK
-         iOWA1ecz52+WcGimrTFzzwq0R1oa3hSlcGdHKjZsZx0/0e0tQTR0I36x2Y5jpXJHAQSk
-         kfMQ==
+        bh=61LglPc80TVQgx3YFK/Z47r/czhnWUfISVlpGCmLbLc=;
+        b=vC06UDXgR9d/vVTUCKhge0xst4MwAVjV1zsLpWNiLM/90peuhWOLux1Uk4mMFbr1ja
+         kfgB22flU04uAW7nUFgaH0smn2y51jirK1bwPA5dEC8aBHfgCShlNR6JdzhyKJztMzWn
+         aIy8qwI6qCGW0NKf2Oefwp3f9pcTzsgTJuaT4/ph4t1epUJ2aSkwMsM2MChBUYN6nwqJ
+         tSQqWFgIpcSJgzWJfKbzK0GF+sk3UQ9nWJNqgZP3X+O9d2QY4Gr8RA+mpkIq9SDhWCbF
+         sfoRKQ5To2I6z+4uuVS/RralLWXTBLc7FKforFPLnDMG9z42rp2s8tzHHP0lDlH/bDo6
+         COvg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
        spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id t131si797448wmb.1.2020.01.07.06.36.45
+        by gmr-mx.google.com with ESMTPS id m2si1123672wmi.3.2020.01.07.06.36.45
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
         Tue, 07 Jan 2020 06:36:45 -0800 (PST)
 Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 007EaiXc000339
+	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 007EaiOa000342
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
 	Tue, 7 Jan 2020 15:36:44 +0100
 Received: from md1f2u6c.ad001.siemens.net ([139.25.68.37])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 007Eai7R011484;
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 007Eai7S011484;
 	Tue, 7 Jan 2020 15:36:44 +0100
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: qemu-devel <qemu-devel@nongnu.org>
@@ -109,9 +109,9 @@ Cc: Markus Armbruster <armbru@redhat.com>,
         Stefan Hajnoczi <stefanha@redhat.com>,
         "Michael S . Tsirkin" <mst@redhat.com>, Hannes Reinecke <hare@suse.de>,
         Jailhouse <jailhouse-dev@googlegroups.com>
-Subject: [RFC][PATCH v2 1/3] hw/misc: Add implementation of ivshmem revision 2 device
-Date: Tue,  7 Jan 2020 15:36:40 +0100
-Message-Id: <5542adccc5bda38da2cd0f46398850dc4ec31f2a.1578407802.git.jan.kiszka@siemens.com>
+Subject: [RFC][PATCH v2 2/3] docs/specs: Add specification of ivshmem device revision 2
+Date: Tue,  7 Jan 2020 15:36:41 +0100
+Message-Id: <5ddc4ca4f32bfab8971840e441b60a72153a2308.1578407802.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <cover.1578407802.git.jan.kiszka@siemens.com>
 References: <cover.1578407802.git.jan.kiszka@siemens.com>
@@ -137,1230 +137,403 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-This adds a reimplementation of ivshmem in its new revision 2 as
-separate device. The goal of this is not to enable sharing with v1,
-rather to allow explore the properties and potential limitation of the
-new version prior to discussing its integration with the existing code.
-
-v2 always requires a server to interconnect two more more QEMU
-instances because it provides signaling between peers unconditionally.
-Therefore, only the interconnecting chardev, master mode, and the usage
-of ioeventfd can be configured at device level. All other parameters are
-defined by the server instance.
-
-A new server protocol is introduced along this. Its primary difference
-is the introduction of a single welcome message that contains all peer
-parameters, rather than a series of single-word messages pushing them
-piece by piece.
-
-A complicating difference in interrupt handling, compare to v1, is the
-auto-disable mode of v2: When this is active, interrupt delivery is
-disabled by the device after each interrupt event. This prevents the
-usage of irqfd on the receiving side, but it lowers the handling cost
-for guests that implemented interrupt throttling this way (specifically
-when exposing the device via UIO).
-
-No changes have been made to the ivshmem device regarding migration:
-Only the master can live-migrate, slave peers have to hot-unplug the
-device first.
-
-The details of the device model will be specified in a succeeding
-commit. Drivers for this device can currently be found under
-
-http://git.kiszka.org/?p=linux.git;a=shortlog;h=refs/heads/queues/ivshmem2
-
-To instantiate a ivshmem v2 device, just add
-
- ... -chardev socket,path=/tmp/ivshmem_socket,id=ivshmem \
-     -device ivshmem,chardev=ivshmem
-
-provided the server opened its socket under the default path.
+This imports the ivshmem v2 specification draft from Jailhouse where the
+implementation is about to be merged now. The final home of the spec is
+to be decided, this shall just simplify the review process at this
+stage.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- hw/misc/Makefile.objs      |    2 +-
- hw/misc/ivshmem2.c         | 1085 ++++++++++++++++++++++++++++++++++++++++++++
- include/hw/misc/ivshmem2.h |   48 ++
- include/hw/pci/pci_ids.h   |    2 +
- 4 files changed, 1136 insertions(+), 1 deletion(-)
- create mode 100644 hw/misc/ivshmem2.c
- create mode 100644 include/hw/misc/ivshmem2.h
+ docs/specs/ivshmem-2-device-spec.md | 376 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 376 insertions(+)
+ create mode 100644 docs/specs/ivshmem-2-device-spec.md
 
-diff --git a/hw/misc/Makefile.objs b/hw/misc/Makefile.objs
-index ba898a5781..90a4a6608c 100644
---- a/hw/misc/Makefile.objs
-+++ b/hw/misc/Makefile.objs
-@@ -26,7 +26,7 @@ common-obj-$(CONFIG_PUV3) += puv3_pm.o
- 
- common-obj-$(CONFIG_MACIO) += macio/
- 
--common-obj-$(CONFIG_IVSHMEM_DEVICE) += ivshmem.o
-+common-obj-$(CONFIG_IVSHMEM_DEVICE) += ivshmem.o ivshmem2.o
- 
- common-obj-$(CONFIG_REALVIEW) += arm_sysctl.o
- common-obj-$(CONFIG_NSERIES) += cbus.o
-diff --git a/hw/misc/ivshmem2.c b/hw/misc/ivshmem2.c
+diff --git a/docs/specs/ivshmem-2-device-spec.md b/docs/specs/ivshmem-2-device-spec.md
 new file mode 100644
-index 0000000000..d5f88ed0e9
+index 0000000000..d93cb22b04
 --- /dev/null
-+++ b/hw/misc/ivshmem2.c
-@@ -0,0 +1,1085 @@
-+/*
-+ * Inter-VM Shared Memory PCI device, version 2.
-+ *
-+ * Copyright (c) Siemens AG, 2019
-+ *
-+ * Authors:
-+ *  Jan Kiszka <jan.kiszka@siemens.com>
-+ *
-+ * Based on ivshmem.c by Cam Macdonell <cam@cs.ualberta.ca>
-+ *
-+ * This code is licensed under the GNU GPL v2.
-+ */
-+
-+#include "qemu/osdep.h"
-+#include "qemu/units.h"
-+#include "qapi/error.h"
-+#include "qemu/cutils.h"
-+#include "hw/hw.h"
-+#include "hw/pci/pci.h"
-+#include "hw/pci/msi.h"
-+#include "hw/pci/msix.h"
-+#include "hw/qdev-properties.h"
-+#include "sysemu/kvm.h"
-+#include "migration/blocker.h"
-+#include "migration/vmstate.h"
-+#include "qemu/error-report.h"
-+#include "qemu/event_notifier.h"
-+#include "qemu/module.h"
-+#include "qom/object_interfaces.h"
-+#include "chardev/char-fe.h"
-+#include "sysemu/qtest.h"
-+#include "qapi/visitor.h"
-+
-+#include "hw/misc/ivshmem2.h"
-+
-+#define PCI_VENDOR_ID_IVSHMEM   PCI_VENDOR_ID_SIEMENS
-+#define PCI_DEVICE_ID_IVSHMEM   0x4106
-+
-+#define IVSHMEM_MAX_PEERS       UINT16_MAX
-+#define IVSHMEM_IOEVENTFD       0
-+#define IVSHMEM_MSI             1
-+
-+#define IVSHMEM_REG_BAR_SIZE    0x1000
-+
-+#define IVSHMEM_REG_ID          0x00
-+#define IVSHMEM_REG_MAX_PEERS   0x04
-+#define IVSHMEM_REG_INT_CTRL    0x08
-+#define IVSHMEM_REG_DOORBELL    0x0c
-+#define IVSHMEM_REG_STATE       0x10
-+
-+#define IVSHMEM_INT_ENABLE      0x1
-+
-+#define IVSHMEM_ONESHOT_MODE    0x1
-+
-+#define IVSHMEM_DEBUG 0
-+#define IVSHMEM_DPRINTF(fmt, ...)                       \
-+    do {                                                \
-+        if (IVSHMEM_DEBUG) {                            \
-+            printf("IVSHMEM: " fmt, ## __VA_ARGS__);    \
-+        }                                               \
-+    } while (0)
-+
-+#define TYPE_IVSHMEM "ivshmem"
-+#define IVSHMEM(obj) \
-+    OBJECT_CHECK(IVShmemState, (obj), TYPE_IVSHMEM)
-+
-+typedef struct Peer {
-+    int nb_eventfds;
-+    EventNotifier *eventfds;
-+} Peer;
-+
-+typedef struct MSIVector {
-+    PCIDevice *pdev;
-+    int virq;
-+    bool unmasked;
-+} MSIVector;
-+
-+typedef struct IVShmemVndrCap {
-+    uint8_t id;
-+    uint8_t next;
-+    uint8_t length;
-+    uint8_t priv_ctrl;
-+    uint32_t state_tab_sz;
-+    uint64_t rw_section_sz;
-+    uint64_t output_section_sz;
-+} IVShmemVndrCap;
-+
-+typedef struct IVShmemState {
-+    /*< private >*/
-+    PCIDevice parent_obj;
-+    /*< public >*/
-+
-+    uint32_t features;
-+
-+    CharBackend server_chr;
-+
-+    /* registers */
-+    uint8_t *priv_ctrl;
-+    uint32_t vm_id;
-+    uint32_t intctrl;
-+    uint32_t state;
-+
-+    /* BARs */
-+    MemoryRegion ivshmem_mmio; /* BAR 0 (registers) */
-+    MemoryRegion ivshmem_bar2; /* BAR 2 (shared memory) */
-+
-+    void *shmem;
-+    size_t shmem_sz;
-+    size_t output_section_sz;
-+
-+    MemoryRegion state_tab;
-+    MemoryRegion rw_section;
-+    MemoryRegion input_sections;
-+    MemoryRegion output_section;
-+
-+    /* interrupt support */
-+    Peer *peers;
-+    int nb_peers;               /* space in @peers[] */
-+    uint32_t max_peers;
-+    uint32_t vectors;
-+    MSIVector *msi_vectors;
-+
-+    uint8_t msg_buf[32];        /* buffer for receiving server messages */
-+    int msg_buffered_bytes;     /* #bytes in @msg_buf */
-+
-+    uint32_t protocol;
-+
-+    /* migration stuff */
-+    OnOffAuto master;
-+    Error *migration_blocker;
-+} IVShmemState;
-+
-+static void ivshmem_enable_irqfd(IVShmemState *s);
-+static void ivshmem_disable_irqfd(IVShmemState *s);
-+
-+static inline uint32_t ivshmem_has_feature(IVShmemState *ivs,
-+                                           unsigned int feature) {
-+    return (ivs->features & (1 << feature));
-+}
-+
-+static inline bool ivshmem_is_master(IVShmemState *s)
-+{
-+    assert(s->master != ON_OFF_AUTO_AUTO);
-+    return s->master == ON_OFF_AUTO_ON;
-+}
-+
-+static bool ivshmem_irqfd_usable(IVShmemState *s)
-+{
-+    PCIDevice *pdev = PCI_DEVICE(s);
-+
-+    return (s->intctrl & IVSHMEM_INT_ENABLE) && msix_enabled(pdev) &&
-+        !(*s->priv_ctrl & IVSHMEM_ONESHOT_MODE);
-+}
-+
-+static void ivshmem_update_irqfd(IVShmemState *s, bool was_usable)
-+{
-+    bool is_usable = ivshmem_irqfd_usable(s);
-+
-+    if (kvm_msi_via_irqfd_enabled()) {
-+        if (!was_usable && is_usable) {
-+            ivshmem_enable_irqfd(s);
-+        } else if (was_usable && !is_usable) {
-+            ivshmem_disable_irqfd(s);
-+        }
-+    }
-+}
-+
-+static void ivshmem_write_intctrl(IVShmemState *s, uint32_t new_state)
-+{
-+    bool was_usable = ivshmem_irqfd_usable(s);
-+
-+    s->intctrl = new_state & IVSHMEM_INT_ENABLE;
-+    ivshmem_update_irqfd(s, was_usable);
-+}
-+
-+static void ivshmem_write_state(IVShmemState *s, uint32_t new_state)
-+{
-+    uint32_t *state_table = s->shmem;
-+    int peer;
-+
-+    state_table[s->vm_id] = new_state;
-+    smp_mb();
-+
-+    if (s->state != new_state) {
-+        s->state = new_state;
-+        for (peer = 0; peer < s->nb_peers; peer++) {
-+            if (peer != s->vm_id && s->peers[peer].nb_eventfds > 0) {
-+                event_notifier_set(&s->peers[peer].eventfds[0]);
-+            }
-+        }
-+    }
-+}
-+
-+static void ivshmem_io_write(void *opaque, hwaddr addr,
-+                             uint64_t val, unsigned size)
-+{
-+    IVShmemState *s = opaque;
-+
-+    uint16_t dest = val >> 16;
-+    uint16_t vector = val & 0xff;
-+
-+    addr &= 0xfc;
-+
-+    IVSHMEM_DPRINTF("writing to addr " TARGET_FMT_plx "\n", addr);
-+    switch (addr) {
-+    case IVSHMEM_REG_INT_CTRL:
-+        ivshmem_write_intctrl(s, val);
-+        break;
-+
-+    case IVSHMEM_REG_DOORBELL:
-+        /* check that dest VM ID is reasonable */
-+        if (dest >= s->nb_peers) {
-+            IVSHMEM_DPRINTF("Invalid destination VM ID (%d)\n", dest);
-+            break;
-+        }
-+
-+        /* check doorbell range */
-+        if (vector < s->peers[dest].nb_eventfds) {
-+            IVSHMEM_DPRINTF("Notifying VM %d on vector %d\n", dest, vector);
-+            event_notifier_set(&s->peers[dest].eventfds[vector]);
-+        } else {
-+            IVSHMEM_DPRINTF("Invalid destination vector %d on VM %d\n",
-+                            vector, dest);
-+        }
-+        break;
-+
-+    case IVSHMEM_REG_STATE:
-+        ivshmem_write_state(s, val);
-+        break;
-+
-+    default:
-+        IVSHMEM_DPRINTF("Unhandled write " TARGET_FMT_plx "\n", addr);
-+    }
-+}
-+
-+static uint64_t ivshmem_io_read(void *opaque, hwaddr addr,
-+                                unsigned size)
-+{
-+    IVShmemState *s = opaque;
-+    uint32_t ret;
-+
-+    switch (addr) {
-+    case IVSHMEM_REG_ID:
-+        ret = s->vm_id;
-+        break;
-+
-+    case IVSHMEM_REG_MAX_PEERS:
-+        ret = s->max_peers;
-+        break;
-+
-+    case IVSHMEM_REG_INT_CTRL:
-+        ret = s->intctrl;
-+        break;
-+
-+    case IVSHMEM_REG_STATE:
-+        ret = s->state;
-+        break;
-+
-+    default:
-+        IVSHMEM_DPRINTF("why are we reading " TARGET_FMT_plx "\n", addr);
-+        ret = 0;
-+    }
-+
-+    return ret;
-+}
-+
-+static const MemoryRegionOps ivshmem_mmio_ops = {
-+    .read = ivshmem_io_read,
-+    .write = ivshmem_io_write,
-+    .endianness = DEVICE_NATIVE_ENDIAN,
-+    .impl = {
-+        .min_access_size = 4,
-+        .max_access_size = 4,
-+    },
-+};
-+
-+static void ivshmem_vector_notify(void *opaque)
-+{
-+    MSIVector *entry = opaque;
-+    PCIDevice *pdev = entry->pdev;
-+    IVShmemState *s = IVSHMEM(pdev);
-+    int vector = entry - s->msi_vectors;
-+    EventNotifier *n = &s->peers[s->vm_id].eventfds[vector];
-+
-+    if (!event_notifier_test_and_clear(n) ||
-+        !(s->intctrl & IVSHMEM_INT_ENABLE)) {
-+        return;
-+    }
-+
-+    IVSHMEM_DPRINTF("interrupt on vector %p %d\n", pdev, vector);
-+    if (ivshmem_has_feature(s, IVSHMEM_MSI)) {
-+        if (msix_enabled(pdev)) {
-+            msix_notify(pdev, vector);
-+        }
-+    } else if (pdev->config[PCI_INTERRUPT_PIN]) {
-+        pci_set_irq(pdev, 1);
-+        pci_set_irq(pdev, 0);
-+    }
-+    if (*s->priv_ctrl & IVSHMEM_ONESHOT_MODE) {
-+        s->intctrl &= ~IVSHMEM_INT_ENABLE;
-+    }
-+}
-+
-+static int ivshmem_irqfd_vector_unmask(PCIDevice *dev, unsigned vector,
-+                                       MSIMessage msg)
-+{
-+    IVShmemState *s = IVSHMEM(dev);
-+    EventNotifier *n = &s->peers[s->vm_id].eventfds[vector];
-+    MSIVector *v = &s->msi_vectors[vector];
-+    int ret;
-+
-+    IVSHMEM_DPRINTF("vector unmask %p %d\n", dev, vector);
-+    if (!v->pdev) {
-+        error_report("ivshmem: vector %d route does not exist", vector);
-+        return -EINVAL;
-+    }
-+    assert(!v->unmasked);
-+
-+    ret = kvm_irqchip_add_msi_route(kvm_state, vector, dev);
-+    if (ret < 0) {
-+        error_report("kvm_irqchip_add_msi_route failed");
-+        return ret;
-+    }
-+    v->virq = ret;
-+    kvm_irqchip_commit_routes(kvm_state);
-+
-+    ret = kvm_irqchip_add_irqfd_notifier_gsi(kvm_state, n, NULL, v->virq);
-+    if (ret < 0) {
-+        error_report("kvm_irqchip_add_irqfd_notifier_gsi failed");
-+        return ret;
-+    }
-+    v->unmasked = true;
-+
-+    return 0;
-+}
-+
-+static void ivshmem_irqfd_vector_mask(PCIDevice *dev, unsigned vector)
-+{
-+    IVShmemState *s = IVSHMEM(dev);
-+    EventNotifier *n = &s->peers[s->vm_id].eventfds[vector];
-+    MSIVector *v = &s->msi_vectors[vector];
-+    int ret;
-+
-+    IVSHMEM_DPRINTF("vector mask %p %d\n", dev, vector);
-+    if (!v->pdev) {
-+        error_report("ivshmem: vector %d route does not exist", vector);
-+        return;
-+    }
-+    assert(v->unmasked);
-+
-+    ret = kvm_irqchip_remove_irqfd_notifier_gsi(kvm_state, n, v->virq);
-+    if (ret < 0) {
-+        error_report("remove_irqfd_notifier_gsi failed");
-+        return;
-+    }
-+    kvm_irqchip_release_virq(kvm_state, v->virq);
-+
-+    v->unmasked = false;
-+}
-+
-+static void ivshmem_irqfd_vector_poll(PCIDevice *dev,
-+                                      unsigned int vector_start,
-+                                      unsigned int vector_end)
-+{
-+    IVShmemState *s = IVSHMEM(dev);
-+    unsigned int vector;
-+
-+    IVSHMEM_DPRINTF("vector poll %p %d-%d\n", dev, vector_start, vector_end);
-+
-+    vector_end = MIN(vector_end, s->vectors);
-+
-+    for (vector = vector_start; vector < vector_end; vector++) {
-+        EventNotifier *notifier = &s->peers[s->vm_id].eventfds[vector];
-+
-+        if (!msix_is_masked(dev, vector)) {
-+            continue;
-+        }
-+
-+        if (event_notifier_test_and_clear(notifier)) {
-+            msix_set_pending(dev, vector);
-+        }
-+    }
-+}
-+
-+static void ivshmem_watch_vector_notifier(IVShmemState *s, int vector)
-+{
-+    EventNotifier *n = &s->peers[s->vm_id].eventfds[vector];
-+    int eventfd = event_notifier_get_fd(n);
-+
-+    assert(!s->msi_vectors[vector].pdev);
-+    s->msi_vectors[vector].pdev = PCI_DEVICE(s);
-+
-+    qemu_set_fd_handler(eventfd, ivshmem_vector_notify,
-+                        NULL, &s->msi_vectors[vector]);
-+}
-+
-+static void ivshmem_unwatch_vector_notifier(IVShmemState *s, int vector)
-+{
-+    EventNotifier *n = &s->peers[s->vm_id].eventfds[vector];
-+    int eventfd = event_notifier_get_fd(n);
-+
-+    if (!s->msi_vectors[vector].pdev) {
-+        return;
-+    }
-+
-+    qemu_set_fd_handler(eventfd, NULL, NULL, NULL);
-+
-+    s->msi_vectors[vector].pdev = NULL;
-+}
-+
-+static void ivshmem_add_eventfd(IVShmemState *s, int posn, int i)
-+{
-+    memory_region_add_eventfd(&s->ivshmem_mmio,
-+                              IVSHMEM_REG_DOORBELL,
-+                              4,
-+                              true,
-+                              (posn << 16) | i,
-+                              &s->peers[posn].eventfds[i]);
-+}
-+
-+static void ivshmem_del_eventfd(IVShmemState *s, int posn, int i)
-+{
-+    memory_region_del_eventfd(&s->ivshmem_mmio,
-+                              IVSHMEM_REG_DOORBELL,
-+                              4,
-+                              true,
-+                              (posn << 16) | i,
-+                              &s->peers[posn].eventfds[i]);
-+}
-+
-+static void close_peer_eventfds(IVShmemState *s, int posn)
-+{
-+    int i, n;
-+
-+    assert(posn >= 0 && posn < s->nb_peers);
-+    n = s->peers[posn].nb_eventfds;
-+
-+    if (ivshmem_has_feature(s, IVSHMEM_IOEVENTFD)) {
-+        memory_region_transaction_begin();
-+        for (i = 0; i < n; i++) {
-+            ivshmem_del_eventfd(s, posn, i);
-+        }
-+        memory_region_transaction_commit();
-+    }
-+
-+    for (i = 0; i < n; i++) {
-+        event_notifier_cleanup(&s->peers[posn].eventfds[i]);
-+    }
-+
-+    g_free(s->peers[posn].eventfds);
-+    s->peers[posn].nb_eventfds = 0;
-+}
-+
-+static void resize_peers(IVShmemState *s, int nb_peers)
-+{
-+    int old_nb_peers = s->nb_peers;
-+    int i;
-+
-+    assert(nb_peers > old_nb_peers);
-+    IVSHMEM_DPRINTF("bumping storage to %d peers\n", nb_peers);
-+
-+    s->peers = g_realloc(s->peers, nb_peers * sizeof(Peer));
-+    s->nb_peers = nb_peers;
-+
-+    for (i = old_nb_peers; i < nb_peers; i++) {
-+        s->peers[i].eventfds = NULL;
-+        s->peers[i].nb_eventfds = 0;
-+    }
-+}
-+
-+static void ivshmem_add_kvm_msi_virq(IVShmemState *s, int vector, Error **errp)
-+{
-+    PCIDevice *pdev = PCI_DEVICE(s);
-+
-+    IVSHMEM_DPRINTF("ivshmem_add_kvm_msi_virq vector:%d\n", vector);
-+    assert(!s->msi_vectors[vector].pdev);
-+
-+    s->msi_vectors[vector].unmasked = false;
-+    s->msi_vectors[vector].pdev = pdev;
-+}
-+
-+static void ivshmem_remove_kvm_msi_virq(IVShmemState *s, int vector)
-+{
-+    IVSHMEM_DPRINTF("ivshmem_remove_kvm_msi_virq vector:%d\n", vector);
-+
-+    if (s->msi_vectors[vector].pdev == NULL) {
-+        return;
-+    }
-+
-+    if (s->msi_vectors[vector].unmasked) {
-+        ivshmem_irqfd_vector_mask(s->msi_vectors[vector].pdev, vector);
-+    }
-+
-+    s->msi_vectors[vector].pdev = NULL;
-+}
-+
-+static void process_msg_disconnect(IVShmemState *s, IvshmemPeerGone *msg,
-+                                   Error **errp)
-+{
-+    if (msg->header.len < sizeof(*msg)) {
-+        error_setg(errp, "Invalid peer-gone message size");
-+        return;
-+    }
-+
-+    le32_to_cpus(&msg->id);
-+
-+    IVSHMEM_DPRINTF("peer %d has gone away\n", msg->id);
-+    if (msg->id >= s->nb_peers || msg->id == s->vm_id) {
-+        error_setg(errp, "invalid peer %d", msg->id);
-+        return;
-+    }
-+    close_peer_eventfds(s, msg->id);
-+    event_notifier_set(&s->peers[s->vm_id].eventfds[0]);
-+}
-+
-+static void process_msg_connect(IVShmemState *s, IvshmemEventFd *msg, int fd,
-+                                Error **errp)
-+{
-+    Peer *peer;
-+
-+    if (msg->header.len < sizeof(*msg)) {
-+        error_setg(errp, "Invalid eventfd message size");
-+        close(fd);
-+        return;
-+    }
-+
-+    le32_to_cpus(&msg->id);
-+    le32_to_cpus(&msg->vector);
-+
-+    if (msg->id >= s->nb_peers) {
-+        resize_peers(s, msg->id + 1);
-+    }
-+
-+    peer = &s->peers[msg->id];
-+
-+    /*
-+     * The N-th connect message for this peer comes with the file
-+     * descriptor for vector N-1.
-+     */
-+    if (msg->vector != peer->nb_eventfds) {
-+        error_setg(errp, "Received vector %d out of order", msg->vector);
-+        close(fd);
-+        return;
-+    }
-+    if (peer->nb_eventfds >= s->vectors) {
-+        error_setg(errp, "Too many eventfd received, device has %d vectors",
-+                   s->vectors);
-+        close(fd);
-+        return;
-+    }
-+    peer->nb_eventfds++;
-+
-+    if (msg->vector == 0)
-+        peer->eventfds = g_new0(EventNotifier, s->vectors);
-+
-+    IVSHMEM_DPRINTF("eventfds[%d][%d] = %d\n", msg->id, msg->vector, fd);
-+    event_notifier_init_fd(&peer->eventfds[msg->vector], fd);
-+    fcntl_setfl(fd, O_NONBLOCK); /* msix/irqfd poll non block */
-+
-+    if (ivshmem_has_feature(s, IVSHMEM_IOEVENTFD)) {
-+        ivshmem_add_eventfd(s, msg->id, msg->vector);
-+    }
-+
-+    if (msg->id == s->vm_id) {
-+        ivshmem_watch_vector_notifier(s, peer->nb_eventfds - 1);
-+    }
-+}
-+
-+static int ivshmem_can_receive(void *opaque)
-+{
-+    IVShmemState *s = opaque;
-+
-+    assert(s->msg_buffered_bytes < sizeof(s->msg_buf));
-+    return sizeof(s->msg_buf) - s->msg_buffered_bytes;
-+}
-+
-+static void ivshmem_read(void *opaque, const uint8_t *buf, int size)
-+{
-+    IVShmemState *s = opaque;
-+    IvshmemMsgHeader *header = (IvshmemMsgHeader *)&s->msg_buf;
-+    Error *err = NULL;
-+    int fd;
-+
-+    assert(size >= 0 && s->msg_buffered_bytes + size <= sizeof(s->msg_buf));
-+    memcpy(s->msg_buf + s->msg_buffered_bytes, buf, size);
-+    s->msg_buffered_bytes += size;
-+    if (s->msg_buffered_bytes < sizeof(*header) ||
-+        s->msg_buffered_bytes < le32_to_cpu(header->len)) {
-+        return;
-+    }
-+
-+    fd = qemu_chr_fe_get_msgfd(&s->server_chr);
-+
-+    le32_to_cpus(&header->type);
-+    le32_to_cpus(&header->len);
-+
-+    switch (header->type) {
-+    case IVSHMEM_MSG_EVENT_FD:
-+        process_msg_connect(s, (IvshmemEventFd *)header, fd, &err);
-+        break;
-+    case IVSHMEM_MSG_PEER_GONE:
-+        process_msg_disconnect(s, (IvshmemPeerGone *)header, &err);
-+        break;
-+    default:
-+        error_setg(&err, "invalid message, type %d", header->type);
-+        break;
-+    }
-+    if (err) {
-+        error_report_err(err);
-+    }
-+
-+    s->msg_buffered_bytes -= header->len;
-+    memmove(s->msg_buf, s->msg_buf + header->len, s->msg_buffered_bytes);
-+}
-+
-+static void ivshmem_recv_setup(IVShmemState *s, Error **errp)
-+{
-+    IvshmemInitialInfo msg;
-+    struct stat buf;
-+    uint8_t dummy;
-+    int fd, n, ret;
-+
-+    n = 0;
-+    do {
-+        ret = qemu_chr_fe_read_all(&s->server_chr, (uint8_t *)&msg + n,
-+                                   sizeof(msg) - n);
-+        if (ret < 0) {
-+            if (ret == -EINTR) {
-+                continue;
-+            }
-+            error_setg_errno(errp, -ret, "read from server failed");
-+            return;
-+        }
-+        n += ret;
-+    } while (n < sizeof(msg));
-+
-+    fd = qemu_chr_fe_get_msgfd(&s->server_chr);
-+
-+    le32_to_cpus(&msg.header.type);
-+    le32_to_cpus(&msg.header.len);
-+    if (msg.header.type != IVSHMEM_MSG_INIT || msg.header.len < sizeof(msg)) {
-+        error_setg(errp, "server sent invalid initial info");
-+        return;
-+    }
-+
-+    /* consume additional bytes of message */
-+    msg.header.len -= sizeof(msg);
-+    while (msg.header.len > 0) {
-+        ret = qemu_chr_fe_read_all(&s->server_chr, &dummy, 1);
-+        if (ret < 0) {
-+            if (ret == -EINTR) {
-+                continue;
-+            }
-+            error_setg_errno(errp, -ret, "read from server failed");
-+            return;
-+        }
-+        msg.header.len -= ret;
-+    }
-+
-+    le32_to_cpus(&msg.compatible_version);
-+    if (msg.compatible_version != IVSHMEM_PROTOCOL_VERSION) {
-+        error_setg(errp, "server sent compatible version %u, expecting %u",
-+                   msg.compatible_version, IVSHMEM_PROTOCOL_VERSION);
-+        return;
-+    }
-+
-+    le32_to_cpus(&msg.id);
-+    if (msg.id > IVSHMEM_MAX_PEERS) {
-+        error_setg(errp, "server sent invalid ID");
-+        return;
-+    }
-+    s->vm_id = msg.id;
-+
-+    if (fstat(fd, &buf) < 0) {
-+        error_setg_errno(errp, errno,
-+            "can't determine size of shared memory sent by server");
-+        close(fd);
-+        return;
-+    }
-+
-+    s->shmem_sz = buf.st_size;
-+
-+    s->shmem = mmap(NULL, s->shmem_sz, PROT_READ | PROT_WRITE, MAP_SHARED,
-+                    fd, 0);
-+    if (s->shmem == MAP_FAILED) {
-+        error_setg_errno(errp, errno,
-+                         "can't map shared memory sent by server");
-+        return;
-+    }
-+
-+    le32_to_cpus(&msg.vectors);
-+    if (msg.vectors < 1 || msg.vectors > 1024) {
-+        error_setg(errp, "server sent invalid number of vectors message");
-+        return;
-+    }
-+    s->vectors = msg.vectors;
-+
-+    s->max_peers = le32_to_cpu(msg.max_peers);
-+    s->protocol = le32_to_cpu(msg.protocol);
-+    s->output_section_sz = le64_to_cpu(msg.output_section_size);
-+}
-+
-+/* Select the MSI-X vectors used by device.
-+ * ivshmem maps events to vectors statically, so
-+ * we just enable all vectors on init and after reset. */
-+static void ivshmem_msix_vector_use(IVShmemState *s)
-+{
-+    PCIDevice *d = PCI_DEVICE(s);
-+    int i;
-+
-+    for (i = 0; i < s->vectors; i++) {
-+        msix_vector_use(d, i);
-+    }
-+}
-+
-+static void ivshmem_reset(DeviceState *d)
-+{
-+    IVShmemState *s = IVSHMEM(d);
-+
-+    ivshmem_disable_irqfd(s);
-+
-+    s->intctrl = 0;
-+    ivshmem_write_state(s, 0);
-+    if (ivshmem_has_feature(s, IVSHMEM_MSI)) {
-+        ivshmem_msix_vector_use(s);
-+    }
-+}
-+
-+static int ivshmem_setup_interrupts(IVShmemState *s, Error **errp)
-+{
-+    /* allocate QEMU callback data for receiving interrupts */
-+    s->msi_vectors = g_malloc0(s->vectors * sizeof(MSIVector));
-+
-+    if (ivshmem_has_feature(s, IVSHMEM_MSI)) {
-+        if (msix_init_exclusive_bar(PCI_DEVICE(s), s->vectors, 1, errp)) {
-+            IVSHMEM_DPRINTF("msix requested but not available - disabling\n");
-+            s->features &= ~(IVSHMEM_MSI | IVSHMEM_IOEVENTFD);
-+        } else {
-+            IVSHMEM_DPRINTF("msix initialized (%d vectors)\n", s->vectors);
-+            ivshmem_msix_vector_use(s);
-+        }
-+    }
-+
-+    return 0;
-+}
-+
-+static void ivshmem_enable_irqfd(IVShmemState *s)
-+{
-+    PCIDevice *pdev = PCI_DEVICE(s);
-+    int i;
-+
-+    for (i = 0; i < s->peers[s->vm_id].nb_eventfds; i++) {
-+        Error *err = NULL;
-+
-+        ivshmem_unwatch_vector_notifier(s, i);
-+
-+        ivshmem_add_kvm_msi_virq(s, i, &err);
-+        if (err) {
-+            error_report_err(err);
-+            goto undo;
-+        }
-+    }
-+
-+    if (msix_set_vector_notifiers(pdev,
-+                                  ivshmem_irqfd_vector_unmask,
-+                                  ivshmem_irqfd_vector_mask,
-+                                  ivshmem_irqfd_vector_poll)) {
-+        error_report("ivshmem: msix_set_vector_notifiers failed");
-+        goto undo;
-+    }
-+    return;
-+
-+undo:
-+    while (--i >= 0) {
-+        ivshmem_remove_kvm_msi_virq(s, i);
-+    }
-+}
-+
-+static void ivshmem_disable_irqfd(IVShmemState *s)
-+{
-+    PCIDevice *pdev = PCI_DEVICE(s);
-+    int i;
-+
-+    if (!pdev->msix_vector_use_notifier) {
-+        return;
-+    }
-+
-+    msix_unset_vector_notifiers(pdev);
-+
-+    for (i = 0; i < s->peers[s->vm_id].nb_eventfds; i++) {
-+        ivshmem_remove_kvm_msi_virq(s, i);
-+        ivshmem_watch_vector_notifier(s, i);
-+    }
-+
-+}
-+
-+static void ivshmem_write_config(PCIDevice *pdev, uint32_t address,
-+                                 uint32_t val, int len)
-+{
-+    IVShmemState *s = IVSHMEM(pdev);
-+    bool was_usable = ivshmem_irqfd_usable(s);
-+
-+    pci_default_write_config(pdev, address, val, len);
-+    ivshmem_update_irqfd(s, was_usable);
-+}
-+
-+static void ivshmem_exit(PCIDevice *dev)
-+{
-+    IVShmemState *s = IVSHMEM(dev);
-+    int i;
-+
-+    if (s->migration_blocker) {
-+        migrate_del_blocker(s->migration_blocker);
-+        error_free(s->migration_blocker);
-+    }
-+
-+    if (memory_region_is_mapped(&s->rw_section)) {
-+        void *addr = memory_region_get_ram_ptr(&s->rw_section);
-+        int fd;
-+
-+        if (munmap(addr, memory_region_size(&s->rw_section) == -1)) {
-+            error_report("Failed to munmap shared memory %s",
-+                         strerror(errno));
-+        }
-+
-+        fd = memory_region_get_fd(&s->rw_section);
-+        close(fd);
-+
-+        vmstate_unregister_ram(&s->state_tab, DEVICE(dev));
-+        vmstate_unregister_ram(&s->rw_section, DEVICE(dev));
-+    }
-+
-+    if (s->peers) {
-+        for (i = 0; i < s->nb_peers; i++) {
-+            close_peer_eventfds(s, i);
-+        }
-+        g_free(s->peers);
-+    }
-+
-+    if (ivshmem_has_feature(s, IVSHMEM_MSI)) {
-+        msix_uninit_exclusive_bar(dev);
-+    }
-+
-+    g_free(s->msi_vectors);
-+}
-+
-+static int ivshmem_pre_load(void *opaque)
-+{
-+    IVShmemState *s = opaque;
-+
-+    if (!ivshmem_is_master(s)) {
-+        error_report("'peer' devices are not migratable");
-+        return -EINVAL;
-+    }
-+
-+    return 0;
-+}
-+
-+static int ivshmem_post_load(void *opaque, int version_id)
-+{
-+    IVShmemState *s = opaque;
-+
-+    if (ivshmem_has_feature(s, IVSHMEM_MSI)) {
-+        ivshmem_msix_vector_use(s);
-+    }
-+    return 0;
-+}
-+
-+static const VMStateDescription ivshmem_vmsd = {
-+    .name = TYPE_IVSHMEM,
-+    .version_id = 0,
-+    .minimum_version_id = 0,
-+    .pre_load = ivshmem_pre_load,
-+    .post_load = ivshmem_post_load,
-+    .fields = (VMStateField[]) {
-+        VMSTATE_PCI_DEVICE(parent_obj, IVShmemState),
-+        VMSTATE_MSIX(parent_obj, IVShmemState),
-+        VMSTATE_UINT32(state, IVShmemState),
-+        VMSTATE_UINT32(intctrl, IVShmemState),
-+        VMSTATE_END_OF_LIST()
-+    },
-+};
-+
-+static Property ivshmem_properties[] = {
-+    DEFINE_PROP_CHR("chardev", IVShmemState, server_chr),
-+    DEFINE_PROP_BIT("ioeventfd", IVShmemState, features, IVSHMEM_IOEVENTFD,
-+                    true),
-+    DEFINE_PROP_ON_OFF_AUTO("master", IVShmemState, master, ON_OFF_AUTO_OFF),
-+    DEFINE_PROP_END_OF_LIST(),
-+};
-+
-+static void ivshmem_init(Object *obj)
-+{
-+    IVShmemState *s = IVSHMEM(obj);
-+
-+    s->features |= (1 << IVSHMEM_MSI);
-+}
-+
-+static void ivshmem_realize(PCIDevice *dev, Error **errp)
-+{
-+    IVShmemState *s = IVSHMEM(dev);
-+    Chardev *chr = qemu_chr_fe_get_driver(&s->server_chr);
-+    size_t rw_section_sz, input_sections_sz;
-+    IVShmemVndrCap *vndr_cap;
-+    Error *err = NULL;
-+    uint8_t *pci_conf;
-+    int offset, priv_ctrl_pos;
-+    off_t shmem_pos;
-+
-+    if (!qemu_chr_fe_backend_connected(&s->server_chr)) {
-+        error_setg(errp, "You must specify a 'chardev'");
-+        return;
-+    }
-+
-+    /* IRQFD requires MSI */
-+    if (ivshmem_has_feature(s, IVSHMEM_IOEVENTFD) &&
-+        !ivshmem_has_feature(s, IVSHMEM_MSI)) {
-+        error_setg(errp, "ioeventfd/irqfd requires MSI");
-+        return;
-+    }
-+
-+    pci_conf = dev->config;
-+    pci_conf[PCI_COMMAND] = PCI_COMMAND_IO | PCI_COMMAND_MEMORY;
-+
-+    memory_region_init_io(&s->ivshmem_mmio, OBJECT(s), &ivshmem_mmio_ops, s,
-+                          "ivshmem.mmio", IVSHMEM_REG_BAR_SIZE);
-+
-+    /* region for registers*/
-+    pci_register_bar(dev, 0, PCI_BASE_ADDRESS_SPACE_MEMORY,
-+                     &s->ivshmem_mmio);
-+
-+    assert(chr);
-+    IVSHMEM_DPRINTF("using shared memory server (socket = %s)\n",
-+                    chr->filename);
-+
-+    /*
-+     * Receive setup messages from server synchronously.
-+     * Older versions did it asynchronously, but that creates a
-+     * number of entertaining race conditions.
-+     */
-+    ivshmem_recv_setup(s, &err);
-+    if (err) {
-+        error_propagate(errp, err);
-+        return;
-+    }
-+
-+    /* we allocate enough space for 16 peers and grow as needed */
-+    resize_peers(s, 16);
-+
-+    if (s->master == ON_OFF_AUTO_ON && s->vm_id != 0) {
-+        error_setg(errp,
-+                   "Master must connect to the server before any peers");
-+        return;
-+    }
-+
-+    qemu_chr_fe_set_handlers(&s->server_chr, ivshmem_can_receive,
-+                             ivshmem_read, NULL, NULL, s, NULL, true);
-+
-+    if (ivshmem_setup_interrupts(s, errp) < 0) {
-+        error_prepend(errp, "Failed to initialize interrupts: ");
-+        return;
-+    }
-+
-+    memory_region_init(&s->ivshmem_bar2, OBJECT(s), "ivshmem.bar2",
-+                       s->shmem_sz);
-+
-+    input_sections_sz = s->output_section_sz * s->max_peers;
-+    if (input_sections_sz + 4096 > s->shmem_sz) {
-+        error_setg(errp,
-+                   "Invalid output section size, shared memory too small");
-+        return;
-+    }
-+    rw_section_sz = s->shmem_sz - input_sections_sz - 4096;
-+
-+    shmem_pos = 0;
-+    memory_region_init_ram_ptr(&s->state_tab, OBJECT(s), "ivshmem.state",
-+                               4096, s->shmem + shmem_pos);
-+    memory_region_set_readonly(&s->state_tab, true);
-+    memory_region_add_subregion(&s->ivshmem_bar2, shmem_pos, &s->state_tab);
-+
-+    vmstate_register_ram(&s->state_tab, DEVICE(s));
-+
-+    if (rw_section_sz > 0) {
-+        shmem_pos += 4096;
-+        memory_region_init_ram_ptr(&s->rw_section, OBJECT(s),
-+                                   "ivshmem.rw-section",
-+                                   rw_section_sz, s->shmem + shmem_pos);
-+        memory_region_add_subregion(&s->ivshmem_bar2, shmem_pos,
-+                                    &s->rw_section);
-+
-+        vmstate_register_ram(&s->rw_section, DEVICE(s));
-+    }
-+
-+    if (s->output_section_sz > 0) {
-+        shmem_pos += rw_section_sz;
-+        memory_region_init_ram_ptr(&s->input_sections, OBJECT(s),
-+                                   "ivshmem.input-sections", input_sections_sz,
-+                                   s->shmem + shmem_pos);
-+        memory_region_set_readonly(&s->input_sections, true);
-+        memory_region_add_subregion(&s->ivshmem_bar2, shmem_pos,
-+                                    &s->input_sections);
-+
-+        shmem_pos += s->vm_id * s->output_section_sz;
-+        memory_region_init_ram_ptr(&s->output_section, OBJECT(s),
-+                                   "ivshmem.output-section",
-+                                   s->output_section_sz, s->shmem + shmem_pos);
-+        memory_region_add_subregion_overlap(&s->ivshmem_bar2, shmem_pos,
-+                                            &s->output_section, 1);
-+
-+        vmstate_register_ram(&s->input_sections, DEVICE(s));
-+    }
-+
-+    pci_config_set_class(dev->config, 0xff00 | (s->protocol >> 8));
-+    pci_config_set_prog_interface(dev->config, (uint8_t)s->protocol);
-+
-+    offset = pci_add_capability(dev, PCI_CAP_ID_VNDR, 0, 0x18,
-+                                &error_abort);
-+    vndr_cap = (IVShmemVndrCap *)(pci_conf + offset);
-+    vndr_cap->length = 0x18;
-+    vndr_cap->state_tab_sz = cpu_to_le32(4096);
-+    vndr_cap->rw_section_sz = cpu_to_le64(rw_section_sz);
-+    vndr_cap->output_section_sz = s->output_section_sz;
-+
-+    priv_ctrl_pos = offset + offsetof(IVShmemVndrCap, priv_ctrl);
-+    s->priv_ctrl = &dev->config[priv_ctrl_pos];
-+    dev->wmask[priv_ctrl_pos] |= IVSHMEM_ONESHOT_MODE;
-+
-+    if (s->master == ON_OFF_AUTO_AUTO) {
-+        s->master = s->vm_id == 0 ? ON_OFF_AUTO_ON : ON_OFF_AUTO_OFF;
-+    }
-+
-+    if (!ivshmem_is_master(s)) {
-+        error_setg(&s->migration_blocker,
-+                   "Migration is disabled when using feature 'peer mode' in device 'ivshmem'");
-+        migrate_add_blocker(s->migration_blocker, &err);
-+        if (err) {
-+            error_propagate(errp, err);
-+            error_free(s->migration_blocker);
-+            return;
-+        }
-+    }
-+
-+    pci_register_bar(PCI_DEVICE(s), 2,
-+                     PCI_BASE_ADDRESS_SPACE_MEMORY |
-+                     PCI_BASE_ADDRESS_MEM_PREFETCH |
-+                     PCI_BASE_ADDRESS_MEM_TYPE_64,
-+                     &s->ivshmem_bar2);
-+}
-+
-+static void ivshmem_class_init(ObjectClass *klass, void *data)
-+{
-+    DeviceClass *dc = DEVICE_CLASS(klass);
-+    PCIDeviceClass *k = PCI_DEVICE_CLASS(klass);
-+
-+    k->realize = ivshmem_realize;
-+    k->exit = ivshmem_exit;
-+    k->config_write = ivshmem_write_config;
-+    k->vendor_id = PCI_VENDOR_ID_IVSHMEM;
-+    k->device_id = PCI_DEVICE_ID_IVSHMEM;
-+    dc->reset = ivshmem_reset;
-+    set_bit(DEVICE_CATEGORY_MISC, dc->categories);
-+    dc->desc = "Inter-VM shared memory v2";
-+
-+    dc->props = ivshmem_properties;
-+    dc->vmsd = &ivshmem_vmsd;
-+}
-+
-+static const TypeInfo ivshmem_info = {
-+    .name          = TYPE_IVSHMEM,
-+    .parent        = TYPE_PCI_DEVICE,
-+    .instance_size = sizeof(IVShmemState),
-+    .instance_init = ivshmem_init,
-+    .class_init    = ivshmem_class_init,
-+    .interfaces = (InterfaceInfo[]) {
-+        { INTERFACE_CONVENTIONAL_PCI_DEVICE },
-+        { },
-+    },
-+};
-+
-+static void ivshmem_register_types(void)
-+{
-+    type_register_static(&ivshmem_info);
-+}
-+
-+type_init(ivshmem_register_types)
-diff --git a/include/hw/misc/ivshmem2.h b/include/hw/misc/ivshmem2.h
-new file mode 100644
-index 0000000000..ee994699e8
---- /dev/null
-+++ b/include/hw/misc/ivshmem2.h
-@@ -0,0 +1,48 @@
-+/*
-+ * Inter-VM Shared Memory PCI device, Version 2.
-+ *
-+ * Copyright (c) Siemens AG, 2019
-+ *
-+ * Authors:
-+ *  Jan Kiszka <jan.kiszka@siemens.com>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2 or
-+ * (at your option) any later version.
-+ */
-+#ifndef IVSHMEM2_H
-+#define IVSHMEM2_H
-+
-+#define IVSHMEM_PROTOCOL_VERSION    2
-+
-+#define IVSHMEM_MSG_INIT            0
-+#define IVSHMEM_MSG_EVENT_FD        1
-+#define IVSHMEM_MSG_PEER_GONE       2
-+
-+typedef struct IvshmemMsgHeader {
-+    uint32_t type;
-+    uint32_t len;
-+} IvshmemMsgHeader;
-+
-+typedef struct IvshmemInitialInfo {
-+    IvshmemMsgHeader header;
-+    uint32_t version;
-+    uint32_t compatible_version;
-+    uint32_t id;
-+    uint32_t max_peers;
-+    uint32_t vectors;
-+    uint32_t protocol;
-+    uint64_t output_section_size;
-+} IvshmemInitialInfo;
-+
-+typedef struct IvshmemEventFd {
-+    IvshmemMsgHeader header;
-+    uint32_t id;
-+    uint32_t vector;
-+} IvshmemEventFd;
-+
-+typedef struct IvshmemPeerGone {
-+    IvshmemMsgHeader header;
-+    uint32_t id;
-+} IvshmemPeerGone;
-+
-+#endif /* IVSHMEM2_H */
-diff --git a/include/hw/pci/pci_ids.h b/include/hw/pci/pci_ids.h
-index 11f8ab7149..f0c5d5ed2b 100644
---- a/include/hw/pci/pci_ids.h
-+++ b/include/hw/pci/pci_ids.h
-@@ -264,6 +264,8 @@
- #define PCI_VENDOR_ID_NEC                0x1033
- #define PCI_DEVICE_ID_NEC_UPD720200      0x0194
- 
-+#define PCI_VENDOR_ID_SIEMENS            0x110a
-+
- #define PCI_VENDOR_ID_TEWS               0x1498
- #define PCI_DEVICE_ID_TEWS_TPCI200       0x30C8
- 
++++ b/docs/specs/ivshmem-2-device-spec.md
+@@ -0,0 +1,376 @@
++IVSHMEM Device Specification
++============================
++
++** NOTE: THIS IS WORK-IN-PROGRESS, NOT YET A STABLE INTERFACE SPECIFICATION! **
++
++The goal of the Inter-VM Shared Memory (IVSHMEM) device model is to
++define the minimally needed building blocks a hypervisor has to
++provide for enabling guest-to-guest communication. The details of
++communication protocols shall remain opaque to the hypervisor so that
++guests are free to define them as simple or sophisticated as they
++need.
++
++For that purpose, the IVSHMEM provides the following features to its
++users:
++
++- Interconnection between up to 65536 peers
++
++- Multi-purpose shared memory region
++
++    - common read/writable section
++
++    - output sections that are read/writable for one peer and only
++      readable for the others
++
++    - section with peer states
++
++- Event signaling via interrupt to remote sides
++
++- Support for life-cycle management via state value exchange and
++  interrupt notification on changes, backed by a shared memory
++  section
++
++- Free choice of protocol to be used on top
++
++- Protocol type declaration
++
++- Register can be implemented either memory-mapped or via I/O,
++  depending on platform support and lower VM-exit costs
++
++- Unprivileged access to memory-mapped or I/O registers feasible
++
++- Single discovery and configuration via standard PCI, no complexity
++  by additionally defining a platform device model
++
++
++Hypervisor Model
++----------------
++
++In order to provide a consistent link between peers, all connected
++instances of IVSHMEM devices need to be configured, created and run
++by the hypervisor according to the following requirements:
++
++- The instances of the device shall appear as a PCI device to their
++  users.
++
++- The read/write shared memory section has to be of the same size for
++  all peers. The size can be zero.
++
++- If shared memory output sections are present (non-zero section
++  size), there must be one reserved for each peer with exclusive
++  write access. All output sections must have the same size and must
++  be readable for all peers.
++
++- The State Table must have the same size for all peers, must be
++  large enough to hold the state values of all peers, and must be
++  read-only for the user.
++
++- State register changes (explicit writes, peer resets) have to be
++  propagated to the other peers by updating the corresponding State
++  Table entry and issuing an interrupt to all other peers if they
++  enabled reception.
++
++- Interrupts events triggered by a peer have to be delivered to the
++  target peer, provided the receiving side is valid and has enabled
++  the reception.
++
++- All peers must have the same interrupt delivery features available,
++  i.e. MSI-X with the same maximum number of vectors on platforms
++  supporting this mechanism, otherwise INTx with one vector.
++
++
++Guest-side Programming Model
++----------------------------
++
++An IVSHMEM device appears as a PCI device to its users. Unless
++otherwise noted, it conforms to the PCI Local Bus Specification,
++Revision 3.0. As such, it is discoverable via the PCI configuration
++space and provides a number of standard and custom PCI configuration
++registers.
++
++### Shared Memory Region Layout
++
++The shared memory region is divided into several sections.
++
++    +-----------------------------+   -
++    |                             |   :
++    | Output Section for peer n-1 |   : Output Section Size
++    |     (n = Maximum Peers)     |   :
++    +-----------------------------+   -
++    :                             :
++    :                             :
++    :                             :
++    +-----------------------------+   -
++    |                             |   :
++    |  Output Section for peer 1  |   : Output Section Size
++    |                             |   :
++    +-----------------------------+   -
++    |                             |   :
++    |  Output Section for peer 0  |   : Output Section Size
++    |                             |   :
++    +-----------------------------+   -
++    |                             |   :
++    |     Read/Write Section      |   : R/W Section Size
++    |                             |   :
++    +-----------------------------+   -
++    |                             |   :
++    |         State Table         |   : State Table Size
++    |                             |   :
++    +-----------------------------+   <-- Shared memory base address
++
++The first section consists of the mandatory State Table. Its size is
++defined by the State Table Size register and cannot be zero. This
++section is read-only for all peers.
++
++The second section consists of shared memory that is read/writable
++for all peers. Its size is defined by the R/W Section Size register.
++A size of zero is permitted.
++
++The third and following sections are output sections, one for each
++peer. Their sizes are all identical. The size of a single output
++section is defined by the Output Section Size register. An output
++section is read/writable for the corresponding peer and read-only for
++all other peers. E.g., only the peer with ID 3 can write to the
++fourths output section, but all peers can read from this section.
++
++All sizes have to be rounded up to multiples of a mappable page in
++order to allow access control according to the section restrictions.
++
++### Configuration Space Registers
++
++#### Header Registers
++
++| Offset | Register               | Content                                              |
++|-------:|:-----------------------|:-----------------------------------------------------|
++|    00h | Vendor ID              | 110Ah                                                |
++|    02h | Device ID              | 4106h                                                |
++|    04h | Command Register       | 0000h on reset, writable bits are:                   |
++|        |                        | Bit 0: I/O Space (if Register Region uses I/O)       |
++|        |                        | Bit 1: Memory Space (if Register Region uses Memory) |
++|        |                        | Bit 3: Bus Master                                    |
++|        |                        | Bit 10: INTx interrupt disable                       |
++|        |                        | Writes to other bits are ignored                     |
++|    06h | Status Register        | 0010h, static value                                  |
++|        |                        | In deviation to the PCI specification, the Interrupt |
++|        |                        | Status (bit 3) is never set                          |
++|    08h | Revision ID            | 00h                                                  |
++|    09h | Class Code, Interface  | Protocol Type bits 0-7, see [Protocols](#Protocols)  |
++|    0Ah | Class Code, Sub-Class  | Protocol Type bits 8-15, see [Protocols](#Protocols) |
++|    0Bh | Class Code, Base Class | FFh                                                  |
++|    0Eh | Header Type            | 00h                                                  |
++|    10h | BAR 0                  | MMIO or I/O register region                          |
++|    14h | BAR 1                  | MSI-X region                                         |
++|    18h | BAR 2 (with BAR 3)     | optional: 64-bit shared memory region                |
++|    2Ch | Subsystem Vendor ID    | same as Vendor ID, or provider-specific value        |
++|    2Eh | Subsystem ID           | same as Device ID, or provider-specific value        |
++|    34h | Capability Pointer     | First capability                                     |
++|    3Eh | Interrupt Pin          | 01h-04h, must be 00h if MSI-X is available           |
++
++The INTx status bit is never set by an implementation. Users of the
++IVSHMEM device are instead expected to derive the event state from
++protocol-specific information kept in the shared memory. This
++approach is significantly faster, and the complexity of
++register-based status tracking can be avoided.
++
++If BAR 2 is not present, the shared memory region is not relocatable
++by the user. In that case, the hypervisor has to implement the Base
++Address register in the vendor-specific capability.
++
++Subsystem IDs shall encode the provider (hypervisor) in order to
++allow identifying potential deviating implementations in case this
++should ever be required.
++
++If its platform supports MSI-X, an implementation of the IVSHMEM
++device must provide this interrupt model and must not expose INTx
++support.
++
++Other header registers may not be implemented. If not implemented,
++they return 0 on read and ignore write accesses.
++
++#### Vendor Specific Capability (ID 09h)
++
++This capability must always be present.
++
++| Offset | Register            | Content                                        |
++|-------:|:--------------------|:-----------------------------------------------|
++|    00h | ID                  | 09h                                            |
++|    01h | Next Capability     | Pointer to next capability or 00h              |
++|    02h | Length              | 20h if Base Address is present, 18h otherwise  |
++|    03h | Privileged Control  | Bit 0 (read/write): one-shot interrupt mode    |
++|        |                     | Bits 1-7: Reserved (0 on read, writes ignored) |
++|    04h | State Table Size    | 32-bit size of read-only State Table           |
++|    08h | R/W Section Size    | 64-bit size of common read/write section       |
++|    10h | Output Section Size | 64-bit size of output sections                 |
++|    18h | Base Address        | optional: 64-bit base address of shared memory |
++
++All registers are read-only. Writes are ignored, except to bit 0 of
++the Privileged Control register.
++
++When bit 0 in the Privileged Control register is set to 1, the device
++clears bit 0 in the Interrupt Control register on each interrupt
++delivery. This enables automatic interrupt throttling when
++re-enabling shall be performed by a scheduled unprivileged instance
++on the user side.
++
++An IVSHMEM device may not support a relocatable shared memory region.
++This support the hypervisor in locking down the guest-to-host address
++mapping and simplifies the runtime logic. In such a case, BAR 2 must
++not be implemented by the hypervisor. Instead, the Base Address
++register has to be implemented to report the location of the shared
++memory region in the user's address space.
++
++A non-existing shared memory section has to report zero in its
++Section Size register.
++
++#### MSI-X Capability (ID 11h)
++
++On platforms supporting MSI-X, IVSHMEM has to provide interrupt
++delivery via this mechanism. In that case, the MSI-X capability is
++present while the legacy INTx delivery mechanism is not available,
++and the Interrupt Pin configuration register returns 0.
++
++The IVSHMEM device has no notion of pending interrupts. Therefore,
++reading from the MSI-X Pending Bit Array will always return 0. Users
++of the IVSHMEM device are instead expected to derive the event state
++from protocol-specific information kept in the shared memory. This
++approach is significantly faster, and the complexity of
++register-based status tracking can be avoided.
++
++The corresponding MSI-X MMIO region is configured via BAR 1.
++
++The MSI-X table size reported by the MSI-X capability structure is
++identical for all peers.
++
++### Register Region
++
++The register region may be implemented as MMIO or I/O.
++
++When implementing it as MMIO, the hypervisor has to ensure that the
++register region can be mapped as a single page into the address space
++of the user, without causing potential overlaps with other resources.
++Write accesses to MMIO region offsets that are not backed by
++registers have to be ignored, read accesses have to return 0. This
++enables the user to hand out the complete region, along with the
++shared memory, to an unprivileged instance.
++
++The region location in the user's physical address space is
++configured via BAR 0. The following table visualizes the region
++layout:
++
++| Offset | Register                                                            |
++|-------:|:--------------------------------------------------------------------|
++|    00h | ID                                                                  |
++|    04h | Maximum Peers                                                       |
++|    08h | Interrupt Control                                                   |
++|    0Ch | Doorbell                                                            |
++|    10h | State                                                               |
++
++All registers support only aligned 32-bit accesses.
++
++#### ID Register (Offset 00h)
++
++Read-only register that reports the ID of the local device. It is
++unique for all of the connected devices and remains unchanged over
++their lifetime.
++
++#### Maximum Peers Register (Offset 04h)
++
++Read-only register that reports the maximum number of possible peers
++(including the local one). The permitted range is between 2 and 65536
++and remains constant over the lifetime of all peers.
++
++#### Interrupt Control Register (Offset 08h)
++
++This read/write register controls the generation of interrupts
++whenever a peer writes to the Doorbell register or changes its state.
++
++| Bits | Content                                                               |
++|-----:|:----------------------------------------------------------------------|
++|    0 | 1: Enable interrupt generation                                        |
++| 1-31 | Reserved (0 on read, writes ignored)                                  |
++
++Note that bit 0 is reset to 0 on interrupt delivery if one-shot
++interrupt mode is enabled in the Enhanced Features register.
++
++The value of this register after device reset is 0.
++
++#### Doorbell Register (Offset 0Ch)
++
++Write-only register that triggers an interrupt vector in the target
++device if it is enabled there.
++
++| Bits  | Content                                                              |
++|------:|:---------------------------------------------------------------------|
++|  0-15 | Vector number                                                        |
++| 16-31 | Target ID                                                            |
++
++Writing a vector number that is not enabled by the target has no
++effect. The peers can derive the number of available vectors from
++their own device capabilities because the provider is required to
++expose an identical number of vectors to all connected peers. The
++peers are expected to define or negotiate the used ones via the
++selected protocol.
++
++Addressing a non-existing or inactive target has no effect. Peers can
++identify active targets via the State Table.
++
++The behavior on reading from this register is undefined.
++
++#### State Register (Offset 10h)
++
++Read/write register that defines the state of the local device.
++Writing to this register sets the state and triggers MSI-X vector 0
++or the INTx interrupt, respectively, on the remote device if the
++written state value differs from the previous one. Users of peer
++devices can read the value written to this register from the State
++Table. They are expected differentiate state change interrupts from
++doorbell events by comparing the new state value with a locally
++stored copy.
++
++The value of this register after device reset is 0. The semantic of
++all other values can be defined freely by the chosen protocol.
++
++### State Table
++
++The State Table is a read-only section at the beginning of the shared
++memory region. It contains a 32-bit state value for each of the
++peers. Locating the table in shared memory allows fast checking of
++remote states without register accesses.
++
++The table is updated on each state change of a peers. Whenever a user
++of an IVSHMEM device writes a value to the Local State register, this
++value is copied into the corresponding entry of the State Table. When
++a IVSHMEM device is reset or disconnected from the other peers, zero
++is written into the corresponding table entry. The initial content of
++the table is all zeros.
++
++    +--------------------------------+
++    | 32-bit state value of peer n-1 |
++    +--------------------------------+
++    :                                :
++    +--------------------------------+
++    | 32-bit state value of peer 1   |
++    +--------------------------------+
++    | 32-bit state value of peer 0   |
++    +--------------------------------+ <-- Shared memory base address
++
++
++Protocols
++---------
++
++The IVSHMEM device shall support the peers of a connection in
++agreeing on the protocol used over the shared memory devices. For
++that purpose, the interface byte (offset 09h) and the sub-class byte
++(offset 0Ah) of the Class Code register encodes a 16-bit protocol
++type for the users. The following type values are defined:
++
++| Protocol Type | Description                                                  |
++|--------------:|:-------------------------------------------------------------|
++|         0000h | Undefined type                                               |
++|         0001h | Virtual peer-to-peer Ethernet                                |
++|   0002h-3FFFh | Reserved                                                     |
++|   4000h-7FFFh | User-defined protocols                                       |
++|   8000h-BFFFh | Virtio over Shared Memory, front-end peer                    |
++|   C000h-FFFFh | Virtio over Shared Memory, back-end peer                     |
++
++Details of the protocols are not in the scope of this specification.
 -- 
 2.16.4
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/5542adccc5bda38da2cd0f46398850dc4ec31f2a.1578407802.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/5ddc4ca4f32bfab8971840e441b60a72153a2308.1578407802.git.jan.kiszka%40siemens.com.
