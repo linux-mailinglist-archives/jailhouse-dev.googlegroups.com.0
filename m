@@ -1,130 +1,69 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBUWV4LYAKGQEQ2S7CVA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD7236HKXYJRBREN43YAKGQEAWYGCDQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43b.google.com (mail-wr1-x43b.google.com [IPv6:2a00:1450:4864:20::43b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11A3513740B
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 10 Jan 2020 17:48:19 +0100 (CET)
-Received: by mail-wr1-x43b.google.com with SMTP id v17sf1176116wrm.17
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 10 Jan 2020 08:48:19 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1578674898; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=rQvAdZsYnky/vXuHaar+BIhisp1yopgHbosz9NwS1bdtpSCd3VMGseano0Fhwj/68t
-         AgT/97feWPADziwzwQYdPvEmprk18zfA4JsMTvTljZtkUeaDbpIOpQnqLaoRRFk7OypQ
-         wruQrjwexJtjy5zc5vga+n3bZvhYSvaMInwlnKvUtQjm4ON0BkOVVzoRLfIbhrA4ubN2
-         hUSKR0cBeb68wUYu8sQRcY5rvxbgTDzfgZOIVnNSYuI/ju5Lld2grOkMx4QVB2yTY/QX
-         fMSHoEkK1XmZJztO9be2fp6P6K0Qfyha2uyLDsa92t5Sjf60s4AuXdoVjkXO0hvKSwo2
-         r7iw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=tWhgKH5/6xwfFwOe3piTz6R2WafZh0D3pA8FEfRVIZU=;
-        b=Eh99KFX2Nu++FMbDOkudj5eaphzILB0aj32rOhGA0KIgZoZJFMs4fDzd+sT4DUquIO
-         cY15pC8af6HWLqkII0zzvF8YsBrhbwkd9yxC6fGR02O3GAD7MH9Y1gvB/yqGxlI5lJ0A
-         6aouIv0y4K7ebhnWqpvN0orJ0swKcAr74VZd/i5dlYJ8yhrP8EtUz0j8l759h2n0xETS
-         g8tQRrznsOlLnhWSiZ83XrlgEo+tv31xMDDY3/EOTIjWpt+sst+faOr9GR9DCFlOfJx7
-         ZWwdadOFZVbKzxuPlaHm1pLaVpD/WBy6DbSi4NHi6Gh5x9fi++TDTumbr8usy0r5SxYd
-         qDRg==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-ot1-x33e.google.com (mail-ot1-x33e.google.com [IPv6:2607:f8b0:4864:20::33e])
+	by mail.lfdr.de (Postfix) with ESMTPS id 310C7137C56
+	for <lists+jailhouse-dev@lfdr.de>; Sat, 11 Jan 2020 09:26:46 +0100 (CET)
+Received: by mail-ot1-x33e.google.com with SMTP id d16sf2549388otq.19
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 11 Jan 2020 00:26:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=KmjgqIxXfyz1jTIOfeliS+BuffTICYO0GUGRzlfq8cA=;
+        b=reBu+dUwS+/mRg2DCpNuxuWHFa7qyno7K2f/LJV9UgXfF8YEJGFqfba+mWh/xqJjy+
+         4OEE90q0c/ZO61RXaFdw4Lurub9BYgOZiPlQEravXHBrXH1YSm6N5MpWfkcjee+6oxQm
+         H/a/BJIPnHUnAabL8lzaOp/xDL28c2rHQ9yrAOq2Hy8fha8QKhaaprS/uO7ST6qQ4AuG
+         25/LPJUI2H/1IJ+5NWja8EYugghq6o1w76NJlUYgrHeL9RHgLeTdlV3pO47bD1KcYiWZ
+         0sOPeteGhUBgUwVsF6ljOgitVIXaHlaNAneWgKjxC7oIVQEXSBC985GU/xMlBxYTM2EA
+         jsxA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=tWhgKH5/6xwfFwOe3piTz6R2WafZh0D3pA8FEfRVIZU=;
-        b=Jg3poM0zhugJOE1VXtpv+oc3dbUjBgejJPU3NX7eNc2hPCzWAN0t6Hc3c6L+Y5CJFp
-         6mwS2aOXZGN/aNht4dPzAtZ9zKrH+MLiw8biD1gd9QDlkTE8bmHKhLJn0hOY7Dnp7laa
-         Xw6THkHhii/myvOIL9lk36rheytj2tCgXAxDC+oroNwyPvqsZ5SFTHYnBZRz/o+jrcxH
-         pG1DME2nvOmRHTXXl65oRxonZpFGd/NHEPY2GXzQU7/gs62r+EUnNg7KShKdsGB3weTP
-         4ix4fERuP2OoWsgEf7FF1FFmVp1admnvdXCB8vcSUffjwPjv5LFQgSUUcozRz4/MNC9i
-         sfww==
+        bh=KmjgqIxXfyz1jTIOfeliS+BuffTICYO0GUGRzlfq8cA=;
+        b=bPPYD7Jv0yeEis3zQ5kmvVccaybS+uftyq8CXfeayxrg7nFsJORttOrCl7GEJT4tXt
+         sIK4yIwnvx88NcQfGT3nGn24rFd96TuaZ4CdKS2RjjR6jdQIwYVzITqzOdOyFr4SsJrx
+         lyRur1B+vfskws7ZsyWxEGSlZEj8PbuLB5KMbltLAfdF6Iw7i5c8NCliWeYxoe+ckaHw
+         sZT6aYfo33RHavzzXfI+KB2aILAZrRdE6dq1cEYexSnH9Y6Ld5uQXtkRSU4qh+VHZ0bj
+         MtRgVos5o++0s0qyXQmG+SlAuViwApH1WjnLYXgo2Ezj08wF8EpNDrQBXmB5Gio/vI0n
+         rEJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=tWhgKH5/6xwfFwOe3piTz6R2WafZh0D3pA8FEfRVIZU=;
-        b=UaS+FTkV7N/F+sZYoTwq/7jccocp6opVSnMz1Jflr4+Ik+qxyfeRF9pZl3yNaXbtmJ
-         KOSgg+eJlaX/nEBYyIXwSXOQa2WRqGoYSQhPNM9tIqGPOBklc9aAoFS8vyGVqHIINGss
-         b+93+UQz3dl6fx6fSykoPTwb/1GRPQ3QeVG0H4dbV8d6/6XGQ+qXC/Aa0ShT+AOcnNhm
-         jcs72kw5kpHRne6bVqs4Ylny373LmiU50yOpIqy3/8imi8K+uTzaWHTHsfiNKTULy8xt
-         THpbnjbq8SQ0czCKCwsGvL6TZsDAqn8nJHdtub/1Sa9J9+gA1SvKQ0X/FgLPqv8oJe+r
-         9pug==
+        bh=KmjgqIxXfyz1jTIOfeliS+BuffTICYO0GUGRzlfq8cA=;
+        b=uHKmuX7Ti8x4HlFWRbd7Toh+yKtJYhb/EgkKTMWIf53xXowhuLH5SB06tR7xRDQhO5
+         swTwRnt6aehe86LXXk7hkGofVGMCl2k90/cFfxHANxkZG1GZ32wBCyJ8QWlDhYWI16SH
+         4NyOlMdYvqNQzRxdgfpYy2xLyGy345V0twemKHsBZa3LWfIdCu4RhVlb7tcBLSNaH0jO
+         S/S8fF8g3I3NjLXvVpgsTW2fizMxo5kJ1PzLKEwRaWuSFvBNsFKXMxE5ZXt3bpd/2nSK
+         Q/BfIxseY0wuVqic3RceWLp+GLGGDh2xkIEtl5SBBRr+VgIB1I77luLifuzjs1eILwwP
+         xZ/w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAWZPAVO/Xs4kkxNDATsweKHKdUMETlpVp0m2fDOAwYZvVTXNikM
-	d0XWGOuARrTyvSmxFpg2f1U=
-X-Google-Smtp-Source: APXvYqxmBMBz3u6Cz3i9o3c9kTsKCw9lIe87zTA3lC/9ooZzJiYDbbGqT6vOUCkDNdXAMRgWrttJGg==
-X-Received: by 2002:adf:90e1:: with SMTP id i88mr4302828wri.95.1578674898688;
-        Fri, 10 Jan 2020 08:48:18 -0800 (PST)
+X-Gm-Message-State: APjAAAWXISmkHNNkZmbigQ8KT1hFv3I2Fj8QvpdfV1ERWW6i3m/zE/NW
+	auzASCWfaJEV1JRFIP1ETWA=
+X-Google-Smtp-Source: APXvYqwIKUzGFyuSKgSxsJ/W3GxteTjq5I4raGq910Wp0VuIPVgIH62GUOaCRRvzAoOt1fFsAgxcVA==
+X-Received: by 2002:a05:6808:64d:: with SMTP id z13mr5754863oih.104.1578731204624;
+        Sat, 11 Jan 2020 00:26:44 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:fdc5:: with SMTP id i5ls2089205wrs.9.gmail; Fri, 10 Jan
- 2020 08:48:17 -0800 (PST)
-X-Received: by 2002:adf:ff8a:: with SMTP id j10mr4602668wrr.312.1578674897906;
-        Fri, 10 Jan 2020 08:48:17 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1578674897; cv=none;
-        d=google.com; s=arc-20160816;
-        b=EmVAoNlIUxHfJsZYjVcRxzFmgfc10J3uEcONtq2j3LpbTL/y0K02qGtI+wABo//G2Q
-         9qBHBuRivnMIYIGv6ejCxRbOJCGsSfzZF8rnFbJsdAYjwt6mM++cNbrQG2uNMeXbQgko
-         ofTVWBbTw/tn+gdxlbST1hUa4cHv24TE2bePxaum09f/BMbsCcOb3/YwSahB5wxvams8
-         OE7j5XdaCQPDeOn6gnCKK4paMcoa9ocLTSwnrINYizHPiigv83ZaH5EVh0rMDCJ8Ea+D
-         4hddVkfR/recVgvEVXDef98LnXbrjQW0lbq2oI6UMiwbF1ro1J6H/GFe4b0+QgfpueYb
-         xnrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=WvmlfBdMLLZpKHHt4X0WNSr1eBgzoqGcpcWBr+J8s4I=;
-        b=lpMKhUHQT9LWSH7FvnMspvcBTozBjESLbLcObEV96ytK4J40iZiB6NbLICKeJcZw6D
-         H1/Rn4y7XQ/vsP6Omo7lWJnnVlu/IGPEwMVy/6Q5BTZ6E0BKvWTi7yBwbDTKOBuIG+gc
-         lCu0tBTD8BmG6RXFTsFEJNbhmIn+eLIAalm3hGtqRxLM60K9W0lRdo7jICjX7FMy5jdL
-         NZ6FA+7ahRfFfiyunp4/Sfg+FPc1hjqgYaItk8D2AjcWH8CA6uYn0YrW27MutjWH05ru
-         gcq4tb3KLftTOrHg9VrxZN+baGPPP6TSJrOTFqqmMh7DaxhwvTkIaHRomMcfxH1xNP68
-         Tzng==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
-        by gmr-mx.google.com with ESMTPS id m2si335635wmi.3.2020.01.10.08.48.17
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 10 Jan 2020 08:48:17 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
-Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id 00AGmGSp030252
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 10 Jan 2020 17:48:17 +0100
-Received: from [139.25.68.37] ([139.25.68.37])
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id 00AGmGx9010360;
-	Fri, 10 Jan 2020 17:48:16 +0100
-Subject: Re: ssh don't work on jailhouse-images and how to create two cell one
- with application and another with linux on jailhouse-image demo
-To: Saroj Sapkota <samirroj2016@gmail.com>,
-        Jailhouse <jailhouse-dev@googlegroups.com>
-References: <b33c1868-f6be-4e7c-8b23-7d7bdf75f15e@googlegroups.com>
- <3f685f85-d1ba-4619-6d0a-06b6b675c60f@siemens.com>
- <dd8368be-e94d-41cf-9bf7-654094e623f3@googlegroups.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <2bff0717-8e2a-d017-4a68-96c1d54547fd@siemens.com>
-Date: Fri, 10 Jan 2020 17:48:16 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.1
+Received: by 2002:a9d:4e14:: with SMTP id p20ls1455600otf.4.gmail; Sat, 11 Jan
+ 2020 00:26:44 -0800 (PST)
+X-Received: by 2002:a9d:4f0a:: with SMTP id d10mr6114361otl.85.1578731203858;
+        Sat, 11 Jan 2020 00:26:43 -0800 (PST)
+Date: Sat, 11 Jan 2020 00:26:43 -0800 (PST)
+From: Thorsten Schulz <contact.thorsten@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <46455211-7834-4791-b623-6c7278584b83@googlegroups.com>
+Subject: jailhouse-images/wip/update does not build (incomplete commit(?) /
+ rt-version broken)
 MIME-Version: 1.0
-In-Reply-To: <dd8368be-e94d-41cf-9bf7-654094e623f3@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_998_1169982278.1578731203287"
+X-Original-Sender: contact.thorsten@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -137,121 +76,381 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 09.01.20 20:28, Saroj Sapkota wrote:
-> *Yes, I tried after enabling=C2=A0 jailhouse by first command I tried to =
-open=20
-> jailhouse console by typing second command but it results same thing as=
-=20
-> jailhouse enable command as shown below:*
-> root@demo:~# jailhouse enable /etc/jailhouse/qemu-arm64.cell
->=20
-> Initializing Jailhouse hypervisor v0.11 (0-g58052a7a-dirty) on CPU 0
-> Code location: 0x0000ffffc0200800
-> Page pool usage after early setup: mem 87/996, remap 0/131072
-> Initializing processors:
->  =C2=A0CPU 0... OK
->  =C2=A0CPU 12... OK
->  =C2=A0CPU 9... OK
->  =C2=A0CPU 6... OK
->  =C2=A0CPU 13... OK
->  =C2=A0CPU 15... OK
->  =C2=A0CPU 8... OK
->  =C2=A0CPU 14... OK
->  =C2=A0CPU 10... OK
->  =C2=A0CPU 11... OK
->  =C2=A0CPU 5... OK
->  =C2=A0CPU 2... OK
->  =C2=A0CPU 4... OK
->  =C2=A0CPU 3... OK
->  =C2=A0CPU 7... OK
->  =C2=A0CPU 1... OK
-> Initializing unit: irqchip
-> Initializing unit: PCI
-> Adding virtual PCI device 00:00.0 to cell "qemu-arm64"
-> Page pool usage after late setup: mem 143/996, remap 528/131072
-> Activating hypervisor
-> root@demo:~# =C2=A0jailhouse console
->=20
-> Initializing Jailhouse hypervisor v0.11 (0-g58052a7a-dirty) on CPU 0
-> Code location: 0x0000ffffc0200800
-> Page pool usage after early setup: mem 87/996, remap 0/131072
-> Initializing processors:
->  =C2=A0CPU 0... OK
->  =C2=A0CPU 12... OK
->  =C2=A0CPU 9... OK
->  =C2=A0CPU 6... OK
->  =C2=A0CPU 13... OK
->  =C2=A0CPU 15... OK
->  =C2=A0CPU 8... OK
->  =C2=A0CPU 14... OK
->  =C2=A0CPU 10... OK
->  =C2=A0CPU 11... OK
->  =C2=A0CPU 5... OK
->  =C2=A0CPU 2... OK
->  =C2=A0CPU 4... OK
->  =C2=A0CPU 3... OK
->  =C2=A0CPU 7... OK
->  =C2=A0CPU 1... OK
-> Initializing unit: irqchip
-> Initializing unit: PCI
-> Adding virtual PCI device 00:00.0 to cell "qemu-arm64"
-> Page pool usage after late setup: mem 143/996, remap 528/131072
-> Activating hypervisor
-> root@demo:~#
-> *why I don't get jailhouse console?*
+------=_Part_998_1169982278.1578731203287
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_999_1029473544.1578731203287"
 
-"jailhouse console" does not provide an interactive console. It's just=20
-an alternative ways to dump debug messages from Jailhouse to the root=20
-cell, rather than just a physical UART (or the EFI framebuffer).
+------=_Part_999_1029473544.1578731203287
+Content-Type: text/plain; charset="UTF-8"
 
-> *other command goes well and I can create cell for apic demo and load it=
-=20
-> and start it on the host terminal and it continuously run I can't=20
-> destroy the cell as it is running on the same terminal. So, Main problem=
-=20
-> is i'm unable to get jailhouse console and control it from terminal. How=
-=20
-> can I do that?*
+Hej,
 
-You control Jailhouse from the root cell with commands like those=20
-suggested by the demo image. Study the jailhouse man page for more=20
-details, but it should be fairly intuitive once the basic concept is=20
-clearer. See also the various presentations and tutorial on the=20
-Jailhouse architecture.
+looking forward into trying out the ivshmem updates, however, I cannot 
+build the (qemu-x86-64) image. 
 
-> *the sample output and command result is below: once cell is started=20
-> neither I can destroy it or terminate it.
-> *
-> *
-> *
-> root@demo:~# jailhouse cell create /etc/jailhouse/qemu-arm64-gic-
-> demo.cell
-> Created cell "gic-demo"
-> Page pool usage after cell creation: mem 154/996, remap 528/131072
-> root@demo:~# jailhouse cell load gic-demo=20
-> /usr/libexec/jailhouse/demos/gic-demo.bin
-> Cell "gic-demo" can be loaded
-> root@demo:~# jailhouse cell start gic-demo
-> Started cell "gic-demo"
-> Initializing the GIC...
-> Initializing the timer...
-> root@demo:~# Timer fired, jitter: 370435 ns, min: 370435 ns, max: 370435 =
-ns
+First issue: recipes-kernel/linux/linux-jailhouse-rt_5.4.5.bb seems missing 
+after latest commit 
+<https://github.com/siemens/jailhouse-images/commit/359f3b6>. So 
+`./build-images.sh` results in:
 
-So, at this point you have a bare-metal demo running. If you destroy=20
-that again and start the Linux demo, you will get a second instance of=20
-it, and you can ssh to that from within the root cell.
+[..]
 
-Jan
+> ERROR: Nothing PROVIDES 'linux-image-jailhouse' (but 
+> mc:qemu-amd64-jailhouse-demo:/repo/recipes-core/images/demo-image.bb, 
+> mc:qemu-amd64-jailhouse-demo:/repo/recipes-jailhouse/jailhouse/jailhouse_0.11.bb 
+> DEPENDS on or otherwise requires it). Close matches:
+>   linux-image-jailhouse-rt
+>   linux-jailhouse-rt
+>   linux-headers-jailhouse-rt
+>
+[..]
 
---=20
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+If I go for `./build-images.sh --rt` to get the preemt-rt build, the 
+kernel-build log throws:
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
+ERROR: mc:qemu-amd64-jailhouse-demo:jailhouse-jailhouse-rt-0.11-r0 
+do_dpkg_build: Error executing a python function in exec_python_func() 
+autogenerated:
+[..]
+
+> Exception: bb.process.ExecutionError: Execution of 
+> '/work/build/tmp/work/jailhouse-demo-amd64/jailhouse-jailhouse-rt/0.11-r0/temp/run.dpkg_runbuild.517003' 
+> failed with exit code 2:
+> dpkg-buildpackage: info: source package jailhouse-jailhouse-rt
+> dpkg-buildpackage: info: source version 0.11
+> dpkg-buildpackage: info: source distribution UNRELEASED
+> dpkg-buildpackage: info: source changed by Unknown maintainer 
+> <unknown@example.com>
+>  dpkg-source -I --before-build .
+> dpkg-buildpackage: info: host architecture amd64
+>  fakeroot debian/rules clean
+> CFLAGS= LDFLAGS= dh clean --parallel --with python2
+>    dh_auto_clean -O--parallel
+>     make -j8 clean
+> make[1]: Entering directory '/home/builder/jailhouse-jailhouse-rt/git'
+> make[1]: Leaving directory '/home/builder/jailhouse-jailhouse-rt/git'
+>    dh_clean -O--parallel
+>  dpkg-source -I -b .
+> dpkg-source: warning: no source format specified in debian/source/format, 
+> see dpkg-source(1)
+> dpkg-source: warning: source directory 'git' is not 
+> <sourcepackage>-<upstreamversion> 'jailhouse-jailhouse-rt-0.11'
+> dpkg-source: info: using source format '1.0'
+> dpkg-source: info: building jailhouse-jailhouse-rt in 
+> jailhouse-jailhouse-rt_0.11.tar.gz
+> dpkg-source: info: building jailhouse-jailhouse-rt in 
+> jailhouse-jailhouse-rt_0.11.dsc
+>  debian/rules build
+> CFLAGS= LDFLAGS= dh build --parallel --with python2
+>    dh_update_autotools_config -O--parallel
+>    dh_auto_configure -O--parallel
+>    dh_auto_build -O--parallel
+>     make -j8
+> make[1]: Entering directory '/home/builder/jailhouse-jailhouse-rt/git'
+>   GEN     /home/builder/jailhouse-jailhouse-rt/git/pyjailhouse/pci_defs.py
+>   UPD     
+> /home/builder/jailhouse-jailhouse-rt/git/hypervisor/include/generated/config.mk
+>   CC      
+> /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/../alloc.o
+>   CC      
+> /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/../cmdline.o
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/../pci.o
+>   CC      
+> /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/../printk.o
+>   CC      
+> /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/../setup.o
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/configs/x86/apic-demo.o
+>   UPD     
+> /home/builder/jailhouse-jailhouse-rt/git/hypervisor/include/generated/version.h
+>   CC      
+> /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/../string.o
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/configs/x86/e1000-demo.o
+>   CC      
+> /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/../test.o
+>   CC      
+> /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/../uart-8250.o
+>   CC      
+> /home/builder/jailhouse-jailhouse-rt/git/configs/x86/f2a88xm-hd3.o
+>   CC      
+> /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/cpu-features.o
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/configs/x86/imb-a180.o
+>   CC      
+> /home/builder/jailhouse-jailhouse-rt/git/configs/x86/ioapic-demo.o
+>   AS      
+> /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/header-64.o
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/excp.o
+> scripts/Makefile.build:57: 
+> '/home/builder/jailhouse-jailhouse-rt/git/driver/jailhouse.ko' will not be 
+> built even though obj-m is specified.
+> scripts/Makefile.build:58: You cannot use subdir-y/m to visit a module 
+> Makefile. Use obj-y/m instead.
+>   CC [M]  /home/builder/jailhouse-jailhouse-rt/git/driver/cell.o
+>   AS      
+> /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/header-common.o
+>   CC      
+> /home/builder/jailhouse-jailhouse-rt/git/configs/x86/ivshmem-demo.o
+>   CC      
+> /home/builder/jailhouse-jailhouse-rt/git/hypervisor/arch/x86/asm-defines.s
+>   LDS     
+> /home/builder/jailhouse-jailhouse-rt/git/hypervisor/hypervisor.lds
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/hypervisor/setup.o
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/hypervisor/printk.o
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/int.o
+>   CC      
+> /home/builder/jailhouse-jailhouse-rt/git/configs/x86/linux-nuc6cay-demo.o
+>   CC      
+> /home/builder/jailhouse-jailhouse-rt/git/configs/x86/linux-x86-demo.o
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/ioapic.o
+>   CC [M]  /home/builder/jailhouse-jailhouse-rt/git/driver/main.o
+>   CC [M]  /home/builder/jailhouse-jailhouse-rt/git/driver/sysfs.o
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/configs/x86/nuc6cay.o
+> /home/builder/jailhouse-jailhouse-rt/git/configs/x86/nuc6cay.c:39: 
+> warning: "ARRAY_SIZE" redefined
+>  #define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
+>  
+> In file included from 
+> /home/builder/jailhouse-jailhouse-rt/git/configs/x86/nuc6cay.c:37:
+> /home/builder/jailhouse-jailhouse-rt/git/configs/../include/jailhouse/cell-config.h:46: 
+> note: this is the location of the previous definition
+>  #define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
+>  
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/mem.o
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/configs/x86/pci-demo.o
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/hypervisor/paging.o
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/pci.o
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/printk.o
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/configs/x86/qemu-x86.o
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/setup.o
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/hypervisor/control.o
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/configs/x86/smp-demo.o
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/smp.o
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/configs/x86/tiny-demo.o
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/timing.o
+>   OBJCOPY 
+> /home/builder/jailhouse-jailhouse-rt/git/configs/x86/apic-demo.cell
+>   OBJCOPY 
+> /home/builder/jailhouse-jailhouse-rt/git/configs/x86/e1000-demo.cell
+>   OBJCOPY 
+> /home/builder/jailhouse-jailhouse-rt/git/configs/x86/f2a88xm-hd3.cell
+>   OBJCOPY 
+> /home/builder/jailhouse-jailhouse-rt/git/configs/x86/imb-a180.cell
+>   OBJCOPY 
+> /home/builder/jailhouse-jailhouse-rt/git/configs/x86/ioapic-demo.cell
+>   OBJCOPY 
+> /home/builder/jailhouse-jailhouse-rt/git/configs/x86/ivshmem-demo.cell
+>   OBJCOPY 
+> /home/builder/jailhouse-jailhouse-rt/git/configs/x86/linux-nuc6cay-demo.cell
+>   OBJCOPY 
+> /home/builder/jailhouse-jailhouse-rt/git/configs/x86/linux-x86-demo.cell
+>   OBJCOPY /home/builder/jailhouse-jailhouse-rt/git/configs/x86/nuc6cay.cell
+>   OBJCOPY 
+> /home/builder/jailhouse-jailhouse-rt/git/configs/x86/pci-demo.cell
+>   OBJCOPY 
+> /home/builder/jailhouse-jailhouse-rt/git/configs/x86/qemu-x86.cell
+>   OBJCOPY 
+> /home/builder/jailhouse-jailhouse-rt/git/configs/x86/smp-demo.cell
+>   OBJCOPY 
+> /home/builder/jailhouse-jailhouse-rt/git/configs/x86/tiny-demo.cell
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/hypervisor/lib.o
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/hypervisor/mmio.o
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/uart.o
+>   CC      /home/builder/jailhouse-jailhouse-rt/git/hypervisor/pci.o
+>   CC      
+> /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/cpu-features-32.o
+> /home/builder/jailhouse-jailhouse-rt/git/driver/main.c:103:15: error: 
+> 'lapic_timer_frequency' undeclared here (not in a function); did you mean 
+> 'lapic_timer_period'?
+>  static typeof(lapic_timer_frequency) *lapic_timer_frequency_sym;
+>                ^~~~~~~~~~~~~~~~~~~~~
+>                lapic_timer_period
+>   CC [M]  /home/builder/jailhouse-jailhouse-rt/git/driver/pci.o
+> make[4]: *** [scripts/Makefile.build:266: 
+> /home/builder/jailhouse-jailhouse-rt/git/driver/main.o] Error 1
+>
+[..]
+...fails
+
+I have not yet looked deeper into the cause of the latter issue, because 
+jailhose/next builds fine on my 5.3 Linux
+
+cheers, Thorsten
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/46455211-7834-4791-b623-6c7278584b83%40googlegroups.com.
+
+------=_Part_999_1029473544.1578731203287
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hej,</div><div><br></div><div>looking forward into tr=
+ying out the ivshmem updates, however, I cannot build the (qemu-x86-64) ima=
+ge. <br></div><div><br></div><div>First issue:=20
+      recipes-kernel/linux/linux-jailhouse-rt_5.4.5.bb seems missing after =
+<a href=3D"https://github.com/siemens/jailhouse-images/commit/359f3b6">late=
+st commit</a>. So `./build-images.sh` results in:</div><div><br></div><div>=
+[..]</div><div><blockquote class=3D"gmail_quote" style=3D"margin: 0px 0px 0=
+px 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">ER=
+ROR: Nothing PROVIDES &#39;linux-image-jailhouse&#39; (but mc:qemu-amd64-ja=
+ilhouse-demo:/repo/recipes-core/images/demo-image.bb, mc:qemu-amd64-jailhou=
+se-demo:/repo/recipes-jailhouse/jailhouse/jailhouse_0.11.bb DEPENDS on or o=
+therwise requires it). Close matches:<br>=C2=A0 linux-image-jailhouse-rt<br=
+>=C2=A0 linux-jailhouse-rt<br>=C2=A0 linux-headers-jailhouse-rt<br></blockq=
+uote>[..]</div><div><br></div><div>If I go for `./build-images.sh --rt` to =
+get the preemt-rt build, the kernel-build log throws:</div><div><br></div><=
+div>ERROR: mc:qemu-amd64-jailhouse-demo:jailhouse-jailhouse-rt-0.11-r0 do_d=
+pkg_build: Error executing a python function in exec_python_func() autogene=
+rated:<br>[..]</div><div><blockquote class=3D"gmail_quote" style=3D"margin:=
+ 0px 0px 0px 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left=
+: 1ex;">Exception: bb.process.ExecutionError: Execution of &#39;/work/build=
+/tmp/work/jailhouse-demo-amd64/jailhouse-jailhouse-rt/0.11-r0/temp/run.dpkg=
+_runbuild.517003&#39; failed with exit code 2:<br>dpkg-buildpackage: info: =
+source package jailhouse-jailhouse-rt<br>dpkg-buildpackage: info: source ve=
+rsion 0.11<br>dpkg-buildpackage: info: source distribution UNRELEASED<br>dp=
+kg-buildpackage: info: source changed by Unknown maintainer &lt;unknown@exa=
+mple.com&gt;<br>=C2=A0dpkg-source -I --before-build .<br>dpkg-buildpackage:=
+ info: host architecture amd64<br>=C2=A0fakeroot debian/rules clean<br>CFLA=
+GS=3D LDFLAGS=3D dh clean --parallel --with python2<br>=C2=A0=C2=A0 dh_auto=
+_clean -O--parallel<br>=C2=A0=C2=A0=C2=A0 make -j8 clean<br>make[1]: Enteri=
+ng directory &#39;/home/builder/jailhouse-jailhouse-rt/git&#39;<br>make[1]:=
+ Leaving directory &#39;/home/builder/jailhouse-jailhouse-rt/git&#39;<br>=
+=C2=A0=C2=A0 dh_clean -O--parallel<br>=C2=A0dpkg-source -I -b .<br>dpkg-sou=
+rce: warning: no source format specified in debian/source/format, see dpkg-=
+source(1)<br>dpkg-source: warning: source directory &#39;git&#39; is not &l=
+t;sourcepackage&gt;-&lt;upstreamversion&gt; &#39;jailhouse-jailhouse-rt-0.1=
+1&#39;<br>dpkg-source: info: using source format &#39;1.0&#39;<br>dpkg-sour=
+ce: info: building jailhouse-jailhouse-rt in jailhouse-jailhouse-rt_0.11.ta=
+r.gz<br>dpkg-source: info: building jailhouse-jailhouse-rt in jailhouse-jai=
+lhouse-rt_0.11.dsc<br>=C2=A0debian/rules build<br>CFLAGS=3D LDFLAGS=3D dh b=
+uild --parallel --with python2<br>=C2=A0=C2=A0 dh_update_autotools_config -=
+O--parallel<br>=C2=A0=C2=A0 dh_auto_configure -O--parallel<br>=C2=A0=C2=A0 =
+dh_auto_build -O--parallel<br>=C2=A0=C2=A0=C2=A0 make -j8<br>make[1]: Enter=
+ing directory &#39;/home/builder/jailhouse-jailhouse-rt/git&#39;<br>=C2=A0 =
+GEN=C2=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailhouse-jailhouse-rt/git/pyjail=
+house/pci_defs.py<br>=C2=A0 UPD=C2=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailh=
+ouse-jailhouse-rt/git/hypervisor/include/generated/config.mk<br>=C2=A0 CC=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailhouse-jailhouse-rt/git/inm=
+ates/lib/x86/../alloc.o<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/bu=
+ilder/jailhouse-jailhouse-rt/git/inmates/lib/x86/../cmdline.o<br>=C2=A0 CC=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailhouse-jailhouse-rt/git/inm=
+ates/lib/x86/../pci.o<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/buil=
+der/jailhouse-jailhouse-rt/git/inmates/lib/x86/../printk.o<br>=C2=A0 CC=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailhouse-jailhouse-rt/git/inmate=
+s/lib/x86/../setup.o<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/build=
+er/jailhouse-jailhouse-rt/git/configs/x86/apic-demo.o<br>=C2=A0 UPD=C2=A0=
+=C2=A0=C2=A0=C2=A0 /home/builder/jailhouse-jailhouse-rt/git/hypervisor/incl=
+ude/generated/version.h<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/bu=
+ilder/jailhouse-jailhouse-rt/git/inmates/lib/x86/../string.o<br>=C2=A0 CC=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailhouse-jailhouse-rt/git/con=
+figs/x86/e1000-demo.o<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/buil=
+der/jailhouse-jailhouse-rt/git/inmates/lib/x86/../test.o<br>=C2=A0 CC=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailhouse-jailhouse-rt/git/inmates/l=
+ib/x86/../uart-8250.o<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/buil=
+der/jailhouse-jailhouse-rt/git/configs/x86/f2a88xm-hd3.o<br>=C2=A0 CC=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailhouse-jailhouse-rt/git/inmates/l=
+ib/x86/cpu-features.o<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/buil=
+der/jailhouse-jailhouse-rt/git/configs/x86/imb-a180.o<br>=C2=A0 CC=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailhouse-jailhouse-rt/git/configs/x86/=
+ioapic-demo.o<br>=C2=A0 AS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/builder/jail=
+house-jailhouse-rt/git/inmates/lib/x86/header-64.o<br>=C2=A0 CC=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86=
+/excp.o<br>scripts/Makefile.build:57: &#39;/home/builder/jailhouse-jailhous=
+e-rt/git/driver/jailhouse.ko&#39; will not be built even though obj-m is sp=
+ecified.<br>scripts/Makefile.build:58: You cannot use subdir-y/m to visit a=
+ module Makefile. Use obj-y/m instead.<br>=C2=A0 CC [M]=C2=A0 /home/builder=
+/jailhouse-jailhouse-rt/git/driver/cell.o<br>=C2=A0 AS=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/header-c=
+ommon.o<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailhouse-=
+jailhouse-rt/git/configs/x86/ivshmem-demo.o<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 /home/builder/jailhouse-jailhouse-rt/git/hypervisor/arch/x86/a=
+sm-defines.s<br>=C2=A0 LDS=C2=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailhouse-=
+jailhouse-rt/git/hypervisor/hypervisor.lds<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 /home/builder/jailhouse-jailhouse-rt/git/hypervisor/setup.o<br=
+>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailhouse-jailhouse-=
+rt/git/hypervisor/printk.o<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home=
+/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/int.o<br>=C2=A0 CC=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailhouse-jailhouse-rt/git/config=
+s/x86/linux-nuc6cay-demo.o<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home=
+/builder/jailhouse-jailhouse-rt/git/configs/x86/linux-x86-demo.o<br>=C2=A0 =
+CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailhouse-jailhouse-rt/git/i=
+nmates/lib/x86/ioapic.o<br>=C2=A0 CC [M]=C2=A0 /home/builder/jailhouse-jail=
+house-rt/git/driver/main.o<br>=C2=A0 CC [M]=C2=A0 /home/builder/jailhouse-j=
+ailhouse-rt/git/driver/sysfs.o<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /=
+home/builder/jailhouse-jailhouse-rt/git/configs/x86/nuc6cay.o<br>/home/buil=
+der/jailhouse-jailhouse-rt/git/configs/x86/nuc6cay.c:39: warning: &quot;ARR=
+AY_SIZE&quot; redefined<br>=C2=A0#define ARRAY_SIZE(a) (sizeof(a) / sizeof(=
+(a)[0]))<br>=C2=A0<br>In file included from /home/builder/jailhouse-jailhou=
+se-rt/git/configs/x86/nuc6cay.c:37:<br>/home/builder/jailhouse-jailhouse-rt=
+/git/configs/../include/jailhouse/cell-config.h:46: note: this is the locat=
+ion of the previous definition<br>=C2=A0#define ARRAY_SIZE(a) sizeof(a) / s=
+izeof(a[0])<br>=C2=A0<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/buil=
+der/jailhouse-jailhouse-rt/git/inmates/lib/x86/mem.o<br>=C2=A0 CC=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailhouse-jailhouse-rt/git/configs/x86/=
+pci-demo.o<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailhou=
+se-jailhouse-rt/git/hypervisor/paging.o<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 /home/builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/pci.o<br=
+>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailhouse-jailhouse-=
+rt/git/inmates/lib/x86/printk.o<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+/home/builder/jailhouse-jailhouse-rt/git/configs/x86/qemu-x86.o<br>=C2=A0 C=
+C=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailhouse-jailhouse-rt/git/in=
+mates/lib/x86/setup.o<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/buil=
+der/jailhouse-jailhouse-rt/git/hypervisor/control.o<br>=C2=A0 CC=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailhouse-jailhouse-rt/git/configs/x86/=
+smp-demo.o<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailhou=
+se-jailhouse-rt/git/inmates/lib/x86/smp.o<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 /home/builder/jailhouse-jailhouse-rt/git/configs/x86/tiny-demo.o<=
+br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailhouse-jailhous=
+e-rt/git/inmates/lib/x86/timing.o<br>=C2=A0 OBJCOPY /home/builder/jailhouse=
+-jailhouse-rt/git/configs/x86/apic-demo.cell<br>=C2=A0 OBJCOPY /home/builde=
+r/jailhouse-jailhouse-rt/git/configs/x86/e1000-demo.cell<br>=C2=A0 OBJCOPY =
+/home/builder/jailhouse-jailhouse-rt/git/configs/x86/f2a88xm-hd3.cell<br>=
+=C2=A0 OBJCOPY /home/builder/jailhouse-jailhouse-rt/git/configs/x86/imb-a18=
+0.cell<br>=C2=A0 OBJCOPY /home/builder/jailhouse-jailhouse-rt/git/configs/x=
+86/ioapic-demo.cell<br>=C2=A0 OBJCOPY /home/builder/jailhouse-jailhouse-rt/=
+git/configs/x86/ivshmem-demo.cell<br>=C2=A0 OBJCOPY /home/builder/jailhouse=
+-jailhouse-rt/git/configs/x86/linux-nuc6cay-demo.cell<br>=C2=A0 OBJCOPY /ho=
+me/builder/jailhouse-jailhouse-rt/git/configs/x86/linux-x86-demo.cell<br>=
+=C2=A0 OBJCOPY /home/builder/jailhouse-jailhouse-rt/git/configs/x86/nuc6cay=
+.cell<br>=C2=A0 OBJCOPY /home/builder/jailhouse-jailhouse-rt/git/configs/x8=
+6/pci-demo.cell<br>=C2=A0 OBJCOPY /home/builder/jailhouse-jailhouse-rt/git/=
+configs/x86/qemu-x86.cell<br>=C2=A0 OBJCOPY /home/builder/jailhouse-jailhou=
+se-rt/git/configs/x86/smp-demo.cell<br>=C2=A0 OBJCOPY /home/builder/jailhou=
+se-jailhouse-rt/git/configs/x86/tiny-demo.cell<br>=C2=A0 CC=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 /home/builder/jailhouse-jailhouse-rt/git/hypervisor/lib.o<b=
+r>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailhouse-jailhouse=
+-rt/git/hypervisor/mmio.o<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/=
+builder/jailhouse-jailhouse-rt/git/inmates/lib/x86/uart.o<br>=C2=A0 CC=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailhouse-jailhouse-rt/git/hyperv=
+isor/pci.o<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/builder/jailhou=
+se-jailhouse-rt/git/inmates/lib/x86/cpu-features-32.o<br>/home/builder/jail=
+house-jailhouse-rt/git/driver/main.c:103:15: error: &#39;lapic_timer_freque=
+ncy&#39; undeclared here (not in a function); did you mean &#39;lapic_timer=
+_period&#39;?<br>=C2=A0static typeof(lapic_timer_frequency) *lapic_timer_fr=
+equency_sym;<br>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 ^~~~~~~~~~~~~~~~~~~~~<br>=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 lapic_timer=
+_period<br>=C2=A0 CC [M]=C2=A0 /home/builder/jailhouse-jailhouse-rt/git/dri=
+ver/pci.o<br>make[4]: *** [scripts/Makefile.build:266: /home/builder/jailho=
+use-jailhouse-rt/git/driver/main.o] Error 1<br></blockquote>[..]</div><div>=
+...fails</div><div><br></div><div>I have not yet looked deeper into the cau=
+se of the latter issue, because jailhose/next builds fine on my 5.3 Linux<b=
+r></div><div><br></div><div>cheers, Thorsten<br></div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/2bff0717-8e2a-d017-4a68-96c1d54547fd%40siemens.com.
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/46455211-7834-4791-b623-6c7278584b83%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/46455211-7834-4791-b623-6c7278584b83%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_999_1029473544.1578731203287--
+
+------=_Part_998_1169982278.1578731203287--
