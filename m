@@ -1,131 +1,137 @@
-Return-Path: <jailhouse-dev+bncBCPOXAO4SYIBBNX247YAKGQECL455QI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCPOXAO4SYIBBPH247YAKGQEQGOGVSI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yw1-xc3a.google.com (mail-yw1-xc3a.google.com [IPv6:2607:f8b0:4864:20::c3a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A06E13828B
-	for <lists+jailhouse-dev@lfdr.de>; Sat, 11 Jan 2020 17:52:08 +0100 (CET)
-Received: by mail-yw1-xc3a.google.com with SMTP id c68sf4999839ywa.2
-        for <lists+jailhouse-dev@lfdr.de>; Sat, 11 Jan 2020 08:52:08 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1578761527; cv=pass;
+Received: from mail-yw1-xc3c.google.com (mail-yw1-xc3c.google.com [IPv6:2607:f8b0:4864:20::c3c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5351913828C
+	for <lists+jailhouse-dev@lfdr.de>; Sat, 11 Jan 2020 17:52:13 +0100 (CET)
+Received: by mail-yw1-xc3c.google.com with SMTP id e128sf5001716ywc.3
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 11 Jan 2020 08:52:13 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1578761532; cv=pass;
         d=google.com; s=arc-20160816;
-        b=mHCjOBlILSSUbvrqfYeQ+9FT429QSmzH+0e6SyIvwQoqalJ02CGG9QmWUrThaHapcy
-         Xi6mORE8WAC+Nms9QmBpq1fp8nRUwxIQa+xacgpn0+DhPZ+5drMT1VOES9BM+bQ55Fz5
-         0HAATVyPhjH4sDInc2Fs9wVym66Yxgbq3DDKlVIwPY7Ovupqk+DoHlbax2r3iZrfYHmq
-         CFuawXpc1rwVGzaFol7fCg2SlP90o13jkspiCtGWdwLLTuF7AluoacZ67pCT2Vr4fIgx
-         OFqfCaabuO8XufytivJjG0bsokT4q8jlnqCzPHJcBajvoJIt0v+OikmqtVRnKyK7zWMJ
-         /9Yg==
+        b=GaVizSKHiRXIgcY5w2xygtrhw9tmY3cfp8+vJ+CPmA/DLKL9XHBR0aUNEE9zJCcBcy
+         dA0iULscZk3BxL5LqK4wyM6RrYlHFAFvoDSLUzpEdllrU66s9PBCRilJfdIDNKHemzOO
+         Xf39F+nNd7SH6aIGSe/F90YXc16oLjNjWkkFUqIclF4IPmXWEC5/1u6X9yi04OPOLsk9
+         e0G8u3qy6PmyVGPLrgTqaGub46EpKkx7dMjqkyPZtO09QJbe2xif9QiDO+LCzE3lx5ka
+         cwDrhpTz/i+e13mPkZF66yaspj5EDtVgixFthIrmbX1UEHMOuIcDCnGEAdyUcedeN5A8
+         3ywQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:message-id:date:subject:cc:to:from
-         :mime-version:sender:dkim-signature:dkim-signature;
-        bh=t0QHjlGmXZxpw5ZkTwp7tyseu66nhS2XavmHDsr1ub0=;
-        b=Bn0pB7B+15z+bjUQ7hsid+e4OOrqwSQXTXPVy60SoNDgq4z8uRxn4mLdHZONOG7ffS
-         inp+Ut8FSyiOPmCWZqVpYXzJ06GM9MyQ3xyx66fFp85xqtySxHuU+zC1d8ZX5z4N1NiD
-         5Clm63RKYjlZWdPqlURQ+FVTNXb0f7iQdGMWC81HlBY0V1xw5Qy7E62gehbrPCIDbQwC
-         MqLpVqalLq0nOkHIVCAwKny7pWXQWSY+XTbtlug7mpBNfuGmPMARfbxXiDw8tWBSzlgW
-         hu9X9+S9Jce1ud0aL+EcvnYjLyZHV3YA1gZxWRhxzvT2g1QHAJ9lGAITBVDSecegHtcP
-         XgPQ==
+         :list-id:mailing-list:precedence:references:in-reply-to:message-id
+         :date:subject:cc:to:from:mime-version:sender:dkim-signature
+         :dkim-signature;
+        bh=1Fw49hpaxpDnw9eEylbeIiwdg+pns3EiAunPPGYvwvM=;
+        b=KywHtuHIrhWmloO+6E3BSPpQ2LxeujNmio4Z34hXMnBl9t/kqkmmgWS8LoFGxFkJs9
+         9CSvpLMzfooUMFGo9228Rg77KspYL/vJEIEtiez2dV/b1GbFm5fq5mM21TxOGq1MMZeG
+         fXoA/i4YAfQJQ/Vl34HgFY8apPbE/iElAXtfbgtJw5l+hxqcAelXl1R1xEQa4eHxtNrQ
+         E7W3Ns4RX5l9Djeb24qvBijpA9XhtRN/EqB0EL5vX8g2WQCovYPLIoPajEskiISnhMuA
+         syZwvZbLQcPI6MEOiHfiOvltmnAyWYYjRzNUSKrtWRxugXOlbNen/zYLAeJljAk6aNja
+         cICw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=X1qDZTKe;
-       spf=pass (google.com: domain of vijaikumar.kanagarajan@gmail.com designates 2607:f8b0:4864:20::542 as permitted sender) smtp.mailfrom=vijaikumar.kanagarajan@gmail.com;
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=EoPBCaIK;
+       spf=pass (google.com: domain of vijaikumar.kanagarajan@gmail.com designates 2607:f8b0:4864:20::643 as permitted sender) smtp.mailfrom=vijaikumar.kanagarajan@gmail.com;
        dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:mime-version:from:to:cc:subject:date:message-id
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:mime-version:from:to:cc:subject:date:message-id:in-reply-to
+         :references:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=t0QHjlGmXZxpw5ZkTwp7tyseu66nhS2XavmHDsr1ub0=;
-        b=pvJ4mkFuBmCu33TD4NX3rEg61UT6kLjBcD+ITIR9HcPi6ynZBKwxM34F+5nc7R+iZG
-         VcvMRmgsF+M/DTxnzUKZHemtqZFvolvpsHe/oSeLztnRbbd4m7SbiGQU/W1pZshUc7pm
-         eXfjXSNLbSakuYSSuFB4TmDCqBjS+quvz3Ac3GFryP/IF/+jCyQupuandzkkvqd4Wk6G
-         rD7YzC/ZNdPVisp+8Hz5Aq6OUU0Av/xBLNlsWLlJ0iPvCIU5OTPv1Na7runxRmFR6BY4
-         nZMfwr9rNxp58IKE1sM80uVBFo624nIjPoBOlrlbgPDhmzFkhbiF9zsJVH3hh2qiF5ou
-         Ctiw==
+        bh=1Fw49hpaxpDnw9eEylbeIiwdg+pns3EiAunPPGYvwvM=;
+        b=gZ9YAtiDL6cVHyAdau+tvbJbYpES1RqLyhcxdUbKkoD10mKxDoBtiRYLQ8LZc9V5PO
+         qDDl+wTxNYHfran1c0KJ+acdYdGP4eS2T7EIrD05MYx8dakFG0YfUXG2aGMoG9mPgwN9
+         oh2WL4wrZXzP9bv8NBge+VB7lYRJ7aEwC9rX9hjtz0c04eJp5a5RkbEiguEvJo1Hs3F9
+         oD0caKLq+xnPGcJVtWLS5sVw8msWv8//dd7ScRI8aac1xc90BywcT+QuaKUSziELVXdu
+         wvmVd4AcI0PQ7WwhKtJ3tjpgTnDKa3vamK235WInvwi5+ujp196V/8Wu1X01IGujyYMY
+         YAFA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:from:to:cc:subject:date:message-id:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=t0QHjlGmXZxpw5ZkTwp7tyseu66nhS2XavmHDsr1ub0=;
-        b=UjapOFEQMXX9DzFl7U47AXdWm/do8MlagurZUdAeweVSqAgY4NKZcBE6g5kF0zYCDa
-         XLGrRcdaDazbUEizAK3A2+uCXnujP41+OHoD0314PW5j9H0SNdXSfcWjLdakHMz6brNN
-         krQdlKszB8OP11FZUYvMllqJGU6GSklepdIVGx7jmoxG9dy73/W4ZcM6k5by4BlZpfP3
-         IJMr85CqnrK9h+i6xhtKYXfz8vGHq7U35fYSJODNMZgCS5OZkEsrq0ST/IVr1IurMmgd
-         eRqcVVZIvNbcaFp/jaTIFfM5eSX4c3ihu0h/Eah82jweeilv0xE9TCn1GlxjzqG7sZEZ
-         QRng==
+        h=mime-version:from:to:cc:subject:date:message-id:in-reply-to
+         :references:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=1Fw49hpaxpDnw9eEylbeIiwdg+pns3EiAunPPGYvwvM=;
+        b=QAEK6vUFSyBjff3IK1iy7zMOWlFi22+Bz+7b1kmG06RozF9mbeXLWv3d1fiEaEuEg9
+         t86p6ZXgjGWiLp6VKbl3ck1G/4EUnobZ6JCPyPtl0YbjOU1Wzx+aWCJGtFI/lMcySkXd
+         3AgPzOox5uvmT57b9nsO5i1EwM30/2zvTVE4/9HtciDExU90Q6vakykdc8i4rBaTV49n
+         f58lTGXdzJ4GEZFOMqqJ/FXe0c+FEBvK9CWLM9d2QdcEvTUBM1x38X0zaj8awBT1+TRk
+         ww3pgF4jbfwax8/IRykaNo4shETarV9JTRnKAMd9Sum4tOxiD2n+Za9ZEbw5BFQ81Px+
+         jz9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:mime-version:from:to:cc:subject:date
-         :message-id:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=t0QHjlGmXZxpw5ZkTwp7tyseu66nhS2XavmHDsr1ub0=;
-        b=aG9ldZnlT52E8Q/txgOBTOHYNz/WVy4E5KwD4L/iy0fCEzInClkxeGtjjsk02Jy1t2
-         45+Iph1KZF7PSb5Mty9TEnY/5Sp3xZnYK4hDUJKa8/3S7Sqi1eoj9VKm1c4BPxVgbhIm
-         yPTLUM8I5yqFouhIBz7HHWVB+zmQ/on5Qz+AJJnMR0jfKLBgAdNRqPEDo8e4tC1XoFwu
-         q16EinylSDBrFg7tbcVNtR5l+3LF8CsRkjg2+4b9z5F45CuOqLfOEvczcGXpRVHquOk0
-         64GUnE8YIYtjEMmbELGR1LxZAYpYNfA0hinzL3CyW1ZQaVIsEsk0N6hSsPwXAbWH9IbS
-         6Xig==
+         :message-id:in-reply-to:references:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=1Fw49hpaxpDnw9eEylbeIiwdg+pns3EiAunPPGYvwvM=;
+        b=FQZbuKMNLe6CNZkKdw5E8suEPM4WI6L8/Sgk8pqbOco8AcHREDGdxlGVYgjsYLwKaJ
+         WvzWgpZpwqLDgfJkug7Yton6B1DlNtxCN5YzmulCulECk34WaNFpWcsKFcRLE5ACdmib
+         Z3KWS/9X1FPREQ0Yb6udXSP/LAPvGR7MUOPMxC4YAujF0xNET+5UBlb7BCRrYnDyhr2Y
+         HgqXdF0vLrki2nnha6PJEUWnGv2eikWlYxLoea9n7678xmKBm9C5Wdtiksnc0dcvIIK5
+         LQSF9md15r8LwqUBXI50Q4UUQH85Lx27QsvL+hq0a/ZSNMq1v+WF5/RBb8Nz0HQ4d5o3
+         Nb7g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVOc+7GaOXg4VKeotcCtabPpYBG+q/8AqZLIXOdJgpS3mpOd0qK
-	zEd5depzcUmQ7dXezTBbwHc=
-X-Google-Smtp-Source: APXvYqw1g0Rgk77AcGVJYVg2wO4sjkleTOpj4wdXROWfTWPu06D6NveWPpkL1U9K42NHUtq6pnRbJQ==
-X-Received: by 2002:a25:9709:: with SMTP id d9mr7150552ybo.39.1578761527290;
-        Sat, 11 Jan 2020 08:52:07 -0800 (PST)
+X-Gm-Message-State: APjAAAWk38Msb9eNkuCK/q2a4daSbHNa5zmj0TIrc0u0vhufKBTa75EN
+	Kax2a52qf3/eUSYB3duXiwY=
+X-Google-Smtp-Source: APXvYqyNEj/jNiyIMDdJuCweZBj2SdKe8vJGmWc3GDvTrobg3nMIzglXQz0RlTmbskdtC3QNneNjIw==
+X-Received: by 2002:a25:9a82:: with SMTP id s2mr3384329ybo.210.1578761532358;
+        Sat, 11 Jan 2020 08:52:12 -0800 (PST)
 MIME-Version: 1.0
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a0d:dc43:: with SMTP id f64ls1327476ywe.2.gmail; Sat, 11 Jan
- 2020 08:52:06 -0800 (PST)
-X-Received: by 2002:a0d:e24b:: with SMTP id l72mr3637649ywe.440.1578761526683;
-        Sat, 11 Jan 2020 08:52:06 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1578761526; cv=none;
+Received: by 2002:a25:86cb:: with SMTP id y11ls636104ybm.15.gmail; Sat, 11 Jan
+ 2020 08:52:11 -0800 (PST)
+X-Received: by 2002:a25:5945:: with SMTP id n66mr3637645ybb.337.1578761531854;
+        Sat, 11 Jan 2020 08:52:11 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1578761531; cv=none;
         d=google.com; s=arc-20160816;
-        b=s/VyWPN+wIhfmYu4+kRthi6vZC25aUM/7Wg8YYmgMRf4VEjaV5zeQDa6dvBEX2bIUR
-         LwPdqYELfxZL5SkUqREeM1y98psaU3IwqvXZrChmvJ9RuyFEgELviyUkPQe/+/3snV1g
-         Y5LcignyoG3Jrl67ZvodJRmYiuyWE2W7fAU1NHaD71ht4BK9+U6fX9oUbnI5p8B/EXdm
-         uhJ+1w595x6qmLUs8z/eBqGmQY2GPxOe/W6Rr0UmnIcur2kb0BFfATWib7QbFiE1b+QP
-         oiuE2tnYYm08nGset3HIbAnBABJJhl0wUF2Co4+lXUtdTT4EX/ftYTfcEmTJ85TmyhMh
-         NHUg==
+        b=ba+DdZexALfU3Zhwj4bebC5Gu7uVcAz5ZseIgRfLxv0nVZPmjzBws0p4OSGut8xMCb
+         meMFd3lCH4K73+lcqSSuIxhV3+qPkjLIDxU1eE6Ke1xktbha1Lu91v2yKyECNn/x0wMJ
+         hW18UKWYRQRdtl8jJ9T+1CCJLzrZTrR83XJo7J85T0Fw1QgkQCGMFE6Ah9xrDw0A12Vf
+         Nfe+eOrWSUj8P69zJisofoC5veLHf+tJviEkfcfZZqOnCiQXctuFbUQVw1UY4e+9wSWT
+         AQH/R//dYnd6VksARs2eGkCK9jVdyInkMedwczGDBymSCnzFcAyYxSuGUetoJezM8Xt2
+         ypEA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=message-id:date:subject:cc:to:from:dkim-signature;
-        bh=m515ZSYJzK+hVwTC1unlS+snQ3EcIs6FF7JIhSIXZYU=;
-        b=q6BcGRsEbx7nI+pzaEszxZcw6bEqUcN1GazX8SdnWs4aIcflYSnTpugj3tHCPkOcCD
-         TzP7Wh3Ige9gfU92wlMqUUigyVk59nJoczgwDSY3OQCqkxXBghuYJtQqQrAPPZwxV/Zs
-         Onz44kFeI7IbHZDblNctFBTaKzI78198ERdjJh+c6b1rkJdOOLVW2GX3F0xNHQ8KxHyB
-         GgEio6ISo0DC4CDPMWWlVs5LD72Vusf6hxud7BDeRoPVObbjab4MDLLTmXraXQq1ic2D
-         2IxS/tU+jEXtJ9joiucjF6OR8xkd1y8W/quBGj0iN6QO9I8DP604UFVYzDD4ERnjyQ+O
-         zA2w==
+        h=references:in-reply-to:message-id:date:subject:cc:to:from
+         :dkim-signature;
+        bh=6UoQX6ckgFuc1wMygseYlaCElNKgqvMtqcafOr6XgR0=;
+        b=EZ6Dgr7vAhTF7ue89bHuZyVuXTTOIe7sEaYPjIEddlltMJ0NJbqtKPArSi05m5dH5m
+         frvjwgfxx15qEe2V7STB7H5d37+tDd31rxfMF1SKdblwBTixvCO03qImgaT4BLx0vgA6
+         1bOiCg3QDW0AQgLje64yRMbUizAaJ18idrsh/lW550LR+5u1lOt/IBcuHrcZPQPMvVxD
+         51BEaoXx0mlCebZDLt/JqOBzg3Utu1fFCQV4Gf4aKUhhstyrazR9pxpJcPxwEqyhVPVo
+         pC9eojSI2PUBXEgdMb2boE95t9TIOLmccLIVaLJ4eu+0yakZiBpaRqMYNxO3LG2WWGRp
+         3UBA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=X1qDZTKe;
-       spf=pass (google.com: domain of vijaikumar.kanagarajan@gmail.com designates 2607:f8b0:4864:20::542 as permitted sender) smtp.mailfrom=vijaikumar.kanagarajan@gmail.com;
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=EoPBCaIK;
+       spf=pass (google.com: domain of vijaikumar.kanagarajan@gmail.com designates 2607:f8b0:4864:20::643 as permitted sender) smtp.mailfrom=vijaikumar.kanagarajan@gmail.com;
        dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com. [2607:f8b0:4864:20::542])
-        by gmr-mx.google.com with ESMTPS id p187si288160ywe.1.2020.01.11.08.52.06
+Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com. [2607:f8b0:4864:20::643])
+        by gmr-mx.google.com with ESMTPS id z5si321340ywg.5.2020.01.11.08.52.11
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 11 Jan 2020 08:52:06 -0800 (PST)
-Received-SPF: pass (google.com: domain of vijaikumar.kanagarajan@gmail.com designates 2607:f8b0:4864:20::542 as permitted sender) client-ip=2607:f8b0:4864:20::542;
-Received: by mail-pg1-x542.google.com with SMTP id b9so2518730pgk.12
-        for <jailhouse-dev@googlegroups.com>; Sat, 11 Jan 2020 08:52:06 -0800 (PST)
-X-Received: by 2002:a63:5807:: with SMTP id m7mr11117257pgb.83.1578761525518;
-        Sat, 11 Jan 2020 08:52:05 -0800 (PST)
+        Sat, 11 Jan 2020 08:52:11 -0800 (PST)
+Received-SPF: pass (google.com: domain of vijaikumar.kanagarajan@gmail.com designates 2607:f8b0:4864:20::643 as permitted sender) client-ip=2607:f8b0:4864:20::643;
+Received: by mail-pl1-x643.google.com with SMTP id s21so2085762plr.7
+        for <jailhouse-dev@googlegroups.com>; Sat, 11 Jan 2020 08:52:11 -0800 (PST)
+X-Received: by 2002:a17:902:8b89:: with SMTP id ay9mr5544590plb.309.1578761530871;
+        Sat, 11 Jan 2020 08:52:10 -0800 (PST)
 Received: from oxygen.mgc.mentorg.com (nat-sch.mentorg.com. [139.181.36.34])
-        by smtp.gmail.com with ESMTPSA id y6sm7221824pgc.10.2020.01.11.08.52.03
+        by smtp.gmail.com with ESMTPSA id y6sm7221824pgc.10.2020.01.11.08.52.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 11 Jan 2020 08:52:05 -0800 (PST)
+        Sat, 11 Jan 2020 08:52:10 -0800 (PST)
 From: Vijai Kumar K <vijaikumar.kanagarajan@gmail.com>
 To: jailhouse-dev@googlegroups.com
 Cc: Vijai Kumar K <vijaikumar.kanagarajan@gmail.com>
-Subject: [PATCH 1/2] configs/arm64: Add support for pine64-plus board
-Date: Sat, 11 Jan 2020 22:21:33 +0530
-Message-Id: <20200111165134.1421-1-vijaikumar.kanagarajan@gmail.com>
+Subject: [PATCH 2/2] configs/arm64: Add gic demo for pine64-plus board
+Date: Sat, 11 Jan 2020 22:21:34 +0530
+Message-Id: <20200111165134.1421-2-vijaikumar.kanagarajan@gmail.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200111165134.1421-1-vijaikumar.kanagarajan@gmail.com>
+References: <20200111165134.1421-1-vijaikumar.kanagarajan@gmail.com>
 X-Original-Sender: vijaikumar.kanagarajan@gmail.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20161025 header.b=X1qDZTKe;       spf=pass
+ header.i=@gmail.com header.s=20161025 header.b=EoPBCaIK;       spf=pass
  (google.com: domain of vijaikumar.kanagarajan@gmail.com designates
- 2607:f8b0:4864:20::542 as permitted sender) smtp.mailfrom=vijaikumar.kanagarajan@gmail.com;
+ 2607:f8b0:4864:20::643 as permitted sender) smtp.mailfrom=vijaikumar.kanagarajan@gmail.com;
        dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Content-Type: text/plain; charset="UTF-8"
 Precedence: list
@@ -140,27 +146,24 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Add config for Pine64+ board.
-https://www.pine64.org/devices/single-board-computers/pine-a64/
-
-Allwinner A64(Quad core A53) + 2GB RAM
+Add GIC demo for Pine64+ Board.
 
 Signed-off-by: Vijai Kumar K <vijaikumar.kanagarajan@gmail.com>
 ---
- configs/arm64/pine64-plus.c | 339 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 339 insertions(+)
- create mode 100644 configs/arm64/pine64-plus.c
+ configs/arm64/pine64-plus-gic-demo.c | 69 ++++++++++++++++++++++++++++
+ 1 file changed, 69 insertions(+)
+ create mode 100644 configs/arm64/pine64-plus-gic-demo.c
 
-diff --git a/configs/arm64/pine64-plus.c b/configs/arm64/pine64-plus.c
+diff --git a/configs/arm64/pine64-plus-gic-demo.c b/configs/arm64/pine64-plus-gic-demo.c
 new file mode 100644
-index 00000000..9a0730c0
+index 00000000..52b6d39a
 --- /dev/null
-+++ b/configs/arm64/pine64-plus.c
-@@ -0,0 +1,339 @@
++++ b/configs/arm64/pine64-plus-gic-demo.c
+@@ -0,0 +1,69 @@
 +/*
 + * Jailhouse, a Linux-based partitioning hypervisor
 + *
-+ * Configuration for Pine64+ board, 2 GB
++ * Configuration for gic-demo inmate on Pine64+ board
 + *
 + * Copyright (c) Vijai Kumar K, 2019
 + *
@@ -175,326 +178,56 @@ index 00000000..9a0730c0
 +#include <jailhouse/cell-config.h>
 +
 +struct {
-+	struct jailhouse_system header;
++	struct jailhouse_cell_desc cell;
 +	__u64 cpus[1];
-+	struct jailhouse_memory mem_regions[35];
-+	struct jailhouse_irqchip irqchips[1];
-+	struct jailhouse_pci_device pci_devices[1];
++	struct jailhouse_memory mem_regions[3];
 +} __attribute__((packed)) config = {
-+	.header = {
-+		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
++	.cell = {
++		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
 +		.revision = JAILHOUSE_CONFIG_REVISION,
-+		.flags = JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
-+		.hypervisor_memory = {
-+			.phys_start = 0xbc000000,
-+			.size =       0x04000000,
-+		},
-+		.debug_console = {
-+			.address = 0x01c28000,
-+			.size = 0x400,
++		.name = "gic-demo",
++		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
++
++		.cpu_set_size = sizeof(config.cpus),
++		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
++		.num_irqchips = 0,
++		.num_pci_devices = 0,
++
++		.console = {
++			.address = 0x1c28000,
 +			.type = JAILHOUSE_CON_TYPE_PL011,
 +			.flags = JAILHOUSE_CON_ACCESS_MMIO |
 +				 JAILHOUSE_CON_REGDIST_4,
 +		},
-+		.platform_info = {
-+			.pci_mmconfig_base = 0xfc000000,
-+			.pci_mmconfig_end_bus = 0,
-+			.pci_is_virtual = 1,
-+			.arm = {
-+				.gic_version = 2,
-+				.gicd_base = 0x01c81000,
-+				.gicc_base = 0x01c82000,
-+				.gich_base = 0x01c84000,
-+				.gicv_base = 0x01c86000,
-+				.maintenance_irq = 25,
-+			},
-+		},
-+		.root_cell = {
-+			.name = "Pine64-Plus",
-+
-+			.cpu_set_size = sizeof(config.cpus),
-+			.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-+			.num_pci_devices = ARRAY_SIZE(config.pci_devices),
-+			.num_irqchips = ARRAY_SIZE(config.irqchips),
-+
-+			.vpci_irq_base = 108,
-+		},
 +	},
 +
 +	.cpus = {
-+		0xf,
++		0x1,
 +	},
 +
 +	.mem_regions = {
-+                /* SRAM */ {
-+                        .phys_start = 0x00018000,
-+                        .virt_start = 0x00018000,
-+                        .size =       0x00028000,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_EXECUTE,
-+                },
-+                /* Clock */ {
-+                        .phys_start = 0x01000000,
-+                        .virt_start = 0x01000000,
-+                        .size =       0x00100000,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,
-+                },
-+                /* 1100000.mixer */ {
-+                        .phys_start = 0x01100000,
-+                        .virt_start = 0x01100000,
-+                        .size =       0x00100000,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO,
-+                },
-+                /* 1200000.mixer */ {
-+                        .phys_start = 0x01200000,
-+                        .virt_start = 0x01200000,
-+                        .size =       0x00100000,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO,
-+                },
-+                /* Syscon */ {
-+                        .phys_start = 0x01c00000,
-+                        .virt_start = 0x01c00000,
-+                        .size =       0x00001000,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO,
-+                },
-+                /* DMA */ {
-+                        .phys_start = 0x01c02000,
-+                        .virt_start = 0x01c02000,
-+                        .size =       0x00001000,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO,
-+                },
-+                /* LCD1 */ {
-+                        .phys_start = 0x01c0c000,
-+                        .virt_start = 0x01c0c000,
-+                        .size =       0x00001000,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO,
-+                },
-+                /* LCD2 */ {
-+                        .phys_start = 0x01c0d000,
-+                        .virt_start = 0x01c0d000,
-+                        .size =       0x00001000,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO,
-+                },
-+                /* MMC */ {
-+                        .phys_start = 0x01c0f000,
-+                        .virt_start = 0x01c0f000,
-+                        .size =       0x00001000,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO,
-+                },
-+                /* EEPROM */ {
-+                        .phys_start = 0x01c14000,
-+                        .virt_start = 0x01c14000,
-+                        .size =       0x00000400,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO,
-+                },
-+                /* USB */ {
-+                        .phys_start = 0x01c19000,
-+                        .virt_start = 0x01c19000,
-+                        .size =       0x00000400,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO,
-+                },
-+                /* USB */ {
-+                        .phys_start = 0x01c19400,
-+                        .virt_start = 0x01c19400,
-+                        .size =       0x00000014,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO,
-+                },
-+                /* USB */ {
-+                        .phys_start = 0x01c1a000,
-+                        .virt_start = 0x01c1a000,
-+                        .size =       0x00000100,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO,
-+                },
-+                /* USB */ {
-+                        .phys_start = 0x01c1a400,
-+                        .virt_start = 0x01c1a400,
-+                        .size =       0x00000100,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO,
-+                },
-+                /* USB */ {
-+                        .phys_start = 0x01c1a800,
-+                        .virt_start = 0x01c1a800,
-+                        .size =       0x00000100,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO,
-+                },
-+                /* USB */ {
-+                        .phys_start = 0x01c1b000,
-+                        .virt_start = 0x01c1b000,
-+                        .size =       0x00000100,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO,
-+                },
-+                /* USB */ {
-+                        .phys_start = 0x01c1b400,
-+                        .virt_start = 0x01c1b400,
-+                        .size =       0x00000100,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO,
-+                },
-+                /* USB */ {
-+                        .phys_start = 0x01c1b800,
-+                        .virt_start = 0x01c1b800,
-+                        .size =       0x00000004,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO,
-+                },
-+                /* Clock */ {
-+                        .phys_start = 0x01c20000,
-+                        .virt_start = 0x01c20000,
-+                        .size =       0x00000400,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,
-+                },
-+                /* Pincontrol */ {
-+                        .phys_start = 0x01c20800,
-+                        .virt_start = 0x01c20800,
-+                        .size =       0x00000400,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,
-+                },
-+                /* Watchdog */ {
-+                        .phys_start = 0x01c20ca0,
-+                        .virt_start = 0x01c20ca0,
-+                        .size =       0x00000020,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,
-+                },
-+                /* UART */ {
-+                        .phys_start = 0x01c28000,
-+                        .virt_start = 0x01c28000,
-+                        .size =       0x00000020,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,
-+                },
-+                /* I2C */ {
-+                        .phys_start = 0x01c2b000,
-+                        .virt_start = 0x01c2b000,
-+                        .size =       0x00000400,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO,
-+                },
-+                /* Ethernet */ {
-+                        .phys_start = 0x01c30000,
-+                        .virt_start = 0x01c30000,
-+                        .size =       0x00010000,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO,
-+                },
-+                /* GPU */ {
-+                        .phys_start = 0x01c40000,
-+                        .virt_start = 0x01c40000,
-+                        .size =       0x00010000,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO,
-+                },
-+                /* SRAM */ {
-+                        .phys_start = 0x01d00000,
-+                        .virt_start = 0x01d00000,
-+                        .size =       0x00040000,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_EXECUTE,
-+                },
-+                /* HDMI */ {
-+                        .phys_start = 0x01ee0000,
-+                        .virt_start = 0x01ee0000,
-+                        .size =       0x00010000,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO,
-+                },
-+                /* HDMI */ {
-+                        .phys_start = 0x01ef0000,
-+                        .virt_start = 0x01ef0000,
-+                        .size =       0x00010000,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO,
-+                },
-+                /* RTC */ {
-+                        .phys_start = 0x01f00000,
-+                        .virt_start = 0x01f00000,
-+                        .size =       0x00000400,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,
-+                },
-+                /* Interrupt Controller */ {
-+                        .phys_start = 0x01f00c00,
-+                        .virt_start = 0x01f00c00,
-+                        .size =       0x00000400,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,
-+                },
-+                /* Clock */ {
-+                        .phys_start = 0x01f01400,
-+                        .virt_start = 0x01f01400,
-+                        .size =       0x00000100,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,
-+                },
-+                /* Pincontrol */ {
-+                        .phys_start = 0x01f02c00,
-+                        .virt_start = 0x01f02c00,
-+                        .size =       0x00000400,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,
-+                },
-+                /* RSB(Reduced Serial Bus) */ {
-+                        .phys_start = 0x01f03400,
-+                        .virt_start = 0x01f03400,
-+                        .size =       0x00000400,
-+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+                                JAILHOUSE_MEM_IO,
-+                },
-+		/* System RAM */ {
-+			.phys_start = 0x40000000,
-+			.virt_start = 0x40000000,
-+			.size = 0x7c000000,
++		/* UART */ {
++			.phys_start = 0x1c28000,
++			.virt_start = 0x1c28000,
++			.size = 0x400,
 +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_EXECUTE,
++				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32 |
++				JAILHOUSE_MEM_ROOTSHARED,
 +		},
-+		/* IVSHMEM shared memory region */ {
-+			.phys_start = 0xbbf00000,
-+			.virt_start = 0xbbf00000,
-+			.size = 0x100000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
++		/* RAM */ {
++			.phys_start = 0xbbfe0000,
++			.virt_start = 0,
++			.size = 0x00010000,
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
 +		},
-+	},
-+
-+	.irqchips = {
-+		/* GIC */ {
-+			.address = 0x01c81000,
-+			.pin_base = 32,
-+			.pin_bitmap = {
-+				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,
-+			},
++		/* communication region */ {
++			.virt_start = 0x80000000,
++			.size = 0x00001000,
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++				JAILHOUSE_MEM_COMM_REGION,
 +		},
-+	},
-+
-+	.pci_devices = {
-+		/* 0001:00:00.0 */ {
-+			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-+			.domain = 1,
-+			.bdf = 0x00,
-+			.bar_mask = {
-+				0xffffff00, 0xffffffff, 0x00000000,
-+				0x00000000, 0x00000000, 0x00000000,
-+			},
-+			.shmem_region = 34,
-+			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
-+		},
-+	},
++	}
 +};
 -- 
 2.17.1
@@ -502,4 +235,4 @@ index 00000000..9a0730c0
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200111165134.1421-1-vijaikumar.kanagarajan%40gmail.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200111165134.1421-2-vijaikumar.kanagarajan%40gmail.com.
