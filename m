@@ -1,134 +1,68 @@
-Return-Path: <jailhouse-dev+bncBCPOXAO4SYIBBBFE6DYAKGQECHMPICA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD7236HKXYJRBF7R6DYAKGQEMXCNDAI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pg1-x538.google.com (mail-pg1-x538.google.com [IPv6:2607:f8b0:4864:20::538])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD662138BF1
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 13 Jan 2020 07:45:26 +0100 (CET)
-Received: by mail-pg1-x538.google.com with SMTP id c8sf5907619pgl.15
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 12 Jan 2020 22:45:26 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1578897925; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=PcZFlR1kKBsg8dyNipx0WS4fPF2PqWNgLSAdjSrV4+gG6uPUTmAcEzUddS0s8a0mbt
-         EoCdzjVhLoAkFM3XtdZ4nLKrTUINkWU2o8O5InWZhp5lkoABjEc1FcBjr55T5Far1Skt
-         5aEMOFBc806220M2SWgfQ6/ImvceBlDQzl1HCmr8K/ly4+kye4V/fB+wzSe3V8BBwHUS
-         PtRHSgvS4X/2qK3XmFPZ7ANFAkGhOIjz41DfI0rfQ7FmK9vmFe+JRBO5BOb2dRGCash1
-         pjoLU0Rw2YxL6jo+VZy5t6XLkMCEUrYOEQABlhDSDX8KQgQz5XZpC3gnl6WM2piCTa1p
-         Jqhg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:sender:dkim-signature
-         :dkim-signature;
-        bh=CCQI0wVMG/+lclXnx2thgcbWrbf+I2rcm8Hs/+mHX4c=;
-        b=hggggq8Kamkjihfm/MMVzk0FG7EKUwfc5diuDGyUa5eiNq5B6D3ApmqY22gt42ODku
-         aHzq7YZkEvRLcSkmbnzG3zot8LQVlgtP+edK8+S+uY5K0fgMqjjJ7u6bLaB/fadFFsWj
-         YMkesyJtRx2qwV5fGnTJpVWIX3j9IkN56o8Nzao2QY7tFRiNljpysnvva0ACsGY5mV6i
-         w9hsd9xgZb4cuOfyDWm+2eICxmVOGauGWA6NM/JVi1pvYvLGmntIQLnLKqsxphqzSGVF
-         oRv/c0RySyq1CJJbIU8WG9ZqLtafUjiFYyqDSU3UqtP2KhN/Cqt8eMy69ciofwunA/7/
-         S/DA==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=M2cfjLPR;
-       spf=pass (google.com: domain of vijaikumar.kanagarajan@gmail.com designates 2607:f8b0:4864:20::841 as permitted sender) smtp.mailfrom=vijaikumar.kanagarajan@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-oi1-x23c.google.com (mail-oi1-x23c.google.com [IPv6:2607:f8b0:4864:20::23c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 12453138DD4
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 13 Jan 2020 10:30:02 +0100 (CET)
+Received: by mail-oi1-x23c.google.com with SMTP id o5sf2897451oif.9
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 13 Jan 2020 01:30:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:mime-version:references:in-reply-to:from:date:message-id
-         :subject:to:cc:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=CCQI0wVMG/+lclXnx2thgcbWrbf+I2rcm8Hs/+mHX4c=;
-        b=bmlSRxwuoyrabGDiTM0ZIFVnloY+iQ5EaLkDFvzMto+rsnzmw8/X/CFCOhtvaHQWsA
-         G1U1yPSjPc8xkum1+457HnGvREgf/JrSES/QC04rtpOO5oGx0qxlrPpzKnGMjg3ynCze
-         0kMbfp6Hk0PuvFnCelyD/G74Sf9kPDmF1t2k1iwlQWvoIfnlLKYl29jvUgHKOS97tB0g
-         tzcJtUTDBkxGVQ3BdmD7xpvfNS2RN6D1nsFDHmctBt64ddEUPCG9m14S11jEsJaUQnuy
-         LTpRmikmoRV00C24uqju6B0J6sxly/aiSTeUNpv6GbbbLLPiw0rrQPj+nZvz+JoZB6LU
-         4L3A==
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=evn+KHPwMOfeL3+k0MJ+tgy3N3rLqf0Q+TSjL2UKXCY=;
+        b=TEMFVFRzH+n53Tx5Y2G2MzE6nvOG3MgwtcXSc1ogbEQ9/K56VMv2olfAZdPouEbG2C
+         k5iTkw0iv/mCrMqv39YiYemVtamoF6t357jD06ftJNpgBlbNJSmh0HYvMkfoFsyC2j3d
+         MsPbBIxvZF5RHgl6tdR+TH64Zis0RsrJnCJD61uJ2tBnWD5cj+K7MIU/+Zpj3CYqacjH
+         v/QIGc41uvOht8Kfj0iXnw22qYRvQQmCvEAVx/v0calnE/goMHMj91FHgOfIOKkVo1yu
+         h2kvqh4yV5Pc4xQPyQ6KxUmY08Bg/iSxTUqTU2id1fer3PkWezRBkxvwOBmP8149WAHv
+         bttw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=CCQI0wVMG/+lclXnx2thgcbWrbf+I2rcm8Hs/+mHX4c=;
-        b=YurcmQKK///jd5mOK3rELBIeiVtxx8hjqQfg3NFjd8R3T+A676Cy8oIKXtrdC6IZKm
-         TQUKfiErSmLtyJ+lYkLnnq3l8AJGcu5FtUrjDISRbrZ17xauAq/G6QZ8vt5S+rbu9VnN
-         W6uiv9F7zxHkP4ZcDxJg70fqD1LCp50exG6fcbqHh14uqAjKftZJyXCQGyGzFFVAwhgw
-         wyO+wxzijL1ulzi/3gMJk22yFBGcFdODh/uKzlnQEjVQv1JCF1jzuUEhXPHptm1dR1++
-         y1JvC4UrstwvGUhsnEFOWynaaY52ksOSyRAcMBuZBXoLXTOQ2pGu5/J3dQS+ZeAqxdZs
-         gg9A==
+        bh=evn+KHPwMOfeL3+k0MJ+tgy3N3rLqf0Q+TSjL2UKXCY=;
+        b=VUEss4gGdJ0/A8l3DMhffiKPTAqjO1XuB23r0oRKGQ6hvrJsfubRGeMn4F4WPPH7+s
+         owcv2DV0SWnEvFEASeRJWT9eRh1dId4X7wZS1mkD4j/8K7xByXhR7wmwcZHDcXfxXD3G
+         dUIVDAgCV7osNl+miLjcsI15GYiXFEsvbhVwt3O77ExkpMKnyelC/GOZCvnCYKbjKWrm
+         Ve/Ek4SEjjytrcEaVNGwoh5cON/zFW9EceQcyejyZuLDJbLfFJp9xh3bLi3aVEETiRbk
+         XwluEuZXe6qBVbtZNMGp865MVoGD6Wzu6xR/FfBPfUAHXHSJ3TWKKIjIG+vp7AWHg8cQ
+         wF+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
-         :date:message-id:subject:to:cc:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=CCQI0wVMG/+lclXnx2thgcbWrbf+I2rcm8Hs/+mHX4c=;
-        b=cB5jBVJJf+YHcwRG2b4CARVfA82mUO0D4Ve9F4c9F0MXvNL8cQs7aJpRrNN/BpxhNf
-         ymok4GIKSrCwIhTySKd71OJ5j08GoyY1fBzo2qmc60AYqNpS7WhYuDeMLBwpiH3B0SFw
-         KXROJ97mcf53vFwsttvr6iOURF7tLsfahe5vE/SqQJ5ANXKltMIiLN7pNnw+wvAws+04
-         53RdQJWHcXUhdkLXQTJqVf8ekTG3HLH5b9F3fJ5fUWOyE7NoZAl8+yowegT84OxuCu6T
-         JwvFVAxuiNdHLVWcrg7KpO1eiRBeAQoS8EoOrEHOV4ByFzVYi4+1m3wDdKsq1xyk/8lB
-         5WcA==
+        bh=evn+KHPwMOfeL3+k0MJ+tgy3N3rLqf0Q+TSjL2UKXCY=;
+        b=AKfRnZxtpr0MU5d4fN8yk9V5hSfoyUUzYRFNKUOzKUXhqY+/c/hhTWmiPi9VUtIpXh
+         6wwN7Kewbt/NDV0IelhlJ94WnP60IzPr3gdtLyIAmrrI37jLXLRQMiEwr+mt1LtYYxmd
+         /Fbl4s+GwwHMcUtCa7nnBHTsBYTv2T18CMZbEmF5MGlesy9l4jFOskKzqQmO248k9TsB
+         PyUTSvRN06PNxPTaq7tQWr5Q6wQ7TQgQ/dP8trPqeYiFlEZu0hvbXAeeStpCn0iFIW3K
+         X6y6PcFWdRBaPOrBUN7kTwB7PuR2aTiKn/HnSWcM7nVeO+JIlpi+kCMairqB7EoP31Yc
+         FZ+w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUj5qxZ2E5iRx/n6NSXWD3jushGgg6XNk2wn3mdLCb55uKOHG86
-	PpHF1iY/xFeE2V6iBJmXNXo=
-X-Google-Smtp-Source: APXvYqzMAmMgB+HcOWWRL0lMboLMKJ5Uluxc7gimvsS67pEr1114kkoVc+Z5P9tkvUfa1vZidqHXrA==
-X-Received: by 2002:a17:90b:4015:: with SMTP id ie21mr20808038pjb.1.1578897924784;
-        Sun, 12 Jan 2020 22:45:24 -0800 (PST)
+X-Gm-Message-State: APjAAAUvQWkNm5U/3ZSfSjXXgtwUifyegoO3Q3IOYQ9+IXqrb4HkxtzZ
+	CcyspzMa5Up5K7XqlNvJqiI=
+X-Google-Smtp-Source: APXvYqze1A5NN/CbFAlW9Q/Ll25ijdHIz7VeBD3bN16hESlZ2orYTw1cMqOeC0JRqKr6EZMDMTwFQA==
+X-Received: by 2002:a9d:6211:: with SMTP id g17mr11769316otj.168.1578907800251;
+        Mon, 13 Jan 2020 01:30:00 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:902:864b:: with SMTP id y11ls3387018plt.2.gmail; Sun, 12
- Jan 2020 22:45:24 -0800 (PST)
-X-Received: by 2002:a17:902:9307:: with SMTP id bc7mr12382799plb.338.1578897924024;
-        Sun, 12 Jan 2020 22:45:24 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1578897924; cv=none;
-        d=google.com; s=arc-20160816;
-        b=ogXLPQbEsqwZkxdLvosa7kHP/ZMGFfqrhFukXI0B6/zjlZaV/h0QAXI7VovCiyO/Yz
-         LEZBrqwTbfplBWMd3mCEEAAiXm8YGuAvj2aXr76nrZ1lPihSfkBvEENX06F8hWAMqpRG
-         uu2a18DpHaf1taQEUnurkobeLpl7+EwWhKRHcYiMkA7Yz7fZDnjZ2tpG8M73wsc1ZLik
-         xi5Dw9HZb71jJH9c4EdMUTgyWEQZHvpV2YpL1K9uA6Q/MRUy3Oj7Aaeka2nQZUsWIdZ5
-         wlNOkFQ27JGtghE3EfxASLJ6e/zWyVJQREoTs7PKrJgP4WkKsetyif163tnVMmnWiDsE
-         WU5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=khcSS9mGH/B1wGRVzT5NbE5fEHruLpUziUnUU3kNHXs=;
-        b=fRpM378ZExCKR2FPxTN0ooJc3H7xH7PO4MdFcneTreplBEHRsNWJ8bge83qP+w/92e
-         3kelSkmRJsYv8gTlmhX992cp+p2/tb5LawwTlXFVgOiiUkKBUOv+9PZIWwDaC09PHoJn
-         TRNCcwp3bUKd3r5BFXVTEZyPYNCooJ0DeBEiJKI7OOi7IMH56KgQ2n7/02thGhoQ5tnb
-         yLyJG00QCkenqhVa3Qqb2CRggvqRiw5zu1/AflaeFFXLsqXTm0PvCnAL5zAI0sjm8yNA
-         JHLd2Bo8n05aORT2bNs9dWgjcXeYrOqV5DMo8T57EAnKIfI8A3XkdEAq7ZV8lzInZ0sK
-         khDw==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=M2cfjLPR;
-       spf=pass (google.com: domain of vijaikumar.kanagarajan@gmail.com designates 2607:f8b0:4864:20::841 as permitted sender) smtp.mailfrom=vijaikumar.kanagarajan@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com. [2607:f8b0:4864:20::841])
-        by gmr-mx.google.com with ESMTPS id 65si441504pfx.5.2020.01.12.22.45.23
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 12 Jan 2020 22:45:24 -0800 (PST)
-Received-SPF: pass (google.com: domain of vijaikumar.kanagarajan@gmail.com designates 2607:f8b0:4864:20::841 as permitted sender) client-ip=2607:f8b0:4864:20::841;
-Received: by mail-qt1-x841.google.com with SMTP id g1so8194325qtr.13
-        for <jailhouse-dev@googlegroups.com>; Sun, 12 Jan 2020 22:45:23 -0800 (PST)
-X-Received: by 2002:aed:2d67:: with SMTP id h94mr12758637qtd.74.1578897922980;
- Sun, 12 Jan 2020 22:45:22 -0800 (PST)
+Received: by 2002:aca:6103:: with SMTP id v3ls1998448oib.8.gmail; Mon, 13 Jan
+ 2020 01:29:59 -0800 (PST)
+X-Received: by 2002:aca:1e0f:: with SMTP id m15mr12320264oic.58.1578907799255;
+        Mon, 13 Jan 2020 01:29:59 -0800 (PST)
+Date: Mon, 13 Jan 2020 01:29:58 -0800 (PST)
+From: Thorsten Schulz <contact.thorsten@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <764a07bc-d7c3-4b06-a7fd-ed8358dd8037@googlegroups.com>
+Subject: Reach-out for help getting qemu-e1000-demo config right+working
 MIME-Version: 1.0
-References: <20200111165134.1421-1-vijaikumar.kanagarajan@gmail.com> <991592dc-0482-d4cf-47dd-fe198cc78bc3@web.de>
-In-Reply-To: <991592dc-0482-d4cf-47dd-fe198cc78bc3@web.de>
-From: vijai kumar <vijaikumar.kanagarajan@gmail.com>
-Date: Mon, 13 Jan 2020 12:15:10 +0530
-Message-ID: <CALLGG_KzRM+g3+eJf7Y6q7_Bpt-RtFciHSPPr+At96FXakzgBQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] configs/arm64: Add support for pine64-plus board
-To: Jan Kiszka <jan.kiszka@web.de>
-Cc: Jailhouse <jailhouse-dev@googlegroups.com>
-Content-Type: multipart/alternative; boundary="000000000000d5ff76059bffd1ac"
-X-Original-Sender: vijaikumar.kanagarajan@gmail.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20161025 header.b=M2cfjLPR;       spf=pass
- (google.com: domain of vijaikumar.kanagarajan@gmail.com designates
- 2607:f8b0:4864:20::841 as permitted sender) smtp.mailfrom=vijaikumar.kanagarajan@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_1343_398004741.1578907798641"
+X-Original-Sender: contact.thorsten@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -141,899 +75,2781 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---000000000000d5ff76059bffd1ac
+------=_Part_1343_398004741.1578907798641
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1344_1337865888.1578907798642"
+
+------=_Part_1344_1337865888.1578907798642
 Content-Type: text/plain; charset="UTF-8"
 
-On Mon 13 Jan, 2020, 11:38 AM Jan Kiszka, <jan.kiszka@web.de> wrote:
+Hej group,
 
-> On 11.01.20 17:51, Vijai Kumar K wrote:
-> > Add config for Pine64+ board.
-> > https://www.pine64.org/devices/single-board-computers/pine-a64/
-> >
-> > Allwinner A64(Quad core A53) + 2GB RAM
-> >
-> > Signed-off-by: Vijai Kumar K <vijaikumar.kanagarajan@gmail.com>
-> > ---
-> >   configs/arm64/pine64-plus.c | 339 ++++++++++++++++++++++++++++++++++++
-> >   1 file changed, 339 insertions(+)
-> >   create mode 100644 configs/arm64/pine64-plus.c
-> >
-> > diff --git a/configs/arm64/pine64-plus.c b/configs/arm64/pine64-plus.c
-> > new file mode 100644
-> > index 00000000..9a0730c0
-> > --- /dev/null
-> > +++ b/configs/arm64/pine64-plus.c
-> > @@ -0,0 +1,339 @@
-> > +/*
-> > + * Jailhouse, a Linux-based partitioning hypervisor
-> > + *
-> > + * Configuration for Pine64+ board, 2 GB
-> > + *
-> > + * Copyright (c) Vijai Kumar K, 2019
-> > + *
-> > + * Authors:
-> > + *  Vijai Kumar K <vijaikumar.kanagarajan@gmail.com>
-> > + *
-> > + * This work is licensed under the terms of the GNU GPL, version 2.  See
-> > + * the COPYING file in the top-level directory.
-> > + */
-> > +
-> > +#include <jailhouse/types.h>
-> > +#include <jailhouse/cell-config.h>
-> > +
-> > +struct {
-> > +     struct jailhouse_system header;
-> > +     __u64 cpus[1];
-> > +     struct jailhouse_memory mem_regions[35];
-> > +     struct jailhouse_irqchip irqchips[1];
-> > +     struct jailhouse_pci_device pci_devices[1];
-> > +} __attribute__((packed)) config = {
-> > +     .header = {
-> > +             .signature = JAILHOUSE_SYSTEM_SIGNATURE,
-> > +             .revision = JAILHOUSE_CONFIG_REVISION,
-> > +             .flags = JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
-> > +             .hypervisor_memory = {
-> > +                     .phys_start = 0xbc000000,
-> > +                     .size =       0x04000000,
-> > +             },
-> > +             .debug_console = {
-> > +                     .address = 0x01c28000,
-> > +                     .size = 0x400,
-> > +                     .type = JAILHOUSE_CON_TYPE_PL011,
-> > +                     .flags = JAILHOUSE_CON_ACCESS_MMIO |
-> > +                              JAILHOUSE_CON_REGDIST_4,
-> > +             },
-> > +             .platform_info = {
-> > +                     .pci_mmconfig_base = 0xfc000000,
-> > +                     .pci_mmconfig_end_bus = 0,
-> > +                     .pci_is_virtual = 1,
-> > +                     .arm = {
-> > +                             .gic_version = 2,
-> > +                             .gicd_base = 0x01c81000,
-> > +                             .gicc_base = 0x01c82000,
-> > +                             .gich_base = 0x01c84000,
-> > +                             .gicv_base = 0x01c86000,
-> > +                             .maintenance_irq = 25,
-> > +                     },
-> > +             },
-> > +             .root_cell = {
-> > +                     .name = "Pine64-Plus",
-> > +
-> > +                     .cpu_set_size = sizeof(config.cpus),
-> > +                     .num_memory_regions =
-> ARRAY_SIZE(config.mem_regions),
-> > +                     .num_pci_devices = ARRAY_SIZE(config.pci_devices),
-> > +                     .num_irqchips = ARRAY_SIZE(config.irqchips),
-> > +
-> > +                     .vpci_irq_base = 108,
-> > +             },
-> > +     },
-> > +
-> > +     .cpus = {
-> > +             0xf,
-> > +     },
-> > +
-> > +     .mem_regions = {
-> > +                /* SRAM */ {
-> > +                        .phys_start = 0x00018000,
-> > +                        .virt_start = 0x00018000,
-> > +                        .size =       0x00028000,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_EXECUTE,
-> > +                },
-> > +                /* Clock */ {
-> > +                        .phys_start = 0x01000000,
-> > +                        .virt_start = 0x01000000,
-> > +                        .size =       0x00100000,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,
-> > +                },
-> > +                /* 1100000.mixer */ {
-> > +                        .phys_start = 0x01100000,
-> > +                        .virt_start = 0x01100000,
-> > +                        .size =       0x00100000,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO,
-> > +                },
-> > +                /* 1200000.mixer */ {
-> > +                        .phys_start = 0x01200000,
-> > +                        .virt_start = 0x01200000,
-> > +                        .size =       0x00100000,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO,
-> > +                },
-> > +                /* Syscon */ {
-> > +                        .phys_start = 0x01c00000,
-> > +                        .virt_start = 0x01c00000,
-> > +                        .size =       0x00001000,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO,
-> > +                },
-> > +                /* DMA */ {
-> > +                        .phys_start = 0x01c02000,
-> > +                        .virt_start = 0x01c02000,
-> > +                        .size =       0x00001000,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO,
-> > +                },
-> > +                /* LCD1 */ {
-> > +                        .phys_start = 0x01c0c000,
-> > +                        .virt_start = 0x01c0c000,
-> > +                        .size =       0x00001000,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO,
-> > +                },
-> > +                /* LCD2 */ {
-> > +                        .phys_start = 0x01c0d000,
-> > +                        .virt_start = 0x01c0d000,
-> > +                        .size =       0x00001000,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO,
-> > +                },
-> > +                /* MMC */ {
-> > +                        .phys_start = 0x01c0f000,
-> > +                        .virt_start = 0x01c0f000,
-> > +                        .size =       0x00001000,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO,
-> > +                },
-> > +                /* EEPROM */ {
-> > +                        .phys_start = 0x01c14000,
-> > +                        .virt_start = 0x01c14000,
-> > +                        .size =       0x00000400,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO,
-> > +                },
-> > +                /* USB */ {
-> > +                        .phys_start = 0x01c19000,
-> > +                        .virt_start = 0x01c19000,
-> > +                        .size =       0x00000400,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO,
-> > +                },
-> > +                /* USB */ {
-> > +                        .phys_start = 0x01c19400,
-> > +                        .virt_start = 0x01c19400,
-> > +                        .size =       0x00000014,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO,
-> > +                },
-> > +                /* USB */ {
-> > +                        .phys_start = 0x01c1a000,
-> > +                        .virt_start = 0x01c1a000,
-> > +                        .size =       0x00000100,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO,
-> > +                },
-> > +                /* USB */ {
-> > +                        .phys_start = 0x01c1a400,
-> > +                        .virt_start = 0x01c1a400,
-> > +                        .size =       0x00000100,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO,
-> > +                },
-> > +                /* USB */ {
-> > +                        .phys_start = 0x01c1a800,
-> > +                        .virt_start = 0x01c1a800,
-> > +                        .size =       0x00000100,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO,
-> > +                },
-> > +                /* USB */ {
-> > +                        .phys_start = 0x01c1b000,
-> > +                        .virt_start = 0x01c1b000,
-> > +                        .size =       0x00000100,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO,
-> > +                },
-> > +                /* USB */ {
-> > +                        .phys_start = 0x01c1b400,
-> > +                        .virt_start = 0x01c1b400,
-> > +                        .size =       0x00000100,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO,
-> > +                },
-> > +                /* USB */ {
-> > +                        .phys_start = 0x01c1b800,
-> > +                        .virt_start = 0x01c1b800,
-> > +                        .size =       0x00000004,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO,
-> > +                },
-> > +                /* Clock */ {
-> > +                        .phys_start = 0x01c20000,
-> > +                        .virt_start = 0x01c20000,
-> > +                        .size =       0x00000400,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,
-> > +                },
-> > +                /* Pincontrol */ {
-> > +                        .phys_start = 0x01c20800,
-> > +                        .virt_start = 0x01c20800,
-> > +                        .size =       0x00000400,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,
-> > +                },
-> > +                /* Watchdog */ {
-> > +                        .phys_start = 0x01c20ca0,
-> > +                        .virt_start = 0x01c20ca0,
-> > +                        .size =       0x00000020,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,
-> > +                },
-> > +                /* UART */ {
-> > +                        .phys_start = 0x01c28000,
-> > +                        .virt_start = 0x01c28000,
-> > +                        .size =       0x00000020,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,
-> > +                },
-> > +                /* I2C */ {
-> > +                        .phys_start = 0x01c2b000,
-> > +                        .virt_start = 0x01c2b000,
-> > +                        .size =       0x00000400,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO,
-> > +                },
-> > +                /* Ethernet */ {
-> > +                        .phys_start = 0x01c30000,
-> > +                        .virt_start = 0x01c30000,
-> > +                        .size =       0x00010000,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO,
-> > +                },
-> > +                /* GPU */ {
-> > +                        .phys_start = 0x01c40000,
-> > +                        .virt_start = 0x01c40000,
-> > +                        .size =       0x00010000,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO,
-> > +                },
-> > +                /* SRAM */ {
-> > +                        .phys_start = 0x01d00000,
-> > +                        .virt_start = 0x01d00000,
-> > +                        .size =       0x00040000,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_EXECUTE,
-> > +                },
-> > +                /* HDMI */ {
-> > +                        .phys_start = 0x01ee0000,
-> > +                        .virt_start = 0x01ee0000,
-> > +                        .size =       0x00010000,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO,
-> > +                },
-> > +                /* HDMI */ {
-> > +                        .phys_start = 0x01ef0000,
-> > +                        .virt_start = 0x01ef0000,
-> > +                        .size =       0x00010000,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO,
-> > +                },
-> > +                /* RTC */ {
-> > +                        .phys_start = 0x01f00000,
-> > +                        .virt_start = 0x01f00000,
-> > +                        .size =       0x00000400,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,
-> > +                },
-> > +                /* Interrupt Controller */ {
-> > +                        .phys_start = 0x01f00c00,
-> > +                        .virt_start = 0x01f00c00,
-> > +                        .size =       0x00000400,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,
-> > +                },
-> > +                /* Clock */ {
-> > +                        .phys_start = 0x01f01400,
-> > +                        .virt_start = 0x01f01400,
-> > +                        .size =       0x00000100,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,
-> > +                },
-> > +                /* Pincontrol */ {
-> > +                        .phys_start = 0x01f02c00,
-> > +                        .virt_start = 0x01f02c00,
-> > +                        .size =       0x00000400,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,
-> > +                },
-> > +                /* RSB(Reduced Serial Bus) */ {
-> > +                        .phys_start = 0x01f03400,
-> > +                        .virt_start = 0x01f03400,
-> > +                        .size =       0x00000400,
-> > +                        .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                                JAILHOUSE_MEM_IO,
-> > +                },
-> > +             /* System RAM */ {
-> > +                     .phys_start = 0x40000000,
-> > +                     .virt_start = 0x40000000,
-> > +                     .size = 0x7c000000,
-> > +                     .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> > +                             JAILHOUSE_MEM_EXECUTE,
-> > +             },
-> > +             /* IVSHMEM shared memory region */ {
-> > +                     .phys_start = 0xbbf00000,
-> > +                     .virt_start = 0xbbf00000,
-> > +                     .size = 0x100000,
-> > +                     .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-> > +             },
-> > +     },
-> > +
-> > +     .irqchips = {
-> > +             /* GIC */ {
-> > +                     .address = 0x01c81000,
-> > +                     .pin_base = 32,
-> > +                     .pin_bitmap = {
-> > +                             0xffffffff, 0xffffffff, 0xffffffff,
-> 0xffffffff,
-> > +                     },
-> > +             },
-> > +     },
-> > +
-> > +     .pci_devices = {
-> > +             /* 0001:00:00.0 */ {
-> > +                     .type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> > +                     .domain = 1,
-> > +                     .bdf = 0x00,
-> > +                     .bar_mask = {
-> > +                             0xffffff00, 0xffffffff, 0x00000000,
-> > +                             0x00000000, 0x00000000, 0x00000000,
-> > +                     },
-> > +                     .shmem_region = 34,
-> > +                     .shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
-> > +             },
-> > +     },
-> > +};
-> >
->
-> Thanks for adding this board. That's this
-> https://store.pine64.org/?product=pine-a64-board-2gb, right?
+I am stuck getting the e1000-demo working in qemu based on 
+jailhouse-images/wip/update. Due to a prior glitch, I am still on 
+PREEMPT-RT (./build-image.sh --rt --latest) if that makes a difference.
 
+Upfront maybe as a "bug-note" *if* "config/e1000-demo.c" is expected to 
+demo on the qemu-x86-root-cell, it is not. The configs are out of sync: 
+e1000-demo.c expects the card on address 19, while qemu & the orig-cell 
+config provide it on 2, so unfortunately it does not play out-of-the-box.
 
-Yes. That is the one.
+In the long run I want to run a system with two e1000 cards, each tied to a 
+cell, so I wanted to start this on qemu first:
 
-Will that
-> config also cover the LTS variant? Just curious.
->
+I modified the start-qemu.sh to add another e1000 device ("-device 
+e1000e,addr=19,netdev=net2"), ran `jailhouse config collect 2cards.tar` 
+inside and create`d "2cards.c" from it, as well as trying to meld it with 
+the original "qemu-x86.c". (There seem to be some "magical" hacks in it for 
+someone who is relatively new to the matter, about what can be removed and 
+what needs to be added.) I also adjusted "linux-x86-demo.c" and 
+"e1000-demo.c" for the changed addresses.
 
-Ideally it should but I don't have an LTS variant to test it out.
+Enabling the 2cards.cell succeeds, however, I noted the root-cell's 
+kernel-driver for ivshmem complaining (dmesg-enable.log: "uio_ivshmem: 
+probe of 0000:00:0e.0 failed with error -16" and "ivshmem-net: probe of 
+0000:00:0f.0 failed with error -16" -> EBUSY), so something is skewed. When 
+I `jailhouse cell create e1000-demo.cell`, I get (jailhouse-console.log: 
+"FATAL: Invalid PCI config write, port: cfc, size 2, address port: 
+8000c8e8"), the linux-cell throws the same error, just on its device 02 
+(800010e8), so I guess, I must be doing something fundamentally wrong.
 
-Could you rebase your patches over next (will be master soon)? This
-> specifically affects the ivshmem devices and memory regions.
+I saw few similar discussions on the forum in the archives, though without 
+giving me a clue.
 
+cheers for any help,
+Thorsten
 
-Sure, will do that. I'm on travel, so,  hopefully by this weekend.
-
-And could
-> you also add a linux-demo config?
->
-
-Linux demo is in works. Will try to complete and send that in coming weeks.
-
-Thanks,
-Vijai Kumar K
-
-
-> Jan
->
+file references:
+2cards.tar : as collected inside qemu
+dmesg-enable.log : dmesg snippet from jailhouse-enable
+jailhouse-console : console from enable and create cell e1000-demo
+*.c : modified configs
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CALLGG_KzRM%2Bg3%2BeJf7Y6q7_Bpt-RtFciHSPPr%2BAt96FXakzgBQ%40mail.gmail.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/764a07bc-d7c3-4b06-a7fd-ed8358dd8037%40googlegroups.com.
 
---000000000000d5ff76059bffd1ac
+------=_Part_1344_1337865888.1578907798642
 Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: quoted-printable
 
-PGRpdiBkaXI9ImF1dG8iPjxkaXY+PGJyPjxicj48ZGl2IGNsYXNzPSJnbWFpbF9xdW90ZSI+PGRp
-diBkaXI9Imx0ciIgY2xhc3M9ImdtYWlsX2F0dHIiPk9uIE1vbiAxMyBKYW4sIDIwMjAsIDExOjM4
-IEFNIEphbiBLaXN6a2EsICZsdDs8YSBocmVmPSJtYWlsdG86amFuLmtpc3prYUB3ZWIuZGUiIHJl
-bD0ibm9yZWZlcnJlciBub3JlZmVycmVyIiB0YXJnZXQ9Il9ibGFuayI+amFuLmtpc3prYUB3ZWIu
-ZGU8L2E+Jmd0OyB3cm90ZTo8YnI+PC9kaXY+PGJsb2NrcXVvdGUgY2xhc3M9ImdtYWlsX3F1b3Rl
-IiBzdHlsZT0ibWFyZ2luOjAgMCAwIC44ZXg7Ym9yZGVyLWxlZnQ6MXB4ICNjY2Mgc29saWQ7cGFk
-ZGluZy1sZWZ0OjFleCI+T24gMTEuMDEuMjAgMTc6NTEsIFZpamFpIEt1bWFyIEsgd3JvdGU6PGJy
-Pg0KJmd0OyBBZGQgY29uZmlnIGZvciBQaW5lNjQrIGJvYXJkLjxicj4NCiZndDsgPGEgaHJlZj0i
-aHR0cHM6Ly93d3cucGluZTY0Lm9yZy9kZXZpY2VzL3NpbmdsZS1ib2FyZC1jb21wdXRlcnMvcGlu
-ZS1hNjQvIiByZWw9Im5vcmVmZXJyZXIgbm9yZWZlcnJlciBub3JlZmVycmVyIG5vcmVmZXJyZXIi
-IHRhcmdldD0iX2JsYW5rIj5odHRwczovL3d3dy5waW5lNjQub3JnL2RldmljZXMvc2luZ2xlLWJv
-YXJkLWNvbXB1dGVycy9waW5lLWE2NC88L2E+PGJyPg0KJmd0Ozxicj4NCiZndDsgQWxsd2lubmVy
-IEE2NChRdWFkIGNvcmUgQTUzKSArIDJHQiBSQU08YnI+DQomZ3Q7PGJyPg0KJmd0OyBTaWduZWQt
-b2ZmLWJ5OiBWaWphaSBLdW1hciBLICZsdDs8YSBocmVmPSJtYWlsdG86dmlqYWlrdW1hci5rYW5h
-Z2FyYWphbkBnbWFpbC5jb20iIHJlbD0ibm9yZWZlcnJlciBub3JlZmVycmVyIG5vcmVmZXJyZXIi
-IHRhcmdldD0iX2JsYW5rIj52aWphaWt1bWFyLmthbmFnYXJhamFuQGdtYWlsLmNvbTwvYT4mZ3Q7
-PGJyPg0KJmd0OyAtLS08YnI+DQomZ3Q7wqAgwqBjb25maWdzL2FybTY0L3BpbmU2NC1wbHVzLmMg
-fCAzMzkgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrPGJyPg0KJmd0O8KgIMKg
-MSBmaWxlIGNoYW5nZWQsIDMzOSBpbnNlcnRpb25zKCspPGJyPg0KJmd0O8KgIMKgY3JlYXRlIG1v
-ZGUgMTAwNjQ0IGNvbmZpZ3MvYXJtNjQvcGluZTY0LXBsdXMuYzxicj4NCiZndDs8YnI+DQomZ3Q7
-IGRpZmYgLS1naXQgYS9jb25maWdzL2FybTY0L3BpbmU2NC1wbHVzLmMgYi9jb25maWdzL2FybTY0
-L3BpbmU2NC1wbHVzLmM8YnI+DQomZ3Q7IG5ldyBmaWxlIG1vZGUgMTAwNjQ0PGJyPg0KJmd0OyBp
-bmRleCAwMDAwMDAwMC4uOWEwNzMwYzA8YnI+DQomZ3Q7IC0tLSAvZGV2L251bGw8YnI+DQomZ3Q7
-ICsrKyBiL2NvbmZpZ3MvYXJtNjQvcGluZTY0LXBsdXMuYzxicj4NCiZndDsgQEAgLTAsMCArMSwz
-MzkgQEA8YnI+DQomZ3Q7ICsvKjxicj4NCiZndDsgKyAqIEphaWxob3VzZSwgYSBMaW51eC1iYXNl
-ZCBwYXJ0aXRpb25pbmcgaHlwZXJ2aXNvcjxicj4NCiZndDsgKyAqPGJyPg0KJmd0OyArICogQ29u
-ZmlndXJhdGlvbiBmb3IgUGluZTY0KyBib2FyZCwgMiBHQjxicj4NCiZndDsgKyAqPGJyPg0KJmd0
-OyArICogQ29weXJpZ2h0IChjKSBWaWphaSBLdW1hciBLLCAyMDE5PGJyPg0KJmd0OyArICo8YnI+
-DQomZ3Q7ICsgKiBBdXRob3JzOjxicj4NCiZndDsgKyAqwqAgVmlqYWkgS3VtYXIgSyAmbHQ7PGEg
-aHJlZj0ibWFpbHRvOnZpamFpa3VtYXIua2FuYWdhcmFqYW5AZ21haWwuY29tIiByZWw9Im5vcmVm
-ZXJyZXIgbm9yZWZlcnJlciBub3JlZmVycmVyIiB0YXJnZXQ9Il9ibGFuayI+dmlqYWlrdW1hci5r
-YW5hZ2FyYWphbkBnbWFpbC5jb208L2E+Jmd0Ozxicj4NCiZndDsgKyAqPGJyPg0KJmd0OyArICog
-VGhpcyB3b3JrIGlzIGxpY2Vuc2VkIHVuZGVyIHRoZSB0ZXJtcyBvZiB0aGUgR05VIEdQTCwgdmVy
-c2lvbiAyLsKgIFNlZTxicj4NCiZndDsgKyAqIHRoZSBDT1BZSU5HIGZpbGUgaW4gdGhlIHRvcC1s
-ZXZlbCBkaXJlY3RvcnkuPGJyPg0KJmd0OyArICovPGJyPg0KJmd0OyArPGJyPg0KJmd0OyArI2lu
-Y2x1ZGUgJmx0O2phaWxob3VzZS90eXBlcy5oJmd0Ozxicj4NCiZndDsgKyNpbmNsdWRlICZsdDtq
-YWlsaG91c2UvY2VsbC1jb25maWcuaCZndDs8YnI+DQomZ3Q7ICs8YnI+DQomZ3Q7ICtzdHJ1Y3Qg
-ezxicj4NCiZndDsgK8KgIMKgIMKgc3RydWN0IGphaWxob3VzZV9zeXN0ZW0gaGVhZGVyOzxicj4N
-CiZndDsgK8KgIMKgIMKgX191NjQgY3B1c1sxXTs8YnI+DQomZ3Q7ICvCoCDCoCDCoHN0cnVjdCBq
-YWlsaG91c2VfbWVtb3J5IG1lbV9yZWdpb25zWzM1XTs8YnI+DQomZ3Q7ICvCoCDCoCDCoHN0cnVj
-dCBqYWlsaG91c2VfaXJxY2hpcCBpcnFjaGlwc1sxXTs8YnI+DQomZ3Q7ICvCoCDCoCDCoHN0cnVj
-dCBqYWlsaG91c2VfcGNpX2RldmljZSBwY2lfZGV2aWNlc1sxXTs8YnI+DQomZ3Q7ICt9IF9fYXR0
-cmlidXRlX18oKHBhY2tlZCkpIGNvbmZpZyA9IHs8YnI+DQomZ3Q7ICvCoCDCoCDCoC5oZWFkZXIg
-PSB7PGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAuc2lnbmF0dXJlID0gSkFJTEhPVVNF
-X1NZU1RFTV9TSUdOQVRVUkUsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAucmV2aXNp
-b24gPSBKQUlMSE9VU0VfQ09ORklHX1JFVklTSU9OLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKg
-IMKgIMKgLmZsYWdzID0gSkFJTEhPVVNFX1NZU19WSVJUVUFMX0RFQlVHX0NPTlNPTEUsPGJyPg0K
-Jmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAuaHlwZXJ2aXNvcl9tZW1vcnkgPSB7PGJyPg0KJmd0
-OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAucGh5c19zdGFydCA9IDB4YmMwMDAw
-MDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAuc2l6ZSA9wqAg
-wqAgwqAgwqAweDA0MDAwMDAwLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgfSw8YnI+
-DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoC5kZWJ1Z19jb25zb2xlID0gezxicj4NCiZndDsg
-K8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgLmFkZHJlc3MgPSAweDAxYzI4MDAwLDxi
-cj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgLnNpemUgPSAweDQwMCw8
-YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoC50eXBlID0gSkFJTEhP
-VVNFX0NPTl9UWVBFX1BMMDExLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgLmZsYWdzID0gSkFJTEhPVVNFX0NPTl9BQ0NFU1NfTU1JTyB8PGJyPg0KJmd0OyArwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgSkFJTEhPVVNFX0NPTl9S
-RUdESVNUXzQsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqB9LDxicj4NCiZndDsgK8Kg
-IMKgIMKgIMKgIMKgIMKgIMKgLnBsYXRmb3JtX2luZm8gPSB7PGJyPg0KJmd0OyArwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAucGNpX21tY29uZmlnX2Jhc2UgPSAweGZjMDAwMDAwLDxi
-cj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgLnBjaV9tbWNvbmZpZ19l
-bmRfYnVzID0gMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoC5w
-Y2lfaXNfdmlydHVhbCA9IDEsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAuYXJtID0gezxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgLmdpY192ZXJzaW9uID0gMiw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoC5naWNkX2Jhc2UgPSAweDAxYzgxMDAwLDxicj4N
-CiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgLmdpY2Nf
-YmFzZSA9IDB4MDFjODIwMDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAuZ2ljaF9iYXNlID0gMHgwMWM4NDAwMCw8YnI+DQomZ3Q7ICvCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoC5naWN2X2Jhc2UgPSAweDAx
-Yzg2MDAwLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgLm1haW50ZW5hbmNlX2lycSA9IDI1LDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgfSw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoH0sPGJyPg0K
-Jmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAucm9vdF9jZWxsID0gezxicj4NCiZndDsgK8KgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgLm5hbWUgPSAmcXVvdDtQaW5lNjQtUGx1cyZxdW90
-Oyw8YnI+DQomZ3Q7ICs8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oC5jcHVfc2V0X3NpemUgPSBzaXplb2YoY29uZmlnLmNwdXMpLDxicj4NCiZndDsgK8KgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgLm51bV9tZW1vcnlfcmVnaW9ucyA9IEFSUkFZX1NJWkUo
-Y29uZmlnLm1lbV9yZWdpb25zKSw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoC5udW1fcGNpX2RldmljZXMgPSBBUlJBWV9TSVpFKGNvbmZpZy5wY2lfZGV2aWNlcyks
-PGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAubnVtX2lycWNoaXBz
-ID0gQVJSQVlfU0laRShjb25maWcuaXJxY2hpcHMpLDxicj4NCiZndDsgKzxicj4NCiZndDsgK8Kg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgLnZwY2lfaXJxX2Jhc2UgPSAxMDgsPGJyPg0K
-Jmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqB9LDxicj4NCiZndDsgK8KgIMKgIMKgfSw8YnI+DQom
-Z3Q7ICs8YnI+DQomZ3Q7ICvCoCDCoCDCoC5jcHVzID0gezxicj4NCiZndDsgK8KgIMKgIMKgIMKg
-IMKgIMKgIMKgMHhmLDxicj4NCiZndDsgK8KgIMKgIMKgfSw8YnI+DQomZ3Q7ICs8YnI+DQomZ3Q7
-ICvCoCDCoCDCoC5tZW1fcmVnaW9ucyA9IHs8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCAvKiBTUkFNICovIHs8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCAucGh5c19zdGFydCA9IDB4MDAwMTgwMDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLnZpcnRfc3RhcnQgPSAweDAwMDE4MDAwLDxicj4NCiZn
-dDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC5zaXplID3CoCDCoCDCoCDC
-oDB4MDAwMjgwMDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgLmZsYWdzID0gSkFJTEhPVVNFX01FTV9SRUFEIHwgSkFJTEhPVVNFX01FTV9XUklURSB8PGJy
-Pg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-SkFJTEhPVVNFX01FTV9FWEVDVVRFLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IH0sPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLyogQ2xvY2sgKi8gezxicj4N
-CiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC5waHlzX3N0YXJ0ID0g
-MHgwMTAwMDAwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCAudmlydF9zdGFydCA9IDB4MDEwMDAwMDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgLnNpemUgPcKgIMKgIMKgIMKgMHgwMDEwMDAwMCw8YnI+DQomZ3Q7
-ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAuZmxhZ3MgPSBKQUlMSE9VU0Vf
-TUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFIHw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBKQUlMSE9VU0VfTUVNX0lPIHwgSkFJ
-TEhPVVNFX01FTV9JT18zMiw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCB9LDxi
-cj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC8qIDExMDAwMDAubWl4ZXIgKi8gezxi
-cj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC5waHlzX3N0YXJ0
-ID0gMHgwMTEwMDAwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCAudmlydF9zdGFydCA9IDB4MDExMDAwMDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgLnNpemUgPcKgIMKgIMKgIMKgMHgwMDEwMDAwMCw8YnI+DQom
-Z3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAuZmxhZ3MgPSBKQUlMSE9V
-U0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFIHw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBKQUlMSE9VU0VfTUVNX0lPLDxi
-cj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIH0sPGJyPg0KJmd0OyArwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgLyogMTIwMDAwMC5taXhlciAqLyB7PGJyPg0KJmd0OyArwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLnBoeXNfc3RhcnQgPSAweDAxMjAwMDAwLDxicj4N
-CiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC52aXJ0X3N0YXJ0ID0g
-MHgwMTIwMDAwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCAuc2l6ZSA9wqAgwqAgwqAgwqAweDAwMTAwMDAwLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIC5mbGFncyA9IEpBSUxIT1VTRV9NRU1fUkVBRCB8IEpBSUxI
-T1VTRV9NRU1fV1JJVEUgfDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIEpBSUxIT1VTRV9NRU1fSU8sPGJyPg0KJmd0OyArwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgfSw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAvKiBT
-eXNjb24gKi8gezxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IC5waHlzX3N0YXJ0ID0gMHgwMWMwMDAwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCAudmlydF9zdGFydCA9IDB4MDFjMDAwMDAsPGJyPg0KJmd0OyArwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLnNpemUgPcKgIMKgIMKgIMKgMHgwMDAw
-MTAwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAuZmxh
-Z3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFIHw8YnI+DQomZ3Q7
-ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBKQUlMSE9V
-U0VfTUVNX0lPLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIH0sPGJyPg0KJmd0
-OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLyogRE1BICovIHs8YnI+DQomZ3Q7ICvCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAucGh5c19zdGFydCA9IDB4MDFjMDIwMDAsPGJy
-Pg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLnZpcnRfc3RhcnQg
-PSAweDAxYzAyMDAwLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIC5zaXplID3CoCDCoCDCoCDCoDB4MDAwMDEwMDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLmZsYWdzID0gSkFJTEhPVVNFX01FTV9SRUFEIHwgSkFJ
-TEhPVVNFX01FTV9XUklURSB8PGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgSkFJTEhPVVNFX01FTV9JTyw8YnI+DQomZ3Q7ICvCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCB9LDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC8q
-IExDRDEgKi8gezxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IC5waHlzX3N0YXJ0ID0gMHgwMWMwYzAwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCAudmlydF9zdGFydCA9IDB4MDFjMGMwMDAsPGJyPg0KJmd0OyArwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLnNpemUgPcKgIMKgIMKgIMKgMHgwMDAw
-MTAwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAuZmxh
-Z3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFIHw8YnI+DQomZ3Q7
-ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBKQUlMSE9V
-U0VfTUVNX0lPLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIH0sPGJyPg0KJmd0
-OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLyogTENEMiAqLyB7PGJyPg0KJmd0OyArwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLnBoeXNfc3RhcnQgPSAweDAxYzBkMDAwLDxi
-cj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC52aXJ0X3N0YXJ0
-ID0gMHgwMWMwZDAwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCAuc2l6ZSA9wqAgwqAgwqAgwqAweDAwMDAxMDAwLDxicj4NCiZndDsgK8KgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC5mbGFncyA9IEpBSUxIT1VTRV9NRU1fUkVBRCB8IEpB
-SUxIT1VTRV9NRU1fV1JJVEUgfDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIEpBSUxIT1VTRV9NRU1fSU8sPGJyPg0KJmd0OyArwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgfSw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAv
-KiBNTUMgKi8gezxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IC5waHlzX3N0YXJ0ID0gMHgwMWMwZjAwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCAudmlydF9zdGFydCA9IDB4MDFjMGYwMDAsPGJyPg0KJmd0OyArwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLnNpemUgPcKgIMKgIMKgIMKgMHgwMDAw
-MTAwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAuZmxh
-Z3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFIHw8YnI+DQomZ3Q7
-ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBKQUlMSE9V
-U0VfTUVNX0lPLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIH0sPGJyPg0KJmd0
-OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLyogRUVQUk9NICovIHs8YnI+DQomZ3Q7ICvCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAucGh5c19zdGFydCA9IDB4MDFjMTQwMDAs
-PGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLnZpcnRfc3Rh
-cnQgPSAweDAxYzE0MDAwLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIC5zaXplID3CoCDCoCDCoCDCoDB4MDAwMDA0MDAsPGJyPg0KJmd0OyArwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLmZsYWdzID0gSkFJTEhPVVNFX01FTV9SRUFEIHwg
-SkFJTEhPVVNFX01FTV9XUklURSB8PGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgSkFJTEhPVVNFX01FTV9JTyw8YnI+DQomZ3Q7ICvCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCB9LDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IC8qIFVTQiAqLyB7PGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgLnBoeXNfc3RhcnQgPSAweDAxYzE5MDAwLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIC52aXJ0X3N0YXJ0ID0gMHgwMWMxOTAwMCw8YnI+DQomZ3Q7ICvC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAuc2l6ZSA9wqAgwqAgwqAgwqAweDAw
-MDAwNDAwLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC5m
-bGFncyA9IEpBSUxIT1VTRV9NRU1fUkVBRCB8IEpBSUxIT1VTRV9NRU1fV1JJVEUgfDxicj4NCiZn
-dDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIEpBSUxI
-T1VTRV9NRU1fSU8sPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgfSw8YnI+DQom
-Z3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAvKiBVU0IgKi8gezxicj4NCiZndDsgK8KgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC5waHlzX3N0YXJ0ID0gMHgwMWMxOTQwMCw8
-YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAudmlydF9zdGFy
-dCA9IDB4MDFjMTk0MDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgLnNpemUgPcKgIMKgIMKgIMKgMHgwMDAwMDAxNCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAuZmxhZ3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBK
-QUlMSE9VU0VfTUVNX1dSSVRFIHw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBKQUlMSE9VU0VfTUVNX0lPLDxicj4NCiZndDsgK8KgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIH0sPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-LyogVVNCICovIHs8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCAucGh5c19zdGFydCA9IDB4MDFjMWEwMDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgLnZpcnRfc3RhcnQgPSAweDAxYzFhMDAwLDxicj4NCiZndDsgK8Kg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC5zaXplID3CoCDCoCDCoCDCoDB4MDAw
-MDAxMDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLmZs
-YWdzID0gSkFJTEhPVVNFX01FTV9SRUFEIHwgSkFJTEhPVVNFX01FTV9XUklURSB8PGJyPg0KJmd0
-OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgSkFJTEhP
-VVNFX01FTV9JTyw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCB9LDxicj4NCiZn
-dDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC8qIFVTQiAqLyB7PGJyPg0KJmd0OyArwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLnBoeXNfc3RhcnQgPSAweDAxYzFhNDAwLDxi
-cj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC52aXJ0X3N0YXJ0
-ID0gMHgwMWMxYTQwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCAuc2l6ZSA9wqAgwqAgwqAgwqAweDAwMDAwMTAwLDxicj4NCiZndDsgK8KgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC5mbGFncyA9IEpBSUxIT1VTRV9NRU1fUkVBRCB8IEpB
-SUxIT1VTRV9NRU1fV1JJVEUgfDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIEpBSUxIT1VTRV9NRU1fSU8sPGJyPg0KJmd0OyArwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgfSw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAv
-KiBVU0IgKi8gezxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IC5waHlzX3N0YXJ0ID0gMHgwMWMxYTgwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCAudmlydF9zdGFydCA9IDB4MDFjMWE4MDAsPGJyPg0KJmd0OyArwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLnNpemUgPcKgIMKgIMKgIMKgMHgwMDAw
-MDEwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAuZmxh
-Z3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFIHw8YnI+DQomZ3Q7
-ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBKQUlMSE9V
-U0VfTUVNX0lPLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIH0sPGJyPg0KJmd0
-OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLyogVVNCICovIHs8YnI+DQomZ3Q7ICvCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAucGh5c19zdGFydCA9IDB4MDFjMWIwMDAsPGJy
-Pg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLnZpcnRfc3RhcnQg
-PSAweDAxYzFiMDAwLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIC5zaXplID3CoCDCoCDCoCDCoDB4MDAwMDAxMDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLmZsYWdzID0gSkFJTEhPVVNFX01FTV9SRUFEIHwgSkFJ
-TEhPVVNFX01FTV9XUklURSB8PGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgSkFJTEhPVVNFX01FTV9JTyw8YnI+DQomZ3Q7ICvCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCB9LDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC8q
-IFVTQiAqLyB7PGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-LnBoeXNfc3RhcnQgPSAweDAxYzFiNDAwLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIC52aXJ0X3N0YXJ0ID0gMHgwMWMxYjQwMCw8YnI+DQomZ3Q7ICvCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAuc2l6ZSA9wqAgwqAgwqAgwqAweDAwMDAw
-MTAwLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC5mbGFn
-cyA9IEpBSUxIT1VTRV9NRU1fUkVBRCB8IEpBSUxIT1VTRV9NRU1fV1JJVEUgfDxicj4NCiZndDsg
-K8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIEpBSUxIT1VT
-RV9NRU1fSU8sPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgfSw8YnI+DQomZ3Q7
-ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAvKiBVU0IgKi8gezxicj4NCiZndDsgK8KgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC5waHlzX3N0YXJ0ID0gMHgwMWMxYjgwMCw8YnI+
-DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAudmlydF9zdGFydCA9
-IDB4MDFjMWI4MDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgLnNpemUgPcKgIMKgIMKgIMKgMHgwMDAwMDAwNCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAuZmxhZ3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlM
-SE9VU0VfTUVNX1dSSVRFIHw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCBKQUlMSE9VU0VfTUVNX0lPLDxicj4NCiZndDsgK8KgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIH0sPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLyog
-Q2xvY2sgKi8gezxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IC5waHlzX3N0YXJ0ID0gMHgwMWMyMDAwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCAudmlydF9zdGFydCA9IDB4MDFjMjAwMDAsPGJyPg0KJmd0OyArwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLnNpemUgPcKgIMKgIMKgIMKgMHgwMDAw
-MDQwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAuZmxh
-Z3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFIHw8YnI+DQomZ3Q7
-ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBKQUlMSE9V
-U0VfTUVNX0lPIHwgSkFJTEhPVVNFX01FTV9JT18zMiw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCB9LDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC8qIFBpbmNv
-bnRyb2wgKi8gezxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IC5waHlzX3N0YXJ0ID0gMHgwMWMyMDgwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCAudmlydF9zdGFydCA9IDB4MDFjMjA4MDAsPGJyPg0KJmd0OyArwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLnNpemUgPcKgIMKgIMKgIMKgMHgwMDAw
-MDQwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAuZmxh
-Z3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFIHw8YnI+DQomZ3Q7
-ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBKQUlMSE9V
-U0VfTUVNX0lPIHwgSkFJTEhPVVNFX01FTV9JT18zMiw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCB9LDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC8qIFdhdGNo
-ZG9nICovIHs8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAu
-cGh5c19zdGFydCA9IDB4MDFjMjBjYTAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgLnZpcnRfc3RhcnQgPSAweDAxYzIwY2EwLDxicj4NCiZndDsgK8KgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC5zaXplID3CoCDCoCDCoCDCoDB4MDAwMDAw
-MjAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLmZsYWdz
-ID0gSkFJTEhPVVNFX01FTV9SRUFEIHwgSkFJTEhPVVNFX01FTV9XUklURSB8PGJyPg0KJmd0OyAr
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgSkFJTEhPVVNF
-X01FTV9JTyB8IEpBSUxIT1VTRV9NRU1fSU9fMzIsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgfSw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAvKiBVQVJUICov
-IHs8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAucGh5c19z
-dGFydCA9IDB4MDFjMjgwMDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgLnZpcnRfc3RhcnQgPSAweDAxYzI4MDAwLDxicj4NCiZndDsgK8KgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC5zaXplID3CoCDCoCDCoCDCoDB4MDAwMDAwMjAsPGJy
-Pg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLmZsYWdzID0gSkFJ
-TEhPVVNFX01FTV9SRUFEIHwgSkFJTEhPVVNFX01FTV9XUklURSB8PGJyPg0KJmd0OyArwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgSkFJTEhPVVNFX01FTV9J
-TyB8IEpBSUxIT1VTRV9NRU1fSU9fMzIsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgfSw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAvKiBJMkMgKi8gezxicj4N
-CiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC5waHlzX3N0YXJ0ID0g
-MHgwMWMyYjAwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCAudmlydF9zdGFydCA9IDB4MDFjMmIwMDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgLnNpemUgPcKgIMKgIMKgIMKgMHgwMDAwMDQwMCw8YnI+DQomZ3Q7
-ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAuZmxhZ3MgPSBKQUlMSE9VU0Vf
-TUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFIHw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBKQUlMSE9VU0VfTUVNX0lPLDxicj4N
-CiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIH0sPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgLyogRXRoZXJuZXQgKi8gezxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIC5waHlzX3N0YXJ0ID0gMHgwMWMzMDAwMCw8YnI+DQomZ3Q7ICvC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAudmlydF9zdGFydCA9IDB4MDFjMzAw
-MDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLnNpemUg
-PcKgIMKgIMKgIMKgMHgwMDAxMDAwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCAuZmxhZ3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVN
-X1dSSVRFIHw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCBKQUlMSE9VU0VfTUVNX0lPLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIH0sPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLyogR1BVICovIHs8
-YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAucGh5c19zdGFy
-dCA9IDB4MDFjNDAwMDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgLnZpcnRfc3RhcnQgPSAweDAxYzQwMDAwLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIC5zaXplID3CoCDCoCDCoCDCoDB4MDAwMTAwMDAsPGJyPg0K
-Jmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLmZsYWdzID0gSkFJTEhP
-VVNFX01FTV9SRUFEIHwgSkFJTEhPVVNFX01FTV9XUklURSB8PGJyPg0KJmd0OyArwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgSkFJTEhPVVNFX01FTV9JTyw8
-YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCB9LDxicj4NCiZndDsgK8KgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIC8qIFNSQU0gKi8gezxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIC5waHlzX3N0YXJ0ID0gMHgwMWQwMDAwMCw8YnI+DQomZ3Q7ICvC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAudmlydF9zdGFydCA9IDB4MDFkMDAw
-MDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLnNpemUg
-PcKgIMKgIMKgIMKgMHgwMDA0MDAwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCAuZmxhZ3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVN
-X1dSSVRFIHw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCBKQUlMSE9VU0VfTUVNX0VYRUNVVEUsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgfSw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAvKiBIRE1J
-ICovIHs8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAucGh5
-c19zdGFydCA9IDB4MDFlZTAwMDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgLnZpcnRfc3RhcnQgPSAweDAxZWUwMDAwLDxicj4NCiZndDsgK8KgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC5zaXplID3CoCDCoCDCoCDCoDB4MDAwMTAwMDAs
-PGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLmZsYWdzID0g
-SkFJTEhPVVNFX01FTV9SRUFEIHwgSkFJTEhPVVNFX01FTV9XUklURSB8PGJyPg0KJmd0OyArwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgSkFJTEhPVVNFX01F
-TV9JTyw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCB9LDxicj4NCiZndDsgK8Kg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIC8qIEhETUkgKi8gezxicj4NCiZndDsgK8KgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC5waHlzX3N0YXJ0ID0gMHgwMWVmMDAwMCw8YnI+DQom
-Z3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAudmlydF9zdGFydCA9IDB4
-MDFlZjAwMDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-LnNpemUgPcKgIMKgIMKgIMKgMHgwMDAxMDAwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCAuZmxhZ3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9V
-U0VfTUVNX1dSSVRFIHw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCBKQUlMSE9VU0VfTUVNX0lPLDxicj4NCiZndDsgK8KgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIH0sPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLyogUlRD
-ICovIHs8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAucGh5
-c19zdGFydCA9IDB4MDFmMDAwMDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgLnZpcnRfc3RhcnQgPSAweDAxZjAwMDAwLDxicj4NCiZndDsgK8KgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC5zaXplID3CoCDCoCDCoCDCoDB4MDAwMDA0MDAs
-PGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLmZsYWdzID0g
-SkFJTEhPVVNFX01FTV9SRUFEIHwgSkFJTEhPVVNFX01FTV9XUklURSB8PGJyPg0KJmd0OyArwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgSkFJTEhPVVNFX01F
-TV9JTyB8IEpBSUxIT1VTRV9NRU1fSU9fMzIsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgfSw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAvKiBJbnRlcnJ1cHQg
-Q29udHJvbGxlciAqLyB7PGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgLnBoeXNfc3RhcnQgPSAweDAxZjAwYzAwLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIC52aXJ0X3N0YXJ0ID0gMHgwMWYwMGMwMCw8YnI+DQomZ3Q7
-ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAuc2l6ZSA9wqAgwqAgwqAgwqAw
-eDAwMDAwNDAwLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IC5mbGFncyA9IEpBSUxIT1VTRV9NRU1fUkVBRCB8IEpBSUxIT1VTRV9NRU1fV1JJVEUgfDxicj4N
-CiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIEpB
-SUxIT1VTRV9NRU1fSU8gfCBKQUlMSE9VU0VfTUVNX0lPXzMyLDxicj4NCiZndDsgK8KgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIH0sPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLyog
-Q2xvY2sgKi8gezxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IC5waHlzX3N0YXJ0ID0gMHgwMWYwMTQwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCAudmlydF9zdGFydCA9IDB4MDFmMDE0MDAsPGJyPg0KJmd0OyArwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLnNpemUgPcKgIMKgIMKgIMKgMHgwMDAw
-MDEwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAuZmxh
-Z3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFIHw8YnI+DQomZ3Q7
-ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBKQUlMSE9V
-U0VfTUVNX0lPIHwgSkFJTEhPVVNFX01FTV9JT18zMiw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCB9LDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC8qIFBpbmNv
-bnRyb2wgKi8gezxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IC5waHlzX3N0YXJ0ID0gMHgwMWYwMmMwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCAudmlydF9zdGFydCA9IDB4MDFmMDJjMDAsPGJyPg0KJmd0OyArwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLnNpemUgPcKgIMKgIMKgIMKgMHgwMDAw
-MDQwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAuZmxh
-Z3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFIHw8YnI+DQomZ3Q7
-ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBKQUlMSE9V
-U0VfTUVNX0lPIHwgSkFJTEhPVVNFX01FTV9JT18zMiw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCB9LDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC8qIFJTQihS
-ZWR1Y2VkIFNlcmlhbCBCdXMpICovIHs8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCAucGh5c19zdGFydCA9IDB4MDFmMDM0MDAsPGJyPg0KJmd0OyArwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLnZpcnRfc3RhcnQgPSAweDAxZjAzNDAwLDxi
-cj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC5zaXplID3CoCDC
-oCDCoCDCoDB4MDAwMDA0MDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgLmZsYWdzID0gSkFJTEhPVVNFX01FTV9SRUFEIHwgSkFJTEhPVVNFX01FTV9XUklU
-RSB8PGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgSkFJTEhPVVNFX01FTV9JTyw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCB9LDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgLyogU3lzdGVtIFJBTSAqLyB7PGJy
-Pg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAucGh5c19zdGFydCA9IDB4
-NDAwMDAwMDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAudmly
-dF9zdGFydCA9IDB4NDAwMDAwMDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAuc2l6ZSA9IDB4N2MwMDAwMDAsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAuZmxhZ3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVN
-X1dSSVRFIHw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoEpBSUxIT1VTRV9NRU1fRVhFQ1VURSw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDC
-oCDCoH0sPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAvKiBJVlNITUVNIHNoYXJlZCBt
-ZW1vcnkgcmVnaW9uICovIHs8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoC5waHlzX3N0YXJ0ID0gMHhiYmYwMDAwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoC52aXJ0X3N0YXJ0ID0gMHhiYmYwMDAwMCw8YnI+DQomZ3Q7ICvCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoC5zaXplID0gMHgxMDAwMDAsPGJyPg0KJmd0OyAr
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAuZmxhZ3MgPSBKQUlMSE9VU0VfTUVNX1JF
-QUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKg
-fSw8YnI+DQomZ3Q7ICvCoCDCoCDCoH0sPGJyPg0KJmd0OyArPGJyPg0KJmd0OyArwqAgwqAgwqAu
-aXJxY2hpcHMgPSB7PGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAvKiBHSUMgKi8gezxi
-cj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgLmFkZHJlc3MgPSAweDAx
-YzgxMDAwLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgLnBpbl9i
-YXNlID0gMzIsPGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAucGlu
-X2JpdG1hcCA9IHs8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoDB4ZmZmZmZmZmYsIDB4ZmZmZmZmZmYsIDB4ZmZmZmZmZmYsIDB4ZmZmZmZmZmYs
-PGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqB9LDxicj4NCiZndDsg
-K8KgIMKgIMKgIMKgIMKgIMKgIMKgfSw8YnI+DQomZ3Q7ICvCoCDCoCDCoH0sPGJyPg0KJmd0OyAr
-PGJyPg0KJmd0OyArwqAgwqAgwqAucGNpX2RldmljZXMgPSB7PGJyPg0KJmd0OyArwqAgwqAgwqAg
-wqAgwqAgwqAgwqAvKiAwMDAxOjAwOjAwLjAgKi8gezxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgLnR5cGUgPSBKQUlMSE9VU0VfUENJX1RZUEVfSVZTSE1FTSw8YnI+
-DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoC5kb21haW4gPSAxLDxicj4N
-CiZndDsgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgLmJkZiA9IDB4MDAsPGJyPg0K
-Jmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAuYmFyX21hc2sgPSB7PGJyPg0K
-Jmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAweGZmZmZm
-ZjAwLCAweGZmZmZmZmZmLCAweDAwMDAwMDAwLDxicj4NCiZndDsgK8KgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgMHgwMDAwMDAwMCwgMHgwMDAwMDAwMCwgMHgwMDAw
-MDAwMCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoH0sPGJyPg0K
-Jmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAuc2htZW1fcmVnaW9uID0gMzQs
-PGJyPg0KJmd0OyArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAuc2htZW1fcHJvdG9j
-b2wgPSBKQUlMSE9VU0VfU0hNRU1fUFJPVE9fVkVUSCw8YnI+DQomZ3Q7ICvCoCDCoCDCoCDCoCDC
-oCDCoCDCoH0sPGJyPg0KJmd0OyArwqAgwqAgwqB9LDxicj4NCiZndDsgK307PGJyPg0KJmd0Ozxi
-cj4NCjxicj4NClRoYW5rcyBmb3IgYWRkaW5nIHRoaXMgYm9hcmQuIFRoYXQmIzM5O3MgdGhpczxi
-cj4NCjxhIGhyZWY9Imh0dHBzOi8vc3RvcmUucGluZTY0Lm9yZy8/cHJvZHVjdD1waW5lLWE2NC1i
-b2FyZC0yZ2IiIHJlbD0ibm9yZWZlcnJlciBub3JlZmVycmVyIG5vcmVmZXJyZXIgbm9yZWZlcnJl
-ciIgdGFyZ2V0PSJfYmxhbmsiPmh0dHBzOi8vc3RvcmUucGluZTY0Lm9yZy8/cHJvZHVjdD1waW5l
-LWE2NC1ib2FyZC0yZ2I8L2E+LCByaWdodD8gPC9ibG9ja3F1b3RlPjwvZGl2PjwvZGl2PjxkaXYg
-ZGlyPSJhdXRvIj48YnI+PC9kaXY+PGRpdiBkaXI9ImF1dG8iPlllcy4gVGhhdCBpcyB0aGUgb25l
-LjwvZGl2PjxkaXYgZGlyPSJhdXRvIj48YnI+PC9kaXY+PGRpdiBkaXI9ImF1dG8iPjxkaXYgY2xh
-c3M9ImdtYWlsX3F1b3RlIj48YmxvY2txdW90ZSBjbGFzcz0iZ21haWxfcXVvdGUiIHN0eWxlPSJt
-YXJnaW46MCAwIDAgLjhleDtib3JkZXItbGVmdDoxcHggI2NjYyBzb2xpZDtwYWRkaW5nLWxlZnQ6
-MWV4Ij5XaWxsIHRoYXQ8YnI+DQpjb25maWcgYWxzbyBjb3ZlciB0aGUgTFRTIHZhcmlhbnQ/IEp1
-c3QgY3VyaW91cy48YnI+PC9ibG9ja3F1b3RlPjwvZGl2PjwvZGl2PjxkaXYgZGlyPSJhdXRvIj48
-YnI+PC9kaXY+PGRpdiBkaXI9ImF1dG8iPklkZWFsbHkgaXQgc2hvdWxkIGJ1dCBJIGRvbiYjMzk7
-dCBoYXZlIGFuIExUUyB2YXJpYW50IHRvIHRlc3QgaXQgb3V0LjwvZGl2PjxkaXYgZGlyPSJhdXRv
-Ij48YnI+PC9kaXY+PGRpdiBkaXI9ImF1dG8iPjxkaXYgY2xhc3M9ImdtYWlsX3F1b3RlIj48Ymxv
-Y2txdW90ZSBjbGFzcz0iZ21haWxfcXVvdGUiIHN0eWxlPSJtYXJnaW46MCAwIDAgLjhleDtib3Jk
-ZXItbGVmdDoxcHggI2NjYyBzb2xpZDtwYWRkaW5nLWxlZnQ6MWV4Ij4NCkNvdWxkIHlvdSByZWJh
-c2UgeW91ciBwYXRjaGVzIG92ZXIgbmV4dCAod2lsbCBiZSBtYXN0ZXIgc29vbik/IFRoaXM8YnI+
-DQpzcGVjaWZpY2FsbHkgYWZmZWN0cyB0aGUgaXZzaG1lbSBkZXZpY2VzIGFuZCBtZW1vcnkgcmVn
-aW9ucy4gPC9ibG9ja3F1b3RlPjwvZGl2PjwvZGl2PjxkaXYgZGlyPSJhdXRvIj48YnI+PC9kaXY+
-PGRpdiBkaXI9ImF1dG8iPlN1cmUsIHdpbGwgZG8gdGhhdC4gSSYjMzk7bSBvbiB0cmF2ZWwsIHNv
-LMKgIGhvcGVmdWxseSBieSB0aGlzIHdlZWtlbmQuPC9kaXY+PGRpdiBkaXI9ImF1dG8iPjxicj48
-L2Rpdj48ZGl2IGRpcj0iYXV0byI+PGRpdiBjbGFzcz0iZ21haWxfcXVvdGUiPjxibG9ja3F1b3Rl
-IGNsYXNzPSJnbWFpbF9xdW90ZSIgc3R5bGU9Im1hcmdpbjowIDAgMCAuOGV4O2JvcmRlci1sZWZ0
-OjFweCAjY2NjIHNvbGlkO3BhZGRpbmctbGVmdDoxZXgiPkFuZCBjb3VsZDxicj4NCnlvdSBhbHNv
-IGFkZCBhIGxpbnV4LWRlbW8gY29uZmlnPzxicj48L2Jsb2NrcXVvdGU+PC9kaXY+PC9kaXY+PGRp
-diBkaXI9ImF1dG8iPjxicj48L2Rpdj48ZGl2IGRpcj0iYXV0byI+TGludXggZGVtbyBpcyBpbiB3
-b3Jrcy4gV2lsbCB0cnkgdG8gY29tcGxldGUgYW5kIHNlbmQgdGhhdCBpbiBjb21pbmcgd2Vla3Mu
-PC9kaXY+PGRpdiBkaXI9ImF1dG8iPjxicj48L2Rpdj48ZGl2IGRpcj0iYXV0byI+VGhhbmtzLMKg
-PC9kaXY+PGRpdiBkaXI9ImF1dG8iPlZpamFpIEt1bWFyIEs8L2Rpdj48ZGl2IGRpcj0iYXV0byI+
-PGJyPjwvZGl2PjxkaXYgZGlyPSJhdXRvIj48ZGl2IGNsYXNzPSJnbWFpbF9xdW90ZSI+PGJsb2Nr
-cXVvdGUgY2xhc3M9ImdtYWlsX3F1b3RlIiBzdHlsZT0ibWFyZ2luOjAgMCAwIC44ZXg7Ym9yZGVy
-LWxlZnQ6MXB4ICNjY2Mgc29saWQ7cGFkZGluZy1sZWZ0OjFleCI+DQo8YnI+DQpKYW48YnI+DQo8
-L2Jsb2NrcXVvdGU+PC9kaXY+PC9kaXY+PC9kaXY+DQoNCjxwPjwvcD4KCi0tIDxiciAvPgpZb3Ug
-cmVjZWl2ZWQgdGhpcyBtZXNzYWdlIGJlY2F1c2UgeW91IGFyZSBzdWJzY3JpYmVkIHRvIHRoZSBH
-b29nbGUgR3JvdXBzICZxdW90O0phaWxob3VzZSZxdW90OyBncm91cC48YnIgLz4KVG8gdW5zdWJz
-Y3JpYmUgZnJvbSB0aGlzIGdyb3VwIGFuZCBzdG9wIHJlY2VpdmluZyBlbWFpbHMgZnJvbSBpdCwg
-c2VuZCBhbiBlbWFpbCB0byA8YSBocmVmPSJtYWlsdG86amFpbGhvdXNlLWRldit1bnN1YnNjcmli
-ZUBnb29nbGVncm91cHMuY29tIj5qYWlsaG91c2UtZGV2K3Vuc3Vic2NyaWJlQGdvb2dsZWdyb3Vw
-cy5jb208L2E+LjxiciAvPgpUbyB2aWV3IHRoaXMgZGlzY3Vzc2lvbiBvbiB0aGUgd2ViIHZpc2l0
-IDxhIGhyZWY9Imh0dHBzOi8vZ3JvdXBzLmdvb2dsZS5jb20vZC9tc2dpZC9qYWlsaG91c2UtZGV2
-L0NBTExHR19LelJNJTJCZzMlMkJlSmY3WTZxN19CcHQtUnRGY2lIU1BQciUyQkF0OTZGWGFremdC
-USU0MG1haWwuZ21haWwuY29tP3V0bV9tZWRpdW09ZW1haWwmdXRtX3NvdXJjZT1mb290ZXIiPmh0
-dHBzOi8vZ3JvdXBzLmdvb2dsZS5jb20vZC9tc2dpZC9qYWlsaG91c2UtZGV2L0NBTExHR19LelJN
-JTJCZzMlMkJlSmY3WTZxN19CcHQtUnRGY2lIU1BQciUyQkF0OTZGWGFremdCUSU0MG1haWwuZ21h
-aWwuY29tPC9hPi48YnIgLz4K
---000000000000d5ff76059bffd1ac--
+<div dir=3D"ltr"><div>Hej group,</div><div><br></div><div>I am stuck gettin=
+g the e1000-demo working in qemu based on jailhouse-images/wip/update. Due =
+to a prior glitch, I am still on PREEMPT-RT (./build-image.sh --rt --latest=
+) if that makes a difference.</div><div><br></div><div>Upfront maybe as a &=
+quot;bug-note&quot; <i>if</i> &quot;config/e1000-demo.c&quot; is expected t=
+o demo on the qemu-x86-root-cell, it is not. The configs are out of sync: e=
+1000-demo.c expects the card on address 19, while qemu &amp; the orig-cell =
+config provide it on 2, so unfortunately it does not play out-of-the-box.</=
+div><div><br></div><div>In the long run I want to run a system with two e10=
+00 cards, each tied to a cell, so I wanted to start this on qemu first:</di=
+v><div><br></div><div>I modified the start-qemu.sh to add another e1000 dev=
+ice (&quot;-device e1000e,addr=3D19,netdev=3Dnet2&quot;), ran `jailhouse co=
+nfig collect 2cards.tar` inside and create`d &quot;2cards.c&quot; from it, =
+as well as trying to meld it with the original &quot;qemu-x86.c&quot;. (The=
+re seem to be some &quot;magical&quot; hacks in it for someone who is relat=
+ively new to the matter, about what can be removed and what needs to be add=
+ed.) I also adjusted &quot;linux-x86-demo.c&quot; and &quot;e1000-demo.c&qu=
+ot; for the changed addresses.</div><div><br></div><div>Enabling the 2cards=
+.cell succeeds, however, I noted the root-cell&#39;s kernel-driver for ivsh=
+mem complaining (dmesg-enable.log: &quot;uio_ivshmem: probe of 0000:00:0e.0=
+ failed with error -16&quot; and &quot;ivshmem-net: probe of 0000:00:0f.0 f=
+ailed with error -16&quot; -&gt; EBUSY), so something is skewed. When I `ja=
+ilhouse cell create e1000-demo.cell`, I get (jailhouse-console.log: &quot;F=
+ATAL: Invalid PCI config write, port: cfc, size 2, address port: 8000c8e8&q=
+uot;), the linux-cell throws the same error, just on its device 02 (800010e=
+8), so I guess, I must be doing something fundamentally wrong.</div><div><b=
+r></div><div>I saw few similar discussions on the forum in the archives, th=
+ough without giving me a clue.<br></div><div><br></div><div>cheers for any =
+help,</div><div>Thorsten</div><div><br></div><div>file references:</div><di=
+v>2cards.tar : as collected inside qemu</div><div>dmesg-enable.log : dmesg =
+snippet from jailhouse-enable</div><div>jailhouse-console : console from en=
+able and create cell e1000-demo</div><div>*.c : modified configs<br></div><=
+div><br></div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/764a07bc-d7c3-4b06-a7fd-ed8358dd8037%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/764a07bc-d7c3-4b06-a7fd-ed8358dd8037%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_1344_1337865888.1578907798642--
+
+------=_Part_1343_398004741.1578907798641
+Content-Type: application/x-tar; name=2cards.tar
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=2cards.tar
+X-Attachment-Id: 71ec7245-d02a-4a5c-9e62-269e660a5a3a
+Content-ID: <71ec7245-d02a-4a5c-9e62-269e660a5a3a>
+
+Li8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwMDA3NTUAMDAwMDAw
+MAAwMDAwMDAwADAwMDAwMDAwMDAwADEzNjA2NjYyMDU2ADAwNzcyMwAgNQAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB1c3RhciAgAHJvb3QAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAu
+L3N5cy8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDAwMDc1NQAwMDAwMDAw
+ADAwMDAwMDAAMDAwMDAwMDAwMDAAMTM2MDY2NjIwNTcAMDEwNTQyACA1AAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHVzdGFyICAAcm9vdAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4v
+c3lzL2RldmljZXMvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDAwNzU1ADAwMDAwMDAA
+MDAwMDAwMAAwMDAwMDAwMDAwMAAxMzYwNjY2MjA1NwAwMTIxNjQAIDUAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAdXN0YXIgIAByb290AAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALi9z
+eXMvZGV2aWNlcy9qYWlsaG91c2UvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwMDA3NTUAMDAwMDAwMAAw
+MDAwMDAwADAwMDAwMDAwMDAwADEzNjA2NjYyMDU3ADAxNDE0NwAgNQAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB1c3RhciAgAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuL3N5
+cy9kZXZpY2VzL2phaWxob3VzZS9lbmFibGVkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDAwMDQ0NAAwMDAwMDAwADAw
+MDAwMDAAMDAwMDAwMDAwMDIAMTM2MDY2NjIwNTcAMDE1NDUyACAwAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHVzdGFyICAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAKAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALi9zeXMv
+ZGV2aWNlcy9zeXN0ZW0vAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwMDA3NTUAMDAwMDAwMAAwMDAw
+MDAwADAwMDAwMDAwMDAwADEzNjA2NjYyMDU2ADAxMzUwNwAgNQAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB1c3RhciAgAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuL3N5cy9k
+ZXZpY2VzL3N5c3RlbS9jcHUvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDAwMDc1NQAwMDAwMDAwADAwMDAw
+MDAAMDAwMDAwMDAwMDAAMTM2MDY2NjIwNTYAMDE0Mjc2ACA1AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAHVzdGFyICAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4vc3lzL2Rl
+dmljZXMvc3lzdGVtL2NwdS9jcHUyLwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDAwNzU1ADAwMDAwMDAAMDAwMDAw
+MAAwMDAwMDAwMDAwMAAxMzYwNjY2MjA1NgAwMTUxNDcAIDUAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAdXN0YXIgIAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALi9zeXMvZGV2
+aWNlcy9zeXN0ZW0vY3B1L2NwdTIvdWV2ZW50AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwMDA2NDQAMDAwMDAwMAAwMDAwMDAw
+ADAwMDAwMDAxMDczADEzNjA2NjYxNTczADAxNjQwNAAgMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAB1c3RhciAgAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEUklWRVI9cHJv
+Y2Vzc29yCk1PREFMSUFTPWNwdTp0eXBlOng4Nix2ZW4wMDAwZmFtMDAwNm1vZDAwOEU6ZmVhdHVy
+ZTosMDAwMCwwMDAxLDAwMDIsMDAwMywwMDA0LDAwMDUsMDAwNiwwMDA3LDAwMDgsMDAwOSwwMDBC
+LDAwMEMsMDAwRCwwMDBFLDAwMEYsMDAxMCwwMDExLDAwMTMsMDAxNywwMDE4LDAwMTksMDAxQSww
+MDFCLDAwMkIsMDAzNCwwMDNBLDAwM0IsMDAzRCwwMDY4LDAwNkIsMDA2RiwwMDcwLDAwNzIsMDA3
+NCwwMDc1LDAwNzYsMDA3OSwwMDgwLDAwODEsMDA4NSwwMDg5LDAwOEMsMDA4RCwwMDkxLDAwOTMs
+MDA5NCwwMDk1LDAwOTYsMDA5NywwMDk4LDAwOTksMDA5QSwwMDlCLDAwOUMsMDA5RCwwMDlFLDAw
+OUYsMDBDMCwwMEM1LDAwQzgsMDBFMSwwMEU3LDAwRjAsMDBGMSwwMEYzLDAwRjUsMDBGOSwwMEZB
+LDAwRkIsMDBGRSwwMTAwLDAxMDEsMDEwMiwwMTAzLDAxMDQsMDExMSwwMTIwLDAxMjEsMDEyMyww
+MTI1LDAxMjcsMDEyOCwwMTI5LDAxMkEsMDEyRSwwMTMyLDAxMzMsMDEzNCwwMTM3LDAxNDAsMDE0
+MSwwMTQyLDAxNDMsMDFDMiwwMjAyLDAyNEEsMDI1QSwwMjVCLDAyNUQsMDI1RgoKAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALi9zeXMvZGV2aWNl
+cy9zeXN0ZW0vY3B1L2NwdTEvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwMDA3NTUAMDAwMDAwMAAwMDAwMDAwADAw
+MDAwMDAwMDAwADEzNjA2NjYyMDU2ADAxNTE0NgAgNQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAB1c3RhciAgAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+cm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuL3N5cy9kZXZpY2Vz
+L3N5c3RlbS9jcHUvY3B1MS91ZXZlbnQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDAwMDY0NAAwMDAwMDAwADAwMDAwMDAAMDAw
+MDAwMDEwNzMAMTM2MDY2NjE1NzMAMDE2NDAzACAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAHVzdGFyICAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABy
+b290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAERSSVZFUj1wcm9jZXNz
+b3IKTU9EQUxJQVM9Y3B1OnR5cGU6eDg2LHZlbjAwMDBmYW0wMDA2bW9kMDA4RTpmZWF0dXJlOiww
+MDAwLDAwMDEsMDAwMiwwMDAzLDAwMDQsMDAwNSwwMDA2LDAwMDcsMDAwOCwwMDA5LDAwMEIsMDAw
+QywwMDBELDAwMEUsMDAwRiwwMDEwLDAwMTEsMDAxMywwMDE3LDAwMTgsMDAxOSwwMDFBLDAwMUIs
+MDAyQiwwMDM0LDAwM0EsMDAzQiwwMDNELDAwNjgsMDA2QiwwMDZGLDAwNzAsMDA3MiwwMDc0LDAw
+NzUsMDA3NiwwMDc5LDAwODAsMDA4MSwwMDg1LDAwODksMDA4QywwMDhELDAwOTEsMDA5MywwMDk0
+LDAwOTUsMDA5NiwwMDk3LDAwOTgsMDA5OSwwMDlBLDAwOUIsMDA5QywwMDlELDAwOUUsMDA5Riww
+MEMwLDAwQzUsMDBDOCwwMEUxLDAwRTcsMDBGMCwwMEYxLDAwRjMsMDBGNSwwMEY5LDAwRkEsMDBG
+QiwwMEZFLDAxMDAsMDEwMSwwMTAyLDAxMDMsMDEwNCwwMTExLDAxMjAsMDEyMSwwMTIzLDAxMjUs
+MDEyNywwMTI4LDAxMjksMDEyQSwwMTJFLDAxMzIsMDEzMywwMTM0LDAxMzcsMDE0MCwwMTQxLDAx
+NDIsMDE0MywwMUMyLDAyMDIsMDI0QSwwMjVBLDAyNUIsMDI1RCwwMjVGCgoAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuL3N5cy9kZXZpY2VzL3N5
+c3RlbS9jcHUvY3B1MC8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDAwMDc1NQAwMDAwMDAwADAwMDAwMDAAMDAwMDAw
+MDAwMDAAMTM2MDY2NjIwNTYAMDE1MTQ1ACA1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAHVzdGFyICAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAByb290
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4vc3lzL2RldmljZXMvc3lz
+dGVtL2NwdS9jcHUwL3VldmVudAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDAwNjQ0ADAwMDAwMDAAMDAwMDAwMAAwMDAwMDAw
+MTA3MwAxMzYwNjY2MTU3MwAwMTY0MDIAIDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAdXN0YXIgIAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHJvb3QA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARFJJVkVSPXByb2Nlc3NvcgpN
+T0RBTElBUz1jcHU6dHlwZTp4ODYsdmVuMDAwMGZhbTAwMDZtb2QwMDhFOmZlYXR1cmU6LDAwMDAs
+MDAwMSwwMDAyLDAwMDMsMDAwNCwwMDA1LDAwMDYsMDAwNywwMDA4LDAwMDksMDAwQiwwMDBDLDAw
+MEQsMDAwRSwwMDBGLDAwMTAsMDAxMSwwMDEzLDAwMTcsMDAxOCwwMDE5LDAwMUEsMDAxQiwwMDJC
+LDAwMzQsMDAzQSwwMDNCLDAwM0QsMDA2OCwwMDZCLDAwNkYsMDA3MCwwMDcyLDAwNzQsMDA3NSww
+MDc2LDAwNzksMDA4MCwwMDgxLDAwODUsMDA4OSwwMDhDLDAwOEQsMDA5MSwwMDkzLDAwOTQsMDA5
+NSwwMDk2LDAwOTcsMDA5OCwwMDk5LDAwOUEsMDA5QiwwMDlDLDAwOUQsMDA5RSwwMDlGLDAwQzAs
+MDBDNSwwMEM4LDAwRTEsMDBFNywwMEYwLDAwRjEsMDBGMywwMEY1LDAwRjksMDBGQSwwMEZCLDAw
+RkUsMDEwMCwwMTAxLDAxMDIsMDEwMywwMTA0LDAxMTEsMDEyMCwwMTIxLDAxMjMsMDEyNSwwMTI3
+LDAxMjgsMDEyOSwwMTJBLDAxMkUsMDEzMiwwMTMzLDAxMzQsMDEzNywwMTQwLDAxNDEsMDE0Miww
+MTQzLDAxQzIsMDIwMiwwMjRBLDAyNUEsMDI1QiwwMjVELDAyNUYKCgAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4vc3lzL2RldmljZXMvc3lzdGVt
+L2NwdS9jcHUzLwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDAwNzU1ADAwMDAwMDAAMDAwMDAwMAAwMDAwMDAwMDAw
+MAAxMzYwNjY2MjA1NgAwMTUxNTAAIDUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAdXN0YXIgIAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHJvb3QAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALi9zeXMvZGV2aWNlcy9zeXN0ZW0v
+Y3B1L2NwdTMvdWV2ZW50AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwMDA2NDQAMDAwMDAwMAAwMDAwMDAwADAwMDAwMDAxMDcz
+ADEzNjA2NjYxNTczADAxNjQwNQAgMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAB1c3RhciAgAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcm9vdAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEUklWRVI9cHJvY2Vzc29yCk1PREFM
+SUFTPWNwdTp0eXBlOng4Nix2ZW4wMDAwZmFtMDAwNm1vZDAwOEU6ZmVhdHVyZTosMDAwMCwwMDAx
+LDAwMDIsMDAwMywwMDA0LDAwMDUsMDAwNiwwMDA3LDAwMDgsMDAwOSwwMDBCLDAwMEMsMDAwRCww
+MDBFLDAwMEYsMDAxMCwwMDExLDAwMTMsMDAxNywwMDE4LDAwMTksMDAxQSwwMDFCLDAwMkIsMDAz
+NCwwMDNBLDAwM0IsMDAzRCwwMDY4LDAwNkIsMDA2RiwwMDcwLDAwNzIsMDA3NCwwMDc1LDAwNzYs
+MDA3OSwwMDgwLDAwODEsMDA4NSwwMDg5LDAwOEMsMDA4RCwwMDkxLDAwOTMsMDA5NCwwMDk1LDAw
+OTYsMDA5NywwMDk4LDAwOTksMDA5QSwwMDlCLDAwOUMsMDA5RCwwMDlFLDAwOUYsMDBDMCwwMEM1
+LDAwQzgsMDBFMSwwMEU3LDAwRjAsMDBGMSwwMEYzLDAwRjUsMDBGOSwwMEZBLDAwRkIsMDBGRSww
+MTAwLDAxMDEsMDEwMiwwMTAzLDAxMDQsMDExMSwwMTIwLDAxMjEsMDEyMywwMTI1LDAxMjcsMDEy
+OCwwMTI5LDAxMkEsMDEyRSwwMTMyLDAxMzMsMDEzNCwwMTM3LDAxNDAsMDE0MSwwMTQyLDAxNDMs
+MDFDMiwwMjAyLDAyNEEsMDI1QSwwMjVCLDAyNUQsMDI1RgoKAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALi9zeXMvZmlybXdhcmUvAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAADAwMDA3NTUAMDAwMDAwMAAwMDAwMDAwADAwMDAwMDAwMDAwADEz
+NjA2NjYyMDU2ADAxMjM1NQAgNQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAB1c3RhciAgAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcm9vdAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuL3N5cy9maXJtd2FyZS9hY3BpLwAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAMDAwMDc1NQAwMDAwMDAwADAwMDAwMDAAMDAwMDAwMDAwMDAAMTM2
+MDY2NjIwNTYAMDEzMjcxACA1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAHVzdGFyICAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAByb290AAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4vc3lzL2Zpcm13YXJlL2FjcGkvdGFibGVz
+LwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAwMDAwNzU1ADAwMDAwMDAAMDAwMDAwMAAwMDAwMDAwMDAwMAAxMzYw
+NjY2MjA1NwAwMTQ1NDQAIDUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAdXN0YXIgIAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHJvb3QAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALi9zeXMvZmlybXdhcmUvYWNwaS90YWJsZXMv
+QVBJQwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAADAwMDA0MDAAMDAwMDAwMAAwMDAwMDAwADAwMDAwMDAwMjIwADEzNjA2
+NjYyMDU2ADAxNTE2MgAgMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAB1c3RhciAgAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcm9vdAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBUElDkAAAAAGuQk9DSFMgQlhQQ0FQSUMBAAAA
+QlhQQwEAAAAAAOD+AQAAAAAIAAABAAAAAAgBAQEAAAAACAICAQAAAAAIAwMBAAAAAQwAAAAAwP4A
+AAAAAgoAAAIAAAAAAAIKAAUFAAAADQACCgAJCQAAAA0AAgoACgoAAAANAAIKAAsLAAAADQAEBv8A
+AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4vc3lzL2Zpcm13YXJlL2FjcGkvdGFibGVzL01D
+RkcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAwMDAwNDAwADAwMDAwMDAAMDAwMDAwMAAwMDAwMDAwMDA3NAAxMzYwNjY2
+MjA1NgAwMTUxNzEAIDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+dXN0YXIgIAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHJvb3QAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATUNGRzwAAAAB70JPQ0hTIEJYUENNQ0ZHAQAAAEJY
+UEMBAAAAAAAAAAAAAAAAAACwAAAAAAAAAP8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuL3N5cy9maXJtd2FyZS9hY3BpL3RhYmxlcy9ETUFS
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAMDAwMDQwMAAwMDAwMDAwADAwMDAwMDAAMDAwMDAwMDAxMTAAMTM2MDY2NjIw
+NTcAMDE1MTcwACAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHVz
+dGFyICAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAByb290AAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAERNQVJIAAAAAWNCT0NIUyBCWFBDRE1BUgEAAABCWFBD
+AQAAACYBAAAAAAAAAAAAAAAAGAABAAAAAADZ/gAAAAADCAAAAP8AAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALi9zeXMvY2xhc3MvAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAADAwMDA3NTUAMDAwMDAwMAAwMDAwMDAwADAwMDAwMDAwMDAwADEzNjA2NjYyMDU3
+ADAxMTY0NwAgNQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB1c3Rh
+ciAgAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcm9vdAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuL3N5cy9jbGFzcy9kbWkvAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAMDAwMDc1NQAwMDAwMDAwADAwMDAwMDAAMDAwMDAwMDAwMDAAMTM2MDY2NjIwNTcA
+MDEyNDIwACA1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHVzdGFy
+ICAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAByb290AAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4vc3lzL2NsYXNzL2RtaS9pZC8AAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAwMDAwNzU1ADAwMDAwMDAAMDAwMDAwMAAwMDAwMDAwMDAwMAAxMzYwNjY2MjA1NwAw
+MTMwMTQAIDUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAdXN0YXIg
+IAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAALi9zeXMvY2xhc3MvZG1pL2lkL3N5c192ZW5kb3IAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAADAwMDA0NDQAMDAwMDAwMAAwMDAwMDAwADAwMDAwMDAwMDA1ADEzNjA2NjYyMDU3ADAx
+NTEyMwAgMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB1c3RhciAg
+AHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAABRRU1VCgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAC4vc3lzL2NsYXNzL2RtaS9pZC9wcm9kdWN0X25hbWUAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAwMDAwNDQ0ADAwMDAwMDAAMDAwMDAwMAAwMDAwMDAwMDAzNwAxMzYwNjY2MjA1NwAwMTU0
+MTUAIDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAdXN0YXIgIABy
+b290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAU3RhbmRhcmQgUEMgKFEzNSArIElDSDksIDIwMDkpCgAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAuL3N5cy9jbGFzcy90dHkvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAMDAwMDc1NQAwMDAwMDAwADAwMDAwMDAAMDAwMDAwMDAwMDAAMTM2MDY2NjIwNTcAMDEyNDY3
+ACA1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHVzdGFyICAAcm9v
+dAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAC4vc3lzL2NsYXNzL3R0eS90dHlTMS8AAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAwMDAwNzU1ADAwMDAwMDAAMDAwMDAwMAAwMDAwMDAwMDAwMAAxMzYwNjY2MjA1NwAwMTM1MTMA
+IDUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAdXN0YXIgIAByb290
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAALi9zeXMvY2xhc3MvdHR5L3R0eVMxL2lvX3R5cGUAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ADAwMDA0NDAAMDAwMDAwMAAwMDAwMDAwADAwMDAwMDAwMDAyADEzNjA2NjYyMDU3ADAxNTA3MAAg
+MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB1c3RhciAgAHJvb3QA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAwCgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAC4vc3lzL2NsYXNzL3R0eS90dHlTMS9wb3J0AAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAw
+MDAwNDQwADAwMDAwMDAAMDAwMDAwMAAwMDAwMDAwMDAwNgAxMzYwNjY2MjA1NwAwMTQ0MTAAIDAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAdXN0YXIgIAByb290AAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAMHgyRjgKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAuL3N5cy9jbGFzcy90dHkvdHR5UzEvaW9tZW1fcmVnX3NoaWZ0AAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDAw
+MDQ0MAAwMDAwMDAwADAwMDAwMDAAMDAwMDAwMDAwMDIAMTM2MDY2NjIwNTcAMDE2NTYwACAwAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHVzdGFyICAAcm9vdAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAADAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAALi9zeXMvY2xhc3MvdHR5L3R0eVMxL2lvbWVtX2Jhc2UAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwMDA0
+NDAAMDAwMDAwMAAwMDAwMDAwADAwMDAwMDAwMDA0ADEzNjA2NjYyMDU3ADAxNTUyMgAgMAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB1c3RhciAgAHJvb3QAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAweDAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAC4vc3lzL2NsYXNzL3R0eS90dHlTMi8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDAwNzU1
+ADAwMDAwMDAAMDAwMDAwMAAwMDAwMDAwMDAwMAAxMzYwNjY2MjA1NwAwMTM1MTQAIDUAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAdXN0YXIgIAByb290AAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAALi9zeXMvY2xhc3MvdHR5L3R0eVMyL2lvX3R5cGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwMDA0NDAA
+MDAwMDAwMAAwMDAwMDAwADAwMDAwMDAwMDAyADEzNjA2NjYyMDU3ADAxNTA3MQAgMAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB1c3RhciAgAHJvb3QAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAwCgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAC4vc3lzL2NsYXNzL3R0eS90dHlTMi9wb3J0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDAwNDQwADAw
+MDAwMDAAMDAwMDAwMAAwMDAwMDAwMDAwNgAxMzYwNjY2MjA1NwAwMTQ0MTEAIDAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAdXN0YXIgIAByb290AAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAMHgzRTgKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAuL3N5cy9jbGFzcy90dHkvdHR5UzIvaW9tZW1fcmVnX3NoaWZ0AAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDAwMDQ0MAAwMDAw
+MDAwADAwMDAwMDAAMDAwMDAwMDAwMDIAMTM2MDY2NjIwNTcAMDE2NTYxACAwAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHVzdGFyICAAcm9vdAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ADAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Li9zeXMvY2xhc3MvdHR5L3R0eVMyL2lvbWVtX2Jhc2UAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwMDA0NDAAMDAwMDAw
+MAAwMDAwMDAwADAwMDAwMDAwMDA0ADEzNjA2NjYyMDU3ADAxNTUyMwAgMAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB1c3RhciAgAHJvb3QAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAw
+eDAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4v
+c3lzL2NsYXNzL3R0eS90dHlTMy8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDAwNzU1ADAwMDAwMDAA
+MDAwMDAwMAAwMDAwMDAwMDAwMAAxMzYwNjY2MjA1NwAwMTM1MTUAIDUAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAdXN0YXIgIAByb290AAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALi9z
+eXMvY2xhc3MvdHR5L3R0eVMzL2lvX3R5cGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwMDA0NDAAMDAwMDAwMAAw
+MDAwMDAwADAwMDAwMDAwMDAyADEzNjA2NjYyMDU3ADAxNTA3MgAgMAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB1c3RhciAgAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwCgAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4vc3lz
+L2NsYXNzL3R0eS90dHlTMy9wb3J0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDAwNDQwADAwMDAwMDAAMDAw
+MDAwMAAwMDAwMDAwMDAwNgAxMzYwNjY2MjA1NwAwMTQ0MTIAIDAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAdXN0YXIgIAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMHgyRTgK
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuL3N5cy9j
+bGFzcy90dHkvdHR5UzMvaW9tZW1fcmVnX3NoaWZ0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDAwMDQ0MAAwMDAwMDAwADAwMDAw
+MDAAMDAwMDAwMDAwMDIAMTM2MDY2NjIwNTcAMDE2NTYyACAwAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAHVzdGFyICAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAKAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALi9zeXMvY2xh
+c3MvdHR5L3R0eVMzL2lvbWVtX2Jhc2UAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwMDA0NDAAMDAwMDAwMAAwMDAwMDAw
+ADAwMDAwMDAwMDA0ADEzNjA2NjYyMDU3ADAxNTUyNAAgMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAB1c3RhciAgAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAweDAKAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4vc3lzL2NsYXNz
+L3R0eS90dHlTMC8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDAwNzU1ADAwMDAwMDAAMDAwMDAwMAAw
+MDAwMDAwMDAwMAAxMzYwNjY2MjA1NwAwMTM1MTIAIDUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAdXN0YXIgIAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALi9zeXMvY2xhc3Mv
+dHR5L3R0eVMwL2lvX3R5cGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwMDA0NDAAMDAwMDAwMAAwMDAwMDAwADAw
+MDAwMDAwMDAyADEzNjA2NjYyMDU3ADAxNTA2NwAgMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAB1c3RhciAgAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+cm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwCgAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4vc3lzL2NsYXNzL3R0
+eS90dHlTMC9wb3J0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDAwNDQwADAwMDAwMDAAMDAwMDAwMAAwMDAw
+MDAwMDAwNgAxMzYwNjY2MjA1NwAwMTQ0MDcAIDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAdXN0YXIgIAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHJv
+b3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMHgzRjgKAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuL3N5cy9jbGFzcy90dHkv
+dHR5UzAvaW9tZW1fcmVnX3NoaWZ0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDAwMDQ0MAAwMDAwMDAwADAwMDAwMDAAMDAwMDAw
+MDAwMDIAMTM2MDY2NjIwNTcAMDE2NTU3ACAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAHVzdGFyICAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAByb290
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAKAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALi9zeXMvY2xhc3MvdHR5L3R0
+eVMwL2lvbWVtX2Jhc2UAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwMDA0NDAAMDAwMDAwMAAwMDAwMDAwADAwMDAwMDAw
+MDA0ADEzNjA2NjYyMDU3ADAxNTUyMQAgMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAB1c3RhciAgAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcm9vdAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAweDAKAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4vc3lzL2J1cy8AAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDAwNzU1ADAwMDAwMDAAMDAwMDAwMAAwMDAwMDAwMDAw
+MAAxMzYwNjY2MjA1NgAwMTEzMzIAIDUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAdXN0YXIgIAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHJvb3QAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALi9zeXMvYnVzL3BjaS8AAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwMDA3NTUAMDAwMDAwMAAwMDAwMDAwADAwMDAwMDAwMDAw
+ADEzNjA2NjYyMDU2ADAxMjEwNQAgNQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAB1c3RhciAgAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcm9vdAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuL3N5cy9idXMvcGNpL2RldmljZXMv
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAMDAwMDc1NQAwMDAwMDAwADAwMDAwMDAAMDAwMDAwMDAwMDAA
+MTM2MDY2NjIwNTYAMDEzNTI3ACA1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAHVzdGFyICAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAByb290AAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4vc3lzL2J1cy9wY2kvZGV2aWNlcy8w
+MDAwOjAwOjFmLjMvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAwMDAwNzU1ADAwMDAwMDAAMDAwMDAwMAAwMDAwMDAwMDAwMAAx
+MzYwNjY2MjA1NgAwMTUwMjIAIDUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAdXN0YXIgIAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHJvb3QAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALi9zeXMvYnVzL3BjaS9kZXZpY2VzLzAw
+MDA6MDA6MWYuMy9jb25maWcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAADAwMDA2NDQAMDAwMDAwMAAwMDAwMDAwADAwMDAwMDAwNDAwADEz
+NjA2NjYxNjA0ADAxNjIwMgAgMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAB1c3RhciAgAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcm9vdAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACGgDApAwEAAAIABQwAAIAAAAAAAAAAAAAA
+AAAAAAAAAAEHAAAAAAAAAAAAAPQaABEAAAAAAAAAAAAAAAAKAQAAAQAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4vc3lzL2J1cy9wY2kvZGV2aWNlcy8wMDAw
+OjAwOjFmLjMvcmVzb3VyY2UAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAwMDAwNDQ0ADAwMDAwMDAAMDAwMDAwMAAwMDAwMDAwMDYxNwAxMzYw
+NjY2MTYwNAAwMTY1NzQAIDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAdXN0YXIgIAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHJvb3QAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAw
+MDAwMDAwMDAwMCAweDAwMDAwMDAwMDAwMDAwMDAKMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAw
+MDAwMDAwMDAwMCAweDAwMDAwMDAwMDAwMDAwMDAKMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAw
+MDAwMDAwMDAwMCAweDAwMDAwMDAwMDAwMDAwMDAKMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAw
+MDAwMDAwMDAwMCAweDAwMDAwMDAwMDAwMDAwMDAKMHgwMDAwMDAwMDAwMDAwNzAwIDB4MDAwMDAw
+MDAwMDAwMDczZiAweDAwMDAwMDAwMDAwNDAxMDEKMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAw
+MDAwMDAwMDAwMCAweDAwMDAwMDAwMDAwMDAwMDAKMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAw
+MDAwMDAwMDAwMCAweDAwMDAwMDAwMDAwMDAwMDAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuL3N5cy9idXMvcGNpL2RldmljZXMvMDAwMDow
+MDowMi4wLwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAMDAwMDc1NQAwMDAwMDAwADAwMDAwMDAAMDAwMDAwMDAwMDAAMTM2MDY2
+NjIwNTYAMDE0NzMyACA1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AHVzdGFyICAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAByb290AAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4vc3lzL2J1cy9wY2kvZGV2aWNlcy8wMDAwOjAw
+OjAyLjAvY29uZmlnAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAwMDAwNjQ0ADAwMDAwMDAAMDAwMDAwMAAwMDAwMDAxMDAwMAAxMzYwNjY2
+MTU3NAAwMTYxMTUAIDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+dXN0YXIgIAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHJvb3QAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhoDTEAcBEAAAAAACAAAAAAAAtP4AALb+QcAAAAAA
+vf4AAAAAAAAAAAAAAACGgAAAAACs/sgAAAAAAAAACwEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAABEABAADAAAAAyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB
+0CIAAAAAAAXggAAAAAAAAAAAAAAAAAAQoJEAAIAAAAAAAAARBAAAAAARIAAAAAAAAAAAAAAAAAEA
+AhQAAAAAAAAAADAgRgAAAAAAAOAAAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAADAAEAVjQS//8AVFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAC4vc3lzL2J1cy9wY2kvZGV2aWNlcy8wMDAwOjAwOjAyLjAvcmVz
+b3VyY2UAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAwMDAwNDQ0ADAwMDAwMDAAMDAwMDAwMAAwMDAwMDAwMDYxNwAxMzYwNjY2MTYwNAAwMTY1
+MDQAIDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAdXN0YXIgIABy
+b290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAMHgwMDAwMDAwMGZlYjQwMDAwIDB4MDAwMDAwMDBmZWI1ZmZmZiAw
+eDAwMDAwMDAwMDAwNDAyMDAKMHgwMDAwMDAwMGZlYjYwMDAwIDB4MDAwMDAwMDBmZWI3ZmZmZiAw
+eDAwMDAwMDAwMDAwNDAyMDAKMHgwMDAwMDAwMDAwMDBjMDQwIDB4MDAwMDAwMDAwMDAwYzA1ZiAw
+eDAwMDAwMDAwMDAwNDAxMDEKMHgwMDAwMDAwMGZlYmQwMDAwIDB4MDAwMDAwMDBmZWJkM2ZmZiAw
+eDAwMDAwMDAwMDAwNDAyMDAKMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAwMDAwMDAwMDAwMCAw
+eDAwMDAwMDAwMDAwMDAwMDAKMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAwMDAwMDAwMDAwMCAw
+eDAwMDAwMDAwMDAwMDAwMDAKMHgwMDAwMDAwMGZlYWMwMDAwIDB4MDAwMDAwMDBmZWFmZmZmZiAw
+eDAwMDAwMDAwMDAwNDYyMDAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAuL3N5cy9idXMvcGNpL2RldmljZXMvMDAwMDowMDoxZi4yLwAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAMDAwMDc1NQAwMDAwMDAwADAwMDAwMDAAMDAwMDAwMDAwMDAAMTM2MDY2NjIwNTYAMDE1MDIx
+ACA1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHVzdGFyICAAcm9v
+dAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAC4vc3lzL2J1cy9wY2kvZGV2aWNlcy8wMDAwOjAwOjFmLjIvY29uZmln
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAwMDAwNjQ0ADAwMDAwMDAAMDAwMDAwMAAwMDAwMDAwMDQwMAAxMzYwNjY2MTYwNAAwMTYyMDEA
+IDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAdXN0YXIgIAByb290
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAhoAiKQcFEAACAQYBAACAAAAAAAAAAAAAAAAAAAAAAACBwAAAANC9/gAA
+AAD0GgARAAAAAIAAAAAAAAAACgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFqIEAGALg/gAAAAAAAAAAQAA/AAAAAAAAAAAA
+AAAAAAAAAAAAAAAAEgAQAEgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAuL3N5cy9idXMvcGNpL2RldmljZXMvMDAwMDowMDoxZi4yL3Jlc291cmNl
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+MDAwMDQ0NAAwMDAwMDAwADAwMDAwMDAAMDAwMDAwMDA2MTcAMTM2MDY2NjE2MDQAMDE2NTczACAw
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHVzdGFyICAAcm9vdAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAADB4MDAwMDAwMDAwMDAwMDAwMCAweDAwMDAwMDAwMDAwMDAwMDAgMHgwMDAw
+MDAwMDAwMDAwMDAwCjB4MDAwMDAwMDAwMDAwMDAwMCAweDAwMDAwMDAwMDAwMDAwMDAgMHgwMDAw
+MDAwMDAwMDAwMDAwCjB4MDAwMDAwMDAwMDAwMDAwMCAweDAwMDAwMDAwMDAwMDAwMDAgMHgwMDAw
+MDAwMDAwMDAwMDAwCjB4MDAwMDAwMDAwMDAwMDAwMCAweDAwMDAwMDAwMDAwMDAwMDAgMHgwMDAw
+MDAwMDAwMDAwMDAwCjB4MDAwMDAwMDAwMDAwYzA4MCAweDAwMDAwMDAwMDAwMGMwOWYgMHgwMDAw
+MDAwMDAwMDQwMTAxCjB4MDAwMDAwMDBmZWJkZDAwMCAweDAwMDAwMDAwZmViZGRmZmYgMHgwMDAw
+MDAwMDAwMDQwMjAwCjB4MDAwMDAwMDAwMDAwMDAwMCAweDAwMDAwMDAwMDAwMDAwMDAgMHgwMDAw
+MDAwMDAwMDAwMDAwCgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAALi9zeXMvYnVzL3BjaS9kZXZpY2VzLzAwMDA6MDA6MDAuMC8AAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAw
+MDA3NTUAMDAwMDAwMAAwMDAwMDAwADAwMDAwMDAwMDAwADEzNjA2NjYyMDU2ADAxNDczMAAgNQAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB1c3RhciAgAHJvb3QAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAuL3N5cy9idXMvcGNpL2RldmljZXMvMDAwMDowMDowMC4wL2NvbmZpZwAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDAw
+MDY0NAAwMDAwMDAwADAwMDAwMDAAMDAwMDAwMDA0MDAAMTM2MDY2NjE2MDQAMDE2MTEwACAwAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHVzdGFyICAAcm9vdAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAIaAwCkDAQAAAAAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA9BoA
+EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAEAALAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABARERERETMAAAAAAAAKOAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAALi9zeXMvYnVzL3BjaS9kZXZpY2VzLzAwMDA6MDA6MDAuMC9yZXNvdXJjZQAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwMDA0
+NDQAMDAwMDAwMAAwMDAwMDAwADAwMDAwMDAwNjE3ADEzNjA2NjYxNjA0ADAxNjUwMgAgMAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB1c3RhciAgAHJvb3QAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAweDAwMDAwMDAwMDAwMDAwMDAgMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAwMDAw
+MDAwMDAwMAoweDAwMDAwMDAwMDAwMDAwMDAgMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAwMDAw
+MDAwMDAwMAoweDAwMDAwMDAwMDAwMDAwMDAgMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAwMDAw
+MDAwMDAwMAoweDAwMDAwMDAwMDAwMDAwMDAgMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAwMDAw
+MDAwMDAwMAoweDAwMDAwMDAwMDAwMDAwMDAgMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAwMDAw
+MDAwMDAwMAoweDAwMDAwMDAwMDAwMDAwMDAgMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAwMDAw
+MDAwMDAwMAoweDAwMDAwMDAwMDAwMDAwMDAgMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAwMDAw
+MDAwMDAwMAoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAC4vc3lzL2J1cy9wY2kvZGV2aWNlcy8wMDAwOjAwOjAxLjAvAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDAwNzU1
+ADAwMDAwMDAAMDAwMDAwMAAwMDAwMDAwMDAwMAAxMzYwNjY2MjA1NgAwMTQ3MzEAIDUAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAdXN0YXIgIAByb290AAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAALi9zeXMvYnVzL3BjaS9kZXZpY2VzLzAwMDA6MDA6MDEuMC9jb25maWcAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwMDA2NDQA
+MDAwMDAwMAAwMDAwMDAwADAwMDAwMDAwNDAwADEzNjA2NjYxNjA0ADAxNjExMQAgMAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB1c3RhciAgAHJvb3QAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAA0EhERAwEAAAIAAAMAAAAACAAA/QAAAAAAwL3+AAAAAAAAAAAAAAAAAAAAAPQaABEAALz+
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAC4vc3lzL2J1cy9wY2kvZGV2aWNlcy8wMDAwOjAwOjAxLjAvcmVzb3VyY2UAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDAwNDQ0ADAw
+MDAwMDAAMDAwMDAwMAAwMDAwMDAwMDYxNwAxMzYwNjY2MTYwNAAwMTY1MDMAIDAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAdXN0YXIgIAByb290AAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAMHgwMDAwMDAwMGZkMDAwMDAwIDB4MDAwMDAwMDBmZGZmZmZmZiAweDAwMDAwMDAwMDAwNDIy
+MDgKMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAwMDAwMDAwMDAwMCAweDAwMDAwMDAwMDAwMDAw
+MDAKMHgwMDAwMDAwMGZlYmRjMDAwIDB4MDAwMDAwMDBmZWJkY2ZmZiAweDAwMDAwMDAwMDAwNDAy
+MDAKMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAwMDAwMDAwMDAwMCAweDAwMDAwMDAwMDAwMDAw
+MDAKMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAwMDAwMDAwMDAwMCAweDAwMDAwMDAwMDAwMDAw
+MDAKMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAwMDAwMDAwMDAwMCAweDAwMDAwMDAwMDAwMDAw
+MDAKMHgwMDAwMDAwMDAwMGMwMDAwIDB4MDAwMDAwMDAwMDBkZmZmZiAweDAwMDAwMDAwMDAwMDAy
+MTIKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAuL3N5cy9idXMvcGNpL2RldmljZXMvMDAwMDowMDoxZi4wLwAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDAwMDc1NQAwMDAw
+MDAwADAwMDAwMDAAMDAwMDAwMDAwMDAAMTM2MDY2NjIwNTYAMDE1MDE3ACA1AAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHVzdGFyICAAcm9vdAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AC4vc3lzL2J1cy9wY2kvZGV2aWNlcy8wMDAwOjAwOjFmLjAvY29uZmlnAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDAwNjQ0ADAwMDAw
+MDAAMDAwMDAwMAAwMDAwMDAwMDQwMAAxMzYwNjY2MTYwNAAwMTYxNzcAIDAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAdXN0YXIgIAByb290AAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+hoAYKQMBAAACAAEGAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD0GgARAAAAAAAAAAAA
+AAAAAAAAAAEGAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAioqLiwAAAACKiouLAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAcDR/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAu
+L3N5cy9idXMvcGNpL2RldmljZXMvMDAwMDowMDoxZi4wL3Jlc291cmNlAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDAwMDQ0NAAwMDAwMDAw
+ADAwMDAwMDAAMDAwMDAwMDA2MTcAMTM2MDY2NjE2MDQAMDE2NTcxACAwAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHVzdGFyICAAcm9vdAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADB4
+MDAwMDAwMDAwMDAwMDAwMCAweDAwMDAwMDAwMDAwMDAwMDAgMHgwMDAwMDAwMDAwMDAwMDAwCjB4
+MDAwMDAwMDAwMDAwMDAwMCAweDAwMDAwMDAwMDAwMDAwMDAgMHgwMDAwMDAwMDAwMDAwMDAwCjB4
+MDAwMDAwMDAwMDAwMDAwMCAweDAwMDAwMDAwMDAwMDAwMDAgMHgwMDAwMDAwMDAwMDAwMDAwCjB4
+MDAwMDAwMDAwMDAwMDAwMCAweDAwMDAwMDAwMDAwMDAwMDAgMHgwMDAwMDAwMDAwMDAwMDAwCjB4
+MDAwMDAwMDAwMDAwMDAwMCAweDAwMDAwMDAwMDAwMDAwMDAgMHgwMDAwMDAwMDAwMDAwMDAwCjB4
+MDAwMDAwMDAwMDAwMDAwMCAweDAwMDAwMDAwMDAwMDAwMDAgMHgwMDAwMDAwMDAwMDAwMDAwCjB4
+MDAwMDAwMDAwMDAwMDAwMCAweDAwMDAwMDAwMDAwMDAwMDAgMHgwMDAwMDAwMDAwMDAwMDAwCgAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALi9z
+eXMvYnVzL3BjaS9kZXZpY2VzLzAwMDA6MDA6MWIuMC8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwMDA3NTUAMDAwMDAwMAAw
+MDAwMDAwADAwMDAwMDAwMDAwADEzNjA2NjYyMDU2ADAxNTAxMwAgNQAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB1c3RhciAgAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuL3N5
+cy9idXMvcGNpL2RldmljZXMvMDAwMDowMDoxYi4wL2NvbmZpZwAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDAwMDY0NAAwMDAwMDAwADAw
+MDAwMDAAMDAwMDAwMDA0MDAAMTM2MDY2NjE2MDQAMDE2MTczACAwAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHVzdGFyICAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIaAaCYH
+BRAAAQADBAAAAAAAgL3+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA9BoAEQAAAABgAAAAAAAAAAoB
+AAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUAgQC4AuD+AAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALi9zeXMv
+YnVzL3BjaS9kZXZpY2VzLzAwMDA6MDA6MWIuMC9yZXNvdXJjZQAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwMDA0NDQAMDAwMDAwMAAwMDAw
+MDAwADAwMDAwMDAwNjE3ADEzNjA2NjYxNjA0ADAxNjU2NQAgMAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB1c3RhciAgAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAweDAwMDAw
+MDAwZmViZDgwMDAgMHgwMDAwMDAwMGZlYmRiZmZmIDB4MDAwMDAwMDAwMDA0MDIwMAoweDAwMDAw
+MDAwMDAwMDAwMDAgMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAwMDAwMDAwMDAwMAoweDAwMDAw
+MDAwMDAwMDAwMDAgMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAwMDAwMDAwMDAwMAoweDAwMDAw
+MDAwMDAwMDAwMDAgMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAwMDAwMDAwMDAwMAoweDAwMDAw
+MDAwMDAwMDAwMDAgMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAwMDAwMDAwMDAwMAoweDAwMDAw
+MDAwMDAwMDAwMDAgMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAwMDAwMDAwMDAwMAoweDAwMDAw
+MDAwMDAwMDAwMDAgMHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAwMDAwMDAwMDAwMAoAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4vc3lzL2J1
+cy9wY2kvZGV2aWNlcy8wMDAwOjAwOjE5LjAvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDAwNzU1ADAwMDAwMDAAMDAwMDAw
+MAAwMDAwMDAwMDAwMAAxMzYwNjY2MjA1NgAwMTQ3NDIAIDUAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAdXN0YXIgIAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALi9zeXMvYnVz
+L3BjaS9kZXZpY2VzLzAwMDA6MDA6MTkuMC9jb25maWcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwMDA2NDQAMDAwMDAwMAAwMDAwMDAw
+ADAwMDAwMDEwMDAwADEzNjA2NjYxNTc0ADAxNjEyNQAgMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAB1c3RhciAgAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACGgNMQBwUQAAAA
+AAIAAAAAAAC4/gAAuv5hwAAAAEC9/gAAAAAAAAAAAAAAAIaAAAAAALD+yAAAAAAAAAAKAQAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEQAEgAMAAAADIAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAHQIgAAAAAABeCAAAAAAAAAAAAAAAAAABCgkQAAgAAAAAAAABEE
+AAAAABEgAAAAAAAAAAAAAAAAAQACFAAAAAAAAAAAMCBGAAAAAAAA4AAAoAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAQBXNBL//wBUUgAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALi9zeXMvYnVzL3BjaS9kZXZp
+Y2VzLzAwMDA6MDA6MTkuMC9yZXNvdXJjZQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwMDA0NDQAMDAwMDAwMAAwMDAwMDAwADAwMDAwMDAw
+NjE3ADEzNjA2NjYxNjA0ADAxNjUxNAAgMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAB1c3RhciAgAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcm9vdAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAweDAwMDAwMDAwZmViODAwMDAg
+MHgwMDAwMDAwMGZlYjlmZmZmIDB4MDAwMDAwMDAwMDA0MDIwMAoweDAwMDAwMDAwZmViYTAwMDAg
+MHgwMDAwMDAwMGZlYmJmZmZmIDB4MDAwMDAwMDAwMDA0MDIwMAoweDAwMDAwMDAwMDAwMGMwNjAg
+MHgwMDAwMDAwMDAwMDBjMDdmIDB4MDAwMDAwMDAwMDA0MDEwMQoweDAwMDAwMDAwZmViZDQwMDAg
+MHgwMDAwMDAwMGZlYmQ3ZmZmIDB4MDAwMDAwMDAwMDA0MDIwMAoweDAwMDAwMDAwMDAwMDAwMDAg
+MHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAwMDAwMDAwMDAwMAoweDAwMDAwMDAwMDAwMDAwMDAg
+MHgwMDAwMDAwMDAwMDAwMDAwIDB4MDAwMDAwMDAwMDAwMDAwMAoweDAwMDAwMDAwZmViMDAwMDAg
+MHgwMDAwMDAwMGZlYjNmZmZmIDB4MDAwMDAwMDAwMDA0NjIwMAoAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4vcHJvYy8AAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDAwNzU1ADAwMDAwMDAAMDAwMDAwMAAwMDAwMDAwMDAw
+MAAxMzYwNjY2MjA1NwAwMTA2NjcAIDUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAdXN0YXIgIAByb290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHJvb3QAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALi9wcm9jL2NwdWluZm8AAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwMDA0NDQAMDAwMDAwMAAwMDAwMDAwADAwMDAwMDEwNzMw
+ADEzNjA2NjYyMDU2ADAxMjI1MwAgMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAB1c3RhciAgAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcm9vdAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwcm9jZXNzb3IJOiAwCnZlbmRvcl9p
+ZAk6IEdlbnVpbmVJbnRlbApjcHUgZmFtaWx5CTogNgptb2RlbAkJOiAxNDIKbW9kZWwgbmFtZQk6
+IEludGVsKFIpIENvcmUoVE0pIGk1LTgyNjVVIENQVSBAIDEuNjBHSHoKc3RlcHBpbmcJOiAxMgpt
+aWNyb2NvZGUJOiAweDEKY3B1IE1IegkJOiAxNzk5Ljk4NApjYWNoZSBzaXplCTogMTYzODQgS0IK
+cGh5c2ljYWwgaWQJOiAwCnNpYmxpbmdzCTogMQpjb3JlIGlkCQk6IDAKY3B1IGNvcmVzCTogMQph
+cGljaWQJCTogMAppbml0aWFsIGFwaWNpZAk6IDAKZnB1CQk6IHllcwpmcHVfZXhjZXB0aW9uCTog
+eWVzCmNwdWlkIGxldmVsCTogMjIKd3AJCTogeWVzCmZsYWdzCQk6IGZwdSB2bWUgZGUgcHNlIHRz
+YyBtc3IgcGFlIG1jZSBjeDggYXBpYyBzZXAgbXRyciBwZ2UgbWNhIGNtb3YgcGF0IHBzZTM2IGNs
+Zmx1c2ggbW14IGZ4c3Igc3NlIHNzZTIgc3Mgc3lzY2FsbCBueCBwZHBlMWdiIHJkdHNjcCBsbSBj
+b25zdGFudF90c2MgYXJjaF9wZXJmbW9uIHJlcF9nb29kIG5vcGwgeHRvcG9sb2d5IGNwdWlkIHBu
+aSBwY2xtdWxxZHEgdm14IHNzc2UzIGZtYSBjeDE2IHBjaWQgc3NlNF8xIHNzZTRfMiB4MmFwaWMg
+bW92YmUgcG9wY250IHRzY19kZWFkbGluZV90aW1lciBhZXMgeHNhdmUgYXZ4IGYxNmMgcmRyYW5k
+IGh5cGVydmlzb3IgbGFoZl9sbSBhYm0gM2Rub3dwcmVmZXRjaCBjcHVpZF9mYXVsdCBpbnZwY2lk
+X3NpbmdsZSBzc2JkIGlicnMgaWJwYiBzdGlicCBpYnJzX2VuaGFuY2VkIHRwcl9zaGFkb3cgdm5t
+aSBmbGV4cHJpb3JpdHkgZXB0IHZwaWQgZXB0X2FkIGZzZ3NiYXNlIHRzY19hZGp1c3QgYm1pMSBh
+dngyIHNtZXAgYm1pMiBlcm1zIGludnBjaWQgbXB4IHJkc2VlZCBhZHggc21hcCBjbGZsdXNob3B0
+IHhzYXZlb3B0IHhzYXZlYyB4Z2V0YnYxIHhzYXZlcyBhcmF0IHVtaXAgbWRfY2xlYXIgYXJjaF9j
+YXBhYmlsaXRpZXMKYnVncwkJOiBzcGVjdHJlX3YxIHNwZWN0cmVfdjIgc3BlY19zdG9yZV9ieXBh
+c3Mgc3dhcGdzIGl0bGJfbXVsdGloaXQKYm9nb21pcHMJOiAzNTk5Ljk2CmNsZmx1c2ggc2l6ZQk6
+IDY0CmNhY2hlX2FsaWdubWVudAk6IDY0CmFkZHJlc3Mgc2l6ZXMJOiA0MCBiaXRzIHBoeXNpY2Fs
+LCA0OCBiaXRzIHZpcnR1YWwKcG93ZXIgbWFuYWdlbWVudDoKCnByb2Nlc3Nvcgk6IDEKdmVuZG9y
+X2lkCTogR2VudWluZUludGVsCmNwdSBmYW1pbHkJOiA2Cm1vZGVsCQk6IDE0Mgptb2RlbCBuYW1l
+CTogSW50ZWwoUikgQ29yZShUTSkgaTUtODI2NVUgQ1BVIEAgMS42MEdIegpzdGVwcGluZwk6IDEy
+Cm1pY3JvY29kZQk6IDB4MQpjcHUgTUh6CQk6IDE3OTkuOTg0CmNhY2hlIHNpemUJOiAxNjM4NCBL
+QgpwaHlzaWNhbCBpZAk6IDEKc2libGluZ3MJOiAxCmNvcmUgaWQJCTogMApjcHUgY29yZXMJOiAx
+CmFwaWNpZAkJOiAxCmluaXRpYWwgYXBpY2lkCTogMQpmcHUJCTogeWVzCmZwdV9leGNlcHRpb24J
+OiB5ZXMKY3B1aWQgbGV2ZWwJOiAyMgp3cAkJOiB5ZXMKZmxhZ3MJCTogZnB1IHZtZSBkZSBwc2Ug
+dHNjIG1zciBwYWUgbWNlIGN4OCBhcGljIHNlcCBtdHJyIHBnZSBtY2EgY21vdiBwYXQgcHNlMzYg
+Y2xmbHVzaCBtbXggZnhzciBzc2Ugc3NlMiBzcyBzeXNjYWxsIG54IHBkcGUxZ2IgcmR0c2NwIGxt
+IGNvbnN0YW50X3RzYyBhcmNoX3BlcmZtb24gcmVwX2dvb2Qgbm9wbCB4dG9wb2xvZ3kgY3B1aWQg
+cG5pIHBjbG11bHFkcSB2bXggc3NzZTMgZm1hIGN4MTYgcGNpZCBzc2U0XzEgc3NlNF8yIHgyYXBp
+YyBtb3ZiZSBwb3BjbnQgdHNjX2RlYWRsaW5lX3RpbWVyIGFlcyB4c2F2ZSBhdnggZjE2YyByZHJh
+bmQgaHlwZXJ2aXNvciBsYWhmX2xtIGFibSAzZG5vd3ByZWZldGNoIGNwdWlkX2ZhdWx0IGludnBj
+aWRfc2luZ2xlIHNzYmQgaWJycyBpYnBiIHN0aWJwIGlicnNfZW5oYW5jZWQgdHByX3NoYWRvdyB2
+bm1pIGZsZXhwcmlvcml0eSBlcHQgdnBpZCBlcHRfYWQgZnNnc2Jhc2UgdHNjX2FkanVzdCBibWkx
+IGF2eDIgc21lcCBibWkyIGVybXMgaW52cGNpZCBtcHggcmRzZWVkIGFkeCBzbWFwIGNsZmx1c2hv
+cHQgeHNhdmVvcHQgeHNhdmVjIHhnZXRidjEgeHNhdmVzIGFyYXQgdW1pcCBtZF9jbGVhciBhcmNo
+X2NhcGFiaWxpdGllcwpidWdzCQk6IHNwZWN0cmVfdjEgc3BlY3RyZV92MiBzcGVjX3N0b3JlX2J5
+cGFzcyBzd2FwZ3MgaXRsYl9tdWx0aWhpdApib2dvbWlwcwk6IDM2MTcuMDgKY2xmbHVzaCBzaXpl
+CTogNjQKY2FjaGVfYWxpZ25tZW50CTogNjQKYWRkcmVzcyBzaXplcwk6IDQwIGJpdHMgcGh5c2lj
+YWwsIDQ4IGJpdHMgdmlydHVhbApwb3dlciBtYW5hZ2VtZW50OgoKcHJvY2Vzc29yCTogMgp2ZW5k
+b3JfaWQJOiBHZW51aW5lSW50ZWwKY3B1IGZhbWlseQk6IDYKbW9kZWwJCTogMTQyCm1vZGVsIG5h
+bWUJOiBJbnRlbChSKSBDb3JlKFRNKSBpNS04MjY1VSBDUFUgQCAxLjYwR0h6CnN0ZXBwaW5nCTog
+MTIKbWljcm9jb2RlCTogMHgxCmNwdSBNSHoJCTogMTc5OS45ODQKY2FjaGUgc2l6ZQk6IDE2Mzg0
+IEtCCnBoeXNpY2FsIGlkCTogMgpzaWJsaW5ncwk6IDEKY29yZSBpZAkJOiAwCmNwdSBjb3Jlcwk6
+IDEKYXBpY2lkCQk6IDIKaW5pdGlhbCBhcGljaWQJOiAyCmZwdQkJOiB5ZXMKZnB1X2V4Y2VwdGlv
+bgk6IHllcwpjcHVpZCBsZXZlbAk6IDIyCndwCQk6IHllcwpmbGFncwkJOiBmcHUgdm1lIGRlIHBz
+ZSB0c2MgbXNyIHBhZSBtY2UgY3g4IGFwaWMgc2VwIG10cnIgcGdlIG1jYSBjbW92IHBhdCBwc2Uz
+NiBjbGZsdXNoIG1teCBmeHNyIHNzZSBzc2UyIHNzIHN5c2NhbGwgbnggcGRwZTFnYiByZHRzY3Ag
+bG0gY29uc3RhbnRfdHNjIGFyY2hfcGVyZm1vbiByZXBfZ29vZCBub3BsIHh0b3BvbG9neSBjcHVp
+ZCBwbmkgcGNsbXVscWRxIHZteCBzc3NlMyBmbWEgY3gxNiBwY2lkIHNzZTRfMSBzc2U0XzIgeDJh
+cGljIG1vdmJlIHBvcGNudCB0c2NfZGVhZGxpbmVfdGltZXIgYWVzIHhzYXZlIGF2eCBmMTZjIHJk
+cmFuZCBoeXBlcnZpc29yIGxhaGZfbG0gYWJtIDNkbm93cHJlZmV0Y2ggY3B1aWRfZmF1bHQgaW52
+cGNpZF9zaW5nbGUgc3NiZCBpYnJzIGlicGIgc3RpYnAgaWJyc19lbmhhbmNlZCB0cHJfc2hhZG93
+IHZubWkgZmxleHByaW9yaXR5IGVwdCB2cGlkIGVwdF9hZCBmc2dzYmFzZSB0c2NfYWRqdXN0IGJt
+aTEgYXZ4MiBzbWVwIGJtaTIgZXJtcyBpbnZwY2lkIG1weCByZHNlZWQgYWR4IHNtYXAgY2xmbHVz
+aG9wdCB4c2F2ZW9wdCB4c2F2ZWMgeGdldGJ2MSB4c2F2ZXMgYXJhdCB1bWlwIG1kX2NsZWFyIGFy
+Y2hfY2FwYWJpbGl0aWVzCmJ1Z3MJCTogc3BlY3RyZV92MSBzcGVjdHJlX3YyIHNwZWNfc3RvcmVf
+YnlwYXNzIHN3YXBncyBpdGxiX211bHRpaGl0CmJvZ29taXBzCTogMzYxNy4zNQpjbGZsdXNoIHNp
+emUJOiA2NApjYWNoZV9hbGlnbm1lbnQJOiA2NAphZGRyZXNzIHNpemVzCTogNDAgYml0cyBwaHlz
+aWNhbCwgNDggYml0cyB2aXJ0dWFsCnBvd2VyIG1hbmFnZW1lbnQ6Cgpwcm9jZXNzb3IJOiAzCnZl
+bmRvcl9pZAk6IEdlbnVpbmVJbnRlbApjcHUgZmFtaWx5CTogNgptb2RlbAkJOiAxNDIKbW9kZWwg
+bmFtZQk6IEludGVsKFIpIENvcmUoVE0pIGk1LTgyNjVVIENQVSBAIDEuNjBHSHoKc3RlcHBpbmcJ
+OiAxMgptaWNyb2NvZGUJOiAweDEKY3B1IE1IegkJOiAxNzk5Ljk4NApjYWNoZSBzaXplCTogMTYz
+ODQgS0IKcGh5c2ljYWwgaWQJOiAzCnNpYmxpbmdzCTogMQpjb3JlIGlkCQk6IDAKY3B1IGNvcmVz
+CTogMQphcGljaWQJCTogMwppbml0aWFsIGFwaWNpZAk6IDMKZnB1CQk6IHllcwpmcHVfZXhjZXB0
+aW9uCTogeWVzCmNwdWlkIGxldmVsCTogMjIKd3AJCTogeWVzCmZsYWdzCQk6IGZwdSB2bWUgZGUg
+cHNlIHRzYyBtc3IgcGFlIG1jZSBjeDggYXBpYyBzZXAgbXRyciBwZ2UgbWNhIGNtb3YgcGF0IHBz
+ZTM2IGNsZmx1c2ggbW14IGZ4c3Igc3NlIHNzZTIgc3Mgc3lzY2FsbCBueCBwZHBlMWdiIHJkdHNj
+cCBsbSBjb25zdGFudF90c2MgYXJjaF9wZXJmbW9uIHJlcF9nb29kIG5vcGwgeHRvcG9sb2d5IGNw
+dWlkIHBuaSBwY2xtdWxxZHEgdm14IHNzc2UzIGZtYSBjeDE2IHBjaWQgc3NlNF8xIHNzZTRfMiB4
+MmFwaWMgbW92YmUgcG9wY250IHRzY19kZWFkbGluZV90aW1lciBhZXMgeHNhdmUgYXZ4IGYxNmMg
+cmRyYW5kIGh5cGVydmlzb3IgbGFoZl9sbSBhYm0gM2Rub3dwcmVmZXRjaCBjcHVpZF9mYXVsdCBp
+bnZwY2lkX3NpbmdsZSBzc2JkIGlicnMgaWJwYiBzdGlicCBpYnJzX2VuaGFuY2VkIHRwcl9zaGFk
+b3cgdm5taSBmbGV4cHJpb3JpdHkgZXB0IHZwaWQgZXB0X2FkIGZzZ3NiYXNlIHRzY19hZGp1c3Qg
+Ym1pMSBhdngyIHNtZXAgYm1pMiBlcm1zIGludnBjaWQgbXB4IHJkc2VlZCBhZHggc21hcCBjbGZs
+dXNob3B0IHhzYXZlb3B0IHhzYXZlYyB4Z2V0YnYxIHhzYXZlcyBhcmF0IHVtaXAgbWRfY2xlYXIg
+YXJjaF9jYXBhYmlsaXRpZXMKYnVncwkJOiBzcGVjdHJlX3YxIHNwZWN0cmVfdjIgc3BlY19zdG9y
+ZV9ieXBhc3Mgc3dhcGdzIGl0bGJfbXVsdGloaXQKYm9nb21pcHMJOiAzNjQ4LjE4CmNsZmx1c2gg
+c2l6ZQk6IDY0CmNhY2hlX2FsaWdubWVudAk6IDY0CmFkZHJlc3Mgc2l6ZXMJOiA0MCBiaXRzIHBo
+eXNpY2FsLCA0OCBiaXRzIHZpcnR1YWwKcG93ZXIgbWFuYWdlbWVudDoKCgAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuL3Byb2MvY21kbGluZQAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAMDAwMDQ0NAAwMDAwMDAwADAwMDAwMDAAMDAwMDAwMDAxMDEAMTM2MDY2NjE1
+NzMAMDEyMjE1ACAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHVz
+dGFyICAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAByb290AAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAJcm9vdD0vZGV2L3NkYSBpbnRlbF9pb21tdT1vZmYg
+bWVtbWFwPTgyTSQweDNhMDAwMDAwIAl2Z2E9MHgzMDUKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALi9wcm9jL2lvcG9ydHMAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAADAwMDA0NDQAMDAwMDAwMAAwMDAwMDAwADAwMDAwMDAxMzU1ADEzNjA2NjYyMDU2
+ADAxMjMxMgAgMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB1c3Rh
+ciAgAHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcm9vdAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDAwLTBjZjcgOiBQQ0kgQnVzIDAwMDA6MDAKICAwMDAw
+LTAwMWYgOiBkbWExCiAgMDAyMC0wMDIxIDogcGljMQogIDAwNDAtMDA0MyA6IHRpbWVyMAogIDAw
+NTAtMDA1MyA6IHRpbWVyMQogIDAwNjAtMDA2MCA6IGtleWJvYXJkCiAgMDA2NC0wMDY0IDoga2V5
+Ym9hcmQKICAwMDgwLTAwOGYgOiBkbWEgcGFnZSByZWcKICAwMGEwLTAwYTEgOiBwaWMyCiAgMDBj
+MC0wMGRmIDogZG1hMgogIDAwZjAtMDBmZiA6IGZwdQogIDAyZjgtMDJmZiA6IHNlcmlhbAogIDAz
+YzAtMDNkZiA6IHZlc2FmYgogIDAzZjgtMDNmZiA6IHNlcmlhbAogIDA1MTAtMDUxYiA6IFFFTVUw
+MDAyOjAwCiAgMDYwMC0wNjdmIDogMDAwMDowMDoxZi4wCiAgICAwNjAwLTA2MDMgOiBBQ1BJIFBN
+MWFfRVZUX0JMSwogICAgMDYwNC0wNjA1IDogQUNQSSBQTTFhX0NOVF9CTEsKICAgIDA2MDgtMDYw
+YiA6IEFDUEkgUE1fVE1SCiAgICAwNjIwLTA2MmYgOiBBQ1BJIEdQRTBfQkxLCiAgICAwNjMwLTA2
+MzMgOiBpVENPX3dkdC4wLmF1dG8KICAgIDA2NjAtMDY3ZiA6IGlUQ09fd2R0LjAuYXV0bwogIDA3
+MDAtMDczZiA6IDAwMDA6MDA6MWYuMwogICAgMDcwMC0wNzNmIDogaTgwMV9zbWJ1cwowY2Y4LTBj
+ZmYgOiBQQ0kgY29uZjEKMGQwMC1mZmZmIDogUENJIEJ1cyAwMDAwOjAwCiAgYzA0MC1jMDVmIDog
+MDAwMDowMDowMi4wCiAgYzA2MC1jMDdmIDogMDAwMDowMDoxOS4wCiAgYzA4MC1jMDlmIDogMDAw
+MDowMDoxZi4yCiAgICBjMDgwLWMwOWYgOiBhaGNpCgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAALi9wcm9jL2lvbWVtAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAADAwMDA0NDQAMDAwMDAwMAAwMDAwMDAwADAwMDAwMDAzMzAzADEzNjA2NjYyMDU2ADAx
+MTcxNAAgMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB1c3RhciAg
+AHJvb3QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcm9vdAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAwMDAwMDAwMC0wMDAwMGZmZiA6IFJlc2VydmVkCjAwMDAxMDAw
+LTAwMDlmYmZmIDogU3lzdGVtIFJBTQowMDA5ZmMwMC0wMDA5ZmZmZiA6IFJlc2VydmVkCjAwMGEw
+MDAwLTAwMGJmZmZmIDogUENJIEJ1cyAwMDAwOjAwCjAwMGMwMDAwLTAwMGM5OWZmIDogVmlkZW8g
+Uk9NCjAwMGNhMDAwLTAwMGNhZGZmIDogQWRhcHRlciBST00KMDAwY2IwMDAtMDAwY2JkZmYgOiBB
+ZGFwdGVyIFJPTQowMDBjYzAwMC0wMDBjYzVmZiA6IEFkYXB0ZXIgUk9NCjAwMGNjODAwLTAwMGNl
+YmZmIDogQWRhcHRlciBST00KMDAwZjAwMDAtMDAwZmZmZmYgOiBSZXNlcnZlZAogIDAwMGYwMDAw
+LTAwMGZmZmZmIDogU3lzdGVtIFJPTQowMDEwMDAwMC0zOWZmZmZmZiA6IFN5c3RlbSBSQU0KICAw
+MTAwMDAwMC0wMWEwMGUxMCA6IEtlcm5lbCBjb2RlCiAgMDFhMDBlMTEtMDIxNGQwM2YgOiBLZXJu
+ZWwgZGF0YQogIDAyNGQ0MDAwLTAyNWZmZmZmIDogS2VybmVsIGJzcwozYTAwMDAwMC0zZjFmZmZm
+ZiA6IFJlc2VydmVkCjNmMjAwMDAwLTNmZmRlZmZmIDogU3lzdGVtIFJBTQozZmZkZjAwMC0zZmZm
+ZmZmZiA6IFJlc2VydmVkCjQwMDAwMDAwLWFmZmZmZmZmIDogUENJIEJ1cyAwMDAwOjAwCmIwMDAw
+MDAwLWJmZmZmZmZmIDogUENJIE1NQ09ORklHIDAwMDAgW2J1cyAwMC1mZl0KICBiMDAwMDAwMC1i
+ZmZmZmZmZiA6IFJlc2VydmVkCmMwMDAwMDAwLWZlYmZmZmZmIDogUENJIEJ1cyAwMDAwOjAwCiAg
+ZmQwMDAwMDAtZmRmZmZmZmYgOiAwMDAwOjAwOjAxLjAKICAgIGZkMDAwMDAwLWZkZmZmZmZmIDog
+dmVzYWZiCiAgZmVhYzAwMDAtZmVhZmZmZmYgOiAwMDAwOjAwOjAyLjAKICBmZWIwMDAwMC1mZWIz
+ZmZmZiA6IDAwMDA6MDA6MTkuMAogIGZlYjQwMDAwLWZlYjVmZmZmIDogMDAwMDowMDowMi4wCiAg
+ICBmZWI0MDAwMC1mZWI1ZmZmZiA6IGUxMDAwZQogIGZlYjYwMDAwLWZlYjdmZmZmIDogMDAwMDow
+MDowMi4wCiAgICBmZWI2MDAwMC1mZWI3ZmZmZiA6IGUxMDAwZQogIGZlYjgwMDAwLWZlYjlmZmZm
+IDogMDAwMDowMDoxOS4wCiAgICBmZWI4MDAwMC1mZWI5ZmZmZiA6IGUxMDAwZQogIGZlYmEwMDAw
+LWZlYmJmZmZmIDogMDAwMDowMDoxOS4wCiAgICBmZWJhMDAwMC1mZWJiZmZmZiA6IGUxMDAwZQog
+IGZlYmQwMDAwLWZlYmQzZmZmIDogMDAwMDowMDowMi4wCiAgICBmZWJkMDAwMC1mZWJkM2ZmZiA6
+IGUxMDAwZQogIGZlYmQ0MDAwLWZlYmQ3ZmZmIDogMDAwMDowMDoxOS4wCiAgICBmZWJkNDAwMC1m
+ZWJkN2ZmZiA6IGUxMDAwZQogIGZlYmQ4MDAwLWZlYmRiZmZmIDogMDAwMDowMDoxYi4wCiAgICBm
+ZWJkODAwMC1mZWJkYmZmZiA6IElDSCBIRCBhdWRpbwogIGZlYmRjMDAwLWZlYmRjZmZmIDogMDAw
+MDowMDowMS4wCiAgZmViZGQwMDAtZmViZGRmZmYgOiAwMDAwOjAwOjFmLjIKICAgIGZlYmRkMDAw
+LWZlYmRkZmZmIDogYWhjaQpmZWMwMDAwMC1mZWMwMDNmZiA6IElPQVBJQyAwCmZlZDAwMDAwLWZl
+ZDAwM2ZmIDogSFBFVCAwCiAgZmVkMDAwMDAtZmVkMDAzZmYgOiBQTlAwMTAzOjAwCmZlZDFjMDAw
+LWZlZDFmZmZmIDogUmVzZXJ2ZWQKICBmZWQxZjQxMC1mZWQxZjQxNCA6IGlUQ09fd2R0LjAuYXV0
+bwpmZWQ5MDAwMC1mZWQ5MGZmZiA6IGRtYXIwCmZlZTAwMDAwLWZlZTAwZmZmIDogTG9jYWwgQVBJ
+QwpmZWZmYzAwMC1mZWZmZmZmZiA6IFJlc2VydmVkCmZmZmMwMDAwLWZmZmZmZmZmIDogUmVzZXJ2
+ZWQKMTAwMDAwMDAwLThmZmZmZmZmZiA6IFBDSSBCdXMgMDAwMDowMAoAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAA=
+------=_Part_1343_398004741.1578907798641
+Content-Type: text/plain; charset=US-ASCII; name=dmesg-enable.log
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename=dmesg-enable.log
+X-Attachment-Id: 6fbbb4cc-ef31-452c-baf2-b2ff92498ff0
+Content-ID: <6fbbb4cc-ef31-452c-baf2-b2ff92498ff0>
+
+[    3.716086] random: dbus-daemon: uninitialized urandom read (12 bytes read)
+[    3.719724] random: dbus-daemon: uninitialized urandom read (12 bytes read)
+[    5.146873] e1000e: enp0s2 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: Rx/Tx
+[    5.149215] IPv6: ADDRCONF(NETDEV_CHANGE): enp0s2: link becomes ready
+[    5.976151] random: crng init done
+[  338.263835] pci 0000:00:0c.0: [110a:4106] type 00 class 0xffc002
+[  338.264445] pci 0000:00:0c.0: reg 0x10: [mem 0x00000000-0x00000fff]
+[  338.264543] pci 0000:00:0c.0: reg 0x14: [mem 0x00000000-0x000001ff]
+[  338.265908] pci 0000:00:0c.0: BAR 0: assigned [mem 0x40000000-0x40000fff]
+[  338.265958] pci 0000:00:0c.0: BAR 1: assigned [mem 0x40001000-0x400011ff]
+[  338.266168] pci 0000:00:0d.0: [110a:4106] type 00 class 0xffc003
+[  338.266439] pci 0000:00:0d.0: reg 0x10: [mem 0x00000000-0x00000fff]
+[  338.266536] pci 0000:00:0d.0: reg 0x14: [mem 0x00000000-0x000001ff]
+[  338.267833] pci 0000:00:0d.0: BAR 0: assigned [mem 0x40002000-0x40002fff]
+[  338.267877] pci 0000:00:0d.0: BAR 1: assigned [mem 0x40001200-0x400013ff]
+[  338.268076] pci 0000:00:0e.0: [110a:4106] type 00 class 0xff0000
+[  338.268992] pci 0000:00:0e.0: reg 0x10: [mem 0x00000000-0x00000fff]
+[  338.269088] pci 0000:00:0e.0: reg 0x14: [mem 0x00000000-0x000001ff]
+[  338.270341] pci 0000:00:0e.0: BAR 0: assigned [mem 0x40003000-0x40003fff]
+[  338.270385] pci 0000:00:0e.0: BAR 1: assigned [mem 0x40001400-0x400015ff]
+[  338.270877] uio_ivshmem 0000:00:0e.0: enabling device (0000 -> 0002)
+[  338.271077] uio_ivshmem: probe of 0000:00:0e.0 failed with error -16
+[  338.271227] pci 0000:00:0f.0: [110a:4106] type 00 class 0xff0001
+[  338.271506] pci 0000:00:0f.0: reg 0x10: [mem 0x00000000-0x00000fff]
+[  338.271604] pci 0000:00:0f.0: reg 0x14: [mem 0x00000000-0x000001ff]
+[  338.273007] pci 0000:00:0f.0: BAR 0: assigned [mem 0x40004000-0x40004fff]
+[  338.273057] pci 0000:00:0f.0: BAR 1: assigned [mem 0x40001600-0x400017ff]
+[  338.273140] ivshmem-net 0000:00:0f.0: enabling device (0000 -> 0002)
+[  338.273701] ivshmem-net: probe of 0000:00:0f.0 failed with error -16
+[  338.273715] The Jailhouse is opening.
+
+------=_Part_1343_398004741.1578907798641
+Content-Type: text/plain; charset=US-ASCII; name=jailhouse-console.log
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename=jailhouse-console.log
+X-Attachment-Id: a4fae782-db9f-465b-83e3-c8f377e04e2d
+Content-ID: <a4fae782-db9f-465b-83e3-c8f377e04e2d>
+
+Initializing Jailhouse hypervisor v0.11 (140-g6a8ab13d-dirty) on CPU 3
+Code location: 0xfffffffff0000050
+Using x2APIC
+Page pool usage after early setup: mem 47/975, remap 0/131072
+Initializing processors:
+ CPU 3... (APIC ID 3) OK
+ CPU 0... (APIC ID 0) OK
+ CPU 1... (APIC ID 1) OK
+ CPU 2... (APIC ID 2) OK
+Initializing unit: VT-d
+DMAR unit @0xfed90000/0x1000
+Reserving 24 interrupt(s) for device ff:00.0 at index 0
+Initializing unit: IOAPIC
+Initializing unit: Cache Allocation Technology
+Initializing unit: PCI
+Adding PCI device 00:00.0 to cell "QEMU-VM"
+Adding PCI device 00:01.0 to cell "QEMU-VM"
+Adding PCI device 00:02.0 to cell "QEMU-VM"
+Reserving 5 interrupt(s) for device 00:02.0 at index 24
+Adding PCI device 00:19.0 to cell "QEMU-VM"
+Reserving 5 interrupt(s) for device 00:19.0 at index 29
+Adding PCI device 00:1b.0 to cell "QEMU-VM"
+Reserving 1 interrupt(s) for device 00:1b.0 at index 34
+Adding PCI device 00:1f.0 to cell "QEMU-VM"
+Adding PCI device 00:1f.2 to cell "QEMU-VM"
+Reserving 1 interrupt(s) for device 00:1f.2 at index 35
+Adding PCI device 00:1f.3 to cell "QEMU-VM"
+Adding virtual PCI device 00:0c.0 to cell "QEMU-VM"
+Adding virtual PCI device 00:0d.0 to cell "QEMU-VM"
+Adding virtual PCI device 00:0e.0 to cell "QEMU-VM"
+Adding virtual PCI device 00:0f.0 to cell "QEMU-VM"
+Page pool usage after late setup: mem 270/975, remap 65543/131072
+Activating hypervisor
+qemu-system-x86_64: vtd_irte_get: detected non-zero reserved IRTE (index=32767, high=0xb75fa013, low=0xb75f9013)
+FATAL: Invalid PCI config write, port: cfc, size 2, address port: 8000c8e8
+RIP: 0xffffffff815ba3b1 RSP: 0xffffc900005c7cd0 FLAGS: 46
+RAX: 0x0000000000000000 RBX: 0x0000000000000000 RCX: 0x0000000000000001
+RDX: 0x0000000000000cfc RSI: 0x0000000000000246 RDI: 0xffffffff8255d8f0
+CS: 10 BASE: 0x0000000000000000 AR-BYTES: a09b EFER.LMA 1
+CR0: 0x0000000080050033 CR3: 0x0000000037932006 CR4: 0x0000000000362ea0
+EFER: 0x0000000000000d01
+Parking CPU 3 (Cell: "QEMU-VM")
+
+
+------=_Part_1343_398004741.1578907798641
+Content-Type: text/x-csrc; charset=US-ASCII; name=2cards.c
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename=2cards.c
+X-Attachment-Id: cdb181d6-ee10-46b9-8bc8-4370b3f7d8c4
+Content-ID: <cdb181d6-ee10-46b9-8bc8-4370b3f7d8c4>
+
+/*
+ * Jailhouse, a Linux-based partitioning hypervisor
+ *
+ * Copyright (c) Siemens AG, 2014-2017
+ *
+ * This work is licensed under the terms of the GNU GPL, version 2.  See
+ * the COPYING file in the top-level directory.
+ *
+ * Alternatively, you can use or redistribute this file under the following
+ * BSD license:
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+ * THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * Configuration for QEMU Standard PC (Q35 + ICH9, 2009)
+ * created with '../jailhouse/tools/jailhouse config create -r 2cards 2cards.c'
+ *
+ * NOTE: This config expects the following to be appended to your kernel cmdline
+ *       "memmap=0x5200000$0x3a000000"
+ */
+
+#include <jailhouse/types.h>
+#include <jailhouse/cell-config.h>
+
+struct {
+	struct jailhouse_system header;
+	__u64 cpus[1];
+	struct jailhouse_memory mem_regions[39];
+	struct jailhouse_irqchip irqchips[1];
+	struct jailhouse_pio pio_regions[12];
+	struct jailhouse_pci_device pci_devices[12];
+	struct jailhouse_pci_capability pci_caps[10];
+} __attribute__((packed)) config = {
+	.header = {
+		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
+		.revision = JAILHOUSE_CONFIG_REVISION,
+		.flags = JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
+		.hypervisor_memory = {
+			.phys_start = 0x3a000000,
+			.size = 0x600000,
+		},
+		.debug_console = {
+			.address = 0x3f8,
+			.type = JAILHOUSE_CON_TYPE_8250,
+			.flags = JAILHOUSE_CON_ACCESS_PIO |
+				 JAILHOUSE_CON_REGDIST_1,
+		},
+		.platform_info = {
+			.pci_mmconfig_base = 0xb0000000,
+			.pci_mmconfig_end_bus = 0xff,
+			.x86 = {
+				.pm_timer_address = 0x608,
+				.vtd_interrupt_limit = 256,
+				.iommu_units = {
+					{
+						.type = JAILHOUSE_IOMMU_INTEL,
+						.base = 0xfed90000,
+						.size = 0x1000,
+					},
+				},
+			},
+		},
+		.root_cell = {
+			.name = "QEMU-VM",
+
+			.cpu_set_size = sizeof(config.cpus),
+			.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+			.num_irqchips = ARRAY_SIZE(config.irqchips),
+			.num_pio_regions = ARRAY_SIZE(config.pio_regions),
+			.num_pci_devices = ARRAY_SIZE(config.pci_devices),
+			.num_pci_caps = ARRAY_SIZE(config.pci_caps),
+		},
+	},
+
+	.cpus = {
+		0x000000000000000f,
+	},
+
+	.mem_regions = {
+		/* MemRegion: 00000000-0009fbff : System RAM */
+		{
+			.phys_start = 0x0,
+			.virt_start = 0x0,
+			.size = 0xa0000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+		/* MemRegion: 00100000-00ffffff : System RAM */
+		{
+			.phys_start = 0x100000,
+			.virt_start = 0x100000,
+			.size = 0xf00000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+		/* MemRegion: 01000000-02ffffff : Kernel */
+		{
+			.phys_start = 0x1000000,
+			.virt_start = 0x1000000,
+			.size = 0x2000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+		/* MemRegion: 03000000-39ffffff : System RAM */
+		{
+			.phys_start = 0x3000000,
+			.virt_start = 0x3000000,
+			.size = 0x37000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+		/* MemRegion: 3f200000-3ffdefff : System RAM */
+		{
+			.phys_start = 0x3f200000,
+			.virt_start = 0x3f200000,
+			.size = 0xddf000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+		/* MemRegion: fd000000-fdffffff : vesafb */
+		{
+			.phys_start = 0xfd000000,
+			.virt_start = 0xfd000000,
+			.size = 0x1000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: feac0000-feafffff : 0000:00:02.0 */
+		{
+			.phys_start = 0xfeac0000,
+			.virt_start = 0xfeac0000,
+			.size = 0x40000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: feb00000-feb3ffff : 0000:00:19.0 */
+		{
+			.phys_start = 0xfeb00000,
+			.virt_start = 0xfeb00000,
+			.size = 0x40000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: feb40000-feb5ffff : e1000e 02-bar0 */
+		{
+			.phys_start = 0xfeb40000,
+			.virt_start = 0xfeb40000,
+			.size = 0x20000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: feb60000-feb7ffff : e1000e 02-bar1 */
+		{
+			.phys_start = 0xfeb60000,
+			.virt_start = 0xfeb60000,
+			.size = 0x20000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: feb80000-feb9ffff : e1000e 19-bar0 */
+		{
+			.phys_start = 0xfeb80000,
+			.virt_start = 0xfeb80000,
+			.size = 0x20000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: feba0000-febbffff : e1000e 19-bar1 */
+		{
+			.phys_start = 0xfeba0000,
+			.virt_start = 0xfeba0000,
+			.size = 0x20000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: febd1000-febd3fff : e1000e 02-bar3*/
+		{
+			.phys_start = 0xfebd1000,
+			.virt_start = 0xfebd1000,
+			.size = 0x3000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: febd5000-febd7fff : e1000e 19-bar3 */
+		{
+			.phys_start = 0xfebd5000,
+			.virt_start = 0xfebd5000,
+			.size = 0x3000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: febd8000-febdbfff : ICH HD audio */
+		{
+			.phys_start = 0xfebd8000,
+			.virt_start = 0xfebd8000,
+			.size = 0x4000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: febdc000-febdcfff : 0000:00:01.0 */
+		{
+			.phys_start = 0xfebdc000,
+			.virt_start = 0xfebdc000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: febdd000-febddfff : ahci */
+		{
+			.phys_start = 0xfebdd000,
+			.virt_start = 0xfebdd000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: fed00000-fed003ff : PNP0103:00 */
+		{
+			.phys_start = 0xfed00000,
+			.virt_start = 0xfed00000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: 000c0000-000dffff : ROMs */
+		{
+			.phys_start = 0xc0000,
+			.virt_start = 0xc0000,
+			.size = 0x20000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MOD MANUALLY for ivshmems 0x4c -> 0x4a, added X and MEM flags */
+		/* MemRegion: 3a600000-3effffff : JAILHOUSE Inmate Memory */
+		{
+			.phys_start = 0x3a600000,
+			.virt_start = 0x3a600000,
+			.size = 0x4a00000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+		/* ADDED MANUALLY */
+		/* ACPI */ {
+			.phys_start = 0x3ffdf000,
+			.virt_start = 0x3ffdf000,
+			.size =          0x21000,
+			.flags = JAILHOUSE_MEM_READ,
+		},
+		/* IVSHMEM shared memory region (virtio-blk back-end) */
+		{
+			.phys_start = 0x3f000000,
+			.virt_start = 0x3f000000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ,
+		},
+		{
+			.phys_start = 0x3f001000,
+			.virt_start = 0x3f001000,
+			.size = 0xdf000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		{ 0 },
+		{ 0 },
+		/* IVSHMEM shared memory region (virtio-con back-end) */
+		{
+			.phys_start = 0x3f0e0000,
+			.virt_start = 0x3f0e0000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ,
+		},
+		{
+			.phys_start = 0x3f0e1000,
+			.virt_start = 0x3f0e1000,
+			.size = 0xf000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		{ 0 },
+		{ 0 },
+		/* IVSHMEM shared memory regions (demo) */
+		{
+			.phys_start = 0x3f0f0000,
+			.virt_start = 0x3f0f0000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ,
+		},
+		{
+			.phys_start = 0x3f0f1000,
+			.virt_start = 0x3f0f1000,
+			.size = 0x9000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		{
+			.phys_start = 0x3f0fa000,
+			.virt_start = 0x3f0fa000,
+			.size = 0x2000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		{
+			.phys_start = 0x3f0fc000,
+			.virt_start = 0x3f0fc000,
+			.size = 0x2000,
+			.flags = JAILHOUSE_MEM_READ,
+		},
+		{
+			.phys_start = 0x3f0fe000,
+			.virt_start = 0x3f0fe000,
+			.size = 0x2000,
+			.flags = JAILHOUSE_MEM_READ,
+		},
+		/* IVSHMEM shared memory regions (networking) */
+		JAILHOUSE_SHMEM_NET_REGIONS(0x3f100000, 0),
+		/* RAM */ {
+			.phys_start = 0x0,
+			.virt_start = 0x0,
+			.size = 0x3a000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+	},
+
+	.irqchips = {
+		/* IOAPIC 0, GSI base 0 */
+		{
+			.address = 0xfec00000,
+			.id = 0xff00,
+			.pin_bitmap = {
+				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff
+			},
+		},
+	},
+
+	.pio_regions = {
+		/* Port I/O: 0000-001f : dma1 */
+		/* PIO_RANGE(0x0, 0x20), */
+		/* Port I/O: 0020-0021 : pic1 */
+		/* PIO_RANGE(0x20, 0x2), */
+		/* Port I/O: 0040-0043 : timer0 */
+		PIO_RANGE(0x40, 0x4),
+		/* Port I/O: 0050-0053 : timer1 */
+		/* PIO_RANGE(0x50, 0x4), */
+		/* Port I/O: 0060-0060 : keyboard */
+		/* MOD MANUALLY (0x1->0x2) */
+		PIO_RANGE(0x60, 0x2),
+		/* Port I/O: 0064-0064 : keyboard */
+		PIO_RANGE(0x64, 0x1),
+		/* ADDED MANUALLY 1 */
+		PIO_RANGE(0x70, 0x2), /* rtc */
+		/* Port I/O: 0080-008f : dma page reg */
+		/* PIO_RANGE(0x80, 0x10), */
+		/* Port I/O: 00a0-00a1 : pic2 */
+		/* PIO_RANGE(0xa0, 0x2), */
+		/* Port I/O: 00c0-00df : dma2 */
+		/* PIO_RANGE(0xc0, 0x20), */
+		/* Port I/O: 00f0-00ff : fpu */
+		/* PIO_RANGE(0xf0, 0x10), */
+		/* Port I/O: 02f8-02ff : serial */
+		PIO_RANGE(0x2f8, 0x8),
+		/* Port I/O: 03c0-03df : vesafb */
+		PIO_RANGE(0x3c0, 0x20),
+		/* Port I/O: 03f8-03ff : serial */
+		PIO_RANGE(0x3f8, 0x8),
+		/* ADDED MANUALLY 1 */
+		PIO_RANGE(0x402, 0x1), /* invalid but accessed by X */
+		/* Port I/O: 0510-051b : QEMU0002:00 */
+		/* PIO_RANGE(0x510, 0xc), */
+		/* Port I/O: 0600-0603 : ACPI PM1a_EVT_BLK */
+		/* PIO_RANGE(0x600, 0x4), */
+		/* Port I/O: 0604-0605 : ACPI PM1a_CNT_BLK */
+		/* PIO_RANGE(0x604, 0x2), */
+		/* Port I/O: 0608-060b : ACPI PM_TMR */
+		/* PIO_RANGE(0x608, 0x4), */
+		/* Port I/O: 0620-062f : ACPI GPE0_BLK */
+		/* PIO_RANGE(0x620, 0x10), */
+		/* Port I/O: 0630-0633 : iTCO_wdt.0.auto */
+		/* PIO_RANGE(0x630, 0x4), */
+		/* Port I/O: 0660-067f : iTCO_wdt.0.auto */
+		/* PIO_RANGE(0x660, 0x20), */
+		/* Port I/O: 0700-073f : i801_smbus */
+		/* PIO_RANGE(0x700, 0x40), */
+		/* ADDED MANUALLY 1, only QEMU related, probably not needed */
+		PIO_RANGE(0x5658, 0x4), /* vmport */
+		/* Port I/O: c040-c05f : 0000:00:02.0 */
+		PIO_RANGE(0xc040, 0x20),
+		/* Port I/O: c060-c07f : 0000:00:19.0 */
+		PIO_RANGE(0xc060, 0x20),
+		/* Port I/O: c080-c09f : 0000:00:1f.2 */
+		PIO_RANGE(0xc080, 0x20),
+	},
+
+	.pci_devices = {
+		/* PCIDevice: 00:00.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 0,
+			.domain = 0x0,
+			.bdf = 0x0,
+			.bar_mask = {
+				0x00000000, 0x00000000, 0x00000000,
+				0x00000000, 0x00000000, 0x00000000,
+			},
+			.caps_start = 0,
+			.num_caps = 0,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+			.msi_maskable = 0,
+			.num_msix_vectors = 0,
+			.msix_region_size = 0x0,
+			.msix_address = 0x0,
+		},
+		/* PCIDevice: 00:01.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 0,
+			.domain = 0x0,
+			.bdf = 0x8,
+			.bar_mask = {
+				0xff000000, 0x00000000, 0xfffff000,
+				0x00000000, 0x00000000, 0x00000000,
+			},
+			.caps_start = 0,
+			.num_caps = 0,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+			.msi_maskable = 0,
+			.num_msix_vectors = 0,
+			.msix_region_size = 0x0,
+			.msix_address = 0x0,
+		},
+		/* PCIDevice: 00:02.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 0,
+			.domain = 0x0,
+			.bdf = 0x10,
+			.bar_mask = {
+				0xfffe0000, 0xfffe0000, 0xffffffe0,
+				0xffffc000, 0x00000000, 0x00000000,
+			},
+			.caps_start = 0,
+			.num_caps = 6,
+			.num_msi_vectors = 1,
+			.msi_64bits = 1,
+			.msi_maskable = 0,
+			.num_msix_vectors = 5,
+			.msix_region_size = 0x1000,
+			.msix_address = 0xfebd0000,
+		},
+		/* PCIDevice: 00:19.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 0,
+			.domain = 0x0,
+			.bdf = 0xc8,
+			.bar_mask = {
+				0xfffe0000, 0xfffe0000, 0xffffffe0,
+				0xffffc000, 0x00000000, 0x00000000,
+			},
+			.caps_start = 0,
+			.num_caps = 6,
+			.num_msi_vectors = 1,
+			.msi_64bits = 1,
+			.msi_maskable = 0,
+			.num_msix_vectors = 5,
+			.msix_region_size = 0x1000,
+			.msix_address = 0xfebd4000,
+		},
+		/* PCIDevice: 00:1b.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 0,
+			.domain = 0x0,
+			.bdf = 0xd8,
+			.bar_mask = {
+				0xffffc000, 0x00000000, 0x00000000,
+				0x00000000, 0x00000000, 0x00000000,
+			},
+			.caps_start = 6,
+			.num_caps = 1,
+			.num_msi_vectors = 1,
+			.msi_64bits = 1,
+			.msi_maskable = 0,
+			.num_msix_vectors = 0,
+			.msix_region_size = 0x0,
+			.msix_address = 0x0,
+		},
+		/* PCIDevice: 00:1f.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 0,
+			.domain = 0x0,
+			.bdf = 0xf8,
+			.bar_mask = {
+				0x00000000, 0x00000000, 0x00000000,
+				0x00000000, 0x00000000, 0x00000000,
+			},
+			.caps_start = 0,
+			.num_caps = 0,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+			.msi_maskable = 0,
+			.num_msix_vectors = 0,
+			.msix_region_size = 0x0,
+			.msix_address = 0x0,
+		},
+		/* PCIDevice: 00:1f.2 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 0,
+			.domain = 0x0,
+			.bdf = 0xfa,
+			.bar_mask = {
+				0x00000000, 0x00000000, 0x00000000,
+				0x00000000, 0xffffffe0, 0xfffff000,
+			},
+			.caps_start = 7,
+			.num_caps = 2,
+			.num_msi_vectors = 1,
+			.msi_64bits = 1,
+			.msi_maskable = 0,
+			.num_msix_vectors = 0,
+			.msix_region_size = 0x0,
+			.msix_address = 0x0,
+		},
+		/* PCIDevice: 00:1f.3 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 0,
+			.domain = 0x0,
+			.bdf = 0xfb,
+			.bar_mask = {
+				0x00000000, 0x00000000, 0x00000000,
+				0x00000000, 0xffffffc0, 0x00000000,
+			},
+			.caps_start = 0,
+			.num_caps = 0,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+			.msi_maskable = 0,
+			.num_msix_vectors = 0,
+			.msix_region_size = 0x0,
+			.msix_address = 0x0,
+		},
+		/* ADDED MANUALLY */
+		{ /* IVSHMEM (virtio-blk back-end) */
+			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+			.domain = 0x0,
+			.bdf = 0x0c << 3,
+			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+			.num_msix_vectors = 2,
+			.shmem_regions_start = 0,
+			.shmem_dev_id = 0,
+			.shmem_peers = 2,
+			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VIRTIO_BACK +
+				VIRTIO_DEV_BLOCK,
+		},
+		{ /* IVSHMEM (virtio-con back-end) */
+			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+			.domain = 0x0,
+			.bdf = 0x0d << 3,
+			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+			.num_msix_vectors = 3,
+			.shmem_regions_start = 4,
+			.shmem_dev_id = 0,
+			.shmem_peers = 2,
+			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VIRTIO_BACK +
+				VIRTIO_DEV_CONSOLE,
+		},
+		{ /* IVSHMEM (demo) */
+			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+			.domain = 0x0000,
+			.bdf = 0x0e << 3,
+			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+			.num_msix_vectors = 16,
+			.shmem_regions_start = 8,
+			.shmem_dev_id = 0,
+			.shmem_peers = 3,
+			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
+		},
+		{ /* IVSHMEM (networking) */
+			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+			.domain = 0x0000,
+			.bdf = 0x0f << 3,
+			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+			.num_msix_vectors = 2,
+			.shmem_regions_start = 13,
+			.shmem_dev_id = 0,
+			.shmem_peers = 2,
+			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+		},
+	},
+
+	.pci_caps = {
+		/* PCIDevice: 00:02.0 */
+		/* PCIDevice: 00:19.0 */
+		{
+			.id = PCI_CAP_ID_PM,
+			.start = 0xc8,
+			.len = 0x8,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_MSI,
+			.start = 0xd0,
+			.len = 0xe,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_EXP,
+			.start = 0xe0,
+			.len = 0x14,
+			.flags = 0,
+		},
+		{
+			.id = PCI_CAP_ID_MSIX,
+			.start = 0xa0,
+			.len = 0xc,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_EXT_CAP_ID_ERR | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x100,
+			.len = 0x40,
+			.flags = 0,
+		},
+		{
+			.id = PCI_EXT_CAP_ID_DSN | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x140,
+			.len = 0xc,
+			.flags = 0,
+		},
+		/* PCIDevice: 00:1b.0 */
+		{
+			.id = PCI_CAP_ID_MSI,
+			.start = 0x60,
+			.len = 0xe,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		/* PCIDevice: 00:1f.2 */
+		{
+			.id = PCI_CAP_ID_MSI,
+			.start = 0x80,
+			.len = 0xe,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_SATA,
+			.start = 0xa8,
+			.len = 0x2,
+			.flags = 0,
+		},
+		/* ADDED MANUALLY */
+		{ /* non-cap registers: HDCTL, TCSEL, DCKCTL, DCKSTS */
+			.start = 0x40,
+			.len = 0x10,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+	},
+};
+
+------=_Part_1343_398004741.1578907798641
+Content-Type: text/x-csrc; charset=US-ASCII; name=linux-x86-demo.c
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename=linux-x86-demo.c
+X-Attachment-Id: 7326c10b-9ffe-4894-981d-8f3da65a8695
+Content-ID: <7326c10b-9ffe-4894-981d-8f3da65a8695>
+
+/*
+ * Jailhouse, a Linux-based partitioning hypervisor
+ *
+ * Configuration for Linux inmate, 1 CPU, 74 MB RAM, ~1MB shmem, serial ports
+ *
+ * Copyright (c) Siemens AG, 2013-2015
+ *
+ * Authors:
+ *  Jan Kiszka <jan.kiszka@siemens.com>
+ *
+ * This work is licensed under the terms of the GNU GPL, version 2.  See
+ * the COPYING file in the top-level directory.
+ */
+
+#include <jailhouse/types.h>
+#include <jailhouse/cell-config.h>
+
+struct {
+	struct jailhouse_cell_desc cell;
+	__u64 cpus[1];
+#ifdef CONFIG_QEMU_E1000E_ASSIGNMENT
+	struct jailhouse_memory mem_regions[24];
+#else
+	struct jailhouse_memory mem_regions[20];
+#endif
+	struct jailhouse_cache cache_regions[1];
+	struct jailhouse_irqchip irqchips[1];
+	struct jailhouse_pio pio_regions[3];
+#ifdef CONFIG_QEMU_E1000E_ASSIGNMENT
+	struct jailhouse_pci_device pci_devices[5];
+#else
+	struct jailhouse_pci_device pci_devices[4];
+#endif
+	struct jailhouse_pci_capability pci_caps[6];
+} __attribute__((packed)) config = {
+	.cell = {
+		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
+		.revision = JAILHOUSE_CONFIG_REVISION,
+		.name = "linux-x86-demo",
+		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG |
+			 JAILHOUSE_CELL_VIRTUAL_CONSOLE_PERMITTED,
+
+		.cpu_set_size = sizeof(config.cpus),
+		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+		.num_cache_regions = ARRAY_SIZE(config.cache_regions),
+		.num_irqchips = ARRAY_SIZE(config.irqchips),
+		.num_pio_regions = ARRAY_SIZE(config.pio_regions),
+		.num_pci_devices = ARRAY_SIZE(config.pci_devices),
+		.num_pci_caps = ARRAY_SIZE(config.pci_caps),
+	},
+
+	.cpus = {
+		0b1100,
+	},
+
+	.mem_regions = {
+		/* IVSHMEM shared memory region (virtio-blk front) */
+		{
+			.phys_start = 0x3f000000,
+			.virt_start = 0x3f000000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+		},
+		{
+			.phys_start = 0x3f001000,
+			.virt_start = 0x3f001000,
+			.size = 0xdf000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_ROOTSHARED,
+		},
+		{ 0 },
+		{ 0 },
+		/* IVSHMEM shared memory region (virtio-con front) */
+		{
+			.phys_start = 0x3f0e0000,
+			.virt_start = 0x3f0e0000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+		},
+		{
+			.phys_start = 0x3f0e1000,
+			.virt_start = 0x3f0e1000,
+			.size = 0xf000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_ROOTSHARED,
+		},
+		{ 0 },
+		{ 0 },
+		/* IVSHMEM shared memory regions (demo) */
+		{
+			.phys_start = 0x3f0f0000,
+			.virt_start = 0x3f0f0000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+		},
+		{
+			.phys_start = 0x3f0f1000,
+			.virt_start = 0x3f0f1000,
+			.size = 0x9000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_ROOTSHARED,
+		},
+		{
+			.phys_start = 0x3f0fa000,
+			.virt_start = 0x3f0fa000,
+			.size = 0x2000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+		},
+		{
+			.phys_start = 0x3f0fc000,
+			.virt_start = 0x3f0fc000,
+			.size = 0x2000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+		},
+		{
+			.phys_start = 0x3f0fe000,
+			.virt_start = 0x3f0fe000,
+			.size = 0x2000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_ROOTSHARED,
+		},
+		/* IVSHMEM shared memory regions (networking) */
+		JAILHOUSE_SHMEM_NET_REGIONS(0x3f100000, 1),
+		/* low RAM */ {
+			.phys_start = 0x3a600000,
+			.virt_start = 0,
+			.size = 0x00100000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+				JAILHOUSE_MEM_LOADABLE,
+		},
+		/* communication region */ {
+			.virt_start = 0x00100000,
+			.size = 0x00001000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_COMM_REGION,
+		},
+		/* high RAM */ {
+			.phys_start = 0x3a700000,
+			.virt_start = 0x00200000,
+			.size = 0x4700000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+				JAILHOUSE_MEM_LOADABLE,
+		},
+#ifdef CONFIG_QEMU_E1000E_ASSIGNMENT
+		/* MemRegion: feb40000-feb7ffff : 0000:00:02.0 */
+		{
+			.phys_start = 0xfeb40000,
+			.virt_start = 0xfeb40000,
+			.size = 0x40000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: feb80000-feb9ffff : e1000e */
+		{
+			.phys_start = 0xfeb80000,
+			.virt_start = 0xfeb80000,
+			.size = 0x20000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: feba0000-febbffff : e1000e */
+		{
+			.phys_start = 0xfeba0000,
+			.virt_start = 0xfeba0000,
+			.size = 0x20000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: febd1000-febd3fff : e1000e */
+		{
+			.phys_start = 0xfebd1000,
+			.virt_start = 0xfebd1000,
+			.size = 0x3000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+#endif
+	},
+
+	.cache_regions = {
+		{
+			.start = 0,
+			.size = 2,
+			.type = JAILHOUSE_CACHE_L3,
+		},
+	},
+
+	.irqchips = {
+		/* IOAPIC */ {
+			.address = 0xfec00000,
+			.id = 0xff00,
+			.pin_bitmap = {
+				(1 << 3) | (1 << 4),
+			},
+		},
+	},
+
+	.pio_regions = {
+		PIO_RANGE(0x2f8, 8), /* serial 2 */
+		PIO_RANGE(0x3f8, 8), /* serial 1 */
+		PIO_RANGE(0xe010, 8), /* OXPCIe952 serial1 */
+	},
+
+	.pci_devices = {
+		{
+			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+			.domain = 0x0,
+			.bdf = 0x0c << 3,
+			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+			.num_msix_vectors = 2,
+			.shmem_regions_start = 0,
+			.shmem_dev_id = 1,
+			.shmem_peers = 2,
+			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VIRTIO_FRONT +
+				VIRTIO_DEV_BLOCK,
+		},
+		{
+			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+			.domain = 0x0,
+			.bdf = 0x0d << 3,
+			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+			.num_msix_vectors = 3,
+			.shmem_regions_start = 4,
+			.shmem_dev_id = 1,
+			.shmem_peers = 2,
+			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VIRTIO_FRONT +
+				VIRTIO_DEV_CONSOLE,
+		},
+		{
+			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+			.domain = 0x0,
+			.bdf = 0x0e << 3,
+			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+			.num_msix_vectors = 16,
+			.shmem_regions_start = 8,
+			.shmem_dev_id = 2,
+			.shmem_peers = 3,
+			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
+		},
+		{
+			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+			.domain = 0x0,
+			.bdf = 0x0f << 3,
+			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+			.num_msix_vectors = 2,
+			.shmem_regions_start = 13,
+			.shmem_dev_id = 1,
+			.shmem_peers = 2,
+			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+		},
+#ifdef CONFIG_QEMU_E1000E_ASSIGNMENT
+		{ /* e1000e */
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.domain = 0x0000,
+			.bdf = 0x0010,
+			.bar_mask = {
+				0xfffe0000, 0xfffe0000, 0xffffffe0,
+				0xffffc000, 0x00000000, 0x00000000,
+			},
+			.caps_start = 0,
+			.num_caps = 6,
+			.num_msi_vectors = 1,
+			.msi_64bits = 1,
+			.num_msix_vectors = 5,
+			.msix_region_size = 0x1000,
+			.msix_address = 0xfebd0000,
+		},
+#endif
+	},
+
+	.pci_caps = {
+		{ /* e1000e */
+			.id = PCI_CAP_ID_PM,
+			.start = 0xc8,
+			.len = 8,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_MSI,
+			.start = 0xd0,
+			.len = 14,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_EXP,
+			.start = 0xe0,
+			.len = 20,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_MSIX,
+			.start = 0xa0,
+			.len = 12,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_EXT_CAP_ID_ERR | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x100,
+			.len = 4,
+			.flags = 0,
+		},
+		{
+			.id = PCI_EXT_CAP_ID_DSN | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x140,
+			.len = 4,
+			.flags = 0,
+		},
+	}
+};
+
+------=_Part_1343_398004741.1578907798641
+Content-Type: text/x-csrc; charset=US-ASCII; name=e1000-demo.c
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename=e1000-demo.c
+X-Attachment-Id: d36405ce-d7f2-4681-be93-3ec1a9c073dc
+Content-ID: <d36405ce-d7f2-4681-be93-3ec1a9c073dc>
+
+/*
+ * Jailhouse, a Linux-based partitioning hypervisor
+ *
+ * Minimal configuration for PCI demo inmate:
+ * 1 CPU, 1 MB RAM, 1 serial port, 1 Intel HDA PCI device
+ *
+ * Copyright (c) Siemens AG, 2014
+ *
+ * Authors:
+ *  Jan Kiszka <jan.kiszka@siemens.com>
+ *
+ * This work is licensed under the terms of the GNU GPL, version 2.  See
+ * the COPYING file in the top-level directory.
+ */
+
+#include <jailhouse/types.h>
+#include <jailhouse/cell-config.h>
+
+struct {
+	struct jailhouse_cell_desc cell;
+	__u64 cpus[1];
+	struct jailhouse_memory mem_regions[3];
+	struct jailhouse_pio pio_regions[3];
+	struct jailhouse_pci_device pci_devices[1];
+	struct jailhouse_pci_capability pci_caps[6];
+} __attribute__((packed)) config = {
+	.cell = {
+		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
+		.revision = JAILHOUSE_CONFIG_REVISION,
+		.name = "e1000-demo",
+		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG |
+			JAILHOUSE_CELL_VIRTUAL_CONSOLE_PERMITTED,
+
+		.cpu_set_size = sizeof(config.cpus),
+		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+		.num_irqchips = 0,
+		.num_pio_regions = ARRAY_SIZE(config.pio_regions),
+		.num_pci_devices = ARRAY_SIZE(config.pci_devices),
+		.num_pci_caps = ARRAY_SIZE(config.pci_caps),
+
+		.console = {
+			.type = JAILHOUSE_CON_TYPE_8250,
+			.flags = JAILHOUSE_CON_ACCESS_PIO,
+			.address = 0x3f8,
+		},
+	},
+
+	.cpus = {
+		0x4,
+	},
+
+	.mem_regions = {
+		/* RAM */ { /* this is behind the Linux demo and before the APIC demo */
+			.phys_start = 0x3ee00000,
+			.virt_start = 0,
+			.size = 0x00100000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+				JAILHOUSE_MEM_LOADABLE,
+		},
+		/* communication region */ {
+			.virt_start = 0x00100000,
+			.size = 0x00001000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_COMM_REGION,
+		},
+		/* e1000 BAR0 */ {
+			.phys_start = 0xfeb80000,
+			.virt_start = 0xfeb80000,
+			.size = 0x00020000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+	},
+
+	.pio_regions = {
+		PIO_RANGE(0x2f8, 8), /* serial 2 */
+		PIO_RANGE(0x3f8, 8), /* serial 1 */
+		PIO_RANGE(0xc060, 0x20), /* e1000 */
+	},
+
+	.pci_devices = {
+		{ /* Intel e1000 @00:19.0 */
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.domain = 0x0000,
+			.bdf = 0xc8,
+			.bar_mask = {
+				0xfffe0000, 0xfffe0000, 0xffffffe0,
+				0xffffc000, 0x00000000, 0x00000000,
+			},
+			.caps_start = 0,
+			.num_caps = 6,
+			.num_msi_vectors = 1,
+			.msi_64bits = 1,
+//			.num_msix_vectors = 5,
+//			.msix_region_size = 0x1000,
+//			.msix_address = 0xfebd4000,
+		},
+	},
+
+	.pci_caps = {
+		/* PCIDevice: 00:02.0 */
+		/* PCIDevice: 00:19.0 */
+		{
+			.id = PCI_CAP_ID_PM,
+			.start = 0xc8,
+			.len = 0x8,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_MSI,
+			.start = 0xd0,
+			.len = 14,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_EXP,
+			.start = 0xe0,
+			.len = 0x14,
+			.flags = 0,
+		},
+		{
+			.id = PCI_CAP_ID_MSIX,
+			.start = 0xa0,
+			.len = 0xc,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_EXT_CAP_ID_ERR | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x100,
+			.len = 0x40,
+			.flags = 0,
+		},
+		{
+			.id = PCI_EXT_CAP_ID_DSN | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x140,
+			.len = 0xc,
+			.flags = 0,
+		},
+	},
+};
+
+------=_Part_1343_398004741.1578907798641--
