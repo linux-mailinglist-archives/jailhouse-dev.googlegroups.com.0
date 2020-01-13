@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBDL2JD42SEIBB3UV6HYAKGQEXHYO5KQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDL2JD42SEIBB34V6HYAKGQEWAAPIZY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-io1-xd39.google.com (mail-io1-xd39.google.com [IPv6:2607:f8b0:4864:20::d39])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03502138F85
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 13 Jan 2020 11:48:16 +0100 (CET)
-Received: by mail-io1-xd39.google.com with SMTP id m12sf5548124ioh.8
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 13 Jan 2020 02:48:15 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1578912494; cv=pass;
+Received: from mail-il1-x13a.google.com (mail-il1-x13a.google.com [IPv6:2607:f8b0:4864:20::13a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 26A14138F86
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 13 Jan 2020 11:48:17 +0100 (CET)
+Received: by mail-il1-x13a.google.com with SMTP id o13sf7474862ilf.10
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 13 Jan 2020 02:48:17 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1578912496; cv=pass;
         d=google.com; s=arc-20160816;
-        b=U5PeqLKbjEPjE0jWO5P2SXyFyZPpchQ+YKoq2U4ycokJSg4PhedIz3yjlzWSf52kUo
-         Dnop1k6ha+YEw+ru1wQWoSHSQ4Fuca6mrAdimNVEG2PDfaCwGPiP2JzCj8bc7qLD1mjH
-         3tujMeqzx+hMyG2aJAZP+39xF19BG53CcqsmC3Tux1kkbmlC9qsVqB2SG8+ttWHRZWcQ
-         gZwcjIC6QIc0e+IGbJ+lbxYsPYZPaVrLo0OS1PWULzScohpbQus91gJXTzNKlVg8fBgj
-         5OKFgwC9RLsuvtSd6BO15tzk2imgLpIZidH8ktTfkbwkMsd/WEVxG6Uo8Tx1ZCSGT+qC
-         wxBA==
+        b=l3Vq3neXn1BhGr86W6mhrnSHk6cGjlir6gy4Q1JoeuGpY5xsdSXYblbthzAPKsr7Ea
+         T6eWokSI3zvewm3AY8eg0zOuiA0h7uQRCBO1IQzcAt5FkSR6580F8qFf1b0+qny7ahca
+         vYSP8ocCj/9DO2BeOSXcG0SzjSVTJwPM+fLI4p0rwwRddunHxJmNtw8beSMggv/hBXm9
+         kFb3/DBqwutSZXwnaTVBLHXeSE3hFHSEhfl0fAHQUW1voJBreR6KioxXxQJr6tXZiVI7
+         f1RnlhWrSwvIwZK2jaTJ0Ec+jrfn8zeRqe84i4t9Oc49WbJrMBmmcmoOa/FKYHLNdLc6
+         y8zQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:reply-to:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:dkim-signature;
-        bh=KzcHW0MVPDe+o8KMS2RmMwwNWZ7CcBqHDfn91Nk2lB4=;
-        b=WMYLJdDmK+2rFFzeoorGM5j8VaialAi0/6RD0bAJ/9ZLWhrstjhH3trRjYNYFSnSSe
-         QHUVHLdjo4cAqkhKFkMVrs1w0Gu7Of6cNeXduLKLLis0UXzeJAp5ACMTbTwS9MR/qn3K
-         pCmS/YpQf5/v242jHnNHMUgeb/gI7gtVIlpT8WndOIYT4sF0ETNnrNXBC1PMH+DxSQT/
-         FRnKjc7vYrCIKXAcWk6CuUEp5+YF03B4FnqsX44goJaHm8drrDmKvcCiOJwYmdHEIqTL
-         H1EaZHkKm/V09cBmx39i69VQZ2bshWy2XpgRHGAuDJj1z5QetXPKtt6tBIOzAqRI3/yI
-         FCUQ==
+        bh=H68H8P6bXJdD8B41bo18gCd5BfYG41xlTaJqclNoNxk=;
+        b=wo1TRe9gFEjugt83XPGpUbVBAC6Du1ggJWDzIJ+ayOb1tkuNJkmkxvcBS9G7+pdn5+
+         MncKAcruH1pm8B9ghaqeY+DdwGfJEDfDtbfb6rnU9jgZOKz5trG361oEInKiTCy8T1G7
+         OEXZUfuhIAr9AWUhECD8hYf9gSYh2RLYWNPZh+61qQ7bkuCrY88gRKSlmp8HNo+s4z3X
+         5d9QtdTcNlxCXpNsEUF0YI83X+KC9YvqbFStmgK91rVGidJ0hKIv/cyHhs1FdlhcLj6S
+         VbA+If6mfh2hfbhv5q5Y7t11/qHtUZ3h2pkljPycdTJ3CCPWZ58A282BSPUMnJqCTsfq
+         7bMQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=mTyK10nG;
-       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.23.249 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=FE3BYdlG;
+       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.142 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
        dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :reply-to:precedence:mailing-list:list-id:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=KzcHW0MVPDe+o8KMS2RmMwwNWZ7CcBqHDfn91Nk2lB4=;
-        b=eJwRDhyu1/03HH8ZVw+oL2kecLjRVwkO18h2emdTtTFO89mSKz0vARH4f9JmO+jLjC
-         /o7+RQ7uyzQ2t+WmbJNcds/xpO+besJqfsGn+h9xkc0vt0ZLTwUURF9gmY4iaPBWuWyT
-         YBO+dFM3THgI8LDgthRgp6frlHBGzYjfYiFl6e9EXMEoIrvgp6yUDiXyfuN8KSHsfxT9
-         aeJNdE7LVloXFJLJpXijnttENy2wQuHz9drO8Ra6nKMU+iyvlFvw02HJwAKD0JlAI3J9
-         Blrm3Dhu4D8hTrwH0xx3sQrvsalZbpoBLubJxEeA7QBdx7FMbVZtrSog/vNSBt91owT+
-         5bKw==
+        bh=H68H8P6bXJdD8B41bo18gCd5BfYG41xlTaJqclNoNxk=;
+        b=ZdIVxVmE/JfjqOrqoGki4O10OeyfxCZJLC17k92G9/yxeQ+whHsmcmwaFKnAXRMI7/
+         4nx2WgQR1e67IVxa8AaPe57VjT+lSxj/c9LzDYWvZawLgzV9A/0ggyzeKhCxoex6aPB7
+         qfWUX0nd4VePobHxRhv8jM/qFOTJ9P/DW/kbavyWAbxWrCfuhHthKuUNmG3TQtRT1Ncd
+         UCBlGRArHZH5P+fIUietPc0Vw5sw+1VCY4V/36OqhCckFSWXxLgCFgZ4zwZlEl7SJeVy
+         1kz+tcVTt61b5ENYcvflP4nxhqyuhqaqid+nOjVew9bWhBoDxmpPMPl3YLLL9IbdPVYl
+         AInQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
@@ -49,74 +49,75 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:reply-to:precedence:mailing-list
          :list-id:x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=KzcHW0MVPDe+o8KMS2RmMwwNWZ7CcBqHDfn91Nk2lB4=;
-        b=CRYanSV4VLT0NvbvPrBX/VRzQZ0njJpdDtrpHiWNaefqDy+pAYahPku9TTIk27sbFZ
-         KKcvzYOa/3Z589nuuAwcsihcQfe+/QS4X6HYiLuJ+jFzYyJWUZXIrrnyMMolsQfgC74t
-         sziFC3G6DJIyT0k1FBesahI4OmdNdczcik1nFaRKKZZMcIfS9Bw3InK7jZxbrFbB319Y
-         3xTeAU5UL7p6xeKjOeQN3Gwk3xjM27/L1bfLDeUV1RYVrZJ++N69i97uTyOJDaX3Jmw+
-         7fNbkH+i50neVJ05Y/XPk9ll4QnlWm2tBMKF0eigSNNcofFPMKfYmO8GEdbxLctF5SaT
-         kedA==
-X-Gm-Message-State: APjAAAWVwikDbJ8ztzn8ADPwNQiWzgphqScdjX4UDmyB7cjZoOrs0kaE
-	+pFbBKqaSERefJg2ydmhQM0=
-X-Google-Smtp-Source: APXvYqxGsj8gDKFuPdGZMDpsRQDdDXJgyRbyCaDwaHQPQzSWaSvpI0C0w1WGAHdMth4dsjdzz1gRwA==
-X-Received: by 2002:a92:8893:: with SMTP id m19mr14297313ilh.4.1578912494516;
-        Mon, 13 Jan 2020 02:48:14 -0800 (PST)
+        bh=H68H8P6bXJdD8B41bo18gCd5BfYG41xlTaJqclNoNxk=;
+        b=hx5tZwegVUMZDoPJ86EvliZRcBFUSanAAkCRDt2tCpHrlpXfRzYnuG5JHGDSW3veLJ
+         tMRWnjv/i2NobEuFnFi/vDLEMtpFeg/yi1kBaDbLB0Nz8Svk6AgTx7iR8TsgQZTE8GNd
+         sYYfF1YE9aqS3oMLFoXCO0yAWCO9TlNARl76OGwe8TjpilEf/hJmg4bK9oE5u+tsO0BM
+         pX9JdOqAG98PD/R9J4f4dTbhm7HJBZCPtjQpdB7vt43ZNt60ylFiX/pQoPD2bebTna1G
+         AeWmOd0dy8MStqRUmzYqH3KUGH2r9mluqskEiGgx1yVOziL9z5teY+1n46+NzV4QOVOp
+         4ZqA==
+X-Gm-Message-State: APjAAAXDA71x21USo3xpNQ8V4Pu+vBi7tVpV4a/kiOfX1Bs0HOKDpOT7
+	2pf5R95Vq8SbydWF3ouzZGA=
+X-Google-Smtp-Source: APXvYqw/EoQ7iPORcJfMVNIFHcO0TLRZY5/oHT+lRKBjF9Hzz8NqCAj50z8GxqdmkLxgObFN7TMFfQ==
+X-Received: by 2002:a92:489a:: with SMTP id j26mr14987010ilg.226.1578912496077;
+        Mon, 13 Jan 2020 02:48:16 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6602:2256:: with SMTP id o22ls1753119ioo.11.gmail; Mon,
- 13 Jan 2020 02:48:14 -0800 (PST)
-X-Received: by 2002:a6b:6712:: with SMTP id b18mr12358957ioc.256.1578912494062;
-        Mon, 13 Jan 2020 02:48:14 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1578912494; cv=none;
+Received: by 2002:a5e:9807:: with SMTP id s7ls1749228ioj.13.gmail; Mon, 13 Jan
+ 2020 02:48:15 -0800 (PST)
+X-Received: by 2002:a5d:8c8c:: with SMTP id g12mr12239350ion.23.1578912495637;
+        Mon, 13 Jan 2020 02:48:15 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1578912495; cv=none;
         d=google.com; s=arc-20160816;
-        b=uhrtMcRDunbE0A6/xEdkleqst8qXHXS1r7eZ179NEdmSavU48OgpPbmjJS17qubcMI
-         wsy82BNJK9kWdq46NNsLPfc8edsWHkjP9sHhCVeZh3UviTjs2WY3JS5CjOVddF+5cniL
-         lSLbdfK21WRoR6YjmYfOquWapMpHEfWvA9oUPxJ5BkEHdhWvDCtVI9MLhgqcxUPhm2Oq
-         woaMnw6gmkL2QQ7oy5tEASC7/atXPtOwqZXfDu8alcozPKk39gE2+l4fh/R5RcVV9cgp
-         5sjWxsyufpFYt1xUPsUCSTF6hjrB8sPB7WMJagOxcGaG3bOljAW8NIIgMncUdcDgTAeu
-         0Wxw==
+        b=d8lRh6eQe0o6/5usVq6fJRenTC+GYERLbJQJ/AtmUQuF2wXk3dkLKRRsACMDiqGR19
+         sE6OCYxQ1otMymfEl41S7m7AG8uDGEfudorUZkzl6CkuajEMit29RtaeOfJYWYafr6/5
+         rC4imNIwK0ViB8jtOcKwRhWlagKI/7uUbKBrGb+/bdiFOezZH3AF36MCh97XEvsQcp5e
+         Fc5nZuJOo3xwMZ0fqHSZ0cmjXeLLCE81UQLaT7MTXHixfV7phF36J2XdjmHr379tVUqI
+         heF/rF+4c1IuQl1nPO7r+N2VsWdeFR4y7Ro0igrbmHlClY7phQmO0mUmRqb9yLMs0Waw
+         Jiqw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
          :from:dkim-signature;
-        bh=AosoKB5jBAJcHPQtFt4dVZJtsAKuTsAJY96IYsGvLnY=;
-        b=jWYrOrp6DUjck/jS/6+MmQVyIFXVTpgBOsiTMGg6XEPSwOh3ZOm4xCxzU4AcGm0pJF
-         JSyms70m2ezh/W0gHoHSUHsbHWuqjj4D+5TEsT0T+s9UITstXCXWJmUcx5T4dfnfdU0V
-         jOIvzz6BdRloAcEXIcjVgb2jRY0YtaeaMQLLsMPY0PY47F6cb5N/WEE+/8Vh4CismcVW
-         8dz0RfSGaiYHH3F4tyFgN1tmLJIPSn64rVqAS0mK4SLAVHk4tI7anQqAbD1PiCSe7+Sr
-         O4cI5utJfv7PVqbEzBrMbrZZJ2HRGcH+J4slVc8cEBwlTvBJJTKgp1wbxyZstTh0a6sS
-         t2jQ==
+        bh=26kKbm357nKSSiv7KhIsz+QhqEr5yk+DMs+2VJlFt/U=;
+        b=pT7tk3ohYNEWSHHKTQwuVWSNsBENQdCLB+zmvJeiZhAGpBztvyXB4nHVNjXCb1FW4N
+         imAwGc8HGhjoW9bodqDvxnEFMlPW5aGiUA1iPcm0mi5XOblCOxdJ3eNh04i1DM5bIymW
+         tRk8Y9fEtlg4HRkJqDOJseWoRr/hMHPQIq8oHMw5+clAu3Asfpcb+Wsoa7hAgGHBzwmy
+         7dOmQW6zHgBIXgWrNRLstqlVpZcWHvWznkWpCHktyrXlZB4s3xX5yubfNabGDfRSYo8c
+         ZzKyDb6NvIiECnW65M1GIqCW0u9+/nmzqhasuLtx8F4f5OXtkSh8PXgNoefFfzQf9jiw
+         enmA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=mTyK10nG;
-       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.23.249 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=FE3BYdlG;
+       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.142 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
        dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
-Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com. [198.47.23.249])
-        by gmr-mx.google.com with ESMTPS id h13si433372ioe.5.2020.01.13.02.48.13
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com. [198.47.19.142])
+        by gmr-mx.google.com with ESMTPS id z7si463805ilz.1.2020.01.13.02.48.15
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 13 Jan 2020 02:48:13 -0800 (PST)
-Received-SPF: pass (google.com: domain of nikhil.nd@ti.com designates 198.47.23.249 as permitted sender) client-ip=198.47.23.249;
-Received: from fllv0035.itg.ti.com ([10.64.41.0])
-	by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 00DAmDpa070183;
-	Mon, 13 Jan 2020 04:48:13 -0600
-Received: from DFLE109.ent.ti.com (dfle109.ent.ti.com [10.64.6.30])
-	by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTP id 00DAmDFP027570;
-	Mon, 13 Jan 2020 04:48:13 -0600
-Received: from DFLE104.ent.ti.com (10.64.6.25) by DFLE109.ent.ti.com
- (10.64.6.30) with Microsoft SMTP Server (version=TLS1_2,
+        Mon, 13 Jan 2020 02:48:15 -0800 (PST)
+Received-SPF: pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.142 as permitted sender) client-ip=198.47.19.142;
+Received: from fllv0034.itg.ti.com ([10.64.40.246])
+	by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 00DAmFSa043894;
+	Mon, 13 Jan 2020 04:48:15 -0600
+Received: from DLEE112.ent.ti.com (dlee112.ent.ti.com [157.170.170.23])
+	by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 00DAmFIk106762
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 13 Jan 2020 04:48:15 -0600
+Received: from DLEE104.ent.ti.com (157.170.170.34) by DLEE112.ent.ti.com
+ (157.170.170.23) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Mon, 13
- Jan 2020 04:48:13 -0600
-Received: from lelv0326.itg.ti.com (10.180.67.84) by DFLE104.ent.ti.com
- (10.64.6.25) with Microsoft SMTP Server (version=TLS1_2,
+ Jan 2020 04:48:15 -0600
+Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE104.ent.ti.com
+ (157.170.170.34) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
- Frontend Transport; Mon, 13 Jan 2020 04:48:13 -0600
+ Frontend Transport; Mon, 13 Jan 2020 04:48:14 -0600
 Received: from NiksLab.india.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
-	by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 00DAm9MH011219;
-	Mon, 13 Jan 2020 04:48:12 -0600
+	by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 00DAm9MI011219;
+	Mon, 13 Jan 2020 04:48:13 -0600
 From: "nikhil.nd via Jailhouse" <jailhouse-dev@googlegroups.com>
 To: <jailhouse-dev@googlegroups.com>
 CC: <jan.kiszka@siemens.com>, Nikhil Devshatwar <nikhil.nd@ti.com>
-Subject: [PATCH v3 1/5] core: Update cell_state while destroying the cell
-Date: Mon, 13 Jan 2020 16:16:43 +0530
-Message-ID: <20200113104647.25884-2-nikhil.nd@ti.com>
+Subject: [PATCH v3 2/5] configs: Move amd specific fields in separate struct
+Date: Mon, 13 Jan 2020 16:16:44 +0530
+Message-ID: <20200113104647.25884-3-nikhil.nd@ti.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200113104647.25884-1-nikhil.nd@ti.com>
 References: <20200113104647.25884-1-nikhil.nd@ti.com>
@@ -125,8 +126,8 @@ Content-Type: text/plain; charset="UTF-8"
 X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 X-Original-Sender: nikhil.nd@ti.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@ti.com header.s=ti-com-17Q1 header.b=mTyK10nG;       spf=pass
- (google.com: domain of nikhil.nd@ti.com designates 198.47.23.249 as permitted
+ header.i=@ti.com header.s=ti-com-17Q1 header.b=FE3BYdlG;       spf=pass
+ (google.com: domain of nikhil.nd@ti.com designates 198.47.19.142 as permitted
  sender) smtp.mailfrom=nikhil.nd@ti.com;       dmarc=pass (p=QUARANTINE
  sp=NONE dis=NONE) header.from=ti.com
 X-Original-From: <nikhil.nd@ti.com>
@@ -145,32 +146,121 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Nikhil Devshatwar <nikhil.nd@ti.com>
 
-Update the cell_state to SHUT_DOWN as part of the cell_destroy
-This will make sure that the memory_unmap calls and unit's
-cell_exit calls can see the correct status of the cell.
+Create a union for all vendor specific fields and move the
+amd specific fields in separate struct.
+Also update the amd unit references of these fields.
+
+This is to handle multiple iommu devices and their custom fields
+separately.
 
 Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
 ---
- hypervisor/control.c | 2 ++
- 1 file changed, 2 insertions(+)
 
-diff --git a/hypervisor/control.c b/hypervisor/control.c
-index a0a7532c..2ab6beac 100644
---- a/hypervisor/control.c
-+++ b/hypervisor/control.c
-@@ -363,6 +363,8 @@ static void cell_destroy_internal(struct cell *cell)
- 	unsigned int cpu, n;
- 	struct unit *unit;
+Notes:
+    Changes from v2:
+    * Use named structs for amd specific fields
+    * Update the references in the amd unit
+
+ hypervisor/arch/x86/amd_iommu.c | 26 +++++++++++++-------------
+ include/jailhouse/cell-config.h | 12 ++++++++----
+ 2 files changed, 21 insertions(+), 17 deletions(-)
+
+diff --git a/hypervisor/arch/x86/amd_iommu.c b/hypervisor/arch/x86/amd_iommu.c
+index 2fc6d033..6161ccf8 100644
+--- a/hypervisor/arch/x86/amd_iommu.c
++++ b/hypervisor/arch/x86/amd_iommu.c
+@@ -448,14 +448,14 @@ static void amd_iommu_init_fault_nmi(void)
+ 		    &system_config->platform_info.x86.iommu_units[iommu->idx];
  
-+	cell->comm_page.comm_region.cell_state = JAILHOUSE_CELL_SHUT_DOWN;
-+
- 	for_each_cpu(cpu, cell->cpu_set) {
- 		arch_park_cpu(cpu);
+ 		/* Disable MSI during interrupt reprogramming. */
+-		pci_write_config(cfg->amd_bdf, cfg->amd_msi_cap + 2, 0, 2);
++		pci_write_config(cfg->amd.bdf, cfg->amd.msi_cap + 2, 0, 2);
  
+ 		/*
+ 		 * Write new MSI capability block, re-enabling interrupts with
+ 		 * the last word.
+ 		 */
+ 		for (n = 3; n >= 0; n--)
+-			pci_write_config(cfg->amd_bdf, cfg->amd_msi_cap + 4 * n,
++			pci_write_config(cfg->amd.bdf, cfg->amd.msi_cap + 4 * n,
+ 					 msi_reg.raw[n], 4);
+ 	}
+ 
+@@ -637,14 +637,14 @@ static int amd_iommu_init_pci(struct amd_iommu *entry,
+ 		return trace_error(-EINVAL);
+ 
+ 	/* Check that EFR is supported */
+-	caps_header = pci_read_config(iommu->amd_bdf, iommu->amd_base_cap, 4);
++	caps_header = pci_read_config(iommu->amd.bdf, iommu->amd.base_cap, 4);
+ 	if (!(caps_header & CAPS_IOMMU_EFR_SUP))
+ 		return trace_error(-EIO);
+ 
+-	lo = pci_read_config(iommu->amd_bdf,
+-			     iommu->amd_base_cap + CAPS_IOMMU_BASE_LOW_REG, 4);
+-	hi = pci_read_config(iommu->amd_bdf,
+-			     iommu->amd_base_cap + CAPS_IOMMU_BASE_HI_REG, 4);
++	lo = pci_read_config(iommu->amd.bdf,
++			     iommu->amd.base_cap + CAPS_IOMMU_BASE_LOW_REG, 4);
++	hi = pci_read_config(iommu->amd.bdf,
++			     iommu->amd.base_cap + CAPS_IOMMU_BASE_HI_REG, 4);
+ 
+ 	if (lo & CAPS_IOMMU_ENABLE &&
+ 	    ((hi << 32) | lo) != (iommu->base | CAPS_IOMMU_ENABLE)) {
+@@ -654,11 +654,11 @@ static int amd_iommu_init_pci(struct amd_iommu *entry,
+ 	}
+ 
+ 	/* Should be configured by BIOS, but we want to be sure */
+-	pci_write_config(iommu->amd_bdf,
+-			 iommu->amd_base_cap + CAPS_IOMMU_BASE_HI_REG,
++	pci_write_config(iommu->amd.bdf,
++			 iommu->amd.base_cap + CAPS_IOMMU_BASE_HI_REG,
+ 			 (u32)(iommu->base >> 32), 4);
+-	pci_write_config(iommu->amd_bdf,
+-			 iommu->amd_base_cap + CAPS_IOMMU_BASE_LOW_REG,
++	pci_write_config(iommu->amd.bdf,
++			 iommu->amd.base_cap + CAPS_IOMMU_BASE_LOW_REG,
+ 			 (u32)(iommu->base & 0xffffffff) | CAPS_IOMMU_ENABLE,
+ 			 4);
+ 
+@@ -687,9 +687,9 @@ static int amd_iommu_init_features(struct amd_iommu *entry,
+ 		return trace_error(-EIO);
+ 
+ 	/* Figure out if hardware events are supported. */
+-	if (iommu->amd_features)
++	if (iommu->amd.features)
+ 		entry->he_supported =
+-			iommu->amd_features & ACPI_REPORTING_HE_SUP;
++			iommu->amd.features & ACPI_REPORTING_HE_SUP;
+ 	else
+ 		entry->he_supported = efr & AMD_EXT_FEAT_HE_SUP;
+ 
+diff --git a/include/jailhouse/cell-config.h b/include/jailhouse/cell-config.h
+index 9b018de1..68446853 100644
+--- a/include/jailhouse/cell-config.h
++++ b/include/jailhouse/cell-config.h
+@@ -251,10 +251,14 @@ struct jailhouse_iommu {
+ 	__u64 base;
+ 	__u32 size;
+ 
+-	__u16 amd_bdf;
+-	__u8 amd_base_cap;
+-	__u8 amd_msi_cap;
+-	__u32 amd_features;
++	union {
++		struct {
++			__u16 bdf;
++			__u8 base_cap;
++			__u8 msi_cap;
++			__u32 features;
++		} __attribute__((packed)) amd;
++	};
+ } __attribute__((packed));
+ 
+ struct jailhouse_pio {
 -- 
 2.17.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200113104647.25884-2-nikhil.nd%40ti.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200113104647.25884-3-nikhil.nd%40ti.com.
