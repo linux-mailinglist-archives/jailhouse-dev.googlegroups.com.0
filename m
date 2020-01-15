@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBAMU73YAKGQEB6NKV3I@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBB4U73YAKGQETNJZJIA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43c.google.com (mail-wr1-x43c.google.com [IPv6:2a00:1450:4864:20::43c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C57413CF77
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 15 Jan 2020 22:54:10 +0100 (CET)
-Received: by mail-wr1-x43c.google.com with SMTP id z10sf8393593wrt.21
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 15 Jan 2020 13:54:10 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1579125249; cv=pass;
+Received: from mail-lj1-x239.google.com (mail-lj1-x239.google.com [IPv6:2a00:1450:4864:20::239])
+	by mail.lfdr.de (Postfix) with ESMTPS id E656213CF78
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 15 Jan 2020 22:54:15 +0100 (CET)
+Received: by mail-lj1-x239.google.com with SMTP id u9sf4457679ljg.12
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 15 Jan 2020 13:54:15 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1579125255; cv=pass;
         d=google.com; s=arc-20160816;
-        b=oQ6g5K+CAueB1NMEhyy1sDVDP0Bm5tCixJGD2dcbQFz+PLW7X58r2wJWZSUYhlfzN0
-         YLuEdT0qIwMxfbgehh9hBQnig+pLFahlp+n2qvMt87dfqNBg9xzNdJctoPxYLR32BTt1
-         GBkeq4ZsUgnuoWtLmIDjG9ydwCVAc2SCLF5Saz3cei0vVMyIue/3xKm6Wb+ICtrZO27I
-         jRWzgAMcmEOJgWuo+jp9r6dHreHa5kZPll7uHU3wjco7YhecP9GTjbULyYAwQDaz4m+O
-         +vno4gWdYFt7T+YboFifIE6yg6Ovf78N/0UH7CukskRRflcJmfzb3xBL8N8DLEH1Ep3p
-         t+FA==
+        b=HMYUthySvqJVbUdoAAnlrAGv4UnmoWUFbFEnRqoJEQomlOHOsyTPpgMDAiTcByvMgm
+         a85Ql5epStdTfpqzoXSSwcihJ0jqBQNXBsrcjh3A2Xm3igzOvBU9X8qLHaIWylrMSFvU
+         0Yd2urB2rac0SDjDDWNLkTMU5NYce2O4MnzXzs6FQbHVuyEX/vLTtU5yVo/TxfQs+EAB
+         3IKUgbypFzhcF5fZJB4dHFAiYY8FNrgrzLJh6YBPaiBmNMpgVFc4anicAGsPfnEXYL/i
+         vJ22nHTNQlNshjFbfAhx5VnQgh1tZHjLG0AfdiQThYLh2Sd2AB3W0wz7V1H6z0CcEjo+
+         JiMw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-language:in-reply-to
          :mime-version:user-agent:date:message-id:from:references:to:subject
          :sender:dkim-signature;
-        bh=0FKM2K7b9nBVVT1TuhNXHulLQWO+KHXngZEHGaUprQs=;
-        b=SwtkzE55pZ7L3G45RBGyyUKNbVker1sw7tn3UbHbrehivxlmAqLJULWjAJHr7HjsyL
-         APRaCEYGoxSPIIu9EnMsILq8cMAiODBR8sCruCKf7g/JCryeDiLwRM6wdWT4A8aCpQN/
-         /1P0DsEzIXAtIgAwpwruylkfTKUMdS53VsonhnDFnSJ0bvjxRXZtU1cd9QhnnaTS9XOh
-         +07GefKK/wX3Y9ZwJhxIS4L5bHYsG3vQ3yELGZXdCFFUyPnBcDKMtahuaTIpzwCJqNSH
-         yFApqSb44U8H4buxXY7OxZc6SXEZvSTVCOWUbOWlxOGPhilgTOR6eY5+7cIj0+9NM+C2
-         iGIQ==
+        bh=6oW3qxEjqZz+2GGmlNcMNan+MtYSVbYskUrtg6IR8+A=;
+        b=QRwnYAzp/9bl230ZT1O/tpFzTw56iBuaSymd4WpmjDTyozbF+h9su7aL2tjDzLFzBx
+         i72o+wByV447uQ/QBz3WZtDH8YrWb7wmurA1XOix+AM64VGv9ySBxwDGdwqco+hGAume
+         PeZKVyy9WYh4q/jSHfURUegVqDI+z2mUGb+l/WrylFiMmoOSYXBOlG/dCXDJgCLV9M6X
+         DWPF8eBOw2ZTRWfeQsJc4BAVajtLiO0+pk7rHSLNc3JesmlO/NsUCQIPJB47mvn6OVpl
+         T0zAufzCgaUK3e9Jd0tNC+yQYJaMhyrrWLx1ykUB3ViD6qxjauKuWcWgUuhEdNCL8ojP
+         L4pw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:in-reply-to:content-language:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=0FKM2K7b9nBVVT1TuhNXHulLQWO+KHXngZEHGaUprQs=;
-        b=RMCnL6TxvTqSzgoFZWX4MUy2GBPl+4Gy7LG/6ksSAojGl1gjh4q4kBfeSZllVhZjtf
-         v7CZgbI+Btzvse5uwhReA8wBfObam9gPlLR7Fp75bSjC74JCfPOqtUb5RNdb9piysyfF
-         zrFk2gacjI8+EQZnT3JtGFdj2PDzcYSdtea3zCl2f/WDaIKoGu7jGL6hD6mnDCTZxVRt
-         adMGuGl9yZUzZkK1rChjCJEQa6MkmmXCGJ1CGfYQ5sYDEDG0RIqY21xjjyHoYV5Y3f7D
-         +2oRUWZ/fuxGbds4YBxj+V7BWwZkackpmLcdnb+hpJsnxiqfRLXi27J1IVu4R0aQL0nN
-         KrvQ==
+        bh=6oW3qxEjqZz+2GGmlNcMNan+MtYSVbYskUrtg6IR8+A=;
+        b=A8SlhakpxviF5l+oSnZikUcloq1W/eRV0xYeZxws8TetHwAkRIjWBGQXv0iBLtK+P9
+         bb3A9XIr7qnsc8cg94bZoI2kvQetbl211oHh9C0Xu/eZQLblO/5agiHCDDJpODZP3JL1
+         BdiZUHQQ5TAvOmgjAQanyeaaJoIz8FY1o4L+0lK6QYea+/9hB32qrjfGiCW2GFE+3l7v
+         mU89U7XUkoydQmb1QkDDfHSXXL9X25AB4DQ9SiTUv/rJDDy3A76uq0nRXY24pfs0jiya
+         qQgjHlxPtcB+kixrwp+hcVk2CeJ4EB5VlH9S7GmDkuMfd4PVHChKEPKo5yS9lyI2QZ7F
+         BWgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:subject:to:references:from:message-id
@@ -49,73 +49,73 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=0FKM2K7b9nBVVT1TuhNXHulLQWO+KHXngZEHGaUprQs=;
-        b=Eo5H9ACoykDqdGH9zmFAyGNe7eYBB+rXZybp7GbIRv8nbWbSD1pnBRAiyVMjkYzjzR
-         2DweJyf8GUt0pODFIdeCw9sEjtRvyjUy1UBHVMU1rDhVkTOaM+sSpx+Nf3Vq1fiRJVkp
-         jPqQOUooqkArkqK/Ouwjs5zGbtJdV0JWQLhwnZ46gUcdU+P13AHY+FYjxeUywhu3O7UZ
-         muxyDCUmqwftxrt+VTw0iiOdA9k1eu5sQ3jSGNjD0It8w5nn3o1c5hV8EOZaiZSPt+Fx
-         e7622o5dspBNxwcbpHmFY1mgsg+ulf+k/89sjdOSF8o9Duys4WUi1ekrfLIp6xAhRSzH
-         fioQ==
+        bh=6oW3qxEjqZz+2GGmlNcMNan+MtYSVbYskUrtg6IR8+A=;
+        b=tOWU6Y7Y4GKIujB7Hpy4H+FrA97J6lV16hTE9TASNcGnIjqudoOdHUwoYk9cYocP6g
+         njP5HJnZBlvXGP2ShXuf1ur0drywJhPly5yxT94vN6/O95iyWEthLU5X2ZXgVG96GqiK
+         UGuXA1Ik1wp06X6t/k4KxXkcK/wQKCCRNagC8QUbWTmJZQGbN2nXh/vg7z8Ud4IK8zof
+         8qdVhDZV03unL3Bwd9g2j3IIuI5tNCoshlw9jDY3xKWHCKHcEr3H1BYphMa0Mv7lMRsX
+         KRyXoekqUlsb2diSMLAlYwb+REuSOPyPBhdEZuL7r6SarsJf0Wx2MK6DYBfwf9z6WQTh
+         5ulA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAWbwP/qw2wSwk6rQepUI6K7lrFtQMchEhYlshaFnfNRaQKDkVOL
-	rmu/wrsZPY9fFbX/WCQCNtE=
-X-Google-Smtp-Source: APXvYqxs4kglkNSqUknrlC6LSEb+fQQ7kH46uS9TOVqKmLg7asc/DH0+FrTb5qMG0NLxRLejeCU/sg==
-X-Received: by 2002:adf:eb09:: with SMTP id s9mr34766156wrn.61.1579125249756;
-        Wed, 15 Jan 2020 13:54:09 -0800 (PST)
+X-Gm-Message-State: APjAAAW4TXfLVBwtd+4guarBWbePO2h6ylishjVlJx28gBnyBIR+39Kb
+	fXvK0Hb0gabLHOrzrtufSQ8=
+X-Google-Smtp-Source: APXvYqwQaCXr+aa6mWfWRvYLzpFInFJZ1y4bL4NPH28LVLmI9xAhOgh5H5ax6OnhFBqs/hLE/FQ5Xg==
+X-Received: by 2002:a2e:8651:: with SMTP id i17mr286052ljj.121.1579125255377;
+        Wed, 15 Jan 2020 13:54:15 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5d:4303:: with SMTP id h3ls7177766wrq.15.gmail; Wed, 15 Jan
- 2020 13:54:08 -0800 (PST)
-X-Received: by 2002:a05:6000:12c9:: with SMTP id l9mr34884921wrx.304.1579125248760;
-        Wed, 15 Jan 2020 13:54:08 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1579125248; cv=none;
+Received: by 2002:ac2:4182:: with SMTP id z2ls1944021lfh.9.gmail; Wed, 15 Jan
+ 2020 13:54:14 -0800 (PST)
+X-Received: by 2002:a19:850a:: with SMTP id h10mr548093lfd.89.1579125254559;
+        Wed, 15 Jan 2020 13:54:14 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1579125254; cv=none;
         d=google.com; s=arc-20160816;
-        b=IDjGjxzXy2RpNw/bxGJRcLnC28O/aEmtcHTrlcTzYtAgVmMlPSHizUmnFtqdgn6UkW
-         KdFzC3IitJqyIHY1jPaBtW5a01h3wGw2aUNMhewCiwLC7qN8L7MHjHqo37ILeHdf+yCe
-         YBFaAky588wLKq6qXpHbDXOWzPkUC9sDEWChbMmCodKkS0b97LhzwiRLYfKw7TrtqRl6
-         6idjPxjGycw7AEhZ5pPlfyxSj7mP/cwQhLhco7Ayy1SYqFiShMMaxzUUMjU4X/Asz8zf
-         k0w4wcIuZvko7Z+R2h0sBjde0bKnhYthJhAx1nXtAiMYbSd5dRTUNGMRFLHYUi8R3qyf
-         Q94w==
+        b=Iw2VD7/d/RiFS77TzCkES8NZO4cPztItyof1w1R21A+/kOWyRqDK73mLZALy+Zv4tU
+         EIb0lW6sS05YV7zyGyQFTtHiRqJrax8pHjHXTPgXLP/jidthGdc36Ids6ozfoqLi7Jgz
+         YyPNlCVyRSM1W1uN0q8dZZZMn4XxKeXbkXajMNHwRYP5q1/7CS5S88IDBQZTvyhw3znt
+         qAS/L4/tp3wAvzlBdvmm8IngfQHWcVRDlzM4JIOBTKp8Z+HzFTMPt1lsIFXLtp5GbUP+
+         8rKwbrWXomMETZXfS5nZJAHp3xPZ/NeCu0NwURyDp9mtsyXf9FxXnCijEd4PmEp2zx9K
+         1oHA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
          :user-agent:date:message-id:from:references:to:subject;
-        bh=ef6DzFuWGTLjljcBSR2CCgBlHQZ8R6R7TBvJ9bauWxg=;
-        b=Tr6ZVTWdAI5m5xxfU0ms3aMhs1b7r8aUUBzMDGQGQicSUKUdfEPCzunxap5p+YRfN3
-         oJ61D6AOLd458lKlSVO9X+GQqu2TYG5xGhfoQXb/Trv01ZZFO+szMI7GUZtNeLRhdGCz
-         Qzcm4okhRk93INTPjvP2oLVi7dWU4PYv2b4naE8guveTUmR898iXqgZigGGPzA/y5Dzs
-         zxXmuJr3n6nv9TZPXizgvT31VOAXj6DQPPypdOJowjKRYRzBf9t6/y+UMshm8IHyAOex
-         6o8rzzOKs+9Au4udxOVXJVuwjGJzm45Z8GhYJu+dEh8js1fHZWsIidHL0dKr5eYmNzWK
-         9EtA==
+        bh=4ywf8n89MbmC9HCvgoQUXB0akXg8So7YlmNkTg8/Zyk=;
+        b=yuRVWCvocmTUuIwLy+BCyvPeWrweoTlE+2BlTcYJyCR6EN80QqixCxPf52N1+P1ovR
+         SjpiVZp+JwvucV33wRaVj38J2+AiBzHFdDgHPyP4lsrADSudwhfI12ve+/NC4vJVolz3
+         jBInF8CoJUR2K2nRvnCpBgCE12ZIvRFA+qQC1QyFqo+pfCVmhR+cgbakZoMDy5GW+Rj8
+         87X9IMXMyYRableNF5Z2ZJb34567wYLdVHBGEcJy4T7Q3HQjG1Qyp6Eej8WmawQVbc83
+         UzmYkzhuJLI2tuZKb5nB0cdsWxQ0392EiXXckKvVmYt0vpl0Yl07RzO17mjVIUICiQOB
+         yJBw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id m12si946157wrq.1.2020.01.15.13.54.08
+Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
+        by gmr-mx.google.com with ESMTPS id o193si915330lff.4.2020.01.15.13.54.14
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 15 Jan 2020 13:54:08 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
+        Wed, 15 Jan 2020 13:54:14 -0800 (PST)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 00FLs7oc009257
+	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 00FLsBmc010164
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 15 Jan 2020 22:54:07 +0100
+	Wed, 15 Jan 2020 22:54:11 +0100
 Received: from [139.22.32.100] ([139.22.32.100])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 00FLs6PI011356;
-	Wed, 15 Jan 2020 22:54:06 +0100
-Subject: Re: [PATCH] core: fix hugepage splitting in paging_destroy
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 00FLsAUl011398;
+	Wed, 15 Jan 2020 22:54:10 +0100
+Subject: Re: [PATCH] arm-common: gic-v3: ensure LR writes are visible
 To: Chase Conklin <chase.conklin@arm.com>, jailhouse-dev@googlegroups.com
-References: <20200115173217.3256-1-chase.conklin@arm.com>
+References: <20200115173339.3317-1-chase.conklin@arm.com>
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <d37ceba9-3d2d-03d4-05a3-6b6fdb3beccf@siemens.com>
-Date: Wed, 15 Jan 2020 22:54:05 +0100
+Message-ID: <3002c7cc-2ab9-6e06-0aec-28e43abf4ee4@siemens.com>
+Date: Wed, 15 Jan 2020 22:54:09 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.3.0
 MIME-Version: 1.0
-In-Reply-To: <20200115173217.3256-1-chase.conklin@arm.com>
+In-Reply-To: <20200115173339.3317-1-chase.conklin@arm.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Language: en-US
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
@@ -130,57 +130,42 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 15.01.20 18:32, Chase Conklin wrote:
-> When unmapping pages, it is not sufficient to compare the size of the
-> page to the size of the region to be unmapped to know whether a
-> hugepage needs to be split. That approach does not split hugepages
-> when the region to be unmapped is larger than a hugepage but does not
-> cover the entire hugepage, resulting in areas outside the region to be
-> unmapped and leaving areas inside the region mapped.
+On 15.01.20 18:33, Chase Conklin wrote:
+> The GICv3 architecture does not guarantee that writes to the list
+> registers are self-synchronizing. As a result, it is possible for a
+> valid interrupt to be written into a list register but have the empty
+> list register status register report that list register as not holding
+> a valid interrupt. Since the empty list register status registers are
+> used to indicate which list registers can be used to inject an
+> interrupt to a cell, it is possible for a valid list register entry to
+> be overwritten, dropping the corresponding interrupt.
 > 
-> Instead of comparing the size of the region to the size of the page,
-> check if the region overlaps only part of the page and split the
-> hugepage if it does.
-> 
-> Fixes: 1f7784032531 ("core: Add support for creating page tables with hugepages")
+> Fixes: 2ce9d14ca4e2 ("arm: GICv3 initialisation")
 > Signed-off-by: Chase Conklin <chase.conklin@arm.com>
 > ---
->   hypervisor/paging.c | 15 ++++++++++++++-
->   1 file changed, 14 insertions(+), 1 deletion(-)
+>   hypervisor/arch/arm-common/gic-v3.c | 6 ++++++
+>   1 file changed, 6 insertions(+)
 > 
-> diff --git a/hypervisor/paging.c b/hypervisor/paging.c
-> index 4a24c1f6..83cdcf00 100644
-> --- a/hypervisor/paging.c
-> +++ b/hypervisor/paging.c
-> @@ -389,7 +389,20 @@ int paging_destroy(const struct paging_structures *pg_structs,
->   			if (!paging->entry_valid(pte, PAGE_PRESENT_FLAGS))
->   				break;
->   			if (paging->get_phys(pte, virt) != INVALID_PHYS_ADDR) {
-> -				if (paging->page_size <= size)
-> +				unsigned long page_start, page_end, region_end;
-> +				/*
-> +				 * If the region to be unmapped doesn't fully
-> +				 * cover the hugepage, the hugepage will need to
-> +				 * be split.
-> +				 */
-> +				page_size = paging->page_size ?
-> +					paging->page_size : PAGE_SIZE;
-> +				page_start = virt & ~(page_size-1);
-> +				page_end = page_start + page_size;
-> +				region_end = virt + size;
+> diff --git a/hypervisor/arch/arm-common/gic-v3.c b/hypervisor/arch/arm-common/gic-v3.c
+> index 906d9a8d..6a1d90f8 100644
+> --- a/hypervisor/arch/arm-common/gic-v3.c
+> +++ b/hypervisor/arch/arm-common/gic-v3.c
+> @@ -113,6 +113,12 @@ static void gicv3_write_lr(unsigned int reg, u64 val)
+>   	__WRITE_LR8_15(7)
+>   #undef __WRITE_LR8_15
+>   	}
 > +
-> +				if (virt <= page_start &&
-> +				    region_end >= page_end)
->   					break;
+> +	/*
+> +	 * Ensure the write to the LR is visible to the GIC (so that ICH_ELRSR
+> +	 * is updated to indicate that the just-written LR is no longer empty)
+> +	 */
+> +	isb();
+>   }
 >   
->   				err = split_hugepage(pg_structs->hv_paging,
+>   static int gicv3_init(void)
 > 
 
-A good catch as well. I think I silently assumed that users laid out 
-their regions in a split-friendly way.
-
-I've applied this, but I've folded page_end and region_end in - I don't 
-think they increased readability noteworthy.
+Thanks, applied to next.
 
 Jan
 
@@ -191,4 +176,4 @@ Corporate Competence Center Embedded Linux
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/d37ceba9-3d2d-03d4-05a3-6b6fdb3beccf%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/3002c7cc-2ab9-6e06-0aec-28e43abf4ee4%40siemens.com.
