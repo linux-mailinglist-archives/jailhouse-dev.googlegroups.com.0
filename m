@@ -1,33 +1,33 @@
 Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBSXYQDYQKGQEUO5UEIA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33a.google.com (mail-wm1-x33a.google.com [IPv6:2a00:1450:4864:20::33a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96C6B13D7F1
+Received: from mail-wm1-x340.google.com (mail-wm1-x340.google.com [IPv6:2a00:1450:4864:20::340])
+	by mail.lfdr.de (Postfix) with ESMTPS id A3A8013D7F2
 	for <lists+jailhouse-dev@lfdr.de>; Thu, 16 Jan 2020 11:34:50 +0100 (CET)
-Received: by mail-wm1-x33a.google.com with SMTP id t17sf481275wmi.7
+Received: by mail-wm1-x340.google.com with SMTP id y125sf2179269wmg.1
         for <lists+jailhouse-dev@lfdr.de>; Thu, 16 Jan 2020 02:34:50 -0800 (PST)
 ARC-Seal: i=2; a=rsa-sha256; t=1579170890; cv=pass;
         d=google.com; s=arc-20160816;
-        b=YiU5hytr6Ga1zNRrPQmYw4lfnF2YSBId9cI8ockhgyRzg4uTGZ1ewkLA0qXD14wiPc
-         Rfl96s0CWJJetGh0O4t+Y2WrSmviGcz8nBztA1/1Pb7laY9VF89sDqmrsAUfNivHMtd9
-         jONciQz9IJCei4AE3C/+Hk+f0bEL/TtRi6o58KnmMc/QOuwlbBAGHP2n7DBBF3bToOWP
-         AlErLJR+JYTYmgtk4CP3jjj3fXZhyTlgd4DUaZUvqklDl72MPOktP0FB4KCjaiBs8iqd
-         hHYVAUQNCU6522uLge/uG2v3OUkdygnhhw8s53vb6GumSyPoeJsEuSAMX/lCtnRSDF6G
-         kaMQ==
+        b=Xr4zlyg0GvZknVO8mzjg4MAsCx+Wgu63jeWp8Wd4eYah1NUc00a5rthyaChcSJ8Zu6
+         G7nBncHPhSZQQbZoxi3dCvmB73U2ToonAq881Roto5FEpXsHsaPghKfyDkFucbXitAva
+         SDxZ48UaU1jbI1HbvLYxWXAKFd1EEs2hrvtYGQ60qQbqmssX/xX7nDR/YdNgYnwKTpm8
+         45SyHJfN6+9+7HUBIb6aWJO2qPfu7bgNo80wtqVQcClJ/JJe/kAIvQs1WAICu671ogIr
+         0l3ApdXO6AL/Lj/hFshc6u1acbOGbgF5FOiXscgQt9atbRXtnyYaw3fXIhQX/zX8rFvc
+         lo2A==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:references:in-reply-to:references
          :in-reply-to:message-id:date:subject:to:from:mime-version:sender
          :dkim-signature;
-        bh=Pwv4LjwkicHInjIFyKyGaIx6SXRk13jX0H7Mb+aCp1o=;
-        b=JTTAwKksvNoGGonxn7lpX/cBTt/1IIVUwVuJIyxHCK//Y2BwtZxvv5/wqmD1sE7tnx
-         r01ehO3M4vxIXyqx6Db509KyyHT0E/rVLqb+qXTOE/xgtf+eNZQ7D8W69JXYJ0GjU6KP
-         bTirftRvk4o7l8P38csJ40TXHYOyQVxYi8skb/1O1OWIKpeXpTQGUdX/KigvOuGY3upG
-         Igxnd9DhhxJ2vtA/fxc9Cj3vcho0p7xKVKyrtaib6g7SvTXbZLpoRUbJRyNXmgWPVuGc
-         xy0sakck7cskEqHO7Nq8OtJXwijWzIfE/nLw2s0aScJFHj2iWuJ9CxEch3eCxEaS0YLe
-         vdBw==
+        bh=HApcqueKBvXvUkiqZnF9gQCO2dmEX/byaXXCyyVM9ZE=;
+        b=dHF9amGWzdyr1ioo9kNpbdAWb1qY1+cKHDJfGyyOP4w3X1a/1Atm3OGhkGdPYh0aVq
+         UJVErSWmvLjgmaKXTpRshcQExIhImJo0IH/74l8eqqEwJ0FGzWCIMCg7Go/REbPnPxLn
+         jc8wt77rGpuU+I4MEB20YWCPmvSufkzjdYCM5kcHL2xfc6Snjleyr6T/OIkb2jMDUylY
+         19PkkFIrkxvipQfXC+rI1XohOTjvqg3NjcA7Sw4Qs9FW09M6TNdkpDU7dHL+zPF5Eti9
+         3BqsMif3y4JsvqVc+cPqoKwPUzDufCkg+0gqwT+2kmOvwoJGA9rqEGzoYqYIEVN9Qrk8
+         esSg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:in-reply-to:references:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=Pwv4LjwkicHInjIFyKyGaIx6SXRk13jX0H7Mb+aCp1o=;
-        b=dchitkzJXGaBfkGWZUdpZ+Yg0IGerdrEaN/FKETGReAoOsisNOxdAU5MJ8PqxQcmGN
-         jp2oCJJPkTxIanfmoj3Wq4LVILqNzqk/zZUBPcX0FpQGwD0ccwHxmcGCAMeDG8qj7J9e
-         BUqaOB8SD27jnwh678JyCRd+k5Nlki96q71dgPT3cWPfVIXIQeO7cteZ0Wol/Fbv36EC
-         xt4+qwgJMIr8OmJqW4vNe61QcC2I1wP5hgfB0fCLdGiWXHoZQSojoKqD5/77RNTzpGiV
-         y9R5oThnrXMOPWiz7lNpB/Cv4W/XPIdm6fcH5taaeu7ca9iRLCaZ6xXsEd+p5urHpBys
-         vZKw==
+        bh=HApcqueKBvXvUkiqZnF9gQCO2dmEX/byaXXCyyVM9ZE=;
+        b=XJqqZPxT9OausWiwOeZcIFw+fSkYseddSHcDLIczmQQGh0m78istAVXSzrTJEGBm50
+         LrcnReVbDYRdn2bNA+2myTjiC+DsGKtC2KWJULoMhl5/KjVRFeZS4XyGiXDt9qaxtm6X
+         u8ERjAemeFVBtrdVtf8N+PusdLK3Z5ntU4cwnm5hYaJl2M1g4q69zZSmgqBzHlrIcloR
+         gNpbMJngRXkdVkk9lvYtmUScPnBI/qn8mEqyF8p2/yusirMgbMkA7ME4uWkYjujrPBGW
+         0eFNWEwE+uRCDUjjDVDXrTQh5NaU8VQgfGNQMDjsb1agHznyTZlCq8i8qD9AP785P9ku
+         AxQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:mime-version:from:to:subject:date
@@ -49,64 +49,64 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=Pwv4LjwkicHInjIFyKyGaIx6SXRk13jX0H7Mb+aCp1o=;
-        b=ETkBx1OWXiF6CDPAZOZ/0Fe3aAH//WcSB2K8QhOZqTrG2CBSnfB3efuXLQ5HLAgj+j
-         2b7OHG36aOQxblvFk1Pu+6M+9uaMnmbfgHG8MjtYJU7AN6HlOTFw3CKxv3WfnEanoP4N
-         jjjPSmxK1EOVVYpX/oa1IcyeeemsI8uV7UHQ1G3811VB6IBRtUeuF997hvvAic6Py9C3
-         UWS+G6HqdYGrCcbR9rT6t6l/dOj4CZW7QypcltxKmzZtPjqOGwx7jx3K4D/B6xPWCj2e
-         HgV0iDy+OoscSmnsDaOkhAkgOYSgaTFh5y//QMlGb6TD+69WFM+4Dfdn8TIyLde2/lPu
-         Zogg==
+        bh=HApcqueKBvXvUkiqZnF9gQCO2dmEX/byaXXCyyVM9ZE=;
+        b=KIDZbxnV3ZqFm2L+BxL7K3LzN/9j2IXPgesKLqOF3rXIXNKDtnQLlS4gIh6Ib7cUr9
+         O3/7ITmhf9kGQQimSm7GZVmHLEUObjNQ7mzV528SQ1GEhsVt342GLFYH0OcwVMO55UJn
+         cJ/zkt9WKHnSKNLVnMpi6+s+V7+Ze4KklWSiI6qHP7QG6AfMjdugN2Z4q6E5MWxeWcOH
+         nfA8AScdarOSWdAAw/0BXoME8EAV0IdonKmDoOtblWbgxqKgeA/PCb1NFbSO/5KYMcng
+         AW66tplnRhmyUGkN1iTkKgj/3oP+rQOlefHP7GaWbj+iAFiq3gvQFNEXbMEvmBGa5jMY
+         K/mg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAU5tOC/WRtle2tf1JNaaW4LlNRPCai4ziawYSFzMH8TrqJ4uXHx
-	CWO0tfjA6kkNGwvm3XI7tSk=
-X-Google-Smtp-Source: APXvYqxdZZPulzqLQl+MDd9uFMGTB6QtZRuMHo93qpzK/9WfNQ7AqkKC25xuFB8ocM2CwwPGIoZH1Q==
-X-Received: by 2002:a05:600c:2117:: with SMTP id u23mr5354346wml.106.1579170890297;
+X-Gm-Message-State: APjAAAXmdba5lJFdJ245xp7n9Q0sq+SO+8T5g+QoQ6ubs/T6pi9OYwb9
+	qQYnT1oNMLZLcRNnjDCZQrg=
+X-Google-Smtp-Source: APXvYqyq5Pv/tCfytl8RDvnNWx9nUOP0tiZesj+kaVj1AVqsCUgGf76xO4XE5WsR78jFHMYoCHq5Cw==
+X-Received: by 2002:a5d:4805:: with SMTP id l5mr2496612wrq.3.1579170890333;
         Thu, 16 Jan 2020 02:34:50 -0800 (PST)
 MIME-Version: 1.0
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:7409:: with SMTP id p9ls1021648wmc.4.gmail; Thu, 16 Jan
- 2020 02:34:49 -0800 (PST)
-X-Received: by 2002:a05:600c:2c53:: with SMTP id r19mr5333421wmg.39.1579170889376;
+Received: by 2002:adf:c3d1:: with SMTP id d17ls7787657wrg.10.gmail; Thu, 16
+ Jan 2020 02:34:49 -0800 (PST)
+X-Received: by 2002:adf:dfc9:: with SMTP id q9mr2715095wrn.219.1579170889497;
         Thu, 16 Jan 2020 02:34:49 -0800 (PST)
 ARC-Seal: i=1; a=rsa-sha256; t=1579170889; cv=none;
         d=google.com; s=arc-20160816;
-        b=msva5Ghm6+PP9+Q8d7oxwV7ukzJZVjhE+BHLYY8e4wOB6VTwZrcZOnnKiVQH9jfR0K
-         t3Nx/uuPnpBV8NWg27Hs2SuXvGrGmff01MBtbGdb8jGotUb9joRz7BAFZ1s1sGJUvL5Z
-         QcJTTK2ajANXAYN8iIw4brgxS6XS3vyTxw6LpFvLLrhZ2QBoZqsbE1N/pOnXR65SjP55
-         TCJwNx8e17pBopCvqZBIJOZGTcRpfnZXL0Ffs6txXNtboD+2aZjd91aG8cHlM3vHPHf0
-         R0WNBXWrOB/uWFnHuqAxXsfH9ALjAW9Ecifsdd0oTbCbsUa0SUnsAgoj6RJT840JBawD
-         WkTA==
+        b=yrFvek01ohFC9too8amBgIF2uHPwGduHozMY+lneewueFElgo89+xQgPNZaEilpUzW
+         +QlMs6Vx/384BIubo9UHEfjcXywHdFB6ddcyit/GktPTNSsZii2lIXzkHWp6tMvjDSPS
+         TG4IOuJZqZeHeP1bAfNEVcbIRuyzTn9Ha/wWKHahNXB2RdVmffJ4B3Zb5rO6V8B1EMS2
+         y0ZVy8FeLkVIr+LCDsRsnN7gAXQHMJKnH8B5DxseKnHFKU8V5gFoIEBlLiRE4ZgkcuzU
+         1+tmKDwuC4zm4ez2gdxxNCR9a4lYlbLanuIUwIcwuorLaqPBFchNGfN2m8ycofJ/f6mZ
+         5+WQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=references:in-reply-to:references:in-reply-to:message-id:date
          :subject:to:from;
-        bh=f3WVHnwzVgcMEIpBQwrHaO7l6oysR6NXSVFvtuV0fVQ=;
-        b=lEPPNuwVO5Qwy+7QaLuCZVTRuAJjEmnfOS76oI0doQGwl0JtnNfNfIgMZnHmVtre2h
-         vVWBzZHTFnjNuUbR6fsJAhshUz6zDCziprVO/Ygc6Tpz0No3+Gy7u/59pcnHy768/ILP
-         GJNbUzdh2GOuQgdRpX/E+6x0pAtEm7zp6Oe0Ov33LcOrAYlM1iqJRcpHdN3Us5j9fXKu
-         ENpjN5xMBL3cb8gEabAyrUVhvtLa+jWkypSoHQtJ2PQDHfvZ2C+ktfVqFXLS8W9ZVM1N
-         do8oiDx0HnruwllQzkLnPQD0W9M3V2u41mxlJex1rd8N8Nd/oJayG8TjzyitPzG1jA+j
-         z52w==
+        bh=v48ymalqCvECu4NoLsQNR7EVEf3KNMUlxPmsU5B+8d4=;
+        b=1IprnQeW82+huf1dE1G9rIRuXet26DdtGaVdssLVqa+2EFIsDHkoWAFpTE34/P4QWD
+         io6XlcOt4bvlrnu0+WqYASoZm9B20ICz5I1Ula9Mil3noYFT7SCp9p0aJKmJxGuXtzF5
+         U3K1Fg6wKQu84VH5AaeZlcercRJguQb53xnAMmVG+ywo7LJvk25rKV7WkGvEsDfA/SUn
+         HJOoT7/OfliaPXR63+q3zGEKIiw3XtEh12iaYm7sTvvsY2NwxQAJzfiXfJSdlxHvyc18
+         Afjej4zdcoFuwcWB/MjuC6G+HeUGrDaoGKKMwb8yhJZBPP1eBzjgIWydIhmyyuKQ2tnU
+         4bCA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id j188si103694wma.2.2020.01.16.02.34.49
+Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
+        by gmr-mx.google.com with ESMTPS id t131si102456wmb.1.2020.01.16.02.34.49
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
         Thu, 16 Jan 2020 02:34:49 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
 Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 00GAYmbR032062
+	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 00GAYnTh015550
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
 	for <jailhouse-dev@googlegroups.com>; Thu, 16 Jan 2020 11:34:49 +0100
 Received: from md1f2u6c.ad001.siemens.net ([139.23.78.127])
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id 00GAYmQC031623
-	for <jailhouse-dev@googlegroups.com>; Thu, 16 Jan 2020 11:34:48 +0100
+	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id 00GAYmQD031623
+	for <jailhouse-dev@googlegroups.com>; Thu, 16 Jan 2020 11:34:49 +0100
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [jh-images][PATCH 02/18] u-boot-macchiatobin/ultra96: Update to U-Boot 2019.10 / ATF 2.2
-Date: Thu, 16 Jan 2020 11:34:31 +0100
-Message-Id: <94238caff510daf171b442f1fda43bce4db9db36.1579170887.git.jan.kiszka@siemens.com>
+Subject: [jh-images][PATCH 03/18] Update Isar revision
+Date: Thu, 16 Jan 2020 11:34:32 +0100
+Message-Id: <42ff3eac3b0129d11feaec7a22eea3f5a1e36223.1579170887.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <cover.1579170887.git.jan.kiszka@siemens.com>
 References: <cover.1579170887.git.jan.kiszka@siemens.com>
@@ -114,7 +114,7 @@ In-Reply-To: <cover.1579170887.git.jan.kiszka@siemens.com>
 References: <cover.1579170887.git.jan.kiszka@siemens.com>
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
@@ -132,145 +132,44 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-This allows to drop the now included zynqmp fix from ATF.
+This comes with a reworked kernel recipe which applies config fragments
+automatically.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- ...rmware_2.1.inc => arm-trusted-firmware_2.2.inc} |  3 +-
- ...t-xilinx-zynqmp-Initialize-IPI-table-from.patch | 68 ----------------------
- ....1.bb => u-boot-macchiatobin_2019.10-atf2.2.bb} |  2 +-
- ...-atf2.1.bb => u-boot-ultra96_2019.10-atf2.2.bb} |  2 +-
- 4 files changed, 3 insertions(+), 72 deletions(-)
- rename recipes-bsp/arm-trusted-firmware/{arm-trusted-firmware_2.1.inc => arm-trusted-firmware_2.2.inc} (63%)
- delete mode 100644 recipes-bsp/arm-trusted-firmware/files/0001-plat-xilinx-zynqmp-Initialize-IPI-table-from.patch
- rename recipes-bsp/u-boot/{u-boot-macchiatobin_2019.07-atf2.1.bb => u-boot-macchiatobin_2019.10-atf2.2.bb} (94%)
- rename recipes-bsp/u-boot/{u-boot-ultra96_2019.07-atf2.1.bb => u-boot-ultra96_2019.10-atf2.2.bb} (91%)
+ kas.yml                                                 | 2 +-
+ recipes-kernel/linux/linux-jailhouse-rt_4.19.72-rt26.bb | 4 ----
+ 2 files changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/recipes-bsp/arm-trusted-firmware/arm-trusted-firmware_2.1.inc b/recipes-bsp/arm-trusted-firmware/arm-trusted-firmware_2.2.inc
-similarity index 63%
-rename from recipes-bsp/arm-trusted-firmware/arm-trusted-firmware_2.1.inc
-rename to recipes-bsp/arm-trusted-firmware/arm-trusted-firmware_2.2.inc
-index 8fd5cce..2281d72 100644
---- a/recipes-bsp/arm-trusted-firmware/arm-trusted-firmware_2.1.inc
-+++ b/recipes-bsp/arm-trusted-firmware/arm-trusted-firmware_2.2.inc
-@@ -13,6 +13,5 @@ FILESPATH =. "${LAYERDIR_jailhouse}/recipes-bsp/arm-trusted-firmware/files:"
+diff --git a/kas.yml b/kas.yml
+index 72d5348..a5a157b 100644
+--- a/kas.yml
++++ b/kas.yml
+@@ -21,7 +21,7 @@ repos:
  
- SRC_URI += " \
-     https://github.com/ARM-software/arm-trusted-firmware/archive/v${ATF_PV}.tar.gz;name=atf \
--    file://0001-plat-xilinx-zynqmp-Initialize-IPI-table-from.patch;patchdir=${WORKDIR}/arm-trusted-firmware-${ATF_PV} \
-     "
--SRC_URI[atf.sha256sum] = "7c4c00a4f28d3cfbb235fd1a1fb28c4d2fc1d657c9301686e7d8824ef575d059"
-+SRC_URI[atf.sha256sum] = "07e3c058ae2d95c7d516a46fc93565b797e912c3271ddbf29df523b1ab1ee911"
-diff --git a/recipes-bsp/arm-trusted-firmware/files/0001-plat-xilinx-zynqmp-Initialize-IPI-table-from.patch b/recipes-bsp/arm-trusted-firmware/files/0001-plat-xilinx-zynqmp-Initialize-IPI-table-from.patch
-deleted file mode 100644
-index dec3cb2..0000000
---- a/recipes-bsp/arm-trusted-firmware/files/0001-plat-xilinx-zynqmp-Initialize-IPI-table-from.patch
-+++ /dev/null
-@@ -1,68 +0,0 @@
--From f20643624a65cc8a992cbafe245af11fcf63ab6d Mon Sep 17 00:00:00 2001
--From: Jolly Shah <jolly.shah@xilinx.com>
--Date: Tue, 27 Aug 2019 11:23:08 -0700
--Subject: [PATCH] plat: xilinx: zynqmp: Initialize IPI table from
-- zynqmp_config_setup()
+   isar:
+     url: https://github.com/ilbers/isar
+-    refspec: 29d3f050659e10292a2fc3fe500381b860a65335
++    refspec: 619d6d88ac8c745282fd16773d50a466567615b6
+     layers:
+       meta:
+ 
+diff --git a/recipes-kernel/linux/linux-jailhouse-rt_4.19.72-rt26.bb b/recipes-kernel/linux/linux-jailhouse-rt_4.19.72-rt26.bb
+index 52c54da..b93967d 100644
+--- a/recipes-kernel/linux/linux-jailhouse-rt_4.19.72-rt26.bb
++++ b/recipes-kernel/linux/linux-jailhouse-rt_4.19.72-rt26.bb
+@@ -15,7 +15,3 @@ SRC_URI += "file://preempt-rt.cfg"
+ 
+ SRC_URI[sha256sum] = "2d4640f928e237254ed4242f75c6133853859d38aa08a6b91fc3a919caa0dc7e"
+ SRCREV = "90c6f75204884080b23d30424a4eff313dfeaa7d"
 -
--Common ipi_table needs to be initialized before using any
--IPI command (i.e send/receive). Move zynqmp ipi config table
--initialization from sip_svc_setup() to zynqmp_config_setup().
--
--Signed-off-by: Tejas Patel <tejas.patel@xilinx.com>
--Signed-off-by: Jolly Shah <jolly.shah@xilinx.com>
-----
-- plat/xilinx/zynqmp/aarch64/zynqmp_common.c | 6 +++++-
-- plat/xilinx/zynqmp/sip_svc_setup.c         | 4 ----
-- 2 files changed, 5 insertions(+), 5 deletions(-)
--
--diff --git a/plat/xilinx/zynqmp/aarch64/zynqmp_common.c b/plat/xilinx/zynqmp/aarch64/zynqmp_common.c
--index 8ff6c43604..ab5d95d1e2 100644
----- a/plat/xilinx/zynqmp/aarch64/zynqmp_common.c
--+++ b/plat/xilinx/zynqmp/aarch64/zynqmp_common.c
--@@ -1,5 +1,5 @@
-- /*
--- * Copyright (c) 2013-2016, ARM Limited and Contributors. All rights reserved.
--+ * Copyright (c) 2013-2019, ARM Limited and Contributors. All rights reserved.
--  *
--  * SPDX-License-Identifier: BSD-3-Clause
--  */
--@@ -11,6 +11,7 @@
-- #include <drivers/generic_delay_timer.h>
-- #include <lib/mmio.h>
-- #include <lib/xlat_tables/xlat_tables.h>
--+#include <plat_ipi.h>
-- #include <plat_private.h>
-- #include <plat/common/platform.h>
-- 
--@@ -325,6 +326,9 @@ unsigned int zynqmp_get_bootmode(void)
-- 
-- void zynqmp_config_setup(void)
-- {
--+	/* Configure IPI data for ZynqMP */
--+	zynqmp_ipi_config_table_init();
--+
-- 	zynqmp_print_platform_name();
-- 	generic_delay_timer_init();
-- }
--diff --git a/plat/xilinx/zynqmp/sip_svc_setup.c b/plat/xilinx/zynqmp/sip_svc_setup.c
--index edb81f5c3b..9b182749cb 100644
----- a/plat/xilinx/zynqmp/sip_svc_setup.c
--+++ b/plat/xilinx/zynqmp/sip_svc_setup.c
--@@ -9,7 +9,6 @@
-- #include <common/runtime_svc.h>
-- #include <tools_share/uuid.h>
-- 
---#include <plat_ipi.h>
-- #include "ipi_mailbox_svc.h"
-- #include "pm_svc_main.h"
-- 
--@@ -41,9 +40,6 @@ DEFINE_SVC_UUID2(zynqmp_sip_uuid,
--  */
-- static int32_t sip_svc_setup(void)
-- {
---	/* Configure IPI data for ZynqMP */
---	zynqmp_ipi_config_table_init();
---
-- 	/* PM implementation as SiP Service */
-- 	pm_setup();
-- 
-diff --git a/recipes-bsp/u-boot/u-boot-macchiatobin_2019.07-atf2.1.bb b/recipes-bsp/u-boot/u-boot-macchiatobin_2019.10-atf2.2.bb
-similarity index 94%
-rename from recipes-bsp/u-boot/u-boot-macchiatobin_2019.07-atf2.1.bb
-rename to recipes-bsp/u-boot/u-boot-macchiatobin_2019.10-atf2.2.bb
-index 81ac2d7..c80e07f 100644
---- a/recipes-bsp/u-boot/u-boot-macchiatobin_2019.07-atf2.1.bb
-+++ b/recipes-bsp/u-boot/u-boot-macchiatobin_2019.10-atf2.2.bb
-@@ -22,7 +22,7 @@ SRC_URI += " \
-     file://0001-mv_ddr4_training-fix-gcc-warning-about-uninitialized.patch;patchdir=${WORKDIR}/mv-ddr-marvell \
-     file://macchiatobin-rules \
-     "
--SRC_URI[u-boot.sha256sum] = "bff4fa77e8da17521c030ca4c5b947a056c1b1be4d3e6ee8637020b8d50251d0"
-+SRC_URI[u-boot.sha256sum] = "8d6d6070739522dd236cba7055b8736bfe92b4fac0ea18ad809829ca79667014"
- 
- BUILD_DEPENDS =. "libssl-dev:native, "
- 
-diff --git a/recipes-bsp/u-boot/u-boot-ultra96_2019.07-atf2.1.bb b/recipes-bsp/u-boot/u-boot-ultra96_2019.10-atf2.2.bb
-similarity index 91%
-rename from recipes-bsp/u-boot/u-boot-ultra96_2019.07-atf2.1.bb
-rename to recipes-bsp/u-boot/u-boot-ultra96_2019.10-atf2.2.bb
-index 8e80388..b87d7ce 100644
---- a/recipes-bsp/u-boot/u-boot-ultra96_2019.07-atf2.1.bb
-+++ b/recipes-bsp/u-boot/u-boot-ultra96_2019.10-atf2.2.bb
-@@ -23,7 +23,7 @@ SRC_URI += " \
-     file://ultra96.bif.tmpl \
-     file://ultra96-rules \
-     "
--SRC_URI[u-boot.sha256sum] = "bff4fa77e8da17521c030ca4c5b947a056c1b1be4d3e6ee8637020b8d50251d0"
-+SRC_URI[u-boot.sha256sum] = "8d6d6070739522dd236cba7055b8736bfe92b4fac0ea18ad809829ca79667014"
- 
- TEMPLATE_FILES += "ultra96.bif.tmpl"
- TEMPLATE_VARS += "ATF_PV"
+-do_prepare_build_prepend() {
+-    cat ${WORKDIR}/preempt-rt.cfg >> ${WORKDIR}/${KERNEL_DEFCONFIG}
+-}
 -- 
 2.16.4
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/94238caff510daf171b442f1fda43bce4db9db36.1579170887.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/42ff3eac3b0129d11feaec7a22eea3f5a1e36223.1579170887.git.jan.kiszka%40siemens.com.
