@@ -1,33 +1,33 @@
 Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBSXYQDYQKGQEUO5UEIA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43a.google.com (mail-wr1-x43a.google.com [IPv6:2a00:1450:4864:20::43a])
-	by mail.lfdr.de (Postfix) with ESMTPS id C845213D7F6
+Received: from mail-ed1-x538.google.com (mail-ed1-x538.google.com [IPv6:2a00:1450:4864:20::538])
+	by mail.lfdr.de (Postfix) with ESMTPS id B25D213D7F4
 	for <lists+jailhouse-dev@lfdr.de>; Thu, 16 Jan 2020 11:34:50 +0100 (CET)
-Received: by mail-wr1-x43a.google.com with SMTP id i9sf9109739wru.1
+Received: by mail-ed1-x538.google.com with SMTP id c2sf13595308edx.19
         for <lists+jailhouse-dev@lfdr.de>; Thu, 16 Jan 2020 02:34:50 -0800 (PST)
 ARC-Seal: i=2; a=rsa-sha256; t=1579170890; cv=pass;
         d=google.com; s=arc-20160816;
-        b=inmrj6uP8wskkh504KKi7+w2QxMj7ofrp6pTF715WezqrohxW6DvYqriHnjXjTuaWP
-         o0pO2ioZdaHpDiwGh5wV+/qhvu52qtfeTuGlJ37f3TJeF7ban+JAXgpnmiSXrn09Wl9V
-         BGT7Xu4Bmtp6CZpRg1r6VnMt4WaMQdnaZAA7DYx93CgAf7cQ34ZjC2XlD+K3zrFuDVd3
-         Ke3bRRwenCKOBXjLZ2Kx3ppt6ii1QUhiATFnVSUOi8+iREswlDg/rqIeyum10LxvzEXo
-         9YAfJIZ4BJ0VN6O6V5O9ma2RefJATmvKuqyVPI6YdcklTXxaI3yoBbr1nKi6U0RDwfPx
-         PQKA==
+        b=tVEdv7W3afSnBMxdrGlYsvUsvNmfLcaWxuJgHVIFLUBNGtt2/lDkGFA7eWKg1sF0YB
+         A+7sgvYDUyxVrnxoPABf6e3FAIDgGRBgO7GxNhX76n16DjVDOJgoJ2v2uS1o9whjqBMb
+         hO4U2qW84yLz5ruI7qhNbHWXnEUJ5coHvPk3sCjHfHayOWobiFBb0hSz0Y0ZKKZyuqKx
+         K5dwVfcaGGEVuiijnIs/Rk69FQOJKvYtjsKOHiFlhTISzljhPIxHmWBJk+sL/sUWFksx
+         F45/VAvCCPMo7yqNu/1ynt0cWocXwLvUSIPIqPQpS7hrU8fyR7q9prHUif/GP725OOIJ
+         Pbrw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:references:in-reply-to:references
          :in-reply-to:message-id:date:subject:to:from:mime-version:sender
          :dkim-signature;
-        bh=M8NeSAfAf/8rf146s5kA5oQtrC5Ywe50uKb9o2R/47w=;
-        b=uoJ4oodKHAT7wVgfmGOy/hB7+RO0kt42XaKz6BieDHRGb2EzwbjW8g21iI02ynstek
-         Gc4tCtaqzhUv0HLun5AWQexW0NX4mUXOonlCXTZC5fFZlIFFvOOkwhRbOvdZkQCgRun1
-         LJ/4f4rxcsEjKnVGiki3nc3O3PLmFzOKuVdPgU9Mg23hRKHjYRzpCy+Q9swXzfC2mpsB
-         IoapMTGVbNhYK5rYOgVQsxH8GQ6MyxYYW0JCVeOjGiBafaqd382C4U65f/MkJLrMNgGq
-         jSKghaUnE6BZwX2QcMZiVT8Vf4W8R25TIeLV9V041XK/Qm8KMieiU85pZ1MQr7pqnP90
-         Zytg==
+        bh=08xGsS10nvzNw5Jo+Zz9/N8kpVLsNv+L7MMB5bAKIVo=;
+        b=JS1LIQCrJWpVefNHtJOxIIaWXUJmuoFAcJFOh0MWsqYW1sT/vCAgpedeB+JD5bfva4
+         7NoZEpwsy7ePNU0QJHmBvrKny6Sl0hLe0HTGAo3j6CIufZvAj+t02h0+ysLG1W7WcMCk
+         8Xu7Sp9Fv8hsmZiCCF36qC7M/RxgdjPOHLmqPWHiP+duJZolZQfUeUCpx7r/chGuJjmm
+         Fo7OpDuV9uEoLRseO9tOx1XqG23NXSAinAx58mYklMsNKk+JlOULLqCA1Wmv0pBGh81E
+         ao20pQox/FE/P5MNYBb+rRDT/r8tmpc3sp2WCJp5w5Qmpyi90BCqs2XV9l5/nCNxwHba
+         ZtoA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:in-reply-to:references:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=M8NeSAfAf/8rf146s5kA5oQtrC5Ywe50uKb9o2R/47w=;
-        b=B4Bu/xCtgkHt8efJwESCjruPALOW4krpz2KXEE7aizYjj7jS/KNL4s9+i4pVSX66g1
-         EHdDyHrrSddxO6VL3GJLLttu6s+ftrP8ImHNx5sMdugIRJwPxM8gIvu8MiPeCZTuI8OR
-         tOtjn2dmzkjPR1vH8GT3/AN2fW10iSw2UIDE4dRE1WEjmpU09x0RefUI3OwYShzXI8uG
-         5rYjDe0kAXy8P5oFP4mGFrVBuSISgC5gbBjhhmUFkXF+c59bq9tHrrA0g66teucWA93G
-         T938jFaKX3IWwyNeqQ0tUC9KCyKL8RiikQh55eO5BSfyymyCJQe9MSkfP2MvcGJXmkH0
-         lXZg==
+        bh=08xGsS10nvzNw5Jo+Zz9/N8kpVLsNv+L7MMB5bAKIVo=;
+        b=pIqZfRpVDdbPIMKaRgff3vbeSWqoudWhIkpLEcbqP6mzKvvdJg9UOU+kOl2yiEKAvA
+         YUbuH2DkM1KF6iQUB6O2DSsbclsSoztlO0Do52aECtUQa9wwVzPk4S+YRMRt0IB1LUG+
+         CuXv5JcfsVk4tZtjRQhxhI8a/c4rv6myicYepfg2sb5zi3rXZ4W1al2seMK76JAhKPk5
+         C2R84GBYjY0Xzya+DTNWXoQJy5qoIgwkp/rBDxhzSjQDrbA9Qa2gpZGwRqBxFkBo5yhM
+         F7ey4WOODdpfPGXlGEHlYOWbNtzxuGigysH0Umbv3bGOL9JQgXmz9sPkTwLQ2uz+HQZu
+         2A9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:mime-version:from:to:subject:date
@@ -49,64 +49,64 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=M8NeSAfAf/8rf146s5kA5oQtrC5Ywe50uKb9o2R/47w=;
-        b=IlBndp7TjlaCj8oZ8nd8VUl3KOISeox6UU8HnxmV1IQmX1WcePDfLxw+ftNqYDzfyK
-         HJ3ZPwX+8Yw9cp0ToyeG+1wxdR6OwotQWginLGzPX+9OFdMOVpKGWT8HpaTVk2X4tHFP
-         cgMbzN4YUQGDBXf7Hlr8dn/+rp6x+2SsQw4zescAmwH1JWwb/lUAmryBBMxp6BpTyNkF
-         NC8YzisXLkbhOFJMmul2dj+A9MCMKM2gXuOR7krRdx+2aFga6cFWOYK3ra4vwQc1W34f
-         /XGAJpimDGzx2k2LllT4R18N0w+fhWNpjavyTm//f1kkd7FxE1QU7PT3ioOHR2iWnjH/
-         Dffw==
+        bh=08xGsS10nvzNw5Jo+Zz9/N8kpVLsNv+L7MMB5bAKIVo=;
+        b=Qmq0mOGJtvDyI0sIHHHebvlMO2/qvsx+C+GCSV/GN+Med5RA0TErXUnHcHK+zEJz7K
+         N881lH1X9pmnOrj+WAEGDPRpPxJH6kbz9OdfSokFcxuXBp6yHH2UAM9lUll8h/XTSha+
+         HxwWUPZtQUKLM805u64YGRNrqxElQ8RP1jbU42ZWvH2X4y2nFQgZiX+rKPUJhfPNoqCJ
+         o/9oTvBme8trBOmRVZrf8Mxbkxis077AqmMYgrrJ4A1zaOHdmiVlgoQ87Ecwn1X2vSfd
+         LZ0BXMU7e9Sip7pHtKkZIgm3LfkvELJ8QAN3lr32eBUDCeTagaEPecaIOyGzlNJGhnwh
+         00dg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXhNhXoe22J8ahGzoF5kEfRrpy1aX+PRZoakeLNsRcTqwUnzT1j
-	vFOdoKQ/x6WWcT/BW4mXrIA=
-X-Google-Smtp-Source: APXvYqxDN0Fqv79yjUJ1CZPZwiX/VIQaJitAEUPqOaP+t+pgHp6n1aZUeK5SKvlEGRalZqUUDkJcxw==
-X-Received: by 2002:a5d:620b:: with SMTP id y11mr2511878wru.230.1579170890381;
+X-Gm-Message-State: APjAAAWBYlgHAh2pUV/oZ/n7KQK0HqxEtgYN/MO8FmuN6E8mUFl/wNDt
+	dwzxlcwg4ak+NepzWtnG2iA=
+X-Google-Smtp-Source: APXvYqz+W2fOYKdjDFSYsW/gEpzK2eGMdGIGwKGGCYb+nZthLWZJz2p+5vo1CCHfAwlrkoRZRgPzgg==
+X-Received: by 2002:a17:906:6014:: with SMTP id o20mr2169555ejj.100.1579170890368;
         Thu, 16 Jan 2020 02:34:50 -0800 (PST)
 MIME-Version: 1.0
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:ebc5:: with SMTP id v5ls7783639wrn.8.gmail; Thu, 16 Jan
+Received: by 2002:a50:9ac2:: with SMTP id p60ls5027950edb.7.gmail; Thu, 16 Jan
  2020 02:34:49 -0800 (PST)
-X-Received: by 2002:adf:f98c:: with SMTP id f12mr2461861wrr.138.1579170889591;
+X-Received: by 2002:a50:9ee8:: with SMTP id a95mr35722349edf.86.1579170889581;
         Thu, 16 Jan 2020 02:34:49 -0800 (PST)
 ARC-Seal: i=1; a=rsa-sha256; t=1579170889; cv=none;
         d=google.com; s=arc-20160816;
-        b=XaTVj50J7CAL6ZvwnUt41R59hKXG+KwSk4WGfAgzeerMMifsgp/gkvFLx1CqvgV8qJ
-         wyZJSsObs+hK6Mx0GG+BQV6EzpwO9RFo91mr6ebjpT0SWyDJDlGj3ynX+6o4zrHxo+Um
-         P2MJuLghglfM635718isWhnnjVTY6PDnCw8zW5WKfYP4WDihzfWihUSyqAURTkqMfvZx
-         2HdEDGzOT7iBiTwvqJnbDQo4tHULsX1fkCrdW185qszDc+eYMVBdunz6dDIcHb7tbU3I
-         O4HXa2ZwN06RWViT9RDXpRdEZfYWIharlbbBLNoJBGgUw9WSYGduxB7fWJlMqXHD9quB
-         gQLA==
+        b=c9UxWm9/LiOzP8VvHn/AZgWnrNVq6Uugx8GC7N3/JZ0EZvOAZntH7mMQRhKrlWMTxY
+         3ipVcF8LX4lTGNxv6CznXBBrFn3BNpqvkaDKMusIZlA/7qmbsIgLJWPSRaqzFRcMeH0k
+         W1FnbCdkWRBhp7FEQaCN8ozyICppjhzZoQufS2KUaZTNgcI4W/bRFVInISMtuM/QIyQ4
+         FftjyHsNrV92shhMICsCzWBACrMDgluIjHifi9+LveI+jLW3AH/B9J9nizgCP/PIkGjp
+         q+2rSUG1ab0qMFZuWYj3MzytYat79PfZ1mj/cXSN3gWaCHlnN8fSHuUqQBp6l41PTyOu
+         PV7Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=references:in-reply-to:references:in-reply-to:message-id:date
          :subject:to:from;
-        bh=LTOwnWf0Be3kcPqYNTXfd6xjZF0fnkpxcqJBy3+v63I=;
-        b=v58IahRdnBmTyIAr6byKwsp3NzvKH5JPMGfeRORheG/49UlMaUO2PY39OihtTN1Jsg
-         M+bxtFwCOB3YOE5BIUda4+PCTW0XYGH4YfTgAiFA2ezhoIpJNjjRGMULki9wUFyMBe8C
-         cGuG6Sr+LVGV6YtZP0zmxojB4DSaqEzrtg/atPP+Jmv8c8QGfq9+fTHTq7IiQ+MdgYxW
-         Ow6TJym7cMO2y/oGAhnF5vEI2/yqcXv8LgBIJQ0x3RIElaoLsJxQkDIxhFJp4Xge1pns
-         5vPK6EXlxJQbdc0CJTu99ngmkM7NnN1vkbhkPuJf3oNHpCPRvjYskExVEI/3N64VVbgj
-         68IQ==
+        bh=480CyuaQPeusRFFNHsKeJsFjFBlS2P7AJ9hpGN8QIoo=;
+        b=LvLzZ89/TdpDl8rMKpTX0pbypke4sQe3RB6E++/ciKDKOIH+09341e3M6NnsOEuRdo
+         uVdC37JKbTwldW0NOfsKt3ZsNUEkmepQTr6RX4mw0A1mwlaiNcoymHfo6JVxjbuOKYER
+         scpE8vkZuOrTCWHWu1YE7duU7lmOoYtWM0S2y9i0Aq3eynBHkd9kByiD9jSC9+567kkx
+         tr3AYKh/zY8heSAL6U6rkTgKmFbfxPYcIQgIhkKVYyFwgQxIzf0BrHqq5m/a7c0x3OIe
+         Uh/52U6gHTh2U5GN3X2AddtQTT+NGno2uX11ee5fb8w7oLOSzDA9qEq/EvylQY0wbrp1
+         7xHg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id p16si882103wre.4.2020.01.16.02.34.49
+Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
+        by gmr-mx.google.com with ESMTPS id d29si977599edj.0.2020.01.16.02.34.49
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
         Thu, 16 Jan 2020 02:34:49 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
 Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 00GAYnih029228
+	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 00GAYnY2032071
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
 	for <jailhouse-dev@googlegroups.com>; Thu, 16 Jan 2020 11:34:49 +0100
 Received: from md1f2u6c.ad001.siemens.net ([139.23.78.127])
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id 00GAYmQF031623
+	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id 00GAYmQG031623
 	for <jailhouse-dev@googlegroups.com>; Thu, 16 Jan 2020 11:34:49 +0100
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [jh-images][PATCH 05/18] customizations: Adjust to new ARM/ARM64 demo cell naming
-Date: Thu, 16 Jan 2020 11:34:34 +0100
-Message-Id: <b88300cb3fc6c1e0528a9d42624bd6600574422a.1579170887.git.jan.kiszka@siemens.com>
+Subject: [jh-images][PATCH 06/18] jailhouse: Adjust nuc6cay configs to upstream changes
+Date: Thu, 16 Jan 2020 11:34:35 +0100
+Message-Id: <67a7e0e1d48832baa4aab40482fbe9037034d767.1579170887.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <cover.1579170887.git.jan.kiszka@siemens.com>
 References: <cover.1579170887.git.jan.kiszka@siemens.com>
@@ -114,7 +114,7 @@ In-Reply-To: <cover.1579170887.git.jan.kiszka@siemens.com>
 References: <cover.1579170887.git.jan.kiszka@siemens.com>
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
@@ -132,148 +132,235 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-The gic-demo config is now called inmate-demo.
-
-This starts the conversion to upcoming Jailhouse 0.12 / current next
-branch. For a couple of commits, we have to live with a non-working
-state.
+Account for the config format changes, including the addition of a demo
+ivshmem device to the non-root linux cell. Changes are analogous to
+those to qemu-x86 and linux-x86-demo.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- recipes-core/customizations/files/.bash_history-espressobin   | 10 +++++-----
- recipes-core/customizations/files/.bash_history-hikey620      | 10 +++++-----
- recipes-core/customizations/files/.bash_history-macchiatobin  | 10 +++++-----
- recipes-core/customizations/files/.bash_history-orangepi-zero | 10 +++++-----
- recipes-core/customizations/files/.bash_history-qemu-arm64    | 10 +++++-----
- recipes-core/customizations/files/.bash_history-ultra96       | 10 +++++-----
- 6 files changed, 30 insertions(+), 30 deletions(-)
+ .../jailhouse/files/linux-nuc6cay-demo.c           | 75 +++++++++++++++++-----
+ recipes-jailhouse/jailhouse/files/nuc6cay.c        | 70 +++++++++++++++-----
+ 2 files changed, 112 insertions(+), 33 deletions(-)
 
-diff --git a/recipes-core/customizations/files/.bash_history-espressobin b/recipes-core/customizations/files/.bash_history-espressobin
-index 498e866..09fdb24 100644
---- a/recipes-core/customizations/files/.bash_history-espressobin
-+++ b/recipes-core/customizations/files/.bash_history-espressobin
-@@ -1,10 +1,10 @@
- jailhouse enable /etc/jailhouse/espressobin.cell
- jailhouse console
--jailhouse cell create /etc/jailhouse/espressobin-gic-demo.cell
--jailhouse cell load gic-demo /usr/libexec/jailhouse/demos/gic-demo.bin
--jailhouse cell start gic-demo
--jailhouse cell stats gic-demo
--jailhouse cell destroy gic-demo
-+jailhouse cell create /etc/jailhouse/espressobin-inmate-demo.cell
-+jailhouse cell load inmate-demo /usr/libexec/jailhouse/demos/gic-demo.bin
-+jailhouse cell start inmate-demo
-+jailhouse cell stats inmate-demo
-+jailhouse cell destroy inmate-demo
- jailhouse cell linux /etc/jailhouse/espressobin-linux-demo.cell \
-                      /boot/vmlinuz* \
-                      -d /etc/jailhouse/dts/inmate-espressobin.dtb \
-diff --git a/recipes-core/customizations/files/.bash_history-hikey620 b/recipes-core/customizations/files/.bash_history-hikey620
-index 9c07ff7..41729a9 100644
---- a/recipes-core/customizations/files/.bash_history-hikey620
-+++ b/recipes-core/customizations/files/.bash_history-hikey620
-@@ -1,10 +1,10 @@
- jailhouse enable /etc/jailhouse/hikey.cell
- jailhouse console
--jailhouse cell create /etc/jailhouse/hikey-gic-demo.cell
--jailhouse cell load gic-demo /usr/libexec/jailhouse/demos/gic-demo.bin
--jailhouse cell start gic-demo
--jailhouse cell stats gic-demo
--jailhouse cell destroy gic-demo
-+jailhouse cell create /etc/jailhouse/hikey-inmate-demo.cell
-+jailhouse cell load inmate-demo /usr/libexec/jailhouse/demos/gic-demo.bin
-+jailhouse cell start inmate-demo
-+jailhouse cell stats inmate-demo
-+jailhouse cell destroy inmate-demo
- jailhouse cell linux /etc/jailhouse/hikey-linux-demo.cell \
-                      /boot/vmlinuz* \
-                      -d /etc/jailhouse/dts/inmate-hikey.dtb \
-diff --git a/recipes-core/customizations/files/.bash_history-macchiatobin b/recipes-core/customizations/files/.bash_history-macchiatobin
-index 16a0312..57a19cc 100644
---- a/recipes-core/customizations/files/.bash_history-macchiatobin
-+++ b/recipes-core/customizations/files/.bash_history-macchiatobin
-@@ -1,10 +1,10 @@
- jailhouse enable /etc/jailhouse/macchiatobin.cell
- jailhouse console
--jailhouse cell create /etc/jailhouse/macchiatobin-gic-demo.cell
--jailhouse cell load gic-demo /usr/libexec/jailhouse/demos/gic-demo.bin
--jailhouse cell start gic-demo
--jailhouse cell stats gic-demo
--jailhouse cell destroy gic-demo
-+jailhouse cell create /etc/jailhouse/macchiatobin-inmate-demo.cell
-+jailhouse cell load inmate-demo /usr/libexec/jailhouse/demos/gic-demo.bin
-+jailhouse cell start inmate-demo
-+jailhouse cell stats inmate-demo
-+jailhouse cell destroy inmate-demo
- jailhouse cell linux /etc/jailhouse/macchiatobin-linux-demo.cell \
-                      /boot/vmlinuz* \
-                      -d /etc/jailhouse/dts/inmate-macchiatobin.dtb \
-diff --git a/recipes-core/customizations/files/.bash_history-orangepi-zero b/recipes-core/customizations/files/.bash_history-orangepi-zero
-index 41c5dc3..fed554a 100644
---- a/recipes-core/customizations/files/.bash_history-orangepi-zero
-+++ b/recipes-core/customizations/files/.bash_history-orangepi-zero
-@@ -1,12 +1,12 @@
- jailhouse enable /etc/jailhouse/orangepi0.cell
- jailhouse console
--jailhouse cell create /etc/jailhouse/orangepi0-gic-demo.cell
--jailhouse cell load orangepi0-gic-demo \
-+jailhouse cell create /etc/jailhouse/orangepi0-inmate-demo.cell
-+jailhouse cell load orangepi0-inmate-demo \
-                     /usr/libexec/jailhouse/demos/gic-demo.bin \
-                     -s "led-reg=0x1c20810 led-pin=17" -a 0x1000
--jailhouse cell start orangepi0-gic-demo
--jailhouse cell stats orangepi0-gic-demo
--jailhouse cell destroy orangepi0-gic-demo
-+jailhouse cell start orangepi0-inmate-demo
-+jailhouse cell stats orangepi0-inmate-demo
-+jailhouse cell destroy orangepi0-inmate-demo
- jailhouse cell linux /etc/jailhouse/orangepi0-linux-demo.cell /boot/vmlinuz* \
-                      -d /etc/jailhouse/dts/inmate-orangepi0.dtb \
-                      -i /usr/libexec/jailhouse/demos/rootfs.cpio \
-diff --git a/recipes-core/customizations/files/.bash_history-qemu-arm64 b/recipes-core/customizations/files/.bash_history-qemu-arm64
-index f2e7e6c..73c5562 100644
---- a/recipes-core/customizations/files/.bash_history-qemu-arm64
-+++ b/recipes-core/customizations/files/.bash_history-qemu-arm64
-@@ -1,10 +1,10 @@
- jailhouse enable /etc/jailhouse/qemu-arm64.cell
- jailhouse console
--jailhouse cell create /etc/jailhouse/qemu-arm64-gic-demo.cell
--jailhouse cell load gic-demo /usr/libexec/jailhouse/demos/gic-demo.bin
--jailhouse cell start gic-demo
--jailhouse cell stats gic-demo
--jailhouse cell destroy gic-demo
-+jailhouse cell create /etc/jailhouse/qemu-arm64-inmate-demo.cell
-+jailhouse cell load inmate-demo /usr/libexec/jailhouse/demos/gic-demo.bin
-+jailhouse cell start inmate-demo
-+jailhouse cell stats inmate-demo
-+jailhouse cell destroy inmate-demo
- jailhouse cell linux /etc/jailhouse/qemu-arm64-linux-demo.cell \
-                      /boot/vmlinuz* \
-                      -d /etc/jailhouse/dts/inmate-qemu-arm64.dtb \
-diff --git a/recipes-core/customizations/files/.bash_history-ultra96 b/recipes-core/customizations/files/.bash_history-ultra96
-index 7c3c325..f73aec1 100644
---- a/recipes-core/customizations/files/.bash_history-ultra96
-+++ b/recipes-core/customizations/files/.bash_history-ultra96
-@@ -1,10 +1,10 @@
- jailhouse enable /etc/jailhouse/ultra96.cell
- jailhouse console
--jailhouse cell create /etc/jailhouse/ultra96-gic-demo.cell
--jailhouse cell load gic-demo /usr/libexec/jailhouse/demos/gic-demo.bin
--jailhouse cell start gic-demo
--jailhouse cell stats gic-demo
--jailhouse cell destroy gic-demo
-+jailhouse cell create /etc/jailhouse/ultra96-inmate-demo.cell
-+jailhouse cell load inmate-demo /usr/libexec/jailhouse/demos/gic-demo.bin
-+jailhouse cell start inmate-demo
-+jailhouse cell stats inmate-demo
-+jailhouse cell destroy inmate-demo
- jailhouse cell linux /etc/jailhouse/ultra96-linux-demo.cell \
-                      /boot/vmlinuz* \
-                      -d /etc/jailhouse/dts/inmate-zynqmp.dtb \
+diff --git a/recipes-jailhouse/jailhouse/files/linux-nuc6cay-demo.c b/recipes-jailhouse/jailhouse/files/linux-nuc6cay-demo.c
+index 5211f2f..8366d6b 100644
+--- a/recipes-jailhouse/jailhouse/files/linux-nuc6cay-demo.c
++++ b/recipes-jailhouse/jailhouse/files/linux-nuc6cay-demo.c
+@@ -20,8 +20,8 @@
+ struct {
+ 	struct jailhouse_cell_desc cell;
+ 	__u64 cpus[1];
+-	struct jailhouse_memory mem_regions[4];
+-	struct jailhouse_pci_device pci_devices[1];
++	struct jailhouse_memory mem_regions[12];
++	struct jailhouse_pci_device pci_devices[2];
+ } __attribute__((packed)) config = {
+ 	.cell = {
+ 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
+@@ -40,6 +40,41 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory regions (demo) */
++		{
++			.phys_start = 0x3f0f0000,
++			.virt_start = 0x3f0f0000,
++			.size = 0x1000,
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
++		},
++		{
++			.phys_start = 0x3f0f1000,
++			.virt_start = 0x3f0f1000,
++			.size = 0x9000,
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++				JAILHOUSE_MEM_ROOTSHARED,
++		},
++		{
++			.phys_start = 0x3f0fa000,
++			.virt_start = 0x3f0fa000,
++			.size = 0x2000,
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
++		},
++		{
++			.phys_start = 0x3f0fc000,
++			.virt_start = 0x3f0fc000,
++			.size = 0x2000,
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
++		},
++		{
++			.phys_start = 0x3f0fe000,
++			.virt_start = 0x3f0fe000,
++			.size = 0x2000,
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++				JAILHOUSE_MEM_ROOTSHARED,
++		},
++		/* IVSHMEM shared memory regions (networking) */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x3f100000, 1),
+ 		/* low RAM */ {
+ 			.phys_start = 0x3a600000,
+ 			.virt_start = 0,
+@@ -56,32 +91,38 @@ struct {
+ 		/* high RAM */ {
+ 			.phys_start = 0x3a700000,
+ 			.virt_start = 0x00200000,
+-			.size = 0x4a00000,
++			.size = 0x4900000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+ 				JAILHOUSE_MEM_LOADABLE,
+ 		},
+-		/* IVSHMEM shared memory region */
+-		{
+-			.phys_start = 0x3f100000,
+-			.virt_start = 0x3f100000,
+-			.size = 0xff000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+-				JAILHOUSE_MEM_ROOTSHARED,
+-		},
+ 	},
+ 
+ 	.pci_devices = {
++		/* IVSHMEM: 00:10.0 */
+ 		{
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
++			.iommu = 1,
+ 			.domain = 0x0,
+ 			.bdf = 0x10 << 3,
+-			.bar_mask = {
+-				0xffffff00, 0xffffffff, 0x00000000,
+-				0x00000000, 0xffffffe0, 0xffffffff,
+-			},
+-			.num_msix_vectors = 1,
+-			.shmem_region = 3,
++			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
++			.num_msix_vectors = 16,
++			.shmem_regions_start = 0,
++			.shmem_dev_id = 2,
++			.shmem_peers = 3,
++			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
++		},
++		/* IVSHMEM: 00:11.0 */
++		{
++			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
++			.iommu = 1,
++			.domain = 0x0,
++			.bdf = 0x11 << 3,
++			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
++			.num_msix_vectors = 3,
++			.shmem_regions_start = 5,
++			.shmem_dev_id = 1,
++			.shmem_peers = 2,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
+ 	},
+diff --git a/recipes-jailhouse/jailhouse/files/nuc6cay.c b/recipes-jailhouse/jailhouse/files/nuc6cay.c
+index 5b3b84e..7600745 100644
+--- a/recipes-jailhouse/jailhouse/files/nuc6cay.c
++++ b/recipes-jailhouse/jailhouse/files/nuc6cay.c
+@@ -41,10 +41,10 @@
+ struct {
+ 	struct jailhouse_system header;
+ 	__u64 cpus[1];
+-	struct jailhouse_memory mem_regions[54];
++	struct jailhouse_memory mem_regions[62];
+ 	struct jailhouse_irqchip irqchips[1];
+ 	struct jailhouse_pio pio_regions[6];
+-	struct jailhouse_pci_device pci_devices[21];
++	struct jailhouse_pci_device pci_devices[22];
+ 	struct jailhouse_pci_capability pci_caps[53];
+ } __attribute__((packed)) config = {
+ 	.header = {
+@@ -96,6 +96,39 @@ struct {
+ 	},
+ 
+ 	.mem_regions = {
++		/* IVSHMEM shared memory regions (demo) */
++		{
++			.phys_start = 0x3f0f0000,
++			.virt_start = 0x3f0f0000,
++			.size = 0x1000,
++			.flags = JAILHOUSE_MEM_READ,
++		},
++		{
++			.phys_start = 0x3f0f1000,
++			.virt_start = 0x3f0f1000,
++			.size = 0x9000,
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
++		},
++		{
++			.phys_start = 0x3f0fa000,
++			.virt_start = 0x3f0fa000,
++			.size = 0x2000,
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
++		},
++		{
++			.phys_start = 0x3f0fc000,
++			.virt_start = 0x3f0fc000,
++			.size = 0x2000,
++			.flags = JAILHOUSE_MEM_READ,
++		},
++		{
++			.phys_start = 0x3f0fe000,
++			.virt_start = 0x3f0fe000,
++			.size = 0x2000,
++			.flags = JAILHOUSE_MEM_READ,
++		},
++		/* IVSHMEM shared memory regions (networking) */
++		JAILHOUSE_SHMEM_NET_REGIONS(0x3f100000, 0),
+ 		/* MemRegion: 00000000-0003efff : System RAM */
+ 		{
+ 			.phys_start = 0x0,
+@@ -479,14 +512,7 @@ struct {
+ 		{
+ 			.phys_start = 0x3a600000,
+ 			.virt_start = 0x3a600000,
+-			.size = 0x4b00000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+-		},
+-		/* IVSHMEM shared memory region */
+-		{
+-			.phys_start = 0x3f100000,
+-			.virt_start = 0x3f100000,
+-			.size = 0xff000,
++			.size = 0x4a00000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+ 		},
+ 	},
+@@ -878,12 +904,24 @@ struct {
+ 			.iommu = 1,
+ 			.domain = 0x0,
+ 			.bdf = 0x10 << 3,
+-			.bar_mask = {
+-				0xffffff00, 0xffffffff, 0x00000000,
+-				0x00000000, 0xffffffe0, 0xffffffff,
+-			},
+-			.num_msix_vectors = 1,
+-			.shmem_region = 53,
++			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
++			.num_msix_vectors = 16,
++			.shmem_regions_start = 0,
++			.shmem_dev_id = 0,
++			.shmem_peers = 3,
++			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
++		},
++		/* IVSHMEM: 00:11.0 */
++		{
++			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
++			.iommu = 1,
++			.domain = 0x0,
++			.bdf = 0x11 << 3,
++			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
++			.num_msix_vectors = 3,
++			.shmem_regions_start = 5,
++			.shmem_dev_id = 0,
++			.shmem_peers = 2,
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+ 		},
+ 	},
 -- 
 2.16.4
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/b88300cb3fc6c1e0528a9d42624bd6600574422a.1579170887.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/67a7e0e1d48832baa4aab40482fbe9037034d767.1579170887.git.jan.kiszka%40siemens.com.
