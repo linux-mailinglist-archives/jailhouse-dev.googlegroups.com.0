@@ -1,69 +1,72 @@
-Return-Path: <jailhouse-dev+bncBCDJXM4674ERBK5VSXYQKGQEB3HUAHQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD7236HKXYJRBKP6SXYQKGQE4GQQVBQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x33c.google.com (mail-ot1-x33c.google.com [IPv6:2607:f8b0:4864:20::33c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97427142461
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 20 Jan 2020 08:45:49 +0100 (CET)
-Received: by mail-ot1-x33c.google.com with SMTP id f25sf17601456otq.15
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 19 Jan 2020 23:45:49 -0800 (PST)
+Received: from mail-oi1-x240.google.com (mail-oi1-x240.google.com [IPv6:2607:f8b0:4864:20::240])
+	by mail.lfdr.de (Postfix) with ESMTPS id A9B42142823
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 20 Jan 2020 11:21:31 +0100 (CET)
+Received: by mail-oi1-x240.google.com with SMTP id n130sf11990155oib.5
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 20 Jan 2020 02:21:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=mycKExBletokKXSUF3pm8XuIEgJZC5s5WqZZ1jhEThI=;
-        b=qFRt1BDVxE9xZabXkCKv0o9b+LyazYWGI2wPt2MeHFUdsx5bShZUu5iYATSoTus/fB
-         uG/CI2T3jCvdfac1ajjn5cs31lXo2PbYQFA6jakjNMEkMFsmY0KmbcabW6dPLRLYLkgp
-         RTYUP3lvi/nldqWsAnbm0n7JHh1tR4iqgnODCm85MCjHtjp93ODfTv7TdbX+43IaBFG0
-         vI44VfgrUIGkweMCjgyyGyxrrj0dWqWm8T0j+BAfgTyQur1St/xzTaTNhdMfPJK+1xxt
-         iat12WdEq+zHOyAn5foUwFkbn6Hb9Y7eJbGYlwH7GrHSJMpYiFarCc2OXI7EQ1S7IpzE
-         oxkQ==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=TDb23LQd6Vhk2K3ziG1WioTtCTYfftUFaKNI1XciP+8=;
+        b=fje9QTSzrqUGcfD0hw5rKjJxXg6G+SC0Ir6H7ecZ0EvImYhbjnGQpzmcknnuPK8pS7
+         6f6hxLJPnyfVyEy3Ya9isbdeo1hFRiTRLWteYnHJcyPmnk6hc9/U18NQO1brxWtJWP8y
+         ev6MBvU8llZIZnIsKBaRgYVTukorGaVZgAQQP3oAuL3IwOR3cALgWpmCabeRaXvjkd9A
+         VDAVu0Om3jOc59/EPL1bcxYS2CL1rNC9KLwOU8EWJIxgD7deQubn9XbYnemq1s1D6upw
+         2tx2axZcXQnclZn+F9K/nJEmfMv19DmSkS5U4W+4W15aY8BMkCG4N87nhVKXBMAcYMAZ
+         /xhA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:message-id:subject:mime-version:x-original-sender
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=mycKExBletokKXSUF3pm8XuIEgJZC5s5WqZZ1jhEThI=;
-        b=OnBRrN8GxtXAYjmG2TTqNl5z/bb3fu9Qj9PGdU2V3D7yrIsm1hD6Qiydn4dyJ5R83k
-         w9WNG6tAbiZ+NflqBXbtxGUtaPlJo30N0KGIWSNNjwnU4hJurSIC/AxnavEu0CH1JVkb
-         ahHPeNaFZIEM/rOBfNk/icp7WvyU0Cv/iATjeoJLHkXD9OIE6wgDCSNaizU9M3wrj6Mh
-         YbOTW3jO/1su/IPR0mnRZ/LerefbRDok1cQ6lhVYF2dOTx9njWQp6BhyoLt3ejz4P/r7
-         BVz0N86sOfzm8GVzuduz1oWaP1a+Js5OUzpVUhEAca76ORMwR0HDnNNQ7vK/rtDNb7pk
-         289Q==
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=TDb23LQd6Vhk2K3ziG1WioTtCTYfftUFaKNI1XciP+8=;
+        b=ATUZMwMbwDroEUuxkacsBCKCWQVNMNffeBwbzxLCcXYQwJuBsAqzMhS0V7lXw6Sc6S
+         vCVQaA08uHTtXnTxXljbz1dMfirhxeCSH2VSBuuz6FCayr8w2AsmlpG2QA9s7+lvYwUB
+         Myw13SS7OhTDvdPql35wgT/NwPQs4/9zZNHGKQZGQW6we1SAV202Ld0xuppSzrFJCaMc
+         zp13bB7FvEurceoOaD+T5dwvXfH0EQ6qNLsireEkH4+wZHM71/sBBe3DWigFY+bBIpg+
+         dPjbX8kx9/Pd6uvqHca0sqSG5GDtcIufdR3l+DXyZVX6m9ZPTou1aoFC28u+9XR3udRF
+         qx7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=mycKExBletokKXSUF3pm8XuIEgJZC5s5WqZZ1jhEThI=;
-        b=kC9riYjR9tZiAsVH7alyLTaKnv/nUfDqIOnSiPfK+K7QwHd4TWiRSaTfnPO0skmRod
-         3SUGVXT0lC1RNzShKR8dXqinHqrCG7Aq+7XeMmdtz+9zxJvIWYfJ6GbANdO4Xutjn6H1
-         cDYbstpG9Q6NrAOuxQIIipQDhXvXrd8SlngAH3U8To3ChTOfF6KMOmMKPpzeEN/U/lE4
-         fp67jJIGiKpSLoq9nseTYuN/L3MVv1n4uXFha/E7A1ySFyWoEhrE4Z2ui7gEhOsZ+VXw
-         oELelR6nozY6wGmF9IbIsKBrRD39xurrb63SgyHwGPSnVmHqRiv0L3uqSZmWq4TByxwR
-         jDhA==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=TDb23LQd6Vhk2K3ziG1WioTtCTYfftUFaKNI1XciP+8=;
+        b=oM8GE8r4MzFSsPfRbCua0c4i9iaO2d1/joV2nn9jW6y062zzpo+iDZD1tYP281GEJt
+         02xRjrHTi6EYF82f6dmwK+eNFq6v7+s+yCXbqcsbUoJSeUvguTaBkS9KiLc+e+TPvcYl
+         Oh2HiwAwWF1ZDlnpFYR32qRUOabNpQ1hticH6LXuDl25pDy3QX9zbmcFliITez7uQvkA
+         nXJ3DgTaKJS/pV+/uL7eSAAKPAGehh4/Ou7l5sKpjUYH/p7AmVvQ3OdHB8FaG9z+sZrE
+         45ufx3eOcl88Wh2pbRCWu6HV6hJdbRlnGA+EZXdwtxJA8wfldeieLWTRS1xPyRqK108W
+         KI8w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUAuso0eCUWp3+cixo2+zuYnztCgpuNgCQIvhXu+gF865D33sjt
-	XJ4Gl3OkMeXaa8tHUVQHorY=
-X-Google-Smtp-Source: APXvYqyBg5OUXvWrte26y24fWkwiDts7dwBxDEOrjTp17+WpSk8qFDfK6JzH18raMdmt2PrEb/iFEg==
-X-Received: by 2002:aca:bac3:: with SMTP id k186mr12397828oif.19.1579506348197;
-        Sun, 19 Jan 2020 23:45:48 -0800 (PST)
+X-Gm-Message-State: APjAAAU2uzFFunyejx8cbAniVSVwBIDWn3TJg/7QrerLbuOp4v11W1Tg
+	Uy53Gh63zFAaqRIeY4iXCxQ=
+X-Google-Smtp-Source: APXvYqxDeuhIJJl2JRRS8M9b+mOy2hXHJrA3emNPNgwCNQA22Z+aGdtqqr5QsvR1nn+euFZP6RqZjA==
+X-Received: by 2002:a9d:6b8a:: with SMTP id b10mr15703020otq.322.1579515690069;
+        Mon, 20 Jan 2020 02:21:30 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a9d:7999:: with SMTP id h25ls5723765otm.2.gmail; Sun, 19 Jan
- 2020 23:45:47 -0800 (PST)
-X-Received: by 2002:a05:6830:109a:: with SMTP id y26mr14237075oto.227.1579506347332;
-        Sun, 19 Jan 2020 23:45:47 -0800 (PST)
-Date: Sun, 19 Jan 2020 23:45:46 -0800 (PST)
-From: Michael Hinton <michael.g.hinton@gmail.com>
+Received: by 2002:aca:5753:: with SMTP id l80ls5693703oib.15.gmail; Mon, 20
+ Jan 2020 02:21:29 -0800 (PST)
+X-Received: by 2002:a05:6808:84:: with SMTP id s4mr12309780oic.60.1579515689339;
+        Mon, 20 Jan 2020 02:21:29 -0800 (PST)
+Date: Mon, 20 Jan 2020 02:21:28 -0800 (PST)
+From: Thorsten Schulz <contact.thorsten@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <4d8ab27d-7a1a-4601-8d61-429dd0cdd018@googlegroups.com>
-Subject: Difference in execution duration between root cell and inmate for
- same code
+Message-Id: <81dbcae7-6d89-4d29-b457-a6532d902d91@googlegroups.com>
+In-Reply-To: <c95ae0f5-9510-86c5-b4db-8939980399bd@siemens.com>
+References: <764a07bc-d7c3-4b06-a7fd-ed8358dd8037@googlegroups.com>
+ <c95ae0f5-9510-86c5-b4db-8939980399bd@siemens.com>
+Subject: Re (brief feedback): Reach-out for help getting qemu-e1000-demo
+ config right+working
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_1163_2078910094.1579506346768"
-X-Original-Sender: Michael.G.Hinton@gmail.com
+	boundary="----=_Part_957_2130723718.1579515688765"
+X-Original-Sender: contact.thorsten@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -76,47 +79,52 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1163_2078910094.1579506346768
+------=_Part_957_2130723718.1579515688765
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_1164_147787382.1579506346768"
+	boundary="----=_Part_958_1141672345.1579515688766"
 
-------=_Part_1164_147787382.1579506346768
+------=_Part_958_1141672345.1579515688766
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
+Hi Jan,
 
-
-Hello,
-
-I have found that running code in an inmate is a lot slower than running=20
-that same code in the root cell on my x86 machine. I am not sure why.
-
-
-Am I correct in assuming that when `jailhouse enable <root_cell>` is=20
-called, everything that runs after that in the Linux root cell is running=
+thanks for pointing to the intros. Yes, I fell for all the novice mistakes.=
 =20
-under the hypervisor, even when the inmate hasn=E2=80=99t started yet? Both=
- the=20
-inmate and the Linux root cell should both be equally subjected to the same=
+Note, the link to the slides has moved:
+https://events.static.linuxfound.org/sites/events/files/slides/ELCE2016-Jai=
+lhouse-Tutorial.pdf
+
+For everyone else stumbling into the same initial pitfalls:
+
+The most important slide was (31) - "Traps & Pitfalls =E2=80=93 x86 Edition=
+".
+I had to flag a few more caps as "JAILHOUSE_PCICAPS_WRITE" (as joked in the=
 =20
-hypervisor performance penalty, right?
-
-Are there any high-level differences between the root and the inmate that=
+talk-video, just set all), removed a region that I "imported" wrongly from=
 =20
-could account for this large discrepancy? I know that Turbo Boost is likely=
+the original qemu-root-cell and rechecked the indices of the shm-regions,=
 =20
-not happening in my inmate while it is happening in the root cell, but I=20
-don=E2=80=99t believe that can account for the huge gap in execution durati=
-on that=20
-I see.
+which I completely missed, after moving the regions around.
 
+Then the e1000-demo and the non-root-Linux worked for me in qemu.
+Well, one needs 2 Qemus of the same setup on a local bridge for the=20
+e1000-demo - then they talk.
 
-I'm not expecting anyone to debug this in depth for me, but I would=20
-appreciate any ideas I could look into.
+Two traps of note:
+As I always forget this: one needs to pass a different mac-address to the=
+=20
+e1000 device in the second qemu-instance.
 
-Thanks,
+When one wants to pass through an e1000 card to the non-root Linux in the=
+=20
+QEMU-demo, you need to copy some of the kernel-modules, as they were not=20
+baked into the inner non-root-rootfs. Then, pinging the outer world works=
+=20
+nicely.
 
-Michael
+cheers,
+Thorsten
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -124,78 +132,32 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/4d8ab27d-7a1a-4601-8d61-429dd0cdd018%40googlegroups.com.
+jailhouse-dev/81dbcae7-6d89-4d29-b457-a6532d902d91%40googlegroups.com.
 
-------=_Part_1164_147787382.1579506346768
+------=_Part_958_1141672345.1579515688766
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><span id=3D"docs-internal-guid-064bd674-7fff-cdf8-d8a6-11a=
-f1e1c4918"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-b=
-ottom:0pt;"><span style=3D"font-size: 11pt; font-family: Nunito, sans-serif=
-; color: rgb(0, 0, 0); background-color: transparent; font-variant-numeric:=
- normal; font-variant-east-asian: normal; vertical-align: baseline; white-s=
-pace: pre-wrap;">Hello,</span></p><br><p dir=3D"ltr" style=3D"line-height:1=
-.38;margin-top:0pt;margin-bottom:0pt;"><span style=3D"font-size: 11pt; font=
--family: Nunito, sans-serif; color: rgb(0, 0, 0); background-color: transpa=
-rent; font-variant-numeric: normal; font-variant-east-asian: normal; vertic=
-al-align: baseline; white-space: pre-wrap;">I have found that running code =
-in an inmate is a lot slower than running that same code in the root cell o=
-n my x86 machine. I am not sure why.</span></p><p dir=3D"ltr" style=3D"line=
--height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style=3D"font-size: 1=
-1pt; font-family: Nunito, sans-serif; color: rgb(0, 0, 0); background-color=
-: transparent; font-variant-numeric: normal; font-variant-east-asian: norma=
-l; vertical-align: baseline; white-space: pre-wrap;"><br></span></p><p dir=
-=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span=
- style=3D"font-size: 11pt; font-family: Nunito, sans-serif; color: rgb(0, 0=
-, 0); background-color: transparent; font-variant-numeric: normal; font-var=
-iant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;">=
-Am I correct in assuming that when `</span><span style=3D"font-size: 11pt; =
-color: rgb(0, 0, 0); background-color: transparent; font-variant-numeric: n=
-ormal; font-variant-east-asian: normal; vertical-align: baseline; white-spa=
-ce: pre-wrap;"><font face=3D"courier new, monospace">jailhouse enable &lt;r=
-oot_cell&gt;</font></span><span style=3D"font-size: 11pt; font-family: Nuni=
-to, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-va=
-riant-numeric: normal; font-variant-east-asian: normal; vertical-align: bas=
-eline; white-space: pre-wrap;">` is called, everything that runs after that=
- in the Linux root cell is running under the hypervisor, even when the inma=
-te hasn=E2=80=99t started yet? Both the inmate and the Linux root cell shou=
-ld both be equally </span><span style=3D"color: rgb(0, 0, 0); font-family: =
-Nunito, sans-serif; font-size: 14.6667px; white-space: pre-wrap;">subjected=
-</span><span style=3D"background-color: transparent; color: rgb(0, 0, 0); f=
-ont-family: Nunito, sans-serif; font-size: 11pt; white-space: pre-wrap;"> t=
-o the same hypervisor performance penalty, right?</span></p><br><p dir=3D"l=
-tr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span styl=
-e=3D"font-size: 11pt; font-family: Nunito, sans-serif; color: rgb(0, 0, 0);=
- background-color: transparent; font-variant-numeric: normal; font-variant-=
-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;">Are t=
-here any high-level differences between the root and the inmate that could =
-account for this large discrepancy? I know that Turbo Boost is likely not h=
-appening in my inmate while it is happening in the root cell, but I don=E2=
-=80=99t believe that can account for the huge gap in execution duration tha=
-t I see.</span></p><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;=
-margin-bottom:0pt;"><span style=3D"font-size: 11pt; font-family: Nunito, sa=
-ns-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant-=
-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline;=
- white-space: pre-wrap;"><br></span></p><p dir=3D"ltr" style=3D"line-height=
-:1.38;margin-top:0pt;margin-bottom:0pt;"><span style=3D"font-size: 11pt; fo=
-nt-family: Nunito, sans-serif; color: rgb(0, 0, 0); background-color: trans=
-parent; font-variant-numeric: normal; font-variant-east-asian: normal; vert=
-ical-align: baseline; white-space: pre-wrap;">I&#39;m not expecting anyone =
-to debug this in depth for me, but I would appreciate any ideas I could loo=
-k into.</span></p><br><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0=
-pt;margin-bottom:0pt;"><span style=3D"font-size: 11pt; font-family: Nunito,=
- sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-varia=
-nt-numeric: normal; font-variant-east-asian: normal; vertical-align: baseli=
-ne; white-space: pre-wrap;">Thanks,</span></p><p dir=3D"ltr" style=3D"line-=
-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style=3D"font-size: 11=
-pt; font-family: Nunito, sans-serif; color: rgb(0, 0, 0); background-color:=
- transparent; font-variant-numeric: normal; font-variant-east-asian: normal=
-; vertical-align: baseline; white-space: pre-wrap;">Michael</span></p><div>=
-<span style=3D"font-size: 11pt; font-family: Nunito, sans-serif; color: rgb=
-(0, 0, 0); background-color: transparent; font-variant-numeric: normal; fon=
-t-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wr=
-ap;"><br></span></div></span></div>
+<div dir=3D"ltr"><div>Hi Jan,<br></div><div><br></div><div>thanks for point=
+ing to the intros. Yes, I fell for all the novice mistakes. Note, the link =
+to the slides has moved:</div><div>https://events.static.linuxfound.org/sit=
+es/events/files/slides/ELCE2016-Jailhouse-Tutorial.pdf</div><div><br></div>=
+<div>For everyone else stumbling into the same initial pitfalls:</div><div>=
+<br></div><div>The most important slide was (31) - &quot;Traps &amp; Pitfal=
+ls =E2=80=93 x86 Edition&quot;.</div><div>I had to flag a few more caps as =
+&quot;JAILHOUSE_PCICAPS_WRITE&quot; (as joked in the talk-video, just set a=
+ll), removed a region that I &quot;imported&quot; wrongly from the original=
+ qemu-root-cell and rechecked the indices of the shm-regions, which I compl=
+etely missed, after moving the regions around.</div><div><br></div><div>The=
+n the e1000-demo and the non-root-Linux worked for me in qemu.</div><div>We=
+ll, one needs 2 Qemus of the same setup on a local bridge for the e1000-dem=
+o - then they talk.</div><div><br></div><div>Two traps of note:</div><div>A=
+s I always forget this: one needs to pass a different mac-address to the e1=
+000 device in the second qemu-instance.</div><div><br></div><div>When one w=
+ants to pass through an e1000 card to the non-root Linux in the QEMU-demo, =
+you need to copy some of the kernel-modules, as they were not baked into th=
+e inner non-root-rootfs. Then, pinging the outer world works nicely.<br></d=
+iv><div><br></div><div>cheers,<br>Thorsten<br></div><br></div>
 
 <p></p>
 
@@ -206,11 +168,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/4d8ab27d-7a1a-4601-8d61-429dd0cdd018%40googlegroup=
+om/d/msgid/jailhouse-dev/81dbcae7-6d89-4d29-b457-a6532d902d91%40googlegroup=
 s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
-sgid/jailhouse-dev/4d8ab27d-7a1a-4601-8d61-429dd0cdd018%40googlegroups.com<=
+sgid/jailhouse-dev/81dbcae7-6d89-4d29-b457-a6532d902d91%40googlegroups.com<=
 /a>.<br />
 
-------=_Part_1164_147787382.1579506346768--
+------=_Part_958_1141672345.1579515688766--
 
-------=_Part_1163_2078910094.1579506346768--
+------=_Part_957_2130723718.1579515688765--
