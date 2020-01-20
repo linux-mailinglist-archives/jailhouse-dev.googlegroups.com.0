@@ -1,142 +1,69 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBWVOSDYQKGQEEEWA57I@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCDJXM4674ERBK5VSXYQKGQEB3HUAHQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x53a.google.com (mail-ed1-x53a.google.com [IPv6:2a00:1450:4864:20::53a])
-	by mail.lfdr.de (Postfix) with ESMTPS id B55FD141D05
-	for <lists+jailhouse-dev@lfdr.de>; Sun, 19 Jan 2020 09:46:18 +0100 (CET)
-Received: by mail-ed1-x53a.google.com with SMTP id ck15sf19588172edb.6
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 19 Jan 2020 00:46:18 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1579423578; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=c+C814Fs/h4kNfBNqURDdZf0PNVRFu1PPwQcU51lmTfH3Kq6R0yfTtxkQw7yru317w
-         3a/HisjBKmsNTbOz+fKLHuJeRL2vkqtIaukRFBxAq97HaZI/Fv+2Sbs9BXOl/Lt/5A0f
-         ND3XMfvG/GbjdNhmqY85o96FrXtrcOamkasJ8TctTr1niyDI1Hh0mCQkBNYeA+XcG9To
-         QdD2Fivp2k5RB6enIF8ifG1FpG38vLr/nezq2naBjk4r/RnwOwuZJd8vEZ1kKMN0501I
-         Pv30E1Jb49iEcUueaEFacRJTCOr5qfrnxDsT6J03b0USW5Ix2IxBlzEtCbdl7fyZb6Ld
-         +C9g==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:mime-version
-         :user-agent:date:message-id:cc:to:subject:from:sender:dkim-signature;
-        bh=NQzeojwD6uYErLXwl47pll5PbYWLZOaQsH7qALrHzt4=;
-        b=PN0rb9HO2yJibQhEKKUZIFiuZMegTlYni5/eO2Xg5KfFRmj4AL7rkcQrBMfotmTKJi
-         vrIQhdrdF6FKtn33i+M7+cs/2e5McWfHWNSsJAVu/ZdAlQ0Nm45dr6b8T4Falmp3Vyy4
-         OkeKSLIaVSYZexDgVrFD/7Q9/iRWegbEoW4RhkSqt36HTKSDgdZnTTTryK8zwqsvhDe4
-         5tQkqcj8ya+hSl1EfZfrIt4Up+gfKP9RqyzxA6aPDhltlytqFdHqF++xZ0IdhCOvUpzY
-         hhoreVEzYimNmVS5pjBtCkOihkxKvA63PoNDyKzAB8tSdUWzgNGAoWKNxxjH7i7twpCX
-         PqrA==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=fdZEEktB;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Received: from mail-ot1-x33c.google.com (mail-ot1-x33c.google.com [IPv6:2607:f8b0:4864:20::33c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 97427142461
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 20 Jan 2020 08:45:49 +0100 (CET)
+Received: by mail-ot1-x33c.google.com with SMTP id f25sf17601456otq.15
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 19 Jan 2020 23:45:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:subject:to:cc:message-id:date:user-agent:mime-version
-         :content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=NQzeojwD6uYErLXwl47pll5PbYWLZOaQsH7qALrHzt4=;
-        b=qFOibDzFN+2ftI8I/e1fwDbTdr2uWoEMdkkNPlQC3d7RMX9G0e4G4ZNQTtiOwbtZUM
-         R9WcryGsUKJ/c6FBvF01krsX/rujDltQQVaaNbYTJwe00AwFClnQIfjpiEhBf/fJWkXb
-         rq7CbsTxfV8l/Pz4W4pMOYT8PxwE5CQHYLSN/KdRu/y0zIXQUksofbxGu0IBx5zXSPto
-         on+Gqn9TVo6niPsrU7Ak4CCYIp3ncMgCh1MF1IVhXuas44XVh1p/rEz/k8xD/OrUkA8I
-         +3ttIqVu6/Nr0KiSs4QwDFqcTkDN4V2Ol24KiTk85N7VU2OhSaV7JTWccrDLlLyRBFwL
-         8C0g==
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=mycKExBletokKXSUF3pm8XuIEgJZC5s5WqZZ1jhEThI=;
+        b=qFRt1BDVxE9xZabXkCKv0o9b+LyazYWGI2wPt2MeHFUdsx5bShZUu5iYATSoTus/fB
+         uG/CI2T3jCvdfac1ajjn5cs31lXo2PbYQFA6jakjNMEkMFsmY0KmbcabW6dPLRLYLkgp
+         RTYUP3lvi/nldqWsAnbm0n7JHh1tR4iqgnODCm85MCjHtjp93ODfTv7TdbX+43IaBFG0
+         vI44VfgrUIGkweMCjgyyGyxrrj0dWqWm8T0j+BAfgTyQur1St/xzTaTNhdMfPJK+1xxt
+         iat12WdEq+zHOyAn5foUwFkbn6Hb9Y7eJbGYlwH7GrHSJMpYiFarCc2OXI7EQ1S7IpzE
+         oxkQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=mycKExBletokKXSUF3pm8XuIEgJZC5s5WqZZ1jhEThI=;
+        b=OnBRrN8GxtXAYjmG2TTqNl5z/bb3fu9Qj9PGdU2V3D7yrIsm1hD6Qiydn4dyJ5R83k
+         w9WNG6tAbiZ+NflqBXbtxGUtaPlJo30N0KGIWSNNjwnU4hJurSIC/AxnavEu0CH1JVkb
+         ahHPeNaFZIEM/rOBfNk/icp7WvyU0Cv/iATjeoJLHkXD9OIE6wgDCSNaizU9M3wrj6Mh
+         YbOTW3jO/1su/IPR0mnRZ/LerefbRDok1cQ6lhVYF2dOTx9njWQp6BhyoLt3ejz4P/r7
+         BVz0N86sOfzm8GVzuduz1oWaP1a+Js5OUzpVUhEAca76ORMwR0HDnNNQ7vK/rtDNb7pk
+         289Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:subject:to:cc:message-id:date
-         :user-agent:mime-version:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=NQzeojwD6uYErLXwl47pll5PbYWLZOaQsH7qALrHzt4=;
-        b=BZFGHBnNSuO/Qs/5aqdTiHn9vdaVEPaKh5LV/ZSxoItFfShq/GCwEyyRhBNdBcwMxf
-         rVs99/8RyhUj/KmlRbuM/cOE3XaAh90j/aOZ1TJBLpAarJig5MoWHpUkfobQZX9aEVTj
-         Uax2O/jfKX7vT/Mdb04P/nNF5HhvGdoP1779aQvsMiuXmddsDtp/2Pb7ejTHPaYGVLgX
-         /RkUnhltat8PDEVBjBTW47upXhMwA6iIdDBBMQiRr9+XiICkgv5aplaHB1zCGz/RVGT+
-         XUK9gfz3OTgigYfDEz5DZKh3A+fvxSkIH4uFDdQI50aMT+mlYFVhHUEOPZSYa67ZZYh6
-         08VA==
+        bh=mycKExBletokKXSUF3pm8XuIEgJZC5s5WqZZ1jhEThI=;
+        b=kC9riYjR9tZiAsVH7alyLTaKnv/nUfDqIOnSiPfK+K7QwHd4TWiRSaTfnPO0skmRod
+         3SUGVXT0lC1RNzShKR8dXqinHqrCG7Aq+7XeMmdtz+9zxJvIWYfJ6GbANdO4Xutjn6H1
+         cDYbstpG9Q6NrAOuxQIIipQDhXvXrd8SlngAH3U8To3ChTOfF6KMOmMKPpzeEN/U/lE4
+         fp67jJIGiKpSLoq9nseTYuN/L3MVv1n4uXFha/E7A1ySFyWoEhrE4Z2ui7gEhOsZ+VXw
+         oELelR6nozY6wGmF9IbIsKBrRD39xurrb63SgyHwGPSnVmHqRiv0L3uqSZmWq4TByxwR
+         jDhA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVSlxprf9hJ8mt8OnZtZyA2n0O71wqKfX9EwSvffOxF2oABlyAE
-	vaBijJdGiGpRvs0jk2ic3Jc=
-X-Google-Smtp-Source: APXvYqxTGbOhEl4nVklBcoc2CoOCu4zzuJbs9m3BQCFfpQCEOEQSaiTtRXqDsjvx6uWOzWvzzQQUKw==
-X-Received: by 2002:a05:6402:305b:: with SMTP id bu27mr12256765edb.191.1579423578436;
-        Sun, 19 Jan 2020 00:46:18 -0800 (PST)
+X-Gm-Message-State: APjAAAUAuso0eCUWp3+cixo2+zuYnztCgpuNgCQIvhXu+gF865D33sjt
+	XJ4Gl3OkMeXaa8tHUVQHorY=
+X-Google-Smtp-Source: APXvYqyBg5OUXvWrte26y24fWkwiDts7dwBxDEOrjTp17+WpSk8qFDfK6JzH18raMdmt2PrEb/iFEg==
+X-Received: by 2002:aca:bac3:: with SMTP id k186mr12397828oif.19.1579506348197;
+        Sun, 19 Jan 2020 23:45:48 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:a2c5:: with SMTP id by5ls8119384ejb.12.gmail; Sun,
- 19 Jan 2020 00:46:17 -0800 (PST)
-X-Received: by 2002:a17:906:b850:: with SMTP id ga16mr15531616ejb.232.1579423577691;
-        Sun, 19 Jan 2020 00:46:17 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1579423577; cv=none;
-        d=google.com; s=arc-20160816;
-        b=dCePICdmJFPwu4ONB7G6RryNetgEJFuwUAkQgxmm8UVeGON0Hxs65w7UjdHR/elnNX
-         /9lwMTct0KR1luNE1h866A86xzzjMdO+mToSAKW/r0+xzHJSrxacQZOLe0dzg79h1Cza
-         we8Jg3l1MWXlW/tSG4if0EYrhQFIbKpeEN9wAlUO46d0x0gMyPH8tXnAmCiTrXPbdoH7
-         LFM2/3YCnWZzLmXlVuTtXPbvSbIPn9YlhFQ+7B5CqyswGUvvQ6MtU5CGlXeLdbTEZ6rm
-         9dKhSg7vMzdINuLlzdYkoG9CpbZlWrGI4Op2CkUY990beaBijbkxv8Wtku79DlNvTRB9
-         ZlvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:mime-version:user-agent
-         :date:message-id:cc:to:subject:from:dkim-signature;
-        bh=MeCa48yZhVbE8sN07CBKgZdltLF58hYPJ8tT4rxbXuA=;
-        b=HdXgBt4ki2qufoB5j+mKGvUdkUHHtcn9/CqPefNZfSbhZVvNOkZtsqL4S0p44Vk0pS
-         D8QACNdOJ/z4o84oGKMIIKijZ2uULM2cHy/Ca1miyzxsmS7ZAE+JqkrS+0OzVFocUvAu
-         pQ/ZhMyUnlTyN0uCJcAbB7ieItafJruN8ziLdjD/3Qe9gHVhFCwp6WcuILLLlhOeYR5t
-         4KqElDsckjSJzhVMLz81OTshuavUtjet3mivHLjnJGU55bhkuvoVQbP0Y5artgLE9ft4
-         Y26C4EL6Vo7iesb3LWkD0sWgiOkmfQ4m/tRjLNf2KfWXc18q79FOGtwnR629BLxkv7m+
-         K9aQ==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=fdZEEktB;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
-Received: from mout.web.de (mout.web.de. [212.227.17.11])
-        by gmr-mx.google.com with ESMTPS id cc24si1411801edb.5.2020.01.19.00.46.17
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 19 Jan 2020 00:46:17 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) client-ip=212.227.17.11;
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.1.10] ([95.157.55.156]) by smtp.web.de (mrweb102
- [213.165.67.124]) with ESMTPSA (Nemesis) id 0MOilO-1iwvRG42oI-0067ij; Sun, 19
- Jan 2020 09:46:17 +0100
-From: Jan Kiszka <jan.kiszka@web.de>
-Subject: [PATCH] tools: config-create: Adjust template to latest changes
+Received: by 2002:a9d:7999:: with SMTP id h25ls5723765otm.2.gmail; Sun, 19 Jan
+ 2020 23:45:47 -0800 (PST)
+X-Received: by 2002:a05:6830:109a:: with SMTP id y26mr14237075oto.227.1579506347332;
+        Sun, 19 Jan 2020 23:45:47 -0800 (PST)
+Date: Sun, 19 Jan 2020 23:45:46 -0800 (PST)
+From: Michael Hinton <michael.g.hinton@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Cc: "Devshatwar, Nikhil" <nikhil.nd@ti.com>
-Message-ID: <9a327d12-6114-79ed-5691-e4d74eb8bb59@web.de>
-Date: Sun, 19 Jan 2020 09:46:12 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.0
+Message-Id: <4d8ab27d-7a1a-4601-8d61-429dd0cdd018@googlegroups.com>
+Subject: Difference in execution duration between root cell and inmate for
+ same code
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-X-Provags-ID: V03:K1:n0ytDcZlIujwhZFsd6BQjFCWqrcI6SCEJQuQeSVnS55kD5T148f
- QIbT1jWFoudMcN4mX//h2D4C3cYv73yeX8rgf11mKSZotCIm4X86KtWiyaK604GwmfOgGFj
- eqSpsyBjIEedv6uupeQOO3a20GaHg4Q5nl4Xo/h6vrBU9EPHSMRXXtAjWq20llnSoV4QCg1
- XVKbigMxfG4odtMXN+B8w==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:JT7yHR68jSE=:vvBNfj8VM689TccJ2f7bmH
- Zw9mxm11b44s3wrFQGiFBVCtP9n4Zifkqg2iwHfvW6SRHSQwaVVkD+qe8i1RuXfD8+DiY37I7
- lYDtMkhBU7ah7+1i/CPFMAbXq75SwY1hEapnsyIZ/owVBc098wjGO/oQO8nJT/o9Pe6ciC9cK
- FiQMFIQcY/W2duRE/g+C6zVloNrGO1Q5YyNBDUfPKQ0ULIrfaXxKab8Py6nq/GTt3qzEVPNkL
- x7NSPvFJR/TOdd/xwYpw7F2nbBDK2wKJn2//XSBdqBDNJVA9FHJXurzJ6u+WiGdHVyHiF35YS
- H3IUodWaZj+4BbuPlstc6yyrdB+8/hJ5t/FplZwYyoruQephM2fr0O/Z4eaPphv8tYHh37rZ4
- k7vY8ZaGA0iLoJ9+kLqql9/FBsmhW7pUhfrmAInvR7w5kbY/YIeNjr2u+9FDSLL/fh9sdLrvl
- HOHMVhRC4Q/kU2k05R0Z5PfLLw8mPg5Ts0T75zrtteE4rQJQ6T2kP1N06vDEAwu3td2OCkoRU
- xtVTCgmixJbBuT+RWIh9Vshp5WrWVUKDmULmKgw5axUG5vNNkmyF6pQl60jgc7PGIby0Ufv1F
- Jxg1ihpiJizsrR/xZPIykSY+JntjK03f2FtzzCXgag5YacNu9YfxAfLUZc2ANfw4rqyN+nsZD
- S5cPMGJ9NXvZKVb1fNp92EkoRll9A52goPTLo1HGjaOSCZJpRO92jXJ76t/VdXB4KE4gjhJ6F
- c4mMX0MeqAoBIhzaNVh/FFk/HDc+nBVIxX51lLeRSiTLXp9G+C776lzLR/iQquKt7xMlrV7Qr
- 2O79UlVIbQeFsDpldPsRqFpv05nftXojdJ1/khCpJyOdElhkCAZCi93a0QfYiTavARHmSGC3g
- oYSlq+yE1QdAnEU6U3uDjH1jg2LeOgNTxqkR9Kyv8T+ef+63q1kMmsjNemAZ4QMO0G7NTpHYy
- /L1gOtjm8ItoS7+PzRyoSoyESq4oGzNClKB/slVN8I+DTU5uYFWZvvt6GMFGCiBb7B48htvpf
- bWDmFuClBjOS5UkVNoHPzPYDp8yhVQQae+h+AGt9mtQGXfTzTC4uyM7X+WfX4aQyhsTGgkz7U
- eYlaqMymdPFrVt5ucbbxc/lCnzjtUjVjO4jxTgvYay4EyiTqN8o7s7+uVH8LcuCfUwyYGDDki
- i3r3mXsPc2iwSdFyJckPALedUddTF9tWB2YWKCaxYbeCuQizhloyVmdksT4nqMO8ZRnuy8Bh6
- Tgc+Gj8TzA0EQvriswGIrLBYSy0NsqcR0yAuf93O3GBotp1rsw9esro/z+R0=
-X-Original-Sender: jan.kiszka@web.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b=fdZEEktB;       spf=pass
- (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as
- permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_1163_2078910094.1579506346768"
+X-Original-Sender: Michael.G.Hinton@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -149,38 +76,141 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-From: Jan Kiszka <jan.kiszka@siemens.com>
+------=_Part_1163_2078910094.1579506346768
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1164_147787382.1579506346768"
 
-This was forgotten in 3fac413f0647.
+------=_Part_1164_147787382.1579506346768
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
----
- tools/root-cell-config.c.tmpl | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/tools/root-cell-config.c.tmpl b/tools/root-cell-config.c.tmpl
-index 8f654fa7..cca273ef 100644
---- a/tools/root-cell-config.c.tmpl
-+++ b/tools/root-cell-config.c.tmpl
-@@ -94,10 +94,10 @@ struct {
- 						.base = ${hex(unit.base_addr)},
- 						.size = ${hex(unit.mmio_size)},
- 						% if unit.is_amd_iommu:
--						.amd_bdf = ${hex(unit.amd_bdf)},
--						.amd_base_cap = ${hex(unit.amd_base_cap)},
--						.amd_msi_cap = ${hex(unit.amd_msi_cap)},
--						.amd_features = ${hex(unit.amd_features)},
-+						.amd.bdf = ${hex(unit.amd_bdf)},
-+						.amd.base_cap = ${hex(unit.amd_base_cap)},
-+						.amd.msi_cap = ${hex(unit.amd_msi_cap)},
-+						.amd.features = ${hex(unit.amd_features)},
- 						% endif
- 					},
- 					% endfor
---
-2.16.4
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/9a327d12-6114-79ed-5691-e4d74eb8bb59%40web.de.
+Hello,
+
+I have found that running code in an inmate is a lot slower than running=20
+that same code in the root cell on my x86 machine. I am not sure why.
+
+
+Am I correct in assuming that when `jailhouse enable <root_cell>` is=20
+called, everything that runs after that in the Linux root cell is running=
+=20
+under the hypervisor, even when the inmate hasn=E2=80=99t started yet? Both=
+ the=20
+inmate and the Linux root cell should both be equally subjected to the same=
+=20
+hypervisor performance penalty, right?
+
+Are there any high-level differences between the root and the inmate that=
+=20
+could account for this large discrepancy? I know that Turbo Boost is likely=
+=20
+not happening in my inmate while it is happening in the root cell, but I=20
+don=E2=80=99t believe that can account for the huge gap in execution durati=
+on that=20
+I see.
+
+
+I'm not expecting anyone to debug this in depth for me, but I would=20
+appreciate any ideas I could look into.
+
+Thanks,
+
+Michael
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/4d8ab27d-7a1a-4601-8d61-429dd0cdd018%40googlegroups.com.
+
+------=_Part_1164_147787382.1579506346768
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><span id=3D"docs-internal-guid-064bd674-7fff-cdf8-d8a6-11a=
+f1e1c4918"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-b=
+ottom:0pt;"><span style=3D"font-size: 11pt; font-family: Nunito, sans-serif=
+; color: rgb(0, 0, 0); background-color: transparent; font-variant-numeric:=
+ normal; font-variant-east-asian: normal; vertical-align: baseline; white-s=
+pace: pre-wrap;">Hello,</span></p><br><p dir=3D"ltr" style=3D"line-height:1=
+.38;margin-top:0pt;margin-bottom:0pt;"><span style=3D"font-size: 11pt; font=
+-family: Nunito, sans-serif; color: rgb(0, 0, 0); background-color: transpa=
+rent; font-variant-numeric: normal; font-variant-east-asian: normal; vertic=
+al-align: baseline; white-space: pre-wrap;">I have found that running code =
+in an inmate is a lot slower than running that same code in the root cell o=
+n my x86 machine. I am not sure why.</span></p><p dir=3D"ltr" style=3D"line=
+-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style=3D"font-size: 1=
+1pt; font-family: Nunito, sans-serif; color: rgb(0, 0, 0); background-color=
+: transparent; font-variant-numeric: normal; font-variant-east-asian: norma=
+l; vertical-align: baseline; white-space: pre-wrap;"><br></span></p><p dir=
+=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span=
+ style=3D"font-size: 11pt; font-family: Nunito, sans-serif; color: rgb(0, 0=
+, 0); background-color: transparent; font-variant-numeric: normal; font-var=
+iant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;">=
+Am I correct in assuming that when `</span><span style=3D"font-size: 11pt; =
+color: rgb(0, 0, 0); background-color: transparent; font-variant-numeric: n=
+ormal; font-variant-east-asian: normal; vertical-align: baseline; white-spa=
+ce: pre-wrap;"><font face=3D"courier new, monospace">jailhouse enable &lt;r=
+oot_cell&gt;</font></span><span style=3D"font-size: 11pt; font-family: Nuni=
+to, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-va=
+riant-numeric: normal; font-variant-east-asian: normal; vertical-align: bas=
+eline; white-space: pre-wrap;">` is called, everything that runs after that=
+ in the Linux root cell is running under the hypervisor, even when the inma=
+te hasn=E2=80=99t started yet? Both the inmate and the Linux root cell shou=
+ld both be equally </span><span style=3D"color: rgb(0, 0, 0); font-family: =
+Nunito, sans-serif; font-size: 14.6667px; white-space: pre-wrap;">subjected=
+</span><span style=3D"background-color: transparent; color: rgb(0, 0, 0); f=
+ont-family: Nunito, sans-serif; font-size: 11pt; white-space: pre-wrap;"> t=
+o the same hypervisor performance penalty, right?</span></p><br><p dir=3D"l=
+tr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span styl=
+e=3D"font-size: 11pt; font-family: Nunito, sans-serif; color: rgb(0, 0, 0);=
+ background-color: transparent; font-variant-numeric: normal; font-variant-=
+east-asian: normal; vertical-align: baseline; white-space: pre-wrap;">Are t=
+here any high-level differences between the root and the inmate that could =
+account for this large discrepancy? I know that Turbo Boost is likely not h=
+appening in my inmate while it is happening in the root cell, but I don=E2=
+=80=99t believe that can account for the huge gap in execution duration tha=
+t I see.</span></p><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;=
+margin-bottom:0pt;"><span style=3D"font-size: 11pt; font-family: Nunito, sa=
+ns-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant-=
+numeric: normal; font-variant-east-asian: normal; vertical-align: baseline;=
+ white-space: pre-wrap;"><br></span></p><p dir=3D"ltr" style=3D"line-height=
+:1.38;margin-top:0pt;margin-bottom:0pt;"><span style=3D"font-size: 11pt; fo=
+nt-family: Nunito, sans-serif; color: rgb(0, 0, 0); background-color: trans=
+parent; font-variant-numeric: normal; font-variant-east-asian: normal; vert=
+ical-align: baseline; white-space: pre-wrap;">I&#39;m not expecting anyone =
+to debug this in depth for me, but I would appreciate any ideas I could loo=
+k into.</span></p><br><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0=
+pt;margin-bottom:0pt;"><span style=3D"font-size: 11pt; font-family: Nunito,=
+ sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-varia=
+nt-numeric: normal; font-variant-east-asian: normal; vertical-align: baseli=
+ne; white-space: pre-wrap;">Thanks,</span></p><p dir=3D"ltr" style=3D"line-=
+height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style=3D"font-size: 11=
+pt; font-family: Nunito, sans-serif; color: rgb(0, 0, 0); background-color:=
+ transparent; font-variant-numeric: normal; font-variant-east-asian: normal=
+; vertical-align: baseline; white-space: pre-wrap;">Michael</span></p><div>=
+<span style=3D"font-size: 11pt; font-family: Nunito, sans-serif; color: rgb=
+(0, 0, 0); background-color: transparent; font-variant-numeric: normal; fon=
+t-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wr=
+ap;"><br></span></div></span></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/4d8ab27d-7a1a-4601-8d61-429dd0cdd018%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/4d8ab27d-7a1a-4601-8d61-429dd0cdd018%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_1164_147787382.1579506346768--
+
+------=_Part_1163_2078910094.1579506346768--
