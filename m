@@ -1,121 +1,118 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBQ76TTYQKGQEIDZLK6Q@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBXH6TTYQKGQEUOPBFTI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x439.google.com (mail-wr1-x439.google.com [IPv6:2a00:1450:4864:20::439])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03F21144416
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Jan 2020 19:13:24 +0100 (CET)
-Received: by mail-wr1-x439.google.com with SMTP id f10sf1781847wro.14
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Jan 2020 10:13:24 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1579630403; cv=pass;
+Received: from mail-oi1-x23e.google.com (mail-oi1-x23e.google.com [IPv6:2607:f8b0:4864:20::23e])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E4BC14441B
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Jan 2020 19:13:50 +0100 (CET)
+Received: by mail-oi1-x23e.google.com with SMTP id b5sf1489410oii.8
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Jan 2020 10:13:49 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1579630429; cv=pass;
         d=google.com; s=arc-20160816;
-        b=vbx0dU4foeRB+zFMXFCKr2sDIWQcSMJXlSQYur9MaC33Y0QHtnQkJCuR7APn7FuqeL
-         7euirSOiQqQMmAFWzFyY4KGJP2JlAnh5wPJbd5hajTJ/Gqtsmko1DEBTpN4MZKOoygFS
-         5oZgweOmM/lNEvxbwJ2MS/sE4Bl3ArV9DWnveipLl1ttGFVu8AfuaC8uNUT0UYoCurTP
-         YjtKu/h6s3HNML24LVfZMhUezajQUupidJOJ6qP6kxQe3bBBtAusEs19zGyFnQmn3pk0
-         4vDwWFgXXxXsN5+RZcyRxtal7xEo8LLtA8/3PDILJl65Ozxj2abH6AdAWGBCAlEXOFOv
-         R9kQ==
+        b=waazgNQ2bqAI1PdJD7XQ5ukXMXqjguLnG8C9f/c13Ozolhl/w2j6pgcs3qtwWXkCTv
+         9GCWs6kpTwljsbYG11/b9GdNIFM4ZuSXbWSfNza5Ch3/I2oVsYWHnBs0/kvoQrH/YMpA
+         e+1eu/AIuDfS0rmm9jDT6aihAZN/Yl6LDT7a7/bqxAHMIrvjAGQ6GwE98oGbbX+6cZRC
+         s8IIPaapbnpv+tYAnvwyYhXlUPAjf5ZSS1IdqAHVzLOlFxsBotaBhQ4aP2XIUt2brr1/
+         5TpsJPVS0EM/BzVo9oW0G9/R1CFUWu3/McoUTdDFc/tDi4/z7IAAvbJ6j/X+43yiJFkL
+         aMJg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:mime-version
-         :user-agent:date:message-id:cc:to:subject:from:sender:dkim-signature;
-        bh=N0EGmJVmFP+n68gn2rI582Uo7nfetGPaPlK2UWHdDPc=;
-        b=PZdK2oNGa4drF0LHQ2kSD8+BU3b7vfef3N+sehTZkSH2PGfDwT+hQ9ZLSD1NQ6VB7W
-         qGJli8z1gRDaMd/gHCKyXjL+x5t4a+dRGf1AzB+E1GE5Bo5jAk39stMPnFOlTc+IPYEK
-         wOxEaWGPEaNtwXHhlsTjhHDICW1SIROlXZ1+EYWmakqL6j5RMo2uYvsAeEaPFfbXKk46
-         YF7RACr9Bw84MWXYN0x1txJb/cuo7TuynsVxVyXXQEHcTsJyTs2o93YU3zIimJoSfdJC
-         9elJQitHACEN+VqsAzOr/vlpHaYre0/PjEpKzLXGaFYduEsD9FK9dli7b6ofNwVxoFDM
-         /FQw==
+         :list-id:mailing-list:precedence:mime-version:subject:message-id:to
+         :from:date:sender:dkim-signature;
+        bh=48F6pMIbO8xElJ3SEk4i7yYeorftz2BfN4ZeL6L5b7k=;
+        b=LJk1QUqatlwNdkAK0B2EjJHpmMWLJqMsW4lF22T0MeE9K1apxS7KFKxE/XCZl7Cq91
+         so5mRC9mClwVTZ4sKve7R6YQZ6ws0T72ZkONrhepRSqYB8TNTrS2CksIa/PIk99v8dNj
+         9mLiH/DXvvE4ifvg/tsqdXeVpU8cP5dV4L7CpMdt5prfNJxdw1QLGUW29Ue58+p9brAf
+         bOoKOeFhTbEks1cjI2m3N0PY11VNn/0R2LSgzix32LuUuzTgBkV7JKb5pHj+Sq2t5pEt
+         mXKwDtyZZ4CBMNndS6zCirDF0NZyp0jNiFw0KAPFGNTwiNXWYdDpvbyIVtJDVbkKzpp5
+         kCkg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=IhaGpsKj;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.211 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:subject:to:cc:message-id:date:user-agent:mime-version
-         :content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=N0EGmJVmFP+n68gn2rI582Uo7nfetGPaPlK2UWHdDPc=;
-        b=CsPzpBnmhrNpWyEWE4KkOIaqHHZPb8JUim7CInvcwHo5HcvrUGDGmSRtQ4XgE7u1IV
-         L1uvDYQW6lM4i6U+kLgg8Duj/T4ovZjt1oRcsWPWqSqIyYsgpYyamF15OQAO1mCmIGag
-         y3eS+qmPyHhE54jtwxYB5GIM80BD3pnWBKpHCliyj2rDdxWR1Z0ngZXAsAn80EhbEs06
-         t5mfFh8qGw6lerWElOD3wVzremEeyS2MOIqWEt+JryrtU135leSX5zmh4pjnlG17mK7M
-         EYBGEIFUAAPG9nFrE5TyLdpT/Oouk/pgX7o4fmsziq9q3/RJSWU9WoKFwL9CGzsDmMB6
-         nEpg==
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=48F6pMIbO8xElJ3SEk4i7yYeorftz2BfN4ZeL6L5b7k=;
+        b=He1f5dNxg1mQ+TNSlHZ4U6D+tHZGLffHYadKvpovTwqDPOdPdYIajs17IvymPiQ1Ph
+         QXsjHzz9yGwBqpn4lvF/z06tIwpc3UGnUIWgaHz5nHB9vzb1SW9X89GMJ2r/5RYfoZHN
+         i4i9jFIe5KX5k+uYu7gQQPdOzNOdJbaEguUySqf93mSEfyk504e2ls5BLjqULLzQZac8
+         H31oTNHkWrnHxeqEQhzcQoEL2q7EWbsOYwM0NT+vLTDJNX7GedgygfqaR+2cm8LBxiv2
+         g8C+5K29bXgRmItb2CORacW/iWOtVa51D3MM1x471/vB8O/BHJSfAVLgEtspxI9UCwW5
+         8s0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:subject:to:cc:message-id:date
-         :user-agent:mime-version:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=N0EGmJVmFP+n68gn2rI582Uo7nfetGPaPlK2UWHdDPc=;
-        b=Z+EPwUz6wx7jK3aUaL2GLwETqOFnMwHg2boy3nhGWsRTGqGS5gxJ9hB+Rp3GsdX9eC
-         dQl+IRAqxWrby+gIJtfJaQKCA6h9THlE2VaXTuHmvF0kGfNuHfeh/JnSAa9MdWD4oD1e
-         mi+di6PpYTYaRgUFYJQOYgjm2ratb4QzluCeuULYL554aoZB13YARiBye6WKPaA+llVO
-         b0wH6ziAsDj5tT87Rz3YoS63hYmVgoOVXXWUsrxzt7n0yNlSdVdyQcQQQTR1AXC4ubWN
-         L7/0MUnTEYtXYtJmBvZWvT65jN4MIgLLrdpIpK6a/ClaiBDJcUMfYRb99TP1b+UUOCb5
-         x2sA==
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=48F6pMIbO8xElJ3SEk4i7yYeorftz2BfN4ZeL6L5b7k=;
+        b=IxjzY9yK11Rw0DIvOL9rAaA1XQWZtpcirlejddurXxi+thdsHdunu5/ihywbzjr7jm
+         Pkd7gOfMSqKnWY3wYx7v9wRuy/x1qiZCmBYSCfCEZMyRos7b7U7E3NsXrWjfzPiEqyr7
+         kvovtyzxlyq8UhFIAbs49zJPJTTpCkPWv+djOY+42/0vHMgTKdHddoq0walS7HOFEf18
+         fmEQuR3cGTMY3oWPj+2SB8qXZoBJ4hgZ7qm5zkf7EeEVHiK2sMrikjQMJjQ4NiPpe1/V
+         QcjMf+TDsLvekNTgLXc8VDTrauYNfYrUVU2dhpHeHkR2Ne7PBZHrxuabzKWvT72Gfo4+
+         ozeQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVRDCw7M8pHHpk1IGLlRlxMtKMqSdg37HctLDMrNQ5h0M0OVWNi
-	7VuclD0ijHAvmkEK3OZDxTA=
-X-Google-Smtp-Source: APXvYqx1VUe+rMlwZwsr6NOugX3dEZa1kSiID8iLGVKxt7MAF6n+pkFk2qhMzTaw3xO3EGSa1uDIVQ==
-X-Received: by 2002:a5d:6748:: with SMTP id l8mr6718924wrw.188.1579630403736;
-        Tue, 21 Jan 2020 10:13:23 -0800 (PST)
+X-Gm-Message-State: APjAAAXY3bVcpcI1mcueR9TlqwsEhXRnZhD4PQWAjmGw5oXi00ocF3oc
+	9V69HadBqp6EViRvMP7iR8o=
+X-Google-Smtp-Source: APXvYqxrU03IbWGAbQX0BF4EnstZ27kjdX+bh+P2N0sbLiDfrQCAdQILZEAkjOW5eMogaJk/fdjVFA==
+X-Received: by 2002:a9d:7653:: with SMTP id o19mr4374787otl.118.1579630428950;
+        Tue, 21 Jan 2020 10:13:48 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5d:55cd:: with SMTP id i13ls4285081wrw.0.gmail; Tue, 21 Jan
- 2020 10:13:23 -0800 (PST)
-X-Received: by 2002:adf:e3d0:: with SMTP id k16mr6479453wrm.241.1579630402972;
-        Tue, 21 Jan 2020 10:13:22 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1579630402; cv=none;
+Received: by 2002:a05:6808:a81:: with SMTP id q1ls6449507oij.12.gmail; Tue, 21
+ Jan 2020 10:13:48 -0800 (PST)
+X-Received: by 2002:aca:4b06:: with SMTP id y6mr4037673oia.81.1579630428048;
+        Tue, 21 Jan 2020 10:13:48 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1579630428; cv=none;
         d=google.com; s=arc-20160816;
-        b=ViZ5RLVtTRJnouHYZWSbmQMNSpU/9zkGGYbxnjXdv4ss5Xe+RxtlHSPoP7KoYF/GOh
-         OuuGRWXmHVdOENVvnUr5nrZ9LXVeJAM7CbTHo0qqKBH5K5B+UT7GyqOrqJO8ShBs9mLD
-         g1K+jqs3ZX+ZEBmB2DlS5oIgf4YUSexXVziVkLM4EfOY2lmWDddToQf6SP0g/evtdIiT
-         19H5ISOgUHLiD2IVqWAfYwpk5UfUykZ6IjXHDs5vAFFHXZWrSIUY/8eVzZSlSlIFZSLK
-         szA1WMcfQ/j2RfPDwOo9IHGe7rNlPvFV9zbhuschZGrb+zXWvMx78g3iAwgewOEg5zdq
-         yddA==
+        b=TUYTxKk1XMhD19G0eeM7MilqQDpt50jKGaV/Nk6oouih6qIUXp2POP6okjPL1RQPnP
+         5PSo/yejaaODTS18n6Rg/PfBmuuiLGDH94aTEVPRZReUlR5XKRSgEeS3GO+NEqFYbSN9
+         cv/2tEmy6dqFqUWSrxgFVNIu03ZkOlL0IChdsucfxjM9s/FaPf/DmaNGpKxqpW4mbiah
+         nEIDGsitlKuRiTIj7JUbdR1acuYE7YoDLONkyWf4dG9DGTlQFEKRAeqYFZmMkeTYyrjn
+         ACo1mm7gx8nzU0RYtMarqfbB5g3YwfrANAmIN6A9kdG5Tse76rTDc4YKh4utxDWO/Eso
+         Q3uw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:mime-version:user-agent
-         :date:message-id:cc:to:subject:from;
-        bh=XV2HvbKmKC9Qgdjl3EKhVYeKHZjaPcZyNkLljKmc480=;
-        b=o/G2+rTn37G8APvaXtqQKS9DX+aiNp5vpA6x8o7eUfi+kZN07bAxj2kvXM6G3ArrP/
-         NAVw1uOUM0NPGEgLbyWac0Zrxp9fkMS1T5d/MkRiwsqSgEQfhFGu+EOmDHqvRzLejyDc
-         tFowbJe0/E95xoY9vPrFaSdj/YmBb2uukSVL5h0cTbWwMQ6CpOOc2yMJ6inQ5kojIJWU
-         M/JA6jogqANzzbY8rNlSeeys2fa7pDoi5My7xxJORV/R6KDybB1ar+XsXNebH6/QGVmQ
-         d3KGySb7WIRMphw+CmNyiUKATJLkaFpjIFZn79RPGab+r2/4c6Yq3X3ngYVyEKnyDo2T
-         gLnw==
+        h=content-transfer-encoding:mime-version:subject:message-id:to:from
+         :date:dkim-signature;
+        bh=c62/pWXpl74to+izt1yETNAYlEdOUH317yJy1f9lHeU=;
+        b=Xse9rSays8omMi6aWImh6NZI4IiVMysZeY5V5Mlk0E0MhqmnDbKXgUuRc9EYEtSMAu
+         KdmwRvTXGnn4OhAjBrLQT2i6pvL5bB8Cm+9XcLfY0CRw3RYPgLQCkcOTkHXLbdl+WtLT
+         G0q6lbH8OgQVxCTkXb8jVkOZEGvqCq4k5bhcQEk/1SnTkE4lOfr5RoW/udK+Je3thGr5
+         JwvH79MD4UOuY929woRJtMCOBaCutvA7mlLzOZRFIjTdjirNLLPRxBDUeAzqzLEIslL9
+         T2yANrIl1gfE2w/fgAnFNBU9PBdtRT2c0I59a9WVI8Tl0nuLRpYJwHJWawjbzv45+6GP
+         5Svw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id u9si1427713wri.3.2020.01.21.10.13.22
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=IhaGpsKj;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.211 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from out-28.smtp.github.com (out-28.smtp.github.com. [192.30.252.211])
+        by gmr-mx.google.com with ESMTPS id a21si929185oto.2.2020.01.21.10.13.47
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 21 Jan 2020 10:13:22 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 00LIDM7E008759
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 21 Jan 2020 19:13:22 +0100
-Received: from [167.87.4.158] ([167.87.4.158])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 00LIDL86025723;
-	Tue, 21 Jan 2020 19:13:22 +0100
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Subject: [PATCH] core: Introduce JAILHOUSE_MEM_NO_HUGEPAGES memory region flag
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Message-ID: <9ca086db-d475-938c-f362-62d325eadec7@siemens.com>
-Date: Tue, 21 Jan 2020 19:13:20 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.0
-MIME-Version: 1.0
+        Tue, 21 Jan 2020 10:13:48 -0800 (PST)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.211 as permitted sender) client-ip=192.30.252.211;
+Received: from github-lowworker-45eca55.ac4-iad.github.net (github-lowworker-45eca55.ac4-iad.github.net [10.52.25.70])
+	by smtp.github.com (Postfix) with ESMTP id 9AD198C0FE0
+	for <jailhouse-dev@googlegroups.com>; Tue, 21 Jan 2020 10:13:47 -0800 (PST)
+Date: Tue, 21 Jan 2020 10:13:47 -0800
+From: Jan Kiszka <noreply@github.com>
+To: jailhouse-dev@googlegroups.com
+Message-ID: <siemens/jailhouse/push/refs/heads/next/f27064-3954ce@github.com>
+Subject: [siemens/jailhouse] c4024b: tools: config-create: Adjust template to
+ latest ch...
+Mime-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
+X-Auto-Response-Suppress: All
+X-Original-Sender: noreply@github.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
+ mode) header.i=@github.com header.s=pf2014 header.b=IhaGpsKj;       spf=pass
+ (google.com: domain of noreply@github.com designates 192.30.252.211 as
+ permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass (p=NONE
+ sp=NONE dis=NONE) header.from=github.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -128,7 +125,72 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-From: Jan Kiszka <jan.kiszka@siemens.com>
+  Branch: refs/heads/next
+  Home:   https://github.com/siemens/jailhouse
+  Commit: c4024b68d0d17f6cf6d55a0b61845511ed19e6f7
+      https://github.com/siemens/jailhouse/commit/c4024b68d0d17f6cf6d55a0b61845511ed19e6f7
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-01-19 (Sun, 19 Jan 2020)
+
+  Changed paths:
+    M tools/root-cell-config.c.tmpl
+
+  Log Message:
+  -----------
+  tools: config-create: Adjust template to latest changes
+
+This was forgotten in 3fac413f0647.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: a6d8decf371dc5560a335ab9c03781e3f2387dcc
+      https://github.com/siemens/jailhouse/commit/a6d8decf371dc5560a335ab9c03781e3f2387dcc
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-01-21 (Tue, 21 Jan 2020)
+
+  Changed paths:
+    M hypervisor/arch/arm-common/mmu_cell.c
+    M hypervisor/arch/x86/svm.c
+    M hypervisor/arch/x86/vmx.c
+    M hypervisor/arch/x86/vtd.c
+    M hypervisor/include/jailhouse/paging.h
+    M hypervisor/paging.c
+
+  Log Message:
+  -----------
+  core: paging: Refactor paging_create/destroy parameters
+
+Change the coherent enum into paging_flags in order to allow adding more
+in the future. Rename the flags parameter to access_flags for better
+differentiation.
+
+Use this chance to align the names and types of local vars that are
+forwarded to access_flags with that parameter.
+
+No behavioral changes.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 3954ce65fbfdfabeab6bc12073a9f81928508176
+      https://github.com/siemens/jailhouse/commit/3954ce65fbfdfabeab6bc12073a9f81928508176
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-01-21 (Tue, 21 Jan 2020)
+
+  Changed paths:
+    M hypervisor/arch/arm-common/mmu_cell.c
+    M hypervisor/arch/x86/svm.c
+    M hypervisor/arch/x86/vmx.c
+    M hypervisor/arch/x86/vtd.c
+    M hypervisor/include/jailhouse/paging.h
+    M hypervisor/paging.c
+    M hypervisor/setup.c
+    M include/jailhouse/cell-config.h
+
+  Log Message:
+  -----------
+  core: Introduce JAILHOUSE_MEM_NO_HUGEPAGES memory region flag
 
 This allows to mitigate CVE-2018-12207: On affected Intel machines, a
 guest can trigger an unrecoverable machine check exception when running
@@ -144,208 +206,11 @@ executable regions on affected CPUs, while still allowing huge pages for
 non-executable regions.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
----
-
-Almost forgotten, but it should go into a release. We "just" need a 
-reliable reproducer to validate...
-
- hypervisor/arch/arm-common/mmu_cell.c | 5 ++++-
- hypervisor/arch/x86/svm.c             | 5 ++++-
- hypervisor/arch/x86/vmx.c             | 6 ++++--
- hypervisor/arch/x86/vtd.c             | 5 ++++-
- hypervisor/include/jailhouse/paging.h | 5 +++++
- hypervisor/paging.c                   | 3 ++-
- hypervisor/setup.c                    | 5 +++--
- include/jailhouse/cell-config.h       | 3 ++-
- 8 files changed, 28 insertions(+), 9 deletions(-)
-
-diff --git a/hypervisor/arch/arm-common/mmu_cell.c b/hypervisor/arch/arm-common/mmu_cell.c
-index a00997c3..56db2e8c 100644
---- a/hypervisor/arch/arm-common/mmu_cell.c
-+++ b/hypervisor/arch/arm-common/mmu_cell.c
-@@ -22,6 +22,7 @@ int arch_map_memory_region(struct cell *cell,
- {
- 	u64 phys_start = mem->phys_start;
- 	unsigned long access_flags = PTE_FLAG_VALID | PTE_ACCESS_FLAG;
-+	unsigned long paging_flags = PAGING_COHERENT | PAGING_ALLOW_HUGE;
- 	int err = 0;
- 
- 	if (mem->flags & JAILHOUSE_MEM_READ)
-@@ -38,13 +39,15 @@ int arch_map_memory_region(struct cell *cell,
- 	if (!(mem->flags & JAILHOUSE_MEM_EXECUTE))
- 		flags |= S2_PAGE_ACCESS_XN;
- 	*/
-+	if (mem->flags & JAILHOUSE_MEM_NO_HUGEPAGES)
-+		paging_flags &= ~PAGING_ALLOW_HUGE;
- 
- 	err = iommu_map_memory_region(cell, mem);
- 	if (err)
- 		return err;
- 
- 	err = paging_create(&cell->arch.mm, phys_start, mem->size,
--			    mem->virt_start, access_flags, PAGING_COHERENT);
-+			    mem->virt_start, access_flags, paging_flags);
- 	if (err)
- 		iommu_unmap_memory_region(cell, mem);
- 
-diff --git a/hypervisor/arch/x86/svm.c b/hypervisor/arch/x86/svm.c
-index 513c696c..d85d2b50 100644
---- a/hypervisor/arch/x86/svm.c
-+++ b/hypervisor/arch/x86/svm.c
-@@ -349,6 +349,7 @@ int vcpu_map_memory_region(struct cell *cell,
- {
- 	u64 phys_start = mem->phys_start;
- 	u64 access_flags = PAGE_FLAG_US; /* See APMv2, Section 15.25.5 */
-+	u64 paging_flags = PAGING_COHERENT | PAGING_ALLOW_HUGE;
- 
- 	if (mem->flags & JAILHOUSE_MEM_READ)
- 		access_flags |= PAGE_FLAG_PRESENT;
-@@ -358,6 +359,8 @@ int vcpu_map_memory_region(struct cell *cell,
- 		access_flags |= PAGE_FLAG_NOEXECUTE;
- 	if (mem->flags & JAILHOUSE_MEM_COMM_REGION)
- 		phys_start = paging_hvirt2phys(&cell->comm_page);
-+	if (mem->flags & JAILHOUSE_MEM_NO_HUGEPAGES)
-+		paging_flags &= ~PAGING_ALLOW_HUGE;
- 
- 	access_flags |= amd_iommu_get_memory_region_flags(mem);
- 
-@@ -367,7 +370,7 @@ int vcpu_map_memory_region(struct cell *cell,
- 	 */
- 	return paging_create(&cell->arch.svm.npt_iommu_structs, phys_start,
- 			     mem->size, mem->virt_start, access_flags,
--			     PAGING_COHERENT);
-+			     paging_flags);
- }
- 
- int vcpu_unmap_memory_region(struct cell *cell,
-diff --git a/hypervisor/arch/x86/vmx.c b/hypervisor/arch/x86/vmx.c
-index f0a2534b..1cbc6417 100644
---- a/hypervisor/arch/x86/vmx.c
-+++ b/hypervisor/arch/x86/vmx.c
-@@ -353,6 +353,7 @@ int vcpu_map_memory_region(struct cell *cell,
- {
- 	u64 phys_start = mem->phys_start;
- 	unsigned long access_flags = EPT_FLAG_WB_TYPE;
-+	unsigned long paging_flags = PAGING_NON_COHERENT | PAGING_ALLOW_HUGE;
- 
- 	if (mem->flags & JAILHOUSE_MEM_READ)
- 		access_flags |= EPT_FLAG_READ;
-@@ -362,10 +363,11 @@ int vcpu_map_memory_region(struct cell *cell,
- 		access_flags |= EPT_FLAG_EXECUTE;
- 	if (mem->flags & JAILHOUSE_MEM_COMM_REGION)
- 		phys_start = paging_hvirt2phys(&cell->comm_page);
-+	if (mem->flags & JAILHOUSE_MEM_NO_HUGEPAGES)
-+		paging_flags &= ~PAGING_ALLOW_HUGE;
- 
- 	return paging_create(&cell->arch.vmx.ept_structs, phys_start, mem->size,
--			     mem->virt_start, access_flags,
--			     PAGING_NON_COHERENT);
-+			     mem->virt_start, access_flags, paging_flags);
- }
- 
- int vcpu_unmap_memory_region(struct cell *cell,
-diff --git a/hypervisor/arch/x86/vtd.c b/hypervisor/arch/x86/vtd.c
-index e5f9bfb0..51649662 100644
---- a/hypervisor/arch/x86/vtd.c
-+++ b/hypervisor/arch/x86/vtd.c
-@@ -751,6 +751,7 @@ int iommu_map_memory_region(struct cell *cell,
- 			    const struct jailhouse_memory *mem)
- {
- 	unsigned long access_flags = 0;
-+	unsigned long paging_flags = PAGING_COHERENT | PAGING_ALLOW_HUGE;
- 
- 	if (!(mem->flags & JAILHOUSE_MEM_DMA))
- 		return 0;
-@@ -762,10 +763,12 @@ int iommu_map_memory_region(struct cell *cell,
- 		access_flags |= VTD_PAGE_READ;
- 	if (mem->flags & JAILHOUSE_MEM_WRITE)
- 		access_flags |= VTD_PAGE_WRITE;
-+	if (mem->flags & JAILHOUSE_MEM_NO_HUGEPAGES)
-+		paging_flags &= ~PAGING_ALLOW_HUGE;
- 
- 	return paging_create(&cell->arch.vtd.pg_structs, mem->phys_start,
- 			     mem->size, mem->virt_start, access_flags,
--			     PAGING_COHERENT);
-+			     paging_flags);
- }
- 
- int iommu_unmap_memory_region(struct cell *cell,
-diff --git a/hypervisor/include/jailhouse/paging.h b/hypervisor/include/jailhouse/paging.h
-index dcf77829..96e3fdbc 100644
---- a/hypervisor/include/jailhouse/paging.h
-+++ b/hypervisor/include/jailhouse/paging.h
-@@ -63,6 +63,11 @@ struct page_pool {
- #define PAGING_NON_COHERENT	0
- /** Make changes visible to non-snooping readers, i.e. commit them to RAM. */
- #define PAGING_COHERENT		0x1
-+
-+/** Do not use huge pages for creating a mapping. */
-+#define PAGING_NO_HUGE		0
-+/** When possible, use huge pages for creating a mapping. */
-+#define PAGING_ALLOW_HUGE	0x2
- /** @} */
- 
- /** Page table reference. */
-diff --git a/hypervisor/paging.c b/hypervisor/paging.c
-index 94ca1812..6d0cbcc8 100644
---- a/hypervisor/paging.c
-+++ b/hypervisor/paging.c
-@@ -302,7 +302,8 @@ int paging_create(const struct paging_structures *pg_structs,
- 
- 		while (1) {
- 			pte = paging->get_entry(pt, virt);
--			if (paging->page_size > 0 &&
-+			if (paging_flags & PAGING_ALLOW_HUGE &&
-+			    paging->page_size > 0 &&
- 			    paging->page_size <= size &&
- 			    ((phys | virt) & (paging->page_size - 1)) == 0) {
- 				/*
-diff --git a/hypervisor/setup.c b/hypervisor/setup.c
-index 99a2b0c3..a49d857e 100644
---- a/hypervisor/setup.c
-+++ b/hypervisor/setup.c
-@@ -128,7 +128,8 @@ static void cpu_init(struct per_cpu *cpu_data)
- 	/* set up private mapping of per-CPU data structure */
- 	err = paging_create(&cpu_data->pg_structs, paging_hvirt2phys(cpu_data),
- 			    sizeof(*cpu_data), LOCAL_CPU_BASE,
--			    PAGE_DEFAULT_FLAGS, PAGING_NON_COHERENT);
-+			    PAGE_DEFAULT_FLAGS,
-+			    PAGING_NON_COHERENT | PAGING_ALLOW_HUGE);
- 	if (err)
- 		goto failed;
- 
-@@ -141,7 +142,7 @@ static void cpu_init(struct per_cpu *cpu_data)
- 	err = paging_create(&cpu_data->pg_structs, 0,
- 			    NUM_TEMPORARY_PAGES * PAGE_SIZE,
- 			    TEMPORARY_MAPPING_BASE, PAGE_NONPRESENT_FLAGS,
--			    PAGING_NON_COHERENT);
-+			    PAGING_NON_COHERENT | PAGING_ALLOW_HUGE);
- 	if (err)
- 		goto failed;
- 
-diff --git a/include/jailhouse/cell-config.h b/include/jailhouse/cell-config.h
-index b8e1f038..30ec5d06 100644
---- a/include/jailhouse/cell-config.h
-+++ b/include/jailhouse/cell-config.h
-@@ -113,7 +113,8 @@ struct jailhouse_cell_desc {
- #define JAILHOUSE_MEM_COMM_REGION	0x0020
- #define JAILHOUSE_MEM_LOADABLE		0x0040
- #define JAILHOUSE_MEM_ROOTSHARED	0x0080
--#define JAILHOUSE_MEM_IO_UNALIGNED	0x0100
-+#define JAILHOUSE_MEM_NO_HUGEPAGES	0x0100
-+#define JAILHOUSE_MEM_IO_UNALIGNED	0x8000
- #define JAILHOUSE_MEM_IO_WIDTH_SHIFT	16 /* uses bits 16..19 */
- #define JAILHOUSE_MEM_IO_8		(1 << JAILHOUSE_MEM_IO_WIDTH_SHIFT)
- #define JAILHOUSE_MEM_IO_16		(2 << JAILHOUSE_MEM_IO_WIDTH_SHIFT)
--- 
-2.16.4
 
 
--- 
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+Compare: https://github.com/siemens/jailhouse/compare/f2706433efea...3954ce65fbfd
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/9ca086db-d475-938c-f362-62d325eadec7%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/next/f27064-3954ce%40github.com.
