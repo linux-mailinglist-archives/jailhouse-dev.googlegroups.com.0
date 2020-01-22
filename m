@@ -1,146 +1,148 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBBHCUHYQKGQEIMDVXBY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBUPCUHYQKGQEFE3FMJY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
 Received: from mail-lf1-x138.google.com (mail-lf1-x138.google.com [IPv6:2a00:1450:4864:20::138])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70ED3145921
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Jan 2020 16:57:57 +0100 (CET)
-Received: by mail-lf1-x138.google.com with SMTP id j193sf2269061lfj.9
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Jan 2020 07:57:57 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1579708677; cv=pass;
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A001145928
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Jan 2020 16:59:14 +0100 (CET)
+Received: by mail-lf1-x138.google.com with SMTP id c16sf2269845lfm.10
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Jan 2020 07:59:14 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1579708754; cv=pass;
         d=google.com; s=arc-20160816;
-        b=froluuv1yktqhIV738Ta/u3Kx0tXS+uNveQRr+NhOa+AbZqLvSayjrUQ+L9h1Ym+EH
-         Hj9Q7ySS6E3bQUPfVyH9NNGFzYus47glkOAOs+IzhJpIy2/KpN1hlKbXo96wY7HV6kqt
-         LOnRkXjoQZUfkzwXktvlqqlnR0IoVWG5m6Y6FbnCsi+OWalQDILNrLI8Ojcb3+MV+jz9
-         3fLpCzn5GSZPmrSpiEMiDWikpe46Zbdr/ePMBzNG/EZxsp2wHP8UjtIIZgrjZpYTxhNN
-         ZRfCJss3j8vVb8JHTZlI/0MuQ65RUO72gl733nFoqsbqc0JAqvAKsbthMNzLDVvowBhg
-         2txA==
+        b=CdA5TWkF6lV4u/fJ+57+cCob1HVfpmQaksPoc7F0QMU/kE01TDGjMfCrBaOUEgcVqk
+         w2lI2pHE9oWd0tzx5Ic3j1JdvYAGQaT+0Pb3vmACFEpYL9Em/SGuWwgJ0Fc7DXOzPuYz
+         a12JDDChbicDFtR4rtvELOxK6RKDn6KnOGObTEUDeFmEvjobSJT4Cxksm4ay9YNALMVn
+         O+JsWX3aWOXd79h3b8sdIWyTzsI8KEAi45dFaOMqiIyUndZf88vm+a9vubXn88Ej+2I8
+         buPlsUynDvpZTXTUAs2pwC3XZJLXBq+JADKUo3T7yNVxE6JGfWo0CmR1jKDgnXNv3449
+         erMw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:references:cc:to:from
-         :subject:sender:dkim-signature;
-        bh=sKX73GQzDVvbVmbB+mJbs358E7p200mLmzv2y3BhgxE=;
-        b=zY18CA35CBBQUt64UZ9UwV6cllU/Y/dM3wpT3EhIMqsNzIkuJvbcCzjgqx4F4IcC55
-         Mxz6UVPmUq+P+ikHcRmRRps/WQviRWHXzXDj9WBfi+KDhWD+ZAYzpxtKg9VUX9UcTPAI
-         mS3kgx9KOTOKwxkRbZaJQVSP7PqFpVy6TZ0li2iewM9DwpBW3jghXukDfqZHMeTd5yN0
-         nedQcx8op/PZHPRQkVv7y5jhh4XUFHsgBIUF/umjkh9UcIRi5jqv5Arg/WQOjw77eTWP
-         3HwqGIfvjihMSIIYDKrznGct0bdJgmpGg2/+5MQQNkCrMOUKZyqjuAPy3Bzej/ec8ZBb
-         mUJQ==
+         :mime-version:user-agent:date:message-id:from:references:to:subject
+         :sender:dkim-signature;
+        bh=B7/F5o0zqRmSc63X/1ziA9HEOQW/WAzLWdVcJ4sdZZ4=;
+        b=QIUfNrSLYVbwIeIAi15WyiA5S0sGYfJ5dk+FvaIFP6Dm3YHVlkcMyUAl99MVwTZNmm
+         51uXwLXcs2jmGdftQb3+CyHyQNyn4NmhvMnGWigbhDr51Aq8iSmBRpSsSk1AJcjJTqld
+         +WRR8QgEWs2tIKC/aoNFOJOP1sLVvMwB5s0ITFjSBpFAxbW2rk/4r3gcC4e/Mwi6zy30
+         xOlxqwTiYKVaA4YMcV10SlPqRDyVcMxRiPCTo8zFo+b+OTprJ5+CNVuoQSP9vDhaegJe
+         gR1umfywppI7DPyCLZGbemjGJxv0vGSPDm6TweInKn4GlH5vcqAWEaV0hcAVdChwPOvG
+         qZtA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=qXISHHn4;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=TkSLqalY;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:from:to:cc:references:message-id:date:user-agent
+        h=sender:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=sKX73GQzDVvbVmbB+mJbs358E7p200mLmzv2y3BhgxE=;
-        b=B2YpXZ2KX8WHk9mzB8V9/xbkCuwYnBd6YWTW315mx6ruP3x/UVZugjLO5jSpBUbYkX
-         IjlEYnw3ziqRnd846lvg4P6n2X3+YV3sK1aOP4zXjp6qcuN6ECFFxkxnWc6M05eL4G7e
-         kvvK9lozC0oAyoH3XDxrPQB2lKLRioRIjGL0ANJFu+qmZYcPH8HMGMwsvnC+w+IYwZ2T
-         sJoSQS3oISulrcBf5H3c62tzwMEyYlRsI7/81T0EuaUD9XJya5nlyhdIJioLPKzeieR7
-         v9aNui2vzNRZLd7PPCGkL5ezgyQFgOp3qH0B0VelklRw/DY9nqMJkTDYlKqmIt3q/ugn
-         5IWQ==
+        bh=B7/F5o0zqRmSc63X/1ziA9HEOQW/WAzLWdVcJ4sdZZ4=;
+        b=PQy7kTTh/Q0CV/FELS6ysBFOAYFTQyl7O2sHbvjWs0SCdnVGhqNNsPlXoTPWDO2mZx
+         /Abv3DbLYqJc3mWEvVf7KnfOg5BYWKkIPk72Rw+bYYj04RS0IbdUkveQzcoCq1lQmPzx
+         0qUkuFS+EzMhU0y3EEgfv3rBUAIqL6HlHZCU6QotMtC2XhN6cg1Eus6Q6foQ9H79hrCU
+         zXZyrhiLn/2YhKKyQMhQKhECQG3tceOW4bfL6zsf/tEr12hFm4lm80vus0avnPpZS1XG
+         aH/Y7EuXgz8zWk0aIcHM/rPj7CiXtlrImX8WfqJ5uqI0nLaQw8uUQHGEGe8ZAV5g1UhS
+         2pzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:from:to:cc:references:message-id
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
          :date:user-agent:mime-version:in-reply-to:content-language
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=sKX73GQzDVvbVmbB+mJbs358E7p200mLmzv2y3BhgxE=;
-        b=JsXPDV5fQrNrBOiX9vke8q0sfMJBXX4HwElhSm0ROQKT5Hpd77l0wHYsxTu3dC7qWx
-         TrtbASMUMt0dvzCRxy7HT5Uj61D5kQk2lD4RxvqEf/TrqEy8KcRzNCISBD0+EZvaMpOH
-         puGHjlb6+gzMyvnDaPUhvIn0EciXE5XwRCMC0pPiRLycq0BzlzZQLcoTCbrKQeAero8k
-         LgGpSdtkphu4kmuDftCwngQxepoMau6/373LQnohSg2Yy6+do5KUm6cffiU4Yh1qkNOG
-         ozIsSFkNsF8RChQtMH7PIMJ6vht3Ns72dgCh031XFRzKQPzpH2ZDs4d3gtdyVQx5foub
-         3ajA==
+        bh=B7/F5o0zqRmSc63X/1ziA9HEOQW/WAzLWdVcJ4sdZZ4=;
+        b=Wj0IYOubFEhqJ1qJkRqFGUTMw0he5Jaljz4yoY0uHQZfevvr+u3hvKPs8gAoimcKS4
+         HVnQieX/on9KNTg9cg51idOmMcbSclXkhyAhHSLEv1OD0rikLaolYdswBl2BZhDWNmLb
+         npZ9tgFMKuIHy1cbGMGTz2VfQcHssmozp10DO6R97w4gtmEMzZpXhjIVUU89p6iClwJn
+         LqMmowSZcfH6gEqRCaLaWQK4T7l7EXRMdXr5R2m85AmboAJ6rYgxIIj7vgX73z7qnYhj
+         Xy3s5reLwlXJGfTYO0SqXX/hsg7SKdMFPbMgtHy/GEhigmVTWEvJYBUEvAhUNAqEKhc8
+         JYaQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVZUFQ/1SsWU6qLxyhLIURC8XgyCzq4CfdV0djkvSvdqUvUXpGQ
-	fyVk4NgktF3DX2BxPBGZ9Mg=
-X-Google-Smtp-Source: APXvYqxGwNmVHFZkCvHYiMI6Ym4ICX4/rkI/AW8dFSbUAoivMdelgF8IpqvSYMozPGgXvAw9+SUTDg==
-X-Received: by 2002:a2e:b044:: with SMTP id d4mr18619983ljl.158.1579708676963;
-        Wed, 22 Jan 2020 07:57:56 -0800 (PST)
+X-Gm-Message-State: APjAAAU0LzdTSWlOmuIWT0AUNJao+Ty0mows2XEwtsvkGpTChHBMqVuj
+	rlz7KTmg8qQboz38FhufYhQ=
+X-Google-Smtp-Source: APXvYqznKMmOunaESN7eZQH4eYsNb8DmVbsoqmkLFQ6EqRisfszahWPGk5ecxukp4m2BSKzDZQsknQ==
+X-Received: by 2002:a2e:810d:: with SMTP id d13mr20304485ljg.113.1579708754038;
+        Wed, 22 Jan 2020 07:59:14 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:651c:1051:: with SMTP id x17ls5546999ljm.8.gmail; Wed,
- 22 Jan 2020 07:57:55 -0800 (PST)
-X-Received: by 2002:a2e:995a:: with SMTP id r26mr19939061ljj.78.1579708675813;
-        Wed, 22 Jan 2020 07:57:55 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1579708675; cv=none;
+Received: by 2002:a2e:3c09:: with SMTP id j9ls5544531lja.2.gmail; Wed, 22 Jan
+ 2020 07:59:13 -0800 (PST)
+X-Received: by 2002:a2e:7009:: with SMTP id l9mr19544418ljc.96.1579708753340;
+        Wed, 22 Jan 2020 07:59:13 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1579708753; cv=none;
         d=google.com; s=arc-20160816;
-        b=JtLtkgJiXQxb7NjwdX6RoJoMj0JiF2P5tflszpP7jr9UhKvACb9CI//qBSUY7cdIec
-         VwB/vTrMvmhHFm5UT1GqySFv5M/Zyxf7cpVb9GkVnPlRGacsYoV81iAvKTcG6DfmgnM2
-         t4U8G9W1F1F52EjjKpSQKTtZlgdGYPFVsaBIiw8PK3kbxdRTjeHb+LpKNvUGpPXtgSzC
-         mosciWuch6s96pNqyzoKU79lL87vt0JVF5UAlWiCOLDgRfAAsMzbybeS1zpXznchNwFC
-         XK6mP3/w0aOAYaRBoK2ic62ne60ujfSAlt7fAztZTiHRTNG9p2Zn4nCkF7lGpStWSVHD
-         26xQ==
+        b=F5ykTWJTdrUOY/0C+GERuoKDtoUweMDoFXCEfr932yqf7NoG2XBuzOf1HUWUBbkjz+
+         vU5uNtHJgH1dKEtXHgNOK9Erti8mn5mL3PHF8ygCOTRoyJG3XmRV1waKuQpVmzTi8fmn
+         cdR64yfkZVigrEzSHvaLEJGJT/ctsZD0eCq44G4bLJCeH09SZTLMJDRdY0/DCe8ewFdi
+         i+e2S78flvnqoTepwQe8Ra8UHhQLbkpu5WLElwpoW//vKHFzeHS1zaKHYH4z2dLtLwVD
+         /idkR4r8l8jAUJ6fwlwpWsYenx4dODAuBue5F/tWeR0pQ8EctOIPczfY0EhqXJTAO1YC
+         7saQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:references:cc:to:from:subject
+         :user-agent:date:message-id:from:references:to:subject
          :dkim-signature;
-        bh=I9py8y5aHpOy9rmiFIOqhynTOhthBkvzvcS0kT7CjVw=;
-        b=XUZ6ahAfxnccwD5/4LaRu7HV+z5a8Jx1e/U2aKfxb81CXZv+IfY6uyWdKcjtHEbdOx
-         BpChUdPcwco9tSIGUEEAX4xh4JuggiId1jGRcSSpGykZ8mlkb9dnC9pr25F+I1JNb+mA
-         gAmUbjYNmxHE/7wL6ySOBzIaog+mc/dfH+/XEHv8igJbsmKoyanydP+jppeaj0wjZGZn
-         ZkgWF2W3XZ6hOEv5Rd0XU/RuVuJPb2MzKot9dFf51RLQMswQU22NXWwk7d6dSL/IB5dY
-         MB9CXsJfAWUe3pH3tBb06zQRrRDTkHAmhnFtv1yXPJQ4BOHpD9omU50aVA7j1QEmOtwf
-         MvGw==
+        bh=peTwvGhoT5YMccSM1zID6LjjTl3tvL7K/d2Sp3enzLY=;
+        b=wK2F2VkkZ3HnIpnAheJraDSWYqJgoRRygkAuTs6zYQW5HLOC3PnsDkemMrYTHEawk5
+         oIxVweR64qaZ83oGzE5lzPYrtkeWT2FQQdjbKxrZvYEXM0QrBE/Sbkq0wvSIMOYa635c
+         zpL/W2p41+0ESf6C1IqGWIo5ER+foow/lpZh74EeWcWtIRpCnSWKqf5udNd7MjOayM6s
+         WsjYFdVdTSlq7fuVmgse19ympAwEr0AU3Tg8tUe8C0I08vDUiBhdUEjsFn7qifeAVP4d
+         tP/5x5m1jbfn5KuZRCnOvcAizsT8D4S3+mS+GxTdZ4cgb12LkoSJ+tgOBgWLcTWvFG5u
+         jKRA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=qXISHHn4;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
-Received: from mout.web.de (mout.web.de. [212.227.15.14])
-        by gmr-mx.google.com with ESMTPS id a4si978420lfg.1.2020.01.22.07.57.55
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=TkSLqalY;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Received: from mout.web.de (mout.web.de. [212.227.15.3])
+        by gmr-mx.google.com with ESMTPS id z16si1475631ljk.0.2020.01.22.07.59.13
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 22 Jan 2020 07:57:55 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as permitted sender) client-ip=212.227.15.14;
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jan 2020 07:59:13 -0800 (PST)
+Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) client-ip=212.227.15.3;
 X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.43.205] ([109.40.128.162]) by smtp.web.de (mrweb002
- [213.165.67.108]) with ESMTPSA (Nemesis) id 0M2us2-1jmomi3eY2-00sexi; Wed, 22
- Jan 2020 16:57:55 +0100
-Subject: [PATCH v2 2/2] core: Introduce JAILHOUSE_MEM_NO_HUGEPAGES memory
- region flag
+Received: from [192.168.43.205] ([109.40.128.162]) by smtp.web.de (mrweb004
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 0MABh3-1ijXqI429J-00BMPY; Wed, 22
+ Jan 2020 16:59:12 +0100
+Subject: Re: [PATCH v2 2/2] configs/arm64: Add gic demo for pine64-plus board
+To: Vijai Kumar K <vijaikumar.kanagarajan@gmail.com>,
+ jailhouse-dev@googlegroups.com
+References: <CALLGG_KzRM+g3+eJf7Y6q7_Bpt-RtFciHSPPr+At96FXakzgBQ@mail.gmail.com>
+ <20200121044255.6924-1-vijaikumar.kanagarajan@gmail.com>
+ <20200121044255.6924-2-vijaikumar.kanagarajan@gmail.com>
 From: Jan Kiszka <jan.kiszka@web.de>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-References: <9ca086db-d475-938c-f362-62d325eadec7@siemens.com>
-Message-ID: <7eb9b15e-615c-232a-b051-81c7cf9efca0@web.de>
-Date: Wed, 22 Jan 2020 16:57:53 +0100
+Message-ID: <958f542e-f268-ad51-27f0-2ac9d0ac9fb5@web.de>
+Date: Wed, 22 Jan 2020 16:59:10 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.3.0
 MIME-Version: 1.0
-In-Reply-To: <9ca086db-d475-938c-f362-62d325eadec7@siemens.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20200121044255.6924-2-vijaikumar.kanagarajan@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Language: en-US
-X-Provags-ID: V03:K1:KtoYQP8QNbem/vwKu8oLBZXqvWc1Vm+wk2DwTbRZW8AdzPpuoFa
- YVcdPgeSyiSZWSZsIa1PVCa5uT25CKvlFbpv7RItTfXI0Wd0VOFSODKmLGFeSj5IOyl1Fsl
- qYKlrgIv3TXo8Y8P6u8gVDdVzvTjLL3WHGx2S74cFIzKEhoyY5gdT1YNSBwmo7g59RU+Pxc
- ry8FkwrgeDQH2cgLOXKuQ==
+X-Provags-ID: V03:K1:w7wXkU+cNPt8+ITLOLEfyrsJB8hrnvsAUYFBbAityPYIIBuV8N+
+ W3nM2NOOEvm8h7N8e+LVsu9DsUvob6Ob78pwZoxp7W7P0laN2zQPcstAMpbfo9+f1Zgp50y
+ zz/Yit1kHRzZiPG4UtE6cXkHHbRMo+W9LxndiHigaL55bO1DXIW14eIvDLlt39qp77tciaU
+ frAAOIg4AP3HMuDio7qig==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:YhRiJYSJneQ=:Dd0+xj0WTVxoabSlC2FbHm
- p4TCYe+8uaa0gBsrimgexLvPdu85ssv+WTtsP2GfjnmrEXNgtaoCOahy+SzPSWDPg3CjAxfbh
- WR48lsgDh2XV+Crs1HvMIw0fGS0aI/sMGeulyeTkcPXFcyFoaA8eJjmSfx7B2EVRhp8x6lRcP
- FPJzgaHTgtLvM7pj28vHNFErw48gqtZKM2rrLhMZcodxIcyBhVhJcvwp2A99MMEHTjekvM1FF
- s2emDjBaC/lv15Mn9EBcaOlxiubayZVvxUoI2XXIYXxlKno/t2HHuhmTuOK8VyZgo626z/4Z1
- 7Vsydyk7cj6twx/CeIAVtGOOf0xaKF+KJUeYn7VmIDu1Mt2y667FT4XEWjF2SVh8k+QzdBCQl
- R1lwq0j/kORNab7K96lkKfYRP0cAG1ahmQMHGxNAXRpLPZPYvV07uY5beBr7k8PUHEsodJjsa
- QvOr35NUamfG2jqrwJJqb1FjWRy58TeeKy+cbXSAvmpwu7mJdZlPpv4JSZQYgpFEXWEE0CqdO
- i/OrqpA6uLK4xLoBS8W6tkYU4h7+bxZ+9KI9zXJc2I2WAqGVjmd+qdGWyU2kzc9PcSqQjHloe
- w2+6bpxJWu/bppVoIqTfEUJx1AwJqLgmFjG8TQ/aT7LRF7NN31JXiWUMeEKeAa0WUbyLX1FiD
- s2W8rsuxRC04jRNgLS8rfcmDFu9zuyf63Lr7auRY052rdD+oBten4q/ce8N/n/9FlwB4NawED
- FzHpHLWzhbKjc6qXGxtda7W/hgUfWxu8gbp9sXGBSS3ojQn2d2GudZpbJWcLfdWcDGZwxQ0Qa
- KB6U/EmoTrcZuwF9z1eG6eNcP5F6/3YGDUAshfVGvvMkE3bukC1dfzyEKGXCSGjIe5YYe6gGw
- OjSbHFQL/Twvyqahzy8KjzhXmozW2BIruxGwLn29liKyp4/b8VPmSJOiwrC0J+v6JPVmWRrNT
- Qg1KxW3N1JWs3Lh0/aLxb9G0zmxBsB8D1KiS05hJ/kef//MDcwCA4uTExjV8uIcWBltHc/z8h
- rgftVV6bpAf33tHw2XucI/Dv3Z2UtVdPGdZ0AZYJV3CGJ8uA7bcM7W4e4EOFTTUi39G/O/4aX
- Hxb1JiC3GlKIPoNtnHXE1ejeWrhBsyeZSfOK0+MBHWBetgD2gcPSuh+FsoyCwGshnnxMwrDRW
- 4c7ymUp2vQVuy4Th8G79xBPpOi1OQVPIJ/YF6gOyRDvgO79W83JaHwKKFeUfFpOi0TjAc=
+X-UI-Out-Filterresults: notjunk:1;V03:K0:ueoNIwTu2Ag=:7O75aHiYBgV+wpn0nz7M/k
+ BRTWPgmMrcjdODxp3YDnnpw6A0TUHNTFSbVXXjSoo90GByEQFjRpkMCRSUbwnc+mG4MKkEh53
+ qleeMqXvo1NeoQL3cQd2KGFK+GMLksVKuFEt6joPYkNiECm5Vvt6QoHmozw+H7nRRqopz8HU3
+ H5Sv12cSktMzKqPQTcwbvapDCjkB+CKu5WO27Gvz5Sw4cweTzUVoj6ZB4aJ1FEkf22BN/xVOO
+ rArVNnsf2hgXMS7RTDOMhiTg/uUPBlLNNIAcjlnCy7O6TFUEmbP8H2zrk7r2Ii6WkUxkQ2Zmn
+ mY3KmZZarJXNpGPvlV8rb4BIr85N+gd2CPYPZjeUNpi0saDWviTQ9vWthIP1jMgbqLUrl+cpt
+ 8qXFHUF5nQhyQcGK2Uu2IXHIip/dDc8Oj+AOL/c1q0RX3SQZZOmhLr5JajKQJSFcZRzBK7qgg
+ OcipZNzHmaJthWkKgnP8tZi57ARsDfSUozidh+Z1F/M+nV5tA2C9iMvxKUJPM8dfam97FKFAv
+ w70s7cSchyXeh8IQ7wE9z5hmSzzztJCkTfkEtQFw0r7Md+shRQiER3n6nXfpE1a6SKzzQCapa
+ U0dBC5rCT6nC/AZIvWjwSuo+O/V60xG+VOJbxB/amC00r41ujSkdOwxEHhOqwvYGoesRbl3uR
+ L/cGe4tqN2xvgHZpyGZERZqsxmdFov4+aCfK7p6QCNMk1vpmSosravR+kMWdVpxPwoSQ/HvE2
+ 50AKgbs7M+j6i2po9z6xeDpgw/PYvLNFfvyu52RtY8B59LDUSGxDJoRyQfuqofx99XsUD1fiA
+ 3swsnWN030vZSg4ichtjSB87ZR1iymL79Rr/IcX1qFT2VpGwHdseU92uYTCS5nZ9V86dENp3n
+ z+GLYZ26u/KJFqYWDoFyK/fYdzefYz+seMKI4RgeasCwgcIDu+KUg1fQ98jskZJwk+JNATgQz
+ ghMyEKALHo/GDudNFqg3um20vftRw/smYYMTu/YjOEBLhOLJmq9aroLbR7oDyCZj7GUWkkd9i
+ S+oY93AnePkl/p2U50Wut0Wf4YMDqzxB26/Myyq0Uj9WPllEpCgfyOxeGAepcao4YFrK9Babp
+ JDpHynXf7/mJE4Eunb5sGOMXY5rc2fot8cupwfnkyM6lWMIz+6Uxk2ZqEpeYW2sBMC2/WCkJN
+ du4ka7tyKE2k0ZGFXT8EHmd5Io3ExhL9MavkytiZULLn9x3G+vu7D0YO0y/HdmIcEjzoKtBfC
+ BG/yOP7885muIg4Jq
 X-Original-Sender: jan.kiszka@web.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b=qXISHHn4;       spf=pass
- (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as
- permitted sender) smtp.mailfrom=jan.kiszka@web.de
+ header.i=@web.de header.s=dbaedf251592 header.b=TkSLqalY;       spf=pass
+ (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted
+ sender) smtp.mailfrom=jan.kiszka@web.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -153,249 +155,100 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-From: Jan Kiszka <jan.kiszka@siemens.com>
+On 21.01.20 05:42, Vijai Kumar K wrote:
+> Add GIC demo for Pine64+ Board.
+>
+> Signed-off-by: Vijai Kumar K <vijaikumar.kanagarajan@gmail.com>
+> ---
+>   configs/arm64/pine64-plus-inmate-demo.c | 69 +++++++++++++++++++++++++
+>   1 file changed, 69 insertions(+)
+>   create mode 100644 configs/arm64/pine64-plus-inmate-demo.c
+>
+> diff --git a/configs/arm64/pine64-plus-inmate-demo.c b/configs/arm64/pine64-plus-inmate-demo.c
+> new file mode 100644
+> index 00000000..7f43444c
+> --- /dev/null
+> +++ b/configs/arm64/pine64-plus-inmate-demo.c
+> @@ -0,0 +1,69 @@
+> +/*
+> + * Jailhouse, a Linux-based partitioning hypervisor
+> + *
+> + * Configuration for gic-demo inmate on Pine64+ board
+> + *
+> + * Copyright (c) Vijai Kumar K, 2019-2020
+> + *
+> + * Authors:
+> + *  Vijai Kumar K <vijaikumar.kanagarajan@gmail.com>
+> + *
+> + * This work is licensed under the terms of the GNU GPL, version 2.  See
+> + * the COPYING file in the top-level directory.
+> + */
+> +
+> +#include <jailhouse/types.h>
+> +#include <jailhouse/cell-config.h>
+> +
+> +struct {
+> +	struct jailhouse_cell_desc cell;
+> +	__u64 cpus[1];
+> +	struct jailhouse_memory mem_regions[3];
+> +} __attribute__((packed)) config = {
+> +	.cell = {
+> +		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
+> +		.revision = JAILHOUSE_CONFIG_REVISION,
+> +		.name = "gic-demo",
+> +		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+> +
+> +		.cpu_set_size = sizeof(config.cpus),
+> +		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+> +		.num_irqchips = 0,
+> +		.num_pci_devices = 0,
+> +
+> +		.console = {
+> +			.address = 0x1c28000,
+> +			.type = JAILHOUSE_CON_TYPE_PL011,
+> +			.flags = JAILHOUSE_CON_ACCESS_MMIO |
+> +				 JAILHOUSE_CON_REGDIST_4,
+> +		},
+> +	},
+> +
+> +	.cpus = {
+> +		0x1,
+> +	},
+> +
+> +	.mem_regions = {
+> +		/* UART */ {
+> +			.phys_start = 0x1c28000,
+> +			.virt_start = 0x1c28000,
+> +			.size = 0x400,
+> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> +				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32 |
+> +				JAILHOUSE_MEM_ROOTSHARED,
+> +		},
+> +		/* RAM */ {
+> +			.phys_start = 0xbbfe0000,
+> +			.virt_start = 0,
+> +			.size = 0x00010000,
+> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> +				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+> +		},
+> +		/* communication region */ {
+> +			.virt_start = 0x80000000,
+> +			.size = 0x00001000,
+> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> +				JAILHOUSE_MEM_COMM_REGION,
+> +		},
+> +	}
+> +};
+>
 
-This allows to mitigate CVE-2018-12207: On affected Intel machines, a
-guest can trigger an unrecoverable machine check exception when running
-a certain code pattern on an executable huge page. The suggested
-mitigation pattern of Intel involves on-demand break-up of huge pages
-when the guest tries to execute on them and also consolidating them into
-non-executable huge pages dynamically. This pattern is not compatible
-with the static and deterministic behavior of Jailhouse.
+This should become a generic "inmate-demo" config, also including one of
+the ivshmem devices (see qemu-arm64*). Along with a linux-demo, that
+would make the config set round.
 
-Therefore, this introduces a memory region flag to exclude huge page
-mappings for a region. System configurators can use this flag for
-executable regions on affected CPUs, while still allowing huge pages for
-non-executable regions.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
----
-
-Changes in v2:
- - fix untested (well...) hugepage disabling logic
- - tagged some hypervisor mappings with PAGING_ALLOW_HUGE
-
- hypervisor/arch/arm-common/mmu_cell.c |  5 ++++-
- hypervisor/arch/x86/svm.c             |  5 ++++-
- hypervisor/arch/x86/vmx.c             |  6 ++++--
- hypervisor/arch/x86/vtd.c             |  5 ++++-
- hypervisor/include/jailhouse/paging.h |  5 +++++
- hypervisor/paging.c                   | 11 +++++++----
- hypervisor/setup.c                    |  5 +++--
- include/jailhouse/cell-config.h       |  3 ++-
- 8 files changed, 33 insertions(+), 12 deletions(-)
-
-diff --git a/hypervisor/arch/arm-common/mmu_cell.c b/hypervisor/arch/arm-common/mmu_cell.c
-index a00997c3..56db2e8c 100644
---- a/hypervisor/arch/arm-common/mmu_cell.c
-+++ b/hypervisor/arch/arm-common/mmu_cell.c
-@@ -22,6 +22,7 @@ int arch_map_memory_region(struct cell *cell,
- {
- 	u64 phys_start = mem->phys_start;
- 	unsigned long access_flags = PTE_FLAG_VALID | PTE_ACCESS_FLAG;
-+	unsigned long paging_flags = PAGING_COHERENT | PAGING_ALLOW_HUGE;
- 	int err = 0;
-
- 	if (mem->flags & JAILHOUSE_MEM_READ)
-@@ -38,13 +39,15 @@ int arch_map_memory_region(struct cell *cell,
- 	if (!(mem->flags & JAILHOUSE_MEM_EXECUTE))
- 		flags |= S2_PAGE_ACCESS_XN;
- 	*/
-+	if (mem->flags & JAILHOUSE_MEM_NO_HUGEPAGES)
-+		paging_flags &= ~PAGING_ALLOW_HUGE;
-
- 	err = iommu_map_memory_region(cell, mem);
- 	if (err)
- 		return err;
-
- 	err = paging_create(&cell->arch.mm, phys_start, mem->size,
--			    mem->virt_start, access_flags, PAGING_COHERENT);
-+			    mem->virt_start, access_flags, paging_flags);
- 	if (err)
- 		iommu_unmap_memory_region(cell, mem);
-
-diff --git a/hypervisor/arch/x86/svm.c b/hypervisor/arch/x86/svm.c
-index 513c696c..d85d2b50 100644
---- a/hypervisor/arch/x86/svm.c
-+++ b/hypervisor/arch/x86/svm.c
-@@ -349,6 +349,7 @@ int vcpu_map_memory_region(struct cell *cell,
- {
- 	u64 phys_start = mem->phys_start;
- 	u64 access_flags = PAGE_FLAG_US; /* See APMv2, Section 15.25.5 */
-+	u64 paging_flags = PAGING_COHERENT | PAGING_ALLOW_HUGE;
-
- 	if (mem->flags & JAILHOUSE_MEM_READ)
- 		access_flags |= PAGE_FLAG_PRESENT;
-@@ -358,6 +359,8 @@ int vcpu_map_memory_region(struct cell *cell,
- 		access_flags |= PAGE_FLAG_NOEXECUTE;
- 	if (mem->flags & JAILHOUSE_MEM_COMM_REGION)
- 		phys_start = paging_hvirt2phys(&cell->comm_page);
-+	if (mem->flags & JAILHOUSE_MEM_NO_HUGEPAGES)
-+		paging_flags &= ~PAGING_ALLOW_HUGE;
-
- 	access_flags |= amd_iommu_get_memory_region_flags(mem);
-
-@@ -367,7 +370,7 @@ int vcpu_map_memory_region(struct cell *cell,
- 	 */
- 	return paging_create(&cell->arch.svm.npt_iommu_structs, phys_start,
- 			     mem->size, mem->virt_start, access_flags,
--			     PAGING_COHERENT);
-+			     paging_flags);
- }
-
- int vcpu_unmap_memory_region(struct cell *cell,
-diff --git a/hypervisor/arch/x86/vmx.c b/hypervisor/arch/x86/vmx.c
-index f0a2534b..1cbc6417 100644
---- a/hypervisor/arch/x86/vmx.c
-+++ b/hypervisor/arch/x86/vmx.c
-@@ -353,6 +353,7 @@ int vcpu_map_memory_region(struct cell *cell,
- {
- 	u64 phys_start = mem->phys_start;
- 	unsigned long access_flags = EPT_FLAG_WB_TYPE;
-+	unsigned long paging_flags = PAGING_NON_COHERENT | PAGING_ALLOW_HUGE;
-
- 	if (mem->flags & JAILHOUSE_MEM_READ)
- 		access_flags |= EPT_FLAG_READ;
-@@ -362,10 +363,11 @@ int vcpu_map_memory_region(struct cell *cell,
- 		access_flags |= EPT_FLAG_EXECUTE;
- 	if (mem->flags & JAILHOUSE_MEM_COMM_REGION)
- 		phys_start = paging_hvirt2phys(&cell->comm_page);
-+	if (mem->flags & JAILHOUSE_MEM_NO_HUGEPAGES)
-+		paging_flags &= ~PAGING_ALLOW_HUGE;
-
- 	return paging_create(&cell->arch.vmx.ept_structs, phys_start, mem->size,
--			     mem->virt_start, access_flags,
--			     PAGING_NON_COHERENT);
-+			     mem->virt_start, access_flags, paging_flags);
- }
-
- int vcpu_unmap_memory_region(struct cell *cell,
-diff --git a/hypervisor/arch/x86/vtd.c b/hypervisor/arch/x86/vtd.c
-index e5f9bfb0..51649662 100644
---- a/hypervisor/arch/x86/vtd.c
-+++ b/hypervisor/arch/x86/vtd.c
-@@ -751,6 +751,7 @@ int iommu_map_memory_region(struct cell *cell,
- 			    const struct jailhouse_memory *mem)
- {
- 	unsigned long access_flags = 0;
-+	unsigned long paging_flags = PAGING_COHERENT | PAGING_ALLOW_HUGE;
-
- 	if (!(mem->flags & JAILHOUSE_MEM_DMA))
- 		return 0;
-@@ -762,10 +763,12 @@ int iommu_map_memory_region(struct cell *cell,
- 		access_flags |= VTD_PAGE_READ;
- 	if (mem->flags & JAILHOUSE_MEM_WRITE)
- 		access_flags |= VTD_PAGE_WRITE;
-+	if (mem->flags & JAILHOUSE_MEM_NO_HUGEPAGES)
-+		paging_flags &= ~PAGING_ALLOW_HUGE;
-
- 	return paging_create(&cell->arch.vtd.pg_structs, mem->phys_start,
- 			     mem->size, mem->virt_start, access_flags,
--			     PAGING_COHERENT);
-+			     paging_flags);
- }
-
- int iommu_unmap_memory_region(struct cell *cell,
-diff --git a/hypervisor/include/jailhouse/paging.h b/hypervisor/include/jailhouse/paging.h
-index dcf77829..96e3fdbc 100644
---- a/hypervisor/include/jailhouse/paging.h
-+++ b/hypervisor/include/jailhouse/paging.h
-@@ -63,6 +63,11 @@ struct page_pool {
- #define PAGING_NON_COHERENT	0
- /** Make changes visible to non-snooping readers, i.e. commit them to RAM. */
- #define PAGING_COHERENT		0x1
-+
-+/** Do not use huge pages for creating a mapping. */
-+#define PAGING_NO_HUGE		0
-+/** When possible, use huge pages for creating a mapping. */
-+#define PAGING_ALLOW_HUGE	0x2
- /** @} */
-
- /** Page table reference. */
-diff --git a/hypervisor/paging.c b/hypervisor/paging.c
-index 94ca1812..99abaee7 100644
---- a/hypervisor/paging.c
-+++ b/hypervisor/paging.c
-@@ -304,7 +304,9 @@ int paging_create(const struct paging_structures *pg_structs,
- 			pte = paging->get_entry(pt, virt);
- 			if (paging->page_size > 0 &&
- 			    paging->page_size <= size &&
--			    ((phys | virt) & (paging->page_size - 1)) == 0) {
-+			    ((phys | virt) & (paging->page_size - 1)) == 0 &&
-+			    (paging_flags & PAGING_ALLOW_HUGE ||
-+			     paging->page_size == PAGE_SIZE)) {
- 				/*
- 				 * We might be overwriting a more fine-grained
- 				 * mapping, so release it first. This cannot
-@@ -489,7 +491,7 @@ void *paging_map_device(unsigned long phys, unsigned long size)
-
- 	if (paging_create(&hv_paging_structs, phys, size, (unsigned long)virt,
- 			  PAGE_DEFAULT_FLAGS | PAGE_FLAG_DEVICE,
--			  PAGING_NON_COHERENT) != 0) {
-+			  PAGING_NON_COHERENT | PAGING_ALLOW_HUGE) != 0) {
- 		page_free(&remap_pool, virt, PAGES(size));
- 		return NULL;
- 	}
-@@ -611,7 +613,7 @@ int paging_map_all_per_cpu(unsigned int cpu, bool enable)
- 			sizeof(struct per_cpu) - sizeof(struct public_per_cpu),
- 			(unsigned long)cpu_data,
- 			enable ? PAGE_DEFAULT_FLAGS : PAGE_NONPRESENT_FLAGS,
--			PAGING_NON_COHERENT);
-+			PAGING_NON_COHERENT | PAGING_ALLOW_HUGE);
- }
-
- /**
-@@ -667,7 +669,8 @@ int paging_init(void)
- 			     paging_hvirt2phys(&hypervisor_header),
- 			     system_config->hypervisor_memory.size,
- 			     (unsigned long)&hypervisor_header,
--			     PAGE_DEFAULT_FLAGS, PAGING_NON_COHERENT);
-+			     PAGE_DEFAULT_FLAGS,
-+			     PAGING_NON_COHERENT | PAGING_ALLOW_HUGE);
- 	if (err)
- 		return err;
-
-diff --git a/hypervisor/setup.c b/hypervisor/setup.c
-index 99a2b0c3..a49d857e 100644
---- a/hypervisor/setup.c
-+++ b/hypervisor/setup.c
-@@ -128,7 +128,8 @@ static void cpu_init(struct per_cpu *cpu_data)
- 	/* set up private mapping of per-CPU data structure */
- 	err = paging_create(&cpu_data->pg_structs, paging_hvirt2phys(cpu_data),
- 			    sizeof(*cpu_data), LOCAL_CPU_BASE,
--			    PAGE_DEFAULT_FLAGS, PAGING_NON_COHERENT);
-+			    PAGE_DEFAULT_FLAGS,
-+			    PAGING_NON_COHERENT | PAGING_ALLOW_HUGE);
- 	if (err)
- 		goto failed;
-
-@@ -141,7 +142,7 @@ static void cpu_init(struct per_cpu *cpu_data)
- 	err = paging_create(&cpu_data->pg_structs, 0,
- 			    NUM_TEMPORARY_PAGES * PAGE_SIZE,
- 			    TEMPORARY_MAPPING_BASE, PAGE_NONPRESENT_FLAGS,
--			    PAGING_NON_COHERENT);
-+			    PAGING_NON_COHERENT | PAGING_ALLOW_HUGE);
- 	if (err)
- 		goto failed;
-
-diff --git a/include/jailhouse/cell-config.h b/include/jailhouse/cell-config.h
-index b8e1f038..30ec5d06 100644
---- a/include/jailhouse/cell-config.h
-+++ b/include/jailhouse/cell-config.h
-@@ -113,7 +113,8 @@ struct jailhouse_cell_desc {
- #define JAILHOUSE_MEM_COMM_REGION	0x0020
- #define JAILHOUSE_MEM_LOADABLE		0x0040
- #define JAILHOUSE_MEM_ROOTSHARED	0x0080
--#define JAILHOUSE_MEM_IO_UNALIGNED	0x0100
-+#define JAILHOUSE_MEM_NO_HUGEPAGES	0x0100
-+#define JAILHOUSE_MEM_IO_UNALIGNED	0x8000
- #define JAILHOUSE_MEM_IO_WIDTH_SHIFT	16 /* uses bits 16..19 */
- #define JAILHOUSE_MEM_IO_8		(1 << JAILHOUSE_MEM_IO_WIDTH_SHIFT)
- #define JAILHOUSE_MEM_IO_16		(2 << JAILHOUSE_MEM_IO_WIDTH_SHIFT)
---
-2.16.4
+Thanks,
+Jan
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/7eb9b15e-615c-232a-b051-81c7cf9efca0%40web.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/958f542e-f268-ad51-27f0-2ac9d0ac9fb5%40web.de.
