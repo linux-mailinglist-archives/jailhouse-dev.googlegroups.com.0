@@ -1,72 +1,163 @@
-Return-Path: <jailhouse-dev+bncBCDJXM4674ERB2VDUXYQKGQEXBXO26I@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBV4FU3YQKGQEWY27FWI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x339.google.com (mail-ot1-x339.google.com [IPv6:2607:f8b0:4864:20::339])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBADE1462F8
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 23 Jan 2020 08:57:31 +0100 (CET)
-Received: by mail-ot1-x339.google.com with SMTP id p13sf1132815oto.12
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Jan 2020 23:57:31 -0800 (PST)
+Received: from mail-wm1-x33b.google.com (mail-wm1-x33b.google.com [IPv6:2a00:1450:4864:20::33b])
+	by mail.lfdr.de (Postfix) with ESMTPS id C51BD1466AE
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 23 Jan 2020 12:26:15 +0100 (CET)
+Received: by mail-wm1-x33b.google.com with SMTP id b202sf380774wmb.2
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 23 Jan 2020 03:26:15 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1579778775; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=X3jCLxgr7BYHLBzbi+C9nLGKXy55x9rhaWq7RthbOzQKYJry8Q3mtykd86KQOUBTVY
+         XmygD3AyudPqujL/gt9IERa9c7fwv5IoOfXzVrqI/L3pkVPmpeh58CUP7M2x3YoisFAH
+         LQC0CGpsmEM2TzMxPoSf1SQ09LJNya7Q7iTaE6btGuWG4oepnoEVt3K4rMMVgSIKiEZG
+         9kIILZXDNU2H1Ih5KMYXGbkqAumVuBXSkz4YdlGE2Eq9QMxnO2GVgoOa3UULgG53OSG/
+         wnohXwAVJIhLRv3mdvY+EAfvebGkxEVr2UqOqe2WXiEUflnMCXc4wL9owLeK3LRCXx1v
+         E/XQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:autocrypt:from:references:to:subject:sender
+         :dkim-signature;
+        bh=BOwqmoIcd7icqGUzwIKcEQJDFhwCVU50DqCmqH3aMe8=;
+        b=AhYyPCOduzSiW/Utmnih1pObLYfeh100DUJ3owe4FbtHcXxBX6B/jDBkXE9fHEXenG
+         qGj0bxsVdAcDZ7TLzCGb1EjcF/MxcZazH338DHon8Dj0v7a28Xgiqdkpo8opDy6cIQgn
+         s0nAKO+yJub6/F0htu6YXpj724iVFaUHMHbCoQjiyD+3n3DVRugGVmAvF8PGCB58ynsw
+         cNTuam04BGwmGmO9HiAixYQ4K+H8JavhY3F+xbnuYHiMoLn1hbydS1eUJF5u1NpbYMst
+         301gkU1vlIctmFEAx5aM2t4K6RwaEJ/hBVKHtdTrOnPlWnEPWiQgiFhdPSJnSzruvOON
+         yNOA==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=q5C+yzxH;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
+        h=sender:subject:to:references:from:autocrypt:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=pfe6uCmevWuF94JYx1zu1p7qS2nrugU0ygHHkwo4f8w=;
-        b=SfjR//pJnuuHB3bm52fdQNN+gfMOyuefX5pQwMUiGxY+DY2nKfNdYBAMMAMdfyeQmB
-         wuWRVQX2YIXeWV9sfWuR6EFn1SiBNGvA/SnIOp7JwqcWv12ytMoR7x0xRcT8EveqemOC
-         Czy38pRytTsLWHFIfE+i4hhFFDgK8jhzHeh11Sf5lkBLulmv6xx9CWEDEuTvfHPknAYV
-         2FdjgJyZ8YOo45xlEhsEsB7G9Noz8cL2Z22ELYGsy5JD0Hr2ysU6r01C07xfYKD+hBnY
-         hxv4uL3J7ONkePrIqmvTaFFhVEFyEZk3eLpPEcCgini4lNTYjVLFDY+pRN8yCqgOOaYt
-         Sy3g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=pfe6uCmevWuF94JYx1zu1p7qS2nrugU0ygHHkwo4f8w=;
-        b=tinIcMTIE6IpxXWO6+MNODcP4HPT1r+6IGxX3R2pel8bBbBx6M0ZvT8qyO7LqUxqCf
-         8nKtmtM58UqlSyfOZXKURQWXy0uqRnZfEfYDGns1AklXx3BjjXta62ZkT/vad1Wn3Hab
-         3WQZrQtJxXAk5qN1yB4YT7Om/aPOO5CYa6QNi4xdlBGeV15CcVN3mDJ0dzt2TlWmF3MP
-         HNj+4tOsZ23j7t/JCTVqjVye7SRlHOG3Hwk6A3Zpk3bt3689Sqyv/Ev/EYhz5ldvLMjS
-         KWRavYFltzLAM46Ocq0r+BkY3E3zkCcBU6EY5N165GjIqxV0U8Oq+kEx5nTvoxjVh1lL
-         NgHA==
+        bh=BOwqmoIcd7icqGUzwIKcEQJDFhwCVU50DqCmqH3aMe8=;
+        b=F34h/prL9O46vzOJfmTuX9Fitn1CRxx0ZtT+XY6LvwDnkciirjKbyxULU6Y3deFsbp
+         TiTIVOmRnzzLP5SgCtytyrh8HpsI7FTWfQAmbtfiF3UDmTY750v1iY3xz5l3es8aH9/F
+         cQzYsM/g38ETpryFNI2dJijnhCZvp5iR4rPzCfWZyxioUw18hWbV8kRAbk87ETLsxtcL
+         SmulIoPPv0aN9Nw3Ri3j0QbNjaLXRwieYE8No1sK8akYgO4zz5bXOaxqXXWpbgTKk9ih
+         xGWgOzMkUUD6kMVy0HNE8p6YHWVK6e9gDisj/VCR36tNxYjpMdpXDkq5itCSkoF1WtxE
+         jc8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=pfe6uCmevWuF94JYx1zu1p7qS2nrugU0ygHHkwo4f8w=;
-        b=LEnIX9yhQev+v6Edod+2ycxBFOHfFg/Si9YRkvO896Vh86DAkQRCLUDbx3iIWOKN00
-         RE36mSXc/OgRXyjRxRGP4S4d3X9NZ4ykseXxjZ3nVBJD6ol9GgTijRj+dmnTIyfZ2ASV
-         /L3ndKfCHR943qSB1jxRzNAjMQGsNTffLPRjAlxMKHkxWHv/kalyrX//Sz4kGiKKz7Pi
-         /cBQJU8V9XoBuHseMnwZ0ls07Us397cVAicVryKJVdKqyTl/OX7v/hCCrJoPFWwZIYUK
-         ZULXfR8INHa0aBX5at4L51v+P3AH3Bv5wKbjvd1kS3WnMIIEOyOfcsTzYwdW6KU9VOdK
-         eM/A==
+        h=sender:x-gm-message-state:subject:to:references:from:autocrypt
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=BOwqmoIcd7icqGUzwIKcEQJDFhwCVU50DqCmqH3aMe8=;
+        b=ETdkl9px+YGfpfoJ3cMj6PWftmKg/a39u71z8dQ0tALuVuXk2DorCJPA0O0YN2Xbla
+         ULQ6uMFKeVGBLpPdAq2BgccS6uYPJGKu/aBWLjfwPfgs2jQoJWTuLuhB0SzSyQg4pBQt
+         UJ39ftdFqF0as0FZIrBnUVnvPd5rW4wYNRsnM3zY0nPcUx+wBeoKyfB3GbQ9u43qAVSw
+         lIivFj5wVS2enBXba4RD8OqIzSrnRW9UOxqQl9UQZgNHiNsuhDIMxo/fuVhMSW0qmFWq
+         FOgc7fekaMpKsoe9pWK7EBv9CLNMLCJvEH7uL6v1HmCxu+kZT6Fhj5f2qJLo0EoEw7pW
+         K7og==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVTY5NmrHgmhPckAiMe7dpJP64E8tIF1jAm2hhmNYg9WVP71noi
-	jm65hJmvPMDTP+jNOVRD57E=
-X-Google-Smtp-Source: APXvYqyQOuHKfyLftDK22TZCVZ5riH3EZTf4FRApTc3Ns4acuTEwSILFlvh25MaR2Hd0UKbGKbRpxg==
-X-Received: by 2002:a9d:4f0a:: with SMTP id d10mr10546962otl.85.1579766250929;
-        Wed, 22 Jan 2020 23:57:30 -0800 (PST)
+X-Gm-Message-State: APjAAAXjajUIaLHxU1dxgnQKj+SUVCwEar+8HWVLXdXkREa5fCfgW2I4
+	MV8+mWyEgc2u8Zz7G6ehvB8=
+X-Google-Smtp-Source: APXvYqyvCuPhDdmYJSJ9WoqzKZjan5spuLuFEYzHFhColEokGnEDMAV7HrDxuzWwocYMlKC6wGEZ+Q==
+X-Received: by 2002:adf:dfd2:: with SMTP id q18mr17871188wrn.152.1579778775421;
+        Thu, 23 Jan 2020 03:26:15 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aca:40e:: with SMTP id 14ls7502470oie.4.gmail; Wed, 22 Jan
- 2020 23:57:30 -0800 (PST)
-X-Received: by 2002:aca:5608:: with SMTP id k8mr9837643oib.88.1579766250213;
-        Wed, 22 Jan 2020 23:57:30 -0800 (PST)
-Date: Wed, 22 Jan 2020 23:57:29 -0800 (PST)
-From: Michael Hinton <michael.g.hinton@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <b258dc63-26a9-4eff-852a-23d72d2e3258@googlegroups.com>
-In-Reply-To: <20200120144629.201f3081@md1za8fc.ad001.siemens.net>
+Received: by 2002:a5d:4fc2:: with SMTP id h2ls8278234wrw.2.gmail; Thu, 23 Jan
+ 2020 03:26:14 -0800 (PST)
+X-Received: by 2002:adf:ebc3:: with SMTP id v3mr17495005wrn.280.1579778774686;
+        Thu, 23 Jan 2020 03:26:14 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1579778774; cv=none;
+        d=google.com; s=arc-20160816;
+        b=Nh5EKUoONV78GRnHHVTRJQPYA6X8f4FkGDP3lHOXByX+6j4UN31K+xypummQfX21Fa
+         SEocaSHHFc+iDVsYpMWhwLgA0couxbr0QbmYfTPwVJcQzUz39IW7XbrlHjxq/4EZXm2z
+         GDeUbuIvh1VP1lLSdvu3b4bJrD2V7++oF6KF1FFQsHELjNzW25WXP6ZTHE7dh0O6uBct
+         7RErKUGl1MjzWjlHROEFqjpJfc8U1VyjiQs9ypPvbb/n/jMUkjUdTTnAkv0SVT3rDdcj
+         VXZc1dN+athRvIr5HkF94Cud6qcNOVnItla1RqbMKkB8GXrmvK2A7G3pbAgOG+6Tgz3B
+         laLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:autocrypt:from:references:to:subject
+         :dkim-signature;
+        bh=QqohbH58cTuwTPpjXIalgfUrVnEDc0Xcw0y2cVjbdoo=;
+        b=TzbbjlpiTDy8YdIg3d15mnFgA7hnJUknAtZgzaKU7ifwvu+uFuKONq6fBOH+ZAbR6J
+         iramyYd9tCVMa/NB6wKDpIQ1n5q3T4590LG9EAzUO3vvpGfOMM+zX5NHfncLKRYnk2WO
+         02HZbub0X63nBHRvcPdo5cH25IRNL3efDOBga9ObwJ6fDbT5rHqi7E/2neIbwDUEQ6u6
+         XmyCs+rjVzKX1GNU+hERQ9BmCfsT02THLDO2iQn18p/JXIt2a8YuIl+EC+2NpzPmfoYA
+         P4/vBmbWqzAwlpIE0sFGsxhLfTYd6jhfmCJ8Y0ZP6Skd9W2GI88Aiqo1hMJcb6TxeMIA
+         kqwQ==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=q5C+yzxH;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [2001:638:a01:1096::11])
+        by gmr-mx.google.com with ESMTPS id x5si319418wmk.1.2020.01.23.03.26.14
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 23 Jan 2020 03:26:14 -0800 (PST)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) client-ip=2001:638:a01:1096::11;
+Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S02", Issuer "E16S02" (not verified))
+	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 483Kj223DzzxxP;
+	Thu, 23 Jan 2020 12:26:14 +0100 (CET)
+Received: from [192.168.178.10] (194.95.106.138) by E16S02.hs-regensburg.de
+ (2001:638:a01:8013::92) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Thu, 23 Jan
+ 2020 12:26:14 +0100
+Subject: Re: Difference in execution duration between root cell and inmate for
+ same code
+To: Michael Hinton <michael.g.hinton@gmail.com>, Jailhouse
+	<jailhouse-dev@googlegroups.com>
 References: <4d8ab27d-7a1a-4601-8d61-429dd0cdd018@googlegroups.com>
- <20200120144629.201f3081@md1za8fc.ad001.siemens.net>
-Subject: Re: Difference in execution duration between root cell and inmate
- for same code
+ <c4f524ea-1273-0bb4-bd8d-c4a0599e40e0@oth-regensburg.de>
+ <2c22faaa-1d5a-4ace-a7ed-7d614773a37c@googlegroups.com>
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Autocrypt: addr=ralf.ramsauer@oth-regensburg.de; keydata=
+ mQINBFFbFOQBEACuc/5RqBxcHJiMjuQo4cUit/whIFgjcorx77z/srj/Cn5mKnWMLgmhszFC
+ nzrgLw+1KewrJ/+qcrJKmX3Dw58VaktfjV0QUEnPmQXND3PUIE4Bl01GZ4Z/NKtaavdTWPTH
+ wKzjbDucCzYKMBEYT3AMQRwQLNBF7VboV1T2fy+J505P9LP649c/Ept5vAsFH/3k2YpVVYcf
+ Xpxk7ZxxBa9Xj9jMkoEGK8YPj0bHtrjrtG+fDuQRdv4gVwdY+HdalLQXCzYVPEnA/w3kD69A
+ tPVuJOK61hJz6rS2n5ByzFLitLB8Fe940AI3wy4Df2pB2UFnD51k2Cg3HKi5HqH4Mpsieixq
+ m/pd37SoPwQoTeVX+ASeUNl2CibSi78IsbHnZBKMKfdlSCzqogRWGcZPivKIL0vQDpzSSn4C
+ hiRNiTXLH7lhfIhlH/MgmjXanhYDVLzQNhIEYF2Op2XN0HeYD/aFHQxhQQNxvX6aEDj7t0aS
+ fAmyULXq1DX+ttI9UY65hcdvQQHUVCNF+87Sggu4x1q8/cxDkdpRlCqdmEigXF7nHkbsOVq8
+ T8B1j+Y2cGIU/ivyMO+pqEQm3QOWKBC8ndm49lCgxltsEL5Bd4j4dF08QCcWFVbF9cWb2obT
+ KcHX3Vm+1zKz2HLR9gBZiEPjNoP9riVz+81ECNk42w9874pmLQARAQABtC9SYWxmIFJhbXNh
+ dWVyIDxyYWxmLnJhbXNhdWVyQG90aC1yZWdlbnNidXJnLmRlPokCVAQTAQgAPgIbAwULCQgH
+ AgYVCAkKCwIEFgIDAQIeAQIXgBYhBO+AJoipr99tPvqviPovtFKPEASbBQJbE/G6BQkJui5W
+ AAoJEPovtFKPEASb3iAP/jhdGSwc91Jf+kcOKaWe40dFQn2bjFhoYXuD16AYoBHBVNNOFYW6
+ ikYyAUFOMaWBvUBUu4eyFwPY8ewr7sXoH5RqheQc7bvtX+2lxI3dLbcDMlp2Apj1NVFUKNAy
+ VKjPpWNNdR+iz6JVar/QUye++5WOaJ2Jdgc/AIfBAWZyBcrg16um8hb7TMX5++7OtEUVOSz6
+ L9bZkp6S/E6WgnIturQDEcmvxGJjwZKsLMlFNhasex3fzRE8vVq2JONi/gGfso7EQx7jdYNH
+ z9BkdSlhL2agtMhmBygRs8L6TXU/V5sv4UD7+BiEINDEJTPF9OAX44MCXslGmGn0Kltvf2vC
+ NGfsmcSVcsiptRAvrafxCUW8CqgwGLeuJi/qLKF3oRYjvVYMxpBsqQLIksYrPxvMOXgh2uU/
+ JJgxnS+spAh+33uqWLP00CmOT06WNwSY6k3WSYfA5EvsLCsrrmO8NOIUjMC8pLqiEFgXgw6M
+ CANKNJN23Aapo+rPF+kHvnMR/YFrgapJn3VGrG5lELovqGyqc7afIgiiEMSUY1zcJ9VlS0Z4
+ OvbTjvPYy4tb8aGgMQ6cmsqiaIpHFZ2UJtk4R5asCmwIkbVWQLxvNlX9J5bXr/PHU0UlYJYB
+ mp34WgKNwgwyso67v0GZDKJyaBMvk7alZEOKGWcMKEE6Pr3ByURudR8w
+Message-ID: <210c9279-ce8b-67ff-ae88-6becb7f06b55@oth-regensburg.de>
+Date: Thu, 23 Jan 2020 12:26:12 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_2749_433490410.1579766249538"
-X-Original-Sender: Michael.G.Hinton@gmail.com
+In-Reply-To: <2c22faaa-1d5a-4ace-a7ed-7d614773a37c@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [194.95.106.138]
+X-ClientProxiedBy: E16S01.hs-regensburg.de (2001:638:a01:8013::91) To
+ E16S02.hs-regensburg.de (2001:638:a01:8013::92)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=q5C+yzxH;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -79,123 +170,54 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_2749_433490410.1579766249538
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_2750_1998359085.1579766249538"
+Hi,
 
-------=_Part_2750_1998359085.1579766249538
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 23/01/2020 08:43, Michael Hinton wrote:
+> On Monday, January 20, 2020 at 4:32:45 AM UTC-7, Ralf Ramsauer wrote:
+>=20
+>     Hi Michael,
+>=20
+>     More exits, more overall penalty. Depends on your test case. You can
+>     use
+>     jailhouse cell stats to account for exits.
+>=20
+>=20
+> Great idea. I started recording deltas in vmexit totals to better
+> understand what is going on. Thanks.
+>=20
+>     I experienced a similar performance drop a while ago. In my case, it
+>     was
+>     misconfigured CAT -- too little cache for the non-root cell hit the
+>     performance.
+>=20
+>=20
+> Is CAT Intel's Cache Allocation Technology? I was unaware that Jailhouse
+> had support for this yet. My configs don't specify anything regarding
+> the cache, so what happens by default? Do you have more information you
+> can refer me to?
 
+Yes, Jailhouse comes with CAT support, but not every Intel CPU supports
+CAT.=C2=B4CAT is configured by the inmate config via .cache_regions, see
+example inmates.
 
+  Ralf
 
-Ralf, Henning,
-
-
-Thanks for the quick response, and sorry for the delay.
-
-Here=E2=80=99s my setup: I=E2=80=99ve got a 6-core Intel x86-64 CPU running=
- Kubuntu 19.10.=20
-I have an inmate that is given a single core and runs a single-threaded=20
-workload. For comparison, I also run the same workload in Linux under=20
-Jailhouse.
-
-For a SHA3 workload with the same 20 MiB input, the root Linux cell (and no=
-=20
-inmate running) takes about 2 seconds, while the inmate (and an idle root=
-=20
-cell) takes about 2.8 seconds. That is a worrisome discrepancy, and I need=
-=20
-to understand why it=E2=80=99s 0.8 s slower.
-
-This is the SHA3 workload:=20
-https://github.com/hintron/jailhouse/blob/76e6d446ca682f73679616a0f3df8ac79=
-f4a1cde/inmates/lib/mgh-sha3.c#L185-L208
-
-This is the Linux wrapper for the SHA3 workload:=20
-https://github.com/hintron/jailhouse/blob/76e6d446ca682f73679616a0f3df8ac79=
-f4a1cde/mgh/workloads/src/sha3-512.c#L166-L168
-
-This is the inmate program calling the SHA3 workload:=20
-https://github.com/hintron/jailhouse/blob/76e6d446ca682f73679616a0f3df8ac79=
-f4a1cde/inmates/demos/x86/mgh-demo.c#L370-L379
-
-You can see that the inmate and the Linux wrapper both execute the same=20
-function, sha3_mgh(). It's the same C code.
-
-The other workloads I run are intentionally more memory intensive. They see=
-=20
-a much worse slowdown. For my CSB workload, the root cell takes only 0.05 s=
-=20
-for a 20 MiB input, while the inmate takes 1.48 s (30x difference). And for=
-=20
-my Random Access workload, the root cell takes 0.08 s while the inmate=20
-takes 3.29 s for a 20 MiB input (40x difference).
-
-Here are the root and inmate cell configs, respectively:
-
-https://github.com/hintron/jailhouse/blob/76e6d446ca682f73679616a0f3df8ac79=
-f4a1cde/configs/x86/bazooka-root.c
-
-https://github.com/hintron/jailhouse/blob/76e6d446ca682f73679616a0f3df8ac79=
-f4a1cde/configs/x86/bazooka-inmate.c
-
-I did do some modifications to Jailhouse with VMX and the preemption timer,=
-=20
-but any slowdown that I may have inadvertently introduced should apply=20
-equally to the inmate and root cell.
-
-It=E2=80=99s possible that I am measuring the duration of the inmate incorr=
-ectly.=20
-But the number of vmexits I measure for the inmate and root seem to roughly=
-=20
-correspond with the duration. I also made sure to avoid tsc_read_ns() by=20
-instead recording the TSC cycles and deriving the duration by dividing by=
-=20
-3,700,000,000 (the unchanging TSC frequency of my processor). Without this,=
-=20
-the time recorded would overflow after something like 1.2 seconds.
-
-
-I'm wondering if something else is causing unexpected delays: using=20
-IVSHMEM, memory mapping extra memory pages and using it to hold my input,=
-=20
-printing to a virtual console in addition to a serial console, disabling=20
-hardware p-states, turbo boost in the root cell, maybe the workload code is=
-=20
-being compiled to different instructions for the inmate vs. Linux, etc.
-
-Sorry for all the detail, but I am grasping at straws at this point. Any=20
-ideas at what I could look into are appreciated.=20
-
-Thanks,
-Michael
-
-On Monday, January 20, 2020 at 6:46:32 AM UTC-7, Henning Schild wrote:
->
-> On Sun, 19 Jan 2020 23:45:46 -0800=20
-> Michael Hinton <michael...@gmail.com <javascript:>> wrote:=20
->
-> > Hello,=20
-> >=20
-> > I have found that running code in an inmate is a lot slower than=20
-> > running that same code in the root cell on my x86 machine. I am not=20
-> > sure why.=20
->
-> Can you elaborate on "code" and "a lot"? Maybe roughly tell us what=20
-> your testcase does and how severe your slowdown is. Synthetic=20
-> microbenchmark to measure context switching ?=20
->
-> As Ralf already said, anything causing "exits" can be subject to=20
-> slowdown. But that should be roughly the same for the root cell or any=20
-> non-root cell, is it truly the "same" code?=20
->
-> And of cause anything accessing shared resources can be slowed down by=20
-> the sharing. Caches/buses ... but i would not expect "a lot".=20
->
-> regards,=20
-> Henning=20
->
+>=20
+> I'm going to describe my setup in more detail in my next post.
+>=20
+> -Michael
+>=20
+> --=20
+> You received this message because you are subscribed to the Google
+> Groups "Jailhouse" group.
+> To unsubscribe from this group and stop receiving emails from it, send
+> an email to jailhouse-dev+unsubscribe@googlegroups.com
+> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
+> To view this discussion on the web visit
+> https://groups.google.com/d/msgid/jailhouse-dev/2c22faaa-1d5a-4ace-a7ed-7=
+d614773a37c%40googlegroups.com
+> <https://groups.google.com/d/msgid/jailhouse-dev/2c22faaa-1d5a-4ace-a7ed-=
+7d614773a37c%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>.
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -203,207 +225,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/b258dc63-26a9-4eff-852a-23d72d2e3258%40googlegroups.com.
-
-------=_Part_2750_1998359085.1579766249538
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><span id=3D"docs-internal-guid-ebdf743d-7fff-9db3-7760-e25=
-9ebc81a59"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-b=
-ottom:0pt;"><span style=3D"font-size: 11pt; font-family: Nunito, sans-serif=
-; color: rgb(0, 0, 0); background-color: transparent; font-variant-numeric:=
- normal; font-variant-east-asian: normal; vertical-align: baseline; white-s=
-pace: pre-wrap;">Ralf, Henning,</span></p><p dir=3D"ltr" style=3D"line-heig=
-ht:1.38;margin-top:0pt;margin-bottom:0pt;"><span style=3D"font-size: 11pt; =
-font-family: Nunito, sans-serif; color: rgb(0, 0, 0); background-color: tra=
-nsparent; font-variant-numeric: normal; font-variant-east-asian: normal; ve=
-rtical-align: baseline; white-space: pre-wrap;"><br></span></p><p dir=3D"lt=
-r" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style=
-=3D"font-size: 11pt; font-family: Nunito, sans-serif; color: rgb(0, 0, 0); =
-background-color: transparent; font-variant-numeric: normal; font-variant-e=
-ast-asian: normal; vertical-align: baseline; white-space: pre-wrap;">Thanks=
- for the quick response, and sorry for the delay.</span></p><br><p dir=3D"l=
-tr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span styl=
-e=3D"font-size: 11pt; font-family: Nunito, sans-serif; color: rgb(0, 0, 0);=
- background-color: transparent; font-variant-numeric: normal; font-variant-=
-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;">Here=
-=E2=80=99s my setup: I=E2=80=99ve got a 6-core Intel x86-64 CPU running Kub=
-untu 19.10. I have an inmate that is given a single core and runs a single-=
-threaded workload. For comparison, I also run the same workload in Linux un=
-der Jailhouse.</span></p><br><p dir=3D"ltr" style=3D"line-height:1.38;margi=
-n-top:0pt;margin-bottom:0pt;"><span style=3D"font-size: 11pt; font-family: =
-Nunito, sans-serif; color: rgb(0, 0, 0); background-color: transparent; fon=
-t-variant-numeric: normal; font-variant-east-asian: normal; vertical-align:=
- baseline; white-space: pre-wrap;">For a SHA3 workload with the same 20 MiB=
- input, the root Linux cell (and no inmate running) takes about 2 seconds, =
-while the inmate (and an idle root cell) takes about 2.8 seconds. That is a=
- worrisome discrepancy, and I need to understand why it=E2=80=99s 0.8 s slo=
-wer.</span></p><br><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;=
-margin-bottom:0pt;"><span style=3D"font-size: 11pt; font-family: Nunito, sa=
-ns-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant-=
-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline;=
- white-space: pre-wrap;">This is the SHA3 workload: </span><a href=3D"https=
-://github.com/hintron/jailhouse/blob/76e6d446ca682f73679616a0f3df8ac79f4a1c=
-de/inmates/lib/mgh-sha3.c#L185-L208"><span style=3D"font-size: 11pt; font-f=
-amily: Nunito, sans-serif; background-color: transparent; font-variant-nume=
-ric: normal; font-variant-east-asian: normal; text-decoration-line: underli=
-ne; text-decoration-skip-ink: none; vertical-align: baseline; white-space: =
-pre-wrap;">https://github.com/hintron/jailhouse/blob/76e6d446ca682f73679616=
-a0f3df8ac79f4a1cde/inmates/lib/mgh-sha3.c#L185-L208</span></a></p><br><p di=
-r=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><spa=
-n style=3D"font-size: 11pt; font-family: Nunito, sans-serif; color: rgb(0, =
-0, 0); background-color: transparent; font-variant-numeric: normal; font-va=
-riant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;"=
->This is the Linux wrapper for the SHA3 workload: </span><a href=3D"https:/=
-/github.com/hintron/jailhouse/blob/76e6d446ca682f73679616a0f3df8ac79f4a1cde=
-/mgh/workloads/src/sha3-512.c#L166-L168"><span style=3D"font-size: 11pt; fo=
-nt-family: Nunito, sans-serif; background-color: transparent; font-variant-=
-numeric: normal; font-variant-east-asian: normal; text-decoration-line: und=
-erline; text-decoration-skip-ink: none; vertical-align: baseline; white-spa=
-ce: pre-wrap;">https://github.com/hintron/jailhouse/blob/76e6d446ca682f7367=
-9616a0f3df8ac79f4a1cde/mgh/workloads/src/sha3-512.c#L166-L168</span></a></p=
-><br><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:=
-0pt;"><span style=3D"font-size: 11pt; font-family: Nunito, sans-serif; colo=
-r: rgb(0, 0, 0); background-color: transparent; font-variant-numeric: norma=
-l; font-variant-east-asian: normal; vertical-align: baseline; white-space: =
-pre-wrap;">This is the inmate program calling the SHA3 workload: </span><a =
-href=3D"https://github.com/hintron/jailhouse/blob/76e6d446ca682f73679616a0f=
-3df8ac79f4a1cde/inmates/demos/x86/mgh-demo.c#L370-L379"><span style=3D"font=
--size: 11pt; font-family: Nunito, sans-serif; background-color: transparent=
-; font-variant-numeric: normal; font-variant-east-asian: normal; text-decor=
-ation-line: underline; text-decoration-skip-ink: none; vertical-align: base=
-line; white-space: pre-wrap;">https://github.com/hintron/jailhouse/blob/76e=
-6d446ca682f73679616a0f3df8ac79f4a1cde/inmates/demos/x86/mgh-demo.c#L370-L37=
-9</span></a></p><br><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt=
-;margin-bottom:0pt;"><span style=3D"font-size: 11pt; font-family: Nunito, s=
-ans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant=
--numeric: normal; font-variant-east-asian: normal; vertical-align: baseline=
-; white-space: pre-wrap;">You can see that the inmate and the Linux wrapper=
- both execute the same function, sha3_mgh(). It&#39;s the same C code.</spa=
-n></p><br><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bo=
-ttom:0pt;"><span style=3D"font-size: 11pt; font-family: Nunito, sans-serif;=
- color: rgb(0, 0, 0); background-color: transparent; font-variant-numeric: =
-normal; font-variant-east-asian: normal; vertical-align: baseline; white-sp=
-ace: pre-wrap;">The other workloads I run are intentionally more memory int=
-ensive. They see a much worse slowdown. For my CSB workload, the root cell =
-takes only 0.05 s for a 20 MiB input, while the inmate takes 1.48 s (30x di=
-fference). And for my Random Access workload, the root cell takes 0.08 s wh=
-ile the inmate takes 3.29 s for a 20 MiB input (40x difference).</span></p>=
-<br><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0=
-pt;"><span style=3D"font-size: 11pt; font-family: Nunito, sans-serif; color=
-: rgb(0, 0, 0); background-color: transparent; font-variant-numeric: normal=
-; font-variant-east-asian: normal; vertical-align: baseline; white-space: p=
-re-wrap;">Here are the root and inmate cell configs, respectively:</span></=
-p><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt=
-;"><a href=3D"https://github.com/hintron/jailhouse/blob/76e6d446ca682f73679=
-616a0f3df8ac79f4a1cde/configs/x86/bazooka-root.c"><span style=3D"font-size:=
- 11pt; font-family: Nunito, sans-serif; background-color: transparent; font=
--variant-numeric: normal; font-variant-east-asian: normal; text-decoration-=
-line: underline; text-decoration-skip-ink: none; vertical-align: baseline; =
-white-space: pre-wrap;">https://github.com/hintron/jailhouse/blob/76e6d446c=
-a682f73679616a0f3df8ac79f4a1cde/configs/x86/bazooka-root.c</span></a></p><p=
- dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><=
-a href=3D"https://github.com/hintron/jailhouse/blob/76e6d446ca682f73679616a=
-0f3df8ac79f4a1cde/configs/x86/bazooka-inmate.c"><span style=3D"font-size: 1=
-1pt; font-family: Nunito, sans-serif; background-color: transparent; font-v=
-ariant-numeric: normal; font-variant-east-asian: normal; text-decoration-li=
-ne: underline; text-decoration-skip-ink: none; vertical-align: baseline; wh=
-ite-space: pre-wrap;">https://github.com/hintron/jailhouse/blob/76e6d446ca6=
-82f73679616a0f3df8ac79f4a1cde/configs/x86/bazooka-inmate.c</span></a></p><b=
-r><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt=
-;"><span style=3D"font-size: 11pt; font-family: Nunito, sans-serif; color: =
-rgb(0, 0, 0); background-color: transparent; font-variant-numeric: normal; =
-font-variant-east-asian: normal; vertical-align: baseline; white-space: pre=
--wrap;">I did do some modifications to Jailhouse with VMX and the preemptio=
-n timer, but any slowdown that I may have inadvertently introduced should a=
-pply equally to the inmate and root cell.</span></p><br><p dir=3D"ltr" styl=
-e=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style=3D"fon=
-t-size: 11pt; font-family: Nunito, sans-serif; color: rgb(0, 0, 0); backgro=
-und-color: transparent; font-variant-numeric: normal; font-variant-east-asi=
-an: normal; vertical-align: baseline; white-space: pre-wrap;">It=E2=80=99s =
-possible that I am measuring the duration of the inmate incorrectly. But th=
-e number of vmexits I measure for the inmate and root seem to roughly corre=
-spond with the duration. </span><span style=3D"background-color: transparen=
-t; color: rgb(0, 0, 0); font-family: Nunito, sans-serif; font-size: 11pt; w=
-hite-space: pre-wrap;">I also made sure to avoid tsc_read_ns() by instead r=
-ecording the TSC cycles and deriving the duration by dividing by 3,700,000,=
-000 (the unchanging TSC frequency of my processor). Without this, the time =
-recorded would overflow after something like 1.2 seconds.</span></p><p dir=
-=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span=
- style=3D"font-size: 11pt; font-family: Nunito, sans-serif; color: rgb(0, 0=
-, 0); background-color: transparent; font-variant-numeric: normal; font-var=
-iant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;">=
-<br></span></p><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;marg=
-in-bottom:0pt;"><span style=3D"font-size: 11pt; font-family: Nunito, sans-s=
-erif; color: rgb(0, 0, 0); background-color: transparent; font-variant-nume=
-ric: normal; font-variant-east-asian: normal; vertical-align: baseline; whi=
-te-space: pre-wrap;">I&#39;m wondering if something else is causing unexpec=
-ted delays: using IVSHMEM, memory mapping extra memory pages and using it t=
-o hold my input, printing to a virtual console in addition to a serial cons=
-ole, disabling hardware p-states, turbo boost in the root cell, maybe the w=
-orkload code is being compiled to different instructions for the inmate vs.=
- Linux, etc.</span></p><br><p dir=3D"ltr" style=3D"line-height:1.38;margin-=
-top:0pt;margin-bottom:0pt;"><span style=3D"font-size: 11pt; font-family: Nu=
-nito, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-=
-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: b=
-aseline; white-space: pre-wrap;">Sorry for all the detail, but I am graspin=
-g at straws at this point. Any ideas at what I could look into are apprecia=
-ted.=C2=A0</span></p><br><p dir=3D"ltr" style=3D"line-height:1.38;margin-to=
-p:0pt;margin-bottom:0pt;"><span style=3D"font-size: 11pt; font-family: Nuni=
-to, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-va=
-riant-numeric: normal; font-variant-east-asian: normal; vertical-align: bas=
-eline; white-space: pre-wrap;">Thanks,</span></p><div><span style=3D"font-s=
-ize: 11pt; font-family: Nunito, sans-serif; color: rgb(0, 0, 0); background=
--color: transparent; font-variant-numeric: normal; font-variant-east-asian:=
- normal; vertical-align: baseline; white-space: pre-wrap;">Michael</span></=
-div></span><br>On Monday, January 20, 2020 at 6:46:32 AM UTC-7, Henning Sch=
-ild wrote:<blockquote class=3D"gmail_quote" style=3D"margin: 0;margin-left:=
- 0.8ex;border-left: 1px #ccc solid;padding-left: 1ex;">On Sun, 19 Jan 2020 =
-23:45:46 -0800
-<br>Michael Hinton &lt;<a href=3D"javascript:" target=3D"_blank" gdf-obfusc=
-ated-mailto=3D"lxcgcW-SCQAJ" rel=3D"nofollow" onmousedown=3D"this.href=3D&#=
-39;javascript:&#39;;return true;" onclick=3D"this.href=3D&#39;javascript:&#=
-39;;return true;">michael...@gmail.com</a>&gt; wrote:
-<br>
-<br>&gt; Hello,
-<br>&gt;=20
-<br>&gt; I have found that running code in an inmate is a lot slower than
-<br>&gt; running that same code in the root cell on my x86 machine. I am no=
-t
-<br>&gt; sure why.
-<br>
-<br>Can you elaborate on &quot;code&quot; and &quot;a lot&quot;? Maybe roug=
-hly tell us what
-<br>your testcase does and how severe your slowdown is. Synthetic
-<br>microbenchmark to measure context switching ?
-<br>
-<br>As Ralf already said, anything causing &quot;exits&quot; can be subject=
- to
-<br>slowdown. But that should be roughly the same for the root cell or any
-<br>non-root cell, is it truly the &quot;same&quot; code?
-<br>
-<br>And of cause anything accessing shared resources can be slowed down by
-<br>the sharing. Caches/buses ... but i would not expect &quot;a lot&quot;.
-<br>
-<br>regards,
-<br>Henning
-<br></blockquote></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/b258dc63-26a9-4eff-852a-23d72d2e3258%40googlegroup=
-s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
-sgid/jailhouse-dev/b258dc63-26a9-4eff-852a-23d72d2e3258%40googlegroups.com<=
-/a>.<br />
-
-------=_Part_2750_1998359085.1579766249538--
-
-------=_Part_2749_433490410.1579766249538--
+jailhouse-dev/210c9279-ce8b-67ff-ae88-6becb7f06b55%40oth-regensburg.de.
