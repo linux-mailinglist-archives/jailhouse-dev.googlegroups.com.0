@@ -1,73 +1,73 @@
-Return-Path: <jailhouse-dev+bncBCDJXM4674ERBCHKWTYQKGQETV4LMVI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCDJXM4674ERBS7VWTYQKGQEOLDVOXA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oi1-x240.google.com (mail-oi1-x240.google.com [IPv6:2607:f8b0:4864:20::240])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C5DF149976
-	for <lists+jailhouse-dev@lfdr.de>; Sun, 26 Jan 2020 07:43:22 +0100 (CET)
-Received: by mail-oi1-x240.google.com with SMTP id q204sf929515oic.12
-        for <lists+jailhouse-dev@lfdr.de>; Sat, 25 Jan 2020 22:43:22 -0800 (PST)
+Received: from mail-ot1-x337.google.com (mail-ot1-x337.google.com [IPv6:2607:f8b0:4864:20::337])
+	by mail.lfdr.de (Postfix) with ESMTPS id A9B8214997D
+	for <lists+jailhouse-dev@lfdr.de>; Sun, 26 Jan 2020 08:07:56 +0100 (CET)
+Received: by mail-ot1-x337.google.com with SMTP id d16sf3918802otq.19
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 25 Jan 2020 23:07:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:date:from:to:message-id:in-reply-to:references:subject
          :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=va+dB9R+UDRj2lLShwOdbbjnEcU0bDrZAtraNTlrgWk=;
-        b=lVvqkJPEvcSVn2BqzKiIMZHiQVEUaWN6xYWenm3sAVjAyLTF7XFJmCtQ3kDxkkkcZ4
-         WdG9XNjfO5x+rtAmLHdjLItr7D9KvQcpnujjaaX3H2LQT4JnNzrU6zA2CMGHwGYpuHRp
-         U6BruunlTroJi83Dw0moc9uebM29kvveZrsHGOCosCQHjbMlbFGjL6vWX2RP71XdT+SN
-         er1zsVtjnqqgsbnnpKjI7/D2Rn1vf+wclVVUzLkrUEYT94UfTejQO8mrtbaZpYJr8tHY
-         Hm27sMEeST1/CadduRvf8VZYOh8lZ9/bZDtmPfPsF+kBu+V8goXVHj8axXHC+EmiQ5fk
-         GJYg==
+        bh=Lp5ahGV5zhsJC7Ghdn9eZrtvnHq0b9tvo27bvthbWpk=;
+        b=elLVEquAArMH1gFSjn9vUGpbmYfda2WVxpAOKGKT4adO1Hm28Mmx8pEEC/dZxqkGTD
+         W1kViD0HLI5gl2SCdGx305tlanOm8CKViBoi2qEOBRuNNc/OoEPdolWcv3s/E9vySnMd
+         HSefkl8RI7F0r85L726OsAX/WJLmN6J2Gdx0IWxIY83SoeuBLMMQj69+EjeI4MpphyL2
+         7P5zrSorzpanVpxiO1RDuEp910nuAx8XtNvggTqbjPcDmMXsP81kKFQdanmJlAKl/Hx3
+         GTlo4hGKuUyiFRhnXLx7/I3cS6G8QTEidR7WHD1Sc/B4r4wDLtpAbLI8P+FAoJ3O57Xm
+         1+eA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:message-id:in-reply-to:references:subject:mime-version
          :x-original-sender:precedence:mailing-list:list-id:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=va+dB9R+UDRj2lLShwOdbbjnEcU0bDrZAtraNTlrgWk=;
-        b=NPhgJLovde+WFlokbkJEmoQOamlUPHKVGPRGWUHPoqakCRMJOiMGsKsb9hQG7AuuWF
-         fBxMuh6I0lMS0pNWlo3YUD6rmfNxgypbe8Qbk1OKq0A1oJgDb9oWCDQxAfM9SIlNW7gH
-         gP9Y3P4DJ6h40cPw/Ioi5EQOkBxBevzD1lF/CBDUJkee3FoLosdbKI2acNV6viRkW9ct
-         STWzJR0l7gqrl2IzkSSGY0MuATitP8euA/KJDkeeW/ZspPjAQ8CAXdI2Or/iugWUVQwR
-         FDpp2hojykpvcP1dbDs8eo45fQ9DxJSnIUI8/C0Lgr4vQvoZ8MRFlMTyWV2eE6bYelMG
-         omFQ==
+        bh=Lp5ahGV5zhsJC7Ghdn9eZrtvnHq0b9tvo27bvthbWpk=;
+        b=DAKb4SVTzEE1zdrFRaNMHM/mE7pGTd0Gdn8X3t26csLnoE+tkarsyj0Ggnq74wwDFN
+         CIyfh5ya71onZc8rASuqwHdW1Q/y3ihOwxH0a7gm1IP/mpEwsvfwsyk3qd/vrVZz2405
+         oxIZ9RCkQqr1XmPmJO+kH/jECNM/ng2guLuZ4/GMcwGMpcVvHkN3iQaUYZcKKHf70mvV
+         6RdN/l3VEK9ZNKw+AkNhGTAoc45fhKi6cckC+jS4FdnIU+FyD3HuztVmnTEoSHHrhPwh
+         mQUQpnQnv6xBMnkOm4doV9JUcV5OiFvLl+w19nFvVoNW2OFY/lKPsK39yQcWVBvm9M6C
+         I7Cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
          :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=va+dB9R+UDRj2lLShwOdbbjnEcU0bDrZAtraNTlrgWk=;
-        b=Q5bWAXZAxiyq6ATVwlcg9fLzYIbCatx0VH5pGstGoPhycEzpAKIkQplL3/aD03V8Xq
-         izS1QcWU31BfoErZt0P32i1W5Qg9Aqk3cfTmS8o5KVJzdHxS/ob17bpQlJcVjvWtEM4r
-         uhzP6zj5cjzH6uge20Ep99YSDvBu8Dx++dT3X8sutjR9ExpJTet97+abdz5S47aXmvYa
-         syp57cUG0s50RYqZhH+aT8zY9ebdwjXb6GJS3AyGrydSfL8mZiqAEnousIKdDZUWAAW+
-         hA372Fz8j+HGkbK8KtWmn/2dmBKMCd9w5b8VIxgEYnIhSNUNoEyq8jnheuv/RA/fcWgc
-         G7Nw==
+        bh=Lp5ahGV5zhsJC7Ghdn9eZrtvnHq0b9tvo27bvthbWpk=;
+        b=mHIPx56oFEd7V5QoRY7JJGkhf5H68k9DvyQhHOCd+FrnQxRKS7MSqVlLNRMN5hmaFD
+         lq90c4padHLbmLAL1q75J1pWx5hOirmqqWz9xDC2dUqFguvGmCDCcIZtF/FVOUfu1FwL
+         dB/gshQVwZij++EFAQBxCdYuH1pZYeMVaa0SaHo5Y7k/U/rnFT42LV3Yo9HaDjRH5ion
+         egk6zVQlxF/PLikZzYcsWTDkwbgDj5nLS5rgt26l1vNJuX6kYe1aZ5Ke2Y6A1Y6KlOoC
+         doOMm0Z8yfYfDeUJXalCSvvHNdZSzyyHjaJzAhfJrEeCHtdKsQa7UoU0OUVyWUc4Lrdn
+         zV3g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAWGoX5/KcBYpBe7rUGUJ/kpNmv4dgkC/Ooggtd/dQPCTctSDFhM
-	N9Uzb2HG4o1bLYZEnTSwu58=
-X-Google-Smtp-Source: APXvYqyj4t+u/uW9JEdPcBUwOHbEi9vfiQMeViTiunLk0wLhyxwYljUv1HrVvJM/J3HIRecSXza3sg==
-X-Received: by 2002:a9d:7cd0:: with SMTP id r16mr8766578otn.50.1580021000575;
-        Sat, 25 Jan 2020 22:43:20 -0800 (PST)
+X-Gm-Message-State: APjAAAXutjoDcxEygb2b4ZpvMIy1NA9kLACRkwIBg/RYufBca9p0KLan
+	HP+m8BHJhYoEHpiAdDqvTm0=
+X-Google-Smtp-Source: APXvYqyffSSLaNZTEFb5ZbSmR5I8rH+CnsVWdlIgVGkrwy/0jI4E/9WU3iey0KWZyHC4WHmxXE1ujA==
+X-Received: by 2002:a05:6830:1257:: with SMTP id s23mr8528001otp.241.1580022475415;
+        Sat, 25 Jan 2020 23:07:55 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6808:910:: with SMTP id w16ls713933oih.2.gmail; Sat, 25
- Jan 2020 22:43:20 -0800 (PST)
-X-Received: by 2002:aca:3554:: with SMTP id c81mr235080oia.0.1580020999769;
-        Sat, 25 Jan 2020 22:43:19 -0800 (PST)
-Date: Sat, 25 Jan 2020 22:43:18 -0800 (PST)
+Received: by 2002:aca:d615:: with SMTP id n21ls719824oig.5.gmail; Sat, 25 Jan
+ 2020 23:07:54 -0800 (PST)
+X-Received: by 2002:aca:c782:: with SMTP id x124mr4289434oif.88.1580022474633;
+        Sat, 25 Jan 2020 23:07:54 -0800 (PST)
+Date: Sat, 25 Jan 2020 23:07:53 -0800 (PST)
 From: Michael Hinton <michael.g.hinton@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <14044a3a-7bc1-45c0-8447-2138f3834838@googlegroups.com>
-In-Reply-To: <1c6fd98d-5f05-eb49-5780-273387eae195@oth-regensburg.de>
+Message-Id: <5ba8f35f-912a-4749-bf8b-781193f45ebc@googlegroups.com>
+In-Reply-To: <20200123131505.1e5fdeb5@md1za8fc.ad001.siemens.net>
 References: <4d8ab27d-7a1a-4601-8d61-429dd0cdd018@googlegroups.com>
  <20200120144629.201f3081@md1za8fc.ad001.siemens.net>
  <b258dc63-26a9-4eff-852a-23d72d2e3258@googlegroups.com>
- <1c6fd98d-5f05-eb49-5780-273387eae195@oth-regensburg.de>
+ <20200123131505.1e5fdeb5@md1za8fc.ad001.siemens.net>
 Subject: Re: Difference in execution duration between root cell and inmate
  for same code
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_3874_183463694.1580020998920"
+	boundary="----=_Part_3890_1248430326.1580022473992"
 X-Original-Sender: Michael.G.Hinton@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -81,136 +81,153 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_3874_183463694.1580020998920
+------=_Part_3890_1248430326.1580022473992
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_3875_676603656.1580020998921"
+	boundary="----=_Part_3891_1705939653.1580022473993"
 
-------=_Part_3875_676603656.1580020998921
+------=_Part_3891_1705939653.1580022473993
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Ralf,
+Hi Henning,
 
-On Thursday, January 23, 2020 at 5:02:40 AM UTC-7, Ralf Ramsauer wrote:
+On Thursday, January 23, 2020 at 5:15:08 AM UTC-7, Henning Schild wrote:
 >
-> On 23/01/2020 08:57, Michael Hinton wrote:=20
+> Thanks,=20
+>
+> that is a lot of information. I would say that is CPU and memory bound=20
+> work. It should not cause exits at all, maybe a few for getting the=20
+> input in and the output out. reading ivshmem should not trap,
+
+ So IVSHMEM won't trap/cause a vmexit? What are the other potential causes=
+=20
+for traps, then? My inmate doesn't access any other resources.
+=20
+
+> writing=20
+> output to a console should be avoided within the measured time.=20
+>
+Before starting this thread, I found that I accidentally did do this, and=
+=20
+after removing the console print, I shaved 300 ms off the inmate time. But=
+=20
+I don't see any more prints that could happen.
+
+This is how I measure the workload in the inmate:=20
+https://github.com/hintron/jailhouse/blob/ba0c5f9cc28edf43ab6970cdaddafea77=
+dd07b4c/inmates/demos/x86/mgh-demo.c#L1117-L1121
+I then print the cycle count and divide it by 3,700,000 manually to get the=
+=20
+total duration to avoid overflows and truncations.
+=20
+
+> If you need to use something that traps, see if you can "batch" things.=
+=20
+> I.e. do not read/write in byte-chunks. =20
+
+For truly memory bound applications the mapping of the memory matters.=20
+> The bigger the pages in the pagetable (and the nested pagetable) the=20
+> better. You might be able to read performance counters and look at TLB=20
+> misses.=20
+>
+I'll need to look into that.
+ =20
+
+> Not sure what Jailhouse exactly does to mitigate Spectre etc. but these=
+=20
+> mitigations often have a severe effect on "memory performance".=20
+>
+> I would for sure have a look at aligning the CFLAGS used for the Linux=20
+> application and the inmate.=20
+>
+Ok, I'll double check CFLAGS as well. I'm now using the exact same object=
+=20
+files for the workload functions, but the discrepancy got worse :D
+=20
+
+> The first things to compare is "native Linux", "root cell Linux under=20
+> jailhouse" and "non-root cell Linux under jailhouse". If the third is=20
+> better than your inmate, your inmates environment is likely the cause.=20
+>
+Yes, I've been looking at those three cases, and Linux under Jailhouse is=
+=20
+only 30 ms slower than Linux not under Jailhouse, while both of those are=
+=20
+way faster than the inmate. So that tells me that there is something going=
+=20
+wrong with the inmate.
+=20
+Thanks for the help,
+-Michael
+
+Henning=20
+>
+> On Wed, 22 Jan 2020 23:57:29 -0800=20
+> Michael Hinton <michael...@gmail.com <javascript:>> wrote:=20
+>
+> > Ralf, Henning,=20
+> >=20
+> >=20
+> > Thanks for the quick response, and sorry for the delay.=20
+> >=20
 > > Here=E2=80=99s my setup: I=E2=80=99ve got a 6-core Intel x86-64 CPU run=
 ning Kubuntu=20
 > > 19.10. I have an inmate that is given a single core and runs a=20
-> > single-threaded workload. For comparison, I also run the same workload=
-=20
-> > in Linux under Jailhouse.=20
->
-> What CPU exactly?=20
->
-CPU 2 (.cpus =3D {0b0100}). I could try moving it to another core to see if=
-=20
-that makes a difference.
-=20
-
-> > For a SHA3 workload with the same 20 MiB input, the root Linux cell (an=
-d=20
-> > no inmate running) takes about 2 seconds, while the inmate (and an idle=
-=20
-> > root cell) takes about 2.8 seconds. That is a worrisome discrepancy, an=
-d=20
-> > I need to understand why it=E2=80=99s 0.8 s slower.=20
->
-> What about CPU power features? cpufreq? turbo boost? ...=20
->
-I have already turned off Hardware P-states when booting Linux, and that=20
-stopped hardware p-state stuff affecting my inmate benchmarks:
-
-hintron@bazooka:~/code/jailhouse/mgh/scripts$ grep "no_hwp"=20
-/etc/default/grub   =20
-GRUB_CMDLINE_LINUX_DEFAULT=3D"quiet splash intel_iommu=3Doff=20
-memmap=3D82M\\\$0x3a000000 kvm_intel.nested=3D1 in
-tel_pstate=3Dno_hwp acpi=3Dforce"
-
-As for Turbo Boost, I've been trying to turn it off, but it appears that=20
-the inmate just runs at the max turbo boost frequency when it starts up,=20
-which in this case is 3.9 GHz. I've even measured the frequency in the=20
-inmate with the APERF and MPERF MSRs to verify this. When I change the=20
-Turbo Boost max frequency in Linux to 3.7 GHz using CoreFreq, that is what=
-=20
-the inmate runs at when I start the inmate.
-
-SHA3 is only computationally 'expensive', right? So it's neither memory=20
-> intensive nor should it trap.=20
->
-Yes, SHA3 is computationally expensive. When running it under VTune, it=20
-doesn't show it as memory bound. The other two workloads are more memory=20
-bound.
-
-By "trap" do you mean a vmexit or something else?
-=20
-
-> > You can see that the inmate and the Linux wrapper both execute the same=
-=20
-> > function, sha3_mgh(). It's the same C code.=20
+> > single-threaded workload. For comparison, I also run the same=20
+> > workload in Linux under Jailhouse.=20
+> >=20
+> > For a SHA3 workload with the same 20 MiB input, the root Linux cell=20
+> > (and no inmate running) takes about 2 seconds, while the inmate (and=20
+> > an idle root cell) takes about 2.8 seconds. That is a worrisome=20
+> > discrepancy, and I need to understand why it=E2=80=99s 0.8 s slower.=20
+> >=20
+> > This is the SHA3 workload:=20
+> >=20
+> https://github.com/hintron/jailhouse/blob/76e6d446ca682f73679616a0f3df8ac=
+79f4a1cde/inmates/lib/mgh-sha3.c#L185-L208=20
+> >=20
+> > This is the Linux wrapper for the SHA3 workload:=20
+> >=20
+> https://github.com/hintron/jailhouse/blob/76e6d446ca682f73679616a0f3df8ac=
+79f4a1cde/mgh/workloads/src/sha3-512.c#L166-L168=20
+> >=20
+> > This is the inmate program calling the SHA3 workload:=20
+> >=20
+> https://github.com/hintron/jailhouse/blob/76e6d446ca682f73679616a0f3df8ac=
+79f4a1cde/inmates/demos/x86/mgh-demo.c#L370-L379=20
+> >=20
+> > You can see that the inmate and the Linux wrapper both execute the=20
+> > same function, sha3_mgh(). It's the same C code.=20
+> >=20
+> > The other workloads I run are intentionally more memory intensive.=20
+> > They see a much worse slowdown. For my CSB workload, the root cell=20
+> > takes only 0.05 s for a 20 MiB input, while the inmate takes 1.48 s=20
+> > (30x difference). And for my Random Access workload, the root cell=20
+> > takes 0.08 s while the inmate takes 3.29 s for a 20 MiB input (40x=20
+> > difference).=20
+> >=20
+> > Here are the root and inmate cell configs, respectively:=20
 > >=20
 > >=20
-> > The other workloads I run are intentionally more memory intensive. They=
-=20
-> > see a much worse slowdown. For my CSB workload, the root cell takes onl=
-y=20
-> > 0.05 s for a 20 MiB input, while the inmate takes 1.48 s (30x=20
-> > difference). And for my Random Access workload, the root cell takes 0.0=
-8=20
-> > s while the inmate takes 3.29 s for a 20 MiB input (40x difference).=20
->
-> Now this sounds pretty much like what I once had: too little caches for=
-=20
-> the inmate.=20
->
-> BTW: For a sound comparison, you would need to take care to have a=20
-> comparable initial hardware state: E.g., you need to take care that=20
-> workloads in root-cell and non-root inmate are both either uncached or=20
-> cached when starting the code.=20
->
-I run 10 consecutive iterations for each workload, so that should flush=20
-things out, right?
-
-But that's fine tuning, and won't explain a 40x difference.=20
->
-> I recommend to deactivate hyperthreading.=20
-
-
-> If your inmate just gets one sibling, the other one will still belong to=
-=20
-> Linux, which could, in case of utilisation, steals a lot of power. So=20
-> either disable HT or assign both siblings to the inmate.=20
->
-Yeah, I deactivated HT a while ago, because I realized there could be=20
-significant coupling between logical threads on the same core, like you=20
-mentioned. So there are 6 cores on my CPU without HT.
-=20
-
+> https://github.com/hintron/jailhouse/blob/76e6d446ca682f73679616a0f3df8ac=
+79f4a1cde/configs/x86/bazooka-root.c=20
+> >=20
 > >=20
 > https://github.com/hintron/jailhouse/blob/76e6d446ca682f73679616a0f3df8ac=
 79f4a1cde/configs/x86/bazooka-inmate.c=20
 > >=20
-> >=20
 > > I did do some modifications to Jailhouse with VMX and the preemption=20
-> > timer, but any slowdown that I may have inadvertently introduced should=
-=20
-> > apply equally to the inmate and root cell.=20
-> >=20
+> > timer, but any slowdown that I may have inadvertently introduced=20
+> > should apply equally to the inmate and root cell.=20
 > >=20
 > > It=E2=80=99s possible that I am measuring the duration of the inmate=20
-> > incorrectly. But the number of vmexits I measure for the inmate and roo=
-t=20
-> > seem to roughly correspond with the duration. I also made sure to avoid=
+> > incorrectly. But the number of vmexits I measure for the inmate and=20
+> > root seem to roughly correspond with the duration. I also made sure=20
+> > to avoid tsc_read_ns() by instead recording the TSC cycles and=20
+> > deriving the duration by dividing by 3,700,000,000 (the unchanging=20
+> > TSC frequency of my processor). Without this, the time recorded would=
 =20
->
-> Yeah, I would also expect that: Your code only utilises memory + CPU,=20
-> almost no I/O.=20
->
-> > tsc_read_ns() by instead recording the TSC cycles and deriving the=20
-> > duration by dividing by 3,700,000,000 (the unchanging TSC frequency of=
-=20
-> > my processor). Without this, the time recorded would overflow after=20
-> > something like 1.2 seconds.=20
+> > overflow after something like 1.2 seconds.=20
 > >=20
 > >=20
 > > I'm wondering if something else is causing unexpected delays: using=20
@@ -218,67 +235,46 @@ t=20
 > > input, printing to a virtual console in addition to a serial console,=
 =20
 > > disabling hardware p-states, turbo boost in the root cell, maybe the=20
-> > workload code is being compiled to different instructions for the inmat=
-e=20
-> > vs. Linux, etc.=20
+> > workload code is being compiled to different instructions for the=20
+> > inmate vs. Linux, etc.=20
+> >=20
+> > Sorry for all the detail, but I am grasping at straws at this point.=20
+> > Any ideas at what I could look into are appreciated.=20
+> >=20
+> > Thanks,=20
+> > Michael=20
+> >=20
+> > On Monday, January 20, 2020 at 6:46:32 AM UTC-7, Henning Schild wrote:=
+=20
+> > >=20
+> > > On Sun, 19 Jan 2020 23:45:46 -0800=20
+> > > Michael Hinton <michael...@gmail.com <javascript:>> wrote:=20
+> > >  =20
+> > > > Hello,=20
+> > > >=20
+> > > > I have found that running code in an inmate is a lot slower than=20
+> > > > running that same code in the root cell on my x86 machine. I am=20
+> > > > not sure why.  =20
+> > >=20
+> > > Can you elaborate on "code" and "a lot"? Maybe roughly tell us what=
+=20
+> > > your testcase does and how severe your slowdown is. Synthetic=20
+> > > microbenchmark to measure context switching ?=20
+> > >=20
+> > > As Ralf already said, anything causing "exits" can be subject to=20
+> > > slowdown. But that should be roughly the same for the root cell or=20
+> > > any non-root cell, is it truly the "same" code?=20
+> > >=20
+> > > And of cause anything accessing shared resources can be slowed down=
+=20
+> > > by the sharing. Caches/buses ... but i would not expect "a lot".=20
+> > >=20
+> > > regards,=20
+> > > Henning=20
+> > >  =20
+> >=20
 >
-> The latter one: You definitely need to check that. If your Linux=20
-> compiler generates (e.g.) AVX code and your inmate.=20
 >
-Ok, I compared the assembly and they were very different. It turns out that=
-=20
-I was using a different version of GCC *and* my machine by default does PIC=
-.
-=20
-
-> You could also try to link the same library object to your target=20
-> binaries -- the build system is your friend.=20
->
-That is a great idea. I just did that today to see if I get better results.=
-=20
-I made sure to use the same object files for the workload. That, combined=
-=20
-with no PIC and using the same version of GCC, made the duration of the=20
-SHA3 workload running in Linux go from 2.0 s to *1.2* seconds. So now the=
-=20
-discrepancy is even larger! 2.8 s (inmate) vs. 1.2 s (Linux). I imagine=20
-that not doing PIC was probably the biggest difference, but I'm not sure=20
-exactly how that interacts with the hypervisor. At any rate, I'm still=20
-quite lost at how there is a 1.6 s difference between the inmate and Linux.
-
-I did notice something strange, though: somehow the CPU features in=20
-/proc/cpuinfo are different for different cores. So this causes `jailhouse=
-=20
-hardware check` to fail, since that check assumes that all CPUs have the=20
-same features. When the machine boots, they do. But after running for a=20
-while, they don't. I'm not sure what causes them to activate those features=
-.
-
-So for CPU 0 and 2, right now it shows that they have three extra features:=
- md_clear,=20
-flush_l1d, and ssbd. All three of those are hardware bug mitigation=20
-features. But can that explain a 1.6 s difference? And why would some CPUs=
-=20
-run the mitigations while others do not? That seems fishy to me. I'll do=20
-more testing to see if running the inmate on a core without those features=
-=20
-currently active improves performance (it should, but by how much?).=20
-
-=20
-
-> > Sorry for all the detail, but I am grasping at straws at this point. An=
-y=20
-> > ideas at what I could look into are appreciated.=20
->
-> Benchmarking is fun. Especially getting the hardware under control. :-) =
-=20
->
-  Ralf=20
->
-"fun" :)
-
-Thanks,
-Michael
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -286,194 +282,253 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/14044a3a-7bc1-45c0-8447-2138f3834838%40googlegroups.com.
+jailhouse-dev/5ba8f35f-912a-4749-bf8b-781193f45ebc%40googlegroups.com.
 
-------=_Part_3875_676603656.1580020998921
+------=_Part_3891_1705939653.1580022473993
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Hi Ralf,<div><br></div><div>On Thursday, January 23, 2020 =
-at 5:02:40 AM UTC-7, Ralf Ramsauer wrote:<blockquote class=3D"gmail_quote" =
-style=3D"margin: 0;margin-left: 0.8ex;border-left: 1px #ccc solid;padding-l=
-eft: 1ex;">On 23/01/2020 08:57, Michael Hinton wrote:
+<div dir=3D"ltr">Hi Henning,<br><br>On Thursday, January 23, 2020 at 5:15:0=
+8 AM UTC-7, Henning Schild wrote:<blockquote class=3D"gmail_quote" style=3D=
+"margin: 0;margin-left: 0.8ex;border-left: 1px #ccc solid;padding-left: 1ex=
+;">Thanks,
+<br>
+<br>that is a lot of information. I would say that is CPU and memory bound
+<br>work. It should not cause exits at all, maybe a few for getting the
+<br>input in and the output out. reading ivshmem should not trap,</blockquo=
+te><div>=C2=A0So IVSHMEM won&#39;t trap/cause a vmexit? What are the other =
+potential causes for traps, then? My inmate doesn&#39;t access any other re=
+sources.</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"m=
+argin: 0;margin-left: 0.8ex;border-left: 1px #ccc solid;padding-left: 1ex;"=
+>writing
+<br>output to a console should be avoided within the measured time.
+<br></blockquote><div>Before starting this thread, I found that I accidenta=
+lly did do this, and after removing the console print, I shaved 300 ms off =
+the inmate time. But I don&#39;t see any more prints that could happen.</di=
+v><div><br></div><div>This is how I measure the workload in the inmate:=C2=
+=A0<a href=3D"https://github.com/hintron/jailhouse/blob/ba0c5f9cc28edf43ab6=
+970cdaddafea77dd07b4c/inmates/demos/x86/mgh-demo.c#L1117-L1121">https://git=
+hub.com/hintron/jailhouse/blob/ba0c5f9cc28edf43ab6970cdaddafea77dd07b4c/inm=
+ates/demos/x86/mgh-demo.c#L1117-L1121</a></div><div>I then print the cycle =
+count and divide it by 3,700,000 manually to get the total duration to avoi=
+d overflows and truncations.</div><div>=C2=A0</div><blockquote class=3D"gma=
+il_quote" style=3D"margin: 0;margin-left: 0.8ex;border-left: 1px #ccc solid=
+;padding-left: 1ex;">If you need to use something that traps, see if you ca=
+n &quot;batch&quot; things.
+<br>I.e. do not read/write in byte-chunks.=C2=A0=C2=A0</blockquote><blockqu=
+ote class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-left=
+: 1px #ccc solid;padding-left: 1ex;">For truly memory bound applications th=
+e mapping of the memory matters.
+<br>The bigger the pages in the pagetable (and the nested pagetable) the
+<br>better. You might be able to read performance counters and look at TLB
+<br>misses.
+<br></blockquote><div>I&#39;ll need to look into that.</div><div>=C2=A0=C2=
+=A0</div><blockquote class=3D"gmail_quote" style=3D"margin: 0;margin-left: =
+0.8ex;border-left: 1px #ccc solid;padding-left: 1ex;">Not sure what Jailhou=
+se exactly does to mitigate Spectre etc. but these
+<br>mitigations often have a severe effect on &quot;memory performance&quot=
+;.
+<br>
+<br>I would for sure have a look at aligning the CFLAGS used for the Linux
+<br>application and the inmate.
+<br></blockquote><div>Ok, I&#39;ll double check CFLAGS as well. I&#39;m now=
+ using the exact same object files for the workload functions, but the disc=
+repancy got worse :D</div><div>=C2=A0</div><blockquote class=3D"gmail_quote=
+" style=3D"margin: 0;margin-left: 0.8ex;border-left: 1px #ccc solid;padding=
+-left: 1ex;">The first things to compare is &quot;native Linux&quot;, &quot=
+;root cell Linux under
+<br>jailhouse&quot; and &quot;non-root cell Linux under jailhouse&quot;. If=
+ the third is
+<br>better than your inmate, your inmates environment is likely the cause.
+<br></blockquote><div>Yes, I&#39;ve been looking at those three cases, and =
+Linux under Jailhouse is only 30 ms slower than Linux not under Jailhouse, =
+while both of those are way faster than the inmate. So that tells me that t=
+here is something going wrong with the inmate.</div><div>=C2=A0</div><div>T=
+hanks for the help,</div><div>-Michael</div><div><br></div><blockquote clas=
+s=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-left: 1px #c=
+cc solid;padding-left: 1ex;">Henning
+<br>
+<br>On Wed, 22 Jan 2020 23:57:29 -0800
+<br>Michael Hinton &lt;<a href=3D"javascript:" target=3D"_blank" gdf-obfusc=
+ated-mailto=3D"XYNbxS1CCQAJ" rel=3D"nofollow" onmousedown=3D"this.href=3D&#=
+39;javascript:&#39;;return true;" onclick=3D"this.href=3D&#39;javascript:&#=
+39;;return true;">michael...@gmail.com</a>&gt; wrote:
+<br>
+<br>&gt; Ralf, Henning,
+<br>&gt;=20
+<br>&gt;=20
+<br>&gt; Thanks for the quick response, and sorry for the delay.
+<br>&gt;=20
 <br>&gt; Here=E2=80=99s my setup: I=E2=80=99ve got a 6-core Intel x86-64 CP=
 U running Kubuntu
 <br>&gt; 19.10. I have an inmate that is given a single core and runs a
-<br>&gt; single-threaded workload. For comparison, I also run the same work=
-load
-<br>&gt; in Linux under Jailhouse.
-<br>
-<br>What CPU exactly?
-<br></blockquote><div>CPU 2 (.cpus =3D {0b0100}). I could try moving it to =
-another core to see if that makes a difference.</div><div>=C2=A0</div><bloc=
-kquote class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-l=
-eft: 1px #ccc solid;padding-left: 1ex;">&gt; For a SHA3 workload with the s=
-ame 20 MiB input, the root Linux cell (and
-<br>&gt; no inmate running) takes about 2 seconds, while the inmate (and an=
- idle
-<br>&gt; root cell) takes about 2.8 seconds. That is a worrisome discrepanc=
-y, and
-<br>&gt; I need to understand why it=E2=80=99s 0.8 s slower.
-<br>
-<br>What about CPU power features? cpufreq? turbo boost? ...
-<br></blockquote><div>I have already turned off Hardware P-states when boot=
-ing Linux, and that stopped hardware p-state stuff affecting my inmate benc=
-hmarks:</div><div><br></div><div><span style=3D"font-family:monospace"><spa=
-n style=3D"font-weight: bold; color: rgb(84, 255, 84);">hintron@bazooka</sp=
-an><span style=3D"color: rgb(0, 0, 0);">:</span><span style=3D"font-weight:=
- bold; color: rgb(84, 84, 255);">~/code/jailhouse/mgh/scripts</span><span s=
-tyle=3D"color: rgb(0, 0, 0);">$ grep &quot;no_hwp&quot; /etc/default/grub =
-=C2=A0=C2=A0=C2=A0</span><br>GRUB_CMDLINE_LINUX_DEFAULT=3D&quot;quiet splas=
-h intel_iommu=3Doff memmap=3D82M\\\$0x3a000000 kvm_intel.nested=3D1 in<br>t=
-el_pstate=3D<span style=3D"font-weight: bold; color: rgb(255, 84, 84);">no_=
-hwp</span><span style=3D"color: rgb(0, 0, 0);"> acpi=3Dforce&quot;</span><b=
-r>
-<br></span></div><div>As for Turbo Boost, I&#39;ve been trying to turn it o=
-ff, but it appears that the inmate just runs at the max turbo boost frequen=
-cy when it starts up, which in this case is 3.9 GHz. I&#39;ve even measured=
- the frequency in the inmate with the APERF and MPERF MSRs to verify this. =
-When I change the Turbo Boost max frequency in Linux to 3.7 GHz using CoreF=
-req, that is what the inmate runs at when I start the inmate.<br></div><div=
-><br></div><blockquote class=3D"gmail_quote" style=3D"margin: 0;margin-left=
-: 0.8ex;border-left: 1px #ccc solid;padding-left: 1ex;">SHA3 is only comput=
-ationally &#39;expensive&#39;, right? So it&#39;s neither memory
-<br>intensive nor should it trap.
-<br></blockquote><div>Yes, SHA3 is computationally expensive. When running =
-it under VTune, it doesn&#39;t show it as memory bound. The other two workl=
-oads are more memory bound.</div><div><br></div><div>By &quot;trap&quot; do=
- you mean a vmexit or something else?</div><div>=C2=A0</div><blockquote cla=
-ss=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-left: 1px #=
-ccc solid;padding-left: 1ex;">&gt; You can see that the inmate and the Linu=
-x wrapper both execute the same
-<br>&gt; function, sha3_mgh(). It&#39;s the same C code.
+<br>&gt; single-threaded workload. For comparison, I also run the same
+<br>&gt; workload in Linux under Jailhouse.
 <br>&gt;=20
+<br>&gt; For a SHA3 workload with the same 20 MiB input, the root Linux cel=
+l
+<br>&gt; (and no inmate running) takes about 2 seconds, while the inmate (a=
+nd
+<br>&gt; an idle root cell) takes about 2.8 seconds. That is a worrisome
+<br>&gt; discrepancy, and I need to understand why it=E2=80=99s 0.8 s slowe=
+r.
 <br>&gt;=20
-<br>&gt; The other workloads I run are intentionally more memory intensive.=
- They
-<br>&gt; see a much worse slowdown. For my CSB workload, the root cell take=
-s only
-<br>&gt; 0.05 s for a 20 MiB input, while the inmate takes 1.48 s (30x
-<br>&gt; difference). And for my Random Access workload, the root cell take=
-s 0.08
-<br>&gt; s while the inmate takes 3.29 s for a 20 MiB input (40x difference=
-).
-<br>
-<br>Now this sounds pretty much like what I once had: too little caches for
-<br>the inmate.
-<br>
-<br>BTW: For a sound comparison, you would need to take care to have a
-<br>comparable initial hardware state: E.g., you need to take care that
-<br>workloads in root-cell and non-root inmate are both either uncached or
-<br>cached when starting the code.
-<br></blockquote><div>I run 10 consecutive iterations for each workload, so=
- that should flush things out, right?</div><div><br></div><blockquote class=
-=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-left: 1px #cc=
-c solid;padding-left: 1ex;">But that&#39;s fine tuning, and won&#39;t expla=
-in a 40x difference.
-<br><br>I recommend to deactivate hyperthreading.=C2=A0</blockquote><blockq=
-uote class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-lef=
-t: 1px #ccc solid;padding-left: 1ex;">
-<br>If your inmate just gets one sibling, the other one will still belong t=
-o
-<br>Linux, which could, in case of utilisation, steals a lot of power. So
-<br>either disable HT or assign both siblings to the inmate.
-<br></blockquote><div>Yeah, I deactivated HT a while ago, because I realize=
-d there could be significant coupling between logical threads on the same c=
-ore, like you mentioned. So there are 6 cores on my CPU without HT.</div><d=
-iv>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin: 0;margin-=
-left: 0.8ex;border-left: 1px #ccc solid;padding-left: 1ex;">&gt; <a href=3D=
-"https://github.com/hintron/jailhouse/blob/76e6d446ca682f73679616a0f3df8ac7=
-9f4a1cde/configs/x86/bazooka-inmate.c" target=3D"_blank" rel=3D"nofollow" o=
-nmousedown=3D"this.href=3D&#39;https://www.google.com/url?q\x3dhttps%3A%2F%=
-2Fgithub.com%2Fhintron%2Fjailhouse%2Fblob%2F76e6d446ca682f73679616a0f3df8ac=
-79f4a1cde%2Fconfigs%2Fx86%2Fbazooka-inmate.c\x26sa\x3dD\x26sntz\x3d1\x26usg=
-\x3dAFQjCNHhH5hG16S03OXU6Fq_aUXIBWtMog&#39;;return true;" onclick=3D"this.h=
-ref=3D&#39;https://www.google.com/url?q\x3dhttps%3A%2F%2Fgithub.com%2Fhintr=
-on%2Fjailhouse%2Fblob%2F76e6d446ca682f73679616a0f3df8ac79f4a1cde%2Fconfigs%=
-2Fx86%2Fbazooka-inmate.c\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQjCNHhH5hG16S0=
-3OXU6Fq_aUXIBWtMog&#39;;return true;">https://github.com/hintron/<wbr>jailh=
-ouse/blob/<wbr>76e6d446ca682f73679616a0f3df8a<wbr>c79f4a1cde/configs/x86/<w=
-br>bazooka-inmate.c</a>
+<br>&gt; This is the SHA3 workload:=20
+<br>&gt; <a href=3D"https://github.com/hintron/jailhouse/blob/76e6d446ca682=
+f73679616a0f3df8ac79f4a1cde/inmates/lib/mgh-sha3.c#L185-L208" target=3D"_bl=
+ank" rel=3D"nofollow" onmousedown=3D"this.href=3D&#39;https://www.google.co=
+m/url?q\x3dhttps%3A%2F%2Fgithub.com%2Fhintron%2Fjailhouse%2Fblob%2F76e6d446=
+ca682f73679616a0f3df8ac79f4a1cde%2Finmates%2Flib%2Fmgh-sha3.c%23L185-L208\x=
+26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQjCNGIn-9IHMopzHc9p5fkGb-j73B6FA&#39;;re=
+turn true;" onclick=3D"this.href=3D&#39;https://www.google.com/url?q\x3dhtt=
+ps%3A%2F%2Fgithub.com%2Fhintron%2Fjailhouse%2Fblob%2F76e6d446ca682f73679616=
+a0f3df8ac79f4a1cde%2Finmates%2Flib%2Fmgh-sha3.c%23L185-L208\x26sa\x3dD\x26s=
+ntz\x3d1\x26usg\x3dAFQjCNGIn-9IHMopzHc9p5fkGb-j73B6FA&#39;;return true;">ht=
+tps://github.com/hintron/<wbr>jailhouse/blob/<wbr>76e6d446ca682f73679616a0f=
+3df8a<wbr>c79f4a1cde/inmates/lib/mgh-<wbr>sha3.c#L185-L208</a>
 <br>&gt;=20
+<br>&gt; This is the Linux wrapper for the SHA3 workload:=20
+<br>&gt; <a href=3D"https://github.com/hintron/jailhouse/blob/76e6d446ca682=
+f73679616a0f3df8ac79f4a1cde/mgh/workloads/src/sha3-512.c#L166-L168" target=
+=3D"_blank" rel=3D"nofollow" onmousedown=3D"this.href=3D&#39;https://www.go=
+ogle.com/url?q\x3dhttps%3A%2F%2Fgithub.com%2Fhintron%2Fjailhouse%2Fblob%2F7=
+6e6d446ca682f73679616a0f3df8ac79f4a1cde%2Fmgh%2Fworkloads%2Fsrc%2Fsha3-512.=
+c%23L166-L168\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQjCNEN8IP_PLFd23lsG2Fo50o=
+W9V7GxQ&#39;;return true;" onclick=3D"this.href=3D&#39;https://www.google.c=
+om/url?q\x3dhttps%3A%2F%2Fgithub.com%2Fhintron%2Fjailhouse%2Fblob%2F76e6d44=
+6ca682f73679616a0f3df8ac79f4a1cde%2Fmgh%2Fworkloads%2Fsrc%2Fsha3-512.c%23L1=
+66-L168\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQjCNEN8IP_PLFd23lsG2Fo50oW9V7Gx=
+Q&#39;;return true;">https://github.com/hintron/<wbr>jailhouse/blob/<wbr>76=
+e6d446ca682f73679616a0f3df8a<wbr>c79f4a1cde/mgh/workloads/src/<wbr>sha3-512=
+.c#L166-L168</a>
+<br>&gt;=20
+<br>&gt; This is the inmate program calling the SHA3 workload:=20
+<br>&gt; <a href=3D"https://github.com/hintron/jailhouse/blob/76e6d446ca682=
+f73679616a0f3df8ac79f4a1cde/inmates/demos/x86/mgh-demo.c#L370-L379" target=
+=3D"_blank" rel=3D"nofollow" onmousedown=3D"this.href=3D&#39;https://www.go=
+ogle.com/url?q\x3dhttps%3A%2F%2Fgithub.com%2Fhintron%2Fjailhouse%2Fblob%2F7=
+6e6d446ca682f73679616a0f3df8ac79f4a1cde%2Finmates%2Fdemos%2Fx86%2Fmgh-demo.=
+c%23L370-L379\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQjCNHmtQBNrfZfzgP7p8Yu04F=
+mxRyFKg&#39;;return true;" onclick=3D"this.href=3D&#39;https://www.google.c=
+om/url?q\x3dhttps%3A%2F%2Fgithub.com%2Fhintron%2Fjailhouse%2Fblob%2F76e6d44=
+6ca682f73679616a0f3df8ac79f4a1cde%2Finmates%2Fdemos%2Fx86%2Fmgh-demo.c%23L3=
+70-L379\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQjCNHmtQBNrfZfzgP7p8Yu04FmxRyFK=
+g&#39;;return true;">https://github.com/hintron/<wbr>jailhouse/blob/<wbr>76=
+e6d446ca682f73679616a0f3df8a<wbr>c79f4a1cde/inmates/demos/x86/<wbr>mgh-demo=
+.c#L370-L379</a>
+<br>&gt;=20
+<br>&gt; You can see that the inmate and the Linux wrapper both execute the
+<br>&gt; same function, sha3_mgh(). It&#39;s the same C code.
+<br>&gt;=20
+<br>&gt; The other workloads I run are intentionally more memory intensive.
+<br>&gt; They see a much worse slowdown. For my CSB workload, the root cell
+<br>&gt; takes only 0.05 s for a 20 MiB input, while the inmate takes 1.48 =
+s
+<br>&gt; (30x difference). And for my Random Access workload, the root cell
+<br>&gt; takes 0.08 s while the inmate takes 3.29 s for a 20 MiB input (40x
+<br>&gt; difference).
+<br>&gt;=20
+<br>&gt; Here are the root and inmate cell configs, respectively:
+<br>&gt;=20
+<br>&gt; <a href=3D"https://github.com/hintron/jailhouse/blob/76e6d446ca682=
+f73679616a0f3df8ac79f4a1cde/configs/x86/bazooka-root.c" target=3D"_blank" r=
+el=3D"nofollow" onmousedown=3D"this.href=3D&#39;https://www.google.com/url?=
+q\x3dhttps%3A%2F%2Fgithub.com%2Fhintron%2Fjailhouse%2Fblob%2F76e6d446ca682f=
+73679616a0f3df8ac79f4a1cde%2Fconfigs%2Fx86%2Fbazooka-root.c\x26sa\x3dD\x26s=
+ntz\x3d1\x26usg\x3dAFQjCNGN8KwRy17tmrc4-N5kmjz1skVFYg&#39;;return true;" on=
+click=3D"this.href=3D&#39;https://www.google.com/url?q\x3dhttps%3A%2F%2Fgit=
+hub.com%2Fhintron%2Fjailhouse%2Fblob%2F76e6d446ca682f73679616a0f3df8ac79f4a=
+1cde%2Fconfigs%2Fx86%2Fbazooka-root.c\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQ=
+jCNGN8KwRy17tmrc4-N5kmjz1skVFYg&#39;;return true;">https://github.com/hintr=
+on/<wbr>jailhouse/blob/<wbr>76e6d446ca682f73679616a0f3df8a<wbr>c79f4a1cde/c=
+onfigs/x86/<wbr>bazooka-root.c</a>
+<br>&gt;=20
+<br>&gt; <a href=3D"https://github.com/hintron/jailhouse/blob/76e6d446ca682=
+f73679616a0f3df8ac79f4a1cde/configs/x86/bazooka-inmate.c" target=3D"_blank"=
+ rel=3D"nofollow" onmousedown=3D"this.href=3D&#39;https://www.google.com/ur=
+l?q\x3dhttps%3A%2F%2Fgithub.com%2Fhintron%2Fjailhouse%2Fblob%2F76e6d446ca68=
+2f73679616a0f3df8ac79f4a1cde%2Fconfigs%2Fx86%2Fbazooka-inmate.c\x26sa\x3dD\=
+x26sntz\x3d1\x26usg\x3dAFQjCNHhH5hG16S03OXU6Fq_aUXIBWtMog&#39;;return true;=
+" onclick=3D"this.href=3D&#39;https://www.google.com/url?q\x3dhttps%3A%2F%2=
+Fgithub.com%2Fhintron%2Fjailhouse%2Fblob%2F76e6d446ca682f73679616a0f3df8ac7=
+9f4a1cde%2Fconfigs%2Fx86%2Fbazooka-inmate.c\x26sa\x3dD\x26sntz\x3d1\x26usg\=
+x3dAFQjCNHhH5hG16S03OXU6Fq_aUXIBWtMog&#39;;return true;">https://github.com=
+/hintron/<wbr>jailhouse/blob/<wbr>76e6d446ca682f73679616a0f3df8a<wbr>c79f4a=
+1cde/configs/x86/<wbr>bazooka-inmate.c</a>
 <br>&gt;=20
 <br>&gt; I did do some modifications to Jailhouse with VMX and the preempti=
 on
-<br>&gt; timer, but any slowdown that I may have inadvertently introduced s=
-hould
-<br>&gt; apply equally to the inmate and root cell.
-<br>&gt;=20
+<br>&gt; timer, but any slowdown that I may have inadvertently introduced
+<br>&gt; should apply equally to the inmate and root cell.
 <br>&gt;=20
 <br>&gt; It=E2=80=99s possible that I am measuring the duration of the inma=
 te
 <br>&gt; incorrectly. But the number of vmexits I measure for the inmate an=
-d root
-<br>&gt; seem to roughly correspond with the duration. I also made sure to =
-avoid
-<br>
-<br>Yeah, I would also expect that: Your code only utilises memory + CPU,
-<br>almost no I/O.
-<br>
-<br>&gt; tsc_read_ns() by instead recording the TSC cycles and deriving the
-<br>&gt; duration by dividing by 3,700,000,000 (the unchanging TSC frequenc=
-y of
-<br>&gt; my processor). Without this, the time recorded would overflow afte=
-r
-<br>&gt; something like 1.2 seconds.
+d
+<br>&gt; root seem to roughly correspond with the duration. I also made sur=
+e
+<br>&gt; to avoid tsc_read_ns() by instead recording the TSC cycles and
+<br>&gt; deriving the duration by dividing by 3,700,000,000 (the unchanging
+<br>&gt; TSC frequency of my processor). Without this, the time recorded wo=
+uld
+<br>&gt; overflow after something like 1.2 seconds.
 <br>&gt;=20
 <br>&gt;=20
 <br>&gt; I&#39;m wondering if something else is causing unexpected delays: =
-using
+using=20
 <br>&gt; IVSHMEM, memory mapping extra memory pages and using it to hold my
 <br>&gt; input, printing to a virtual console in addition to a serial conso=
 le,
 <br>&gt; disabling hardware p-states, turbo boost in the root cell, maybe t=
 he
-<br>&gt; workload code is being compiled to different instructions for the =
-inmate
-<br>&gt; vs. Linux, etc.
+<br>&gt; workload code is being compiled to different instructions for the
+<br>&gt; inmate vs. Linux, etc.
+<br>&gt;=20
+<br>&gt; Sorry for all the detail, but I am grasping at straws at this poin=
+t.
+<br>&gt; Any ideas at what I could look into are appreciated.=20
+<br>&gt;=20
+<br>&gt; Thanks,
+<br>&gt; Michael
+<br>&gt;=20
+<br>&gt; On Monday, January 20, 2020 at 6:46:32 AM UTC-7, Henning Schild wr=
+ote:
+<br>&gt; &gt;
+<br>&gt; &gt; On Sun, 19 Jan 2020 23:45:46 -0800=20
+<br>&gt; &gt; Michael Hinton &lt;<a>michael...@gmail.com</a> &lt;javascript=
+:&gt;&gt; wrote:=20
+<br>&gt; &gt; =C2=A0
+<br>&gt; &gt; &gt; Hello,=20
+<br>&gt; &gt; &gt;=20
+<br>&gt; &gt; &gt; I have found that running code in an inmate is a lot slo=
+wer than=20
+<br>&gt; &gt; &gt; running that same code in the root cell on my x86 machin=
+e. I am
+<br>&gt; &gt; &gt; not sure why. =C2=A0=20
+<br>&gt; &gt;
+<br>&gt; &gt; Can you elaborate on &quot;code&quot; and &quot;a lot&quot;? =
+Maybe roughly tell us what=20
+<br>&gt; &gt; your testcase does and how severe your slowdown is. Synthetic=
+=20
+<br>&gt; &gt; microbenchmark to measure context switching ?=20
+<br>&gt; &gt;
+<br>&gt; &gt; As Ralf already said, anything causing &quot;exits&quot; can =
+be subject to=20
+<br>&gt; &gt; slowdown. But that should be roughly the same for the root ce=
+ll or
+<br>&gt; &gt; any non-root cell, is it truly the &quot;same&quot; code?=20
+<br>&gt; &gt;
+<br>&gt; &gt; And of cause anything accessing shared resources can be slowe=
+d down
+<br>&gt; &gt; by the sharing. Caches/buses ... but i would not expect &quot=
+;a lot&quot;.=20
+<br>&gt; &gt;
+<br>&gt; &gt; regards,=20
+<br>&gt; &gt; Henning=20
+<br>&gt; &gt; =C2=A0
+<br>&gt;=20
 <br>
-<br>The latter one: You definitely need to check that. If your Linux
-<br>compiler generates (e.g.) AVX code and your inmate.
-<br></blockquote><div>Ok, I compared the assembly and they were very differ=
-ent. It turns out that I was using a different version of GCC *and* my mach=
-ine by default does PIC.</div><div>=C2=A0</div><blockquote class=3D"gmail_q=
-uote" style=3D"margin: 0;margin-left: 0.8ex;border-left: 1px #ccc solid;pad=
-ding-left: 1ex;">You could also try to link the same library object to your=
- target
-<br>binaries -- the build system is your friend.
-<br></blockquote><div>That is a great idea. I just did that today to see if=
- I get better results. I made sure to use the same object files for the wor=
-kload. That, combined with no PIC and using the same version of GCC, made t=
-he duration of the SHA3 workload running in Linux go from 2.0 s to *1.2* se=
-conds. So now the discrepancy is even larger! 2.8 s (inmate) vs. 1.2 s (Lin=
-ux). I imagine that not doing PIC was probably the biggest difference, but =
-I&#39;m not sure exactly how that interacts with the hypervisor. At any rat=
-e, I&#39;m still quite lost at how there is a 1.6 s difference between the =
-inmate and Linux.</div><div><br></div><div>I did notice something strange, =
-though: somehow the CPU features in /proc/cpuinfo are different for differe=
-nt cores. So this causes `jailhouse hardware check` to fail, since that che=
-ck assumes that all CPUs have the same features. When the machine boots, th=
-ey do. But after running for a while, they don&#39;t. I&#39;m not sure what=
- causes them to activate those features.</div><div><br></div><div>So for CP=
-U 0 and 2, right now it shows that they have three extra features:=C2=A0<sp=
-an style=3D"color: rgb(0, 0, 0); font-family: monospace;">md_clear, flush_l=
-1d, and=C2=A0</span><font color=3D"#000000" face=3D"monospace">ssbd.</font>=
- All three of those are hardware bug mitigation features. But can that expl=
-ain a 1.6 s difference? And why would some CPUs run the mitigations while o=
-thers do not? That seems fishy to me. I&#39;ll do more testing to see if ru=
-nning the inmate on a core without those features currently active improves=
- performance (it should, but by how much?).=C2=A0</div><div><br></div><div>=
-=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin: 0;margin-lef=
-t: 0.8ex;border-left: 1px #ccc solid;padding-left: 1ex;">&gt; Sorry for all=
- the detail, but I am grasping at straws at this point. Any
-<br>&gt; ideas at what I could look into are appreciated.=20
-<br>
-<br>Benchmarking is fun. Especially getting the hardware under control. :-)=
-=C2=A0=C2=A0<br></blockquote><blockquote class=3D"gmail_quote" style=3D"mar=
-gin: 0;margin-left: 0.8ex;border-left: 1px #ccc solid;padding-left: 1ex;">=
-=C2=A0 Ralf
-<br></blockquote><div>&quot;fun&quot; :)</div><div><br></div><div>Thanks,</=
-div></div><div>Michael</div></div>
+<br></blockquote></div>
 
 <p></p>
 
@@ -484,11 +539,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/14044a3a-7bc1-45c0-8447-2138f3834838%40googlegroup=
+om/d/msgid/jailhouse-dev/5ba8f35f-912a-4749-bf8b-781193f45ebc%40googlegroup=
 s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
-sgid/jailhouse-dev/14044a3a-7bc1-45c0-8447-2138f3834838%40googlegroups.com<=
+sgid/jailhouse-dev/5ba8f35f-912a-4749-bf8b-781193f45ebc%40googlegroups.com<=
 /a>.<br />
 
-------=_Part_3875_676603656.1580020998921--
+------=_Part_3891_1705939653.1580022473993--
 
-------=_Part_3874_183463694.1580020998920--
+------=_Part_3890_1248430326.1580022473992--
