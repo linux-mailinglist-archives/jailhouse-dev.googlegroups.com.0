@@ -1,145 +1,128 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBL4KXLYQKGQEL4BBFHQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDJMJPGY2MGRBOE4XLYQKGQEF6P6GJA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23c.google.com (mail-lj1-x23c.google.com [IPv6:2a00:1450:4864:20::23c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73340149F09
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jan 2020 07:37:36 +0100 (CET)
-Received: by mail-lj1-x23c.google.com with SMTP id y15sf2217910lji.1
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 26 Jan 2020 22:37:36 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1580107055; cv=pass;
+Received: from mail-wr1-x438.google.com (mail-wr1-x438.google.com [IPv6:2a00:1450:4864:20::438])
+	by mail.lfdr.de (Postfix) with ESMTPS id A86A6149F25
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jan 2020 08:16:08 +0100 (CET)
+Received: by mail-wr1-x438.google.com with SMTP id 90sf5655664wrq.6
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 26 Jan 2020 23:16:08 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1580109368; cv=pass;
         d=google.com; s=arc-20160816;
-        b=trGsOlv0rINBS/C1VOGcBFciQY78Ex5H2ICD3+qx4fCZTZ1F4pmLmsjBmyhCMAgYfO
-         HT0MCshXF1fPpnRO7nIRrpiwzHv9S3UAZkrnSlJaE9DWiX8K5hsdM+iMOhJbHx8nFZeE
-         SqA/FzG+vlh9Z2sDWBsqA1/Nq0eavZQ1Sd2Ej3kkHFCA9dqMAavfZaImzNY9c14zoJVK
-         fh4BKxJlWoTbxWsQB7mtEgs35sWvQRK8M8LnLjuE86DUvqylyzNKo1MrO9267FoNI3RB
-         D8l20sL24Sam6I3OidHUGRj8Wp4UP62gslGLILiZECdRwqjD16AgXuPsQiAVKkknp3Pz
-         UzOw==
+        b=kZzMW1KXh4dKu7gnWTimFVjzgOTUtIW5lS2IvI+iUxBhDn9CWpTBAwHeAyAfSp8K4q
+         Z+PG95ycuX+WZnBhByWzXvZUAlERUcC2GO2UHMD0OH5MYye1boWxRdmyD8QmMA3ldLUm
+         OW25e2VsGddfVrsIVyaB+k03Fbfax9jpvpff+wGtWpznpxtgy6NyOBa7Ali5zxmXrtMI
+         Kpu+s7qGuyJSAgR+jp+yfSHTyzLqbZvAtYXXrTfOhayMLVE/9XZM57bLRArVfZJDIZYJ
+         EjDJ1Qq+0zsetFLySCbfK5+e5tUSDrx4xQ2QYJvLtlREg/nseYXjuhA5OVTbmeYNEFaY
+         OWmQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:references:in-reply-to:references
-         :in-reply-to:message-id:date:subject:cc:to:from:mime-version:sender
-         :dkim-signature;
-        bh=JSeG7uSWWqzTR9UA1FSTCaJ5zgtsWMNSRe89v+g1jDg=;
-        b=xaCBVOioBMZPATm+9Qsp60w4pKQejefUlVaBG6iYqyZCyJ1HZu7EA+Kc3zqiOusZb8
-         3AS9OENHkq+hsy05AOVC9JV5sps53HdO5V5iw9KsIpaDmYgTBUoIDWoaclpxuyR1xmUw
-         l2ovN/jKzT9jyJ/m127UBYY+efQwmsWFWc8bQEi2lXz4REwlFsuKBFWvCK629O+vA3PV
-         14MR4tJ6TgjoA6k0rkMS47q9RYhlLKzl4vocxmNY7/px48P4+Xtf1p4NK/dDnb4c2dGN
-         MGuQexzso6TJ++tcla9ilYGD1TQ56hMFF1pqDlgCg27lBQqk74EbVmWbyGQZNVaU4JdK
-         PhKw==
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :mime-version:references:in-reply-to:message-id:subject:cc:to:from
+         :date:sender:dkim-signature;
+        bh=vHWuqN7QGlRaW86pZvC/QsAfUjhuLzrwrokVCosLxr8=;
+        b=YU3VuKm4I1+d7R+Q6pcu3NGSR1KIqTVDvqrbecEw9sUhfw6lVaicmAUosYZtoTRcLB
+         fh6l6833mmzmftA98LalCrdwD7uWbf5M2ufr0ZZmKVQ4KcwI8Yns1w0mprbAfN2Pamql
+         X0lE11TOxxsR9kbRyd8QaK913UFsT/tfLvORNqXi9QKes0rckZw2MrNf32jUR65YndMp
+         zBcYlcwhgeMCoCv/Qfkle/HQuVyIai0/hcmPcHXX0EQSezTX79wGFQgbTI1oN6TosZ9J
+         FqbtWN9kEz889knBfVFKbPWUF1VdBybWEZ3z9nQtFC25SL6m44JKvp/sY7tZWkAmkq0u
+         m7Rw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=HllUSAn3;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+       spf=pass (google.com: domain of henning.schild@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=henning.schild@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:mime-version:from:to:cc:subject:date:message-id:in-reply-to
-         :references:in-reply-to:references:x-original-sender
+        h=sender:date:from:to:cc:subject:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=JSeG7uSWWqzTR9UA1FSTCaJ5zgtsWMNSRe89v+g1jDg=;
-        b=rGFUJtNva5K+QIIm4RAUupWRoPe9/6O70j7I3nY5o5HDvypgkOIeTYFknxUdXn/C1q
-         UU4S85KikULRJcmyGakaCBAM6LhYcINfbpV6HbozK8mMdbMszDDK3V0nDtZ+x2Y/XZR+
-         +nFglangMbgfQy3Y3PVe9vw9T2hFGGHBo6ESvf1/9Tm+nyqKisbgC4zsk2lGmvANsUrF
-         v9y1GVSvmHq3UEnnxOpT8L89JvgBe08Eu3EVrqFu93O0/5l/b/y8GOmdD1iOtOnO2pY4
-         3lwldR/QyoP/S46788f8L4iFxyoNzAwrNSJY5yrwOo8Efv1SvnuPlMG7Gdt5V/UV6WpU
-         huIg==
+        bh=vHWuqN7QGlRaW86pZvC/QsAfUjhuLzrwrokVCosLxr8=;
+        b=llnN2XKazdBKEJfSfePAIuw6nb+UbCAsiudc22OMD3tHPwvLlJpaUdx4eNXainWRS3
+         K8765SFVnC1MPB6MRBnOfXJS1V75zSRrTjHrFwdUxLCNykUefYa7P/YTzOBjQuLwoQB5
+         MTKphkDzcqXNIk4T2a6MWsIEAg39kmaYLuDvqq3M040zKC3JuX5g/h0/JSC3/TczDc/W
+         pqBpyHikneEbANGKNUpdY2Pvhqb46ZlSRH/rRdgYH1KHceWGRqvYIWDJHQ5Wsbmv1E5B
+         SHwXEnZ+9njEcP3MhwpRSHcnv66XkY04r95gQdX5VuSPRjqvqFafvSjb9houys6kOpoq
+         Ilww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:mime-version:from:to:cc:subject:date
-         :message-id:in-reply-to:references:in-reply-to:references
+        h=sender:x-gm-message-state:date:from:to:cc:subject:message-id
+         :in-reply-to:references:mime-version:content-transfer-encoding
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=JSeG7uSWWqzTR9UA1FSTCaJ5zgtsWMNSRe89v+g1jDg=;
-        b=TXw68omeI7VBtrmWkEcaJHEELkFGVVzSsG6YNoJBtYn7iKAQkQl6BiL6Bjbqh9TmT0
-         bo2BKO5DGa5vzPXssHwaYejOgSfEwOde1/GHfsaplSvHG/E8XOS2sYIE8MiuYoOo6sIP
-         FIsn+BXIeEKvpj+TMDYFkGwmnHtSDEaZqCwLA63nr/lu5p8mVzPRvPAQvmeYx69fuMsm
-         hKeij/VUZJx4plwMV/ZyZF2cIbclBEajoB5Gdw1bCZBfukyZivFIbF0wSF+sGAJ+YDqY
-         5VhbenzwJEAspyOn5xJt0DUlrajEYmbt3yr99wEFJdfHrmUbeDhJoScbex7dn7i5RA1S
-         S91w==
+        bh=vHWuqN7QGlRaW86pZvC/QsAfUjhuLzrwrokVCosLxr8=;
+        b=bJDSBV5Ag3ZRMQSm7l0CCY7pAD3OW2osoGQ3PUYee6RI8DXhLUcBlqEK53xUHRIgZw
+         aUBGO2APx+XBsc4bhObhF7wxDws1nocUbGQvkJzP84TZKEwmT52XOPi86yr5KI69E5tt
+         9EvJ41NoxVWnff86kUhaT4rzbGGMtKZQRoQdqXL7/CGm75wZVIBtLUljMyCvj1Z80CKs
+         pisazQlD02gnn3tQlOjk3w6/3XznKdpv5kiLh20xxul8JGTE3uL9sMHJ3S/6dQi5w5wK
+         /DfcKSYeFR/eGAcxPIULpzsqf7Kvt7cHFEhyGoIs4FW6+X02Q3nOzZuvnM+YyLwSzNYI
+         Lm/w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUdBOarRnkU1Ek1BSl7CFptsQlKjlzWt9VFlMbiP2c9EUw6ud/i
-	7AZuO839hIKicUIH9JJRRjw=
-X-Google-Smtp-Source: APXvYqxeKFOT+PmVs6qdp6/npfept03KCkRUj8GM9u3juw+aqYe9HozDNGnkFCwGn8tVAcydCax+SQ==
-X-Received: by 2002:ac2:5444:: with SMTP id d4mr7199230lfn.49.1580107055459;
-        Sun, 26 Jan 2020 22:37:35 -0800 (PST)
-MIME-Version: 1.0
+X-Gm-Message-State: APjAAAXQUufq1UUPwLW9A9a2IyEEnj9ypTXQ3GKlntiHtUUYnwJcf8A6
+	bcvRB7maP900c4idRQTpz18=
+X-Google-Smtp-Source: APXvYqyR36nzLyzc/L1+b/xXrblyW3sRjNX9pHcHJILlr2Za92dbeYWe9CADKIBY8ynsDlE/wwVnFA==
+X-Received: by 2002:a1c:e108:: with SMTP id y8mr11287599wmg.147.1580109368346;
+        Sun, 26 Jan 2020 23:16:08 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:9c85:: with SMTP id x5ls1537096lji.0.gmail; Sun, 26 Jan
- 2020 22:37:34 -0800 (PST)
-X-Received: by 2002:a2e:84d0:: with SMTP id q16mr9333023ljh.138.1580107054691;
-        Sun, 26 Jan 2020 22:37:34 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1580107054; cv=none;
+Received: by 2002:adf:c3d1:: with SMTP id d17ls6109348wrg.10.gmail; Sun, 26
+ Jan 2020 23:16:07 -0800 (PST)
+X-Received: by 2002:adf:f5cf:: with SMTP id k15mr20560891wrp.182.1580109367668;
+        Sun, 26 Jan 2020 23:16:07 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1580109367; cv=none;
         d=google.com; s=arc-20160816;
-        b=qPTUASqEtbI428zqP0k1qmE3elgtoyk/f6piVFgzJn2OaBPQYfLW4Sgjhgh4LZlIlm
-         kzMo64ojYX29MRZv/sqAOK2y3g37CMawIuJ1p+2GtKzYmBa5dPMKQaPfk3ZR8QOUIsi7
-         j8QZlgrBLTNTVLyVvx7pxGx3XLWTryvdBwTmrTT5s/C1HgcvYaoK19YSN5Q1V+LufygR
-         xuTbmeM5fi+3/N3zkVfCC5Y8j6tsVkFZqH62mBjBGG0L2hhOMzHniey23XvPcUzTLhUc
-         QhtGiPMye9wTpBbtu0ZQACZOBreyx5kpoV0Prm6c0Gi20znrfFfUi2lhqytmgWsd5BT5
-         5alA==
+        b=LS/PNfzPn/hM7jlHynRU2lsdp3tSFNA3/p+HDsIrPDiCtRlQWLx3Q8Y+Szjkh/fSbq
+         5WHRIAIxRdV/iQpcm7dwWMV8LiuHFcPV0O/Shl1LvFuQ4HGMzXXnK4tBbjHjlbur0l8+
+         VEV+Rm4i9aI9qRKn4br6Kvb2TW4oE+EVg4y+py/ADOeEmrXONWmZXRVMX5dfyXXzX9kl
+         ALf3rzUA3kpWDu6mDoYJ3o8wnFn+ae8m05zPHixe/vXbMRcqgWp+KcsLd2qEMMekbQCN
+         SW7bqNEzsR6DwIg4/hjuMZ2ltOTRTzKPcj/F9rqsKP3UoE4Es8Qw9G5yw5y5llp2v7ik
+         wa8g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:references:in-reply-to:references
-         :in-reply-to:message-id:date:subject:cc:to:from:dkim-signature;
-        bh=6B4nwOg0wxDG9tB6HHewqe8EMtL3wH0MpbDpb3+gbkc=;
-        b=ECAKrk7Twkrtb/uf1x2A/QEcLKhQjR6vxEWX4aseChbBD6rKKxS4+nX9LyIsv7o6KK
-         zRjVYH9Z20wAhFR2Er7JQlgB6PPDwMvr0AFZeFTbjzZT0O++CpNHYSPoyXzYTIFbC6ur
-         1xMBRz9n+DE2JFq5XfYVIfkezF8u/cqs4hQB08pxSJ7mthaydCo/vQw5O8K4zRNC1J6a
-         FHyulQHPRJqiAh+4mmTXPV1aGZV/y0scoOEk4cBSiwbN+DERhYMcxR+N4ABz35p5eIu8
-         qifV8EWkhDAvFcEI2eEO1FbPPoz6uNc23l5NpqNXBNhRGuMiTKhu76Ot2Zvx5uc80uks
-         N/XQ==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date;
+        bh=diG5CBCxUBd4CrurBkE55rMgwcTC8yLOZ7Y6JezA0bo=;
+        b=UfDwAagwobtX84RegRXkAiPyXqN/X3FH92maNQjeHzYq5k5+uCY/ECZRGXbtJcl0tv
+         Bhq3oxfiuofpxSpLQ+e6kfIBN9hJOHZMt/5pC3y/L10EfaC3BiiiC1dC1bV8+ZKA7sHP
+         pKnhG0m0Z/9+9nZgpH+zn3fs70pKlim8rQQFZJaATaUrLYQTa+4NI5FA6p3NOGPXu/oc
+         pzay53t+TfyYA2I0JzUMwr8xY0X53ol3vjkHQbXZ6cX13ny+huRzCwfcYmvol0NdbGmw
+         Cd3zQwx9msOT9Y5u5DzyWKGd2kShcvtgZROI3+uVQu0zsXh4XXbZdiceonBieKo4yeOJ
+         CzJw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=HllUSAn3;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
-Received: from mout.web.de (mout.web.de. [212.227.17.11])
-        by gmr-mx.google.com with ESMTPS id 68si466362lfi.3.2020.01.26.22.37.34
+       spf=pass (google.com: domain of henning.schild@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=henning.schild@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
+        by gmr-mx.google.com with ESMTPS id y13si455118wrs.0.2020.01.26.23.16.07
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 26 Jan 2020 22:37:34 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) client-ip=212.227.17.11;
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from md1f2u6c.ww002.siemens.net ([95.157.55.156]) by smtp.web.de
- (mrweb102 [213.165.67.124]) with ESMTPSA (Nemesis) id
- 0Le4Po-1jNNsf3ewe-00px1r; Mon, 27 Jan 2020 07:37:33 +0100
-From: Jan Kiszka <jan.kiszka@web.de>
-To: jailhouse-dev@googlegroups.com
-Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Subject: [PATCH 3/3] Documentation: Update hypervisor interfaces specification
-Date: Mon, 27 Jan 2020 07:37:26 +0100
-Message-Id: <5ea60323214f8cbd4c12c529acfe5223a289a10c.1580107046.git.jan.kiszka@web.de>
-X-Mailer: git-send-email 2.16.4
-In-Reply-To: <cover.1580107046.git.jan.kiszka@web.de>
-References: <cover.1580107046.git.jan.kiszka@web.de>
-In-Reply-To: <cover.1580107046.git.jan.kiszka@web.de>
-References: <cover.1580107046.git.jan.kiszka@web.de>
-X-Provags-ID: V03:K1:YPRV44W/wglyHL54Mk4x56AoAX57mAxPyY837bD+zOWLlOqhYFe
- lNDYTMr0MJ8LpFPnuPSpqKtCX9sXlVuOSapFHNacBupWX3v0BQni8yp075wUtu8d9mTVuel
- q6czapQGXBMHJdGAhGNrQXr1nmGSymQovEp5EioruKJucKHCgtY96TAQBpMrRp/u5ixE/HS
- wtm1LxHM33vir7x1Ds/Bw==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:3kub9PNJ3Po=:KaLq0/lvh7MaSJzd+fd8XA
- b3H12RDopSI6HFFRnX6wc6JggABV2db9SZyYLBPvYL8xbHAJBuLTXfWZDJgizLs3TuCPhzDxU
- rUi3E4Jn9iKq/hiTh3Tca2iTApNhghrR06kX/yLWx+T2dtfM4b3GZymvndCrBzElHiFpb+GCm
- ozCkipyeFLabcK+6CWmBEizMxyiThV3r6EwvF6kDXMXhSulH0Y/jNi4w0iBty3QjEn+AFuAjC
- QERgeVMX3/Aink3lRd1dTLYwxCxQPzCJ3k8Sjhm4DP2L1G96VvgPsyRtxHPTHrOekYJDPpuJp
- s5JGFu7aFy9JnK3loXYze36pNHMFgOI9/48Q05xOjO+eo2yG5RG942x639Ew7DTRGiDaOjQyt
- 4D5A7ZQZX4Uf/7WotzG4q8PFMuoHzANFRuGMFznu+RMEjWcuhkH3EKzwhLx9mBPl4ohJE2d8S
- Hlj+0xac3OGxHYOEznmcjAMUGizQvlhhJr1dYD0c1Z3pd4nrtH8uqqUg7GZXeZv3/4D6C70Jy
- ErSjtnsdZQlJ/D/bpZDhxYHzCsZ5AIwg64p/0FL226vDu2HBMcjGxUlLmvYe997zgF7sPYnaM
- Ltc64CP1Ofn51uGToay5fd1iYlOlfag0y15FfqVbINFWMjRx1TkngmcBbxRMsevteqtjfF2VS
- H6uydIqGs8KrsZ2jCdDBFYdsRZKin6Sr/xxTzTMBUbyWXWWRQcLwWb1TAP+GFbpES4GU+UUtj
- WN0CPAqbqhIFB2kIZpXcbgxjG7qduEWnhMGhplk+r4iM2uLyElBWjqbv9ZYveTGPiLovXYVqI
- mRSW3mswD9g0XvjD07tFc7irBCDxKjZ1hqX8O0FAT2ocdL3P6Z1IYplECv//dvjPECbG96c2G
- WE4k6vzqUUm/h5aadQZlCYmuEmU9WqBu9yYzxD/cmI1Ycd94iPMWuQqgjzkhw8tkieqF5nVou
- 4HQwbmicTS+75r00waPy8mWbzhfDHUqXvPhdTV3b0jNKA31pV7Jwo2gmMNFuselS/IqnpS7TJ
- SUSjX5l2p2k7++4sulipricgxYHuJVof38pJas4XmGjh3U1BJ6cam+AETOZNp9PF85/X4FNBI
- ij7bf4aaWZaC+IK+lUClNkM/+Tk83AUznpUWQz4LVpEX3ab6LCiBYczNIEQK65cTzAcLU5UCU
- wvVXZfytezGaTnKcFEf+OHDv5T/OAVSDCRa5M4Ovvgm+ti0+uHGWPreoiiTfes73FIJggQ6NI
- X5pPKIXGzj3qnQeOJ
-X-Original-Sender: jan.kiszka@web.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b=HllUSAn3;       spf=pass
- (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as
- permitted sender) smtp.mailfrom=jan.kiszka@web.de
+        Sun, 26 Jan 2020 23:16:07 -0800 (PST)
+Received-SPF: pass (google.com: domain of henning.schild@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
+Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
+	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 00R7G6Ug001495
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 27 Jan 2020 08:16:06 +0100
+Received: from md1za8fc.ad001.siemens.net ([139.22.35.223])
+	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id 00R7G6ta019574;
+	Mon, 27 Jan 2020 08:16:06 +0100
+Date: Mon, 27 Jan 2020 08:16:02 +0100
+From: Henning Schild <henning.schild@siemens.com>
+To: Michael Hinton <michael.g.hinton@gmail.com>
+Cc: Jailhouse <jailhouse-dev@googlegroups.com>
+Subject: Re: Difference in execution duration between root cell and inmate
+ for same code
+Message-ID: <20200127081602.08ea3fd6@md1za8fc.ad001.siemens.net>
+In-Reply-To: <5ba8f35f-912a-4749-bf8b-781193f45ebc@googlegroups.com>
+References: <4d8ab27d-7a1a-4601-8d61-429dd0cdd018@googlegroups.com>
+	<20200120144629.201f3081@md1za8fc.ad001.siemens.net>
+	<b258dc63-26a9-4eff-852a-23d72d2e3258@googlegroups.com>
+	<20200123131505.1e5fdeb5@md1za8fc.ad001.siemens.net>
+	<5ba8f35f-912a-4749-bf8b-781193f45ebc@googlegroups.com>
+X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: henning.schild@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of henning.schild@siemens.com designates 192.35.17.14 as
+ permitted sender) smtp.mailfrom=henning.schild@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -152,235 +135,211 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-From: Jan Kiszka <jan.kiszka@siemens.com>
+On Sat, 25 Jan 2020 23:07:53 -0800
+Michael Hinton <michael.g.hinton@gmail.com> wrote:
 
-Lots of things changed since the file was last touched. Add the
-hypercall ABIs for non-Intel-x86, update the "CPU Get Info" hypercall
-with new statistic types, and extend the Comm Region description with
-the console and non-x86 extensions added meanwhile.
+> Hi Henning,
+>=20
+> On Thursday, January 23, 2020 at 5:15:08 AM UTC-7, Henning Schild
+> wrote:
+> >
+> > Thanks,=20
+> >
+> > that is a lot of information. I would say that is CPU and memory
+> > bound work. It should not cause exits at all, maybe a few for
+> > getting the input in and the output out. reading ivshmem should not
+> > trap, =20
+>=20
+>  So IVSHMEM won't trap/cause a vmexit? What are the other potential
+> causes for traps, then? My inmate doesn't access any other resources.
+> =20
+>=20
+> > writing=20
+> > output to a console should be avoided within the measured time.=20
+> > =20
+> Before starting this thread, I found that I accidentally did do this,
+> and after removing the console print, I shaved 300 ms off the inmate
+> time. But I don't see any more prints that could happen.
+>=20
+> This is how I measure the workload in the inmate:=20
+> https://github.com/hintron/jailhouse/blob/ba0c5f9cc28edf43ab6970cdaddafea=
+77dd07b4c/inmates/demos/x86/mgh-demo.c#L1117-L1121
+> I then print the cycle count and divide it by 3,700,000 manually to
+> get the total duration to avoid overflows and truncations.
+> =20
+>=20
+> > If you need to use something that traps, see if you can "batch"
+> > things. I.e. do not read/write in byte-chunks.   =20
+>=20
+> For truly memory bound applications the mapping of the memory
+> matters.=20
+> > The bigger the pages in the pagetable (and the nested pagetable)
+> > the better. You might be able to read performance counters and look
+> > at TLB misses.=20
+> > =20
+> I'll need to look into that.
+>  =20
+>=20
+> > Not sure what Jailhouse exactly does to mitigate Spectre etc. but
+> > these mitigations often have a severe effect on "memory
+> > performance".=20
+> >
+> > I would for sure have a look at aligning the CFLAGS used for the
+> > Linux application and the inmate.=20
+> > =20
+> Ok, I'll double check CFLAGS as well. I'm now using the exact same
+> object files for the workload functions, but the discrepancy got
+> worse :D=20
+>=20
+> > The first things to compare is "native Linux", "root cell Linux
+> > under jailhouse" and "non-root cell Linux under jailhouse". If the
+> > third is better than your inmate, your inmates environment is
+> > likely the cause.=20
+> Yes, I've been looking at those three cases, and Linux under
+> Jailhouse is only 30 ms slower than Linux not under Jailhouse, while
+> both of those are way faster than the inmate. So that tells me that
+> there is something going wrong with the inmate.
 
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
----
- Documentation/hypervisor-interfaces.txt | 152 ++++++++++++++++++++++++++------
- 1 file changed, 125 insertions(+), 27 deletions(-)
+Ok, so we are just looking for differences between the inmate and the
+linux as non-root cell, because the jailhouse/virtualization overhead
+is acceptable or known.
 
-diff --git a/Documentation/hypervisor-interfaces.txt b/Documentation/hypervisor-interfaces.txt
-index f29bac43..74982e9d 100644
---- a/Documentation/hypervisor-interfaces.txt
-+++ b/Documentation/hypervisor-interfaces.txt
-@@ -13,7 +13,8 @@ Detection
- ---------
+In that case a memory bound workload boils down to the mapping and the
+tlb misses or CAT. And cpu bound could be an issue with the FPU. If your
+binary uses FPU instructions but is able to fall back to soft-fpu, you
+should check which path it takes in the inmate.
 
- This interface is useful for cell code that should work not only inside a
--Jailhouse cell. The ABI is architecture specific.
-+Jailhouse cell. The ABI is architecture specific. So far, it is only available
-+for x86.
+Henning
 
+> Thanks for the help,
+> -Michael
+>=20
+> Henning=20
+> >
+> > On Wed, 22 Jan 2020 23:57:29 -0800=20
+> > Michael Hinton <michael...@gmail.com <javascript:>> wrote:=20
+> > =20
+> > > Ralf, Henning,=20
+> > >=20
+> > >=20
+> > > Thanks for the quick response, and sorry for the delay.=20
+> > >=20
+> > > Here=E2=80=99s my setup: I=E2=80=99ve got a 6-core Intel x86-64 CPU r=
+unning
+> > > Kubuntu 19.10. I have an inmate that is given a single core and
+> > > runs a single-threaded workload. For comparison, I also run the
+> > > same workload in Linux under Jailhouse.=20
+> > >=20
+> > > For a SHA3 workload with the same 20 MiB input, the root Linux
+> > > cell (and no inmate running) takes about 2 seconds, while the
+> > > inmate (and an idle root cell) takes about 2.8 seconds. That is a
+> > > worrisome discrepancy, and I need to understand why it=E2=80=99s 0.8 =
+s
+> > > slower.=20
+> > >=20
+> > > This is the SHA3 workload:=20
+> > >  =20
+> > https://github.com/hintron/jailhouse/blob/76e6d446ca682f73679616a0f3df8=
+ac79f4a1cde/inmates/lib/mgh-sha3.c#L185-L208
+> >  =20
+> > >=20
+> > > This is the Linux wrapper for the SHA3 workload:=20
+> > >  =20
+> > https://github.com/hintron/jailhouse/blob/76e6d446ca682f73679616a0f3df8=
+ac79f4a1cde/mgh/workloads/src/sha3-512.c#L166-L168
+> >  =20
+> > >=20
+> > > This is the inmate program calling the SHA3 workload:=20
+> > >  =20
+> > https://github.com/hintron/jailhouse/blob/76e6d446ca682f73679616a0f3df8=
+ac79f4a1cde/inmates/demos/x86/mgh-demo.c#L370-L379
+> >  =20
+> > >=20
+> > > You can see that the inmate and the Linux wrapper both execute
+> > > the same function, sha3_mgh(). It's the same C code.=20
+> > >=20
+> > > The other workloads I run are intentionally more memory
+> > > intensive. They see a much worse slowdown. For my CSB workload,
+> > > the root cell takes only 0.05 s for a 20 MiB input, while the
+> > > inmate takes 1.48 s (30x difference). And for my Random Access
+> > > workload, the root cell takes 0.08 s while the inmate takes 3.29
+> > > s for a 20 MiB input (40x difference).=20
+> > >=20
+> > > Here are the root and inmate cell configs, respectively:=20
+> > >=20
+> > >  =20
+> > https://github.com/hintron/jailhouse/blob/76e6d446ca682f73679616a0f3df8=
+ac79f4a1cde/configs/x86/bazooka-root.c
+> >  =20
+> > >=20
+> > >  =20
+> > https://github.com/hintron/jailhouse/blob/76e6d446ca682f73679616a0f3df8=
+ac79f4a1cde/configs/x86/bazooka-inmate.c
+> >  =20
+> > >=20
+> > > I did do some modifications to Jailhouse with VMX and the
+> > > preemption timer, but any slowdown that I may have inadvertently
+> > > introduced should apply equally to the inmate and root cell.=20
+> > >=20
+> > > It=E2=80=99s possible that I am measuring the duration of the inmate=
+=20
+> > > incorrectly. But the number of vmexits I measure for the inmate
+> > > and root seem to roughly correspond with the duration. I also
+> > > made sure to avoid tsc_read_ns() by instead recording the TSC
+> > > cycles and deriving the duration by dividing by 3,700,000,000
+> > > (the unchanging TSC frequency of my processor). Without this, the
+> > > time recorded would overflow after something like 1.2 seconds.=20
+> > >=20
+> > >=20
+> > > I'm wondering if something else is causing unexpected delays:
+> > > using IVSHMEM, memory mapping extra memory pages and using it to
+> > > hold my input, printing to a virtual console in addition to a
+> > > serial console, disabling hardware p-states, turbo boost in the
+> > > root cell, maybe the workload code is being compiled to different
+> > > instructions for the inmate vs. Linux, etc.=20
+> > >=20
+> > > Sorry for all the detail, but I am grasping at straws at this
+> > > point. Any ideas at what I could look into are appreciated.=20
+> > >=20
+> > > Thanks,=20
+> > > Michael=20
+> > >=20
+> > > On Monday, January 20, 2020 at 6:46:32 AM UTC-7, Henning Schild
+> > > wrote:  =20
+> > > >=20
+> > > > On Sun, 19 Jan 2020 23:45:46 -0800=20
+> > > > Michael Hinton <michael...@gmail.com <javascript:>> wrote:=20
+> > > >    =20
+> > > > > Hello,=20
+> > > > >=20
+> > > > > I have found that running code in an inmate is a lot slower
+> > > > > than running that same code in the root cell on my x86
+> > > > > machine. I am not sure why.    =20
+> > > >=20
+> > > > Can you elaborate on "code" and "a lot"? Maybe roughly tell us
+> > > > what your testcase does and how severe your slowdown is.
+> > > > Synthetic microbenchmark to measure context switching ?=20
+> > > >=20
+> > > > As Ralf already said, anything causing "exits" can be subject
+> > > > to slowdown. But that should be roughly the same for the root
+> > > > cell or any non-root cell, is it truly the "same" code?=20
+> > > >=20
+> > > > And of cause anything accessing shared resources can be slowed
+> > > > down by the sharing. Caches/buses ... but i would not expect "a
+> > > > lot".=20
+> > > >=20
+> > > > regards,=20
+> > > > Henning=20
+> > > >    =20
+> > >  =20
+> >
+> > =20
+>=20
 
- x86 ABI
-@@ -63,16 +64,36 @@ a similar channel. Details of the hypercall ABI are architecture specific and
- will be defined in the following.
-
-
--Intel x86 (IA-32/32e) ABI
--- - - - - - - - - - - - -
-+x86 ABI
-+- - - -
-
--Instruction:    vmcall
-+Instruction:    vmcall (IA-32/32e) / vmmcall (AMD64)
- Hypercall code: EAX
--1. argument:    RDI (IA-32e) / EDI (IA-32)
--2. argument:    RSI (IA-32e) / ESI (IA-32)
-+1. argument:    RDI (64-bit mode) / EDI (32-bit mode)
-+2. argument:    RSI (64-bit mode) / ESI (32-bit mode)
- Return code:    EAX
-
-
-+ARMv7 ABI
-+- - - - -
-+
-+Instruction:    hvc #0x4a48
-+Hypercall code: r0
-+1. argument:    r1
-+2. argument:    r2
-+Return code:    r0
-+
-+
-+ARMv8 ABI
-+- - - - -
-+
-+Instruction:    hvc #0x4a48
-+Hypercall code: x0
-+1. argument:    x1
-+2. argument:    x2
-+Return code:    x0
-+
-+
- Hypercall "Disable" (code 0)
- - - - - - - - - - - - - - - -
-
-@@ -230,14 +251,31 @@ Hypercall "CPU Get Info" (code 7)
- Obtain information about a specific CPU.
-
- Arguments: 1. Logical ID of CPU to be queried
--           2. Information type:
-+           2. Generic information type:
-                   0 - CPU state
-                1000 - Total number of VM exits
--               1001 - VM exits due to MMIO access
--               1002 - VM exits due to PIO access
--               1003 - VM exits due to IPI submissions
--               1004 - VM exits due to management events
--               1005 - VM exits due to hypercalls
-+               1001 - VM exits due to MMIO accesses
-+               1002 - VM exits due to management events
-+               1003 - VM exits due to hypercalls
-+
-+               x86-specific type:
-+
-+               1004 - VM exits due to PIO accesses
-+               1005 - VM exits due to xAPIC accesses
-+               1006 - VM exits due to CR accesses
-+               1007 - VM exits due to CPUID instructions
-+               1008 - VM exits due to XSETBV instructions
-+               1009 - VM exits due to exceptions
-+               1010 - VM exits due to unspecified MSR accesses
-+               1011 - VM exits due to x2APIC ICR MSR accesses
-+
-+               ARMv7/ARMv8-specific type:
-+
-+               1004 - VM exits due to IRQ injections
-+               1005 - VM exits due to SGI injections
-+               1006 - VM exits due to PSCI calls
-+               1007 - VM exits due to SMCCC calls
-+               1008 - VM exits due to CP15 accesses (only ARMv7)
-
- Statistic counters are reset when a CPU is assigned to a different cell. The
- total number of VM exits may be different from the sum of all specific VM exit
-@@ -295,8 +333,9 @@ Communication region layout
-     +------------------------------+
-     |  Message from Cell (32 bit)  |
-     +------------------------------+
--    |      Reserved (32 bit)       |
-+    : Generic Platform Information :
-     +------------------------------+
-+    :     Architecture-specific    :
-     :     Platform Information     :
-     +------------------------------+ - higher address
-
-@@ -305,7 +344,7 @@ Platform Information part is architecture-specific. Its content is filled by
- the hypervisor during cell creation and shall be considered read-only until
- cell destruction.
-
--The ABI revision described here is 0. Future versions may not use a compatible
-+The ABI revision described here is 2. Future versions may not use a compatible
- layout or field semantic, except for the fields "Signature", "ABI Revision" and
- "Cell State".
-
-@@ -385,22 +424,80 @@ to destroy or restart that cell. On restart, it will also reset the state field
- to "Running".
-
-
-+Generic Platform Information
-+- - - - - - - - - - - - - - -
-+
-+    +--------------------------------------+ - begin of communication region
-+    :          header, see above           :   (lower address)
-+    +--------------------------------------+
-+    |      Information Flags (32 bit)      |
-+    +--------------------------------------+
-+    |       Console Address (64 bit)       |
-+    +--------------------------------------+
-+    |        Console Size (32 bit)         |
-+    +--------------------------------------+
-+    |        Console Type (16 bit)         |
-+    +--------------------------------------+
-+    |        Console Flags (16 bit)        |
-+    +--------------------------------------+
-+    |    Console UART Divider (32 bit)     |
-+    +--------------------------------------+
-+    |    Console UART Gate No. (32 bit)    |
-+    +--------------------------------------+
-+    | Console UART Clock Register (64 bit) |
-+    +--------------------------------------+
-+    |    PCI MMCONFIG Address (64 bit)     |
-+    +--------------------------------------+
-+    :         Architecture-specific        :
-+    :         Platform Information         :
-+    +--------------------------------------+ - higher address
-+
-+The Information Flags field defines two bits so far: Bit 0 is set when the cell
-+may use the Debug Console putc hypercall. Bit 1 is set when the cell shall use
-+the Debug Console putc hypercall as output console. Other bits in this field
-+are reserved.
-+
-+See [3] for a description of the console fields.
-+
-+
- Platform Information for x86
- - - - - - - - - - - - - - - -
-
--    +----------------------------------+ - begin of communication region
--    :     generic part, see above      :   (lower address)
--    +----------------------------------+
--    |  PCI MMCONFIG Address (64 bit)   |
--    +----------------------------------+
--    |     PM Timer Address (16 bit)    |
--    +----------------------------------+
--    |     Number of CPUs (16 bit)      |
--    +----------------------------------+
--    |  TSC Frequency in kHz (32 bit)   |
--    +----------------------------------+
--    | APIC Timer Freq. in kHz (32 bit) |
--    +----------------------------------+ - higher address
-+    +--------------------------------------+ - begin of communication region
-+    :          header, see above           :   (lower address)
-+    +--------------------------------------+
-+    :    generic information, see above    :
-+    +--------------------------------------+
-+    |       PM Timer Address (16 bit)      |
-+    +--------------------------------------+
-+    |       Number of CPUs (16 bit)        |
-+    +--------------------------------------+
-+    |    TSC Frequency in kHz (32 bit)     |
-+    +--------------------------------------+
-+    | APIC Timer Frequency in kHz (32 bit) |
-+    +--------------------------------------+ - higher address
-+
-+
-+Platform Information for ARMv7 and ARMv8
-+- - - - - - - - - - - - - - - - - - - - -
-+
-+    +--------------------------------------+ - begin of communication region
-+    :          header, see above           :   (lower address)
-+    +--------------------------------------+
-+    :    generic information, see above    :
-+    +--------------------------------------+
-+    |         GIC Version (8 bit)          |
-+    +--------------------------------------+
-+    |          Reserved (56 bit)           |
-+    +--------------------------------------+
-+    |   GIC Distributor Address (64 bit)   |
-+    +--------------------------------------+
-+    |  GIC CPU Interface Address (64 bit)  |
-+    +--------------------------------------+
-+    |  GIC Redistributor Address (64 bit)  |
-+    +--------------------------------------+
-+    |  Virtual PCI Host IRQ Base (32 bit)  |
-+    +--------------------------------------+ - higher address
-
-
- References
-@@ -408,3 +505,4 @@ References
-
- [1] Documentation/cell-environments.txt
- [2] Documentation/configuration-format.txt
-+[3] Documentation/debug-output.md
---
-2.16.4
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/5ea60323214f8cbd4c12c529acfe5223a289a10c.1580107046.git.jan.kiszka%40web.de.
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/20200127081602.08ea3fd6%40md1za8fc.ad001.siemens.net.
