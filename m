@@ -1,73 +1,74 @@
-Return-Path: <jailhouse-dev+bncBCQ7HUU4XULBBUNIY7YQKGQE2TEAUKI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCQ7HUU4XULBBN5RY7YQKGQEFFCLJTI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x33d.google.com (mail-ot1-x33d.google.com [IPv6:2607:f8b0:4864:20::33d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F8C414D0B8
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 29 Jan 2020 19:52:03 +0100 (CET)
-Received: by mail-ot1-x33d.google.com with SMTP id z62sf305704otb.0
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 29 Jan 2020 10:52:03 -0800 (PST)
+Received: from mail-oi1-x23d.google.com (mail-oi1-x23d.google.com [IPv6:2607:f8b0:4864:20::23d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 38DD214D105
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 29 Jan 2020 20:10:49 +0100 (CET)
+Received: by mail-oi1-x23d.google.com with SMTP id k206sf271273oia.22
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 29 Jan 2020 11:10:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:date:from:to:message-id:in-reply-to:references:subject
          :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=WWFlocEl/8SHibu9V+hJ8B8x21OfPM+DOd6qCZeiMNY=;
-        b=C6PVYSx7omNmA+gMUeLXg1nUew5tDhnWiS2JR9hGWMFQLVUmBL+wXCCHKHvwzPCreM
-         rKXrUijllDl08qjl3ud3MpFzWvFDtDRfH8+JT1tmU5/otdlEQYYjiDeOxHm/yzlaxqLN
-         PJJm4UDKWWjKhZVHkzm7U+fn0eTByxZ5cfKBIuhK7J+1wiQcUZ+DNDJkF8uPjDM8iVIE
-         nkXpWtUM/Brflg4Lb4bAZXYza7dnZ1izjLWHGuGM3jWM2OLWzVr5HTQ22g28vgDdv75D
-         XWR4j/5RRmnmSLxI84CMz35fp45i5h5DmQJZAvQOCHLKHkf4JA9D7Tv9yamcHMbUqQ1k
-         zCYg==
+        bh=OSOesq7ZBctOOMcf23lFosM8pCs12meE30GIq66fTUQ=;
+        b=qgw6eCnx4n4Ups3MMKaxRwy0P93RpvZGULyUTzAqtcnqkYPc+YbISpDqcm+r46PmQk
+         8ZBQ5WqTARtBKl7GZXRP1l4kTfNl3zP3AuGokDo1YB3NP1uA2P5S8LnDvUZzVhPeTtxH
+         7MibjSyF+zOMFSogXQBT1PgyO4XusFllPKWbNGhtuZtazqeryzb+4SR8gNjLxAk4BlDq
+         JXgdI32JobCWMwyd0xeyLdI8e8JQKuJ36MFXFmdACGMFkHGwoCycAbnEgrM4N52l37uM
+         GX0gJ7GVzzrlLULyyQQdrmCLZZ1AkqD1R2NvmHr8YdlOv5GS/iVnkz7WhbeBEGrVm7dd
+         eLgg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:message-id:in-reply-to:references:subject:mime-version
          :x-original-sender:precedence:mailing-list:list-id:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=WWFlocEl/8SHibu9V+hJ8B8x21OfPM+DOd6qCZeiMNY=;
-        b=bGEnVpF/RXo/clF7RfTClKuOZNriqi6+bHn9jPcAIP27lwBDt9pbm8v4m4EFASXlDo
-         HBi99lCGwNStkBG18WvE9pYfJw/OI3El+LDJqc+NeUmlx09TXaGgsMrBC8op1lSoHZy3
-         DivlYlJ1IY/QWuRHuQ2NzmakrvdQ4+EpNluqhjUcLcOV08+wCkDK5yTSfznO7npEt7I1
-         eeNem/pSR39LbSwP4ayBfq6RsZDmJEWvzfXONyimskVUPxXL2S7NvyqvrSGnwHR/S5/z
-         ulF+Az7QFnOZQ6tgmzicvYlScDZtklyKYp65OvoKiVqufs2cgVQ2Fjwotgq+dmoLYNOd
-         rUNw==
+        bh=OSOesq7ZBctOOMcf23lFosM8pCs12meE30GIq66fTUQ=;
+        b=BYTi15Kfy3UXB9JVSxnuDKoLBaYK5g+Zq+16nJ3yZZAZW68ICutZp90i5TKyNk3Auo
+         ANqHRovihrEk68or6344lpDllY81MHAamLFCFk83PvF/yG6TRwdQGVrvjoLMAQph10Xk
+         6tRZqFdutbvzg+QJ9/ptNzDKiPMmzIWyrC277hgHeMUQs4erwChLpzKXQ06J8YWQTMWu
+         4ARs+4NCYDuo7W9CCO8Us8N4t+GyAPLn73iS+EwiNtdXBxhoai0/ufU9SFqJJ9jcV/6l
+         3vQ72SfQFIz4eglZs/0M79GaWH9QqQJxz0HQ7NK6OhFyvxbAV/HAb5O4qMbo65NhNIek
+         n3kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
          :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=WWFlocEl/8SHibu9V+hJ8B8x21OfPM+DOd6qCZeiMNY=;
-        b=Uayg41D3DlN32lyZRgG3LGUjCszADHdlwECjerYOsfxtgg912YG5qiuDY3MgpBWHTo
-         tGhNXvGvMgv0PfBmOtJZFCXMw53V0hnqv5JkVJvI0Jyzti4+L09ZUKuOsV4GclMFVm9L
-         kWdWx//Qrucv0WaHvKIwQM0xbUFs4Ci5RTTQFQz7/CHo8UXbMa5CXUEpy4nVzTrQ+5hw
-         uIqY/M0fexMhu+Do3Ncb+N8bDxYq8CwTPWJIaTtZGY4jkVzBtjbrWt0RLGKgIuD9wEXG
-         LQS0pTqjtijDe2cvWkpkVzazd+Qbqoz5jgU3QAzek76thlukPeOrXS7oAaQtb8YCsD4g
-         proQ==
+        bh=OSOesq7ZBctOOMcf23lFosM8pCs12meE30GIq66fTUQ=;
+        b=LoiIHdUr7ebxIs8NJ66SKrrfqnt+tnR4R8W17kJXSpytnMf4lnDFrjQi5rBfgKqQYR
+         1R9AkGbDRSNqTL5U39VA/mzZw0n67+q2h+U8JW3rYwSmO3AmtO2vVgSBbdTJBxl/dHKm
+         4Yq3xGdv8yR0QADLm4V5Rj/ETwdRqNSPb+++AuMCqnxW83/ayphZ4kTm/X2vSVMezwlZ
+         1CIGqnCGyzUHFgO9Cj/sct+q/dmkaCbGEzVNuAVcGiN2bGed/hWTW7wiY2AV3wcQUR6W
+         cI7+ftQhnjJqZT2JMd+SYkeAmDApu0uO8pnyCHH5hqHyxOO3kHgBExxeAlSBAh87K+Dv
+         9vAQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVoD4beTz2IJBmpcT73slwtCIZD5/eRmg0iFoU1ADOwCYxhlNU4
-	1tN2v8cznOrfHY76gYz0FkI=
-X-Google-Smtp-Source: APXvYqymaTFRS+X6ZZTfJ9yez0qTKl9Z8kBnHOc/bzQVt14qRniE0NPEb5rma50YRsG4nkEuACbDCg==
-X-Received: by 2002:a9d:7f98:: with SMTP id t24mr578266otp.338.1580323921956;
-        Wed, 29 Jan 2020 10:52:01 -0800 (PST)
+X-Gm-Message-State: APjAAAX3IldjBXmPGhCxBCCzrnqwf490e4j/Rj/YpQKBPKOnVeHE76hc
+	18JP9ap6l7K1yzmvATuvP2Y=
+X-Google-Smtp-Source: APXvYqwp4KBf1GO6EOLQTYcfdH2ALJS28MGPjKZaB9ecVyspGNsJQk7pGM1K44VrHd7MhI8nGP2A6Q==
+X-Received: by 2002:aca:b1d5:: with SMTP id a204mr296074oif.82.1580325048092;
+        Wed, 29 Jan 2020 11:10:48 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aca:40e:: with SMTP id 14ls127756oie.4.gmail; Wed, 29 Jan
- 2020 10:52:01 -0800 (PST)
-X-Received: by 2002:aca:48cf:: with SMTP id v198mr239118oia.35.1580323921208;
-        Wed, 29 Jan 2020 10:52:01 -0800 (PST)
-Date: Wed, 29 Jan 2020 10:52:00 -0800 (PST)
+Received: by 2002:a05:6830:4a4:: with SMTP id l4ls138136otd.11.gmail; Wed, 29
+ Jan 2020 11:10:47 -0800 (PST)
+X-Received: by 2002:a9d:7501:: with SMTP id r1mr579029otk.307.1580325047437;
+        Wed, 29 Jan 2020 11:10:47 -0800 (PST)
+Date: Wed, 29 Jan 2020 11:10:46 -0800 (PST)
 From: Saroj Sapkota <samirroj2016@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <3f267078-10bf-4a5c-86df-9a2cf0d4abd4@googlegroups.com>
-In-Reply-To: <72876f0a-4d50-45e3-cd21-751f8bf223fb@siemens.com>
+Message-Id: <499d8d12-ac16-4374-a8ec-b27cb44902a2@googlegroups.com>
+In-Reply-To: <3f267078-10bf-4a5c-86df-9a2cf0d4abd4@googlegroups.com>
 References: <aef00f02-8d3b-4916-aace-f30233559859@googlegroups.com>
  <6e69283d-90dd-4579-7640-c5d585a2a9ad@siemens.com>
  <73f42baf-5afe-4a77-80d1-8e4bc9419f62@googlegroups.com>
  <72876f0a-4d50-45e3-cd21-751f8bf223fb@siemens.com>
+ <3f267078-10bf-4a5c-86df-9a2cf0d4abd4@googlegroups.com>
 Subject: Re: mem_region_request failed for hypervisor memory in jetson-tx2
  kit
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_847_1764004914.1580323920390"
+	boundary="----=_Part_782_551077851.1580325046696"
 X-Original-Sender: samirroj2016@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -81,94 +82,102 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_847_1764004914.1580323920390
+------=_Part_782_551077851.1580325046696
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_848_2072456847.1580323920391"
+	boundary="----=_Part_783_1622631590.1580325046696"
 
-------=_Part_848_2072456847.1580323920391
+------=_Part_783_1622631590.1580325046696
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-I have attached jetson-tx2.c and serial console output that is obtained=20
-after jailhouse enable command.
+here the txt file of serialconsole output
 
-On Wednesday, January 29, 2020 at 12:06:48 PM UTC-6, Jan Kiszka wrote:
+
+On Wednesday, January 29, 2020 at 12:52:00 PM UTC-6, Saroj Sapkota wrote:
 >
-> On 29.01.20 18:04, Saroj Sapkota wrote:=20
-> > I changed the extlinux as suggested by Henning schild, as=20
-> > attached file:=20
-> > and rebooted the system and checked the following:=20
-> > printenv gives:=20
-> > tx2@tx2 $ sudo printenv=20
-> > [sudo] password for tx2:=20
-> >=20
-> LS_COLORS=3Drs=3D0:di=3D01;34:ln=3D01;36:mh=3D00:pi=3D40;33:so=3D01;35:do=
-=3D01;35:bd=3D40;33;01:cd=3D40;33;01:or=3D40;31;01:mi=3D00:su=3D37;41:sg=3D=
-30;43:ca=3D30;41:tw=3D30;42:ow=3D34;42:st=3D37;44:ex=3D01;32:*.tar=3D01;31:=
-*.tgz=3D01;31:*.arc=3D01;31:*.arj=3D01;31:*.taz=3D01;31:*.lha=3D01;31:*.lz4=
-=3D01;31:*.lzh=3D01;31:*.lzma=3D01;31:*.tlz=3D01;31:*.txz=3D01;31:*.tzo=3D0=
-1;31:*.t7z=3D01;31:*.zip=3D01;31:*.z=3D01;31:*.Z=3D01;31:*.dz=3D01;31:*.gz=
-=3D01;31:*.lrz=3D01;31:*.lz=3D01;31:*.lzo=3D01;31:*.xz=3D01;31:*.zst=3D01;3=
-1:*.tzst=3D01;31:*.bz2=3D01;31:*.bz=3D01;31:*.tbz=3D01;31:*.tbz2=3D01;31:*.=
-tz=3D01;31:*.deb=3D01;31:*.rpm=3D01;31:*.jar=3D01;31:*.war=3D01;31:*.ear=3D=
-01;31:*.sar=3D01;31:*.rar=3D01;31:*.alz=3D01;31:*.ace=3D01;31:*.zoo=3D01;31=
-:*.cpio=3D01;31:*.7z=3D01;31:*.rz=3D01;31:*.cab=3D01;31:*.wim=3D01;31:*.swm=
-=3D01;31:*.dwm=3D01;31:*.esd=3D01;31:*.jpg=3D01;35:*.jpeg=3D01;35:*.mjpg=3D=
-01;35:*.mjpeg=3D01;35:*.gif=3D01;35:*.bmp=3D01;35:*.pbm=3D01;35:*.pgm=3D01;=
-35:*.ppm=3D01;35:*.tga=3D01;35:*.xbm=3D01;35:*.xpm=3D01;35:*.tif=3D01;35:*.=
-tiff=3D01;35:*.png=3D01;35:*.svg=3D01;35:*.svgz=3D01;35:*.mng=3D01;35:*.pcx=
-=3D01;35:*.mov=3D01;35:*.mpg=3D01;35:*.mpeg=3D01;35:*.m2v=3D01;35:*.mkv=3D0=
-1;35:*.webm=3D01;35:*.ogm=3D01;35:*.mp4=3D01;35:*.m4v=3D01;35:*.mp4v=3D01;3=
-5:*.vob=3D01;35:*.qt=3D01;35:*.nuv=3D01;35:*.wmv=3D01;35:*.asf=3D01;35:*.rm=
-=3D01;35:*.rmvb=3D01;35:*.flc=3D01;35:*.avi=3D01;35:*.fli=3D01;35:*.flv=3D0=
-1;35:*.gl=3D01;35:*.dl=3D01;35:*.xcf=3D01;35:*.xwd=3D01;35:*.yuv=3D01;35:*.=
-cgm=3D01;35:*.emf=3D01;35:*.ogv=3D01;35:*.ogx=3D01;35:*.aac=3D00;36:*.au=3D=
-00;36:*.flac=3D00;36:*.m4a=3D00;36:*.mid=3D00;36:*.midi=3D00;36:*.mka=3D00;=
-36:*.mp3=3D00;36:*.mpc=3D00;36:*.ogg=3D00;36:*.ra=3D00;36:*.wav=3D00;36:*.o=
-ga=3D00;36:*.opus=3D00;36:*.spx=3D00;36:*.xspf=3D00;36:=20
->
-> > LANG=3Den_US.UTF-8=20
-> > HOME=3D/home/tx2=20
-> > TERM=3Dxterm-256color=20
-> >=20
-> PATH=3D/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap=
-/bin=20
-> > MAIL=3D/var/mail/root=20
-> > LOGNAME=3Droot=20
-> > USER=3Droot=20
-> > USERNAME=3Droot=20
-> > SHELL=3D/bin/bash=20
-> > SUDO_COMMAND=3D/usr/bin/printenv=20
-> > SUDO_USER=3Dtx2=20
-> > SUDO_UID=3D1000=20
-> > SUDO_GID=3D1000=20
-> > Similarly output of cat /proc/cmdline is :=20
-> > root=3D/dev/mmcblk0p1 rw rootwait rootfstype=3Dext4 console=3DttyS0,115=
-200n8=20
-> > console=3Dtty0 fbcon=3Dmap:0 net.ifnames=3D0 video=3Dtegrafb=20
-> > no_console_suspend=3D1 earlycon=3Duart8250,mmio32,0x3100000=20
-> > nvdumper_reserved=3D0x2772e0000 gpt tegra_fbmem2=3D0x140000@0x9607d000=
+> I have attached jetson-tx2.c and serial console output that is obtained=
 =20
-> > lut_mem2=3D0x2008@0x9607a000 usbcore.old_scheme_first=3D1 tegraid=3D18.=
-1.2.0.0=20
-> > maxcpus=3D6 boot.slot_suffix=3D boot.ratchetvalues=3D0.2031647.1=20
-> > bl_prof_dataptr=3D0x10000@0x275840000 sdhci_tegra.en_boot_part_access=
+> after jailhouse enable command.
+>
+> On Wednesday, January 29, 2020 at 12:06:48 PM UTC-6, Jan Kiszka wrote:
+>>
+>> On 29.01.20 18:04, Saroj Sapkota wrote:=20
+>> > I changed the extlinux as suggested by Henning schild, as=20
+>> > attached file:=20
+>> > and rebooted the system and checked the following:=20
+>> > printenv gives:=20
+>> > tx2@tx2 $ sudo printenv=20
+>> > [sudo] password for tx2:=20
+>> >=20
+>> LS_COLORS=3Drs=3D0:di=3D01;34:ln=3D01;36:mh=3D00:pi=3D40;33:so=3D01;35:d=
+o=3D01;35:bd=3D40;33;01:cd=3D40;33;01:or=3D40;31;01:mi=3D00:su=3D37;41:sg=
+=3D30;43:ca=3D30;41:tw=3D30;42:ow=3D34;42:st=3D37;44:ex=3D01;32:*.tar=3D01;=
+31:*.tgz=3D01;31:*.arc=3D01;31:*.arj=3D01;31:*.taz=3D01;31:*.lha=3D01;31:*.=
+lz4=3D01;31:*.lzh=3D01;31:*.lzma=3D01;31:*.tlz=3D01;31:*.txz=3D01;31:*.tzo=
+=3D01;31:*.t7z=3D01;31:*.zip=3D01;31:*.z=3D01;31:*.Z=3D01;31:*.dz=3D01;31:*=
+.gz=3D01;31:*.lrz=3D01;31:*.lz=3D01;31:*.lzo=3D01;31:*.xz=3D01;31:*.zst=3D0=
+1;31:*.tzst=3D01;31:*.bz2=3D01;31:*.bz=3D01;31:*.tbz=3D01;31:*.tbz2=3D01;31=
+:*.tz=3D01;31:*.deb=3D01;31:*.rpm=3D01;31:*.jar=3D01;31:*.war=3D01;31:*.ear=
+=3D01;31:*.sar=3D01;31:*.rar=3D01;31:*.alz=3D01;31:*.ace=3D01;31:*.zoo=3D01=
+;31:*.cpio=3D01;31:*.7z=3D01;31:*.rz=3D01;31:*.cab=3D01;31:*.wim=3D01;31:*.=
+swm=3D01;31:*.dwm=3D01;31:*.esd=3D01;31:*.jpg=3D01;35:*.jpeg=3D01;35:*.mjpg=
+=3D01;35:*.mjpeg=3D01;35:*.gif=3D01;35:*.bmp=3D01;35:*.pbm=3D01;35:*.pgm=3D=
+01;35:*.ppm=3D01;35:*.tga=3D01;35:*.xbm=3D01;35:*.xpm=3D01;35:*.tif=3D01;35=
+:*.tiff=3D01;35:*.png=3D01;35:*.svg=3D01;35:*.svgz=3D01;35:*.mng=3D01;35:*.=
+pcx=3D01;35:*.mov=3D01;35:*.mpg=3D01;35:*.mpeg=3D01;35:*.m2v=3D01;35:*.mkv=
+=3D01;35:*.webm=3D01;35:*.ogm=3D01;35:*.mp4=3D01;35:*.m4v=3D01;35:*.mp4v=3D=
+01;35:*.vob=3D01;35:*.qt=3D01;35:*.nuv=3D01;35:*.wmv=3D01;35:*.asf=3D01;35:=
+*.rm=3D01;35:*.rmvb=3D01;35:*.flc=3D01;35:*.avi=3D01;35:*.fli=3D01;35:*.flv=
+=3D01;35:*.gl=3D01;35:*.dl=3D01;35:*.xcf=3D01;35:*.xwd=3D01;35:*.yuv=3D01;3=
+5:*.cgm=3D01;35:*.emf=3D01;35:*.ogv=3D01;35:*.ogx=3D01;35:*.aac=3D00;36:*.a=
+u=3D00;36:*.flac=3D00;36:*.m4a=3D00;36:*.mid=3D00;36:*.midi=3D00;36:*.mka=
+=3D00;36:*.mp3=3D00;36:*.mpc=3D00;36:*.ogg=3D00;36:*.ra=3D00;36:*.wav=3D00;=
+36:*.oga=3D00;36:*.opus=3D00;36:*.spx=3D00;36:*.xspf=3D00;36:=20
+>>
+>> > LANG=3Den_US.UTF-8=20
+>> > HOME=3D/home/tx2=20
+>> > TERM=3Dxterm-256color=20
+>> >=20
+>> PATH=3D/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/sna=
+p/bin=20
+>> > MAIL=3D/var/mail/root=20
+>> > LOGNAME=3Droot=20
+>> > USER=3Droot=20
+>> > USERNAME=3Droot=20
+>> > SHELL=3D/bin/bash=20
+>> > SUDO_COMMAND=3D/usr/bin/printenv=20
+>> > SUDO_USER=3Dtx2=20
+>> > SUDO_UID=3D1000=20
+>> > SUDO_GID=3D1000=20
+>> > Similarly output of cat /proc/cmdline is :=20
+>> > root=3D/dev/mmcblk0p1 rw rootwait rootfstype=3Dext4 console=3DttyS0,11=
+5200n8=20
+>> > console=3Dtty0 fbcon=3Dmap:0 net.ifnames=3D0 video=3Dtegrafb=20
+>> > no_console_suspend=3D1 earlycon=3Duart8250,mmio32,0x3100000=20
+>> > nvdumper_reserved=3D0x2772e0000 gpt tegra_fbmem2=3D0x140000@0x9607d000=
+=20
+>> > lut_mem2=3D0x2008@0x9607a000 usbcore.old_scheme_first=3D1=20
+>> tegraid=3D18.1.2.0.0=20
+>> > maxcpus=3D6 boot.slot_suffix=3D boot.ratchetvalues=3D0.2031647.1=20
+>> > bl_prof_dataptr=3D0x10000@0x275840000 sdhci_tegra.en_boot_part_access=
 =3D1=20
-> > quiet mem=3D7808M vmalloc=3D512M=20
-> >=20
-> > when i again tried to enable jailhouse through command sudo jailhouse=
+>> > quiet mem=3D7808M vmalloc=3D512M=20
+>> >=20
+>> > when i again tried to enable jailhouse through command sudo jailhouse=
 =20
-> > enable Downloads/linux-jetson/configs/arm64/jetson-tx2.cell=20
-> > terminal cell hangs and debug cell gives following output:=20
->
-> We need the output on the serial console configured in jetson-tx2.c as=20
-> Jailhouse debug channel.=20
->
-> Jan=20
->
-> --=20
-> Siemens AG, Corporate Technology, CT RDA IOT SES-DE=20
-> Corporate Competence Center Embedded Linux=20
+>> > enable Downloads/linux-jetson/configs/arm64/jetson-tx2.cell=20
+>> > terminal cell hangs and debug cell gives following output:=20
+>>
+>> We need the output on the serial console configured in jetson-tx2.c as=
+=20
+>> Jailhouse debug channel.=20
+>>
+>> Jan=20
+>>
+>> --=20
+>> Siemens AG, Corporate Technology, CT RDA IOT SES-DE=20
+>> Corporate Competence Center Embedded Linux=20
+>>
 >
 
 --=20
@@ -177,17 +186,21 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/3f267078-10bf-4a5c-86df-9a2cf0d4abd4%40googlegroups.com.
+jailhouse-dev/499d8d12-ac16-4374-a8ec-b27cb44902a2%40googlegroups.com.
 
-------=_Part_848_2072456847.1580323920391
+------=_Part_783_1622631590.1580325046696
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">I have attached jetson-tx2.c and serial console output tha=
-t is obtained after jailhouse enable command.<br><br>On Wednesday, January =
-29, 2020 at 12:06:48 PM UTC-6, Jan Kiszka wrote:<blockquote class=3D"gmail_=
-quote" style=3D"margin: 0;margin-left: 0.8ex;border-left: 1px #ccc solid;pa=
-dding-left: 1ex;">On 29.01.20 18:04, Saroj Sapkota wrote:
+<div dir=3D"ltr"><div>here the txt file of serialconsole output</div><div><=
+br> </div><br>On Wednesday, January 29, 2020 at 12:52:00 PM UTC-6, Saroj Sa=
+pkota wrote:<blockquote class=3D"gmail_quote" style=3D"margin: 0;margin-lef=
+t: 0.8ex;border-left: 1px #ccc solid;padding-left: 1ex;"><div dir=3D"ltr">I=
+ have attached jetson-tx2.c and serial console output that is obtained afte=
+r jailhouse enable command.<br><br>On Wednesday, January 29, 2020 at 12:06:=
+48 PM UTC-6, Jan Kiszka wrote:<blockquote class=3D"gmail_quote" style=3D"ma=
+rgin:0;margin-left:0.8ex;border-left:1px #ccc solid;padding-left:1ex">On 29=
+.01.20 18:04, Saroj Sapkota wrote:
 <br>&gt; I changed the extlinux as suggested by Henning schild, as
 <br>&gt; attached file:
 <br>&gt; and rebooted the system and checked the following:
@@ -266,7 +279,7 @@ use=20
 <br>--=20
 <br>Siemens AG, Corporate Technology, CT RDA IOT SES-DE
 <br>Corporate Competence Center Embedded Linux
-<br></blockquote></div>
+<br></blockquote></div></blockquote></div>
 
 <p></p>
 
@@ -277,19 +290,19 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/3f267078-10bf-4a5c-86df-9a2cf0d4abd4%40googlegroup=
+om/d/msgid/jailhouse-dev/499d8d12-ac16-4374-a8ec-b27cb44902a2%40googlegroup=
 s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
-sgid/jailhouse-dev/3f267078-10bf-4a5c-86df-9a2cf0d4abd4%40googlegroups.com<=
+sgid/jailhouse-dev/499d8d12-ac16-4374-a8ec-b27cb44902a2%40googlegroups.com<=
 /a>.<br />
 
-------=_Part_848_2072456847.1580323920391--
+------=_Part_783_1622631590.1580325046696--
 
-------=_Part_847_1764004914.1580323920390
-Content-Type: application/octet-stream; name=serialconsole_output
+------=_Part_782_551077851.1580325046696
+Content-Type: text/plain; charset=US-ASCII; name=serial_console_output.txt
 Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; filename=serialconsole_output
-X-Attachment-Id: 91cea82b-4fa9-4386-9536-4aae0139ce82
-Content-ID: <91cea82b-4fa9-4386-9536-4aae0139ce82>
+Content-Disposition: attachment; filename=serial_console_output.txt
+X-Attachment-Id: 2e022dab-4050-4256-a823-fcf273b73504
+Content-ID: <2e022dab-4050-4256-a823-fcf273b73504>
 
 ##serial console output after insmod jailhouse.ko####
 ##
@@ -1025,619 +1038,4 @@ Ubuntu 18.04.3 LTS tx2-desktop ttyS0
 tx2-desktop login: 
 
 
-------=_Part_847_1764004914.1580323920390
-Content-Type: text/x-csrc; charset=US-ASCII; name=jetson-tx2.c
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; filename=jetson-tx2.c
-X-Attachment-Id: cbba53f5-5914-4cf9-97ed-2900e7cdbb3f
-Content-ID: <cbba53f5-5914-4cf9-97ed-2900e7cdbb3f>
-
-/*
- * Jailhouse, a Linux-based partitioning hypervisor
- *
- * Configuration for Jailhouse Jetson TX2 board
- *
- * Copyright (C) 2018 Evidence Srl
- *
- * Authors:
- *  Claudio Scordino <claudio@evidence.eu.com>
- *
- * This work is licensed under the terms of the GNU GPL, version 2.  See
- * the COPYING file in the top-level directory.
- *
- * NOTE: Add "mem=7808M vmalloc=512M" to the kernel command line.
- *
- *	2:7000:0000 inmate (size: 100:0000 = 16 MB)
- *	2:7100:0000 hypervisor (size: 400:0000 = 64 MB)
- *
- */
-
-#include <jailhouse/types.h>
-#include <jailhouse/cell-config.h>
-
-#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-
-struct {
-	struct jailhouse_system header;
-	__u64 cpus[1];
-	struct jailhouse_memory mem_regions[66];
-	struct jailhouse_irqchip irqchips[3];
-	struct jailhouse_pci_device pci_devices[2];
-} __attribute__((packed)) config = {
-	.header = {
-		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
-		.revision = JAILHOUSE_CONFIG_REVISION,
-		.hypervisor_memory = {
-			.phys_start = 0x271000000,
-			.size = 0x4000000,
-		},
-		.debug_console = {
-			.address = 0x3100000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_CON1_TYPE_8250 |
-				 JAILHOUSE_CON1_ACCESS_MMIO |
-				 JAILHOUSE_CON1_REGDIST_4 |
-				 JAILHOUSE_CON2_TYPE_ROOTPAGE,
-		},
-		.platform_info = {
-			/* .pci_mmconfig_base is fixed; if you change it,
-                         update the value in inmates/lib/arm-common/pci.c
-                         (PCI_CFG_BASE) and regenerate the inmate library*/
-                        .pci_mmconfig_base = 0x40000000, 
-                        .pci_mmconfig_end_bus = 0x0,
-                        .pci_is_virtual = 1,
-
-			.arm = {
-				.gicd_base = 0x03881000,
-				.gicc_base = 0x03882000,
-				.gich_base = 0x03884000,
-				.gicv_base = 0x03886000,
-				.gic_version = 2,
-				.maintenance_irq = 25,
-			}
-		},
-		.root_cell = {
-			.name = "Jetson-TX2",
-			.cpu_set_size = sizeof(config.cpus),
-			.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-			.num_pci_devices = ARRAY_SIZE(config.pci_devices),
-			.num_irqchips = ARRAY_SIZE(config.irqchips),
-			.vpci_irq_base = 288,
-		},
-	},
-
-	.cpus = {
-		0x39,
-	},
-
-
-	.mem_regions = {
-		/* BPMP_ATCM */ {
-                        .phys_start = 0x00000000,
-                        .virt_start = 0x00000000,
-                        .size = 0x40000,
-                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-                                JAILHOUSE_MEM_EXECUTE,
-                },
-
-		/* MISC */ {
-                        .phys_start = 0x00100000,
-                        .virt_start = 0x00100000,
-                        .size = 0x10000,
-                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-                                JAILHOUSE_MEM_EXECUTE,
-                },
-
-		/* AXIP2P */ {
-			.phys_start = 0x02100000,
-			.virt_start = 0x02100000,
-			.size = 0x100000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* GPIO_CTL */ {
-			.phys_start = 0x02200000,
-			.virt_start = 0x02200000,
-			.size = 0x100000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* AXI2APB */ {
-			.phys_start = 0x02300000,
-			.virt_start = 0x02300000,
-			.size = 0x100000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-
-		/* TSA */ {
-			.phys_start = 0x2400000,
-			.virt_start = 0x2400000,
-			.size = 0x20000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* PADCTL_A (PINMUX) */ {
-			.phys_start = 0x02430000,
-			.virt_start = 0x02430000,
-			.size = 0x15000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* UFSHC */ {
-			.phys_start = 0x02450000,
-			.virt_start = 0x02450000,
-			.size = 0x20000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* ETHER_QOS */ {
-			.phys_start = 0x02490000,
-			.virt_start = 0x02490000,
-			.size = 0x50000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* GPCDMA */ {
-			.phys_start = 0x02600000,
-			.virt_start = 0x02600000,
-			.size = 0x210000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* APE */ {
-			.phys_start = 0x02900000,
-			.virt_start = 0x02900000,
-			.size = 0x200000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* MSS */ {
-			.phys_start = 0x02c00000,
-			.virt_start = 0x02c00000,
-			.size = 0xb0000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* LIC */ {
-                        .phys_start = 0x03000000,
-                        .virt_start = 0x03000000,
-                        .size = 0x10000,
-                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-                                JAILHOUSE_MEM_EXECUTE,
-                },
-		/* TOP_TKE */ {
-			.phys_start = 0x03010000,
-			.virt_start = 0x03010000,
-			.size = 0xe0000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* TIMER */ {
-                        .phys_start = 0x03020000,
-                        .virt_start = 0x03020000,
-                        .size = 0xa0000,
-                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-                                JAILHOUSE_MEM_EXECUTE,
-                },
-		/* UARTA */ {
-			.phys_start = 0x03100000,
-			.virt_start = 0x03100000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				     JAILHOUSE_MEM_EXECUTE,
-		},
-		/* UART-B */ {
-			.phys_start = 0x03110000,
-			.virt_start = 0x03110000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* I2C */ {
-			.phys_start = 0x03160000,
-			.virt_start = 0x03160000,
-			.size = 0x90000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* PWM1 + PWM2 */ {
-			.phys_start = 0x03280000,
-			.virt_start = 0x03280000,
-			.size = 0x20000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* PWM3 - PWM8 */ {
-			.phys_start = 0x032a0000,
-			.virt_start = 0x032a0000,
-			.size = 0x60000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* SDMMC */ {
-			.phys_start = 0x3400000,
-			.virt_start = 0x3400000,
-			.size = 0x80000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* SATA */ {
-			.phys_start = 0x3500000,
-			.virt_start = 0x3500000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* HDA */ {
-			.phys_start = 0x3510000,
-			.virt_start = 0x3510000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* XUSB_PADCTL + XUSB_HOST */ {
-			.phys_start = 0x3520000,
-			.virt_start = 0x3520000,
-			.size = 0x20000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* XUSB */ {
-			.phys_start = 0x03540000,
-			.virt_start = 0x03540000,
-			.size = 0x20000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* FUSE + KFUSE */ {
-			.phys_start = 0x03820000,
-			.virt_start = 0x03820000,
-			.size = 0x40000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* MIPICAL */ {
-			.phys_start = 0x03990000,
-			.virt_start = 0x03990000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* TACH_0 */ {
-			.phys_start = 0x039c0000,
-			.virt_start = 0x039c0000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* SE0 */ {
-			.phys_start = 0x03ac0000,
-			.virt_start = 0x03ac0000,
-			.size = 0x30000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* TOP0_HSP */{
-                        .phys_start = 0x03c00000,
-                        .virt_start = 0x03c00000,
-                        .size = 0xa0000,
-                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-                                JAILHOUSE_MEM_EXECUTE,
-                },
-		/* VIC CAR */{
-                        .phys_start = 0x05560000,
-                        .virt_start = 0x05560000,
-                        .size = 0x10000,
-                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-                                JAILHOUSE_MEM_EXECUTE,
-                },
-		/* CSITE */ {
-			.phys_start = 0x08000000,
-			.virt_start = 0x08000000,
-			.size = 0x2000000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* SCE VIC registers */ {
-			.phys_start = 0x0b020000,
-			.virt_start = 0x0b020000,
-			.size = 0x20000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* SCE_PM */ {
-			.phys_start = 0x0b1f0000,
-			.virt_start = 0x0b1f0000,
-			.size = 0x40000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* SCE_CFG */ {
-			.phys_start = 0x0b230000,
-			.virt_start = 0x0b230000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* AON VIC registers */ {
-			.phys_start = 0x0c020000,
-			.virt_start = 0x0c020000,
-			.size = 0x20000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* More I2C + SPI2 */ {
-			.phys_start = 0x0c230000,
-			.virt_start = 0x0c230000,
-			.size = 0x40000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* UARTC, UARTG, RTC, TSC */ {
-			.phys_start = 0x0c280000,
-			.virt_start = 0x0c280000,
-			.size = 0x70000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* AON_GPIO_0 */ {
-			.phys_start = 0x0c2f0000,
-			.virt_start = 0x0c2f0000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* AON_PADCTL_0 (PINMUX) */ {
-			.phys_start = 0x0c300000,
-			.virt_start = 0x0c300000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/*CAN 1, CAN2 */ {
-			.phys_start = 0x0c310000,
-			.virt_start = 0x0c310000,
-			.size = 0x20000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/*PWM4 (FAN) */ {
-			.phys_start = 0x0c340000,
-			.virt_start = 0x0c340000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* PMC */ {
-			.phys_start = 0x0c360000,
-			.virt_start = 0x0c360000,
-			.size = 0x40000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* BPMP VIC registers */ {
-			.phys_start = 0x0d020000,
-			.virt_start = 0x0d020000,
-			.size = 0x20000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* ACTMON  + SIMON + SOC_THERM */ {
-			.phys_start = 0x0d230000,
-			.virt_start = 0x0d230000,
-			.size = 0x70000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/*CCPLEX CLUSTER*/{
-                        .phys_start = 0x0e000000,
-                        .virt_start = 0x0e000000,
-                        .size = 0x400000,
-                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-                                JAILHOUSE_MEM_EXECUTE,
-                },
-		/* PCIE0 */ {
-			.phys_start = 0x10000000,
-			.virt_start = 0x10000000,
-			.size = 0x1000000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* SMMU0 */ {
-			.phys_start = 0x12000000,
-			.virt_start = 0x12000000,
-			.size = 0x1000000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* HOST1X */ {
-			.phys_start = 0x13e00000,
-			.virt_start = 0x13e00000,
-			.size = 0x90000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* HOST1X_ACTMON */ {
-			.phys_start = 0x13ec0000,
-			.virt_start = 0x13ec0000,
-			.size = 0x50000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* DPAUX1 */ {
-			.phys_start = 0x15040000,
-			.virt_start = 0x15040000,
-			.size = 0x40000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* NVCSI */ {
-			.phys_start = 0x150c0000,
-			.virt_start = 0x150c0000,
-			.size = 0x40000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* TSECB */ {
-			.phys_start = 0x15100000,
-			.virt_start = 0x15100000,
-			.size = 0x40000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* NVDISPLAY */ {
-                        .phys_start = 0x15200000,
-                        .virt_start = 0x15200000,
-                        .size = 0x40000,
-                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-                                JAILHOUSE_MEM_EXECUTE,
-                },
-		/* VIC */ {
-			.phys_start = 0x15340000,
-			.virt_start = 0x15340000,
-			.size = 0x40000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* NVJPG */ {
-			.phys_start = 0x15380000,
-			.virt_start = 0x15380000,
-			.size = 0x40000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* NVDEC + NVENC + TSEC + ISP  + SOR */ {
-			.phys_start = 0x15480000,
-			.virt_start = 0x15480000,
-			.size = 0x1c0000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* NI */ {
-			.phys_start = 0x15700000,
-			.virt_start = 0x15700000,
-			.size = 0x100000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* SE1-SE4 */ {
-			.phys_start = 0x15810000,
-			.virt_start = 0x15810000,
-			.size = 0x40000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* GPU */ {
-			.phys_start = 0x17000000,
-			.virt_start = 0x17000000,
-			.size = 0x9000000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* SYSRAM_0 */{
-                        .phys_start = 0x30000000,
-                        .virt_start = 0x30000000,
-                        .size = 0x10000000,
-                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-                                JAILHOUSE_MEM_EXECUTE,
-                },
-
-		/* System RAM */ {
-			.phys_start = 0x80000000,
-			.virt_start = 0x80000000,
-			.size = 0x1F0000000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* Inmate */ {
-			.phys_start = 0x270000000,
-			.virt_start = 0x270000000,
-			.size = 0x1000000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* Persistent RAM */ {
-			.phys_start = 0x277080000,
-			.virt_start = 0x277080000,
-			.size = 0x200000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* IVHSMEM  1*/ {
-                        .phys_start = 0x275000000,
-                        .virt_start = 0x275000000,
-                        .size = 0x1000,
-                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE ,
-
-                },
-
-                /* IVHSMEM  2*/ {
-                        .phys_start = 0x275200000,
-                        .virt_start = 0x275200000,
-                        .size = 0x1000,
-                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE ,
-                },
-	},
-	.irqchips = {
-		/* GIC */ {
-			.address = 0x03881000,
-			.pin_base = 32,
-			.pin_bitmap = {
-				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff
-			},
-		},
-		/* GIC */ {
-			.address = 0x03881000,
-			.pin_base = 160,
-			.pin_bitmap = {
-				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff
-			},
-		},
-		/* GIC */ {
-			.address = 0x03881000,
-			.pin_base = 288,
-			.pin_bitmap = {
-				0xffffffff, 0xffffffff, 0xffffffff
-			},
-		},
-	},
-
-	.pci_devices = {
-                {
-                        .type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-                        .bdf = 0x0 << 3,
-                        .bar_mask = {
-                                0xffffff00, 0xffffffff, 0x00000000,
-                                0x00000000, 0x00000000, 0x00000000,
-                        },
-
-                        /*num_msix_vectors needs to be 0 for INTx operation*/
-                        .num_msix_vectors = 0,
-                        .shmem_region = 64,
-                        .shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
-                        .domain = 0x0,
-
-                },
-
-                {
-                        .type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-                        .bdf = 0xf << 3,
-                        .bar_mask = {
-                                0xffffff00, 0xffffffff, 0x00000000,
-                                0x00000000, 0x00000000, 0x00000000,
-                        },
-
-                        /*num_msix_vectors needs to be 0 for INTx operation*/
-                        .num_msix_vectors = 0,
-                        .shmem_region = 65,
-                        .shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
-			.domain = 0x0,
-
-                },
-        },
-
-
-};
-
-------=_Part_847_1764004914.1580323920390--
+------=_Part_782_551077851.1580325046696--
