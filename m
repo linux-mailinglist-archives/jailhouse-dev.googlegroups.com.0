@@ -1,78 +1,143 @@
-Return-Path: <jailhouse-dev+bncBCQ7HUU4XULBB24HZXYQKGQEO5VYWFQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDL2JD42SEIBB6GGZ7YQKGQEJVTYT2Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oi1-x237.google.com (mail-oi1-x237.google.com [IPv6:2607:f8b0:4864:20::237])
-	by mail.lfdr.de (Postfix) with ESMTPS id C61A414E461
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 30 Jan 2020 22:00:28 +0100 (CET)
-Received: by mail-oi1-x237.google.com with SMTP id c4sf2132183oiy.0
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 30 Jan 2020 13:00:28 -0800 (PST)
+Received: from mail-pl1-x637.google.com (mail-pl1-x637.google.com [IPv6:2607:f8b0:4864:20::637])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7958514E97F
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 31 Jan 2020 09:21:14 +0100 (CET)
+Received: by mail-pl1-x637.google.com with SMTP id h8sf3326240plr.11
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 31 Jan 2020 00:21:14 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1580458873; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=0saWnGVHG8ete3elXrZLKxDXR6QUzKcJgwE8dUGfaT3SWAjdLNLM6hwnAA74N5WNMK
+         1X3mJWgEuE+hcdCYiDQpiDk2nZG/3dQfk4icXxFn52RKUkd9eSadDCFloUoWGjjWGIOR
+         fUXdX+cH7PpxgHkL6byk6QZ6lxTBaUywMNkYru2Bsmgrw1TG5irTo3T9jclJauSx86D7
+         rNV8871aoPhJ78uoHDTe0vyGKZ9u8UrkPLRtZSZdxz1y2ybR28Q//JlZ4hf1Q1VZRckp
+         eTG79aImW/XbBuRc19e8A++WHuithSk9ziQeOm+7tutZaBeWSIdCSLyYJI+2y/Au31AM
+         o6dg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:reply-to:content-language
+         :in-reply-to:mime-version:user-agent:date:message-id:from:references
+         :cc:to:subject:dkim-signature;
+        bh=ay4j/ZUkuJSoLwQu8w4bpYS0s0MzsTAJLPJ9RDmx1Ko=;
+        b=uFdsBUReq6YruUf3EQqx2ac7Yw7r+KjMInIgkCtEWynNhNosxFQnDgQqwecd9jfjIV
+         bN3ODnxqdOD97gxoRZLQPfnhppxLRMtuxLibqy4TCLSaSScacy5U4XFjmQfPcJLAgxZR
+         4BYvMJGi+HmzwPZtPw1QAhWccn9KRhtaYJWStgxvkJhN88BuAfoWjkd2ws8TypAxb5+A
+         Ir+H0HC6sykZW8vmLfI9GqrEuXgJZo2vU5Wgu2pEu9PRL11cThnVRtgQ+6KEcS5eqXKV
+         lLqV7DpYXfJsjaHq2+WUl5kYUbRhzFhLuoCSd7bA60qT3pM05secL9uVjgvoPVVO91Oa
+         qALA==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=afyKU5Y5;
+       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.23.248 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
+       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=U4JHpdlmF0L2bRkqGO5lr0d/Bb+QZuKiZnrMTG0pbnc=;
-        b=sU1zK3ZMnbr+wEpQJtH/TGyuOCiAGY6x5YtN0dD2KegVijKCYEy5cNkyF1phz173Sf
-         otpTXRMhRwlxkreljKvaJlR8p5j0zl/PpTzO2yNFK3l79POR6NZYgWR3dUuf+y4xY433
-         USB81t5MVsmEiW7XO5J0QGCm1wQ0swZX7SMJSqstIw9yJX3eVkPGr36K2dYdAQrpCRlk
-         RdRh6kZKHHv64AkMEMFTKaspSixi7mSPuIOsdztx/pPOR2lurf8APlrRJLSGRrhzQkp6
-         cUxpy9LV3BvsHyjzFvkyfIsu5Xv1yig4SZe5+5SsduM+p+7drkzPFUR4bMjmzsMW6A3v
-         Kjjg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=U4JHpdlmF0L2bRkqGO5lr0d/Bb+QZuKiZnrMTG0pbnc=;
-        b=BXQ14BMsESW9jLOGDXIrQpbtCflV8m/YQ44EUtwz/gPTqhBL012ENCpI7uhlsGTDLA
-         6U+Bq87wVNvt1w4vhAYUsRLuyUOyXUstlKR/UyMef6/ewHfZ7yk2ff4zokUsUKp70hjp
-         3atSE3dPeMfPEa0v2jqJ10n2wgcxioejRe4Fub787nsiKjJ7DnUz+FA3n+20s8HJBue4
-         UjnS+P29LypL/YCb7/kexLUUUz87gTrPpgs7v7v7w0BdgZxxYEJcg3Mj+O0EeMjvkrk3
-         y9Nvad3GpjpbroFkIZFYMfSCGhsAtbivxeZHh21eX6uDFz9TYPAitDqPixYXVaPx4K5T
-         YWHg==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:x-original-sender
+         :x-original-authentication-results:reply-to:precedence:mailing-list
+         :list-id:list-post:list-help:list-archive:list-subscribe
+         :list-unsubscribe;
+        bh=ay4j/ZUkuJSoLwQu8w4bpYS0s0MzsTAJLPJ9RDmx1Ko=;
+        b=KKpQaAHhCLcGUkGoUQFJIpfeWxi69oamSHNaYbJ+dOh4NAZWj+q3G4Q9vRCEe0Jjwc
+         fk7h2WL8dGEUQ/w/lOy467EBpntSXUXwzzvSnAVswvKHf1HCqRuivEA2SqNBXZDCoUY5
+         +S+Luxs70TtAWHShtTQcMlQEFfb61RWE23QpObqW8qiHi1FgzQyc0ClEuUXrriFxXKUu
+         eqgIFu3yIA01n31IOc8F8g6c4ISZT+gKXXCdyJ3twYWbNxTsg2MmdgbhiWx455lU2AkJ
+         NBfnvBzeclL5gMEGKcehMc77eMGog91NyZ2ZLtu6PUV4JZjUKaMfp2rhKvAO1/685Tb5
+         veHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=U4JHpdlmF0L2bRkqGO5lr0d/Bb+QZuKiZnrMTG0pbnc=;
-        b=NAtZq3XUnMKGJwm5iDbIjIpAQIet/6ZhEjrGnxO4Jh7YwESQyZEljOJ1vPm5X6aULf
-         ajCy1f0aZCnb1zwebZUZ6fK4NcVB+nyBgZWbJNT5c497BTKhqV+y6SeoLDcaW2L+guXb
-         iDghmnkmYr+Tu+BI0xbc82iKI24EFcWT3DWA4jQqJg1UrGJcAFFBbeXE0wf+/Gc1EPIH
-         Y+1xX0nxD6dDVayUW/r5gHiMlvR7Qe1dKiLaG6FHif+e1Vg5Gv/8cw1nlTR++TC0U54J
-         GufBEhT9e9bvdsYXHrGlAW/nSS9NTsejnGIDtPWVrTz+tyRG6q2tljKC12WoBX6XmN6M
-         NyGQ==
-Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAU+tiCC2S1DWf1T6KL8i6YmFWSqa28I2r1hZMuPlTY18QeQq01T
-	KNZzur3Q3x7boQdA+ffDwiM=
-X-Google-Smtp-Source: APXvYqyUxv7XPq0+vdctfC2JpDdQrC8t7SBhp5ksTbpx6VgtkxYRHBv6GaaYcEPdzl+KOexV5QfPlA==
-X-Received: by 2002:aca:4183:: with SMTP id o125mr4048220oia.125.1580418027713;
-        Thu, 30 Jan 2020 13:00:27 -0800 (PST)
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:reply-to
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=ay4j/ZUkuJSoLwQu8w4bpYS0s0MzsTAJLPJ9RDmx1Ko=;
+        b=nWOcy98pboWEqDzbp/wbnyN1+IngRy+mlKpfUQTY6rn0amMZAOxxvlWT06H2dxNJdS
+         q6bfmD66eFjZdcrKvBSceA/ANHJMMrOkhodmocXxIPIemDv2DSrcwSqDCtZp8sZHUAO0
+         ZEMN94SxuloTAi4ZFNPLLqFy+bfahBtVNl38tDW+qaeo+G5Z4qj85Jl3w520Bo7h53kr
+         LOEinC5oEAZ1pZ1mAHUpaDweYLSVgrsmms9QhUUldC4Px0p4hjhnUh+cZBmqpfC8nC/M
+         hqY0Xh1/aFyNOkE4cqaoJfE6XsiD1xgR7LcTWjCMuQCTyQH+nuqJt2448cWJtWMULK2i
+         ZRbg==
+X-Gm-Message-State: APjAAAUq85f3ZnEQeC96mDxokcQ8MPPxNALwPEqIr+BEsrsALVFMINO6
+	LwBsZ0mWJqlmgE77dcOdX4Y=
+X-Google-Smtp-Source: APXvYqz4OLHkR65TAUnI0zO2+kLzPoEnLMEewH3SW+59oRFNn7YECdi/bi/H3QNFwK6ON9hKPTtogQ==
+X-Received: by 2002:a17:90a:e996:: with SMTP id v22mr11201567pjy.53.1580458873140;
+        Fri, 31 Jan 2020 00:21:13 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a9d:4a96:: with SMTP id i22ls1142024otf.9.gmail; Thu, 30 Jan
- 2020 13:00:27 -0800 (PST)
-X-Received: by 2002:a9d:6418:: with SMTP id h24mr5072337otl.172.1580418027030;
-        Thu, 30 Jan 2020 13:00:27 -0800 (PST)
-Date: Thu, 30 Jan 2020 13:00:25 -0800 (PST)
-From: Saroj Sapkota <samirroj2016@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <af79c7dc-6eb8-45c0-a93f-6e0e4da069ab@googlegroups.com>
-In-Reply-To: <f34d7c4b-add2-7aef-666d-f132f30da6e9@siemens.com>
-References: <aef00f02-8d3b-4916-aace-f30233559859@googlegroups.com>
- <6e69283d-90dd-4579-7640-c5d585a2a9ad@siemens.com>
- <73f42baf-5afe-4a77-80d1-8e4bc9419f62@googlegroups.com>
- <72876f0a-4d50-45e3-cd21-751f8bf223fb@siemens.com>
- <3f267078-10bf-4a5c-86df-9a2cf0d4abd4@googlegroups.com>
- <77fe6716-0d3b-8547-ba86-3797a33706e2@siemens.com>
- <e1d54c91-d2bf-4d23-9e43-b50a1ccc0f3f@googlegroups.com>
- <f34d7c4b-add2-7aef-666d-f132f30da6e9@siemens.com>
-Subject: Re: mem_region_request failed for hypervisor memory in jetson-tx2
- kit
+Received: by 2002:aa7:874e:: with SMTP id g14ls250227pfo.9.gmail; Fri, 31 Jan
+ 2020 00:21:12 -0800 (PST)
+X-Received: by 2002:aa7:9145:: with SMTP id 5mr9487712pfi.74.1580458872487;
+        Fri, 31 Jan 2020 00:21:12 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1580458872; cv=none;
+        d=google.com; s=arc-20160816;
+        b=BaQsmbRkIeX7DWyJBzhune/MWDbtIOonQFGgt4DZ1hea9sFhGGXVvuW8cBn+F7Oc1E
+         Pwdg6/SzVX5rvug5zBK+6uBTyerkurmO3oUhFo/IvsEeJqrHqH4ql+GpVbdrVSn54XkE
+         wBWvBoz1R2SmdN2KrsVNWvSeuEFh66ZlBaA2LQRuazrtkyu8BePqhGzlbcd2K+6QC/fh
+         HW2Hrw7IoHhAmeOACOsqKo7F2Wve+ON4pH9RwHRCfLMsDIf+1NhRykLWGPO2M5iONGP4
+         V/WfhALkCdFdT7UQQ96k/bVsfSBpZ8jRLYyDaI6C6L5DjK9S4ICBbkrMtk5LgOfxxvIv
+         WCWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:cc:to:subject:dkim-signature;
+        bh=EjW+qeAZr7Tcbzb2e+t0IXWVsz0QUXaDg5egijZjf4c=;
+        b=gIMmVsZ/iO+ethpYYMvjncnKykkpgpJquDHrPy/ZNn00Y6Lyx1WpGjAcV97gSHFmy+
+         +4GQ3TKqYGzeD3Ju46/xf5JlQWARNaItP5GsgLAzqQA1k8yIANJLXRgQX9gez0/JkwxC
+         MBF/h+Zdlwcqg54i2Ta2otN0NxUbBwy1NoG5xZeX4LBlOzsJ9RFzoydL2/cHqMhPmSZv
+         RWn6e/4IIB+uc4nGTpY3sKZxK1VH8mNJRL8QOhOq5ONtMKEl6TjOClO8dTqdWPYh/j5N
+         dHHn6D9wR2zNzwQ0yfYlno/2TND4ufAVC/nMXWiiJU2larDLrX0N3nGbXJrv83m6EwhU
+         5tiA==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=afyKU5Y5;
+       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.23.248 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
+       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com. [198.47.23.248])
+        by gmr-mx.google.com with ESMTPS id j123si290399pfd.5.2020.01.31.00.21.12
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 31 Jan 2020 00:21:12 -0800 (PST)
+Received-SPF: pass (google.com: domain of nikhil.nd@ti.com designates 198.47.23.248 as permitted sender) client-ip=198.47.23.248;
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+	by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 00V8L8AE075262;
+	Fri, 31 Jan 2020 02:21:08 -0600
+Received: from DFLE114.ent.ti.com (dfle114.ent.ti.com [10.64.6.35])
+	by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTP id 00V8L8A5020435;
+	Fri, 31 Jan 2020 02:21:08 -0600
+Received: from DFLE112.ent.ti.com (10.64.6.33) by DFLE114.ent.ti.com
+ (10.64.6.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Fri, 31
+ Jan 2020 02:21:08 -0600
+Received: from lelv0327.itg.ti.com (10.180.67.183) by DFLE112.ent.ti.com
+ (10.64.6.33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
+ Frontend Transport; Fri, 31 Jan 2020 02:21:08 -0600
+Received: from [10.24.69.115] (ileax41-snat.itg.ti.com [10.172.224.153])
+	by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 00V8L6i7089703;
+	Fri, 31 Jan 2020 02:21:07 -0600
+Subject: Re: [RFC PATCH v1 3/4] core: Implement regmap unit for partitioning
+ registers
+To: <jailhouse-dev@googlegroups.com>
+CC: <jan.kiszka@siemens.com>, <chase.conklin@arm.com>
+References: <20200127135611.21302-1-nikhil.nd@ti.com>
+ <20200127135611.21302-4-nikhil.nd@ti.com>
+From: "'Nikhil Devshatwar' via Jailhouse" <jailhouse-dev@googlegroups.com>
+Message-ID: <8676e5d1-c804-f101-ebe4-0530ee47148c@ti.com>
+Date: Fri, 31 Jan 2020 13:49:47 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_1176_1752819028.1580418026179"
-X-Original-Sender: samirroj2016@gmail.com
+In-Reply-To: <20200127135611.21302-4-nikhil.nd@ti.com>
+Content-Type: multipart/alternative;
+	boundary="------------2BAEA8BF74DE19F8D4389626"
+Content-Language: en-US
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+X-Original-Sender: nikhil.nd@ti.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@ti.com header.s=ti-com-17Q1 header.b=afyKU5Y5;       spf=pass
+ (google.com: domain of nikhil.nd@ti.com designates 198.47.23.248 as permitted
+ sender) smtp.mailfrom=nikhil.nd@ti.com;       dmarc=pass (p=QUARANTINE
+ sp=NONE dis=NONE) header.from=ti.com
+X-Original-From: Nikhil Devshatwar <nikhil.nd@ti.com>
+Reply-To: Nikhil Devshatwar <nikhil.nd@ti.com>
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -85,459 +150,814 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1176_1752819028.1580418026179
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_1177_617579483.1580418026179"
-
-------=_Part_1177_617579483.1580418026179
-Content-Type: text/plain; charset="UTF-8"
-
-Thank you for the prompt reply Jan.
-
-##>This means I have to compare jetson-tx2.c with /proc/iomem addresses and 
-change if there is any deviation? 
-
-##>How the address for inmate is allocated, its the spaces of system RAM?
-
-##>where and how can i find the .gicd_base = 0x03881000,(.gicc_base, 
-.gich_base, .gicv_base) addresses of the board?
-
-##> last thing how to define .irqchip; pin_base and pin_bitmap?
+--------------2BAEA8BF74DE19F8D4389626
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 
 
-On Thursday, January 30, 2020 at 2:17:44 AM UTC-6, Jan Kiszka wrote:
+
+On 27/01/20 7:26 pm, nikhil.nd@ti.com wrote:
+> From: Nikhil Devshatwar <nikhil.nd@ti.com>
 >
-> On 29.01.20 21:45, Saroj Sapkota wrote: 
-> > NO, its 8GB-version and its iomem is: 
-> > 02100000-02100fff : /axip2p@2100000 
-> > 02110000-02110fff : /axip2p@2110000 
-> > 02120000-02120fff : /axip2p@2120000 
-> > 02130000-02130fff : /axip2p@2130000 
-> > 02140000-02140fff : /axip2p@2140000 
-> > 02150000-02150fff : /axip2p@2150000 
-> > 02160000-02160fff : /axip2p@2160000 
-> > 02170000-02170fff : /axip2p@2170000 
-> > 02180000-02180fff : /axip2p@2180000 
-> > 02190000-02190fff : /axip2p@2190000 
-> > 02200000-0220ffff : security 
-> > 02210000-0221ffff : gpio 
-> > 02390000-02390fff : /axi2apb@2390000 
-> > 023a0000-023a0fff : /axi2apb@23a0000 
-> > 023b0000-023b0fff : /axi2apb@23b0000 
-> > 023c0000-023c0fff : /axi2apb@23c0000 
-> > 023d0000-023d0fff : /axi2apb@23d0000 
-> > 02430000-02444fff : /pinmux@2430000 
-> > 02600000-0280ffff : /dma@2600000 
-> > 02900800-02900fff : /aconnect@2a41000/ahub 
-> > 02901000-029010ff : /aconnect@2a41000/ahub/i2s@2901000 
-> > 02901100-029011ff : /aconnect@2a41000/ahub/i2s@2901100 
-> > 02901200-029012ff : /aconnect@2a41000/ahub/i2s@2901200 
-> > 02901300-029013ff : /aconnect@2a41000/ahub/i2s@2901300 
-> > 02901400-029014ff : /aconnect@2a41000/ahub/i2s@2901400 
-> > 02901500-029015ff : /aconnect@2a41000/ahub/i2s@2901500 
-> > 02902000-029021ff : /aconnect@2a41000/ahub/sfc@2902000 
-> > 02902200-029023ff : /aconnect@2a41000/ahub/sfc@2902200 
-> > 02902400-029025ff : /aconnect@2a41000/ahub/sfc@2902400 
-> > 02902600-029027ff : /aconnect@2a41000/ahub/sfc@2902600 
-> > 02903000-029030ff : /aconnect@2a41000/ahub/amx@2903000 
-> > 02903100-029031ff : /aconnect@2a41000/ahub/amx@2903100 
-> > 02903200-029032ff : /aconnect@2a41000/ahub/amx@2903200 
-> > 02903300-029033ff : /aconnect@2a41000/ahub/amx@2903300 
-> > 02903800-029038ff : /aconnect@2a41000/ahub/adx@2903800 
-> > 02903900-029039ff : /aconnect@2a41000/ahub/adx@2903900 
-> > 02903a00-02903aff : /aconnect@2a41000/ahub/adx@2903a00 
-> > 02903b00-02903bff : /aconnect@2a41000/ahub/adx@2903b00 
-> > 02904000-029040ff : /aconnect@2a41000/ahub/dmic@2904000 
-> > 02904100-029041ff : /aconnect@2a41000/ahub/dmic@2904100 
-> > 02904200-029042ff : /aconnect@2a41000/ahub/dmic@2904200 
-> > 02904300-029043ff : /aconnect@2a41000/ahub/dmic@2904300 
-> > 02905000-029050ff : /aconnect@2a41000/ahub/dspk@2905000 
-> > 02905100-029051ff : /aconnect@2a41000/ahub/dspk@2905100 
-> > 02907000-029070ff : /aconnect@2a41000/ahub/afc@2907000 
-> > 02907100-029071ff : /aconnect@2a41000/ahub/afc@2907100 
-> > 02907200-029072ff : /aconnect@2a41000/ahub/afc@2907200 
-> > 02907300-029073ff : /aconnect@2a41000/ahub/afc@2907300 
-> > 02907400-029074ff : /aconnect@2a41000/ahub/afc@2907400 
-> > 02907500-029075ff : /aconnect@2a41000/ahub/afc@2907500 
-> > 02908000-029080ff : /aconnect@2a41000/ahub/ope@2908000 
-> > 02908100-029081ff : /aconnect@2a41000/ahub/ope@2908000 
-> > 02908200-029083ff : /aconnect@2a41000/ahub/ope@2908000 
-> > 0290a000-0290a1ff : /aconnect@2a41000/ahub/mvc@290a000 
-> > 0290a200-0290a3ff : /aconnect@2a41000/ahub/mvc@290a200 
-> > 0290bb00-0290c2ff : /aconnect@2a41000/ahub/amixer@290bb00 
-> > 0290e400-0290e7ff : /aconnect@2a41000/ahub/arad@290e400 
-> > 0290f000-0290ffff : /aconnect@2a41000/ahub/admaif@290f000 
-> > 02910000-02911fff : /aconnect@2a41000/ahub/asrc@2910000 
-> > 02930000-0297ffff : /aconnect@2a41000/adma@2930000 
-> > 02c00000-02c0ffff : /mc_sid@2c00000 
-> > 02c10000-02c1ffff : /mc_sid@2c00000 
-> > 03010000-0301ffff : /watchdog@30c0000 
-> > 03090000-0309fffe : /watchdog@30c0000 
-> > 030c0000-030cfffe : /watchdog@30c0000 
-> > 03100000-0310003f : serial 
-> > 03110000-0311003f : /serial@3110000 
-> > 03130000-0313003f : /serial@3130000 
-> > 03160000-031600ff : /i2c@3160000 
-> > 03180000-031800ff : /i2c@3180000 
-> > 03190000-031900ff : /i2c@3190000 
-> > 031b0000-031b00ff : /i2c@31b0000 
-> > 031c0000-031c00ff : /i2c@31c0000 
-> > 031e0000-031e00ff : /i2c@31e0000 
-> > 03210000-0321ffff : /spi@3210000 
-> > 03240000-0324ffff : /spi@3240000 
-> > 03280000-0328ffff : /pwm@3280000 
-> > 03290000-0329ffff : /pwm@3290000 
-> > 032a0000-032affff : /pwm@32a0000 
-> > 03400000-0340020f : /sdhci@3400000 
-> > 03440000-0344020f : /sdhci@3440000 
-> > 03460000-0346020f : /sdhci@3460000 
-> > 03500000-03500fff : sata-ipfs 
-> > 03501000-03506fff : sata-config 
-> > 03507000-03508fff : sata-ahci 
-> > 03510000-0351ffff : /hda@3510000 
-> > 03520000-03520fff : padctl 
-> > 03530000-03537fff : /xhci@3530000 
-> > 03538000-03538fff : /xhci@3530000 
-> > 03540000-03540fff : ao 
-> > 03550000-03557fff : /xudc@3550000 
-> > 03558000-03558fff : /xudc@3550000 
-> > 03820000-038205ff : /efuse@3820000 
-> > 03830000-0383ffff : /kfuse@0x3830000 
-> > 03960000-03960fff : 3960000.tegra_cec 
-> > 03990000-0399ffff : 3990000.mipical 
-> > 039c0000-039c000f : /tachometer@39c0000 
-> > 03a90000-03a9ffff : sata-aux 
-> > 03ad0000-03adffff : /se_elp@3ad0000 
-> > 03ae0000-03aeffff : /se_elp@3ad0000 
-> > 03c00000-03c00fff : Tegra Combined UART TOP0_HSP Linux mailbox 
-> interrrupt 
-> > 03c10000-03c10003 : Tegra Combined UART TOP0_HSP Linux mailbox 
-> > 08010000-08010fff : /funnel_major@8010000 
-> > 08030000-08030fff : /etf@8030000 
-> > 08050000-08050fff : /etr@8050000 
-> > 08060000-08060fff : /tpiu@8060000 
-> > 08070000-08070fff : stm-base 
-> > 08820000-08820fff : /funnel_minor@8820000 
-> > 08a1c000-08a1cfff : /ptm_bpmp@8a1c000 
-> > 09010000-09010fff : /funnel_bccplex@9010000 
-> > 09840000-09840fff : /ptm@9840000 
-> > 09940000-09940fff : /ptm@9940000 
-> > 09a40000-09a40fff : /ptm@9a40000 
-> > 09b40000-09b40fff : /ptm@9b40000 
-> > 0b1f0000-0b22ffff : sce-pm 
-> > 0b230000-0b23ffff : sce-cfg 
-> > 0c168000-0c168003 : Tegra Combined UART SPE mailbox 
-> > 0c240000-0c2400ff : /i2c@c240000 
-> > 0c250000-0c2500ff : /i2c@c250000 
-> > 0c260000-0c26ffff : /spi@c260000 
-> > 0c280000-0c28003f : /serial@c280000 
-> > 0c2a0000-0c2a00ff : /rtc@c2a0000 
-> > 0c2f0000-0c2f0fff : security 
-> > 0c2f1000-0c2f1fff : gpio 
-> > 0c300000-0c303fff : /pinmux@2430000 
-> > 0c340000-0c34ffff : /pwm@c340000 
-> > 0c360000-0c3603ff : /pmc@c360000 
-> > 0c370000-0c3705ff : /pmc@c370000 
-> > 0c390000-0c392ffe : /pmc@c360000 
-> > 0d230000-0d230fff : /actmon@d230000 
-> > 0e000000-0e07ffff : /cpufreq@e070000 
-> > 10000000-10000fff : /pcie-controller@10003000/pci@1,0 
-> > 10004000-10004fff : /pcie-controller@10003000/pci@3,0 
-> > 12000000-12ffffff : /iommu@12000000 
-> > 13e00000-13e0ffff : /host1x 
-> > 13e10000-13e1ffff : /host1x 
-> > 13ec0000-13efffff : /host1x 
-> > 150c0000-150fffff : /host1x/nvcsi@150c0000 
-> > 15100000-1513ffff : /host1x/tsecb@15100000 
-> > 15340000-1537ffff : /host1x/vic@15340000 
-> > 15380000-153bffff : /host1x/nvjpg@15380000 
-> > 15480000-154bffff : /host1x/nvdec@15480000 
-> > 154c0000-154fffff : /host1x/nvenc@154c0000 
-> > 15500000-1553ffff : /host1x/tsec@15500000 
-> > 15600000-1563ffff : /host1x/isp@15600000 
-> > 15700000-157fffff : /host1x/vi@15700000 
-> > 15810000-1581ffff : /host1x/se@15810000 
-> > 15820000-1582ffff : /host1x/se@15820000 
-> > 15830000-1583ffff : /host1x/se@15830000 
-> > 15840000-1584ffff : /host1x/se@15840000 
-> > 17000000-17ffffff : /gp10b 
-> > 18000000-18ffffff : /gp10b 
-> > 80000000-96079fff : System RAM 
-> >    80280000-817dffff : Kernel code 
-> >    82040000-823b9fff : Kernel data 
-> > 961bd000-efffffff : System RAM 
-> > f0200000-2757fffff : System RAM 
-> > 275880000-27588ffff : persistent_ram 
-> > 275890000-27589ffff : persistent_ram 
-> > 2758a0000-2758affff : persistent_ram 
-> > 2758b0000-2758bffff : persistent_ram 
-> > 2758c0000-2758cffff : persistent_ram 
-> > 2758d0000-2758dffff : persistent_ram 
-> > 2758e0000-2758effff : persistent_ram 
-> > 2758f0000-2758fffff : persistent_ram 
-> > 275900000-27590ffff : persistent_ram 
-> > 275910000-27591ffff : persistent_ram 
-> > 275920000-27592ffff : persistent_ram 
-> > 275930000-27593ffff : persistent_ram 
-> > 275940000-27594ffff : persistent_ram 
-> > 275950000-27595ffff : persistent_ram 
-> > 275960000-27596ffff : persistent_ram 
-> > 275970000-27597ffff : persistent_ram 
-> > 275980000-27598ffff : persistent_ram 
-> > 275990000-27599ffff : persistent_ram 
-> > 2759a0000-2759affff : persistent_ram 
-> > 2759b0000-2759bffff : persistent_ram 
-> > 2759c0000-2759cffff : persistent_ram 
-> > 2759d0000-2759dffff : persistent_ram 
-> > 2759e0000-2759effff : persistent_ram 
-> > 2759f0000-2759fffff : persistent_ram 
-> > 275a00000-275a7ffff : persistent_ram 
-> > 275e00000-275ffffff : System RAM 
-> > 276600000-2767fffff : System RAM 
-> > 277000000-2771fffff : System RAM 
+> Implement regmap as a unit, Use reg_map_data as book keeping
+> data structure per cell.
 >
-> OK, but reservation still doesn't work as needed. There must be no RAM 
-> identified by the kernel from 270000000 onward, see comments in 
-> jetson-tx2.c. 
+> Register a MMIO handler for each regmap region and handle the
+> mmio access based on the regmap described in the config.
 >
-> But there might be more different with your system, just compare the 
-> addresses of the persistent memory with the tx2 config. Maybe you have a 
-> newer variant of the board. Adding Claudio, maybe he has an idea. But I 
-> suspect you will have to update the config for the variations. 
+> Implement the regmap_modify_root to map and unmap the regmap
+> access from the root cell while creating inmate cells.
 >
-> Jan 
+> Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
+> ---
+>   hypervisor/Makefile                   |   2 +-
+>   hypervisor/include/jailhouse/cell.h   |   2 +
+>   hypervisor/include/jailhouse/regmap.h |  47 +++++
+>   hypervisor/regmap.c                   | 258 ++++++++++++++++++++++++++
+>   4 files changed, 308 insertions(+), 1 deletion(-)
+>   create mode 100644 hypervisor/include/jailhouse/regmap.h
+>   create mode 100644 hypervisor/regmap.c
 >
-> -- 
-> Siemens AG, Corporate Technology, CT RDA IOT SES-DE 
-> Corporate Competence Center Embedded Linux 
->
+> diff --git a/hypervisor/Makefile b/hypervisor/Makefile
+> index 893ead42..62c86a4b 100644
+> --- a/hypervisor/Makefile
+> +++ b/hypervisor/Makefile
+> @@ -36,7 +36,7 @@ ifneq ($(wildcard $(INC_CONFIG_H)),)
+>   KBUILD_CFLAGS += -include $(INC_CONFIG_H)
+>   endif
+>   
+> -CORE_OBJECTS = setup.o printk.o paging.o control.o lib.o mmio.o pci.o ivshmem.o
+> +CORE_OBJECTS = setup.o printk.o paging.o control.o lib.o mmio.o pci.o ivshmem.o regmap.o
+>   CORE_OBJECTS += uart.o uart-8250.o
+>   
+>   ifdef CONFIG_JAILHOUSE_GCOV
+> diff --git a/hypervisor/include/jailhouse/cell.h b/hypervisor/include/jailhouse/cell.h
+> index c804a5df..90575bb9 100644
+> --- a/hypervisor/include/jailhouse/cell.h
+> +++ b/hypervisor/include/jailhouse/cell.h
+> @@ -69,6 +69,8 @@ struct cell {
+>   	unsigned int num_mmio_regions;
+>   	/** Maximum number of MMIO regions. */
+>   	unsigned int max_mmio_regions;
+> +	/** List of register maps assigned to this cell. */
+> +	struct reg_map_data *regmap;
+>   };
+>   
+>   extern struct cell root_cell;
+> diff --git a/hypervisor/include/jailhouse/regmap.h b/hypervisor/include/jailhouse/regmap.h
+> new file mode 100644
+> index 00000000..98faf2c8
+> --- /dev/null
+> +++ b/hypervisor/include/jailhouse/regmap.h
+> @@ -0,0 +1,47 @@
+> +/*
+> + * Jailhouse, a Linux-based partitioning hypervisor
+> + *
+> + * Copyright (c) 2019 Texas Instruments Incorporated - http://www.ti.com
+> + *
+> + * Authors:
+> + *  Nikhil Devshatwar <nikhil.nd@ti.com>
+> + *
+> + * This work is licensed under the terms of the GNU GPL, version 2.  See
+> + * the COPYING file in the top-level directory.
+> + */
+> +
+> +#ifndef _JAILHOUSE_REGMAP_H
+> +#define _JAILHOUSE_REGMAP_H
+> +
+> +#include <jailhouse/types.h>
+> +#include <asm/mmio.h>
+> +#include <jailhouse/cell-config.h>
+> +
+> +struct cell;
+> +
+> +/**
+> + * @defgroup REGMAP Regmap subsystem
+> + *
+> + * This subsystem provides interpretation and handling of intercepted
+> + * register accesses performed by cells.
+> + *
+> + * @{
+> + */
+> +
+> +#define JAILHOUSE_REGMAP_WORDS		8
+> +#define JAILHOUSE_REGMAP_BITS		(JAILHOUSE_REGMAP_WORDS * 32)
+> +
+> +/** Register map description */
+> +struct reg_map_data {
+> +	/** Reference to regmap defined in config */
+> +	const struct jailhouse_regmap *info;
+> +	/** Owning cell */
+> +	struct cell *cell;
+> +	/** virt address where this regmap is mapped */
+> +	void *map_base;
+> +	/** Ownership details for each register */
+> +	u32 reg_bitmap[JAILHOUSE_REGMAP_WORDS];
+> +};
+> +
+> +/** @} REGMAP */
+> +#endif /* !_JAILHOUSE_REGMAP_H */
+> diff --git a/hypervisor/regmap.c b/hypervisor/regmap.c
+> new file mode 100644
+> index 00000000..9f3d32dc
+> --- /dev/null
+> +++ b/hypervisor/regmap.c
+> @@ -0,0 +1,258 @@
+> +/*
+> + * Jailhouse, a Linux-based partitioning hypervisor
+> + *
+> + * Copyright (c) 2019 Texas Instruments Incorporated - http://www.ti.com
+> + *
+> + * Authors:
+> + *  Nikhil Devshatwar <nikhil.nd@ti.com>
+> + *
+> + * This work is licensed under the terms of the GNU GPL, version 2.  See
+> + * the COPYING file in the top-level directory.
+> + */
+> +
+> +#include <jailhouse/cell.h>
+> +#include <jailhouse/control.h>
+> +#include <jailhouse/paging.h>
+> +#include <jailhouse/printk.h>
+> +#include <jailhouse/unit.h>
+> +#include <jailhouse/percpu.h>
+> +#include <jailhouse/regmap.h>
+> +
+> +static inline bool regmap_is_enabled(struct reg_map_data *regmap, int reg)
+> +{
+> +	u32 idx, mask;
+> +
+> +	idx = reg / 32;
+> +	mask = 1 << (reg % 32);
+> +
+> +	return regmap->reg_bitmap[idx] & mask ? 1 : 0;
+> +}
+> +
+> +static inline void regmap_enable(struct reg_map_data *regmap, int reg)
+> +{
+> +	u32 idx, mask;
+> +
+> +	idx = reg / 32;
+> +	mask = 1 << (reg % 32);
+> +
+> +	regmap->reg_bitmap[idx] |= mask;
+> +}
+> +
+> +static inline void regmap_disable(struct reg_map_data *regmap, int reg)
+> +{
+> +	u32 idx, mask;
+> +
+> +	idx = reg / 32;
+> +	mask = 1 << (reg % 32);
+> +
+> +	regmap->reg_bitmap[idx] &= ~mask;
+> +}
+> +
+> +/**
+> + * Find the regmap which degines the ownership bitmap for
+> + * the register address provided.
+> + *
+> + * @param cell		Cell in which to search.
+> + * @param addr		Register address to match
+> + * @param idx		Pointer to index, populated with index of register in
+> + *			the matching regmap
+> + *
+> + * @return Valid reg_map_data or NULL when not found.
+> + */
+> +static struct reg_map_data *cell_get_regmap(struct cell *cell,
+> +	unsigned long addr, unsigned int *idx)
+> +{
+> +	const struct jailhouse_regmap *info;
+> +	struct reg_map_data *regmap;
+> +	unsigned long start, end;
+> +	u32 i;
+> +
+> +	for (i = 0; i < cell->config->num_regmaps; i++) {
+> +		regmap = &cell->regmap[i];
+> +		info = regmap->info;
+> +		start = (unsigned long)info->reg_base;
+> +		end = (unsigned long)start + info->reg_size * info->reg_count;
+> +
+> +		if (addr < start || addr >= end)
+> +			continue;
+> +
+> +		*idx = (addr - info->reg_base) / info->reg_size;
+> +		return regmap;
+> +	}
+> +	return NULL;
+> +}
+> +
+> +/**
+> + * Handle emulation of regmap access as per permission bitmap
+> + * Check regmap access permissions and ownership
+> + * Based on that, allow or forbid the MMIOs access to register
+> + *
+> + * @param arg		Private argument, reg_map_data.
+> + * @param mmio		describes the mmio access which caused the fault
+> + *
+> + * @return		MMIO_HANDLED if the access is as per regmap description,
+> + *			MMIO_ERROR if it violates some of the permissions,
+> + */
+> +static enum mmio_result regmap_handler(void *arg, struct mmio_access *mmio)
+> +{
+> +	struct reg_map_data *regmap = (struct reg_map_data *)arg;
+> +	const struct jailhouse_regmap *info;
+> +	unsigned int idx;
+> +
+> +	info = regmap->info;
+> +	idx = mmio->address / info->reg_size;
+> +
+> +	if (mmio->is_write) {
+> +		if ((info->flags & JAILHOUSE_MEM_WRITE) == 0)
+> +			return MMIO_ERROR;
+> +	} else {
+> +		if ((info->flags & JAILHOUSE_MEM_READ) == 0)
+> +			return MMIO_ERROR;
+> +	}
+> +
+> +	if (regmap_is_enabled(regmap, idx)) {
+> +		mmio_perform_access(regmap->map_base, mmio);
+> +		return MMIO_HANDLED;
+> +	}  else {
+> +		printk("MMIO access disabled\n");
+> +		return MMIO_ERROR;
+> +	}
+> +}
+> +
+> +/**
+> + * Modify root_cell's bitmap to (un)mask the registers defined in inmate cell.
+> + * Ignore if the root cell does not describe the regmap used by inmate
+> + * Handles the case where root cell describes the registers using
+> + * different address range
+> + *
+> + * @param cell		inmate cell handle.
+> + * @param regmap	register (un)map to be removed from root_cell.
+> + * @param map		true to map the regmap, false to unmap.
+> + *
+> + * @return 0 on successfully (un)mapping the regmap.
+> + */
+> +static int regmap_modify_root(struct cell *cell, struct reg_map_data *regmap,
+> +		bool map)
+> +{
+> +	const struct jailhouse_regmap *info = regmap->info;
+> +	struct reg_map_data *root_regmap = NULL;
+> +	unsigned long long addr;
+> +	u32 reg, idx;
+> +
+> +	if (cell == &root_cell)
+> +		return 0;
+> +	if (info->flags & JAILHOUSE_MEM_ROOTSHARED)
+> +		return 0;
+> +
+> +	for (reg = 0; reg < info->reg_count; reg++) {
+> +
+> +		addr = info->reg_base + reg * info->reg_size;
+> +		if (!root_regmap) {
+> +			root_regmap = cell_get_regmap(&root_cell, addr, &idx);
+> +			if (!root_regmap)
+> +				continue;
+> +		}
+> +
+> +		if (regmap_is_enabled(regmap, reg)) {
+> +			if (map) {
+> +				regmap_enable(root_regmap, idx);
+> +
+> +			/* For unmapping, ensure that its mapped in root cell regmap */
+> +			} else if (regmap_is_enabled(root_regmap, idx)) {
+> +
+> +				regmap_disable(root_regmap, idx);
+> +			} else {
+> +				printk("ERROR: Root cell does not own bitmap for reg %llx\n",
+> +						addr);
+> +				return -EINVAL;
+> +			}
+> +		}
+> +
+> +		/* reuse the same root_regmap for next register if idx is within limit */
+> +		idx++;
+> +		if (idx >= root_regmap->info->reg_count)
+> +			root_regmap = NULL;
+> +	}
+> +	return 0;
+> +}
+> +
+> +static int regmap_cell_init(struct cell *cell)
+> +{
+> +	const struct jailhouse_regmap *info;
+> +	struct reg_map_data *regmap;
+> +	u32 i, num_pages, size;
+> +	int ret;
+> +
+> +	if (cell->config->num_regmaps == 0)
+> +		return 0;
+> +
+> +	num_pages = PAGES(cell->config->num_regmaps * sizeof(struct reg_map_data));
+> +	cell->regmap = page_alloc(&mem_pool, num_pages);
+> +	if (!cell->regmap)
+> +		return -ENOMEM;
+> +
+> +	info = jailhouse_cell_regmaps(cell->config);
+> +	for (i = 0; i < cell->config->num_regmaps; i++, info++) {
+> +
+> +		regmap = &cell->regmap[i];
+> +		regmap->info = info;
+> +		regmap->cell = cell;
+> +		size = info->reg_size * info->reg_count;
+> +
+> +		if (info->reg_count > JAILHOUSE_REGMAP_BITS ||
+> +		    (info->flags & (JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE)) == 0)
+> +			goto invalid;
+> +
+> +		regmap->map_base = paging_map_device(info->reg_base, size);
+> +		if (!regmap->map_base)
+> +			return -ENOMEM;
+> +
+> +		memcpy(regmap->reg_bitmap, info->reg_bitmap,
+> +			sizeof(regmap->reg_bitmap));
+> +
+> +		mmio_region_register(cell, info->reg_base, size,
+> +			regmap_handler, regmap);
+> +
+> +		/* Unmap the memory so that handler can be triggered */
+> +		ret = paging_destroy(&cell->arch.mm, info->reg_base, size,
+> +				PAGING_COHERENT);
+
+Jan/Chase,
+
+I was doing some more testing / debug with this.
+I root caused that the paging_destroy call does not take effect.
+
+I have the fix (7cffb9b7d54d "core: fix hugepage splitting in 
+paging_destroy") from the next branch
+Do we have one more bug causing the paging_destroy to be ignored?
+
+Regards,
+Nikhil D
+> +		if (ret)
+> +			goto invalid;
+> +
+> +		ret = regmap_modify_root(cell, regmap, false);
+> +		if (ret)
+> +			goto invalid;
+> +	}
+> +
+> +	return 0;
+> +invalid:
+> +	page_free(&mem_pool, cell->regmap, 1);
+> +	return -EINVAL;
+> +}
+> +
+> +static void regmap_cell_exit(struct cell *cell)
+> +{
+> +	struct reg_map_data *regmap;
+> +	u32 i, num_pages;
+> +
+> +	for (i = 0; i < cell->config->num_regmaps; i++) {
+> +		regmap = &cell->regmap[i];
+> +		regmap_modify_root(cell, regmap, true);
+> +	}
+> +
+> +	num_pages = PAGES(cell->config->num_regmaps);
+> +	page_free(&mem_pool, cell->regmap, num_pages);
+> +}
+> +
+> +static int regmap_init(void)
+> +{
+> +	return regmap_cell_init(&root_cell);
+> +}
+> +
+> +static unsigned int regmap_mmio_count_regions(struct cell *cell)
+> +{
+> +	return cell->config->num_regmaps;
+> +}
+> +
+> +DEFINE_UNIT_SHUTDOWN_STUB(regmap);
+> +DEFINE_UNIT(regmap, "regmap");
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/af79c7dc-6eb8-45c0-a93f-6e0e4da069ab%40googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/8676e5d1-c804-f101-ebe4-0530ee47148c%40ti.com.
 
-------=_Part_1177_617579483.1580418026179
+--------------2BAEA8BF74DE19F8D4389626
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div>Thank you for the prompt reply Jan.</div><div><br></d=
-iv><div>##&gt;This means I have to compare jetson-tx2.c with /proc/iomem ad=
-dresses and change if there is any deviation? <br></div><div><br></div><div=
->##&gt;How the address for inmate is allocated, its the spaces of system RA=
-M?</div><div><br></div><div>##&gt;where and how can i find the .gicd_base =
-=3D 0x03881000,(.gicc_base, .gich_base, .gicv_base) addresses of the board?=
-</div><div><br></div><div>##&gt; last thing how to define .irqchip; pin_bas=
-e and pin_bitmap?<br></div><div><br></div><br>On Thursday, January 30, 2020=
- at 2:17:44 AM UTC-6, Jan Kiszka wrote:<blockquote class=3D"gmail_quote" st=
-yle=3D"margin: 0;margin-left: 0.8ex;border-left: 1px #ccc solid;padding-lef=
-t: 1ex;">On 29.01.20 21:45, Saroj Sapkota wrote:
-<br>&gt; NO, its 8GB-version and its iomem is:
-<br>&gt; 02100000-02100fff : /axip2p@2100000
-<br>&gt; 02110000-02110fff : /axip2p@2110000
-<br>&gt; 02120000-02120fff : /axip2p@2120000
-<br>&gt; 02130000-02130fff : /axip2p@2130000
-<br>&gt; 02140000-02140fff : /axip2p@2140000
-<br>&gt; 02150000-02150fff : /axip2p@2150000
-<br>&gt; 02160000-02160fff : /axip2p@2160000
-<br>&gt; 02170000-02170fff : /axip2p@2170000
-<br>&gt; 02180000-02180fff : /axip2p@2180000
-<br>&gt; 02190000-02190fff : /axip2p@2190000
-<br>&gt; 02200000-0220ffff : security
-<br>&gt; 02210000-0221ffff : gpio
-<br>&gt; 02390000-02390fff : /axi2apb@2390000
-<br>&gt; 023a0000-023a0fff : /axi2apb@23a0000
-<br>&gt; 023b0000-023b0fff : /axi2apb@23b0000
-<br>&gt; 023c0000-023c0fff : /axi2apb@23c0000
-<br>&gt; 023d0000-023d0fff : /axi2apb@23d0000
-<br>&gt; 02430000-02444fff : /pinmux@2430000
-<br>&gt; 02600000-0280ffff : /dma@2600000
-<br>&gt; 02900800-02900fff : /aconnect@2a41000/ahub
-<br>&gt; 02901000-029010ff : /aconnect@2a41000/ahub/i2s@<wbr>2901000
-<br>&gt; 02901100-029011ff : /aconnect@2a41000/ahub/i2s@<wbr>2901100
-<br>&gt; 02901200-029012ff : /aconnect@2a41000/ahub/i2s@<wbr>2901200
-<br>&gt; 02901300-029013ff : /aconnect@2a41000/ahub/i2s@<wbr>2901300
-<br>&gt; 02901400-029014ff : /aconnect@2a41000/ahub/i2s@<wbr>2901400
-<br>&gt; 02901500-029015ff : /aconnect@2a41000/ahub/i2s@<wbr>2901500
-<br>&gt; 02902000-029021ff : /aconnect@2a41000/ahub/sfc@<wbr>2902000
-<br>&gt; 02902200-029023ff : /aconnect@2a41000/ahub/sfc@<wbr>2902200
-<br>&gt; 02902400-029025ff : /aconnect@2a41000/ahub/sfc@<wbr>2902400
-<br>&gt; 02902600-029027ff : /aconnect@2a41000/ahub/sfc@<wbr>2902600
-<br>&gt; 02903000-029030ff : /aconnect@2a41000/ahub/amx@<wbr>2903000
-<br>&gt; 02903100-029031ff : /aconnect@2a41000/ahub/amx@<wbr>2903100
-<br>&gt; 02903200-029032ff : /aconnect@2a41000/ahub/amx@<wbr>2903200
-<br>&gt; 02903300-029033ff : /aconnect@2a41000/ahub/amx@<wbr>2903300
-<br>&gt; 02903800-029038ff : /aconnect@2a41000/ahub/adx@<wbr>2903800
-<br>&gt; 02903900-029039ff : /aconnect@2a41000/ahub/adx@<wbr>2903900
-<br>&gt; 02903a00-02903aff : /aconnect@2a41000/ahub/adx@<wbr>2903a00
-<br>&gt; 02903b00-02903bff : /aconnect@2a41000/ahub/adx@<wbr>2903b00
-<br>&gt; 02904000-029040ff : /aconnect@2a41000/ahub/dmic@<wbr>2904000
-<br>&gt; 02904100-029041ff : /aconnect@2a41000/ahub/dmic@<wbr>2904100
-<br>&gt; 02904200-029042ff : /aconnect@2a41000/ahub/dmic@<wbr>2904200
-<br>&gt; 02904300-029043ff : /aconnect@2a41000/ahub/dmic@<wbr>2904300
-<br>&gt; 02905000-029050ff : /aconnect@2a41000/ahub/dspk@<wbr>2905000
-<br>&gt; 02905100-029051ff : /aconnect@2a41000/ahub/dspk@<wbr>2905100
-<br>&gt; 02907000-029070ff : /aconnect@2a41000/ahub/afc@<wbr>2907000
-<br>&gt; 02907100-029071ff : /aconnect@2a41000/ahub/afc@<wbr>2907100
-<br>&gt; 02907200-029072ff : /aconnect@2a41000/ahub/afc@<wbr>2907200
-<br>&gt; 02907300-029073ff : /aconnect@2a41000/ahub/afc@<wbr>2907300
-<br>&gt; 02907400-029074ff : /aconnect@2a41000/ahub/afc@<wbr>2907400
-<br>&gt; 02907500-029075ff : /aconnect@2a41000/ahub/afc@<wbr>2907500
-<br>&gt; 02908000-029080ff : /aconnect@2a41000/ahub/ope@<wbr>2908000
-<br>&gt; 02908100-029081ff : /aconnect@2a41000/ahub/ope@<wbr>2908000
-<br>&gt; 02908200-029083ff : /aconnect@2a41000/ahub/ope@<wbr>2908000
-<br>&gt; 0290a000-0290a1ff : /aconnect@2a41000/ahub/mvc@<wbr>290a000
-<br>&gt; 0290a200-0290a3ff : /aconnect@2a41000/ahub/mvc@<wbr>290a200
-<br>&gt; 0290bb00-0290c2ff : /aconnect@2a41000/ahub/amixer@<wbr>290bb00
-<br>&gt; 0290e400-0290e7ff : /aconnect@2a41000/ahub/arad@<wbr>290e400
-<br>&gt; 0290f000-0290ffff : /aconnect@2a41000/ahub/admaif@<wbr>290f000
-<br>&gt; 02910000-02911fff : /aconnect@2a41000/ahub/asrc@<wbr>2910000
-<br>&gt; 02930000-0297ffff : /aconnect@2a41000/adma@2930000
-<br>&gt; 02c00000-02c0ffff : /mc_sid@2c00000
-<br>&gt; 02c10000-02c1ffff : /mc_sid@2c00000
-<br>&gt; 03010000-0301ffff : /watchdog@30c0000
-<br>&gt; 03090000-0309fffe : /watchdog@30c0000
-<br>&gt; 030c0000-030cfffe : /watchdog@30c0000
-<br>&gt; 03100000-0310003f : serial
-<br>&gt; 03110000-0311003f : /serial@3110000
-<br>&gt; 03130000-0313003f : /serial@3130000
-<br>&gt; 03160000-031600ff : /i2c@3160000
-<br>&gt; 03180000-031800ff : /i2c@3180000
-<br>&gt; 03190000-031900ff : /i2c@3190000
-<br>&gt; 031b0000-031b00ff : /i2c@31b0000
-<br>&gt; 031c0000-031c00ff : /i2c@31c0000
-<br>&gt; 031e0000-031e00ff : /i2c@31e0000
-<br>&gt; 03210000-0321ffff : /spi@3210000
-<br>&gt; 03240000-0324ffff : /spi@3240000
-<br>&gt; 03280000-0328ffff : /pwm@3280000
-<br>&gt; 03290000-0329ffff : /pwm@3290000
-<br>&gt; 032a0000-032affff : /pwm@32a0000
-<br>&gt; 03400000-0340020f : /sdhci@3400000
-<br>&gt; 03440000-0344020f : /sdhci@3440000
-<br>&gt; 03460000-0346020f : /sdhci@3460000
-<br>&gt; 03500000-03500fff : sata-ipfs
-<br>&gt; 03501000-03506fff : sata-config
-<br>&gt; 03507000-03508fff : sata-ahci
-<br>&gt; 03510000-0351ffff : /hda@3510000
-<br>&gt; 03520000-03520fff : padctl
-<br>&gt; 03530000-03537fff : /xhci@3530000
-<br>&gt; 03538000-03538fff : /xhci@3530000
-<br>&gt; 03540000-03540fff : ao
-<br>&gt; 03550000-03557fff : /xudc@3550000
-<br>&gt; 03558000-03558fff : /xudc@3550000
-<br>&gt; 03820000-038205ff : /efuse@3820000
-<br>&gt; 03830000-0383ffff : /kfuse@0x3830000
-<br>&gt; 03960000-03960fff : 3960000.tegra_cec
-<br>&gt; 03990000-0399ffff : 3990000.mipical
-<br>&gt; 039c0000-039c000f : /tachometer@39c0000
-<br>&gt; 03a90000-03a9ffff : sata-aux
-<br>&gt; 03ad0000-03adffff : /se_elp@3ad0000
-<br>&gt; 03ae0000-03aeffff : /se_elp@3ad0000
-<br>&gt; 03c00000-03c00fff : Tegra Combined UART TOP0_HSP Linux mailbox int=
-errrupt
-<br>&gt; 03c10000-03c10003 : Tegra Combined UART TOP0_HSP Linux mailbox
-<br>&gt; 08010000-08010fff : /funnel_major@8010000
-<br>&gt; 08030000-08030fff : /etf@8030000
-<br>&gt; 08050000-08050fff : /etr@8050000
-<br>&gt; 08060000-08060fff : /tpiu@8060000
-<br>&gt; 08070000-08070fff : stm-base
-<br>&gt; 08820000-08820fff : /funnel_minor@8820000
-<br>&gt; 08a1c000-08a1cfff : /ptm_bpmp@8a1c000
-<br>&gt; 09010000-09010fff : /funnel_bccplex@9010000
-<br>&gt; 09840000-09840fff : /ptm@9840000
-<br>&gt; 09940000-09940fff : /ptm@9940000
-<br>&gt; 09a40000-09a40fff : /ptm@9a40000
-<br>&gt; 09b40000-09b40fff : /ptm@9b40000
-<br>&gt; 0b1f0000-0b22ffff : sce-pm
-<br>&gt; 0b230000-0b23ffff : sce-cfg
-<br>&gt; 0c168000-0c168003 : Tegra Combined UART SPE mailbox
-<br>&gt; 0c240000-0c2400ff : /i2c@c240000
-<br>&gt; 0c250000-0c2500ff : /i2c@c250000
-<br>&gt; 0c260000-0c26ffff : /spi@c260000
-<br>&gt; 0c280000-0c28003f : /serial@c280000
-<br>&gt; 0c2a0000-0c2a00ff : /rtc@c2a0000
-<br>&gt; 0c2f0000-0c2f0fff : security
-<br>&gt; 0c2f1000-0c2f1fff : gpio
-<br>&gt; 0c300000-0c303fff : /pinmux@2430000
-<br>&gt; 0c340000-0c34ffff : /pwm@c340000
-<br>&gt; 0c360000-0c3603ff : /pmc@c360000
-<br>&gt; 0c370000-0c3705ff : /pmc@c370000
-<br>&gt; 0c390000-0c392ffe : /pmc@c360000
-<br>&gt; 0d230000-0d230fff : /actmon@d230000
-<br>&gt; 0e000000-0e07ffff : /cpufreq@e070000
-<br>&gt; 10000000-10000fff : /pcie-controller@10003000/pci@<wbr>1,0
-<br>&gt; 10004000-10004fff : /pcie-controller@10003000/pci@<wbr>3,0
-<br>&gt; 12000000-12ffffff : /iommu@12000000
-<br>&gt; 13e00000-13e0ffff : /host1x
-<br>&gt; 13e10000-13e1ffff : /host1x
-<br>&gt; 13ec0000-13efffff : /host1x
-<br>&gt; 150c0000-150fffff : /host1x/nvcsi@150c0000
-<br>&gt; 15100000-1513ffff : /host1x/tsecb@15100000
-<br>&gt; 15340000-1537ffff : /host1x/vic@15340000
-<br>&gt; 15380000-153bffff : /host1x/nvjpg@15380000
-<br>&gt; 15480000-154bffff : /host1x/nvdec@15480000
-<br>&gt; 154c0000-154fffff : /host1x/nvenc@154c0000
-<br>&gt; 15500000-1553ffff : /host1x/tsec@15500000
-<br>&gt; 15600000-1563ffff : /host1x/isp@15600000
-<br>&gt; 15700000-157fffff : /host1x/vi@15700000
-<br>&gt; 15810000-1581ffff : /host1x/se@15810000
-<br>&gt; 15820000-1582ffff : /host1x/se@15820000
-<br>&gt; 15830000-1583ffff : /host1x/se@15830000
-<br>&gt; 15840000-1584ffff : /host1x/se@15840000
-<br>&gt; 17000000-17ffffff : /gp10b
-<br>&gt; 18000000-18ffffff : /gp10b
-<br>&gt; 80000000-96079fff : System RAM
-<br>&gt; =C2=A0=C2=A0 80280000-817dffff : Kernel code
-<br>&gt; =C2=A0=C2=A0 82040000-823b9fff : Kernel data
-<br>&gt; 961bd000-efffffff : System RAM
-<br>&gt; f0200000-2757fffff : System RAM
-<br>&gt; 275880000-27588ffff : persistent_ram
-<br>&gt; 275890000-27589ffff : persistent_ram
-<br>&gt; 2758a0000-2758affff : persistent_ram
-<br>&gt; 2758b0000-2758bffff : persistent_ram
-<br>&gt; 2758c0000-2758cffff : persistent_ram
-<br>&gt; 2758d0000-2758dffff : persistent_ram
-<br>&gt; 2758e0000-2758effff : persistent_ram
-<br>&gt; 2758f0000-2758fffff : persistent_ram
-<br>&gt; 275900000-27590ffff : persistent_ram
-<br>&gt; 275910000-27591ffff : persistent_ram
-<br>&gt; 275920000-27592ffff : persistent_ram
-<br>&gt; 275930000-27593ffff : persistent_ram
-<br>&gt; 275940000-27594ffff : persistent_ram
-<br>&gt; 275950000-27595ffff : persistent_ram
-<br>&gt; 275960000-27596ffff : persistent_ram
-<br>&gt; 275970000-27597ffff : persistent_ram
-<br>&gt; 275980000-27598ffff : persistent_ram
-<br>&gt; 275990000-27599ffff : persistent_ram
-<br>&gt; 2759a0000-2759affff : persistent_ram
-<br>&gt; 2759b0000-2759bffff : persistent_ram
-<br>&gt; 2759c0000-2759cffff : persistent_ram
-<br>&gt; 2759d0000-2759dffff : persistent_ram
-<br>&gt; 2759e0000-2759effff : persistent_ram
-<br>&gt; 2759f0000-2759fffff : persistent_ram
-<br>&gt; 275a00000-275a7ffff : persistent_ram
-<br>&gt; 275e00000-275ffffff : System RAM
-<br>&gt; 276600000-2767fffff : System RAM
-<br>&gt; 277000000-2771fffff : System RAM
-<br>
-<br>OK, but reservation still doesn&#39;t work as needed. There must be no =
-RAM=20
-<br>identified by the kernel from 270000000 onward, see comments in=20
-<br>jetson-tx2.c.
-<br>
-<br>But there might be more different with your system, just compare the=20
-<br>addresses of the persistent memory with the tx2 config. Maybe you have =
-a=20
-<br>newer variant of the board. Adding Claudio, maybe he has an idea. But I=
+<html>
+  <head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8=
+">
+  </head>
+  <body>
+    <br>
+    <br>
+    <div class=3D"moz-cite-prefix">On 27/01/20 7:26 pm, <a class=3D"moz-txt=
+-link-abbreviated" href=3D"mailto:nikhil.nd@ti.com">nikhil.nd@ti.com</a>
+      wrote:<br>
+    </div>
+    <blockquote type=3D"cite"
+      cite=3D"mid:20200127135611.21302-4-nikhil.nd@ti.com">
+      <pre class=3D"moz-quote-pre" wrap=3D"">From: Nikhil Devshatwar <a cla=
+ss=3D"moz-txt-link-rfc2396E" href=3D"mailto:nikhil.nd@ti.com">&lt;nikhil.nd=
+@ti.com&gt;</a>
+
+Implement regmap as a unit, Use reg_map_data as book keeping
+data structure per cell.
+
+Register a MMIO handler for each regmap region and handle the
+mmio access based on the regmap described in the config.
+
+Implement the regmap_modify_root to map and unmap the regmap
+access from the root cell while creating inmate cells.
+
+Signed-off-by: Nikhil Devshatwar <a class=3D"moz-txt-link-rfc2396E" href=3D=
+"mailto:nikhil.nd@ti.com">&lt;nikhil.nd@ti.com&gt;</a>
+---
+ hypervisor/Makefile                   |   2 +-
+ hypervisor/include/jailhouse/cell.h   |   2 +
+ hypervisor/include/jailhouse/regmap.h |  47 +++++
+ hypervisor/regmap.c                   | 258 ++++++++++++++++++++++++++
+ 4 files changed, 308 insertions(+), 1 deletion(-)
+ create mode 100644 hypervisor/include/jailhouse/regmap.h
+ create mode 100644 hypervisor/regmap.c
+
+diff --git a/hypervisor/Makefile b/hypervisor/Makefile
+index 893ead42..62c86a4b 100644
+--- a/hypervisor/Makefile
++++ b/hypervisor/Makefile
+@@ -36,7 +36,7 @@ ifneq ($(wildcard $(INC_CONFIG_H)),)
+ KBUILD_CFLAGS +=3D -include $(INC_CONFIG_H)
+ endif
 =20
-<br>suspect you will have to update the config for the variations.
-<br>
-<br>Jan
-<br>
-<br>--=20
-<br>Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-<br>Corporate Competence Center Embedded Linux
-<br></blockquote></div>
+-CORE_OBJECTS =3D setup.o printk.o paging.o control.o lib.o mmio.o pci.o iv=
+shmem.o
++CORE_OBJECTS =3D setup.o printk.o paging.o control.o lib.o mmio.o pci.o iv=
+shmem.o regmap.o
+ CORE_OBJECTS +=3D uart.o uart-8250.o
+=20
+ ifdef CONFIG_JAILHOUSE_GCOV
+diff --git a/hypervisor/include/jailhouse/cell.h b/hypervisor/include/jailh=
+ouse/cell.h
+index c804a5df..90575bb9 100644
+--- a/hypervisor/include/jailhouse/cell.h
++++ b/hypervisor/include/jailhouse/cell.h
+@@ -69,6 +69,8 @@ struct cell {
+ 	unsigned int num_mmio_regions;
+ 	/** Maximum number of MMIO regions. */
+ 	unsigned int max_mmio_regions;
++	/** List of register maps assigned to this cell. */
++	struct reg_map_data *regmap;
+ };
+=20
+ extern struct cell root_cell;
+diff --git a/hypervisor/include/jailhouse/regmap.h b/hypervisor/include/jai=
+lhouse/regmap.h
+new file mode 100644
+index 00000000..98faf2c8
+--- /dev/null
++++ b/hypervisor/include/jailhouse/regmap.h
+@@ -0,0 +1,47 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) 2019 Texas Instruments Incorporated - <a class=3D"moz-txt=
+-link-freetext" href=3D"http://www.ti.com">http://www.ti.com</a>
++ *
++ * Authors:
++ *  Nikhil Devshatwar <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:ni=
+khil.nd@ti.com">&lt;nikhil.nd@ti.com&gt;</a>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++#ifndef _JAILHOUSE_REGMAP_H
++#define _JAILHOUSE_REGMAP_H
++
++#include &lt;jailhouse/types.h&gt;
++#include &lt;asm/mmio.h&gt;
++#include &lt;jailhouse/cell-config.h&gt;
++
++struct cell;
++
++/**
++ * @defgroup REGMAP Regmap subsystem
++ *
++ * This subsystem provides interpretation and handling of intercepted
++ * register accesses performed by cells.
++ *
++ * @{
++ */
++
++#define JAILHOUSE_REGMAP_WORDS		8
++#define JAILHOUSE_REGMAP_BITS		(JAILHOUSE_REGMAP_WORDS * 32)
++
++/** Register map description */
++struct reg_map_data {
++	/** Reference to regmap defined in config */
++	const struct jailhouse_regmap *info;
++	/** Owning cell */
++	struct cell *cell;
++	/** virt address where this regmap is mapped */
++	void *map_base;
++	/** Ownership details for each register */
++	u32 reg_bitmap[JAILHOUSE_REGMAP_WORDS];
++};
++
++/** @} REGMAP */
++#endif /* !_JAILHOUSE_REGMAP_H */
+diff --git a/hypervisor/regmap.c b/hypervisor/regmap.c
+new file mode 100644
+index 00000000..9f3d32dc
+--- /dev/null
++++ b/hypervisor/regmap.c
+@@ -0,0 +1,258 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) 2019 Texas Instruments Incorporated - <a class=3D"moz-txt=
+-link-freetext" href=3D"http://www.ti.com">http://www.ti.com</a>
++ *
++ * Authors:
++ *  Nikhil Devshatwar <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:ni=
+khil.nd@ti.com">&lt;nikhil.nd@ti.com&gt;</a>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++#include &lt;jailhouse/cell.h&gt;
++#include &lt;jailhouse/control.h&gt;
++#include &lt;jailhouse/paging.h&gt;
++#include &lt;jailhouse/printk.h&gt;
++#include &lt;jailhouse/unit.h&gt;
++#include &lt;jailhouse/percpu.h&gt;
++#include &lt;jailhouse/regmap.h&gt;
++
++static inline bool regmap_is_enabled(struct reg_map_data *regmap, int reg)
++{
++	u32 idx, mask;
++
++	idx =3D reg / 32;
++	mask =3D 1 &lt;&lt; (reg % 32);
++
++	return regmap-&gt;reg_bitmap[idx] &amp; mask ? 1 : 0;
++}
++
++static inline void regmap_enable(struct reg_map_data *regmap, int reg)
++{
++	u32 idx, mask;
++
++	idx =3D reg / 32;
++	mask =3D 1 &lt;&lt; (reg % 32);
++
++	regmap-&gt;reg_bitmap[idx] |=3D mask;
++}
++
++static inline void regmap_disable(struct reg_map_data *regmap, int reg)
++{
++	u32 idx, mask;
++
++	idx =3D reg / 32;
++	mask =3D 1 &lt;&lt; (reg % 32);
++
++	regmap-&gt;reg_bitmap[idx] &amp;=3D ~mask;
++}
++
++/**
++ * Find the regmap which degines the ownership bitmap for
++ * the register address provided.
++ *
++ * @param cell		Cell in which to search.
++ * @param addr		Register address to match
++ * @param idx		Pointer to index, populated with index of register in
++ *			the matching regmap
++ *
++ * @return Valid reg_map_data or NULL when not found.
++ */
++static struct reg_map_data *cell_get_regmap(struct cell *cell,
++	unsigned long addr, unsigned int *idx)
++{
++	const struct jailhouse_regmap *info;
++	struct reg_map_data *regmap;
++	unsigned long start, end;
++	u32 i;
++
++	for (i =3D 0; i &lt; cell-&gt;config-&gt;num_regmaps; i++) {
++		regmap =3D &amp;cell-&gt;regmap[i];
++		info =3D regmap-&gt;info;
++		start =3D (unsigned long)info-&gt;reg_base;
++		end =3D (unsigned long)start + info-&gt;reg_size * info-&gt;reg_count;
++
++		if (addr &lt; start || addr &gt;=3D end)
++			continue;
++
++		*idx =3D (addr - info-&gt;reg_base) / info-&gt;reg_size;
++		return regmap;
++	}
++	return NULL;
++}
++
++/**
++ * Handle emulation of regmap access as per permission bitmap
++ * Check regmap access permissions and ownership
++ * Based on that, allow or forbid the MMIOs access to register
++ *
++ * @param arg		Private argument, reg_map_data.
++ * @param mmio		describes the mmio access which caused the fault
++ *
++ * @return		MMIO_HANDLED if the access is as per regmap description,
++ *			MMIO_ERROR if it violates some of the permissions,
++ */
++static enum mmio_result regmap_handler(void *arg, struct mmio_access *mmio=
+)
++{
++	struct reg_map_data *regmap =3D (struct reg_map_data *)arg;
++	const struct jailhouse_regmap *info;
++	unsigned int idx;
++
++	info =3D regmap-&gt;info;
++	idx =3D mmio-&gt;address / info-&gt;reg_size;
++
++	if (mmio-&gt;is_write) {
++		if ((info-&gt;flags &amp; JAILHOUSE_MEM_WRITE) =3D=3D 0)
++			return MMIO_ERROR;
++	} else {
++		if ((info-&gt;flags &amp; JAILHOUSE_MEM_READ) =3D=3D 0)
++			return MMIO_ERROR;
++	}
++
++	if (regmap_is_enabled(regmap, idx)) {
++		mmio_perform_access(regmap-&gt;map_base, mmio);
++		return MMIO_HANDLED;
++	}  else {
++		printk("MMIO access disabled\n");
++		return MMIO_ERROR;
++	}
++}
++
++/**
++ * Modify root_cell's bitmap to (un)mask the registers defined in inmate c=
+ell.
++ * Ignore if the root cell does not describe the regmap used by inmate
++ * Handles the case where root cell describes the registers using
++ * different address range
++ *
++ * @param cell		inmate cell handle.
++ * @param regmap	register (un)map to be removed from root_cell.
++ * @param map		true to map the regmap, false to unmap.
++ *
++ * @return 0 on successfully (un)mapping the regmap.
++ */
++static int regmap_modify_root(struct cell *cell, struct reg_map_data *regm=
+ap,
++		bool map)
++{
++	const struct jailhouse_regmap *info =3D regmap-&gt;info;
++	struct reg_map_data *root_regmap =3D NULL;
++	unsigned long long addr;
++	u32 reg, idx;
++
++	if (cell =3D=3D &amp;root_cell)
++		return 0;
++	if (info-&gt;flags &amp; JAILHOUSE_MEM_ROOTSHARED)
++		return 0;
++
++	for (reg =3D 0; reg &lt; info-&gt;reg_count; reg++) {
++
++		addr =3D info-&gt;reg_base + reg * info-&gt;reg_size;
++		if (!root_regmap) {
++			root_regmap =3D cell_get_regmap(&amp;root_cell, addr, &amp;idx);
++			if (!root_regmap)
++				continue;
++		}
++
++		if (regmap_is_enabled(regmap, reg)) {
++			if (map) {
++				regmap_enable(root_regmap, idx);
++
++			/* For unmapping, ensure that its mapped in root cell regmap */
++			} else if (regmap_is_enabled(root_regmap, idx)) {
++
++				regmap_disable(root_regmap, idx);
++			} else {
++				printk("ERROR: Root cell does not own bitmap for reg %llx\n",
++						addr);
++				return -EINVAL;
++			}
++		}
++
++		/* reuse the same root_regmap for next register if idx is within limit *=
+/
++		idx++;
++		if (idx &gt;=3D root_regmap-&gt;info-&gt;reg_count)
++			root_regmap =3D NULL;
++	}
++	return 0;
++}
++
++static int regmap_cell_init(struct cell *cell)
++{
++	const struct jailhouse_regmap *info;
++	struct reg_map_data *regmap;
++	u32 i, num_pages, size;
++	int ret;
++
++	if (cell-&gt;config-&gt;num_regmaps =3D=3D 0)
++		return 0;
++
++	num_pages =3D PAGES(cell-&gt;config-&gt;num_regmaps * sizeof(struct reg_m=
+ap_data));
++	cell-&gt;regmap =3D page_alloc(&amp;mem_pool, num_pages);
++	if (!cell-&gt;regmap)
++		return -ENOMEM;
++
++	info =3D jailhouse_cell_regmaps(cell-&gt;config);
++	for (i =3D 0; i &lt; cell-&gt;config-&gt;num_regmaps; i++, info++) {
++
++		regmap =3D &amp;cell-&gt;regmap[i];
++		regmap-&gt;info =3D info;
++		regmap-&gt;cell =3D cell;
++		size =3D info-&gt;reg_size * info-&gt;reg_count;
++
++		if (info-&gt;reg_count &gt; JAILHOUSE_REGMAP_BITS ||
++		    (info-&gt;flags &amp; (JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE)) =
+=3D=3D 0)
++			goto invalid;
++
++		regmap-&gt;map_base =3D paging_map_device(info-&gt;reg_base, size);
++		if (!regmap-&gt;map_base)
++			return -ENOMEM;
++
++		memcpy(regmap-&gt;reg_bitmap, info-&gt;reg_bitmap,
++			sizeof(regmap-&gt;reg_bitmap));
++
++		mmio_region_register(cell, info-&gt;reg_base, size,
++			regmap_handler, regmap);
++
++		/* Unmap the memory so that handler can be triggered */
++		ret =3D paging_destroy(&amp;cell-&gt;arch.mm, info-&gt;reg_base, size,
++				PAGING_COHERENT);</pre>
+    </blockquote>
+    <br>
+    Jan/Chase,<br>
+    <br>
+    I was doing some more testing / debug with this.<br>
+    I root caused that the paging_destroy call does not take effect.<br>
+    <br>
+    I have the fix (7cffb9b7d54d "core: fix hugepage splitting in
+    paging_destroy") from the next branch<br>
+    Do we have one more bug causing the paging_destroy to be ignored?<br>
+    <br>
+    Regards,<br>
+    Nikhil D<br>
+    <blockquote type=3D"cite"
+      cite=3D"mid:20200127135611.21302-4-nikhil.nd@ti.com">
+      <pre class=3D"moz-quote-pre" wrap=3D"">
++		if (ret)
++			goto invalid;
++
++		ret =3D regmap_modify_root(cell, regmap, false);
++		if (ret)
++			goto invalid;
++	}
++
++	return 0;
++invalid:
++	page_free(&amp;mem_pool, cell-&gt;regmap, 1);
++	return -EINVAL;
++}
++
++static void regmap_cell_exit(struct cell *cell)
++{
++	struct reg_map_data *regmap;
++	u32 i, num_pages;
++
++	for (i =3D 0; i &lt; cell-&gt;config-&gt;num_regmaps; i++) {
++		regmap =3D &amp;cell-&gt;regmap[i];
++		regmap_modify_root(cell, regmap, true);
++	}
++
++	num_pages =3D PAGES(cell-&gt;config-&gt;num_regmaps);
++	page_free(&amp;mem_pool, cell-&gt;regmap, num_pages);
++}
++
++static int regmap_init(void)
++{
++	return regmap_cell_init(&amp;root_cell);
++}
++
++static unsigned int regmap_mmio_count_regions(struct cell *cell)
++{
++	return cell-&gt;config-&gt;num_regmaps;
++}
++
++DEFINE_UNIT_SHUTDOWN_STUB(regmap);
++DEFINE_UNIT(regmap, "regmap");
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
 
 <p></p>
 
@@ -548,11 +968,8 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/af79c7dc-6eb8-45c0-a93f-6e0e4da069ab%40googlegroup=
-s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
-sgid/jailhouse-dev/af79c7dc-6eb8-45c0-a93f-6e0e4da069ab%40googlegroups.com<=
-/a>.<br />
+om/d/msgid/jailhouse-dev/8676e5d1-c804-f101-ebe4-0530ee47148c%40ti.com?utm_=
+medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/msgid/jailh=
+ouse-dev/8676e5d1-c804-f101-ebe4-0530ee47148c%40ti.com</a>.<br />
 
-------=_Part_1177_617579483.1580418026179--
-
-------=_Part_1176_1752819028.1580418026179--
+--------------2BAEA8BF74DE19F8D4389626--
