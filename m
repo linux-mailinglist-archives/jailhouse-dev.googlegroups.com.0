@@ -1,127 +1,115 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBV65Z7YQKGQEQKB3SXQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBKEK2XYQKGQEZBFGRGQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x137.google.com (mail-lf1-x137.google.com [IPv6:2a00:1450:4864:20::137])
-	by mail.lfdr.de (Postfix) with ESMTPS id F139514E9EE
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 31 Jan 2020 10:09:43 +0100 (CET)
-Received: by mail-lf1-x137.google.com with SMTP id y4sf1236271lfg.1
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 31 Jan 2020 01:09:43 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1580461783; cv=pass;
+Received: from mail-ua1-x939.google.com (mail-ua1-x939.google.com [IPv6:2607:f8b0:4864:20::939])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BADA14F75D
+	for <lists+jailhouse-dev@lfdr.de>; Sat,  1 Feb 2020 10:30:18 +0100 (CET)
+Received: by mail-ua1-x939.google.com with SMTP id t26sf2641661ual.17
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 01 Feb 2020 01:30:18 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1580549417; cv=pass;
         d=google.com; s=arc-20160816;
-        b=xVGwm+OfRKtHQ1K3DnzWn7yvWz3jDm2tu+IHCUJR1lrQbyiMFHpfW9isbnTivxRtCh
-         4Xb+Wtkk3D+k80ZZN77uhasoXYG4WVNCFbteQHQV9aC4PhotkbYMnX9KUBsK73E85ps5
-         dAGHhvL0Qb1FXPhX/dmcJVnu8tsirsTntMTVZ4tETI9agvRVn2oRCIkCWh0ccLpUb2jT
-         TF9LSYLU8grOInF7DxZVcCD2N/QFj1qxsFiwe01MNDcJutjqzLnoTI+5yFvWT8eXmoZk
-         yCBNIbZ1je59MhYOUJ1RKUpe49ZDZYWCjDZ7j8dX9/0HMe4iAzdDwWdR9eAnEep+qSLf
-         Hhvw==
+        b=RcZ1mCBrw8lXgQMCYXAtjSLcjto79iYzoUeWjAZ0Rf4y66te8E/tn1FV6V5uy/jqPZ
+         lacWNeN6T+lALNWRetQlW9FFRgpra0jPv5DqkQK7vPVk1YwlQUmTNsO8DdScn55rVwMq
+         S7u4BGeU/QOP1yrB8ggJnPeYt7ZB8eoYWH+LaGJCT/vwt3Bvee4sZzoWBvIAIgXA9bmn
+         VS/8p+FAPV5gb00ktTMZQCucoaGwfkkSiXzmdCWMQ3wCCGZ2//Fhtgj/ESgdn4Yahzgh
+         lu7dK+6eaPceCFURDU1iBbnoz0K8NznLs2Qo+qis3BMka6kQ3QwXxi0FkFeoz3E3qp97
+         ltwg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:cc:to
-         :subject:sender:dkim-signature;
-        bh=/cjM3QqpuDsyLvq9ualCHRfYwMcLjVwfG7irIlJGzao=;
-        b=gJj/w9lISwwKhtqnslyDGxB1d3q4S401XGJ4zy0OjnPGhAkKJljExNylPdpU9LgSq8
-         xAUi05wNFXVpLW/Zn6D/AgUR/YKoutbSnT76FP0dNBs3XiO365GFL7dJ9+Y4lEnMHQma
-         XL9i/YXaGvJseVkGRy6f1wgeqUposl34gNmdbeArTLSRfmNe3T7Zsm+vXESRpW+CZ7VI
-         Qw/FmNKisfz7SFH22qYHOg85Y5KDWGHZgaLdWnc9YdzCsi/kZV20sIkrlMSKE95uIZip
-         l9Oa43USeN7/oJWGyMqMLyLUKymZotopJ6lbESAzrbFabZflF2oGYqFZ2HC14f7A1gK6
-         nzaA==
+         :list-id:mailing-list:precedence:mime-version:subject:message-id:to
+         :from:date:sender:dkim-signature;
+        bh=c+VRbKMPViX2ezLjhOYUNdML9lLNjxxTLYmnDHEJkWA=;
+        b=Q1BOfeRmvXE5iyjg/losqiybqpFITHa8BTp/LlzBLY+liCFgwr1KhBBU5Qnytz19sV
+         zOSnttz3xdMPkzCmKrLlcX8lPPxpVwAiMVMV3tRcfKiejgvpnsSw3YgV844nXNgQ91yP
+         CIDSywuQ4ENhSvVLM20ALDqWjScMQNLs2txGy2T49wYCy9EMxgdJc7ESdjVTH+tbIHI3
+         k15f3N1Jf1/g7Qi3A46wrnzSGprTu3IwkcdN7omThWt1XaoasLlI+kr6ZaGdsmNSDxOy
+         AMCobv+IOOxR4iCH7mB4uxcBy+1UutnGu7F8ArYEgiTYJJK8Y3eEu/o5NOakcVk98Jc9
+         zFvg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=NjdQPUCZ;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.254.196 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=/cjM3QqpuDsyLvq9ualCHRfYwMcLjVwfG7irIlJGzao=;
-        b=fKDTbYfbvstLWcFLEv1KtNi7Qm4B+FJ9d+wG1mW/eivYa5hSP+UmN5+NC+wFsFHxPr
-         FCywYH9uJ9VhaJb/PhVvn42h4CzXHFibfTzk2h2o9ss/eH7yuqryAj+WxLKT8TcQ2mHJ
-         2iH/WxhIuQbMi+5gpvanrjAgqo0tpb8F+HoIiMDAAcBAlPAIpBBHcEZzP9MSzIgl49NB
-         vA3qETojyCQG64xEd875ItVszzuNbk3qHwTOPWJcflp4LLpLA0OMaiX4vX23NAzJbOE4
-         U9NFz2N1fvWJZSKX5/3xsmlwaUYpx3lUHCNTY8i+/soL5LgC2GH8K5SgotNaZxdnlxTa
-         zQjw==
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=c+VRbKMPViX2ezLjhOYUNdML9lLNjxxTLYmnDHEJkWA=;
+        b=Bfi5KfCFopL4C5VvMIEDoFTiwvxiCo9pZVytlP1FF4XfgeLebRozTnIZFQv0e4t6DU
+         iw+rF7/oWFM99PvtkIbAD7gMNFFehdiPyt+PDU1YIiyJqvAdEmtTdQyrhQGxFDNpY7xr
+         XVjL0kxWnN3mIz+6Gx7TqU8fUp7UUAEe0+SPkP4OafTP8l9UJ26gzXZ5N8cOuJOuLZq5
+         LpxQBced5tWtS7lducZc3Bpgpk4cn7rmtfthPJOSJJ/Bue+VQBCV0n2kW1gvX+InqWTz
+         qZfEiQYl62c3x3v+jHLGkIGiBwFF4tvcPisSVA0MI6jYwVKl/imPrN+L2sQW3qETF/oJ
+         jQ6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=/cjM3QqpuDsyLvq9ualCHRfYwMcLjVwfG7irIlJGzao=;
-        b=RLlUIOVH6ZjUQpxE5jj9ZMSjG5/eb+OjGKa3Y1S/+1fhn1RkDq3wuAiZqvBnOjz9yT
-         qALc/xhYHaayr3/QR7vFkJN/nxdyJ6XBtbHMc2s7NpHzOI2jlmkMvFNwiJOiD3PLRIFV
-         eHQHC2J6MHFjVZ2WPPA9RX/AsU2Gx1UUDXqb1fv62OwVvGMgfLZWynNl7tQEnbEwJ+D0
-         9h3OavANkIZafH+mR+XHpPgRgz0b/w3shk17h9SEA2ampwqBxH0y9qCBcZzhcxpwUpdz
-         vWA3HwhK4T4XM/9vmz0t6C4fdpVrhZuAZaMD1+v5dYU78IxJCmLlgGTCoWxBKsUCXrIU
-         FgBg==
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=c+VRbKMPViX2ezLjhOYUNdML9lLNjxxTLYmnDHEJkWA=;
+        b=eMbz7WjjUDOS6KVdSu7PnAyA/H6gH/1a+34p6I4Yjcp/PzErneNW/qhvatma9zT2ew
+         GwdtxOIviEhu5u7wuAwOhq14TNxF+dFtBOJdDyPr6y79cDWYHKvv5nDWie4GgYo5NpHv
+         tndIJxvGRwSdYa6pS25oeGswOS1ovEXpb9EuxvKsB94gZgSIg6Y7vCk0vydaWWzolO5n
+         i4h6qi9hLK8bfIjYSR2JjdanBIlxYms3jIb+QgbK947BSM67wiZLkojIqxhsNyZ4RAAo
+         jdDTF93HKJk8kUOzSqOCKPltx+IbRu6qUZC8xS95n59f1YJjAD/zUgYTOrFB2v/RxFZZ
+         SI+Q==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAU5SscSd/AeMYzyPZyAg8pmEJIMjB3lzgfS89h9CR7b6WYbC6B/
-	ZyKbhV4lm9IKOaHIV7DVolo=
-X-Google-Smtp-Source: APXvYqxtAmFWmWUto19vgCD8bb4jGa/QmirgSMehzr2EP0eJbbCk+vpQ0FrIXwaH8BOhlVCcQpGZNQ==
-X-Received: by 2002:a2e:9b90:: with SMTP id z16mr4390870lji.254.1580461783441;
-        Fri, 31 Jan 2020 01:09:43 -0800 (PST)
+X-Gm-Message-State: APjAAAXYfV94CSFSiMt4dHr1q9PPRZ0aOjZUqt8HS7IZqd7Gr94IchoB
+	NDeBqCedTEMndC/mv0QL68U=
+X-Google-Smtp-Source: APXvYqxjUUGMPXxU7XwIVJozBvcqSVj33twgV00d7twB46E5K4RpV02Z7uFDwSATsuzCU8Jh3iyXXw==
+X-Received: by 2002:ac5:c64c:: with SMTP id j12mr9228920vkl.11.1580549417288;
+        Sat, 01 Feb 2020 01:30:17 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:b5d9:: with SMTP id g25ls1425177ljn.9.gmail; Fri, 31 Jan
- 2020 01:09:42 -0800 (PST)
-X-Received: by 2002:a2e:a404:: with SMTP id p4mr5487470ljn.234.1580461782547;
-        Fri, 31 Jan 2020 01:09:42 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1580461782; cv=none;
+Received: by 2002:a1f:f288:: with SMTP id q130ls513541vkh.11.gmail; Sat, 01
+ Feb 2020 01:30:16 -0800 (PST)
+X-Received: by 2002:a1f:7c0c:: with SMTP id x12mr8731655vkc.41.1580549416498;
+        Sat, 01 Feb 2020 01:30:16 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1580549416; cv=none;
         d=google.com; s=arc-20160816;
-        b=sgHGFgst1/e6DKUP+fNxc6Pp++rtjzNE8h0DFnalYbNIwIdM6MZ4xWoBQe1TffzQtB
-         Dun4eelC3YczI1tWGQRUoAYI1+dl/pxqHDfLqdFyTAiraOgQnHUx6d7BI5ICh+ICW7fa
-         4EvJMD/RGjR4gDIq0szj7+QBJ8Y/R3jM5tcD0lN2nvww43ThuJW7nvG+Q+DrzHkaM2Fa
-         bk1Aqv/KhgHfCJ9Uq4wWeD1Spojh0vwKPAVzIsDoAvUZX+fdPS1hX7aEjKGLNCYW6rlX
-         mEt7H695IsHofhMRgVdMylSiP7kgrEZRoF26RjeO88jeQwim9rUbzv8ZeuHbUcZaRZnx
-         ZaWA==
+        b=iCa33pTctLwTGB67O3kZNRin+K6t5mZwBkxbDqL/8JY5KDaJF4XykXTSSYZTYoulQL
+         kQ+XVSs0wYn1AEs/TXvZ5rGXXkVYCFqEMm/FCZsdcyYslHaEAg9SAk9ayx4CimUCxOie
+         jJI14n3Lu09Qb2TgtluX3QNLpBFD5aoU7uItEpwxvM+akR36tc3Zgz13uzlwdJZZLlxW
+         +ftJw7TpgBrkGlYfqSaVl/gzLeTCya+8T3iiz9uyjRpTa5kyNTrBHpA8L5tlZUYbJOAl
+         9Cw7zAKapFkcbzCAGLj62Lmc8IW8JSqnpPQRfGAWMFau/OXHBwbgWtUvL9fpTgOH6Bf9
+         fWrg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=/kb7GlcFep+ALLEgVSuRvHANsHAAPUkwh6nL9CvmyEs=;
-        b=D0YbMl5jLpgTGfyd9rlgH9TdrEGcSGbjJDArg3xb5xdV3pCsdYwYkvJ3kpdUwZHXjl
-         XjZsWFoG+XiyshEAOZ1PQBPYUSwnRCfJJ4/aAOP8rFGdH3jj7RYPuYuwczBtx2I9jKx6
-         ZvRv/6WYD5i4AwlewMVOKPku5cyn0kUXqJ+FUXmxjc+6i3MDeNPthE3tO5JyVACtfuUR
-         Yf0O0LZa4eriOBRsagy7qO/wh8yLp/vT5sQkwZ68OFY098OBJQjDtXkO/fZNZBZ3fIl4
-         t+zHhBHo2lHUeDYHlYuUI25PSOrv8xsnqm1hGSQtg7qUR6axdKXhIo2XM+a7UR6W5Dri
-         5hag==
+        h=content-transfer-encoding:mime-version:subject:message-id:to:from
+         :dkim-signature:date;
+        bh=5Kuw3x58n4SeLKQZ//QWlx9u2r0HriK8bRWlNMAnEOg=;
+        b=PxLNc0+CJJJbjDUPCrt27Tm1RKMeALa98a3C/Dvrve266fg30MblEVUZSO9EWEJGFF
+         zV6O2dYKiOptI2OnrbAj2tn42dhb/c9j39enotmrkeK2i6L2V1V9E51A1VZfue1pV7Kj
+         A1B4BMzWV2F1huvBPn1RiLyksnXgZAKAB/YTswX02Px7xtnwxpWffrH9Mk4KJ1dvQ9OU
+         v2+nbU0oKgCcZx5O/37QCxJLqH/l4uTsj47lLl+g3Q+fEVexEclVLVKIzuAAp74qdl5s
+         XVeGfTMFl1UEkil4HvhkTw5L9+7uLo/QM4CD2vmfUKxbV7xBpO8Y7D9fFRXwoI4eyeK2
+         +gIw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
-        by gmr-mx.google.com with ESMTPS id o24si416130lji.4.2020.01.31.01.09.42
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=NjdQPUCZ;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.254.196 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from out-13.smtp.github.com (out-13.smtp.github.com. [192.30.254.196])
+        by gmr-mx.google.com with ESMTPS id o19si629303vka.4.2020.02.01.01.30.16
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 31 Jan 2020 01:09:42 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 00V99esi010394
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 31 Jan 2020 10:09:40 +0100
-Received: from [139.22.46.73] ([139.22.46.73])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 00V99dYF006361;
-	Fri, 31 Jan 2020 10:09:39 +0100
-Subject: Re: [RFC PATCH v1 3/4] core: Implement regmap unit for partitioning
- registers
-To: Nikhil Devshatwar <nikhil.nd@ti.com>, jailhouse-dev@googlegroups.com
-Cc: chase.conklin@arm.com
-References: <20200127135611.21302-1-nikhil.nd@ti.com>
- <20200127135611.21302-4-nikhil.nd@ti.com>
- <8676e5d1-c804-f101-ebe4-0530ee47148c@ti.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <1254f0c6-913b-6164-bec1-8d8a552e46bd@siemens.com>
-Date: Fri, 31 Jan 2020 10:09:39 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
-MIME-Version: 1.0
-In-Reply-To: <8676e5d1-c804-f101-ebe4-0530ee47148c@ti.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+        Sat, 01 Feb 2020 01:30:16 -0800 (PST)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.254.196 as permitted sender) client-ip=192.30.254.196;
+Date: Sat, 01 Feb 2020 01:30:15 -0800
+From: Jan Kiszka <noreply@github.com>
+To: jailhouse-dev@googlegroups.com
+Message-ID: <siemens/jailhouse/push/refs/heads/master/c4024b-213747@github.com>
+Subject: [siemens/jailhouse] a6d8de: core: paging: Refactor
+ paging_create/destroy param...
+Mime-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
+X-Auto-Response-Suppress: All
+X-Original-Sender: noreply@github.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
+ mode) header.i=@github.com header.s=pf2014 header.b=NjdQPUCZ;       spf=pass
+ (google.com: domain of noreply@github.com designates 192.30.254.196 as
+ permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass (p=NONE
+ sp=NONE dis=NONE) header.from=github.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -134,360 +122,238 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 31.01.20 09:19, Nikhil Devshatwar wrote:
-> 
-> 
-> On 27/01/20 7:26 pm, nikhil.nd@ti.com wrote:
->> From: Nikhil Devshatwar<nikhil.nd@ti.com>
->>
->> Implement regmap as a unit, Use reg_map_data as book keeping
->> data structure per cell.
->>
->> Register a MMIO handler for each regmap region and handle the
->> mmio access based on the regmap described in the config.
->>
->> Implement the regmap_modify_root to map and unmap the regmap
->> access from the root cell while creating inmate cells.
->>
->> Signed-off-by: Nikhil Devshatwar<nikhil.nd@ti.com>
->> ---
->>   hypervisor/Makefile                   |   2 +-
->>   hypervisor/include/jailhouse/cell.h   |   2 +
->>   hypervisor/include/jailhouse/regmap.h |  47 +++++
->>   hypervisor/regmap.c                   | 258 ++++++++++++++++++++++++++
->>   4 files changed, 308 insertions(+), 1 deletion(-)
->>   create mode 100644 hypervisor/include/jailhouse/regmap.h
->>   create mode 100644 hypervisor/regmap.c
->>
->> diff --git a/hypervisor/Makefile b/hypervisor/Makefile
->> index 893ead42..62c86a4b 100644
->> --- a/hypervisor/Makefile
->> +++ b/hypervisor/Makefile
->> @@ -36,7 +36,7 @@ ifneq ($(wildcard $(INC_CONFIG_H)),)
->>   KBUILD_CFLAGS += -include $(INC_CONFIG_H)
->>   endif
->>   
->> -CORE_OBJECTS = setup.o printk.o paging.o control.o lib.o mmio.o pci.o ivshmem.o
->> +CORE_OBJECTS = setup.o printk.o paging.o control.o lib.o mmio.o pci.o ivshmem.o regmap.o
->>   CORE_OBJECTS += uart.o uart-8250.o
->>   
->>   ifdef CONFIG_JAILHOUSE_GCOV
->> diff --git a/hypervisor/include/jailhouse/cell.h b/hypervisor/include/jailhouse/cell.h
->> index c804a5df..90575bb9 100644
->> --- a/hypervisor/include/jailhouse/cell.h
->> +++ b/hypervisor/include/jailhouse/cell.h
->> @@ -69,6 +69,8 @@ struct cell {
->>   	unsigned int num_mmio_regions;
->>   	/** Maximum number of MMIO regions. */
->>   	unsigned int max_mmio_regions;
->> +	/** List of register maps assigned to this cell. */
->> +	struct reg_map_data *regmap;
->>   };
->>   
->>   extern struct cell root_cell;
->> diff --git a/hypervisor/include/jailhouse/regmap.h b/hypervisor/include/jailhouse/regmap.h
->> new file mode 100644
->> index 00000000..98faf2c8
->> --- /dev/null
->> +++ b/hypervisor/include/jailhouse/regmap.h
->> @@ -0,0 +1,47 @@
->> +/*
->> + * Jailhouse, a Linux-based partitioning hypervisor
->> + *
->> + * Copyright (c) 2019 Texas Instruments Incorporated -http://www.ti.com
->> + *
->> + * Authors:
->> + *  Nikhil Devshatwar<nikhil.nd@ti.com>
->> + *
->> + * This work is licensed under the terms of the GNU GPL, version 2.  See
->> + * the COPYING file in the top-level directory.
->> + */
->> +
->> +#ifndef _JAILHOUSE_REGMAP_H
->> +#define _JAILHOUSE_REGMAP_H
->> +
->> +#include <jailhouse/types.h>
->> +#include <asm/mmio.h>
->> +#include <jailhouse/cell-config.h>
->> +
->> +struct cell;
->> +
->> +/**
->> + * @defgroup REGMAP Regmap subsystem
->> + *
->> + * This subsystem provides interpretation and handling of intercepted
->> + * register accesses performed by cells.
->> + *
->> + * @{
->> + */
->> +
->> +#define JAILHOUSE_REGMAP_WORDS		8
->> +#define JAILHOUSE_REGMAP_BITS		(JAILHOUSE_REGMAP_WORDS * 32)
->> +
->> +/** Register map description */
->> +struct reg_map_data {
->> +	/** Reference to regmap defined in config */
->> +	const struct jailhouse_regmap *info;
->> +	/** Owning cell */
->> +	struct cell *cell;
->> +	/** virt address where this regmap is mapped */
->> +	void *map_base;
->> +	/** Ownership details for each register */
->> +	u32 reg_bitmap[JAILHOUSE_REGMAP_WORDS];
->> +};
->> +
->> +/** @} REGMAP */
->> +#endif /* !_JAILHOUSE_REGMAP_H */
->> diff --git a/hypervisor/regmap.c b/hypervisor/regmap.c
->> new file mode 100644
->> index 00000000..9f3d32dc
->> --- /dev/null
->> +++ b/hypervisor/regmap.c
->> @@ -0,0 +1,258 @@
->> +/*
->> + * Jailhouse, a Linux-based partitioning hypervisor
->> + *
->> + * Copyright (c) 2019 Texas Instruments Incorporated -http://www.ti.com
->> + *
->> + * Authors:
->> + *  Nikhil Devshatwar<nikhil.nd@ti.com>
->> + *
->> + * This work is licensed under the terms of the GNU GPL, version 2.  See
->> + * the COPYING file in the top-level directory.
->> + */
->> +
->> +#include <jailhouse/cell.h>
->> +#include <jailhouse/control.h>
->> +#include <jailhouse/paging.h>
->> +#include <jailhouse/printk.h>
->> +#include <jailhouse/unit.h>
->> +#include <jailhouse/percpu.h>
->> +#include <jailhouse/regmap.h>
->> +
->> +static inline bool regmap_is_enabled(struct reg_map_data *regmap, int reg)
->> +{
->> +	u32 idx, mask;
->> +
->> +	idx = reg / 32;
->> +	mask = 1 << (reg % 32);
->> +
->> +	return regmap->reg_bitmap[idx] & mask ? 1 : 0;
->> +}
->> +
->> +static inline void regmap_enable(struct reg_map_data *regmap, int reg)
->> +{
->> +	u32 idx, mask;
->> +
->> +	idx = reg / 32;
->> +	mask = 1 << (reg % 32);
->> +
->> +	regmap->reg_bitmap[idx] |= mask;
->> +}
->> +
->> +static inline void regmap_disable(struct reg_map_data *regmap, int reg)
->> +{
->> +	u32 idx, mask;
->> +
->> +	idx = reg / 32;
->> +	mask = 1 << (reg % 32);
->> +
->> +	regmap->reg_bitmap[idx] &= ~mask;
->> +}
->> +
->> +/**
->> + * Find the regmap which degines the ownership bitmap for
->> + * the register address provided.
->> + *
->> + * @param cell		Cell in which to search.
->> + * @param addr		Register address to match
->> + * @param idx		Pointer to index, populated with index of register in
->> + *			the matching regmap
->> + *
->> + * @return Valid reg_map_data or NULL when not found.
->> + */
->> +static struct reg_map_data *cell_get_regmap(struct cell *cell,
->> +	unsigned long addr, unsigned int *idx)
->> +{
->> +	const struct jailhouse_regmap *info;
->> +	struct reg_map_data *regmap;
->> +	unsigned long start, end;
->> +	u32 i;
->> +
->> +	for (i = 0; i < cell->config->num_regmaps; i++) {
->> +		regmap = &cell->regmap[i];
->> +		info = regmap->info;
->> +		start = (unsigned long)info->reg_base;
->> +		end = (unsigned long)start + info->reg_size * info->reg_count;
->> +
->> +		if (addr < start || addr >= end)
->> +			continue;
->> +
->> +		*idx = (addr - info->reg_base) / info->reg_size;
->> +		return regmap;
->> +	}
->> +	return NULL;
->> +}
->> +
->> +/**
->> + * Handle emulation of regmap access as per permission bitmap
->> + * Check regmap access permissions and ownership
->> + * Based on that, allow or forbid the MMIOs access to register
->> + *
->> + * @param arg		Private argument, reg_map_data.
->> + * @param mmio		describes the mmio access which caused the fault
->> + *
->> + * @return		MMIO_HANDLED if the access is as per regmap description,
->> + *			MMIO_ERROR if it violates some of the permissions,
->> + */
->> +static enum mmio_result regmap_handler(void *arg, struct mmio_access *mmio)
->> +{
->> +	struct reg_map_data *regmap = (struct reg_map_data *)arg;
->> +	const struct jailhouse_regmap *info;
->> +	unsigned int idx;
->> +
->> +	info = regmap->info;
->> +	idx = mmio->address / info->reg_size;
->> +
->> +	if (mmio->is_write) {
->> +		if ((info->flags & JAILHOUSE_MEM_WRITE) == 0)
->> +			return MMIO_ERROR;
->> +	} else {
->> +		if ((info->flags & JAILHOUSE_MEM_READ) == 0)
->> +			return MMIO_ERROR;
->> +	}
->> +
->> +	if (regmap_is_enabled(regmap, idx)) {
->> +		mmio_perform_access(regmap->map_base, mmio);
->> +		return MMIO_HANDLED;
->> +	}  else {
->> +		printk("MMIO access disabled\n");
->> +		return MMIO_ERROR;
->> +	}
->> +}
->> +
->> +/**
->> + * Modify root_cell's bitmap to (un)mask the registers defined in inmate cell.
->> + * Ignore if the root cell does not describe the regmap used by inmate
->> + * Handles the case where root cell describes the registers using
->> + * different address range
->> + *
->> + * @param cell		inmate cell handle.
->> + * @param regmap	register (un)map to be removed from root_cell.
->> + * @param map		true to map the regmap, false to unmap.
->> + *
->> + * @return 0 on successfully (un)mapping the regmap.
->> + */
->> +static int regmap_modify_root(struct cell *cell, struct reg_map_data *regmap,
->> +		bool map)
->> +{
->> +	const struct jailhouse_regmap *info = regmap->info;
->> +	struct reg_map_data *root_regmap = NULL;
->> +	unsigned long long addr;
->> +	u32 reg, idx;
->> +
->> +	if (cell == &root_cell)
->> +		return 0;
->> +	if (info->flags & JAILHOUSE_MEM_ROOTSHARED)
->> +		return 0;
->> +
->> +	for (reg = 0; reg < info->reg_count; reg++) {
->> +
->> +		addr = info->reg_base + reg * info->reg_size;
->> +		if (!root_regmap) {
->> +			root_regmap = cell_get_regmap(&root_cell, addr, &idx);
->> +			if (!root_regmap)
->> +				continue;
->> +		}
->> +
->> +		if (regmap_is_enabled(regmap, reg)) {
->> +			if (map) {
->> +				regmap_enable(root_regmap, idx);
->> +
->> +			/* For unmapping, ensure that its mapped in root cell regmap */
->> +			} else if (regmap_is_enabled(root_regmap, idx)) {
->> +
->> +				regmap_disable(root_regmap, idx);
->> +			} else {
->> +				printk("ERROR: Root cell does not own bitmap for reg %llx\n",
->> +						addr);
->> +				return -EINVAL;
->> +			}
->> +		}
->> +
->> +		/* reuse the same root_regmap for next register if idx is within limit */
->> +		idx++;
->> +		if (idx >= root_regmap->info->reg_count)
->> +			root_regmap = NULL;
->> +	}
->> +	return 0;
->> +}
->> +
->> +static int regmap_cell_init(struct cell *cell)
->> +{
->> +	const struct jailhouse_regmap *info;
->> +	struct reg_map_data *regmap;
->> +	u32 i, num_pages, size;
->> +	int ret;
->> +
->> +	if (cell->config->num_regmaps == 0)
->> +		return 0;
->> +
->> +	num_pages = PAGES(cell->config->num_regmaps * sizeof(struct reg_map_data));
->> +	cell->regmap = page_alloc(&mem_pool, num_pages);
->> +	if (!cell->regmap)
->> +		return -ENOMEM;
->> +
->> +	info = jailhouse_cell_regmaps(cell->config);
->> +	for (i = 0; i < cell->config->num_regmaps; i++, info++) {
->> +
->> +		regmap = &cell->regmap[i];
->> +		regmap->info = info;
->> +		regmap->cell = cell;
->> +		size = info->reg_size * info->reg_count;
->> +
->> +		if (info->reg_count > JAILHOUSE_REGMAP_BITS ||
->> +		    (info->flags & (JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE)) == 0)
->> +			goto invalid;
->> +
->> +		regmap->map_base = paging_map_device(info->reg_base, size);
->> +		if (!regmap->map_base)
->> +			return -ENOMEM;
->> +
->> +		memcpy(regmap->reg_bitmap, info->reg_bitmap,
->> +			sizeof(regmap->reg_bitmap));
->> +
->> +		mmio_region_register(cell, info->reg_base, size,
->> +			regmap_handler, regmap);
->> +
->> +		/* Unmap the memory so that handler can be triggered */
->> +		ret = paging_destroy(&cell->arch.mm, info->reg_base, size,
->> +				PAGING_COHERENT);
-> 
-> Jan/Chase,
-> 
-> I was doing some more testing / debug with this.
-> I root caused that the paging_destroy call does not take effect.
-> 
-> I have the fix (7cffb9b7d54d "core: fix hugepage splitting in 
-> paging_destroy") from the next branch
-> Do we have one more bug causing the paging_destroy to be ignored?
+  Branch: refs/heads/master
+  Home:   https://github.com/siemens/jailhouse
+  Commit: a6d8decf371dc5560a335ab9c03781e3f2387dcc
+      https://github.com/siemens/jailhouse/commit/a6d8decf371dc5560a335ab9c03781e3f2387dcc
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-01-21 (Tue, 21 Jan 2020)
 
-Can you be more specific about the scenario (mapping before 
-paging_destroy, parameters to paging_destroy)? Can you instrument the 
-paging_destroy to visualize what is happening?
+  Changed paths:
+    M hypervisor/arch/arm-common/mmu_cell.c
+    M hypervisor/arch/x86/svm.c
+    M hypervisor/arch/x86/vmx.c
+    M hypervisor/arch/x86/vtd.c
+    M hypervisor/include/jailhouse/paging.h
+    M hypervisor/paging.c
 
-Besides that, the paging_destroy here is supposed to be removed in a 
-newer version of the patch because we will model regmap as memory 
-region. But even without that, I would have voted for requiring the user 
-to avoid duplicate mappings.
+  Log Message:
+  -----------
+  core: paging: Refactor paging_create/destroy parameters
 
-Jan
+Change the coherent enum into paging_flags in order to allow adding more
+in the future. Rename the flags parameter to access_flags for better
+differentiation.
 
--- 
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+Use this chance to align the names and types of local vars that are
+forwarded to access_flags with that parameter.
+
+No behavioral changes.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: b310eaa9c02509a04ad2db0808bd66d7884747ca
+      https://github.com/siemens/jailhouse/commit/b310eaa9c02509a04ad2db0808bd66d7884747ca
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-01-27 (Mon, 27 Jan 2020)
+
+  Changed paths:
+    M hypervisor/arch/arm-common/gic-v2.c
+    M hypervisor/arch/arm-common/mmu_cell.c
+    M hypervisor/arch/arm-common/setup.c
+    M hypervisor/arch/arm/mmu_hyp.c
+    M hypervisor/arch/arm64/setup.c
+    M hypervisor/arch/x86/svm.c
+    M hypervisor/arch/x86/vcpu.c
+    M hypervisor/arch/x86/vmx.c
+    M hypervisor/arch/x86/vtd.c
+    M hypervisor/include/jailhouse/paging.h
+    M hypervisor/ivshmem.c
+    M hypervisor/mmio.c
+    M hypervisor/paging.c
+    M hypervisor/setup.c
+    M include/jailhouse/cell-config.h
+
+  Log Message:
+  -----------
+  core: Introduce JAILHOUSE_MEM_NO_HUGEPAGES memory region flag
+
+This allows to mitigate CVE-2018-12207: On affected Intel machines, a
+guest can trigger an unrecoverable machine check exception when running
+a certain code pattern on an executable huge page. The suggested
+mitigation pattern of Intel involves on-demand break-up of huge pages
+when the guest tries to execute on them and also consolidating them into
+non-executable huge pages dynamically. This pattern is not compatible
+with the static and deterministic behavior of Jailhouse.
+
+Therefore, this introduces a memory region flag to exclude huge page
+mappings for a region. System configurators can use this flag for
+executable regions on affected CPUs, while still allowing huge pages for
+non-executable regions.
+
+PAGING_HUGE/NO_HUGE is consistently applied to all caller of
+paging_create, using NO_HUGE in case only a size known to be smaller
+than a huge page is requested.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 2f21dba72fdb3fd430c10cc8befa82c9a4a01efe
+      https://github.com/siemens/jailhouse/commit/2f21dba72fdb3fd430c10cc8befa82c9a4a01efe
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-01-27 (Mon, 27 Jan 2020)
+
+  Changed paths:
+    M include/jailhouse/hypercall.h
+
+  Log Message:
+  -----------
+  core: Tune comm region's flags field definition and documentation
+
+This field is static, thus volatile is not appropriate. Rephrase the
+field and flags documentation for a clearer wording.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 859c6fa5f6454d5f3a58df9a6fc82dee21829fdf
+      https://github.com/siemens/jailhouse/commit/859c6fa5f6454d5f3a58df9a6fc82dee21829fdf
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-01-27 (Mon, 27 Jan 2020)
+
+  Changed paths:
+    M include/arch/arm-common/asm/jailhouse_hypercall.h
+
+  Log Message:
+  -----------
+  arm/arm64: Pad comm region to natural alignment
+
+Better pad than rely on both sides using the same compiler logic.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 4381dda62383cd32f23b1b7a053483ae1d333535
+      https://github.com/siemens/jailhouse/commit/4381dda62383cd32f23b1b7a053483ae1d333535
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-01-27 (Mon, 27 Jan 2020)
+
+  Changed paths:
+    M include/arch/arm/asm/jailhouse_hypercall.h
+    M include/arch/arm64/asm/jailhouse_hypercall.h
+    M include/arch/x86/asm/jailhouse_hypercall.h
+
+  Log Message:
+  -----------
+  core: Mark jailhouse_comm_region as packed
+
+Ensure that we do not deviate in alignments, even if the currently
+achieved natural one should once be violated.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: f9ac6fa0c3bb207b0fcc1c328bd9e22eced9acfe
+      https://github.com/siemens/jailhouse/commit/f9ac6fa0c3bb207b0fcc1c328bd9e22eced9acfe
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-01-27 (Mon, 27 Jan 2020)
+
+  Changed paths:
+    M Documentation/hypervisor-interfaces.txt
+
+  Log Message:
+  -----------
+  Documentation: Update hypervisor interfaces specification
+
+Lots of things changed since the file was last touched. Add the
+hypercall ABIs for non-Intel-x86, update the "CPU Get Info" hypercall
+with new statistic types, and extend the Comm Region description with
+the console and non-x86 extensions added meanwhile.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+Reviewed-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+
+
+  Commit: 77a41ea5a2cddf814985961c3cde6a064ccd34e4
+      https://github.com/siemens/jailhouse/commit/77a41ea5a2cddf814985961c3cde6a064ccd34e4
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-01-27 (Mon, 27 Jan 2020)
+
+  Changed paths:
+    M TODO.md
+
+  Log Message:
+  -----------
+  TODO: Update
+
+Add an entry about VT-d modernization, refine the SMMU to-do now that v3
+is available, and drop big-endian - not relevant on ARM in the
+foreseeable future.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 8c51dd45ad98f71e693d98b89dd85e45ab10c069
+      https://github.com/siemens/jailhouse/commit/8c51dd45ad98f71e693d98b89dd85e45ab10c069
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-01-27 (Mon, 27 Jan 2020)
+
+  Changed paths:
+    M include/arch/arm-common/asm/jailhouse_hypercall.h
+    M include/arch/arm/asm/jailhouse_hypercall.h
+    M include/arch/arm64/asm/jailhouse_hypercall.h
+
+  Log Message:
+  -----------
+  arm/arm64: Factor out more common parts of jailhouse_hypercall.h
+
+JAILHOUSE_HVC_CODE is the same, most of the JAILHOUSE_CPU_STAT_VMEXITS_*
+are, and when we move struct jailhouse_comm_region, we can save
+COMM_REGION_COMMON_PLATFORM_INFO.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 3814e3a977987a782db3e9a152dcb707e3c82e33
+      https://github.com/siemens/jailhouse/commit/3814e3a977987a782db3e9a152dcb707e3c82e33
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-01-29 (Wed, 29 Jan 2020)
+
+  Changed paths:
+    M configs/arm64/jetson-tx1.c
+    M configs/arm64/jetson-tx2.c
+
+  Log Message:
+  -----------
+  configs: arm64: Remove vmalloc from command line hint
+
+Not needed on arm64 because it starts Jailhouse differently compared to
+arm (tk1).
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 2137473830c3788f3fbca9f1e782b2dcd7c358d5
+      https://github.com/siemens/jailhouse/commit/2137473830c3788f3fbca9f1e782b2dcd7c358d5
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-01-30 (Thu, 30 Jan 2020)
+
+  Changed paths:
+    M configs/arm64/qemu-arm64.c
+
+  Log Message:
+  -----------
+  configs: arm64: Fix comments in qemu-arm64
+
+The device tree remark was copy&pasted, we use mem= for QEMU.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+Compare: https://github.com/siemens/jailhouse/compare/c4024b68d0d1...2137473830c3
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/1254f0c6-913b-6164-bec1-8d8a552e46bd%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/master/c4024b-213747%40github.com.
