@@ -1,125 +1,76 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBZWH57YQKGQENVXLGUY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCDJXM4674ERBTWE6HYQKGQERD56RZI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x139.google.com (mail-lf1-x139.google.com [IPv6:2a00:1450:4864:20::139])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07679154180
-	for <lists+jailhouse-dev@lfdr.de>; Thu,  6 Feb 2020 11:01:13 +0100 (CET)
-Received: by mail-lf1-x139.google.com with SMTP id x23sf1376382lfc.5
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 06 Feb 2020 02:01:13 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1580983272; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=jSNWEXbM1sfnnBsspVp20aJog6ud5ap1USsLoUwSft/Ze0U7Lr74v66IBVQ54i9iBC
-         MSxSUHsDZhH4Jn2wP2b0XwOVNfIEfJQuPX0DTZXKoibLzlalUVdNXoy9VxTRDiKeyuge
-         sxuKvIM6q5DfXOv0tNBcG36hfnuBxKzxLa86V+T5QaR4m9C8SYdM4uQ8pG60FRE1pS01
-         vGm2U4T/DxvYvW6E4m9p9EdW/LCIHnl2tFuwigfqfsuAWcf/68sCBUUzzkUJC7kpJ8CR
-         pvYYFzBQj5+ZhwETFQJ5TIHlZcVFMZSVtiT1AUjT4T/wFILozkfypBpOfkPVXWtKyAT1
-         k4vA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:to:subject
-         :sender:dkim-signature;
-        bh=VY12t4YBEwkvA1aaL8MTXeqU/MJ07GJQWD2AFauHBTU=;
-        b=iahBqIXnFnpwqfj28mxSr/IZy1rxzZ9jYTXJN5mOtzk68mQI86Ds4LHtSo20LdbMrF
-         0fYUMPavPyMFJlTca2LxWHQBFIRrUMVhyCw7uFjmujyATu154/XeDe58Y1rDH+moDVYK
-         0iIYZ5XnJuqJtKTNsqi+u9mRmYFjpS8L06EBliOD9xrKZuzgLjF1XoSGDE5JBLE2G+W+
-         6FFW36C6H7AePbOvpcS96y6cMdIdwJBItXNyEQxyNHfH9tg+hMqGbn43Kt/cEn2Fx3RK
-         uM9wQintNJ+3TRhoU0aP4O/PoSGNzSe0RwgNmK8EIF09sOrGiuBuhfO55J/qjHUi0VAN
-         tmcw==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-oi1-x23b.google.com (mail-oi1-x23b.google.com [IPv6:2607:f8b0:4864:20::23b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D18D154B84
+	for <lists+jailhouse-dev@lfdr.de>; Thu,  6 Feb 2020 20:00:32 +0100 (CET)
+Received: by mail-oi1-x23b.google.com with SMTP id m127sf3300606oig.19
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 06 Feb 2020 11:00:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=VY12t4YBEwkvA1aaL8MTXeqU/MJ07GJQWD2AFauHBTU=;
-        b=TMCppwuixF1S3Fmq2kdxV7vc1TEm2poHkOEuZzmeMDL9lT8oJN4M8bBjGjSFgxACDN
-         fpHvomXNZLSlS1vQZMQY8FUpvklBgGUJe8gHfbZcAAoG8vdYeL/9MBueH0QK1nSZSZ2H
-         WGvhqhgnTx24YSfNLcOKys4JKTeJMqhBUwKnWLuzxWQval+0kfEBLuWyoufvF+1olcFY
-         nnaxJGhORiIBbpGVylZvzJUK1rvc/EMEgfMSiG+OMSN1CynIZ5H87cHoVSAIA8jSF/2y
-         CikkeV8rBbYBls5wFN24/6AnXYOsR5thPufe425JqR/N23Eedbu2HjDS6P/7HPyrWQsV
-         gDrA==
+        bh=OLxdwVEgJAjD8iqPBpOF8ULgBCG75To3Ib6KhFn9lPc=;
+        b=AYyUMR+agLRMeqg7rU9BVngsBMkwLvjfYbTOIBFZG0F5c3+pejZG+nugNTYRIgd0ek
+         eHvgY9/u9w5JHteZKri/bQB+r0tzoWr4kEam00NN9E55VxhBkpL55QnWbXcRmsH2u4im
+         qnEETJ7RlV48AYShmSn37XKykjilBXLmAt7RSZuQ7ypERvNnvFNOwffX+sdxoDA+6IlG
+         6DSbKk6/w4H94S1F8Zmj3ut3jKd5x3EaCMjYP2COrEk8un+HFOw6g0JB0IciMeQ/DVt2
+         Dm7ZZ6MCiGp/Wk+cPe8wsFJTJgPhTM1gdwnU/N6aCxeQfnqJzY/cYv+JuXuom1SNY707
+         Yh/g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=OLxdwVEgJAjD8iqPBpOF8ULgBCG75To3Ib6KhFn9lPc=;
+        b=Q2W1T2ki6DL/kztwKO0gFyrM8aAiATfnLBi4BAtQiqHzStpDPoCBYw/ag4nlWjP6Xu
+         SFLUKekE+QuuxgrMcvvDl67a0HL9YwzsvrjHFt4k3IrfzIcgZd3IU80DdN2pHFN5Ssrm
+         cNa+FCOmnvuhqPWothPAbBtP672X8gzZ27DqwYGxhYp2aHDFrYIEK1LNhsvYkuY5+Q+8
+         2588OMTOhUkpRkpm5xx2vQoKJNRFxxpavTwv3yYeJEvtOfQ4nHKJIYvWfsR9RWbn1pkR
+         yMCEhm33P5U/8zDCOST0DbGpC85h8kev38CLioUNyS6d9dpwqL4q7RSZc+pD376eeFuC
+         YkTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=VY12t4YBEwkvA1aaL8MTXeqU/MJ07GJQWD2AFauHBTU=;
-        b=FxVSbRgzWaGJy1pEi5KovfM54xLDr193D+pHDMdrP8jyz5wInCtBkuD4RJcsCbIMfq
-         fuuiHTFnbCGgH2dtmUgoIgUDmyJ5tMgQtk7NAyxIyUEJDxmvLTP2J41DsZDw8pad5kAW
-         BzCKIblgti8Cf84EpWkPNjo7r7v1Mc/ixKRgvr8NK2AkDekL+SGsCjkS6yjpeCpAetKb
-         QOvaEk5BaAbfaI88iddBYcvIwcembZ1aFbi7eS6OVlUJFWu/TlTn8LklU2VNuBwijFgg
-         YuLzzrke98TbQ/QRF/NhtSKgpyqd7BiDsfebYIxsKLTSHdudJZ4OBAPKN0bqTozoS2MG
-         XJQA==
+        bh=OLxdwVEgJAjD8iqPBpOF8ULgBCG75To3Ib6KhFn9lPc=;
+        b=kWDQ32VpZ015p3oqh5XF2dR0y4cQYHR4JcIdMAGeTkXyHhK8WbHbSjEsOvmOVWcYxk
+         +JM6r7JURU1LFtKBPAT/CDPjk/Q8Yi70ARfbTtDoE/uho6P9pD5hJiLAydU3A61resUG
+         KiKT4Dkm7yxC/M7utBIOmHcWeXiRYGjkSbPw3y5BSCH3OUNIXZPEb9GcQuIymGf++itg
+         Ci1tlUlKRh+QEdRoey7cDigeURgipzjjA7IJdfTkuhVsweqnn0rGPFpD0pbGE9iFVb+P
+         RBvwfe2gNj72NjM78qPB1AysHyLgyDjF0oRdgctsMS8ZljjqJZ9ys6af6+HwaFt0e0fo
+         Yt+Q==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAX2XSb39DbYP3PEiry9zd+jjxdNhjWwF3BzKP/FTMvKuMH0pS+b
-	45IjSGZgNsjoxCxXCZ+9IeE=
-X-Google-Smtp-Source: APXvYqze2iq6TruOb1Syk34fS+n+k3Qup/eWxmCfER+JM2cSPIz+AIrDy3jNgDI1pIW5LvzojmCbdA==
-X-Received: by 2002:a2e:3202:: with SMTP id y2mr1648077ljy.132.1580983272524;
-        Thu, 06 Feb 2020 02:01:12 -0800 (PST)
+X-Gm-Message-State: APjAAAUjpJhjf69GQkwNpzJMjNdx1kFuObbJRObujGsTe1O6QzJ5tKn1
+	e0NUIN4JKjDPzrfxtwNIfBI=
+X-Google-Smtp-Source: APXvYqzEfL6UO2SrEfxSl0OAvEnro+l95K8NVof/I8NNpLuCdGZ2qh3ousIJxIFD65dMQwmFEGMH7A==
+X-Received: by 2002:a05:6808:10b:: with SMTP id b11mr8173003oie.110.1581015631210;
+        Thu, 06 Feb 2020 11:00:31 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:6809:: with SMTP id c9ls1151500lja.1.gmail; Thu, 06 Feb
- 2020 02:01:09 -0800 (PST)
-X-Received: by 2002:a2e:8711:: with SMTP id m17mr1523153lji.284.1580983269573;
-        Thu, 06 Feb 2020 02:01:09 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1580983269; cv=none;
-        d=google.com; s=arc-20160816;
-        b=r/rhKgbZCL6G1CNIjS7lEKtzzw97CUNk3LTC/S+/SsGrusvJwYj8Rdgwjv8dP65QQ1
-         GjhTxXli1NkXOrsGOqcYdtp3luAxWaPYoQs1/6MN4MWLbPrN/kYprSV56jjsV7xvmNgE
-         Jj7kPrtjl7+Tp3Hiv9ATtdjo9K3EOlxMg6bI16N07MVwngQhl4FEaRo0KTC5hfK9sY31
-         sRgdPGmguzIls2xh5UAnfm3PVV0SNGZb2661O8Tr0hlR1prk9611V6bwmZ2Blq9qRHY+
-         y3rQBo4RkBh5DEcdRRA63epKFsuyGPhxHGkI0McYEN1kOsdG3Cpymw3DECSjn4CUVsYl
-         MjRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=Uw01GmvEc6P56yHHm/tD8J3TFNCd5Ik65gN7RViY16A=;
-        b=Krjp0I8P93BpmKvIl7SzA9V28ApFTqWBDRkwjXIWfD5xJnGflf0t0gdLs+sg37MDgt
-         ks+vMqHHeYoFEp2aFrTtM097T7Q1m0h2eVbgAHBkN4l92VAZyzDqOj0gJaPZB7vMXujC
-         wDZGIVQa9arx0sPgl6DRc4XnuRMLdjR+EkRhAbdnipGKBVjCj5/1nEfqRdMST0bjRaPV
-         A7kO/dEBuwTuWqESmurjDb7k4F2TDHpvebZSIVcsTx3/QsXpVwVhOdD8xCviIsA9++CD
-         MRY4NnFBsr8A+FX0EsXWLk180B5iYJM+OJlHti20yQrg71H9gtEv9Nfz8VshMPkSgOwu
-         lU6Q==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id j30si117428lfp.5.2020.02.06.02.01.09
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 06 Feb 2020 02:01:09 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 016A18bR019434
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 6 Feb 2020 11:01:08 +0100
-Received: from [139.22.120.131] ([139.22.120.131])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 016A17KM009275;
-	Thu, 6 Feb 2020 11:01:08 +0100
-Subject: Re: [PATCH v3 3/3] Add Linux demo for pine64-plus
-To: Vijai Kumar K <vijaikumar.kanagarajan@gmail.com>,
-        jailhouse-dev@googlegroups.com
-References: <20200204101313.2495-1-vijaikumar.kanagarajan@gmail.com>
- <20200204101313.2495-4-vijaikumar.kanagarajan@gmail.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <32b59107-d919-a2c8-0761-4e03f5138209@siemens.com>
-Date: Thu, 6 Feb 2020 11:01:07 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+Received: by 2002:a9d:5a87:: with SMTP id w7ls2124363oth.1.gmail; Thu, 06 Feb
+ 2020 11:00:30 -0800 (PST)
+X-Received: by 2002:a9d:7e90:: with SMTP id m16mr24411531otp.227.1581015630477;
+        Thu, 06 Feb 2020 11:00:30 -0800 (PST)
+Date: Thu, 6 Feb 2020 11:00:29 -0800 (PST)
+From: Michael Hinton <michael.g.hinton@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <96056326-0700-4779-b1b8-3b0df7134a73@googlegroups.com>
+In-Reply-To: <20200127081602.08ea3fd6@md1za8fc.ad001.siemens.net>
+References: <4d8ab27d-7a1a-4601-8d61-429dd0cdd018@googlegroups.com>
+ <20200120144629.201f3081@md1za8fc.ad001.siemens.net>
+ <b258dc63-26a9-4eff-852a-23d72d2e3258@googlegroups.com>
+ <20200123131505.1e5fdeb5@md1za8fc.ad001.siemens.net>
+ <5ba8f35f-912a-4749-bf8b-781193f45ebc@googlegroups.com>
+ <20200127081602.08ea3fd6@md1za8fc.ad001.siemens.net>
+Subject: Re: Difference in execution duration between root cell and inmate
+ for same code
 MIME-Version: 1.0
-In-Reply-To: <20200204101313.2495-4-vijaikumar.kanagarajan@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_1891_1372169074.1581015629607"
+X-Original-Sender: Michael.G.Hinton@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -132,310 +83,259 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Subjects should be prefixed with "configs: arm64:".
+------=_Part_1891_1372169074.1581015629607
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1892_1076642110.1581015629608"
 
-On 04.02.20 11:13, Vijai Kumar K wrote:
-> Add Linux demo with 2 CPUs and 128M RAM for Pine64+.
-> 
-> Signed-off-by: Vijai Kumar K <vijaikumar.kanagarajan@gmail.com>
-> ---
->  configs/arm64/dts/inmate-pine64-plus.dts | 114 +++++++++++++++++
->  configs/arm64/pine64-plus-linux-demo.c   | 149 +++++++++++++++++++++++
->  2 files changed, 263 insertions(+)
->  create mode 100644 configs/arm64/dts/inmate-pine64-plus.dts
->  create mode 100644 configs/arm64/pine64-plus-linux-demo.c
-> 
-> diff --git a/configs/arm64/dts/inmate-pine64-plus.dts b/configs/arm64/dts/inmate-pine64-plus.dts
-> new file mode 100644
-> index 00000000..0f980c98
-> --- /dev/null
-> +++ b/configs/arm64/dts/inmate-pine64-plus.dts
-> @@ -0,0 +1,114 @@
-> +/*
-> + * Jailhouse, a Linux-based partitioning hypervisor
-> + *
-> + * Device tree for Linux inmate test on Pine64+ board,
-> + * corresponds to configs/arm64/pine64-plus-linux-demo.c
-> + *
-> + * Copyright (c) Vijai Kumar K, 2019-2020
-> + *
-> + * Authors:
-> + *  Vijai Kumar K <vijaikumar.kanagarajan@gmail.com>
-> + *
-> + * This work is licensed under the terms of the GNU GPL, version 2.  See
-> + * the COPYING file in the top-level directory.
-> + */
-> +
-> +#include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +/dts-v1/;
-> +
-> +/ {
-> +	model = "Jailhouse cell on Pine64+";
-> +
-> +	#address-cells = <1>;
-> +	#size-cells = <1>;
-> +
-> +	interrupt-parent = <&gic>;
-> +
-> +	hypervisor {
-> +		compatible = "jailhouse,cell";
-> +	};
-> +
-> +	cpus {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		cpu@2 {
-> +			compatible = "arm,cortex-a53";
-> +			device_type = "cpu";
-> +			reg = <2>;
-> +			enable-method = "psci";
-> +		};
-> +
-> +		cpu@3 {
-> +			compatible = "arm,cortex-a53";
-> +			device_type = "cpu";
-> +			reg = <3>;
-> +			enable-method = "psci";
-> +		};
-> +	};
-> +
-> +	psci {
-> +		compatible = "arm,psci-0.2";
-> +		method = "smc";
-> +	};
-> +
-> +	timer {
-> +		compatible = "arm,armv8-timer";
-> +		interrupts = <GIC_PPI 13
-> +				(GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 14
-> +				(GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 11
-> +				(GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 10
-> +				(GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>;
-> +	};
-> +
-> +	clocks {
-> +		#address-cells = <1>;
-> +		#size-cells = <1>;
-> +		ranges;
-> +
-> +		osc24M: clk24M {
-> +			#clock-cells = <0>;
-> +			compatible = "fixed-clock";
-> +			clock-frequency = <24000000>;
-> +			clock-output-names = "osc24M";
-> +		};
-> +	};
-> +
-> +	gic: interrupt-controller@01c81000 {
-> +		compatible = "arm,gic-400";
-> +		reg = <0x01c81000 0x1000>,
-> +		      <0x01c82000 0x2000>;
-> +		interrupt-controller;
-> +		#interrupt-cells = <3>;
-> +	};
-> +
-> +	uart: serial@01c28000 {
-> +		compatible = "snps,dw-apb-uart";
-> +		reg = <0x01c28000 0x400>;
-> +		interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
-> +		reg-shift = <2>;
-> +		reg-io-width = <4>;
-> +		clock-frequency = <24000000>;
-> +	};
-> +
-> +	pci@02000000 {
-> +		compatible = "pci-host-ecam-generic";
-> +		device_type = "pci";
-> +		bus-range = <0 0>;
-> +		#address-cells = <3>;
-> +		#size-cells = <2>;
-> +		#interrupt-cells = <1>;
-> +		interrupt-map-mask = <0 0 0 7>;
-> +		interrupt-map = <0 0 0 1 &gic GIC_SPI 123 IRQ_TYPE_EDGE_RISING>,
-> +				<0 0 0 2 &gic GIC_SPI 124 IRQ_TYPE_EDGE_RISING>,
-> +				<0 0 0 3 &gic GIC_SPI 125 IRQ_TYPE_EDGE_RISING>,
-> +				<0 0 0 4 &gic GIC_SPI 126 IRQ_TYPE_EDGE_RISING>;
-> +		reg = <0x02000000 0x100000>;
-> +		ranges =
-> +			<0x02000000 0x00 0x10000000 0x10000000 0x00 0x10000>;
-> +	};
-> +};
-> diff --git a/configs/arm64/pine64-plus-linux-demo.c b/configs/arm64/pine64-plus-linux-demo.c
-> new file mode 100644
-> index 00000000..55f59b35
-> --- /dev/null
-> +++ b/configs/arm64/pine64-plus-linux-demo.c
-> @@ -0,0 +1,149 @@
-> +/*
-> + * Jailhouse, a Linux-based partitioning hypervisor
-> + *
-> + * Configuration for linux-demo inmate on Pine64+ board:
-> + * 2 CPU, 128M RAM, serial port 0
-> + *
-> + * Copyright (c) Vijai Kumar K, 2019-2020
-> + *
-> + * Authors:
-> + *  Vijai Kumar K <vijaikumar.kanagarajan@gmail.com>
-> + *
-> + * This work is licensed under the terms of the GNU GPL, version 2.  See
-> + * the COPYING file in the top-level directory.
-> + */
-> +
-> +#include <jailhouse/types.h>
-> +#include <jailhouse/cell-config.h>
-> +
-> +struct {
-> +	struct jailhouse_cell_desc cell;
-> +	__u64 cpus[1];
-> +	struct jailhouse_memory mem_regions[13];
-> +	struct jailhouse_irqchip irqchips[1];
-> +	struct jailhouse_pci_device pci_devices[2];
-> +} __attribute__((packed)) config = {
-> +	.cell = {
-> +		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
-> +		.revision = JAILHOUSE_CONFIG_REVISION,
-> +		.name = "pine64-plus-linux-demo",
-> +		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG |
-> +			 JAILHOUSE_CELL_VIRTUAL_CONSOLE_PERMITTED,
-> +
-> +		.cpu_set_size = sizeof(config.cpus),
-> +		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-> +		.num_irqchips = ARRAY_SIZE(config.irqchips),
-> +		.num_pci_devices = ARRAY_SIZE(config.pci_devices),
-> +
-> +		.vpci_irq_base = 123,
-> +
-> +		.console = {
-> +			.address = 0x01c28000,
-> +			.type = JAILHOUSE_CON_TYPE_8250,
-> +			.flags = JAILHOUSE_CON_ACCESS_MMIO |
-> +				 JAILHOUSE_CON_REGDIST_4,
-> +		},
-> +	},
-> +
-> +	.cpus = {
-> +		0xc,
-> +	},
-> +
-> +	.mem_regions = {
-> +		/* IVSHMEM shared memory regions for 00:00.0 (demo) */
-> +		/* State Table */ {
-> +			.phys_start = 0xbbef1000,
-> +			.virt_start = 0xbbef1000,
-> +			.size = 0x1000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-> +		},
-> +		/* Read/Write Section */ {
-> +			.phys_start = 0xbbef2000,
-> +			.virt_start = 0xbbef2000,
-> +			.size = 0x9000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_ROOTSHARED,
-> +		},
-> +		/* Output (peer 0) */ {
-> +			.phys_start = 0xbbefb000,
-> +			.virt_start = 0xbbefb000,
-> +			.size = 0x2000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-> +		},
-> +		/* Output (peer 1) */ {
-> +			.phys_start = 0xbbefd000,
-> +			.virt_start = 0xbbefd000,
-> +			.size = 0x2000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-> +		},
-> +		/* Output (peer 2) */ {
-> +			.phys_start = 0xbbeff000,
-> +			.virt_start = 0xbbeff000,
-> +			.size = 0x2000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_ROOTSHARED,
-> +		},
-> +		/* IVSHMEM shared memory region */
-> +		JAILHOUSE_SHMEM_NET_REGIONS(0xbbf01000, 1),
-> +		/* UART 0-3 */ {
-> +			.phys_start = 0x01c28000,
-> +			.virt_start = 0x01c28000,
-> +			.size = 0x1000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
-> +		},
-> +		/* RAM */ {
-> +			.phys_start = 0xbb900000,
-> +			.virt_start = 0,
-> +			.size = 0x10000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
-> +		},
-> +		/* RAM */ {
-> +			.phys_start = 0xb0000000,
-> +			.virt_start = 0xb0000000,
-> +			.size = 0x8000000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
-> +				JAILHOUSE_MEM_LOADABLE,
-> +		},
-> +		/* communication region */ {
-> +			.virt_start = 0x80000000,
-> +			.size = 0x00001000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_COMM_REGION,
-> +		},
-> +	},
-> +
-> +	.irqchips = {
-> +		/* GIC */ {
-> +			.address = 0x01c81000,
-> +			.pin_base = 32,
-> +			.pin_bitmap = {
-> +				1 << (32-32), 0, 0, 1 << (155-128),
+------=_Part_1892_1076642110.1581015629608
+Content-Type: text/plain; charset="UTF-8"
 
-You also need to grant access to 156, for the device 00:01.0. Otherwise,
-ivshmem-net will not work. I just did that mistake, see my latest patch...
+Hi Henning,
 
-> +			},
-> +		},
-> +	},
-> +
-> +	.pci_devices = {
-> +		{ /* IVSHMEM 00:00.0 (demo) */
-> +			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> +			.domain = 1,
-> +			.bdf = 0 << 3,
-> +			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-> +			.shmem_regions_start = 0,
-> +			.shmem_dev_id = 2,
-> +			.shmem_peers = 3,
-> +			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
-> +		},
-> +		/* IVSHMEM 00:01.0 (networking) */ {
-> +			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> +			.bdf = 1 << 3,
-> +			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-> +			.shmem_regions_start = 5,
-> +			.shmem_dev_id = 2,
+On Monday, January 27, 2020 at 12:16:08 AM UTC-7, Henning Schild wrote:
+>
+> Ok, so we are just looking for differences between the inmate and the 
+> linux as non-root cell, because the jailhouse/virtualization overhead 
+> is acceptable or known. 
+>
+I'm sorry, I was confused. That is actually not correct. I am looking for 
+the difference between the inmate running my simple workload vs. running 
+that same workload in the *root cell* rather than in a non-root Linux cell. 
+What I am doing is activating the root cell, then simply running the 
+workload in Linux with a wrapper program (sha3-512.c 
+<https://github.com/hintron/jailhouse/blob/05824b901ce714c7a61770774b862ef24caf641e/mgh/workloads/src/sha3-512.c>). 
+Then, I activate my inmate and run the same workload, but this time within 
+the inmate in a real-time wrapper application (mgh-demo.c 
+<https://github.com/hintron/jailhouse/blob/05824b901ce714c7a61770774b862ef24caf641e/inmates/demos/x86/mgh-demo.c>). 
+Both wrapper applications now use the exact same object file, compiled once 
+under the Jailhouse build system. But the results are still the same.
 
-Device ID is 1 - this is a 2-peers-only ivshmem device.
+However, the input used by the program in the inmate is in a special 
+'add-on' memory region I had to create and map manually with map_range().
 
-> +			.shmem_peers = 2,
-> +			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
-> +		},
-> +	},
-> +};
-> 
+Here is the additional memory region in my config that I named the 'heap' 
+(I need it big enough to hold a 20 MiB+ data input):
 
-Jan
+/* MGH: RAM - Heap */
+{
+/* MGH: We have 36 MB of memory allocated to the inmate
+* in the root config, but are only using 1 MB for the
+* inmate's stack and program. So create an additional
+* "heap" area with the other 35 MB to allow the program
+* more memory to work with. */
+.phys_start = 0x3a700000,
+.virt_start = 0x00200000,
+// 35 MB (3a7 + 23 = 3ca)
+.size = 0x02300000,
+.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+},
 
--- 
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+https://github.com/hintron/jailhouse/blob/05824b901ce714c7a61770774b862ef24caf641e/configs/x86/bazooka-inmate.c#L90-L103
+
+I am able to map that large 35 MiB memory region into my inmate, and it 
+works ok:
+
+#define MGH_HEAP_BASE 0x00200000
+#define MGH_HEAP_SIZE (35 * MB)
+...
+/*
+ * MGH: By default, x86 inmates only map the first 2 MB of virtual memory, 
+even
+ * when more memory is configured. So map configured memory pages behind the
+ * virtual memory address MGH_HEAP_BASE. Without this, there is nothing 
+behind
+ * the virtual memory address and you'll get a page fault.
+ */
+static void expand_memory(void)
+{
+map_range((char *)MGH_HEAP_BASE, MGH_HEAP_SIZE, MAP_UNCACHED);
+
+/* Set heap_pos to point to MGH_HEAP_BASE, instead of right after the
+* inmate's stack, so alloc() can allocate more than 1 MB. */
+heap_pos = MGH_HEAP_BASE;
+}
+
+https://github.com/hintron/jailhouse/blob/05824b901ce714c7a61770774b862ef24caf641e/inmates/demos/x86/mgh-demo.c#L113-L114
+https://github.com/hintron/jailhouse/blob/05824b901ce714c7a61770774b862ef24caf641e/inmates/demos/x86/mgh-demo.c#L930-L943
+.
+
+I have tried using both my 'heap' memory region (with 
+programmatically-generated input) as well as using input passed into the IVSHMEM 
+shared memory region 
+<https://github.com/hintron/jailhouse/blob/05824b901ce714c7a61770774b862ef24caf641e/configs/x86/bazooka-inmate.c#L79-L89>, 
+with the same results.
+
+Maybe there is something wrong with the memory paging that is making things 
+a lot slower than expected, like you implied. Maybe regular Linux has a 
+faster way of setting up paging/memory.
+
+In your last response, you said this:
+
+"For the inmate itself the pagetable is constructed by the mapping
+library. The code looks like it tries to do huge pages, make sure the
+call map_range just once with your full memory range. Aligned and maybe
+more than you actually need. Consider putting a few printfs into the
+mapping code to see which path (page-size) it goes."
+
+Could you explain the following suggestion a bit more?: "make sure the call 
+map_range just once with your full memory range." It looks like mgh-demo.c 
+calls map_range twice: once in map_shmem_and_bars() (from your original 
+IVSHMEM demo code, which I based this off of), and then in expand_memory() 
+as shown above. Are you saying I should combine those into one single call?
+
+Also, can you explain this: "Aligned and maybe more than you actually need. 
+Consider putting a few printfs into the mapping code to see which path 
+(page-size) it goes." I'm not sure what I should be looking for inside 
+map_range(). What do you mean by "which path (page-size) it goes," exactly? 
+What's the code path?
+
+Sorry for the bother. I really need to understand why this is happening, 
+because this discrepancy completely overshadows my other slightly-positive 
+timing results in my research. Any help is greatly appreciated.
+
+Thanks,
+Michael  
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/32b59107-d919-a2c8-0761-4e03f5138209%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/96056326-0700-4779-b1b8-3b0df7134a73%40googlegroups.com.
+
+------=_Part_1892_1076642110.1581015629608
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi Henning,<br></div><div><br></div>On Monday, Januar=
+y 27, 2020 at 12:16:08 AM UTC-7, Henning Schild wrote:<blockquote class=3D"=
+gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-left: 1px #ccc so=
+lid;padding-left: 1ex;">Ok, so we are just looking for differences between =
+the inmate and the
+<br>linux as non-root cell, because the jailhouse/virtualization overhead
+<br>is acceptable or known.
+<br></blockquote><div>I&#39;m sorry, I was confused. That is actually not c=
+orrect. I am looking for the difference between the inmate running my simpl=
+e workload vs. running that same workload in the *root cell* rather than in=
+ a non-root Linux cell. What I am doing is activating the root cell, then s=
+imply running the workload in Linux with a wrapper program (<a href=3D"http=
+s://github.com/hintron/jailhouse/blob/05824b901ce714c7a61770774b862ef24caf6=
+41e/mgh/workloads/src/sha3-512.c">sha3-512.c</a>). Then, I activate my inma=
+te and run the same workload, but this time within the inmate in a real-tim=
+e wrapper application (<a href=3D"https://github.com/hintron/jailhouse/blob=
+/05824b901ce714c7a61770774b862ef24caf641e/inmates/demos/x86/mgh-demo.c">mgh=
+-demo.c</a>). Both wrapper applications now use the exact same object file,=
+ compiled once under the Jailhouse build system. But the results are still =
+the same.</div><div><br></div><div>However, the input used by the program i=
+n the inmate is in a special &#39;add-on&#39; memory region I had to create=
+ and map manually with map_range().</div><div><br></div><div>Here is the ad=
+ditional memory region in my config that I named the &#39;heap&#39; (I need=
+ it big enough to hold a 20 MiB+ data input):</div><div><br></div><div><div=
+><font face=3D"courier new, monospace"><span style=3D"white-space:pre">		</=
+span>/* MGH: RAM - Heap */</font></div><div><font face=3D"courier new, mono=
+space"><span style=3D"white-space:pre">		</span>{</font></div><div><font fa=
+ce=3D"courier new, monospace"><span style=3D"white-space:pre">			</span>/* =
+MGH: We have 36 MB of memory allocated to the inmate</font></div><div><font=
+ face=3D"courier new, monospace"><span style=3D"white-space:pre">			</span>=
+ * in the root config, but are only using 1 MB for the</font></div><div><fo=
+nt face=3D"courier new, monospace"><span style=3D"white-space:pre">			</spa=
+n> * inmate&#39;s stack and program. So create an additional</font></div><d=
+iv><font face=3D"courier new, monospace"><span style=3D"white-space:pre">		=
+	</span> * &quot;heap&quot; area with the other 35 MB to allow the program<=
+/font></div><div><font face=3D"courier new, monospace"><span style=3D"white=
+-space:pre">			</span> * more memory to work with. */</font></div><div><fon=
+t face=3D"courier new, monospace"><span style=3D"white-space:pre">			</span=
+>.phys_start =3D 0x3a700000,</font></div><div><font face=3D"courier new, mo=
+nospace"><span style=3D"white-space:pre">			</span>.virt_start =3D 0x002000=
+00,</font></div><div><font face=3D"courier new, monospace"><span style=3D"w=
+hite-space:pre">			</span>// 35 MB (3a7 + 23 =3D 3ca)</font></div><div><fon=
+t face=3D"courier new, monospace"><span style=3D"white-space:pre">			</span=
+>.size =3D 0x02300000,</font></div><div><font face=3D"courier new, monospac=
+e"><span style=3D"white-space:pre">			</span>.flags =3D JAILHOUSE_MEM_READ =
+| JAILHOUSE_MEM_WRITE |</font></div><div><font face=3D"courier new, monospa=
+ce"><span style=3D"white-space:pre">				</span>JAILHOUSE_MEM_EXECUTE | JAIL=
+HOUSE_MEM_LOADABLE,</font></div><div><font face=3D"courier new, monospace">=
+<span style=3D"white-space:pre">		</span>},</font></div></div><div><br></di=
+v><div><a href=3D"https://github.com/hintron/jailhouse/blob/05824b901ce714c=
+7a61770774b862ef24caf641e/configs/x86/bazooka-inmate.c#L90-L103">https://gi=
+thub.com/hintron/jailhouse/blob/05824b901ce714c7a61770774b862ef24caf641e/co=
+nfigs/x86/bazooka-inmate.c#L90-L103</a><br></div><div><br></div><div>I am a=
+ble to map that large 35 MiB memory region into my inmate, and it works ok:=
+</div><div><br></div><div><div><font face=3D"courier new, monospace">#defin=
+e MGH_HEAP_BASE<span style=3D"white-space:pre">		</span>0x00200000</font></=
+div><div><font face=3D"courier new, monospace">#define MGH_HEAP_SIZE<span s=
+tyle=3D"white-space:pre">		</span>(35 * MB)</font></div></div><div><font fa=
+ce=3D"courier new, monospace">...</font></div><div><div><font face=3D"couri=
+er new, monospace">/*</font></div><div><font face=3D"courier new, monospace=
+">=C2=A0* MGH: By default, x86 inmates only map the first 2 MB of virtual m=
+emory, even</font></div><div><font face=3D"courier new, monospace">=C2=A0* =
+when more memory is configured. So map configured memory pages behind the</=
+font></div><div><font face=3D"courier new, monospace">=C2=A0* virtual memor=
+y address MGH_HEAP_BASE. Without this, there is nothing behind</font></div>=
+<div><font face=3D"courier new, monospace">=C2=A0* the virtual memory addre=
+ss and you&#39;ll get a page fault.</font></div><div><font face=3D"courier =
+new, monospace">=C2=A0*/</font></div><div><font face=3D"courier new, monosp=
+ace">static void expand_memory(void)</font></div><div><font face=3D"courier=
+ new, monospace">{</font></div><div><font face=3D"courier new, monospace"><=
+span style=3D"white-space:pre">	</span>map_range((char *)MGH_HEAP_BASE, MGH=
+_HEAP_SIZE, MAP_UNCACHED);</font></div><div><font face=3D"courier new, mono=
+space"><br></font></div><div><font face=3D"courier new, monospace"><span st=
+yle=3D"white-space:pre">	</span>/* Set heap_pos to point to MGH_HEAP_BASE, =
+instead of right after the</font></div><div><font face=3D"courier new, mono=
+space"><span style=3D"white-space:pre">	</span> * inmate&#39;s stack, so al=
+loc() can allocate more than 1 MB. */</font></div><div><font face=3D"courie=
+r new, monospace"><span style=3D"white-space:pre">	</span>heap_pos =3D MGH_=
+HEAP_BASE;</font></div><div><font face=3D"courier new, monospace">}</font><=
+/div></div><div><br></div><div><a href=3D"https://github.com/hintron/jailho=
+use/blob/05824b901ce714c7a61770774b862ef24caf641e/inmates/demos/x86/mgh-dem=
+o.c#L113-L114">https://github.com/hintron/jailhouse/blob/05824b901ce714c7a6=
+1770774b862ef24caf641e/inmates/demos/x86/mgh-demo.c#L113-L114</a><br></div>=
+<div><a href=3D"https://github.com/hintron/jailhouse/blob/05824b901ce714c7a=
+61770774b862ef24caf641e/inmates/demos/x86/mgh-demo.c#L930-L943">https://git=
+hub.com/hintron/jailhouse/blob/05824b901ce714c7a61770774b862ef24caf641e/inm=
+ates/demos/x86/mgh-demo.c#L930-L943</a>.</div><div><br></div><div>I have tr=
+ied using both my &#39;heap&#39; memory region (with programmatically-gener=
+ated input) as well as using input passed into the=C2=A0<a href=3D"https://=
+github.com/hintron/jailhouse/blob/05824b901ce714c7a61770774b862ef24caf641e/=
+configs/x86/bazooka-inmate.c#L79-L89">IVSHMEM shared memory region</a>, wit=
+h the same results.<br></div><div><br></div><div>Maybe there is something w=
+rong with the memory paging that is making things a lot slower than expecte=
+d, like you implied. Maybe regular Linux has a faster way of setting up pag=
+ing/memory.<br></div><div><br></div><div>In your last response, you said th=
+is:</div><div><br></div><div>&quot;For the inmate itself the pagetable is c=
+onstructed by the mapping<br>library. The code looks like it tries to do hu=
+ge pages, make sure the<br>call map_range just once with your full memory r=
+ange. Aligned and maybe<br>more than you actually need. Consider putting a =
+few printfs into the<br>mapping code to see which path (page-size) it goes.=
+&quot;<br></div><div><br></div><div>Could you explain the following suggest=
+ion a bit more?: &quot;make sure the call map_range just once with your ful=
+l memory range.&quot; It looks like mgh-demo.c calls map_range twice: once =
+in=C2=A0map_shmem_and_bars() (from your original IVSHMEM demo code, which I=
+ based this off of), and then in expand_memory() as shown above. Are you sa=
+ying I should combine those into one single call?</div><div><br></div><div>=
+Also, can you explain this: &quot;Aligned and maybe more than you actually =
+need. Consider putting a few printfs into the mapping code to see which pat=
+h (page-size) it goes.&quot; I&#39;m not sure what I should be looking for =
+inside map_range(). What do you mean by &quot;which path (page-size) it goe=
+s,&quot; exactly? What&#39;s the code path?</div><div><br></div><div>Sorry =
+for the bother. I really need to understand why this is happening, because =
+this discrepancy completely overshadows my other slightly-positive timing r=
+esults in my research. Any help is greatly appreciated.<br></div><div><br><=
+/div><div>Thanks,</div><div>Michael=C2=A0=C2=A0</div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/96056326-0700-4779-b1b8-3b0df7134a73%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/96056326-0700-4779-b1b8-3b0df7134a73%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_1892_1076642110.1581015629608--
+
+------=_Part_1891_1372169074.1581015629607--
