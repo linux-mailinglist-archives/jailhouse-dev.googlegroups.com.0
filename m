@@ -1,121 +1,68 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB2M66XYQKGQE5VBUFHI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCQ7HUU4XULBB4WV67YQKGQEIGKVTHA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33e.google.com (mail-wm1-x33e.google.com [IPv6:2a00:1450:4864:20::33e])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA254155730
-	for <lists+jailhouse-dev@lfdr.de>; Fri,  7 Feb 2020 12:52:09 +0100 (CET)
-Received: by mail-wm1-x33e.google.com with SMTP id t17sf617816wmi.7
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 07 Feb 2020 03:52:09 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1581076329; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=00eXMU4rmqpzH4x0aOXNTk9S95RG78LfWGKQFSkl2yu6LdKKgm2Nb1OkLdb9MPYyhV
-         rnNIXkJn0mGpb3tCZywl96blk/XyYPLcpm1PLm5FyinvXVUoV8JBo14ctj5P4KyBbk3w
-         W/gGxcD8xheCcut8dTEad2aBKkWcveM7Ghsa6Tidzyx0PaIpbluNBNQzM3UmsH74pe5r
-         Dbfg8f/TNZ9DbJNhiEs2uEU6U1cJJX2JRv7TIjv04w4i2VFu9GBSN+schxdILLI5pRmY
-         CXxXy+7s6wIa9j8uVNNEd/H/LRkn+CDDpPpleEI3KZlIhEDuMBxw/D1yk9EX2f//mZXt
-         ahtw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:mime-version
-         :user-agent:date:message-id:subject:from:to:sender:dkim-signature;
-        bh=dInXeyajpLUFk7i535goMnEcl08Wtydo4sWV9JtUkdQ=;
-        b=RYhpfkywZBaM6tnZZZHznpcwBF1c7ufdd1kEt7HqExcgtz/z/4nvWYX1rJbY7hKt7A
-         HMIW5Lh2q3w2O1wnFonrw45aFC81yytH0GSdHQXiqw/51/wVj8eGn77BERqtOQzcBVNe
-         Sxlj4SI5eA0MT2eDJnzWZBP3HkukjBDt8KMW0dBy9t4bj2Aq17usI7Zc5NpJbFw+jEck
-         gAFlp4YE0UA34dnpP5z53NcnuSMDAEi3uAueeF+Sqc1jnKjSDIkH0z20PLmt67K3r5MR
-         oBDgRewT2om05A8PQ/vYRQR9wOiGKyva7jqfNrahRrdfrJ4lY9snHz5Qeh+zM9rp/NzY
-         PMfg==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-oi1-x23b.google.com (mail-oi1-x23b.google.com [IPv6:2607:f8b0:4864:20::23b])
+	by mail.lfdr.de (Postfix) with ESMTPS id A7E8115615E
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  7 Feb 2020 23:55:47 +0100 (CET)
+Received: by mail-oi1-x23b.google.com with SMTP id c4sf1941800oiy.0
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 07 Feb 2020 14:55:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:to:from:subject:message-id:date:user-agent:mime-version
-         :content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=dInXeyajpLUFk7i535goMnEcl08Wtydo4sWV9JtUkdQ=;
-        b=qnob0iX7+AioIdWZMfKVm/fh8pOpm7GBPQpYtPZ0oKW3UUOaZL1lVGc73uCn+LEnzh
-         Fl1X0NZEA2u1rVWe12/uz89MgYEjHgqSbVrevh6FBI0bJfuZsnPs4dkPF6oIUOBagHX3
-         93fc8ftF37yZeLLlcZbaKYWANaYDXW0iY1oJmjevDxaVnV7DPssb+DygtS58HOFTrv8P
-         91LX/YJ4bJ33zVouAxLlrwQCQ0uwPMy6fHX8GhJyRCPH02P9lOiE+wAYidIOpuci0vEc
-         FDDAEPXWL/dRX5zM0gizR4uUfx+WCwNCKIxZkg1FlJ1Z6cvh0rJCfkcgbnWyr6H2sN4H
-         uvfg==
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=oQfpVL9xn/kCh4+n+Rkbv15di7OHidGJl9MGLt5lxCo=;
+        b=Xmn1wSYKVpXSYPbSOPiinC337RzeZCreHE+Hn9nX7Q5yT6xPYH4ZlFM84OepYkReND
+         1nFU1zNPMSl5nhfkji0TfbogSn/Elcn6iB9XA1r57RnY9Us2kz2ofvkCMRo1CGa8noS1
+         g8AHMrkVbCcbiuZ4qVOqp+kyfj+jc9yOwCkZFL6Gmz4r80xIRrVuYoIE5zLiCY8NWb+X
+         j2/QXwvFk8pXNGmdgq6fzURUZV099Nmh9JA13Zmh+k0KhhXZ++hGr3KzNHCES5wmmwKC
+         p7rmoq7sYUhCJtNZ/7fMLullz1pXAL22sy9UwXQar+kjhQ5Q+Dzh0ijK2wyLVrUw7jgu
+         xn2g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=oQfpVL9xn/kCh4+n+Rkbv15di7OHidGJl9MGLt5lxCo=;
+        b=mPihzPmmEEHeX7XzW3jdol8JAmyc8qQhr4QPX16z1ooEyRSStXageSvIv+j02b8bx4
+         hvf9feB0UEN1HiXGUuZjL7NQFm5dCzhJO4CHlo55Awl4fmyHEyYgmbNWATixQbUaEB/b
+         CuQsXsFN4awqVp6cj0F5tX4BxA5vIpoLr+5iYFHxgQC6Xz0mLwLPXcTgV8PO26saCqii
+         2/mdBUp1nTy2S9pjlAZG4PM7D7gw2KgVvagsCHwC6f75r40Ym1QvfCmJ7y++lIFU76Nt
+         EUI0nMHrXAkCzgQlo/nR2HNd7EXu1HyolWl2hplYvk3ywQ83/P68RVAhVoAxZ8j6z839
+         9RcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:to:from:subject:message-id:date
-         :user-agent:mime-version:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=dInXeyajpLUFk7i535goMnEcl08Wtydo4sWV9JtUkdQ=;
-        b=WKVlFJBv8CsGnwIrU2PlG1BLA0p4pV2MpUHc80/R2A5pKX1pwYHVGQDzFQvbgEF1Ss
-         UUn69xota31mNM/8GMShtMvnXOTEjgVtvu6lTfAvKgfMvxoSh4L9gGVTXCzulKIyc19V
-         pZrSf7BAblebhHPiCKrMbXiFXe2RDk3R3aZLiVZ7jowGw9SyMDRvwzAuYqtEfUOLECf/
-         M+TJG2QeQDtJp+HUCAvDDZ7g4Acplh0mo8cIOglKsyvqnBsz/Wf2/XfRawwTkZLNam2b
-         Zbwq1Z2rm7G0Rnt/2Hw+UxraQ1UNClFUh0LeR9hcdSILRuXbdGyaHP4UWLFFcEJWMIj8
-         uc+Q==
+        bh=oQfpVL9xn/kCh4+n+Rkbv15di7OHidGJl9MGLt5lxCo=;
+        b=eAsWkfy96srS8F0yVZBUAPf6fO6QCsviiforID/uvJn8Ho8YW+bo+xkbK5iISOgRC3
+         +OeAMQtG7KyhlU+3YlsAlyCBX3cJY7djGCKbxoaSLUR4fx9WmwrI7aftOLQgVVQI0sPF
+         CIWEhCFoBm5+JwK0AWlSj3Opy2irWVfxv4DFZMadBO5EZ0L17jFQdCLmIdzj5nxzdx5k
+         ntM6HF5MsZ5+m3Op+Z1x9dZz4DylGp2k1PiYpoBolMr/elj/B4anWu35afJrLqS5Ujj9
+         eVtp//Gpsej5i11CWn2H5gW06d5N6DTvEdQ77wzK+BDuHuq2Oo11IvOcHgMQUDsoacvg
+         d7YQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUJim998yCFH2QriZoVQF5fP6nHbPxJvrErsAlS9iEAeoArIbeH
-	L6yh83l6GnrMauLCNlHmPGQ=
-X-Google-Smtp-Source: APXvYqz+gqb/Hv5r7/eYaNVmG5pzXUi6pKuraqAHxY4Rx6khzpvn9dHqXM4skLWQBYpmlC10/R9F/w==
-X-Received: by 2002:a7b:c0da:: with SMTP id s26mr4012005wmh.52.1581076329559;
-        Fri, 07 Feb 2020 03:52:09 -0800 (PST)
+X-Gm-Message-State: APjAAAVU3+lpHRFXYPxZhTe+hZtKYcnYuUTUz0kwRcpnPNi0XGcxjnfC
+	6rz2IYz7aQQUqlSmWRFV9ko=
+X-Google-Smtp-Source: APXvYqzFbZ00JDLQrrDkcOmk3bdTBuaLpGeEMvPB9jqppx1cdTXlU+lZj//2o/CMSqUYcgv4Drro3g==
+X-Received: by 2002:aca:be56:: with SMTP id o83mr3714201oif.25.1581116146379;
+        Fri, 07 Feb 2020 14:55:46 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:ea84:: with SMTP id s4ls5693279wrm.11.gmail; Fri, 07 Feb
- 2020 03:52:08 -0800 (PST)
-X-Received: by 2002:a5d:6451:: with SMTP id d17mr4477874wrw.255.1581076328783;
-        Fri, 07 Feb 2020 03:52:08 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1581076328; cv=none;
-        d=google.com; s=arc-20160816;
-        b=pi9SsPkIceoaT6V6TWVvhx7waZgJYOUP2rMLL2B7MJFpBrQK1FbYE1tv4z7TWLeLqK
-         t7Q65a3hNEmj3rrVdOpr8sGZBx9JxJPQHkea/fO9ZWROhYMMH72ZNGXP2YSbp6UZQFW/
-         2Ns/wg9j4HiA2LxRQT/XaKdpk5/dqpIc0bJ+96xVphqXIHfsKlErUrP+hDW6S1TgRSgG
-         ucuMGytnyMo++eaXc9DE7DpsFVc9JDrijlYNohIwo0ZOV/qALHYwwgxLZLQoz5pWWIl4
-         ccW7N88rsbCiJmcPhEDFlB1DUWld4gGQXUiUdJnSVSf1TkwNM2ojdd3wDHc7XvOoQbvU
-         bSBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:mime-version:user-agent
-         :date:message-id:subject:from:to;
-        bh=S/3KUJ0C7Wu2/oUkH+7Z9ct9IpE6V7PzbBd+In40UBI=;
-        b=KYACGrXOcdsmZwhKOaKmKXlEMggNIaxaC7iEmltOSNb516Ww63WVEfAiOqq3ZwFk+n
-         HALOIVZ4703dJE/+wFX36Qs+Ku3SmMET+6EJsc13MFL/wGp+vX/iwj4XdigLsbXUHPMf
-         n0nyHT6bebQyaO3+bVRwI2Gjf7aLWrEvLsocwx6cIfV3yaYROZ7Qo5cJs8PXLtD+bU47
-         /ddY+4dvnwzRz7iEJzwrTOPl6ljcMhvjO8wbJkeVJWuKl4SdPcrHpyR+FvtyzgwZxXEf
-         L6tWmYa/gnK52BaBb1EasUrJczqiMeJ8ugIPvj10CImnIcFpBbvzBPo2NQaWh1jHDF7Y
-         DNxg==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id i15si130756wro.2.2020.02.07.03.52.08
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 07 Feb 2020 03:52:08 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
-Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 017Bq8Gr010174
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
-	for <jailhouse-dev@googlegroups.com>; Fri, 7 Feb 2020 12:52:08 +0100
-Received: from [139.25.68.37] ([139.25.68.37])
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id 017Bq8YT019522
-	for <jailhouse-dev@googlegroups.com>; Fri, 7 Feb 2020 12:52:08 +0100
-X-Mozilla-News-Host: news://kiszka.org:119
+Received: by 2002:a9d:5a87:: with SMTP id w7ls254477oth.1.gmail; Fri, 07 Feb
+ 2020 14:55:45 -0800 (PST)
+X-Received: by 2002:a05:6830:12d5:: with SMTP id a21mr1352801otq.296.1581116145597;
+        Fri, 07 Feb 2020 14:55:45 -0800 (PST)
+Date: Fri, 7 Feb 2020 14:55:44 -0800 (PST)
+From: Saroj Sapkota <samirroj2016@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Subject: [ANNOUNCE] jailhouse-images 0.12 released
-Message-ID: <22b9591f-7202-bf2b-cc23-e9d37b12241a@siemens.com>
-Date: Fri, 7 Feb 2020 12:52:06 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+Message-Id: <3b1a5cb0-d89a-4f0e-aa59-88e4f48999a8@googlegroups.com>
+Subject: jailhouse compilation error (no include path)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_554_2100323965.1581116144923"
+X-Original-Sender: samirroj2016@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -128,38 +75,289 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi all,
+------=_Part_554_2100323965.1581116144923
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_555_607626947.1581116144923"
 
-this is the release of our ready-to-use reference image generator for
-Jailhouse 0.12. You can download the new version from
+------=_Part_555_607626947.1581116144923
+Content-Type: text/plain; charset="UTF-8"
 
-    https://github.com/siemens/jailhouse-images/archive/v0.12.tar.gz
+While trying to built on jailhouse(master version) on jetson tx2 board I 
+get the following  error:
+kernel version-4.9--tegra
+nvidia@jetson-0320218169735:~/jailhouse$ sudo make:
+ CHK      /home/nvidia/jailhouse/hypervisor/include/generated/config.mk
+  UPD     /home/nvidia/jailhouse/hypervisor/include/generated/config.mk
+ CC      /home/nvidia/jailhouse/configs/arm64/amd-seattle-inmate-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/amd-seattle-inmate-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/amd-seattle-linux-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/amd-seattle-linux-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/amd-seattle.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/amd-seattle.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/espressobin-inmate-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/espressobin-inmate-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/espressobin-linux-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/espressobin-linux-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/espressobin.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/espressobin.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/foundation-v8-inmate-demo.o
+  OBJCOPY 
+/home/nvidia/jailhouse/configs/arm64/foundation-v8-inmate-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/foundation-v8-linux-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/foundation-v8-linux-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/foundation-v8.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/foundation-v8.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/hikey-inmate-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/hikey-inmate-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/hikey-linux-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/hikey-linux-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/hikey.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/hikey.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/imx8mq-inmate-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/imx8mq-inmate-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/imx8mq.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/imx8mq.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/jetson-tx1-inmate-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/jetson-tx1-inmate-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/jetson-tx1-linux-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/jetson-tx1-linux-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/jetson-tx1.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/jetson-tx1.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/jetson-tx2-inmate-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/jetson-tx2-inmate-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/jetson-tx2.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/jetson-tx2.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/k3-am654-idk-linux-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/k3-am654-idk-linux-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/k3-am654-idk.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/k3-am654-idk.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/k3-am654-inmate-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/k3-am654-inmate-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/k3-j721e-evm-inmate-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/k3-j721e-evm-inmate-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/k3-j721e-evm-linux-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/k3-j721e-evm-linux-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/k3-j721e-evm.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/k3-j721e-evm.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/macchiatobin-inmate-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/macchiatobin-inmate-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/macchiatobin-linux-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/macchiatobin-linux-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/macchiatobin.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/macchiatobin.cell
+  CC      
+/home/nvidia/jailhouse/configs/arm64/miriac-sbc-ls1046a-inmate-demo.o
+  OBJCOPY 
+/home/nvidia/jailhouse/configs/arm64/miriac-sbc-ls1046a-inmate-demo.cell
+  CC      
+/home/nvidia/jailhouse/configs/arm64/miriac-sbc-ls1046a-linux-demo.o
+  OBJCOPY 
+/home/nvidia/jailhouse/configs/arm64/miriac-sbc-ls1046a-linux-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/miriac-sbc-ls1046a.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/miriac-sbc-ls1046a.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/qemu-arm64-inmate-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/qemu-arm64-inmate-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/qemu-arm64-linux-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/qemu-arm64-linux-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/qemu-arm64.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/qemu-arm64.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/rpi4-inmate-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/rpi4-inmate-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/rpi4-linux-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/rpi4-linux-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/rpi4.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/rpi4.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/ultra96-inmate-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/ultra96-inmate-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/ultra96-linux-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/ultra96-linux-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/ultra96.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/ultra96.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/zynqmp-zcu102-inmate-demo.o
+  OBJCOPY 
+/home/nvidia/jailhouse/configs/arm64/zynqmp-zcu102-inmate-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/zynqmp-zcu102-linux-demo-2.o
+  OBJCOPY 
+/home/nvidia/jailhouse/configs/arm64/zynqmp-zcu102-linux-demo-2.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/zynqmp-zcu102-linux-demo.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/zynqmp-zcu102-linux-demo.cell
+  CC      /home/nvidia/jailhouse/configs/arm64/zynqmp-zcu102.o
+  OBJCOPY /home/nvidia/jailhouse/configs/arm64/zynqmp-zcu102.cell
+  DTC     /home/nvidia/jailhouse/configs/arm64/dts/inmate-amd-seattle.dtb
 
-then follow the README to build the desired image[s].
-
-Changes since 0.11:
-
- - update to Jailhouse 0.12
- - new board
-    - Raspberry Pi 4 Model B
- - add ivshmem inmate demos (note: bare-metal config so far available
-   for QEMU,  Orange Pi Zero, Raspberry Pi 4)
- - switch to Debian 10 (buster)
- - switch to kernel 5.4
- - update to latest Isar
- - update host dependencies
- - build fixes for Ultra96 firmware
-
-If you have questions related to this project, just drop them here. Same
-in case you see problems or have suggestions for improvements.
-
-Jan
-
--- 
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+/home/nvidia/jailhouse/configs/arm64/dts/inmate-amd-seattle.dts:17:54: 
+error: no include path in which to search for 
+dt-bindings/interrupt-controller/arm-gic.h
+scripts/Makefile.lib:291: recipe for target 
+'/home/nvidia/jailhouse/configs/arm64/dts/inmate-amd-seattle.dtb' failed
+make[3]: *** 
+[/home/nvidia/jailhouse/configs/arm64/dts/inmate-amd-seattle.dtb] Error 1
+scripts/Makefile.build:479: recipe for target 
+'/home/nvidia/jailhouse/configs' failed
+make[2]: *** [/home/nvidia/jailhouse/configs] Error 2
+Makefile:1429: recipe for target '_module_/home/nvidia/jailhouse' failed
+make[1]: *** [_module_/home/nvidia/jailhouse] Error 2
+Makefile:40: recipe for target 'modules' failed
+make: *** [modules] Error 2
+I also tried it cross compiling in host machine and I got the same error. 
+(i also tried cross compiling in different x86 machine one with kernel-4.4 
+(ubuntu 16.04) and another with kernel-5.01(ubuntu 18.04) but same error as 
+above pops up)
+please give me some guide
+Thank you!
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/22b9591f-7202-bf2b-cc23-e9d37b12241a%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/3b1a5cb0-d89a-4f0e-aa59-88e4f48999a8%40googlegroups.com.
+
+------=_Part_555_607626947.1581116144923
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>While trying to built on jailhouse(master version) on=
+ jetson tx2 board I get the following=C2=A0 error:</div><div>kernel version=
+-4.9--tegra<br></div><div>nvidia@jetson-0320218169735:~/jailhouse$ sudo mak=
+e:</div><div>=C2=A0CHK=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse=
+/hypervisor/include/generated/config.mk<br>=C2=A0 UPD=C2=A0=C2=A0=C2=A0=C2=
+=A0 /home/nvidia/jailhouse/hypervisor/include/generated/config.mk</div><div=
+>=C2=A0CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/configs/arm6=
+4/amd-seattle-inmate-demo.o<br>=C2=A0 OBJCOPY /home/nvidia/jailhouse/config=
+s/arm64/amd-seattle-inmate-demo.cell<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 /home/nvidia/jailhouse/configs/arm64/amd-seattle-linux-demo.o<br>=C2=
+=A0 OBJCOPY /home/nvidia/jailhouse/configs/arm64/amd-seattle-linux-demo.cel=
+l<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/configs=
+/arm64/amd-seattle.o<br>=C2=A0 OBJCOPY /home/nvidia/jailhouse/configs/arm64=
+/amd-seattle.cell<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/j=
+ailhouse/configs/arm64/espressobin-inmate-demo.o<br>=C2=A0 OBJCOPY /home/nv=
+idia/jailhouse/configs/arm64/espressobin-inmate-demo.cell<br>=C2=A0 CC=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/configs/arm64/espressobi=
+n-linux-demo.o<br>=C2=A0 OBJCOPY /home/nvidia/jailhouse/configs/arm64/espre=
+ssobin-linux-demo.cell<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvi=
+dia/jailhouse/configs/arm64/espressobin.o<br>=C2=A0 OBJCOPY /home/nvidia/ja=
+ilhouse/configs/arm64/espressobin.cell<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 /home/nvidia/jailhouse/configs/arm64/foundation-v8-inmate-demo.o<br>=
+=C2=A0 OBJCOPY /home/nvidia/jailhouse/configs/arm64/foundation-v8-inmate-de=
+mo.cell<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/c=
+onfigs/arm64/foundation-v8-linux-demo.o<br>=C2=A0 OBJCOPY /home/nvidia/jail=
+house/configs/arm64/foundation-v8-linux-demo.cell<br>=C2=A0 CC=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/configs/arm64/foundation-v8.o<br>=
+=C2=A0 OBJCOPY /home/nvidia/jailhouse/configs/arm64/foundation-v8.cell<br>=
+=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/configs/arm6=
+4/hikey-inmate-demo.o<br>=C2=A0 OBJCOPY /home/nvidia/jailhouse/configs/arm6=
+4/hikey-inmate-demo.cell<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/n=
+vidia/jailhouse/configs/arm64/hikey-linux-demo.o<br>=C2=A0 OBJCOPY /home/nv=
+idia/jailhouse/configs/arm64/hikey-linux-demo.cell<br>=C2=A0 CC=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/configs/arm64/hikey.o<br>=C2=A0 O=
+BJCOPY /home/nvidia/jailhouse/configs/arm64/hikey.cell<br>=C2=A0 CC=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/configs/arm64/imx8mq-inmate=
+-demo.o<br>=C2=A0 OBJCOPY /home/nvidia/jailhouse/configs/arm64/imx8mq-inmat=
+e-demo.cell<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhou=
+se/configs/arm64/imx8mq.o<br>=C2=A0 OBJCOPY /home/nvidia/jailhouse/configs/=
+arm64/imx8mq.cell<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/j=
+ailhouse/configs/arm64/jetson-tx1-inmate-demo.o<br>=C2=A0 OBJCOPY /home/nvi=
+dia/jailhouse/configs/arm64/jetson-tx1-inmate-demo.cell<br>=C2=A0 CC=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/configs/arm64/jetson-tx1-li=
+nux-demo.o<br>=C2=A0 OBJCOPY /home/nvidia/jailhouse/configs/arm64/jetson-tx=
+1-linux-demo.cell<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/j=
+ailhouse/configs/arm64/jetson-tx1.o<br>=C2=A0 OBJCOPY /home/nvidia/jailhous=
+e/configs/arm64/jetson-tx1.cell<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+/home/nvidia/jailhouse/configs/arm64/jetson-tx2-inmate-demo.o<br>=C2=A0 OBJ=
+COPY /home/nvidia/jailhouse/configs/arm64/jetson-tx2-inmate-demo.cell<br>=
+=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/configs/arm6=
+4/jetson-tx2.o<br>=C2=A0 OBJCOPY /home/nvidia/jailhouse/configs/arm64/jetso=
+n-tx2.cell<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhous=
+e/configs/arm64/k3-am654-idk-linux-demo.o<br>=C2=A0 OBJCOPY /home/nvidia/ja=
+ilhouse/configs/arm64/k3-am654-idk-linux-demo.cell<br>=C2=A0 CC=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/configs/arm64/k3-am654-idk.o<br>=
+=C2=A0 OBJCOPY /home/nvidia/jailhouse/configs/arm64/k3-am654-idk.cell<br>=
+=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/configs/arm6=
+4/k3-am654-inmate-demo.o<br>=C2=A0 OBJCOPY /home/nvidia/jailhouse/configs/a=
+rm64/k3-am654-inmate-demo.cell<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /=
+home/nvidia/jailhouse/configs/arm64/k3-j721e-evm-inmate-demo.o<br>=C2=A0 OB=
+JCOPY /home/nvidia/jailhouse/configs/arm64/k3-j721e-evm-inmate-demo.cell<br=
+>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/configs/arm=
+64/k3-j721e-evm-linux-demo.o<br>=C2=A0 OBJCOPY /home/nvidia/jailhouse/confi=
+gs/arm64/k3-j721e-evm-linux-demo.cell<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 /home/nvidia/jailhouse/configs/arm64/k3-j721e-evm.o<br>=C2=A0 OBJCOP=
+Y /home/nvidia/jailhouse/configs/arm64/k3-j721e-evm.cell<br>=C2=A0 CC=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/configs/arm64/macchiatobin-=
+inmate-demo.o<br>=C2=A0 OBJCOPY /home/nvidia/jailhouse/configs/arm64/macchi=
+atobin-inmate-demo.cell<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nv=
+idia/jailhouse/configs/arm64/macchiatobin-linux-demo.o<br>=C2=A0 OBJCOPY /h=
+ome/nvidia/jailhouse/configs/arm64/macchiatobin-linux-demo.cell<br>=C2=A0 C=
+C=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/configs/arm64/macchi=
+atobin.o<br>=C2=A0 OBJCOPY /home/nvidia/jailhouse/configs/arm64/macchiatobi=
+n.cell<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/co=
+nfigs/arm64/miriac-sbc-ls1046a-inmate-demo.o<br>=C2=A0 OBJCOPY /home/nvidia=
+/jailhouse/configs/arm64/miriac-sbc-ls1046a-inmate-demo.cell<br>=C2=A0 CC=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/configs/arm64/miriac-=
+sbc-ls1046a-linux-demo.o<br>=C2=A0 OBJCOPY /home/nvidia/jailhouse/configs/a=
+rm64/miriac-sbc-ls1046a-linux-demo.cell<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 /home/nvidia/jailhouse/configs/arm64/miriac-sbc-ls1046a.o<br>=C2=
+=A0 OBJCOPY /home/nvidia/jailhouse/configs/arm64/miriac-sbc-ls1046a.cell<br=
+>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/configs/arm=
+64/qemu-arm64-inmate-demo.o<br>=C2=A0 OBJCOPY /home/nvidia/jailhouse/config=
+s/arm64/qemu-arm64-inmate-demo.cell<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 /home/nvidia/jailhouse/configs/arm64/qemu-arm64-linux-demo.o<br>=C2=A0 =
+OBJCOPY /home/nvidia/jailhouse/configs/arm64/qemu-arm64-linux-demo.cell<br>=
+=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/configs/arm6=
+4/qemu-arm64.o<br>=C2=A0 OBJCOPY /home/nvidia/jailhouse/configs/arm64/qemu-=
+arm64.cell<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhous=
+e/configs/arm64/rpi4-inmate-demo.o<br>=C2=A0 OBJCOPY /home/nvidia/jailhouse=
+/configs/arm64/rpi4-inmate-demo.cell<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 /home/nvidia/jailhouse/configs/arm64/rpi4-linux-demo.o<br>=C2=A0 OBJ=
+COPY /home/nvidia/jailhouse/configs/arm64/rpi4-linux-demo.cell<br>=C2=A0 CC=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/configs/arm64/rpi4.o<=
+br>=C2=A0 OBJCOPY /home/nvidia/jailhouse/configs/arm64/rpi4.cell<br>=C2=A0 =
+CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/configs/arm64/ultra=
+96-inmate-demo.o<br>=C2=A0 OBJCOPY /home/nvidia/jailhouse/configs/arm64/ult=
+ra96-inmate-demo.cell<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvid=
+ia/jailhouse/configs/arm64/ultra96-linux-demo.o<br>=C2=A0 OBJCOPY /home/nvi=
+dia/jailhouse/configs/arm64/ultra96-linux-demo.cell<br>=C2=A0 CC=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/configs/arm64/ultra96.o<br>=C2=
+=A0 OBJCOPY /home/nvidia/jailhouse/configs/arm64/ultra96.cell<br>=C2=A0 CC=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/configs/arm64/zynqmp-=
+zcu102-inmate-demo.o<br>=C2=A0 OBJCOPY /home/nvidia/jailhouse/configs/arm64=
+/zynqmp-zcu102-inmate-demo.cell<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+/home/nvidia/jailhouse/configs/arm64/zynqmp-zcu102-linux-demo-2.o<br>=C2=A0=
+ OBJCOPY /home/nvidia/jailhouse/configs/arm64/zynqmp-zcu102-linux-demo-2.ce=
+ll<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/config=
+s/arm64/zynqmp-zcu102-linux-demo.o<br>=C2=A0 OBJCOPY /home/nvidia/jailhouse=
+/configs/arm64/zynqmp-zcu102-linux-demo.cell<br>=C2=A0 CC=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 /home/nvidia/jailhouse/configs/arm64/zynqmp-zcu102.o<br>=C2=A0=
+ OBJCOPY /home/nvidia/jailhouse/configs/arm64/zynqmp-zcu102.cell<br>=C2=A0 =
+DTC=C2=A0=C2=A0=C2=A0=C2=A0 /home/nvidia/jailhouse/configs/arm64/dts/inmate=
+-amd-seattle.dtb<br><br></div><div>/home/nvidia/jailhouse/configs/arm64/dts=
+/inmate-amd-seattle.dts:17:54: error: no include path in which to search fo=
+r dt-bindings/interrupt-controller/arm-gic.h<br>scripts/Makefile.lib:291: r=
+ecipe for target &#39;/home/nvidia/jailhouse/configs/arm64/dts/inmate-amd-s=
+eattle.dtb&#39; failed<br>make[3]: *** [/home/nvidia/jailhouse/configs/arm6=
+4/dts/inmate-amd-seattle.dtb] Error 1<br>scripts/Makefile.build:479: recipe=
+ for target &#39;/home/nvidia/jailhouse/configs&#39; failed<br>make[2]: ***=
+ [/home/nvidia/jailhouse/configs] Error 2<br>Makefile:1429: recipe for targ=
+et &#39;_module_/home/nvidia/jailhouse&#39; failed<br>make[1]: *** [_module=
+_/home/nvidia/jailhouse] Error 2<br>Makefile:40: recipe for target &#39;mod=
+ules&#39; failed<br>make: *** [modules] Error 2</div><div>I also tried it c=
+ross compiling in host machine and I got the same error. (i also tried cros=
+s compiling in different x86 machine one with kernel-4.4 (ubuntu 16.04) and=
+ another with kernel-5.01(ubuntu 18.04) but same error as above pops up)</d=
+iv><div>please give me some guide</div><div>Thank you!<br></div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/3b1a5cb0-d89a-4f0e-aa59-88e4f48999a8%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/3b1a5cb0-d89a-4f0e-aa59-88e4f48999a8%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_555_607626947.1581116144923--
+
+------=_Part_554_2100323965.1581116144923--
