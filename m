@@ -1,139 +1,71 @@
-Return-Path: <jailhouse-dev+bncBCPOXAO4SYIBBUNFSXZAKGQEVQBKTMY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCPOXAO4SYIBBHNNSXZAKGQEPI7A63Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33b.google.com (mail-wm1-x33b.google.com [IPv6:2a00:1450:4864:20::33b])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE55915BFA4
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 13 Feb 2020 14:44:49 +0100 (CET)
-Received: by mail-wm1-x33b.google.com with SMTP id p2sf2013128wmi.8
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 13 Feb 2020 05:44:49 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1581601489; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=I6A+EKIGXxFJmtflt1ScCgQ1oFZvQCIZgJeJiWkFJ3xRmu+WbO2BG7HJAtcQ6uEPZZ
-         E3xQdPcSCskNlbGlVx0f1bSgJEKy3NxDtAZuiKYOXGXZYZCgMGP0VfCS9dDqps2ldulZ
-         dHNJkwDPZSX40xAwkEfhWZ67lSuU5gLMhChhd6yA8kfvT6fDQshIQ3dMK6W9meMfFzTr
-         iTkbqLvNT19B0fmYlQiWfUSIFZkDlFZ53Mr76w2UCVNJfoeINrqy/EsxM32WTkBIdQ8t
-         JKJlk7sKtbJsOb6HmOI16FOa4r0sXIRSUcOt2268iCyGA3ZCv13FQnIDevpTqIpEooN8
-         UCuQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:references:in-reply-to:message-id
-         :date:subject:cc:to:from:mime-version:sender:dkim-signature
-         :dkim-signature;
-        bh=OsK2nGp8rzZel13j80B3xIcdtt5fwnxj+oCmY8tbMvM=;
-        b=qAfmObgQDhG65FAOFX5hmkGlf1VeZ7gmpSQdmcg1fKPMaDSX8JMhT1uNrau40lscm+
-         beoQaUirEoRKuTxxieEy+J2ny38zAWWpHTb3tLdQ/+oB4aOjdFf1d7Sb1Occ66HslBn6
-         rV6M5sDkVSYD/K9hxD09OwvVpeFwQWJdoWtoqgg3D3jxMdbOQdTvc7KdwXJsfaj4BW9v
-         qHpSLlCWxPdMHknElH/VIkTiLQ5fnLRh3djK7BQgjRBhFem8Cf4doRBNTU/NKMaHAuhc
-         2msBZJ/bOaz/8D4iLwTw2M8lc7+EwL3MqbHdZdNXz69Q0IdELX3hlJeJEvRqRnLxQzLy
-         RYGw==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=QYpnnL03;
-       spf=pass (google.com: domain of vijaikumar.kanagarajan@gmail.com designates 2a00:1450:4864:20::442 as permitted sender) smtp.mailfrom=vijaikumar.kanagarajan@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-ot1-x33b.google.com (mail-ot1-x33b.google.com [IPv6:2607:f8b0:4864:20::33b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2397B15BFEA
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 13 Feb 2020 15:01:03 +0100 (CET)
+Received: by mail-ot1-x33b.google.com with SMTP id a20sf3117068otl.11
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 13 Feb 2020 06:01:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:mime-version:from:to:cc:subject:date:message-id:in-reply-to
-         :references:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=OsK2nGp8rzZel13j80B3xIcdtt5fwnxj+oCmY8tbMvM=;
-        b=Yn9/I1qwjx38TNDuZLPiZB4r6wZjtF0Q9yRLaJhJEJtgXo9lwBUKvT7WlWkRYVaKUd
-         yHFUq/FEZmCFfzzIvmUYfYUzNRnpxhDP8gxEctP7ZMcp38i9WYPLMra6zuk72GPyxrlb
-         Hgj1ShipAGq7mlaD6x5RJkTFu4mvYM7PNY1RaPj7yaEIeG+sqncDLU2otIjwG416dDfP
-         nW4qZ4L31oQUOZbbpK5JQl45jRIdWbRqt+bGPCLxNWH6ZsnHllf0iIHm3ksbjn1333yp
-         8t/FFWKeedwPXA7VpChLuoH4FTuxPzGQwfrmOawNxKgEPIwK5PzEs7pn47Ezha7C9Sk9
-         dq6g==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=PGyuouCWJ9oWYNXRuXtk4OxCe/sR2Co9JTwUVOMW2Zw=;
+        b=DhnCxyT1aL0qpTOyF9t2yG0i4gjUMQ+ZYzm95QVjmXQz9uK/3wooV18pfOjSKhNWKo
+         3qQish3/e36YUfPsaQH+/y0k9ywIDzYN3WuMfw9XaA2j8BxDD/KB5LMsRwbubogKgPqv
+         o4mMx10CxVKBuCBc5//dVoGkysvJVz1pD0frGsQJjMKzRBv3LJiMxJ/1H/hks25PiTSz
+         2R65/O9gv1c/eSUzmZ6WUOtTcew2nY1jg+vZpPH2eLdoNn08xlb3zaivfFgD8PkEOn2x
+         sFJ357GieInAaFX+7odkk5MLAHQ/Dq7KBEAbznZSXSOJWYznsTEOJ23rIZKuSdLZAQBf
+         l/Nw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:from:to:cc:subject:date:message-id:in-reply-to
-         :references:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=OsK2nGp8rzZel13j80B3xIcdtt5fwnxj+oCmY8tbMvM=;
-        b=as+rKF2tcQapHYeu8QxdnyagoHc2VnhrSMFPTaWMIqCJoWPFTcHhI6gLW0LL9Ekyv4
-         0dLKsbmFw6SV6Db1cHz43mc52aRGu+KMl+15EaBk2cdXfHGkUvFFLOMZ4pmnpJBII5pu
-         5nTzzO+vqWF4Ni8HYO4iiSLbxmXIWOChKMlS54tT4u6zAokzjW9PMfkC7jlH2qjoegO9
-         Zc81JsVMr0sqnPM1Byvs7mn1F/pxDyRsOQDuEK5cusHc612EdgGvO4pN9o2DRmQrHIaa
-         5YlSLawc2ye4dzP6fzKG51XfVawmWuqVQ1/GL+LQES8H87QiYfMU04jiP98PcYnOi/dM
-         hKdg==
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=PGyuouCWJ9oWYNXRuXtk4OxCe/sR2Co9JTwUVOMW2Zw=;
+        b=CLwQWiz0i2rnILDBzabuGDSuIWrwBiaa6WarHM8CCuHyumpGV15XWXCYHPvQiAYq6v
+         5a3b6LHpE9wlSP4WQJyRIeedwoNYEMtiwGbnTse+6oqJGMHfFsC8BCxBrJirvZnaKmUl
+         Lmhlo3B6a6pkkaTITiySlAgcfdV5/lHgqcGe+8LUAx+fyIypVKcB6yrBDX4m0Iud6SAN
+         v91LBujePMbBSfAjIKZcDZnYkrtpchFUOTPh9Oeo/oaH9A6vk2eKFL7qwsq+rGbhbuqC
+         bb+KyLlO+mR/1EGmRI8hhPw+HcEq8AqrYFwh82gm24xlAGFMdFClpXzdGEZzU3gZod4O
+         km5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:mime-version:from:to:cc:subject:date
-         :message-id:in-reply-to:references:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=OsK2nGp8rzZel13j80B3xIcdtt5fwnxj+oCmY8tbMvM=;
-        b=dfOqVBrXFixzQhivK0a46CfOumiRtbElTCmJZReJ5Rct+HEQJrdOdyPVMSg9vS68DS
-         0600S2EeNXgAr7BvkxdFGE9xhkBOZ240lvFjIRl1jKylzbAk5q4d73QtH0mFqC/SXTHz
-         8Db1JoxEpW6Pzx/rYmdiZtA+ZoIIJbWsfCU3kddgQD1y37qlKxjluIQ8DFbTB85MjqeF
-         aexv1lRe/z+N8bOlcvbJEokUyfaRyMTHHbuyCLK72Jfl5pEaCGaSy3lvBAAPQPx1D30h
-         j6YQXfIXwnPhDesffTxaHWU4nPz3LN2yrtYlENQgjoxKQfFsGst+EzVcCRn+zuIF2OYC
-         rhcQ==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=PGyuouCWJ9oWYNXRuXtk4OxCe/sR2Co9JTwUVOMW2Zw=;
+        b=bM2y/FTVots/XCHyW8C/cdBLKYrVoc7RqfXk6Qf5ZOfmvqTehYboq6noHydMxLFypj
+         UT0sEdCY2Fqeie8E7WTZ6whmnnIioTauqutwcYr0W/t/mOyiS/kQa50O2f1bjecdY3mC
+         kxkIvQh554i1fJDlyu/atlip5eFrG890BcK6sYsD/W5RDqjEfyTerLEhE2CS/JLAk1MR
+         qVEb1TQKq5QmIO4XBUbvuaHKX3j0cD+ZHU+hoRYw+bOz0F50mj9dAjgS6Hgqp/oww2X5
+         z/sRPMOZ0KVgKMWtQz7917pEHjWj/ktbahy/kc9OVK8/LdC72i+dFvQ/UCdudrioEEm6
+         u3cA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXzUj65TX69yn9UAaqS2GxQni4/0XFpPnJ5heajqb0TnWqBM245
-	zlPqEV/e2674mK6jtWvWWfk=
-X-Google-Smtp-Source: APXvYqx2QwSXvACiSgWeaMacY7xKmUTn7D1jphqoAaL9fpRfkUIQmAn4iucXmw7MbPoGoBQkO9YaWg==
-X-Received: by 2002:a1c:9cce:: with SMTP id f197mr6221668wme.133.1581601489674;
-        Thu, 13 Feb 2020 05:44:49 -0800 (PST)
-MIME-Version: 1.0
+X-Gm-Message-State: APjAAAWlF9zCTcrbmZi+1WdUO/hBotM2ISDXm+SJipbMRXvnJ8n4MVCU
+	iH2GYSw8plW41+6zEcwhSH8=
+X-Google-Smtp-Source: APXvYqwhvkfks56QpCptc4sy5+6XxyTLwByOQNTLrpRvbbwsgRoqxG0RVk828e7YVX+hK3hTk58UQg==
+X-Received: by 2002:aca:2407:: with SMTP id n7mr3029721oic.14.1581602461949;
+        Thu, 13 Feb 2020 06:01:01 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:82aa:: with SMTP id 39ls13336849wrc.3.gmail; Thu, 13 Feb
- 2020 05:44:48 -0800 (PST)
-X-Received: by 2002:a5d:63c7:: with SMTP id c7mr23616253wrw.158.1581601488864;
-        Thu, 13 Feb 2020 05:44:48 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1581601488; cv=none;
-        d=google.com; s=arc-20160816;
-        b=SOY/6kEI6kMn+PbbP3MAoyS3s5Wh92wei9Ma4GK0GpaH0xRq2Fdk2v/QPyBw27KnvP
-         Ld718sAM/XG2Ral2WsFti+qkDu4MoQWqQraxsXKWQE/+0X+h0us3NofOsCugFW5TFbZv
-         XHrvWMeR9q6DaDPqClPzKJKc6j4zyTWfRFV+lk3MONbNlATJ7up0HYnfYWex2XHYieoY
-         vawSEQ8igPshfCtcFI/esatmYQ8o66hNLV59D0WMbcLQu2CqZSDw+1U09ZpBSK0EDcY/
-         y6gEuSKBf6NRhid0iJIQNsx3ikRZz2XFxW7hgbcpEuNmoWo4hVzdfgi+OTmo+7XhhFnp
-         Pelw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from
-         :dkim-signature;
-        bh=VaOSci2eypQCOAc3lRg8tx14LoKHfyU463rRKLQwFm0=;
-        b=dGhmfxMsQTBV7wKAz7NPo/JPX4cMuuFUu7n4eFRT/1oRQQgrSDK4E3zsUp1QWvDbLU
-         OFqDTgHQW2KtY8h9xFBN+7qhlfKkxI5oSBonGXZJdM8banZmPkUUY5SMUZXHf/Z7VQJF
-         4BVAEfNKCxbb3uxV3CK3UuGi5L1/p1j1vMH45zjjrzARFHHKiAPl9YA5vpcwxIBgac5v
-         HaAkDItsj/TQRBvn6tyujxGqkeiRZSXFG1NOwFIXD8a0PQVwOfdrinqeZzkuttaanZA/
-         66nnc0snv1iYEv8NMdTAZ/fCkAyNtwUjllPd5mpqZsICENy8ip1DCBC+ug34zrrthAcT
-         49Dw==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=QYpnnL03;
-       spf=pass (google.com: domain of vijaikumar.kanagarajan@gmail.com designates 2a00:1450:4864:20::442 as permitted sender) smtp.mailfrom=vijaikumar.kanagarajan@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com. [2a00:1450:4864:20::442])
-        by gmr-mx.google.com with ESMTPS id i18si110446wrn.0.2020.02.13.05.44.48
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 13 Feb 2020 05:44:48 -0800 (PST)
-Received-SPF: pass (google.com: domain of vijaikumar.kanagarajan@gmail.com designates 2a00:1450:4864:20::442 as permitted sender) client-ip=2a00:1450:4864:20::442;
-Received: by mail-wr1-x442.google.com with SMTP id w12so6750656wrt.2
-        for <jailhouse-dev@googlegroups.com>; Thu, 13 Feb 2020 05:44:48 -0800 (PST)
-X-Received: by 2002:adf:f109:: with SMTP id r9mr21288832wro.406.1581601488177;
-        Thu, 13 Feb 2020 05:44:48 -0800 (PST)
-Received: from oxygen.mgc.mentorg.com (nat-sch.mentorg.com. [139.181.36.34])
-        by smtp.gmail.com with ESMTPSA id z133sm3162729wmb.7.2020.02.13.05.44.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 13 Feb 2020 05:44:47 -0800 (PST)
-From: Vijai Kumar K <vijaikumar.kanagarajan@gmail.com>
-To: jailhouse-dev@googlegroups.com
-Cc: Vijai Kumar K <vijaikumar.kanagarajan@gmail.com>
-Subject: [PATCH 4/4] Enable pine64-plus support
-Date: Thu, 13 Feb 2020 19:14:30 +0530
-Message-Id: <20200213134430.3052-4-vijaikumar.kanagarajan@gmail.com>
-X-Mailer: git-send-email 2.17.1
+Received: by 2002:aca:c694:: with SMTP id w142ls7500881oif.6.gmail; Thu, 13
+ Feb 2020 06:01:01 -0800 (PST)
+X-Received: by 2002:a05:6808:a9c:: with SMTP id q28mr3023369oij.176.1581602460535;
+        Thu, 13 Feb 2020 06:01:00 -0800 (PST)
+Date: Thu, 13 Feb 2020 06:00:59 -0800 (PST)
+From: vijai kumar <vijaikumar.kanagarajan@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <c7f6f5ec-ce46-4071-9a83-a9710ca4327a@googlegroups.com>
 In-Reply-To: <20200213134430.3052-1-vijaikumar.kanagarajan@gmail.com>
 References: <20200213134430.3052-1-vijaikumar.kanagarajan@gmail.com>
+Subject: Re: [PATCH 1/4] recipes-kernel: Add support to build pine64plus
+ kernel
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_3033_1919838320.1581602460044"
 X-Original-Sender: vijaikumar.kanagarajan@gmail.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20161025 header.b=QYpnnL03;       spf=pass
- (google.com: domain of vijaikumar.kanagarajan@gmail.com designates
- 2a00:1450:4864:20::442 as permitted sender) smtp.mailfrom=vijaikumar.kanagarajan@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Content-Type: text/plain; charset="UTF-8"
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -146,100 +78,1835 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-- Add the necessary machine, multiconfig and wks file.
-- Add entry in images list.
+------=_Part_3033_1919838320.1581602460044
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_3034_625022493.1581602460045"
 
-Signed-off-by: Vijai Kumar K <vijaikumar.kanagarajan@gmail.com>
----
- conf/machine/pine64-plus.conf                 | 19 +++++++++++++++++++
- .../pine64-plus-jailhouse-demo.conf           | 14 ++++++++++++++
- images.list                                   |  1 +
- wic/pine64-plus.wks                           | 16 ++++++++++++++++
- 4 files changed, 50 insertions(+)
- create mode 100644 conf/machine/pine64-plus.conf
- create mode 100644 conf/multiconfig/pine64-plus-jailhouse-demo.conf
- create mode 100644 wic/pine64-plus.wks
+------=_Part_3034_625022493.1581602460045
+Content-Type: text/plain; charset="UTF-8"
 
-diff --git a/conf/machine/pine64-plus.conf b/conf/machine/pine64-plus.conf
-new file mode 100644
-index 0000000..0949ab4
---- /dev/null
-+++ b/conf/machine/pine64-plus.conf
-@@ -0,0 +1,19 @@
-+#
-+# Jailhouse, a Linux-based partitioning hypervisor
-+#
-+# Copyright (c) Vijai Kumar K, 2020
-+#
-+# Authors:
-+#  Vijai Kumar K <vijaikumar.kanagarajan@gmail.com>
-+#
-+# SPDX-License-Identifier: MIT
-+#
-+
-+DISTRO_ARCH = "arm64"
-+
-+IMAGE_TYPE = "wic-img"
-+IMAGER_INSTALL += "u-boot-pine64-plus"
-+IMAGER_BUILD_DEPS += "u-boot-pine64-plus"
-+PREFERRED_PROVIDER_u-boot-pine64-plus = "u-boot-pine64-plus"
-+
-+IMAGE_INSTALL += "u-boot-script"
-diff --git a/conf/multiconfig/pine64-plus-jailhouse-demo.conf b/conf/multiconfig/pine64-plus-jailhouse-demo.conf
-new file mode 100644
-index 0000000..5e66c94
---- /dev/null
-+++ b/conf/multiconfig/pine64-plus-jailhouse-demo.conf
-@@ -0,0 +1,14 @@
-+#
-+# Jailhouse, a Linux-based partitioning hypervisor
-+#
-+# Copyright (c) Vijai Kumar K, 2020
-+#
-+# Authors:
-+#  Vijai Kumar K <vijaikumar.kanagarajan@gmail.com>
-+#
-+# SPDX-License-Identifier: MIT
-+#
-+#
-+MACHINE = "pine64-plus"
-+
-+DISTRO = "jailhouse-demo"
-diff --git a/images.list b/images.list
-index 26a802d..b794d85 100644
---- a/images.list
-+++ b/images.list
-@@ -7,3 +7,4 @@ macchiatobin	Marvell MACCHIATObin
- hikey620	LeMaker HiKey (Kirin 620 SoC, 2 GB edition)
- ultra96		Avnet Ultra96
- rpi4		Raspberry Pi 4 (1 GB edition)
-+pine64-plus	Pine64+ (Allwinner A64, 2GB edition)
-diff --git a/wic/pine64-plus.wks b/wic/pine64-plus.wks
-new file mode 100644
-index 0000000..aacca04
---- /dev/null
-+++ b/wic/pine64-plus.wks
-@@ -0,0 +1,16 @@
-+#
-+# Jailhouse, a Linux-based partitioning hypervisor
-+#
-+# Copyright (c) Vijai Kumar K, 2020
-+#
-+# Authors:
-+#  Vijai Kumar K <vijaikumar.kanagarajan@gmail.com>
-+#
-+# SPDX-License-Identifier: MIT
-+#
-+
-+part u-boot --source rawcopy --sourceparams "file=/usr/lib/u-boot/pine64-plus/u-boot-sunxi-with-spl.bin" --no-table --align 8
-+
-+part / --source rootfs-u-boot --ondisk mmcblk0 --fstype ext4 --label platform --align 1024
-+
-+bootloader --append "rootwait mem=1792M"
--- 
-2.17.1
+I missed the cover letter for this series.
+
+This series adds support for Pine64-plus board(2GB edition) in 
+jailhouse-images.
+The hypervisor side patch for the same is already pushed to the mailing 
+list and is
+available here[1].
+
+[1] https://groups.google.com/d/msg/jailhouse-dev/Rn_LBYftSdc/iuG2bQqCBQAJ
+
+Thanks,
+Vijai Kumar K
+
+
+On Thursday, February 13, 2020 at 7:14:44 PM UTC+5:30, vijai kumar wrote:
+>
+> Add defconfig for pine64-plus development board. 
+>
+> Signed-off-by: Vijai Kumar K <vijaikumar.kanagarajan@gmail.com> 
+> --- 
+>  .../linux/files/pine64-plus_defconfig_5.4     | 849 ++++++++++++++++++ 
+>  recipes-kernel/linux/linux-jailhouse_5.4.inc  |   1 + 
+>  2 files changed, 850 insertions(+) 
+>  create mode 100644 recipes-kernel/linux/files/pine64-plus_defconfig_5.4 
+>
+> diff --git a/recipes-kernel/linux/files/pine64-plus_defconfig_5.4 
+> b/recipes-kernel/linux/files/pine64-plus_defconfig_5.4 
+> new file mode 100644 
+> index 0000000..44a01f6 
+> --- /dev/null 
+> +++ b/recipes-kernel/linux/files/pine64-plus_defconfig_5.4 
+> @@ -0,0 +1,849 @@ 
+> +CONFIG_SYSVIPC=y 
+> +CONFIG_POSIX_MQUEUE=y 
+> +CONFIG_AUDIT=y 
+> +CONFIG_NO_HZ_IDLE=y 
+> +CONFIG_HIGH_RES_TIMERS=y 
+> +CONFIG_PREEMPT=y 
+> +CONFIG_IRQ_TIME_ACCOUNTING=y 
+> +CONFIG_BSD_PROCESS_ACCT=y 
+> +CONFIG_BSD_PROCESS_ACCT_V3=y 
+> +CONFIG_TASKSTATS=y 
+> +CONFIG_TASK_DELAY_ACCT=y 
+> +CONFIG_TASK_XACCT=y 
+> +CONFIG_TASK_IO_ACCOUNTING=y 
+> +CONFIG_IKCONFIG=y 
+> +CONFIG_IKCONFIG_PROC=y 
+> +CONFIG_NUMA_BALANCING=y 
+> +CONFIG_MEMCG=y 
+> +CONFIG_MEMCG_SWAP=y 
+> +CONFIG_BLK_CGROUP=y 
+> +CONFIG_CGROUP_PIDS=y 
+> +CONFIG_CGROUP_HUGETLB=y 
+> +CONFIG_CPUSETS=y 
+> +CONFIG_CGROUP_DEVICE=y 
+> +CONFIG_CGROUP_CPUACCT=y 
+> +CONFIG_CGROUP_PERF=y 
+> +CONFIG_USER_NS=y 
+> +CONFIG_SCHED_AUTOGROUP=y 
+> +CONFIG_BLK_DEV_INITRD=y 
+> +CONFIG_KALLSYMS_ALL=y 
+> +# CONFIG_COMPAT_BRK is not set 
+> +CONFIG_PROFILING=y 
+> +CONFIG_ARCH_AGILEX=y 
+> +CONFIG_ARCH_SUNXI=y 
+> +CONFIG_ARCH_ALPINE=y 
+> +CONFIG_ARCH_BCM2835=y 
+> +CONFIG_ARCH_BCM_IPROC=y 
+> +CONFIG_ARCH_BERLIN=y 
+> +CONFIG_ARCH_BRCMSTB=y 
+> +CONFIG_ARCH_EXYNOS=y 
+> +CONFIG_ARCH_K3=y 
+> +CONFIG_ARCH_LAYERSCAPE=y 
+> +CONFIG_ARCH_LG1K=y 
+> +CONFIG_ARCH_HISI=y 
+> +CONFIG_ARCH_MEDIATEK=y 
+> +CONFIG_ARCH_MESON=y 
+> +CONFIG_ARCH_MVEBU=y 
+> +CONFIG_ARCH_MXC=y 
+> +CONFIG_ARCH_QCOM=y 
+> +CONFIG_ARCH_RENESAS=y 
+> +CONFIG_ARCH_ROCKCHIP=y 
+> +CONFIG_ARCH_SEATTLE=y 
+> +CONFIG_ARCH_STRATIX10=y 
+> +CONFIG_ARCH_SYNQUACER=y 
+> +CONFIG_ARCH_TEGRA=y 
+> +CONFIG_ARCH_SPRD=y 
+> +CONFIG_ARCH_THUNDER=y 
+> +CONFIG_ARCH_THUNDER2=y 
+> +CONFIG_ARCH_UNIPHIER=y 
+> +CONFIG_ARCH_VEXPRESS=y 
+> +CONFIG_ARCH_XGENE=y 
+> +CONFIG_ARCH_ZX=y 
+> +CONFIG_ARCH_ZYNQMP=y 
+> +CONFIG_ARM64_VA_BITS_48=y 
+> +CONFIG_SCHED_MC=y 
+> +CONFIG_NUMA=y 
+> +CONFIG_SECCOMP=y 
+> +CONFIG_KEXEC=y 
+> +CONFIG_CRASH_DUMP=y 
+> +CONFIG_XEN=y 
+> +CONFIG_COMPAT=y 
+> +CONFIG_RANDOMIZE_BASE=y 
+> +CONFIG_HIBERNATION=y 
+> +CONFIG_WQ_POWER_EFFICIENT_DEFAULT=y 
+> +CONFIG_ARM_CPUIDLE=y 
+> +CONFIG_ARM_PSCI_CPUIDLE=y 
+> +CONFIG_CPU_FREQ=y 
+> +CONFIG_CPU_FREQ_STAT=y 
+> +CONFIG_CPU_FREQ_GOV_POWERSAVE=m 
+> +CONFIG_CPU_FREQ_GOV_USERSPACE=y 
+> +CONFIG_CPU_FREQ_GOV_ONDEMAND=y 
+> +CONFIG_CPU_FREQ_GOV_CONSERVATIVE=m 
+> +CONFIG_CPU_FREQ_GOV_SCHEDUTIL=y 
+> +CONFIG_CPUFREQ_DT=y 
+> +CONFIG_ACPI_CPPC_CPUFREQ=m 
+> +CONFIG_ARM_ARMADA_37XX_CPUFREQ=y 
+> +CONFIG_ARM_SCPI_CPUFREQ=y 
+> +CONFIG_ARM_IMX_CPUFREQ_DT=m 
+> +CONFIG_ARM_RASPBERRYPI_CPUFREQ=m 
+> +CONFIG_ARM_TEGRA186_CPUFREQ=y 
+> +CONFIG_ARM_SCPI_PROTOCOL=y 
+> +CONFIG_RASPBERRYPI_FIRMWARE=y 
+> +CONFIG_INTEL_STRATIX10_SERVICE=y 
+> +CONFIG_EFI_CAPSULE_LOADER=y 
+> +CONFIG_IMX_SCU=y 
+> +CONFIG_IMX_SCU_PD=y 
+> +CONFIG_ACPI=y 
+> +CONFIG_ACPI_APEI=y 
+> +CONFIG_ACPI_APEI_GHES=y 
+> +CONFIG_ACPI_APEI_PCIEAER=y 
+> +CONFIG_ACPI_APEI_MEMORY_FAILURE=y 
+> +CONFIG_ACPI_APEI_EINJ=y 
+> +CONFIG_VIRTUALIZATION=y 
+> +CONFIG_KVM=y 
+> +CONFIG_ARM64_CRYPTO=y 
+> +CONFIG_CRYPTO_SHA1_ARM64_CE=y 
+> +CONFIG_CRYPTO_SHA2_ARM64_CE=y 
+> +CONFIG_CRYPTO_SHA512_ARM64_CE=m 
+> +CONFIG_CRYPTO_SHA3_ARM64=m 
+> +CONFIG_CRYPTO_SM3_ARM64_CE=m 
+> +CONFIG_CRYPTO_GHASH_ARM64_CE=y 
+> +CONFIG_CRYPTO_CRCT10DIF_ARM64_CE=m 
+> +CONFIG_CRYPTO_AES_ARM64_CE_CCM=y 
+> +CONFIG_CRYPTO_AES_ARM64_CE_BLK=y 
+> +CONFIG_CRYPTO_CHACHA20_NEON=m 
+> +CONFIG_CRYPTO_AES_ARM64_BS=m 
+> +CONFIG_JUMP_LABEL=y 
+> +CONFIG_MODULES=y 
+> +CONFIG_MODULE_UNLOAD=y 
+> +# CONFIG_CORE_DUMP_DEFAULT_ELF_HEADERS is not set 
+> +CONFIG_KSM=y 
+> +CONFIG_MEMORY_FAILURE=y 
+> +CONFIG_TRANSPARENT_HUGEPAGE=y 
+> +CONFIG_NET=y 
+> +CONFIG_PACKET=y 
+> +CONFIG_UNIX=y 
+> +CONFIG_INET=y 
+> +CONFIG_IP_MULTICAST=y 
+> +CONFIG_IP_PNP=y 
+> +CONFIG_IP_PNP_DHCP=y 
+> +CONFIG_IP_PNP_BOOTP=y 
+> +CONFIG_IPV6=m 
+> +CONFIG_NETFILTER=y 
+> +CONFIG_NF_CONNTRACK=m 
+> +CONFIG_NF_CONNTRACK_EVENTS=y 
+> +CONFIG_NETFILTER_XT_TARGET_CHECKSUM=m 
+> +CONFIG_NETFILTER_XT_TARGET_LOG=m 
+> +CONFIG_NETFILTER_XT_MATCH_ADDRTYPE=m 
+> +CONFIG_NETFILTER_XT_MATCH_CONNTRACK=m 
+> +CONFIG_IP_NF_IPTABLES=m 
+> +CONFIG_IP_NF_FILTER=m 
+> +CONFIG_IP_NF_TARGET_REJECT=m 
+> +CONFIG_IP_NF_NAT=m 
+> +CONFIG_IP_NF_TARGET_MASQUERADE=m 
+> +CONFIG_IP_NF_MANGLE=m 
+> +CONFIG_IP6_NF_IPTABLES=m 
+> +CONFIG_IP6_NF_FILTER=m 
+> +CONFIG_IP6_NF_TARGET_REJECT=m 
+> +CONFIG_IP6_NF_MANGLE=m 
+> +CONFIG_IP6_NF_NAT=m 
+> +CONFIG_IP6_NF_TARGET_MASQUERADE=m 
+> +CONFIG_BRIDGE=m 
+> +CONFIG_BRIDGE_VLAN_FILTERING=y 
+> +CONFIG_VLAN_8021Q=m 
+> +CONFIG_VLAN_8021Q_GVRP=y 
+> +CONFIG_VLAN_8021Q_MVRP=y 
+> +CONFIG_QRTR=m 
+> +CONFIG_QRTR_SMD=m 
+> +CONFIG_QRTR_TUN=m 
+> +CONFIG_BPF_JIT=y 
+> +CONFIG_BT=m 
+> +CONFIG_BT_HIDP=m 
+> +# CONFIG_BT_HS is not set 
+> +# CONFIG_BT_LE is not set 
+> +CONFIG_BT_LEDS=y 
+> +# CONFIG_BT_DEBUGFS is not set 
+> +CONFIG_BT_HCIBTUSB=m 
+> +CONFIG_BT_HCIUART=m 
+> +CONFIG_BT_HCIUART_LL=y 
+> +CONFIG_BT_HCIUART_BCM=y 
+> +CONFIG_CFG80211=m 
+> +CONFIG_MAC80211=m 
+> +CONFIG_MAC80211_LEDS=y 
+> +CONFIG_RFKILL=m 
+> +CONFIG_NET_9P=y 
+> +CONFIG_NET_9P_VIRTIO=y 
+> +CONFIG_PCI=y 
+> +CONFIG_PCIEPORTBUS=y 
+> +CONFIG_PCI_IOV=y 
+> +CONFIG_HOTPLUG_PCI=y 
+> +CONFIG_HOTPLUG_PCI_ACPI=y 
+> +CONFIG_PCI_AARDVARK=y 
+> +CONFIG_PCI_TEGRA=y 
+> +CONFIG_PCIE_RCAR=y 
+> +CONFIG_PCI_HOST_GENERIC=y 
+> +CONFIG_PCI_XGENE=y 
+> +CONFIG_PCIE_ALTERA=y 
+> +CONFIG_PCIE_ALTERA_MSI=y 
+> +CONFIG_PCI_HOST_THUNDER_PEM=y 
+> +CONFIG_PCI_HOST_THUNDER_ECAM=y 
+> +CONFIG_PCIE_ROCKCHIP_HOST=m 
+> +CONFIG_PCI_LAYERSCAPE=y 
+> +CONFIG_PCI_HISI=y 
+> +CONFIG_PCIE_QCOM=y 
+> +CONFIG_PCIE_ARMADA_8K=y 
+> +CONFIG_PCIE_KIRIN=y 
+> +CONFIG_PCIE_HISI_STB=y 
+> +CONFIG_PCIE_TEGRA194=m 
+> +CONFIG_DEVTMPFS=y 
+> +CONFIG_DEVTMPFS_MOUNT=y 
+> +CONFIG_FW_LOADER_USER_HELPER=y 
+> +CONFIG_FW_LOADER_USER_HELPER_FALLBACK=y 
+> +CONFIG_HISILICON_LPC=y 
+> +CONFIG_SIMPLE_PM_BUS=y 
+> +CONFIG_MTD=y 
+> +CONFIG_MTD_BLOCK=y 
+> +CONFIG_MTD_RAW_NAND=y 
+> +CONFIG_MTD_NAND_DENALI_DT=y 
+> +CONFIG_MTD_NAND_MARVELL=y 
+> +CONFIG_MTD_NAND_QCOM=y 
+> +CONFIG_MTD_SPI_NOR=y 
+> +CONFIG_BLK_DEV_LOOP=y 
+> +CONFIG_BLK_DEV_NBD=m 
+> +CONFIG_VIRTIO_BLK=y 
+> +CONFIG_BLK_DEV_NVME=m 
+> +CONFIG_SRAM=y 
+> +CONFIG_EEPROM_AT25=m 
+> +# CONFIG_SCSI_PROC_FS is not set 
+> +CONFIG_BLK_DEV_SD=y 
+> +CONFIG_SCSI_SAS_ATA=y 
+> +CONFIG_SCSI_HISI_SAS=y 
+> +CONFIG_SCSI_HISI_SAS_PCI=y 
+> +CONFIG_SCSI_MPT3SAS=m 
+> +CONFIG_SCSI_UFSHCD=y 
+> +CONFIG_SCSI_UFSHCD_PLATFORM=y 
+> +CONFIG_SCSI_UFS_QCOM=m 
+> +CONFIG_SCSI_UFS_HISI=y 
+> +CONFIG_ATA=y 
+> +CONFIG_SATA_AHCI=y 
+> +CONFIG_SATA_AHCI_PLATFORM=y 
+> +CONFIG_AHCI_CEVA=y 
+> +CONFIG_AHCI_MVEBU=y 
+> +CONFIG_AHCI_XGENE=y 
+> +CONFIG_AHCI_QORIQ=y 
+> +CONFIG_SATA_SIL24=y 
+> +CONFIG_SATA_RCAR=y 
+> +CONFIG_PATA_PLATFORM=y 
+> +CONFIG_PATA_OF_PLATFORM=y 
+> +CONFIG_MD=y 
+> +CONFIG_BLK_DEV_MD=m 
+> +CONFIG_BLK_DEV_DM=m 
+> +CONFIG_DM_MIRROR=m 
+> +CONFIG_DM_ZERO=m 
+> +CONFIG_NETDEVICES=y 
+> +CONFIG_MACVLAN=m 
+> +CONFIG_MACVTAP=m 
+> +CONFIG_TUN=y 
+> +CONFIG_VETH=m 
+> +CONFIG_VIRTIO_NET=y 
+> +CONFIG_AMD_XGBE=y 
+> +CONFIG_NET_XGENE=y 
+> +CONFIG_ATL1C=m 
+> +CONFIG_BNX2X=m 
+> +CONFIG_MACB=y 
+> +CONFIG_THUNDER_NIC_PF=y 
+> +CONFIG_FEC=y 
+> +CONFIG_HIX5HD2_GMAC=y 
+> +CONFIG_HNS_DSAF=y 
+> +CONFIG_HNS_ENET=y 
+> +CONFIG_HNS3=y 
+> +CONFIG_HNS3_HCLGE=y 
+> +CONFIG_HNS3_ENET=y 
+> +CONFIG_E1000E=y 
+> +CONFIG_IGB=y 
+> +CONFIG_IGBVF=y 
+> +CONFIG_MVNETA=y 
+> +CONFIG_MVPP2=y 
+> +CONFIG_SKY2=y 
+> +CONFIG_MLX4_EN=m 
+> +CONFIG_MLX5_CORE=m 
+> +CONFIG_MLX5_CORE_EN=y 
+> +CONFIG_QCOM_EMAC=m 
+> +CONFIG_RAVB=y 
+> +CONFIG_SMC91X=y 
+> +CONFIG_SMSC911X=y 
+> +CONFIG_SNI_AVE=y 
+> +CONFIG_SNI_NETSEC=y 
+> +CONFIG_STMMAC_ETH=m 
+> +CONFIG_MDIO_BUS_MUX_MMIOREG=y 
+> +CONFIG_AT803X_PHY=m 
+> +CONFIG_MARVELL_PHY=m 
+> +CONFIG_MARVELL_10G_PHY=m 
+> +CONFIG_MESON_GXL_PHY=m 
+> +CONFIG_MICREL_PHY=y 
+> +CONFIG_REALTEK_PHY=m 
+> +CONFIG_ROCKCHIP_PHY=y 
+> +CONFIG_USB_PEGASUS=m 
+> +CONFIG_USB_RTL8150=m 
+> +CONFIG_USB_RTL8152=m 
+> +CONFIG_USB_LAN78XX=m 
+> +CONFIG_USB_USBNET=m 
+> +CONFIG_USB_NET_DM9601=m 
+> +CONFIG_USB_NET_SR9800=m 
+> +CONFIG_USB_NET_SMSC75XX=m 
+> +CONFIG_USB_NET_SMSC95XX=m 
+> +CONFIG_USB_NET_PLUSB=m 
+> +CONFIG_USB_NET_MCS7830=m 
+> +CONFIG_ATH10K=m 
+> +CONFIG_ATH10K_PCI=m 
+> +CONFIG_BRCMFMAC=m 
+> +CONFIG_MWIFIEX=m 
+> +CONFIG_MWIFIEX_PCIE=m 
+> +CONFIG_WL18XX=m 
+> +CONFIG_WLCORE_SDIO=m 
+> +CONFIG_INPUT_EVDEV=y 
+> +CONFIG_KEYBOARD_ADC=m 
+> +CONFIG_KEYBOARD_GPIO=y 
+> +CONFIG_KEYBOARD_SNVS_PWRKEY=m 
+> +CONFIG_KEYBOARD_CROS_EC=y 
+> +CONFIG_INPUT_TOUCHSCREEN=y 
+> +CONFIG_TOUCHSCREEN_ATMEL_MXT=m 
+> +CONFIG_INPUT_MISC=y 
+> +CONFIG_INPUT_PM8941_PWRKEY=y 
+> +CONFIG_INPUT_HISI_POWERKEY=y 
+> +# CONFIG_SERIO_SERPORT is not set 
+> +CONFIG_SERIO_AMBAKMI=y 
+> +CONFIG_LEGACY_PTY_COUNT=16 
+> +CONFIG_SERIAL_8250=y 
+> +CONFIG_SERIAL_8250_CONSOLE=y 
+> +CONFIG_SERIAL_8250_EXTENDED=y 
+> +CONFIG_SERIAL_8250_SHARE_IRQ=y 
+> +CONFIG_SERIAL_8250_BCM2835AUX=y 
+> +CONFIG_SERIAL_8250_DW=y 
+> +CONFIG_SERIAL_8250_OMAP=y 
+> +CONFIG_SERIAL_8250_MT6577=y 
+> +CONFIG_SERIAL_8250_UNIPHIER=y 
+> +CONFIG_SERIAL_OF_PLATFORM=y 
+> +CONFIG_SERIAL_AMBA_PL011=y 
+> +CONFIG_SERIAL_AMBA_PL011_CONSOLE=y 
+> +CONFIG_SERIAL_MESON=y 
+> +CONFIG_SERIAL_MESON_CONSOLE=y 
+> +CONFIG_SERIAL_SAMSUNG=y 
+> +CONFIG_SERIAL_SAMSUNG_CONSOLE=y 
+> +CONFIG_SERIAL_TEGRA=y 
+> +CONFIG_SERIAL_TEGRA_TCU=y 
+> +CONFIG_SERIAL_IMX=y 
+> +CONFIG_SERIAL_IMX_CONSOLE=y 
+> +CONFIG_SERIAL_SH_SCI=y 
+> +CONFIG_SERIAL_MSM=y 
+> +CONFIG_SERIAL_MSM_CONSOLE=y 
+> +CONFIG_SERIAL_QCOM_GENI=y 
+> +CONFIG_SERIAL_QCOM_GENI_CONSOLE=y 
+> +CONFIG_SERIAL_XILINX_PS_UART=y 
+> +CONFIG_SERIAL_XILINX_PS_UART_CONSOLE=y 
+> +CONFIG_SERIAL_FSL_LPUART=y 
+> +CONFIG_SERIAL_FSL_LPUART_CONSOLE=y 
+> +CONFIG_SERIAL_MVEBU_UART=y 
+> +CONFIG_SERIAL_DEV_BUS=y 
+> +CONFIG_VIRTIO_CONSOLE=y 
+> +CONFIG_IPMI_HANDLER=m 
+> +CONFIG_IPMI_DEVICE_INTERFACE=m 
+> +CONFIG_IPMI_SI=m 
+> +CONFIG_TCG_TPM=y 
+> +CONFIG_TCG_TIS_I2C_INFINEON=y 
+> +CONFIG_I2C_CHARDEV=y 
+> +CONFIG_I2C_MUX=y 
+> +CONFIG_I2C_MUX_PCA954x=y 
+> +CONFIG_I2C_BCM2835=m 
+> +CONFIG_I2C_DESIGNWARE_PLATFORM=y 
+> +CONFIG_I2C_GPIO=m 
+> +CONFIG_I2C_IMX=y 
+> +CONFIG_I2C_IMX_LPI2C=y 
+> +CONFIG_I2C_MESON=y 
+> +CONFIG_I2C_MV64XXX=y 
+> +CONFIG_I2C_PXA=y 
+> +CONFIG_I2C_QCOM_GENI=m 
+> +CONFIG_I2C_QUP=y 
+> +CONFIG_I2C_RK3X=y 
+> +CONFIG_I2C_SH_MOBILE=y 
+> +CONFIG_I2C_TEGRA=y 
+> +CONFIG_I2C_UNIPHIER_F=y 
+> +CONFIG_I2C_RCAR=y 
+> +CONFIG_I2C_CROS_EC_TUNNEL=y 
+> +CONFIG_SPI=y 
+> +CONFIG_SPI_ARMADA_3700=y 
+> +CONFIG_SPI_BCM2835=m 
+> +CONFIG_SPI_BCM2835AUX=m 
+> +CONFIG_SPI_NXP_FLEXSPI=y 
+> +CONFIG_SPI_IMX=m 
+> +CONFIG_SPI_MESON_SPICC=m 
+> +CONFIG_SPI_MESON_SPIFC=m 
+> +CONFIG_SPI_ORION=y 
+> +CONFIG_SPI_PL022=y 
+> +CONFIG_SPI_ROCKCHIP=y 
+> +CONFIG_SPI_QUP=y 
+> +CONFIG_SPI_S3C64XX=y 
+> +CONFIG_SPI_SUN6I=y 
+> +CONFIG_SPI_SPIDEV=m 
+> +CONFIG_SPMI=y 
+> +CONFIG_PINCTRL_SINGLE=y 
+> +CONFIG_PINCTRL_MAX77620=y 
+> +CONFIG_PINCTRL_IMX8MM=y 
+> +CONFIG_PINCTRL_IMX8MN=y 
+> +CONFIG_PINCTRL_IMX8MQ=y 
+> +CONFIG_PINCTRL_IMX8QXP=y 
+> +CONFIG_PINCTRL_IPQ8074=y 
+> +CONFIG_PINCTRL_MSM8916=y 
+> +CONFIG_PINCTRL_MSM8994=y 
+> +CONFIG_PINCTRL_MSM8996=y 
+> +CONFIG_PINCTRL_MSM8998=y 
+> +CONFIG_PINCTRL_QCS404=y 
+> +CONFIG_PINCTRL_QDF2XXX=y 
+> +CONFIG_PINCTRL_QCOM_SPMI_PMIC=y 
+> +CONFIG_PINCTRL_SDM845=y 
+> +CONFIG_PINCTRL_SM8150=y 
+> +CONFIG_GPIO_DWAPB=y 
+> +CONFIG_GPIO_MB86S7X=y 
+> +CONFIG_GPIO_PL061=y 
+> +CONFIG_GPIO_RCAR=y 
+> +CONFIG_GPIO_UNIPHIER=y 
+> +CONFIG_GPIO_XGENE=y 
+> +CONFIG_GPIO_XGENE_SB=y 
+> +CONFIG_GPIO_MAX732X=y 
+> +CONFIG_GPIO_PCA953X=y 
+> +CONFIG_GPIO_PCA953X_IRQ=y 
+> +CONFIG_GPIO_MAX77620=y 
+> +CONFIG_POWER_AVS=y 
+> +CONFIG_ROCKCHIP_IODOMAIN=y 
+> +CONFIG_POWER_RESET_MSM=y 
+> +CONFIG_POWER_RESET_XGENE=y 
+> +CONFIG_POWER_RESET_SYSCON=y 
+> +CONFIG_SYSCON_REBOOT_MODE=y 
+> +CONFIG_BATTERY_SBS=m 
+> +CONFIG_BATTERY_BQ27XXX=y 
+> +CONFIG_SENSORS_ARM_SCPI=y 
+> +CONFIG_SENSORS_LM90=m 
+> +CONFIG_SENSORS_PWM_FAN=m 
+> +CONFIG_SENSORS_RASPBERRYPI_HWMON=m 
+> +CONFIG_SENSORS_INA2XX=m 
+> +CONFIG_SENSORS_INA3221=m 
+> +CONFIG_THERMAL_GOV_POWER_ALLOCATOR=y 
+> +CONFIG_CPU_THERMAL=y 
+> +CONFIG_THERMAL_EMULATION=y 
+> +CONFIG_QORIQ_THERMAL=m 
+> +CONFIG_ROCKCHIP_THERMAL=m 
+> +CONFIG_RCAR_THERMAL=y 
+> +CONFIG_RCAR_GEN3_THERMAL=y 
+> +CONFIG_ARMADA_THERMAL=y 
+> +CONFIG_BCM2835_THERMAL=m 
+> +CONFIG_BRCMSTB_THERMAL=m 
+> +CONFIG_EXYNOS_THERMAL=y 
+> +CONFIG_TEGRA_BPMP_THERMAL=m 
+> +CONFIG_QCOM_TSENS=y 
+> +CONFIG_UNIPHIER_THERMAL=y 
+> +CONFIG_WATCHDOG=y 
+> +CONFIG_ARM_SP805_WATCHDOG=y 
+> +CONFIG_S3C2410_WATCHDOG=y 
+> +CONFIG_DW_WATCHDOG=y 
+> +CONFIG_SUNXI_WATCHDOG=m 
+> +CONFIG_IMX2_WDT=y 
+> +CONFIG_IMX_SC_WDT=m 
+> +CONFIG_MESON_GXBB_WATCHDOG=m 
+> +CONFIG_MESON_WATCHDOG=m 
+> +CONFIG_RENESAS_WDT=y 
+> +CONFIG_UNIPHIER_WATCHDOG=y 
+> +CONFIG_BCM2835_WDT=y 
+> +CONFIG_MFD_ALTERA_SYSMGR=y 
+> +CONFIG_MFD_BD9571MWV=y 
+> +CONFIG_MFD_AXP20X_I2C=y 
+> +CONFIG_MFD_AXP20X_RSB=y 
+> +CONFIG_MFD_EXYNOS_LPASS=m 
+> +CONFIG_MFD_HI6421_PMIC=y 
+> +CONFIG_MFD_HI655X_PMIC=y 
+> +CONFIG_MFD_MAX77620=y 
+> +CONFIG_MFD_SPMI_PMIC=y 
+> +CONFIG_MFD_RK808=y 
+> +CONFIG_MFD_SEC_CORE=y 
+> +CONFIG_MFD_ROHM_BD718XX=y 
+> +CONFIG_REGULATOR_FIXED_VOLTAGE=y 
+> +CONFIG_REGULATOR_AXP20X=y 
+> +CONFIG_REGULATOR_BD718XX=y 
+> +CONFIG_REGULATOR_BD9571MWV=y 
+> +CONFIG_REGULATOR_FAN53555=y 
+> +CONFIG_REGULATOR_GPIO=y 
+> +CONFIG_REGULATOR_HI6421V530=y 
+> +CONFIG_REGULATOR_HI655X=y 
+> +CONFIG_REGULATOR_MAX77620=y 
+> +CONFIG_REGULATOR_MAX8973=y 
+> +CONFIG_REGULATOR_PFUZE100=y 
+> +CONFIG_REGULATOR_PWM=y 
+> +CONFIG_REGULATOR_QCOM_RPMH=y 
+> +CONFIG_REGULATOR_QCOM_SMD_RPM=y 
+> +CONFIG_REGULATOR_QCOM_SPMI=y 
+> +CONFIG_REGULATOR_RK808=y 
+> +CONFIG_REGULATOR_S2MPS11=y 
+> +CONFIG_REGULATOR_VCTRL=m 
+> +CONFIG_RC_CORE=m 
+> +CONFIG_RC_DECODERS=y 
+> +CONFIG_RC_DEVICES=y 
+> +CONFIG_IR_MESON=m 
+> +CONFIG_IR_SUNXI=m 
+> +CONFIG_MEDIA_SUPPORT=m 
+> +CONFIG_MEDIA_CAMERA_SUPPORT=y 
+> +CONFIG_MEDIA_ANALOG_TV_SUPPORT=y 
+> +CONFIG_MEDIA_DIGITAL_TV_SUPPORT=y 
+> +CONFIG_MEDIA_CONTROLLER=y 
+> +CONFIG_VIDEO_V4L2_SUBDEV_API=y 
+> +# CONFIG_DVB_NET is not set 
+> +CONFIG_MEDIA_USB_SUPPORT=y 
+> +CONFIG_USB_VIDEO_CLASS=m 
+> +CONFIG_V4L_PLATFORM_DRIVERS=y 
+> +CONFIG_VIDEO_SUN6I_CSI=m 
+> +CONFIG_V4L_MEM2MEM_DRIVERS=y 
+> +CONFIG_VIDEO_SAMSUNG_S5P_JPEG=m 
+> +CONFIG_VIDEO_SAMSUNG_S5P_MFC=m 
+> +CONFIG_VIDEO_SAMSUNG_EXYNOS_GSC=m 
+> +CONFIG_VIDEO_RENESAS_FCP=m 
+> +CONFIG_VIDEO_RENESAS_VSP1=m 
+> +CONFIG_DRM=m 
+> +CONFIG_DRM_I2C_NXP_TDA998X=m 
+> +CONFIG_DRM_NOUVEAU=m 
+> +CONFIG_DRM_EXYNOS=m 
+> +CONFIG_DRM_EXYNOS5433_DECON=y 
+> +CONFIG_DRM_EXYNOS7_DECON=y 
+> +CONFIG_DRM_EXYNOS_DSI=y 
+> +# CONFIG_DRM_EXYNOS_DP is not set 
+> +CONFIG_DRM_EXYNOS_HDMI=y 
+> +CONFIG_DRM_EXYNOS_MIC=y 
+> +CONFIG_DRM_ROCKCHIP=m 
+> +CONFIG_ROCKCHIP_ANALOGIX_DP=y 
+> +CONFIG_ROCKCHIP_CDN_DP=y 
+> +CONFIG_ROCKCHIP_DW_HDMI=y 
+> +CONFIG_ROCKCHIP_DW_MIPI_DSI=y 
+> +CONFIG_ROCKCHIP_INNO_HDMI=y 
+> +CONFIG_DRM_RCAR_DU=m 
+> +CONFIG_DRM_SUN4I=m 
+> +CONFIG_DRM_SUN8I_DW_HDMI=m 
+> +CONFIG_DRM_SUN8I_MIXER=m 
+> +CONFIG_DRM_MSM=m 
+> +CONFIG_DRM_TEGRA=m 
+> +CONFIG_DRM_PANEL_SIMPLE=m 
+> +CONFIG_DRM_SII902X=m 
+> +CONFIG_DRM_I2C_ADV7511=m 
+> +CONFIG_DRM_VC4=m 
+> +CONFIG_DRM_ETNAVIV=m 
+> +CONFIG_DRM_HISI_HIBMC=m 
+> +CONFIG_DRM_HISI_KIRIN=m 
+> +CONFIG_DRM_MESON=m 
+> +CONFIG_DRM_PL111=m 
+> +CONFIG_DRM_LIMA=m 
+> +CONFIG_DRM_PANFROST=m 
+> +CONFIG_FB=y 
+> +CONFIG_FB_MODE_HELPERS=y 
+> +CONFIG_FB_EFI=y 
+> +CONFIG_BACKLIGHT_GENERIC=m 
+> +CONFIG_BACKLIGHT_PWM=m 
+> +CONFIG_BACKLIGHT_LP855X=m 
+> +CONFIG_LOGO=y 
+> +# CONFIG_LOGO_LINUX_MONO is not set 
+> +# CONFIG_LOGO_LINUX_VGA16 is not set 
+> +CONFIG_SOUND=y 
+> +CONFIG_SND=y 
+> +CONFIG_SND_HDA_TEGRA=m 
+> +CONFIG_SND_HDA_CODEC_HDMI=m 
+> +CONFIG_SND_SOC=y 
+> +CONFIG_SND_BCM2835_SOC_I2S=m 
+> +CONFIG_SND_MESON_AXG_SOUND_CARD=m 
+> +CONFIG_SND_SOC_ROCKCHIP=m 
+> +CONFIG_SND_SOC_ROCKCHIP_SPDIF=m 
+> +CONFIG_SND_SOC_ROCKCHIP_RT5645=m 
+> +CONFIG_SND_SOC_RK3399_GRU_SOUND=m 
+> +CONFIG_SND_SOC_SAMSUNG=y 
+> +CONFIG_SND_SOC_RCAR=m 
+> +CONFIG_SND_SUN4I_SPDIF=m 
+> +CONFIG_SND_SOC_AK4613=m 
+> +CONFIG_SND_SOC_ES7134=m 
+> +CONFIG_SND_SOC_ES7241=m 
+> +CONFIG_SND_SOC_PCM3168A_I2C=m 
+> +CONFIG_SND_SOC_TAS571X=m 
+> +CONFIG_SND_SIMPLE_CARD=m 
+> +CONFIG_SND_AUDIO_GRAPH_CARD=m 
+> +CONFIG_I2C_HID=m 
+> +CONFIG_USB=y 
+> +CONFIG_USB_OTG=y 
+> +CONFIG_USB_XHCI_HCD=y 
+> +CONFIG_USB_XHCI_TEGRA=y 
+> +CONFIG_USB_EHCI_HCD=y 
+> +CONFIG_USB_EHCI_EXYNOS=y 
+> +CONFIG_USB_EHCI_HCD_PLATFORM=y 
+> +CONFIG_USB_OHCI_HCD=y 
+> +CONFIG_USB_OHCI_EXYNOS=y 
+> +CONFIG_USB_OHCI_HCD_PLATFORM=y 
+> +CONFIG_USB_RENESAS_USBHS=m 
+> +CONFIG_USB_STORAGE=y 
+> +CONFIG_USB_MUSB_HDRC=y 
+> +CONFIG_USB_MUSB_SUNXI=y 
+> +CONFIG_USB_DWC3=y 
+> +CONFIG_USB_DWC2=y 
+> +CONFIG_USB_CHIPIDEA=y 
+> +CONFIG_USB_CHIPIDEA_UDC=y 
+> +CONFIG_USB_CHIPIDEA_HOST=y 
+> +CONFIG_USB_ISP1760=y 
+> +CONFIG_USB_HSIC_USB3503=y 
+> +CONFIG_NOP_USB_XCEIV=y 
+> +CONFIG_USB_ULPI=y 
+> +CONFIG_USB_GADGET=y 
+> +CONFIG_USB_RENESAS_USBHS_UDC=m 
+> +CONFIG_USB_RENESAS_USB3=m 
+> +CONFIG_TYPEC=m 
+> +CONFIG_MMC=y 
+> +CONFIG_MMC_BLOCK_MINORS=32 
+> +CONFIG_MMC_ARMMMCI=y 
+> +CONFIG_MMC_SDHCI=y 
+> +CONFIG_MMC_SDHCI_ACPI=y 
+> +CONFIG_MMC_SDHCI_PLTFM=y 
+> +CONFIG_MMC_SDHCI_OF_ARASAN=y 
+> +CONFIG_MMC_SDHCI_OF_ESDHC=y 
+> +CONFIG_MMC_SDHCI_CADENCE=y 
+> +CONFIG_MMC_SDHCI_ESDHC_IMX=y 
+> +CONFIG_MMC_SDHCI_TEGRA=y 
+> +CONFIG_MMC_SDHCI_F_SDH30=y 
+> +CONFIG_MMC_MESON_GX=y 
+> +CONFIG_MMC_SDHCI_MSM=y 
+> +CONFIG_MMC_SPI=y 
+> +CONFIG_MMC_SDHI=y 
+> +CONFIG_MMC_UNIPHIER=y 
+> +CONFIG_MMC_DW=y 
+> +CONFIG_MMC_DW_EXYNOS=y 
+> +CONFIG_MMC_DW_HI3798CV200=y 
+> +CONFIG_MMC_DW_K3=y 
+> +CONFIG_MMC_DW_ROCKCHIP=y 
+> +CONFIG_MMC_SUNXI=y 
+> +CONFIG_MMC_BCM2835=y 
+> +CONFIG_MMC_SDHCI_XENON=y 
+> +CONFIG_NEW_LEDS=y 
+> +CONFIG_LEDS_CLASS=y 
+> +CONFIG_LEDS_GPIO=y 
+> +CONFIG_LEDS_PWM=y 
+> +CONFIG_LEDS_SYSCON=y 
+> +CONFIG_LEDS_TRIGGER_DISK=y 
+> +CONFIG_LEDS_TRIGGER_HEARTBEAT=y 
+> +CONFIG_LEDS_TRIGGER_CPU=y 
+> +CONFIG_LEDS_TRIGGER_DEFAULT_ON=y 
+> +CONFIG_LEDS_TRIGGER_PANIC=y 
+> +CONFIG_EDAC=y 
+> +CONFIG_EDAC_GHES=y 
+> +CONFIG_RTC_CLASS=y 
+> +CONFIG_RTC_DRV_MAX77686=y 
+> +CONFIG_RTC_DRV_RK808=m 
+> +CONFIG_RTC_DRV_RX8581=m 
+> +CONFIG_RTC_DRV_S5M=y 
+> +CONFIG_RTC_DRV_DS3232=y 
+> +CONFIG_RTC_DRV_EFI=y 
+> +CONFIG_RTC_DRV_CROS_EC=y 
+> +CONFIG_RTC_DRV_S3C=y 
+> +CONFIG_RTC_DRV_PL031=y 
+> +CONFIG_RTC_DRV_SUN6I=y 
+> +CONFIG_RTC_DRV_ARMADA38X=y 
+> +CONFIG_RTC_DRV_TEGRA=y 
+> +CONFIG_RTC_DRV_SNVS=m 
+> +CONFIG_RTC_DRV_IMX_SC=m 
+> +CONFIG_RTC_DRV_XGENE=y 
+> +CONFIG_DMADEVICES=y 
+> +CONFIG_DMA_BCM2835=m 
+> +CONFIG_DMA_SUN6I=m 
+> +CONFIG_FSL_EDMA=y 
+> +CONFIG_IMX_SDMA=y 
+> +CONFIG_K3_DMA=y 
+> +CONFIG_MV_XOR=y 
+> +CONFIG_MV_XOR_V2=y 
+> +CONFIG_PL330_DMA=y 
+> +CONFIG_TEGRA20_APB_DMA=y 
+> +CONFIG_QCOM_BAM_DMA=y 
+> +CONFIG_QCOM_HIDMA_MGMT=y 
+> +CONFIG_QCOM_HIDMA=y 
+> +CONFIG_RCAR_DMAC=y 
+> +CONFIG_RENESAS_USB_DMAC=m 
+> +CONFIG_UIO=y 
+> +CONFIG_UIO_IVSHMEM=y 
+> +CONFIG_VFIO=y 
+> +CONFIG_VFIO_PCI=y 
+> +CONFIG_VIRT_DRIVERS=y 
+> +CONFIG_JAILHOUSE_DBGCON=y 
+> +CONFIG_VIRTIO_PCI=y 
+> +CONFIG_VIRTIO_BALLOON=y 
+> +CONFIG_VIRTIO_MMIO=y 
+> +CONFIG_XEN_GNTDEV=y 
+> +CONFIG_XEN_GRANT_DEV_ALLOC=y 
+> +CONFIG_MFD_CROS_EC=y 
+> +CONFIG_CROS_EC_I2C=y 
+> +CONFIG_CROS_EC_SPI=y 
+> +CONFIG_COMMON_CLK_RK808=y 
+> +CONFIG_COMMON_CLK_SCPI=y 
+> +CONFIG_COMMON_CLK_CS2000_CP=y 
+> +CONFIG_COMMON_CLK_S2MPS11=y 
+> +CONFIG_CLK_QORIQ=y 
+> +CONFIG_COMMON_CLK_PWM=y 
+> +CONFIG_CLK_RASPBERRYPI=m 
+> +CONFIG_CLK_IMX8MM=y 
+> +CONFIG_CLK_IMX8MN=y 
+> +CONFIG_CLK_IMX8MQ=y 
+> +CONFIG_CLK_IMX8QXP=y 
+> +CONFIG_TI_SCI_CLK=y 
+> +CONFIG_COMMON_CLK_QCOM=y 
+> +CONFIG_QCOM_A53PLL=y 
+> +CONFIG_QCOM_CLK_APCS_MSM8916=y 
+> +CONFIG_QCOM_CLK_SMD_RPM=y 
+> +CONFIG_QCOM_CLK_RPMH=y 
+> +CONFIG_IPQ_GCC_8074=y 
+> +CONFIG_MSM_GCC_8916=y 
+> +CONFIG_MSM_GCC_8994=y 
+> +CONFIG_MSM_MMCC_8996=y 
+> +CONFIG_MSM_GCC_8998=y 
+> +CONFIG_QCS_GCC_404=y 
+> +CONFIG_SDM_GCC_845=y 
+> +CONFIG_SM_GCC_8150=y 
+> +CONFIG_HWSPINLOCK=y 
+> +CONFIG_HWSPINLOCK_QCOM=y 
+> +CONFIG_ARM_MHU=y 
+> +CONFIG_IMX_MBOX=y 
+> +CONFIG_PLATFORM_MHU=y 
+> +CONFIG_BCM2835_MBOX=y 
+> +CONFIG_QCOM_APCS_IPC=y 
+> +CONFIG_ROCKCHIP_IOMMU=y 
+> +CONFIG_TEGRA_IOMMU_SMMU=y 
+> +CONFIG_ARM_SMMU=y 
+> +CONFIG_ARM_SMMU_V3=y 
+> +CONFIG_QCOM_IOMMU=y 
+> +CONFIG_REMOTEPROC=y 
+> +CONFIG_QCOM_Q6V5_MSS=m 
+> +CONFIG_QCOM_Q6V5_PAS=m 
+> +CONFIG_QCOM_SYSMON=m 
+> +CONFIG_RPMSG_QCOM_GLINK_RPM=y 
+> +CONFIG_RPMSG_QCOM_GLINK_SMEM=m 
+> +CONFIG_RPMSG_QCOM_SMD=y 
+> +CONFIG_RASPBERRYPI_POWER=y 
+> +CONFIG_IMX_SCU_SOC=y 
+> +CONFIG_QCOM_GENI_SE=y 
+> +CONFIG_QCOM_GLINK_SSR=m 
+> +CONFIG_QCOM_RPMH=y 
+> +CONFIG_QCOM_SMEM=y 
+> +CONFIG_QCOM_SMD_RPM=y 
+> +CONFIG_QCOM_SMP2P=y 
+> +CONFIG_QCOM_SMSM=y 
+> +CONFIG_ARCH_R8A774A1=y 
+> +CONFIG_ARCH_R8A774C0=y 
+> +CONFIG_ARCH_R8A7795=y 
+> +CONFIG_ARCH_R8A7796=y 
+> +CONFIG_ARCH_R8A77965=y 
+> +CONFIG_ARCH_R8A77970=y 
+> +CONFIG_ARCH_R8A77980=y 
+> +CONFIG_ARCH_R8A77990=y 
+> +CONFIG_ARCH_R8A77995=y 
+> +CONFIG_ROCKCHIP_PM_DOMAINS=y 
+> +CONFIG_ARCH_TEGRA_132_SOC=y 
+> +CONFIG_ARCH_TEGRA_210_SOC=y 
+> +CONFIG_ARCH_TEGRA_186_SOC=y 
+> +CONFIG_ARCH_TEGRA_194_SOC=y 
+> +CONFIG_ARCH_K3_AM6_SOC=y 
+> +CONFIG_ARCH_K3_J721E_SOC=y 
+> +CONFIG_TI_SCI_PM_DOMAINS=y 
+> +CONFIG_EXTCON_USB_GPIO=y 
+> +CONFIG_EXTCON_USBC_CROS_EC=y 
+> +CONFIG_MEMORY=y 
+> +CONFIG_IIO=y 
+> +CONFIG_EXYNOS_ADC=y 
+> +CONFIG_ROCKCHIP_SARADC=m 
+> +CONFIG_IIO_CROS_EC_SENSORS_CORE=m 
+> +CONFIG_IIO_CROS_EC_SENSORS=m 
+> +CONFIG_IIO_CROS_EC_LIGHT_PROX=m 
+> +CONFIG_SENSORS_ISL29018=m 
+> +CONFIG_IIO_CROS_EC_BARO=m 
+> +CONFIG_MPL3115=m 
+> +CONFIG_PWM=y 
+> +CONFIG_PWM_BCM2835=m 
+> +CONFIG_PWM_CROS_EC=m 
+> +CONFIG_PWM_MESON=m 
+> +CONFIG_PWM_RCAR=m 
+> +CONFIG_PWM_ROCKCHIP=y 
+> +CONFIG_PWM_SAMSUNG=y 
+> +CONFIG_PWM_SUN4I=m 
+> +CONFIG_PWM_TEGRA=m 
+> +CONFIG_RESET_TI_SCI=y 
+> +CONFIG_PHY_XGENE=y 
+> +CONFIG_PHY_SUN4I_USB=y 
+> +CONFIG_PHY_HI6220_USB=y 
+> +CONFIG_PHY_HISTB_COMBPHY=y 
+> +CONFIG_PHY_HISI_INNO_USB2=y 
+> +CONFIG_PHY_MVEBU_CP110_COMPHY=y 
+> +CONFIG_PHY_QCOM_QMP=m 
+> +CONFIG_PHY_QCOM_QUSB2=m 
+> +CONFIG_PHY_QCOM_USB_HS=y 
+> +CONFIG_PHY_RCAR_GEN3_PCIE=y 
+> +CONFIG_PHY_RCAR_GEN3_USB2=y 
+> +CONFIG_PHY_RCAR_GEN3_USB3=m 
+> +CONFIG_PHY_ROCKCHIP_EMMC=y 
+> +CONFIG_PHY_ROCKCHIP_INNO_HDMI=m 
+> +CONFIG_PHY_ROCKCHIP_INNO_USB2=y 
+> +CONFIG_PHY_ROCKCHIP_PCIE=m 
+> +CONFIG_PHY_ROCKCHIP_TYPEC=y 
+> +CONFIG_PHY_UNIPHIER_USB2=y 
+> +CONFIG_PHY_UNIPHIER_USB3=y 
+> +CONFIG_PHY_TEGRA_XUSB=y 
+> +CONFIG_FSL_IMX8_DDR_PMU=m 
+> +CONFIG_HISI_PMU=y 
+> +CONFIG_QCOM_L2_PMU=y 
+> +CONFIG_QCOM_L3_PMU=y 
+> +CONFIG_NVMEM_IMX_OCOTP=y 
+> +CONFIG_NVMEM_IMX_OCOTP_SCU=y 
+> +CONFIG_QCOM_QFPROM=y 
+> +CONFIG_ROCKCHIP_EFUSE=y 
+> +CONFIG_NVMEM_SUNXI_SID=y 
+> +CONFIG_UNIPHIER_EFUSE=y 
+> +CONFIG_MESON_EFUSE=m 
+> +CONFIG_FPGA=y 
+> +CONFIG_FPGA_MGR_STRATIX10_SOC=m 
+> +CONFIG_FPGA_BRIDGE=m 
+> +CONFIG_ALTERA_FREEZE_BRIDGE=m 
+> +CONFIG_FPGA_REGION=m 
+> +CONFIG_OF_FPGA_REGION=m 
+> +CONFIG_TEE=y 
+> +CONFIG_OPTEE=y 
+> +CONFIG_EXT2_FS=y 
+> +CONFIG_EXT3_FS=y 
+> +CONFIG_EXT4_FS_POSIX_ACL=y 
+> +CONFIG_BTRFS_FS=m 
+> +CONFIG_BTRFS_FS_POSIX_ACL=y 
+> +CONFIG_FANOTIFY=y 
+> +CONFIG_FANOTIFY_ACCESS_PERMISSIONS=y 
+> +CONFIG_QUOTA=y 
+> +CONFIG_AUTOFS4_FS=y 
+> +CONFIG_FUSE_FS=m 
+> +CONFIG_CUSE=m 
+> +CONFIG_OVERLAY_FS=m 
+> +CONFIG_VFAT_FS=y 
+> +CONFIG_HUGETLBFS=y 
+> +CONFIG_CONFIGFS_FS=y 
+> +CONFIG_EFIVAR_FS=y 
+> +CONFIG_SQUASHFS=y 
+> +CONFIG_NFS_FS=y 
+> +CONFIG_NFS_V4=y 
+> +CONFIG_NFS_V4_1=y 
+> +CONFIG_NFS_V4_2=y 
+> +CONFIG_ROOT_NFS=y 
+> +CONFIG_9P_FS=y 
+> +CONFIG_NLS_CODEPAGE_437=y 
+> +CONFIG_NLS_ISO8859_1=y 
+> +CONFIG_SECURITY=y 
+> +CONFIG_CRYPTO_ECHAINIV=y 
+> +CONFIG_CRYPTO_ANSI_CPRNG=y 
+> +CONFIG_CMA_SIZE_MBYTES=32 
+> +CONFIG_PRINTK_TIME=y 
+> +CONFIG_DEBUG_INFO=y 
+> +CONFIG_DEBUG_FS=y 
+> +CONFIG_MAGIC_SYSRQ=y 
+> +CONFIG_DEBUG_KERNEL=y 
+> +# CONFIG_SCHED_DEBUG is not set 
+> +# CONFIG_DEBUG_PREEMPT is not set 
+> +# CONFIG_FTRACE is not set 
+> +CONFIG_MEMTEST=y 
+> diff --git a/recipes-kernel/linux/linux-jailhouse_5.4.inc 
+> b/recipes-kernel/linux/linux-jailhouse_5.4.inc 
+> index a9e75a8..6dbf2a4 100644 
+> --- a/recipes-kernel/linux/linux-jailhouse_5.4.inc 
+> +++ b/recipes-kernel/linux/linux-jailhouse_5.4.inc 
+> @@ -13,6 +13,7 @@ require recipes-kernel/linux/linux-custom.inc 
+>   
+>  KERNEL_DEFCONFIG = "${DISTRO_ARCH}_defconfig_5.4" 
+>  KERNEL_DEFCONFIG_orangepi-zero = "orangepi-zero_defconfig_5.4" 
+> +KERNEL_DEFCONFIG_pine64-plus = "pine64-plus_defconfig_5.4" 
+>  KERNEL_DEFCONFIG_rpi4 = "rpi4_defconfig_5.4" 
+>   
+>  SRC_URI += " \ 
+> -- 
+> 2.17.1 
+>
+>
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200213134430.3052-4-vijaikumar.kanagarajan%40gmail.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/c7f6f5ec-ce46-4071-9a83-a9710ca4327a%40googlegroups.com.
+
+------=_Part_3034_625022493.1581602460045
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>I missed the cover letter for this series.</div><div>=
+<br></div><div>This series adds support for Pine64-plus board(2GB edition) =
+in jailhouse-images.</div><div>The hypervisor side patch for the same is al=
+ready pushed to the mailing list and is</div><div>available here[1].</div><=
+div><br></div><div>[1] https://groups.google.com/d/msg/jailhouse-dev/Rn_LBY=
+ftSdc/iuG2bQqCBQAJ</div><div><br></div><div>Thanks,</div><div>Vijai Kumar K=
+<br></div><div><br></div><br>On Thursday, February 13, 2020 at 7:14:44 PM U=
+TC+5:30, vijai kumar wrote:<blockquote class=3D"gmail_quote" style=3D"margi=
+n: 0;margin-left: 0.8ex;border-left: 1px #ccc solid;padding-left: 1ex;">Add=
+ defconfig for pine64-plus development board.
+<br>
+<br>Signed-off-by: Vijai Kumar K &lt;<a href=3D"mailto:vijaikumar.kanagaraj=
+an@gmail.com" target=3D"_blank" rel=3D"nofollow" onmousedown=3D"this.href=
+=3D&#39;mailto:vijaikumar.kanagarajan@gmail.com&#39;;return true;" onclick=
+=3D"this.href=3D&#39;mailto:vijaikumar.kanagarajan@gmail.com&#39;;return tr=
+ue;">vijaikumar.kanagarajan@gmail.<wbr>com</a>&gt;
+<br>---
+<br>=C2=A0.../linux/files/pine64-plus_<wbr>defconfig_5.4 =C2=A0 =C2=A0 | 84=
+9 ++++++++++++++++++
+<br>=C2=A0recipes-kernel/linux/linux-<wbr>jailhouse_5.4.inc =C2=A0| =C2=A0 =
+1 +
+<br>=C2=A02 files changed, 850 insertions(+)
+<br>=C2=A0create mode 100644 recipes-kernel/linux/files/<wbr>pine64-plus_de=
+fconfig_5.4
+<br>
+<br>diff --git a/recipes-kernel/linux/files/<wbr>pine64-plus_defconfig_5.4 =
+b/recipes-kernel/linux/files/<wbr>pine64-plus_defconfig_5.4
+<br>new file mode 100644
+<br>index 0000000..44a01f6
+<br>--- /dev/null
+<br>+++ b/recipes-kernel/linux/files/<wbr>pine64-plus_defconfig_5.4
+<br>@@ -0,0 +1,849 @@
+<br>+CONFIG_SYSVIPC=3Dy
+<br>+CONFIG_POSIX_MQUEUE=3Dy
+<br>+CONFIG_AUDIT=3Dy
+<br>+CONFIG_NO_HZ_IDLE=3Dy
+<br>+CONFIG_HIGH_RES_TIMERS=3Dy
+<br>+CONFIG_PREEMPT=3Dy
+<br>+CONFIG_IRQ_TIME_ACCOUNTING=3Dy
+<br>+CONFIG_BSD_PROCESS_ACCT=3Dy
+<br>+CONFIG_BSD_PROCESS_ACCT_V3=3Dy
+<br>+CONFIG_TASKSTATS=3Dy
+<br>+CONFIG_TASK_DELAY_ACCT=3Dy
+<br>+CONFIG_TASK_XACCT=3Dy
+<br>+CONFIG_TASK_IO_ACCOUNTING=3Dy
+<br>+CONFIG_IKCONFIG=3Dy
+<br>+CONFIG_IKCONFIG_PROC=3Dy
+<br>+CONFIG_NUMA_BALANCING=3Dy
+<br>+CONFIG_MEMCG=3Dy
+<br>+CONFIG_MEMCG_SWAP=3Dy
+<br>+CONFIG_BLK_CGROUP=3Dy
+<br>+CONFIG_CGROUP_PIDS=3Dy
+<br>+CONFIG_CGROUP_HUGETLB=3Dy
+<br>+CONFIG_CPUSETS=3Dy
+<br>+CONFIG_CGROUP_DEVICE=3Dy
+<br>+CONFIG_CGROUP_CPUACCT=3Dy
+<br>+CONFIG_CGROUP_PERF=3Dy
+<br>+CONFIG_USER_NS=3Dy
+<br>+CONFIG_SCHED_AUTOGROUP=3Dy
+<br>+CONFIG_BLK_DEV_INITRD=3Dy
+<br>+CONFIG_KALLSYMS_ALL=3Dy
+<br>+# CONFIG_COMPAT_BRK is not set
+<br>+CONFIG_PROFILING=3Dy
+<br>+CONFIG_ARCH_AGILEX=3Dy
+<br>+CONFIG_ARCH_SUNXI=3Dy
+<br>+CONFIG_ARCH_ALPINE=3Dy
+<br>+CONFIG_ARCH_BCM2835=3Dy
+<br>+CONFIG_ARCH_BCM_IPROC=3Dy
+<br>+CONFIG_ARCH_BERLIN=3Dy
+<br>+CONFIG_ARCH_BRCMSTB=3Dy
+<br>+CONFIG_ARCH_EXYNOS=3Dy
+<br>+CONFIG_ARCH_K3=3Dy
+<br>+CONFIG_ARCH_LAYERSCAPE=3Dy
+<br>+CONFIG_ARCH_LG1K=3Dy
+<br>+CONFIG_ARCH_HISI=3Dy
+<br>+CONFIG_ARCH_MEDIATEK=3Dy
+<br>+CONFIG_ARCH_MESON=3Dy
+<br>+CONFIG_ARCH_MVEBU=3Dy
+<br>+CONFIG_ARCH_MXC=3Dy
+<br>+CONFIG_ARCH_QCOM=3Dy
+<br>+CONFIG_ARCH_RENESAS=3Dy
+<br>+CONFIG_ARCH_ROCKCHIP=3Dy
+<br>+CONFIG_ARCH_SEATTLE=3Dy
+<br>+CONFIG_ARCH_STRATIX10=3Dy
+<br>+CONFIG_ARCH_SYNQUACER=3Dy
+<br>+CONFIG_ARCH_TEGRA=3Dy
+<br>+CONFIG_ARCH_SPRD=3Dy
+<br>+CONFIG_ARCH_THUNDER=3Dy
+<br>+CONFIG_ARCH_THUNDER2=3Dy
+<br>+CONFIG_ARCH_UNIPHIER=3Dy
+<br>+CONFIG_ARCH_VEXPRESS=3Dy
+<br>+CONFIG_ARCH_XGENE=3Dy
+<br>+CONFIG_ARCH_ZX=3Dy
+<br>+CONFIG_ARCH_ZYNQMP=3Dy
+<br>+CONFIG_ARM64_VA_BITS_48=3Dy
+<br>+CONFIG_SCHED_MC=3Dy
+<br>+CONFIG_NUMA=3Dy
+<br>+CONFIG_SECCOMP=3Dy
+<br>+CONFIG_KEXEC=3Dy
+<br>+CONFIG_CRASH_DUMP=3Dy
+<br>+CONFIG_XEN=3Dy
+<br>+CONFIG_COMPAT=3Dy
+<br>+CONFIG_RANDOMIZE_BASE=3Dy
+<br>+CONFIG_HIBERNATION=3Dy
+<br>+CONFIG_WQ_POWER_EFFICIENT_<wbr>DEFAULT=3Dy
+<br>+CONFIG_ARM_CPUIDLE=3Dy
+<br>+CONFIG_ARM_PSCI_CPUIDLE=3Dy
+<br>+CONFIG_CPU_FREQ=3Dy
+<br>+CONFIG_CPU_FREQ_STAT=3Dy
+<br>+CONFIG_CPU_FREQ_GOV_<wbr>POWERSAVE=3Dm
+<br>+CONFIG_CPU_FREQ_GOV_<wbr>USERSPACE=3Dy
+<br>+CONFIG_CPU_FREQ_GOV_ONDEMAND=3D<wbr>y
+<br>+CONFIG_CPU_FREQ_GOV_<wbr>CONSERVATIVE=3Dm
+<br>+CONFIG_CPU_FREQ_GOV_<wbr>SCHEDUTIL=3Dy
+<br>+CONFIG_CPUFREQ_DT=3Dy
+<br>+CONFIG_ACPI_CPPC_CPUFREQ=3Dm
+<br>+CONFIG_ARM_ARMADA_37XX_<wbr>CPUFREQ=3Dy
+<br>+CONFIG_ARM_SCPI_CPUFREQ=3Dy
+<br>+CONFIG_ARM_IMX_CPUFREQ_DT=3Dm
+<br>+CONFIG_ARM_RASPBERRYPI_<wbr>CPUFREQ=3Dm
+<br>+CONFIG_ARM_TEGRA186_CPUFREQ=3Dy
+<br>+CONFIG_ARM_SCPI_PROTOCOL=3Dy
+<br>+CONFIG_RASPBERRYPI_FIRMWARE=3Dy
+<br>+CONFIG_INTEL_STRATIX10_<wbr>SERVICE=3Dy
+<br>+CONFIG_EFI_CAPSULE_LOADER=3Dy
+<br>+CONFIG_IMX_SCU=3Dy
+<br>+CONFIG_IMX_SCU_PD=3Dy
+<br>+CONFIG_ACPI=3Dy
+<br>+CONFIG_ACPI_APEI=3Dy
+<br>+CONFIG_ACPI_APEI_GHES=3Dy
+<br>+CONFIG_ACPI_APEI_PCIEAER=3Dy
+<br>+CONFIG_ACPI_APEI_MEMORY_<wbr>FAILURE=3Dy
+<br>+CONFIG_ACPI_APEI_EINJ=3Dy
+<br>+CONFIG_VIRTUALIZATION=3Dy
+<br>+CONFIG_KVM=3Dy
+<br>+CONFIG_ARM64_CRYPTO=3Dy
+<br>+CONFIG_CRYPTO_SHA1_ARM64_CE=3Dy
+<br>+CONFIG_CRYPTO_SHA2_ARM64_CE=3Dy
+<br>+CONFIG_CRYPTO_SHA512_ARM64_<wbr>CE=3Dm
+<br>+CONFIG_CRYPTO_SHA3_ARM64=3Dm
+<br>+CONFIG_CRYPTO_SM3_ARM64_CE=3Dm
+<br>+CONFIG_CRYPTO_GHASH_ARM64_CE=3D<wbr>y
+<br>+CONFIG_CRYPTO_CRCT10DIF_<wbr>ARM64_CE=3Dm
+<br>+CONFIG_CRYPTO_AES_ARM64_CE_<wbr>CCM=3Dy
+<br>+CONFIG_CRYPTO_AES_ARM64_CE_<wbr>BLK=3Dy
+<br>+CONFIG_CRYPTO_CHACHA20_NEON=3Dm
+<br>+CONFIG_CRYPTO_AES_ARM64_BS=3Dm
+<br>+CONFIG_JUMP_LABEL=3Dy
+<br>+CONFIG_MODULES=3Dy
+<br>+CONFIG_MODULE_UNLOAD=3Dy
+<br>+# CONFIG_CORE_DUMP_DEFAULT_ELF_<wbr>HEADERS is not set
+<br>+CONFIG_KSM=3Dy
+<br>+CONFIG_MEMORY_FAILURE=3Dy
+<br>+CONFIG_TRANSPARENT_HUGEPAGE=3Dy
+<br>+CONFIG_NET=3Dy
+<br>+CONFIG_PACKET=3Dy
+<br>+CONFIG_UNIX=3Dy
+<br>+CONFIG_INET=3Dy
+<br>+CONFIG_IP_MULTICAST=3Dy
+<br>+CONFIG_IP_PNP=3Dy
+<br>+CONFIG_IP_PNP_DHCP=3Dy
+<br>+CONFIG_IP_PNP_BOOTP=3Dy
+<br>+CONFIG_IPV6=3Dm
+<br>+CONFIG_NETFILTER=3Dy
+<br>+CONFIG_NF_CONNTRACK=3Dm
+<br>+CONFIG_NF_CONNTRACK_EVENTS=3Dy
+<br>+CONFIG_NETFILTER_XT_TARGET_<wbr>CHECKSUM=3Dm
+<br>+CONFIG_NETFILTER_XT_TARGET_<wbr>LOG=3Dm
+<br>+CONFIG_NETFILTER_XT_MATCH_<wbr>ADDRTYPE=3Dm
+<br>+CONFIG_NETFILTER_XT_MATCH_<wbr>CONNTRACK=3Dm
+<br>+CONFIG_IP_NF_IPTABLES=3Dm
+<br>+CONFIG_IP_NF_FILTER=3Dm
+<br>+CONFIG_IP_NF_TARGET_REJECT=3Dm
+<br>+CONFIG_IP_NF_NAT=3Dm
+<br>+CONFIG_IP_NF_TARGET_<wbr>MASQUERADE=3Dm
+<br>+CONFIG_IP_NF_MANGLE=3Dm
+<br>+CONFIG_IP6_NF_IPTABLES=3Dm
+<br>+CONFIG_IP6_NF_FILTER=3Dm
+<br>+CONFIG_IP6_NF_TARGET_REJECT=3Dm
+<br>+CONFIG_IP6_NF_MANGLE=3Dm
+<br>+CONFIG_IP6_NF_NAT=3Dm
+<br>+CONFIG_IP6_NF_TARGET_<wbr>MASQUERADE=3Dm
+<br>+CONFIG_BRIDGE=3Dm
+<br>+CONFIG_BRIDGE_VLAN_FILTERING=3D<wbr>y
+<br>+CONFIG_VLAN_8021Q=3Dm
+<br>+CONFIG_VLAN_8021Q_GVRP=3Dy
+<br>+CONFIG_VLAN_8021Q_MVRP=3Dy
+<br>+CONFIG_QRTR=3Dm
+<br>+CONFIG_QRTR_SMD=3Dm
+<br>+CONFIG_QRTR_TUN=3Dm
+<br>+CONFIG_BPF_JIT=3Dy
+<br>+CONFIG_BT=3Dm
+<br>+CONFIG_BT_HIDP=3Dm
+<br>+# CONFIG_BT_HS is not set
+<br>+# CONFIG_BT_LE is not set
+<br>+CONFIG_BT_LEDS=3Dy
+<br>+# CONFIG_BT_DEBUGFS is not set
+<br>+CONFIG_BT_HCIBTUSB=3Dm
+<br>+CONFIG_BT_HCIUART=3Dm
+<br>+CONFIG_BT_HCIUART_LL=3Dy
+<br>+CONFIG_BT_HCIUART_BCM=3Dy
+<br>+CONFIG_CFG80211=3Dm
+<br>+CONFIG_MAC80211=3Dm
+<br>+CONFIG_MAC80211_LEDS=3Dy
+<br>+CONFIG_RFKILL=3Dm
+<br>+CONFIG_NET_9P=3Dy
+<br>+CONFIG_NET_9P_VIRTIO=3Dy
+<br>+CONFIG_PCI=3Dy
+<br>+CONFIG_PCIEPORTBUS=3Dy
+<br>+CONFIG_PCI_IOV=3Dy
+<br>+CONFIG_HOTPLUG_PCI=3Dy
+<br>+CONFIG_HOTPLUG_PCI_ACPI=3Dy
+<br>+CONFIG_PCI_AARDVARK=3Dy
+<br>+CONFIG_PCI_TEGRA=3Dy
+<br>+CONFIG_PCIE_RCAR=3Dy
+<br>+CONFIG_PCI_HOST_GENERIC=3Dy
+<br>+CONFIG_PCI_XGENE=3Dy
+<br>+CONFIG_PCIE_ALTERA=3Dy
+<br>+CONFIG_PCIE_ALTERA_MSI=3Dy
+<br>+CONFIG_PCI_HOST_THUNDER_PEM=3Dy
+<br>+CONFIG_PCI_HOST_THUNDER_ECAM=3D<wbr>y
+<br>+CONFIG_PCIE_ROCKCHIP_HOST=3Dm
+<br>+CONFIG_PCI_LAYERSCAPE=3Dy
+<br>+CONFIG_PCI_HISI=3Dy
+<br>+CONFIG_PCIE_QCOM=3Dy
+<br>+CONFIG_PCIE_ARMADA_8K=3Dy
+<br>+CONFIG_PCIE_KIRIN=3Dy
+<br>+CONFIG_PCIE_HISI_STB=3Dy
+<br>+CONFIG_PCIE_TEGRA194=3Dm
+<br>+CONFIG_DEVTMPFS=3Dy
+<br>+CONFIG_DEVTMPFS_MOUNT=3Dy
+<br>+CONFIG_FW_LOADER_USER_HELPER=3D<wbr>y
+<br>+CONFIG_FW_LOADER_USER_HELPER_<wbr>FALLBACK=3Dy
+<br>+CONFIG_HISILICON_LPC=3Dy
+<br>+CONFIG_SIMPLE_PM_BUS=3Dy
+<br>+CONFIG_MTD=3Dy
+<br>+CONFIG_MTD_BLOCK=3Dy
+<br>+CONFIG_MTD_RAW_NAND=3Dy
+<br>+CONFIG_MTD_NAND_DENALI_DT=3Dy
+<br>+CONFIG_MTD_NAND_MARVELL=3Dy
+<br>+CONFIG_MTD_NAND_QCOM=3Dy
+<br>+CONFIG_MTD_SPI_NOR=3Dy
+<br>+CONFIG_BLK_DEV_LOOP=3Dy
+<br>+CONFIG_BLK_DEV_NBD=3Dm
+<br>+CONFIG_VIRTIO_BLK=3Dy
+<br>+CONFIG_BLK_DEV_NVME=3Dm
+<br>+CONFIG_SRAM=3Dy
+<br>+CONFIG_EEPROM_AT25=3Dm
+<br>+# CONFIG_SCSI_PROC_FS is not set
+<br>+CONFIG_BLK_DEV_SD=3Dy
+<br>+CONFIG_SCSI_SAS_ATA=3Dy
+<br>+CONFIG_SCSI_HISI_SAS=3Dy
+<br>+CONFIG_SCSI_HISI_SAS_PCI=3Dy
+<br>+CONFIG_SCSI_MPT3SAS=3Dm
+<br>+CONFIG_SCSI_UFSHCD=3Dy
+<br>+CONFIG_SCSI_UFSHCD_PLATFORM=3Dy
+<br>+CONFIG_SCSI_UFS_QCOM=3Dm
+<br>+CONFIG_SCSI_UFS_HISI=3Dy
+<br>+CONFIG_ATA=3Dy
+<br>+CONFIG_SATA_AHCI=3Dy
+<br>+CONFIG_SATA_AHCI_PLATFORM=3Dy
+<br>+CONFIG_AHCI_CEVA=3Dy
+<br>+CONFIG_AHCI_MVEBU=3Dy
+<br>+CONFIG_AHCI_XGENE=3Dy
+<br>+CONFIG_AHCI_QORIQ=3Dy
+<br>+CONFIG_SATA_SIL24=3Dy
+<br>+CONFIG_SATA_RCAR=3Dy
+<br>+CONFIG_PATA_PLATFORM=3Dy
+<br>+CONFIG_PATA_OF_PLATFORM=3Dy
+<br>+CONFIG_MD=3Dy
+<br>+CONFIG_BLK_DEV_MD=3Dm
+<br>+CONFIG_BLK_DEV_DM=3Dm
+<br>+CONFIG_DM_MIRROR=3Dm
+<br>+CONFIG_DM_ZERO=3Dm
+<br>+CONFIG_NETDEVICES=3Dy
+<br>+CONFIG_MACVLAN=3Dm
+<br>+CONFIG_MACVTAP=3Dm
+<br>+CONFIG_TUN=3Dy
+<br>+CONFIG_VETH=3Dm
+<br>+CONFIG_VIRTIO_NET=3Dy
+<br>+CONFIG_AMD_XGBE=3Dy
+<br>+CONFIG_NET_XGENE=3Dy
+<br>+CONFIG_ATL1C=3Dm
+<br>+CONFIG_BNX2X=3Dm
+<br>+CONFIG_MACB=3Dy
+<br>+CONFIG_THUNDER_NIC_PF=3Dy
+<br>+CONFIG_FEC=3Dy
+<br>+CONFIG_HIX5HD2_GMAC=3Dy
+<br>+CONFIG_HNS_DSAF=3Dy
+<br>+CONFIG_HNS_ENET=3Dy
+<br>+CONFIG_HNS3=3Dy
+<br>+CONFIG_HNS3_HCLGE=3Dy
+<br>+CONFIG_HNS3_ENET=3Dy
+<br>+CONFIG_E1000E=3Dy
+<br>+CONFIG_IGB=3Dy
+<br>+CONFIG_IGBVF=3Dy
+<br>+CONFIG_MVNETA=3Dy
+<br>+CONFIG_MVPP2=3Dy
+<br>+CONFIG_SKY2=3Dy
+<br>+CONFIG_MLX4_EN=3Dm
+<br>+CONFIG_MLX5_CORE=3Dm
+<br>+CONFIG_MLX5_CORE_EN=3Dy
+<br>+CONFIG_QCOM_EMAC=3Dm
+<br>+CONFIG_RAVB=3Dy
+<br>+CONFIG_SMC91X=3Dy
+<br>+CONFIG_SMSC911X=3Dy
+<br>+CONFIG_SNI_AVE=3Dy
+<br>+CONFIG_SNI_NETSEC=3Dy
+<br>+CONFIG_STMMAC_ETH=3Dm
+<br>+CONFIG_MDIO_BUS_MUX_MMIOREG=3Dy
+<br>+CONFIG_AT803X_PHY=3Dm
+<br>+CONFIG_MARVELL_PHY=3Dm
+<br>+CONFIG_MARVELL_10G_PHY=3Dm
+<br>+CONFIG_MESON_GXL_PHY=3Dm
+<br>+CONFIG_MICREL_PHY=3Dy
+<br>+CONFIG_REALTEK_PHY=3Dm
+<br>+CONFIG_ROCKCHIP_PHY=3Dy
+<br>+CONFIG_USB_PEGASUS=3Dm
+<br>+CONFIG_USB_RTL8150=3Dm
+<br>+CONFIG_USB_RTL8152=3Dm
+<br>+CONFIG_USB_LAN78XX=3Dm
+<br>+CONFIG_USB_USBNET=3Dm
+<br>+CONFIG_USB_NET_DM9601=3Dm
+<br>+CONFIG_USB_NET_SR9800=3Dm
+<br>+CONFIG_USB_NET_SMSC75XX=3Dm
+<br>+CONFIG_USB_NET_SMSC95XX=3Dm
+<br>+CONFIG_USB_NET_PLUSB=3Dm
+<br>+CONFIG_USB_NET_MCS7830=3Dm
+<br>+CONFIG_ATH10K=3Dm
+<br>+CONFIG_ATH10K_PCI=3Dm
+<br>+CONFIG_BRCMFMAC=3Dm
+<br>+CONFIG_MWIFIEX=3Dm
+<br>+CONFIG_MWIFIEX_PCIE=3Dm
+<br>+CONFIG_WL18XX=3Dm
+<br>+CONFIG_WLCORE_SDIO=3Dm
+<br>+CONFIG_INPUT_EVDEV=3Dy
+<br>+CONFIG_KEYBOARD_ADC=3Dm
+<br>+CONFIG_KEYBOARD_GPIO=3Dy
+<br>+CONFIG_KEYBOARD_SNVS_PWRKEY=3Dm
+<br>+CONFIG_KEYBOARD_CROS_EC=3Dy
+<br>+CONFIG_INPUT_TOUCHSCREEN=3Dy
+<br>+CONFIG_TOUCHSCREEN_ATMEL_MXT=3D<wbr>m
+<br>+CONFIG_INPUT_MISC=3Dy
+<br>+CONFIG_INPUT_PM8941_PWRKEY=3Dy
+<br>+CONFIG_INPUT_HISI_POWERKEY=3Dy
+<br>+# CONFIG_SERIO_SERPORT is not set
+<br>+CONFIG_SERIO_AMBAKMI=3Dy
+<br>+CONFIG_LEGACY_PTY_COUNT=3D16
+<br>+CONFIG_SERIAL_8250=3Dy
+<br>+CONFIG_SERIAL_8250_CONSOLE=3Dy
+<br>+CONFIG_SERIAL_8250_EXTENDED=3Dy
+<br>+CONFIG_SERIAL_8250_SHARE_IRQ=3D<wbr>y
+<br>+CONFIG_SERIAL_8250_<wbr>BCM2835AUX=3Dy
+<br>+CONFIG_SERIAL_8250_DW=3Dy
+<br>+CONFIG_SERIAL_8250_OMAP=3Dy
+<br>+CONFIG_SERIAL_8250_MT6577=3Dy
+<br>+CONFIG_SERIAL_8250_UNIPHIER=3Dy
+<br>+CONFIG_SERIAL_OF_PLATFORM=3Dy
+<br>+CONFIG_SERIAL_AMBA_PL011=3Dy
+<br>+CONFIG_SERIAL_AMBA_PL011_<wbr>CONSOLE=3Dy
+<br>+CONFIG_SERIAL_MESON=3Dy
+<br>+CONFIG_SERIAL_MESON_CONSOLE=3Dy
+<br>+CONFIG_SERIAL_SAMSUNG=3Dy
+<br>+CONFIG_SERIAL_SAMSUNG_<wbr>CONSOLE=3Dy
+<br>+CONFIG_SERIAL_TEGRA=3Dy
+<br>+CONFIG_SERIAL_TEGRA_TCU=3Dy
+<br>+CONFIG_SERIAL_IMX=3Dy
+<br>+CONFIG_SERIAL_IMX_CONSOLE=3Dy
+<br>+CONFIG_SERIAL_SH_SCI=3Dy
+<br>+CONFIG_SERIAL_MSM=3Dy
+<br>+CONFIG_SERIAL_MSM_CONSOLE=3Dy
+<br>+CONFIG_SERIAL_QCOM_GENI=3Dy
+<br>+CONFIG_SERIAL_QCOM_GENI_<wbr>CONSOLE=3Dy
+<br>+CONFIG_SERIAL_XILINX_PS_UART=3D<wbr>y
+<br>+CONFIG_SERIAL_XILINX_PS_UART_<wbr>CONSOLE=3Dy
+<br>+CONFIG_SERIAL_FSL_LPUART=3Dy
+<br>+CONFIG_SERIAL_FSL_LPUART_<wbr>CONSOLE=3Dy
+<br>+CONFIG_SERIAL_MVEBU_UART=3Dy
+<br>+CONFIG_SERIAL_DEV_BUS=3Dy
+<br>+CONFIG_VIRTIO_CONSOLE=3Dy
+<br>+CONFIG_IPMI_HANDLER=3Dm
+<br>+CONFIG_IPMI_DEVICE_INTERFACE=3D<wbr>m
+<br>+CONFIG_IPMI_SI=3Dm
+<br>+CONFIG_TCG_TPM=3Dy
+<br>+CONFIG_TCG_TIS_I2C_INFINEON=3Dy
+<br>+CONFIG_I2C_CHARDEV=3Dy
+<br>+CONFIG_I2C_MUX=3Dy
+<br>+CONFIG_I2C_MUX_PCA954x=3Dy
+<br>+CONFIG_I2C_BCM2835=3Dm
+<br>+CONFIG_I2C_DESIGNWARE_<wbr>PLATFORM=3Dy
+<br>+CONFIG_I2C_GPIO=3Dm
+<br>+CONFIG_I2C_IMX=3Dy
+<br>+CONFIG_I2C_IMX_LPI2C=3Dy
+<br>+CONFIG_I2C_MESON=3Dy
+<br>+CONFIG_I2C_MV64XXX=3Dy
+<br>+CONFIG_I2C_PXA=3Dy
+<br>+CONFIG_I2C_QCOM_GENI=3Dm
+<br>+CONFIG_I2C_QUP=3Dy
+<br>+CONFIG_I2C_RK3X=3Dy
+<br>+CONFIG_I2C_SH_MOBILE=3Dy
+<br>+CONFIG_I2C_TEGRA=3Dy
+<br>+CONFIG_I2C_UNIPHIER_F=3Dy
+<br>+CONFIG_I2C_RCAR=3Dy
+<br>+CONFIG_I2C_CROS_EC_TUNNEL=3Dy
+<br>+CONFIG_SPI=3Dy
+<br>+CONFIG_SPI_ARMADA_3700=3Dy
+<br>+CONFIG_SPI_BCM2835=3Dm
+<br>+CONFIG_SPI_BCM2835AUX=3Dm
+<br>+CONFIG_SPI_NXP_FLEXSPI=3Dy
+<br>+CONFIG_SPI_IMX=3Dm
+<br>+CONFIG_SPI_MESON_SPICC=3Dm
+<br>+CONFIG_SPI_MESON_SPIFC=3Dm
+<br>+CONFIG_SPI_ORION=3Dy
+<br>+CONFIG_SPI_PL022=3Dy
+<br>+CONFIG_SPI_ROCKCHIP=3Dy
+<br>+CONFIG_SPI_QUP=3Dy
+<br>+CONFIG_SPI_S3C64XX=3Dy
+<br>+CONFIG_SPI_SUN6I=3Dy
+<br>+CONFIG_SPI_SPIDEV=3Dm
+<br>+CONFIG_SPMI=3Dy
+<br>+CONFIG_PINCTRL_SINGLE=3Dy
+<br>+CONFIG_PINCTRL_MAX77620=3Dy
+<br>+CONFIG_PINCTRL_IMX8MM=3Dy
+<br>+CONFIG_PINCTRL_IMX8MN=3Dy
+<br>+CONFIG_PINCTRL_IMX8MQ=3Dy
+<br>+CONFIG_PINCTRL_IMX8QXP=3Dy
+<br>+CONFIG_PINCTRL_IPQ8074=3Dy
+<br>+CONFIG_PINCTRL_MSM8916=3Dy
+<br>+CONFIG_PINCTRL_MSM8994=3Dy
+<br>+CONFIG_PINCTRL_MSM8996=3Dy
+<br>+CONFIG_PINCTRL_MSM8998=3Dy
+<br>+CONFIG_PINCTRL_QCS404=3Dy
+<br>+CONFIG_PINCTRL_QDF2XXX=3Dy
+<br>+CONFIG_PINCTRL_QCOM_SPMI_<wbr>PMIC=3Dy
+<br>+CONFIG_PINCTRL_SDM845=3Dy
+<br>+CONFIG_PINCTRL_SM8150=3Dy
+<br>+CONFIG_GPIO_DWAPB=3Dy
+<br>+CONFIG_GPIO_MB86S7X=3Dy
+<br>+CONFIG_GPIO_PL061=3Dy
+<br>+CONFIG_GPIO_RCAR=3Dy
+<br>+CONFIG_GPIO_UNIPHIER=3Dy
+<br>+CONFIG_GPIO_XGENE=3Dy
+<br>+CONFIG_GPIO_XGENE_SB=3Dy
+<br>+CONFIG_GPIO_MAX732X=3Dy
+<br>+CONFIG_GPIO_PCA953X=3Dy
+<br>+CONFIG_GPIO_PCA953X_IRQ=3Dy
+<br>+CONFIG_GPIO_MAX77620=3Dy
+<br>+CONFIG_POWER_AVS=3Dy
+<br>+CONFIG_ROCKCHIP_IODOMAIN=3Dy
+<br>+CONFIG_POWER_RESET_MSM=3Dy
+<br>+CONFIG_POWER_RESET_XGENE=3Dy
+<br>+CONFIG_POWER_RESET_SYSCON=3Dy
+<br>+CONFIG_SYSCON_REBOOT_MODE=3Dy
+<br>+CONFIG_BATTERY_SBS=3Dm
+<br>+CONFIG_BATTERY_BQ27XXX=3Dy
+<br>+CONFIG_SENSORS_ARM_SCPI=3Dy
+<br>+CONFIG_SENSORS_LM90=3Dm
+<br>+CONFIG_SENSORS_PWM_FAN=3Dm
+<br>+CONFIG_SENSORS_RASPBERRYPI_<wbr>HWMON=3Dm
+<br>+CONFIG_SENSORS_INA2XX=3Dm
+<br>+CONFIG_SENSORS_INA3221=3Dm
+<br>+CONFIG_THERMAL_GOV_POWER_<wbr>ALLOCATOR=3Dy
+<br>+CONFIG_CPU_THERMAL=3Dy
+<br>+CONFIG_THERMAL_EMULATION=3Dy
+<br>+CONFIG_QORIQ_THERMAL=3Dm
+<br>+CONFIG_ROCKCHIP_THERMAL=3Dm
+<br>+CONFIG_RCAR_THERMAL=3Dy
+<br>+CONFIG_RCAR_GEN3_THERMAL=3Dy
+<br>+CONFIG_ARMADA_THERMAL=3Dy
+<br>+CONFIG_BCM2835_THERMAL=3Dm
+<br>+CONFIG_BRCMSTB_THERMAL=3Dm
+<br>+CONFIG_EXYNOS_THERMAL=3Dy
+<br>+CONFIG_TEGRA_BPMP_THERMAL=3Dm
+<br>+CONFIG_QCOM_TSENS=3Dy
+<br>+CONFIG_UNIPHIER_THERMAL=3Dy
+<br>+CONFIG_WATCHDOG=3Dy
+<br>+CONFIG_ARM_SP805_WATCHDOG=3Dy
+<br>+CONFIG_S3C2410_WATCHDOG=3Dy
+<br>+CONFIG_DW_WATCHDOG=3Dy
+<br>+CONFIG_SUNXI_WATCHDOG=3Dm
+<br>+CONFIG_IMX2_WDT=3Dy
+<br>+CONFIG_IMX_SC_WDT=3Dm
+<br>+CONFIG_MESON_GXBB_WATCHDOG=3Dm
+<br>+CONFIG_MESON_WATCHDOG=3Dm
+<br>+CONFIG_RENESAS_WDT=3Dy
+<br>+CONFIG_UNIPHIER_WATCHDOG=3Dy
+<br>+CONFIG_BCM2835_WDT=3Dy
+<br>+CONFIG_MFD_ALTERA_SYSMGR=3Dy
+<br>+CONFIG_MFD_BD9571MWV=3Dy
+<br>+CONFIG_MFD_AXP20X_I2C=3Dy
+<br>+CONFIG_MFD_AXP20X_RSB=3Dy
+<br>+CONFIG_MFD_EXYNOS_LPASS=3Dm
+<br>+CONFIG_MFD_HI6421_PMIC=3Dy
+<br>+CONFIG_MFD_HI655X_PMIC=3Dy
+<br>+CONFIG_MFD_MAX77620=3Dy
+<br>+CONFIG_MFD_SPMI_PMIC=3Dy
+<br>+CONFIG_MFD_RK808=3Dy
+<br>+CONFIG_MFD_SEC_CORE=3Dy
+<br>+CONFIG_MFD_ROHM_BD718XX=3Dy
+<br>+CONFIG_REGULATOR_FIXED_<wbr>VOLTAGE=3Dy
+<br>+CONFIG_REGULATOR_AXP20X=3Dy
+<br>+CONFIG_REGULATOR_BD718XX=3Dy
+<br>+CONFIG_REGULATOR_BD9571MWV=3Dy
+<br>+CONFIG_REGULATOR_FAN53555=3Dy
+<br>+CONFIG_REGULATOR_GPIO=3Dy
+<br>+CONFIG_REGULATOR_HI6421V530=3Dy
+<br>+CONFIG_REGULATOR_HI655X=3Dy
+<br>+CONFIG_REGULATOR_MAX77620=3Dy
+<br>+CONFIG_REGULATOR_MAX8973=3Dy
+<br>+CONFIG_REGULATOR_PFUZE100=3Dy
+<br>+CONFIG_REGULATOR_PWM=3Dy
+<br>+CONFIG_REGULATOR_QCOM_RPMH=3Dy
+<br>+CONFIG_REGULATOR_QCOM_SMD_<wbr>RPM=3Dy
+<br>+CONFIG_REGULATOR_QCOM_SPMI=3Dy
+<br>+CONFIG_REGULATOR_RK808=3Dy
+<br>+CONFIG_REGULATOR_S2MPS11=3Dy
+<br>+CONFIG_REGULATOR_VCTRL=3Dm
+<br>+CONFIG_RC_CORE=3Dm
+<br>+CONFIG_RC_DECODERS=3Dy
+<br>+CONFIG_RC_DEVICES=3Dy
+<br>+CONFIG_IR_MESON=3Dm
+<br>+CONFIG_IR_SUNXI=3Dm
+<br>+CONFIG_MEDIA_SUPPORT=3Dm
+<br>+CONFIG_MEDIA_CAMERA_SUPPORT=3Dy
+<br>+CONFIG_MEDIA_ANALOG_TV_<wbr>SUPPORT=3Dy
+<br>+CONFIG_MEDIA_DIGITAL_TV_<wbr>SUPPORT=3Dy
+<br>+CONFIG_MEDIA_CONTROLLER=3Dy
+<br>+CONFIG_VIDEO_V4L2_SUBDEV_API=3D<wbr>y
+<br>+# CONFIG_DVB_NET is not set
+<br>+CONFIG_MEDIA_USB_SUPPORT=3Dy
+<br>+CONFIG_USB_VIDEO_CLASS=3Dm
+<br>+CONFIG_V4L_PLATFORM_DRIVERS=3Dy
+<br>+CONFIG_VIDEO_SUN6I_CSI=3Dm
+<br>+CONFIG_V4L_MEM2MEM_DRIVERS=3Dy
+<br>+CONFIG_VIDEO_SAMSUNG_S5P_<wbr>JPEG=3Dm
+<br>+CONFIG_VIDEO_SAMSUNG_S5P_MFC=3D<wbr>m
+<br>+CONFIG_VIDEO_SAMSUNG_EXYNOS_<wbr>GSC=3Dm
+<br>+CONFIG_VIDEO_RENESAS_FCP=3Dm
+<br>+CONFIG_VIDEO_RENESAS_VSP1=3Dm
+<br>+CONFIG_DRM=3Dm
+<br>+CONFIG_DRM_I2C_NXP_TDA998X=3Dm
+<br>+CONFIG_DRM_NOUVEAU=3Dm
+<br>+CONFIG_DRM_EXYNOS=3Dm
+<br>+CONFIG_DRM_EXYNOS5433_DECON=3Dy
+<br>+CONFIG_DRM_EXYNOS7_DECON=3Dy
+<br>+CONFIG_DRM_EXYNOS_DSI=3Dy
+<br>+# CONFIG_DRM_EXYNOS_DP is not set
+<br>+CONFIG_DRM_EXYNOS_HDMI=3Dy
+<br>+CONFIG_DRM_EXYNOS_MIC=3Dy
+<br>+CONFIG_DRM_ROCKCHIP=3Dm
+<br>+CONFIG_ROCKCHIP_ANALOGIX_DP=3Dy
+<br>+CONFIG_ROCKCHIP_CDN_DP=3Dy
+<br>+CONFIG_ROCKCHIP_DW_HDMI=3Dy
+<br>+CONFIG_ROCKCHIP_DW_MIPI_DSI=3Dy
+<br>+CONFIG_ROCKCHIP_INNO_HDMI=3Dy
+<br>+CONFIG_DRM_RCAR_DU=3Dm
+<br>+CONFIG_DRM_SUN4I=3Dm
+<br>+CONFIG_DRM_SUN8I_DW_HDMI=3Dm
+<br>+CONFIG_DRM_SUN8I_MIXER=3Dm
+<br>+CONFIG_DRM_MSM=3Dm
+<br>+CONFIG_DRM_TEGRA=3Dm
+<br>+CONFIG_DRM_PANEL_SIMPLE=3Dm
+<br>+CONFIG_DRM_SII902X=3Dm
+<br>+CONFIG_DRM_I2C_ADV7511=3Dm
+<br>+CONFIG_DRM_VC4=3Dm
+<br>+CONFIG_DRM_ETNAVIV=3Dm
+<br>+CONFIG_DRM_HISI_HIBMC=3Dm
+<br>+CONFIG_DRM_HISI_KIRIN=3Dm
+<br>+CONFIG_DRM_MESON=3Dm
+<br>+CONFIG_DRM_PL111=3Dm
+<br>+CONFIG_DRM_LIMA=3Dm
+<br>+CONFIG_DRM_PANFROST=3Dm
+<br>+CONFIG_FB=3Dy
+<br>+CONFIG_FB_MODE_HELPERS=3Dy
+<br>+CONFIG_FB_EFI=3Dy
+<br>+CONFIG_BACKLIGHT_GENERIC=3Dm
+<br>+CONFIG_BACKLIGHT_PWM=3Dm
+<br>+CONFIG_BACKLIGHT_LP855X=3Dm
+<br>+CONFIG_LOGO=3Dy
+<br>+# CONFIG_LOGO_LINUX_MONO is not set
+<br>+# CONFIG_LOGO_LINUX_VGA16 is not set
+<br>+CONFIG_SOUND=3Dy
+<br>+CONFIG_SND=3Dy
+<br>+CONFIG_SND_HDA_TEGRA=3Dm
+<br>+CONFIG_SND_HDA_CODEC_HDMI=3Dm
+<br>+CONFIG_SND_SOC=3Dy
+<br>+CONFIG_SND_BCM2835_SOC_I2S=3Dm
+<br>+CONFIG_SND_MESON_AXG_SOUND_<wbr>CARD=3Dm
+<br>+CONFIG_SND_SOC_ROCKCHIP=3Dm
+<br>+CONFIG_SND_SOC_ROCKCHIP_<wbr>SPDIF=3Dm
+<br>+CONFIG_SND_SOC_ROCKCHIP_<wbr>RT5645=3Dm
+<br>+CONFIG_SND_SOC_RK3399_GRU_<wbr>SOUND=3Dm
+<br>+CONFIG_SND_SOC_SAMSUNG=3Dy
+<br>+CONFIG_SND_SOC_RCAR=3Dm
+<br>+CONFIG_SND_SUN4I_SPDIF=3Dm
+<br>+CONFIG_SND_SOC_AK4613=3Dm
+<br>+CONFIG_SND_SOC_ES7134=3Dm
+<br>+CONFIG_SND_SOC_ES7241=3Dm
+<br>+CONFIG_SND_SOC_PCM3168A_I2C=3Dm
+<br>+CONFIG_SND_SOC_TAS571X=3Dm
+<br>+CONFIG_SND_SIMPLE_CARD=3Dm
+<br>+CONFIG_SND_AUDIO_GRAPH_CARD=3Dm
+<br>+CONFIG_I2C_HID=3Dm
+<br>+CONFIG_USB=3Dy
+<br>+CONFIG_USB_OTG=3Dy
+<br>+CONFIG_USB_XHCI_HCD=3Dy
+<br>+CONFIG_USB_XHCI_TEGRA=3Dy
+<br>+CONFIG_USB_EHCI_HCD=3Dy
+<br>+CONFIG_USB_EHCI_EXYNOS=3Dy
+<br>+CONFIG_USB_EHCI_HCD_PLATFORM=3D<wbr>y
+<br>+CONFIG_USB_OHCI_HCD=3Dy
+<br>+CONFIG_USB_OHCI_EXYNOS=3Dy
+<br>+CONFIG_USB_OHCI_HCD_PLATFORM=3D<wbr>y
+<br>+CONFIG_USB_RENESAS_USBHS=3Dm
+<br>+CONFIG_USB_STORAGE=3Dy
+<br>+CONFIG_USB_MUSB_HDRC=3Dy
+<br>+CONFIG_USB_MUSB_SUNXI=3Dy
+<br>+CONFIG_USB_DWC3=3Dy
+<br>+CONFIG_USB_DWC2=3Dy
+<br>+CONFIG_USB_CHIPIDEA=3Dy
+<br>+CONFIG_USB_CHIPIDEA_UDC=3Dy
+<br>+CONFIG_USB_CHIPIDEA_HOST=3Dy
+<br>+CONFIG_USB_ISP1760=3Dy
+<br>+CONFIG_USB_HSIC_USB3503=3Dy
+<br>+CONFIG_NOP_USB_XCEIV=3Dy
+<br>+CONFIG_USB_ULPI=3Dy
+<br>+CONFIG_USB_GADGET=3Dy
+<br>+CONFIG_USB_RENESAS_USBHS_UDC=3D<wbr>m
+<br>+CONFIG_USB_RENESAS_USB3=3Dm
+<br>+CONFIG_TYPEC=3Dm
+<br>+CONFIG_MMC=3Dy
+<br>+CONFIG_MMC_BLOCK_MINORS=3D32
+<br>+CONFIG_MMC_ARMMMCI=3Dy
+<br>+CONFIG_MMC_SDHCI=3Dy
+<br>+CONFIG_MMC_SDHCI_ACPI=3Dy
+<br>+CONFIG_MMC_SDHCI_PLTFM=3Dy
+<br>+CONFIG_MMC_SDHCI_OF_ARASAN=3Dy
+<br>+CONFIG_MMC_SDHCI_OF_ESDHC=3Dy
+<br>+CONFIG_MMC_SDHCI_CADENCE=3Dy
+<br>+CONFIG_MMC_SDHCI_ESDHC_IMX=3Dy
+<br>+CONFIG_MMC_SDHCI_TEGRA=3Dy
+<br>+CONFIG_MMC_SDHCI_F_SDH30=3Dy
+<br>+CONFIG_MMC_MESON_GX=3Dy
+<br>+CONFIG_MMC_SDHCI_MSM=3Dy
+<br>+CONFIG_MMC_SPI=3Dy
+<br>+CONFIG_MMC_SDHI=3Dy
+<br>+CONFIG_MMC_UNIPHIER=3Dy
+<br>+CONFIG_MMC_DW=3Dy
+<br>+CONFIG_MMC_DW_EXYNOS=3Dy
+<br>+CONFIG_MMC_DW_HI3798CV200=3Dy
+<br>+CONFIG_MMC_DW_K3=3Dy
+<br>+CONFIG_MMC_DW_ROCKCHIP=3Dy
+<br>+CONFIG_MMC_SUNXI=3Dy
+<br>+CONFIG_MMC_BCM2835=3Dy
+<br>+CONFIG_MMC_SDHCI_XENON=3Dy
+<br>+CONFIG_NEW_LEDS=3Dy
+<br>+CONFIG_LEDS_CLASS=3Dy
+<br>+CONFIG_LEDS_GPIO=3Dy
+<br>+CONFIG_LEDS_PWM=3Dy
+<br>+CONFIG_LEDS_SYSCON=3Dy
+<br>+CONFIG_LEDS_TRIGGER_DISK=3Dy
+<br>+CONFIG_LEDS_TRIGGER_<wbr>HEARTBEAT=3Dy
+<br>+CONFIG_LEDS_TRIGGER_CPU=3Dy
+<br>+CONFIG_LEDS_TRIGGER_DEFAULT_<wbr>ON=3Dy
+<br>+CONFIG_LEDS_TRIGGER_PANIC=3Dy
+<br>+CONFIG_EDAC=3Dy
+<br>+CONFIG_EDAC_GHES=3Dy
+<br>+CONFIG_RTC_CLASS=3Dy
+<br>+CONFIG_RTC_DRV_MAX77686=3Dy
+<br>+CONFIG_RTC_DRV_RK808=3Dm
+<br>+CONFIG_RTC_DRV_RX8581=3Dm
+<br>+CONFIG_RTC_DRV_S5M=3Dy
+<br>+CONFIG_RTC_DRV_DS3232=3Dy
+<br>+CONFIG_RTC_DRV_EFI=3Dy
+<br>+CONFIG_RTC_DRV_CROS_EC=3Dy
+<br>+CONFIG_RTC_DRV_S3C=3Dy
+<br>+CONFIG_RTC_DRV_PL031=3Dy
+<br>+CONFIG_RTC_DRV_SUN6I=3Dy
+<br>+CONFIG_RTC_DRV_ARMADA38X=3Dy
+<br>+CONFIG_RTC_DRV_TEGRA=3Dy
+<br>+CONFIG_RTC_DRV_SNVS=3Dm
+<br>+CONFIG_RTC_DRV_IMX_SC=3Dm
+<br>+CONFIG_RTC_DRV_XGENE=3Dy
+<br>+CONFIG_DMADEVICES=3Dy
+<br>+CONFIG_DMA_BCM2835=3Dm
+<br>+CONFIG_DMA_SUN6I=3Dm
+<br>+CONFIG_FSL_EDMA=3Dy
+<br>+CONFIG_IMX_SDMA=3Dy
+<br>+CONFIG_K3_DMA=3Dy
+<br>+CONFIG_MV_XOR=3Dy
+<br>+CONFIG_MV_XOR_V2=3Dy
+<br>+CONFIG_PL330_DMA=3Dy
+<br>+CONFIG_TEGRA20_APB_DMA=3Dy
+<br>+CONFIG_QCOM_BAM_DMA=3Dy
+<br>+CONFIG_QCOM_HIDMA_MGMT=3Dy
+<br>+CONFIG_QCOM_HIDMA=3Dy
+<br>+CONFIG_RCAR_DMAC=3Dy
+<br>+CONFIG_RENESAS_USB_DMAC=3Dm
+<br>+CONFIG_UIO=3Dy
+<br>+CONFIG_UIO_IVSHMEM=3Dy
+<br>+CONFIG_VFIO=3Dy
+<br>+CONFIG_VFIO_PCI=3Dy
+<br>+CONFIG_VIRT_DRIVERS=3Dy
+<br>+CONFIG_JAILHOUSE_DBGCON=3Dy
+<br>+CONFIG_VIRTIO_PCI=3Dy
+<br>+CONFIG_VIRTIO_BALLOON=3Dy
+<br>+CONFIG_VIRTIO_MMIO=3Dy
+<br>+CONFIG_XEN_GNTDEV=3Dy
+<br>+CONFIG_XEN_GRANT_DEV_ALLOC=3Dy
+<br>+CONFIG_MFD_CROS_EC=3Dy
+<br>+CONFIG_CROS_EC_I2C=3Dy
+<br>+CONFIG_CROS_EC_SPI=3Dy
+<br>+CONFIG_COMMON_CLK_RK808=3Dy
+<br>+CONFIG_COMMON_CLK_SCPI=3Dy
+<br>+CONFIG_COMMON_CLK_CS2000_CP=3Dy
+<br>+CONFIG_COMMON_CLK_S2MPS11=3Dy
+<br>+CONFIG_CLK_QORIQ=3Dy
+<br>+CONFIG_COMMON_CLK_PWM=3Dy
+<br>+CONFIG_CLK_RASPBERRYPI=3Dm
+<br>+CONFIG_CLK_IMX8MM=3Dy
+<br>+CONFIG_CLK_IMX8MN=3Dy
+<br>+CONFIG_CLK_IMX8MQ=3Dy
+<br>+CONFIG_CLK_IMX8QXP=3Dy
+<br>+CONFIG_TI_SCI_CLK=3Dy
+<br>+CONFIG_COMMON_CLK_QCOM=3Dy
+<br>+CONFIG_QCOM_A53PLL=3Dy
+<br>+CONFIG_QCOM_CLK_APCS_MSM8916=3D<wbr>y
+<br>+CONFIG_QCOM_CLK_SMD_RPM=3Dy
+<br>+CONFIG_QCOM_CLK_RPMH=3Dy
+<br>+CONFIG_IPQ_GCC_8074=3Dy
+<br>+CONFIG_MSM_GCC_8916=3Dy
+<br>+CONFIG_MSM_GCC_8994=3Dy
+<br>+CONFIG_MSM_MMCC_8996=3Dy
+<br>+CONFIG_MSM_GCC_8998=3Dy
+<br>+CONFIG_QCS_GCC_404=3Dy
+<br>+CONFIG_SDM_GCC_845=3Dy
+<br>+CONFIG_SM_GCC_8150=3Dy
+<br>+CONFIG_HWSPINLOCK=3Dy
+<br>+CONFIG_HWSPINLOCK_QCOM=3Dy
+<br>+CONFIG_ARM_MHU=3Dy
+<br>+CONFIG_IMX_MBOX=3Dy
+<br>+CONFIG_PLATFORM_MHU=3Dy
+<br>+CONFIG_BCM2835_MBOX=3Dy
+<br>+CONFIG_QCOM_APCS_IPC=3Dy
+<br>+CONFIG_ROCKCHIP_IOMMU=3Dy
+<br>+CONFIG_TEGRA_IOMMU_SMMU=3Dy
+<br>+CONFIG_ARM_SMMU=3Dy
+<br>+CONFIG_ARM_SMMU_V3=3Dy
+<br>+CONFIG_QCOM_IOMMU=3Dy
+<br>+CONFIG_REMOTEPROC=3Dy
+<br>+CONFIG_QCOM_Q6V5_MSS=3Dm
+<br>+CONFIG_QCOM_Q6V5_PAS=3Dm
+<br>+CONFIG_QCOM_SYSMON=3Dm
+<br>+CONFIG_RPMSG_QCOM_GLINK_RPM=3Dy
+<br>+CONFIG_RPMSG_QCOM_GLINK_SMEM=3D<wbr>m
+<br>+CONFIG_RPMSG_QCOM_SMD=3Dy
+<br>+CONFIG_RASPBERRYPI_POWER=3Dy
+<br>+CONFIG_IMX_SCU_SOC=3Dy
+<br>+CONFIG_QCOM_GENI_SE=3Dy
+<br>+CONFIG_QCOM_GLINK_SSR=3Dm
+<br>+CONFIG_QCOM_RPMH=3Dy
+<br>+CONFIG_QCOM_SMEM=3Dy
+<br>+CONFIG_QCOM_SMD_RPM=3Dy
+<br>+CONFIG_QCOM_SMP2P=3Dy
+<br>+CONFIG_QCOM_SMSM=3Dy
+<br>+CONFIG_ARCH_R8A774A1=3Dy
+<br>+CONFIG_ARCH_R8A774C0=3Dy
+<br>+CONFIG_ARCH_R8A7795=3Dy
+<br>+CONFIG_ARCH_R8A7796=3Dy
+<br>+CONFIG_ARCH_R8A77965=3Dy
+<br>+CONFIG_ARCH_R8A77970=3Dy
+<br>+CONFIG_ARCH_R8A77980=3Dy
+<br>+CONFIG_ARCH_R8A77990=3Dy
+<br>+CONFIG_ARCH_R8A77995=3Dy
+<br>+CONFIG_ROCKCHIP_PM_DOMAINS=3Dy
+<br>+CONFIG_ARCH_TEGRA_132_SOC=3Dy
+<br>+CONFIG_ARCH_TEGRA_210_SOC=3Dy
+<br>+CONFIG_ARCH_TEGRA_186_SOC=3Dy
+<br>+CONFIG_ARCH_TEGRA_194_SOC=3Dy
+<br>+CONFIG_ARCH_K3_AM6_SOC=3Dy
+<br>+CONFIG_ARCH_K3_J721E_SOC=3Dy
+<br>+CONFIG_TI_SCI_PM_DOMAINS=3Dy
+<br>+CONFIG_EXTCON_USB_GPIO=3Dy
+<br>+CONFIG_EXTCON_USBC_CROS_EC=3Dy
+<br>+CONFIG_MEMORY=3Dy
+<br>+CONFIG_IIO=3Dy
+<br>+CONFIG_EXYNOS_ADC=3Dy
+<br>+CONFIG_ROCKCHIP_SARADC=3Dm
+<br>+CONFIG_IIO_CROS_EC_SENSORS_<wbr>CORE=3Dm
+<br>+CONFIG_IIO_CROS_EC_SENSORS=3Dm
+<br>+CONFIG_IIO_CROS_EC_LIGHT_<wbr>PROX=3Dm
+<br>+CONFIG_SENSORS_ISL29018=3Dm
+<br>+CONFIG_IIO_CROS_EC_BARO=3Dm
+<br>+CONFIG_MPL3115=3Dm
+<br>+CONFIG_PWM=3Dy
+<br>+CONFIG_PWM_BCM2835=3Dm
+<br>+CONFIG_PWM_CROS_EC=3Dm
+<br>+CONFIG_PWM_MESON=3Dm
+<br>+CONFIG_PWM_RCAR=3Dm
+<br>+CONFIG_PWM_ROCKCHIP=3Dy
+<br>+CONFIG_PWM_SAMSUNG=3Dy
+<br>+CONFIG_PWM_SUN4I=3Dm
+<br>+CONFIG_PWM_TEGRA=3Dm
+<br>+CONFIG_RESET_TI_SCI=3Dy
+<br>+CONFIG_PHY_XGENE=3Dy
+<br>+CONFIG_PHY_SUN4I_USB=3Dy
+<br>+CONFIG_PHY_HI6220_USB=3Dy
+<br>+CONFIG_PHY_HISTB_COMBPHY=3Dy
+<br>+CONFIG_PHY_HISI_INNO_USB2=3Dy
+<br>+CONFIG_PHY_MVEBU_CP110_<wbr>COMPHY=3Dy
+<br>+CONFIG_PHY_QCOM_QMP=3Dm
+<br>+CONFIG_PHY_QCOM_QUSB2=3Dm
+<br>+CONFIG_PHY_QCOM_USB_HS=3Dy
+<br>+CONFIG_PHY_RCAR_GEN3_PCIE=3Dy
+<br>+CONFIG_PHY_RCAR_GEN3_USB2=3Dy
+<br>+CONFIG_PHY_RCAR_GEN3_USB3=3Dm
+<br>+CONFIG_PHY_ROCKCHIP_EMMC=3Dy
+<br>+CONFIG_PHY_ROCKCHIP_INNO_<wbr>HDMI=3Dm
+<br>+CONFIG_PHY_ROCKCHIP_INNO_<wbr>USB2=3Dy
+<br>+CONFIG_PHY_ROCKCHIP_PCIE=3Dm
+<br>+CONFIG_PHY_ROCKCHIP_TYPEC=3Dy
+<br>+CONFIG_PHY_UNIPHIER_USB2=3Dy
+<br>+CONFIG_PHY_UNIPHIER_USB3=3Dy
+<br>+CONFIG_PHY_TEGRA_XUSB=3Dy
+<br>+CONFIG_FSL_IMX8_DDR_PMU=3Dm
+<br>+CONFIG_HISI_PMU=3Dy
+<br>+CONFIG_QCOM_L2_PMU=3Dy
+<br>+CONFIG_QCOM_L3_PMU=3Dy
+<br>+CONFIG_NVMEM_IMX_OCOTP=3Dy
+<br>+CONFIG_NVMEM_IMX_OCOTP_SCU=3Dy
+<br>+CONFIG_QCOM_QFPROM=3Dy
+<br>+CONFIG_ROCKCHIP_EFUSE=3Dy
+<br>+CONFIG_NVMEM_SUNXI_SID=3Dy
+<br>+CONFIG_UNIPHIER_EFUSE=3Dy
+<br>+CONFIG_MESON_EFUSE=3Dm
+<br>+CONFIG_FPGA=3Dy
+<br>+CONFIG_FPGA_MGR_STRATIX10_<wbr>SOC=3Dm
+<br>+CONFIG_FPGA_BRIDGE=3Dm
+<br>+CONFIG_ALTERA_FREEZE_BRIDGE=3Dm
+<br>+CONFIG_FPGA_REGION=3Dm
+<br>+CONFIG_OF_FPGA_REGION=3Dm
+<br>+CONFIG_TEE=3Dy
+<br>+CONFIG_OPTEE=3Dy
+<br>+CONFIG_EXT2_FS=3Dy
+<br>+CONFIG_EXT3_FS=3Dy
+<br>+CONFIG_EXT4_FS_POSIX_ACL=3Dy
+<br>+CONFIG_BTRFS_FS=3Dm
+<br>+CONFIG_BTRFS_FS_POSIX_ACL=3Dy
+<br>+CONFIG_FANOTIFY=3Dy
+<br>+CONFIG_FANOTIFY_ACCESS_<wbr>PERMISSIONS=3Dy
+<br>+CONFIG_QUOTA=3Dy
+<br>+CONFIG_AUTOFS4_FS=3Dy
+<br>+CONFIG_FUSE_FS=3Dm
+<br>+CONFIG_CUSE=3Dm
+<br>+CONFIG_OVERLAY_FS=3Dm
+<br>+CONFIG_VFAT_FS=3Dy
+<br>+CONFIG_HUGETLBFS=3Dy
+<br>+CONFIG_CONFIGFS_FS=3Dy
+<br>+CONFIG_EFIVAR_FS=3Dy
+<br>+CONFIG_SQUASHFS=3Dy
+<br>+CONFIG_NFS_FS=3Dy
+<br>+CONFIG_NFS_V4=3Dy
+<br>+CONFIG_NFS_V4_1=3Dy
+<br>+CONFIG_NFS_V4_2=3Dy
+<br>+CONFIG_ROOT_NFS=3Dy
+<br>+CONFIG_9P_FS=3Dy
+<br>+CONFIG_NLS_CODEPAGE_437=3Dy
+<br>+CONFIG_NLS_ISO8859_1=3Dy
+<br>+CONFIG_SECURITY=3Dy
+<br>+CONFIG_CRYPTO_ECHAINIV=3Dy
+<br>+CONFIG_CRYPTO_ANSI_CPRNG=3Dy
+<br>+CONFIG_CMA_SIZE_MBYTES=3D32
+<br>+CONFIG_PRINTK_TIME=3Dy
+<br>+CONFIG_DEBUG_INFO=3Dy
+<br>+CONFIG_DEBUG_FS=3Dy
+<br>+CONFIG_MAGIC_SYSRQ=3Dy
+<br>+CONFIG_DEBUG_KERNEL=3Dy
+<br>+# CONFIG_SCHED_DEBUG is not set
+<br>+# CONFIG_DEBUG_PREEMPT is not set
+<br>+# CONFIG_FTRACE is not set
+<br>+CONFIG_MEMTEST=3Dy
+<br>diff --git a/recipes-kernel/linux/linux-<wbr>jailhouse_5.4.inc b/recipe=
+s-kernel/linux/linux-<wbr>jailhouse_5.4.inc
+<br>index a9e75a8..6dbf2a4 100644
+<br>--- a/recipes-kernel/linux/linux-<wbr>jailhouse_5.4.inc
+<br>+++ b/recipes-kernel/linux/linux-<wbr>jailhouse_5.4.inc
+<br>@@ -13,6 +13,7 @@ require recipes-kernel/linux/linux-<wbr>custom.inc
+<br>=C2=A0
+<br>=C2=A0KERNEL_DEFCONFIG =3D &quot;${DISTRO_ARCH}_defconfig_5.4&quot;
+<br>=C2=A0KERNEL_DEFCONFIG_orangepi-<wbr>zero =3D &quot;orangepi-zero_defco=
+nfig_5.4&quot;
+<br>+KERNEL_DEFCONFIG_pine64-plus =3D &quot;pine64-plus_defconfig_5.4&quot;
+<br>=C2=A0KERNEL_DEFCONFIG_rpi4 =3D &quot;rpi4_defconfig_5.4&quot;
+<br>=C2=A0
+<br>=C2=A0SRC_URI +=3D &quot; \
+<br>--=20
+<br>2.17.1
+<br>
+<br></blockquote></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/c7f6f5ec-ce46-4071-9a83-a9710ca4327a%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/c7f6f5ec-ce46-4071-9a83-a9710ca4327a%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_3034_625022493.1581602460045--
+
+------=_Part_3033_1919838320.1581602460044--
