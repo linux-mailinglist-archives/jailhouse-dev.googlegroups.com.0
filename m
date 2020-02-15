@@ -1,33 +1,33 @@
 Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBOWLT7ZAKGQETJ2ARAA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x53c.google.com (mail-ed1-x53c.google.com [IPv6:2a00:1450:4864:20::53c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F54C15FE6F
+Received: from mail-wr1-x43f.google.com (mail-wr1-x43f.google.com [IPv6:2a00:1450:4864:20::43f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B28C15FE6E
 	for <lists+jailhouse-dev@lfdr.de>; Sat, 15 Feb 2020 13:36:11 +0100 (CET)
-Received: by mail-ed1-x53c.google.com with SMTP id m21sf9637350edp.14
+Received: by mail-wr1-x43f.google.com with SMTP id r1sf5641905wrc.15
         for <lists+jailhouse-dev@lfdr.de>; Sat, 15 Feb 2020 04:36:11 -0800 (PST)
 ARC-Seal: i=2; a=rsa-sha256; t=1581770171; cv=pass;
         d=google.com; s=arc-20160816;
-        b=yHC0/YVOBJmjMjZasMzGxv2iS+p6FyzjOJeXNQNMdFaS7wLgAv077f+nwO8s7F5AKj
-         Auvk9sDql5gqeGAC6lIT3Kw9UGCFY1Sp24UOpY60RPx9Zx/wIsq99PU4w6nVwyKqNiZy
-         KDGndE7DFPp57ggUv+oWe4thEO4It6c+EGb0xhx/iXD/ZU/2c0e5nNvotF2hxzoohfjk
-         IOv1yxX/JD2T6IbheDkyITpMyXpdY6gIMmVjunEPiNzhmpvaBwpscZquwyFmJbGZ9iQs
-         Gp5Kwcf/C7QtTkV+AhKIIAzuolezlCrZm3Hihp71fUlQACpsIBSUrRXGI5eMPMX4C/YQ
-         8WJQ==
+        b=TyHYxRbipTRaG+K3i+i5SBK1W/mLuePAdQhPkQ51T7bpn5kf+6rpIp/I1NRSaZwBOo
+         nyewke5/slQC5UCmKZbD/RAHGYxSJXS/n98zi4CGtlfhk431o9uLlQEgDZKKdBCmzjvX
+         3ZeF+gg3TK9th8W2zdew4GH4yB1xt8UzE/Bg+RkCQQYqWh0YCdNd/di/XgGjFF35yvTZ
+         oJtf7tPvArJv7LkBGA9fG4uUb2LCD1zg5vHASiismxNEAxdWedbEZ0G0KMoa3yUHdAe0
+         dQDMCnQwfBpxsdSddqvT4qSPKVsGyq5AL/MUcJORQYX6Rv6+8C5J+Xr0hbIR9/yJWgpO
+         h9Yg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:references:in-reply-to:references
          :in-reply-to:message-id:date:subject:to:from:mime-version:sender
          :dkim-signature;
-        bh=Nw0KQeVWvaoo6nSy+qCiPlmn4ghaeM55+G9bhsj6sEU=;
-        b=J+a4pOYew7TN0hrjQ5AW4GGfF3uFZQZsbOmqCWNWb9LTXUCsNGMMbxBRdJmu4d2pJ9
-         hkuAugGQ1Q0RaN4ekV4t5HkE3NY6c+NbwZ7zoHudRKbEhuF62pwrivs25T2DrN8V3XeA
-         TrhJvjZMET/qk9+iacESw6HyllvWNlMwejAr6XWHujsVKpiY6AJdjdNj890ozqDEnRMD
-         RhbkzAzOcnAzroaUcMVKZDXuP7gvWgBKLz29rGzNH3S7tdjb58hoOGy2MHFyS/fRDq+P
-         KAZdh1tklGv3AjR+LSpFEPDkB8NlZcxAJ8nD9++qOU2kXoalfynWbiXQuQknrVbXaRPk
-         jQnQ==
+        bh=jMIgBwxwpSVfoIuSNUXpZu64x7Gm1pujAM5qIwjx3xI=;
+        b=s5/DndhHxSGVYSwA+hInrPJbFuq4RcYCsiwtGLyw34o6iG3W1D9fhkOtk5lYUHYRv9
+         0UohwD/f7O1DsOebA1RmrEzw7spSQWQOZT/2veThy0UekrySlAIduMvOjjbsEqeFnAuj
+         DeKVxAQuAwHVfRnrvE0eDp23EqE9mF3vEVpLVaAdqaMqKzdkCt12AeIHTlGgAWPr9Ucu
+         0X1v5ZAEy3rdniNzgtlqMWxfmXjfdn/s5PnCD3Umb/zciIsoHgSf+Q3GZetkHQx3Gqqu
+         zbJsTTE3M7iLnZo2TGaLXoRsBzUlfTohViI0/Q1MUJTPBRSS71g6ksr3naZTjkrIaDyI
+         0S+g==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b="m1fGh/8i";
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=quB6BT+c;
        spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:in-reply-to:references:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=Nw0KQeVWvaoo6nSy+qCiPlmn4ghaeM55+G9bhsj6sEU=;
-        b=blH4O1e72WxwdTvM8wsAKRJyiw5B2cMnC4U6SVdgh6GyFBCicy1R+WNbh2Q8lLwhsg
-         GSEAzUYGIcRYQI3EMFmGAF/jv3UVUr9VwoK6EEthPyJrAtEO8Ijqk1QsWJ7RtSboUHv2
-         CMCr90mqeISevuLYe/+bP27IrrcFa7z7rhsAVkNc5BvKoHspm0TuYZnYc/FcXaNm3dQK
-         PQtVwYa8/huwaY3Gpu7rjLVnBC3JtiSzbKis3o5nSrdWBlBNJuH/hnIacl6A2+MVVHnQ
-         bBpjBu+iOSpfgE59IiJXkaKtYdRh69Hq66vHcWnhM84ZWbYzAkDkCDrDYEaKRmZz5U9d
-         NtNw==
+        bh=jMIgBwxwpSVfoIuSNUXpZu64x7Gm1pujAM5qIwjx3xI=;
+        b=Vr+/xPfTCpX2OenlSZ0J4O1lR5C2D+DSMUtedKf8Ui+x2PCmF6a02QobWrcub8Iv79
+         1U8KJwUjKU6Ha0Osfdq7bgTU81kXAVRdIAXXEvoWnlDhVNLGYUIxMcBR+JbjIUNuWOtC
+         Zy/K6bNZsBF7jbUE0kRYImRpknYmN3dPhEHV9ruVZdqDFSYb7/ahkR2oq99cZhiA1HTR
+         g8d7cyKYyX1odlReaYS5fL+WRZey0n+09+rE0wLjQl5/G+d4KG6PrKHdvbsPtuQEgD1n
+         7dczRBHMXGSP+c3VMo84IKYzIT66wbOApHCk9BioN+5U6BX2of6otzMDnCZHTWjTXnUF
+         iXxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:mime-version:from:to:subject:date
@@ -49,48 +49,48 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=Nw0KQeVWvaoo6nSy+qCiPlmn4ghaeM55+G9bhsj6sEU=;
-        b=uHx1HEwCTd8YbQHWicCJmjR/lR5ely4dYG7i3D91jlA4Hthyo00zo7C9nfTzv1bO1j
-         hDv9qUrvzSRzyVOUj7ONmQeyYBr2zR6eDHFofnrZWSTs+LEIggvHSOZMHABh4L7AEhsv
-         0uXGFmK2QFDGZyB6bU0C+B+BkVLsW6o+gUYxEhuH1pjuGlX8IPIL3CFVsZECqAECFShu
-         R+Ynt8cOlSLexheoZwWQp0VIZYG071BrVkmqOWat+2pVZDiHxXWMcdxf705LuwF8PSRx
-         AgXgFiWJiV5bMMnhf3cmBTBx1tPDiOgDb3fmPMDGStwJ/YXy27kVWgT46VcxWtOT7oH3
-         wRmA==
+        bh=jMIgBwxwpSVfoIuSNUXpZu64x7Gm1pujAM5qIwjx3xI=;
+        b=nUTULogcH+mYp3CNuF2+0q9EezJYBuzw52ywgoo4/JQQTQhOIOadTdhgCT2jthHkH5
+         kYNyF5h1WL87dD+dB/zs81bMTtoip3idJGEON72mH8xjRBY4ZXYWSAu9iHKdry0yQa9B
+         BVqwuu18nlSQcuFrBP5lR+YNv59QeKUUOVsmQIO+LCKTZuv1LW5lUEugxLFaHytguDbV
+         IVcTRrRsjleAZZ+YrXckUH4rTOw5KPo2gtv6MRZGsO3u/qZrIuZp+GtGAhZS7CbwdDA9
+         yNxJ5sUQrousU4pjVS7PWTJiAO4gOzkr9pTU5H+41AO0bKfLbu/4DXj3gAdx+SheaHLl
+         5Zww==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAVFSl1qBF9UMQJvvPdzMKCNe0Ru/4A253cOhP/irh9yya7X0Jss
-	AqslSeLX3tYzuG8QUbrXedk=
-X-Google-Smtp-Source: APXvYqyRIHrF/W3s7jJBOwLDY6xBF/veanZNNaGRqeogZ8oEaGLNgCbB5fzNqEyN2XgyFhQd6W43zw==
-X-Received: by 2002:a17:906:c444:: with SMTP id ck4mr7231411ejb.224.1581770170957;
-        Sat, 15 Feb 2020 04:36:10 -0800 (PST)
+X-Gm-Message-State: APjAAAXJq+DARNRa0xiRMI84GPxFyUpzLfXuF1Wpuz73m92cjgGoISFs
+	yrulyFvT+A9KR+to2zKy0Bc=
+X-Google-Smtp-Source: APXvYqx0QFSW9v9WoCl8kdgcjhoxP6/vgLp9TfsPXZenNUTD4Rsb1FyLpIEAJe5UgXHu9FU8a9op5A==
+X-Received: by 2002:a5d:6390:: with SMTP id p16mr10491916wru.170.1581770171000;
+        Sat, 15 Feb 2020 04:36:11 -0800 (PST)
 MIME-Version: 1.0
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:e20e:: with SMTP id gf14ls1786999ejb.10.gmail; Sat,
+Received: by 2002:a7b:c452:: with SMTP id l18ls3016304wmi.1.canary-gmail; Sat,
  15 Feb 2020 04:36:10 -0800 (PST)
-X-Received: by 2002:a17:907:10d7:: with SMTP id rv23mr7405027ejb.38.1581770170371;
+X-Received: by 2002:a1c:9e13:: with SMTP id h19mr11094847wme.21.1581770170459;
         Sat, 15 Feb 2020 04:36:10 -0800 (PST)
 ARC-Seal: i=1; a=rsa-sha256; t=1581770170; cv=none;
         d=google.com; s=arc-20160816;
-        b=NCZl5tRMCHTG7LZQ7mrx55Waug9hknWWr9TYvKYWQ74P4FS9RG1Nbh+hKfHgphT83f
-         AHwv47Q+2qy3PyDlVDGWcrTVks7BLV7zIYoWD19CaOJKuQHwoPL8RbUc0IhTDQKswm4q
-         oxc09qWkRHK6Be/RvcaSTTW+33zR4cj08c9BuMhsFPKwDHIY0wfruTnbA8LC4fv+PqJO
-         BMmo7mL178SSKewL20wtQeIRRccGCP2FV6pE9lVx78zSx3XlBGkUjGmDYniko01TP8sv
-         KF0/RW9QxeAPPlEw73UGvNhKNvUxYLEoVZORQ+OPYs+SfxYYbT5AOpqKh1lNnfPShjuD
-         9WLg==
+        b=F5D/CFQbM8Qk7u4u9l5fZurkzIvaer+zUDXF+POXjwMgCYLClnHnVG3tyhdBbcpImQ
+         OPsvVVpkcUKE+gyZ1aoeD2l7o6jBsn+FOxGdu3y1jcpfixJRHoi7ioml2S/y35ED+Jc4
+         tRbayqxCxUxmCIuwRvimx1Osg+4xIu5atw+vIA2Bc+cOutYP8riVWfxucJVa48gO+zso
+         zVluvcuESXBVaXt/9obp9Vo5MFlBpS5378WlGuWHqjppucasNITqctojRdRQy2sXlITy
+         WZnYutsez2JuPeWMlKM1prz0adTSpxHGIPPuOI9e/jX/Ej7yYQ1Fr4tQ1mMJeJ5UgseX
+         8quA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:references:in-reply-to:references
          :in-reply-to:message-id:date:subject:to:from:dkim-signature;
-        bh=NnyPlxdFkHTVyYjwWtDhpoZYXdbEsACUeLxI5+ywZXQ=;
-        b=wFmXB0PNG5IQKpgPC1jFFGiuTbBCHHhQAoWxMQNNtv9V+or9kAkwujjya5T3DZz6zy
-         igAbRdOb21KctZbViUJoCpvO8UU9XsHfDISA8T2ImXvqOe9KrOeIrUZqe9eInsjeb6c6
-         j6CLzBJe1ddGMR1AyZQqp4CxVUTRQsIp/6oWPqlDv+MiQa1sl8WaMXbv7Ik4x75qmYKH
-         nh9U45zgxPLB2s+IPZP6BJmIDlzy1tRclrxxlMUIioWKdrTLK2ESEV7Lo3MXPeVYZk26
-         7HHx2eOFESF1Ok9gJwQGQg9HSM67z10KbmDzw0sKIZUKF+OAZuPQRBbFU+mjU4C4epfO
-         XHLw==
+        bh=6EfTzLZZUxkLYYn6PWqPKORDHGsPamyVsjA7Q/FSJY8=;
+        b=CF6+lJ3zKvhnD2qK7V+Q5Kf6DfhhUq27UfFCqZVost3QgrAFY9CUdp5CDcW6WnB215
+         2j4K5eXoJU5yVlnTUOV8HUGdBur9na1TiA44iAh0CZqi0tjOUltXrIhRvP6zPPASU/j9
+         3fMz6cB93ZDbahJ98ZlXKASlyjKjyQv6rDCr66HvxeOwxfbnNgHR+zM1WmM+uAGE/1dO
+         H0yOO6K5MOfxlnukgah+ZzqU/DGUiBSuWeerk33vs8DelUYd5VLwn83IzU9uB5O+GkgO
+         m1GZDj4KGV5G6pJXrEIukojvBGZbC8RKyxlqkq8fGhp6OuoIAsYPRMXHl+KicZ0DNgfy
+         p5xg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b="m1fGh/8i";
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=quB6BT+c;
        spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 Received: from mout.web.de (mout.web.de. [212.227.15.3])
-        by gmr-mx.google.com with ESMTPS id z20si409674ejx.1.2020.02.15.04.36.10
+        by gmr-mx.google.com with ESMTPS id d191si287418wmd.2.2020.02.15.04.36.10
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sat, 15 Feb 2020 04:36:10 -0800 (PST)
@@ -98,45 +98,45 @@ Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.1
 X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
 Received: from md1f2u6c.ww002.siemens.net ([95.157.55.156]) by smtp.web.de
  (mrweb002 [213.165.67.108]) with ESMTPSA (Nemesis) id
- 0LfAfQ-1jrOZV3VUG-00orHM for <jailhouse-dev@googlegroups.com>; Sat, 15 Feb
- 2020 13:36:09 +0100
+ 0MMWA2-1j7v1D4AXO-008Kz8 for <jailhouse-dev@googlegroups.com>; Sat, 15 Feb
+ 2020 13:36:10 +0100
 From: Jan Kiszka <jan.kiszka@web.de>
 To: jailhouse-dev@googlegroups.com
-Subject: [PATCH 04/12] core: Remove DEFINE_SPINLOCK abstraction
-Date: Sat, 15 Feb 2020 13:35:56 +0100
-Message-Id: <fb099cc16bdc03fc20a0b7f41bb88d998f63745b.1581770164.git.jan.kiszka@web.de>
+Subject: [PATCH 05/12] x86: Remove no longer needed include from asm/cell.h
+Date: Sat, 15 Feb 2020 13:35:57 +0100
+Message-Id: <63c63da94657899e809416c1a56493e8ecc9507d.1581770164.git.jan.kiszka@web.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <cover.1581770164.git.jan.kiszka@web.de>
 References: <cover.1581770164.git.jan.kiszka@web.de>
 In-Reply-To: <cover.1581770164.git.jan.kiszka@web.de>
 References: <cover.1581770164.git.jan.kiszka@web.de>
-X-Provags-ID: V03:K1:lrFkl6lIqfMJ/4zjJ9Af+LBDUM0+N8blqkOXTzoOv5De4675BYN
- gYzFm8AffgoPIqb41t6K3gnCxS2ZKbUV8yaA7FA6HQPfER05XsSTXhL/br0avTjC+ON2X/Q
- p3yhLVoUP8bWsV9oIlVUeGqHZvLccHR29p1BM6gm44Xq0oyeWRh141ECdUXoi1tRQ1lPnE0
- qLQHhudKaVbOyVvk961VA==
+X-Provags-ID: V03:K1:xh+MqUjFviSfSLad0nOvlhOkqa65FOa4ulQyIwCgaEgfhZC7OtM
+ Tk8suftsAwrVrpi9/2Ez+3NeGgsARrXe5veEzx3aZEAqRSYjq6WmT4mJUkruLmja4yLvpFm
+ LdjQECboBEe86QxrKW+LRBo5n+2Fc9XpOYTkFjyuGowhnf1h24lYh9d3FwSjk3QR31nip8/
+ I3zmidLp059qdwAscYEYg==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:uqvcse11zVg=:8HSvGHBY+or3R2iY/C6RGD
- oihKwLC7wwVBVLAzDqxU1q0gteNQApoJyt7PRtB0h7XsUnDqmA15DT02TE+seu6Ky7Gcl6OJ7
- V4pZzGvJnKUoLCuScs3L7cD51Nq8tPTz4RjoArJbhANQOOErVMKon4pl7x9sh2MFgedg0oiJ4
- 8/UUU8smtHkicWaE5+b3B2WHDc9PTt+ZogEMJh9RsKwxenMo+HHrh3gbVoFGg3LCTlClZYnlP
- EfXaMwA23/sR348k+e8D3P9+mXdr1hreEYbcNlbYogwnUJZclmIHwCil9RnqCk1kBYbQlTGx7
- Ejrz5dv3PyvM3frYa7KC+FOAWxZ2bmBgYUVIsbtUEmH3nyM+GsTtzwYxDc4PNvXYXHpVi5dQE
- P9/xy9Ho8oBJ7z9MeE+TLQAAIIKIbzpJMTk0hx9WuOlq7S5JO5tpFonvBeXDrLS2fecg8ATHK
- bOlmg+0Lfc0XWNHbyK73Zuq1d8iCmPHjO3hj/oi2cNKd1DOCM4rnsqddS7jXnKTOwl34YAQje
- s0XUNSEYlbcIFOAFPPCS8E/M4Doi4YykR1tidyVapeG0WL9J4Sb8ms9aAdkq3Ek4mdZucmycr
- L/CLbXotXu4rYUEFVklGW7/Ag+d99M0d8oLiHpCekjRuyW2iiCu5/WB8gTT6fSkptir9isfU8
- vdFLfclKLSXQa1BJHjzGWxeA5RoDi4ZfljmkfUDZOKx5BMoGdIdfUc3MJHYa57QQiFT/Mf0fw
- O6/8Te2sqFxAOTP4vxXL1tTwh2qitm5KfP/xmYWorE82CLky8nYKZfPzMuvkvvBgftsiOvInT
- fIJlha5+zf3dnuEEZWozDQGKUyfhajr9bmTKnFz9jYz2uREwT2GYwVExm1jjpqNDLzAm7cMzt
- 97AsYdzFkfR2iGHsqh5q81EAAWHHXksH3lq+O7GQ7p4X9znc/MnNbdNMyL/VLhy4nj2Dtp2ml
- FPvgr4W5D5hsAfHi5OXd/wNafthRKqQGBsw71p4B7bvjfvHA6mvZ/IAqBvIy94fI5T7tmNS75
- pLfpRXTLu4JIeXLELx1CZ/K+YMEdpawQutX3EakPtA9DI6Qo+XnPwBGCXczC5sD6fyVOsAhvv
- SnWp60Q3KT/5ZL8LD08ffAVNttykbb8IMn/bmaypUPVwPoc9TekPQ6kNxMftsdQ//Elzfyb99
- jsaz5wMc0e6/KsH2UaD5ZndeYKCtx6xxkNtVCnQje5dPvnX05bfqLkFeoTx44tYf/iJiTywxZ
- GLYGsPQbaaIirkyYU
+X-UI-Out-Filterresults: notjunk:1;V03:K0:sGkfzlRvdpk=:yMnzkFbWxGl6E5+9sgTsHs
+ VwD2iDDRy6YS9wVXmSsIWAUvbuzCM/pfp8fYxreWpswzE7PqzmyPblzVzQR4b6BSo/pPXhsdY
+ PvkUz/bLg9j3Wqu7jumPJZ01IEBpJa9PW3mag8v8i2Hl8cypqzVxbzHZQ5nS1sEe/KvF6F5Ix
+ wWKKU+/iJKJurYPIVZ4V95KWvkXDbjdJOPD7ffra1QAFyHUZen47GoquxfFuj5jccP3fzVTtg
+ Nsem05SNz16RXbnFs0wAw0A4qetyRdmbU0VOkrUfothKL9dB8fBo4I/X4shvRi/AxdRQfy9UE
+ sVy+fs/Jbjl9+auIRm400HCjYn1kQNOfSlBrMA0ubwiLuKvSLmPsAJinDY4ghs7L/M/JoY7mQ
+ 6PhTdbjo76LAIaIJFI2NN/iWBoqquuHIbAn2X0PXH5KRSbRy1VI86iK8khRcplRaRHhWxG15Z
+ sRBJzV7FsO5+KPIA3fPLSvrNxYL5fFLrBXNN1RTdlY6hnJDr1OJ4cYkd8cxDXoDOxlS3NlnJ5
+ uNnErxpESdzQ2Eq+Rfz2oKLwDcaWjElP8sQ9Tr5TjS3SWwJhd4tDFoT5SrKQFQ99Xmx0m+yMQ
+ d7q2AMNiWwJAPSwjX1VqLEK5QGQSqBskJcx2HXO4HUK42IDAOotBphvPSTJTyxWvf5z80TgG4
+ zS1+a1IFCzsoXMnAuQHHfpjQUSi4JGLqKyVlYk16npLqRD8Iijoai5rE2xt/xQmTwpxSy18Nx
+ j02RjyfjU3y2YKI2/PVWIfm2o2gk2+ObR4I2WSPIO2Y2+M2oY7avKVWZsrKIvMbGjRlXITmDC
+ zhlaDJazN6Vyz2MR0BUv2CDeycCjW4tBahlqhwfG6B0A0GyNPZ+WpH4DeUz9k0llH4v5APGPW
+ /7lhpQrjR1fBTaT2cSW8mUPcwq0LlZmFPa4WveYRSfISKiOJG0//wwYv/Uj35StC+Lilr7oti
+ D4/51qRGimBuRcHJTSkepAf0fj5D7v86xnGRv3sueRi1JGYYk+A7wpbneR+7S6BYJVsi/Qk+V
+ jzsOwgl6ksxmT53YVAcXAJc2J2CutxL6hXhyN0gQvE9pVR3gjuV/n2/eeLtiGpUJWFYijK7/C
+ ZG3eWF1uBtmRNzhLc1K+7fKEePg1sqO6z01VaAAVnR2nIWYVM0OobbJ0cuEHBaXjRR/DeuFKm
+ MpiUSv2Ud3M6tFHDwU7uHQC9bvAvftZF9EH/0TjyTgiG/EvoXOgSxIsznOFuvGIUi72dSdfpz
+ hZtdnFxVvolyXEyJ4
 X-Original-Sender: jan.kiszka@web.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b="m1fGh/8i";       spf=pass
+ header.i=@web.de header.s=dbaedf251592 header.b=quB6BT+c;       spf=pass
  (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted
  sender) smtp.mailfrom=jan.kiszka@web.de
 Content-Type: text/plain; charset="UTF-8"
@@ -154,169 +154,30 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-It's highly unlikely that we will meet an arch that needs a non-zero
-init value for its spinlocks or has any other use case for this
-abstraction. So remove it.
+This became obsolete with 018f4afa844b.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- Documentation/Doxyfile                       | 1 -
- hypervisor/arch/arm-common/irqchip.c         | 2 +-
- hypervisor/arch/arm/include/asm/spinlock.h   | 1 -
- hypervisor/arch/arm/mmu_hyp.c                | 2 +-
- hypervisor/arch/arm64/include/asm/spinlock.h | 1 -
- hypervisor/arch/x86/include/asm/spinlock.h   | 2 --
- hypervisor/arch/x86/pci.c                    | 2 +-
- hypervisor/arch/x86/vtd.c                    | 2 +-
- hypervisor/control.c                         | 2 +-
- hypervisor/printk.c                          | 2 +-
- hypervisor/setup.c                           | 2 +-
- 11 files changed, 7 insertions(+), 12 deletions(-)
+ hypervisor/arch/x86/include/asm/cell.h | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/Documentation/Doxyfile b/Documentation/Doxyfile
-index 7398fb9f..d7e76859 100644
---- a/Documentation/Doxyfile
-+++ b/Documentation/Doxyfile
-@@ -264,7 +264,6 @@ INCLUDE_FILE_PATTERNS  =
- PREDEFINED             = \
- 	DOXYGEN_CPP \
- 	__attribute__(x)= \
--	DEFINE_SPINLOCK(s)="spinlock_t s" \
- 	DEFINE_MMIO_READ(s)="static inline u##s mmio_read##s(void *address);" \
- 	DEFINE_MMIO_WRITE(s)="static inline void mmio_write##s(void *address, u##s value);"
- EXPAND_AS_DEFINED      = COMM_REGION_GENERIC_HEADER
-diff --git a/hypervisor/arch/arm-common/irqchip.c b/hypervisor/arch/arm-common/irqchip.c
-index d0bd50c6..6b6f7332 100644
---- a/hypervisor/arch/arm-common/irqchip.c
-+++ b/hypervisor/arch/arm-common/irqchip.c
-@@ -29,7 +29,7 @@
- 	     (counter) < (config)->num_irqchips;			\
- 	     (chip)++, (counter)++)
+diff --git a/hypervisor/arch/x86/include/asm/cell.h b/hypervisor/arch/x86/include/asm/cell.h
+index 33697498..6c5151a5 100644
+--- a/hypervisor/arch/x86/include/asm/cell.h
++++ b/hypervisor/arch/x86/include/asm/cell.h
+@@ -17,8 +17,6 @@
 
--DEFINE_SPINLOCK(dist_lock);
-+spinlock_t dist_lock;
+ #include <jailhouse/paging.h>
 
- void *gicd_base;
-
-diff --git a/hypervisor/arch/arm/include/asm/spinlock.h b/hypervisor/arch/arm/include/asm/spinlock.h
-index a1e9a271..7fe841d0 100644
---- a/hypervisor/arch/arm/include/asm/spinlock.h
-+++ b/hypervisor/arch/arm/include/asm/spinlock.h
-@@ -18,7 +18,6 @@
-
- #ifndef __ASSEMBLY__
-
--#define DEFINE_SPINLOCK(name)	spinlock_t (name)
- #define TICKET_SHIFT		16
-
- typedef struct {
-diff --git a/hypervisor/arch/arm/mmu_hyp.c b/hypervisor/arch/arm/mmu_hyp.c
-index 16f9b5ae..1fcebef5 100644
---- a/hypervisor/arch/arm/mmu_hyp.c
-+++ b/hypervisor/arch/arm/mmu_hyp.c
-@@ -330,7 +330,7 @@ int switch_exception_level(struct per_cpu *cpu_data)
-
- void __attribute__((noreturn)) arch_shutdown_mmu(struct per_cpu *cpu_data)
- {
--	static DEFINE_SPINLOCK(map_lock);
-+	static spinlock_t map_lock;
-
- 	virt2phys_t virt2phys = paging_hvirt2phys;
- 	unsigned long stack_phys = virt2phys(cpu_data->stack);
-diff --git a/hypervisor/arch/arm64/include/asm/spinlock.h b/hypervisor/arch/arm64/include/asm/spinlock.h
-index ac7063b7..1d05174b 100644
---- a/hypervisor/arch/arm64/include/asm/spinlock.h
-+++ b/hypervisor/arch/arm64/include/asm/spinlock.h
-@@ -21,7 +21,6 @@
-
- #include <jailhouse/types.h>
-
--#define DEFINE_SPINLOCK(name)	spinlock_t (name)
- #define TICKET_SHIFT	16
-
- /* TODO: fix this if we add support for BE */
-diff --git a/hypervisor/arch/x86/include/asm/spinlock.h b/hypervisor/arch/x86/include/asm/spinlock.h
-index 8ca5638f..ef884246 100644
---- a/hypervisor/arch/x86/include/asm/spinlock.h
-+++ b/hypervisor/arch/x86/include/asm/spinlock.h
-@@ -23,8 +23,6 @@ typedef struct {
- 	u16 owner, next;
- } spinlock_t;
-
--#define DEFINE_SPINLOCK(name)	spinlock_t (name)
+-#include <jailhouse/cell-config.h>
 -
- static inline void spin_lock(spinlock_t *lock)
- {
- 	register spinlock_t inc = { .next = 1 };
-diff --git a/hypervisor/arch/x86/pci.c b/hypervisor/arch/x86/pci.c
-index fdd27d19..f03e6a1b 100644
---- a/hypervisor/arch/x86/pci.c
-+++ b/hypervisor/arch/x86/pci.c
-@@ -23,7 +23,7 @@
- #include <asm/processor.h>
+ struct cell_ioapic;
 
- /** Protects the root bridge's PIO interface to the PCI config space. */
--static DEFINE_SPINLOCK(pci_lock);
-+static spinlock_t pci_lock;
-
- u32 arch_pci_read_config(u16 bdf, u16 address, unsigned int size)
- {
-diff --git a/hypervisor/arch/x86/vtd.c b/hypervisor/arch/x86/vtd.c
-index c845fa94..d33d429e 100644
---- a/hypervisor/arch/x86/vtd.c
-+++ b/hypervisor/arch/x86/vtd.c
-@@ -201,7 +201,7 @@ static void *unit_inv_queue;
- static unsigned int dmar_units;
- static unsigned int dmar_pt_levels;
- static unsigned int dmar_num_did = ~0U;
--static DEFINE_SPINLOCK(inv_queue_lock);
-+static spinlock_t inv_queue_lock;
- static struct vtd_emulation root_cell_units[JAILHOUSE_MAX_IOMMU_UNITS];
- static bool dmar_units_initialized;
-
-diff --git a/hypervisor/control.c b/hypervisor/control.c
-index 2ab6beac..c1a4edff 100644
---- a/hypervisor/control.c
-+++ b/hypervisor/control.c
-@@ -32,7 +32,7 @@ struct jailhouse_system *system_config;
- /** State structure of the root cell. @ingroup Control */
- struct cell root_cell;
-
--static DEFINE_SPINLOCK(shutdown_lock);
-+static spinlock_t shutdown_lock;
- static unsigned int num_cells = 1;
-
- volatile unsigned long panic_in_progress;
-diff --git a/hypervisor/printk.c b/hypervisor/printk.c
-index c3241777..4b001970 100644
---- a/hypervisor/printk.c
-+++ b/hypervisor/printk.c
-@@ -22,7 +22,7 @@ bool virtual_console = false;
- volatile struct jailhouse_virt_console console
- 	__attribute__((section(".console")));
-
--static DEFINE_SPINLOCK(printk_lock);
-+static spinlock_t printk_lock;
-
- static void console_write(const char *msg)
- {
-diff --git a/hypervisor/setup.c b/hypervisor/setup.c
-index e761415a..9f651aec 100644
---- a/hypervisor/setup.c
-+++ b/hypervisor/setup.c
-@@ -26,7 +26,7 @@ extern u8 __text_start[], __page_pool[];
-
- static const __attribute__((aligned(PAGE_SIZE))) u8 empty_page[PAGE_SIZE];
-
--static DEFINE_SPINLOCK(init_lock);
-+static spinlock_t init_lock;
- static unsigned int master_cpu_id = -1;
- static volatile unsigned int entered_cpus, initialized_cpus;
- static volatile int error;
+ /** x86-specific cell states. */
 --
 2.16.4
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/fb099cc16bdc03fc20a0b7f41bb88d998f63745b.1581770164.git.jan.kiszka%40web.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/63c63da94657899e809416c1a56493e8ecc9507d.1581770164.git.jan.kiszka%40web.de.
