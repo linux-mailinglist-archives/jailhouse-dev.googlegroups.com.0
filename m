@@ -1,33 +1,33 @@
 Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBOWLT7ZAKGQETJ2ARAA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x537.google.com (mail-ed1-x537.google.com [IPv6:2a00:1450:4864:20::537])
-	by mail.lfdr.de (Postfix) with ESMTPS id 246E515FE6D
+Received: from mail-ed1-x53c.google.com (mail-ed1-x53c.google.com [IPv6:2a00:1450:4864:20::53c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F54C15FE6F
 	for <lists+jailhouse-dev@lfdr.de>; Sat, 15 Feb 2020 13:36:11 +0100 (CET)
-Received: by mail-ed1-x537.google.com with SMTP id k6sf9627779edq.8
+Received: by mail-ed1-x53c.google.com with SMTP id m21sf9637350edp.14
         for <lists+jailhouse-dev@lfdr.de>; Sat, 15 Feb 2020 04:36:11 -0800 (PST)
 ARC-Seal: i=2; a=rsa-sha256; t=1581770171; cv=pass;
         d=google.com; s=arc-20160816;
-        b=im6hJ1BgXSBT++OQVIWby/dUEcLILeZ0BuH0ueVjydMVVs30UcxZC0Dt0ybxkpPsHJ
-         EKKvpAjqzfWu5hUX2sR5K36Li4kcYy9WBFlzQ8BUE1x5x+PyxvtH+J+HXnJBFvHFdFyy
-         7DupyoUfc/HOhCRsXwOe9IfanpLKyccVM+tOfU8oRsCKhqpw9Z9Njunl25BfzK380m4N
-         jR5abH/E3gxhRqw/9YRRINd0YD0qiovosgqo80jqkwVawk4/hgkDyqzyfVBrOEjFuYH/
-         iUYVDfg+DtE5bwIU7pS0S1XCN+RcmD/c38m1DuCkThFcDKrID/0VQMjVkx6/TtppM5fM
-         nsdg==
+        b=yHC0/YVOBJmjMjZasMzGxv2iS+p6FyzjOJeXNQNMdFaS7wLgAv077f+nwO8s7F5AKj
+         Auvk9sDql5gqeGAC6lIT3Kw9UGCFY1Sp24UOpY60RPx9Zx/wIsq99PU4w6nVwyKqNiZy
+         KDGndE7DFPp57ggUv+oWe4thEO4It6c+EGb0xhx/iXD/ZU/2c0e5nNvotF2hxzoohfjk
+         IOv1yxX/JD2T6IbheDkyITpMyXpdY6gIMmVjunEPiNzhmpvaBwpscZquwyFmJbGZ9iQs
+         Gp5Kwcf/C7QtTkV+AhKIIAzuolezlCrZm3Hihp71fUlQACpsIBSUrRXGI5eMPMX4C/YQ
+         8WJQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:references:in-reply-to:references
          :in-reply-to:message-id:date:subject:to:from:mime-version:sender
          :dkim-signature;
-        bh=7qZdQW6KszEKAIS1B+dICY0aspgbUNHU5y9kfF4fJJE=;
-        b=FPwhDCTO4OhqDroMqGP/1qtEgdpSojrDiYMqa8esjg6ROaueffxYapRAlX3cYBGp8O
-         eZJ5Y4DmhrNiEL8p1VeRP3L6WZZ1ZhkFpuBHYpWfbsh4tQQsy0kHrvcw0Al7eR6mdVDg
-         P/yjYwZSvp5D6hOQmZx1s8z+YGDNmc7Ns3JCky2P5xi3l0njwU+/oDaAVXZ/v+OJIRQn
-         y4Ua9bs9WBeWizi51vV+QA0Brp5fhE3scuZOnPwTVIP+y9nVkrE+36MSUE23yWLBj/bv
-         HacqvzLSCYV57P3nWnseFP04r1oDR4EFcl3m8YUTWhkLwG0N1bB6j9fXNJdfmWY9sKgR
-         R8JQ==
+        bh=Nw0KQeVWvaoo6nSy+qCiPlmn4ghaeM55+G9bhsj6sEU=;
+        b=J+a4pOYew7TN0hrjQ5AW4GGfF3uFZQZsbOmqCWNWb9LTXUCsNGMMbxBRdJmu4d2pJ9
+         hkuAugGQ1Q0RaN4ekV4t5HkE3NY6c+NbwZ7zoHudRKbEhuF62pwrivs25T2DrN8V3XeA
+         TrhJvjZMET/qk9+iacESw6HyllvWNlMwejAr6XWHujsVKpiY6AJdjdNj890ozqDEnRMD
+         RhbkzAzOcnAzroaUcMVKZDXuP7gvWgBKLz29rGzNH3S7tdjb58hoOGy2MHFyS/fRDq+P
+         KAZdh1tklGv3AjR+LSpFEPDkB8NlZcxAJ8nD9++qOU2kXoalfynWbiXQuQknrVbXaRPk
+         jQnQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=THlC92qH;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b="m1fGh/8i";
        spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:in-reply-to:references:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=7qZdQW6KszEKAIS1B+dICY0aspgbUNHU5y9kfF4fJJE=;
-        b=j+ztaur2P/y1aarYscS1hvVNWjsJNNB1WJx0uqwyI+jOj1bkc/zurYBhbE69QLxNak
-         XqlCG1pX6+g1/iOC+Jm0hwbvdis/5nwf2trESV8mCL3pvS4DNpN5Q9Vkl1CPRVqIJe3c
-         ai1FObgPW1OGKNQq0fimUwSKYupi5TeIAiEWtV3yC0Mfhp/D+foqUJl77lpk06cowJFi
-         ORnIfE+5vJfGwefq67zXpx7sdP04CF00EhUBCAkq2IsTWmV+7RkCLgcKiySbx8qMDXxQ
-         w92Q+6VHDmvdnX8t+GWD1AUlJhfAPk6/IIto33eiR2fn4bSSnDZIeTjCUQqV6Zma+MN2
-         AQyA==
+        bh=Nw0KQeVWvaoo6nSy+qCiPlmn4ghaeM55+G9bhsj6sEU=;
+        b=blH4O1e72WxwdTvM8wsAKRJyiw5B2cMnC4U6SVdgh6GyFBCicy1R+WNbh2Q8lLwhsg
+         GSEAzUYGIcRYQI3EMFmGAF/jv3UVUr9VwoK6EEthPyJrAtEO8Ijqk1QsWJ7RtSboUHv2
+         CMCr90mqeISevuLYe/+bP27IrrcFa7z7rhsAVkNc5BvKoHspm0TuYZnYc/FcXaNm3dQK
+         PQtVwYa8/huwaY3Gpu7rjLVnBC3JtiSzbKis3o5nSrdWBlBNJuH/hnIacl6A2+MVVHnQ
+         bBpjBu+iOSpfgE59IiJXkaKtYdRh69Hq66vHcWnhM84ZWbYzAkDkCDrDYEaKRmZz5U9d
+         NtNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:mime-version:from:to:subject:date
@@ -49,48 +49,48 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=7qZdQW6KszEKAIS1B+dICY0aspgbUNHU5y9kfF4fJJE=;
-        b=AbA/bW1+H+kgcSIsAeVKTWQY09uDreDqiBwxdx0a59YHL6+U8k0DNRemZWylhjLFer
-         hpqxS8lYaay14PlJgEZCfOVE/QhQCnXWAz8oNIricpOMlQ81P3npj//6rED0kHMj9jvj
-         GKjSvEOGjka2oGtMUrrA6oQHKgBMGlgQj27+tIDag36T+zCIX9pJdJbcyM4MvqPfdZP5
-         4N4ixzVj19xK+P12SbvuAcEeR3mpTa9o1eg/04uvNgikYAikUnRfjcReD0SSgRumX5Ue
-         kfoWHo0TD6b6IytOOOwxAh6sdY8v7tNV7Ysw1JfOj5rnh/aQUOtrsYekE3BBF4lHZfZ2
-         ZJqg==
+        bh=Nw0KQeVWvaoo6nSy+qCiPlmn4ghaeM55+G9bhsj6sEU=;
+        b=uHx1HEwCTd8YbQHWicCJmjR/lR5ely4dYG7i3D91jlA4Hthyo00zo7C9nfTzv1bO1j
+         hDv9qUrvzSRzyVOUj7ONmQeyYBr2zR6eDHFofnrZWSTs+LEIggvHSOZMHABh4L7AEhsv
+         0uXGFmK2QFDGZyB6bU0C+B+BkVLsW6o+gUYxEhuH1pjuGlX8IPIL3CFVsZECqAECFShu
+         R+Ynt8cOlSLexheoZwWQp0VIZYG071BrVkmqOWat+2pVZDiHxXWMcdxf705LuwF8PSRx
+         AgXgFiWJiV5bMMnhf3cmBTBx1tPDiOgDb3fmPMDGStwJ/YXy27kVWgT46VcxWtOT7oH3
+         wRmA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUJNkBv8JpIUanHp8j7G2WabDDsxGpueBP6MKhNOAi2QlmgqhWW
-	3xmnqhIPqmL+lmrp5h1bO6g=
-X-Google-Smtp-Source: APXvYqzYYUhLlfvzagdRKwwSIQOcrDAWinF3m6UyBw1yAG6g4vQe3DW8/kS1f+wrxXFzJfD5s4bJOA==
-X-Received: by 2002:aa7:c2d3:: with SMTP id m19mr7047334edp.136.1581770170829;
+X-Gm-Message-State: APjAAAVFSl1qBF9UMQJvvPdzMKCNe0Ru/4A253cOhP/irh9yya7X0Jss
+	AqslSeLX3tYzuG8QUbrXedk=
+X-Google-Smtp-Source: APXvYqyRIHrF/W3s7jJBOwLDY6xBF/veanZNNaGRqeogZ8oEaGLNgCbB5fzNqEyN2XgyFhQd6W43zw==
+X-Received: by 2002:a17:906:c444:: with SMTP id ck4mr7231411ejb.224.1581770170957;
         Sat, 15 Feb 2020 04:36:10 -0800 (PST)
 MIME-Version: 1.0
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:7f99:: with SMTP id f25ls1783447ejr.5.gmail; Sat, 15
- Feb 2020 04:36:10 -0800 (PST)
-X-Received: by 2002:a17:906:ce57:: with SMTP id se23mr7370569ejb.362.1581770170230;
+Received: by 2002:a17:906:e20e:: with SMTP id gf14ls1786999ejb.10.gmail; Sat,
+ 15 Feb 2020 04:36:10 -0800 (PST)
+X-Received: by 2002:a17:907:10d7:: with SMTP id rv23mr7405027ejb.38.1581770170371;
         Sat, 15 Feb 2020 04:36:10 -0800 (PST)
 ARC-Seal: i=1; a=rsa-sha256; t=1581770170; cv=none;
         d=google.com; s=arc-20160816;
-        b=tdbDvKQwQfP++SqodL/BjsV3ZH8tbHfpAtWYWWBkz+hq2TN6iQiDWsCjMzkd5onpqZ
-         UviLgDFRr7gCXtcyGqq5bUyVdn1vszLfvGK0NXIHHLHUHztct6MJ+ZipSI5JVNT6sEm9
-         pTCPvrzNjrd3KEgWKFccMkFWwH2U77C69nNrtftqmLzqV6sqrmBD2u++fc5OOXbtV5Mw
-         IMKu3OrK2zqCClcK7CWafrly0/RTglfwdy9F/tXiTignIUkDQLBKCfmsEbvCd2Dtf58y
-         55+sz0v0B+bl9RvQ3aLXxgvDErzK9jywB6sU2TSJVaaIDFAzVEb7NiGEAJXQu2Q9oGg3
-         9ZSg==
+        b=NCZl5tRMCHTG7LZQ7mrx55Waug9hknWWr9TYvKYWQ74P4FS9RG1Nbh+hKfHgphT83f
+         AHwv47Q+2qy3PyDlVDGWcrTVks7BLV7zIYoWD19CaOJKuQHwoPL8RbUc0IhTDQKswm4q
+         oxc09qWkRHK6Be/RvcaSTTW+33zR4cj08c9BuMhsFPKwDHIY0wfruTnbA8LC4fv+PqJO
+         BMmo7mL178SSKewL20wtQeIRRccGCP2FV6pE9lVx78zSx3XlBGkUjGmDYniko01TP8sv
+         KF0/RW9QxeAPPlEw73UGvNhKNvUxYLEoVZORQ+OPYs+SfxYYbT5AOpqKh1lNnfPShjuD
+         9WLg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:references:in-reply-to:references
          :in-reply-to:message-id:date:subject:to:from:dkim-signature;
-        bh=Zwd0BijwJ6S4UyyLVLdoMNUrwMIT4gcS4yqn65QYXiI=;
-        b=ciEIG21tYtlNzztEX+Zf/iZrgKv3NMSItq0enraugnMutpPQV+g20RBAEV5LXsWGk4
-         LQdF29el48yRJwsgyg0SU05l4ZI8LhVRhhC7YhcTV0Jb4FAVDDNfIdXCWSf1pRLiw5I+
-         4EDs2uZ75yJMAuvh02oWgoGR8cuq70lCwkrQb+bQYf6DSjP+qafPsA9X3K903FWhiQrF
-         wc4KG5kXyXYdOWmZSeZlPZyoK94YnnSdwPz9IDmmBTbl2j4rUQ0NNrV/YF4Kc6ain8Zz
-         GFuxUWvbJUv5wFFepONpdC4j4sR3oLFlem2XISmTHsQ2aJ7XXLXrLF6S47/ukbSGZDir
-         qKWw==
+        bh=NnyPlxdFkHTVyYjwWtDhpoZYXdbEsACUeLxI5+ywZXQ=;
+        b=wFmXB0PNG5IQKpgPC1jFFGiuTbBCHHhQAoWxMQNNtv9V+or9kAkwujjya5T3DZz6zy
+         igAbRdOb21KctZbViUJoCpvO8UU9XsHfDISA8T2ImXvqOe9KrOeIrUZqe9eInsjeb6c6
+         j6CLzBJe1ddGMR1AyZQqp4CxVUTRQsIp/6oWPqlDv+MiQa1sl8WaMXbv7Ik4x75qmYKH
+         nh9U45zgxPLB2s+IPZP6BJmIDlzy1tRclrxxlMUIioWKdrTLK2ESEV7Lo3MXPeVYZk26
+         7HHx2eOFESF1Ok9gJwQGQg9HSM67z10KbmDzw0sKIZUKF+OAZuPQRBbFU+mjU4C4epfO
+         XHLw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=THlC92qH;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b="m1fGh/8i";
        spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 Received: from mout.web.de (mout.web.de. [212.227.15.3])
-        by gmr-mx.google.com with ESMTPS id d29si318699edj.0.2020.02.15.04.36.10
+        by gmr-mx.google.com with ESMTPS id z20si409674ejx.1.2020.02.15.04.36.10
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sat, 15 Feb 2020 04:36:10 -0800 (PST)
@@ -98,45 +98,45 @@ Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.1
 X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
 Received: from md1f2u6c.ww002.siemens.net ([95.157.55.156]) by smtp.web.de
  (mrweb002 [213.165.67.108]) with ESMTPSA (Nemesis) id
- 0MNL6f-1j9IKO2qoz-006xwH for <jailhouse-dev@googlegroups.com>; Sat, 15 Feb
+ 0LfAfQ-1jrOZV3VUG-00orHM for <jailhouse-dev@googlegroups.com>; Sat, 15 Feb
  2020 13:36:09 +0100
 From: Jan Kiszka <jan.kiszka@web.de>
 To: jailhouse-dev@googlegroups.com
-Subject: [PATCH 03/12] core: Share identical PAGE defines via jailhouse/paging.h
-Date: Sat, 15 Feb 2020 13:35:55 +0100
-Message-Id: <b5d8439116e8615e5b0498391f3ecb27407a1505.1581770164.git.jan.kiszka@web.de>
+Subject: [PATCH 04/12] core: Remove DEFINE_SPINLOCK abstraction
+Date: Sat, 15 Feb 2020 13:35:56 +0100
+Message-Id: <fb099cc16bdc03fc20a0b7f41bb88d998f63745b.1581770164.git.jan.kiszka@web.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <cover.1581770164.git.jan.kiszka@web.de>
 References: <cover.1581770164.git.jan.kiszka@web.de>
 In-Reply-To: <cover.1581770164.git.jan.kiszka@web.de>
 References: <cover.1581770164.git.jan.kiszka@web.de>
-X-Provags-ID: V03:K1:3F5nfOpMkBtmmM1yAJ/y63sZFlK7uGARSjaWTYOthLzuM1Cp1y5
- bLyOG6qTYiSmlDoO08h46lrXu86VeuyxDzNVEg/28cPHwnF0ss/8BUTJbxZhkNY1XlG+xho
- D6GrBECcfJh1EMNvEnv0oRLQsVvuKVbQjMAMm5VcWJzVxuK1NiwuavPaQM73JZ9HAHFmOVb
- QsLIqQMqlcCcU01CP8Yfw==
+X-Provags-ID: V03:K1:lrFkl6lIqfMJ/4zjJ9Af+LBDUM0+N8blqkOXTzoOv5De4675BYN
+ gYzFm8AffgoPIqb41t6K3gnCxS2ZKbUV8yaA7FA6HQPfER05XsSTXhL/br0avTjC+ON2X/Q
+ p3yhLVoUP8bWsV9oIlVUeGqHZvLccHR29p1BM6gm44Xq0oyeWRh141ECdUXoi1tRQ1lPnE0
+ qLQHhudKaVbOyVvk961VA==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:WhUrTH86g8U=:PAvzZUJJrCIFhT5+j7ZJC+
- Y2nznHjuhB6u+0/10fdi4EjiN3hOXpfp7n41SrohkWo0QhocHbmoIUFo1Rn1w8LhR08kuvVps
- dHiIODC+fneFdO3MK+HlcwHdE00O/wnJRGZ82FbqOYv//0RXrYEbmY5/F46NjnxkJONGycMzD
- us7KBGnex7KDeR4XR/dOhkxBXyhCaW8B0KMU2wVLbS9QoGza6L26kvBeSXQRfvgj7CsNfJSN9
- D2/ch1ufBW97xCJd50Q2W1KyyFBSBB2FW3LYFBLpY9tQ6tcLZcLiP0qUnciscoWlPHn0l3u9p
- aUlLN1gNF3vw2NgPjAiVizbZLX+d5bVlVzaeYPVii+NbQIB6dLNCD4ssU88NhlYoOufD1+GS0
- iOjDYJGvhjEssQfRbS8Il3azoXQp3bQTEAeMrwbzpyXEq+8lCfydF43Zbk5oFWLFArlfU+WqQ
- VdS/KxvfewQu1ranyk2ZNnd1reDbpIyzBcRzm/1VVEzDAPiJ1NLEhKzVnfzVxlle4TEuizICC
- xNBhIXbB4xDW0JXw0+Qg42wNUvL4tU3bPWwJYO1WeJ1d2++bkmiaiQSHsLNeBu7Y9fCP1+RM+
- cLS3U6xaNCm59M40w+Q1wtoWDB+IUypKYIdP1cJhX5/wdNi2J2WLFHJRhcMTlZZwgPvczM1lb
- 5bOJGzEn//XlZTiHTiZu1c+epQDH2c8ySiV+d+//OR2UD2MHAjj2tw9Dd3xbxHlAuqM0G6kK0
- DHRcejwLN0mu1xaLqvbMFI6Z0XKIgv7NNNUYUDBgI5FBOGXtmwrhhmvp/dppKBqZwpwTvt90n
- ijXdVI/Nbqkno9fx4IPgoH15bln1nKill2c180JaTat+GT173kT+Faaly6sH4eQn2htVtO/dH
- ytA3JpUCbA+G9qy7nycLG25xiT7qzq8XcPhL2NYZLCTYub47nZNtXwX+1OjzCo3X7UQgo11hR
- w5jyK0hBCK5SPgD5n1u+Y4z0CUolH5C14AR31KcgC45LN46v9zqhcPB49Q2oBnct9bOMRlGxb
- z/+wPqXD0gCAocEafApDvySDe+i9Ejm7IpgyjQlLwDPYVRDTHpSt1y7ci8U5FZVg4WUU66bHf
- kubsY7vFEDixr7jKSTAposxeK2V4aKgb7275WvE0ebLZPo1GsphcrVC5UVqBDHnxz98gvAhea
- UYgyHCErSMHUlvuIq7VU3ttJNrwGj1r4tNCSyEj2kIaCanbDiNFrcot5XnkP9ZSMYQ0FmuLn7
- nWfABPlL3kN1SVpGs
+X-UI-Out-Filterresults: notjunk:1;V03:K0:uqvcse11zVg=:8HSvGHBY+or3R2iY/C6RGD
+ oihKwLC7wwVBVLAzDqxU1q0gteNQApoJyt7PRtB0h7XsUnDqmA15DT02TE+seu6Ky7Gcl6OJ7
+ V4pZzGvJnKUoLCuScs3L7cD51Nq8tPTz4RjoArJbhANQOOErVMKon4pl7x9sh2MFgedg0oiJ4
+ 8/UUU8smtHkicWaE5+b3B2WHDc9PTt+ZogEMJh9RsKwxenMo+HHrh3gbVoFGg3LCTlClZYnlP
+ EfXaMwA23/sR348k+e8D3P9+mXdr1hreEYbcNlbYogwnUJZclmIHwCil9RnqCk1kBYbQlTGx7
+ Ejrz5dv3PyvM3frYa7KC+FOAWxZ2bmBgYUVIsbtUEmH3nyM+GsTtzwYxDc4PNvXYXHpVi5dQE
+ P9/xy9Ho8oBJ7z9MeE+TLQAAIIKIbzpJMTk0hx9WuOlq7S5JO5tpFonvBeXDrLS2fecg8ATHK
+ bOlmg+0Lfc0XWNHbyK73Zuq1d8iCmPHjO3hj/oi2cNKd1DOCM4rnsqddS7jXnKTOwl34YAQje
+ s0XUNSEYlbcIFOAFPPCS8E/M4Doi4YykR1tidyVapeG0WL9J4Sb8ms9aAdkq3Ek4mdZucmycr
+ L/CLbXotXu4rYUEFVklGW7/Ag+d99M0d8oLiHpCekjRuyW2iiCu5/WB8gTT6fSkptir9isfU8
+ vdFLfclKLSXQa1BJHjzGWxeA5RoDi4ZfljmkfUDZOKx5BMoGdIdfUc3MJHYa57QQiFT/Mf0fw
+ O6/8Te2sqFxAOTP4vxXL1tTwh2qitm5KfP/xmYWorE82CLky8nYKZfPzMuvkvvBgftsiOvInT
+ fIJlha5+zf3dnuEEZWozDQGKUyfhajr9bmTKnFz9jYz2uREwT2GYwVExm1jjpqNDLzAm7cMzt
+ 97AsYdzFkfR2iGHsqh5q81EAAWHHXksH3lq+O7GQ7p4X9znc/MnNbdNMyL/VLhy4nj2Dtp2ml
+ FPvgr4W5D5hsAfHi5OXd/wNafthRKqQGBsw71p4B7bvjfvHA6mvZ/IAqBvIy94fI5T7tmNS75
+ pLfpRXTLu4JIeXLELx1CZ/K+YMEdpawQutX3EakPtA9DI6Qo+XnPwBGCXczC5sD6fyVOsAhvv
+ SnWp60Q3KT/5ZL8LD08ffAVNttykbb8IMn/bmaypUPVwPoc9TekPQ6kNxMftsdQ//Elzfyb99
+ jsaz5wMc0e6/KsH2UaD5ZndeYKCtx6xxkNtVCnQje5dPvnX05bfqLkFeoTx44tYf/iJiTywxZ
+ GLYGsPQbaaIirkyYU
 X-Original-Sender: jan.kiszka@web.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b=THlC92qH;       spf=pass
+ header.i=@web.de header.s=dbaedf251592 header.b="m1fGh/8i";       spf=pass
  (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted
  sender) smtp.mailfrom=jan.kiszka@web.de
 Content-Type: text/plain; charset="UTF-8"
@@ -154,157 +154,169 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-PAGE_SIZE, PAGE_MASK and PAGE_OFFS_MASK can all be derived from
-arch-specific PAGE_SHIFT. So move those three into the generic
-header. We just need to replace a few asm/paging.h includes with the
-generic one, and we need move the asm include down in jailhouse/paging.h
-because ARM needs PAGE_MASK in a static inline function.
+It's highly unlikely that we will meet an arch that needs a non-zero
+init value for its spinlocks or has any other use case for this
+abstraction. So remove it.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- hypervisor/arch/arm/include/asm/paging.h   |  3 ---
- hypervisor/arch/arm64/entry.S              |  2 +-
- hypervisor/arch/arm64/include/asm/paging.h |  3 ---
- hypervisor/arch/x86/include/asm/paging.h   |  3 ---
- hypervisor/arch/x86/include/asm/vmx.h      |  2 +-
- hypervisor/hypervisor.lds.S                |  2 +-
- hypervisor/include/jailhouse/paging.h      | 17 +++++++++++++++--
- 7 files changed, 18 insertions(+), 14 deletions(-)
+ Documentation/Doxyfile                       | 1 -
+ hypervisor/arch/arm-common/irqchip.c         | 2 +-
+ hypervisor/arch/arm/include/asm/spinlock.h   | 1 -
+ hypervisor/arch/arm/mmu_hyp.c                | 2 +-
+ hypervisor/arch/arm64/include/asm/spinlock.h | 1 -
+ hypervisor/arch/x86/include/asm/spinlock.h   | 2 --
+ hypervisor/arch/x86/pci.c                    | 2 +-
+ hypervisor/arch/x86/vtd.c                    | 2 +-
+ hypervisor/control.c                         | 2 +-
+ hypervisor/printk.c                          | 2 +-
+ hypervisor/setup.c                           | 2 +-
+ 11 files changed, 7 insertions(+), 12 deletions(-)
 
-diff --git a/hypervisor/arch/arm/include/asm/paging.h b/hypervisor/arch/arm/include/asm/paging.h
-index 8e82d7c2..08bed5cf 100644
---- a/hypervisor/arch/arm/include/asm/paging.h
-+++ b/hypervisor/arch/arm/include/asm/paging.h
-@@ -20,9 +20,6 @@
- #include <asm/sysregs.h>
+diff --git a/Documentation/Doxyfile b/Documentation/Doxyfile
+index 7398fb9f..d7e76859 100644
+--- a/Documentation/Doxyfile
++++ b/Documentation/Doxyfile
+@@ -264,7 +264,6 @@ INCLUDE_FILE_PATTERNS  =
+ PREDEFINED             = \
+ 	DOXYGEN_CPP \
+ 	__attribute__(x)= \
+-	DEFINE_SPINLOCK(s)="spinlock_t s" \
+ 	DEFINE_MMIO_READ(s)="static inline u##s mmio_read##s(void *address);" \
+ 	DEFINE_MMIO_WRITE(s)="static inline void mmio_write##s(void *address, u##s value);"
+ EXPAND_AS_DEFINED      = COMM_REGION_GENERIC_HEADER
+diff --git a/hypervisor/arch/arm-common/irqchip.c b/hypervisor/arch/arm-common/irqchip.c
+index d0bd50c6..6b6f7332 100644
+--- a/hypervisor/arch/arm-common/irqchip.c
++++ b/hypervisor/arch/arm-common/irqchip.c
+@@ -29,7 +29,7 @@
+ 	     (counter) < (config)->num_irqchips;			\
+ 	     (chip)++, (counter)++)
 
- #define PAGE_SHIFT		12
--#define PAGE_SIZE		(1 << PAGE_SHIFT)
--#define PAGE_MASK		~(PAGE_SIZE - 1)
--#define PAGE_OFFS_MASK		(PAGE_SIZE - 1)
+-DEFINE_SPINLOCK(dist_lock);
++spinlock_t dist_lock;
 
- #define MAX_PAGE_TABLE_LEVELS	3
+ void *gicd_base;
 
-diff --git a/hypervisor/arch/arm64/entry.S b/hypervisor/arch/arm64/entry.S
-index 167e29d2..27e148c6 100644
---- a/hypervisor/arch/arm64/entry.S
-+++ b/hypervisor/arch/arm64/entry.S
-@@ -13,8 +13,8 @@
-  * the COPYING file in the top-level directory.
-  */
-
-+#include <jailhouse/paging.h>
- #include <asm/asm-defines.h>
--#include <asm/paging.h>
- #include <asm/smccc.h>
- #include <asm/jailhouse_hypercall.h>
- #include <jailhouse/header.h>
-diff --git a/hypervisor/arch/arm64/include/asm/paging.h b/hypervisor/arch/arm64/include/asm/paging.h
-index 9398ecb2..5713379c 100644
---- a/hypervisor/arch/arm64/include/asm/paging.h
-+++ b/hypervisor/arch/arm64/include/asm/paging.h
-@@ -31,9 +31,6 @@
-  */
-
- #define PAGE_SHIFT		12
--#define PAGE_SIZE		(1 << PAGE_SHIFT)
--#define PAGE_MASK		~(PAGE_SIZE - 1)
--#define PAGE_OFFS_MASK		(PAGE_SIZE - 1)
-
- #define MAX_PAGE_TABLE_LEVELS	4
-
-diff --git a/hypervisor/arch/x86/include/asm/paging.h b/hypervisor/arch/x86/include/asm/paging.h
-index ef614b02..065bac9b 100644
---- a/hypervisor/arch/x86/include/asm/paging.h
-+++ b/hypervisor/arch/x86/include/asm/paging.h
-@@ -18,9 +18,6 @@
- #include <asm/processor.h>
-
- #define PAGE_SHIFT		12
--#define PAGE_SIZE		(1 << PAGE_SHIFT)
--#define PAGE_MASK		~(PAGE_SIZE - 1)
--#define PAGE_OFFS_MASK		(PAGE_SIZE - 1)
-
- #define MAX_PAGE_TABLE_LEVELS	4
-
-diff --git a/hypervisor/arch/x86/include/asm/vmx.h b/hypervisor/arch/x86/include/asm/vmx.h
-index 53490e10..c03ffc55 100644
---- a/hypervisor/arch/x86/include/asm/vmx.h
-+++ b/hypervisor/arch/x86/include/asm/vmx.h
-@@ -31,7 +31,7 @@
- #ifndef _JAILHOUSE_ASM_VMX_H
- #define _JAILHOUSE_ASM_VMX_H
-
--#include <asm/paging.h>
-+#include <jailhouse/paging.h>
-
- struct per_cpu;
-
-diff --git a/hypervisor/hypervisor.lds.S b/hypervisor/hypervisor.lds.S
-index 62c39114..ca06ab20 100644
---- a/hypervisor/hypervisor.lds.S
-+++ b/hypervisor/hypervisor.lds.S
-@@ -12,7 +12,7 @@
-
- #include <jailhouse/header.h>
-
--#include <asm/paging.h>
-+#include <jailhouse/paging.h>
- #include <asm/sections.h>
-
- SECTIONS
-diff --git a/hypervisor/include/jailhouse/paging.h b/hypervisor/include/jailhouse/paging.h
-index bdaf8b58..5513c4ec 100644
---- a/hypervisor/include/jailhouse/paging.h
-+++ b/hypervisor/include/jailhouse/paging.h
-@@ -13,8 +13,6 @@
- #ifndef _JAILHOUSE_PAGING_H
- #define _JAILHOUSE_PAGING_H
-
--#include <asm/paging.h>
--
- /**
-  * @defgroup Paging Page Management Subsystem
-  *
-@@ -26,6 +24,13 @@
-  * @{
-  */
-
-+/** Size of smallest page. */
-+#define PAGE_SIZE		(1 << PAGE_SHIFT)
-+/** Mask of bits selecting a page. */
-+#define PAGE_MASK		~(PAGE_SIZE - 1)
-+/** Mask of bits selecting an offset in a page. */
-+#define PAGE_OFFS_MASK		(PAGE_SIZE - 1)
-+
- /** Align address to page boundary (round up). */
- #define PAGE_ALIGN(s)		(((s) + PAGE_SIZE-1) & PAGE_MASK)
- /** Count number of pages for given size (round up). */
-@@ -34,12 +39,20 @@
- /** Location of per-CPU data structure in hypervisor address space. */
- #define LOCAL_CPU_BASE		(TEMPORARY_MAPPING_BASE + \
- 				 NUM_TEMPORARY_PAGES * PAGE_SIZE)
-+/** @} */
-+
-+#include <asm/paging.h>
+diff --git a/hypervisor/arch/arm/include/asm/spinlock.h b/hypervisor/arch/arm/include/asm/spinlock.h
+index a1e9a271..7fe841d0 100644
+--- a/hypervisor/arch/arm/include/asm/spinlock.h
++++ b/hypervisor/arch/arm/include/asm/spinlock.h
+@@ -18,7 +18,6 @@
 
  #ifndef __ASSEMBLY__
 
- #include <jailhouse/entry.h>
+-#define DEFINE_SPINLOCK(name)	spinlock_t (name)
+ #define TICKET_SHIFT		16
+
+ typedef struct {
+diff --git a/hypervisor/arch/arm/mmu_hyp.c b/hypervisor/arch/arm/mmu_hyp.c
+index 16f9b5ae..1fcebef5 100644
+--- a/hypervisor/arch/arm/mmu_hyp.c
++++ b/hypervisor/arch/arm/mmu_hyp.c
+@@ -330,7 +330,7 @@ int switch_exception_level(struct per_cpu *cpu_data)
+
+ void __attribute__((noreturn)) arch_shutdown_mmu(struct per_cpu *cpu_data)
+ {
+-	static DEFINE_SPINLOCK(map_lock);
++	static spinlock_t map_lock;
+
+ 	virt2phys_t virt2phys = paging_hvirt2phys;
+ 	unsigned long stack_phys = virt2phys(cpu_data->stack);
+diff --git a/hypervisor/arch/arm64/include/asm/spinlock.h b/hypervisor/arch/arm64/include/asm/spinlock.h
+index ac7063b7..1d05174b 100644
+--- a/hypervisor/arch/arm64/include/asm/spinlock.h
++++ b/hypervisor/arch/arm64/include/asm/spinlock.h
+@@ -21,7 +21,6 @@
+
  #include <jailhouse/types.h>
 
-+/**
-+ * @ingroup Paging
-+ * @{
-+ */
-+
- /** Page pool state. */
- struct page_pool {
- 	/** Base address of the pool. */
+-#define DEFINE_SPINLOCK(name)	spinlock_t (name)
+ #define TICKET_SHIFT	16
+
+ /* TODO: fix this if we add support for BE */
+diff --git a/hypervisor/arch/x86/include/asm/spinlock.h b/hypervisor/arch/x86/include/asm/spinlock.h
+index 8ca5638f..ef884246 100644
+--- a/hypervisor/arch/x86/include/asm/spinlock.h
++++ b/hypervisor/arch/x86/include/asm/spinlock.h
+@@ -23,8 +23,6 @@ typedef struct {
+ 	u16 owner, next;
+ } spinlock_t;
+
+-#define DEFINE_SPINLOCK(name)	spinlock_t (name)
+-
+ static inline void spin_lock(spinlock_t *lock)
+ {
+ 	register spinlock_t inc = { .next = 1 };
+diff --git a/hypervisor/arch/x86/pci.c b/hypervisor/arch/x86/pci.c
+index fdd27d19..f03e6a1b 100644
+--- a/hypervisor/arch/x86/pci.c
++++ b/hypervisor/arch/x86/pci.c
+@@ -23,7 +23,7 @@
+ #include <asm/processor.h>
+
+ /** Protects the root bridge's PIO interface to the PCI config space. */
+-static DEFINE_SPINLOCK(pci_lock);
++static spinlock_t pci_lock;
+
+ u32 arch_pci_read_config(u16 bdf, u16 address, unsigned int size)
+ {
+diff --git a/hypervisor/arch/x86/vtd.c b/hypervisor/arch/x86/vtd.c
+index c845fa94..d33d429e 100644
+--- a/hypervisor/arch/x86/vtd.c
++++ b/hypervisor/arch/x86/vtd.c
+@@ -201,7 +201,7 @@ static void *unit_inv_queue;
+ static unsigned int dmar_units;
+ static unsigned int dmar_pt_levels;
+ static unsigned int dmar_num_did = ~0U;
+-static DEFINE_SPINLOCK(inv_queue_lock);
++static spinlock_t inv_queue_lock;
+ static struct vtd_emulation root_cell_units[JAILHOUSE_MAX_IOMMU_UNITS];
+ static bool dmar_units_initialized;
+
+diff --git a/hypervisor/control.c b/hypervisor/control.c
+index 2ab6beac..c1a4edff 100644
+--- a/hypervisor/control.c
++++ b/hypervisor/control.c
+@@ -32,7 +32,7 @@ struct jailhouse_system *system_config;
+ /** State structure of the root cell. @ingroup Control */
+ struct cell root_cell;
+
+-static DEFINE_SPINLOCK(shutdown_lock);
++static spinlock_t shutdown_lock;
+ static unsigned int num_cells = 1;
+
+ volatile unsigned long panic_in_progress;
+diff --git a/hypervisor/printk.c b/hypervisor/printk.c
+index c3241777..4b001970 100644
+--- a/hypervisor/printk.c
++++ b/hypervisor/printk.c
+@@ -22,7 +22,7 @@ bool virtual_console = false;
+ volatile struct jailhouse_virt_console console
+ 	__attribute__((section(".console")));
+
+-static DEFINE_SPINLOCK(printk_lock);
++static spinlock_t printk_lock;
+
+ static void console_write(const char *msg)
+ {
+diff --git a/hypervisor/setup.c b/hypervisor/setup.c
+index e761415a..9f651aec 100644
+--- a/hypervisor/setup.c
++++ b/hypervisor/setup.c
+@@ -26,7 +26,7 @@ extern u8 __text_start[], __page_pool[];
+
+ static const __attribute__((aligned(PAGE_SIZE))) u8 empty_page[PAGE_SIZE];
+
+-static DEFINE_SPINLOCK(init_lock);
++static spinlock_t init_lock;
+ static unsigned int master_cpu_id = -1;
+ static volatile unsigned int entered_cpus, initialized_cpus;
+ static volatile int error;
 --
 2.16.4
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/b5d8439116e8615e5b0498391f3ecb27407a1505.1581770164.git.jan.kiszka%40web.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/fb099cc16bdc03fc20a0b7f41bb88d998f63745b.1581770164.git.jan.kiszka%40web.de.
