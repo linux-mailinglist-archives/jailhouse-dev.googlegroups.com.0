@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBHNRVHZAKGQEQUYOM5A@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBHVRVHZAKGQEEJIUNGI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43b.google.com (mail-wr1-x43b.google.com [IPv6:2a00:1450:4864:20::43b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7564A160E22
+Received: from mail-wr1-x438.google.com (mail-wr1-x438.google.com [IPv6:2a00:1450:4864:20::438])
+	by mail.lfdr.de (Postfix) with ESMTPS id B18BE160E23
 	for <lists+jailhouse-dev@lfdr.de>; Mon, 17 Feb 2020 10:10:54 +0100 (CET)
-Received: by mail-wr1-x43b.google.com with SMTP id n23sf8616348wra.20
+Received: by mail-wr1-x438.google.com with SMTP id z15sf8671814wrw.0
         for <lists+jailhouse-dev@lfdr.de>; Mon, 17 Feb 2020 01:10:54 -0800 (PST)
 ARC-Seal: i=2; a=rsa-sha256; t=1581930654; cv=pass;
         d=google.com; s=arc-20160816;
-        b=tnaKb7syBEx18HJ3e/ho67sAi33kGHSWpiRN6n/Ng/p5OH0NA03dSPmU0ATn/XDpjv
-         GQYFOxMaaai9woHtE/cTKDW2nDJTXBpePMwh8fIGj8hI+8mhtb5p1Af80GmRgcawh7vZ
-         RUb/lJtq7ytz32JjRtatzyccunp1ag4jcFHM5x6v54jHaN5pdxZMH5qVNjqrjscPbAyU
-         mw0Q/rwj6bRjCNrAaGi1BYP5A3jctQYngYty/cYn8VTuDF8u9oRe26zxJiLd0JUC/Dxe
-         yr1bdrxmlBLlAhyNqGQAJLGFtClZ7zTuwJYXcdYWKzsqTKbpuDZPoBcCgKivPpbjgU9o
-         rl8Q==
+        b=xaMHiFBIUYr4ILRlam5KdWA06mI45JH2IS70FUi2Fd3gCB7TOJHcyyCLvC3nxVec68
+         AR2FONf8ODIR3qLq1GfVJaBYxeK/9TH4DO3354ls20U5AMezGu0oicwtWzngTIch7IKa
+         hDGB6+DvAH8tD98LJrH9/vHOfIBjUm8RmgLVpcMhgUYWoFe7aBjTM8zo0eyNraObK4y5
+         ryyotC8CcnR5wu/iKb/eXOaF46XZmakVlw0avP/fkdG4YMt1RzxWDEWKIWq/i3d4+TAY
+         7uN04cn5MsNZMnn0YZ9JGNj5h3j/3bLGzacpluYAvwSi7WKTKWsRsaoMzuXghobYI0pT
+         WYTg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:references:in-reply-to:references
          :in-reply-to:message-id:date:subject:to:from:mime-version:sender
          :dkim-signature;
-        bh=7MciCnrPw1s13EyWXbnFjsu8YJ+tKrMEkfmGc4HoCzg=;
-        b=L4IZ922RVlz2eT8fmWvzkNqKiqdJ1Hq8U/Yj8ZgzU3U7JTxBqjDsftCIRM6GeULBp/
-         pc98aL9GXN8IyPhkY8Ou/BbabDdzX7cCSHfCyYPgsQuXWL8kn+AxgnPYhtIfugOoMcmj
-         Lku7D7lyeCUc2f1KDQynZ8/rMFjaUtoLlXSyrrFBehm8nSqp1VPJGZE2wtFHG0AKR4lC
-         k+1Cm3CgYXzUxJ/b84R5Io0Fz83FnXfWqnXccETG1nXf+PqBlzrjoGAJIGb0q9DsgB+H
-         rcMtMEtpR7ElFweAV7SoTucFlGo/pw1bBtNW/iH2xbHVXkylG55Dwtooo7vuJPnPAIJy
-         z5SQ==
+        bh=XvHGTQxYiAsddxHvR2m6DGsKTMh4Oy8yK2pO38Kic3s=;
+        b=rvCcIEicbJ/+xcVXbtuS+M9A3J/OwJe28tRfEFrzFps7Cv+4SHXwyRRnADIK060heb
+         7H47fB6DvOvbaocO1PLMNvSWpr1ehtN3GCFj//IktJ0mC/u/kCkyIyvDSOkLjCT6t7lU
+         LxYO8XCckRgid7ZD1jWwbQZ9nEQ4DQdGZ5hpmrz/sJMfRDpOzicbUF/iDgdJeMZXNQ0j
+         loQ6cC23SEMi12KcloaDbCS5QAJfMu5VvzJ3xvnUnTiAnqh20jJDKhz2+bOX/l3yO79S
+         CKnAs7rRI6RawLwsbtKCtMPTKw33boCyprT56eTwqLPw7SVVu9bIJpiNPm7EGEVYOMd+
+         eTqw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:in-reply-to:references:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=7MciCnrPw1s13EyWXbnFjsu8YJ+tKrMEkfmGc4HoCzg=;
-        b=l0H7r/qW7zchZEtesPoEH8K1PSQ/8+lnEPTc2r0gyrYXRRBZ7TAxDRy/KVeVSqe91b
-         dju013sPnem3m9pom691LoxuwB5DMbnVAVRpQxV5i4O12eq7Da09fbVSRxJmpqB59OZN
-         AE0+v0FxYwvfP1TOWVOymVSadx6zSJVck6/+kjgg7u8XVwSdOugdLIf656LJimo/Tfj5
-         lDqarF+MUxjH80PXyngxeeBogERPI9XvD7P7za7t+0fQhaYnqiXCqpeXRBoC3HeTYLRo
-         k2Lm/P19Zo7P48JubeJPleFu2XF82JM5CaiKIHsoATVh8mV1oP8fixNbGQqBoVuWSAzW
-         FSJg==
+        bh=XvHGTQxYiAsddxHvR2m6DGsKTMh4Oy8yK2pO38Kic3s=;
+        b=qOpXiEZxAiERHLPrzjE3HVRBBMgrivdW4RuWxjrnx8V8Y93DcVonOZgxEkkYv/L/kp
+         XV2BEa19qPcc+iFRx580NRqOQDJkVvbH7Tta9e8Ig7tlLKnounhRQZyZzRZ/gb43oJdk
+         ofWYhi0QOwnyMm7ZBNjGx7u1sA2VmSPpjvvMVp0BtIseQS8JnB/AcUD4pIeaC0QN74Gw
+         QKQIcPFstSPMsC8/kcpt+vak+2Yi9do0k08eQanbn/OgM/kFVdUhy1Tk6yR5mR+lmzQu
+         L2H4FrkSSMylM33T5l6UhC6XEKXZKavew/h5hDDXous3UwJyeK2kZtW4BWfS6Z9yK58o
+         CXCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:mime-version:from:to:subject:date
@@ -49,64 +49,64 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=7MciCnrPw1s13EyWXbnFjsu8YJ+tKrMEkfmGc4HoCzg=;
-        b=uUvfCuVTbxzbSE4ApvfF/WwWSb/wjohT1QTqma8ObhCZGBZQj1/JBTcTghyUXiMds/
-         3IiVPSfPxFq40rMKCtcICX0JDrLbXKiJHIQI+SQhKfgKhvv1Su1ROjuHiYUTc1MqwQI/
-         QBk/NBMFpruwBYLjfa1GPKYSFpc/Z/8XTpwAuHyjK/Nr9xKf59YstFTvr2cBdBkHB/N9
-         Mz4joUYdYwcn7gs6eGy5nhAsPPaLLlfPcET/bgEy0GWbE4dPNHlMTqAjKl9i5faCBnl4
-         zym6zNvU5glu8f0EeG95MKDNxx6DpUw+hGl/9I3dmbH9+WwxKHeb9+JYASwNC7DRAv7M
-         to7Q==
+        bh=XvHGTQxYiAsddxHvR2m6DGsKTMh4Oy8yK2pO38Kic3s=;
+        b=h5rIdZo8aXUwJcCKdFmkTVttSbsL9cGf3Lyo+hMYJTq7gbtck0GpEoUXfgrlcREI63
+         4127OW2smvu2d4Lnwncz/uyYmPeSyVwKQH9YjtBUIpKduJU1/I8dTpRyQwxh9rGIlAaF
+         as6qD/wy4cyC+0xoCzlg7jnOqiKhO3+fikpqk0LDkBbFR11jJQ54JgC8s4nTUJ78znyj
+         pC4vrRYHcZX5lOiDn8M8cmMskfvLsxKKWl0CrUpq30wlmuZ3dd5JwprODhOoXB6d7JG9
+         tcM5smJGJg7U+4dSseLFH/olNECcgVthPaw8z4fNd0wjq25b3cJyyw4iykJlATQVimGc
+         vueg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAXraRwwvMpKukZ2e14+gE3hVqeX3RQxvEaFJu6M+Z2C0fgtQ/V4
-	0qcfUXzz6XNQGGxBGF2k3xU=
-X-Google-Smtp-Source: APXvYqwkXIQy2TauPqbJHY6+FWvu1w4+Z9uYyIxOmBZ550ymiQwJnhwKb9JBOPUdcujHQiKeYy5NaQ==
-X-Received: by 2002:a5d:4d04:: with SMTP id z4mr22501104wrt.157.1581930654120;
+X-Gm-Message-State: APjAAAUYx7yc9+P5YLgyFuzZpkirQaVEcoLyO+MlfN94N+prfbqtJ4lC
+	V9fxQjylhZM4u/fPBiuxiG0=
+X-Google-Smtp-Source: APXvYqzTCVqB7zxjUCei1ytzu9GbI34NucbWfMcYuEc2gw+RVOTlh8kV01b9T/jShN25pfzgCUdhoA==
+X-Received: by 2002:a05:600c:2290:: with SMTP id 16mr21426688wmf.93.1581930654441;
         Mon, 17 Feb 2020 01:10:54 -0800 (PST)
 MIME-Version: 1.0
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:d847:: with SMTP id k7ls5202154wrl.0.gmail; Mon, 17 Feb
+Received: by 2002:adf:fac2:: with SMTP id a2ls5171674wrs.4.gmail; Mon, 17 Feb
  2020 01:10:53 -0800 (PST)
-X-Received: by 2002:adf:e781:: with SMTP id n1mr22235671wrm.56.1581930653263;
+X-Received: by 2002:adf:ea48:: with SMTP id j8mr22024270wrn.363.1581930653543;
         Mon, 17 Feb 2020 01:10:53 -0800 (PST)
 ARC-Seal: i=1; a=rsa-sha256; t=1581930653; cv=none;
         d=google.com; s=arc-20160816;
-        b=pBvul8bvRH7W8Yz1xnzN/f3X0L/paOcImCfLP9SstMOV/51AAMnPoKTAY0/PUArqpM
-         hXMIQIi+7VQLpz2cydIecLAzzOXhHeuHPGizssLfBTajGscryP6Grc9RZtWV44rCcTVl
-         5YC3sg5erqEH2YlGozgTTMdjV16g6TNynFpdDwzMsfkWGNQVBu6026mLMm3pA260FSRN
-         /SIpBpbEDJwKa3zjNbD8efCWbRSYzguYTNZwvbCDnjSHSPy+2eGoen2ZCoxUag52yVed
-         AhHhssitW/sLnL4/r2s88bwSobms2UDYzOpJkwiwT4x4kQEChPe1tgqPBqX2kR4gswDe
-         Qp6w==
+        b=NXxvZsnfjyWiuoYqq82XBtza14oSj2W0jiNJ53RQFUFLApAETuIKBQ/VmH5X3BMFbt
+         vLYncv+GF0cBwlAQssPyI35zlc9jGchyibpteMgOXXIILDnUeoR76XpN5B1uu8PZ2TpH
+         ALKQcKMFWbfRZE6S6YtYrgvwb+HJVTtuBrsO2u4soYbeZKOalqM7zVLOZkRtIzE17g9R
+         pdHWJ8HA+CZ0Yapzw3hN1Q3Kz2J63aVcAW9fSXi9CT5PwSfDihz7O8v+WEOZjq0ZcFH4
+         LSSB6JeZwNrq9ocVo8Umde7mdolXHTkOQ3owFJHmsBHV7LPp1ODqu6OukS6BfZpFTbaM
+         TDLw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=references:in-reply-to:references:in-reply-to:message-id:date
          :subject:to:from;
-        bh=5E168Utpp+/z7P8wdc1QrefTR9CZCXii9pGyomgDBos=;
-        b=YZTYMaSFjGVgfsJmuWBfsfbdCywp4aaY5k/YWRhDNYlAViv/qw8lrtgccKpsRT8g1R
-         9tf1k9u7sMo2tL6mNQRd+3YXSO41iZJ++j9TBikYIfX0HloVPU+I6V4MELZXM68pJs+m
-         nxqMDWwXzq9iQ1RPyV9EYIL0uLvrSeLHpPU/lrggmxSHfoMztEbdUD/78mT/QDIWYPEb
-         Vw+IVi2UpvddxRb/tPFT5zc7lSx8/RyZPBtkYzSKTIKuSh2yBwOz8974VsmCb9YA5BR4
-         28NF/bmQV6MnaUmU6PEn3y9XCh+M0Ln1x5Kie41oVuHh2ELD8/AS5WgouNNjKECbqxl8
-         +y7g==
+        bh=4kNkc9cWD2OLd0xdUYAiS76GQw8fwXGLwjB8bmVhzUQ=;
+        b=fIZWBsVdTyjaQOXi598UIJZAIlZyetONYAfIc9JV3G+/j1l17LlzjyQF1uiZzdk3S5
+         FauERKlnqnh/odV/cjxGpEAC4ZH20A0SfGSlM4Wb1LFYUCkza/Z95dVgT2usN3KCqLKJ
+         1kRxVoE2bqfGA67Nv3hrcHzkUVjFEMGbpGZE5jbyBGciKasuE2ezYb13igthC7nuRXMH
+         UwXNSpIbpUuv2zL2YdHYqFml+0qJUWpYjQhqVuPImm7TY1dC+6MEZ+z4RrEuh3Y5ukHO
+         SLsK+LxcaIeneJQi/tCVgWzlzm4teAz142MQ5DiuLBurXo5OGx/o8lgc8TN9LqaRydRy
+         IaMg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
-        by gmr-mx.google.com with ESMTPS id q202si314921wme.2.2020.02.17.01.10.53
+Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
+        by gmr-mx.google.com with ESMTPS id w11si752739wmk.0.2020.02.17.01.10.53
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
         Mon, 17 Feb 2020 01:10:53 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 01H9AqJw005853
+	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id 01H9ArBH027776
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
 	for <jailhouse-dev@googlegroups.com>; Mon, 17 Feb 2020 10:10:53 +0100
 Received: from md1f2u6c.ad001.siemens.net ([167.87.42.209])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 01H9Ap3c020534
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 01H9Ap3d020534
 	for <jailhouse-dev@googlegroups.com>; Mon, 17 Feb 2020 10:10:52 +0100
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [PATCH 3/6] core: Introduce jailhouse/bitops.h
-Date: Mon, 17 Feb 2020 10:10:48 +0100
-Message-Id: <1c4c15399f736c49be665ca7af343b90cb448108.1581930651.git.jan.kiszka@siemens.com>
+Subject: [PATCH 4/6] core: Make set/clear_bit generic and non-atomic
+Date: Mon, 17 Feb 2020 10:10:49 +0100
+Message-Id: <e2562f696de236219f5fba88f64bbe6fb08c4829.1581930651.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <cover.1581930651.git.jan.kiszka@siemens.com>
 References: <cover.1581930651.git.jan.kiszka@siemens.com>
@@ -114,7 +114,7 @@ In-Reply-To: <cover.1581930651.git.jan.kiszka@siemens.com>
 References: <cover.1581930651.git.jan.kiszka@siemens.com>
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
@@ -132,184 +132,257 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-We will share generic bitops this way.
+No caller of these functions exploit their atomicity, and this should
+not change. So, simplify the code by using generic non-atomic versions.
+
+On arm and arm64, some macros are folded in the only remaining user,
+test_and_set_bit.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- hypervisor/arch/arm/include/asm/bitops.h   | 10 ----------
- hypervisor/arch/arm/mmio.c                 |  2 +-
- hypervisor/arch/arm64/include/asm/bitops.h | 10 ----------
- hypervisor/arch/arm64/mmio.c               |  2 +-
- hypervisor/arch/x86/include/asm/bitops.h   |  7 -------
- hypervisor/include/jailhouse/bitops.h      | 19 +++++++++++++++++++
- hypervisor/include/jailhouse/control.h     |  2 +-
- scripts/header_check                       |  6 ++++++
- 8 files changed, 28 insertions(+), 30 deletions(-)
- create mode 100644 hypervisor/include/jailhouse/bitops.h
+ hypervisor/arch/arm/include/asm/bitops.h   | 65 +++++-------------------------
+ hypervisor/arch/arm64/include/asm/bitops.h | 54 ++-----------------------
+ hypervisor/arch/x86/include/asm/bitops.h   | 31 --------------
+ hypervisor/include/jailhouse/bitops.h      | 12 ++++++
+ 4 files changed, 25 insertions(+), 137 deletions(-)
 
 diff --git a/hypervisor/arch/arm/include/asm/bitops.h b/hypervisor/arch/arm/include/asm/bitops.h
-index 3b5d0a89..fbdcc817 100644
+index fbdcc817..8b9c9d1f 100644
 --- a/hypervisor/arch/arm/include/asm/bitops.h
 +++ b/hypervisor/arch/arm/include/asm/bitops.h
-@@ -10,13 +10,6 @@
+@@ -1,7 +1,7 @@
+ /*
+  * Jailhouse, a Linux-based partitioning hypervisor
+  *
+- * Copyright (c) Siemens AG, 2013
++ * Copyright (c) Siemens AG, 2013-2020
+  *
+  * Authors:
+  *  Jan Kiszka <jan.kiszka@siemens.com>
+@@ -10,58 +10,6 @@
   * the COPYING file in the top-level directory.
   */
  
--#ifndef _JAILHOUSE_ASM_BITOPS_H
--#define _JAILHOUSE_ASM_BITOPS_H
+-#define BITOPT_ALIGN(bits, addr)				\
+-	do {							\
+-		(addr) = (unsigned long *)((u32)(addr) & ~0x3)	\
+-			+ (bits) / BITS_PER_LONG;		\
+-		(bits) %= BITS_PER_LONG;			\
+-	} while (0)
 -
--#include <jailhouse/types.h>
+-/* Load the cacheline in exclusive state */
+-#define PRELOAD(addr)						\
+-	asm volatile (".arch_extension mp\n\t"			\
+-		      "pldw %0\n\t"				\
+-		      : "+Qo" (*(volatile unsigned long *)addr));
 -
--#ifndef __ASSEMBLY__
+-static inline __attribute__((always_inline)) void
+-clear_bit(unsigned int nr, volatile unsigned long *addr)
+-{
+-	unsigned long ret, val;
 -
- #define BITOPT_ALIGN(bits, addr)				\
- 	do {							\
- 		(addr) = (unsigned long *)((u32)(addr) & ~0x3)	\
-@@ -120,6 +113,3 @@ static inline unsigned long ffzl(unsigned long word)
+-	BITOPT_ALIGN(nr, addr);
+-
+-	PRELOAD(addr);
+-	do {
+-		asm volatile (
+-			"ldrex	%1, %2\n\t"
+-			"bic	%1, %3\n\t"
+-			"strex	%0, %1, %2\n\t"
+-			: "=r" (ret), "=r" (val),
+-			/* declare clobbering of this address to the compiler */
+-			  "+Qo" (*(volatile unsigned long *)addr)
+-			: "r" (1 << nr));
+-	} while (ret);
+-}
+-
+-static inline __attribute__((always_inline)) void
+-set_bit(unsigned int nr, volatile unsigned long *addr)
+-{
+-	unsigned long ret, val;
+-
+-	BITOPT_ALIGN(nr, addr);
+-
+-	PRELOAD(addr);
+-	do {
+-		asm volatile (
+-			"ldrex	%1, %2\n\t"
+-			"orr	%1, %3\n\t"
+-			"strex	%0, %1, %2\n\t"
+-			: "=r" (ret), "=r" (val),
+-			  "+Qo" (*(volatile unsigned long *)addr)
+-			: "r" (1 << nr));
+-	} while (ret);
+-}
+-
+ static inline __attribute__((always_inline)) int
+ test_bit(unsigned int nr, const volatile unsigned long *addr)
  {
- 	return ffsl(~word);
- }
--
--#endif /* !__ASSEMBLY__ */
--#endif /* !_JAILHOUSE_ASM_BITOPS_H */
-diff --git a/hypervisor/arch/arm/mmio.c b/hypervisor/arch/arm/mmio.c
-index fcc7fdf2..1c492b43 100644
---- a/hypervisor/arch/arm/mmio.c
-+++ b/hypervisor/arch/arm/mmio.c
-@@ -10,10 +10,10 @@
-  * the COPYING file in the top-level directory.
-  */
+@@ -73,9 +21,15 @@ static inline int test_and_set_bit(int nr, volatile unsigned long *addr)
+ {
+ 	unsigned long ret, val, test;
  
-+#include <jailhouse/bitops.h>
- #include <jailhouse/mmio.h>
- #include <jailhouse/pci.h>
- #include <jailhouse/printk.h>
--#include <asm/bitops.h>
- #include <jailhouse/percpu.h>
- #include <asm/processor.h>
- #include <asm/traps.h>
+-	BITOPT_ALIGN(nr, addr);
++	/* word-align */
++	addr = (unsigned long *)((u32)addr & ~0x3) + nr / BITS_PER_LONG;
++	nr %= BITS_PER_LONG;
+ 
+-	PRELOAD(addr);
++	/* Load the cacheline in exclusive state */
++	asm volatile (
++		".arch_extension mp\n\t"
++		"pldw %0\n\t"
++		: "+Qo" (*(volatile unsigned long *)addr));
+ 	do {
+ 		asm volatile (
+ 			"ldrex	%1, %3\n\t"
+@@ -91,7 +45,6 @@ static inline int test_and_set_bit(int nr, volatile unsigned long *addr)
+ 	return !!(test);
+ }
+ 
+-
+ /* Count leading zeroes */
+ static inline unsigned long clz(unsigned long word)
+ {
 diff --git a/hypervisor/arch/arm64/include/asm/bitops.h b/hypervisor/arch/arm64/include/asm/bitops.h
-index aad70f29..df99402d 100644
+index df99402d..004c3b44 100644
 --- a/hypervisor/arch/arm64/include/asm/bitops.h
 +++ b/hypervisor/arch/arm64/include/asm/bitops.h
-@@ -11,13 +11,6 @@
+@@ -11,55 +11,6 @@
   * the COPYING file in the top-level directory.
   */
  
--#ifndef _JAILHOUSE_ASM_BITOPS_H
--#define _JAILHOUSE_ASM_BITOPS_H
+-#define BITOPT_ALIGN(bits, addr)				\
+-	do {							\
+-		(addr) = (unsigned long *)((u64)(addr) & ~0x7)	\
+-			+ (bits) / BITS_PER_LONG;		\
+-		(bits) %= BITS_PER_LONG;			\
+-	} while (0)
 -
--#include <jailhouse/types.h>
+-static inline __attribute__((always_inline)) void
+-clear_bit(unsigned int nr, volatile unsigned long *addr)
+-{
+-	u32 ret;
+-	u64 tmp;
 -
--#ifndef __ASSEMBLY__
+-	BITOPT_ALIGN(nr, addr);
 -
- #define BITOPT_ALIGN(bits, addr)				\
- 	do {							\
- 		(addr) = (unsigned long *)((u64)(addr) & ~0x7)	\
-@@ -123,6 +116,3 @@ static inline unsigned long ffzl(unsigned long word)
+-	/* AARCH64_TODO: do we need to preload? */
+-	do {
+-		asm volatile (
+-			"ldxr	%2, %1\n\t"
+-			"bic	%2, %2, %3\n\t"
+-			"stxr	%w0, %2, %1\n\t"
+-			: "=r" (ret),
+-			  "+Q" (*(volatile unsigned long *)addr),
+-			  "=r" (tmp)
+-			: "r" (1ul << nr));
+-	} while (ret);
+-}
+-
+-static inline __attribute__((always_inline)) void
+-set_bit(unsigned int nr, volatile unsigned long *addr)
+-{
+-	u32 ret;
+-	u64 tmp;
+-
+-	BITOPT_ALIGN(nr, addr);
+-
+-	/* AARCH64_TODO: do we need to preload? */
+-	do {
+-		asm volatile (
+-			"ldxr	%2, %1\n\t"
+-			"orr	%2, %2, %3\n\t"
+-			"stxr	%w0, %2, %1\n\t"
+-			: "=r" (ret),
+-			  "+Q" (*(volatile unsigned long *)addr),
+-			  "=r" (tmp)
+-			: "r" (1ul << nr));
+-	} while (ret);
+-}
+-
+ static inline __attribute__((always_inline)) int
+ test_bit(unsigned int nr, const volatile unsigned long *addr)
  {
- 	return ffsl(~word);
- }
--
--#endif /* !__ASSEMBLY__ */
--#endif /* !_JAILHOUSE_ASM_BITOPS_H */
-diff --git a/hypervisor/arch/arm64/mmio.c b/hypervisor/arch/arm64/mmio.c
-index e6933716..7fbfef75 100644
---- a/hypervisor/arch/arm64/mmio.c
-+++ b/hypervisor/arch/arm64/mmio.c
-@@ -14,10 +14,10 @@
-  * the COPYING file in the top-level directory.
-  */
+@@ -72,7 +23,10 @@ static inline int test_and_set_bit(int nr, volatile unsigned long *addr)
+ 	u32 ret;
+ 	u64 test, tmp;
  
-+#include <jailhouse/bitops.h>
- #include <jailhouse/entry.h>
- #include <jailhouse/mmio.h>
- #include <jailhouse/printk.h>
--#include <asm/bitops.h>
- #include <jailhouse/percpu.h>
- #include <asm/sysregs.h>
- #include <asm/traps.h>
+-	BITOPT_ALIGN(nr, addr);
++	/* word-align */
++	addr = (unsigned long *)((u64)addr & ~0x7) + nr / BITS_PER_LONG;
++	nr %= BITS_PER_LONG;
++
+ 
+ 	/* AARCH64_TODO: using Inner Shareable DMB at the moment,
+ 	 * revisit when we will deal with shareability domains */
 diff --git a/hypervisor/arch/x86/include/asm/bitops.h b/hypervisor/arch/x86/include/asm/bitops.h
-index 1f07db47..66fc91ab 100644
+index 66fc91ab..12d85fdb 100644
 --- a/hypervisor/arch/x86/include/asm/bitops.h
 +++ b/hypervisor/arch/x86/include/asm/bitops.h
-@@ -15,11 +15,6 @@
-  * Copyright (c) Linux kernel developers, 2013
-  */
+@@ -23,37 +23,6 @@
+ #define BITOP_ADDR(x) "+m" (*(volatile long *) (x))
+ #endif
  
--#ifndef _JAILHOUSE_ASM_BITOPS_H
--#define _JAILHOUSE_ASM_BITOPS_H
+-#define CONST_MASK_ADDR(nr, addr)	BITOP_ADDR((void *)(addr) + ((nr)>>3))
+-#define CONST_MASK(nr)			(1 << ((nr) & 7))
 -
--#include <jailhouse/types.h>
+-static inline __attribute__((always_inline)) void
+-clear_bit(unsigned int nr, volatile unsigned long *addr)
+-{
+-	if (__builtin_constant_p(nr)) {
+-		asm volatile("lock andb %1,%0"
+-			: CONST_MASK_ADDR(nr, addr)
+-			: "iq" ((u8)~CONST_MASK(nr)));
+-	} else {
+-		asm volatile("lock btr %1,%0"
+-			: BITOP_ADDR(addr)
+-			: "Ir" (nr));
+-	}
+-}
 -
- #if __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 1)
- /* Technically wrong, but this avoids compilation errors on some gcc
-    versions. */
-@@ -109,5 +104,3 @@ static inline unsigned long ffsl(unsigned long word)
- 		: "rm" (word));
- 	return word;
- }
+-static inline __attribute__((always_inline)) void
+-set_bit(unsigned int nr, volatile unsigned long *addr)
+-{
+-	if (__builtin_constant_p(nr)) {
+-		asm volatile("lock orb %1,%0"
+-			: CONST_MASK_ADDR(nr, addr)
+-			: "iq" ((u8)CONST_MASK(nr))
+-			: "memory");
+-	} else {
+-		asm volatile("lock bts %1,%0"
+-			: BITOP_ADDR(addr) : "Ir" (nr) : "memory");
+-	}
+-}
 -
--#endif /* !_JAILHOUSE_ASM_BITOPS_H */
+ static inline __attribute__((always_inline)) int
+ constant_test_bit(unsigned int nr, const volatile unsigned long *addr)
+ {
 diff --git a/hypervisor/include/jailhouse/bitops.h b/hypervisor/include/jailhouse/bitops.h
-new file mode 100644
-index 00000000..426e51f1
---- /dev/null
+index 426e51f1..e98381d0 100644
+--- a/hypervisor/include/jailhouse/bitops.h
 +++ b/hypervisor/include/jailhouse/bitops.h
-@@ -0,0 +1,19 @@
-+/*
-+ * Jailhouse, a Linux-based partitioning hypervisor
-+ *
-+ * Copyright (c) Siemens AG, 2020
-+ *
-+ * Authors:
-+ *  Jan Kiszka <jan.kiszka@siemens.com>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See
-+ * the COPYING file in the top-level directory.
-+ */
-+
-+#ifndef _JAILHOUSE_BITOPS_H
-+#define _JAILHOUSE_BITOPS_H
-+
-+#include <jailhouse/types.h>
-+#include <asm/bitops.h>
-+
-+#endif /* !_JAILHOUSE_BITOPS_H */
-diff --git a/hypervisor/include/jailhouse/control.h b/hypervisor/include/jailhouse/control.h
-index 72518f6a..e50beed7 100644
---- a/hypervisor/include/jailhouse/control.h
-+++ b/hypervisor/include/jailhouse/control.h
-@@ -10,7 +10,7 @@
-  * the COPYING file in the top-level directory.
-  */
+@@ -16,4 +16,16 @@
+ #include <jailhouse/types.h>
+ #include <asm/bitops.h>
  
--#include <asm/bitops.h>
-+#include <jailhouse/bitops.h>
- #include <jailhouse/percpu.h>
- #include <jailhouse/cell.h>
- #include <jailhouse/cell-config.h>
-diff --git a/scripts/header_check b/scripts/header_check
-index 2fa6e45f..6487378b 100755
---- a/scripts/header_check
-+++ b/scripts/header_check
-@@ -42,6 +42,12 @@ test_compile()
- 		prepend="#define __ASSEMBLY__
- 			 #include <jailhouse/types.h>"
- 		;;
-+	bitops.h)
-+		if [ "$1" == "asm" ]; then
-+			# must be included by jailhouse/bitops.h only
-+			return
-+		fi
-+		;;
- 	ivshmem.h)
- 		if [ "$1" == "asm" ]; then
- 			# must be included by jailhouse/ivshmem.h only
++static inline __attribute__((always_inline)) void
++clear_bit(unsigned int nr, volatile unsigned long *addr)
++{
++	addr[nr / BITS_PER_LONG] &= ~(1UL << (nr % BITS_PER_LONG));
++}
++
++static inline __attribute__((always_inline)) void
++set_bit(unsigned int nr, volatile unsigned long *addr)
++{
++	addr[nr / BITS_PER_LONG] |= 1UL << (nr % BITS_PER_LONG);
++}
++
+ #endif /* !_JAILHOUSE_BITOPS_H */
 -- 
 2.16.4
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/1c4c15399f736c49be665ca7af343b90cb448108.1581930651.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/e2562f696de236219f5fba88f64bbe6fb08c4829.1581930651.git.jan.kiszka%40siemens.com.
