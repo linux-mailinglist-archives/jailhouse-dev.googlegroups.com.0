@@ -1,33 +1,33 @@
 Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBHVRVHZAKGQEEJIUNGI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x438.google.com (mail-wr1-x438.google.com [IPv6:2a00:1450:4864:20::438])
-	by mail.lfdr.de (Postfix) with ESMTPS id B18BE160E23
+Received: from mail-wr1-x43d.google.com (mail-wr1-x43d.google.com [IPv6:2a00:1450:4864:20::43d])
+	by mail.lfdr.de (Postfix) with ESMTPS id EA630160E24
 	for <lists+jailhouse-dev@lfdr.de>; Mon, 17 Feb 2020 10:10:54 +0100 (CET)
-Received: by mail-wr1-x438.google.com with SMTP id z15sf8671814wrw.0
+Received: by mail-wr1-x43d.google.com with SMTP id m15sf8558511wrs.22
         for <lists+jailhouse-dev@lfdr.de>; Mon, 17 Feb 2020 01:10:54 -0800 (PST)
 ARC-Seal: i=2; a=rsa-sha256; t=1581930654; cv=pass;
         d=google.com; s=arc-20160816;
-        b=xaMHiFBIUYr4ILRlam5KdWA06mI45JH2IS70FUi2Fd3gCB7TOJHcyyCLvC3nxVec68
-         AR2FONf8ODIR3qLq1GfVJaBYxeK/9TH4DO3354ls20U5AMezGu0oicwtWzngTIch7IKa
-         hDGB6+DvAH8tD98LJrH9/vHOfIBjUm8RmgLVpcMhgUYWoFe7aBjTM8zo0eyNraObK4y5
-         ryyotC8CcnR5wu/iKb/eXOaF46XZmakVlw0avP/fkdG4YMt1RzxWDEWKIWq/i3d4+TAY
-         7uN04cn5MsNZMnn0YZ9JGNj5h3j/3bLGzacpluYAvwSi7WKTKWsRsaoMzuXghobYI0pT
-         WYTg==
+        b=T36k6v4ZL9Mky2uURR+B1a6/iTslooi2dgrfX0JssHuS8aHXPlvIXukbpDThdA8i8F
+         x/M5QW3PrKC/+tal3DGhWpEi24Us4XPGCbXNZT9r9P8Vx/VFhmMczL+xvb6WEyV4oFEA
+         qNtoxvIAFsq5KIQFUN+9wq9OMfT+xdBfbocg8zLtNkZHpgTV48yV1phvwUKXB3hvbfmr
+         +tuw9wlM43UXsRntoBFAIHIeX69xOhOUlod2EUBoGO87iO9l9/4/KOc4mZgRR36bsnCf
+         UIawxNVggHEAjxVZQX0uR1YGs9/aQjb9kRNrHj3/j3Z8lv/adx4rlvbx9PH1Vy8aHoq5
+         Bnaw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:references:in-reply-to:references
          :in-reply-to:message-id:date:subject:to:from:mime-version:sender
          :dkim-signature;
-        bh=XvHGTQxYiAsddxHvR2m6DGsKTMh4Oy8yK2pO38Kic3s=;
-        b=rvCcIEicbJ/+xcVXbtuS+M9A3J/OwJe28tRfEFrzFps7Cv+4SHXwyRRnADIK060heb
-         7H47fB6DvOvbaocO1PLMNvSWpr1ehtN3GCFj//IktJ0mC/u/kCkyIyvDSOkLjCT6t7lU
-         LxYO8XCckRgid7ZD1jWwbQZ9nEQ4DQdGZ5hpmrz/sJMfRDpOzicbUF/iDgdJeMZXNQ0j
-         loQ6cC23SEMi12KcloaDbCS5QAJfMu5VvzJ3xvnUnTiAnqh20jJDKhz2+bOX/l3yO79S
-         CKnAs7rRI6RawLwsbtKCtMPTKw33boCyprT56eTwqLPw7SVVu9bIJpiNPm7EGEVYOMd+
-         eTqw==
+        bh=ZjUGwbaITXa0AoRs+PNiDzvq0KuaAfAY8eVFSGXQlrg=;
+        b=bz1rUzkAdXycYP3gXBEX+RIDin/fqDjwexdAOuyJXCOs9xcQOrv5u+iviTyFewzVez
+         ZmxzkfvUZWOMvrsJTrjzUv4bE9Pau44M0/pkRrpIaBQJMzq9MwGq8pRESeX1Esl4agvC
+         YRHNrz76zmfWgTuYex332U4MsZhDibqzDusOZ2z/iNLBeKEELzKmvCbInc64FXLfvpGl
+         Z1if7qxUhnT9JaihZQPuBxylBfBaA0KmhDk3gbSy7H0xwI96u6T+GMoWxLxtGA5nroXc
+         nUJiN16BABbmC0cKxodSJK38ijFN8ZGVYTt7JPPUuyDNlU3RBCkXH+tzTHtmJetS9zPE
+         9eQg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:in-reply-to:references:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=XvHGTQxYiAsddxHvR2m6DGsKTMh4Oy8yK2pO38Kic3s=;
-        b=qOpXiEZxAiERHLPrzjE3HVRBBMgrivdW4RuWxjrnx8V8Y93DcVonOZgxEkkYv/L/kp
-         XV2BEa19qPcc+iFRx580NRqOQDJkVvbH7Tta9e8Ig7tlLKnounhRQZyZzRZ/gb43oJdk
-         ofWYhi0QOwnyMm7ZBNjGx7u1sA2VmSPpjvvMVp0BtIseQS8JnB/AcUD4pIeaC0QN74Gw
-         QKQIcPFstSPMsC8/kcpt+vak+2Yi9do0k08eQanbn/OgM/kFVdUhy1Tk6yR5mR+lmzQu
-         L2H4FrkSSMylM33T5l6UhC6XEKXZKavew/h5hDDXous3UwJyeK2kZtW4BWfS6Z9yK58o
-         CXCg==
+        bh=ZjUGwbaITXa0AoRs+PNiDzvq0KuaAfAY8eVFSGXQlrg=;
+        b=f59Pz6TlvLsZUQJhjfkkNMEZnl3z+p+iCVx/WOp3V31cKZlFbefYJ/DpN2ZpVl+KXX
+         Od9u8cecP3VtW3npLKReFdG2SW/1QfF8KuEmt6SczdsVnJcj8Tugcj8dQNttYiNnV6AZ
+         s9wuVXDErjteONCURPbaWlU0ZlO/X9KRwZotBeS867y5Tmly44QB8f/WEVfNHI7ttF5f
+         dz0Qd/btbZJhg7zZW8uHzoNy4fgXOxNECMX/Ivw+oE5Pw7A+4ySCH5HHloH5KpcaQcrr
+         hkfK4KHRauSvoPylwLPUusOC/M4GXU+pn0TO/IK9kXQy8UqGM0l4jqM7lDpqFWk1zsKf
+         L1Qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:mime-version:from:to:subject:date
@@ -49,64 +49,64 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=XvHGTQxYiAsddxHvR2m6DGsKTMh4Oy8yK2pO38Kic3s=;
-        b=h5rIdZo8aXUwJcCKdFmkTVttSbsL9cGf3Lyo+hMYJTq7gbtck0GpEoUXfgrlcREI63
-         4127OW2smvu2d4Lnwncz/uyYmPeSyVwKQH9YjtBUIpKduJU1/I8dTpRyQwxh9rGIlAaF
-         as6qD/wy4cyC+0xoCzlg7jnOqiKhO3+fikpqk0LDkBbFR11jJQ54JgC8s4nTUJ78znyj
-         pC4vrRYHcZX5lOiDn8M8cmMskfvLsxKKWl0CrUpq30wlmuZ3dd5JwprODhOoXB6d7JG9
-         tcM5smJGJg7U+4dSseLFH/olNECcgVthPaw8z4fNd0wjq25b3cJyyw4iykJlATQVimGc
-         vueg==
+        bh=ZjUGwbaITXa0AoRs+PNiDzvq0KuaAfAY8eVFSGXQlrg=;
+        b=PJTP0sxGlKOtgJGj/VDtiK+O9pqdm5Nl9SOJ8xrjSAAhBkRPf9uHsLqVmpHNVZVu/l
+         v2Hic8f5eMi8uuGAw7t4ANmti+6swfAN0UdF+eLnmVJqEftfLIj3KaK/A0JgxrXXTPxg
+         9rL82C0hIBZedvW1bOeQUEPazp4eEgc85aebvvyYvqgkBoYMmJ0v0ybEbla7RSimycgg
+         weygpDBdH6zgKgl6KHoVObkyruBqiofpi+XnQmD/u1rpAfqXwelIJkBNSfSUuf28kvrt
+         pGpz1wabAWnKho6JpwRyZu6uoKtlf2+rzyohWgwVWZtwrze0kNzFZa41wcVhsGsoZ3UO
+         nd9g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUYx7yc9+P5YLgyFuzZpkirQaVEcoLyO+MlfN94N+prfbqtJ4lC
-	V9fxQjylhZM4u/fPBiuxiG0=
-X-Google-Smtp-Source: APXvYqzTCVqB7zxjUCei1ytzu9GbI34NucbWfMcYuEc2gw+RVOTlh8kV01b9T/jShN25pfzgCUdhoA==
-X-Received: by 2002:a05:600c:2290:: with SMTP id 16mr21426688wmf.93.1581930654441;
+X-Gm-Message-State: APjAAAX+scw1FTjcCBg4db6dTQcAUmGuvDYboUFHK0XDdD2ewRWiWcjN
+	dtP9578yF/v/15zlNu7mnE4=
+X-Google-Smtp-Source: APXvYqw/hgANO/W7P+2kxgyBbNX7gXFhPEkEBlmWWdvfzngja9vfkoqscJ+J5H6w0OSsWMY75s1yLg==
+X-Received: by 2002:adf:e781:: with SMTP id n1mr22235806wrm.56.1581930654672;
         Mon, 17 Feb 2020 01:10:54 -0800 (PST)
 MIME-Version: 1.0
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:fac2:: with SMTP id a2ls5171674wrs.4.gmail; Mon, 17 Feb
- 2020 01:10:53 -0800 (PST)
-X-Received: by 2002:adf:ea48:: with SMTP id j8mr22024270wrn.363.1581930653543;
+Received: by 2002:a05:6000:100e:: with SMTP id a14ls5173883wrx.2.gmail; Mon,
+ 17 Feb 2020 01:10:54 -0800 (PST)
+X-Received: by 2002:a5d:474b:: with SMTP id o11mr21747652wrs.255.1581930653945;
         Mon, 17 Feb 2020 01:10:53 -0800 (PST)
 ARC-Seal: i=1; a=rsa-sha256; t=1581930653; cv=none;
         d=google.com; s=arc-20160816;
-        b=NXxvZsnfjyWiuoYqq82XBtza14oSj2W0jiNJ53RQFUFLApAETuIKBQ/VmH5X3BMFbt
-         vLYncv+GF0cBwlAQssPyI35zlc9jGchyibpteMgOXXIILDnUeoR76XpN5B1uu8PZ2TpH
-         ALKQcKMFWbfRZE6S6YtYrgvwb+HJVTtuBrsO2u4soYbeZKOalqM7zVLOZkRtIzE17g9R
-         pdHWJ8HA+CZ0Yapzw3hN1Q3Kz2J63aVcAW9fSXi9CT5PwSfDihz7O8v+WEOZjq0ZcFH4
-         LSSB6JeZwNrq9ocVo8Umde7mdolXHTkOQ3owFJHmsBHV7LPp1ODqu6OukS6BfZpFTbaM
-         TDLw==
+        b=SA70G2FOZ6Xlp2/SSnQbF23VhwHIy85WmUIORgZyVSe4BkNvyAFrAHCcqtrI422uyb
+         ILFcvr6yuGUgyt2rD/kV5z/iavpO4uGc8PupSTp/0NAisq6sZjJmC8qppcTvY4ZslMZT
+         g8u8Crs5Zo+eD0mUTDTA+tC8lY9b3M6JG1zhF+EZ6UMadY3C4i1NR3Zj6RAaeJu0SL9g
+         R+mB0YGYgrj5r9A9sOUY2Mer4H199oimpEar+C3PUINzQORjyUWJmRyGXXX5chC6XR8T
+         B0Mmw6Xo0BjDOE5XBwuUoPNHUyFVOIJAumLC2cR2mfE8y7smunAwPdTspB0HUVwbomkU
+         ypNA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=references:in-reply-to:references:in-reply-to:message-id:date
          :subject:to:from;
-        bh=4kNkc9cWD2OLd0xdUYAiS76GQw8fwXGLwjB8bmVhzUQ=;
-        b=fIZWBsVdTyjaQOXi598UIJZAIlZyetONYAfIc9JV3G+/j1l17LlzjyQF1uiZzdk3S5
-         FauERKlnqnh/odV/cjxGpEAC4ZH20A0SfGSlM4Wb1LFYUCkza/Z95dVgT2usN3KCqLKJ
-         1kRxVoE2bqfGA67Nv3hrcHzkUVjFEMGbpGZE5jbyBGciKasuE2ezYb13igthC7nuRXMH
-         UwXNSpIbpUuv2zL2YdHYqFml+0qJUWpYjQhqVuPImm7TY1dC+6MEZ+z4RrEuh3Y5ukHO
-         SLsK+LxcaIeneJQi/tCVgWzlzm4teAz142MQ5DiuLBurXo5OGx/o8lgc8TN9LqaRydRy
-         IaMg==
+        bh=PesOzQ9//pdRya5YLuhZo8syyUjYB67k85gGhHm+1NQ=;
+        b=om+pVJ3L8vUru3xddGHmWV76sulERXK4qSIklLtnA3sedRU18F2GXkeRCJ+CRuFdci
+         j8Wkhv6qixPwBpxmrXKGUROt29HvbwQoqOqsY0FDMQJAQ9sbu1EmFObPhhsKIuT/VAEe
+         Pi3FuvG9D3GAxZpfpoS9AqPdHtvrGTdmVAHyHENQ2pMgLBsbGLA58GPgsCjo5CIllfh7
+         a95AyCJzmKX1j8WuJxUJrYvLmTj/eZ+Es4V5fYHHh0lMVoLK2OA9HbfJ7hiG8rOn/6Cf
+         fkhFhWcCdSxzFrHvv+uwZR3YJQmA1spGM2FHSLXByr9vwtdkRGSb2oQ5aLkp36FktLc8
+         OFcg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
-        by gmr-mx.google.com with ESMTPS id w11si752739wmk.0.2020.02.17.01.10.53
+Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
+        by gmr-mx.google.com with ESMTPS id d191si538301wmd.2.2020.02.17.01.10.53
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
         Mon, 17 Feb 2020 01:10:53 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id 01H9ArBH027776
+	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 01H9ArZO019319
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
 	for <jailhouse-dev@googlegroups.com>; Mon, 17 Feb 2020 10:10:53 +0100
 Received: from md1f2u6c.ad001.siemens.net ([167.87.42.209])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 01H9Ap3d020534
-	for <jailhouse-dev@googlegroups.com>; Mon, 17 Feb 2020 10:10:52 +0100
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 01H9Ap3e020534
+	for <jailhouse-dev@googlegroups.com>; Mon, 17 Feb 2020 10:10:53 +0100
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [PATCH 4/6] core: Make set/clear_bit generic and non-atomic
-Date: Mon, 17 Feb 2020 10:10:49 +0100
-Message-Id: <e2562f696de236219f5fba88f64bbe6fb08c4829.1581930651.git.jan.kiszka@siemens.com>
+Subject: [PATCH 5/6] core: Rename test_and_set_bit to mark it atomic
+Date: Mon, 17 Feb 2020 10:10:50 +0100
+Message-Id: <84844ce64639ff86ca42d8ea2a2b7d437f6ef9be.1581930651.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <cover.1581930651.git.jan.kiszka@siemens.com>
 References: <cover.1581930651.git.jan.kiszka@siemens.com>
@@ -114,7 +114,7 @@ In-Reply-To: <cover.1581930651.git.jan.kiszka@siemens.com>
 References: <cover.1581930651.git.jan.kiszka@siemens.com>
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
@@ -132,257 +132,74 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-No caller of these functions exploit their atomicity, and this should
-not change. So, simplify the code by using generic non-atomic versions.
-
-On arm and arm64, some macros are folded in the only remaining user,
-test_and_set_bit.
+Prepend "atomic" so that it becomes clear that this and only this bitop
+works atomically.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- hypervisor/arch/arm/include/asm/bitops.h   | 65 +++++-------------------------
- hypervisor/arch/arm64/include/asm/bitops.h | 54 ++-----------------------
- hypervisor/arch/x86/include/asm/bitops.h   | 31 --------------
- hypervisor/include/jailhouse/bitops.h      | 12 ++++++
- 4 files changed, 25 insertions(+), 137 deletions(-)
+ hypervisor/arch/arm/include/asm/bitops.h   | 2 +-
+ hypervisor/arch/arm64/include/asm/bitops.h | 2 +-
+ hypervisor/arch/x86/include/asm/bitops.h   | 2 +-
+ hypervisor/printk.c                        | 3 ++-
+ 4 files changed, 5 insertions(+), 4 deletions(-)
 
 diff --git a/hypervisor/arch/arm/include/asm/bitops.h b/hypervisor/arch/arm/include/asm/bitops.h
-index fbdcc817..8b9c9d1f 100644
+index 8b9c9d1f..a0c4e9dd 100644
 --- a/hypervisor/arch/arm/include/asm/bitops.h
 +++ b/hypervisor/arch/arm/include/asm/bitops.h
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Copyright (c) Siemens AG, 2013
-+ * Copyright (c) Siemens AG, 2013-2020
-  *
-  * Authors:
-  *  Jan Kiszka <jan.kiszka@siemens.com>
-@@ -10,58 +10,6 @@
-  * the COPYING file in the top-level directory.
-  */
+@@ -17,7 +17,7 @@ test_bit(unsigned int nr, const volatile unsigned long *addr)
+ 		(addr[nr / BITS_PER_LONG])) != 0;
+ }
  
--#define BITOPT_ALIGN(bits, addr)				\
--	do {							\
--		(addr) = (unsigned long *)((u32)(addr) & ~0x3)	\
--			+ (bits) / BITS_PER_LONG;		\
--		(bits) %= BITS_PER_LONG;			\
--	} while (0)
--
--/* Load the cacheline in exclusive state */
--#define PRELOAD(addr)						\
--	asm volatile (".arch_extension mp\n\t"			\
--		      "pldw %0\n\t"				\
--		      : "+Qo" (*(volatile unsigned long *)addr));
--
--static inline __attribute__((always_inline)) void
--clear_bit(unsigned int nr, volatile unsigned long *addr)
--{
--	unsigned long ret, val;
--
--	BITOPT_ALIGN(nr, addr);
--
--	PRELOAD(addr);
--	do {
--		asm volatile (
--			"ldrex	%1, %2\n\t"
--			"bic	%1, %3\n\t"
--			"strex	%0, %1, %2\n\t"
--			: "=r" (ret), "=r" (val),
--			/* declare clobbering of this address to the compiler */
--			  "+Qo" (*(volatile unsigned long *)addr)
--			: "r" (1 << nr));
--	} while (ret);
--}
--
--static inline __attribute__((always_inline)) void
--set_bit(unsigned int nr, volatile unsigned long *addr)
--{
--	unsigned long ret, val;
--
--	BITOPT_ALIGN(nr, addr);
--
--	PRELOAD(addr);
--	do {
--		asm volatile (
--			"ldrex	%1, %2\n\t"
--			"orr	%1, %3\n\t"
--			"strex	%0, %1, %2\n\t"
--			: "=r" (ret), "=r" (val),
--			  "+Qo" (*(volatile unsigned long *)addr)
--			: "r" (1 << nr));
--	} while (ret);
--}
--
- static inline __attribute__((always_inline)) int
- test_bit(unsigned int nr, const volatile unsigned long *addr)
- {
-@@ -73,9 +21,15 @@ static inline int test_and_set_bit(int nr, volatile unsigned long *addr)
+-static inline int test_and_set_bit(int nr, volatile unsigned long *addr)
++static inline int atomic_test_and_set_bit(int nr, volatile unsigned long *addr)
  {
  	unsigned long ret, val, test;
  
--	BITOPT_ALIGN(nr, addr);
-+	/* word-align */
-+	addr = (unsigned long *)((u32)addr & ~0x3) + nr / BITS_PER_LONG;
-+	nr %= BITS_PER_LONG;
- 
--	PRELOAD(addr);
-+	/* Load the cacheline in exclusive state */
-+	asm volatile (
-+		".arch_extension mp\n\t"
-+		"pldw %0\n\t"
-+		: "+Qo" (*(volatile unsigned long *)addr));
- 	do {
- 		asm volatile (
- 			"ldrex	%1, %3\n\t"
-@@ -91,7 +45,6 @@ static inline int test_and_set_bit(int nr, volatile unsigned long *addr)
- 	return !!(test);
- }
- 
--
- /* Count leading zeroes */
- static inline unsigned long clz(unsigned long word)
- {
 diff --git a/hypervisor/arch/arm64/include/asm/bitops.h b/hypervisor/arch/arm64/include/asm/bitops.h
-index df99402d..004c3b44 100644
+index 004c3b44..3de2a24d 100644
 --- a/hypervisor/arch/arm64/include/asm/bitops.h
 +++ b/hypervisor/arch/arm64/include/asm/bitops.h
-@@ -11,55 +11,6 @@
-  * the COPYING file in the top-level directory.
-  */
+@@ -18,7 +18,7 @@ test_bit(unsigned int nr, const volatile unsigned long *addr)
+ 		(addr[nr / BITS_PER_LONG])) != 0;
+ }
  
--#define BITOPT_ALIGN(bits, addr)				\
--	do {							\
--		(addr) = (unsigned long *)((u64)(addr) & ~0x7)	\
--			+ (bits) / BITS_PER_LONG;		\
--		(bits) %= BITS_PER_LONG;			\
--	} while (0)
--
--static inline __attribute__((always_inline)) void
--clear_bit(unsigned int nr, volatile unsigned long *addr)
--{
--	u32 ret;
--	u64 tmp;
--
--	BITOPT_ALIGN(nr, addr);
--
--	/* AARCH64_TODO: do we need to preload? */
--	do {
--		asm volatile (
--			"ldxr	%2, %1\n\t"
--			"bic	%2, %2, %3\n\t"
--			"stxr	%w0, %2, %1\n\t"
--			: "=r" (ret),
--			  "+Q" (*(volatile unsigned long *)addr),
--			  "=r" (tmp)
--			: "r" (1ul << nr));
--	} while (ret);
--}
--
--static inline __attribute__((always_inline)) void
--set_bit(unsigned int nr, volatile unsigned long *addr)
--{
--	u32 ret;
--	u64 tmp;
--
--	BITOPT_ALIGN(nr, addr);
--
--	/* AARCH64_TODO: do we need to preload? */
--	do {
--		asm volatile (
--			"ldxr	%2, %1\n\t"
--			"orr	%2, %2, %3\n\t"
--			"stxr	%w0, %2, %1\n\t"
--			: "=r" (ret),
--			  "+Q" (*(volatile unsigned long *)addr),
--			  "=r" (tmp)
--			: "r" (1ul << nr));
--	} while (ret);
--}
--
- static inline __attribute__((always_inline)) int
- test_bit(unsigned int nr, const volatile unsigned long *addr)
+-static inline int test_and_set_bit(int nr, volatile unsigned long *addr)
++static inline int atomic_test_and_set_bit(int nr, volatile unsigned long *addr)
  {
-@@ -72,7 +23,10 @@ static inline int test_and_set_bit(int nr, volatile unsigned long *addr)
  	u32 ret;
  	u64 test, tmp;
- 
--	BITOPT_ALIGN(nr, addr);
-+	/* word-align */
-+	addr = (unsigned long *)((u64)addr & ~0x7) + nr / BITS_PER_LONG;
-+	nr %= BITS_PER_LONG;
-+
- 
- 	/* AARCH64_TODO: using Inner Shareable DMB at the moment,
- 	 * revisit when we will deal with shareability domains */
 diff --git a/hypervisor/arch/x86/include/asm/bitops.h b/hypervisor/arch/x86/include/asm/bitops.h
-index 66fc91ab..12d85fdb 100644
+index 12d85fdb..6d265bca 100644
 --- a/hypervisor/arch/x86/include/asm/bitops.h
 +++ b/hypervisor/arch/x86/include/asm/bitops.h
-@@ -23,37 +23,6 @@
- #define BITOP_ADDR(x) "+m" (*(volatile long *) (x))
- #endif
+@@ -47,7 +47,7 @@ static inline int variable_test_bit(int nr, volatile const unsigned long *addr)
+ 	 ? constant_test_bit((nr), (addr))	\
+ 	 : variable_test_bit((nr), (addr)))
  
--#define CONST_MASK_ADDR(nr, addr)	BITOP_ADDR((void *)(addr) + ((nr)>>3))
--#define CONST_MASK(nr)			(1 << ((nr) & 7))
--
--static inline __attribute__((always_inline)) void
--clear_bit(unsigned int nr, volatile unsigned long *addr)
--{
--	if (__builtin_constant_p(nr)) {
--		asm volatile("lock andb %1,%0"
--			: CONST_MASK_ADDR(nr, addr)
--			: "iq" ((u8)~CONST_MASK(nr)));
--	} else {
--		asm volatile("lock btr %1,%0"
--			: BITOP_ADDR(addr)
--			: "Ir" (nr));
--	}
--}
--
--static inline __attribute__((always_inline)) void
--set_bit(unsigned int nr, volatile unsigned long *addr)
--{
--	if (__builtin_constant_p(nr)) {
--		asm volatile("lock orb %1,%0"
--			: CONST_MASK_ADDR(nr, addr)
--			: "iq" ((u8)CONST_MASK(nr))
--			: "memory");
--	} else {
--		asm volatile("lock bts %1,%0"
--			: BITOP_ADDR(addr) : "Ir" (nr) : "memory");
--	}
--}
--
- static inline __attribute__((always_inline)) int
- constant_test_bit(unsigned int nr, const volatile unsigned long *addr)
+-static inline int test_and_set_bit(int nr, volatile unsigned long *addr)
++static inline int atomic_test_and_set_bit(int nr, volatile unsigned long *addr)
  {
-diff --git a/hypervisor/include/jailhouse/bitops.h b/hypervisor/include/jailhouse/bitops.h
-index 426e51f1..e98381d0 100644
---- a/hypervisor/include/jailhouse/bitops.h
-+++ b/hypervisor/include/jailhouse/bitops.h
-@@ -16,4 +16,16 @@
- #include <jailhouse/types.h>
- #include <asm/bitops.h>
+ 	int oldbit;
  
-+static inline __attribute__((always_inline)) void
-+clear_bit(unsigned int nr, volatile unsigned long *addr)
-+{
-+	addr[nr / BITS_PER_LONG] &= ~(1UL << (nr % BITS_PER_LONG));
-+}
-+
-+static inline __attribute__((always_inline)) void
-+set_bit(unsigned int nr, volatile unsigned long *addr)
-+{
-+	addr[nr / BITS_PER_LONG] |= 1UL << (nr % BITS_PER_LONG);
-+}
-+
- #endif /* !_JAILHOUSE_BITOPS_H */
+diff --git a/hypervisor/printk.c b/hypervisor/printk.c
+index 1b6151e0..c9e22b29 100644
+--- a/hypervisor/printk.c
++++ b/hypervisor/printk.c
+@@ -262,7 +262,8 @@ void panic_printk(const char *fmt, ...)
+ 	unsigned long cpu_id = phys_processor_id();
+ 	va_list ap;
+ 
+-	if (test_and_set_bit(0, &panic_in_progress) && panic_cpu != cpu_id)
++	if (atomic_test_and_set_bit(0, &panic_in_progress) &&
++	    panic_cpu != cpu_id)
+ 		return;
+ 	panic_cpu = cpu_id;
+ 
 -- 
 2.16.4
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/e2562f696de236219f5fba88f64bbe6fb08c4829.1581930651.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/84844ce64639ff86ca42d8ea2a2b7d437f6ef9be.1581930651.git.jan.kiszka%40siemens.com.
