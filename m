@@ -1,144 +1,137 @@
-Return-Path: <jailhouse-dev+bncBDEKVJM7XAHRBL47WXZAKGQE5VHSNKI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB55QWXZAKGQEV3YA44A@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33c.google.com (mail-wm1-x33c.google.com [IPv6:2a00:1450:4864:20::33c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 622101647E1
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 19 Feb 2020 16:09:36 +0100 (CET)
-Received: by mail-wm1-x33c.google.com with SMTP id b205sf330239wmh.2
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 19 Feb 2020 07:09:36 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1582124976; cv=pass;
+Received: from mail-wr1-x43a.google.com (mail-wr1-x43a.google.com [IPv6:2a00:1450:4864:20::43a])
+	by mail.lfdr.de (Postfix) with ESMTPS id CD077164913
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 19 Feb 2020 16:47:03 +0100 (CET)
+Received: by mail-wr1-x43a.google.com with SMTP id r1sf253318wrc.15
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 19 Feb 2020 07:47:03 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1582127223; cv=pass;
         d=google.com; s=arc-20160816;
-        b=NTITCcahD5eHnflMeAQ3BkdL01g3c4DxMFyWFO8YGeSWficiSgiAWPQtUiuFW45eF7
-         oBbs+gRO8Soh5LKCGP6dz6/QRROtbu9dvbgQf6lojDDe9JCfFG796Gf5eCZ8eVDbVe32
-         9uYd8AaK5/YHiMnq34f68PziugLjW66EothmRLRwcOyHk/+fxT6VS+ji1rK34tOvKSDy
-         goSox4Q9qvQ10X+syJfxPYJCA1CON192HKwUGbs3x3okScLzslaiWO4bnOxNQbuEwquk
-         xtlJL17HgMCitANarnkkfVt2WD6VEpB5vBokuY1O/9fWwig/NHhm1IB7NNXLZ5VhBog/
-         mYBQ==
+        b=caWe6iodPqpIkPGsbAr+pL8nZtbdYl1gFuQyxIx+72jgLtaz2GExT+Bf+Hyr+RA4UH
+         9m6uH8j/qOjpbQQlX1/69ksEgfGHPm5ZN+gJFd/gUEk0heKek/MQqJDE/MhbsKLLYcM+
+         F2gILI5Cz46LJk6NKNXlUdi038bP64aPUTRU4/OdAzDeGQhXuglKLCE6jj4RDRYQLnZf
+         nxkvso/GeUyFmdMowJNvSnH75JYc3Gjh7O9bl6RFNzgkJm42rHO2mOly+3WUqCkrlvJB
+         wbLZ4ymXU4aPl/MiuqyFXzAVK28F+HvkjtTy7BSy0jLz/HZdHspX/aFJnD9HKP/ILEYX
+         zV1g==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:sender:dkim-signature;
-        bh=DjmmoNbUS5z+3frk8FUzLtJRhHsx9vS3cGk5t8XB0+w=;
-        b=06YI9F5klh713O1fm0UGlsKzDdGoazZulz6fJyvajhBMFfZLxdONVfj2c50NbQmgQ/
-         85h0Qmg8sf/UZSvOeeVcH5V5CGHPq59tPMLPqZKatr7NWIFT8rCU9C1ku5zAfbV/UK46
-         TSzGCNxDdxfKBzBLe+BAAoNdFrhl76xyPjRraWiC444cPANJOYNLOEasEUdpBkTiNtOh
-         r2KuXqWgekB49GTHK2xUUBK2olqS1pmOm/BgweNVU245mcp4UK+cxpwnVsuwlxOx+Wnf
-         6Slb5+exoLkt1GUermD/hOlygeCu4rYnxvWPxOebyESH/AgHJTWR+Hj6Te1ZVwfHAey4
-         HC8A==
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:cc:to
+         :subject:sender:dkim-signature;
+        bh=5gJ1HOUHUSxwqtMZyeuo4e1xQyrMuk4GlpCH6bam4rU=;
+        b=aeIKIWjGnVZNtL3VTcyiGrgwHvWPoawOtegoA74uX5PNrRvSUnSLu1+li7/f6ll945
+         ed22PYVBgS86s04s7StpLx6ZYeGdnJsuBuPSxQi5HY0uWUv68KK5eESXBScKwfTf39Ew
+         O8NbyNzMCyK2e6+k06hXTydsgpkJ0RLQvI3FnU1qnUNaRhU/LkbWjOgV3N0kNbOVyXKI
+         5UjDgBgGmOophpurukwpyPCY7MPWw4KtXCTn1y9YXeZYWLm61PObHNLUBl2A/Kt4Xh7J
+         Jf3fvuzrLHm9sx+QwAWVf9DnGzNMRBPouChZo0SJFeODrkKV3+f7Uh8NDZDQJInO9W+D
+         6izQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=neutral (google.com: 212.227.17.13 is neither permitted nor denied by best guess record for domain of arnd@arndb.de) smtp.mailfrom=arnd@arndb.de
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:mime-version:references:in-reply-to:from:date:message-id
-         :subject:to:cc:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=DjmmoNbUS5z+3frk8FUzLtJRhHsx9vS3cGk5t8XB0+w=;
-        b=HXswLskloFHJMgZYS2+fuXn0k6IahBrdfD//fp/cEuhbrZI4buCRCPACk2+Dt3LyNP
-         FMTk6B1DQvhP60YUEiX59v/GsAmCNN2juGnKYtHaMrxtoPMxh2M6VWBwDi+JBepGxnhc
-         5A/L6fiC8VigtUBwTcw6mRynqkRRtgrcIv21yLHNudGjRTKm1Cz81n2JMHe2f2f68M/P
-         l/n5mkdR2YZkn8FyX+TEXXbM7bpxUuEVV7W14p0G7QiW1/hE2qFgu5gV3DIStIE+7Apu
-         WOxsa3PiOx5h8j9oFTzAZ0nq97qMTLmFbtFy2eRWkYKvpr7dbis7eJsmsh88PPNLRC1R
-         kflg==
+        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=5gJ1HOUHUSxwqtMZyeuo4e1xQyrMuk4GlpCH6bam4rU=;
+        b=OKX+FE7x/jYLywf1R7BN5d9By74+cRcT2af24xBaLDDDw8irIRCJfCcmdptNXDpD7u
+         NCx9XoKkjmpnMEvv2s05nHKw6m+WPM0it5Jt4nTovYoeCMz1Wn9gUQzQkwY53kdXyRan
+         /A7rg0sUMtdfg1M9Coehf6H9hoXE5dcNh+L21Hi6AbEJng32kwRrExHf/6x5KLtyGZ7g
+         5oJz8/WdKogIpXm/aFdvDWmDmi2MwaJUa1ZIiisXiet6/v1qRRLTIqfkc5/IsjSgq9wo
+         hT4R4F9ypJhsQoZWWmPs8y3gZcKlP1KQy1kbjoZWsXkZGTwMwbFoA1zja8NgjoIT98e+
+         h1Iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
-         :date:message-id:subject:to:cc:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=DjmmoNbUS5z+3frk8FUzLtJRhHsx9vS3cGk5t8XB0+w=;
-        b=R19v6m1tQf/94rd/lG18wHbLC1dpjJCiWAdflJA+RDnKHGoy7LIYL6IRwO6gEk211M
-         YCVXU0dVnte/MkJaVIBDRReceTK/eY2alq5o4ki7+nIjka+gdGxYaVQfQY4V6k6+eyP6
-         jRh9qgrbgksdAv9JDVouYQea7SXNWDrG7UqKTbRDjHH7YhsHSTdtgZaYd+91dL3qzlQy
-         JjRLepG0WKe/A4CAppMzsuPRY3mpVmLqBAPREryMmO9rYB5Y5xsguVyPUdWepEq9OVpt
-         PG9DPdI9aRG52pXkTi2jKblvRk1WI6uBBTiAXmKJf1YFlew0g+kdrFNZl9GMEKM7gXuG
-         ZTsg==
+        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=5gJ1HOUHUSxwqtMZyeuo4e1xQyrMuk4GlpCH6bam4rU=;
+        b=toaSMYF2NeBYnMZh3J4uBTlre1wXmz2le5hPrulMFp3PwyGGaq8MqkQ303gTSar/FI
+         JOyndGWIXxxoAUmDaHJn+GbTaZp1NAPERcmNTuMeBOaO1e6ohddXWKJuCfXY9YUxNfec
+         N8SZpp8Mv3Lo+WJU96Ju0jEVPcqsDpGYzI98MTnBfqfHX+YDUzP6xZJg+ezvAg+/BovX
+         5quV2aVm5aTYKAxk/ivOC45sc4KO6Sna3yTkTIz3dw38enHVO4m39hBxg5Jevg+D5Esm
+         legQQGY9B54WD8Nrlh79r6PBVpJcQRDrNWhboGGdFPHWj3S6zXPP7yBpTm/pLYUcM5fk
+         r0jA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAWLuZWc/IyezRfxH9oYxXcZaeLhuiaWn15RhmS06o0V0ueImIc1
-	si8gzGSx1hsP/SL+M/iEYrg=
-X-Google-Smtp-Source: APXvYqz63OpwHj7QjqAzK76UNYIoV/BdJ3FldaJ8bycKkvAYurPxAjeqXWuO2jJNRFnp9QfHSmij+Q==
-X-Received: by 2002:a1c:98d5:: with SMTP id a204mr10859084wme.181.1582124976080;
-        Wed, 19 Feb 2020 07:09:36 -0800 (PST)
+X-Gm-Message-State: APjAAAXCf9FgTPYegdNx+YMqwX5JXMmFrilp/aBkoylBgxF9N3NmWNLR
+	Ymez2YrhvuEnutErODdRVyE=
+X-Google-Smtp-Source: APXvYqy2797gl9Dy/QpfZSBC/L9M8+xzuRs3R4YMie7Ksmm4WbeDxscXHMokEsFBP4T14E0Bu295Qw==
+X-Received: by 2002:adf:f9d0:: with SMTP id w16mr37058304wrr.83.1582127223511;
+        Wed, 19 Feb 2020 07:47:03 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:d847:: with SMTP id k7ls9809840wrl.0.gmail; Wed, 19 Feb
- 2020 07:09:35 -0800 (PST)
-X-Received: by 2002:a5d:6a0f:: with SMTP id m15mr38123011wru.40.1582124975193;
-        Wed, 19 Feb 2020 07:09:35 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1582124975; cv=none;
+Received: by 2002:adf:fc89:: with SMTP id g9ls9856731wrr.5.gmail; Wed, 19 Feb
+ 2020 07:47:02 -0800 (PST)
+X-Received: by 2002:adf:d4cc:: with SMTP id w12mr38890935wrk.249.1582127222453;
+        Wed, 19 Feb 2020 07:47:02 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1582127222; cv=none;
         d=google.com; s=arc-20160816;
-        b=wbu+Ynh5PtXa//tSLzp2kESqkr89DOP3JggV2Qvc57+2fqEX2XhopBK4Efpi3Zb3S7
-         7qZbNMIg3MiXV3TOa6Xhe9h1FRv7suiBVO6IFYe4ARjp5Gt57IZAKdpv5VrN32JW0tZy
-         vvFyQwFC4soEMP/qyfKFixGggkcr6jTcJ565TR8rfOFHnqNAUOXtViHq1Xcubf2yuguK
-         n3IYTxFX75DA/DGgsjREcWBUqsXzjrVIDm2sjkMSLjhDX7Q5Auv5Hn6+J9lzDMo3ep/8
-         7USXKxOnbAEp7h+Z52Zr13XHPIATcNgLqmS9gSMv/RYsQbEnwzSrkPg8Y9yCz5Q1dRkZ
-         bHhQ==
+        b=Ij9/Bp7okXWsiOotdxDxv5Ry96PfXv/CxpddBtmJkhFnZf0UdLtywZeQoNQ5U5N7br
+         RJm7YxHV4lR27rKSO6/Tv3tskZS45Jl1ytz3T/a9wYtCl2j7YbpLkq7O/zlX27ZyLejC
+         yxgCMYLcGtmn8G+0RQUO59ysdQO32qn6OUxOLORI7vbYJ+w8QM+79niVL2yavFj1Imaq
+         kQfkxA+AIAK4JGmkhXuYEZq2uYlmJiXuX55mJtUA1JflJY5grGaOyMphaLM1gOZ0VWlq
+         zMBAyjUDQhiSXsBRowf3DcguutYd3fLgu+nupEMkgBpXWFzS7Iq7FRmTzpxBGNYbhqNt
+         q8Fw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version;
-        bh=NVMnS1dq3ow3/DA1LiQ2i1rOqcHzsYxUPVxPVRlhCIM=;
-        b=AQUq+6gJIQGnPFR2l5k4hvu8yvExw+4vY0JBZRWzfmz+NUx/KWaNOzMnE+8hlZZGjJ
-         i0qRXv3lO2uPnb1f0qvyGO82VeaTDVcl/dPzzQyx37+EUc1DZ3mLbR99SouHErOfyCdR
-         yhTZhVV85KkTaIDmCUMpoEqoFrjDcxk6Z5YXLslKBZSJzXkmz36vYRb8OE7SRExI9i3c
-         WqRFFAUYGDlKEpMAiJrLrDGGJgrguDTpOyK8MPaB9eBZjJxoS+8vzPwN2iSJdbMwr8N9
-         iT0/niQUr4Pql85hALL8rNXz5dTClJY5ybtBCEFhYZyhad/3NGuMIP8eGBVg+nXgifZZ
-         teTA==
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:cc:to:subject;
+        bh=X2/UQe0gbJNR/iLfiYKUb0ADok5SAaDcYFGvJ+Wf1k0=;
+        b=gzHm39CTIgaZAtA8dGqQ1DVXmlKQsDC/08qhWfCVCAZ9p4e7mLgi+TKb5pBPspJmzz
+         6o1lEUASkjCm/GxoXTlsaET5SwYPldIl6O6p8NczL4xc/ZKXZ3vCA2WfyrLtvPnGHUqF
+         e8UXPoQIr7d8cKPpOfXHzsL1X9kWWhlNzEQvnL7GQQJaAtSwMGjlM03A8tZlaaUv5Aki
+         7uIA6oMTXRx/bHr8HFGoWXA4dczXrv7iIYNvy6eR0TCJ023I565aLV5CsDKVfw3SVd9E
+         wCwQ2LH6sYDV/jB8dkyEw2JzA4E1eb5IF+1Slp7TjhDjqISq2v9WIQK8+UtwzOjTXejP
+         kAoQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=neutral (google.com: 212.227.17.13 is neither permitted nor denied by best guess record for domain of arnd@arndb.de) smtp.mailfrom=arnd@arndb.de
-Received: from mout.kundenserver.de (mout.kundenserver.de. [212.227.17.13])
-        by gmr-mx.google.com with ESMTPS id i15si9400wro.2.2020.02.19.07.09.35
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
+        by gmr-mx.google.com with ESMTPS id t131si258581wmb.1.2020.02.19.07.47.02
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 19 Feb 2020 07:09:35 -0800 (PST)
-Received-SPF: neutral (google.com: 212.227.17.13 is neither permitted nor denied by best guess record for domain of arnd@arndb.de) client-ip=212.227.17.13;
-Received: from mail-qv1-f46.google.com ([209.85.219.46]) by
- mrelayeu.kundenserver.de (mreue107 [212.227.15.145]) with ESMTPSA (Nemesis)
- id 1MwPfX-1jKimB2e97-00sMXP for <jailhouse-dev@googlegroups.com>; Wed, 19 Feb
- 2020 16:09:34 +0100
-Received: by mail-qv1-f46.google.com with SMTP id y2so302494qvu.13
-        for <jailhouse-dev@googlegroups.com>; Wed, 19 Feb 2020 07:09:34 -0800 (PST)
-X-Received: by 2002:ad4:52eb:: with SMTP id p11mr20046350qvu.211.1582124973474;
- Wed, 19 Feb 2020 07:09:33 -0800 (PST)
-MIME-Version: 1.0
-References: <20200210141324.21090-1-maz@kernel.org>
-In-Reply-To: <20200210141324.21090-1-maz@kernel.org>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Wed, 19 Feb 2020 16:09:17 +0100
-X-Gmail-Original-Message-ID: <CAK8P3a3V=ur4AgLfat2cSyw8GrkCS2t06eqkzC-gXcc0xBpEPw@mail.gmail.com>
-Message-ID: <CAK8P3a3V=ur4AgLfat2cSyw8GrkCS2t06eqkzC-gXcc0xBpEPw@mail.gmail.com>
+        Wed, 19 Feb 2020 07:47:02 -0800 (PST)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 01JFkkEi023113
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 19 Feb 2020 16:46:46 +0100
+Received: from [139.25.68.37] ([139.25.68.37])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 01JFkgTh026670;
+	Wed, 19 Feb 2020 16:46:42 +0100
 Subject: Re: [RFC PATCH 0/5] Removing support for 32bit KVM/arm host
-To: Marc Zyngier <maz@kernel.org>
-Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, kvmarm@lists.cs.columbia.edu, 
-	kvm list <kvm@vger.kernel.org>, James Morse <james.morse@arm.com>, 
-	Julien Thierry <julien.thierry.kdev@gmail.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Christoffer Dall <Christoffer.Dall@arm.com>, 
-	Will Deacon <will@kernel.org>, Quentin Perret <qperret@google.com>, 
-	Russell King <linux@arm.linux.org.uk>, Vladimir Murzin <vladimir.murzin@arm.com>, 
-	Anders Berg <anders.berg@lsi.com>, jailhouse-dev@googlegroups.com, 
-	Jan Kiszka <jan.kiszka@siemens.com>, jean-philippe.brucker@arm.com
-Content-Type: text/plain; charset="UTF-8"
-X-Provags-ID: V03:K1:KYVEO2AY5b66g0Gqyn1FLYYjkbU0nWDTlP3vzZM1wEcFhgIz3vj
- azhRutSWZqSkT0i8yd1GBzi61RLRnUxRnpeUtVjlIUw8kJ9zP0tG7gUee92suXlxJvSLkHE
- 4u1UaN9Hgol1FTPWo/hKo8CZvM4evhg2bqRDZXP1mA0/J2KS8NOaibZWy8ziA1j8PxPDmso
- SmwXYa48swTcowhyEBAQw==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:7YL1kX+6LVo=:QNqk4sBtlzR6vabIXFvUzm
- y37J7g2jXLVDpgAOY/SvVZBXW7laNXmtO0YkxU/dN+uVWbcYfAKzEWT8M23MP90Ievh4QY8tf
- 1ORev37nI3yQMAV8+0AGsdkR9F8yfMmLpMirKInD4aA/yHrtr5ZufvMYDOhO5MkwHTAvtE3Sd
- pNXYePqC+52B4JUGiVV57X9Q4oZCzCKTigWlpRypz9vPPwZ9l2uChgm3WAfkRaXWF2joBSGVW
- HcXKPMChFzGB3QxaVnIm0d6Ua0zG37oRCfRCRmk8KaAhsLFFUgUNqWJJHrsrr5831s/iRRDAb
- q7rZKqlII/yaU/MIgemWFHbtvIJcUI0zz0ziY/KZnVi+fZVYUUntZEDrFLZgtm4NeHLMgyGP6
- PwNoBelHT0BtSK6oxfr5efAaoElJNkTgACzIm4KYO6SJhOYRlEs6MOxVK8inqcg1DA7jQeLQV
- hzC/9kS05pUiwpgf35YnHtS9exvQhqIhFDYGT4o/JgzMcIR90kRNtPf7pggFFT8XwFwb6rrJN
- lvZs6rh73PRUu8wPglRIp9JPyDxJujVOrFEvWHieBq4MqtaJ2hAq35VSXWwLCZZdxT/YD9P8u
- eu65RNIRyxX9JQjJDALULDNQPRXw3SCZkton6RhIzN+9iIFSgsSAYC978y+0fRT5cqa4JikVG
- OHbYGE3Tqaq0rD5DTDeA7DOaDd/8y8PJyeZzcF3EMOoyg4cMsVXnjKKs4CXm/wxADImfnsPHg
- CVoqVfew4sc/PCPdkvsJZw7OjIBKxsA3G6ae/ApmQCflHUBel/L7qebBt9HvNnFi0azTyiWM2
- NsjJSRe3VxgWNiWlicdniCh9pxJlYJH6/7hiW5F2fIbilgAsK8=
-X-Original-Sender: arnd@arndb.de
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=neutral
- (google.com: 212.227.17.13 is neither permitted nor denied by best guess
- record for domain of arnd@arndb.de) smtp.mailfrom=arnd@arndb.de
+To: Arnd Bergmann <arnd@arndb.de>, Marc Zyngier <maz@kernel.org>
+Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>,
+        kvmarm@lists.cs.columbia.edu, kvm list <kvm@vger.kernel.org>,
+        James Morse <james.morse@arm.com>,
+        Julien Thierry <julien.thierry.kdev@gmail.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Paolo Bonzini <pbonzini@redhat.com>,
+        Christoffer Dall <Christoffer.Dall@arm.com>,
+        Will Deacon <will@kernel.org>, Quentin Perret <qperret@google.com>,
+        Russell King <linux@arm.linux.org.uk>,
+        Vladimir Murzin <vladimir.murzin@arm.com>,
+        Anders Berg
+ <anders.berg@lsi.com>, jailhouse-dev@googlegroups.com,
+        jean-philippe.brucker@arm.com
+References: <20200210141324.21090-1-maz@kernel.org>
+ <CAK8P3a3V=ur4AgLfat2cSyw8GrkCS2t06eqkzC-gXcc0xBpEPw@mail.gmail.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <ea7bc1d0-0a11-8ed6-da70-d603d8107bf6@siemens.com>
+Date: Wed, 19 Feb 2020 16:46:41 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
+MIME-Version: 1.0
+In-Reply-To: <CAK8P3a3V=ur4AgLfat2cSyw8GrkCS2t06eqkzC-gXcc0xBpEPw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Language: en-US
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -151,44 +144,63 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On Mon, Feb 10, 2020 at 3:13 PM Marc Zyngier <maz@kernel.org> wrote:
->
-> KVM/arm was merged just over 7 years ago, and has lived a very quiet
-> life so far. It mostly works if you're prepared to deal with its
-> limitations, it has been a good prototype for the arm64 version,
-> but it suffers a few problems:
->
-> - It is incomplete (no debug support, no PMU)
-> - It hasn't followed any of the architectural evolutions
-> - It has zero users (I don't count myself here)
-> - It is more and more getting in the way of new arm64 developments
->
-> So here it is: unless someone screams and shows that they rely on
-> KVM/arm to be maintained upsteam, I'll remove 32bit host support
-> form the tree. One of the reasons that makes me confident nobody is
-> using it is that I never receive *any* bug report. Yes, it is perfect.
-> But if you depend on KVM/arm being available in mainline, please shout.
->
-> To reiterate: 32bit guest support for arm64 stays, of course. Only
-> 32bit host goes. Once this is merged, I plan to move virt/kvm/arm to
-> arm64, and cleanup all the now unnecessary abstractions.
->
-> The patches have been generated with the -D option to avoid spamming
-> everyone with huge diffs, and there is a kvm-arm/goodbye branch in
-> my kernel.org repository.
+On 19.02.20 16:09, Arnd Bergmann wrote:
+> On Mon, Feb 10, 2020 at 3:13 PM Marc Zyngier <maz@kernel.org> wrote:
+>>
+>> KVM/arm was merged just over 7 years ago, and has lived a very quiet
+>> life so far. It mostly works if you're prepared to deal with its
+>> limitations, it has been a good prototype for the arm64 version,
+>> but it suffers a few problems:
+>>
+>> - It is incomplete (no debug support, no PMU)
+>> - It hasn't followed any of the architectural evolutions
+>> - It has zero users (I don't count myself here)
+>> - It is more and more getting in the way of new arm64 developments
+>>
+>> So here it is: unless someone screams and shows that they rely on
+>> KVM/arm to be maintained upsteam, I'll remove 32bit host support
+>> form the tree. One of the reasons that makes me confident nobody is
+>> using it is that I never receive *any* bug report. Yes, it is perfect.
+>> But if you depend on KVM/arm being available in mainline, please shout.
+>>
+>> To reiterate: 32bit guest support for arm64 stays, of course. Only
+>> 32bit host goes. Once this is merged, I plan to move virt/kvm/arm to
+>> arm64, and cleanup all the now unnecessary abstractions.
+>>
+>> The patches have been generated with the -D option to avoid spamming
+>> everyone with huge diffs, and there is a kvm-arm/goodbye branch in
+>> my kernel.org repository.
+> 
+> Just one more thought before it's gone: is there any shared code
+> (header files?) that is used by the jailhouse hypervisor?
+> 
+> If there is, are there any plans to merge that into the mainline kernel
+> for arm32 in the near future?
+> 
+> I'm guessing the answer to at least one of those questions is 'no', so
+> we don't need to worry about it, but it seems better to ask.
 
-Just one more thought before it's gone: is there any shared code
-(header files?) that is used by the jailhouse hypervisor?
+Good that you mention it: There is one thing we share on ARM (and 
+ARM64), and that is the hypervisor enabling stub, to install our own 
+vectors. If that was to be removed as well, we would have to patch it 
+back downstream. So far, we only carry few EXPORT_SYMBOL patches for 
+essential enabling.
 
-If there is, are there any plans to merge that into the mainline kernel
-for arm32 in the near future?
+That said, I was also starting to think about how long we will continue 
+to support Jailhouse on 32-bit ARM. We currently have no supported SoC 
+there that comes with an SMMU, and I doubt to see one still showing up. 
+So, Jailhouse on ARM is really just a testing/demo case, maybe useful 
+(but I didn't get concrete feedback) for cleaner collaborative AMP for 
+real-time purposes, without security concerns. I assume 32-bit ARM will 
+never be part of what would be proposed of Jailhouse for upstream.
 
-I'm guessing the answer to at least one of those questions is 'no', so
-we don't need to worry about it, but it seems better to ask.
+Jan
 
-      Arnd
+-- 
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+Corporate Competence Center Embedded Linux
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CAK8P3a3V%3Dur4AgLfat2cSyw8GrkCS2t06eqkzC-gXcc0xBpEPw%40mail.gmail.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/ea7bc1d0-0a11-8ed6-da70-d603d8107bf6%40siemens.com.
