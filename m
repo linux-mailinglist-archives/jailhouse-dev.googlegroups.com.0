@@ -1,127 +1,75 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB6HUXHZAKGQEROUEOBI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCKO35F6UENRBA4IXLZAKGQEX7O42QY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x339.google.com (mail-wm1-x339.google.com [IPv6:2a00:1450:4864:20::339])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8584165D77
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 20 Feb 2020 13:24:24 +0100 (CET)
-Received: by mail-wm1-x339.google.com with SMTP id p2sf751416wmi.8
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 20 Feb 2020 04:24:24 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1582201464; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=tMHFB0k8RfrsEqDOvH3W5IS+OcKxPobPgsPJUNoDoVyDg3BepTctpV2jLpESHgRMeB
-         crQ4qdy2O1YVeRNcswjd3Z+gJRM8r/Ba1kg5VVUUSZSgjcSRmXKyW0c0MtOnGXQSPSY3
-         vITVRomfO6fuqQ9RkW2vG2WfTghVXY2Ho3nNkB4BCNw2oEY3AaAMhHZne6shGCWLudDU
-         7JWmI4wwXi5b3Z1kytgq1Z1ey3IaxD0iDSAHbUAV8DKMEzFhD6mAur2VoQk+91h0jMzM
-         MDOLYmq/wIrNSXs1ZVB1wDW3esdwuTwgRGPZk2/kTtdr4GlDPjo2Iug0QgSgV/QlKfCV
-         alyw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:to:subject
-         :sender:dkim-signature;
-        bh=ymO5QsHLbICIaAI46gPHdPfMsNd5A5dbk35+kfmb5Bw=;
-        b=KrgthUHHNv+MnLeX3Xp0mz+SP1OOq5VxQPrdNZ9zgyZ2byJa2/Ell4x2+INjPMLoTh
-         JuzHgeVEdCitczO06RdEnKUUxbgRSa/RmVrfnA7YXsUcEBgA3jkK6Lbd1F2fWgjtXec6
-         7PdobeIGcg3JLHBZEOJp6xHzBOQnMJkFgSABbjhPKY1vz8CHqX5Tpso6aV0eI1TQKESx
-         BsL/B+O3pfU7hlCdEqisYhAeKnjUQMj7wCWcgXPd73tGKG9Wb83FB8fHiTbeIZVML7D6
-         EeHEop8UK9hr/GhFFVBhbPScEgXwwBf9ept7ZlB/DRXh4FzlBe1XuBNQgXz+YZGB0/LI
-         Uqmg==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-oi1-x23c.google.com (mail-oi1-x23c.google.com [IPv6:2607:f8b0:4864:20::23c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 13E19165E1F
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 20 Feb 2020 14:05:09 +0100 (CET)
+Received: by mail-oi1-x23c.google.com with SMTP id j142sf3898281oib.23
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 20 Feb 2020 05:05:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=ymO5QsHLbICIaAI46gPHdPfMsNd5A5dbk35+kfmb5Bw=;
-        b=Bas4QuSpcwv56c6uSkPySgf9Gwh+anj+sDB6/giQjgWj1uXN7KKTZwoI0y6NgkO/h9
-         SCwbhimd0Jix4IdsBobmIRoRGulaLoF+DziyCT/uZmmIfeHuYXLtO2yGFqW/Xcl47/w3
-         eFoKkYOUb+zFBaFNBRRsbtyLp3yUN/I7Cd33cC2zhDWB/sYVPVUYQmngxK66ZpuPQO8g
-         QXCRseuRwfnj1R6DJuv7krvmqxAhuJ6YxDlOdbzjwhHgCxixyKogyC0ys2HQaRWpFOsz
-         E2j3+T6ZZIUb9R5IH/H4oMRXBRZkQKX7Vr6C7eryqihChTaL/c6GQprnr5zK7z9+XarC
-         IIuQ==
+        bh=WuD893bCDvdJGeFqkFWL9YB3eV4jOsecO4c2zx9gdEQ=;
+        b=oam3um4xtpxm3rI0ApHrQmJUtemacdAqwsGB7MhAXr6QH7QcQBsQmdTcUT316mOvBH
+         W7jeyTmXX/YgPw6EJSj/XfPmVoOxywhM3eC6J0mlAOruZADUMJXwikaov419VUJhAP3K
+         9LGTTLksAbwqYlsFl4G0mGOw/xY0KAv1tgdYO8c59AmwqtArWuYvwLKFzKBn02JyrvEJ
+         lpwML8hRGBSvlYUMty6fL7WG9aFttFjY6ffmIcMIUvAzaN//b+caKcwTMR10YvNByhbD
+         m6bUcIKmcFfkOmD2zyQWUGO0FjMTlY88xrHaXf5UySGUWCk0MFCDpGGrpyRI4b1fI70d
+         YHCQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=WuD893bCDvdJGeFqkFWL9YB3eV4jOsecO4c2zx9gdEQ=;
+        b=HDBxDsECU69DpJAKTcUngDhb6UjXtMsSgXMIIWbee7QDI523jM5gjwBEwUHiPIyxLP
+         i+ksThm6AkEH1EqgYst2Dl90KgFAShUi/+DKrBRD5DQ7TgU6NZiHWr1Cjhe3DRTUSFc/
+         oGzr61+cwqH6LAY6nF83d/N45zz9p5BJAMVA5xVHWSX3azsEo4mxndCW7RHaM6ftuV7C
+         3zzUClLwpH7lm/ZDnxVlz9hU9+H1/wFEkEmTSnokuQAV2gktK4y9zrorycdNb8N1BFOv
+         3/QMpuN+cK7Yf/NDmNVkogWnaPsiv10xopHl/JIKpUeILBJz/SJpHOCX8IKSlYnuqdOK
+         jAVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=ymO5QsHLbICIaAI46gPHdPfMsNd5A5dbk35+kfmb5Bw=;
-        b=APAZ9Z4qSCRweY4Fjv5fyhLBTthH7MxgLbHAdl/JPldP339N+64cnjBFszzPUPX51R
-         48tMZP9+B1iPb9nIgRtd6/FWDIjzustgdfO1R2yKVugQzD89v06hNdPMpNUy2a892VbE
-         gw5URMdcxHoVJHzIBKKFM5E0p4kXjS0IbRonZFcFO6DxYSliVbKIfmTwft1HsXVCtZY6
-         WOvzdLaihhXNWxQ2TiHQR0xdc2n59JsDMBXUtnF9oF8W2Pz5+beSzndmK5YyDO8HgfCY
-         mU9M4qOv5+0PWZB5XdU6N1mPbJrFHp54dLx/hGaMiC+v3+fSkZbLmdbhUXvGUlRAMezn
-         Esdw==
+        bh=WuD893bCDvdJGeFqkFWL9YB3eV4jOsecO4c2zx9gdEQ=;
+        b=WazjSieEYnEmpvmT069XII/hCxikj++M9wr2bMysNIBoN0rIHhM9ZRxV7CemCIYyy/
+         bzkqdRcbKB2vhZ6C43qGd1rkPAkuylRYfikxJlUEKG0T2xRzFelbwU9u0OCfxgQNNw7X
+         WRCo8dP0ggZHepPCo2qoQhtBuD0q4D+X2IqSfvWi55fyGama8/qnNTBJJXI83tExNdwD
+         HZWNHT+Wi/P0D7JgAcysgU/QBSQ8Rx95qyz7TDQjtKIHZirVuGCDG9p4TdHvT5bpTSwz
+         LCxXRpOPc3/DvoogUxKVQard2hJ9ndYBggINL2J0yJErzgOFJ2v5/xOlLHX6bx/XrSjK
+         uoyA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAUutSvzIwjzva545PKJkTmEnY1goj4ytawOUXzs3TN65G3M4z2F
-	ZI8Z2Ufs15vGO/n5ko+Oq04=
-X-Google-Smtp-Source: APXvYqxqim3C4/1/O01EHBt8znIRWIG1jmgCLTVZN2UiLYe9r7kzYcO/AX4j08BSOE1PPERXfL7VuA==
-X-Received: by 2002:a05:6000:1206:: with SMTP id e6mr14836269wrx.410.1582201464455;
-        Thu, 20 Feb 2020 04:24:24 -0800 (PST)
+X-Gm-Message-State: APjAAAVCG7oWU3lElf2AkK5AuAFyFme6v3HDhbNWjAivC7oX4DdXv1XT
+	Sq9UW+/UhDhILbJb3cfPm8U=
+X-Google-Smtp-Source: APXvYqxrhOjCyk735jGBVV+zoRcziZH4Bs8+ZhSk2PqIrX4jxLgyYandgrAXsW/ISzqVsg1XvhqYug==
+X-Received: by 2002:a05:6830:2110:: with SMTP id i16mr22879685otc.337.1582203907700;
+        Thu, 20 Feb 2020 05:05:07 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:6385:: with SMTP id x127ls889669wmb.2.gmail; Thu, 20 Feb
- 2020 04:24:23 -0800 (PST)
-X-Received: by 2002:a05:600c:214f:: with SMTP id v15mr4383581wml.110.1582201463682;
-        Thu, 20 Feb 2020 04:24:23 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1582201463; cv=none;
-        d=google.com; s=arc-20160816;
-        b=Wa07ZvpfqAoyzM/vRjEympVzbJ930i/vowGi54rFnm4fwquCnUhty23JiX6AP921Ni
-         K23FN8GHN8RRXhNqcCMPirxsKnLdOXA82AcJ8IZ5Q1mkOGJg5eTuCLXTCM5Oq+LLB7nz
-         0aeyM32YQKnibqU0CpMGX/jaKDgWoAVxjgmvlvN7pI9Z9XXmWfNnFQ+mjaGO/MOrU9Hw
-         +YgY7ye1+TUgfUIC/woC6MKM/y/1BKIzzdwWZM1yhmttPBibpFnm0DhGfXzibbxc09wy
-         GDFHkA8JpdO8x+LL3ZfW5I1NKrWYlBQIz1UI8Ht7rCHE31To8HforbvdjfAm/yJM4rnB
-         m5rw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=qBBJ6OUZv3W+7M1Dxnaxo+yZUYonyURj0hoh4hdiGgI=;
-        b=uDgTE6wYp/JM/bNcbhP2L32SwkFiqJrGpGU+PTAHP/+y3U0n7rb9LgjvnrlbSoiVVY
-         NunsIz8fDxX8SZybd1kIn19M0H0RsQQWLDX7UkX77Xmfa+G679ftaZ1/ZzaIa3xfcX+Y
-         pGf/5CFT05bxyEjfhBET5BkvuAyt1OJ8bRfxShnXKTBWslBQ1v0zzX2HWssu8o4Xb0GM
-         HH+IwX2JXF8Jb5UUkt9ZGi9DsSZ667pR2mzS5ts+1qF2ZsH5y+OZktBvYlGlWhsTU2R7
-         nrnlwFL5Suo5BQNAKWjP7OdsCsPxEMYX4akk2K1QtidIKZymSyybm8zlzlWvWUoDgf3F
-         NpRw==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id i15si206027wro.2.2020.02.20.04.24.23
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 20 Feb 2020 04:24:23 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 01KCOMY9011743
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 20 Feb 2020 13:24:22 +0100
-Received: from [139.25.68.37] ([139.25.68.37])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 01KCOMnq007179;
-	Thu, 20 Feb 2020 13:24:22 +0100
-Subject: Re: Linux non-root cell tooling
-To: raymanfx@gmail.com, Jailhouse <jailhouse-dev@googlegroups.com>
+Received: by 2002:a9d:7150:: with SMTP id y16ls247403otj.7.gmail; Thu, 20 Feb
+ 2020 05:05:07 -0800 (PST)
+X-Received: by 2002:a9d:811:: with SMTP id 17mr24256934oty.369.1582203906972;
+        Thu, 20 Feb 2020 05:05:06 -0800 (PST)
+Date: Thu, 20 Feb 2020 05:05:06 -0800 (PST)
+From: raymanfx@gmail.com
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <221c5f40-594d-4b11-ab0f-dab66585471f@googlegroups.com>
+In-Reply-To: <ba1334c7-a13c-fdea-7177-53ad21c23244@siemens.com>
 References: <2b9c213c-a111-4f3f-94c5-4f89d06b5fdf@googlegroups.com>
  <eebfa055-f561-d5fb-7da6-706bb1e858ea@siemens.com>
  <439a798e-f9c3-4455-8128-e4047e5aa9e3@googlegroups.com>
  <5d6e66d7-2a25-1678-2ff1-247e861ab8d5@siemens.com>
  <dfe23f77-f16a-41c9-9f6e-8e67b853b66e@googlegroups.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <ba1334c7-a13c-fdea-7177-53ad21c23244@siemens.com>
-Date: Thu, 20 Feb 2020 13:24:21 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+ <ba1334c7-a13c-fdea-7177-53ad21c23244@siemens.com>
+Subject: Re: Linux non-root cell tooling
 MIME-Version: 1.0
-In-Reply-To: <dfe23f77-f16a-41c9-9f6e-8e67b853b66e@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_5613_1792000964.1582203906208"
+X-Original-Sender: raymanfx@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -134,98 +82,596 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 20.02.20 10:41, raymanfx@gmail.com wrote:
-> Am Freitag, 14. Februar 2020 16:15:53 UTC+1 schrieb Jan Kiszka:
-> 
->     Check if your non-root Linux comes with CONFIG_X86_X2APIC=y - I suspect
->     it doesn't.
-> 
-> 
-> It didn't. Fixed that and now I can start the non-root cell. Thank you!
-> 
->     You can find a working x86 inmate kernel config in
->     https://github.com/siemens/jailhouse-images/blob/master/recipes-kernel/linux/files/amd64_defconfig_5.4
->     <https://github.com/siemens/jailhouse-images/blob/master/recipes-kernel/linux/files/amd64_defconfig_5.4>
-> 
->     (multi-purpose config, thus a bit larger than technically needed).
-> 
->      >
->      > Is there a guide somewhere that documents the steps necessary for
->      > adjusting the linux-x86-demo cell config?
-> 
->     Nope, unfortunately not. The mid-term plan is still to enhance the
->     config generator to build also non-root configs. Any contribution,
->     including "just" documentation, would be very welcome!
-> 
-> I'll prepare a pull request to update the documentation.
-> 
-> Although I cannot see any errors in the Jailhouse console anymore, my 
-> Linux guest still appears to be stuck somewhere.
-> The console output I get is:
-> |
-> AddingvirtualPCI device 00:0c.0to cell "linux-x86-demo"
-> AddingvirtualPCI device 00:0d.0to cell "linux-x86-demo"
-> AddingvirtualPCI device 00:0e.0to cell "linux-x86-demo"
-> AddingvirtualPCI device 00:0f.0to cell "linux-x86-demo"
-> Createdcell "linux-x86-demo"
-> Pagepool usage after cell creation:mem 375/975,remap 16395/131072
-> Cell"linux-x86-demo"can be loaded
-> CPU 2received SIPI,vector 100
-> CPU 3received SIPI,vector 100
-> Startedcell "linux-x86-demo"
-> CPU 3received SIPI,vector 9a
-> |
-> 
-> I added the JAILHOUSE_CELL_VIRTUAL_CONSOLE_ACTIVE bit to the 
-> linux-x86-demo cell flags to get kernel message output in /dev/jailhouse 
-> in the root cell. Is that supposed to be working or do I need to use UART?
+------=_Part_5613_1792000964.1582203906208
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_5614_771740300.1582203906210"
 
-You are free to choose the output according to your setup. The virtual 
-console is a bit limited (write-only), inefficient (one hypervisor call 
-per character) and not available when the root cell dies, but it can be 
-fine if there is not much to print and no UART free.
+------=_Part_5614_771740300.1582203906210
+Content-Type: text/plain; charset="UTF-8"
 
-> 
-> At first there was a PIO read access violation at port 87, I went to 
-> check my root cell config and found the following:
-> |
-> /* Port I/O: 0080-008f : dma page reg */
-> /* PIO_RANGE(0x80, 0x10), */
-> |
-> 
-> So I added that exact range (0x80, 0x10) to the linux-x86-demo PIO 
-> configs and the error disappeared.
-> Could that be related to the cell being stuck issue?
+Am Donnerstag, 20. Februar 2020 13:24:24 UTC+1 schrieb Jan Kiszka:
 
-PIO access has no "shared with root cell" mode, like memory regions (and 
-there is can be dangerous): If you grant access to non-root cell, the 
-root cell loses it - and may then run into own violations. I don't 
-recall what triggers access to this port, might be the SERIO things, but 
-it can be configured out.
+>
+> PIO access has no "shared with root cell" mode, like memory regions (and 
+> there is can be dangerous): If you grant access to non-root cell, the 
+> root cell loses it - and may then run into own violations. I don't 
+> recall what triggers access to this port, might be the SERIO things, but 
+> it can be configured out. 
+>
+> Jan 
+>
 
-Jan
+That makes sense. But that particular PIO range was not activated for my 
+root cell sysconfig by default, so I figured enabling it in the non-root 
+cell should not cause any issues.
 
-> 
-> To ensure it's not related to other missing guest kernel options, I will 
-> build a kernel with your amd64_defconfig_5.4 
-> <https://github.com/siemens/jailhouse-images/blob/master/recipes-kernel/linux/files/amd64_defconfig_5.4> 
-> and see if I get the same results.
-> 
-> -- 
-> You received this message because you are subscribed to the Google 
-> Groups "Jailhouse" group.
-> To unsubscribe from this group and stop receiving emails from it, send 
-> an email to jailhouse-dev+unsubscribe@googlegroups.com 
-> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
-> To view this discussion on the web visit 
-> https://groups.google.com/d/msgid/jailhouse-dev/dfe23f77-f16a-41c9-9f6e-8e67b853b66e%40googlegroups.com 
-> <https://groups.google.com/d/msgid/jailhouse-dev/dfe23f77-f16a-41c9-9f6e-8e67b853b66e%40googlegroups.com?utm_medium=email&utm_source=footer>.
+Following up on my first email today, I built a guest kernel using the 
+amd64_defconfig you linked a few days ago.
+But no luck. I'm stuck at the exact same output I pasted earlier:
+Started cell "linux-x86-demo"
+CPU 3 received SIPI, vector 9a
 
--- 
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+The linux-x86-demo config I am using is the following (modified from the 
+0.12 release):
+diff --git a/configs/x86/linux-x86-demo.c b/configs/x86/linux-x86-demo.c
+index 47cb6517..0f1e6d9e 100644
+--- a/configs/x86/linux-x86-demo.c
++++ b/configs/x86/linux-x86-demo.c
+@@ -25,7 +25,7 @@ struct {
+ #endif
+        struct jailhouse_cache cache_regions[1];
+        struct jailhouse_irqchip irqchips[1];
+-       struct jailhouse_pio pio_regions[3];
++       struct jailhouse_pio pio_regions[4];
+ #ifdef CONFIG_QEMU_E1000E_ASSIGNMENT
+        struct jailhouse_pci_device pci_devices[5];
+ #else
+@@ -38,7 +38,7 @@ struct {
+                .revision = JAILHOUSE_CONFIG_REVISION,
+                .name = "linux-x86-demo",
+                .flags = JAILHOUSE_CELL_PASSIVE_COMMREG |
+-                        JAILHOUSE_CELL_VIRTUAL_CONSOLE_PERMITTED,
++                        JAILHOUSE_CELL_VIRTUAL_CONSOLE_ACTIVE,
+ 
+                .cpu_set_size = sizeof(config.cpus),
+                .num_memory_regions = ARRAY_SIZE(config.mem_regions),
+@@ -47,6 +47,12 @@ struct {
+                .num_pio_regions = ARRAY_SIZE(config.pio_regions),
+                .num_pci_devices = ARRAY_SIZE(config.pci_devices),
+                .num_pci_caps = ARRAY_SIZE(config.pci_caps),
++
++               .console = {
++                       .type = JAILHOUSE_CON_TYPE_8250,
++                       .flags = JAILHOUSE_CON_ACCESS_PIO,
++                       .address = 0x3f8,
++               },
+        },
+ 
+        .cpus = {
+@@ -186,7 +192,7 @@ struct {
+        .irqchips = {
+                /* IOAPIC */ {
+                        .address = 0xfec00000,
+-                       .id = 0xff00,
++                       .id = 0x100f7,
+                        .pin_bitmap = {
+                                (1 << 3) | (1 << 4),
+                        },
+@@ -197,6 +203,7 @@ struct {
+                PIO_RANGE(0x2f8, 8), /* serial 2 */
+                PIO_RANGE(0x3f8, 8), /* serial 1 */
+                PIO_RANGE(0xe010, 8), /* OXPCIe952 serial1 */
++               PIO_RANGE(0x80, 0x10),
+        },
+ 
+        .pci_devices = {
+
+From what I understood from your comment, this should print the Linux 
+output to /dev/jailhouse, no?
+I'm sorry if I'm missing something obvious here. My plan was to prepare 
+real UART for more serious debugging once Linux is starting and loading an 
+initrd.
+My non-root cell invocation looks like this (modeled after the 
+documentation examples):
+jailhouse cell linux linux-x86-demo.cell bzImage -c "console=ttyS0,115200"
+
+Thanks,
+Chris
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/ba1334c7-a13c-fdea-7177-53ad21c23244%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/221c5f40-594d-4b11-ab0f-dab66585471f%40googlegroups.com.
+
+------=_Part_5614_771740300.1582203906210
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Am Donnerstag, 20. Februar 2020 13:24:24 UTC+1 schrieb Jan=
+ Kiszka:<br><blockquote class=3D"gmail_quote" style=3D"margin: 0;margin-lef=
+t: 0.8ex;border-left: 1px #ccc solid;padding-left: 1ex;">
+<br>PIO access has no &quot;shared with root cell&quot; mode, like memory r=
+egions (and=20
+<br>there is can be dangerous): If you grant access to non-root cell, the=
+=20
+<br>root cell loses it - and may then run into own violations. I don&#39;t=
+=20
+<br>recall what triggers access to this port, might be the SERIO things, bu=
+t=20
+<br>it can be configured out.
+<br>
+<br>Jan
+<br></blockquote><div><br></div><div>That makes sense. But that particular =
+PIO range was not activated for my root cell sysconfig by default, so I fig=
+ured enabling it in the non-root cell should not cause any issues.</div><di=
+v><br></div><div>Following up on my first email today, I built a guest kern=
+el using the amd64_defconfig you linked a few days ago.</div><div>But no lu=
+ck. I&#39;m stuck at the exact same output I pasted earlier:</div><div><div=
+ style=3D"background-color: rgb(250, 250, 250); border-color: rgb(187, 187,=
+ 187); border-style: solid; border-width: 1px; overflow-wrap: break-word;" =
+class=3D"prettyprint"><code class=3D"prettyprint"><div class=3D"subprettypr=
+int"><span style=3D"color: #606;" class=3D"styled-by-prettify">Started</spa=
+n><span style=3D"color: #000;" class=3D"styled-by-prettify"> cell </span><s=
+pan style=3D"color: #080;" class=3D"styled-by-prettify">&quot;linux-x86-dem=
+o&quot;</span><span style=3D"color: #000;" class=3D"styled-by-prettify"><br=
+>CPU </span><span style=3D"color: #066;" class=3D"styled-by-prettify">3</sp=
+an><span style=3D"color: #000;" class=3D"styled-by-prettify"> received SIPI=
+</span><span style=3D"color: #660;" class=3D"styled-by-prettify">,</span><s=
+pan style=3D"color: #000;" class=3D"styled-by-prettify"> vector </span><spa=
+n style=3D"color: #066;" class=3D"styled-by-prettify">9a</span></div></code=
+></div><br>The linux-x86-demo config I am using is the following (modified =
+from the 0.12 release):</div><div><div style=3D"background-color: rgb(250, =
+250, 250); border-color: rgb(187, 187, 187); border-style: solid; border-wi=
+dth: 1px; overflow-wrap: break-word;" class=3D"prettyprint"><code class=3D"=
+prettyprint"><div class=3D"subprettyprint"><span style=3D"color: #000;" cla=
+ss=3D"styled-by-prettify">diff </span><span style=3D"color: #660;" class=3D=
+"styled-by-prettify">--</span><span style=3D"color: #000;" class=3D"styled-=
+by-prettify">git a</span><span style=3D"color: #660;" class=3D"styled-by-pr=
+ettify">/</span><span style=3D"color: #000;" class=3D"styled-by-prettify">c=
+onfigs</span><span style=3D"color: #660;" class=3D"styled-by-prettify">/</s=
+pan><span style=3D"color: #000;" class=3D"styled-by-prettify">x86</span><sp=
+an style=3D"color: #660;" class=3D"styled-by-prettify">/</span><span style=
+=3D"color: #000;" class=3D"styled-by-prettify">linux</span><span style=3D"c=
+olor: #660;" class=3D"styled-by-prettify">-</span><span style=3D"color: #00=
+0;" class=3D"styled-by-prettify">x86</span><span style=3D"color: #660;" cla=
+ss=3D"styled-by-prettify">-</span><span style=3D"color: #000;" class=3D"sty=
+led-by-prettify">demo</span><span style=3D"color: #660;" class=3D"styled-by=
+-prettify">.</span><span style=3D"color: #000;" class=3D"styled-by-prettify=
+">c b</span><span style=3D"color: #660;" class=3D"styled-by-prettify">/</sp=
+an><span style=3D"color: #000;" class=3D"styled-by-prettify">configs</span>=
+<span style=3D"color: #660;" class=3D"styled-by-prettify">/</span><span sty=
+le=3D"color: #000;" class=3D"styled-by-prettify">x86</span><span style=3D"c=
+olor: #660;" class=3D"styled-by-prettify">/</span><span style=3D"color: #00=
+0;" class=3D"styled-by-prettify">linux</span><span style=3D"color: #660;" c=
+lass=3D"styled-by-prettify">-</span><span style=3D"color: #000;" class=3D"s=
+tyled-by-prettify">x86</span><span style=3D"color: #660;" class=3D"styled-b=
+y-prettify">-</span><span style=3D"color: #000;" class=3D"styled-by-prettif=
+y">demo</span><span style=3D"color: #660;" class=3D"styled-by-prettify">.</=
+span><span style=3D"color: #000;" class=3D"styled-by-prettify">c<br>index <=
+/span><span style=3D"color: #066;" class=3D"styled-by-prettify">47cb6517.</=
+span><span style=3D"color: #660;" class=3D"styled-by-prettify">.</span><spa=
+n style=3D"color: #066;" class=3D"styled-by-prettify">0f1e6d9e</span><span =
+style=3D"color: #000;" class=3D"styled-by-prettify"> </span><span style=3D"=
+color: #066;" class=3D"styled-by-prettify">100644</span><span style=3D"colo=
+r: #000;" class=3D"styled-by-prettify"><br></span><span style=3D"color: #66=
+0;" class=3D"styled-by-prettify">---</span><span style=3D"color: #000;" cla=
+ss=3D"styled-by-prettify"> a</span><span style=3D"color: #660;" class=3D"st=
+yled-by-prettify">/</span><span style=3D"color: #000;" class=3D"styled-by-p=
+rettify">configs</span><span style=3D"color: #660;" class=3D"styled-by-pret=
+tify">/</span><span style=3D"color: #000;" class=3D"styled-by-prettify">x86=
+</span><span style=3D"color: #660;" class=3D"styled-by-prettify">/</span><s=
+pan style=3D"color: #000;" class=3D"styled-by-prettify">linux</span><span s=
+tyle=3D"color: #660;" class=3D"styled-by-prettify">-</span><span style=3D"c=
+olor: #000;" class=3D"styled-by-prettify">x86</span><span style=3D"color: #=
+660;" class=3D"styled-by-prettify">-</span><span style=3D"color: #000;" cla=
+ss=3D"styled-by-prettify">demo</span><span style=3D"color: #660;" class=3D"=
+styled-by-prettify">.</span><span style=3D"color: #000;" class=3D"styled-by=
+-prettify">c<br></span><span style=3D"color: #660;" class=3D"styled-by-pret=
+tify">+++</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> =
+b</span><span style=3D"color: #660;" class=3D"styled-by-prettify">/</span><=
+span style=3D"color: #000;" class=3D"styled-by-prettify">configs</span><spa=
+n style=3D"color: #660;" class=3D"styled-by-prettify">/</span><span style=
+=3D"color: #000;" class=3D"styled-by-prettify">x86</span><span style=3D"col=
+or: #660;" class=3D"styled-by-prettify">/</span><span style=3D"color: #000;=
+" class=3D"styled-by-prettify">linux</span><span style=3D"color: #660;" cla=
+ss=3D"styled-by-prettify">-</span><span style=3D"color: #000;" class=3D"sty=
+led-by-prettify">x86</span><span style=3D"color: #660;" class=3D"styled-by-=
+prettify">-</span><span style=3D"color: #000;" class=3D"styled-by-prettify"=
+>demo</span><span style=3D"color: #660;" class=3D"styled-by-prettify">.</sp=
+an><span style=3D"color: #000;" class=3D"styled-by-prettify">c<br></span><s=
+pan style=3D"color: #660;" class=3D"styled-by-prettify">@@</span><span styl=
+e=3D"color: #000;" class=3D"styled-by-prettify"> </span><span style=3D"colo=
+r: #660;" class=3D"styled-by-prettify">-</span><span style=3D"color: #066;"=
+ class=3D"styled-by-prettify">25</span><span style=3D"color: #660;" class=
+=3D"styled-by-prettify">,</span><span style=3D"color: #066;" class=3D"style=
+d-by-prettify">7</span><span style=3D"color: #000;" class=3D"styled-by-pret=
+tify"> </span><span style=3D"color: #660;" class=3D"styled-by-prettify">+</=
+span><span style=3D"color: #066;" class=3D"styled-by-prettify">25</span><sp=
+an style=3D"color: #660;" class=3D"styled-by-prettify">,</span><span style=
+=3D"color: #066;" class=3D"styled-by-prettify">7</span><span style=3D"color=
+: #000;" class=3D"styled-by-prettify"> </span><span style=3D"color: #660;" =
+class=3D"styled-by-prettify">@@</span><span style=3D"color: #000;" class=3D=
+"styled-by-prettify"> </span><span style=3D"color: #008;" class=3D"styled-b=
+y-prettify">struct</span><span style=3D"color: #000;" class=3D"styled-by-pr=
+ettify"> </span><span style=3D"color: #660;" class=3D"styled-by-prettify">{=
+</span><span style=3D"color: #000;" class=3D"styled-by-prettify"><br>=C2=A0=
+</span><span style=3D"color: #800;" class=3D"styled-by-prettify">#endif</sp=
+an><span style=3D"color: #000;" class=3D"styled-by-prettify"><br>=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 </span><span style=3D"color: #008;" class=3D"styled-by-pr=
+ettify">struct</span><span style=3D"color: #000;" class=3D"styled-by-pretti=
+fy"> jailhouse_cache cache_regions</span><span style=3D"color: #660;" class=
+=3D"styled-by-prettify">[</span><span style=3D"color: #066;" class=3D"style=
+d-by-prettify">1</span><span style=3D"color: #660;" class=3D"styled-by-pret=
+tify">];</span><span style=3D"color: #000;" class=3D"styled-by-prettify"><b=
+r>=C2=A0 =C2=A0 =C2=A0 =C2=A0 </span><span style=3D"color: #008;" class=3D"=
+styled-by-prettify">struct</span><span style=3D"color: #000;" class=3D"styl=
+ed-by-prettify"> jailhouse_irqchip irqchips</span><span style=3D"color: #66=
+0;" class=3D"styled-by-prettify">[</span><span style=3D"color: #066;" class=
+=3D"styled-by-prettify">1</span><span style=3D"color: #660;" class=3D"style=
+d-by-prettify">];</span><span style=3D"color: #000;" class=3D"styled-by-pre=
+ttify"><br></span><span style=3D"color: #660;" class=3D"styled-by-prettify"=
+>-</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0 =
+=C2=A0 =C2=A0 </span><span style=3D"color: #008;" class=3D"styled-by-pretti=
+fy">struct</span><span style=3D"color: #000;" class=3D"styled-by-prettify">=
+ jailhouse_pio pio_regions</span><span style=3D"color: #660;" class=3D"styl=
+ed-by-prettify">[</span><span style=3D"color: #066;" class=3D"styled-by-pre=
+ttify">3</span><span style=3D"color: #660;" class=3D"styled-by-prettify">];=
+</span><span style=3D"color: #000;" class=3D"styled-by-prettify"><br></span=
+><span style=3D"color: #660;" class=3D"styled-by-prettify">+</span><span st=
+yle=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0 =C2=A0 =C2=A0 </s=
+pan><span style=3D"color: #008;" class=3D"styled-by-prettify">struct</span>=
+<span style=3D"color: #000;" class=3D"styled-by-prettify"> jailhouse_pio pi=
+o_regions</span><span style=3D"color: #660;" class=3D"styled-by-prettify">[=
+</span><span style=3D"color: #066;" class=3D"styled-by-prettify">4</span><s=
+pan style=3D"color: #660;" class=3D"styled-by-prettify">];</span><span styl=
+e=3D"color: #000;" class=3D"styled-by-prettify"><br>=C2=A0</span><span styl=
+e=3D"color: #800;" class=3D"styled-by-prettify">#ifdef</span><span style=3D=
+"color: #000;" class=3D"styled-by-prettify"> CONFIG_QEMU_E1000E_ASSIGNMENT<=
+br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 </span><span style=3D"color: #008;" class=3D=
+"styled-by-prettify">struct</span><span style=3D"color: #000;" class=3D"sty=
+led-by-prettify"> jailhouse_pci_device pci_devices</span><span style=3D"col=
+or: #660;" class=3D"styled-by-prettify">[</span><span style=3D"color: #066;=
+" class=3D"styled-by-prettify">5</span><span style=3D"color: #660;" class=
+=3D"styled-by-prettify">];</span><span style=3D"color: #000;" class=3D"styl=
+ed-by-prettify"><br>=C2=A0</span><span style=3D"color: #800;" class=3D"styl=
+ed-by-prettify">#else</span><span style=3D"color: #000;" class=3D"styled-by=
+-prettify"><br></span><span style=3D"color: #660;" class=3D"styled-by-prett=
+ify">@@</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> </=
+span><span style=3D"color: #660;" class=3D"styled-by-prettify">-</span><spa=
+n style=3D"color: #066;" class=3D"styled-by-prettify">38</span><span style=
+=3D"color: #660;" class=3D"styled-by-prettify">,</span><span style=3D"color=
+: #066;" class=3D"styled-by-prettify">7</span><span style=3D"color: #000;" =
+class=3D"styled-by-prettify"> </span><span style=3D"color: #660;" class=3D"=
+styled-by-prettify">+</span><span style=3D"color: #066;" class=3D"styled-by=
+-prettify">38</span><span style=3D"color: #660;" class=3D"styled-by-prettif=
+y">,</span><span style=3D"color: #066;" class=3D"styled-by-prettify">7</spa=
+n><span style=3D"color: #000;" class=3D"styled-by-prettify"> </span><span s=
+tyle=3D"color: #660;" class=3D"styled-by-prettify">@@</span><span style=3D"=
+color: #000;" class=3D"styled-by-prettify"> </span><span style=3D"color: #0=
+08;" class=3D"styled-by-prettify">struct</span><span style=3D"color: #000;"=
+ class=3D"styled-by-prettify"> </span><span style=3D"color: #660;" class=3D=
+"styled-by-prettify">{</span><span style=3D"color: #000;" class=3D"styled-b=
+y-prettify"><br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 </s=
+pan><span style=3D"color: #660;" class=3D"styled-by-prettify">.</span><span=
+ style=3D"color: #000;" class=3D"styled-by-prettify">revision </span><span =
+style=3D"color: #660;" class=3D"styled-by-prettify">=3D</span><span style=
+=3D"color: #000;" class=3D"styled-by-prettify"> JAILHOUSE_CONFIG_REVISION</=
+span><span style=3D"color: #660;" class=3D"styled-by-prettify">,</span><spa=
+n style=3D"color: #000;" class=3D"styled-by-prettify"><br>=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 </span><span style=3D"color: #660;" =
+class=3D"styled-by-prettify">.</span><span style=3D"color: #000;" class=3D"=
+styled-by-prettify">name </span><span style=3D"color: #660;" class=3D"style=
+d-by-prettify">=3D</span><span style=3D"color: #000;" class=3D"styled-by-pr=
+ettify"> </span><span style=3D"color: #080;" class=3D"styled-by-prettify">&=
+quot;linux-x86-demo&quot;</span><span style=3D"color: #660;" class=3D"style=
+d-by-prettify">,</span><span style=3D"color: #000;" class=3D"styled-by-pret=
+tify"><br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 </span><s=
+pan style=3D"color: #660;" class=3D"styled-by-prettify">.</span><span style=
+=3D"color: #000;" class=3D"styled-by-prettify">flags </span><span style=3D"=
+color: #660;" class=3D"styled-by-prettify">=3D</span><span style=3D"color: =
+#000;" class=3D"styled-by-prettify"> JAILHOUSE_CELL_PASSIVE_COMMREG </span>=
+<span style=3D"color: #660;" class=3D"styled-by-prettify">|</span><span sty=
+le=3D"color: #000;" class=3D"styled-by-prettify"><br></span><span style=3D"=
+color: #660;" class=3D"styled-by-prettify">-</span><span style=3D"color: #0=
+00;" class=3D"styled-by-prettify"> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0JAILHOUSE_CELL_VIRTUAL_CONSOLE=
+_PERMITTED</span><span style=3D"color: #660;" class=3D"styled-by-prettify">=
+,</span><span style=3D"color: #000;" class=3D"styled-by-prettify"><br></spa=
+n><span style=3D"color: #660;" class=3D"styled-by-prettify">+</span><span s=
+tyle=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0JAILHOUSE_CEL=
+L_VIRTUAL_CONSOLE_ACTIVE</span><span style=3D"color: #660;" class=3D"styled=
+-by-prettify">,</span><span style=3D"color: #000;" class=3D"styled-by-prett=
+ify"><br>=C2=A0<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+</span><span style=3D"color: #660;" class=3D"styled-by-prettify">.</span><s=
+pan style=3D"color: #000;" class=3D"styled-by-prettify">cpu_set_size </span=
+><span style=3D"color: #660;" class=3D"styled-by-prettify">=3D</span><span =
+style=3D"color: #000;" class=3D"styled-by-prettify"> </span><span style=3D"=
+color: #008;" class=3D"styled-by-prettify">sizeof</span><span style=3D"colo=
+r: #660;" class=3D"styled-by-prettify">(</span><span style=3D"color: #000;"=
+ class=3D"styled-by-prettify">config</span><span style=3D"color: #660;" cla=
+ss=3D"styled-by-prettify">.</span><span style=3D"color: #000;" class=3D"sty=
+led-by-prettify">cpus</span><span style=3D"color: #660;" class=3D"styled-by=
+-prettify">),</span><span style=3D"color: #000;" class=3D"styled-by-prettif=
+y"><br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 </span><span=
+ style=3D"color: #660;" class=3D"styled-by-prettify">.</span><span style=3D=
+"color: #000;" class=3D"styled-by-prettify">num_memory_regions </span><span=
+ style=3D"color: #660;" class=3D"styled-by-prettify">=3D</span><span style=
+=3D"color: #000;" class=3D"styled-by-prettify"> ARRAY_SIZE</span><span styl=
+e=3D"color: #660;" class=3D"styled-by-prettify">(</span><span style=3D"colo=
+r: #000;" class=3D"styled-by-prettify">config</span><span style=3D"color: #=
+660;" class=3D"styled-by-prettify">.</span><span style=3D"color: #000;" cla=
+ss=3D"styled-by-prettify">mem_regions</span><span style=3D"color: #660;" cl=
+ass=3D"styled-by-prettify">),</span><span style=3D"color: #000;" class=3D"s=
+tyled-by-prettify"><br></span><span style=3D"color: #660;" class=3D"styled-=
+by-prettify">@@</span><span style=3D"color: #000;" class=3D"styled-by-prett=
+ify"> </span><span style=3D"color: #660;" class=3D"styled-by-prettify">-</s=
+pan><span style=3D"color: #066;" class=3D"styled-by-prettify">47</span><spa=
+n style=3D"color: #660;" class=3D"styled-by-prettify">,</span><span style=
+=3D"color: #066;" class=3D"styled-by-prettify">6</span><span style=3D"color=
+: #000;" class=3D"styled-by-prettify"> </span><span style=3D"color: #660;" =
+class=3D"styled-by-prettify">+</span><span style=3D"color: #066;" class=3D"=
+styled-by-prettify">47</span><span style=3D"color: #660;" class=3D"styled-b=
+y-prettify">,</span><span style=3D"color: #066;" class=3D"styled-by-prettif=
+y">12</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> </sp=
+an><span style=3D"color: #660;" class=3D"styled-by-prettify">@@</span><span=
+ style=3D"color: #000;" class=3D"styled-by-prettify"> </span><span style=3D=
+"color: #008;" class=3D"styled-by-prettify">struct</span><span style=3D"col=
+or: #000;" class=3D"styled-by-prettify"> </span><span style=3D"color: #660;=
+" class=3D"styled-by-prettify">{</span><span style=3D"color: #000;" class=
+=3D"styled-by-prettify"><br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 </span><span style=3D"color: #660;" class=3D"styled-by-prettify"=
+>.</span><span style=3D"color: #000;" class=3D"styled-by-prettify">num_pio_=
+regions </span><span style=3D"color: #660;" class=3D"styled-by-prettify">=
+=3D</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> ARRAY_=
+SIZE</span><span style=3D"color: #660;" class=3D"styled-by-prettify">(</spa=
+n><span style=3D"color: #000;" class=3D"styled-by-prettify">config</span><s=
+pan style=3D"color: #660;" class=3D"styled-by-prettify">.</span><span style=
+=3D"color: #000;" class=3D"styled-by-prettify">pio_regions</span><span styl=
+e=3D"color: #660;" class=3D"styled-by-prettify">),</span><span style=3D"col=
+or: #000;" class=3D"styled-by-prettify"><br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 </span><span style=3D"color: #660;" class=3D"style=
+d-by-prettify">.</span><span style=3D"color: #000;" class=3D"styled-by-pret=
+tify">num_pci_devices </span><span style=3D"color: #660;" class=3D"styled-b=
+y-prettify">=3D</span><span style=3D"color: #000;" class=3D"styled-by-prett=
+ify"> ARRAY_SIZE</span><span style=3D"color: #660;" class=3D"styled-by-pret=
+tify">(</span><span style=3D"color: #000;" class=3D"styled-by-prettify">con=
+fig</span><span style=3D"color: #660;" class=3D"styled-by-prettify">.</span=
+><span style=3D"color: #000;" class=3D"styled-by-prettify">pci_devices</spa=
+n><span style=3D"color: #660;" class=3D"styled-by-prettify">),</span><span =
+style=3D"color: #000;" class=3D"styled-by-prettify"><br>=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 </span><span style=3D"color: #660;" =
+class=3D"styled-by-prettify">.</span><span style=3D"color: #000;" class=3D"=
+styled-by-prettify">num_pci_caps </span><span style=3D"color: #660;" class=
+=3D"styled-by-prettify">=3D</span><span style=3D"color: #000;" class=3D"sty=
+led-by-prettify"> ARRAY_SIZE</span><span style=3D"color: #660;" class=3D"st=
+yled-by-prettify">(</span><span style=3D"color: #000;" class=3D"styled-by-p=
+rettify">config</span><span style=3D"color: #660;" class=3D"styled-by-prett=
+ify">.</span><span style=3D"color: #000;" class=3D"styled-by-prettify">pci_=
+caps</span><span style=3D"color: #660;" class=3D"styled-by-prettify">),</sp=
+an><span style=3D"color: #000;" class=3D"styled-by-prettify"><br></span><sp=
+an style=3D"color: #660;" class=3D"styled-by-prettify">+</span><span style=
+=3D"color: #000;" class=3D"styled-by-prettify"><br></span><span style=3D"co=
+lor: #660;" class=3D"styled-by-prettify">+</span><span style=3D"color: #000=
+;" class=3D"styled-by-prettify"> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 </span><span style=3D"color: #660;" class=3D"styled-by-prettify">.</=
+span><span style=3D"color: #000;" class=3D"styled-by-prettify">console </sp=
+an><span style=3D"color: #660;" class=3D"styled-by-prettify">=3D</span><spa=
+n style=3D"color: #000;" class=3D"styled-by-prettify"> </span><span style=
+=3D"color: #660;" class=3D"styled-by-prettify">{</span><span style=3D"color=
+: #000;" class=3D"styled-by-prettify"><br></span><span style=3D"color: #660=
+;" class=3D"styled-by-prettify">+</span><span style=3D"color: #000;" class=
+=3D"styled-by-prettify"> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 </span><span style=3D"color: #660;" class=3D"st=
+yled-by-prettify">.</span><span style=3D"color: #000;" class=3D"styled-by-p=
+rettify">type </span><span style=3D"color: #660;" class=3D"styled-by-pretti=
+fy">=3D</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> JA=
+ILHOUSE_CON_TYPE_8250</span><span style=3D"color: #660;" class=3D"styled-by=
+-prettify">,</span><span style=3D"color: #000;" class=3D"styled-by-prettify=
+"><br></span><span style=3D"color: #660;" class=3D"styled-by-prettify">+</s=
+pan><span style=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 </span><=
+span style=3D"color: #660;" class=3D"styled-by-prettify">.</span><span styl=
+e=3D"color: #000;" class=3D"styled-by-prettify">flags </span><span style=3D=
+"color: #660;" class=3D"styled-by-prettify">=3D</span><span style=3D"color:=
+ #000;" class=3D"styled-by-prettify"> JAILHOUSE_CON_ACCESS_PIO</span><span =
+style=3D"color: #660;" class=3D"styled-by-prettify">,</span><span style=3D"=
+color: #000;" class=3D"styled-by-prettify"><br></span><span style=3D"color:=
+ #660;" class=3D"styled-by-prettify">+</span><span style=3D"color: #000;" c=
+lass=3D"styled-by-prettify"> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 </span><span style=3D"color: #660;" class=
+=3D"styled-by-prettify">.</span><span style=3D"color: #000;" class=3D"style=
+d-by-prettify">address </span><span style=3D"color: #660;" class=3D"styled-=
+by-prettify">=3D</span><span style=3D"color: #000;" class=3D"styled-by-pret=
+tify"> </span><span style=3D"color: #066;" class=3D"styled-by-prettify">0x3=
+f8</span><span style=3D"color: #660;" class=3D"styled-by-prettify">,</span>=
+<span style=3D"color: #000;" class=3D"styled-by-prettify"><br></span><span =
+style=3D"color: #660;" class=3D"styled-by-prettify">+</span><span style=3D"=
+color: #000;" class=3D"styled-by-prettify"> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 </span><span style=3D"color: #660;" class=3D"styled-by-pr=
+ettify">},</span><span style=3D"color: #000;" class=3D"styled-by-prettify">=
+<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 </span><span style=3D"color: #660;" class=
+=3D"styled-by-prettify">},</span><span style=3D"color: #000;" class=3D"styl=
+ed-by-prettify"><br>=C2=A0<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 </span><span styl=
+e=3D"color: #660;" class=3D"styled-by-prettify">.</span><span style=3D"colo=
+r: #000;" class=3D"styled-by-prettify">cpus </span><span style=3D"color: #6=
+60;" class=3D"styled-by-prettify">=3D</span><span style=3D"color: #000;" cl=
+ass=3D"styled-by-prettify"> </span><span style=3D"color: #660;" class=3D"st=
+yled-by-prettify">{</span><span style=3D"color: #000;" class=3D"styled-by-p=
+rettify"><br></span><span style=3D"color: #660;" class=3D"styled-by-prettif=
+y">@@</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> </sp=
+an><span style=3D"color: #660;" class=3D"styled-by-prettify">-</span><span =
+style=3D"color: #066;" class=3D"styled-by-prettify">186</span><span style=
+=3D"color: #660;" class=3D"styled-by-prettify">,</span><span style=3D"color=
+: #066;" class=3D"styled-by-prettify">7</span><span style=3D"color: #000;" =
+class=3D"styled-by-prettify"> </span><span style=3D"color: #660;" class=3D"=
+styled-by-prettify">+</span><span style=3D"color: #066;" class=3D"styled-by=
+-prettify">192</span><span style=3D"color: #660;" class=3D"styled-by-pretti=
+fy">,</span><span style=3D"color: #066;" class=3D"styled-by-prettify">7</sp=
+an><span style=3D"color: #000;" class=3D"styled-by-prettify"> </span><span =
+style=3D"color: #660;" class=3D"styled-by-prettify">@@</span><span style=3D=
+"color: #000;" class=3D"styled-by-prettify"> </span><span style=3D"color: #=
+008;" class=3D"styled-by-prettify">struct</span><span style=3D"color: #000;=
+" class=3D"styled-by-prettify"> </span><span style=3D"color: #660;" class=
+=3D"styled-by-prettify">{</span><span style=3D"color: #000;" class=3D"style=
+d-by-prettify"><br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 </span><span style=3D"color:=
+ #660;" class=3D"styled-by-prettify">.</span><span style=3D"color: #000;" c=
+lass=3D"styled-by-prettify">irqchips </span><span style=3D"color: #660;" cl=
+ass=3D"styled-by-prettify">=3D</span><span style=3D"color: #000;" class=3D"=
+styled-by-prettify"> </span><span style=3D"color: #660;" class=3D"styled-by=
+-prettify">{</span><span style=3D"color: #000;" class=3D"styled-by-prettify=
+"><br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 </span><span =
+style=3D"color: #800;" class=3D"styled-by-prettify">/* IOAPIC */</span><spa=
+n style=3D"color: #000;" class=3D"styled-by-prettify"> </span><span style=
+=3D"color: #660;" class=3D"styled-by-prettify">{</span><span style=3D"color=
+: #000;" class=3D"styled-by-prettify"><br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 </span><span style=3D"=
+color: #660;" class=3D"styled-by-prettify">.</span><span style=3D"color: #0=
+00;" class=3D"styled-by-prettify">address </span><span style=3D"color: #660=
+;" class=3D"styled-by-prettify">=3D</span><span style=3D"color: #000;" clas=
+s=3D"styled-by-prettify"> </span><span style=3D"color: #066;" class=3D"styl=
+ed-by-prettify">0xfec00000</span><span style=3D"color: #660;" class=3D"styl=
+ed-by-prettify">,</span><span style=3D"color: #000;" class=3D"styled-by-pre=
+ttify"><br></span><span style=3D"color: #660;" class=3D"styled-by-prettify"=
+>-</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 </spa=
+n><span style=3D"color: #660;" class=3D"styled-by-prettify">.</span><span s=
+tyle=3D"color: #000;" class=3D"styled-by-prettify">id </span><span style=3D=
+"color: #660;" class=3D"styled-by-prettify">=3D</span><span style=3D"color:=
+ #000;" class=3D"styled-by-prettify"> </span><span style=3D"color: #066;" c=
+lass=3D"styled-by-prettify">0xff00</span><span style=3D"color: #660;" class=
+=3D"styled-by-prettify">,</span><span style=3D"color: #000;" class=3D"style=
+d-by-prettify"><br></span><span style=3D"color: #660;" class=3D"styled-by-p=
+rettify">+</span><span style=3D"color: #000;" class=3D"styled-by-prettify">=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 </span><span style=3D"color: #660;" class=3D"styled-by-prettify">.</spa=
+n><span style=3D"color: #000;" class=3D"styled-by-prettify">id </span><span=
+ style=3D"color: #660;" class=3D"styled-by-prettify">=3D</span><span style=
+=3D"color: #000;" class=3D"styled-by-prettify"> </span><span style=3D"color=
+: #066;" class=3D"styled-by-prettify">0x100f7</span><span style=3D"color: #=
+660;" class=3D"styled-by-prettify">,</span><span style=3D"color: #000;" cla=
+ss=3D"styled-by-prettify"><br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 </span><span style=3D"color: #660;" =
+class=3D"styled-by-prettify">.</span><span style=3D"color: #000;" class=3D"=
+styled-by-prettify">pin_bitmap </span><span style=3D"color: #660;" class=3D=
+"styled-by-prettify">=3D</span><span style=3D"color: #000;" class=3D"styled=
+-by-prettify"> </span><span style=3D"color: #660;" class=3D"styled-by-prett=
+ify">{</span><span style=3D"color: #000;" class=3D"styled-by-prettify"><br>=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 </span><span style=3D"color: #660;" =
+class=3D"styled-by-prettify">(</span><span style=3D"color: #066;" class=3D"=
+styled-by-prettify">1</span><span style=3D"color: #000;" class=3D"styled-by=
+-prettify"> </span><span style=3D"color: #660;" class=3D"styled-by-prettify=
+">&lt;&lt;</span><span style=3D"color: #000;" class=3D"styled-by-prettify">=
+ </span><span style=3D"color: #066;" class=3D"styled-by-prettify">3</span><=
+span style=3D"color: #660;" class=3D"styled-by-prettify">)</span><span styl=
+e=3D"color: #000;" class=3D"styled-by-prettify"> </span><span style=3D"colo=
+r: #660;" class=3D"styled-by-prettify">|</span><span style=3D"color: #000;"=
+ class=3D"styled-by-prettify"> </span><span style=3D"color: #660;" class=3D=
+"styled-by-prettify">(</span><span style=3D"color: #066;" class=3D"styled-b=
+y-prettify">1</span><span style=3D"color: #000;" class=3D"styled-by-prettif=
+y"> </span><span style=3D"color: #660;" class=3D"styled-by-prettify">&lt;&l=
+t;</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> </span>=
+<span style=3D"color: #066;" class=3D"styled-by-prettify">4</span><span sty=
+le=3D"color: #660;" class=3D"styled-by-prettify">),</span><span style=3D"co=
+lor: #000;" class=3D"styled-by-prettify"><br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 </span><span style=
+=3D"color: #660;" class=3D"styled-by-prettify">},</span><span style=3D"colo=
+r: #000;" class=3D"styled-by-prettify"><br></span><span style=3D"color: #66=
+0;" class=3D"styled-by-prettify">@@</span><span style=3D"color: #000;" clas=
+s=3D"styled-by-prettify"> </span><span style=3D"color: #660;" class=3D"styl=
+ed-by-prettify">-</span><span style=3D"color: #066;" class=3D"styled-by-pre=
+ttify">197</span><span style=3D"color: #660;" class=3D"styled-by-prettify">=
+,</span><span style=3D"color: #066;" class=3D"styled-by-prettify">6</span><=
+span style=3D"color: #000;" class=3D"styled-by-prettify"> </span><span styl=
+e=3D"color: #660;" class=3D"styled-by-prettify">+</span><span style=3D"colo=
+r: #066;" class=3D"styled-by-prettify">203</span><span style=3D"color: #660=
+;" class=3D"styled-by-prettify">,</span><span style=3D"color: #066;" class=
+=3D"styled-by-prettify">7</span><span style=3D"color: #000;" class=3D"style=
+d-by-prettify"> </span><span style=3D"color: #660;" class=3D"styled-by-pret=
+tify">@@</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> <=
+/span><span style=3D"color: #008;" class=3D"styled-by-prettify">struct</spa=
+n><span style=3D"color: #000;" class=3D"styled-by-prettify"> </span><span s=
+tyle=3D"color: #660;" class=3D"styled-by-prettify">{</span><span style=3D"c=
+olor: #000;" class=3D"styled-by-prettify"><br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 PIO_RANGE</span><span style=3D"color: #660;" cl=
+ass=3D"styled-by-prettify">(</span><span style=3D"color: #066;" class=3D"st=
+yled-by-prettify">0x2f8</span><span style=3D"color: #660;" class=3D"styled-=
+by-prettify">,</span><span style=3D"color: #000;" class=3D"styled-by-pretti=
+fy"> </span><span style=3D"color: #066;" class=3D"styled-by-prettify">8</sp=
+an><span style=3D"color: #660;" class=3D"styled-by-prettify">),</span><span=
+ style=3D"color: #000;" class=3D"styled-by-prettify"> </span><span style=3D=
+"color: #800;" class=3D"styled-by-prettify">/* serial 2 */</span><span styl=
+e=3D"color: #000;" class=3D"styled-by-prettify"><br>=C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PIO_RANGE</span><span style=3D"color: #6=
+60;" class=3D"styled-by-prettify">(</span><span style=3D"color: #066;" clas=
+s=3D"styled-by-prettify">0x3f8</span><span style=3D"color: #660;" class=3D"=
+styled-by-prettify">,</span><span style=3D"color: #000;" class=3D"styled-by=
+-prettify"> </span><span style=3D"color: #066;" class=3D"styled-by-prettify=
+">8</span><span style=3D"color: #660;" class=3D"styled-by-prettify">),</spa=
+n><span style=3D"color: #000;" class=3D"styled-by-prettify"> </span><span s=
+tyle=3D"color: #800;" class=3D"styled-by-prettify">/* serial 1 */</span><sp=
+an style=3D"color: #000;" class=3D"styled-by-prettify"><br>=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PIO_RANGE</span><span style=3D"co=
+lor: #660;" class=3D"styled-by-prettify">(</span><span style=3D"color: #066=
+;" class=3D"styled-by-prettify">0xe010</span><span style=3D"color: #660;" c=
+lass=3D"styled-by-prettify">,</span><span style=3D"color: #000;" class=3D"s=
+tyled-by-prettify"> </span><span style=3D"color: #066;" class=3D"styled-by-=
+prettify">8</span><span style=3D"color: #660;" class=3D"styled-by-prettify"=
+>),</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> </span=
+><span style=3D"color: #800;" class=3D"styled-by-prettify">/* OXPCIe952 ser=
+ial1 */</span><span style=3D"color: #000;" class=3D"styled-by-prettify"><br=
+></span><span style=3D"color: #660;" class=3D"styled-by-prettify">+</span><=
+span style=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PIO_RANGE</span><span style=3D"color: #660;=
+" class=3D"styled-by-prettify">(</span><span style=3D"color: #066;" class=
+=3D"styled-by-prettify">0x80</span><span style=3D"color: #660;" class=3D"st=
+yled-by-prettify">,</span><span style=3D"color: #000;" class=3D"styled-by-p=
+rettify"> </span><span style=3D"color: #066;" class=3D"styled-by-prettify">=
+0x10</span><span style=3D"color: #660;" class=3D"styled-by-prettify">),</sp=
+an><span style=3D"color: #000;" class=3D"styled-by-prettify"><br>=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 </span><span style=3D"color: #660;" class=3D"styled-by-pr=
+ettify">},</span><span style=3D"color: #000;" class=3D"styled-by-prettify">=
+<br>=C2=A0<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 </span><span style=3D"color: #660=
+;" class=3D"styled-by-prettify">.</span><span style=3D"color: #000;" class=
+=3D"styled-by-prettify">pci_devices </span><span style=3D"color: #660;" cla=
+ss=3D"styled-by-prettify">=3D</span><span style=3D"color: #000;" class=3D"s=
+tyled-by-prettify"> </span><span style=3D"color: #660;" class=3D"styled-by-=
+prettify">{</span></div></code></div><br>From what I understood from your c=
+omment, this should print the Linux output to /dev/jailhouse, no?</div><div=
+>I&#39;m sorry if I&#39;m missing something obvious here. My plan was to pr=
+epare real UART for more serious debugging once Linux is starting and loadi=
+ng an initrd.</div><div>My non-root cell invocation looks like this (modele=
+d after the documentation examples):</div><div><div style=3D"background-col=
+or: rgb(250, 250, 250); border-color: rgb(187, 187, 187); border-style: sol=
+id; border-width: 1px; overflow-wrap: break-word;" class=3D"prettyprint"><c=
+ode class=3D"prettyprint"><div class=3D"subprettyprint"><span style=3D"colo=
+r: #000;" class=3D"styled-by-prettify">jailhouse cell linux linux</span><sp=
+an style=3D"color: #660;" class=3D"styled-by-prettify">-</span><span style=
+=3D"color: #000;" class=3D"styled-by-prettify">x86</span><span style=3D"col=
+or: #660;" class=3D"styled-by-prettify">-</span><span style=3D"color: #000;=
+" class=3D"styled-by-prettify">demo</span><span style=3D"color: #660;" clas=
+s=3D"styled-by-prettify">.</span><span style=3D"color: #000;" class=3D"styl=
+ed-by-prettify">cell bzImage </span><span style=3D"color: #660;" class=3D"s=
+tyled-by-prettify">-</span><span style=3D"color: #000;" class=3D"styled-by-=
+prettify">c </span><span style=3D"color: #080;" class=3D"styled-by-prettify=
+">&quot;console=3DttyS0,115200&quot;</span></div></code></div><br>Thanks,</=
+div><div>Chris<br></div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/221c5f40-594d-4b11-ab0f-dab66585471f%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/221c5f40-594d-4b11-ab0f-dab66585471f%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_5614_771740300.1582203906210--
+
+------=_Part_5613_1792000964.1582203906208--
