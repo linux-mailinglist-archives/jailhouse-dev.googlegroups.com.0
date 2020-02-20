@@ -1,126 +1,73 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBQXBXDZAKGQE5OTW6QY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCKO35F6UENRBS5IXHZAKGQEOIQYF2A@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x139.google.com (mail-lf1-x139.google.com [IPv6:2a00:1450:4864:20::139])
-	by mail.lfdr.de (Postfix) with ESMTPS id F133D16583B
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 20 Feb 2020 08:09:55 +0100 (CET)
-Received: by mail-lf1-x139.google.com with SMTP id b19sf948721lfb.10
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 19 Feb 2020 23:09:55 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1582182595; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=RwbCQNXL+n3fu3FDCAxw3PzGJHslrO2pVcO6LMRL3lXsHcIYGNjkwxIQZVunqtA3Hx
-         CeEcQlYNULniViEv9gCl8rPJfp4oDbmY7WESiSJnO7sYWsty5lr/dzK/GaHrIcIKA+8O
-         EIfXunJM44joi3I0ggrrpGzeyMK1AyGKImhSRis36DtST77udC4LrSoB27x4Wo5KoWG6
-         kVWurt19r+o2iw/1h5bkOAVe5EU03KRi5iY1iFrSuuRnUo728aoThXxK7/u6dPya/Ory
-         xbxfEgRiR2JDaXfkMZ+p8m/sBbVdqn8ZeHMdvp4lpc7gdsDvyu6BmZ0OUH6hidwtolBH
-         mb+g==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:cc:to
-         :subject:sender:dkim-signature;
-        bh=1BDLyBlwr1xCNwQrN+5mcVHyBE+41n8kKoe0A6qo5kg=;
-        b=OQbEHxn5HRVib4+/rLOWZQ+N1YMz7XNcyqjuvfiq91z8riW93LhW3pIpT9KoZzvtMP
-         cCxMJTH9w4+wrZ116eZAOENl/QLYBwvDE4G2L/zVGs6BDs3xr7GwLM5m3J/yvU+5z0rN
-         g6t36BpHQ113cQyJT8X3uweU/r6mdiJvILNqf6/BPQUjDMXsf49iDztkxDznJdh1Y+oi
-         PGCpWlKZ41KFYCmYI+Q9mxtgRXv9iEn02gDcCH8nDeNWedsfwVagxsuNTYDcmgiScySd
-         U2LCwBGE7nMSpiGufkFygOGk+w59zf/EGlubDCOSMBQAtqJYTHpPBsdX59Pp/AJieOxM
-         GgWQ==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-oi1-x239.google.com (mail-oi1-x239.google.com [IPv6:2607:f8b0:4864:20::239])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CE77165A56
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 20 Feb 2020 10:41:33 +0100 (CET)
+Received: by mail-oi1-x239.google.com with SMTP id k206sf3678378oia.22
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 20 Feb 2020 01:41:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=1BDLyBlwr1xCNwQrN+5mcVHyBE+41n8kKoe0A6qo5kg=;
-        b=WByaSpMSckb+Ki5jhtd+WslOtgxScOVwhrAbP6VRv60xLt4y4mCWjV0rjLct9xPs/z
-         DknxSCD6uH165soQf9mcv+ikGXvE2EidqyPDJnA/3Ypv9I/Lxy7l9T1GjwiHkzdc60EC
-         wwsQgKdyan0WXG0LdYZdQLO+bgQCVrzWCd1WYREQi1wJlBDw352zKmnejXksin4O9yLI
-         gGXLxzUfeJvOjmp3dW+DdA4ZSDUDTKiOyOxufl8iv4eYkbtCuEUM/Urk3pY9iUZG21sG
-         KdoR5S19IyK8m71FxXvywyWkWbJpJVgCBVSpWt/E8jG/Wh1Kd15mGhqDRt7DvSrOoEch
-         sE0A==
+        bh=WztBQww/TL6fWWrO2wmNRzvCwEMINzkxWzuJdIBQ5Do=;
+        b=bw1HRJSd9YWBKzauOW8WO3t1EM3tdF3REvDUfrH9nzn+Lzbq+0yTFJbMK3dRvuV7E8
+         crsnavSbsq++Xn6/+21uGCejjE46uKDfuHlAC7nT6zkE7XeAKfHjFHSqL3Y3Nw+C94du
+         O+AhuZi4vfChrmRLynoYXvBw9Gs5DMikKbGZ2idN7kNfnkmGh+73tV5QdkYIjTPu5fuD
+         Ji60p4ggZQw0//7C3rwi7Ez1npz8thRkl9EH3xQYDQvfKMcg4TpFvIpCrAl2VABwt+ck
+         N5/1CbgtliDp0Kq72W22fcPZK02ZtikJVSzLVESqrAUWLL6h6ywQVkCAmhcndxWQPfVg
+         5qIg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=WztBQww/TL6fWWrO2wmNRzvCwEMINzkxWzuJdIBQ5Do=;
+        b=AJRwEl41lCXKOdMxl10LQ4QgBfPk0sCs05PKfJvQQuL6pLtNumoMhNcUwmGRl44DyV
+         7q2AW50Y8NENnYxm7PEvy2Jqa8KryFNecnqfaoGpQ6WKRlZ6KgoFcnN2aehJZrbQy4E7
+         jDEQuVw9Q7ddlZ79N+HXVS9o+/lSQ9NmxtcfJYOSqKoYZnhRgiEENqAYLKYGTrXHwppg
+         nHpdoe1chK0BUV3kEHI+hJjoBw+C8IrZoW0Rowk2fojW+MtCkFbSRQnVDEZInZ1FgV+l
+         j5l3ukfrXiK3Lad0SXkBgWkySyfJb/xHcbWKRHQgG03D+KEArnGdT81m1EWvFCwH/xBE
+         h75w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=1BDLyBlwr1xCNwQrN+5mcVHyBE+41n8kKoe0A6qo5kg=;
-        b=Agcbz7RI86+P+1a1zT/OiOCzNkstGcFH5xSwszdF6/FDV6V2O7DCQw2zahURKoc7Hv
-         zCq7v/+S7dMd5STmFCoowdjI3Qh32YzXraL9RPHVfOlFYZiItYZuJ5SAkYTOOSO2eQxj
-         9sJd15TryEmNYRkPcepYP9U9V4YtOQV+GA8rm5gR30h4PjTmIO4UnILu7Qb/aLyZuTK7
-         7lPY+w6fXWZzY+dVtpr+A6hSonhnpuyyYqCmCh+X093Gsnt65FrIKixCNBIplvGViAJW
-         //5rPqzFsW+6cE9O520wlXgzphBwp46KDVmvpqURjFdU9/mQMaLt/bIXf7PQRZP2pOku
-         c5IA==
+        bh=WztBQww/TL6fWWrO2wmNRzvCwEMINzkxWzuJdIBQ5Do=;
+        b=gB0HfY6RkCcVO6JqvSPNJyaqrhVBuS/XgE0juddwU/BPvSAd2z/C1lFJgT2crLANxH
+         gCEneEUOoWiEzoWBBY7b4K39MrHCP7nlgyD3y4GZpnd6dhSNAKgH0um++QGg22HIWAxv
+         C3aAIRaqXv0YNp9hx/aMRq0fr51qNXm8UZVbowx3za86Rcq4s9cgoGBrwbuhUuH06Alz
+         ITz3YonKoL2FczBA7IkUkr8vd0A2QUyldj24TZeSIEQA+KPBH7+qLuDYvllpAi/xFcHJ
+         hbSyZRe4dXEtAeF+gNNRXi7oaAf6UufCnw7v18B47cbidFQ+wMPzjqFVAG8ukBaL3JM8
+         Jrgw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: APjAAAU9MI2ehYgmDAVnEbZ2QVi7rQ6cOfEyVPWbA+3MqdWtjX1ENz/0
-	01qbKRlQ6nTFjvxeTZV7VrA=
-X-Google-Smtp-Source: APXvYqzTd+hyNzU0t9dS1GHMyGOLhEb20+1/yLdqDJx5x228JLWpbGRv8AM0WVJt0LuVP55nErdrfg==
-X-Received: by 2002:a05:651c:1032:: with SMTP id w18mr17751608ljm.61.1582182595442;
-        Wed, 19 Feb 2020 23:09:55 -0800 (PST)
+X-Gm-Message-State: APjAAAW2FSqk3OWyIJpo2MQTRzYw6MQVgJt9scRFmKRxlXymtWsY5e1c
+	+qul7buk5YZ3aRdpyj1uy8Y=
+X-Google-Smtp-Source: APXvYqx/gZIzjdza1fVlRnDamJ2yHXrRm/EY8h4d2mJpbkPQP0vpt5aV2jDBJatAUlX75fs8/YmlnQ==
+X-Received: by 2002:a05:6830:18d4:: with SMTP id v20mr23178553ote.29.1582191691834;
+        Thu, 20 Feb 2020 01:41:31 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:9786:: with SMTP id y6ls4162001lji.4.gmail; Wed, 19 Feb
- 2020 23:09:54 -0800 (PST)
-X-Received: by 2002:a2e:7609:: with SMTP id r9mr18014615ljc.238.1582182594075;
-        Wed, 19 Feb 2020 23:09:54 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1582182594; cv=none;
-        d=google.com; s=arc-20160816;
-        b=VRpFDDK5O4aHKWjb0IqRvmDlXgZTnuBWFXps1dazLIxyC5olhz63y5C9j5jI5sMlbu
-         qHhu7Asqz2l2xXCt1kmrV6BQFE7uc5FlkmIWtx7iDbCcJlNmnUquCmV1LTiya0wviaCg
-         SUz4tPFVES+ESkqxIsB/CgqJBs1fNXhz/OLJLoNWpAJ7exQ4pZPjDeYhmgy61ksAxUW9
-         BOkRr6zB3t8NomNORUlo/Fk8Dkw4fOWsvevM57P+gY8x5NDCad4tWSNiRG68JchCBTc4
-         BmO6t1G18zR7dT1pbKM5l7EeQhSq9//jjp7W8+2W7queJiUYF5Gblh1g2z/4KdKX3xe7
-         +XPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=POVTpdVjIuXErB6feo2vbyomdcVNBxMT105LRj1KJOE=;
-        b=dwzMA09HYPSuxKO73uIgoarrSelXe/MJbQn5yW8V8yOGMog9j4JWfBGTmmGGVTrpUS
-         wpEbbTIrfLFuqD2ZUWntgXnqMigzVPDi8ziSXxIM3C0HReoiAkl6Zhl397VICnIGKyll
-         6BAbyY03IScqkE0XmW7IevSXwDLplb5W3paLBV88LGkTw1zQIRb14uftY4CzWB7WZvF+
-         ykV/DT1v5Lzgpe8tgZHhBjqdaU723PgBmZ96QReHdNSwwzP2b8Y5mJLX/1VDXSt7xQbe
-         q42s8c+dLI9ztXMKZBqyZ3iE0ryh0o3olLP0QneQ1lwRd6A2I2L3M3TiZrwylDHaPW1h
-         S7Rw==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id h8si106114ljj.3.2020.02.19.23.09.53
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 19 Feb 2020 23:09:54 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 01K79rg6007338
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 20 Feb 2020 08:09:53 +0100
-Received: from [167.87.7.122] ([167.87.7.122])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 01K79pNX027400;
-	Thu, 20 Feb 2020 08:09:52 +0100
-Subject: Re: [ANNOUNCE] Jailhouse 0.12 released
-To: Peng Fan <peng.fan@nxp.com>, Jailhouse <jailhouse-dev@googlegroups.com>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-        Alice Guo <alice.guo@nxp.com>
-References: <dd4344b9-ca04-0ef2-0810-6b98e30f68b4@siemens.com>
- <AM0PR04MB4481C65800CCE42E448B7D2788130@AM0PR04MB4481.eurprd04.prod.outlook.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <9bdd0eae-dbaf-f5a3-d067-81b0ae88522f@siemens.com>
-Date: Thu, 20 Feb 2020 08:09:50 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+Received: by 2002:a9d:611c:: with SMTP id i28ls73518otj.3.gmail; Thu, 20 Feb
+ 2020 01:41:31 -0800 (PST)
+X-Received: by 2002:a9d:7c81:: with SMTP id q1mr4722015otn.112.1582191691000;
+        Thu, 20 Feb 2020 01:41:31 -0800 (PST)
+Date: Thu, 20 Feb 2020 01:41:29 -0800 (PST)
+From: raymanfx@gmail.com
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <dfe23f77-f16a-41c9-9f6e-8e67b853b66e@googlegroups.com>
+In-Reply-To: <5d6e66d7-2a25-1678-2ff1-247e861ab8d5@siemens.com>
+References: <2b9c213c-a111-4f3f-94c5-4f89d06b5fdf@googlegroups.com>
+ <eebfa055-f561-d5fb-7da6-706bb1e858ea@siemens.com>
+ <439a798e-f9c3-4455-8128-e4047e5aa9e3@googlegroups.com>
+ <5d6e66d7-2a25-1678-2ff1-247e861ab8d5@siemens.com>
+Subject: Re: Linux non-root cell tooling
 MIME-Version: 1.0
-In-Reply-To: <AM0PR04MB4481C65800CCE42E448B7D2788130@AM0PR04MB4481.eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_5838_1785627321.1582191690213"
+X-Original-Sender: raymanfx@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -133,87 +80,241 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 20.02.20 03:39, Peng Fan wrote:
->> Subject: [ANNOUNCE] Jailhouse 0.12 released
->>
->> This release is an important milestone for Jailhouse because it comes with a
->> reworked inter-cell communication device with better driver support and
->> even an experimental virtio transport model for this.
-> 
-> Great to know this.
+------=_Part_5838_1785627321.1582191690213
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_5839_958030655.1582191690214"
 
-If there is interest, please provide feedback, ideally also in the 
-circle where I started spec discussions and QEMU implementation.
+------=_Part_5839_958030655.1582191690214
+Content-Type: text/plain; charset="UTF-8"
 
-> 
->>
->> While this shared memory device model is still in discussion with virtio and
->> QEMU communities, thus may undergo some further smaller changes, it was
->> important to move forward with it because there is an increasing demand for
->> it on the Jailhouse side. We now support multi-peer connection, have a secure
->> (unprivileged) and efficient UIO driver and can even start working on virtio
->> integration - without having to touch the hypervisor any further. More
->> information also in [1].
-> 
-> Do we need to use qemu for virtio backend?
-> 
+Am Freitag, 14. Februar 2020 16:15:53 UTC+1 schrieb Jan Kiszka:
 
-Nope, in fact there are only primitive demo backends for block and 
-console available that make use of UIO, see
+> Check if your non-root Linux comes with CONFIG_X86_X2APIC=y - I suspect 
+> it doesn't. 
+>
+  
+It didn't. Fixed that and now I can start the non-root cell. Thank you!
 
-http://git.kiszka.org/?p=linux.git;a=blob;f=tools/virtio/virtio-ivshmem-block.c;h=c97aa5076a6d22ccd01862f3e4db0e12641825c3;hb=refs/heads/queues/ivshmem2
+You can find a working x86 inmate kernel config in 
+>
+> https://github.com/siemens/jailhouse-images/blob/master/recipes-kernel/linux/files/amd64_defconfig_5.4 
+> (multi-purpose config, thus a bit larger than technically needed). 
+>
+> > 
+> > Is there a guide somewhere that documents the steps necessary for 
+> > adjusting the linux-x86-demo cell config? 
+>
+> Nope, unfortunately not. The mid-term plan is still to enhance the 
+> config generator to build also non-root configs. Any contribution, 
+> including "just" documentation, would be very welcome! 
+>
+ 
+I'll prepare a pull request to update the documentation.
 
-and
+Although I cannot see any errors in the Jailhouse console anymore, my Linux 
+guest still appears to be stuck somewhere.
+The console output I get is:
+Adding virtual PCI device 00:0c.0 to cell "linux-x86-demo"
+Adding virtual PCI device 00:0d.0 to cell "linux-x86-demo"
+Adding virtual PCI device 00:0e.0 to cell "linux-x86-demo"
+Adding virtual PCI device 00:0f.0 to cell "linux-x86-demo"
+Created cell "linux-x86-demo"
+Page pool usage after cell creation: mem 375/975, remap 16395/131072
+Cell "linux-x86-demo" can be loaded
+CPU 2 received SIPI, vector 100
+CPU 3 received SIPI, vector 100
+Started cell "linux-x86-demo"
+CPU 3 received SIPI, vector 9a
 
-http://git.kiszka.org/?p=linux.git;a=blob;f=tools/virtio/virtio-ivshmem-console.c;h=c79be22c6a7aa4c2eb49561e8c0d7c9a052e393d;hb=refs/heads/queues/ivshmem2
+I added the JAILHOUSE_CELL_VIRTUAL_CONSOLE_ACTIVE bit to the linux-x86-demo 
+cell flags to get kernel message output in /dev/jailhouse in the root cell. 
+Is that supposed to be working or do I need to use UART?
 
-I was hoping to find something useful in ACRN but didn't succeed. So I 
-hacked up these two (basically in two evenings, that's why these two are 
-copy&paste). For the future, when the transport is more stable, looking 
-into a vhost mapping could be beneficial, specifically for networking. 
-Another direction could be https://github.com/rust-vmm/vm-virtio.
+At first there was a PIO read access violation at port 87, I went to check 
+my root cell config and found the following:
+        /* Port I/O: 0080-008f : dma page reg */
+        /* PIO_RANGE(0x80, 0x10), */
 
->>
->> The release has another important new, and that is SMMUv3 for ARM64
->> target, as well as the TI-specific MPU-like Peripheral Virtualization Unit (PVU).
->> SMMUv2 support is unfortunately still waiting in some NXP downstream
->> branch for being pushed upstream.
-> 
-> Alice in Cc is doing this effort together with i.MX8QM upstreaming.
-> 
+So I added that exact range (0x80, 0x10) to the linux-x86-demo PIO configs 
+and the error disappeared.
+Could that be related to the cell being stuck issue?
 
-Great, looking forward!
-
->>
->> Note that there are several changes to the configuration format that require
->> adjustments of own configs. Please study related changes in our reference
->> configurations or, on x86, re-generate the system configuration.
->>
->> Due to all these significant changes, statistics for this release look about more
->> heavyweight than usual:
->> 195 files changed, 7185 insertions(+), 2612 deletions(-)
-> 
-> Yeah!! Besides this, any people still interested in booting jailhouse before Linux?
-> I have achieved this on i.MX8MM with Linux + gic-demo cell, with a baremetal
-> program and using U-Boot FIT to load all images.
-
-Yes, there is definitely interest, for various reasons. One can be cache 
-coloring. We are also considering to look into this boot mode in the 
-context of the just started RISC-V port. And there might be a case on 
-x86 again, but the boot environment is still not clear to me there 
-(likely not UEFI).
-
-If you have a prototype for ARM64 and U-Boot, that would be great to see 
-it, maybe let more people play with it. Eventually, I want to start 
-discussing requirements and potentially required new interfaces.
-
-Jan
-
--- 
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+To ensure it's not related to other missing guest kernel options, I will 
+build a kernel with your amd64_defconfig_5.4 
+<https://github.com/siemens/jailhouse-images/blob/master/recipes-kernel/linux/files/amd64_defconfig_5.4> 
+and see if I get the same results.
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/9bdd0eae-dbaf-f5a3-d067-81b0ae88522f%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/dfe23f77-f16a-41c9-9f6e-8e67b853b66e%40googlegroups.com.
+
+------=_Part_5839_958030655.1582191690214
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Am Freitag, 14. Februar 2020 16:15:53 UTC+1 schrieb Jan Ki=
+szka:<br><blockquote class=3D"gmail_quote" style=3D"margin: 0;margin-left: =
+0.8ex;border-left: 1px #ccc solid;padding-left: 1ex;">Check if your non-roo=
+t Linux comes with CONFIG_X86_X2APIC=3Dy - I suspect=20
+<br>it doesn&#39;t.
+<br></blockquote><div>=C2=A0 <br></div><div>It didn&#39;t. Fixed that and n=
+ow I can start the non-root cell. Thank you!<br></div><div><br></div><block=
+quote class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex;border-le=
+ft: 1px #ccc solid;padding-left: 1ex;">You can find a working x86 inmate ke=
+rnel config in=20
+<br><a href=3D"https://github.com/siemens/jailhouse-images/blob/master/reci=
+pes-kernel/linux/files/amd64_defconfig_5.4" target=3D"_blank" rel=3D"nofoll=
+ow" onmousedown=3D"this.href=3D&#39;https://www.google.com/url?q\x3dhttps%3=
+A%2F%2Fgithub.com%2Fsiemens%2Fjailhouse-images%2Fblob%2Fmaster%2Frecipes-ke=
+rnel%2Flinux%2Ffiles%2Famd64_defconfig_5.4\x26sa\x3dD\x26sntz\x3d1\x26usg\x=
+3dAFQjCNGyUisLi2A0K95pgKXFqb-2Lif0hA&#39;;return true;" onclick=3D"this.hre=
+f=3D&#39;https://www.google.com/url?q\x3dhttps%3A%2F%2Fgithub.com%2Fsiemens=
+%2Fjailhouse-images%2Fblob%2Fmaster%2Frecipes-kernel%2Flinux%2Ffiles%2Famd6=
+4_defconfig_5.4\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQjCNGyUisLi2A0K95pgKXFq=
+b-2Lif0hA&#39;;return true;">https://github.com/siemens/<wbr>jailhouse-imag=
+es/blob/master/<wbr>recipes-kernel/linux/files/<wbr>amd64_defconfig_5.4</a>=
+=20
+<br>(multi-purpose config, thus a bit larger than technically needed).
+<br>
+<br>&gt;=20
+<br>&gt; Is there a guide somewhere that documents the steps necessary for=
+=20
+<br>&gt; adjusting the linux-x86-demo cell config?
+<br>
+<br>Nope, unfortunately not. The mid-term plan is still to enhance the=20
+<br>config generator to build also non-root configs. Any contribution,=20
+<br>including &quot;just&quot; documentation, would be very welcome!
+<br></blockquote><div>=C2=A0</div><div>I&#39;ll prepare a pull request to u=
+pdate the documentation.</div><div><br></div><div>Although I cannot see any=
+ errors in the Jailhouse console anymore, my Linux guest still appears to b=
+e stuck somewhere.</div><div>The console output I get is:</div><div><div st=
+yle=3D"background-color: rgb(250, 250, 250); border-color: rgb(187, 187, 18=
+7); border-style: solid; border-width: 1px; overflow-wrap: break-word;" cla=
+ss=3D"prettyprint"><code class=3D"prettyprint"><div class=3D"subprettyprint=
+"><span style=3D"color: #606;" class=3D"styled-by-prettify">Adding</span><s=
+pan style=3D"color: #000;" class=3D"styled-by-prettify"> </span><span style=
+=3D"color: #008;" class=3D"styled-by-prettify">virtual</span><span style=3D=
+"color: #000;" class=3D"styled-by-prettify"> PCI device </span><span style=
+=3D"color: #066;" class=3D"styled-by-prettify">00</span><span style=3D"colo=
+r: #660;" class=3D"styled-by-prettify">:</span><span style=3D"color: #066;"=
+ class=3D"styled-by-prettify">0c</span><span style=3D"color: #660;" class=
+=3D"styled-by-prettify">.</span><span style=3D"color: #066;" class=3D"style=
+d-by-prettify">0</span><span style=3D"color: #000;" class=3D"styled-by-pret=
+tify"> to cell </span><span style=3D"color: #080;" class=3D"styled-by-prett=
+ify">&quot;linux-x86-demo&quot;</span><span style=3D"color: #000;" class=3D=
+"styled-by-prettify"><br></span><span style=3D"color: #606;" class=3D"style=
+d-by-prettify">Adding</span><span style=3D"color: #000;" class=3D"styled-by=
+-prettify"> </span><span style=3D"color: #008;" class=3D"styled-by-prettify=
+">virtual</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> =
+PCI device </span><span style=3D"color: #066;" class=3D"styled-by-prettify"=
+>00</span><span style=3D"color: #660;" class=3D"styled-by-prettify">:</span=
+><span style=3D"color: #066;" class=3D"styled-by-prettify">0d</span><span s=
+tyle=3D"color: #660;" class=3D"styled-by-prettify">.</span><span style=3D"c=
+olor: #066;" class=3D"styled-by-prettify">0</span><span style=3D"color: #00=
+0;" class=3D"styled-by-prettify"> to cell </span><span style=3D"color: #080=
+;" class=3D"styled-by-prettify">&quot;linux-x86-demo&quot;</span><span styl=
+e=3D"color: #000;" class=3D"styled-by-prettify"><br></span><span style=3D"c=
+olor: #606;" class=3D"styled-by-prettify">Adding</span><span style=3D"color=
+: #000;" class=3D"styled-by-prettify"> </span><span style=3D"color: #008;" =
+class=3D"styled-by-prettify">virtual</span><span style=3D"color: #000;" cla=
+ss=3D"styled-by-prettify"> PCI device </span><span style=3D"color: #066;" c=
+lass=3D"styled-by-prettify">00</span><span style=3D"color: #660;" class=3D"=
+styled-by-prettify">:</span><span style=3D"color: #066;" class=3D"styled-by=
+-prettify">0e</span><span style=3D"color: #660;" class=3D"styled-by-prettif=
+y">.</span><span style=3D"color: #066;" class=3D"styled-by-prettify">0</spa=
+n><span style=3D"color: #000;" class=3D"styled-by-prettify"> to cell </span=
+><span style=3D"color: #080;" class=3D"styled-by-prettify">&quot;linux-x86-=
+demo&quot;</span><span style=3D"color: #000;" class=3D"styled-by-prettify">=
+<br></span><span style=3D"color: #606;" class=3D"styled-by-prettify">Adding=
+</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> </span><s=
+pan style=3D"color: #008;" class=3D"styled-by-prettify">virtual</span><span=
+ style=3D"color: #000;" class=3D"styled-by-prettify"> PCI device </span><sp=
+an style=3D"color: #066;" class=3D"styled-by-prettify">00</span><span style=
+=3D"color: #660;" class=3D"styled-by-prettify">:</span><span style=3D"color=
+: #066;" class=3D"styled-by-prettify">0f</span><span style=3D"color: #660;"=
+ class=3D"styled-by-prettify">.</span><span style=3D"color: #066;" class=3D=
+"styled-by-prettify">0</span><span style=3D"color: #000;" class=3D"styled-b=
+y-prettify"> to cell </span><span style=3D"color: #080;" class=3D"styled-by=
+-prettify">&quot;linux-x86-demo&quot;</span><span style=3D"color: #000;" cl=
+ass=3D"styled-by-prettify"><br></span><span style=3D"color: #606;" class=3D=
+"styled-by-prettify">Created</span><span style=3D"color: #000;" class=3D"st=
+yled-by-prettify"> cell </span><span style=3D"color: #080;" class=3D"styled=
+-by-prettify">&quot;linux-x86-demo&quot;</span><span style=3D"color: #000;"=
+ class=3D"styled-by-prettify"><br></span><span style=3D"color: #606;" class=
+=3D"styled-by-prettify">Page</span><span style=3D"color: #000;" class=3D"st=
+yled-by-prettify"> pool usage after cell creation</span><span style=3D"colo=
+r: #660;" class=3D"styled-by-prettify">:</span><span style=3D"color: #000;"=
+ class=3D"styled-by-prettify"> mem </span><span style=3D"color: #066;" clas=
+s=3D"styled-by-prettify">375</span><span style=3D"color: #660;" class=3D"st=
+yled-by-prettify">/</span><span style=3D"color: #066;" class=3D"styled-by-p=
+rettify">975</span><span style=3D"color: #660;" class=3D"styled-by-prettify=
+">,</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> remap =
+</span><span style=3D"color: #066;" class=3D"styled-by-prettify">16395</spa=
+n><span style=3D"color: #660;" class=3D"styled-by-prettify">/</span><span s=
+tyle=3D"color: #066;" class=3D"styled-by-prettify">131072</span><span style=
+=3D"color: #000;" class=3D"styled-by-prettify"><br></span><span style=3D"co=
+lor: #606;" class=3D"styled-by-prettify">Cell</span><span style=3D"color: #=
+000;" class=3D"styled-by-prettify"> </span><span style=3D"color: #080;" cla=
+ss=3D"styled-by-prettify">&quot;linux-x86-demo&quot;</span><span style=3D"c=
+olor: #000;" class=3D"styled-by-prettify"> can be loaded<br>CPU </span><spa=
+n style=3D"color: #066;" class=3D"styled-by-prettify">2</span><span style=
+=3D"color: #000;" class=3D"styled-by-prettify"> received SIPI</span><span s=
+tyle=3D"color: #660;" class=3D"styled-by-prettify">,</span><span style=3D"c=
+olor: #000;" class=3D"styled-by-prettify"> vector </span><span style=3D"col=
+or: #066;" class=3D"styled-by-prettify">100</span><span style=3D"color: #00=
+0;" class=3D"styled-by-prettify"><br>CPU </span><span style=3D"color: #066;=
+" class=3D"styled-by-prettify">3</span><span style=3D"color: #000;" class=
+=3D"styled-by-prettify"> received SIPI</span><span style=3D"color: #660;" c=
+lass=3D"styled-by-prettify">,</span><span style=3D"color: #000;" class=3D"s=
+tyled-by-prettify"> vector </span><span style=3D"color: #066;" class=3D"sty=
+led-by-prettify">100</span><span style=3D"color: #000;" class=3D"styled-by-=
+prettify"><br></span><span style=3D"color: #606;" class=3D"styled-by-pretti=
+fy">Started</span><span style=3D"color: #000;" class=3D"styled-by-prettify"=
+> cell </span><span style=3D"color: #080;" class=3D"styled-by-prettify">&qu=
+ot;linux-x86-demo&quot;</span><span style=3D"color: #000;" class=3D"styled-=
+by-prettify"><br>CPU </span><span style=3D"color: #066;" class=3D"styled-by=
+-prettify">3</span><span style=3D"color: #000;" class=3D"styled-by-prettify=
+"> received SIPI</span><span style=3D"color: #660;" class=3D"styled-by-pret=
+tify">,</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> ve=
+ctor </span><span style=3D"color: #066;" class=3D"styled-by-prettify">9a</s=
+pan><span style=3D"color: #000;" class=3D"styled-by-prettify"><br></span></=
+div></code></div><br>I added the JAILHOUSE_CELL_VIRTUAL_CONSOLE_ACTIVE bit =
+to the linux-x86-demo cell flags to get kernel message output in /dev/jailh=
+ouse in the root cell. Is that supposed to be working or do I need to use U=
+ART?</div><div><br></div><div>At first there was a PIO read access violatio=
+n at port 87, I went to check my root cell config and found the following:<=
+/div><div><div style=3D"background-color: rgb(250, 250, 250); border-color:=
+ rgb(187, 187, 187); border-style: solid; border-width: 1px; overflow-wrap:=
+ break-word;" class=3D"prettyprint"><code class=3D"prettyprint"><div class=
+=3D"subprettyprint"><span style=3D"color: #000;" class=3D"styled-by-prettif=
+y">=C2=A0 =C2=A0 =C2=A0 =C2=A0 </span><span style=3D"color: #800;" class=3D=
+"styled-by-prettify">/* Port I/O: 0080-008f : dma page reg */</span><span s=
+tyle=3D"color: #000;" class=3D"styled-by-prettify"><br>=C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 </span><span style=3D"color: #800;" class=3D"styled-by-prettify">/*=
+ PIO_RANGE(0x80, 0x10), */</span></div></code></div><br>So I added that exa=
+ct range (0x80, 0x10) to the linux-x86-demo PIO configs and the error disap=
+peared.</div><div>Could that be related to the cell being stuck issue?</div=
+><div><br></div><div>To ensure it&#39;s not related to other missing guest =
+kernel options, I will build a kernel with your <a href=3D"https://github.c=
+om/siemens/jailhouse-images/blob/master/recipes-kernel/linux/files/amd64_de=
+fconfig_5.4" target=3D"_blank" rel=3D"nofollow">amd64_defconfig_5.4</a> and=
+ see if I get the same results.<br></div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/dfe23f77-f16a-41c9-9f6e-8e67b853b66e%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/dfe23f77-f16a-41c9-9f6e-8e67b853b66e%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_5839_958030655.1582191690214--
+
+------=_Part_5838_1785627321.1582191690213--
