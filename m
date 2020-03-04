@@ -1,165 +1,127 @@
-Return-Path: <jailhouse-dev+bncBAABB2XW7DZAKGQEIRP3M5A@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD5NBJN5TMBBBJOX7XZAKGQEHIG7VLQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qt1-x839.google.com (mail-qt1-x839.google.com [IPv6:2607:f8b0:4864:20::839])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E759177522
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  3 Mar 2020 12:11:40 +0100 (CET)
-Received: by mail-qt1-x839.google.com with SMTP id v20sf461516qtk.21
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 03 Mar 2020 03:11:40 -0800 (PST)
-ARC-Seal: i=3; a=rsa-sha256; t=1583233899; cv=pass;
+Received: from mail-yw1-xc3a.google.com (mail-yw1-xc3a.google.com [IPv6:2607:f8b0:4864:20::c3a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 54B57178CC5
+	for <lists+jailhouse-dev@lfdr.de>; Wed,  4 Mar 2020 09:49:43 +0100 (CET)
+Received: by mail-yw1-xc3a.google.com with SMTP id a4sf1448007ywe.5
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 04 Mar 2020 00:49:43 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1583311782; cv=pass;
         d=google.com; s=arc-20160816;
-        b=QFRp6YJ7yFFP6AJDAxjJdiUNNJFxaNEYw/dtN3ZPBHZeAfDuna7yS8docULaJqDQr+
-         LnaupeapC7/OHg1P6ElS1P5hfJM4drGh9bGhwG0V9PHBZDeaHTD5XxgmGZCZSgUj3WU8
-         coPMH63VCvH/2jl3eT/i6Z5oCTDlI/5tfKfpUK1wXeiq9kz37YCqXXssTthDZ/5qdvJ3
-         btfJU69WpOF6/+rdx57qXxIj3youvtl1lueDabU/RnFPoSVmbX/I8lKk/vJwBGr+yYbd
-         n4Ux8bd/U5VL+GuR6QP1sZTh3gEycmIpjNvH4Wx+eRgMmw0mdwqHHylDK6V7lLysfRD4
-         quQg==
-ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        b=SMxgtfVu5xK+Gab8rJvu7caDb2QpMNDFA3xQPZsNxMv181/viJYkyl7pjSslLUvekx
+         cFrb+7TktmiPyAfumkCCThBcMklIL6+7Q+Obbbsa4+b7coQxtJOziSrRFdzK30U5CZMm
+         /p7Ok8MpWHM5X59u0beOjaLj1ZxbVNZDArcUgrGgdClfGfhFn/3IrkgIo1IE01Ylv4CQ
+         JQe8M0QA/Q6YUQrqSLgIDoUZnvc7lhhW86r6doHwUODi6E/J51X5xYvs6KjfkqjsGMc6
+         Xq7S7VWg+Fde3+h3v13oq6f5xu9+PJGFZsulvySGK/M06oco2iJRDt4UrTjww1hsfvkx
+         c6uA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:content-language
-         :accept-language:message-id:date:thread-index:thread-topic:subject
-         :from:sender:dkim-signature;
-        bh=qkb3EGr5RqLnMMatVyio/FQL1gUH6IRI6hvkLTIB4M0=;
-        b=OD+u3b5Smya7FbxifyMhTvs5SrJd9oMvazgX0zrcED71fxwDOoixf0cnAz3mFh6mCZ
-         OrkEEe25C36o2kjS6l3zHGg2h96IELhlCMNSSKIpjZvbE7tJQG/TDVpSS+Q12jBqTfB0
-         fv2M/eukqAXZDq2u9J3Zj5bfl551944SO8fnoMcpR41h5zQDxdbo3ZTuscrMxi2q0TM5
-         9c5K9WMFeVKC1sawA+LKJbsJpP/+r+v7WaGJ2guKt1azjpxzxSxWQXQ2eaz3or1wZLD9
-         CpnzaOaowYzWfIR26cMrNyrReLuqFNtHzflasESV0fKDSK+f1Frk9MoK34JurSaPALLT
-         +Z4Q==
-ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@msn.com header.s=selector1 header.b=eaiFxBzz;
-       arc=pass (i=1);
-       spf=pass (google.com: domain of stevehill606@msn.com designates 40.92.40.89 as permitted sender) smtp.mailfrom=stevehill606@msn.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=msn.com
+         :list-id:mailing-list:precedence:to:subject:message-id:date:from
+         :mime-version:sender:dkim-signature:dkim-signature;
+        bh=ODM4vaAqpdovnCCa47Nj/Nm/iFRXziGtE5c2966ClL8=;
+        b=w9kPuunszA+73T2T3bm+EBxKkwuwrchji5G4PJd3n+9wim5gC8xTQmsq8xfe0g5y3A
+         T8pSsdaGxpSiZc76Qd7Tzlgp23bfaRcpe5uPo71TxefN0YZLfMXKa/7KYeGIk85fdIF+
+         WoEdEq4j98/1PuJjUa8GB0ARiwNBxd50r1A9n0B0UgWzg7v8AWt2x9W4EKs9S5Ppm1UP
+         1etRDUv31Cr8Hs3u9NuRAamw6KkBzu2aJkeM93UYApBN25vT4q7LZgdOv7BP/nmxubSA
+         RGBtdcZNhWmpopHf6wWSylGy+xzgtq6tj2+KKXmfb2SeJvWJPl58qRDvprVHtRaWHGvT
+         UAwQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=JYPeMl63;
+       spf=pass (google.com: domain of aelshreif7@gmail.com designates 2607:f8b0:4864:20::d33 as permitted sender) smtp.mailfrom=aelshreif7@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:subject:thread-topic:thread-index:date:message-id
-         :accept-language:content-language:mime-version:x-original-sender
+        h=sender:mime-version:from:date:message-id:subject:to
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=ODM4vaAqpdovnCCa47Nj/Nm/iFRXziGtE5c2966ClL8=;
+        b=sSmiNk1Dv1blCYSGIFoo7lh0bsNqqZdBULx2LHO7UgvwGF1xImymQHGHCWuE4fChrO
+         KqKRQrJlzEjP/N7fBj0UXXRUfmsLaKY2SzevC6rKD/2SopA8lGNP3I4DSrNXeuoN/ebv
+         8Ql5g929/DESpbqPQ0BhDgY5eVZrNjFxHsVPuMsfkhl67hherM14IZpQBdajmV3X3TQU
+         4Bv7aU4v6SmX4cuHGPK03A3e3kgoSx47bhQWhAO9V1Ldiy9PLxf4IrCbKcTj8XwAzCyg
+         36/3BGnZPwzjqbkaQQHLJXVyFZr6cYG/vDnIRB0xvtEtkmuuL4QxNy2K3rXJCg6duqxe
+         vN5g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=qkb3EGr5RqLnMMatVyio/FQL1gUH6IRI6hvkLTIB4M0=;
-        b=pjauUfLXa/xGTRL6Ax3aq8pVfaS7h2koIq2bt4hj7feziZhjLUgBU79obrdFga7xj1
-         q1heAWgc4A7sPegcxjZ3KUgdrAE/RtLWL2OKguXbtusdTih3G4TJx0GdlUqwy7kKl/r1
-         rKdWchztbQi80jpZ+T+RKR2+hODi4vWLhROBdHPHYZWLY3swXEZGchHASXA4j2om57pw
-         exU2YBA3Ex/GdnDFmKebHbZKmDMcvMszSHBJZyi9j5SQ+8OZM8oYbERO2XeZ+Xk7QorW
-         7cImHJVo+htTIEfi6dO6k4N/hM3DsNjByJuNs+RPt6klfHbaw69IVdI/Dw40qIfzqAkr
-         UNfA==
+        bh=ODM4vaAqpdovnCCa47Nj/Nm/iFRXziGtE5c2966ClL8=;
+        b=pROBs9AOeovndPJUTo7fgudeG/1CwGYUWyVFjqbZU3HhpUzw2yArJo4VippC85evm5
+         +eu5ajsg0/KscTyDcaQXPm+ze9ljTCKM5HeVyH9qWlgVdRc/QyZpAY0+3LjwBQi0sWRY
+         578X5IKTXSOY/rbUcKn50pIIzP9bvLS8lGH8L3AIGkTDQ4IE1ndX60GibnEbqJtPiPgt
+         yo6YwZUdbSSc7qb/RaVfYVDG/GtGJnoo+uS0jv0eIEnGD/onR2ONZkKZvvCDW8BD5MvE
+         YrAxRZLJSiEpplkWt0ercQ3QruGhYqdgJ9ByMDo3g3GGAK4lIYt7nco9+EWBUxRY7Idm
+         KNbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:subject:thread-topic:thread-index
-         :date:message-id:accept-language:content-language:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
+        h=sender:x-gm-message-state:mime-version:from:date:message-id:subject
+         :to:x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=qkb3EGr5RqLnMMatVyio/FQL1gUH6IRI6hvkLTIB4M0=;
-        b=Ks4co52Exmm0YMkpli9Qt83cvUUYHc7DcAOkOouAytWHbkMq3DTW2l3Dr87aHnKtvE
-         p5QPL0ThmiZnT7eBppCRNUIU6lgDeOok+5K7Q4YQo7IRXOA0IwOkfoNHTLVdL5wGTtaQ
-         vEltJ/My/t717Z5ITSjpTHritxb7qR0+3qhjlTYMI3vp849vDw0PzWJlL4/fUwRqIVjK
-         B4iItKSdXvV+Irjr01XZ6YuuTTfUXtgIWXomFREavLFLSWXxBKPFrtcTqml12726mfQa
-         5Yy2I4HEdK0/bCY1d3LjIolxFlVVHEZIVCSsIi5hxozZbihSji4NCiwQqM5CGiZjQzPR
-         uddg==
+        bh=ODM4vaAqpdovnCCa47Nj/Nm/iFRXziGtE5c2966ClL8=;
+        b=Zp7/zWrgpA+gKerHDJOBHERjiwGdasJgkcv/+yYn/7H55mw6Hr6e1nc2D8D7CGGjsh
+         4TLitJSYkQ22yV+wB0DbEq5QczJqU0fCpeLw17G0f1Xm+x3uGcO1nuZ7csDtoQGKkmrH
+         xXcIrL2fopLprXaf/L6rx35VAUqAuEFUhJ6HvQjnXS0OR16NdJp1/QgEVwHkXBw0dxSy
+         zs/KQwyQKqi4ztXHejzU+hVE6B+dc8ywwR0sYyLPUY8laS2TikaXfux04YdXz4cN/rqF
+         EhDmSQnOXP+Zb1CYFfXdMXkQWcizOyJ4zG4pHf0LDlMZxt5MvhsJoc/RUVA+2ulwbBVl
+         PXbA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: ANhLgQ2OGbsGS0Q4eGTRKUBPLxLaNSv9XKx0I1Onxsw0gdMsW+8w+n71
-	zU2mJ3HMfyS7DShdG2DKcEQ=
-X-Google-Smtp-Source: ADFU+vu+rBFq4i7o74EWDtVCNxUW5BrLEvRuaQKnAQvtG+y5f8lbQst4zL3roVU7KFEfddiBtt/5Kw==
-X-Received: by 2002:ac8:5642:: with SMTP id 2mr3969556qtt.348.1583233899275;
-        Tue, 03 Mar 2020 03:11:39 -0800 (PST)
+X-Gm-Message-State: ANhLgQ1iwC8ATgi3/FkfhgElsbiXMFlkYlR6WLRrlgTVQKf5eAWAlDv+
+	mnmRBr9SGbpCzKQRdLLjYzA=
+X-Google-Smtp-Source: ADFU+vvCU87jktGuXcp3v3y7uejgbdjEC8FiGI2dA+MPdx5PssbevyzyonIEebfNuYCBywSvob3Tcg==
+X-Received: by 2002:a81:1ad5:: with SMTP id a204mr1872010ywa.122.1583311782117;
+        Wed, 04 Mar 2020 00:49:42 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6214:1450:: with SMTP id b16ls681923qvy.9.gmail; Tue, 03
- Mar 2020 03:11:38 -0800 (PST)
-X-Received: by 2002:a0c:ed22:: with SMTP id u2mr3495910qvq.13.1583233898644;
-        Tue, 03 Mar 2020 03:11:38 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1583233898; cv=pass;
+Received: by 2002:a81:a084:: with SMTP id x126ls273648ywg.7.gmail; Wed, 04 Mar
+ 2020 00:49:41 -0800 (PST)
+X-Received: by 2002:a81:5785:: with SMTP id l127mr1884495ywb.178.1583311781593;
+        Wed, 04 Mar 2020 00:49:41 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1583311781; cv=none;
         d=google.com; s=arc-20160816;
-        b=DmbiIbgzxj7VCLYUtbqjgJz+bLQ565MGR1riJthz2NyIfRmHqNhCmfJqC4v3sJZoDx
-         U0q+kp6QQq3O6h7FtqiU9cq00YZKc36aNDYHniQ9SeSyQPP7Y4pwuLrUdLpRj2em7bDe
-         oaiS6jH989oh+pqGCFfm3JDbGXfMjEfDMhjc2PJF63buZGwHjrwFSOVkDMD0YgqPzny9
-         4aROCnMOYI6QOUXZ/h59piDUgsKNnM8d1je4pPlbaCzWgdOlwvEFdWMx1yPjoNnQkqEx
-         fHlvatIy8emrlwJezXM3fDu9eSel/GEBBZV+qbOB5NII++0L5EJ+1Zw1yM1LhsxcMBHw
-         QFjQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:content-language:accept-language:message-id:date
-         :thread-index:thread-topic:subject:from:dkim-signature;
-        bh=Hm0GHEivPCPdpK0sAivnn6xcGLCcZg9czfv+KlnGUZI=;
-        b=gzgMN8Dkc+/6cg7rhIsC49rGmvtzcZDgGhrmu3S4TnjrIB+LSFe8aWyZMzW4pnYPXX
-         TsEKg9UbCQ5tRM984qy6HkHpq8oJB2ZrM+ybcoshNht1+FIwP3ebYRyRKj/T70OfM1/z
-         +gbXGMEQZXETyTWIz+TJ/kArRpe1LOvMSULJQBhjItK2puxDAtJqDLwSO+mZpS6dPPn4
-         LnNEs0vJUWgtTZaF2Gpzy0rghRurJ9axLK+ifPB+2LNKBphMfVYJRvlbqBoOr1mnLBFY
-         Q+9vXrbHCqWLu8XoLW5vK5Z16XwldhCuuywEjOrKbLTRt6tQ0N6N700juW3URmh6i26i
-         rIrQ==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@msn.com header.s=selector1 header.b=eaiFxBzz;
-       arc=pass (i=1);
-       spf=pass (google.com: domain of stevehill606@msn.com designates 40.92.40.89 as permitted sender) smtp.mailfrom=stevehill606@msn.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=msn.com
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com (mail-bn7nam10olkn2089.outbound.protection.outlook.com. [40.92.40.89])
-        by gmr-mx.google.com with ESMTPS id o21si305193qtf.5.2020.03.03.03.11.38
+        b=GfG0uSHkW39LKWh4UEgbqEtnpwFGscnvXPxoRiY6Miw0fwnMp+Kc9fFEZWE+362qdX
+         SuE2zuGMHorTScFO8Y19KLI7cS3dClSTL8fEcIMsUyGY3SzIVCfqd29RrQrZVJr90xQP
+         SdcHZOr2MMBC17+2dD6ZtM6FFerI2BjUo+HTg0OiQT/iDPa5z4ASGF6lPcVJ2K4fvj2L
+         XgWbhjA3kee0OpvYGUFmTg3Pa05DTSK8fkpRAXhxkETbiV8TCPMMi5ZDLN+e8bM4itZH
+         mK74shhQfQS1uXPN7AWmG+kg6Y1ASCM9RBgoiBXzexkUGsfyt/OPMTe47HRy5gO0fjor
+         mCSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=mHacn3CVliJZhiGFSii6Kh2Etkb09ZRgJshIX7dahkw=;
+        b=VPdI76+yX90LcT+6DikxvoQFTA4d8q9ve7hRf0yl//cy9QA4uqzipnrrHK6h5enDHu
+         pC9k+y1Y8P3iymhbxairBL5iRgVJc/mJk14H/EZbJudTBSLf0+4G1/UVOzQVLaMVK1f+
+         7hfkf93btCMUrUhurMQ3b9QsVsMnvRN3O+VMJMReObwVydG4PhO7FqkxC1bUMz5rUgad
+         61bqFgPx+l+ioBNH42NrJZq24m/aq7oCiF3fZ5hMdyx2P0uwgv6ln7YA5NboxrPrZyM9
+         8BC9rh5aMxnpQ0a7FOTHKFRMOJ6RE3xlmQFkGZRpIXpxGrqjFMmWEWR25h2oviD1djV3
+         DDMw==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=JYPeMl63;
+       spf=pass (google.com: domain of aelshreif7@gmail.com designates 2607:f8b0:4864:20::d33 as permitted sender) smtp.mailfrom=aelshreif7@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-io1-xd33.google.com (mail-io1-xd33.google.com. [2607:f8b0:4864:20::d33])
+        by gmr-mx.google.com with ESMTPS id u7si104919ywg.5.2020.03.04.00.49.41
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 03 Mar 2020 03:11:38 -0800 (PST)
-Received-SPF: pass (google.com: domain of stevehill606@msn.com designates 40.92.40.89 as permitted sender) client-ip=40.92.40.89;
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hGCXFVze1vg2fL36aEC4Bjh81KR1H5iMlfqv7sIyXWKzMCYoaRvAwEtiWHbCbd3cXXmPR8e2LVP0aqXPoWwgpmgDguavYrKt3y0E7LO3jwdcjV0bW1Wa8f0rFfFbFTEYIjtI9b/bDnohsOL3O9GalKMPttsGxU2XW/gwNA9uPEyVKZ0qtVdAQCi1PwlgbPPNHi56lRCkXSZrbdnGfcTHehH39vQernVcs7IAsFGeNJZldknGHPzOkSX7i/cFJ9hpKbpq/rgwZRju0KmigcsfKdZskwB7WaGRO4uoaQi/1PrzPJ3BG7TwDgj3pWB7o/R9y8SGf7lI+dmr+DCtgNxO7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Hm0GHEivPCPdpK0sAivnn6xcGLCcZg9czfv+KlnGUZI=;
- b=P+SqBJ4SeOOEIwnzgFgcQlbK32MytLgMnPlUXaebIipITPNSMlPsdCUDHzYWgYclfIqIjUlv6R27nVBESukINURXJ7M0B98nGD748hRGJTLmTplmxn/AzR6cmX6LBP88Pwn86uVeFoaadP+lZwbEyrWYuZDggrIedlFbbr6kKPKEpUskMf5JHcmIjk9vyepzVx+XH1QcvIJFGIW2IRw5oqWKYv20H6G2EaEoTc7oX8sRP6x8OCvtsGBeg1CXV0hYKPV+W9R25jOep8g0u7YWdQWK7Y2wUkNkecX8fm5ae2TOQoVlh323bneb5xwo8QygZEZcLB0LepTCTLlzwbUHcQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-Received: from BN7NAM10FT015.eop-nam10.prod.protection.outlook.com
- (2a01:111:e400:7e8f::36) by
- BN7NAM10HT176.eop-nam10.prod.protection.outlook.com (2a01:111:e400:7e8f::254)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.15; Tue, 3 Mar
- 2020 11:11:34 +0000
-Received: from SN6PR06MB4352.namprd06.prod.outlook.com (10.13.156.57) by
- BN7NAM10FT015.mail.protection.outlook.com (10.13.157.114) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2772.14 via Frontend Transport; Tue, 3 Mar 2020 11:11:34 +0000
-Received: from SN6PR06MB4352.namprd06.prod.outlook.com
- ([fe80::d43d:a102:3ee5:45a]) by SN6PR06MB4352.namprd06.prod.outlook.com
- ([fe80::d43d:a102:3ee5:45a%7]) with mapi id 15.20.2772.019; Tue, 3 Mar 2020
- 11:11:34 +0000
-From: Carlos Scevola <stevehill606@msn.com>
-Subject: Urgent Information
-Thread-Topic: Urgent Information
-Thread-Index: AQHV7XHXLUAej6Tk40Sgqj45sJMz/w==
-Date: Tue, 3 Mar 2020 11:11:34 +0000
-Message-ID: <SN6PR06MB4352FFCC9E395C4385F9F0A085EB0@SN6PR06MB4352.namprd06.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-incomingtopheadermarker: OriginalChecksum:B0C219988BBB51BD8152F3358990BEFD4384E8DB78A2DC40A1660F01C40AE1FC;UpperCasedChecksum:813C1CB6EE0A25CA4896A30E8A04340BDB19AA2E9D35BE1C972850C3F5FB95FD;SizeAsReceived:11449;Count:41
-x-tmn: [4yutWxYWM9RbdoCDsQJQRFr9QbzHH0Oq]
-x-ms-publictraffictype: Email
-x-incomingheadercount: 41
-x-eopattributedmessage: 0
-x-ms-office365-filtering-correlation-id: e90d1266-f196-4974-46f7-08d7bf63a291
-x-ms-traffictypediagnostic: BN7NAM10HT176:
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 6WOorvkZRD9m4FtsQ0CNWWErFFjHmXKhvo/kod1xR2t6C0XorZMLd9TRTuw3F7HvMS6C+giyLs2dbfDfZt3ZwaB0mUE6sLMibvke+WlMgB9OljmJd4yA2efNa2MRtH/77SCK4hAwOvtc6nX9FQCqyRF4o3Ndb/vLgHHUGiCZ0+mECgOqhcrzIgt7SyTQlMQR
-x-ms-exchange-antispam-messagedata: 4MTZjluC67XvJeNeYAA6R2CqI6bMcAOHsRjAB0Im0PbXPUIISyNtp4vqC6tFCQHl769Fhzm+qN/X//0RiwOtqUVO6JJ8ywi91Wpj6/OpsAJgIMhuuLavpONqd/ppddxIGNdPoYoUaT6aBmQ6IJ8dEA==
-x-ms-exchange-transport-forked: True
-Content-Type: multipart/alternative;
-	boundary="_000_SN6PR06MB4352FFCC9E395C4385F9F0A085EB0SN6PR06MB4352namp_"
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Mar 2020 00:49:41 -0800 (PST)
+Received-SPF: pass (google.com: domain of aelshreif7@gmail.com designates 2607:f8b0:4864:20::d33 as permitted sender) client-ip=2607:f8b0:4864:20::d33;
+Received: by mail-io1-xd33.google.com with SMTP id n21so1487451ioo.10
+        for <jailhouse-dev@googlegroups.com>; Wed, 04 Mar 2020 00:49:41 -0800 (PST)
+X-Received: by 2002:a6b:a0c:: with SMTP id z12mr1264392ioi.92.1583311781083;
+ Wed, 04 Mar 2020 00:49:41 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: e90d1266-f196-4974-46f7-08d7bf63a291
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Mar 2020 11:11:34.4902
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Internet
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7NAM10HT176
-X-Original-Sender: stevehill606@msn.com
+From: ahmed El-Shreif <aelshreif7@gmail.com>
+Date: Wed, 4 Mar 2020 10:49:30 +0200
+Message-ID: <CAPkDTbCy_BBCuvNsd8ZLAYtC=OAjY5E1mvqh-Sw==YS=m5TetQ@mail.gmail.com>
+Subject: GSoC 2020
+To: jailhouse-dev@googlegroups.com
+Content-Type: multipart/alternative; boundary="00000000000047bf9305a003800d"
+X-Original-Sender: aelshreif7@gmail.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@msn.com header.s=selector1 header.b=eaiFxBzz;       arc=pass (i=1);
-       spf=pass (google.com: domain of stevehill606@msn.com designates
- 40.92.40.89 as permitted sender) smtp.mailfrom=stevehill606@msn.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=msn.com
+ header.i=@gmail.com header.s=20161025 header.b=JYPeMl63;       spf=pass
+ (google.com: domain of aelshreif7@gmail.com designates 2607:f8b0:4864:20::d33
+ as permitted sender) smtp.mailfrom=aelshreif7@gmail.com;       dmarc=pass
+ (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -172,106 +134,55 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---_000_SN6PR06MB4352FFCC9E395C4385F9F0A085EB0SN6PR06MB4352namp_
+--00000000000047bf9305a003800d
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Carlos Scevola solicitor
-Phone- +1-443-588-5040
+Hi,
 
-
-
-
-Good day ,
-
+my name is Ahmed. I am a Computer Engineering student from Egypt. I am
+really interested in contributing this year in GSoC program with Libvirt .
+I was a GSoC student last year with LibreOffice. I was working in a
+compiler project. I want this year to work in new project. I found your
+projects interesting for me.
 
 
-
-I am Carlos Scevola. I have emailed you earlier on, without any response fr=
-om you. On my first email I mentioned about my late client, whose relatives=
- I cannot get in touch with. But both of you have the same last name so it =
-will be very easy to front you as his official next of kin. I am compelled =
-to do this because I would not want the finance house to push my client=E2=
-=80=99s funds into their treasury as unclaimed inheritance. If you are inte=
-rested you do let me know so that I can give you Comprehensive details on w=
-hat we are to do.
-
-Sincerely,
-Carlos Scevola
+I have skills in c , c++ and python also I know Linux very well. I need to
+understand more. where to start or can you recommend some easy bugs to
+solve to get comfortable more with the code and to put goals of the "Libvirt
+driver for Jailhouse" project.
 
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/SN6PR06MB4352FFCC9E395C4385F9F0A085EB0%40SN6PR06MB4352.namprd=
-06.prod.outlook.com.
+Thanks,
+Shiko
 
---_000_SN6PR06MB4352FFCC9E395C4385F9F0A085EB0SN6PR06MB4352namp_
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CAPkDTbCy_BBCuvNsd8ZLAYtC%3DOAjY5E1mvqh-Sw%3D%3DYS%3Dm5TetQ%40mail.gmail.com.
+
+--00000000000047bf9305a003800d
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<span>Carlos Scevola solicitor<br>
-</span></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<span></span></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<div>Phone- &#43;1-443-588-5040<br>
-</div>
-<div><br>
-</div>
-<div><br>
-</div>
-<div><br>
-</div>
-<div><br>
-</div>
-<div>Good day ,<br>
-</div>
-<div><br>
-</div>
-<div><br>
-</div>
-<div><br>
-</div>
-<div><br>
-</div>
-<div>I am Carlos Scevola. I have emailed you earlier on, without any respon=
-se from you. On my first email I mentioned about my late client, whose rela=
-tives I cannot get in touch with. But both of you have the same last name s=
-o it will be very easy to front
- you as his official next of kin. I am compelled to do this because I would=
- not want the finance house to push my client=E2=80=99s funds into their tr=
-easury as unclaimed inheritance. If you are interested you do let me know s=
-o that I can give you Comprehensive details
- on what we are to do.<br>
-</div>
-<div><br>
-</div>
-<div>Sincerely,<br>
-</div>
-<div>Carlos Scevola<br>
-</div>
-<div><br>
-</div>
-<br>
-</div>
-</body>
-</html>
+<div dir=3D"ltr"><div dir=3D"auto">Hi,</div><div dir=3D"auto"><br></div><di=
+v dir=3D"auto">my name is Ahmed. I am a Computer Engineering student from E=
+gypt. I am really interested in contributing this year in GSoC program with=
+=C2=A0<span id=3D"gmail-m_-1099965560309170728gmail-Libvirt_driver_for_Jail=
+house" style=3D"color:rgb(0,0,0);font-family:LibvirtOverpass;font-size:1.2e=
+m">Libvirt=C2=A0</span><span style=3D"color:rgb(0,0,0);font-family:LibvirtO=
+verpass;font-size:1.2em">.=C2=A0 I was a GSoC student last year with LibreO=
+ffice. I was working in a compiler project. I want this year to work in new=
+ project. I found your projects interesting for me.</span></div><div dir=3D=
+"auto"><br></div><div dir=3D"auto"><br></div><div dir=3D"auto">I have skill=
+s in c , c++ and python also I know Linux very well. I need to understand m=
+ore. where to start or can you recommend some easy bugs to solve to get com=
+fortable more with the code and to put goals of the &quot;<span id=3D"gmail=
+-m_-1099965560309170728gmail-Libvirt_driver_for_Jailhouse" style=3D"color:r=
+gb(0,0,0);font-family:LibvirtOverpass;font-size:1.2em">Libvirt driver for J=
+ailhouse</span><span style=3D"color:rgb(0,0,0);font-family:LibvirtOverpass;=
+font-size:1.2em">&quot; project.</span></div><div dir=3D"auto"><br></div><d=
+iv dir=3D"auto"><br></div><div dir=3D"auto">Thanks,</div><div dir=3D"auto">=
+Shiko</div></div>
 
 <p></p>
 
@@ -282,9 +193,9 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/SN6PR06MB4352FFCC9E395C4385F9F0A085EB0%40SN6PR06MB=
-4352.namprd06.prod.outlook.com?utm_medium=3Demail&utm_source=3Dfooter">http=
-s://groups.google.com/d/msgid/jailhouse-dev/SN6PR06MB4352FFCC9E395C4385F9F0=
-A085EB0%40SN6PR06MB4352.namprd06.prod.outlook.com</a>.<br />
+om/d/msgid/jailhouse-dev/CAPkDTbCy_BBCuvNsd8ZLAYtC%3DOAjY5E1mvqh-Sw%3D%3DYS=
+%3Dm5TetQ%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://=
+groups.google.com/d/msgid/jailhouse-dev/CAPkDTbCy_BBCuvNsd8ZLAYtC%3DOAjY5E1=
+mvqh-Sw%3D%3DYS%3Dm5TetQ%40mail.gmail.com</a>.<br />
 
---_000_SN6PR06MB4352FFCC9E395C4385F9F0A085EB0SN6PR06MB4352namp_--
+--00000000000047bf9305a003800d--
