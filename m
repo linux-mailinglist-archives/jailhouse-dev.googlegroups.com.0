@@ -1,32 +1,32 @@
-Return-Path: <jailhouse-dev+bncBAABBDHMT3ZQKGQE3QTV4SA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBAABBZHOT3ZQKGQEBLHPPZQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x53d.google.com (mail-ed1-x53d.google.com [IPv6:2a00:1450:4864:20::53d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B4EB18022A
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 10 Mar 2020 16:45:17 +0100 (CET)
-Received: by mail-ed1-x53d.google.com with SMTP id y10sf1229026edw.23
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 10 Mar 2020 08:45:17 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1583855117; cv=pass;
+Received: from mail-ed1-x537.google.com (mail-ed1-x537.google.com [IPv6:2a00:1450:4864:20::537])
+	by mail.lfdr.de (Postfix) with ESMTPS id 414FF180268
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 10 Mar 2020 16:51:01 +0100 (CET)
+Received: by mail-ed1-x537.google.com with SMTP id p17sf6034847edt.20
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 10 Mar 2020 08:51:01 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1583855461; cv=pass;
         d=google.com; s=arc-20160816;
-        b=KzmfkG6+X6sxNovQoRc9FypFcmGBhFzaXOQNUYQ9RMXAv9ozHn+jiLUOwekkuSroES
-         jHrKOAxyT1/mYWoOEL0lputElINuBpVzbXbTYWtiaplU3uu4ZWegl0WMkWwdl4f6vXRy
-         /qe/0bU6qzLhplg8d+ZnEQ1wAPVJJVafaJJSh6Qu5VrdFjC2zjg5UfYG1GOHlK51a8Hq
-         7w7C7LQKFxiP7emiZWUpwGGvRbvdDBxIezWKxsI6m/a/6iCIGyxOFGDG7Di4NIiqAhEv
-         +ciwcr60mUc19bjhvDapy/C1qmiKOlEteSKyIKOi7ScDo19ABtfVsYCR3YDntfK09ihZ
-         OcOw==
+        b=FgB17C3pnJ7Yvvx5Hy9F3oFcsGYBkHV+pSyJ1fgtkEed+T5JY9aKcMMklG9t9NmuMd
+         16NHLEgooCCRBbX9vapZwjpjtewAuYHl0c1rr3pge999zxg2b/0JTegdPvumHmMVIVFr
+         M5eMokNv29b3qvHEKHZv8/bARz14gwMz33pf6NEVq9lNFLM3ZGtQWmMu/kfVTfVvACNj
+         MRyrT8CAjxhcv3QwTHHByhoLoYz6iZD6JfWwsQuIWrTOVwUrhpx7RWZzQ64wgEr0eB55
+         Tm+uWMUzkI007LIIFpcsP/VIWxSaRL4MU6TkUI2OIC6fkJsmT41wmQ+1Q4zmWZj3+OZH
+         L76Q==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
          :content-language:in-reply-to:mime-version:user-agent:date
          :message-id:organization:autocrypt:from:references:to:subject:sender
          :dkim-signature;
-        bh=8rvl9U7eMIcMJXZB3Afw3DdaqhPaf1T+qthRH5VHTxA=;
-        b=G4k8pgWhpdelXCsk8CXSoLhL50sp71lhDua16QFRQsvfCXUafdbuqkXBZUdq2aljuT
-         k8OpiD/XsQUkigqubQ7+s0APfF5mKD3wZ9P/bbspQh4KYJiLlY7abwt26wUOLWYWP4ZD
-         IEArMAwdu+sHvXni7VXHzy8MSa8RKT6AEyFMjvbDWU55l3dnCmsBaelaqou+mgXV8pZI
-         g1iGPpWBnqVQwOkLKeyTYLOME9QKgoxu2lymWJsARVVkKCfb5ehGjzltuAuKARLswREd
-         Xz7gyj3B6o1OsqUJjBJ2QgDSn2RuXwjWxrBFWLUl21EyDJLwU4ylgBfuf03jfZPJC6s1
-         nf9Q==
+        bh=UQRFyDCv0/eI6XgWta0vaE8nZt+mNcTUeRcZYZCNla4=;
+        b=oJS5c1AFNOplQG9OHkXrziXMv+GhjBvyiHTeG6zRLjt1fV1m+qviAorkyDhkF0T74C
+         31mgjgHm/j59+1MhbEvoNm575NzyoI2zhwFXaPSoKw29Yg1TWCiyaaEIoLBmQK5ye72U
+         +OZBnc7fe9BfDFNXCRCnVVoVxr0VUfA/87rG8I1yQtIjOyKmm01IxBhO056XbjbW07pX
+         4vLkLm2QCHvHgq6RfEgrPf9lOLmha+2KKhciWWlrxumBzYvDz56vGdHMVlocslSqUhHf
+         kZOC7dh0GNq/NsJQIF4dAW9HIv9iCrOfiiGav8cVm/a01A6KFeTcPvBA5Nixh/GUnGHd
+         tB8Q==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
        spf=pass (google.com: best guess record for domain of p.rosenberger@linutronix.de designates 2a0a:51c0:0:12e:550::1 as permitted sender) smtp.mailfrom=p.rosenberger@linutronix.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
@@ -36,13 +36,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=8rvl9U7eMIcMJXZB3Afw3DdaqhPaf1T+qthRH5VHTxA=;
-        b=SyV8pVeQlj1Pmh+XRVnq5WEYJ68k/n0tmMYkmKGb2/x92ybeZFhPYJV2Y+7+3zXP0w
-         1ga/8fSIO+OxlydS72p+UUWGO+65KR1yQHP1D09CiliptpP8AfU9YNjJjNlhNakS790o
-         XHA2voLiDsAQ4k/BE9bDhPMUEI/74NkrDC70hNO/QI9erVAkiskWVPE3XBBF/LLabuis
-         JDSNIwIlhmyJpsuW3b2UDk83ay59Ti5nZJ82xgl8e3Hnq4rDnblGJMn9sPjlKlJZiRUR
-         yWx6JZdRaqMK099jgoGzLBAfamGnTSJkuFsDE96qdxRCIWCMww+yP40/aKDQH2mvcFLw
-         92ag==
+        bh=UQRFyDCv0/eI6XgWta0vaE8nZt+mNcTUeRcZYZCNla4=;
+        b=JI6cAwpDbVBWINmoj8rgPUo7mnGxj6pvLDOHZcJW4fQJcgrEtvP24HCBPFMtXN+REx
+         wo323C2XFfMG4rnbIW5RliEK0lmhD7WzsQWMzy4jzCftnz58604WaOZ4a/NfGccFiU52
+         sKyWcK0gvY9zQvd6+NYVgpXaY2lhhUivSv8Q6ArND73K1COcm1fdF2JSdAP9a4ZYGG0o
+         h6fJ8n4cb6O8OHk0e8kjOD/2ddyZdwSbW2N9JAI+ioQejLfCdx+VJxl6slavIVN2Imbe
+         Xoev5tJhxSrgnrRvrqha1+fUTCsJHNIVgrQ6LYwj0XgqPlC9mklPOfPNJkJLO4qnwacc
+         gKGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:subject:to:references:from:autocrypt
@@ -51,61 +51,62 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=8rvl9U7eMIcMJXZB3Afw3DdaqhPaf1T+qthRH5VHTxA=;
-        b=ueC2fZLzpjPsWaYYST98ZzaMr0xBlrbCe296DmOW6lHu0fT/fw5fA8+KjWzsVy8VLP
-         /bGkl7QGt+Gea6vWcsGVvKFawLA37qaSn0nEYKydc4bzRO9w1VcwGF7v9i3Yykk9BQvA
-         d/mC2G3LL5BebQvLnV6alL296FBHhCk4+oUcsOJkjdeGI3iKq+b6LlzUHJCdJfPKrdm9
-         OWS7sfwqANTx2tby6RQ0V3XMoRKArtk5NSHtyl+OinNZlQpczlbNAgG1pLW/HCKePpzc
-         0DDLNWkD3PlegleitECgYqYN7azMUIF9j6tYDzIjrc/s2lm7gg+6eW8lBhaUIeTYirF5
-         4w5g==
+        bh=UQRFyDCv0/eI6XgWta0vaE8nZt+mNcTUeRcZYZCNla4=;
+        b=jTuZwAvbdZ3LQszR7rZgHtlOhGiop7j8PmcAvX0YS+W9kytUSHY06cXOxTIa2QSixO
+         zFIlO0CB8jplzY5yvm5bzzEX/V+sbSbvAFXTTLETrwjL8PNWKVlOKTHN5CANDmTujmmb
+         4zV1NqVvJf5fAzFyfuoXYjlmyumnWx4F/Dm9TrCHsob4rhLhEriX2nkDDQxBP6OS9jev
+         BDuDq+Tiy2NUVjfugjPjgYV7xoway/gi8CM0IKE9pWhAnChSsr0ML6y7zZxCHGizQpjY
+         d+qZolgRlv99sMpnpo0rDpSvv8AptXj+kwg/1xxjri2OCc3M13PXd5lKElb3dSgPpZAd
+         9rTA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: ANhLgQ3nqcOj2P5y6Ryj2ZKMc3raZMu1ww2t0CyPbYodtLVIrepyWFpT
-	HB4V9Wf6gLzDrj2s6ylyxsI=
-X-Google-Smtp-Source: ADFU+vsuA2nEpl57ENwB65jtZ18AuBxv5wozC2oYmH7N4Yh9WsMVlF3juvjWfkn+NbQZkz6k1tR+LQ==
-X-Received: by 2002:a50:baef:: with SMTP id x102mr10966689ede.238.1583855117125;
-        Tue, 10 Mar 2020 08:45:17 -0700 (PDT)
+X-Gm-Message-State: ANhLgQ3dgBTQ1Id+SdVyim9pm39JIVizPx7q10s0PypTxhcEEONnUECd
+	RInru+Z9pRVH1XWaGTNEcmg=
+X-Google-Smtp-Source: ADFU+vvb8oPU0o7UQUlMlFev+neQqz2deD1SofX+cV0V6ObsdvUXEFIdNWehzOZAOJMmLnvbyS+HFQ==
+X-Received: by 2002:a50:9ee8:: with SMTP id a95mr21685302edf.86.1583855460922;
+        Tue, 10 Mar 2020 08:51:00 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6402:416:: with SMTP id q22ls10007418edv.10.gmail; Tue,
- 10 Mar 2020 08:45:16 -0700 (PDT)
-X-Received: by 2002:aa7:c2cc:: with SMTP id m12mr11774888edp.11.1583855116485;
-        Tue, 10 Mar 2020 08:45:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1583855116; cv=none;
+Received: by 2002:a05:6402:416:: with SMTP id q22ls10022237edv.10.gmail; Tue,
+ 10 Mar 2020 08:51:00 -0700 (PDT)
+X-Received: by 2002:a05:6402:180e:: with SMTP id g14mr5857181edy.66.1583855460377;
+        Tue, 10 Mar 2020 08:51:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1583855460; cv=none;
         d=google.com; s=arc-20160816;
-        b=eRJ6SfdtHFqMOHsyl5GMB1/99MKeC6LTHDlQsoqeFx/Ynt/He93h85HTU9s2cLGETi
-         6dIv/zYgFcVYUYbcX9Hj5f/py05JN+Ioj5tNOi0O5hLeWPyp87L4m72YS4ywOXzZq5tX
-         9zn+1qjX/zKDq/lnFm8HnK9nWwhGMVXteQTRNQpqk23i+/jolYc13d62CNERcv9dXvOk
-         ETTtiygaoUZhtGAx/YDk/+R1My+7VCkTeaWSxPY8+G1vioJOynHJviB3cB1Ag6sux7BD
-         z62f4xAe7k6jXmZMSyZOkLSJDzhHkwJk7qSaueDZgw1+p31vS2llIFprKembOrUNwFd4
-         4KVA==
+        b=u6WZBb9KrczDvmr7mSZXBUKyE8CIDwPzlu4RkkRCtshJa7L8H6Vp6AkozMusW8kaJA
+         UiFYyH9EcK9qtytkmW+KtieqGeg6gPZtmRYZTeOYSGz6FKsKUJMAc0+89BBtLVhcgUCk
+         Cm+BeMis7P4BjzacrSScMuuRh14QCKbBe1e4juFeatSEuto6oAj23Y6syS4KNSjHBzxP
+         OolhxVxNx8O00wUaar7E2Y5HumyW8BpLHRbSCjoseZbdITUI/aOW3KMvRvAxpv6KIpsX
+         OPCnM6PUQH4EQ/bLRXpIIY55xyVLmo/0PDB89YqnBnK7TXBokPDyktYIvjGyhIvI8ADI
+         rWdQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
          :user-agent:date:message-id:organization:autocrypt:from:references
          :to:subject;
-        bh=6Q63Ce1ROyvqYwUBG/PSCQixHOy9jklVF2+mVoW0LJM=;
-        b=wrnCkErcWQqppGUcfAQL8j0bKNe4g0tHX4Ae+i3lyQvxT+g13qX6ZWUhX1OGALpJaJ
-         eYwLLXijgiXCpeVKJzjJWAnfaedRUkzifscfvti/LXSM64KMA/tCPAuXVo02DzUD3akw
-         VQkTkyB7nBxBsT9t3c59XpaVl6cTpvUsSGRWV3rwEzUrd3uozBsV74WNgMemYWiMThVl
-         3Vik2sBSSqmKqDuqhBmdWqTOAVozCRsX6JZCA/3eX+ulwDuhnQhS2fZWSBLCG+Al3kxM
-         k8mJt+pCvB3Z2lI1O3EV4pdqB2ps2Nf2WbJz13vcjERU0BTvGcq5/Es0BSv4XbW1ThvR
-         JI8Q==
+        bh=Nrcd7XveAZ4gkAcI9PY4CsOvGk53udWn7/2hThtQJAQ=;
+        b=kHyb4RzXJ7kbq38Yi4CC43U70QAjwaAt27ZSGQSj5zKV/m3MNGj1U1E7ylEdD4jpI/
+         wJ+ptj7S+Q74lUuJ8HPh605d+k81nuOmY12acCbFBnqUaLoSOT2xNVEooHA3xitPhFYW
+         Oq88t1JXPkdfkrSBg9eNpwU5ylK6HsjrMYyEAuitcG8vmyqVLqdqJAOGqS1Ti+NjUMhB
+         q0599j2E2t4/DfHiAAiG6NlxllS58CpMbDCGjR+OTLF3DL5bvvuo1ZdLbno+t36Hf1Qj
+         oeJcHVUYQA751gIH4thkHC5u6Z0uhxg7MCDFuU8wdqfV+WUCc4KEgski2UfksHs6FTPo
+         99iw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
        spf=pass (google.com: best guess record for domain of p.rosenberger@linutronix.de designates 2a0a:51c0:0:12e:550::1 as permitted sender) smtp.mailfrom=p.rosenberger@linutronix.de
 Received: from Galois.linutronix.de (Galois.linutronix.de. [2a0a:51c0:0:12e:550::1])
-        by gmr-mx.google.com with ESMTPS id l21si420882edq.4.2020.03.10.08.45.16
+        by gmr-mx.google.com with ESMTPS id l35si520046ede.3.2020.03.10.08.51.00
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Tue, 10 Mar 2020 08:45:16 -0700 (PDT)
+        Tue, 10 Mar 2020 08:51:00 -0700 (PDT)
 Received-SPF: pass (google.com: best guess record for domain of p.rosenberger@linutronix.de designates 2a0a:51c0:0:12e:550::1 as permitted sender) client-ip=2a0a:51c0:0:12e:550::1;
 Received: from b2b-130-180-90-162.unitymedia.biz ([130.180.90.162] helo=[10.23.2.107])
 	by Galois.linutronix.de with esmtpsa (TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128)
 	(Exim 4.80)
 	(envelope-from <p.rosenberger@linutronix.de>)
-	id 1jBh4F-00061r-Mc; Tue, 10 Mar 2020 16:45:15 +0100
+	id 1jBh9n-0006BA-Du; Tue, 10 Mar 2020 16:50:59 +0100
 Subject: Re: virtio-ivshmem-*: only works on the 2nd try
 To: Jan Kiszka <jan.kiszka@siemens.com>,
  jailhouse-dev <jailhouse-dev@googlegroups.com>
 References: <0203ac1b-87f4-177c-1fcd-c6e10d3d5dfd@linutronix.de>
  <8823c273-a3b9-4719-caa9-6791dd6a01a7@siemens.com>
+ <5f6ae796-572a-9dbd-93b3-223fbcf7d3a6@siemens.com>
 From: Philipp Rosenberger <p.rosenberger@linutronix.de>
 Autocrypt: addr=p.rosenberger@linutronix.de; prefer-encrypt=mutual; keydata=
  mQINBFZPLjUBEADc2KKhjl1qTC2RR9Zhsq3TuBB834Ovh2Tj0Kz2sTxS/LVZsdBFkqVEDTfE
@@ -151,12 +152,12 @@ Autocrypt: addr=p.rosenberger@linutronix.de; prefer-encrypt=mutual; keydata=
  pbxNIl48EdMIFNTH4jJuOue6QgBfZBAx4YOD9hR9PtUy2Hap0ESAahEMYe0EQWsF+nvig1ZY
  c7AAe3l97AutscBJpp+BBQBj4nPXfw==
 Organization: linutronix GmbH
-Message-ID: <3ab5ae7f-ebf4-8262-68e6-8d82470dd5e0@linutronix.de>
-Date: Tue, 10 Mar 2020 16:45:10 +0100
+Message-ID: <a7fddcbd-97ff-79dd-a80f-43bb703dceb5@linutronix.de>
+Date: Tue, 10 Mar 2020 16:50:54 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.5.0
 MIME-Version: 1.0
-In-Reply-To: <8823c273-a3b9-4719-caa9-6791dd6a01a7@siemens.com>
+In-Reply-To: <5f6ae796-572a-9dbd-93b3-223fbcf7d3a6@siemens.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
@@ -179,89 +180,131 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi Jan,
 
-On 10.03.20 16:08, Jan Kiszka wrote:
-> On 10.03.20 15:41, Philipp Rosenberger wrote:
->> Hi,
+
+On 10.03.20 16:34, Jan Kiszka wrote:
+> On 10.03.20 16:08, Jan Kiszka wrote:
+>> On 10.03.20 15:41, Philipp Rosenberger wrote:
+>>> Hi,
+>>>
+>>> I have managed to get virtio-ivshmem console and block running. But I
+>>> observed a strange behavior. I do the following:
+>>>
+>>> 1. Boot up the board.
+>>> 2. Enable the rootcell.
+>>> 3. echo "110a 4106 110a 4106 ffc002 ffffff" > \
+>>> =C2=A0=C2=A0 /sys/bus/pci/drivers/uio_ivshmem/new_id
+>>> 4. virtio-ivshmem-block /dev/uio0 /path/to/disk.image
+>>> 5. boot linux-inmate
+>>> 6. virtio-ivshmem 0000:00:0f.0: backend not ready
+>>> 7. kernel panic
+>>>
+>>> If I redo the sets 4 and 5 the inmates starts as expected and I can
+>>> access the disk.image via /dev/vda.
+>>>
+>>> I found, the the virtio-ivshmem-block tool waits for an interrupt if
+>>> 'state[peer_id] !=3D VIRTIO_STATE_RESET'. But there is no interrupt.
 >>
->> I have managed to get virtio-ivshmem console and block running. But I
->> observed a strange behavior. I do the following:
+>> The state memory should be zeroed, provided the peer is not running. You=
+=20
+>> will only get an interrupt during the peer setup when it switches it=20
+>> state from (expected) RESET to READY. Maybe we miss some proper=20
+>> initialization of the shared state memory in Jailhouse.
 >>
->> 1. Boot up the board.
-
-devmemdump 0x16f300000 0x1000 | hexdump -C | head
-00000000  07 26 8b 17 4d 0f 2e 83  06 26 8a 17 4c 0f 2f a3
-00000010  16 ae 9a 97 5c 8f 3f 03  36 97 bc 97 1c 8e 3f 82
-
->> 2. Enable the rootcell.
-
-devmemdump 0x16f300000 0x1000 | hexdump -C | head -n 2
-00000000  00 00 00 00 4d 0f 2e 83  06 26 8a 17 4c 0f 2f a3
-00000010  16 ae 9a 97 5c 8f 3f 03  36 97 bc 97 1c 8e 3f 82
-
->> 3. echo "110a 4106 110a 4106 ffc002 ffffff" > \
->> =C2=A0=C2=A0 /sys/bus/pci/drivers/uio_ivshmem/new_id
->> 4. virtio-ivshmem-block /dev/uio0 /path/to/disk.image
-
-devmemdump 0x16f300000 0x1000 | hexdump -C | head -n 2
-00000000  00 00 00 00 4d 0f 2e 83  06 26 8a 17 4c 0f 2f a3
-00000010  16 ae 9a 97 5c 8f 3f 03  36 97 bc 97 1c 8e 3f 82
-
->> 5. boot linux-inmate
->> 6. virtio-ivshmem 0000:00:0f.0: backend not ready
->> 7. kernel panic
-
-devmemdump 0x16f300000 0x1000 | hexdump -C | head -n 2
-00000000  00 00 00 00 00 00 00 00  06 26 8a 17 4c 0f 2f a3
-00000010  16 ae 9a 97 5c 8f 3f 03  36 97 bc 97 1c 8e 3f 82
-
->> If I redo the sets 4 and 5 the inmates starts as expected and I can
->> access the disk.image via /dev/vda.
-
-repeated step 4:
-devmemdump 0x16f300000 0x1000 | hexdump -C | head -n 2
-00000000  01 00 00 00 00 00 00 00  06 26 8a 17 4c 0f 2f a3
-00000010  16 ae 9a 97 5c 8f 3f 03  36 97 bc 97 1c 8e 3f 82
-
-repeated step 5:
-devmemdump 0x16f300000 0x1000 | hexdump -C | head -n 2
-00000000  01 00 00 00 01 00 00 00  06 26 8a 17 4c 0f 2f a3
-00000010  16 ae 9a 97 5c 8f 3f 03  36 97 bc 97 1c 8e 3f 82
-
->> I found, the the virtio-ivshmem-block tool waits for an interrupt if
->> 'state[peer_id] !=3D VIRTIO_STATE_RESET'. But there is no interrupt.
+>> Can you confirm that the state memory is in a random state on first=20
+>> startup? And that it changes as expected for the peer to READY once the=
+=20
+>> non-root Linux boots?
 >=20
-> The state memory should be zeroed, provided the peer is not running. You
-> will only get an interrupt during the peer setup when it switches it
-> state from (expected) RESET to READY. Maybe we miss some proper
-> initialization of the shared state memory in Jailhouse.
->=20
-> Can you confirm that the state memory is in a random state on first
-> startup? And that it changes as expected for the peer to READY once the
-> non-root Linux boots?
+> Does this help?
 
-I hope I have done this right. The 'state' is stored in the first
-region. In my case '.phys_start =3D 0x16f300000'.
-
-You can see how the first two 32 bit words change. The devmemdump tool
-just maps /dev/mem at the given address and writes it to stdout.
-
-I've tested the following after step 1 and it also worked:
-# devmemdump 0x16f300000 0x1000 | hexdump -C | head -n 2
-00000000  07 26 8b 17 4d 0f 2e 83  06 26 8a 17 4c 0f 2f 83
-00000010  16 a6 9a 97 5c 8f 3f 03  16 a7 9a 96 5c 8e 3f 02
-# busybox devmem 0x16f300000 32 0
-# busybox devmem 0x16f300004 32 0
-# devmemdump 0x16f300000 0x1000 | hexdump -C | head -n 2
-00000000  00 00 00 00 00 00 00 00  06 26 8a 17 4c 0f 2f 83
-00000010  16 a6 9a 97 5c 8f 3f 03  16 a7 9a 96 5c 8e 3f 02
+Yeah, this works nicely.
+Thank you!
 
 Best regards,
 Philipp
 
+> diff --git a/hypervisor/ivshmem.c b/hypervisor/ivshmem.c
+> index 22283a85..a5cdcf93 100644
+> --- a/hypervisor/ivshmem.c
+> +++ b/hypervisor/ivshmem.c
+> @@ -101,13 +101,8 @@ static void ivshmem_trigger_interrupt(struct ivshmem=
+_endpoint *ive,
+>  	spin_unlock(&ive->irq_lock);
+>  }
+> =20
+> -static void ivshmem_write_state(struct ivshmem_endpoint *ive, u32 new_st=
+ate)
+> +static u32 *ivshmem_map_state_table(struct ivshmem_endpoint *ive)
+>  {
+> -	const struct jailhouse_pci_device *dev_info =3D ive->device->info;
+> -	u32 *state_table =3D (u32 *)TEMPORARY_MAPPING_BASE;
+> -	struct ivshmem_endpoint *target_ive;
+> -	unsigned int id;
+> -
+>  	/*
+>  	 * Cannot fail: upper levels of page table were already created by
+>  	 * paging_init, and we always map single pages, thus only update the
+> @@ -115,9 +110,20 @@ static void ivshmem_write_state(struct ivshmem_endpo=
+int *ive, u32 new_state)
+>  	 */
+>  	paging_create(&this_cpu_data()->pg_structs,
+>  		      ive->shmem[0].phys_start, PAGE_SIZE,
+> -		      (unsigned long)state_table, PAGE_DEFAULT_FLAGS,
+> +		      TEMPORARY_MAPPING_BASE, PAGE_DEFAULT_FLAGS,
+>  		      PAGING_NON_COHERENT | PAGING_NO_HUGE);
+> =20
+> +	return (u32 *)TEMPORARY_MAPPING_BASE;
+> +}
+> +
+> +
+> +static void ivshmem_write_state(struct ivshmem_endpoint *ive, u32 new_st=
+ate)
+> +{
+> +	const struct jailhouse_pci_device *dev_info =3D ive->device->info;
+> +	u32 *state_table =3D ivshmem_map_state_table(ive);
+> +	struct ivshmem_endpoint *target_ive;
+> +	unsigned int id;
+> +
+>  	state_table[dev_info->shmem_dev_id] =3D new_state;
+>  	memory_barrier();
+> =20
+> @@ -435,12 +441,15 @@ int ivshmem_init(struct cell *cell, struct pci_devi=
+ce *device)
+>  	}
+> =20
+>  	link->peers++;
+> -	ive =3D &link->eps[dev_info->shmem_dev_id];
+> +	ive =3D &link->eps[id];
+> =20
+>  	ive->device =3D device;
+>  	ive->link =3D link;
+>  	ive->shmem =3D jailhouse_cell_mem_regions(cell->config) +
+>  		dev_info->shmem_regions_start;
+> +	if (link->peers =3D=3D 1)
+> +		memset(ivshmem_map_state_table(ive), 0,
+> +		       dev_info->shmem_peers * sizeof(u32));
+>  	device->ivshmem_endpoint =3D ive;
+> =20
+>  	device->cell =3D cell;
+>=20
 > Jan
 >=20
+
+--=20
+Linutronix GmbH | Bahnhofstrasse 3 | D-88690 Uhldingen-M=C3=BChlhofen
+Phone: +49 7556 25 999 0; Fax.: +49 7556 25 999 99
+
+Hinweise zum Datenschutz finden Sie hier (Informations on data privacy
+can be found here):
+https://linutronix.de/kontakt/Datenschutz.php
+
+Linutronix GmbH
+Firmensitz (Registered Office): Uhldingen-M=C3=BChlhofen
+Registergericht (Registration Court): Amtsgericht Freiburg i.Br., HRB700 80=
+6
+Gesch=C3=A4ftsf=C3=BChrer (Managing Directors): Heinz Egger, Thomas Gleixne=
+r
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -269,4 +312,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/3ab5ae7f-ebf4-8262-68e6-8d82470dd5e0%40linutronix.de.
+jailhouse-dev/a7fddcbd-97ff-79dd-a80f-43bb703dceb5%40linutronix.de.
