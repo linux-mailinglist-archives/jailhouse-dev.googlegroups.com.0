@@ -1,114 +1,69 @@
-Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBC6QU7ZQKGQEKNG5LMQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCQ7HUU4XULBBEELV7ZQKGQEBI35FBA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qv1-xf3f.google.com (mail-qv1-xf3f.google.com [IPv6:2607:f8b0:4864:20::f3f])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0AD41829E7
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 12 Mar 2020 08:43:08 +0100 (CET)
-Received: by mail-qv1-xf3f.google.com with SMTP id h17sf2968854qvc.18
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 12 Mar 2020 00:43:08 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1583998987; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=Y+dSecPnAZVcoww5Rdj7WNuWHGHNWSRc83Ek7H+sXF9TVM1G8yepMCrbaKceiSijSh
-         2VSbez+sV3/Sm9Iqaurq+tZ5VDlLhPoEWZj90r0wVXGetftCbXmkjQMWB8dfrb5K12aF
-         wMEIz5NhXDmq3jERrycTpp94OhSkwQRHsAUVE6nrsE3bMoIXAyox+3+c00ZSQZkuEpx4
-         KN7iRK2W88qOpDTz/7L5aC1p4bv78vwWvGRkhOwGpt4IKsxqWlBzQUoltItd8aAQvYNg
-         NJYr0Dg869xJZnNL2Yh8bjxeLWOS2v+OG+kEM2CVvHb8Kb369cDD8FaHUP94QmzFFtSS
-         53gw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:subject:message-id:to
-         :from:date:sender:dkim-signature;
-        bh=pTu95SEEMx5w5Xa4ryCNkZcqTQZ4rXZlFHAC/7VO01k=;
-        b=H4NlBj+oUarUyPJT7Gi6ElHMOnZur7sF0+RH2ZNCSMYi51nkO5YJNQNnQKHHORVLEL
-         sEO1sE8mNjx49BVPoEDfoSlxRZ4n7+e8cHCfT4ZA9nQ/aqnPEeIKKlFKncepznddwdMR
-         xIb2NHjnyJEpCClddCwsNgRM0FAyJxJl4gkpRGRo5bUv9nYgRtfZja7RLd8T9RMwuhZg
-         Lo6zQrEaykmXY7gZkbSVzNBAfGzdiL2PUZUhZLe35BZ9efqaHQb/UaXnbPkNqma6VQ7d
-         OEH4V5Za101fj4CV5/uyaFhaWaOifny8f9SBcs+v/GPlBgnHDW54Cc4Z5JfcOzRIb1/e
-         c01w==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b="v6s/QVxF";
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.207 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from mail-oi1-x23c.google.com (mail-oi1-x23c.google.com [IPv6:2607:f8b0:4864:20::23c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E317184DCE
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 13 Mar 2020 18:40:34 +0100 (CET)
+Received: by mail-oi1-x23c.google.com with SMTP id c8sf3217767oib.9
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 13 Mar 2020 10:40:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:date:from:to:message-id:subject:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=083d2TiEt6kjNRbFsXb8GNre1WGifiKaQm8tDscyw8w=;
+        b=LI0emiIUAtX4rKVKhhibxQlZwxXnjfCRTg1UYaiyumH1Ljliz+E0MvovOhp2+5YX/t
+         xuaPiguDUO11nhtG64WVLr9I+nFE4uwuAot37fgKgmVykJJ7CT9a3KQxxgSBKt7vstQt
+         Qjyfq66k7AXPt9Kbyu9olwUd4BOyW6uBv7FRAnm83j2HkQFOFrHqslUAdwLrw8+PLKb1
+         9XTTX3SZE6tEDNNyy3SXkdUBRmOmC7ruvQjVO95p5CIdjUvS3AkXNNL4fr4FsCaz6tG0
+         tIFxgZqYVdoCZN8LkgiW8w2C96HFlzjEIfVtclJh3vN4u6MpJPEX7PAjpUMSYIkIP8gf
+         uEqA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=pTu95SEEMx5w5Xa4ryCNkZcqTQZ4rXZlFHAC/7VO01k=;
-        b=f05+L2FE04hVXVPw9ReH4u0V8IIQcecqa2l5M+NGCbeXZv18migK1SPpR4FEJyt93Z
-         PaLH5nZJn1T+x9c+zVSh1Ks0PZkc5+Yj6M5mpdn+p9DdooUvXsRtIlRNPSTg7+e71kG4
-         nbOFrgMSEL4CUXSMC/Ht0vDQDWKDPZElm1Vjkhg1SqbGCi/Js47JQQOOfRg5zCpC0/Wv
-         SPp04vECKJbwtVvRAjthoMmMYyWEoCpZ9qsHrBg5M4DAu27qYF55ianys2GKkJFQDu8Q
-         rXADwltozoK2l/I/fKkg8AwhTSWiR7z4ucvQFFH8/bl/oiYYSe/HgVGgn9odaIw3XzV9
-         DJeg==
+        bh=083d2TiEt6kjNRbFsXb8GNre1WGifiKaQm8tDscyw8w=;
+        b=S5yGP6mmBzQ32w6SRTGTaiIqJ6JHXSL6EPDBqigJF0IncJQXSJq5xg/jTLTQqdTSeX
+         0d9ferrvw8PPhT9M9zfiDVOBIr2GiDuJmpwTeowVc1YpltTgm7lEqQDWfAlZbTLAdxx/
+         WrT6i9eLlZemHaS7e2h5oZGolxT221K+FeVMrzqRXa1az5mHeMbbx2mpPZ124zh3eI2Y
+         0ITpvIxF1MFSdZNww+x3CVu4sno4P1OcM1w7q/DrrNK8RN+MXoo/vFNTJJxpMTzQTqcd
+         pqMsQj4cjhecbePLHLGCwV8XTbZxIi2lTDCPWJc5mt/imEwggrbbm4wA8PcmIbHvNTV7
+         O/Ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=pTu95SEEMx5w5Xa4ryCNkZcqTQZ4rXZlFHAC/7VO01k=;
-        b=byMF+ij2GXythELzp+DBThvowJTqNX0rCzMF0kZWVLkT+L7M9MLoqIioR4E5zhHLga
-         WfrRku5ndGQdV+HX8rOu05tIh9itXDjncGaPxMX7OWF/DpRDlxcYUFIrNI1QmIsJQUG5
-         JJIAkLtKaOocUCy1C3Xgqq5FHUZbXh0moYQ6zVeHFHKaSYSjaobvy1xqOiqUTIy0yjxF
-         OK45hDXPHoNWouDgVTRNPFhkk1SGp3hF7YobnavM5wvvrEf+dI1hgKbJIl14Gowg4Nq/
-         TNE6gs26HeOpRBZ3IlYynrGkh1hLRfxa8ntQ6PbcYtbvvKf9Uk5VSyPWjIbLed//krW+
-         Y4eQ==
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=083d2TiEt6kjNRbFsXb8GNre1WGifiKaQm8tDscyw8w=;
+        b=gxFZK2Pei4qtGeY59z+hQftfmrynpccwjiu0YX8Cit99JzieoQG+/POxC0NAyQb0oF
+         YJzIkihmDobzNKtiaOrJYZYK27r9xT+p9liD3b3sUtxGibnzh8JAZ/u8Bz4WtFQ9I9Pf
+         S7AtQyEXZVRKijy7i5yg6LPTxx32IbkGNY3rJyqbUa5D/66Rn39JfmyftMdvP+HsiE2c
+         Mqi9WnFIJUM5/Yu7Cgx4/FFHwnOIhW3fznGCvyf/fHbN0hfUgQvnvpIHghNCPFzx7djp
+         3a4jxQb4uuXgQ3JwoyRrRbhCjeBg6pXnzeXvor57l3uEth2xdgUGFXv9llmW9qM5QF8h
+         +Nvg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: ANhLgQ2h5NtPDDGiR3zyH39uINQF1u+WrDemlpE1SP8t9QZkF1G6hPon
-	FRedxWRJb9Zqwgp2o+Es/JA=
-X-Google-Smtp-Source: ADFU+vuGE5HaBTS5pxGRMFg2PcQ9iI5VxpSYkQYbRovLI6FUvL5MBwqnRL3w51Z/Vpko7o+xkLNQpA==
-X-Received: by 2002:a0c:e902:: with SMTP id a2mr6034006qvo.20.1583998987639;
-        Thu, 12 Mar 2020 00:43:07 -0700 (PDT)
+X-Gm-Message-State: ANhLgQ2ryb/XhauBGvEYUywzgBojsXf+Kcl7pqp6PEBsq4Pj4Y4cS7ZP
+	DF227Tk9BncCQd9sNWAzJGM=
+X-Google-Smtp-Source: ADFU+vtv9wZR919B4WOo+7DnABwL6YqlrSZlPJopSb2Vc+/Kj1gWm6J9Zfw8kPUeqoildT/ulCAMpQ==
+X-Received: by 2002:a9d:70c5:: with SMTP id w5mr12393570otj.58.1584121233148;
+        Fri, 13 Mar 2020 10:40:33 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a0c:efc2:: with SMTP id a2ls1097280qvt.5.gmail; Thu, 12 Mar
- 2020 00:43:07 -0700 (PDT)
-X-Received: by 2002:a05:6214:12c1:: with SMTP id s1mr5909806qvv.150.1583998987049;
-        Thu, 12 Mar 2020 00:43:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1583998987; cv=none;
-        d=google.com; s=arc-20160816;
-        b=Kgb6U7c+xaZRQsMhHH8HnBXp0jO03JwvIkTiJ6/Z/og4l+RCppbRM8qjTQOFyGULlE
-         50oPcEE2su0wXKAZM99Efu/oNG2vYkMLzxxuTlTmVJdaxw8qvPTlu8CLpWIQbxwSpqxV
-         jO1Je+EnHfTiYzkI7YJ8ckmERzjmaqJ8dt7mwpmovlqy2AQ3yEnur9ARwGR7Xo3tE8+y
-         PTQjhRYqas8WXNv0X8gb9eLJqHMkUit5iXOqDIBqtwo3q2Yhga/RSNwHgtHfrfUGvQBd
-         822qttjWuHODPcc6yDvF90GRQ0e7npdHhIYFt8n0STIn8/r8QbnFBSiWS6Cr70chilA6
-         QvVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:subject:message-id:to:from
-         :dkim-signature:date;
-        bh=3WfgEbdDQdaz4G2l41xAM2KqCd0uytPvjqhirOtQ1ug=;
-        b=vx2UvJsFwZeV44tucOu4fMmLxe7LUoQ4j5eH38gFOLQzXX+VsdAWeKPQpb2JIo4mX9
-         jaeDpUwBDdnX8cAdKrarUp4rVrTOm//VtL9RXMkmct3BgPGAv9jFI51JY5l6HUeyQCXv
-         jIdhA1YgJZm8Hys0XNq9Zjcgi8aEoqe6whtDQWihzPjanDdP3xNzj/rd9cTeAmMLSFU1
-         xWVnRRRmxhDwgkNDwRvzQXtcDAL3Z5Kf9iCePFMjt4ll3mOA4zhRODkQTetSoWmkXRYm
-         CQdN08K1BjlHt0igAMv5ELeviI22l0Z+iaTK2bO4fjUQEJm5PozgL8u2iHotq3hLAqwv
-         TYiQ==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b="v6s/QVxF";
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.207 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
-Received: from out-24.smtp.github.com (out-24.smtp.github.com. [192.30.252.207])
-        by gmr-mx.google.com with ESMTPS id m18si222811qtn.5.2020.03.12.00.43.07
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 12 Mar 2020 00:43:07 -0700 (PDT)
-Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.207 as permitted sender) client-ip=192.30.252.207;
-Date: Thu, 12 Mar 2020 00:43:06 -0700
-From: Jan Kiszka <noreply@github.com>
-To: jailhouse-dev@googlegroups.com
-Message-ID: <siemens/jailhouse/push/refs/heads/wip/riscv/13ad66-4125d8@github.com>
-Subject: [siemens/jailhouse] 4125d8: RISC-V cornerstone
-Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
-X-Auto-Response-Suppress: All
-X-Original-Sender: noreply@github.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
- mode) header.i=@github.com header.s=pf2014 header.b="v6s/QVxF";
-       spf=pass (google.com: domain of noreply@github.com designates
- 192.30.252.207 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: by 2002:a9d:12f2:: with SMTP id g105ls3191977otg.6.gmail; Fri, 13
+ Mar 2020 10:40:32 -0700 (PDT)
+X-Received: by 2002:a05:6830:20c9:: with SMTP id z9mr12094256otq.44.1584121232287;
+        Fri, 13 Mar 2020 10:40:32 -0700 (PDT)
+Date: Fri, 13 Mar 2020 10:40:31 -0700 (PDT)
+From: Saroj Sapkota <samirroj2016@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <2568a874-f368-4cec-9076-bad2a0669af4@googlegroups.com>
+Subject: how to make two non root cell with different resource allocation
+ (serial port, IVSHMEM) in jetson tx1
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_1528_875332984.1584121231568"
+X-Original-Sender: samirroj2016@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -121,59 +76,854 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-  Branch: refs/heads/wip/riscv
-  Home:   https://github.com/siemens/jailhouse
-  Commit: 4125d8501e7003fbf7a056f8d9e36c54193d04c7
-      https://github.com/siemens/jailhouse/commit/4125d8501e7003fbf7a056f8d9e36c54193d04c7
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2020-03-11 (Wed, 11 Mar 2020)
+------=_Part_1528_875332984.1584121231568
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1529_1373229030.1584121231568"
 
-  Changed paths:
-    A configs/riscv/qemu-riscv64.c
-    M driver/main.c
-    A hypervisor/arch/riscv/Kbuild
-    A hypervisor/arch/riscv/Makefile
-    A hypervisor/arch/riscv/asm-defines.c
-    A hypervisor/arch/riscv/control.c
-    A hypervisor/arch/riscv/dbg-write.c
-    A hypervisor/arch/riscv/entry.S
-    A hypervisor/arch/riscv/include/asm/bitops.h
-    A hypervisor/arch/riscv/include/asm/cell.h
-    A hypervisor/arch/riscv/include/asm/control.h
-    A hypervisor/arch/riscv/include/asm/ivshmem.h
-    A hypervisor/arch/riscv/include/asm/jailhouse_header.h
-    A hypervisor/arch/riscv/include/asm/mmio.h
-    A hypervisor/arch/riscv/include/asm/paging.h
-    A hypervisor/arch/riscv/include/asm/paging_modes.h
-    A hypervisor/arch/riscv/include/asm/percpu.h
-    A hypervisor/arch/riscv/include/asm/processor.h
-    A hypervisor/arch/riscv/include/asm/sections.h
-    A hypervisor/arch/riscv/include/asm/spinlock.h
-    A hypervisor/arch/riscv/include/asm/types.h
-    A hypervisor/arch/riscv/ivshmem.c
-    A hypervisor/arch/riscv/lib.c
-    A hypervisor/arch/riscv/paging.c
-    A hypervisor/arch/riscv/pci.c
-    A hypervisor/arch/riscv/setup.c
-    A include/arch/riscv/asm/jailhouse_hypercall.h
-    A inmates/demos/riscv/Makefile
-    A inmates/lib/riscv/Makefile
-    A inmates/tests/riscv/Makefile
-    A inmates/tools/riscv/Makefile
-    M scripts/include.mk
+------=_Part_1529_1373229030.1584121231568
+Content-Type: text/plain; charset="UTF-8"
 
-  Log Message:
-  -----------
-  RISC-V cornerstone
-
-This allows to build Jailhouse for RISC-V, using QEMU as a first target.
-The assembly entry routine can be called and returns a funky error for
-now. All the rest are stubs.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
+I tried to make two different non-root cell by taking jetson-tx1-demo as an 
+example when I try to create cell it says resource busy. Then I make 
+another configuration as espresso-demo i was able to create cell but when I 
+tried to change communication region and UART region (I mean address) it 
+shows un-handled error but when I kept UART and communication address same 
+as the tx1-demo it was successfully loaded and started with tx1-demo. 
+Displaying result in the same serial port.
+I have attached three configuration 
+1.jetson-tx1-demo(in built in jailhouse)
+2.jetson-tx1-inmate1(configured by using 1 as template) (resource busy 
+error)
+3.jetson-tx1-inmate2(configured by using espresso-demo as template)
+4.jetson-tx1 root cell
+Questions:
+1. Do all cell have same UART, IVSHMEM, and communication 
+region(0x80000000; I checked with other arm64 cell also all of them have 
+same address why?)?
+2. How can I direct output of each cell to different serial port?
+3. Why there is resource busy error in second case?
+4. I don't understand how to declare irqchip and pci_device for each cell 
+and root cell? (most difficult one)
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/wip/riscv/13ad66-4125d8%40github.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/2568a874-f368-4cec-9076-bad2a0669af4%40googlegroups.com.
+
+------=_Part_1529_1373229030.1584121231568
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>I tried to make two different non-root cell by taking=
+ jetson-tx1-demo as an example when I try to create cell it says resource b=
+usy. Then I make another configuration as espresso-demo i was able to creat=
+e cell but when I tried to change communication region and UART region (I m=
+ean address) it shows un-handled error but when I kept UART and communicati=
+on address same as the tx1-demo it was successfully loaded and started with=
+ tx1-demo. Displaying result in the same serial port.</div><div>I have atta=
+ched three configuration <br></div><div>1.jetson-tx1-demo(in built in jailh=
+ouse)</div><div>2.jetson-tx1-inmate1(configured by using 1 as template) (re=
+source busy error)<br></div><div>3.jetson-tx1-inmate2(configured by using e=
+spresso-demo as template)</div><div>4.jetson-tx1 root cell<br></div><div>Qu=
+estions:</div><div>1. Do all cell have same UART, IVSHMEM, and communicatio=
+n region(0x80000000; I checked with other arm64 cell also all of them have =
+same address why?)?</div><div>2. How can I direct output of each cell to di=
+fferent serial port?</div><div>3. Why there is resource busy error in secon=
+d case?</div><div>4. I don&#39;t understand how to declare irqchip and pci_=
+device for each cell and root cell? (most difficult one)<br></div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/2568a874-f368-4cec-9076-bad2a0669af4%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/2568a874-f368-4cec-9076-bad2a0669af4%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_1529_1373229030.1584121231568--
+
+------=_Part_1528_875332984.1584121231568
+Content-Type: text/x-csrc; charset=US-ASCII; name=jetson-tx1.c
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename=jetson-tx1.c
+X-Attachment-Id: 1939abee-4465-4e7d-b081-3052e7a55e56
+Content-ID: <1939abee-4465-4e7d-b081-3052e7a55e56>
+
+/*
+ * Jailhouse, a Linux-based partitioning hypervisor
+ *
+ * Configuration for Jailhouse Jetson TX1 board
+ *
+ * Copyright (C) 2016 Evidence Srl
+ *
+ * Authors:
+ *  Claudio Scordino <claudio@evidence.eu.com>
+ *  Bruno Morelli <b.morelli@evidence.eu.com>
+ *  Luca Cuomo <l.cuomo@evidence.eu.com>
+ *
+ * This work is licensed under the terms of the GNU GPL, version 2.  See
+ * the COPYING file in the top-level directory.
+ *
+ * NOTE: Add "mem=3968M vmalloc=512M" to the kernel command line.
+ */
+
+#include <jailhouse/types.h>
+#include <jailhouse/cell-config.h>
+
+#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
+
+struct {
+	struct jailhouse_system header;
+	__u64 cpus[1];
+	struct jailhouse_memory mem_regions[44];
+        struct jailhouse_irqchip irqchips[2];
+	struct jailhouse_pci_device pci_devices[2];
+} __attribute__((packed)) config = {
+	.header = {
+		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
+		.revision = JAILHOUSE_CONFIG_REVISION,
+		.hypervisor_memory = {
+			.phys_start = 0x17c000000,
+			.size = 0x4000000,
+		},
+		.debug_console = {
+			.address = 0x70006000,
+			.size = 0x0040,
+			.flags = JAILHOUSE_CON1_TYPE_8250 |
+				 JAILHOUSE_CON1_ACCESS_MMIO |
+				 JAILHOUSE_CON1_REGDIST_4 |
+				 JAILHOUSE_CON2_TYPE_ROOTPAGE,
+		},
+		.platform_info = {
+			.pci_mmconfig_base = 0x48000000,
+			.pci_mmconfig_end_bus = 0,
+			.pci_is_virtual = 1,
+			.pci_domain = -1,
+
+			.arm = {
+				.gic_version = 2,
+				.gicd_base = 0x50041000,
+				.gicc_base = 0x50042000,
+				.gich_base = 0x50044000,
+				.gicv_base = 0x50046000,
+				.maintenance_irq = 25,
+			}
+		},
+		.root_cell = {
+			.name = "Jetson-TX1",
+			.cpu_set_size = sizeof(config.cpus),
+			.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+			.num_pci_devices = ARRAY_SIZE(config.pci_devices),
+			.num_irqchips = ARRAY_SIZE(config.irqchips),
+			/*On jetson TX1 IRQ from 212 to 223 are not assigned.
+			The root cell will use from 212 to 217. 
+			Note: Jailhouse	adds 32 (GIC's SPI) 
+			to the .vpci_irq_base , so 180 is the base value*/
+			.vpci_irq_base = 180,
+		},
+	},
+
+	.cpus = {
+		0xf,
+	},
+
+
+	.mem_regions = {
+
+		/* APE 1 */ {
+			.phys_start = 0x00000000,
+			.virt_start = 0x00000000,
+			.size = 0x00D00000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* PCIE */ {
+			.phys_start = 0x01000000,
+			.virt_start = 0x01000000,
+			.size = 0x3F000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* Data memory */ {
+			.phys_start = 0x040000000,
+			.virt_start = 0x040000000,
+			.size = 0x1000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* host1x */ {
+			.phys_start = 0x50000000,
+			.virt_start = 0x50000000,
+			.size = 0x40000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* Graphics Host */ {
+			.phys_start = 0x54000000,
+			.virt_start = 0x54000000,
+			.size = 0x3000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* GPU */ {
+			.phys_start = 0x57000000,
+			.virt_start = 0x57000000,
+			.size = 0x9000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* Semaphores */ {
+			.phys_start = 0x60000000,
+			.virt_start = 0x60000000,
+			.size = 0x4000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* Legacy Interrupt Controller (ICTRL) */ {
+			.phys_start = 0x60004000,
+			.virt_start = 0x60004000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* TMR */ {
+			.phys_start = 0x60005000,
+			.virt_start = 0x60005000,
+			.size = 0x01000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* Clock and Reset */ {
+			.phys_start = 0x60006000,
+			.virt_start = 0x60006000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* Flow Controller */ {
+			.phys_start = 0x60007000,
+			.virt_start = 0x60007000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* AHB-DMA */ {
+			.phys_start = 0x60008000,
+			.virt_start = 0x60008000,
+			.size = 0x2000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* System registers, secure boot, activity monitor */ {
+			.phys_start = 0x6000c000,
+			.virt_start = 0x6000c000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* GPIOs + exception vectors */ {
+			.phys_start = 0x6000d000,
+			.virt_start = 0x6000d000,
+			.size = 0x2000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* IPATCH */ {
+			.phys_start = 0x60010000,
+			.virt_start = 0x60010000,
+			.size = 0x0010000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* APB-DMA + VGPIO */ {
+			.phys_start = 0x60020000,
+			.virt_start = 0x60020000,
+			.size = 0x5000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* MISC stuff (see datasheet) */ {
+			.phys_start = 0x70000000,
+			.virt_start = 0x70000000,
+			.size = 0x4000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* UARTs */ {
+			.phys_start = 0x70006000,
+			.virt_start = 0x70006000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* PWM Controller */ {
+			.phys_start = 0x7000a000,
+			.virt_start = 0x7000a000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* I2C  + SPI*/ {
+			.phys_start = 0x7000c000,
+			.virt_start = 0x7000c000,
+			.size = 0x2000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* RTC  + PMC + FUSE + KFUSE */ {
+			.phys_start = 0x7000e000,
+			.virt_start = 0x7000e000,
+			.size = 0x2000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* Sensors */ {
+			.phys_start = 0x70010000,
+			.virt_start = 0x70010000,
+			.size = 0x0008000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* MC */ {
+			.phys_start = 0x70019000,
+			.virt_start = 0x70019000,
+			.size = 0x7000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* SATA */ {
+			.phys_start = 0x70020000,
+			.virt_start = 0x70020000,
+			.size = 0x0010000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* HDA */ {
+			.phys_start = 0x70030000,
+			.virt_start = 0x70030000,
+			.size = 0x10000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* CLUSTER CLOCK */ {
+			.phys_start = 0x70040000,
+			.virt_start = 0x70040000,
+			.size = 0x0040000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* XUSB */ {
+			.phys_start = 0x70090000,
+			.virt_start = 0x70090000,
+			.size = 0x10000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* DDS */ {
+			.phys_start = 0x700a0000,
+			.virt_start = 0x700a0000,
+			.size = 0x0002000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* SDMMCs */ {
+			.phys_start = 0x700b0000,
+			.virt_start = 0x700b0000,
+			.size = 0x5000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* SPEEDO */ {
+			.phys_start = 0x700c0000,
+			.virt_start = 0x700c0000,
+			.size = 0x0008000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* DP2 + APB2JTAG */ {
+			.phys_start = 0x700e0000,
+			.virt_start = 0x700e0000,
+			.size = 0x0002000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* SOC_THERM */ {
+			.phys_start = 0x700e2000,
+			.virt_start = 0x700e2000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* MIPI_CAL */ {
+			.phys_start = 0x700e3000,
+			.virt_start = 0x700e3000,
+			.size = 0x100,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* SYSCTR0 */ {
+			.phys_start = 0x700f0000,
+			.virt_start = 0x700f0000,
+			.size = 0x0010000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* SYSCTR1 */ {
+			.phys_start = 0x70100000,
+			.virt_start = 0x70100000,
+			.size = 0x0010000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* DVFS */ {
+			.phys_start = 0x70110000,
+			.virt_start = 0x70110000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* APE 2 */ {
+			.phys_start = 0x702c0000,
+			.virt_start = 0x702c0000,
+			.size = 0x40000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* QSPI */ {
+			.phys_start = 0x70410000,
+			.virt_start = 0x70410000,
+			.size = 0x0001000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* STM + CSITE */ {
+			.phys_start = 0x71000000,
+			.virt_start = 0x71000000,
+			.size = 0x2000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* AHB_A1 */ {
+			.phys_start = 0x78000000,
+			.virt_start = 0x78000000,
+			.size = 0x1000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* AHB_A2 or USB */ {
+			.phys_start = 0x7c000000,
+			.virt_start = 0x7c000000,
+			.size = 0x2000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* System RAM */ {
+			.phys_start = 0x80000000,
+			.virt_start = 0x80000000,
+			.size = 0xfc000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE,
+		},
+		/* IVHSMEM  1*/ {
+                        .phys_start = 0x17ba00000,
+                        .virt_start = 0x17ba00000,
+                        .size = 0x100000,
+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE ,
+
+                },
+
+		/* IVHSMEM  2*/ {
+                        .phys_start = 0x17bd00000,
+                        .virt_start = 0x17bd00000,
+                        .size = 0x100000,
+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE ,
+                },
+
+	},
+
+	.irqchips = {
+		/* GIC */ {
+			.address = 0x50041000,
+			.pin_base = 32,
+			.pin_bitmap = {
+				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff
+			},
+		},
+		/* GIC */ {
+			.address = 0x50041000,
+			.pin_base = 160,
+			.pin_bitmap = {
+				0xffffffff, 0xffffffff, 0xffffffff
+			},
+		},
+	},
+
+	.pci_devices = {
+                {
+                        .type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+                        .bdf = 0x0 << 3,
+                        .bar_mask = {
+                                0xffffff00, 0xffffffff, 0x00000000,
+                                0x00000000, 0x00000000, 0x00000000,
+                        },
+
+			/*num_msix_vectors needs to be 0 for INTx operation*/
+                        .num_msix_vectors = 0,
+			.shmem_region = 42,
+			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
+
+                },
+
+		{
+                        .type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+                        .bdf = 0xf << 3,
+                        .bar_mask = {
+                                0xffffff00, 0xffffffff, 0x00000000,
+                                0x00000000, 0x00000000, 0x00000000,
+                        },
+
+                        /*num_msix_vectors needs to be 0 for INTx operation*/
+                        .num_msix_vectors = 0,
+                        .shmem_region = 43,
+                        .shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
+
+                },
+        },
+
+};
+
+------=_Part_1528_875332984.1584121231568
+Content-Type: text/x-csrc; charset=US-ASCII; name=jetson-tx1-demo.c
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename=jetson-tx1-demo.c
+X-Attachment-Id: 88d3ed0c-d9d1-4085-abe2-29e4a3b728c8
+Content-ID: <88d3ed0c-d9d1-4085-abe2-29e4a3b728c8>
+
+/*
+ * Jailhouse, a Linux-based partitioning hypervisor
+ *
+ * Configuration for uart+ivshmem demo inmate on Nvidia Jetson TX1:
+ * 1 CPU, 64K RAM, serial port 0
+ *
+ * Copyright (c)  2018 Evidence Srl
+ *
+ * Authors:
+ *  Luca Cuomo <l.cuomo@evidence.eu.com>
+ *
+ *
+ * This work is licensed under the terms of the GNU GPL, version 2.  See
+ * the COPYING file in the top-level directory.
+ */
+
+#include <jailhouse/types.h>
+#include <jailhouse/cell-config.h>
+
+#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
+
+struct {
+	struct jailhouse_cell_desc cell;
+	__u64 cpus[1];
+	struct jailhouse_memory mem_regions[4];
+	struct jailhouse_irqchip irqchips[2];
+	struct jailhouse_pci_device pci_devices[1];
+} __attribute__((packed)) config = {
+	.cell = {
+		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
+		.revision = JAILHOUSE_CONFIG_REVISION,
+		.name = "jetson-tx1-demo",
+		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+
+		.cpu_set_size = sizeof(config.cpus),
+		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+		.num_irqchips = ARRAY_SIZE(config.irqchips),
+		.num_pci_devices = ARRAY_SIZE(config.pci_devices),
+		/*On Jetson TX1 the IRQs from 212 to 223 are not assigned.
+		The bare metal cell will use IRQs from 218 to 223.
+		Note: Jailhouse adds 32 (GIC's SPI) to the .vpci_irq_base,
+		so 186 is the base value*/
+		.vpci_irq_base = 186,
+	},
+
+	.cpus = {
+		0x8,
+	},
+
+	.mem_regions = {
+		/* UART */ {
+			.phys_start = 0x70006000,
+			.virt_start = 0x70006000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* RAM */ {
+			.phys_start = 0x17bfe0000,
+			.virt_start = 0,
+			.size = 0x00010000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+		},
+		/* communication region */ {
+			.virt_start = 0x80000000,
+			.size = 0x00001000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_COMM_REGION,
+		},
+		/* IVHSMEM  1*/ {
+                        .phys_start = 0x17ba00000,
+                        .virt_start = 0x17ba00000,
+                        .size = 0x100000,
+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE  |
+                                JAILHOUSE_MEM_ROOTSHARED,
+
+                },
+
+                /* IVHSMEM  2*/ /*{
+                        .phys_start = 0x17bd00000,
+                        .virt_start = 0x17bd00000,
+                        .size = 0x100000,
+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+                                JAILHOUSE_MEM_ROOTSHARED ,
+
+                },*/ //IVHSMEM 2 used in jetson-tx1-inmate1 
+	},
+
+	.irqchips = {
+		/* GIC */ {
+			.address = 0x50041000,
+                        .pin_base = 32,
+                        /* Interrupts:
+                           46 for UART C  */
+                        .pin_bitmap = {
+				0,
+				1<<(46-32)
+                        },
+                },
+
+		/* GIC */ {
+			.address = 0x50041000,
+                        .pin_base = 160,
+                        /* Interrupts:
+                           186 for IVSHMEM,
+                           belongs to the bare metal cell  */
+                        .pin_bitmap = {
+				0,
+				3<<(186-160)
+                        },
+                },
+        },
+
+	.pci_devices = {
+                {
+                        .type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+                        .bdf = 0x0 << 3,
+                        .bar_mask = {
+                                0xffffff00, 0xffffffff, 0x00000000,
+                                0x00000000, 0x00000000, 0x00000000,
+                        },
+			/* num_msix_vectors needs to be 0 for INTx operation*/
+			.num_msix_vectors = 0, 
+                        .shmem_region = 3, /* must be no of IVSHMEM region above */
+			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
+                },
+		 /*{
+                        .type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+                        .bdf = 0xf << 3,
+                        .bar_mask = {
+                                0xffffff00, 0xffffffff, 0x00000000,
+                                0x00000000, 0x00000000, 0x00000000,
+                        },
+                        /* num_msix_vectors needs to be 0 for INTx operation*/
+                       /* .num_msix_vectors = 0,
+                        .shmem_region = 4, /* must be no of IVSHMEM region above */
+                       /* .shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
+                },*/
+        },
+};
+
+------=_Part_1528_875332984.1584121231568
+Content-Type: text/x-csrc; charset=US-ASCII; name=jetson-tx1-inamte2.c
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename=jetson-tx1-inamte2.c
+X-Attachment-Id: 658001a6-cf48-439f-90ec-4dd54e50c57f
+Content-ID: <658001a6-cf48-439f-90ec-4dd54e50c57f>
+
+/*this cell is created and loaded successfully while the error obtained while changining UART adderss alone and Communication
+region alone is placed in comments*/
+
+#include <jailhouse/types.h>
+#include <jailhouse/cell-config.h>
+
+#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
+
+struct {
+        struct jailhouse_cell_desc cell;
+        __u64 cpus[1];
+        struct jailhouse_memory mem_regions[3];
+        //struct jailhouse_irqchip irqchips[2];
+        //struct jailhouse_pci_device pci_devices[2];
+} __attribute__((packed)) config = {
+        .cell = {
+                .signature = JAILHOUSE_CELL_DESC_SIGNATURE,
+                .revision = JAILHOUSE_CONFIG_REVISION,
+                .name = "jetson-tx1-inmate2",
+                .flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+
+                .cpu_set_size = sizeof(config.cpus),
+                .num_memory_regions = ARRAY_SIZE(config.mem_regions),
+                .num_irqchips = 0, //ARRAY_SIZE(config.irqchips),
+                .num_pci_devices = 0, //ARRAY_SIZE(config.pci_devices),
+                //.vpci_irq_base = 186,
+        },
+
+        .cpus = {
+                0x4,
+        },
+
+        .mem_regions = {
+                /* UART */ {
+                        .phys_start = 0x70006000,/*when change to 0x70006200 (address of UARTC ) 
+						unhandlled error at 0x70006024 when loading cell*/
+                        .virt_start = 0x70006000,
+                        .size = 0x1000,//size decress to oxe00 for 0x70006200
+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+                                JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
+                },
+                /* RAM */ {
+                        .phys_start = 0x17a000000,
+                        .virt_start = 0,
+                        .size = 0x00010000,
+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+                                JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+                                JAILHOUSE_MEM_LOADABLE,
+                },
+                /* communication region */ {
+                        .virt_start = 0x80000000,//when change to 0x80001000 unhandlled error at 0x80000006 when loading cell
+                        .size = 0x00001000,
+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+                                JAILHOUSE_MEM_COMM_REGION,
+                },
+        }
+};
+                                                                     
+
+------=_Part_1528_875332984.1584121231568
+Content-Type: text/x-csrc; charset=US-ASCII; name=jetson-tx1-inmate1.c
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename=jetson-tx1-inmate1.c
+X-Attachment-Id: 616f51fc-8a61-4ecb-a4be-5a863d2f1d98
+Content-ID: <616f51fc-8a61-4ecb-a4be-5a863d2f1d98>
+
+#include <jailhouse/types.h>
+#include <jailhouse/cell-config.h>
+
+#define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
+
+struct {
+        struct jailhouse_cell_desc cell;
+        __u64 cpus[1];
+        struct jailhouse_memory mem_regions[4];
+        struct jailhouse_irqchip irqchips[2];
+        struct jailhouse_pci_device pci_devices[1];
+} __attribute__((packed)) config = {
+        .cell = {
+                .signature = JAILHOUSE_CELL_DESC_SIGNATURE,
+                .revision = JAILHOUSE_CONFIG_REVISION,
+                .name = "jetson-tx1-inmate1",
+                .flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+
+                .cpu_set_size = sizeof(config.cpus),
+                .num_memory_regions = ARRAY_SIZE(config.mem_regions),
+                .num_irqchips = ARRAY_SIZE(config.irqchips),
+                .num_pci_devices = ARRAY_SIZE(config.pci_devices),
+                .vpci_irq_base = 190,//186 in tx1-demo
+        },
+
+        .cpus = {
+                0x4,
+        },
+
+        .mem_regions = {
+                /* UART */ {
+                        .phys_start = 0x70006000,
+                        .virt_start = 0x70006000,
+                        .size = 0x1000,
+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+                                JAILHOUSE_MEM_IO,
+                },//same as tx1-demo
+                /* RAM */ {
+                        .phys_start = 0x17a000000,//0xbfe000000 in tx1-demo
+                        .virt_start = 0,
+                        .size = 0x00010000,
+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+                                JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+                },
+                /* communication region */ {
+                        .virt_start = 0x80000000,
+                        .size = 0x00001000,
+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+                                JAILHOUSE_MEM_COMM_REGION,
+ 		},//same as tx1-demo
+
+                 /*IVHSMEM  2*/ {
+                        .phys_start = 0x17bd00000,
+                        .virt_start = 0x17bd00000,
+                        .size = 0x100000,
+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+                                JAILHOUSE_MEM_ROOTSHARED ,
+
+                },
+        },
+
+        .irqchips = {
+                /* GIC */ {
+                        .address = 0x50041000,
+                        .pin_base = 32,
+                        /* Interrupts:
+                           37 for UART B  */
+                        .pin_bitmap = {
+                                0,
+                                1<<(37-32)//46-32 for tx1-demo
+                        },
+                },
+
+                /* GIC */ {
+                        .address = 0x50041000,
+                        .pin_base = 160,
+                        /* Interrupts:
+                           190 for IVSHMEM,
+                           belongs to the bare metal cell  */
+                        .pin_bitmap = {
+                                0,
+                                3<<(190-160) //186-160 for tx1-demo
+                        },
+                },
+        },
+
+        .pci_devices = {
+                {
+                        .type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+                        .bdf = 0x0 << 3,
+                        .bar_mask = {
+                                0x00000000, 0x00000000, 0xffffffff,
+                                0xffffffff, 0x00000000, 0x00000000,
+                        },
+                        /* num_msix_vectors needs to be 0 for INTx operation*/
+                        .num_msix_vectors = 0,
+                        .shmem_region = 3, /* must be no of IVSHMEM region above */
+ 			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
+                },
+                 
+        },
+};
+
+
+
+
+------=_Part_1528_875332984.1584121231568--
