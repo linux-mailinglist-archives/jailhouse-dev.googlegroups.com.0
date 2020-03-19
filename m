@@ -1,63 +1,63 @@
-Return-Path: <jailhouse-dev+bncBDSMF24UTUGRBSX5ZXZQKGQETU5T4CI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDSMF24UTUGRB3P7ZXZQKGQEFCI5OFQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oi1-x23f.google.com (mail-oi1-x23f.google.com [IPv6:2607:f8b0:4864:20::23f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0223818B928
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 19 Mar 2020 15:16:44 +0100 (CET)
-Received: by mail-oi1-x23f.google.com with SMTP id v198sf1695337oia.15
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 19 Mar 2020 07:16:43 -0700 (PDT)
+Received: from mail-ot1-x337.google.com (mail-ot1-x337.google.com [IPv6:2607:f8b0:4864:20::337])
+	by mail.lfdr.de (Postfix) with ESMTPS id ED7E818B948
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 19 Mar 2020 15:21:34 +0100 (CET)
+Received: by mail-ot1-x337.google.com with SMTP id g63sf1579554otb.22
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 19 Mar 2020 07:21:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:date:from:to:message-id:in-reply-to:references:subject
          :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=RopUrPNF8tA61JF+LwXsREbmBsNBRMSvxSPG/Nx1A9k=;
-        b=LIGHx4Eji+G4hjniuFFQmCrL4plxuliqb6MOezN1tnYAxp61Jabya47uQVnbTpWxZj
-         ZlSZFZ9KVf35gR4t6LJSwF4Jw4roOAei8dYdEAqjorGmIwkKYCx2bowkajYUEN/fPdnv
-         kphLAm5c52FHtvSG0fSvdXd2OPu0LhW80fjXO8kBvW+kBEvi++gX5CmQCIs6F5qligr3
-         uE0EfxHCNuFI6MDaq+IN6iMCr2qdC5qoTdZ9ua2roKEUTTALhFoMjInzyPNDoslj61wB
-         vo3PEghnvFbzqMo+Lbp/MwfTWgvPGCgt/Rd5oHa2DjToz7OPKkLN3+ubwZIGu3pAIIag
-         VYYQ==
+        bh=FA/ca7uGorx9W9RORhNYh5O8PKdObnCnPv7mPL1XSGU=;
+        b=gXWs+0PIOCAF3lVp5dw1da/puozU59tgN3ZvRAAxFyizXrueIAJ1vI8fgY/9Gu5FUI
+         kPUxHADJPO9vrCywtwE2luxhGJKbwbH6WwslBtzEpfLDtuPYa1NyZZq+1o0uLaZROyD6
+         dRXWNk9T4eN+QLcjuo1mVb5LxnUshw6SrXQPbuJHzLbNV3UFE8nz8h84Y0fvAkT0xDUz
+         gTOkw/gtgYVcSM2XDeNjhxihzx6ufLI6aRxsxtKHohNTWighCxoarGZu7U28pkCQPFxe
+         4EDaHG8/RdmfHm5tlhpQ0kskdylO3AIta0+SvP2rLFgwc37pT7uVl0vU9+BTe9A7FtGB
+         8paQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:message-id:in-reply-to:references:subject:mime-version
          :x-original-sender:precedence:mailing-list:list-id:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=RopUrPNF8tA61JF+LwXsREbmBsNBRMSvxSPG/Nx1A9k=;
-        b=lsFhJovWTAmCiMxEGocVxwnPsfTM4pGkjfi8tfAaOexIhzWTyfXQBxY6sLepEEKFdH
-         W7sXKK1DaV9ZBfWXqplIxSe7REt04X9wbvEI3i6Rm1vpj/yx/P8oFD8wXCKnP/Q7Z8qg
-         xSmyuFX69dcxwuJnkZ5F+Lb8gkSlnRxExbV3Fujxw5yPJ0GK591ALflt2fDgkp80YoSR
-         cQkbWgkpSfedxtrupUI/ry55vIqkvbMxt+EqnE7wLcbUALKzeqR1eFe5Lhz2eLFsN+uQ
-         wgVLeZ8xjb2DhVDXdMrUlK3XA3wj8dzrV3OwCRsmvqmkeMHF9K8p95rFte6jzj0Q4xp9
-         nLZw==
+        bh=FA/ca7uGorx9W9RORhNYh5O8PKdObnCnPv7mPL1XSGU=;
+        b=DyvKvHq+jTzhYncruxd3LFqiROTQNrZDwfoEbgqL2dI1ckRiAj7G1LOvFlhpApSxkf
+         nY9g145mK7na7VLrBGisTYI7s0hYlQjTCOxWeCQzXE5EC6FZct0F1N/8dPbMq3abaeQN
+         axAKGqR6eVm2ClWlMlzWX1P+KGR10f1p+7nfUZ6Ksr+GtQ/ZLJjFMtog7cHvux0PyPNL
+         DFvheJnyIAGRNlH11goAmw2Bb5rFQYxYUsfyDdLiQoJKWbrIKMPZ2bw14zwmzD11sOJP
+         JC34OKDSc4yK2KJBNsZDIGxrdF+AqlOOeFHpN+lNXExRDSHrPq3wCsry16lz6cZdoWNI
+         bbqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
          :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=RopUrPNF8tA61JF+LwXsREbmBsNBRMSvxSPG/Nx1A9k=;
-        b=MGRfSuJd5OyJlzcPOizyydxivtBGD1Yz/ZyoIBdInXN1ZwCvLD0oUmJvbk9LzlZrxe
-         NrFNZFQpUDP9gJrnT2hZP5FbEdS9FPqpCYt6pVyMgmWaP+y8ja+mPFsZbmn+IM9N2bPI
-         85FoeJQ5WSAhezoni9O16AOO2zhqG92eJLpO3LnJXvr3vPwxf6Pg6xrAnbXa65SAlNLG
-         qtLi2tP3SUA3Kepb2vLqqKMhqp5kMEgd7RQ6wW0kYMKXwAAkHQeOT/1hQuj29JT0bADA
-         JX7D+Z8B2oNby9HgBlqecUctLrUFG4QQsl1G3dGcgoBZGiqZpXgiA6FAv8byGkYhiK05
-         4ttw==
+        bh=FA/ca7uGorx9W9RORhNYh5O8PKdObnCnPv7mPL1XSGU=;
+        b=IMpptav27Dv02sVKUIXygF+mY+iRxYVZH3cfE/NHTH7R5XqXhRUpdBuVwJ55IfwWi4
+         wFaspcdZGUklsxlZnM+2GLaatgCVhiILxBC1IGNN7zK0RSeFxG/7vkVZ/zytmb0Yaa44
+         RuePmsniUOSatDM9jIBXQVPEEXrQS80LDO1s/ZSLLXgrYvWjaf2ALP7VuC+gJFmC6+ag
+         l/WG/RzwL+YGLpPwldxgnL5s8DeRwp4GN9d2Gaq3Kjqhi0Z/3tyP9MkkglrsB1HR3BsY
+         V3frBQS9hjdR6PV6BwsQ0Qe5rcT4NjFRBZ1vGXacYussHGHdXkAVu7ccpXjiJ4s5nh60
+         fztg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: ANhLgQ3e7rZuv9P81sdf0yrg6OFPG4LnL4BtUypBkfNk+R7MQhqA7z3F
-	k5Z+BGtVq7yQVvu8caxDfbo=
-X-Google-Smtp-Source: ADFU+vvCG5AELNzldQQan++c8olQbHxRY6W89een3PjJX4ZrawGk/M+FZ94RSnesAIZZoCH/+rFwww==
-X-Received: by 2002:a9d:d0f:: with SMTP id 15mr2540663oti.161.1584627402576;
-        Thu, 19 Mar 2020 07:16:42 -0700 (PDT)
+X-Gm-Message-State: ANhLgQ0X2Xk9acILo2seYIH7ZbOe991a/d/+nmdHHpQ6Bkv169Zfe/4P
+	nwDBLXvBLGGxwTtY+9cVCbg=
+X-Google-Smtp-Source: ADFU+vvGHm9pY/nDqSuRBWXQrrhi5uUXn/sotdZ7djdcTE6Vb9w61IigcwCT95IiCAW969XFFmZm2A==
+X-Received: by 2002:a05:6808:9ac:: with SMTP id e12mr2169577oig.149.1584627693451;
+        Thu, 19 Mar 2020 07:21:33 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a9d:787:: with SMTP id 7ls1045739oto.3.gmail; Thu, 19 Mar
- 2020 07:16:41 -0700 (PDT)
-X-Received: by 2002:a9d:7991:: with SMTP id h17mr2384399otm.272.1584627401710;
-        Thu, 19 Mar 2020 07:16:41 -0700 (PDT)
-Date: Thu, 19 Mar 2020 07:16:41 -0700 (PDT)
+Received: by 2002:aca:cd45:: with SMTP id d66ls851781oig.7.gmail; Thu, 19 Mar
+ 2020 07:21:33 -0700 (PDT)
+X-Received: by 2002:a05:6808:b13:: with SMTP id s19mr2578055oij.60.1584627692856;
+        Thu, 19 Mar 2020 07:21:32 -0700 (PDT)
+Date: Thu, 19 Mar 2020 07:21:32 -0700 (PDT)
 From: Parth Dode <dodecoder@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <9746e04b-2d4a-4103-8bd8-aa363cfa9fe9@googlegroups.com>
+Message-Id: <1b6751f3-8e34-4170-a4cd-2b0fe152c8a6@googlegroups.com>
 In-Reply-To: <e680e1f1-e368-5d84-8283-47ef95e3ad80@siemens.com>
 References: <36eac3b7-b6bc-4774-826d-9942dae992d1@googlegroups.com>
  <e680e1f1-e368-5d84-8283-47ef95e3ad80@siemens.com>
@@ -66,7 +66,7 @@ Subject: Re:
  Summary: There was 1 ERROR message shown, returning a non-zero exit code.
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_1478_1202005024.1584627401131"
+	boundary="----=_Part_5058_547526269.1584627692362"
 X-Original-Sender: dodecoder@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -80,12 +80,13 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1478_1202005024.1584627401131
+------=_Part_5058_547526269.1584627692362
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_1479_611333453.1584627401132"
+	boundary="----=_Part_5059_1954321694.1584627692362"
 
-------=_Part_1479_611333453.1584627401132
+------=_Part_5059_1954321694.1584627692362
 Content-Type: text/plain; charset="UTF-8"
+
 
 
 On Thursday, March 19, 2020 at 12:03:52 AM UTC+5:30, Jan Kiszka wrote:
@@ -173,7 +174,7 @@ On Thursday, March 19, 2020 at 12:03:52 AM UTC+5:30, Jan Kiszka wrote:
 > Corporate Competence Center Embedded Linux 
 >
 
-
+___________________________________________________________
 Okay so my build environment-
 Kali OS- 8GB ram - i5
 I have it on dual boot with windows10
@@ -181,26 +182,27 @@ I have it on dual boot with windows10
 It got built till 85% this time but an error got reduced. 
 The shell log is quite big , I'll attach it in a text file below.
 
-Thank you for replying , also can you send me a prebuilt image for rpi4 ?
+Thank you for replying , also like you mentioned you built an image without 
+any
+ issues , can you send me that prebuilt image for rpi4 ?
 Do let me know. I'll keep working on the error in that time.
 
-Parth D.
- 
+Parth D. 
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/9746e04b-2d4a-4103-8bd8-aa363cfa9fe9%40googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/1b6751f3-8e34-4170-a4cd-2b0fe152c8a6%40googlegroups.com.
 
-------=_Part_1479_611333453.1584627401132
+------=_Part_5059_1954321694.1584627692362
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><br>On Thursday, March 19, 2020 at 12:03:52 AM UTC+5:30, J=
-an Kiszka wrote:<blockquote class=3D"gmail_quote" style=3D"margin: 0px 0px =
-0px 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex; --=
-darkreader-inline-border-left:#3a3a3a;" data-darkreader-inline-border-left=
-=3D"">On 18.03.20 02:49, Parth Dode wrote:
+<div dir=3D"ltr"><br><br>On Thursday, March 19, 2020 at 12:03:52 AM UTC+5:3=
+0, Jan Kiszka wrote:<blockquote class=3D"gmail_quote" style=3D"margin: 0px =
+0px 0px 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex=
+; --darkreader-inline-border-left:#3a3a3a;" data-darkreader-inline-border-l=
+eft=3D"">On 18.03.20 02:49, Parth Dode wrote:
 <br>&gt; ERROR: mc:rpi4-jailhouse-demo:non-<wbr>root-initramfs-2019.11.1-r0=
 =20
 <br>&gt; do_dpkg_build: Error executing a python function in exec_python_fu=
@@ -314,14 +316,16 @@ ect CC=20
 <br>--=20
 <br>Siemens AG, Corporate Technology, CT RDA IOT SES-DE
 <br>Corporate Competence Center Embedded Linux
-<br></blockquote><div><br></div><div><br></div><div>Okay so my build enviro=
-nment-</div><div>Kali OS- 8GB ram - i5</div><div>I have it on dual boot wit=
-h windows10</div><div><br></div><div>It got built till 85% this time but an=
- error got reduced.=C2=A0</div><div>The shell log is quite big , I&#39;ll a=
-ttach it in a text file below.</div><div><br></div><div>Thank you for reply=
-ing , also can you send me a prebuilt image for rpi4 ?</div><div>Do let me =
-know. I&#39;ll keep working on the error in that time.</div><div><br></div>=
-<div>Parth D.</div><div>=C2=A0</div></div>
+<br></blockquote><div><br></div><div>______________________________________=
+_____________________</div><div>Okay so my build environment-</div><div>Kal=
+i OS- 8GB ram - i5</div><div>I have it on dual boot with windows10</div><di=
+v><br></div><div>It got built till 85% this time but an error got reduced.=
+=C2=A0</div><div>The shell log is quite big , I&#39;ll attach it in a text =
+file below.</div><div><br></div><div>Thank you for replying , also like you=
+ mentioned you built an image without any</div><div>=C2=A0issues , can you =
+send me that prebuilt image for rpi4 ?</div><div>Do let me know. I&#39;ll k=
+eep working on the error in that time.</div><div><br></div><div>Parth D.=C2=
+=A0<br></div></div>
 
 <p></p>
 
@@ -332,11 +336,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/9746e04b-2d4a-4103-8bd8-aa363cfa9fe9%40googlegroup=
+om/d/msgid/jailhouse-dev/1b6751f3-8e34-4170-a4cd-2b0fe152c8a6%40googlegroup=
 s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
-sgid/jailhouse-dev/9746e04b-2d4a-4103-8bd8-aa363cfa9fe9%40googlegroups.com<=
+sgid/jailhouse-dev/1b6751f3-8e34-4170-a4cd-2b0fe152c8a6%40googlegroups.com<=
 /a>.<br />
 
-------=_Part_1479_611333453.1584627401132--
+------=_Part_5059_1954321694.1584627692362--
 
-------=_Part_1478_1202005024.1584627401131--
+------=_Part_5058_547526269.1584627692362--
