@@ -1,129 +1,73 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBEGTZHZQKGQE2X2YJVY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDSMF24UTUGRBSX5ZXZQKGQETU5T4CI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x440.google.com (mail-wr1-x440.google.com [IPv6:2a00:1450:4864:20::440])
-	by mail.lfdr.de (Postfix) with ESMTPS id E93AF18A268
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 18 Mar 2020 19:33:52 +0100 (CET)
-Received: by mail-wr1-x440.google.com with SMTP id l16sf12066942wrr.6
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 18 Mar 2020 11:33:52 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1584556432; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=Rl2nJZmDQie2UDZfEKda8wGBgbQDCEob+0Wy215icmCQipl7jUkJFge7FYlVOubnAG
-         k+n6jPRxTQUJT7o9GTKDhkatVQefVcm4JF2jTdNPgs/eBHmI7qpFbYpeBE31gvkaUpwm
-         j1ObwwS+nwfrTz70rCv5Z2vpvUFt0WhGWtqgttlGZd2Itcn4BaOlSjFA3/xavaCNtEyK
-         sra94ELDP7OsI7aKEJj0Re63W83928V29PPAIOL1ulF4GI6U7ZjstJGFIyaSLGBBLmfV
-         9YgT/IpaXIrxeVUOmN0RSUZxXoTSllj0rC8ow939gbp/B+L6svcwS83ipdEg3ro6I8vM
-         chrw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=EefDJ/j8d5skUSGQas1vws/1HY+orJnDHBbaKtTZWfQ=;
-        b=lLWV+Mxf8J79HCwCIclH9yLlBgF2Y50ojAPBWUpzOrLSzEeU61GLVYR2cXgpP/FCa4
-         AD1MXLjlQw454FNC3HuhufJrmTPxVx84SJb9pz4Tx8/pYj40f0DzUeW7FKAYNho/+VCQ
-         lGvR+iTIE73k/6o4pKNdbfyUmZhtMM+nHYAn5+IHnCxRA20qoICFlzW4kyxtVXvzjPik
-         k3/zO45JM7R5OWNhYknXbBrSj3bxfb7tkaqY5KGe1AKhDTbmdXANtwBxAVRDO46J8WtC
-         6uuxkPjS66BKkpoUi9lpHGmhzfDMmzge9GN7Qs9KY3nMhKDMiHOqQzVwxlVh7uU08nxI
-         itmg==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-oi1-x23f.google.com (mail-oi1-x23f.google.com [IPv6:2607:f8b0:4864:20::23f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0223818B928
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 19 Mar 2020 15:16:44 +0100 (CET)
+Received: by mail-oi1-x23f.google.com with SMTP id v198sf1695337oia.15
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 19 Mar 2020 07:16:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=EefDJ/j8d5skUSGQas1vws/1HY+orJnDHBbaKtTZWfQ=;
-        b=rJptVsFfWl0gLL3+6dw5YHj80K0x++ALpaprCQPNaADs2hWNhfd4wqbviq6wNioF++
-         V5psowcx0pZf6+4z3/46BTtfTOA5rvws8Qnxh8+XDQnEiwdupARApGm9GquwR/BEJ6Y0
-         EK0y1qDzrnoSgZdBkdzp/hhARMBPHbbXvjMk4IPqmd8xHZOgECoYqd9rTkfiPGn0qaAa
-         rryLTQwSUOQdUXO9y3pqdMiwwrLmWypbCvg5bC+14A50KNKZ2AqNfBAnJqiWKV+uX9Q+
-         SKfw7MR+86C6eTw7Ca9RpvadID3y3peoeWLprKUcTKsSL/inz5aqnT793kuNdQ1re35a
-         +oMw==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=RopUrPNF8tA61JF+LwXsREbmBsNBRMSvxSPG/Nx1A9k=;
+        b=LIGHx4Eji+G4hjniuFFQmCrL4plxuliqb6MOezN1tnYAxp61Jabya47uQVnbTpWxZj
+         ZlSZFZ9KVf35gR4t6LJSwF4Jw4roOAei8dYdEAqjorGmIwkKYCx2bowkajYUEN/fPdnv
+         kphLAm5c52FHtvSG0fSvdXd2OPu0LhW80fjXO8kBvW+kBEvi++gX5CmQCIs6F5qligr3
+         uE0EfxHCNuFI6MDaq+IN6iMCr2qdC5qoTdZ9ua2roKEUTTALhFoMjInzyPNDoslj61wB
+         vo3PEghnvFbzqMo+Lbp/MwfTWgvPGCgt/Rd5oHa2DjToz7OPKkLN3+ubwZIGu3pAIIag
+         VYYQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=RopUrPNF8tA61JF+LwXsREbmBsNBRMSvxSPG/Nx1A9k=;
+        b=lsFhJovWTAmCiMxEGocVxwnPsfTM4pGkjfi8tfAaOexIhzWTyfXQBxY6sLepEEKFdH
+         W7sXKK1DaV9ZBfWXqplIxSe7REt04X9wbvEI3i6Rm1vpj/yx/P8oFD8wXCKnP/Q7Z8qg
+         xSmyuFX69dcxwuJnkZ5F+Lb8gkSlnRxExbV3Fujxw5yPJ0GK591ALflt2fDgkp80YoSR
+         cQkbWgkpSfedxtrupUI/ry55vIqkvbMxt+EqnE7wLcbUALKzeqR1eFe5Lhz2eLFsN+uQ
+         wgVLeZ8xjb2DhVDXdMrUlK3XA3wj8dzrV3OwCRsmvqmkeMHF9K8p95rFte6jzj0Q4xp9
+         nLZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=EefDJ/j8d5skUSGQas1vws/1HY+orJnDHBbaKtTZWfQ=;
-        b=Z/4liVHgGIlqnosBIL6mRbsomep6BlHUtZdMfbKBFDeol34gxaDXQ8TWE56MT3O3OT
-         LSCcdw3u0OX33HIiE0ARkytUw1sxyzn4KOinidW6Zie+ea3DqTGYL4RF6EAqWe2BsvkL
-         ZtRwV9zjG62uz+MullUlCuw5CyU3ENv2XSiU3xVBYq9ysX1F4fF3uqnx/IH3AyMK2Wpg
-         O0PHTVYrtbkQq1sNjSNfiCR5JtJxFUOoFT4IGEm6TMXmQ2jWkmVo6yIXVYxn/V3IBeQK
-         LqZCprvCFNu8GkI7322L5PVXoay1PJrMD5sFI43jq7oRTNji5hxxfwKOnhovwUMRd6PY
-         WSNg==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=RopUrPNF8tA61JF+LwXsREbmBsNBRMSvxSPG/Nx1A9k=;
+        b=MGRfSuJd5OyJlzcPOizyydxivtBGD1Yz/ZyoIBdInXN1ZwCvLD0oUmJvbk9LzlZrxe
+         NrFNZFQpUDP9gJrnT2hZP5FbEdS9FPqpCYt6pVyMgmWaP+y8ja+mPFsZbmn+IM9N2bPI
+         85FoeJQ5WSAhezoni9O16AOO2zhqG92eJLpO3LnJXvr3vPwxf6Pg6xrAnbXa65SAlNLG
+         qtLi2tP3SUA3Kepb2vLqqKMhqp5kMEgd7RQ6wW0kYMKXwAAkHQeOT/1hQuj29JT0bADA
+         JX7D+Z8B2oNby9HgBlqecUctLrUFG4QQsl1G3dGcgoBZGiqZpXgiA6FAv8byGkYhiK05
+         4ttw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: ANhLgQ1OZdyRLpWR76ccvIp7Blf+Zb961vXKSe/vFOiJb+LMQz8NOwpg
-	5E/rIIAAry/IlHKdpcRxnuE=
-X-Google-Smtp-Source: ADFU+vs0LwU02MyQWx9fdrT/FoJtvjjUw0EZN3Ly4YPS2Tnznb97V6pghNOEE5VrVMPC25VZghUURQ==
-X-Received: by 2002:a7b:c4cd:: with SMTP id g13mr6820547wmk.151.1584556432584;
-        Wed, 18 Mar 2020 11:33:52 -0700 (PDT)
+X-Gm-Message-State: ANhLgQ3e7rZuv9P81sdf0yrg6OFPG4LnL4BtUypBkfNk+R7MQhqA7z3F
+	k5Z+BGtVq7yQVvu8caxDfbo=
+X-Google-Smtp-Source: ADFU+vvCG5AELNzldQQan++c8olQbHxRY6W89een3PjJX4ZrawGk/M+FZ94RSnesAIZZoCH/+rFwww==
+X-Received: by 2002:a9d:d0f:: with SMTP id 15mr2540663oti.161.1584627402576;
+        Thu, 19 Mar 2020 07:16:42 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:f8d1:: with SMTP id f17ls13140885wrq.3.gmail; Wed, 18
- Mar 2020 11:33:51 -0700 (PDT)
-X-Received: by 2002:a5d:5148:: with SMTP id u8mr7343436wrt.132.1584556431802;
-        Wed, 18 Mar 2020 11:33:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1584556431; cv=none;
-        d=google.com; s=arc-20160816;
-        b=Lq0ypy/MfWeWbMWS1x2zSv2TwKRTlo8r1ZoV40F6nL5Luqs+ee/TAZjweGU5MuubRQ
-         XQDIKdr/uZH+t/78ovonkWFu6lPvtfAJjPJfpbL5xpe4yaQZSAtaNkvyk3ZE2hhBAtkl
-         L51+RZ3eTTjJyyHqi+g50cYZlfd6tgdll+M0J92QDbNTLizfLRtud3Z9yA9LxxdD/yK0
-         T/aM+fumQ9Spe2maCv3VbhaJTcqCFSX8bqCeU7F07TSHpEhf/fZlgHecPqw3HUB/qbuO
-         qF3QdO+SkgRb/sth1hsUkGfiPGb4ekbdx2C2WemuUaop2M3YrArRPweVqn8Sr7p4BEC5
-         NL3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=hauW/5pXEgW83zONNX87W5/WspZQwuLmNKJueLAY0zU=;
-        b=EdsMKlWczO9h27Irj+zEqAD1MJI9WwGXSHX3L/mfMhUk30jmWCcq5hYqOVugIaouRy
-         4YzREDRxeWnl6meHPuwfeRgobw+ijmshrfrgOWMcjw60LDmjrCx+ahMZEFV+QLDWDKX7
-         94B86oAx9tp6TMmKreUYLAWVdHITe3RgosDd5aGofmLD6pu4PI5DoWga7K73+PKOTU+5
-         B7R9jDx9PyhfTQFdL39vgPAw0IHjz8MMQB5uaAP3iDC+uqVFlfg0XFuYGc73UZyjuScZ
-         SIm3cQfNXtyR563dxx9YSUBXrhQwP3YOYFPTVTqQ4WVMjskuECgSh3LPJuxSeWRVxBCB
-         YSQg==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
-        by gmr-mx.google.com with ESMTPS id w17si368653wrn.3.2020.03.18.11.33.51
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 18 Mar 2020 11:33:51 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 02IIXoEs008481
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 18 Mar 2020 19:33:50 +0100
-Received: from [139.22.45.152] ([139.22.45.152])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 02IIXowD024154;
-	Wed, 18 Mar 2020 19:33:50 +0100
+Received: by 2002:a9d:787:: with SMTP id 7ls1045739oto.3.gmail; Thu, 19 Mar
+ 2020 07:16:41 -0700 (PDT)
+X-Received: by 2002:a9d:7991:: with SMTP id h17mr2384399otm.272.1584627401710;
+        Thu, 19 Mar 2020 07:16:41 -0700 (PDT)
+Date: Thu, 19 Mar 2020 07:16:41 -0700 (PDT)
+From: Parth Dode <dodecoder@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <9746e04b-2d4a-4103-8bd8-aa363cfa9fe9@googlegroups.com>
+In-Reply-To: <e680e1f1-e368-5d84-8283-47ef95e3ad80@siemens.com>
+References: <36eac3b7-b6bc-4774-826d-9942dae992d1@googlegroups.com>
+ <e680e1f1-e368-5d84-8283-47ef95e3ad80@siemens.com>
 Subject: Re:
  mc:rpi4-jailhouse-demo:/repo/recipes-core/non-root-initramfs/non-root-initramfs_2019.11.1.bb:do_dpkg_build
  Summary: There was 1 ERROR message shown, returning a non-zero exit code.
-To: Parth Dode <dodecoder@gmail.com>,
-        Jailhouse <jailhouse-dev@googlegroups.com>
-References: <36eac3b7-b6bc-4774-826d-9942dae992d1@googlegroups.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <e680e1f1-e368-5d84-8283-47ef95e3ad80@siemens.com>
-Date: Wed, 18 Mar 2020 19:33:50 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
 MIME-Version: 1.0
-In-Reply-To: <36eac3b7-b6bc-4774-826d-9942dae992d1@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_1478_1202005024.1584627401131"
+X-Original-Sender: dodecoder@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -136,110 +80,263 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 18.03.20 02:49, Parth Dode wrote:
-> ERROR: mc:rpi4-jailhouse-demo:non-root-initramfs-2019.11.1-r0=20
-> do_dpkg_build: Error executing a python function in exec_python_func()=20
-> autogenerated:
->=20
-> The stack trace of python calls that resulted in this exception/failure w=
-as:
-> File: 'exec_python_func() autogenerated', lineno: 2, function: <module>
->  =C2=A0 =C2=A0 =C2=A00001:
->  =C2=A0*** 0002:do_dpkg_build(d)
->  =C2=A0 =C2=A0 =C2=A00003:
-> File: '/work/isar/meta/classes/dpkg-base.bbclass', lineno: 130,=20
-> function: do_dpkg_build
->  =C2=A0 =C2=A0 =C2=A00126:python do_dpkg_build() {
->  =C2=A0 =C2=A0 =C2=A00127:=C2=A0 =C2=A0 lock =3D bb.utils.lockfile(d.getV=
-ar("REPO_ISAR_DIR") +=20
-> "/isar.lock",
->  =C2=A0 =C2=A0 =C2=A00128:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0shared=3DTrue)
->  =C2=A0 =C2=A0 =C2=A00129:=C2=A0 =C2=A0 bb.build.exec_func("dpkg_do_mount=
-s", d)
->  =C2=A0*** 0130:=C2=A0 =C2=A0 bb.build.exec_func("dpkg_runbuild", d)
->  =C2=A0 =C2=A0 =C2=A00131:=C2=A0 =C2=A0 bb.build.exec_func("dpkg_undo_mou=
-nts", d)
->  =C2=A0 =C2=A0 =C2=A00132:=C2=A0 =C2=A0 bb.utils.unlockfile(lock)
->  =C2=A0 =C2=A0 =C2=A00133:}
->  =C2=A0 =C2=A0 =C2=A00134:
-> File: '/work/isar/bitbake/lib/bb/build.py', lineno: 249, function: exec_f=
-unc
->  =C2=A0 =C2=A0 =C2=A00245:=C2=A0 =C2=A0 with bb.utils.fileslocked(lockfil=
-es):
->  =C2=A0 =C2=A0 =C2=A00246:=C2=A0 =C2=A0 =C2=A0 =C2=A0 if ispython:
->  =C2=A0 =C2=A0 =C2=A00247:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 exec_=
-func_python(func, d, runfile, cwd=3Dadir)
->  =C2=A0 =C2=A0 =C2=A00248:=C2=A0 =C2=A0 =C2=A0 =C2=A0 else:
->  =C2=A0*** 0249:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 exec_func_shell=
-(func, d, runfile, cwd=3Dadir)
->  =C2=A0 =C2=A0 =C2=A00250:
->  =C2=A0 =C2=A0 =C2=A00251:=C2=A0 =C2=A0 try:
->  =C2=A0 =C2=A0 =C2=A00252:=C2=A0 =C2=A0 =C2=A0 =C2=A0 curcwd =3D os.getcw=
-d()
->  =C2=A0 =C2=A0 =C2=A00253:=C2=A0 =C2=A0 except:
-> File: '/work/isar/bitbake/lib/bb/build.py', lineno: 450, function:=20
-> exec_func_shell
->  =C2=A0 =C2=A0 =C2=A00446:=C2=A0 =C2=A0 with open(fifopath, 'r+b', buffer=
-ing=3D0) as fifo:
->  =C2=A0 =C2=A0 =C2=A00447:=C2=A0 =C2=A0 =C2=A0 =C2=A0 try:
->  =C2=A0 =C2=A0 =C2=A00448:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bb.de=
-bug(2, "Executing shell function %s" % func)
->  =C2=A0 =C2=A0 =C2=A00449:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 with =
-open(os.devnull, 'r+') as stdin, logfile:
->  =C2=A0*** 0450:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 b=
-b.process.run(cmd, shell=3DFalse, stdin=3Dstdin,=20
-> log=3Dlogfile, extrafiles=3D[(fifo,readfifo)])
->  =C2=A0 =C2=A0 =C2=A00451:=C2=A0 =C2=A0 =C2=A0 =C2=A0 finally:
->  =C2=A0 =C2=A0 =C2=A00452:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 os.un=
-link(fifopath)
->  =C2=A0 =C2=A0 =C2=A00453:
->  =C2=A0 =C2=A0 =C2=A00454:=C2=A0 =C2=A0 bb.debug(2, "Shell function %s fi=
-nished" % func)
-> File: '/work/isar/bitbake/lib/bb/process.py', lineno: 182, function: run
->  =C2=A0 =C2=A0 =C2=A00178:=C2=A0 =C2=A0 =C2=A0 =C2=A0 if not stderr is No=
-ne:
->  =C2=A0 =C2=A0 =C2=A00179:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 stder=
-r =3D stderr.decode("utf-8")
->  =C2=A0 =C2=A0 =C2=A00180:
->  =C2=A0 =C2=A0 =C2=A00181:=C2=A0 =C2=A0 if pipe.returncode !=3D 0:
->  =C2=A0*** 0182:=C2=A0 =C2=A0 =C2=A0 =C2=A0 raise ExecutionError(cmd, pip=
-e.returncode, stdout,=20
-> stderr)
->  =C2=A0 =C2=A0 =C2=A00183:=C2=A0 =C2=A0 return stdout, stderr
-> Exception: bb.process.ExecutionError: Execution of=20
-> '/work/build/tmp/work/jailhouse-demo-arm64/non-root-initramfs/2019.11.1-r=
-0/temp/run.dpkg_runbuild.9680'=20
-> failed with exit code 2:
-> dpkg-buildpackage: info: source package non-root-initramfs
-> dpkg-buildpackage: info: source version 2019.11.1
-> dpkg-buildpackage: info: source distribution UNRELEASED
-> dpkg-buildpackage: info: source changed by Unknown maintainer=20
-> <unknown@example.com>
-> dpkg-architecture: warning: specified GNU system type aarch64-linux-gnu=
+------=_Part_1478_1202005024.1584627401131
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1479_611333453.1584627401132"
+
+------=_Part_1479_611333453.1584627401132
+Content-Type: text/plain; charset="UTF-8"
+
+
+On Thursday, March 19, 2020 at 12:03:52 AM UTC+5:30, Jan Kiszka wrote:
+>
+> On 18.03.20 02:49, Parth Dode wrote: 
+> > ERROR: mc:rpi4-jailhouse-demo:non-root-initramfs-2019.11.1-r0 
+> > do_dpkg_build: Error executing a python function in exec_python_func() 
+> > autogenerated: 
+> > 
+> > The stack trace of python calls that resulted in this exception/failure 
+> was: 
+> > File: 'exec_python_func() autogenerated', lineno: 2, function: <module> 
+> >       0001: 
+> >   *** 0002:do_dpkg_build(d) 
+> >       0003: 
+> > File: '/work/isar/meta/classes/dpkg-base.bbclass', lineno: 130, 
+> > function: do_dpkg_build 
+> >       0126:python do_dpkg_build() { 
+> >       0127:    lock = bb.utils.lockfile(d.getVar("REPO_ISAR_DIR") + 
+> > "/isar.lock", 
+> >       0128:                             shared=True) 
+> >       0129:    bb.build.exec_func("dpkg_do_mounts", d) 
+> >   *** 0130:    bb.build.exec_func("dpkg_runbuild", d) 
+> >       0131:    bb.build.exec_func("dpkg_undo_mounts", d) 
+> >       0132:    bb.utils.unlockfile(lock) 
+> >       0133:} 
+> >       0134: 
+> > File: '/work/isar/bitbake/lib/bb/build.py', lineno: 249, function: 
+> exec_func 
+> >       0245:    with bb.utils.fileslocked(lockfiles): 
+> >       0246:        if ispython: 
+> >       0247:            exec_func_python(func, d, runfile, cwd=adir) 
+> >       0248:        else: 
+> >   *** 0249:            exec_func_shell(func, d, runfile, cwd=adir) 
+> >       0250: 
+> >       0251:    try: 
+> >       0252:        curcwd = os.getcwd() 
+> >       0253:    except: 
+> > File: '/work/isar/bitbake/lib/bb/build.py', lineno: 450, function: 
+> > exec_func_shell 
+> >       0446:    with open(fifopath, 'r+b', buffering=0) as fifo: 
+> >       0447:        try: 
+> >       0448:            bb.debug(2, "Executing shell function %s" % func) 
+> >       0449:            with open(os.devnull, 'r+') as stdin, logfile: 
+> >   *** 0450:                bb.process.run(cmd, shell=False, stdin=stdin, 
+> > log=logfile, extrafiles=[(fifo,readfifo)]) 
+> >       0451:        finally: 
+> >       0452:            os.unlink(fifopath) 
+> >       0453: 
+> >       0454:    bb.debug(2, "Shell function %s finished" % func) 
+> > File: '/work/isar/bitbake/lib/bb/process.py', lineno: 182, function: run 
+> >       0178:        if not stderr is None: 
+> >       0179:            stderr = stderr.decode("utf-8") 
+> >       0180: 
+> >       0181:    if pipe.returncode != 0: 
+> >   *** 0182:        raise ExecutionError(cmd, pipe.returncode, stdout, 
+> > stderr) 
+> >       0183:    return stdout, stderr 
+> > Exception: bb.process.ExecutionError: Execution of 
+> > 
+> '/work/build/tmp/work/jailhouse-demo-arm64/non-root-initramfs/2019.11.1-r0/temp/run.dpkg_runbuild.9680' 
+>
+> > failed with exit code 2: 
+> > dpkg-buildpackage: info: source package non-root-initramfs 
+> > dpkg-buildpackage: info: source version 2019.11.1 
+> > dpkg-buildpackage: info: source distribution UNRELEASED 
+> > dpkg-buildpackage: info: source changed by Unknown maintainer 
+> > <unk...@example.com <javascript:>> 
+> > dpkg-architecture: warning: specified GNU system type aarch64-linux-gnu 
+> > does not match CC system type x86_64-linux-gnu, try setting a correct CC 
+> > environment variable 
+> >   dpkg-source -I --before-build . 
+> > 
+>
+> Could you share the complete shell log? This is just the python 
+> backtrace *after* the actual error. 
+>
+> Also please describe your build environment (native, VM, distro 
+> version). Just rebuilt an image here from scratch, without issues. 
+>
+> Jan 
+>
+> -- 
+> Siemens AG, Corporate Technology, CT RDA IOT SES-DE 
+> Corporate Competence Center Embedded Linux 
+>
+
+
+Okay so my build environment-
+Kali OS- 8GB ram - i5
+I have it on dual boot with windows10
+
+It got built till 85% this time but an error got reduced. 
+The shell log is quite big , I'll attach it in a text file below.
+
+Thank you for replying , also can you send me a prebuilt image for rpi4 ?
+Do let me know. I'll keep working on the error in that time.
+
+Parth D.
+ 
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/9746e04b-2d4a-4103-8bd8-aa363cfa9fe9%40googlegroups.com.
+
+------=_Part_1479_611333453.1584627401132
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><br>On Thursday, March 19, 2020 at 12:03:52 AM UTC+5:30, J=
+an Kiszka wrote:<blockquote class=3D"gmail_quote" style=3D"margin: 0px 0px =
+0px 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex; --=
+darkreader-inline-border-left:#3a3a3a;" data-darkreader-inline-border-left=
+=3D"">On 18.03.20 02:49, Parth Dode wrote:
+<br>&gt; ERROR: mc:rpi4-jailhouse-demo:non-<wbr>root-initramfs-2019.11.1-r0=
 =20
-> does not match CC system type x86_64-linux-gnu, try setting a correct CC=
-=20
-> environment variable
->  =C2=A0dpkg-source -I --before-build .
->=20
+<br>&gt; do_dpkg_build: Error executing a python function in exec_python_fu=
+nc()=20
+<br>&gt; autogenerated:
+<br>&gt;=20
+<br>&gt; The stack trace of python calls that resulted in this exception/fa=
+ilure was:
+<br>&gt; File: &#39;exec_python_func() autogenerated&#39;, lineno: 2, funct=
+ion: &lt;module&gt;
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00001:
+<br>&gt; =C2=A0=C2=A0*** 0002:do_dpkg_build(d)
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00003:
+<br>&gt; File: &#39;/work/isar/meta/classes/dpkg-<wbr>base.bbclass&#39;, li=
+neno: 130,=20
+<br>&gt; function: do_dpkg_build
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00126:python do_dpkg_build() {
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00127:=C2=A0 =C2=A0 lock =3D bb.utils.loc=
+kfile(d.getVar(&quot;<wbr>REPO_ISAR_DIR&quot;) +=20
+<br>&gt; &quot;/isar.lock&quot;,
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00128:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0shared=
+=3DTrue)
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00129:=C2=A0 =C2=A0 bb.build.exec_func(&q=
+uot;dpkg_do_<wbr>mounts&quot;, d)
+<br>&gt; =C2=A0=C2=A0*** 0130:=C2=A0 =C2=A0 bb.build.exec_func(&quot;dpkg_<=
+wbr>runbuild&quot;, d)
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00131:=C2=A0 =C2=A0 bb.build.exec_func(&q=
+uot;dpkg_undo_<wbr>mounts&quot;, d)
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00132:=C2=A0 =C2=A0 bb.utils.unlockfile(l=
+ock)
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00133:}
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00134:
+<br>&gt; File: &#39;/work/isar/bitbake/lib/bb/<wbr>build.py&#39;, lineno: 2=
+49, function: exec_func
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00245:=C2=A0 =C2=A0 with bb.utils.fileslo=
+cked(<wbr>lockfiles):
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00246:=C2=A0 =C2=A0 =C2=A0 =C2=A0 if ispy=
+thon:
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00247:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 exec_func_python(func, d, runfile, cwd=3Dadir)
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00248:=C2=A0 =C2=A0 =C2=A0 =C2=A0 else:
+<br>&gt; =C2=A0=C2=A0*** 0249:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 exe=
+c_func_shell(func, d, runfile, cwd=3Dadir)
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00250:
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00251:=C2=A0 =C2=A0 try:
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00252:=C2=A0 =C2=A0 =C2=A0 =C2=A0 curcwd =
+=3D os.getcwd()
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00253:=C2=A0 =C2=A0 except:
+<br>&gt; File: &#39;/work/isar/bitbake/lib/bb/<wbr>build.py&#39;, lineno: 4=
+50, function:=20
+<br>&gt; exec_func_shell
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00446:=C2=A0 =C2=A0 with open(fifopath, &=
+#39;r+b&#39;, buffering=3D0) as fifo:
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00447:=C2=A0 =C2=A0 =C2=A0 =C2=A0 try:
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00448:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 bb.debug(2, &quot;Executing shell function %s&quot; % func)
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00449:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 with open(os.devnull, &#39;r+&#39;) as stdin, logfile:
+<br>&gt; =C2=A0=C2=A0*** 0450:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 bb.process.run(cmd, shell=3DFalse, stdin=3Dstdin,=20
+<br>&gt; log=3Dlogfile, extrafiles=3D[(fifo,readfifo)])
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00451:=C2=A0 =C2=A0 =C2=A0 =C2=A0 finally=
+:
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00452:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 os.unlink(fifopath)
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00453:
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00454:=C2=A0 =C2=A0 bb.debug(2, &quot;She=
+ll function %s finished&quot; % func)
+<br>&gt; File: &#39;/work/isar/bitbake/lib/bb/<wbr>process.py&#39;, lineno:=
+ 182, function: run
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00178:=C2=A0 =C2=A0 =C2=A0 =C2=A0 if not =
+stderr is None:
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00179:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 stderr =3D stderr.decode(&quot;utf-8&quot;)
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00180:
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00181:=C2=A0 =C2=A0 if pipe.returncode !=
+=3D 0:
+<br>&gt; =C2=A0=C2=A0*** 0182:=C2=A0 =C2=A0 =C2=A0 =C2=A0 raise ExecutionEr=
+ror(cmd, pipe.returncode, stdout,=20
+<br>&gt; stderr)
+<br>&gt; =C2=A0=C2=A0 =C2=A0 =C2=A00183:=C2=A0 =C2=A0 return stdout, stderr
+<br>&gt; Exception: bb.process.ExecutionError: Execution of=20
+<br>&gt; &#39;/work/build/tmp/work/<wbr>jailhouse-demo-arm64/non-root-<wbr>=
+initramfs/2019.11.1-r0/temp/<wbr>run.dpkg_runbuild.9680&#39;=20
+<br>&gt; failed with exit code 2:
+<br>&gt; dpkg-buildpackage: info: source package non-root-initramfs
+<br>&gt; dpkg-buildpackage: info: source version 2019.11.1
+<br>&gt; dpkg-buildpackage: info: source distribution UNRELEASED
+<br>&gt; dpkg-buildpackage: info: source changed by Unknown maintainer=20
+<br>&gt; &lt;<a href=3D"javascript:" target=3D"_blank" gdf-obfuscated-mailt=
+o=3D"qp3NAFwjAQAJ" rel=3D"nofollow" onmousedown=3D"this.href=3D&#39;javascr=
+ipt:&#39;;return true;" onclick=3D"this.href=3D&#39;javascript:&#39;;return=
+ true;">unk...@example.com</a>&gt;
+<br>&gt; dpkg-architecture: warning: specified GNU system type aarch64-linu=
+x-gnu=20
+<br>&gt; does not match CC system type x86_64-linux-gnu, try setting a corr=
+ect CC=20
+<br>&gt; environment variable
+<br>&gt; =C2=A0=C2=A0dpkg-source -I --before-build .
+<br>&gt;=20
+<br>
+<br>Could you share the complete shell log? This is just the python=20
+<br>backtrace *after* the actual error.
+<br>
+<br>Also please describe your build environment (native, VM, distro=20
+<br>version). Just rebuilt an image here from scratch, without issues.
+<br>
+<br>Jan
+<br>
+<br>--=20
+<br>Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+<br>Corporate Competence Center Embedded Linux
+<br></blockquote><div><br></div><div><br></div><div>Okay so my build enviro=
+nment-</div><div>Kali OS- 8GB ram - i5</div><div>I have it on dual boot wit=
+h windows10</div><div><br></div><div>It got built till 85% this time but an=
+ error got reduced.=C2=A0</div><div>The shell log is quite big , I&#39;ll a=
+ttach it in a text file below.</div><div><br></div><div>Thank you for reply=
+ing , also can you send me a prebuilt image for rpi4 ?</div><div>Do let me =
+know. I&#39;ll keep working on the error in that time.</div><div><br></div>=
+<div>Parth D.</div><div>=C2=A0</div></div>
 
-Could you share the complete shell log? This is just the python=20
-backtrace *after* the actual error.
+<p></p>
 
-Also please describe your build environment (native, VM, distro=20
-version). Just rebuilt an image here from scratch, without issues.
-
-Jan
-
---=20
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/e680e1f1-e368-5d84-8283-47ef95e3ad80%40siemens.com.
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/9746e04b-2d4a-4103-8bd8-aa363cfa9fe9%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/9746e04b-2d4a-4103-8bd8-aa363cfa9fe9%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_1479_611333453.1584627401132--
+
+------=_Part_1478_1202005024.1584627401131--
