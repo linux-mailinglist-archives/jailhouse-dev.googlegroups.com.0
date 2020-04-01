@@ -1,155 +1,147 @@
-Return-Path: <jailhouse-dev+bncBC27HSOJ44LBBP6XSH2AKGQEVSPBWKA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC25XUMBOQIPD6UR6QCRUBC25RKWU@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x53a.google.com (mail-ed1-x53a.google.com [IPv6:2a00:1450:4864:20::53a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C46519A976
-	for <lists+jailhouse-dev@lfdr.de>; Wed,  1 Apr 2020 12:24:00 +0200 (CEST)
-Received: by mail-ed1-x53a.google.com with SMTP id ce13sf20777984edb.11
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 01 Apr 2020 03:24:00 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1585736639; cv=pass;
+Received: from mail-qk1-x738.google.com (mail-qk1-x738.google.com [IPv6:2607:f8b0:4864:20::738])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E90E19AAEF
+	for <lists+jailhouse-dev@lfdr.de>; Wed,  1 Apr 2020 13:39:30 +0200 (CEST)
+Received: by mail-qk1-x738.google.com with SMTP id w124sf20832646qkd.19
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 01 Apr 2020 04:39:30 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1585741169; cv=pass;
         d=google.com; s=arc-20160816;
-        b=CLKk5cCp9DXm3yZJGzrMc7xVHZ6qt7Q046uF0/U1Vz3cdlk5x2no+ftVQBRUhm2jnf
-         +nTRGXgjoFSb6n/X/JgSlBV/yQiZTZPm1LvH+kiE5CQkwt565T89xYO6sBbgsQtIrq1O
-         a7PyJd8X/X5k3K0n9tI5ajphf2jGusfM7XEGYsQU0u8Ia8YZNXo/v8IlnS9RRPibyME2
-         9f+oEXJj6L4HmO44n2ExniQs/Y91be/I4theR/Ih/o+QuaH/DxY0zm1JUFr9nStU/+7s
-         83x72+dthExEdlNQsltyeSgwxH6tn2YRZ5J5Srm9nMe4ebKrhgBBEpgngsAsZtMb8H/G
-         upxQ==
+        b=pS6ok+Icb4WGb6e+hylxjaoAC4HWe9839DNz/ooGddofCcDJ/E160UcVswkRoWzVU3
+         Dvdt0qrfNJwx2OJNOWeoiF64U78s+LW8tXVV/V1XAds2MCu6XpOGvF9poNEDbw9fRC91
+         xWq5cjKYxylRBPglwKsLiU8lENJnRAN68hzY9SGa5PM4eVGhRhSvT0SlERM2udSPbo9K
+         ofm4esTWH6XSZgJ/vdC4pEIYtHXK37d5Cs4txkyaV/yvHJ7S2V5JnpC9vquxeBM17Agz
+         rEasWJx7egO+2RCy/Lb4cUh+ndvSmS1XErFudY6lk1F37u+v8gYFo1nc4V5zJPiKfN+M
+         xUSg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:cc:to:from:sender:dkim-signature;
-        bh=jaxW9EJyMZ0i6SePUSQ2b9M5PGYP3GRFoNdvVfL7FZY=;
-        b=cfv9oDyS/i3Ul6OqCOjamf882ZCmigV16CZ0dDJEwYqbaZE00PFSjGTatmFzawcPJ5
-         0/asNFJ209l7nrvrt1FpkiY7py/THmV/EjGC8ZV614e34Tan+nPSjJKpJMjzuYCAXhLP
-         en9iOS3gs5EfjVtgk+4/LeFmVDx2yd4ZfYi7vCCa5gBbPzAIvbLc+h/SeUmII9068+9B
-         jV+EG+qGxwAg76O2/Lf0VqVeKa9LitHatdAQYlcsOECWvS42FdjO2DAFBtGsf0n3flXG
-         4MKyBm6+i+VfKZxiCDXqord1DTrqmbb4Xc/nTuR+93NmtYo1U3jruBjxczRLuxNJelv/
-         fGJg==
+         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:sender:dkim-signature
+         :dkim-signature;
+        bh=X2iXsTQnmh9mca7kvyJ1eQz0+wlBjhkhOAJxDXoWA6Y=;
+        b=xhm3qysVt8nqtBRWghtE0Y1pXuWJk5Lp11VRkyQXLQo1UGala5yO0FSOTWcOBfOiye
+         rDIFccLVMcF6/apFzoIr9jXVOrWALDo8S1X39vzZISbzNBT4bKfpjARuZ/PppymMEvUs
+         /8QiEYKsYSJqVzSQakU7IDJ4E+wyN2FQeUAGWUggH99khGU+Im9Hk/tY3nowI+vINA6n
+         mkgwGt9xv0EAaKrY4auGSYhtwGrVcH742HOzm/FdB8lhV7s/TnRduUWuwvIIZxLVQ8GY
+         Dql947z/vKzyWGP2i/8WKsETBa4ELjvNm1PDVeyh8vvmtiwHe1ZtsgFBOBCEpwIB+Vpz
+         23bA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of david.laight@aculab.com designates 207.82.80.151 as permitted sender) smtp.mailfrom=david.laight@aculab.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=aculab.com
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=n6roFE5d;
+       spf=pass (google.com: domain of brgerst@gmail.com designates 2607:f8b0:4864:20::d43 as permitted sender) smtp.mailfrom=brgerst@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:cc:subject:thread-topic:thread-index:date:message-id
-         :references:in-reply-to:accept-language:content-language
-         :mime-version:x-original-sender:x-original-authentication-results
+        h=sender:mime-version:references:in-reply-to:from:date:message-id
+         :subject:to:cc:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=jaxW9EJyMZ0i6SePUSQ2b9M5PGYP3GRFoNdvVfL7FZY=;
-        b=r1AuW3Gu31OUrCFgrQkBPFDkQlEJs1iegTCYiYrgU4PJApy6AZRjB+ELzI+HjzJikx
-         hA9RFMuulv3lnGCS/E1qAd3A17UscYKesIVKsEkEyZhY7m6YMah/BxJy542ulQbF7VsC
-         E0Kvtz8BwDohXWnOtiGOAen5OaEltPAg6+x+2W6YDiL83YjQ4pJ7Rqjx6slCRDd1wUvG
-         EAmoAkxNhCokhivAfGTGfzA7RXsLIrq4ROmJwzoS2M7IEFD9zfVGamw+99mTO5sfAeGW
-         lJ8hLiSEfOHOA8gHM6GpekQ3bYb67tWEM9K2g0KPygFfvKQlW4Vq24dwFMjlI5MM/UjP
-         EgNA==
+        bh=X2iXsTQnmh9mca7kvyJ1eQz0+wlBjhkhOAJxDXoWA6Y=;
+        b=raxU2TWDaA5YcR8Rw6sJVyetRUfFvaOWzYhrnJrAXDKO/fioaCRLjgCEBUg2meF8Ur
+         48LDdy9cnV9JSoEOMDXh5lLicWVrRuLkKpp9soCLIAjmfYzDsLvygZaBV69Sk4udEZft
+         73tmzM9eZBguJb1CwSUagILfSWQZ6OA9Gr0NAtlj2uDwlDihHQi7eD5uo+p3oXvDunU5
+         Wl0dEblletF9/t/4gf1vM2LI4mXypsjfNsP0MIPFjIrNPJHgpySrqUBKB4FgRUqU0Tii
+         LEMesV3ghAmqyJ5/lKaJkJizxeeet+ACNnentjJbywg6JyIErkejSkcrfV/4BN5K8IaU
+         4p0A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=X2iXsTQnmh9mca7kvyJ1eQz0+wlBjhkhOAJxDXoWA6Y=;
+        b=tNwW+Q3VYi4sh9yun7yu1NNLgOm0GGSX4fMUqhw68Wgsa6FiRyTh1jqUidU4bHTBiW
+         cr6EbWombQt8QSGs2IyQY9q2HTp+YM6E2EVfyLof6nygIpgFt1KagpCKmOBeeOAS06R3
+         rRq5XHhGQDu32fGb1z+Z3r191IhNigD6du8f/md8mQ+wSVUVR8qNcepohaHY08JlJDRd
+         dVrdtIsG9txflEK/EBE9HMQVjuJ36VW7DZEZxVcVWe9Iei54V35hVAR3zbK+aNimRlaC
+         XFhKZsac4W/tCAbF6Kxow5ZfG3Ai6Q+cznN/I89AahZEdRTWfN9oari4RMCgsuTWWxPb
+         CuSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:cc:subject:thread-topic
-         :thread-index:date:message-id:references:in-reply-to:accept-language
-         :content-language:mime-version:x-original-sender
+        h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
+         :date:message-id:subject:to:cc:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=jaxW9EJyMZ0i6SePUSQ2b9M5PGYP3GRFoNdvVfL7FZY=;
-        b=S33DZ3aKa3A7dQJxMnFJY/FyTHF/eyaCH0X3WlOPetPKlLbgIWt54RnnKXA59crr5P
-         VTUu7+JSH0EQVAe29CpvXAF6Y68sE3JSUzrZKKEPbnFug68seN7B8e7nZTvE/Qq5sXHT
-         SY9l+2vMVl5ut8XSJoJtj/de0MtZxruR3XNkfUHQpPzQW84ScPlQREyRsseEfzRYyX+Y
-         p2n+i/j2i5Wd7J+AgfvWDvDNzQUIMCSw03Qz6GDmfogkzep9vwBULGBXy5iml1rlvHT2
-         zHhmaISYHKqD/JSjBhIlHRAqlPwOkRdj1an6yISYRIenUbOVaNR9sWqcqD2ll9jXelsj
-         umGQ==
+        bh=X2iXsTQnmh9mca7kvyJ1eQz0+wlBjhkhOAJxDXoWA6Y=;
+        b=SwmAGmk3hjjtec3w//jS3WfLhV7oLj7lkOYIsiXGCt+qTns6IfesHsH4a3xB3+IA9E
+         bUZ76pp5E2KFqCLvGOEdXaz5rBeecMoJOi4PW5aFSWB4ZwvOHFbfKnOBMWSxaktkVsQi
+         ZXILS58CmgN2Jd0gNPCpbZUz3TdlbgS2KL1pyzWdli7EQs7tV01mmyyZQWUVlKhuFtbe
+         gdk0XTAIBDMMRMQXFCXdQWfi71p2I7rmy9iwsAQToyiCpV1gPo6nt8LwRJoDGNo9N11m
+         EkjKO2GnfMdjkidCuhn0EprbpHvkVYwbJ//4bEwCQjCdX89KfOrkgrgNErJoFTK2zii6
+         gKbA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: ANhLgQ02b86Rk6lpZWyuUPrmxWcJ6ObAwIl+rvG1RzB4ZKPaCdsPpsKN
-	qZ3+ydYHvymKSs3JFyhCWdQ=
-X-Google-Smtp-Source: ADFU+vuEW4gC8WuwoQtCKoHZXlW9URhzovuz1Kem3AokBq4eKRFp8lFWkblMNev2m3z5Pl8KOB0Wmw==
-X-Received: by 2002:a50:c30b:: with SMTP id a11mr20333326edb.285.1585736639753;
-        Wed, 01 Apr 2020 03:23:59 -0700 (PDT)
+X-Gm-Message-State: ANhLgQ1FgApD+LnTXDeHffwTZN64b52UNfBWUtrxsVPrWt74ymiY01it
+	DHNjUjAG8M/vCB3wsRo2+mI=
+X-Google-Smtp-Source: ADFU+vtxf8XoOBVokMWO3xMcnq6pt3dUIcV7O00zAJ4V6iR11IWJr0lMTv1XH9yAExpfsqLC7Bjqng==
+X-Received: by 2002:ad4:41c2:: with SMTP id a2mr20589503qvq.112.1585741169224;
+        Wed, 01 Apr 2020 04:39:29 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:860b:: with SMTP id o11ls14755732ejx.3.gmail; Wed,
- 01 Apr 2020 03:23:59 -0700 (PDT)
-X-Received: by 2002:a17:906:e99:: with SMTP id p25mr8215706ejf.6.1585736639043;
-        Wed, 01 Apr 2020 03:23:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1585736639; cv=none;
+Received: by 2002:a37:6714:: with SMTP id b20ls12030368qkc.5.gmail; Wed, 01
+ Apr 2020 04:39:28 -0700 (PDT)
+X-Received: by 2002:a05:620a:149:: with SMTP id e9mr9459615qkn.356.1585741168662;
+        Wed, 01 Apr 2020 04:39:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1585741168; cv=none;
         d=google.com; s=arc-20160816;
-        b=GLl6St5oMSb/KWKFFEVYvKb75SerV8oF+4CxKGAr2dCuZl8R/3J1OpE2DGVjDDL2lL
-         K5SBFH9XTpy52+4MCsM8U2TJ2n6FtQM/NXEXNUKEdLFlJ0OTWk1ycTVgmXn0CMZ6nWli
-         QixPJOmtjiq7trDeyz8LvlerJz9uQpB93nNcBfQVv6CMOmC39NOfSqb7jn+IOMEfckyZ
-         u3fnWTxFFxtE99BNTZlJc+1rQUvDxoTT2AJEAga+R5KxhzFWw4kXUm6lJbzM+DvB2nJK
-         TU+IzgRYZ5zPgODGpQHZUw0Hi4BjOi2/6VWB1YKHbxfMdOt8WI3ZkMSMgiEnA+VwiHaa
-         cyhA==
+        b=ITzbcA8QaUCkjXN5I+5WfGEacTi5QMpyiIMlTBWDbQPhf5L/7W4siwxuKZHKWRVwhF
+         rVBSIDJCKqiypGUT+8offaJQkC29hWrcukaKXIGVUPnpzMY1v+SmyNPVum4q089zsyaQ
+         oI646NtH35UhWHNdR5fdfyDUerpFno7RWiFoVcjCRMbyUVCYElZ/1VhIthr+oWvvoB8V
+         J1XLY8CjqRcyTajpRDGCkt7oAGAk9KxMsiT3dYqFjA4Frp0aJG5TSJIfjh4QzbH2VltB
+         jr5K7Gg/QWcA0Sv0lztFXRs/UdILXzXO3UheAY3X9kcKJvM9XGxFV2xm1oelCDjFXnTi
+         aG0w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:cc:to:from;
-        bh=EK+agd8ALK77hipEqDIDqb5PmT5/0qvf8HKmIe4+8Aw=;
-        b=j3TpoYWqVMdUomtRMpUWh3ZQWKgzcqCI6lQ5aEQt8we54B6NdKtssFSnXt35Z9RdCW
-         NmDDd6zjtQxhkDz2T6Bht+hZu5ID9VwPgCbXlli9DQmjGR4OZ2XvRq4GtdSeT4PUNOx/
-         m0oSb/aGQQkp1PO+2x4mw0K0Mq/jFJ0X/il9Lcbpp51om3ZxlWNjpqzMjmOeo8gzuWpX
-         M8xfIT16r/gb7y89APYRGbihp/IFQWpNNnS5kuDcDhQSEVIsb/XPcB9khz9YXnAWTlbF
-         NVmZWpAsf06gMifhlx384m/dz/LMenQpFPnjBrGXt0rDxwk2vjwwMR2UNWmyZnFDV3iy
-         GEsQ==
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=B6LtkV31Mx0Wb2yWk+q4vycLOOPy+wzd4O74v4uZk5c=;
+        b=HIN52b3VMwlpwyP5aS0l600XeeJjV3TMoEDs3KYIb0QIuAZsYtJCZXucjKZVpx4yBO
+         YHoUP5lxKdaac/DfsLoM7FlPwESrFGjWtT5VkfVlcMc/L74+t/ydedTlT6amSjgPFjBy
+         DoTv/SYJMVib6nYV0S3qDakuWlBhcHcDWFKInTArLtiS4wx2vJd+1gdJ+YgRXtODSGMz
+         6uFnfrulnRkyX9C39IkmfPN/MpgUG3EE8nOGLIgOC+wpoTPQelqANuRJlk4FdYxpSi/F
+         ttz2IFIdS7c08WiMK8MFgGqa1yXEIeIMTzIhCymiutVvYl9GlckPKWve0RqrXwVIZYOP
+         dXiQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of david.laight@aculab.com designates 207.82.80.151 as permitted sender) smtp.mailfrom=david.laight@aculab.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=aculab.com
-Received: from eu-smtp-delivery-151.mimecast.com (eu-smtp-delivery-151.mimecast.com. [207.82.80.151])
-        by gmr-mx.google.com with ESMTPS id a10si91084edq.5.2020.04.01.03.23.58
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=n6roFE5d;
+       spf=pass (google.com: domain of brgerst@gmail.com designates 2607:f8b0:4864:20::d43 as permitted sender) smtp.mailfrom=brgerst@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com. [2607:f8b0:4864:20::d43])
+        by gmr-mx.google.com with ESMTPS id c194si72413qkb.0.2020.04.01.04.39.28
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 01 Apr 2020 03:23:59 -0700 (PDT)
-Received-SPF: pass (google.com: domain of david.laight@aculab.com designates 207.82.80.151 as permitted sender) client-ip=207.82.80.151;
-Received: from AcuMS.aculab.com (156.67.243.126 [156.67.243.126]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- uk-mta-22-QSeBAbmuOtiRMVlLTjHioQ-1; Wed, 01 Apr 2020 11:23:56 +0100
-X-MC-Unique: QSeBAbmuOtiRMVlLTjHioQ-1
-Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) by
- AcuMS.aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) with Microsoft SMTP
- Server (TLS) id 15.0.1347.2; Wed, 1 Apr 2020 11:23:55 +0100
-Received: from AcuMS.Aculab.com ([fe80::43c:695e:880f:8750]) by
- AcuMS.aculab.com ([fe80::43c:695e:880f:8750%12]) with mapi id 15.00.1347.000;
- Wed, 1 Apr 2020 11:23:55 +0100
-From: David Laight <David.Laight@ACULAB.COM>
-To: "'Maciej W. Rozycki'" <macro@linux-mips.org>, Thomas Gleixner
-	<tglx@linutronix.de>
-CC: "hpa@zytor.com" <hpa@zytor.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, LKML <linux-kernel@vger.kernel.org>, Ingo Molnar
-	<mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, "x86@kernel.org"
-	<x86@kernel.org>, Jan Kiszka <jan.kiszka@siemens.com>, James Morris
-	<jmorris@namei.org>, David Howells <dhowells@redhat.com>, Matthew Garrett
-	<mjg59@google.com>, Josh Boyer <jwboyer@redhat.com>, Zhenzhong Duan
-	<zhenzhong.duan@oracle.com>, Steve Wahl <steve.wahl@hpe.com>, Mike Travis
-	<mike.travis@hpe.com>, Dimitri Sivanich <dimitri.sivanich@hpe.com>, "Arnd
- Bergmann" <arnd@arndb.de>, "Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	Giovanni Gherdovich <ggherdovich@suse.cz>, "Rafael J. Wysocki"
-	<rafael.j.wysocki@intel.com>, Len Brown <len.brown@intel.com>, Kees Cook
-	<keescook@chromium.org>, Martin Molnar <martin.molnar.programming@gmail.com>,
-	Pingfan Liu <kernelfans@gmail.com>, "jailhouse-dev@googlegroups.com"
-	<jailhouse-dev@googlegroups.com>
-Subject: RE: [PATCH] x86/smpboot: Remove 486-isms from the modern AP boot path
-Thread-Topic: [PATCH] x86/smpboot: Remove 486-isms from the modern AP boot
- path
-Thread-Index: AQHWB7UNIHnKX6bM4USvtOwoEXANa6hkDYfw
-Date: Wed, 1 Apr 2020 10:23:55 +0000
-Message-ID: <23147db6f0c548259357babfc22a87d3@AcuMS.aculab.com>
-References: <20200325101431.12341-1-andrew.cooper3@citrix.com>
- <601E644A-B046-4030-B3BD-280ABF15BF53@zytor.com>
- <87r1xgxzy6.fsf@nanos.tec.linutronix.de>
- <alpine.LFD.2.21.2004010001460.3939520@eddie.linux-mips.org>
-In-Reply-To: <alpine.LFD.2.21.2004010001460.3939520@eddie.linux-mips.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.202.205.107]
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 01 Apr 2020 04:39:28 -0700 (PDT)
+Received-SPF: pass (google.com: domain of brgerst@gmail.com designates 2607:f8b0:4864:20::d43 as permitted sender) client-ip=2607:f8b0:4864:20::d43;
+Received: by mail-io1-xd43.google.com with SMTP id h131so25257978iof.1
+        for <jailhouse-dev@googlegroups.com>; Wed, 01 Apr 2020 04:39:28 -0700 (PDT)
+X-Received: by 2002:a05:6602:2242:: with SMTP id o2mr19807209ioo.22.1585741167864;
+ Wed, 01 Apr 2020 04:39:27 -0700 (PDT)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: aculab.com
+References: <20200325101431.12341-1-andrew.cooper3@citrix.com>
+ <20200331175810.30204-1-andrew.cooper3@citrix.com> <CAMzpN2i6Nf0VDZ82mXyFixN879FC4eZfqe-LzWGkvygcz1gH_Q@mail.gmail.com>
+ <c46bcb6d-4256-2d65-9cd9-33e010846de4@citrix.com> <CAMzpN2gdkmYYbQatFk66QMpiuZSfnUQUVtJ30VYF7nsX_+XVgA@mail.gmail.com>
+ <bdf7995d-2d50-9bb9-8066-6c4ccfaa5b52@citrix.com>
+In-Reply-To: <bdf7995d-2d50-9bb9-8066-6c4ccfaa5b52@citrix.com>
+From: Brian Gerst <brgerst@gmail.com>
+Date: Wed, 1 Apr 2020 07:39:16 -0400
+Message-ID: <CAMzpN2g0LS5anGc7CXco4pgBHhGzc8hw+shMOg8WEWGsx+BHpg@mail.gmail.com>
+Subject: Re: [PATCH v2] x86/smpboot: Remove 486-isms from the modern AP boot path
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, Thomas Gleixner <tglx@linutronix.de>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>, 
+	"the arch/x86 maintainers" <x86@kernel.org>, Jan Kiszka <jan.kiszka@siemens.com>, 
+	James Morris <jmorris@namei.org>, David Howells <dhowells@redhat.com>, 
+	Matthew Garrett <mjg59@google.com>, Josh Boyer <jwboyer@redhat.com>, Steve Wahl <steve.wahl@hpe.com>, 
+	Mike Travis <mike.travis@hpe.com>, Dimitri Sivanich <dimitri.sivanich@hpe.com>, 
+	Arnd Bergmann <arnd@arndb.de>, "Peter Zijlstra (Intel)" <peterz@infradead.org>, 
+	Giovanni Gherdovich <ggherdovich@suse.cz>, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
+	Len Brown <len.brown@intel.com>, Kees Cook <keescook@chromium.org>, 
+	Martin Molnar <martin.molnar.programming@gmail.com>, Pingfan Liu <kernelfans@gmail.com>, 
+	jailhouse-dev@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-X-Original-Sender: david.laight@aculab.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of david.laight@aculab.com designates 207.82.80.151 as
- permitted sender) smtp.mailfrom=david.laight@aculab.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=aculab.com
+X-Original-Sender: brgerst@gmail.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@gmail.com header.s=20161025 header.b=n6roFE5d;       spf=pass
+ (google.com: domain of brgerst@gmail.com designates 2607:f8b0:4864:20::d43 as
+ permitted sender) smtp.mailfrom=brgerst@gmail.com;       dmarc=pass (p=NONE
+ sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -162,64 +154,224 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-From: Maciej W. Rozycki
-> Sent: 01 April 2020 00:35
-> On Wed, 25 Mar 2020, Thomas Gleixner wrote:
-> 
-> > >>@@ -1118,7 +1121,7 @@ static int do_boot_cpu(int apicid, int cpu,
-> > >>struct task_struct *idle,
-> > >> 		}
-> > >> 	}
-> > >>
-> > >>-	if (x86_platform.legacy.warm_reset) {
-> > >>+	if (!APIC_INTEGRATED(boot_cpu_apic_version)) {
-> > >> 		/*
-> > >> 		 * Cleanup possible dangling ends...
-> > >> 		 */
-> > >
-> > > We don't support SMP on 486 and haven't for a very long time. Is there
-> > > any reason to retain that code at all?
-> >
-> > Not that I'm aware off.
-> 
->  For the record: this code is for Pentium really, covering original P5
-> systems, which lacked integrated APIC, as well as P54C systems that went
-> beyond dual (e.g. ALR made quad-SMP P54C systems).  They all used external
-> i82489DX APICs for SMP support.  Few were ever manufactured and getting
-> across one let alone running Linux might be tough these days.  I never
-> managed to get one for myself, which would have been helpful for
-> maintaining this code.
+On Wed, Apr 1, 2020 at 5:22 AM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+>
+> On 31/03/2020 23:53, Brian Gerst wrote:
+> > On Tue, Mar 31, 2020 at 6:44 PM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+> >> On 31/03/2020 23:23, Brian Gerst wrote:
+> >>> On Tue, Mar 31, 2020 at 1:59 PM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+> >>>> Linux has an implementation of the Universal Start-up Algorithm (MP spec,
+> >>>> Appendix B.4, Application Processor Startup), which includes unconditionally
+> >>>> writing to the Bios Data Area and CMOS registers.
+> >>>>
+> >>>> The warm reset vector is only necessary in the non-integrated Local APIC case.
+> >>>> UV and Jailhouse already have an opt-out for this behaviour, but blindly using
+> >>>> the BDA and CMOS on a UEFI or other reduced hardware system isn't clever.
+> >>>>
+> >>>> We could make this conditional on the integrated-ness of the Local APIC, but
+> >>>> 486-era SMP isn't supported.  Drop the logic completely, tidying up the includ
+> >>>> list and header files as appropriate.
+> >>>>
+> >>>> CC: Thomas Gleixner <tglx@linutronix.de>
+> >>>> CC: Ingo Molnar <mingo@redhat.com>
+> >>>> CC: Borislav Petkov <bp@alien8.de>
+> >>>> CC: "H. Peter Anvin" <hpa@zytor.com>
+> >>>> CC: x86@kernel.org
+> >>>> CC: Jan Kiszka <jan.kiszka@siemens.com>
+> >>>> CC: James Morris <jmorris@namei.org>
+> >>>> CC: David Howells <dhowells@redhat.com>
+> >>>> CC: Andrew Cooper <andrew.cooper3@citrix.com>
+> >>>> CC: Matthew Garrett <mjg59@google.com>
+> >>>> CC: Josh Boyer <jwboyer@redhat.com>
+> >>>> CC: Steve Wahl <steve.wahl@hpe.com>
+> >>>> CC: Mike Travis <mike.travis@hpe.com>
+> >>>> CC: Dimitri Sivanich <dimitri.sivanich@hpe.com>
+> >>>> CC: Arnd Bergmann <arnd@arndb.de>
+> >>>> CC: "Peter Zijlstra (Intel)" <peterz@infradead.org>
+> >>>> CC: Giovanni Gherdovich <ggherdovich@suse.cz>
+> >>>> CC: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+> >>>> CC: Len Brown <len.brown@intel.com>
+> >>>> CC: Kees Cook <keescook@chromium.org>
+> >>>> CC: Martin Molnar <martin.molnar.programming@gmail.com>
+> >>>> CC: Pingfan Liu <kernelfans@gmail.com>
+> >>>> CC: linux-kernel@vger.kernel.org
+> >>>> CC: jailhouse-dev@googlegroups.com
+> >>>> Suggested-by: "H. Peter Anvin" <hpa@zytor.com>
+> >>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> >>>> ---
+> >>>> v2:
+> >>>>  * Drop logic entirely, rather than retaining support in 32bit builds.
+> >>>> ---
+> >>>>  arch/x86/include/asm/apic.h        |  6 -----
+> >>>>  arch/x86/include/asm/x86_init.h    |  1 -
+> >>>>  arch/x86/kernel/apic/x2apic_uv_x.c |  1 -
+> >>>>  arch/x86/kernel/jailhouse.c        |  1 -
+> >>>>  arch/x86/kernel/platform-quirks.c  |  1 -
+> >>>>  arch/x86/kernel/smpboot.c          | 50 --------------------------------------
+> >>>>  6 files changed, 60 deletions(-)
+> >>>>
+> >>>> diff --git a/arch/x86/include/asm/apic.h b/arch/x86/include/asm/apic.h
+> >>>> index 19e94af9cc5d..5c33f9374b28 100644
+> >>>> --- a/arch/x86/include/asm/apic.h
+> >>>> +++ b/arch/x86/include/asm/apic.h
+> >>>> @@ -472,12 +472,6 @@ static inline unsigned default_get_apic_id(unsigned long x)
+> >>>>                 return (x >> 24) & 0x0F;
+> >>>>  }
+> >>>>
+> >>>> -/*
+> >>>> - * Warm reset vector position:
+> >>>> - */
+> >>>> -#define TRAMPOLINE_PHYS_LOW            0x467
+> >>>> -#define TRAMPOLINE_PHYS_HIGH           0x469
+> >>>> -
+> >>>>  extern void generic_bigsmp_probe(void);
+> >>>>
+> >>>>  #ifdef CONFIG_X86_LOCAL_APIC
+> >>>> diff --git a/arch/x86/include/asm/x86_init.h b/arch/x86/include/asm/x86_init.h
+> >>>> index 96d9cd208610..006a5d7fd7eb 100644
+> >>>> --- a/arch/x86/include/asm/x86_init.h
+> >>>> +++ b/arch/x86/include/asm/x86_init.h
+> >>>> @@ -229,7 +229,6 @@ enum x86_legacy_i8042_state {
+> >>>>  struct x86_legacy_features {
+> >>>>         enum x86_legacy_i8042_state i8042;
+> >>>>         int rtc;
+> >>>> -       int warm_reset;
+> >>>>         int no_vga;
+> >>>>         int reserve_bios_regions;
+> >>>>         struct x86_legacy_devices devices;
+> >>>> diff --git a/arch/x86/kernel/apic/x2apic_uv_x.c b/arch/x86/kernel/apic/x2apic_uv_x.c
+> >>>> index ad53b2abc859..5afcfd193592 100644
+> >>>> --- a/arch/x86/kernel/apic/x2apic_uv_x.c
+> >>>> +++ b/arch/x86/kernel/apic/x2apic_uv_x.c
+> >>>> @@ -343,7 +343,6 @@ static int __init uv_acpi_madt_oem_check(char *_oem_id, char *_oem_table_id)
+> >>>>         } else if (!strcmp(oem_table_id, "UVH")) {
+> >>>>                 /* Only UV1 systems: */
+> >>>>                 uv_system_type = UV_NON_UNIQUE_APIC;
+> >>>> -               x86_platform.legacy.warm_reset = 0;
+> >>>>                 __this_cpu_write(x2apic_extra_bits, pnodeid << uvh_apicid.s.pnode_shift);
+> >>>>                 uv_set_apicid_hibit();
+> >>>>                 uv_apic = 1;
+> >>>> diff --git a/arch/x86/kernel/jailhouse.c b/arch/x86/kernel/jailhouse.c
+> >>>> index 6eb8b50ea07e..d628fe92d6af 100644
+> >>>> --- a/arch/x86/kernel/jailhouse.c
+> >>>> +++ b/arch/x86/kernel/jailhouse.c
+> >>>> @@ -210,7 +210,6 @@ static void __init jailhouse_init_platform(void)
+> >>>>         x86_platform.calibrate_tsc      = jailhouse_get_tsc;
+> >>>>         x86_platform.get_wallclock      = jailhouse_get_wallclock;
+> >>>>         x86_platform.legacy.rtc         = 0;
+> >>>> -       x86_platform.legacy.warm_reset  = 0;
+> >>>>         x86_platform.legacy.i8042       = X86_LEGACY_I8042_PLATFORM_ABSENT;
+> >>>>
+> >>>>         legacy_pic                      = &null_legacy_pic;
+> >>>> diff --git a/arch/x86/kernel/platform-quirks.c b/arch/x86/kernel/platform-quirks.c
+> >>>> index b348a672f71d..d922c5e0c678 100644
+> >>>> --- a/arch/x86/kernel/platform-quirks.c
+> >>>> +++ b/arch/x86/kernel/platform-quirks.c
+> >>>> @@ -9,7 +9,6 @@ void __init x86_early_init_platform_quirks(void)
+> >>>>  {
+> >>>>         x86_platform.legacy.i8042 = X86_LEGACY_I8042_EXPECTED_PRESENT;
+> >>>>         x86_platform.legacy.rtc = 1;
+> >>>> -       x86_platform.legacy.warm_reset = 1;
+> >>>>         x86_platform.legacy.reserve_bios_regions = 0;
+> >>>>         x86_platform.legacy.devices.pnpbios = 1;
+> >>>>
+> >>>> diff --git a/arch/x86/kernel/smpboot.c b/arch/x86/kernel/smpboot.c
+> >>>> index fe3ab9632f3b..a9f5b511d0b4 100644
+> >>>> --- a/arch/x86/kernel/smpboot.c
+> >>>> +++ b/arch/x86/kernel/smpboot.c
+> >>>> @@ -72,7 +72,6 @@
+> >>>>  #include <asm/fpu/internal.h>
+> >>>>  #include <asm/setup.h>
+> >>>>  #include <asm/uv/uv.h>
+> >>>> -#include <linux/mc146818rtc.h>
+> >>>>  #include <asm/i8259.h>
+> >>>>  #include <asm/misc.h>
+> >>>>  #include <asm/qspinlock.h>
+> >>>> @@ -119,34 +118,6 @@ int arch_update_cpu_topology(void)
+> >>>>         return retval;
+> >>>>  }
+> >>>>
+> >>>> -static inline void smpboot_setup_warm_reset_vector(unsigned long start_eip)
+> >>>> -{
+> >>>> -       unsigned long flags;
+> >>>> -
+> >>>> -       spin_lock_irqsave(&rtc_lock, flags);
+> >>>> -       CMOS_WRITE(0xa, 0xf);
+> >>>> -       spin_unlock_irqrestore(&rtc_lock, flags);
+> >>>> -       *((volatile unsigned short *)phys_to_virt(TRAMPOLINE_PHYS_HIGH)) =
+> >>>> -                                                       start_eip >> 4;
+> >>>> -       *((volatile unsigned short *)phys_to_virt(TRAMPOLINE_PHYS_LOW)) =
+> >>>> -                                                       start_eip & 0xf;
+> >>>> -}
+> >>>> -
+> >>>> -static inline void smpboot_restore_warm_reset_vector(void)
+> >>>> -{
+> >>>> -       unsigned long flags;
+> >>>> -
+> >>>> -       /*
+> >>>> -        * Paranoid:  Set warm reset code and vector here back
+> >>>> -        * to default values.
+> >>>> -        */
+> >>>> -       spin_lock_irqsave(&rtc_lock, flags);
+> >>>> -       CMOS_WRITE(0, 0xf);
+> >>>> -       spin_unlock_irqrestore(&rtc_lock, flags);
+> >>>> -
+> >>>> -       *((volatile u32 *)phys_to_virt(TRAMPOLINE_PHYS_LOW)) = 0;
+> >>>> -}
+> >>>> -
+> >>>>  static void init_freq_invariance(void);
+> >>>>
+> >>>>  /*
+> >>>> @@ -1049,20 +1020,6 @@ static int do_boot_cpu(int apicid, int cpu, struct task_struct *idle,
+> >>>>          * the targeted processor.
+> >>>>          */
+> >>>>
+> >>>> -       if (x86_platform.legacy.warm_reset) {
+> >>>> -
+> >>>> -               pr_debug("Setting warm reset code and vector.\n");
+> >>>> -
+> >>>> -               smpboot_setup_warm_reset_vector(start_ip);
+> >>>> -               /*
+> >>>> -                * Be paranoid about clearing APIC errors.
+> >>>> -               */
+> >>>> -               if (APIC_INTEGRATED(boot_cpu_apic_version)) {
+> >>>> -                       apic_write(APIC_ESR, 0);
+> >>>> -                       apic_read(APIC_ESR);
+> >>>> -               }
+> >>>> -       }
+> >>>> -
+> >>>>         /*
+> >>>>          * AP might wait on cpu_callout_mask in cpu_init() with
+> >>>>          * cpu_initialized_mask set if previous attempt to online
+> >>>> @@ -1118,13 +1075,6 @@ static int do_boot_cpu(int apicid, int cpu, struct task_struct *idle,
+> >>>>                 }
+> >>>>         }
+> >>>>
+> >>>> -       if (x86_platform.legacy.warm_reset) {
+> >>>> -               /*
+> >>>> -                * Cleanup possible dangling ends...
+> >>>> -                */
+> >>>> -               smpboot_restore_warm_reset_vector();
+> >>>> -       }
+> >>>> -
+> >>>>         return boot_error;
+> >>>>  }
+> >>> You removed x86_platform.legacy.warm_reset in the original patch, but
+> >>> that is missing in V2.
+> >> Second hunk?  Or are you referring to something different?
+> > Removing the warm_reset field from struct x86_legacy_features.
+>
+> Ok, but that is still present as the 2nd hunk of the patch.
 
-I remember ICL trying to get SVR4.2MP working on similar vintage hardware.
-I wasn't directly involved (doing SMP sparc ethernet drivers) but ISTR
-that the SMP support silicon they were using (or rather trying to use)
-was basically broken.
-By the time they got it (nearly) working single cpu systems were faster.
+My apologies, Gmail was hiding that section of the patch because it
+was a reply to the original patch.  For future reference, add the
+version number to the title when resubmitting a patch (ie. [PATCH
+v2]).
 
->  Even though we supported them by spec I believe we never actually ran MP
-> on any 486 SMP system (Alan Cox might be able to straighten me out on
-> this); none that I know of implemented the MPS even though actual hardware
-> might have used the APIC architecture.  Compaq had its competing solution
-> for 486 and newer SMP, actually deployed, the name of which I long forgot.
-> We never supported it due to the lack of documentation combined with the
-> lack of enough incentive for someone to reverse-engineer it.
-
-I also remember one of those Compaq dual 486 boxes.
-We must have has SVR4/Unixware running on it.
-
-I suspect that any such systems would also be too slow and not have
-enough memory to actually run anything recent.
-
-OTOH there are modern 486 (like) systems than might have a reasonable
-amount of memory and clock speed.
-
-	David
-
--
-Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1 1PT, UK
-Registration No: 1397386 (Wales)
+--
+Brian Gerst
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/23147db6f0c548259357babfc22a87d3%40AcuMS.aculab.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CAMzpN2g0LS5anGc7CXco4pgBHhGzc8hw%2BshMOg8WEWGsx%2BBHpg%40mail.gmail.com.
