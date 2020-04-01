@@ -1,180 +1,124 @@
-Return-Path: <jailhouse-dev+bncBAABB75LST2AKGQEJ6W7IKQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCXKBPVPXAFRBE6JST2AKGQESJ5676Q@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x440.google.com (mail-wr1-x440.google.com [IPv6:2a00:1450:4864:20::440])
-	by mail.lfdr.de (Postfix) with ESMTPS id D52AC19B864
-	for <lists+jailhouse-dev@lfdr.de>; Thu,  2 Apr 2020 00:30:23 +0200 (CEST)
-Received: by mail-wr1-x440.google.com with SMTP id e10sf545447wrm.2
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 01 Apr 2020 15:30:23 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1585780223; cv=pass;
+Received: from mail-wm1-f56.google.com (mail-wm1-f56.google.com [209.85.128.56])
+	by mail.lfdr.de (Postfix) with ESMTPS id B4CF419B8F9
+	for <lists+jailhouse-dev@lfdr.de>; Thu,  2 Apr 2020 01:32:35 +0200 (CEST)
+Received: by mail-wm1-f56.google.com with SMTP id z24sf445573wml.9
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 01 Apr 2020 16:32:35 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1585783955; cv=pass;
         d=google.com; s=arc-20160816;
-        b=WcD5H6uz1BfaqzAnDCSzAsttOU13ivvrn4GrANBxuodhKHwIkNCbW/8wCaHw2vCGTr
-         7XJqeM53bGKrrYq5h3NEtG7R7U+65GmbP3liAViIt8Po6YNMFY5GQ7jKKw7+PYhPcEo/
-         SwNbcF8pJdRQNQ+mlUyEl09WR+wcoPlZBY6g0Cm9DnZjlV8CDAeobDsO/DVUDIIf/Idr
-         LQFGuh5lHhi7pUWPxO2sDsk3bOK+479cWp/bnHLm0do5fl7L99ciKcXBwOMgsLaKDHSm
-         ToBtkQPDEOKQBRFCqm0bCRnxeiNpg8jGngv4pm5zvCYQCPa3SCj7yl4sNT2uoJzLA3Nl
-         4XrQ==
+        b=yNnqdRU1dF2zsYlMmaF6iKm1CuUwjIBOYnfI1IrxcvU2PuQeJuO23h8l1vJF5XS/lw
+         uxsqSo+iDW80Da1oMuuQNybSokdVZp09xOUex0eaTaY5nCgW2qQA0cMi7y9Ho+O6eR2a
+         srUhYco/Rhpj5+ohvaLX142R6iA9hcwEr6pBNIOnWBr15ouOcVlP/bwgshH8wiqxZnlZ
+         4Ak3B0ZgP8kNfbaHt2atrZVj755qArQEe25gnW9fQdSbgOKTVHxPdqk9QkeDZxCH8r7Z
+         5H6iSK0y9r8dP2GV8x33b0p5JFaIifu9LjI1mFvQ9VLmfrCZ1gO25uNTnlogwjJj2+cZ
+         q3rQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language
-         :content-transfer-encoding:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:cc:to:subject:ironport-sdr:sender
-         :dkim-signature;
-        bh=KVpEA77bpa0TpFNY3VPIQYQ9ybAhP87PRv/lX58x8IU=;
-        b=KylTQkAC0+OhCrTHDfF4FncDCZcUlcoroZLMV/Ov101sbFjguqP4W64wZ1ep+xEf7M
-         THejwTtvGQnYseBcsUuhYjv84tn5mvA/LmN+OoWMFPuK4G67xK34tWcHasUKEIJ1gSIe
-         qa8A8QfkkBfhaPJZgd4NmRcXBgBecHBdCBRK+FraQ9QvUxHKng5BbU6KBG0mA5GDcHE1
-         /fNWD8DxXWiC+IRdwVCi1WDNfe/bWwxHxMc8BxAYhZD40BJKMJsoLO7SNk+upZwTPnzj
-         3ZFBDgZ7mNQsu/Hhlcvt4c4idM4dc9EjLkkMsvHMzpi7dbj0z9Xl5NZhthZ7+GcyJLT6
-         yudw==
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :mime-version:references:message-id:in-reply-to:subject:cc:to:from
+         :sender:date;
+        bh=cLJDYLJnOskqjPOlWoR5WGMpGPGAx2Snh8pDojgZNCk=;
+        b=Mudt3bX6e0ajcWrYQ+l0AykW0dgTNCASnK85aXNIrI96EdTtVWP2+wtNgmB9BmbbHl
+         CYOVjEL6nxohywx6XqcI/R2rHYqxJILBcFgixTImqDZhZGnZ/cmJgGP9+CMtjvAIa2XP
+         OnsT/u03Hln7ndwUod3KcyH3LxnhTyiFfx8EQF1KJxawkqTjnAMDP+9Tfof+BruWTp4Z
+         YssQakajXXWkK+jpyjgnj8vZHf/tAVHHycEyhbILvbzMHvNZ1GRUz4vjSZRVz2Yfv5+/
+         SfDjtE7WY7Cmy8DoPkIAA80SF0Uk0vC68NNGx9ZD0kBljD8+C0Lf0T6igJDl7wtbAJFg
+         Qxkg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@citrix.com header.s=securemail header.b=MrUI5UNF;
-       spf=pass (google.com: domain of andrew.cooper3@citrix.com designates 216.71.155.144 as permitted sender) smtp.mailfrom=Andrew.Cooper3@citrix.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=citrix.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20161025;
-        h=sender:ironport-sdr:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=KVpEA77bpa0TpFNY3VPIQYQ9ybAhP87PRv/lX58x8IU=;
-        b=gGSHduBv0OYqNDuzOqoEeZMvUDGS2wuGcS6mOyfdI0hIOhmfZI0h5xsYiffxO/lZQu
-         OrdPgyPMYoXwC6YnN7YPH/jvgpjdroaXHkBfUi4zI2qqpfS2ahCH584KVy0QQOszu8Mm
-         S7CGfeuNabWnAbICQvehRvQ9V3S+JruMeM/7mENZaSmMG6dlAKGklvB+0+Z4sxrgpJIS
-         IpSW4nNNm29ySkIqyV09cbLssCjZMW+VpmcthS49ZO/QrBOGr113d24VoVIKBvIdsUJG
-         +yonITJ2GklP0DBLpJByRCIZ0PZaNgOsLqlPaQ6R0wLD6LZ5g52/mZhX7QL1g+eWeNPB
-         U3dw==
+       spf=pass (google.com: best guess record for domain of macro@linux-mips.org designates 148.251.95.138 as permitted sender) smtp.mailfrom=macro@linux-mips.org
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:ironport-sdr:subject:to:cc:references
-         :from:message-id:date:user-agent:mime-version:in-reply-to
-         :content-transfer-encoding:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=KVpEA77bpa0TpFNY3VPIQYQ9ybAhP87PRv/lX58x8IU=;
-        b=ZAeIZnHgpyeUQWtQtaX+7vLQdZp0EYb3h4XyNJg44Wx1DaCCHS9t2xmD2FjeWNwZcT
-         em5DMZFIey/FFWeAiV4/fNuBn2suiP8MZCLvwD/3B6wFqABk73x0H8D7WvSGdpWT8iSc
-         2xltNcHSEn/d+W8P3oWfxzjS4ubu3WNiQey4jh+qyIiUt+qjUxsNn9J1K767B7hlfl5y
-         4fTEuzkFBlxqRoA9TxBbWVDKiHr5EyeeEFaqr/oRMb3jK2iVs6TwKV5DXU7C/7zC5/TK
-         iBkpHAVXF5tjTTMcAHMZEZ75ld+zAjl7m/NLg9WGid8xpXyD2vB29+EEscc9ics7M+GL
-         1ckQ==
-Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AGi0PubCacFbCyg9fMj0MyNInaQ3HnoozkKT7jArRebYpC06wkuvg91W
-	/jeCmV9rwi2XQglrKsb0mIA=
-X-Google-Smtp-Source: APiQypJAXb62ZIpM+E9RI22J9Vx53qvwZTeJ6qfTdmP4XnlSCqBBpZT59El+A7RFJzKvLnCbQs9p8g==
-X-Received: by 2002:a5d:4111:: with SMTP id l17mr170950wrp.271.1585780223553;
-        Wed, 01 Apr 2020 15:30:23 -0700 (PDT)
+        h=x-gm-message-state:date:sender:from:to:cc:subject:in-reply-to
+         :message-id:references:mime-version:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=cLJDYLJnOskqjPOlWoR5WGMpGPGAx2Snh8pDojgZNCk=;
+        b=U5wVtu46MnPnjTTqYxw66aA/3gYY1OTP9cyMNdMwjOfNM/jhOtvEwm/LPDbmoRjnSI
+         ccik63kyByLV6kfeANZ0SuHFeJ2FGuO1CJmA6T01htDIJ5IoGSMk0/mGWvK/8Zi9QtAN
+         iJG4w2HD78pkR4omgPDK+TKPE6a6rqNrvsjMBDl4ov6UjRQTT5hrNVirkv90/Hhzc3P5
+         xbK1Je2WHYsiW2GioAlcruImJ6+vhOqQGYO4Zbkw6CxPiDgEdjYXBffsSENskXs4VYjb
+         pgSACur4PLwfXmm36oK1GKDepkTekenIKBGTZ+LDHTlt7GaEfHBR5fWvGcd4tp/3f2XK
+         8mxQ==
+X-Gm-Message-State: AGi0PuYy1J9pi9+EW6Jt4/DeUDZa74ZJkO0/a9WIpA3EnC+Mq9z30tai
+	0u11sRLY5vFOSRTuHXllZpE=
+X-Google-Smtp-Source: APiQypKsMT48/4+HFZuciWKZgpF/CEJK66nykdqqreje0F37A4yJzDVe3gwQgfdSCfAlvOwnF8UDdg==
+X-Received: by 2002:a7b:c1d2:: with SMTP id a18mr416237wmj.180.1585783955467;
+        Wed, 01 Apr 2020 16:32:35 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:8104:: with SMTP id c4ls18037wmd.0.experimental-gmail;
- Wed, 01 Apr 2020 15:30:22 -0700 (PDT)
-X-Received: by 2002:a1c:2d41:: with SMTP id t62mr211846wmt.128.1585780222711;
-        Wed, 01 Apr 2020 15:30:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1585780222; cv=none;
+Received: by 2002:adf:9781:: with SMTP id s1ls315063wrb.2.gmail; Wed, 01 Apr
+ 2020 16:32:34 -0700 (PDT)
+X-Received: by 2002:adf:a3db:: with SMTP id m27mr408349wrb.350.1585783954754;
+        Wed, 01 Apr 2020 16:32:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1585783954; cv=none;
         d=google.com; s=arc-20160816;
-        b=JngdPZbYnlQbuRxmiKK/d7AN1TDA87kSEHvbWXtPc7Gzyko4blyTfi3NqsMtahmRZu
-         YNHgG9kYegFTW3uHlVM54zxMPO3iOspdi59wR3Ez5WXq1+k1t5q8EgjKxFJREcQcPBwv
-         xi7Dzl81UYICohe0gVVSIiPuD+s1Pjd1r5wvsmeTR9vypSC5GDXw+k0kJy4zRe3mdETM
-         28axFb6Im8/Wf+wCy9ucXpiWpyxkPc/IKq2C//36npVqoZQWs8behAsMhx/76AxwOeOK
-         MKAeKFXdOs3e5CWdUitr4VKms2SO28Pctnqlaq24/OCMDkqitlMYesdgdi/ljJfymvcy
-         9oWA==
+        b=ihB6eZMDLq1l0wlIJdTd6SEolPkK4ryKIFtkIauaFr+e3twRyy+bBum7a+pU1bt0E3
+         PVNsI0TrRdnSvxzpcDPmy5j4jPFkOCoAWrWdyj0FqVPn2lUE1BoezYN6NZqZAox68v+O
+         ydbmtopmn2/hB98KwpVC713slQff3NFEQhe+s8Vj09PK9KGw2yEu/jjVj+csq0gtKjz6
+         L6P6PFDp7QwXyB6x+ZbrpyWfkuJJkg2pWluspiwoHTdUqdZiBM0jGRQLmYLmjQOlNxt5
+         041rh8Cri68J8tgJvVuExMbHvbNM5XqjwfMlCfbEpOPulvgat3fnQhxdQj6CAjxmSMp0
+         8BPA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-language:content-transfer-encoding:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject
-         :ironport-sdr:dkim-signature;
-        bh=FeTi8r30vfolfu5d1f/8SeVwgzbGoq0+Vccyr83o7+g=;
-        b=gBPYNheVrZIO/HXbcEIFlfCtdjTzt05oQFCUizLHQdeUjoQHWcvtA9EMZO4B6amxIm
-         J7sy59s2PK6UH4tTCYNF5v54+8xYnIDBLaC3KbZ5X3rELpsmV/Yy7ZvR/HjM7lHaieD0
-         Jp/wB0aG5FJkYrkBxKX5o7kizKAb2W7WnQMOe6rm3s/AdqQQdpGgx8E2DRsJms+9jAqy
-         MS+6vuEUgujVW7XoJCDqxrTTDyTZK1QBKpt/GbSqm+hXNHf5ovLr7YGa9SSbDFKMaO2B
-         STlI0Ed/zKWeDbPDWwmfrVyBjUCcKkdVWega4/OmxvXpdx0kfGQMdlJro9AT1qN+UoCz
-         piQA==
+        h=content-transfer-encoding:mime-version:references:message-id
+         :in-reply-to:subject:cc:to:from:sender:date;
+        bh=GJ3Xc4R2NLYeBfaPQ5+20lVgXh+vzZg3OnqLAl+W20Q=;
+        b=AuTMgdEg+8zt/evXudXjypqREvnm8KaFTEl6CNzOWGqRmJ/bc9f6WuZkx0TcT/CVyT
+         j0vP0mQTx02mH/DYH2krxvMYlv8tmVz7LZ7rPud7TqrhCwZD0gIJiOrvzquqAg30N7TU
+         bSXmDZ4bGGQCxYQXs0cYboP+p+icmAbX/oSUTh0SgcO233JvTbgp0LTLdC/LOkrt5Jng
+         idm3wdrKNsQ3Ue9urvbIIB5zkAMFw7wfP0+SObVbNv6egbNK4hFb7Sabk+6FjcsogGDI
+         KpPM/yd0wR+hTr5fmhVhso7t7Y1mxi/9Pz9c2eKigHLprvEJP7fS7PYd3jGCbkF8O7qX
+         W47Q==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@citrix.com header.s=securemail header.b=MrUI5UNF;
-       spf=pass (google.com: domain of andrew.cooper3@citrix.com designates 216.71.155.144 as permitted sender) smtp.mailfrom=Andrew.Cooper3@citrix.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=citrix.com
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com. [216.71.155.144])
-        by gmr-mx.google.com with ESMTPS id s4si182764wrm.4.2020.04.01.15.30.22
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 01 Apr 2020 15:30:22 -0700 (PDT)
-Received-SPF: pass (google.com: domain of andrew.cooper3@citrix.com designates 216.71.155.144 as permitted sender) client-ip=216.71.155.144;
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
-  authenticity information available from domain of
-  andrew.cooper3@citrix.com) identity=pra;
-  client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
-  envelope-from="Andrew.Cooper3@citrix.com";
-  x-sender="andrew.cooper3@citrix.com";
-  x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
-  Andrew.Cooper3@citrix.com designates 162.221.158.21 as
-  permitted sender) identity=mailfrom;
-  client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
-  envelope-from="Andrew.Cooper3@citrix.com";
-  x-sender="Andrew.Cooper3@citrix.com";
-  x-conformance=sidf_compatible; x-record-type="v=spf1";
-  x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
-  ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
-  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
-  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
-  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
-  authenticity information available from domain of
-  postmaster@mail.citrix.com) identity=helo;
-  client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
-  envelope-from="Andrew.Cooper3@citrix.com";
-  x-sender="postmaster@mail.citrix.com";
-  x-conformance=sidf_compatible
-IronPort-SDR: SlBOpDVSyfmlaZYloDXfRtyji0AMLQW2ggHFzCnIad2qFJeMl2e6w5vnfnDP1epnj1a35l01GE
- gJ7p7IE9mrSXq7gTPDtz4HLJaxJsYAKLarA2Put92a64Iob8XDKqpo0/8TG+R+KdS4IwfCptHM
- 3sa/qfuCnMhgrFOog8P6Z8VQCurgolww554Z39ZPQ4r42ACZAW9vDKaDbgS46pyXIssmpFvjXA
- JMqF5IT32+YSitByXxOUC0NDPlCySni8S5lfM4ufZGVyGZGgHJW77gz+rXUO1e3O0guDB0wtz/
- bH0=
-X-SBRS: 2.7
-X-MesageID: 15694073
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,333,1580792400"; 
-   d="scan'208";a="15694073"
-Subject: Re: [PATCH] x86/smpboot: Remove 486-isms from the modern AP boot path
-To: "Maciej W. Rozycki" <macro@linux-mips.org>, Thomas Gleixner
-	<tglx@linutronix.de>
-CC: <hpa@zytor.com>, LKML <linux-kernel@vger.kernel.org>, Ingo Molnar
-	<mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, <x86@kernel.org>, "Jan
- Kiszka" <jan.kiszka@siemens.com>, James Morris <jmorris@namei.org>, "David
- Howells" <dhowells@redhat.com>, Matthew Garrett <mjg59@google.com>, Josh
- Boyer <jwboyer@redhat.com>, Zhenzhong Duan <zhenzhong.duan@oracle.com>, Steve
- Wahl <steve.wahl@hpe.com>, Mike Travis <mike.travis@hpe.com>, Dimitri
- Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>, "Peter
- Zijlstra (Intel)" <peterz@infradead.org>, Giovanni Gherdovich
-	<ggherdovich@suse.cz>, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, Len
- Brown <len.brown@intel.com>, Kees Cook <keescook@chromium.org>, Martin Molnar
-	<martin.molnar.programming@gmail.com>, Pingfan Liu <kernelfans@gmail.com>,
-	<jailhouse-dev@googlegroups.com>
-References: <20200325101431.12341-1-andrew.cooper3@citrix.com>
- <601E644A-B046-4030-B3BD-280ABF15BF53@zytor.com>
- <87r1xgxzy6.fsf@nanos.tec.linutronix.de>
- <alpine.LFD.2.21.2004010001460.3939520@eddie.linux-mips.org>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <beefca46-ac7c-374b-e80a-4e7c3af2eb2b@citrix.com>
-Date: Wed, 1 Apr 2020 23:30:10 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+       spf=pass (google.com: best guess record for domain of macro@linux-mips.org designates 148.251.95.138 as permitted sender) smtp.mailfrom=macro@linux-mips.org
+Received: from cvs.linux-mips.org (eddie.linux-mips.org. [148.251.95.138])
+        by gmr-mx.google.com with ESMTP id v12si166519wrp.5.2020.04.01.16.32.34
+        for <jailhouse-dev@googlegroups.com>;
+        Wed, 01 Apr 2020 16:32:34 -0700 (PDT)
+Received-SPF: pass (google.com: best guess record for domain of macro@linux-mips.org designates 148.251.95.138 as permitted sender) client-ip=148.251.95.138;
+Received: (from localhost user: 'macro', uid#1010) by eddie.linux-mips.org
+        with ESMTP id S23993316AbgDAXcamxzAZ (ORCPT
+        <rfc822;jailhouse-dev@googlegroups.com>);
+        Thu, 2 Apr 2020 01:32:30 +0200
+Date: Thu, 2 Apr 2020 00:32:30 +0100 (BST)
+Sender: "Maciej W. Rozycki" <macro@linux-mips.org>
+From: "Maciej W. Rozycki" <macro@linux-mips.org>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+cc: Thomas Gleixner <tglx@linutronix.de>, hpa@zytor.com,
+        LKML <linux-kernel@vger.kernel.org>,
+        Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+        x86@kernel.org, Jan Kiszka <jan.kiszka@siemens.com>,
+        James Morris <jmorris@namei.org>,
+        David Howells <dhowells@redhat.com>,
+        Matthew Garrett <mjg59@google.com>,
+        Josh Boyer <jwboyer@redhat.com>,
+        Zhenzhong Duan <zhenzhong.duan@oracle.com>,
+        Steve Wahl <steve.wahl@hpe.com>,
+        Mike Travis <mike.travis@hpe.com>,
+        Dimitri Sivanich <dimitri.sivanich@hpe.com>,
+        Arnd Bergmann <arnd@arndb.de>,
+        "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+        Giovanni Gherdovich <ggherdovich@suse.cz>,
+        "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+        Len Brown <len.brown@intel.com>,
+        Kees Cook <keescook@chromium.org>,
+        Martin Molnar <martin.molnar.programming@gmail.com>,
+        Pingfan Liu <kernelfans@gmail.com>,
+        jailhouse-dev@googlegroups.com
+Subject: Re: [PATCH] x86/smpboot: Remove 486-isms from the modern AP boot
+ path
+In-Reply-To: <beefca46-ac7c-374b-e80a-4e7c3af2eb2b@citrix.com>
+Message-ID: <alpine.LFD.2.21.2004012353100.4156324@eddie.linux-mips.org>
+References: <20200325101431.12341-1-andrew.cooper3@citrix.com> <601E644A-B046-4030-B3BD-280ABF15BF53@zytor.com> <87r1xgxzy6.fsf@nanos.tec.linutronix.de> <alpine.LFD.2.21.2004010001460.3939520@eddie.linux-mips.org>
+ <beefca46-ac7c-374b-e80a-4e7c3af2eb2b@citrix.com>
 MIME-Version: 1.0
-In-Reply-To: <alpine.LFD.2.21.2004010001460.3939520@eddie.linux-mips.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
-X-Original-Sender: andrew.cooper3@citrix.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@citrix.com header.s=securemail header.b=MrUI5UNF;       spf=pass
- (google.com: domain of andrew.cooper3@citrix.com designates 216.71.155.144 as
- permitted sender) smtp.mailfrom=Andrew.Cooper3@citrix.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=citrix.com
+X-Original-Sender: macro@linux-mips.org
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: best guess record for domain of macro@linux-mips.org designates
+ 148.251.95.138 as permitted sender) smtp.mailfrom=macro@linux-mips.org
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -187,56 +131,71 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 01/04/2020 00:35, Maciej W. Rozycki wrote:
-> On Wed, 25 Mar 2020, Thomas Gleixner wrote:
->
->>>> @@ -1118,7 +1121,7 @@ static int do_boot_cpu(int apicid, int cpu,
->>>> struct task_struct *idle,
->>>> 		}
->>>> 	}
->>>>
->>>> -	if (x86_platform.legacy.warm_reset) {
->>>> +	if (!APIC_INTEGRATED(boot_cpu_apic_version)) {
->>>> 		/*
->>>> 		 * Cleanup possible dangling ends...
->>>> 		 */
->>> We don't support SMP on 486 and haven't for a very long time. Is there
->>> any reason to retain that code at all?
->> Not that I'm aware off.
->  For the record: this code is for Pentium really, covering original P5=20
-> systems, which lacked integrated APIC, as well as P54C systems that went=
+On Wed, 1 Apr 2020, Andrew Cooper wrote:
+
+> >  Even though we supported them by spec I believe we never actually ran =
+MP=20
+> > on any 486 SMP system (Alan Cox might be able to straighten me out on=
 =20
-> beyond dual (e.g. ALR made quad-SMP P54C systems).  They all used externa=
-l=20
-> i82489DX APICs for SMP support.  Few were ever manufactured and getting=
-=20
-> across one let alone running Linux might be tough these days.  I never=20
-> managed to get one for myself, which would have been helpful for=20
-> maintaining this code.
->
->  Even though we supported them by spec I believe we never actually ran MP=
-=20
-> on any 486 SMP system (Alan Cox might be able to straighten me out on=20
-> this); none that I know of implemented the MPS even though actual hardwar=
+> > this); none that I know of implemented the MPS even though actual hardw=
+are=20
+> > might have used the APIC architecture.  Compaq had its competing soluti=
+on=20
+> > for 486 and newer SMP, actually deployed, the name of which I long forg=
+ot. =20
+> > We never supported it due to the lack of documentation combined with th=
 e=20
-> might have used the APIC architecture.  Compaq had its competing solution=
+> > lack of enough incentive for someone to reverse-engineer it.
+>=20
+> :)
+>=20
+> I chose "486-ism" based on what the MP spec said about external vs
+> integrated Local APICs.=C2=A0 I can't claim to have any experience of tho=
+se days.
+
+ The spec is quite clear about the use of discrete APICs actually:
+
+"5.1 Discrete APIC Configurations
+
+"   Figure 5-1 shows the default configuration for systems that use the=20
+    discrete 82489 APIC.  The Intel486 processor is shown as an example;=20
+    however, this configuration can also employ Pentium processors.  In=20
+    Pentium processor systems, PRST is connected to INIT instead of to=20
+    RESET."
+
+:)  And if in the way the internal local APIC in P54C processors can be
+permanently disabled (causing it not to be reported in CPUID flags) via a=
 =20
-> for 486 and newer SMP, actually deployed, the name of which I long forgot=
-. =20
-> We never supported it due to the lack of documentation combined with the=
+reset strap, e.g. to support an unusual configuration.
+
+ As I recall the integrated APIC would in principle support SMP configs=20
+beyond dual (the inter-APIC bus was serial at the time and supported 15=20
+APIC IDs with the P54C), but at the time the P54C processor was released=20
+the only compatible I/O APICs were available as a part of Intel PCI south=
 =20
-> lack of enough incentive for someone to reverse-engineer it.
+bridges (the 82375EB/SB ESC and the 82379AB SIO.A).  Those chips were not=
+=20
+necessarily compatible with whatever custom chipset was developed to=20
+support e.g. a quad-SMP P54C system.  Or there were political reasons=20
+preventing them from being used.
 
-:)
+ Then the 82489DX used an incompatible protocol (supporting 254 APIC IDs=20
+among others, and as I recall the serial bus had a different number of=20
+wires even), so it couldn't be mixed with integrated local APICs.  That's=
+=20
+why discrete APICs were sometimes used even with P54C processors.
 
-I chose "486-ism" based on what the MP spec said about external vs
-integrated Local APICs.=C2=A0 I can't claim to have any experience of those=
- days.
+ And the 82093AA standalone I/O APIC was only introduced a few years=20
+later, along with the Intel HX (Triton II) SMP chipset.  I still have a=20
+nice working machine equipped with this chipset and dual P55C processors=20
+@233MHz.  Even the original CPU fans are going strong. :)  Its MP table is=
+=20
+however buggy and difficult to work with if the I/O APIC is to be used,=20
+especially if PCI-PCI bridges are involved (there's none onboard, but you=
+=20
+can have these easily in multiple quantities on option cards nowadays).
 
-I guess given v2 of the patch, I guess this should become "Remove
-external-LAPIC support from the AP boot path" ?
-
-~Andrew
+  Maciej
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -244,4 +203,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/beefca46-ac7c-374b-e80a-4e7c3af2eb2b%40citrix.com.
+jailhouse-dev/alpine.LFD.2.21.2004012353100.4156324%40eddie.linux-mips.org.
