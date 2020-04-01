@@ -1,125 +1,148 @@
-Return-Path: <jailhouse-dev+bncBCXKBPVPXAFRB7FMSL2AKGQEIQGPSAI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC25XUMBOQIIPT4S6QCRUBHXYT7BE@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-f61.google.com (mail-lf1-f61.google.com [209.85.167.61])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3630119ACCE
-	for <lists+jailhouse-dev@lfdr.de>; Wed,  1 Apr 2020 15:26:21 +0200 (CEST)
-Received: by mail-lf1-f61.google.com with SMTP id c20sf10179596lfh.6
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 01 Apr 2020 06:26:21 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1585747580; cv=pass;
+Received: from mail-qv1-xf3f.google.com (mail-qv1-xf3f.google.com [IPv6:2607:f8b0:4864:20::f3f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0394F19AE16
+	for <lists+jailhouse-dev@lfdr.de>; Wed,  1 Apr 2020 16:39:05 +0200 (CEST)
+Received: by mail-qv1-xf3f.google.com with SMTP id v88sf20442402qvv.6
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 01 Apr 2020 07:39:04 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1585751943; cv=pass;
         d=google.com; s=arc-20160816;
-        b=0H/1nrTCDToSOOisdD+gKpBGwkIpo59XwCMfn8vKQbX0KSm7R/mcgDSRJNklAO8zVD
-         XNVyXyhDFj1Cy4vL7SMZZcteVkREMsG/yqHjFCci/XSE46fzW1u2BwU884RyAFIRcLYd
-         ZtXyWW/3r1dkHhxZ5+PCa/wXhZeLiMWtuCjJEz9tbuQ8QajwSr3uENFZpY+3NNDqnaBT
-         Mw00NWiIaDcc/LWAD5dvsQDjcfGDx57ovHDwrzu2GDyrVWXWZJEEXRbKbqyqiIvYk/VN
-         GlPoNTKrmxMe1rOnoMsb7wa/lhx17+amSqX+gKu4BeUKBmi5+/LAbVG1M4BN0LQrUT6n
-         Ibkg==
+        b=ZoHdt99sasjp2ivV+mbFHFEcFcIpxpLg9skhs1wUCKwtFU+950F/MYGptCL4GsR7FS
+         LX0BDTkauscAAP8y2niyxvD5lDKVTPcUGMfbYbGWPbN4sULtphgYgoOg2SCReM7qnfWJ
+         8geGQB64myOXuaFc3mkeE6SwLGdCn/6HJjUy7p3BWTCCcdoIi4Si8yQ8Vr/T1K1OCJP8
+         Flpfx1EfOhLiEKbYwAVDdyRyLH6VOJ3s2qSggj+e8Gc5iekxmvOe45jAbliNxnTj1Q7D
+         Oo5ZcfxTBDb34aF4Gfp74xd3O0cxzFfNd3JfPRbtPfe3xa4bR8gGci/4BbPEx7SthQaw
+         rfhg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:references:message-id
-         :in-reply-to:subject:cc:to:from:sender:date;
-        bh=J+NrraTexOu32ljWlw4h+94SNS7NB4P9EietmBHM4bE=;
-        b=Z9fWTLhdJnlpWHZqcOMdWI5Ac/4CBOR3uV7WHPZxND2p7VeX4n0/b91uDynsD1iw4G
-         +8GNx7aW09etrTPl66Xzt5CdSYa6lqzR9SdUsJdZRRKdpvOAAoWxQJXhoj9WpsB8sRkD
-         Gw8jf3scMIA0kdLjdmlgQi2p3nQUOHpBwYw5GXPeQKG/tAlkIks9qLJ/2eMOyAwpbHtv
-         T9eWZQe9IK4+ZG9bNO38XELs24DW4tUiCaRN2KhNMYfZAgryut6F0gcEA9iMvv9Gu6To
-         7ZkF8go4zuTzXfJjMIedygPJnqZj14kMBE9pBuH8r2QjJQNZ7fglASWsK8DUtemkfy/h
-         Soyw==
+         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:sender:dkim-signature
+         :dkim-signature;
+        bh=RvoVwSS11r3iXNdLr/qe7VqA9yrcaMPcNn30XSk+iVU=;
+        b=0QKmrxALYKVy0PjFDhQZ9FcIRugQYvNxaPLCnvVYIErljhoNOzmZjIElFoXuXxPBA+
+         8f88d7CYvdPPSrwyukpkvtlLj4jgT/N33kKJcYUtos1lIajajgpZCbG0ZzeC2bqpmyPb
+         tKw4gCwGUKo3X/7bY70s10YjiPGFyXTwx2y357Qve/F/12077dtaPDjWYoWx8LJ7zC+V
+         YhYoIOEVh2PGfRsctw2FQGzbO7wcDUrKkhZPA0rZC7EIEjI+eFLq0Osiwfso2FTGVsE1
+         2GcChLxuAJP5WPoZIKXrJIopinwRHAOJJWtDDqu6OPIr+ohSWD23nIfI+fYGw+JOLUCX
+         Wj/Q==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: best guess record for domain of macro@linux-mips.org designates 148.251.95.138 as permitted sender) smtp.mailfrom=macro@linux-mips.org
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b="ek/j4h4c";
+       spf=pass (google.com: domain of brgerst@gmail.com designates 2607:f8b0:4864:20::d42 as permitted sender) smtp.mailfrom=brgerst@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlegroups.com; s=20161025;
+        h=sender:mime-version:references:in-reply-to:from:date:message-id
+         :subject:to:cc:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=RvoVwSS11r3iXNdLr/qe7VqA9yrcaMPcNn30XSk+iVU=;
+        b=CktGKb0VoQLQI/ppxKlchwTLmjPvbtpaFLhldFfkhVcRfIdjxNteFt9wSEDvz4Myrb
+         WDtTDry8T0OU+DXGrLlLQY2EaV/hf/jDr7TrAdMRIJcIzNkllkGRPukSjR1dEZVM3y/F
+         3hmfJXyWDulFdNTWpR3FSLxt2iRDxQ6d+5+6mKBOh/1Ybjuo1WNgM5A0Lu1gxlYYmFC7
+         8GjNq0Oll7nyxTNy1R09BFtEB5WqU+e2t6bdG3zfsfTxGy/Kg/nqcR7hvVqNP31/DG9S
+         9qPdNHmM/JCQj3WxiszxqdpgKQPE3a3F/4C+dSfdg4GC8TQMRI7CRWg+NvYTNXqniWiB
+         rzrg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=RvoVwSS11r3iXNdLr/qe7VqA9yrcaMPcNn30XSk+iVU=;
+        b=qigMju6chf2x2kpt7kTCkb7zvLn/nxDnT0yJpIv+jwXpNONC34i2PEZXPfWBuhIWN5
+         T5nDtVRbGYg4HdOkQ176RXdpP5wVrzmUrJ80DWMbrjiql/CT6hrGcah+Cs+EN3PK5Wyn
+         xYdPUq6jM3cYgOzcVDUzPL527M7xN7AHIoJ9vxpSNVV4FS6MJ2lnn7eZlfzRPzsyFEbV
+         t6q1ZvYyweFJHdTaOnn3IOvlZ5m639/BAMbP3ffVA4ANPNXexuCgaYZf0oxIbYXeNNpH
+         ReUUdl3om+8hsGhgiSa6qOWq+T3dMvCKyH0KMfx8XbWavSb3ZdnpdllYXz2M5zumP1IW
+         ZM1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:sender:from:to:cc:subject:in-reply-to
-         :message-id:references:mime-version:x-original-sender
+        h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
+         :date:message-id:subject:to:cc:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=J+NrraTexOu32ljWlw4h+94SNS7NB4P9EietmBHM4bE=;
-        b=WljPK1IXcRlrzvMI+9MHOP189lci/42hwIysq8T6JDyYHy36ObYqmL+bWLMnbweXgC
-         j6hpPsc7j30pZd97LtoA9sYNGLdb3/ozaOv+eSWmgZYxmfa4aBSmND7z5XiRllOTItQo
-         RsE0h9GPuAH6FIP/scWEwYN69LXgEoowJco1fXGRQHvg9LzQT/fQWruu1sxhFa5fnCtp
-         Qc/vzqw35TyHM05izyjJ9PUZBnzUGYeF7juxXvKKB9wa/pQCaAeUrxa0rV4mmS22LXGS
-         PnS2HmxFOFco1XsYjW/4ozBrkbTWKuqMWwc579UepCMu2zkg3PyFLS5tXvS8SW1Y/+Q2
-         2jrg==
-X-Gm-Message-State: AGi0PuawphF/RGaExIXBCHDDcDsYVIfs8RvCEEW+IhfOowsAWEzOjbM/
-	p7XqUABfb3NdMzslZKaTcc8=
-X-Google-Smtp-Source: APiQypJ2qBX9bGsHtM4BVLXyyNyQGUWCR9O+j+RUWGNsBAwePi9c+v//cAfmbGoV9SSicxVn7N9QFg==
-X-Received: by 2002:a2e:8911:: with SMTP id d17mr13383043lji.16.1585747580568;
-        Wed, 01 Apr 2020 06:26:20 -0700 (PDT)
+        bh=RvoVwSS11r3iXNdLr/qe7VqA9yrcaMPcNn30XSk+iVU=;
+        b=HGdogoK86PfVrvftbM8D/XHRUJRMWJwrZYBkIqZZErWnVnn/vb0XujAjhfuKJ4bIgk
+         mkKryq7MWvU3qJftX5bjLiaZKUZSnmNYVBTDTJccC20HdrNCeQzXHEXDGoNdblikj8a1
+         +HczRRPWuQdR4hLnID2BLBOHG7errhZipuZfaxoO14bupmU+QtIqu3quiIzFgDRv2bOa
+         VqQs535oTpetABIXQysNVPtaS/hLQJB2XOSS0El/uIBCPnTsGp7XwM6tb1jXTLfIJ8jS
+         bNVNxlhJTTthOflHizBrp9u+p4CQatmhnbTVzzNWAuckSBWyrO3DRT8prWCOmWsA4xj1
+         NXlw==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: ANhLgQ0Mn9kTW99plzoKWqtH65no8PlMejZtbg6xv7a88Hbrr1CZZsMq
+	HO7fei1MW/MZfSvqTmiOMyQ=
+X-Google-Smtp-Source: ADFU+vtqfefjcyCXuoylxWFYeJjX5SWBhutwFduM1Gu2GKfzQ4SF0M34qfNPcb2E+ZelcY3+kHLt7Q==
+X-Received: by 2002:a37:a84b:: with SMTP id r72mr10552914qke.414.1585751943795;
+        Wed, 01 Apr 2020 07:39:03 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:7017:: with SMTP id l23ls5391226ljc.9.gmail; Wed, 01 Apr
- 2020 06:26:19 -0700 (PDT)
-X-Received: by 2002:a2e:3a19:: with SMTP id h25mr4418873lja.133.1585747579757;
-        Wed, 01 Apr 2020 06:26:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1585747579; cv=none;
+Received: by 2002:ac8:38ad:: with SMTP id f42ls10036966qtc.9.gmail; Wed, 01
+ Apr 2020 07:39:03 -0700 (PDT)
+X-Received: by 2002:ac8:7316:: with SMTP id x22mr11159901qto.4.1585751942944;
+        Wed, 01 Apr 2020 07:39:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1585751942; cv=none;
         d=google.com; s=arc-20160816;
-        b=BA7rHS1ifm/AVT7In/N8RK4vSxJLRKkAtK3Qgbu1DxK2xer0N0Jw1znoevVWwidgxO
-         Acj18i/lhUwe1PTJytjxR2JBZb5dpt+G8jZ3a2suUkjKxbWSItmR7jsAY3FF2pQKSHkP
-         Ci0ilJbZ58n+kiWF+l6ljtzLcDl2xqPKrvw39RDnpev+yly/1WGG+2TgLIqkNJx7UFh+
-         ioPeDhnppLoxSI0+BW1eRgO+8eMrjH5ftG2KIr3DhhjVrK28x2xZRAkon8p9dJ4s/3uK
-         w+VE0rFG+5c8RLTxztg/2GjSyoRUJozapaFQkhTtKTG4ZWDlcJNdfZzHVKR/5Ip31Ha+
-         UdFA==
+        b=acdtWj5HVkZhE8V0aUT1r2f3AxiuQiEsmVJcx/xaPdicsDRGd7yT3UVx0YA7KkUhk5
+         74+NrUQpCDRnGOoRr/iw6vixzO1YBWs0XledfeYFz5XZuKt2fHkHux9B7VOIHMvH5sxf
+         uKdVe3jVnrcYnC3KoK/tR8nPrmdiJrFBuR9ADbx9Kib8JesuwO/YTJf+nDxht51XKc8T
+         JviTXINcW9IDM6lxW7Pf6PY+mJB702xI1IlB5jhT33YjEluc3u88UF3cNbMQ5uF5QGSy
+         rpMyAxcr0+Og0f9MvBdAHKonglUL9gkvc22l+Dli7O2z2pX270Iq8gH/8dPoubmHFlab
+         Yt/w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:references:message-id:in-reply-to:subject:cc:to:from
-         :sender:date;
-        bh=gn0gMMvY+flUfYWqYy8QjJkFzSvzEw90kbfFcUTtZCc=;
-        b=bVpH6IWIMEmw4oiZVYNZAJCxTsBCR9bmzJInZNUoxoHv+zeijAoKPOjdPxXbkl7mbo
-         Yvv3MkpmA2/6lgo0rorka2uuHEfuUopzOTOc6bN+/049eDnGvMwlwhkUJAVMhwqYEpjW
-         injRiS9JzCF0N8z8EnFd7sK2tkw0+GhkljDTGoU7p+R7kigKSumbBmTjaCM97eRDFKuz
-         sP7czWxoD09uGO3uB6Bg3mrC+IAMlUsVCcKXnuLvuZ84EkyZRM6hRW0NeDK/MGXQPreE
-         Q5gxS4hKqEKPAHHMP4DjEPS0MI7HyRv8IsJX5Fcu9JWwJMZc5KoLNyYOqcbSPnJ0Ok9x
-         cIjA==
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Bc9t147F81S9ClX5m+UTR/FQ0DxmDDOUUXqttzbZFk4=;
+        b=o7kNiL0BJCZ5gQLcI7KokoityZt6sapY/6dBFBWqRR37dsL1qvO8UvsGQzsV0b9hlK
+         llhkRqGCuSvKkFFsitAY9sWeRSutRuJNPYtsxWGjOUhLP1g7uVLhsljnxQWJnKKG8kug
+         TT33NwWQ9HV7Mw0PkS6eoKa7Fc3VQ6uHThe1NEn3itaY2GX9NsIaLeyaJiiGUfkw1ioG
+         KkoZ29bnsbRWvkJZ5WnFH4001PZzba4wHxeI/4JCaXnPObdXiaVKKUWs27L2lyop25yE
+         +X5WUvnZB2TGFnSgg8RrbAYshHMehrONGODOuM8X5RECXBvldqaAKnZLoUzQNNeAGWXB
+         iXVA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: best guess record for domain of macro@linux-mips.org designates 148.251.95.138 as permitted sender) smtp.mailfrom=macro@linux-mips.org
-Received: from cvs.linux-mips.org (eddie.linux-mips.org. [148.251.95.138])
-        by gmr-mx.google.com with ESMTP id s22si118538ljp.0.2020.04.01.06.26.19
-        for <jailhouse-dev@googlegroups.com>;
-        Wed, 01 Apr 2020 06:26:19 -0700 (PDT)
-Received-SPF: pass (google.com: best guess record for domain of macro@linux-mips.org designates 148.251.95.138 as permitted sender) client-ip=148.251.95.138;
-Received: (from localhost user: 'macro', uid#1010) by eddie.linux-mips.org
-        with ESMTP id S23992512AbgDAN0QR3HMl (ORCPT
-        <rfc822;jailhouse-dev@googlegroups.com>);
-        Wed, 1 Apr 2020 15:26:16 +0200
-Date: Wed, 1 Apr 2020 14:26:16 +0100 (BST)
-Sender: "Maciej W. Rozycki" <macro@linux-mips.org>
-From: "Maciej W. Rozycki" <macro@linux-mips.org>
-To: David Laight <David.Laight@ACULAB.COM>
-cc: Thomas Gleixner <tglx@linutronix.de>,
-        "hpa@zytor.com" <hpa@zytor.com>,
-        Andrew Cooper <andrew.cooper3@citrix.com>,
-        LKML <linux-kernel@vger.kernel.org>,
-        Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-        "x86@kernel.org" <x86@kernel.org>,
-        Jan Kiszka <jan.kiszka@siemens.com>,
-        James Morris <jmorris@namei.org>,
-        David Howells <dhowells@redhat.com>,
-        Matthew Garrett <mjg59@google.com>,
-        Josh Boyer <jwboyer@redhat.com>,
-        Zhenzhong Duan <zhenzhong.duan@oracle.com>,
-        Steve Wahl <steve.wahl@hpe.com>,
-        Mike Travis <mike.travis@hpe.com>,
-        Dimitri Sivanich <dimitri.sivanich@hpe.com>,
-        Arnd Bergmann <arnd@arndb.de>,
-        "Peter Zijlstra (Intel)" <peterz@infradead.org>,
-        Giovanni Gherdovich <ggherdovich@suse.cz>,
-        "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-        Len Brown <len.brown@intel.com>,
-        Kees Cook <keescook@chromium.org>,
-        Martin Molnar <martin.molnar.programming@gmail.com>,
-        Pingfan Liu <kernelfans@gmail.com>,
-        "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
-Subject: RE: [PATCH] x86/smpboot: Remove 486-isms from the modern AP boot
- path
-In-Reply-To: <23147db6f0c548259357babfc22a87d3@AcuMS.aculab.com>
-Message-ID: <alpine.LFD.2.21.2004011354050.3939520@eddie.linux-mips.org>
-References: <20200325101431.12341-1-andrew.cooper3@citrix.com> <601E644A-B046-4030-B3BD-280ABF15BF53@zytor.com> <87r1xgxzy6.fsf@nanos.tec.linutronix.de> <alpine.LFD.2.21.2004010001460.3939520@eddie.linux-mips.org>
- <23147db6f0c548259357babfc22a87d3@AcuMS.aculab.com>
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b="ek/j4h4c";
+       spf=pass (google.com: domain of brgerst@gmail.com designates 2607:f8b0:4864:20::d42 as permitted sender) smtp.mailfrom=brgerst@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com. [2607:f8b0:4864:20::d42])
+        by gmr-mx.google.com with ESMTPS id m6si169227qtk.2.2020.04.01.07.39.02
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 01 Apr 2020 07:39:02 -0700 (PDT)
+Received-SPF: pass (google.com: domain of brgerst@gmail.com designates 2607:f8b0:4864:20::d42 as permitted sender) client-ip=2607:f8b0:4864:20::d42;
+Received: by mail-io1-xd42.google.com with SMTP id o127so25892281iof.0
+        for <jailhouse-dev@googlegroups.com>; Wed, 01 Apr 2020 07:39:02 -0700 (PDT)
+X-Received: by 2002:a6b:b512:: with SMTP id e18mr20432245iof.168.1585751942391;
+ Wed, 01 Apr 2020 07:39:02 -0700 (PDT)
 MIME-Version: 1.0
+References: <20200325101431.12341-1-andrew.cooper3@citrix.com>
+ <20200331175810.30204-1-andrew.cooper3@citrix.com> <CAMzpN2i6Nf0VDZ82mXyFixN879FC4eZfqe-LzWGkvygcz1gH_Q@mail.gmail.com>
+ <c46bcb6d-4256-2d65-9cd9-33e010846de4@citrix.com> <CAMzpN2gdkmYYbQatFk66QMpiuZSfnUQUVtJ30VYF7nsX_+XVgA@mail.gmail.com>
+ <bdf7995d-2d50-9bb9-8066-6c4ccfaa5b52@citrix.com> <CAMzpN2g0LS5anGc7CXco4pgBHhGzc8hw+shMOg8WEWGsx+BHpg@mail.gmail.com>
+ <b1aa5cdf-b446-17b0-6d31-fa8947f67592@citrix.com>
+In-Reply-To: <b1aa5cdf-b446-17b0-6d31-fa8947f67592@citrix.com>
+From: Brian Gerst <brgerst@gmail.com>
+Date: Wed, 1 Apr 2020 10:38:51 -0400
+Message-ID: <CAMzpN2h5u3gbRFfew-BSUH_=E509QirQaopiTBrVQc6Oq2AcvA@mail.gmail.com>
+Subject: Re: [PATCH v2] x86/smpboot: Remove 486-isms from the modern AP boot path
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, Thomas Gleixner <tglx@linutronix.de>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>, 
+	"the arch/x86 maintainers" <x86@kernel.org>, Jan Kiszka <jan.kiszka@siemens.com>, 
+	James Morris <jmorris@namei.org>, David Howells <dhowells@redhat.com>, 
+	Matthew Garrett <mjg59@google.com>, Josh Boyer <jwboyer@redhat.com>, Steve Wahl <steve.wahl@hpe.com>, 
+	Mike Travis <mike.travis@hpe.com>, Dimitri Sivanich <dimitri.sivanich@hpe.com>, 
+	Arnd Bergmann <arnd@arndb.de>, "Peter Zijlstra (Intel)" <peterz@infradead.org>, 
+	Giovanni Gherdovich <ggherdovich@suse.cz>, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
+	Len Brown <len.brown@intel.com>, Kees Cook <keescook@chromium.org>, 
+	Martin Molnar <martin.molnar.programming@gmail.com>, Pingfan Liu <kernelfans@gmail.com>, 
+	jailhouse-dev@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-X-Original-Sender: macro@linux-mips.org
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: best guess record for domain of macro@linux-mips.org designates
- 148.251.95.138 as permitted sender) smtp.mailfrom=macro@linux-mips.org
+X-Original-Sender: brgerst@gmail.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@gmail.com header.s=20161025 header.b="ek/j4h4c";       spf=pass
+ (google.com: domain of brgerst@gmail.com designates 2607:f8b0:4864:20::d42 as
+ permitted sender) smtp.mailfrom=brgerst@gmail.com;       dmarc=pass (p=NONE
+ sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -132,63 +155,54 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On Wed, 1 Apr 2020, David Laight wrote:
+On Wed, Apr 1, 2020 at 8:14 AM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+>
+> On 01/04/2020 12:39, Brian Gerst wrote:
+> > On Wed, Apr 1, 2020 at 5:22 AM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+> >> On 31/03/2020 23:53, Brian Gerst wrote:
+> >>> On Tue, Mar 31, 2020 at 6:44 PM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+> >>>> On 31/03/2020 23:23, Brian Gerst wrote:
+> >>>>> On Tue, Mar 31, 2020 at 1:59 PM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+> >>>>>> Linux has an implementation of the Universal Start-up Algorithm (MP spec,
+> >>>>>> Appendix B.4, Application Processor Startup), which includes unconditionally
+> >>>>>> writing to the Bios Data Area and CMOS registers.
+> >>>>>>
+> >>>>>> The warm reset vector is only necessary in the non-integrated Local APIC case.
+> >>>>>> UV and Jailhouse already have an opt-out for this behaviour, but blindly using
+> >>>>>> the BDA and CMOS on a UEFI or other reduced hardware system isn't clever.
+> >>>>>>
+> >>>>>> We could make this conditional on the integrated-ness of the Local APIC, but
+> >>>>>> 486-era SMP isn't supported.  Drop the logic completely, tidying up the includ
+> >>>>>> list and header files as appropriate.
+> >>>>>>
 
-> >  Even though we supported them by spec I believe we never actually ran MP
-> > on any 486 SMP system (Alan Cox might be able to straighten me out on
-> > this); none that I know of implemented the MPS even though actual hardware
-> > might have used the APIC architecture.  Compaq had its competing solution
-> > for 486 and newer SMP, actually deployed, the name of which I long forgot.
-> > We never supported it due to the lack of documentation combined with the
-> > lack of enough incentive for someone to reverse-engineer it.
-> 
-> I also remember one of those Compaq dual 486 boxes.
-> We must have has SVR4/Unixware running on it.
-> 
-> I suspect that any such systems would also be too slow and not have
-> enough memory to actually run anything recent.
+> >>>>> You removed x86_platform.legacy.warm_reset in the original patch, but
+> >>>>> that is missing in V2.
+> >>>> Second hunk?  Or are you referring to something different?
+> >>> Removing the warm_reset field from struct x86_legacy_features.
+> >> Ok, but that is still present as the 2nd hunk of the patch.
+> > My apologies, Gmail was hiding that section of the patch because it
+> > was a reply to the original patch.  For future reference, add the
+> > version number to the title when resubmitting a patch (ie. [PATCH
+> > v2]).
+>
+> Erm... is Gmail hiding that too?
+>
+> Lore thinks it is there:
+> https://lore.kernel.org/lkml/CAMzpN2g0LS5anGc7CXco4pgBHhGzc8hw+shMOg8WEWGsx+BHpg@mail.gmail.com/
 
- For reasons mentioned above I cannot speak about 486 SMP systems.
+Ugh, yes.  I thought it was the title that Gmail threaded on, but it
+must be the In-Reply-To: header.  Sorry for the confusion.
 
- However I have a nice Dolch PAC 60 machine, which is a somewhat rugged 
-luggable computer with an embedded LCD display and a detachable keyboard, 
-built around a pure EISA 486 baseboard (wiring to an external display is 
-also supported).  Its original purpose was an FDDI network sniffer with a 
-DOS application meant to assist a field engineer with fault isolation, and 
-as you may know FDDI used to have rings up to ~100km/60mi in length, so 
-people often had to travel quite a distance to get a problem tracked down.
+That said, I think the v1 patch is probably the better way to go (but
+adjusting the comments to include early Pentium-era systems without
+integrated APICs).  Then the decision to drop support for external
+APICs could be a separate patch.
 
- It used to boot current Linux with somewhat dated userland until its PSU, 
-an industrial unit, failed a couple years back, taking the hard disk with 
-itself due to an overvoltage condition (its +12V output went up to +18V).  
-I failed to repair the PSU (I suspect a fault in the transformer causing 
-its windings to short-circuit intermittently, and only the +5V output is 
-regulated with the remaining ones expected to maintain fixed correlation), 
-which the box has been designed around, making it difficult to be replaced 
-with a different PSU.
-
- However I have since managed to track down and install a compatible 
-replacement PSU from the same manufacturer whose only difference are 
-slightly higher power ratings, and I have a replacement hard disk for it 
-too, so I plan to get it back in service soon.
-
- With 16MiB originally installed the machine is somewhat little usable 
-with current Linux indeed, however the baseboard supports up to 512MiB of 
-RAM and suitable modules are still available for purchase, even brand new 
-ones.  Once expanded so that constant swapping stops I expect the machine 
-to perform quite well, as the performance of the CPU/RAM didn't seem to be 
-a problem with this machine.  We actually keep supporting slower systems 
-in the non-x86 ports.
-
- And as I say, the userland is not (much of) our business and can be 
-matched to actual hardware; not everyone needs a heavyweight graphical 
-environment with all the bells and whistles burning machine cycles.
-
- Again, FWIW,
-
-  Maciej
+--
+Brian Gerst
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/alpine.LFD.2.21.2004011354050.3939520%40eddie.linux-mips.org.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CAMzpN2h5u3gbRFfew-BSUH_%3DE509QirQaopiTBrVQc6Oq2AcvA%40mail.gmail.com.
