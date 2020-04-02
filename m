@@ -1,124 +1,68 @@
-Return-Path: <jailhouse-dev+bncBCXKBPVPXAFRBE6JST2AKGQESJ5676Q@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCQ7HUU4XULBBSM4TH2AKGQERCJAWXA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-f56.google.com (mail-wm1-f56.google.com [209.85.128.56])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4CF419B8F9
-	for <lists+jailhouse-dev@lfdr.de>; Thu,  2 Apr 2020 01:32:35 +0200 (CEST)
-Received: by mail-wm1-f56.google.com with SMTP id z24sf445573wml.9
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 01 Apr 2020 16:32:35 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1585783955; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=yNnqdRU1dF2zsYlMmaF6iKm1CuUwjIBOYnfI1IrxcvU2PuQeJuO23h8l1vJF5XS/lw
-         uxsqSo+iDW80Da1oMuuQNybSokdVZp09xOUex0eaTaY5nCgW2qQA0cMi7y9Ho+O6eR2a
-         srUhYco/Rhpj5+ohvaLX142R6iA9hcwEr6pBNIOnWBr15ouOcVlP/bwgshH8wiqxZnlZ
-         4Ak3B0ZgP8kNfbaHt2atrZVj755qArQEe25gnW9fQdSbgOKTVHxPdqk9QkeDZxCH8r7Z
-         5H6iSK0y9r8dP2GV8x33b0p5JFaIifu9LjI1mFvQ9VLmfrCZ1gO25uNTnlogwjJj2+cZ
-         q3rQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :mime-version:references:message-id:in-reply-to:subject:cc:to:from
-         :sender:date;
-        bh=cLJDYLJnOskqjPOlWoR5WGMpGPGAx2Snh8pDojgZNCk=;
-        b=Mudt3bX6e0ajcWrYQ+l0AykW0dgTNCASnK85aXNIrI96EdTtVWP2+wtNgmB9BmbbHl
-         CYOVjEL6nxohywx6XqcI/R2rHYqxJILBcFgixTImqDZhZGnZ/cmJgGP9+CMtjvAIa2XP
-         OnsT/u03Hln7ndwUod3KcyH3LxnhTyiFfx8EQF1KJxawkqTjnAMDP+9Tfof+BruWTp4Z
-         YssQakajXXWkK+jpyjgnj8vZHf/tAVHHycEyhbILvbzMHvNZ1GRUz4vjSZRVz2Yfv5+/
-         SfDjtE7WY7Cmy8DoPkIAA80SF0Uk0vC68NNGx9ZD0kBljD8+C0Lf0T6igJDl7wtbAJFg
-         Qxkg==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: best guess record for domain of macro@linux-mips.org designates 148.251.95.138 as permitted sender) smtp.mailfrom=macro@linux-mips.org
+Received: from mail-oi1-x23d.google.com (mail-oi1-x23d.google.com [IPv6:2607:f8b0:4864:20::23d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 706EF19CBCB
+	for <lists+jailhouse-dev@lfdr.de>; Thu,  2 Apr 2020 22:42:50 +0200 (CEST)
+Received: by mail-oi1-x23d.google.com with SMTP id c8sf4518683oib.9
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 02 Apr 2020 13:42:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlegroups.com; s=20161025;
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=VCNEz5ergRlQ/vTGN3d3wns14A2cMCKDxqKqX5ynSVU=;
+        b=fqPZsHOsWdtY54gmTP3CnhTAlcX2dTukOV9QCo7x/KhvHuu8gQL9uRDWKw6lC3CasD
+         lIup+Sr19ObU3y1KQTRkKZGJAqfPLzLch3dNi6YIAsBe/m7Nt9mR5c+1VdiG09edh8JM
+         4tYaLWZOlqJ3bmTj9jiGx5ZX41TZ+eL5HcJsI0eHAm2XSm3ZsGlKlK/sWJBsoVrF1G8d
+         1dd680sL1/lxFr8vQzW9/rNKkEuFlm44OTvPTY4q+FoAChwKsKGP8b33huOPmjcQhHCj
+         yyIrd7nEAzRUUoyuLhhn7mo0i6roa8O2EKd1YE0YnxXzm7ugb2i9fBeVSh7AQVdWY+oR
+         Rt3Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=VCNEz5ergRlQ/vTGN3d3wns14A2cMCKDxqKqX5ynSVU=;
+        b=SK2mzjjqwz98/EikZIoe7zMSRcI6R76Mdz7CtqQRugVCjEScMvde2owcwGPl1mEaUC
+         jwmUf9aLjo3j7cywGkwBXGF6ISm7pCrrCDKjoBP2ts2wbnO0lyMqBteBdXE4mw5j4b2g
+         NPg89axuPj+uK9DIb4aWVtpzV6Zf6BRgLBKNrhSaYNr8S4sPRn0pWhLKcx2honozaMij
+         OFOGAmNIpi4Hbxe9FZaCFjU15v/onUYaUB1sxp7qCcGS/5vcPwG7hPoi2XjfYw3luOgB
+         ccOVqVXODVkuq13DbjQlt+sp2IHCEf8W5fhlQFEmH8WtcirHjE4bpgNxNB1IsQsGfBEf
+         usgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:sender:from:to:cc:subject:in-reply-to
-         :message-id:references:mime-version:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=cLJDYLJnOskqjPOlWoR5WGMpGPGAx2Snh8pDojgZNCk=;
-        b=U5wVtu46MnPnjTTqYxw66aA/3gYY1OTP9cyMNdMwjOfNM/jhOtvEwm/LPDbmoRjnSI
-         ccik63kyByLV6kfeANZ0SuHFeJ2FGuO1CJmA6T01htDIJ5IoGSMk0/mGWvK/8Zi9QtAN
-         iJG4w2HD78pkR4omgPDK+TKPE6a6rqNrvsjMBDl4ov6UjRQTT5hrNVirkv90/Hhzc3P5
-         xbK1Je2WHYsiW2GioAlcruImJ6+vhOqQGYO4Zbkw6CxPiDgEdjYXBffsSENskXs4VYjb
-         pgSACur4PLwfXmm36oK1GKDepkTekenIKBGTZ+LDHTlt7GaEfHBR5fWvGcd4tp/3f2XK
-         8mxQ==
-X-Gm-Message-State: AGi0PuYy1J9pi9+EW6Jt4/DeUDZa74ZJkO0/a9WIpA3EnC+Mq9z30tai
-	0u11sRLY5vFOSRTuHXllZpE=
-X-Google-Smtp-Source: APiQypKsMT48/4+HFZuciWKZgpF/CEJK66nykdqqreje0F37A4yJzDVe3gwQgfdSCfAlvOwnF8UDdg==
-X-Received: by 2002:a7b:c1d2:: with SMTP id a18mr416237wmj.180.1585783955467;
-        Wed, 01 Apr 2020 16:32:35 -0700 (PDT)
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=VCNEz5ergRlQ/vTGN3d3wns14A2cMCKDxqKqX5ynSVU=;
+        b=iGrgD8JBbKn1Ii2upECcJIuKzewSTzKJuhjjy3A2+em2rVXuUHiNhq0rWncCl7GcC8
+         CpWc6Q7rCqlzf6X199IjvQMA7OC6K13cYLHtbEKuz2Texm+cdo1dgjAyl8JIS8BBL6Zb
+         DT/SxnBEt27onW6f+15UuHHZY8HMNpAAFzmSpLpZdjveZvEQ1XGSAW+BfCiyPJm1CKF4
+         AkzqFBxzGIJ34pRvDMAbQrslRT/iyRQMbjjfw3xpc2NJ5c8IcgjW3wDPxqWIQuAFFJ0G
+         if14HFHu55ZmknEfomrNCiyS2TM/QCvjuYbGlRlfRrPiekltee2zYz+w85oACsZWeuJR
+         Z91A==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: AGi0PuYjsUyswYq5kT8Zgku+YglUGDD26prsLj0Vrjvl3qdFEHQS1zvy
+	rU1T2k2FWLx33uv/txoDZ2s=
+X-Google-Smtp-Source: APiQypJBTCw+b9KU6cqQ57i6slZahS6vazi9ptSjAsGfL0Y59GdGqQ23y+5uJTcMJNqC53Qkg8Ke8Q==
+X-Received: by 2002:a4a:d1a4:: with SMTP id z4mr4290095oor.52.1585860169286;
+        Thu, 02 Apr 2020 13:42:49 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:9781:: with SMTP id s1ls315063wrb.2.gmail; Wed, 01 Apr
- 2020 16:32:34 -0700 (PDT)
-X-Received: by 2002:adf:a3db:: with SMTP id m27mr408349wrb.350.1585783954754;
-        Wed, 01 Apr 2020 16:32:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1585783954; cv=none;
-        d=google.com; s=arc-20160816;
-        b=ihB6eZMDLq1l0wlIJdTd6SEolPkK4ryKIFtkIauaFr+e3twRyy+bBum7a+pU1bt0E3
-         PVNsI0TrRdnSvxzpcDPmy5j4jPFkOCoAWrWdyj0FqVPn2lUE1BoezYN6NZqZAox68v+O
-         ydbmtopmn2/hB98KwpVC713slQff3NFEQhe+s8Vj09PK9KGw2yEu/jjVj+csq0gtKjz6
-         L6P6PFDp7QwXyB6x+ZbrpyWfkuJJkg2pWluspiwoHTdUqdZiBM0jGRQLmYLmjQOlNxt5
-         041rh8Cri68J8tgJvVuExMbHvbNM5XqjwfMlCfbEpOPulvgat3fnQhxdQj6CAjxmSMp0
-         8BPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:references:message-id
-         :in-reply-to:subject:cc:to:from:sender:date;
-        bh=GJ3Xc4R2NLYeBfaPQ5+20lVgXh+vzZg3OnqLAl+W20Q=;
-        b=AuTMgdEg+8zt/evXudXjypqREvnm8KaFTEl6CNzOWGqRmJ/bc9f6WuZkx0TcT/CVyT
-         j0vP0mQTx02mH/DYH2krxvMYlv8tmVz7LZ7rPud7TqrhCwZD0gIJiOrvzquqAg30N7TU
-         bSXmDZ4bGGQCxYQXs0cYboP+p+icmAbX/oSUTh0SgcO233JvTbgp0LTLdC/LOkrt5Jng
-         idm3wdrKNsQ3Ue9urvbIIB5zkAMFw7wfP0+SObVbNv6egbNK4hFb7Sabk+6FjcsogGDI
-         KpPM/yd0wR+hTr5fmhVhso7t7Y1mxi/9Pz9c2eKigHLprvEJP7fS7PYd3jGCbkF8O7qX
-         W47Q==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: best guess record for domain of macro@linux-mips.org designates 148.251.95.138 as permitted sender) smtp.mailfrom=macro@linux-mips.org
-Received: from cvs.linux-mips.org (eddie.linux-mips.org. [148.251.95.138])
-        by gmr-mx.google.com with ESMTP id v12si166519wrp.5.2020.04.01.16.32.34
-        for <jailhouse-dev@googlegroups.com>;
-        Wed, 01 Apr 2020 16:32:34 -0700 (PDT)
-Received-SPF: pass (google.com: best guess record for domain of macro@linux-mips.org designates 148.251.95.138 as permitted sender) client-ip=148.251.95.138;
-Received: (from localhost user: 'macro', uid#1010) by eddie.linux-mips.org
-        with ESMTP id S23993316AbgDAXcamxzAZ (ORCPT
-        <rfc822;jailhouse-dev@googlegroups.com>);
-        Thu, 2 Apr 2020 01:32:30 +0200
-Date: Thu, 2 Apr 2020 00:32:30 +0100 (BST)
-Sender: "Maciej W. Rozycki" <macro@linux-mips.org>
-From: "Maciej W. Rozycki" <macro@linux-mips.org>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Thomas Gleixner <tglx@linutronix.de>, hpa@zytor.com,
-        LKML <linux-kernel@vger.kernel.org>,
-        Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-        x86@kernel.org, Jan Kiszka <jan.kiszka@siemens.com>,
-        James Morris <jmorris@namei.org>,
-        David Howells <dhowells@redhat.com>,
-        Matthew Garrett <mjg59@google.com>,
-        Josh Boyer <jwboyer@redhat.com>,
-        Zhenzhong Duan <zhenzhong.duan@oracle.com>,
-        Steve Wahl <steve.wahl@hpe.com>,
-        Mike Travis <mike.travis@hpe.com>,
-        Dimitri Sivanich <dimitri.sivanich@hpe.com>,
-        Arnd Bergmann <arnd@arndb.de>,
-        "Peter Zijlstra (Intel)" <peterz@infradead.org>,
-        Giovanni Gherdovich <ggherdovich@suse.cz>,
-        "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-        Len Brown <len.brown@intel.com>,
-        Kees Cook <keescook@chromium.org>,
-        Martin Molnar <martin.molnar.programming@gmail.com>,
-        Pingfan Liu <kernelfans@gmail.com>,
-        jailhouse-dev@googlegroups.com
-Subject: Re: [PATCH] x86/smpboot: Remove 486-isms from the modern AP boot
- path
-In-Reply-To: <beefca46-ac7c-374b-e80a-4e7c3af2eb2b@citrix.com>
-Message-ID: <alpine.LFD.2.21.2004012353100.4156324@eddie.linux-mips.org>
-References: <20200325101431.12341-1-andrew.cooper3@citrix.com> <601E644A-B046-4030-B3BD-280ABF15BF53@zytor.com> <87r1xgxzy6.fsf@nanos.tec.linutronix.de> <alpine.LFD.2.21.2004010001460.3939520@eddie.linux-mips.org>
- <beefca46-ac7c-374b-e80a-4e7c3af2eb2b@citrix.com>
+Received: by 2002:a4a:2741:: with SMTP id w1ls546835oow.9.gmail; Thu, 02 Apr
+ 2020 13:42:48 -0700 (PDT)
+X-Received: by 2002:a4a:9190:: with SMTP id d16mr4348384ooh.38.1585860168497;
+        Thu, 02 Apr 2020 13:42:48 -0700 (PDT)
+Date: Thu, 2 Apr 2020 13:42:47 -0700 (PDT)
+From: Saroj Sapkota <samirroj2016@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <ec31e02a-64e6-46e3-872a-66f864e87146@googlegroups.com>
+Subject: about communication between root cell and inmate
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: macro@linux-mips.org
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: best guess record for domain of macro@linux-mips.org designates
- 148.251.95.138 as permitted sender) smtp.mailfrom=macro@linux-mips.org
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_491_1022969817.1585860167971"
+X-Original-Sender: samirroj2016@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -131,76 +75,62 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On Wed, 1 Apr 2020, Andrew Cooper wrote:
+------=_Part_491_1022969817.1585860167971
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_492_1280340816.1585860167971"
 
-> >  Even though we supported them by spec I believe we never actually ran =
-MP=20
-> > on any 486 SMP system (Alan Cox might be able to straighten me out on=
-=20
-> > this); none that I know of implemented the MPS even though actual hardw=
-are=20
-> > might have used the APIC architecture.  Compaq had its competing soluti=
-on=20
-> > for 486 and newer SMP, actually deployed, the name of which I long forg=
-ot. =20
-> > We never supported it due to the lack of documentation combined with th=
-e=20
-> > lack of enough incentive for someone to reverse-engineer it.
->=20
-> :)
->=20
-> I chose "486-ism" based on what the MP spec said about external vs
-> integrated Local APICs.=C2=A0 I can't claim to have any experience of tho=
-se days.
+------=_Part_492_1280340816.1585860167971
+Content-Type: text/plain; charset="UTF-8"
 
- The spec is quite clear about the use of discrete APICs actually:
+I tried to run Inmate on jetson tx1 with given sample configuration 
+(jetson-tx1-demo) and ivshmem-demo I get the following output only.
+MEM: shmem is at 0x000000017bd00000
+IVSHMEM: bar0 is at 0x0000000000000000001
+IVSHMEM: Hello from bare-metal ivshmem-demo inmate!!!
+IVSHMEM: Enabled IRQ:0xdb
+IVSHMEM: Enabling IVSHMEM_IRQs
+IVSHMEM: Done setting up...
+IVSHMEM: waiting for interrupts
+Why there is no interrupts coming or I how can I send interrupts from root 
+cell to inmate and inmate to root cell?
+I have to send data from Inmate to rootcell, how can I do that?
+please help me on this.
+Thank you
 
-"5.1 Discrete APIC Configurations
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/ec31e02a-64e6-46e3-872a-66f864e87146%40googlegroups.com.
 
-"   Figure 5-1 shows the default configuration for systems that use the=20
-    discrete 82489 APIC.  The Intel486 processor is shown as an example;=20
-    however, this configuration can also employ Pentium processors.  In=20
-    Pentium processor systems, PRST is connected to INIT instead of to=20
-    RESET."
+------=_Part_492_1280340816.1585860167971
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-:)  And if in the way the internal local APIC in P54C processors can be
-permanently disabled (causing it not to be reported in CPUID flags) via a=
-=20
-reset strap, e.g. to support an unusual configuration.
+<div dir=3D"ltr"><div>I tried to run Inmate on jetson tx1 with given sample=
+ configuration (jetson-tx1-demo) and ivshmem-demo I get the following outpu=
+t only.</div><div>MEM: shmem is at 0x000000017bd00000<br>IVSHMEM: bar0 is a=
+t 0x0000000000000000001<br>IVSHMEM: Hello from bare-metal ivshmem-demo inma=
+te!!!<br>IVSHMEM: Enabled IRQ:0xdb<br>IVSHMEM: Enabling IVSHMEM_IRQs<br>IVS=
+HMEM: Done setting up...<br>IVSHMEM: waiting for interrupts</div><div>Why t=
+here is no interrupts coming or I how can I send interrupts from root cell =
+to inmate and inmate to root cell?</div><div>I have to send data from Inmat=
+e to rootcell, how can I do that?</div><div>please help me on this.</div><d=
+iv>Thank you</div><div><br></div></div>
 
- As I recall the integrated APIC would in principle support SMP configs=20
-beyond dual (the inter-APIC bus was serial at the time and supported 15=20
-APIC IDs with the P54C), but at the time the P54C processor was released=20
-the only compatible I/O APICs were available as a part of Intel PCI south=
-=20
-bridges (the 82375EB/SB ESC and the 82379AB SIO.A).  Those chips were not=
-=20
-necessarily compatible with whatever custom chipset was developed to=20
-support e.g. a quad-SMP P54C system.  Or there were political reasons=20
-preventing them from being used.
+<p></p>
 
- Then the 82489DX used an incompatible protocol (supporting 254 APIC IDs=20
-among others, and as I recall the serial bus had a different number of=20
-wires even), so it couldn't be mixed with integrated local APICs.  That's=
-=20
-why discrete APICs were sometimes used even with P54C processors.
-
- And the 82093AA standalone I/O APIC was only introduced a few years=20
-later, along with the Intel HX (Triton II) SMP chipset.  I still have a=20
-nice working machine equipped with this chipset and dual P55C processors=20
-@233MHz.  Even the original CPU fans are going strong. :)  Its MP table is=
-=20
-however buggy and difficult to work with if the I/O APIC is to be used,=20
-especially if PCI-PCI bridges are involved (there's none onboard, but you=
-=20
-can have these easily in multiple quantities on option cards nowadays).
-
-  Maciej
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/alpine.LFD.2.21.2004012353100.4156324%40eddie.linux-mips.org.
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/ec31e02a-64e6-46e3-872a-66f864e87146%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/ec31e02a-64e6-46e3-872a-66f864e87146%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_492_1280340816.1585860167971--
+
+------=_Part_491_1022969817.1585860167971--
