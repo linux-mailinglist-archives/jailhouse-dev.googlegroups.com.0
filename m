@@ -1,125 +1,114 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBTWCW72AKGQE7V2JSWY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBTWCW72AKGQE3YUJ7YY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x53b.google.com (mail-ed1-x53b.google.com [IPv6:2a00:1450:4864:20::53b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 137121A2421
-	for <lists+jailhouse-dev@lfdr.de>; Wed,  8 Apr 2020 16:36:01 +0200 (CEST)
-Received: by mail-ed1-x53b.google.com with SMTP id bm26sf1983318edb.17
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 08 Apr 2020 07:36:01 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1586356560; cv=pass;
+Received: from mail-pf1-x439.google.com (mail-pf1-x439.google.com [IPv6:2607:f8b0:4864:20::439])
+	by mail.lfdr.de (Postfix) with ESMTPS id 687951A2420
+	for <lists+jailhouse-dev@lfdr.de>; Wed,  8 Apr 2020 16:36:00 +0200 (CEST)
+Received: by mail-pf1-x439.google.com with SMTP id o5sf5512867pfp.0
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 08 Apr 2020 07:36:00 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1586356559; cv=pass;
         d=google.com; s=arc-20160816;
-        b=NNAdhuWBLR3D/1OG3QNq3qURITsx2dvJiW/YsAEbCneHhJ/Mihn3OrRJCdoR4jpCPw
-         JYFDAK6RCvy+nIL68hw5BpVGORJZ5cFj2KyAvY86THaZubxsas5iW7MYH+b5/qv1neaN
-         e87drh8aE7bg4EkJ7mxEfRG/hImAYKRLrr/quih7GcfaWE95yNvhP9REGbNpCpbk6n4Y
-         34n9LKkHQ+1CTrx5jYCsJPKnnrFFQD76tkVwVgaXc6pLElgq0961BbpPuFdqO5HJT1mX
-         9sWempKd+V5tieUjY+KnmMkKnkbLefjhYE7uwL/4S0WebNJKrZlPk26rkMycqj5ndqsH
-         BvKQ==
+        b=Yb+LtCO1EmM5yQjGa6aq4XvG67g19nKQxlZfieUztoUvm94nC6hmwelJFs2QT3bHv9
+         oJERXrroqQ1UYRZ8Mm9Qqt5j5Z8tG3j18IDiNOTV1KAFQviM8f7E0R/PXlgopa3ZiKRJ
+         IhAMbcEd8tezYAY/5kXWExn2a+BQnk0dLZ94r5vS+s+7fpqrGRgWcRi4QatYSmdDCKia
+         w2dsaWszFv8JEPPF/4z7Leqy0AzkbtlsnewMRB2L0hsvCqI8jO30Xw/+/8BApqfldr3w
+         6dTo55Uld4DdtDnLXX8eHZj9rYg4BY/a6VzNJms9GgneAEZ8ATbRYXgxyn5hfCJeu4er
+         Yk/Q==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:cc:to
-         :subject:sender:dkim-signature;
-        bh=bZZmhKiA1GkNCddCrGNL0NDrcE0hZfq5fOQEwlawoRY=;
-        b=XP0fAt3Y1fMQzf1BrJ/hdbD2/iG6da3n0lQP2h1TQCmbsixykKZf6qnlAkxjKydG1n
-         i5xkZpSaZOhXj0mxiSF2JhJzvCksL+oy+KXelnU9nlYDkbWxZhVxSh1ODDNwj1a27OAI
-         /z1Gp8IHz8QaxWbVoM8t+CO0PkrBw64U1lN3iPAbg5ZrpWYRnzdTXplT7vMQl7VRP/3b
-         7tqfZoUrHCqspWqnVnLt8b7f5/OnEwlDDdJhi8wyX6WJUOE4NMFGU0fgN0r9kfCLOxaK
-         YYka38VS8/+5PkWnHW1KgW50MB6CoDAA/QtwZECch61XwFD3+w04psB75ScSpnE+Uqet
-         YCbQ==
+         :list-id:mailing-list:precedence:mime-version:subject:message-id:to
+         :from:date:sender:dkim-signature;
+        bh=SOciPqvOhOttc2SZKv9W5lJCfjBRrViFl7zxrIDXp0U=;
+        b=gfiwiMMf2r0L33iqSiaXW43/M8FhhNvJYSVxdNJZmB4tKvPZf5yVJQSZQge2+hFgi2
+         Ovzx4yNmNFUpEZDVtReGETklKlQyx3PQjQ80xMdNZ3Igrs145YDJw4J4Gl41Q6XDTOLY
+         koFRNLvR3R5Mow2dTV4NEre7TNNDrvL82OcgCGqu9u/liPt78jqPEgQRXZKhPbmenms1
+         RRrsEoIDu8DIypr7QktCJ+L3qV+YPVUExiqlxZSm9R5oyCVd9vHHlgVtlHWM53n2gX6j
+         c1Wv+PdTdQfj7lASAO/zBFrJ9RkmpvrQv2ePl01f3Zu0JMr1JqylusVGv9r7NdJzfu0b
+         LIrA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=mQXtvuFD;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.201 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=bZZmhKiA1GkNCddCrGNL0NDrcE0hZfq5fOQEwlawoRY=;
-        b=ZKyYqE8iClAwDQJKK7IpD3Fyx++8AJflj7XGaqJuoqDvO1G9gmVNBzuhjW+onkso5n
-         4HiV22hzBdqcvCyHoZ2iDvFq3biOi+ghvvVbsrsXkOpwGBvzAsWZZwKq6ftRG/jE2YJJ
-         zhLoFV4OMEicTjIAkXSbVe7XdQwxBXBV5BrUixpManhwxUxd6UG0zJFR9qldnk+ntx90
-         X8ni/oTh2jKUXKt0M4d2b7ZDkSBjJVOqhE/QTuU6J4ZynRDmokiSToGNm+EwohyW3ca6
-         YuTADYxGm3pEKfHRx0xmPc39ndBzsjfkbUrQqZOh/eja1XNIxOv1IogrngGsL3V4myZQ
-         UfJg==
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=SOciPqvOhOttc2SZKv9W5lJCfjBRrViFl7zxrIDXp0U=;
+        b=jp2xW2Q1n8Xz39q8WYVL4jyVCPVdOwFP/l2a5uz2mzXAaA9eE5C1s7YtbBNIDCFsT+
+         XrEOjdtjG2Egf5VVIzSjrVVvdmNduU4xdX0sqxOCE7h/RV1VBWMbxJyokarP+pswJFDO
+         8pqNWgulUAxMOufDCagLYRUpvJqo3tq8M2hfn8MdWItAJGTEabZagZ7pZRZhZ+lUN95G
+         ecYoIlmE7cER+ikXJQmuH1pu7RHfb7MtSE2jfWSfV/i/WaG8sgC9C0H+d9jCURz/Ebop
+         r4ecaFlA5YZ3KPrGJSSuxMfcjNblxfGjGjKSbglZIR8iutAyRnR9o2d6Zw51TIDSN/6j
+         +HQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=bZZmhKiA1GkNCddCrGNL0NDrcE0hZfq5fOQEwlawoRY=;
-        b=hgH4/85qTA4RghkXsVRLJWZ8h7U+njTodyqxjOEpo6nNkAW+biOaHGo18s171VtQv4
-         IrZIjvm3Nuiq/kRS/pWUJHpvMMeYvf4b+hZDMPiqMbAOEzPms8yJhoTpfa88caCza6+y
-         YEwetU4sfYQtzsrT3+ZvlzyTKb+uWvFG+XAda/V3IpITerLCpDaUNs7jH969rBL1wdCo
-         toQnT2C/IjF309L8qBu8O+/2SzzEOMCeRqio7FF5dm0mO2CJwHEMvcQo2XVlBsp8gdRc
-         phDi9NZY5F7sv+xonQyuMhcxX4APwkFqqyiOm6kt59ot+wDmdBM6ZGAjc+R2upEqvpvY
-         fBtw==
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=SOciPqvOhOttc2SZKv9W5lJCfjBRrViFl7zxrIDXp0U=;
+        b=KUKrJvJSh1AAx80cm3cvXsJdKu6SJ5SbkZJ+PvRX9n81cyY51Tw7wAeelx3CC53J78
+         fFKYgH0CRtCSHwQbLa7bidtBsEWcnz53+ZA9x1W/XKhd7Bb8gZ1KhdozepZeiH1C9asw
+         K+LPbh8xniD92wiaGLvpyOXlVaNy4YuaevKkWnOsMfKrf+s/kDKV+TawJ7C0hOoGtED1
+         8H3SGv3t1EuzdZirXeIYtAdX5nkMGL+YXEdIvEmZnMYdvwi923yC4vvH6xt02zj0ScQe
+         Gvapxp4hTEUPlioj/N5eFxhtTe/2tZH9M6297fg5kKyPM6A66ECJoBWOIC7Mqh6lI+Qm
+         K7+g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AGi0Pub9/Fle43YugX3g6T1RucpZ319VbCFswz3lnGYm0tpS8aiYpMyy
-	NkPY79j4+2sw7JB8vaQbzYI=
-X-Google-Smtp-Source: APiQypIkMROgG4ZFPxzC7FKcT4TYDf89mELCssOCQ8ODDwDrLaP5JhN6gZFZ4erq1j+TeMUz5jDE3g==
-X-Received: by 2002:a05:6402:1a32:: with SMTP id be18mr3226215edb.245.1586356559919;
-        Wed, 08 Apr 2020 07:35:59 -0700 (PDT)
+X-Gm-Message-State: AGi0PuaT30ma/3cptSjxIi0wH+IUhQeyJTkwyn0hdtVjyBmVH8W9hTcY
+	Eu+6ZKGO08JFw/dQirIQDFY=
+X-Google-Smtp-Source: APiQypJ+qcvIRcF1/YYeZAcSOhSbCdnTpEZUkaO08J1bQPQv9WL5A2+91757M86s89OFlwuSGvJ3vg==
+X-Received: by 2002:a05:6a00:d2:: with SMTP id e18mr3732259pfj.305.1586356558876;
+        Wed, 08 Apr 2020 07:35:58 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aa7:c1cc:: with SMTP id d12ls2313845edp.2.gmail; Wed, 08 Apr
+Received: by 2002:a62:ce48:: with SMTP id y69ls144345pfg.5.gmail; Wed, 08 Apr
  2020 07:35:58 -0700 (PDT)
-X-Received: by 2002:a1c:750f:: with SMTP id o15mr5141459wmc.110.1586356558021;
-        Wed, 08 Apr 2020 07:35:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1586356558; cv=none;
+X-Received: by 2002:a63:a50c:: with SMTP id n12mr5243198pgf.274.1586356557151;
+        Wed, 08 Apr 2020 07:35:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1586356557; cv=none;
         d=google.com; s=arc-20160816;
-        b=QyioItUfPVjrU+dbmAtl/5FO7x0q7ajIDReuA0xnn9fG+RpmMhe+18CKfexd4O7T6r
-         5grmEt5qRRxM/aHz25zXUnBHbtyXYilS+VpnQ4CyQpRKelPF0vVZP/06q/IVnoW2Ypms
-         o7Q6y/Otj/FI2vE5MrPWVSm+6Fivg3UfeALads5JwyCYs2myKxLEcTlXkR266oelB+d6
-         2MC8V2nRgaVFmkBA2IwDsTQdFR79eLgCnVqZSPkK+Y9W/5XSmTNb2QInNx3FHewGfr5p
-         cZh+s2DnGomgP5K2Gey7DGHARsJycR8ipsdp0OWqYJcdEiwAyOZr8rOU5VD6miOZ0HE8
-         vz0Q==
+        b=ZcsCwfomRgYKIm6SQpzJgN8RSFaOfTiSkZOFpjkip7pB6orHHPC/PVIfiCfqAn+pY4
+         vFjNvrLELHBfesy1q6YBMpfCpCBENVU4gEIwowNEZ1UUY4WxZ6Cm/5TwfFEbiqH0BWPz
+         XouumzlCun4MrB2ETJDmEyxIO+8UeSA1lqe5zKaF+bkCDbDugt8BDwy8c/PdMGmpfBLW
+         6owCkhurokwbElAWYsIx1YnQJUTTnwk3zBVzJvL+jTq5SgLm7W6j68bzAKzHqX6PiSbz
+         U30eGlHEMk9R7AOT7tLil6i5eSNSi7tbCROWseXh+B7xkEclmJouOwQlmOJzoVCaa8yR
+         ldBw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=kpcX1USYkTHh67UGMbfi+rOy6Ot1RebQHpWrtXZHbRY=;
-        b=yalZZlpEwzDPj2EHuojZJNB/das2RJaE3G7kVwZg1X/nciUJWqfCsOEsDn1DKv+LPX
-         g4vOEy+LG+ncY1DwftHVDhJLYylToR2y/1ZkpBB2xXyYsS4ohwsj+HnRlbIAiBgdXxJE
-         NPIM5gviRs2flo1V520KtZvuiu/IkZM9l/V6SQANIO0viQ0NirJM4yulUsF0NA+b44sy
-         wdkwOaM9g6LtGEbFMJ5VizbGZRLDSdqjEnefUEGUKt45jKxidRqNRxAI90++L7pIJmYa
-         snqB0M5rIgDdVEfe/l+mXUWOHqPyKnb5E9vQvSOikcjae2JBSel92GX6hrgppIeUdbcw
-         Xntw==
+        h=content-transfer-encoding:mime-version:subject:message-id:to:from
+         :dkim-signature:date;
+        bh=sA2ZjhFsIAWtVmrYDjErwbt0rXbLIYlphh/Fu9ofsaE=;
+        b=SYyejSjHLKCrhI9habCAFfhL4963xxRBf0ZkyCl4+xyp61BjoZNKjSJUsMYjNSS0wr
+         TuF3a7RbDCWEt8MHJtGqOiNnJgc1x5QAGpi6+O2Fabl6Aw5QhA8hAmZhtwiebIO0AsLF
+         /5Vaw/bMyMfviHg4xqYZqJ050WQWWqtT1eW0yZ4W+UpXEULRumaxaueWnQM6Do/6/QhH
+         AuF7fAjZ9NRqVIy+xwATTimRQ/MLTki0dP0SziLyXfydh8seb1Mwgva0RWXtvG1KgKrD
+         rWjUPr3/AQOOz6pSFeW4mp71vpuXy66x4vGUttdb1pS1XNmkbW6EPuDKQwj+mca1wz8j
+         C9AQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id u16si7746wmd.2.2020.04.08.07.35.57
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=mQXtvuFD;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.201 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from out-18.smtp.github.com (out-18.smtp.github.com. [192.30.252.201])
+        by gmr-mx.google.com with ESMTPS id 194si327031pgd.0.2020.04.08.07.35.57
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 08 Apr 2020 07:35:58 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 038EZvcG012825
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 8 Apr 2020 16:35:57 +0200
-Received: from [167.87.240.97] ([167.87.240.97])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 038EZu1K032638;
-	Wed, 8 Apr 2020 16:35:56 +0200
-Subject: Re: [PATCH V3 2/2] Cell configs for imx8mm EVK board.
-To: Alice Guo <alice.guo@nxp.com>, jailhouse-dev@googlegroups.com
-Cc: peng.fan@nxp.com
-References: <20200409140447.4244-1-alice.guo@nxp.com>
- <20200409140447.4244-2-alice.guo@nxp.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <2248d1f8-eebe-87f3-cdcc-3d545c6399ae@siemens.com>
-Date: Wed, 8 Apr 2020 16:35:56 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
-MIME-Version: 1.0
-In-Reply-To: <20200409140447.4244-2-alice.guo@nxp.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 08 Apr 2020 07:35:57 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.201 as permitted sender) client-ip=192.30.252.201;
+Date: Wed, 08 Apr 2020 07:35:56 -0700
+From: Jan Kiszka <noreply@github.com>
+To: jailhouse-dev@googlegroups.com
+Message-ID: <siemens/jailhouse/push/refs/heads/master/ca7123-2e4d71@github.com>
+Subject: [siemens/jailhouse] 564f35: x86: Add proper fence before sending IPIs
+Mime-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
+X-Auto-Response-Suppress: All
+X-Original-Sender: noreply@github.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
+ mode) header.i=@github.com header.s=pf2014 header.b=mQXtvuFD;       spf=pass
+ (google.com: domain of noreply@github.com designates 192.30.252.201 as
+ permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass (p=NONE
+ sp=NONE dis=NONE) header.from=github.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -132,544 +121,262 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 09.04.20 16:04, Alice Guo wrote:
-> Signed-off-by: Alice Guo <alice.guo@nxp.com>
-> ---
->   configs/arm64/imx8mm-inmate-demo.c | 125 ++++++++++++++++++
->   configs/arm64/imx8mm-linux-demo.c  | 165 +++++++++++++++++++++++
->   configs/arm64/imx8mm.c             | 203 +++++++++++++++++++++++++++++
->   3 files changed, 493 insertions(+)
->   create mode 100644 configs/arm64/imx8mm-inmate-demo.c
->   create mode 100644 configs/arm64/imx8mm-linux-demo.c
->   create mode 100644 configs/arm64/imx8mm.c
-> 
-> diff --git a/configs/arm64/imx8mm-inmate-demo.c b/configs/arm64/imx8mm-inmate-demo.c
-> new file mode 100644
-> index 00000000..5791b945
-> --- /dev/null
-> +++ b/configs/arm64/imx8mm-inmate-demo.c
-> @@ -0,0 +1,125 @@
-> +/*
-> + * iMX8MM target - gic-demo
-> + *
-> + * Copyright 2020 NXP
-> + *
-> + * Authors:
-> + *  Peng Fan <peng.fan@nxp.com>
-> + *
-> + * This work is licensed under the terms of the GNU GPL, version 2.  See
-> + * the COPYING file in the top-level directory.
-> + */
-> +
-> +#include <jailhouse/types.h>
-> +#include <jailhouse/cell-config.h>
-> +
-> +struct {
-> +	struct jailhouse_cell_desc cell;
-> +	__u64 cpus[1];
-> +	struct jailhouse_memory mem_regions[8];
-> +	struct jailhouse_irqchip irqchips[1];
-> +	struct jailhouse_pci_device pci_devices[1];
-> +} __attribute__((packed)) config = {
-> +	.cell = {
-> +		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
-> +		.revision = JAILHOUSE_CONFIG_REVISION,
-> +		.name = "inmate-demo",
-> +		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
-> +
-> +		.cpu_set_size = sizeof(config.cpus),
-> +		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-> +		.num_irqchips = ARRAY_SIZE(config.irqchips),
-> +		.num_pci_devices = ARRAY_SIZE(config.pci_devices),
-> +		.vpci_irq_base = 76,
-> +
-> +		.console = {
-> +			.address = 0x30890000,
-> +			.type = JAILHOUSE_CON_TYPE_IMX,
-> +			.flags = JAILHOUSE_CON_ACCESS_MMIO |
-> +				 JAILHOUSE_CON_REGDIST_4,
-> +		},
-> +	},
-> +
-> +	.cpus = {
-> +		0x8,
-> +	},
-> +
-> +	.mem_regions = {
-> +		/* IVSHMEM shared memory regions (demo) */
-> +		{
-> +			.phys_start = 0xbba00000,
-> +			.virt_start = 0xbba00000,
-> +			.size = 0x1000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-> +		},
-> +		{
-> +			.phys_start = 0xbba01000,
-> +			.virt_start = 0xbba01000,
-> +			.size = 0x9000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_ROOTSHARED,
-> +		},
-> +		{
-> +			.phys_start = 0xbba0a000,
-> +			.virt_start = 0xbba0a000,
-> +			.size = 0x2000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-> +		},
-> +		{
-> +			.phys_start = 0xbba0c000,
-> +			.virt_start = 0xbba0c000,
-> +			.size = 0x2000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_ROOTSHARED,
-> +		},
-> +		{
-> +			.phys_start = 0xbba0e000,
-> +			.virt_start = 0xbba0e000,
-> +			.size = 0x2000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-> +		},
-> +		/* UART2 */ {
-> +			.phys_start = 0x30890000,
-> +			.virt_start = 0x30890000,
-> +			.size = 0x1000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
-> +		},
-> +		/* RAM: start from the bottom of inmate memory */ {
-> +			.phys_start = 0xb3c00000,
-> +			.virt_start = 0,
-> +			.size = 0x00010000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
-> +		},
-> +		/* communication region */ {
-> +			.virt_start = 0x80000000,
-> +			.size = 0x00001000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_COMM_REGION,
-> +		},
-> +	},
-> +
-> +	.irqchips = {
-> +		/* GIC */ {
-> +			.address = 0x38800000,
-> +			.pin_base = 96,
-> +			.pin_bitmap = {
-> +				0x1 << (76 + 32 - 96) /* SPI 76 */
-> +			},
-> +		},
-> +	},
-> +
-> +	.pci_devices = {
-> +		{ /* IVSHMEM 00:00.0 (demo) */
-> +			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> +			.domain = 1,
-> +			.bdf = 0 << 3,
-> +			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-> +			.shmem_regions_start = 0,
-> +			.shmem_dev_id = 1,
-> +			.shmem_peers = 1,
-> +			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
-> +		},
-> +	},
-> +};
-> diff --git a/configs/arm64/imx8mm-linux-demo.c b/configs/arm64/imx8mm-linux-demo.c
-> new file mode 100644
-> index 00000000..a3e85c0a
-> --- /dev/null
-> +++ b/configs/arm64/imx8mm-linux-demo.c
-> @@ -0,0 +1,165 @@
-> +/*
-> + * iMX8MM target - linux-demo
-> + *
-> + * Copyright 2020 NXP
-> + *
-> + * Authors:
-> + *  Peng Fan <peng.fan@nxp.com>
-> + *
-> + * This work is licensed under the terms of the GNU GPL, version 2.  See
-> + * the COPYING file in the top-level directory.
-> + */
-> +
-> +/*
-> + * Boot 2nd Linux cmdline:
-> + * export PATH=$PATH:/usr/share/jailhouse/tools/
-> + * jailhouse cell linux imx8mm-linux-demo.cell Image -d fsl-imx8mm-evk-inmate.dtb -c "clk_ignore_unused console=ttymxc3,115200 earlycon=ec_imx6q,0x30890000,115200  root=/dev/mmcblk2p2 rootwait rw"
-> + */
-> +#include <jailhouse/types.h>
-> +#include <jailhouse/cell-config.h>
-> +
-> +struct {
-> +	struct jailhouse_cell_desc cell;
-> +	__u64 cpus[1];
-> +	struct jailhouse_memory mem_regions[15];
-> +	struct jailhouse_irqchip irqchips[2];
-> +	struct jailhouse_pci_device pci_devices[2];
-> +} __attribute__((packed)) config = {
-> +	.cell = {
-> +		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
-> +		.revision = JAILHOUSE_CONFIG_REVISION,
-> +		.name = "linux-inmate-demo",
-> +		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
-> +
-> +		.cpu_set_size = sizeof(config.cpus),
-> +		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-> +		.num_irqchips = ARRAY_SIZE(config.irqchips),
-> +		.num_pci_devices = ARRAY_SIZE(config.pci_devices),
-> +		.vpci_irq_base = 74, /* Not include 32 base */
-> +	},
-> +
-> +	.cpus = {
-> +		0xc,
-> +	},
-> +
-> +	.mem_regions = {
-> +		/* IVHSMEM shared memory region for 00:00.0 */ {
-> +			.phys_start = 0xbba00000,
-> +			.virt_start = 0xbba00000,
-> +			.size = 0x1000,
-> +			.flags = JAILHOUSE_MEM_READ ,
-> +		},
-> +		{
-> +			.phys_start = 0xbba01000,
-> +			.virt_start = 0xbba01000,
-> +			.size = 0x9000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE ,
-> +		},
-> +		{
-> +			.phys_start = 0xbba0a000,
-> +			.virt_start = 0xbba0a000,
-> +			.size = 0x2000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE ,
-> +		},
-> +		{
-> +			.phys_start = 0xbba0c000,
-> +			.virt_start = 0xbba0c000,
-> +			.size = 0x2000,
-> +			.flags = JAILHOUSE_MEM_READ,
-> +		},
-> +		{
-> +			.phys_start = 0xbba0e000,
-> +			.virt_start = 0xbba0e000,
-> +			.size = 0x2000,
-> +			.flags = JAILHOUSE_MEM_READ,
-> +		},
-> +		/* IVSHMEM shared memory regions for 00:01.0 (networking) */
-> +		JAILHOUSE_SHMEM_NET_REGIONS(0xbbb00000, 0),
-> +		/* UART2 earlycon */ {
-> +			.phys_start = 0x30890000,
-> +			.virt_start = 0x30890000,
-> +			.size = 0x1000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
-> +		},
-> +		/* UART4 */ {
-> +			.phys_start = 0x30a60000,
-> +			.virt_start = 0x30a60000,
-> +			.size = 0x1000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_IO,
-> +		},
-> +		/* SHDC1 */ {
-> +			.phys_start = 0x30b60000,
-> +			.virt_start = 0x30b60000,
-> +			.size = 0x10000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_IO,
-> +		},
-> +		/* RAM: Top at 4GB Space */ {
-> +			.phys_start = 0xbb700000,
-> +			.virt_start = 0,
-> +			.size = 0x10000, /* 64KB */
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
-> +		},
-> +		/* RAM */ {
-> +			/*
-> +			 * We could not use 0x80000000 which conflicts with
-> +			 * COMM_REGION_BASE
-> +			 */
-> +			.phys_start = 0x93c00000,
-> +			.virt_start = 0x93c00000,
-> +			.size = 0x24000000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
-> +				JAILHOUSE_MEM_LOADABLE,
-> +		},
-> +		/* communication region */ {
-> +			.virt_start = 0x80000000,
-> +			.size = 0x00001000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_COMM_REGION,
-> +		},
-> +	},
-> +
-> +	.irqchips = {
-> +		/* uart2/sdhc1 */ {
-> +			.address = 0x38800000,
-> +			.pin_base = 32,
-> +			.pin_bitmap = {
-> +				(1 << (24 + 32 - 32)) | (1 << (29 + 32 - 32))
-> +			},
-> +		},
-> +		/* IVSHMEM */ {
-> +			.address = 0x38800000,
-> +			.pin_base = 96,
-> +			.pin_bitmap = {
-> +				0xf << (74 + 32 - 96)
-> +			},
-> +		},
-> +	},
-> +
-> +	.pci_devices = {
-> +		{ /* IVSHMEM 00:00.0 (demo) */
-> +			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> +			.domain = 1,
-> +			.bdf = 0 << 3,
-> +			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-> +			.shmem_regions_start = 0,
-> +			.shmem_dev_id = 2,
-> +			.shmem_peers = 3,
-> +			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
-> +		},
-> +		{ /* IVSHMEM 00:01.0 (networking) */
-> +			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> +			.domain = 0,
-> +			.bdf = 1 << 3,
-> +			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-> +			.shmem_regions_start = 5,
-> +			.shmem_dev_id = 1,
-> +			.shmem_peers = 2,
-> +			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
-> +		},
-> +	},
-> +};
-> diff --git a/configs/arm64/imx8mm.c b/configs/arm64/imx8mm.c
-> new file mode 100644
-> index 00000000..88365919
-> --- /dev/null
-> +++ b/configs/arm64/imx8mm.c
-> @@ -0,0 +1,203 @@
-> +/*
-> + * i.MX8MM Target
-> + *
-> + * Copyright 2020 NXP
-> + *
-> + * Authors:
-> + *  Peng Fan <peng.fan@nxp.com>
-> + *
-> + * This work is licensed under the terms of the GNU GPL, version 2.  See
-> + * the COPYING file in the top-level directory.
-> + *
-> + * Reservation via device tree: reg = <0x0 0xffaf0000 0x0 0x510000>
-> + */
-> +
-> +#include <jailhouse/types.h>
-> +#include <jailhouse/cell-config.h>
-> +
-> +struct {
-> +	struct jailhouse_system header;
-> +	__u64 cpus[1];
-> +	struct jailhouse_memory mem_regions[16];
-> +	struct jailhouse_irqchip irqchips[3];
-> +	struct jailhouse_pci_device pci_devices[2];
-> +} __attribute__((packed)) config = {
-> +	.header = {
-> +		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
-> +		.revision = JAILHOUSE_CONFIG_REVISION,
-> +		.flags = JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
-> +		.hypervisor_memory = {
-> +			.phys_start = 0xb7c00000,
-> +			.size =       0x00400000,
-> +		},
-> +		.debug_console = {
-> +			.address = 0x30890000,
-> +			.size = 0x1000,
-> +			.flags = JAILHOUSE_CON_TYPE_IMX |
-> +				 JAILHOUSE_CON_ACCESS_MMIO |
-> +				 JAILHOUSE_CON_REGDIST_4,
-> +			.type = JAILHOUSE_CON_TYPE_IMX,
-> +		},
-> +		.platform_info = {
-> +			/*
-> +			 * .pci_mmconfig_base is fixed; if you change it,
-> +			 * update the value in mach.h
-> +			 * (PCI_CFG_BASE) and regenerate the inmate library
-> +			 */
-> +			.pci_mmconfig_base = 0xbb800000,
-> +			.pci_mmconfig_end_bus = 0,
-> +			.pci_is_virtual = 1,
-> +			.pci_domain = 0,
-> +
-> +			.arm = {
-> +				.gic_version = 3,
-> +				.gicd_base = 0x38800000,
-> +				.gicr_base = 0x38880000,
-> +				.maintenance_irq = 25,
-> +			},
-> +		},
-> +		.root_cell = {
-> +			.name = "imx8mm",
-> +
-> +			.num_pci_devices = ARRAY_SIZE(config.pci_devices),
-> +			.cpu_set_size = sizeof(config.cpus),
-> +			.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-> +			.num_irqchips = ARRAY_SIZE(config.irqchips),
-> +			.vpci_irq_base = 51, /* Not include 32 base */
-> +		},
-> +	},
-> +
-> +	.cpus = {
-> +		0xf,
-> +	},
-> +
-> +	.mem_regions = {
-> +		/* IVHSMEM shared memory region for 00:00.0 */ {
-> +			.phys_start = 0xbba00000,
-> +			.virt_start = 0xbba00000,
-> +			.size = 0x1000,
-> +			.flags = JAILHOUSE_MEM_READ ,
-> +		},
-> +		{
-> +			.phys_start = 0xbba01000,
-> +			.virt_start = 0xbba01000,
-> +			.size = 0x9000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE ,
-> +		},
-> +		{
-> +			.phys_start = 0xbba0a000,
-> +			.virt_start = 0xbba0a000,
-> +			.size = 0x2000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE ,
-> +		},
-> +		{
-> +			.phys_start = 0xbba0c000,
-> +			.virt_start = 0xbba0c000,
-> +			.size = 0x2000,
-> +			.flags = JAILHOUSE_MEM_READ,
-> +		},
-> +		{
-> +			.phys_start = 0xbba0e000,
-> +			.virt_start = 0xbba0e000,
-> +			.size = 0x2000,
-> +			.flags = JAILHOUSE_MEM_READ,
-> +		},
-> +		/* IVSHMEM shared memory regions for 00:01.0 (networking) */
-> +		JAILHOUSE_SHMEM_NET_REGIONS(0xbbb00000, 0),
-> +		/* IO */ {
-> +			.phys_start = 0x00000000,
-> +			.virt_start = 0x00000000,
-> +			.size =	      0x40000000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_IO,
-> +		},
-> +		/* RAM 00*/ {
-> +			.phys_start = 0x40000000,
-> +			.virt_start = 0x40000000,
-> +			.size = 0x73c00000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_EXECUTE,
-> +		},
-> +		/* Inmate memory */{
-> +			.phys_start = 0xb3c00000,
-> +			.virt_start = 0xb3c00000,
-> +			.size = 0x04000000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_EXECUTE,
-> +		},
-> +		/* RAM 01 */ {
-> +			.phys_start = 0xb8000000,
-> +			.virt_start = 0xb8000000,
-> +			.size = 0x03700000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_EXECUTE,
-> +		},
-> +		/* Loader */{
-> +			.phys_start = 0xbb700000,
-> +			.virt_start = 0xbb700000,
-> +			.size = 0x100000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_EXECUTE,
-> +		},
-> +		/* RAM 02 */ {
-> +			.phys_start = 0xbbc00000,
-> +			.virt_start = 0xbbc00000,
-> +			.size = 0x02400000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_EXECUTE,
-> +		},
-> +		/* OP-TEE reserved memory */{
-> +			.phys_start = 0xbe000000,
-> +			.virt_start = 0xbe000000,
-> +			.size = 0x2000000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-> +		},
-> +	},
-> +
-> +	.irqchips = {
-> +		/* GIC */ {
-> +			.address = 0x38800000,
-> +			.pin_base = 32,
-> +			.pin_bitmap = {
-> +				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,
-> +			},
-> +		},
-> +		/* GIC */ {
-> +			.address = 0x38800000,
-> +			.pin_base = 160,
-> +			.pin_bitmap = {
-> +				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,
-> +			},
-> +		},
-> +		/* GIC */ {
-> +			.address = 0x38800000,
-> +			.pin_base = 288,
-> +			.pin_bitmap = {
-> +				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,
-> +			},
-> +		},
-> +	},
-> +
-> +	.pci_devices = {
-> +		{ /* IVSHMEM 0000:00:00.0 (demo) */
-> +			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> +			.domain = 0,
-> +			.bdf = 0 << 3,
-> +			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-> +			.shmem_regions_start = 0,
-> +			.shmem_dev_id = 0,
-> +			.shmem_peers = 3,
-> +			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
-> +		},
-> +		{ /* IVSHMEM 0000:00:01.0 (networking) */
-> +			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> +			.domain = 0,
-> +			.bdf = 1 << 3,
-> +			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-> +			.shmem_regions_start = 5,
-> +			.shmem_dev_id = 0,
-> +			.shmem_peers = 2,
-> +			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
-> +		},
-> +	},
-> +};
-> 
+  Branch: refs/heads/master
+  Home:   https://github.com/siemens/jailhouse
+  Commit: 564f354155a3a21e95041c1b8fb79605356abf65
+      https://github.com/siemens/jailhouse/commit/564f354155a3a21e95041c1b8fb79605356abf65
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-03-06 (Fri, 06 Mar 2020)
 
-Thanks, applied both to next now. In patch 1, I also updated the dates 
-as discussed.
+  Changed paths:
+    M hypervisor/arch/x86/apic.c
+    M hypervisor/arch/x86/control.c
 
-BTW, when sending new versions of a patch, it is helpful for the 
-reviewers to have a brief changelog to the previous version included 
-(below the "--" separator).
+  Log Message:
+  -----------
+  x86: Add proper fence before sending IPIs
 
-Jan
+Since 2017, the Intel manual suggests to use mfence plus lfence as
+barrier to make data changes visible triggering an interrupt via the
+x2APIC interface. Jailhouse was so far not using any barrier
+consistently in those cases, neither for internal NMI IPIs, nor for
+those triggered via the ivshmem doorbell interface.
 
--- 
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+This adds the recommended mfence;lfence sequence to all IPIs triggered
+via apic_send_irq or apic_send_ipi, at the risk of having more than
+needed, e.g. when issuing an IPI on behalf of a guest that already used
+a barrier itself. Compared to the risk of missing a cases and given the
+overhead that the intercepted IPI submission comes with anyway, this is
+the preferable option.
+
+Note that this also ensures proper serialization of data writes and
+kicks for the ivshmem doorbell interface on x86. Such a property is
+going to be demanded by the ivshmem specification.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: cb8d79bbc2caee07fbc2d9ed86af15e040a70c35
+      https://github.com/siemens/jailhouse/commit/cb8d79bbc2caee07fbc2d9ed86af15e040a70c35
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-03-06 (Fri, 06 Mar 2020)
+
+  Changed paths:
+    M hypervisor/arch/arm-common/ivshmem.c
+
+  Log Message:
+  -----------
+  arm-common: Add memory barrier before ivshmem interrupt submission
+
+This ensures that a guest will not see its data lagging behind the
+signal when triggering the ivshmem doorbell. We are going to demand this
+property from the ivshmem interface.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: f91c57158100fa0b4586a3271dc2c27570d56be7
+      https://github.com/siemens/jailhouse/commit/f91c57158100fa0b4586a3271dc2c27570d56be7
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-03-06 (Fri, 06 Mar 2020)
+
+  Changed paths:
+    M hypervisor/arch/arm-common/control.c
+    M hypervisor/arch/arm-common/include/asm/control.h
+    M hypervisor/arch/arm-common/psci.c
+    M hypervisor/arch/x86/include/asm/control.h
+    M hypervisor/include/jailhouse/control.h
+
+  Log Message:
+  -----------
+  arm-common: Get rid of arm_cpu_kick
+
+Implement arch_send_event directly and switch psci to this. Makes things
+more straightforward - and provides the chance to properly document
+arch_send_event.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 19cf7a61caaa793bb533d38b531519e703cccf49
+      https://github.com/siemens/jailhouse/commit/19cf7a61caaa793bb533d38b531519e703cccf49
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-03-06 (Fri, 06 Mar 2020)
+
+  Changed paths:
+    M hypervisor/arch/arm-common/psci.c
+    M hypervisor/control.c
+    M hypervisor/include/jailhouse/control.h
+
+  Log Message:
+  -----------
+  core, arm-common: Clarify role of spin_unlock before event submission
+
+On ARM, the spin_unlock is sufficient to provide a memory barrier before
+calling arch_send_event. On other archs, the implementation of
+arch_send_event has to take care of this. Clarify this at the respective
+call sites and the function documentation.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: d2becb4a22a7dc85cb237014796862a50f4cfc6d
+      https://github.com/siemens/jailhouse/commit/d2becb4a22a7dc85cb237014796862a50f4cfc6d
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-03-06 (Fri, 06 Mar 2020)
+
+  Changed paths:
+    M hypervisor/arch/arm-common/include/asm/irqchip.h
+    M hypervisor/arch/arm-common/irqchip.c
+    M hypervisor/arch/arm-common/ivshmem.c
+
+  Log Message:
+  -----------
+  arm-common: Factor out irqchip_trigger_external_irq
+
+This replaces the non-intuitive special case of
+irqchip_set_pending(NULL, ...) with an explicit one.
+The only case where irqchip_set_pending() was called like this was
+arch_ivshmem_trigger_interrupt(). All others already passed in a
+cpu_public pointer guaranteed to be non-NULL.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 368ff6b2acb3f24ec5903db328d73f2c9d986601
+      https://github.com/siemens/jailhouse/commit/368ff6b2acb3f24ec5903db328d73f2c9d986601
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-03-06 (Fri, 06 Mar 2020)
+
+  Changed paths:
+    M Documentation/ivshmem-v2-specification.md
+
+  Log Message:
+  -----------
+  Documentation: ivshmem: Require that doorbell writes act as memory barriers
+
+This avoids that the guest has to be aware of how the doorbell interrupt
+is internally sent to the target CPU because to add the corresponding
+memory barrier explicitly. The implementation in Jailhouse already
+fulfills this new requirement.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 421fcb1f99cd1fa59a4494368550b2288cbfcd25
+      https://github.com/siemens/jailhouse/commit/421fcb1f99cd1fa59a4494368550b2288cbfcd25
+  Author: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+  Date:   2020-03-08 (Sun, 08 Mar 2020)
+
+  Changed paths:
+    M configs/arm64/espressobin.c
+
+  Log Message:
+  -----------
+  configs: arm64: espressobin: tune comment
+
+This is probably a c&p artefact from macchiatobin.c: Memory on the espressobin,
+1G variant, ranges from 0x0 - 0x40000000, and reservation can be done via
+cmdline. Adjust the comment.
+
+Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 37101f166e71d712644b107c77a0a694f0959f96
+      https://github.com/siemens/jailhouse/commit/37101f166e71d712644b107c77a0a694f0959f96
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-03-10 (Tue, 10 Mar 2020)
+
+  Changed paths:
+    M hypervisor/ivshmem.c
+
+  Log Message:
+  -----------
+  core: ivshmem: Clear state table on first peer setup
+
+So far we only reset the state of the added device of a link, not that
+of to-be added ones. This could expose random state value of upcoming
+peers until their cells were actually created.
+
+Fix this by clearing the complete state table when the first peer is
+initialized.
+
+Reported-by: Philipp Rosenberger <p.rosenberger@linutronix.de>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: f76b0e89ed89a64c2d22bde114e20abd0e18ce38
+      https://github.com/siemens/jailhouse/commit/f76b0e89ed89a64c2d22bde114e20abd0e18ce38
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-03-10 (Tue, 10 Mar 2020)
+
+  Changed paths:
+    M hypervisor/ivshmem.c
+
+  Log Message:
+  -----------
+  core: ivshmem: Clean up variable initialization
+
+We can use the local id variable also here.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 1f16ea47d9d99f7f6fde1aad65c8ab7ed77d54ca
+      https://github.com/siemens/jailhouse/commit/1f16ea47d9d99f7f6fde1aad65c8ab7ed77d54ca
+  Author: Philipp Rosenberger <p.rosenberger@linutronix.de>
+  Date:   2020-03-10 (Tue, 10 Mar 2020)
+
+  Changed paths:
+    M Documentation/inter-cell-communication.md
+
+  Log Message:
+  -----------
+  Documentation: use virtio-ivshmem-block for block backend
+
+The example for the virtio-ivshmem-block shows virtio-ivshmem-console
+not virtio-ivshmem-block as backend.
+
+Signed-off-by: Philipp Rosenberger <p.rosenberger@linutronix.de>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 2e4d71f66439f8f6223b129b1b8f19062a851342
+      https://github.com/siemens/jailhouse/commit/2e4d71f66439f8f6223b129b1b8f19062a851342
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-03-10 (Tue, 10 Mar 2020)
+
+  Changed paths:
+    M hypervisor/arch/x86/ioapic.c
+
+  Log Message:
+  -----------
+  x86: ioapic: Fix programming of to-be-masked pin
+
+The unconditional writing of both redirection table words created an
+invalid intermediate state when masking a previously unmasked pin: As
+the entry was to be masked, the index in result was set to 0xffff. This
+value was then programmed into the upper word while the pin was still
+unmasked.
+
+QEMU detected this invalid redirection table entry but only a message
+was logged on the host terminal because QEMU does not emulate error
+reporting for VT-d. If an interrupt had come in on real hardware right
+at this point, we would have seen a VT-d fault. Still, no kitten would
+have been harmed.
+
+Fix this by only writing the upper half when we are unmasking the pin
+(or keeping it unmasked). And the goal of bac03e4d5f54 is still achieved
+this way.
+
+Fixes: bac03e4d5f54 ("x86: ioapic: Rework and fix redir entry programming")
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+Compare: https://github.com/siemens/jailhouse/compare/ca7123a5c58d...2e4d71f66439
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/2248d1f8-eebe-87f3-cdcc-3d545c6399ae%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/master/ca7123-2e4d71%40github.com.
