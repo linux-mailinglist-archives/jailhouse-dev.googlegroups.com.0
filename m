@@ -1,32 +1,32 @@
-Return-Path: <jailhouse-dev+bncBDLOLYFISUCRBE4K7P2AKGQEMLTP6UY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDLOLYFISUCRBFEK7P2AKGQECT4JS6A@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33c.google.com (mail-wm1-x33c.google.com [IPv6:2a00:1450:4864:20::33c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 293291B238B
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Apr 2020 12:04:04 +0200 (CEST)
-Received: by mail-wm1-x33c.google.com with SMTP id n17sf352007wmi.3
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Apr 2020 03:04:04 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1587463444; cv=pass;
+Received: from mail-lj1-x240.google.com (mail-lj1-x240.google.com [IPv6:2a00:1450:4864:20::240])
+	by mail.lfdr.de (Postfix) with ESMTPS id B2EC41B238C
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Apr 2020 12:04:05 +0200 (CEST)
+Received: by mail-lj1-x240.google.com with SMTP id e2sf1973596ljp.11
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Apr 2020 03:04:05 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1587463445; cv=pass;
         d=google.com; s=arc-20160816;
-        b=qJyYirSdlLPLIL+GoUd4Qu8LnWQGuAt7JHo5yCejlkSngOk+VhgqpTQ72zTbVIL9fj
-         I+3ON7nQ5rcgjtHCBhbaIF9IRYLAk6pjLPmto+TJ19+9Sm+ODqlnfOQlDF6ZAKAXHuGT
-         jtj7Rks9S90Hv00XYLfbyFaukbxb3BZgmpHAwrB2OuXlLC47k6MHLj1PVCqyA1GChU8F
-         hkLA2QTasj/IKqdQADrFAKW7mLX0pNdbbCd0bvUkMK/cakYuyAzatD1+KYfPR27OyLQ3
-         CYeKb2qo8r8WCaR0JNk01fhCKwXWpc01IdviSqZtQm6H8iiwh+4D2szp3Mmh4xKt5hKx
-         1wLg==
+        b=v7j3cd5o6iKRDo4nHUnMzopKstvZ820oOt6CjbAbxCrE6zCPgpqFnJdIzhySmsW/m/
+         4/wnt7yPbMKpSOJK/EdYo/QBiRtwSDye2K4Gk/WZVuzgXXmw+qnFX/35FNQxQgl4+a7v
+         WORIaQVm8nluqImvkSbT4TTQTTTdfW8yWy2qfWE/eWNcguep+oGIUEqWslPiO/Xb2FAV
+         EoKuX/9XOpXwDDFERLoaPNhWzTfKaiTo0tmJDri+Dkfng1QfD8fzEo7DEEi54x2kV+Si
+         pMYu0Ql56GuS03GoZ0WvZXnV2Vs1LxNqcWiTr4r0OniGiC3Oe3zRWDJEvVf1sqYUE0b8
+         I2aA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:reply-to:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:dkim-signature;
-        bh=/VsQ0LMro/BJkthliGJ17FYj3+irkXVAulGSBWoM+is=;
-        b=b+v+NjLSQnWUZg7fXXxuCnawsWeTks8MWpAMUg9lVtonA5Y+xBn4q6ZbrnczMsw4KQ
-         TXVE6JCrxW5pITzK1ccUM0rgrTPLYPFEhOTOSrp2P5RYJdc+5a7GZ5KyL7ARZW5AlTiU
-         fydcw4/R9i2Uvzg2Snym76YBqeV53nCMKh25+lygg/hZAGr4JyzcbZ7RhXapSxDdoZGO
-         SPnyolnCYhYAe1Vs3x6is9dn8kTWjPkTbF11sbKdK0Bjdu3eyNh/qA6dvHj20c1HluWb
-         moP66j0ky+P+k7y2X7jyaiy75XX1KDBAHvVUsRBX77XAJUJtY2ydqLxirt4DlemALadp
-         qrdw==
+        bh=cNTQN8+qX5xRzUf9sUQKHJ/zvDWV+Y/wVMiURomfFpE=;
+        b=G6SM90rjmsi8I0ngf/Vy3rWHqDSZwpmFIuANWNgZivN0aV8ZYq+PIHb4g69/JzRilh
+         reFVB9EAT0+Ri2uqyO9Q5Jz1kLiWVoIKIv3kCL62kmnTgUVztA2duEGbkVkSksge8/nP
+         56YOksiNkWpJk0ttLDFdWe4SwPDAGWeRM6IR7iheef/LpGsH9uyip1aws3YUZPmBxJVJ
+         4UpEWuUrZnKa0WRBVEq+bjDjhpI569TZVcIVXdPWJoErJcvezirvqtGMI6tk/lyAvNKR
+         +UqpmwuX9o/hiR9Cq76jXxf7h79laKkhhCuORRzxAB54AVyLfo2MEUmgOXntcl/kxL7t
+         Lcqw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@xt3.it header.s=201602 header.b=H7CIe9QK;
+       dkim=pass header.i=@xt3.it header.s=201602 header.b=PuO9DCdu;
        spf=pass (google.com: domain of ms@xt3.it designates 2a01:4f8:190:4055::2 as permitted sender) smtp.mailfrom=ms@xt3.it;
        dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=xt3.it
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :reply-to:precedence:mailing-list:list-id:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=/VsQ0LMro/BJkthliGJ17FYj3+irkXVAulGSBWoM+is=;
-        b=IIxKzLhjDyBeCargo2V6Vju3sZFHdAkuWNlxuVRnbywmlr3rO7y1FVO0nWfjPQ9DL7
-         ecW6BTiTnAkK/oND7hdQZw1PoJua69a/bsGKc6tpwTnV/rF5VtqlAcuwcxn40cK0qFqs
-         l7RW6Yqdw6gcSwZ3Aj8JmZZay4EkgsslepOAAxElsQ9I3vCfJmVPiXIBiXZkUt2RtDil
-         HHGMcsXIbCbcZkxd+FiCybT0IuczECYf13HwqbuTGxrOzlAf3UJh1L/a16DyIuMc6Axx
-         gH/x5ULUWWRzNwjxeLoaAMg+xXEAUyRH75ksKgYPouIx5pJ99BClWNUulvZgKDMNLsz0
-         PRzg==
+        bh=cNTQN8+qX5xRzUf9sUQKHJ/zvDWV+Y/wVMiURomfFpE=;
+        b=GVgYf0fo7ulXmhTtoe53/2bVuQfFqecoFNEwBHsHS7o1i+YcTZ2kOFmdu7N+HAYpor
+         5Bvf2TEE1WrLjAkpshkgTRvk7/OToFYWQsVVc035UoUN/qkHKXYXgZxKHUVaGOi341zT
+         fCskdRfRYu/dpgzVXvnd/KY0+WKMsvEN4xuaFqGdhKqwqxsHi4JYjYu3lkhDsSfmb6AY
+         2bPK8HdRtc+1qLSLm3sEqhCVvHGKcyU7onWa4XHcsIdqPQQVoC2XqpZNkxF11W/oUCTB
+         zLyy52nHMelVrTelEQbEn+fbpWuxCqtfwip2cZA8H70+htsxtRfuC74av208oQLpkhXc
+         DRAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
@@ -49,64 +49,63 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:reply-to:precedence:mailing-list
          :list-id:x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=/VsQ0LMro/BJkthliGJ17FYj3+irkXVAulGSBWoM+is=;
-        b=ugiw5diaQcEmL/10vX5Rc0vUJBxyPEka5LtYcJx6U7GGM+oLrAwxHPUtlp/aMNZux2
-         zkqipeYfpoSrZuyCAg+I7M97+Q+OIJdVHBESCYhKAG/XHTyLZJST8ypnCQCOE9JJ9VfO
-         1pK6qnkdtnVb/l85bp2MM1U9A3N2FswT1hG8rc58Un9ZEFOlsYF5AZbPpUsY5xKInfXN
-         vUEiIf9VXEtjQ8R2FK6nJaXpKOfad4UmDspCxXGw99d81LkJzGw3mZHKUMNE7lsxz8AD
-         D7qrFO9UrI+2WbVbfM0g+xu7c+ID6eoTt7K3lWXGpsGS3X0YAG7EVSacVTqwFgJUGZ+V
-         KQfA==
-X-Gm-Message-State: AGi0PuZKfra3sctZHkKOmg2a/XA1ckHLc1y9r2+FS3Wxk5JKykV4N/9h
-	yY1mghsRuDATXRPplA6sMzs=
-X-Google-Smtp-Source: APiQypI1I4uqU4JgEV0mMC5RDpt5y17KufEN1dAmU1M7or/ob75CCJK4QwywxQtfDqAYKfdkkRB+Gw==
-X-Received: by 2002:a1c:c2d6:: with SMTP id s205mr4344083wmf.90.1587463443817;
-        Tue, 21 Apr 2020 03:04:03 -0700 (PDT)
+        bh=cNTQN8+qX5xRzUf9sUQKHJ/zvDWV+Y/wVMiURomfFpE=;
+        b=ER1xIerdSzE2QpC10ry6ReSsVwQUlv24t2L+89cuvwZFYgLUKm2L/v8ppt6PVLy2w3
+         1tl/ItCjt1MuiHqex9IQ/gL1lfbhcl1L3zO2/Lone4/vCkXr2D8OXjV3ERao6dPDHiND
+         T1rBjXzQie/rYJzwovOK69k/Y7hiyQhyciqwmAwsLr1nBVsAUCWU/d2jYHR/Nckf1+Ug
+         lgFlpOmnOoXQNu534XD4l1s8k4yuYeqQbCooG4iCfnPvETwppgdSq9YllWe88RcihLaK
+         Y2h1/ze/2tHL3UY+oecVnxJkicTndMvVNLWIxlfXu/9jcyLuww+8gtJ02vJ5gw7WUEz9
+         PDSw==
+X-Gm-Message-State: AGi0Puaw0BZ5CWXgpTXs/JuGFO4YCU8H6vZ28zhU69H7cWX7FkkjpADD
+	F+vaRvaiJytb0lYUQ3tk0lA=
+X-Google-Smtp-Source: APiQypK/HA+ZkuxOBH4TNAanzJCdwKDxxciXAQeZg2RALyZp6c2f5/jwAbdthKr5WV669NGt59Nozw==
+X-Received: by 2002:a05:6512:318a:: with SMTP id i10mr13399017lfe.96.1587463445196;
+        Tue, 21 Apr 2020 03:04:05 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:e44e:: with SMTP id t14ls15557790wrm.1.gmail; Tue, 21
- Apr 2020 03:04:03 -0700 (PDT)
-X-Received: by 2002:a5d:5230:: with SMTP id i16mr25108806wra.71.1587463443216;
-        Tue, 21 Apr 2020 03:04:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1587463443; cv=none;
+Received: by 2002:a2e:9ad6:: with SMTP id p22ls2747093ljj.9.gmail; Tue, 21 Apr
+ 2020 03:04:04 -0700 (PDT)
+X-Received: by 2002:a2e:91cc:: with SMTP id u12mr13548053ljg.244.1587463444420;
+        Tue, 21 Apr 2020 03:04:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1587463444; cv=none;
         d=google.com; s=arc-20160816;
-        b=MG3WQ5UX4IF8FdGwMRkLH5xiZOwTLFgIMKrLQMxEw0bkrvNlVuK1KRxr6JrnsOrJFs
-         4qqsJwuPnT9jeyZUkJfcV+/DXZTScFoC2SdndUbMJsmVnK8Loa07jD2QPNKUdVgrIByt
-         /m5o3jvh5yW/BlD/DmzwHAbBr1+4KXRN+l/YQJsq1uRObhD0HLfnFWwRel/hsCyhCou4
-         wx7Eab/vqW47ydfGfOFd3Ih9gKkKiAZjVJHJECvAPbqxb3YojxQdEbUk3m0vTyK9vHJc
-         dhs65BvGumNVt58LLEet5PEt0aZPUifWAMzgKdbCTnGho89fFlD4BGLm/ma2AG5vIXwN
-         6/fQ==
+        b=R+rd2eEcl1Ph8ViDfRuqRRahx9gBlUDF6weIc9xOwfTr23x0zWEVQ01Kw5NhPxr6EK
+         TWMTs6jjNDRPy6R3T8RCA9dckKq0LcMc5RB4bFYfIkcFhHvTG5JevW9qjLHkyA5Lo8jg
+         Yshj4eMYybfPW8Sx35UsZl9ncx87C3Kiy6gtckOz5/wxHA9Lam5GSaNsdk3eltcv9y4a
+         5W2QxVYT2xn3dS1MMFD5H29Y4Mnt3k1MX+OWXJQ8W/LkyLKuvfUY3d1ma8SZywMoySsZ
+         mMZ5XWCirSRZkM4YJHsnPubfI1ADRbaI74/PvjkLTBAwFWicaa7gDv9h5lRNr0Obsubz
+         n3iQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature;
-        bh=XcAp8Rf+pw6hZG5mCVFmZzNvfyAABt7el7E1K4b1YHw=;
-        b=r1nRKGP6yz2+xcEx4P1muBN1M9TTVy8L7Kb9CVq48QMLyJgCDd2uL7p5Y1xYA13Wad
-         wBUa6mqLEfyr2FUkP84aF4Ny9sqsxgfZi+TLEhtT2kgKsY/ReqHYjjyjJjOGlAOTavJD
-         tWEfU3DFOuNneu4kp9efj8NnvJ8ix8xBqqYJiWMlc34nxT8y1Rc4pkiz6afxr46Ehpgc
-         ePX7rSBnQ3YJu7VYry1fJJrWP6+HpGPR2ZrvZawbvsenvVZ5o/4SzbjfwWOuvUtcKKEj
-         9BgOq+bcubN/EyDrlSn5Dtf8CtTB3qr11gXdcw9PhX0BzcVBh/XuWtVYr5cB8OyIJp/Y
-         ocHw==
+        bh=HRJM2g/Ju9lEEUQJ69ljxOFTRBhFgmF1cNZSLOHqS+U=;
+        b=fWpLmuuMBh1+mZBHM0TqVurK1j4xDs2VfNIt8JQ9nht5/H+Q6Snc/KB1oIXwTsRDSf
+         k8s/lTwl+bYLkotU1gCVeaAwQK9goIazeDd1RHvHZ4hrLIBEKWOhF6AFSXXyIYlv1/DN
+         dnHOc+73MbVChl+8xQLNwfDa2a3BcKLjWUkYTctBN69kWjag5tx8aeLBGazsvEnQuymp
+         LHLgznkYa2lcMJJpF3KbG9Ne1SoBupuR16HxwMGVdqJKEgOci6VjDvWbEL26ncdvuAUa
+         lEruBt4lmbhS4GRGr6yXhiT8sJVsBwNnZjp6q7dKt/kMvWGb0i6oA4kbcFmZpcwbbi/x
+         gpvQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@xt3.it header.s=201602 header.b=H7CIe9QK;
+       dkim=pass header.i=@xt3.it header.s=201602 header.b=PuO9DCdu;
        spf=pass (google.com: domain of ms@xt3.it designates 2a01:4f8:190:4055::2 as permitted sender) smtp.mailfrom=ms@xt3.it;
        dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=xt3.it
 Received: from radon.xt3.it (radon.xt3.it. [2a01:4f8:190:4055::2])
-        by gmr-mx.google.com with ESMTPS id 71si183364wmb.1.2020.04.21.03.04.03
+        by gmr-mx.google.com with ESMTPS id a12si88419ljm.2.2020.04.21.03.04.04
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Tue, 21 Apr 2020 03:04:03 -0700 (PDT)
+        Tue, 21 Apr 2020 03:04:04 -0700 (PDT)
 Received-SPF: pass (google.com: domain of ms@xt3.it designates 2a01:4f8:190:4055::2 as permitted sender) client-ip=2a01:4f8:190:4055::2;
 Received: from 217-133-116-244.static.clienti.tiscali.it ([217.133.116.244] helo=localhost)
 	by radon.xt3.it with esmtpsa (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
 	(Exim 4.89)
 	(envelope-from <ms@xt3.it>)
-	id 1jQpl4-0005Ba-Gs; Tue, 21 Apr 2020 12:04:02 +0200
+	id 1jQpl5-0005Bj-A8; Tue, 21 Apr 2020 12:04:03 +0200
 From: "'Marco Solieri' via Jailhouse" <jailhouse-dev@googlegroups.com>
 To: jailhouse-dev@googlegroups.com
 Cc: Luca Miccio <lucmiccio@gmail.com>,
-	Marco Solieri <ms@xt3.it>,
-	Angelo Ruocco <angelo.ruocco.90@gmail.com>
-Subject: [PATCH v2 3/9] driver: introduce col_load_address for colored binaries loading
-Date: Tue, 21 Apr 2020 12:03:45 +0200
-Message-Id: <20200421100351.292395-4-ms@xt3.it>
+	Marco Solieri <ms@xt3.it>
+Subject: [PATCH v2 4/9] hypervisor, arm-common: add initial support for cache coloring
+Date: Tue, 21 Apr 2020 12:03:46 +0200
+Message-Id: <20200421100351.292395-5-ms@xt3.it>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200421100351.292395-1-ms@xt3.it>
 References: <20190327121849.1882-1-ms@xt3.it>
@@ -114,7 +113,7 @@ References: <20190327121849.1882-1-ms@xt3.it>
 MIME-Version: 1.0
 X-Original-Sender: ms@xt3.it
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@xt3.it header.s=201602 header.b=H7CIe9QK;       spf=pass
+ header.i=@xt3.it header.s=201602 header.b=PuO9DCdu;       spf=pass
  (google.com: domain of ms@xt3.it designates 2a01:4f8:190:4055::2 as permitted
  sender) smtp.mailfrom=ms@xt3.it;       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=xt3.it
 X-Original-From: Marco Solieri <ms@xt3.it>
@@ -134,112 +133,184 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Luca Miccio <lucmiccio@gmail.com>
 
-Currently Jailhouse loads inmate's binaries by mapping its memory region
-to the root cell. When coloring is enabled this operation becomes
-not trivial. To avoid logic duplication in the driver module,
-use a special memory space when loading to colored regions. This
-convenient memory space starts from a fixed address defined by
-`col_loads_address` and will be mapped by the hypervisor using the same
-size and coloring configuration as the inmate.
-Since there could be platforms with different memory space layouts, the
-choice of `col_loads_address` has to be done accordingly.
-Allow the user to set this value in the root-cell configuration and set
-the default to 16 GiB. The latter has been empirically choosen as default
-value.
+Use a bitmask array with fixed size for the cell's color assignment.
+The largest amount of shared last-level segment cache equipping an Arm v8
+cluster for the embedded segment (i.e. Cortex A5?, A7?), which contains
+up to 8 cores, is 8 MiB with 16-ways associativity.
+Now, assuming the coloring algorithm to be the same as we support, i.e.
+smallest granularity with 4 KiB pages, we compute that up to 128 colors
+available.
+For this reason set the amount of colors supported to 128.
+
+Colored regions defined by the flag JAILHOUSE_MEM_COLORED are mapped
+using the "colored" version of paging_create when needed.
+The colored version of paging_destroy is used only when unmapping from
+the root cell since we are assuming a 1:1 mapping for it.
 
 Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
 Signed-off-by: Marco Solieri <ms@xt3.it>
-Acked-by: Angelo Ruocco <angelo.ruocco.90@gmail.com>
 ---
- driver/Makefile                 |  4 ++++
- driver/cell.h                   |  3 +++
- driver/main.c                   | 15 +++++++++++++++
- include/jailhouse/cell-config.h |  6 ++++++
- 4 files changed, 28 insertions(+)
+ hypervisor/arch/arm-common/include/asm/cell.h |  4 ++
+ .../arch/arm-common/include/asm/coloring.h    | 22 +++++++
+ hypervisor/arch/arm-common/mmu_cell.c         | 62 ++++++++++++++++---
+ 3 files changed, 79 insertions(+), 9 deletions(-)
+ create mode 100644 hypervisor/arch/arm-common/include/asm/coloring.h
 
-diff --git a/driver/Makefile b/driver/Makefile
-index 8dded848..c69d1991 100644
---- a/driver/Makefile
-+++ b/driver/Makefile
-@@ -18,6 +18,10 @@ ccflags-y := -I$(src)/../hypervisor/arch/$(SRCARCH)/include \
- 	     -I$(src)/../include/arch/$(SRCARCH) \
- 	     -I$(src)/../include
+diff --git a/hypervisor/arch/arm-common/include/asm/cell.h b/hypervisor/arch/arm-common/include/asm/cell.h
+index 9c6e8c6f..c5159b46 100644
+--- a/hypervisor/arch/arm-common/include/asm/cell.h
++++ b/hypervisor/arch/arm-common/include/asm/cell.h
+@@ -14,6 +14,7 @@
+ #define _JAILHOUSE_ASM_CELL_H
  
-+ifneq ($(wildcard $(obj)/../include/jailhouse/config.h),)
-+KBUILD_CFLAGS += -include $(src)/../include/jailhouse/config.h
-+endif
+ #include <jailhouse/paging.h>
++#include <asm/coloring.h>
+ 
+ struct pvu_tlb_entry;
+ 
+@@ -26,6 +27,9 @@ struct arch_cell {
+ 		u8 ent_count;
+ 		struct pvu_tlb_entry *entries;
+ 	} iommu_pvu; /**< ARM PVU specific fields. */
 +
- jailhouse-y := cell.o main.o sysfs.o
- jailhouse-$(CONFIG_PCI) += pci.o
- jailhouse-$(CONFIG_OF) += vpci_template.dtb.o
-diff --git a/driver/cell.h b/driver/cell.h
-index 92afbff8..0207e189 100644
---- a/driver/cell.h
-+++ b/driver/cell.h
-@@ -36,6 +36,9 @@ struct cell {
- 	u32 num_pci_devices;
- 	struct jailhouse_pci_device *pci_devices;
- #endif /* CONFIG_PCI */
-+#ifdef CONFIG_COLORING
-+	u64 col_load_address;
-+#endif /* CONFIG_COLORING */
++	/** Color configuration as a bitmask */
++	unsigned long color_bitmask[COLOR_BITMASK_SIZE];
  };
  
- extern struct cell *root_cell;
-diff --git a/driver/main.c b/driver/main.c
-index 01e9c049..25bdc15c 100644
---- a/driver/main.c
-+++ b/driver/main.c
-@@ -118,6 +118,9 @@ static typeof(__boot_cpu_mode) *__boot_cpu_mode_sym;
- #if defined(CONFIG_ARM) || defined(CONFIG_ARM64)
- static typeof(__hyp_stub_vectors) *__hyp_stub_vectors_sym;
- #endif
-+#ifdef CONFIG_COLORING
-+#define DEFAULT_JAILHOUSE_CELL_LOAD_VADDR	0x400000000
-+#endif
- 
- /* last_console contains three members:
-  *   - valid: indicates if content in the page member is present
-@@ -566,6 +569,18 @@ static int jailhouse_cmd_enable(struct jailhouse_system __user *arg)
- 	if (err)
- 		goto error_unmap;
- 
-+#ifdef CONFIG_COLORING
-+	/**
-+	 * Be sure that col_load_address is set if coloring is enabled.
-+	 */
-+	if (!config->platform_info.col_load_address) {
-+		pr_notice("No coloring load address defined, using default\n");
-+		config->platform_info.col_load_address =
-+			DEFAULT_JAILHOUSE_CELL_LOAD_VADDR;
-+	}
+ #endif /* !_JAILHOUSE_ASM_CELL_H */
+diff --git a/hypervisor/arch/arm-common/include/asm/coloring.h b/hypervisor/arch/arm-common/include/asm/coloring.h
+new file mode 100644
+index 00000000..9404948f
+--- /dev/null
++++ b/hypervisor/arch/arm-common/include/asm/coloring.h
+@@ -0,0 +1,22 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) Universita'  di Modena e Reggio Emilia, 2020
++ *
++ * Authors:
++ *  Luca Miccio <lucmiccio@gmail.com>
++ *  Marco Solieri <ms@xt3.it>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
 +
-+	root_cell->col_load_address = config->platform_info.col_load_address;
-+#endif
- 	error_code = 0;
++#ifndef _JAILHOUSE_ASM_COLORING_H
++#define _JAILHOUSE_ASM_COLORING_H
++
++#define COLOR_BITMASK_SIZE 4
++
++/* Max. number of colors supported */
++#define MAX_COLOR_SUPPORTED     128
++
++#endif /* !_JAILHOUSE_ASM_COLORING_H */
+diff --git a/hypervisor/arch/arm-common/mmu_cell.c b/hypervisor/arch/arm-common/mmu_cell.c
+index db618960..912d9399 100644
+--- a/hypervisor/arch/arm-common/mmu_cell.c
++++ b/hypervisor/arch/arm-common/mmu_cell.c
+@@ -13,6 +13,7 @@
+ #include <jailhouse/control.h>
+ #include <jailhouse/paging.h>
+ #include <jailhouse/printk.h>
++#include <jailhouse/coloring.h>
+ #include <asm/sysregs.h>
+ #include <asm/control.h>
+ #include <asm/iommu.h>
+@@ -46,8 +47,29 @@ int arch_map_memory_region(struct cell *cell,
+ 	if (err)
+ 		return err;
  
- 	preempt_disable();
-diff --git a/include/jailhouse/cell-config.h b/include/jailhouse/cell-config.h
-index 8985f8a3..25f6860d 100644
---- a/include/jailhouse/cell-config.h
-+++ b/include/jailhouse/cell-config.h
-@@ -314,6 +314,12 @@ struct jailhouse_system {
- 		 * the platform in use.
- 		 */
- 		__u64 llc_way_size;
+-	err = paging_create(&cell->arch.mm, phys_start, mem->size,
+-			    mem->virt_start, access_flags, paging_flags);
++	if (mem->flags & JAILHOUSE_MEM_COLORED)
 +		/**
-+		 * Start address used when loading binaries into colored memory
-+		 * regions. This value should be set so that it does not overlap
-+		 * with platform memory mappings.
++		 * Identity mapping is necessary only when remapping to the root
++		 * cell during destroy phase. To check if we are in the destroy
++		 * phase the control is made on the memory virtual start and
++		 * col_load_address. We cannot have a scenario where these
++		 * addresses are equal because:
++		 * 1) virt_start == phys_start.
++		 * 2) we assume that col_load_address is configured so that it
++		 * does not interfere with memory layout.
++		 * 3) if col_load_address is equal to phys_start there is a
++		 * wrong root-cell configuration.
++		 * It means that in the previous wrong scenario col_load_address
++		 * overlaps some root-cell memory space.
 +		 */
-+		__u64 col_load_address;
- 		union {
- 			struct {
- 				__u16 pm_timer_address;
++		err = paging_create_colored(&cell->arch.mm, phys_start,
++			mem->size, mem->virt_start, access_flags, paging_flags,
++			cell->arch.color_bitmask, (cell == &root_cell) &&
++			(mem->virt_start !=
++				system_config->platform_info.col_load_address));
++	else
++		err = paging_create(&cell->arch.mm, phys_start, mem->size,
++			mem->virt_start, access_flags, paging_flags);
+ 	if (err)
+ 		iommu_unmap_memory_region(cell, mem);
+ 
+@@ -63,8 +85,19 @@ int arch_unmap_memory_region(struct cell *cell,
+ 	if (err)
+ 		return err;
+ 
+-	return paging_destroy(&cell->arch.mm, mem->virt_start, mem->size,
+-			      PAGING_COHERENT);
++	/*
++	 * Do not be confused -- since paging_destroy* acts on virtual
++	 * addresses, paging_destroy can be physically colored, too.
++	 * We need to destroy the mapping using coloring only when unmapping
++	 * from the root cell during cell_create so that the correct regions are
++	 * removed and then used from the cells.
++	 */
++	if (mem->flags & JAILHOUSE_MEM_COLORED && (cell == &root_cell))
++		return paging_destroy_colored(&cell->arch.mm, mem->virt_start,
++			mem->size, PAGING_COHERENT, cell->arch.color_bitmask);
++	else
++		return paging_destroy(&cell->arch.mm, mem->virt_start,
++			mem->size, PAGING_COHERENT);
+ }
+ 
+ unsigned long arch_paging_gphys2phys(unsigned long gphys, unsigned long flags)
+@@ -91,10 +124,20 @@ void arm_cell_dcaches_flush(struct cell *cell, enum dcache_flush flush)
+ 				   NUM_TEMPORARY_PAGES * PAGE_SIZE);
+ 
+ 			/* cannot fail, mapping area is preallocated */
+-			paging_create(&this_cpu_data()->pg_structs, region_addr,
+-				      size, TEMPORARY_MAPPING_BASE,
+-				      PAGE_DEFAULT_FLAGS,
+-				      PAGING_NON_COHERENT | PAGING_NO_HUGE);
++			if (mem->flags & JAILHOUSE_MEM_COLORED)
++				paging_create_colored(
++					&this_cpu_data()->pg_structs,
++					region_addr, size,
++					TEMPORARY_MAPPING_BASE,
++					PAGE_DEFAULT_FLAGS,
++					PAGING_NON_COHERENT | PAGING_NO_HUGE,
++					cell->arch.color_bitmask, false);
++			else
++				paging_create(&this_cpu_data()->pg_structs,
++					region_addr,
++					size, TEMPORARY_MAPPING_BASE,
++					PAGE_DEFAULT_FLAGS,
++					PAGING_NON_COHERENT | PAGING_NO_HUGE);
+ 
+ 			arm_dcaches_flush((void *)TEMPORARY_MAPPING_BASE, size,
+ 					  flush);
+@@ -120,7 +163,8 @@ int arm_paging_cell_init(struct cell *cell)
+ 	if (!cell->arch.mm.root_table)
+ 		return -ENOMEM;
+ 
+-	return 0;
++	/* Init coloring configuration of the cell */
++	return coloring_cell_init(cell);
+ }
+ 
+ void arm_paging_cell_destroy(struct cell *cell)
 -- 
 2.25.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200421100351.292395-4-ms%40xt3.it.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200421100351.292395-5-ms%40xt3.it.
