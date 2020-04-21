@@ -1,118 +1,122 @@
-Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBO5M7L2AKGQEIV5KBPI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDLOLYFISUCRBEMK7P2AKGQES36MKWQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x33d.google.com (mail-ot1-x33d.google.com [IPv6:2607:f8b0:4864:20::33d])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE1E61B1EF3
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Apr 2020 08:44:13 +0200 (CEST)
-Received: by mail-ot1-x33d.google.com with SMTP id q4sf11333358otn.9
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 20 Apr 2020 23:44:13 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1587451452; cv=pass;
+Received: from mail-lf1-x139.google.com (mail-lf1-x139.google.com [IPv6:2a00:1450:4864:20::139])
+	by mail.lfdr.de (Postfix) with ESMTPS id 886151B2388
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Apr 2020 12:04:02 +0200 (CEST)
+Received: by mail-lf1-x139.google.com with SMTP id d5sf5605840lfb.5
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Apr 2020 03:04:02 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1587463442; cv=pass;
         d=google.com; s=arc-20160816;
-        b=M/kqfCGwPY131YrtCW3HfgQBK+7KFK9Qv37ytUu5vanwqEkopJi7B7mCD0DNpgWTo1
-         K5zC9TkJ2IqMva6DTFJLEkvoDbL6264FCOsgJuIh0o3ZsQB5CubNlP9OhSWOx5R7c0Bi
-         dC1GQPOuFbh/5Ph8sbjRsuHM3e1XYDxZswJ+W1hI69YUQkpUbgPTlu583cCSnmMGLZcP
-         msu7NDGnNMrUlTqFTQ05N05+czV9VNRXwF3rK2GliCEvCwqCHTp0ZEQb6AjVIQDeUMUt
-         4jf/OaBUw9cj4AXwaYc5lC7TXk3B+uzNRBJNFaHFKLNm9Ja6ypAEyb4XXsHwKeD4XjUa
-         oCqg==
+        b=Fy9luRQvNOpV+n/Pcxh5/gYt4kAnC8Nw+vypf+JPBW3V0x0+neQtSXER/VEY7xUmyl
+         2xMSy4epjHWqjMAAP/7Tff6DeKrxOT/mgfZ89PvJNKDUXVW6TAzxaUnGrHG6ocotN46v
+         tq+yl0hvepsTctHBFGXFTAwmchttQe4VGLBgpI318J8ixDnhSRdjc/qArAi49GjBFFnv
+         YP3IGT4swwliidOSnX0U1zQQK/r5b145YCt4vT39cz+if7aDCczqzSkWNHh56L5ywqLU
+         +yCRvldYVvusssInNbYU/nvBlV8enXWtbH8km5+myLU2918C8wrF8IMX+1CITBa1cRnB
+         DfGQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:subject:message-id:to
-         :from:date:sender:dkim-signature;
-        bh=i+EH6L8VR7RFWk4sacbWKULO4FUSBabRb/uhYNC0OUk=;
-        b=cbOZSlIAxS8O7tUt+kFy0LuB0cXXc6HCrhwS+dbVWTxTaw21YZ6/YFlLeZCpUNxH2U
-         XInTzx2jWnUkibLtYrJWj4qZrqTUCnD9uia5GHTxB7RWnvYEQfZym3O5dqoNcrT5lLtQ
-         3aBk4ayGII+hte16Sc9N9aHixtYSy28VJC3+nPAhrpi61DP+Kjm57h36Rqc62hSl3P49
-         GqhUDdItYJN0jwGIi5rVGiTGZGU7w/ajeOsWKiZ4yYY3tdts7OfbLJ30Rt3zcOXniFDG
-         Z+kmg1jFJfnm21G70lMc3Iv7WiQPCWUmBe34ZXPsVuR53DnMAHDn70sERC//ake1Nxy2
-         7sxA==
+         :list-id:mailing-list:precedence:reply-to:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:dkim-signature;
+        bh=cyo9LVsQWvM1q7H2ZSRE4jJzcjaREYx11gh/sYbLs3Y=;
+        b=jC+hIXB/WIBVpjbqngj2QEE8XTnG3q0UNn8lhbY5KHdN/wzfeFEZkD4U9mqC8BU36C
+         A5I6LoWED3zbLdg54YbiwqywDZEl1b2ynehdK+03VLjNgXzkgtiiAWU96RKfal2+q5rU
+         Zf8YU9fmURMS2jxx3n0fWYPOcHtU4s91gWQNrmqlOyS66AlmUkztAr5HArNmBzu0zdUQ
+         muE8vUKb4FPI6LIrBQzXpOt3lwIVvDopvwYi+x6sJ+zWhOoh5zrOEA3baRmc0ppAlKHv
+         +ql8S95G41xiQf8/KfDF+ON6Z3cLdR55gfxqxfco07oDAVq2e3mdrGOSr3PCArP0GZIv
+         Q0xQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b="Q/aYZf7H";
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.207 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+       dkim=pass header.i=@xt3.it header.s=201602 header.b=ep0891DS;
+       spf=pass (google.com: domain of ms@xt3.it designates 2a01:4f8:190:4055::2 as permitted sender) smtp.mailfrom=ms@xt3.it;
+       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=xt3.it
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:subject:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=i+EH6L8VR7RFWk4sacbWKULO4FUSBabRb/uhYNC0OUk=;
-        b=e3WLfFAwMtDMjdIGz1mRZ6HzmyOigJZwAavchG6IejyTiWHe8BDQavSnMPBIi0ZuPt
-         vg+txFzveV0bGtKbcA3PoGgINPW5nICrfP4n6c0HeaGs703GTMdvwGi3PuCl7X/Aw4Kh
-         N+UzxFktl4QnuaqqtQ5imxm9oWvVkrdCUBFcIpmFcpCG/ITs7KMXsWAKxvBFz0rBky3a
-         JDFhaw74vyKSlDKD4AbwKjQqCHHAoyl/IjUSl6U0aC/H3Vz6OnDsXVE0zeLt2wRMaV1C
-         R9oR7RplasEPw7YVeml5KOue0l6krH04uz29Uof6FX9D03lufo5dopkErqjcluqwc1D1
-         +uNA==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:x-original-sender:x-original-authentication-results
+         :reply-to:precedence:mailing-list:list-id:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=cyo9LVsQWvM1q7H2ZSRE4jJzcjaREYx11gh/sYbLs3Y=;
+        b=Krg2S5uiDH3TYua5e3mS1xpaz3ll+kjKMBDcXCqCLNM3WhrYNd4bCB+juc689J4+wD
+         MVu0yr2qzsi8e+yq3rE+FS/N1SkjbdqBaKYBTUI0bogkteSb19mdPsaElINJ7YRJ2oJl
+         GJi0iOnUZeTih9ek+GrvZ/CL+QMpOnCGUMrbPpkYu6onrz00ZSzmOq3UlgYQ0tDSxaZT
+         nIED6c/2tDSTlfL8JiDUX0WwAuSszku/0H/TcgRYa20q4rMjxHvWQyAPRhySAGdJ7R1a
+         rl23KnXwwAHxd+6My1TBl2H416R1/XuO6+A8papy7L24HL1GdDT1wztBjexVgi4MMTvM
+         a7Kg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=i+EH6L8VR7RFWk4sacbWKULO4FUSBabRb/uhYNC0OUk=;
-        b=I3MAstOpJKHxnRWbgKzZygs5YAe/upfnkhPNy0bGBYlKrz5fKBRm45t394d+Oo7lRF
-         2x84wYtnzz6udR2kipjM3aHnKHCcYVKUC3x/URFYp6UR9XCue9w7mjyVLNns0hCEuysi
-         opcycdPcDFC54+duX5V8KfiRAr5Lr/5B9gwa/X0yZgplixL7LMGrYoNPWN77KVbD6pU2
-         fTCVWefR3LlaRWSC/wha04EDGNFQl1XZNtpWlaI+PFHE2/3GCPzpgshFbfr3idU/LB6C
-         aT54OjhWXOzdWq76PAvG1RwqeLNoQJ4/SwVGub8oSuas6ZOXn4c+BZZdiaOcDGHS9nEq
-         9irQ==
-Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AGi0PubeN03KgFp+dFp7IXIqT3f0PfA+7OInBCG+JlKlP1XSw2VZU4fj
-	kCfVkEIABeYhCRhZMX265Uo=
-X-Google-Smtp-Source: APiQypLmao/CsokYpSE9R9Ds27/63blUyPR6vj5mUakkOgGK3e3cGZyJb1CP4maohGvu3dHi82i9QQ==
-X-Received: by 2002:a9d:2186:: with SMTP id s6mr12977769otb.339.1587451451761;
-        Mon, 20 Apr 2020 23:44:11 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:x-original-sender
+         :x-original-authentication-results:reply-to:precedence:mailing-list
+         :list-id:x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=cyo9LVsQWvM1q7H2ZSRE4jJzcjaREYx11gh/sYbLs3Y=;
+        b=GYwq7qvuroe2Sn9G+BclbQ1/EqksAV5VABGkWWPcTetxBfIK+btNTgegoJXI5++GmA
+         rqF4EnzB9oWh7fMlz+IJc7Zbr7HC7fBHkr2fmMI0nvZtXAOKcRllNxtzDJ+IDh2WH+Im
+         ynUc8tb87tRRb0HZWMiB820fc8E/rCWapEiq70lNZnHim+QJnr1/AjjvNcli9I6uIGJn
+         57tqOXtM6auWufD7Mq5S92c2KqNKiGvWdIgGYUOm2ZEcm3kubz+WECcZ/A7VrdhExqdp
+         1gfNFuUQeR+K2ZlvBKdwKRsZzLgIGox6gBc43yinneLqGPTLBBSkZ9ef3xy83kfGiY3b
+         R/Sg==
+X-Gm-Message-State: AGi0Pub3w2flcnHZ8CtTv8RJrmgiD5/n1E5BpXvP8koNllcS9aKMNE6p
+	7+oIiJeWrZSyP3exNjKmTn0=
+X-Google-Smtp-Source: APiQypLHRITrI4djQJRFEDX1LX8HnSeW6cboiLcdbZ1LxhTj1ORkvY0IcPj4BU0N8wO/rxGhC9elUA==
+X-Received: by 2002:ac2:58f6:: with SMTP id v22mr13025464lfo.146.1587463442014;
+        Tue, 21 Apr 2020 03:04:02 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a9d:6e97:: with SMTP id a23ls3213223otr.2.gmail; Mon, 20 Apr
- 2020 23:44:11 -0700 (PDT)
-X-Received: by 2002:a9d:784b:: with SMTP id c11mr12962709otm.28.1587451451319;
-        Mon, 20 Apr 2020 23:44:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1587451451; cv=none;
+Received: by 2002:ac2:504c:: with SMTP id a12ls2155672lfm.8.gmail; Tue, 21 Apr
+ 2020 03:04:01 -0700 (PDT)
+X-Received: by 2002:a05:6512:52c:: with SMTP id o12mr12929251lfc.217.1587463441135;
+        Tue, 21 Apr 2020 03:04:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1587463441; cv=none;
         d=google.com; s=arc-20160816;
-        b=B56vBuGg1q/V2WvyT8krqTc5YluDA2tBdf6Sl8DBCTHSVbJZPemio72jy/30LSgVzp
-         60l/OlF4HSDBtTYnaYVUZndXVGaGsiHRmqHUWFUbMryah3cBjDnvCm5hWsFIB8qX7Fe1
-         sgrNx//8S4m72KiV/PNUpmPtjLq6EFdJThG4qiis/63WEgttbV6ts9PkaBUWo16fUDtt
-         majatySe1Xo9GBweiIX4dBOOSgQbEIi9UnVf8iFu/EX3GBoxnx8janKTvI/G2Uijwe7m
-         IB4ZlLDQSGnsyXASWvPGzj4tOM+Y7dMQLGgDBprY6J77WF+dQ3CLS/bkqLv6hyPtUYB1
-         nmnA==
+        b=PpDCveB/ab0wGxJASx9EH5wGHksGk23WsM6qp3MXEnf7ZhljGV/olcK47xIasUM7vc
+         YPG3AXVcNI9B7ZrLAKv1BbV49ZfnNX5ZSawsvnAxWpOkOlNvdRUh37xaCMZ7mN4NT7UE
+         N6f5s/QeetsUw2ppn+SF4Gk2k2N2t9wvwG1/IEkhFin2WLJgDnDSTz6qJXKfVYMwk0OF
+         AkKsmRqVG02M08XIOgCDStvQmy3aztGfq5mKxhliC+tVNAMH7Y12mIdpJooGRJICYs6C
+         rwA7X5vY2CNxZTFv0jJyHswMQg932LAO7AqXtuYR8WWSt80uz2qOf+hPu/1C/Lkl3ZCs
+         sWUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:subject:message-id:to:from
-         :date:dkim-signature;
-        bh=Hqpw4hdRoZfMotFv33aaFv7hKPfyZmh1BSXNnu+QuQk=;
-        b=FH3Om11NG7OI0uetHOZsixMBZRBAoB4RNO5lactRSAEZhsJxC1bJn3TpKLNB4LZZ58
-         QHfSTmO/gPiEFj6zBoEdnc4qhKxWtnf50SZlB4oeCXAegw0XQ0omemQMHlfZerZ9lYnA
-         BDNv9Dlp2pxx7ohbf11sM04odo7NjHpzNo2x9uWp9cbKN8rdIIZFTIFEQKUilT8bmTUG
-         cRK8lUzOr4M0ncAdr1b0mGb9IBSgSuESMP/IyZlJppS6tEuSjSShUWIO+zx6Flsrp4g3
-         mMC8Dv6pEug1FSFgzP7rBD/S3yWiF2puIvFUkIgdkRBvoRpB2SSQ1jbs6vF+U30TMwp9
-         4IKQ==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature;
+        bh=YiUhF0fczMVuwKL3uKUYd1fZLuhz/yHkCcTigt6NIXg=;
+        b=sai49AkWslRptLMktYvsC6/FKVG5yQT1HuITzIUb0FEdS533JM16CSsiyGfTIIYupQ
+         FbXLitkJKzYk21pk7ChkcNgXFdnB0TJo2u1baS4vee/guYlY7z+1nj9gQntDFZkt9lDv
+         BNOu1sSUhiPKjbBXKRKYlVXm3cNvYC3AzL+yTPGW+fWEC1IAXp6FSGQABf9owmD3WewD
+         dvmikB9QOthZNaIvOPj9ZVBwKoOIvGIYfQuS0hFnmO1d04sEQeWT8Gi5WNOWx3htqeuu
+         avNvN5yLK/TAsWj6yXybogNMihJJukIOsJtJeuXUPNpC6xdehfScLqYGVT3u0qGpEkrC
+         SGPA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b="Q/aYZf7H";
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.207 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
-Received: from out-24.smtp.github.com (out-24.smtp.github.com. [192.30.252.207])
-        by gmr-mx.google.com with ESMTPS id s12si105449oth.1.2020.04.20.23.44.11
+       dkim=pass header.i=@xt3.it header.s=201602 header.b=ep0891DS;
+       spf=pass (google.com: domain of ms@xt3.it designates 2a01:4f8:190:4055::2 as permitted sender) smtp.mailfrom=ms@xt3.it;
+       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=xt3.it
+Received: from radon.xt3.it (radon.xt3.it. [2a01:4f8:190:4055::2])
+        by gmr-mx.google.com with ESMTPS id s22si129122ljp.0.2020.04.21.03.04.00
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 20 Apr 2020 23:44:11 -0700 (PDT)
-Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.207 as permitted sender) client-ip=192.30.252.207;
-Received: from github-lowworker-1dbcc59.ash1-iad.github.net (github-lowworker-1dbcc59.ash1-iad.github.net [10.56.105.54])
-	by smtp.github.com (Postfix) with ESMTP id D57136A0844
-	for <jailhouse-dev@googlegroups.com>; Mon, 20 Apr 2020 23:44:10 -0700 (PDT)
-Date: Mon, 20 Apr 2020 23:44:10 -0700
-From: Jan Kiszka <noreply@github.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+        Tue, 21 Apr 2020 03:04:00 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ms@xt3.it designates 2a01:4f8:190:4055::2 as permitted sender) client-ip=2a01:4f8:190:4055::2;
+Received: from 217-133-116-244.static.clienti.tiscali.it ([217.133.116.244] helo=localhost)
+	by radon.xt3.it with esmtpsa (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.89)
+	(envelope-from <ms@xt3.it>)
+	id 1jQpl1-0005At-2s; Tue, 21 Apr 2020 12:03:59 +0200
+From: "'Marco Solieri' via Jailhouse" <jailhouse-dev@googlegroups.com>
 To: jailhouse-dev@googlegroups.com
-Message-ID: <siemens/jailhouse/push/refs/heads/next/72ca0d-80e81e@github.com>
-Subject: [siemens/jailhouse] 80e81e: configs: arm64: Add inmate device trees
- for all th...
-Mime-Version: 1.0
+Cc: Marco Solieri <ms@xt3.it>
+Subject: [PATCH v2 0/9] Add cache coloring API and arm64 support
+Date: Tue, 21 Apr 2020 12:03:42 +0200
+Message-Id: <20200421100351.292395-1-ms@xt3.it>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20190327121849.1882-1-ms@xt3.it>
+References: <20190327121849.1882-1-ms@xt3.it>
+MIME-Version: 1.0
+X-Original-Sender: ms@xt3.it
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@xt3.it header.s=201602 header.b=ep0891DS;       spf=pass
+ (google.com: domain of ms@xt3.it designates 2a01:4f8:190:4055::2 as permitted
+ sender) smtp.mailfrom=ms@xt3.it;       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=xt3.it
+X-Original-From: Marco Solieri <ms@xt3.it>
+Reply-To: Marco Solieri <ms@xt3.it>
 Content-Type: text/plain; charset="UTF-8"
-X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
-X-Auto-Response-Suppress: All
-X-Original-Sender: noreply@github.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
- mode) header.i=@github.com header.s=pf2014 header.b="Q/aYZf7H";
-       spf=pass (google.com: domain of noreply@github.com designates
- 192.30.252.207 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -125,30 +129,120 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-  Branch: refs/heads/next
-  Home:   https://github.com/siemens/jailhouse
-  Commit: 80e81e7edcfa1648a7488ca2405ee9f1d2c1523f
-      https://github.com/siemens/jailhouse/commit/80e81e7edcfa1648a7488ca2405ee9f1d2c1523f
-  Author: Alice Guo <alice.guo@nxp.com>
-  Date:   2020-04-21 (Tue, 21 Apr 2020)
+This series proposes major reviews to the cache coloring support
+proposed on 2019-03-27 on this list [1].
 
-  Changed paths:
-    A configs/arm64/dts/inmate-imx8mm-evk.dts
-    A configs/arm64/dts/inmate-imx8mn-ddr4-evk.dts
-    A configs/arm64/dts/inmate-imx8mp-evk.dts
-    A configs/arm64/dts/inmate-imx8mq-evk.dts
+We first summarize changes and then give a bird-eye view of the new
+commit structure.  Background and motivation can be found in the
+previous proposal [1].
 
-  Log Message:
-  -----------
-  configs: arm64: Add inmate device trees for all the i.MX8M family
+Changelog
+---------
 
-These device trees are used to boot Linux kernel in the inmate cell.
+### Suggested changes
 
-Signed-off-by: Alice Guo <alice.guo@nxp.com>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+- Drop the hypercall addition, which was introduced in v1 to perform
+  image load into colored memory regions, but was judged excessive [2].
+  Now we create a specific temporary memory region used by the driver
+  module.  This region is created and destroyed properly when loading
+  and starting inmates respectively.
 
+- Simplify color selection: no longer mem_region-wide, but cell-wide, it
+  is represented by a set of ranges defined by existing jailhouse_cache
+  structure, as suggested [3].  Beside repeatability of partition
+  selection, the syntax is almost identical to CAT's one.
+
+
+### Improvements
+
+- Confine coloring logic exclusively in the hypervisor layer.  This
+  decouples it from the driver.
+
+- Add architecture-independent hypervisor coloring support API,
+  currently instantiated only for Arm v8.  This provides an easy and
+  clean way to add support for Arm v7 or x86 platform.
+
+- Introduce automatic coloring setup initialization, by hardware-probing
+  the last-level cache geometry.  The user can always override the
+  default in the root cell configuration.
+
+### Minor changes
+
+- Rebase to master.
+- Drop Nvidia TX2 support, due to broken Jailhouse support for latest
+  JetPack 4.3 [4,5].
+
+
+Overview
+--------
+
+The coloring API for the hypervisor is first defined (1/9), then the
+architecture-independent implementation for the paging sub-system is
+given (2/9).  This allows the arm-common (4/9) and arm64 (7/9) specific
+code to be added.
+
+We introduce a user-configurable IPA address (3/9) where the driver can
+contiguously, though colorfully, load images (6/9), thanks to the
+appropriate mapping served by the hypervisor (5/9).
+
+Examples root cell and demo configurations are provided for Xilinx
+ZCU102 (8/9).
+
+An extensive documentation details the technique and gently explains how
+to use it (9/9).
+
+
+Links
+-----
+
+1. https://groups.google.com/d/msg/jailhouse-dev/6Fli5XkTx_s/8_B1bXykAAAJ
+2. https://groups.google.com/d/msg/jailhouse-dev/7U5jYXIXuF0/kApS9mceCQAJ
+3. https://groups.google.com/d/msg/jailhouse-dev/6Fli5XkTx_s/x_xm9_owCQAJ
+4. https://groups.google.com/d/msg/jailhouse-dev/Vf4Ea1bSzrc/fcf78lxLBQAJ
+5. https://groups.google.com/d/msg/jailhouse-dev/MJPon1kP4jQ/h03eo4qUGQAJ
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Luca Miccio (9):
+1. hypervisor: introduce a common cache coloring interface
+2. hypervisor: implement paging_create/destroy_colored
+3. driver: introduce col_load_address for colored binaries loading
+4. hypervisor, arm-common: add initial support for cache coloring
+5. hypervisor: introduce color_root_cell_management
+6. driver: handle loading to colored regions
+7. hypervisor, arm64: add cache coloring support
+8. configs: add colored cell configuations for ZCU102
+9. Documentation: add description and usage of cache coloring support
+
+ Documentation/cache-coloring.md               | 278 ++++++++++++++++++
+ configs/arm64/zynqmp-zcu102-inmate-demo-col.c |  79 +++++
+ configs/arm64/zynqmp-zcu102-linux-demo-col.c  | 128 ++++++++
+ driver/Makefile                               |   4 +
+ driver/cell.c                                 |   8 +-
+ driver/cell.h                                 |   3 +
+ driver/main.c                                 |  15 +
+ hypervisor/arch/arm-common/include/asm/cell.h |   4 +
+ .../arch/arm-common/include/asm/coloring.h    |  22 ++
+ hypervisor/arch/arm-common/mmu_cell.c         |  62 +++-
+ hypervisor/arch/arm64/Kbuild                  |   1 +
+ hypervisor/arch/arm64/coloring.c              | 232 +++++++++++++++
+ hypervisor/control.c                          | 128 +++++++-
+ hypervisor/include/jailhouse/coloring.h       |  96 ++++++
+ hypervisor/include/jailhouse/paging.h         |  11 +
+ hypervisor/paging.c                           | 155 ++++++++++
+ include/jailhouse/cell-config.h               |  14 +
+ 17 files changed, 1221 insertions(+), 19 deletions(-)
+ create mode 100644 Documentation/cache-coloring.md
+ create mode 100644 configs/arm64/zynqmp-zcu102-inmate-demo-col.c
+ create mode 100644 configs/arm64/zynqmp-zcu102-linux-demo-col.c
+ create mode 100644 hypervisor/arch/arm-common/include/asm/coloring.h
+ create mode 100644 hypervisor/arch/arm64/coloring.c
+ create mode 100644 hypervisor/include/jailhouse/coloring.h
+
+-- 
+2.25.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/next/72ca0d-80e81e%40github.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200421100351.292395-1-ms%40xt3.it.
