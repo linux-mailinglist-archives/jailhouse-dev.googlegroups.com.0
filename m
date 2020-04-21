@@ -1,32 +1,32 @@
 Return-Path: <jailhouse-dev+bncBDLOLYFISUCRBEUK7P2AKGQERICO6FI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x339.google.com (mail-wm1-x339.google.com [IPv6:2a00:1450:4864:20::339])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9AB61B2389
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Apr 2020 12:04:02 +0200 (CEST)
-Received: by mail-wm1-x339.google.com with SMTP id q5sf1238501wmc.9
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Apr 2020 03:04:02 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1587463442; cv=pass;
+Received: from mail-wm1-x33b.google.com (mail-wm1-x33b.google.com [IPv6:2a00:1450:4864:20::33b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BBD71B238A
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Apr 2020 12:04:03 +0200 (CEST)
+Received: by mail-wm1-x33b.google.com with SMTP id n17sf351988wmi.3
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Apr 2020 03:04:03 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1587463443; cv=pass;
         d=google.com; s=arc-20160816;
-        b=GxMS7o3fOXwOg0e9I21MJnfDIhchMYWLDasOX5oUFiSjOEgYbrSJQsp5oNbG8LX4HJ
-         WX/eVL70893XypPFPw7tTgdyziiuGVWcc7RZcYYIjP8BUK5Ir/ogOcdcgS28oaVzl2sC
-         8h21Xki/05QG1qU9G9whgh80NLhFz8eKTMDjNiiY9q85Wcw49TawFxgz5vD1wwUhWvB6
-         iCe7QGSVZgRiYdruRJ2uRX7Brkxot/ny1IOzfZKYRaeA/KHMaJbumzRsbj635f+aBOTo
-         uVxscp3Ftx8UCw3RTOdo2wh8EP0igCIvk7zwBJ0HxdW+A8iX93ZLu/8KRTCvsx4EaeKV
-         XTQw==
+        b=taYH4W7seB8uU/25ero9byPVsAKyxKYxq2q9BB115efByAXKMt9DLJoErqkzXnFSoW
+         PZ7UBujG0Lv7/JyyYoerk6ExoBX2wi6ZgFTmC5b9TZRaTUU3p0i4qMOZo65ASEooycDL
+         VaO7U0B3YM6oyjSC0GNTERRixrR9PRx27jjdtQJTdTXo6mfcpBey/QdXkOAg+lG/dR0R
+         WDk82OF8lSvslaF4sfIqqBFsP36Ac9h4je68ycpIJawJTizFFq84GnKl3GYLWnRROC/h
+         Ed0Ay9KVBhkPSy9Ln3ibRZfBbmkLdgDMJHxIeGmpFBO37xTlzsFubYfL1J9tSmR/JLTy
+         oQtQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:reply-to:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:dkim-signature;
-        bh=ynfPxY+Q4YwlBnWFHXxss3prf5nz2cVcnjXqHGZFvEo=;
-        b=VF4oBYqtId1GegFgkM82jpVKvBMtencHOMZFn/ZPkJXhnr3gXnp1CpBTUCc0AeErIF
-         SXRolcB85banXKPeJ3Q4CAbSbOkpo16GZWFUMxWJqJch7ieczoUVaq7bPjx/GTvP1Z42
-         CAngiwpLsRuCy1bfb8x9B26IN0fsb4vLaW7UDuStOidd6GoO/jWgkI+s1IJFelDyHKJY
-         04cfTAbzJnYwbPtq9EuZ1qO3T3XeQkpHbPCIiZosMCMcb6vnftQQvWXkvdAaFAPo9Iqq
-         ntRr3d2BrAK2UJUuQ8oXnlUtOcEw9dStEhu8oH6BpKVefUSbTpDyXAyPUebmZoXG78kH
-         Zx6Q==
+        bh=ZpSpYg756TbesWvnkdozhDJ7i0ftCgZPpgfJdo+cLjg=;
+        b=GR0qPf39oBDRm1lr2PZM1u2jH/w9BXYYSKFichmKmZtciddz914PHb6gEAg0XY4zUl
+         tci2UbwnNrT8/So23mkZHjakFrUwEm4bL8gDNK/samdssXn9avjcvq30hxwbEIORnEaj
+         dSOUnLgdB+5G10MrWjuJHAs/QRwObfPCGDmjy1PvGaR7KSGOqQ0gndJVruhSJZC/l46F
+         C8hdu4Gp3l7j4CBG0epFgwwaOvwJUksr/LUiBZvLtckKql9A8tPpQLuvgUKcUvJdYy4w
+         fLDJA5zifhdRn5QfKtXpgcx3qqZ4g4iBlLffJWw19pBZmtDpYmRleAitFXci0XaNn6xc
+         j7nQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@xt3.it header.s=201602 header.b=Xb37Asa3;
+       dkim=pass header.i=@xt3.it header.s=201602 header.b=Dgfw8HRM;
        spf=pass (google.com: domain of ms@xt3.it designates 2a01:4f8:190:4055::2 as permitted sender) smtp.mailfrom=ms@xt3.it;
        dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=xt3.it
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :reply-to:precedence:mailing-list:list-id:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=ynfPxY+Q4YwlBnWFHXxss3prf5nz2cVcnjXqHGZFvEo=;
-        b=f8y6XnSBvvUmH2tSrabNrnI5hZ0CMryAUdu8U7dWE6L7MtFd8uOFhCkeJBjjKTPFIR
-         5+Yz2r8YMAeeBjsRhIKjtbXnNMfeXwn1YqVn6NeuGjyPK8z3ZI7ABD3faGQ2DMrGppJY
-         2sw4KGXB0mmdvoRrjtk/Pt0Rh7J61KeGraCrhEoNYEjvBhva5W5OS+luTq5M0DjRvOxC
-         Hf9xLycMJY6QEYqyZDKtYeFmhRB+QY8oo76Gx2i8a7mjqVY6IpGaEv+H2ffU4YsimYZy
-         rSf3LQA0UikO+gZgd8cYoL7PrCUpBCrgBKdZh0lFUnZFuCRkC5goTI2eVmq16fy8Xzdm
-         u5VQ==
+        bh=ZpSpYg756TbesWvnkdozhDJ7i0ftCgZPpgfJdo+cLjg=;
+        b=paltH2vMvjEyBKkGCic0mPOrrIqyU1JXrKlSAR2Rj6ooDTNh+9uC8h1fsH2fJne+EU
+         qAXn4mfMQN31Rn8HxE0TNJ+Gnp5Gorpc8cjDoaUqcKCYLa5jSz7ncHZjQ1M407wXEePi
+         pEIdXlVR+IvGvNgzIzQovBP/toHMAtYULjOd9HandXmKWbrNTLSKrUafdt1XrHO8r2iw
+         sU3KhawqEBGf0VNPUfRyR2FTzYb4SBdSEqkGyF8WJl/0WKUQXWlBlmzLf65DKKW+VuPq
+         lRCX/HwHIsgn/6mfHbIgcKXjWP7FKQZkDQPzBOCEhgrs025XoSr2pD06otkhs78tI8uj
+         CLfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
@@ -49,63 +49,63 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:reply-to:precedence:mailing-list
          :list-id:x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=ynfPxY+Q4YwlBnWFHXxss3prf5nz2cVcnjXqHGZFvEo=;
-        b=WpS7LT478rnA3hIUxTOYL4h2wZjWmW7Fq+JALuICfqYiGVMplrA0jSp0+2mnW9zR9m
-         qNuD4vRIeZ3LcUJJIz3+DdwE2QlgqELKcNnVMEgBB2c5gzMgLFmy9pqaUF9xWf9GuPHk
-         av+fbPS8f2D16IklrvA9mbiExFC1OuBr/BVYJpgslmDMz/YthIsJ9QKlVmKYjwM+TpYW
-         tj2GsKYmnHZBm/9oHWCytz7PViQ6mZSb02t6qw+v5z49Bbntetweg31osxsUy7HHHx0K
-         8DMjS8NvV1hjShDV3TmmQktD75hnzI3zo3ssFLw9c12hMK+u/m3xtyZcyUZlPzgMLEGy
-         8evw==
-X-Gm-Message-State: AGi0PubusboC3GC5Dc9vuwRfDiMcBrL4pp33E2E3mxLzE/Vq8jbg/tra
-	U7V9rKj0bame4v68WvUUf2k=
-X-Google-Smtp-Source: APiQypI78TfGT9Z+opBaUEY975keKhNKiozAaq5ByqWy21J8DAv7z7FHwpErF3S11nKHhqb8uqZBkA==
-X-Received: by 2002:a1c:c2d4:: with SMTP id s203mr4415336wmf.128.1587463442412;
-        Tue, 21 Apr 2020 03:04:02 -0700 (PDT)
+        bh=ZpSpYg756TbesWvnkdozhDJ7i0ftCgZPpgfJdo+cLjg=;
+        b=gOFgDTXDQ1xLzbKyU3YjcxqzxrrGkV3hZRMBniGKVopjUZKOmjf8ml6pN5UxwFfcZT
+         1JYDkc20ZavxAzaeYseKK9ep4xQD67gnbGZh7K/q3po1zBbs8exhux8dqdCkwVxL7khC
+         k+8vBvd20OyHPeKD1kNaXcpEgi3vnIn6l2bQwrk9rfKiAuCdW3xAT6CFOzOgbh+/SQod
+         WUL45v4ldQ9YbpmJO1xzY41XIRuNUjo78VAtwuO1pu5Ujny5rIsAgkS3gIVMbyDVbc5o
+         upXGrB0p0mF4PsmfC+YrN1DamlB1CbYg0TEt44eJPh3U+QQPoTO6ozeyHmQxFj8CBNUm
+         xe3g==
+X-Gm-Message-State: AGi0PuYazZ07Nc/dOjcVTOYGiQPWkBqRtm8WPELqM5Mtb93gJHpocB3i
+	yOaGWYq/6hsQLXLZ0LLF+rQ=
+X-Google-Smtp-Source: APiQypIEItWHIhM4gTkr2PAcypll+rwG6+i7ojaLqXBrWNWqy8IV6a1GfWYtFwWmLssG540/rDjgPA==
+X-Received: by 2002:a1c:4b16:: with SMTP id y22mr4097271wma.170.1587463443123;
+        Tue, 21 Apr 2020 03:04:03 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:1f0e:: with SMTP id f14ls4192551wmf.0.gmail; Tue, 21 Apr
- 2020 03:04:01 -0700 (PDT)
-X-Received: by 2002:a7b:c147:: with SMTP id z7mr4408175wmi.52.1587463441631;
-        Tue, 21 Apr 2020 03:04:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1587463441; cv=none;
+Received: by 2002:a5d:4a83:: with SMTP id o3ls15674408wrq.7.gmail; Tue, 21 Apr
+ 2020 03:04:02 -0700 (PDT)
+X-Received: by 2002:adf:80ee:: with SMTP id 101mr11632683wrl.156.1587463442387;
+        Tue, 21 Apr 2020 03:04:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1587463442; cv=none;
         d=google.com; s=arc-20160816;
-        b=TAAXR5KzS2feo7kSYdQbmcCYnD8Az+IPp+s1QvCLKkIrfboNdXKWk4pmhp/EmPqf7F
-         VQ0lyIaY7LfJ06BLCZyygLdCUftwqhw7UbKKwIGdLibGkcfto07DOrj4pTJLjq4dTl4m
-         wG6bl3Qv2AkIGNEvV1APJJveBYebyxEA5YJIVGkuCNCH0999ZHFZJLLEibDJfUtoZEqt
-         L65/4kEqzOj82WkH/kRr7ZdX5fRY4k8U+GgIMKRt6PEO7dnL8kFln9KN7dDyQgrRQ5co
-         Ibaw9Gj/MrD03ZFguJXqMhE6f5SbKGXDePFkyt7o+mqT3eVq7w1AZBjQN97/s2Br4FwA
-         Uhlw==
+        b=0jhjfG16uXf3DL6PMR/LjARZncawfrxG1sxRyMb5NiBKlw2Ku8lPcT+HGfD+4CKsa5
+         NTTiva/JSWR3wGVtJOgzKjIw2YO888hAJYs8jsF9M5VMrcwGtJpSINvV/FW90FrQ0rwK
+         TM9Eq4YgZ51OYDxpqO2WLRdqBq9sGx3NtKSoZC5+1HGzDNt9gszCYaOajumyhOXvc7Nu
+         Os5QnquBYYGJZ9Jtz4BR6Fp5A4ODq0BILcXfYDHxnXa5SZuTcMavizm1cNeQR0W/HPu9
+         8+7h+2JXsNcd84tHx1cnpOvWqaah1dZJ+pGHNz0sKgmkaOg/llAFuhoEFSCrx5kXHpRN
+         hfiw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature;
-        bh=FUoJaNTCKB+YFOWygeq57Z2d/LXZ2PZWtvMgS0tb3tM=;
-        b=xDb8DnV0MU1DZH/XqhFsEbas2cHhtG0Tid/4a6lt6ajRgmWeOGcwbU5RmUInz4/17e
-         Gjrr2Xcx9vpOxICl9Bvb2F9i39LYrZ8IdEZ4r76z1HffKBqUKkI3QFpzEjhE2pi8NFHc
-         O6yTdeb7KkBk3jrEml4suvfRqWgr1XEPpv702KI3aZOxevg9DjB0Youi0rZLx0DddoqN
-         1FiQgGINoTn1IM0YjGt6rLTHAxmHkyFy9gWgqSovrfOWATuIuD8MRqsmb08C1qrpP3q/
-         NHpBGRcccuHIN6t+q+fepuMtbIkYWvdA1n7fqgYGOjwRut8szfgezeuyVCT4DokJNQgw
-         UXRg==
+        bh=2cfGIApoLLpa4YPF9X92IorXNuSDG0lu05Y7qm7NCK4=;
+        b=rwSxlzpuxR2F4TpmoIyAjK0nOOBmwqfmpZg4Q0AIBCsoZ1W15lOzM0IllWx9Avd7Mk
+         us1s9aE+8f1umZ5huORJ5x+ka487kmGo1/Bx5DyU/qpE7JF2WwDfFLK2vHNvtub0vdCq
+         uWbBcuG0DGDuKgwhB650tx/0U9LeIXmcn6LK8r6pDf4d/bt5++ynwnTg7C4qkJGCu4sQ
+         5zM0E8VdJiumSI7xLUYHNCLSz5FPRunzYEEMzLkrJ4CUB51UDNJcirlAjKwvmLjBiifV
+         d025A96cAD8BtDNoqOcFsk6teE1VqxZ2FgUT8qNNuvGjte5ThZzOnzSBy80jG7tA7aw6
+         PNjw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@xt3.it header.s=201602 header.b=Xb37Asa3;
+       dkim=pass header.i=@xt3.it header.s=201602 header.b=Dgfw8HRM;
        spf=pass (google.com: domain of ms@xt3.it designates 2a01:4f8:190:4055::2 as permitted sender) smtp.mailfrom=ms@xt3.it;
        dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=xt3.it
 Received: from radon.xt3.it (radon.xt3.it. [2a01:4f8:190:4055::2])
-        by gmr-mx.google.com with ESMTPS id f129si103350wmf.2.2020.04.21.03.04.01
+        by gmr-mx.google.com with ESMTPS id m4si143074wrn.5.2020.04.21.03.04.02
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Tue, 21 Apr 2020 03:04:01 -0700 (PDT)
+        Tue, 21 Apr 2020 03:04:02 -0700 (PDT)
 Received-SPF: pass (google.com: domain of ms@xt3.it designates 2a01:4f8:190:4055::2 as permitted sender) client-ip=2a01:4f8:190:4055::2;
 Received: from 217-133-116-244.static.clienti.tiscali.it ([217.133.116.244] helo=localhost)
 	by radon.xt3.it with esmtpsa (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
 	(Exim 4.89)
 	(envelope-from <ms@xt3.it>)
-	id 1jQpl2-0005BB-Hx; Tue, 21 Apr 2020 12:04:00 +0200
+	id 1jQpl3-0005BJ-Ed; Tue, 21 Apr 2020 12:04:01 +0200
 From: "'Marco Solieri' via Jailhouse" <jailhouse-dev@googlegroups.com>
 To: jailhouse-dev@googlegroups.com
 Cc: Luca Miccio <lucmiccio@gmail.com>,
 	Marco Solieri <ms@xt3.it>
-Subject: [PATCH v2 1/9] hypervisor: introduce a common cache coloring interface
-Date: Tue, 21 Apr 2020 12:03:43 +0200
-Message-Id: <20200421100351.292395-2-ms@xt3.it>
+Subject: [PATCH v2 2/9] hypervisor: implement paging_create/destroy_colored
+Date: Tue, 21 Apr 2020 12:03:44 +0200
+Message-Id: <20200421100351.292395-3-ms@xt3.it>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200421100351.292395-1-ms@xt3.it>
 References: <20190327121849.1882-1-ms@xt3.it>
@@ -113,7 +113,7 @@ References: <20190327121849.1882-1-ms@xt3.it>
 MIME-Version: 1.0
 X-Original-Sender: ms@xt3.it
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@xt3.it header.s=201602 header.b=Xb37Asa3;       spf=pass
+ header.i=@xt3.it header.s=201602 header.b=Dgfw8HRM;       spf=pass
  (google.com: domain of ms@xt3.it designates 2a01:4f8:190:4055::2 as permitted
  sender) smtp.mailfrom=ms@xt3.it;       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=xt3.it
 X-Original-From: Marco Solieri <ms@xt3.it>
@@ -133,171 +133,247 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Luca Miccio <lucmiccio@gmail.com>
 
-Add fundamental primitives to implement support for cache coloring.
-The latter is performed by exploiting the mapping of memories flagged as
-JAILHOUSE_MEM_COLORED and defined in the inmates' configurations (no
-root-cell or hypervisor itself supported yet).
-The interface defines the basic functions that have to be implemented in
-order to support coloring for a specific architecture.
+Add functions for colored page creation and destruction and initialize
+coloring on the platform.
 
-Define three main functions:
-- coloring_paging_init: calculate which bit range in the address is useful
-  for cache coloring, assuming it limited by the page size and the LLC
-  way size as happens on arm;
-- next_colored: calculate the next physical page address that conforms
-  to a given colors selection and to the bits calculated in the previous
-  function;
-- coloring_cell_init: initialize cell colors assignement depending on its
-  configuration;
+The story of the life of a coloring page can be summarized as follows.
 
-LLC way size is required for coloring to work and it can be explicitly
-defined in the root cell configuration. Add a helper function that
-probes the way size from hardware if the llc_way_size is not set in the
-root cell configuration.
+1. Bits in the address that are useful for defining colors are computed,
+   and used for all mappings. The page size used to obtain the lower limit
+   is assumed to be aligned with the `PAGE_SIZE` constant defaulting at
+   4KiB, and also as the unit for the mapping operation, even when
+   consecutive pages would be possible.
 
-Finally, define a function used to calculate the physical end address of
-a given memory that is flagged as colored.
+2. The colored regions can then mapped with a new paging function and
+   destructed with the old one, because `paging_destroy*` acts on virtual
+   addresses while coloring happens on the physical ones.
+   Paging_create has to handle the remap to root_cell too when e.g.
+   destroying cells.
+
+3. The colored unmap function is instead used only when destroying the
+   root cell mapping, since we assume that the root cell uses a 1:1 mapping
+   for memory regions.
 
 Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
 Signed-off-by: Marco Solieri <ms@xt3.it>
 ---
- hypervisor/include/jailhouse/coloring.h | 96 +++++++++++++++++++++++++
- include/jailhouse/cell-config.h         |  8 +++
- 2 files changed, 104 insertions(+)
- create mode 100644 hypervisor/include/jailhouse/coloring.h
+ hypervisor/include/jailhouse/paging.h |  11 ++
+ hypervisor/paging.c                   | 155 ++++++++++++++++++++++++++
+ 2 files changed, 166 insertions(+)
 
-diff --git a/hypervisor/include/jailhouse/coloring.h b/hypervisor/include/jailhouse/coloring.h
-new file mode 100644
-index 00000000..9dfe516c
---- /dev/null
-+++ b/hypervisor/include/jailhouse/coloring.h
-@@ -0,0 +1,96 @@
-+/*
-+ * Jailhouse, a Linux-based partitioning hypervisor
-+ *
-+ * Copyright (c) Universita' di Modena e Reggio Emilia, 2020
-+ *
-+ * Authors:
-+ *  Luca Miccio <lucmiccio@gmail.com>
-+ *  Marco Solieri <ms@xt3.it>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See
-+ * the COPYING file in the top-level directory.
-+ */
-+#ifndef _JAILHOUSE_COLORING_H
-+#define _JAILHOUSE_COLORING_H
+diff --git a/hypervisor/include/jailhouse/paging.h b/hypervisor/include/jailhouse/paging.h
+index 5513c4ec..032a3a04 100644
+--- a/hypervisor/include/jailhouse/paging.h
++++ b/hypervisor/include/jailhouse/paging.h
+@@ -267,6 +267,17 @@ int paging_destroy(const struct paging_structures *pg_structs,
+ 		   unsigned long virt, unsigned long size,
+ 		   unsigned long paging_flags);
+ 
++int paging_create_colored(const struct paging_structures *pg_structs,
++			  unsigned long phys, unsigned long size,
++			  unsigned long virt, unsigned long access_flags,
++			  unsigned long paging_flags,
++			  unsigned long *color_bitmask, bool identity_map);
 +
-+#include <jailhouse/cell.h>
++int paging_destroy_colored(const struct paging_structures *pg_structs,
++			   unsigned long virt, unsigned long size,
++			   unsigned long paging_flags,
++			   unsigned long *color_bitmask);
 +
-+#ifdef CONFIG_COLORING
+ void *paging_map_device(unsigned long phys, unsigned long size);
+ void paging_unmap_device(unsigned long phys, void *virt, unsigned long size);
+ 
+diff --git a/hypervisor/paging.c b/hypervisor/paging.c
+index 876f1521..e8f741c2 100644
+--- a/hypervisor/paging.c
++++ b/hypervisor/paging.c
+@@ -5,6 +5,8 @@
+  *
+  * Authors:
+  *  Jan Kiszka <jan.kiszka@siemens.com>
++ *  Luca Miccio <lucmiccio@gmail.com> (cache coloring support)
++ *  Marco Solieri <ms@xt3.it> (cache coloring support)
+  *
+  * This work is licensed under the terms of the GNU GPL, version 2.  See
+  * the COPYING file in the top-level directory.
+@@ -14,6 +16,7 @@
+ #include <jailhouse/printk.h>
+ #include <jailhouse/string.h>
+ #include <jailhouse/control.h>
++#include <jailhouse/coloring.h>
+ 
+ #define BITS_PER_PAGE		(PAGE_SIZE * 8)
+ 
+@@ -438,6 +441,153 @@ int paging_destroy(const struct paging_structures *pg_structs,
+ 	return 0;
+ }
+ 
 +/**
-+ * Get the way size of last level cache
-+ */
-+unsigned long get_llc_way_size(void);
-+
-+/**
-+ * Init cache coloring on the platform
-+ *
-+ * @param llc_way_size	Last level cache way size in bytes
++ * Create or modify a colored page map.
++ * @param pg_structs	Descriptor of paging structures to be used.
++ * @param phys		Physical address of the region to be mapped.
++ * @param size		Size of the region.
++ * @param virt		Virtual address the region should be mapped to.
++ * @param access_flags	Flags describing the permitted page access, see
++ * @ref PAGE_ACCESS_FLAGS.
++ * @param color_bitmask	Bitmask specifying value of coloring.
++ * @param identity_map	If true the mapping will be 1:1.
 + *
 + * @return 0 on success, negative error code otherwise.
++ *
++ * @note The function uses only 4 KiB page size for mapping.
++ *
++ * @see paging_destroy_colored
++ * @see paging_get_guest_pages
 + */
-+int coloring_paging_init(unsigned int llc_way_size);
++int paging_create_colored(const struct paging_structures *pg_structs,
++			  unsigned long phys, unsigned long size,
++			  unsigned long virt, unsigned long access_flags,
++			  unsigned long paging_flags,
++			  unsigned long *color_bitmask, bool identity_map)
++{
++
++	phys &= PAGE_MASK;
++	virt &= PAGE_MASK;
++	size = PAGE_ALIGN(size);
++
++	while (size > 0) {
++		const struct paging *paging = pg_structs->root_paging;
++		page_table_t pt = pg_structs->root_table;
++		pt_entry_t pte;
++		int err;
++
++		phys = next_colored(phys, color_bitmask);
++		if (identity_map)
++			virt = phys;
++
++		while (1) {
++			pte = paging->get_entry(pt, virt);
++			if (paging->page_size == PAGE_SIZE) {
++				paging->set_terminal(pte, phys, access_flags);
++				flush_pt_entry(pte, paging_flags);
++				break;
++			}
++			/* Loop until 4K page size by splitting hugepages */
++			if (paging->entry_valid(pte, PAGE_PRESENT_FLAGS)) {
++				err = split_hugepage(pg_structs->hv_paging,
++							paging, pte, virt,
++							paging_flags);
++				if (err)
++					return err;
++				pt = paging_phys2hvirt(
++					paging->get_next_pt(pte));
++			} else {
++				pt = page_alloc(&mem_pool, 1);
++				if (!pt)
++					return -ENOMEM;
++
++				paging->set_next_pt(pte, paging_hvirt2phys(pt));
++				flush_pt_entry(pte, paging_flags);
++			}
++			paging++;
++		}
++		if (pg_structs == &hv_paging_structs)
++			arch_paging_flush_page_tlbs(virt);
++
++		phys += paging->page_size;
++		virt += paging->page_size;
++		size -= paging->page_size;
++	}
++	return 0;
++}
 +
 +/**
-+ * Init cache coloring data for the cell
-+ *
-+ * @param cell		Cell for which the initialization shall be done.
++ * Destroy a colored page map.
++ * @param pg_structs	Descriptor of paging structures to be used.
++ * @param virt		Virtual address the region to be unmapped.
++ * @param size		Size of the region.
++ * @param paging_flags	Flags describing the paging mode, see @ref PAGING_FLAGS.
++ * @param color_bitmask	Bitmask specifying value of coloring.
 + *
 + * @return 0 on success, negative error code otherwise.
++ *
++ * @see paging_create_colored
 + */
-+int coloring_cell_init(struct cell *cell);
-+
-+/**
-+ * Return physical page address that conforms to the colors selection
-+ * given in color_bitmask
-+ *
-+ * @param phys		Physical address start
-+ * @param color_bitmask	Mask asserting the color indices to be used
-+ *
-+ * @return The lowest physical page address being greater or equal than
-+ * @param phys and belonging to @param color_bitmask
-+ */
-+unsigned long next_colored(unsigned long phys, unsigned long *color_bitmask);
-+
-+/**
-+ * Return the end address based on color selection
-+ *
-+ * @param start		Address physical start
-+ * @param size		Size in bytes
-+ * @param color_bitmask	Mask asserting the color indices to be used
-+ *
-+ * @return The address after @param size memory space starting at @param start
-+ * using coloring selection in @param color_bitmask.
-+ */
-+unsigned long get_end_addr(unsigned long start, unsigned long size,
-+	unsigned long *color_bitmask);
-+#else
-+static inline unsigned long get_llc_way_size(void)
++int paging_destroy_colored(const struct paging_structures *pg_structs,
++			   unsigned long virt, unsigned long size,
++			   unsigned long paging_flags,
++			   unsigned long *color_bitmask)
 +{
++	size = PAGE_ALIGN(size);
++
++	while (size > 0) {
++		const struct paging *paging = pg_structs->root_paging;
++		page_table_t pt[MAX_PAGE_TABLE_LEVELS];
++		unsigned long page_size;
++		pt_entry_t pte;
++		int n = 0;
++		int err;
++
++		virt = next_colored(virt, color_bitmask);
++
++		/* walk down the page table, saving intermediate tables */
++		pt[0] = pg_structs->root_table;
++		while (1) {
++			pte = paging->get_entry(pt[n], virt);
++			if (!paging->entry_valid(pte, PAGE_PRESENT_FLAGS))
++				break;
++			if (paging->get_phys(pte, virt) != INVALID_PHYS_ADDR) {
++				if (paging->page_size == PAGE_SIZE)
++					break;
++
++				err = split_hugepage(pg_structs->hv_paging,
++						     paging, pte, virt,
++						     paging_flags);
++				if (err)
++					return err;
++			}
++			pt[++n] = paging_phys2hvirt(paging->get_next_pt(pte));
++			paging++;
++		}
++		/* advance by page size of current level paging */
++		page_size = paging->page_size ? paging->page_size : PAGE_SIZE;
++
++		/* walk up again, clearing entries, releasing empty tables */
++		while (1) {
++			paging->clear_entry(pte);
++			flush_pt_entry(pte, paging_flags);
++			if (n == 0 || !paging->page_table_empty(pt[n]))
++				break;
++			page_free(&mem_pool, pt[n], 1);
++			paging--;
++			pte = paging->get_entry(pt[--n], virt);
++		}
++		if (pg_structs == &hv_paging_structs)
++			arch_paging_flush_page_tlbs(virt);
++
++		if (page_size > size)
++			break;
++		virt += page_size;
++		size -= page_size;
++	}
 +	return 0;
 +}
 +
-+static inline int coloring_paging_init(unsigned int llc_way_size)
-+{
-+	return 0;
-+}
-+
-+static inline int coloring_cell_init(struct cell *cell)
-+{
-+	return 0;
-+}
-+
-+static inline unsigned long
-+next_colored(unsigned long phys, unsigned long *color_bitmask)
-+{
-+	return phys;
-+}
-+
-+static inline unsigned long
-+get_end_addr(unsigned long start, unsigned long size,
-+	unsigned long *color_bitmask)
-+{
-+	return (start + size);
-+}
-+#endif /* !CONFIG_COLORING */
-+
-+#endif /* !_JAILHOUSE_COLORING_H */
-diff --git a/include/jailhouse/cell-config.h b/include/jailhouse/cell-config.h
-index 30ec5d06..8985f8a3 100644
---- a/include/jailhouse/cell-config.h
-+++ b/include/jailhouse/cell-config.h
-@@ -114,6 +114,7 @@ struct jailhouse_cell_desc {
- #define JAILHOUSE_MEM_LOADABLE		0x0040
- #define JAILHOUSE_MEM_ROOTSHARED	0x0080
- #define JAILHOUSE_MEM_NO_HUGEPAGES	0x0100
-+#define JAILHOUSE_MEM_COLORED		0x0200
- #define JAILHOUSE_MEM_IO_UNALIGNED	0x8000
- #define JAILHOUSE_MEM_IO_WIDTH_SHIFT	16 /* uses bits 16..19 */
- #define JAILHOUSE_MEM_IO_8		(1 << JAILHOUSE_MEM_IO_WIDTH_SHIFT)
-@@ -306,6 +307,13 @@ struct jailhouse_system {
- 		__u8 pci_mmconfig_end_bus;
- 		__u8 pci_is_virtual;
- 		__u16 pci_domain;
-+		/**
-+		 * Size (B) of each way of the last-level cache where coloring
-+		 * takes place.
-+		 * Must be set if get_llc_way_size() fails or does not support
-+		 * the platform in use.
-+		 */
-+		__u64 llc_way_size;
- 		union {
- 			struct {
- 				__u16 pm_timer_address;
+ static unsigned long
+ paging_gvirt2gphys(const struct guest_paging_structures *pg_structs,
+ 		   unsigned long gvirt, unsigned long tmp_page,
+@@ -702,6 +852,11 @@ int paging_init(void)
+ 			return err;
+ 	}
+ 
++	/* Setup coloring */
++	if (coloring_paging_init(system_config->platform_info.llc_way_size)) {
++		printk("Error: Unable to init cache coloring data\n");
++		return -ENOMEM;
++	}
+ 	return 0;
+ }
+ 
 -- 
 2.25.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200421100351.292395-2-ms%40xt3.it.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200421100351.292395-3-ms%40xt3.it.
