@@ -1,175 +1,164 @@
-Return-Path: <jailhouse-dev+bncBDQJNJ52ZYBBBA4DUT2QKGQETKNXUEI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDAMFR7JZAEBBLNFUX2QKGQEZFGJP5I@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43c.google.com (mail-wr1-x43c.google.com [IPv6:2a00:1450:4864:20::43c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C02D1BD386
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 29 Apr 2020 06:24:36 +0200 (CEST)
-Received: by mail-wr1-x43c.google.com with SMTP id t8sf1035118wrq.22
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 28 Apr 2020 21:24:36 -0700 (PDT)
+Received: from mail-lf1-x138.google.com (mail-lf1-x138.google.com [IPv6:2a00:1450:4864:20::138])
+	by mail.lfdr.de (Postfix) with ESMTPS id 043DF1BD923
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 29 Apr 2020 12:10:55 +0200 (CEST)
+Received: by mail-lf1-x138.google.com with SMTP id m3sf592861lfp.21
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 29 Apr 2020 03:10:54 -0700 (PDT)
+ARC-Seal: i=3; a=rsa-sha256; t=1588155054; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=u4nkFRMOdonlvl3j5QebVVPuiQYV28xZGr0T6nzVD0iDI3AK6/ELLJ+ttT5AzNzUt2
+         LdgRIm3OpLkZe5vjn5SOI9tp3mUkouKJ+vUVXEfT/zK0EH0IbRuEFyzj0KHFkg9N7Qzk
+         BvHkV9q2+nPFJnRrdmj5LHC/BdZp+tVCCvop0ufnE7ZSnQ+TwPxuwTAmQuu4Jv4uVpPS
+         0CwQBM5cR7ZbX17+SkC/bp+bX6lN79AvyVD5oNdl3fJCVLHCjEuFOumZ/Wqt8FKNYb1Y
+         ROu0JW9LhapoPl9/OQUewvEWEiz2Ic69JmkI9MYh+9TeQE0vO00r3pxiQdjjIBrixw4h
+         4xuA==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:mime-version:message-id:date
+         :subject:to:from:sender:dkim-signature;
+        bh=a0LeZXhRHIxofm7YIQYfIIaOUH7NEp/Z8CmYHsyV/ss=;
+        b=pFUxRk3/f54pxnaQ2KkDVlYW/8gNmm2HlVnRR2b4+0eJelWC8knE52mbB45FJty/DX
+         6FG4WrkyFMgb93G3OC2J58lfNqJFf9ypLcmBu97z1vb0rFP3Hs24WXhMY36BPX7QRHzJ
+         2iIdQs5uXI+5TYNcTQVMpYDWqM5fX1KWn6T/nGsPKy/A9IA9SpaJN9NZpwrg/V722G6S
+         tlZjw+NPOZhogtpv5xdECHANaYtZeOq9eiU5/iB3ci00TnJTSL4aFEDpzertEq+jVXau
+         /6r5qQRXRSgexjYyU00SZ+aAB2s9T8QUDz1gdZpAQahwqWCZ7/b6ZG7UoQa9TvxcCQcQ
+         VEyw==
+ARC-Authentication-Results: i=3; gmr-mx.google.com;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=lS1yGWmX;
+       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
+       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.22.59 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:autocrypt:message-id:date
-         :user-agent:in-reply-to:content-language:mime-version
+        h=sender:from:to:subject:date:message-id:mime-version
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=OIQUmB/teGXJbFnC5+bxFvy/4fph0TpgZani5YPJJzs=;
-        b=Adsw+KIKfRFySbiuGYIoidpWwwZks+4GF4WONqhOG3D5wjPMLW1SmI7VpH4VaDa0rr
-         T66ijVtq8DYeD1ebhEgKdkS4GAzdBXTvEVjQs5K1M/IwR1OUC6W0cBdTo9v1HG//39JW
-         JlDoP37G99IutH2VnjCs/9qm+fWbpyBcBWZtnLs5C4wDtxKPIzKeTwYN1OK+qhjg8MVJ
-         o6lwrbWp25UL5f46Bx+dXcA0fIj8EJQ4ScSaHn7qb1lCdGo6fJ1197ACDfGVqAaxKwEF
-         2uayM8YLejvWhIMUqi62KhDLsg5pW/rISqnjmF3WyLMVVwkLl4lduj/Y/3/Goab3klWf
-         kRcQ==
+        bh=a0LeZXhRHIxofm7YIQYfIIaOUH7NEp/Z8CmYHsyV/ss=;
+        b=fWR7pzfZJreBmZ2dUUGA5zIRF9qGO0J1DnWGQnct2dr4vFUajuGI//ILPv4KDZrqkf
+         2mSPxOQ2orLF0ds1ugLx6JBwdKfkgosSkf3o2g2/4nZ7matkCSmzGqdlXrFIYlYct8Qm
+         Z6g3v7C/n3lcHiervMTeHACm9T4fegQzEFHx6uFB3ZPH6SXk0jVx2HA+y/GUjCDfKEbs
+         Kh0iUbxqrr+0yMuRGuA9D0EFHHczz/kVc7mjdSJd0cUS7EG+UjQxWgstfrdghbgNgBCf
+         4rdQVCiPtHxB4yl29/Eo8tI/0m6LW2yM2re6Zv17/fgPXRBhDOIQ4fwJkREC5/uuOrgX
+         Tzdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:autocrypt
-         :message-id:date:user-agent:in-reply-to:content-language
+        h=sender:x-gm-message-state:from:to:subject:date:message-id
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=OIQUmB/teGXJbFnC5+bxFvy/4fph0TpgZani5YPJJzs=;
-        b=VuOYNg8PCu8pza83HXqKX+CSNH13UxXavyLxg1ZztBTn1xicmCoL1+o9PasstQp/Yx
-         r7ssdPxkR4sl/GPX5VHy/BfU5UtGFVgpmXPAXYPFyZ+LvQWdSJkNPZdsW/gSq4OvT546
-         fz+aNPqbfZBl5QstlVlmpNoP2xnH9l+vXO4qQvNAJ2rUBVv4oqdHzgpwm8HmW6B1ryJw
-         z0JaCicXByDPOn6dHpVZ3LlarSmPMHj03wusLkvVgabQ6mmcM0v4LNPo69khSbgBxq18
-         qIZf+BQ0Mb5D+wPENbF6a4WHUybWvQpSbGjpxt/VZ22dEIhNrn6uqTxDpdCUdKo85fEn
-         7Gug==
+        bh=a0LeZXhRHIxofm7YIQYfIIaOUH7NEp/Z8CmYHsyV/ss=;
+        b=Nj7axxb9vG3qYY6oSwj0w/XS+ZiwRnZUY27s3NgF+AZvnx2Rdx0dPOodnROOaDdV/Y
+         3Gr01ZByf95/fcDMwZ2Hv0hAyIWqY3Ox5hFvCxz4kfWV9AOjGeWum8x7J0PIKpvCeplr
+         GAncU0trPPHDSqqOMWhXeBT5upflJQZcogYdq9ZIN5hJwFzcyVrPVFdmB14pQjkcoKL7
+         xV8BQGAy2xCYR5y149P5lTabXyOaZG0utWrwLKPCf3sKmTurU34p3lCra18IFmEV5HrU
+         AhB8K6COCeTbgk9blu9aiUYoy4zXQkJ2Cy3wpTNhlZBZHpbw/kl3lPbp0YrFUxiHgKXP
+         IW9A==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AGi0PuYUYBQgHAypUaeLxesMNKg/03yzZtx59/zJl8Xlq4+FVcLqRUCQ
-	5F3n3UH5ghopPUBeYUeTGB4=
-X-Google-Smtp-Source: APiQypKgo0lbLIv7v4J+ubtcZOafQqCYqJTupkiorqYR4nTpzzQdcn3LO8YClU0yBsP1H0j32pfgKw==
-X-Received: by 2002:a5d:5646:: with SMTP id j6mr39199424wrw.207.1588134275518;
-        Tue, 28 Apr 2020 21:24:35 -0700 (PDT)
+X-Gm-Message-State: AGi0PuZ0fZfPbBaSoGO25hKm1AKo07qLkICN61Z9ZRHe4foVVvCOTKh7
+	tsencgIcG2CYrpv1oHcNebk=
+X-Google-Smtp-Source: APiQypLI1xNE3SLNzMwt7E+zjFmtFVqx3X+GhM9AiiLoGXOhv9FAlTl2gcnl1eOA0vIf1mdYJ9PUhg==
+X-Received: by 2002:a2e:870d:: with SMTP id m13mr20140361lji.64.1588155054075;
+        Wed, 29 Apr 2020 03:10:54 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:600c:224f:: with SMTP id a15ls1460105wmm.3.gmail; Tue,
- 28 Apr 2020 21:24:34 -0700 (PDT)
-X-Received: by 2002:a7b:c0cb:: with SMTP id s11mr923186wmh.180.1588134274781;
-        Tue, 28 Apr 2020 21:24:34 -0700 (PDT)
-Received: from m4a0073g.houston.softwaregrp.com (m4a0073g.houston.softwaregrp.com. [15.124.2.131])
-        by gmr-mx.google.com with ESMTPS id d10si678745wru.0.2020.04.28.21.24.25
+Received: by 2002:ac2:59d1:: with SMTP id x17ls351643lfn.4.gmail; Wed, 29 Apr
+ 2020 03:10:53 -0700 (PDT)
+X-Received: by 2002:ac2:4554:: with SMTP id j20mr22583662lfm.91.1588155053135;
+        Wed, 29 Apr 2020 03:10:53 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1588155053; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=kgB+vsuaNpTEjNpY0oxxdmHFDDm1RSn/HaqPSEtIxTY8BTjvxN9nQFZuoIwjxbN4rv
+         idPkiG8S5w6at/9ugZm/q1blbWhEDztKGsuKoT2bi/uT8A3tu8gXEUl9QqbXwANrSeVS
+         PuFaX81H7QLyo5veJswg0yNvvgNHoz+p1LoBKydxMhuTiRAvFpFXHqBuD1KYV7IczCKI
+         ztOCGIk5OHfR0CyPfnUFd1qgYLGJAsYzJiktwspzbUoEXVmgq0MCr7MG7QMu2hOmQT09
+         o4oYfkEcN7/dpt2YrFgwTAVqnu9a2dUJ7ejoCHgUZsgHFQMILqcdzlRZa8utwwr49Pw6
+         ABKA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:message-id:date:subject:to:from:dkim-signature;
+        bh=4hmHX2LbBxQLaH4SwsnQ7sasubpYuFooC5U3tFVie88=;
+        b=gVollGoodvL3MAPfp3uVg6mj9sZwTDSD2BterwjS7fMVPsYdiSRmk1dMNfE8h9I2iI
+         +Hux/F2FZdez/qN3647hD9vfv/y23ccU+et7IEkdUcwjK69r2DDBcm3eKhM7hISr4RhV
+         ByaI40NWB3atJ+EvROHe6xGqwE/KS+kt1YWh8KERi+28vpl7il78CGvl5GWggff11D47
+         il3TOjQTfmFoVeXEVzJSzbVCsjHDUuBMk4HvyKQh8Gzl6L1TS/zAjjyjG8TVBs4NbdZS
+         jUC/MXaHxn32R4M9qi5Zf+jI/+ejHukm6Y7oUfSZiUp8Kdz8XIMgFmttuud2erncicaY
+         d76g==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=lS1yGWmX;
+       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
+       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.22.59 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com (mail-am6eur05on2059.outbound.protection.outlook.com. [40.107.22.59])
+        by gmr-mx.google.com with ESMTPS id f17si118397lfp.0.2020.04.29.03.10.52
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 28 Apr 2020 21:24:34 -0700 (PDT)
-Received-SPF: pass (google.com: domain of lyan@suse.com designates 15.124.2.131 as permitted sender) client-ip=15.124.2.131;
-Received: FROM m4a0073g.houston.softwaregrp.com (15.120.17.146) BY m4a0073g.houston.softwaregrp.com WITH ESMTP;
- Wed, 29 Apr 2020 04:22:23 +0000
-Received: from M9W0068.microfocus.com (2002:f79:bf::f79:bf) by
- M4W0334.microfocus.com (2002:f78:1192::f78:1192) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1591.10; Wed, 29 Apr 2020 04:22:17 +0000
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com (15.124.72.12) by
- M9W0068.microfocus.com (15.121.0.191) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1591.10 via Frontend Transport; Wed, 29 Apr 2020 04:22:17 +0000
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 29 Apr 2020 03:10:52 -0700 (PDT)
+Received-SPF: pass (google.com: domain of peng.fan@nxp.com designates 40.107.22.59 as permitted sender) client-ip=40.107.22.59;
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n1OhYYyFN9dH7Gq7iTe2WtbeZ0llKt7HSd4EA81GHW1UpxXLeEtObAuBVBUY6e2ZBbj7mUEbTgNp4AUpZEFccnAMLGJ68Hwv3FRXH0EBN+RyAvVkYFcy5dV29jQTEdZhwoLk1cL/3bDDnr8Rzv8tCf31Gu1ErqOBkzCUbeCuCy8FkhRn29qJ41lr128It0fGGNW+8AWY6VVKD9lc7N9CmGtfWbGWpocPH47KAUIN49doM4Qrm1B5d/su0ksrjlZmOhftvSubOJi/tKSS2a8fgVm3pxOQK2KhA/iuMxG+5RQvVX0wIDdMSArEer83npVMvSkZ754Kmezal99GTwd4Qg==
+ b=cXw4q3f40bCYsizFj7HCqNr8Czdc7np078hb4viGYLzMglPiII3oN4/BBSe3InPe/s/WKFSM1pwht2nU1Gj0pYNtsiOjw34k8y659hV9lVNgICVcFDPRVQUAM+IdOfowyuaAy7M71TSm/VwBGZQsrALKYi4s5KALa8Sn0u9CJTd2IzOXj3Eg8+KeakIs92v12mCXsmSeFPU4TvOaQy+fF4w3jLA2YgGYMkXzViYrmCblwkTK3b+UVrzY3DstYCoNzApXWZzSO7wFYRREBy9dcTiiE2J3CgRShC5/p3eBZnXbz2dzpnjt3HB0VnAw4OnoT/t4+0eviKrQqIoHQ4vIoQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4HZTYZRNrYAPyVtbel0l5cdHTyJdozf7tFwGf1njEXg=;
- b=c5HZxGDDiNEj8/toLJ9r8x0TauPaRzlcQ2rIataDVJklLGkYR2ILnpCc/WW+lAM0QgfccJvnW+DJKVptf8ka7FL1Ubj8yu2o3HHIxAhltaxpP8opmt1R3ZJIN2o6LkD6tn9dKuapkqaXbEedG5OewKm6FldDhdie2GMTJslnH3xmPd3YcocsF/yEVrEe8Dc41EixiVrS/QqW7qpUxMpt1HZHFkh1Jnhp5h5xALe3gKCg1pIAwlJ2/eV+ZnDHhZQLqBfIrUImgqdxobMfQCdO5Igb6x2A+DOdavL7MqSnM7owaj8Sn0rGJ6LS80HwC/FkUueHm/mBZgbA+Mnq//DJHg==
+ bh=4hmHX2LbBxQLaH4SwsnQ7sasubpYuFooC5U3tFVie88=;
+ b=ZY2QKd52dgscDwfJqaABMC5WOgUncm2cesBnBbbnr8eEKVCUEQTTiJVUpD5RUbfxtIFIhWXLQ3Exig040BbdMC+u1ls7WOKUaQiIuIAvFmDJC8f7+jv/QoTdtWtemZFQJ6kfhT71AAZcTpmA3r9GALECYs3vDEeZ/rlI0CxCnkcR+rxSU66YsE/mfaQh/2114vlwmaj8hK+eQeQCKkFOlYSNy/5BXUE7hUIMReoEt+eohHca95fny6p/NwFpWq6a9kBcDo46hR6C8MywNPxJz1RI72w55NzCdzgdXz2i/boFbH9XhqQ6NfA6zz1vqK4gcHJGu3kpxNpIkRbk2/EAsA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Received: from BYAPR18MB3047.namprd18.prod.outlook.com (2603:10b6:a03:105::32)
- by BYAPR18MB2549.namprd18.prod.outlook.com (2603:10b6:a03:136::20) with
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com (2603:10a6:4:a1::14)
+ by DB6PR0402MB2741.eurprd04.prod.outlook.com (2603:10a6:4:98::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2937.22; Wed, 29 Apr
- 2020 04:22:16 +0000
-Received: from BYAPR18MB3047.namprd18.prod.outlook.com
- ([fe80::2d27:6a4b:3a2f:1ca1]) by BYAPR18MB3047.namprd18.prod.outlook.com
- ([fe80::2d27:6a4b:3a2f:1ca1%4]) with mapi id 15.20.2937.026; Wed, 29 Apr 2020
- 04:22:16 +0000
-Subject: Re: [RFC][PATCH v2 3/3] contrib: Add server for ivshmem revision 2
-To: Jan Kiszka <jan.kiszka@siemens.com>, qemu-devel <qemu-devel@nongnu.org>
-CC: Markus Armbruster <armbru@redhat.com>, Claudio Fontana
-	<claudio.fontana@gmail.com>, Stefan Hajnoczi <stefanha@redhat.com>, "Michael
- S . Tsirkin" <mst@redhat.com>, Hannes Reinecke <hare@suse.de>, Jailhouse
-	<jailhouse-dev@googlegroups.com>
-References: <cover.1578407802.git.jan.kiszka@siemens.com>
- <1acc31a0de7efc9d7c3bc6ca42b985a36e19c28c.1578407802.git.jan.kiszka@siemens.com>
-From: Liang Yan <lyan@suse.com>
-Autocrypt: addr=lyan@suse.com; prefer-encrypt=mutual; keydata=
- mQINBFbyz+QBEADaR8Yu14AwXWT5R7fkkcVG7eLpgTeRD9+fh3UYhd8FSLF7WiDNIdi66f1i
- FsXUjrKKV+9PGEYMUFsk9w3ZTaRr392BxsucU/4LQSHRwOjGFW8+7a7Dd9NmqqKki3kyT3PF
- 2qJUZovRLQ8sZ0YLQTvMkKwpJmDs2uGJdbbZBImDiJLRJ1AVQpFrDgnYZ/xElE9h7lCNQMD/
- JdJURupbzbDnTzmWxE4XCjtANk+smx3s7t6811IjUNWOzCYUYH+T9ne7Y+AWYy5xIfL6R5zu
- uITArsHulAgxAGQjpqyXoOJKdNTBlHl6za+H1Qj41YPolCGPd6uMqUkKAcdViWHKrPeR2HO0
- cvf/5hiecV1oRPa3k7Wxyd9dbc7EEBOdzWDiQdXQfWhmte0ADcMsXC2SjNHHHw7s6EcNbuDh
- oC9rlnDbaIvC577iiNxMnA5u2/lXWKj9FNPG3iz7IRYLyJi92HQBVWr9wd6F8iLdAcHFUV+2
- k+SnL91UKFtxkaIX+uN2HTWLdlLjO+00pZDoM22N2oDLr6rW6YVdcfAETxfqMugZhE7c3SKu
- eWG4PnjWcKOXuLUyIb9ExIfrYwIngoRnA6qOcGCw/lEP2c7SLwIFSbJa9Tcgbo3u2/biDU/h
- FnooQdUmfdVgB+HklsO/J67A2baAtKB81NWnYjX9jqMoZYYdkQARAQABtBlMaWFuZyBZYW4g
- PGx5YW5Ac3VzZS5jb20+iQJQBBMBAgA6AhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AW
- IQTzhoUnviFkRZgOdcyA9NwaGwJxswUCWLBQdQAKCRCA9NwaGwJxs3OEEACM+xXLNdGcK7gb
- Fiso9FhyAK3DaDpcoupzHgPoDyUI0s4824bTljAjWOyyUI82aGskThYv4bkXxcruj772yRtZ
- mt5GDfClakqM8YIgyS1s0N0kGD90HCKXIt3+r6QjV484sqfWpVobT+Ck4b8SeVY6X4o9klb3
- qIS7GiVA7iIDzBVyOETaNkdDybBDWB8P/lnRwzdqGt8Ym8b7lfrfQFpG2/FsKS+8OrJMVdgW
- XqfrEFBya0bylSlVecbD2LX503rICQAu3MdQfLlMlaC3nbNapQ3ltiqJKaNHPObvxq2JDd8+
- M2AtFRTz7RxOXdmLt6xfWrehi/valhnWiD96PTnlb4n/bs9J0qQWEBXKD43hkFcVFm2TRTQv
- m78UA4n/1bY1q86+ERoiPKkyPsGOuOHhffbD7fDbr+sgti6QYvK6VvVyK226ADhKeeWExtpr
- aLGEm+ybtiyOm7Orb/1Ge74XMkMZMIQB16CHprSH0+kPqyPNFsJ9nEG7W8nHa7G9aPCgZMVC
- 4ZTBu4H8zk9yHM5rzCxmiMfz8OnQIFGeI2NnKGQCV9gqNizIESbwPZlDVHTcakwTSRgXt/mR
- TGJplrqBc1EJsYu2sNDDn+j802K0H9Mo2WsFmjfigKVEiMJp7jLHsSKA4MMtbbR2y9NSFjSu
- gdcCeqRSLGQsoDbUV0O6ZrkCDQRW8s/kARAA9Ej/HPD+YlSNpKOhkLEjMBaDMM0z/dcJ6Rdr
- BpQFoV6WFlT73vSLOro3dqU71PKu1q7QjDq3bvUhusouhycKfAoK/h+n5fjhbeWSILl/ysFY
- sQ/ixFMmUNZ63apfaZS1Q8XiUBldhL1Dm3FkIZkI09KfoWCLi+0rmfn+E1NoOkGly36i4abR
- vso/PZUzChkl6CxhXFHn0OP+u2cjh1TcQkhqblYy99Bf4w7vEYwnSeKe4Z7zUvNDNs7Px6D0
- GJ8yzBOAGpppF9bubZNtADJ9eJsqEF9ZFPGc6KsHtLowRWHcLeRtJuyfVZJNwUYqtaocKgI4
- 9qjX46sD1VTZtEkMWw6oBUUNquRbF873bO6XeAuiKrc+3BBrMBCFXSK5hNVj5YxBo8PNNjta
- Sq8GK59OyUTrr9OCFN7e/j3HTKzCRLGFhj6Vm+OJ9Z00ar4Kqk7FMye4wO64N1wN4L9Uugrc
- GWoIfek+SGhG1E/W2u6K0QeymbnhdRPJ05D5SKHsqlk/A3W1EcTo6vl+fvZv3XaK+fQ7H8m6
- JdETY8dOmgB8AoMa54qRnGHX6oF11lUVQBPEe5gNZ1Z+J7BDa5NuGDcSPYgNcep+JcthY51W
- B9ISiXwIIDMjyEQltSaAkiV1vWAU9woEtq6No10vzGPoJMCb0OJgmG65TbtVAguqjMPK+VEA
- EQEAAYkCHwQYAQIACQUCVvLP5AIbDAAKCRCA9NwaGwJxs7LnEADHfpwnauyHmtO+Y762g+nf
- V1na4H8BqT+YbeiIaj+oFxUY3Mz3hy2rpkQ1DXHH/WSOdgR6VJu6q3gt4noq1lP+K1hxDcAW
- PzoAwoZtrqtAaqa2jdZzHWlpT8KRg8/vflUa84HIwbsNYnHBmtt5/U+Lp3HFuAcibduL5pQ3
- uNN0EOFcOpm9O0NTosAmeVQ76Z3be1MYvLbehMTT4D42ncrnze4PlGZ2UJAJ3C+3JxtJy2zs
- GtZF6fYq7Y4f/CfW4SbLK0TK3UqXF0W7jsgpp5cgnICpWhrHHDFLqlxqVeWgjPK+Fnz71Sv0
- 0tW+csCEBzPTwc6okANHCYlELMRmKf5aZ2iFhyzuD8KChuJ4OEIRa/2dIla7Ziz62kSAYU5L
- YFhV/4VMU+4f66BrTqnUbLzy5MkFbVd61uh1CdkK6oaXL5YTTaGeoobzsM9SYbMkhDGUxmk0
- hYcpxIIKc0cHUxLrtDPXr4ZuB7sJRzYR1M0qFZBizgBTrOukADLK9uNd2aUqNWjUIMga+pbH
- Q1g0H65J10a4iuOR3RSn6vH6d8nPx2cXF3iILiotXAlnXRMiSUVCaj7fUiHbTzJoLrIZHgKS
- FxD1L5a88oh3+JG8u9BlJLwK54zcKQZxKEcFzhffXyZ+qMfVLaebg2+AZSJ6LF87yC3kXnGL
- yMQQ+LPXfanS4w==
-Message-ID: <b8815297-a535-60d1-64e5-e8f4ee34ebe0@suse.com>
-Date: Wed, 29 Apr 2020 00:22:12 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-In-Reply-To: <1acc31a0de7efc9d7c3bc6ca42b985a36e19c28c.1578407802.git.jan.kiszka@siemens.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2958.20; Wed, 29 Apr
+ 2020 10:10:50 +0000
+Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com
+ ([fe80::d17b:d767:19c3:b871]) by DB6PR0402MB2760.eurprd04.prod.outlook.com
+ ([fe80::d17b:d767:19c3:b871%6]) with mapi id 15.20.2937.023; Wed, 29 Apr 2020
+ 10:10:50 +0000
+From: peng.fan@nxp.com
+To: alice.guo@nxp.com,
+	jailhouse-dev@googlegroups.com
+Subject: [PATCH V1 1/2] arm64: introduce smmu-v2 support
+Date: Wed, 29 Apr 2020 18:02:00 +0800
+Message-Id: <1588154521-2897-1-git-send-email-peng.fan@nxp.com>
+X-Mailer: git-send-email 2.7.4
 Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-X-ClientProxiedBy: BL0PR03CA0019.namprd03.prod.outlook.com
- (2603:10b6:208:2d::32) To BYAPR18MB3047.namprd18.prod.outlook.com
- (2603:10b6:a03:105::32)
+X-ClientProxiedBy: SG2PR04CA0128.apcprd04.prod.outlook.com
+ (2603:1096:3:16::12) To DB6PR0402MB2760.eurprd04.prod.outlook.com
+ (2603:10a6:4:a1::14)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2605:a000:160e:228::ab4] (2605:a000:160e:228::ab4) by BL0PR03CA0019.namprd03.prod.outlook.com (2603:10b6:208:2d::32) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2958.20 via Frontend Transport; Wed, 29 Apr 2020 04:22:14 +0000
-X-Originating-IP: [2605:a000:160e:228::ab4]
+Received: from localhost.localdomain (119.31.174.66) by SG2PR04CA0128.apcprd04.prod.outlook.com (2603:1096:3:16::12) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.20.2958.19 via Frontend Transport; Wed, 29 Apr 2020 10:10:48 +0000
+X-Mailer: git-send-email 2.7.4
+X-Originating-IP: [119.31.174.66]
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 03cc74ce-0575-4f68-95c2-08d7ebf4e5cf
-X-MS-TrafficTypeDiagnostic: BYAPR18MB2549:
-X-Microsoft-Antispam-PRVS: <BYAPR18MB2549A4B34B9DCCEAE61DDE29BFAD0@BYAPR18MB2549.namprd18.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:204;
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 25c39fe0-a7d8-4c0a-e1dd-08d7ec2597b3
+X-MS-TrafficTypeDiagnostic: DB6PR0402MB2741:|DB6PR0402MB2741:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DB6PR0402MB2741DC876375C504CD482FCB88AD0@DB6PR0402MB2741.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-Forefront-PRVS: 03883BD916
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR18MB3047.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFTY:;SFS:(4636009)(376002)(136003)(346002)(396003)(366004)(39860400002)(6486002)(8936002)(478600001)(54906003)(66476007)(66946007)(110136005)(316002)(66556008)(86362001)(4326008)(186003)(16526019)(2616005)(36756003)(5660300002)(31696002)(30864003)(53546011)(52116002)(966005)(2906002)(31686004)(8676002)(21314003);DIR:OUT;SFP:1102;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fJC/vj+QMUEDrpaj5upNvpQiMb1CJcN6omTDDrL+iOKsz/jcCJaHWRPCayy2XfGTNHS5ROF64/wWZmoXMeCG+820eWzebBU/x5zMIjTPTe0YOwyvOJS7GpR4ckXKHZmO8pAbvxr/ZENs6jKFkEqzG07Mfc/g8/9W4LVXusn8h+c0YxXnnITaEPVVOpLQbHXgXXoNZTlAFuXeohVHT26YFN9z9IC3MY8AAcm62Lfa4x/+UT1t5fJbvuFN+KDHwOppuPSY4vcm54X1JG3rSTvURP+6G1yZi9T6vcS/jjFyYRrDXW9weuH6hk0KIRMDJgJvdZDq+ymEJ3SSCmqP/lMOka12tkxym68obX/JKBAmj6/nXfHdWex8ja9XqGkb1RVjBAr29ybZMJ/zhjOYzAyawRvqLFipHpJ0ZTiu34yNMJLgtH4+7I0wOvKU5GrUuAUEXimpykC0qTKfFUrgh5rKCK4a9UoUFpRJvI+Zglvbp2AFtAaXrKcwVxsgGej62rTas19zk+uEGDYM5ej1izpx1Ebh4UyQYIHPtRXQGKRt+hL1LPChG9JP996SVXxm18dz
-X-MS-Exchange-AntiSpam-MessageData: nJnI1iuwFIe9F3bSyjyW3jObv2L46gVkeI/x7nf4SiLZzoUJIkfsBPdSsbEhb/ruSbtBa2nWtzC/PqsY60FLbyy8v5Ab6DsZOtb1a3we39Qz850t3DqGKNs4D1fSP/l7E7fzLYQP2PJCo9Jo0a9SSUM/WuvGOg7RUfqB96rh6RMGxZTJZvEzvD/RXS+VI80tsEpn9fEu/G+j37+7M4tWMO7MVFY+FkqgassTFq7dEbI3hEF/rG+l6mHHaBc7shsa07h7Tx3ey7eQoL22mB968xeMgLykbEf0277RfSoYau2/2Z85orJyiAHX9/YO7Z06sXOPVhS/Lyn+ACd49pk4ymDfB4BCTZoMHBeISH8ddUcWPPYps39DzBnILII9iEpqr2oCd3udOC2JcmBYilRJxh5Hyup1iIpbUBOQWPmMswYtTaZFHjXPPckcFy3qut7xb9VquBlJej2FF7WO2Xu7G9lEMjvAtXu/mjR2lp4BqA6WTL3DPQSGodGsjPWLUG5c/6zPe9Z3+fym+sn1UmM9JGMUoC7rccK6/5cf/MlHysnB3sVgGXjqIh59gTbvUoFxdWABarQdMNp+1GGHcwVjSlH/+B+CpfX8HRWIekb8cXu/gWR2LVACOghpi5N/xgRhZoudI5OZFDo3bYOqPoDNYfw+QYPr1GlNiOIqlHCI3WoMpzI5eM+s0HGsYkRdBUWzO/4osZwK//cRmM8zD0nTI1hpGq/yOkA9o+pdMuSDbjkHpgx9Yp5IGaYPOBI38AifuoUzPeBrfulkVVrZfOmgUv94tVBevs78+g/XUCcnuJUyZ7Awgp+2fMRyUMermkycSXzcP1AqpHAOFM8INxqsGQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 03cc74ce-0575-4f68-95c2-08d7ebf4e5cf
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2020 04:22:16.0186
+X-Microsoft-Antispam-Message-Info: SJSksdywfyZnoUx6xtMgCZd3WXqFbIoADlubY9bbHvv5OpSEFBC2JUvtyLCr4PA/9GJga/GLQ0Z3Bus38nPGuD6ohHDDOAwn+OOjZadxjFqhO+VS6s9GQiDFCj/WDIVRuxoNXXglwpyKo03l93d2L6EBDbvZBXAjTaeel++QlvIlzJXnHssAdc6+yZpmA+kmzwfx3vUV7Rab0z3PHz3MTffZIRoKTbJNmMaMUaG8IKneKC81mBLIhC+GJKCy3eebWeb4k3wpk9mkQFSXh/6i7NwiI3IUZ9cmbM4Diyhx9HfBQ4kiIoHHpbUuJ+5F48cqKTt/EMsHaDXauoasdHCTghJDuquolblnV3kTLFXXP7Yj9WxuwmHTqhRye3IlbCPmbCeOaJJFck7mPCZ2r/Li22ubJ+FYSG03wU7xOMAs+GMGe7IMidErhcRSfDcUtsqj1d/4dwqh9kQuk/8tp6kqrC4U/RdwebQ9dagoNAs6qRHYVCBjJF6iLJG8fo34+EFW7e4pcUjg2podn+C9xwLeBA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB6PR0402MB2760.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFTY:;SFS:(4636009)(396003)(39860400002)(136003)(346002)(366004)(376002)(30864003)(2906002)(26005)(5660300002)(6506007)(36756003)(316002)(66556008)(66476007)(186003)(52116002)(6666004)(16526019)(9686003)(8676002)(69590400007)(66946007)(8936002)(6512007)(478600001)(2616005)(956004)(86362001)(6486002)(2004002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: RjYJbGfuNONb7LicrBqa7QrC7n48X6pdRdBJO4yY85kqKjdl2iX/LapsBxP94HHYT0bCOB2DL9+5k8XJOa2kIT+aCbQyQj6rOBsslBwRT6c6TJtMNvTGQxtyp8wLtFP05t2a24q6JRta+DLFOaQmLHVRNq6zJr+Y02e5LU4oKdOVyS63XexSk4WKWcCWLRalgkfbTnXHz1fuWQIF8Ely3xZDW2pB6DE9mPorTMUDMSAbAJY5spOtZAJKuDN28L+yS9NzOIxz5OUmeotjOWLwyihi10G77u0hoRbmeIxbVSYhyoig1WPJc4u9nqsuA8PXlk525Phm4kim3aq/wTVCcsCdhyanOqeDwfa00hc6enMY2UMgFNLgjA+R0C1+N4eC6HJ0EzbDV5Knt9JXX81F/xgpnc+9RNKEqJ/4bxx6yjStRTTydKIPfzBbf7/GuF5wgVImKSw5rGmArNQ9BrK/EBuhd5NUBbDEDJujEFs0lWxksfi2fy6KgPZiFvZFAoUP/3GskP2EVCSYOGTEd7OfWmzB2t4YgcZSqV3dxUjvEE/SB31AkupfeP5XxUpoLV7AVfQJ31fwgq+ITwpWZm3mJz+iruxaAftuW+ABh/YhC/7XWw/vbakBnjMhBWRQwSxk+H/WyMLb7Ba9LukAmX6GCYQAgQlJ940ERv5exLMw3OcYuAMVLleewvPUJnHUCRCEHSKZLhI9CNsT3Rbf21SP3NL/7nv5zmW55gSSPqRZxcaLCoMBtQMgUJBXttqIWmb+0uQ2vvERfcnGGxCWbBweIrSpamvHUc5dng94V71AjNo=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25c39fe0-a7d8-4c0a-e1dd-08d7ec2597b3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2020 10:10:50.5165
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 856b813c-16e5-49a5-85ec-6f081e13b527
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oVRvle0iq2H3ht475+br/P1ln3uArh2i5oLddicFAwJRGogDlYE9dGCR7ki3TXtI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR18MB2549
-X-OriginatorOrg: suse.com
-X-Original-Sender: lyan@suse.com
-X-Original-Authentication-Results: gmr-mx.google.com;       arc=fail
- (signature failed);       spf=pass (google.com: domain of lyan@suse.com
- designates 15.124.2.131 as permitted sender) smtp.mailfrom=LYan@suse.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: ecmHRqSHbZ4czt+xU8YDg6QvMnjXJWBL4QWRG9k0O3UDC/gTjkSyAqdps8NB/s2ic1r+jkOduDfXyKfVVzCAdw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0402MB2741
+X-Original-Sender: peng.fan@nxp.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@nxp.com header.s=selector2 header.b=lS1yGWmX;       arc=pass (i=1
+ spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass
+ fromdomain=nxp.com);       spf=pass (google.com: domain of peng.fan@nxp.com
+ designates 40.107.22.59 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -182,1072 +171,1280 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-A quick check by checkpatch.pl, pretty straightforward to fix.
+From: Alice Guo <alice.guo@nxp.com>
 
-ERROR: memory barrier without comment
-#205: FILE: contrib/ivshmem2-server/ivshmem2-server.c:106:
-+    smp_mb();
+Support smmu-v2 mmu500, add sid master support, only support stage2
+translation.
 
-ERROR: spaces required around that '*' (ctx:VxV)
-#753: FILE: contrib/ivshmem2-server/main.c:22:
-+#define IVSHMEM_SERVER_DEFAULT_SHM_SIZE       (4*1024*1024)
-                                                 ^
+Signed-off-by: Alice Guo <alice.guo@nxp.com>
+---
+ hypervisor/arch/arm64/Kbuild          |   1 +
+ hypervisor/arch/arm64/arm-smmu-regs.h | 220 ++++++
+ hypervisor/arch/arm64/smmu.c          | 926 ++++++++++++++++++++++++++
+ include/jailhouse/cell-config.h       |  15 +
+ include/jailhouse/sizes.h             |  47 ++
+ 5 files changed, 1209 insertions(+)
+ create mode 100644 hypervisor/arch/arm64/arm-smmu-regs.h
+ create mode 100644 hypervisor/arch/arm64/smmu.c
+ create mode 100644 include/jailhouse/sizes.h
 
-ERROR: spaces required around that '*' (ctx:VxV)
-#753: FILE: contrib/ivshmem2-server/main.c:22:
-+#define IVSHMEM_SERVER_DEFAULT_SHM_SIZE       (4*1024*1024)
-
-
-Best,
-Liang
-
-
-
-On 1/7/20 9:36 AM, Jan Kiszka wrote:
-> From: Jan Kiszka <jan.kiszka@siemens.com>
-> 
-> This implements the server process for ivshmem v2 device models of QEMU.
-> Again, no effort has been spent yet on sharing code with the v1 server.
-> Parts have been copied, others were rewritten.
-> 
-> In addition to parameters of v1, this server now also specifies
-> 
->  - the maximum number of peers to be connected (required to know in
->    advance because of v2's state table)
->  - the size of the output sections (can be 0)
->  - the protocol ID to be published to all peers
-> 
-> When a virtio protocol ID is chosen, only 2 peers can be connected.
-> Furthermore, the server will signal the backend variant of the ID to the
-> master instance and the frontend ID to the slave peer.
-> 
-> To start, e.g., a server that allows virtio console over ivshmem, call
-> 
-> ivshmem2-server -F -l 64K -n 2 -V 3 -P 0x8003
-> 
-> TODO: specify the new server protocol.
-> 
-> Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-> ---
->  Makefile                                  |   3 +
->  Makefile.objs                             |   1 +
->  configure                                 |   1 +
->  contrib/ivshmem2-server/Makefile.objs     |   1 +
->  contrib/ivshmem2-server/ivshmem2-server.c | 462 ++++++++++++++++++++++++++++++
->  contrib/ivshmem2-server/ivshmem2-server.h | 158 ++++++++++
->  contrib/ivshmem2-server/main.c            | 313 ++++++++++++++++++++
->  7 files changed, 939 insertions(+)
->  create mode 100644 contrib/ivshmem2-server/Makefile.objs
->  create mode 100644 contrib/ivshmem2-server/ivshmem2-server.c
->  create mode 100644 contrib/ivshmem2-server/ivshmem2-server.h
->  create mode 100644 contrib/ivshmem2-server/main.c
-> 
-> diff --git a/Makefile b/Makefile
-> index 6b5ad1121b..33bb0eefdb 100644
-> --- a/Makefile
-> +++ b/Makefile
-> @@ -427,6 +427,7 @@ dummy := $(call unnest-vars,, \
->                  elf2dmp-obj-y \
->                  ivshmem-client-obj-y \
->                  ivshmem-server-obj-y \
-> +                ivshmem2-server-obj-y \
->                  rdmacm-mux-obj-y \
->                  libvhost-user-obj-y \
->                  vhost-user-scsi-obj-y \
-> @@ -655,6 +656,8 @@ ivshmem-client$(EXESUF): $(ivshmem-client-obj-y) $(COMMON_LDADDS)
->  	$(call LINK, $^)
->  ivshmem-server$(EXESUF): $(ivshmem-server-obj-y) $(COMMON_LDADDS)
->  	$(call LINK, $^)
-> +ivshmem2-server$(EXESUF): $(ivshmem2-server-obj-y) $(COMMON_LDADDS)
-> +	$(call LINK, $^)
->  endif
->  vhost-user-scsi$(EXESUF): $(vhost-user-scsi-obj-y) libvhost-user.a
->  	$(call LINK, $^)
-> diff --git a/Makefile.objs b/Makefile.objs
-> index 02bf5ce11d..ce243975ef 100644
-> --- a/Makefile.objs
-> +++ b/Makefile.objs
-> @@ -115,6 +115,7 @@ qga-vss-dll-obj-y = qga/
->  elf2dmp-obj-y = contrib/elf2dmp/
->  ivshmem-client-obj-$(CONFIG_IVSHMEM) = contrib/ivshmem-client/
->  ivshmem-server-obj-$(CONFIG_IVSHMEM) = contrib/ivshmem-server/
-> +ivshmem2-server-obj-$(CONFIG_IVSHMEM) = contrib/ivshmem2-server/
->  libvhost-user-obj-y = contrib/libvhost-user/
->  vhost-user-scsi.o-cflags := $(LIBISCSI_CFLAGS)
->  vhost-user-scsi.o-libs := $(LIBISCSI_LIBS)
-> diff --git a/configure b/configure
-> index 747d3b4120..1cb1427f1b 100755
-> --- a/configure
-> +++ b/configure
-> @@ -6165,6 +6165,7 @@ if test "$want_tools" = "yes" ; then
->    fi
->    if [ "$ivshmem" = "yes" ]; then
->      tools="ivshmem-client\$(EXESUF) ivshmem-server\$(EXESUF) $tools"
-> +    tools="ivshmem2-server\$(EXESUF) $tools"
->    fi
->    if [ "$curl" = "yes" ]; then
->        tools="elf2dmp\$(EXESUF) $tools"
-> diff --git a/contrib/ivshmem2-server/Makefile.objs b/contrib/ivshmem2-server/Makefile.objs
-> new file mode 100644
-> index 0000000000..d233e18ec8
-> --- /dev/null
-> +++ b/contrib/ivshmem2-server/Makefile.objs
-> @@ -0,0 +1 @@
-> +ivshmem2-server-obj-y = ivshmem2-server.o main.o
-> diff --git a/contrib/ivshmem2-server/ivshmem2-server.c b/contrib/ivshmem2-server/ivshmem2-server.c
-> new file mode 100644
-> index 0000000000..b341f1fcd0
-> --- /dev/null
-> +++ b/contrib/ivshmem2-server/ivshmem2-server.c
-> @@ -0,0 +1,462 @@
-> +/*
-> + * Copyright 6WIND S.A., 2014
-> + * Copyright (c) Siemens AG, 2019
-> + *
-> + * This work is licensed under the terms of the GNU GPL, version 2 or
-> + * (at your option) any later version.  See the COPYING file in the
-> + * top-level directory.
-> + */
-> +#include "qemu/osdep.h"
-> +#include "qemu/host-utils.h"
-> +#include "qemu/sockets.h"
-> +#include "qemu/atomic.h"
-> +
-> +#include <sys/socket.h>
-> +#include <sys/un.h>
-> +
-> +#include "ivshmem2-server.h"
-> +
-> +/* log a message on stdout if verbose=1 */
-> +#define IVSHMEM_SERVER_DEBUG(server, fmt, ...) do { \
-> +        if ((server)->args.verbose) {         \
-> +            printf(fmt, ## __VA_ARGS__); \
-> +        }                                \
-> +    } while (0)
-> +
-> +/** maximum size of a huge page, used by ivshmem_server_ftruncate() */
-> +#define IVSHMEM_SERVER_MAX_HUGEPAGE_SIZE (1024 * 1024 * 1024)
-> +
-> +/** default listen backlog (number of sockets not accepted) */
-> +#define IVSHMEM_SERVER_LISTEN_BACKLOG 10
-> +
-> +/* send message to a client unix socket */
-> +static int ivshmem_server_send_msg(int sock_fd, void *payload, int len, int fd)
-> +{
-> +    int ret;
-> +    struct msghdr msg;
-> +    struct iovec iov[1];
-> +    union {
-> +        struct cmsghdr cmsg;
-> +        char control[CMSG_SPACE(sizeof(int))];
-> +    } msg_control;
-> +    struct cmsghdr *cmsg;
-> +
-> +    iov[0].iov_base = payload;
-> +    iov[0].iov_len = len;
-> +
-> +    memset(&msg, 0, sizeof(msg));
-> +    msg.msg_iov = iov;
-> +    msg.msg_iovlen = 1;
-> +
-> +    /* if fd is specified, add it in a cmsg */
-> +    if (fd >= 0) {
-> +        memset(&msg_control, 0, sizeof(msg_control));
-> +        msg.msg_control = &msg_control;
-> +        msg.msg_controllen = sizeof(msg_control);
-> +        cmsg = CMSG_FIRSTHDR(&msg);
-> +        cmsg->cmsg_level = SOL_SOCKET;
-> +        cmsg->cmsg_type = SCM_RIGHTS;
-> +        cmsg->cmsg_len = CMSG_LEN(sizeof(int));
-> +        memcpy(CMSG_DATA(cmsg), &fd, sizeof(fd));
-> +    }
-> +
-> +    ret = sendmsg(sock_fd, &msg, 0);
-> +    if (ret <= 0) {
-> +        return -1;
-> +    }
-> +
-> +    return 0;
-> +}
-> +
-> +static int ivshmem_server_send_event_fd(int sock_fd, int peer_id, int vector,
-> +                                        int fd)
-> +{
-> +    IvshmemEventFd msg = {
-> +        .header = {
-> +            .type = GUINT32_TO_LE(IVSHMEM_MSG_EVENT_FD),
-> +            .len = GUINT32_TO_LE(sizeof(msg)),
-> +        },
-> +        .id = GUINT32_TO_LE(peer_id),
-> +        .vector = GUINT32_TO_LE(vector),
-> +    };
-> +
-> +    return ivshmem_server_send_msg(sock_fd, &msg, sizeof(msg), fd);
-> +}
-> +
-> +/* free a peer when the server advertises a disconnection or when the
-> + * server is freed */
-> +static void
-> +ivshmem_server_free_peer(IvshmemServer *server, IvshmemServerPeer *peer)
-> +{
-> +    unsigned vector;
-> +    IvshmemServerPeer *other_peer;
-> +    IvshmemPeerGone msg = {
-> +        .header = {
-> +            .type = GUINT32_TO_LE(IVSHMEM_MSG_PEER_GONE),
-> +            .len = GUINT32_TO_LE(sizeof(msg)),
-> +        },
-> +        .id = GUINT32_TO_LE(peer->id),
-> +    };
-> +
-> +    IVSHMEM_SERVER_DEBUG(server, "free peer %" PRId64 "\n", peer->id);
-> +    close(peer->sock_fd);
-> +    QTAILQ_REMOVE(&server->peer_list, peer, next);
-> +
-> +    server->state_table[peer->id] = 0;
-> +    smp_mb();
-> +
-> +    /* advertise the deletion to other peers */
-> +    QTAILQ_FOREACH(other_peer, &server->peer_list, next) {
-> +        ivshmem_server_send_msg(other_peer->sock_fd, &msg, sizeof(msg), -1);
-> +    }
-> +
-> +    for (vector = 0; vector < peer->vectors_count; vector++) {
-> +        event_notifier_cleanup(&peer->vectors[vector]);
-> +    }
-> +
-> +    g_free(peer);
-> +}
-> +
-> +/* send the peer id and the shm_fd just after a new client connection */
-> +static int
-> +ivshmem_server_send_initial_info(IvshmemServer *server, IvshmemServerPeer *peer)
-> +{
-> +    IvshmemInitialInfo msg = {
-> +        .header = {
-> +            .type = GUINT32_TO_LE(IVSHMEM_MSG_INIT),
-> +            .len = GUINT32_TO_LE(sizeof(msg)),
-> +        },
-> +        .version = GUINT32_TO_LE(IVSHMEM_PROTOCOL_VERSION),
-> +        .compatible_version = GUINT32_TO_LE(IVSHMEM_PROTOCOL_VERSION),
-> +        .id = GUINT32_TO_LE(peer->id),
-> +        .max_peers = GUINT32_TO_LE(server->args.max_peers),
-> +        .vectors = GUINT32_TO_LE(server->args.vectors),
-> +        .protocol = GUINT32_TO_LE(server->args.protocol),
-> +        .output_section_size = GUINT64_TO_LE(server->args.output_section_size),
-> +    };
-> +    unsigned virtio_protocol;
-> +    int ret;
-> +
-> +    if (server->args.protocol >= 0x8000) {
-> +        virtio_protocol = server->args.protocol & ~0x4000;
-> +        msg.protocol &= ~0x4000;
-> +        if (peer->id == 0) {
-> +            virtio_protocol |= 0x4000;
-> +        }
-> +        msg.protocol = GUINT32_TO_LE(virtio_protocol);
-> +    }
-> +
-> +    ret = ivshmem_server_send_msg(peer->sock_fd, &msg, sizeof(msg),
-> +                                  server->shm_fd);
-> +    if (ret < 0) {
-> +        IVSHMEM_SERVER_DEBUG(server, "cannot send initial info: %s\n",
-> +                             strerror(errno));
-> +        return -1;
-> +    }
-> +
-> +    return 0;
-> +}
-> +
-> +/* handle message on listening unix socket (new client connection) */
-> +static int
-> +ivshmem_server_handle_new_conn(IvshmemServer *server)
-> +{
-> +    IvshmemServerPeer *peer, *other_peer;
-> +    struct sockaddr_un unaddr;
-> +    socklen_t unaddr_len;
-> +    int newfd;
-> +    unsigned i;
-> +
-> +    /* accept the incoming connection */
-> +    unaddr_len = sizeof(unaddr);
-> +    newfd = qemu_accept(server->sock_fd,
-> +                        (struct sockaddr *)&unaddr, &unaddr_len);
-> +
-> +    if (newfd < 0) {
-> +        IVSHMEM_SERVER_DEBUG(server, "cannot accept() %s\n", strerror(errno));
-> +        return -1;
-> +    }
-> +
-> +    qemu_set_nonblock(newfd);
-> +    IVSHMEM_SERVER_DEBUG(server, "accept()=%d\n", newfd);
-> +
-> +    /* allocate new structure for this peer */
-> +    peer = g_malloc0(sizeof(*peer));
-> +    peer->sock_fd = newfd;
-> +
-> +    /* get an unused peer id */
-> +    /* XXX: this could use id allocation such as Linux IDA, or simply
-> +     * a free-list */
-> +    for (i = 0; i < G_MAXUINT16; i++) {
-> +        if (ivshmem_server_search_peer(server, i) == NULL) {
-> +            break;
-> +        }
-> +    }
-> +    if (i >= server->args.max_peers) {
-> +        IVSHMEM_SERVER_DEBUG(server, "cannot allocate new client id\n");
-> +        close(newfd);
-> +        g_free(peer);
-> +        return -1;
-> +    }
-> +    peer->id = i;
-> +
-> +    /* create eventfd, one per vector */
-> +    peer->vectors_count = server->args.vectors;
-> +    for (i = 0; i < peer->vectors_count; i++) {
-> +        if (event_notifier_init(&peer->vectors[i], FALSE) < 0) {
-> +            IVSHMEM_SERVER_DEBUG(server, "cannot create eventfd\n");
-> +            goto fail;
-> +        }
-> +    }
-> +
-> +    /* send peer id and shm fd */
-> +    if (ivshmem_server_send_initial_info(server, peer) < 0) {
-> +        IVSHMEM_SERVER_DEBUG(server, "cannot send initial info\n");
-> +        goto fail;
-> +    }
-> +
-> +    /* advertise the new peer to others */
-> +    QTAILQ_FOREACH(other_peer, &server->peer_list, next) {
-> +        for (i = 0; i < peer->vectors_count; i++) {
-> +            ivshmem_server_send_event_fd(other_peer->sock_fd, peer->id, i,
-> +                                         peer->vectors[i].wfd);
-> +        }
-> +    }
-> +
-> +    /* advertise the other peers to the new one */
-> +    QTAILQ_FOREACH(other_peer, &server->peer_list, next) {
-> +        for (i = 0; i < peer->vectors_count; i++) {
-> +            ivshmem_server_send_event_fd(peer->sock_fd, other_peer->id, i,
-> +                                         other_peer->vectors[i].wfd);
-> +        }
-> +    }
-> +
-> +    /* advertise the new peer to itself */
-> +    for (i = 0; i < peer->vectors_count; i++) {
-> +        ivshmem_server_send_event_fd(peer->sock_fd, peer->id, i,
-> +                                     event_notifier_get_fd(&peer->vectors[i]));
-> +    }
-> +
-> +    QTAILQ_INSERT_TAIL(&server->peer_list, peer, next);
-> +    IVSHMEM_SERVER_DEBUG(server, "new peer id = %" PRId64 "\n",
-> +                         peer->id);
-> +    return 0;
-> +
-> +fail:
-> +    while (i--) {
-> +        event_notifier_cleanup(&peer->vectors[i]);
-> +    }
-> +    close(newfd);
-> +    g_free(peer);
-> +    return -1;
-> +}
-> +
-> +/* Try to ftruncate a file to next power of 2 of shmsize.
-> + * If it fails; all power of 2 above shmsize are tested until
-> + * we reach the maximum huge page size. This is useful
-> + * if the shm file is in a hugetlbfs that cannot be truncated to the
-> + * shm_size value. */
-> +static int
-> +ivshmem_server_ftruncate(int fd, unsigned shmsize)
-> +{
-> +    int ret;
-> +    struct stat mapstat;
-> +
-> +    /* align shmsize to next power of 2 */
-> +    shmsize = pow2ceil(shmsize);
-> +
-> +    if (fstat(fd, &mapstat) != -1 && mapstat.st_size == shmsize) {
-> +        return 0;
-> +    }
-> +
-> +    while (shmsize <= IVSHMEM_SERVER_MAX_HUGEPAGE_SIZE) {
-> +        ret = ftruncate(fd, shmsize);
-> +        if (ret == 0) {
-> +            return ret;
-> +        }
-> +        shmsize *= 2;
-> +    }
-> +
-> +    return -1;
-> +}
-> +
-> +/* Init a new ivshmem server */
-> +void ivshmem_server_init(IvshmemServer *server)
-> +{
-> +    server->sock_fd = -1;
-> +    server->shm_fd = -1;
-> +    server->state_table = NULL;
-> +    QTAILQ_INIT(&server->peer_list);
-> +}
-> +
-> +/* open shm, create and bind to the unix socket */
-> +int
-> +ivshmem_server_start(IvshmemServer *server)
-> +{
-> +    struct sockaddr_un sun;
-> +    int shm_fd, sock_fd, ret;
-> +    void *state_table;
-> +
-> +    /* open shm file */
-> +    if (server->args.use_shm_open) {
-> +        IVSHMEM_SERVER_DEBUG(server, "Using POSIX shared memory: %s\n",
-> +                             server->args.shm_path);
-> +        shm_fd = shm_open(server->args.shm_path, O_CREAT | O_RDWR, S_IRWXU);
-> +    } else {
-> +        gchar *filename = g_strdup_printf("%s/ivshmem.XXXXXX",
-> +                                          server->args.shm_path);
-> +        IVSHMEM_SERVER_DEBUG(server, "Using file-backed shared memory: %s\n",
-> +                             server->args.shm_path);
-> +        shm_fd = mkstemp(filename);
-> +        unlink(filename);
-> +        g_free(filename);
-> +    }
-> +
-> +    if (shm_fd < 0) {
-> +        fprintf(stderr, "cannot open shm file %s: %s\n", server->args.shm_path,
-> +                strerror(errno));
-> +        return -1;
-> +    }
-> +    if (ivshmem_server_ftruncate(shm_fd, server->args.shm_size) < 0) {
-> +        fprintf(stderr, "ftruncate(%s) failed: %s\n", server->args.shm_path,
-> +                strerror(errno));
-> +        goto err_close_shm;
-> +    }
-> +    state_table = mmap(NULL, 4096, PROT_READ | PROT_WRITE, MAP_SHARED,
-> +                       shm_fd, 0);
-> +    if (state_table == MAP_FAILED) {
-> +        fprintf(stderr, "mmap failed: %s\n", strerror(errno));
-> +        goto err_close_shm;
-> +    }
-> +
-> +    IVSHMEM_SERVER_DEBUG(server, "create & bind socket %s\n",
-> +                         server->args.unix_socket_path);
-> +
-> +    /* create the unix listening socket */
-> +    sock_fd = socket(AF_UNIX, SOCK_STREAM, 0);
-> +    if (sock_fd < 0) {
-> +        IVSHMEM_SERVER_DEBUG(server, "cannot create socket: %s\n",
-> +                             strerror(errno));
-> +        goto err_unmap;
-> +    }
-> +
-> +    sun.sun_family = AF_UNIX;
-> +    ret = snprintf(sun.sun_path, sizeof(sun.sun_path), "%s",
-> +                   server->args.unix_socket_path);
-> +    if (ret < 0 || ret >= sizeof(sun.sun_path)) {
-> +        IVSHMEM_SERVER_DEBUG(server, "could not copy unix socket path\n");
-> +        goto err_close_sock;
-> +    }
-> +    if (bind(sock_fd, (struct sockaddr *)&sun, sizeof(sun)) < 0) {
-> +        IVSHMEM_SERVER_DEBUG(server, "cannot connect to %s: %s\n", sun.sun_path,
-> +                             strerror(errno));
-> +        goto err_close_sock;
-> +    }
-> +
-> +    if (listen(sock_fd, IVSHMEM_SERVER_LISTEN_BACKLOG) < 0) {
-> +        IVSHMEM_SERVER_DEBUG(server, "listen() failed: %s\n", strerror(errno));
-> +        goto err_close_sock;
-> +    }
-> +
-> +    server->sock_fd = sock_fd;
-> +    server->shm_fd = shm_fd;
-> +    server->state_table = state_table;
-> +
-> +    return 0;
-> +
-> +err_close_sock:
-> +    close(sock_fd);
-> +err_unmap:
-> +    munmap(state_table, 4096);
-> +err_close_shm:
-> +    if (server->args.use_shm_open) {
-> +        shm_unlink(server->args.shm_path);
-> +    }
-> +    close(shm_fd);
-> +    shm_unlink(server->args.shm_path);
-> +    return -1;
-> +}
-> +
-> +/* close connections to clients, the unix socket and the shm fd */
-> +void
-> +ivshmem_server_close(IvshmemServer *server)
-> +{
-> +    IvshmemServerPeer *peer, *npeer;
-> +
-> +    IVSHMEM_SERVER_DEBUG(server, "close server\n");
-> +
-> +    QTAILQ_FOREACH_SAFE(peer, &server->peer_list, next, npeer) {
-> +        ivshmem_server_free_peer(server, peer);
-> +    }
-> +
-> +    unlink(server->args.unix_socket_path);
-> +    if (server->args.use_shm_open) {
-> +        shm_unlink(server->args.shm_path);
-> +    }
-> +    close(server->sock_fd);
-> +    munmap(server->state_table, 4096);
-> +    close(server->shm_fd);
-> +    server->sock_fd = -1;
-> +    server->shm_fd = -1;
-> +}
-> +
-> +/* get the fd_set according to the unix socket and the peer list */
-> +void
-> +ivshmem_server_get_fds(const IvshmemServer *server, fd_set *fds, int *maxfd)
-> +{
-> +    IvshmemServerPeer *peer;
-> +
-> +    if (server->sock_fd == -1) {
-> +        return;
-> +    }
-> +
-> +    FD_SET(server->sock_fd, fds);
-> +    if (server->sock_fd >= *maxfd) {
-> +        *maxfd = server->sock_fd + 1;
-> +    }
-> +
-> +    QTAILQ_FOREACH(peer, &server->peer_list, next) {
-> +        FD_SET(peer->sock_fd, fds);
-> +        if (peer->sock_fd >= *maxfd) {
-> +            *maxfd = peer->sock_fd + 1;
-> +        }
-> +    }
-> +}
-> +
-> +/* process incoming messages on the sockets in fd_set */
-> +int
-> +ivshmem_server_handle_fds(IvshmemServer *server, fd_set *fds, int maxfd)
-> +{
-> +    IvshmemServerPeer *peer, *peer_next;
-> +
-> +    if (server->sock_fd < maxfd && FD_ISSET(server->sock_fd, fds) &&
-> +        ivshmem_server_handle_new_conn(server) < 0 && errno != EINTR) {
-> +        IVSHMEM_SERVER_DEBUG(server, "ivshmem_server_handle_new_conn() "
-> +                             "failed\n");
-> +        return -1;
-> +    }
-> +
-> +    QTAILQ_FOREACH_SAFE(peer, &server->peer_list, next, peer_next) {
-> +        /* any message from a peer socket result in a close() */
-> +        IVSHMEM_SERVER_DEBUG(server, "peer->sock_fd=%d\n", peer->sock_fd);
-> +        if (peer->sock_fd < maxfd && FD_ISSET(peer->sock_fd, fds)) {
-> +            ivshmem_server_free_peer(server, peer);
-> +        }
-> +    }
-> +
-> +    return 0;
-> +}
-> +
-> +/* lookup peer from its id */
-> +IvshmemServerPeer *
-> +ivshmem_server_search_peer(IvshmemServer *server, int64_t peer_id)
-> +{
-> +    IvshmemServerPeer *peer;
-> +
-> +    QTAILQ_FOREACH(peer, &server->peer_list, next) {
-> +        if (peer->id == peer_id) {
-> +            return peer;
-> +        }
-> +    }
-> +    return NULL;
-> +}
-> diff --git a/contrib/ivshmem2-server/ivshmem2-server.h b/contrib/ivshmem2-server/ivshmem2-server.h
-> new file mode 100644
-> index 0000000000..3fd6166577
-> --- /dev/null
-> +++ b/contrib/ivshmem2-server/ivshmem2-server.h
-> @@ -0,0 +1,158 @@
-> +/*
-> + * Copyright 6WIND S.A., 2014
-> + * Copyright (c) Siemens AG, 2019
-> + *
-> + * This work is licensed under the terms of the GNU GPL, version 2 or
-> + * (at your option) any later version.  See the COPYING file in the
-> + * top-level directory.
-> + */
-> +
-> +#ifndef IVSHMEM2_SERVER_H
-> +#define IVSHMEM2_SERVER_H
-> +
-> +/**
-> + * The ivshmem server is a daemon that creates a unix socket in listen
-> + * mode. The ivshmem clients (qemu or ivshmem-client) connect to this
-> + * unix socket. For each client, the server will create some eventfd
-> + * (see EVENTFD(2)), one per vector. These fd are transmitted to all
-> + * clients using the SCM_RIGHTS cmsg message. Therefore, each client is
-> + * able to send a notification to another client without being
-> + * "profixied" by the server.
-> + *
-> + * We use this mechanism to send interruptions between guests.
-> + * qemu is able to transform an event on a eventfd into a PCI MSI-x
-> + * interruption in the guest.
-> + *
-> + * The ivshmem server is also able to share the file descriptor
-> + * associated to the ivshmem shared memory.
-> + */
-> +
-> +#include <sys/select.h>
-> +
-> +#include "qemu/event_notifier.h"
-> +#include "qemu/queue.h"
-> +#include "hw/misc/ivshmem2.h"
-> +
-> +/**
-> + * Maximum number of notification vectors supported by the server
-> + */
-> +#define IVSHMEM_SERVER_MAX_VECTORS 64
-> +
-> +/**
-> + * Structure storing a peer
-> + *
-> + * Each time a client connects to an ivshmem server, a new
-> + * IvshmemServerPeer structure is created. This peer and all its
-> + * vectors are advertised to all connected clients through the connected
-> + * unix sockets.
-> + */
-> +typedef struct IvshmemServerPeer {
-> +    QTAILQ_ENTRY(IvshmemServerPeer) next;    /**< next in list*/
-> +    int sock_fd;                             /**< connected unix sock */
-> +    int64_t id;                              /**< the id of the peer */
-> +    EventNotifier vectors[IVSHMEM_SERVER_MAX_VECTORS]; /**< one per vector */
-> +    unsigned vectors_count;                  /**< number of vectors */
-> +} IvshmemServerPeer;
-> +
-> +/**
-> + * Structure describing ivshmem server arguments
-> + */
-> +typedef struct IvshmemServerArgs {
-> +    bool verbose;                   /**< true to enable verbose mode */
-> +    const char *unix_socket_path;   /**< pointer to unix socket file name */
-> +    const char *shm_path;           /**< Path to the shared memory; path
-> +                                         corresponds to a POSIX shm name or a
-> +                                         hugetlbfs mount point. */
-> +    bool use_shm_open;              /**< true to use shm_open, false for
-> +                                         file-backed shared memory */
-> +    uint64_t shm_size;              /**< total size of shared memory */
-> +    uint64_t output_section_size;   /**< size of each output section */
-> +    unsigned max_peers;             /**< maximum number of peers */
-> +    unsigned vectors;               /**< interrupt vectors per client */
-> +    unsigned protocol;              /**< protocol advertised to all clients */
-> +} IvshmemServerArgs;
-> +
-> +/**
-> + * Structure describing an ivshmem server
-> + *
-> + * This structure stores all information related to our server: the name
-> + * of the server unix socket and the list of connected peers.
-> + */
-> +typedef struct IvshmemServer {
-> +    IvshmemServerArgs args;          /**< server arguments */
-> +    int sock_fd;                     /**< unix sock file descriptor */
-> +    int shm_fd;                      /**< shm file descriptor */
-> +    uint32_t *state_table;           /**< mapped state table */
-> +    QTAILQ_HEAD(, IvshmemServerPeer) peer_list; /**< list of peers */
-> +} IvshmemServer;
-> +
-> +/**
-> + * Initialize an ivshmem server
-> + *
-> + * @server:         A pointer to an uninitialized IvshmemServer structure
-> + */
-> +void ivshmem_server_init(IvshmemServer *server);
-> +
-> +/**
-> + * Open the shm, then create and bind to the unix socket
-> + *
-> + * @server: The pointer to the initialized IvshmemServer structure
-> + *
-> + * Returns: 0 on success, or a negative value on error
-> + */
-> +int ivshmem_server_start(IvshmemServer *server);
-> +
-> +/**
-> + * Close the server
-> + *
-> + * Close connections to all clients, close the unix socket and the
-> + * shared memory file descriptor. The structure remains initialized, so
-> + * it is possible to call ivshmem_server_start() again after a call to
-> + * ivshmem_server_close().
-> + *
-> + * @server: The ivshmem server
-> + */
-> +void ivshmem_server_close(IvshmemServer *server);
-> +
-> +/**
-> + * Fill a fd_set with file descriptors to be monitored
-> + *
-> + * This function will fill a fd_set with all file descriptors that must
-> + * be polled (unix server socket and peers unix socket). The function
-> + * will not initialize the fd_set, it is up to the caller to do it.
-> + *
-> + * @server: The ivshmem server
-> + * @fds:    The fd_set to be updated
-> + * @maxfd:  Must be set to the max file descriptor + 1 in fd_set. This value is
-> + *          updated if this function adds a greater fd in fd_set.
-> + */
-> +void
-> +ivshmem_server_get_fds(const IvshmemServer *server, fd_set *fds, int *maxfd);
-> +
-> +/**
-> + * Read and handle new messages
-> + *
-> + * Given a fd_set (for instance filled by a call to select()), handle
-> + * incoming messages from peers.
-> + *
-> + * @server: The ivshmem server
-> + * @fds:    The fd_set containing the file descriptors to be checked. Note that
-> + *          file descriptors that are not related to our server are ignored.
-> + * @maxfd:  The maximum fd in fd_set, plus one.
-> + *
-> + * Returns: 0 on success, or a negative value on error
-> + */
-> +int ivshmem_server_handle_fds(IvshmemServer *server, fd_set *fds, int maxfd);
-> +
-> +/**
-> + * Search a peer from its identifier
-> + *
-> + * @server:  The ivshmem server
-> + * @peer_id: The identifier of the peer structure
-> + *
-> + * Returns:  The peer structure, or NULL if not found
-> + */
-> +IvshmemServerPeer *
-> +ivshmem_server_search_peer(IvshmemServer *server, int64_t peer_id);
-> +
-> +#endif /* IVSHMEM2_SERVER_H */
-> diff --git a/contrib/ivshmem2-server/main.c b/contrib/ivshmem2-server/main.c
-> new file mode 100644
-> index 0000000000..35cd6fca0f
-> --- /dev/null
-> +++ b/contrib/ivshmem2-server/main.c
-> @@ -0,0 +1,313 @@
-> +/*
-> + * Copyright 6WIND S.A., 2014
-> + * Copyright (c) Siemens AG, 2019
-> + *
-> + * This work is licensed under the terms of the GNU GPL, version 2 or
-> + * (at your option) any later version.  See the COPYING file in the
-> + * top-level directory.
-> + */
-> +
-> +#include "qemu/osdep.h"
-> +#include "qapi/error.h"
-> +#include "qemu/cutils.h"
-> +#include "qemu/option.h"
-> +#include "ivshmem2-server.h"
-> +
-> +#define IVSHMEM_SERVER_DEFAULT_FOREGROUND     0
-> +#define IVSHMEM_SERVER_DEFAULT_PID_FILE       "/var/run/ivshmem-server.pid"
-> +
-> +#define IVSHMEM_SERVER_DEFAULT_VERBOSE        0
-> +#define IVSHMEM_SERVER_DEFAULT_UNIX_SOCK_PATH "/tmp/ivshmem_socket"
-> +#define IVSHMEM_SERVER_DEFAULT_SHM_PATH       "ivshmem"
-> +#define IVSHMEM_SERVER_DEFAULT_SHM_SIZE       (4*1024*1024)
-> +#define IVSHMEM_SERVER_DEFAULT_OUTPUT_SEC_SZ  0
-> +#define IVSHMEM_SERVER_DEFAULT_MAX_PEERS      2
-> +#define IVSHMEM_SERVER_DEFAULT_VECTORS        1
-> +#define IVSHMEM_SERVER_DEFAULT_PROTOCOL       0
-> +
-> +/* used to quit on signal SIGTERM */
-> +static int ivshmem_server_quit;
-> +
-> +static bool foreground = IVSHMEM_SERVER_DEFAULT_FOREGROUND;
-> +static const char *pid_file = IVSHMEM_SERVER_DEFAULT_PID_FILE;
-> +
-> +static void
-> +ivshmem_server_usage(const char *progname)
-> +{
-> +    printf("Usage: %s [OPTION]...\n"
-> +           "  -h: show this help\n"
-> +           "  -v: verbose mode\n"
-> +           "  -F: foreground mode (default is to daemonize)\n"
-> +           "  -p <pid-file>: path to the PID file (used in daemon mode only)\n"
-> +           "     default " IVSHMEM_SERVER_DEFAULT_PID_FILE "\n"
-> +           "  -S <unix-socket-path>: path to the unix socket to listen to\n"
-> +           "     default " IVSHMEM_SERVER_DEFAULT_UNIX_SOCK_PATH "\n"
-> +           "  -M <shm-name>: POSIX shared memory object to use\n"
-> +           "     default " IVSHMEM_SERVER_DEFAULT_SHM_PATH "\n"
-> +           "  -m <dir-name>: where to create shared memory\n"
-> +           "  -l <size>: size of shared memory in bytes\n"
-> +           "     suffixes K, M and G can be used, e.g. 1K means 1024\n"
-> +           "     default %u\n"
-> +           "  -o <size>: size of each output section in bytes "
-> +                "(suffixes supported)\n"
-> +           "     default %u\n"
-> +           "  -n <peers>: maximum number of peers\n"
-> +           "     default %u\n"
-> +           "  -V <vectors>: number of vectors\n"
-> +           "     default %u\n"
-> +           "  -P <protocol>: 16-bit protocol to be advertised\n"
-> +           "     default 0x%04x\n"
-> +           "     When using virtio (0x8000...0xffff), only two peers are "
-> +           "supported, peer 0\n"
-> +           "     will become backend, peer 1 frontend\n",
-> +           progname, IVSHMEM_SERVER_DEFAULT_SHM_SIZE,
-> +           IVSHMEM_SERVER_DEFAULT_OUTPUT_SEC_SZ,
-> +           IVSHMEM_SERVER_DEFAULT_MAX_PEERS, IVSHMEM_SERVER_DEFAULT_VECTORS,
-> +           IVSHMEM_SERVER_DEFAULT_PROTOCOL);
-> +}
-> +
-> +static void
-> +ivshmem_server_help(const char *progname)
-> +{
-> +    fprintf(stderr, "Try '%s -h' for more information.\n", progname);
-> +}
-> +
-> +/* parse the program arguments, exit on error */
-> +static void
-> +ivshmem_server_parse_args(IvshmemServerArgs *args, int argc, char *argv[])
-> +{
-> +    int c;
-> +    unsigned long long v;
-> +    Error *err = NULL;
-> +
-> +    while ((c = getopt(argc, argv, "hvFp:S:m:M:l:o:n:V:P:")) != -1) {
-> +
-> +        switch (c) {
-> +        case 'h': /* help */
-> +            ivshmem_server_usage(argv[0]);
-> +            exit(0);
-> +            break;
-> +
-> +        case 'v': /* verbose */
-> +            args->verbose = 1;
-> +            break;
-> +
-> +        case 'F': /* foreground */
-> +            foreground = 1;
-> +            break;
-> +
-> +        case 'p': /* pid file */
-> +            pid_file = optarg;
-> +            break;
-> +
-> +        case 'S': /* unix socket path */
-> +            args->unix_socket_path = optarg;
-> +            break;
-> +
-> +        case 'M': /* shm name */
-> +        case 'm': /* dir name */
-> +            args->shm_path = optarg;
-> +            args->use_shm_open = c == 'M';
-> +            break;
-> +
-> +        case 'l': /* shm size */
-> +            parse_option_size("shm_size", optarg, &args->shm_size, &err);
-> +            if (err) {
-> +                error_report_err(err);
-> +                ivshmem_server_help(argv[0]);
-> +                exit(1);
-> +            }
-> +            break;
-> +
-> +        case 'o': /* output section size */
-> +            parse_option_size("output_section_size", optarg,
-> +                              &args->output_section_size, &err);
-> +            if (err) {
-> +                error_report_err(err);
-> +                ivshmem_server_help(argv[0]);
-> +                exit(1);
-> +            }
-> +            break;
-> +
-> +        case 'n': /* maximum number of peers */
-> +            if (parse_uint_full(optarg, &v, 0) < 0) {
-> +                fprintf(stderr, "cannot parse max-peers\n");
-> +                ivshmem_server_help(argv[0]);
-> +                exit(1);
-> +            }
-> +            args->max_peers = v;
-> +            break;
-> +
-> +        case 'V': /* number of vectors */
-> +            if (parse_uint_full(optarg, &v, 0) < 0) {
-> +                fprintf(stderr, "cannot parse vectors\n");
-> +                ivshmem_server_help(argv[0]);
-> +                exit(1);
-> +            }
-> +            args->vectors = v;
-> +            break;
-> +
-> +        case 'P': /* protocol */
-> +            if (parse_uint_full(optarg, &v, 0) < 0) {
-> +                fprintf(stderr, "cannot parse protocol\n");
-> +                ivshmem_server_help(argv[0]);
-> +                exit(1);
-> +            }
-> +            args->protocol = v;
-> +            break;
-> +
-> +        default:
-> +            ivshmem_server_usage(argv[0]);
-> +            exit(1);
-> +            break;
-> +        }
-> +    }
-> +
-> +    if (args->vectors > IVSHMEM_SERVER_MAX_VECTORS) {
-> +        fprintf(stderr, "too many requested vectors (max is %d)\n",
-> +                IVSHMEM_SERVER_MAX_VECTORS);
-> +        ivshmem_server_help(argv[0]);
-> +        exit(1);
-> +    }
-> +
-> +    if (args->protocol >= 0x8000 && args->max_peers > 2) {
-> +        fprintf(stderr, "virtio protocols only support 2 peers\n");
-> +        ivshmem_server_help(argv[0]);
-> +        exit(1);
-> +    }
-> +
-> +    if (args->verbose == 1 && foreground == 0) {
-> +        fprintf(stderr, "cannot use verbose in daemon mode\n");
-> +        ivshmem_server_help(argv[0]);
-> +        exit(1);
-> +    }
-> +}
-> +
-> +/* wait for events on listening server unix socket and connected client
-> + * sockets */
-> +static int
-> +ivshmem_server_poll_events(IvshmemServer *server)
-> +{
-> +    fd_set fds;
-> +    int ret = 0, maxfd;
-> +
-> +    while (!ivshmem_server_quit) {
-> +
-> +        FD_ZERO(&fds);
-> +        maxfd = 0;
-> +        ivshmem_server_get_fds(server, &fds, &maxfd);
-> +
-> +        ret = select(maxfd, &fds, NULL, NULL, NULL);
-> +
-> +        if (ret < 0) {
-> +            if (errno == EINTR) {
-> +                continue;
-> +            }
-> +
-> +            fprintf(stderr, "select error: %s\n", strerror(errno));
-> +            break;
-> +        }
-> +        if (ret == 0) {
-> +            continue;
-> +        }
-> +
-> +        if (ivshmem_server_handle_fds(server, &fds, maxfd) < 0) {
-> +            fprintf(stderr, "ivshmem_server_handle_fds() failed\n");
-> +            break;
-> +        }
-> +    }
-> +
-> +    return ret;
-> +}
-> +
-> +static void
-> +ivshmem_server_quit_cb(int signum)
-> +{
-> +    ivshmem_server_quit = 1;
-> +}
-> +
-> +int
-> +main(int argc, char *argv[])
-> +{
-> +    IvshmemServer server = {
-> +        .args = {
-> +            .verbose = IVSHMEM_SERVER_DEFAULT_VERBOSE,
-> +            .unix_socket_path = IVSHMEM_SERVER_DEFAULT_UNIX_SOCK_PATH,
-> +            .shm_path = IVSHMEM_SERVER_DEFAULT_SHM_PATH,
-> +            .use_shm_open = true,
-> +            .shm_size = IVSHMEM_SERVER_DEFAULT_SHM_SIZE,
-> +            .output_section_size = IVSHMEM_SERVER_DEFAULT_OUTPUT_SEC_SZ,
-> +            .max_peers = IVSHMEM_SERVER_DEFAULT_MAX_PEERS,
-> +            .vectors = IVSHMEM_SERVER_DEFAULT_VECTORS,
-> +            .protocol = IVSHMEM_SERVER_DEFAULT_PROTOCOL,
-> +        },
-> +    };
-> +    struct sigaction sa, sa_quit;
-> +    int ret = 1;
-> +
-> +    /*
-> +     * Do not remove this notice without adding proper error handling!
-> +     * Start with handling ivshmem_server_send_one_msg() failure.
-> +     */
-> +    printf("*** Example code, do not use in production ***\n");
-> +
-> +    /* parse arguments, will exit on error */
-> +    ivshmem_server_parse_args(&server.args, argc, argv);
-> +
-> +    /* Ignore SIGPIPE, see this link for more info:
-> +     * http://www.mail-archive.com/libevent-users@monkey.org/msg01606.html */
-> +    sa.sa_handler = SIG_IGN;
-> +    sa.sa_flags = 0;
-> +    if (sigemptyset(&sa.sa_mask) == -1 ||
-> +        sigaction(SIGPIPE, &sa, 0) == -1) {
-> +        perror("failed to ignore SIGPIPE; sigaction");
-> +        goto err;
-> +    }
-> +
-> +    sa_quit.sa_handler = ivshmem_server_quit_cb;
-> +    sa_quit.sa_flags = 0;
-> +    if (sigemptyset(&sa_quit.sa_mask) == -1 ||
-> +        sigaction(SIGTERM, &sa_quit, 0) == -1 ||
-> +        sigaction(SIGINT, &sa_quit, 0) == -1) {
-> +        perror("failed to add signal handler; sigaction");
-> +        goto err;
-> +    }
-> +
-> +    /* init the ivshms structure */
-> +    ivshmem_server_init(&server);
-> +
-> +    /* start the ivshmem server (open shm & unix socket) */
-> +    if (ivshmem_server_start(&server) < 0) {
-> +        fprintf(stderr, "cannot bind\n");
-> +        goto err;
-> +    }
-> +
-> +    /* daemonize if asked to */
-> +    if (!foreground) {
-> +        FILE *fp;
-> +
-> +        if (qemu_daemon(1, 1) < 0) {
-> +            fprintf(stderr, "cannot daemonize: %s\n", strerror(errno));
-> +            goto err_close;
-> +        }
-> +
-> +        /* write pid file */
-> +        fp = fopen(pid_file, "w");
-> +        if (fp == NULL) {
-> +            fprintf(stderr, "cannot write pid file: %s\n", strerror(errno));
-> +            goto err_close;
-> +        }
-> +
-> +        fprintf(fp, "%d\n", (int) getpid());
-> +        fclose(fp);
-> +    }
-> +
-> +    ivshmem_server_poll_events(&server);
-> +    fprintf(stdout, "server disconnected\n");
-> +    ret = 0;
-> +
-> +err_close:
-> +    ivshmem_server_close(&server);
-> +err:
-> +    return ret;
-> +}
-> 
+diff --git a/hypervisor/arch/arm64/Kbuild b/hypervisor/arch/arm64/Kbuild
+index c34b0f32..e87c6e53 100644
+--- a/hypervisor/arch/arm64/Kbuild
++++ b/hypervisor/arch/arm64/Kbuild
+@@ -22,3 +22,4 @@ always := lib.a
+ lib-y := $(common-objs-y)
+ lib-y += entry.o setup.o control.o mmio.o paging.o caches.o traps.o
+ lib-y += iommu.o smmu-v3.o ti-pvu.o
++lib-y += smmu.o
+diff --git a/hypervisor/arch/arm64/arm-smmu-regs.h b/hypervisor/arch/arm64/arm-smmu-regs.h
+new file mode 100644
+index 00000000..a1226e4a
+--- /dev/null
++++ b/hypervisor/arch/arm64/arm-smmu-regs.h
+@@ -0,0 +1,220 @@
++/*
++ * IOMMU API for ARM architected SMMU implementations.
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
++ *
++ * Copyright (C) 2013 ARM Limited
++ *
++ * Author: Will Deacon <will.deacon@arm.com>
++ */
++
++#ifndef _ARM_SMMU_REGS_H
++#define _ARM_SMMU_REGS_H
++
++/* Configuration registers */
++#define ARM_SMMU_GR0_sCR0		0x0
++#define sCR0_CLIENTPD			(1 << 0)
++#define sCR0_GFRE			(1 << 1)
++#define sCR0_GFIE			(1 << 2)
++#define sCR0_EXIDENABLE			(1 << 3)
++#define sCR0_GCFGFRE			(1 << 4)
++#define sCR0_GCFGFIE			(1 << 5)
++#define sCR0_USFCFG			(1 << 10)
++#define sCR0_VMIDPNE			(1 << 11)
++#define sCR0_PTM			(1 << 12)
++#define sCR0_FB				(1 << 13)
++#define sCR0_VMID16EN			(1 << 31)
++#define sCR0_BSU_SHIFT			14
++#define sCR0_BSU_MASK			0x3
++
++/* Auxiliary Configuration register */
++#define ARM_SMMU_GR0_sACR		0x10
++
++/* Identification registers */
++#define ARM_SMMU_GR0_ID0		0x20
++#define ARM_SMMU_GR0_ID1		0x24
++#define ARM_SMMU_GR0_ID2		0x28
++#define ARM_SMMU_GR0_ID3		0x2c
++#define ARM_SMMU_GR0_ID4		0x30
++#define ARM_SMMU_GR0_ID5		0x34
++#define ARM_SMMU_GR0_ID6		0x38
++#define ARM_SMMU_GR0_ID7		0x3c
++#define ARM_SMMU_GR0_sGFSR		0x48
++#define ARM_SMMU_GR0_sGFSYNR0		0x50
++#define ARM_SMMU_GR0_sGFSYNR1		0x54
++#define ARM_SMMU_GR0_sGFSYNR2		0x58
++
++#define ID0_S1TS			(1 << 30)
++#define ID0_S2TS			(1 << 29)
++#define ID0_NTS				(1 << 28)
++#define ID0_SMS				(1 << 27)
++#define ID0_ATOSNS			(1 << 26)
++#define ID0_PTFS_NO_AARCH32		(1 << 25)
++#define ID0_PTFS_NO_AARCH32S		(1 << 24)
++#define ID0_CTTW			(1 << 14)
++#define ID0_NUMIRPT_SHIFT		16
++#define ID0_NUMIRPT_MASK		0xff
++#define ID0_NUMSIDB_SHIFT		9
++#define ID0_NUMSIDB_MASK		0xf
++#define ID0_EXIDS			(1 << 8)
++#define ID0_NUMSMRG_SHIFT		0
++#define ID0_NUMSMRG_MASK		0xff
++
++#define ID1_PAGESIZE			(1 << 31)
++#define ID1_NUMPAGENDXB_SHIFT		28
++#define ID1_NUMPAGENDXB_MASK		7
++#define ID1_NUMS2CB_SHIFT		16
++#define ID1_NUMS2CB_MASK		0xff
++#define ID1_NUMCB_SHIFT			0
++#define ID1_NUMCB_MASK			0xff
++
++#define ID2_OAS_SHIFT			4
++#define ID2_OAS_MASK			0xf
++#define ID2_IAS_SHIFT			0
++#define ID2_IAS_MASK			0xf
++#define ID2_UBS_SHIFT			8
++#define ID2_UBS_MASK			0xf
++#define ID2_PTFS_4K			(1 << 12)
++#define ID2_PTFS_16K			(1 << 13)
++#define ID2_PTFS_64K			(1 << 14)
++#define ID2_VMID16			(1 << 15)
++
++#define ID7_MAJOR_SHIFT			4
++#define ID7_MAJOR_MASK			0xf
++
++/* Global TLB invalidation */
++#define ARM_SMMU_GR0_TLBIVMID		0x64
++#define ARM_SMMU_GR0_TLBIALLNSNH	0x68
++#define ARM_SMMU_GR0_TLBIALLH		0x6c
++#define ARM_SMMU_GR0_sTLBGSYNC		0x70
++#define ARM_SMMU_GR0_sTLBGSTATUS	0x74
++#define sTLBGSTATUS_GSACTIVE		(1 << 0)
++
++/* Stream mapping registers */
++#define ARM_SMMU_GR0_SMR(n)		(0x800 + ((n) << 2))
++#define SMR_VALID			(1 << 31)
++#define SMR_MASK_SHIFT			16
++#define SMR_ID_SHIFT			0
++
++#define ARM_SMMU_GR0_S2CR(n)		(0xc00 + ((n) << 2))
++#define S2CR_CBNDX_SHIFT		0
++#define S2CR_CBNDX_MASK			0xff
++#define S2CR_EXIDVALID			(1 << 10)
++#define S2CR_TYPE_SHIFT			16
++#define S2CR_TYPE_MASK			0x3
++enum arm_smmu_s2cr_type {
++	S2CR_TYPE_TRANS,
++	S2CR_TYPE_BYPASS,
++	S2CR_TYPE_FAULT,
++};
++
++#define S2CR_PRIVCFG_SHIFT		24
++#define S2CR_PRIVCFG_MASK		0x3
++enum arm_smmu_s2cr_privcfg {
++	S2CR_PRIVCFG_DEFAULT,
++	S2CR_PRIVCFG_DIPAN,
++	S2CR_PRIVCFG_UNPRIV,
++	S2CR_PRIVCFG_PRIV,
++};
++
++/* Context bank attribute registers */
++#define ARM_SMMU_GR1_CBAR(n)		(0x0 + ((n) << 2))
++#define CBAR_VMID_SHIFT			0
++#define CBAR_VMID_MASK			0xff
++#define CBAR_S1_BPSHCFG_SHIFT		8
++#define CBAR_S1_BPSHCFG_MASK		3
++#define CBAR_S1_BPSHCFG_NSH		3
++#define CBAR_S1_MEMATTR_SHIFT		12
++#define CBAR_S1_MEMATTR_MASK		0xf
++#define CBAR_S1_MEMATTR_WB		0xf
++#define CBAR_TYPE_SHIFT			16
++#define CBAR_TYPE_MASK			0x3
++#define CBAR_TYPE_S2_TRANS		(0 << CBAR_TYPE_SHIFT)
++#define CBAR_TYPE_S1_TRANS_S2_BYPASS	(1 << CBAR_TYPE_SHIFT)
++#define CBAR_TYPE_S1_TRANS_S2_FAULT	(2 << CBAR_TYPE_SHIFT)
++#define CBAR_TYPE_S1_TRANS_S2_TRANS	(3 << CBAR_TYPE_SHIFT)
++#define CBAR_IRPTNDX_SHIFT		24
++#define CBAR_IRPTNDX_MASK		0xff
++
++#define ARM_SMMU_GR1_CBA2R(n)		(0x800 + ((n) << 2))
++#define CBA2R_RW64_32BIT		(0 << 0)
++#define CBA2R_RW64_64BIT		(1 << 0)
++#define CBA2R_VMID_SHIFT		16
++#define CBA2R_VMID_MASK			0xffff
++
++#define ARM_SMMU_CB_SCTLR		0x0
++#define ARM_SMMU_CB_ACTLR		0x4
++#define ARM_SMMU_CB_RESUME		0x8
++#define ARM_SMMU_CB_TTBCR2		0x10
++#define ARM_SMMU_CB_TTBR0		0x20
++#define ARM_SMMU_CB_TTBR1		0x28
++#define ARM_SMMU_CB_TTBCR		0x30
++#define ARM_SMMU_CB_CONTEXTIDR		0x34
++#define ARM_SMMU_CB_S1_MAIR0		0x38
++#define ARM_SMMU_CB_S1_MAIR1		0x3c
++#define ARM_SMMU_CB_PAR			0x50
++#define ARM_SMMU_CB_FSR			0x58
++#define ARM_SMMU_CB_FAR			0x60
++#define ARM_SMMU_CB_FSYNR0		0x68
++#define ARM_SMMU_CB_S1_TLBIVA		0x600
++#define ARM_SMMU_CB_S1_TLBIASID		0x610
++#define ARM_SMMU_CB_S1_TLBIVAL		0x620
++#define ARM_SMMU_CB_S2_TLBIIPAS2	0x630
++#define ARM_SMMU_CB_S2_TLBIIPAS2L	0x638
++#define ARM_SMMU_CB_TLBSYNC		0x7f0
++#define ARM_SMMU_CB_TLBSTATUS		0x7f4
++#define ARM_SMMU_CB_ATS1PR		0x800
++#define ARM_SMMU_CB_ATSR		0x8f0
++
++#define SCTLR_S1_ASIDPNE		(1 << 12)
++#define SCTLR_CFCFG			(1 << 7)
++#define SCTLR_CFIE			(1 << 6)
++#define SCTLR_CFRE			(1 << 5)
++#define SCTLR_E				(1 << 4)
++#define SCTLR_AFE			(1 << 2)
++#define SCTLR_TRE			(1 << 1)
++#define SCTLR_M				(1 << 0)
++
++#define CB_PAR_F			(1 << 0)
++
++#define ATSR_ACTIVE			(1 << 0)
++
++#define RESUME_RETRY			(0 << 0)
++#define RESUME_TERMINATE		(1 << 0)
++
++#define TTBCR2_SEP_SHIFT		15
++#define TTBCR2_SEP_UPSTREAM		(0x7 << TTBCR2_SEP_SHIFT)
++#define TTBCR2_AS			(1 << 4)
++
++#define TTBRn_ASID_SHIFT		48
++
++#define FSR_MULTI			(1 << 31)
++#define FSR_SS				(1 << 30)
++#define FSR_UUT				(1 << 8)
++#define FSR_ASF				(1 << 7)
++#define FSR_TLBLKF			(1 << 6)
++#define FSR_TLBMCF			(1 << 5)
++#define FSR_EF				(1 << 4)
++#define FSR_PF				(1 << 3)
++#define FSR_AFF				(1 << 2)
++#define FSR_TF				(1 << 1)
++
++#define FSR_IGN				(FSR_AFF | FSR_ASF | \
++					 FSR_TLBMCF | FSR_TLBLKF)
++#define FSR_FAULT			(FSR_MULTI | FSR_SS | FSR_UUT | \
++					 FSR_EF | FSR_PF | FSR_TF | FSR_IGN)
++
++#define FSYNR0_WNR			(1 << 4)
++
++#endif /* _ARM_SMMU_REGS_H */
+diff --git a/hypervisor/arch/arm64/smmu.c b/hypervisor/arch/arm64/smmu.c
+new file mode 100644
+index 00000000..ea1b4c1e
+--- /dev/null
++++ b/hypervisor/arch/arm64/smmu.c
+@@ -0,0 +1,926 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright 2018-2020 NXP
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ *
++ * Modified from Linux smmu.c
++ */
++
++#include <jailhouse/control.h>
++#include <jailhouse/ivshmem.h>
++#include <jailhouse/mmio.h>
++#include <jailhouse/paging.h>
++#include <jailhouse/pci.h>
++#include <jailhouse/printk.h>
++#include <jailhouse/sizes.h>
++#include <jailhouse/string.h>
++#include <jailhouse/unit.h>
++#include <asm/spinlock.h>
++#include <jailhouse/cell-config.h>
++
++#include "arm-smmu-regs.h"
++
++#define ARM_32_LPAE_TCR_EAE		(1 << 31)
++#define ARM_64_LPAE_S2_TCR_RES1		(1 << 31)
++
++#define ARM_LPAE_TCR_EPD1		(1 << 23)
++
++#define ARM_LPAE_TCR_TG0_4K		(0 << 14)
++#define ARM_LPAE_TCR_TG0_64K		(1 << 14)
++#define ARM_LPAE_TCR_TG0_16K		(2 << 14)
++
++#define ARM_LPAE_TCR_SH0_SHIFT		12
++#define ARM_LPAE_TCR_SH0_MASK		0x3
++#define ARM_LPAE_TCR_SH_NS		0
++#define ARM_LPAE_TCR_SH_OS		2
++#define ARM_LPAE_TCR_SH_IS		3
++
++#define ARM_LPAE_TCR_ORGN0_SHIFT	10
++#define ARM_LPAE_TCR_IRGN0_SHIFT	8
++#define ARM_LPAE_TCR_RGN_MASK		0x3
++#define ARM_LPAE_TCR_RGN_NC		0
++#define ARM_LPAE_TCR_RGN_WBWA		1
++#define ARM_LPAE_TCR_RGN_WT		2
++#define ARM_LPAE_TCR_RGN_WB		3
++
++#define ARM_LPAE_TCR_SL0_SHIFT		6
++#define ARM_LPAE_TCR_SL0_MASK		0x3
++#define ARM_LPAE_TCR_SL0_LVL_2		0
++#define ARM_LPAE_TCR_SL0_LVL_1		1
++
++#define ARM_LPAE_TCR_T0SZ_SHIFT		0
++#define ARM_LPAE_TCR_SZ_MASK		0xf
++
++#define ARM_LPAE_TCR_PS_SHIFT		16
++#define ARM_LPAE_TCR_PS_MASK		0x7
++
++#define ARM_LPAE_TCR_IPS_SHIFT		32
++#define ARM_LPAE_TCR_IPS_MASK		0x7
++
++#define ARM_LPAE_TCR_PS_32_BIT		0x0ULL
++#define ARM_LPAE_TCR_PS_36_BIT		0x1ULL
++#define ARM_LPAE_TCR_PS_40_BIT		0x2ULL
++#define ARM_LPAE_TCR_PS_42_BIT		0x3ULL
++#define ARM_LPAE_TCR_PS_44_BIT		0x4ULL
++#define ARM_LPAE_TCR_PS_48_BIT		0x5ULL
++#define ARM_LPAE_TCR_PS_52_BIT		0x6ULL
++#define ARM_MMU500_ACTLR_CPRE		(1 << 1)
++
++#define ARM_MMU500_ACR_CACHE_LOCK	(1 << 26)
++#define ARM_MMU500_ACR_S2CRB_TLBEN	(1 << 10)
++#define ARM_MMU500_ACR_SMTNMB_TLBEN	(1 << 8)
++
++#define TLB_LOOP_TIMEOUT		1000000	/* 1s! */
++#define TLB_SPIN_COUNT			10
++
++/* Maximum number of context banks per SMMU */
++#define ARM_SMMU_MAX_CBS		128
++
++/* SMMU global address space */
++#define ARM_SMMU_GR0(smmu)		((smmu)->base)
++#define ARM_SMMU_GR1(smmu)		((smmu)->base + (1 << (smmu)->pgshift))
++
++/*
++ * SMMU global address space with conditional offset to access secure
++ * aliases of non-secure registers (e.g. nsCR0: 0x400, nsGFSR: 0x448,
++ * nsGFSYNR0: 0x450)
++ */
++#define ARM_SMMU_GR0_NS(smmu)						\
++	((smmu)->base +							\
++		((smmu->options & ARM_SMMU_OPT_SECURE_CFG_ACCESS)	\
++			? 0x400 : 0))
++
++/* Translation context bank */
++#define ARM_SMMU_CB(smmu, n)	((smmu)->cb_base + ((n) << (smmu)->pgshift))
++
++#define MSI_IOVA_BASE			0x8000000
++#define MSI_IOVA_LENGTH			0x100000
++
++struct arm_smmu_s2cr {
++	enum arm_smmu_s2cr_type		type;
++	enum arm_smmu_s2cr_privcfg	privcfg;
++	u8				cbndx;
++};
++
++struct arm_smmu_smr {
++	u16				mask;
++	u16				id;
++	bool				valid;
++};
++
++struct arm_smmu_cb {
++	u64				ttbr[2];
++	u32				tcr[2];
++	u32				mair[2];
++	struct arm_smmu_cfg		*cfg;
++};
++
++struct arm_smmu_device {
++	void	*base;
++	void	*cb_base;
++	u32	num_masters;
++	unsigned long			pgshift;
++
++#define ARM_SMMU_FEAT_COHERENT_WALK	(1 << 0)
++#define ARM_SMMU_FEAT_STREAM_MATCH	(1 << 1)
++#define ARM_SMMU_FEAT_TRANS_S1		(1 << 2)
++#define ARM_SMMU_FEAT_TRANS_S2		(1 << 3)
++#define ARM_SMMU_FEAT_TRANS_NESTED	(1 << 4)
++#define ARM_SMMU_FEAT_TRANS_OPS		(1 << 5)
++#define ARM_SMMU_FEAT_VMID16		(1 << 6)
++#define ARM_SMMU_FEAT_FMT_AARCH64_4K	(1 << 7)
++#define ARM_SMMU_FEAT_FMT_AARCH64_16K	(1 << 8)
++#define ARM_SMMU_FEAT_FMT_AARCH64_64K	(1 << 9)
++#define ARM_SMMU_FEAT_FMT_AARCH32_L	(1 << 10)
++#define ARM_SMMU_FEAT_FMT_AARCH32_S	(1 << 11)
++#define ARM_SMMU_FEAT_EXIDS		(1 << 12)
++	u32				features;
++
++#define ARM_SMMU_OPT_SECURE_CFG_ACCESS (1 << 0)
++	u32				options;
++	enum arm_smmu_arch_version	version;
++	enum arm_smmu_implementation	model;
++
++	u32				num_context_banks;
++	u32				num_s2_context_banks;
++	struct arm_smmu_cb		*cbs;
++
++	u32				num_mapping_groups;
++	u16				streamid_mask;
++	u16				smr_mask_mask;
++	struct arm_smmu_smr		*smrs;
++	struct arm_smmu_s2cr		*s2crs;
++	struct arm_smmu_cfg		*cfgs;
++
++	unsigned long			va_size;
++	unsigned long			ipa_size;
++	unsigned long			pa_size;
++	unsigned long			pgsize_bitmap;
++
++	u32				num_global_irqs;
++	u32				num_context_irqs;
++	unsigned int			*irqs;
++
++	spinlock_t			global_sync_lock;
++};
++
++enum arm_smmu_context_fmt {
++	ARM_SMMU_CTX_FMT_NONE,
++	ARM_SMMU_CTX_FMT_AARCH64,
++	ARM_SMMU_CTX_FMT_AARCH32_L,
++	ARM_SMMU_CTX_FMT_AARCH32_S,
++};
++
++struct arm_smmu_cfg {
++	u8				cbndx;
++	u8				irptndx;
++	union {
++		u16			asid;
++		u16			vmid;
++	};
++	u32				cbar;
++	enum arm_smmu_context_fmt	fmt;
++};
++#define INVALID_IRPTNDX			0xff
++
++enum arm_smmu_domain_stage {
++	ARM_SMMU_DOMAIN_S1 = 0,
++	ARM_SMMU_DOMAIN_S2,
++	ARM_SMMU_DOMAIN_NESTED,
++	ARM_SMMU_DOMAIN_BYPASS,
++};
++
++#define s2cr_init_val (struct arm_smmu_s2cr){	\
++	.type = S2CR_TYPE_BYPASS,		\
++}
++
++
++static struct arm_smmu_device smmu_device;
++static unsigned long pgsize_bitmap = -1;
++static u16 arm_sid_mask;
++
++static void arm_smmu_write_smr(struct arm_smmu_device *smmu, int idx)
++{
++	struct arm_smmu_smr *smr = smmu->smrs + idx;
++	u32 reg = smr->id << SMR_ID_SHIFT | smr->mask << SMR_MASK_SHIFT;
++
++	if (!(smmu->features & ARM_SMMU_FEAT_EXIDS) && smr->valid)
++		reg |= SMR_VALID;
++	mmio_write32(ARM_SMMU_GR0(smmu) + ARM_SMMU_GR0_SMR(idx), reg);
++}
++
++static void arm_smmu_write_s2cr(struct arm_smmu_device *smmu, int idx)
++{
++	struct arm_smmu_s2cr *s2cr = smmu->s2crs + idx;
++	u32 reg = (s2cr->type & S2CR_TYPE_MASK) << S2CR_TYPE_SHIFT |
++		  (s2cr->cbndx & S2CR_CBNDX_MASK) << S2CR_CBNDX_SHIFT |
++		  (s2cr->privcfg & S2CR_PRIVCFG_MASK) << S2CR_PRIVCFG_SHIFT;
++
++	if (smmu->features & ARM_SMMU_FEAT_EXIDS && smmu->smrs &&
++	    smmu->smrs[idx].valid)
++		reg |= S2CR_EXIDVALID;
++	mmio_write32(ARM_SMMU_GR0(smmu) + ARM_SMMU_GR0_S2CR(idx), reg);
++}
++
++static void arm_smmu_write_sme(struct arm_smmu_device *smmu, int idx)
++{
++	if (smmu->smrs)
++		arm_smmu_write_smr(smmu, idx);
++
++	arm_smmu_write_s2cr(smmu, idx);
++}
++
++/* Wait for any pending TLB invalidations to complete */
++static void __arm_smmu_tlb_sync(struct arm_smmu_device *smmu,
++				void *sync, void *status)
++{
++	unsigned int spin_cnt, delay;
++
++	mmio_write32(sync, 0);
++	for (delay = 1; delay < TLB_LOOP_TIMEOUT; delay *= 2) {
++		for (spin_cnt = TLB_SPIN_COUNT; spin_cnt > 0; spin_cnt--) {
++			if (!(mmio_read32(status) & sTLBGSTATUS_GSACTIVE))
++				return;
++			cpu_relax();
++		}
++	}
++	printk("TLB sync timed out -- SMMU may be deadlocked\n");
++}
++
++static void arm_smmu_tlb_sync_global(struct arm_smmu_device *smmu)
++{
++	void *base = ARM_SMMU_GR0(smmu);
++
++	spin_lock(&smmu->global_sync_lock);
++	__arm_smmu_tlb_sync(smmu, base + ARM_SMMU_GR0_sTLBGSYNC,
++			    base + ARM_SMMU_GR0_sTLBGSTATUS);
++	spin_unlock(&smmu->global_sync_lock);
++}
++
++#define ARM_SMMU_CB_VMID(cfg)		((cfg)->cbndx + 1)
++static void arm_smmu_init_context_bank(struct arm_smmu_device *smmu,
++				       struct arm_smmu_cfg *cfg,
++				       struct cell *cell)
++{
++	struct arm_smmu_cb *cb = &smmu->cbs[cfg->cbndx];
++	struct paging_structures *pg_structs;
++	unsigned long cell_table;
++	u32 reg;
++
++	cb->cfg = cfg;
++
++	/* VTCR */
++	reg = ARM_64_LPAE_S2_TCR_RES1 |
++	     (ARM_LPAE_TCR_SH_IS << ARM_LPAE_TCR_SH0_SHIFT) |
++	     (ARM_LPAE_TCR_RGN_WBWA << ARM_LPAE_TCR_IRGN0_SHIFT) |
++	     (ARM_LPAE_TCR_RGN_WBWA << ARM_LPAE_TCR_ORGN0_SHIFT);
++
++	reg |= (ARM_LPAE_TCR_SL0_LVL_1 << ARM_LPAE_TCR_SL0_SHIFT);
++
++	switch (PAGE_SIZE) {
++	case SZ_4K:
++		reg |= ARM_LPAE_TCR_TG0_4K;
++		break;
++	case SZ_64K:
++		reg |= ARM_LPAE_TCR_TG0_64K;
++		break;
++	}
++
++	switch (smmu->pa_size) {
++	case 32:
++		reg |= (ARM_LPAE_TCR_PS_32_BIT << ARM_LPAE_TCR_PS_SHIFT);
++		break;
++	case 36:
++		reg |= (ARM_LPAE_TCR_PS_36_BIT << ARM_LPAE_TCR_PS_SHIFT);
++		break;
++	case 40:
++		reg |= (ARM_LPAE_TCR_PS_40_BIT << ARM_LPAE_TCR_PS_SHIFT);
++		break;
++	case 42:
++		reg |= (ARM_LPAE_TCR_PS_42_BIT << ARM_LPAE_TCR_PS_SHIFT);
++		break;
++	case 44:
++		reg |= (ARM_LPAE_TCR_PS_44_BIT << ARM_LPAE_TCR_PS_SHIFT);
++		break;
++	case 48:
++		reg |= (ARM_LPAE_TCR_PS_48_BIT << ARM_LPAE_TCR_PS_SHIFT);
++		break;
++	case 52:
++		reg |= (ARM_LPAE_TCR_PS_52_BIT << ARM_LPAE_TCR_PS_SHIFT);
++		break;
++	default:
++		printk("Not supported\n");
++		break;
++		/* TODO */
++		//goto out_free_data;
++	}
++
++	reg |= (64ULL - smmu->ipa_size) << ARM_LPAE_TCR_T0SZ_SHIFT;
++
++	cb->tcr[0] = reg;
++
++	pg_structs = &cell->arch.mm;
++	cell_table = paging_hvirt2phys(pg_structs->root_table);
++	u64 vttbr = 0;
++
++	vttbr |= (u64)cell->config->id << VTTBR_VMID_SHIFT;
++	vttbr |= (u64)(cell_table & TTBR_MASK);
++	cb->ttbr[0] = vttbr;
++}
++
++static void arm_smmu_write_context_bank(struct arm_smmu_device *smmu, int idx)
++{
++	u32 reg;
++	struct arm_smmu_cb *cb = &smmu->cbs[idx];
++	struct arm_smmu_cfg *cfg = cb->cfg;
++	void *cb_base, *gr1_base;
++
++	cb_base = ARM_SMMU_CB(smmu, idx);
++
++	/* Unassigned context banks only need disabling */
++	if (!cfg) {
++		mmio_write32(cb_base + ARM_SMMU_CB_SCTLR, 0);
++		return;
++	}
++
++	gr1_base = ARM_SMMU_GR1(smmu);
++
++	/* CBA2R */
++	if (smmu->version > ARM_SMMU_V1) {
++		if (cfg->fmt == ARM_SMMU_CTX_FMT_AARCH64)
++			reg = CBA2R_RW64_64BIT;
++		else
++			reg = CBA2R_RW64_32BIT;
++		/* 16-bit VMIDs live in CBA2R */
++		if (smmu->features & ARM_SMMU_FEAT_VMID16)
++			reg |= cfg->vmid << CBA2R_VMID_SHIFT;
++
++		mmio_write32(gr1_base + ARM_SMMU_GR1_CBA2R(idx), reg);
++	}
++
++	/* CBAR */
++	reg = cfg->cbar;
++	if (smmu->version < ARM_SMMU_V2)
++		reg |= cfg->irptndx << CBAR_IRPTNDX_SHIFT;
++
++	/*
++	 * Use the weakest shareability/memory types, so they are
++	 * overridden by the ttbcr/pte.
++	 */
++	if (!(smmu->features & ARM_SMMU_FEAT_VMID16)) {
++		/* 8-bit VMIDs live in CBAR */
++		reg |= cfg->vmid << CBAR_VMID_SHIFT;
++	}
++	mmio_write32(gr1_base + ARM_SMMU_GR1_CBAR(idx), reg);
++
++	/*
++	 * TTBCR
++	 * We must write this before the TTBRs, since it determines the
++	 * access behaviour of some fields (in particular, ASID[15:8]).
++	 */
++	mmio_write32(cb_base + ARM_SMMU_CB_TTBCR, cb->tcr[0]);
++
++	/* TTBRs */
++	if (cfg->fmt == ARM_SMMU_CTX_FMT_AARCH32_S) {
++		mmio_write32(cb_base + ARM_SMMU_CB_CONTEXTIDR, cfg->asid);
++		mmio_write32(cb_base + ARM_SMMU_CB_TTBR0, cb->ttbr[0]);
++		mmio_write32(cb_base + ARM_SMMU_CB_TTBR1, cb->ttbr[1]);
++	} else {
++		mmio_write64(cb_base + ARM_SMMU_CB_TTBR0, cb->ttbr[0]);
++	}
++
++	/* SCTLR */
++	reg = SCTLR_CFCFG | SCTLR_CFIE | SCTLR_CFRE | SCTLR_AFE | SCTLR_TRE |
++		SCTLR_M;
++
++	mmio_write32(cb_base + ARM_SMMU_CB_SCTLR, reg);
++}
++
++static void arm_smmu_device_reset(struct arm_smmu_device *smmu)
++{
++	void *gr0_base = ARM_SMMU_GR0(smmu);
++	int i;
++	u32 reg, major;
++
++	/* clear global FSR */
++	reg = mmio_read32(ARM_SMMU_GR0_NS(smmu) + ARM_SMMU_GR0_sGFSR);
++	mmio_write32(ARM_SMMU_GR0_NS(smmu) + ARM_SMMU_GR0_sGFSR, reg);
++
++	/*
++	 * Reset stream mapping groups: Initial values mark all SMRn as
++	 * invalid and all S2CRn as bypass unless overridden.
++	 */
++	for (i = 0; i < smmu->num_mapping_groups; ++i)
++		arm_smmu_write_sme(smmu, i);
++
++	if (smmu->model == ARM_MMU500) {
++		/*
++		 * Before clearing ARM_MMU500_ACTLR_CPRE, need to
++		 * clear CACHE_LOCK bit of ACR first. And, CACHE_LOCK
++		 * bit is only present in MMU-500r2 onwards.
++		 */
++		reg = mmio_read32(gr0_base + ARM_SMMU_GR0_ID7);
++		major = (reg >> ID7_MAJOR_SHIFT) & ID7_MAJOR_MASK;
++		reg = mmio_read32(gr0_base + ARM_SMMU_GR0_sACR);
++		if (major >= 2)
++			reg &= ~ARM_MMU500_ACR_CACHE_LOCK;
++		/*
++		 * Allow unmatched Stream IDs to allocate bypass
++		 * TLB entries for reduced latency.
++		 */
++		reg |= ARM_MMU500_ACR_SMTNMB_TLBEN | ARM_MMU500_ACR_S2CRB_TLBEN;
++		mmio_write32(gr0_base + ARM_SMMU_GR0_sACR, reg);
++	}
++
++	/* Make sure all context banks are disabled and clear CB_FSR  */
++	for (i = 0; i < smmu->num_context_banks; ++i) {
++		void *cb_base = ARM_SMMU_CB(smmu, i);
++
++		arm_smmu_write_context_bank(smmu, i);
++		mmio_write32(cb_base + ARM_SMMU_CB_FSR, FSR_FAULT);
++		/*
++		 * Disable MMU-500's not-particularly-beneficial next-page
++		 * prefetcher for the sake of errata #841119 and #826419.
++		 */
++		if (smmu->model == ARM_MMU500) {
++			reg = mmio_read32(cb_base + ARM_SMMU_CB_ACTLR);
++			reg &= ~ARM_MMU500_ACTLR_CPRE;
++			mmio_write32(cb_base + ARM_SMMU_CB_ACTLR, reg);
++		}
++	}
++
++	/* Invalidate the TLB, just in case */
++	mmio_write32(gr0_base + ARM_SMMU_GR0_TLBIALLH, 0);
++	mmio_write32(gr0_base + ARM_SMMU_GR0_TLBIALLNSNH, 0);
++
++	reg = mmio_read32(ARM_SMMU_GR0_NS(smmu) + ARM_SMMU_GR0_sCR0);
++
++	/* Enable fault reporting */
++	reg |= (sCR0_GFRE | sCR0_GFIE | sCR0_GCFGFRE | sCR0_GCFGFIE);
++
++	/* Disable TLB broadcasting. */
++	reg |= (sCR0_VMIDPNE | sCR0_PTM);
++
++	/* Enable client access, handling unmatched streams as appropriate */
++	reg &= ~sCR0_CLIENTPD;
++	reg &= ~sCR0_USFCFG;
++
++	/* Disable forced broadcasting */
++	reg &= ~sCR0_FB;
++
++	/* Don't upgrade barriers */
++	reg &= ~(sCR0_BSU_MASK << sCR0_BSU_SHIFT);
++
++	if (smmu->features & ARM_SMMU_FEAT_VMID16)
++		reg |= sCR0_VMID16EN;
++
++	if (smmu->features & ARM_SMMU_FEAT_EXIDS)
++		reg |= sCR0_EXIDENABLE;
++
++	/* Push the button */
++	arm_smmu_tlb_sync_global(smmu);
++	mmio_write32(ARM_SMMU_GR0_NS(smmu) + ARM_SMMU_GR0_sCR0, reg);
++}
++
++static int arm_smmu_id_size_to_bits(int size)
++{
++	switch (size) {
++	case 0:
++		return 32;
++	case 1:
++		return 36;
++	case 2:
++		return 40;
++	case 3:
++		return 42;
++	case 4:
++		return 44;
++	case 5:
++	default:
++		return 48;
++	}
++}
++
++static int arm_smmu_device_cfg_probe(struct arm_smmu_device *smmu)
++{
++	unsigned long size;
++	void *gr0_base = ARM_SMMU_GR0(smmu);
++	u32 id;
++	bool cttw_reg, cttw_fw = smmu->features & ARM_SMMU_FEAT_COHERENT_WALK;
++	int i;
++
++	printk("probing hardware configuration...\n");
++	printk("SMMUv%d with:\n", smmu->version == ARM_SMMU_V2 ? 2 : 1);
++
++	/* ID0 */
++	id = mmio_read32(gr0_base + ARM_SMMU_GR0_ID0);
++
++	/* Restrict stage 2 */
++	id &= ~(ID0_S1TS | ID0_NTS);
++
++	if (id & ID0_S2TS) {
++		smmu->features |= ARM_SMMU_FEAT_TRANS_S2;
++		printk("\tstage 2 translation\n");
++	}
++
++	if (!(smmu->features &
++		(ARM_SMMU_FEAT_TRANS_S1 | ARM_SMMU_FEAT_TRANS_S2))) {
++		printk("\tno translation support!\n");
++		return -ENODEV;
++	}
++
++	/*
++	 * In order for DMA API calls to work properly, we must defer to what
++	 * the FW says about coherency, regardless of what the hardware claims.
++	 * Fortunately, this also opens up a workaround for systems where the
++	 * ID register value has ended up configured incorrectly.
++	 */
++	cttw_reg = !!(id & ID0_CTTW);
++	if (cttw_fw || cttw_reg)
++		printk("\t%scoherent table walk\n", cttw_fw ? "" : "non-");
++	if (cttw_fw != cttw_reg)
++		printk("\t(IDR0.CTTW overridden by FW configuration)\n");
++
++	/* Max. number of entries we have for stream matching/indexing */
++	if (smmu->version == ARM_SMMU_V2 && id & ID0_EXIDS) {
++		smmu->features |= ARM_SMMU_FEAT_EXIDS;
++		size = 1 << 16;
++	} else {
++		size = 1 << ((id >> ID0_NUMSIDB_SHIFT) & ID0_NUMSIDB_MASK);
++	}
++	smmu->streamid_mask = size - 1;
++
++	if (id & ID0_SMS) {
++		smmu->features |= ARM_SMMU_FEAT_STREAM_MATCH;
++		size = (id >> ID0_NUMSMRG_SHIFT) & ID0_NUMSMRG_MASK;
++		if (size == 0) {
++			printk("stream-matching supported, but no SMRs present!\n");
++			return -ENODEV;
++		}
++
++		/* Zero-initialised to mark as invalid */
++		smmu->smrs = page_alloc(&mem_pool,
++					PAGES(size * sizeof(*smmu->smrs)));
++		if (!smmu->smrs)
++			return -ENOMEM;
++		memset(smmu->smrs, 0, PAGES(size * sizeof(*smmu->smrs)));
++
++		printk("\tstream matching with %lu register groups", size);
++	}
++	/* s2cr->type == 0 means translation, so initialise explicitly */
++	smmu->s2crs = page_alloc(&mem_pool, PAGES(size * (sizeof(*smmu->s2crs) + sizeof(*smmu->cfgs))));
++	if (!smmu->s2crs) {
++		page_free(&mem_pool, smmu->smrs,
++			  PAGES(size * sizeof(*smmu->smrs)));
++		return -ENOMEM;
++	}
++
++	smmu->cfgs = (struct arm_smmu_cfg *)(smmu->s2crs + size);
++
++	/* Configure to bypass */
++	for (i = 0; i < size; i++)
++		smmu->s2crs[i] = s2cr_init_val;
++
++	smmu->num_mapping_groups = size;
++
++	if (smmu->version < ARM_SMMU_V2 || !(id & ID0_PTFS_NO_AARCH32)) {
++		smmu->features |= ARM_SMMU_FEAT_FMT_AARCH32_L;
++		if (!(id & ID0_PTFS_NO_AARCH32S))
++			smmu->features |= ARM_SMMU_FEAT_FMT_AARCH32_S;
++	}
++
++	/* ID1 */
++	id = mmio_read32(gr0_base + ARM_SMMU_GR0_ID1);
++	smmu->pgshift = (id & ID1_PAGESIZE) ? 16 : 12;
++
++	/* Check for size mismatch of SMMU address space from mapped region */
++	size = 1 << (((id >> ID1_NUMPAGENDXB_SHIFT) & ID1_NUMPAGENDXB_MASK) + 1);
++	size <<= smmu->pgshift;
++	if (smmu->cb_base != gr0_base + size)
++		printk("SMMU address space size (0x%lx) differs from mapped region size (0x%tx)!\n",
++		       size * 2, (smmu->cb_base - gr0_base) * 2);
++
++	smmu->num_s2_context_banks = (id >> ID1_NUMS2CB_SHIFT) & ID1_NUMS2CB_MASK;
++	smmu->num_context_banks = (id >> ID1_NUMCB_SHIFT) & ID1_NUMCB_MASK;
++	if (smmu->num_s2_context_banks > smmu->num_context_banks) {
++		printk("impossible number of S2 context banks!\n");
++		return -ENODEV;
++	}
++	/* TODO Check More */
++	smmu->num_context_irqs = smmu->num_context_banks;
++
++	printk("\t%u context banks (%u stage-2 only)\n",
++	       smmu->num_context_banks, smmu->num_s2_context_banks);
++
++	smmu->cbs = page_alloc(&mem_pool, PAGES(smmu->num_context_banks * sizeof(*smmu->cbs)));
++	if (!smmu->cbs) {
++		/* TODO: Free smrs s2cr */
++		return -ENOMEM;
++	}
++
++	/* ID2 */
++	id = mmio_read32(gr0_base + ARM_SMMU_GR0_ID2);
++	size = arm_smmu_id_size_to_bits((id >> ID2_IAS_SHIFT) & ID2_IAS_MASK);
++	/* Reuse cpu table */
++	smmu->ipa_size = MIN(size, get_cpu_parange());
++
++	/* The output mask is also applied for bypass */
++	size = arm_smmu_id_size_to_bits((id >> ID2_OAS_SHIFT) & ID2_OAS_MASK);
++	smmu->pa_size = size;
++
++	if (id & ID2_VMID16)
++		smmu->features |= ARM_SMMU_FEAT_VMID16;
++
++	/*
++	 * What the page table walker can address actually depends on which
++	 * descriptor format is in use, but since a) we don't know that yet,
++	 * and b) it can vary per context bank, this will have to do...
++	 * TODO: DMA?
++	 */
++
++	if (smmu->version < ARM_SMMU_V2) {
++		smmu->va_size = smmu->ipa_size;
++		if (smmu->version == ARM_SMMU_V1_64K)
++			smmu->features |= ARM_SMMU_FEAT_FMT_AARCH64_64K;
++	} else {
++		size = (id >> ID2_UBS_SHIFT) & ID2_UBS_MASK;
++		smmu->va_size = arm_smmu_id_size_to_bits(size);
++		if (id & ID2_PTFS_4K)
++			smmu->features |= ARM_SMMU_FEAT_FMT_AARCH64_4K;
++		if (id & ID2_PTFS_16K)
++			smmu->features |= ARM_SMMU_FEAT_FMT_AARCH64_16K;
++		if (id & ID2_PTFS_64K)
++			smmu->features |= ARM_SMMU_FEAT_FMT_AARCH64_64K;
++	}
++
++	/* Now we've corralled the various formats, what'll it do? */
++	if (smmu->features & ARM_SMMU_FEAT_FMT_AARCH32_S)
++		smmu->pgsize_bitmap |= SZ_4K | SZ_64K | SZ_1M | SZ_16M;
++	if (smmu->features &
++	    (ARM_SMMU_FEAT_FMT_AARCH32_L | ARM_SMMU_FEAT_FMT_AARCH64_4K))
++		smmu->pgsize_bitmap |= SZ_4K | SZ_2M | SZ_1G;
++	if (smmu->features & ARM_SMMU_FEAT_FMT_AARCH64_16K)
++		smmu->pgsize_bitmap |= SZ_16K | SZ_32M;
++	if (smmu->features & ARM_SMMU_FEAT_FMT_AARCH64_64K)
++		smmu->pgsize_bitmap |= SZ_64K | SZ_512M;
++
++	if (pgsize_bitmap == -1UL)
++		pgsize_bitmap = smmu->pgsize_bitmap;
++	else
++		pgsize_bitmap |= smmu->pgsize_bitmap;
++	printk("\tSupported page sizes: 0x%08lx\n", smmu->pgsize_bitmap);
++
++
++	if (smmu->features & ARM_SMMU_FEAT_TRANS_S1)
++		printk("\tStage-1: %lu-bit VA -> %lu-bit IPA\n",
++		       smmu->va_size, smmu->ipa_size);
++
++	if (smmu->features & ARM_SMMU_FEAT_TRANS_S2)
++		printk("\tStage-2: %lu-bit IPA -> %lu-bit PA\n",
++		       smmu->ipa_size, smmu->pa_size);
++
++	return 0;
++}
++
++static void arm_smmu_test_smr_masks(struct arm_smmu_device *smmu)
++{
++	void *gr0_base = ARM_SMMU_GR0(smmu);
++	u32 smr;
++
++	if (!smmu->smrs)
++		return;
++
++	/*
++	 * SMR.ID bits may not be preserved if the corresponding MASK
++	 * bits are set, so check each one separately. We can reject
++	 * masters later if they try to claim IDs outside these masks.
++	 */
++	smr = smmu->streamid_mask << SMR_ID_SHIFT;
++	mmio_write32(gr0_base + ARM_SMMU_GR0_SMR(0), smr);
++	smr = mmio_read32(gr0_base + ARM_SMMU_GR0_SMR(0));
++	smmu->streamid_mask = smr >> SMR_ID_SHIFT;
++
++	smr = smmu->streamid_mask << SMR_MASK_SHIFT;
++	mmio_write32(gr0_base + ARM_SMMU_GR0_SMR(0), smr);
++	smr = mmio_read32(gr0_base + ARM_SMMU_GR0_SMR(0));
++	smmu->smr_mask_mask = smr >> SMR_MASK_SHIFT;
++}
++
++static int arm_smmu_find_sme(u16 id, u16 mask)
++{
++	struct arm_smmu_device *smmu = &smmu_device;
++	struct arm_smmu_smr *smrs = smmu->smrs;
++	int i, free_idx = -EINVAL;
++
++	/* Stream indexing is blissfully easy */
++	if (!smrs)
++		return id;
++
++	/* Validating SMRs is... less so */
++	for (i = 0; i < smmu->num_mapping_groups; ++i) {
++		if (!smrs[i].valid) {
++			/*
++			 * Note the first free entry we come across, which
++			 * we'll claim in the end if nothing else matches.
++			 */
++			if (free_idx < 0)
++				free_idx = i;
++			continue;
++		}
++		/*
++		 * If the new entry is _entirely_ matched by an existing entry,
++		 * then reuse that, with the guarantee that there also cannot
++		 * be any subsequent conflicting entries. In normal use we'd
++		 * expect simply identical entries for this case, but there's
++		 * no harm in accommodating the generalisation.
++		 */
++		if ((mask & smrs[i].mask) == mask &&
++		    !((id ^ smrs[i].id) & ~smrs[i].mask)) {
++			return i;
++		}
++		/*
++		 * If the new entry has any other overlap with an existing one,
++		 * though, then there always exists at least one stream ID
++		 * which would cause a conflict, and we can't allow that risk.
++		 */
++		if (!((id ^ smrs[i].id) & ~(smrs[i].mask | mask)))
++			return -EINVAL;
++	}
++
++	return free_idx;
++}
++
++static bool arm_smmu_free_sme(struct arm_smmu_device *smmu, int idx)
++{
++	smmu->s2crs[idx] = s2cr_init_val;
++	if (smmu->smrs) {
++		smmu->smrs[idx].id = 0;
++		smmu->smrs[idx].mask = 0;
++		smmu->smrs[idx].valid = false;
++	}
++
++	return true;
++}
++
++#define for_each_smmu_sid(sid, config, counter)				\
++	for ((sid) = jailhouse_cell_stream_ids(config), (counter) = 0;	\
++	     (counter) < (config)->num_stream_ids;			\
++	     (sid)++, (counter)++)
++
++static int arm_smmu_cell_init(struct cell *cell)
++{
++	struct arm_smmu_device *smmu = &smmu_device;
++	enum arm_smmu_s2cr_type type = S2CR_TYPE_TRANS;
++	struct arm_smmu_s2cr *s2cr = smmu->s2crs;
++	struct arm_smmu_cfg *cfg = &smmu->cfgs[cell->config->id];
++	struct arm_smmu_smr *smr;
++	const __u32 *sid;
++	unsigned int n;
++	int ret, idx;
++
++	/* If no sids, ignore */
++	if (!cell->config->num_stream_ids)
++		return 0;
++
++	if (smmu->features & (ARM_SMMU_FEAT_FMT_AARCH64_64K |
++			      ARM_SMMU_FEAT_FMT_AARCH64_16K |
++			      ARM_SMMU_FEAT_FMT_AARCH64_4K))
++		cfg->fmt = ARM_SMMU_CTX_FMT_AARCH64;
++
++	cfg->cbar = CBAR_TYPE_S2_TRANS;
++
++	/* We use cell->config->id here, one cell use one context */
++	cfg->cbndx = cell->config->id;
++
++	if (smmu->version < ARM_SMMU_V2) {
++		/* TODO */
++	} else {
++		cfg->irptndx = cfg->cbndx;
++	}
++
++	cfg->vmid = cfg->cbndx + 1;
++
++	arm_smmu_init_context_bank(smmu, cfg, cell);
++	arm_smmu_write_context_bank(smmu, cfg->cbndx);
++
++	smr = smmu->smrs;
++
++	for_each_smmu_sid(sid, cell->config, n) {
++		ret = arm_smmu_find_sme(*sid, arm_sid_mask);
++		if (ret < 0)
++			printk("arm_smmu_find_sme error %d\n", ret);
++		idx = ret;
++
++		if (type == s2cr[idx].type && cfg->cbndx == s2cr[idx].cbndx)
++			printk("%s error\n", __func__);
++
++		s2cr[idx].type = type;
++		s2cr[idx].privcfg = S2CR_PRIVCFG_DEFAULT;
++		s2cr[idx].cbndx = cfg->cbndx;
++
++		arm_smmu_write_s2cr(smmu, idx);
++
++
++		smr[idx].id = *sid;
++		smr[idx].mask = arm_sid_mask;
++		smr[idx].valid = true;
++
++		arm_smmu_write_smr(smmu, idx);
++	}
++
++	printk("Found %d masters\n", n);
++
++	return 0;
++}
++
++static void arm_smmu_cell_exit(struct cell *cell)
++{
++	const __u32 *sid;
++	struct arm_smmu_device *smmu = &smmu_device;
++	unsigned int n;
++	int ret, idx;
++	int cbndx = cell->config->id;
++
++	if (!cell->config->num_stream_ids)
++		return;
++
++	/* If no sids, ignore */
++	if (cell->config->num_stream_ids) {
++		for_each_smmu_sid(sid, cell->config, n) {
++			ret = arm_smmu_find_sme(*sid, arm_sid_mask);
++			if (ret < 0)
++				printk("arm_smmu_find_sme error %d\n", ret);
++			idx = ret;
++
++			if (arm_smmu_free_sme(smmu, idx)) {
++				arm_smmu_write_sme(smmu, idx);
++			}
++
++			smmu->cbs[cbndx].cfg = NULL;
++			arm_smmu_write_context_bank(smmu, cbndx);
++		}
++	}
++}
++
++static int arm_smmu_init(void)
++{
++	int err;
++	__u64 phys_addr;
++	__u32 size;
++	struct arm_smmu_device *smmu = &smmu_device;
++
++	smmu->features &= ~ARM_SMMU_FEAT_COHERENT_WALK;
++
++	phys_addr = system_config->platform_info.arm.iommu_units[0].base;
++	if (!phys_addr) {
++		printk("No SMMU\n");
++		return 0;
++	}
++
++	size = system_config->platform_info.arm.iommu_units[0].size;
++
++	smmu->version =
++		system_config->platform_info.arm.iommu_units[0].arm_smmu_arch;
++	smmu->model =
++		system_config->platform_info.arm.iommu_units[0].arm_smmu_impl;
++	arm_sid_mask =
++		system_config->platform_info.arm.iommu_units[0].arm_sid_mask;
++	smmu->base = paging_map_device(phys_addr, size);
++	if (!smmu->base)
++		return -ENOMEM;
++
++	smmu->cb_base = smmu->base + size / 2;
++
++	err = arm_smmu_device_cfg_probe(smmu);
++	if (err)
++		return err;
++
++	if (smmu->version == ARM_SMMU_V2 &&
++	    smmu->num_context_banks != smmu->num_context_irqs) {
++		printk("found only %d context interrupt(s) but %d required\n",
++		       smmu->num_context_irqs, smmu->num_context_banks);
++		/* TODO: page free smr s2cr cbs */
++		return -ENODEV;
++	}
++
++	/* TODO: request irq */
++
++	arm_smmu_device_reset(smmu);
++	arm_smmu_test_smr_masks(smmu);
++
++	/*
++	 * For ACPI and generic DT bindings, an SMMU will be probed before
++	 * any device which might need it, so we want the bus ops in place
++	 * ready to handle default domain setup as soon as any SMMU exists.
++	 */
++	/* TODO: How handle PCI iommu? */
++
++	return arm_smmu_cell_init(&root_cell);
++}
++
++DEFINE_UNIT_MMIO_COUNT_REGIONS_STUB(arm_smmu);
++DEFINE_UNIT_SHUTDOWN_STUB(arm_smmu);
++DEFINE_UNIT(arm_smmu, "ARM SMMU");
+diff --git a/include/jailhouse/cell-config.h b/include/jailhouse/cell-config.h
+index 30ec5d06..a6a7d8c1 100644
+--- a/include/jailhouse/cell-config.h
++++ b/include/jailhouse/cell-config.h
+@@ -266,6 +266,10 @@ struct jailhouse_iommu {
+ 			__u32 tlb_size;
+ 		} __attribute__((packed)) tipvu;
+ 	};
++
++	__u32 arm_sid_mask;
++	__u32 arm_smmu_arch;
++	__u32 arm_smmu_impl;
+ } __attribute__((packed));
+ 
+ struct jailhouse_pio {
+@@ -290,6 +294,17 @@ struct jailhouse_pio {
+ #define SYS_FLAGS_VIRTUAL_DEBUG_CONSOLE(flags) \
+ 	!!((flags) & JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE)
+ 
++enum arm_smmu_arch_version {
++	ARM_SMMU_V1,
++	ARM_SMMU_V1_64K,
++	ARM_SMMU_V2,
++};
++
++enum arm_smmu_implementation {
++	GENERIC_SMMU,
++	ARM_MMU500,
++};
++
+ /**
+  * General descriptor of the system.
+  */
+diff --git a/include/jailhouse/sizes.h b/include/jailhouse/sizes.h
+new file mode 100644
+index 00000000..ce3e8150
+--- /dev/null
++++ b/include/jailhouse/sizes.h
+@@ -0,0 +1,47 @@
++/*
++ * include/linux/sizes.h
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++#ifndef __LINUX_SIZES_H__
++#define __LINUX_SIZES_H__
++
++#define SZ_1				0x00000001
++#define SZ_2				0x00000002
++#define SZ_4				0x00000004
++#define SZ_8				0x00000008
++#define SZ_16				0x00000010
++#define SZ_32				0x00000020
++#define SZ_64				0x00000040
++#define SZ_128				0x00000080
++#define SZ_256				0x00000100
++#define SZ_512				0x00000200
++
++#define SZ_1K				0x00000400
++#define SZ_2K				0x00000800
++#define SZ_4K				0x00001000
++#define SZ_8K				0x00002000
++#define SZ_16K				0x00004000
++#define SZ_32K				0x00008000
++#define SZ_64K				0x00010000
++#define SZ_128K				0x00020000
++#define SZ_256K				0x00040000
++#define SZ_512K				0x00080000
++
++#define SZ_1M				0x00100000
++#define SZ_2M				0x00200000
++#define SZ_4M				0x00400000
++#define SZ_8M				0x00800000
++#define SZ_16M				0x01000000
++#define SZ_32M				0x02000000
++#define SZ_64M				0x04000000
++#define SZ_128M				0x08000000
++#define SZ_256M				0x10000000
++#define SZ_512M				0x20000000
++
++#define SZ_1G				0x40000000
++#define SZ_2G				0x80000000
++
++#endif /* __LINUX_SIZES_H__ */
+-- 
+2.17.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/b8815297-a535-60d1-64e5-e8f4ee34ebe0%40suse.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/1588154521-2897-1-git-send-email-peng.fan%40nxp.com.
