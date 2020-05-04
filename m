@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBZ6AYH2QKGQERXGWEDQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB56AYH2QKGQEKPA2U7Q@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x440.google.com (mail-wr1-x440.google.com [IPv6:2a00:1450:4864:20::440])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87BB31C460B
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  4 May 2020 20:35:19 +0200 (CEST)
-Received: by mail-wr1-x440.google.com with SMTP id z5sf358579wrt.17
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 04 May 2020 11:35:19 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1588617319; cv=pass;
+Received: from mail-lj1-x240.google.com (mail-lj1-x240.google.com [IPv6:2a00:1450:4864:20::240])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A3F11C460C
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  4 May 2020 20:35:36 +0200 (CEST)
+Received: by mail-lj1-x240.google.com with SMTP id y5sf1397367ljn.20
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 04 May 2020 11:35:36 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1588617336; cv=pass;
         d=google.com; s=arc-20160816;
-        b=puwNywPRJdbUJdM6dSxFNpKhxU+6fLbGDkoYcZ8mStJ4QgySY8YsW7Ml7NDOps88F0
-         PjfRFeM9EtQDlESpcUFg33QZrdJmngs3LdJ/ORokI6ojm3v9VpXJmuMcsv6nqZKHqrlZ
-         VaOydwRd2/AxlpmPKrGJK9UE1wMoZcnyse4sT/5upKvWYj3pWjp607WY5YnhVyn+HOQx
-         xuV2hbb8/XXgAEpUUUeLJ0CNWmILkE+qCDGhiFjH26lLXp/j3SPgzEaEE1diaxkwO8C3
-         Vb20ckmirW4NxybU4Bv7/BU9uhmFuxHvVb054sJcpOFGG2AzuA8QNYVaj2bpGxrcq2h2
-         zW3g==
+        b=FCJsv+MkWTHDikcYpgqe4hyjXkKKrPouDASFa+eQX/s3GxiSMPFhATrQeT+n0Do2qN
+         6caFGYcUj7bbY35HIYYlYyYdk1wdE+MnePeP4UUkoZw5gM6Lk6WI2wYtweAYwg5px8kj
+         IaiSvEdpP2sEhT4CmuvqItRVHBGhpISR2sADUIIlZRLRYNg+bPETNzEdkwxeBBij8ZBE
+         JSo88wJsL3zmsKLWda65FXjkksP89T3DLg2w306uwkbhaHuHWHX4zfksFXCGKKdfio/G
+         xDiHR1+8xuLsLph1MTxSWz+dSvnXZ9MM9vgH20AmayNRcfGXZD04SAPv+xyZPxBm/OhZ
+         leeA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-language:in-reply-to
          :mime-version:user-agent:date:message-id:from:references:cc:to
          :subject:sender:dkim-signature;
-        bh=QT6uLVk617Rexx6yHvUGLEOB74ZWMUdqrJvqaMpNSfA=;
-        b=Jz/fKai7EIkl2qS/ixW7szq0pAB4SmnQ0LoHtrpHDne/B2w6fLYNz6CczMXGsJey8g
-         o1u9NMWAX/uvRczhO76ek0wc45GIYFuIRhdYRd3SKiDVrrL9ZOpAQFBcmYNGEJgkH+gD
-         xDiSxhotdIEmKvUiRomRItyw4WR0uL2mhNjM7uBHoatZ1vYm7OScIrRP4hxGMJib8s1u
-         e2Xrei/QkO24ps4g+SHnmQAZ/HeX01CXA/b2ZPZ/Iq3FDzbdYSUBFvGTcYRWUfrTqAo+
-         oOVDjikNTf2YohV1JnmkdPQH1uvv8GrRR0tcqx3fYZRbPkICe/zcDNitncy7WVdevULu
-         ZXLw==
+        bh=8iSdPBXRc9vP9pI+Fb9M6j5Da4GK6+e0YxU1WCznJaM=;
+        b=sl8WW+QjOGDacKGB44gRPOcrPK3pq5vPmLY+xXO4OnBHKvWSiQkjAZ1HFQyaslsjiJ
+         eQIXg+KIxee/fZmFrN01dhXAOPJa8uKFAQHwAfw6vLvB2r0z/Cm/8NSYFWqBZvDOSIfo
+         o783NYGIjlzWGwsNR50rWwk5WfWCUXWNvAdf5gHqfww8EDNiqqsVdR2Rso7pqvdPs//P
+         yZVHF8GFrKBnpjGgBCiUoweSrdvYZcRAOiCAhSEuZlLxNcDQUYhaizl7Lq6Ekrb86wWa
+         r/gxRSessTTj/3IvEGTq0M0b6y02sFWjEPW4cZ89cCKS7DZgnRsBhmdz6dfF4nN0qoxE
+         HoOw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:in-reply-to:content-language:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=QT6uLVk617Rexx6yHvUGLEOB74ZWMUdqrJvqaMpNSfA=;
-        b=PXbdF3xuMZL3zz92AEK76apwMcyV9s2nsGGnmJR29SB7A/61XVEIkxfll4fB4y2Ycp
-         YRe7aGSFCrFI4nRMFGmwo1Q8L3H7P+dptT/Vdd1pK3kvze2RqUR6N33zdir/U1tQZJOZ
-         frSuK533kN7ZsY8TT590wjWwRdghr86fv4cvN4Lf18NEY/WvgGxVvktQyD3pFmM39E7i
-         1pu/6LglphADGv86vRQZYk8wS9wjNP/9UEhAVZwOeCwDoEakyR3I1z85JHOgpDyIIeCq
-         eOIETfnYvgIad/wkrCiWG50yPGKvrGP7HYX4EW8DHpce0WoZyNeY09zGjxzZAZe7Velk
-         rATQ==
+        bh=8iSdPBXRc9vP9pI+Fb9M6j5Da4GK6+e0YxU1WCznJaM=;
+        b=TEUWmz7sOUJxqU3umJptg3jncqBbEgZjfIrh9KrKMjyfJVEDuGCwkBZVoy7i4tPjOC
+         8s+z6MuHnug1zWq8y+96X4ec46Z5iVf5CzioTqzuRk6vMU5AAqCeMg1FPjqsfNKzcIZa
+         QENoKMU+Z/GwxCMMFEZm55jEACJ1FkF9yaGRbcyGTyeBmIi144MUCG87UzTrFKPuar7P
+         wVQjqJqSJu4I2gp74IuR7Gg8yZFT1+yYP+5vZ3JBzZSuflsSIQBB6PVlIym72SUvHfMZ
+         jwq4WfSln262umgSk+wwSuWHcgeGqfXeUtxVD9udwMCorsV3GgrKNwhtXQ+kBolggK8j
+         z6dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
@@ -49,76 +49,75 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=QT6uLVk617Rexx6yHvUGLEOB74ZWMUdqrJvqaMpNSfA=;
-        b=eiHAQmDOLQEDovU96fSmx4hPzQtRiTfGpAAgENL3Z1nZsUjh8iE87ypMoZjlIjDE91
-         K7W6dlmVwgBcoAJqCu8c7sNlTVBj49z8WOG2ge6+f295iJLifOqU/A+mRHY28Us48NCZ
-         aidzDYJJZL39ETKQJOdQRRtcqfh/Bib1gfl64V2Sw45rGhnQKPni9mNgnXRgP49EzFp2
-         AgkdjsZyIUohRHdElfjBKUez/16LNZfGWanF0lod7mpPX8ReuHxZapYWZKkRT3gC2Lse
-         onFdMxNAyIUj4Zv4xcMLcitAX2zfc11vFl6G/tg10eKo4VeIPHTdDdl5llhWvHHpT+DK
-         lD7A==
+        bh=8iSdPBXRc9vP9pI+Fb9M6j5Da4GK6+e0YxU1WCznJaM=;
+        b=CWc+jpVMwJKUatotFZtLgzLSBp8GrDr0x68gxq1MESldSrRpoJgL2iVNde+Lp/IrfG
+         cLgF3LyJcnP3Ba3T5zz4PFBdLyoVBMXI2Ffgf1RrFv13D38u/pHXQctskQo8bAcTg/OB
+         4Y1s+YmQwwKNdbEgQi5pnzKNydfu6qxckJVrAt0r+T0MEszLjMCgcR7pfCuL2XjVki/w
+         hSh988SOw67h4rvEX/Tt+tBWULqGcMRH7F0VmQgLzJDG7wMVCVIfJtSQTfSwQrmjqHgi
+         c5BohLBCj73S4LB7tR7G3nEOCTAP9BpBIYmvmH8fnmNia5cPYsGeNvQzfeNIHj9kFlJm
+         4eJg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AGi0PuZjE4GQjVXPL61x5CBMlzZqKlZbr561CiTynbO41lW/f7GyeeNi
-	d93NhfiUB38RWzQqAlp25hU=
-X-Google-Smtp-Source: APiQypLdv8SGetoIxMy0N8OsM70EAEIeOk3N0KIlxn9g90gIz9wudnONMVLNUKsg450zJZNWBpRPgQ==
-X-Received: by 2002:a1c:e906:: with SMTP id q6mr15409952wmc.62.1588617319279;
-        Mon, 04 May 2020 11:35:19 -0700 (PDT)
+X-Gm-Message-State: AGi0PuZ+b+VkbEUHmwXfbs+us8SzjE4YaaJKGtslyJ8bhHH/5wBASE+2
+	40HRZMZA4nuhbQNeWyNYCkk=
+X-Google-Smtp-Source: APiQypLD6GPJMeNggaasTiXcRFFFrMEqr4cMWUO41qIbNIWf5WyknKb3KClmS83blKOCv3WYd4WGqw==
+X-Received: by 2002:a19:ad45:: with SMTP id s5mr12748627lfd.106.1588617335924;
+        Mon, 04 May 2020 11:35:35 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5d:4411:: with SMTP id z17ls23826627wrq.11.gmail; Mon, 04
- May 2020 11:35:18 -0700 (PDT)
-X-Received: by 2002:adf:ab57:: with SMTP id r23mr762890wrc.180.1588617318440;
-        Mon, 04 May 2020 11:35:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1588617318; cv=none;
+Received: by 2002:a05:651c:2002:: with SMTP id s2ls2983935ljo.3.gmail; Mon, 04
+ May 2020 11:35:35 -0700 (PDT)
+X-Received: by 2002:a2e:898b:: with SMTP id c11mr11299663lji.197.1588617335052;
+        Mon, 04 May 2020 11:35:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1588617335; cv=none;
         d=google.com; s=arc-20160816;
-        b=Xoyl8Kq7Var1Tw4abu1l9V+M9AhaD7fZXfZ6IOYo+5RilHz3xVVRyDlsBLqpvZnDNh
-         /AFd+8kDnQUaVVkCPjq6Og8mhX1QL+OdA304tl0HwcNYnU2SPEiaTNmPXXCUujyyD+ap
-         jiSKCzk1QPhQ3yAxgi311ixO02YQbq+y/33dv9sbnpNGTyiK/Er9bWsFfzEV+jOwhdZM
-         0FjRJbUxpJgVd/7Sg2bNBiPjiv0wBFGP+2NL6r/XUuGOxDw0GqSMNsgMNLmUxnVutuiT
-         uTzkxHlh3k/F8kKUQ4deLOtNxJT+TymhOGgJXsDeU0+nXGjhDuQ0JLsAaSH8nldW7nO1
-         dABw==
+        b=eO3kMFX1MvwEH2XWj5CDsWr8aG6GjutljZgStAK7dF0Z3DVd8ZjLbMkJ7Xpxq9tMzI
+         /rMQv1f9FUHdf5D7cCA5QOv5bL+2kz4R1WildyLGQ8rojKbcu4tKEUdx6QgrHNCWnpcc
+         Xwi1d5FfxGxiUssbF09MRKxyPF+nnYvrpVoE2EAo16/rNvcjJbt1TIjKxpu4BGV1Ul8w
+         GVzWo6BDmLMM4EAi1cvc/q7yBgOdWv+WcUldG7SjbU030YM00NrtNh35mxTxFMFgEHXt
+         ZlP6Lsr4waUwEyczvL7T9tVRNwOT+eGOhBaOIQkYYIxg84A10GxWxi63AUnwOZ7UVZSg
+         p3PQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
          :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=Fk90fIjXwvXJXVuxDuZwBGxhSF8R8hE+Izle49H4aE0=;
-        b=YojYKYB1e/5xvig9HQmzD3XzhAAtR+c9WP4hA4Ql3RZjoNp6+HEI5AxHDy6Gae1XaZ
-         LfpOkoLSH8+IFS0BHN1IN7jBMqGqkfHA9xJYfWw89cYyHXefJhHNgsSi5ycACK8y6gQL
-         zpE9Yp6ISOCvQeEn9Ha5yD4yMJAWrVMrymrWhB8rEsX/9XMPm1xUwSeuobvCCtflDtb6
-         ZfndLYzYQOdzRPObo+5YyEScRgdKhxf33VmS27ig3lubGizaMrQ7lhFOt0JrW3h7Yifd
-         Yps+ReZO4ZkzmbCH0pYZ8SDjFmBeAGXs/mwT70LR6HV4FXby8eSQqEekCOUUK5+R+SU/
-         ahcw==
+        bh=3SzFFvGqDzNdy2g8tSt2hrxB8ZqEY+NK0+e68fZFgK0=;
+        b=DBvYrYRhxfXM0sDE8FBKuPbr58IrfjwMoxl/L8fijx3YbWoaWKtcCH08BQbProZf0h
+         PeXFzvNegwlUC0q9WRh5CL0g3D4HUZv515lerQC0PLHqJiHf4tjI3ihDf4U4JQw7b1nE
+         ovNjz4nXkN+67BQvScOHUEqBHRa13D4WwrHD/gt/tMH5YgRx3av2C/CuwSS6FyPS2oF9
+         hXypKNs5eBRMiXP2MX7CuzmJu1B9/bw1C+FuXn1v+NqFMeZlKiB2wltDyf4VHbcDi3Dj
+         Mb5HjN5a+W7E4WXii9FNJZvyKxMEnBt90XdL5tE20ftJ/BH/gRD/j8KNDOZwt9bFVEuW
+         TcNQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
-        by gmr-mx.google.com with ESMTPS id d10si578102wru.0.2020.05.04.11.35.18
+Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
+        by gmr-mx.google.com with ESMTPS id u25si653324ljg.1.2020.05.04.11.35.34
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 04 May 2020 11:35:18 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
+        Mon, 04 May 2020 11:35:34 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id 044IZH4C022592
+	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 044IZXgN023717
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 4 May 2020 20:35:17 +0200
+	Mon, 4 May 2020 20:35:33 +0200
 Received: from [167.87.53.26] ([167.87.53.26])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 044IZGWj019101;
-	Mon, 4 May 2020 20:35:17 +0200
-Subject: Re: [PATCH v2 7/9] hypervisor, arm64: add cache coloring support
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 044IZW4b019225;
+	Mon, 4 May 2020 20:35:32 +0200
+Subject: Re: [PATCH v2 8/9] configs: add colored cell configuations for ZCU102
 To: Marco Solieri <ms@xt3.it>, jailhouse-dev@googlegroups.com
-Cc: Luca Miccio <lucmiccio@gmail.com>,
-        Angelo Ruocco <angelo.ruocco.90@gmail.com>
+Cc: Luca Miccio <lucmiccio@gmail.com>
 References: <20190327121849.1882-1-ms@xt3.it>
- <20200421100351.292395-1-ms@xt3.it> <20200421100351.292395-8-ms@xt3.it>
+ <20200421100351.292395-1-ms@xt3.it> <20200421100351.292395-9-ms@xt3.it>
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <08e4aad0-314e-cfee-c4d8-be313903d8b4@siemens.com>
-Date: Mon, 4 May 2020 20:35:16 +0200
+Message-ID: <2ef61ea7-5617-dcd8-24fe-1c80bca7615e@siemens.com>
+Date: Mon, 4 May 2020 20:35:31 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <20200421100351.292395-8-ms@xt3.it>
+In-Reply-To: <20200421100351.292395-9-ms@xt3.it>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Language: en-US
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
@@ -136,302 +135,242 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 On 21.04.20 12:03, 'Marco Solieri' via Jailhouse wrote:
 > From: Luca Miccio <lucmiccio@gmail.com>
 > 
-> Implement all the functions needed by the coloring interface for the
-> arm64 architecture.
-> Coloring selection is retrieved by the jailhouse_cache structure(s) in
-> cell's configuration. Each structure defines a color range that will be
-> mapped to the corresponding color bitmask. The configuration is
-> cell-wide and will be used with all the memory regions flagged with
-> JAILHOUSE_MEM_COLORED.
-> If no color selection is provided by the user and coloring is enabled,
-> use all the available colors on the platform.
-> 
 > Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
 > Signed-off-by: Marco Solieri <ms@xt3.it>
-> Acked-by: Angelo Ruocco <angelo.ruocco.90@gmail.com>
 > ---
->   hypervisor/arch/arm64/Kbuild     |   1 +
->   hypervisor/arch/arm64/coloring.c | 232 +++++++++++++++++++++++++++++++
->   2 files changed, 233 insertions(+)
->   create mode 100644 hypervisor/arch/arm64/coloring.c
+>   configs/arm64/zynqmp-zcu102-inmate-demo-col.c |  79 +++++++++++
+>   configs/arm64/zynqmp-zcu102-linux-demo-col.c  | 128 ++++++++++++++++++
+>   2 files changed, 207 insertions(+)
+>   create mode 100644 configs/arm64/zynqmp-zcu102-inmate-demo-col.c
+>   create mode 100644 configs/arm64/zynqmp-zcu102-linux-demo-col.c
 > 
-> diff --git a/hypervisor/arch/arm64/Kbuild b/hypervisor/arch/arm64/Kbuild
-> index c34b0f32..6c566e4d 100644
-> --- a/hypervisor/arch/arm64/Kbuild
-> +++ b/hypervisor/arch/arm64/Kbuild
-> @@ -22,3 +22,4 @@ always := lib.a
->   lib-y := $(common-objs-y)
->   lib-y += entry.o setup.o control.o mmio.o paging.o caches.o traps.o
->   lib-y += iommu.o smmu-v3.o ti-pvu.o
-> +lib-$(CONFIG_COLORING) += coloring.o
-> diff --git a/hypervisor/arch/arm64/coloring.c b/hypervisor/arch/arm64/coloring.c
+> diff --git a/configs/arm64/zynqmp-zcu102-inmate-demo-col.c b/configs/arm64/zynqmp-zcu102-inmate-demo-col.c
 > new file mode 100644
-> index 00000000..cb2d80e9
+> index 00000000..83188b27
 > --- /dev/null
-> +++ b/hypervisor/arch/arm64/coloring.c
-> @@ -0,0 +1,232 @@
+> +++ b/configs/arm64/zynqmp-zcu102-inmate-demo-col.c
+> @@ -0,0 +1,79 @@
 > +/*
 > + * Jailhouse, a Linux-based partitioning hypervisor
 > + *
-> + * Copyright (c) Universita' di Modena e Reggio Emilia, 2020
+> + * Configuration for demo inmate on Xilinx ZynqMP ZCU102 eval board:
+> + * 1 CPU, 64K RAM, 1 serial port, color range [0-7]
+> + *
+> + * Copyright (c) Universita' degli Studi di Modena e Reggio Emilia 2020
 > + *
 > + * Authors:
 > + *  Luca Miccio <lucmiccio@gmail.com>
-> + *  Marco Solieri <ms@xt3.it>
 > + *
 > + * This work is licensed under the terms of the GNU GPL, version 2.  See
 > + * the COPYING file in the top-level directory.
 > + */
-> +#include <jailhouse/coloring.h>
-> +#include <jailhouse/printk.h>
-> +#include <jailhouse/entry.h>
-> +#include <jailhouse/cell.h>
-> +#include <jailhouse/control.h>
 > +
-> +#define for_each_cache_region(cache, config, counter)			\
-> +	for ((cache) = jailhouse_cell_cache_regions(config), (counter) = 0;\
-> +	     (counter) < (config)->num_cache_regions;			\
-> +	     (cache)++, (counter)++)
-
-Should be factored out and made generally available. I'm carrying 
-something similar for Intel CAT (not published yet, so you couldn't know).
-
+> +#include <jailhouse/types.h>
+> +#include <jailhouse/cell-config.h>
 > +
-> +/** Default color bitmask uses all available colors */
-> +unsigned long color_bitmask_default[COLOR_BITMASK_SIZE];
+> +struct {
+> +	struct jailhouse_cell_desc cell;
+> +	__u64 cpus[1];
+> +	struct jailhouse_memory mem_regions[3];
+> +	struct jailhouse_cache cache_regions[1];
+> +} __attribute__((packed)) config = {
+> +	.cell = {
+> +		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
+> +		.revision = JAILHOUSE_CONFIG_REVISION,
+> +		.name = "inmate-demo-col",
+> +		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
 > +
-> +/** Do care bits for coloring */
-> +unsigned long addr_col_mask;
+> +		.cpu_set_size = sizeof(config.cpus),
+> +		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+> +		.num_irqchips = 0,
+> +		.num_pci_devices = 0,
+> +		.num_cache_regions = ARRAY_SIZE(config.cache_regions),
 > +
-> +/** Max number of colors available on the platform */
-> +#define COLORING_MAX_NUM ((addr_col_mask >> PAGE_SHIFT) + 1)
+> +		.console = {
+> +			.address = 0xff010000,
+> +			.type = JAILHOUSE_CON_TYPE_XUARTPS,
+> +			.flags = JAILHOUSE_CON_ACCESS_MMIO |
+> +				 JAILHOUSE_CON_REGDIST_4,
+> +		},
+> +	},
 > +
-> +#define MSB_LONG_IDX(word) (word ? (BITS_PER_LONG - clz(word) - 1) : 0)
-
-Add blank line.
-
-> +static inline unsigned long msb_color_bitmask(unsigned long *color_bitmask)
-
-No need for inline.
-
-> +{
-> +	unsigned long ret = 0;u
-> +	unsigned int layer = COLOR_BITMASK_SIZE - 1;
+> +	.cpus = {
+> +		0x2,
+> +	},
 > +
-> +	if (!color_bitmask)
-> +		return 0;
+> +	.mem_regions = {
+> +		/* UART */ {
+> +			.phys_start = 0xff010000,
+> +			.virt_start = 0xff010000,
+> +			.size = 0x1000,
+> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> +				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
+> +		},
+> +		/* RAM */ {
+> +			.phys_start = 0x800600000,
+> +			.virt_start = 0,
+> +			.size =  0x00010000,
+> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> +				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE |
+> +				JAILHOUSE_MEM_COLORED,
+> +		},
+> +		/* communication region */ {
+> +			.virt_start = 0x80000000,
+> +			.size = 0x00001000,
+> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> +				JAILHOUSE_MEM_COMM_REGION,
+> +		},
+> +	},
 > +
-> +	while (!ret) {
-> +		ret = MSB_LONG_IDX(color_bitmask[layer]);
-> +		layer--;
-> +	}
+> +	.cache_regions = {
+> +		{
+> +			.start = 0,
+> +			.size = 8,
+> +		},
+> +	},
+> +};
+> diff --git a/configs/arm64/zynqmp-zcu102-linux-demo-col.c b/configs/arm64/zynqmp-zcu102-linux-demo-col.c
+> new file mode 100644
+> index 00000000..66f12a66
+> --- /dev/null
+> +++ b/configs/arm64/zynqmp-zcu102-linux-demo-col.c
+> @@ -0,0 +1,128 @@
+> +/*
+> + * Jailhouse, a Linux-based partitioning hypervisor
+> + *
+> + * Configuration for linux-demo inmate on ZynqMP ZCU102:
+> + * 2 CPUs, 128M RAM, serial port 2, color range [0-7]
+> + *
+> + * Copyright (c) Universita' degli Studi di Modena e Reggio Emilia 2020
+> + *
+> + * Authors:
+> + *  Luca Miccio <lucmiccio@gmail.com>
+> + *
+> + * This work is licensed under the terms of the GNU GPL, version 2.  See
+> + * the COPYING file in the top-level directory.
+> + */
 > +
-> +	return ret;
-> +}
+> +#include <jailhouse/types.h>
+> +#include <jailhouse/cell-config.h>
 > +
-> +#define CTR_LINESIZE_MASK	0x7
-> +#define CTR_SIZE_SHIFT		13
-> +#define CTR_SIZE_MASK		0x3FFF
-> +#define CTR_SELECT_L2		(1 << 1)
-> +#define CTR_SELECT_L3		(1 << 2)
-> +#define CTR_CTYPEn_MASK		0x7
-> +#define CTR_CTYPE2_SHIFT	3
-> +#define CTR_LLC_ON		(1 << 2)
-> +#define CTR_LOC_SHIFT		24
-> +#define CTR_LOC_MASK		0x7
-> +#define CTR_LOC_NOT_IMPLEMENTED	(1 << 0)
+> +struct {
+> +	struct jailhouse_cell_desc cell;
+> +	__u64 cpus[1];
+> +	struct jailhouse_memory mem_regions[12];
+> +	struct jailhouse_cache cache_regions[1];
+> +	struct jailhouse_irqchip irqchips[1];
+> +	struct jailhouse_pci_device pci_devices[2];
+> +} __attribute__((packed)) config = {
+> +	.cell = {
+> +		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
+> +		.revision = JAILHOUSE_CONFIG_REVISION,
+> +		.name = "ZynqMP-linux-demo-col",
+> +		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
 > +
-> +unsigned long get_llc_way_size(void)
-> +{
-> +	unsigned int cache_sel;
-> +	unsigned int cache_global_info;
-> +	unsigned int cache_info;
-> +	unsigned int cache_line_size;
-> +	unsigned int cache_set_num;
-> +	unsigned int cache_sel_tmp;
+> +		.cpu_set_size = sizeof(config.cpus),
+> +		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+> +		.num_irqchips = ARRAY_SIZE(config.irqchips),
+> +		.num_pci_devices = ARRAY_SIZE(config.pci_devices),
+> +		.num_cache_regions = ARRAY_SIZE(config.cache_regions),
+> +		.vpci_irq_base = 140-32,
 > +
-> +	arm_read_sysreg(CLIDR_EL1, cache_global_info);
+> +		.console = {
+> +			.address = 0xff010000,
+> +			.type = JAILHOUSE_CON_TYPE_XUARTPS,
+> +			.flags = JAILHOUSE_CON_ACCESS_MMIO |
+> +				 JAILHOUSE_CON_REGDIST_4,
+> +		},
+> +	},
 > +
-> +	/* Check if at least L2 is implemented */
-> +	if (((cache_global_info >> CTR_LOC_SHIFT) & CTR_LOC_MASK)
-> +		== CTR_LOC_NOT_IMPLEMENTED) {
-> +		printk("ERROR: L2 Cache not implemented\n");
-> +		return trace_error(-ENODEV);
-> +	}
+> +	.cpus = {
+> +		0xc,
+> +	},
 > +
-> +	/* Save old value of CSSELR_EL1 */
-> +	arm_read_sysreg(CSSELR_EL1, cache_sel_tmp);
+> +	.mem_regions = {
+> +		/* IVSHMEM shared memory region for 00:01.0 */
+> +		JAILHOUSE_SHMEM_NET_REGIONS(0x800400000, 1),
+> +		/* IVSHMEM shared memory region for 00:03.0 */
+> +		JAILHOUSE_SHMEM_NET_REGIONS(0x800700000, 0),
+> +		/* UART */ {
+> +			.phys_start = 0xff010000,
+> +			.virt_start = 0xff010000,
+> +			.size = 0x1000,
+> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> +				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
+> +		},
+> +		/* RAM */ {
+> +			.phys_start = 0x800600000,
+> +			.virt_start = 0,
+> +			.size = 0x10000,
+> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> +				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+> +		},
+> +		/* RAM */ {
+> +			.phys_start = 0x810000000,
+> +			.virt_start = 0x81000000,
+> +			.size = 0x8000000,
+> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> +				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+> +				JAILHOUSE_MEM_LOADABLE | JAILHOUSE_MEM_COLORED,
+> +		},
+> +		/* communication region */ {
+> +			.virt_start = 0x80000000,
+> +			.size = 0x00001000,
+> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> +				JAILHOUSE_MEM_COMM_REGION,
+> +		},
+> +	},
 > +
-> +	/* Get LLC index */
-> +	if (((cache_global_info >> CTR_CTYPE2_SHIFT) & CTR_CTYPEn_MASK)
-> +		== CTR_LLC_ON)
-> +		cache_sel = CTR_SELECT_L2;
-> +	else
-> +		cache_sel = CTR_SELECT_L3;
+> +	.cache_regions = {
+> +		{
+> +			.start = 0,
+> +			.size = 8,
+> +		},
+> +	},
 > +
-> +	/* Select the correct LLC in CSSELR_EL1 */
-> +	arm_write_sysreg(CSSELR_EL1, cache_sel);
+> +	.irqchips = {
+> +		/* GIC */ {
+> +			.address = 0xf9010000,
+> +			.pin_base = 32,
+> +			.pin_bitmap = {
+> +				1 << (54 - 32),
+> +				0,
+> +				0,
+> +				(1 << (141 - 128)) | (1 << (143 - 128))
+> +			},
+> +		},
+> +	},
 > +
-> +	/* Ensure write */
-> +	isb();
+> +	.pci_devices = {
+> +		/* 00:01.0 */ {
+> +			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+> +			.bdf = 1 << 3,
+> +			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+> +			.shmem_regions_start = 0,
+> +			.shmem_dev_id = 1,
+> +			.shmem_peers = 2,
+> +			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+> +		},
+> +		/* 00:03.0 */ {
+> +			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+> +			.bdf = 3 << 3,
+> +			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+> +			.shmem_regions_start = 4,
+> +			.shmem_dev_id = 0,
+> +			.shmem_peers = 2,
+> +			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+> +		},
+> +	},
 > +
-> +	/* Get info about the LLC */
-> +	arm_read_sysreg(CCSIDR_EL1, cache_info);
-> +
-> +	/* ARM TRM: (Log2(Number of bytes in cache line)) - 4. */
-> +	cache_line_size = 1 << ((cache_info & CTR_LINESIZE_MASK) + 4);
-> +	/* ARM TRM: (Number of sets in cache) - 1 */
-> +	cache_set_num = ((cache_info >> CTR_SIZE_SHIFT) & CTR_SIZE_MASK) + 1;
-> +
-> +	/* Restore value in CSSELR_EL1 */
-> +	arm_write_sysreg(CSSELR_EL1, cache_sel_tmp);
-> +
-> +	/* Ensure write */
-> +	isb();
-> +
-> +	return (cache_line_size * cache_set_num);
-> +}
-
-I see the convenience of this function, I dislike the code size growth.
-
-Is there a way for a Linux root user, via some sysfs or proc values to 
-find out the required values that - as I assume - are unaccessible from 
-userspace via the registers? That would eventually allow to fill 
-llc_way_size when calling "jailhouse config create" on a non-x86 target.
-
-> +
-> +int coloring_paging_init(unsigned int llc_way_size)
-> +{
-> +	unsigned int i;
-> +
-> +	if (!llc_way_size) {
-> +		llc_way_size = get_llc_way_size();
-> +		if (!llc_way_size)
-> +			return -ENODEV;
-> +	}
-> +
-> +	/**
-> +	 * Setup addr_col_mask
-> +	 * This mask represents the bits in the address that can be used
-> +	 * for defining available colors
-> +	 */
-> +	for (i = PAGE_SHIFT; i < MSB_LONG_IDX(llc_way_size); i++)
-> +		set_bit(i, &addr_col_mask);
-> +
-> +	if (COLORING_MAX_NUM > MAX_COLOR_SUPPORTED)
-> +		return -ENOMEM;
-> +
-> +	/* Setup default color bitmask */
-> +	for (i = 0; i < COLORING_MAX_NUM; i++)
-> +		set_bit(i, color_bitmask_default);
-> +
-> +	printk("Coloring information:\n");
-> +	printk("LLC way size: %uKiB\n", llc_way_size >> 10);
-> +	printk("Address color mask: 0x%lx\n", addr_col_mask);
-> +	printk("Max number of avail. colors: %ld\n", COLORING_MAX_NUM);
-
-How much of that information is code debugging, how much is valuable 
-when configuring and operating a system?
-
-> +	return 0;
-> +}
-> +
-> +int coloring_cell_init(struct cell *cell)
-> +{
-> +	const struct jailhouse_cache *cache;
-> +	int counter = 0;
-> +	int i;
-> +
-> +	memset(cell->arch.color_bitmask, 0,
-> +		sizeof(unsigned long) * COLOR_BITMASK_SIZE);
-> +
-> +	/* Root cell is currently not supported */
-> +	if (cell == &root_cell)
-> +		return 0;
-> +
-> +	for_each_cache_region(cache, cell->config, counter) {
-> +		if ((cache->start + cache->size) > COLORING_MAX_NUM ||
-> +			!cache->size) {
-> +			printk("Wrong color config. Max value is %ld\n",
-> +				COLORING_MAX_NUM);
-> +			return -ERANGE;
-> +		}
-> +
-> +		for (i = cache->start; i < (cache->start + cache->size); i++)
-> +			set_bit(i, cell->arch.color_bitmask);
-> +	}
-> +
-> +	/* If no coloring configuration is provided, use all colors available */
-> +	if (!counter)
-> +		memcpy(cell->arch.color_bitmask, color_bitmask_default,
-> +			sizeof(unsigned long) * COLOR_BITMASK_SIZE);
-> +
-> +	printk("Cell [%s] color config: 0x%lx%lx%lx%lx\n",
-> +		cell->config->name,
-> +		cell->arch.color_bitmask[3], cell->arch.color_bitmask[2],
-> +		cell->arch.color_bitmask[1], cell->arch.color_bitmask[0]);
-> +
-> +	return 0;
-> +}
-> +
-> +unsigned long next_colored(unsigned long phys, unsigned long *color_bitmask)
-> +{
-> +	unsigned int high_idx;
-> +	unsigned int phys_col_id;
-> +	unsigned long retval = phys;
-> +
-> +	if (!color_bitmask)
-> +		return phys;
-> +
-> +	high_idx = MSB_LONG_IDX(addr_col_mask);
-> +
-> +	phys_col_id = (phys & addr_col_mask) >> PAGE_SHIFT;
-> +	/**
-> +	 * Loop over all possible colors starting from `phys_col_id` and find
-> +	 * the next color id that belongs to `color_bitmask`.
-> +	 */
-> +	while (!test_bit(phys_col_id, color_bitmask)) {
-> +		/**
-> +		 * If we go out of bounds, restart from 0 and carry 1
-> +		 * outside addr_col_mask MSB.
-> +		 */
-> +		if (phys_col_id > msb_color_bitmask(color_bitmask)) {
-> +			phys_col_id = 0;
-> +			retval += 1UL << (high_idx + 1);
-> +		} else
-> +			phys_col_id++;
-> +	}
-> +
-> +	/* Reset old color configuration */
-> +	retval &= ~(addr_col_mask);
-> +	retval |= (phys_col_id << PAGE_SHIFT);
-> +
-> +	return retval;
-> +}
-> +
-> +unsigned long get_end_addr(unsigned long start, unsigned long size,
-> +	unsigned long *color_bitmask)
-> +{
-> +	unsigned color_num = 0;
-> +
-> +	/* Get number of colors from mask */
-> +	for (int i = 0; i < MAX_COLOR_SUPPORTED; i++)
-> +		if (test_bit(i, color_bitmask))
-> +			color_num++;
-> +
-> +	/* Check if start address is compliant to color selection */
-> +	start = next_colored(start, color_bitmask);
-> +
-> +	return start + PAGE_ALIGN((size*COLORING_MAX_NUM)/color_num);
-> +}
+> +};
 > 
 
-Maybe you can model coloring setup/teardown as a unit, just like CAT 
-does. Avoids hooks, but it may require some stubbing as you use only few 
-of the common callbacks. Just an idea.
+You aren't setting your .col_load_address - I suspect this will explode 
+then, no?
 
-In general, please rethink which parts really need to be specific to arm 
-and keep only those here.
+Besides that, using this on the ultra96 should be straightforward, 
+right? Would make a demo case for jailhouse-images. Or we even configure 
+some more different target.
 
 Jan
 
@@ -442,4 +381,4 @@ Corporate Competence Center Embedded Linux
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/08e4aad0-314e-cfee-c4d8-be313903d8b4%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/2ef61ea7-5617-dcd8-24fe-1c80bca7615e%40siemens.com.
