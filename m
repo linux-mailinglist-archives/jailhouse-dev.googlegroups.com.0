@@ -1,127 +1,131 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBF6HYH2QKGQE5RWZHYY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB3OJYH2QKGQENNGN35A@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x537.google.com (mail-ed1-x537.google.com [IPv6:2a00:1450:4864:20::537])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79D871C464B
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  4 May 2020 20:48:56 +0200 (CEST)
-Received: by mail-ed1-x537.google.com with SMTP id de17sf3606224edb.10
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 04 May 2020 11:48:56 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1588618136; cv=pass;
+Received: from mail-lf1-x137.google.com (mail-lf1-x137.google.com [IPv6:2a00:1450:4864:20::137])
+	by mail.lfdr.de (Postfix) with ESMTPS id 28CE41C4672
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  4 May 2020 20:54:38 +0200 (CEST)
+Received: by mail-lf1-x137.google.com with SMTP id h17sf2822246lfc.12
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 04 May 2020 11:54:38 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1588618477; cv=pass;
         d=google.com; s=arc-20160816;
-        b=s42YHyMc+Lvm0zcwWrHJod5Eq+9nTozjei1aDXzSJawBLuV2xgCc+O3qvDMViizSv3
-         cmysCQJ1akZyQ6VpMbktqw/X1bbvaDkeq3aTp8C5OOIby0IEeVG7+S87QXWrB2AvuJjL
-         IsQ7N994DkfwW0NqdxWC977CzQbokIZM9/WliCjzDaghBhJUg/A/1XqZDuRfKkbH773j
-         f3/Huk1Uglcr7kISb2WE0+sjkx6DJLhCz9rDbwyqAtwyjFWTp757+LXzpG5colmRvuDr
-         tnOqOsNfyZBRRWRKp3Nsi5z8gvIEylNWXqRi1O/rqW8E87tmmy7CrZyWIK6pJjtpvjzp
-         qtew==
+        b=Hy3aqTMKx7fz8JZeq88caW9y1JT8eRt7pXtOIT8+bu34nXCRDKF7XOSaowJNGot6cS
+         oGChf1z42KGZtEvi+AWrYO3+JgTAJIUJ9Mko7RmdjttD6LClq8OLk1JD5f1IQDxmxy9y
+         N+3ChgaYwfvyPD7vZok26f1B0ou99xPYVV8KT8RdBFNIOmU1LH+LpmKmG4WN93hCeoGb
+         GlJArsPXksMOyq1Ai187fGbzwzp7niX97atot4Esi8HspZKZ740wq/jgQCWGITEQulKo
+         t5DRFlhcEFSi7ayWRQrsraBv16PJU7pJK48cro1IWTkqZ1y79EqdYgoYlGB5yB4vGw7l
+         qzdg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
          :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:cc:to:subject:sender:dkim-signature;
-        bh=LC2STsRDtTHQH+0n6h0zR4t4XXF6wi7gwkPfjxXX7qA=;
-        b=dyTstXRzRTcZM/5BcKDkfwfCHyMp0r26kjBjEQ7p1n4HhJVEOWGVGGRfrh+iuoZLJY
-         k31TRv2iTdbnTNQ7iuXYmYks/7p3b6gS4Rh5hZmKouqT7AbZXyd0uJ2JBKYl+DUPvu+4
-         BuornbiMWAKSAvF/xBmqvPSph3EMPbfqGh4NBGBFkZeljURZvUhBdonnbZb+hAIdpoG7
-         FVnGynP4NWOlKN0NSKedeKeNxr728S4sXOZMq7iwq+W67nftRU6Mk6R7yHT8yKesAPhC
-         A2GpHj95b1sS0mZSPJSiD1tyM2MDBP14PIkwaghC24hdheWGSCxQA2XLaJxBgGIIbwGu
-         vc2g==
+         :message-id:references:cc:to:from:subject:sender:dkim-signature;
+        bh=Q1ZpvkSSXWlaxdoEpkekEXL+VVnZniO3hieL/iV6Fj4=;
+        b=rVQPXiSzrHvNVSdoPxAZWom4N08HO57LzHnMDXZDlDDHvXNUamyNab2Z7i/D8AB3It
+         g5LJ6jzolupnmH5v8tldOeYTz6yuDO0lKOq9m8FI9VhZ0he8E2Ysm1u/JxhHR1c3mNOi
+         s1Gku1mmNGNDbh7vcwl7cw/b23GUFau4Jb56MH36Rrnrtb2sV2SQOHeFxMfnaIr2kYea
+         8FNElDrn4TRzPucqsFVMfQItSPMwVfFTrl1d6Xa4NnKJ1yDWgSxV9xx3kdBRJ22NvLrn
+         iAFSqnGzq3OUe/KRHa/weGDFcOEUJjkmbgTge6O5yBuD2Q41EZBjfDMRz8xCnezNscFe
+         HT8g==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+        h=sender:subject:from:to:cc:references:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=LC2STsRDtTHQH+0n6h0zR4t4XXF6wi7gwkPfjxXX7qA=;
-        b=sincZWCgMHCS0I5LLViyDN17h31Hh/fGw2fID2q8P0yySvqWzrTooLmjKbTYd7jywh
-         WHOU/Sb2alg8hX04KGLQnlcCS6lSNmyinEnXnT1bkRW2NMK3sq+fgyGrbJNEyP56qgb4
-         PbBJF9WSRSZzKEBFJi73yCth2oh0hnwbTrTfKsCA0Qv8gmKKJ1b1GAzdJX3vLCVhYtwl
-         xH6HdM8CM8LLS9Gnccoq/4TQP8quDPnpqEZ/pzW3KzwfXbOYb1LF5FyGdf+clO89wqFi
-         ZGEec3kXbsFBAtlhZhBLWlqs066Erws7BC/6r3EbvcdVJhfLnrloYhQMhFw7gj/+SHq/
-         SkqA==
+        bh=Q1ZpvkSSXWlaxdoEpkekEXL+VVnZniO3hieL/iV6Fj4=;
+        b=Yccf3eH2xlcMxdNkgdw2xE2Kkeskq2lVZr8WDjTmcRMyNr1iJiZXIc33cdcBkCSCFS
+         0YfNcqst+m/U072QJGmb8Ri2T0M80Wymyo1KimVfwUlHgDTu3EiGqAeYwJJSxSVZEhwr
+         t+Sq84tpTl9S5Zpk6OX5Cn+SyVLsFAN8o2qk1AlV1cHhfDL2aJPG4IRF8aa7ihbfizcx
+         bNTpgfVCFFpCI+UHpSakAWRMT9dF7XA1zCP2VeJODcJxQHGVzgKCmKm0G5N2wyR2shAW
+         h3DwMIIGa0CqKTSOc1ji2sayLYJTon2MeN8ZKSyAoHHtxLnBFiitxdTKPzt0H2iKFfdj
+         bL2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
+        h=sender:x-gm-message-state:subject:from:to:cc:references:message-id
          :date:user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=LC2STsRDtTHQH+0n6h0zR4t4XXF6wi7gwkPfjxXX7qA=;
-        b=tjNteFAKjNvXzyn9HVM0iTvtHslyY8l0yFaHCKMlplyN+wqHiiueWb1I1pujhkBFrN
-         UORo+/pmexcJpQthxzU0ScYibgjBpKTzd/OB7IDWidf7jXpwI0z3iLAt7zfFhKpy1wYz
-         hggcuGnbwZ5oapmtYsS1gp8VmxqOoSZzmualbEBppkhJef65NN1VFGixpK0sXsQKkLUn
-         V9Ig3cEJ3y+GhJyZd/quxuMj7Kod08PSORX1ZPTkXMGJS4vv924pj9iuDmJ9Wd7k9Ols
-         kvArrATvIovgmkX4quVf9xZWYYfxdqBZ6cBC/z/c3zAB8KTMaia/KFUnvFYlYZ5FSyP1
-         homQ==
+        bh=Q1ZpvkSSXWlaxdoEpkekEXL+VVnZniO3hieL/iV6Fj4=;
+        b=Vfeo45Gd0F8ZbpL1fotoC5XLGZM/CineXBNeRDOajQdZPbXiWgFhNOjiSEOSi/Zw8M
+         k2TTsTwNeEnmWTA+1nycGXSKuXE26G6GPtICIJOQoWZVcwAhnxUMebJR6fl6f2B1kFfO
+         KM6k9OVhu9PDrvhE9wRjz6szS8xJbnqdLN9e3d3mOrafPub4yWhZ+KfSRdOxYJikNIu9
+         v/PAHdJ8zHlQtcpDDIe2PEbsW8n8VLTbByXLlAQtnIFKv4q7D6+q74GRxWlLUtSXAAa4
+         Mvn55edlC0tkHDkbdokM+e9MfOOBSpzeC9E23eDL+X9anmeZAd5sgzOMEBzmnPtcDicX
+         xI3w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AGi0Pua6emj0je/m4kgJC2saT9ays8BjO/59UKkDyrA7CAQpLfjRqBWP
-	/xQhW5zVjJA6Ezt0mAqd7R4=
-X-Google-Smtp-Source: APiQypKySLiO60X2KK2PGBRL6AH61jJB7yYAOtJ8vbVpUoSROsIrLYG9uEnVOIcn5agrHmvs1GK7Rw==
-X-Received: by 2002:a17:906:4548:: with SMTP id s8mr15775413ejq.349.1588618135850;
-        Mon, 04 May 2020 11:48:55 -0700 (PDT)
+X-Gm-Message-State: AGi0PubUWosnr1eTCVfAXSst++Uo5JI0hXhiAwt9QdSnfP48MevT0ZUP
+	FrHiCelIZ3HxSW18jyNlsAY=
+X-Google-Smtp-Source: APiQypJe3Y3g5ktvBxB8ItxWSW1YPePlqopu5bBtCZI1dwyfCVc2OamdA8/tNpEyVYxRCYQSmyhE0A==
+X-Received: by 2002:ac2:4d18:: with SMTP id r24mr2679010lfi.51.1588618477699;
+        Mon, 04 May 2020 11:54:37 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a50:ee14:: with SMTP id g20ls6134233eds.10.gmail; Mon, 04
- May 2020 11:48:55 -0700 (PDT)
-X-Received: by 2002:a50:9b0f:: with SMTP id o15mr16092210edi.325.1588618134978;
-        Mon, 04 May 2020 11:48:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1588618134; cv=none;
+Received: by 2002:a2e:3a12:: with SMTP id h18ls3025001lja.1.gmail; Mon, 04 May
+ 2020 11:54:36 -0700 (PDT)
+X-Received: by 2002:a2e:3813:: with SMTP id f19mr11116169lja.216.1588618476753;
+        Mon, 04 May 2020 11:54:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1588618476; cv=none;
         d=google.com; s=arc-20160816;
-        b=aASfFLi1G1MTqGI47ShAZ9foY9MeeD/iKYVfMViu+hLOFKlZlsGpfomY/pkJdX6Rf5
-         lQVsAfajUWfpkQaEAKenK7SJ7wGeEBFM+UfA3W17Z5Y3dm9/fBp+WnvEnrxAtolX/Wko
-         ntaEgh2umfLWz/Cso+9Zv5fy/wOsJuwcmGssspyCs/EOGOEknXANQ2u8yMvYjOB0930D
-         O9ReyqgdUo/VoeDIhH3sIsvGrebwLH4SVqi1uZb82P13gkokygPbvXleskoJPS0dhFVT
-         GLOrR9C0qvEetdkNX1469Jr4+0CLg9NR7EbihfoSqGRt21o/1eXgidjW2QpFbXspiIrt
-         16xQ==
+        b=mX4O5H4rEI07x4Y3crG7ltZjsH6f2eTxDUsi7A7jJOTVIF+KuwjfnxPxA0seUjhKT7
+         Q3YkUraEP2rScu7a6qaP/o5rVt1qPuGEOXnOgsd0N5vtLp3bQ6hAh2nCG4EDlKwmt2u/
+         ghP7Qd1mpEIk7NlHs7579kxnHquaiH+U+8U4VMD3idPWMIPG/RfoBF7BoH8vLo3VtqLk
+         7evq+9cx6d2CNBWy0MSIWd/vRPz13UQW8/RLH/JorV1XiYIsdIntVNKPWC8yPB8wwOeu
+         C+il//r0VU2dmkTTP7/Y9fyDXt/w3FpBA5EvX1+yotZVtDDZvglmCU11Z+QevD4+OIzS
+         YkVg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=uRU+8jHTl7pq5r16Bew4F7zarCikd09TFSeh/Hs3swY=;
-        b=gersfMIJIIA6+ZB2SpzJBgKDe5GkPbehs1zC5lKNVIRXn+OwRc9JsROoqtuqD8OXMP
-         teac9ZoG6xGrUPET7k9iFWXIaUVAX78mmRSIgapriZcpDKMRONx+ctV6AfzAdJoTZ/gj
-         6u96QtIFiI5eop+1dBK0fHowtJhpDejJvb/qJMtGdcBLH0xv7tvhfZwcjtjYtb6sKlZq
-         5bRv7QSSR+jATI1mcRh2Sf3/lwmW6VglN5fH5qPvdXMhgCr/E+3ydhmH612L4DeV9LtM
-         lRWzuJzaG9xSEL/1DkE3OKpzvRGAxGV0nFKxXlURg9BkzYyPGl29iiK8qCZcSj+B8pKW
-         UugQ==
+         :user-agent:date:message-id:references:cc:to:from:subject;
+        bh=Ei2ikDp88/Hobbm2kBbhwPT1C2rttaX/L6l02WMWsc8=;
+        b=BAxAghC4e5yt/2jURVV8yK/Zgt4lAO+g8HFuYG83Bdihm0sx1uXOMVGo/oWtQcHgdl
+         lbEmWrxhWVxavLOIqI/mlVvkDA61d3yqKQH1mT3b5tI47kigjCS5DGiN53pW+M1nHNHF
+         NmCO2N44FoZdOToVu5Z8CPEDTcKyUFqoNOnsLmW5eN1tKl7dXNE+Mw8GlkxfCVXmLQLH
+         Hg0E+UPRXIo/LJoy/lS0fy7zcb3jYtnCwEZeHUYfa8u91kamO4tMUTbCApHBSbu/euX/
+         KdVNSOYQP4uRU28nhRr2H4zbOh5ZztxvwdNc/ySoqSSgSVDdyHf/v1g1MV9Iz/MM9rMD
+         rY8w==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id l22si905352ejz.0.2020.05.04.11.48.54
+Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
+        by gmr-mx.google.com with ESMTPS id q24si838037ljg.4.2020.05.04.11.54.36
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 04 May 2020 11:48:54 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
+        Mon, 04 May 2020 11:54:36 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 044ImsDQ002451
+	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id 044IsYxH016147
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 4 May 2020 20:48:54 +0200
+	Mon, 4 May 2020 20:54:34 +0200
 Received: from [167.87.53.26] ([167.87.53.26])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 044Imq06032330;
-	Mon, 4 May 2020 20:48:53 +0200
-Subject: Re: [PATCH v2 9/9] Documentation: add description and usage of cache
- coloring support
-To: Marco Solieri <ms@xt3.it>, jailhouse-dev@googlegroups.com
-Cc: Luca Miccio <lucmiccio@gmail.com>
-References: <20190327121849.1882-1-ms@xt3.it>
- <20200421100351.292395-1-ms@xt3.it> <20200421100351.292395-10-ms@xt3.it>
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 044IsW7k005446;
+	Mon, 4 May 2020 20:54:33 +0200
+Subject: Re: [PATCH 0/8] Add cache coloring support for Arm
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <2b73cdf3-8eb9-fc65-0f22-8725986a4e15@siemens.com>
-Date: Mon, 4 May 2020 20:48:52 +0200
+To: Marco Solieri <marco.solieri@unimore.it>
+Cc: jailhouse-dev@googlegroups.com, marko.bertogna@unimore.it,
+        tomasz.kloda@unimore.it, giulioc@xilinx.com, claudio@evidence.eu.com,
+        fabio.federici@utrc.utc.com, Luca Miccio <206497@studenti.unimore.it>,
+        Angelo Ruocco <220530@studenti.unimore.it>
+References: <20190327121849.1882-1-ms@xt3.it>
+ <7e92c41e-12a5-28fd-b1fc-4949e5ccac20@siemens.com>
+ <20200422072259.sc2au24ksnt6j7jy@carbon.xt3.it>
+ <9605c893-d940-ce35-8301-832d31382c88@siemens.com>
+Message-ID: <c25b626d-2aab-2ccd-f129-40e8b525a232@siemens.com>
+Date: Mon, 4 May 2020 20:54:32 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <20200421100351.292395-10-ms@xt3.it>
+In-Reply-To: <9605c893-d940-ce35-8301-832d31382c88@siemens.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
@@ -136,407 +140,91 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 21.04.20 12:03, 'Marco Solieri' via Jailhouse wrote:
-> From: Luca Miccio <lucmiccio@gmail.com>
+On 22.04.20 10:51, Jan Kiszka wrote:
+> On 22.04.20 09:22, Marco Solieri wrote:
+>> On Wed, Apr 22, 2020 at 08:42:32AM +0200, Jan Kiszka wrote:
+>>> On 27.03.19 13:18, Marco Solieri wrote:
+>>>> Predictability of memory access latency is severely menaced by the
+>>>> multi-core architectures where the last level of cache (LLC) is
+>>>> shared, jeopardizing applicability of many Arm platform in real-time
+>>>> critical and mixed-criticality scenarios. Support for cache coloring
+>>>> is introduced, a transparent software technique allowing
+>>>> partitioning the LLC to avoid mutual interference between inmates.
+>>>> [...]
+>>>
+>>> Thanks for updating this! I will refresh my caches on the topic and
+>>> provide feedback soon (I already have some questions and remarks but
+>>> I'd like to double-check them).
+>>
+>> Looking forward to hear from you.
+>>
+
+Done with the deeper review. Overall, the series looks fairly good. I=20
+see just two bigger open issues:
+
+  - inmate loading interface
+  - more architectural independence
+
+But I think those should be solvable.
+
+>>> As you likely read, there are better chances in sight to also address
+>>> the root cell issue by booting Jailhouse from a loader.
+>>
+>> I share the same view.
+>>
+>> On the other hand, it ties the cache colouring with the
+>> Linux-independent boot.=C2=A0 This is not ideal from an quality perspect=
+ive,
+>> because it introduces a dependency between otherwise unrelated features,
+>> including one definitely optional (as long as Jailhouse will stay a
+>> "Linux-based hypervisor").=C2=A0 Also, from a process perspective, it fo=
+rces
+>> the colouring-related activities and deliveries to be postponed after
+>> reaching a somewhat stable architecture for the independent loader
+>> (colouring pages is a loader matter).
+>>
+>> The other option is the hot-remapping of the root-cell memory, which we
+>> already wrote and tested on an older version of Jailhouse extended with
+>> a SMMU support.=C2=A0 From a quality perspective, it looks comparable, a=
+nd it
+>> does not introduces constraints on the development process.
+>>
 >=20
-> Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
-> Signed-off-by: Marco Solieri <ms@xt3.it>
-> ---
->   Documentation/cache-coloring.md | 278 ++++++++++++++++++++++++++++++++
->   1 file changed, 278 insertions(+)
->   create mode 100644 Documentation/cache-coloring.md
+> As pointed out back then, there are still open questions regarding the=20
+> reliability of such a hot-remapping approach, besides the complexity.
 >=20
-> diff --git a/Documentation/cache-coloring.md b/Documentation/cache-colori=
-ng.md
-> new file mode 100644
-> index 00000000..09aa2e17
-> --- /dev/null
-> +++ b/Documentation/cache-coloring.md
-> @@ -0,0 +1,278 @@
-> +Cache Coloring Support
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +Introduction
-> +------------
-> +
-> +### Cache partitioning and coloring
-> +
-> +#### Motivation
-> +
-> +Cache hierarchies of modern multi-core CPUs typically have first levels
-> +dedicated
-> +to each core (hence using multiple cache units), while the last level ca=
-che
-> +(LLC) is shared among all of them. Such configuration implies that memor=
-y
-> +operations on one core, e.g., running one Jailhouse inmate, are able to =
-generate
-> +timing *interference* on another core, e.g., hosting another inmate. Mor=
-e
-> +specifically, data cached by the latter core can be evicted by cache sto=
-re
-> +operations performed by the former. In practice, this means that the mem=
-ory
-> +latency experienced by one core depends on the other cores (in-)activity=
+> Anyway, we now do have SMMU support in Jailhouse (first issue to report=
+=20
+> against your series, patch 9 ;) ), we could look into that systematically=
 .
-> +
-> +The obvious solution is to provide hardware mechanisms allowing either: =
-a
-> +fine-grained control with cache lock-down, as offered on the previous v7
-> +generation of Arm architectures; or a coarse-grained control with LLC
-> +partitioning among different cores, as featured on the "Cache Allocation
-> +Technology" of the high-end segment of recent Intel architecture and sup=
-ported
-> +by the Jailhouse hypervisor.
-> +
-> +#### Cache coloring
-> +
-> +Cache coloring is a *software technique* that permits LLC partitioning,
-> +therefore eliminating mutual core interference, and thus guaranteeing hi=
-gher and
-> +more predictable performances for memory accesses. A given memory space =
-in
-> +central memory is partioned into subsets called colors, so that addresse=
-s in
-> +different colors are necessarily cached in different LLC lines. On Arm
-> +architectures, colors are easily defined by the following circular strid=
-ing.
-> +
-
-Is this striding architecturally defined? Across ARMv7 and v8? Or could=20
-implementation deviate as well? Do you happen to know how AMD or Intel=20
-do this, de facto or even in a documented way? At worst, the mapping=20
-algorithm would have to be factored out and implemented specifically,=20
-but not the logic to exploit this for cache partitioning.
-
-> +```
-> +          _ _ _______________ _ _____________________ _ _
-> +               |     |     |     |     |     |     |
-> +               | c_0 | c_1 |     | c_n | c_0 | c_1 |
-> +          _ _ _|_____|_____|_ _ _|_____|_____|_____|_ _ _
-> +                  :                       :
-> +                  '......         ........'
-> +                        . color 0 .
-> +                . ........      ............... .
-> +                         :      :
-> +            . ...........:      :..................... .
-> +```
-> +
-> +Cache coloring suffices to define separate domains that are guaranteed t=
-o be
-> +*free from interference* with respect to the mutual evictions, but it do=
-es not
-> +protect from minor interference effects still present on LLC shared
-> +subcomponents (almost negligible), nor from the major source of contenti=
-on
-> +present in central memory.
-> +
-> +It is also worth remarking that cache coloring also partitions the centr=
-al
-> +memory availability accordingly to the color allocation--assigning, for
-> +instance, half of the LLC size is possible if and only if half of the DR=
-AM space
-> +is assigned, too.
-> +
-> +
-> +### Cache coloring in Jailhouse
-> +
-> +The *cache coloring support in Jailhouse* allows partitioning the cache =
-by
-> +simply partitioning the colors available on the specific platform, whose=
- number
-> +may vary depending on the specific cache implementation. More detail abo=
-ut color
-> +availability and selection is provided in [Usage](#usage).
-> +
-> +#### Supported architectures
-> +
-> +Cache coloring is available on Arm64 architectures. In particular, exten=
-sive
-> +testing has been performed on v8 CPUs, namely on the A53 and A57 process=
-ors
-> +equipping Xilinx ZCU102 and ZCU104.
-> +
-> +#### Limitations
-> +
-> +Since Jailhouse is currently lacking SMMU support, and since the colored=
- memory
-
-No longer true. We already have SMMUv3, and I will review the pending v2=20
-patches soon.
-
-> +mapping must be provided to DMA devices to allow them a coherent memory =
-view,
-> +coloring for this kind of devices is not available.
-> +This also explain why also coloring support for the Linux root cell is n=
-ot
-> +provided, although possible and tested with a simple hot remapping proce=
-dure.
-
-I think this should be reworded so that it is made clear that dynamic=20
-reconfiguration of DMA mappings (or actually their activation) is not=20
-supported, and therefore also root cell coloring.
-
-> +
-> +### Further readings
-> +
-> +Relevance, applicability, and evaluation results of the Jailhouse cache =
-coloring
-> +support are reported in several recent works. A non-technical perspectiv=
-e is
-> +given in [1] together with an overview of the ambitious HERCULES researc=
-h
-> +project. A technical and scientific presentation is instead authored in =
-[2],
-> +where additional experimental techniques on cache and DRAM are introduce=
-d. A
-> +specific real-time application is extensively discussed in [3].
-> +
-> +An enjoyable, comprehensive and up-to-date survey on cache management te=
-chnique
-> +for
-> +real-time systems is offered by [4].
-> +
-> +1. P. Gai, C. Scordino, M. Bertogna, M. Solieri, T. Kloda, L. Miccio. 20=
-19.
-> +   "Handling Mixed Criticality on Modern Multi-core Systems: the HERCULE=
-S
-> +   Project", Embedded World Exhibition and Conference 2019.
-> +
-> +2. T. Kloda, M. Solieri, R. Mancuso, N. Capodieci, P. Valente, M. Bertog=
-na.
-> +   2019.
-> +   "Deterministic Memory Hierarchy and Virtualization for Modern Multi-C=
-ore
-> +   Embedded Systems", 25th IEEE Real-Time and Embedded Technology and
-> +   Applications Symposium (RTAS'19). To appear.
-> +
-> +3. I. Sa=C3=83=C2=B1udo, P. Cortimiglia, L. Miccio, M. Solieri, P. Burgi=
-o, C. di Biagio, F.
-> +   Felici, G. Nuzzo, M. Bertogna. 2020. "The Key Role of Memory in
-> +   Next-Generation Embedded Systems for Military Applications", in: Cian=
-carini
-> +   P., Mazzara M., Messina A., Sillitti A., Succi G. (eds) Proceedings o=
-f 6th
-> +   International Conference in Software Engineering for Defence Applicat=
-ions.
-> +   SEDA 2018. Advances in Intelligent Systems and Computing, vol 925. Sp=
-ringer,
-> +   Cham.
-> +
-> +4. G. Gracioli, A. Alhammad, R. Mancuso, A.A. Fr=C3=83=C2=B6hlich, and R=
-. Pellizzoni. 2015.
-> +   "A Survey on Cache Management Mechanisms for Real-Time Embedded Syste=
-ms", ACM
-> +   Comput. Surv. 48, 2, Article 32 (Nov. 2015), 36 pages. DOI:10.1145/28=
-30555
-> +
-> +
-> +
-> +
-> +Usage
-> +-----
-> +
-> +### Enable coloring support in Jailhouse
-> +
-> +In order to compile Jailhouse with coloring support add `CONFIG_COLORING=
-` to the
-> +hypervisor configuration file (include/jailhouse/config.h)
-> +```
-> +#define CONFIG_COLORING 1
-> +```
-
-Should be overcome.
-
-> +
-> +### Colors selection using indices
-> +
-> +We shall first explain how to properly choose a color assignment for a g=
-iven
-> +software system.
-> +Secondly, we are going to deep into the root cell configuration, which e=
-nables
-> +cache coloring support for inmates.
-> +Lastly, we are explaining how a color selection can be assigned to a giv=
-en cell
-> +configuration.
-> +
-> +In order to choose a color assignment for a set of inmates, the first th=
-ing we
-> +need to know is... the available color set. The number of available colo=
-rs can
-> +be either calculated[^1] or read from the handy output given by Jailhous=
-e once
-> +we enable the hypervisor.
-> +
-> +```
-> +...
-> +Max number of avail. colors: 16
-> +Page pool usage after early setup: mem 39/992, remap 0/131072
-> +...
-> +```
-> +
-> +[^1]: To compute the number of available colors on the platform one can =
-simply
-> +  divide
-> +  `way_size` by `page_size`, where: `page_size` is the size of the page =
-used
-> +  on the system (usually 4 KiB); `way_size` is size of a LLC way, i.e. t=
-he same
-> +  value that has to be provided in the root cell configuration.
-> +  E.g., 16 colors on a platform with LLC ways sizing 64 KiB and 4 KiB pa=
-ges.
-> +
-> +Once the number of available colors (N) is known, we select a range of c=
-olors
-> +between 0 and N-1 and we will use the `jailhouse_cache` structure to to =
-inform
-> +the hypervisor of our choice, as later explained in the section about
-> +[cells configuration](#cells-configuration).
-> +
-> +Ex:
-> +```
-> +Max. available colors 16 [0-15]
-> +Range_0: [0-5]
-> +Range_1: [8-15]
-> +```
-> +
-> +#### Partitioning
-> +
-> +We can choose any kind of color configuration we want but in order to ha=
-ve
-> +mutual cache protection between cells, different colors must be assigned=
- to them.
-> +Another point to remember is to keep colors as contiguous as possible, s=
-o to
-> +allow caches to exploit the higher performance to central memory control=
-ler.
-> +So using different but single ranges for each cells is the most simple w=
-ay to
-> +have mutual cache protection.\
-> +Ex: cell-1 has range `[0-7]` and cell-2 has range `[8-15]`.
-> +
-> +### Root Cell configuration
-> +
-> +#### Load start address
-> +
-> +Coloring support uses a special memory region to load binaries when cell=
-s are
-> +configured to use cache coloring. This mapping has the same size and col=
-oring
-> +selection as the cell but it starts from a virtual address that is defin=
-ed by
-> +the variable `col_load_address`. This value is set to 16 GiB by default =
-but it
-> +can be configured by the user depending on the platform. The value shoul=
-d be
-> +set to a memory space that is not used in the platform e.g., devices.
-> +
-> +For example, if we want to change this address to 32 GiB:
-> +```
-> +...
-> +.platform_info =3D {
-> +    ...
-> +    .col_load_address =3D 0x800000000,
-> +    .arm =3D {
-> +        .gic_version =3D 2,
-> +        .gicd_base =3D 0xf9010000,
-> +        .gicc_base =3D 0xf902f000,
-> +        .gich_base =3D 0xf9040000,
-> +...
-> +```
-> +
-> +#### LLC way size
-> +
-> +This field is _mandatory_ for using coloring support. It can be explicit=
-ly
-> +defined by the user in the Root Cell configuration or it can be leaved e=
-mpty and
-> +the hypervisor will try to probe the value.
-> +The value corresponds to the way size in bytes of the Last Level Cache a=
-nd
-> +could be calulated by dividing the LLC size by the number of way
-> +(the way number refers to N-way set-associativity).
-> +
-> +For example, a 16-way set associative cache sizing 1 MiB has a way size =
-of
-> +64 KiB:
-> +```
-> +...
-> +.platform_info =3D {
-> +    ...
-> +    .llc_way_size =3D 0x10000,
-> +    .arm =3D {
-> +        .gic_version =3D 2,
-> +        .gicd_base =3D 0xf9010000,
-> +        .gicc_base =3D 0xf902f000,
-> +        .gich_base =3D 0xf9040000,
-> +...
-> +```
-> +
-> +### Cells configuration
-> +
-> +First of all we need to select one or more range(s) for coloring
-> +configuration that will be applied to **all** memory regions flagged wit=
-h
-> +`JAILHOUSE_MEM_COLORED`. Each range is defined using the `struct jailhou=
-se_cache`
-> +where the `.start` and `.size` values correspond respectively the start =
-and size
-> +of the range itself.
-> +```
-> +...
-> +struct jailhouse_memory mem_regions[12];
-> +struct jailhouse_cache cache_regions[1];
-> +...
-> +.num_memory_regions =3D ARRAY_SIZE(config.mem_regions)
-> +.num_cache_regions =3D ARRAY_SIZE(config.cache_regions),
-> +...
-> +.mem_regions =3D {
-> +        ...
-> +        /* Colored RAM */ {
-> +                .phys_start =3D 0x810000000,
-> +                .virt_start =3D 0x0,
-> +                .size =3D 0x10000,
-> +                .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +                        JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
-> +                        JAILHOUSE_MEM_LOADABLE| JAILHOUSE_MEM_COLORED,
-> +        },
-> +        ...
-> +}
-> +...
-> +.cache_regions =3D {
-> +        {
-> +                .start =3D 0,
-> +                .size =3D 8,
-> +        },
-> +},
-> +...
-> +```
-> +In the example we have a platform with 16 colors available and we are se=
-lecting
-> +the range [0-7] that goes from 0 to 7 (8 colors).
-> +
-> +#### Overlaps and colored memory sizes
-> +
-> +When using colored memory regions the rule `phys_end =3D phys_start + si=
-ze` is no
-> +longer true. So the configuration must be written carefully in order to =
-avoid to
-> +exceed the available memory in the root cell. The hypervisor performs a =
-check
-> +when a colored region is created but it's up to the configurator to fix =
-the
-> +issue.
-> +Moreover, since the above rule does not apply, it is very common to have=
- overlaps
-> +between colored memory regions of different cells if they are sharing co=
-lors.
 >=20
+>>
+>>> That would then leave us only with the question how to handle the
+>>> hypervisor itself /wrt coloring.
+>>
+>> Correct.
+>>
+>>
+>>> Provided that can buy us worthwhile improvements.
+>>
+>> We already have experimentally proven on two other hypervisors (Xen and
+>> Bao) that the interrupt response time hugely depends on the cache
+>> performances of the hypervisor's routines for guest injection.=C2=A0 Cac=
+he
+>> partitioning is therefore mandatory for predictability.
+>>
+>=20
+> What measures did you apply on the hypervisors? Replicate the code into=
+=20
+> memory that has the "right" local color? Ensure that core- and=20
+> guest-local data is in color memory? How did you handle naturally shared=
+=20
+> r/w data structures?
 
-As pointed out before, this leaves it unclear to me how coloring affects=20
-the effective size of a memory region, or its physical address range.=20
-That must be clarified.
+These questions are still open. I don't see hypervisor coloring as a=20
+must-have for starting to merge things at all. But I'd like to have some=20
+idea of the structures and interfaces we merge will not cause massive=20
+breakages when adding that later.
 
 Jan
 
@@ -550,4 +238,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/2b73cdf3-8eb9-fc65-0f22-8725986a4e15%40siemens.com.
+jailhouse-dev/c25b626d-2aab-2ccd-f129-40e8b525a232%40siemens.com.
