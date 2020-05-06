@@ -1,129 +1,128 @@
-Return-Path: <jailhouse-dev+bncBCD5HYFFQEERBMWSZP2QKGQEQQGWEIA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCD5HYFFQEERBQOSZP2QKGQEEHRCGCQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x337.google.com (mail-wm1-x337.google.com [IPv6:2a00:1450:4864:20::337])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FE8A1C76C7
-	for <lists+jailhouse-dev@lfdr.de>; Wed,  6 May 2020 18:43:31 +0200 (CEST)
-Received: by mail-wm1-x337.google.com with SMTP id j5sf1546669wmi.4
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 06 May 2020 09:43:31 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1588783411; cv=pass;
+Received: from mail-wm1-x33e.google.com (mail-wm1-x33e.google.com [IPv6:2a00:1450:4864:20::33e])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DFE91C76C9
+	for <lists+jailhouse-dev@lfdr.de>; Wed,  6 May 2020 18:43:46 +0200 (CEST)
+Received: by mail-wm1-x33e.google.com with SMTP id l21sf1555199wmh.2
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 06 May 2020 09:43:46 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1588783426; cv=pass;
         d=google.com; s=arc-20160816;
-        b=lZjjvgB1Y7kCkJ33YM67jh2dCFQDSnZeBHKrBZAkoFjgLImIAtz89sscL33Orh9WyZ
-         c23+rt3TygOWguZ8FXbPRrFCauXWXB2EI7Rn7+iayesV3Rst1fkZ5IdbONFgFynM8PIf
-         Rkz0ilH0S+cVecy6CajwvVI9ZsEcaAlZ2Ln1Xfz6WaBfH4asxbFPLi/NMGHzFKHuoy7a
-         LvRK+VpLOMkgmlzTPI8eGpQvKD64Ha2Q8KSKp4xtEu7eNAPQu8qQ5r1xJW+BxeECgAjP
-         tTP6Ghr4qRQJbhbvHWcCfjymO15Nv8CG0pqhBle9bH+717aNvvDMeiXuF0wbsKJZvq3s
-         figQ==
+        b=AEM6I6NS6XMLe0UduWvZM06w7bI0TjCG/yb6osSgHKsmMcAZ19Nk4qk/L69qnGPT/f
+         CYWK1aMs5BSzCC3FPPDouk10BRKzqXouLqibMrmhRbnEgHtQRU60VespsHaiozp/aMST
+         qFE+U0yRM5a3dQtD949bRL9KEHnMVR3oeufI9vISLsGO/PbDg+WtVqxPp0BvFKr0XbrD
+         pquyfOpF8VzeK+XYBr6btfvd4e2ZmoYbUP2sk+7eZSJw+D584o8nbTkTFGF8wDe1dS/x
+         zyTPoTyhbkIl6Kq0xvJCQnKZ1zjBvRW8qy8ntrC7ewAaFOivjvKweDPhpArf8AL2VRH6
+         F0/A==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:in-reply-to:mime-version:user-agent
-         :date:message-id:autocrypt:from:references:cc:to:subject:sender
+         :date:message-id:autocrypt:from:references:to:subject:sender
          :dkim-signature:dkim-signature;
-        bh=yxGcFhthzDY2F+niUOMpH+XC4OhfrQjNlrLB3hTo0Ws=;
-        b=Z/0t6g5SK4yDhCE1JOIriFCk1dIjmQEV8VqOPqZ/PIACNem/b5CPLakmVZKbsMCycT
-         NCWtIxN1ft+l80Soh4u5XgU2ZWziFEBPijRXmhr9BZJ+iIegLobN98u+F32+ocMc5xdY
-         NNo10ZbIbX04a4oaWfZGiNn0Ai5p+QpTuufAhQaYzF6QVwiW6u5Mo4y9B4BekaZM3H6h
-         QIxmV4vATzcQ6RroNZobqaMUYhu5tcXNAncajAlIv+QqpBQPSh8AlGDTdbChuw+cmixr
-         qus1W1DxPGO8zAMZv2IFbkbo937WEgHYMxLNHWuh8/bBtTL6c4IzqnoYBqmQA27l9Gwk
-         GWfw==
+        bh=wIC0upFbW29j6WuE034k/BDmeR6jBxxfe+QMc+2JciM=;
+        b=BWJKWTH73n139VWHfwC1xCav+TsSAFcQcsY5L6e8ejF3jTCQRKtoX9PRS1gaJ4iuVr
+         9msXhojT0cxIkJnNKKLiy0uGVHWEkad+skljIgFmG1JbZj4E5w+GQWTfE8xjsi2IU3sA
+         y+HWmt28EwmFtRdTNG9bJUZV0Je7yvAcMG5Qo7l5EC8jq3lBYq0VyOVPZDpYDNTDslrU
+         fPDxhIDSSjDmQAOA5bS6UU4B3U6MTJkMx/UHtvfJqH88Hc77v+VsKAOFaop1/Pnva5wP
+         Lm1Jk65Otd68ji6OLR0D2gHvUGo8Wc3xp+b3GwL3qZMHxYUTyrTWje4arbkO8neGzstY
+         juSg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=ELDxCWKZ;
-       spf=pass (google.com: domain of lucmiccio@gmail.com designates 2a00:1450:4864:20::441 as permitted sender) smtp.mailfrom=lucmiccio@gmail.com;
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=ZWFiZ7pU;
+       spf=pass (google.com: domain of lucmiccio@gmail.com designates 2a00:1450:4864:20::443 as permitted sender) smtp.mailfrom=lucmiccio@gmail.com;
        dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:autocrypt:message-id:date
+        h=sender:subject:to:references:from:autocrypt:message-id:date
          :user-agent:mime-version:in-reply-to:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=yxGcFhthzDY2F+niUOMpH+XC4OhfrQjNlrLB3hTo0Ws=;
-        b=jlzrim27zPQj9/qhuH1SnK1MblUYWBJNxTqlj/5V7NajFEJJNqwVlqty72xutayVYV
-         S8JsV++3zq67CxT+Xare79/ar2cSRcNnVrCpuB7WvVXoKq5mZN5tOkWOKgrKnnkR3H88
-         EtH8y+BcWmSgQnpX9HFWIK562GVA3HYuqeKtSB1f12nuj0vUN37b9c8oOPxZNc6eJsuu
-         OyUuRcMPeb9S3bNXLqz3iI5yfzBN+FllhLMPkiqzOdiC5h11079gMUVZE61XXAzbRy3f
-         mFw8lgzXb3FGby695GbfGGggqDysY21pTeODd84iY6+z/U71r5NnvWaurP2kmnnUmEsW
-         1TVw==
+        bh=wIC0upFbW29j6WuE034k/BDmeR6jBxxfe+QMc+2JciM=;
+        b=Ysic4t7h+LccmX/Z84r9n8mdtkp7Mnk5O/vTzglfrb3ngDUWOsMDvHoIHrQxrnKlE0
+         MlC2cxlWCTg/hQ4oAeMY4fE2Tb0XLd+L7T9geHj0QrsVHlrZTnoI20xuRGtBMBJZVHs3
+         1C2jbmGSj4LZ9Spoi7U/Et8YbfdwKegoxR7eUJwl1XJaAXSyINvHJc5UGEgoJaCO5AWl
+         op0nMd23r5jMH6apgsNDgOjHiIt/JrrCbyUdC07HS2NxGr5QRlAzAdcyuOprj+8qxwyh
+         ZFa/FVMxOvUPxKYZCoiJqCz5xYvmFqeJjC2LsQjaoSe0kHteAksLNqApGF9BgYu7oWKY
+         Ex3g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:autocrypt:message-id:date:user-agent
+        h=subject:to:references:from:autocrypt:message-id:date:user-agent
          :mime-version:in-reply-to:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=yxGcFhthzDY2F+niUOMpH+XC4OhfrQjNlrLB3hTo0Ws=;
-        b=NIW1WGcgisQ5JhthpCV1Eu2zHiafBDcFv1dPcoXayNVz7/YDnuyaSsEoDVMdMYpnsM
-         TzKAWbpux7TPSCoOSbHGRZHWP8yEST8j/1r72cXILqJWQvCUEBxLxZlcYvhvQuzYmNM4
-         Ckvc+rEhsM+kgU2mesuq/7N/3pGizfvFwaNLGThpV7ys65l4uzEiDep+kNgrW4/ThxPX
-         wkwEbJVjlkvcLAYHJKtgosmwrWCa7Ft7a1trfRS4Jj65k2eXHJCwvWNKEQIYNKlX3wrh
-         9cxczEC+Aog/2dn6SMBdXDykRLJKOOEdiZzp94qKb2P5yLlScmjsG2oQmFF8kTF+xmjf
-         PQ6A==
+        bh=wIC0upFbW29j6WuE034k/BDmeR6jBxxfe+QMc+2JciM=;
+        b=OcuQhUDXCWLUYVMiuhl3Cbb9Sn0a6KawKWsdnZJE6EF4manHf+RmVVWmdah8gEepkn
+         ynhv4gzoHe0seZCFlSRpJiS7N1FGI4m7xMTaX6EpK+a+jdvgoLSglfBT7pGz9iuhMntU
+         lJg264kzQkIQJNn6iyurGxmleEY7qJJlUBSwnovUylXernuIRL2nuc6/gRWcqIeLaMVk
+         LS6YeavxQcHgo1sPNy2FisKWnP7je/mUabKcZ0StzpHqjsbcHHapJFQBLCEs/57wFrIj
+         DnsU1Y/iHZgOZh1wO6GrepoHLYKgqDD59gMgm3lg3yK3uv5PKcrDUeaEMEte/fv9R7gT
+         LkTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:autocrypt
+        h=sender:x-gm-message-state:subject:to:references:from:autocrypt
          :message-id:date:user-agent:mime-version:in-reply-to
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=yxGcFhthzDY2F+niUOMpH+XC4OhfrQjNlrLB3hTo0Ws=;
-        b=lcFXvap7X0qkqkiH+UpZm9jkQTGyaIXzqBVcAXjWDkQywZ/mvD30yNLtTl86KmbDea
-         v/bu8E7H2as7vTqqLo1DHMjXPx/QxjKwq10rSfrLAgdKYm/X/+lrUyUQz5wQBEwEDaY8
-         fvybJJm/ipBM/9R3u4chxExacMpOHiF0yIj+FDT0Eo6nqJwgPo4fTKHLV/TmusFdiOHJ
-         6lmLD5H53KfW/m4A57glxYIUXCiQguyZWUw+OQgepc22ExeJJwZ7G4xIeAJhFYhf8KiN
-         mOsIqJAn5V1Wv/x827leuRcDACl69rmxv/+1RMQ7Z5WsvnbUWx3iPZgOHbUEPnTbsqDc
-         5ZFw==
+        bh=wIC0upFbW29j6WuE034k/BDmeR6jBxxfe+QMc+2JciM=;
+        b=JksvpTlwFn+Y7Z9BQX9tROF4s/ruBvu26Jw3vKfrdCyQ1hELV9l/lXo1lfqtAO5Mar
+         w+bE4GYuPks+azpX2304WKhnsXV8nsaMZwo9XT7kdtl/nmsTpnpgFixfGBXmjghWz7qo
+         ntDn3JvYjohzAafvXPkszcLJykeevA+Ruv0m2SFSe12FB6OJpynXQBEMiQjBxbp93QAN
+         pAbNKQ0vEVctIIce60KH66YkpROe6geQWWEgdTAgkSS1wi7tbVlEx+B+Xkq0g2o+TcQH
+         Ffq3Ia/cAB94eRpee806LTohWfyjbd8AgN5DTPC1KUeYe5c0HHjcYIe7j/VTgRyS2+zV
+         2c2w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AGi0PubBqN3ZQNdpgK/T0FFbbQHb0R+57WNinDwQV5ChU7spuU7mOx98
-	e4HKbVaCt0T4OoQBQa7cOQs=
-X-Google-Smtp-Source: APiQypK+tAq79WrS73HbQip3ArCOOpy8WViqU0iegJmrPafYWIkArvlA8bEjaMB4/z1yd0sG35fN4Q==
-X-Received: by 2002:a1c:6a06:: with SMTP id f6mr5129323wmc.51.1588783410872;
-        Wed, 06 May 2020 09:43:30 -0700 (PDT)
+X-Gm-Message-State: AGi0PuYRi2QMoB9guyvDnLNWrgZuJMARb5RAub3DiSmyQdE5VXDtUZak
+	MWJomTr/rRrjCaV75ZRo9+Y=
+X-Google-Smtp-Source: APiQypLJkY52abyLMjOXzqpv5W19Y7go4o9hKgUxvxYvaSZ2MjeqDe8e7zNvSRgsP4LBJWv4+0GiTg==
+X-Received: by 2002:a1c:4d17:: with SMTP id o23mr5244215wmh.120.1588783426101;
+        Wed, 06 May 2020 09:43:46 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:600c:224f:: with SMTP id a15ls5207346wmm.3.gmail; Wed,
- 06 May 2020 09:43:30 -0700 (PDT)
-X-Received: by 2002:a1c:f211:: with SMTP id s17mr6008044wmc.168.1588783410230;
-        Wed, 06 May 2020 09:43:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1588783410; cv=none;
+Received: by 2002:adf:db47:: with SMTP id f7ls4613716wrj.8.gmail; Wed, 06 May
+ 2020 09:43:45 -0700 (PDT)
+X-Received: by 2002:adf:c38c:: with SMTP id p12mr11176411wrf.357.1588783425371;
+        Wed, 06 May 2020 09:43:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1588783425; cv=none;
         d=google.com; s=arc-20160816;
-        b=N9TJVBtvVHoHBcc1YZsEYfvszw7HRZED7QEb2BZNdgnDacG6mfsPk4k05+LH+JsTO5
-         GsSPSHHG0WTpQqZTPdXtHpCgeP8LRlubnyfXkoIBYuC3ysrEbblAaxZgBaHDRmUGDTfn
-         e1kOyFvN6/B0CGYEnToB02wx5Srm2JrGTW1YauiJRZLNmgWrx/1EvOIV4T5b3MFwA3qi
-         ycOo1rExR2Az2M4ZD23U24+ezw4t/t+HQUXaWfbn/kG0nJb+J2d6NmyWPxOJ56y50etB
-         yXiCXWBOM1boNzo8rFrNdlVRcdNK3NeBkibuCeGVf7Bt1MhZmaswLcWP6L/tI53TYAQz
-         C2Wg==
+        b=MzeWebB+TelQjW7I/TG4/qrFA90vbME9QNM1rZzd5cNj3vBIt+oe665mcP1O3D3RG9
+         UANjrq6OcWQpqntgpkgl7gw6+u+FJUABlP75ex8WksE7EFbBNM7b/mxMmM0KKDjEQcux
+         53+m2dkGTgA433aD2r0qTluq9FmScUH7OqGODJxPqiFbkDGQ4JPelSna9Nw0Or+ZxWhr
+         sjMktXkrXzANwdnEXiFOUw0iTiGyhvgjg5vaYR79ijXUPUTSIBVIVne/pT4zQhEmBvqY
+         4UkyiTCz5RcSdIO5io7ITSao4f8RpewxdjgXrhH12lrC3FFyW2gwnp64xk0zawLwOiHo
+         gwWg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=in-reply-to:mime-version:user-agent:date:message-id:autocrypt:from
-         :references:cc:to:subject:dkim-signature;
-        bh=Tp7Unqp6vKyDgh7zRqyB7kNcYH808UfMXw/qwAFskE8=;
-        b=onSugM77k+RicFrx+iDyuUPBhh9HmM836tRNJL/MoLQ/yC1Uc7RqEm1WmhL9BE96cW
-         GLHemeZe4VKkE3ZvDyFd1DyZOFRa8lC5zxjdGgY3g5NPgaTFAqOfEWbp9jmlWPx2QYfj
-         X57g6cSlBZ9aAf2YG4JiA6mTkrlmnvd0iXwh996noPkNYXSClTJl7i5J4tch4r0Smgfg
-         Ypa9lhotsmvqdGmkfoSZ4QgZZRZeXvo1V3sTLepOt4jVLqRHNpMbTheipsaaEtWyz+kX
-         vrVBqssCaBqWPF186BbMT6V4Tk/lQ2jmoVLoUDZDaagYnX7qrlaK7VwygmihtGYWebyM
-         FYZQ==
+         :references:to:subject:dkim-signature;
+        bh=VXj2LoEaEi0Wpk+FVCbeaFl1o4FyBzybSIf7S5DwSpI=;
+        b=BnBfz6yoCqd9+3MeMuWoZ825sbCGhJL28AWP9hPEaakdgIF2IF8aL5cr6crblkCp9C
+         GK4CRg9Vt9ArMaU632H6yKM6s+PqqN0H3XjcB8+LcmtzalyiMVjdRDqPQ+wBIqjiUep1
+         xeLeCDvZjagY+gAPiVg8sK43tWhM9iDDF7Pw2hqfgjg/jW0EqxhCZE8JcS5WbE6CrK/w
+         w5kHA+g5ozDX4tU/wgwD7oUWyLL/eR+omf7lOdSQyn4g2RC2ya8kDM4DA0GtEB7+1uJZ
+         7+PoHdPfkbyVk/5p3zPMSLGNk/yX4jkc+Ee+gllFsAX8Amqn616sKC6nApPfE05qoSm/
+         n9UA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=ELDxCWKZ;
-       spf=pass (google.com: domain of lucmiccio@gmail.com designates 2a00:1450:4864:20::441 as permitted sender) smtp.mailfrom=lucmiccio@gmail.com;
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=ZWFiZ7pU;
+       spf=pass (google.com: domain of lucmiccio@gmail.com designates 2a00:1450:4864:20::443 as permitted sender) smtp.mailfrom=lucmiccio@gmail.com;
        dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com. [2a00:1450:4864:20::441])
-        by gmr-mx.google.com with ESMTPS id o136si155925wme.0.2020.05.06.09.43.30
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com. [2a00:1450:4864:20::443])
+        by gmr-mx.google.com with ESMTPS id x11si121122wmi.1.2020.05.06.09.43.45
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 06 May 2020 09:43:30 -0700 (PDT)
-Received-SPF: pass (google.com: domain of lucmiccio@gmail.com designates 2a00:1450:4864:20::441 as permitted sender) client-ip=2a00:1450:4864:20::441;
-Received: by mail-wr1-x441.google.com with SMTP id v12so1682546wrp.12
-        for <jailhouse-dev@googlegroups.com>; Wed, 06 May 2020 09:43:30 -0700 (PDT)
-X-Received: by 2002:adf:80a3:: with SMTP id 32mr10271118wrl.199.1588783409708;
-        Wed, 06 May 2020 09:43:29 -0700 (PDT)
+        Wed, 06 May 2020 09:43:45 -0700 (PDT)
+Received-SPF: pass (google.com: domain of lucmiccio@gmail.com designates 2a00:1450:4864:20::443 as permitted sender) client-ip=2a00:1450:4864:20::443;
+Received: by mail-wr1-x443.google.com with SMTP id k1so3010662wrx.4
+        for <jailhouse-dev@googlegroups.com>; Wed, 06 May 2020 09:43:45 -0700 (PDT)
+X-Received: by 2002:a5d:4005:: with SMTP id n5mr10313997wrp.242.1588783424566;
+        Wed, 06 May 2020 09:43:44 -0700 (PDT)
 Received: from [192.168.1.109] ([2.234.171.104])
-        by smtp.gmail.com with ESMTPSA id j16sm3480952wru.13.2020.05.06.09.43.28
+        by smtp.gmail.com with ESMTPSA id c25sm3765239wmb.44.2020.05.06.09.43.43
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 06 May 2020 09:43:28 -0700 (PDT)
-Subject: Re: [PATCH v2 7/9] hypervisor, arm64: add cache coloring support
+        Wed, 06 May 2020 09:43:43 -0700 (PDT)
+Subject: Re: [PATCH v2 8/9] configs: add colored cell configuations for ZCU102
 To: Jan Kiszka <jan.kiszka@siemens.com>, Marco Solieri <ms@xt3.it>,
  jailhouse-dev@googlegroups.com
-Cc: Angelo Ruocco <angelo.ruocco.90@gmail.com>
 References: <20190327121849.1882-1-ms@xt3.it>
- <20200421100351.292395-1-ms@xt3.it> <20200421100351.292395-8-ms@xt3.it>
- <08e4aad0-314e-cfee-c4d8-be313903d8b4@siemens.com>
+ <20200421100351.292395-1-ms@xt3.it> <20200421100351.292395-9-ms@xt3.it>
+ <2ef61ea7-5617-dcd8-24fe-1c80bca7615e@siemens.com>
 From: Luca Miccio <lucmiccio@gmail.com>
 Autocrypt: addr=lucmiccio@gmail.com; keydata=
  mQINBFta+d8BEADFAWAzeJAC/VtWSaoVZ/F1D1fzyE+iG6zl9TVSi8MgreznMh4jgz8hlgpJ
@@ -168,19 +167,19 @@ Autocrypt: addr=lucmiccio@gmail.com; keydata=
  nwtMt7riwhjbshKHDpF7cRYjw1GAgOnR6lOb+xWBvtY8kiB7u4LQY+6tJpyxjilJxWvfMcWi
  9y6h0lBO3s0LWDH5wvLp7dUyrb1XzbJrDu4cvpbixBksU/8rgxJg5JzPGjz2RD7wkR4IIBw2
  dt7Vxqeq2cwqChx7KCuYYoENsocCZeBE1odOEsUDpiF/GBOxNicEchRHQI4XvM8jkAwS+UqI
-Message-ID: <5b4c903b-edac-5968-e2d8-20779123eb67@gmail.com>
-Date: Wed, 6 May 2020 18:43:27 +0200
+Message-ID: <82b4bddc-5d76-2404-2bdc-4896b4b84012@gmail.com>
+Date: Wed, 6 May 2020 18:43:42 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <08e4aad0-314e-cfee-c4d8-be313903d8b4@siemens.com>
+In-Reply-To: <2ef61ea7-5617-dcd8-24fe-1c80bca7615e@siemens.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="MVMWKa62b90zRLijiBRMhyvpAW1qawssl"
+ boundary="DUWoCugBpv33ObO6Uk2JAO20EkrLPIPPo"
 X-Original-Sender: LucMiccio@gmail.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20161025 header.b=ELDxCWKZ;       spf=pass
- (google.com: domain of lucmiccio@gmail.com designates 2a00:1450:4864:20::441
+ header.i=@gmail.com header.s=20161025 header.b=ZWFiZ7pU;       spf=pass
+ (google.com: domain of lucmiccio@gmail.com designates 2a00:1450:4864:20::443
  as permitted sender) smtp.mailfrom=lucmiccio@gmail.com;       dmarc=pass
  (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
@@ -196,433 +195,223 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---MVMWKa62b90zRLijiBRMhyvpAW1qawssl
-Content-Type: multipart/mixed; boundary="xyMjRaZjnER1k93cHTqEVtkl5kr3lgcn3"
+--DUWoCugBpv33ObO6Uk2JAO20EkrLPIPPo
+Content-Type: multipart/mixed; boundary="dSY5R15i8384KMAdTgY1JGU2ANBRB7PCH"
 
---xyMjRaZjnER1k93cHTqEVtkl5kr3lgcn3
+--dSY5R15i8384KMAdTgY1JGU2ANBRB7PCH
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
 
+DQoNCk9uIDUvNC8yMCA4OjM1IFBNLCBKYW4gS2lzemthIHdyb3RlOg0KPiBPbiAyMS4wNC4yMCAx
+MjowMywgJ01hcmNvIFNvbGllcmknIHZpYSBKYWlsaG91c2Ugd3JvdGU6DQo+PiBGcm9tOiBMdWNh
+IE1pY2NpbyA8bHVjbWljY2lvQGdtYWlsLmNvbT4NCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBMdWNh
+IE1pY2NpbyA8bHVjbWljY2lvQGdtYWlsLmNvbT4NCj4+IFNpZ25lZC1vZmYtYnk6IE1hcmNvIFNv
+bGllcmkgPG1zQHh0My5pdD4NCj4+IC0tLQ0KPj4gwqAgY29uZmlncy9hcm02NC96eW5xbXAtemN1
+MTAyLWlubWF0ZS1kZW1vLWNvbC5jIHzCoCA3OSArKysrKysrKysrKw0KPj4gwqAgY29uZmlncy9h
+cm02NC96eW5xbXAtemN1MTAyLWxpbnV4LWRlbW8tY29sLmPCoCB8IDEyOCArKysrKysrKysrKysr
+KysrKysNCj4+IMKgIDIgZmlsZXMgY2hhbmdlZCwgMjA3IGluc2VydGlvbnMoKykNCj4+IMKgIGNy
+ZWF0ZSBtb2RlIDEwMDY0NCBjb25maWdzL2FybTY0L3p5bnFtcC16Y3UxMDItaW5tYXRlLWRlbW8t
+Y29sLmMNCj4+IMKgIGNyZWF0ZSBtb2RlIDEwMDY0NCBjb25maWdzL2FybTY0L3p5bnFtcC16Y3Ux
+MDItbGludXgtZGVtby1jb2wuYw0KPj4NCj4+IGRpZmYgLS1naXQgYS9jb25maWdzL2FybTY0L3p5
+bnFtcC16Y3UxMDItaW5tYXRlLWRlbW8tY29sLmMNCj4+IGIvY29uZmlncy9hcm02NC96eW5xbXAt
+emN1MTAyLWlubWF0ZS1kZW1vLWNvbC5jDQo+PiBuZXcgZmlsZSBtb2RlIDEwMDY0NA0KPj4gaW5k
+ZXggMDAwMDAwMDAuLjgzMTg4YjI3DQo+PiAtLS0gL2Rldi9udWxsDQo+PiArKysgYi9jb25maWdz
+L2FybTY0L3p5bnFtcC16Y3UxMDItaW5tYXRlLWRlbW8tY29sLmMNCj4+IEBAIC0wLDAgKzEsNzkg
+QEANCj4+ICsvKg0KPj4gKyAqIEphaWxob3VzZSwgYSBMaW51eC1iYXNlZCBwYXJ0aXRpb25pbmcg
+aHlwZXJ2aXNvcg0KPj4gKyAqDQo+PiArICogQ29uZmlndXJhdGlvbiBmb3IgZGVtbyBpbm1hdGUg
+b24gWGlsaW54IFp5bnFNUCBaQ1UxMDIgZXZhbCBib2FyZDoNCj4+ICsgKiAxIENQVSwgNjRLIFJB
+TSwgMSBzZXJpYWwgcG9ydCwgY29sb3IgcmFuZ2UgWzAtN10NCj4+ICsgKg0KPj4gKyAqIENvcHly
+aWdodCAoYykgVW5pdmVyc2l0YScgZGVnbGkgU3R1ZGkgZGkgTW9kZW5hIGUgUmVnZ2lvIEVtaWxp
+YSAyMDIwDQo+PiArICoNCj4+ICsgKiBBdXRob3JzOg0KPj4gKyAqwqAgTHVjYSBNaWNjaW8gPGx1
+Y21pY2Npb0BnbWFpbC5jb20+DQo+PiArICoNCj4+ICsgKiBUaGlzIHdvcmsgaXMgbGljZW5zZWQg
+dW5kZXIgdGhlIHRlcm1zIG9mIHRoZSBHTlUgR1BMLCB2ZXJzaW9uIDIuwqAgU2VlDQo+PiArICog
+dGhlIENPUFlJTkcgZmlsZSBpbiB0aGUgdG9wLWxldmVsIGRpcmVjdG9yeS4NCj4+ICsgKi8NCj4+
+ICsNCj4+ICsjaW5jbHVkZSA8amFpbGhvdXNlL3R5cGVzLmg+DQo+PiArI2luY2x1ZGUgPGphaWxo
+b3VzZS9jZWxsLWNvbmZpZy5oPg0KPj4gKw0KPj4gK3N0cnVjdCB7DQo+PiArwqDCoMKgIHN0cnVj
+dCBqYWlsaG91c2VfY2VsbF9kZXNjIGNlbGw7DQo+PiArwqDCoMKgIF9fdTY0IGNwdXNbMV07DQo+
+PiArwqDCoMKgIHN0cnVjdCBqYWlsaG91c2VfbWVtb3J5IG1lbV9yZWdpb25zWzNdOw0KPj4gK8Kg
+wqDCoCBzdHJ1Y3QgamFpbGhvdXNlX2NhY2hlIGNhY2hlX3JlZ2lvbnNbMV07DQo+PiArfSBfX2F0
+dHJpYnV0ZV9fKChwYWNrZWQpKSBjb25maWcgPSB7DQo+PiArwqDCoMKgIC5jZWxsID0gew0KPj4g
+K8KgwqDCoMKgwqDCoMKgIC5zaWduYXR1cmUgPSBKQUlMSE9VU0VfQ0VMTF9ERVNDX1NJR05BVFVS
+RSwNCj4+ICvCoMKgwqDCoMKgwqDCoCAucmV2aXNpb24gPSBKQUlMSE9VU0VfQ09ORklHX1JFVklT
+SU9OLA0KPj4gK8KgwqDCoMKgwqDCoMKgIC5uYW1lID0gImlubWF0ZS1kZW1vLWNvbCIsDQo+PiAr
+wqDCoMKgwqDCoMKgwqAgLmZsYWdzID0gSkFJTEhPVVNFX0NFTExfUEFTU0lWRV9DT01NUkVHLA0K
+Pj4gKw0KPj4gK8KgwqDCoMKgwqDCoMKgIC5jcHVfc2V0X3NpemUgPSBzaXplb2YoY29uZmlnLmNw
+dXMpLA0KPj4gK8KgwqDCoMKgwqDCoMKgIC5udW1fbWVtb3J5X3JlZ2lvbnMgPSBBUlJBWV9TSVpF
+KGNvbmZpZy5tZW1fcmVnaW9ucyksDQo+PiArwqDCoMKgwqDCoMKgwqAgLm51bV9pcnFjaGlwcyA9
+IDAsDQo+PiArwqDCoMKgwqDCoMKgwqAgLm51bV9wY2lfZGV2aWNlcyA9IDAsDQo+PiArwqDCoMKg
+wqDCoMKgwqAgLm51bV9jYWNoZV9yZWdpb25zID0gQVJSQVlfU0laRShjb25maWcuY2FjaGVfcmVn
+aW9ucyksDQo+PiArDQo+PiArwqDCoMKgwqDCoMKgwqAgLmNvbnNvbGUgPSB7DQo+PiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCAuYWRkcmVzcyA9IDB4ZmYwMTAwMDAsDQo+PiArwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCAudHlwZSA9IEpBSUxIT1VTRV9DT05fVFlQRV9YVUFSVFBTLA0KPj4gK8KgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgLmZsYWdzID0gSkFJTEhPVVNFX0NPTl9BQ0NFU1NfTU1JTyB8DQo+
+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgSkFJTEhPVVNFX0NPTl9SRUdESVNU
+XzQsDQo+PiArwqDCoMKgwqDCoMKgwqAgfSwNCj4+ICvCoMKgwqAgfSwNCj4+ICsNCj4+ICvCoMKg
+wqAgLmNwdXMgPSB7DQo+PiArwqDCoMKgwqDCoMKgwqAgMHgyLA0KPj4gK8KgwqDCoCB9LA0KPj4g
+Kw0KPj4gK8KgwqDCoCAubWVtX3JlZ2lvbnMgPSB7DQo+PiArwqDCoMKgwqDCoMKgwqAgLyogVUFS
+VCAqLyB7DQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAucGh5c19zdGFydCA9IDB4ZmYwMTAw
+MDAsDQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAudmlydF9zdGFydCA9IDB4ZmYwMTAwMDAs
+DQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAuc2l6ZSA9IDB4MTAwMCwNCj4+ICvCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIC5mbGFncyA9IEpBSUxIT1VTRV9NRU1fUkVBRCB8IEpBSUxIT1VTRV9N
+RU1fV1JJVEUgfA0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBKQUlMSE9VU0Vf
+TUVNX0lPIHwgSkFJTEhPVVNFX01FTV9ST09UU0hBUkVELA0KPj4gK8KgwqDCoMKgwqDCoMKgIH0s
+DQo+PiArwqDCoMKgwqDCoMKgwqAgLyogUkFNICovIHsNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIC5waHlzX3N0YXJ0ID0gMHg4MDA2MDAwMDAsDQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCAudmlydF9zdGFydCA9IDAsDQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAuc2l6ZSA9wqAg
+MHgwMDAxMDAwMCwNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC5mbGFncyA9IEpBSUxIT1VT
+RV9NRU1fUkVBRCB8IEpBSUxIT1VTRV9NRU1fV1JJVEUgfA0KPj4gK8KgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCBKQUlMSE9VU0VfTUVNX0VYRUNVVEUgfCBKQUlMSE9VU0VfTUVNX0xPQURB
+QkxFIHwNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgSkFJTEhPVVNFX01FTV9D
+T0xPUkVELA0KPj4gK8KgwqDCoMKgwqDCoMKgIH0sDQo+PiArwqDCoMKgwqDCoMKgwqAgLyogY29t
+bXVuaWNhdGlvbiByZWdpb24gKi8gew0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLnZpcnRf
+c3RhcnQgPSAweDgwMDAwMDAwLA0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLnNpemUgPSAw
+eDAwMDAxMDAwLA0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLmZsYWdzID0gSkFJTEhPVVNF
+X01FTV9SRUFEIHwgSkFJTEhPVVNFX01FTV9XUklURSB8DQo+PiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIEpBSUxIT1VTRV9NRU1fQ09NTV9SRUdJT04sDQo+PiArwqDCoMKgwqDCoMKg
+wqAgfSwNCj4+ICvCoMKgwqAgfSwNCj4+ICsNCj4+ICvCoMKgwqAgLmNhY2hlX3JlZ2lvbnMgPSB7
+DQo+PiArwqDCoMKgwqDCoMKgwqAgew0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLnN0YXJ0
+ID0gMCwNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC5zaXplID0gOCwNCj4+ICvCoMKgwqDC
+oMKgwqDCoCB9LA0KPj4gK8KgwqDCoCB9LA0KPj4gK307DQo+PiBkaWZmIC0tZ2l0IGEvY29uZmln
+cy9hcm02NC96eW5xbXAtemN1MTAyLWxpbnV4LWRlbW8tY29sLmMNCj4+IGIvY29uZmlncy9hcm02
+NC96eW5xbXAtemN1MTAyLWxpbnV4LWRlbW8tY29sLmMNCj4+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0
+DQo+PiBpbmRleCAwMDAwMDAwMC4uNjZmMTJhNjYNCj4+IC0tLSAvZGV2L251bGwNCj4+ICsrKyBi
+L2NvbmZpZ3MvYXJtNjQvenlucW1wLXpjdTEwMi1saW51eC1kZW1vLWNvbC5jDQo+PiBAQCAtMCww
+ICsxLDEyOCBAQA0KPj4gKy8qDQo+PiArICogSmFpbGhvdXNlLCBhIExpbnV4LWJhc2VkIHBhcnRp
+dGlvbmluZyBoeXBlcnZpc29yDQo+PiArICoNCj4+ICsgKiBDb25maWd1cmF0aW9uIGZvciBsaW51
+eC1kZW1vIGlubWF0ZSBvbiBaeW5xTVAgWkNVMTAyOg0KPj4gKyAqIDIgQ1BVcywgMTI4TSBSQU0s
+IHNlcmlhbCBwb3J0IDIsIGNvbG9yIHJhbmdlIFswLTddDQo+PiArICoNCj4+ICsgKiBDb3B5cmln
+aHQgKGMpIFVuaXZlcnNpdGEnIGRlZ2xpIFN0dWRpIGRpIE1vZGVuYSBlIFJlZ2dpbyBFbWlsaWEg
+MjAyMA0KPj4gKyAqDQo+PiArICogQXV0aG9yczoNCj4+ICsgKsKgIEx1Y2EgTWljY2lvIDxsdWNt
+aWNjaW9AZ21haWwuY29tPg0KPj4gKyAqDQo+PiArICogVGhpcyB3b3JrIGlzIGxpY2Vuc2VkIHVu
+ZGVyIHRoZSB0ZXJtcyBvZiB0aGUgR05VIEdQTCwgdmVyc2lvbiAyLsKgIFNlZQ0KPj4gKyAqIHRo
+ZSBDT1BZSU5HIGZpbGUgaW4gdGhlIHRvcC1sZXZlbCBkaXJlY3RvcnkuDQo+PiArICovDQo+PiAr
+DQo+PiArI2luY2x1ZGUgPGphaWxob3VzZS90eXBlcy5oPg0KPj4gKyNpbmNsdWRlIDxqYWlsaG91
+c2UvY2VsbC1jb25maWcuaD4NCj4+ICsNCj4+ICtzdHJ1Y3Qgew0KPj4gK8KgwqDCoCBzdHJ1Y3Qg
+amFpbGhvdXNlX2NlbGxfZGVzYyBjZWxsOw0KPj4gK8KgwqDCoCBfX3U2NCBjcHVzWzFdOw0KPj4g
+K8KgwqDCoCBzdHJ1Y3QgamFpbGhvdXNlX21lbW9yeSBtZW1fcmVnaW9uc1sxMl07DQo+PiArwqDC
+oMKgIHN0cnVjdCBqYWlsaG91c2VfY2FjaGUgY2FjaGVfcmVnaW9uc1sxXTsNCj4+ICvCoMKgwqAg
+c3RydWN0IGphaWxob3VzZV9pcnFjaGlwIGlycWNoaXBzWzFdOw0KPj4gK8KgwqDCoCBzdHJ1Y3Qg
+amFpbGhvdXNlX3BjaV9kZXZpY2UgcGNpX2RldmljZXNbMl07DQo+PiArfSBfX2F0dHJpYnV0ZV9f
+KChwYWNrZWQpKSBjb25maWcgPSB7DQo+PiArwqDCoMKgIC5jZWxsID0gew0KPj4gK8KgwqDCoMKg
+wqDCoMKgIC5zaWduYXR1cmUgPSBKQUlMSE9VU0VfQ0VMTF9ERVNDX1NJR05BVFVSRSwNCj4+ICvC
+oMKgwqDCoMKgwqDCoCAucmV2aXNpb24gPSBKQUlMSE9VU0VfQ09ORklHX1JFVklTSU9OLA0KPj4g
+K8KgwqDCoMKgwqDCoMKgIC5uYW1lID0gIlp5bnFNUC1saW51eC1kZW1vLWNvbCIsDQo+PiArwqDC
+oMKgwqDCoMKgwqAgLmZsYWdzID0gSkFJTEhPVVNFX0NFTExfUEFTU0lWRV9DT01NUkVHLA0KPj4g
+Kw0KPj4gK8KgwqDCoMKgwqDCoMKgIC5jcHVfc2V0X3NpemUgPSBzaXplb2YoY29uZmlnLmNwdXMp
+LA0KPj4gK8KgwqDCoMKgwqDCoMKgIC5udW1fbWVtb3J5X3JlZ2lvbnMgPSBBUlJBWV9TSVpFKGNv
+bmZpZy5tZW1fcmVnaW9ucyksDQo+PiArwqDCoMKgwqDCoMKgwqAgLm51bV9pcnFjaGlwcyA9IEFS
+UkFZX1NJWkUoY29uZmlnLmlycWNoaXBzKSwNCj4+ICvCoMKgwqDCoMKgwqDCoCAubnVtX3BjaV9k
+ZXZpY2VzID0gQVJSQVlfU0laRShjb25maWcucGNpX2RldmljZXMpLA0KPj4gK8KgwqDCoMKgwqDC
+oMKgIC5udW1fY2FjaGVfcmVnaW9ucyA9IEFSUkFZX1NJWkUoY29uZmlnLmNhY2hlX3JlZ2lvbnMp
+LA0KPj4gK8KgwqDCoMKgwqDCoMKgIC52cGNpX2lycV9iYXNlID0gMTQwLTMyLA0KPj4gKw0KPj4g
+K8KgwqDCoMKgwqDCoMKgIC5jb25zb2xlID0gew0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+LmFkZHJlc3MgPSAweGZmMDEwMDAwLA0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLnR5cGUg
+PSBKQUlMSE9VU0VfQ09OX1RZUEVfWFVBUlRQUywNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IC5mbGFncyA9IEpBSUxIT1VTRV9DT05fQUNDRVNTX01NSU8gfA0KPj4gK8KgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIEpBSUxIT1VTRV9DT05fUkVHRElTVF80LA0KPj4gK8KgwqDCoMKg
+wqDCoMKgIH0sDQo+PiArwqDCoMKgIH0sDQo+PiArDQo+PiArwqDCoMKgIC5jcHVzID0gew0KPj4g
+K8KgwqDCoMKgwqDCoMKgIDB4YywNCj4+ICvCoMKgwqAgfSwNCj4+ICsNCj4+ICvCoMKgwqAgLm1l
+bV9yZWdpb25zID0gew0KPj4gK8KgwqDCoMKgwqDCoMKgIC8qIElWU0hNRU0gc2hhcmVkIG1lbW9y
+eSByZWdpb24gZm9yIDAwOjAxLjAgKi8NCj4+ICvCoMKgwqDCoMKgwqDCoCBKQUlMSE9VU0VfU0hN
+RU1fTkVUX1JFR0lPTlMoMHg4MDA0MDAwMDAsIDEpLA0KPj4gK8KgwqDCoMKgwqDCoMKgIC8qIElW
+U0hNRU0gc2hhcmVkIG1lbW9yeSByZWdpb24gZm9yIDAwOjAzLjAgKi8NCj4+ICvCoMKgwqDCoMKg
+wqDCoCBKQUlMSE9VU0VfU0hNRU1fTkVUX1JFR0lPTlMoMHg4MDA3MDAwMDAsIDApLA0KPj4gK8Kg
+wqDCoMKgwqDCoMKgIC8qIFVBUlQgKi8gew0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLnBo
+eXNfc3RhcnQgPSAweGZmMDEwMDAwLA0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLnZpcnRf
+c3RhcnQgPSAweGZmMDEwMDAwLA0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLnNpemUgPSAw
+eDEwMDAsDQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAuZmxhZ3MgPSBKQUlMSE9VU0VfTUVN
+X1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFIHwNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgSkFJTEhPVVNFX01FTV9JTyB8IEpBSUxIT1VTRV9NRU1fUk9PVFNIQVJFRCwNCj4+
+ICvCoMKgwqDCoMKgwqDCoCB9LA0KPj4gK8KgwqDCoMKgwqDCoMKgIC8qIFJBTSAqLyB7DQo+PiAr
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAucGh5c19zdGFydCA9IDB4ODAwNjAwMDAwLA0KPj4gK8Kg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgLnZpcnRfc3RhcnQgPSAwLA0KPj4gK8KgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgLnNpemUgPSAweDEwMDAwLA0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLmZs
+YWdzID0gSkFJTEhPVVNFX01FTV9SRUFEIHwgSkFJTEhPVVNFX01FTV9XUklURSB8DQo+PiArwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEpBSUxIT1VTRV9NRU1fRVhFQ1VURSB8IEpBSUxI
+T1VTRV9NRU1fTE9BREFCTEUsDQo+PiArwqDCoMKgwqDCoMKgwqAgfSwNCj4+ICvCoMKgwqDCoMKg
+wqDCoCAvKiBSQU0gKi8gew0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLnBoeXNfc3RhcnQg
+PSAweDgxMDAwMDAwMCwNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC52aXJ0X3N0YXJ0ID0g
+MHg4MTAwMDAwMCwNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC5zaXplID0gMHg4MDAwMDAw
+LA0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLmZsYWdzID0gSkFJTEhPVVNFX01FTV9SRUFE
+IHwgSkFJTEhPVVNFX01FTV9XUklURSB8DQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIEpBSUxIT1VTRV9NRU1fRVhFQ1VURSB8IEpBSUxIT1VTRV9NRU1fRE1BIHwNCj4+ICvCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgSkFJTEhPVVNFX01FTV9MT0FEQUJMRSB8IEpBSUxI
+T1VTRV9NRU1fQ09MT1JFRCwNCj4+ICvCoMKgwqDCoMKgwqDCoCB9LA0KPj4gK8KgwqDCoMKgwqDC
+oMKgIC8qIGNvbW11bmljYXRpb24gcmVnaW9uICovIHsNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIC52aXJ0X3N0YXJ0ID0gMHg4MDAwMDAwMCwNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IC5zaXplID0gMHgwMDAwMTAwMCwNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC5mbGFncyA9
+IEpBSUxIT1VTRV9NRU1fUkVBRCB8IEpBSUxIT1VTRV9NRU1fV1JJVEUgfA0KPj4gK8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBKQUlMSE9VU0VfTUVNX0NPTU1fUkVHSU9OLA0KPj4gK8Kg
+wqDCoMKgwqDCoMKgIH0sDQo+PiArwqDCoMKgIH0sDQo+PiArDQo+PiArwqDCoMKgIC5jYWNoZV9y
+ZWdpb25zID0gew0KPj4gK8KgwqDCoMKgwqDCoMKgIHsNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIC5zdGFydCA9IDAsDQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAuc2l6ZSA9IDgsDQo+
+PiArwqDCoMKgwqDCoMKgwqAgfSwNCj4+ICvCoMKgwqAgfSwNCj4+ICsNCj4+ICvCoMKgwqAgLmly
+cWNoaXBzID0gew0KPj4gK8KgwqDCoMKgwqDCoMKgIC8qIEdJQyAqLyB7DQo+PiArwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCAuYWRkcmVzcyA9IDB4ZjkwMTAwMDAsDQo+PiArwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCAucGluX2Jhc2UgPSAzMiwNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC5waW5f
+Yml0bWFwID0gew0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAxIDw8ICg1NCAt
+IDMyKSwNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgMCwNCj4+ICvCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgMCwNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgKDEgPDwgKDE0MSAtIDEyOCkpIHwgKDEgPDwgKDE0MyAtIDEyOCkpDQo+PiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCB9LA0KPj4gK8KgwqDCoMKgwqDCoMKgIH0sDQo+PiArwqDCoMKgIH0s
+DQo+PiArDQo+PiArwqDCoMKgIC5wY2lfZGV2aWNlcyA9IHsNCj4+ICvCoMKgwqDCoMKgwqDCoCAv
+KiAwMDowMS4wICovIHsNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC50eXBlID0gSkFJTEhP
+VVNFX1BDSV9UWVBFX0lWU0hNRU0sDQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAuYmRmID0g
+MSA8PCAzLA0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLmJhcl9tYXNrID0gSkFJTEhPVVNF
+X0lWU0hNRU1fQkFSX01BU0tfSU5UWCwNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC5zaG1l
+bV9yZWdpb25zX3N0YXJ0ID0gMCwNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC5zaG1lbV9k
+ZXZfaWQgPSAxLA0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLnNobWVtX3BlZXJzID0gMiwN
+Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC5zaG1lbV9wcm90b2NvbCA9IEpBSUxIT1VTRV9T
+SE1FTV9QUk9UT19WRVRILA0KPj4gK8KgwqDCoMKgwqDCoMKgIH0sDQo+PiArwqDCoMKgwqDCoMKg
+wqAgLyogMDA6MDMuMCAqLyB7DQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAudHlwZSA9IEpB
+SUxIT1VTRV9QQ0lfVFlQRV9JVlNITUVNLA0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLmJk
+ZiA9IDMgPDwgMywNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC5iYXJfbWFzayA9IEpBSUxI
+T1VTRV9JVlNITUVNX0JBUl9NQVNLX0lOVFgsDQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAu
+c2htZW1fcmVnaW9uc19zdGFydCA9IDQsDQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAuc2ht
+ZW1fZGV2X2lkID0gMCwNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC5zaG1lbV9wZWVycyA9
+IDIsDQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAuc2htZW1fcHJvdG9jb2wgPSBKQUlMSE9V
+U0VfU0hNRU1fUFJPVE9fVkVUSCwNCj4+ICvCoMKgwqDCoMKgwqDCoCB9LA0KPj4gK8KgwqDCoCB9
+LA0KPj4gKw0KPj4gK307DQo+Pg0KPiANCj4gWW91IGFyZW4ndCBzZXR0aW5nIHlvdXIgLmNvbF9s
+b2FkX2FkZHJlc3MgLSBJIHN1c3BlY3QgdGhpcyB3aWxsIGV4cGxvZGUNCj4gdGhlbiwgbm8/DQo+
+IA0KDQpOby4gV2UgYXJlIG5vdCBzZXR0aW5nIGNvbF9sb2FkX2FkZHJlc3MgYmVjYXVzZSB0aGUg
+ZGVmYXVsdCB2YWx1ZSBkb2VzDQpub3QgaW50ZXJmZXJlIHdpdGggWkNVMTAyIG1lbW9yeSBsYXlv
+dXQuDQoNCj4gQmVzaWRlcyB0aGF0LCB1c2luZyB0aGlzIG9uIHRoZSB1bHRyYTk2IHNob3VsZCBi
+ZSBzdHJhaWdodGZvcndhcmQsDQo+IHJpZ2h0PyBXb3VsZCBtYWtlIGEgZGVtbyBjYXNlIGZvciBq
+YWlsaG91c2UtaW1hZ2VzLiBPciB3ZSBldmVuIGNvbmZpZ3VyZQ0KPiBzb21lIG1vcmUgZGlmZmVy
+ZW50IHRhcmdldC4NCj4gDQoNClllcy4gWW91IGNhbiB1c2UgaXQgZm9yIHVsdHJhOTYgYnV0IEkg
+ZG9uJ3Qga25vdyBpZiB0aGUgZGVmYXVsdCB2YWx1ZSBvZg0KY29sX2xvYWRfYWRkcmVzcyBpcyBj
+b3JyZWN0IGZvciB0aGUgYm9hcmQuIEkga25vdyB0aGF0IHRoZSBTT0MgaXMgdGhlDQpzYW1lIGJ1
+dCBtYXliZSBJIHdvdWxkIGNoZWNrIHRoZSBtZW1vcnkgbGF5b3V0IGZpcnN0Lg0KDQpUaGFua3Ms
+DQpMdWNhDQoNCj4gSmFuDQo+IA0KDQotLSAKWW91IHJlY2VpdmVkIHRoaXMgbWVzc2FnZSBiZWNh
+dXNlIHlvdSBhcmUgc3Vic2NyaWJlZCB0byB0aGUgR29vZ2xlIEdyb3VwcyAiSmFpbGhvdXNlIiBn
+cm91cC4KVG8gdW5zdWJzY3JpYmUgZnJvbSB0aGlzIGdyb3VwIGFuZCBzdG9wIHJlY2VpdmluZyBl
+bWFpbHMgZnJvbSBpdCwgc2VuZCBhbiBlbWFpbCB0byBqYWlsaG91c2UtZGV2K3Vuc3Vic2NyaWJl
+QGdvb2dsZWdyb3Vwcy5jb20uClRvIHZpZXcgdGhpcyBkaXNjdXNzaW9uIG9uIHRoZSB3ZWIgdmlz
+aXQgaHR0cHM6Ly9ncm91cHMuZ29vZ2xlLmNvbS9kL21zZ2lkL2phaWxob3VzZS1kZXYvODJiNGJk
+ZGMtNWQ3Ni0yNDA0LTJiZGMtNDg5NmI0Yjg0MDEyJTQwZ21haWwuY29tLgo=
+--dSY5R15i8384KMAdTgY1JGU2ANBRB7PCH--
 
-
-On 5/4/20 8:35 PM, Jan Kiszka wrote:
-> On 21.04.20 12:03, 'Marco Solieri' via Jailhouse wrote:
->> From: Luca Miccio <lucmiccio@gmail.com>
->>
->> Implement all the functions needed by the coloring interface for the
->> arm64 architecture.
->> Coloring selection is retrieved by the jailhouse_cache structure(s) in
->> cell's configuration. Each structure defines a color range that will be
->> mapped to the corresponding color bitmask. The configuration is
->> cell-wide and will be used with all the memory regions flagged with
->> JAILHOUSE_MEM_COLORED.
->> If no color selection is provided by the user and coloring is enabled,
->> use all the available colors on the platform.
->>
->> Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
->> Signed-off-by: Marco Solieri <ms@xt3.it>
->> Acked-by: Angelo Ruocco <angelo.ruocco.90@gmail.com>
->> ---
->> =C2=A0 hypervisor/arch/arm64/Kbuild=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=
-=A0 1 +
->> =C2=A0 hypervisor/arch/arm64/coloring.c | 232 ++++++++++++++++++++++++++=
-+++++
->> =C2=A0 2 files changed, 233 insertions(+)
->> =C2=A0 create mode 100644 hypervisor/arch/arm64/coloring.c
->>
->> diff --git a/hypervisor/arch/arm64/Kbuild b/hypervisor/arch/arm64/Kbuild
->> index c34b0f32..6c566e4d 100644
->> --- a/hypervisor/arch/arm64/Kbuild
->> +++ b/hypervisor/arch/arm64/Kbuild
->> @@ -22,3 +22,4 @@ always :=3D lib.a
->> =C2=A0 lib-y :=3D $(common-objs-y)
->> =C2=A0 lib-y +=3D entry.o setup.o control.o mmio.o paging.o caches.o tra=
-ps.o
->> =C2=A0 lib-y +=3D iommu.o smmu-v3.o ti-pvu.o
->> +lib-$(CONFIG_COLORING) +=3D coloring.o
->> diff --git a/hypervisor/arch/arm64/coloring.c
->> b/hypervisor/arch/arm64/coloring.c
->> new file mode 100644
->> index 00000000..cb2d80e9
->> --- /dev/null
->> +++ b/hypervisor/arch/arm64/coloring.c
->> @@ -0,0 +1,232 @@
->> +/*
->> + * Jailhouse, a Linux-based partitioning hypervisor
->> + *
->> + * Copyright (c) Universita' di Modena e Reggio Emilia, 2020
->> + *
->> + * Authors:
->> + *=C2=A0 Luca Miccio <lucmiccio@gmail.com>
->> + *=C2=A0 Marco Solieri <ms@xt3.it>
->> + *
->> + * This work is licensed under the terms of the GNU GPL, version 2.=C2=
-=A0 See
->> + * the COPYING file in the top-level directory.
->> + */
->> +#include <jailhouse/coloring.h>
->> +#include <jailhouse/printk.h>
->> +#include <jailhouse/entry.h>
->> +#include <jailhouse/cell.h>
->> +#include <jailhouse/control.h>
->> +
->> +#define for_each_cache_region(cache, config, counter)=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0 for ((cache) =3D jailhouse_cell_cache_regions(config=
-), (counter) =3D 0;\
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (counter) < (config)->=
-num_cache_regions;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (cache)++, (counter)++=
-)
->=20
-> Should be factored out and made generally available. I'm carrying
-> something similar for Intel CAT (not published yet, so you couldn't know)=
-.
->=20
->> +
->> +/** Default color bitmask uses all available colors */
->> +unsigned long color_bitmask_default[COLOR_BITMASK_SIZE];
->> +
->> +/** Do care bits for coloring */
->> +unsigned long addr_col_mask;
->> +
->> +/** Max number of colors available on the platform */
->> +#define COLORING_MAX_NUM ((addr_col_mask >> PAGE_SHIFT) + 1)
->> +
->> +#define MSB_LONG_IDX(word) (word ? (BITS_PER_LONG - clz(word) - 1) : 0)
->=20
-> Add blank line.
->=20
->> +static inline unsigned long msb_color_bitmask(unsigned long
->> *color_bitmask)
->=20
-> No need for inline.
->=20
->> +{
->> +=C2=A0=C2=A0=C2=A0 unsigned long ret =3D 0;u
->> +=C2=A0=C2=A0=C2=A0 unsigned int layer =3D COLOR_BITMASK_SIZE - 1;
->> +
->> +=C2=A0=C2=A0=C2=A0 if (!color_bitmask)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
->> +
->> +=C2=A0=C2=A0=C2=A0 while (!ret) {
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret =3D MSB_LONG_IDX(color_b=
-itmask[layer]);
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 layer--;
->> +=C2=A0=C2=A0=C2=A0 }
->> +
->> +=C2=A0=C2=A0=C2=A0 return ret;
->> +}
->> +
->> +#define CTR_LINESIZE_MASK=C2=A0=C2=A0=C2=A0 0x7
->> +#define CTR_SIZE_SHIFT=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 13
->> +#define CTR_SIZE_MASK=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x3FFF
->> +#define CTR_SELECT_L2=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (1 << 1=
-)
->> +#define CTR_SELECT_L3=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (1 << 2=
-)
->> +#define CTR_CTYPEn_MASK=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x7
->> +#define CTR_CTYPE2_SHIFT=C2=A0=C2=A0=C2=A0 3
->> +#define CTR_LLC_ON=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (1 << 2)
->> +#define CTR_LOC_SHIFT=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 24
->> +#define CTR_LOC_MASK=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x7
->> +#define CTR_LOC_NOT_IMPLEMENTED=C2=A0=C2=A0=C2=A0 (1 << 0)
->> +
->> +unsigned long get_llc_way_size(void)
->> +{
->> +=C2=A0=C2=A0=C2=A0 unsigned int cache_sel;
->> +=C2=A0=C2=A0=C2=A0 unsigned int cache_global_info;
->> +=C2=A0=C2=A0=C2=A0 unsigned int cache_info;
->> +=C2=A0=C2=A0=C2=A0 unsigned int cache_line_size;
->> +=C2=A0=C2=A0=C2=A0 unsigned int cache_set_num;
->> +=C2=A0=C2=A0=C2=A0 unsigned int cache_sel_tmp;
->> +
->> +=C2=A0=C2=A0=C2=A0 arm_read_sysreg(CLIDR_EL1, cache_global_info);
->> +
->> +=C2=A0=C2=A0=C2=A0 /* Check if at least L2 is implemented */
->> +=C2=A0=C2=A0=C2=A0 if (((cache_global_info >> CTR_LOC_SHIFT) & CTR_LOC_=
-MASK)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D=3D CTR_LOC_NOT_IMPLEMENT=
-ED) {
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 printk("ERROR: L2 Cache not =
-implemented\n");
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return trace_error(-ENODEV);
->> +=C2=A0=C2=A0=C2=A0 }
->> +
->> +=C2=A0=C2=A0=C2=A0 /* Save old value of CSSELR_EL1 */
->> +=C2=A0=C2=A0=C2=A0 arm_read_sysreg(CSSELR_EL1, cache_sel_tmp);
->> +
->> +=C2=A0=C2=A0=C2=A0 /* Get LLC index */
->> +=C2=A0=C2=A0=C2=A0 if (((cache_global_info >> CTR_CTYPE2_SHIFT) & CTR_C=
-TYPEn_MASK)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D=3D CTR_LLC_ON)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cache_sel =3D CTR_SELECT_L2;
->> +=C2=A0=C2=A0=C2=A0 else
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cache_sel =3D CTR_SELECT_L3;
->> +
->> +=C2=A0=C2=A0=C2=A0 /* Select the correct LLC in CSSELR_EL1 */
->> +=C2=A0=C2=A0=C2=A0 arm_write_sysreg(CSSELR_EL1, cache_sel);
->> +
->> +=C2=A0=C2=A0=C2=A0 /* Ensure write */
->> +=C2=A0=C2=A0=C2=A0 isb();
->> +
->> +=C2=A0=C2=A0=C2=A0 /* Get info about the LLC */
->> +=C2=A0=C2=A0=C2=A0 arm_read_sysreg(CCSIDR_EL1, cache_info);
->> +
->> +=C2=A0=C2=A0=C2=A0 /* ARM TRM: (Log2(Number of bytes in cache line)) - =
-4. */
->> +=C2=A0=C2=A0=C2=A0 cache_line_size =3D 1 << ((cache_info & CTR_LINESIZE=
-_MASK) + 4);
->> +=C2=A0=C2=A0=C2=A0 /* ARM TRM: (Number of sets in cache) - 1 */
->> +=C2=A0=C2=A0=C2=A0 cache_set_num =3D ((cache_info >> CTR_SIZE_SHIFT) & =
-CTR_SIZE_MASK)
->> + 1;
->> +
->> +=C2=A0=C2=A0=C2=A0 /* Restore value in CSSELR_EL1 */
->> +=C2=A0=C2=A0=C2=A0 arm_write_sysreg(CSSELR_EL1, cache_sel_tmp);
->> +
->> +=C2=A0=C2=A0=C2=A0 /* Ensure write */
->> +=C2=A0=C2=A0=C2=A0 isb();
->> +
->> +=C2=A0=C2=A0=C2=A0 return (cache_line_size * cache_set_num);
->> +}
->=20
-> I see the convenience of this function, I dislike the code size growth.
->=20
-> Is there a way for a Linux root user, via some sysfs or proc values to
-> find out the required values that - as I assume - are unaccessible from
-> userspace via the registers? That would eventually allow to fill
-> llc_way_size when calling "jailhouse config create" on a non-x86 target.
->=20
-
-This function is meant to help the user. If no way_size is provided,
-coloring cannot be initialized.
-I don't know if there are ways from Linux userspace to get this value.
-If we remove this function at all, until there is no "jailhouse config
-create" for non-x86 target we need to rely on the root cell
-"configurator" and I don't know if it is a good approach since this
-value is very crucial for the feature.
-What do you think?
-
->> +
->> +int coloring_paging_init(unsigned int llc_way_size)
->> +{
->> +=C2=A0=C2=A0=C2=A0 unsigned int i;
->> +
->> +=C2=A0=C2=A0=C2=A0 if (!llc_way_size) {
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 llc_way_size =3D get_llc_way=
-_size();
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!llc_way_size)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 retu=
-rn -ENODEV;
->> +=C2=A0=C2=A0=C2=A0 }
->> +
->> +=C2=A0=C2=A0=C2=A0 /**
->> +=C2=A0=C2=A0=C2=A0=C2=A0 * Setup addr_col_mask
->> +=C2=A0=C2=A0=C2=A0=C2=A0 * This mask represents the bits in the address=
- that can be used
->> +=C2=A0=C2=A0=C2=A0=C2=A0 * for defining available colors
->> +=C2=A0=C2=A0=C2=A0=C2=A0 */
->> +=C2=A0=C2=A0=C2=A0 for (i =3D PAGE_SHIFT; i < MSB_LONG_IDX(llc_way_size=
-); i++)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 set_bit(i, &addr_col_mask);
->> +
->> +=C2=A0=C2=A0=C2=A0 if (COLORING_MAX_NUM > MAX_COLOR_SUPPORTED)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -ENOMEM;
->> +
->> +=C2=A0=C2=A0=C2=A0 /* Setup default color bitmask */
->> +=C2=A0=C2=A0=C2=A0 for (i =3D 0; i < COLORING_MAX_NUM; i++)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 set_bit(i, color_bitmask_def=
-ault);
->> +
->> +=C2=A0=C2=A0=C2=A0 printk("Coloring information:\n");
->> +=C2=A0=C2=A0=C2=A0 printk("LLC way size: %uKiB\n", llc_way_size >> 10);
->> +=C2=A0=C2=A0=C2=A0 printk("Address color mask: 0x%lx\n", addr_col_mask)=
-;
->> +=C2=A0=C2=A0=C2=A0 printk("Max number of avail. colors: %ld\n", COLORIN=
-G_MAX_NUM);
->=20
-> How much of that information is code debugging, how much is valuable
-> when configuring and operating a system?
->=20
-
-You're right. The only information we need is the numbers of colors
-available for configuring the cell.
-
->> +=C2=A0=C2=A0=C2=A0 return 0;
->> +}
->> +
->> +int coloring_cell_init(struct cell *cell)
->> +{
->> +=C2=A0=C2=A0=C2=A0 const struct jailhouse_cache *cache;
->> +=C2=A0=C2=A0=C2=A0 int counter =3D 0;
->> +=C2=A0=C2=A0=C2=A0 int i;
->> +
->> +=C2=A0=C2=A0=C2=A0 memset(cell->arch.color_bitmask, 0,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sizeof(unsigned long) * COLO=
-R_BITMASK_SIZE);
->> +
->> +=C2=A0=C2=A0=C2=A0 /* Root cell is currently not supported */
->> +=C2=A0=C2=A0=C2=A0 if (cell =3D=3D &root_cell)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
->> +
->> +=C2=A0=C2=A0=C2=A0 for_each_cache_region(cache, cell->config, counter) =
-{
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ((cache->start + cache->s=
-ize) > COLORING_MAX_NUM ||
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 !cac=
-he->size) {
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 prin=
-tk("Wrong color config. Max value is %ld\n",
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 COLORING_MAX_NUM);
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 retu=
-rn -ERANGE;
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->> +
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 for (i =3D cache->start; i <=
- (cache->start + cache->size); i++)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 set_=
-bit(i, cell->arch.color_bitmask);
->> +=C2=A0=C2=A0=C2=A0 }
->> +
->> +=C2=A0=C2=A0=C2=A0 /* If no coloring configuration is provided, use all=
- colors
->> available */
->> +=C2=A0=C2=A0=C2=A0 if (!counter)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 memcpy(cell->arch.color_bitm=
-ask, color_bitmask_default,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 size=
-of(unsigned long) * COLOR_BITMASK_SIZE);
->> +
->> +=C2=A0=C2=A0=C2=A0 printk("Cell [%s] color config: 0x%lx%lx%lx%lx\n",
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cell->config->name,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cell->arch.color_bitmask[3],=
- cell->arch.color_bitmask[2],
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cell->arch.color_bitmask[1],=
- cell->arch.color_bitmask[0]);
->> +
->> +=C2=A0=C2=A0=C2=A0 return 0;
->> +}
->> +
->> +unsigned long next_colored(unsigned long phys, unsigned long
->> *color_bitmask)
->> +{
->> +=C2=A0=C2=A0=C2=A0 unsigned int high_idx;
->> +=C2=A0=C2=A0=C2=A0 unsigned int phys_col_id;
->> +=C2=A0=C2=A0=C2=A0 unsigned long retval =3D phys;
->> +
->> +=C2=A0=C2=A0=C2=A0 if (!color_bitmask)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return phys;
->> +
->> +=C2=A0=C2=A0=C2=A0 high_idx =3D MSB_LONG_IDX(addr_col_mask);
->> +
->> +=C2=A0=C2=A0=C2=A0 phys_col_id =3D (phys & addr_col_mask) >> PAGE_SHIFT=
-;
->> +=C2=A0=C2=A0=C2=A0 /**
->> +=C2=A0=C2=A0=C2=A0=C2=A0 * Loop over all possible colors starting from =
-`phys_col_id` and
->> find
->> +=C2=A0=C2=A0=C2=A0=C2=A0 * the next color id that belongs to `color_bit=
-mask`.
->> +=C2=A0=C2=A0=C2=A0=C2=A0 */
->> +=C2=A0=C2=A0=C2=A0 while (!test_bit(phys_col_id, color_bitmask)) {
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /**
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * If we go out of boun=
-ds, restart from 0 and carry 1
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * outside addr_col_mas=
-k MSB.
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (phys_col_id > msb_color_=
-bitmask(color_bitmask)) {
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 phys=
-_col_id =3D 0;
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 retv=
-al +=3D 1UL << (high_idx + 1);
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 } else
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 phys=
-_col_id++;
->> +=C2=A0=C2=A0=C2=A0 }
->> +
->> +=C2=A0=C2=A0=C2=A0 /* Reset old color configuration */
->> +=C2=A0=C2=A0=C2=A0 retval &=3D ~(addr_col_mask);
->> +=C2=A0=C2=A0=C2=A0 retval |=3D (phys_col_id << PAGE_SHIFT);
->> +
->> +=C2=A0=C2=A0=C2=A0 return retval;
->> +}
->> +
->> +unsigned long get_end_addr(unsigned long start, unsigned long size,
->> +=C2=A0=C2=A0=C2=A0 unsigned long *color_bitmask)
->> +{
->> +=C2=A0=C2=A0=C2=A0 unsigned color_num =3D 0;
->> +
->> +=C2=A0=C2=A0=C2=A0 /* Get number of colors from mask */
->> +=C2=A0=C2=A0=C2=A0 for (int i =3D 0; i < MAX_COLOR_SUPPORTED; i++)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (test_bit(i, color_bitmas=
-k))
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 colo=
-r_num++;
->> +
->> +=C2=A0=C2=A0=C2=A0 /* Check if start address is compliant to color sele=
-ction */
->> +=C2=A0=C2=A0=C2=A0 start =3D next_colored(start, color_bitmask);
->> +
->> +=C2=A0=C2=A0=C2=A0 return start + PAGE_ALIGN((size*COLORING_MAX_NUM)/co=
-lor_num);
->> +}
->>
->=20
-> Maybe you can model coloring setup/teardown as a unit, just like CAT
-> does. Avoids hooks, but it may require some stubbing as you use only few
-> of the common callbacks. Just an idea.
->=20
-
-I like the idea. I will try to implement v3 as a unit.
-
-> In general, please rethink which parts really need to be specific to arm
-> and keep only those here.
->
-
-I will do it.
-
-Thanks,
-Luca
-
-> Jan
->=20
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/5b4c903b-edac-5968-e2d8-20779123eb67%40gmail.com.
-
---xyMjRaZjnER1k93cHTqEVtkl5kr3lgcn3--
-
---MVMWKa62b90zRLijiBRMhyvpAW1qawssl
+--DUWoCugBpv33ObO6Uk2JAO20EkrLPIPPo
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEE+VQtGnhP9TTQ2NnBI/rjb1Ch6KsFAl6y6S8ACgkQI/rjb1Ch
-6Ks1GRAApWVAxFOH+J5HQUjmSjjZIQfUx+HnRb1OUu+OzNCFw4ZHBN8oDngYGadm
-5oCDLGhAQ4jE/IgPiKngBBKEuWQzP/3FrBZ9yw4L7Iz1XaYNZA/nraSuMNqbxEsh
-ROlwQvTpOoNcDYZgXkRcXwvqSakjGET29pwJwKWkHX+iTQoTjtSiIo6jwQp6yVJd
-dpgUX2LW1WUJBgMVJkyOCVrLjeQ5wm03k5XBn1zCd2uthV6sjGyiYBwCEMIAVRpn
-dmUdf5X6UbvzpdNe4KoxcTjSvOFIIbVtt2FwWs0eEsIEJC+W3IjuZSUBlsYIl4VV
-UW+W0kHiMuNUn6prZ0VbCRWSe4PNp9zE8jj788ew2qJb+uT/bcQ84kTqDJ5hERe9
-L+cJxBiprn4hZn9N24QEh7Cmht05QSELy1BlLtcinla4UevdpAT6QuO2ltiIxfPr
-1u+xxFrcDHNdxYvFOlsLSeEOi/dXHswGCH+ne65RjXjIg3AdbaCToCWveFWcgQRe
-7uaHat4o0OU7j1o/JnIlHbe+mgiQUBA4YxG98WUem6hw2LKBo/WULUh/jLWE/2Mb
-qcBd1fpPQyv4qiTquxM70hMW199o59boOWrvcjmVYTREzKqDlh63FTq2Q5kkr3lX
-S2SN3iLMr1M2v/hPkxbSPXbhdWcvTokGmpWmUqF6oYkHC0tXOC4=
-=Ek2m
+iQIzBAEBCAAdFiEE+VQtGnhP9TTQ2NnBI/rjb1Ch6KsFAl6y6T4ACgkQI/rjb1Ch
+6KtxTxAArqtDjOSN2FpOMFlrix08+U2RbT9MFLoR9F6IOtWrzFDh9Bw9GR7HMdC+
+RizILnNpRQugq8JUylgdG9LH1syvk1uQp7SgXDZmGaTszRHML9LDpl487H2IyqqV
+L+TSCmpCQubuDA/wG/Vqj3J+jP8r/7Tk93MDQgH2MCLOZIOcuWDK4XtsCWFA/XJL
+ApU2z4ktyskaBYy/m4TR+Ud9VnJHfddFBpRd71A67aT0DT5Wh9UutN60USOQNk5G
+1YN6XMVjxM2wzctlxwJPia+lpx3hbrsY5plNmheCp/WQEBoYV911P8uvNYdhUELy
+zTKnntENXDnrOWYS5dM8Ntkyj7lzABRBzMOlbJYE3T8nmxIL4MoEb7wQADtF1loa
+5U89c7U7xXUTNn5o+QAb3n7DgcKZqqpafWhCFqMFzwzfAvXLcq/05VU8rj8NEaVF
+uUnwb8ZimiU2Hgz3Gz6UkjYR/MzfkxNTa/56pnpQUhECkfREalcYkBknr1zzBNnN
+rnVlfrI1ezoJCsp/BW416tBItGg5kPlQzZ8OLl+Q8fjCKmEVBNlcKJ4BvLVoVtJb
+qLsIH/S5WiD5Wm0z1GFayFoUreNqCelxXcVnFyVTtubrxbbLElPHJPipxZmUz3DL
+lLycsvuLi+M8wFL+6dTlT1x9S7rtoBNlMDilXfEeBmx99FcEdA0=
+=qrJw
 -----END PGP SIGNATURE-----
 
---MVMWKa62b90zRLijiBRMhyvpAW1qawssl--
+--DUWoCugBpv33ObO6Uk2JAO20EkrLPIPPo--
