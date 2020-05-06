@@ -1,129 +1,129 @@
-Return-Path: <jailhouse-dev+bncBCD5HYFFQEERBFWSZP2QKGQEKI27UMQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCD5HYFFQEERBMWSZP2QKGQEQQGWEIA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23f.google.com (mail-lj1-x23f.google.com [IPv6:2a00:1450:4864:20::23f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 805251C76C2
-	for <lists+jailhouse-dev@lfdr.de>; Wed,  6 May 2020 18:43:03 +0200 (CEST)
-Received: by mail-lj1-x23f.google.com with SMTP id q2sf438262ljq.16
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 06 May 2020 09:43:03 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1588783383; cv=pass;
+Received: from mail-wm1-x337.google.com (mail-wm1-x337.google.com [IPv6:2a00:1450:4864:20::337])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FE8A1C76C7
+	for <lists+jailhouse-dev@lfdr.de>; Wed,  6 May 2020 18:43:31 +0200 (CEST)
+Received: by mail-wm1-x337.google.com with SMTP id j5sf1546669wmi.4
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 06 May 2020 09:43:31 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1588783411; cv=pass;
         d=google.com; s=arc-20160816;
-        b=XY1UZuU5k0Klx3XXvcDt8s1YyfDElaVMBWiKKWILse/bB3gIyF6DzSPjfTEoU6R8YY
-         S6ocBJEFzKqA3iMO6Stupijbi/N8yeHy/BEzdrjRHtZzl+6CngupyfclKP5/WU43TiJ8
-         HmkqPYBgqTHQBHO1HXK6sM7uTCJ+r1yUrqOt8DsIe0MBva1XIhxB15bN/9WB+PbnkpGL
-         0hgsr0nqvx5dpUigCIR+3E4ufu38tx6ASLKNUrEZq+8Yq5x/pAuvlMe9U3LztuxFmoGd
-         Ps3E/v99f+OQcBr7CVmevoPKQOgZTC7geej79phQqLKlP4dswEo73lIGhrmksViJmsfv
-         pgmQ==
+        b=lZjjvgB1Y7kCkJ33YM67jh2dCFQDSnZeBHKrBZAkoFjgLImIAtz89sscL33Orh9WyZ
+         c23+rt3TygOWguZ8FXbPRrFCauXWXB2EI7Rn7+iayesV3Rst1fkZ5IdbONFgFynM8PIf
+         Rkz0ilH0S+cVecy6CajwvVI9ZsEcaAlZ2Ln1Xfz6WaBfH4asxbFPLi/NMGHzFKHuoy7a
+         LvRK+VpLOMkgmlzTPI8eGpQvKD64Ha2Q8KSKp4xtEu7eNAPQu8qQ5r1xJW+BxeECgAjP
+         tTP6Ghr4qRQJbhbvHWcCfjymO15Nv8CG0pqhBle9bH+717aNvvDMeiXuF0wbsKJZvq3s
+         figQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:in-reply-to:mime-version:user-agent
-         :date:message-id:autocrypt:from:references:to:subject:sender
+         :date:message-id:autocrypt:from:references:cc:to:subject:sender
          :dkim-signature:dkim-signature;
-        bh=vZ2IWI/k4qZa4EahwhPSNTvUQYvuitE72QlYYtVYq6M=;
-        b=QbaXJAMbYp9aMqF3lGyRiL6y0lrZGU9vLmqSXbt9B3klAAuvlt7uF2y4AeTHZeu/Hg
-         gFMSGgKz/aAXnI+4ESYBQ2OaxQmKl27+a7EkigT941UKJXu7AhgMod/g55bhuEQbdnuR
-         yyDV1KvzxD9tL7/MnvrnyL0T7VNWjph0YT31IKsTSxNxfoqH2eyj2s2LbJUC9fakNuNt
-         kkYFwWMuKh92gj+mY6Nadf6Ho4yxgJO5b9THPBIZNas4EH8YsMxGywGODYbZorxMMufg
-         UazZPgNCrNy/yuO9KtE+NI3s2pjkxkWP3GpveMh9i71/Gjnw2PHepshfvpmzkT72q3yy
-         Jbfw==
+        bh=yxGcFhthzDY2F+niUOMpH+XC4OhfrQjNlrLB3hTo0Ws=;
+        b=Z/0t6g5SK4yDhCE1JOIriFCk1dIjmQEV8VqOPqZ/PIACNem/b5CPLakmVZKbsMCycT
+         NCWtIxN1ft+l80Soh4u5XgU2ZWziFEBPijRXmhr9BZJ+iIegLobN98u+F32+ocMc5xdY
+         NNo10ZbIbX04a4oaWfZGiNn0Ai5p+QpTuufAhQaYzF6QVwiW6u5Mo4y9B4BekaZM3H6h
+         QIxmV4vATzcQ6RroNZobqaMUYhu5tcXNAncajAlIv+QqpBQPSh8AlGDTdbChuw+cmixr
+         qus1W1DxPGO8zAMZv2IFbkbo937WEgHYMxLNHWuh8/bBtTL6c4IzqnoYBqmQA27l9Gwk
+         GWfw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=RFHdf3Li;
-       spf=pass (google.com: domain of lucmiccio@gmail.com designates 2a00:1450:4864:20::342 as permitted sender) smtp.mailfrom=lucmiccio@gmail.com;
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=ELDxCWKZ;
+       spf=pass (google.com: domain of lucmiccio@gmail.com designates 2a00:1450:4864:20::441 as permitted sender) smtp.mailfrom=lucmiccio@gmail.com;
        dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:autocrypt:message-id:date
+        h=sender:subject:to:cc:references:from:autocrypt:message-id:date
          :user-agent:mime-version:in-reply-to:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=vZ2IWI/k4qZa4EahwhPSNTvUQYvuitE72QlYYtVYq6M=;
-        b=gi4N10//wTtoBRD7ILazx+7stjFZ4eIsz36CATZOW28n9Af+xj26w8krycKG5nDY1J
-         buDJrxISme8FL3twMKBMCwYaAem2r5j98e1Ruv+quN1NbM+8yE/wKa5Pq0DHw3Ybxg9l
-         1gtA0RbYPNyhtS4pklfmpurDXEaZXbIrPhUYeEQxLRBIOzwrn/R9GRAVJymXnm1qavMg
-         53F+9rBe5QUckJrChhd1/mVBR9Yvq6PjSYuMzvWB2GREnRxZuo7KOg++j7+zosdk2Xz0
-         uUs4SNf/yUvVxx8FREkPUGzSDpn9r7mKumGXVIfyBpHv0C0TRUi+tHE0Sl1CAW9In6DL
-         aKFw==
+        bh=yxGcFhthzDY2F+niUOMpH+XC4OhfrQjNlrLB3hTo0Ws=;
+        b=jlzrim27zPQj9/qhuH1SnK1MblUYWBJNxTqlj/5V7NajFEJJNqwVlqty72xutayVYV
+         S8JsV++3zq67CxT+Xare79/ar2cSRcNnVrCpuB7WvVXoKq5mZN5tOkWOKgrKnnkR3H88
+         EtH8y+BcWmSgQnpX9HFWIK562GVA3HYuqeKtSB1f12nuj0vUN37b9c8oOPxZNc6eJsuu
+         OyUuRcMPeb9S3bNXLqz3iI5yfzBN+FllhLMPkiqzOdiC5h11079gMUVZE61XXAzbRy3f
+         mFw8lgzXb3FGby695GbfGGggqDysY21pTeODd84iY6+z/U71r5NnvWaurP2kmnnUmEsW
+         1TVw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:references:from:autocrypt:message-id:date:user-agent
+        h=subject:to:cc:references:from:autocrypt:message-id:date:user-agent
          :mime-version:in-reply-to:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=vZ2IWI/k4qZa4EahwhPSNTvUQYvuitE72QlYYtVYq6M=;
-        b=RpFWhxhYM6yF/4fd558HwTSeTAbrwh8kDE+pfminxEit9BUTLx9W2KWxcFhZjph/sX
-         1jksOdLWMgAX85QJxOj/g8AGJ2T6X8c6cFi8C7RypZ3WWmyL21TAVYhtr8+sf9/vQSh+
-         UPlJD4uBFoPEkIbmlAA4tQ64CyagWf2tx+saAltJdlj5G/l5n/y6cOqZUpNBQKH3OgzD
-         x8VP6mSIpIficgQZpq/Dqb0+bdCbUtDbKaCqbSn0GyWM3aeRsqJW4jNIx1bhTl2H0YQi
-         bViYKTvOeU5H7fqqa4eWvc4ajthsTVNyXuTzKhyhaZcfbPLvkokeTFHa7BX1wOL5/ors
-         MIWQ==
+        bh=yxGcFhthzDY2F+niUOMpH+XC4OhfrQjNlrLB3hTo0Ws=;
+        b=NIW1WGcgisQ5JhthpCV1Eu2zHiafBDcFv1dPcoXayNVz7/YDnuyaSsEoDVMdMYpnsM
+         TzKAWbpux7TPSCoOSbHGRZHWP8yEST8j/1r72cXILqJWQvCUEBxLxZlcYvhvQuzYmNM4
+         Ckvc+rEhsM+kgU2mesuq/7N/3pGizfvFwaNLGThpV7ys65l4uzEiDep+kNgrW4/ThxPX
+         wkwEbJVjlkvcLAYHJKtgosmwrWCa7Ft7a1trfRS4Jj65k2eXHJCwvWNKEQIYNKlX3wrh
+         9cxczEC+Aog/2dn6SMBdXDykRLJKOOEdiZzp94qKb2P5yLlScmjsG2oQmFF8kTF+xmjf
+         PQ6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:autocrypt
+        h=sender:x-gm-message-state:subject:to:cc:references:from:autocrypt
          :message-id:date:user-agent:mime-version:in-reply-to
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=vZ2IWI/k4qZa4EahwhPSNTvUQYvuitE72QlYYtVYq6M=;
-        b=KNIUR91Yckg6zf7rQWhC4eUjAWBWr5EJQWyI3d1laeHYaY86VPBfLrnaLvrODweDVJ
-         +u6jFFid1BC3ZBBaJqFpP81EBaXwYyByVib5cLGlShck1TlySVYi31aqR7EzF3BJSH5H
-         3xv3Ydd2QU55GOqmDx71uSzly6zuVWK35WIxrk77b4EqPSi5asScEwHHWoXDQtBoDHPM
-         jhgIUQrVsbRxGe8+2zEOXNahj8DumH+v/xUkh+r+DEoWoPXFs/nGY6wvL3pBOQLtWaDy
-         aJKuLcR9KrfKmlfztvECgvBoLSg9FjtOv8LEvbgbm3KHmwjLDUQnIinRSWWcwOVjNoXk
-         ZoZw==
+        bh=yxGcFhthzDY2F+niUOMpH+XC4OhfrQjNlrLB3hTo0Ws=;
+        b=lcFXvap7X0qkqkiH+UpZm9jkQTGyaIXzqBVcAXjWDkQywZ/mvD30yNLtTl86KmbDea
+         v/bu8E7H2as7vTqqLo1DHMjXPx/QxjKwq10rSfrLAgdKYm/X/+lrUyUQz5wQBEwEDaY8
+         fvybJJm/ipBM/9R3u4chxExacMpOHiF0yIj+FDT0Eo6nqJwgPo4fTKHLV/TmusFdiOHJ
+         6lmLD5H53KfW/m4A57glxYIUXCiQguyZWUw+OQgepc22ExeJJwZ7G4xIeAJhFYhf8KiN
+         mOsIqJAn5V1Wv/x827leuRcDACl69rmxv/+1RMQ7Z5WsvnbUWx3iPZgOHbUEPnTbsqDc
+         5ZFw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AGi0PuYhe0ebnzr9BRGZnni18HQ6kaVkRZ8ympxt0cwLJNb/V/a4f87n
-	QujBFAkOX50cmDwmdQnTX3U=
-X-Google-Smtp-Source: APiQypK9dHK2ybKubAp5ahcMnw/7S94o3sYyL+giRgtl0fBsCw/IS+NwkGicN2wWrVidZuITCfSsJw==
-X-Received: by 2002:a19:5f04:: with SMTP id t4mr5888774lfb.208.1588783382965;
-        Wed, 06 May 2020 09:43:02 -0700 (PDT)
+X-Gm-Message-State: AGi0PubBqN3ZQNdpgK/T0FFbbQHb0R+57WNinDwQV5ChU7spuU7mOx98
+	e4HKbVaCt0T4OoQBQa7cOQs=
+X-Google-Smtp-Source: APiQypK+tAq79WrS73HbQip3ArCOOpy8WViqU0iegJmrPafYWIkArvlA8bEjaMB4/z1yd0sG35fN4Q==
+X-Received: by 2002:a1c:6a06:: with SMTP id f6mr5129323wmc.51.1588783410872;
+        Wed, 06 May 2020 09:43:30 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a19:852:: with SMTP id 79ls463972lfi.8.gmail; Wed, 06 May
- 2020 09:43:02 -0700 (PDT)
-X-Received: by 2002:a19:f815:: with SMTP id a21mr5781679lff.155.1588783382127;
-        Wed, 06 May 2020 09:43:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1588783382; cv=none;
+Received: by 2002:a05:600c:224f:: with SMTP id a15ls5207346wmm.3.gmail; Wed,
+ 06 May 2020 09:43:30 -0700 (PDT)
+X-Received: by 2002:a1c:f211:: with SMTP id s17mr6008044wmc.168.1588783410230;
+        Wed, 06 May 2020 09:43:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1588783410; cv=none;
         d=google.com; s=arc-20160816;
-        b=KVnGdBKQG99UY+UXIltjDqFkbzzCx+hlqE80O1YnvpBLS6EOTQgdo/6DQZe9o/i00/
-         PhrQJZFiBfaNPtVz6ASyim8XG+V59pn12FlOX8LdEsTyNA1Bz+/K9OGr6kTO9cfCUm/C
-         lh4s6QwiEHIvS3wrWJTtFjX0F66Nnf6v5q724lqHN/FfK4/0gS/piq/XJMpBHjwd8ggT
-         WoFhxYfktpVKmCUNiuicxt5CEg+C/GcS/k8eYhpbXofzUu0k1pfgmlY77W/l9oigtYXG
-         d1JO3kB6ECztjsnPMRzxYYY0yZf2cNoYFfL2KqCsIC5d11iWjfmIu3lU1ceZwZQUsoGu
-         bCfw==
+        b=N9TJVBtvVHoHBcc1YZsEYfvszw7HRZED7QEb2BZNdgnDacG6mfsPk4k05+LH+JsTO5
+         GsSPSHHG0WTpQqZTPdXtHpCgeP8LRlubnyfXkoIBYuC3ysrEbblAaxZgBaHDRmUGDTfn
+         e1kOyFvN6/B0CGYEnToB02wx5Srm2JrGTW1YauiJRZLNmgWrx/1EvOIV4T5b3MFwA3qi
+         ycOo1rExR2Az2M4ZD23U24+ezw4t/t+HQUXaWfbn/kG0nJb+J2d6NmyWPxOJ56y50etB
+         yXiCXWBOM1boNzo8rFrNdlVRcdNK3NeBkibuCeGVf7Bt1MhZmaswLcWP6L/tI53TYAQz
+         C2Wg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=in-reply-to:mime-version:user-agent:date:message-id:autocrypt:from
-         :references:to:subject:dkim-signature;
-        bh=tPX8DHPmd5UKz7Wq+e8MPuqaBI8mY59QNVTHZtaHlKE=;
-        b=Uw7b/fivp8Ok2wOFxDWvhPEcVFZCpyP7xFy1SIOVfvfyjqNxoi6ll8Jh6iO6jTv2UL
-         edINOwq+v9REIqORn/zSE0ZdoVez8rce0uBvW4mhOEgXogLDOY32L2Vx0mFYQPAFBy+w
-         dMvwd2faQK9+48l4ZOXQnsfQynPALFcpGT/CV/QdpkLNGe6c9+lyoPdAXpBw+5mdNKHX
-         QlcTjjr1YPHacmHtSO/Q67CZjC19ZYxVuuE25ZssgzF5hYYIQghY92wuISHPmzWDniw3
-         OQ2f4hmfnGYJiAAbD1EQfBJsYMn31WkUb3q9fzntZcdxXsh6uMOaNDdBQV5ZPHWGjo88
-         zGyw==
+         :references:cc:to:subject:dkim-signature;
+        bh=Tp7Unqp6vKyDgh7zRqyB7kNcYH808UfMXw/qwAFskE8=;
+        b=onSugM77k+RicFrx+iDyuUPBhh9HmM836tRNJL/MoLQ/yC1Uc7RqEm1WmhL9BE96cW
+         GLHemeZe4VKkE3ZvDyFd1DyZOFRa8lC5zxjdGgY3g5NPgaTFAqOfEWbp9jmlWPx2QYfj
+         X57g6cSlBZ9aAf2YG4JiA6mTkrlmnvd0iXwh996noPkNYXSClTJl7i5J4tch4r0Smgfg
+         Ypa9lhotsmvqdGmkfoSZ4QgZZRZeXvo1V3sTLepOt4jVLqRHNpMbTheipsaaEtWyz+kX
+         vrVBqssCaBqWPF186BbMT6V4Tk/lQ2jmoVLoUDZDaagYnX7qrlaK7VwygmihtGYWebyM
+         FYZQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=RFHdf3Li;
-       spf=pass (google.com: domain of lucmiccio@gmail.com designates 2a00:1450:4864:20::342 as permitted sender) smtp.mailfrom=lucmiccio@gmail.com;
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=ELDxCWKZ;
+       spf=pass (google.com: domain of lucmiccio@gmail.com designates 2a00:1450:4864:20::441 as permitted sender) smtp.mailfrom=lucmiccio@gmail.com;
        dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com. [2a00:1450:4864:20::342])
-        by gmr-mx.google.com with ESMTPS id x16si132293lfn.0.2020.05.06.09.43.02
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com. [2a00:1450:4864:20::441])
+        by gmr-mx.google.com with ESMTPS id o136si155925wme.0.2020.05.06.09.43.30
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 06 May 2020 09:43:02 -0700 (PDT)
-Received-SPF: pass (google.com: domain of lucmiccio@gmail.com designates 2a00:1450:4864:20::342 as permitted sender) client-ip=2a00:1450:4864:20::342;
-Received: by mail-wm1-x342.google.com with SMTP id g12so3495061wmh.3
-        for <jailhouse-dev@googlegroups.com>; Wed, 06 May 2020 09:43:02 -0700 (PDT)
-X-Received: by 2002:a1c:3c42:: with SMTP id j63mr936403wma.118.1588783381178;
-        Wed, 06 May 2020 09:43:01 -0700 (PDT)
+        Wed, 06 May 2020 09:43:30 -0700 (PDT)
+Received-SPF: pass (google.com: domain of lucmiccio@gmail.com designates 2a00:1450:4864:20::441 as permitted sender) client-ip=2a00:1450:4864:20::441;
+Received: by mail-wr1-x441.google.com with SMTP id v12so1682546wrp.12
+        for <jailhouse-dev@googlegroups.com>; Wed, 06 May 2020 09:43:30 -0700 (PDT)
+X-Received: by 2002:adf:80a3:: with SMTP id 32mr10271118wrl.199.1588783409708;
+        Wed, 06 May 2020 09:43:29 -0700 (PDT)
 Received: from [192.168.1.109] ([2.234.171.104])
-        by smtp.gmail.com with ESMTPSA id h74sm3099618wrh.76.2020.05.06.09.42.59
+        by smtp.gmail.com with ESMTPSA id j16sm3480952wru.13.2020.05.06.09.43.28
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 06 May 2020 09:43:00 -0700 (PDT)
-Subject: Re: [PATCH v2 4/9] hypervisor, arm-common: add initial support for
- cache coloring
+        Wed, 06 May 2020 09:43:28 -0700 (PDT)
+Subject: Re: [PATCH v2 7/9] hypervisor, arm64: add cache coloring support
 To: Jan Kiszka <jan.kiszka@siemens.com>, Marco Solieri <ms@xt3.it>,
  jailhouse-dev@googlegroups.com
+Cc: Angelo Ruocco <angelo.ruocco.90@gmail.com>
 References: <20190327121849.1882-1-ms@xt3.it>
- <20200421100351.292395-1-ms@xt3.it> <20200421100351.292395-5-ms@xt3.it>
- <2bec9973-da05-eca5-5afd-2908762c20aa@siemens.com>
+ <20200421100351.292395-1-ms@xt3.it> <20200421100351.292395-8-ms@xt3.it>
+ <08e4aad0-314e-cfee-c4d8-be313903d8b4@siemens.com>
 From: Luca Miccio <lucmiccio@gmail.com>
 Autocrypt: addr=lucmiccio@gmail.com; keydata=
  mQINBFta+d8BEADFAWAzeJAC/VtWSaoVZ/F1D1fzyE+iG6zl9TVSi8MgreznMh4jgz8hlgpJ
@@ -168,19 +168,19 @@ Autocrypt: addr=lucmiccio@gmail.com; keydata=
  nwtMt7riwhjbshKHDpF7cRYjw1GAgOnR6lOb+xWBvtY8kiB7u4LQY+6tJpyxjilJxWvfMcWi
  9y6h0lBO3s0LWDH5wvLp7dUyrb1XzbJrDu4cvpbixBksU/8rgxJg5JzPGjz2RD7wkR4IIBw2
  dt7Vxqeq2cwqChx7KCuYYoENsocCZeBE1odOEsUDpiF/GBOxNicEchRHQI4XvM8jkAwS+UqI
-Message-ID: <3b5fe52b-9c01-2849-1d4f-a4b674b393b7@gmail.com>
-Date: Wed, 6 May 2020 18:42:58 +0200
+Message-ID: <5b4c903b-edac-5968-e2d8-20779123eb67@gmail.com>
+Date: Wed, 6 May 2020 18:43:27 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <2bec9973-da05-eca5-5afd-2908762c20aa@siemens.com>
+In-Reply-To: <08e4aad0-314e-cfee-c4d8-be313903d8b4@siemens.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="ih49Ick6aSsz2ypp0jMgKRR3TELO8xdzp"
+ boundary="MVMWKa62b90zRLijiBRMhyvpAW1qawssl"
 X-Original-Sender: LucMiccio@gmail.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20161025 header.b=RFHdf3Li;       spf=pass
- (google.com: domain of lucmiccio@gmail.com designates 2a00:1450:4864:20::342
+ header.i=@gmail.com header.s=20161025 header.b=ELDxCWKZ;       spf=pass
+ (google.com: domain of lucmiccio@gmail.com designates 2a00:1450:4864:20::441
  as permitted sender) smtp.mailfrom=lucmiccio@gmail.com;       dmarc=pass
  (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
@@ -196,85 +196,62 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---ih49Ick6aSsz2ypp0jMgKRR3TELO8xdzp
-Content-Type: multipart/mixed; boundary="p2Wj0hozWPkiEedD24uqeGefjzHyV9g7h"
+--MVMWKa62b90zRLijiBRMhyvpAW1qawssl
+Content-Type: multipart/mixed; boundary="xyMjRaZjnER1k93cHTqEVtkl5kr3lgcn3"
 
---p2Wj0hozWPkiEedD24uqeGefjzHyV9g7h
+--xyMjRaZjnER1k93cHTqEVtkl5kr3lgcn3
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
 
 
 
-On 5/4/20 8:33 PM, Jan Kiszka wrote:
+On 5/4/20 8:35 PM, Jan Kiszka wrote:
 > On 21.04.20 12:03, 'Marco Solieri' via Jailhouse wrote:
 >> From: Luca Miccio <lucmiccio@gmail.com>
 >>
->> Use a bitmask array with fixed size for the cell's color assignment.
->> The largest amount of shared last-level segment cache equipping an Arm v=
-8
->> cluster for the embedded segment (i.e. Cortex A5?, A7?), which contains
->> up to 8 cores, is 8 MiB with 16-ways associativity.
->> Now, assuming the coloring algorithm to be the same as we support, i.e.
->> smallest granularity with 4 KiB pages, we compute that up to 128 colors
->> available.
->> For this reason set the amount of colors supported to 128.
->>
->> Colored regions defined by the flag JAILHOUSE_MEM_COLORED are mapped
->> using the "colored" version of paging_create when needed.
->> The colored version of paging_destroy is used only when unmapping from
->> the root cell since we are assuming a 1:1 mapping for it.
+>> Implement all the functions needed by the coloring interface for the
+>> arm64 architecture.
+>> Coloring selection is retrieved by the jailhouse_cache structure(s) in
+>> cell's configuration. Each structure defines a color range that will be
+>> mapped to the corresponding color bitmask. The configuration is
+>> cell-wide and will be used with all the memory regions flagged with
+>> JAILHOUSE_MEM_COLORED.
+>> If no color selection is provided by the user and coloring is enabled,
+>> use all the available colors on the platform.
 >>
 >> Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
 >> Signed-off-by: Marco Solieri <ms@xt3.it>
+>> Acked-by: Angelo Ruocco <angelo.ruocco.90@gmail.com>
 >> ---
->> =C2=A0 hypervisor/arch/arm-common/include/asm/cell.h |=C2=A0 4 ++
->> =C2=A0 .../arch/arm-common/include/asm/coloring.h=C2=A0=C2=A0=C2=A0 | 22=
- +++++++
->> =C2=A0 hypervisor/arch/arm-common/mmu_cell.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 | 62 ++++++++++++++++---
->> =C2=A0 3 files changed, 79 insertions(+), 9 deletions(-)
->> =C2=A0 create mode 100644 hypervisor/arch/arm-common/include/asm/colorin=
-g.h
+>> =C2=A0 hypervisor/arch/arm64/Kbuild=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=
+=A0 1 +
+>> =C2=A0 hypervisor/arch/arm64/coloring.c | 232 ++++++++++++++++++++++++++=
++++++
+>> =C2=A0 2 files changed, 233 insertions(+)
+>> =C2=A0 create mode 100644 hypervisor/arch/arm64/coloring.c
 >>
->> diff --git a/hypervisor/arch/arm-common/include/asm/cell.h
->> b/hypervisor/arch/arm-common/include/asm/cell.h
->> index 9c6e8c6f..c5159b46 100644
->> --- a/hypervisor/arch/arm-common/include/asm/cell.h
->> +++ b/hypervisor/arch/arm-common/include/asm/cell.h
->> @@ -14,6 +14,7 @@
->> =C2=A0 #define _JAILHOUSE_ASM_CELL_H
->> =C2=A0 =C2=A0 #include <jailhouse/paging.h>
->> +#include <asm/coloring.h>
->> =C2=A0 =C2=A0 struct pvu_tlb_entry;
->> =C2=A0 @@ -26,6 +27,9 @@ struct arch_cell {
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u8 ent_count;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct pvu_tlb_en=
-try *entries;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 } iommu_pvu; /**< ARM PVU specific fields=
-. */
->> +
->> +=C2=A0=C2=A0=C2=A0 /** Color configuration as a bitmask */
->> +=C2=A0=C2=A0=C2=A0 unsigned long color_bitmask[COLOR_BITMASK_SIZE];
->=20
-> This field can become generic...
->=20
-
-Yes, I agree.
-
->> =C2=A0 };
->> =C2=A0 =C2=A0 #endif /* !_JAILHOUSE_ASM_CELL_H */
->> diff --git a/hypervisor/arch/arm-common/include/asm/coloring.h
->> b/hypervisor/arch/arm-common/include/asm/coloring.h
+>> diff --git a/hypervisor/arch/arm64/Kbuild b/hypervisor/arch/arm64/Kbuild
+>> index c34b0f32..6c566e4d 100644
+>> --- a/hypervisor/arch/arm64/Kbuild
+>> +++ b/hypervisor/arch/arm64/Kbuild
+>> @@ -22,3 +22,4 @@ always :=3D lib.a
+>> =C2=A0 lib-y :=3D $(common-objs-y)
+>> =C2=A0 lib-y +=3D entry.o setup.o control.o mmio.o paging.o caches.o tra=
+ps.o
+>> =C2=A0 lib-y +=3D iommu.o smmu-v3.o ti-pvu.o
+>> +lib-$(CONFIG_COLORING) +=3D coloring.o
+>> diff --git a/hypervisor/arch/arm64/coloring.c
+>> b/hypervisor/arch/arm64/coloring.c
 >> new file mode 100644
->> index 00000000..9404948f
+>> index 00000000..cb2d80e9
 >> --- /dev/null
->> +++ b/hypervisor/arch/arm-common/include/asm/coloring.h
->> @@ -0,0 +1,22 @@
+>> +++ b/hypervisor/arch/arm64/coloring.c
+>> @@ -0,0 +1,232 @@
 >> +/*
 >> + * Jailhouse, a Linux-based partitioning hypervisor
 >> + *
->> + * Copyright (c) Universita'=C2=A0 di Modena e Reggio Emilia, 2020
+>> + * Copyright (c) Universita' di Modena e Reggio Emilia, 2020
 >> + *
 >> + * Authors:
 >> + *=C2=A0 Luca Miccio <lucmiccio@gmail.com>
@@ -284,250 +261,335 @@ Yes, I agree.
 =A0 See
 >> + * the COPYING file in the top-level directory.
 >> + */
->> +
->> +#ifndef _JAILHOUSE_ASM_COLORING_H
->> +#define _JAILHOUSE_ASM_COLORING_H
->> +
->> +#define COLOR_BITMASK_SIZE 4
->> +
->=20
-> ...while this is probably arch-specific. But could start with a generic
-> define as well split that up once some arch with a different need comes
-> around.
->=20
-
-Considering my comments on previous patches regarding the architectural
-independent coloring interface, I will use this as a generic define for
-color_bitmask.
-
->> +/* Max. number of colors supported */
->> +#define MAX_COLOR_SUPPORTED=C2=A0=C2=A0=C2=A0=C2=A0 128
->=20
-> MAX_COLOR_SUPPORTED =3D COLOR_BITMASK_SIZE * sizeof(u64)? Or should
-> COLOR_BITMASK_SIZE be rather derived from the number of colors? But
-> those depend on each other and are not separate tuneables.
->=20
-
-Yes, MAX_COLOR_SUPPORTED =3D COLOR_BITMASK_SIZE * sizeof(u64).
-
->> +
->> +#endif /* !_JAILHOUSE_ASM_COLORING_H */
->> diff --git a/hypervisor/arch/arm-common/mmu_cell.c
->> b/hypervisor/arch/arm-common/mmu_cell.c
->> index db618960..912d9399 100644
->> --- a/hypervisor/arch/arm-common/mmu_cell.c
->> +++ b/hypervisor/arch/arm-common/mmu_cell.c
->> @@ -13,6 +13,7 @@
->> =C2=A0 #include <jailhouse/control.h>
->> =C2=A0 #include <jailhouse/paging.h>
->> =C2=A0 #include <jailhouse/printk.h>
 >> +#include <jailhouse/coloring.h>
->> =C2=A0 #include <asm/sysregs.h>
->> =C2=A0 #include <asm/control.h>
->> =C2=A0 #include <asm/iommu.h>
->> @@ -46,8 +47,29 @@ int arch_map_memory_region(struct cell *cell,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (err)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return err;
->> =C2=A0 -=C2=A0=C2=A0=C2=A0 err =3D paging_create(&cell->arch.mm, phys_st=
-art, mem->size,
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 mem->virt_start, access_flags, paging_flags);
->> +=C2=A0=C2=A0=C2=A0 if (mem->flags & JAILHOUSE_MEM_COLORED)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /**
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Identity mapping is =
-necessary only when remapping to the root
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * cell during destroy =
-phase. To check if we are in the destroy
+>> +#include <jailhouse/printk.h>
+>> +#include <jailhouse/entry.h>
+>> +#include <jailhouse/cell.h>
+>> +#include <jailhouse/control.h>
+>> +
+>> +#define for_each_cache_region(cache, config, counter)=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+>> +=C2=A0=C2=A0=C2=A0 for ((cache) =3D jailhouse_cell_cache_regions(config=
+), (counter) =3D 0;\
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (counter) < (config)->=
+num_cache_regions;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 \
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (cache)++, (counter)++=
+)
 >=20
-> I'm not yet sure if I get that case complete: When a cell is destroyed,
-> the root cell should get access to those resources it had before the
-> cell was create. In case of colored memory, this would mean:
+> Should be factored out and made generally available. I'm carrying
+> something similar for Intel CAT (not published yet, so you couldn't know)=
+.
 >=20
-> =C2=A0- the root cell had a colored mapping over the respective memory ra=
-nge
-> =C2=A0- the root cell had the colors that were later assign to the non-ro=
-ot
-> =C2=A0=C2=A0 cell
+>> +
+>> +/** Default color bitmask uses all available colors */
+>> +unsigned long color_bitmask_default[COLOR_BITMASK_SIZE];
+>> +
+>> +/** Do care bits for coloring */
+>> +unsigned long addr_col_mask;
+>> +
+>> +/** Max number of colors available on the platform */
+>> +#define COLORING_MAX_NUM ((addr_col_mask >> PAGE_SHIFT) + 1)
+>> +
+>> +#define MSB_LONG_IDX(word) (word ? (BITS_PER_LONG - clz(word) - 1) : 0)
 >=20
-> Now, if the latter case is true, colors will move back to the root cell
-> (not yet sure if that is actually the case with your design, but it
-> should be). Once they are, mapping a region back to the root cell will
-> "magically" establish also the stripes that used to belong to the
-> non-root cell.
+> Add blank line.
 >=20
-
-In this design root cell has no concept of "color" and it has no color
-assignment either (yet).
-During cell create the hypervisor removes the memory assigned to the
-inmate by using the paging_destroy_colored, so only the correct pages
-are removed from the root cell.
-During cell destruction the hypervisor needs to remap *only* the pages
-assigned to that cell and since the root cell is 1:1 mapped we need to
-create a mapping that is strided both virtually and physically. That's
-why we have the identity mapping argument. This will "fill" all memory
-gaps created before.
-If I got your point, you said that we can remap the whole memory region
-to the root cell. Am I right?
-In that case, yes we do it but, as I said, we need to do it with
-paging_create_colored and identity map enabled.
-
-
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * phase the control is=
- made on the memory virtual start and
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * col_load_address. We=
- cannot have a scenario where these
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * addresses are equal =
-because:
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * 1) virt_start =3D=3D=
- phys_start.
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * 2) we assume that co=
-l_load_address is configured so that it
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * does not interfere w=
-ith memory layout.
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * 3) if col_load_addre=
-ss is equal to phys_start there is a
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * wrong root-cell conf=
-iguration.
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * It means that in the=
- previous wrong scenario col_load_address
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * overlaps some root-c=
-ell memory space.
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 err =3D paging_create_colore=
-d(&cell->arch.mm, phys_start,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mem-=
->size, mem->virt_start, access_flags, paging_flags,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cell=
-->arch.color_bitmask, (cell =3D=3D &root_cell) &&
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (mem=
-->virt_start !=3D
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 system_config->platform_info.col_load_address));
+>> +static inline unsigned long msb_color_bitmask(unsigned long
+>> *color_bitmask)
+>=20
+> No need for inline.
+>=20
+>> +{
+>> +=C2=A0=C2=A0=C2=A0 unsigned long ret =3D 0;u
+>> +=C2=A0=C2=A0=C2=A0 unsigned int layer =3D COLOR_BITMASK_SIZE - 1;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 if (!color_bitmask)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 while (!ret) {
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret =3D MSB_LONG_IDX(color_b=
+itmask[layer]);
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 layer--;
+>> +=C2=A0=C2=A0=C2=A0 }
+>> +
+>> +=C2=A0=C2=A0=C2=A0 return ret;
+>> +}
+>> +
+>> +#define CTR_LINESIZE_MASK=C2=A0=C2=A0=C2=A0 0x7
+>> +#define CTR_SIZE_SHIFT=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 13
+>> +#define CTR_SIZE_MASK=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x3FFF
+>> +#define CTR_SELECT_L2=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (1 << 1=
+)
+>> +#define CTR_SELECT_L3=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (1 << 2=
+)
+>> +#define CTR_CTYPEn_MASK=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x7
+>> +#define CTR_CTYPE2_SHIFT=C2=A0=C2=A0=C2=A0 3
+>> +#define CTR_LLC_ON=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (1 << 2)
+>> +#define CTR_LOC_SHIFT=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 24
+>> +#define CTR_LOC_MASK=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x7
+>> +#define CTR_LOC_NOT_IMPLEMENTED=C2=A0=C2=A0=C2=A0 (1 << 0)
+>> +
+>> +unsigned long get_llc_way_size(void)
+>> +{
+>> +=C2=A0=C2=A0=C2=A0 unsigned int cache_sel;
+>> +=C2=A0=C2=A0=C2=A0 unsigned int cache_global_info;
+>> +=C2=A0=C2=A0=C2=A0 unsigned int cache_info;
+>> +=C2=A0=C2=A0=C2=A0 unsigned int cache_line_size;
+>> +=C2=A0=C2=A0=C2=A0 unsigned int cache_set_num;
+>> +=C2=A0=C2=A0=C2=A0 unsigned int cache_sel_tmp;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 arm_read_sysreg(CLIDR_EL1, cache_global_info);
+>> +
+>> +=C2=A0=C2=A0=C2=A0 /* Check if at least L2 is implemented */
+>> +=C2=A0=C2=A0=C2=A0 if (((cache_global_info >> CTR_LOC_SHIFT) & CTR_LOC_=
+MASK)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D=3D CTR_LOC_NOT_IMPLEMENT=
+ED) {
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 printk("ERROR: L2 Cache not =
+implemented\n");
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return trace_error(-ENODEV);
+>> +=C2=A0=C2=A0=C2=A0 }
+>> +
+>> +=C2=A0=C2=A0=C2=A0 /* Save old value of CSSELR_EL1 */
+>> +=C2=A0=C2=A0=C2=A0 arm_read_sysreg(CSSELR_EL1, cache_sel_tmp);
+>> +
+>> +=C2=A0=C2=A0=C2=A0 /* Get LLC index */
+>> +=C2=A0=C2=A0=C2=A0 if (((cache_global_info >> CTR_CTYPE2_SHIFT) & CTR_C=
+TYPEn_MASK)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D=3D CTR_LLC_ON)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cache_sel =3D CTR_SELECT_L2;
 >> +=C2=A0=C2=A0=C2=A0 else
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 err =3D paging_create(&cell-=
->arch.mm, phys_start, mem->size,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mem-=
->virt_start, access_flags, paging_flags);
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cache_sel =3D CTR_SELECT_L3;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 /* Select the correct LLC in CSSELR_EL1 */
+>> +=C2=A0=C2=A0=C2=A0 arm_write_sysreg(CSSELR_EL1, cache_sel);
+>> +
+>> +=C2=A0=C2=A0=C2=A0 /* Ensure write */
+>> +=C2=A0=C2=A0=C2=A0 isb();
+>> +
+>> +=C2=A0=C2=A0=C2=A0 /* Get info about the LLC */
+>> +=C2=A0=C2=A0=C2=A0 arm_read_sysreg(CCSIDR_EL1, cache_info);
+>> +
+>> +=C2=A0=C2=A0=C2=A0 /* ARM TRM: (Log2(Number of bytes in cache line)) - =
+4. */
+>> +=C2=A0=C2=A0=C2=A0 cache_line_size =3D 1 << ((cache_info & CTR_LINESIZE=
+_MASK) + 4);
+>> +=C2=A0=C2=A0=C2=A0 /* ARM TRM: (Number of sets in cache) - 1 */
+>> +=C2=A0=C2=A0=C2=A0 cache_set_num =3D ((cache_info >> CTR_SIZE_SHIFT) & =
+CTR_SIZE_MASK)
+>> + 1;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 /* Restore value in CSSELR_EL1 */
+>> +=C2=A0=C2=A0=C2=A0 arm_write_sysreg(CSSELR_EL1, cache_sel_tmp);
+>> +
+>> +=C2=A0=C2=A0=C2=A0 /* Ensure write */
+>> +=C2=A0=C2=A0=C2=A0 isb();
+>> +
+>> +=C2=A0=C2=A0=C2=A0 return (cache_line_size * cache_set_num);
+>> +}
 >=20
-> BTW, the good thing about having a generic cell->color_bitmask would be
-> that this field could be fully populated by default, and we would no
-> longer need to differentiate between colored and non-colored here.
+> I see the convenience of this function, I dislike the code size growth.
+>=20
+> Is there a way for a Linux root user, via some sysfs or proc values to
+> find out the required values that - as I assume - are unaccessible from
+> userspace via the registers? That would eventually allow to fill
+> llc_way_size when calling "jailhouse config create" on a non-x86 target.
 >=20
 
-Yes, of course.
+This function is meant to help the user. If no way_size is provided,
+coloring cannot be initialized.
+I don't know if there are ways from Linux userspace to get this value.
+If we remove this function at all, until there is no "jailhouse config
+create" for non-x86 target we need to rely on the root cell
+"configurator" and I don't know if it is a good approach since this
+value is very crucial for the feature.
+What do you think?
 
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (err)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 iommu_unmap_memor=
-y_region(cell, mem);
->> =C2=A0 @@ -63,8 +85,19 @@ int arch_unmap_memory_region(struct cell *cell=
-,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (err)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return err;
->> =C2=A0 -=C2=A0=C2=A0=C2=A0 return paging_destroy(&cell->arch.mm, mem->vi=
-rt_start, mem->size,
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PAGING_COHERENT);
->> +=C2=A0=C2=A0=C2=A0 /*
->> +=C2=A0=C2=A0=C2=A0=C2=A0 * Do not be confused -- since paging_destroy* =
-acts on virtual
->> +=C2=A0=C2=A0=C2=A0=C2=A0 * addresses, paging_destroy can be physically =
-colored, too.
->> +=C2=A0=C2=A0=C2=A0=C2=A0 * We need to destroy the mapping using colorin=
-g only when unmapping
->> +=C2=A0=C2=A0=C2=A0=C2=A0 * from the root cell during cell_create so tha=
-t the correct
->> regions are
->> +=C2=A0=C2=A0=C2=A0=C2=A0 * removed and then used from the cells.
+>> +
+>> +int coloring_paging_init(unsigned int llc_way_size)
+>> +{
+>> +=C2=A0=C2=A0=C2=A0 unsigned int i;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 if (!llc_way_size) {
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 llc_way_size =3D get_llc_way=
+_size();
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!llc_way_size)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 retu=
+rn -ENODEV;
+>> +=C2=A0=C2=A0=C2=A0 }
+>> +
+>> +=C2=A0=C2=A0=C2=A0 /**
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * Setup addr_col_mask
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * This mask represents the bits in the address=
+ that can be used
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * for defining available colors
 >> +=C2=A0=C2=A0=C2=A0=C2=A0 */
->> +=C2=A0=C2=A0=C2=A0 if (mem->flags & JAILHOUSE_MEM_COLORED && (cell =3D=
-=3D &root_cell))
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return paging_destroy_colore=
-d(&cell->arch.mm, mem->virt_start,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mem-=
->size, PAGING_COHERENT, cell->arch.color_bitmask);
->> +=C2=A0=C2=A0=C2=A0 else
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return paging_destroy(&cell-=
->arch.mm, mem->virt_start,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mem-=
->size, PAGING_COHERENT);
->> =C2=A0 }
->> =C2=A0 =C2=A0 unsigned long arch_paging_gphys2phys(unsigned long gphys, =
-unsigned
->> long flags)
->> @@ -91,10 +124,20 @@ void arm_cell_dcaches_flush(struct cell *cell,
->> enum dcache_flush flush)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 NUM_TEMPORARY_PAGES * PAGE=
-_SIZE);
->> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 /* cannot fail, mapping area is preallocated */
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pagi=
-ng_create(&this_cpu_data()->pg_structs, region_addr,
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 size, TEMPORARY_M=
-APPING_BASE,
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PAGE_DEFAULT_FLAG=
-S,
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PAGING_NON_COHERE=
-NT | PAGING_NO_HUGE);
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (=
-mem->flags & JAILHOUSE_MEM_COLORED)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 paging_create_colored(
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &this_cpu_data()->pg_structs,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 region_addr, size,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 TEMPORARY_MAPPING_BASE,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PAGE_DEFAULT_FLAGS,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PAGING_NON_COHERENT | PAGING_=
-NO_HUGE,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cell->arch.color_bitmask, fal=
-se);
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 paging_create(&this_cpu_data()->pg_structs,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 region_addr,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 size, TEMPORARY_MAPPING_BASE,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PAGE_DEFAULT_FLAGS,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PAGING_NON_COHERENT | PAGING_=
-NO_HUGE);
->> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 arm_dcaches_flush((void *)TEMPORARY_MAPPING_BASE, size,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 flush);
->> @@ -120,7 +163,8 @@ int arm_paging_cell_init(struct cell *cell)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!cell->arch.mm.root_table)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -ENOMEM;
->> =C2=A0 -=C2=A0=C2=A0=C2=A0 return 0;
->> +=C2=A0=C2=A0=C2=A0 /* Init coloring configuration of the cell */
->> +=C2=A0=C2=A0=C2=A0 return coloring_cell_init(cell);
+>> +=C2=A0=C2=A0=C2=A0 for (i =3D PAGE_SHIFT; i < MSB_LONG_IDX(llc_way_size=
+); i++)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 set_bit(i, &addr_col_mask);
+>> +
+>> +=C2=A0=C2=A0=C2=A0 if (COLORING_MAX_NUM > MAX_COLOR_SUPPORTED)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -ENOMEM;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 /* Setup default color bitmask */
+>> +=C2=A0=C2=A0=C2=A0 for (i =3D 0; i < COLORING_MAX_NUM; i++)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 set_bit(i, color_bitmask_def=
+ault);
+>> +
+>> +=C2=A0=C2=A0=C2=A0 printk("Coloring information:\n");
+>> +=C2=A0=C2=A0=C2=A0 printk("LLC way size: %uKiB\n", llc_way_size >> 10);
+>> +=C2=A0=C2=A0=C2=A0 printk("Address color mask: 0x%lx\n", addr_col_mask)=
+;
+>> +=C2=A0=C2=A0=C2=A0 printk("Max number of avail. colors: %ld\n", COLORIN=
+G_MAX_NUM);
 >=20
-> This is only added in patch 7.
->=20
-> We should try to preserve bisectability whenever possible. Reorder or
-> provide stubs so that things remain buildable - and also runnable!
+> How much of that information is code debugging, how much is valuable
+> when configuring and operating a system?
 >=20
 
-You're right. I will avoid this in next v3.
+You're right. The only information we need is the numbers of colors
+available for configuring the cell.
+
+>> +=C2=A0=C2=A0=C2=A0 return 0;
+>> +}
+>> +
+>> +int coloring_cell_init(struct cell *cell)
+>> +{
+>> +=C2=A0=C2=A0=C2=A0 const struct jailhouse_cache *cache;
+>> +=C2=A0=C2=A0=C2=A0 int counter =3D 0;
+>> +=C2=A0=C2=A0=C2=A0 int i;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 memset(cell->arch.color_bitmask, 0,
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sizeof(unsigned long) * COLO=
+R_BITMASK_SIZE);
+>> +
+>> +=C2=A0=C2=A0=C2=A0 /* Root cell is currently not supported */
+>> +=C2=A0=C2=A0=C2=A0 if (cell =3D=3D &root_cell)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 for_each_cache_region(cache, cell->config, counter) =
+{
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ((cache->start + cache->s=
+ize) > COLORING_MAX_NUM ||
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 !cac=
+he->size) {
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 prin=
+tk("Wrong color config. Max value is %ld\n",
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 COLORING_MAX_NUM);
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 retu=
+rn -ERANGE;
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+>> +
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 for (i =3D cache->start; i <=
+ (cache->start + cache->size); i++)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 set_=
+bit(i, cell->arch.color_bitmask);
+>> +=C2=A0=C2=A0=C2=A0 }
+>> +
+>> +=C2=A0=C2=A0=C2=A0 /* If no coloring configuration is provided, use all=
+ colors
+>> available */
+>> +=C2=A0=C2=A0=C2=A0 if (!counter)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 memcpy(cell->arch.color_bitm=
+ask, color_bitmask_default,
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 size=
+of(unsigned long) * COLOR_BITMASK_SIZE);
+>> +
+>> +=C2=A0=C2=A0=C2=A0 printk("Cell [%s] color config: 0x%lx%lx%lx%lx\n",
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cell->config->name,
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cell->arch.color_bitmask[3],=
+ cell->arch.color_bitmask[2],
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cell->arch.color_bitmask[1],=
+ cell->arch.color_bitmask[0]);
+>> +
+>> +=C2=A0=C2=A0=C2=A0 return 0;
+>> +}
+>> +
+>> +unsigned long next_colored(unsigned long phys, unsigned long
+>> *color_bitmask)
+>> +{
+>> +=C2=A0=C2=A0=C2=A0 unsigned int high_idx;
+>> +=C2=A0=C2=A0=C2=A0 unsigned int phys_col_id;
+>> +=C2=A0=C2=A0=C2=A0 unsigned long retval =3D phys;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 if (!color_bitmask)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return phys;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 high_idx =3D MSB_LONG_IDX(addr_col_mask);
+>> +
+>> +=C2=A0=C2=A0=C2=A0 phys_col_id =3D (phys & addr_col_mask) >> PAGE_SHIFT=
+;
+>> +=C2=A0=C2=A0=C2=A0 /**
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * Loop over all possible colors starting from =
+`phys_col_id` and
+>> find
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * the next color id that belongs to `color_bit=
+mask`.
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 */
+>> +=C2=A0=C2=A0=C2=A0 while (!test_bit(phys_col_id, color_bitmask)) {
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /**
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * If we go out of boun=
+ds, restart from 0 and carry 1
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * outside addr_col_mas=
+k MSB.
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (phys_col_id > msb_color_=
+bitmask(color_bitmask)) {
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 phys=
+_col_id =3D 0;
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 retv=
+al +=3D 1UL << (high_idx + 1);
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 } else
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 phys=
+_col_id++;
+>> +=C2=A0=C2=A0=C2=A0 }
+>> +
+>> +=C2=A0=C2=A0=C2=A0 /* Reset old color configuration */
+>> +=C2=A0=C2=A0=C2=A0 retval &=3D ~(addr_col_mask);
+>> +=C2=A0=C2=A0=C2=A0 retval |=3D (phys_col_id << PAGE_SHIFT);
+>> +
+>> +=C2=A0=C2=A0=C2=A0 return retval;
+>> +}
+>> +
+>> +unsigned long get_end_addr(unsigned long start, unsigned long size,
+>> +=C2=A0=C2=A0=C2=A0 unsigned long *color_bitmask)
+>> +{
+>> +=C2=A0=C2=A0=C2=A0 unsigned color_num =3D 0;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 /* Get number of colors from mask */
+>> +=C2=A0=C2=A0=C2=A0 for (int i =3D 0; i < MAX_COLOR_SUPPORTED; i++)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (test_bit(i, color_bitmas=
+k))
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 colo=
+r_num++;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 /* Check if start address is compliant to color sele=
+ction */
+>> +=C2=A0=C2=A0=C2=A0 start =3D next_colored(start, color_bitmask);
+>> +
+>> +=C2=A0=C2=A0=C2=A0 return start + PAGE_ALIGN((size*COLORING_MAX_NUM)/co=
+lor_num);
+>> +}
+>>
+>=20
+> Maybe you can model coloring setup/teardown as a unit, just like CAT
+> does. Avoids hooks, but it may require some stubbing as you use only few
+> of the common callbacks. Just an idea.
+>=20
+
+I like the idea. I will try to implement v3 as a unit.
+
+> In general, please rethink which parts really need to be specific to arm
+> and keep only those here.
+>
+
+I will do it.
 
 Thanks,
 Luca
 
->> =C2=A0 }
->> =C2=A0 =C2=A0 void arm_paging_cell_destroy(struct cell *cell)
->>
->=20
 > Jan
 >=20
 
@@ -537,30 +599,30 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/3b5fe52b-9c01-2849-1d4f-a4b674b393b7%40gmail.com.
+jailhouse-dev/5b4c903b-edac-5968-e2d8-20779123eb67%40gmail.com.
 
---p2Wj0hozWPkiEedD24uqeGefjzHyV9g7h--
+--xyMjRaZjnER1k93cHTqEVtkl5kr3lgcn3--
 
---ih49Ick6aSsz2ypp0jMgKRR3TELO8xdzp
+--MVMWKa62b90zRLijiBRMhyvpAW1qawssl
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEE+VQtGnhP9TTQ2NnBI/rjb1Ch6KsFAl6y6RIACgkQI/rjb1Ch
-6KvPAxAAgPmSLaZoxD4Fh3g4SuXJSuN8TS3C/6g+f2GIY+SSLJFmKx0h3qOIOqgE
-29zhqi0g1N4/k/GrDAswXVe00AxePnR4FkT3M0Tdhy8d8eyjO9rtXWBHHLaQ/ghy
-KlJYhDDEDJ3xK70mngYLkp5ZFP1VvRmSyDxS88lNdnX3IXoVqFpTLESR1gKlOhi2
-/dwRAEAtOvbPLkKwZbW/8BKXGQk4bt7PzhmGLNeh7ycdkRY23aorv+oHI9GqJcl/
-j9+Ai4XoHS0A9BqEliLloV3MqdmPe6PLM68qJmwB9e5im1mkFzPmm2gKWCPJARPW
-Fu9yzWZv46ysDrJbwSUMM4XIxXkQTmOcno/zcRnhav9iYl1b54AcjvmNRBJSsTbP
-qy0RcfQNADxbdbie9SyCdQ1aNy+UlOKK5kFjsVqmdDfyDPl2ztquJfQ49M04f9bN
-X61a4+qiBOARdR1YsHVdz0IuLFjIoRg/3FQQ87zmYiPcuEFs+/v8E7ShJBWdLvWF
-X2K33YUp3WFt1AOYmia8OBzrm3x/d8UOhd06ERC45Vy/EfwXrJUAg60eSGyNizMr
-+w+dhXBApWk6dILEvRoJgg/ibwGbBrPH23YDQNP6owgq0GMqnJJI0SzB1XM2zzvb
-08W7+7eyZXhnewiXsSGs3tY2ZYgcx/ltXcA3vJY+4jZe4AzNrlQ=
-=+a4v
+iQIzBAEBCAAdFiEE+VQtGnhP9TTQ2NnBI/rjb1Ch6KsFAl6y6S8ACgkQI/rjb1Ch
+6Ks1GRAApWVAxFOH+J5HQUjmSjjZIQfUx+HnRb1OUu+OzNCFw4ZHBN8oDngYGadm
+5oCDLGhAQ4jE/IgPiKngBBKEuWQzP/3FrBZ9yw4L7Iz1XaYNZA/nraSuMNqbxEsh
+ROlwQvTpOoNcDYZgXkRcXwvqSakjGET29pwJwKWkHX+iTQoTjtSiIo6jwQp6yVJd
+dpgUX2LW1WUJBgMVJkyOCVrLjeQ5wm03k5XBn1zCd2uthV6sjGyiYBwCEMIAVRpn
+dmUdf5X6UbvzpdNe4KoxcTjSvOFIIbVtt2FwWs0eEsIEJC+W3IjuZSUBlsYIl4VV
+UW+W0kHiMuNUn6prZ0VbCRWSe4PNp9zE8jj788ew2qJb+uT/bcQ84kTqDJ5hERe9
+L+cJxBiprn4hZn9N24QEh7Cmht05QSELy1BlLtcinla4UevdpAT6QuO2ltiIxfPr
+1u+xxFrcDHNdxYvFOlsLSeEOi/dXHswGCH+ne65RjXjIg3AdbaCToCWveFWcgQRe
+7uaHat4o0OU7j1o/JnIlHbe+mgiQUBA4YxG98WUem6hw2LKBo/WULUh/jLWE/2Mb
+qcBd1fpPQyv4qiTquxM70hMW199o59boOWrvcjmVYTREzKqDlh63FTq2Q5kkr3lX
+S2SN3iLMr1M2v/hPkxbSPXbhdWcvTokGmpWmUqF6oYkHC0tXOC4=
+=Ek2m
 -----END PGP SIGNATURE-----
 
---ih49Ick6aSsz2ypp0jMgKRR3TELO8xdzp--
+--MVMWKa62b90zRLijiBRMhyvpAW1qawssl--
