@@ -1,69 +1,150 @@
-Return-Path: <jailhouse-dev+bncBDH5LQU54QDBBIFJ232QKGQEHPNTWXA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBVGR232QKGQEL7E7E5A@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x33b.google.com (mail-ot1-x33b.google.com [IPv6:2607:f8b0:4864:20::33b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 066AC1CB5B4
-	for <lists+jailhouse-dev@lfdr.de>; Fri,  8 May 2020 19:19:30 +0200 (CEST)
-Received: by mail-ot1-x33b.google.com with SMTP id z9sf1595943oth.23
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 08 May 2020 10:19:29 -0700 (PDT)
+Received: from mail-lj1-x237.google.com (mail-lj1-x237.google.com [IPv6:2a00:1450:4864:20::237])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2257C1CB788
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  8 May 2020 20:45:41 +0200 (CEST)
+Received: by mail-lj1-x237.google.com with SMTP id c20sf454552lji.10
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 08 May 2020 11:45:41 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1588963540; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=R82PUaXhlfD+w13OZGab/noINVADN8/qm9uig5XdqjPgjogphNkibGkE4bAYNKcGUB
+         9SGt6RL56ww1LpPsrMPQIvATfqRMg5Zji7j8lE7TMvndIyQ9LDGGiZcNvTL2vtaxpgP9
+         GxSomdV077NYIRbjCLCzchXoOYHJYq+xZ9b10hsf/3j2DBO3riyXMUwQV4++gd8/AumH
+         sJaUACKsWUx9q8hPbZfaHffvARorggqJYsqS3XDbMzNIAjnh1lelJpf1Q9TFYt9XJsNR
+         hb0i62iiiQzGZpTnjnqEzl1wAprah+eMS+CxgUkmCBXk03A0d8Uq8Iif7eBsuT7BXrXD
+         J06g==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=UNFqF/gLi2Cnqg0G402ZSHHAyArv9wHxkfwzzsjjVss=;
+        b=UsRwzrFmFDcwxBTwi25D3hUchYT2W76fboKyvf0Z/+6Mv/pHZis4w4FEPZuNMBSO24
+         nagWZ1aOcdvgAWYkf6VkEyprI//0fbwiyy+owOSzhsR5H6JCfp6Bl7UfxUFiFqSjsmoN
+         1B3eaDOcm4/e3OO92ZoYalm6ykN0IbOOC9VJLth8zhVgsQKNLjGvs2obI7CAMEc/CoRn
+         SVtM9kYSneI4vj0pST06qCKpMBDZDKJ9kytwF+rXkf9vImjPjRUZJGvkWrjvpN6n664n
+         y6ybBOdndUX16BahzX+biW2X45eJlIKBBceV2/o+Jn9nTxb666w/+3THNNOPw5D+VDqL
+         wR6A==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=Dx4dE2Ap;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.12 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=BUZgiG6Z7sL6Qir/UGVFb2NE4WASFY//ad2ZjQ8Jh38=;
-        b=GNxjnNw9xX63hS4CRstTf+Rt5PonZ0WUE6TjSDU+Sz57aDvtw0mn8jdFb1BF7k72dh
-         ZJX39xfrOknmC1fKHXX5v9yQpcvbeqngkEYGQFNNSOeiq3Vl22scJZaFIkjVbZunaxOg
-         etyflPTrHF8Y0G878/L2mRHA+EuMJx64Q4wfSCdcXRWAqgRk9WNuNmndAoULGj+7uAIX
-         XhDJuw0ZrB+57odoXMiavObm3CjcOrbfq8uRHJUeIlQ9cG1Qx1Dt5jvQsOBRRuZjT1WO
-         7ZLLht4Sj7qShq7E6ddSi5GALQ0AChCncudKSOs+9qRPYz7A8RMw4pqFtwYHbf9bIQCb
-         6GcQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:subject:mime-version:x-original-sender
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=BUZgiG6Z7sL6Qir/UGVFb2NE4WASFY//ad2ZjQ8Jh38=;
-        b=hNS6FuU6J67Rvj7ahmLqN8eF9MyWp7Sd5E/lp2DW1W/QHWwPJqMZi1v8/7zMpveCXa
-         qlOi6RLBj6wOg6ObQqCNCF3JcpoTACH4JdsAbE+1yzo8Vok2W8zYYHdBUblAKJ4aOtkk
-         ODC8RoRd2cGDW8inhQpvG9x/7nr437auT4gVYFb3V4QBFUnuhak53ZNK6YgPa7gvTHsu
-         Om0E5rzP8h1+E137XGiWHvyca3WChgU5oZWV0Jn6TL02p8jb18JLKsBtHyu0h3FoJLut
-         +RKN97liGM4tPsYzG2Pald3iEF1vcpbEB3iwrkzhpaCRMbU/bCEbqUw0XcywG+TJaTVz
-         oo2Q==
+        bh=UNFqF/gLi2Cnqg0G402ZSHHAyArv9wHxkfwzzsjjVss=;
+        b=Mkr+XFGxRA6fAcXVgij23fKO1hcqi1jZejielLdG1O0wPtcnxQyzVCf51/mKfIb7Yn
+         kD6NHlnfvrg1lif65gey0l6tzVjrMXKCqUhz4P+cD5TqUsjTtk1cvIEMm54VRO479mRs
+         AQD8PEDw1gxiLy3Zfyax5E04oqlvLCXS7+aLqwUGJ3DDl0qWYuoeFKQPVLtntbbBX56Y
+         suwI08dBwt9RhidroHIUlyFPJAV7yVntXtYo8wsVjBXRWIyn51daJYpzT7EujF/jyakn
+         MjatPWwDqrmF/eYCdX4E5O8pEVAESDxNxoq1ATjOCYRUrrWRqC/mfNMm8w1uVQHL5Qiz
+         xHfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=BUZgiG6Z7sL6Qir/UGVFb2NE4WASFY//ad2ZjQ8Jh38=;
-        b=LXW98afeRI4hUjzGOuZGSJyIrLklNre1HqQICy+5aGYtqum7Jcc+LHbjomRnkahugh
-         P9q4yUAPfjiXeZx8dfH+7sEKDO0dj4Bfo7I0WUOE4QRTN8RZbHd8jDtRFdKH99UkHpz/
-         slR6IayQrQhEC0uaPCr89m9PqhnADVByN9uhWxbKRR4G8awbeUocxTz5KHoj5CO/l9dc
-         oKEge5KY3TJeX0iDRCNwUr361AS9519RT9fKQUt0UNrrr4/Bvo0/Ngd6hw2qGmlgiBtB
-         /Q8ivupSpRoSaRYq2eFmuhgZFebx7yAfhT9EGrKmlQaTFT9zViw3ekhSUK1t6dh3OexG
-         66KA==
+        bh=UNFqF/gLi2Cnqg0G402ZSHHAyArv9wHxkfwzzsjjVss=;
+        b=lO7xsvPXOyPUt7Uk9KvNRFaFXHwWg17rgH71A9HIShqfgz6UHAwH38D5btWCNKjcgR
+         wU2BgZIAKyynXk+OVg56N3caICR50SWJwA+jzdS/W4u2fDh4mh8ILe7KBvFAyW+c5Rq6
+         PlPw9RtD9ii0Y86Ro13mFDuYvrk51kT+g3Xr/+hnk9DgpVau0TSSp8etYpXa0kZBifwV
+         dsbH65NqWjlcjzSwMztRlRK3oBFtx1ISOl9qZziavdzY/I1u6HfhRnLCbtQ5bIKbOfkB
+         p/6m2IpxrlStd+nJjrcsV7q1VlXf5MnGUMQTOewj3jj8kv52Y/plV7fHeDwjPHxcfphj
+         Qg4w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AGi0PuYOrNKE/A04Qg85Nq2N79gld3nx3b3vDgdOo8UiRZbqIuEf8owe
-	zzrIxJDYIVGvGKGYaFlZDB4=
-X-Google-Smtp-Source: APiQypK88e8wozEHNu6c1QhQR5qWgqVg8dYiKEYQ3c9TiJH7Wu6SaLTI9iADlVB7/iw8H0XCIE1nVQ==
-X-Received: by 2002:aca:ac54:: with SMTP id v81mr11451560oie.17.1588958368805;
-        Fri, 08 May 2020 10:19:28 -0700 (PDT)
+X-Gm-Message-State: AOAM532DL5O8sW3okHmpJEVWjznqSELvGuoyMvPRolNDB3wt7WcNyguo
+	f/d4zit1iVUiib3yCrMBwdU=
+X-Google-Smtp-Source: ABdhPJwmT4cKtNL8+gsgUuHvpeRQ9okroYYz2089tezzG0PLFgGHQ7kozjYg+JrbfekFAPLPeqTTSw==
+X-Received: by 2002:a2e:8949:: with SMTP id b9mr2693502ljk.108.1588963540653;
+        Fri, 08 May 2020 11:45:40 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a54:4418:: with SMTP id k24ls2444620oiw.3.gmail; Fri, 08 May
- 2020 10:19:28 -0700 (PDT)
-X-Received: by 2002:aca:b9c3:: with SMTP id j186mr3871278oif.174.1588958367905;
-        Fri, 08 May 2020 10:19:27 -0700 (PDT)
-Date: Fri, 8 May 2020 10:19:27 -0700 (PDT)
-From: Luigi De Simone <luigi.desimone3@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <e5934ccb-97ba-49f5-bf43-d47b2763f4b4@googlegroups.com>
-Subject: Problem with setup on Banana Pi BPI-M1 ARM board - jailhouse enable
- bananapi.cell crash
+Received: by 2002:ac2:4566:: with SMTP id k6ls551105lfm.6.gmail; Fri, 08 May
+ 2020 11:45:39 -0700 (PDT)
+X-Received: by 2002:a19:f70f:: with SMTP id z15mr2789850lfe.53.1588963539901;
+        Fri, 08 May 2020 11:45:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1588963539; cv=none;
+        d=google.com; s=arc-20160816;
+        b=VJgp8a6cJHwwdddq6M4ZaaY9nuJX5qw/bwj2hcCARMFzFrIPjdzPkoKdkbrM5GA56+
+         uisKhWW9gvRN4acpDkYUusKh5Jdk+Qo3RCrQP4HbP6Sl5LSkfoy+D/sKiWqVDV6DGheb
+         QqDL+0zNKsmy7olmpWyb5q2Iovs7CM0g+WLS8mdhRL08cKXwkeaocJ1KTMpdWZlQtNk9
+         Zt58MGo5e0eU3nDrJ8pduTK5UqrC3YmDHX715jHpu4/Q2bYGLOdErWZgtnAsFEfiYfKS
+         tyd/rj/bUtzBE08atHtZ0o+lttn5sLyUO2eY2OR1MDIHR6ZMLz3As0qEwp5onnXuU1Yq
+         kzBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject
+         :dkim-signature;
+        bh=by85Uoyb3IBE2emNzsuSTRf9Xn6zEd3Q70NIKDmy494=;
+        b=L/tTQJfbJpiC5EbKStQ7K93ZwC1pBGH5dROJfJxH3/iTcCj/hcG3lAmURxvzmj4xlx
+         iR8zNWoq6z2BJuG3AmjnOX82fDwU04GndTduHvNnfvP2or0VxUo6UKLxrv4boue+qQyB
+         +PWlXseeycREETzYs8fnc9YhXWfA4fMkThNKTKYgp+I+BwDNo9kdhq4esiyjU8Dl7bBO
+         BXFHBplx+TUt4b2gsL+dP7e2mpqJAYMugSi1AsyQhd03eWjNIr/B9XIvCmQXv9KGA4hD
+         AeEYHXdVfOsqn4cnZaqAD7tbAhgvLvcPiBvvz9P1EVVgulXcRNuMUZCXJE0y5PtAs97T
+         1PNQ==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=Dx4dE2Ap;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.12 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Received: from mout.web.de (mout.web.de. [212.227.17.12])
+        by gmr-mx.google.com with ESMTPS id c16si141387ljk.5.2020.05.08.11.45.39
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 08 May 2020 11:45:39 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.12 as permitted sender) client-ip=212.227.17.12;
+X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
+Received: from [192.168.1.10] ([95.157.53.180]) by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MLzn1-1joWOZ1FXF-00HvZi; Fri, 08
+ May 2020 20:45:38 +0200
+Subject: Re: Problem with setup on Banana Pi BPI-M1 ARM board - jailhouse
+ enable bananapi.cell crash
+To: Luigi De Simone <luigi.desimone3@gmail.com>,
+ Jailhouse <jailhouse-dev@googlegroups.com>
+References: <e5934ccb-97ba-49f5-bf43-d47b2763f4b4@googlegroups.com>
+From: Jan Kiszka <jan.kiszka@web.de>
+Message-ID: <fc9db7b7-1804-d4ef-e37d-d5d8198c8278@web.de>
+Date: Fri, 8 May 2020 20:45:36 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_653_1451258986.1588958367397"
-X-Original-Sender: luigi.desimone3@gmail.com
+In-Reply-To: <e5934ccb-97ba-49f5-bf43-d47b2763f4b4@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:V7+hUH7R8HBsNvvy2AUjreioMOLPmeDJWguWMayjrg99n8Ya2vg
+ EjwGniyxT3QJLCon/Bs0aa++nX2ioALxMf0ZBe9v8ImnhFTqCSTgeUcH0US1Z4JQwzswD+f
+ 46auE6roD7N/F+qdEi8LuaiEoaqTpC9dx4j85DAKC6Gqk/MpNkh2yqHBWZ323HsarLsIi9O
+ S8dhNQ4YMcYcxzcRoWcWw==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:fhwv5aHfWgA=:5vfZ82dSQ47TRVMnf4XpmZ
+ XirDuww1VXzWsjFhmVlctdEK6U/OBWeFNhzmuQ3AyQEpMgm3EY+XpVpd3ZDLTtl7g665bHHRV
+ ifSMly20/CMluqcTtKlsr26ysgeFUqbXBVh7Nxh++nCkIMC+36JKakJmv236nkno2IRdpKoNq
+ mUhewBvZFE4dbvs1XDhrZ5wV+d+11d+DbLvCUOrU9uRNeutVe+Qr/UbyZ6z15E34giB1buQjf
+ +kmaasDuQIgrivh8XazDkGt7VIJJ6MRtyMhqlaUXyPhEmOuHCYuhP2OU6cxBnLmRMuaZV4Nq3
+ X6snBfFdY/HkRKxlbIfylZTEdjxHo+acht2dnJeumszbCFcvTNlGBFjx9rnS1JX23XwYm8Pld
+ EnsNU7aLtxBiOBiSpFjVxg9LQt/hKQPAjgOtefEQCKk9iYKNkoHypWPOrTT1gFZ+xmqD5oVAz
+ pexpNo2U2bk9piBAUP4euaL9cWY7dQR7cHisCEWlIU8kVO+NpDWjpzo3vb8auQfZtkS0k84hX
+ YTwUHk/8//Z5veLgcTPY8TpJKjh0CH47gZdQEcdODs9K1fJoIJ4ZSezn+WYex1BtgKYU1hpfw
+ 1gb4zjldIy/lVPb6BtYZXaNFyU2eGMyqgZSQmOifhefjJFCbP+SrFPsGFpUfqxZDP5gJZDQo+
+ frvcgvrXiBYJkK2ea7coaaM0S/wB5+6/oXwzu3DRe8nT8dY7QZnTIqI9OoxZ/G3tI/Lxq6umZ
+ jn9HiYhlG7Qiwgi70kPZaeIoHkRWmTQdTFGmYw3rvgSVGkZzp/jPl28MmUPaL5R273MqOu1dV
+ rsKgGTodz/VzA1ZqpdSTr7Xj/ASMywLv0zB6zpNPIMM5XXbbPbXs/D3SK0x9pKiTuw1fz41pS
+ u1zNTD55UvyYPMKNCjAM2kbrIgPJMasjxvW2qbF2lqpl+1ppk0A93B3VOL3h4K/g0Diw19Z6v
+ Pbub5WXWbjvZa23PoGspa3IfNspwF3l/KZZY0hJI49oN09ZVi6PHlvqjXxX62rucokBJTBCYW
+ KlGUpLbvGee7SsovM6nPDCDM9F0FQq0VcoriGpd1O6aULut/GXPb6P018CUbUGEOh36zNvzKT
+ FEJeRnkA+Vg8LZAWFNz3hNdhixxo8g4Zk2ArRZ1oP7iKq3dXNn+KVaNWwv2yzORVZIorBSErC
+ AOE4V0pD75o0ubvflNnSFR59AM20CVK9c/8vxMWUiX1jPDwQdk4/3h6ZtKZCiVuFJZSDNtU/l
+ CgX4ZZ34UbzvAfmLE
+X-Original-Sender: jan.kiszka@web.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@web.de header.s=dbaedf251592 header.b=Dx4dE2Ap;       spf=pass
+ (google.com: domain of jan.kiszka@web.de designates 212.227.17.12 as
+ permitted sender) smtp.mailfrom=jan.kiszka@web.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -76,632 +157,85 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_653_1451258986.1588958367397
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_654_60421715.1588958367399"
+On 08.05.20 19:19, Luigi De Simone wrote:
+> Hi all,
+>
+> I really need your help about finding out a solution with FreeRTOS
+> BananPI demo. My board model is BPI-M1
+> I've followed exactly the guide at
+> https://github.com/siemens/jailhouse/blob/master/Documentation/setup-on-b=
+anana-pi-arm-board.md
+> with a kernel
+> Only one deviation is about command:
+>
+> |
+> cp -av ~/jailhouse/ci/jailhouse-config-banana-pi.h
+> ~/jailhouse/include/jailhouse/config.h
+> |
+>
+> because *jailhouse-config-banana-pi.h *does**not exist anymore in the
+> repo (I don't know if it is a refuse from refactoring).
+> What I've done is to create a config.h file like this:
+>
+> |
+> #defineCONFIG_TRACE_ERROR 1
+> #defineCONFIG_CRASH_CELL_ON_PANIC 1
+> #defineCONFIG_TEST_DEVICE 1
+> #defineCONFIG_ARM_GIC 1
+> #defineCONFIG_MACH_SUN7I 1
+> #defineCONFIG_SERIAL_8250_DW 1
+> |
+>
+> according to old *jailhouse-config-banana-pi.h *file.
 
-------=_Part_654_60421715.1588958367399
-Content-Type: text/plain; charset="UTF-8"
+Most of these are nops by now, and the rest is not needed for a working
+setup.
 
-Hi all,
+> Anyway, once booted the board and try to run command:
+> |
+> jailhouse enable jailhouse/configs/arm/bananapi.cell
+> |
+>
+> The board stall, and the output is:
+>
+> |
+> InitializingJailhousehypervisor v0.12(35-g2e4d71f6-dirty)on CPU 0
+> Codelocation:0xf0000040
+> Pagepool usage after early setup:mem 56/16359,remap 0/131072
+> Initializingprocessors:
+>  =C2=A0CPU 0...UnhandledHYP data abort exitat 0xf0005b10
+> r0:0x7c01b000=C2=A0r1:0x7c00e000=C2=A0r2:0x00001fff=C2=A0r3:0x00000000
+> r4:0x00001000=C2=A0r5:0xf0010090=C2=A0r6:0x7c00e000=C2=A0r7:0x00000000
+> r8:0x7c0037a0=C2=A0r9:0x7c000000=C2=A0r10:0x00000000=C2=A0r11:0x7c01b000
+> r12:0xc3ff7000=C2=A0r13:0xf0003ce4
+> Physicaladdress:0x7c01b004HSR:0x94000007
+> StoppingCPU 0(Cell:"Banana-Pi")
+> |
+>
+> What is wrong?
 
-I really need your help about finding out a solution with FreeRTOS BananPI 
-demo. My board model is BPI-M1
-I've followed exactly the guide at 
-https://github.com/siemens/jailhouse/blob/master/Documentation/setup-on-banana-pi-arm-board.md
-with a kernel 
-Only one deviation is about command:
+I didn't test on the BananaPi M1 for a longer while (and my board is out
+of reach the next days). We may have regressed with its configuration
+over refactorings in the past releases. You could try by rolling
+Jailhouse back to version around the time when the doc was once written,
+then bisect forward to find out the breaking change.
 
-cp -av ~/jailhouse/ci/jailhouse-config-banana-pi.h ~/jailhouse/include/
-jailhouse/config.h
+Another option is jailhouse-images: We generate a known-to-work image
+for the OrangePi Zero, which is technically not that far away from the
+BananaPi. You could use that as baseline, adjusting bootloader and
+kernel config, and then try with recent Jailhouse again.
 
-because *jailhouse-config-banana-pi.h *does not exist anymore in the repo 
-(I don't know if it is a refuse from refactoring).
-What I've done is to create a config.h file like this:
+Or you did into the fault above: "arm-linux-gnueabihf-objdump -dS
+hypervisor/hypervisor.o" gives the disassembly of the hypervisor core
+and could be matched with the faulting PC (0xf0005b10). That would be a
+first hint on what fails.
 
-#define CONFIG_TRACE_ERROR              1
-#define CONFIG_CRASH_CELL_ON_PANIC      1
-#define CONFIG_TEST_DEVICE              1
-#define CONFIG_ARM_GIC                  1
-#define CONFIG_MACH_SUN7I               1
-#define CONFIG_SERIAL_8250_DW           1
+Jan
 
-according to old *jailhouse-config-banana-pi.h *file.
-Anyway, once booted the board and try to run command:
-jailhouse enable jailhouse/configs/arm/bananapi.cell
-
-The board stall, and the output is:
-
-Initializing Jailhouse hypervisor v0.12 (35-g2e4d71f6-dirty) on CPU 0
-Code location: 0xf0000040
-Page pool usage after early setup: mem 56/16359, remap 0/131072
-Initializing processors:
- CPU 0... Unhandled HYP data abort exit at 0xf0005b10
-r0:  0x7c01b000  r1:  0x7c00e000  r2:  0x00001fff  r3:  0x00000000
-r4:  0x00001000  r5:  0xf0010090  r6:  0x7c00e000  r7:  0x00000000
-r8:  0x7c0037a0  r9:  0x7c000000  r10: 0x00000000  r11: 0x7c01b000
-r12: 0xc3ff7000  r13: 0xf0003ce4
-Physical address: 0x7c01b004 HSR: 0x94000007
-Stopping CPU 0 (Cell: "Banana-Pi")
-
-What is wrong?
-
-Some information on my board.
-
-*Kernel log at boot.*
-[    0.000000] Linux version 4.3.3bananagigi1-dirty  (gcc version 5.3.1 
-20160113 (Linaro GCC 5.3-2016.02) ) #1 SMP Fri May 8 17:53:47 CEST 2020
-
-....
-[    0.000000] Kernel command line: console=ttyS0,115200 console=tty0 
-console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline rootwait 
-mem=932M vmalloc=512M
-...
-[    0.000000] Virtual kernel memory layout:
-[    0.000000]     vector  : 0xffff0000 - 0xffff1000   (   4 kB)
-[    0.000000]     fixmap  : 0xffc00000 - 0xfff00000   (3072 kB)
-[    0.000000]     vmalloc : 0xdf800000 - 0xff000000   ( 504 MB)
-[    0.000000]     lowmem  : 0xc0000000 - 0xdf000000   ( 496 MB)
-[    0.000000]     pkmap   : 0xbfe00000 - 0xc0000000   (   2 MB)
-[    0.000000]     modules : 0xbf000000 - 0xbfe00000   (  14 MB)
-[    0.000000]       .text : 0xc0008000 - 0xc0813cf4   (8240 kB)
-[    0.000000]       .init : 0xc0814000 - 0xc0890000   ( 496 kB)
-[    0.000000]       .data : 0xc0890000 - 0xc0917880   ( 543 kB)
-[    0.000000]        .bss : 0xc091a000 - 0xc111740c   (8182 kB)
-
-
-*/proc/iomem*
-
-> 01c00000-01c0002f : /soc@01c00000/sram-controller@01c00000
-> 01c05000-01c05fff : /soc@01c00000/spi@01c05000
-> 01c0f000-01c0ffff : /soc@01c00000/mmc@01c0f000
-> 01c18000-01c18fff : /soc@01c00000/sata@01c18000
-> 01c20060-01c20067 : /clocks/clk@01c20060
-> 01c20068-01c2006b : /clocks/clk@01c20068
-> 01c2006c-01c2006f : /clocks/clk@01c2006c
-> 01c20088-01c2008b : /clocks/clk@01c20088
-> 01c2008c-01c2008f : /clocks/clk@01c2008c
-> 01c20090-01c20093 : /clocks/clk@01c20090
-> 01c20094-01c20097 : /clocks/clk@01c20094
-> 01c200cc-01c200cf : /clocks/clk@01c200cc
-> 01c20800-01c20bff : /soc@01c00000/pinctrl@01c20800
-> 01c20c90-01c20c9f : /soc@01c00000/watchdog@01c20c90
-> 01c20d00-01c20d1f : /soc@01c00000/rtc@01c20d00
-> 01c28000-01c2801f : serial
-> 01c28c00-01c28c1f : serial
-> 01c29c00-01c29c1f : serial
-> 01c2ac00-01c2afff : /soc@01c00000/i2c@01c2ac00
-> 01c2b400-01c2b7ff : /soc@01c00000/i2c@01c2b400
-> 01c50000-01c5ffff : /soc@01c00000/ethernet@01c50000
-> 01c60000-01c60fff : /soc@01c00000/hstimer@01c60000
-> 40000000-7bdfffff : System RAM
->   40008000-40813cf3 : Kernel code
->   40890000-4111740b : Kernel data
-
-
-
-If you need any other info (e.g., complete kernel log, .config file, or 
-whatever) let me know.
-I really appreciate any suggestions as soon as possible.
-
-Best regards,
-
-Luigi 
-
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/e5934ccb-97ba-49f5-bf43-d47b2763f4b4%40googlegroups.com.
-
-------=_Part_654_60421715.1588958367399
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi all,<div><br></div><div>I really need your help about f=
-inding out a solution with FreeRTOS BananPI demo. My board model is BPI-M1<=
-/div><div>I&#39;ve followed exactly the guide at=C2=A0<a href=3D"https://gi=
-thub.com/siemens/jailhouse/blob/master/Documentation/setup-on-banana-pi-arm=
--board.md">https://github.com/siemens/jailhouse/blob/master/Documentation/s=
-etup-on-banana-pi-arm-board.md</a></div><div>with a kernel=C2=A0</div><div>=
-Only one deviation is about command:</div><div><br></div><div><div class=3D=
-"prettyprint" style=3D"background-color: rgb(250, 250, 250); border-color: =
-rgb(187, 187, 187); border-style: solid; border-width: 1px; overflow-wrap: =
-break-word;"><code class=3D"prettyprint"><div class=3D"subprettyprint"><spa=
-n style=3D"font-family: Arial, Helvetica, sans-serif; background-color: rgb=
-(255, 255, 255);"><span style=3D"color: #000;" class=3D"styled-by-prettify"=
->cp </span><span style=3D"color: #660;" class=3D"styled-by-prettify">-</spa=
-n><span style=3D"color: #000;" class=3D"styled-by-prettify">av </span><span=
- style=3D"color: #660;" class=3D"styled-by-prettify">~</span><span style=3D=
-"color: #080;" class=3D"styled-by-prettify">/jailhouse/</span><span style=
-=3D"color: #000;" class=3D"styled-by-prettify">ci</span><span style=3D"colo=
-r: #660;" class=3D"styled-by-prettify">/</span><span style=3D"color: #000;"=
- class=3D"styled-by-prettify">jailhouse</span><span style=3D"color: #660;" =
-class=3D"styled-by-prettify">-</span><span style=3D"color: #000;" class=3D"=
-styled-by-prettify">config</span><span style=3D"color: #660;" class=3D"styl=
-ed-by-prettify">-</span><span style=3D"color: #000;" class=3D"styled-by-pre=
-ttify">banana</span><span style=3D"color: #660;" class=3D"styled-by-prettif=
-y">-</span><span style=3D"color: #000;" class=3D"styled-by-prettify">pi</sp=
-an><span style=3D"color: #660;" class=3D"styled-by-prettify">.</span><span =
-style=3D"color: #000;" class=3D"styled-by-prettify">h </span><span style=3D=
-"color: #660;" class=3D"styled-by-prettify">~</span><span style=3D"color: #=
-080;" class=3D"styled-by-prettify">/jailhouse/</span><span style=3D"color: =
-#000;" class=3D"styled-by-prettify">include</span><span style=3D"color: #66=
-0;" class=3D"styled-by-prettify">/</span><span style=3D"color: #000;" class=
-=3D"styled-by-prettify">jailhouse</span><span style=3D"color: #660;" class=
-=3D"styled-by-prettify">/</span><span style=3D"color: #000;" class=3D"style=
-d-by-prettify">config</span><span style=3D"color: #660;" class=3D"styled-by=
--prettify">.</span><span style=3D"color: #000;" class=3D"styled-by-prettify=
-">h</span></span><span style=3D"color: #000;" class=3D"styled-by-prettify">=
-<br></span></div></code></div><br>because <b>jailhouse-config-banana-pi.h <=
-/b>does<b> </b>not exist anymore in the repo (I don&#39;t know if it is a r=
-efuse from refactoring).</div><div>What I&#39;ve done is to create a config=
-.h file like this:</div><div><br></div><div class=3D"prettyprint" style=3D"=
-background-color: rgb(250, 250, 250); border-color: rgb(187, 187, 187); bor=
-der-style: solid; border-width: 1px; overflow-wrap: break-word;"><code clas=
-s=3D"prettyprint"><div class=3D"subprettyprint"><span style=3D"color: #800;=
-" class=3D"styled-by-prettify">#define</span><span style=3D"color: #000;" c=
-lass=3D"styled-by-prettify"> CONFIG_TRACE_ERROR =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0</span><span style=3D"color: #066;" class=3D"styled-by=
--prettify">1</span><span style=3D"color: #000;" class=3D"styled-by-prettify=
-"><br></span><span style=3D"color: #800;" class=3D"styled-by-prettify">#def=
-ine</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> CONFIG=
-_CRASH_CELL_ON_PANIC =C2=A0 =C2=A0 =C2=A0</span><span style=3D"color: #066;=
-" class=3D"styled-by-prettify">1</span><span style=3D"color: #000;" class=
-=3D"styled-by-prettify"><br></span><span style=3D"color: #800;" class=3D"st=
-yled-by-prettify">#define</span><span style=3D"color: #000;" class=3D"style=
-d-by-prettify"> CONFIG_TEST_DEVICE =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0</span><span style=3D"color: #066;" class=3D"styled-by-prettify">=
-1</span><span style=3D"color: #000;" class=3D"styled-by-prettify"><br></spa=
-n><span style=3D"color: #800;" class=3D"styled-by-prettify">#define</span><=
-span style=3D"color: #000;" class=3D"styled-by-prettify"> CONFIG_ARM_GIC =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0</span><span =
-style=3D"color: #066;" class=3D"styled-by-prettify">1</span><span style=3D"=
-color: #000;" class=3D"styled-by-prettify"><br></span><span style=3D"color:=
- #800;" class=3D"styled-by-prettify">#define</span><span style=3D"color: #0=
-00;" class=3D"styled-by-prettify"> CONFIG_MACH_SUN7I =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 </span><span style=3D"color: #066;" class=3D"st=
-yled-by-prettify">1</span><span style=3D"color: #000;" class=3D"styled-by-p=
-rettify"><br></span><span style=3D"color: #800;" class=3D"styled-by-prettif=
-y">#define</span><span style=3D"color: #000;" class=3D"styled-by-prettify">=
- CONFIG_SERIAL_8250_DW =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 </span><span styl=
-e=3D"color: #066;" class=3D"styled-by-prettify">1</span><span style=3D"colo=
-r: #000;" class=3D"styled-by-prettify"><br></span></div></code></div><div><=
-br></div><div>according to old=C2=A0<b>jailhouse-config-banana-pi.h </b>fil=
-e.</div><div>Anyway, once booted the board and try to run command:</div><di=
-v><div><div class=3D"prettyprint" style=3D"background-color: rgb(250, 250, =
-250); border-color: rgb(187, 187, 187); border-style: solid; border-width: =
-1px; overflow-wrap: break-word;"><code class=3D"prettyprint"><div class=3D"=
-subprettyprint"><span style=3D"color: #000;" class=3D"styled-by-prettify">j=
-ailhouse enable jailhouse</span><span style=3D"color: #660;" class=3D"style=
-d-by-prettify">/</span><span style=3D"color: #000;" class=3D"styled-by-pret=
-tify">configs</span><span style=3D"color: #660;" class=3D"styled-by-prettif=
-y">/</span><span style=3D"color: #000;" class=3D"styled-by-prettify">arm</s=
-pan><span style=3D"color: #660;" class=3D"styled-by-prettify">/</span><span=
- style=3D"color: #000;" class=3D"styled-by-prettify">bananapi</span><span s=
-tyle=3D"color: #660;" class=3D"styled-by-prettify">.</span><span style=3D"c=
-olor: #000;" class=3D"styled-by-prettify">cell</span></div></code></div><br=
-></div><div>The board stall, and the output is:</div><div><br></div><div></=
-div></div><div class=3D"prettyprint" style=3D"background-color: rgb(250, 25=
-0, 250); border-color: rgb(187, 187, 187); border-style: solid; border-widt=
-h: 1px; overflow-wrap: break-word;"><code class=3D"prettyprint"><div class=
-=3D"subprettyprint"><span style=3D"color: #606;" class=3D"styled-by-prettif=
-y">Initializing</span><span style=3D"color: #000;" class=3D"styled-by-prett=
-ify"> </span><span style=3D"color: #606;" class=3D"styled-by-prettify">Jail=
-house</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> hype=
-rvisor v0</span><span style=3D"color: #660;" class=3D"styled-by-prettify">.=
-</span><span style=3D"color: #066;" class=3D"styled-by-prettify">12</span><=
-span style=3D"color: #000;" class=3D"styled-by-prettify"> </span><span styl=
-e=3D"color: #660;" class=3D"styled-by-prettify">(</span><span style=3D"colo=
-r: #066;" class=3D"styled-by-prettify">35</span><span style=3D"color: #660;=
-" class=3D"styled-by-prettify">-</span><span style=3D"color: #000;" class=
-=3D"styled-by-prettify">g2e4d71f6</span><span style=3D"color: #660;" class=
-=3D"styled-by-prettify">-</span><span style=3D"color: #000;" class=3D"style=
-d-by-prettify">dirty</span><span style=3D"color: #660;" class=3D"styled-by-=
-prettify">)</span><span style=3D"color: #000;" class=3D"styled-by-prettify"=
-> on CPU </span><span style=3D"color: #066;" class=3D"styled-by-prettify">0=
-</span><span style=3D"color: #000;" class=3D"styled-by-prettify"><br></span=
-><span style=3D"color: #606;" class=3D"styled-by-prettify">Code</span><span=
- style=3D"color: #000;" class=3D"styled-by-prettify"> location</span><span =
-style=3D"color: #660;" class=3D"styled-by-prettify">:</span><span style=3D"=
-color: #000;" class=3D"styled-by-prettify"> </span><span style=3D"color: #0=
-66;" class=3D"styled-by-prettify">0xf0000040</span><span style=3D"color: #0=
-00;" class=3D"styled-by-prettify"><br></span><span style=3D"color: #606;" c=
-lass=3D"styled-by-prettify">Page</span><span style=3D"color: #000;" class=
-=3D"styled-by-prettify"> pool usage after early setup</span><span style=3D"=
-color: #660;" class=3D"styled-by-prettify">:</span><span style=3D"color: #0=
-00;" class=3D"styled-by-prettify"> mem </span><span style=3D"color: #066;" =
-class=3D"styled-by-prettify">56</span><span style=3D"color: #660;" class=3D=
-"styled-by-prettify">/</span><span style=3D"color: #066;" class=3D"styled-b=
-y-prettify">16359</span><span style=3D"color: #660;" class=3D"styled-by-pre=
-ttify">,</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> r=
-emap </span><span style=3D"color: #066;" class=3D"styled-by-prettify">0</sp=
-an><span style=3D"color: #660;" class=3D"styled-by-prettify">/</span><span =
-style=3D"color: #066;" class=3D"styled-by-prettify">131072</span><span styl=
-e=3D"color: #000;" class=3D"styled-by-prettify"><br></span><span style=3D"c=
-olor: #606;" class=3D"styled-by-prettify">Initializing</span><span style=3D=
-"color: #000;" class=3D"styled-by-prettify"> processors</span><span style=
-=3D"color: #660;" class=3D"styled-by-prettify">:</span><span style=3D"color=
-: #000;" class=3D"styled-by-prettify"><br>=C2=A0CPU </span><span style=3D"c=
-olor: #066;" class=3D"styled-by-prettify">0.</span><span style=3D"color: #6=
-60;" class=3D"styled-by-prettify">..</span><span style=3D"color: #000;" cla=
-ss=3D"styled-by-prettify"> </span><span style=3D"color: #606;" class=3D"sty=
-led-by-prettify">Unhandled</span><span style=3D"color: #000;" class=3D"styl=
-ed-by-prettify"> HYP data abort </span><span style=3D"color: #008;" class=
-=3D"styled-by-prettify">exit</span><span style=3D"color: #000;" class=3D"st=
-yled-by-prettify"> at </span><span style=3D"color: #066;" class=3D"styled-b=
-y-prettify">0xf0005b10</span><span style=3D"color: #000;" class=3D"styled-b=
-y-prettify"><br>r0</span><span style=3D"color: #660;" class=3D"styled-by-pr=
-ettify">:</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> =
-=C2=A0</span><span style=3D"color: #066;" class=3D"styled-by-prettify">0x7c=
-01b000</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> =C2=
-=A0r1</span><span style=3D"color: #660;" class=3D"styled-by-prettify">:</sp=
-an><span style=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0</span>=
-<span style=3D"color: #066;" class=3D"styled-by-prettify">0x7c00e000</span>=
-<span style=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0r2</span><=
-span style=3D"color: #660;" class=3D"styled-by-prettify">:</span><span styl=
-e=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0</span><span style=
-=3D"color: #066;" class=3D"styled-by-prettify">0x00001fff</span><span style=
-=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0r3</span><span style=
-=3D"color: #660;" class=3D"styled-by-prettify">:</span><span style=3D"color=
-: #000;" class=3D"styled-by-prettify"> =C2=A0</span><span style=3D"color: #=
-066;" class=3D"styled-by-prettify">0x00000000</span><span style=3D"color: #=
-000;" class=3D"styled-by-prettify"><br>r4</span><span style=3D"color: #660;=
-" class=3D"styled-by-prettify">:</span><span style=3D"color: #000;" class=
-=3D"styled-by-prettify"> =C2=A0</span><span style=3D"color: #066;" class=3D=
-"styled-by-prettify">0x00001000</span><span style=3D"color: #000;" class=3D=
-"styled-by-prettify"> =C2=A0r5</span><span style=3D"color: #660;" class=3D"=
-styled-by-prettify">:</span><span style=3D"color: #000;" class=3D"styled-by=
--prettify"> =C2=A0</span><span style=3D"color: #066;" class=3D"styled-by-pr=
-ettify">0xf0010090</span><span style=3D"color: #000;" class=3D"styled-by-pr=
-ettify"> =C2=A0r6</span><span style=3D"color: #660;" class=3D"styled-by-pre=
-ttify">:</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> =
-=C2=A0</span><span style=3D"color: #066;" class=3D"styled-by-prettify">0x7c=
-00e000</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> =C2=
-=A0r7</span><span style=3D"color: #660;" class=3D"styled-by-prettify">:</sp=
-an><span style=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0</span>=
-<span style=3D"color: #066;" class=3D"styled-by-prettify">0x00000000</span>=
-<span style=3D"color: #000;" class=3D"styled-by-prettify"><br>r8</span><spa=
-n style=3D"color: #660;" class=3D"styled-by-prettify">:</span><span style=
-=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0</span><span style=3D=
-"color: #066;" class=3D"styled-by-prettify">0x7c0037a0</span><span style=3D=
-"color: #000;" class=3D"styled-by-prettify"> =C2=A0r9</span><span style=3D"=
-color: #660;" class=3D"styled-by-prettify">:</span><span style=3D"color: #0=
-00;" class=3D"styled-by-prettify"> =C2=A0</span><span style=3D"color: #066;=
-" class=3D"styled-by-prettify">0x7c000000</span><span style=3D"color: #000;=
-" class=3D"styled-by-prettify"> =C2=A0r10</span><span style=3D"color: #660;=
-" class=3D"styled-by-prettify">:</span><span style=3D"color: #000;" class=
-=3D"styled-by-prettify"> </span><span style=3D"color: #066;" class=3D"style=
-d-by-prettify">0x00000000</span><span style=3D"color: #000;" class=3D"style=
-d-by-prettify"> =C2=A0r11</span><span style=3D"color: #660;" class=3D"style=
-d-by-prettify">:</span><span style=3D"color: #000;" class=3D"styled-by-pret=
-tify"> </span><span style=3D"color: #066;" class=3D"styled-by-prettify">0x7=
-c01b000</span><span style=3D"color: #000;" class=3D"styled-by-prettify"><br=
->r12</span><span style=3D"color: #660;" class=3D"styled-by-prettify">:</spa=
-n><span style=3D"color: #000;" class=3D"styled-by-prettify"> </span><span s=
-tyle=3D"color: #066;" class=3D"styled-by-prettify">0xc3ff7000</span><span s=
-tyle=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0r13</span><span s=
-tyle=3D"color: #660;" class=3D"styled-by-prettify">:</span><span style=3D"c=
-olor: #000;" class=3D"styled-by-prettify"> </span><span style=3D"color: #06=
-6;" class=3D"styled-by-prettify">0xf0003ce4</span><span style=3D"color: #00=
-0;" class=3D"styled-by-prettify"><br></span><span style=3D"color: #606;" cl=
-ass=3D"styled-by-prettify">Physical</span><span style=3D"color: #000;" clas=
-s=3D"styled-by-prettify"> address</span><span style=3D"color: #660;" class=
-=3D"styled-by-prettify">:</span><span style=3D"color: #000;" class=3D"style=
-d-by-prettify"> </span><span style=3D"color: #066;" class=3D"styled-by-pret=
-tify">0x7c01b004</span><span style=3D"color: #000;" class=3D"styled-by-pret=
-tify"> HSR</span><span style=3D"color: #660;" class=3D"styled-by-prettify">=
-:</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> </span><=
-span style=3D"color: #066;" class=3D"styled-by-prettify">0x94000007</span><=
-span style=3D"color: #000;" class=3D"styled-by-prettify"><br></span><span s=
-tyle=3D"color: #606;" class=3D"styled-by-prettify">Stopping</span><span sty=
-le=3D"color: #000;" class=3D"styled-by-prettify"> CPU </span><span style=3D=
-"color: #066;" class=3D"styled-by-prettify">0</span><span style=3D"color: #=
-000;" class=3D"styled-by-prettify"> </span><span style=3D"color: #660;" cla=
-ss=3D"styled-by-prettify">(</span><span style=3D"color: #606;" class=3D"sty=
-led-by-prettify">Cell</span><span style=3D"color: #660;" class=3D"styled-by=
--prettify">:</span><span style=3D"color: #000;" class=3D"styled-by-prettify=
-"> </span><span style=3D"color: #080;" class=3D"styled-by-prettify">&quot;B=
-anana-Pi&quot;</span><span style=3D"color: #660;" class=3D"styled-by-pretti=
-fy">)</span><span style=3D"color: #000;" class=3D"styled-by-prettify"><br><=
-/span></div></code></div><div><br>What is wrong?</div><div><br></div><div>S=
-ome information on my board.</div><div><br></div><div><b>Kernel log at boot=
-.</b></div><div class=3D"prettyprint" style=3D"background-color: rgb(250, 2=
-50, 250); border-color: rgb(187, 187, 187); border-style: solid; border-wid=
-th: 1px; overflow-wrap: break-word;"><code class=3D"prettyprint"><div class=
-=3D"subprettyprint"><span style=3D"color: #660;" class=3D"styled-by-prettif=
-y">[</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> =C2=
-=A0 =C2=A0</span><span style=3D"color: #066;" class=3D"styled-by-prettify">=
-0.000000</span><span style=3D"color: #660;" class=3D"styled-by-prettify">]<=
-/span><span style=3D"color: #000;" class=3D"styled-by-prettify"> </span><sp=
-an style=3D"color: #606;" class=3D"styled-by-prettify">Linux</span><span st=
-yle=3D"color: #000;" class=3D"styled-by-prettify"> version </span><span sty=
-le=3D"color: #066;" class=3D"styled-by-prettify">4.3</span><span style=3D"c=
-olor: #660;" class=3D"styled-by-prettify">.</span><span style=3D"color: #06=
-6;" class=3D"styled-by-prettify">3bananagigi1</span><span style=3D"color: #=
-660;" class=3D"styled-by-prettify">-</span><span style=3D"color: #000;" cla=
-ss=3D"styled-by-prettify">dirty =C2=A0</span><span style=3D"color: #660;" c=
-lass=3D"styled-by-prettify">(</span><span style=3D"color: #000;" class=3D"s=
-tyled-by-prettify">gcc version </span><span style=3D"color: #066;" class=3D=
-"styled-by-prettify">5.3</span><span style=3D"color: #660;" class=3D"styled=
--by-prettify">.</span><span style=3D"color: #066;" class=3D"styled-by-prett=
-ify">1</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> </s=
-pan><span style=3D"color: #066;" class=3D"styled-by-prettify">20160113</spa=
-n><span style=3D"color: #000;" class=3D"styled-by-prettify"> </span><span s=
-tyle=3D"color: #660;" class=3D"styled-by-prettify">(</span><span style=3D"c=
-olor: #606;" class=3D"styled-by-prettify">Linaro</span><span style=3D"color=
-: #000;" class=3D"styled-by-prettify"> GCC </span><span style=3D"color: #06=
-6;" class=3D"styled-by-prettify">5.3</span><span style=3D"color: #660;" cla=
-ss=3D"styled-by-prettify">-</span><span style=3D"color: #066;" class=3D"sty=
-led-by-prettify">2016.02</span><span style=3D"color: #660;" class=3D"styled=
--by-prettify">)</span><span style=3D"color: #000;" class=3D"styled-by-prett=
-ify"> </span><span style=3D"color: #660;" class=3D"styled-by-prettify">)</s=
-pan><span style=3D"color: #000;" class=3D"styled-by-prettify"> </span><span=
- style=3D"color: #800;" class=3D"styled-by-prettify">#1 SMP Fri May 8 17:53=
-:47 CEST 2020</span><span style=3D"color: #000;" class=3D"styled-by-prettif=
-y"><br><br></span><span style=3D"color: #660;" class=3D"styled-by-prettify"=
->....</span><span style=3D"color: #000;" class=3D"styled-by-prettify"><br><=
-/span><span style=3D"color: #660;" class=3D"styled-by-prettify">[</span><sp=
-an style=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0 =C2=A0</span=
-><span style=3D"color: #066;" class=3D"styled-by-prettify">0.000000</span><=
-span style=3D"color: #660;" class=3D"styled-by-prettify">]</span><span styl=
-e=3D"color: #000;" class=3D"styled-by-prettify"> </span><span style=3D"colo=
-r: #606;" class=3D"styled-by-prettify">Kernel</span><span style=3D"color: #=
-000;" class=3D"styled-by-prettify"> command line</span><span style=3D"color=
-: #660;" class=3D"styled-by-prettify">:</span><span style=3D"color: #000;" =
-class=3D"styled-by-prettify"> console</span><span style=3D"color: #660;" cl=
-ass=3D"styled-by-prettify">=3D</span><span style=3D"color: #000;" class=3D"=
-styled-by-prettify">ttyS0</span><span style=3D"color: #660;" class=3D"style=
-d-by-prettify">,</span><span style=3D"color: #066;" class=3D"styled-by-pret=
-tify">115200</span><span style=3D"color: #000;" class=3D"styled-by-prettify=
-"> console</span><span style=3D"color: #660;" class=3D"styled-by-prettify">=
-=3D</span><span style=3D"color: #000;" class=3D"styled-by-prettify">tty0 co=
-nsole</span><span style=3D"color: #660;" class=3D"styled-by-prettify">=3D</=
-span><span style=3D"color: #000;" class=3D"styled-by-prettify">tty1 root</s=
-pan><span style=3D"color: #660;" class=3D"styled-by-prettify">=3D</span><sp=
-an style=3D"color: #080;" class=3D"styled-by-prettify">/dev/</span><span st=
-yle=3D"color: #000;" class=3D"styled-by-prettify">mmcblk0p2 rootfstype</spa=
-n><span style=3D"color: #660;" class=3D"styled-by-prettify">=3D</span><span=
- style=3D"color: #000;" class=3D"styled-by-prettify">ext4 elevator</span><s=
-pan style=3D"color: #660;" class=3D"styled-by-prettify">=3D</span><span sty=
-le=3D"color: #000;" class=3D"styled-by-prettify">deadline rootwait mem</spa=
-n><span style=3D"color: #660;" class=3D"styled-by-prettify">=3D</span><span=
- style=3D"color: #066;" class=3D"styled-by-prettify">932M</span><span style=
-=3D"color: #000;" class=3D"styled-by-prettify"> vmalloc</span><span style=
-=3D"color: #660;" class=3D"styled-by-prettify">=3D</span><span style=3D"col=
-or: #066;" class=3D"styled-by-prettify">512M</span><span style=3D"color: #0=
-00;" class=3D"styled-by-prettify"><br></span><span style=3D"color: #660;" c=
-lass=3D"styled-by-prettify">...</span><span style=3D"color: #000;" class=3D=
-"styled-by-prettify"><br></span><span style=3D"color: #660;" class=3D"style=
-d-by-prettify">[</span><span style=3D"color: #000;" class=3D"styled-by-pret=
-tify"> =C2=A0 =C2=A0</span><span style=3D"color: #066;" class=3D"styled-by-=
-prettify">0.000000</span><span style=3D"color: #660;" class=3D"styled-by-pr=
-ettify">]</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> =
-</span><span style=3D"color: #606;" class=3D"styled-by-prettify">Virtual</s=
-pan><span style=3D"color: #000;" class=3D"styled-by-prettify"> kernel memor=
-y layout</span><span style=3D"color: #660;" class=3D"styled-by-prettify">:<=
-/span><span style=3D"color: #000;" class=3D"styled-by-prettify"><br></span>=
-<span style=3D"color: #660;" class=3D"styled-by-prettify">[</span><span sty=
-le=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0 =C2=A0</span><span=
- style=3D"color: #066;" class=3D"styled-by-prettify">0.000000</span><span s=
-tyle=3D"color: #660;" class=3D"styled-by-prettify">]</span><span style=3D"c=
-olor: #000;" class=3D"styled-by-prettify"> =C2=A0 =C2=A0 vector =C2=A0</spa=
-n><span style=3D"color: #660;" class=3D"styled-by-prettify">:</span><span s=
-tyle=3D"color: #000;" class=3D"styled-by-prettify"> </span><span style=3D"c=
-olor: #066;" class=3D"styled-by-prettify">0xffff0000</span><span style=3D"c=
-olor: #000;" class=3D"styled-by-prettify"> </span><span style=3D"color: #66=
-0;" class=3D"styled-by-prettify">-</span><span style=3D"color: #000;" class=
-=3D"styled-by-prettify"> </span><span style=3D"color: #066;" class=3D"style=
-d-by-prettify">0xffff1000</span><span style=3D"color: #000;" class=3D"style=
-d-by-prettify"> =C2=A0 </span><span style=3D"color: #660;" class=3D"styled-=
-by-prettify">(</span><span style=3D"color: #000;" class=3D"styled-by-pretti=
-fy"> =C2=A0 </span><span style=3D"color: #066;" class=3D"styled-by-prettify=
-">4</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> kB</sp=
-an><span style=3D"color: #660;" class=3D"styled-by-prettify">)</span><span =
-style=3D"color: #000;" class=3D"styled-by-prettify"><br></span><span style=
-=3D"color: #660;" class=3D"styled-by-prettify">[</span><span style=3D"color=
-: #000;" class=3D"styled-by-prettify"> =C2=A0 =C2=A0</span><span style=3D"c=
-olor: #066;" class=3D"styled-by-prettify">0.000000</span><span style=3D"col=
-or: #660;" class=3D"styled-by-prettify">]</span><span style=3D"color: #000;=
-" class=3D"styled-by-prettify"> =C2=A0 =C2=A0 fixmap =C2=A0</span><span sty=
-le=3D"color: #660;" class=3D"styled-by-prettify">:</span><span style=3D"col=
-or: #000;" class=3D"styled-by-prettify"> </span><span style=3D"color: #066;=
-" class=3D"styled-by-prettify">0xffc00000</span><span style=3D"color: #000;=
-" class=3D"styled-by-prettify"> </span><span style=3D"color: #660;" class=
-=3D"styled-by-prettify">-</span><span style=3D"color: #000;" class=3D"style=
-d-by-prettify"> </span><span style=3D"color: #066;" class=3D"styled-by-pret=
-tify">0xfff00000</span><span style=3D"color: #000;" class=3D"styled-by-pret=
-tify"> =C2=A0 </span><span style=3D"color: #660;" class=3D"styled-by-pretti=
-fy">(</span><span style=3D"color: #066;" class=3D"styled-by-prettify">3072<=
-/span><span style=3D"color: #000;" class=3D"styled-by-prettify"> kB</span><=
-span style=3D"color: #660;" class=3D"styled-by-prettify">)</span><span styl=
-e=3D"color: #000;" class=3D"styled-by-prettify"><br></span><span style=3D"c=
-olor: #660;" class=3D"styled-by-prettify">[</span><span style=3D"color: #00=
-0;" class=3D"styled-by-prettify"> =C2=A0 =C2=A0</span><span style=3D"color:=
- #066;" class=3D"styled-by-prettify">0.000000</span><span style=3D"color: #=
-660;" class=3D"styled-by-prettify">]</span><span style=3D"color: #000;" cla=
-ss=3D"styled-by-prettify"> =C2=A0 =C2=A0 vmalloc </span><span style=3D"colo=
-r: #660;" class=3D"styled-by-prettify">:</span><span style=3D"color: #000;"=
- class=3D"styled-by-prettify"> </span><span style=3D"color: #066;" class=3D=
-"styled-by-prettify">0xdf800000</span><span style=3D"color: #000;" class=3D=
-"styled-by-prettify"> </span><span style=3D"color: #660;" class=3D"styled-b=
-y-prettify">-</span><span style=3D"color: #000;" class=3D"styled-by-prettif=
-y"> </span><span style=3D"color: #066;" class=3D"styled-by-prettify">0xff00=
-0000</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> =C2=
-=A0 </span><span style=3D"color: #660;" class=3D"styled-by-prettify">(</spa=
-n><span style=3D"color: #000;" class=3D"styled-by-prettify"> </span><span s=
-tyle=3D"color: #066;" class=3D"styled-by-prettify">504</span><span style=3D=
-"color: #000;" class=3D"styled-by-prettify"> MB</span><span style=3D"color:=
- #660;" class=3D"styled-by-prettify">)</span><span style=3D"color: #000;" c=
-lass=3D"styled-by-prettify"><br></span><span style=3D"color: #660;" class=
-=3D"styled-by-prettify">[</span><span style=3D"color: #000;" class=3D"style=
-d-by-prettify"> =C2=A0 =C2=A0</span><span style=3D"color: #066;" class=3D"s=
-tyled-by-prettify">0.000000</span><span style=3D"color: #660;" class=3D"sty=
-led-by-prettify">]</span><span style=3D"color: #000;" class=3D"styled-by-pr=
-ettify"> =C2=A0 =C2=A0 lowmem =C2=A0</span><span style=3D"color: #660;" cla=
-ss=3D"styled-by-prettify">:</span><span style=3D"color: #000;" class=3D"sty=
-led-by-prettify"> </span><span style=3D"color: #066;" class=3D"styled-by-pr=
-ettify">0xc0000000</span><span style=3D"color: #000;" class=3D"styled-by-pr=
-ettify"> </span><span style=3D"color: #660;" class=3D"styled-by-prettify">-=
-</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> </span><s=
-pan style=3D"color: #066;" class=3D"styled-by-prettify">0xdf000000</span><s=
-pan style=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0 </span><spa=
-n style=3D"color: #660;" class=3D"styled-by-prettify">(</span><span style=
-=3D"color: #000;" class=3D"styled-by-prettify"> </span><span style=3D"color=
-: #066;" class=3D"styled-by-prettify">496</span><span style=3D"color: #000;=
-" class=3D"styled-by-prettify"> MB</span><span style=3D"color: #660;" class=
-=3D"styled-by-prettify">)</span><span style=3D"color: #000;" class=3D"style=
-d-by-prettify"><br></span><span style=3D"color: #660;" class=3D"styled-by-p=
-rettify">[</span><span style=3D"color: #000;" class=3D"styled-by-prettify">=
- =C2=A0 =C2=A0</span><span style=3D"color: #066;" class=3D"styled-by-pretti=
-fy">0.000000</span><span style=3D"color: #660;" class=3D"styled-by-prettify=
-">]</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0=
- =C2=A0 pkmap =C2=A0 </span><span style=3D"color: #660;" class=3D"styled-by=
--prettify">:</span><span style=3D"color: #000;" class=3D"styled-by-prettify=
-"> </span><span style=3D"color: #066;" class=3D"styled-by-prettify">0xbfe00=
-000</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> </span=
-><span style=3D"color: #660;" class=3D"styled-by-prettify">-</span><span st=
-yle=3D"color: #000;" class=3D"styled-by-prettify"> </span><span style=3D"co=
-lor: #066;" class=3D"styled-by-prettify">0xc0000000</span><span style=3D"co=
-lor: #000;" class=3D"styled-by-prettify"> =C2=A0 </span><span style=3D"colo=
-r: #660;" class=3D"styled-by-prettify">(</span><span style=3D"color: #000;"=
- class=3D"styled-by-prettify"> =C2=A0 </span><span style=3D"color: #066;" c=
-lass=3D"styled-by-prettify">2</span><span style=3D"color: #000;" class=3D"s=
-tyled-by-prettify"> MB</span><span style=3D"color: #660;" class=3D"styled-b=
-y-prettify">)</span><span style=3D"color: #000;" class=3D"styled-by-prettif=
-y"><br></span><span style=3D"color: #660;" class=3D"styled-by-prettify">[</=
-span><span style=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0 =C2=
-=A0</span><span style=3D"color: #066;" class=3D"styled-by-prettify">0.00000=
-0</span><span style=3D"color: #660;" class=3D"styled-by-prettify">]</span><=
-span style=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0 =C2=A0 mod=
-ules </span><span style=3D"color: #660;" class=3D"styled-by-prettify">:</sp=
-an><span style=3D"color: #000;" class=3D"styled-by-prettify"> </span><span =
-style=3D"color: #066;" class=3D"styled-by-prettify">0xbf000000</span><span =
-style=3D"color: #000;" class=3D"styled-by-prettify"> </span><span style=3D"=
-color: #660;" class=3D"styled-by-prettify">-</span><span style=3D"color: #0=
-00;" class=3D"styled-by-prettify"> </span><span style=3D"color: #066;" clas=
-s=3D"styled-by-prettify">0xbfe00000</span><span style=3D"color: #000;" clas=
-s=3D"styled-by-prettify"> =C2=A0 </span><span style=3D"color: #660;" class=
-=3D"styled-by-prettify">(</span><span style=3D"color: #000;" class=3D"style=
-d-by-prettify"> =C2=A0</span><span style=3D"color: #066;" class=3D"styled-b=
-y-prettify">14</span><span style=3D"color: #000;" class=3D"styled-by-pretti=
-fy"> MB</span><span style=3D"color: #660;" class=3D"styled-by-prettify">)</=
-span><span style=3D"color: #000;" class=3D"styled-by-prettify"><br></span><=
-span style=3D"color: #660;" class=3D"styled-by-prettify">[</span><span styl=
-e=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0 =C2=A0</span><span =
-style=3D"color: #066;" class=3D"styled-by-prettify">0.000000</span><span st=
-yle=3D"color: #660;" class=3D"styled-by-prettify">]</span><span style=3D"co=
-lor: #000;" class=3D"styled-by-prettify"> =C2=A0 =C2=A0 =C2=A0 </span><span=
- style=3D"color: #660;" class=3D"styled-by-prettify">.</span><span style=3D=
-"color: #000;" class=3D"styled-by-prettify">text </span><span style=3D"colo=
-r: #660;" class=3D"styled-by-prettify">:</span><span style=3D"color: #000;"=
- class=3D"styled-by-prettify"> </span><span style=3D"color: #066;" class=3D=
-"styled-by-prettify">0xc0008000</span><span style=3D"color: #000;" class=3D=
-"styled-by-prettify"> </span><span style=3D"color: #660;" class=3D"styled-b=
-y-prettify">-</span><span style=3D"color: #000;" class=3D"styled-by-prettif=
-y"> </span><span style=3D"color: #066;" class=3D"styled-by-prettify">0xc081=
-3cf4</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> =C2=
-=A0 </span><span style=3D"color: #660;" class=3D"styled-by-prettify">(</spa=
-n><span style=3D"color: #066;" class=3D"styled-by-prettify">8240</span><spa=
-n style=3D"color: #000;" class=3D"styled-by-prettify"> kB</span><span style=
-=3D"color: #660;" class=3D"styled-by-prettify">)</span><span style=3D"color=
-: #000;" class=3D"styled-by-prettify"><br></span><span style=3D"color: #660=
-;" class=3D"styled-by-prettify">[</span><span style=3D"color: #000;" class=
-=3D"styled-by-prettify"> =C2=A0 =C2=A0</span><span style=3D"color: #066;" c=
-lass=3D"styled-by-prettify">0.000000</span><span style=3D"color: #660;" cla=
-ss=3D"styled-by-prettify">]</span><span style=3D"color: #000;" class=3D"sty=
-led-by-prettify"> =C2=A0 =C2=A0 =C2=A0 </span><span style=3D"color: #660;" =
-class=3D"styled-by-prettify">.</span><span style=3D"color: #000;" class=3D"=
-styled-by-prettify">init </span><span style=3D"color: #660;" class=3D"style=
-d-by-prettify">:</span><span style=3D"color: #000;" class=3D"styled-by-pret=
-tify"> </span><span style=3D"color: #066;" class=3D"styled-by-prettify">0xc=
-0814000</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> </=
-span><span style=3D"color: #660;" class=3D"styled-by-prettify">-</span><spa=
-n style=3D"color: #000;" class=3D"styled-by-prettify"> </span><span style=
-=3D"color: #066;" class=3D"styled-by-prettify">0xc0890000</span><span style=
-=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0 </span><span style=
-=3D"color: #660;" class=3D"styled-by-prettify">(</span><span style=3D"color=
-: #000;" class=3D"styled-by-prettify"> </span><span style=3D"color: #066;" =
-class=3D"styled-by-prettify">496</span><span style=3D"color: #000;" class=
-=3D"styled-by-prettify"> kB</span><span style=3D"color: #660;" class=3D"sty=
-led-by-prettify">)</span><span style=3D"color: #000;" class=3D"styled-by-pr=
-ettify"><br></span><span style=3D"color: #660;" class=3D"styled-by-prettify=
-">[</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0=
- =C2=A0</span><span style=3D"color: #066;" class=3D"styled-by-prettify">0.0=
-00000</span><span style=3D"color: #660;" class=3D"styled-by-prettify">]</sp=
-an><span style=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0 =C2=A0=
- =C2=A0 </span><span style=3D"color: #660;" class=3D"styled-by-prettify">.<=
-/span><span style=3D"color: #000;" class=3D"styled-by-prettify">data </span=
-><span style=3D"color: #660;" class=3D"styled-by-prettify">:</span><span st=
-yle=3D"color: #000;" class=3D"styled-by-prettify"> </span><span style=3D"co=
-lor: #066;" class=3D"styled-by-prettify">0xc0890000</span><span style=3D"co=
-lor: #000;" class=3D"styled-by-prettify"> </span><span style=3D"color: #660=
-;" class=3D"styled-by-prettify">-</span><span style=3D"color: #000;" class=
-=3D"styled-by-prettify"> </span><span style=3D"color: #066;" class=3D"style=
-d-by-prettify">0xc0917880</span><span style=3D"color: #000;" class=3D"style=
-d-by-prettify"> =C2=A0 </span><span style=3D"color: #660;" class=3D"styled-=
-by-prettify">(</span><span style=3D"color: #000;" class=3D"styled-by-pretti=
-fy"> </span><span style=3D"color: #066;" class=3D"styled-by-prettify">543</=
-span><span style=3D"color: #000;" class=3D"styled-by-prettify"> kB</span><s=
-pan style=3D"color: #660;" class=3D"styled-by-prettify">)</span><span style=
-=3D"color: #000;" class=3D"styled-by-prettify"><br></span><span style=3D"co=
-lor: #660;" class=3D"styled-by-prettify">[</span><span style=3D"color: #000=
-;" class=3D"styled-by-prettify"> =C2=A0 =C2=A0</span><span style=3D"color: =
-#066;" class=3D"styled-by-prettify">0.000000</span><span style=3D"color: #6=
-60;" class=3D"styled-by-prettify">]</span><span style=3D"color: #000;" clas=
-s=3D"styled-by-prettify"> =C2=A0 =C2=A0 =C2=A0 =C2=A0</span><span style=3D"=
-color: #660;" class=3D"styled-by-prettify">.</span><span style=3D"color: #0=
-00;" class=3D"styled-by-prettify">bss </span><span style=3D"color: #660;" c=
-lass=3D"styled-by-prettify">:</span><span style=3D"color: #000;" class=3D"s=
-tyled-by-prettify"> </span><span style=3D"color: #066;" class=3D"styled-by-=
-prettify">0xc091a000</span><span style=3D"color: #000;" class=3D"styled-by-=
-prettify"> </span><span style=3D"color: #660;" class=3D"styled-by-prettify"=
->-</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> </span>=
-<span style=3D"color: #066;" class=3D"styled-by-prettify">0xc111740c</span>=
-<span style=3D"color: #000;" class=3D"styled-by-prettify"> =C2=A0 </span><s=
-pan style=3D"color: #660;" class=3D"styled-by-prettify">(</span><span style=
-=3D"color: #066;" class=3D"styled-by-prettify">8182</span><span style=3D"co=
-lor: #000;" class=3D"styled-by-prettify"> kB</span><span style=3D"color: #6=
-60;" class=3D"styled-by-prettify">)</span><span style=3D"color: #000;" clas=
-s=3D"styled-by-prettify"><br><br></span></div></code></div><div><br></div><=
-div><b>/proc/iomem</b></div><div><blockquote style=3D"margin: 0px 0px 0px 0=
-.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;" class=
-=3D"gmail_quote">01c00000-01c0002f : /soc@01c00000/sram-controller@01c00000=
-<br>01c05000-01c05fff : /soc@01c00000/spi@01c05000<br>01c0f000-01c0ffff : /=
-soc@01c00000/mmc@01c0f000<br>01c18000-01c18fff : /soc@01c00000/sata@01c1800=
-0<br>01c20060-01c20067 : /clocks/clk@01c20060<br>01c20068-01c2006b : /clock=
-s/clk@01c20068<br>01c2006c-01c2006f : /clocks/clk@01c2006c<br>01c20088-01c2=
-008b : /clocks/clk@01c20088<br>01c2008c-01c2008f : /clocks/clk@01c2008c<br>=
-01c20090-01c20093 : /clocks/clk@01c20090<br>01c20094-01c20097 : /clocks/clk=
-@01c20094<br>01c200cc-01c200cf : /clocks/clk@01c200cc<br>01c20800-01c20bff =
-: /soc@01c00000/pinctrl@01c20800<br>01c20c90-01c20c9f : /soc@01c00000/watch=
-dog@01c20c90<br>01c20d00-01c20d1f : /soc@01c00000/rtc@01c20d00<br>01c28000-=
-01c2801f : serial<br>01c28c00-01c28c1f : serial<br>01c29c00-01c29c1f : seri=
-al<br>01c2ac00-01c2afff : /soc@01c00000/i2c@01c2ac00<br>01c2b400-01c2b7ff :=
- /soc@01c00000/i2c@01c2b400<br>01c50000-01c5ffff : /soc@01c00000/ethernet@0=
-1c50000<br>01c60000-01c60fff : /soc@01c00000/hstimer@01c60000<br>40000000-7=
-bdfffff : System RAM<br>=C2=A0 40008000-40813cf3 : Kernel code<br>=C2=A0 40=
-890000-4111740b : Kernel data</blockquote><div style=3D"font-weight: bold;"=
-><br></div></div><div><br>If you need any other info (e.g., complete kernel=
- log, .config file, or whatever) let me know.</div><div>I really appreciate=
- any suggestions as soon as possible.</div><div><br></div><div>Best regards=
-,</div><div><br></div><div>Luigi=C2=A0</div><div><br></div><div><br></div><=
-/div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/e5934ccb-97ba-49f5-bf43-d47b2763f4b4%40googlegroup=
-s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
-sgid/jailhouse-dev/e5934ccb-97ba-49f5-bf43-d47b2763f4b4%40googlegroups.com<=
-/a>.<br />
-
-------=_Part_654_60421715.1588958367399--
-
-------=_Part_653_1451258986.1588958367397--
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/fc9db7b7-1804-d4ef-e37d-d5d8198c8278%40web.de.
