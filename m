@@ -1,71 +1,151 @@
-Return-Path: <jailhouse-dev+bncBC2PTC4R4MNBBOXG3D2QKGQEGBXQXJA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBB5MV3H2QKGQEO3GGJKI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oo1-xc3d.google.com (mail-oo1-xc3d.google.com [IPv6:2607:f8b0:4864:20::c3d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 747A61CBD5F
-	for <lists+jailhouse-dev@lfdr.de>; Sat,  9 May 2020 06:36:12 +0200 (CEST)
-Received: by mail-oo1-xc3d.google.com with SMTP id y65sf2783363ooa.4
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 08 May 2020 21:36:12 -0700 (PDT)
+Received: from mail-wr1-x440.google.com (mail-wr1-x440.google.com [IPv6:2a00:1450:4864:20::440])
+	by mail.lfdr.de (Postfix) with ESMTPS id 521651CBE08
+	for <lists+jailhouse-dev@lfdr.de>; Sat,  9 May 2020 08:17:26 +0200 (CEST)
+Received: by mail-wr1-x440.google.com with SMTP id r11sf1945992wrx.21
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 08 May 2020 23:17:26 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1589005046; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=D09cyCrre8Nw9Ejp5DBvFqjSFyQ+hK/F4vZyo09sf2eaDYNIqzGBU6JVmsP3rWkD9s
+         sS17SszWLG2bGF2QrVmdM0gDhkoZKWu95UjE0aM2H9rRhcAj6bthVlQHMlAqvlaLKyxn
+         /xgSvfWRGRmfWZseQbJ0UIKRRw5wG2queqy29rb6135Wah456Ygj6VW2WgLICNaxZ+Ss
+         2FdfQkxYRTliwsj+CGD3TbXmEJqCKJrBNOLQ4GNT8GfjigY4nvDilvKoG9hXNc3DsA8X
+         ltA2jsmvuLl/DE5qxybLXXbkiUO/XiF4/8iju13yc3jLNRAAy+JQOEqChMSg0Jh/HUY9
+         MLSw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=om3zp/eBB7bd3SyZnMYGluwrLnTQPWoG0gaUMKQTJn8=;
+        b=GOmrcu2hLC9x9Pg1KtcN5P3+LonTER4wgRqCbujaX33TUr/ubNrXbFXtEeiWCsb+xm
+         EaU9bv3ZBpc6Mh26wXkmY1EdwXw1YmxQ/A1/GOYE27KkA3GgSq1Y8rhjwZP61tKXLVms
+         1OVrwSb++vapCQvlS2Q9/QIcx4R2w7LKO7ve5KQmcXpC7txVU5pF/Y+LdqzuFL+pi11F
+         U5KgH6fweRr/MPN+dQp+8Mswaqa0xkFa8eXWxTxr16CDk4GyvuEuGCjbRXYPesDN58fI
+         a0QHiPmY0qxJ9CQjOJLYqWFjCn4+/88KI0w3/VDEN8VSh9iG64mK10oaX2I43BY5iV0I
+         K0ug==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=iyOblAFm;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=5WE/4ULejxJxaOafn0jW3J6j1pl7Eb1t48sWBfI5JTE=;
-        b=ZzlY0lKKqsNpNEdjpqxc0OyB8Q8WSxmlwkEPdmNGQpH0rt6NQIuDpfLrwskiQ8jmbc
-         V4UmZHgK3IIiuZSu06/bFOVtOF0jPDKwEjX4zlaWRs2GFYuoyXgrH+B2hijWKd4+LexT
-         h4IGQwji755pM6Bw2rdg+1rJi2zaLPO1+d55ySkj++wJrzcsEJbwucfPY4StJwMlF1y9
-         DdvePSCZLb70+8mm5z6x3M9oPfoQ19+9hZ+2a5yLEgxUlSQtzv1EFtaOYtdZZczpn8yG
-         FTmqN//ETXA4iQEvaArQKEQBoHXmHSB5ZWwnpqjV7PU+rLMVuxZfHicxkJEVJnyudXaP
-         CSvg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=5WE/4ULejxJxaOafn0jW3J6j1pl7Eb1t48sWBfI5JTE=;
-        b=GShUAIVPzAG/ZwsIsIPrvIrxm+9w/eoVwMfx7KDHUDbLA5iz1uswDcn9NIG7m46A0W
-         oZGNouTrzik9ED6qLFoksEedjbJKULvV4QxikofdYvHOcw2YdSuKjqy/Q2boiEmuN3Fw
-         wEJ52G6uyiT7qj7ae/XUn2+Mp5ZKsQOM9Ut9cLtcrwvzmiMgTmbMGPxz6Np0GLPeh+Oq
-         DM3jvDVMujgXxGRlBaR6MryNAKkQfVaxva+n1vEc1RU6oZJwQe+eNXVZZ83ax5NWDEKg
-         8b0Lxznjrrodn0awl0YbILE9UXaNan0xblkDf3vpIsn5cgBU7OZP8NaOPpP6abz8pWGc
-         OsRg==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=om3zp/eBB7bd3SyZnMYGluwrLnTQPWoG0gaUMKQTJn8=;
+        b=JHlFx7j/Lj2F69theoyswQMYYwPOBT9ohiB3zc+aXA0H2WA/XAPSKbPD0Ja115t+E0
+         1ICe5PrXEvRr8Flr8fEKoceG5JeqEsLXwGrRNJBlapQHvtgvPcjsjwJ79eS4h5jsjcJr
+         zOJjHs0kzrw4UuI3T5Bn+hZkB+vm7rpnAd82Sip1DBDV+OgKwF/jmcihlr3enPaHuIfF
+         vP9dwvbkZP7mIiP1zguy5+qraAfNq5qU49tmpCgZq8cpUO12c9pmZdLpSmspNWeyy3B0
+         j81MbOPfEVm3A1yyG0WnqnTwH5eBru4C+O2FfXCuQ6XUy2lFk98c14bkEe1dH66pZEph
+         i9ZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=5WE/4ULejxJxaOafn0jW3J6j1pl7Eb1t48sWBfI5JTE=;
-        b=N5Gj9G85tlgOR64ELErKiM74wvkIOr0v9pJtlZ/83AimIFWXFdAC5BH9L+lrE/ZHK+
-         rS5Dj6wV+KgAY/ijFz6UqZy4FkmO54IWyE93usXGNLTwBOmZ0yNw2pZux7H0oTMlqgF5
-         rb8q1VfTi4JGSlmEsu30YPy6828f3ecBhXmWZr9gkHjfDppAiqnEXi0kY5Y7ErYpiDra
-         Ky2FWy91znyAe2+wTqHjqEiU5iMkGdsQJmcBzwdBiSiyugXVmjptO7ENnzow1/bimN3T
-         OVlvojwE/9xQ9Ocpo+thGSmwD16QcRQmtVXbUogdltNEJ8GFQI/UsSvXr0zHX+7K6ImC
-         LV7Q==
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=om3zp/eBB7bd3SyZnMYGluwrLnTQPWoG0gaUMKQTJn8=;
+        b=S3zlHHw5Wa9YB63Iccsilx0XEgYv1cYPu2lg7DNZilxNLXx+n1QAlr2KFVPXEFsqOT
+         qKhDesR9nCOtEnmeTrzKyId5NPpumNEN2aQ9u7K5sTHuzUbWwl+USurfsnmRlbXIoSdN
+         n6YU5BQ5dlSQ+KYowCFagZRfT0meG//aYSVN1SgedXRbOXgRSX86Ef42LABQurnbNgXj
+         CrSJlFGwB8/pbfkVCVjH+soJnBuoXu4qHSetSSGY5CreQM9/0KQajwrE2JVPOEvlexew
+         XFWeYKSLYnlPs8zkDILmTwgKcKN1VKBAIcZIx3bfMDyjQtTwH4MBg8Vl92ve8wobOcuP
+         RmEg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AGi0PuYTiQn/fLHc0rSsQjMpTfquYFC6+igwM/e2FnVXUJIprKgPRhBh
-	0neAP5VH5N7VRlqu9ASELYA=
-X-Google-Smtp-Source: APiQypJRULjstUE5L8LFTY1IVsuagsLcJQ0nXbfdlnOWzhgHeA9Icpblum9+BGsT9vemFSpAawhswA==
-X-Received: by 2002:aca:53cd:: with SMTP id h196mr12977113oib.104.1588998970888;
-        Fri, 08 May 2020 21:36:10 -0700 (PDT)
+X-Gm-Message-State: AGi0Pub8YOU55haJj1aES9Xkxm/8/1G0BmcPmrca2D1G3EhJWGEfM8d9
+	q+mnF44i+YRGqZGAaTJu8XU=
+X-Google-Smtp-Source: APiQypJdCT+FCxNwGsAwr4hiU4I/O6tTwgRk0P6OhNNMlvGpQzOYsYH4N7B74Do9sig5wC6Nlxestw==
+X-Received: by 2002:adf:9447:: with SMTP id 65mr6901669wrq.331.1589005046028;
+        Fri, 08 May 2020 23:17:26 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aca:5390:: with SMTP id h138ls2788042oib.4.gmail; Fri, 08
- May 2020 21:36:10 -0700 (PDT)
-X-Received: by 2002:aca:b389:: with SMTP id c131mr9661915oif.154.1588998970328;
-        Fri, 08 May 2020 21:36:10 -0700 (PDT)
-Date: Fri, 8 May 2020 21:36:09 -0700 (PDT)
-From: Chung-Fan Yang <sonic.tw.tp@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <7b537982-4415-44ba-a538-ffb599634633@googlegroups.com>
-In-Reply-To: <39160e6e-2bba-a46a-5bc3-18595ec872a7@siemens.com>
+Received: by 2002:a1c:4088:: with SMTP id n130ls23204457wma.2.canary-gmail;
+ Fri, 08 May 2020 23:17:25 -0700 (PDT)
+X-Received: by 2002:a1c:acc8:: with SMTP id v191mr13586817wme.128.1589005045464;
+        Fri, 08 May 2020 23:17:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1589005045; cv=none;
+        d=google.com; s=arc-20160816;
+        b=dnyFQBOL2a6jOReYhvMpc5UeWhyB3UY3dB5INxmyloe09VlkH9npJqCo9yjYEF8fIc
+         m7/cZh8qdmbvdIjANQ0AuLkhYIAdjQwSKrMH6PgGYlrV2LHxsZiXE3w0/2hI5izwE/dw
+         ukRTpAWbRo3oQ+Rs3Jn7Z2pXyIRRrj4LasfmxzWSSnRESNG11Z6fqFFbe+GryINpfoBt
+         9QaNfX3cn8qlEgnh/lsUK0ojmr1szOh/tKJg7O97ySr20jHY4x84ahHjNQ2Daj4FYYD5
+         +2dMQkkx8YIUzSe6wf07Sh/V5jEM05A9gsDbzvWm/lE1jdPuv0fw7bQPbD1tlGvMZI24
+         m8Yw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject
+         :dkim-signature;
+        bh=wT+Y4wigyO/csvHms1VwlqIToPXHKWhUyZ0x1XsyIso=;
+        b=0HeR5/xffrrIfYk5HSNErnuALAfIes0LL+OrJeOPInrVlMUBIrlIIvjK5gBxEBeiMK
+         UXQLyrpxB3M+7kWCBQafFFo3xApvaJ5ZTq3Czmpc7bTvua1h/R39TsEkekKkkXLmkZvz
+         bqthrdCz41FsdZObHBATSyBJKGZtBv12/nHDI5OHmwsLXvGI5BLV86sPFi0XXBqDR2Bb
+         D1iFTOatN+EcVvVBOaxJUoJmI/WXDXAfwW5aL32jeh+i1ImYKh/aYA7TQQo8dh4VLzSr
+         5rSKI7rezb7qYu3d9iB/dM1/HA0mF07/9O7AifDWUala1xQvoDWG+eOmUX4Zwo6RhXiC
+         9slg==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=iyOblAFm;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Received: from mout.web.de (mout.web.de. [212.227.17.11])
+        by gmr-mx.google.com with ESMTPS id s22si684598wme.0.2020.05.08.23.17.25
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 08 May 2020 23:17:25 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) client-ip=212.227.17.11;
+X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
+Received: from [192.168.1.10] ([95.157.53.180]) by smtp.web.de (mrweb103
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 0MIN2h-1jY7cB1z0Z-004Anj; Sat, 09
+ May 2020 08:17:24 +0200
+Subject: Re: Ivshmem-2 driver for x86_64 root Linux
+To: Chung-Fan Yang <sonic.tw.tp@gmail.com>,
+ Jailhouse <jailhouse-dev@googlegroups.com>
 References: <0fabe986-8e7d-4905-89af-75ec7e4d20ff@googlegroups.com>
  <39160e6e-2bba-a46a-5bc3-18595ec872a7@siemens.com>
-Subject: Re: Ivshmem-2 driver for x86_64 root Linux
+ <7b537982-4415-44ba-a538-ffb599634633@googlegroups.com>
+From: Jan Kiszka <jan.kiszka@web.de>
+Message-ID: <68305c01-2b0c-182a-d92f-ef5ec9ecc205@web.de>
+Date: Sat, 9 May 2020 08:17:23 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_750_1967401498.1588998969823"
-X-Original-Sender: Sonic.tw.tp@gmail.com
+In-Reply-To: <7b537982-4415-44ba-a538-ffb599634633@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:5CkNxMYZAU2UbiZdrXe78H7u/Yh3Jn9LVEKGSYXqn/1tOOfEGWc
+ zbAYCPSaWBm5F/9rTF3WqJ37HPgUMDDbeQrec/qyOg4IBPc9MD/zeMr/7ZLuq4Ft2sWnMbl
+ pmc9MhObx3s6Ro/PwNP4fKq4dTE3QOTvszeg1qBebGwrJ23bSDHTzZwC0VujW96h1nSrC8M
+ qVdfYAVzTR7oHR0HJU95w==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:CCw+EAnPHzk=:3jtKFL5PtbyiKf+196Vsta
+ NV8NiaqcWSHJx224QpBoEcimT1nVDnFZvXZY6b7D04aA5mtchBQerhH0KjverDhGYsRZm67w4
+ vMWDJKrqsfN52SOu/6T8+aIJ8Svz2TnEoRt6fG3md1lHKs5Gv/2NQ2GPa4KAVvzn+xXzQaXu1
+ stuVnCvyfiIipK0Do6XZVI04CqjZsdtQi8zwGlmJisG90w1+P+7oKRpRLagIESA52ig28Kolz
+ 6V4rDcOmt/bUDcBx4uHvYbqeByMPXw9zzKhsuiZ4w/qvnDM58WfhcBWOq0nuQ3NymUtoLfBLc
+ jYRE82OiMHkIZ+dPsOOOBi0IhnMNHj8FeUrw6jNGEcgPUH8OIdrBheNIiTFoZySw2nZw7VZxU
+ ccByapWjSPTR3leUvJDmkNKDD6zPJSUGBe+zxpzw9qACjc5fRwhxqLZMXYzN7wYXYQ2cxUDwM
+ aW3aiKwptIhYgFqw4n8wx2sWt9+kEhcKlYqD1mKKa5RoD2D1dUheAiy6yx4fEe5QF9Vb4xPkV
+ REg/Xl3MAk4LBxKDFJQFj1v9FhgG40D89CHYY/zg11c/VOsQZvB0+zrtGEORIZa8OErgqXhkB
+ rRVgla+vi9O/tOWzDdc815Jsd2BmjD2KWcyB9t+aJDuRLUhF48k+FqAyWB+PfcXrqBLppQh6x
+ G1JCsqrvh03mlq715Dtl1AjOIOT/TDDfoFULQLdA69mAfEyCBtYClJrk0CO5tJxXrTwp0g413
+ haU0vFhPsEzGnLfVw9lKSD5WOryxEj2cqKEB/+HwaCcABXlx/1vFjwi1PnGpo0dJtQZinQvND
+ Z7mjS2cqHFtWvMhcGbjHrKdfD2HcVh8Bc0X8n+9eEXWTgLjOeK4Rp4IjKghhfBEQ5IAYuAHJr
+ K7/anMTON55IzuL5S94hYfUrSBEdnpsK0kT0b1ajo4KYP4bC9c0K2iRFC+8EUf298e4GfufQj
+ M6OaD3fhX1rVzowqTsFUOf/FVthLavFPDLXwrx5RKYaCwQeUmJ9RTHjDSgkjupvBbBwa9uL0x
+ YgpBzqVLo4eyXVgYGGCgLytjKbexiHl3UVyP0NpOpeaSN0k1ROCsOyaOz2Df+EHtMmreOjE3Z
+ EBDNiDf3rPKLxiUdZH0igj5NPSRpJcinIenJuRehmww5bALKOvez+p46nkB7iw2Ou7ifnax4e
+ yvl/YFqfKMucQ6M2sPwJToE6AA9X+MWclIYL76FlkSlSoAGoIirAwM0XFkrUVzL0AUF58+zry
+ vV3LhoZxCsGYGFjdD
+X-Original-Sender: jan.kiszka@web.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@web.de header.s=dbaedf251592 header.b=iyOblAFm;       spf=pass
+ (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as
+ permitted sender) smtp.mailfrom=jan.kiszka@web.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -78,124 +158,63 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_750_1967401498.1588998969823
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_751_1439441696.1588998969823"
-
-------=_Part_751_1439441696.1588998969823
-Content-Type: text/plain; charset="UTF-8"
-
-
-
-> > 
-> > I am curious that besides of the special ivshmem2 driver and patches to 
-> > uio, are there any other significant changes to the kernel source? 
-> > 
+On 09.05.20 06:36, Chung-Fan Yang wrote:
 >
-> You can check the commits: 
->   - uio ivshmem driver 
->   - ivshmem-net driver (lots of commits in queues/jailhouse, folded in 
->     stable) 
->   - virtio-over-ivshmem (experimental, only in queues/jailhouse so far) 
->   - driver for debug console (only relevant for bring-ups) 
->   - some export-symbols, not needed with kallsyms workaround (as long as 
->     that works) 
->   - some dts changes for marvell arm64 boards 
+>      >
+>      > I am curious that besides of the special ivshmem2 driver and
+>     patches to
+>      > uio, are there any other significant changes to the kernel source?
+>      >
 >
-> > Because I am using stock 4.19 with PREEMPT_RT, i can run Nuttx and it 
-> > works like a charm without any noticeable bugs. 
-> > 
+>     You can check the commits:
+>      =C2=A0 - uio ivshmem driver
+>      =C2=A0 - ivshmem-net driver (lots of commits in queues/jailhouse, fo=
+lded in
+>      =C2=A0 =C2=A0 stable)
+>      =C2=A0 - virtio-over-ivshmem (experimental, only in queues/jailhouse=
+ so
+>     far)
+>      =C2=A0 - driver for debug console (only relevant for bring-ups)
+>      =C2=A0 - some export-symbols, not needed with kallsyms workaround (a=
+s
+>     long as
+>      =C2=A0 =C2=A0 that works)
+>      =C2=A0 - some dts changes for marvell arm64 boards
 >
-> It depends on the use case what would be missing, but things generally 
-> work. At least booting. 
+>      > Because I am using stock 4.19 with PREEMPT_RT, i can run Nuttx
+>     and it
+>      > works like a charm without any noticeable bugs.
+>      >
+>
+>     It depends on the use case what would be missing, but things generall=
+y
+>     work. At least booting.
 >
 >
-Thanks for the information.
+> Thanks for the information.
+>
+> Now I know how to port my old modified ivshmem driver now.
+>
+> I am on x86_64 so I think I am good using the stock kernel with
+> separately compiled driver.
+>
+> One more question,
+>
+> As long as my user-space program don't write to the readonly region and
+> trigger a fault in the hypervisor.
+>
+> Without the uio readonly patch, things should work correctly, yes?
+>
 
-Now I know how to port my old modified ivshmem driver now.
+Yes, provided you modify the uio_ivshmem driver to not make use to the
+readonly flag.
 
-I am on x86_64 so I think I am good using the stock kernel with separately 
-compiled driver.
+Jan
 
-One more question, 
-
-As long as my user-space program don't write to the readonly region and 
-trigger a fault in the hypervisor.
-
-Without the uio readonly patch, things should work correctly, yes?
-
-Thanks, 
-
-Yang
-
-
-
-
- 
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/7b537982-4415-44ba-a538-ffb599634633%40googlegroups.com.
-
-------=_Part_751_1439441696.1588998969823
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<br><blockquote class=3D"gmail_quote" style=3D"margin: 0;margin-left: 0.8ex=
-;border-left: 1px #ccc solid;padding-left: 1ex;">&gt;=20
-<br>&gt; I am curious that besides of the special ivshmem2 driver and patch=
-es to=20
-<br>&gt; uio, are there any other significant changes to the kernel source?
-<br>&gt;=20
-<br>
-<br>You can check the commits:
-<br>=C2=A0 - uio ivshmem driver
-<br>=C2=A0 - ivshmem-net driver (lots of commits in queues/jailhouse, folde=
-d in
-<br>=C2=A0 =C2=A0 stable)
-<br>=C2=A0 - virtio-over-ivshmem (experimental, only in queues/jailhouse so=
- far)
-<br>=C2=A0 - driver for debug console (only relevant for bring-ups)
-<br>=C2=A0 - some export-symbols, not needed with kallsyms workaround (as l=
-ong as
-<br>=C2=A0 =C2=A0 that works)
-<br>=C2=A0 - some dts changes for marvell arm64 boards
-<br>
-<br>&gt; Because I am using stock 4.19 with PREEMPT_RT, i can run Nuttx and=
- it=20
-<br>&gt; works like a charm without any noticeable bugs.
-<br>&gt;=20
-<br>
-<br>It depends on the use case what would be missing, but things generally=
-=20
-<br>work. At least booting.
-<br>
-<br></blockquote><div><br></div><div>Thanks for the information.</div><div>=
-<br></div><div>Now I know how to port my old modified ivshmem driver now.<b=
-r></div><div><br></div><div>I am on x86_64 so I think I am good using the s=
-tock kernel with separately compiled driver.</div><div><br></div><div>One m=
-ore question, <br></div><div><br></div><div><div>As long as my user-space p=
-rogram don&#39;t write to the readonly region and trigger a fault in the hy=
-pervisor.</div></div><div><br></div><div>Without the uio readonly patch, th=
-ings should work correctly, yes?</div><div><br></div><div>Thanks, <br></div=
-><div><br></div><div>Yang<br></div><div><br></div><div><br></div><div><br><=
-/div><div><br></div><div>=C2=A0</div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/7b537982-4415-44ba-a538-ffb599634633%40googlegroup=
-s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
-sgid/jailhouse-dev/7b537982-4415-44ba-a538-ffb599634633%40googlegroups.com<=
-/a>.<br />
-
-------=_Part_751_1439441696.1588998969823--
-
-------=_Part_750_1967401498.1588998969823--
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/68305c01-2b0c-182a-d92f-ef5ec9ecc205%40web.de.
