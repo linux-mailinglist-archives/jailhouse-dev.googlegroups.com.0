@@ -1,151 +1,72 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBB5MV3H2QKGQEO3GGJKI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDH5LQU54QDBB5X23P2QKGQEFMWYTWA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x440.google.com (mail-wr1-x440.google.com [IPv6:2a00:1450:4864:20::440])
-	by mail.lfdr.de (Postfix) with ESMTPS id 521651CBE08
-	for <lists+jailhouse-dev@lfdr.de>; Sat,  9 May 2020 08:17:26 +0200 (CEST)
-Received: by mail-wr1-x440.google.com with SMTP id r11sf1945992wrx.21
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 08 May 2020 23:17:26 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1589005046; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=D09cyCrre8Nw9Ejp5DBvFqjSFyQ+hK/F4vZyo09sf2eaDYNIqzGBU6JVmsP3rWkD9s
-         sS17SszWLG2bGF2QrVmdM0gDhkoZKWu95UjE0aM2H9rRhcAj6bthVlQHMlAqvlaLKyxn
-         /xgSvfWRGRmfWZseQbJ0UIKRRw5wG2queqy29rb6135Wah456Ygj6VW2WgLICNaxZ+Ss
-         2FdfQkxYRTliwsj+CGD3TbXmEJqCKJrBNOLQ4GNT8GfjigY4nvDilvKoG9hXNc3DsA8X
-         ltA2jsmvuLl/DE5qxybLXXbkiUO/XiF4/8iju13yc3jLNRAAy+JQOEqChMSg0Jh/HUY9
-         MLSw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=om3zp/eBB7bd3SyZnMYGluwrLnTQPWoG0gaUMKQTJn8=;
-        b=GOmrcu2hLC9x9Pg1KtcN5P3+LonTER4wgRqCbujaX33TUr/ubNrXbFXtEeiWCsb+xm
-         EaU9bv3ZBpc6Mh26wXkmY1EdwXw1YmxQ/A1/GOYE27KkA3GgSq1Y8rhjwZP61tKXLVms
-         1OVrwSb++vapCQvlS2Q9/QIcx4R2w7LKO7ve5KQmcXpC7txVU5pF/Y+LdqzuFL+pi11F
-         U5KgH6fweRr/MPN+dQp+8Mswaqa0xkFa8eXWxTxr16CDk4GyvuEuGCjbRXYPesDN58fI
-         a0QHiPmY0qxJ9CQjOJLYqWFjCn4+/88KI0w3/VDEN8VSh9iG64mK10oaX2I43BY5iV0I
-         K0ug==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=iyOblAFm;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Received: from mail-oo1-xc39.google.com (mail-oo1-xc39.google.com [IPv6:2607:f8b0:4864:20::c39])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ECB61CC3D5
+	for <lists+jailhouse-dev@lfdr.de>; Sat,  9 May 2020 20:59:04 +0200 (CEST)
+Received: by mail-oo1-xc39.google.com with SMTP id l4sf3816587oog.15
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 09 May 2020 11:59:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=om3zp/eBB7bd3SyZnMYGluwrLnTQPWoG0gaUMKQTJn8=;
-        b=JHlFx7j/Lj2F69theoyswQMYYwPOBT9ohiB3zc+aXA0H2WA/XAPSKbPD0Ja115t+E0
-         1ICe5PrXEvRr8Flr8fEKoceG5JeqEsLXwGrRNJBlapQHvtgvPcjsjwJ79eS4h5jsjcJr
-         zOJjHs0kzrw4UuI3T5Bn+hZkB+vm7rpnAd82Sip1DBDV+OgKwF/jmcihlr3enPaHuIfF
-         vP9dwvbkZP7mIiP1zguy5+qraAfNq5qU49tmpCgZq8cpUO12c9pmZdLpSmspNWeyy3B0
-         j81MbOPfEVm3A1yyG0WnqnTwH5eBru4C+O2FfXCuQ6XUy2lFk98c14bkEe1dH66pZEph
-         i9ZA==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=3UqsY9LHEYbZC3Cdb4Zg6VdTFGjPDR5kI/+iNxCKbaE=;
+        b=hMQZa05vNZFuTxViTm308THegpQlsWCvUazfGE3msFVSMs+k75DGI8y6vsjoNZID7j
+         Z2jqLQNbS5dP/aQmaJHNrUdSBT58QN1Bei8EMr6P7N1JVPBMlHQxAhLUaU+0MC/kwnoh
+         VqPX19PwKL2DwFut2LPSttaiUCeGRICxIX7VwPM2bGZagyN/7xWdkRSXoGpi14mbqCX4
+         1ZsfMWT0AG3QdQrHB+HrfdF6ykOxSUADitsbQfY8P1B3h+wMMCz8axno3yCk/lSWyWMh
+         bPVDDA9Tm2O02MbgK1FXCzkHEGCzDhiEid9NB7FlB2T82AUstGIc3HPkLAPslA2mq4u9
+         tP1Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=3UqsY9LHEYbZC3Cdb4Zg6VdTFGjPDR5kI/+iNxCKbaE=;
+        b=DUcVLlCk7uF09UbAVv7o9xQayaw4gdn/t4ZhIpY/Dltr8LBLMp6/r7dtjK3D00t8M2
+         RD5jG+i35qRcYuaHIJhVVPnUuAUTjGcipqTuL/Pul2p61Njyil82Q6YKaySLTIN5KKzr
+         SIEPulhZKZ5t1U5UcMBYD9cIBxmgYgQIVNMTueSSE9E8Rt6YXA7TYSGzqxigEzEx0reU
+         H7zM6qsfIfsUsmbmueJwaTJdvHFw/lvFYXDgiDb5L/SfV2FYoG5+2xS4ui5b8rGqSLsU
+         0rhkUOU8pvGrzCfGee8OO4hVf7ch+31LPUnIbOp7jGkrg5quvXurA+EulTGKiQ3koVb+
+         U9Zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=om3zp/eBB7bd3SyZnMYGluwrLnTQPWoG0gaUMKQTJn8=;
-        b=S3zlHHw5Wa9YB63Iccsilx0XEgYv1cYPu2lg7DNZilxNLXx+n1QAlr2KFVPXEFsqOT
-         qKhDesR9nCOtEnmeTrzKyId5NPpumNEN2aQ9u7K5sTHuzUbWwl+USurfsnmRlbXIoSdN
-         n6YU5BQ5dlSQ+KYowCFagZRfT0meG//aYSVN1SgedXRbOXgRSX86Ef42LABQurnbNgXj
-         CrSJlFGwB8/pbfkVCVjH+soJnBuoXu4qHSetSSGY5CreQM9/0KQajwrE2JVPOEvlexew
-         XFWeYKSLYnlPs8zkDILmTwgKcKN1VKBAIcZIx3bfMDyjQtTwH4MBg8Vl92ve8wobOcuP
-         RmEg==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=3UqsY9LHEYbZC3Cdb4Zg6VdTFGjPDR5kI/+iNxCKbaE=;
+        b=DN89S2w4K5LKYPaZDqzdGHPqBtGdRaJwPvtQ1eW1+E+usLYekSGNfjwIdI2SMUNMQt
+         gmArgH8JvMxGgS0d1iPxLHYwB7T0dihEBdf6SUhAXZysi43YIv7AGFpcODRZIYUmUtms
+         Ig6Iol918qw3XR3bIvjcVAquIDXkErkSS4cPbnhEHOxH44kiArzOm20IDvHlAtVhxJjZ
+         HGs+BAs3hl1JrZhAZQVyu25I1sYUjaNArt/OcoCt/KgqfHclCp2vX+beFRauccegfQ0c
+         D+huHCv/h3zdvXHUjzToy8NRM4zA+9UfTk1TpPtPD9MHR5CK0IVzfs6j81J6abcIA/0S
+         41yA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AGi0Pub8YOU55haJj1aES9Xkxm/8/1G0BmcPmrca2D1G3EhJWGEfM8d9
-	q+mnF44i+YRGqZGAaTJu8XU=
-X-Google-Smtp-Source: APiQypJdCT+FCxNwGsAwr4hiU4I/O6tTwgRk0P6OhNNMlvGpQzOYsYH4N7B74Do9sig5wC6Nlxestw==
-X-Received: by 2002:adf:9447:: with SMTP id 65mr6901669wrq.331.1589005046028;
-        Fri, 08 May 2020 23:17:26 -0700 (PDT)
+X-Gm-Message-State: AGi0PuauDdxCwsvfHhfJgDz3SRFzDS7SpjiiO4TnvKPdGn19Xy+5Lpje
+	YSNNO7ShwnKO6zF0zyYIGRQ=
+X-Google-Smtp-Source: APiQypIbo1fJVu7nI+PB2A6rRi+yO7pBjvYNr8chjTr06N9pGyl/sZHJ7S+E7lHz6Zbm5uALZwJW3g==
+X-Received: by 2002:a05:6830:1290:: with SMTP id z16mr7161875otp.78.1589050742681;
+        Sat, 09 May 2020 11:59:02 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:4088:: with SMTP id n130ls23204457wma.2.canary-gmail;
- Fri, 08 May 2020 23:17:25 -0700 (PDT)
-X-Received: by 2002:a1c:acc8:: with SMTP id v191mr13586817wme.128.1589005045464;
-        Fri, 08 May 2020 23:17:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1589005045; cv=none;
-        d=google.com; s=arc-20160816;
-        b=dnyFQBOL2a6jOReYhvMpc5UeWhyB3UY3dB5INxmyloe09VlkH9npJqCo9yjYEF8fIc
-         m7/cZh8qdmbvdIjANQ0AuLkhYIAdjQwSKrMH6PgGYlrV2LHxsZiXE3w0/2hI5izwE/dw
-         ukRTpAWbRo3oQ+Rs3Jn7Z2pXyIRRrj4LasfmxzWSSnRESNG11Z6fqFFbe+GryINpfoBt
-         9QaNfX3cn8qlEgnh/lsUK0ojmr1szOh/tKJg7O97ySr20jHY4x84ahHjNQ2Daj4FYYD5
-         +2dMQkkx8YIUzSe6wf07Sh/V5jEM05A9gsDbzvWm/lE1jdPuv0fw7bQPbD1tlGvMZI24
-         m8Yw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject
-         :dkim-signature;
-        bh=wT+Y4wigyO/csvHms1VwlqIToPXHKWhUyZ0x1XsyIso=;
-        b=0HeR5/xffrrIfYk5HSNErnuALAfIes0LL+OrJeOPInrVlMUBIrlIIvjK5gBxEBeiMK
-         UXQLyrpxB3M+7kWCBQafFFo3xApvaJ5ZTq3Czmpc7bTvua1h/R39TsEkekKkkXLmkZvz
-         bqthrdCz41FsdZObHBATSyBJKGZtBv12/nHDI5OHmwsLXvGI5BLV86sPFi0XXBqDR2Bb
-         D1iFTOatN+EcVvVBOaxJUoJmI/WXDXAfwW5aL32jeh+i1ImYKh/aYA7TQQo8dh4VLzSr
-         5rSKI7rezb7qYu3d9iB/dM1/HA0mF07/9O7AifDWUala1xQvoDWG+eOmUX4Zwo6RhXiC
-         9slg==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=iyOblAFm;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
-Received: from mout.web.de (mout.web.de. [212.227.17.11])
-        by gmr-mx.google.com with ESMTPS id s22si684598wme.0.2020.05.08.23.17.25
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 08 May 2020 23:17:25 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) client-ip=212.227.17.11;
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.1.10] ([95.157.53.180]) by smtp.web.de (mrweb103
- [213.165.67.124]) with ESMTPSA (Nemesis) id 0MIN2h-1jY7cB1z0Z-004Anj; Sat, 09
- May 2020 08:17:24 +0200
-Subject: Re: Ivshmem-2 driver for x86_64 root Linux
-To: Chung-Fan Yang <sonic.tw.tp@gmail.com>,
- Jailhouse <jailhouse-dev@googlegroups.com>
-References: <0fabe986-8e7d-4905-89af-75ec7e4d20ff@googlegroups.com>
- <39160e6e-2bba-a46a-5bc3-18595ec872a7@siemens.com>
- <7b537982-4415-44ba-a538-ffb599634633@googlegroups.com>
-From: Jan Kiszka <jan.kiszka@web.de>
-Message-ID: <68305c01-2b0c-182a-d92f-ef5ec9ecc205@web.de>
-Date: Sat, 9 May 2020 08:17:23 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+Received: by 2002:a9d:72d1:: with SMTP id d17ls1191788otk.0.gmail; Sat, 09 May
+ 2020 11:59:02 -0700 (PDT)
+X-Received: by 2002:a9d:6d8e:: with SMTP id x14mr7130741otp.156.1589050741936;
+        Sat, 09 May 2020 11:59:01 -0700 (PDT)
+Date: Sat, 9 May 2020 11:59:01 -0700 (PDT)
+From: Luigi De Simone <luigi.desimone3@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <db06189c-4bfc-4559-8052-9782f06d94e3@googlegroups.com>
+In-Reply-To: <fc9db7b7-1804-d4ef-e37d-d5d8198c8278@web.de>
+References: <e5934ccb-97ba-49f5-bf43-d47b2763f4b4@googlegroups.com>
+ <fc9db7b7-1804-d4ef-e37d-d5d8198c8278@web.de>
+Subject: Re: Problem with setup on Banana Pi BPI-M1 ARM board - jailhouse
+ enable bananapi.cell crash
 MIME-Version: 1.0
-In-Reply-To: <7b537982-4415-44ba-a538-ffb599634633@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:5CkNxMYZAU2UbiZdrXe78H7u/Yh3Jn9LVEKGSYXqn/1tOOfEGWc
- zbAYCPSaWBm5F/9rTF3WqJ37HPgUMDDbeQrec/qyOg4IBPc9MD/zeMr/7ZLuq4Ft2sWnMbl
- pmc9MhObx3s6Ro/PwNP4fKq4dTE3QOTvszeg1qBebGwrJ23bSDHTzZwC0VujW96h1nSrC8M
- qVdfYAVzTR7oHR0HJU95w==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:CCw+EAnPHzk=:3jtKFL5PtbyiKf+196Vsta
- NV8NiaqcWSHJx224QpBoEcimT1nVDnFZvXZY6b7D04aA5mtchBQerhH0KjverDhGYsRZm67w4
- vMWDJKrqsfN52SOu/6T8+aIJ8Svz2TnEoRt6fG3md1lHKs5Gv/2NQ2GPa4KAVvzn+xXzQaXu1
- stuVnCvyfiIipK0Do6XZVI04CqjZsdtQi8zwGlmJisG90w1+P+7oKRpRLagIESA52ig28Kolz
- 6V4rDcOmt/bUDcBx4uHvYbqeByMPXw9zzKhsuiZ4w/qvnDM58WfhcBWOq0nuQ3NymUtoLfBLc
- jYRE82OiMHkIZ+dPsOOOBi0IhnMNHj8FeUrw6jNGEcgPUH8OIdrBheNIiTFoZySw2nZw7VZxU
- ccByapWjSPTR3leUvJDmkNKDD6zPJSUGBe+zxpzw9qACjc5fRwhxqLZMXYzN7wYXYQ2cxUDwM
- aW3aiKwptIhYgFqw4n8wx2sWt9+kEhcKlYqD1mKKa5RoD2D1dUheAiy6yx4fEe5QF9Vb4xPkV
- REg/Xl3MAk4LBxKDFJQFj1v9FhgG40D89CHYY/zg11c/VOsQZvB0+zrtGEORIZa8OErgqXhkB
- rRVgla+vi9O/tOWzDdc815Jsd2BmjD2KWcyB9t+aJDuRLUhF48k+FqAyWB+PfcXrqBLppQh6x
- G1JCsqrvh03mlq715Dtl1AjOIOT/TDDfoFULQLdA69mAfEyCBtYClJrk0CO5tJxXrTwp0g413
- haU0vFhPsEzGnLfVw9lKSD5WOryxEj2cqKEB/+HwaCcABXlx/1vFjwi1PnGpo0dJtQZinQvND
- Z7mjS2cqHFtWvMhcGbjHrKdfD2HcVh8Bc0X8n+9eEXWTgLjOeK4Rp4IjKghhfBEQ5IAYuAHJr
- K7/anMTON55IzuL5S94hYfUrSBEdnpsK0kT0b1ajo4KYP4bC9c0K2iRFC+8EUf298e4GfufQj
- M6OaD3fhX1rVzowqTsFUOf/FVthLavFPDLXwrx5RKYaCwQeUmJ9RTHjDSgkjupvBbBwa9uL0x
- YgpBzqVLo4eyXVgYGGCgLytjKbexiHl3UVyP0NpOpeaSN0k1ROCsOyaOz2Df+EHtMmreOjE3Z
- EBDNiDf3rPKLxiUdZH0igj5NPSRpJcinIenJuRehmww5bALKOvez+p46nkB7iw2Ou7ifnax4e
- yvl/YFqfKMucQ6M2sPwJToE6AA9X+MWclIYL76FlkSlSoAGoIirAwM0XFkrUVzL0AUF58+zry
- vV3LhoZxCsGYGFjdD
-X-Original-Sender: jan.kiszka@web.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b=iyOblAFm;       spf=pass
- (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as
- permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_952_1634832213.1589050741305"
+X-Original-Sender: luigi.desimone3@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -158,58 +79,138 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 09.05.20 06:36, Chung-Fan Yang wrote:
->
->      >
->      > I am curious that besides of the special ivshmem2 driver and
->     patches to
->      > uio, are there any other significant changes to the kernel source?
->      >
->
->     You can check the commits:
->      =C2=A0 - uio ivshmem driver
->      =C2=A0 - ivshmem-net driver (lots of commits in queues/jailhouse, fo=
-lded in
->      =C2=A0 =C2=A0 stable)
->      =C2=A0 - virtio-over-ivshmem (experimental, only in queues/jailhouse=
- so
->     far)
->      =C2=A0 - driver for debug console (only relevant for bring-ups)
->      =C2=A0 - some export-symbols, not needed with kallsyms workaround (a=
-s
->     long as
->      =C2=A0 =C2=A0 that works)
->      =C2=A0 - some dts changes for marvell arm64 boards
->
->      > Because I am using stock 4.19 with PREEMPT_RT, i can run Nuttx
->     and it
->      > works like a charm without any noticeable bugs.
->      >
->
->     It depends on the use case what would be missing, but things generall=
-y
->     work. At least booting.
->
->
-> Thanks for the information.
->
-> Now I know how to port my old modified ivshmem driver now.
->
-> I am on x86_64 so I think I am good using the stock kernel with
-> separately compiled driver.
->
-> One more question,
->
-> As long as my user-space program don't write to the readonly region and
-> trigger a fault in the hypervisor.
->
-> Without the uio readonly patch, things should work correctly, yes?
->
+------=_Part_952_1634832213.1589050741305
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_953_1013894369.1589050741307"
 
-Yes, provided you modify the uio_ivshmem driver to not make use to the
-readonly flag.
+------=_Part_953_1013894369.1589050741307
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Jan
+Thanks Jan for your time.
+I've tried to go back to v0.9 Jailhouse and FreeRTOS cell commit=20
+effb194d911971c6065e37bfeb8d49b12d4dd212 (more or less the same date of=20
+Jailhouse)
+The kernel version is still 4.3.3
+Run these commands:
+
+root@banana1 ~ # jailhouse enable jailhouse/configs/arm/bananapi.cell
+root@banana1 ~ # jailhouse cell create=20
+jailhouse/configs/arm/bananapi-freertos-demo.cell
+
+The output:
+
+Initializing Jailhouse hypervisor v0.9 (0-g1e780089-dirty) on CPU 0
+Code location: 0xf0000040
+Page pool usage after early setup: mem 54/16359, remap 32/131072
+Initializing processors:
+ CPU 0... OK
+ CPU 1... OK
+Initializing unit: irqchip
+Initializing unit: PCI
+Adding virtual PCI device 00:00.0 to cell "Banana-Pi"
+Page pool usage after late setup: mem 57/16359, remap 37/131072
+Activating hypervisor
+[   36.540575] The Jailhouse is opening.
+[   44.652929] CPU1: shutdown
+Created cell "FreeRTOS"
+Page pool usage after cell creation: mem 65/16359, remap 37/131072
+[   44.664523] Created Jailhouse cell "FreeRTOS"
+Unhandled data read at 0x1c2090c(4)
+FATAL: unhandled trap (exception class 0x24)
+pc=3D0xc02bbbc4 cpsr=3D0x600f0193 hsr=3D0x93840007
+r0=3D0x400f0113 r1=3D0x00000111 r2=3D0x00000111 r3=3D0xdf89c90c
+r4=3D0x00000001 r5=3D0x00000018 r6=3D0x0000010c r7=3D0xde3317bc
+r8=3D0xde331790 r9=3D0x400f0113 r10=3D0x00000001 r11=3D0xc07e5d64
+r12=3D0x00000000 r13=3D0xc07e5d38 r14=3D0xc02bbbb8
+Parking CPU 0 (Cell: "Banana-Pi")
+
+
+Is it possible to be some problem related to kernel *.config *?
+
+Il giorno venerd=C3=AC 8 maggio 2020 20:45:40 UTC+2, Jan Kiszka ha scritto:
+>
+> On 08.05.20 19:19, Luigi De Simone wrote:=20
+> > Hi all,=20
+> >=20
+> > I really need your help about finding out a solution with FreeRTOS=20
+> > BananPI demo. My board model is BPI-M1=20
+> > I've followed exactly the guide at=20
+> >=20
+> https://github.com/siemens/jailhouse/blob/master/Documentation/setup-on-b=
+anana-pi-arm-board.md=20
+> > with a kernel=20
+> > Only one deviation is about command:=20
+> >=20
+> > |=20
+> > cp -av ~/jailhouse/ci/jailhouse-config-banana-pi.h=20
+> > ~/jailhouse/include/jailhouse/config.h=20
+> > |=20
+> >=20
+> > because *jailhouse-config-banana-pi.h *does**not exist anymore in the=
+=20
+> > repo (I don't know if it is a refuse from refactoring).=20
+> > What I've done is to create a config.h file like this:=20
+> >=20
+> > |=20
+> > #defineCONFIG_TRACE_ERROR 1=20
+> > #defineCONFIG_CRASH_CELL_ON_PANIC 1=20
+> > #defineCONFIG_TEST_DEVICE 1=20
+> > #defineCONFIG_ARM_GIC 1=20
+> > #defineCONFIG_MACH_SUN7I 1=20
+> > #defineCONFIG_SERIAL_8250_DW 1=20
+> > |=20
+> >=20
+> > according to old *jailhouse-config-banana-pi.h *file.=20
+>
+> Most of these are nops by now, and the rest is not needed for a working=
+=20
+> setup.=20
+>
+> > Anyway, once booted the board and try to run command:=20
+> > |=20
+> > jailhouse enable jailhouse/configs/arm/bananapi.cell=20
+> > |=20
+> >=20
+> > The board stall, and the output is:=20
+> >=20
+> > |=20
+> > InitializingJailhousehypervisor v0.12(35-g2e4d71f6-dirty)on CPU 0=20
+> > Codelocation:0xf0000040=20
+> > Pagepool usage after early setup:mem 56/16359,remap 0/131072=20
+> > Initializingprocessors:=20
+> >   CPU 0...UnhandledHYP data abort exitat 0xf0005b10=20
+> > r0:0x7c01b000 r1:0x7c00e000 r2:0x00001fff r3:0x00000000=20
+> > r4:0x00001000 r5:0xf0010090 r6:0x7c00e000 r7:0x00000000=20
+> > r8:0x7c0037a0 r9:0x7c000000 r10:0x00000000 r11:0x7c01b000=20
+> > r12:0xc3ff7000 r13:0xf0003ce4=20
+> > Physicaladdress:0x7c01b004HSR:0x94000007=20
+> > StoppingCPU 0(Cell:"Banana-Pi")=20
+> > |=20
+> >=20
+> > What is wrong?=20
+>
+> I didn't test on the BananaPi M1 for a longer while (and my board is out=
+=20
+> of reach the next days). We may have regressed with its configuration=20
+> over refactorings in the past releases. You could try by rolling=20
+> Jailhouse back to version around the time when the doc was once written,=
+=20
+> then bisect forward to find out the breaking change.=20
+>
+> Another option is jailhouse-images: We generate a known-to-work image=20
+> for the OrangePi Zero, which is technically not that far away from the=20
+> BananaPi. You could use that as baseline, adjusting bootloader and=20
+> kernel config, and then try with recent Jailhouse again.=20
+>
+> Or you did into the fault above: "arm-linux-gnueabihf-objdump -dS=20
+> hypervisor/hypervisor.o" gives the disassembly of the hypervisor core=20
+> and could be matched with the faulting PC (0xf0005b10). That would be a=
+=20
+> first hint on what fails.=20
+>
+> Jan=20
+>
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -217,4 +218,342 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/68305c01-2b0c-182a-d92f-ef5ec9ecc205%40web.de.
+jailhouse-dev/db06189c-4bfc-4559-8052-9782f06d94e3%40googlegroups.com.
+
+------=_Part_953_1013894369.1589050741307
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Thanks Jan for your time.<div>I&#39;ve tried to go back to=
+ v0.9 Jailhouse and FreeRTOS cell commit=C2=A0<span style=3D"color: rgb(68,=
+ 77, 86); font-family: SFMono-Regular, Consolas, &quot;Liberation Mono&quot=
+;, Menlo, monospace; font-size: 12px; text-align: right; white-space: nowra=
+p;">effb194d911971c6065e37bfeb8d49b12d4dd212=C2=A0</span>(more or less the =
+same date of Jailhouse)</div><div>The kernel version is still 4.3.3</div><d=
+iv>Run these commands:</div><div><br></div><div><div class=3D"prettyprint" =
+style=3D"background-color: rgb(250, 250, 250); border-color: rgb(187, 187, =
+187); border-style: solid; border-width: 1px; overflow-wrap: break-word;"><=
+code class=3D"prettyprint"><div class=3D"subprettyprint"><span style=3D"col=
+or: #000;" class=3D"styled-by-prettify">root@banana1 </span><span style=3D"=
+color: #660;" class=3D"styled-by-prettify">~</span><span style=3D"color: #0=
+00;" class=3D"styled-by-prettify"> </span><span style=3D"color: #800;" clas=
+s=3D"styled-by-prettify"># jailhouse enable jailhouse/configs/arm/bananapi.=
+cell</span><span style=3D"color: #000;" class=3D"styled-by-prettify"><br>ro=
+ot@banana1 </span><span style=3D"color: #660;" class=3D"styled-by-prettify"=
+>~</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> </span>=
+<span style=3D"color: #800;" class=3D"styled-by-prettify"># jailhouse cell =
+create jailhouse/configs/arm/bananapi-freertos-demo.cell</span></div></code=
+></div><div><br></div></div><div>The output:</div><div><br></div><div><div =
+class=3D"prettyprint" style=3D"background-color: rgb(250, 250, 250); border=
+-color: rgb(187, 187, 187); border-style: solid; border-width: 1px; overflo=
+w-wrap: break-word;"><code class=3D"prettyprint"><div class=3D"subprettypri=
+nt"><span style=3D"color: #606;" class=3D"styled-by-prettify">Initializing<=
+/span><span style=3D"color: #000;" class=3D"styled-by-prettify"> </span><sp=
+an style=3D"color: #606;" class=3D"styled-by-prettify">Jailhouse</span><spa=
+n style=3D"color: #000;" class=3D"styled-by-prettify"> hypervisor v0</span>=
+<span style=3D"color: #660;" class=3D"styled-by-prettify">.</span><span sty=
+le=3D"color: #066;" class=3D"styled-by-prettify">9</span><span style=3D"col=
+or: #000;" class=3D"styled-by-prettify"> </span><span style=3D"color: #660;=
+" class=3D"styled-by-prettify">(</span><span style=3D"color: #066;" class=
+=3D"styled-by-prettify">0</span><span style=3D"color: #660;" class=3D"style=
+d-by-prettify">-</span><span style=3D"color: #000;" class=3D"styled-by-pret=
+tify">g1e780089</span><span style=3D"color: #660;" class=3D"styled-by-prett=
+ify">-</span><span style=3D"color: #000;" class=3D"styled-by-prettify">dirt=
+y</span><span style=3D"color: #660;" class=3D"styled-by-prettify">)</span><=
+span style=3D"color: #000;" class=3D"styled-by-prettify"> on CPU </span><sp=
+an style=3D"color: #066;" class=3D"styled-by-prettify">0</span><span style=
+=3D"color: #000;" class=3D"styled-by-prettify"><br></span><span style=3D"co=
+lor: #606;" class=3D"styled-by-prettify">Code</span><span style=3D"color: #=
+000;" class=3D"styled-by-prettify"> location</span><span style=3D"color: #6=
+60;" class=3D"styled-by-prettify">:</span><span style=3D"color: #000;" clas=
+s=3D"styled-by-prettify"> </span><span style=3D"color: #066;" class=3D"styl=
+ed-by-prettify">0xf0000040</span><span style=3D"color: #000;" class=3D"styl=
+ed-by-prettify"><br></span><span style=3D"color: #606;" class=3D"styled-by-=
+prettify">Page</span><span style=3D"color: #000;" class=3D"styled-by-pretti=
+fy"> pool usage after early setup</span><span style=3D"color: #660;" class=
+=3D"styled-by-prettify">:</span><span style=3D"color: #000;" class=3D"style=
+d-by-prettify"> mem </span><span style=3D"color: #066;" class=3D"styled-by-=
+prettify">54</span><span style=3D"color: #660;" class=3D"styled-by-prettify=
+">/</span><span style=3D"color: #066;" class=3D"styled-by-prettify">16359</=
+span><span style=3D"color: #660;" class=3D"styled-by-prettify">,</span><spa=
+n style=3D"color: #000;" class=3D"styled-by-prettify"> remap </span><span s=
+tyle=3D"color: #066;" class=3D"styled-by-prettify">32</span><span style=3D"=
+color: #660;" class=3D"styled-by-prettify">/</span><span style=3D"color: #0=
+66;" class=3D"styled-by-prettify">131072</span><span style=3D"color: #000;"=
+ class=3D"styled-by-prettify"><br></span><span style=3D"color: #606;" class=
+=3D"styled-by-prettify">Initializing</span><span style=3D"color: #000;" cla=
+ss=3D"styled-by-prettify"> processors</span><span style=3D"color: #660;" cl=
+ass=3D"styled-by-prettify">:</span><span style=3D"color: #000;" class=3D"st=
+yled-by-prettify"><br>=C2=A0CPU </span><span style=3D"color: #066;" class=
+=3D"styled-by-prettify">0.</span><span style=3D"color: #660;" class=3D"styl=
+ed-by-prettify">..</span><span style=3D"color: #000;" class=3D"styled-by-pr=
+ettify"> OK<br>=C2=A0CPU </span><span style=3D"color: #066;" class=3D"style=
+d-by-prettify">1.</span><span style=3D"color: #660;" class=3D"styled-by-pre=
+ttify">..</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> =
+OK<br></span><span style=3D"color: #606;" class=3D"styled-by-prettify">Init=
+ializing</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> u=
+nit</span><span style=3D"color: #660;" class=3D"styled-by-prettify">:</span=
+><span style=3D"color: #000;" class=3D"styled-by-prettify"> irqchip<br></sp=
+an><span style=3D"color: #606;" class=3D"styled-by-prettify">Initializing</=
+span><span style=3D"color: #000;" class=3D"styled-by-prettify"> unit</span>=
+<span style=3D"color: #660;" class=3D"styled-by-prettify">:</span><span sty=
+le=3D"color: #000;" class=3D"styled-by-prettify"> PCI<br></span><span style=
+=3D"color: #606;" class=3D"styled-by-prettify">Adding</span><span style=3D"=
+color: #000;" class=3D"styled-by-prettify"> </span><span style=3D"color: #0=
+08;" class=3D"styled-by-prettify">virtual</span><span style=3D"color: #000;=
+" class=3D"styled-by-prettify"> PCI device </span><span style=3D"color: #06=
+6;" class=3D"styled-by-prettify">00</span><span style=3D"color: #660;" clas=
+s=3D"styled-by-prettify">:</span><span style=3D"color: #066;" class=3D"styl=
+ed-by-prettify">00.0</span><span style=3D"color: #000;" class=3D"styled-by-=
+prettify"> to cell </span><span style=3D"color: #080;" class=3D"styled-by-p=
+rettify">&quot;Banana-Pi&quot;</span><span style=3D"color: #000;" class=3D"=
+styled-by-prettify"><br></span><span style=3D"color: #606;" class=3D"styled=
+-by-prettify">Page</span><span style=3D"color: #000;" class=3D"styled-by-pr=
+ettify"> pool usage after late setup</span><span style=3D"color: #660;" cla=
+ss=3D"styled-by-prettify">:</span><span style=3D"color: #000;" class=3D"sty=
+led-by-prettify"> mem </span><span style=3D"color: #066;" class=3D"styled-b=
+y-prettify">57</span><span style=3D"color: #660;" class=3D"styled-by-pretti=
+fy">/</span><span style=3D"color: #066;" class=3D"styled-by-prettify">16359=
+</span><span style=3D"color: #660;" class=3D"styled-by-prettify">,</span><s=
+pan style=3D"color: #000;" class=3D"styled-by-prettify"> remap </span><span=
+ style=3D"color: #066;" class=3D"styled-by-prettify">37</span><span style=
+=3D"color: #660;" class=3D"styled-by-prettify">/</span><span style=3D"color=
+: #066;" class=3D"styled-by-prettify">131072</span><span style=3D"color: #0=
+00;" class=3D"styled-by-prettify"><br></span><span style=3D"color: #606;" c=
+lass=3D"styled-by-prettify">Activating</span><span style=3D"color: #000;" c=
+lass=3D"styled-by-prettify"> hypervisor<br></span><span style=3D"color: #66=
+0;" class=3D"styled-by-prettify">[</span><span style=3D"color: #000;" class=
+=3D"styled-by-prettify"> =C2=A0 </span><span style=3D"color: #066;" class=
+=3D"styled-by-prettify">36.540575</span><span style=3D"color: #660;" class=
+=3D"styled-by-prettify">]</span><span style=3D"color: #000;" class=3D"style=
+d-by-prettify"> </span><span style=3D"color: #606;" class=3D"styled-by-pret=
+tify">The</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> =
+</span><span style=3D"color: #606;" class=3D"styled-by-prettify">Jailhouse<=
+/span><span style=3D"color: #000;" class=3D"styled-by-prettify"> </span><sp=
+an style=3D"color: #008;" class=3D"styled-by-prettify">is</span><span style=
+=3D"color: #000;" class=3D"styled-by-prettify"> opening</span><span style=
+=3D"color: #660;" class=3D"styled-by-prettify">.</span><span style=3D"color=
+: #000;" class=3D"styled-by-prettify"><br></span><span style=3D"color: #660=
+;" class=3D"styled-by-prettify">[</span><span style=3D"color: #000;" class=
+=3D"styled-by-prettify"> =C2=A0 </span><span style=3D"color: #066;" class=
+=3D"styled-by-prettify">44.652929</span><span style=3D"color: #660;" class=
+=3D"styled-by-prettify">]</span><span style=3D"color: #000;" class=3D"style=
+d-by-prettify"> CPU1</span><span style=3D"color: #660;" class=3D"styled-by-=
+prettify">:</span><span style=3D"color: #000;" class=3D"styled-by-prettify"=
+> shutdown<br></span><span style=3D"color: #606;" class=3D"styled-by-pretti=
+fy">Created</span><span style=3D"color: #000;" class=3D"styled-by-prettify"=
+> cell </span><span style=3D"color: #080;" class=3D"styled-by-prettify">&qu=
+ot;FreeRTOS&quot;</span><span style=3D"color: #000;" class=3D"styled-by-pre=
+ttify"><br></span><span style=3D"color: #606;" class=3D"styled-by-prettify"=
+>Page</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> pool=
+ usage after cell creation</span><span style=3D"color: #660;" class=3D"styl=
+ed-by-prettify">:</span><span style=3D"color: #000;" class=3D"styled-by-pre=
+ttify"> mem </span><span style=3D"color: #066;" class=3D"styled-by-prettify=
+">65</span><span style=3D"color: #660;" class=3D"styled-by-prettify">/</spa=
+n><span style=3D"color: #066;" class=3D"styled-by-prettify">16359</span><sp=
+an style=3D"color: #660;" class=3D"styled-by-prettify">,</span><span style=
+=3D"color: #000;" class=3D"styled-by-prettify"> remap </span><span style=3D=
+"color: #066;" class=3D"styled-by-prettify">37</span><span style=3D"color: =
+#660;" class=3D"styled-by-prettify">/</span><span style=3D"color: #066;" cl=
+ass=3D"styled-by-prettify">131072</span><span style=3D"color: #000;" class=
+=3D"styled-by-prettify"><br></span><span style=3D"color: #660;" class=3D"st=
+yled-by-prettify">[</span><span style=3D"color: #000;" class=3D"styled-by-p=
+rettify"> =C2=A0 </span><span style=3D"color: #066;" class=3D"styled-by-pre=
+ttify">44.664523</span><span style=3D"color: #660;" class=3D"styled-by-pret=
+tify">]</span><span style=3D"color: #000;" class=3D"styled-by-prettify"> </=
+span><span style=3D"color: #606;" class=3D"styled-by-prettify">Created</spa=
+n><span style=3D"color: #000;" class=3D"styled-by-prettify"> </span><span s=
+tyle=3D"color: #606;" class=3D"styled-by-prettify">Jailhouse</span><span st=
+yle=3D"color: #000;" class=3D"styled-by-prettify"> cell </span><span style=
+=3D"color: #080;" class=3D"styled-by-prettify">&quot;FreeRTOS&quot;</span><=
+span style=3D"color: #000;" class=3D"styled-by-prettify"><br></span><span s=
+tyle=3D"color: #606;" class=3D"styled-by-prettify">Unhandled</span><span st=
+yle=3D"color: #000;" class=3D"styled-by-prettify"> data read at </span><spa=
+n style=3D"color: #066;" class=3D"styled-by-prettify">0x1c2090c</span><span=
+ style=3D"color: #660;" class=3D"styled-by-prettify">(</span><span style=3D=
+"color: #066;" class=3D"styled-by-prettify">4</span><span style=3D"color: #=
+660;" class=3D"styled-by-prettify">)</span><span style=3D"color: #000;" cla=
+ss=3D"styled-by-prettify"><br>FATAL</span><span style=3D"color: #660;" clas=
+s=3D"styled-by-prettify">:</span><span style=3D"color: #000;" class=3D"styl=
+ed-by-prettify"> unhandled trap </span><span style=3D"color: #660;" class=
+=3D"styled-by-prettify">(</span><span style=3D"color: #000;" class=3D"style=
+d-by-prettify">exception </span><span style=3D"color: #008;" class=3D"style=
+d-by-prettify">class</span><span style=3D"color: #000;" class=3D"styled-by-=
+prettify"> </span><span style=3D"color: #066;" class=3D"styled-by-prettify"=
+>0x24</span><span style=3D"color: #660;" class=3D"styled-by-prettify">)</sp=
+an><span style=3D"color: #000;" class=3D"styled-by-prettify"><br>pc</span><=
+span style=3D"color: #660;" class=3D"styled-by-prettify">=3D</span><span st=
+yle=3D"color: #066;" class=3D"styled-by-prettify">0xc02bbbc4</span><span st=
+yle=3D"color: #000;" class=3D"styled-by-prettify"> cpsr</span><span style=
+=3D"color: #660;" class=3D"styled-by-prettify">=3D</span><span style=3D"col=
+or: #066;" class=3D"styled-by-prettify">0x600f0193</span><span style=3D"col=
+or: #000;" class=3D"styled-by-prettify"> hsr</span><span style=3D"color: #6=
+60;" class=3D"styled-by-prettify">=3D</span><span style=3D"color: #066;" cl=
+ass=3D"styled-by-prettify">0x93840007</span><span style=3D"color: #000;" cl=
+ass=3D"styled-by-prettify"><br>r0</span><span style=3D"color: #660;" class=
+=3D"styled-by-prettify">=3D</span><span style=3D"color: #066;" class=3D"sty=
+led-by-prettify">0x400f0113</span><span style=3D"color: #000;" class=3D"sty=
+led-by-prettify"> r1</span><span style=3D"color: #660;" class=3D"styled-by-=
+prettify">=3D</span><span style=3D"color: #066;" class=3D"styled-by-prettif=
+y">0x00000111</span><span style=3D"color: #000;" class=3D"styled-by-prettif=
+y"> r2</span><span style=3D"color: #660;" class=3D"styled-by-prettify">=3D<=
+/span><span style=3D"color: #066;" class=3D"styled-by-prettify">0x00000111<=
+/span><span style=3D"color: #000;" class=3D"styled-by-prettify"> r3</span><=
+span style=3D"color: #660;" class=3D"styled-by-prettify">=3D</span><span st=
+yle=3D"color: #066;" class=3D"styled-by-prettify">0xdf89c90c</span><span st=
+yle=3D"color: #000;" class=3D"styled-by-prettify"><br>r4</span><span style=
+=3D"color: #660;" class=3D"styled-by-prettify">=3D</span><span style=3D"col=
+or: #066;" class=3D"styled-by-prettify">0x00000001</span><span style=3D"col=
+or: #000;" class=3D"styled-by-prettify"> r5</span><span style=3D"color: #66=
+0;" class=3D"styled-by-prettify">=3D</span><span style=3D"color: #066;" cla=
+ss=3D"styled-by-prettify">0x00000018</span><span style=3D"color: #000;" cla=
+ss=3D"styled-by-prettify"> r6</span><span style=3D"color: #660;" class=3D"s=
+tyled-by-prettify">=3D</span><span style=3D"color: #066;" class=3D"styled-b=
+y-prettify">0x0000010c</span><span style=3D"color: #000;" class=3D"styled-b=
+y-prettify"> r7</span><span style=3D"color: #660;" class=3D"styled-by-prett=
+ify">=3D</span><span style=3D"color: #066;" class=3D"styled-by-prettify">0x=
+de3317bc</span><span style=3D"color: #000;" class=3D"styled-by-prettify"><b=
+r>r8</span><span style=3D"color: #660;" class=3D"styled-by-prettify">=3D</s=
+pan><span style=3D"color: #066;" class=3D"styled-by-prettify">0xde331790</s=
+pan><span style=3D"color: #000;" class=3D"styled-by-prettify"> r9</span><sp=
+an style=3D"color: #660;" class=3D"styled-by-prettify">=3D</span><span styl=
+e=3D"color: #066;" class=3D"styled-by-prettify">0x400f0113</span><span styl=
+e=3D"color: #000;" class=3D"styled-by-prettify"> r10</span><span style=3D"c=
+olor: #660;" class=3D"styled-by-prettify">=3D</span><span style=3D"color: #=
+066;" class=3D"styled-by-prettify">0x00000001</span><span style=3D"color: #=
+000;" class=3D"styled-by-prettify"> r11</span><span style=3D"color: #660;" =
+class=3D"styled-by-prettify">=3D</span><span style=3D"color: #066;" class=
+=3D"styled-by-prettify">0xc07e5d64</span><span style=3D"color: #000;" class=
+=3D"styled-by-prettify"><br>r12</span><span style=3D"color: #660;" class=3D=
+"styled-by-prettify">=3D</span><span style=3D"color: #066;" class=3D"styled=
+-by-prettify">0x00000000</span><span style=3D"color: #000;" class=3D"styled=
+-by-prettify"> r13</span><span style=3D"color: #660;" class=3D"styled-by-pr=
+ettify">=3D</span><span style=3D"color: #066;" class=3D"styled-by-prettify"=
+>0xc07e5d38</span><span style=3D"color: #000;" class=3D"styled-by-prettify"=
+> r14</span><span style=3D"color: #660;" class=3D"styled-by-prettify">=3D</=
+span><span style=3D"color: #066;" class=3D"styled-by-prettify">0xc02bbbb8</=
+span><span style=3D"color: #000;" class=3D"styled-by-prettify"><br></span><=
+span style=3D"color: #606;" class=3D"styled-by-prettify">Parking</span><spa=
+n style=3D"color: #000;" class=3D"styled-by-prettify"> CPU </span><span sty=
+le=3D"color: #066;" class=3D"styled-by-prettify">0</span><span style=3D"col=
+or: #000;" class=3D"styled-by-prettify"> </span><span style=3D"color: #660;=
+" class=3D"styled-by-prettify">(</span><span style=3D"color: #606;" class=
+=3D"styled-by-prettify">Cell</span><span style=3D"color: #660;" class=3D"st=
+yled-by-prettify">:</span><span style=3D"color: #000;" class=3D"styled-by-p=
+rettify"> </span><span style=3D"color: #080;" class=3D"styled-by-prettify">=
+&quot;Banana-Pi&quot;</span><span style=3D"color: #660;" class=3D"styled-by=
+-prettify">)</span><span style=3D"color: #000;" class=3D"styled-by-prettify=
+"><br><br></span></div></code></div><div><br>Is it possible to be some prob=
+lem related to kernel <b>.config </b>?</div><br>Il giorno venerd=C3=AC 8 ma=
+ggio 2020 20:45:40 UTC+2, Jan Kiszka ha scritto:<blockquote class=3D"gmail_=
+quote" style=3D"margin: 0;margin-left: 0.8ex;border-left: 1px #ccc solid;pa=
+dding-left: 1ex;">On 08.05.20 19:19, Luigi De Simone wrote:
+<br>&gt; Hi all,
+<br>&gt;
+<br>&gt; I really need your help about finding out a solution with FreeRTOS
+<br>&gt; BananPI demo. My board model is BPI-M1
+<br>&gt; I&#39;ve followed exactly the guide at
+<br>&gt; <a href=3D"https://github.com/siemens/jailhouse/blob/master/Docume=
+ntation/setup-on-banana-pi-arm-board.md" target=3D"_blank" rel=3D"nofollow"=
+ onmousedown=3D"this.href=3D&#39;https://www.google.com/url?q\x3dhttps%3A%2=
+F%2Fgithub.com%2Fsiemens%2Fjailhouse%2Fblob%2Fmaster%2FDocumentation%2Fsetu=
+p-on-banana-pi-arm-board.md\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQjCNGULV_Cq=
+rPPMdaPhtP4F2_y2_koxQ&#39;;return true;" onclick=3D"this.href=3D&#39;https:=
+//www.google.com/url?q\x3dhttps%3A%2F%2Fgithub.com%2Fsiemens%2Fjailhouse%2F=
+blob%2Fmaster%2FDocumentation%2Fsetup-on-banana-pi-arm-board.md\x26sa\x3dD\=
+x26sntz\x3d1\x26usg\x3dAFQjCNGULV_CqrPPMdaPhtP4F2_y2_koxQ&#39;;return true;=
+">https://github.com/siemens/<wbr>jailhouse/blob/master/<wbr>Documentation/=
+setup-on-banana-<wbr>pi-arm-board.md</a>
+<br>&gt; with a kernel
+<br>&gt; Only one deviation is about command:
+<br>&gt;
+<br>&gt; |
+<br>&gt; cp -av ~/jailhouse/ci/jailhouse-<wbr>config-banana-pi.h
+<br>&gt; ~/jailhouse/include/jailhouse/<wbr>config.h
+<br>&gt; |
+<br>&gt;
+<br>&gt; because *jailhouse-config-banana-pi.h *does**not exist anymore in =
+the
+<br>&gt; repo (I don&#39;t know if it is a refuse from refactoring).
+<br>&gt; What I&#39;ve done is to create a config.h file like this:
+<br>&gt;
+<br>&gt; |
+<br>&gt; #defineCONFIG_TRACE_ERROR 1
+<br>&gt; #defineCONFIG_CRASH_CELL_ON_<wbr>PANIC 1
+<br>&gt; #defineCONFIG_TEST_DEVICE 1
+<br>&gt; #defineCONFIG_ARM_GIC 1
+<br>&gt; #defineCONFIG_MACH_SUN7I 1
+<br>&gt; #defineCONFIG_SERIAL_8250_DW 1
+<br>&gt; |
+<br>&gt;
+<br>&gt; according to old *jailhouse-config-banana-pi.h *file.
+<br>
+<br>Most of these are nops by now, and the rest is not needed for a working
+<br>setup.
+<br>
+<br>&gt; Anyway, once booted the board and try to run command:
+<br>&gt; |
+<br>&gt; jailhouse enable jailhouse/configs/arm/<wbr>bananapi.cell
+<br>&gt; |
+<br>&gt;
+<br>&gt; The board stall, and the output is:
+<br>&gt;
+<br>&gt; |
+<br>&gt; InitializingJailhousehyperviso<wbr>r v0.12(35-g2e4d71f6-dirty)on C=
+PU 0
+<br>&gt; Codelocation:0xf0000040
+<br>&gt; Pagepool usage after early setup:mem 56/16359,remap 0/131072
+<br>&gt; Initializingprocessors:
+<br>&gt; =C2=A0=C2=A0CPU 0...UnhandledHYP data abort exitat 0xf0005b10
+<br>&gt; r0:0x7c01b000=C2=A0r1:0x7c00e000=C2=A0<wbr>r2:0x00001fff=C2=A0r3:0=
+x00000000
+<br>&gt; r4:0x00001000=C2=A0r5:0xf0010090=C2=A0<wbr>r6:0x7c00e000=C2=A0r7:0=
+x00000000
+<br>&gt; r8:0x7c0037a0=C2=A0r9:0x7c000000=C2=A0<wbr>r10:0x00000000=C2=A0r11=
+:0x7c01b000
+<br>&gt; r12:0xc3ff7000=C2=A0r13:0xf0003ce4
+<br>&gt; Physicaladdress:0x7c01b004HSR:<wbr>0x94000007
+<br>&gt; StoppingCPU 0(Cell:&quot;Banana-Pi&quot;)
+<br>&gt; |
+<br>&gt;
+<br>&gt; What is wrong?
+<br>
+<br>I didn&#39;t test on the BananaPi M1 for a longer while (and my board i=
+s out
+<br>of reach the next days). We may have regressed with its configuration
+<br>over refactorings in the past releases. You could try by rolling
+<br>Jailhouse back to version around the time when the doc was once written=
+,
+<br>then bisect forward to find out the breaking change.
+<br>
+<br>Another option is jailhouse-images: We generate a known-to-work image
+<br>for the OrangePi Zero, which is technically not that far away from the
+<br>BananaPi. You could use that as baseline, adjusting bootloader and
+<br>kernel config, and then try with recent Jailhouse again.
+<br>
+<br>Or you did into the fault above: &quot;arm-linux-gnueabihf-objdump -dS
+<br>hypervisor/hypervisor.o&quot; gives the disassembly of the hypervisor c=
+ore
+<br>and could be matched with the faulting PC (0xf0005b10). That would be a
+<br>first hint on what fails.
+<br>
+<br>Jan
+<br></blockquote></div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/db06189c-4bfc-4559-8052-9782f06d94e3%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/db06189c-4bfc-4559-8052-9782f06d94e3%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_953_1013894369.1589050741307--
+
+------=_Part_952_1634832213.1589050741305--
