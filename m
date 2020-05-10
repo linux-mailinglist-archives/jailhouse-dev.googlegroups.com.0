@@ -1,152 +1,68 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBB5XT372QKGQE6I4IS3Y@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDAPRTOWQ4KBBCF24D2QKGQEM45ZN2Q@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x439.google.com (mail-wr1-x439.google.com [IPv6:2a00:1450:4864:20::439])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F8121CCB35
-	for <lists+jailhouse-dev@lfdr.de>; Sun, 10 May 2020 14:56:23 +0200 (CEST)
-Received: by mail-wr1-x439.google.com with SMTP id 37sf491609wrc.4
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 10 May 2020 05:56:23 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1589115383; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=UJBGLy0nQcDpigewvi0W3K16Ho1ZHWSteas3Ppogr+/AKDzO3J4CgnIFBH8B7LmGvW
-         0EW+S1peHWLyeOylwkS2BiGdY7Eyk2rAdPpSQnPiawFrSlsZIK/jRKuwWSKi8L02azTG
-         C20mlRJBHO0lRfFdxfH1q6qr+a2x/GSSj4LJDyQ9ZrqJfwR23Xx1X58I8/E7mcH5i6oP
-         oTarRAYVUTS5vlrlAdc21o3UffuPhP0wxKGNNAC2hP3xH599/FXIiaCR4ecXdvNEil8N
-         LBH1/El820JyDW5pss5EWFUy/zLDK4sR9U46QAUoI6bRLFqfh/kP4Cci9OX/vuZ2vV75
-         vfjg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=CYz2pMr8F83G2awJyPWgM5+L8v99u15GAwNxBnDaQhM=;
-        b=q7cUEFkIJI9bE6N2KJl8NH10+DoNo1ps0dpavD6HuVu7oz/+/0TyMsrJr2SUdwKTYF
-         +6/eYs+gOvAkVAiU2/VlD7F1xVNnsuIFymrGBsCN9cT8Senzbzd0du6NAAYm2UIPyq06
-         mzpBHZ/dbFfaQ0wFYjqdGpM4LMcqMickaVeFRjykyrfrRLIaXOjkoqqnSMl4D8i92zV5
-         4w7tl6M73O7nR0MZfLieYoGQldA9HeEIvpX27vsAaMP75ENtg2ktDEKOAVLZueAqmxom
-         wwOgYtOlH9FnfsaOpsMH8UJ63K6r8xWcpHNF2Vb+iPJNaXT9m+fykPbJlCeqyc50YUgf
-         wb+Q==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b="lhymw/3Y";
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 217.72.192.78 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Received: from mail-oi1-x23c.google.com (mail-oi1-x23c.google.com [IPv6:2607:f8b0:4864:20::23c])
+	by mail.lfdr.de (Postfix) with ESMTPS id B98381CCBF1
+	for <lists+jailhouse-dev@lfdr.de>; Sun, 10 May 2020 17:26:02 +0200 (CEST)
+Received: by mail-oi1-x23c.google.com with SMTP id 17sf10372763oij.6
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 10 May 2020 08:26:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=jxdwknHvjsCWBq6ylOvm7MljL1InIMk6M19JtnA0pb4=;
+        b=SsIlvd3ToFciF1I9E6AV06Uj11yNTpUFSzK5ecZ2i9gL+H1qnJbiw76yPU05xaZ5/R
+         NwnmggSRfrBaJ440ePPlNUwfZnoNFz40Gh5ivHm82az70imSOXk3b4NMAqcY6gYkL2OK
+         W2PZ8fKIJCqaLHp+KVbmBAvpNrRjBY3HoxZkE0/MX+e92eNNh+ziNzelv1ffPzOl9Bdr
+         AxZS0vC66DReuqLb4CITdtHo6wFgqJ+cpFb5O1dSOKtu/onp89mW72CqcPp2HH7zmtX0
+         9FA4xd0dt+xZfKgx1eQcEaUO4pgQ2m85OP/ggzkBnjQCu6XJcKfEPuGrywvEE4XE38j9
+         QPcA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=CYz2pMr8F83G2awJyPWgM5+L8v99u15GAwNxBnDaQhM=;
-        b=G6UJ/66CHD0jd+yQxHxq0M8xYtWhQHxf+psMkrnZtOAlbDngerOXjvoroEucxMSjPG
-         Xz1OaKD4nHPxl1ocjzRDqaTYshlH7Mbe754dQPQtUCBT56uTazKYsIdrZbeHU8gogc2A
-         5tqcJOgBuwXh5hWaR3aCMpjUfLjSAor/qMHr4NVB0FwWDVLTpiO1GXRMwnANkaTIBtK6
-         rXEylSHq+oRcUDqIa99++LSI3aK20z/AbuPC4KTXurMH3a8C2qJ7bQ/mUQ2aQcYPm+fY
-         B0TnabCyp1A0NMuzNXp+Ea3MZw8lzNRuy8lQGyzsOeSfEBHuINitYH3jFlq3vLn/T+Ty
-         Li0Q==
+        bh=jxdwknHvjsCWBq6ylOvm7MljL1InIMk6M19JtnA0pb4=;
+        b=ojMzVrpLW+M22HAHWlfTl5xItdtY6aL8J41+fbdQLxGErZqV4Yr0HvCi6vfaCbHgBN
+         QJFhXbTo7SgyU0Vd12Xlte8M2J8eAVUrhVx7WIRhpecf7Wx2HUFlwRovoaJx+wP57IA/
+         PTtvjr0IpxV5zg7QJfAL9iHbVP36dLUgeMT4EU5LJD60kKbwIpc6sMUg0WmuGL+8Ngtk
+         FB2Ci5bLWLL71FCrRU1qtxb+MYPNq2ZSMMu4I6JNx2Z62Uxv1Yc5ZxxyyqSx40DdUUq1
+         zhCircCFbem5ChOqupLGj3yeXP4oTt9X3JXtiuHZ90lBLIA1xMz3dA1Dqne6Kw6qtrk7
+         oVng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=CYz2pMr8F83G2awJyPWgM5+L8v99u15GAwNxBnDaQhM=;
-        b=AcZECfydnq8mbeH/dylgC0pmLZpof+POxsAE3VnCsMy67CIr+mRhVhx6pBxyJwXtsC
-         sdjM5GxseQz07vGQLCfkcJIOvMnKQ4WYIQwrZvSCD3hXxeUFj0/hxj5BGQZLZ2CQmnM/
-         oX0gFVkfgYarmkq7GJLt2auYSPR36TSj/FCacXAiSbiKBmE7tMubnH+g81OY0qt0pPQX
-         39A21FZxCPanOq1emzPu0upR7th3RI2qoBDd9ZzcgyXfkDYiQg3pS9gZOcQHgCzYqWcz
-         8blbevDsf3p4EwbcOuLn1Bk3IGT7O16R0q9Zw8DX+lNLSWQIKQtDqaSpOVk/+p7fs2au
-         hfvg==
+        bh=jxdwknHvjsCWBq6ylOvm7MljL1InIMk6M19JtnA0pb4=;
+        b=UV02UpIoBJNMcrsS7sslFYbuDWtOE8+3ufKyCmJcTCxGmM0pnrR+WzDkaD6ZqXUvJC
+         VIO7bscoTRkdKfH/P338AyrtzNgqYKduAY35Wqx9fgZU15nf9vvOqZGzZQASI1rLeeAQ
+         jpkzM/zhjkbYfhwTKTruJ9KqBlAYaAqh+Urqi3ZOOC5YFnLNmu0vAilwMqgu7X8KGGBZ
+         7bkQ8KmUTNpyouCFMA4EGjPJJErmrFygahMpoHkfvutEFkml05L3m0/SSvURX9nM6xNA
+         AuyyA7QoTktMzvgDszf/SFeV6dhXQF2AmlX1mPjT3N1Je4Su4KoD2haqGYCNOze9T6pJ
+         B7ow==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AGi0PuZ2sSH92CBDTQlUgH/xjma6wjdqPJ8d02MUaK+dvYRHNlPLmoOL
-	po6LCfL/RHGCmkEVmBbT1Xs=
-X-Google-Smtp-Source: APiQypJWu9T6vFjq1vanrW+93aA8WQrv4KNfKpVd6DizZ8wWKyCZGyxvk0VTdRJXZjykbkFUuD74+g==
-X-Received: by 2002:a1c:7212:: with SMTP id n18mr27625396wmc.53.1589115383059;
-        Sun, 10 May 2020 05:56:23 -0700 (PDT)
+X-Gm-Message-State: AGi0PuYmYY++IDCBDIU/R4xA19hQ98Rtxv5mpN5KREhQBEHzz8tMyKcF
+	4XqPt/5EiX85MDWuUZmC+Gk=
+X-Google-Smtp-Source: APiQypKyrok8bAq3mD8r/0xIbpxs6fbcoahHrFLOu1Qwz2JfhAtIsPSzRHt5LWwbQAzHCjAuWAEgow==
+X-Received: by 2002:a9d:39a5:: with SMTP id y34mr9204277otb.69.1589124361114;
+        Sun, 10 May 2020 08:26:01 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:7ec2:: with SMTP id z185ls23929742wmc.1.canary-gmail;
- Sun, 10 May 2020 05:56:22 -0700 (PDT)
-X-Received: by 2002:a1c:9ad1:: with SMTP id c200mr3582089wme.147.1589115382460;
-        Sun, 10 May 2020 05:56:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1589115382; cv=none;
-        d=google.com; s=arc-20160816;
-        b=qLdicmrF/demDgGsq7EeXHP5Rx5tlQFMQKbu5eOKvglxkxo3doxzoel6/pixMr0AIA
-         /X8bHyP2TZ64zpKiFdFOcxTM3Nwu8drSCNFlN1Fs+gS1+5L9zSfSR0M6Ehd+zVxEXOGh
-         NxoLUNr/OSf1JPe/+m/wjaaETphQUBgD5bPcD+PuFH3+Nx9DJhnU0GM2cG8obFM36gN0
-         /AHIvnKqESCnxSIKEm1d8Aeu1IX/khyR1Zs5HI8IeYFaSdO6c/7bfii7+OHKCPZIFkeb
-         Y4y4WlGyiwvstwt/ZXE3eEac+xbgQIbghwAOlOcJXCHPjBWlD58Csb/+LN3jyYS1siah
-         RCLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject
-         :dkim-signature;
-        bh=SdFdfwVD5j9hTio/ZKWfOJxoAOgB5oBN0n5SbBC8VlU=;
-        b=y7xCDJI1lLWIkB3w8zsfUDOgdqzDIxhuBqEEtRTNKmvGVD8tSZavOyC/DA7p3W0JkO
-         IOqDfjWTWCBDjZI72ICBORpJ2YaJor8rmRuPUT3hP1Cz+3KaYu51fS2g6ozLR0p/beeN
-         8jEk7Ari/GRUJskkqD5vo0vDH9jVQIwcQTBJ/p39yJx+tbAQdWFl273jGh0ljtkLaPCY
-         YvaC9tNaoesDZDYLAGRDznR5HaksyYRmrAAHQByAI1sRenw8yL89fg9YX04lYHFMIxXP
-         fx3K9AFG6OLj3owOvwE2lGS6NIg7/aZ0aQSXLg6OQL+G3/186NO5oB5Kj0UMRclx0G/x
-         hRAg==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b="lhymw/3Y";
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 217.72.192.78 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
-Received: from mout.web.de (mout.web.de. [217.72.192.78])
-        by gmr-mx.google.com with ESMTPS id q17si995119wmg.1.2020.05.10.05.56.22
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 10 May 2020 05:56:22 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 217.72.192.78 as permitted sender) client-ip=217.72.192.78;
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.1.10] ([95.157.53.180]) by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1N79N8-1j3nuT10Oq-017SAs; Sun, 10
- May 2020 14:56:21 +0200
-Subject: Re: Problem with setup on Banana Pi BPI-M1 ARM board - jailhouse
- enable bananapi.cell crash
-To: Luigi De Simone <luigi.desimone3@gmail.com>,
- Jailhouse <jailhouse-dev@googlegroups.com>
-References: <e5934ccb-97ba-49f5-bf43-d47b2763f4b4@googlegroups.com>
- <fc9db7b7-1804-d4ef-e37d-d5d8198c8278@web.de>
- <db06189c-4bfc-4559-8052-9782f06d94e3@googlegroups.com>
-From: Jan Kiszka <jan.kiszka@web.de>
-Message-ID: <140e3a12-1921-6116-9af0-1c6eaf1b116e@web.de>
-Date: Sun, 10 May 2020 14:56:18 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+Received: by 2002:a9d:363:: with SMTP id 90ls1479169otv.6.gmail; Sun, 10 May
+ 2020 08:26:00 -0700 (PDT)
+X-Received: by 2002:a05:6830:2386:: with SMTP id l6mr9902331ots.128.1589124360572;
+        Sun, 10 May 2020 08:26:00 -0700 (PDT)
+Date: Sun, 10 May 2020 08:26:00 -0700 (PDT)
+From: zhengjun zhang <zhangzhengjunhust@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <b54b7357-842b-47d2-8a0f-19084d90717d@googlegroups.com>
+Subject: On the question of virtualization performance loss
 MIME-Version: 1.0
-In-Reply-To: <db06189c-4bfc-4559-8052-9782f06d94e3@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:4GZ9b34Gpgr08CG8j49jmeisZV9hXWgRpbLzjV0wqb1l1DWRKD4
- hPywfl/jm4S46UVXx6c0WV5kF9qGet9ZF8n66aj1zg1D7WuO1CE7qE/fX3mJUaYPuBWrZ66
- QuTnpCSwQUm20qVR7XGKiU7f3BqAOzw330hq1OoVxUup6OOLl/NJrYZPWvQS14raaPngZ3D
- Hz4F6h0xcqru3LKAjiPrg==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:b3pqkKd4mWI=:mS5mZkpIkGuFca4wIOLN+H
- 4Z4GFswFeu7Cyx7qsVluxkk4YpF/v/ujFAgt9xHcKxazqus987XDPhkMufiqGFpyT7+h0RM6W
- PjqlySn06ZX/TP17I+OgxX1jhBfZy/e0PzMRDOD+3BNFuWtA95AwXgnQjoxAPGZz2HlmpwMll
- FmOhi8fs+72R9Lfgr7fAHyq5snCMyqL8hN2pozGTE2PAzwgJLtm9Ogp/A5z0dyFNw/j4a5V8f
- 3LlZTUYA/1hc7XZyGans/K01zktjYYiZjqmx8XWXXfpGVWfPs136ScagA2nREchhCCXL8UI23
- dX5EkR0XWJ8BZyJ3OG1Kp3NB+Up+YqNB85IYTIgkVSOU3qnKmCGOFPU0l4Ub0dSqFF17OeKWa
- OZonTbijOyzsLq/JUC+t0M8vIEQmREHpjAcWsws0IRujU0ZJex+03xqRWFU9STRViJwxSso1l
- l3zDNNhT4cePiKU6ZQkfadVX4EGUn/DdxM6eRJ9MZTHnGVS0yUcUjSuZ5yxViHhLXHxPvpk31
- XipLVfLQxBteR3DPY5A4ykUnaVoF99YfQVM181mqfIciqP9CQUYd5KcMzX5O6x2uev3pUBX8I
- MJ0ePr8ioG6J7L9gD0M0NaYomdO285ewmss/UfWc3prATDKG1y1obUsS8rfwEaeuJp18Vpvyn
- B+UAD+pEYPNdpDb5JAg0wCeLagt1ASMDS977rcU3ptUtQY186xzI/ec8LLKZo3YAJ/CcxEe8L
- 0GgKnBkj+vrpvrgZ/7wcHv5irmrxDMrVkCCa/e1wDtYgpGjPnfrzaIAAxfCoew4E7P6ka6zkK
- RnX+8cf/J1ITEhhcOYpWjOI61uSLr/Mt71TRAgvTwH6y8+cUzJgwzGPRYn88BdqYSrSgEyOvx
- 17d8JWMywOzIvwljP9JTDqRQd9oDd+2x0lKNkPUh3Z1j2TtwthS1Pc/51r68UX4c0BAVzcshA
- JLPQ/2OIJOD/CrFKEw9fAOXOqGw0IbH/yE/5bLjxv3uP49nUCYtZAOJ9W8fd3vKFzXh5G6eTy
- jpE+/jKLEOcTQDksJwQhXGXxuOklyP0iAzdqFNRD8gA7L+Mvjsg5pkvRwJ7Qn6ARTkjgw3F88
- fFoi6tSj9Fh1+n3NHGttHav9tVf+g8Tg3woTbbSsoto74hm1+kKwEjrhZJR47ZCWZj0q7EcWy
- BZxIjdmgfZ2iSSnwfbKUl5uN9ISjBnpK5hmYyeq7faqG+IXvN0WghBcPSLPsuwC/D7U4BoUja
- ZruTtNDQzFvn1syDI
-X-Original-Sender: jan.kiszka@web.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b="lhymw/3Y";       spf=pass
- (google.com: domain of jan.kiszka@web.de designates 217.72.192.78 as
- permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_1154_1861179410.1589124360087"
+X-Original-Sender: zhangzhengjunhust@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -159,52 +75,279 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 09.05.20 20:59, Luigi De Simone wrote:
-> Thanks Jan for your time.
-> I've tried to go back to v0.9 Jailhouse and FreeRTOS cell commit
-> effb194d911971c6065e37bfeb8d49b12d4dd212 (more or less the same date of
-> Jailhouse)
-> The kernel version is still 4.3.3
-> Run these commands:
->
-> |
-> root@banana1 ~# jailhouse enable jailhouse/configs/arm/bananapi.cell
-> root@banana1 ~# jailhouse cell create
-> jailhouse/configs/arm/bananapi-freertos-demo.cell
-> |
->
-> The output:
->
-> |
-> InitializingJailhousehypervisor v0.9(0-g1e780089-dirty)on CPU 0
-> Codelocation:0xf0000040
-> Pagepool usage after early setup:mem 54/16359,remap 32/131072
-> Initializingprocessors:
->  =C2=A0CPU 0...OK
->  =C2=A0CPU 1...OK
-> Initializingunit:irqchip
-> Initializingunit:PCI
-> AddingvirtualPCI device 00:00.0to cell "Banana-Pi"
-> Pagepool usage after late setup:mem 57/16359,remap 37/131072
-> Activatinghypervisor
-> [36.540575]TheJailhouseisopening.
-> [44.652929]CPU1:shutdown
-> Createdcell "FreeRTOS"
-> Pagepool usage after cell creation:mem 65/16359,remap 37/131072
-> [44.664523]CreatedJailhousecell "FreeRTOS"
-> Unhandleddata read at 0x1c2090c(4)
+------=_Part_1154_1861179410.1589124360087
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1155_2106856684.1589124360087"
 
-That's a GPIO port range (see config), probably taken from the root cell
-when the non-root one is created. We do the same on the OrangePi Zero,
-so it's likely an issue of your root Linux setup. Again, this works with
-the OrangePi Zero setup in jailhouse-images and could serve as a baseline.
+------=_Part_1155_2106856684.1589124360087
+Content-Type: text/plain; charset="UTF-8"
 
-Jan
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
+Hi~
+I recently tested the loss of virtualization performance in jailhouse on 
+the i.MX 8MQuad, using the testing tools sysbench and super_pi.
+I used the same Linux image (imx_4.14.98_2.0.0_ga) in the Root Cell and 
+inmate Cell
+Here is the jailhouse startup information
+Root $ cat /proc/cpuinfo 
+processor : 0
+BogoMIPS : 16.66
+Features : fp asimd evtstrm aes pmull sha1 sha2 crc32 cpuid
+CPU implementer : 0x41
+CPU architecture: 8
+CPU variant : 0x0
+CPU part : 0xd03
+CPU revision : 4
+
+processor : 1
+BogoMIPS : 16.66
+Features : fp asimd evtstrm aes pmull sha1 sha2 crc32 cpuid
+CPU implementer : 0x41
+CPU architecture: 8
+CPU variant : 0x0
+CPU part : 0xd03
+CPU revision : 4
+Root $ cd ~/jailhouse
+Root $ insmod jailhouse.ko
+[  233.063524] jailhouse: loading out-of-tree module taints kernel.
+
+Root $ ./jailhouse enable configs/imx8mq-veth.cell
+
+Initializing Jailhouse hypervisor v0.10 (66-g2217029) on CPU 1
+Code location: 0x0000ffffc0200800
+Page pool usage after early setup: mem 39/994, remap 0/131072
+Initializing processors:
+ CPU 1... OK
+ CPU 0... OK
+ CPU 3... OK
+ CPU 2... OK
+Initializing unit: irqchip
+Initializing unit: ARM SMMU
+No SMMU
+Initializing unit: PCI
+Adding virtual PCI device 00:00.0 to cell "imx8mq"
+iommu_config_commit imx8mq
+Page pool usage after late setup: mem 72/994, remap 144/131072
+Activating hypervisor
+[  251.213460] OF: PCI: host bridge /pci@0 ranges:
+[  251.218097] OF: PCI:   MEM 0xbfc00000..0xbfc01fff -> 0xbfc00000
+[  251.224313] pci-host-generic bfb00000.pci: ECAM at [mem 
+0xbfb00000-0xbfbfffff] for [bus 00]
+[  251.233114] pci-host-generic bfb00000.pci: PCI host bridge to bus 0000:00
+[  251.240052] pci_bus 0000:00: root bus resource [bus 00]
+[  251.245533] pci_bus 0000:00: root bus resource [mem 
+0xbfc00000-0xbfc01fff]
+[  251.252942] pci 0000:00:00.0: BAR 0: assigned [mem 0xbfc00000-0xbfc000ff 
+64bit]
+[  251.260861] virtio-pci 0000:00:00.0: enabling device (0000 -> 0002)
+[  251.269478] The Jailhouse is opening.
+[  251.269864] IPv6: ADDRCONF(NETDEV_UP): eth1: link is not ready
+
+Root $ ./jailhouse cell linux configs/imx8mq-linux-demo.cell 
+/run/media/mmcblk1p1/Image -d 
+/run/media/mmcblk1p1/fsl-imx8mq-evk-inmate.dtb -c "clk_ignore_unused 
+console=ttymxc1,115200 earlycon=ec_imx6q,0x30860000,115200 
+root=/dev/mmcblk0p2 rootwait rw"
+[  315.757129] CPU2: shutdown
+[  315.759844] psci: CPU2 killed.
+[  315.804134] CPU3: shutdown
+[  315.806843] psci: CPU3 killed.
+Adding virtual PCI device 00:00.0 to cell "linux-inmate-demo"
+Shared memory connection established: "linux-inmate-demo" <--> "imx8mq"
+iommu_config_commit linux-inmate-demo
+Created cell "linux-inmate-demo"
+Page pool usage after cell creation: mem 88/994, remap 144/131072
+[  315.835959] Created Jailhouse cell "linux-inmate-demo"
+Cell "linux-inmate-demo" can be loaded
+Started cell "linux-inmate-demo"
+[    0.000000] Booting Linux on physical CPU 0x2
+[    0.000000] Linux version 4.14.98-05985-g1175b59 (root@Develop) (gcc 
+version 7.3.0 (GCC)) #1 SMP PREEMPT Mon Apr 20 11:57:19 CST 2020
+[    0.000000] Boot CPU: AArch64 Processor [410fd034]
+[    0.000000] Machine model: Freescale i.MX8MQ EVK
+[    0.000000] earlycon: ec_imx6q0 at MMIO 0x0000000030860000 (options 
+'115200')
+[    0.000000] bootconsole [ec_imx6q0] enabled
+[    0.000000] efi: Getting EFI parameters from FDT:
+[    0.000000] efi: UEFI not found.
+[    0.000000] cma: Reserved 320 MiB at 0x00000000e8000000
+[    0.000000] NUMA: No NUMA configuration found
+[    0.000000] NUMA: Faking a node at [mem 
+0x0000000000000000-0x00000000fdbfffff]
+[    0.000000] NUMA: NODE_DATA [mem 0xfdbd7600-0xfdbd93ff]
+[    0.000000] Zone ranges:
+[    0.000000]   DMA      [mem 0x00000000c0000000-0x00000000fdbfffff]
+[    0.000000]   Normal   empty
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x00000000c0000000-0x00000000fdbfffff]
+[    0.000000] Initmem setup node 0 [mem 
+0x00000000c0000000-0x00000000fdbfffff]
+processor : 2
+BogoMIPS : 16.66
+Features : fp asimd evtstrm aes pmull sha1 sha2 crc32 cpuid
+CPU implementer : 0x41
+CPU architecture: 8
+CPU variant : 0x0
+CPU part : 0xd03
+CPU revision : 4
+
+processor : 3
+BogoMIPS : 16.66
+Features : fp asimd evtstrm aes pmull sha1 sha2 crc32 cpuid
+CPU implementer : 0x41
+CPU architecture: 8
+CPU variant : 0x0
+CPU part : 0xd03
+CPU revision : 4
+
+I executed the same test case in bare-machine, root cell, and inmate cell.
+The CPU test results of sysbench in the root cell were approximately 1% 
+lower than those of the bare machine, but the CPU test results of sysbench  
+in the inmate cell were approximately 1/3 lower than those of the bare 
+machine.
+The super_pi test results in the root cell were approximately 1% lower than 
+those in the bare-bones machine, but the super_pi test results in the 
+inmate cell were approximately 20% lower than those in the  bare-machine.
+Jailhouse  is a partitioning hypervisor, why is there a significant 
+decrease in CPU performance in the inmate cell?
+This result makes me very puzzled, hope to answer.
+If you need any other info let me know.
+I really appreciate any analysis.
+Best regards,
+
+ZhengjunZhang
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/b54b7357-842b-47d2-8a0f-19084d90717d%40googlegroups.com.
+
+------=_Part_1155_2106856684.1589124360087
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><br></div><div>Hi~</div><div>I recently tested the lo=
+ss of virtualization performance in jailhouse on the i.MX 8MQuad, using the=
+ testing tools sysbench and super_pi.</div><div>I used the same Linux image=
+ (imx_4.14.98_2.0.0_ga) in the Root Cell and inmate Cell</div><div>Here is =
+the jailhouse startup information</div><div>Root $ cat /proc/cpuinfo=C2=A0<=
+/div><div>processor<span style=3D"white-space:pre">	</span>: 0</div><div>Bo=
+goMIPS<span style=3D"white-space:pre">	</span>: 16.66</div><div>Features<sp=
+an style=3D"white-space:pre">	</span>: fp asimd evtstrm aes pmull sha1 sha2=
+ crc32 cpuid</div><div>CPU implementer<span style=3D"white-space:pre">	</sp=
+an>: 0x41</div><div>CPU architecture: 8</div><div>CPU variant<span style=3D=
+"white-space:pre">	</span>: 0x0</div><div>CPU part<span style=3D"white-spac=
+e:pre">	</span>: 0xd03</div><div>CPU revision<span style=3D"white-space:pre=
+">	</span>: 4</div><div><br></div><div>processor<span style=3D"white-space:=
+pre">	</span>: 1</div><div>BogoMIPS<span style=3D"white-space:pre">	</span>=
+: 16.66</div><div>Features<span style=3D"white-space:pre">	</span>: fp asim=
+d evtstrm aes pmull sha1 sha2 crc32 cpuid</div><div>CPU implementer<span st=
+yle=3D"white-space:pre">	</span>: 0x41</div><div>CPU architecture: 8</div><=
+div>CPU variant<span style=3D"white-space:pre">	</span>: 0x0</div><div>CPU =
+part<span style=3D"white-space:pre">	</span>: 0xd03</div><div>CPU revision<=
+span style=3D"white-space:pre">	</span>: 4</div><div>Root $ cd ~/jailhouse<=
+/div><div>Root $ insmod jailhouse.ko</div><div>[=C2=A0 233.063524] jailhous=
+e: loading out-of-tree module taints kernel.</div><div><br></div><div>Root =
+$ ./jailhouse enable configs/imx8mq-veth.cell</div><div><br></div><div>Init=
+ializing Jailhouse hypervisor v0.10 (66-g2217029) on CPU 1</div><div>Code l=
+ocation: 0x0000ffffc0200800</div><div>Page pool usage after early setup: me=
+m 39/994, remap 0/131072</div><div>Initializing processors:</div><div>=C2=
+=A0CPU 1... OK</div><div>=C2=A0CPU 0... OK</div><div>=C2=A0CPU 3... OK</div=
+><div>=C2=A0CPU 2... OK</div><div>Initializing unit: irqchip</div><div>Init=
+ializing unit: ARM SMMU</div><div>No SMMU</div><div>Initializing unit: PCI<=
+/div><div>Adding virtual PCI device 00:00.0 to cell &quot;imx8mq&quot;</div=
+><div>iommu_config_commit imx8mq</div><div>Page pool usage after late setup=
+: mem 72/994, remap 144/131072</div><div>Activating hypervisor</div><div>[=
+=C2=A0 251.213460] OF: PCI: host bridge /pci@0 ranges:</div><div>[=C2=A0 25=
+1.218097] OF: PCI:=C2=A0 =C2=A0MEM 0xbfc00000..0xbfc01fff -&gt; 0xbfc00000<=
+/div><div>[=C2=A0 251.224313] pci-host-generic bfb00000.pci: ECAM at [mem 0=
+xbfb00000-0xbfbfffff] for [bus 00]</div><div>[=C2=A0 251.233114] pci-host-g=
+eneric bfb00000.pci: PCI host bridge to bus 0000:00</div><div>[=C2=A0 251.2=
+40052] pci_bus 0000:00: root bus resource [bus 00]</div><div>[=C2=A0 251.24=
+5533] pci_bus 0000:00: root bus resource [mem 0xbfc00000-0xbfc01fff]</div><=
+div>[=C2=A0 251.252942] pci 0000:00:00.0: BAR 0: assigned [mem 0xbfc00000-0=
+xbfc000ff 64bit]</div><div>[=C2=A0 251.260861] virtio-pci 0000:00:00.0: ena=
+bling device (0000 -&gt; 0002)</div><div>[=C2=A0 251.269478] The Jailhouse =
+is opening.</div><div>[=C2=A0 251.269864] IPv6: ADDRCONF(NETDEV_UP): eth1: =
+link is not ready</div><div><br></div><div>Root $ ./jailhouse cell linux co=
+nfigs/imx8mq-linux-demo.cell /run/media/mmcblk1p1/Image -d /run/media/mmcbl=
+k1p1/fsl-imx8mq-evk-inmate.dtb -c &quot;clk_ignore_unused console=3Dttymxc1=
+,115200 earlycon=3Dec_imx6q,0x30860000,115200 root=3D/dev/mmcblk0p2 rootwai=
+t rw&quot;</div><div>[=C2=A0 315.757129] CPU2: shutdown</div><div>[=C2=A0 3=
+15.759844] psci: CPU2 killed.</div><div>[=C2=A0 315.804134] CPU3: shutdown<=
+/div><div>[=C2=A0 315.806843] psci: CPU3 killed.</div><div>Adding virtual P=
+CI device 00:00.0 to cell &quot;linux-inmate-demo&quot;</div><div>Shared me=
+mory connection established: &quot;linux-inmate-demo&quot; &lt;--&gt; &quot=
+;imx8mq&quot;</div><div>iommu_config_commit linux-inmate-demo</div><div>Cre=
+ated cell &quot;linux-inmate-demo&quot;</div><div>Page pool usage after cel=
+l creation: mem 88/994, remap 144/131072</div><div>[=C2=A0 315.835959] Crea=
+ted Jailhouse cell &quot;linux-inmate-demo&quot;</div><div>Cell &quot;linux=
+-inmate-demo&quot; can be loaded</div><div>Started cell &quot;linux-inmate-=
+demo&quot;</div><div>[=C2=A0 =C2=A0 0.000000] Booting Linux on physical CPU=
+ 0x2</div><div>[=C2=A0 =C2=A0 0.000000] Linux version 4.14.98-05985-g1175b5=
+9 (root@Develop) (gcc version 7.3.0 (GCC)) #1 SMP PREEMPT Mon Apr 20 11:57:=
+19 CST 2020</div><div>[=C2=A0 =C2=A0 0.000000] Boot CPU: AArch64 Processor =
+[410fd034]</div><div>[=C2=A0 =C2=A0 0.000000] Machine model: Freescale i.MX=
+8MQ EVK</div><div>[=C2=A0 =C2=A0 0.000000] earlycon: ec_imx6q0 at MMIO 0x00=
+00000030860000 (options &#39;115200&#39;)</div><div>[=C2=A0 =C2=A0 0.000000=
+] bootconsole [ec_imx6q0] enabled</div><div>[=C2=A0 =C2=A0 0.000000] efi: G=
+etting EFI parameters from FDT:</div><div>[=C2=A0 =C2=A0 0.000000] efi: UEF=
+I not found.</div><div>[=C2=A0 =C2=A0 0.000000] cma: Reserved 320 MiB at 0x=
+00000000e8000000</div><div>[=C2=A0 =C2=A0 0.000000] NUMA: No NUMA configura=
+tion found</div><div>[=C2=A0 =C2=A0 0.000000] NUMA: Faking a node at [mem 0=
+x0000000000000000-0x00000000fdbfffff]</div><div>[=C2=A0 =C2=A0 0.000000] NU=
+MA: NODE_DATA [mem 0xfdbd7600-0xfdbd93ff]</div><div>[=C2=A0 =C2=A0 0.000000=
+] Zone ranges:</div><div>[=C2=A0 =C2=A0 0.000000]=C2=A0 =C2=A0DMA=C2=A0 =C2=
+=A0 =C2=A0 [mem 0x00000000c0000000-0x00000000fdbfffff]</div><div>[=C2=A0 =
+=C2=A0 0.000000]=C2=A0 =C2=A0Normal=C2=A0 =C2=A0empty</div><div>[=C2=A0 =C2=
+=A0 0.000000] Movable zone start for each node</div><div>[=C2=A0 =C2=A0 0.0=
+00000] Early memory node ranges</div><div>[=C2=A0 =C2=A0 0.000000]=C2=A0 =
+=C2=A0node=C2=A0 =C2=A00: [mem 0x00000000c0000000-0x00000000fdbfffff]</div>=
+<div>[=C2=A0 =C2=A0 0.000000] Initmem setup node 0 [mem 0x00000000c0000000-=
+0x00000000fdbfffff]</div><div>processor<span style=3D"white-space:pre">	</s=
+pan>: 2</div><div>BogoMIPS<span style=3D"white-space:pre">	</span>: 16.66</=
+div><div>Features<span style=3D"white-space:pre">	</span>: fp asimd evtstrm=
+ aes pmull sha1 sha2 crc32 cpuid</div><div>CPU implementer<span style=3D"wh=
+ite-space:pre">	</span>: 0x41</div><div>CPU architecture: 8</div><div>CPU v=
+ariant<span style=3D"white-space:pre">	</span>: 0x0</div><div>CPU part<span=
+ style=3D"white-space:pre">	</span>: 0xd03</div><div>CPU revision<span styl=
+e=3D"white-space:pre">	</span>: 4</div><div><br></div><div>processor<span s=
+tyle=3D"white-space:pre">	</span>: 3</div><div>BogoMIPS<span style=3D"white=
+-space:pre">	</span>: 16.66</div><div>Features<span style=3D"white-space:pr=
+e">	</span>: fp asimd evtstrm aes pmull sha1 sha2 crc32 cpuid</div><div>CPU=
+ implementer<span style=3D"white-space:pre">	</span>: 0x41</div><div>CPU ar=
+chitecture: 8</div><div>CPU variant<span style=3D"white-space:pre">	</span>=
+: 0x0</div><div>CPU part<span style=3D"white-space:pre">	</span>: 0xd03</di=
+v><div>CPU revision<span style=3D"white-space:pre">	</span>: 4</div><div><b=
+r></div><div>I executed the same test case in bare-machine, root cell, and =
+inmate cell.</div><div>The CPU test results of sysbench in the root cell we=
+re approximately 1% lower than those of the bare machine, but the CPU test =
+results of sysbench=C2=A0 in the inmate cell were approximately 1/3 lower t=
+han those of the bare machine.</div><div>The super_pi test results in the r=
+oot cell were approximately 1% lower than those in the bare-bones machine, =
+but the super_pi test results in the inmate cell were approximately 20% low=
+er than those in the=C2=A0 bare-machine.</div><div>Jailhouse=C2=A0 is a par=
+titioning hypervisor, why is there a significant decrease in CPU performanc=
+e in the inmate cell?</div><div>This result makes me very puzzled, hope to =
+answer.</div><div>If you need any other info let me know.</div><div>I reall=
+y appreciate any analysis.</div><div>Best regards,</div><div><br></div><div=
+>ZhengjunZhang</div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/140e3a12-1921-6116-9af0-1c6eaf1b116e%40web.de.
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/b54b7357-842b-47d2-8a0f-19084d90717d%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/b54b7357-842b-47d2-8a0f-19084d90717d%40googlegroups.com<=
+/a>.<br />
+
+------=_Part_1155_2106856684.1589124360087--
+
+------=_Part_1154_1861179410.1589124360087--
