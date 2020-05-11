@@ -1,126 +1,125 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBFWI4T2QKGQE6JYZZTA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBLWK4T2QKGQEFXERKTA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x340.google.com (mail-wm1-x340.google.com [IPv6:2a00:1450:4864:20::340])
-	by mail.lfdr.de (Postfix) with ESMTPS id 775541CD5E4
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 11 May 2020 12:08:23 +0200 (CEST)
-Received: by mail-wm1-x340.google.com with SMTP id g10sf1139810wme.0
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 11 May 2020 03:08:23 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1589191703; cv=pass;
+Received: from mail-lf1-x13c.google.com (mail-lf1-x13c.google.com [IPv6:2a00:1450:4864:20::13c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 885BB1CD61E
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 11 May 2020 12:13:03 +0200 (CEST)
+Received: by mail-lf1-x13c.google.com with SMTP id 68sf3354562lfj.9
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 11 May 2020 03:13:03 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1589191983; cv=pass;
         d=google.com; s=arc-20160816;
-        b=rFO/xLJ4xQww8G30D72Irh+B3mhm1/eiTVGu4zCyrvZ3zAwISwlICn6wOailistryq
-         Cb7dMNtzxwb3XOUuKc0IlyWBTxPiD1iA0nqInxp8whu5jX3X6Yleo/vVK3iJ+REVczbq
-         F/IXViIJj9Pl5vWoIjLfd1FJUNxUy/EC4MzqbF6B4L082rPMtk62kYKkM7Zh2Zb0OHhH
-         crmv+X60omKvcg9h7mZDCD9EccCsOUoU0UIGfSPlnlXqyi5yI55f06UvsYNhg2H1TDNA
-         xC8Oq0lxyYe3/OSyfZygx/cRPCbDP1ruNv0VBO5DITKlVJztj2vvvIf75JN8acaeSbRy
-         nfmw==
+        b=S+qlWseTOY1lX/gMnkraAuR6WBW4ojfKVJBFYdUtBk6dGezQ8Sh8hG01ptPHlxpWM7
+         ig1DeAsKxQnVLLmbN7gMxzsK0ZcRb1EEZwDZ7v11CMU3nk0WPb8EVvsV8jmgJ2B0MxSc
+         jiHsB05/RgUA7duzt6GmsdHykTKoCjStgGJRPzdpukxT47sg0KdZcpLO4CTncUQJY1Ne
+         RNH2e7XMGymdNQqhZ3U63tZHFXdyUZQlFxiMcYAdz9HWtQTJsHAaNkI++SBcWTRFdE9S
+         iRdbgzf1OQLbAnvKS9ML9TyGoeE2RGK1T/oyyyHQ0AlqRHAlWB+thrhKELSbVFE9svYo
+         940w==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
          :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:cc:to:subject:sender:dkim-signature;
-        bh=aEE/t/9pCPSJsVI7CVI0/rNN8tMAT5WIWxsy/bGXraE=;
-        b=CXGQK75LuW1cJTbbkoB0QbiNtjfnPUqqB65H1MJgGKhUm/pz+frLHwX2jmZL44euH+
-         cBrx1QfR9jXW9DWMvdH2aOImLJd9NHcUwTWCSVN5OgeReql7Ub64a8LLGfVzAIdwGdiG
-         xmGtOOwyNyIIJVyL0UkMmEBcCaTT0Ry7ukZOADVQb90ncKoDsB0uDummnRkgKgtnnMND
-         YJ9xlK24DalvZsZco+31llEY+IX2Dhv1357y1UWS/8ZGYASsZ3gjc01Y/dbY6gobmEhq
-         9nnxplNcuLmovnlmmZtLoekCKawPV32M5Q2Sr+9t5kN7dCrs2LoiwSDYjB0GG5fKNc7D
-         BQdA==
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=Dilc20H/dyncgoRfwN7hLcns3PqbpOApPrjNwINdID0=;
+        b=JoD3WEnU6BbrBdPUtL+TlozIPJIf+H3bRFhmd2tSsDsCqiPVPdIwJOQUoXm8QyffZH
+         D+KBQKQU+WCGh0rfkfumchZ951hKaz/4tkSMzgVF1msRpAEj1AJuXGDtj8Gdw2DwFahU
+         GrgMkCXPDrfg4Lxgkzd/tdI/KByf1fUfWJqxcR9fYxJekMIPx5v49wgdqm2N7pMNlIWE
+         S3s77Wjy1wiWMuDsX1bMhVih9PFRtfV2iC81a1k8TCjuSmVVYOwillXZsfokHySFJS/m
+         kDvrmIUzliMYZHNSMRSqy3/aomuWtptaO/EgRQ1K9w8dDRynIaBan82OTWYRWljBH/s6
+         4+0g==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
        spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+        h=sender:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=aEE/t/9pCPSJsVI7CVI0/rNN8tMAT5WIWxsy/bGXraE=;
-        b=inH61EBbd0R5eX0LIgKSjAb3t/CVgdkmy43I0g89hUJ7gITsiz90QhNr1dlyHqm4Mk
-         LiFIhlUCGEN37cDwzKtqVYXWQh5rbLi87Rakrfxh7YDuWAGPSIUxKdkUhyoNXInPeFfq
-         AUYPOiMkaWCI2qUpnOuh1cNFLqpiJ4M8tsimcfdH6ZAAkSFKO6djUoWq3Wr5UJ9xQhxS
-         D2m1qy0jfvSp1uaE+5G44amhZGe/w6paFDLXECw6f5ASrpj3ZzEkEvOi9G3Vgvm/22CD
-         5KKfrQD3u9Lh2IjRvX4ozFD5+x/NTvJncvqifEob7Kzqil50Isb4g+l3VU8BK9kdz34O
-         eZrw==
+        bh=Dilc20H/dyncgoRfwN7hLcns3PqbpOApPrjNwINdID0=;
+        b=Fv3/JMk2Npj7zvZwYu/P08iUkj7fT7lxr4kOeXcRvkHQhg5FW9lMyJ84lCJjToCQCj
+         ZjAa4ECBLPt8UPjeAMaEYlXG0/yKjPmztMxkr9O6FdSEkcIh2XCk63vUDMBCAAZapYr3
+         2nbOEJBmKiP1ujz0sBhoi/PfLoIRRw7H62qQ3lEaU5X2Kr4yHgsUZUwGa/uxMsHB10V/
+         p7TleP0oWEdejQT4Rzbmq9GnTJXw0PVEkUQ27l2OkeQe+mH3NT77KdENkJCDaaIev5fC
+         UIpD6urMciygCEDr80NVicYIAS5PX1+O2WbLDGS6O0bkpLnnnaUbs16qU3UG+P2MTftY
+         QezA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
          :date:user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=aEE/t/9pCPSJsVI7CVI0/rNN8tMAT5WIWxsy/bGXraE=;
-        b=QXLX9t7n9d9C5oYXzcdLRpTJq9JTPIGkCpuaOZ5uV37C3iJZOr4j3jD7UpHsxNqAW8
-         AsMR0R5zffSbrgzvbPD6vN7NtDB6Qear99WBW/By5CfmzSZLCgvWP3ZkpJUHp3MyZpQm
-         Dk9u+Xd7rgK9kn8QLHCoDBTdg23hyLtLTX38yg6Zxn2+MCmdYFc16zNg3sAjoabgI1yG
-         xKXlXwKDA7hzb02pxi6VEs5WKf4yvYanr9kqP8RkZmR7d0I2ZbVe5lutq2a5QeU08fy+
-         67o70PCAz/sdUGCV5MEOof7ZZ9oNAZmD9/jwaLnwsEwTivAHCid6FlocjtDTYmDMZdZt
-         G2tw==
+        bh=Dilc20H/dyncgoRfwN7hLcns3PqbpOApPrjNwINdID0=;
+        b=iSa7OqIpYEwQkMUQvOSesari15kwGqAcMaJcssdQiJ0228Hkx29Lx8bnlIYspC5T+d
+         9XDSOBcv6vMh74rE2r/yEmc3LGwEAcx8wzUysZXQEJCPa0oH5ZXEQzvkLHfFDYMxBttJ
+         nOiMbVA6CbPJEPcUlOYYoAy8A5izf6YWJ/jRaq0ieDKWXiFQhlizfYo3ou1R6J1f2gou
+         zG1obn78zHaQrGdCY+56Uf7aXOHfvLw3rrNAuYx8nVW3qACNGfzWCbkHkUB8XPulRr1s
+         Gu0vRu49JzX+FQ++r7AjGTk2LFck6B9OsdBN9UZUyc/Az3mQ+pqJFneEfTvGs60lVX/E
+         jKKw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AGi0Pua+RxdLP7xXZ0jSxXM2CKNKgOZsnbZIRPPwNKcuunqMOrWb+qb0
-	yv2KklDSZMKudAvrqzJIHx8=
-X-Google-Smtp-Source: APiQypJ/iU3Q+qMM+rR73a7ikbkJPVL/Sv+Xrla5Xnz1i6YXlvxwXqQarusve4G2MGtt9MBCLojxVQ==
-X-Received: by 2002:a5d:448e:: with SMTP id j14mr6231846wrq.261.1589191703165;
-        Mon, 11 May 2020 03:08:23 -0700 (PDT)
+X-Gm-Message-State: AOAM533HCU0QqNNOHE29CnLt+Gm+ajxUUmrJmGDJUdAxAXJGhm5zAHPU
+	2+3wi+7fGqO/GD3Q4qSCpno=
+X-Google-Smtp-Source: ABdhPJxTFCazs8CnggmreKhCjXBlBLnjpwb9pyepeinEC3BgtELt1mMSdsJzxgUwLwc+1y790LsqAw==
+X-Received: by 2002:ac2:5de6:: with SMTP id z6mr10297270lfq.18.1589191983017;
+        Mon, 11 May 2020 03:13:03 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:a502:: with SMTP id i2ls2662253wrb.11.gmail; Mon, 11 May
- 2020 03:08:22 -0700 (PDT)
-X-Received: by 2002:a5d:4e8f:: with SMTP id e15mr17973740wru.91.1589191702408;
-        Mon, 11 May 2020 03:08:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1589191702; cv=none;
+Received: by 2002:a2e:3a12:: with SMTP id h18ls2222743lja.1.gmail; Mon, 11 May
+ 2020 03:13:02 -0700 (PDT)
+X-Received: by 2002:a2e:5847:: with SMTP id x7mr9648809ljd.61.1589191982141;
+        Mon, 11 May 2020 03:13:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1589191982; cv=none;
         d=google.com; s=arc-20160816;
-        b=mcJE9V0K24/SM4LQelI1DHHxFB6krwSJqyBBjymqktEVWs4i+DJBbArxd4iMgmHdYT
-         zXUedql9uV7N48tXCeXSVmydnJfoymbZ/nBGuWQkp51Nki3pPABKD61PbWsabcUhi6kO
-         D5g6kGw+UEze0uvjBx5u7isDEoGHUoRXNaWuHk++8iBOtVdnSXuTC/tnSsuttalgYG8d
-         48JZZVq7/QGePrl5N1yZafBTEBfDF3VQEMmPWLyNHFuw1dn5AlDNyjHymOJXAqCQ2AGW
-         OZkZVDOLO3Jz4AYcySkq0RsFmcpFffCHg7F+esuG1r/C5k1DcDMyPTTuiKGmQwgcI8rP
-         ISmQ==
+        b=GZwHPskpj3C7kpP6LgP2UokVteXC8hQ7ZugvUvCmOtDIfJXWW85e0m1t3SxaONRLUv
+         uv93U0gt6TU80EVICxvKkXe4LhBch1AtAwJX36axrRnl+CUr+F2DfRMCiCKvoisYGERw
+         EXkdIqQ5BLgAb6gxNoRoUyvtOYVGDSndoAqS7bwn2seIBGEr1zH4o1OMteldgOakz8AT
+         BEqqZUz1BadTO6V2+NHQCzBwoIDlun18ryHbu+tLmdeDHjm72GoWLuMVJA2n6QJ8NXpX
+         23yO6gdfYPFQkSsRUP3Ak+vQ1R199efdbQO4YSBaeCoH5ubqyoYe3EB8buonbG+lEtfH
+         KmSQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=JIvWZ+84sIO/lw5+CWl2Eysy7gX6YVfJxQWgleUTGjk=;
-        b=ZdXHWSqkb9B1iESV4hYbvdQT/fz6tBVVXz4Xj5b+3w25Y/5uK0KNUnA3tZrHB8qSpo
-         qYTW5zYZ8g/5URyedVoUIKicAlgKAoqbiroCWMC6KWBTAu3V59YNfu0WF43jtOXlPp38
-         uSFgefYRC5+gPpTL0SzabKNVirdjJVZMHf/JjAndSIYtOdaEM2qYpZ9TNGhqk/IlsWte
-         RmjBb5HfC8Iu+M4tjfJpX5dnL5EoCPDHlIrrL6ObvzHk+QsJ3GPzxlBN+wbVubt0clMr
-         JleqlRlDVtZzpMLtLzl3G+U5Wr0lOQ/ok+zsqzEda7Xsy6EdzC1E9ttXWEsTZitR73z/
-         T/bg==
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=xdU+83PqK3fo5sIYc4t3pkAANwfwhl2Pi45yYlSVt/U=;
+        b=ixeF2i8Mub2y6MNDTf93IBT7QY8iiGUTnwTSyo6Yo00V+54f5FkRm8p+4IEsBos2sG
+         FOF6wlunVdtk2gsTRo/+o5eqxMWXLiD/qOttjIeH30SjOQuyVSm/nMC1d0tvdyxtcQZ9
+         9EJaI3+f8RnARNOGO/2u/Y3YxA8BUY+I9kJMGrU5AtbzV7SlJ5T/iq4zYNok55pC7C/7
+         1/vMuSb6ABEEec+b0zIPMVdynrtj1ezVnLrno14T15WMiLVbL4tRH8vxtwBOJXuRfNxu
+         yp6ngvWcq+Qc7nWSjj4/w9PelvU6oI1YWNWVpurV/pxtEy3OBbvriTSJIQPwtZ/fzDCM
+         kCWQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
        spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
-        by gmr-mx.google.com with ESMTPS id v11si150095wrp.5.2020.05.11.03.08.22
+        by gmr-mx.google.com with ESMTPS id q9si512220lfo.4.2020.05.11.03.13.01
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 11 May 2020 03:08:22 -0700 (PDT)
+        Mon, 11 May 2020 03:13:02 -0700 (PDT)
 Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 04BA8Kov024586
+	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 04BAD0cM001957
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 11 May 2020 12:08:20 +0200
+	Mon, 11 May 2020 12:13:00 +0200
 Received: from [167.87.5.144] ([167.87.5.144])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 04BA8KtC013199;
-	Mon, 11 May 2020 12:08:20 +0200
-Subject: Re: [PATCH v2 3/9] driver: introduce col_load_address for colored
- binaries loading
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 04BACx6n021809;
+	Mon, 11 May 2020 12:12:59 +0200
+Subject: Re: [PATCH v2 2/9] hypervisor: implement
+ paging_create/destroy_colored
 To: Luca Miccio <lucmiccio@gmail.com>, Marco Solieri <ms@xt3.it>,
         jailhouse-dev@googlegroups.com
-Cc: Angelo Ruocco <angelo.ruocco.90@gmail.com>
 References: <20190327121849.1882-1-ms@xt3.it>
- <20200421100351.292395-1-ms@xt3.it> <20200421100351.292395-4-ms@xt3.it>
- <c0710d88-a53b-c17e-8c1d-6615b9b8bf09@siemens.com>
- <0af1c1c8-52ee-f822-66e5-c7926fac8596@gmail.com>
- <b58259a7-4aa0-7182-1ba9-b762be5cb82d@siemens.com>
- <b4c2716d-c5b3-b08d-6c2b-ebb7326102a9@gmail.com>
+ <20200421100351.292395-1-ms@xt3.it> <20200421100351.292395-3-ms@xt3.it>
+ <d492ee67-ee26-3533-5ca6-7c9e3e783abf@siemens.com>
+ <2146f95d-2c71-db9d-810a-764f1c68d81d@gmail.com>
+ <e7c7a7c0-48df-0ebe-0d2d-7715417ee93e@siemens.com>
+ <216f41f3-0254-a746-8be2-d2cf45550f4a@gmail.com>
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <942fdfa6-5be7-e17e-d447-d1c2f41da80f@siemens.com>
-Date: Mon, 11 May 2020 12:08:20 +0200
+Message-ID: <70fd7d1f-1a0b-7a33-a3d2-1f3340e2fc23@siemens.com>
+Date: Mon, 11 May 2020 12:12:59 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <b4c2716d-c5b3-b08d-6c2b-ebb7326102a9@gmail.com>
+In-Reply-To: <216f41f3-0254-a746-8be2-d2cf45550f4a@gmail.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
@@ -141,90 +140,308 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 11.05.20 11:07, Luca Miccio wrote:
+On 11.05.20 11:02, Luca Miccio wrote:
 >=20
 >=20
-> On 5/6/20 6:54 PM, Jan Kiszka wrote:
+> On 5/6/20 6:51 PM, Jan Kiszka wrote:
 >> On 06.05.20 18:42, Luca Miccio wrote:
 >>>
 >>>
->>> On 5/4/20 8:33 PM, Jan Kiszka wrote:
+>>> On 5/4/20 8:32 PM, Jan Kiszka wrote:
 >>>> On 21.04.20 12:03, 'Marco Solieri' via Jailhouse wrote:
 >>>>> From: Luca Miccio <lucmiccio@gmail.com>
 >>>>>
->>>>> Currently Jailhouse loads inmate's binaries by mapping its memory
->>>>> region
->>>>> to the root cell. When coloring is enabled this operation becomes
->>>>> not trivial. To avoid logic duplication in the driver module,
->>>>> use a special memory space when loading to colored regions. This
->>>>> convenient memory space starts from a fixed address defined by
->>>>> `col_loads_address` and will be mapped by the hypervisor using the sa=
-me
->>>>> size and coloring configuration as the inmate.
->>>>> Since there could be platforms with different memory space layouts, t=
-he
->>>>> choice of `col_loads_address` has to be done accordingly.
->>>>> Allow the user to set this value in the root-cell configuration and s=
-et
->>>>> the default to 16 GiB. The latter has been empirically choosen as
->>>>> default
->>>>> value.
->>>>
->>>> This is better than the hypercall in v1, but I still dislike the
->>>> approach for the complexity growth in the hypervisor.
->>>>
->>>> I see the point that some logic - namely the strip width calculation -
->>>> would have to be duplicated into the Linux driver, but it feels to me
->>>> that this would be a better alternative overall. Did you think through
->>>> or even try such an approach at all?
->>>>
->>>
->>> Yes. Actually it was our first implementation, the v0 one. Our concern
->>> was (and still is) the duplication of coloring logic between hypervisor
->>> and Linux driver. We put so much time into this problem and we came up
->>> with this solution and we think it seems to be overall the best one. I
->>> also understand and I agree that this solution adds some complexity to
->>> the hypervisor but even if we move some logic to Linux, a part of the
->>> complexity will remain in the hypervisor.
->>> Moreover, moving coloring logic to the driver opens up the problem on
->>> how to copy in "strided" mode based on the coloring configuration. We
->>> did it by copying one page at a time, using the next_colored in the
->>> driver module (duplicating the code) but this approach was too expensiv=
+>>>>> Add functions for colored page creation and destruction and initializ=
 e
->>> when loading larger images (e.g, Linux inmate).
->>> One solution that I see is the following:
->>> - during cell load, Jailhouse remaps the inmate memory to root cell as
->>> usual but in colored mode
->>> - the "special" memory region mentioned in the commit is created by
->>> Linux instead of Jailhouse
->>> - the copy is performed virtually sequential
->>>
->>> The idea here is to exploit the jailhouse_ioremap function in the drive=
-r
->>> module.
->>>
->>> With this solution the only complexity that remains in the hypervisor i=
+>>>>> coloring on the platform.
+>>>>>
+>>>>> The story of the life of a coloring page can be summarized as follows=
+.
+>>>>>
+>>>>> 1. Bits in the address that are useful for defining colors are
+>>>>> computed,
+>>>>>  =C2=A0=C2=A0=C2=A0=C2=A0 and used for all mappings. The page size us=
+ed to obtain the lower
+>>>>> limit
+>>>>>  =C2=A0=C2=A0=C2=A0=C2=A0 is assumed to be aligned with the `PAGE_SIZ=
+E` constant
+>>>>> defaulting at
+>>>>>  =C2=A0=C2=A0=C2=A0=C2=A0 4KiB, and also as the unit for the mapping =
+operation, even when
+>>>>>  =C2=A0=C2=A0=C2=A0=C2=A0 consecutive pages would be possible.
+>>>>>
+>>>>> 2. The colored regions can then mapped with a new paging function and
+>>>>>  =C2=A0=C2=A0=C2=A0=C2=A0 destructed with the old one, because `pagin=
+g_destroy*` acts on
+>>>>> virtual
+>>>>>  =C2=A0=C2=A0=C2=A0=C2=A0 addresses while coloring happens on the phy=
+sical ones.
+>>>>>  =C2=A0=C2=A0=C2=A0=C2=A0 Paging_create has to handle the remap to ro=
+ot_cell too when e.g.
+>>>>>  =C2=A0=C2=A0=C2=A0=C2=A0 destroying cells.
+>>>>>
+>>>>> 3. The colored unmap function is instead used only when destroying th=
+e
+>>>>>  =C2=A0=C2=A0=C2=A0=C2=A0 root cell mapping, since we assume that the=
+ root cell uses a 1:1
+>>>>> mapping
+>>>>>  =C2=A0=C2=A0=C2=A0=C2=A0 for memory regions.
+>>>>>
+>>>>> Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
+>>>>> Signed-off-by: Marco Solieri <ms@xt3.it>
+>>>>> ---
+>>>>>  =C2=A0=C2=A0 hypervisor/include/jailhouse/paging.h |=C2=A0 11 ++
+>>>>>  =C2=A0=C2=A0 hypervisor/paging.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | =
+155
+>>>>> ++++++++++++++++++++++++++
+>>>>>  =C2=A0=C2=A0 2 files changed, 166 insertions(+)
+>>>>>
+>>>>> diff --git a/hypervisor/include/jailhouse/paging.h
+>>>>> b/hypervisor/include/jailhouse/paging.h
+>>>>> index 5513c4ec..032a3a04 100644
+>>>>> --- a/hypervisor/include/jailhouse/paging.h
+>>>>> +++ b/hypervisor/include/jailhouse/paging.h
+>>>>> @@ -267,6 +267,17 @@ int paging_destroy(const struct paging_structure=
 s
->>> the memory management for the root cell that is introduced in patch 5
->>> without the "special" region part.
+>>>>> *pg_structs,
+>>>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 unsigned long virt, unsigned long size,
+>>>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 unsigned long paging_flags);
+>>>>>  =C2=A0=C2=A0 +int paging_create_colored(const struct paging_structur=
+es
+>>>>> *pg_structs,
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 unsigned long phys, unsigned long size,
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 unsigned long virt, unsigned long access_flags,
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 unsigned long paging_flags,
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 unsigned long *color_bitmask, bool identity_map);
+>>>>> +
+>>>>> +int paging_destroy_colored(const struct paging_structures *pg_struct=
+s,
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 unsigned long virt, unsigned long size,
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 unsigned long paging_flags,
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 unsigned long *color_bitmask);
+>>>>> +
+>>>>>  =C2=A0=C2=A0 void *paging_map_device(unsigned long phys, unsigned lo=
+ng size);
+>>>>>  =C2=A0=C2=A0 void paging_unmap_device(unsigned long phys, void *virt=
+, unsigned
+>>>>> long size);
+>>>>>  =C2=A0=C2=A0 diff --git a/hypervisor/paging.c b/hypervisor/paging.c
+>>>>> index 876f1521..e8f741c2 100644
+>>>>> --- a/hypervisor/paging.c
+>>>>> +++ b/hypervisor/paging.c
+>>>>> @@ -5,6 +5,8 @@
+>>>>>  =C2=A0=C2=A0=C2=A0 *
+>>>>>  =C2=A0=C2=A0=C2=A0 * Authors:
+>>>>>  =C2=A0=C2=A0=C2=A0 *=C2=A0 Jan Kiszka <jan.kiszka@siemens.com>
+>>>>> + *=C2=A0 Luca Miccio <lucmiccio@gmail.com> (cache coloring support)
+>>>>> + *=C2=A0 Marco Solieri <ms@xt3.it> (cache coloring support)
+>>>>>  =C2=A0=C2=A0=C2=A0 *
+>>>>>  =C2=A0=C2=A0=C2=A0 * This work is licensed under the terms of the GN=
+U GPL, version 2.
+>>>>> See
+>>>>>  =C2=A0=C2=A0=C2=A0 * the COPYING file in the top-level directory.
+>>>>> @@ -14,6 +16,7 @@
+>>>>>  =C2=A0=C2=A0 #include <jailhouse/printk.h>
+>>>>>  =C2=A0=C2=A0 #include <jailhouse/string.h>
+>>>>>  =C2=A0=C2=A0 #include <jailhouse/control.h>
+>>>>> +#include <jailhouse/coloring.h>
+>>>>>  =C2=A0=C2=A0 =C2=A0 #define BITS_PER_PAGE=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 (PAGE_SIZE * 8)
+>>>>>  =C2=A0=C2=A0 @@ -438,6 +441,153 @@ int paging_destroy(const struct
+>>>>> paging_structures *pg_structs,
+>>>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
+>>>>>  =C2=A0=C2=A0 }
+>>>>>  =C2=A0=C2=A0 +/**
+>>>>> + * Create or modify a colored page map.
+>>>>> + * @param pg_structs=C2=A0=C2=A0=C2=A0 Descriptor of paging structur=
+es to be used.
+>>>>> + * @param phys=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Physical ad=
+dress of the region to be mapped.
+>>>>> + * @param size=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Size of the=
+ region.
+>>>>> + * @param virt=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Virtual add=
+ress the region should be mapped to.
+>>>>> + * @param access_flags=C2=A0=C2=A0=C2=A0 Flags describing the permit=
+ted page access,
+>>>>> see
+>>>>> + * @ref PAGE_ACCESS_FLAGS.
+>>>>> + * @param color_bitmask=C2=A0=C2=A0=C2=A0 Bitmask specifying value o=
+f coloring.
+>>>>> + * @param identity_map=C2=A0=C2=A0=C2=A0 If true the mapping will be=
+ 1:1.
+>>>>> + *
+>>>>> + * @return 0 on success, negative error code otherwise.
+>>>>> + *
+>>>>> + * @note The function uses only 4 KiB page size for mapping.
+>>>>> + *
+>>>>> + * @see paging_destroy_colored
+>>>>> + * @see paging_get_guest_pages
+>>>>> + */
+>>>>> +int paging_create_colored(const struct paging_structures *pg_structs=
+,
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 unsigned long phys, unsigned long size,
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 unsigned long virt, unsigned long access_flags,
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 unsigned long paging_flags,
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 unsigned long *color_bitmask, bool identity_map)
+>>>>> +{
+>>>>> +
+>>>>> +=C2=A0=C2=A0=C2=A0 phys &=3D PAGE_MASK;
+>>>>> +=C2=A0=C2=A0=C2=A0 virt &=3D PAGE_MASK;
+>>>>> +=C2=A0=C2=A0=C2=A0 size =3D PAGE_ALIGN(size);
+>>>>> +
+>>>>> +=C2=A0=C2=A0=C2=A0 while (size > 0) {
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const struct paging *pagi=
+ng =3D pg_structs->root_paging;
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 page_table_t pt =3D pg_st=
+ructs->root_table;
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pt_entry_t pte;
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int err;
+>>>>> +
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 phys =3D next_colored(phy=
+s, color_bitmask);
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (identity_map)
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 v=
+irt =3D phys;
+>>>>> +
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 while (1) {
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 p=
+te =3D paging->get_entry(pt, virt);
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 i=
+f (paging->page_size =3D=3D PAGE_SIZE) {
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 paging->set_terminal(pte, phys, access_flags);
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 flush_pt_entry(pte, paging_flags);
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 break;
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /=
+* Loop until 4K page size by splitting hugepages */
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 i=
+f (paging->entry_valid(pte, PAGE_PRESENT_FLAGS)) {
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 err =3D split_hugepage(pg_structs->hv_paging,
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 paging, pte, virt,
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 paging_flags);
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 if (err)
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return err;
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 pt =3D paging_phys2hvirt(
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 paging->get_next_pt(pte));
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }=
+ else {
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 pt =3D page_alloc(&mem_pool, 1);
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 if (!pt)
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -ENOMEM;
+>>>>> +
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 paging->set_next_pt(pte, paging_hvirt2phys(pt));
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 flush_pt_entry(pte, paging_flags);
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 p=
+aging++;
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (pg_structs =3D=3D &hv=
+_paging_structs)
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 a=
+rch_paging_flush_page_tlbs(virt);
+>>>>> +
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 phys +=3D paging->page_si=
+ze;
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 virt +=3D paging->page_si=
+ze;
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 size -=3D paging->page_si=
+ze;
+>>>>> +=C2=A0=C2=A0=C2=A0 }
+>>>>> +=C2=A0=C2=A0=C2=A0 return 0;
+>>>>> +}
+>>>>> +
+>>>>
+>>>> Isn't paging_create(...) the same as
+>>>> paging_create_colored(..., color_bitmask=3Dfull, identity_map=3Ddont-c=
+are)?
+>>>> Same fore paging_destroy. This duplication of highly sensitive code mu=
+st
+>>>> be avoided.
+>>>>
+>>>
+>>> Actually paging_create_colored forces the usage of PAGE_SIZE
+>>> granularity. Considering that next_colored can be "bypassed" if we use =
+0
+>>> for color_bitmask, we can choose between passing 0 or full as
+>>> color_bitmask if we want to avoid executing unnecessary code. So I thin=
+k
+>>> that paging_create should be the same as paging_create_colored(...,
+>>> color_bitmask=3D[0|full], identity_map=3Ddont-care) only if PAGING_HUGE=
+ is
+>>> not set in paging_flags. Am I right?
+>>> If so, I think that we can integrate the coloring part into
+>>> paging_create if it's ok for you. This, of course, will require
+>>> modifying all its occurrences.
 >>
->> I haven't fully thought this through, but I wonder if storing
->>
->>  =C2=A0- maximum number of colors
->>  =C2=A0- color stride width
->>
->> instead of llc way size in the platform data and using that also in the
->> driver would obsolete a lot of logic in the driver and the hypervisor.
->> Granted, that would push some of it to an offline calculation. That that
->> would be a typical Jailhouse pattern.
+>> You can provide a wrapper if the common (non-colored) case would just
+>> mean passing in common identical additional parameters.
 >>
 >=20
-> I see the point but who will provide this values in the platform data?
-> Are they calculated or?
+> Yes. You're right.
+>=20
+>>>
+>>> On the other hand paging_destroy_colored does not seem to be the same a=
+s
+>>> the non-colored version. As I said we need to use PAGE_SIZE granularity
+>>> but looking at paging_destroy, if I understand correctly, it checks onl=
+y
+>>> if the size to unamp fully covers the hugepage. So I think that if we
+>>> try to unmap a colored region bigger than 2 MiB (page entry size after
+>>> PAGE_SIZE if the latter is 4KiB), the function will not split the
+>>> hugepage. Correct me if I am wrong.
+>>>
+>>
+>> If hugepages can be used or not has nothing to do with whether coloring
+>> is used or not. It depends on how large the strides are. If they happen
+>> to be wider than the smallest hugepage size, it would in fact be
+>> beneficial to have a generic implementation. Can't this already happen
+>> with 128 colors and 127 of them assigned to a single inmate?
+>>
+>=20
+> Actually, I didn't get the point here. My concern was that
+> paging_destroy does not act *always* on PAGE_SIZE granularity. If we
+> need to unmap colored memory with size > 2 MiB from the root cell, how
+> can we do it with the current implementation of page_destroy?
 
-Yes, they would have to be pre-calculated. For convenience, we could=20
-discuss to do that in the kernel driver if those values are unset and=20
-coloring is requested.
+My understanding of the difference between colored and uncolored unmap=20
+would be the same as for map: The difference is in a stride width >=20
+PAGE_SIZE. Necessarily, a stride width must always be page-aligned. If=20
+it happens to be larger than a hugepage size, though could be added or=20
+dropped as a whole. If it happens to high the middle of a hugepage, this=20
+would be just like unmapping hugepage-unaligned regions: the page would=20
+have to be broken up. The Jailhouse code should be ready for that. It=20
+just needs the additional logic to step according to colors.
 
 Jan
 
@@ -238,4 +455,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/942fdfa6-5be7-e17e-d447-d1c2f41da80f%40siemens.com.
+jailhouse-dev/70fd7d1f-1a0b-7a33-a3d2-1f3340e2fc23%40siemens.com.
