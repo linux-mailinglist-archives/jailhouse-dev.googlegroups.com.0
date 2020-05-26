@@ -1,126 +1,137 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBJ7VVX3AKGQESMGVNUY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCOKB247TIDBBFFRWT3AKGQECETRQJA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x53a.google.com (mail-ed1-x53a.google.com [IPv6:2a00:1450:4864:20::53a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 182841E084D
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 25 May 2020 09:58:32 +0200 (CEST)
-Received: by mail-ed1-x53a.google.com with SMTP id c3sf2639736edj.23
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 25 May 2020 00:58:32 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1590393511; cv=pass;
+Received: from mail-lj1-x23a.google.com (mail-lj1-x23a.google.com [IPv6:2a00:1450:4864:20::23a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 609D11E22DF
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 26 May 2020 15:24:37 +0200 (CEST)
+Received: by mail-lj1-x23a.google.com with SMTP id a26sf5460549ljn.20
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 26 May 2020 06:24:37 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1590499477; cv=pass;
         d=google.com; s=arc-20160816;
-        b=AM7xiN4FIrbsXN66f11qOaEcBS8cO7sA4QfNAoaUg9oZVnah62KrVqDComymWttLSM
-         oHjPBosCbapT725GAtd+08m5+ayJaEXJfILK0c5wS9uaTHyCvH+8c3w5I3gHYQ/rlI6S
-         i4Zc/yEw90TqIEMAG5d31NQ4c+pNmGFW9+wSuITANmFa1MZDY5aDnGY9WYC1WIiQQGXk
-         3SETAkgi4o9xxt+ZRXAFjtyLN2CNwTmKBX9AgFEB2k/7gGKvagUBwKyln3rF10LU5QwJ
-         WB6NrGQlhxok5cTnhlHgkoABueN/7qKkLXBWcnHa7Sm6j3Mnx60pLf9AU/QZfFey/PDz
-         d+MQ==
+        b=Tlf45CFHY6nRyTrPGJWIe8gP+AW2t6QPiB7I+BlZ89keFaHPd/fH01joYLbQw++bBN
+         wPc6uup8092euXSY2jsE5OOR2nY2Un2SPlAiKx7JV0i4AprNW1Q/X/8wO3LGtz90PJOb
+         pvFpvlYZXeP3/YuRL+OqnPWZqmMdikFOXEU2bNHOAgEfsRKgwNJvtHBEixZHgHABqHl4
+         +IfDytF6J8USBzy+9/ASqPkRtn6SNIIoOSmSMdlQi1Iouwa8C1rCqiqMCkTEqSepMN29
+         qz+uWSnZwP5UOolPW/7eWboyjnlBdbUHNitkRKjD9N9pEtm1bPIVi+imfrck5DlQmhn8
+         nX+Q==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:mime-version
-         :user-agent:date:message-id:subject:from:cc:to:sender:dkim-signature;
-        bh=r0Ls4J5DdWMFygaE/ESgByN3fDhxcBmaMmt4l3KGC/U=;
-        b=L1LXXPABSgJC79MTy1mNsYHZqIRwHIeXY6fcXkc9s3cPU41OXrEt41R8fCuC0vp5Zn
-         /a0/Ko1Yr+yqHCKRMjWyjhA05aIls6d8uyoYNlc1Ypsj41wgPt6zek3uOlBiSHg1JC24
-         DV7iYUH5y8zU0JKkDkIAX4YjgD54LZXO8CFe7E8//VV93RbZBvzcb0SQlsCG3SegPnzD
-         koj+/0oab/NiiQWN/RBLxY6dxouSMkGqS0Lsy5Sy9xyKsNiulK8XLaLUe9s0l+vpmmIf
-         S/TG32BHq5unDamFuCN6w44vPrzSZRqSQfANQPevRc3NHTTL591Pk101XyXCa9r4rZTV
-         wCog==
+         :list-id:mailing-list:precedence:reply-to:in-reply-to
+         :content-disposition:mime-version:references:message-id:subject:cc
+         :to:from:date:dkim-signature;
+        bh=jkmUpTpsjt2HAfQvLiLu7Png+w5XaQKcatW4vXkJOEE=;
+        b=aSR7hivF0BGSgIE9KcZ30J1lj7I8SAeGHpV6gPO1bAAR14k993sgdUcMrHdaCGa5S2
+         RSsueQ9ZYGOtZf5cnXOwEnDkKqU5n1OapgxKvXCH4yKPwDA9TrsYz7/pj+xZuPalY5J+
+         rwzWxjEVNGesXz9po5edaaFwvlGLe3JjgUGL1x57tvFOztevd2CJHQmGT0C4XWO90Wl6
+         hee8PMLSWicfhgX+tjEq0hETWjeGp4gZl4i0H5QHwhwm6BLQBpoRBIqHtDsFM53DzWNB
+         VA6ulWfCrVGeQXjKozmsugWt5ChvTAaz5cH1aAFdUlcIFNl0aT1v0MN9e45dS2Dg5Hzp
+         jLaw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       dkim=pass header.i=@unimore.it header.s=google header.b=Lo57IWRT;
+       spf=pass (google.com: domain of marco.solieri@unimore.it designates 2a00:1450:4864:20::343 as permitted sender) smtp.mailfrom=marco.solieri@unimore.it;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=unimore.it
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:to:cc:from:subject:message-id:date:user-agent:mime-version
-         :content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=r0Ls4J5DdWMFygaE/ESgByN3fDhxcBmaMmt4l3KGC/U=;
-        b=UdkYC9EbYUqiXB4RfeNyWJoQZLoEWF8DV/pQjjYi8Dtoitb/+jKF0XMed0MThrlQ5G
-         2ZBx8KxU1l+fa/NnymbRR3vre3ofEn5qLv0fv5LpC9j3DJtf7vXAhVXs7o27mYwgI5XR
-         trNfjSKflo9Iz/91+GFMzasjtwUyOQqegk9Ro9kCKYGSHmaSfGGf4aKTIXPiZ4vLSLuq
-         LHVPVRuxOm/1jlBHBrHAw4QqtoS7mYo2Puw4TyJm+hlpKk/1srd3IPweCihtMOT9Eal1
-         IfExSIoJsimX6RSETs+h321biIR7dAr0O3YZxMV9IFcoe0f0mAejck97aTZA2Gwt+sh4
-         VwSw==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:x-original-sender
+         :x-original-authentication-results:reply-to:precedence:mailing-list
+         :list-id:list-post:list-help:list-archive:list-subscribe
+         :list-unsubscribe;
+        bh=jkmUpTpsjt2HAfQvLiLu7Png+w5XaQKcatW4vXkJOEE=;
+        b=NNVwN+tJdi6wH0zo1j5w07DWUkiTQEqoabYf/YCEuDNFtWJmfFK+kg6UB7FjJhX2Nk
+         UodoKm9Dy4sZtJ3Znyh0TN+UTHXcI0pQqFZM2xE33q9j37cV2NZUXYv6OBOlTAeCN3I2
+         Uy+sgWV6dM7rCQze67RhEJnhTGXiJaWvxKbMeiEexqSTZRHcsOBVOmC3cqvh+orxoeKK
+         Ly0BNFu6v+1YEseG6FA3x7+Jeg/E9wEcH9egl5od11uuBhDs7qXOpV8VPjbntke3ynmx
+         s1/9wYoBHHhNXdYrmTH16NEDi7tQFDcwzrzsrfgpUXi+8F8lNidsXZhmwE5U9YEhT6z0
+         7xUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:to:cc:from:subject:message-id:date
-         :user-agent:mime-version:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:x-original-sender
+         :x-original-authentication-results:reply-to:precedence:mailing-list
+         :list-id:x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=r0Ls4J5DdWMFygaE/ESgByN3fDhxcBmaMmt4l3KGC/U=;
-        b=rAdKNT6Z0cskd60dk7fdRatuOKR+F59bioE5rYReADbAD/h593+6PIm3qPZhoFiLVF
-         HONINsE1Aeo/2tIahnLn+UKu4eUxUFv5M8pVlQDh9tSiGx04q8FEvpJHoxGzdNsN/ojS
-         7VmJ9CxLbZwHtNFGv+b3UTb6KCMmmKWSZzW31nJ4gf+c6sCr08hzZ2aZ4r+O1D+GAIdH
-         E5o1vB1xtiHhDdbFKiH2sKsCu6ByMaDqe7QdTgfvpXdaS/0CN9V38ivukRcBkFTMbnLe
-         +iKyB2T63Z45rPMFLoBJLTcKFl76MLtefvggSn1+VGtY7Q7+mstQYmzKRj9fGCy1GrXX
-         9Tbw==
-Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532JQfAOz09Zuyr3fUun6KG8LRl7CB5iZzGFu7WNclW/C8igOVGv
-	epTqqQa+Gjev3SoKO+eKBko=
-X-Google-Smtp-Source: ABdhPJwnwmeeGBnxQ5QSk+u8m7/skakUbexeadgiEvUNmcLLzr56DWEtSp7U99ePRXoIIOe/pq42lw==
-X-Received: by 2002:a17:906:34c3:: with SMTP id h3mr17607416ejb.446.1590393511711;
-        Mon, 25 May 2020 00:58:31 -0700 (PDT)
+        bh=jkmUpTpsjt2HAfQvLiLu7Png+w5XaQKcatW4vXkJOEE=;
+        b=g0eACyGfU/tq+fgsxrnEzSGHs0E2hMxofgMTGezy7lYDNa4atwTrd6ca5whV+FYROj
+         nRTe/vCMWmKtm2LNeezL1We+rYCR3xzsd9yGGyMMqZsa2pxNxHbryOgnA+RXQ5f5mrJF
+         2+tWy1JVGqB/bTGvc34V9fsJvUOAnmvfsXbwy0avD0lVZRTKa0sUsFOsNPyzG6llOJGt
+         KqCTz7DzXuUQcmN5rvc72sLa73fhIZcHU5w9bLuvVm4GXl2+1LAKhkrtauiqWr9+YESI
+         SSf5Z9mMFCEORABx26rg4xUYAnLPK5U/n73Jb6/ucfXk9urEl8VIX4mqqU8qPOYczO09
+         jZCw==
+X-Gm-Message-State: AOAM530bCAJpgJ4/bYhoRizeJ435/IUH2Mnm9sl4C9GgXlHTCXNO1Mb2
+	K24/L8aot4KcllxN4ES1Gcc=
+X-Google-Smtp-Source: ABdhPJwU72Xcr32XqhwNWR8AeRRfWO+b0IInxDZMdh7FO+w2dfnFdj8oskWFDhKXMfJ0tkXFLzVlkw==
+X-Received: by 2002:a2e:9242:: with SMTP id v2mr637850ljg.41.1590499476756;
+        Tue, 26 May 2020 06:24:36 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:48c2:: with SMTP id d2ls3524358ejt.11.gmail; Mon, 25
- May 2020 00:58:30 -0700 (PDT)
-X-Received: by 2002:a17:906:2b96:: with SMTP id m22mr18568545ejg.330.1590393510930;
-        Mon, 25 May 2020 00:58:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1590393510; cv=none;
+Received: by 2002:a2e:8599:: with SMTP id b25ls2116372lji.6.gmail; Tue, 26 May
+ 2020 06:24:36 -0700 (PDT)
+X-Received: by 2002:a2e:901a:: with SMTP id h26mr686541ljg.80.1590499476006;
+        Tue, 26 May 2020 06:24:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1590499476; cv=none;
         d=google.com; s=arc-20160816;
-        b=ZKipK4y1nes0w9HA2FsrQSgs52NDZ0oyGkg2owBVGwyFNQD4C10xHm0sn6Wvv3SKok
-         w944Z8bAt9WX7inhUt/KqbNw+aNis7T1sVjPmoeGsIHrHxx/JwPL5++3l42iY9kVnHwV
-         AA2sBtGDuhUxbP8dXxfSpbvw2gJJwF/2fjI5uyo6QQO7aQZA8swpCeuOo05OiEoGcsoD
-         /cEs58L1LARhYMRkeBc9KP81wuoSB2cQmMo4g5lbNY68ii4NqrhsiZNyq/J3mOt1vxB1
-         hh0YPEs2psCPwzfEh3PeiP/35Ff18DTid4uORw1gIqHyk/WNGKrUlXyd9IjlHK60snyX
-         ly8w==
+        b=HLh5+JYtsBbtowjP7J+PvC7kEknijToBcJHFIqQw6XWIabrBvfJVMHc+Bl/41yf7pX
+         OnYqITRc/NgysV/+qwp+7ANXiiSEm5BCVFSc+iAC4LN38LyZ87iMWmcHWhUwMlZ5ucWG
+         9rd4VRGhQS4+ATVVIH+rSImIJYU4YHHuVEfZzTNg9QTcFPdqim3UrVyiCPZSW0SBmzt2
+         3M5q7ufH2SHn48j4lnA3CHLbdNJz3ReULS+Lo4IKg7xUKNBylWfrZE5ThYPeDQ9+cVH5
+         grGQfYfiPTZ5UIjFiPvgUwVZ3h+tmY5PC1oD5ssbCOA+389qynRO+HRO00SapLgreii4
+         URzw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:mime-version:user-agent
-         :date:message-id:subject:from:cc:to;
-        bh=nvXj8r1ibeVuDjqbrKhMSJ3xoxJc+h9vd8sJBHOqT2E=;
-        b=r9WobR1x/vn+Dtm2QxezyNnJvMSfyFeWM1l66OfHpKf1h4Q6pEiy9oz73LZ+hzavMc
-         WcHwpB7TIWV3oHy9tb/wHl53HzYeB2Tb2MUl11jyNqn2J8fDwDpEbxoxhfF4TGRM2KEm
-         QnC9zh3hy0AZXsp3sRXAXMB65cJwiTCofu6PhSqMHznEkpQHXfXXErRdIyduDEQhwQ2r
-         AaJHRIil91spqza2oCDJIY5Cw6f2Z5R8n2oXS94jjchAQvYhOTECYTMF6j8cQYVLWx7j
-         0R46LByckFuRAmhzBeti7MBWdH4QFukT4NkkZgJrUj2zAlETQd55sfwEcCkqvfLcjGyK
-         gnnA==
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:dkim-signature;
+        bh=rFAE/VNoMfmhVX8Y174Opmfk0XYFvSXrlYfqgi6Y9hk=;
+        b=T81Wukt2tygfBq+AUbSPS2W1AKIPK32S2BSe5iX+n5s6V1ZPPJ8xjalR5E4A9NYojd
+         ljy9ng8+ZkZ1CDV2t3jmJJ2hCfhTaUGv8Jec919OzactEBhtbPnCKDqXPCtfSToar/xI
+         oDQ3Fr56ROMa6FLMACBZE2f6GSc8xPobbOlIdpdQYZ2MiGi8UAubUsD0v6kQ5KQJzr0R
+         i9tegUlIIG3i6Ms2VOP75qxO5Zg1ZHt3QO9CGMG25U9IwRbV/W9VwLlV6sEJrqh/dCod
+         QVNEXJVA+BxdmPE5UYALUx+Xuwb2nGLknG8qmvstx7b8wOYpI1M0T3AHveb4gT21ARKw
+         rHuQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
-        by gmr-mx.google.com with ESMTPS id a17si285257edx.1.2020.05.25.00.58.30
+       dkim=pass header.i=@unimore.it header.s=google header.b=Lo57IWRT;
+       spf=pass (google.com: domain of marco.solieri@unimore.it designates 2a00:1450:4864:20::343 as permitted sender) smtp.mailfrom=marco.solieri@unimore.it;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=unimore.it
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com. [2a00:1450:4864:20::343])
+        by gmr-mx.google.com with ESMTPS id e7si355ljo.2.2020.05.26.06.24.35
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 25 May 2020 00:58:30 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id 04P7wUCx004856
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 25 May 2020 09:58:30 +0200
-Received: from [167.87.48.3] ([167.87.48.3])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 04P7wSTc012883;
-	Mon, 25 May 2020 09:58:28 +0200
-To: "virtio-comment@lists.oasis-open.org"
- <virtio-comment@lists.oasis-open.org>
-Cc: Jailhouse <jailhouse-dev@googlegroups.com>,
-        qemu-devel <qemu-devel@nongnu.org>,
-        "Michael S. Tsirkin" <mst@redhat.com>,
-        =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>,
-        liang yan <lyan@suse.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Subject: [RFC] ivshmem v2: Shared memory device specification
-Message-ID: <f109fe5a-92eb-e5a5-bb83-ada42b3a9b61@siemens.com>
-Date: Mon, 25 May 2020 09:58:28 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 26 May 2020 06:24:35 -0700 (PDT)
+Received-SPF: pass (google.com: domain of marco.solieri@unimore.it designates 2a00:1450:4864:20::343 as permitted sender) client-ip=2a00:1450:4864:20::343;
+Received: by mail-wm1-x343.google.com with SMTP id u12so3191528wmd.3
+        for <jailhouse-dev@googlegroups.com>; Tue, 26 May 2020 06:24:35 -0700 (PDT)
+X-Received: by 2002:a1c:b308:: with SMTP id c8mr491977wmf.127.1590499475406;
+        Tue, 26 May 2020 06:24:35 -0700 (PDT)
+Received: from localhost (hipert-gw1.mat.unimo.it. [155.185.5.1])
+        by smtp.gmail.com with ESMTPSA id k13sm20729448wmj.40.2020.05.26.06.24.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 26 May 2020 06:24:34 -0700 (PDT)
+Date: Tue, 26 May 2020 15:24:29 +0200
+From: "'Marco Solieri' via Jailhouse" <jailhouse-dev@googlegroups.com>
+To: Jan Kiszka <jan.kiszka@siemens.com>
+Cc: jailhouse-dev@googlegroups.com, marko.bertogna@unimore.it,
+	tomasz.kloda@unimore.it, giulioc@xilinx.com, c.scordino@huawei.com,
+	fabio.federici@utrc.utc.com,
+	Luca Miccio <206497@studenti.unimore.it>,
+	Angelo Ruocco <220530@studenti.unimore.it>
+Subject: Re: [PATCH v2 0/9] Add cache coloring API and arm64 support
+Message-ID: <20200526132429.bmhnaiug7ssblxty@carbon.xt3.it>
+References: <20190327121849.1882-1-ms@xt3.it>
+ <7e92c41e-12a5-28fd-b1fc-4949e5ccac20@siemens.com>
+ <20200422072259.sc2au24ksnt6j7jy@carbon.xt3.it>
+ <9605c893-d940-ce35-8301-832d31382c88@siemens.com>
+ <c25b626d-2aab-2ccd-f129-40e8b525a232@siemens.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3qdxik6jhjx7l7ml"
+Content-Disposition: inline
+In-Reply-To: <c25b626d-2aab-2ccd-f129-40e8b525a232@siemens.com>
+X-Original-Sender: marco.solieri@unimore.it
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@unimore.it header.s=google header.b=Lo57IWRT;       spf=pass
+ (google.com: domain of marco.solieri@unimore.it designates
+ 2a00:1450:4864:20::343 as permitted sender) smtp.mailfrom=marco.solieri@unimore.it;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=unimore.it
+X-Original-From: Marco Solieri <marco.solieri@unimore.it>
+Reply-To: Marco Solieri <marco.solieri@unimore.it>
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -133,439 +144,123 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi all,
 
-as requested by Michael, find below the current version of the Inter-VM 
-Shared Memory device specification version 2 (as version 1 could be 
-considered what is currently in QEMU).
-
-This posting is intended to collect feedback from the virtio community 
-before officially proposing it to become part of the spec. As you can 
-see, the spec format is not yet integrated with the virtio documents at 
-all.
-
-IVSHMEM has value of its own, allowing unprivileged applications to 
-establish links to other applications in VMs connected via this 
-transport. In addition, and that is where virtio comes into play even 
-more, it can be used to build virtio backend-frontend connections 
-between two VMs. Prototypes have been developed, see e.g. [1], 
-specifying that transport is still a to-do. I will try to reserve a few 
-cycle in the upcoming weeks for a first draft.
-
-My current strategy for these two pieces, ivshmem2 and virtio-shmem, is 
-propose them both to virtio but allowing virtio-shmem to also be mapped 
-on other shared memory channels for virtual machines.
-
-The ivshmem2 device model is fairly stable now, also being in use in 
-Jailhouse for quite a while. Still there are some aspects that could be 
-worth to discuss in particular:
-
- - Do we also need a platform device model, in addition to PCI? My
-   feelings are negative, but there has been at least one request.
-
- - Should we add some feature flags, or is using the PCI revision ID
-   sufficient (...to do that later)? Currently, there is no need for
-   communicating features this way.
-
- - Should we try to model the doorbell interface more flexibly, in way
-   that may allow mapping it on hardware-provided mailboxes (i.e. VM-
-   exit free channels)? Unfortunately, I'm not yet aware of any hardware
-   that could provide this feature and, thus, could act as a use case to
-   design against.
-
-Thanks,
-Jan
-
-[1] https://www.mail-archive.com/qemu-devel@nongnu.org/msg668749.html
-
----
-
-IVSHMEM Device Specification
-============================
-
-** NOTE: THIS IS WORK-IN-PROGRESS, NOT YET A STABLE INTERFACE SPECIFICATION! **
-
-The goal of the Inter-VM Shared Memory (IVSHMEM) device model is to
-define the minimally needed building blocks a hypervisor has to
-provide for enabling guest-to-guest communication. The details of
-communication protocols shall remain opaque to the hypervisor so that
-guests are free to define them as simple or sophisticated as they
-need.
-
-For that purpose, the IVSHMEM provides the following features to its
-users:
-
-- Interconnection between up to 65536 peers
-
-- Multi-purpose shared memory region
-
-    - common read/writable section
-
-    - output sections that are read/writable for one peer and only
-      readable for the others
-
-    - section with peer states
-
-- Event signaling via interrupt to remote sides
-
-- Support for life-cycle management via state value exchange and
-  interrupt notification on changes, backed by a shared memory
-  section
-
-- Free choice of protocol to be used on top
-
-- Protocol type declaration
-
-- Register can be implemented either memory-mapped or via I/O,
-  depending on platform support and lower VM-exit costs
-
-- Unprivileged access to memory-mapped or I/O registers feasible
-
-- Single discovery and configuration via standard PCI, no complexity
-  by additionally defining a platform device model
-
-
-Hypervisor Model
-----------------
-
-In order to provide a consistent link between peers, all connected
-instances of IVSHMEM devices need to be configured, created and run
-by the hypervisor according to the following requirements:
-
-- The instances of the device shall appear as a PCI device to their
-  users.
-
-- The read/write shared memory section has to be of the same size for
-  all peers. The size can be zero.
-
-- If shared memory output sections are present (non-zero section
-  size), there must be one reserved for each peer with exclusive
-  write access. All output sections must have the same size and must
-  be readable for all peers.
-
-- The State Table must have the same size for all peers, must be
-  large enough to hold the state values of all peers, and must be
-  read-only for the user.
-
-- State register changes (explicit writes, peer resets) have to be
-  propagated to the other peers by updating the corresponding State
-  Table entry and issuing an interrupt to all other peers if they
-  enabled reception.
-
-- Interrupts events triggered by a peer have to be delivered to the
-  target peer, provided the receiving side is valid and has enabled
-  the reception.
-
-- All peers must have the same interrupt delivery features available,
-  i.e. MSI-X with the same maximum number of vectors on platforms
-  supporting this mechanism, otherwise INTx with one vector.
-
-
-Guest-side Programming Model
-----------------------------
-
-An IVSHMEM device appears as a PCI device to its users. Unless
-otherwise noted, it conforms to the PCI Local Bus Specification,
-Revision 3.0. As such, it is discoverable via the PCI configuration
-space and provides a number of standard and custom PCI configuration
-registers.
-
-### Shared Memory Region Layout
-
-The shared memory region is divided into several sections.
-
-    +-----------------------------+   -
-    |                             |   :
-    | Output Section for peer n-1 |   : Output Section Size
-    |     (n = Maximum Peers)     |   :
-    +-----------------------------+   -
-    :                             :
-    :                             :
-    :                             :
-    +-----------------------------+   -
-    |                             |   :
-    |  Output Section for peer 1  |   : Output Section Size
-    |                             |   :
-    +-----------------------------+   -
-    |                             |   :
-    |  Output Section for peer 0  |   : Output Section Size
-    |                             |   :
-    +-----------------------------+   -
-    |                             |   :
-    |     Read/Write Section      |   : R/W Section Size
-    |                             |   :
-    +-----------------------------+   -
-    |                             |   :
-    |         State Table         |   : State Table Size
-    |                             |   :
-    +-----------------------------+   <-- Shared memory base address
-
-The first section consists of the mandatory State Table. Its size is
-defined by the State Table Size register and cannot be zero. This
-section is read-only for all peers.
-
-The second section consists of shared memory that is read/writable
-for all peers. Its size is defined by the R/W Section Size register.
-A size of zero is permitted.
-
-The third and following sections are output sections, one for each
-peer. Their sizes are all identical. The size of a single output
-section is defined by the Output Section Size register. An output
-section is read/writable for the corresponding peer and read-only for
-all other peers. E.g., only the peer with ID 3 can write to the
-fourths output section, but all peers can read from this section.
-
-All sizes have to be rounded up to multiples of a mappable page in
-order to allow access control according to the section restrictions.
-
-### Configuration Space Registers
-
-#### Header Registers
-
-| Offset | Register               | Content                                              |
-|-------:|:-----------------------|:-----------------------------------------------------|
-|    00h | Vendor ID              | 110Ah                                                |
-|    02h | Device ID              | 4106h                                                |
-|    04h | Command Register       | 0000h on reset, writable bits are:                   |
-|        |                        | Bit 0: I/O Space (if Register Region uses I/O)       |
-|        |                        | Bit 1: Memory Space (if Register Region uses Memory) |
-|        |                        | Bit 3: Bus Master                                    |
-|        |                        | Bit 10: INTx interrupt disable                       |
-|        |                        | Writes to other bits are ignored                     |
-|    06h | Status Register        | 0010h, static value                                  |
-|        |                        | In deviation to the PCI specification, the Interrupt |
-|        |                        | Status (bit 3) is never set                          |
-|    08h | Revision ID            | 00h                                                  |
-|    09h | Class Code, Interface  | Protocol Type bits 0-7, see [Protocols](#Protocols)  |
-|    0Ah | Class Code, Sub-Class  | Protocol Type bits 8-15, see [Protocols](#Protocols) |
-|    0Bh | Class Code, Base Class | FFh                                                  |
-|    0Eh | Header Type            | 00h                                                  |
-|    10h | BAR 0                  | MMIO or I/O register region                          |
-|    14h | BAR 1                  | MSI-X region                                         |
-|    18h | BAR 2 (with BAR 3)     | optional: 64-bit shared memory region                |
-|    2Ch | Subsystem Vendor ID    | same as Vendor ID, or provider-specific value        |
-|    2Eh | Subsystem ID           | same as Device ID, or provider-specific value        |
-|    34h | Capability Pointer     | First capability                                     |
-|    3Eh | Interrupt Pin          | 01h-04h, must be 00h if MSI-X is available           |
-
-The INTx status bit is never set by an implementation. Users of the
-IVSHMEM device are instead expected to derive the event state from
-protocol-specific information kept in the shared memory. This
-approach is significantly faster, and the complexity of
-register-based status tracking can be avoided.
-
-If BAR 2 is not present, the shared memory region is not relocatable
-by the user. In that case, the hypervisor has to implement the Base
-Address register in the vendor-specific capability.
-
-Subsystem IDs shall encode the provider (hypervisor) in order to
-allow identifying potential deviating implementations in case this
-should ever be required.
-
-If its platform supports MSI-X, an implementation of the IVSHMEM
-device must provide this interrupt model and must not expose INTx
-support.
-
-Other header registers may not be implemented. If not implemented,
-they return 0 on read and ignore write accesses.
-
-#### Vendor Specific Capability (ID 09h)
-
-This capability must always be present.
-
-| Offset | Register            | Content                                        |
-|-------:|:--------------------|:-----------------------------------------------|
-|    00h | ID                  | 09h                                            |
-|    01h | Next Capability     | Pointer to next capability or 00h              |
-|    02h | Length              | 20h if Base Address is present, 18h otherwise  |
-|    03h | Privileged Control  | Bit 0 (read/write): one-shot interrupt mode    |
-|        |                     | Bits 1-7: Reserved (0 on read, writes ignored) |
-|    04h | State Table Size    | 32-bit size of read-only State Table           |
-|    08h | R/W Section Size    | 64-bit size of common read/write section       |
-|    10h | Output Section Size | 64-bit size of output sections                 |
-|    18h | Base Address        | optional: 64-bit base address of shared memory |
-
-All registers are read-only. Writes are ignored, except to bit 0 of
-the Privileged Control register.
-
-When bit 0 in the Privileged Control register is set to 1, the device
-clears bit 0 in the Interrupt Control register on each interrupt
-delivery. This enables automatic interrupt throttling when
-re-enabling shall be performed by a scheduled unprivileged instance
-on the user side.
-
-An IVSHMEM device may not support a relocatable shared memory region.
-This support the hypervisor in locking down the guest-to-host address
-mapping and simplifies the runtime logic. In such a case, BAR 2 must
-not be implemented by the hypervisor. Instead, the Base Address
-register has to be implemented to report the location of the shared
-memory region in the user's address space.
-
-A non-existing shared memory section has to report zero in its
-Section Size register.
-
-#### MSI-X Capability (ID 11h)
-
-On platforms supporting MSI-X, IVSHMEM has to provide interrupt
-delivery via this mechanism. In that case, the MSI-X capability is
-present while the legacy INTx delivery mechanism is not available,
-and the Interrupt Pin configuration register returns 0.
-
-The IVSHMEM device has no notion of pending interrupts. Therefore,
-reading from the MSI-X Pending Bit Array will always return 0. Users
-of the IVSHMEM device are instead expected to derive the event state
-from protocol-specific information kept in the shared memory. This
-approach is significantly faster, and the complexity of
-register-based status tracking can be avoided.
-
-The corresponding MSI-X MMIO region is configured via BAR 1.
-
-The MSI-X table size reported by the MSI-X capability structure is
-identical for all peers.
-
-### Register Region
-
-The register region may be implemented as MMIO or I/O.
-
-When implementing it as MMIO, the hypervisor has to ensure that the
-register region can be mapped as a single page into the address space
-of the user, without causing potential overlaps with other resources.
-Write accesses to MMIO region offsets that are not backed by
-registers have to be ignored, read accesses have to return 0. This
-enables the user to hand out the complete region, along with the
-shared memory, to an unprivileged instance.
-
-The region location in the user's physical address space is
-configured via BAR 0. The following table visualizes the region
-layout:
-
-| Offset | Register                                                            |
-|-------:|:--------------------------------------------------------------------|
-|    00h | ID                                                                  |
-|    04h | Maximum Peers                                                       |
-|    08h | Interrupt Control                                                   |
-|    0Ch | Doorbell                                                            |
-|    10h | State                                                               |
-
-All registers support only aligned 32-bit accesses.
-
-#### ID Register (Offset 00h)
-
-Read-only register that reports the ID of the local device. It is
-unique for all of the connected devices and remains unchanged over
-their lifetime.
-
-#### Maximum Peers Register (Offset 04h)
-
-Read-only register that reports the maximum number of possible peers
-(including the local one). The permitted range is between 2 and 65536
-and remains constant over the lifetime of all peers.
-
-#### Interrupt Control Register (Offset 08h)
-
-This read/write register controls the generation of interrupts
-whenever a peer writes to the Doorbell register or changes its state.
-
-| Bits | Content                                                               |
-|-----:|:----------------------------------------------------------------------|
-|    0 | 1: Enable interrupt generation                                        |
-| 1-31 | Reserved (0 on read, writes ignored)                                  |
-
-Note that bit 0 is reset to 0 on interrupt delivery if one-shot
-interrupt mode is enabled in the Enhanced Features register.
-
-The value of this register after device reset is 0.
-
-#### Doorbell Register (Offset 0Ch)
-
-Write-only register that triggers an interrupt vector in the target
-device if it is enabled there.
-
-| Bits  | Content                                                              |
-|------:|:---------------------------------------------------------------------|
-|  0-15 | Vector number                                                        |
-| 16-31 | Target ID                                                            |
-
-Writing a vector number that is not enabled by the target has no
-effect. The peers can derive the number of available vectors from
-their own device capabilities because the provider is required to
-expose an identical number of vectors to all connected peers. The
-peers are expected to define or negotiate the used ones via the
-selected protocol.
-
-Addressing a non-existing or inactive target has no effect. Peers can
-identify active targets via the State Table.
-
-Implementations of the Doorbell register must ensure that data written by the
-CPU prior to issuing the register write is visible to the receiving peer before
-the interrupt arrives.
-
-The behavior on reading from this register is undefined.
-
-#### State Register (Offset 10h)
-
-Read/write register that defines the state of the local device.
-Writing to this register sets the state and triggers MSI-X vector 0
-or the INTx interrupt, respectively, on the remote device if the
-written state value differs from the previous one. Users of peer
-devices can read the value written to this register from the State
-Table. They are expected differentiate state change interrupts from
-doorbell events by comparing the new state value with a locally
-stored copy.
-
-The value of this register after device reset is 0. The semantic of
-all other values can be defined freely by the chosen protocol.
-
-### State Table
-
-The State Table is a read-only section at the beginning of the shared
-memory region. It contains a 32-bit state value for each of the
-peers. Locating the table in shared memory allows fast checking of
-remote states without register accesses.
-
-The table is updated on each state change of a peers. Whenever a user
-of an IVSHMEM device writes a value to the Local State register, this
-value is copied into the corresponding entry of the State Table. When
-a IVSHMEM device is reset or disconnected from the other peers, zero
-is written into the corresponding table entry. The initial content of
-the table is all zeros.
-
-    +--------------------------------+
-    | 32-bit state value of peer n-1 |
-    +--------------------------------+
-    :                                :
-    +--------------------------------+
-    | 32-bit state value of peer 1   |
-    +--------------------------------+
-    | 32-bit state value of peer 0   |
-    +--------------------------------+ <-- Shared memory base address
-
-
-Protocols
----------
-
-The IVSHMEM device shall support the peers of a connection in
-agreeing on the protocol used over the shared memory devices. For
-that purpose, the interface byte (offset 09h) and the sub-class byte
-(offset 0Ah) of the Class Code register encodes a 16-bit protocol
-type for the users. The following type values are defined:
-
-| Protocol Type | Description                                                  |
-|--------------:|:-------------------------------------------------------------|
-|         0000h | Undefined type                                               |
-|         0001h | Virtual peer-to-peer Ethernet                                |
-|   0002h-3FFFh | Reserved                                                     |
-|   4000h-7FFFh | User-defined protocols                                       |
-|   8000h-BFFFh | Virtio over Shared Memory, front-end peer                    |
-|   C000h-FFFFh | Virtio over Shared Memory, back-end peer                     |
-
-Details of the protocols are not in the scope of this specification.
-
--- 
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/f109fe5a-92eb-e5a5-bb83-ada42b3a9b61%40siemens.com.
+--3qdxik6jhjx7l7ml
+Content-Type: text/plain; charset="UTF-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, May 04, 2020 at 08:54:32PM +0200, Jan Kiszka wrote:
+> On 22.04.20 10:51, Jan Kiszka wrote:
+> > On 22.04.20 09:22, Marco Solieri wrote:
+> > > On Wed, Apr 22, 2020 at 08:42:32AM +0200, Jan Kiszka wrote:
+> > > > On 27.03.19 13:18, Marco Solieri wrote:
+> > > > > Predictability of memory access latency is severely menaced by th=
+e
+> > > > > multi-core architectures where the last level of cache (LLC) is
+> > > > > shared, jeopardizing applicability of many Arm platform in real-t=
+ime
+> > > > > critical and mixed-criticality scenarios. Support for cache color=
+ing
+> > > > > is introduced, a transparent software technique allowing
+> > > > > partitioning the LLC to avoid mutual interference between inmates=
+.
+> > > > > [...]
+> > > >=20
+> > > > Thanks for updating this! I will refresh my caches on the topic and
+> > > > provide feedback soon (I already have some questions and remarks bu=
+t
+> > > > I'd like to double-check them).
+> > >=20
+> > > Looking forward to hear from you.
+> > >=20
+>=20
+> Done with the deeper review. Overall, the series looks fairly good. I see
+> just two bigger open issues:
+>=20
+>  - inmate loading interface
+>  - more architectural independence
+>=20
+> But I think those should be solvable.
+
+The major point you raise is that the impact on the hypervisor code size
+should be minimised -- the inmate loading interface.  We took a while to
+consider and weigh the various alternative designs.
+
+First of all, let us consider the optimal solution in this sense.  That
+would be placing the whole colouring logic outside the hypervisor, in
+the Linux driver, or in the userspace tools.  No matter how implemented,
+this solution would require, sooner or later, to pass to the hypervisor
+a list of memory regions, one per each memory segment to be mapped.
+Now, such list would grow unacceptably quickly, wasting a lot of memory
+to store it.  Take for instance a Linux inmate, and suppose 128 MiB to
+be its memory reservation requirement.  Now, assume that each
+consecutive fragment is the shortest possible, i.e. page of 4 KiB.  This
+means we need 32 Ki elements, each sizing 16 B, which is 512 KiB in
+total.
+
+This brings us to a design conclusion.  The mere colouring logic -- i.e.
+the algorithm which conceptually expands the colour selection within a
+memory area into the lengthy list of contiguously-mapped segment
+(next_col) -- must be placed together with the mapping function
+(paging_create).
+
+We believe we can leave everything else outside the hypervisor without
+much effort.  We can move in the driver:
+- the cache probe function (get_llc_waysize)
+- the initialisation routines (coloring_paging_init and
+  coloring_cell_init).
+
+We believe this is the best compromise.
+
+In this case, a minor issue is also worth to be discussed.  The cell
+load function requires an IPA-contiguous mapping for the memcpy to be
+efficient.  This in turn requires such mapping to be performed by the
+driver (we don't want to add an hypercall, right? ;-)), thus including a
+second copy of the colouring logic (next_col).  It would be nice,
+perhaps, to have a 'common' section where to place code shared between
+hypervisor and the driver.
+
+
+Looking forward to hear from you.
+
+Cheers.
+
+--=20
+Marco Solieri, Ph.D.
+Research Fellow
+
+High-Performance Real-Time Lab
+Universit=C3=A0 degli Studi di Modena e Reggio Emilia
+Ufficio 1.35 - Edificio Matematica - 213/b, via Campi - 41125 Modena
+Tel: +39-059-205-55-10  -- OpenPGP: Ox75822E7E
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/20200526132429.bmhnaiug7ssblxty%40carbon.xt3.it.
+
+--3qdxik6jhjx7l7ml
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOC2XMK2o3tvc3F09Ctn83XWCLn4FAl7NGIwACgkQCtn83XWC
+Ln4dyhAAqpKrMObJupTQuGXlYE9frVDhCsE+EEBr66kNB4qhSuSGZ1N3OUd8MzT4
+OkL7o3ba0pPUITzGnnAymuappTxCwzhA8sqmYnjvH0bU9GRur7gt7qgzpTd+YsCo
+oKwEF8UmKXaAOdHbubkMc/k9qvYKwXemka1LZU2w7MUjKoemSsDI1IGUiM6s2arq
+jcPc66ZyAY9KumnE34IjLHU5ws+7bmyEAVQMKm7kXLwBvF9Y1KNmJWAI4yN4IaR3
+Zmio8m7RoXkUdY8P2f66YwxIdr5T0K0cYE2rZ8MP5PBZJvCjsPK4XvH+XMay56tY
+hBPLE3g6qL1JvQH3TLqEddDS/Vsnt7jivI7ig5y5PAplHZg8GLOj/Fdew7SBTQhT
+4ehRZ5oFs7GVXvhmG94RT02W/G8rI1wQLHxohYvtcQ5eRwvDzJE25BGXAyPZYmmL
+5G1ciMp79z0P43a2TdQL19A7e8lGQQbpB5v6v2vUgn+xZcfIvr5e7PZ2vuHemkk4
+7+dsWTlNAIjBm6URe2QIfk/WGH4yRO7v1FbqGbW0nxnRt8XIn2N0apn1OHGVu7c3
+t+J2+3Cwv+l7djv8JE3M2vTMH/OTTLjvOTyjlLvp+8teSfH9hn2gc1OkxL06nK4R
+0bn88/+3ByXEykyFEZFm3STUhS/OBT80J0uLnxPzDEyKBvyWVK4=
+=pUur
+-----END PGP SIGNATURE-----
+
+--3qdxik6jhjx7l7ml--
