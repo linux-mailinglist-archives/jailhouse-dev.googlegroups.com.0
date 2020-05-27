@@ -1,133 +1,151 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBW76XH3AKGQEII4SFZA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDL2JD42SEIBBAH7XH3AKGQEYLOUOCA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43b.google.com (mail-wr1-x43b.google.com [IPv6:2a00:1450:4864:20::43b])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAB1C1E4681
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 27 May 2020 16:55:24 +0200 (CEST)
-Received: by mail-wr1-x43b.google.com with SMTP id z5sf11281672wrt.17
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 27 May 2020 07:55:24 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1590591324; cv=pass;
+Received: from mail-pg1-x538.google.com (mail-pg1-x538.google.com [IPv6:2607:f8b0:4864:20::538])
+	by mail.lfdr.de (Postfix) with ESMTPS id 136451E4689
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 27 May 2020 16:56:02 +0200 (CEST)
+Received: by mail-pg1-x538.google.com with SMTP id k30sf12384316pgf.11
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 27 May 2020 07:56:02 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1590591360; cv=pass;
         d=google.com; s=arc-20160816;
-        b=ipFF8vZp4YdwZUMK5uDeER43R01h2/izdSjZHjWKEaLKL+fPvTMvfg/eTLNFaWTqVN
-         dqP1ZFdHck14gHX9+vz6bSOf457oe2aq+/oKKVuoYtE6azxwVu64Q3sMLQyoSlBhc1gs
-         6X0g4wXJfAR5c2FFkVzsxkYXBPOG00u7aFoo6nopRKFHO8tOsTtxZ+FqJ4dLp58AD5An
-         htxp1YtxsWo+O/w8ZhE4tnI/7AoP6MLoMbroc9FIgeFD7Mssv0nwsjN2EDT/eXrBsj7K
-         SfqgFfKA8Z2FcvQUc1Fqz7wqwhjYnNoG11c4/72VZQf9hIISa+vY5cUuNGHzy4IxeYPQ
-         smJQ==
+        b=aWo8GKq8fSgC5R6exU9fcaSjQJgIlnK09Vz5GQ+aaHx3VwM8LzKEB3AjuvoAkbwDc6
+         xrNSf/ZhRh4O9bXsH1CDVlA2DpgX8sS2EubpTetCyWw1c5yK9QOQbeRk6CiczLaQyb9J
+         /V6wnV7eTc958dm5D/UggH18CBh54pAcDsjXvmG3IHzD/k/PLKwCjKaDUhE/kmwD7xYc
+         Qw/HOtP+VTVaiWGrBiaytpqV0AAm+6Wdg3sLnpesJhBo8QYI5agZbe3/LoKnApx/qxEX
+         CTFlgK7HsyFbILo/+FahFDEeeSzdg8850ydTmQJ78VDc6G0ZhVUydogf6JKe3qURZh9K
+         CSGw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
+         :list-id:mailing-list:precedence:reply-to:content-transfer-encoding
          :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:cc:to:subject:sender:dkim-signature;
-        bh=FANnkYXs4tqs+gFlOeT4nioebZfjS4JJBSdxBeXYqfs=;
-        b=qKUvb1g46QfyXzi22Ss35yswWv56pOEskP9pZZCEikeNmwDCRKgvrECVoHVJcBgF90
-         ljaACxx5reFctAbDlA7O3a3y1vcF/bGqND4nir9Eum1hpSJ2u1Gec0kwv3V4iX2oWI74
-         GAofq9FHfMQHfAZqbr0ctQ8bafyJPIDg8YFGoeo/lBSul6eiJzg3hV+5B/Bbbwn48/LY
-         hWV3EXbpbZbu6XeoTmQeTog70dk3LgnfZZO1prW2W19kUxHr2q6OTFghyCGYmVsinhsM
-         OZMF43f/ELconbiFSSWpe7jAO8peITMkhtR6zYqzRwfyY6dsCEGSezRFBbQVc9xO0rmZ
-         hiSw==
+         :message-id:from:references:cc:to:subject:dkim-signature;
+        bh=PhD2BuJs21sBH4VzXVu5zJAQF3csJr6cLWjmsS4kzyE=;
+        b=yDlhmuIVc/YfWOdx9GNaKwsJZfyCx7jQ62/bddDVLxI7hH73auX5VLsfp0UDJbmOpo
+         BPbcWFTJYgzTSivsqQPiHZ5BlcLp9QLYW9gtPxYt6cFbukHfxzM1ZaQ03RRCZImXTLsp
+         2LytXTgCFj2Kmm92YnnH2R2i4QHtT/w0QZQKke6uHd7fQx+TynRKKayx6vN7rXQHPNo5
+         riFYpj8rU4PhCMXW2Q5i33K3CVEnSW96NpNOnML33eHesS3KYdOe5QA2/6FKfW3Cc0aS
+         sly0B20UYNuZOu06SA8snw3L0ar1EMFdisDBz6mHK9TWuCA0/ip859+jbjemcjeysbj9
+         SnyA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=MsoSfL5g;
+       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
+       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+        h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
+         :x-original-sender:x-original-authentication-results:reply-to
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=FANnkYXs4tqs+gFlOeT4nioebZfjS4JJBSdxBeXYqfs=;
-        b=m5Ucc+Ijhw5nSDu2koXODRCoFVlULnoreVZIL8F14X/FfjiUmkgmAPdEw0oxlAZ+Ea
-         HRdvgrSdVBJPefLgCPRN64Huw7wCEtJZBORobKAKCUjoioW1hhlYyj/Npo/MhddNfmHJ
-         2Ql1x0nv2ix8Cc5FgIirW5KnGKXr0Xg7Cu+/TbpO28E+KiZAXKrBTmHC0v0hLCCyW2If
-         NzJknqmgR8YyL5UVS8CSwQDB+7DQss2n4PbWBFC8cN/8ipIqx3f4NfxXV8sik//+hOy7
-         aV0dVCsNomzQmzzMlmqbVbKss7/YX02U30CVXqHoRfQo8cafHcs3VZZjEcB8YRjvoRld
-         DTQA==
+        bh=PhD2BuJs21sBH4VzXVu5zJAQF3csJr6cLWjmsS4kzyE=;
+        b=XyDW1JkMbeGzrzFkMqzSr1iK9CERuTgGCw5eTh5iFC3dI5Or/CRBVvOO+oZlSe5/Sg
+         y8RN3LBDYqHAdGokM0X5IPtoTSgBz0tMeK6aaEnxjmOTXKwEFYA52pwz8JFXYbPASFPO
+         uofwjer21Caf8fqNaeSETlAe86XMRPLKR+vdFRGTkSIqtJzecFZQON9jjMLXtnlXYnWs
+         hkJBcdsDsvczMeTszGC3yUcavP01OHvFXC59FQHF3toFPQv/aIpOx3qDAem3KotZ0Uw/
+         FQJAFVkWFtWxVACud/mIVNGOc32vf+wfMNMXRNM1mdd+MRolaFxK71UjG/kDXZ1rAwo8
+         ZFEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :x-original-authentication-results:reply-to:precedence:mailing-list
+         :list-id:x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=FANnkYXs4tqs+gFlOeT4nioebZfjS4JJBSdxBeXYqfs=;
-        b=CMdlj1DsrcHc5TTYd4dsF3ESVtiXxzIQtbvOha7bguJOX4rj656kTSs56WCB/PSJnn
-         dr1hGMyWj2F6Lt3WL/0n4bPYoMPKPzgMaIaO14o6tBTfo8sZ4vh7gxdPqLNmQCd7c0K/
-         bMUwX/hGuGCwPh3cFm2yBgpRlsBSaudQc4h1Djdeo8BaLZrhemfq+3ZXOwf8JKEF9B6g
-         MEP61y+lZfYEZKG1qW744mmsK/6j7LI2KQYZMuE4AzwmGXegk+sTnCKEnikilzR60wmz
-         3ttf9ievnUmgzsKgGWZNQszyzN+fjSfja/43fb+GjP9IJYbuNjH9yNpUEp0vUKICiOYh
-         CQSA==
-Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530nYLMvJCVVGtKGf/CwuqWlIxJL7xPNZfQ0szNnITtTWlAk34Bn
-	03IQe7iWKG8kOrgBLhm15l4=
-X-Google-Smtp-Source: ABdhPJyCfC1YS46Ez2I3spLjgAAgrgoSwU51r4LTRTsM1i+Lx/JD0Th62/BLckFBaAaynPiKGgeZew==
-X-Received: by 2002:a1c:dc05:: with SMTP id t5mr4886348wmg.112.1590591324097;
-        Wed, 27 May 2020 07:55:24 -0700 (PDT)
+        bh=PhD2BuJs21sBH4VzXVu5zJAQF3csJr6cLWjmsS4kzyE=;
+        b=nwuIe7B93ow4zzK78PuMqD4eH/TTf54vRNL6nCp6m5rGCssucS9mCGNy4/Zb4o7LkI
+         Y0LtlMhcR5o5V5HMa7gsRIih5GlpYvBY4RsYPb5oMiDBsa0CM4eiSLgLDHcK1tY144Kr
+         ClHvWvKhJV1RTiBtGid6GeWbqpW9A0t1zKygTt4T/nZ6naD7m4O+h1hYNrvnugMZ53yD
+         x8r1lVVVK3XQUgT+aSKYmLJOXb/1ytF9/+huziBAVdg3LYFvigXqBrxVu7Uxt3FWJ1ih
+         8MRA7kHeFBMTyv6GS04VbUF4EyoKd2DSsWLXuv135aeS0Zx0l0ypPrgyIMrjpHQX8Dfl
+         vB+Q==
+X-Gm-Message-State: AOAM533CnA/lVmSFm2X4ESnUumwRXxUUvdsmwGNhHGNMMiSNVcAjGW+y
+	ahil1AqDjp3gcxWo2WH5tlM=
+X-Google-Smtp-Source: ABdhPJy4kSwKivwWkTPCSldBd/stsse7Jtm9HHN0ilECF13gsRNSBTnsza2eH7SGgnZZ6jXeJl1aaw==
+X-Received: by 2002:a17:90b:1482:: with SMTP id js2mr5658057pjb.54.1590591360756;
+        Wed, 27 May 2020 07:56:00 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:62d6:: with SMTP id w205ls1663950wmb.1.canary-gmail;
- Wed, 27 May 2020 07:55:23 -0700 (PDT)
-X-Received: by 2002:a05:600c:280c:: with SMTP id m12mr4890035wmb.92.1590591323354;
-        Wed, 27 May 2020 07:55:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1590591323; cv=none;
+Received: by 2002:a63:d015:: with SMTP id z21ls3632374pgf.5.gmail; Wed, 27 May
+ 2020 07:55:59 -0700 (PDT)
+X-Received: by 2002:a63:520f:: with SMTP id g15mr4469940pgb.317.1590591359853;
+        Wed, 27 May 2020 07:55:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1590591359; cv=none;
         d=google.com; s=arc-20160816;
-        b=ZTQ5VoYg8HXGsuOGhT/TgLEC0/AzEYlwVazZvSsN/8oDzv4ZYxKHAs9uOennER1JGM
-         0SoGsEPZwCqFLwzywDj3xvsSScwnQPkTV5inQUdSA7AvvbZK931dNLvbID17LxDFMkEf
-         rYHlvQRxfA0abJYwBumkjtL9o6sFNdXmUX9WiqJ+HIPCpH2rwx8all4AF2WYwkLj7Yjc
-         yS336TGVRC6M3HZ1xptNPys2kUCLf6kt0KoANzyud+NlvcUmiRdLJwNnYN3/0YWsB3fZ
-         nFOrScAYaZ7oPmudDofLfhoukhoAsuv/0TnwqPoxR3EQ+Nt1iYnmOfX5uZGli70Of/mI
-         Gh7A==
+        b=RHkzK94mLWXAMYMPUHGtZ9u79X2btQ4fYhoA/7hmg+t7y2qrYQd3JytPYTyhMR8cPo
+         qg+G9dd3d8MzSFJpHOmQJm/mcVCGR6mtvXdJxr/ef/6a3XBdnEo+nMlXcUEpJ5KLjlF6
+         FJvoumOtSsab/S85GdAflvDpiLvXoQppv1srAM37RzLAZzcGchNqdiT1HCu6zVejbRq+
+         WjHH1CkXNnHxsC76DX8h1lHDecqWdsBzidDrc9cnZXt7dfHLjEqY8CvtJV+Xwmv0PHC2
+         0Zl0EzP75MO/gaB2w3SL6wfwxKgbqeofi66e9f85dYF6Yz36NdBwhf2uqeImsCU2SiTz
+         lcsA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=e9syqhI8wLWWtu7w/1uOD47ftFhDBji/6+mPC4fkxx4=;
-        b=ThWloeXtkowSIulrFPMnHoHTLwCF6YHeZUPui3FaNE6K5HP6BJDXz65GvoXuilNp1A
-         Y+I+3IhUO0XZW/GPFvPGeyXc2hfJIGpUNCLV1LcyLQpj2nI1GZepwEGABeRyDT0HRXJM
-         BtyWYzE8awqaF6YB8pZqJZk929K4TrbZhRhzsoNrcCWF1dgmEBjNo+mKmXwK/t4jVAl7
-         IgK+1oWtgjw0zWoaxrTmjDPae3Nr5wLj3yWCEt410K/2wWHye5kBavoeJkza7SbsJunO
-         db/QKgeEGkuqheSWMJMx3ENKrpH6/WsfjYAT1XCqKpda0bqDSg+JjKn1HcSkMGOOnIIC
-         yIBw==
+         :user-agent:date:message-id:from:references:cc:to:subject
+         :dkim-signature;
+        bh=VrWgYJ3hTX6kiPXeZ95F+ORsQKFFxN9bHEbMC3gOekk=;
+        b=MFY6/mrXJ8lQJTcrH9fr44BsfZT7LlSEbbybsGY4w4TWpBREnzb+a7PA/NNOWtyArj
+         xdy4Z/Ub1HDakabt1kAhtxX7LhzPUVsnRq4EtnTY/4d4LiXkANxbUa0twOm8i17Dv4oJ
+         MvADo0G6w8pLmG0hZa5bSbZqnhHRr5BtbeeHjQKAa/G+vIUJO6ZnC190Y5VUfmjLSXdl
+         3RookIsw/Lpngjxxul/xdEa9345vdMyWwYNK71Qk+sY5iLMpqFkNX9giftFCls+hL4AO
+         J7b0sLG2m+m47o7Qt00N9KsguWSZjKzyZgUMES067XZDhS52bdGQQeEUfDjvNbp+hE81
+         51GA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id q72si159362wme.1.2020.05.27.07.55.23
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=MsoSfL5g;
+       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
+       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
+Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com. [198.47.19.141])
+        by gmr-mx.google.com with ESMTPS id b8si168915pjk.2.2020.05.27.07.55.59
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 27 May 2020 07:55:23 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 04REtNXQ003733
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 27 May 2020 16:55:23 +0200
-Received: from [167.87.6.205] ([167.87.6.205])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 04REtMqW020749;
-	Wed, 27 May 2020 16:55:22 +0200
-Subject: Re: [PATCH v1 2/4] configs: k3-j721e-evm-inmate-demo: Add ivshmem
- capability
-To: Nikhil Devshatwar <nikhil.nd@ti.com>, jailhouse-dev@googlegroups.com
-Cc: lokeshvutla@ti.com
+        Wed, 27 May 2020 07:55:59 -0700 (PDT)
+Received-SPF: pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted sender) client-ip=198.47.19.141;
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+	by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 04REtx3f036037;
+	Wed, 27 May 2020 09:55:59 -0500
+Received: from DLEE100.ent.ti.com (dlee100.ent.ti.com [157.170.170.30])
+	by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTP id 04REtxRs027260;
+	Wed, 27 May 2020 09:55:59 -0500
+Received: from DLEE107.ent.ti.com (157.170.170.37) by DLEE100.ent.ti.com
+ (157.170.170.30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Wed, 27
+ May 2020 09:55:58 -0500
+Received: from fllv0039.itg.ti.com (10.64.41.19) by DLEE107.ent.ti.com
+ (157.170.170.37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
+ Frontend Transport; Wed, 27 May 2020 09:55:58 -0500
+Received: from [10.24.69.115] (ileax41-snat.itg.ti.com [10.172.224.153])
+	by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id 04REtuH9100884;
+	Wed, 27 May 2020 09:55:57 -0500
+Subject: Re: [PATCH v1 4/4] tools: ivshmem-demo: Pass peer_id command line
+To: Jan Kiszka <jan.kiszka@siemens.com>, <jailhouse-dev@googlegroups.com>
+CC: <lokeshvutla@ti.com>
 References: <20200527123225.31726-1-nikhil.nd@ti.com>
- <20200527123225.31726-3-nikhil.nd@ti.com>
- <6e2a0459-3707-99ea-27b0-184f643d27fb@siemens.com>
- <8e7b50d6-9c6f-3538-2042-94db463f20fe@ti.com>
- <68e2bf7f-cd61-47ed-5ef1-f928d010a95c@siemens.com>
- <84192fc2-2559-0b21-559c-0d06123ea670@ti.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <78b9273e-8799-d6bb-b9b2-95161b3c78a5@siemens.com>
-Date: Wed, 27 May 2020 16:55:22 +0200
+ <20200527123225.31726-5-nikhil.nd@ti.com>
+ <98bf4c5b-9812-d2d4-8da0-c887b44277b9@siemens.com>
+ <eb224001-86c9-593d-b4ab-d0ae168fcbd8@ti.com>
+ <1d841e18-8a4e-0c00-4a57-1a74bb461fe6@siemens.com>
+ <c32c3837-b0d6-c48e-221a-4202923d945f@ti.com>
+ <08222d8d-39d1-1514-2259-891f95f20697@siemens.com>
+ <46dce81a-e841-4adf-7c81-5e6abbe8148c@ti.com>
+ <e75c66bb-048e-15d3-1a74-075829c9b2d4@siemens.com>
+From: "'Nikhil Devshatwar' via Jailhouse" <jailhouse-dev@googlegroups.com>
+Message-ID: <5a7a1e18-93dd-6bb1-8fba-ccfd91f2c8d5@ti.com>
+Date: Wed, 27 May 2020 20:25:56 +0530
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <84192fc2-2559-0b21-559c-0d06123ea670@ti.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <e75c66bb-048e-15d3-1a74-075829c9b2d4@siemens.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+X-Original-Sender: nikhil.nd@ti.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@ti.com header.s=ti-com-17Q1 header.b=MsoSfL5g;       spf=pass
+ (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted
+ sender) smtp.mailfrom=nikhil.nd@ti.com;       dmarc=pass (p=QUARANTINE
+ sp=NONE dis=NONE) header.from=ti.com
+X-Original-From: Nikhil Devshatwar <nikhil.nd@ti.com>
+Reply-To: Nikhil Devshatwar <nikhil.nd@ti.com>
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -140,213 +158,101 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 27.05.20 16:32, Nikhil Devshatwar wrote:
->=20
->=20
-> On 27/05/20 7:52 pm, Jan Kiszka wrote:
->> On 27.05.20 16:09, Nikhil Devshatwar wrote:
->>>
->>>
->>> On 27/05/20 6:55 pm, Jan Kiszka wrote:
->>>> On 27.05.20 14:32, nikhil.nd@ti.com wrote:
->>>>> From: Nikhil Devshatwar <nikhil.nd@ti.com>
->>>>>
->>>>> Add a virtual PCI device with IVSHMEM type (id =3D 1)
->>>>> Create IVSHMEM regions for 2 peer communication
->>>>> Enable the vpci_irq for doorbell interrupt
->>>>>
->>>>> This allows to run the ivshmem-demo baremetal inmate
->>>>> inside this cell.
->>>>>
->>>>> Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
->>>>> ---
->>>>> =C2=A0=C2=A0 configs/arm64/k3-j721e-evm-inmate-demo.c | 63
->>>>> ++++++++++++++++++++++--
->>>>> =C2=A0=C2=A0 1 file changed, 59 insertions(+), 4 deletions(-)
->>>>>
->>>>> diff --git a/configs/arm64/k3-j721e-evm-inmate-demo.c
->>>>> b/configs/arm64/k3-j721e-evm-inmate-demo.c
->>>>> index 7440a258..e09c4850 100644
->>>>> --- a/configs/arm64/k3-j721e-evm-inmate-demo.c
->>>>> +++ b/configs/arm64/k3-j721e-evm-inmate-demo.c
->>>>> @@ -20,7 +20,9 @@
->>>>> =C2=A0=C2=A0 struct {
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct jailhouse_cell_desc cell;
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __u64 cpus[1];
->>>>> -=C2=A0=C2=A0=C2=A0 struct jailhouse_memory mem_regions[3];
->>>>> +=C2=A0=C2=A0=C2=A0 struct jailhouse_memory mem_regions[7];
->>>>> +=C2=A0=C2=A0=C2=A0 struct jailhouse_irqchip irqchips[1];
->>>>> +=C2=A0=C2=A0=C2=A0 struct jailhouse_pci_device pci_devices[1];
->>>>> =C2=A0=C2=A0 } __attribute__((packed)) config =3D {
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .cell =3D {
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .signatu=
-re =3D JAILHOUSE_CELL_DESC_SIGNATURE,
->>>>> @@ -30,8 +32,9 @@ struct {
->>>>> =C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .=
-cpu_set_size =3D sizeof(config.cpus),
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .num_mem=
-ory_regions =3D ARRAY_SIZE(config.mem_regions),
->>>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .num_irqchips =3D 0,
->>>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .num_pci_devices =3D 0,
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .num_irqchips =3D 1,
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .num_pci_devices =3D 1,
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .vpci_irq_base =3D 195 -3=
-2,
->>>>> =C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .=
-console =3D {
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 .address =3D 0x02810000,
->>>>> @@ -48,6 +51,33 @@ struct {
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 },
->>>>> =C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .mem_regions =3D {
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* IVSHMEM shared memory =
-regions for 00:00.0 (demo) */
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 {
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .=
-phys_start =3D 0x89fe00000,
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .=
-virt_start =3D 0x89fe00000,
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .=
-size =3D 0x10000,
->>>>
->>>> This means the kernel is configured for 64K pages - rather uncommon an=
-d
->>>> problematic in many regards (just had to turn it off on AM65x
->>>> because it
->>>> breaks userspace [1]).
->>>
->>> Yes, indeed.
->>> In fact, I was planning to send one more patch on ivshemem_uio to map
->>> a page aligned register memory[0]
->>>
->>>
->>> At TI, Jailhouse is integrated with TI linux kernel[1] (which is
->>> different from the siemens kernel[2])
->>>
->>> Can you please point me details of failures with 64k kernel.
->>> This will help me to convince TI kernel developers to turn off 64k
->>> paging because of whatever issues that might occur.
->>>
->>>
->>> [0] =3D
->>> https://git.ti.com/cgit/ti-linux-kernel/ti-linux-kernel/commit/?h=3Dti-=
-linux-5.4.y&id=3D30061ab0dcd216ccf20fa9bc426b575feaaefcb4
->>>
->>>
->>> [1] =3D
->>> https://git.ti.com/cgit/ti-linux-kernel/ti-linux-kernel/log/?h=3Dti-lin=
-ux-5.4.y
->>>
->>>
->>> [2] =3D https://github.com/siemens/linux/tree/jailhouse-enabling/5.4
->>>
->>>
->>> Regards,
->>> Nikhil D
->>>
->>>
->>>>
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .=
-flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 },
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 {
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .=
-phys_start =3D 0x89fe10000,
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .=
-virt_start =3D 0x89fe10000,
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .=
-size =3D 0x10000,
->>> [snip]
->>>>> +=C2=A0=C2=A0=C2=A0 },
->>>>> +
->>>>> +=C2=A0=C2=A0=C2=A0 .pci_devices =3D {
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* 00:00.0 */ {
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .=
-type =3D JAILHOUSE_PCI_TYPE_IVSHMEM,
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .=
-bdf =3D 0 << 3,
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .=
-bar_mask =3D JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
->>>>
->>>> This constant assumes 4K pages.
->>>
->>> Shall I create another macro like below?
->>>
->>> #define JAILHOUSE_IVSHMEM_BAR_MASK_INTX=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 {=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 0xffff0000, 0x00000000, 0x00000000,=C2=A0=C2=A0=
-=C2=A0=C2=A0 \
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x00000000, 0x00000000, 0x00000000,=C2=A0=C2=A0=
-=C2=A0=C2=A0 \
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->>>
->>> Also, as long as the memory that is getting exposed by the registers
->>> regions is less than 4k, it should work right?
->>> Maybe I won't need the above patch if I do this change.
->>>
->>>
->>>>
->>>> Given all the problems with 64K, I suspect it's better to switch to
->>>> standard 4K.
->>>>
->>>
->>> I am afraid that might need lot of convincing.
->>
->> If you have convincing performance numbers on 64 vs. 4K, I'm also
->> curious. :)
->>
->> Findings so far:
->> =C2=A0 - https://github.com/siemens/meta-iot2050/pull/7
->> =C2=A0 - RT seems to have latency problems, that's why you already disab=
-le it
->> =C2=A0=C2=A0=C2=A0 in your config
->> =C2=A0 - in the past at least, btrfs had a page-size dependency, making =
-it
->> =C2=A0=C2=A0=C2=A0 impossible to mount it on a 4K-machine when it was cr=
-eated for 64K
->>
->> And I'm sure there is more. IIRC, SLES used to be 64K on ARM64 but gave
->> up as well.
->=20
->=20
-> Thanks for these details.
->=20
->>
->>> Till now, I am able to get the Jailhouse and ivshmem working nicely wit=
-h
->>> 64k pages. Need to check if I have introduced any security holes, etc
->>
->> As pointed out, the MMIO register region is configured by default for 4K
->> pages. The PCI BAR mask can be adjusted to account for larger pages,
->> though, but that is missing in your patches yet. Jailhouse should be
->> fine with that, it was "just" not tested so far.
->>
->=20
-> My takeway is that switching to 4k makes sense to avoid failures in
-> various software components as mentioned above. I will try to push for
-> this change in TI kernel. If it goes through, I need to modify this
-> series to use 4k page size.
->=20
-> In case this doesn't go through and TI decides to continue with 64k,
-> I should modify the series to handle the BAR sizes and then will you be
-> okay to accept the cell config changes for 64k?
 
-Configuring for 64K pages in the cells would be fine (when addressing
-the BAR mask), just wasteful in case there are 4K behind it. So I would
-accept that as well.
 
-Jan
+On 27/05/20 8:18 pm, Jan Kiszka wrote:
+> On 27.05.20 16:16, Nikhil Devshatwar wrote:
+>>
+>>
+>> On 27/05/20 7:38 pm, Jan Kiszka wrote:
+>>> On 27.05.20 15:53, Nikhil Devshatwar wrote:
+>>>>
+>>>>
+>>>> On 27/05/20 7:18 pm, Jan Kiszka wrote:
+>>>>> On 27.05.20 15:28, Nikhil Devshatwar wrote:
+>>>>>>
+>>>>>>
+>>>>>> On 27/05/20 6:41 pm, Jan Kiszka wrote:
+>>>>>>> On 27.05.20 14:32, nikhil.nd@ti.com wrote:
+>>>>>>>> From: Nikhil Devshatwar <nikhil.nd@ti.com>
+>>>>>>>>
+>>>>>>>> Number of peers available on a platform is different.
+>>>>>>>> Do not hard code the target peer_id used for interrupt.
+>>>>>>>> Parse this from the command line argument.
+>>>>>>>>
+>>>>>>>> This de-couples the dependency between number of peers.
+>>>>>>>> ivshmem-demo can be run to communicate with desired target
+>>>>>>>
+>>>>>>> No command line, please. We can do (<ID> + 1) % <Maximum Peers> as
+>>>>>>> target. All that is accessible via the register interface. But
+>>>>>>> then all
+>>>>>>
+>>>>>>
+>>>>>> I believe, as of now, only root cell can communicate with peer1,
+>>>>>> peer2,
+>>>>>> etc. Non root cells cannot communicate with each other.
+>>>>>> Please correct me if I am wrong.
+>>>>>>
+>>>>>
+>>>>> Not all targets have been enabled for the "triangle" setup, but if yo=
+u
+>>>>> look at qemu-arm64, e.g., you can see that pattern.
+>>>>>
+>>>>>> (id + 1)% max_num_peers=C2=A0=C2=A0=C2=A0=C2=A0 logic won't work for=
+ a 3peer scenario
+>>>>>> where
+>>>>>> root cell app(id=3D0) wants to communicate with baremetal(id=3D2)
+>>>>>> e.g. qemu-arm64 has these ids.
+>>>>>>
+>>>>>
+>>>>> Then we need to adjust that. It doesn't matter who sends whom, just
+>>>>> everyone should send something and everyone should receive something =
+in
+>>>>> the end.
+>>>>>
+>>>>
+>>>> In QEMU, root (id =3D 0) linux-demo(id =3D 1) and baremetal(id =3D 2)
+>>>>
+>>>> 0 should be able to to 1 and 2
+>>>> Here you should choose if you want to communicate with baremetal or
+>>>> linux-demo. There is no way this can be automatically figured out.
+>>>> That's why I added an argument.
+>>>
+>>> Every peer can talk to every other peer in those setups.
+>>
+>> Oh, that's new to know. Sorry about confusion.
+>>
+>>> It's just that
+>>> the demos are built in a way that each peer has a single notification
+>>> target, by convention, not by cell configuration.
+>>
+>> But if you can pass the id and communicate with any peer, that seems
+>> better than the limitation that root cell can communicate with only a
+>> certain peer that is described by how the ids are alloted in configs.
+>>
+>=20
+> Not sure if I get the point already:
 
---=20
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+In the current qemu-arm64 configuration, It is not possible for root=20
+cell to verify communication with linux-demo and baremetal-demo both.
+That's because "the demos are built in a way that each peer has a single=20
+notification"
+
+This is the limitation I am trying to get rid of, by passing an=20
+argument. e.g.
+
+ivshmem-demo /dev/uio0 1 #This will communicate with linux-demo
+ivshmem-demo /dev/uio0 2 #This will communicate with baremetal-demo
+
+
+> If you link ivshmem devices by
+> using the same BDF, there will be no communication restrictions. The ID
+> allocation is static, to make it stable, but there is no semantic behind
+> the number. The only constraints: IDs must be unique (obviously) and
+> must be < than the configured maximum peers.
+>=20
+> Jan
+>=20
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -354,4 +260,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/78b9273e-8799-d6bb-b9b2-95161b3c78a5%40siemens.com.
+jailhouse-dev/5a7a1e18-93dd-6bb1-8fba-ccfd91f2c8d5%40ti.com.
