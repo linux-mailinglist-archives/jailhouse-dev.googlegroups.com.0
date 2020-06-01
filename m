@@ -1,138 +1,129 @@
-Return-Path: <jailhouse-dev+bncBDXPDIF3WYKRB7WW2T3AKGQESFLXRLA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDLNPVGISQLRBT7B2X3AKGQEVSI52HI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x339.google.com (mail-ot1-x339.google.com [IPv6:2607:f8b0:4864:20::339])
-	by mail.lfdr.de (Postfix) with ESMTPS id 061091EA7C1
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  1 Jun 2020 18:23:28 +0200 (CEST)
-Received: by mail-ot1-x339.google.com with SMTP id k91sf6286267otc.10
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 01 Jun 2020 09:23:27 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1591028606; cv=pass;
+Received: from mail-wr1-x439.google.com (mail-wr1-x439.google.com [IPv6:2a00:1450:4864:20::439])
+	by mail.lfdr.de (Postfix) with ESMTPS id 532B71EB0D4
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  1 Jun 2020 23:19:12 +0200 (CEST)
+Received: by mail-wr1-x439.google.com with SMTP id m14sf468443wrj.12
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 01 Jun 2020 14:19:12 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1591046352; cv=pass;
         d=google.com; s=arc-20160816;
-        b=FbjxxWPLQscvS0HcG7trFqx/LtihFavZA8eNl1n9TGOYQxmTurQJEeq2LewhFldZAK
-         lz11LrcTIRsgn87wIJulnmfV4CjsKgPyEAIPofkGhrpGvxpzAp16XdbcB9zm0rzGTamr
-         s+kK5TbpmamBEe0OReJx5USDOyL5xsdQANH/Vs44sXZLc8ozzlOy+DEUtKBqeBoPTYwb
-         tWDdNM5W0nb7qUERBEKjN+bfwC5/gZlpcnGk4cq23vC12tYOsR4Sa46MuNCFCYFLLynY
-         3bvghLM1IpkkGgKfmw/Cs9p3ArdXFy5IL+d/HbixXyCkfVlXyYxtvvWv5fhKAJn6KhGU
-         vRrQ==
+        b=NyS6j0cyf+j/ZY5STFDsKaJ37dKQF+1jugx3RLyagteVAAoUGiipzua3SO1Nzipddg
+         54TfF6xbazae3T2T2eLXux6kmremWtGVtq7CLA93fqoGYsWszL+OAIL1YCqLYqFcPIWJ
+         y0bXqrFktazkHY9Y/GHKESjaCJirQkkbCh1Tur7FiJ0FhwK5WQ+eLavtbcmURuJIQpb7
+         5Wyubws4TB+p1HMDQxM9BlXFs/JOyhLuAw/d9ULv21JXSpjfhqYSb2qjyxcBIcbfVLjc
+         G5UF7qEL2J4mkzfuBrcicjmS8lXjU39AZtnvvOPdEwxYvY4IsbO8bTreR/VYujNVlXoL
+         7AZw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:sender:dkim-signature
-         :dkim-signature;
-        bh=ixOolh0N2uUAMhpEVc4hvd2PYlHFAMniENwFlFZIl30=;
-        b=GNtQBeZ85Th8Rip4Aj0Rx5yf6djiujLLewxqzRobmgnLAGy+54+NxCWasb2FNoJ7tm
-         Ii95Ro/nFr4hL63eJC416kZmYghQ5/sJTx1DSd2R2PuVoJhMQRfb70ygAsNsdB8fHq1e
-         XS71ao1gCcCCVstB+Z1gvFRqLYhS5Eb/vRBv7R2RM/lCxaHswilqmlaT7RcwF//kgSMG
-         OavE7fCbETHypefk3qQLfpToV93zne8zD4nApBIF0JM2uXKHuOuyOvjg90amKrngevWO
-         u1Iwb4h/aLrPp3/xbUBT34eXaMMmmYKugmVDpy9T0jzf3kfv43MNRaWa6TVHwPCh7JLC
-         3bqw==
+         :list-id:mailing-list:precedence:user-agent:in-reply-to
+         :content-transfer-encoding:content-disposition:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:dkim-signature;
+        bh=de7eGFJahfH7HNOncMpGlbAxo1v2F71bnuf/T8iPhNg=;
+        b=qRHPs02mIJkdS1m29Xn5SQZyjpSuTuE7ATqSvAFgP0g1CiyWI5ayLSqVKM+eqGBdjv
+         PjOpF5pQSZFDYrfw18IJe4SiUxvB1DtmD4qBfl/vFG5NFINKd5caMDw0QLhZ73ayGGiB
+         dl22GRyoz5PtPkpNWuOwLs0sO1pQUG8lvVNmMl2m5eMRGrIzAkJlMXpUiuDX28BOQFn+
+         QUB1cs6SNQU2n7aXC83jEdr/G4Q3K4x2W0Wk+fqkK5RmwTKdwxiFct6ZdCn/el8Rh0HU
+         rPYha69wUDaEFIDyp84fyU5nkI3YF0YLden89iPl+SDnoCIoMVMbQ9uorocZWT9eqZ7m
+         WGuQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=DB9lUrff;
-       spf=pass (google.com: domain of mariomintel@gmail.com designates 2607:f8b0:4864:20::741 as permitted sender) smtp.mailfrom=mariomintel@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+       spf=pass (google.com: best guess record for domain of yann.morin.1998@free.fr designates 212.27.42.1 as permitted sender) smtp.mailfrom=yann.morin.1998@free.fr
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:mime-version:references:in-reply-to:from:date:message-id
-         :subject:to:cc:x-original-sender:x-original-authentication-results
+        h=sender:date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:content-transfer-encoding:in-reply-to
+         :user-agent:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=ixOolh0N2uUAMhpEVc4hvd2PYlHFAMniENwFlFZIl30=;
-        b=cZyMZNMV2MUgjaO62e5WQi4RFkvI9pneFjkFSMIDqx9y5wj69fay5zQIc8ejaQ+xgF
-         9qOMzairQHwD8DphX7zXZPolYbkXcCdnumLqIrXJfalHfW/6De4ZgJC7GoCtDn1wSoYJ
-         OjAv2Foe6Yp3sJIN10pkDBbByC8CNi/FwFS7ivUpQNf6PrpjO0xUx5ZRuTQ7dbVI6EAP
-         edYyU+Z0ewkzC0iCrzYzaQFGxB0NXcu9jUopX+NOlW3H0z+hrqTrUfQDjpOZLASYGaJM
-         2+JkE8NXT73wqD9y5qu0c6/F4Au4nVU1G0a3Xm+FDZtbdW7nLPOIg0pIErbjqMg/v7B8
-         Kf3Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=ixOolh0N2uUAMhpEVc4hvd2PYlHFAMniENwFlFZIl30=;
-        b=LHiqw/rGK0dedc2aFe0x3/rfgHG4BFM9RshzA5PrW/1vPv5MChdxlKjkPzHT6f+axA
-         7JLZvLoD96uhkyRPWV/wzeEfNrs1MbS1s/AHdUkzYAC7gpHMw+EIF81+qQyXY8MCZRKm
-         A2qC2l3SBB5bj51QvkYzloxGqjkxiWk/8z0Osd39yf7FO6y73thJfQ50B1o00PwHbWnU
-         TsNrVpEwLqIWTNfXaVgYoFeV9sgyhUf8vmO1Liy+lKOGnuTAsy0Pp+JyHERhLPVT3opS
-         yGzrbHfLAZDBr5alwZv+VbpWLwn4OZKGfR7LFdDEnBGseEQEkStYEPhg1sXSmufvYD9t
-         YCXg==
+        bh=de7eGFJahfH7HNOncMpGlbAxo1v2F71bnuf/T8iPhNg=;
+        b=oPx9y38XM6WZDCIGRtlfe6ZzjhoUUzR7vw30U4OdrO/BgLknyZTxWC3ZOWXa1Lb0JM
+         tUHNto7pfcopcRQaekUmgMnRfDqdosAvug82XMenkQSEzOcOZcGGnRWX7h4ZxAa/xGiT
+         19T8Vs1qX6XY0BT+uJoIoE+4Va5zdacwba4rXKk9EJdNJjl+XzBEAJZ4SI0Bu5LFPniX
+         EL48EJIAEpdAqlNemnKjC8yAjDgm9w2ny81wf4BjeJ+dAQzr8j5+sdZTh0NnYO5RW0fy
+         Qw3a/2PsKt6Q3AS9A4g3Y0v0T9V0yM8ntSI7twc54Mc1OSlO1FAkexcT6AeT+FaSs8wI
+         bZUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
-         :date:message-id:subject:to:cc:x-original-sender
+        h=sender:x-gm-message-state:date:from:to:cc:subject:message-id
+         :references:mime-version:content-disposition
+         :content-transfer-encoding:in-reply-to:user-agent:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=ixOolh0N2uUAMhpEVc4hvd2PYlHFAMniENwFlFZIl30=;
-        b=V6vR8xJhx6E/Bx09h9pW6SvN3++MciDRl4tCHG1IFNf2YH12FEvMb5gl5IVG8Yw7NM
-         tu8YMsYH5fpRMONhLKn9ZOr06m+OjebXcKJLT7lyGA+pCXXoNRvxXKjnse1+Iis6/uGK
-         RQPdynIrO8PQeUSOT/jOXeoZEk0LqsmqMY7NsVyjDSK/Dj4cwhBiMjbGnZaIpQ60INZi
-         2MpCHrytsA28oxFlyiIBBSOwqZd6MlX8M0wtA4qGMcKqYE1PdmyPDIAZ/f8+vROECQJB
-         AHP06m+SoWSECLn6IhVXKwluDsdgilSW2iPF9TIhnAecHyFp1rfT5TB+tHR6lNjQ9xh7
-         7OxQ==
+        bh=de7eGFJahfH7HNOncMpGlbAxo1v2F71bnuf/T8iPhNg=;
+        b=YcKtttcZsTYWDZU3x48jausnr8Y7uRUjGU/SvTVFNpHivxZEHEK4UJexeUuPMKNFhv
+         9c2Yneb6O2Mqcy/R1FOqoLgdwJzuKp9XebpKhmGitn6qw1RgWvLLXfVo/uL6El/IG8XC
+         gJXWdCUO0twg65kLOH4FHrQ4RRKP1FNJ1uLx0vAXlmt1ONbunwf77GVj6ofdzcuU34Wr
+         Aw/qgOqS3zKVlQByn0Pkhzxi55kLBlSWfo/rDB/u4+Sj295XuLxtI1zC15eMT8jPXkzF
+         /w2n9UPdo/YfoPBjk9t5fIBpc3j4V0pfGe803Up9lDQM8mn5EOWa64+sGtxkWSat7hvO
+         euFw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533xsC+GJEq1+baD+2IBo2/cyNmpy2beIkKDvuWf1GIhyzR7o1KZ
-	8Cyeewtc6rIVcW23CV5KqmY=
-X-Google-Smtp-Source: ABdhPJy7sEV1nfB0LivF12srTRD+x1+Lo5Ag9xPb3teIU+hJmbHZeT7ynO7rK2ey2hiV92jfsf/Wpw==
-X-Received: by 2002:a05:6808:991:: with SMTP id a17mr117550oic.108.1591028606594;
-        Mon, 01 Jun 2020 09:23:26 -0700 (PDT)
+X-Gm-Message-State: AOAM530RMP5ZNsKvuMxQzFFNB6K305Pkaruz5BtUF75NRdfhrboFbRJ1
+	hNwY/IE66sX9IP6sOZXNap8=
+X-Google-Smtp-Source: ABdhPJz6Mwt+kJCfn1F+L0ePH9jvhpndMN4WRBgbE6vbjWAgouZP+4Z3fWo5QfzlL27rkhIq/Mw0cQ==
+X-Received: by 2002:a1c:451:: with SMTP id 78mr1124256wme.83.1591046352000;
+        Mon, 01 Jun 2020 14:19:12 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a9d:86a:: with SMTP id 97ls3032169oty.9.gmail; Mon, 01 Jun
- 2020 09:23:26 -0700 (PDT)
-X-Received: by 2002:a9d:f07:: with SMTP id 7mr8201335ott.46.1591028606028;
-        Mon, 01 Jun 2020 09:23:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1591028606; cv=none;
+Received: by 2002:adf:da46:: with SMTP id r6ls2340374wrl.3.gmail; Mon, 01 Jun
+ 2020 14:19:11 -0700 (PDT)
+X-Received: by 2002:adf:f4c6:: with SMTP id h6mr24016514wrp.398.1591046351336;
+        Mon, 01 Jun 2020 14:19:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1591046351; cv=none;
         d=google.com; s=arc-20160816;
-        b=zEjzTZuE5AcM0VfXj4lz1Gg/jsOu7/08YtuHRRDvSoX4PR2pwimlP23lve/CyET0Gc
-         X1hnKRY3Sgr0qEJxTJ9LJ+Gkyc8YUkhhQdHof9OVLz6gJK6dsnYgDtNsZOZ387fEYzhc
-         v4f21E9eINHL/0EYuWSMCbuWPLwx+PVc9LxZ6gRZbWju3HKCOWV1AygobyQFx2GszgMp
-         6BHP70mi6JsQvipnRhyVDQNhG0EI11HvEYDlHI+Th+GSZyZUKj7p297Bzqz6v/GcDBkQ
-         xmmlxjpFO5mbs22142vcwv5Ml6xPYnVShNDtHgjrjHFnB0lb5cKLc5kbU3FGNtlFZcSk
-         9J8w==
+        b=VqDi7JKtEcjPL275HHJwtclM4nLwc6fiX9ToZh0V6shszTS1HeRAr903c8VXFOdPpF
+         NoK5XzXyltTZORpG4BMDZS4Dg03A5br8OOafPR6pASdjWToyZz+V4NOl6Y+HRO1VBPbO
+         /9mow0s5YeW6ATAHmuPGIszD9ntl0hl/w8wYo4svKJkrWC1KYNaO+CYIT3HQvW0XQBtD
+         Gwan2qjtzsH41CdCmvBBsjNV1D/jPt9dcvvXXd8uVQEAxfxdn3ufUgkbjnaGI4D5Dhxx
+         EwBt4V5mPntfpQSVNEP40ubNP5EWUkPFRJjX5+P8/l0O05EhJYOd7yel41nlWqGRok3J
+         0hNA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=gLoWUfAkCTiJlaG53TMs9S6Rgdjy3LyNHB0HQGJQvpQ=;
-        b=jdq4zizR4dIsJnPrY5kZNS2yb2rkHuKWxoYZQsMIVwFePpJQBiiaW6FFHiyuqCjwWY
-         Fh4s3OoRUBFcytKcqJsUbEXc6YEdKV0cnzAULAnQxds6sDkbYx6ZYzfzHeiiUhiCKalA
-         hPMDLS9jdxTEdEZWK0+GV6s8gQaDJM4grAzE48Mihj1e5g1SCz8wI8atpLTk3SFMZNzF
-         kM6H8XSy2JxpFdvo5KReGN5GtMLb+BHZptbcLljui7XA3QaelD65C7F8XbgI253hG31k
-         3q5jhU7pWkRNcbiXpa3dLGqNb0PDFac5Tmbul/mvETi0qtwMaXO0L4IavNfFdYLNYgHS
-         oMLQ==
+        h=user-agent:in-reply-to:content-transfer-encoding
+         :content-disposition:mime-version:references:message-id:subject:cc
+         :to:from:date;
+        bh=7n7t0NAROOAFKX9+VVZz3AONKkjJus2ogZFk5DaXL44=;
+        b=JZjpR5apIXSCLnylL3wPlPWeFEqxl7wW37LrQL7YUbw3N3dcOYg8LNZXN5/SRsE3nW
+         yP4LShrNOGh/bPP8DKA7yXTZaXHN3JTWqF29eR5dGpZyMASgbKrRLuo2mB2/CMHmmZ6H
+         URpjkGxU4Ttvnx33T7M/N8nSDrV2EOWK1PJSahxUccPAWqG3lUZT1HKsZvnPcUZniBdP
+         qzqhH7b2tu0axOtFgFPNHHXjkFdeprhbC4os9Q0R7c8ae3ow6mL7W1141mJuZMHmSH+u
+         2+Es2RBiOdMvA0TYRq31TaFMYcaO5q3iUhmDctCUue79Fw/HhQHssl2fDU5+q9pWV6wi
+         jeHQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=DB9lUrff;
-       spf=pass (google.com: domain of mariomintel@gmail.com designates 2607:f8b0:4864:20::741 as permitted sender) smtp.mailfrom=mariomintel@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com. [2607:f8b0:4864:20::741])
-        by gmr-mx.google.com with ESMTPS id q5si1365764oic.5.2020.06.01.09.23.26
+       spf=pass (google.com: best guess record for domain of yann.morin.1998@free.fr designates 212.27.42.1 as permitted sender) smtp.mailfrom=yann.morin.1998@free.fr
+Received: from smtp1-g21.free.fr (smtp1-g21.free.fr. [212.27.42.1])
+        by gmr-mx.google.com with ESMTPS id w126si80114wma.4.2020.06.01.14.19.11
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 01 Jun 2020 09:23:26 -0700 (PDT)
-Received-SPF: pass (google.com: domain of mariomintel@gmail.com designates 2607:f8b0:4864:20::741 as permitted sender) client-ip=2607:f8b0:4864:20::741;
-Received: by mail-qk1-x741.google.com with SMTP id s1so9577299qkf.9
-        for <jailhouse-dev@googlegroups.com>; Mon, 01 Jun 2020 09:23:25 -0700 (PDT)
-X-Received: by 2002:a37:b901:: with SMTP id j1mr12991514qkf.427.1591028605437;
- Mon, 01 Jun 2020 09:23:25 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200528144333.49268-1-mariomintel@gmail.com> <20200528144333.49268-3-mariomintel@gmail.com>
- <20200529204844.GR8737@scaer> <3806f122-f6b0-efba-e94a-64a3729fbe8a@oth-regensburg.de>
- <CAH3JsOrK+8F4xXhxm8ytEawBQ63jswzBG8PW2naq40M6MAyZQA@mail.gmail.com>
-In-Reply-To: <CAH3JsOrK+8F4xXhxm8ytEawBQ63jswzBG8PW2naq40M6MAyZQA@mail.gmail.com>
-From: Mario Mintel <mariomintel@gmail.com>
-Date: Mon, 1 Jun 2020 18:23:43 +0200
-Message-ID: <CAH3JsOrGo0k4S=VKfaXFbgkOv2jYvCB6nff0f+TihKz-1ok4JQ@mail.gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+        Mon, 01 Jun 2020 14:19:11 -0700 (PDT)
+Received-SPF: pass (google.com: best guess record for domain of yann.morin.1998@free.fr designates 212.27.42.1 as permitted sender) client-ip=212.27.42.1;
+Received: from ymorin.is-a-geek.org (unknown [IPv6:2a01:cb19:8b51:cb00:dde4:6569:b690:50d])
+	(Authenticated sender: yann.morin.1998)
+	by smtp1-g21.free.fr (Postfix) with ESMTPSA id E67A6B0058A;
+	Mon,  1 Jun 2020 23:19:02 +0200 (CEST)
+Received: by ymorin.is-a-geek.org (sSMTP sendmail emulation); Mon, 01 Jun 2020 23:19:02 +0200
+Date: Mon, 1 Jun 2020 23:19:02 +0200
+From: "Yann E. MORIN" <yann.morin.1998@free.fr>
+To: Mario Mintel <mariomintel@gmail.com>
+Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
+	buildroot@buildroot.org, jailhouse-dev@googlegroups.com
 Subject: Re: [Buildroot] [PATCH 2/2] package/jailhouse: add option to choose
  custom repo/branch
-To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Cc: "Yann E. MORIN" <yann.morin.1998@free.fr>, buildroot@buildroot.org, 
-	jailhouse-dev@googlegroups.com
-Content-Type: multipart/alternative; boundary="000000000000dad30805a70836a6"
-X-Original-Sender: mariomintel@gmail.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20161025 header.b=DB9lUrff;       spf=pass
- (google.com: domain of mariomintel@gmail.com designates 2607:f8b0:4864:20::741
- as permitted sender) smtp.mailfrom=mariomintel@gmail.com;       dmarc=pass
- (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Message-ID: <20200601211902.GI8737@scaer>
+References: <20200528144333.49268-1-mariomintel@gmail.com>
+ <20200528144333.49268-3-mariomintel@gmail.com>
+ <20200529204844.GR8737@scaer>
+ <3806f122-f6b0-efba-e94a-64a3729fbe8a@oth-regensburg.de>
+ <CAH3JsOrK+8F4xXhxm8ytEawBQ63jswzBG8PW2naq40M6MAyZQA@mail.gmail.com>
+ <CAH3JsOrGo0k4S=VKfaXFbgkOv2jYvCB6nff0f+TihKz-1ok4JQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CAH3JsOrGo0k4S=VKfaXFbgkOv2jYvCB6nff0f+TihKz-1ok4JQ@mail.gmail.com>
+User-Agent: Mutt/1.5.22 (2013-10-16)
+X-Original-Sender: yann.morin.1998@free.fr
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: best guess record for domain of yann.morin.1998@free.fr
+ designates 212.27.42.1 as permitted sender) smtp.mailfrom=yann.morin.1998@free.fr
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -145,409 +136,106 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---000000000000dad30805a70836a6
-Content-Type: text/plain; charset="UTF-8"
+Mario, Ralf, All,
 
-Hi again,
+On 2020-06-01 18:23 +0200, Mario Mintel spake thusly:
+> Am Sa., 30. Mai 2020 um 19:28=C2=A0Uhr schrieb Mario Mintel < [1]mariomin=
+tel@gmail.com>:
+>   Am Fr., 29. Mai 2020 um 23:40=C2=A0Uhr schrieb Ralf Ramsauer < [2]ralf.=
+ramsauer@oth-regensburg.de>:
+>   On 5/29/20 10:48 PM, Yann E. MORIN wrote:
+>   > Mario, All,
+>   > On 2020-05-28 16:43 +0200, Mario Mintel spake thusly:
+>   >> In addition to official releases of Jailhouse, allow to specify a cu=
+stom
+>   >> Git URI + branches. This adds more flexibility for custom
+>   >> configurations.
+>   > The overwhelming majority of packages do not allow selecting an
+>   > alternate location. Why would jailhouse be different?
+>=20
+>   Jailhouse requires system-specific configurations. Those configurations
+>   are compiled from C source files to binaries during the build process.
+>   While upstream Jailhouse comes with a lot of samples for supported
+>   systems, you will need a lot of fine tuning to for a specific use case.
 
-Am Sa., 30. Mai 2020 um 19:28 Uhr schrieb Mario Mintel <
-mariomintel@gmail.com>:
+I am not sure I entirely followed... Note that I am totally ignorant to
+how jailhouse works (and I barely know what it is). So I had a quick
+look into the github repo, and I noticed this:
 
-> Hi everyone,
->
-> Am Fr., 29. Mai 2020 um 23:40 Uhr schrieb Ralf Ramsauer <
-> ralf.ramsauer@oth-regensburg.de>:
->
->> Hi Yann,
->>
->> On 5/29/20 10:48 PM, Yann E. MORIN wrote:
->> > Mario, All,
->> >
->> > On 2020-05-28 16:43 +0200, Mario Mintel spake thusly:
->> >> In addition to official releases of Jailhouse, allow to specify a
->> custom
->> >> Git URI + branches. This adds more flexibility for custom
->> >> configurations.
->> >
->> > The overwhelming majority of packages do not allow selecting an
->> > alternate location. Why would jailhouse be different?
->>
->> Jailhouse requires system-specific configurations. Those configurations
->> are compiled from C source files to binaries during the build process.
->> While upstream Jailhouse comes with a lot of samples for supported
->> systems, you will need a lot of fine tuning to for a specific use case.
->>
->> >
->> > Are you trying to cover for development? In that case, the usual way is
->>
->> In our case -- Yes.
->>
->> > to use the override srcdir mechanism. See BR2_PACKAGE_OVERRIDE_FILE and
->> > provide such a file with definitions like;
->> >
->> >     JAILHOUSE_OVERRIDE_SRCDIR =
->> /path/to/your/local/development/tree/jailhouse
->>
->> Oh, that could maybe work. Mario, could you please check that? In case
->> this works, we can simply add those definitions to our br2-external tree.
->>
->>
->
-> Yeah sure I can try that. Although I won't be able to until Monday as I
-> have no
-> access to my working computer as of right now.
->
-> I will report back as soon as I have results.
->
+    A system configuration can be created on an x86 target system by
+    running the following command:
 
-It does work as proposed by Yann. I wasn't aware of that option. I guess
-that makes this patch redundant.
+        jailhouse config create sysconfig.c
 
-Greetings,
-Mario
+    In order to translate this into the required binary form, place
+    this file in the configs/x86/ directory. The build system will pick
+    up every .c file from there and generate a corresponding .cell file.
 
+Is this what you were trying to explain?
 
->
-> Greetings,
-> Mario
->
->
->> Thanks
->>   Ralf
->>
->> >
->> > Regards,
->> > Yann E. MORIN.
->> >
->> >> Signed-off-by: Mario Mintel <mariomintel@gmail.com>
->> >> ---
->> >>  package/jailhouse/Config.in    | 36 ++++++++++++++++++++++++++++++++--
->> >>  package/jailhouse/jailhouse.mk | 17 ++++++++++++++--
->> >>  2 files changed, 49 insertions(+), 4 deletions(-)
->> >>
->> >> diff --git a/package/jailhouse/Config.in b/package/jailhouse/Config.in
->> >> index 596b4951db..47523747f9 100644
->> >> --- a/package/jailhouse/Config.in
->> >> +++ b/package/jailhouse/Config.in
->> >> @@ -3,18 +3,50 @@ config BR2_PACKAGE_JAILHOUSE
->> >>      depends on BR2_aarch64 || BR2_x86_64
->> >>      depends on BR2_LINUX_KERNEL
->> >>      help
->> >> -      The Jailhouse partitioning Hypervisor based on Linux.
->> >> +      The Jailhouse Linux-based partitioning hypervisor.
->> >>
->> >>        https://github.com/siemens/jailhouse
->> >>
->> >>  if BR2_PACKAGE_JAILHOUSE
->> >>
->> >> +choice
->> >> +    prompt "Jailhouse Version"
->> >> +
->> >> +config BR2_PACKAGE_JAILHOUSE_LATEST_VERSION
->> >> +    bool "Version 0.12"
->> >> +
->> >> +config BR2_PACKAGE_JAILHOUSE_CUSTOM_GIT
->> >> +    bool "Custom Git repository"
->> >> +    help
->> >> +      This option allows Buildroot to get the Jailhouse source code
->> >> +      from a custom Git repository.
->> >> +
->> >> +endchoice
->> >> +
->> >> +if BR2_PACKAGE_JAILHOUSE_CUSTOM_GIT
->> >> +
->> >> +config BR2_PACKAGE_JAILHOUSE_CUSTOM_GIT_URI
->> >> +    string "URI of custom repository"
->> >> +    default "https://github.com/siemens/jailhouse.git"
->> >> +
->> >> +config BR2_PACKAGE_JAILHOUSE_CUSTOM_GIT_BRANCH
->> >> +    string "Name of Git branch"
->> >> +    default "master"
->> >> +
->> >> +endif
->> >> +
->> >> +config BR2_PACKAGE_JAILHOUSE_VERSION
->> >> +    string
->> >> +    default "0.12" if BR2_PACKAGE_JAILHOUSE_LATEST_VERSION
->> >> +    default BR2_PACKAGE_JAILHOUSE_CUSTOM_GIT_BRANCH \
->> >> +            if BR2_PACKAGE_JAILHOUSE_CUSTOM_GIT
->> >> +
->> >>  config BR2_PACKAGE_JAILHOUSE_HELPER_SCRIPTS
->> >>      bool "helper scripts"
->> >>      depends on BR2_PACKAGE_PYTHON
->> >>      select BR2_PACKAGE_PYTHON_MAKO # runtime
->> >>      help
->> >> -      Python-based helpers for the Jailhouse Hypervisor.
->> >> +      Python-based helpers for the Jailhouse hypervisor.
->> >>
->> >>        https://github.com/siemens/jailhouse
->> >>
->> >> diff --git a/package/jailhouse/jailhouse.mk b/package/jailhouse/
->> jailhouse.mk
->> >> index 6356c5a7aa..d134b3d1b4 100644
->> >> --- a/package/jailhouse/jailhouse.mk
->> >> +++ b/package/jailhouse/jailhouse.mk
->> >> @@ -4,10 +4,23 @@
->> >>  #
->> >>
->> ################################################################################
->> >>
->> >> -JAILHOUSE_VERSION = 0.12
->> >> -JAILHOUSE_SITE = $(call
->> github,siemens,jailhouse,v$(JAILHOUSE_VERSION))
->> >> +JAILHOUSE_VERSION = $(call qstrip,$(BR2_PACKAGE_JAILHOUSE_VERSION))
->> >>  JAILHOUSE_LICENSE = GPL-2.0
->> >> +ifeq ($(BR2_PACKAGE_JAILHOUSE_LATEST_VERSION),y)
->> >>  JAILHOUSE_LICENSE_FILES = COPYING
->> >> +endif
->> >> +
->> >> +ifeq ($(BR2_PACKAGE_JAILHOUSE_CUSTOM_GIT),y)
->> >> +JAILHOUSE_SITE = $(call
->> qstrip,$(BR2_PACKAGE_JAILHOUSE_CUSTOM_GIT_URI))
->> >> +JAILHOUSE_SITE_METHOD = git
->> >> +else
->> >> +JAILHOUSE_SITE = $(call
->> github,siemens,jailhouse,v$(JAILHOUSE_VERSION))
->> >> +endif
->> >> +
->> >> +ifeq ($(BR2_PACKAGE_JAILHOUSE)$(BR2_PACKAGE_JAILHOUSE_CUSTIM_GIT),y)
->> >> +BR_NO_CHECK_HASH_FOR += $(JAILHOUSE_SOURCE)
->> >> +endif
->> >> +
->> >>  JAILHOUSE_DEPENDENCIES = \
->> >>      linux
->> >>
->> >> --
->> >> 2.26.1
->> >>
->> >> _______________________________________________
->> >> buildroot mailing list
->> >> buildroot@busybox.net
->> >> http://lists.busybox.net/mailman/listinfo/buildroot
->> >
->>
->
+If so, then I think we need a way for people to indeed provide their
+cells descriptions files, so that they do get compiled by jailhouse,
+without resorting to using an OVERRDIE_SRCDIR.
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CAH3JsOrGo0k4S%3DVKfaXFbgkOv2jYvCB6nff0f%2BTihKz-1ok4JQ%40mail.gmail.com.
+So I see a few options:
 
---000000000000dad30805a70836a6
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ 1- let people provide those .c files as a patch against jailhouse. This
+    requires no infra in Buildroot, but this is not very convenient;
 
-<div dir=3D"ltr"><div>Hi again,<br></div><br><div class=3D"gmail_quote"><di=
-v dir=3D"ltr" class=3D"gmail_attr">Am Sa., 30. Mai 2020 um 19:28=C2=A0Uhr s=
-chrieb Mario Mintel &lt;<a href=3D"mailto:mariomintel@gmail.com">mariominte=
-l@gmail.com</a>&gt;:<br></div><blockquote class=3D"gmail_quote" style=3D"ma=
-rgin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:=
-1ex"><div dir=3D"ltr"><div>Hi everyone,<br></div><br><div class=3D"gmail_qu=
-ote"><div dir=3D"ltr" class=3D"gmail_attr">Am Fr., 29. Mai 2020 um 23:40=C2=
-=A0Uhr schrieb Ralf Ramsauer &lt;<a href=3D"mailto:ralf.ramsauer@oth-regens=
-burg.de" target=3D"_blank">ralf.ramsauer@oth-regensburg.de</a>&gt;:<br></di=
-v><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;borde=
-r-left:1px solid rgb(204,204,204);padding-left:1ex">Hi Yann,<br>
-<br>
-On 5/29/20 10:48 PM, Yann E. MORIN wrote:<br>
-&gt; Mario, All,<br>
-&gt; <br>
-&gt; On 2020-05-28 16:43 +0200, Mario Mintel spake thusly:<br>
-&gt;&gt; In addition to official releases of Jailhouse, allow to specify a =
-custom<br>
-&gt;&gt; Git URI + branches. This adds more flexibility for custom<br>
-&gt;&gt; configurations.<br>
-&gt; <br>
-&gt; The overwhelming majority of packages do not allow selecting an<br>
-&gt; alternate location. Why would jailhouse be different?<br>
-<br>
-Jailhouse requires system-specific configurations. Those configurations<br>
-are compiled from C source files to binaries during the build process.<br>
-While upstream Jailhouse comes with a lot of samples for supported<br>
-systems, you will need a lot of fine tuning to for a specific use case.<br>
-<br>
-&gt; <br>
-&gt; Are you trying to cover for development? In that case, the usual way i=
-s<br>
-<br>
-In our case -- Yes.<br>
-<br>
-&gt; to use the override srcdir mechanism. See BR2_PACKAGE_OVERRIDE_FILE an=
-d<br>
-&gt; provide such a file with definitions like;<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0JAILHOUSE_OVERRIDE_SRCDIR =3D /path/to/your/local/d=
-evelopment/tree/jailhouse<br>
-<br>
-Oh, that could maybe work. Mario, could you please check that? In case<br>
-this works, we can simply add those definitions to our br2-external tree.<b=
-r>
-<br></blockquote><div><br></div><div><br>Yeah sure I can try that. Although=
- I won&#39;t be able to until Monday as I have no<br>access to my working c=
-omputer as of right now.<br><br>I will report back as soon as I have result=
-s.</div></div></div></blockquote><div><br></div><div>It does work as propos=
-ed by Yann. I wasn&#39;t aware of that option. I guess that makes this patc=
-h redundant.<br></div><div><br></div><div>Greetings,</div><div>Mario<br></d=
-iv><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
-px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div =
-dir=3D"ltr"><div class=3D"gmail_quote"><div><br></div><div>Greetings,</div>=
-<div>Mario<br></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
-g-left:1ex">
-Thanks<br>
-=C2=A0 Ralf<br>
-<br>
-&gt; <br>
-&gt; Regards,<br>
-&gt; Yann E. MORIN.<br>
-&gt; <br>
-&gt;&gt; Signed-off-by: Mario Mintel &lt;<a href=3D"mailto:mariomintel@gmai=
-l.com" target=3D"_blank">mariomintel@gmail.com</a>&gt;<br>
-&gt;&gt; ---<br>
-&gt;&gt;=C2=A0 package/jailhouse/Config.in=C2=A0 =C2=A0 | 36 ++++++++++++++=
-++++++++++++++++++--<br>
-&gt;&gt;=C2=A0 package/jailhouse/<a href=3D"http://jailhouse.mk" rel=3D"nor=
-eferrer" target=3D"_blank">jailhouse.mk</a> | 17 ++++++++++++++--<br>
-&gt;&gt;=C2=A0 2 files changed, 49 insertions(+), 4 deletions(-)<br>
-&gt;&gt;<br>
-&gt;&gt; diff --git a/package/jailhouse/Config.in b/package/jailhouse/Confi=
-g.in<br>
-&gt;&gt; index 596b4951db..47523747f9 100644<br>
-&gt;&gt; --- a/package/jailhouse/Config.in<br>
-&gt;&gt; +++ b/package/jailhouse/Config.in<br>
-&gt;&gt; @@ -3,18 +3,50 @@ config BR2_PACKAGE_JAILHOUSE<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 depends on BR2_aarch64 || BR2_x86_64<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 depends on BR2_LINUX_KERNEL<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 help<br>
-&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 The Jailhouse partitioning Hypervisor based =
-on Linux.<br>
-&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 The Jailhouse Linux-based partitioning hyper=
-visor.<br>
-&gt;&gt;=C2=A0 <br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 <a href=3D"https://github.com/siemens/j=
-ailhouse" rel=3D"noreferrer" target=3D"_blank">https://github.com/siemens/j=
-ailhouse</a><br>
-&gt;&gt;=C2=A0 <br>
-&gt;&gt;=C2=A0 if BR2_PACKAGE_JAILHOUSE<br>
-&gt;&gt;=C2=A0 <br>
-&gt;&gt; +choice<br>
-&gt;&gt; +=C2=A0 =C2=A0 prompt &quot;Jailhouse Version&quot;<br>
-&gt;&gt; +<br>
-&gt;&gt; +config BR2_PACKAGE_JAILHOUSE_LATEST_VERSION<br>
-&gt;&gt; +=C2=A0 =C2=A0 bool &quot;Version 0.12&quot;<br>
-&gt;&gt; +<br>
-&gt;&gt; +config BR2_PACKAGE_JAILHOUSE_CUSTOM_GIT<br>
-&gt;&gt; +=C2=A0 =C2=A0 bool &quot;Custom Git repository&quot;<br>
-&gt;&gt; +=C2=A0 =C2=A0 help<br>
-&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 This option allows Buildroot to get the Jail=
-house source code<br>
-&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 from a custom Git repository.<br>
-&gt;&gt; +<br>
-&gt;&gt; +endchoice<br>
-&gt;&gt; +<br>
-&gt;&gt; +if BR2_PACKAGE_JAILHOUSE_CUSTOM_GIT<br>
-&gt;&gt; +<br>
-&gt;&gt; +config BR2_PACKAGE_JAILHOUSE_CUSTOM_GIT_URI<br>
-&gt;&gt; +=C2=A0 =C2=A0 string &quot;URI of custom repository&quot;<br>
-&gt;&gt; +=C2=A0 =C2=A0 default &quot;<a href=3D"https://github.com/siemens=
-/jailhouse.git" rel=3D"noreferrer" target=3D"_blank">https://github.com/sie=
-mens/jailhouse.git</a>&quot;<br>
-&gt;&gt; +<br>
-&gt;&gt; +config BR2_PACKAGE_JAILHOUSE_CUSTOM_GIT_BRANCH<br>
-&gt;&gt; +=C2=A0 =C2=A0 string &quot;Name of Git branch&quot;<br>
-&gt;&gt; +=C2=A0 =C2=A0 default &quot;master&quot;<br>
-&gt;&gt; +<br>
-&gt;&gt; +endif<br>
-&gt;&gt; +<br>
-&gt;&gt; +config BR2_PACKAGE_JAILHOUSE_VERSION<br>
-&gt;&gt; +=C2=A0 =C2=A0 string<br>
-&gt;&gt; +=C2=A0 =C2=A0 default &quot;0.12&quot; if BR2_PACKAGE_JAILHOUSE_L=
-ATEST_VERSION<br>
-&gt;&gt; +=C2=A0 =C2=A0 default BR2_PACKAGE_JAILHOUSE_CUSTOM_GIT_BRANCH \<b=
-r>
-&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if BR2_PACKAGE_JAILHOUS=
-E_CUSTOM_GIT<br>
-&gt;&gt; +<br>
-&gt;&gt;=C2=A0 config BR2_PACKAGE_JAILHOUSE_HELPER_SCRIPTS<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 bool &quot;helper scripts&quot;<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 depends on BR2_PACKAGE_PYTHON<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 select BR2_PACKAGE_PYTHON_MAKO # runtime<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 help<br>
-&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 Python-based helpers for the Jailhouse Hyper=
-visor.<br>
-&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 Python-based helpers for the Jailhouse hyper=
-visor.<br>
-&gt;&gt;=C2=A0 <br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 <a href=3D"https://github.com/siemens/j=
-ailhouse" rel=3D"noreferrer" target=3D"_blank">https://github.com/siemens/j=
-ailhouse</a><br>
-&gt;&gt;=C2=A0 <br>
-&gt;&gt; diff --git a/package/jailhouse/<a href=3D"http://jailhouse.mk" rel=
-=3D"noreferrer" target=3D"_blank">jailhouse.mk</a> b/package/jailhouse/<a h=
-ref=3D"http://jailhouse.mk" rel=3D"noreferrer" target=3D"_blank">jailhouse.=
-mk</a><br>
-&gt;&gt; index 6356c5a7aa..d134b3d1b4 100644<br>
-&gt;&gt; --- a/package/jailhouse/<a href=3D"http://jailhouse.mk" rel=3D"nor=
-eferrer" target=3D"_blank">jailhouse.mk</a><br>
-&gt;&gt; +++ b/package/jailhouse/<a href=3D"http://jailhouse.mk" rel=3D"nor=
-eferrer" target=3D"_blank">jailhouse.mk</a><br>
-&gt;&gt; @@ -4,10 +4,23 @@<br>
-&gt;&gt;=C2=A0 #<br>
-&gt;&gt;=C2=A0 ############################################################=
-####################<br>
-&gt;&gt;=C2=A0 <br>
-&gt;&gt; -JAILHOUSE_VERSION =3D 0.12<br>
-&gt;&gt; -JAILHOUSE_SITE =3D $(call github,siemens,jailhouse,v$(JAILHOUSE_V=
-ERSION))<br>
-&gt;&gt; +JAILHOUSE_VERSION =3D $(call qstrip,$(BR2_PACKAGE_JAILHOUSE_VERSI=
-ON))<br>
-&gt;&gt;=C2=A0 JAILHOUSE_LICENSE =3D GPL-2.0<br>
-&gt;&gt; +ifeq ($(BR2_PACKAGE_JAILHOUSE_LATEST_VERSION),y)<br>
-&gt;&gt;=C2=A0 JAILHOUSE_LICENSE_FILES =3D COPYING<br>
-&gt;&gt; +endif<br>
-&gt;&gt; +<br>
-&gt;&gt; +ifeq ($(BR2_PACKAGE_JAILHOUSE_CUSTOM_GIT),y)<br>
-&gt;&gt; +JAILHOUSE_SITE =3D $(call qstrip,$(BR2_PACKAGE_JAILHOUSE_CUSTOM_G=
-IT_URI))<br>
-&gt;&gt; +JAILHOUSE_SITE_METHOD =3D git<br>
-&gt;&gt; +else<br>
-&gt;&gt; +JAILHOUSE_SITE =3D $(call github,siemens,jailhouse,v$(JAILHOUSE_V=
-ERSION))<br>
-&gt;&gt; +endif<br>
-&gt;&gt; +<br>
-&gt;&gt; +ifeq ($(BR2_PACKAGE_JAILHOUSE)$(BR2_PACKAGE_JAILHOUSE_CUSTIM_GIT)=
-,y)<br>
-&gt;&gt; +BR_NO_CHECK_HASH_FOR +=3D $(JAILHOUSE_SOURCE)<br>
-&gt;&gt; +endif<br>
-&gt;&gt; +<br>
-&gt;&gt;=C2=A0 JAILHOUSE_DEPENDENCIES =3D \<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 linux<br>
-&gt;&gt;=C2=A0 <br>
-&gt;&gt; -- <br>
-&gt;&gt; 2.26.1<br>
-&gt;&gt;<br>
-&gt;&gt; _______________________________________________<br>
-&gt;&gt; buildroot mailing list<br>
-&gt;&gt; <a href=3D"mailto:buildroot@busybox.net" target=3D"_blank">buildro=
-ot@busybox.net</a><br>
-&gt;&gt; <a href=3D"http://lists.busybox.net/mailman/listinfo/buildroot" re=
-l=3D"noreferrer" target=3D"_blank">http://lists.busybox.net/mailman/listinf=
-o/buildroot</a><br>
-&gt;=C2=A0 <br></blockquote></div></div>
-</blockquote></div></div>
+ 2- add a configuration option in jailhouse/Config.in, which people
+    could set as a path to a directory with .c files; those would be
+    copied into the jailhouse build directory before the actual build,
+    so the documented way (see above) will be used; those files would
+    have to be in a br2-external tree or whatever, but not in a package
+    (because we'd have no way to ensure that package be extracted before
+    jailhouse gets built).
 
-<p></p>
+ 3- let people write their own package(s) (e.g. in a br2-external tree)
+    that only builds the cell files. That package would depend on
+    jailhouse (or rather, the to-be-introduced host-jailhouse). And
+    packages could also provide their own cell definitions, too...
 
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
+I think option 3 is the best solution, as it is the most flexible and
+most generic one. However, it will depend on the possibility to
+introduce a host-jailhoue package that can just install the 'jailhouse
+cell cross compiler'. As far as I see, this is just a bunch of objcopy,
+but this is quite tightly integrated into the kernel Kbiuld process, so
+might not so simple to come up with.
+
+Option 2 is probably a good compromise if option 3 turns out to be too
+difficult to come up with...
+
+[--SNIP--]
+> It does work as proposed by Yann. I wasn't aware of that option. I
+> guess that makes this patch redundant.
+
+Using a completely separate tree? Yes, I think this is not an option.
+
+However, given the above, maybe we still need a way for people to
+provide their cells descriptions and have them somehow copied at build
+(or configure) time...
+
+Regards,
+Yann E. MORIN.
+
+--=20
+.-----------------.--------------------.------------------.----------------=
+----.
+|  Yann E. MORIN  | Real-Time Embedded | /"\ ASCII RIBBON | Erics' conspira=
+cy: |
+| +33 662 376 056 | Software  Designer | \ / CAMPAIGN     |  ___           =
+    |
+| +33 561 099 427 `------------.-------:  X  AGAINST      |  \e/  There is =
+no  |
+| http://ymorin.is-a-geek.org/ | _/*\_ | / \ HTML MAIL    |   v   conspirac=
+y.  |
+'------------------------------^-------^------------------^----------------=
+----'
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/CAH3JsOrGo0k4S%3DVKfaXFbgkOv2jYvCB6nff0f%2BTihKz-1=
-ok4JQ%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://grou=
-ps.google.com/d/msgid/jailhouse-dev/CAH3JsOrGo0k4S%3DVKfaXFbgkOv2jYvCB6nff0=
-f%2BTihKz-1ok4JQ%40mail.gmail.com</a>.<br />
-
---000000000000dad30805a70836a6--
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/20200601211902.GI8737%40scaer.
