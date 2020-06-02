@@ -1,114 +1,117 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBSN63H3AKGQE35EXGTQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBS563H3AKGQEGAEHECY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x539.google.com (mail-ed1-x539.google.com [IPv6:2a00:1450:4864:20::539])
-	by mail.lfdr.de (Postfix) with ESMTPS id 183DC1EBDCB
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  2 Jun 2020 16:16:42 +0200 (CEST)
-Received: by mail-ed1-x539.google.com with SMTP id k17sf6665843edo.20
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 02 Jun 2020 07:16:42 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1591107402; cv=pass;
+Received: from mail-lf1-x13a.google.com (mail-lf1-x13a.google.com [IPv6:2a00:1450:4864:20::13a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B4271EBDCC
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  2 Jun 2020 16:16:44 +0200 (CEST)
+Received: by mail-lf1-x13a.google.com with SMTP id r143sf3520966lff.13
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 02 Jun 2020 07:16:44 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1591107403; cv=pass;
         d=google.com; s=arc-20160816;
-        b=ei2UhWvjQ/8BXCfvBPb7UCH8oQNrypvhA+w8difyzfd4QtFtwcDp1S0033k23UpHRC
-         kN9nfOyivOX+3JTMPVwzM2s9jg3+ujLVIFAuprp+Q9m5CcmqWzKpt3N9J+1lPcJ8Tz2k
-         LZ7aCaT/UCXypU/aJPq6UyqdzqPDWQ+KY0uyMn/uV5JdirtBgqk2I9ri6Le0AKlheLAC
-         rGjHz/SVRj8q83ZUPiY9fUaivYvfN4I2PZbdLDOAl8cYRHOzRfo/80K8c+unQggJ5hOH
-         KpsoEP6y49VnYCV0vn0WYjtiActImmm+EGLLFaneV6EuG3MPjS140nNSJNCUMhGFubGS
-         esLw==
+        b=C7yeFAzUIQ2X4UP+lPbm6Wf5J93Ed/5tYVzIYrKBADfa1hmVekPRn7FuTpadzjCGo2
+         aX01rIRiXMZdnJ9QYxcVS1gdf4CoUK+21C/6JDpppJXe9HHrMkcMVG8Qh068ymo2vpN/
+         jZv1WUsyY6HvGOOzeTZvWtLkPV4LCsy8pZKwLTN9LKXEu2V+bRo0TJVaixs57JsQgYQQ
+         ZmPESJ0aTAJqjFh28H4LdjeOT1gItWFFH4Ry9Cxoe8aKrYqSTgB4xoqkqCgZ8Lq0z7YN
+         SHyjYYgFufjgsZjX02+1jVk5NNieTXb+EX4lHVTuuBuYrZuAIeJ+9rLPd0n/spORugv2
+         EkYA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:message-id:date
-         :subject:to:from:sender:dkim-signature;
-        bh=JIxKDMoOqGRpk7AFOGzeE+PZnqr82FKgeBxhEHLlSz4=;
-        b=xm+Du+7eSNc3jWfgjSWV/0lwCCCUhbGNOyUniAyyCTEQn7e6TMA0sWKt2Rjreg51rn
-         sHd+u5cE73rXlwqh4omMwKw9BdcO7RF+Ot3EmFYpyNSzV/g5TD2tcEr2fyHVUqxfkdaO
-         +uIU5rNAvzXdSuMwb16prlQ14h/gLdtilCnRewmzjmjZMYenR1D6TBt4mEmIiL3rYUAH
-         tVRTitc3f/myKJhQZE6O0wLc6QyfqRDgEwpArNsPydPnjxp94kZgVNaVC/duThVb9aZ3
-         nnNw1yBzdt15e72qLpL7KCgMI0Jnvf3a94HZjvq1+CnLFfiqcCEiJqbX0BUkEGh9jxUJ
-         sHJw==
+         :list-id:mailing-list:precedence:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:sender:dkim-signature;
+        bh=CKB751hkwOrUzV/GBYsVlJ8TvfO+VPk7Qyi7xI5kucI=;
+        b=H4dgTQ3GCU/IAngxAWpkmL6St1HB1/A342Uj8PjKY2K1KBN7EWHZn3rvIq2ByBeX1P
+         8zSeJ5Nml7/kMF1+jQvLAqyEcgQG8DQIzokGFMg7F5tVWlA+R6TO5uV2HqXJPtdchyBt
+         9L0U3Vugy5TsqObvJ0GOSSS+M7CLQT5gdButA6+yFlK+IknLIFfBN+TVuQb35V2LR/2A
+         a1xoG6S2EaJDJiHOARSZI/tDKqhxwo40pVJNKG+bygvjFzNToswjm8jMPSXAdCyowrxO
+         iUQv1PuUs82zR+RpCcADzT4C9E587HgxWErvvtpMoEezn+SWz4tfFo/H5gYZoKhq8+qG
+         ZMBQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:subject:date:message-id:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:from:to:subject:date:message-id:in-reply-to:references
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=JIxKDMoOqGRpk7AFOGzeE+PZnqr82FKgeBxhEHLlSz4=;
-        b=ofkqR09H8EY4rtAzr7EAhbhT++skZ+4+XlCe2T4Y8JmyPrhC7yQlA4DDc2oqH/qQh3
-         gKUmV/GBS3si1dlUkPS/xOdMmOVHBLE4wp4CMFqHMWZxt0asoKqvi143qxY2CbFZY691
-         oBW4wmpBHuiBQux+ampebqaZ8sSOZ+yWVFK2+h446YPqZ0qMyXd5dxnSmQWBl03acy2m
-         RD8DNrRlZpMWzjIJ/mh22+GwuW7BvJosACSICrG7VBmvbpoKrIPl/MSpLY0Uq32WZ2Q7
-         raBBNgAIIiZIJZxryGWkdCKdXde6gjEdLKeBqzDQlVpoZo4Y36cgJD1BKnApcAQ6Jx0E
-         YabQ==
+        bh=CKB751hkwOrUzV/GBYsVlJ8TvfO+VPk7Qyi7xI5kucI=;
+        b=qJKzalDRhQtqZTmzv3gel4NDPnnM07A/546Grn5uyPDANjpgIy8DtJy7M1rr4ip+xe
+         KJgGdG7XPKgUI0AfTE05ICZYyIK8CLxp8I+4JtEK5Mz5MpRWiPlqs8lPLHXALGKQ1j+h
+         Oaj0S+Sw4IET93ckfk3ifcYrB19mYKU0ePIuxrUQ/VGQoL8eOAwYw73Q1kDSY4K8975U
+         qCMlr3UleXMbG8nZZz26PqnREg96bqNh6eykKkTEhpPDiaOEqp1pKw3U+bCHjnvlV1zw
+         SA8IprZT7QgYzo+9NFIDvymkh9qt8/S/kNjBXr4pM4yXOIdoPgQVGEWdgtxSVMV2CqXA
+         UBJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:subject:date:message-id
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=JIxKDMoOqGRpk7AFOGzeE+PZnqr82FKgeBxhEHLlSz4=;
-        b=RMDZEiGbg7bHOCnoo19WY8HWREmRrqedWJuLfNCbHcr7eK6nUXLFywLw50kjQgdgVh
-         OI/LYKFui4HjSZM/2pMz0hm33Gp6dU0c5Uua4PmMmb7r0puDlQqWXi8eCyAf/Ebrj4Rc
-         M5ruzDODIfnZ0U3YUpZ71aW9qp1njrT5ZjsImsnEc/UkbSwMsN8gTQVfNqBr55/EW9mF
-         YE+rqA9+UafDe+CEjow/OtqlIDi79ozMSn0+f0VKyYJ0C8I18oMVYUYtfpG/8sGjP9S0
-         ig3UTEcn+RS20bAJW2Gtn7FZP24U7zn4aC7oUvgOjtcBLNrYBLFqQJ/loIau1vO5fHFD
-         T4Og==
+         :in-reply-to:references:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=CKB751hkwOrUzV/GBYsVlJ8TvfO+VPk7Qyi7xI5kucI=;
+        b=ErVxM/LvuIsOulwao0fAzi135v9QcmvNzLFD+KNvG53aUnpBXM5Z8mNm84Nw+PGf4V
+         ONk4hD5MJBS4hje8Wu1gZK8IN57BvdRXWZx+wcdwFhnufeHojOQe88NshNb7RQU4Yz8X
+         TCjJWj4Mr44QZ7BrkWfuw/YI1007I7QoAD7ujMbZO8ReVgJmbxlZs49hmujU7Fvwimwo
+         av1IqvIk8H5ThrWc+3skDlTV2CR+LcvX+/I6833MqukmJgg6rl8rgHxHDmyWelqPrn6C
+         f19DvblP/ZgJDHFX9KlYT953t5x+b4pkuWyyHhpNFdr58sFu2jIxEc61RweWGB6YnN/s
+         Kl+w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533N1UqG985mG+AfEXtHBNNPVPG071AkAxFJWDVm2vlwRfwYV08a
-	Hfq9KA0QMWOo9UwReDhBDbs=
-X-Google-Smtp-Source: ABdhPJyu5VNH7sSiVUZbWqOMtqD0Mtd7De9K+Cu3sQhqD7c7cFSYuiWLH9D3LmJK89+wiWVcCC3vDA==
-X-Received: by 2002:aa7:d283:: with SMTP id w3mr14699110edq.262.1591107401844;
-        Tue, 02 Jun 2020 07:16:41 -0700 (PDT)
+X-Gm-Message-State: AOAM532XIl1IE/03UJhS9K2/U0nzgn/bif4/dAfiwxtuh3ppaTJwD4JM
+	fqA5jgIxOJfPkHI4rk8KSBw=
+X-Google-Smtp-Source: ABdhPJzW+ZywVQHEhNUuoGRWSHY9UtbMAYYDGmtw0nFh3pjln2IE0yGGn5/IFarMiJhWyMOLi52QRQ==
+X-Received: by 2002:a2e:7610:: with SMTP id r16mr13804304ljc.88.1591107403465;
+        Tue, 02 Jun 2020 07:16:43 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:a82:: with SMTP id y2ls6199699ejf.2.gmail; Tue, 02
- Jun 2020 07:16:40 -0700 (PDT)
-X-Received: by 2002:a17:906:5a99:: with SMTP id l25mr24637120ejq.235.1591107400873;
-        Tue, 02 Jun 2020 07:16:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1591107400; cv=none;
+Received: by 2002:a2e:92d6:: with SMTP id k22ls1022756ljh.4.gmail; Tue, 02 Jun
+ 2020 07:16:42 -0700 (PDT)
+X-Received: by 2002:a2e:b529:: with SMTP id z9mr4340595ljm.390.1591107402440;
+        Tue, 02 Jun 2020 07:16:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1591107402; cv=none;
         d=google.com; s=arc-20160816;
-        b=1ICpVjvTYn2+byUbMUYiQcMnFk0f+vYuJirWVq4vW8HRZhQczCKJ0wZL2pwH17S4Gu
-         +RpB+MyUNjt0RNFK0KfCM/nhx4yzhLn1fy0+OtAaw/r2QSeivLyck2Co2qD++p+MJ1tU
-         Gf0ac7afwdTJdEB2i5MeOVeR3bKkgJNdjzskRQwirZ3An/wlqwUM2h+F2nCbxXuSy5ae
-         znI5EgnhIwkDApBXuLXgzgcKcjHWdLd0QS8RW8l702YJEhrdeZwuxzctvZ0QIiZW0Jsm
-         UlrER9uO7R8sn+eIoIyyg/DcZdWcVYXnx59M1Owij4XTdagczuyqhi7dGZ5ZKtmGhrfI
-         mXOQ==
+        b=hvGQuLprWxFYGMbJj3X3CzPoDt3zbs/8RDVFTaJZMB+RE6rrVtGTPjWh0HvOLxI4QA
+         s/OY+NuLijC3sTZmE1Nppdy1/HJ/ts5rDF0Sld0TdcutS3qTGNu2Zw/9YkvhzPU2aTNU
+         UNMdH5PManhVyFkxAdccP6c7/69REls8zp7lRJFVWAgWW0FIl6rg/H15DGekYelGIdzF
+         j8rarpoY+Z3KJtLR+Gb14rofcXkCulGnGKdVZmVtH2Y/ggDOFZKljCThVbk1vOeqVUHt
+         +vrrt1MS9dbAY+SQOeJjMzTu5J5y7zSMOUsKb3w4Xy0ccEpCMljsqZVCiRIbr2PBcsuL
+         O7PQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from;
-        bh=0S+KDB8FS83p5onF+rMVHXFDmu1MC2TigoAXqL2H6f0=;
-        b=jnbBGSg4m6EnpNvrpFsSOCApIf7bvtABcBLx1ruUwM/097QDQR+HJ9amksH+KTMlFZ
-         vqTL7wOn3lz7qOCdoNYjO6d5O56Kh710D8Ud9Z4+HhDWEBc44D6Z3Kusd9PoFMyxdAKd
-         OtOeICqdmh0gwmyp0M89qjDZHyIs8pBzi785nv/WgPAF7FZGgB9N4w+dKMdVVTP1hQ1m
-         qBzZs7OVW9yQwez0TyHw09exm5Y/MH+9srSS9JVASMqwNHw5/EKXkE02jvOB04z9c37T
-         lsO0HHAGwDIU9bfGT9PRVYuFuehFfh4ZjOMUjRt6ehjYc3h51g9KNf/etcyOmHnoHZOv
-         COIw==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from;
+        bh=c3MdmsXEvMbc/Qt/7Az+uAmXg3qnBi6CWsPOJpc0Dpk=;
+        b=SEVnMUNDeWEFJI7MO/RaMl221f+C0/2JcixSr9vNgvKWlhTLFqg68IhummdOdeJYZK
+         zsneM0cLlrnZe+Bw1AJdHrBCxB0BtSa5TapzT+PQ46oT+VTpFydxhpySsmlWMnIkIolq
+         BIRXt1xY51cdKxFGvv5V6SmbgZw1JBtGjNd4mvbid2u0XFgXJtrFALLpYwN+cMNDC8dU
+         f3N1ZdqNKVkfFP6U5gahvWNtWaagVXgG8LV3znvX9oT2DXTf47PGp75XISvJKTfO4Ht8
+         wFw3XdXFNHChtEzgMqplZrOE/LNYqbRn6x3jqX6PdmMezqoMmaG/EGpnNgsaObBYcykE
+         is2w==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id a23si163023edn.0.2020.06.02.07.16.40
+Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
+        by gmr-mx.google.com with ESMTPS id c144si145174lfg.5.2020.06.02.07.16.42
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 02 Jun 2020 07:16:40 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
+        Tue, 02 Jun 2020 07:16:42 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 052EGeFt000642
+	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id 052EGeYu024106
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
 	for <jailhouse-dev@googlegroups.com>; Tue, 2 Jun 2020 16:16:40 +0200
 Received: from md1f2u6c.ww002.siemens.net ([167.87.142.254])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 052EGcd9028463
-	for <jailhouse-dev@googlegroups.com>; Tue, 2 Jun 2020 16:16:39 +0200
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 052EGcdA028463
+	for <jailhouse-dev@googlegroups.com>; Tue, 2 Jun 2020 16:16:40 +0200
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [PATCH 00/15] Config checker and first related fixes
-Date: Tue,  2 Jun 2020 16:16:23 +0200
-Message-Id: <cover.1591107398.git.jan.kiszka@siemens.com>
+Subject: [PATCH 01/15] configs, core, tools: Pull iommu_units out of arch-specific platform info
+Date: Tue,  2 Jun 2020 16:16:24 +0200
+Message-Id: <b9df7b984d88f627c1973e8aaa4ef21d62117ab9.1591107398.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.26.2
+In-Reply-To: <cover.1591107398.git.jan.kiszka@siemens.com>
+References: <cover.1591107398.git.jan.kiszka@siemens.com>
 MIME-Version: 1.0
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
@@ -124,89 +127,341 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-This introduces the framework and first tests for the long overdue
-checker for Jailhouse system and cell configurations. Basically, you
-take a set of binary configuration that should run together and call:
+From: Jan Kiszka <jan.kiszka@siemens.com>
 
-jailhouse config check system.cell partition-1.cell partition-2.cell ...
+This is now used by x86 and ARM, so there is no need to keep the same
+field in each arch-specific section of the platform_info structure.
 
-Then the checker will parse the configs and applies a to-be-extended set
-of checks on them. Only two are implemented by this series:
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+---
+ configs/arm64/k3-j721e-evm.c    | 15 +++++++--------
+ configs/x86/f2a88xm-hd3.c       | 22 ++++++++++-----------
+ configs/x86/qemu-x86.c          | 14 +++++++-------
+ hypervisor/arch/arm64/iommu.c   |  2 +-
+ hypervisor/arch/arm64/smmu-v3.c |  6 +++---
+ hypervisor/arch/arm64/ti-pvu.c  |  2 +-
+ hypervisor/arch/x86/amd_iommu.c |  4 ++--
+ hypervisor/arch/x86/iommu.c     |  2 +-
+ hypervisor/arch/x86/vtd.c       |  4 ++--
+ include/jailhouse/cell-config.h |  7 ++-----
+ tools/jailhouse-cell-linux      |  2 +-
+ tools/root-cell-config.c.tmpl   | 34 ++++++++++++++++-----------------
+ 12 files changed, 55 insertions(+), 59 deletions(-)
 
- - overlaps between memory regions of the same cell
- - overlaps of memory regions of config set with the hypervisor
-
-The latter test passed for our in-tree configs but the former found
-some issues. Two are fixed, another one was a catch-by, and more are
-pending.
-
-Namely for the following:
- - configs/arm64/jetson-tx1.cell
- - configs/arm64/jetson-tx2.cell
- - configs/arm64/k3-j721e-evm.cell
- - configs/arm/emtrion-rzg1h.cell
- - configs/arm/emtrion-rzg1m.cell
- - configs/arm/jetson-tk1.cell
-
-Contributions welcome! Also of further checks. Some things that come to
-my mind:
- - consistency checks for ivshmem links
- - arch-specific checks for do-not-map regions (IOAPIC, GICC, GICD etc.)
- - is loadable inmate memory reachable for root?
- - are CPUs not overcommitted?
-
-Jan
-
-Jan Kiszka (15):
-  configs, core, tools: Pull iommu_units out of arch-specific platform
-    info
-  cell-config: Rearrange paddings
-  tools: jailhouse-hardware-check: Clean up dead code
-  pyjailhouse: Factor out cell config parser
-  pyjailhouse: config_parser: Translate struct.error into RuntimeError
-  pyjailhouse: config_parser: Add SystemConfig
-  pyjailhouse: config_parser: Convert memory region flags into
-    ExtendedEnum
-  pyjailhouse: config_parser: Add pretty-printing of MemRegion
-  pyjailhouse: config_parser: Add MemRegion overlap helpers
-  tools: Add jailhouse configuration checker
-  tools: jailhouse-config-check: Add overlap check for hypervisor memory
-  tools: Refactor and align help outputs
-  configs: arm64: Align ultra96 config with qemu-arm64
-  configs: arm64: Fix hikey memory region overlap
-  configs: arm64: Shrink imx8mn memory regions to required size
-
- configs/arm64/hikey.c               |   2 +-
- configs/arm64/imx8mn-linux-demo.c   |   2 +-
- configs/arm64/k3-j721e-evm.c        |  15 +-
- configs/arm64/ultra96-inmate-demo.c |  75 +++++++++-
- configs/arm64/ultra96-linux-demo.c  |  59 +++++++-
- configs/arm64/ultra96.c             |  57 +++++++-
- configs/x86/f2a88xm-hd3.c           |  22 +--
- configs/x86/qemu-x86.c              |  14 +-
- hypervisor/arch/arm64/iommu.c       |   2 +-
- hypervisor/arch/arm64/smmu-v3.c     |   6 +-
- hypervisor/arch/arm64/ti-pvu.c      |   2 +-
- hypervisor/arch/x86/amd_iommu.c     |   4 +-
- hypervisor/arch/x86/iommu.c         |   2 +-
- hypervisor/arch/x86/vtd.c           |   4 +-
- include/jailhouse/cell-config.h     |  14 +-
- pyjailhouse/config_parser.py        | 219 ++++++++++++++++++++++++++++
- tools/Makefile                      |   2 +
- tools/jailhouse-cell-linux          | 162 ++++----------------
- tools/jailhouse-completion.bash     |  26 +++-
- tools/jailhouse-config-check        | 102 +++++++++++++
- tools/jailhouse-hardware-check      |  48 ------
- tools/jailhouse.c                   |  15 +-
- tools/root-cell-config.c.tmpl       |  34 ++---
- 23 files changed, 610 insertions(+), 278 deletions(-)
- create mode 100644 pyjailhouse/config_parser.py
- create mode 100755 tools/jailhouse-config-check
-
+diff --git a/configs/arm64/k3-j721e-evm.c b/configs/arm64/k3-j721e-evm.c
+index 4f9755a8..3ac0b57e 100644
+--- a/configs/arm64/k3-j721e-evm.c
++++ b/configs/arm64/k3-j721e-evm.c
+@@ -45,13 +45,7 @@ struct {
+ 			.pci_mmconfig_end_bus = 0,
+ 			.pci_is_virtual = 1,
+ 			.pci_domain = 3,
+-			.arm = {
+-				.gic_version = 3,
+-				.gicd_base = 0x01800000,
+-				.gicr_base = 0x01900000,
+-				.maintenance_irq = 25,
+-			},
+-			.arm.iommu_units= {
++			.iommu_units= {
+ 				{
+ 					.type = JAILHOUSE_IOMMU_SMMUV3,
+ 					.base = 0x36600000,
+@@ -79,7 +73,12 @@ struct {
+ 					.tipvu.tlb_size = 0x40000,
+ 				},
+ 			},
+-
++			.arm = {
++				.gic_version = 3,
++				.gicd_base = 0x01800000,
++				.gicr_base = 0x01900000,
++				.maintenance_irq = 25,
++			},
+ 		},
+ 		.root_cell = {
+ 			.name = "k3-j721e-evm",
+diff --git a/configs/x86/f2a88xm-hd3.c b/configs/x86/f2a88xm-hd3.c
+index 16708384..e5dfd78f 100644
+--- a/configs/x86/f2a88xm-hd3.c
++++ b/configs/x86/f2a88xm-hd3.c
+@@ -46,19 +46,19 @@ struct {
+ 		.platform_info = {
+ 			.pci_mmconfig_base = 0xe0000000,
+ 			.pci_mmconfig_end_bus = 0xff,
++			.iommu_units = {
++				{
++					.type = JAILHOUSE_IOMMU_AMD,
++					.base = 0xfeb80000,
++					.size = 0x80000,
++					.amd.bdf = 0x02,
++					.amd.base_cap = 0x40,
++					.amd.msi_cap = 0x54,
++					.amd.features = 0x80048824,
++				},
++			},
+ 			.x86 = {
+ 				.pm_timer_address = 0x808,
+-				.iommu_units = {
+-					{
+-						.type = JAILHOUSE_IOMMU_AMD,
+-						.base = 0xfeb80000,
+-						.size = 0x80000,
+-						.amd.bdf = 0x02,
+-						.amd.base_cap = 0x40,
+-						.amd.msi_cap = 0x54,
+-						.amd.features = 0x80048824,
+-					},
+-				},
+ 			},
+ 		},
+ 		.root_cell = {
+diff --git a/configs/x86/qemu-x86.c b/configs/x86/qemu-x86.c
+index f209f372..9ca5c528 100644
+--- a/configs/x86/qemu-x86.c
++++ b/configs/x86/qemu-x86.c
+@@ -45,16 +45,16 @@ struct {
+ 		.platform_info = {
+ 			.pci_mmconfig_base = 0xb0000000,
+ 			.pci_mmconfig_end_bus = 0xff,
++			.iommu_units = {
++				{
++					.type = JAILHOUSE_IOMMU_INTEL,
++					.base = 0xfed90000,
++					.size = 0x1000,
++				},
++			},
+ 			.x86 = {
+ 				.pm_timer_address = 0x608,
+ 				.vtd_interrupt_limit = 256,
+-				.iommu_units = {
+-					{
+-						.type = JAILHOUSE_IOMMU_INTEL,
+-						.base = 0xfed90000,
+-						.size = 0x1000,
+-					},
+-				},
+ 			},
+ 		},
+ 		.root_cell = {
+diff --git a/hypervisor/arch/arm64/iommu.c b/hypervisor/arch/arm64/iommu.c
+index b3ab51b4..805589b3 100644
+--- a/hypervisor/arch/arm64/iommu.c
++++ b/hypervisor/arch/arm64/iommu.c
+@@ -19,7 +19,7 @@ unsigned int iommu_count_units(void)
+ 	unsigned int units = 0;
+ 
+ 	while (units < JAILHOUSE_MAX_IOMMU_UNITS &&
+-	       system_config->platform_info.arm.iommu_units[units].base)
++	       system_config->platform_info.iommu_units[units].base)
+ 		units++;
+ 	return units;
+ }
+diff --git a/hypervisor/arch/arm64/smmu-v3.c b/hypervisor/arch/arm64/smmu-v3.c
+index 3889d32b..2f57868d 100644
+--- a/hypervisor/arch/arm64/smmu-v3.c
++++ b/hypervisor/arch/arm64/smmu-v3.c
+@@ -1047,7 +1047,7 @@ static int arm_smmuv3_cell_init(struct cell *cell)
+ 	if (!iommu_count_units())
+ 		return 0;
+ 
+-	iommu = &system_config->platform_info.arm.iommu_units[0];
++	iommu = &system_config->platform_info.iommu_units[0];
+ 	for (i = 0; i < iommu_count_units(); iommu++, i++) {
+ 		if (iommu->type != JAILHOUSE_IOMMU_SMMUV3)
+ 			continue;
+@@ -1077,7 +1077,7 @@ static void arm_smmuv3_cell_exit(struct cell *cell)
+ 		return;
+ 
+ 	for (i = 0; i < JAILHOUSE_MAX_IOMMU_UNITS; i++) {
+-		iommu = &system_config->platform_info.arm.iommu_units[i];
++		iommu = &system_config->platform_info.iommu_units[i];
+ 		if (iommu->type != JAILHOUSE_IOMMU_SMMUV3)
+ 			continue;
+ 
+@@ -1097,7 +1097,7 @@ static int arm_smmuv3_init(void)
+ 	struct jailhouse_iommu *iommu;
+ 	int ret, i;
+ 
+-	iommu = &system_config->platform_info.arm.iommu_units[0];
++	iommu = &system_config->platform_info.iommu_units[0];
+ 	for (i = 0; i < iommu_count_units(); iommu++, i++) {
+ 		if (iommu->type != JAILHOUSE_IOMMU_SMMUV3)
+ 			continue;
+diff --git a/hypervisor/arch/arm64/ti-pvu.c b/hypervisor/arch/arm64/ti-pvu.c
+index b06ba843..3b9a29ec 100644
+--- a/hypervisor/arch/arm64/ti-pvu.c
++++ b/hypervisor/arch/arm64/ti-pvu.c
+@@ -536,7 +536,7 @@ static int pvu_iommu_init(void)
+ 	unsigned int i;
+ 	int ret;
+ 
+-	iommu = &system_config->platform_info.arm.iommu_units[0];
++	iommu = &system_config->platform_info.iommu_units[0];
+ 	for (i = 0; i < iommu_count_units(); iommu++, i++) {
+ 
+ 		if (iommu->type != JAILHOUSE_IOMMU_PVU)
+diff --git a/hypervisor/arch/x86/amd_iommu.c b/hypervisor/arch/x86/amd_iommu.c
+index 6161ccf8..40ec4e20 100644
+--- a/hypervisor/arch/x86/amd_iommu.c
++++ b/hypervisor/arch/x86/amd_iommu.c
+@@ -445,7 +445,7 @@ static void amd_iommu_init_fault_nmi(void)
+ 
+ 	for_each_iommu(iommu) {
+ 		struct jailhouse_iommu *cfg =
+-		    &system_config->platform_info.x86.iommu_units[iommu->idx];
++		    &system_config->platform_info.iommu_units[iommu->idx];
+ 
+ 		/* Disable MSI during interrupt reprogramming. */
+ 		pci_write_config(cfg->amd.bdf, cfg->amd.msi_cap + 2, 0, 2);
+@@ -780,7 +780,7 @@ static int amd_iommu_init(void)
+ 	unsigned int n;
+ 	int err;
+ 
+-	iommu = &system_config->platform_info.x86.iommu_units[0];
++	iommu = &system_config->platform_info.iommu_units[0];
+ 	for (n = 0; iommu->base && n < iommu_count_units(); iommu++, n++) {
+ 		if (iommu->type != JAILHOUSE_IOMMU_AMD)
+ 			return trace_error(-EINVAL);
+diff --git a/hypervisor/arch/x86/iommu.c b/hypervisor/arch/x86/iommu.c
+index de17144f..fa50c2f4 100644
+--- a/hypervisor/arch/x86/iommu.c
++++ b/hypervisor/arch/x86/iommu.c
+@@ -20,7 +20,7 @@ unsigned int iommu_count_units(void)
+ 	unsigned int units = 0;
+ 
+ 	while (units < JAILHOUSE_MAX_IOMMU_UNITS &&
+-	       system_config->platform_info.x86.iommu_units[units].base)
++	       system_config->platform_info.iommu_units[units].base)
+ 		units++;
+ 	return units;
+ }
+diff --git a/hypervisor/arch/x86/vtd.c b/hypervisor/arch/x86/vtd.c
+index cc7d3bc6..e33b5ff4 100644
+--- a/hypervisor/arch/x86/vtd.c
++++ b/hypervisor/arch/x86/vtd.c
+@@ -965,7 +965,7 @@ static int vtd_init_ir_emulation(unsigned int unit_no, void *reg_base)
+ 
+ 	root_cell.arch.vtd.ir_emulation = true;
+ 
+-	base = system_config->platform_info.x86.iommu_units[unit_no].base;
++	base = system_config->platform_info.iommu_units[unit_no].base;
+ 	mmio_region_register(&root_cell, base, PAGE_SIZE,
+ 			     vtd_unit_access_handler, unit);
+ 
+@@ -1027,7 +1027,7 @@ static int vtd_init(void)
+ 		return -ENOMEM;
+ 
+ 	for (n = 0; n < units; n++) {
+-		unit = &system_config->platform_info.x86.iommu_units[n];
++		unit = &system_config->platform_info.iommu_units[n];
+ 		if (unit->type != JAILHOUSE_IOMMU_INTEL)
+ 			return trace_error(-EINVAL);
+ 
+diff --git a/include/jailhouse/cell-config.h b/include/jailhouse/cell-config.h
+index 30ec5d06..004d048a 100644
+--- a/include/jailhouse/cell-config.h
++++ b/include/jailhouse/cell-config.h
+@@ -50,7 +50,7 @@
+  * Incremented on any layout or semantic change of system or cell config.
+  * Also update HEADER_REVISION in tools.
+  */
+-#define JAILHOUSE_CONFIG_REVISION	12
++#define JAILHOUSE_CONFIG_REVISION	13
+ 
+ #define JAILHOUSE_CELL_NAME_MAXLEN	31
+ 
+@@ -306,6 +306,7 @@ struct jailhouse_system {
+ 		__u8 pci_mmconfig_end_bus;
+ 		__u8 pci_is_virtual;
+ 		__u16 pci_domain;
++		struct jailhouse_iommu iommu_units[JAILHOUSE_MAX_IOMMU_UNITS];
+ 		union {
+ 			struct {
+ 				__u16 pm_timer_address;
+@@ -314,8 +315,6 @@ struct jailhouse_system {
+ 				__u8 padding[3];
+ 				__u32 tsc_khz;
+ 				__u32 apic_khz;
+-				struct jailhouse_iommu
+-					iommu_units[JAILHOUSE_MAX_IOMMU_UNITS];
+ 			} __attribute__((packed)) x86;
+ 			struct {
+ 				u8 maintenance_irq;
+@@ -325,8 +324,6 @@ struct jailhouse_system {
+ 				u64 gich_base;
+ 				u64 gicv_base;
+ 				u64 gicr_base;
+-				struct jailhouse_iommu
+-					iommu_units[JAILHOUSE_MAX_IOMMU_UNITS];
+ 			} __attribute__((packed)) arm;
+ 		} __attribute__((packed));
+ 	} __attribute__((packed)) platform_info;
+diff --git a/tools/jailhouse-cell-linux b/tools/jailhouse-cell-linux
+index 007a5c46..de09154a 100755
+--- a/tools/jailhouse-cell-linux
++++ b/tools/jailhouse-cell-linux
+@@ -574,7 +574,7 @@ class PIORegion:
+ 
+ class Config:
+     _HEADER_FORMAT = '=6sH32s4xIIIIIIIIIIQ8x32x'
+-    _HEADER_REVISION = 12
++    _HEADER_REVISION = 13
+ 
+     def __init__(self, config_file):
+         self.data = config_file.read()
+diff --git a/tools/root-cell-config.c.tmpl b/tools/root-cell-config.c.tmpl
+index cca273ef..c28fcfa4 100644
+--- a/tools/root-cell-config.c.tmpl
++++ b/tools/root-cell-config.c.tmpl
+@@ -83,26 +83,26 @@ struct {
+ 		.platform_info = {
+ 			.pci_mmconfig_base = ${hex(mmconfig.base)},
+ 			.pci_mmconfig_end_bus = ${hex(mmconfig.end_bus)},
++			% if iommu_units:
++			.iommu_units = {
++				% for unit in iommu_units:
++				{
++					.type = ${unit.type},
++					.base = ${hex(unit.base_addr)},
++					.size = ${hex(unit.mmio_size)},
++					% if unit.is_amd_iommu:
++					.amd.bdf = ${hex(unit.amd_bdf)},
++					.amd.base_cap = ${hex(unit.amd_base_cap)},
++					.amd.msi_cap = ${hex(unit.amd_msi_cap)},
++					.amd.features = ${hex(unit.amd_features)},
++					% endif
++				},
++				% endfor
++			},
++			% endif
+ 			.x86 = {
+ 				.pm_timer_address = ${hex(pm_timer_base)},
+ 				.vtd_interrupt_limit = ${int(vtd_interrupt_limit)},
+-				% if iommu_units:
+-				.iommu_units = {
+-					% for unit in iommu_units:
+-					{
+-						.type = ${unit.type},
+-						.base = ${hex(unit.base_addr)},
+-						.size = ${hex(unit.mmio_size)},
+-						% if unit.is_amd_iommu:
+-						.amd.bdf = ${hex(unit.amd_bdf)},
+-						.amd.base_cap = ${hex(unit.amd_base_cap)},
+-						.amd.msi_cap = ${hex(unit.amd_msi_cap)},
+-						.amd.features = ${hex(unit.amd_features)},
+-						% endif
+-					},
+-					% endfor
+-				},
+-				% endif
+ 			},
+ 		},
+ 		.root_cell = {
 -- 
 2.26.2
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/cover.1591107398.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/b9df7b984d88f627c1973e8aaa4ef21d62117ab9.1591107398.git.jan.kiszka%40siemens.com.
