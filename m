@@ -1,124 +1,122 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBLUL373AKGQEGV35SWI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBNEM373AKGQEYF5TCHI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x53f.google.com (mail-ed1-x53f.google.com [IPv6:2a00:1450:4864:20::53f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A5CC1ED3B0
-	for <lists+jailhouse-dev@lfdr.de>; Wed,  3 Jun 2020 17:45:51 +0200 (CEST)
-Received: by mail-ed1-x53f.google.com with SMTP id dn27sf1338548edb.15
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 03 Jun 2020 08:45:51 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1591199151; cv=pass;
+Received: from mail-wm1-x33b.google.com (mail-wm1-x33b.google.com [IPv6:2a00:1450:4864:20::33b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 00C731ED3B7
+	for <lists+jailhouse-dev@lfdr.de>; Wed,  3 Jun 2020 17:48:05 +0200 (CEST)
+Received: by mail-wm1-x33b.google.com with SMTP id x6sf1016831wmj.9
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 03 Jun 2020 08:48:04 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1591199284; cv=pass;
         d=google.com; s=arc-20160816;
-        b=ePbbyhTtlzPZcu8/1Mg1qxuLzNSrx1OHTfspOZATtzlQkZe/p8kzH1ZXIjfLREGWNG
-         Phye33Lf7sSqTg3PTbVeTECmzv9ea3eBkqycwVui+xfrsUBePy4YDhkwQqd/PpQURBRp
-         OmysMdpIZfz64b952B0hEsU3YC7ugCD1OkaaENFvkFek0iLKuG+aU72Lf6tFAau89uSU
-         EFtCcJrqqSwgZm/+Vby7K8O9Y3SlVovkTZ9A9Bpj+P7KWer9W2P8Mqb4M6BDzVU5ZAHQ
-         5NbU1/tIRVPsXRyNSWUMWT7rtVLq7l2iMPVEY/QI/8jgeTaSqPI2GWS5Ot4QZ0uiyols
-         bqlw==
+        b=uUCxec+ok9In5rYifUjulsZEn7tXfQOJoz/eKqBD5MRWDiOIg8iy/6+jpiAi+5RRJd
+         fz6EmFf2C+WPA/dzhmpHiwW8/jpkJ7O6ZsVHizdMgoIfN3axC+bp968NKvMEaVYpI1Bg
+         QnG39p+8QHudWR+vmDmfHFlr3uYCZI4yEXh7rUweql1WyYwQ2BH88A0k9JqydBo9dxHL
+         iEj9BEfa7W+RoxVXrdsFI4jaCOoRmdQMd7FJIjqIub1cNe6IguUepJ6O/EazzIs5BQfY
+         QJor0imqvv/r29PkkDZ4XdoyryIlB/vrJKWQGkQ8wI1bKDGVp5z56VLT3SZFsfLLFS0c
+         rzEw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=AlBylpnUcgKuIWkRQaP/vacixB2dnEeB9LO4dsf+ZvI=;
-        b=m9ke58E0sXemA1BBQdKMfUCHOUE5y6jZxfKY4zQpG2Wa06PFLLP+0r8mrgqOaxFDnE
-         UnQ2ui8oFwUWblNqcys3JwXbaGpFNtXfzoy8WspdmhH4XDSQJoXn1Gt/a0+cq/8ZsuY4
-         ufEzvwk1NJa4gis5aB2to3fGOw/tPqL2Le7cQ4GkqAAaQY5pCOYg7x2xd0Ku2w9x6yng
-         AogjKasWpehU5UhK3zpPYmLKg5hnP/0HFpLOnY+a+P+bw4GJN+b64ZL35PMyep7Hr6TT
-         BTHBK+55sqd4Vc/dHfuehIbFigk3NuLRWbbaM3M7/OuJYMRDQ+Gp7wZlrxQGRq2Rh6vd
-         /WcA==
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:cc:to
+         :subject:sender:dkim-signature;
+        bh=jclFrgs1GCfqAWCsLAyn7WaDuUGRyzynqsneTpk5JXw=;
+        b=AdGmUgEkQpDFBJjCWjqnwZbi1TmNzOKgeRQefgG1nsD32VrtN1n0jimPx57MzIHLoe
+         7B2zxZ09KaqFF7oipg8xeTPu898wvBxLP+ECn5xpBch5zdw3QcKMR6BLiY3WCOuWyne9
+         otfLyvnARTL5KNS43DDDjr4TqmCi2nTzdhHnyStcjnsmjejO5W1S7PPIvbzlzD19oKQB
+         4HSRzJBS5A1HETEhOP20Ej7LFNVC43XX+fqR9gQRfJliggGbzHUAWf88OcT15bddnZpy
+         1BWn2/bFMr7rWTdVIWg+WGZlXLAaxDLfsv+LN6Lm9WESPVJbCCD+yYHIMk0B3yJOuc0b
+         GAHg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=AlBylpnUcgKuIWkRQaP/vacixB2dnEeB9LO4dsf+ZvI=;
-        b=g9t2BHlXPWkEs6Or3xSLTzbwdiHLucwlEuNMj7ds8LK0+Cwm65xZv1rUJZ4Y8gTspG
-         f32unJiycIBkmQFOxL6xq2Y3bMnG9u7qLWZS44fHullvpvNqEbnShkfIWgGo+D2BTBrt
-         rm+JgNYnSWTpaoK0Y/uyIFgcJRR/GUWoAEHUG4XXW42A1TVYVxtRlT1i9dVKWzLEvOqH
-         nWpLg79g8luvk5XypQXZWIQMB0DHWHV3tTbvb4Bpzn3Os2D3TImKDQl3eaV6Um4yp5al
-         2b4eZQUp/gNskzeLhAgOAmagkWYnqThQ2PTQsPgqexfBvHoXvJclgbLy2dw2ZEq1jwHA
-         XoCQ==
+        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=jclFrgs1GCfqAWCsLAyn7WaDuUGRyzynqsneTpk5JXw=;
+        b=ZUxG3PduL1yu0Qy+5vQVfCXQHcYl5lnyKQxCy/UUK9H9VfvkRqJT8qZnZcMXWLUqUE
+         nKr31KWwseTMoGbHaLIUFkkDf0Ej6mj2FXjdhuiUN5EXsmW2W1t2tqKK4eMFPnj1ueZS
+         cxXpvFhO9SMCc6n2JWK2GE9hFP+NieBcX/8Ybostg6EcYuyjDKEZbCP0dA8Vuall6/HN
+         iC5Mvq6AS+boLh1/wvuDihQb4L8UnGW5yZmYbg2c6uzVu6dV34tEoW8AqiEK6OIE0UgD
+         IzSq166Nr3eIlttKfy1yh00yzkJqzrOFsM2tJem0f0Au4IECYjSjeR6Mv/oRndP01NN1
+         CZiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
+        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
          :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=AlBylpnUcgKuIWkRQaP/vacixB2dnEeB9LO4dsf+ZvI=;
-        b=NJl+OYQzEMgadDNrD/+9MjZ0i7PhURfPfUhDIpL4lHG++J+us+ihZZkdhbpEVmoebS
-         gecxLgLW5OkOZGGXYvEBggp01JJ2LTYnKb8+nK9MO+OeQUhDO66UfvW08kMMsGencB+t
-         7MjVP6BvkonoDREMPF3kSQwRYdnjXWLbd5MOKrmJXQVWLM9bx5aT8jPpupRdLx4KNWKA
-         fwH1d14UkT7XCw3WC4vZF39NrwI80o4JqO/bBZ1FAiVNTSSX3mL9XBsJPsWY1cI9lYkK
-         WXlQqIZIISNnoREK7nrJpYVe88Ab4zpPJt3rioOIE0OFoHDGY3PZnRX5O8MjPEDMxKgv
-         UGlw==
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=jclFrgs1GCfqAWCsLAyn7WaDuUGRyzynqsneTpk5JXw=;
+        b=hNFEL3xSe5v1GK/Ua24ok6x7sSG1GcSh2/Ucnw59jtwh5H1ie5C1qw94tWuUy2/QHC
+         23eV2Hse5eAhD7mBZ+srxlBOjQ32KAp6Qh1uv7U2IkLjWaMyiiN+kAs7bXMzHQGh7iae
+         BMm5ZS78dDjSEU/QO9T04ut2Alu8x8jz2Cl3t6j1p/qCP9hxSVXnD4qoGk6U2tD2Dcc2
+         HG8oZ7XpQ80gfuzjX/aOtpcGMa++MJ1hGMOqDLz/bJ7ryJY09K9s5WpQCiIcxkEzXNqP
+         fR7uS1Ch6sVvs9w9ykbK/AQpDyeEOkuRaTs0SVW/T6aTEIIW6/fnjmR5h7DELQ7GHevR
+         r0SA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM5319CK3/v3AkQnLbw3YZqVxJ1ZKmCp2qBvV1q60vTsPHgXBPz7KP
-	9CPd4cEXznr8ScW5/1lwyn4=
-X-Google-Smtp-Source: ABdhPJxIxukLRfHxQ5dJF/8o84YQTIFGclQINU/VmObNNBZjii4MopJarlvNl+idaJga3YLCpXa6FA==
-X-Received: by 2002:a17:906:2484:: with SMTP id e4mr29974317ejb.155.1591199150842;
-        Wed, 03 Jun 2020 08:45:50 -0700 (PDT)
+X-Gm-Message-State: AOAM532wDv2D8ymy5xUrbLp53GSqEPTOruov/tRCRpx28sDVMRWy5wlM
+	cfS8xndor0A+W2C8VUAT21A=
+X-Google-Smtp-Source: ABdhPJwLXKmUrczrHuGcag4rSYJgr4t8jBk4pRdA7aFzISqjth9XeXQK4tdQPzi/u+3UiiyHGm4iWw==
+X-Received: by 2002:adf:f512:: with SMTP id q18mr153453wro.38.1591199284674;
+        Wed, 03 Jun 2020 08:48:04 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:2ac4:: with SMTP id m4ls1104549eje.0.gmail; Wed, 03
- Jun 2020 08:45:50 -0700 (PDT)
-X-Received: by 2002:a17:906:c452:: with SMTP id ck18mr11857312ejb.116.1591199149957;
-        Wed, 03 Jun 2020 08:45:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1591199149; cv=none;
+Received: by 2002:adf:da46:: with SMTP id r6ls3411903wrl.3.gmail; Wed, 03 Jun
+ 2020 08:48:03 -0700 (PDT)
+X-Received: by 2002:adf:fd41:: with SMTP id h1mr115069wrs.374.1591199283889;
+        Wed, 03 Jun 2020 08:48:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1591199283; cv=none;
         d=google.com; s=arc-20160816;
-        b=Nq1Foj7ILGZR2aY9fjATDgI+mTenp5UnNFkpZjLyt5hNR53f2WMd5S1kuFFfUVHoeh
-         m/ZEmNuK+je90MEZGTLk+tEpo1u9Rg5HyYyNAjI9OrOuYQdt8I9BtsVJLe1NidNmvlhn
-         y9z035WFf7T+ge9hpuXigK6pSg50MdAekBzWg8blMsLBDdt+s9M0c0Rwwj+iRnJlO8Z7
-         PGAGa7ZYydyTmHegCjR9mp+LPwQx1wXlFNd6ypg2CknPTRDWZ7IvpM/hAPwV2B6bagD4
-         Cu6yTGBDdcNyUefPKO1mciqmGE+xSp/iZ2eRXK49rAbz3jNVijci4fD78v/yLHRti378
-         OlrQ==
+        b=NjOCsZXVNYHneJjFAr3xPFrq/u6APLl7Rnh6xdNjmWwSYtC1NUaR6MERPV5ijqfOT1
+         SEx/gFEiBUV9Ah/RqTfTCo7/zyws+WkXiVVp3uqfP9i3+KZ0E8agIxcjT1r0FkCDKmhD
+         XNrw/GIAzshyWO3JyFcrkT42JOEwA+NKsyEd/NtW4yx4xHnLuePGhUcTmT0jCr7KD9wM
+         f8BJhAMHmDVjWPpJe17Peqp9h5PhL2Snv3Ks9SrA+VwB0WqwuMbVA+iRtJK0GHk2ak30
+         nWgHR6RcBlYc/wm7asS11eCF0JMoetvFxAj3uUcJtp8WXA27YhxSZ7F0bC2Wx5wyroUH
+         t/eQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=TiGRjmXG6DtOOZhYMN35vRp4ivH2Mgylhnf/mXYyABM=;
-        b=gcoJlqOxgbADZjst1LuMZNlaWf0Z6NfoOQRMGdrAXDx99v9WoReiSnyCeZr805a9pn
-         KejlH/k2F62t/0BKek2EIBvMpe3tiPgM7OBUosqq5KkOIhe1uNVaE9JwNYUZigiQGQVh
-         p21YN0eCt/GtpOJbmuvOI9rQok1Uc2Benk9Naks6686/zShu/oUVs3+s0yBZ8c3+Fp2x
-         tHXHbibN53+q2WZks8pZlcPddqTT4eIg7oGed7ZcBotQngBumNz7x1jV/N8Ceezdt6zY
-         ylblnnwMz4CHVtLgel5/9hAGcULb/Reb38kewtCvt3FixHp148Ck0kbxU7/n5q6kwwRw
-         daLg==
+         :user-agent:date:message-id:from:references:cc:to:subject;
+        bh=fMmrahSQ5jWJiO8jF1GumBSf6d+kRmlMHb5CP/TNESg=;
+        b=DHylESUhW+De6C/TR+V8jJYVxw7VUOn/x2Clxk2QyswKEUVKa1zcyAT721L5zo/d9d
+         9Nk76rrRu7Bp+XNcr/aXhDgVbWYgbpgM7lG8EvkldVZuRDRUN8xSwI9USd++Nm4bsMWp
+         6kGK0gUieqa7ICIcKKvY5GBpHDV/rT4k0QXtALPspw56JaVYw3ZNEECCGOPKnpYYo5g8
+         beB2eSp66KYrlGK6I5GZuj/DVZUpM1Q4GloUmW4H8IR6Q628PK12x0KkxoHQlkhGPDQD
+         +0hSQIpBcmozy6YxQ6SfRbAF0FoghuyUB3SfgOZHdU0KN7VJ+tNfkoWD7WAG75a4m8zl
+         0Rrg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id a2si146638edq.3.2020.06.03.08.45.49
+Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
+        by gmr-mx.google.com with ESMTPS id s137si117765wme.2.2020.06.03.08.48.03
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 03 Jun 2020 08:45:49 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
+        Wed, 03 Jun 2020 08:48:03 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 053FjnET004665
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 053Fm3Lm018468
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 3 Jun 2020 17:45:49 +0200
+	Wed, 3 Jun 2020 17:48:03 +0200
 Received: from [139.22.36.189] ([139.22.36.189])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 053Fjl26001350;
-	Wed, 3 Jun 2020 17:45:48 +0200
-Subject: Re: question on Jailhouse-Images network
-To: dd <497738387@qq.com>, jailhouse-dev <jailhouse-dev@googlegroups.com>
-References: <tencent_800F98F7CFF07895690D05760CB69748C805@qq.com>
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 053Fm1vF004167;
+	Wed, 3 Jun 2020 17:48:02 +0200
+Subject: Re: [PATCH V2] arm: irqchip: fix irq_bitmap setting
+To: peng.fan@nxp.com, jailhouse-dev@googlegroups.com
+Cc: alice.guo@nxp.com
+References: <20200603135400.2330-1-peng.fan@nxp.com>
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <684ff2b7-9e60-5680-ca8c-c624baeefd85@siemens.com>
-Date: Wed, 3 Jun 2020 17:45:47 +0200
+Message-ID: <e501ba31-ff5f-4537-ee18-ecf2834448ed@siemens.com>
+Date: Wed, 3 Jun 2020 17:48:01 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <tencent_800F98F7CFF07895690D05760CB69748C805@qq.com>
+In-Reply-To: <20200603135400.2330-1-peng.fan@nxp.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
@@ -133,48 +131,59 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 03.06.20 15:30, dd wrote:
-> Hello jan!
-> I encountered network problems when I boot linux image built from
-> jailhouse-images repository on my rpi4.
-> I found there is no network on this system, i could not get a ipv4
-> address using=C2=A0 eth0.
-> and I haven't found a way to configure the network And i can't install
-> tools.
-> So I wrote this email to ask if this is because the Linux kernel does
-> not support related options.
-> Is there a way to make the systemnetwork working?
+On 03.06.20 15:54, peng.fan@nxp.com wrote:
+> From: Peng Fan <peng.fan@nxp.com>
+> 
+> There is a implication that the pin_base in the cell file
+> should be "32 + 128 * i" with "i >= 0". However there is no checking
+> for that. Pepole might choose other pin_base, such as 160, 224 and etc.
+> 
+> Saying the 1st irqchip pin_base is 224, the 2nd irqchip pin_base is
+> 160. When irqchip_cell_init loop into the 2nd irqchip, it will override
+> the settings of the 1st irqchip, because "224 - 160" is less that
+> "sizeof(__u32 pin_bitmap[4])", so to make things simple, we not enforce
+> the pin_base must be "32 + 128 * i", and make the upper example could
+> work is to check whether pin_bitmap has a non-zero value.
+> 
+> Reported-by: Alice Guo <alice.guo@nxp.com>
+> Tested-by: Alice Guo <alice.guo@nxp.com>
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
+> 
+> V2:
+>  Drop useless checking
+> 
+>  hypervisor/arch/arm-common/irqchip.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/hypervisor/arch/arm-common/irqchip.c b/hypervisor/arch/arm-common/irqchip.c
+> index 847758ae..d1a89359 100644
+> --- a/hypervisor/arch/arm-common/irqchip.c
+> +++ b/hypervisor/arch/arm-common/irqchip.c
+> @@ -421,8 +421,10 @@ static int irqchip_cell_init(struct cell *cell)
+>  		    chip->pin_base + sizeof(chip->pin_bitmap) * 8 >
+>  		    sizeof(cell->arch.irq_bitmap) * 8)
+>  			return trace_error(-EINVAL);
+> -		memcpy(&cell->arch.irq_bitmap[chip->pin_base / 32],
+> -		       chip->pin_bitmap, sizeof(chip->pin_bitmap));
+> +		for (pos = 0; pos < ARRAY_SIZE(chip->pin_bitmap); pos++) {
+> +			cell->arch.irq_bitmap[chip->pin_base / 32 + pos] |=
+> +				chip->pin_bitmap[pos];
+> +		}
+>  	}
+>  	/*
+>  	 * Permit direct access to all SGIs and PPIs except for those used by
+> 
 
-Wireless is supposed to work fine, that's how I connect to my RPi. To
-enable it, you need to provide a /etc/network/interfaces.d/wlan file
-like this:
-
-allow-hotplug wlan0
-
-iface wlan0 inet dhcp
-        wpa-ssid ...
-        wpa-psk ...
-
-Just tested eth0 as well, and it worked out of the box but had excessive
-latencies.
-
-Note also that my image is a bit older (kernel 5.4.29), and the latest
-kernel version may have more issues in this regard.
-
-The RPi support relies on the downstream Raspy kernel, and that in a
-version they do not include in Raspbian AFAIK. Unfortunate setup, but,
-yeah...
+Oops, missed v2, but that is exactly what went in.
 
 Jan
 
---=20
+-- 
 Siemens AG, Corporate Technology, CT RDA IOT SES-DE
 Corporate Competence Center Embedded Linux
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/684ff2b7-9e60-5680-ca8c-c624baeefd85%40siemens.com.
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/e501ba31-ff5f-4537-ee18-ecf2834448ed%40siemens.com.
