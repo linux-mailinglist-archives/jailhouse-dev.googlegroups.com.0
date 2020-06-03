@@ -1,165 +1,70 @@
-Return-Path: <jailhouse-dev+bncBAABBI554D3AKGQENXKCYEI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC74HBERSAORB7OD4D3AKGQEVIQANFQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23f.google.com (mail-lj1-x23f.google.com [IPv6:2a00:1450:4864:20::23f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FE1B1ED85D
-	for <lists+jailhouse-dev@lfdr.de>; Thu,  4 Jun 2020 00:05:24 +0200 (CEST)
-Received: by mail-lj1-x23f.google.com with SMTP id z10sf419442ljj.5
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 03 Jun 2020 15:05:24 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1591221923; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=XAh4mpaufLOvhmPqiue3RsH8SwLARr5gIU3vcX1DMRxUWsdkJ+wOMbLDDuolvgH9yM
-         xhe3XmfRNnSfoMwJFbUaNQLJja2WHXurAyChgVuxkh3cVGGtNmQYfZKUxRyqsj6stk1x
-         vsPi8vqCgdkdxw5bUBCWhl1MSpdu6Q5Cx+iPFf0T7u2Meoq8ImTDA1+u1EZvE4UV5wj9
-         n82f+vx0Qop0dXbd7s+gdjA39zq3nEIwJnV+YoQaKotXV5EmKPtKPqvY0s1lDIrZKN3+
-         HQASh/spkBHupd77CsuBXdNkQ1HduvFx0aujEIdjmQp7dCjvgbBgHn1SctqS1CE/EbKF
-         IK+A==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:content-language
-         :accept-language:message-id:date:thread-index:thread-topic:subject
-         :to:from:sender:dkim-signature;
-        bh=mpRXvwV79LwgRFcZHUtCoiPk+d5C3IllKkHilIgC0tA=;
-        b=j9yFSfS0ZgqsLIPiKXSs8YFsF5lZOq6mQHrUuVXH9voZH9D+7J157v/yRVTvsPOWJ1
-         Vq2NNOJPPp6L4iJSwmXCE0DqGQ/zNNhCXXUrs2E6st4OA5THQIHLaX0h7+px3TS9hewp
-         LMoB3vwBDrOl4y1bnDxwiCPAsDRP+egsz4aPnBDpn+HP8/i1GT6AiAqCXvnY3bq5Hpqv
-         REnchY1xzPxq6Zxbo/psdGf6lN+f8zlelyI2v5m96Uf1gelusVcDML0YO5w2qXV7dThi
-         gm9E3Thus3431OISovzvYFNK0Frmg+I1wZcMpF9eQKY2PUpJhL+CKZWVxuPKuCshFizA
-         3tqg==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b=kpglDR6v;
-       spf=pass (google.com: domain of jorgeluis.martinez-garcia@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) smtp.mailfrom=jorgeluis.martinez-garcia@tum.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
+Received: from mail-ot1-x337.google.com (mail-ot1-x337.google.com [IPv6:2607:f8b0:4864:20::337])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1221D1ED883
+	for <lists+jailhouse-dev@lfdr.de>; Thu,  4 Jun 2020 00:19:43 +0200 (CEST)
+Received: by mail-ot1-x337.google.com with SMTP id n51sf2193207ota.0
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 03 Jun 2020 15:19:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:subject:thread-topic:thread-index:date:message-id
-         :accept-language:content-language:mime-version:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=mpRXvwV79LwgRFcZHUtCoiPk+d5C3IllKkHilIgC0tA=;
-        b=Aypb7BHUzlFCxCgI82j6IIH27W59Wn96sC7uOOWfeyaWac1yIyCTRu84EU+OEDU5d4
-         AKDKG7Ue/113n2dPTbHTnjWtcz2vaXPbrHeLzspB9YTHaYh6X92O27ONvXPoLb86Ao/1
-         alE50r1VXtOM5sMHzDSKSvoMgbwxgVYk5Mg2XglgBlLEbHYf65soYUVQE4nJvgiGMD91
-         s+33sTC8N9mlkC0a25ZHOjnNDiO8vm6vtYuTv50CIYc8SeGbynEptItRoUEnQd65113/
-         iG7ewaSFWz/8oAmqqYOwPaWzH+sPyStOampnaZmsD9YmL/QC6Gjp+qL2xi8wLn3QktXt
-         2/rQ==
+        bh=rJiaXHPw9FDfCMDdyNLEWnQ33XAckNGRkKT562F7it4=;
+        b=MVOu+9BYX+oJibLaJxYmEM3iMKroYl4cO4mYbFd9ilXNbDBCZIwY34N8TmJCiu2YCr
+         v9edALM5Z8WL3uq+JKZQB6BU9fsrn4vCIgHDuY8MK28vXOFGVqsA1EwwHUk+IDe4Wwf5
+         iOGoOempjI8B6tOdHneZDRYtqj88mJ5DczcdQ0wU/0tZUmq8vIas+7+SRkI11Cx/PwnB
+         QJXoO+3Hcl9avkVO5mwckeZhhQxtlsyEEo6qNhO+fV4LLjqlkrsRgpJYUOSRXd8cwQK4
+         yAJkoV/gu8b/pI0lpiQbMxz3RjtUelEjF+tc0aeet5p2ePE/Hs1+AqlXNWEo8rjEkSQ4
+         h4bQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=rJiaXHPw9FDfCMDdyNLEWnQ33XAckNGRkKT562F7it4=;
+        b=cCnbeDG9TRsJxZVltjdvrhlGq0FQyku+J5G4y0a6hx2FYtFWBK0omEst7SKohU6SGD
+         p07IJTJMrosm+5UZ/VP2hOqINKScMVnw4u9E1vGoFBtpHUc0Jr2Z9JVmBYvn2KbDL3Od
+         2QzXX8JBj7FP+QREQeZH2kAtDXF0y/pa4xzLWcROTH/OHE+OikZVOogsgd9+lVDYTJnW
+         RVuXNnF7sRRG7hyuoszLm/sv6iYZhx7iU0NVoyGkcwyMajlygufj3RRonzbHhEY5v9rS
+         NgGK9+TFrq7UfdXQTqUyYXviltSh3rxBWXBqjY/Xkx1j78+TUsE36IOAnMeuDCNDuMZz
+         4mTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:subject:thread-topic:thread-index
-         :date:message-id:accept-language:content-language:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=mpRXvwV79LwgRFcZHUtCoiPk+d5C3IllKkHilIgC0tA=;
-        b=tUuVS+/kUPPqNxvQxou1+OtIDs/RFRjJyMRus1aBTHIcJd4ekSEbGnKhWYlAYiap7u
-         jLwRGJNLrwusJ4FC7d3Gwyj2daNcvfISZcW1dOpCKAaFqI9E3ZKMuNA19vXBB5LFFfmB
-         XxUlX6N5OjnL/UCejE7b0u1aLBXHbNbk00d5VBQhRzceMFjQ9h8tbjh09XVsGvYFpnqx
-         H8JAAPiUVZBJyQ9WfhEjReP0VzFsfUqwWPWKI0cHyZa/YpwFXzjRMmrRBh32ze2otOGc
-         J1qvv0RkWNPpjX6G0CrpltxvSyJ1Im+70v4DPAbnJTcT1MSsoAJZeGwMw1aKBdaCWGuR
-         kPCA==
+        bh=rJiaXHPw9FDfCMDdyNLEWnQ33XAckNGRkKT562F7it4=;
+        b=QQVVkgmHYZ298lA+ulPvqpU08PZOLLPJ3YqpaAEi+nSfxzD27ehgE59HKDg0hDv2YO
+         gHRYIW+sT/b9kNXQsu5JrXGv7f+DBOAffXl8MIbBchOzQ+big1/tpz5lDTIlBtfDpQSD
+         CRj4/9bgc6elmhZsGom4ODSKRlI+IKoM2vX9HRK88NPNx4VQ2F+2uBYKzrCzqw/DrZw6
+         JhnTdYHIytvxz5afcAOBsl0hTSWCIaKbnKQWmLIW0aj2ZZBdu6ScgrFX9eyxPonSOJKt
+         6TtspmM/tiJISP6KgBSo8NpLe552pTsZOLWuFlXFnrzqjZ/TcIMIg+PglDSX4kZRsYI3
+         UN/g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533A+ahOhoOYo/ruk1oz+icfs+73trosO4/8FA2Gc8H+4aEbFu67
-	Jgc1aE/ruZK/vvRlCoxH7lY=
-X-Google-Smtp-Source: ABdhPJzt+3wY9EPJPAddWSNOhwbeuigTqqvhX85JU3REg58DEUdv5OR9i6kBxd/HGDU436BwU2FG4Q==
-X-Received: by 2002:a2e:9246:: with SMTP id v6mr633352ljg.47.1591221923743;
-        Wed, 03 Jun 2020 15:05:23 -0700 (PDT)
+X-Gm-Message-State: AOAM5321b58euBs6UMUCMcTki5rKnlP423QpRIgEHbvdxxzNLp9silmp
+	Xf516Cn79WDOEV9kb0/jRbc=
+X-Google-Smtp-Source: ABdhPJx/Qd6sCqCVMvS8js+zeKm7RDqPGYRfFnCnWp6hJttadRoehcgd5ow51Zi7tRD3GpTCi676Qw==
+X-Received: by 2002:aca:f083:: with SMTP id o125mr1245261oih.19.1591222782002;
+        Wed, 03 Jun 2020 15:19:42 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:8092:: with SMTP id i18ls750461ljg.7.gmail; Wed, 03 Jun
- 2020 15:05:22 -0700 (PDT)
-X-Received: by 2002:a2e:87d5:: with SMTP id v21mr694589ljj.220.1591221922894;
-        Wed, 03 Jun 2020 15:05:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1591221922; cv=none;
-        d=google.com; s=arc-20160816;
-        b=aMTMGTuI5kbwgubxazHT1/paBCpMwdC7B2uMipFcYUPbeMNwUHDuadrXytpRP66hnl
-         FiEDLnw8+UfDkwP7lFYeHwXApZb0Bohv00r/gLtiKiBNin+5LX1P4DQBtjowWOWh8a9F
-         PxltnjruQJENi3aPPNKpfYDs3ewFodSLLHPqrHy6Hv5sighfyHZhHHEPTpvc+QqpREGJ
-         NIgtSj7YoE7kpX8VTE3pzbupQcHn6DJdIh06/3j2i5Pr3NtBkLKVsRnvh4eUIgkg0RRk
-         rpVWPPBQ4Sa5vXn8UC+uhx0JZ1JK44LtvQV4V3nuR7S8KC81ZySG6z200JtIH3t+nxG+
-         If/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:content-language:accept-language:message-id:date
-         :thread-index:thread-topic:subject:to:from:dkim-signature;
-        bh=SMlICLhtFl08DLdaIqD1hhnT95YHHX5a61QHpr2kO8Q=;
-        b=WVyt+faVlobxkPhd3vzA3sYb/uNqeg/mlXvPNia71OMPDLH0q/YI4HtoUDAcojim6U
-         uSXKxbmPriyIPMVzJSSFvRvrHDmxo4j023LcYJFKXoZqvMmWz/YZeabb3xs6nZ3ihq6P
-         UzoW7BjEMOZMa3VXAfWf5DYtm4RJoG+H2AZt8kwwW1hio+iV6DlQMqu55oF6ybZntOP5
-         8NLtvK+aJfFUpFJRFhi7VjZtkFMAqOGEhP89omyvWJRrPBrNW8eNHRX2g+FFhhW8rua3
-         MGNL/1xb9Nl/Cv59IzVjrxRZyiEO6PrnyXMu94RrNJRdRSR+5qL0E9aEPzS5MfY8+ZsI
-         do5A==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b=kpglDR6v;
-       spf=pass (google.com: domain of jorgeluis.martinez-garcia@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) smtp.mailfrom=jorgeluis.martinez-garcia@tum.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
-Received: from postout2.mail.lrz.de (postout2.mail.lrz.de. [2001:4ca0:0:103::81bb:ff8a])
-        by gmr-mx.google.com with ESMTPS id 14si178350lfy.1.2020.06.03.15.05.22
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Wed, 03 Jun 2020 15:05:22 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jorgeluis.martinez-garcia@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) client-ip=2001:4ca0:0:103::81bb:ff8a;
-Received: from lxmhs52.srv.lrz.de (localhost [127.0.0.1])
-	by postout2.mail.lrz.de (Postfix) with ESMTP id 49cjdZ1bQLzyTZ
-	for <jailhouse-dev@googlegroups.com>; Thu,  4 Jun 2020 00:05:22 +0200 (CEST)
-X-Virus-Scanned: by amavisd-new at lrz.de in lxmhs52.srv.lrz.de
-X-Spam-Flag: NO
-X-Spam-Score: -0.573
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.573 tagged_above=-999 required=5
-	tests=[ALL_TRUSTED=-1, BAYES_00=-1.9, DMARC_ADKIM_RELAXED=0.001,
-	DMARC_ASPF_RELAXED=0.001, DMARC_POLICY_NONE=0.001, HTML_MESSAGE=0.001,
-	LRZ_DATE_TZ_0000=0.001, LRZ_DKIM_DESTROY_MTA=0.001,
-	LRZ_DMARC_FAIL=0.001, LRZ_DMARC_OVERWRITE=0.001,
-	LRZ_DMARC_POLICY=0.001, LRZ_DMARC_TUM_FAIL=0.001,
-	LRZ_ENVFROM_FROM_ALIGNED_STRICT=0.001, LRZ_ENVFROM_FROM_MATCH=0.001,
-	LRZ_ENVFROM_TUM_S=0.001, LRZ_FROM_AP_PHRASE=0.001,
-	LRZ_FROM_HAS_A=0.001, LRZ_FROM_HAS_AAAA=0.001,
-	LRZ_FROM_HAS_MDOM=0.001, LRZ_FROM_HAS_MX=0.001,
-	LRZ_FROM_HOSTED_DOMAIN=0.001, LRZ_FROM_NAME_IN_ADDR=0.001,
-	LRZ_FROM_PHRASE=0.001, LRZ_FROM_PRE_SUR_PHRASE=0.001,
-	LRZ_FROM_TUM_S=0.001, LRZ_FWD_MS_EX=0.001, LRZ_HAS_BND=0.001,
-	LRZ_HAS_CLANG=0.001, LRZ_HAS_SPF=0.001, LRZ_HAS_THREAD_INDEX=0.001,
-	LRZ_HAS_URL_HTTP=0.001, LRZ_HAS_X_ORIG_IP=0.001, LRZ_MSGID_HL32=0.001,
-	LRZ_RCVD_BADWLRZ_EXCH=0.001, LRZ_RCVD_MS_EX=0.001, LRZ_RDNS_NONE=1.5,
-	RDNS_NONE=0.793, SPF_HELO_NONE=0.001] autolearn=no autolearn_force=no
-Received: from postout2.mail.lrz.de ([127.0.0.1])
-	by lxmhs52.srv.lrz.de (lxmhs52.srv.lrz.de [127.0.0.1]) (amavisd-new, port 20024)
-	with LMTP id rI6lhTo9ZYbf for <jailhouse-dev@googlegroups.com>;
-	Thu,  4 Jun 2020 00:05:21 +0200 (CEST)
-Received: from BADWLRZ-SWMBX11.ads.mwn.de (BADWLRZ-SWMBX11.ads.mwn.de [IPv6:2001:4ca0:0:108::167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(Client CN "BADWLRZ-SWMBX11", Issuer "BADWLRZ-SWMBX11" (not verified))
-	by postout2.mail.lrz.de (Postfix) with ESMTPS id 49cjdY6KpxzySr
-	for <jailhouse-dev@googlegroups.com>; Thu,  4 Jun 2020 00:05:21 +0200 (CEST)
-Received: from BADWLRZ-SWMBX09.ads.mwn.de (2001:4ca0:0:108::165) by
- BADWLRZ-SWMBX11.ads.mwn.de (2001:4ca0:0:108::167) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1979.3; Thu, 4 Jun 2020 00:05:21 +0200
-Received: from BADWLRZ-SWMBX09.ads.mwn.de ([fe80::28c9:20b8:a4d6:473c]) by
- BADWLRZ-SWMBX09.ads.mwn.de ([fe80::28c9:20b8:a4d6:473c%12]) with mapi id
- 15.01.1979.003; Thu, 4 Jun 2020 00:05:21 +0200
-From: "Martinez Garcia, Jorge Luis" <jorgeluis.martinez-garcia@tum.de>
-To: "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
-Subject: ZCU102 ZynqMP Ultrascale+
-Thread-Topic: ZCU102 ZynqMP Ultrascale+
-Thread-Index: AQHWOe4lDM/8lxlZKk6JVZpTK9Y7rQ==
-Date: Wed, 3 Jun 2020 22:05:21 +0000
-Message-ID: <5dca1eee81cd46218983e92131d9a31a@tum.de>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Exchange-Organization-AuthAs: Internal
-X-MS-Exchange-Organization-AuthMechanism: 04
-X-MS-Exchange-Organization-AuthSource: BADWLRZ-SWMBX09.ads.mwn.de
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [2.206.56.136]
-Content-Type: multipart/alternative;
-	boundary="_000_5dca1eee81cd46218983e92131d9a31atumde_"
+Received: by 2002:a4a:dd98:: with SMTP id h24ls248530oov.5.gmail; Wed, 03 Jun
+ 2020 15:19:41 -0700 (PDT)
+X-Received: by 2002:a4a:d043:: with SMTP id x3mr1599503oor.17.1591222781411;
+        Wed, 03 Jun 2020 15:19:41 -0700 (PDT)
+Date: Wed, 3 Jun 2020 15:19:40 -0700 (PDT)
+From: jorgeluis.martinezgarcia2@gmail.com
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <ed5c9386-c34b-46d8-ae34-fd9f4f416ae8@googlegroups.com>
+In-Reply-To: <5dca1eee81cd46218983e92131d9a31a@tum.de>
+References: <5dca1eee81cd46218983e92131d9a31a@tum.de>
+Subject: Re: ZCU102 ZynqMP Ultrascale+
 MIME-Version: 1.0
-X-Original-Sender: jorgeluis.martinez-garcia@tum.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@tum.de header.s=postout header.b=kpglDR6v;       spf=pass
- (google.com: domain of jorgeluis.martinez-garcia@tum.de designates
- 2001:4ca0:0:103::81bb:ff8a as permitted sender) smtp.mailfrom=jorgeluis.martinez-garcia@tum.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_478_1701151622.1591222780510"
+X-Original-Sender: jorgeluis.martinezgarcia2@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -172,101 +77,128 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---_000_5dca1eee81cd46218983e92131d9a31atumde_
+------=_Part_478_1701151622.1591222780510
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_479_1714540717.1591222780510"
+
+------=_Part_479_1714540717.1591222780510
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Dear all,
-
-I am trying to have three Linux instances on the ZCU102 ZynqMP Ultrascale+ =
-(The root cell and two guests). I followed the steps specified in https://g=
-ithub.com/siemens/jailhouse/blob/master/Documentation/setup-on-zynqmp-zcu10=
-2.md and have two Linux instances successfully running on the board. Howeve=
-r, when adding a third Linux guest, I do not see the kernel booting in the =
-Jailhouse console:
-
-
-root@xilinx-zcu102-2018_3:~/LinuxGuest2# jailhouse cell linux zynqmp-zcu102=
--linux-demo-2.cell Image -d inmate-zynqmp-zcu102-2.dtb -i rootfs.cpio -c "c=
-onsole=3Djailhouse,115200"
-
-root@xilinx-zcu102-2018_3:~/LinuxGuest2# jailhouse console -f
-
-Adding virtual PCI device 00:02.0 to cell "ZynqMP-linux-demo-2"
-Shared memory connection established: "ZynqMP-linux-demo-2" <--> "ZynqMP-li=
-nux-demo"
-Created cell "ZynqMP-linux-demo-2"
-Page pool usage after cell creation: mem 77/995, remap 69/131072
-Cell "ZynqMP-linux-demo-2" can be loaded
-Started cell "ZynqMP-linux-demo-2"
-
-
-root@xilinx-zcu102-2018_3:~/LinuxGuest2# jailhouse cell list
-ID      Name                    State             Assigned CPUs           F=
-ailed CPUs
-0       ZynqMP-ZCU102           running           0
-1       ZynqMP-linux-demo       running           2-3
-2       ZynqMP-linux-demo-2     running           1
-
-
-The config file of ZynqMP-linux-demo-2 is https://github.com/siemens/jailho=
-use/blob/master/configs/arm64/zynqmp-zcu102-linux-demo-2.c (as you can see =
-the flag JAILHOUSE_CELL_DEBUG_CONSOLE is present)
-
-and its corresponding dts file is https://github.com/siemens/jailhouse/blob=
-/master/configs/arm64/dts/inmate-zynqmp-zcu102-2.dts
-
-
-While the three instances are supposed to be running, as shown by jailhouse=
- cell list, I do not see the third Linux booting. Has any of you faced a si=
-milar issue?
-
+Hi, 
+I forgot to mention that I am using Jailhouse v0.9.1 and hence the actual 
+config and dts files are 
+https://github.com/siemens/jailhouse/blob/v0.9.1/configs/arm64/dts/inmate-zynqmp-zcu102-2.dts 
+and 
+https://github.com/siemens/jailhouse/blob/v0.9.1/configs/arm64/zynqmp-zcu102-linux-demo-2.c.
 
 Jorge
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/5dca1eee81cd46218983e92131d9a31a%40tum.de.
+On Thursday, June 4, 2020 at 12:05:23 AM UTC+2, Martinez Garcia, Jorge Luis 
+wrote:
+>
+> Dear all, 
+>
+> I am trying to have three Linux instances on the ZCU102 ZynqMP Ultrascale+ 
+> (The root cell and two guests). I followed the steps specified in 
+> https://github.com/siemens/jailhouse/blob/master/Documentation/setup-on-zynqmp-zcu102.md 
+> and have two Linux instances successfully running on the board. However, 
+> when adding a third Linux guest, I do not see the kernel booting in the 
+> Jailhouse console:
+>
+>
+> root@xilinx-zcu102-2018_3:~/LinuxGuest2# jailhouse cell linux 
+> zynqmp-zcu102-linux-demo-2.cell Image -d inmate-zynqmp-zcu102-2.dtb -i 
+> rootfs.cpio -c "console=jailhouse,115200"
+>
+> root@xilinx-zcu102-2018_3:~/LinuxGuest2# jailhouse console -f
+>
+> Adding virtual PCI device 00:02.0 to cell "ZynqMP-linux-demo-2"
+> Shared memory connection established: "ZynqMP-linux-demo-2" <--> 
+> "ZynqMP-linux-demo"
+> Created cell "ZynqMP-linux-demo-2"
+> Page pool usage after cell creation: mem 77/995, remap 69/131072
+> Cell "ZynqMP-linux-demo-2" can be loaded
+> Started cell "ZynqMP-linux-demo-2"
+>
+>
+> root@xilinx-zcu102-2018_3:~/LinuxGuest2# jailhouse cell list
+> ID      Name                    State             Assigned CPUs           
+> Failed CPUs             
+> 0       ZynqMP-ZCU102           running           
+> 0                                               
+> 1       ZynqMP-linux-demo       running           
+> 2-3                                             
+> 2       ZynqMP-linux-demo-2     running           1 
+>
+> The config file of ZynqMP-linux-demo-2 is 
+> https://github.com/siemens/jailhouse/blob/master/configs/arm64/zynqmp-zcu102-linux-demo-2.c 
+> (as you can see the flag JAILHOUSE_CELL_DEBUG_CONSOLE is present)
+>
+> and its corresponding dts file is 
+> https://github.com/siemens/jailhouse/blob/master/configs/arm64/dts/inmate-zynqmp-zcu102-2.dts
+>
+>
+> While the three instances are supposed to be running, as shown by jailhouse 
+> cell list, I do not see the third Linux booting. Has any of you faced a 
+> similar issue? 
+>
+>
+> Jorge
+>
+>
+>
 
---_000_5dca1eee81cd46218983e92131d9a31atumde_
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/ed5c9386-c34b-46d8-ae34-fd9f4f416ae8%40googlegroups.com.
+
+------=_Part_479_1714540717.1591222780510
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<div dir=3D"ltr"><div>Hi, <br></div><div>I forgot to mention that I am usin=
+g Jailhouse v0.9.1 and hence the actual config and dts files are https://gi=
+thub.com/siemens/jailhouse/blob/v0.9.1/configs/arm64/dts/inmate-zynqmp-zcu1=
+02-2.dts and https://github.com/siemens/jailhouse/blob/v0.9.1/configs/arm64=
+/zynqmp-zcu102-linux-demo-2.c.<br></div><div><br></div><div>Jorge</div><div=
+><br></div>On Thursday, June 4, 2020 at 12:05:23 AM UTC+2, Martinez Garcia,=
+ Jorge Luis wrote:<blockquote class=3D"gmail_quote" style=3D"margin: 0;marg=
+in-left: 0.8ex;border-left: 1px #ccc solid;padding-left: 1ex;">
+
+
+
+
+<div dir=3D"ltr">
+<div style=3D"font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sa=
+ns-serif" dir=3D"ltr">
 <p>Dear all, <br>
 </p>
 <p>I am trying to have three Linux instances on the <span>ZCU102 ZynqMP Ult=
-rascale&#43;</span> (The root cell and two guests). I followed the steps sp=
-ecified in
+rascale+</span> (The root cell and two guests). I followed the steps specif=
+ied in
 <a href=3D"https://github.com/siemens/jailhouse/blob/master/Documentation/s=
-etup-on-zynqmp-zcu102.md" class=3D"OWAAutoLink" id=3D"LPlnk535314" previewr=
-emoved=3D"true">
-https://github.com/siemens/jailhouse/blob/master/Documentation/setup-on-zyn=
-qmp-zcu102.md</a> and have two Linux instances successfully running on the =
-board. However, when adding a third Linux guest, I do not see the kernel bo=
-oting in the Jailhouse console:</p>
+etup-on-zynqmp-zcu102.md" target=3D"_blank" rel=3D"nofollow" onmousedown=3D=
+"this.href=3D&#39;https://www.google.com/url?q\x3dhttps%3A%2F%2Fgithub.com%=
+2Fsiemens%2Fjailhouse%2Fblob%2Fmaster%2FDocumentation%2Fsetup-on-zynqmp-zcu=
+102.md\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQjCNHI_KgzVkJ9KdafY-Z5aCcbY8pEhg=
+&#39;;return true;" onclick=3D"this.href=3D&#39;https://www.google.com/url?=
+q\x3dhttps%3A%2F%2Fgithub.com%2Fsiemens%2Fjailhouse%2Fblob%2Fmaster%2FDocum=
+entation%2Fsetup-on-zynqmp-zcu102.md\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQj=
+CNHI_KgzVkJ9KdafY-Z5aCcbY8pEhg&#39;;return true;">
+https://github.com/siemens/<wbr>jailhouse/blob/master/<wbr>Documentation/se=
+tup-on-zynqmp-<wbr>zcu102.md</a> and have two Linux instances successfully =
+running on the board. However, when adding a third Linux guest, I do not se=
+e the kernel booting in the Jailhouse console:</p>
 <p><br>
 </p>
 <p></p>
-<div>root@xilinx-zcu102-2018_3:~/LinuxGuest2# jailhouse cell linux zynqmp-z=
-cu102-linux-demo-2.cell Image -d inmate-zynqmp-zcu102-2.dtb -i rootfs.cpio =
--c &quot;console=3Djailhouse,115200&quot;</div>
+<div>root@xilinx-zcu102-2018_3:~/<wbr>LinuxGuest2# jailhouse cell linux zyn=
+qmp-zcu102-linux-demo-2.<wbr>cell Image -d inmate-zynqmp-zcu102-2.dtb -i ro=
+otfs.cpio -c &quot;console=3Djailhouse,115200&quot;</div>
 <div><br>
 </div>
-<div>root@xilinx-zcu102-2018_3:~/LinuxGuest2# jailhouse console -f<br>
+<div>root@xilinx-zcu102-2018_3:~/<wbr>LinuxGuest2# jailhouse console -f<br>
 </div>
 <p></p>
 <p></p>
@@ -282,45 +214,59 @@ Started cell &quot;ZynqMP-linux-demo-2&quot;<br>
 <div><br>
 </div>
 <div><br>
-<div>root@xilinx-zcu102-2018_3:~/LinuxGuest2# jailhouse cell list<br>
-ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; State&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; Assigned CPUs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; Failed CPUs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; &nbsp;<br>
-0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ZynqMP-ZCU102&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; running&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; &nbsp;<br>
-1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ZynqMP-linux-demo&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; running&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; 2-3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br>
-2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ZynqMP-linux-demo-2&nbsp;&nbsp;&nbsp;=
-&nbsp; running&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+<div>root@xilinx-zcu102-2018_3:~/<wbr>LinuxGuest2# jailhouse cell list<br>
+ID=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Name=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 State=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 Assigned CPUs=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 Failed CPUs=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 =C2=A0<br>
+0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ZynqMP-ZCU102=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 running=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0<wbr>=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 =C2=A0<br>
+1=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ZynqMP-linux-demo=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 running=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 2-3=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0<wbr>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0<br>
+2=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ZynqMP-linux-demo-2=C2=A0=C2=A0=C2=A0=
+=C2=A0 running=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
 1 <br>
 </div>
 <br>
 </div>
-<p>The config file of&nbsp;<span>ZynqMP-linux-demo-2</span> is&nbsp;<span><=
+<p>The config file of=C2=A0<span>ZynqMP-linux-demo-2</span> is=C2=A0<span><=
 a href=3D"https://github.com/siemens/jailhouse/blob/master/configs/arm64/zy=
-nqmp-zcu102-linux-demo-2.c" class=3D"OWAAutoLink" id=3D"LPlnk174015" previe=
-wremoved=3D"true">https://github.com/siemens/jailhouse/blob/master/configs/=
-arm64/zynqmp-zcu102-linux-demo-2.c</a>
+nqmp-zcu102-linux-demo-2.c" target=3D"_blank" rel=3D"nofollow" onmousedown=
+=3D"this.href=3D&#39;https://www.google.com/url?q\x3dhttps%3A%2F%2Fgithub.c=
+om%2Fsiemens%2Fjailhouse%2Fblob%2Fmaster%2Fconfigs%2Farm64%2Fzynqmp-zcu102-=
+linux-demo-2.c\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQjCNEEbdo2qPTCwSko2nJlp5=
+OK0736fg&#39;;return true;" onclick=3D"this.href=3D&#39;https://www.google.=
+com/url?q\x3dhttps%3A%2F%2Fgithub.com%2Fsiemens%2Fjailhouse%2Fblob%2Fmaster=
+%2Fconfigs%2Farm64%2Fzynqmp-zcu102-linux-demo-2.c\x26sa\x3dD\x26sntz\x3d1\x=
+26usg\x3dAFQjCNEEbdo2qPTCwSko2nJlp5OK0736fg&#39;;return true;">https://gith=
+ub.com/siemens/<wbr>jailhouse/blob/master/configs/<wbr>arm64/zynqmp-zcu102-=
+linux-<wbr>demo-2.c</a>
  (as you can see the flag JAILHOUSE_CELL_DEBUG_CONSOLE is present)<br>
 </span></p>
 <p></p>
 <p><span>and its corresponding dts file is <a href=3D"https://github.com/si=
-emens/jailhouse/blob/master/configs/arm64/dts/inmate-zynqmp-zcu102-2.dts" c=
-lass=3D"OWAAutoLink" id=3D"LPlnk43075" previewremoved=3D"true">
-https://github.com/siemens/jailhouse/blob/master/configs/arm64/dts/inmate-z=
-ynqmp-zcu102-2.dts</a></span><br>
+emens/jailhouse/blob/master/configs/arm64/dts/inmate-zynqmp-zcu102-2.dts" t=
+arget=3D"_blank" rel=3D"nofollow" onmousedown=3D"this.href=3D&#39;https://w=
+ww.google.com/url?q\x3dhttps%3A%2F%2Fgithub.com%2Fsiemens%2Fjailhouse%2Fblo=
+b%2Fmaster%2Fconfigs%2Farm64%2Fdts%2Finmate-zynqmp-zcu102-2.dts\x26sa\x3dD\=
+x26sntz\x3d1\x26usg\x3dAFQjCNGpf6dl8H0whDrRpe6itC04fJAI7Q&#39;;return true;=
+" onclick=3D"this.href=3D&#39;https://www.google.com/url?q\x3dhttps%3A%2F%2=
+Fgithub.com%2Fsiemens%2Fjailhouse%2Fblob%2Fmaster%2Fconfigs%2Farm64%2Fdts%2=
+Finmate-zynqmp-zcu102-2.dts\x26sa\x3dD\x26sntz\x3d1\x26usg\x3dAFQjCNGpf6dl8=
+H0whDrRpe6itC04fJAI7Q&#39;;return true;">
+https://github.com/siemens/<wbr>jailhouse/blob/master/configs/<wbr>arm64/dt=
+s/inmate-zynqmp-<wbr>zcu102-2.dts</a></span><br>
 </p>
 <p><br>
 </p>
@@ -335,8 +281,9 @@ f you faced a similar issue?
 <p><br>
 </p>
 </div>
-</body>
-</html>
+</div>
+
+</blockquote></div>
 
 <p></p>
 
@@ -347,8 +294,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/5dca1eee81cd46218983e92131d9a31a%40tum.de?utm_medi=
-um=3Demail&utm_source=3Dfooter">https://groups.google.com/d/msgid/jailhouse=
--dev/5dca1eee81cd46218983e92131d9a31a%40tum.de</a>.<br />
+om/d/msgid/jailhouse-dev/ed5c9386-c34b-46d8-ae34-fd9f4f416ae8%40googlegroup=
+s.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/m=
+sgid/jailhouse-dev/ed5c9386-c34b-46d8-ae34-fd9f4f416ae8%40googlegroups.com<=
+/a>.<br />
 
---_000_5dca1eee81cd46218983e92131d9a31atumde_--
+------=_Part_479_1714540717.1591222780510--
+
+------=_Part_478_1701151622.1591222780510--
