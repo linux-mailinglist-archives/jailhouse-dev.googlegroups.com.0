@@ -1,142 +1,126 @@
-Return-Path: <jailhouse-dev+bncBDL2JD42SEIBBAGG5D3AKGQEGUVPECQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBGWS5D3AKGQECH34PQY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-il1-x138.google.com (mail-il1-x138.google.com [IPv6:2607:f8b0:4864:20::138])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99C6E1EF5A2
-	for <lists+jailhouse-dev@lfdr.de>; Fri,  5 Jun 2020 12:48:33 +0200 (CEST)
-Received: by mail-il1-x138.google.com with SMTP id i7sf2353344ilq.16
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 05 Jun 2020 03:48:33 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1591354112; cv=pass;
+Received: from mail-wm1-x340.google.com (mail-wm1-x340.google.com [IPv6:2a00:1450:4864:20::340])
+	by mail.lfdr.de (Postfix) with ESMTPS id 40A961EF648
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  5 Jun 2020 13:14:35 +0200 (CEST)
+Received: by mail-wm1-x340.google.com with SMTP id b63sf3733131wme.1
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 05 Jun 2020 04:14:35 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1591355675; cv=pass;
         d=google.com; s=arc-20160816;
-        b=jVKFpLgf+E4Mmh/pZbEqKNkIUsZ+1WfyX9zhFeRwRKQeQc6pNYWNmpZu7NPVWeZJF4
-         2zwei9M8jZEKXDSScGpXzoKt3nv664RGdv6u4+Z74FP+coeUSkx/ujoPW/+myf68eA2l
-         vVxuC+0m+bn1aYe/Un6y6OgrEGm0l/gEIbyh1ZxH7qn4TcgtkVWEOcteFYfYfEeZPyV2
-         jsLiLR9cUHDLnpivtbIhyDDjw8lbeYqadk7GmCjW9zuhLlmO9CvQh9mRwEwMun+uv1t3
-         pkv1k0pPX+BUjtWXj+MN7TrY9YDXx4y9U2jpURiBOmfuCJsX+UOqsjHwZjlENeHVNoqD
-         AdAA==
+        b=CDKhiyAwzEL+T9HK82Ku2C2iE5ExAxdmdtFgYxLESXbGvIITwHSEhMmhkoDt8igZCM
+         znFIyEtWvj+bNj+JghuLPEm9q26OgTygRGTYNG15ajOc+gidGQaE/o+sd0hlRQa5VYAg
+         w2jPpJf7EEGRWhmwrcb1hWqEkT5SDCeWj7knNqEtv0ESkDpGR9oqDskJhYASFZ5ebkug
+         ZKPd1Igz5v9M4ZbWCTzU/8K8qfk/Avr+ifmiDfh1ogPg1dxuJbQxbMdZ5SYn1A0Z8L5/
+         dCiEu7DiaqwQSpMRmZxKYH4p35OSowFtD9kOyAR+t50P6cFFvE+nE6s1AuHDyjQLZ/VN
+         NzwQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to:content-language
-         :in-reply-to:mime-version:user-agent:date:message-id:from:references
-         :cc:to:subject:dkim-signature;
-        bh=WipIuaYr1mqZrUcKrGydekEapuL9zn/r1yG12yqiLok=;
-        b=bUe+hofuHmRPM3rZuRVu4Woij1HLLVTjX6cO95jnLqqIguVD1/OaPr1JgUjdY/Ua5y
-         Ws2JE7YLcUzoTCv8C+mj+zyCEjFfVPKfBk6uMTXig1+jN8UDHTvunC52279/MoxARCQH
-         041lxLSPycB1/skXK7kSbDdzN7vBEchAYrFepqajkO6sQqZfQEnIC9elKNGW2H7sybiH
-         NCKPuTTh1EQ/pMn5rrgh3R1egU55vaQhxlKzW1LsW+2sI/tRYiEUB+Sw4DRPw+5Rjitt
-         eazj1YTNl/RdKp071EM1TsCml95DuSkwwVC+4kJg4R2HsXQySYGKadv4EqbCJ9032o62
-         d8zQ==
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:cc:to
+         :subject:sender:dkim-signature;
+        bh=ZE6En38c5byHT21Oa0L3kHfJUpWB4ivS/qeoYD9rsOE=;
+        b=COyY8+fgcXya7f7XE8L+oJK0k2QzgbKAsXyW+ILsrc3TDraviz3c5QGJIFdBR42o61
+         bucfXsLCgFv0ysi2Q5Wm3PSi1OQXYZkf2N2mHBXf+aQy1oZVMS6VQi/vbi8+kxD6KEW2
+         5uvBncocbn3iXS+6nHM5AfQxQC+SS9o0IO64vKO9bTBO7SSfbeDDnlkg0VXDC8AoNHNl
+         bSYMcByq/rD6eHJLt+QmdKltptrAsnnyjkvulvgxpD0k3jsvsIiDrqLC1jVw/QH7zr48
+         FDYCUGym/CZQlAvSuP48Y06la1P3/C1hlWPUtP1oJp47jbBC1QwN4VbsYdgD3DE4BN9z
+         dpHQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=dt8roGPu;
-       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.142 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
-       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
+        h=sender:subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:reply-to:precedence:mailing-list
-         :list-id:list-post:list-help:list-archive:list-subscribe
-         :list-unsubscribe;
-        bh=WipIuaYr1mqZrUcKrGydekEapuL9zn/r1yG12yqiLok=;
-        b=cFO+MU1jYSNpac267smCA9yJB/gMVSie1zkWlrgZQSv3vXjWBeSACGuLxbpUkgmfZY
-         cx2KrQJxw1WGFMgpyrjzKliRYQxlP8F+BlsvQSsskMpnEEf70WV04Gvrj4QWq7Ue5j5t
-         AcWCD7Rf3KRiVUEWX4sVkb3i9BURfOyhFEVuxC08b0eXJG8dlB6QygsVZFrrHOME1IZb
-         49r3CWHSLa5tKRuRds1GOVR/K4x9SnbVWzY5Vhc78I4ddbD/M7hLStoiIPaA+dQ9DNsU
-         QDGThM+XNr+tbmFNNi/7vBpwlzRddWlDCq6XF9VoOnW//WIB8HZSrLVvuZINlngW/pRA
-         T6hg==
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=ZE6En38c5byHT21Oa0L3kHfJUpWB4ivS/qeoYD9rsOE=;
+        b=ob6LnZ4CLUchaG768s2WpPbKqm5qGRxLrWT8p4OVDh00n5I46VSyWWs8i5xuJAOI66
+         Ggd1vLMEvJi4qeZT2T4naiCjO+mpDmxZq2nUcYU9Lj5RgLvP0KOcSV3ftJhO2CNGqvXf
+         pbYJO6nx18+qByIRRe29mdLJ8vXo9w0ECuFodujmV1z9LL1QBgn+9+i/7LY4fypZlOEM
+         awHsCqqPrmAk8LSqo94EzFUHQMXKfcSFwSxcn1+BOZqiHu2oCy6vpLvWhV8vPrpkTFg/
+         L2xbuuUeuNa/dp34uz/9L8CqONfrUkCHClvJYILm6GAWnFgWfiLeH7eFtF9aJ/KXR5tv
+         TGCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:reply-to
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=WipIuaYr1mqZrUcKrGydekEapuL9zn/r1yG12yqiLok=;
-        b=SXpvIeHk7v5FqlbWtbNlw0xHpeiQIdiQCQWQO3yJ8TYS9IKQBJkamUrXKr077OG5oD
-         saMGbrp6UIIfGKl9JPMKPBAVexzQc3AYxTHuLBCbGYdxlLLQxrT81rVSiBowIq8SnrfP
-         4KKFgSUfs+CYyaaUSKpL88BBmDUSe+TpEnM4R7JcKWOoJg8RVXPrwqJELGMaFFxXHoD1
-         DqIB2yHMOBba9ajoYU9Aizncu8Ame4Bloj2XlPSn2nTLa//50oMwrieLwWaRILAa+VtH
-         yoZBRhmNm6oVobUdpCVrbJYtjMhBvFFtVBj7Ap22roE4Xu2TWQ3Jo9no61S3PhC+4+Hj
-         zrxw==
-X-Gm-Message-State: AOAM53067YbuFth+VwQqtSB3Be7tvCic+442rQ0RUU752pTsNXrGhtBD
-	3glM9JanJ/pWxUlGvQ4yLPc=
-X-Google-Smtp-Source: ABdhPJzB/ZvwmUPuyJOQJZTEa1ude65v0157OL5WppIrUuDHZEDuEWAgHF0Z4WIbT4E4IEtXtJaM5Q==
-X-Received: by 2002:a05:6602:2431:: with SMTP id g17mr7982704iob.3.1591354112480;
-        Fri, 05 Jun 2020 03:48:32 -0700 (PDT)
+        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=ZE6En38c5byHT21Oa0L3kHfJUpWB4ivS/qeoYD9rsOE=;
+        b=mSiPwyS8vKfcw8eyEQYaRgszpHuvV+umtgI/CM1/l9YaGq4USRzQO2dqA1skky+Vs9
+         pgLIPHpt4nRMbBxCC8yaQZfrPDA2nqnentWPv4BmeFqxyIV2BMrX+ywdfhaafgUD2rTc
+         iwHr7XoZF3WlD9E5vQDBk3bqvN4KPTGVSRspXx9etcYLTkD7V3yd2EFlZyufkCynmlvK
+         2oVD05CZ75rFaO0jfJ8TxmCIl1E03ARbJFp/FCtcx4JMtAjEwFVi7BiapX4bih7mXet/
+         lwzeDl+xoMek29i0Mk7DpctPQzjX4BbA0hplZ9p5bo8h6EyUXHcMbkFiFb2V/fKGtg54
+         89Uw==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: AOAM532QQ9DOcrPNf0JrDqmRAIc00RxiOlSlRAwbtmvEY9ShqV6DJ0uR
+	vdaDLbbUTZ741KVgQc8KQoY=
+X-Google-Smtp-Source: ABdhPJzRu4eIWvf+Sa4nXqbKzurjnqSjf4IjF7rNhBJaRl2Uo4qOCdOVbEUir/ghmkTb6kBvg8ulMA==
+X-Received: by 2002:a5d:4dd0:: with SMTP id f16mr9690166wru.117.1591355674931;
+        Fri, 05 Jun 2020 04:14:34 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a92:d28a:: with SMTP id p10ls2347131ilp.5.gmail; Fri, 05 Jun
- 2020 03:48:31 -0700 (PDT)
-X-Received: by 2002:a92:4a04:: with SMTP id m4mr8272193ilf.228.1591354111890;
-        Fri, 05 Jun 2020 03:48:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1591354111; cv=none;
+Received: by 2002:adf:82ce:: with SMTP id 72ls1225867wrc.1.gmail; Fri, 05 Jun
+ 2020 04:14:34 -0700 (PDT)
+X-Received: by 2002:a5d:500d:: with SMTP id e13mr9780832wrt.150.1591355674240;
+        Fri, 05 Jun 2020 04:14:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1591355674; cv=none;
         d=google.com; s=arc-20160816;
-        b=gGws+X/PLznhTSXFUt+UiDh/Fp2WM5eraDJtRseTIpqRfUmr3GJC0+br/WcOYNrWVm
-         WsSFRdydOZy6Gcvr5JvxkT3s7vZgxuK/nqMuRMaSTePBOT38MObM+Ax1n3R0HPm2XdS1
-         s+C7xMfgS66wvSAq2fAdWbR4JDOMpQij3+Y2IPcwFz0PAWnlKjOkJ/pYGdZfXCQ3qARM
-         CfIadgH0R/H28yzPcpSdl5744oM6Yu4erQtcBqw+T/NURELRGJJqF7HgLh4dbxPXBPYz
-         YGCbwyofpnJmwFcW7qL79YIFKvYATa+a+NHkLji3LR7CKQShaFRbS69j30hUIbdiVT9r
-         QqOQ==
+        b=JFi0tEQvHQ1THWQdqxuYizPh3sBhaOmQWPW5xXKcCDYMghXz0fHnquILOJlBcnqOI1
+         lhzcXoXCXCRbQxxuaLnFynWtvIsU4VCHSoBAhzAW1KA2vQ23/3j3YMvJgi9qJbqhQbje
+         xUvGA3b/rBOxz7gpxpA97J9HRw+OEmSdDrzf9c8U/QEtmbX3Xb5Y34ad6ClhaE+i1xZ5
+         O8ksvdWcc62XgE6k/6DLa0P5IkYKxtjVmARVxJfU3l8hihvh1GUnfeNcQQApn4ab9fUy
+         RZYLutEjhxEnl8XBQ0e8Lc8G2/EO1bm125VDC8jomvmCKRWI3tjeWJJVNR0oZOGZDE4t
+         15rA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:cc:to:subject:dkim-signature;
-        bh=fQ/880Bd5h9c3vEhY640z2DYJCeeFBRFdve8oUhFKr0=;
-        b=M2iMycFtOtmtegR7QuvnJWVhhSnXvUksLmfCPi3+FR4VTyDBt0EC4YSc4ulRJ5zxTk
-         qmdjXaonal4ZluynSYBah/NWmIDU8fUFmDT8W0YFbvElaNNz1TkYJLVcQClb+u77ZdUm
-         QLnTe44dOhurBIubbGbym/mL4AQKC8fRtoOrfE1TtLSGxrRv2uzME2nphWxTuksfYAIn
-         H2ZQRSwbwgqmgla6qK+21kogxbuTwVRG6tPzQoUi/9Fr+eEGgbPoYBXd1VaTyZQlbvux
-         8PprqoBv3uQqORZgluVtpJNaw7SBHIsLh8qY10ffAd/AMmORsZ5eD2ScS4s3VeBWeBCv
-         f0Yg==
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:cc:to:subject;
+        bh=GZZWMh55axOFNi6/VFLDJXDAlMATnqDfffUM0kKo2/g=;
+        b=0bOXUFlwZ+0nPBtY0tGK9kTULvn8stk8DWp4AitOOIWakKidOfMEgkUIaaN2CvkCC2
+         AquP2IYrZpOPgjQeGxJt7oy7BT5X88OBGbD5iScsSGswKuSEyiP7e3hEvEaAOz1QGHcw
+         JoB8Bcnawx6lsz+wMqWNZRhLIQhpjeFTTfJZKN60nJaY/Y7m9aO70Xm8Ab3ibtoyPJwI
+         9nyCNnElicU1y1n+bnk+ZzsSm0tlE/r0jnW2N5gZhvE7lLWMz6A6i7e2PRdbDJc6XIYF
+         gX62qYIZ4dhFKcjeaSsGugF0E297qMX7Za01NxbFftYNvcnAEGQ3iU/+vk4U/212qyzK
+         srOg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=dt8roGPu;
-       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.142 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
-       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
-Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com. [198.47.19.142])
-        by gmr-mx.google.com with ESMTPS id h14si65316iol.1.2020.06.05.03.48.31
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
+        by gmr-mx.google.com with ESMTPS id s137si400309wme.2.2020.06.05.04.14.34
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 05 Jun 2020 03:48:31 -0700 (PDT)
-Received-SPF: pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.142 as permitted sender) client-ip=198.47.19.142;
-Received: from fllv0035.itg.ti.com ([10.64.41.0])
-	by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 055AmVw6095390;
-	Fri, 5 Jun 2020 05:48:31 -0500
-Received: from DFLE100.ent.ti.com (dfle100.ent.ti.com [10.64.6.21])
-	by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTP id 055AmVWZ113114;
-	Fri, 5 Jun 2020 05:48:31 -0500
-Received: from DFLE105.ent.ti.com (10.64.6.26) by DFLE100.ent.ti.com
- (10.64.6.21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Fri, 5 Jun
- 2020 05:48:31 -0500
-Received: from fllv0039.itg.ti.com (10.64.41.19) by DFLE105.ent.ti.com
- (10.64.6.26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
- Frontend Transport; Fri, 5 Jun 2020 05:48:31 -0500
-Received: from [10.24.69.115] (ileax41-snat.itg.ti.com [10.172.224.153])
-	by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id 055AmSG4094218;
-	Fri, 5 Jun 2020 05:48:30 -0500
+        Fri, 05 Jun 2020 04:14:34 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 055BEXNC018867
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 5 Jun 2020 13:14:33 +0200
+Received: from [167.87.6.236] ([167.87.6.236])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 055BEVr7021180;
+	Fri, 5 Jun 2020 13:14:32 +0200
 Subject: Re: [PATCH v1 0/5] arm64: k3-j721e config fixes
-To: Jan Kiszka <jan.kiszka@siemens.com>, <jailhouse-dev@googlegroups.com>
-CC: <lokeshvutla@ti.com>
+To: Nikhil Devshatwar <nikhil.nd@ti.com>, jailhouse-dev@googlegroups.com
+Cc: lokeshvutla@ti.com
 References: <20200527122358.14723-1-nikhil.nd@ti.com>
  <2dff1677-1886-ec04-24a5-6fec518bc08c@siemens.com>
-From: "'Nikhil Devshatwar' via Jailhouse" <jailhouse-dev@googlegroups.com>
-Message-ID: <e72392ba-8cb1-1030-8753-ff7b47724f11@ti.com>
-Date: Fri, 5 Jun 2020 16:18:28 +0530
+ <e72392ba-8cb1-1030-8753-ff7b47724f11@ti.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <bc02eae3-0cb8-804c-6926-1cc537bae2d8@siemens.com>
+Date: Fri, 5 Jun 2020 13:14:31 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <2dff1677-1886-ec04-24a5-6fec518bc08c@siemens.com>
-Content-Type: multipart/alternative;
-	boundary="------------8B1C5DD1D82AF5B6EFF2CDCB"
+In-Reply-To: <e72392ba-8cb1-1030-8753-ff7b47724f11@ti.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-X-Original-Sender: nikhil.nd@ti.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@ti.com header.s=ti-com-17Q1 header.b=dt8roGPu;       spf=pass
- (google.com: domain of nikhil.nd@ti.com designates 198.47.19.142 as permitted
- sender) smtp.mailfrom=nikhil.nd@ti.com;       dmarc=pass (p=QUARANTINE
- sp=NONE dis=NONE) header.from=ti.com
-X-Original-From: Nikhil Devshatwar <nikhil.nd@ti.com>
-Reply-To: Nikhil Devshatwar <nikhil.nd@ti.com>
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -149,135 +133,55 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---------------8B1C5DD1D82AF5B6EFF2CDCB
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+On 05.06.20 12:48, Nikhil Devshatwar wrote:
+> 
+> 
+> On 02/06/20 8:14 pm, Jan Kiszka wrote:
+>> On 27.05.20 14:23, nikhil.nd via Jailhouse wrote:
+>>> From: Nikhil Devshatwar <nikhil.nd@ti.com>
+>>>
+>>> This series fixes few issues with the jailhouse cell
+>>> config files. It adds required memory regions for
+>>> fixing crashes due to accessing few devices.
+>>>
+>>> Also, remove some obsolete device partitioning
+>>> which is no longer supported in the 5.4 kernel.
+>>> We will add only when the drivers are upstreamed to
+>>> mainline kernel.
+>>>
+>>> Kishon Vijay Abraham I (1):
+>>>   configs: arm64: k3-j721e-linux: Add GIC ITS Mem region
+>>>
+>>> Nikhil Devshatwar (4):
+>>>   arm64: dts: k3-j721e-evm: Add pinmux for main_uart1
+>>>   configs: arm64: k3-j721e-linux: Add USB mem_regions
+>>>   configs: k3-j721e-evm-linux-demo: Remove unsupported device
+>>>     partitioning
+>>>   configs: arm64: k3-j721e-evm: Fix failure with PCIe
+>>>
+>>>  configs/arm64/dts/inmate-k3-j721e-evm.dts | 12 ++++
+>>>  configs/arm64/k3-j721e-evm-linux-demo.c   | 79 +++++------------------
+>>>  configs/arm64/k3-j721e-evm.c              | 32 +++++++--
+>>>  3 files changed, 53 insertions(+), 70 deletions(-)
+>>>
+>> I only had one comment back then on the last patch. But now the new
+>> config checker has some findings on the j721e as well. Please have a
+>> look and address them for v2 ideally.
+>>
+> How do I run config checker?
+> 
 
+jailhouse config check <sysconfig>.cell <inmateconfig>.cell ...
 
+(or directly tools/jailhouse-config-check ...)
 
-On 02/06/20 8:14 pm, Jan Kiszka wrote:
-> On 27.05.20 14:23, nikhil.nd via Jailhouse wrote:
->> From: Nikhil Devshatwar <nikhil.nd@ti.com>
->>
->> This series fixes few issues with the jailhouse cell
->> config files. It adds required memory regions for
->> fixing crashes due to accessing few devices.
->>
->> Also, remove some obsolete device partitioning
->> which is no longer supported in the 5.4 kernel.
->> We will add only when the drivers are upstreamed to
->> mainline kernel.
->>
->> Kishon Vijay Abraham I (1):
->>    configs: arm64: k3-j721e-linux: Add GIC ITS Mem region
->>
->> Nikhil Devshatwar (4):
->>    arm64: dts: k3-j721e-evm: Add pinmux for main_uart1
->>    configs: arm64: k3-j721e-linux: Add USB mem_regions
->>    configs: k3-j721e-evm-linux-demo: Remove unsupported device
->>      partitioning
->>    configs: arm64: k3-j721e-evm: Fix failure with PCIe
->>
->>   configs/arm64/dts/inmate-k3-j721e-evm.dts | 12 ++++
->>   configs/arm64/k3-j721e-evm-linux-demo.c   | 79 +++++------------------
->>   configs/arm64/k3-j721e-evm.c              | 32 +++++++--
->>   3 files changed, 53 insertions(+), 70 deletions(-)
->>
-> I only had one comment back then on the last patch. But now the new
-> config checker has some findings on the j721e as well. Please have a
-> look and address them for v2 ideally.
->
-How do I run config checker?
+Jan
 
-Regards,
-Nikhil D
+-- 
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+Corporate Competence Center Embedded Linux
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/e72392ba-8cb1-1030-8753-ff7b47724f11%40ti.com.
-
---------------8B1C5DD1D82AF5B6EFF2CDCB
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-  <head>
-    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8=
-">
-  </head>
-  <body>
-    <br>
-    <br>
-    <div class=3D"moz-cite-prefix">On 02/06/20 8:14 pm, Jan Kiszka wrote:<b=
-r>
-    </div>
-    <blockquote type=3D"cite"
-      cite=3D"mid:2dff1677-1886-ec04-24a5-6fec518bc08c@siemens.com">
-      <pre class=3D"moz-quote-pre" wrap=3D"">On 27.05.20 14:23, nikhil.nd v=
-ia Jailhouse wrote:
-</pre>
-      <blockquote type=3D"cite">
-        <pre class=3D"moz-quote-pre" wrap=3D"">From: Nikhil Devshatwar <a c=
-lass=3D"moz-txt-link-rfc2396E" href=3D"mailto:nikhil.nd@ti.com">&lt;nikhil.=
-nd@ti.com&gt;</a>
-
-This series fixes few issues with the jailhouse cell
-config files. It adds required memory regions for
-fixing crashes due to accessing few devices.
-
-Also, remove some obsolete device partitioning
-which is no longer supported in the 5.4 kernel.
-We will add only when the drivers are upstreamed to
-mainline kernel.
-
-Kishon Vijay Abraham I (1):
-  configs: arm64: k3-j721e-linux: Add GIC ITS Mem region
-
-Nikhil Devshatwar (4):
-  arm64: dts: k3-j721e-evm: Add pinmux for main_uart1
-  configs: arm64: k3-j721e-linux: Add USB mem_regions
-  configs: k3-j721e-evm-linux-demo: Remove unsupported device
-    partitioning
-  configs: arm64: k3-j721e-evm: Fix failure with PCIe
-
- configs/arm64/dts/inmate-k3-j721e-evm.dts | 12 ++++
- configs/arm64/k3-j721e-evm-linux-demo.c   | 79 +++++------------------
- configs/arm64/k3-j721e-evm.c              | 32 +++++++--
- 3 files changed, 53 insertions(+), 70 deletions(-)
-
-</pre>
-      </blockquote>
-      <pre class=3D"moz-quote-pre" wrap=3D"">
-I only had one comment back then on the last patch. But now the new
-config checker has some findings on the j721e as well. Please have a
-look and address them for v2 ideally.
-
-</pre>
-    </blockquote>
-    How do I run config checker?<br>
-    <br>
-    Regards,<br>
-    Nikhil D<br>
-    <blockquote type=3D"cite"
-      cite=3D"mid:2dff1677-1886-ec04-24a5-6fec518bc08c@siemens.com">
-      <pre class=3D"moz-quote-pre" wrap=3D"">
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/e72392ba-8cb1-1030-8753-ff7b47724f11%40ti.com?utm_=
-medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/msgid/jailh=
-ouse-dev/e72392ba-8cb1-1030-8753-ff7b47724f11%40ti.com</a>.<br />
-
---------------8B1C5DD1D82AF5B6EFF2CDCB--
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/bc02eae3-0cb8-804c-6926-1cc537bae2d8%40siemens.com.
