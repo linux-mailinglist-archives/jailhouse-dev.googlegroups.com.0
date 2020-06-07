@@ -1,148 +1,127 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBB3P46P3AKGQESBMYRGQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRB5VZ6X3AKGQENI4MVMY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33f.google.com (mail-wm1-x33f.google.com [IPv6:2a00:1450:4864:20::33f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 222A91F0C23
-	for <lists+jailhouse-dev@lfdr.de>; Sun,  7 Jun 2020 16:49:18 +0200 (CEST)
-Received: by mail-wm1-x33f.google.com with SMTP id b65sf4330156wmb.5
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 07 Jun 2020 07:49:18 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1591541358; cv=pass;
+Received: from mail-lf1-x140.google.com (mail-lf1-x140.google.com [IPv6:2a00:1450:4864:20::140])
+	by mail.lfdr.de (Postfix) with ESMTPS id 610B11F1006
+	for <lists+jailhouse-dev@lfdr.de>; Sun,  7 Jun 2020 23:32:39 +0200 (CEST)
+Received: by mail-lf1-x140.google.com with SMTP id w27sf5065533lfq.2
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 07 Jun 2020 14:32:39 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1591565559; cv=pass;
         d=google.com; s=arc-20160816;
-        b=c5/sfS0NRtcrWiVlmELn4gKUXEZd1jM/Jxb8fo53I6l8ulYCa44cRDBXZx2vQyNZKV
-         ayMYdJ5c6cC1m0n7DJkzsxyX8Qy1p9s0UxhRpxZGhaGCDrK39Q95i2NL4T1bLvUyqOSH
-         ERhySHdtElxHEbYolgcST15a4vWyiJsujab0uqvLOBQfCrlfZ1hgpiczQIWL3aILK9JF
-         w4N7Z6kejQqi5WOnkkDhDqn4jk7pXAWJ79sDOj8BYQAfKiTeNrg3o701Y7J7Jpmy6Jlv
-         gFAV9a5s1g6+CDdRMLp80NZYfd3HWJq8Z6LXW/fNyQyWWSgIBsKPYZkoh2VGua8msf9G
-         Dx+w==
+        b=CZr3usn0Ve02HYiG5ZSOy5KGcEGogPyDDBTEsJsEFmHznjWq26dzzgVdTM0kLqxQvv
+         sSfiF904UyRWIE+CAn1SRkE7CDx32p9FPFooQBo2ZjWNv0cEZzh6x5lxbE+lGpXx4N8E
+         nyH/bbABQ3rPM30q+zrV8R/kUn2txiJi4er4wfOyXP25S6hoLQt9Sz4www8Eecv1bIcy
+         FBExsWe8r9D6zdzicGmlItNsCCuJ9QODb7YLXvuSPaLArwKnR6KwROPWOboWVD9cIuNd
+         9QJa2opD2T+VCG86jhg/X3w9K4MNFLHZgSfE2qTrbvpJEvHcx3gT0XaRs6cDcnasT6lK
+         34lQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:to:subject
-         :sender:dkim-signature;
-        bh=wdYGAd1dm2PoDdMcRmVXSh9bkdKLuUgOkZ3WW6gqIw0=;
-        b=P3z9sK8QAjY5TUemr7tD3m4ZdYXKSAAyF8tG0/8V5hZQE9Fcv+vxW0YRIGWcvAAK66
-         qBopFcrt9RjEslBh4tvfK2A0zffXOKs9/jymEJ0QXDun97ifUOnzjOWkWBTUB+tGrat9
-         TLsg1u0eV5KnD5ucMAsS3rYnY2jgvsDTBb/DBxSNbDtkmfqGhNZqNiLMlhYjfwACISMA
-         EDjFbrwV3rSmzkoKF3ixZf909WuXBT4rzo3RF/R/AOwJXWWuxhNAmmiHc13PUFKjX8TA
-         NGjPSmVnWg5Q5yDGt7Kf0ju0LVaQI6Lp0TOhuf5bkIMzfRpiTQKrX1BB8tgiROfYwOfM
-         +6jg==
+         :list-id:mailing-list:precedence:mime-version:message-id:date
+         :subject:cc:to:from:sender:dkim-signature;
+        bh=+4VaeOxGEfO3sQQ5U9p9utl9RujOG/m6UAI1eCrX3ys=;
+        b=NcS4dKXf5KNwnBFN90klOz/LY/HAnOJzUC3UJbeW9LTZKIg4uIKiWvc2dK19EqQqPG
+         HjXfCIwUlfhx+JHUhvyesr6HYTorjbyQG64Lz7DBoRI1W4NhSTwmMmFpAvmsTczjTt7e
+         +f6rdw2KO0hd61wf4NnNh93r8Bbu+tuw5UDwAbRqQTdkTLrEzqlBHMY9OV22I1qeyPnW
+         ninQwAg3Qki+9f6QsT7KW37/dY2v3oEXWnxhCnWzZAqKYcJNx2yDXDZ6obXtZbDqfSe5
+         SVWCj18X2rGbHiuiJLREXbr7TuZKoKe+mmu4IVt5ARAtWOidCndLR0nGDgRrtxD6Ct7E
+         8WSA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=ab1P9MJw;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=BgDtRmjf;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=wdYGAd1dm2PoDdMcRmVXSh9bkdKLuUgOkZ3WW6gqIw0=;
-        b=dn9kSFCWcSQwxdgH121fU3SXjHyLEzW05LPTp4VP3ROqDG8A8OVzAcDi8zL4BEHIbj
-         D57DtZdrzJlCE7qftIyeGWuc/QPVZboglHgi9YDqzuna4EBkdqyPq//uI9TxAXNVTVlZ
-         n2KCmZ3VIzzca6DBm6N8XpXshi/TzdYrgsv6jhCIJKU2aBDaiWvOFJN1ILtgk1vhar1p
-         j6I7abklwFdzbyjwsV0P9r3VasPaYKgRYRXFYgTyVLP+JtTgIYRn75XLyYbfv9BgLLnP
-         2CTDt+rpzdDCOiV8R8Vbfy0Rgg3pbdh/d/uM2h39mlaxE0t2yIxVsitvBOcR6XGBAFqi
-         x40A==
+        h=sender:from:to:cc:subject:date:message-id:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=+4VaeOxGEfO3sQQ5U9p9utl9RujOG/m6UAI1eCrX3ys=;
+        b=PQtLlx52jYzdWhTm5EGhrqRTCmDzVvBEKlZds60g1bncOOcKRO+VTkXiT48K6pswx8
+         eOoidv8eJ+vnJuCRjFwWJZeY5242AqWPqJZiwMs8wXvV8SN3ZxIFAwukTIdKUMp2n8hn
+         az13xBTJCPZRqgsbgXa41pnCQfD2pV7oY2uVeR7/AaOc2RuI1S33m2BSh05BSv3FzgJd
+         FlOk53pEYf1v6tpiafzm3x77pfEoLnXhABlbZCeumyMH5c3M03PsnbrYIbMJdAmYM/GL
+         fiLL0Uuya4ZqxQLQgZDPMoaXiShV+WCvdtfNFAn5KlVgjiDuNxEx3vzCmO0DLwRZA2C4
+         7bUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=wdYGAd1dm2PoDdMcRmVXSh9bkdKLuUgOkZ3WW6gqIw0=;
-        b=I8My2L2iddjNZlkPmSQ+9DrZRdtlw2RMcl4gnxq+rSzfLSsITyev3dhh756/KaT0Mt
-         XH0YWfcr6Iccyf6Awzg9HTqiuo7/1O3QGIylr2oNIQVSRy4UdnV+ulW1RIzF/LHMCEyt
-         M/WONpUGGk+6vycZmh8sCR+aqthXcUVBxTbyxHzO1mU/r5D/nFUsWC/VhQRGxTbNxEy4
-         9bUvVVKbe0VFwpdPOjazrcqnInPYp5XLY5IfXC7EXgzctEOpgElpJ9Z8Ly1bhhs0Ch9V
-         u0ZlP9mDg1UETo8Zew/nBafWhRynXls59DY4In9sT/b0O37w+yo/Yk2Y0CY4KzOZkzLD
-         ZH7A==
+        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=+4VaeOxGEfO3sQQ5U9p9utl9RujOG/m6UAI1eCrX3ys=;
+        b=tqciOR1iHWBAx61MC77a0bnWYaGvG4n+uvozCzDWJhfwlgqtAZLPRewAuVK53r/vkP
+         0R37VVG/vzX/3P5bh9JYd/k8199N+7KCZ2hxnM8f1JXnmLKwMATIBUOXMKyqpIkhf8K3
+         Kw0GKZKJh2emHFcOZyNA2l7U2TcIO02hnND1XdkZglgtFz/A0GCbxl4j9ERliXAPMzVP
+         0tqG6+WUjteuyJ9z//pb2y26Zmx2QuqTQZJrukY2qVIgBAsCQHdnrx2LEH0KkuW/GRPz
+         RWBaxCmePPq15KT42IzCqLYdYmjNad6jaY9ec4P99g5eP0L5i0+DP0Wi+HbeujV9yoah
+         dAeg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533OqvjdUbxHAKMFMNqqdv6Nd02Rmz0+oK0bZCP4foZHHKDtK5Hx
-	h8vrubTly9PaCdYmXebtwl8=
-X-Google-Smtp-Source: ABdhPJwMDHOMU704CuewRW0WzIm5xXy0DgZl/KQ+vNBa0BW90OPfr/NQb5akIR3XqNBoeVUjJwAXBA==
-X-Received: by 2002:a5d:4d89:: with SMTP id b9mr20558128wru.210.1591541357826;
-        Sun, 07 Jun 2020 07:49:17 -0700 (PDT)
+X-Gm-Message-State: AOAM531d2Tr+UONfN9d7nVuZ4uMKe4zVlJ1KKMqx+oVGeH1xPFkfswE5
+	E7CUtg2Xnllz2LelMhNs8gk=
+X-Google-Smtp-Source: ABdhPJyeO6RzI3iyEeWzeeDk046aN/c0RR1Ozz4StF+a7NcX5mOWUQNkW3zcG1JgN+Os5jGbMV5DHg==
+X-Received: by 2002:a2e:9b4a:: with SMTP id o10mr9765814ljj.278.1591565558868;
+        Sun, 07 Jun 2020 14:32:38 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a7b:c959:: with SMTP id i25ls6776538wml.2.gmail; Sun, 07 Jun
- 2020 07:49:17 -0700 (PDT)
-X-Received: by 2002:a1c:4b0f:: with SMTP id y15mr12782663wma.83.1591541357232;
-        Sun, 07 Jun 2020 07:49:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1591541357; cv=none;
+Received: by 2002:ac2:43bb:: with SMTP id t27ls1462778lfl.3.gmail; Sun, 07 Jun
+ 2020 14:32:38 -0700 (PDT)
+X-Received: by 2002:a19:c8cb:: with SMTP id y194mr11276658lff.89.1591565558070;
+        Sun, 07 Jun 2020 14:32:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1591565558; cv=none;
         d=google.com; s=arc-20160816;
-        b=gQfjb/Tod6h+qwQLNBdMfq0kVp7uqByoU3F5Sbzppeg/1Vb9WER4NQ5Pr0HCYswICR
-         QdNxa0w/Evkow9nkH+2vwiDPyHj+/MqwXggUekzvg+xABZgBK3UlYLyJ/I5f0lZZqFFB
-         hRKqUwyjez3GijFUT2Ecv0E4vwtAH3syL50TU7xE5QI0uw/7GY25jYz/cT492819GWIV
-         hdzjvRv/MYzPYuzKakuairHU1dnQYoVLaSi10wOw/iNOUNCgDg6FH2Vp3j8CqckUfdFx
-         l+I8JJZucu0T05phFgwxxeadzVLhVdHTr+Mid/RXApbTuFJLiu+fmxw4+f93DxSV2qIE
-         5uHQ==
+        b=ECvzYBAUnbHNVjjyqwlqWHTTMYjL4KQjxisR7a+sWu7AnEKFfM1OvwxICAwVVOIiSA
+         1dd/kBJUnMnWNWpywJGWce5d9nExqxnCr4D4LKkX2Ge+kjRLt0eO8I88yo4Lz1893vtU
+         g5LgopizYvDMQ4Nn9PJIcqqNqxwoMB6lnh5cTXYjYH9z2fpWDMJvDYfQCgLCxper8l0I
+         9Mlb1vF8DZE9xJA7VUjFPaYShZ2eekxNlgWrfz5GtAUOknhN8SZJjHdzE99czPzYFZ9H
+         VjNL2OgAN+OWYNpZU7cOw/knewjIgpeEPMAJCEdfgtgmiYREC5BJAZGAXHfmvU4BMrvf
+         AIWg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject
-         :dkim-signature;
-        bh=AtrgdPvhEuw3+aB8CYh3B+hGFANJhGHcRSSnCykg/WY=;
-        b=nWWElrJDY1jU6N7NNWb3Wjcs2tOCVIn7rJG7mLLt0dg3YsGEHXBO2wZ8M7evYGr0ss
-         hmQfkuqXkf0YtLltnu2jkSSHOjU23lafXtYniqMCjs0sda+Du0eBi6ZRRh5zvWEFg/6T
-         /ZaHmWrf6SxCCPSEaLViTtVdzf2eokcvAp/GFQckn8UFOIy6TkukSvSw934MwwyTpk0K
-         EwSRjY/g1QoWuSNT/QwUTJSg2rlXYBsvxjT+OxQ9jyRqNa5alSefC/MtfZypq9JgKU6x
-         UXMChW+76QKatrMfMU9lmkxPsnxKLukHSopzarL2/oAaBpu8AKwoEf4LPsyg5WORjp+J
-         2Mlg==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature;
+        bh=OQ697hKeb6gdcaDqUwtPCdflSSxLaWtWBP73+bRg8qU=;
+        b=V6s5p+66cNUZp+VWDlHzAooBS7une/9QXu6vlstrzfYgiNjdLMMPbEwzHM5WtfDO9k
+         166Cc2HBH8ptnBLjxn/fn7nYdyF+u8hcqLNMcYVE9yQRDlMrlTz84qQWgLX+UKH9z8YS
+         5OtmC4rb0Pzik6F0CtGMZutDkaPvpaqFxCvfDVLxSGlaNC3x1C1FNroTtHyMCQasnPKh
+         HhggcCQ9kWTDOI+m4eoPL7Adtg01qzQVyP8aLqYbzMvhDG4WhPh+sY9DbAgzKmx3sLyc
+         YIHD1z6jbp44PsBaUGk3aySn7slSh0iSVchADRBu2Qjk5PECg24PPGlkfJoR2qvx7Sc2
+         pmUQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=ab1P9MJw;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
-Received: from mout.web.de (mout.web.de. [212.227.15.4])
-        by gmr-mx.google.com with ESMTPS id z18si793031wml.2.2020.06.07.07.49.17
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=BgDtRmjf;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [194.95.104.11])
+        by gmr-mx.google.com with ESMTPS id u23si416475ljg.7.2020.06.07.14.32.37
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 Jun 2020 07:49:17 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) client-ip=212.227.15.4;
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.1.10] ([95.157.53.180]) by smtp.web.de (mrweb001
- [213.165.67.108]) with ESMTPSA (Nemesis) id 0MYefK-1jVAkQ3JY2-00VTFB; Sun, 07
- Jun 2020 16:49:16 +0200
-Subject: Re: [PATCH 06/15] pyjailhouse: config_parser: Add SystemConfig
-To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
- jailhouse-dev@googlegroups.com
-References: <cover.1591107398.git.jan.kiszka@siemens.com>
- <68401c86c58700c207069a9c423c2a0ed5bb7126.1591107398.git.jan.kiszka@siemens.com>
- <f3bc48a2-9676-b46e-4aaa-c0d5f046497c@oth-regensburg.de>
-From: Jan Kiszka <jan.kiszka@web.de>
-Message-ID: <8c881040-2177-9814-f093-581ff6cd4fb9@web.de>
-Date: Sun, 7 Jun 2020 16:49:16 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 07 Jun 2020 14:32:37 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) client-ip=194.95.104.11;
+Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S02", Issuer "E16S02" (not verified))
+	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 49g8jw2kfYzy7F;
+	Sun,  7 Jun 2020 23:32:36 +0200 (CEST)
+Received: from omega.binary.kitchen (194.95.106.138) by
+ E16S02.hs-regensburg.de (2001:638:a01:8013::92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1913.5; Sun, 7 Jun 2020 23:32:36 +0200
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+To: <jailhouse-dev@googlegroups.com>
+CC: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>, Jan Kiszka
+	<jan.kiszka@web.de>
+Subject: [PATCH] pyjailhouse: config_parser: simplify signature checks
+Date: Sun, 7 Jun 2020 23:32:26 +0200
+Message-ID: <20200607213226.861989-1-ralf.ramsauer@oth-regensburg.de>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-In-Reply-To: <f3bc48a2-9676-b46e-4aaa-c0d5f046497c@oth-regensburg.de>
 Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-X-Provags-ID: V03:K1:Myw0hLVpZcB+vFGVuFYXIfQsptRiHhcTX03TMOrEeoA6Rf+tXGM
- ICr5cfWuFy+3boQ0iUY+Bk28Nc7A93VLMCzqJnpqMl/AH/kYjY9TBUE6x1KQOf5UBMe1gSr
- 27BtYBTx3lWLARq6CZkC85MAgJc9+BViXvH/+DXDJ993NFHjgmT+4/7Xxzvxz1Z/4BvUYf8
- vGtOg+MzeRUjbT5cj4CVw==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:xI/RHJxQA1c=:Ppj27WYIKEYG//5aIl+arI
- k910t0tXnT/4CnB12V65uNtXy9BRUbgXMF0D+uZUs8YQilexC2MBX5vv2jD3N467HOVLspDqI
- y8XJ8dQiXvBLwrK1eDWvrfjjd+AcJ3FK2N470vOitng0/fvwI3ZtI4NOPL/7CmIoMK8bgy6zs
- 3Hmq+Tp6HHtzyhYsiyMxlYY0B165pmAzIF263L9+tA7cHipB5RuXpxLLHAfPxhgrUCi8YcxPt
- Pgqj5TggW+Ac8hJ15PhLUhmXlhdOgQj/Msp5DcdRjSW9HwlBmsNmQ0Y/SEyhJ3T5O9hNtbmwY
- wKKMsUgNnWFQFEq3hzqrIRlHOVfkZ9/pfWdQ9OvORCy+rbb/WBxMe5QV5qHQVLxYxy831Q2I/
- ldrfS9VCI7HCXWt1Oiq9mX17A+0tvljinxeDMoyFAQ7gRYmFiiTA31+7UCNrZ0vN/D76CnYDe
- ASpKyye9I/1VSr8nkzJv2NSPVWFXHCzOuWjBQmzqyE+Iik2sFoVtmRvBkAXwgOsCH/MDJNcjQ
- 2QS1VEuQmZUY8h9HE5ZlSQUfkxnHSQN1X1BWMjZVClIMx3SXp/xIIChhj7+jlGi/HETcGrl8T
- dyFexAw5wUHDcKpUmx9VGPZM2jKAwhg/PKoXyzk2MZhbTh4N7i4VvdgA8KzwlyU7992i9Pw4/
- O9F/sv/0niYX/wcYgwTgIolVaYxbTiO4JmH79aSNm132To5bEye4UeRFrl2a9TraHFeezCi3i
- Fe0agyb+SqkOg+KfbhwQk82kHgHIjCAOizkJTovGLJFUmv2+rDkBZwkApIj0uoCvkxoY7nutz
- bWV9AMbqfrpPx71gDYjsGxxk6AGTXDOlPdJ29jYrLxcbiGp4qvBDFJVqYbIt8c5ECI7zxx+HX
- DTKyglvx3h/EGHxERZ8bo+32EHlnndp8LYbcfOIO8EkehcGA8Xb0ZeFwnxnb0RiJIqNcpqA94
- /mY2WtPwjR89jtl7K8cdGpvy/qzmc5bDA/jBEEoTcjAhB48ER5RXgUKoozl8l4zTZVzCgojYt
- Jr+2+1LUi9HPiQy3AwsLE2lmd6vY2o9MkqibDmrizczH26MNkipKxDbVB4ynwhnPzL7DQfIDu
- YVEUpMpcJ2i+OGq5c1buw2nqwBIrh/16hQbQXlMnecm68Cq/m//lvprJnSM5NvPbg9p22dC7H
- xVEbu44p/WKodmAGDoBWmmbT1jng51rK4tFkMfKBL4LM8XhzfksH5rAp8GlSjqwFTQDVAEXsh
- xGpTX9sqQ7PGdJRKh
-X-Original-Sender: jan.kiszka@web.de
+X-Originating-IP: [194.95.106.138]
+X-ClientProxiedBy: E16S01.hs-regensburg.de (2001:638:a01:8013::91) To
+ E16S02.hs-regensburg.de (2001:638:a01:8013::92)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b=ab1P9MJw;       spf=pass
- (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted
- sender) smtp.mailfrom=jan.kiszka@web.de
+ header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=BgDtRmjf;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -155,113 +134,39 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 06.06.20 15:35, Ralf Ramsauer wrote:
-> On 6/2/20 4:16 PM, Jan Kiszka wrote:
->> From: Jan Kiszka <jan.kiszka@siemens.com>
->>
->> Add parsing of system configurations. This is so far only processing
->> essential fields needed to validate the structure, extract the
->> hypervisor memory and access the root cell data.
->>
->> The root cell is parsed via CellConfig. As the embedded cell contains no
->> signature and revision, CellConfig needs to be made aware of this mode.
->>
->> Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
->> ---
->>  pyjailhouse/config_parser.py | 43 +++++++++++++++++++++++++++++++-----
->>  1 file changed, 37 insertions(+), 6 deletions(-)
->>
->> diff --git a/pyjailhouse/config_parser.py b/pyjailhouse/config_parser.py
->> index 43dc1dbc..2d0967d5 100644
->> --- a/pyjailhouse/config_parser.py
->> +++ b/pyjailhouse/config_parser.py
->> @@ -90,7 +90,7 @@ class PIORegion:
->>  class CellConfig:
->>      _HEADER_FORMAT = '=6sH32s4xIIIIIIIIIIQ8x32x'
->>
->> -    def __init__(self, data):
->> +    def __init__(self, data, root_cell=False):
->>          self.data = data
->>
->>          try:
->> @@ -109,10 +109,11 @@ class CellConfig:
->>               self.vpci_irq_base,
->>               self.cpu_reset_address) = \
->>                  struct.unpack_from(CellConfig._HEADER_FORMAT, self.data)
->> -            if str(signature.decode()) != 'JHCELL':
->> -                raise RuntimeError('Not a cell configuration')
->> -            if revision != _CONFIG_REVISION:
->> -                raise RuntimeError('Configuration file revision mismatch')
->> +            if not root_cell:
->> +                if str(signature.decode()) != 'JHCELL':
->
-> signature == b'JHCELL' is a much simpler comparison.
+Just a slight simplification, no functional change.
 
-Your own code, originally. But we can change that if that's the same.
+Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+---
+ pyjailhouse/config_parser.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
->
->> +                    raise RuntimeError('Not a cell configuration')
->> +                if revision != _CONFIG_REVISION:
->> +                    raise RuntimeError('Configuration file revision mismatch')
->>              self.name = str(name.decode())
->>
->>              mem_region_offs = struct.calcsize(CellConfig._HEADER_FORMAT) + \
->> @@ -137,4 +138,34 @@ class CellConfig:
->>                  self.pio_regions.append(PIORegion(self.data[pioregion_offs:]))
->>                  pioregion_offs += PIORegion.SIZE
->>          except struct.error:
->> -            raise RuntimeError('Not a cell configuration')
->> +            raise RuntimeError('Not a %scell configuration' %
->> +                               ('root ' if root_cell else ''))
->> +
->> +
->> +class SystemConfig:
->> +    _HEADER_FORMAT = '=6sH4x'
->> +    # ...followed by MemRegion as hypervisor memory
->> +    _CONSOLE_AND_PLATFORM_FORMAT = '32x12x224x44x'
->> +
->> +    def __init__(self, data):
->> +        self.data = data
->> +
->> +        try:
->
-> Why to we need such a huge try block?
-
-To avoid repeating the except block. We need it for the unpack_from and
-the MemRegion instanciation. We do not need it for the last two offs
-updates, though.
-
->
->> +            (signature,
->> +             revision) = \
->> +                struct.unpack_from(SystemConfig._HEADER_FORMAT, self.data)
->> +
->> +            if str(signature.decode()) != 'JHSYST':
->
-> Same here.
->
->   Ralf
->
->> +                raise RuntimeError('Not a root cell configuration')
->> +            if revision != _CONFIG_REVISION:
->> +                raise RuntimeError('Configuration file revision mismatch')
->> +
->> +            offs = struct.calcsize(SystemConfig._HEADER_FORMAT)
->> +            self.hypervisor_memory = MemRegion(self.data[offs:])
->> +
->> +            offs += struct.calcsize(MemRegion._REGION_FORMAT)
->> +            offs += struct.calcsize(SystemConfig._CONSOLE_AND_PLATFORM_FORMAT)
->> +        except struct.error:
->> +            raise RuntimeError('Not a root cell configuration')
->> +
->> +        self.root_cell = CellConfig(self.data[offs:], root_cell=True)
->>
->
-
-Thanks,
-Jan
+diff --git a/pyjailhouse/config_parser.py b/pyjailhouse/config_parser.py
+index ccb5aaac..6b9d9066 100644
+--- a/pyjailhouse/config_parser.py
++++ b/pyjailhouse/config_parser.py
+@@ -158,7 +158,7 @@ class CellConfig:
+              self.cpu_reset_address) = \
+                 struct.unpack_from(CellConfig._HEADER_FORMAT, self.data)
+             if not root_cell:
+-                if str(signature.decode()) != 'JHCELL':
++                if signature != b'JHCELL':
+                     raise RuntimeError('Not a cell configuration')
+                 if revision != _CONFIG_REVISION:
+                     raise RuntimeError('Configuration file revision mismatch')
+@@ -203,7 +203,7 @@ class SystemConfig:
+              revision) = \
+                 struct.unpack_from(SystemConfig._HEADER_FORMAT, self.data)
+ 
+-            if str(signature.decode()) != 'JHSYST':
++            if signature != b'JHSYST':
+                 raise RuntimeError('Not a root cell configuration')
+             if revision != _CONFIG_REVISION:
+                 raise RuntimeError('Configuration file revision mismatch')
+-- 
+2.27.0
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/8c881040-2177-9814-f093-581ff6cd4fb9%40web.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200607213226.861989-1-ralf.ramsauer%40oth-regensburg.de.
