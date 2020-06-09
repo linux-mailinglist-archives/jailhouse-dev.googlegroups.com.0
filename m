@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBDD5VM7LUMHBBHUV733AKGQEJOC4WLI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDD5VM7LUMHBBH4V733AKGQEJZ7XX3A@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43a.google.com (mail-wr1-x43a.google.com [IPv6:2a00:1450:4864:20::43a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B4F01F3B76
+Received: from mail-wm1-x33e.google.com (mail-wm1-x33e.google.com [IPv6:2a00:1450:4864:20::33e])
+	by mail.lfdr.de (Postfix) with ESMTPS id D70FE1F3B78
 	for <lists+jailhouse-dev@lfdr.de>; Tue,  9 Jun 2020 15:11:59 +0200 (CEST)
-Received: by mail-wr1-x43a.google.com with SMTP id w4sf8619014wrl.13
+Received: by mail-wm1-x33e.google.com with SMTP id c4sf706992wmd.0
         for <lists+jailhouse-dev@lfdr.de>; Tue, 09 Jun 2020 06:11:59 -0700 (PDT)
 ARC-Seal: i=2; a=rsa-sha256; t=1591708319; cv=pass;
         d=google.com; s=arc-20160816;
-        b=td/8G6BmX4rmxJyoeN0q2c4UZ0ShkbEmPAMDlfcIvg5xjpFSZK1Bfgv0ebEBfZuxCT
-         CezdQMI8NGKiWOggZizfhILAukyT2IBWNoqxeP7BUfiuvC4stcZxEuAFqzBSBwD9Lk76
-         muXA4lEpNj+5HHXI5/BrUAjXcZxK8NZson+ukBfXhDNZtrtTl5/neog+VmBFzAhLrKoz
-         10DQrwe6Z8hiu6+QgUhJwqj1ML3GTxYxX3oIMOyVJKVIvr/Ecvl5VN2DQse8yEcCY9Vo
-         zMbESpJ09bPRe1pQIP5xEoNWPFItZzF4aXTTdIXSYezJOY9bvMZxbM7FLxOC5IVFLGXV
-         V8bQ==
+        b=P35d7UIAO/D8A/V8ihFwQ5YR2UvuahOzjiyY3GG/jM8hcQSpfPNh+1arAcCb+4nf8O
+         O4QC6HYIYCKedoFHgUA5iMbOny2MLppTEBW0E3UGwaO/+lE4Abtfo73n+np7/C44RGMV
+         x6XVS/k90r59Y/5Ug3evlfZINp1JlSYid93eDUfjF9yTX+/x+9HyJYaJPrhp0Syrtc+a
+         AJ9+O50cxaaY2p7YTzix/m2dAVhoHgHZnjlbtqEZWzJEB3RtkPveoCrshnFvIfiXUnD8
+         5Xz7j9tOV3wKMIktWrwn8IOxl0uTIMfweU2pAYtSFN7TPIU3DUv9uuBtE68brPqqlp3C
+         QIFg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=l6AHP5PjDV5UoocvojScsrik/faYfL6pje1IvtG0d20=;
-        b=a2H+jpSLjRl/vRDeAUIQtVCHsX9qEba6dIZBDCibQXvm2ZeUtdFqd4oH/LtVHvMCzb
-         8I1opgckv9mBM7WfB790gFBoOeRqlMuCzL/5HUT34cE9ps851jQG0kw61ecO26ab67zN
-         lsgENSvFJR3HPf+kHB9AdSTn2J6xJWrqTi178iXhhcmh6MyThSr4rBYRspsikpA9/kEq
-         Z+kyf0eOeOr3XHujCkuJYrl+mCpeJI6muZaU4lRv2xfFwNOOhCHM75p8UIhMQ18iCGgs
-         5WFqBIL69DIfG+x2nlr1SdC5wKZZV2yjBv5k0g5bkEUvEoFuIdI8YdS3vlHP/6X/VNzU
-         UGjw==
+        bh=SBx+Kb12m45zQwZAmaNILdXES6LbSAmaft8kIKt8TIo=;
+        b=SNkvCc82asucliZPoSmJgleuWRbNtvGYWbB1jfF9eKoiRhbBfRNBxKb9dkFGLNU7PQ
+         s/xpgNxbvz+p4us/ftUVQXYZ9rVxtWz8iZOeuo2cybm8BzAF88lrOBMLK+f70IcD4YQI
+         yR0HZFFv/FklgU2K4+P61zZmLQBUTKLR1vUvHYstg4BCAbYni+J4UsRyNsvixCtnCei5
+         V7QcJjX+zedZuwKDEwnv4MRf4XA3Q83L2ZWVjona9jiw+7byfihCM5jsbam0g9TamjJ9
+         HeaKQnDsHlZ9ZTdRsfF1w//8wyeQqCwcIxFXA/Mngy3xex00dYsFhWh0QhsI9tAfbNwv
+         wJ2w==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@st.oth-regensburg.de header.s=mta01-20160622 header.b="Gj/W43tT";
-       spf=pass (google.com: domain of andrej.utz@st.oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=andrej.utz@st.oth-regensburg.de;
+       dkim=pass header.i=@st.oth-regensburg.de header.s=mta01-20160622 header.b=eRLhPXsf;
+       spf=pass (google.com: domain of andrej.utz@st.oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=andrej.utz@st.oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=l6AHP5PjDV5UoocvojScsrik/faYfL6pje1IvtG0d20=;
-        b=Kxg2sggHK8kI+Cyz95RMIY028BKBlDPGCyQVaX+S5m5q7cEnhMAHmsx4aS6LzwpoOI
-         Mxsz+6Qmz6xY3UnGJ1fyPcAa8u+gvEcJuoI4EkZA0Vrem0+OYR2pkYMYbiCZcpWLRwEE
-         vhQiGOctWpCToKyu4O+Y4Y0Q9MIhx6bMaEwGAmDgMgUEyNXmdfaf6OgqCw12z3Y+6eUC
-         rapraCUNseb6SQ3q99boU7anSzqFTVVWc30TleJ2gc6DrsEyn3njHI4kL5t6kjUaTQSD
-         zGu0zHQLgbdLKtFhzNn+WJPovyW61KXJyyZ/PmVHSk04LoT6oEnc2MKx0SiNebwatM0K
-         EV2g==
+        bh=SBx+Kb12m45zQwZAmaNILdXES6LbSAmaft8kIKt8TIo=;
+        b=neQ3rH2lqwhddEnUq0ILfUf+u5bdIbh5fZE8eOdPBfLAdktu2lnsuNzB3YuKBjZRD5
+         3mJxsn10mdQXdd4IxUIVI2lLx9egTLDRnmcDsIhNSBaJsHOYp+fD+hZ3pxGKNsoqf2vb
+         I25T4rXot9L2e1tYS+g8xkkHZogvVGJ2vn2To/LTgUjCVECxyLwN4f5Du43wM0rtrTfd
+         ESET61hOORKDAP3wrSU9r4QS+amjAi1rwcfJXEl4+HY47iG8QGVYF5mBFos1vkITHcSp
+         BZGWvEgbYLN3by9atEM9PdCBnDN0qmu/Q3evBP4b1tX30RrgvpZjQis1RvvG4L7dN7Ct
+         kjsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
@@ -49,67 +49,67 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=l6AHP5PjDV5UoocvojScsrik/faYfL6pje1IvtG0d20=;
-        b=bIebGiH40dpcFUxbwjJjryFif065W4vyq10e2GxyJEKVlf8aYFmd+t5k3XDoJYcslO
-         mryHJ785lYtg0L0xPomgFSRH7cZvr4IpqZAHWd20TjFyEhrb0O18xsk4IPw4BEMaL4zM
-         LX9sPpYvJC9hMOK6qK4D9t3DQ+fmlu5RRfymsfRpa1+DN7HvF/YUNoyV1Fimkx1pNDF7
-         1EctaoV4d9mOG7Aw+EWkdOWGpvpJx9/c+ljtM22n82hSYUhv6Ntqi2BXmkw32i9nG7BC
-         kBeN6QZir/n55aSFBO/aOIZYi0FhLU0nFEHH1Mk4js2a7SYgzbtVu+qcJivhUBXgFXQn
-         mpnQ==
+        bh=SBx+Kb12m45zQwZAmaNILdXES6LbSAmaft8kIKt8TIo=;
+        b=dpat1sppCWo7of4TaFHSDFSl1FONWONg5HAwKIGQLxnCTJAQCOKDNu5JaU6XlzWI/q
+         PSEViJZp8GWX4FyHxL9s7ra33hFXiVvjp/BcqyJ7PNlThIdt9R1L88LVE0X/VzJ38vid
+         Cn6qb6beoVW1hcu5wlt7MO9pt8TFzx92WUlx9RSO4opRnQRQKlSmEmymIdRF8mVYBZPw
+         e6ck45/a3xeHTVeJL94z/LN/ICLgk1UY8j11wgePbNVWpELxu+1rd1DuyJgrBhf8/WJk
+         P/mTUOYSqOAzWMdYkLxShSuHBbSRJm+dhYnH20qHH89kY7IW4NbAFBLbpt/Hozr2KC/z
+         IqBQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530YubkGcMWdF7c2tPyBd7uuUs72FyPbjvOO8PRqNnuSSmRxVia5
-	EdJZar4iJqL8Fp6OfdhqBEw=
-X-Google-Smtp-Source: ABdhPJyw42KtMUZSNB6mr03kw6sNV1j2PPiTFGH5tEthYVcoDztQ/J3o/poC7maoup7y4/e1C0tPsA==
-X-Received: by 2002:adf:ce02:: with SMTP id p2mr4718047wrn.152.1591708319102;
+X-Gm-Message-State: AOAM532F2gsOrS6ngWEPjtX8W7Av3BqNP47v14P+9ak0+lKiK6AXeZmL
+	A3rRMYPyDOITNarXrU2Tu3U=
+X-Google-Smtp-Source: ABdhPJxFyxvioTyv9qUkIg3KSnjPptLNzzKgUY1DN1401zUTPj6r5ZAcvvUfcDI781v0o0BxXO5YCQ==
+X-Received: by 2002:a05:600c:4146:: with SMTP id h6mr4153388wmm.170.1591708319589;
         Tue, 09 Jun 2020 06:11:59 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:e510:: with SMTP id j16ls3831244wrm.2.gmail; Tue, 09 Jun
- 2020 06:11:58 -0700 (PDT)
-X-Received: by 2002:adf:b348:: with SMTP id k8mr4829087wrd.157.1591708318562;
+Received: by 2002:a1c:1d53:: with SMTP id d80ls1505812wmd.3.canary-gmail; Tue,
+ 09 Jun 2020 06:11:58 -0700 (PDT)
+X-Received: by 2002:a1c:998c:: with SMTP id b134mr4207520wme.78.1591708318830;
         Tue, 09 Jun 2020 06:11:58 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; t=1591708318; cv=none;
         d=google.com; s=arc-20160816;
-        b=CtMO+Xt1XOxCZzLNJS8y3DLvvT1dXev//x1Z2gWrnsMXmNDJtNzQFwgSkUlIVYv5jL
-         Kher1IlaBvFxYFl3Q4F4IqNGU4XWCnYKUgsh+y3uUUp3aJQhaQMpckkovkTC5Yp+kYdH
-         8upewkluLyk/6lvIPEhZCAiPY07QAGyJj4ZlOkd2MwdxjSPJHCM8G+mZBeepSUopngdA
-         ldW+K08mj6JQw0fzxf7/hmZkccC8t4y53x5j7/WOCoDyYqR6hvf5GVfa6i6BkuBSlDrn
-         C3Zw5/F9Xjm2RqKzYHvtUg4VerCaPYWjJTiK37/6Wz2RBvOnVJ2KTa34TX4f0gIBUoBz
-         Y7Rg==
+        b=SHa7NgLvhpjMNWYAKid+l9dCtYw8HmkjR5bBzFYgdNJFZvPvJ1LnbaxA/VgniQnyY0
+         6N1H/ZOUHftwVrXyWR4BUh0VF3itiGdEHPUVv7JSx1Zo2ZfQID8ybqPIUakgJSCRAUh6
+         0EUigdfLW8XxcN0/aPHpQk1aOgeJ9EZ5PopCB9ndgDjqv1CiyAJLyByjoBxEFytnlit2
+         u8NVUGMV8alnjMOM/ws7p0P+wer9ZreY9/fxm+yihfdPYe1FgxTnSXyf3m2z6m7vhCUr
+         IqRA+RodKnB69lrr5KSGzL82Z9zFoLVRz1nf9EmuTRy7J6H+QfVPCjKdscwSXeWkG2yv
+         ByrA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature;
-        bh=vLccvOgffBcauqaU4T5YU09hK43GkVdqbJELTOYhPH0=;
-        b=oIRh7C7DahR6zYsCn500qLmZr6I2sd2aWB3eGPsmupRNDvEdGf/I2iDO+2wUUJQhPE
-         MagspzxEjczDxOwlxif9V/hpozWM+qWw6bSmwRhkVOBot0EiCzQDKN7pS/haz6HrQ/c1
-         i8X7iMVNIGntzeWyjHjfQo7qEiT57vHubARQrobhfoTHpSq9KnObweZU2Xjl/izPdcm8
-         4KMYTMUyU8RREinSJi4Y9jneWksuzIMe0j0HCVyEaPeFce+eK14bGaCIwOXnYo41t4gu
-         UDAvghXPHf+oknCKe5nadtuw3Nyt+eGxTIsXcMLGDBvZWN7k/pnjDDMLRxjUIpr4MpqB
-         XYWg==
+        bh=UdQH/H7pInPguy9WSP0GQFhg/hLOuYE07cHt59D05ws=;
+        b=akcMPLegTRQUa8aYXu6bRXpdhrjqViaacOoYtNR/3M7BLIiJxWuEg4O1Del/K/XxjU
+         NrixOm0BUBm+xxJZdf3bADSPBE9qF1VQdyuWSf0sjzBLr8UjCDnfR0V9IITE0/oSDuXn
+         Q3PY49Fs0YxLo5qPlbkYqPFprL4BRpW46nagsqXuFGPjQPStXATh6R5iV/RvrufaOMYC
+         MlDnQUwTksZOFtH2Pi7MVeVKv20jBhWGjzQpCHmaunGqujdguADgtQq99Ll9E4bECQjR
+         cBVmW6ma5gvtazSTSCgbtbIS5on63fu+01vMHzB5ab6SGr/W7XaE5VT1MQkzmOR5kjdf
+         ZlEQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@st.oth-regensburg.de header.s=mta01-20160622 header.b="Gj/W43tT";
-       spf=pass (google.com: domain of andrej.utz@st.oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=andrej.utz@st.oth-regensburg.de;
+       dkim=pass header.i=@st.oth-regensburg.de header.s=mta01-20160622 header.b=eRLhPXsf;
+       spf=pass (google.com: domain of andrej.utz@st.oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=andrej.utz@st.oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [2001:638:a01:1096::11])
-        by gmr-mx.google.com with ESMTPS id o195si166845wme.0.2020.06.09.06.11.58
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [194.95.104.12])
+        by gmr-mx.google.com with ESMTPS id r204si145029wma.1.2020.06.09.06.11.58
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
         Tue, 09 Jun 2020 06:11:58 -0700 (PDT)
-Received-SPF: pass (google.com: domain of andrej.utz@st.oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) client-ip=2001:638:a01:1096::11;
+Received-SPF: pass (google.com: domain of andrej.utz@st.oth-regensburg.de designates 194.95.104.12 as permitted sender) client-ip=194.95.104.12;
 Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(Client CN "E16S02", Issuer "E16S02" (not verified))
-	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 49h9WL1WWvzy0n
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 49h9WL3XrSzxyl
 	for <jailhouse-dev@googlegroups.com>; Tue,  9 Jun 2020 15:11:58 +0200 (CEST)
 Received: from base.lan (2001:638:a01:8013::138) by E16S02.hs-regensburg.de
  (2001:638:a01:8013::92) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Tue, 9 Jun 2020
- 15:11:57 +0200
+ 15:11:58 +0200
 From: Andrej Utz <andrej.utz@st.oth-regensburg.de>
 To: <jailhouse-dev@googlegroups.com>
 CC: Andrej Utz <andrej.utz@st.oth-regensburg.de>
-Subject: [PATCH 2/3] tools: jailhouse-config-create: move PCI capability collector from sysfs_parser
-Date: Tue, 9 Jun 2020 15:11:42 +0200
-Message-ID: <20200609131143.2133316-2-andrej.utz@st.oth-regensburg.de>
+Subject: [PATCH 3/3] configs: x86: f2a88xm-hd3: remove unreferenced PCI capabilities
+Date: Tue, 9 Jun 2020 15:11:43 +0200
+Message-ID: <20200609131143.2133316-3-andrej.utz@st.oth-regensburg.de>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200609131143.2133316-1-andrej.utz@st.oth-regensburg.de>
 References: <20200609131143.2133316-1-andrej.utz@st.oth-regensburg.de>
@@ -120,9 +120,9 @@ X-ClientProxiedBy: E16S03.hs-regensburg.de (2001:638:a01:8013::93) To
  E16S02.hs-regensburg.de (2001:638:a01:8013::92)
 X-Original-Sender: andrej.utz@st.oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@st.oth-regensburg.de header.s=mta01-20160622 header.b="Gj/W43tT";
+ header.i=@st.oth-regensburg.de header.s=mta01-20160622 header.b=eRLhPXsf;
        spf=pass (google.com: domain of andrej.utz@st.oth-regensburg.de
- designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=andrej.utz@st.oth-regensburg.de;
+ designates 194.95.104.12 as permitted sender) smtp.mailfrom=andrej.utz@st.oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -136,113 +136,153 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Fixes generation of unreferenced PCI capabilities inside cell configs
-on AMD systems. They occur due to removal of the IOMMU from the PCI
-devices list after its capabilities have been collected.
-
 Signed-off-by: Andrej Utz <andrej.utz@st.oth-regensburg.de>
 ---
- pyjailhouse/sysfs_parser.py    | 19 +------------------
- tools/jailhouse-config-create  | 24 ++++++++++++++++++++++--
- tools/jailhouse-hardware-check |  2 +-
- 3 files changed, 24 insertions(+), 21 deletions(-)
+ configs/x86/f2a88xm-hd3.c | 43 +++++++++++----------------------------
+ 1 file changed, 12 insertions(+), 31 deletions(-)
 
-diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py
-index e59586cd..8debf460 100644
---- a/pyjailhouse/sysfs_parser.py
-+++ b/pyjailhouse/sysfs_parser.py
-@@ -280,31 +280,14 @@ def parse_ioports():
+diff --git a/configs/x86/f2a88xm-hd3.c b/configs/x86/f2a88xm-hd3.c
+index e5dfd78f..b529e6a6 100644
+--- a/configs/x86/f2a88xm-hd3.c
++++ b/configs/x86/f2a88xm-hd3.c
+@@ -27,7 +27,7 @@ struct {
+ 	struct jailhouse_irqchip irqchips[2];
+ 	struct jailhouse_pio pio_regions[8];
+ 	struct jailhouse_pci_device pci_devices[26];
+-	struct jailhouse_pci_capability pci_caps[27];
++	struct jailhouse_pci_capability pci_caps[24];
+ } __attribute__((packed)) config = {
+ 	.header = {
+ 		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
+@@ -384,7 +384,7 @@ struct {
+ 			.iommu = 0,
+ 			.domain = 0x0,
+ 			.bdf = 0x8,
+-			.caps_start = 3,
++			.caps_start = 0,
+ 			.num_caps = 4,
+ 			.num_msi_vectors = 1,
+ 			.msi_64bits = 1,
+@@ -398,7 +398,7 @@ struct {
+ 			.iommu = 0,
+ 			.domain = 0x0,
+ 			.bdf = 0x9,
+-			.caps_start = 3,
++			.caps_start = 0,
+ 			.num_caps = 4,
+ 			.num_msi_vectors = 1,
+ 			.msi_64bits = 1,
+@@ -440,7 +440,7 @@ struct {
+ 			.iommu = 0,
+ 			.domain = 0x0,
+ 			.bdf = 0x19,
+-			.caps_start = 7,
++			.caps_start = 4,
+ 			.num_caps = 5,
+ 			.num_msi_vectors = 1,
+ 			.msi_64bits = 1,
+@@ -468,7 +468,7 @@ struct {
+ 			.iommu = 0,
+ 			.domain = 0x0,
+ 			.bdf = 0x80,
+-			.caps_start = 12,
++			.caps_start = 9,
+ 			.num_caps = 4,
+ 			.num_msi_vectors = 8,
+ 			.msi_64bits = 1,
+@@ -482,7 +482,7 @@ struct {
+ 			.iommu = 0,
+ 			.domain = 0x0,
+ 			.bdf = 0x81,
+-			.caps_start = 12,
++			.caps_start = 9,
+ 			.num_caps = 4,
+ 			.num_msi_vectors = 8,
+ 			.msi_64bits = 1,
+@@ -496,7 +496,7 @@ struct {
+ 			.iommu = 0,
+ 			.domain = 0x0,
+ 			.bdf = 0x88,
+-			.caps_start = 16,
++			.caps_start = 13,
+ 			.num_caps = 2,
+ 			.num_msi_vectors = 8,
+ 			.msi_64bits = 1,
+@@ -524,7 +524,7 @@ struct {
+ 			.iommu = 0,
+ 			.domain = 0x0,
+ 			.bdf = 0x92,
+-			.caps_start = 18,
++			.caps_start = 15,
+ 			.num_caps = 2,
+ 			.num_msi_vectors = 0,
+ 			.msi_64bits = 0,
+@@ -552,7 +552,7 @@ struct {
+ 			.iommu = 0,
+ 			.domain = 0x0,
+ 			.bdf = 0x9a,
+-			.caps_start = 18,
++			.caps_start = 15,
+ 			.num_caps = 2,
+ 			.num_msi_vectors = 0,
+ 			.msi_64bits = 0,
+@@ -580,7 +580,7 @@ struct {
+ 			.iommu = 0,
+ 			.domain = 0x0,
+ 			.bdf = 0xa2,
+-			.caps_start = 20,
++			.caps_start = 17,
+ 			.num_caps = 1,
+ 			.num_msi_vectors = 0,
+ 			.msi_64bits = 0,
+@@ -678,7 +678,7 @@ struct {
+ 			.iommu = 0,
+ 			.domain = 0x0,
+ 			.bdf = 0xc3,
+-			.caps_start = 21,
++			.caps_start = 18,
+ 			.num_caps = 1,
+ 			.num_msi_vectors = 0,
+ 			.msi_64bits = 0,
+@@ -720,7 +720,7 @@ struct {
+ 			.iommu = 0,
+ 			.domain = 0x0,
+ 			.bdf = 0x100,
+-			.caps_start = 22,
++			.caps_start = 19,
+ 			.num_caps = 5,
+ 			.num_msi_vectors = 1,
+ 			.msi_64bits = 1,
+@@ -731,25 +731,6 @@ struct {
+ 	},
  
- 
- def parse_pcidevices():
--    int_src_cnt = 0
-     devices = []
--    caps = []
-     basedir = '/sys/bus/pci/devices'
-     list = input_listdir(basedir, ['*/config'])
-     for dir in list:
-         d = PCIDevice.parse_pcidevice_sysfsdir(basedir, dir)
-         if d is not None:
--            if d.caps:
--                duplicate = False
--                # look for duplicate capability patterns
--                for d2 in devices:
--                    if d2.caps == d.caps:
--                        # reused existing capability list, but record all users
--                        d2.caps[0].comments.append(str(d))
--                        d.caps_start = d2.caps_start
--                        duplicate = True
--                        break
--                if not duplicate:
--                    d.caps[0].comments.append(str(d))
--                    d.caps_start = len(caps)
--                    caps.extend(d.caps)
--            int_src_cnt += max(d.num_msi_vectors, d.num_msix_vectors)
-             devices.append(d)
--    return (devices, caps, int_src_cnt)
-+    return devices
- 
- 
- def parse_madt():
-diff --git a/tools/jailhouse-config-create b/tools/jailhouse-config-create
-index 709cf2ef..0f75be4f 100755
---- a/tools/jailhouse-config-create
-+++ b/tools/jailhouse-config-create
-@@ -253,7 +253,7 @@ cpu_count = count_cpus()
- mmconfig = MMConfig.parse()
- 
- # Query devices
--(pci_devices, pci_caps, int_src_count) = sysfs_parser.parse_pcidevices()
-+pci_devices = sysfs_parser.parse_pcidevices()
- (mem_regions, dmar_regions) = sysfs_parser.parse_iomem(pci_devices)
- (port_regions, pm_timer_base) = sysfs_parser.parse_ioports()
- ioapics = sysfs_parser.parse_madt()
-@@ -266,7 +266,27 @@ else:
- mem_regions += extra_memregs
- 
- IOAPIC_MAX_PINS = 120
--int_src_count += IOAPIC_MAX_PINS
-+int_src_count = IOAPIC_MAX_PINS
-+
-+# Collect all PCI capabilities
-+pci_caps = []
-+for i,d in enumerate(pci_devices):
-+    if d.caps:
-+        duplicate = False
-+        # look for duplicate capability patterns
-+        for d2 in pci_devices[:i]:
-+            if d2.caps == d.caps:
-+                # reused existing capability list, but record all users
-+                d2.caps[0].comments.append(str(d))
-+                d.caps_start = d2.caps_start
-+                duplicate = True
-+                break
-+        if not duplicate:
-+            d.caps[0].comments.append(str(d))
-+            d.caps_start = len(pci_caps)
-+            pci_caps.extend(d.caps)
-+    int_src_count += max(d.num_msi_vectors, d.num_msix_vectors)
-+
- vtd_interrupt_limit = 2**math.ceil(math.log(int_src_count, 2))
- 
- # Determine hypervisor memory
-diff --git a/tools/jailhouse-hardware-check b/tools/jailhouse-hardware-check
-index 9e90250d..f9b2cf58 100755
---- a/tools/jailhouse-hardware-check
-+++ b/tools/jailhouse-hardware-check
-@@ -127,7 +127,7 @@ if os.uname()[4] not in ('x86_64', 'i686'):
- 
- 
- ioapics = sysfs_parser.parse_madt()
--pci_devices, _, _ = sysfs_parser.parse_pcidevices()
-+pci_devices = sysfs_parser.parse_pcidevices()
- 
- (cpu_vendor, cpu_features, cpu_count) = parse_cpuinfo()
- 
+ 	.pci_caps = {
+-		/* PCIDevice: 00:00.2 */
+-		{
+-			.id = PCI_CAP_ID_SECDEV,
+-			.start = 0x40,
+-			.len = 2,
+-			.flags = 0,
+-		},
+-		{
+-			.id = PCI_CAP_ID_MSI,
+-			.start = 0x54,
+-			.len = 14,
+-			.flags = JAILHOUSE_PCICAPS_WRITE,
+-		},
+-		{
+-			.id = PCI_CAP_ID_HT,
+-			.start = 0x64,
+-			.len = 2,
+-			.flags = 0,
+-		},
+ 		/* PCIDevice: 00:01.0 */
+ 		/* PCIDevice: 00:01.1 */
+ 		{
 -- 
 2.27.0
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200609131143.2133316-2-andrej.utz%40st.oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200609131143.2133316-3-andrej.utz%40st.oth-regensburg.de.
