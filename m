@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBDL2JD42SEIBBC6TRD3QKGQERZHG25Y@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDL2JD42SEIBBDOTRD3QKGQEISNRZJI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pf1-x43f.google.com (mail-pf1-x43f.google.com [IPv6:2607:f8b0:4864:20::43f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 727541F6856
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Jun 2020 14:54:37 +0200 (CEST)
-Received: by mail-pf1-x43f.google.com with SMTP id l144sf4404752pfd.8
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Jun 2020 05:54:37 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1591880076; cv=pass;
+Received: from mail-yb1-xb3d.google.com (mail-yb1-xb3d.google.com [IPv6:2607:f8b0:4864:20::b3d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FD901F6857
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Jun 2020 14:54:38 +0200 (CEST)
+Received: by mail-yb1-xb3d.google.com with SMTP id k186sf6362845ybc.19
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Jun 2020 05:54:38 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1591880077; cv=pass;
         d=google.com; s=arc-20160816;
-        b=uSptGfaxlGHYoskjS5ScBcTJRZPm4kdn9XP0Dn//XuZ3GUcM7j3MjsH5s0mtQxQU9a
-         /G9fGa7Vu73D4h4/IJIncYMssf7FlNfPK2d/+B/bfAmCs6nB/Le982/LzJZQPCBfIm6w
-         9PTsBbAG4mCAkQSKfnJq9zLHXLfBOg84mzVyh+0uCfq5QnAmDK6uWfWt3Q28g+x76xdT
-         UwXgCdWVChqQ86dQ6VtnBlX81zjRQ2UJBKw1YtOBrvHsn4qNh39xpN2z+cK56Uir+gm1
-         eeosYNv5PVxiX3X4UpIpDzYuW+r2HAbCUwehvL+NOXod4PmbavqbnP3SbtY0+jdt2yyH
-         StRw==
+        b=iEz/Bm/xCEbMrTS3/b0OYoMPpadOPRHYA0g5irhK/Dr1BnSfFRtwv7AvFAuVITqINZ
+         bp3Zb8W9zH464CrPyBMMLrEWYQJMymc2UEqdMXZ2Du0+OGppA0iRfmqZYLV/RlZwwq2K
+         ob3dDt6LRkZTzI289kJAPE5dAOmEc/PQUc1ryq+1fTtcrDeoPtRrTlzAPAWGTIZQtrad
+         EfNVUdFFMrI99ugYBcYjquAbCDyWHPGEfCZ+mi2xCMt62XCT+1K8u7WAxLy+z5Xd/Px4
+         J68ZmbXkp5uaIfGYm7twz5w2niTgd0ipAsXYiZjT+36yBAK/CYNqUpZkdCsmFlBxAumS
+         ozAQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:reply-to:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:dkim-signature;
-        bh=ryjo3YHlMe1YdHB13bUN5bibdOacTwNs61wt/Y3rk1w=;
-        b=rfJ+sttS3ARSl2lzv8u/aA9VOIcHArQf2Uzx0XZH+Mp4DjRrGjin4ePLOSSKT15ub/
-         euLJSGN35TAnm9P9QIM5aktmDByo+CbmqerQ5b2qobQekZqnNgbGwMcoVw725wvfsyIh
-         YHFKQH2PLT2TkVxWIMKKmvTY/t59syrG0zzVOZHu10q0r1Fywkf4ZVW//qvVFrZgfVwQ
-         kzVRRI2tet+fphH5z8oWOl5UyucnSx4TABUpYpm0Xy6wZPSOWFCn08A//8wH2blRNvu7
-         0uAHdlMl51L+pmX9xF0uiIc8uj/XnfQZ9L33SKAe7HRWm/v8RPMp24rIgflQyDpDd0wS
-         hB1w==
+        bh=PW5yJYzsjNKzYaEFnIIxQ1XNk366yq+L6Ps6x5bC7C8=;
+        b=xjuFj9m72/srpTa2CkPMqzjOJK/N3qIZBIRS0f8VUJrEuIBo4mxgxXq27n2ooCIKfE
+         o7r4yT1UuUMdu5QD0LmqR0W8yP1lQHL7qyTvJyCtIhEe9RM36ecFfkRfRHDtSSkC2JKc
+         1rnX6y//CO1qt6IA7OyXm3YUd4914TrLZC0lf6dMuxdcK6bzM9sYZ4WU//tZ47c0nPeV
+         uXkbqAZhgY/CGKDXgpd1GQUzF2GFI6vTShQVkJ/Of8rVjmh8PO+pRrppJwpZM9NfKFRz
+         UlLeXasmq32VqsBDy3zJ+0bIv+/MRD7VUf8bsZXfZSmySajo4B9CM2wzgPezptvam+Hs
+         doRQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b="vlZ3Y/e5";
-       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.23.249 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=iL8kUkwk;
+       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
        dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :reply-to:precedence:mailing-list:list-id:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=ryjo3YHlMe1YdHB13bUN5bibdOacTwNs61wt/Y3rk1w=;
-        b=gkYj/zMMKG4cCyubAkWcXxlX5NOgDXEuyNQyVACG0V5XiOHE7Ki7ziuECFDOgsJ8JH
-         D+19b/xrx0cyVRQscpQIZDFW1v/ZjTw9Er5hXkUKb2RW/lXAR3YWcPSQ93tfU4cVZOg/
-         t0INZ3+OFFarp5kWYGny5YzOvXF9BwQc+jH9smfxK/Qja8L4qxeIgkqDvu8P+rOsKnNT
-         J4lh+RwOl/aCrETl2/pZCccpJgqunmFp8kEV3geof74kykRm5TQyaK8svEMnEXuk02DZ
-         c8C3jO7gWQ7RscxFJnEOY5r2+PMeHngkMhUoKFJgaZA1PCjPlGA93+L721r0L8bPy+FI
-         7DZg==
+        bh=PW5yJYzsjNKzYaEFnIIxQ1XNk366yq+L6Ps6x5bC7C8=;
+        b=CVWKWc1M3IoFxq7DWSjQl7MnKwacNIEu/Z15BmZGjldTt4zL081W1auIzaKHsEzvaM
+         iza0CWFL+dxs8tzxwW6gkCF2cc3VEj20oPRmBy5JL02iCBmOwkanLyUKumer1WYC6Myn
+         Bi9OEYCCn93oS2WaO+WQDgNyLEveuTwvoWtEqUx9Xbsp56WBgueLcODEEFVXQz9mQXuT
+         0Ul7GBkm3cqRjuSTpYQjt5skBpQRodF5GXAwVFNGR5NN9Akjgr6fF+0YhVJA5Ini/9SH
+         /kwmqZwTCjy6kPxwnzK9slaXtIfdw/vwypfAr3e4yhbA5+c4RUGkShLMxK4KPTxrpbzp
+         Wonw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
@@ -49,74 +49,75 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:reply-to:precedence:mailing-list
          :list-id:x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=ryjo3YHlMe1YdHB13bUN5bibdOacTwNs61wt/Y3rk1w=;
-        b=TgvjctVf+fCH/wDosFB5mrsLzfpw34fqIiY0/fiCEMOMD0r1ACzfzYufvu1bwz1fhu
-         3EiwqAcKnQWA7RWd0Arg3/UZoZ6C9axnsc0SCLVFdDMAODnodtPsMrib+aUCmh8/Cqfz
-         Sa4lqbVFM/f4v68pwzmy1lCUJrGl7pg1ZO1EZYpfOAApBlvXvRFgZXxQQqxT7e74VwOe
-         /GpnrBr0GLT0kZNSAcvOwb3Pc8JUEOfj9tnFN2sdwXzPSb3TzAHDf1EpzIs5Fgh2+u1q
-         GhaGdd63aaXe90jJP/JhKlHceI0mBXHaj/RkG2fAMcdhNujZqY+aUy2AWxzjS6xHGC7Y
-         D8aQ==
-X-Gm-Message-State: AOAM533zNN0ihD/4K1pUHAv0ncf/YTpQdtAFfPMU+wLmgarvNwTTFiR0
-	DpnegS2HPoOQ6mr3Ewk4WJ0=
-X-Google-Smtp-Source: ABdhPJyh93AIe5XOBNEWR7Fq0JiZih09feHvL33iCYjnRnKRNQtXAE7651q2QVceRGTLvXiEJpnwsg==
-X-Received: by 2002:a17:902:8ecc:: with SMTP id x12mr3827546plo.32.1591880076221;
-        Thu, 11 Jun 2020 05:54:36 -0700 (PDT)
+        bh=PW5yJYzsjNKzYaEFnIIxQ1XNk366yq+L6Ps6x5bC7C8=;
+        b=lONryA59Vs0RGVibSVeFKMyRd5KQzIl+DO/YXcUhg779D33RNDbzyBPwNfz0jrGWAW
+         gGM0diK9hG/EdfLo5cBZt2a36VBkLZiphRN9f0tP0KkNqF2Kk5TrYCWAiF4/WlIQtDLY
+         odcJnMnraWNbz43wxmIyYmhjVWqQm7gegqDGbUAsM3BpCSdZh/v9CSjTMzK3G425m7+I
+         pm8EtBESfeMJ66UN57lDxAGWxfoygXOEXqiFis71iob6igZNMhPXEpQpYraHBU55Fgjd
+         d7tFIWfvHlf/qQ8Icd2kVcqRHBhE0IW/bcuTkiwjhlpFBbCZTBFi+7wV4yvn5Y6b4Fa0
+         z20g==
+X-Gm-Message-State: AOAM532EirjddX7+F0e6aCIw45dFGfmpN2ioFTVfJEpkT/2NBYNCc3wc
+	u976bEPzgGfAREiAK0kN/ww=
+X-Google-Smtp-Source: ABdhPJyQjzgNfmh45ByxrGQ/Q1dAeiHhsAwr9Z0KQH24kRyK7qy7RUUlNo+S3oV0QWBOG/ABl4ulLA==
+X-Received: by 2002:a25:d7d1:: with SMTP id o200mr13457877ybg.194.1591880077190;
+        Thu, 11 Jun 2020 05:54:37 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:902:147:: with SMTP id 65ls821156plb.9.gmail; Thu, 11
- Jun 2020 05:54:35 -0700 (PDT)
-X-Received: by 2002:a17:90a:43c5:: with SMTP id r63mr7492517pjg.203.1591880075211;
-        Thu, 11 Jun 2020 05:54:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1591880075; cv=none;
+Received: by 2002:a25:4192:: with SMTP id o140ls840867yba.9.gmail; Thu, 11 Jun
+ 2020 05:54:36 -0700 (PDT)
+X-Received: by 2002:a25:20c4:: with SMTP id g187mr13732255ybg.347.1591880076540;
+        Thu, 11 Jun 2020 05:54:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1591880076; cv=none;
         d=google.com; s=arc-20160816;
-        b=ZpxTHklxlxbIThIpEtOGSXdPg228BU/yqTbsxFQKePEAe9dnPAbFP2bQjPfQyHgMqG
-         /C+Fmn65npEnY6ifnJQqXr1SJ/v8ntWangPEp+D9S6dF9QYrj5u4yyXhPo98plp/0zqK
-         m5Si9/V/Wc+dfdBzLehs384f5LvXJn55BAv9KLqDCRGUf6I9pAE5kGVAa5Ivt+LzOSq8
-         5aWFLBSyZbmCSGDrgyWlzuv/3pEI2mZYKRboDq+J9m5at8Yhl+RC/h4j2jo9hBvlnuWT
-         19mldmCWBCiewQYUCnbX/8/uxT5TiaEJXFnvonZ15ox/rsbNWCb11LzfTYslAhpfxSkM
-         jf4g==
+        b=B88U+8myEM9PxvXzMywiK6RNYS7ehv7Le5DdDHz+fbNXYSGLWGvBHqMc5kvPq2e9CO
+         PIANGa51Y9oAm3Io/6OLZ4MU3iEz6gEAEozx4lsHMQelvj9x2ZqrySr/HpIgWrhDg1Be
+         W4JsX1ipVYsQR/jG6DdAjlUbWtNlBeJq4sFI0XfweC9QiM8c0pqj0hE2BM1jgU7ob0/z
+         V2yZU/X/joUtHOb2TCdsUwU4kOyqLKQWzB8wNvnDqifqXC6Vjb0GT+Z4/HFmPgADQF0M
+         sb5ThumVSGwBYuH+KazMYMab4/Wck+IuKXZ3ehNPIksuWjswaMs/JniXEQIop7I5VMAY
+         n19w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
          :from:dkim-signature;
-        bh=V05CZ5lTM4zOtqx7e2JohGtaQm5dUejWrE6+LL7CAo0=;
-        b=AwQnbGqo+z5XhtMcVgGaO/dlLsFjb+hJK3taoyw7nccqTz21aCQMI7mIppkYhrVdRV
-         l/BvTZ1+Z653AaW/AsG8wZR2YCBk4hVYel7NIpDnwLWULFz2+0Defs4sMWY/qlPh7H93
-         aD4kHE1UTG6UBk0KVWB1YwNDlFpaR/8q+Q3JzoX4IaD8jYEodBsm1Pw9DXPAFraMa8y+
-         CGZ/E1Z2jF3G2gmFVi204uYlIOxiWvKKrbIs0zVM9UgboNfn1IklhIbctgiwH3a1F8Kq
-         clZc09DpkxXBvfq9I2Jj91lO1dRvTfV1jpKhEmBqP9lo6wDP6mLunWR3lV9+454VlryJ
-         fRMg==
+        bh=6TBl8xlbUGOWl2DqslTujk8C8a6smoXAxyJj/xIa+84=;
+        b=HvKtyN7Pzz+qDD59oAC4VLBUMyhjzpDIIaPeTN40Fka+vXM1QAW275taHOdAirsVmB
+         k9eDkkkLS8KFH4IItkkTgL5bSqFesoBCZQWLPv+PDr2K5/oU3QBvz0nNwnzXohG/CpTU
+         5BcyZMIIOsyrVJBfFJ6QQQ6wLBCNaxH5d3ewRDr1uEKjEvnbFsNLVJ0PUssIHar680V7
+         WIC02iUNtT1GVFkUWg3URu9xENzBSjWmvUklpasIGAbdEmxK2Y52OLLKzpAWasLFAMM3
+         KGQCspo00rHvNt/T7jNvj6FnoLNlWrR5Jf9l2i2S/oU2IyIwkhYsE7oUjd00vezD+0L6
+         2MsQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b="vlZ3Y/e5";
-       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.23.249 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=iL8kUkwk;
+       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
        dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
-Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com. [198.47.23.249])
-        by gmr-mx.google.com with ESMTPS id t72si233906pfc.5.2020.06.11.05.54.35
+Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com. [198.47.19.141])
+        by gmr-mx.google.com with ESMTPS id k11si320553ybb.4.2020.06.11.05.54.36
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 11 Jun 2020 05:54:35 -0700 (PDT)
-Received-SPF: pass (google.com: domain of nikhil.nd@ti.com designates 198.47.23.249 as permitted sender) client-ip=198.47.23.249;
-Received: from fllv0035.itg.ti.com ([10.64.41.0])
-	by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 05BCsYYC081395;
-	Thu, 11 Jun 2020 07:54:34 -0500
-Received: from DLEE100.ent.ti.com (dlee100.ent.ti.com [157.170.170.30])
-	by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTP id 05BCsYWP119788;
-	Thu, 11 Jun 2020 07:54:34 -0500
-Received: from DLEE105.ent.ti.com (157.170.170.35) by DLEE100.ent.ti.com
- (157.170.170.30) with Microsoft SMTP Server (version=TLS1_2,
+        Thu, 11 Jun 2020 05:54:36 -0700 (PDT)
+Received-SPF: pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted sender) client-ip=198.47.19.141;
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+	by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 05BCsaV3079817;
+	Thu, 11 Jun 2020 07:54:36 -0500
+Received: from DFLE104.ent.ti.com (dfle104.ent.ti.com [10.64.6.25])
+	by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 05BCsai8104656
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 11 Jun 2020 07:54:36 -0500
+Received: from DFLE101.ent.ti.com (10.64.6.22) by DFLE104.ent.ti.com
+ (10.64.6.25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Thu, 11
- Jun 2020 07:54:34 -0500
-Received: from lelv0327.itg.ti.com (10.180.67.183) by DLEE105.ent.ti.com
- (157.170.170.35) with Microsoft SMTP Server (version=TLS1_2,
+ Jun 2020 07:54:35 -0500
+Received: from lelv0327.itg.ti.com (10.180.67.183) by DFLE101.ent.ti.com
+ (10.64.6.22) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
- Frontend Transport; Thu, 11 Jun 2020 07:54:34 -0500
+ Frontend Transport; Thu, 11 Jun 2020 07:54:35 -0500
 Received: from NiksLab.india.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
-	by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 05BCsN2i062138;
-	Thu, 11 Jun 2020 07:54:32 -0500
+	by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 05BCsN2j062138;
+	Thu, 11 Jun 2020 07:54:34 -0500
 From: "nikhil.nd via Jailhouse" <jailhouse-dev@googlegroups.com>
 To: <jailhouse-dev@googlegroups.com>, <jan.kiszka@siemens.com>
 CC: <lokeshvutla@ti.com>
-Subject: [PATCH v3 5/9] configs: k3-j721e-evm-inmate-demo: Add ivshmem capability
-Date: Thu, 11 Jun 2020 18:24:19 +0530
-Message-ID: <20200611125423.16770-6-nikhil.nd@ti.com>
+Subject: [PATCH v3 6/9] tools: ivshmem-demo: Map memory regions with correct sizes
+Date: Thu, 11 Jun 2020 18:24:20 +0530
+Message-ID: <20200611125423.16770-7-nikhil.nd@ti.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200611125423.16770-1-nikhil.nd@ti.com>
 References: <20200611125423.16770-1-nikhil.nd@ti.com>
@@ -125,8 +126,8 @@ Content-Type: text/plain; charset="UTF-8"
 X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 X-Original-Sender: nikhil.nd@ti.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@ti.com header.s=ti-com-17Q1 header.b="vlZ3Y/e5";       spf=pass
- (google.com: domain of nikhil.nd@ti.com designates 198.47.23.249 as permitted
+ header.i=@ti.com header.s=ti-com-17Q1 header.b=iL8kUkwk;       spf=pass
+ (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted
  sender) smtp.mailfrom=nikhil.nd@ti.com;       dmarc=pass (p=QUARANTINE
  sp=NONE dis=NONE) header.from=ti.com
 X-Original-From: <nikhil.nd@ti.com>
@@ -145,116 +146,121 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Nikhil Devshatwar <nikhil.nd@ti.com>
 
-Add a virtual PCI device with IVSHMEM type (id = 1)
-Create IVSHMEM regions for 2 peer communication
-Enable the vpci_irq for doorbell interrupt
+ivshmem protocol does not describe a fixed size for the
+rw, input and output regions. For each platform, the uio
+driver will populate this information in the sysfs.
 
-This allows to run the ivshmem-demo baremetal inmate
-inside this cell.
+Extract the size from sysfs maps entries and use it for
+mapping different regions.
+This will make the demo generic such that it will work on
+all platforms with different sizes for ivshmem.
 
 Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
 ---
- configs/arm64/k3-j721e-evm-inmate-demo.c | 64 ++++++++++++++++++++++--
- 1 file changed, 60 insertions(+), 4 deletions(-)
+ tools/ivshmem-demo.c | 50 ++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 41 insertions(+), 9 deletions(-)
 
-diff --git a/configs/arm64/k3-j721e-evm-inmate-demo.c b/configs/arm64/k3-j721e-evm-inmate-demo.c
-index 7440a258..39c6c414 100644
---- a/configs/arm64/k3-j721e-evm-inmate-demo.c
-+++ b/configs/arm64/k3-j721e-evm-inmate-demo.c
-@@ -20,7 +20,9 @@
- struct {
- 	struct jailhouse_cell_desc cell;
- 	__u64 cpus[1];
--	struct jailhouse_memory mem_regions[3];
-+	struct jailhouse_memory mem_regions[7];
-+	struct jailhouse_irqchip irqchips[1];
-+	struct jailhouse_pci_device pci_devices[1];
- } __attribute__((packed)) config = {
- 	.cell = {
- 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
-@@ -30,8 +32,9 @@ struct {
+diff --git a/tools/ivshmem-demo.c b/tools/ivshmem-demo.c
+index 8201ad15..163653e1 100644
+--- a/tools/ivshmem-demo.c
++++ b/tools/ivshmem-demo.c
+@@ -17,6 +17,7 @@
+ #include <signal.h>
+ #include <stdio.h>
+ #include <stdint.h>
++#include <stdlib.h>
+ #include <string.h>
+ #include <unistd.h>
+ #include <sys/mman.h>
+@@ -44,6 +45,25 @@ static inline void mmio_write32(void *address, uint32_t value)
+         *(volatile uint32_t *)address = value;
+ }
  
- 		.cpu_set_size = sizeof(config.cpus),
- 		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
--		.num_irqchips = 0,
--		.num_pci_devices = 0,
-+		.num_irqchips = 1,
-+		.num_pci_devices = 1,
-+		.vpci_irq_base = 195 -32,
- 
- 		.console = {
- 			.address = 0x02810000,
-@@ -48,6 +51,33 @@ struct {
- 	},
- 
- 	.mem_regions = {
-+		/* IVSHMEM shared memory regions for 00:00.0 (demo) */
-+		{
-+			.phys_start = 0x89fe00000,
-+			.virt_start = 0x89fe00000,
-+			.size = 0x10000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-+		},
-+		{
-+			.phys_start = 0x89fe10000,
-+			.virt_start = 0x89fe10000,
-+			.size = 0x10000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED |
-+				 JAILHOUSE_MEM_WRITE ,
-+		},
-+		{
-+			.phys_start = 0x89fe20000,
-+			.virt_start = 0x89fe20000,
-+			.size = 0x10000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-+		},
-+		{
-+			.phys_start = 0x89fe30000,
-+			.virt_start = 0x89fe30000,
-+			.size = 0x10000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED |
-+				 JAILHOUSE_MEM_WRITE ,
-+		},
- 		/* main_uart1 */ {
- 			.phys_start = 0x02810000,
- 			.virt_start = 0x02810000,
-@@ -68,5 +98,31 @@ struct {
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
- 				JAILHOUSE_MEM_COMM_REGION,
- 		},
--	}
-+	},
++static int uio_read_mem_size(char *devpath, int idx)
++{
++	char sysfs_path[64];
++	char output[20] = "";
++	int fd, ret, size;
 +
-+	.irqchips = {
-+		{
-+			.address = 0x01800000,
-+			.pin_base = 160,
-+			/*
-+			 * virtual PCI SPI_163		=> idx 1 bit [3]
-+			 */
-+			.pin_bitmap = {
-+				0x00000000, 0x00000008, 0x00000000, 0x00000000,
-+			},
-+		},
-+	},
++	snprintf(sysfs_path, sizeof(sysfs_path),
++		 "/sys/class/uio/%s/maps/map%d/size",
++		 basename(devpath), idx);
++	fd = open(sysfs_path, O_RDONLY);
++	if (fd < 0)
++		return fd;
++	ret = read(fd, output, sizeof(output));
++	if (ret < 0)
++		return ret;
++	sscanf(output, "0x%x", &size);
++	return size;
++}
 +
-+	.pci_devices = {
-+		/* 00:00.0 (demo) */ {
-+			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-+			.domain = 4,
-+			.bdf = 0 << 3,
-+			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX_64K,
-+			.shmem_regions_start = 0,
-+			.shmem_dev_id = 1,
-+			.shmem_peers = 2,
-+			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
-+		},
-+	},
- };
+ static void print_shmem(void)
+ {
+ 	printf("state[0] = %d\n", state[0]);
+@@ -67,7 +87,9 @@ int main(int argc, char *argv[])
+ 	sigset_t sigset;
+ 	char *path;
+ 	int has_msix;
+-	int ret;
++	int ret, size, offset, pgsize;
++
++	pgsize = getpagesize();
+ 
+ 	if (argc < 2)
+ 		path = strdup("/dev/uio0");
+@@ -82,29 +104,39 @@ int main(int argc, char *argv[])
+ 		 "/sys/class/uio/%s/device/msi_irqs", basename(path));
+ 	has_msix = access(sysfs_path, R_OK) == 0;
+ 
+-	regs = mmap(NULL, 4096, PROT_READ | PROT_WRITE, MAP_SHARED,
+-		    fds[0].fd, 0);
++	offset = 0;
++	size = uio_read_mem_size(path, 0);
++	regs = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED,
++		    fds[0].fd, offset);
+ 	if (regs == MAP_FAILED)
+ 		error(1, errno, "mmap(regs)");
+ 
+ 	id = mmio_read32(&regs->id);
+ 	printf("ID = %d\n", id);
+ 
+-	state = mmap(NULL, 4096, PROT_READ, MAP_SHARED, fds[0].fd, 4096 * 1);
++	offset += pgsize;
++	size = uio_read_mem_size(path, 1);
++	state = mmap(NULL, size, PROT_READ, MAP_SHARED, fds[0].fd, offset);
+ 	if (state == MAP_FAILED)
+ 		error(1, errno, "mmap(state)");
+ 
+-	rw = mmap(NULL, 4096 * 9, PROT_READ | PROT_WRITE, MAP_SHARED,
+-		  fds[0].fd, 4096 * 2);
++	offset += pgsize;
++	size = uio_read_mem_size(path, 2);
++	rw = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED,
++		  fds[0].fd, offset);
+ 	if (rw == MAP_FAILED)
+ 		error(1, errno, "mmap(rw)");
+ 
+-	in = mmap(NULL, 4096 * 6, PROT_READ, MAP_SHARED, fds[0].fd, 4096 * 3);
++	offset += pgsize;
++	size = uio_read_mem_size(path, 3);
++	in = mmap(NULL, size, PROT_READ, MAP_SHARED, fds[0].fd, offset);
+ 	if (in == MAP_FAILED)
+ 		error(1, errno, "mmap(in)");
+ 
+-	out = mmap(NULL, 4096 * 2, PROT_READ | PROT_WRITE, MAP_SHARED,
+-		   fds[0].fd, 4096 * 4);
++	offset += pgsize;
++	size = uio_read_mem_size(path, 4);
++	out = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED,
++		   fds[0].fd, offset);
+ 	if (out == MAP_FAILED)
+ 		error(1, errno, "mmap(out)");
+ 
 -- 
 2.17.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200611125423.16770-6-nikhil.nd%40ti.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200611125423.16770-7-nikhil.nd%40ti.com.
