@@ -1,126 +1,118 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBNF7RT3QKGQECVWGLIY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBZ6BRT3QKGQES4GRAUI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ej1-x637.google.com (mail-ej1-x637.google.com [IPv6:2a00:1450:4864:20::637])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55EC21F73E1
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 12 Jun 2020 08:24:53 +0200 (CEST)
-Received: by mail-ej1-x637.google.com with SMTP id m22sf3766173ejn.4
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Jun 2020 23:24:53 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1591943093; cv=pass;
+Received: from mail-pl1-x63a.google.com (mail-pl1-x63a.google.com [IPv6:2607:f8b0:4864:20::63a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 537D81F73E7
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 12 Jun 2020 08:30:01 +0200 (CEST)
+Received: by mail-pl1-x63a.google.com with SMTP id o1sf5485705plk.22
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Jun 2020 23:30:01 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1591943400; cv=pass;
         d=google.com; s=arc-20160816;
-        b=F4HHQ0ZFIcZQBgXCY31pRRq8UMjGZf0yfuMurtAUI4TA6UIdad0i1VBZ1I8nOvfFCH
-         I+5Es88kqjFeviZIy+/5dDIItHGYlE+JWOn5LVy+xrCcEVa6cPni9SIkQ5JI8jIxF9j0
-         Uc+IAgjulN8u0iLy3e5MniW+DsYP6EBLZsAxhhzA71vjflHWvt+w0K/DAL0B/IAZnp4K
-         PmWyP5WTFVzOwThQmptoRSNDwSvW6nX3bQLe41K1jkCZRunjCJY5kquuNVoJ/55ldpRK
-         7OWoitU8m5gHoO3ZVFLCjqLjV/FLTj/i21JxlMQAdOpyx0Czoiqpc6mb1FWZKZx9uy0v
-         RkJA==
+        b=cUayK7IBMggqbvFFBkyauMC9ksoXaTVW8mIvVobcWiF2jR5m/QdUvvD6HhTwE+RSr3
+         ixZ1w+CMBxIZTc6tQR0/PdrYDFLLBr/1KgTvrUIedfR2ZK/tCpccFkMFzth8etmbt2Ri
+         oqzbzrX2a3Etu0sF6mVEE/18ravCVKShEmtVsRBbV2DUBnRLDk4a1kUW1Q8FWUoMxrFx
+         YyZchR7dAIJEp1ETpD2LhXiSQy/c67NTyQWXaGvHAI/5/1cvd8e/7A4g+8hRoqSKdTcb
+         9jNPbaOF70mJAkw1Rw0bGvl0/Sy0zza2t7iLvXPzsykHgE26OvMlOAAdgw1UJu/cgy3N
+         YTXg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:cc:to
-         :subject:sender:dkim-signature;
-        bh=prBe/qKYug7ijTp+GPZCbkpLC+wjWCcQ2HlMMlirRYI=;
-        b=mEIKD4FlGH730cbF4uFRiQ8rXhw+zvY/9yaU8UKKPLdJC78WrXATXLU0NCg/2VngcC
-         FvMMrDK79i/LxSFnvd5avAwi3ho7WFjzoAa25VNc8us6hHkag/c1qjK0uJ6eNPC7g8mV
-         tQ7duwBYRfJBQnBAQqUh8Pps99HE8UdkfbhkcwBAcC5jD4/e6qZQWCo+zpb70l27KuxN
-         XdWp0ra+1YaRO3p7v3yZxnw86kbqSm6GTR5S6GsBqE3cbGQZDfcwhVYqMh82v07gCXuy
-         jVZoDoqi2SddmvuEARRCOpUDlOrtM8rtFnNwyBeRL0lVGeY2LbSSYAiwLMDP8ecP/4Jz
-         crQg==
+         :list-id:mailing-list:precedence:mime-version:subject:message-id:to
+         :from:date:sender:dkim-signature;
+        bh=eFW2sAQKpvZB+twe24GUf8msOwy7m8Sj4Idm4HqiCZM=;
+        b=v99CS5C2UbgIpfbIubLcm7KxKa2RL4yjEuyrF6CDtxyNzKuKQEP1b6j/69+e1lgVEm
+         81sn/RBYiF6b2mtx71pSFPLJQpYU76RH2UApLvJOvF3Q6Y4EJHDhpvko7CA5busuV97h
+         bgMRt9vzHcnbYyD7kwXrI0WxksNYRdhtOtvsEphKwTZNOhFx2yT4bTXmq2aXi77RZj/Y
+         5M8MAYqnSi97SXfgBMQuJoAkQP5kMWvHKmz0KkRQhfS57797O5Xap5mSwV/QAoyzUkL4
+         mwv8xRZKgdd3Y4QZkTGKZ1agUQ0pza7LHYorQDaHchbFM9NBt2JH4RlviPOMOc62y2nY
+         DO4Q==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=ATQq8Qau;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.193 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=prBe/qKYug7ijTp+GPZCbkpLC+wjWCcQ2HlMMlirRYI=;
-        b=DbAMXS99AsN2kiM6UicIybPUZ7iARQPvcbxDLLi/N6OxiWkWtGq3wpoxf3hyjV+kS5
-         YYVBiCZHmEnOxTer7X3FgSt0HZ6NfCswsPIOgsAsuDZgnLOt57khMVio+I3PkELaKwxp
-         /jwWNee91W93+uy5JNDTzxJrx0L1ibVrKU0thDWj0YmA7h7pwsVeGXfvXAdXcGds/cCW
-         xssIl5H9Uqvex/mD63b7MzZJapfQ94T3iLwOJig0YQmEVqjcdbheh+Ebd3EJFvo2dPkP
-         lNJPHP78f2lPKXifoGbavA7JN8nR9Ge6LsyIYU8q/h/aEVZLJxShD1VQfU6ukbcm0/So
-         //vQ==
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=eFW2sAQKpvZB+twe24GUf8msOwy7m8Sj4Idm4HqiCZM=;
+        b=QaVLwwmmMal50HO4oXgpJBpUhslGQF+q7AQHmQ6E1x/X4eaVVoWPAqilDBBFWrG5cn
+         DDiJuHN0ZI3AWUJ4g+vW6TCiY9UZeWdfUwjT5Il5Q0eb0z6A0f2BTDiNFfFRqQxvhu4C
+         TXtM+4NoFc7mjYeSRru1syaZdYR8f688yhwBxjG0t+tJOgE0692hBspzUNFLYCqkciyk
+         sg6+o2m6ORKZuNgg5ETWhg/i5k6MBPEFpOrJ0YEkYrbaC9h+V+m6t/hNOOcEtWqJgQF2
+         QMUg0hgRAWTMXjozQ48dBOkyQX1T/T07dyp+h6fZ6B3HE7BKc98VxVkHTjCIF7t8kz61
+         ZO9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=prBe/qKYug7ijTp+GPZCbkpLC+wjWCcQ2HlMMlirRYI=;
-        b=miXl5gMiA4yisMUA7xom0kDbQ7maNjShCQhZ3xLZdpVYV4ShcwMR+uR5e8DCjEQY/9
-         bpirjmC+gm/SS5wwgOdyn4VNVqP27ePOR/dl7FVMjQmkecCCgsh6yjJ66Y0yI2gJfYtj
-         vEPC6lxrtaejKGPBAvuA2DxO5M1aCipbe1P4n6KOY5wXyOZGxw1TCp0o9VNlliNwS0qV
-         dL9PBY6oY4ogW2hW2gEywqlMImacxZR1xdgpXpm2x49sb9maHMyPVUm9nmgeimlRpCwk
-         z8+T3gj0pagZMnt8c+660nxxsYCRf9aQPW1ZpdccbBPVqpde+fvaA3jgEdD4WGI6o3FY
-         N06w==
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=eFW2sAQKpvZB+twe24GUf8msOwy7m8Sj4Idm4HqiCZM=;
+        b=LFZEyWchjzcRaWN++MGqQQCHOjkoFMH4jseXrjY0XqiwAY3oZmkTfUVlgC9FubcAO0
+         cxnctMKEt5yzfbqWltGJlzREyizgICDEvpjLhuAQUVNoTCjm0Hj3mLRnKNHvt6diSfRs
+         OvAZqG2z1T0O3z33ZGpUaxOoVoweIkekna5wxtJS/HoAQoqbkkXmYpbkBQMuz/aGrkP1
+         us1NpohirQ68MoHSZtzf5KM+rDCT/JFasfGVpZ4VqLLyQZMy13PeaQI+bXUNHae5+0/y
+         oYmrIJyLsrB5ZYnv3Psg7vTQ9fHyGTHPr+7MST37BBIWWfJLq6vAZpjHeFtZdEQlkxux
+         jj2Q==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532J+LzqoLHE40uS2Z84haO5TUp333G3SQg/VytJ2PLmwsmEceyK
-	AgoH+h790j49IlXMXCumzFI=
-X-Google-Smtp-Source: ABdhPJyziBaB2YOay9iB4tjjBuiIzcEVvO0WwTfe8ZFQhLh8U+XDQByOAuFStZJeYqyf9dXwkCnWSA==
-X-Received: by 2002:a50:d75e:: with SMTP id i30mr10503757edj.305.1591943093014;
-        Thu, 11 Jun 2020 23:24:53 -0700 (PDT)
+X-Gm-Message-State: AOAM532KQ1rq+Lrs788GaBm1MH3h7b5GdboRponFOlKBaeRsjEO4Njcf
+	EKyFDVpMi5BZY9szy42jmkk=
+X-Google-Smtp-Source: ABdhPJz312DvFlPLm7aAtpjZXOgtycX8T2ls8nfdM+xT17XSNey8AaBjOnYBVCg4uPcnKnPhBpQrng==
+X-Received: by 2002:a65:6704:: with SMTP id u4mr9734723pgf.125.1591943400020;
+        Thu, 11 Jun 2020 23:30:00 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:c142:: with SMTP id dp2ls2143213ejc.5.gmail; Thu, 11
- Jun 2020 23:24:52 -0700 (PDT)
-X-Received: by 2002:a17:906:11c4:: with SMTP id o4mr12255335eja.163.1591943092274;
-        Thu, 11 Jun 2020 23:24:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1591943092; cv=none;
+Received: by 2002:a17:902:6845:: with SMTP id f5ls1711699pln.8.gmail; Thu, 11
+ Jun 2020 23:29:59 -0700 (PDT)
+X-Received: by 2002:a17:90b:949:: with SMTP id dw9mr11950017pjb.101.1591943399307;
+        Thu, 11 Jun 2020 23:29:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1591943399; cv=none;
         d=google.com; s=arc-20160816;
-        b=Pe1l2+p0V3f3GpGtlzzwJGzXoaFprCPueFm5eJMlNGiOo1luuEsxzKhS/7e5taGm2k
-         0Hedq6O9EJNS9zXICuBno+XhKNLqqLXXLi+k1cgxX7b9DIoOYS9J2wYUXeEOxI4eYx+0
-         D32hH687LqXjTZ/6V4fEuyDeCRRsJ5d6nCI4GjBJcIqIYJxinPHJEd8J4Ofpb4+7THx2
-         dC6IL0Z6CTXq5J13MYVdK8Hjba3mmijH4jft59iQ4Hw0WIbRNk/SgMhJFb+Prm/Do7xq
-         s0C67u5dctbbG2TQ0Pr4nuyOpMgvCqsXA9zWwxSxGtVb1rAtuaSVvR+ohg7iPwob8kkS
-         5UWQ==
+        b=jyJo2gMNpOnWDCO28inH2uDQRk86erXXnnmuz+PtoygcAXzqvt0AHqFquQbHaBt6J/
+         QILSbcjydfSEqOqgrVKVClWo3KVtyWARDcgn/bJjUtt23ECEDKsnIbbUEiFNgdgYmIsO
+         eVtExGvZWAn9hfYDPiC979tcNEj+iUVMy7e+DYft1re/rvWDnvrG2bsTbJhKB0xRqpMz
+         6FfIZNThSxJ5FSB63v+0PHh8DjtDqzBFQNWCeMs+OKbqPLfDqS7wC/9OUei/tvmrrLnC
+         eGcYNISdmV9uVNUhfoOEg/q0I8OeNKKB63jtX1PfvNUfwh7H7tka2ezVC7UsA+3+hMRi
+         /V9Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=T6ly7mh1DwdgRs9nHmisVBPV1f4yeQm4dvni11CNcSg=;
-        b=bJMw0L+ei+jsaBvwXC+Nk7+hKA8ERurkuHHJeAtaj8GhzvRpDZPSINhv0rQkazq2v/
-         b1ms+anmhi+XQKvsTZziGJYUfeLkF2qYLj3505FEd/KoTtQb1PK8hppsdVeZw2nfeHie
-         XB/6oMg5qux+WoNxqJlPdW+8BJbCyLmDr0Qr0loxw8awi9YS/H+Nzy9/AYc8G9rXHCfR
-         V8kZOEc2Hv2lrga2kMU2BxKr5y9uRF0BQGGwPg0H2bfbc7QMfKqg9lHwAXNYiTClIGCB
-         dL8rRxWNHTn9q7r+OMC2g9xc3MNlv+RThMQqV6yz9bENLKSc0ps8lqm+FMyKxHGaw6G7
-         NKLw==
+        h=content-transfer-encoding:mime-version:subject:message-id:to:from
+         :date:dkim-signature;
+        bh=ZUnoe7LisTBuIk3jQU0y5oVBSeJ7GgOs6SqAcqYQM40=;
+        b=iXGiTc9/tQCRh/vBHwFpwDrzOzN3q31ERfI367JMkjZWZYbDp/LpBHU7KahJqgOaYh
+         6uAzoC3doiY01EFt9PMdTkis/AsChyk3mOpFzkoHtd8wWrgeNel1C3N/aQQmxbQ8hrt9
+         0a/JW14cuwJRHL1gbXa37WO6SxBO78SUY0oNm0cV+uGg3ngVSeYP5LqMGNhnBD3yITkk
+         uw2fFU8oilhUk37E7EP8C+zlXxSaVC0sEgSupstUk+OTzbG4Lzpa+YCgw1jkNuFIQ270
+         OqlB0z17+OzOintHigiOmj3ibZBVSWvTbNU35w/c/n0rH7lWnYjpRNwNYMNKRwfpDatT
+         HybA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id r19si298914eja.1.2020.06.11.23.24.52
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=ATQq8Qau;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.193 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from out-2.smtp.github.com (out-2.smtp.github.com. [192.30.252.193])
+        by gmr-mx.google.com with ESMTPS id t23si402040plr.4.2020.06.11.23.29.59
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 11 Jun 2020 23:24:52 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 05C6OpjH006183
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 12 Jun 2020 08:24:51 +0200
-Received: from [167.87.11.220] ([167.87.11.220])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 05C6OouJ005748;
-	Fri, 12 Jun 2020 08:24:51 +0200
-Subject: [PATCH v4 7/9] tools: ivshmem-demo: Adjust selection of interrupt
- target
-To: nikhil.nd@ti.com, jailhouse-dev@googlegroups.com
-Cc: lokeshvutla@ti.com
-References: <20200611125423.16770-1-nikhil.nd@ti.com>
- <20200611125423.16770-8-nikhil.nd@ti.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <4c91b041-b062-a35f-15cc-06b63c640707@siemens.com>
-Date: Fri, 12 Jun 2020 08:24:50 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
-MIME-Version: 1.0
-In-Reply-To: <20200611125423.16770-8-nikhil.nd@ti.com>
+        Thu, 11 Jun 2020 23:29:59 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.193 as permitted sender) client-ip=192.30.252.193;
+Received: from github-lowworker-1b8c660.ash1-iad.github.net (github-lowworker-1b8c660.ash1-iad.github.net [10.56.18.59])
+	by smtp.github.com (Postfix) with ESMTP id A56161C0721
+	for <jailhouse-dev@googlegroups.com>; Thu, 11 Jun 2020 23:29:58 -0700 (PDT)
+Date: Thu, 11 Jun 2020 23:29:58 -0700
+From: Nikhil Devshatwar <noreply@github.com>
+To: jailhouse-dev@googlegroups.com
+Message-ID: <siemens/jailhouse/push/refs/heads/next/af4b5d-870771@github.com>
+Subject: [siemens/jailhouse] de9cbc: configs: dts: inmate-k3-j721e-evm: Add
+ pinmux for ...
+Mime-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
+X-Auto-Response-Suppress: All
+X-Original-Sender: noreply@github.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
+ mode) header.i=@github.com header.s=pf2014 header.b=ATQq8Qau;       spf=pass
+ (google.com: domain of noreply@github.com designates 192.30.252.193 as
+ permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass (p=NONE
+ sp=NONE dis=NONE) header.from=github.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -133,7 +125,219 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-From: Nikhil Devshatwar <nikhil.nd@ti.com>
+  Branch: refs/heads/next
+  Home:   https://github.com/siemens/jailhouse
+  Commit: de9cbc0864a87d603948d0bd3cfffa47caef4c9f
+      https://github.com/siemens/jailhouse/commit/de9cbc0864a87d603948d0bd3cfffa47caef4c9f
+  Author: Nikhil Devshatwar <nikhil.nd@ti.com>
+  Date:   2020-06-12 (Fri, 12 Jun 2020)
+
+  Changed paths:
+    M configs/arm64/dts/inmate-k3-j721e-evm.dts
+
+  Log Message:
+  -----------
+  configs: dts: inmate-k3-j721e-evm: Add pinmux for main_uart1
+
+Add a pinmux DT node for main_uart1.
+Describe the pinctrl default state for main_uart1 node.
+
+Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 23e86fd68dc9b79048038f90ee80838896ce0476
+      https://github.com/siemens/jailhouse/commit/23e86fd68dc9b79048038f90ee80838896ce0476
+  Author: Nikhil Devshatwar <nikhil.nd@ti.com>
+  Date:   2020-06-12 (Fri, 12 Jun 2020)
+
+  Changed paths:
+    M configs/arm64/k3-j721e-evm-linux-demo.c
+
+  Log Message:
+  -----------
+  configs: k3-j721e-evm-linux-demo: Add USB mem_regions
+
+Define the jailhouse_memory regions for the USB toplevel MMRs
+This fixes the crash when inmate cell tries to
+access the USB devices.
+
+Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: ca62febb7da14bca08de48026c9e553697c68a4b
+      https://github.com/siemens/jailhouse/commit/ca62febb7da14bca08de48026c9e553697c68a4b
+  Author: Nikhil Devshatwar <nikhil.nd@ti.com>
+  Date:   2020-06-12 (Fri, 12 Jun 2020)
+
+  Changed paths:
+    M configs/arm64/k3-j721e-evm-linux-demo.c
+
+  Log Message:
+  -----------
+  configs: k3-j721e-evm-linux-demo: Remove unsupported device partitioning
+
+In kernel 5.4, support for following is not available:
+* D5520 decoder
+* GPU virtualization
+* DSS display virtualization
+Remove these from cell config
+
+Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 8419b7fb9b35574e68a072cf6844d950747f32ba
+      https://github.com/siemens/jailhouse/commit/8419b7fb9b35574e68a072cf6844d950747f32ba
+  Author: Nikhil Devshatwar <nikhil.nd@ti.com>
+  Date:   2020-06-12 (Fri, 12 Jun 2020)
+
+  Changed paths:
+    M include/jailhouse/cell-config.h
+
+  Log Message:
+  -----------
+  include: cell-config: Add new macros for 64K aigned BAR
+
+When working with a kernel using 64k page sizes, the BARs
+used for enumerating the IVSHMEM PCIe device should be
+aligned with 64k page size.
+
+Add new macros which describe 64k aligned BAR sizes.
+
+Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 990669e951f91ed08b1d29f5d80b021d3d9c0569
+      https://github.com/siemens/jailhouse/commit/990669e951f91ed08b1d29f5d80b021d3d9c0569
+  Author: Nikhil Devshatwar <nikhil.nd@ti.com>
+  Date:   2020-06-12 (Fri, 12 Jun 2020)
+
+  Changed paths:
+    M driver/pci.c
+
+  Log Message:
+  -----------
+  driver: pci: Use page size to set the aperture size
+
+PCIe host controller is added by jailhouse kernel module via
+an overlay. The aperture size is currently set to 2 pages
+assuming 4kb page size.
+
+Update to use the PAGE_SIZE macro so as to work with kernels
+where page size is configured for 64kb.
+
+Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 9791e638153c36aaab002e51424de6f3123c654a
+      https://github.com/siemens/jailhouse/commit/9791e638153c36aaab002e51424de6f3123c654a
+  Author: Nikhil Devshatwar <nikhil.nd@ti.com>
+  Date:   2020-06-12 (Fri, 12 Jun 2020)
+
+  Changed paths:
+    M configs/arm64/dts/inmate-k3-j721e-evm.dts
+
+  Log Message:
+  -----------
+  configs: dts: inmate-k3-j721e: Increase range for PCIe aperture
+
+Increase the aperture size in the IVSHMEM PCIe virtual
+controller to with the 64k sized BARs.
+
+Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 64eb491715d6fc838cfd97213c53e979af3d2fbb
+      https://github.com/siemens/jailhouse/commit/64eb491715d6fc838cfd97213c53e979af3d2fbb
+  Author: Nikhil Devshatwar <nikhil.nd@ti.com>
+  Date:   2020-06-12 (Fri, 12 Jun 2020)
+
+  Changed paths:
+    M configs/arm64/k3-j721e-evm-linux-demo.c
+    M configs/arm64/k3-j721e-evm.c
+
+  Log Message:
+  -----------
+  configs: k3-j721e-evm: Add IVSHMEM demo device
+
+Add a new IVSHMEM PCIe virtual device for a 2 peer
+IVSHMEM demo communication.
+ (0 = root cell, 1 = baremetal / linux-demo)
+Also add the corresponding memory regions for state and output
+aligned at 64k boundary.
+
+Update the bdf numbers for consistency across all platforms.
+Assign domain = 4 since the platform already has 4 physical
+controllers.
+
+Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 120cf7cb17a97f8dac3a860bc54173ff15d46471
+      https://github.com/siemens/jailhouse/commit/120cf7cb17a97f8dac3a860bc54173ff15d46471
+  Author: Nikhil Devshatwar <nikhil.nd@ti.com>
+  Date:   2020-06-12 (Fri, 12 Jun 2020)
+
+  Changed paths:
+    M configs/arm64/k3-j721e-evm-inmate-demo.c
+
+  Log Message:
+  -----------
+  configs: k3-j721e-evm-inmate-demo: Add ivshmem capability
+
+Add a virtual PCI device with IVSHMEM type (id = 1)
+Create IVSHMEM regions for 2 peer communication
+Enable the vpci_irq for doorbell interrupt
+
+This allows to run the ivshmem-demo baremetal inmate
+inside this cell.
+
+Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: a2b5f3862cd84f2f25346ae6be28eef72b7d88c0
+      https://github.com/siemens/jailhouse/commit/a2b5f3862cd84f2f25346ae6be28eef72b7d88c0
+  Author: Nikhil Devshatwar <nikhil.nd@ti.com>
+  Date:   2020-06-12 (Fri, 12 Jun 2020)
+
+  Changed paths:
+    M tools/ivshmem-demo.c
+
+  Log Message:
+  -----------
+  tools: ivshmem-demo: Map memory regions with correct sizes
+
+ivshmem protocol does not describe a fixed size for the
+rw, input and output regions. For each platform, the uio
+driver will populate this information in the sysfs.
+
+Extract the size from sysfs maps entries and use it for
+mapping different regions.
+This will make the demo generic such that it will work on
+all platforms with different sizes for ivshmem.
+
+Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: be209599f8b8ec2fa63b16aabca693cba5975112
+      https://github.com/siemens/jailhouse/commit/be209599f8b8ec2fa63b16aabca693cba5975112
+  Author: Nikhil Devshatwar <nikhil.nd@ti.com>
+  Date:   2020-06-12 (Fri, 12 Jun 2020)
+
+  Changed paths:
+    M tools/ivshmem-demo.c
+
+  Log Message:
+  -----------
+  tools: ivshmem-demo: Adjust selection of interrupt target
 
 Number of peers available on a platform is different.
 Ideally, any peer should be able to communicate with
@@ -147,97 +351,57 @@ hard-coded max-peers value for the default target selection.
 Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
 [Jan: fix register access, print max-peers, massage commit log]
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
----
- tools/ivshmem-demo.c | 37 ++++++++++++++++++++++++++++---------
- 1 file changed, 28 insertions(+), 9 deletions(-)
 
-diff --git a/tools/ivshmem-demo.c b/tools/ivshmem-demo.c
-index 163653e1..4110e898 100644
---- a/tools/ivshmem-demo.c
-+++ b/tools/ivshmem-demo.c
-@@ -19,6 +19,7 @@
- #include <stdint.h>
- #include <stdlib.h>
- #include <string.h>
-+#include <limits.h>
- #include <unistd.h>
- #include <sys/mman.h>
- #include <sys/fcntl.h>
-@@ -33,7 +34,6 @@ struct ivshm_regs {
- };
- 
- static volatile uint32_t *state, *rw, *in, *out;
--static uint32_t id, int_count;
- 
- static inline uint32_t mmio_read32(void *address)
- {
-@@ -81,20 +81,32 @@ int main(int argc, char *argv[])
- {
- 	char sysfs_path[64];
- 	struct ivshm_regs *regs;
--	uint32_t int_no, target = 0;
-+	uint32_t int_no, target = INT_MAX;
- 	struct signalfd_siginfo siginfo;
- 	struct pollfd fds[2];
- 	sigset_t sigset;
--	char *path;
--	int has_msix;
-+	char *path = "/dev/uio0";
-+	int has_msix, i;
- 	int ret, size, offset, pgsize;
-+	uint32_t id, max_peers, int_count;
- 
- 	pgsize = getpagesize();
- 
--	if (argc < 2)
--		path = strdup("/dev/uio0");
--	else
--		path = strdup(argv[1]);
-+	for (i = 1; i < argc; i++) {
-+		if (!strcmp("-t", argv[i]) || !strcmp("--target", argv[i])) {
-+			i++;
-+			target = atoi(argv[i]);
-+			continue;
-+		} else if (!strcmp("-d", argv[i]) || !strcmp("--device", argv[i])) {
-+			i++;
-+			path = argv[i];
-+			continue;
-+		} else {
-+			printf("Invalid argument '%s'\n", argv[i]);
-+			error(1, EINVAL, "Usage: ivshmem-demo [-d DEV] [-t TARGET]");
-+		}
-+	}
-+
- 	fds[0].fd = open(path, O_RDWR);
- 	if (fds[0].fd < 0)
- 		error(1, errno, "open(%s)", path);
-@@ -114,6 +126,14 @@ int main(int argc, char *argv[])
- 	id = mmio_read32(&regs->id);
- 	printf("ID = %d\n", id);
- 
-+	max_peers = mmio_read32(&regs->max_peers);
-+	printf("Maximum peers = %d\n", max_peers);
-+
-+	if (target == INT_MAX)
-+		target = (id + 1) % max_peers;
-+	if (target >= max_peers || target == id)
-+		error(1, EINVAL, "invalid peer number");
-+
- 	offset += pgsize;
- 	size = uio_read_mem_size(path, 1);
- 	state = mmap(NULL, size, PROT_READ, MAP_SHARED, fds[0].fd, offset);
-@@ -180,7 +200,6 @@ int main(int argc, char *argv[])
- 				error(1, errno, "read(sigfd)");
- 
- 			int_no = has_msix ? (id + 1) : 0;
--			target = (id + 1) % 3;
- 			printf("\nSending interrupt %d to peer %d\n",
- 			       int_no, target);
- 			mmio_write32(&regs->doorbell, int_no | (target << 16));
--- 
-2.26.2
+
+  Commit: b527a702b87f49dfa85a867c98fe273184b54c0f
+      https://github.com/siemens/jailhouse/commit/b527a702b87f49dfa85a867c98fe273184b54c0f
+  Author: Nikhil Devshatwar <nikhil.nd@ti.com>
+  Date:   2020-06-12 (Fri, 12 Jun 2020)
+
+  Changed paths:
+    M inmates/demos/ivshmem-demo.c
+
+  Log Message:
+  -----------
+  inmates: ivshmem-demo: Parse target from cmdline
+
+Generalize the ivshmem-demo to work on different platforms
+with different number of peers and ability to send interrupt
+to any peer.
+
+By default, the demo sends interrupt to next peer in a ring fashion.
+Optionally, allow to specify the target peer from commandline.
+
+Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 8707714bd3d137859658d598c5e941a3064f3c2a
+      https://github.com/siemens/jailhouse/commit/8707714bd3d137859658d598c5e941a3064f3c2a
+  Author: Nikhil Devshatwar <nikhil.nd@ti.com>
+  Date:   2020-06-12 (Fri, 12 Jun 2020)
+
+  Changed paths:
+    M configs/arm64/k3-j721e-evm-inmate-demo.c
+    M configs/arm64/k3-j721e-evm-linux-demo.c
+    M configs/arm64/k3-j721e-evm.c
+
+  Log Message:
+  -----------
+  configs: k3-j721e-evm: Fix memory overlaps
+
+Fix errors reported by jailhouse-config-check
+Fix overlap of baremetal demos with IVSHMEM.
+Remove regions of memory which is already covered as part of
+some other memory region.
+
+Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+Compare: https://github.com/siemens/jailhouse/compare/af4b5d431a51...8707714bd3d1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/4c91b041-b062-a35f-15cc-06b63c640707%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/next/af4b5d-870771%40github.com.
