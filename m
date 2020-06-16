@@ -1,139 +1,147 @@
-Return-Path: <jailhouse-dev+bncBCOKB247TIDBBVG2TT3QKGQELQ3XI4A@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC4IPGFA6UFRBKEDUH3QKGQELLDGAZI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x140.google.com (mail-lf1-x140.google.com [IPv6:2a00:1450:4864:20::140])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA5CB1F9114
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 15 Jun 2020 10:12:05 +0200 (CEST)
-Received: by mail-lf1-x140.google.com with SMTP id r10sf2997084lfc.6
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 15 Jun 2020 01:12:05 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1592208725; cv=pass;
+Received: from mail-pg1-x53d.google.com (mail-pg1-x53d.google.com [IPv6:2607:f8b0:4864:20::53d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 07FB61FA726
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 16 Jun 2020 05:51:06 +0200 (CEST)
+Received: by mail-pg1-x53d.google.com with SMTP id x18sf8070707pgk.23
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 15 Jun 2020 20:51:05 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1592279464; cv=pass;
         d=google.com; s=arc-20160816;
-        b=SufCpB0vx6DJTj9H/P6y4AOg/+h4ndiUcVIfSDhfNQmoocbjm3Cwud38L+p5JiLpTR
-         0ZhCu4hr8qHD/Lu62WmzyaE1NUlqr9l0YvH5020V9pZlQjhyl8GkAQqjz/vzOjxz7Y/T
-         caNOMmomYDwvqf+5W852ur5Ptc/dC9j43d9v4qc72cb6h4JR6h/ryNlnzy1MDPp8BDd0
-         BchfOz/h7uCQ0kzGOeIt2VGI7OconL12flzP5ezcsW6/a2DJOogzkn081VVCS0vd2QQV
-         loJ8xays7ZUYuB+hIU2cXKhOpeaINHFlmBtt6X0jr75fokc4+kLS/klvtH26YU1GePqu
-         +V1Q==
+        b=zroVpOaRndguvORoceS/xrav8dflFBKVGiEG6ayBQZEA5W2ztzLKnr31ov4E8yamKq
+         9QtULtr7FJnUaPKaQVQiOV6hhHqUkBbQEdFxqt0tXFDBKCsHqTdByEURJChJEeB4SZRM
+         4lj90MAxtPpNvPZWIY/tfnb7miQsxG7jRXlgO09DA73Wszso7ZWoXggEjZqQENYMBMWV
+         QzHKzuXI+FyW6WisAHt6tZTSj1kQhtkWlCGOcj0K6AsnAu7kRY3y38jq128HmaZ2XOc6
+         IuXDMKvzIDGu+Dpt7XYGBsJDy1+kEDV9Hv89cVyWlUFDi1HtS5LVU1QW0+ZEVp1TYtKN
+         vYZA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to:in-reply-to
-         :content-disposition:mime-version:references:message-id:subject:cc
-         :to:from:date:dkim-signature;
-        bh=DIEnDbqmcLlyJXetnDMkhQtczyRiDUY6jneQ1SNon9E=;
-        b=oQ6z6ecOTMDapP181Z1NWp81Jb3zunzJcMahBDrFRHthFnDaSoXTJfSoqf3vBHsC2u
-         mzFa/QdD+iOb8rYCRf8X0KzPmY1d0Ea9xwHrYVIhfuhIQNSNTIQMGQ9vaLBcfhBuVpSK
-         1TWD7jGhuVd+30sEosqg4x4szJUXCtp1tZkyZMWXjdB7l1S0Mzd7/OWtl9reZwqpW/cY
-         TakO1lXvs68wc4v2KTGbOu0O11zxb6Ddaiw4OjF4axScTbCgfFQ04PKAorSwXnLY3X2c
-         DEQATCSXO9f/Q8xijmXIRpVSRs6d4OVeA2jG3zn9UV7quiheVPMFaDnUdod/tvCBr2f8
-         o06g==
+         :list-id:mailing-list:precedence:feedback-id:message-id:date
+         :content-transfer-encoding:mime-version:subject:to:from:sender
+         :dkim-signature;
+        bh=q5xHysjhmm6zYu/vMLSeen39aB+ocurJjXJczjObgYU=;
+        b=yqhnBKGaAj04/YKavUfH6eNAib1tzi+nlz9xvVgHruwbZgQjOrVUDOpKXxuc9qjtNB
+         rSjHRaF8EhWrD+RxkJRa5cmmQufgmy7RYkWFZw623lzT2LagHc/K9wzvBnyKfcJI0WVj
+         Wz6TYiPnVfqxvUyJVM2yZlZKLdmlwn7WqaYV4+MPaom9hAzcdsAl6cc4982eLAF1cTjW
+         nM4llhkuefSKlDuCqVtNYjFYOpGSO9NLjJb3q5qKAsVIKutQzl57MA/Uaz9WkP2kqFcu
+         OMkMDa/HAXXDSZoYywEI6NN+S8thd9WABmv4AtIdupwiJNoWHTMFnBn6rdpZ6AYAqDbS
+         WvCA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@unimore.it header.s=google header.b=VrWzvQty;
-       spf=pass (google.com: domain of marco.solieri@unimore.it designates 2a00:1450:4864:20::443 as permitted sender) smtp.mailfrom=marco.solieri@unimore.it;
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=unimore.it
+       dkim=pass header.i=@qq.com header.s=s201512 header.b=fLzKAf13;
+       spf=pass (google.com: domain of 497738387@qq.com designates 54.207.22.56 as permitted sender) smtp.mailfrom=497738387@qq.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=qq.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:x-original-sender
-         :x-original-authentication-results:reply-to:precedence:mailing-list
-         :list-id:list-post:list-help:list-archive:list-subscribe
-         :list-unsubscribe;
-        bh=DIEnDbqmcLlyJXetnDMkhQtczyRiDUY6jneQ1SNon9E=;
-        b=OwPCCccLS3C2Ao7UFGwFN4vN7ZEzULUPDR2+JIt2DgSk+ll3QccOZ6E3/o9cE3zCJk
-         K3e5axgSWQZxwT1LI1oWIGXY8vCquAGv2gd/QNoFsv0V0JS9dfHNnAxQt0HUR43v4YLT
-         ODiK5zKc/IkJuebqw+jf6UV/dczkhc3k9HPTenPg/FzyHewsWOPDcfp2ppRdv5kIJVtf
-         xi2QLz+OVzOoqHdgzq2XZjE8e9sr2GWP565t/kLlSclaSt6Adiw53av91vTQtUL/giTT
-         6eXoeXyP2kkwfSKUiUbmnY1+t9rGXOiCrd1tTnvlohP4a2+f3CSvWp5KNpjRvrBGbqnF
-         4rfQ==
+        h=sender:from:to:subject:mime-version:content-transfer-encoding:date
+         :message-id:feedback-id:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=q5xHysjhmm6zYu/vMLSeen39aB+ocurJjXJczjObgYU=;
+        b=rr+UTqFs0FQz5CwAYvVnZ0LkG4Eu8XwxOqIUR8I7EuJF36yHs6JsmjWuiecR+lE4mt
+         bDfZfF10YH1SVWaT/H8jgeIVXOGZm6tSlxXzQO8IcaFKQUiOcnys8trhtBmVz2TQcLYI
+         3MfLGUCCQ4B7XS8T0DNLzU9YGf43PM9/pGofx5EWQQEz66wMfnt1Zek+vpOuDI9K2zVQ
+         2cMpN3q8JfqV80+buFW/0o49jnNimLwSCbo+AQkpwax1gCfWXA1a17RPZFuhZay5rvM8
+         rm/RleScAZbkTPMM4qRhRXxu07cSTN+Rnu1wqm+NxvsT7XkuJVX7D1dfV2HwLJuEmwQT
+         OUiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:x-original-sender
-         :x-original-authentication-results:reply-to:precedence:mailing-list
-         :list-id:x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=DIEnDbqmcLlyJXetnDMkhQtczyRiDUY6jneQ1SNon9E=;
-        b=gRgzQJM2tyvRqzIx7+pflwbU37TuEZcA9glx5kNSgGAfPGJxmeuGuyiHoEt1WSJiGY
-         3YUJiDRlUaY2JT3dBXL2ufLEmiia0pfV1XU0YKZAA/lHH3GJJC+UrVWVojUAQX6Ycbyj
-         RuTbAW5vHVg1FjfvJzKwLRzSboeyHWSf7lULbb3tygpDGqXYkIhqLduQhpGBB+o14XXF
-         JZOwhzvpMCQx4qDinoPZiCKTL4Qczw1QsKrJcWfLLusc3+q2/uBpUeoeju0v0dyyk3a/
-         MWLS8K3MPU8SzilkgO8GWNxeByGWWv+l1usokC2N9KSlNAiGSG5v/jerF4KNfatqaKAF
-         t4aQ==
-X-Gm-Message-State: AOAM533dhXDKVP2AWcw2ZgHv8NViMVCPkCHpQgWDz/wzgf9qxyLABFiP
-	ZhGG9Cqvkiz5PjwB0Wd5EYs=
-X-Google-Smtp-Source: ABdhPJxtQH1p0U+aaUoTSEeOhCB5+OQg68LK58VWOJQSXPjrcIa7WVVWWY75Fr+JRLUtbj4Jejfb2A==
-X-Received: by 2002:a19:ed17:: with SMTP id y23mr13076623lfy.162.1592208725115;
-        Mon, 15 Jun 2020 01:12:05 -0700 (PDT)
+        h=sender:x-gm-message-state:from:to:subject:mime-version
+         :content-transfer-encoding:date:message-id:feedback-id
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=q5xHysjhmm6zYu/vMLSeen39aB+ocurJjXJczjObgYU=;
+        b=qnBlmF3m9UGSHpR9/MHvz9avg1wVw46FxSJHIzZHhPZzWE2Elj8BHW/vn2Jg0XtfFq
+         8yXq6UPChKH7ZNdiNrPAQqv8wMIfh1cXTi/FSaGSCp4H+HrYy5wJ98GstPvMfD80eiZj
+         Xc9C1KhsAqd1MgIHW1woB1zxLawnUjQUiypyqFsjJfsl12h4UfNIhWpN11NHfUn8pqPc
+         NaMj+lmgqCpvZnCSZsMHbaLGXJwTt4TMIe/IMfgkqZzUmNcttCy1SFDoEqZ/pUD09FhS
+         j6SQhvVQX691Ca34nb3BpqP9Y/tl4uFr2iitlqAVvdzT64XV2FNYsm/YOljmOEsKszvn
+         Z/rg==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: AOAM530dDW9L3qoBcCPpVO6PT+lrxWF+9UVcPOdLB4gFD6sYYTXwP40b
+	PAmz0cRbVgBfCoAsgfs1mtY=
+X-Google-Smtp-Source: ABdhPJxpIKH1oJrTi6xMTV3bcn1BQZCdWt86rcNHu9UXiFyG6h011+jxRDxYeE2fJJQZa3GESlpDOw==
+X-Received: by 2002:aa7:9f10:: with SMTP id g16mr346397pfr.47.1592279464683;
+        Mon, 15 Jun 2020 20:51:04 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:3a02:: with SMTP id h2ls2410289lja.6.gmail; Mon, 15 Jun
- 2020 01:12:04 -0700 (PDT)
-X-Received: by 2002:a2e:a548:: with SMTP id e8mr12859046ljn.76.1592208724454;
-        Mon, 15 Jun 2020 01:12:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1592208724; cv=none;
+Received: by 2002:a63:3c1:: with SMTP id 184ls3979858pgd.11.gmail; Mon, 15 Jun
+ 2020 20:51:04 -0700 (PDT)
+X-Received: by 2002:a62:5ec2:: with SMTP id s185mr367812pfb.0.1592279464048;
+        Mon, 15 Jun 2020 20:51:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1592279464; cv=none;
         d=google.com; s=arc-20160816;
-        b=C8xjc2xCqj7wZXtDtbpWHi/+RCOc7ygRn32x42JRU4nyN5ir9G4S+d17LeB/yWCf5C
-         Jlcua2eu6XxegyQw2KaapZrIRLztaVXGSOAO0aKqWqCt4NKWj/b65wU0+Fea2U0hYh6Z
-         2em4IpH0bYgXta6O2dlpBmrQ9NOAP4fcpBCqjVWiFcUlHl2qCtVcvaHRHcJNsFJeSdsw
-         RgRoDfyPcB5u9CRLQVpaZMDDixwAVrOfUq53zl60GkMBAuKfA2eJ5s6bljQGrvrxue++
-         To+DqDf7mXbo0sEWRWo54p+hh8AcAnpqS0gY4IjwC4zn5RUJnfByWuf5A5ekj4zBd6LY
-         MTPw==
+        b=D8M5HqIIiCa/JYUfa46khudQUDDA4Ny2sLR5l2j7oKOxqoE3FjX1tlhmPTU+fk2EU2
+         No4PbRILS/t2VA7tWZ9hqx8gU8C6Ti3gYnKDABUXOUSgvI1WGtSsT3Avxim3r+2qoUN2
+         90zecVekQ/YVEgMNpruhdl/z46i5dAKL2WR7VXv3e9110/N6v6cGoQ/CI+jhgN28iCci
+         h+LKTCkgFXTzHFlz4oWkEyz8eGnhLDUjQqj0UvzbCuiGCoRSrwRITTgyD2ibC3G/rKIZ
+         S/WSt/VV+sZiY2IHmOOnXBygxkOSNUy1i+4N+bpKgHSxjjimD1CmwMqCQVobKc/kbttD
+         3HbA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:dkim-signature;
-        bh=I3OWJgSz3VJVxcS/lMjGWmhC1c19olBIwgVt/+Mg+3k=;
-        b=ECVVyC84UE627O8ULTa219utfjgwNjQVt+X51LbGZmO2Op9fdFwR+2wZBlGOphlVy4
-         OI4riNlErqDee5Hrs4o6eCgFx/L36gF3aI/PjwqBwX+2zbJtrss1NxcRQUb77vxlN7Rv
-         56NRdXr1f9OWqFKX/8Kp2qk0crCITlJXA8Pq1JELR1tbpA6nr0QbxQTQV8z1YCmFS0p9
-         vu30htTyxNV822rer5y9c79BYqPIBPd7KfJ+1lnvs7Phqz+LhCipPyrsEI4FSG6Jk3LY
-         3XGrxpeWELlfG0GK+HtUyaOeFQmxwWxadaVsmg8HU9aP7ZQj+nmJxPS6tqSot0VzNlPM
-         Iz1Q==
+        h=feedback-id:message-id:date:content-transfer-encoding:mime-version
+         :subject:to:from:dkim-signature;
+        bh=Npw/gLKuheermUN1MJFXOBeq7GfgPMCa72ycsJubYtY=;
+        b=mvPgYGUQCx0+Bzu9qxTD6pficGGz1w2DWN07FljtH2MP3IhUmYtB2yBOhNsMiNvX48
+         tiBA3dH0IRWmO60XL/R20zuzRBGpXfm+WY3+iimbZR+JY6FRyaeG+gim8IZl8RrzZ731
+         xE1yKaV3Kftu2vfqADABvdLP8IFEDaj8hn/TshE3w47JZuDUNtK46G1arMMgNdduRyPH
+         17Floe/hoL+UXgdZc6GjcjWGtxMcyCgNbaqUtf1KS0RLQB0zxBYHl97+WRIE1Hxq8K/8
+         DwSu6Xei9gKLgIm7+/CrvIXgyztub265se3N09RVSZk/DPDBWe8l2q2yr3UQWUFN8PRz
+         UTaw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@unimore.it header.s=google header.b=VrWzvQty;
-       spf=pass (google.com: domain of marco.solieri@unimore.it designates 2a00:1450:4864:20::443 as permitted sender) smtp.mailfrom=marco.solieri@unimore.it;
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=unimore.it
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com. [2a00:1450:4864:20::443])
-        by gmr-mx.google.com with ESMTPS id a15si145849lfb.3.2020.06.15.01.12.04
+       dkim=pass header.i=@qq.com header.s=s201512 header.b=fLzKAf13;
+       spf=pass (google.com: domain of 497738387@qq.com designates 54.207.22.56 as permitted sender) smtp.mailfrom=497738387@qq.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=qq.com
+Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com. [54.207.22.56])
+        by gmr-mx.google.com with ESMTPS id x70si1032338pfc.6.2020.06.15.20.51.02
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 15 Jun 2020 01:12:04 -0700 (PDT)
-Received-SPF: pass (google.com: domain of marco.solieri@unimore.it designates 2a00:1450:4864:20::443 as permitted sender) client-ip=2a00:1450:4864:20::443;
-Received: by mail-wr1-x443.google.com with SMTP id p5so16047019wrw.9
-        for <jailhouse-dev@googlegroups.com>; Mon, 15 Jun 2020 01:12:04 -0700 (PDT)
-X-Received: by 2002:adf:97d3:: with SMTP id t19mr29377301wrb.116.1592208723873;
-        Mon, 15 Jun 2020 01:12:03 -0700 (PDT)
-Received: from localhost (217-133-116-244.static.clienti.tiscali.it. [217.133.116.244])
-        by smtp.gmail.com with ESMTPSA id u12sm23366510wrq.90.2020.06.15.01.12.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2020 01:12:02 -0700 (PDT)
-Date: Mon, 15 Jun 2020 10:11:39 +0200
-From: "'Marco Solieri' via Jailhouse" <jailhouse-dev@googlegroups.com>
-To: Jan Kiszka <jan.kiszka@siemens.com>
-Cc: jailhouse-dev@googlegroups.com, marko.bertogna@unimore.it,
-	tomasz.kloda@unimore.it, giulioc@xilinx.com, c.scordino@huawei.com,
-	fabio.federici@utrc.utc.com,
-	Luca Miccio <206497@studenti.unimore.it>,
-	Angelo Ruocco <220530@studenti.unimore.it>
-Subject: Re: [PATCH v2 0/9] Add cache coloring API and arm64 support
-Message-ID: <20200615081139.agyjjsccbwnsux43@carbon.xt3.it>
-References: <20190327121849.1882-1-ms@xt3.it>
- <7e92c41e-12a5-28fd-b1fc-4949e5ccac20@siemens.com>
- <20200422072259.sc2au24ksnt6j7jy@carbon.xt3.it>
- <9605c893-d940-ce35-8301-832d31382c88@siemens.com>
- <c25b626d-2aab-2ccd-f129-40e8b525a232@siemens.com>
- <20200526132429.bmhnaiug7ssblxty@carbon.xt3.it>
- <7fff9e0f-e13f-b41a-36c9-228e9883fa7b@siemens.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="35obsxxvisd5a57s"
-Content-Disposition: inline
-In-Reply-To: <7fff9e0f-e13f-b41a-36c9-228e9883fa7b@siemens.com>
-X-Original-Sender: marco.solieri@unimore.it
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 15 Jun 2020 20:51:04 -0700 (PDT)
+Received-SPF: pass (google.com: domain of 497738387@qq.com designates 54.207.22.56 as permitted sender) client-ip=54.207.22.56;
+X-QQ-FEAT: ZHIynFL7/hQWaAoC9qtPzMo43H6jmmYT4NX/kxLU6X8yf3+Cj/idfTPZDMIMV
+	z8ho0I+ma7lAbO/aGy+lOaVnXUecyAEtSY3KlJXm/xetIsdQB4g7YwUEWPc/XlamCP2QR0o
+	tZAqeEzkqp528RAf/SXKCJWvxIN9+Y/TDNmnyNIrZD1VkJ4zZAqKdtxp7TKGtKduakPqge4
+	2vGxzDAJ0X28IFBYPsGWPYTJ4QQDk0+AHBlCiQX2gJfZAP2Rtr3jWPmp5qSmV/KTSxse1Ad
+	O5rbe79cgleRcEFZYmZOE24ww=
+X-QQ-SSF: 00010000000000F000000000000000T
+X-QQ-XMAILINFO: MHMWHkHpkjqPMwmjh3a7BDjuK3h43UdiWnWVTa79PBX7NM9SMChfRzaVgC8ycD
+	 qfAoXnZx7EDsK3gNFyGZARQSS2X3rGLttfPDvhtePUeAypdDK2dC7GV+9RCRYCci0YN7gpBzjWpuZ
+	 6DPVBARzVi9dMV8D/Y7j+J+9CYvw8RYLzpNBUTSk13U6HEW/Lv6gE0RDWKmEthjnYgK8+BB3Le07S
+	 F2C5We6+jC/8YObgJTktjrPPKAv4zvQbom816umisxvxI4S7/X6W35+bqi9yxn40CQKNrsoVsR8DU
+	 nDb7p+IRbz5HohOzkXAloEkx7WPLN2vgYsy47T8gOMJ9uNTNEnK496YK6J3H4ZCqHUiGKkmLvnF4q
+	 5RzStkJcE+21QeJSiCuQt65MdQlWPZCU5xdBpAJuuDLIYyhemunALWxplZRZzaN0duk6HgbzcBH5c
+	 4sRKDQLYAxfCJKoiB9MS9vSXeV3/xDx5838t3zJN9ZL2g9s2+rW+HHpIhk+WAQHM2pzOeC/Ds/+HH
+	 9dEIG2Awc30GHRidCzBztG3/JQ2TbyDArtylzXiLJx7FK9aq5ssY4nKmk53HRpxHi7dlPiH/lDaNP
+	 7mOpzF5QdF1xxJ9XBoDF/UD7qltNAfL4iHgFhVzzWGzDsU4xZTquaSQXuSuuUmmiQLqX2f2+cxN1m
+	 FrAeE3
+X-HAS-ATTACH: no
+X-QQ-BUSINESS-ORIGIN: 2
+X-Originating-IP: 178.128.201.135
+X-QQ-STYLE: 
+X-QQ-mid: webmail721t1592279457t6727663
+From: "=?ISO-8859-1?B?ZGQ=?=" <497738387@qq.com>
+To: "=?ISO-8859-1?B?amFpbGhvdXNlLWRldg==?=" <jailhouse-dev@googlegroups.com>
+Subject: problem about enable jailhouse on rpi4
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_5EE841A1_117685A8_2A6C824F"
+Content-Transfer-Encoding: 8Bit
+Date: Tue, 16 Jun 2020 11:50:57 +0800
+X-Priority: 3
+Message-ID: <tencent_62A2790D0DC156ADD77061CB612F88C4FC09@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+X-QQ-SENDSIZE: 520
+Received: from qq.com (unknown [127.0.0.1])
+	by smtp.qq.com (ESMTP) with SMTP
+	id ; Tue, 16 Jun 2020 11:50:57 +0800 (CST)
+Feedback-ID: webmail:qq.com:bgforeign:bgforeign11
+X-QQ-Bgrelay: 1
+X-Original-Sender: 497738387@qq.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@unimore.it header.s=google header.b=VrWzvQty;       spf=pass
- (google.com: domain of marco.solieri@unimore.it designates
- 2a00:1450:4864:20::443 as permitted sender) smtp.mailfrom=marco.solieri@unimore.it;
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=unimore.it
-X-Original-From: Marco Solieri <marco.solieri@unimore.it>
-Reply-To: Marco Solieri <marco.solieri@unimore.it>
+ header.i=@qq.com header.s=s201512 header.b=fLzKAf13;       spf=pass
+ (google.com: domain of 497738387@qq.com designates 54.207.22.56 as permitted
+ sender) smtp.mailfrom=497738387@qq.com;       dmarc=pass (p=NONE sp=NONE
+ dis=NONE) header.from=qq.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -146,134 +154,93 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
+This is a multi-part message in MIME format.
 
---35obsxxvisd5a57s
+------=_NextPart_5EE841A1_117685A8_2A6C824F
 Content-Type: text/plain; charset="UTF-8"
-Content-Disposition: inline
+
+Hello.
+I have met a problem when i enable jailhouse on rpi4.And i want to ask for advice.
+
+when i enable jailhouse using the rpi4 config file from jailhouse repo,
+it begin to initializing processors,but it crashes and the error message is:
+
+
+Initializing Jailhouse hypervisor v0.12 (59-g4ce7658d) on CPU 1
+Code location: 0x0000ffffc0200800
+Page pool usage after early setup: mem 39/994, remap 0/131072
+Initializing processors:
+&nbsp;CPU 1... 
+FATAL: Unhandled HYP exception: synchronous abort from EL2
+&nbsp;pc: 0000ffffc0203860&nbsp;&nbsp; lr: 0000ffffc020384c spsr: 800003c9&nbsp;&nbsp;&nbsp;&nbsp; EL2
+&nbsp;sp: 0000ffffc0222e40&nbsp; esr: 00 1 0000000
+&nbsp;x0: 0000000084000000&nbsp;&nbsp; x1: 0000000000000008&nbsp;&nbsp; x2: 0000000080003580
+&nbsp;x3: 0000ffffc020e170&nbsp;&nbsp; x4: 0000000000000014&nbsp;&nbsp; x5: 0000000000000001
+&nbsp;x6: 0000000000000029&nbsp;&nbsp; x7: 0000ffffc0219d30&nbsp;&nbsp; x8: 000000000000002a
+&nbsp;x9: 0000000000000000&nbsp; x10: 0000000000000000&nbsp; x11: 0000000000000001
+x12: 0000000000000015&nbsp; x13: 0000000000000001&nbsp; x14: 0000ffffc0219000
+x15: 0000ffffc0015040&nbsp; x16: 0000ffffc020d230&nbsp; x17: ffffabc8c78e90c8
+x18: 0000000000000001&nbsp; x19: 0000ffffc0222000&nbsp; x20: 0000ffffc0219000
+x21: 0000ffffc0200000&nbsp; x22: 0000ffffc0219000&nbsp; x23: 0000000000000001
+x24: 0000000000000001&nbsp; x25: 0000ffffc0222000&nbsp; x26: 0000ffffc0223000
+x27: 0000ffffc020f000&nbsp; x28: 0000ffffc0218000&nbsp; x29: 0000ffffc0222e40
+
+Hypervisor stack before exception Stopping CPU 1 (Cell: "Raspberry-Pi4")
+
+
+could you give me some information or advice about it.
+Thank you.
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/tencent_62A2790D0DC156ADD77061CB612F88C4FC09%40qq.com.
+
+------=_NextPart_5EE841A1_117685A8_2A6C824F
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, May 27, 2020 at 05:20:05PM +0200, Jan Kiszka wrote:
-> On 26.05.20 15:24, Marco Solieri wrote:
-> > On Mon, May 04, 2020 at 08:54:32PM +0200, Jan Kiszka wrote:
-> >> On 22.04.20 10:51, Jan Kiszka wrote:
-> >>> On 22.04.20 09:22, Marco Solieri wrote:
-> >>>> On Wed, Apr 22, 2020 at 08:42:32AM +0200, Jan Kiszka wrote:
-> >>>>> On 27.03.19 13:18, Marco Solieri wrote:
-> >>>>>> Predictability of memory access latency is severely menaced by the
-> >>>>>> multi-core architectures where the last level of cache (LLC) is
-> >>>>>> shared, jeopardizing applicability of many Arm platform in real-ti=
-me
-> >>>>>> critical and mixed-criticality scenarios. Support for cache colori=
-ng
-> >>>>>> is introduced, a transparent software technique allowing
-> >>>>>> partitioning the LLC to avoid mutual interference between inmates.
-> >>>>>> [...]
-> >>>>>
-> >>>>> Thanks for updating this! I will refresh my caches on the topic and
-> >>>>> provide feedback soon (I already have some questions and remarks bu=
-t
-> >>>>> I'd like to double-check them).
-> >>>>
-> >>>> Looking forward to hear from you.
-> >>>>
-> >>
-> >> Done with the deeper review. Overall, the series looks fairly good. I =
-see
-> >> just two bigger open issues:
-> >>
-> >>  - inmate loading interface
-> >>  - more architectural independence
-> >>
-> >> But I think those should be solvable.
-> >=20
-> > The major point you raise is that the impact on the hypervisor code siz=
-e
-> > should be minimised -- the inmate loading interface.  We took a while t=
-o
-> > consider and weigh the various alternative designs.
-> >=20
-> > First of all, let us consider the optimal solution in this sense.  That
-> > would be placing the whole colouring logic outside the hypervisor, in
-> > the Linux driver, or in the userspace tools.  No matter how implemented=
-,
-> > this solution would require, sooner or later, to pass to the hypervisor
-> > a list of memory regions, one per each memory segment to be mapped.
-> > Now, such list would grow unacceptably quickly, wasting a lot of memory
-> > to store it.  Take for instance a Linux inmate, and suppose 128 MiB to
-> > be its memory reservation requirement.  Now, assume that each
-> > consecutive fragment is the shortest possible, i.e. page of 4 KiB.  Thi=
-s
-> > means we need 32 Ki elements, each sizing 16 B, which is 512 KiB in
-> > total.
-> >=20
-> > This brings us to a design conclusion.  The mere colouring logic -- i.e=
-.
-> > the algorithm which conceptually expands the colour selection within a
-> > memory area into the lengthy list of contiguously-mapped segment
-> > (next_col) -- must be placed together with the mapping function
-> > (paging_create).
-> >=20
-> > We believe we can leave everything else outside the hypervisor without
-> > much effort.  We can move in the driver:
-> > - the cache probe function (get_llc_waysize)
-> > - the initialisation routines (coloring_paging_init and
-> >   coloring_cell_init).
-> >=20
-> > We believe this is the best compromise.
-> >=20
-> > In this case, a minor issue is also worth to be discussed.  The cell
-> > load function requires an IPA-contiguous mapping for the memcpy to be
-> > efficient.  This in turn requires such mapping to be performed by the
-> > driver (we don't want to add an hypercall, right? ;-)), thus including =
-a
-> > second copy of the colouring logic (next_col).  It would be nice,
-> > perhaps, to have a 'common' section where to place code shared between
-> > hypervisor and the driver.
->=20
-> Thanks for the explanations. My current feeling is that I need to look
-> closer into the implementation so that I can argue here on eye level.
-> Will try to schedule that soon and come back to you!
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DGB18030">=
+<div>Hello.</div><div>I have met a problem when i enable jailhouse on rpi4.=
+And i want to ask for advice.<br></div><div>when i enable jailhouse using t=
+he rpi4 config file from jailhouse repo,</div><div>it begin to initializing=
+ processors,but it crashes and the error message is:</div><div><br></div><d=
+iv>Initializing Jailhouse hypervisor v0.12 (59-g4ce7658d) on CPU 1</div>Cod=
+e location: 0x0000ffffc0200800<br>Page pool usage after early setup: mem 39=
+/994, remap 0/131072<br>Initializing processors:<br>&nbsp;CPU 1... <br>FATA=
+L: Unhandled HYP exception: synchronous abort from EL2<br>&nbsp;pc: 0000fff=
+fc0203860&nbsp;&nbsp; lr: 0000ffffc020384c spsr: 800003c9&nbsp;&nbsp;&nbsp;=
+&nbsp; EL2<br>&nbsp;sp: 0000ffffc0222e40&nbsp; esr: 00 1 0000000<br>&nbsp;x=
+0: 0000000084000000&nbsp;&nbsp; x1: 0000000000000008&nbsp;&nbsp; x2: 000000=
+0080003580<br>&nbsp;x3: 0000ffffc020e170&nbsp;&nbsp; x4: 0000000000000014&n=
+bsp;&nbsp; x5: 0000000000000001<br>&nbsp;x6: 0000000000000029&nbsp;&nbsp; x=
+7: 0000ffffc0219d30&nbsp;&nbsp; x8: 000000000000002a<br>&nbsp;x9: 000000000=
+0000000&nbsp; x10: 0000000000000000&nbsp; x11: 0000000000000001<br>x12: 000=
+0000000000015&nbsp; x13: 0000000000000001&nbsp; x14: 0000ffffc0219000<br>x1=
+5: 0000ffffc0015040&nbsp; x16: 0000ffffc020d230&nbsp; x17: ffffabc8c78e90c8=
+<br>x18: 0000000000000001&nbsp; x19: 0000ffffc0222000&nbsp; x20: 0000ffffc0=
+219000<br>x21: 0000ffffc0200000&nbsp; x22: 0000ffffc0219000&nbsp; x23: 0000=
+000000000001<br>x24: 0000000000000001&nbsp; x25: 0000ffffc0222000&nbsp; x26=
+: 0000ffffc0223000<br>x27: 0000ffffc020f000&nbsp; x28: 0000ffffc0218000&nbs=
+p; x29: 0000ffffc0222e40<br><br><div>Hypervisor stack before exception Stop=
+ping CPU 1 (Cell: "Raspberry-Pi4")</div><div><br></div><div>could you give =
+me some information or advice about it.</div><div>Thank you.<br></div><br>
 
-Any news about it?  We have time available to follow up for the next
-month or so.
+<p></p>
 
-Cheers.
-
---=20
-Marco Solieri, Ph.D.
-Research Fellow
-
-High-Performance Real-Time Lab
-Universit=C3=A0 degli Studi di Modena e Reggio Emilia
-Ufficio 1.35 - Edificio Matematica - 213/b, via Campi - 41125 Modena
-Tel: +39-059-205-55-10  -- OpenPGP: Ox75822E7E
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/20200615081139.agyjjsccbwnsux43%40carbon.xt3.it.
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/tencent_62A2790D0DC156ADD77061CB612F88C4FC09%40qq.=
+com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/msg=
+id/jailhouse-dev/tencent_62A2790D0DC156ADD77061CB612F88C4FC09%40qq.com</a>.=
+<br />
 
---35obsxxvisd5a57s
-Content-Type: application/pgp-signature; name="signature.asc"
+------=_NextPart_5EE841A1_117685A8_2A6C824F--
 
------BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEOC2XMK2o3tvc3F09Ctn83XWCLn4FAl7nLToACgkQCtn83XWC
-Ln6Ujg/+KHMwBS8/B9IbZOOkW+uD8PcwvnRuk6Jxazzf/9cC+EyT5rUMi+8y7WFx
-kVtq/Wdt53v/bm1LeFo5O2T3UjQm3ZU9/7UHi1TR6xamryL0ok4lndXsL45t1yuk
-Gx03yJWk5u5df/Mf2VsD7Panxlc4GaE3/lz+ngde8BtjnW/UAzrdPEz+Wt55oPWi
-Qi+Sldi6VkMkQci6Ov8sDlk0Qi52a1jGHptkKPPz48IjjtGkCpBmerlxrSDzoObi
-u7WJpAsiY/xBkaw4SVDsh5j2x4jJaViXryPSKgjn5LDadD36v0phuyBpZU41Z3r+
-enf45IvNUHs4flEijLhr/2Y8OUqGyBcXxRCgezLzhI5u/lE3skEB7gEpYk+2QD+r
-wm/t3bUN/gzB55pjRKplVpGrn/AyFVSlIxl5jjMhmXyOKTgyH8z5V0UplCZhBpzm
-LGNpnJIyqI6cY8xmL9x/6j/2pPiR5cT8ki/bzi2AJqfEhKBa8u+3zpCpEAnoJ9dL
-xY+kQB/x+5ql7qhymKJV27b7bOlwAJY3MJLr7XTqh9dPZovIn3oIty9xJrCl6zrx
-VhQHLPgURnBn8o28+ybSERlN12u/Y+rx0TQQ3wWRrOOthqT4YtKQ/7c8x4UQUZcD
-/X+hxfKnAQCQ9iRvUOniarJwVsBQIDnepy8czszJa1Jv7NZLiJk=
-=/9Mt
------END PGP SIGNATURE-----
 
---35obsxxvisd5a57s--
