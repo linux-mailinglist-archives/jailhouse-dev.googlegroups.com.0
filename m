@@ -1,124 +1,74 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB2F7WL3QKGQEOQQHS6I@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD7236HKXYJRB3PTXD3QKGQEDOZX6SI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x238.google.com (mail-lj1-x238.google.com [IPv6:2a00:1450:4864:20::238])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6CCD2007B2
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 19 Jun 2020 13:22:16 +0200 (CEST)
-Received: by mail-lj1-x238.google.com with SMTP id u3sf1273080ljo.0
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 19 Jun 2020 04:22:16 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1592565736; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=GoEwsSAGmoOslm+YqZQueJTyUz9qiPYXuOEYHDzuyoTCSvZXmgwlTv13r56sOnY6nb
-         KKL5MRNrYQhEDBbv711ejy2kXWEdv8pjxSueUx36q+YQlEJOMgKMERDXzw3+I1FmdXvM
-         HsAY0mUgCyaH56H49c7hNeS2ro+m7xrq6dC7Sjq1dq0Cdeb2c/S2zz6j+mbmco+FHaQF
-         AbANhqH/q01YdKj6jpvLib5+8J49qAvZT1yxyZdR/e6IgDNJjIqJUO4cqWrkJFh5xuov
-         nfQ38AbL0H/zdBvvssMLdGBcwqY2E3natQaixvzrthQLWV+XsnwfhE2AS0tW9HzE6Y54
-         TU2A==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:to:subject
-         :sender:dkim-signature;
-        bh=ZBkGdyyiBBhfCmX8WxDLGPQTR7pjbJLgd+aRIsTchzw=;
-        b=fp6AzE2XD64eVv5zeimqKjXOWHGvMlYtyLZoCby2vJNJSQ3oM7jTH7rMNMEPbLPPWR
-         tJ3Iaw9m8hCilBtBI3WbkRRGnB9zrOpkD0f1WvhjEB/tvvkkPz2qRbpRU7P+5jTEJEP0
-         ISKuzrtEt9rHzO4nZbudj34IoEI5HfJAnIOS0dZSp/quHbFaKsZkP81XDItZeGHGVMKW
-         Uwd4HiZJ+w0AMydRm761vWBX+I+e+ADDx9PsJfr7gJuyKMKnpC32bTpfknQ2HxOxPIQ5
-         muT6xLYnHqUmjiKun9Yr1jji1rlsa9yN23b+ahFpFkjks65qqPfoYhlSyvarVJiYvIJp
-         iD1g==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-oi1-x23a.google.com (mail-oi1-x23a.google.com [IPv6:2607:f8b0:4864:20::23a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CBEE20254D
+	for <lists+jailhouse-dev@lfdr.de>; Sat, 20 Jun 2020 18:31:43 +0200 (CEST)
+Received: by mail-oi1-x23a.google.com with SMTP id r9sf5701710oia.22
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 20 Jun 2020 09:31:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=ZBkGdyyiBBhfCmX8WxDLGPQTR7pjbJLgd+aRIsTchzw=;
-        b=Agx055OiclHWen28diQyLZ9aXS6qmzODMH38naadlv6s5F9EoWvCnE+RFnR8+LfHnU
-         ipJETqAUieTNz9WfpjSqRx5yYYVb8Hhia0l/sfwhchK3Cy+pOjmMNxfjNbaG6aAA9/JS
-         c7R01SJfFhHGkYeKVU4fiuPMtcMa5ZOatZo9+WAGZtK8N5bgn/N2cqv6P7w6TDcgD8Bh
-         Tou17Tg3HZp6kaDKdM7zA6XEVE/IHKK1JJe+jQBU83PkAAD9SMd9lDh0Fm+K+1fsbIsb
-         bEnBaZwcH1PPjcGNhElt6kLpqchJTL7nKT4+JhM652Bok1X33tAvInkiyIzFcbgR61ze
-         geDw==
+        bh=r0F1Ov2+pDqe+8EH1RUyYc9Z9PvIHF52COT7TeQwqOQ=;
+        b=atYeiyNdYHUDwlsYBFES1MivTSMRItjgOUyaiX6QHpi9WTcI769MLL3PZTX68Zr1mg
+         wewXEGz8n4gPgyowCDIy9wdGCYum4WLZQZIsaRKRxC5yeGEU8NFjsIogip4yKIucYeOr
+         /Dv8gBK8Ob09109G7Uk+hCvdyM/+pqbj8FQeFYn4CfX70FHD/Prx0Dyn5UqAR7cBCx9A
+         fr/DZe/NchNrPG1c6am0imrgriecZmUX6/FPJ2c5Vxpo0LY2E8VhUQbRhhpjHGBq4ZwO
+         WzwyZuXKn5qiifl7Z2vSVKIy5O4QLw6weHxP60P0trlo4NdoJuhbhLqISqS+JIzXELvQ
+         wTCA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=r0F1Ov2+pDqe+8EH1RUyYc9Z9PvIHF52COT7TeQwqOQ=;
+        b=Oa7A9QMyeJgrLoW+AYMgLJYTuvhT1Das53O46LZbsuAAhtZxJRfTMIAz7ChGlRHL2I
+         utSNi2uyMEiMnMbtVeXJgqKauF40eykV917bdJpJOEGSiEf2PbAKPlJt1t8cFNhp5eul
+         EN40VJjv4jFau4KHP08XLOHaTSpVDn3zQHx4jplwROm66PGeKhdXiPxta3oLpmvQ7nZm
+         IZ2ZCoUPcDhuym1YwviBpxgaHyWcWmVTnq6n5E0RxWd7FtihCFPbpNCPavKZR9/kz4KB
+         /9LGewa0UMvzjUibpcIjaI1Z7KB1p7TQj3kzjgshXYY8M5D9+KTob7UzSm6In7TYR4Du
+         HWJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=ZBkGdyyiBBhfCmX8WxDLGPQTR7pjbJLgd+aRIsTchzw=;
-        b=Ym9LPw1n/hpdK2AhZF3ktOgkWu4i/eNhfIeDAp0wOvchsH2KPJt6kYEfKHvzgaD+2s
-         fQrmtVYD5fAlIBkglsGOcW24LAVrAM+gx/I6X+WKIvXhvnEcZbRuisVmILGb35sCgiVR
-         gUcK8hkovsgSfTlf/NJIxvQxFBwcfhgkxpFZNWBrn33oLoHL82vftqUqTM2/3KAF8x0A
-         y31l2P0OuGIUV3dLt0xEJHadOW7jst0MNd/+QgWmiukM5qpoC4ZvXE6i5avQZGdcmJo8
-         i9UKmszFEEwnDsUEsHBbCwIb0lqbzG+ctiukOIxWzqn5v21bny5SPAqx1VLFsQ+W0zi0
-         Mp3A==
+        bh=r0F1Ov2+pDqe+8EH1RUyYc9Z9PvIHF52COT7TeQwqOQ=;
+        b=tAtj7T9gGPnFQCIZdwXfYcDXL9egALozolsVUOvbdT4pUzXLlMxNVD4qmXW7RET+ZJ
+         L01blgIJN+ZZqZElerJIicwSCp3sZjCR5OL/dbqZuDhx9vSG3rGqnLOKO+w2RnU9HnKv
+         DWomkK+R7MoHS6OY2HD8sBXSIy5Y2ZVVIjN1cfnpvbHWCPbR012GZHP6sB1drl7QfiDh
+         Lj3Qs3lngKBY7f/FCxVD6wHlisOjVb7s3gE9Kf+eUv/voGHoA6slcEZInn/UWVnFbUgm
+         rRcXT/WvKzFB+UHd5DahU0/i3qhw4UWF286T6TzPYBKYzCD/vGESvwVRWb64V4FAyatM
+         bvaw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533o3bICw1VGkItFwmW/nH8DMFqZ7SmGTvutz0AlCrjayZ6g1FIm
-	GDb5Z6BY678I4T7oVPy7nsI=
-X-Google-Smtp-Source: ABdhPJy8yrmbsTphAtZfFB8+wKdPbiTxNAY7uNtf4+QWWc0bmnyf8U5tb5YQX7ezWiw6whqxlSSbYw==
-X-Received: by 2002:ac2:52ac:: with SMTP id r12mr1671015lfm.175.1592565736266;
-        Fri, 19 Jun 2020 04:22:16 -0700 (PDT)
+X-Gm-Message-State: AOAM530h7I/fc2Gb3YNRJIW4LWtrK6y+KRHBhK366xmRaDSyDv2uDmVb
+	9KG0EanJmsCd4GPK2RyS0ZQ=
+X-Google-Smtp-Source: ABdhPJwqx7D6aGif2NX6TSM/NWZ3ODWWqNnWsFiw2zFiwsEKpr8HS3+RI14XEox0hZ8sp9tGEcmVTg==
+X-Received: by 2002:a9d:3d4:: with SMTP id f78mr7374381otf.189.1592670702208;
+        Sat, 20 Jun 2020 09:31:42 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:89d8:: with SMTP id c24ls1904299ljk.2.gmail; Fri, 19 Jun
- 2020 04:22:15 -0700 (PDT)
-X-Received: by 2002:a2e:9b04:: with SMTP id u4mr1726274lji.364.1592565735454;
-        Fri, 19 Jun 2020 04:22:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1592565735; cv=none;
-        d=google.com; s=arc-20160816;
-        b=edbNTojNlXbcx6RgnrZVlPjrofFfA5rVMq1DB94OUl1Vk0rJEZXPH/AuVxdFo8ehZI
-         s5h8gd4P6ZMr+TEfHfSQL/4/DtqPu/E6FWjBcJNGF3W7uoB0uTpizOISM2YFY52HFH5u
-         Yl8ETn8DSVahst8r4AB+ZK8kFHxNWRrX4jsaMuN3EvJKFg5FuWjfPYlJbPC37K/wZSjH
-         GK/p3KCsm9qJSQrP12VNCNuJVUBVHqdlnLxLykdCqOvGdGaWv2ryWus96Zxe3xtWpC1S
-         j7kAqTOeGT6PSy1d4J6fkEIdgZERxsEYeFjtcL7K6JSqvxz5O743gJnAQYm7NU+UlojT
-         cDvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=etY4hTv6sUqYHinOuRE6/2g67ZoOpEfouNci/u4njqU=;
-        b=A6CvhqgqKfDMLBv+BnWlbAI0+LKYXnKYbHa1JmiYPTVCkEVqNNBzyLW0TvJ7dsAUFK
-         1bw1hodr9ImPjy/113G1N2+BGihbxNHsgbk7aE3RhgJm95TXhK9w06+5ZkvHyxvTeLXY
-         nimrQs0jJvTVwU7jzMNxa7mlbZE+NmT/tyhmI0he0jvtOegTElfS60ZoMTSzKUKIor7T
-         rtyKrXvCzg7z+/4/gX4QLnc2IWXezsOXwQAAaY45eV5Cp6LI1wfWic647Sy3/goIDRlz
-         hFYIYag+Ch0MZLtmFoCgGrLAnQmhF6x6Y9pXqGMAGXdhLyeRFc2nig+TinAgYHxChkGQ
-         QFrQ==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id x20si407402ljh.1.2020.06.19.04.22.15
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 19 Jun 2020 04:22:15 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 05JBME1S020689
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 19 Jun 2020 13:22:14 +0200
-Received: from [167.87.31.88] ([167.87.31.88])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 05JBMCeB021358;
-	Fri, 19 Jun 2020 13:22:13 +0200
-Subject: Re: jailhouse-config-create: creates many overlapping memory regions
-To: "contact....@gmail.com" <contact.thorsten@gmail.com>,
-        Jailhouse <jailhouse-dev@googlegroups.com>
-References: <785d19a7-5a7c-4157-9e45-f4ead7c37a08n@googlegroups.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <e01e34d6-3be0-57f6-fd07-ad540aa5c4e0@siemens.com>
-Date: Fri, 19 Jun 2020 13:22:12 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+Received: by 2002:a05:6830:1db7:: with SMTP id z23ls2717202oti.9.gmail; Sat,
+ 20 Jun 2020 09:31:41 -0700 (PDT)
+X-Received: by 2002:a05:6830:1d76:: with SMTP id l22mr6973256oti.177.1592670701388;
+        Sat, 20 Jun 2020 09:31:41 -0700 (PDT)
+Date: Sat, 20 Jun 2020 09:31:40 -0700 (PDT)
+From: "contact....@gmail.com" <contact.thorsten@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <ed7359f6-00f7-4b22-a220-f7bd2ef38150n@googlegroups.com>
+In-Reply-To: <8c449002-89f8-48bc-af3f-97b3221bbf6b@googlegroups.com>
+References: <0312b771-9d95-463d-a72b-574d191ad68f@googlegroups.com>
+ <f89c9646-78b2-b256-5a55-e8c727a28740@siemens.com>
+ <02ac45a1-eb95-4ca1-b455-94dcc50633b5@googlegroups.com>
+ <ce206155-7c77-54fc-af9e-d0ccb98e0765@siemens.com>
+ <8c449002-89f8-48bc-af3f-97b3221bbf6b@googlegroups.com>
+Subject: Re: FATAL: Invalid PCI MMCONFIG write (Apollo Lake SoC)
 MIME-Version: 1.0
-In-Reply-To: <785d19a7-5a7c-4157-9e45-f4ead7c37a08n@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_179_734711136.1592670700109"
+X-Original-Sender: contact.thorsten@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -131,41 +81,1771 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 19.06.20 13:08, contact....@gmail.com wrote:
-> This issue may be in the works / known -- just to add another example.
-> 
-> On the this x86 box (Edge Up-Squared, similar device class like the
-> existing nuc6cay), jailhouse-config-create finds ~100 memory regions, of
-> which many overlap and most probably are irrelevant to actual use.
-> jailhouse-config-check coughs them up again.
+------=_Part_179_734711136.1592670700109
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_180_561952057.1592670700109"
 
-Yes, the sysconfig parser has a problem with sub-page memory regions.
-Unfortunately, this usually requires manual cleanup (generally a
-consolidation of most sub-page resources).	
+------=_Part_180_561952057.1592670700109
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> 
-> Apart from this uncomfort, just for understanding:
-> 
-> What happens to resources *not* mentioned in the system-config? Do they
-> stay with the root-cell or become completely unavailable?
+sorry, for resurrecting this ancient thread,
 
-The latter. Jailhouse denies access to everything not explicitly permitted.
+@Connor,
+if you are still reading this, how did you solve that last error? I ran=20
+into exactly the same error.
 
-> 
-> In theory, how would I make a resource inaccessible to the root-cell
-> (but available to non-root)?
+I went through the config for hours up and down, trying to find something.=
+=20
+I filtered out all the "Traps & Pitfalls =E2=80=93 x86 Edition", I hope.
+The odd thing is, there is no such PCI device 00:0d.0, neither in the=20
+config, nor in the pci-scan. So, where does this come from?
 
-By listing it in the non-root cell. If it was listed in root as well,
-cell creation will take it away from there. If it wasn't listed, the
-root cell will not have access at all (as long as Jailhouse is up).
+cheers,
+Thorsten
+connor....@gmail.com schrieb am Donnerstag, 26. Oktober 2017 um 11:47:41=20
+UTC+2:
 
-Jan
+> The error has gone now but I am presented with a new one. I think I was=
+=20
+> using the old config.cell file since make hadn't properly worked due to=
+=20
+> incorrect date & time settings on my rig. Correctly setting the date/time=
+=20
+> and then running make seems to have got me past that error.
+>
+> The new error is:
+>
+> root@hal8000:~# FATAL: Invalid PCI MMCONFIG write, device 00:0d.0, reg:=
+=20
+> e0, size: 4
+> RIP: 0xffffffff812a3d75 RSP: 0xffffc900018d77f0 FLAGS: 10246
+> RAX: 0x00000000ffff00ff RBX: 0xffffc900002490e0 RCX: 0xffffc900018d7918
+> RDX: 0x00000000e00680f0 RSI: 0x0000000000000020 RDI: 0x0000000000000001
+>
+>
+> CS: 10 BASE: 0x0000000000000000 AR-BYTES: a09b EFER.LMA 1
+> CR0: 0x0000000080050033 CR3: 0x0000000001a09000 CR4: 0x00000000003426e0
+> EFER: 0x0000000000000d01
+>
+> Parking CPU 3 (Cell: "RootCell")
+>
+> I will have a play around fixing this today and will post back if I fix i=
+t.
+>
+> Thanks,
+> Connor.
+>
 
--- 
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/ed7359f6-00f7-4b22-a220-f7bd2ef38150n%40googlegroups.com.
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/e01e34d6-3be0-57f6-fd07-ad540aa5c4e0%40siemens.com.
+------=_Part_180_561952057.1592670700109
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div>sorry, for resurrecting this ancient thread,</div><div><br></div><div>=
+@Connor,</div><div>if you are still reading this, how did you solve that la=
+st error? I ran into exactly the same error.</div><div><br></div><div>I wen=
+t through the config for hours up and down, trying to find something. I fil=
+tered out all the "Traps &amp; Pitfalls =E2=80=93 x86 Edition", I hope.</di=
+v><div>The odd thing is, there is no such PCI device 00:0d.0, neither in th=
+e config, nor in the pci-scan. So, where does this come from?</div><div><br=
+></div><div>cheers,<br>Thorsten<br></div><img src=3D"data:text/x-csrc;base6=
+4,LyoKICogSmFpbGhvdXNlLCBhIExpbnV4LWJhc2VkIHBhcnRpdGlvbmluZyBoeXBlcnZpc29yC=
+iAqCiAqIENvcHlyaWdodCAoYykgU2llbWVucyBBRywgMjAxNC0yMDE3CiAqCiAqIFRoaXMgd29y=
+ayBpcyBsaWNlbnNlZCB1bmRlciB0aGUgdGVybXMgb2YgdGhlIEdOVSBHUEwsIHZlcnNpb24gMi4=
+gIFNlZQogKiB0aGUgQ09QWUlORyBmaWxlIGluIHRoZSB0b3AtbGV2ZWwgZGlyZWN0b3J5LgogKg=
+ogKiBBbHRlcm5hdGl2ZWx5LCB5b3UgY2FuIHVzZSBvciByZWRpc3RyaWJ1dGUgdGhpcyBmaWxlI=
+HVuZGVyIHRoZSBmb2xsb3dpbmcKICogQlNEIGxpY2Vuc2U6CiAqCiAqIFJlZGlzdHJpYnV0aW9u=
+IGFuZCB1c2UgaW4gc291cmNlIGFuZCBiaW5hcnkgZm9ybXMsIHdpdGggb3Igd2l0aG91dAogKiB=
+tb2RpZmljYXRpb24sIGFyZSBwZXJtaXR0ZWQgcHJvdmlkZWQgdGhhdCB0aGUgZm9sbG93aW5nIG=
+NvbmRpdGlvbnMKICogYXJlIG1ldDoKICoKICogMS4gUmVkaXN0cmlidXRpb25zIG9mIHNvdXJjZ=
+SBjb2RlIG11c3QgcmV0YWluIHRoZSBhYm92ZSBjb3B5cmlnaHQKICogICAgbm90aWNlLCB0aGlz=
+IGxpc3Qgb2YgY29uZGl0aW9ucyBhbmQgdGhlIGZvbGxvd2luZyBkaXNjbGFpbWVyLgogKgogKiA=
+yLiBSZWRpc3RyaWJ1dGlvbnMgaW4gYmluYXJ5IGZvcm0gbXVzdCByZXByb2R1Y2UgdGhlIGFib3=
+ZlIGNvcHlyaWdodAogKiAgICBub3RpY2UsIHRoaXMgbGlzdCBvZiBjb25kaXRpb25zIGFuZCB0a=
+GUgZm9sbG93aW5nIGRpc2NsYWltZXIgaW4gdGhlCiAqICAgIGRvY3VtZW50YXRpb24gYW5kL29y=
+IG90aGVyIG1hdGVyaWFscyBwcm92aWRlZCB3aXRoIHRoZSBkaXN0cmlidXRpb24uCiAqCiAqIFR=
+ISVMgU09GVFdBUkUgSVMgUFJPVklERUQgQlkgVEhFIENPUFlSSUdIVCBIT0xERVJTIEFORCBDT0=
+5UUklCVVRPUlMgIkFTIElTIgogKiBBTkQgQU5ZIEVYUFJFU1MgT1IgSU1QTElFRCBXQVJSQU5US=
+UVTLCBJTkNMVURJTkcsIEJVVCBOT1QgTElNSVRFRCBUTywgVEhFCiAqIElNUExJRUQgV0FSUkFO=
+VElFUyBPRiBNRVJDSEFOVEFCSUxJVFkgQU5EIEZJVE5FU1MgRk9SIEEgUEFSVElDVUxBUiBQVVJ=
+QT1NFCiAqIEFSRSBESVNDTEFJTUVELiBJTiBOTyBFVkVOVCBTSEFMTCBUSEUgQ09QWVJJR0hUIE=
+hPTERFUiBPUiBDT05UUklCVVRPUlMgQkUKICogTElBQkxFIEZPUiBBTlkgRElSRUNULCBJTkRJU=
+kVDVCwgSU5DSURFTlRBTCwgU1BFQ0lBTCwgRVhFTVBMQVJZLCBPUgogKiBDT05TRVFVRU5USUFM=
+IERBTUFHRVMgKElOQ0xVRElORywgQlVUIE5PVCBMSU1JVEVEIFRPLCBQUk9DVVJFTUVOVCBPRgo=
+gKiBTVUJTVElUVVRFIEdPT0RTIE9SIFNFUlZJQ0VTOyBMT1NTIE9GIFVTRSwgREFUQSwgT1IgUF=
+JPRklUUzsgT1IgQlVTSU5FU1MKICogSU5URVJSVVBUSU9OKSBIT1dFVkVSIENBVVNFRCBBTkQgT=
+04gQU5ZIFRIRU9SWSBPRiBMSUFCSUxJVFksIFdIRVRIRVIgSU4KICogQ09OVFJBQ1QsIFNUUklD=
+VCBMSUFCSUxJVFksIE9SIFRPUlQgKElOQ0xVRElORyBORUdMSUdFTkNFIE9SIE9USEVSV0lTRSk=
+KICogQVJJU0lORyBJTiBBTlkgV0FZIE9VVCBPRiBUSEUgVVNFIE9GIFRISVMgU09GVFdBUkUsIE=
+VWRU4gSUYgQURWSVNFRCBPRgogKiBUSEUgUE9TU0lCSUxJVFkgT0YgU1VDSCBEQU1BR0UuCiAqC=
+iAqIENvbmZpZ3VyYXRpb24gZm9yIEFBRU9OIFVQLUFQTDAxCiAqIGNyZWF0ZWQgd2l0aCAnL3Vz=
+ci9sb2NhbC9saWJleGVjL2phaWxob3VzZS9qYWlsaG91c2UgY29uZmlnIGNyZWF0ZSAtLW1lbS1=
+pbm1hdGVzIDM4NE0gZWRnZScKICoKICogTk9URTogVGhpcyBjb25maWcgZXhwZWN0cyB0aGUgZm=
+9sbG93aW5nIHRvIGJlIGFwcGVuZGVkIHRvIHlvdXIga2VybmVsIGNtZGxpbmUKICogICAgICAgI=
+m1lbW1hcD0weDE4NjAwMDAwJDB4M2EwMDAwMDAiCiAqLwoKI2luY2x1ZGUgPGphaWxob3VzZS90=
+eXBlcy5oPgojaW5jbHVkZSA8amFpbGhvdXNlL2NlbGwtY29uZmlnLmg+CgpzdHJ1Y3QgewoJc3R=
+ydWN0IGphaWxob3VzZV9zeXN0ZW0gaGVhZGVyOwoJX191NjQgY3B1c1sxXTsKCXN0cnVjdCBqYW=
+lsaG91c2VfbWVtb3J5IG1lbV9yZWdpb25zWzEwMl07CglzdHJ1Y3QgamFpbGhvdXNlX2lycWNoa=
+XAgaXJxY2hpcHNbMV07CglzdHJ1Y3QgamFpbGhvdXNlX3BpbyBwaW9fcmVnaW9uc1s2XTsKCXN0=
+cnVjdCBqYWlsaG91c2VfcGNpX2RldmljZSBwY2lfZGV2aWNlc1szM107CglzdHJ1Y3QgamFpbGh=
+vdXNlX3BjaV9jYXBhYmlsaXR5IHBjaV9jYXBzWzQxXTsKfSBfX2F0dHJpYnV0ZV9fKChwYWNrZW=
+QpKSBjb25maWcgPSB7CgkuaGVhZGVyID0gewoJCS5zaWduYXR1cmUgPSBKQUlMSE9VU0VfU1lTV=
+EVNX1NJR05BVFVSRSwKCQkucmV2aXNpb24gPSBKQUlMSE9VU0VfQ09ORklHX1JFVklTSU9OLAoJ=
+CS5mbGFncyA9IEpBSUxIT1VTRV9TWVNfVklSVFVBTF9ERUJVR19DT05TT0xFLAoJCS5oeXBlcnZ=
+pc29yX21lbW9yeSA9IHsKCQkJLnBoeXNfc3RhcnQgPSAweDNhMDAwMDAwLAoJCQkuc2l6ZSA9ID=
+B4NjAwMDAwLAoJCX0sCgkJLmRlYnVnX2NvbnNvbGUgPSB7CgkJCS5hZGRyZXNzID0gMHg4MDA0M=
+DAwMCwgLyogZnJhbWVidWZmZXIgYmFzZSBhZGRyZXNzICovCgkJCS5zaXplID0gMHg4NDAwMDAs=
+IC8qIDE5MjB4MTA4MHg0ICovCgkJCS50eXBlID0gSkFJTEhPVVNFX0NPTl9UWVBFX0VGSUZCLCA=
+gLyogY2hvb3NlIHRoZSBFRklGQiBkcml2ZXIgKi8KCQkJLmZsYWdzID0gSkFJTEhPVVNFX0NPTl=
+9BQ0NFU1NfTU1JTyB8ICAgICAgLyogYWNjZXNzIGlzIE1NSU8gKi8KCQkJCUpBSUxIT1VTRV9DT=
+05fRkJfMTkyMHgxMDgwIC8qIGZvcm1hdCAqLwoJCX0sCi8qCQkuZGVidWdfY29uc29sZSA9IHsK=
+CQkJLmFkZHJlc3MgPSAweDNmOCwKCQkJLnR5cGUgPSBKQUlMSE9VU0VfQ09OX1RZUEVfODI1MCw=
+KCQkJLmZsYWdzID0gSkFJTEhPVVNFX0NPTl9BQ0NFU1NfUElPIHwKCQkJCSBKQUlMSE9VU0VfQ0=
+9OX1JFR0RJU1RfMSwKCQl9LAoqLwkJLnBsYXRmb3JtX2luZm8gPSB7CgkJCS5wY2lfbW1jb25ma=
+WdfYmFzZSA9IDB4ZTAwMDAwMDAsCgkJCS5wY2lfbW1jb25maWdfZW5kX2J1cyA9IDB4ZmYsCgkJ=
+CS5pb21tdV91bml0cyA9IHsKCQkJCXsKCQkJCQkudHlwZSA9IEpBSUxIT1VTRV9JT01NVV9JTlR=
+FTCwKCQkJCQkuYmFzZSA9IDB4ZmVkNjQwMDAsCgkJCQkJLnNpemUgPSAweDEwMDAsCgkJCQl9LA=
+oJCQkJewoJCQkJCS50eXBlID0gSkFJTEhPVVNFX0lPTU1VX0lOVEVMLAoJCQkJCS5iYXNlID0gM=
+HhmZWQ2NTAwMCwKCQkJCQkuc2l6ZSA9IDB4MTAwMCwKCQkJCX0sCgkJCX0sCgkJCS54ODYgPSB7=
+CgkJCQkucG1fdGltZXJfYWRkcmVzcyA9IDB4NDA4LAoJCQkJLnZ0ZF9pbnRlcnJ1cHRfbGltaXQ=
+gPSAyNTYsCgkJCX0sCgkJfSwKCQkucm9vdF9jZWxsID0gewoJCQkubmFtZSA9ICJSb290Q2VsbC=
+IsCgkJCS5jcHVfc2V0X3NpemUgPSBzaXplb2YoY29uZmlnLmNwdXMpLAoJCQkubnVtX21lbW9ye=
+V9yZWdpb25zID0gQVJSQVlfU0laRShjb25maWcubWVtX3JlZ2lvbnMpLAoJCQkubnVtX2lycWNo=
+aXBzID0gQVJSQVlfU0laRShjb25maWcuaXJxY2hpcHMpLAoJCQkubnVtX3Bpb19yZWdpb25zID0=
+gQVJSQVlfU0laRShjb25maWcucGlvX3JlZ2lvbnMpLAoJCQkubnVtX3BjaV9kZXZpY2VzID0gQV=
+JSQVlfU0laRShjb25maWcucGNpX2RldmljZXMpLAoJCQkubnVtX3BjaV9jYXBzID0gQVJSQVlfU=
+0laRShjb25maWcucGNpX2NhcHMpLAoJCX0sCgl9LAoKCS5jcHVzID0gewoJCTB4ZiwKCX0sCgoJ=
+Lm1lbV9yZWdpb25zID0gewoJCS8qIE1lbVJlZ2lvbjogMDAwMDAwMDAtMDAwM2VmZmYgOiBTeXN=
+0ZW0gUkFNICovCgkJewoJCQkucGh5c19zdGFydCA9IDB4MCwKCQkJLnZpcnRfc3RhcnQgPSAweD=
+AsCgkJCS5zaXplID0gMHgzZjAwMCwKCQkJLmZsYWdzID0gSkFJTEhPVVNFX01FTV9SRUFEIHwgS=
+kFJTEhPVVNFX01FTV9XUklURSB8CgkJCQlKQUlMSE9VU0VfTUVNX0VYRUNVVEUgfCBKQUlMSE9V=
+U0VfTUVNX0RNQSwKCQl9LAoJCS8qIE1lbVJlZ2lvbjogMDAwNDAwMDAtMDAwOWRmZmYgOiBTeXN=
+0ZW0gUkFNICovCgkJewoJCQkucGh5c19zdGFydCA9IDB4NDAwMDAsCgkJCS52aXJ0X3N0YXJ0ID=
+0gMHg0MDAwMCwKCQkJLnNpemUgPSAweDVlMDAwLAoJCQkuZmxhZ3MgPSBKQUlMSE9VU0VfTUVNX=
+1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFIHwKCQkJCUpBSUxIT1VTRV9NRU1fRVhFQ1VURSB8=
+IEpBSUxIT1VTRV9NRU1fRE1BLAoJCX0sCgkJLyogTWVtUmVnaW9uOiAwMDEwMDAwMC0wZmZmZmZ=
+mZiA6IFN5c3RlbSBSQU0gKi8KCQl7CgkJCS5waHlzX3N0YXJ0ID0gMHgxMDAwMDAsCgkJCS52aX=
+J0X3N0YXJ0ID0gMHgxMDAwMDAsCgkJCS5zaXplID0gMHhmZjAwMDAwLAoJCQkuZmxhZ3MgPSBKQ=
+UlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFIHwKCQkJCUpBSUxIT1VTRV9N=
+RU1fRVhFQ1VURSB8IEpBSUxIT1VTRV9NRU1fRE1BLAoJCX0sCgkJLyogTWVtUmVnaW9uOiAxMjE=
+1MTAwMC0zOWZmZmZmZiA6IFN5c3RlbSBSQU0gKi8KCQl7CgkJCS5waHlzX3N0YXJ0ID0gMHgxMj=
+E1MTAwMCwKCQkJLnZpcnRfc3RhcnQgPSAweDEyMTUxMDAwLAoJCQkuc2l6ZSA9IDB4MjdlYWYwM=
+DAsCgkJCS5mbGFncyA9IEpBSUxIT1VTRV9NRU1fUkVBRCB8IEpBSUxIT1VTRV9NRU1fV1JJVEUg=
+fAoJCQkJSkFJTEhPVVNFX01FTV9FWEVDVVRFIHwgSkFJTEhPVVNFX01FTV9ETUEsCgkJfSwKCQk=
+vKiB0aGlzIGlzIHRoZSAzOTBNQiBnYXAgZm9yIHRoZSBIViBhbmQgdGhlIGlubWF0ZXMgKi8KCQ=
+kvKiBNZW1SZWdpb246IDNhNjAwMDAwLTUyNWZmZmZmIDogSkFJTEhPVVNFIElubWF0ZSBNZW1vc=
+nkgKi8KCQl7CgkJCS5waHlzX3N0YXJ0ID0gMHgzYTYwMDAwMCwKCQkJLnZpcnRfc3RhcnQgPSAw=
+eDNhNjAwMDAwLAoJCQkuc2l6ZSA9IDB4MTgwMDAwMDAsCgkJCS5mbGFncyA9IEpBSUxIT1VTRV9=
+NRU1fUkVBRCB8IEpBSUxIT1VTRV9NRU1fV1JJVEUsCgkJfSwKCgkJLyogTWVtUmVnaW9uOiA1Mj=
+YwMDAwMC03Nzg5OWZmZiA6IFN5c3RlbSBSQU0gKi8KCQl7CgkJCS5waHlzX3N0YXJ0ID0gMHg1M=
+jYwMDAwMCwKCQkJLnZpcnRfc3RhcnQgPSAweDUyNjAwMDAwLAoJCQkuc2l6ZSA9IDB4MjUyOWEw=
+MDAsCgkJCS5mbGFncyA9IEpBSUxIT1VTRV9NRU1fUkVBRCB8IEpBSUxIT1VTRV9NRU1fV1JJVEU=
+gfAoJCQkJSkFJTEhPVVNFX01FTV9FWEVDVVRFIHwgSkFJTEhPVVNFX01FTV9ETUEsCgkJfSwKCQ=
+kvKiBNZW1SZWdpb246IDc3ODlhMDAwLTc3ODlhMTQzIDogQUNQSSBUYWJsZXMgKi8KCQl7CgkJC=
+S5waHlzX3N0YXJ0ID0gMHg3Nzg5YTAwMCwKCQkJLnZpcnRfc3RhcnQgPSAweDc3ODlhMDAwLAoJ=
+CQkuc2l6ZSA9IDB4MTAwMCwKCQkJLmZsYWdzID0gSkFJTEhPVVNFX01FTV9SRUFEIHwgSkFJTEh=
+PVVNFX01FTV9XUklURSwKCQl9LAoJCS8qIE1lbVJlZ2lvbjogNzc4OWExNDQtNzdiMGNmZmYgOi=
+BTeXN0ZW0gUkFNICovCgkJewoJCQkucGh5c19zdGFydCA9IDB4Nzc4OWIwMDAsCgkJCS52aXJ0X=
+3N0YXJ0ID0gMHg3Nzg5YjAwMCwKCQkJLnNpemUgPSAweDI3MjAwMCwKCQkJLmZsYWdzID0gSkFJ=
+TEhPVVNFX01FTV9SRUFEIHwgSkFJTEhPVVNFX01FTV9XUklURSB8CgkJCQlKQUlMSE9VU0VfTUV=
+NX0VYRUNVVEUgfCBKQUlMSE9VU0VfTUVNX0RNQSwKCQl9LAoJCS8qIE1lbVJlZ2lvbjogNzliYz=
+YwMDAtNzliZTVmZmYgOiBBQ1BJIERNQVIgUk1SUiAqLwoJCS8qIFBDSSBkZXZpY2U6IDAwOjE1L=
+jAgKi8KCQkvKiBQQ0kgZGV2aWNlOiAwMDoxNS4xICovCgkJewoJCQkucGh5c19zdGFydCA9IDB4=
+NzliYzYwMDAsCgkJCS52aXJ0X3N0YXJ0ID0gMHg3OWJjNjAwMCwKCQkJLnNpemUgPSAweDIwMDA=
+wLAoJCQkuZmxhZ3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFIH=
+wKCQkJCUpBSUxIT1VTRV9NRU1fRVhFQ1VURSB8IEpBSUxIT1VTRV9NRU1fRE1BLAoJCX0sCgkJL=
+yogTWVtUmVnaW9uOiA3OWMyYjAwMC03OWM0M2ZmZiA6IEFDUEkgVGFibGVzICovCgkJewoJCQku=
+cGh5c19zdGFydCA9IDB4NzljMmIwMDAsCgkJCS52aXJ0X3N0YXJ0ID0gMHg3OWMyYjAwMCwKCQk=
+JLnNpemUgPSAweDE5MDAwLAoJCQkuZmxhZ3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE=
+9VU0VfTUVNX1dSSVRFLAoJCX0sCgkJLyogTWVtUmVnaW9uOiA3OWM0NDAwMC03OWNhM2ZmZiA6I=
+EFDUEkgTm9uLXZvbGF0aWxlIFN0b3JhZ2UgKi8KCQl7CgkJCS5waHlzX3N0YXJ0ID0gMHg3OWM0=
+NDAwMCwKCQkJLnZpcnRfc3RhcnQgPSAweDc5YzQ0MDAwLAoJCQkuc2l6ZSA9IDB4NjAwMDAsCgk=
+JCS5mbGFncyA9IEpBSUxIT1VTRV9NRU1fUkVBRCB8IEpBSUxIT1VTRV9NRU1fV1JJVEUsCgkJfS=
+wKCQkvKiBNZW1SZWdpb246IDdhMDQxMDAwLTdhMDhjZmZmIDogVW5rbm93biBFODIwIHR5cGUgK=
+i8KCQl7CgkJCS5waHlzX3N0YXJ0ID0gMHg3YTA0MTAwMCwKCQkJLnZpcnRfc3RhcnQgPSAweDdh=
+MDQxMDAwLAoJCQkuc2l6ZSA9IDB4NGMwMDAsCgkJCS5mbGFncyA9IEpBSUxIT1VTRV9NRU1fUkV=
+BRCB8IEpBSUxIT1VTRV9NRU1fV1JJVEUsCgkJfSwKCQkvKiBNZW1SZWdpb246IDdhMDhkMDAwLT=
+dhM2ZhZmZmIDogU3lzdGVtIFJBTSAqLwoJCXsKCQkJLnBoeXNfc3RhcnQgPSAweDdhMDhkMDAwL=
+AoJCQkudmlydF9zdGFydCA9IDB4N2EwOGQwMDAsCgkJCS5zaXplID0gMHgzNmUwMDAsCgkJCS5m=
+bGFncyA9IEpBSUxIT1VTRV9NRU1fUkVBRCB8IEpBSUxIT1VTRV9NRU1fV1JJVEUgfAoJCQkJSkF=
+JTEhPVVNFX01FTV9FWEVDVVRFIHwgSkFJTEhPVVNFX01FTV9ETUEsCgkJfSwKCQkvKiBNZW1SZW=
+dpb246IDdhM2ZiMDAwLTdhM2ZiZmZmIDogQUNQSSBOb24tdm9sYXRpbGUgU3RvcmFnZSAqLwoJC=
+XsKCQkJLnBoeXNfc3RhcnQgPSAweDdhM2ZiMDAwLAoJCQkudmlydF9zdGFydCA9IDB4N2EzZmIw=
+MDAsCgkJCS5zaXplID0gMHgxMDAwLAoJCQkuZmxhZ3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCB=
+KQUlMSE9VU0VfTUVNX1dSSVRFLAoJCX0sCgkJLyogTWVtUmVnaW9uOiA3YTQyNjAwMC03YTk2NG=
+ZmZiA6IFN5c3RlbSBSQU0gKi8KCQl7CgkJCS5waHlzX3N0YXJ0ID0gMHg3YTQyNjAwMCwKCQkJL=
+nZpcnRfc3RhcnQgPSAweDdhNDI2MDAwLAoJCQkuc2l6ZSA9IDB4NTNmMDAwLAoJCQkuZmxhZ3Mg=
+PSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFIHwKCQkJCUpBSUxIT1V=
+TRV9NRU1fRVhFQ1VURSB8IEpBSUxIT1VTRV9NRU1fRE1BLAoJCX0sCgkJLyogTWVtUmVnaW9uOi=
+A3YTk2NzAwMC03YWZmZmZmZiA6IFN5c3RlbSBSQU0gKi8KCQl7CgkJCS5waHlzX3N0YXJ0ID0gM=
+Hg3YTk2NzAwMCwKCQkJLnZpcnRfc3RhcnQgPSAweDdhOTY3MDAwLAoJCQkuc2l6ZSA9IDB4Njk5=
+MDAwLAoJCQkuZmxhZ3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVR=
+FIHwKCQkJCUpBSUxIT1VTRV9NRU1fRVhFQ1VURSB8IEpBSUxIT1VTRV9NRU1fRE1BLAoJCX0sCg=
+kJLyogTWVtUmVnaW9uOiA3YjgwMDAwMC03ZmZmZmZmZiA6IEFDUEkgRE1BUiBSTVJSICovCgkJL=
+yogUENJIGRldmljZTogMDA6MDIuMCAqLwoJCXsKCQkJLnBoeXNfc3RhcnQgPSAweDdiODAwMDAw=
+LAoJCQkudmlydF9zdGFydCA9IDB4N2I4MDAwMDAsCgkJCS5zaXplID0gMHg0ODAwMDAwLAoJCQk=
+uZmxhZ3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFIHwKCQkJCU=
+pBSUxIT1VTRV9NRU1fRVhFQ1VURSB8IEpBSUxIT1VTRV9NRU1fRE1BLAoJCX0sCgkJLyogTWVtU=
+mVnaW9uOiA4MDAwMDAwMC04ZmZmZmZmZiA6IDAwMDA6MDA6MDIuMCAvIEVGSUZCICovCgkJewoJ=
+CQkucGh5c19zdGFydCA9IDB4ODAwMDAwMDAsCgkJCS52aXJ0X3N0YXJ0ID0gMHg4MDAwMDAwMCw=
+KCQkJLnNpemUgPSAgICAgICAweDExMDAwMDAwLAoJCQkuZmxhZ3MgPSBKQUlMSE9VU0VfTUVNX1=
+JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFLAoJCX0sCgkJLyogTWVtUmVnaW9uOiA5MTAwYzEwM=
+C05MTFmZmZmZiA6IGR3Y191c2IzICovCgkJewoJCQkucGh5c19zdGFydCA9IDB4OTEwMGMwMDAs=
+CgkJCS52aXJ0X3N0YXJ0ID0gMHg5MTAwYzAwMCwKCQkJLnNpemUgPSAweDFmNDAwMCwKCQkJLmZ=
+sYWdzID0gSkFJTEhPVVNFX01FTV9SRUFEIHwgSkFJTEhPVVNFX01FTV9XUklURSwKCQl9LAoJCS=
+8qIE1lbVJlZ2lvbjogOTEyMDAwMDAtOTEyZmZmZmYgOiBJQ0ggSEQgYXVkaW8gKi8KCQl7CgkJC=
+S5waHlzX3N0YXJ0ID0gMHg5MTIwMDAwMCwKCQkJLnZpcnRfc3RhcnQgPSAweDkxMjAwMDAwLAoJ=
+CQkuc2l6ZSA9IDB4MTAwMDAwLAoJCQkuZmxhZ3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUl=
+MSE9VU0VfTUVNX1dSSVRFLAoJCX0sCgoJLyogPT09IE5XIGNhcmRzID09PSAqLwoJCS8qIE1TSV=
+gtcmVnaW9uIDB4MTAwMCBAIDB4OTEzMDAwMDAsIGRvIG5vdCBtYXAgaGVyZSAqLwoJCS8qIE1lb=
+VJlZ2lvbjogOTEzMDEwMDAtOTEzMDNmZmYgOiByODE2OSAqLwoJCXsKCQkJLnBoeXNfc3RhcnQg=
+PSAweDkxMzAxMDAwLAoJCQkudmlydF9zdGFydCA9IDB4OTEzMDEwMDAsCgkJCS5zaXplID0gMHg=
+zMDAwLAoJCQkuZmxhZ3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSV=
+RFLAoJCX0sCgkJLyogTWVtUmVnaW9uOiA5MTMwNDAwMC05MTMwNGZmZiA6IHI4MTY5ICovCgkJe=
+woJCQkucGh5c19zdGFydCA9IDB4OTEzMDQwMDAsCgkJCS52aXJ0X3N0YXJ0ID0gMHg5MTMwNDAw=
+MCwKCQkJLnNpemUgPSAweDEwMDAsCgkJCS5mbGFncyA9IEpBSUxIT1VTRV9NRU1fUkVBRCB8IEp=
+BSUxIT1VTRV9NRU1fV1JJVEUsCgkJfSwKCQkvKiBNU0lYLXJlZ2lvbiAweDEwMDAgQCAweDkxND=
+AwMDAwLCBkbyBub3QgbWFwIGhlcmUgKi8KCQkvKiBNZW1SZWdpb246IDkxNDAxMDAwLTkxNDAzZ=
+mZmIDogcjgxNjkgKi8KCQl7CgkJCS5waHlzX3N0YXJ0ID0gMHg5MTQwMTAwMCwKCQkJLnZpcnRf=
+c3RhcnQgPSAweDkxNDAxMDAwLAoJCQkuc2l6ZSA9IDB4MzAwMCwKCQkJLmZsYWdzID0gSkFJTEh=
+PVVNFX01FTV9SRUFEIHwgSkFJTEhPVVNFX01FTV9XUklURSwKCQl9LAoJCS8qIE1lbVJlZ2lvbj=
+ogOTE0MDQwMDAtOTE0MDRmZmYgOiByODE2OSAqLwoJCXsKCQkJLnBoeXNfc3RhcnQgPSAweDkxN=
+DA0MDAwLAoJCQkudmlydF9zdGFydCA9IDB4OTE0MDQwMDAsCgkJCS5zaXplID0gMHgxMDAwLAoJ=
+CQkuZmxhZ3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFLAoJCX0=
+sCgkvKiA9PS89IE5XIGNhcmRzID09Lz0gKi8KCQkvKiBvdGhlciBkZXZpY2VzIDB4OTE1MDAwMD=
+AtMHg5MTUzYTAwMCovCgkJewoJCQkucGh5c19zdGFydCA9IDB4OTE1MDAwMDAsCgkJCS52aXJ0X=
+3N0YXJ0ID0gMHg5MTUwMDAwMCwKCQkJLnNpemUgPSAweDNhMDAwLAoJCQkuZmxhZ3MgPSBKQUlM=
+SE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFLAoJCX0sCgkJLyogTWVtUmVnaW9=
+uOiA5MTUzYzAwMC05MTUzY2ZmZiA6IG1laV9tZSAqLwoJCXsKCQkJLnBoeXNfc3RhcnQgPSAweD=
+kxNTNjMDAwLAoJCQkudmlydF9zdGFydCA9IDB4OTE1M2MwMDAsCgkJCS5zaXplID0gMHgxMDAwL=
+AoJCQkuZmxhZ3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFLAoJ=
+CX0sCgkJLyogTWVtUmVnaW9uOiBmZWEwMDAwMC1mZWFmZmZmZiA6IHBucCAwMDowMSAqLwoJCXs=
+KCQkJLnBoeXNfc3RhcnQgPSAweGZlYTAwMDAwLAoJCQkudmlydF9zdGFydCA9IDB4ZmVhMDAwMD=
+AsCgkJCS5zaXplID0gMHgxMDAwMDAsCgkJCS5mbGFncyA9IEpBSUxIT1VTRV9NRU1fUkVBRCB8I=
+EpBSUxIT1VTRV9NRU1fV1JJVEUsCgkJfSwKCQkvKiBNZW1SZWdpb246IGZlZDAwMDAwLWZlZDAw=
+M2ZmIDogUE5QMDEwMzowMCAqLwoJCXsKCQkJLnBoeXNfc3RhcnQgPSAweGZlZDAwMDAwLAoJCQk=
+udmlydF9zdGFydCA9IDB4ZmVkMDAwMDAsCgkJCS5zaXplID0gMHgxMDAwLAoJCQkuZmxhZ3MgPS=
+BKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFLAoJCX0sCgkJLyogTWVtU=
+mVnaW9uOiBmZWQwMzAwMC1mZWQwM2ZmZiA6IHBucCAwMDowMSAqLwoJCXsKCQkJLnBoeXNfc3Rh=
+cnQgPSAweGZlZDAzMDAwLAoJCQkudmlydF9zdGFydCA9IDB4ZmVkMDMwMDAsCgkJCS5zaXplID0=
+gMHgxMDAwLAoJCQkuZmxhZ3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1=
+dSSVRFLAoJCX0sCgkJLyogTWVtUmVnaW9uOiBmZWQwNjAwMC1mZWQwNmZmZiA6IHBucCAwMDowM=
+SAqLwoJCXsKCQkJLnBoeXNfc3RhcnQgPSAweGZlZDA2MDAwLAoJCQkudmlydF9zdGFydCA9IDB4=
+ZmVkMDYwMDAsCgkJCS5zaXplID0gMHgxMDAwLAoJCQkuZmxhZ3MgPSBKQUlMSE9VU0VfTUVNX1J=
+FQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFLAoJCX0sCgkJLyogTWVtUmVnaW9uOiBmZWQwODAwMC=
+1mZWQwOWZmZiA6IHBucCAwMDowMSAqLwoJCXsKCQkJLnBoeXNfc3RhcnQgPSAweGZlZDA4MDAwL=
+AoJCQkudmlydF9zdGFydCA9IDB4ZmVkMDgwMDAsCgkJCS5zaXplID0gMHgyMDAwLAoJCQkuZmxh=
+Z3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFLAoJCX0sCgkJLyo=
+gTWVtUmVnaW9uOiBmZWQxYzAwMC1mZWQxY2ZmZiA6IHBucCAwMDowMSAqLwoJCXsKCQkJLnBoeX=
+Nfc3RhcnQgPSAweGZlZDFjMDAwLAoJCQkudmlydF9zdGFydCA9IDB4ZmVkMWMwMDAsCgkJCS5za=
+XplID0gMHgxMDAwLAoJCQkuZmxhZ3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0Vf=
+TUVNX1dSSVRFLAoJCX0sCgkJLyogTWVtUmVnaW9uOiBmZWQ0MDAwMC1mZWQ0NGZmZiA6IE1TRlQ=
+wMTAxOjAwICovCgkJewoJCQkucGh5c19zdGFydCA9IDB4ZmVkNDAwMDAsCgkJCS52aXJ0X3N0YX=
+J0ID0gMHhmZWQ0MDAwMCwKCQkJLnNpemUgPSAweDUwMDAsCgkJCS5mbGFncyA9IEpBSUxIT1VTR=
+V9NRU1fUkVBRCB8IEpBSUxIT1VTRV9NRU1fV1JJVEUsCgkJfSwKCQkvKiBNZW1SZWdpb246IGZl=
+ZDgwMDAwLWZlZGJmZmZmIDogcG5wIDAwOjAxICovCgkJewoJCQkucGh5c19zdGFydCA9IDB4ZmV=
+kODAwMDAsCgkJCS52aXJ0X3N0YXJ0ID0gMHhmZWQ4MDAwMCwKCQkJLnNpemUgPSAweDQwMDAwLA=
+oJCQkuZmxhZ3MgPSBKQUlMSE9VU0VfTUVNX1JFQUQgfCBKQUlMSE9VU0VfTUVNX1dSSVRFLAoJC=
+X0sCgkJLyogTWVtUmVnaW9uOiAxMDAwMDAwMDAtMjdmZmZmZmZmIDogU3lzdGVtIFJBTSArIEtl=
+cm5lbCAqLwoJCXsKCQkJLnBoeXNfc3RhcnQgPSAweDEwMDAwMDAwMCwKCQkJLnZpcnRfc3RhcnQ=
+gPSAweDEwMDAwMDAwMCwKCQkJLnNpemUgPSAweDE4MDAwMDAwMCwKCQkJLmZsYWdzID0gSkFJTE=
+hPVVNFX01FTV9SRUFEIHwgSkFJTEhPVVNFX01FTV9XUklURSB8CgkJCQlKQUlMSE9VU0VfTUVNX=
+0VYRUNVVEUgfCBKQUlMSE9VU0VfTUVNX0RNQSwKCQl9LAoJfSwKCgkuaXJxY2hpcHMgPSB7CgkJ=
+LyogSU9BUElDIDEsIEdTSSBiYXNlIDAgKi8KCQl7CgkJCS5hZGRyZXNzID0gMHhmZWMwMDAwMCw=
+KCQkJLmlkID0gMHgxZmFmOCwKCQkJLnBpbl9iaXRtYXAgPSB7CgkJCQkweGZmZmZmZmZmLCAweG=
+ZmZmZmZmZmLCAweGZmZmZmZmZmLCAweGZmZmZmZmZmCgkJCX0sCgkJfSwKCX0sCgoJLnBpb19yZ=
+Wdpb25zID0gewoJCS8qIFBvcnQgSS9POiAwMDAwLTAwMWYgOiBkbWExICovCgkJLyogUElPX1JB=
+TkdFKDB4MCwgMHgyMCksICovCgkJLyogUG9ydCBJL086IDAwMjAtMDAyMSA6IHBpYzEgKi8KCQk=
+vKiBQSU9fUkFOR0UoMHgyMCwgMHgyKSwgKi8KCQkvKiBQb3J0IEkvTzogMDA0MC0wMDQzIDogdG=
+ltZXIwICovCgkJUElPX1JBTkdFKDB4NDAsIDB4NCksCgkJLyogUG9ydCBJL086IDAwNTAtMDA1M=
+yA6IHRpbWVyMSAqLwoJCS8qIFBJT19SQU5HRSgweDUwLCAweDQpLCAqLwoJCS8qIFBvcnQgSS9P=
+OiAwMDYwLTAwNjAgOiBrZXlib2FyZCAqLwoJCVBJT19SQU5HRSgweDYwLCAweDIpLAoJCS8qIFB=
+vcnQgSS9POiAwMDY0LTAwNjQgOiBrZXlib2FyZCAqLwoJCVBJT19SQU5HRSgweDY0LCAweDEpLA=
+oJCS8qIFBvcnQgSS9POiAwMDcwLTAwNzcgOiBydGMwICovCgkJUElPX1JBTkdFKDB4NzAsIDB4O=
+CksCgkJLyogUG9ydCBJL086IDAwODAtMDA4ZiA6IGRtYSBwYWdlIHJlZyAqLwoJCS8qIFBJT19S=
+QU5HRSgweDgwLCAweDEwKSwgKi8KCQkvKiBQb3J0IEkvTzogMDBhMC0wMGExIDogcGljMiAqLwo=
+JCS8qIFBJT19SQU5HRSgweGEwLCAweDIpLCAqLwoJCS8qIFBvcnQgSS9POiAwMGMwLTAwZGYgOi=
+BkbWEyICovCgkJLyogUElPX1JBTkdFKDB4YzAsIDB4MjApLCAqLwoJCS8qIFBvcnQgSS9POiAwM=
+GYwLTAwZmYgOiBmcHUgKi8KCQkvKiBQSU9fUkFOR0UoMHhmMCwgMHgxMCksICovCgkJLyogUG9y=
+dCBJL086IDA0MDAtMDQwMyA6IEFDUEkgKiAqLwoJCS8qKi9QSU9fUkFOR0UoMHg0MDAsIDB4ODA=
+pLAoJCS8qIFBvcnQgSS9POiAwNDAwLTA0MDMgOiBBQ1BJIFBNMWFfRVZUX0JMSyAqLwoJCS8qIF=
+BJT19SQU5HRSgweDQwMCwgMHg0KSwgKi8KCQkvKiBQb3J0IEkvTzogMDQwNC0wNDA1IDogQUNQS=
+SBQTTFhX0NOVF9CTEsgKi8KCQkvKiBQSU9fUkFOR0UoMHg0MDQsIDB4MiksICovCgkJLyogUG9y=
+dCBJL086IDA0MDgtMDQwYiA6IEFDUEkgUE1fVE1SICovCgkJLyogUElPX1JBTkdFKDB4NDA4LCA=
+weDQpLCAqLwoJCS8qIFBvcnQgSS9POiAwNDIwLTA0M2YgOiBBQ1BJIEdQRTBfQkxLICovCgkJLy=
+ogUElPX1JBTkdFKDB4NDIwLCAweDIwKSwgKi8KCQkvKiBQb3J0IEkvTzogMDQ1MC0wNDUwIDogQ=
+UNQSSBQTTJfQ05UX0JMSyAqLwoJCS8qIFBJT19SQU5HRSgweDQ1MCwgMHgxKSwgKi8KCQkvKiBQ=
+b3J0IEkvTzogMDUwMC0wNWZlIDogcG5wIDAwOjAwICovCgkJLyogUElPX1JBTkdFKDB4NTAwLCA=
+weGZmKSwgKi8KCQkvKiBQb3J0IEkvTzogMDY4MC0wNjlmIDogcG5wIDAwOjAwICovCgkJLyogUE=
+lPX1JBTkdFKDB4NjgwLCAweDIwKSwgKi8KCQkvKiBQQ0kgZGV2aWNlcyAqLwoJCS8qKi9QSU9fU=
+kFOR0UoMHhkMDAsIDB4ZjMwMCksCgkJLyogUG9ydCBJL086IGQwMDAtZDBmZiA6IDAwMDA6MDM6=
+MDAuMCAqLwoJCS8vUElPX1JBTkdFKDB4ZDAwMCwgMHgxMDApLAoJCS8qIFBvcnQgSS9POiBlMDA=
+wLWUwZmYgOiAwMDAwOjAyOjAwLjAgKi8KCQkvL1BJT19SQU5HRSgweGUwMDAsIDB4MTAwKSwKCQ=
+kvKiBQb3J0IEkvTzogZjAwMC1mMDNmIDogMDAwMDowMDowMi4wICovCgkJLy9QSU9fUkFOR0UoM=
+HhmMDAwLCAweDQwKSwKCQkvKiBQb3J0IEkvTzogZjA0MC1mMDVmIDogMDAwMDowMDoxZi4xICov=
+CgkJLy9QSU9fUkFOR0UoMHhmMDQwLCAweDIwKSwKCQkvKiBQb3J0IEkvTzogZjA2MC1mMDdmIDo=
+gMDAwMDowMDoxMi4wICovCgkJLy9QSU9fUkFOR0UoMHhmMDYwLCAweDIwKSwKCQkvKiBQb3J0IE=
+kvTzogZjA4MC1mMDgzIDogMDAwMDowMDoxMi4wICovCgkJLy9QSU9fUkFOR0UoMHhmMDgwLCAwe=
+DQpLAoJCS8qIFBvcnQgSS9POiBmMDkwLWYwOTcgOiAwMDAwOjAwOjEyLjAgKi8KCQkvL1BJT19S=
+QU5HRSgweGYwOTAsIDB4OCksCgl9LAoKCS5wY2lfZGV2aWNlcyA9IHsKCQkvKiBQQ0lEZXZpY2U=
+6IDAwOjAwLjAgKi8KCQl7CgkJCS50eXBlID0gSkFJTEhPVVNFX1BDSV9UWVBFX0RFVklDRSwKCQ=
+kJLmlvbW11ID0gMSwKCQl9LAoJCS8qIFBDSURldmljZTogMDA6MDIuMCAqLwoJCXsKCQkJLnR5c=
+GUgPSBKQUlMSE9VU0VfUENJX1RZUEVfREVWSUNFLAoJCQkuaW9tbXUgPSAwLAoJCQkuYmRmID0g=
+MHgxMCwKCQkJLmJhcl9tYXNrID0gewoJCQkJMHhmZjAwMDAwMCwgMHhmZmZmZmZmZiwgMHhmMDA=
+wMDAwMCwKCQkJCTB4ZmZmZmZmZmYsIDB4ZmZmZmZmYzAsIDB4MDAwMDAwMDAsCgkJCX0sCgkJCS=
+5jYXBzX3N0YXJ0ID0gMCwKCQkJLm51bV9jYXBzID0gNywKCQkJLm51bV9tc2lfdmVjdG9ycyA9I=
+DEsCgkJCS5tc2lfNjRiaXRzID0gMCwKCQl9LAoJCS8qIFBDSURldmljZTogMDA6MGUuMCAqLwoJ=
+CXsKCQkJLnR5cGUgPSBKQUlMSE9VU0VfUENJX1RZUEVfREVWSUNFLAoJCQkuaW9tbXUgPSAxLAo=
+JCQkuYmRmID0gMHg3MCwKCQkJLmJhcl9tYXNrID0gewoJCQkJMHhmZmZmYzAwMCwgMHhmZmZmZm=
+ZmZiwgMHgwMDAwMDAwMCwKCQkJCTB4MDAwMDAwMDAsIDB4ZmZmMDAwMDAsIDB4ZmZmZmZmZmYsC=
+gkJCX0sCgkJCS5jYXBzX3N0YXJ0ID0gNywKCQkJLm51bV9jYXBzID0gNSwKCQkJLm51bV9tc2lf=
+dmVjdG9ycyA9IDEsCgkJCS5tc2lfNjRiaXRzID0gMSwKCQl9LAoJCS8qIFBDSURldmljZTogMDA=
+6MGYuMCAqLwoJCXsKCQkJLnR5cGUgPSBKQUlMSE9VU0VfUENJX1RZUEVfREVWSUNFLAoJCQkuaW=
+9tbXUgPSAxLAoJCQkuYmRmID0gMHg3OCwKCQkJLmJhcl9tYXNrID0gewoJCQkJMHhmZmZmZjAwM=
+CwgMHhmZmZmZmZmZiwgMHgwMDAwMDAwMCwKCQkJCTB4MDAwMDAwMDAsIDB4MDAwMDAwMDAsIDB4=
+MDAwMDAwMDAsCgkJCX0sCgkJCS5jYXBzX3N0YXJ0ID0gMTIsCgkJCS5udW1fY2FwcyA9IDMsCgk=
+JCS5udW1fbXNpX3ZlY3RvcnMgPSAxLAoJCQkubXNpXzY0Yml0cyA9IDEsCgkJfSwKCQkvKiBQQ0=
+lEZXZpY2U6IDAwOjEyLjAgKi8KCQl7CgkJCS50eXBlID0gSkFJTEhPVVNFX1BDSV9UWVBFX0RFV=
+klDRSwKCQkJLmlvbW11ID0gMSwKCQkJLmJkZiA9IDB4OTAsCgkJCS5iYXJfbWFzayA9IHsKCQkJ=
+CTB4ZmZmZmUwMDAsIDB4ZmZmZmZmMDAsIDB4ZmZmZmZmZjgsCgkJCQkweGZmZmZmZmZjLCAweGZ=
+mZmZmZmUwLCAweGZmZmZmODAwLAoJCQl9LAoJCQkuY2Fwc19zdGFydCA9IDE1LAoJCQkubnVtX2=
+NhcHMgPSAzLAoJCQkubnVtX21zaV92ZWN0b3JzID0gMSwKCQkJLm1zaV82NGJpdHMgPSAwLAoJC=
+X0sCgkJLyogUENJRGV2aWNlOiAwMDoxMy4wICovCgkJewoJCQkudHlwZSA9IEpBSUxIT1VTRV9Q=
+Q0lfVFlQRV9CUklER0UsCgkJCS5pb21tdSA9IDEsCgkJCS5iZGYgPSAweDk4LAoJCQkuY2Fwc19=
+zdGFydCA9IDE4LAoJCQkubnVtX2NhcHMgPSA5LAoJCQkubnVtX21zaV92ZWN0b3JzID0gMSwKCQ=
+kJLm1zaV82NGJpdHMgPSAwLAoJCX0sCgkJLyogUENJRGV2aWNlOiAwMDoxMy4xICovCgkJewoJC=
+QkudHlwZSA9IEpBSUxIT1VTRV9QQ0lfVFlQRV9CUklER0UsCgkJCS5pb21tdSA9IDEsCgkJCS5i=
+ZGYgPSAweDk5LAoJCQkuY2Fwc19zdGFydCA9IDE4LAoJCQkubnVtX2NhcHMgPSA5LAoJCQkubnV=
+tX21zaV92ZWN0b3JzID0gMSwKCQkJLm1zaV82NGJpdHMgPSAwLAoJCX0sCgkJLyogUENJRGV2aW=
+NlOiAwMDoxMy4yICovCgkJewoJCQkudHlwZSA9IEpBSUxIT1VTRV9QQ0lfVFlQRV9CUklER0UsC=
+gkJCS5pb21tdSA9IDEsCgkJCS5iZGYgPSAweDlhLAoJCQkuY2Fwc19zdGFydCA9IDE4LAoJCQku=
+bnVtX2NhcHMgPSA5LAoJCQkubnVtX21zaV92ZWN0b3JzID0gMSwKCQkJLm1zaV82NGJpdHMgPSA=
+wLAoJCX0sCgkJLyogUENJRGV2aWNlOiAwMDoxMy4zICovCgkJewoJCQkudHlwZSA9IEpBSUxIT1=
+VTRV9QQ0lfVFlQRV9CUklER0UsCgkJCS5pb21tdSA9IDEsCgkJCS5iZGYgPSAweDliLAoJCQkuY=
+2Fwc19zdGFydCA9IDE4LAoJCQkubnVtX2NhcHMgPSA5LAoJCQkubnVtX21zaV92ZWN0b3JzID0g=
+MSwKCQkJLm1zaV82NGJpdHMgPSAwLAoJCX0sCgkJLyogUENJRGV2aWNlOiAwMDoxNC4wICovCgk=
+JewoJCQkudHlwZSA9IEpBSUxIT1VTRV9QQ0lfVFlQRV9CUklER0UsCgkJCS5pb21tdSA9IDEsCg=
+kJCS5iZGYgPSAweGEwLAoJCQkuY2Fwc19zdGFydCA9IDE4LAoJCQkubnVtX2NhcHMgPSA5LAoJC=
+QkubnVtX21zaV92ZWN0b3JzID0gMSwKCQkJLm1zaV82NGJpdHMgPSAwLAoJCX0sCgkJLyogUENJ=
+RGV2aWNlOiAwMDoxNC4xICovCgkJewoJCQkudHlwZSA9IEpBSUxIT1VTRV9QQ0lfVFlQRV9CUkl=
+ER0UsCgkJCS5pb21tdSA9IDEsCgkJCS5iZGYgPSAweGExLAoJCQkuY2Fwc19zdGFydCA9IDE4LA=
+oJCQkubnVtX2NhcHMgPSA5LAoJCQkubnVtX21zaV92ZWN0b3JzID0gMSwKCQkJLm1zaV82NGJpd=
+HMgPSAwLAoJCX0sCgkJLyogUENJRGV2aWNlOiAwMDoxNS4wICovCgkJewoJCQkudHlwZSA9IEpB=
+SUxIT1VTRV9QQ0lfVFlQRV9ERVZJQ0UsCgkJCS5pb21tdSA9IDEsCgkJCS5iZGYgPSAweGE4LAo=
+JCQkuYmFyX21hc2sgPSB7CgkJCQkweGZmZmYwMDAwLCAweGZmZmZmZmZmLCAweDAwMDAwMDAwLA=
+oJCQkJMHgwMDAwMDAwMCwgMHgwMDAwMDAwMCwgMHgwMDAwMDAwMCwKCQkJfSwKCQkJLmNhcHNfc=
+3RhcnQgPSAyNywKCQkJLm51bV9jYXBzID0gMywKCQkJLm51bV9tc2lfdmVjdG9ycyA9IDgsCgkJ=
+CS5tc2lfNjRiaXRzID0gMSwKCQl9LAoJCS8qIFBDSURldmljZTogMDA6MTUuMSAqLwoJCXsKCQk=
+JLnR5cGUgPSBKQUlMSE9VU0VfUENJX1RZUEVfREVWSUNFLAoJCQkuaW9tbXUgPSAxLAoJCQkuYm=
+RmID0gMHhhOSwKCQkJLmJhcl9tYXNrID0gewoJCQkJMHhmZmUwMDAwMCwgMHhmZmZmZmZmZiwgM=
+HhmZmZmZjAwMCwKCQkJCTB4ZmZmZmZmZmYsIDB4MDAwMDAwMDAsIDB4MDAwMDAwMDAsCgkJCX0s=
+CgkJCS5jYXBzX3N0YXJ0ID0gMzAsCgkJCS5udW1fY2FwcyA9IDIsCgkJCS5udW1fbXNpX3ZlY3R=
+vcnMgPSAwLAoJCQkubXNpXzY0Yml0cyA9IDAsCgkJfSwKCQkvKiBQQ0lEZXZpY2U6IDAwOjE2Lj=
+AgKi8KCQl7CgkJCS50eXBlID0gSkFJTEhPVVNFX1BDSV9UWVBFX0RFVklDRSwKCQkJLmlvbW11I=
+D0gMSwKCQkJLmJkZiA9IDB4YjAsCgkJCS5iYXJfbWFzayA9IHsKCQkJCTB4ZmZmZmYwMDAsIDB4=
+ZmZmZmZmZmYsIDB4ZmZmZmYwMDAsCgkJCQkweGZmZmZmZmZmLCAweDAwMDAwMDAwLCAweDAwMDA=
+wMDAwLAoJCQl9LAoJCQkuY2Fwc19zdGFydCA9IDMwLAoJCQkubnVtX2NhcHMgPSAyLAoJCQkubn=
+VtX21zaV92ZWN0b3JzID0gMCwKCQkJLm1zaV82NGJpdHMgPSAwLAoJCX0sCgkJLyogUENJRGV2a=
+WNlOiAwMDoxNi4xICovCgkJewoJCQkudHlwZSA9IEpBSUxIT1VTRV9QQ0lfVFlQRV9ERVZJQ0Us=
+CgkJCS5pb21tdSA9IDEsCgkJCS5iZGYgPSAweGIxLAoJCQkuYmFyX21hc2sgPSB7CgkJCQkweGZ=
+mZmZmMDAwLCAweGZmZmZmZmZmLCAweGZmZmZmMDAwLAoJCQkJMHhmZmZmZmZmZiwgMHgwMDAwMD=
+AwMCwgMHgwMDAwMDAwMCwKCQkJfSwKCQkJLmNhcHNfc3RhcnQgPSAzMCwKCQkJLm51bV9jYXBzI=
+D0gMiwKCQkJLm51bV9tc2lfdmVjdG9ycyA9IDAsCgkJCS5tc2lfNjRiaXRzID0gMCwKCQl9LAoJ=
+CS8qIFBDSURldmljZTogMDA6MTYuMiAqLwoJCXsKCQkJLnR5cGUgPSBKQUlMSE9VU0VfUENJX1R=
+ZUEVfREVWSUNFLAoJCQkuaW9tbXUgPSAxLAoJCQkuYmRmID0gMHhiMiwKCQkJLmJhcl9tYXNrID=
+0gewoJCQkJMHhmZmZmZjAwMCwgMHhmZmZmZmZmZiwgMHhmZmZmZjAwMCwKCQkJCTB4ZmZmZmZmZ=
+mYsIDB4MDAwMDAwMDAsIDB4MDAwMDAwMDAsCgkJCX0sCgkJCS5jYXBzX3N0YXJ0ID0gMzAsCgkJ=
+CS5udW1fY2FwcyA9IDIsCgkJCS5udW1fbXNpX3ZlY3RvcnMgPSAwLAoJCQkubXNpXzY0Yml0cyA=
+9IDAsCgkJfSwKCQkvKiBQQ0lEZXZpY2U6IDAwOjE2LjMgKi8KCQl7CgkJCS50eXBlID0gSkFJTE=
+hPVVNFX1BDSV9UWVBFX0RFVklDRSwKCQkJLmlvbW11ID0gMSwKCQkJLmJkZiA9IDB4YjMsCgkJC=
+S5iYXJfbWFzayA9IHsKCQkJCTB4ZmZmZmYwMDAsIDB4ZmZmZmZmZmYsIDB4ZmZmZmYwMDAsCgkJ=
+CQkweGZmZmZmZmZmLCAweDAwMDAwMDAwLCAweDAwMDAwMDAwLAoJCQl9LAoJCQkuY2Fwc19zdGF=
+ydCA9IDMwLAoJCQkubnVtX2NhcHMgPSAyLAoJCQkubnVtX21zaV92ZWN0b3JzID0gMCwKCQkJLm=
+1zaV82NGJpdHMgPSAwLAoJCX0sCgkJLyogUENJRGV2aWNlOiAwMDoxNy4wICovCgkJewoJCQkud=
+HlwZSA9IEpBSUxIT1VTRV9QQ0lfVFlQRV9ERVZJQ0UsCgkJCS5pb21tdSA9IDEsCgkJCS5iZGYg=
+PSAweGI4LAoJCQkuYmFyX21hc2sgPSB7CgkJCQkweGZmZmZmMDAwLCAweGZmZmZmZmZmLCAweGZ=
+mZmZmMDAwLAoJCQkJMHhmZmZmZmZmZiwgMHgwMDAwMDAwMCwgMHgwMDAwMDAwMCwKCQkJfSwKCQ=
+kJLmNhcHNfc3RhcnQgPSAzMCwKCQkJLm51bV9jYXBzID0gMiwKCQkJLm51bV9tc2lfdmVjdG9yc=
+yA9IDAsCgkJCS5tc2lfNjRiaXRzID0gMCwKCQl9LAoJCS8qIFBDSURldmljZTogMDA6MTcuMSAq=
+LwoJCXsKCQkJLnR5cGUgPSBKQUlMSE9VU0VfUENJX1RZUEVfREVWSUNFLAoJCQkuaW9tbXUgPSA=
+xLAoJCQkuYmRmID0gMHhiOSwKCQkJLmJhcl9tYXNrID0gewoJCQkJMHhmZmZmZjAwMCwgMHhmZm=
+ZmZmZmZiwgMHhmZmZmZjAwMCwKCQkJCTB4ZmZmZmZmZmYsIDB4MDAwMDAwMDAsIDB4MDAwMDAwM=
+DAsCgkJCX0sCgkJCS5jYXBzX3N0YXJ0ID0gMzAsCgkJCS5udW1fY2FwcyA9IDIsCgkJCS5udW1f=
+bXNpX3ZlY3RvcnMgPSAwLAoJCQkubXNpXzY0Yml0cyA9IDAsCgkJfSwKCQkvKiBQQ0lEZXZpY2U=
+6IDAwOjE3LjIgKi8KCQl7CgkJCS50eXBlID0gSkFJTEhPVVNFX1BDSV9UWVBFX0RFVklDRSwKCQ=
+kJLmlvbW11ID0gMSwKCQkJLmJkZiA9IDB4YmEsCgkJCS5iYXJfbWFzayA9IHsKCQkJCTB4ZmZmZ=
+mYwMDAsIDB4ZmZmZmZmZmYsIDB4ZmZmZmYwMDAsCgkJCQkweGZmZmZmZmZmLCAweDAwMDAwMDAw=
+LCAweDAwMDAwMDAwLAoJCQl9LAoJCQkuY2Fwc19zdGFydCA9IDMwLAoJCQkubnVtX2NhcHMgPSA=
+yLAoJCQkubnVtX21zaV92ZWN0b3JzID0gMCwKCQkJLm1zaV82NGJpdHMgPSAwLAoJCX0sCgkJLy=
+ogUENJRGV2aWNlOiAwMDoxNy4zICovCgkJewoJCQkudHlwZSA9IEpBSUxIT1VTRV9QQ0lfVFlQR=
+V9ERVZJQ0UsCgkJCS5pb21tdSA9IDEsCgkJCS5iZGYgPSAweGJiLAoJCQkuYmFyX21hc2sgPSB7=
+CgkJCQkweGZmZmZmMDAwLCAweGZmZmZmZmZmLCAweGZmZmZmMDAwLAoJCQkJMHhmZmZmZmZmZiw=
+gMHgwMDAwMDAwMCwgMHgwMDAwMDAwMCwKCQkJfSwKCQkJLmNhcHNfc3RhcnQgPSAzMCwKCQkJLm=
+51bV9jYXBzID0gMiwKCQkJLm51bV9tc2lfdmVjdG9ycyA9IDAsCgkJCS5tc2lfNjRiaXRzID0gM=
+CwKCQl9LAoJCS8qIFBDSURldmljZTogMDA6MTguMCAqLwoJCXsKCQkJLnR5cGUgPSBKQUlMSE9V=
+U0VfUENJX1RZUEVfREVWSUNFLAoJCQkuaW9tbXUgPSAxLAoJCQkuYmRmID0gMHhjMCwKCQkJLmJ=
+hcl9tYXNrID0gewoJCQkJMHhmZmZmZjAwMCwgMHhmZmZmZmZmZiwgMHhmZmZmZjAwMCwKCQkJCT=
+B4ZmZmZmZmZmYsIDB4MDAwMDAwMDAsIDB4MDAwMDAwMDAsCgkJCX0sCgkJCS5jYXBzX3N0YXJ0I=
+D0gMzAsCgkJCS5udW1fY2FwcyA9IDIsCgkJCS5udW1fbXNpX3ZlY3RvcnMgPSAwLAoJCQkubXNp=
+XzY0Yml0cyA9IDAsCgkJfSwKCQkvKiBQQ0lEZXZpY2U6IDAwOjE4LjEgKi8KCQl7CgkJCS50eXB=
+lID0gSkFJTEhPVVNFX1BDSV9UWVBFX0RFVklDRSwKCQkJLmlvbW11ID0gMSwKCQkJLmJkZiA9ID=
+B4YzEsCgkJCS5iYXJfbWFzayA9IHsKCQkJCTB4ZmZmZmYwMDAsIDB4ZmZmZmZmZmYsIDB4ZmZmZ=
+mYwMDAsCgkJCQkweGZmZmZmZmZmLCAweDAwMDAwMDAwLCAweDAwMDAwMDAwLAoJCQl9LAoJCQku=
+Y2Fwc19zdGFydCA9IDMwLAoJCQkubnVtX2NhcHMgPSAyLAoJCQkubnVtX21zaV92ZWN0b3JzID0=
+gMCwKCQkJLm1zaV82NGJpdHMgPSAwLAoJCX0sCgkJLyogUENJRGV2aWNlOiAwMDoxOS4wICovCg=
+kJewoJCQkudHlwZSA9IEpBSUxIT1VTRV9QQ0lfVFlQRV9ERVZJQ0UsCgkJCS5pb21tdSA9IDEsC=
+gkJCS5iZGYgPSAweGM4LAoJCQkuYmFyX21hc2sgPSB7CgkJCQkweGZmZmZmMDAwLCAweGZmZmZm=
+ZmZmLCAweGZmZmZmMDAwLAoJCQkJMHhmZmZmZmZmZiwgMHgwMDAwMDAwMCwgMHgwMDAwMDAwMCw=
+KCQkJfSwKCQkJLmNhcHNfc3RhcnQgPSAzMCwKCQkJLm51bV9jYXBzID0gMiwKCQkJLm51bV9tc2=
+lfdmVjdG9ycyA9IDAsCgkJCS5tc2lfNjRiaXRzID0gMCwKCQl9LAoJCS8qIFBDSURldmljZTogM=
+DA6MTkuMSAqLwoJCXsKCQkJLnR5cGUgPSBKQUlMSE9VU0VfUENJX1RZUEVfREVWSUNFLAoJCQku=
+aW9tbXUgPSAxLAoJCQkuYmRmID0gMHhjOSwKCQkJLmJhcl9tYXNrID0gewoJCQkJMHhmZmZmZjA=
+wMCwgMHhmZmZmZmZmZiwgMHhmZmZmZjAwMCwKCQkJCTB4ZmZmZmZmZmYsIDB4MDAwMDAwMDAsID=
+B4MDAwMDAwMDAsCgkJCX0sCgkJCS5jYXBzX3N0YXJ0ID0gMzAsCgkJCS5udW1fY2FwcyA9IDIsC=
+gkJCS5udW1fbXNpX3ZlY3RvcnMgPSAwLAoJCQkubXNpXzY0Yml0cyA9IDAsCgkJfSwKCQkvKiBQ=
+Q0lEZXZpY2U6IDAwOjE5LjIgKi8KCQl7CgkJCS50eXBlID0gSkFJTEhPVVNFX1BDSV9UWVBFX0R=
+FVklDRSwKCQkJLmlvbW11ID0gMSwKCQkJLmJkZiA9IDB4Y2EsCgkJCS5iYXJfbWFzayA9IHsKCQ=
+kJCTB4ZmZmZmYwMDAsIDB4ZmZmZmZmZmYsIDB4ZmZmZmYwMDAsCgkJCQkweGZmZmZmZmZmLCAwe=
+DAwMDAwMDAwLCAweDAwMDAwMDAwLAoJCQl9LAoJCQkuY2Fwc19zdGFydCA9IDMwLAoJCQkubnVt=
+X2NhcHMgPSAyLAoJCQkubnVtX21zaV92ZWN0b3JzID0gMCwKCQkJLm1zaV82NGJpdHMgPSAwLAo=
+JCX0sCgkJLyogUENJRGV2aWNlOiAwMDoxYS4wICovCgkJewoJCQkudHlwZSA9IEpBSUxIT1VTRV=
+9QQ0lfVFlQRV9ERVZJQ0UsCgkJCS5pb21tdSA9IDEsCgkJCS5iZGYgPSAweGQwLAoJCQkuYmFyX=
+21hc2sgPSB7CgkJCQkweGZmZmZmMDAwLCAweGZmZmZmZmZmLCAweGZmZmZmMDAwLAoJCQkJMHhm=
+ZmZmZmZmZiwgMHgwMDAwMDAwMCwgMHgwMDAwMDAwMCwKCQkJfSwKCQkJLmNhcHNfc3RhcnQgPSA=
+zMCwKCQkJLm51bV9jYXBzID0gMiwKCQkJLm51bV9tc2lfdmVjdG9ycyA9IDAsCgkJCS5tc2lfNj=
+RiaXRzID0gMCwKCQl9LAoJCS8qIFBDSURldmljZTogMDA6MWMuMCAqLwoJCXsKCQkJLnR5cGUgP=
+SBKQUlMSE9VU0VfUENJX1RZUEVfREVWSUNFLAoJCQkuaW9tbXUgPSAxLAoJCQkuYmRmID0gMHhl=
+MCwKCQkJLmJhcl9tYXNrID0gewoJCQkJMHhmZmZmZjAwMCwgMHhmZmZmZmZmZiwgMHhmZmZmZjA=
+wMCwKCQkJCTB4ZmZmZmZmZmYsIDB4MDAwMDAwMDAsIDB4MDAwMDAwMDAsCgkJCX0sCgkJCS5jYX=
+BzX3N0YXJ0ID0gMzAsCgkJCS5udW1fY2FwcyA9IDIsCgkJCS5udW1fbXNpX3ZlY3RvcnMgPSAwL=
+AoJCQkubXNpXzY0Yml0cyA9IDAsCgkJfSwKCQkvKiBQQ0lEZXZpY2U6IDAwOjFlLjAgKi8KCQl7=
+CgkJCS50eXBlID0gSkFJTEhPVVNFX1BDSV9UWVBFX0RFVklDRSwKCQkJLmlvbW11ID0gMSwKCQk=
+JLmJkZiA9IDB4ZjAsCgkJCS5iYXJfbWFzayA9IHsKCQkJCTB4ZmZmZmYwMDAsIDB4ZmZmZmZmZm=
+YsIDB4ZmZmZmYwMDAsCgkJCQkweGZmZmZmZmZmLCAweDAwMDAwMDAwLCAweDAwMDAwMDAwLAoJC=
+Ql9LAoJCQkuY2Fwc19zdGFydCA9IDMwLAoJCQkubnVtX2NhcHMgPSAyLAoJCQkubnVtX21zaV92=
+ZWN0b3JzID0gMCwKCQkJLm1zaV82NGJpdHMgPSAwLAoJCX0sCgkJLyogUENJRGV2aWNlOiAwMDo=
+xZi4wICovCgkJewoJCQkudHlwZSA9IEpBSUxIT1VTRV9QQ0lfVFlQRV9ERVZJQ0UsCgkJCS5pb2=
+1tdSA9IDEsCgkJCS5iZGYgPSAweGY4LAoJCQkuY2Fwc19zdGFydCA9IDAsCgkJCS5udW1fY2Fwc=
+yA9IDAsCgkJCS5udW1fbXNpX3ZlY3RvcnMgPSAwLAoJCQkubXNpXzY0Yml0cyA9IDAsCgkJfSwK=
+CQkvKiBQQ0lEZXZpY2U6IDAwOjFmLjEgKi8KCQl7CgkJCS50eXBlID0gSkFJTEhPVVNFX1BDSV9=
+UWVBFX0RFVklDRSwKCQkJLmlvbW11ID0gMSwKCQkJLmJkZiA9IDB4ZjksCgkJCS5iYXJfbWFzay=
+A9IHsKCQkJCTB4ZmZmZmZmMDAsIDB4ZmZmZmZmZmYsIDB4MDAwMDAwMDAsCgkJCQkweDAwMDAwM=
+DAwLCAweGZmZmZmZmUwLCAweDAwMDAwMDAwLAoJCQl9LAoJCQkuY2Fwc19zdGFydCA9IDAsCgkJ=
+CS5udW1fY2FwcyA9IDAsCgkJCS5udW1fbXNpX3ZlY3RvcnMgPSAwLAoJCQkubXNpXzY0Yml0cyA=
+9IDAsCgkJfSwKCS8qID09PSBOVyBjYXJkcyA9PT0gKi8KCQkvKiBQQ0lEZXZpY2U6IDAyOjAwLj=
+AgKi8KCQl7CgkJCS50eXBlID0gSkFJTEhPVVNFX1BDSV9UWVBFX0RFVklDRSwKCQkJLmlvbW11I=
+D0gMSwKCQkJLmJkZiA9IDB4MjAwLAoJCQkuYmFyX21hc2sgPSB7CgkJCQkweGZmZmZmZjAwLCAw=
+eDAwMDAwMDAwLCAweGZmZmZmMDAwLAoJCQkJMHhmZmZmZmZmZiwgMHhmZmZmYzAwMCwgMHhmZmZ=
+mZmZmZiwKCQkJfSwKCQkJLmNhcHNfc3RhcnQgPSAzMiwKCQkJLm51bV9jYXBzID0gOSwKCQkJLm=
+51bV9tc2lfdmVjdG9ycyA9IDEsCgkJCS5tc2lfNjRiaXRzID0gMSwKCQkJLm51bV9tc2l4X3ZlY=
+3RvcnMgPSA0LAoJCQkubXNpeF9yZWdpb25fc2l6ZSA9IDB4MTAwMCwKCQkJLm1zaXhfYWRkcmVz=
+cyA9IDB4OTE0MDAwMDAsCgkJfSwKCQkvKiBQQ0lEZXZpY2U6IDAzOjAwLjAgKi8KCQl7CgkJCS5=
+0eXBlID0gSkFJTEhPVVNFX1BDSV9UWVBFX0RFVklDRSwKCQkJLmlvbW11ID0gMSwKCQkJLmJkZi=
+A9IDB4MzAwLAoJCQkuYmFyX21hc2sgPSB7CgkJCQkweGZmZmZmZjAwLCAweDAwMDAwMDAwLCAwe=
+GZmZmZmMDAwLAoJCQkJMHhmZmZmZmZmZiwgMHhmZmZmYzAwMCwgMHhmZmZmZmZmZiwKCQkJfSwK=
+CQkJLmNhcHNfc3RhcnQgPSAzMiwKCQkJLm51bV9jYXBzID0gOSwKCQkJLm51bV9tc2lfdmVjdG9=
+ycyA9IDEsCgkJCS5tc2lfNjRiaXRzID0gMSwKCQkJLm51bV9tc2l4X3ZlY3RvcnMgPSA0LAoJCQ=
+kubXNpeF9yZWdpb25fc2l6ZSA9IDB4MTAwMCwKCQkJLm1zaXhfYWRkcmVzcyA9IDB4OTEzMDAwM=
+DAsCgkJfSwKCS8qID09Lz0gTlcgY2FyZHMgPT0vPSAqLwoJfSwKCgkucGNpX2NhcHMgPSB7CgkJ=
+LyogUENJRGV2aWNlOiAwMDowMi4wICovCgkJewoJCQkuaWQgPSBQQ0lfQ0FQX0lEX1ZORFIsCgk=
+JCS5zdGFydCA9IDB4NDAsCgkJCS5sZW4gPSAweDIsCgkJCS5mbGFncyA9IDAsCgkJfSwKCQl7Cg=
+kJCS5pZCA9IFBDSV9DQVBfSURfRVhQLAoJCQkuc3RhcnQgPSAweDcwLAoJCQkubGVuID0gMHgzY=
+ywKCQkJLmZsYWdzID0gMCwKCQl9LAoJCXsKCQkJLmlkID0gUENJX0NBUF9JRF9NU0ksCgkJCS5z=
+dGFydCA9IDB4YWMsCgkJCS5sZW4gPSAweGEsCgkJCS5mbGFncyA9IEpBSUxIT1VTRV9QQ0lDQVB=
+TX1dSSVRFLAoJCX0sCgkJewoJCQkuaWQgPSBQQ0lfQ0FQX0lEX1BNLAoJCQkuc3RhcnQgPSAweG=
+QwLAoJCQkubGVuID0gMHg4LAoJCQkuZmxhZ3MgPSBKQUlMSE9VU0VfUENJQ0FQU19XUklURSwKC=
+Ql9LAoJCXsKCQkJLmlkID0gUENJX0VYVF9DQVBfSURfUEFTSUQgfCBKQUlMSE9VU0VfUENJX0VY=
+VF9DQVAsCgkJCS5zdGFydCA9IDB4MTAwLAoJCQkubGVuID0gMHg4LAoJCQkuZmxhZ3MgPSAwLAo=
+JCX0sCgkJewoJCQkuaWQgPSBQQ0lfRVhUX0NBUF9JRF9BVFMgfCBKQUlMSE9VU0VfUENJX0VYVF=
+9DQVAsCgkJCS5zdGFydCA9IDB4MjAwLAoJCQkubGVuID0gMHg0LAoJCQkuZmxhZ3MgPSAwLAoJC=
+X0sCgkJewoJCQkuaWQgPSBQQ0lfRVhUX0NBUF9JRF9QUkkgfCBKQUlMSE9VU0VfUENJX0VYVF9D=
+QVAsCgkJCS5zdGFydCA9IDB4MzAwLAoJCQkubGVuID0gMHg0LAoJCQkuZmxhZ3MgPSAwLAoJCX0=
+sCgkJLyogUENJRGV2aWNlOiAwMDowZS4wICovCgkJewoJCQkuaWQgPSBQQ0lfQ0FQX0lEX1BNLA=
+oJCQkuc3RhcnQgPSAweDUwLAoJCQkubGVuID0gMHg4LAoJCQkuZmxhZ3MgPSBKQUlMSE9VU0VfU=
+ENJQ0FQU19XUklURSwKCQl9LAoJCXsKCQkJLmlkID0gUENJX0NBUF9JRF9WTkRSLAoJCQkuc3Rh=
+cnQgPSAweDgwLAoJCQkubGVuID0gMHgyLAoJCQkuZmxhZ3MgPSAwLAoJCX0sCgkJewoJCQkuaWQ=
+gPSBQQ0lfQ0FQX0lEX01TSSwKCQkJLnN0YXJ0ID0gMHg2MCwKCQkJLmxlbiA9IDB4ZSwKCQkJLm=
+ZsYWdzID0gSkFJTEhPVVNFX1BDSUNBUFNfV1JJVEUsCgkJfSwKCQl7CgkJCS5pZCA9IFBDSV9DQ=
+VBfSURfRVhQLAoJCQkuc3RhcnQgPSAweDcwLAoJCQkubGVuID0gMHgxNCwKCQkJLmZsYWdzID0g=
+MCwKCQl9LAoJCXsKCQkJLmlkID0gMHgwIHwgSkFJTEhPVVNFX1BDSV9FWFRfQ0FQLAoJCQkuc3R=
+hcnQgPSAweDEwMCwKCQkJLmxlbiA9IDB4NCwKCQkJLmZsYWdzID0gMCwKCQl9LAoJCS8qIFBDSU=
+RldmljZTogMDA6MGYuMCAqLwoJCXsKCQkJLmlkID0gUENJX0NBUF9JRF9QTSwKCQkJLnN0YXJ0I=
+D0gMHg1MCwKCQkJLmxlbiA9IDB4OCwKCQkJLmZsYWdzID0gSkFJTEhPVVNFX1BDSUNBUFNfV1JJ=
+VEUsCgkJfSwKCQl7CgkJCS5pZCA9IFBDSV9DQVBfSURfTVNJLAoJCQkuc3RhcnQgPSAweDhjLAo=
+JCQkubGVuID0gMHhlLAoJCQkuZmxhZ3MgPSBKQUlMSE9VU0VfUENJQ0FQU19XUklURSwKCQl9LA=
+oJCXsKCQkJLmlkID0gUENJX0NBUF9JRF9WTkRSLAoJCQkuc3RhcnQgPSAweGE0LAoJCQkubGVuI=
+D0gMHgyLAoJCQkuZmxhZ3MgPSAwLAoJCX0sCgkJLyogUENJRGV2aWNlOiAwMDoxMi4wICovCgkJ=
+ewoJCQkuaWQgPSBQQ0lfQ0FQX0lEX01TSSwKCQkJLnN0YXJ0ID0gMHg4MCwKCQkJLmxlbiA9IDB=
+4YSwKCQkJLmZsYWdzID0gSkFJTEhPVVNFX1BDSUNBUFNfV1JJVEUsCgkJfSwKCQl7CgkJCS5pZC=
+A9IFBDSV9DQVBfSURfUE0sCgkJCS5zdGFydCA9IDB4NzAsCgkJCS5sZW4gPSAweDgsCgkJCS5mb=
+GFncyA9IEpBSUxIT1VTRV9QQ0lDQVBTX1dSSVRFLAoJCX0sCgkJewoJCQkuaWQgPSBQQ0lfQ0FQ=
+X0lEX1NBVEEsCgkJCS5zdGFydCA9IDB4YTgsCgkJCS5sZW4gPSAweDIsCgkJCS5mbGFncyA9IDA=
+sCgkJfSwKCQkvKiBQQ0lEZXZpY2U6IDAwOjEzLjAgKi8KCQkvKiBQQ0lEZXZpY2U6IDAwOjEzLj=
+EgKi8KCQkvKiBQQ0lEZXZpY2U6IDAwOjEzLjIgKi8KCQkvKiBQQ0lEZXZpY2U6IDAwOjEzLjMgK=
+i8KCQkvKiBQQ0lEZXZpY2U6IDAwOjE0LjAgKi8KCQkvKiBQQ0lEZXZpY2U6IDAwOjE0LjEgKi8K=
+CQl7CgkJCS5pZCA9IFBDSV9DQVBfSURfRVhQLAoJCQkuc3RhcnQgPSAweDQwLAoJCQkubGVuID0=
+gMHgzYywKCQkJLmZsYWdzID0gMCwKCQl9LAoJCXsKCQkJLmlkID0gUENJX0NBUF9JRF9NU0ksCg=
+kJCS5zdGFydCA9IDB4ODAsCgkJCS5sZW4gPSAweGEsCgkJCS5mbGFncyA9IEpBSUxIT1VTRV9QQ=
+0lDQVBTX1dSSVRFLAoJCX0sCgkJewoJCQkuaWQgPSBQQ0lfQ0FQX0lEX1NTVklELAoJCQkuc3Rh=
+cnQgPSAweDkwLAoJCQkubGVuID0gMHgyLAoJCQkuZmxhZ3MgPSAwLAoJCX0sCgkJewoJCQkuaWQ=
+gPSBQQ0lfQ0FQX0lEX1BNLAoJCQkuc3RhcnQgPSAweGEwLAoJCQkubGVuID0gMHg4LAoJCQkuZm=
+xhZ3MgPSBKQUlMSE9VU0VfUENJQ0FQU19XUklURSwKCQl9LAoJCXsKCQkJLmlkID0gMHgwIHwgS=
+kFJTEhPVVNFX1BDSV9FWFRfQ0FQLAoJCQkuc3RhcnQgPSAweDEwMCwKCQkJLmxlbiA9IDB4NCwK=
+CQkJLmZsYWdzID0gMCwKCQl9LAoJCXsKCQkJLmlkID0gUENJX0VYVF9DQVBfSURfQUNTIHwgSkF=
+JTEhPVVNFX1BDSV9FWFRfQ0FQLAoJCQkuc3RhcnQgPSAweDE0MCwKCQkJLmxlbiA9IDB4OCwKCQ=
+kJLmZsYWdzID0gMCwKCQl9LAoJCXsKCQkJLmlkID0gUENJX0VYVF9DQVBfSURfUFRNIHwgSkFJT=
+EhPVVNFX1BDSV9FWFRfQ0FQLAoJCQkuc3RhcnQgPSAweDE1MCwKCQkJLmxlbiA9IDB4YywKCQkJ=
+LmZsYWdzID0gMCwKCQl9LAoJCXsKCQkJLmlkID0gMHgwIHwgSkFJTEhPVVNFX1BDSV9FWFRfQ0F=
+QLAoJCQkuc3RhcnQgPSAweDIwMCwKCQkJLmxlbiA9IDB4NCwKCQkJLmZsYWdzID0gMCwKCQl9LA=
+oJCXsKCQkJLmlkID0gMHgwIHwgSkFJTEhPVVNFX1BDSV9FWFRfQ0FQLAoJCQkuc3RhcnQgPSAwe=
+DIyMCwKCQkJLmxlbiA9IDB4NCwKCQkJLmZsYWdzID0gMCwKCQl9LAoJCS8qIFBDSURldmljZTog=
+MDA6MTUuMCAqLwoJCXsKCQkJLmlkID0gUENJX0NBUF9JRF9QTSwKCQkJLnN0YXJ0ID0gMHg3MCw=
+KCQkJLmxlbiA9IDB4OCwKCQkJLmZsYWdzID0gSkFJTEhPVVNFX1BDSUNBUFNfV1JJVEUsCgkJfS=
+wKCQl7CgkJCS5pZCA9IFBDSV9DQVBfSURfTVNJLAoJCQkuc3RhcnQgPSAweDgwLAoJCQkubGVuI=
+D0gMHhlLAoJCQkuZmxhZ3MgPSBKQUlMSE9VU0VfUENJQ0FQU19XUklURSwKCQl9LAoJCXsKCQkJ=
+LmlkID0gUENJX0NBUF9JRF9WTkRSLAoJCQkuc3RhcnQgPSAweDkwLAoJCQkubGVuID0gMHgyLAo=
+JCQkuZmxhZ3MgPSAwLAoJCX0sCgkJLyogUENJRGV2aWNlOiAwMDoxNS4xICovCgkJLyogUENJRG=
+V2aWNlOiAwMDoxNi4wICovCgkJLyogUENJRGV2aWNlOiAwMDoxNi4xICovCgkJLyogUENJRGV2a=
+WNlOiAwMDoxNi4yICovCgkJLyogUENJRGV2aWNlOiAwMDoxNi4zICovCgkJLyogUENJRGV2aWNl=
+OiAwMDoxNy4wICovCgkJLyogUENJRGV2aWNlOiAwMDoxNy4xICovCgkJLyogUENJRGV2aWNlOiA=
+wMDoxNy4yICovCgkJLyogUENJRGV2aWNlOiAwMDoxNy4zICovCgkJLyogUENJRGV2aWNlOiAwMD=
+oxOC4wICovCgkJLyogUENJRGV2aWNlOiAwMDoxOC4xICovCgkJLyogUENJRGV2aWNlOiAwMDoxO=
+S4wICovCgkJLyogUENJRGV2aWNlOiAwMDoxOS4xICovCgkJLyogUENJRGV2aWNlOiAwMDoxOS4y=
+ICovCgkJLyogUENJRGV2aWNlOiAwMDoxYS4wICovCgkJLyogUENJRGV2aWNlOiAwMDoxYy4wICo=
+vCgkJLyogUENJRGV2aWNlOiAwMDoxZS4wICovCgkJewoJCQkuaWQgPSBQQ0lfQ0FQX0lEX1BNLA=
+oJCQkuc3RhcnQgPSAweDgwLAoJCQkubGVuID0gMHg4LAoJCQkuZmxhZ3MgPSBKQUlMSE9VU0VfU=
+ENJQ0FQU19XUklURSwKCQl9LAoJCXsKCQkJLmlkID0gUENJX0NBUF9JRF9WTkRSLAoJCQkuc3Rh=
+cnQgPSAweDkwLAoJCQkubGVuID0gMHgyLAoJCQkuZmxhZ3MgPSAwLAoJCX0sCgkJLyogUENJRGV=
+2aWNlOiAwMjowMC4wICovCgkJLyogUENJRGV2aWNlOiAwMzowMC4wICovCgkJewoJCQkuaWQgPS=
+BQQ0lfQ0FQX0lEX1BNLAoJCQkuc3RhcnQgPSAweDQwLAoJCQkubGVuID0gMHg4LAoJCQkuZmxhZ=
+3MgPSBKQUlMSE9VU0VfUENJQ0FQU19XUklURSwKCQl9LAoJCXsKCQkJLmlkID0gUENJX0NBUF9J=
+RF9NU0ksCgkJCS5zdGFydCA9IDB4NTAsCgkJCS5sZW4gPSAweGUsCgkJCS5mbGFncyA9IEpBSUx=
+IT1VTRV9QQ0lDQVBTX1dSSVRFLAoJCX0sCgkJewoJCQkuaWQgPSBQQ0lfQ0FQX0lEX0VYUCwKCQ=
+kJLnN0YXJ0ID0gMHg3MCwKCQkJLmxlbiA9IDB4M2MsCgkJCS5mbGFncyA9IEpBSUxIT1VTRV9QQ=
+0lDQVBTX1dSSVRFLAoJCQkvKi5mbGFncyA9IDAsKi8KCQl9LAoJCXsKCQkJLmlkID0gUENJX0NB=
+UF9JRF9NU0lYLAoJCQkuc3RhcnQgPSAweGIwLAoJCQkubGVuID0gMHhjLAoJCQkuZmxhZ3MgPSB=
+KQUlMSE9VU0VfUENJQ0FQU19XUklURSwKCQl9LAoJCXsKCQkJLmlkID0gUENJX0NBUF9JRF9WUE=
+QsCgkJCS5zdGFydCA9IDB4ZDAsCgkJCS5sZW4gPSAweDIsCgkJCS5mbGFncyA9IDAsCgkJfSwKC=
+Ql7CgkJCS5pZCA9IFBDSV9FWFRfQ0FQX0lEX0VSUiB8IEpBSUxIT1VTRV9QQ0lfRVhUX0NBUCwK=
+CQkJLnN0YXJ0ID0gMHgxMDAsCgkJCS5sZW4gPSAweDQwLAoJCQkuZmxhZ3MgPSAwLAoJCX0sCgk=
+JewoJCQkuaWQgPSBQQ0lfRVhUX0NBUF9JRF9WQyB8IEpBSUxIT1VTRV9QQ0lfRVhUX0NBUCwKCQ=
+kJLnN0YXJ0ID0gMHgxNDAsCgkJCS5sZW4gPSAweDEwLAoJCQkuZmxhZ3MgPSAwLAoJCX0sCgkJe=
+woJCQkuaWQgPSBQQ0lfRVhUX0NBUF9JRF9EU04gfCBKQUlMSE9VU0VfUENJX0VYVF9DQVAsCgkJ=
+CS5zdGFydCA9IDB4MTYwLAoJCQkubGVuID0gMHhjLAoJCQkuZmxhZ3MgPSAwLAoJCX0sCgkJewo=
+JCQkuaWQgPSBQQ0lfRVhUX0NBUF9JRF9MVFIgfCBKQUlMSE9VU0VfUENJX0VYVF9DQVAsCgkJCS=
+5zdGFydCA9IDB4MTcwLAoJCQkubGVuID0gMHg4LAoJCQkuZmxhZ3MgPSAwLAoJCX0sCgl9LAp9O=
+wo=3D" alt=3D""><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail=
+_attr">connor....@gmail.com schrieb am Donnerstag, 26. Oktober 2017 um 11:4=
+7:41 UTC+2:<br/></div><blockquote class=3D"gmail_quote" style=3D"margin: 0 =
+0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">T=
+he error has gone now but I am presented with a new one. I think I was usin=
+g the old config.cell file since make hadn&#39;t properly worked due to inc=
+orrect date &amp; time settings on my rig. Correctly setting the date/time =
+and then running make seems to have got me past that error.<p>The new error=
+ is:<p>root@hal8000:~# FATAL: Invalid PCI MMCONFIG write, device 00:0d.0, r=
+eg: e0, size: 4<br>RIP: 0xffffffff812a3d75 RSP: 0xffffc900018d77f0 FLAGS: 1=
+0246<br>RAX: 0x00000000ffff00ff RBX: 0xffffc900002490e0 RCX: 0xffffc900018d=
+7918<br>RDX: 0x00000000e00680f0 RSI: 0x0000000000000020 RDI: 0x000000000000=
+0001</p></p><p><p><br>CS: 10 BASE: 0x0000000000000000 AR-BYTES: a09b EFER.L=
+MA 1<br>CR0: 0x0000000080050033 CR3: 0x0000000001a09000 CR4: 0x000000000034=
+26e0<br>EFER: 0x0000000000000d01<br></p></p><p><p>Parking CPU 3 (Cell: &quo=
+t;RootCell&quot;)<p>I will have a play around fixing this today and will po=
+st back if I fix it.<p>Thanks,<br>Connor.</p></p></p></p></blockquote></div=
+>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/ed7359f6-00f7-4b22-a220-f7bd2ef38150n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/ed7359f6-00f7-4b22-a220-f7bd2ef38150n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_180_561952057.1592670700109--
+
+------=_Part_179_734711136.1592670700109
+Content-Type: text/x-csrc; charset=US-ASCII; name=edge1.c
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename=edge1.c
+X-Attachment-Id: 22442876-fb02-4033-a78c-9869b50738cb
+Content-ID: <22442876-fb02-4033-a78c-9869b50738cb>
+
+/*
+ * Jailhouse, a Linux-based partitioning hypervisor
+ *
+ * Copyright (c) Siemens AG, 2014-2017
+ *
+ * This work is licensed under the terms of the GNU GPL, version 2.  See
+ * the COPYING file in the top-level directory.
+ *
+ * Alternatively, you can use or redistribute this file under the following
+ * BSD license:
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+ * THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * Configuration for AAEON UP-APL01
+ * created with '/usr/local/libexec/jailhouse/jailhouse config create --mem-inmates 384M edge'
+ *
+ * NOTE: This config expects the following to be appended to your kernel cmdline
+ *       "memmap=0x18600000$0x3a000000"
+ */
+
+#include <jailhouse/types.h>
+#include <jailhouse/cell-config.h>
+
+struct {
+	struct jailhouse_system header;
+	__u64 cpus[1];
+	struct jailhouse_memory mem_regions[102];
+	struct jailhouse_irqchip irqchips[1];
+	struct jailhouse_pio pio_regions[6];
+	struct jailhouse_pci_device pci_devices[33];
+	struct jailhouse_pci_capability pci_caps[41];
+} __attribute__((packed)) config = {
+	.header = {
+		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
+		.revision = JAILHOUSE_CONFIG_REVISION,
+		.flags = JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
+		.hypervisor_memory = {
+			.phys_start = 0x3a000000,
+			.size = 0x600000,
+		},
+		.debug_console = {
+			.address = 0x80040000, /* framebuffer base address */
+			.size = 0x840000, /* 1920x1080x4 */
+			.type = JAILHOUSE_CON_TYPE_EFIFB,  /* choose the EFIFB driver */
+			.flags = JAILHOUSE_CON_ACCESS_MMIO |      /* access is MMIO */
+				JAILHOUSE_CON_FB_1920x1080 /* format */
+		},
+/*		.debug_console = {
+			.address = 0x3f8,
+			.type = JAILHOUSE_CON_TYPE_8250,
+			.flags = JAILHOUSE_CON_ACCESS_PIO |
+				 JAILHOUSE_CON_REGDIST_1,
+		},
+*/		.platform_info = {
+			.pci_mmconfig_base = 0xe0000000,
+			.pci_mmconfig_end_bus = 0xff,
+			.iommu_units = {
+				{
+					.type = JAILHOUSE_IOMMU_INTEL,
+					.base = 0xfed64000,
+					.size = 0x1000,
+				},
+				{
+					.type = JAILHOUSE_IOMMU_INTEL,
+					.base = 0xfed65000,
+					.size = 0x1000,
+				},
+			},
+			.x86 = {
+				.pm_timer_address = 0x408,
+				.vtd_interrupt_limit = 256,
+			},
+		},
+		.root_cell = {
+			.name = "RootCell",
+			.cpu_set_size = sizeof(config.cpus),
+			.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+			.num_irqchips = ARRAY_SIZE(config.irqchips),
+			.num_pio_regions = ARRAY_SIZE(config.pio_regions),
+			.num_pci_devices = ARRAY_SIZE(config.pci_devices),
+			.num_pci_caps = ARRAY_SIZE(config.pci_caps),
+		},
+	},
+
+	.cpus = {
+		0xf,
+	},
+
+	.mem_regions = {
+		/* MemRegion: 00000000-0003efff : System RAM */
+		{
+			.phys_start = 0x0,
+			.virt_start = 0x0,
+			.size = 0x3f000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+		/* MemRegion: 00040000-0009dfff : System RAM */
+		{
+			.phys_start = 0x40000,
+			.virt_start = 0x40000,
+			.size = 0x5e000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+		/* MemRegion: 00100000-0fffffff : System RAM */
+		{
+			.phys_start = 0x100000,
+			.virt_start = 0x100000,
+			.size = 0xff00000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+		/* MemRegion: 12151000-39ffffff : System RAM */
+		{
+			.phys_start = 0x12151000,
+			.virt_start = 0x12151000,
+			.size = 0x27eaf000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+		/* this is the 390MB gap for the HV and the inmates */
+		/* MemRegion: 3a600000-525fffff : JAILHOUSE Inmate Memory */
+		{
+			.phys_start = 0x3a600000,
+			.virt_start = 0x3a600000,
+			.size = 0x18000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+
+		/* MemRegion: 52600000-77899fff : System RAM */
+		{
+			.phys_start = 0x52600000,
+			.virt_start = 0x52600000,
+			.size = 0x2529a000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+		/* MemRegion: 7789a000-7789a143 : ACPI Tables */
+		{
+			.phys_start = 0x7789a000,
+			.virt_start = 0x7789a000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: 7789a144-77b0cfff : System RAM */
+		{
+			.phys_start = 0x7789b000,
+			.virt_start = 0x7789b000,
+			.size = 0x272000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+		/* MemRegion: 79bc6000-79be5fff : ACPI DMAR RMRR */
+		/* PCI device: 00:15.0 */
+		/* PCI device: 00:15.1 */
+		{
+			.phys_start = 0x79bc6000,
+			.virt_start = 0x79bc6000,
+			.size = 0x20000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+		/* MemRegion: 79c2b000-79c43fff : ACPI Tables */
+		{
+			.phys_start = 0x79c2b000,
+			.virt_start = 0x79c2b000,
+			.size = 0x19000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: 79c44000-79ca3fff : ACPI Non-volatile Storage */
+		{
+			.phys_start = 0x79c44000,
+			.virt_start = 0x79c44000,
+			.size = 0x60000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: 7a041000-7a08cfff : Unknown E820 type */
+		{
+			.phys_start = 0x7a041000,
+			.virt_start = 0x7a041000,
+			.size = 0x4c000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: 7a08d000-7a3fafff : System RAM */
+		{
+			.phys_start = 0x7a08d000,
+			.virt_start = 0x7a08d000,
+			.size = 0x36e000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+		/* MemRegion: 7a3fb000-7a3fbfff : ACPI Non-volatile Storage */
+		{
+			.phys_start = 0x7a3fb000,
+			.virt_start = 0x7a3fb000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: 7a426000-7a964fff : System RAM */
+		{
+			.phys_start = 0x7a426000,
+			.virt_start = 0x7a426000,
+			.size = 0x53f000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+		/* MemRegion: 7a967000-7affffff : System RAM */
+		{
+			.phys_start = 0x7a967000,
+			.virt_start = 0x7a967000,
+			.size = 0x699000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+		/* MemRegion: 7b800000-7fffffff : ACPI DMAR RMRR */
+		/* PCI device: 00:02.0 */
+		{
+			.phys_start = 0x7b800000,
+			.virt_start = 0x7b800000,
+			.size = 0x4800000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+		/* MemRegion: 80000000-8fffffff : 0000:00:02.0 / EFIFB */
+		{
+			.phys_start = 0x80000000,
+			.virt_start = 0x80000000,
+			.size =       0x11000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: 9100c100-911fffff : dwc_usb3 */
+		{
+			.phys_start = 0x9100c000,
+			.virt_start = 0x9100c000,
+			.size = 0x1f4000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: 91200000-912fffff : ICH HD audio */
+		{
+			.phys_start = 0x91200000,
+			.virt_start = 0x91200000,
+			.size = 0x100000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+
+	/* === NW cards === */
+		/* MSIX-region 0x1000 @ 0x91300000, do not map here */
+		/* MemRegion: 91301000-91303fff : r8169 */
+		{
+			.phys_start = 0x91301000,
+			.virt_start = 0x91301000,
+			.size = 0x3000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: 91304000-91304fff : r8169 */
+		{
+			.phys_start = 0x91304000,
+			.virt_start = 0x91304000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MSIX-region 0x1000 @ 0x91400000, do not map here */
+		/* MemRegion: 91401000-91403fff : r8169 */
+		{
+			.phys_start = 0x91401000,
+			.virt_start = 0x91401000,
+			.size = 0x3000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: 91404000-91404fff : r8169 */
+		{
+			.phys_start = 0x91404000,
+			.virt_start = 0x91404000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+	/* ==/= NW cards ==/= */
+		/* other devices 0x91500000-0x9153a000*/
+		{
+			.phys_start = 0x91500000,
+			.virt_start = 0x91500000,
+			.size = 0x3a000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: 9153c000-9153cfff : mei_me */
+		{
+			.phys_start = 0x9153c000,
+			.virt_start = 0x9153c000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: fea00000-feafffff : pnp 00:01 */
+		{
+			.phys_start = 0xfea00000,
+			.virt_start = 0xfea00000,
+			.size = 0x100000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: fed00000-fed003ff : PNP0103:00 */
+		{
+			.phys_start = 0xfed00000,
+			.virt_start = 0xfed00000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: fed03000-fed03fff : pnp 00:01 */
+		{
+			.phys_start = 0xfed03000,
+			.virt_start = 0xfed03000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: fed06000-fed06fff : pnp 00:01 */
+		{
+			.phys_start = 0xfed06000,
+			.virt_start = 0xfed06000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: fed08000-fed09fff : pnp 00:01 */
+		{
+			.phys_start = 0xfed08000,
+			.virt_start = 0xfed08000,
+			.size = 0x2000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: fed1c000-fed1cfff : pnp 00:01 */
+		{
+			.phys_start = 0xfed1c000,
+			.virt_start = 0xfed1c000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: fed40000-fed44fff : MSFT0101:00 */
+		{
+			.phys_start = 0xfed40000,
+			.virt_start = 0xfed40000,
+			.size = 0x5000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: fed80000-fedbffff : pnp 00:01 */
+		{
+			.phys_start = 0xfed80000,
+			.virt_start = 0xfed80000,
+			.size = 0x40000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: 100000000-27fffffff : System RAM + Kernel */
+		{
+			.phys_start = 0x100000000,
+			.virt_start = 0x100000000,
+			.size = 0x180000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+	},
+
+	.irqchips = {
+		/* IOAPIC 1, GSI base 0 */
+		{
+			.address = 0xfec00000,
+			.id = 0x1faf8,
+			.pin_bitmap = {
+				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff
+			},
+		},
+	},
+
+	.pio_regions = {
+		/* Port I/O: 0000-001f : dma1 */
+		/* PIO_RANGE(0x0, 0x20), */
+		/* Port I/O: 0020-0021 : pic1 */
+		/* PIO_RANGE(0x20, 0x2), */
+		/* Port I/O: 0040-0043 : timer0 */
+		PIO_RANGE(0x40, 0x4),
+		/* Port I/O: 0050-0053 : timer1 */
+		/* PIO_RANGE(0x50, 0x4), */
+		/* Port I/O: 0060-0060 : keyboard */
+		PIO_RANGE(0x60, 0x2),
+		/* Port I/O: 0064-0064 : keyboard */
+		PIO_RANGE(0x64, 0x1),
+		/* Port I/O: 0070-0077 : rtc0 */
+		PIO_RANGE(0x70, 0x8),
+		/* Port I/O: 0080-008f : dma page reg */
+		/* PIO_RANGE(0x80, 0x10), */
+		/* Port I/O: 00a0-00a1 : pic2 */
+		/* PIO_RANGE(0xa0, 0x2), */
+		/* Port I/O: 00c0-00df : dma2 */
+		/* PIO_RANGE(0xc0, 0x20), */
+		/* Port I/O: 00f0-00ff : fpu */
+		/* PIO_RANGE(0xf0, 0x10), */
+		/* Port I/O: 0400-0403 : ACPI * */
+		/**/PIO_RANGE(0x400, 0x80),
+		/* Port I/O: 0400-0403 : ACPI PM1a_EVT_BLK */
+		/* PIO_RANGE(0x400, 0x4), */
+		/* Port I/O: 0404-0405 : ACPI PM1a_CNT_BLK */
+		/* PIO_RANGE(0x404, 0x2), */
+		/* Port I/O: 0408-040b : ACPI PM_TMR */
+		/* PIO_RANGE(0x408, 0x4), */
+		/* Port I/O: 0420-043f : ACPI GPE0_BLK */
+		/* PIO_RANGE(0x420, 0x20), */
+		/* Port I/O: 0450-0450 : ACPI PM2_CNT_BLK */
+		/* PIO_RANGE(0x450, 0x1), */
+		/* Port I/O: 0500-05fe : pnp 00:00 */
+		/* PIO_RANGE(0x500, 0xff), */
+		/* Port I/O: 0680-069f : pnp 00:00 */
+		/* PIO_RANGE(0x680, 0x20), */
+		/* PCI devices */
+		/**/PIO_RANGE(0xd00, 0xf300),
+		/* Port I/O: d000-d0ff : 0000:03:00.0 */
+		//PIO_RANGE(0xd000, 0x100),
+		/* Port I/O: e000-e0ff : 0000:02:00.0 */
+		//PIO_RANGE(0xe000, 0x100),
+		/* Port I/O: f000-f03f : 0000:00:02.0 */
+		//PIO_RANGE(0xf000, 0x40),
+		/* Port I/O: f040-f05f : 0000:00:1f.1 */
+		//PIO_RANGE(0xf040, 0x20),
+		/* Port I/O: f060-f07f : 0000:00:12.0 */
+		//PIO_RANGE(0xf060, 0x20),
+		/* Port I/O: f080-f083 : 0000:00:12.0 */
+		//PIO_RANGE(0xf080, 0x4),
+		/* Port I/O: f090-f097 : 0000:00:12.0 */
+		//PIO_RANGE(0xf090, 0x8),
+	},
+
+	.pci_devices = {
+		/* PCIDevice: 00:00.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+		},
+		/* PCIDevice: 00:02.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 0,
+			.bdf = 0x10,
+			.bar_mask = {
+				0xff000000, 0xffffffff, 0xf0000000,
+				0xffffffff, 0xffffffc0, 0x00000000,
+			},
+			.caps_start = 0,
+			.num_caps = 7,
+			.num_msi_vectors = 1,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:0e.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0x70,
+			.bar_mask = {
+				0xffffc000, 0xffffffff, 0x00000000,
+				0x00000000, 0xfff00000, 0xffffffff,
+			},
+			.caps_start = 7,
+			.num_caps = 5,
+			.num_msi_vectors = 1,
+			.msi_64bits = 1,
+		},
+		/* PCIDevice: 00:0f.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0x78,
+			.bar_mask = {
+				0xfffff000, 0xffffffff, 0x00000000,
+				0x00000000, 0x00000000, 0x00000000,
+			},
+			.caps_start = 12,
+			.num_caps = 3,
+			.num_msi_vectors = 1,
+			.msi_64bits = 1,
+		},
+		/* PCIDevice: 00:12.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0x90,
+			.bar_mask = {
+				0xffffe000, 0xffffff00, 0xfffffff8,
+				0xfffffffc, 0xffffffe0, 0xfffff800,
+			},
+			.caps_start = 15,
+			.num_caps = 3,
+			.num_msi_vectors = 1,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:13.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
+			.iommu = 1,
+			.bdf = 0x98,
+			.caps_start = 18,
+			.num_caps = 9,
+			.num_msi_vectors = 1,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:13.1 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
+			.iommu = 1,
+			.bdf = 0x99,
+			.caps_start = 18,
+			.num_caps = 9,
+			.num_msi_vectors = 1,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:13.2 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
+			.iommu = 1,
+			.bdf = 0x9a,
+			.caps_start = 18,
+			.num_caps = 9,
+			.num_msi_vectors = 1,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:13.3 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
+			.iommu = 1,
+			.bdf = 0x9b,
+			.caps_start = 18,
+			.num_caps = 9,
+			.num_msi_vectors = 1,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:14.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
+			.iommu = 1,
+			.bdf = 0xa0,
+			.caps_start = 18,
+			.num_caps = 9,
+			.num_msi_vectors = 1,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:14.1 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
+			.iommu = 1,
+			.bdf = 0xa1,
+			.caps_start = 18,
+			.num_caps = 9,
+			.num_msi_vectors = 1,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:15.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0xa8,
+			.bar_mask = {
+				0xffff0000, 0xffffffff, 0x00000000,
+				0x00000000, 0x00000000, 0x00000000,
+			},
+			.caps_start = 27,
+			.num_caps = 3,
+			.num_msi_vectors = 8,
+			.msi_64bits = 1,
+		},
+		/* PCIDevice: 00:15.1 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0xa9,
+			.bar_mask = {
+				0xffe00000, 0xffffffff, 0xfffff000,
+				0xffffffff, 0x00000000, 0x00000000,
+			},
+			.caps_start = 30,
+			.num_caps = 2,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:16.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0xb0,
+			.bar_mask = {
+				0xfffff000, 0xffffffff, 0xfffff000,
+				0xffffffff, 0x00000000, 0x00000000,
+			},
+			.caps_start = 30,
+			.num_caps = 2,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:16.1 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0xb1,
+			.bar_mask = {
+				0xfffff000, 0xffffffff, 0xfffff000,
+				0xffffffff, 0x00000000, 0x00000000,
+			},
+			.caps_start = 30,
+			.num_caps = 2,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:16.2 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0xb2,
+			.bar_mask = {
+				0xfffff000, 0xffffffff, 0xfffff000,
+				0xffffffff, 0x00000000, 0x00000000,
+			},
+			.caps_start = 30,
+			.num_caps = 2,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:16.3 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0xb3,
+			.bar_mask = {
+				0xfffff000, 0xffffffff, 0xfffff000,
+				0xffffffff, 0x00000000, 0x00000000,
+			},
+			.caps_start = 30,
+			.num_caps = 2,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:17.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0xb8,
+			.bar_mask = {
+				0xfffff000, 0xffffffff, 0xfffff000,
+				0xffffffff, 0x00000000, 0x00000000,
+			},
+			.caps_start = 30,
+			.num_caps = 2,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:17.1 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0xb9,
+			.bar_mask = {
+				0xfffff000, 0xffffffff, 0xfffff000,
+				0xffffffff, 0x00000000, 0x00000000,
+			},
+			.caps_start = 30,
+			.num_caps = 2,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:17.2 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0xba,
+			.bar_mask = {
+				0xfffff000, 0xffffffff, 0xfffff000,
+				0xffffffff, 0x00000000, 0x00000000,
+			},
+			.caps_start = 30,
+			.num_caps = 2,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:17.3 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0xbb,
+			.bar_mask = {
+				0xfffff000, 0xffffffff, 0xfffff000,
+				0xffffffff, 0x00000000, 0x00000000,
+			},
+			.caps_start = 30,
+			.num_caps = 2,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:18.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0xc0,
+			.bar_mask = {
+				0xfffff000, 0xffffffff, 0xfffff000,
+				0xffffffff, 0x00000000, 0x00000000,
+			},
+			.caps_start = 30,
+			.num_caps = 2,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:18.1 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0xc1,
+			.bar_mask = {
+				0xfffff000, 0xffffffff, 0xfffff000,
+				0xffffffff, 0x00000000, 0x00000000,
+			},
+			.caps_start = 30,
+			.num_caps = 2,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:19.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0xc8,
+			.bar_mask = {
+				0xfffff000, 0xffffffff, 0xfffff000,
+				0xffffffff, 0x00000000, 0x00000000,
+			},
+			.caps_start = 30,
+			.num_caps = 2,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:19.1 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0xc9,
+			.bar_mask = {
+				0xfffff000, 0xffffffff, 0xfffff000,
+				0xffffffff, 0x00000000, 0x00000000,
+			},
+			.caps_start = 30,
+			.num_caps = 2,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:19.2 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0xca,
+			.bar_mask = {
+				0xfffff000, 0xffffffff, 0xfffff000,
+				0xffffffff, 0x00000000, 0x00000000,
+			},
+			.caps_start = 30,
+			.num_caps = 2,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:1a.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0xd0,
+			.bar_mask = {
+				0xfffff000, 0xffffffff, 0xfffff000,
+				0xffffffff, 0x00000000, 0x00000000,
+			},
+			.caps_start = 30,
+			.num_caps = 2,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:1c.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0xe0,
+			.bar_mask = {
+				0xfffff000, 0xffffffff, 0xfffff000,
+				0xffffffff, 0x00000000, 0x00000000,
+			},
+			.caps_start = 30,
+			.num_caps = 2,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:1e.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0xf0,
+			.bar_mask = {
+				0xfffff000, 0xffffffff, 0xfffff000,
+				0xffffffff, 0x00000000, 0x00000000,
+			},
+			.caps_start = 30,
+			.num_caps = 2,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:1f.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0xf8,
+			.caps_start = 0,
+			.num_caps = 0,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+		},
+		/* PCIDevice: 00:1f.1 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0xf9,
+			.bar_mask = {
+				0xffffff00, 0xffffffff, 0x00000000,
+				0x00000000, 0xffffffe0, 0x00000000,
+			},
+			.caps_start = 0,
+			.num_caps = 0,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+		},
+	/* === NW cards === */
+		/* PCIDevice: 02:00.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0x200,
+			.bar_mask = {
+				0xffffff00, 0x00000000, 0xfffff000,
+				0xffffffff, 0xffffc000, 0xffffffff,
+			},
+			.caps_start = 32,
+			.num_caps = 9,
+			.num_msi_vectors = 1,
+			.msi_64bits = 1,
+			.num_msix_vectors = 4,
+			.msix_region_size = 0x1000,
+			.msix_address = 0x91400000,
+		},
+		/* PCIDevice: 03:00.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 1,
+			.bdf = 0x300,
+			.bar_mask = {
+				0xffffff00, 0x00000000, 0xfffff000,
+				0xffffffff, 0xffffc000, 0xffffffff,
+			},
+			.caps_start = 32,
+			.num_caps = 9,
+			.num_msi_vectors = 1,
+			.msi_64bits = 1,
+			.num_msix_vectors = 4,
+			.msix_region_size = 0x1000,
+			.msix_address = 0x91300000,
+		},
+	/* ==/= NW cards ==/= */
+	},
+
+	.pci_caps = {
+		/* PCIDevice: 00:02.0 */
+		{
+			.id = PCI_CAP_ID_VNDR,
+			.start = 0x40,
+			.len = 0x2,
+			.flags = 0,
+		},
+		{
+			.id = PCI_CAP_ID_EXP,
+			.start = 0x70,
+			.len = 0x3c,
+			.flags = 0,
+		},
+		{
+			.id = PCI_CAP_ID_MSI,
+			.start = 0xac,
+			.len = 0xa,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_PM,
+			.start = 0xd0,
+			.len = 0x8,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_EXT_CAP_ID_PASID | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x100,
+			.len = 0x8,
+			.flags = 0,
+		},
+		{
+			.id = PCI_EXT_CAP_ID_ATS | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x200,
+			.len = 0x4,
+			.flags = 0,
+		},
+		{
+			.id = PCI_EXT_CAP_ID_PRI | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x300,
+			.len = 0x4,
+			.flags = 0,
+		},
+		/* PCIDevice: 00:0e.0 */
+		{
+			.id = PCI_CAP_ID_PM,
+			.start = 0x50,
+			.len = 0x8,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_VNDR,
+			.start = 0x80,
+			.len = 0x2,
+			.flags = 0,
+		},
+		{
+			.id = PCI_CAP_ID_MSI,
+			.start = 0x60,
+			.len = 0xe,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_EXP,
+			.start = 0x70,
+			.len = 0x14,
+			.flags = 0,
+		},
+		{
+			.id = 0x0 | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x100,
+			.len = 0x4,
+			.flags = 0,
+		},
+		/* PCIDevice: 00:0f.0 */
+		{
+			.id = PCI_CAP_ID_PM,
+			.start = 0x50,
+			.len = 0x8,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_MSI,
+			.start = 0x8c,
+			.len = 0xe,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_VNDR,
+			.start = 0xa4,
+			.len = 0x2,
+			.flags = 0,
+		},
+		/* PCIDevice: 00:12.0 */
+		{
+			.id = PCI_CAP_ID_MSI,
+			.start = 0x80,
+			.len = 0xa,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_PM,
+			.start = 0x70,
+			.len = 0x8,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_SATA,
+			.start = 0xa8,
+			.len = 0x2,
+			.flags = 0,
+		},
+		/* PCIDevice: 00:13.0 */
+		/* PCIDevice: 00:13.1 */
+		/* PCIDevice: 00:13.2 */
+		/* PCIDevice: 00:13.3 */
+		/* PCIDevice: 00:14.0 */
+		/* PCIDevice: 00:14.1 */
+		{
+			.id = PCI_CAP_ID_EXP,
+			.start = 0x40,
+			.len = 0x3c,
+			.flags = 0,
+		},
+		{
+			.id = PCI_CAP_ID_MSI,
+			.start = 0x80,
+			.len = 0xa,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_SSVID,
+			.start = 0x90,
+			.len = 0x2,
+			.flags = 0,
+		},
+		{
+			.id = PCI_CAP_ID_PM,
+			.start = 0xa0,
+			.len = 0x8,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = 0x0 | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x100,
+			.len = 0x4,
+			.flags = 0,
+		},
+		{
+			.id = PCI_EXT_CAP_ID_ACS | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x140,
+			.len = 0x8,
+			.flags = 0,
+		},
+		{
+			.id = PCI_EXT_CAP_ID_PTM | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x150,
+			.len = 0xc,
+			.flags = 0,
+		},
+		{
+			.id = 0x0 | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x200,
+			.len = 0x4,
+			.flags = 0,
+		},
+		{
+			.id = 0x0 | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x220,
+			.len = 0x4,
+			.flags = 0,
+		},
+		/* PCIDevice: 00:15.0 */
+		{
+			.id = PCI_CAP_ID_PM,
+			.start = 0x70,
+			.len = 0x8,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_MSI,
+			.start = 0x80,
+			.len = 0xe,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_VNDR,
+			.start = 0x90,
+			.len = 0x2,
+			.flags = 0,
+		},
+		/* PCIDevice: 00:15.1 */
+		/* PCIDevice: 00:16.0 */
+		/* PCIDevice: 00:16.1 */
+		/* PCIDevice: 00:16.2 */
+		/* PCIDevice: 00:16.3 */
+		/* PCIDevice: 00:17.0 */
+		/* PCIDevice: 00:17.1 */
+		/* PCIDevice: 00:17.2 */
+		/* PCIDevice: 00:17.3 */
+		/* PCIDevice: 00:18.0 */
+		/* PCIDevice: 00:18.1 */
+		/* PCIDevice: 00:19.0 */
+		/* PCIDevice: 00:19.1 */
+		/* PCIDevice: 00:19.2 */
+		/* PCIDevice: 00:1a.0 */
+		/* PCIDevice: 00:1c.0 */
+		/* PCIDevice: 00:1e.0 */
+		{
+			.id = PCI_CAP_ID_PM,
+			.start = 0x80,
+			.len = 0x8,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_VNDR,
+			.start = 0x90,
+			.len = 0x2,
+			.flags = 0,
+		},
+		/* PCIDevice: 02:00.0 */
+		/* PCIDevice: 03:00.0 */
+		{
+			.id = PCI_CAP_ID_PM,
+			.start = 0x40,
+			.len = 0x8,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_MSI,
+			.start = 0x50,
+			.len = 0xe,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_EXP,
+			.start = 0x70,
+			.len = 0x3c,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+			/*.flags = 0,*/
+		},
+		{
+			.id = PCI_CAP_ID_MSIX,
+			.start = 0xb0,
+			.len = 0xc,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_VPD,
+			.start = 0xd0,
+			.len = 0x2,
+			.flags = 0,
+		},
+		{
+			.id = PCI_EXT_CAP_ID_ERR | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x100,
+			.len = 0x40,
+			.flags = 0,
+		},
+		{
+			.id = PCI_EXT_CAP_ID_VC | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x140,
+			.len = 0x10,
+			.flags = 0,
+		},
+		{
+			.id = PCI_EXT_CAP_ID_DSN | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x160,
+			.len = 0xc,
+			.flags = 0,
+		},
+		{
+			.id = PCI_EXT_CAP_ID_LTR | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x170,
+			.len = 0x8,
+			.flags = 0,
+		},
+	},
+};
+
+------=_Part_179_734711136.1592670700109--
