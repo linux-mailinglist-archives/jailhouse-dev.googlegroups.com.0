@@ -1,33 +1,33 @@
 Return-Path: <jailhouse-dev+bncBDD5VM7LUMHBB2N55P3QKGQEFVDYUBI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43a.google.com (mail-wr1-x43a.google.com [IPv6:2a00:1450:4864:20::43a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4753A20EEB2
+Received: from mail-wm1-x33f.google.com (mail-wm1-x33f.google.com [IPv6:2a00:1450:4864:20::33f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 524C720EEB3
 	for <lists+jailhouse-dev@lfdr.de>; Tue, 30 Jun 2020 08:42:50 +0200 (CEST)
-Received: by mail-wr1-x43a.google.com with SMTP id o25sf18258147wro.16
+Received: by mail-wm1-x33f.google.com with SMTP id g124sf20431293wmg.6
         for <lists+jailhouse-dev@lfdr.de>; Mon, 29 Jun 2020 23:42:50 -0700 (PDT)
 ARC-Seal: i=2; a=rsa-sha256; t=1593499370; cv=pass;
         d=google.com; s=arc-20160816;
-        b=SnBKO1m6KcbqJfhO9jpdQHWPbTAfXXU1xEF4H68mxSZ1ItMvKb30hFzqMbaQe1D+3c
-         5NSwn0J1ISR+/ByEVxAE5c7Htc8BmbBAaSQtdxCB2fY3e/qUZiyHPnxhwGMKifLemBX/
-         hV4tSfwgetnkOV2P+JHs1KGwi7HMnN5kZRYabUOHtVHYp8L1/6dmDBz3FPz+SDe7Xn2s
-         xUAOe4IlS8d4OmAxdBu6b9aYeJKDjrdoLJRSjWKp8qrawXHzT+k6f5S+P+AUje27XiF6
-         Iwqxv98MZh0QFDJ6zhiRaKE6YFozV2ta5OLGOAxxGzn/hepmGQ6etB+9h1Wk6yI18frZ
-         clMg==
+        b=H92yrBPakgi/w0gNhb8ypU8lwWpFtWCW5NCL9UvEKHT/ErbJgkKZOsYXPZc9aeeb8k
+         w1GPOlsysJ9ys58Mu4d+YVCasdXZPIqIWiXSINz0OvzSO4dGPY4craqNgf0KSDHsdWgV
+         NjPwJMqPQRz3F9RShm5gDs/AtBhmWqvTXn6X/69fZbkzy1J/6GtjhvffMC0OZdwK9B3y
+         MiBiPYhtXLlS32jNCBS+QuEAkrDQNs+zUhkRuUQR5WZkOrytYeV62Tb9TyI01h5PIhJm
+         5Ho/ELXiymc551MEkmeIQQBTf9GC94pHKw0PDuJuzB+d/82RB3fg5oo4SjFTBvRfrLmY
+         kt8g==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=lAhdzsTk5zriwNwPnXz3oPSubwiAwxZy+DYeasrLjaI=;
-        b=Y8rus5IFGeQdwtegHIjf/ne79pxMpbJxA3Pe55oBcpIMpo7bU89WFg1xzDQle9JcDz
-         FaNemXUj1fWGpIcYKnH9ff3ayTl3YmeKY6/0ZZaUJ56PlTSfpmZlHwk5gutpkkTS5EBh
-         w6cBX/VdAvvJaAu+N9u+LQwSHTYpr53vL9aMkOEKTUn3h1QOTvJlFI0IByHHXlUsnDHO
-         eI/k+CEb/aeZBBQ1WgGcbbFYvoOQ1XPZu37fsimx44llB+z0XHfKqMWezRmcLQokz2rE
-         Bf9hC5hvU5cRfmGCaE1UGRYa4vme+a7bqI7l9WpQzYDY71RzzEGGcNT8o9lz4Dq9M0Wy
-         L+TA==
+        bh=KedSlawQJWnPFZ9LuT/yU4z7dCrvdcJozWAIPinqMEA=;
+        b=L3w33djS1MA3eZA0tQ2PyWZp6ZS2fP26V7WOKvYWykE339C+S64peTWkrKK2nk9oy9
+         AtdA4fp4ENNqrc+vrjBotDTOWTuafD8yRGYU2vZEzG1LwbkovNOSDKyB96j/+96/fGE6
+         KOTMDHLKF5GyvvZbRHaP61v68u5LVYyywvXkK/5NJmOKP6+FMyGBWV9DC/KBxyk4FpIV
+         Z8cBAiDNGOwQyRdOw196RR+D4H7OevbvLGt/qrKGi6iZl6/u+jVKFOQdinv4nq090mIQ
+         sg4M7vVby3M/wySpvU7qNysHz1Up72A+cqJ3Pl3xashIm7kRW807aalfqaLjn+GeDQte
+         CLxg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@st.oth-regensburg.de header.s=mta01-20160622 header.b=hhzGZCj0;
-       spf=pass (google.com: domain of andrej.utz@st.oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=andrej.utz@st.oth-regensburg.de;
+       dkim=pass header.i=@st.oth-regensburg.de header.s=mta01-20160622 header.b=IjtCrYM3;
+       spf=pass (google.com: domain of andrej.utz@st.oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=andrej.utz@st.oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=lAhdzsTk5zriwNwPnXz3oPSubwiAwxZy+DYeasrLjaI=;
-        b=F0wN0S++ETh3tsbKthiqWhpC7+YLMxzRDzw7cosfAPMHZe+dU1edcVkrBoP25BehPy
-         O+esdPx/lqnkP5eBI8LHHrEA9CwD9NRkKcRqtr8fsWi/Y8ino7gmEhGpLqWpWD0MqQrn
-         75RwsXH3QNkmHyPiqfjBSWsLcXr2FoyQI+EOFYCdmEhC0+MwltWMmjCh2uUCqNTaeWes
-         gLu0WLtY05C7lsZiQHFKEfGTrleZ6UyVc6JFH+xQY1z3tDxh82sbrdgoUGCXCkqPXISA
-         7HSmgzmTPJyJUi2VCKpCh2iZ8FPDlAtBeurpE3hB95+p6Fdg9MKhbiZgJqpmENpLAN7A
-         sB8Q==
+        bh=KedSlawQJWnPFZ9LuT/yU4z7dCrvdcJozWAIPinqMEA=;
+        b=k0Iyg3RVS8JoZes0IbmOE9iG+ggmoeuGPV6cNKAhwaM3Wf7ClUKp1nvfIq/FXPwNMQ
+         /OtLR/SrZe+xg4KNmOT0xptKrBBgSCgaotkloqQIX10FQj9OHkk1TLYfNadoTGHljrgU
+         qhGo5lQVM5qpxK/9nm7fhtPrxJXNJBl82vHiRTFA6D1a38fYF18TKGJM9G8ALvxdWZGQ
+         HGvuDSNRyzhs8D71moCOGWwYNU/1rtOL+44BDpdelm9jF30SlP65kBTp0ER5wFQ7rBo+
+         dnpqQK4QJmf8lxD2LjtbadNqDFpQ6JShSWGx21Heed3oFUS16tMzovdvb1W2GmkzRGrV
+         YVdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
@@ -49,67 +49,67 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=lAhdzsTk5zriwNwPnXz3oPSubwiAwxZy+DYeasrLjaI=;
-        b=i6PO9pq5/ercgLRyZFsV3HQxnCIesdB6VqNQiQTmbGDCrPxTJ7665tTiOtMfPPow86
-         5Tm7ncHqRRuBOd/i/d+8yB+tZvUQPxcJFMyLEZw5mygaQRkuHuC4AHpaWKOLITQ5mQJU
-         XvGeL/quC9NIcnqN5BXavu+Z81yottmy4YJErQip2gqyBTeIWiPdy/2mbbuRj6wojA1g
-         vVtEE98zDzwdg5wSKaeHHpcgsOice7ChYANbBZv2WZLqeQhQQcKAtiC06S5dcKSQ9Tsd
-         TsZYH0A7qZIml1qGJracRD11od9A5IPWJ2OPhk1uah3P6LLfKq+S+PfSt3v4bDygxEM/
-         vlow==
+        bh=KedSlawQJWnPFZ9LuT/yU4z7dCrvdcJozWAIPinqMEA=;
+        b=C9BXjcvTRe9a+NuoDWduxBdLrssHWB8KHQ7E0fb7J9/ivdfpeF2gofQsLsnBlY1VKH
+         SGI0fN/cFkTMQfiSl6NZeF6m5ZBjNtuHotja0SCQLoRM5lpf5gSSaD/2vDM+Oaqzy9ra
+         dyxTjAJVnTw4td14TD+MlDdgO32RmhbJHY+9VWnnd9+UMmK44jtCGKB3W1QAqk9LeBLe
+         AUIfUre57YSFOynOGQnD1OOrvX2QtJF3W84Vh07Wn48vRCwsQu7bWZnOnQXKAihGXGuS
+         Y0atJoHLuLAUamJmblSVD9ImSfK5dsYDMVRN06RY8bAPBYLBX1Yx3XGewaOUlqwbxeKA
+         APcA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533oCteCJ9oVwd98DpkFS9yuVAP7FzFHdVsAteWUW+lAuu8CRiPf
-	XWFKqkHBoepe+SscqLuKqdg=
-X-Google-Smtp-Source: ABdhPJyiaL4WT0k99CNib4rloUFH3VBUW9h6VuY4UThdGNIdpOFI36R+QwRlpnjD30Cq5X2bIlUjag==
-X-Received: by 2002:adf:aa42:: with SMTP id q2mr21516124wrd.360.1593499369958;
-        Mon, 29 Jun 2020 23:42:49 -0700 (PDT)
+X-Gm-Message-State: AOAM530WM04YEnd35bFe9z71X7MPCWOHtjty3LpNm9+aQgvPgHspsLYS
+	YV39ZQYZ9QDsbPQwegoWE9g=
+X-Google-Smtp-Source: ABdhPJxirYNi0QIGjv/tH+xXtrJ1s4uunKBpNSjX9xsU/A12v2Ol5+1Cm7dPaf1HIDGeiTi7fycyCg==
+X-Received: by 2002:a7b:c381:: with SMTP id s1mr21105768wmj.25.1593499370048;
+        Mon, 29 Jun 2020 23:42:50 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:600c:2902:: with SMTP id i2ls830930wmd.2.gmail; Mon, 29
- Jun 2020 23:42:49 -0700 (PDT)
-X-Received: by 2002:a1c:49d7:: with SMTP id w206mr18265228wma.181.1593499369347;
+Received: by 2002:a5d:6507:: with SMTP id x7ls9725372wru.0.gmail; Mon, 29 Jun
+ 2020 23:42:49 -0700 (PDT)
+X-Received: by 2002:a5d:55cf:: with SMTP id i15mr22151698wrw.204.1593499369660;
         Mon, 29 Jun 2020 23:42:49 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; t=1593499369; cv=none;
         d=google.com; s=arc-20160816;
-        b=ieP3nbvTaYntq/+vZ2+wI61P95h/tLJdlY6UlUHnvb9RhAy3jjXFOsWQiO1XNkzck7
-         OTOUPfWgd18XSQS/EVkgKeVxXyMHdaCp9row6b4WMjljbJH4SvbnCHsbyltyHOb6fnGh
-         ELGOBcMGnKfLOU22C4BHP1Qo/wGI8pf6aKMpQhTXNvhJ3LplilxOk3OfGJyY3AzcXfal
-         dQ6IyN/JuZGDa45Q8ioDxOPK7GG+Q6rKIxHr8LWoEm8O95ZmipMgSRiZUSu/UyiQTorM
-         k16w6Ji1O0BYH4/oslTcQ+TFwLUB4SgIoICjiC6fFs4rT8yMt2QMTGzgJ+7zCqTGO6Qy
-         cfsA==
+        b=09/AYG/Cj5WySS0QUeUjfihAIkbYb+6vieOCIzsTw4b9BuN3tgcpqZTS/0rs61OpAz
+         1toLNzQI6TUw66/ZZapheFFO+xu7LK+yczEXSatqrXvlQUxPDVqYpyBESqfqOV13+EAn
+         b7GQ50mmC1PmAVK1zy1JkJrddfG/DDTUux3RpQ+M8wh11oxt8umrlOUOKteVRtsiz5+L
+         TjuTNwqYQwaI5iCmWaNxYJgYXGb6yt14fBrwJjcNlc5giAYkIzF1FG6M0968f8/hbDvW
+         IhqDH6JZetyZ8iOP5Vz6671KwXh0KcQCN2pR/fjHk4Ic99L39TlGp3AQWEQNkWPoxJvW
+         V6/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature;
-        bh=+djPP7FIf4jCZd2e9gqXePyEdp9sFrxy2H2cYD7Z0Nk=;
-        b=QI+R/ewD2/qt+2rOhhM/U1snmK9vYQSHQg0Q8/bMKsDOyIUN1PLKiUsPD5xdB623VH
-         armW+Jpjyv+cpvFANgbIcXCcEM4Z8MhNgCJrwqYcCg1p1p/dAcsWc/zfpJR6npJw4wTb
-         ZiaMJDjIIdd8alYGkjQHf8rfZeCxnpmrPsA7Wr9Z4YCHpdI9UlQpYM9aPz04t1bai5fR
-         NBrfEJUr4NP3tYhZptRH1EkntWU8MDT7olWYCNjB9YHIgsKw0bGzNvCTPaX5O+VIM3uj
-         v/e1hrUgGKxq0sY6iPc2c9gQqMQ6H3Oe+9MsKBPviEsmEAzFjz6hnu0e8K29k39kzZk9
-         CQJA==
+        bh=89VWUUfBZz/13XpglGR6g9oDVP0Kk8BEmAHB2kySlA0=;
+        b=KLmb+Heb+JUqFXSIAygdxaCmAont3Y0I86nDdl9OAaJzXSPvk0VjCB1x+Qb5j3Y6/j
+         M9eiGRMAykLoviik/HBs83kv5ZeuQrzHodohsW/SRL6MiHplvTKB2pMnESR7v091vCoc
+         KCwkxiwxRcmnHeQbwWvZqDWSv0QZ/MuQ6qOiMr4uO7HcpuwDaKRiT3w9vG60TeFYg5Db
+         CF7q+Arr60KVh1WGSmDXP59yXIFVMe0YbLYaTaQO0L2iMEEhT+pwW5MilmrEFbvGO8Pm
+         IZlHJhyD0c9Xk7+gkVVQ3UGfjAEtOJsZyjKavvdknuShwzBNCOM5q+H2DznSiwdqFm9W
+         NU7A==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@st.oth-regensburg.de header.s=mta01-20160622 header.b=hhzGZCj0;
-       spf=pass (google.com: domain of andrej.utz@st.oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=andrej.utz@st.oth-regensburg.de;
+       dkim=pass header.i=@st.oth-regensburg.de header.s=mta01-20160622 header.b=IjtCrYM3;
+       spf=pass (google.com: domain of andrej.utz@st.oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=andrej.utz@st.oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [2001:638:a01:1096::12])
-        by gmr-mx.google.com with ESMTPS id q12si1243899wmj.0.2020.06.29.23.42.49
+Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [2001:638:a01:1096::11])
+        by gmr-mx.google.com with ESMTPS id o201si109022wme.1.2020.06.29.23.42.49
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
         Mon, 29 Jun 2020 23:42:49 -0700 (PDT)
-Received-SPF: pass (google.com: domain of andrej.utz@st.oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) client-ip=2001:638:a01:1096::12;
+Received-SPF: pass (google.com: domain of andrej.utz@st.oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) client-ip=2001:638:a01:1096::11;
 Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(Client CN "E16S02", Issuer "E16S02" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 49wvtd0g3Rzy00
+	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 49wvtd2l1Xzy7F
 	for <jailhouse-dev@googlegroups.com>; Tue, 30 Jun 2020 08:42:49 +0200 (CEST)
 Received: from base.lan (2001:638:a01:8013::138) by E16S02.hs-regensburg.de
  (2001:638:a01:8013::92) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Tue, 30 Jun
- 2020 08:42:48 +0200
+ 2020 08:42:49 +0200
 From: Andrej Utz <andrej.utz@st.oth-regensburg.de>
 To: <jailhouse-dev@googlegroups.com>
 CC: Andrej Utz <andrej.utz@st.oth-regensburg.de>
-Subject: [PATCH 02/11] pyjailhouse: config_parser: move parsing into class methods
-Date: Tue, 30 Jun 2020 08:42:22 +0200
-Message-ID: <20200630064228.4742-2-andrej.utz@st.oth-regensburg.de>
+Subject: [PATCH 03/11] pyjailhouse: config_parser: consolidate binary parsing into CStruct class
+Date: Tue, 30 Jun 2020 08:42:23 +0200
+Message-ID: <20200630064228.4742-3-andrej.utz@st.oth-regensburg.de>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200630064228.4742-1-andrej.utz@st.oth-regensburg.de>
 References: <20200630064228.4742-1-andrej.utz@st.oth-regensburg.de>
@@ -120,9 +120,9 @@ X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
  E16S02.hs-regensburg.de (2001:638:a01:8013::92)
 X-Original-Sender: andrej.utz@st.oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@st.oth-regensburg.de header.s=mta01-20160622 header.b=hhzGZCj0;
+ header.i=@st.oth-regensburg.de header.s=mta01-20160622 header.b=IjtCrYM3;
        spf=pass (google.com: domain of andrej.utz@st.oth-regensburg.de
- designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=andrej.utz@st.oth-regensburg.de;
+ designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=andrej.utz@st.oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -136,219 +136,281 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-... and use constructor for initialization only. This separation
-provides clarity on how to instantiate config components.
+The class slots define component fields in a more grounded way.
+This greatly simplifies definition of parseable compoments.
 
-This commit also serves as preparation for following one.
+The first `__slots__` tuple in each class defines a constant list of
+fields and also the corresponding binary ones in the C struct.
+`_BIN_FIELD_NUM` ensures that subsequent slot additions are ignored by
+CStruct as they must be constructed by the owning class itself.
+
+For complex parsing the class method `parse` needs to be overriden, see
+`CellConfig`.
 
 Signed-off-by: Andrej Utz <andrej.utz@st.oth-regensburg.de>
 ---
- pyjailhouse/config_parser.py | 88 +++++++++++++++++++++++++-----------
- tools/jailhouse-config-check |  4 +-
- 2 files changed, 64 insertions(+), 28 deletions(-)
+ pyjailhouse/config_parser.py | 169 +++++++++++++++++++----------------
+ 1 file changed, 92 insertions(+), 77 deletions(-)
 
 diff --git a/pyjailhouse/config_parser.py b/pyjailhouse/config_parser.py
-index b75b9312..e4ad2077 100644
+index e4ad2077..3bb2686a 100644
 --- a/pyjailhouse/config_parser.py
 +++ b/pyjailhouse/config_parser.py
-@@ -54,11 +54,11 @@ class JAILHOUSE_MEM(ExtendedEnum, int):
- class MemRegion:
+@@ -23,6 +23,47 @@ from .extendedenum import ExtendedEnum
+ _CONFIG_REVISION = 13
+ 
+ 
++class CStruct:
++    def _slots(self):
++        attrs = []
++        all_attr = [getattr(cls, '__slots__', ())
++                    for cls in type(self).__mro__]
++        for cls in all_attr:
++            num = getattr(self, '_BIN_FIELD_NUM', 0)
++            if len(cls) < num:
++                continue
++
++            for i in range(num):
++                attrs += [cls[i]]
++
++        return attrs
++
++    @classmethod
++    def parse(cls, data):
++        obj, data = cls.parse_class(cls, data)
++        return obj, data
++
++    @staticmethod
++    def parse_class(cls, data):
++        obj = cls()
++        slots = obj._slots()
++        if len(slots) > 0:
++            data_tuple = cls._BIN_FMT.unpack_from(data)
++            for assigment in zip(slots, data_tuple):
++                setattr(obj, *assigment)
++
++        return obj, data[cls._BIN_FMT.size:]
++
++    @staticmethod
++    def parse_array(cls, num, data):
++        array = []
++        for i in range(num):
++            obj, data = cls.parse(data)
++            array += [obj]
++
++        return array, data
++
++
+ def flag_str(enum_class, value, separator=' | '):
+     flags = []
+     while value:
+@@ -51,7 +92,9 @@ class JAILHOUSE_MEM(ExtendedEnum, int):
+     }
+ 
+ 
+-class MemRegion:
++class MemRegion(CStruct):
++    __slots__ = 'phys_start', 'virt_start', 'size', 'flags',
++    _BIN_FIELD_NUM = len(__slots__)
      _BIN_FMT = struct.Struct('QQQQ')
  
--    def __init__(self, region_struct):
--        (self.phys_start,
--         self.virt_start,
--         self.size,
--         self.flags) = self._BIN_FMT.unpack_from(region_struct)
-+    def __init__(self):
-+        self.phys_start = 0
-+        self.virt_start = 0
-+        self.size = 0
-+        self.flags = 0
- 
-     def __str__(self):
-         return ("  phys_start: 0x%016x\n" % self.phys_start) + \
-@@ -66,6 +66,15 @@ class MemRegion:
+     def __init__(self):
+@@ -66,15 +109,6 @@ class MemRegion:
                 ("  size:       0x%016x\n" % self.size) + \
                 ("  flags:      " + flag_str(JAILHOUSE_MEM, self.flags))
  
-+    @classmethod
-+    def parse(cls, data):
-+        self = cls()
-+        (self.phys_start,
-+         self.virt_start,
-+         self.size,
-+         self.flags) = cls._BIN_FMT.unpack_from(data)
-+        return self
-+
+-    @classmethod
+-    def parse(cls, data):
+-        self = cls()
+-        (self.phys_start,
+-         self.virt_start,
+-         self.size,
+-         self.flags) = cls._BIN_FMT.unpack_from(data)
+-        return self
+-
      def is_ram(self):
          return ((self.flags & (JAILHOUSE_MEM.READ |
                                 JAILHOUSE_MEM.WRITE |
-@@ -110,12 +119,22 @@ class CacheRegion:
- class Irqchip:
+@@ -112,11 +146,15 @@ class MemRegion:
+             self.virt_address_in_region(region.virt_start)
+ 
+ 
+-class CacheRegion:
++class CacheRegion(CStruct):
++    __slots__ = 'start', 'size', 'type', 'flags',
++    _BIN_FIELD_NUM = len(__slots__)
+     _BIN_FMT = struct.Struct('IIBxH')
+ 
+ 
+-class Irqchip:
++class Irqchip(CStruct):
++    __slots__ = 'address', 'id', 'pin_base', 'pin_bitmap_lo', 'pin_bitmap_hi',
++    _BIN_FIELD_NUM = len(__slots__)
      _BIN_FMT = struct.Struct('QIIQQ')
  
--    def __init__(self, irqchip_struct):
-+    def __init__(self):
-+        self.address = 0
-+        self.id = 0
-+        self.pin_base = 0
-+        self.pin_bitmap_lo = 0
-+        self.pin_bitmap_hi = 0
-+
-+    @classmethod
-+    def parse(cls, data):
-+        self = cls()
-         (self.address,
-          self.id,
-          self.pin_base,
-          self.pin_bitmap_lo,
--         self.pin_bitmap_hi) = self._BIN_FMT.unpack_from(irqchip_struct)
-+         self.pin_bitmap_hi) = cls._BIN_FMT.unpack_from(data)
-+        return self
+     def __init__(self):
+@@ -126,36 +164,29 @@ class Irqchip:
+         self.pin_bitmap_lo = 0
+         self.pin_bitmap_hi = 0
  
+-    @classmethod
+-    def parse(cls, data):
+-        self = cls()
+-        (self.address,
+-         self.id,
+-         self.pin_base,
+-         self.pin_bitmap_lo,
+-         self.pin_bitmap_hi) = cls._BIN_FMT.unpack_from(data)
+-        return self
+-
      def is_standard(self):
          return self.address == 0xfec00000
-@@ -124,16 +143,31 @@ class Irqchip:
- class PIORegion:
+ 
+ 
+-class PIORegion:
++class PIORegion(CStruct):
++    __slots__ = 'base', 'length',
++    _BIN_FIELD_NUM = len(__slots__)
      _BIN_FMT = struct.Struct('HH')
  
--    def __init__(self, pio_struct):
--        (self.base, self.length) = self._BIN_FMT.unpack_from(pio_struct)
-+    def __init__(self):
-+        self.base = 0
-+        self.length = 0
-+
-+    @classmethod
-+    def parse(cls, data):
-+        self = cls()
-+        (self.base, self.length) = self._BIN_FMT.unpack_from(data)
-+        return self
+     def __init__(self):
+         self.base = 0
+         self.length = 0
  
- 
- class CellConfig:
-     _BIN_FMT = struct.Struct('=6sH32s4xIIIIIIIIIIQ8x32x')
- 
--    def __init__(self, data, root_cell=False):
--        self.data = data
+-    @classmethod
+-    def parse(cls, data):
+-        self = cls()
+-        (self.base, self.length) = self._BIN_FMT.unpack_from(data)
+-        return self
 -
-+    def __init__(self):
-+        self.name = ""
-+        self.memory_regions = []
-+        self.irqchips = []
-+        self.pio_regions = []
-+        self.vpci_irq_base = 0
-+        self.cpu_reset_address = 0
-+
-+    @classmethod
-+    def parse(cls, data, root_cell=False):
-+        self = cls()
+ 
+-class CellConfig:
+-    _BIN_FMT = struct.Struct('=6sH32s4xIIIIIIIIIIQ8x32x')
++class CellConfig(CStruct):
++    # slots with a '_' prefix in name are private
++    __slots__ = 'name', '_flags', '_cpu_sets', \
++                'memory_regions', 'cache_regions', 'irqchips', 'pio_regions', \
++                '_pci_devices', '_pci_caps', '_stream_ids', \
++                'vpci_irq_base', 'cpu_reset_address',
++    _BIN_FIELD_NUM = len(__slots__)
++    _BIN_FMT_HDR = struct.Struct('=6sH')
++    _BIN_FMT = struct.Struct('=32s4xIIIIIIIIIIQ8x32x')
+ 
+     def __init__(self):
+         self.name = ""
+@@ -167,78 +198,62 @@ class CellConfig:
+ 
+     @classmethod
+     def parse(cls, data, root_cell=False):
+-        self = cls()
          try:
-             (signature,
-              revision,
-@@ -148,7 +182,7 @@ class CellConfig:
-              self.num_pci_caps,
-              self.num_stream_ids,
-              self.vpci_irq_base,
--             self.cpu_reset_address) = self._BIN_FMT.unpack_from(self.data)
-+             self.cpu_reset_address) = self._BIN_FMT.unpack_from(data)
+-            (signature,
+-             revision,
+-             name,
+-             self.flags,
+-             self.cpu_set_size,
+-             self.num_memory_regions,
+-             self.num_cache_regions,
+-             self.num_irqchips,
+-             self.num_pio_regions,
+-             self.num_pci_devices,
+-             self.num_pci_caps,
+-             self.num_stream_ids,
+-             self.vpci_irq_base,
+-             self.cpu_reset_address) = self._BIN_FMT.unpack_from(data)
              if not root_cell:
++                (signature, revision) = cls._BIN_FMT_HDR.unpack_from(data)
                  if signature != b'JHCELL':
                      raise RuntimeError('Not a cell configuration')
-@@ -157,40 +191,41 @@ class CellConfig:
-             self.name = str(name.decode())
- 
-             mem_region_offs = self._BIN_FMT.size + self.cpu_set_size
--            self.memory_regions = []
-             for n in range(self.num_memory_regions):
--                self.memory_regions.append(
--                    MemRegion(self.data[mem_region_offs:]))
-+                self.memory_regions.append(MemRegion.parse(data[mem_region_offs:]))
-                 mem_region_offs += MemRegion._BIN_FMT.size
- 
-             irqchip_offs = mem_region_offs + \
-                 self.num_cache_regions * CacheRegion._BIN_FMT.size
--            self.irqchips = []
-             for n in range(self.num_irqchips):
--                self.irqchips.append(
--                    Irqchip(self.data[irqchip_offs:]))
-+                self.irqchips.append(Irqchip.parse(data[irqchip_offs:]))
-                 irqchip_offs += Irqchip._BIN_FMT.size
- 
-             pioregion_offs = irqchip_offs
--            self.pio_regions = []
-             for n in range(self.num_pio_regions):
--                self.pio_regions.append(PIORegion(self.data[pioregion_offs:]))
-+                self.pio_regions.append(PIORegion.parse(data[pioregion_offs:]))
-                 pioregion_offs += PIORegion._BIN_FMT.size
+                 if revision != _CONFIG_REVISION:
+                     raise RuntimeError('Configuration file revision mismatch')
+-            self.name = str(name.decode())
+-
+-            mem_region_offs = self._BIN_FMT.size + self.cpu_set_size
+-            for n in range(self.num_memory_regions):
+-                self.memory_regions.append(MemRegion.parse(data[mem_region_offs:]))
+-                mem_region_offs += MemRegion._BIN_FMT.size
+-
+-            irqchip_offs = mem_region_offs + \
+-                self.num_cache_regions * CacheRegion._BIN_FMT.size
+-            for n in range(self.num_irqchips):
+-                self.irqchips.append(Irqchip.parse(data[irqchip_offs:]))
+-                irqchip_offs += Irqchip._BIN_FMT.size
+-
+-            pioregion_offs = irqchip_offs
+-            for n in range(self.num_pio_regions):
+-                self.pio_regions.append(PIORegion.parse(data[pioregion_offs:]))
+-                pioregion_offs += PIORegion._BIN_FMT.size
++                data = data[cls._BIN_FMT_HDR.size:]
++
++            self, data = cls.parse_class(cls, data)
++            self.name = self.name.decode()
++            data = data[self._cpu_sets:] # skip CPU set
++
++            self.memory_regions, data = \
++                cls.parse_array(MemRegion, self.memory_regions, data)
++            self.cache_regions, data = \
++                cls.parse_array(CacheRegion, self.cache_regions, data)
++            self.irqchips, data = \
++                cls.parse_array(Irqchip, self.irqchips, data)
++            self.pio_regions, data = \
++                cls.parse_array(PIORegion, self.pio_regions, data)
++
++            return self
          except struct.error:
              raise RuntimeError('Not a %scell configuration' %
                                 ('root ' if root_cell else ''))
  
-+        return self
-+
+-        return self
+-
  
- class SystemConfig:
-     _BIN_FMT = struct.Struct('=6sH4x')
+-class SystemConfig:
+-    _BIN_FMT = struct.Struct('=6sH4x')
++class SystemConfig(CStruct):
++    _BIN_FMT = struct.Struct('=4x')
      # ...followed by MemRegion as hypervisor memory
      _BIN_FMT_CONSOLE_AND_PLATFORM = struct.Struct('32x12x224x44x')
  
--    def __init__(self, data):
--        self.data = data
-+    def __init__(self):
-+        self.hypervisor_memory = MemRegion()
-+        self.root_cell = CellConfig()
++    # constructed fields
++    __slots__ = 'hypervisor_memory', 'root_cell',
++
+     def __init__(self):
+         self.hypervisor_memory = MemRegion()
+         self.root_cell = CellConfig()
  
-+    @classmethod
-+    def parse(cls, data):
-+        self = cls()
+     @classmethod
+     def parse(cls, data):
+-        self = cls()
          try:
--            (signature, revision) = self._BIN_FMT.unpack_from(self.data)
-+            (signature, revision) = self._BIN_FMT.unpack_from(data)
- 
+-            (signature, revision) = self._BIN_FMT.unpack_from(data)
+-
++            hdr_fmt = CellConfig._BIN_FMT_HDR
++            (signature, revision) = hdr_fmt.unpack_from(data)
              if signature != b'JHSYST':
                  raise RuntimeError('Not a root cell configuration')
-@@ -198,11 +233,12 @@ class SystemConfig:
+             if revision != _CONFIG_REVISION:
                  raise RuntimeError('Configuration file revision mismatch')
  
-             offs = self._BIN_FMT.size
--            self.hypervisor_memory = MemRegion(self.data[offs:])
-+            self.hypervisor_memory = MemRegion.parse(data[offs:])
+-            offs = self._BIN_FMT.size
+-            self.hypervisor_memory = MemRegion.parse(data[offs:])
++            self, data = cls.parse_class(cls, data[hdr_fmt.size:])
++            self.hypervisor_memory, data = MemRegion.parse(data)
  
-             offs += MemRegion._BIN_FMT.size
-             offs += self._BIN_FMT_CONSOLE_AND_PLATFORM.size
+-            offs += MemRegion._BIN_FMT.size
+-            offs += self._BIN_FMT_CONSOLE_AND_PLATFORM.size
++            offs = cls._BIN_FMT_CONSOLE_AND_PLATFORM.size
++            offs += CellConfig._BIN_FMT_HDR.size # skip header inside rootcell
++            self.root_cell = CellConfig.parse(data[offs:], root_cell=True)
++            return self
          except struct.error:
              raise RuntimeError('Not a root cell configuration')
- 
--        self.root_cell = CellConfig(self.data[offs:], root_cell=True)
-+        self.root_cell = CellConfig.parse(data[offs:], root_cell=True)
-+        return self
-diff --git a/tools/jailhouse-config-check b/tools/jailhouse-config-check
-index 12d3dbce..539a640e 100755
---- a/tools/jailhouse-config-check
-+++ b/tools/jailhouse-config-check
-@@ -44,7 +44,7 @@ except IOError as e:
- print("Reading configuration set:")
- 
- try:
--    sysconfig = config_parser.SystemConfig(args.syscfg.read())
-+    sysconfig = config_parser.SystemConfig.parse(args.syscfg.read())
-     root_cell = sysconfig.root_cell
- except RuntimeError as e:
-     print(str(e) + ": " + args.syscfg.name, file=sys.stderr)
-@@ -55,7 +55,7 @@ print("  Root cell:     %s (%s)" % (root_cell.name, args.syscfg.name))
- non_root_cells = []
- for cfg in args.cellcfgs:
-     try:
--        cell = config_parser.CellConfig(cfg.read())
-+        cell = config_parser.CellConfig.parse(cfg.read())
-     except RuntimeError as e:
-         print(str(e) + ": " + cfg.name, file=sys.stderr)
-         exit(1)
+-
+-        self.root_cell = CellConfig.parse(data[offs:], root_cell=True)
+-        return self
 -- 
 2.27.0
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200630064228.4742-2-andrej.utz%40st.oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200630064228.4742-3-andrej.utz%40st.oth-regensburg.de.
