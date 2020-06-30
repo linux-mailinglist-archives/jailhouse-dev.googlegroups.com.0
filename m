@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBW45533QKGQEJYDIKOQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB7VK533QKGQEHUHOKPQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x53c.google.com (mail-ed1-x53c.google.com [IPv6:2a00:1450:4864:20::53c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6901920FC85
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 30 Jun 2020 21:13:32 +0200 (CEST)
-Received: by mail-ed1-x53c.google.com with SMTP id o3sf17595051eda.23
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 30 Jun 2020 12:13:32 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1593544412; cv=pass;
+Received: from mail-lf1-x13a.google.com (mail-lf1-x13a.google.com [IPv6:2a00:1450:4864:20::13a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FDB720FCE0
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 30 Jun 2020 21:41:52 +0200 (CEST)
+Received: by mail-lf1-x13a.google.com with SMTP id c21sf12218888lfg.14
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 30 Jun 2020 12:41:52 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1593546112; cv=pass;
         d=google.com; s=arc-20160816;
-        b=xl03MccVTGv9DoUfi66DTmXBliwK6wK1YD6X80mnJ15t7RAw9hBc4OpS3loCltAbIU
-         K7qgtso6ve3EUsy8PSnegweRTIGcT77T5ye/oAJGknf2zlYcfhUBIzkEH3lcc2Okbum8
-         Ulnya136oGU9LkLLzOIucFVJqL3MDS6cxix5IlIxj7oiaW1w37qBajSdvB8dae1kx426
-         hJz3l9mCt3cBjdPsEFBYsN5m61vhDBkXayltQ8pILDvjT5PNckgk5TvjcbDT9zNva0II
-         wuadTdvnMmXPrMtANAXEZh1lxFWS6e9dynSbEcLoQlfjrt3VhJvcLz13v6Vp+1MQqjpu
-         hFaQ==
+        b=cwn5e92PRUT9smcWPWbPs5Eh51JQXclw7UgfD1LJ2ZB42wAL5qzQO46BV01U5zCWaB
+         ZLmLWQTN0VMK3GbwVBpttNjxMVlLW+YpG44RuIe5uknHqem6HfMoW0QWFGt01GEQAGF4
+         w/AfarFf+/TakjrhdIcUNDrRwRQ2DAlEgsg8Xb9l+jWejoQenTYyMYCI5dRiul3kFGZq
+         KPr8FjCDjJ1AyHSg9BuadkMcNoMo5Ew91H8p6G6FlZ4uUtZtnDTB6Qa7UBlVfw2JH/hq
+         mt6PNF5HrOG9CMJCRtmrRRh8jMYdhbtAwp33ZgNQKwMILxy8hdVOSUrJHRFlLfeCkaqn
+         f7zg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-language:in-reply-to
          :mime-version:user-agent:date:message-id:from:references:to:subject
          :sender:dkim-signature;
-        bh=XwvM5eUz4MN6hVhRumB6XBqEEU0D0vgvdWjZPMgtw8U=;
-        b=YLhKppa4Cn4NhF7XMGZ/5a9XJJaenjFp9Z5Ewfih1b+GcwqK5hOAslGJBjWWHeSlYx
-         D4i5ImTszY6UvqqS+NYTAnEmkRtGeqh18r+KFIBEQgPwwsKlqg0WtjI8M0gkw+wva9Rf
-         NKG8ZRRvfJIExNpW0ML0OqLUvER+GUXQbwNXeo54tJjiYyFyITO6pTkImgDer/q/vfRj
-         OkIoqocJByLi3RgZefkotNbemOUujBgP3/+Q0c/d45oUcNmfrHmU92V4gOn18DAQIHxA
-         0xNWFP5NjcD9xZQkSL2pfdi3EoXiPX4Fcb8auuTvLn2TrTPLNY8N04UT67pZcTqaSYKS
-         cOOg==
+        bh=QJGqvFJlko0YifXU+PYB2Dn5Ithw1jDtZr3e9QI3LEo=;
+        b=bxlu0PI9OQdVT6diVdrbPZqcDRMJqEVUY5AxCfu2SysPqm5ihJAWrqjXmmnoFawq3+
+         +9N5ZJ0YBg0c7ICR6fKEpjMNDHNMe9zSfFnrGiU91NVdLHw8Cs8NkeIn9mLwsV7aI3fv
+         QC+eSGegsT2pDU5WdxMIebmgTvOJZCUbwCe+2BGOS+qZUTkemSShwk05qEZW0Zhvhn/k
+         WLOCQiunhhfArixJNv5SuRiPDAQfML0Na+TClmSG49XeB1dgwSHe9xxq/aKz2CXe7GYv
+         Tqx162etsh75ZAPK+OoMxHJe4zU4X0wtOD9fXiar6FB7jt2Tt8z7Hl6SfbEp21JTEmWE
+         Cemw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:in-reply-to:content-language:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=XwvM5eUz4MN6hVhRumB6XBqEEU0D0vgvdWjZPMgtw8U=;
-        b=BG9PKa86qvUdin1W/nLR8KGxjqqTgeDNdjxAzawWL/uqlvDs5TspNfihSKcYS461CQ
-         ObUFl6j0+UEHn68l9dVu42zrf58jv+1vbk4khGWcrfkU6xrN5/tdwMiexm4qW2wt6ODy
-         tSPxc+nFqUcBo7sGtuuZuTdbgJC/A23PjVuZs/j05unu3JhjOqQ1ikBb+eoIRQNiQyZS
-         dmN88/5FZCUThA4K1laXsGA8/fwJRipkxXXjSvlAsYeHUxaDhmLZr6VxPie+o7m6wFhh
-         U7iUF5CoKIHZaSe6oteRu4OGGgDAaBIlK7wNDkWTPvKbQiksTjzIxsDWnSGIyJPletiw
-         Dhtg==
+        bh=QJGqvFJlko0YifXU+PYB2Dn5Ithw1jDtZr3e9QI3LEo=;
+        b=Fwijg07xEmRf4X9nhS7BJ4Uwm77yQat3Lel+ZKmSr3RGHfjNK5eRbT7AOmuZ56CE08
+         VtR36hp/b0KFikx6ORa38t+srqIg8/PqvCiZMw3pa4l76w3wrez70h5ACPEGUI56ycYr
+         2pgDC2F40j5OFN3IF6Fod9SEFJYgDpQZyqYGFL0eg2u4VMrabbwrjrkyBi3abYnRrizf
+         iosj+D0b7geveVo7AyVfxbrAgeLbphFGPPi80U2ISaGg+74LqQN2leGpczkaoLVElwvL
+         ntGSStKem35mUem4J4RHev6rhy948yvWVnhFRdC+li4jujEgNgjFkLnSXm0hANwzdkjC
+         rhLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:subject:to:references:from:message-id
@@ -49,75 +49,73 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=XwvM5eUz4MN6hVhRumB6XBqEEU0D0vgvdWjZPMgtw8U=;
-        b=GPJ1deHtOaU2UKjHhq1JErg5FK1IDBUQISyt1Eft/pbbyVB+EHnzuHopRZmVZYdDJR
-         cqCdul0OIpn5ZQTgR46l0z9fKv74B92w9skGShmYZswUFsCU3mzmq58je31gNDaftkJO
-         5LkB9PR+KbG+jEKHActmpVaqIMAhaz0iBG/h2prBD8c3d9zDzznAFku+Kz4Tx8doon5Q
-         xlBjWbDXTQhs26W62+kqx3lPAV8rdjUxLwZxQWJaCcq1szW1qkzKyT/vr76J4UIhigLG
-         bvWkR9R/m32EO17op29iqigdCG1NivvG5rmAjzrVt2Qd1QhIqS0vdBFfrE2kZnOzs3oi
-         Z6EA==
+        bh=QJGqvFJlko0YifXU+PYB2Dn5Ithw1jDtZr3e9QI3LEo=;
+        b=gvqNVlfwbK9lDglmNefhQGLNoX8Nopj/uflF73sbInFlILhV+OrB7j5Y9lO0L5lzHM
+         64hhLG3w+6TQYMYCv4hQmh0SaZIX2yPU1g1grpKiiECl1XvlattNvMm8oI3gwGrBm57X
+         d9HJjFro74kkuGFUa92oqjUuty+dOx+UCCxnoXh6Pq1raNB34An9V6zyeOyYBB/Ms2NJ
+         31lp3OjTf6mzTtujntsWbaL6kTwj/+yPtq1+grgSFoGPVYIPsLxeKgqizbx1veN681Rb
+         cRykkDLcSfX8OT82UhD2yiNzUFo9Avd2uWMlp/95nJdgzqfeCF5ntWTuq6VKh6cNkexm
+         zOFA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532P1K6NUsZB21V1PkpyAJx/VKtismW66ZZRJL4OqCPJWB1LKio9
-	HCT19LmavQ30Twmxg0LivE8=
-X-Google-Smtp-Source: ABdhPJwtg8xwkvp69ZLrhFuVvF006dKoHqB+UuRgfxi1w8QMl4NHZ8NezxuG0qGsb8x3TU43Cckh4w==
-X-Received: by 2002:a50:ab52:: with SMTP id t18mr25238699edc.195.1593544412104;
-        Tue, 30 Jun 2020 12:13:32 -0700 (PDT)
+X-Gm-Message-State: AOAM530BLKtscsT/O5X0ub6vre1Iq0k1FZ1qAG2aqPInGYI/m+5674df
+	686fZhm1P7Diyg3OAgNLQ28=
+X-Google-Smtp-Source: ABdhPJw97DvlQ7bzNjSU6Bg0WsB78MWvMpAmPpATQz7O5bht8OdelKvpmX3nhBcTgfpFgyuKCP5pDg==
+X-Received: by 2002:a2e:a317:: with SMTP id l23mr11665896lje.175.1593546110624;
+        Tue, 30 Jun 2020 12:41:50 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6402:1d37:: with SMTP id dh23ls4445565edb.1.gmail; Tue,
- 30 Jun 2020 12:13:31 -0700 (PDT)
-X-Received: by 2002:adf:ee05:: with SMTP id y5mr23867013wrn.185.1593544331449;
-        Tue, 30 Jun 2020 12:12:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1593544331; cv=none;
+Received: by 2002:a19:c188:: with SMTP id r130ls536407lff.2.gmail; Tue, 30 Jun
+ 2020 12:41:48 -0700 (PDT)
+X-Received: by 2002:a05:6402:1605:: with SMTP id f5mr26184372edv.8.1593544194476;
+        Tue, 30 Jun 2020 12:09:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1593544194; cv=none;
         d=google.com; s=arc-20160816;
-        b=fLJywTnSGxMINDC1nt7maYkXPr+PXbLS/Gz5uijczJ5XtwZq4aY1KucUfjhGqGeWZ6
-         7kovBhbDcZtqylzTLOVfrzaafmTcibLFAsufKeHzhb06hegzi4Zx2ejZfJZnhTx20wct
-         ydIZ+NLrKWV0hiIc3tnkCjEUyKin7Sj2FOlaSDqm1GVcy5uoSpwwX5fsn2s7VU5P2otS
-         hdU+C7KzM9l2lFzO/dsZddKcP8Zhd+WHPvpRi49BjQFeulZhcSAbCXG58KCNKya/i/zD
-         VCytVnWOeROSk0fyN0AtBRCWafosEIdp3AgFTEuDyTZFBDI69d/WYESNhRtQiiLra04b
-         DLXw==
+        b=DLSZTItqV6zilRdV0fwUl2GEUPvjbH7aObypTVShruBCbXJvYNqFN2X1HZaEqnW7VT
+         eSHOvRPTEyaqHGTSUROdShjoI7JCPYZczfG4zDDd+2LH9mPxfQYjy5rg6JYTVitfiboe
+         QKhG4ABuaV8fnhAAUC/jWWjElHYkc3LNDslP1UuoQb9eHyFGV6Mj5/2B/dRIY9yHphYP
+         WjdRuRZypZzUX3+gsBAj344QFbTGJtXXGFknqWgAAX0ZL4g2AQDIcgpX9E9GD5A3VeB1
+         GTJKj9BtclBcBFkgPhMsJpfqOV0VYv+vhgx9opL/S6GzsqgI8SPNR7WlaFSWHLZj55CY
+         xjfA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
          :user-agent:date:message-id:from:references:to:subject;
-        bh=OqbFSt/Cy6KoeZiJw++XRU6JFCnaQOMreNHohqsiotE=;
-        b=AH0fK0mCtKiMHVJb4Gfig8ZjEqOAa9XZW83T0WEkDhLH0hX5WjdZj7JDgIWJnMIZ9l
-         CMSg7tiMu198xttMY+4pwZE6ppQlU4cV8WgREBgyK5ftIQ6mMWthfICudgHx0SWXeYZm
-         eHwoJzAuoiWueS1kV8uDA0YgkvE2CZpRG5cGHntB3CnnOOry3q49mXKwEKFlaltgA2Zn
-         zxAXQ6I5rnIM237YHcGgDFcua4CQoYacis4uqEkg4reSBbDEMbqh85MfEMwOdHQMZh3C
-         DzdirIk4RMzidw+Rhq0uoRwGMxz61O0+yr/qrUY0EYxy9VihbIuxkRGcZixCf4uk8e+2
-         J+BQ==
+        bh=gJpipz2NnfW582SkXqwzuYIjt9cj9gsxLnmbQfsYcRE=;
+        b=uG7rzybcFQfAQEuAeoAjx5u9plvHioq/T7oM0vLWkyk4T6ADgWa10hGd+Ddytdmx0B
+         mT2y/zZopQtT1e9II2niChqkR6sY7o0DuQ8wB3tQC4azOp7JIXFshki5pO5jCbBQRpxx
+         lal34fMRavxsuYEAssag5OxDyRlh17cxL9T9PtYnvMBks+PVerHh6gg0FIhiXGbUjewj
+         okX0SLfwZiUx5V65GSLdPD87kOx70ZfU/AtMxbtUXA77PtYnnNvB+dLlxhpuYCPKm07F
+         ER8cGjKyFqY5rkX/iNdU0fHCdcL45gHx4s/fGlCqBIgK6QtpPidw04n/YuMfAntlB4Rz
+         zDEA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id l4si198424wrw.2.2020.06.30.12.12.11
+Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
+        by gmr-mx.google.com with ESMTPS id x14si255024edq.2.2020.06.30.12.09.54
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 30 Jun 2020 12:12:11 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
+        Tue, 30 Jun 2020 12:09:54 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 05UJCA44015611
+	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 05UJ9rFN013406
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 30 Jun 2020 21:12:11 +0200
+	Tue, 30 Jun 2020 21:09:54 +0200
 Received: from [167.87.7.177] ([167.87.7.177])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 05UJC9xX026687;
-	Tue, 30 Jun 2020 21:12:10 +0200
-Subject: Re: [PATCH 01/11] pyjailhouse: config_parser: store binary format
- specification in struct.Struct
-To: Andrej Utz <andrej.utz@st.oth-regensburg.de>,
-        jailhouse-dev@googlegroups.com
-References: <20200630064228.4742-1-andrej.utz@st.oth-regensburg.de>
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 05UJ9qsU025018;
+	Tue, 30 Jun 2020 21:09:53 +0200
+Subject: Re: question on the none-root linux cell
+To: dd <497738387@qq.com>, jailhouse-dev <jailhouse-dev@googlegroups.com>
+References: <tencent_D38521D0EAF45A05AC09EC0451BFDF16EF06@qq.com>
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <6229c648-1b9e-19ed-95b0-6a5fd55e12e9@siemens.com>
-Date: Tue, 30 Jun 2020 21:12:09 +0200
+Message-ID: <646aafb2-5230-fead-cacd-2affde6d6a26@siemens.com>
+Date: Tue, 30 Jun 2020 21:09:52 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.9.0
 MIME-Version: 1.0
-In-Reply-To: <20200630064228.4742-1-andrej.utz@st.oth-regensburg.de>
+In-Reply-To: <tencent_D38521D0EAF45A05AC09EC0451BFDF16EF06@qq.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Language: en-US
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
@@ -132,164 +130,28 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 30.06.20 08:42, Andrej Utz wrote:
-> Improves its handling in the code and slightly increases the overall
-> performance as well.
-> 
-> Signed-off-by: Andrej Utz <andrej.utz@st.oth-regensburg.de>
-> ---
->   pyjailhouse/config_parser.py | 51 ++++++++++++++----------------------
->   1 file changed, 20 insertions(+), 31 deletions(-)
-> 
-> diff --git a/pyjailhouse/config_parser.py b/pyjailhouse/config_parser.py
-> index 6b9d9066..b75b9312 100644
-> --- a/pyjailhouse/config_parser.py
-> +++ b/pyjailhouse/config_parser.py
-> @@ -52,15 +52,13 @@ class JAILHOUSE_MEM(ExtendedEnum, int):
->   
->   
->   class MemRegion:
-> -    _REGION_FORMAT = 'QQQQ'
-> -    SIZE = struct.calcsize(_REGION_FORMAT)
-> +    _BIN_FMT = struct.Struct('QQQQ')
->   
->       def __init__(self, region_struct):
->           (self.phys_start,
->            self.virt_start,
->            self.size,
-> -         self.flags) = \
-> -            struct.unpack_from(MemRegion._REGION_FORMAT, region_struct)
-> +         self.flags) = self._BIN_FMT.unpack_from(region_struct)
->   
->       def __str__(self):
->           return ("  phys_start: 0x%016x\n" % self.phys_start) + \
-> @@ -106,37 +104,32 @@ class MemRegion:
->   
->   
->   class CacheRegion:
-> -    _REGION_FORMAT = 'IIBxH'
-> -    SIZE = struct.calcsize(_REGION_FORMAT)
-> +    _BIN_FMT = struct.Struct('IIBxH')
->   
->   
->   class Irqchip:
-> -    _IRQCHIP_FORMAT = 'QIIQQ'
-> -    SIZE = struct.calcsize(_IRQCHIP_FORMAT)
-> +    _BIN_FMT = struct.Struct('QIIQQ')
->   
->       def __init__(self, irqchip_struct):
->           (self.address,
->            self.id,
->            self.pin_base,
->            self.pin_bitmap_lo,
-> -         self.pin_bitmap_hi) = \
-> -            struct.unpack_from(self._IRQCHIP_FORMAT, irqchip_struct)
-> +         self.pin_bitmap_hi) = self._BIN_FMT.unpack_from(irqchip_struct)
->   
->       def is_standard(self):
->           return self.address == 0xfec00000
->   
->   
->   class PIORegion:
-> -    _REGION_FORMAT = 'HH'
-> -    SIZE = struct.calcsize(_REGION_FORMAT)
-> +    _BIN_FMT = struct.Struct('HH')
->   
->       def __init__(self, pio_struct):
-> -        (self.base, self.length) = struct.unpack_from(self._REGION_FORMAT,
-> -                                                      pio_struct)
-> +        (self.base, self.length) = self._BIN_FMT.unpack_from(pio_struct)
->   
->   
->   class CellConfig:
-> -    _HEADER_FORMAT = '=6sH32s4xIIIIIIIIIIQ8x32x'
-> +    _BIN_FMT = struct.Struct('=6sH32s4xIIIIIIIIIIQ8x32x')
->   
->       def __init__(self, data, root_cell=False):
->           self.data = data
-> @@ -155,8 +148,7 @@ class CellConfig:
->                self.num_pci_caps,
->                self.num_stream_ids,
->                self.vpci_irq_base,
-> -             self.cpu_reset_address) = \
-> -                struct.unpack_from(CellConfig._HEADER_FORMAT, self.data)
-> +             self.cpu_reset_address) = self._BIN_FMT.unpack_from(self.data)
->               if not root_cell:
->                   if signature != b'JHCELL':
->                       raise RuntimeError('Not a cell configuration')
-> @@ -164,55 +156,52 @@ class CellConfig:
->                       raise RuntimeError('Configuration file revision mismatch')
->               self.name = str(name.decode())
->   
-> -            mem_region_offs = struct.calcsize(CellConfig._HEADER_FORMAT) + \
-> -                self.cpu_set_size
-> +            mem_region_offs = self._BIN_FMT.size + self.cpu_set_size
->               self.memory_regions = []
->               for n in range(self.num_memory_regions):
->                   self.memory_regions.append(
->                       MemRegion(self.data[mem_region_offs:]))
-> -                mem_region_offs += MemRegion.SIZE
-> +                mem_region_offs += MemRegion._BIN_FMT.size
->   
->               irqchip_offs = mem_region_offs + \
-> -                self.num_cache_regions * CacheRegion.SIZE
-> +                self.num_cache_regions * CacheRegion._BIN_FMT.size
->               self.irqchips = []
->               for n in range(self.num_irqchips):
->                   self.irqchips.append(
->                       Irqchip(self.data[irqchip_offs:]))
-> -                irqchip_offs += Irqchip.SIZE
-> +                irqchip_offs += Irqchip._BIN_FMT.size
->   
->               pioregion_offs = irqchip_offs
->               self.pio_regions = []
->               for n in range(self.num_pio_regions):
->                   self.pio_regions.append(PIORegion(self.data[pioregion_offs:]))
-> -                pioregion_offs += PIORegion.SIZE
-> +                pioregion_offs += PIORegion._BIN_FMT.size
->           except struct.error:
->               raise RuntimeError('Not a %scell configuration' %
->                                  ('root ' if root_cell else ''))
->   
->   
->   class SystemConfig:
-> -    _HEADER_FORMAT = '=6sH4x'
-> +    _BIN_FMT = struct.Struct('=6sH4x')
->       # ...followed by MemRegion as hypervisor memory
-> -    _CONSOLE_AND_PLATFORM_FORMAT = '32x12x224x44x'
-> +    _BIN_FMT_CONSOLE_AND_PLATFORM = struct.Struct('32x12x224x44x')
->   
->       def __init__(self, data):
->           self.data = data
->   
->           try:
-> -            (signature,
-> -             revision) = \
-> -                struct.unpack_from(SystemConfig._HEADER_FORMAT, self.data)
-> +            (signature, revision) = self._BIN_FMT.unpack_from(self.data)
->   
->               if signature != b'JHSYST':
->                   raise RuntimeError('Not a root cell configuration')
->               if revision != _CONFIG_REVISION:
->                   raise RuntimeError('Configuration file revision mismatch')
->   
-> -            offs = struct.calcsize(SystemConfig._HEADER_FORMAT)
-> +            offs = self._BIN_FMT.size
->               self.hypervisor_memory = MemRegion(self.data[offs:])
->   
-> -            offs += struct.calcsize(MemRegion._REGION_FORMAT)
-> -            offs += struct.calcsize(SystemConfig._CONSOLE_AND_PLATFORM_FORMAT)
-> +            offs += MemRegion._BIN_FMT.size
-> +            offs += self._BIN_FMT_CONSOLE_AND_PLATFORM.size
->           except struct.error:
->               raise RuntimeError('Not a root cell configuration')
->   
-> 
+On 30.06.20 16:07, dd wrote:
+> Hi!
+> I have met some problem in the none-root linux cell.I want some advices.
+> I use the images from jailhouse-images repo on rpi4.
+> I want to run some scripts in the second linux cell.But i found that 
+> there is no space to store these scripts.
+> So i want to use NFS in the second cell to connect the root cell.
+> I build the rootfs myself and replace the rootfs supported by 
+> jailhouse-images repo.
+> But I can't boot it.
+> And then i unzip the rootfs.cpio supported by jailhouse-images repo.
+> And add some files ,after that i rezip the rootfs.But i can't boot it 
+> either.
+> Can you give me some advices to solve my problem.
+> Thank you very much.
 
-Cover letter missing, so I'm commenting here: Will have a look, but not 
-the next days. Definitely looking forward to play with it!
+Hard to guess from the distance. If you really only add few bytes (that 
+scripts), it should work. If the image grows significantly, the 
+preconfigured RAM for the non-root cell /may/ be too small.
 
-Thanks,
+What is the output from the non-root cell booting?
+
 Jan
 
 -- 
@@ -299,4 +161,4 @@ Corporate Competence Center Embedded Linux
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/6229c648-1b9e-19ed-95b0-6a5fd55e12e9%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/646aafb2-5230-fead-cacd-2affde6d6a26%40siemens.com.
