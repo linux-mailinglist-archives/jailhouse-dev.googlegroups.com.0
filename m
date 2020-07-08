@@ -1,32 +1,32 @@
-Return-Path: <jailhouse-dev+bncBDJMJPGY2MGRBUESS74AKGQEMM6KALA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDJMJPGY2MGRBGNOS74AKGQEDAF57XQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x440.google.com (mail-wr1-x440.google.com [IPv6:2a00:1450:4864:20::440])
-	by mail.lfdr.de (Postfix) with ESMTPS id 939A82188EC
-	for <lists+jailhouse-dev@lfdr.de>; Wed,  8 Jul 2020 15:25:36 +0200 (CEST)
-Received: by mail-wr1-x440.google.com with SMTP id z1sf22182952wrn.18
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 08 Jul 2020 06:25:36 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1594214736; cv=pass;
+Received: from mail-lf1-x137.google.com (mail-lf1-x137.google.com [IPv6:2a00:1450:4864:20::137])
+	by mail.lfdr.de (Postfix) with ESMTPS id 576AA218A17
+	for <lists+jailhouse-dev@lfdr.de>; Wed,  8 Jul 2020 16:24:26 +0200 (CEST)
+Received: by mail-lf1-x137.google.com with SMTP id k10sf34953430lfk.8
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 08 Jul 2020 07:24:26 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1594218266; cv=pass;
         d=google.com; s=arc-20160816;
-        b=sjr6z2ktAwCbyj2IaUAyOTNUcaSe5l8bVYIyUaieZjepL2l/AbMTVztP2wDOtbSs5e
-         JnQFy3BzHj89aDXnKbV0QlaLkZtptK7lgdP03Pv29nKHAmfkJpZ5IOiU0TZU9OhWjCit
-         UOYIqYCQ/JSOI0jDWgPh+wi8ODzUFht1RpavAarj4OgH2F6nY5kCfHCj9Z7LCak5V6a/
-         WRxmpU3K6BS0WTLmJ6AdtxaXMucdzaUhmlR+fknTPEIvseKlydxXk5ApvmA0Hxi30VVM
-         khszbpt/Inz18WIaGl+GBuWEvWcPpDWpounPjYD7hvwJiekXeN8OTtLmrCrxm8wjTcDb
-         MTuw==
+        b=qNO4XfS3JiUrYeaudTkfKnWUWXSx9+aGWf1lhV6GYnkBo1REtI7KscP6KMjDoKs6Dc
+         hyrskR9aMKvTb33lRO/naD35YHZaq5wU1KdpLc+Y1rvElNKTmO65zkRJGyEBi3ndxRXR
+         Ba9XcyjBQCGoRpEWNZAz/eJsmqkSli3Us5IoqLOju6htZZxfTCb2Pny427VLyIUCBi+I
+         Sb1b0a8so+nzB24H4YBSnVHFhBEX2e05Iwh+PFacYMw1ebg1cQwEM8i89+HbbEKoJUh0
+         KWN2D+Y1Yd63UWWBHx65/HIqFLnh4xYjO0ElkPf6ZATw6xL5w/9Bq8ahyWQVaVVBkPip
+         CNGw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:subject:cc:to:from:date:sender:dkim-signature;
-        bh=IphPKfp6Zafww95hdKeHdaGh3k5vI+Ua/FenNLZLDzo=;
-        b=klFfZTly7dI2uvtB2YyCGeaWdousyI+8uDJM1yxBW4U/2v/Kl5/jet0ivrLzDaoSSp
-         4Sw2vWD+qQyrTuaARUc+3VQDWKRG79JD5N68eVw5ctqf7uWV6rPn0Vpdv1EIPLrZrf+E
-         utMGE51jZzACsQppy16fge9v03Mp4Bw/tTwjUVRyQxC+9SewdZLFJtpUCSaKg/d2Z7Id
-         W9qInNugzaDoGh/BlUZhf8aLWshHNOaiDDL2vmmEwfflkG/M7XvOZyrvd+LWa06dYSud
-         23CsHGQkUpXH7L8u/xuGgRu9XOsshXhYqpt6gm16324nuRmqdPL3jGe/0a8mJDBibsSV
-         GI1g==
+        bh=4T7EFEYTn5UNckodXo4oorBxm7DVP/CjiBZmHTyXMJM=;
+        b=vQa9HD+4MuHjRA7DNb6W8CcmOHaf8LijI3OmkORriyMWx6JA0rKTcqhSilzYxGkFvR
+         gaaTgoCftZiIT4F39H9CgbfivsqiDWYmJ4SFp4M6wqfa1l0CNxmRu6OYfnDqmle2PphC
+         OJT6aIILJIAjFokuuB6LZ9/tuz3hWMkaLXUzurOj+ZpzPWAArsRq4f099iYPk4ceF2Rg
+         KfniFFyxCsxjH+zdbPBP1qyAR2qvXJgV8PHeOrV8yK1+i0fv7EW04CwXaO0ZRpiscO5r
+         xwriNFfo09AlA6ICeOrzBPW+Jgvcb1BOeL6fcR3qDVLsOWzryJvnprNawCs5mKnspEk0
+         qB1Q==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of henning.schild@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=henning.schild@siemens.com;
+       spf=pass (google.com: domain of henning.schild@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=henning.schild@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -34,13 +34,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=IphPKfp6Zafww95hdKeHdaGh3k5vI+Ua/FenNLZLDzo=;
-        b=qkD88aas5nQbPKeEBv1w/uCbpZNzpYb8L7yMQg3Pbq6PA79oJjILqAbcU8N31C3zvZ
-         50eqcs+R0kh+IfCgpZce6JpzWvQt2nPVcVF86m2NEz6ShAIg016LKRS+V2JmNxUFrgep
-         x4FKJMc93BycwGDH1f3KstsXYVnjy01gogIHVvz6e338c+6KsKOfjOJLKOVo50fW9FJ3
-         jTka0uYs/uJDiplkzPgyYMqpVcjiHcPe2sZ2cXmPLziXAx96otDP0q1VI38d+bFb4ASQ
-         Iy+qAMwhCrQSh0JIz/NsIVaaNenJ8Gard9djzAsdoJ8jfJjn5829ugYVlzTQxTNnxT2/
-         VTfA==
+        bh=4T7EFEYTn5UNckodXo4oorBxm7DVP/CjiBZmHTyXMJM=;
+        b=gmeFrSPk9m94yWkGajPEGxhFt1gM7pJf/rJz9vYY56T6ANM7XwQsdo9Z32P9c0zFw1
+         4grtUzMtKMpZuBhAr+VwxriBTPadKp+xbTemHCe3ikLN38s5g6i7s3UixXL/eHiIk62D
+         who0mrd7NQpHokvntibKTtIo6m6Bx7VzJVrAngNxWyZVvqRp9+AhtTYNQGZIUoAHZbHk
+         0dlTEF8DdkaJLlEaNcfp8KzKh4e3YEBx/K5Q3HGldLFvWcNKfLQoe3z330JRcXNa9Yml
+         ULQQiUX2Zf0PvOLRu2KpGJMG/cyL4I1S8debyu00O7goHJPRj7UR7j6yTaZH3Fb5K1o3
+         o6MQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:date:from:to:cc:subject:message-id
@@ -48,72 +48,74 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=IphPKfp6Zafww95hdKeHdaGh3k5vI+Ua/FenNLZLDzo=;
-        b=OFD/EekTJmzz+6BVZRvR5XFy8drWSjiI+GE5SUeTOibF85CmcPgnf+KFR+AjMobCYF
-         4kH0VJDBMR3zIN5JH0hvMaJzjrQlERCBMhdrmFEmg1h5xCZCxNgshztTTV3tEZ0BIF0v
-         s3Cke+ul558vZmQSBbELxCwm765WoPReSpxpGwWm04Q7bIMRSkVhKcSzZeIO0ybAiEV0
-         SpdL4SaLMYhPmsecxGLsPHTVFd6bU86OgWxVUC9D2Uksqx7rLig46w4Wlz1DgnMKV2xy
-         eSUMYc1kmlpRTNdD5r6lUAHSBAtKjlLBHGb+ZGz7Mjp3ztmr5qeWnCjcENLs/EZb02Cr
-         ftow==
+        bh=4T7EFEYTn5UNckodXo4oorBxm7DVP/CjiBZmHTyXMJM=;
+        b=s0iKk5ibtorNL1ivKOXFbEcRcnKC/YvVLxn/8drJzurqxCveeGmHFSDyUF8xxt/Mo8
+         XGNXvbxHoVe1gIfOa+4rVhjkxPXQNHgHWL/FjLaZBgbUpWa+yLoh1UwrNr7Rox6DdCdp
+         WIYv79ED+e96ihkSTL6rRVtcDbx77EB6jNepBufRSVi6taUUcVVExmVCZvnwquT2ZpUW
+         h+Q1R61OlhWiNUkGR39MKz2/a/ktw1jju/xAc0VB/+/UMgc14qMveAUSFWLLacTpV7NL
+         qVY9rNnwsVizwF1Dg5nprjqYmIrvnclESpXeplCuh94enwbWkwHbeh4FOjzBjU9goI55
+         K8WA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532pd2z/BasVcJFp7+i4jIJG0uuQNyxCRpplHPeZR3JRYkpHLGaS
-	L70Op6lJTyoAv8BGVbRA3FY=
-X-Google-Smtp-Source: ABdhPJyhTM5qgKCmgnQ82Bopuc9bBxlW3mvdRRk2f3Lp3CZMXcVhbmQlAwopGoO8Tk12TauTYV2YvA==
-X-Received: by 2002:a05:600c:2154:: with SMTP id v20mr10136613wml.185.1594214736285;
-        Wed, 08 Jul 2020 06:25:36 -0700 (PDT)
+X-Gm-Message-State: AOAM533Lb/sd4S8q53k2CNKL+3ZIxUxIdD7+QdsmaYoFCOGCC5bIyKaQ
+	me5iPgxywz/iJIupCkJT944=
+X-Google-Smtp-Source: ABdhPJxob1/WYKc6x85tyesCgj8O/41bnYFNENR8zIsvxB/6jb3qoYT3HZxRNEUaUfkvGmFbXw42QQ==
+X-Received: by 2002:ac2:5593:: with SMTP id v19mr36241719lfg.43.1594218265825;
+        Wed, 08 Jul 2020 07:24:25 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5d:6507:: with SMTP id x7ls1392567wru.0.gmail; Wed, 08 Jul
- 2020 06:25:35 -0700 (PDT)
-X-Received: by 2002:adf:ec4e:: with SMTP id w14mr61922767wrn.280.1594214735625;
-        Wed, 08 Jul 2020 06:25:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1594214735; cv=none;
+Received: by 2002:a2e:9809:: with SMTP id a9ls494318ljj.2.gmail; Wed, 08 Jul
+ 2020 07:24:25 -0700 (PDT)
+X-Received: by 2002:a2e:b4ed:: with SMTP id s13mr18307954ljm.296.1594218265183;
+        Wed, 08 Jul 2020 07:24:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1594218265; cv=none;
         d=google.com; s=arc-20160816;
-        b=ysuPr+HNPX0mxGITFm9ql/0ZYDtYIOSYqnYSDKonpF9ul6lliMP9cbVACbAf0jpyig
-         U9C/UQe2LZk9hJCxM1CqZY8R2nmPHO3T4UeUL4rY2OjL1LXylhJTz5gfh72tlOglKKx+
-         a4IkGvmNMAmlSuHHhsDAlCVeQ5QKVpqM9TF8aT7dv0BRfSvXEZtTa0mqV9TtV0d9B+ts
-         Ukk+dVZrG6hZS5T+WXoC87ZyHMrcCTQhHSoWgLEJ0SwY3jfwcqW4cnIQDkl+QyzW8u3P
-         cc7Jdm/eH9CwfxbnMIZNLxeBfnIIHJDUEWz68o6Yd3w4oSGvoH8neDXQSv8y6H38CCKe
-         XWaw==
+        b=I5uZB6Y2INgAjr1sel6W4qo2q+GYP/O70rVGxffJ+S/gsgzA/MeNLriBRI9fTaLUv3
+         UsSY4Sd9AqAqum5vdcY6B4tirfaQFoZ41yc+Ruk+zP8NtAQYugriNhr/ScHgLTdOm8m2
+         36ht0AHJYNiWjuvd7fWRDWiwXJLcF+zyzx6FnQ03guGu/Hpiy+DkHYWXTzLLlvL2FQqN
+         UW8NPICG9/2aGXnbIRFli9mE2rkkrpDzVZT4mQrrKrldxJAZTVvVIhDQ7U4d3cMZmm0o
+         sA2hHVaAexplJ7LJIo+dJ0kL7Wgp6pZqC7T2HfufV3GmWxjWIvpsf83ro5CmcKdbaGCu
+         zXmg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:subject:cc:to:from:date;
-        bh=PMASDZVieoGxWHXmtoeq2zTvfjoJaNghAeSwef33iH4=;
-        b=IzYJBZQwoZmBvLa/kUsfW/P2o3W/VdGtz2F3T1YqjrxP/RoRF/OSUUPZRAbCjTCJm6
-         03CrOT2pem1FmD/Qx4fkXIT/yYb21pM69eaxvDsODFXqHOxmbVNi/jXXJdmyKBYYU4/a
-         MEuYTfjhE5NgzA08IHN3laWGo9imcZmy/jfVr7rntNfe+drw7VGG0881wXswQ8VdaC+G
-         dHXHu2U+TFHXrHFql5kl/EWFmdfVP3T5oimfS1fI7fa2upwd4hJi9oYOUNani57THT3b
-         fjQVgKzzbuEB8GV+oEknX3bgK7iBfyBjTzBCe5aBR2Nwg52/7KF3777fdvESVDGnbDKj
-         XQsg==
+        bh=RSSDA/LGQMkW7rCwaK/eTq3T0u8ej447lnE2yZFeiL8=;
+        b=Armfjoqk68jfZy7P2llNey5sYUvAI7MAm07BToIxWogdy4hIn7j6/jufr6sl/BSl+Y
+         3PWeGkSEK5ud26PqxcqeXNh+dzzTKhHWwkNQzJQDEyzv9CfiGZI7LrLvGBszpa/orFXD
+         s68pYQn+lnWPj6UhntUeACWjxMgMJWVk/mALV7axcKy+kjMHIdxatvL+iaHTDFnUVNOP
+         VMQRmtv4CtAXXHKrHdKGhJBRoMEBzsyLYchdaEeQDamqxX+ZCvxPOH/3lhXRvm8TFPeK
+         BJc7xOcPRGXSDTN3hKp3lBRcR4treNPs4b60f7Oo8TTEcBNv68j3JcwpK3HVoi1/IN6y
+         B70g==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of henning.schild@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=henning.schild@siemens.com;
+       spf=pass (google.com: domain of henning.schild@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=henning.schild@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
-        by gmr-mx.google.com with ESMTPS id f143si220654wmf.1.2020.07.08.06.25.35
+Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
+        by gmr-mx.google.com with ESMTPS id k9si3120ljj.5.2020.07.08.07.24.24
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 08 Jul 2020 06:25:35 -0700 (PDT)
-Received-SPF: pass (google.com: domain of henning.schild@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
-Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id 068DPYCk000869
+        Wed, 08 Jul 2020 07:24:25 -0700 (PDT)
+Received-SPF: pass (google.com: domain of henning.schild@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 068EONwc012243
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 8 Jul 2020 15:25:34 +0200
+	Wed, 8 Jul 2020 16:24:24 +0200
 Received: from md1za8fc.ad001.siemens.net ([167.87.28.133])
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id 068DPY74026450;
-	Wed, 8 Jul 2020 15:25:34 +0200
-Date: Wed, 8 Jul 2020 15:25:31 +0200
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 068EONu7014984;
+	Wed, 8 Jul 2020 16:24:23 +0200
+Date: Wed, 8 Jul 2020 16:24:21 +0200
 From: Henning Schild <henning.schild@siemens.com>
-To: Chung-Fan Yang <sonic.tw.tp@gmail.com>
+To: Yang Chung Fan <sonic.tw.tp@gmail.com>
 Cc: Jailhouse <jailhouse-dev@googlegroups.com>
 Subject: Re: License of custom cell configs
-Message-ID: <20200708152531.25e804b0@md1za8fc.ad001.siemens.net>
-In-Reply-To: <d88a71e3-1269-42f6-93d4-6f66658e5da6o@googlegroups.com>
+Message-ID: <20200708162421.56e41496@md1za8fc.ad001.siemens.net>
+In-Reply-To: <CAKa8VzgwFp=LZ=riydg=enHWPX8cHVJhE_4ZPVwf-unvMRLVCg@mail.gmail.com>
 References: <d88a71e3-1269-42f6-93d4-6f66658e5da6o@googlegroups.com>
+	<20200708152531.25e804b0@md1za8fc.ad001.siemens.net>
+	<CAKa8VzgwFp=LZ=riydg=enHWPX8cHVJhE_4ZPVwf-unvMRLVCg@mail.gmail.com>
 X-Mailer: Claws Mail 3.17.5 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 X-Original-Sender: henning.schild@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of henning.schild@siemens.com designates 192.35.17.2 as
+ (google.com: domain of henning.schild@siemens.com designates 192.35.17.14 as
  permitted sender) smtp.mailfrom=henning.schild@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
@@ -128,48 +130,49 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi,
+On Wed, 8 Jul 2020 22:35:58 +0900
+Yang Chung Fan <sonic.tw.tp@gmail.com> wrote:
 
-On Wed, 8 Jul 2020 04:49:38 -0700 (PDT)
-Chung-Fan Yang <sonic.tw.tp@gmail.com> wrote:
-
-> Hi, 
+> Hi,
 > 
-> I want to ask a silly question.
+> Thank you for your quick response.
+> 
+> I think BSD is good for our situation.
+> I will stick to that.
+> 
+> A follow up question,
+> I am porting the linux ivshmem_net driver to an RTOS and want to
+> distribute it with the RTOS source.
+> At the end of the day, I want to have it PRed and included in
+> upstream. However as the ivshmem_net linux driver is licensed as GPL
+> v2 and the RTOS is Apache v2. They don't get along too well.
 
-Not silly, valid!
+I am not sure a re-licensing is possible or feasible here. The driver
+is a Linux driver and therefore needs to be GPL. Adding a second
+license would probably require a sort of split, separating a
+dual-license core from an OS-glue. Making that split generic and
+maintaining the driver for multiple OSs would be hard.
 
-> Is there any restrictions on the cell configs source files, including
-> those hand crafted and these generated by jailhouse command line tool
-> ?
+In fact i wrote several such drivers for our products, turns our that
+the re-usable "core" is not that big. And different coding style,
+device driver frameworks, or network-stacks reduce the reuse potential
+further.
 
-Kind of, you basically can choose between GPLv2 and BSD.
+While reuse sounds good, the pragmatic answer seems to be to
+fully rewrite the driver for every new OS. You should get in touch with
+that project early, maybe they already have something ...
 
-> For a hand crafted configs, may I distributed them with the licenses
-> as I wish?
-
-You will very likely have to include a header that imposes one of the
-two mentioned above.
-
-> On the other hand for generated configs, I noticed that they have BSD 
-> headers, so I must comply and following that, right?
-
-I guess you could write the header yourself if you really did want to
-choose your own license. And even then ... the format is well defined so
-it is pretty clear what the config source says from just looking at the
-binary.
-So if you plan to protect something ... say IP. You might be able to do
-that with the syntax but not the semantics.
-
+regards,
 Henning
 
+> I would kindly ask that is there any possibility to have a more
+> permissive license on that driver, just like those in the inmate
+> library?
+> 
 > BR,
-> 
-> Yang.
-> 
 > 
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200708152531.25e804b0%40md1za8fc.ad001.siemens.net.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200708162421.56e41496%40md1za8fc.ad001.siemens.net.
