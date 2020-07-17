@@ -1,127 +1,71 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBG4AYX4AKGQESPLN3RA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDSMF24UTUGRB65MY34AKGQEOMV3O6Q@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33f.google.com (mail-wm1-x33f.google.com [IPv6:2a00:1450:4864:20::33f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AB5A22335D
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 17 Jul 2020 08:07:23 +0200 (CEST)
-Received: by mail-wm1-x33f.google.com with SMTP id l5sf8094683wml.7
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 16 Jul 2020 23:07:23 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1594966043; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=S3JMeKvfSOSmdaoK0XQNFb89XiId4imOCbtq2EL2r9Q4toadfe4IRUGBcQyEVxqi82
-         eflnJwhWgrOFV9hsby6D4r830WYaPJtOkwVzdP9JVds0qX9hWMEcV25Yumx+H/gohuZr
-         adVctefV3gyMx4Lxo/wNnya5B7OWTVGHVaSfiVmeGLCdjnCD2OQ/PkYSZr9tFRfydOnY
-         V6JrRU8XDwdQiWE7OFegbUofGsLQJZ1bL7dx9no23hfNSLc673xZKpUmkK+atX5+f0kG
-         pnaeJY6669eJftPtBmr2aL8W+qING0vL5uGWmzj/IHEfBzOuEoSR9cHbKMKRJsydVmLK
-         1EnA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=z1bWMJyFKTpQaUtNNvdv+1fTlmLIUNmjIykHkq8w0so=;
-        b=HNaslDFHNBNgbw6RXBLA1TLESOrurPcSr8E7FUocbIl4yFcYEjY1XpxdfaoibZvJh5
-         2Hsyb9Rdmf3jitVemCPdbfHd10ZR8mB3kdM8Zktiw4DDr/H3aRSKL0Rh8vRHM4GQjgjm
-         zNA/nJSdn72ieR/jCmm9/IfSX9ddBzXRUaIRE35PYSbqdhnUcTiFiU+2aZ0pAiYCUWFK
-         VxUNTpWDZzwJiCdX6jUO9yH5iqhqY7H+Dc0SQyE1v16Vy/7zI+j8u7TczJ+dCmlWtUzY
-         eqmLzb9O9r8+FN9WlfgdE5bJfW6UmA4zwVxlZA0tmIunoUgAmQa7C1U6805dICsfWMzX
-         Dtkw==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-ot1-x339.google.com (mail-ot1-x339.google.com [IPv6:2607:f8b0:4864:20::339])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A774223B37
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 17 Jul 2020 14:15:57 +0200 (CEST)
+Received: by mail-ot1-x339.google.com with SMTP id x12sf4171647oto.19
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 17 Jul 2020 05:15:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=z1bWMJyFKTpQaUtNNvdv+1fTlmLIUNmjIykHkq8w0so=;
-        b=iOIea4uesHs7ILWktoQGHDU2u6wQ7qdhnxziIZEkoWbCHeSeD5D+tfHiLmqmx5HW2K
-         d7P7BHqkRNY0nxMMx/QDN0tH3C1oKPKvWF4whvJG5OMsBn4eH4xasX0wyC0Dm5eUq7Uq
-         +laCVOVNFVVJbtnV7fsWJmKSj2ZvtecuIFcup7uLy5m31e1jk9kMZ1YxbXWxCdxQDzQR
-         Ef7HO7gLW61qKmzot9LHaASQkcZp8J6pK7ddLDX3nOd3dZ/8GXuM9WppR0fmrmGUerqd
-         dpE3LC48SenOAir78n+SMNnm1tOfZacXuVMdIrxxNPpSyzesywsEJbIIwO0zti7f39WK
-         9Hyg==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=100qsDRzKMUdms6ZO3o+bUo1BJPsQCV+vs/LSGbuXfE=;
+        b=fICInxYux+7/pJli4ZTFN6PFlyDHv8rGlV/o6CViQzDDHOQpfnja+WR4ccMhEb09ng
+         fJEY7RtoSlHiIQJKY3nd/hDlVr9qY3RK0PPkM7L4xIYOoErW4+zX3oQ1GQVGNSMJF7lK
+         QryAhuOEhIM6KFIeQ7MwQ2roW0Ifwq75UoSEV8m1/QbyZy9P+Dg7j2mRR2BSnP7UULEI
+         W48IwPohuBHE65XlQtA9L51pBhiaHFUCKk4mlv0E6706w/e+aR8LRLVZHoHvBpkRLf44
+         b8rabPHLXXGXcdn/SioTwri4jAgne582v9RLW130XOZV7yfnmCnBhMQDFvDY1T8DTrfz
+         w+HQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=100qsDRzKMUdms6ZO3o+bUo1BJPsQCV+vs/LSGbuXfE=;
+        b=SmY84WIN5UTMibNgOMkxwSDAWyR3hk9Ene6xv7fMUljSMK771ZcpNky0EGcPioXI33
+         Qmmx7YNEhI7KGTlbcXLTo2vS28HAa115A11U3lDDBtQU/Hl//lGwqNl5nI8zqYSzj9Z+
+         1xJzNHX8n4t6spT+ob4K8XZF1aurr3BGPgAEjW4eeVH6jQ3s9jGEo/FD7SPpL3nykcDV
+         b57Jx9/ym5JC5eq2Vwam7dEhsWF8qGw4VViD2cyjPX0QhFlMXjZhWXKT6uB3QMB/KNpA
+         nx9zpB7URZSMKpZBi+4mRsslMguG9sTCeLuNU0lt4h8h3pblkL6ziYUbjBdRr+U72adF
+         HnJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=z1bWMJyFKTpQaUtNNvdv+1fTlmLIUNmjIykHkq8w0so=;
-        b=uGQfp9/V7XOuOFWaLZnjNjdxnMCLSjoobciiGKIXsARHRYf0LMNAQQDKDrfveXIJAo
-         dhumnekm6cMkGVNCm9WX4TDhNSgL0GclS6iy4zicxsYmJqRhmp7DsKx48CcYa/lkZ8d1
-         iuKHt/wCkuiYpD2k7AFodVCIK62JwkPzkg72DX/bRt33+S6o70zgBRXRDGxmShfbLORG
-         6Tvkubrqs+bCBWh0sFC0DmRIN5CIfVYKJ/6MQLl6STxydeQbo1qMHz3fTOdI7S4Gi7FV
-         Bg3GB7qlpaV7DEPTOdhalvXIH0ySYKa70BuypgoPORomGlXzilM21k6MQKzJUsq5f5KU
-         PBqQ==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=100qsDRzKMUdms6ZO3o+bUo1BJPsQCV+vs/LSGbuXfE=;
+        b=UuLP8ixAqBWlh3FZv+XJ2wuVvxZa6YWxAauTQKBOcIqkmMP9ZAw4/8OrN9uqo7JTpQ
+         tI7xaqR5C/gZE7lDz/IP/lu6hf20KWR2CEBXiD4B4RqUKcIkd0oXyqZxkzHhwVahC+vf
+         CfMImHtQ3yPu1r0WQBIU1Uh/8d4mx6qbkHrrc+/5+Dfo0iVwjvnxGWibTE4j0t8YjUhw
+         vrq1Y7hdpLNvPGaP1h5ZW/xnIFUn9pN5kYijSOggkXXZMegyu2OMm6XMj5q/TRPfCZOX
+         /w5QRbMgKtNqvdTyQGalT7maUbTGmW8rExOASjP9v6sqREnwJyJTrMEIEKIL2KKceCWF
+         vstA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533LFIcSc6FtO2sHL6nJ8VPaey+vHq7FRJ+VJVq2kCqnYxSF9qY+
-	vrLyFpOGb4CKmk51/NE8q/w=
-X-Google-Smtp-Source: ABdhPJzChxrm6kF/gM+N3na3wst3LunmMV+NsuGm1kQq+F42TOKK/VnR0ihdpuncOoqgswlozxuLNw==
-X-Received: by 2002:a05:600c:2144:: with SMTP id v4mr8111643wml.128.1594966043214;
-        Thu, 16 Jul 2020 23:07:23 -0700 (PDT)
+X-Gm-Message-State: AOAM5305U8fOpyDIcxytdA4hqfq/6VXh0dZck5UohFGkPuzPXZTQ3BSP
+	+x9KGJhvh9O9ry2JbDIJKxw=
+X-Google-Smtp-Source: ABdhPJw856DEQsypqqpbY/6ajDH+EJpfliMJUOL6MB5PoO0jKvTel/lh2SDbtis+p0KuflEbO3E3Ig==
+X-Received: by 2002:a05:6830:1093:: with SMTP id y19mr8707399oto.204.1594988156036;
+        Fri, 17 Jul 2020 05:15:56 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:2049:: with SMTP id g70ls3172434wmg.0.gmail; Thu, 16 Jul
- 2020 23:07:22 -0700 (PDT)
-X-Received: by 2002:a1c:4183:: with SMTP id o125mr7536998wma.101.1594966042484;
-        Thu, 16 Jul 2020 23:07:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1594966042; cv=none;
-        d=google.com; s=arc-20160816;
-        b=z816XT/iLUBEUqSG9AM/mSagsZFqVvTD/s6BCDMm5QVJd7NzGBOvYWRRXNKQUE4M4T
-         EzQHSAwgAhGEr7zVT57jNRJOChxonSM9/l4X6nfnIsckqdGl9Ef4R7GcEugyfcSFkPhq
-         sHAh8jEpMgC/NE7wRbxwiwo9LMq8sO/tqX+jel5ds5/IOUt5zlInDh5WseSvutdC7Uz0
-         ZSgFUFVxesmbbwC/XaXzLUOr3oXzRgCmc2Zpa0oUV6MNlwDZtJXM+a3LdqYxvZuC7J2H
-         t9rQGYhHTWFIi3Z9jI7LgSXk4tiOIK5DMLnuSY5Bu3SuKKS3DY2whHPz5m/uypfRDRWA
-         uh1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=2+vDxlHmPGiiNJ/qurtap50TNzCr5RxahH61eErU8AA=;
-        b=CSykV2Kf/2s1/zQ9kvgb9nmHxs8JMSjHpQA/vu5VtzaIC9NJURzOdJ7SxKb7Uq11dJ
-         0p3fL//RDsScJos1WvY3myoaDpeeUiOs3mbdkKD2henIE2m2lAJB0jcthNfF1jq4oEkZ
-         pWXSHmhEzqY4Vggdd67BT+kdgIk9EU2cg6J/jUWsHM4u7PckcS1oVqYAjB7CYJxlWzJn
-         0wE41aM1OOkxbH9v93bDm2atSGmjmUllHXu0JTyQi66oQGPFjFspv4ST9JYjYFHLEK7B
-         JLLacAlozPLUMB53O1//aMdUaPVeT5CqOx8ZOuULJC5+AegFQ6WUyTYzActsaoN0sRjq
-         2gdw==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id u18si5812wrb.5.2020.07.16.23.07.22
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 16 Jul 2020 23:07:22 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 06H67Lus021634
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 17 Jul 2020 08:07:21 +0200
-Received: from [167.87.7.111] ([167.87.7.111])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 06H67KTk004805;
-	Fri, 17 Jul 2020 08:07:21 +0200
-Subject: Re: error: implicit declaration of function 'cpu_down'
-To: Parth Dode <dodecoder@gmail.com>,
-        Jailhouse <jailhouse-dev@googlegroups.com>
+Received: by 2002:a05:6830:3116:: with SMTP id b22ls1531600ots.6.gmail; Fri,
+ 17 Jul 2020 05:15:55 -0700 (PDT)
+X-Received: by 2002:a9d:7d93:: with SMTP id j19mr7730262otn.150.1594988155211;
+        Fri, 17 Jul 2020 05:15:55 -0700 (PDT)
+Date: Fri, 17 Jul 2020 05:15:54 -0700 (PDT)
+From: Parth Dode <dodecoder@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <5d346985-f668-4940-8f6f-520f72cf1842o@googlegroups.com>
+In-Reply-To: <eb8f71d2-b861-4136-2968-fa2407c7207a@siemens.com>
 References: <375baf50-dcb2-486b-9ddf-3de231f22ea8o@googlegroups.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <eb8f71d2-b861-4136-2968-fa2407c7207a@siemens.com>
-Date: Fri, 17 Jul 2020 08:07:20 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <eb8f71d2-b861-4136-2968-fa2407c7207a@siemens.com>
+Subject: Re: error: implicit declaration of function 'cpu_down'
 MIME-Version: 1.0
-In-Reply-To: <375baf50-dcb2-486b-9ddf-3de231f22ea8o@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_2795_2119338829.1594988154589"
+X-Original-Sender: dodecoder@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -134,150 +78,362 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 17.07.20 05:13, Parth Dode wrote:
-> I am using=C2=A0 yocto to build jailhouse module in agl=C2=A0 =C2=A0for r=
-pi4 .
-> This is the error Im getting, please help figure out
->=20
-> NOTE: Tasks Summary: Attempted 1466 tasks of which 1465 didn't need to=20
-> be rerun and 1 failed.
->=20
-> Summary: 1 task failed:
-> /home/parth/meta-yocto-jailhouse-rpi4/recipes-kernel/jailhouse/jailhouse_=
-git.bb:do_compile
-> Summary: There were 2 WARNING messages shown.
-> Summary: There were 2 ERROR messages shown, returning a non-zero exit cod=
-e.
-> parth@Debian-95-stretch-64-minimal:~/meta-yocto-jailhouse-rpi4$
-> x/9.3.0/include=20
-> -I/home/parth/AGL/build-agl-jailhouse-rpi/tmp/work-shared/raspberrypi4-64=
-/kernel-
-> source/arch/arm64/include -I./arch/arm64/include/generated=20
-> -I/home/parth/AGL/build-agl-jailhouse
-> -rpi/tmp/work-shared/raspberrypi4-64/kernel-source/include -I./include=20
-> -I/home/parth/AGL/build-ag
-> l-jailhouse-rpi/tmp/work-shared/raspberrypi4-64/kernel-source/arch/arm64/=
-include/uapi=20
-> -I./arch/ar
-> m64/include/generated/uapi=20
-> -I/home/parth/AGL/build-agl-jailhouse-rpi/tmp/work-shared/raspberrypi4
-> -64/kernel-source/include/uapi -I./include/generated/uapi -include=20
-> /home/parth/AGL/build-agl-jail
-> house-rpi/tmp/work-shared/raspberrypi4-64/kernel-source/include/linux/kco=
-nfig.h=20
-> -D__KERNEL__ -mli
-> ttle-endian -D__ASSEMBLY__ -fno-PIE -DCONFIG_AS_LSE=3D1 -mabi=3Dlp64=20
-> -Wa,-gdwarf-2 -DMODULE -c -o /h
-> ome/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4_64-agl-linux/=
-jailhouse/0.12+gitAUTOIN
-> C+4ce7658ddd-r0/git/driver/vpci_template.dtb.o=20
-> /home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/r
-> aspberrypi4_64-agl-linux/jailhouse/0.12+gitAUTOINC+4ce7658ddd-r0/git/driv=
-er/vpci_template.dtb.S
-> | (cat /dev/null; ) >=20
-> /home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4_64-agl-linu=
-x/
-> jailhouse/0.12+gitAUTOINC+4ce7658ddd-r0/git/tools/modules.order
-> |=20
-> /home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4_64-agl-linu=
-x/jailhouse/0.12+gitAU
-> TOINC+4ce7658ddd-r0/git/driver/cell.c: In function=20
-> 'jailhouse_cmd_cell_create':
-> |=20
-> /home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4_64-agl-linu=
-x/jailhouse/0.12+gitAU
-> TOINC+4ce7658ddd-r0/git/driver/cell.c:31:26: error: implicit declaration=
+------=_Part_2795_2119338829.1594988154589
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_2796_541743720.1594988154590"
+
+------=_Part_2796_541743720.1594988154590
+Content-Type: text/plain; charset="UTF-8"
+
+How did you figure that out?
+
+
+On Friday, July 17, 2020 at 11:37:23 AM UTC+5:30, Jan Kiszka wrote:
+>
+> On 17.07.20 05:13, Parth Dode wrote: 
+> > I am using  yocto to build jailhouse module in agl   for rpi4 . 
+> > This is the error Im getting, please help figure out 
+> > 
+> > NOTE: Tasks Summary: Attempted 1466 tasks of which 1465 didn't need to 
+> > be rerun and 1 failed. 
+> > 
+> > Summary: 1 task failed: 
+> > 
+> /home/parth/meta-yocto-jailhouse-rpi4/recipes-kernel/jailhouse/jailhouse_git.bb:do_compile 
+>
+> > Summary: There were 2 WARNING messages shown. 
+> > Summary: There were 2 ERROR messages shown, returning a non-zero exit 
+> code. 
+> > parth@Debian-95-stretch-64-minimal:~/meta-yocto-jailhouse-rpi4$ 
+> > x/9.3.0/include 
+> > 
+> -I/home/parth/AGL/build-agl-jailhouse-rpi/tmp/work-shared/raspberrypi4-64/kernel- 
+>
+> > source/arch/arm64/include -I./arch/arm64/include/generated 
+> > -I/home/parth/AGL/build-agl-jailhouse 
+> > -rpi/tmp/work-shared/raspberrypi4-64/kernel-source/include -I./include 
+> > -I/home/parth/AGL/build-ag 
+> > 
+> l-jailhouse-rpi/tmp/work-shared/raspberrypi4-64/kernel-source/arch/arm64/include/uapi 
+>
+> > -I./arch/ar 
+> > m64/include/generated/uapi 
+> > -I/home/parth/AGL/build-agl-jailhouse-rpi/tmp/work-shared/raspberrypi4 
+> > -64/kernel-source/include/uapi -I./include/generated/uapi -include 
+> > /home/parth/AGL/build-agl-jail 
+> > 
+> house-rpi/tmp/work-shared/raspberrypi4-64/kernel-source/include/linux/kconfig.h 
+>
+> > -D__KERNEL__ -mli 
+> > ttle-endian -D__ASSEMBLY__ -fno-PIE -DCONFIG_AS_LSE=1 -mabi=lp64 
+> > -Wa,-gdwarf-2 -DMODULE -c -o /h 
+> > 
+> ome/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4_64-agl-linux/jailhouse/0.12+gitAUTOIN 
+>
+> > C+4ce7658ddd-r0/git/driver/vpci_template.dtb.o 
+> > /home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/r 
+> > 
+> aspberrypi4_64-agl-linux/jailhouse/0.12+gitAUTOINC+4ce7658ddd-r0/git/driver/vpci_template.dtb.S 
+>
+> > | (cat /dev/null; ) > 
+> > 
+> /home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4_64-agl-linux/ 
+> > jailhouse/0.12+gitAUTOINC+4ce7658ddd-r0/git/tools/modules.order 
+> > | 
+> > 
+> /home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4_64-agl-linux/jailhouse/0.12+gitAU 
+>
+> > TOINC+4ce7658ddd-r0/git/driver/cell.c: In function 
+> > 'jailhouse_cmd_cell_create': 
+> > | 
+> > 
+> /home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4_64-agl-linux/jailhouse/0.12+gitAU 
+>
+> > TOINC+4ce7658ddd-r0/git/driver/cell.c:31:26: error: implicit declaration 
+> > of function 'cpu_down' [ 
+> > -Werror=implicit-function-declaration] 
+> > | 31 | #define remove_cpu(cpu) cpu_down(cpu) 
+> > | | ^~~~~~~~ 
+> > | 
+> > 
+> /home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4_64-agl-linux/jailhouse/0.12+gitAU 
+>
+> > TOINC+4ce7658ddd-r0/git/driver/cell.c:243:10: note: in expansion of 
+> > macro 'remove_cpu' 
+> > | 243 | err = remove_cpu(cpu); 
+> > | | ^~~~~~~~~~ 
+> > | if [ "-pg" = "-pg" ]; then if [ 
+> > /home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4 
+> > _64-agl-linux/jailhouse/0.12+gitAUTOINC+4ce7658ddd-r0/git/driver/sysfs.o 
+> > != "scripts/mod/empty.o" 
+> > ]; then ./scripts/recordmcount 
+> > "/home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4_6 
+> > 4-agl-linux/jailhouse/0.12+gitAUTOINC+4ce7658ddd-r0/git/driver/sysfs.o"; 
+> > fi; fi; 
+> > | cc1: all warnings being treated as errors 
+> > | make[5]: *** 
+> > 
+> [/home/parth/AGL/build-agl-jailhouse-rpi/tmp/work-shared/raspberrypi4-64/kernel-so 
+>
+> > urce/scripts/Makefile.build:303: 
+> > /home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4_64 
+> > -agl-linux/jailhouse/0.12+gitAUTOINC+4ce7658ddd-r0/git/driver/cell.o] 
+> > Error 1 
+> > | make[5]: *** Waiting for unfinished jobs.... 
+> > | if [ "-pg" = "-pg" ]; then if [ 
+> > /home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4 
+> > _64-agl-linux/jailhouse/0.12+gitAUTOINC+4ce7658ddd-r0/git/driver/pci.o 
+> > != "scripts/mod/empty.o" ] 
+> > ; then ./scripts/recordmcount 
+> > 
+> "/home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4_64-agl-linux/jailhouse/0.12+gitAUTOINC+4ce7658ddd-r0/git/driver/pci.o"; 
+>
+> > fi; fi; 
+> > | make[4]: *** 
+> > 
+> [/home/parth/AGL/build-agl-jailhouse-rpi/tmp/work-shared/raspberrypi4-64/kernel-source/scripts/Makefile.build:544: 
+>
+> > 
+> /home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4_64-agl-linux/jailhouse/0.12+gitAUTOINC+4ce7658ddd-r0/git/driver] 
+>
+> > Error 2 
+> > | make[3]: *** 
+> > 
+> [/home/parth/AGL/build-agl-jailhouse-rpi/tmp/work-shared/raspberrypi4-64/kernel-source/Makefile:1527: 
+>
+> > 
+> _module_/home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4_64-agl-linux/jailhouse/0.12+gitAUTOINC+4ce7658ddd-r0/git] 
+>
+> > Error 2 
+> > | make[2]: *** [Makefile:146: sub-make] Error 2 
+> > | make[1]: *** [Makefile:24: __sub-make] Error 2 
+> > | make: *** [Makefile:40: modules] Error 2 
+> > | WARNING: 
+> > 
+> /home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4_64-agl-linux/jailhouse/0.12+gitAUTOINC+4ce7658ddd-r0/temp/run.do_compile.24833:1 
+>
+> > exit 1 from 'exit 1' 
+> > | 
+> > ERROR: Task 
+> > 
+> (/home/parth/meta-yocto-jailhouse-rpi4/recipes-kernel/jailhouse/jailhouse_git.bb:do_compile) 
+>
+> > failed with exit code '1' 
+> > NOTE: Tasks Summary: Attempted 1466 tasks of which 1465 didn't need to 
+> > be rerun and 1 failed. 
+> > 
+> > Summary: 1 task failed: 
+> > 
+> /home/parth/meta-yocto-jailhouse-rpi4/recipes-kernel/jailhouse/jailhouse_git.bb:do_compile 
+>
+> > Summary: There were 2 WARNING messages shown. 
+> > Summary: There were 2 ERROR messages shown, returning a non-zero exit 
+> code. 
+> > 
+>
+> I suspect your target kernel lacks CONFIG_HOTPLUG_CPU=y. See 
+> jailhouse-images for a know-to-work reference config. 
+>
+> Also note that you will need an ATF-based boot on the RPi4, just in case 
+> you didn't spot that dependency yet. Again, jailhouse-images is the 
+> reference. 
+>
+> Jan 
+>
+> -- 
+> Siemens AG, Corporate Technology, CT RDA IOT SES-DE 
+> Corporate Competence Center Embedded Linux 
+>
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/5d346985-f668-4940-8f6f-520f72cf1842o%40googlegroups.com.
+
+------=_Part_2796_541743720.1594988154590
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">How did you figure that out?<div><br><br>On Friday, July 1=
+7, 2020 at 11:37:23 AM UTC+5:30, Jan Kiszka wrote:<blockquote class=3D"gmai=
+l_quote" style=3D"margin: 0px 0px 0px 0.8ex; border-left: 1px solid rgb(204=
+, 204, 204); padding-left: 1ex; --darkreader-inline-border-left:#3e4648;" d=
+ata-darkreader-inline-border-left=3D"">On 17.07.20 05:13, Parth Dode wrote:
+<br>&gt; I am using=C2=A0 yocto to build jailhouse module in agl=C2=A0 =C2=
+=A0for rpi4 .
+<br>&gt; This is the error Im getting, please help figure out
+<br>&gt;=20
+<br>&gt; NOTE: Tasks Summary: Attempted 1466 tasks of which 1465 didn&#39;t=
+ need to=20
+<br>&gt; be rerun and 1 failed.
+<br>&gt;=20
+<br>&gt; Summary: 1 task failed:
+<br>&gt; /home/parth/meta-yocto-<wbr>jailhouse-rpi4/recipes-kernel/<wbr>jai=
+lhouse/jailhouse_git.bb:do_<wbr>compile
+<br>&gt; Summary: There were 2 WARNING messages shown.
+<br>&gt; Summary: There were 2 ERROR messages shown, returning a non-zero e=
+xit code.
+<br>&gt; parth@Debian-95-stretch-64-<wbr>minimal:~/meta-yocto-<wbr>jailhous=
+e-rpi4$
+<br>&gt; x/9.3.0/include=20
+<br>&gt; -I/home/parth/AGL/build-agl-<wbr>jailhouse-rpi/tmp/work-shared/<wb=
+r>raspberrypi4-64/kernel-
+<br>&gt; source/arch/arm64/include -I./arch/arm64/include/<wbr>generated=20
+<br>&gt; -I/home/parth/AGL/build-agl-<wbr>jailhouse
+<br>&gt; -rpi/tmp/work-shared/<wbr>raspberrypi4-64/kernel-source/<wbr>inclu=
+de -I./include=20
+<br>&gt; -I/home/parth/AGL/build-ag
+<br>&gt; l-jailhouse-rpi/tmp/work-<wbr>shared/raspberrypi4-64/kernel-<wbr>s=
+ource/arch/arm64/include/uapi=20
+<br>&gt; -I./arch/ar
+<br>&gt; m64/include/generated/uapi=20
+<br>&gt; -I/home/parth/AGL/build-agl-<wbr>jailhouse-rpi/tmp/work-shared/<wb=
+r>raspberrypi4
+<br>&gt; -64/kernel-source/include/uapi -I./include/generated/uapi -include=
 =20
-> of function 'cpu_down' [
-> -Werror=3Dimplicit-function-declaration]
-> | 31 | #define remove_cpu(cpu) cpu_down(cpu)
-> | | ^~~~~~~~
-> |=20
-> /home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4_64-agl-linu=
-x/jailhouse/0.12+gitAU
-> TOINC+4ce7658ddd-r0/git/driver/cell.c:243:10: note: in expansion of=20
-> macro 'remove_cpu'
-> | 243 | err =3D remove_cpu(cpu);
-> | | ^~~~~~~~~~
-> | if [ "-pg" =3D "-pg" ]; then if [=20
-> /home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4
-> _64-agl-linux/jailhouse/0.12+gitAUTOINC+4ce7658ddd-r0/git/driver/sysfs.o=
+<br>&gt; /home/parth/AGL/build-agl-jail
+<br>&gt; house-rpi/tmp/work-shared/<wbr>raspberrypi4-64/kernel-source/<wbr>=
+include/linux/kconfig.h=20
+<br>&gt; -D__KERNEL__ -mli
+<br>&gt; ttle-endian -D__ASSEMBLY__ -fno-PIE -DCONFIG_AS_LSE=3D1 -mabi=3Dlp=
+64=20
+<br>&gt; -Wa,-gdwarf-2 -DMODULE -c -o /h
+<br>&gt; ome/parth/AGL/build-agl-<wbr>jailhouse-rpi/tmp/work/<wbr>raspberry=
+pi4_64-agl-linux/<wbr>jailhouse/0.12+gitAUTOIN
+<br>&gt; C+4ce7658ddd-r0/git/driver/<wbr>vpci_template.dtb.o=20
+<br>&gt; /home/parth/AGL/build-agl-<wbr>jailhouse-rpi/tmp/work/r
+<br>&gt; aspberrypi4_64-agl-linux/<wbr>jailhouse/0.12+gitAUTOINC+<wbr>4ce76=
+58ddd-r0/git/driver/vpci_<wbr>template.dtb.S
+<br>&gt; | (cat /dev/null; ) &gt;=20
+<br>&gt; /home/parth/AGL/build-agl-<wbr>jailhouse-rpi/tmp/work/<wbr>raspber=
+rypi4_64-agl-linux/
+<br>&gt; jailhouse/0.12+gitAUTOINC+<wbr>4ce7658ddd-r0/git/tools/<wbr>module=
+s.order
+<br>&gt; |=20
+<br>&gt; /home/parth/AGL/build-agl-<wbr>jailhouse-rpi/tmp/work/<wbr>raspber=
+rypi4_64-agl-linux/<wbr>jailhouse/0.12+gitAU
+<br>&gt; TOINC+4ce7658ddd-r0/git/<wbr>driver/cell.c: In function=20
+<br>&gt; &#39;jailhouse_cmd_cell_create&#39;:
+<br>&gt; |=20
+<br>&gt; /home/parth/AGL/build-agl-<wbr>jailhouse-rpi/tmp/work/<wbr>raspber=
+rypi4_64-agl-linux/<wbr>jailhouse/0.12+gitAU
+<br>&gt; TOINC+4ce7658ddd-r0/git/<wbr>driver/cell.c:31:26: error: implicit =
+declaration=20
+<br>&gt; of function &#39;cpu_down&#39; [
+<br>&gt; -Werror=3Dimplicit-function-<wbr>declaration]
+<br>&gt; | 31 | #define remove_cpu(cpu) cpu_down(cpu)
+<br>&gt; | | ^~~~~~~~
+<br>&gt; |=20
+<br>&gt; /home/parth/AGL/build-agl-<wbr>jailhouse-rpi/tmp/work/<wbr>raspber=
+rypi4_64-agl-linux/<wbr>jailhouse/0.12+gitAU
+<br>&gt; TOINC+4ce7658ddd-r0/git/<wbr>driver/cell.c:243:10: note: in expans=
+ion of=20
+<br>&gt; macro &#39;remove_cpu&#39;
+<br>&gt; | 243 | err =3D remove_cpu(cpu);
+<br>&gt; | | ^~~~~~~~~~
+<br>&gt; | if [ &quot;-pg&quot; =3D &quot;-pg&quot; ]; then if [=20
+<br>&gt; /home/parth/AGL/build-agl-<wbr>jailhouse-rpi/tmp/work/<wbr>raspber=
+rypi4
+<br>&gt; _64-agl-linux/jailhouse/0.12+<wbr>gitAUTOINC+4ce7658ddd-r0/git/<wb=
+r>driver/sysfs.o=20
+<br>&gt; !=3D &quot;scripts/mod/empty.o&quot;
+<br>&gt; ]; then ./scripts/recordmcount=20
+<br>&gt; &quot;/home/parth/AGL/build-agl-<wbr>jailhouse-rpi/tmp/work/<wbr>r=
+aspberrypi4_6
+<br>&gt; 4-agl-linux/jailhouse/0.12+<wbr>gitAUTOINC+4ce7658ddd-r0/git/<wbr>=
+driver/sysfs.o&quot;;=20
+<br>&gt; fi; fi;
+<br>&gt; | cc1: all warnings being treated as errors
+<br>&gt; | make[5]: ***=20
+<br>&gt; [/home/parth/AGL/build-agl-<wbr>jailhouse-rpi/tmp/work-shared/<wbr=
+>raspberrypi4-64/kernel-so
+<br>&gt; urce/scripts/Makefile.build:<wbr>303:=20
+<br>&gt; /home/parth/AGL/build-agl-<wbr>jailhouse-rpi/tmp/work/<wbr>raspber=
+rypi4_64
+<br>&gt; -agl-linux/jailhouse/0.12+<wbr>gitAUTOINC+4ce7658ddd-r0/git/<wbr>d=
+river/cell.o]=20
+<br>&gt; Error 1
+<br>&gt; | make[5]: *** Waiting for unfinished jobs....
+<br>&gt; | if [ &quot;-pg&quot; =3D &quot;-pg&quot; ]; then if [=20
+<br>&gt; /home/parth/AGL/build-agl-<wbr>jailhouse-rpi/tmp/work/<wbr>raspber=
+rypi4
+<br>&gt; _64-agl-linux/jailhouse/0.12+<wbr>gitAUTOINC+4ce7658ddd-r0/git/<wb=
+r>driver/pci.o=20
+<br>&gt; !=3D &quot;scripts/mod/empty.o&quot; ]
+<br>&gt; ; then ./scripts/recordmcount=20
+<br>&gt; &quot;/home/parth/AGL/build-agl-<wbr>jailhouse-rpi/tmp/work/<wbr>r=
+aspberrypi4_64-agl-linux/<wbr>jailhouse/0.12+gitAUTOINC+<wbr>4ce7658ddd-r0/=
+git/driver/pci.<wbr>o&quot;;=20
+<br>&gt; fi; fi;
+<br>&gt; | make[4]: ***=20
+<br>&gt; [/home/parth/AGL/build-agl-<wbr>jailhouse-rpi/tmp/work-shared/<wbr=
+>raspberrypi4-64/kernel-source/<wbr>scripts/Makefile.build:544:=20
+<br>&gt; /home/parth/AGL/build-agl-<wbr>jailhouse-rpi/tmp/work/<wbr>raspber=
+rypi4_64-agl-linux/<wbr>jailhouse/0.12+gitAUTOINC+<wbr>4ce7658ddd-r0/git/dr=
+iver]=20
+<br>&gt; Error 2
+<br>&gt; | make[3]: ***=20
+<br>&gt; [/home/parth/AGL/build-agl-<wbr>jailhouse-rpi/tmp/work-shared/<wbr=
+>raspberrypi4-64/kernel-source/<wbr>Makefile:1527:=20
+<br>&gt; _module_/home/parth/AGL/build-<wbr>agl-jailhouse-rpi/tmp/work/<wbr=
+>raspberrypi4_64-agl-linux/<wbr>jailhouse/0.12+gitAUTOINC+<wbr>4ce7658ddd-r=
+0/git]=20
+<br>&gt; Error 2
+<br>&gt; | make[2]: *** [Makefile:146: sub-make] Error 2
+<br>&gt; | make[1]: *** [Makefile:24: __sub-make] Error 2
+<br>&gt; | make: *** [Makefile:40: modules] Error 2
+<br>&gt; | WARNING:=20
+<br>&gt; /home/parth/AGL/build-agl-<wbr>jailhouse-rpi/tmp/work/<wbr>raspber=
+rypi4_64-agl-linux/<wbr>jailhouse/0.12+gitAUTOINC+<wbr>4ce7658ddd-r0/temp/r=
+un.do_<wbr>compile.24833:1=20
+<br>&gt; exit 1 from &#39;exit 1&#39;
+<br>&gt; |
+<br>&gt; ERROR: Task=20
+<br>&gt; (/home/parth/meta-yocto-<wbr>jailhouse-rpi4/recipes-kernel/<wbr>ja=
+ilhouse/jailhouse_git.bb:do_<wbr>compile)=20
+<br>&gt; failed with exit code &#39;1&#39;
+<br>&gt; NOTE: Tasks Summary: Attempted 1466 tasks of which 1465 didn&#39;t=
+ need to=20
+<br>&gt; be rerun and 1 failed.
+<br>&gt;=20
+<br>&gt; Summary: 1 task failed:
+<br>&gt; /home/parth/meta-yocto-<wbr>jailhouse-rpi4/recipes-kernel/<wbr>jai=
+lhouse/jailhouse_git.bb:do_<wbr>compile
+<br>&gt; Summary: There were 2 WARNING messages shown.
+<br>&gt; Summary: There were 2 ERROR messages shown, returning a non-zero e=
+xit code.
+<br>&gt;=20
+<br>
+<br>I suspect your target kernel lacks CONFIG_HOTPLUG_CPU=3Dy. See=20
+<br>jailhouse-images for a know-to-work reference config.
+<br>
+<br>Also note that you will need an ATF-based boot on the RPi4, just in cas=
+e=20
+<br>you didn&#39;t spot that dependency yet. Again, jailhouse-images is the=
 =20
-> !=3D "scripts/mod/empty.o"
-> ]; then ./scripts/recordmcount=20
-> "/home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4_6
-> 4-agl-linux/jailhouse/0.12+gitAUTOINC+4ce7658ddd-r0/git/driver/sysfs.o";=
-=20
-> fi; fi;
-> | cc1: all warnings being treated as errors
-> | make[5]: ***=20
-> [/home/parth/AGL/build-agl-jailhouse-rpi/tmp/work-shared/raspberrypi4-64/=
-kernel-so
-> urce/scripts/Makefile.build:303:=20
-> /home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4_64
-> -agl-linux/jailhouse/0.12+gitAUTOINC+4ce7658ddd-r0/git/driver/cell.o]=20
-> Error 1
-> | make[5]: *** Waiting for unfinished jobs....
-> | if [ "-pg" =3D "-pg" ]; then if [=20
-> /home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4
-> _64-agl-linux/jailhouse/0.12+gitAUTOINC+4ce7658ddd-r0/git/driver/pci.o=20
-> !=3D "scripts/mod/empty.o" ]
-> ; then ./scripts/recordmcount=20
-> "/home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4_64-agl-lin=
-ux/jailhouse/0.12+gitAUTOINC+4ce7658ddd-r0/git/driver/pci.o";=20
-> fi; fi;
-> | make[4]: ***=20
-> [/home/parth/AGL/build-agl-jailhouse-rpi/tmp/work-shared/raspberrypi4-64/=
-kernel-source/scripts/Makefile.build:544:=20
-> /home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4_64-agl-linu=
-x/jailhouse/0.12+gitAUTOINC+4ce7658ddd-r0/git/driver]=20
-> Error 2
-> | make[3]: ***=20
-> [/home/parth/AGL/build-agl-jailhouse-rpi/tmp/work-shared/raspberrypi4-64/=
-kernel-source/Makefile:1527:=20
-> _module_/home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4_64-=
-agl-linux/jailhouse/0.12+gitAUTOINC+4ce7658ddd-r0/git]=20
-> Error 2
-> | make[2]: *** [Makefile:146: sub-make] Error 2
-> | make[1]: *** [Makefile:24: __sub-make] Error 2
-> | make: *** [Makefile:40: modules] Error 2
-> | WARNING:=20
-> /home/parth/AGL/build-agl-jailhouse-rpi/tmp/work/raspberrypi4_64-agl-linu=
-x/jailhouse/0.12+gitAUTOINC+4ce7658ddd-r0/temp/run.do_compile.24833:1=20
-> exit 1 from 'exit 1'
-> |
-> ERROR: Task=20
-> (/home/parth/meta-yocto-jailhouse-rpi4/recipes-kernel/jailhouse/jailhouse=
-_git.bb:do_compile)=20
-> failed with exit code '1'
-> NOTE: Tasks Summary: Attempted 1466 tasks of which 1465 didn't need to=20
-> be rerun and 1 failed.
->=20
-> Summary: 1 task failed:
-> /home/parth/meta-yocto-jailhouse-rpi4/recipes-kernel/jailhouse/jailhouse_=
-git.bb:do_compile
-> Summary: There were 2 WARNING messages shown.
-> Summary: There were 2 ERROR messages shown, returning a non-zero exit cod=
-e.
->=20
+<br>reference.
+<br>
+<br>Jan
+<br>
+<br>--=20
+<br>Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+<br>Corporate Competence Center Embedded Linux
+<br></blockquote></div></div>
 
-I suspect your target kernel lacks CONFIG_HOTPLUG_CPU=3Dy. See=20
-jailhouse-images for a know-to-work reference config.
+<p></p>
 
-Also note that you will need an ATF-based boot on the RPi4, just in case=20
-you didn't spot that dependency yet. Again, jailhouse-images is the=20
-reference.
-
-Jan
-
---=20
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/eb8f71d2-b861-4136-2968-fa2407c7207a%40siemens.com.
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/5d346985-f668-4940-8f6f-520f72cf1842o%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/5d346985-f668-4940-8f6f-520f72cf1842o%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_2796_541743720.1594988154590--
+
+------=_Part_2795_2119338829.1594988154589--
