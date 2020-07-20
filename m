@@ -1,73 +1,56 @@
-Return-Path: <jailhouse-dev+bncBDSMF24UTUGRBG7WZ74AKGQESURTZFA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCT7DIPSUIGBBV442X4AKGQEUT2B5CY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x33c.google.com (mail-ot1-x33c.google.com [IPv6:2607:f8b0:4864:20::33c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1997722507A
-	for <lists+jailhouse-dev@lfdr.de>; Sun, 19 Jul 2020 09:49:49 +0200 (CEST)
-Received: by mail-ot1-x33c.google.com with SMTP id i5sf6414341ots.7
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 19 Jul 2020 00:49:49 -0700 (PDT)
+Received: from mail-ot1-x33b.google.com (mail-ot1-x33b.google.com [IPv6:2607:f8b0:4864:20::33b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 90DE3225983
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 20 Jul 2020 09:57:13 +0200 (CEST)
+Received: by mail-ot1-x33b.google.com with SMTP id z23sf7702421ote.14
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 20 Jul 2020 00:57:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=cuH8i2hNaeJPBKSGkOrgLBp1jYXSz3zrqV20t2QdNkg=;
-        b=CddlNpk8RaAC8HKW65826ziCVDs422luHak8D1/K+ziTfXfr4oKpb2vnezXA3sny3H
-         UtwawDRvK+nNKc/zqBuYI8cD/QIL6Y95O5fdcKbDC63qnQgj6Y7ZTpINn8nbSSTOFvg7
-         tqCHOT1BNEDVZo7VDoXoR6QNZQUS2FCU7cMPUDpLqJQwD2TZpUEvP1BDSXIY0BT8zrKT
-         hqDHtGkPEb4F6TCt3bQZCd8jbdZr87nkx+vOOv1umCh0KKO1+nQ6iQdyL2h2UgQZscMa
-         AFpuyK2svQlrD+3UqUqEDg8wvKq31VHICCus6Aa9WR4VdliFsFGg4k1YhZsu03XZX7l7
-         WPPA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+        h=sender:date:from:to:message-id:subject:mime-version
          :x-original-sender:precedence:mailing-list:list-id:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=cuH8i2hNaeJPBKSGkOrgLBp1jYXSz3zrqV20t2QdNkg=;
-        b=Lvl0fRVmL/4Df7/JhPxk27cwwQunFYIN+Jdid6VRIXEzr6FvGrUNBNjMYIFxpyMiWq
-         wuoGhq6G7eNhlApWRvqIeN/tCL8Ewwstu+GkDj/LsTIPeB5DvJPyxw3mrztM+GgMmspV
-         saElD0vQBuaGq48j6afgRORyxaeUyRa/loXfesRnJDAm2ON7dRK6MulgpmL+It/m49GN
-         5jU5fB96K9IBQT95CxWDu3VNHUSODAndVrm5dVGx/AvWvyiDLlOGgmAT3pSnwxft69f3
-         ivmbvWVSXntpfIj5Mvxo7D4yeodfQkNEc6nwKQuo+lhwzG29kY2HUQ1rS1L6b5/2qNt1
-         TCwg==
+        bh=S8RWW2d7LJDeTLXJmJSbVixK46FiI+AHZ26uWG/kHB4=;
+        b=LmxeTEdJo+VIv0N1/FriIPeHoMle0H/8bOa3Wj7MgGNVc6AcK5l7SDgkKQqE3h9LE5
+         /jpnJOcqge0N/UfN90kzfCz3AL6Q9q83EimFORLsqU1z+wBZjZBzTWW8FOpHBM26OnKI
+         21yjtQPx3ZwihaxvdAYr8tnByIL7JK36gYsZ2HDbTVhhis60BWMPw6wVmM0uCUNGE+TS
+         MffjMihO2xRMuHB6/TaPADceaAlXlA8BSNlfDuo2R0BKLTOdQOVFYwCdqcXIFtoVatjD
+         TmPXXSb4JJ/rhy8F1YBpNkATJhnjdYkd7BaS+q2Big2082bHRA7mUtSx7ZdT136RzpJJ
+         8RQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=cuH8i2hNaeJPBKSGkOrgLBp1jYXSz3zrqV20t2QdNkg=;
-        b=KAf+GRKdaBwQiTSrijG1yNLGw2+FwmzGNPf15AOZ4sd0rrbejdAw2S09F9o4cA7lBb
-         8r9AcIXcUiuLLzqoLBZ+WTLYbjtMmGtaKylbQjOBh94TOK8JFeU5GI1asM8z6glX0WXS
-         lx4Qw+o6s/QhYl8aNo4FWs3ywMnN2B7QJ6yMcH4Nsxm5xwxFl+tDYapv+G2SpPw+VWK3
-         4cvWpTVqsFolxnYbOsK/dcMohEgGlVStA7TgMF/S2oguNeF3Zh1ZwKS0AXP28RXdIw2K
-         OokomqSbwgtCGQtQUXpFQnoC5SBjQavSYBAaOGWIJUU6DxBVTnjsu/3+Up8R7HSu00mU
-         kgZg==
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=S8RWW2d7LJDeTLXJmJSbVixK46FiI+AHZ26uWG/kHB4=;
+        b=PXwMLeqTyZ+Br2/A/w3VA9MUQlbsw9j+GNwGvseydpGDVwyuKCCxyI7LR4A1VP3Qrh
+         7GNNuRh6ARLX0DeO1eXkL5WRkDidxrqrnY0+w93lekz3IHoUeB29J8P76bG6A9kOgNMr
+         IoHXUyOX9whmqviJhwrwQkoawxaeyfk2kns8vTu81qqctBw82rUOVRL7dKwOahFgJEDU
+         1RaVpOSjJaDI+YKVUTF7mxWpEryKjvP4iqXDhp2ikHlEbmKqneM/EbqN/pjwthno7h4H
+         Xt1f5mlm+Dt/EhFbITn0x9E352tHpFJtq3tH6i7HL/Tz6bjsgbefuyPsOm4JQor9F0yc
+         BPKg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532gWJ+EzuleAfFcO6N+ZMVCKY14DkWrgZx4CoYTwrPd4so6Amsn
-	DhzGwAoO9bxTQxLlUHEeiXE=
-X-Google-Smtp-Source: ABdhPJx8JM39FxmD4Lc6TCSVgtTbJiwSQPSw1ws1ABHGOS06QsMWSkzTKp+EnpdLWa+2bnroeRna7w==
-X-Received: by 2002:a9d:6659:: with SMTP id q25mr13988962otm.330.1595144987692;
-        Sun, 19 Jul 2020 00:49:47 -0700 (PDT)
+X-Gm-Message-State: AOAM5327QvOAFktaM0qUv+Ijee8DmBomD53R4OkVW8WXF1J3dxrDGlRB
+	kOfHakF0bkiTYnJdgSaUkGw=
+X-Google-Smtp-Source: ABdhPJwSzl7rmlfv+5P0D9c39rr8EAWCN42gMhEprwMkzIxCZIZkXi857hlZDfl+ZhA5k53r1tzTAQ==
+X-Received: by 2002:aca:8d2:: with SMTP id 201mr15921413oii.7.1595231832053;
+        Mon, 20 Jul 2020 00:57:12 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aca:c38e:: with SMTP id t136ls2280061oif.10.gmail; Sun, 19
- Jul 2020 00:49:47 -0700 (PDT)
-X-Received: by 2002:aca:50d5:: with SMTP id e204mr14125869oib.60.1595144986947;
-        Sun, 19 Jul 2020 00:49:46 -0700 (PDT)
-Date: Sun, 19 Jul 2020 00:49:46 -0700 (PDT)
-From: Parth Dode <dodecoder@gmail.com>
+Received: by 2002:aca:f413:: with SMTP id s19ls2684114oih.8.gmail; Mon, 20 Jul
+ 2020 00:57:11 -0700 (PDT)
+X-Received: by 2002:aca:b809:: with SMTP id i9mr17536962oif.174.1595231831186;
+        Mon, 20 Jul 2020 00:57:11 -0700 (PDT)
+Date: Mon, 20 Jul 2020 00:57:10 -0700 (PDT)
+From: Rick Xu <cutfield@126.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <e0b7a626-4ea2-4e79-a749-ff96e97c4974o@googlegroups.com>
-In-Reply-To: <f0166430-3052-799e-acb4-c01ecbf86b25@siemens.com>
-References: <375baf50-dcb2-486b-9ddf-3de231f22ea8o@googlegroups.com>
- <eb8f71d2-b861-4136-2968-fa2407c7207a@siemens.com>
- <5d346985-f668-4940-8f6f-520f72cf1842o@googlegroups.com>
- <f0166430-3052-799e-acb4-c01ecbf86b25@siemens.com>
-Subject: Re: error: implicit declaration of function 'cpu_down'
+Message-Id: <4f73eee2-1784-4049-8fc0-6a889e2ea419o@googlegroups.com>
+Subject: Is Jailhouse already used on products? And if not what's the gap?
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_3107_493136694.1595144986236"
-X-Original-Sender: dodecoder@gmail.com
+	boundary="----=_Part_3360_1337938976.1595231830645"
+X-Original-Sender: cutfield@126.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -80,28 +63,44 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_3107_493136694.1595144986236
+------=_Part_3360_1337938976.1595231830645
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_3108_1054908243.1595144986236"
+	boundary="----=_Part_3361_2074833963.1595231830645"
 
-------=_Part_3108_1054908243.1595144986236
+------=_Part_3361_2074833963.1595231830645
 Content-Type: text/plain; charset="UTF-8"
 
-I apologise for top posting .
-
-Parth
+Hi,
+    I'm very interested in this project. 
+For 3 reasons, first, it uses a LINUX as a host OS and then changes it to a 
+guest OS, so a running host OS was saved. 
+Second, less virtualization and more real-time. 
+Third,  it's easy to use.
+So, I want to evaluate the feasibility of using it in an automotive system.
+I want to know is it mature enough to already been used in some products, 
+so I can use this information to enhance the customer's confidence. 
+And if it has not been used for products, why?
+Looking forward to your reply.
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/e0b7a626-4ea2-4e79-a749-ff96e97c4974o%40googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/4f73eee2-1784-4049-8fc0-6a889e2ea419o%40googlegroups.com.
 
-------=_Part_3108_1054908243.1595144986236
+------=_Part_3361_2074833963.1595231830645
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">I apologise for top posting .<div><br></div><div>Parth</di=
-v></div>
+<div dir=3D"ltr">Hi,<div>=C2=A0 =C2=A0 I&#39;m very interested in this proj=
+ect.=C2=A0</div><div>For 3 reasons, first, it uses a LINUX as a host OS and=
+ then changes it to a guest OS, so a running host OS was saved.=C2=A0</div>=
+<div>Second, less virtualization and more real-time.=C2=A0</div><div>Third,=
+=C2=A0 it&#39;s easy to use.</div><div>So, I want to evaluate the feasibili=
+ty of using it in an automotive system.</div><div>I want to know is it matu=
+re enough to already been used in some products, so I can use this informat=
+ion to enhance the customer&#39;s confidence.=C2=A0</div><div>And if it has=
+ not been used for products, why?</div><div>Looking forward to your reply.<=
+br></div></div>
 
 <p></p>
 
@@ -112,11 +111,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/e0b7a626-4ea2-4e79-a749-ff96e97c4974o%40googlegrou=
+om/d/msgid/jailhouse-dev/4f73eee2-1784-4049-8fc0-6a889e2ea419o%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/e0b7a626-4ea2-4e79-a749-ff96e97c4974o%40googlegroups.co=
+msgid/jailhouse-dev/4f73eee2-1784-4049-8fc0-6a889e2ea419o%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_3108_1054908243.1595144986236--
+------=_Part_3361_2074833963.1595231830645--
 
-------=_Part_3107_493136694.1595144986236--
+------=_Part_3360_1337938976.1595231830645--
