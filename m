@@ -1,72 +1,129 @@
-Return-Path: <jailhouse-dev+bncBD7236HKXYJRBLHZ3P4AKGQENWRQCOY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB6ER3T4AKGQE67TAFSY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oo1-xc3b.google.com (mail-oo1-xc3b.google.com [IPv6:2607:f8b0:4864:20::c3b])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7E68228243
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Jul 2020 16:33:17 +0200 (CEST)
-Received: by mail-oo1-xc3b.google.com with SMTP id d143sf9742381oob.4
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Jul 2020 07:33:17 -0700 (PDT)
+Received: from mail-wm1-x33d.google.com (mail-wm1-x33d.google.com [IPv6:2a00:1450:4864:20::33d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3412A2283B1
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Jul 2020 17:25:45 +0200 (CEST)
+Received: by mail-wm1-x33d.google.com with SMTP id l5sf1364505wml.7
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Jul 2020 08:25:45 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1595345145; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=vEdtKGcB2ibxb+yjsg+rY4SxvSowdPj0voBNcuXY9DwYudQKFcf4k8xd5aFPzhJYIf
+         jddKZAFH2w8sGHk55xOnnyQv1UpW74HIoAzIN2ITKWXaeImt/YMvy/54NMcN4Tqnd9a0
+         onmPKxNJ9CNA8aCzQ1kMD8ypc7fuasDSOR9WKTOVSA/dMqUoxtFKPTP/Eigu9pHWyCA8
+         GfV5pjiJYgVq44G3twLSSRI8C5Z3orr8FqDiedUtjreaPKa4jm0oSTiEoqemFkXc/0WT
+         In3dOCqvOPs7mrQQuCTLgHvSXedERKu0i5XPtm2FtSED1w7Ma7UVb6UgUh9Feo17Hcpv
+         w2sw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=rzIRYZPB2pcX5QcNKhoh6t7diFTnSrgJUiG5nw+1q4g=;
+        b=bS+TO9T5SKn6OnfMfa2NcugEsApNTSxC9qQ/8zXWxMtm10oBZkaEn3XBE7YUIXHhK9
+         ZoMvD30tozl/nUjDCtKCaGLMgavfg8JET2SnQmUX5tb9i4igHYGJZRR7JjCe+GJFvasu
+         X1nqv15YeTlKJVQV0T23Aav8kUplC4hvDSKB0zBzAjuA8XOB39Q0BsFui7UEpk/wcw24
+         anfF1zawYh4u55p/sT8Q+/SJXiRck38xImnriDEWp87sq6p4NyI7vxhXMUgreK/N7QKh
+         iSuHLZpfoDlJwzSLPYluhLSIgzd9kSuJYTVZEvAhsWEgNCrGKrE/+CB5GDVBwFkqZMJc
+         015A==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=b1rVHYsNWlb9JwCTjyN2sUW3OyfnX4xvnkn2ZZcF5MM=;
-        b=bmwHkzVe4OhRI28KB3ukfi9dPnO/0ok1vGf/p6WTWn12iHlswu3AOLZJvgDbhCSBeE
-         ZXSF4xkDYZNTbhE6mYLP0LGjB+zdX3HemHj2VkALvlqhfZZtC/c/3HepBK57NTJeVvQh
-         cSL7xosa67xq7lr746kFg7Hrz1A9CtwoXyf5zbxCSLYcDYrG6LvFqWilmMO3yltIlCSm
-         xsj7anVzfs0pnrHGzMS7xzPw8tTv02+MRrnc89zimLvMJTnYc4OtN8oRNoQQIZgNcRCL
-         mEdXDSKHS1nB1U0B1cjHuXHxuCuT4iZGedYO7rvBxUtsxCrRPOQHfvW2RzfZ++iL/Twg
-         ItjA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=b1rVHYsNWlb9JwCTjyN2sUW3OyfnX4xvnkn2ZZcF5MM=;
-        b=aTv+FlmxB69B9HO2FtMSsah4SG3zsX90avIaIR5qrDHOjppO3U8Wrq1UjDnyZ2PFuM
-         L1plIG70tjaBtDzrcE4nqWvJfVxtSOUFLLTeTERzNwHoRH4/YB4wj7zRZaJvCdhS1iSU
-         Ca3bdM5cWgWpMQsEJ7mDEmCM/rNwTVUAwVlv49Qe9b3hsJZaP3u/2VEBxD+YG9uiyl/i
-         qJ3FdApe2r5fyGw/jkHJUnZdCQqm6Un4is6Wz88B9a0YwDwOaPXyk6Fj7WGGGV1iaUdG
-         V1+Bk0z4Zea4xbqNfAJFVXlrEJUR3lw4URHXNxxP8nJA+DNexQIFP1/xTIpAwwXPoRDM
-         TTQg==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=rzIRYZPB2pcX5QcNKhoh6t7diFTnSrgJUiG5nw+1q4g=;
+        b=HpW3aBL8BiFwoyjRtLaHgeWrH2sqlXn76hQgpbbCmVCM0ljW0x4x4K2T8qzY5uWQ3j
+         AU1dRS7czhQFV9R8k1QgdizvOXDfLcg3qSRBSoWf1ZrouAzZisZP8R/WUuv3jzKBmCrO
+         VeZImyzsEx2ntnOWxjQYmqxycuzpK3eKmK8haylXXkAx5bGu22UBhetF/4XBOXkxEVVG
+         zvZq9ymxQBI0ChgivfkXLU923lubnYlC4JUto93hHAevqgy6X7l6qYZT0bhBMO2cGyG2
+         HmUD/cDNwQb5/IJODEkRCBYRbplcC4ASnGLLTIpdk9nJn4Y5JD/uIJbTm8uMJRVa5g71
+         dnqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=b1rVHYsNWlb9JwCTjyN2sUW3OyfnX4xvnkn2ZZcF5MM=;
-        b=GPmW1rvJAialRppCzhPUaBer1rzUBWPszhIaL/LKLrrudU7g8wutn7iIq9fA562DoF
-         HWwUdWBOgV8rD2sKHKCGRS4QKmoxUWZHVvOam7vitawaPkqZabk3sjs9/OQn7alAVr1X
-         djUAHOr80RdekxTeCnT+t2S/f7hC6PZm9ZUVkG9fe9MaMc+FZxPjO1tcMPhBRWbFjWwL
-         HUTF1X+myWSO4Nz1lZw/mBLyk7PYVPo7rnUx2cpIcylAq9B8F4WIjU+a47seAxilduvb
-         QEeNTdrK6m1242+gyKIfnnBLFMmxAxMieZlzPuA86x9oFvHvIcLa/5JMS29EJc2/K0mt
-         YKTQ==
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=rzIRYZPB2pcX5QcNKhoh6t7diFTnSrgJUiG5nw+1q4g=;
+        b=K7wrz6G/21u20CtIcvhX+zzpMkRj3d6KyMrbDfo8bhXHe5hxDSJKbUuAXZh8cQ7HTP
+         N4o+6mTxV3lJ/MmBXuNHxcPWyMOglNaMrZgsVjSwveol1Pmb983i5HkoE9tY/eFtC5Hl
+         tyHajygBpKVgILOT7s2Lx/0LC6xXE1dCcvQzWiVmzrAceWN0ibD3Ola/zLodrOqsDr91
+         0QRZ0YX7rUiXfmjmaf6KJFBVFLihplKsuqKLhc0v31ewM9hEq0Xd//eMWJMkKLX3c2va
+         GPqbuQsjl0dovLLviFf2sG/kVDeY3h0/gOmpiATx/pJRefoN6xIf8CTHEdipG6Hk24y6
+         H8bA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531cfIMk7Oz/rNUG51MoQPGqQA2Dpp0Ce4pJ5rGHPMOWERh2me2r
-	0dlzrROWGwgnIK1Qurfd240=
-X-Google-Smtp-Source: ABdhPJz5oon4kNIPuhSCeIMO2QFPaKZnitqlBMpf6eKTAHQyeqB3jbWPqSr0Ge7useMx2C3fh5m0pQ==
-X-Received: by 2002:a9d:eee:: with SMTP id 101mr26162071otj.203.1595341996524;
-        Tue, 21 Jul 2020 07:33:16 -0700 (PDT)
+X-Gm-Message-State: AOAM530TqidrfOa4WFuvEvtmZfi7WEoG6e4hZuh5rY5cEGki6GDTg1eP
+	xh/am7xOmaAdqNKp+/oBMf4=
+X-Google-Smtp-Source: ABdhPJxHbIl8wcOtYo511g772/r99RFgim4Aj7qAKn/Up/mwCXJaBAYzlZlo02LzFZC8uA48rxk0Mg==
+X-Received: by 2002:a05:600c:2317:: with SMTP id 23mr4729875wmo.72.1595345144856;
+        Tue, 21 Jul 2020 08:25:44 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6830:1247:: with SMTP id s7ls3972095otp.0.gmail; Tue, 21
- Jul 2020 07:33:15 -0700 (PDT)
-X-Received: by 2002:a05:6830:15cc:: with SMTP id j12mr25244479otr.116.1595341995491;
-        Tue, 21 Jul 2020 07:33:15 -0700 (PDT)
-Date: Tue, 21 Jul 2020 07:33:14 -0700 (PDT)
-From: "contact....@gmail.com" <contact.thorsten@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <526c5075-2422-4c20-9563-08e2b166d60fn@googlegroups.com>
-In-Reply-To: <1e8a7abd-91e8-26b2-3446-e9734bcf8d86@siemens.com>
+Received: by 2002:a1c:a587:: with SMTP id o129ls1488448wme.2.canary-gmail;
+ Tue, 21 Jul 2020 08:25:44 -0700 (PDT)
+X-Received: by 2002:a7b:ce97:: with SMTP id q23mr4587455wmj.89.1595345144077;
+        Tue, 21 Jul 2020 08:25:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1595345144; cv=none;
+        d=google.com; s=arc-20160816;
+        b=SD7yIDZKU6rYK654Emq98B7lhtm9ZHpW0fPnDcw+4psTQI7DPL9j3cyGmeXFLwPByI
+         xA5QswnTzOhK7mk4CfFeGL5noZD10nxTcbp2/kGpTE0yVqPfbnIbj3arzAHVW5tspI/3
+         rvMVuE+7S6KbpcwN5jTJSVlJ7L9EVBqO+6XJ0oJi+k+HHNkdnY8u6mKt31VJHE+YQF+t
+         mZ+/9S4OdoRiY/NzdpELn7WM0Zy6VYbS1SkMoL/7FEEs/NZaqsHqYyVjMMHyB5l5rDtD
+         edhhicuF/k+ddV9oDMo3jEX0nfHwnoeZd7hnCYsXSc4lUZLEsiKgg0RMRFhAv4ZCdn8X
+         p3Lw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=1Pf7ZfL44r96mekXIVIu+KPxifipXKXbwN/0KQsu/08=;
+        b=x7ia0BmZDP31CKpm0ZSwLLGDitwDyQnpsjw4lCakSZaCcNFY/2dYqphQCNhC9/FHEw
+         XBom4K2qalpkVxQ6HpGj8la3qcUBqabSEyLLME/81C6sHuADiovAvkI8+zKvOcfScjLt
+         zGD+5bR96K63tMNwp7/X53ZcUws+EmSHLuWwGrnkh9Dvv+eFTFeKTF6oo+Pd3OYunpAn
+         7M+OpRoczQ2OqZ3yVhGlP3+ZWpVXRs1L0iARk2bNFcEtJIalwlak+56cn04PybY7CGPg
+         vJrznZKDb/XRwTmOdyVBFsoXwUflLDu68jb27Qtr9ZxhxSgbsHeDV3+RdTLa5i9ZD6dT
+         xxYA==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
+        by gmr-mx.google.com with ESMTPS id s79si133701wme.4.2020.07.21.08.25.43
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 21 Jul 2020 08:25:44 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 06LFPgeG002104
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 21 Jul 2020 17:25:42 +0200
+Received: from [167.87.32.116] ([167.87.32.116])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 06LFPgIH021880;
+	Tue, 21 Jul 2020 17:25:42 +0200
+Subject: Re: Is Jailhouse already used on products? And if not what's the gap?
+To: "contact....@gmail.com" <contact.thorsten@gmail.com>,
+        Jailhouse <jailhouse-dev@googlegroups.com>
 References: <4f73eee2-1784-4049-8fc0-6a889e2ea419o@googlegroups.com>
  <1e8a7abd-91e8-26b2-3446-e9734bcf8d86@siemens.com>
-Subject: Re: Is Jailhouse already used on products? And if not what's the
- gap?
+ <526c5075-2422-4c20-9563-08e2b166d60fn@googlegroups.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <53766782-fbb9-d91f-592d-bc932955bafa@siemens.com>
+Date: Tue, 21 Jul 2020 17:25:42 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_572_1520671842.1595341994156"
-X-Original-Sender: contact.thorsten@gmail.com
+In-Reply-To: <526c5075-2422-4c20-9563-08e2b166d60fn@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -79,146 +136,120 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_572_1520671842.1595341994156
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_573_302282371.1595341994156"
-
-------=_Part_573_302282371.1595341994156
-Content-Type: text/plain; charset="UTF-8"
-
-I have been reluctant to ask this question for quite a while, especially 
-from third perspective security, which actually goes hand-in-hand with the 
-second.
-
-Jan schrieb am Montag, 20. Juli 2020 um 23:27:54 UTC+2:
-
-> On 20.07.20 09:57, Rick Xu wrote: 
-> > For 3 reasons, first, it uses a LINUX as a host OS and then changes it 
-> > to a guest OS, so a running host OS was saved. 
-> > Second, less virtualization and more real-time. 
-> > Third,  it's easy to use. 
-> > [..]
-> > And if it has not been used for products, why?
->
- 
-From my last months' view of setting up an academical use-case of a mixed 
-criticality/mixed security-level system, from the perspective of an 
-application-oriented engineer, I would not agree on the term 'easy'. I have 
-also setup my use-case using other hypervisors, which I would consider 
-'easier', but I hit other barriers. Though, everything has pros and cons 
-and I may be comparing apples with chocolate cheesecake, not blaming anyone.
-It is really cool to see the improved features and the HW support growing 
-on ARM systems. At this point, I find Jailhouse being quite tightly 
-interwoven with its underlying HW, in other words, without excellent 
-knowledge of the HW, setting up JH is really hard.
-If I had only one wish, it would be improving the documentation for 
-Jailhouse integrators.
-
-Jailhouse is primarily useful in two application areas. [...]
->
-> The second, still more research-like area is functional safety. This is 
-> our (Siemens) primary focus with Jailhouse. And while we are still 
-> waiting for and even collaborating on developing [3] a certifiable [...]
->
- 
-The Selene Project sounds interesting, all the best with that!
-I am/was working on a project on mixed-criticality security certification 
-and certifiable HW really is still a blind spot. (what about, "we just 
-_trust_ Intel processors to do the right thing"?!)
-
-I believe, in the not so far future a good portion of mixed-criticality 
-systems will also require security certification (to prove integrity of the 
-safety function). Nothing can function in a void. Any (modern) critical 
-functionality requires some sort of networking / data exchange and it is 
-quite wise to split that off into different cells, so there are different 
-certification levels - both in terms of safety (thorough, long-term) and of 
-security (quick update/patches). Jailhouse really shows how much we trust 
-in the underlying HW for these separation guarantees.
-There are evolving security standards like ISO62443, or, e.g., its 
-derivative EN 50701 for railway. However, from my current understanding 
-Jailhouse is still too "low-level" and would require more tooling and 
-documentation to enable "easy" product certification. And this could become 
-a professional/commercial service beyond the open-source initiative or 
-requires additional forces in the product development.
-
-cheers,
-Thorsten
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/526c5075-2422-4c20-9563-08e2b166d60fn%40googlegroups.com.
-
-------=_Part_573_302282371.1595341994156
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-I have been reluctant to ask this question for quite a while, especially fr=
-om third perspective security, which actually goes hand-in-hand with the se=
-cond.<br><br><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_at=
-tr">Jan schrieb am Montag, 20. Juli 2020 um 23:27:54 UTC+2:<br></div><block=
-quote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-left: 1px =
-solid rgb(204, 204, 204); padding-left: 1ex;">On 20.07.20 09:57, Rick Xu wr=
-ote:
-<br>&gt; For 3 reasons, first, it uses a LINUX as a host OS and then change=
-s it=20
-<br>&gt; to a guest OS, so a running host OS was saved.
-<br>&gt; Second, less virtualization and more real-time.
-<br>&gt; Third,&nbsp; it's easy to use.
-<br>&gt; [..]<br>&gt; And if it has not been used for products, why?<br></b=
-lockquote><div>&nbsp;</div><div>From my last months' view of setting up an =
-academical use-case of a mixed criticality/mixed security-level system, fro=
-m the perspective of an application-oriented engineer, I would not agree on=
- the term 'easy'. I have also setup my use-case using other hypervisors, wh=
-ich I would consider 'easier', but I hit other barriers. Though, everything=
- has pros and cons and I may be comparing apples with chocolate cheesecake,=
- not blaming anyone.</div><div>It is really cool to see the improved featur=
-es and the HW support growing on ARM systems. At this point, I find Jailhou=
-se being quite tightly interwoven with its underlying HW, in other words, w=
-ithout excellent knowledge of the HW, setting up JH is really hard.</div><d=
-iv>If I had only one wish, it would be improving the documentation for Jail=
-house integrators.</div><div><br></div><blockquote class=3D"gmail_quote" st=
-yle=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padd=
-ing-left: 1ex;">Jailhouse is primarily useful in two application areas. [..=
-.]<br>
-<br>The second, still more research-like area is functional safety. This is=
+On 21.07.20 16:33, contact....@gmail.com wrote:
+> I have been reluctant to ask this question for quite a while, especially=
 =20
-<br>our (Siemens) primary focus with Jailhouse. And while we are still=20
-<br>waiting for and even collaborating on developing [3] a certifiable=20
-[...]<br></blockquote><div>&nbsp;</div><div>The Selene Project sounds inter=
-esting, all the best with that!</div><div>I am/was working on a project on =
-mixed-criticality security certification and certifiable HW really is still=
- a blind spot. (what about, "we just _trust_ Intel processors to do the rig=
-ht thing"?!)</div><div><br></div><div>I believe, in the not so far future a=
- good portion of mixed-criticality systems will also require security certi=
-fication (to prove integrity of the safety function). Nothing can function =
-in a void. Any (modern) critical functionality requires some sort of networ=
-king / data exchange and it is quite wise to split that off into different =
-cells, so there are different certification levels - both in terms of safet=
-y (thorough, long-term) and of security (quick update/patches). Jailhouse r=
-eally shows how much we trust in the underlying HW for these separation gua=
-rantees.</div><div>There are evolving security standards like ISO62443, or,=
- e.g., its derivative EN 50701 for railway. However, from my current unders=
-tanding Jailhouse is still too "low-level" and would require more tooling a=
-nd documentation to enable "easy" product certification. And this could bec=
-ome a professional/commercial service beyond the open-source initiative or =
-requires additional forces in the product development.<br></div><div><br></=
-div><div>cheers,<br></div><div>Thorsten<br></div><div><br></div></div>
+> from third perspective security, which actually goes hand-in-hand with=20
+> the second.
+>=20
+> Jan schrieb am Montag, 20. Juli 2020 um 23:27:54 UTC+2:
+>=20
+>     On 20.07.20 09:57, Rick Xu wrote:
+>      > For 3 reasons, first, it uses a LINUX as a host OS and then
+>     changes it
+>      > to a guest OS, so a running host OS was saved.
+>      > Second, less virtualization and more real-time.
+>      > Third,=C2=A0 it's easy to use.
+>      > [..]
+>      > And if it has not been used for products, why?
+>=20
+>  From my last months' view of setting up an academical use-case of a=20
+> mixed criticality/mixed security-level system, from the perspective of=20
+> an application-oriented engineer, I would not agree on the term 'easy'.=
+=20
+> I have also setup my use-case using other hypervisors, which I would=20
+> consider 'easier', but I hit other barriers. Though, everything has pros=
+=20
+> and cons and I may be comparing apples with chocolate cheesecake, not=20
+> blaming anyone.
+> It is really cool to see the improved features and the HW support=20
+> growing on ARM systems. At this point, I find Jailhouse being quite=20
+> tightly interwoven with its underlying HW, in other words, without=20
+> excellent knowledge of the HW, setting up JH is really hard.
+> If I had only one wish, it would be improving the documentation for=20
+> Jailhouse integrators.
 
-<p></p>
+I don't disagree. I think NXP and TI did some work in the context of=20
+their SDKs, though even that is limited when a customer actually wants=20
+to map that on a concrete product design. And general bits of=20
+information are better shared in the central project. Contributions=20
+welcome (TM)!
 
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
+>=20
+>     Jailhouse is primarily useful in two application areas. [...]
+>=20
+>     The second, still more research-like area is functional safety. This =
+is
+>     our (Siemens) primary focus with Jailhouse. And while we are still
+>     waiting for and even collaborating on developing [3] a certifiable [.=
+..]
+>=20
+> The Selene Project sounds interesting, all the best with that!
+> I am/was working on a project on mixed-criticality security=20
+> certification and certifiable HW really is still a blind spot. (what=20
+> about, "we just _trust_ Intel processors to do the right thing"?!)
+>=20
+
+Would you enjoy riding a train where the signalling system was built=20
+with blind trust? Don't worry, you won't because the authorities would=20
+not allow us to release such trains onto the track.
+
+> I believe, in the not so far future a good portion of mixed-criticality=
+=20
+> systems will also require security certification (to prove integrity of=
+=20
+> the safety function). Nothing can function in a void. Any (modern)=20
+> critical functionality requires some sort of networking / data exchange=
+=20
+> and it is quite wise to split that off into different cells, so there=20
+> are different certification levels - both in terms of safety (thorough,=
+=20
+> long-term) and of security (quick update/patches). Jailhouse really=20
+> shows how much we trust in the underlying HW for these separation=20
+> guarantees.
+
+Exactly our concerns. So even if you make it "simpler" by not using=20
+hardware virtualization (with its arch and SoC specialties), you will=20
+end up trying to certify a "simple" OS that does the partitioning for=20
+the different functions with "standard" OS/process isolation means.=20
+And... you will still hit almost the same questions about complex=20
+multicore hardware, how to ensure it does what needs to do for the OS in=20
+that case. Plus you may end up with a way more complex partitioning=20
+layer, way closer to Linux than to Jailhouse.
+
+> There are evolving security standards like ISO62443, or, e.g., its=20
+> derivative EN 50701 for railway. However, from my current understanding=
+=20
+> Jailhouse is still too "low-level" and would require more tooling and=20
+> documentation to enable "easy" product certification. And this could=20
+> become a professional/commercial service beyond the open-source=20
+> initiative or requires additional forces in the product development.
+
+Definitely. We went with a plan for many of those todos /wrt safety to=20
+T=C3=9CV a couple of years ago, at a time where we were still hoping for a=
+=20
+breakthrough on the hardware front. It would be quite a bit of work, but=20
+it is more or less clear that this would be feasible (was also the=20
+inofficial feedback from the authorities back then), and that also=20
+economically. Still, more homework would be needed to map results on a=20
+concrete product.
+
+BTW, https://cip-project.org is looking into 62443 compliance for a=20
+small Linux base system. I'm not directly involved on that topic but on=20
+the project in general, and I can confirm from that level that concrete=20
+topics so far are different from what is bothering us /wrt safety=20
+certifications.
+
+Jan
+
+--=20
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+Corporate Competence Center Embedded Linux
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/526c5075-2422-4c20-9563-08e2b166d60fn%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/526c5075-2422-4c20-9563-08e2b166d60fn%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_573_302282371.1595341994156--
-
-------=_Part_572_1520671842.1595341994156--
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/53766782-fbb9-d91f-592d-bc932955bafa%40siemens.com.
