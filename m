@@ -1,115 +1,120 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBQ474H4AKGQE3HR74GY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCOKB247TIDBBF6Z4H4AKGQE74YU7FQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x138.google.com (mail-lf1-x138.google.com [IPv6:2a00:1450:4864:20::138])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AC21229A42
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Jul 2020 16:40:04 +0200 (CEST)
-Received: by mail-lf1-x138.google.com with SMTP id y21sf778079lfg.12
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Jul 2020 07:40:04 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1595428803; cv=pass;
+Received: from mail-wr1-x43b.google.com (mail-wr1-x43b.google.com [IPv6:2a00:1450:4864:20::43b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E65C229D4F
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Jul 2020 18:43:04 +0200 (CEST)
+Received: by mail-wr1-x43b.google.com with SMTP id m7sf800939wrb.20
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Jul 2020 09:43:04 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1595436184; cv=pass;
         d=google.com; s=arc-20160816;
-        b=chN4DyJ5cibHJxDsWOq2kney2Z6mOl2SvJ1R/a1H+FQ6bKY62/FhhEeiDVQDrFBeV9
-         ZgU8nw4Zp6L1+S3sVrIzA9lDeNKDK0GqAe0rFAgbyG7+ga1RazB/YT88AKLZ0qGe+54d
-         0DzSuXtb3d1tDIs90jYbmgZXmlkcz30wpG8qx+5ZnKtidF1tuMbRrYW2ZlHz1Ax3dLtc
-         tYwSvwNdnwWL24AzUnyU5aKdHdw65iSoyxCd6p4l3mo5CSln0S2brEYleFFOHtunv8jn
-         Z/UE/D0ptvvabfNHDgvUDxUlym00TE4f1SQf8rGR1HMDqDbS7VwuB+3lRZ/WQDVFjahD
-         977A==
+        b=xjeGw96Woi3iDuz4CmCgIj4khUk76DCMzauYd/qFOh2yQoiKBPxonu7Jb012TPZ3zG
+         LkQse2EA65/v/L9mXJfAzMvGlgW6kcxD/w3Yq1vxVbv0DTHVRKsC4cDBFXbPsoqUUcsZ
+         IYut45K4lNAZosoguSy7kuFO/1adVD96VspPdOIvKzAW7FDkSqUfmk5L2Y7Cl95h7Fkt
+         0giPDb3YDREGKWbEEo0an7Npu3bNsFxWbpEHTLyWNENBh7iD6a187LFAeeX1e7pgnprJ
+         JpMCtZRdmSK5ED/da1TWfx1FLoWBInx169dXEs8R8jb92lGw9s+b5Z/lj92xtjT+NT+A
+         EBXw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:cc:to
-         :subject:sender:dkim-signature;
-        bh=dVwEYh26nWShWuKyFxitF09IG805dOJ/H4cBr9bI64g=;
-        b=BbBoo0in1e0puyFTm4UDYJZuIvri0O5esoZYb3bCmlD4Ex4rEwRQfSdW2atTVH0ka6
-         VPkfe5IAqWDTqc1Is4AkFd2aPozGK1XBOWX4aiU9QT3cdbqjn09U+BMBogWijCK5fTUb
-         OkgEiN95B0VpSybwWMcH0yyIWZBG4YA4gIo/RoUY/d7nNgA82A+IBnkpAONF3DVvGcH5
-         GDtyhIXJ+VU4W1al7Gm6X4KLkug2KdlMVoRdTYkh4Vl4MOL5JKjPiT7o7mZsmkjgZSy7
-         WhURsHSzLFW0m8fuluX2BpIys3vI3ckjVKLDZebjs6n3CGTsh00JkamW/1v+oUrxEv3z
-         qWVw==
+         :list-id:mailing-list:precedence:reply-to:in-reply-to
+         :content-disposition:mime-version:references:message-id:subject:cc
+         :to:from:date:dkim-signature;
+        bh=lFa4p1ckz+fapemuWfhGwpfdNPIbTUISY+1Tse9IT10=;
+        b=wEcOXtvpy+ZtyLhmZb0SXbqLQChKe+q5SoHv3oMAYeBdh4t0Gn+KwxgIfWw6ssFOqT
+         kkwb08s2zccjkFdD5ZJ2kPrxOF+cTK4hfuWsjzhCw7Mg6XxbPBKg8Ji9uK4mRVD0NNzm
+         jCZz74iPkFLfxSyd0T6RnHudpDK/uWd0/Lje2vm+24Yki3ZQzKiY+N/5mN2r3fUMxiZb
+         f8F70ZvWu+Ev3l/A+vdIGpy71wOX4utymg+7RcaJrg2vSUa7scmLKTt2gN2KAwlD1O1V
+         M/dNrBj/fDdFfvtS9v8SVVZveUnwDeeuFpKKxpY2AwlLaqWNfp4XW65nx58lQBivBofl
+         lY9A==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       dkim=pass header.i=@unimore.it header.s=google header.b=jiNSpz8U;
+       spf=pass (google.com: domain of marco.solieri@unimore.it designates 2a00:1450:4864:20::641 as permitted sender) smtp.mailfrom=marco.solieri@unimore.it;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=unimore.it
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=dVwEYh26nWShWuKyFxitF09IG805dOJ/H4cBr9bI64g=;
-        b=O6/IfY3XP0yAWQ8GUk3qcgubcFCkMt7bBtL2S8AKZ4K/9Vf/lYtdBOGfJmcSpqDE7l
-         44tvNmDEhRAMUAiU+/VknHfxgIypfJ9hln+IY/5GYzuv7p6cSCCE1EomheSHLv8YHLEZ
-         s8r1XNlwquWvfWqVBs8fxxMm2oQTOhuA7AkY0RZQQ49O8DQr+UxDe9bB50uqVOMPI3H2
-         eJAHtImqOsRUigBsvTJVrD+XLtE/SG1oQc3sIPp9yYvmqYHgT7rPYWJEn2t13jr5QtaJ
-         thj9lv68wAgSrNeaoJynBFLN6Zlq2U3ZBbqKRrpJRAIbR2FE2DOzSQQXaBMUrB42VWjd
-         wdcg==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:x-original-sender
+         :x-original-authentication-results:reply-to:precedence:mailing-list
+         :list-id:list-post:list-help:list-archive:list-subscribe
+         :list-unsubscribe;
+        bh=lFa4p1ckz+fapemuWfhGwpfdNPIbTUISY+1Tse9IT10=;
+        b=ZJ6vl+Fws9uKC6ffw1RK43U+g/z33EtXWv8PKm/p4LE0udERzics9l7BhiUPdzgpTz
+         SlNK9o7DkFGTXKqUPb/RFV+s5U7jdXU1BmZgZghCMmbYMg/eIdLicZLG01sEjdFs1lQX
+         2hOdgrmTiKdGy0uw7i0R4cSa3xGz0BxkQSz7cS3iE/4pf11C5QOvq7cuGqEy1mpvkBoT
+         QETDehP+Ng2Zp2erpdRqm2OlA09hF2llPwBh47Y4++rwXKQEo28jmGApH4h0FdUjEDjE
+         n8wQuGHnHtY4o2TSE3ULZflFBUtjTFnttGToJMGfmRXc0Kb228BQZcswFYto6p7fJn3X
+         h1Vw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=dVwEYh26nWShWuKyFxitF09IG805dOJ/H4cBr9bI64g=;
-        b=NdNMWHUXtHKR6Jfw8ZpAbCRLqv9px5xGePtt2/fFLZJSD0i5iQsE81aZgmuhcSE9FS
-         ZAfbswIb0Ejph6O9eI9FOvzzZLf/6bQdKxpOEzmgfwW9PuE3txw00BnlPGXNr2Rph+17
-         2Q7tJtn/9MMofQJUe7qCd6TUJKEV+f0lTfnc/RBd5XcI95Vskw4N5HVXQbwyIJwTEVpF
-         28cLHhDlYL7eslVYXKZS9mY5Ofg9iSQLzs6awzpW7HujxXCVF1esyS8ttIUnHNr0DHZy
-         3hBNydu5Woogu8tlA0r/0ovrAdNlUrhOf76lHkFzkCuOf+Yk0NibCnaEp/udp0GjgAI+
-         9X4Q==
-Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531HpYh6vRpqxB6ouNRIi/9E2ex9NBlnMZM11U/7S5U9zw/U6xu6
-	KdF55awMR8R20GZ4pNFhABA=
-X-Google-Smtp-Source: ABdhPJyr5gOQxTfr5WNuKoeC9gTRUsjnPZ6+4bRWxWHrAjeOlSLJILw6egeVBZlJI8qv+RC/W83bVw==
-X-Received: by 2002:a2e:9641:: with SMTP id z1mr15469289ljh.173.1595428803433;
-        Wed, 22 Jul 2020 07:40:03 -0700 (PDT)
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:x-original-sender
+         :x-original-authentication-results:reply-to:precedence:mailing-list
+         :list-id:x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=lFa4p1ckz+fapemuWfhGwpfdNPIbTUISY+1Tse9IT10=;
+        b=P0KFToRaFoi5CzXhFVaytXfsFeuW2E2JXDYvAPjIN9uaVEXO0Vha78+RBidIeoOPCW
+         TV3NwQeUFbK40/l457qU/kzYAr1Wj1Yp4/m3dgeRMmjrT7Cd5fb4fNpfYnimc0JiV9hN
+         0qVQ4iiS+hvw1Dnu4NXkQINPpc8e5vmDaDSdNkbBvzE8w/OAa9w+oGEaFONmPIP1KAu6
+         f2FZ+P05QLy9mDZ/lQPPqa60uuUPcA2yjTRGuRu9QoOnI9tNf/witL7jL+8k7qPpXxwb
+         SJ7PwddhLP+ZO3F3fZrSSazMqGGRe2wL4jhvYPeK2QD0l0KP/eZRx1one1veWZfONr4N
+         isJw==
+X-Gm-Message-State: AOAM533RVF9J/L07hJIxGgYscmcHQKSc+cjp/Z7t+2X7GfOWfuCz5z5Z
+	AC8Uf2nrcZvcvny4XKUUTsQ=
+X-Google-Smtp-Source: ABdhPJz8sr9l/y7bd0e38J+/m6WPLF7zx0w17wIM2WxmvL1h0Tmn8+uc8Ge7yudM27WXnT9VZAVUWA==
+X-Received: by 2002:a1c:964d:: with SMTP id y74mr500839wmd.80.1595436184101;
+        Wed, 22 Jul 2020 09:43:04 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a19:60e:: with SMTP id 14ls825027lfg.0.gmail; Wed, 22 Jul
- 2020 07:40:02 -0700 (PDT)
-X-Received: by 2002:a05:6512:358c:: with SMTP id m12mr2377931lfr.18.1595428802518;
-        Wed, 22 Jul 2020 07:40:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1595428802; cv=none;
+Received: by 2002:a1c:48c1:: with SMTP id v184ls1377264wma.1.gmail; Wed, 22
+ Jul 2020 09:43:03 -0700 (PDT)
+X-Received: by 2002:a1c:14e:: with SMTP id 75mr453628wmb.151.1595436183479;
+        Wed, 22 Jul 2020 09:43:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1595436183; cv=none;
         d=google.com; s=arc-20160816;
-        b=QlTsMpYeneu0xnacL80WeJ3krWt7Lr806ZrKn/DJHoBlAX8cWSYmOKowRoIjmh9yLR
-         VqJtfrxmc5kk9sdL4OD+09PW34B28bnIz8SwaXhN8wTzJCIIjs9Bc8UVRzrIR6EFeYlz
-         5hrcFJqKPAflBmAdrKx6YJbFDdOvqDLmLqgrC4O1twc9EDplwxGnqoZwlWTBR0ASPAT1
-         8PeBQJt6cuWnoGhXsg/iLOlKrwxBF9xd2t4apEPBAjvc5W5zGPIUjf5SJaBgto+qDBYb
-         RD7U0ofX+zJ/WTYcgmV2iETd9mLbjbsbpcu2fYeonmy9wK0t81DG6WQ5rgU/oFzhWma3
-         41uQ==
+        b=EUj/3hscvURl8URWVNWQUrswC++OzfeI1QvSbwZzdU5wym9Nm31r3JlMHUlCUYDrGA
+         D8hnNuIoEAEoiBN6Uq+SnpuFIzm5y+cVhAt3wRmtitKeh6Jnyz6FafpXTLA6x4utfwGO
+         PdRN8Kv1uO60TlMhIiFxLbJP5ayZ1uJmTi/swB8lEjhGM6PTC8FGuZRvvsiDQRbo/ba/
+         wa+zXVfjKUIQVxQ4Ym92A9QUvNVzDv/S3NeOWeLR8TbpExNyQckGGtTaUgratlFc4OgJ
+         6fft7PXA074SeneW4ms/Yg3dsVQ2zACBmkbDcDy5lgprdRKxS+dTh2DLV6HkEt//jb0T
+         L0Hw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=2Tk9+kumWWuJYvM3t0XGzVhDJ5xWPDgX0dkTG6h0gbQ=;
-        b=kMAGqboOE1XwlEH1lNHL2cVYUH1hpS4b2EaNF+qKPVRe7fviE65YpipurKZrDb4619
-         8nfREhsuv80CiK7NfNne86DOAjqHG6+gFupAK2XLNjunswRFosbItERhrADKDShFsOxk
-         aZkR+qk+7Cm9lDYtDUzCGk5uqsU7UW7WnKCdf/dFKNz5n6g3vbbshExPRXe1FzMG4u6H
-         HD2a660OikohzaCsqU9rp+UYNFsDuIJTbd+yHa7OSimY/8Pn0/DVt1UPuQ6qv/Hws07H
-         zrnYE52awMqaW6YyGdSLs3FiM5TN99vU3Me1ARcwUKEIfnc0lsApa00ZfLQ23Zk345Ic
-         Y3ug==
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:dkim-signature;
+        bh=mJX1iIgfDPolFq/cgklmas+/PkXCOo+0WFKmznLYqik=;
+        b=nfFMtStN/4IicltP/UZPLPGztsl0r6vuiUz77Dflh8qOYq+9eDyvDqNFv4Yx9mmkwy
+         KMQO050nfz1Nl6N/NBTiUeDGzkGM+VxIRgDYNbECq3tFOg1aqGhTvA+iDHQafW3xwLBp
+         xfzcnDxQWzuaiFzYXxCYesk0XGKZOvT+6goQwmkMAxgj/dfB6qWS9iQxsmojiRylLVDN
+         MY72X9JAK2eiEtNTcx3kf7o6aHuKWnSNZw6M7geRI6mZzukKYQw0OnVI8EzK5eN3CDZO
+         dw/wZYDMY26V3YSiWIEFgbwBQPuL5Uc6d4HmQKSyEq8nEZyBWsK+c00Jq+hmO8WFmMw4
+         vYIw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
-        by gmr-mx.google.com with ESMTPS id q26si1116ljg.1.2020.07.22.07.40.02
+       dkim=pass header.i=@unimore.it header.s=google header.b=jiNSpz8U;
+       spf=pass (google.com: domain of marco.solieri@unimore.it designates 2a00:1450:4864:20::641 as permitted sender) smtp.mailfrom=marco.solieri@unimore.it;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=unimore.it
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com. [2a00:1450:4864:20::641])
+        by gmr-mx.google.com with ESMTPS id l4si12925wrm.3.2020.07.22.09.43.03
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 22 Jul 2020 07:40:02 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 06MEe1ie009460
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 22 Jul 2020 16:40:01 +0200
-Received: from [139.22.112.247] ([139.22.112.247])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 06MEdx8K016738;
-	Wed, 22 Jul 2020 16:40:00 +0200
-Subject: Re: [PATCH v2 0/9] Add cache coloring API and arm64 support
-To: Marco Solieri <marco.solieri@unimore.it>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 22 Jul 2020 09:43:03 -0700 (PDT)
+Received-SPF: pass (google.com: domain of marco.solieri@unimore.it designates 2a00:1450:4864:20::641 as permitted sender) client-ip=2a00:1450:4864:20::641;
+Received: by mail-ej1-x641.google.com with SMTP id a1so2895272ejg.12
+        for <jailhouse-dev@googlegroups.com>; Wed, 22 Jul 2020 09:43:03 -0700 (PDT)
+X-Received: by 2002:a17:906:a1c7:: with SMTP id bx7mr412352ejb.388.1595436183099;
+        Wed, 22 Jul 2020 09:43:03 -0700 (PDT)
+Received: from localhost (217-133-116-244.static.clienti.tiscali.it. [217.133.116.244])
+        by smtp.gmail.com with ESMTPSA id q7sm136063ejo.22.2020.07.22.09.43.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2020 09:43:02 -0700 (PDT)
+Date: Wed, 22 Jul 2020 18:42:56 +0200
+From: "'Marco Solieri' via Jailhouse" <jailhouse-dev@googlegroups.com>
+To: Jan Kiszka <jan.kiszka@siemens.com>
 Cc: jailhouse-dev@googlegroups.com, marko.bertogna@unimore.it,
-        tomasz.kloda@unimore.it, giulioc@xilinx.com, c.scordino@huawei.com,
-        fabio.federici@utrc.utc.com, Luca Miccio <206497@studenti.unimore.it>,
-        Angelo Ruocco <220530@studenti.unimore.it>
-References: <7e92c41e-12a5-28fd-b1fc-4949e5ccac20@siemens.com>
- <20200422072259.sc2au24ksnt6j7jy@carbon.xt3.it>
- <9605c893-d940-ce35-8301-832d31382c88@siemens.com>
+	tomasz.kloda@unimore.it, giulioc@xilinx.com, c.scordino@huawei.com,
+	fabio.federici@utrc.utc.com,
+	Luca Miccio <206497@studenti.unimore.it>,
+	Angelo Ruocco <220530@studenti.unimore.it>
+Subject: Re: [PATCH v2 0/9] Add cache coloring API and arm64 support
+Message-ID: <20200722164256.n4c43mf7rrt6lzp2@carbon.xt3.it>
+References: <9605c893-d940-ce35-8301-832d31382c88@siemens.com>
  <c25b626d-2aab-2ccd-f129-40e8b525a232@siemens.com>
  <20200526132429.bmhnaiug7ssblxty@carbon.xt3.it>
  <7fff9e0f-e13f-b41a-36c9-228e9883fa7b@siemens.com>
@@ -118,20 +123,20 @@ References: <7e92c41e-12a5-28fd-b1fc-4949e5ccac20@siemens.com>
  <20200720162639.jsc4o5a7nzinaxwn@carbon.xt3.it>
  <615c92ff-593f-ad69-ea87-1ad439d211e2@siemens.com>
  <20200722142016.zokufzzm63ly2oo5@carbon.xt3.it>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <5a66e10a-6215-9c1e-241b-7cab268731c1@siemens.com>
-Date: Wed, 22 Jul 2020 16:39:59 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <5a66e10a-6215-9c1e-241b-7cab268731c1@siemens.com>
 MIME-Version: 1.0
-In-Reply-To: <20200722142016.zokufzzm63ly2oo5@carbon.xt3.it>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="bbhcsf6nsfse3uac"
+Content-Disposition: inline
+In-Reply-To: <5a66e10a-6215-9c1e-241b-7cab268731c1@siemens.com>
+X-Original-Sender: marco.solieri@unimore.it
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@unimore.it header.s=google header.b=jiNSpz8U;       spf=pass
+ (google.com: domain of marco.solieri@unimore.it designates
+ 2a00:1450:4864:20::641 as permitted sender) smtp.mailfrom=marco.solieri@unimore.it;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=unimore.it
+X-Original-From: Marco Solieri <marco.solieri@unimore.it>
+Reply-To: Marco Solieri <marco.solieri@unimore.it>
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -144,109 +149,103 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 22.07.20 16:20, Marco Solieri wrote:
-> On Mon, Jul 20, 2020 at 11:29:21PM +0200, Jan Kiszka wrote:
->> Regarding dynamic coloring, I can only repeat what I stated before,
->> multiple times: I'm extremely pessimistic that you can turn on or
->> reconfigure an IOMMU while you may have transactions in flight that are
->> affected by that change. How to collect the pieces when you do not know
->> if a transaction finished and which address it hit, the one before or
->> after the change? That is exactly the scenario when trying to move a
->> root cell from uncolored to colored memory. IOW: You may implement this
->> but you cannot make it robust.
->>
->> A more promising path is pre-linux Jailhouse boot, maybe even without
->> root cells after that at all (needed anyway for shrinking the runtime
->> code further).
-> 
-> This time, let me try to dig a little further on this point.
-> 
->  From a purely technical standpoint, having coloring implemented in the
-> pre-Linux root-cell loader is of course a more proper way to implement
-> the feature, by far.
-> 
-> On the other hand, I see two major drawbacks: one on the
-> software engineering level, and one in the product management one.
-> 
-> - AFAIK, pre-Linux Jailhouse boot is not only highly-experimental and
->    immature, but also an inherently optional.  This means that it could
->    be dropped anytime, or that boot support could be missing for any of
->    the supported hw combinations (with ordinary Linux boot).  This would
->    therefore place coloring in a very weak spot, its solidity depending
->    on another optional feature.
-> 
-> - Maintaining boot support for all the hw combination one needs to have
->    cache coloring support available is costly.  (I bet you know very
->    well, Jan, given that you placed the Jailhouse project on the
->    Linux-boot design cornestone.)  It is hard to imagine board/chip
->    makers widely embracing, contributing and maintaining pre-Linux boot
->    feature for their products.  This means such a cost will fall on the
->    Jailhouse integrators who wants to use coloring.
-> 
 
-I don't disagree that we are close to having pre-linux boot ready. 
-However, neither do we have a sound concept for post-boot Linux 
-coloring. Morever, pre-Linux boot has the potential to further reduce 
-the critical runtime code size of Jailhouse, and if that turns out to be 
-true, it will become a first-class feature of Jailhouse, you can be sure.
+--bbhcsf6nsfse3uac
+Content-Type: text/plain; charset="UTF-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I'm also less skeptical about its hw dependencies, at least for ARM64. 
-But we need to gather that experience first.
+On Wed, Jul 22, 2020 at 04:39:59PM +0200, Jan Kiszka wrote:
+> On 22.07.20 16:20, Marco Solieri wrote:
+> > On Mon, Jul 20, 2020 at 11:29:21PM +0200, Jan Kiszka wrote:
+> > > Regarding dynamic coloring, I can only repeat what I stated before,
+> > > multiple times: I'm extremely pessimistic that you can turn on or
+> > > reconfigure an IOMMU while you may have transactions in flight that a=
+re
+> > > affected by that change. How to collect the pieces when you do not kn=
+ow
+> > > if a transaction finished and which address it hit, the one before or
+> > > after the change? That is exactly the scenario when trying to move a
+> > > root cell from uncolored to colored memory. IOW: You may implement th=
+is
+> > > but you cannot make it robust.
+> > >=20
+> > > A more promising path is pre-linux Jailhouse boot, maybe even without
+> > > root cells after that at all (needed anyway for shrinking the runtime
+> > > code further).
+> >=20
+> > This time, let me try to dig a little further on this point.
+> >=20
+> >  From a purely technical standpoint, having coloring implemented in the
+> > pre-Linux root-cell loader is of course a more proper way to implement
+> > the feature, by far.
+> >=20
+> > On the other hand, I see two major drawbacks: one on the
+> > software engineering level, and one in the product management one.
+> >=20
+> > - AFAIK, pre-Linux Jailhouse boot is not only highly-experimental and
+> >    immature, but also an inherently optional.  This means that it could
+> >    be dropped anytime, or that boot support could be missing for any of
+> >    the supported hw combinations (with ordinary Linux boot).  This woul=
+d
+> >    therefore place coloring in a very weak spot, its solidity depending
+> >    on another optional feature.
+> >=20
+> > - Maintaining boot support for all the hw combination one needs to have
+> >    cache coloring support available is costly.  (I bet you know very
+> >    well, Jan, given that you placed the Jailhouse project on the
+> >    Linux-boot design cornestone.)  It is hard to imagine board/chip
+> >    makers widely embracing, contributing and maintaining pre-Linux boot
+> >    feature for their products.  This means such a cost will fall on the
+> >    Jailhouse integrators who wants to use coloring.
+> >=20
+>=20
+> I don't disagree that we are close to having pre-linux boot ready.
+> However, neither do we have a sound concept for post-boot Linux
+> coloring. Morever, pre-Linux boot has the potential to further reduce
+> the critical runtime code size of Jailhouse, and if that turns out to
+> be true, it will become a first-class feature of Jailhouse, you can be
+> sure.
 
-> 
->> More important to me would be coloring of the runtime paths of the
->> hypervisor.
-> 
-> I agree.
-> 
->> Here the question is if the simplistic approach taken e.g.  by Xen to
->> just assign a single color-set to the hypervisor, shared by all cells,
->> is enough. Or do we rather want per-cell coloring of the hypervisor,
->> using the color of the cell it is serving. The latter is more complex,
->> I know, but definitely more partitioning friendly (read:
->> deterministic). Before deciding which way to take, it would be good to
->> have some numbers.
-> 
-> I fail to understand the solution you propose.
-> 
-> - Assume we have two cells.  If we have 2 regions, instead of 3 (the 3rd
->    being for the hypervisor), then each inmate is more prone (not less!)
->    to generate cache contention on the hypervisor code/data, because it's
->    shared.
-> 
-> - Also, in order to have a region cacheable in multiple colors, this
->    needs to reside in multiple physical regions of memory, each mapped to
->    a different EL2-VA space, that needs somehow to be chosen at runtime,
->    depending on the core where the interrupts dispatch start executing.
-> 
-> - Finally, even if the solution has benefits and is implementable, one
->    may still need to have the Xen-like solution, in order to enabling
->    hosting some critical, hardware-management-related feature in the
->    hypervisor. That would be mapped in all cells, hence unprotected.
-> 
-> Does that make sense?  If not, could you elaborate further, please?
-> 
+What you say is true and also very important, I believe. But is waiting
+for a proper solution worth? Or is it better to bring forward the
+availability of a complete coloring solution?
 
-Each cell would run an own copy of the hypervisor code in its own color. 
-Cell-private data could be colored accordingly, and core-private data 
-anyway. Only shared data would have a problem, and we would need to 
-think about how to hand that. But that data is very rarely needed during 
-runtime. Read-only data like the system config could be duplicated 
-again. That would move cache coloring much closer to modern cache 
-partitioning.
+--=20
+Marco Solieri, Ph.D.
+Research Fellow
 
-The problem of coloring the hypervisor separately is that one cell 
-creating high vmexit load can cause higher latencies for another cell 
-that needs a vmexit in a critical code path. We can avoid that for IRQs 
-as we know now, but we can't for moderated MMIO or inter-VM signalling.
+High-Performance Real-Time Lab
+Universit=C3=A0 degli Studi di Modena e Reggio Emilia
+Ufficio 1.35 - Edificio Matematica - 213/b, via Campi - 41125 Modena
+Tel: +39-059-205-55-10  -- OpenPGP: Ox75822E7E
 
-Jan
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/20200722164256.n4c43mf7rrt6lzp2%40carbon.xt3.it.
 
--- 
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+--bbhcsf6nsfse3uac
+Content-Type: application/pgp-signature; name="signature.asc"
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/5a66e10a-6215-9c1e-241b-7cab268731c1%40siemens.com.
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOC2XMK2o3tvc3F09Ctn83XWCLn4FAl8YbJAACgkQCtn83XWC
+Ln6hoQ//RbbILLiXfCN1+mnNrj3ZNbocc/VKBpxRv4TnIzG18qY9yFsuWVSQsVdb
+KmTsNLx84pJZoGDZd86x8VPJB3hPW5eb2BJpnUVknmBcY88M6aZgj9iHrP+RE2/l
+4v0aIWO+cwkAy4krHzUbNhRbh7dNF9VHO9DfLfPT4vHeHUHFsJ9qoQosGMlu1hE4
+KcaIn+39yn8YNQdwoRkU4HW2yoHRSKga/CnqfIZHfl8FZ7Zz8qI3BU54zCT6VMJn
+MFiFCxUKvVbYc6DnfsE2KEMDEssPoScPun6HB7sPL2jOnfoPatJIs+ujBNRENPCM
+kYc3Ad6Cc92bqCcshXUz5AannkwPZYGf7WdQrTfJiAU5ki/oEuM5Px6tNU0LX3xb
+DowhlEzXuO3tdiMefdzZv8jvIm91z9coDmeNByHLKNnFNU/x7iTn0QRqPNYSk2pF
+YSaafDdcASG888TqNDgquqWqFtU67YIioBeoAZUvtZxd66qAWgNUUdOT9gH3sgKF
+VhEYSRAHPLJcTGxwxPZKRPOsFyKAzqzwT70lxfoJCpeWwjtcp4yQdW2jaNs47It6
+LPDAE9tFz1kgRtiRMS907VPEr+wqGiUd+P8Z2azyH4JYocni1cP0BHoMBegvmrul
+2/HsAtjpDU2zLAAa9x1OQQNqV+EAdY0beSw576WOern2swQjUUE=
+=+PoX
+-----END PGP SIGNATURE-----
+
+--bbhcsf6nsfse3uac--
