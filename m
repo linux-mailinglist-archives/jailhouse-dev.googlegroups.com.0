@@ -1,135 +1,125 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBYEYQD4QKGQEXFOHTTQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB3M7QD4QKGQEKBNACBQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x339.google.com (mail-wm1-x339.google.com [IPv6:2a00:1450:4864:20::339])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C8102308AE
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 28 Jul 2020 13:30:41 +0200 (CEST)
-Received: by mail-wm1-x339.google.com with SMTP id b13sf8740538wme.9
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 28 Jul 2020 04:30:41 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1595935841; cv=pass;
+Received: from mail-lj1-x23e.google.com (mail-lj1-x23e.google.com [IPv6:2a00:1450:4864:20::23e])
+	by mail.lfdr.de (Postfix) with ESMTPS id E98C7230920
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 28 Jul 2020 13:45:49 +0200 (CEST)
+Received: by mail-lj1-x23e.google.com with SMTP id s22sf2373043ljs.21
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 28 Jul 2020 04:45:49 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1595936749; cv=pass;
         d=google.com; s=arc-20160816;
-        b=0hx5eDeWR4lLMfxubB/hvrVjfZtrS2ucZ3N1DQdRabp5dXosqF07K9Abz5IPTtytn1
-         R+txh+DKsb1ctS6N5Tmqo5Spfqksgfda1+hu+Hg4lbSEd3YLw634yQaOPftfe39oYCiC
-         Zcf+f2dWdahw5atWOso5QTST+GF8GG/Nm2QOZlQUk8tiQ2LeUj8vcYiwXgkJAWKIdUf6
-         z+abFzUiWyv2W7l1dWyCEO9a9KIL6s5230zk6FcDMmhXSH/dbKbqnv4RD1nztYqGordp
-         ID0+y6RMehISa91rC8xwCZRChyojksKOEcU+Q9eZpB4/z1X3m6yOlCErShTJ2mlekaJM
-         d+WQ==
+        b=ZgZdw6HJx/9MzLjET14DiwkVYGKQA09942xYzTzl9p7Bp5SZaaaCfjDl2XqYb7xKqq
+         PkoYJ3VX6W+f/26/dPRwqT6xeGpELMJfOdGnmmlLx2SiG7FWdav72TgNA56mahLigFMs
+         FAeORXsN6gZ/Mx8Bx8gvlydWpfxNhRCAhFGDhOcgcYsG2fEvjTp8OfAqxRLP9sn9t3Wk
+         dYDGwZh8OQBjvGfS1kKyttw19xqOXQ9DaztV7vycADp4jzh4aJ/3+mVHnEtTBY/AKqWF
+         YavupMp5UZjihDaUOktqbGhE8EYLmHMiYrHzpLlodjRnrJVkbVcqDIogdksvX43nolaR
+         EWOw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:cc:to
-         :subject:sender:dkim-signature;
-        bh=mpEWpiHV+7UJrOMIIrNWOIH6faUl+BHwbEth6ewlmP4=;
-        b=uweQv0dYZ0PIGVRD1WzPba5Tb2F9806WOJDk/uSZFo7zLVlkOmgECaCEbFLbW0GmHj
-         0c53qeDQzwp0xGGyJvVV+dfHyXCaGDlAnYL9lFeXuFfYu/+nyNrBFyCCg9k/VzT5SW8Q
-         qATPoNa7e6/EkkS9Yw5rqeJlk5+8v1aU8yns2du9fUBCxD9LDu7chbVZb4GLxxO+bkTY
-         9zKj+V2nX6mQWhIcMJv+M0yxstaZ5rCjYKkZBeUxfK69Y761xI1/IiQAtVAztN0aG451
-         D8jMBci2QlQlP2TUaJzsku6rfP8byAn59Uk+ywbKG27ARLP0ZnYNDm+b3MjObBfr9TAv
-         Jcdg==
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=ov9evWVUrPkdmzvZSlnpd9heh7Q/N4Xxo4szGyl3h+g=;
+        b=okRCCMwSl3+oVwZnCmnroG/AxFf0MT8l1X8YfJVq2HWW1LvRDlzZf+1v2iTIjMDXjr
+         fJnwxYgIrKHKw8YRPuvXI9ADyFMWlvBvyASADVRRHKIk3ckXE0Gkj2s4l7sKPjWPITvz
+         HJ/iTLD6fTyG19kvXsOZjRt1F+NSEuph7HBiCS6BTuneOZyATz0YcR//C3/V+CIwU1SW
+         TXMfe8Mb5FQcVC6L6uUKjnotHFSAloyBVUXycs1/yWH0erClucQkwRBlpK+KgF6FmLFW
+         7f7cv2XApSJCPZWlmPHbKIfa9yzun2xJnVMgqDmrEOCcoihQgwUo+/N+BntasUNqAdin
+         PzaQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=mpEWpiHV+7UJrOMIIrNWOIH6faUl+BHwbEth6ewlmP4=;
-        b=im01CnokwtJd/ZgNJUSiVsx26X7PPvtRKslhKPFCbloau7jqs86tg+J+/2NAMb+IyB
-         orQIgEkuj+VmqtvHiIh2d2Cm4Fq6Nt0mBKCnmBa5W5YXr/AYJ2rTadC/midiP25X07eo
-         m5YhY0rrGlRD9Jzyo8fi070M1G14SDX00n7l9j5LTXTwE578L8aCXR1UfHP/IwA2t9Pa
-         Gq9ZBkd5X/EHDKEeC8RrcPQhfGwxY4LcjUBeLM03e3opbqQIYa7IKfDgm87fxDOW0fn8
-         RU7JYeDaxFVolCObREu3XDbuxGzLuP3MCqFl/e/QfAhdye+dvjpQzDdm5ZqOLpkkK8kF
-         MrQg==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=ov9evWVUrPkdmzvZSlnpd9heh7Q/N4Xxo4szGyl3h+g=;
+        b=gZlqn9hl9ElUnzho95ss6r3fPvHeOGsAs1IfvpJtB0DZpsol6Av+UW0dx9vW6PDpJT
+         vLd/X6RBlYCPgRKAoNZrdvUFAnY1xNSRjIObYm7CU1S6I9LPFkS3f90iXhc93TfKRpjI
+         TLqDcmRkQfpE89NwHfbAdwCjbx3MfYNR2odvdte4u8XFRRQaID6HjeasaXGZsxuXbKbI
+         WL7QP52w9Wi4xE9mffmrYUQkH5pW6i04XlsYDJ+ym6Nz/BRYeZYijl2oIS1hmdBdVWP/
+         FUJ8tGDsb5ObaLJZWy266yazsSKkoWr8W+3T64+P/aXf6VDO8oUWKqRMWkzP15jzd02x
+         vlqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
          :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=mpEWpiHV+7UJrOMIIrNWOIH6faUl+BHwbEth6ewlmP4=;
-        b=CvdDXhV+X6+tgW55DdsXEEGCoG3eCDiyoGyOKugTVoxkDKMA40pkltR2AiSVnG1zz6
-         IfbabjUlYkEZbLxO+lJsj9RjXEdf7K5EyPSkHOVrC8R5KIbnJGjVq8JCHyE8B8Z3n4Hk
-         C6/wNjFAceLDLBHGFzBCFJ1H82pHdeyvuPoVb946Nhls4JFALs3/fsGhAw71t62vcldD
-         LikOkAW8mdGcFxKNK5D/srCDyvA2UtnkkZIrrxp/T7e87SpeKcim+CIxxweDg2mo4fMU
-         tp1jqXBsnxZmLpd5X5pCrStmlTA7W8Dlp4OqPlG5lrBHub6rKW0EH+Yhrhm2UfcQ0+/Y
-         HZLg==
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=ov9evWVUrPkdmzvZSlnpd9heh7Q/N4Xxo4szGyl3h+g=;
+        b=k5pGPYcYPDLUyS2kcce7qmn4izYddRR6Yk8Rbs8qAugQjkdXhLXc4R6+O4FJG1WKOl
+         8Lbm1/S1FvzhdHHr2Ij7zI/MJ1VI80uKfx4vRiLmKP7c1Ko0x9zZ6f5xsbpocXI2Fwjp
+         olO7i9+bdPwwXQbQ5iPdurVZB8ntUR6a75tVDbbqX1FuhLw4RcV6Csx73d9KfkiXKQ+n
+         BzIZAol9BceGrVr8NZLubKC3A0IOW8dFZrZyJCdERN2luRoxw+frWxHIPeT4xFFor2e0
+         QLE+L+hKoBO2HePcNTsVyE+i/tTn9Agu/f3CWX5tLXG1N+GemasJSCS5AEU8B5T5i2PG
+         ZAtg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533UVvnor4fHg65wNZWVriGgpWf+qMoKcfI7Tya9QlZapTo+uMIe
-	LfHL5j5le0Tr3xbFvzDFrow=
-X-Google-Smtp-Source: ABdhPJwUg5haz8ih6ypomBepaW2z3Hxvd99EPHObgfPZSYKyNYWbFZ9tBC1fVhTvAuDb174UpJ5U/w==
-X-Received: by 2002:a1c:283:: with SMTP id 125mr3827376wmc.12.1595935841056;
-        Tue, 28 Jul 2020 04:30:41 -0700 (PDT)
+X-Gm-Message-State: AOAM533VcFvOD86MPZMs0vO3DNZW7n4RL+5qvUWlbJi17HNrFIrQq4H3
+	cJNoO5OCowblth/hzaa44m4=
+X-Google-Smtp-Source: ABdhPJwOncl1V8lci2aZPoMyPAqdR4EMprj/brQCf71lDJsSfKLVfLvn7uVhs3XFn/cn70h8agj2tw==
+X-Received: by 2002:a2e:8191:: with SMTP id e17mr11437724ljg.339.1595936749437;
+        Tue, 28 Jul 2020 04:45:49 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:b1cf:: with SMTP id r15ls11965662wra.3.gmail; Tue, 28
- Jul 2020 04:30:40 -0700 (PDT)
-X-Received: by 2002:adf:edd0:: with SMTP id v16mr26810501wro.271.1595935840346;
-        Tue, 28 Jul 2020 04:30:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1595935840; cv=none;
+Received: by 2002:a2e:81c4:: with SMTP id s4ls3622562ljg.10.gmail; Tue, 28 Jul
+ 2020 04:45:48 -0700 (PDT)
+X-Received: by 2002:a2e:8316:: with SMTP id a22mr7267826ljh.137.1595936748567;
+        Tue, 28 Jul 2020 04:45:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1595936748; cv=none;
         d=google.com; s=arc-20160816;
-        b=x7LJDxHQzMCFHecWeWUx7dL4nhXhwr8kW8UDwCZTqnJSVSPRLGqGePLdJUgAC8YlGQ
-         PGuleyqiGMjRssX1ahY4gkwUqHq6YW6lJOGg0bqwXsekHuPdx3fsRK4aoFvSAoIaHnZb
-         PphIba5drA1C499addhqv7TTCPBPhX5BWAxLPebrd0ODAGeIjRJjYBNG2tcJ1WOAeZKX
-         4/MviBdRv2ze+GXwKVO6NttL2ryibf7Lt4cwAsO+WEF2sy3khA1I9vKYenttV2dES2qB
-         1I5w8zIDPng7F+NjMd3OToR5df6sbP91BNEV8IcezFwaav0j7Gi00lQnYPmiy/xH2auW
-         8Dvw==
+        b=RdduVfbmeSIslMLFcxJ/d7chz0kIAjzFeJb5Spkz9sd/5Ar+tbIzxgBajQ5lMJqvCt
+         RbDJ8CLLZ1v3JGsLwJcU8ZQHZO1REPWJnU/2dsWZafFuCwUXN0HhaKFgTaF2fe/JBikn
+         2Bagk/kZ0wEjAqYvCP4GJXE5ZAFvPH4vftgp0yk75PtbcqEU0d4JvcMwiLtSvqcBdqSD
+         A7AO/MKqYMsiuDCo+1CdCf6QlOm67Y+9L8LKLXYZGffPYyxkAlSx7V5VvxnqtYXpYRGA
+         hGvLWYsnJIZlZyDpGvHk6ZmeGCcQzunnWPOrU51/IgUIKdJtL6TzK9Mu+yE4qYRdCbpO
+         tBpA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=D6w1Hr720T6j4GzjLc9pN4EDYXaJvcRk36uqdHbf8AA=;
-        b=0+KdkWRKPeRlhNQLrtLJs/B/scof+RcroxpLNBzVeQw9VmyNmURhojVuXg4SAenjAE
-         k4p2OlJG0MUiosB88ztiBUvmTx+UcQHN1YzIXHU1mLhryy61NLrZb4o9ziKeUGXGCkQl
-         M2854M+sYW0R5kzN/S/9bmQatLzpblwhSbn2LhjdqiORIOBrOeYdKmSgnt55DkuarxH+
-         Qui8YEq4hb4uVpWQGoad5aOFOd7GdLfXw2gE1IvM8ukjFMvE7ar/I0sgXyxOonmaZWiX
-         eJDWAqLlpXGyLPysNg5FmPb4ogHGr5dzWbEwBvBlNXrnRqXW4yojMXngHlI37MLy3I0D
-         /+wg==
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=gSA5TlaN6ckpckZK9/AF7z/JM8+XG4Q/9BFD/nr45vU=;
+        b=GUPjxXQt+TjofLZPHqJQVHN1TqFH/mPif4IErQqDK1s0BILgvxqlxjOPpZ/KJRLmAC
+         Ljr+KaHrIvf+HIn6QRqX4BkaIWAg0Jm3aks671EhsdrobQLY9WgO4K0D3BoKV9zLX9N1
+         zLY7yWxV6nxyLxoH3FouNFCQp64D7RM3xFYrxwx0Y//nep+5bQvfr3eNEtpMSpbyEQbA
+         CADBAf8V3F+FOSP0VzcpMWiH2Scb0kPfOmUd/3kRAfOQqR2dMbNFmpOuoT/yGjOeT6Od
+         uiY2bxXH4A2VyIMlzgBC0vQmHerYNEmdMosWIn8tb/IVwmhv8+c3ZW52WuUfv73ESkRQ
+         DQFw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
-        by gmr-mx.google.com with ESMTPS id o134si89454wme.0.2020.07.28.04.30.40
+Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
+        by gmr-mx.google.com with ESMTPS id l22si343508lje.6.2020.07.28.04.45.48
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 28 Jul 2020 04:30:40 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
+        Tue, 28 Jul 2020 04:45:48 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id 06SBUdVu032046
+	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 06SBjkBq019067
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 28 Jul 2020 13:30:39 +0200
+	Tue, 28 Jul 2020 13:45:47 +0200
 Received: from [167.87.93.82] ([167.87.93.82])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 06SBUbMD001382;
-	Tue, 28 Jul 2020 13:30:38 +0200
-Subject: Re: [PATCH v2 0/9] Add cache coloring API and arm64 support
-To: Marco Solieri <marco.solieri@unimore.it>
-Cc: jailhouse-dev@googlegroups.com, marko.bertogna@unimore.it,
-        giulioc@xilinx.com, c.scordino@huawei.com, fabio.federici@utrc.utc.com,
-        Luca Miccio <206497@studenti.unimore.it>,
-        Angelo Ruocco <220530@studenti.unimore.it>
-References: <7fff9e0f-e13f-b41a-36c9-228e9883fa7b@siemens.com>
- <20200615081139.agyjjsccbwnsux43@carbon.xt3.it>
- <dad08183-081d-6c31-5be6-305c39a9900a@siemens.com>
- <20200720162639.jsc4o5a7nzinaxwn@carbon.xt3.it>
- <615c92ff-593f-ad69-ea87-1ad439d211e2@siemens.com>
- <76259743-55bf-4d28-f344-1d829e040d00@siemens.com>
- <20200727211308.5mxhkffz5aj27ocb@carbon.xt3.it>
- <8f358d65-eecc-405e-c659-00f501cf5040@siemens.com>
- <20200728091507.35bodtnsvbgcwxvr@carbon.xt3.it>
- <ee0c4b0a-9ea3-4978-43fd-fe38a1321e9c@siemens.com>
- <20200728110945.w4o52pgtq33ic2pv@carbon.xt3.it>
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 06SBjk3B016510;
+	Tue, 28 Jul 2020 13:45:46 +0200
+Subject: Re: Root cell configuration for RPi4 with more than 1G of memory
+To: =?UTF-8?B?SmFrdWIgTHXFvm7DvQ==?= <jakub@luzny.cz>,
+        jailhouse-dev@googlegroups.com
+References: <CAGdCPwvsiHYiCOVWr8s_Ey6knD2LiEo_SjP2tNWFLm0LzgWS7g@mail.gmail.com>
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <d8b12a27-69dd-e47e-a7e2-258192696bc6@siemens.com>
-Date: Tue, 28 Jul 2020 13:30:37 +0200
+Message-ID: <32ebc4ac-1d9d-8983-4c25-e23856da2fad@siemens.com>
+Date: Tue, 28 Jul 2020 13:45:46 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200728110945.w4o52pgtq33ic2pv@carbon.xt3.it>
+In-Reply-To: <CAGdCPwvsiHYiCOVWr8s_Ey6knD2LiEo_SjP2tNWFLm0LzgWS7g@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
@@ -144,116 +134,100 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 28.07.20 13:09, Marco Solieri wrote:
-> On Tue, Jul 28, 2020 at 11:26:45AM +0200, Jan Kiszka wrote:
->> On 28.07.20 11:15, Marco Solieri wrote:
->>> On Mon, Jul 27, 2020 at 11:39:48PM +0200, Jan Kiszka wrote:
->>>> On 27.07.20 23:13, Marco Solieri wrote:
->>>>> If we understand correctly your
->>>>> implementation, you are mapping the entire memory region and then
->>>>> copying blocks of the binary image using what you called "colored
->>>>> offset" function.  That was very similar to our first (unpublished)
->>>>> attempt to implement "colored loading", and we soon discovered it is not
->>>>> very efficient.  Loading time grows considerably and could impede
->>>>> scaling up to larger images (e.g. an Ubuntu-like rootfs).  We think that
->>>>> a better alternative is closer to what we proposed in the last patchset,
->>>>> that is:
->>>>> - create a colored mapping,
->>>>> - perform a "virtually" contiguous copy of the image.
->>>>>
->>>>> We understand that this logic has to be moved outside the hypervisor, so
->>>>> we would like to move it to the driver, exploiting Linux virtual addres
->>>>> space to create the colored mapping.  What do you think about it?
->>>>
->>>> Did you examine what was causing this slowdown? It seems highly
->>>> counter-intuitive to me, given that we are only copying from memory to
->>>> memory in 4K chunks, just using different virtual addresses - that' all.
->>>
->>> I think you are right, indeed.  Doublechecking our old (and slow)
->>> prototype, we discovered we were actually not just copying at each
->>> iteration step, but we were also been ioremapping.  That was most
->>> probably the cause of the slowdown.
->>>
->>> That leaves only a design point in favour of the contiguous virtual
->>> mapping.  It makes the implementation more robust and elegant, since it
->>> enables the copy operation to be independent from coloring and thus
->>> reusable.  This is enough for us to favour this approach.
->>>
->>
->> To my understanding, the choice is between:
->>
->> for_each_colored_chunk
->>      copy_chunk
->>
->> and
->>
->> for_each_colored_chunk
->>      remap_chunk
->> copy_whole image
->> drop_mapping
->>
->> As the first option can be reused for uncolored images as well, I do not
->> really see the value of option 2. Prove me wrong by code ;).
-> 
-> I see.  I would easily agree with you if we assume to use the
-> `jailhouse_get_colored_offs` (or something similar), but we rather not
-> do so.
-> 
-> Instead, the `next_colored` function should be favored as the
-> fundamental coloring algorithm implementation, because it is closer to
-> the hardware meaning of coloring, in the sense that it preserves the
-> notion of bits in the address, instead of abstracting it away behind the
-> notion of offsets in the memory space.
+On 22.07.20 15:06, Jakub Lu=C5=BEn=C3=BD wrote:
+> Hi!
+>=20
+> For the project I'm working on I would like to allow Jailhouse to use=20
+> more than 1 GiB memory on the Raspberry Pi 4. Following the memory map=20
+> from BCM2711 documentation (=20
+> https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2711/rp=
+i_DATA_2711_1p0.pdf=20
+> ) and /proc/iomem, I added this section into rpi4.cell:
+>=20
+> /* RAM (1024M-4032M) */ {
+> .phys_start =3D 0x40000000,
+> .virt_start =3D 0x40000000,
+> .size =3D 0xbc000000,
+> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> JAILHOUSE_MEM_EXECUTE,
+> },
+>=20
+> When I left mem=3D768M in the kernel command line, everything worked as=
+=20
+> before. But I wanted to use more memory, so I made a reserved-memory=20
+> section in a device tree overlay. It reserves the range of 768M-1024M=20
+> and verified it's working as expected in /proc/iomem. However, when I=20
+> try to enable Jailhouse using the modified rpi4.cell, I get this error:
+>=20
+> root@demo:~# jailhouse enable rpi4-4g.cell
+>=20
+> Initializing Jailhouse hypervisor v0.12 (59-g4ce7658d) on CPU 3
+> Code location: 0x0000ffffc0200800
+> Page pool usage after early setup: mem 39/994, remap 0/131072
+> Initializing processors:
+> CPU 3... OK
+> CPU 0... OK
+> CPU 2... OK
+> CPU 1... OK
+> Initializing unit: irqchip
+> Initializing unit: ARM SMMU v3
+> Initializing unit: PVU IOMMU
+> Initializing unit: PCI
+> Adding virtual PCI device 00:00.0 to cell "Raspberry-Pi4 4G"
+> Adding virtual PCI device 00:01.0 to cell "Raspberry-Pi4 4G"
+> Page pool usage after late setup: mem 61/994, remap 5/131072
+> FATAL: instruction abort at 0xfbfff7c0
+>=20
+> FATAL: forbidden access (exception class 0x20)
+> Cell state before exception:
+> pc: ffffffc0089fd7c0 =C2=A0 lr: ffffffc0089fd7c0 spsr: 20000085 =C2=A0 =
+=C2=A0 EL1
+> sp: ffffffc01000bef0 =C2=A0esr: 20 1 0000086
+> x0: 0000000000000000 =C2=A0 x1: 0000000000000000 =C2=A0 x2: 0000000000000=
+000
+> x3: 0000000000000000 =C2=A0 x4: 0000000000000000 =C2=A0 x5: 0000000000000=
+000
+> x6: 0000000000000000 =C2=A0 x7: 0000000000000000 =C2=A0 x8: 0000000000000=
+000
+> x9: 0000000000000000 =C2=A0x10: 0000000000000000 =C2=A0x11: 0000000000000=
+000
+> x12: 0000000000000000 =C2=A0x13: 0000000000000000 =C2=A0x14: 000000000000=
+0000
+> x15: 0000000000000000 =C2=A0x16: 0000000000000000 =C2=A0x17: 000000000000=
+0000
+> x18: 0000000000000000 =C2=A0x19: ffffffc008a04c28 =C2=A0x20: ffffffc01480=
+0000
+> x21: 0000000000000000 =C2=A0x22: 0000000000000001 =C2=A0x23: 000000000000=
+0000
+> x24: 0000000000000001 =C2=A0x25: 0000000000000001 =C2=A0x26: ffffffc010fe=
+3dc0
+> x27: 0000000000000000 =C2=A0x28: ffffff80f6da5940 =C2=A0x29: ffffffc01000=
+bef0
+>=20
+> Parking CPU 1 (Cell: "Raspberry-Pi4 4G")
+>=20
+> The address 0xfbfff7c0 is in the range that is mentioned in the added=20
+> RAM section.
+>=20
+> Any ideas or hints what else could be wrong?
 
-I disagree here. First, because this abstraction is a benefit - provided 
-I didn't miss a case. And second, because the algorithm avoids the loop 
-for the calculation and simplifies the loop for the virtual memory 
-copying or mapping (the latter is not implemented yet, so just a claim 
-of me so far).
+Sorry for the late reply. From your description, I also do not see why=20
+this shouldn't work. Not other changes made than described?
 
-> 
-> As a by-product, the implementation is also more flexible and generic,
-> since it could be applied also to different kind of coloring, e.g. to
-> bank coloring.  In these cases, nasty placement of useful bits could
-> make an "offset-oriented" implementation hard to read (and also very
-> difficult to write :-P).  E.g., consider a case where only 12 and 14
-> need to be used for a 4-colors platform configuration.
-> 
-
-If you can point out concrete platforms/SoCs with such properties, it 
-would help finding the best solution. I dislike design decisions that 
-are based on speculation what could come. Usually, they take costs for 
-"extensibility", and the outcome will still have to be adjusted when the 
-real use case comes along.
-
-How did FreeBSB - or what BSD was it? - model coloring? Any other 
-reference that may have worked on more that one board?
-
-> 
-> Beside the "offset vs next_col" choice.  We would like to stress that we
-> need it to be aligned with the concept of colored memory that we are
-> proposing in v2.  This notion is present: in the user configuration and
-> documentation, and also in the hypervisor code.  Namely, given a color
-> assignment, a memory region, and a size, we want to map *only* the
-> needed pages that satisfy the size request.  I.e., not to assign *all*
-> the pages of the given colors within the given region, possibly
-> exceeding the size request.  In other words, the size parameter is meant
-> as the real size to be mapped, not the place where the find it.
-
-I didn't finish that part either: I also believe that "size" of a region 
-should reflect the physical size, not the virtually expanded one. That 
-virtual size makes it really hard to read configurations now. Yes, there 
-can be tooling (config checker), but when you start to rearrange regions 
-you will continuously run into those overlap issues because region do 
-not really end where phys_start+size suggests.
+If things got that weird, I sometimes instrumented paging_create()=20
+(printk) to match the actually performed mappings against expectations.=20
+"jailhouse config check" is now also available, just to double-check.
 
 Jan
 
--- 
+--=20
 Siemens AG, Corporate Technology, CT RDA IOT SES-DE
 Corporate Competence Center Embedded Linux
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/d8b12a27-69dd-e47e-a7e2-258192696bc6%40siemens.com.
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/32ebc4ac-1d9d-8983-4c25-e23856da2fad%40siemens.com.
