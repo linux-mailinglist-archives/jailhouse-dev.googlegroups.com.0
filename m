@@ -1,68 +1,123 @@
-Return-Path: <jailhouse-dev+bncBDCYL2P744ARB5XBQD4QKGQEVEB6B7Q@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB4XEQD4QKGQEIKCF3LQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qk1-x73d.google.com (mail-qk1-x73d.google.com [IPv6:2607:f8b0:4864:20::73d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CF79230C02
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 28 Jul 2020 16:06:48 +0200 (CEST)
-Received: by mail-qk1-x73d.google.com with SMTP id a130sf13070917qkg.9
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 28 Jul 2020 07:06:48 -0700 (PDT)
+Received: from mail-wm1-x33f.google.com (mail-wm1-x33f.google.com [IPv6:2a00:1450:4864:20::33f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AF81230C28
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 28 Jul 2020 16:13:06 +0200 (CEST)
+Received: by mail-wm1-x33f.google.com with SMTP id h13sf37488wmb.1
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 28 Jul 2020 07:13:06 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1595945586; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=W31eoqnoVQl/lOXmDsGJGHWVWj7pTEHiblX+ZlRTBWN0bqgZHRb2VpxrIsC+uJDOpM
+         7rcrctt/bKZZWOuTO3qvIkImN9TeQ6c8EzLWKxq068at4Q33CQYAuWg7CXGYmBjggtc7
+         l6FfwK2LL+wWetfJ/hndrKu9NbNyQYNa+EhcUTReZJjTxL/wwMOrXqjDK4oDgBWG8VyC
+         RlCLc7Jjc3Rsl2zCo1MvYTQjhCbhZZyx47S0lrBOR953Lo+JbOH92AJX8cGNCRgP0hKS
+         /DZAlwBYMg0WX/CcJW6o3ASmAf6mR9l0JOv9jZND9Z+rUvF76zHeNIYIBo6HxCLyUoAy
+         kfIg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:to:subject
+         :sender:dkim-signature;
+        bh=vzciW7OPZvtuf6HEsI+0i1TCaW6+f3o3QFwGm+fAi/o=;
+        b=nyOf9+JTK7h1aD7IgK3PvloFxMjEo4OEoqdpcBYcFmZvXG693lBl0kZGfrHQ5lUmZe
+         tCgY7Er9D8JH+UaFYf0GR6RHrfMOADd5XXVlroiB0an88I96HJS9XVrWtkD8HZ5gFw5M
+         5nIE6C3DgGNXkVAujUe5tBcW21gdn7Bhy8jHQPYOzBJWVT2qiNzjp7KmYTwp9/4xRviB
+         x3vVzp26/hIpil003QRAwFF0af9i/acuUmt6b6yWYh4Gk+3W/WT3OivHB65qArFX5DfB
+         Rn6d8Vp/zTJ0akbc227XvhPdWUEg+Lishv+MENCGUhCpIbljc6OrfFfT2YXdLX26CEx/
+         OCxw==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=gAC2/HZPvKTjAzWMLv64Tcz6tLEu3gCUL0ml955BD6U=;
-        b=l7JWbzOXi4RVLnmodj37jcuk5Xz1r21uWXkwEQhcmrvuCl84SS426AdU2UJlaMyQhK
-         92ChU4Z1vWOfM7jLFu3tlVE5HY2LBaA3fKVNrE7bw1dTLHNELJZF+iQhROkwvNpbpHtx
-         2JKHJ0TwXAAkyo99rR/VIiIbwE22fu8MByod0OD9DfVgtC0S4B035+zbHxIAIDejbnCt
-         QnCpPMOLa5DEF80kkzdStAr7QmtG4W896tsTSc3ebOQaege8fuyDFhRA+ega3H6bFNnX
-         V0d1YOH5AkPUendvVDqKcSNzqx+ZulppWbPIyLbhoyUMeKJqHcePyeYDJVh/VhsQS6z3
-         AXmw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:subject:mime-version:x-original-sender
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=gAC2/HZPvKTjAzWMLv64Tcz6tLEu3gCUL0ml955BD6U=;
-        b=MYe9u9fT+SJxEB8M81sTot71EHyPapJQS4yc+t+aNurnzMRc/6KgKR54LJ7cjGYeZg
-         EVKOeSPlz/uY6hMXm4eKXZzsa2ggDqr99susbLd1crkAZMTRb45mFu8ADdTyxpEfTTvz
-         uEt0jUkN/GsvuomUbiQKomOjeENXvvp8xkGuBaY7rIUYy8ZinAtPiVo/fP7PY4oOljYW
-         OFXwJ8PI/4yiGGv05Ma7eGyOtwn8PZo/XIMfke3kCGAe6eK/+xTUqc17PNfBxetAh8lD
-         x8ikA3wf/AP8tvGpSMPDEFvOeE84kt8srdbOoAg/u0NsMUwr6CjwwqjFnCOrqAqgJoGp
-         NrBQ==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=vzciW7OPZvtuf6HEsI+0i1TCaW6+f3o3QFwGm+fAi/o=;
+        b=gI8QzBHrY+Vi8EBFxSt5u00WGJVYp+MTHyosJHgHqlme5fOJJnOTx7UiByGTSBO62/
+         OWss82gq3ZRKn8fL1tCAFPBsfSqdo4s7xFHIZtoxTaj8eAT9CTdP89vQodaEnjLXXF13
+         PCnHnOv/exuaIc0d+Qvjrb158xMnUqbT2INaQLahO/xja0t3LU78S5x/XUFDPbvZe0PW
+         s9Mj6bIZ9XYne+bSUsidPDrt1BulTlwbQ+2HYhEL1/tC3XpFC7Vvp+CXo8NVD27BojqE
+         7/Q6NvcxnKKUYrrSTq2+I99FxhBzEArY9MjJrZ4z9Br2T0kLS4P6nWK0EE5K0QGed8/+
+         SXmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=gAC2/HZPvKTjAzWMLv64Tcz6tLEu3gCUL0ml955BD6U=;
-        b=NoF39vyXF+QhfUyKTcju+iy1SsFv2e7oFvSWqUFe+qN+lSLsuw76zYJ7vEBpHVdtNF
-         XvUpJrhveyNSHxQKWKXyR4IPhgbGQkAylbVnPabs/vTaunn0XWcpcb7BMtVi6dpoOhCi
-         /e7OnZDEhbfj85cOSSWG0qfOyOOpe4jBYCcwEr7WN1lJZbUO1fDQxXM7h493lDGV3urG
-         VcZDXzo6jnkEjr/l2rZkpsnYxMl+mylnVZcLrb9ltG78HL2SyqrcOeiLDpRXFoUKYapj
-         NCPTG+3DWAe4uZuLTguI81vI1Gfwoubw7xejDXspMjqRYro+BcfbMqUSB8HtzL7ji6I1
-         eyFQ==
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=vzciW7OPZvtuf6HEsI+0i1TCaW6+f3o3QFwGm+fAi/o=;
+        b=tF2In3o5zP3YeSihKx2BYyX1YNOVAByEMiLhjIEFYDTNOKVj2LC7mA+SOxw7Zk5uFJ
+         eWfFEJLlIIF8N30UxdeG3NrtC2olARXLnvlZC/eIPrdjkxV29dg6578hLaOMeSNXCXH4
+         lMvLEu1vnXeF5JKv5rlb+fi9lBxn3qMFN86kN74NoskFBATx+ws5dzSFpG9fIZrR9dzV
+         S5BEa3sdt0MXd9DlmxuzNvFS2FkeZDujkAeRB7is0DzyR7xreMiambOIF23D3+k3RZp5
+         I3CD1k2EDHXMkyIIma3HAsCzB81FKsXxj36Sfg01IHL6NsevRZRbnSvtq3GMJmT/lrUF
+         BQyQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531dZeMpYGQwbXs6KYvQ036QTaaX6bJDqYdti/Ttvtj96co/8qia
-	uu7Zs5tAoOI5OMtavFWgkqI=
-X-Google-Smtp-Source: ABdhPJz+unn4/GGDOmDQ+w5k7j7YqZfC6Rw1qWILk81tafq9Uupsl7UJzG2KnMcEac9NfUJz8EQMQA==
-X-Received: by 2002:aed:27cf:: with SMTP id m15mr27294785qtg.150.1595945207180;
-        Tue, 28 Jul 2020 07:06:47 -0700 (PDT)
+X-Gm-Message-State: AOAM531yPUdux1v2paSbXkr8YE2QC4ClKZ5fiJ9YjcQQ/TwwkdBvcw8r
+	Mt6qPKArwf1iIVZ7abolpPU=
+X-Google-Smtp-Source: ABdhPJzy4K/B9098Q6Arw1fAohBEMYfPK/VithAbCKv9HBWAmbLqVA6smPC7ovcIT9/mto3ISLR9jA==
+X-Received: by 2002:adf:c108:: with SMTP id r8mr26021175wre.41.1595945586210;
+        Tue, 28 Jul 2020 07:13:06 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a37:4981:: with SMTP id w123ls9750773qka.9.gmail; Tue, 28
- Jul 2020 07:06:46 -0700 (PDT)
-X-Received: by 2002:a37:a6c6:: with SMTP id p189mr17921986qke.386.1595945206310;
-        Tue, 28 Jul 2020 07:06:46 -0700 (PDT)
-Date: Tue, 28 Jul 2020 07:06:45 -0700 (PDT)
-From: mail.to.rui@gmail.com
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <150f6988-6b93-487a-80cf-0050dbe46381o@googlegroups.com>
-Subject: Jailhouse + Intel NUC & serial port
+Received: by 2002:adf:81f4:: with SMTP id 107ls12549102wra.2.gmail; Tue, 28
+ Jul 2020 07:13:05 -0700 (PDT)
+X-Received: by 2002:adf:edc3:: with SMTP id v3mr25152602wro.193.1595945585509;
+        Tue, 28 Jul 2020 07:13:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1595945585; cv=none;
+        d=google.com; s=arc-20160816;
+        b=YAls2C+4Z7wKdRnZdOp8A20bAkQ7tlePUTeg2xdOKcBKl8HGfVk3dRtEsB3opwznlf
+         akeBZxHwk8uSz2a2YW6A/Y7w4XFCV233ud7Y0+VFp+NflPpiuF5aMqSb43syr/8z4QRm
+         91de9YWV6Lph6lOPsLxpjNK7dEQx1sQmJsut+Gt8dHSEhg/LUdRC4izGjcsJdWfZpujR
+         TMNaZF8HxaE5MXArKTlLilqw3g2/hvzFH/zJ6qL2TfcA6UNpd5diwA1bClcAJlP0fWKv
+         n90jbnxqVkv9+rxKc5ov4rxtVUiyGvt8JbDdRmudgC8WvuWVwIuIKcDLNch5uXmbjLE5
+         xbXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=YRpkCkdRr1Xeq+y/A6In4esOq83fPkKSMD98BLTpj9M=;
+        b=F3eccIgNO79h8DBjTHd7OKh+nAenTrqDUdOYvk4prQL7KgScw/Rs9yyiwxgrm5MS6i
+         9FyTBndmPdyRrjZh+Q3czKB9Yl52WQuCN6N58hyPuQwfuZFanuvy4m77IQV2zwFqH5JE
+         T8Z2tXFROR+KY1Nc1dOh56ZOhGw0QwmBOUf/MjMzshW5fnX5Sqg3+q6xHNaH1TO70tNU
+         t6nz6/fTmeXscteKPVJeRS0sEf83aEXE99M9Rs7Wmc6vFjqPB/rczMn6fm7owpMgwvO+
+         7Z8Wj0u12T+CFDxjKo4up+NFoy3ujEPPNt7+sBJTCmOFxhR5UqEt0LSm0wIqX+cOOHoM
+         Y6nw==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
+        by gmr-mx.google.com with ESMTPS id i11si367063wra.3.2020.07.28.07.13.05
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 28 Jul 2020 07:13:05 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 06SED41H000600
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 28 Jul 2020 16:13:04 +0200
+Received: from [167.87.93.82] ([167.87.93.82])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 06SED34m021646;
+	Tue, 28 Jul 2020 16:13:04 +0200
+Subject: Re: Jailhouse + Intel NUC & serial port
+To: mail.to.rui@gmail.com, Jailhouse <jailhouse-dev@googlegroups.com>
+References: <150f6988-6b93-487a-80cf-0050dbe46381o@googlegroups.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <e4c67610-0592-b5d7-f727-2ec01bf47970@siemens.com>
+Date: Tue, 28 Jul 2020 16:13:03 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_1072_532296385.1595945205496"
-X-Original-Sender: mail.to.rui@gmail.com
+In-Reply-To: <150f6988-6b93-487a-80cf-0050dbe46381o@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Language: en-US
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -75,62 +130,40 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1072_532296385.1595945205496
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_1073_1599577137.1595945205496"
+On 28.07.20 16:06, mail.to.rui@gmail.com wrote:
+> Hello,
+> 
+> I was not able to follow Jailhouse development for some time now. Maybe 
+> someone can clarify me with this two doubts:
+> 
+> #1 - Is Jailhouse still using the serial port for outputting messages 
+> etc ? If so, and if you are using computers without serial port, how are 
+> you overcoming this?
 
-------=_Part_1073_1599577137.1595945205496
-Content-Type: text/plain; charset="UTF-8"
+  - PCI-based UART cards
+  - UEFI framebuffer (not as good as a UART, but ok'ish to get started)
 
-Hello,
+Just recently used the latter for a box without UARTs *and* PCI 
+expansion slots [1].
 
-I was not able to follow Jailhouse development for some time now. Maybe 
-someone can clarify me with this two doubts:
+> 
+> #2 - Does anyone have any kind of experience/feedback on running 
+> Jailhouse on Intel NUC (10th gen) ? Everything working has it should?
+> 
 
-#1 - Is Jailhouse still using the serial port for outputting messages etc ? 
-If so, and if you are using computers without serial port, how are you 
-overcoming this? 
+Can't help with that, but I'm also not aware of issues (which might have 
+been brought forward here).
 
-#2 - Does anyone have any kind of experience/feedback on running Jailhouse 
-on Intel NUC (10th gen) ? Everything working has it should?
+Jan
 
+[1] 
+https://new.siemens.com/global/en/products/automation/pc-based/iot-gateways/simatic-ipc127e.html
 
-Thank you
-
+-- 
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+Corporate Competence Center Embedded Linux
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/150f6988-6b93-487a-80cf-0050dbe46381o%40googlegroups.com.
-
-------=_Part_1073_1599577137.1595945205496
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hello,</div><div><br></div><div>I was not able to fol=
-low Jailhouse development for some time now. Maybe someone can clarify me w=
-ith this two doubts:</div><div><br></div><div>#1 - Is Jailhouse still using=
- the serial port for outputting messages etc ? If so, and if you are using =
-computers without serial port, how are you overcoming this?=C2=A0</div><div=
-><br></div><div>#2 - Does anyone have any kind of experience/feedback on ru=
-nning Jailhouse on Intel NUC (10th gen) ? Everything working has it should?=
-</div><div><br></div><div><br></div><div>Thank you</div><div><br></div><div=
-><br></div></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/150f6988-6b93-487a-80cf-0050dbe46381o%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/150f6988-6b93-487a-80cf-0050dbe46381o%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_1073_1599577137.1595945205496--
-
-------=_Part_1072_532296385.1595945205496--
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/e4c67610-0592-b5d7-f727-2ec01bf47970%40siemens.com.
