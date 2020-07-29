@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB66VQT4QKGQEUF6BJKQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBGUDQX4QKGQEE2ZP5LY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33c.google.com (mail-wm1-x33c.google.com [IPv6:2a00:1450:4864:20::33c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B749231AA1
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 29 Jul 2020 09:53:32 +0200 (CEST)
-Received: by mail-wm1-x33c.google.com with SMTP id p23sf378373wmc.2
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 29 Jul 2020 00:53:32 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1596009212; cv=pass;
+Received: from mail-wr1-x43d.google.com (mail-wr1-x43d.google.com [IPv6:2a00:1450:4864:20::43d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 92807231C1B
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 29 Jul 2020 11:30:02 +0200 (CEST)
+Received: by mail-wr1-x43d.google.com with SMTP id f7sf6436101wrs.8
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 29 Jul 2020 02:30:02 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1596015002; cv=pass;
         d=google.com; s=arc-20160816;
-        b=ja24vB7IEjn6VS8+s9qc+DjkDsK6M3/pliOw9mimFdMY+wmZKO9i3PzkHRq4zjjNOR
-         DQUIXegRkQ9YFlp58pJt9bN3DEACq4NVvJrKfejjeUeg8eGenSj4adRKwYU4RzS6CFv2
-         siQSlod7JvvjZm/47AhGt1sY4goRGik6cMPyQZb6Olmyqj1GSLrB9dw87R7OShLyqGiI
-         U2VZaursKOlpuQWlGsTyHzYvcE8aE1XTbFOaFIFsoa2waTL8TUnfSgwY/btGZu13ovqY
-         8gvpn3yjy1AJZHyL8dz0CdGCPM1mxmn5l8StsmfTGAQ6DK2aJkUF3kPsSlAkanrUsO/j
-         B6fg==
+        b=Lb1qaFZboAPwuaQb+ZnVODifupliwE9uMmcMjO0PpWIZ5ezSVyCbJAkaWMiqUPNRKW
+         z2dkJw3ex0ANk0WqutKaKY+iWBUAKurkZeOiE6W91rRxIVFJqRU7/6v5GaTklzxxaELe
+         D5ag5A9Sv+T7ljjv6eHBkCfkR9EQw6UPnj6QJuRwnLbnXSAiagZNHVxCSk28zKfych3U
+         x8Cb8qdQRYMEMMMu1Du6SYM37vrYHVo4/JdVsY68708ju+VR3MB50zYxatHcReRzqg3w
+         mN0Y8dA4emXAJXoRHg5nDxsSYeaUjSksrOYheJ4XkpQrBNPrfH0lcOXOcaJZbMC8GLTs
+         RMYA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-language:in-reply-to
          :mime-version:user-agent:date:message-id:from:references:cc:to
          :subject:sender:dkim-signature;
-        bh=bUzRcG9fsLnvCfeCgK+4FTrp06XlUIJCgs5NbK0XNkc=;
-        b=cKWFbF7cTf6dywKcPDvwZLyGqBwd8/s6uDNMyA9KQckfOO3nWi/S9GXY7VFHsuwRzr
-         pxmkUt8f2ciqYvV+MejZhkSd+767erqYVSlw8BuSoHm0CqKLMk+I02FUBv7zUC7zXky+
-         IgKERb8COpxVOW2isrImSHTYKD72dcs75bJ/FrQoS2tq0N5IY2DqvEpgupd1IUaxxij7
-         E80WtE37bke6qIV576s0GhdIOrNSg5NDejGX0lZLs8xky0lD4zjr7Gzj/FX7+1XhE0OG
-         OyENg3PAKQx4ZWvl0K+vyWdEk435k2FKNe67By2XUMfT8rB8iCtep+ESJCuh+L6wH97Q
-         Svbw==
+        bh=/nK37qoZuXmG/1WERQ+kk6Tq+lD72epX7AD0LdyR7qs=;
+        b=Wi3+kCkPgj6Y7IDxHbyG6qqod/ijqMDZS3WSk/T1CBCScTj1ik9TYTDA3J/d19snIi
+         QRJuQuFip/1d1A7V5vFzPtpfoHoPXk7uRQgeJ2xmvEQKpk11K3b6dh0BnCxkH/2Y1Y4r
+         hKJ9Ds0e8hstTyOG+3V3t+AVqqXtqDIdslmZiLbJHWT+XDZ9/izU2/+DG+ywjc51PF2w
+         Opj2FsZxxw3uujZ9T31213vQLXQrPsFqu3uA1J/QvchDvSBGY0P31A7FSrrCwjpCDT1r
+         LqSaMmyezHrHvP9bbhyuzoUMR/FvEC9u9bGBvUl3lv9liPqF03wog0l1rHiwYx5o/1ue
+         Wgcg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:in-reply-to:content-language:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=bUzRcG9fsLnvCfeCgK+4FTrp06XlUIJCgs5NbK0XNkc=;
-        b=nPQaADAz8x5nMesfgMyRDl/wUH+qZxkCD/nUBnSFEYfd9dZ1OaLSWFmPGTtSURiaDf
-         RNkw/5PVmsLWtzXTj6FfRUCbL1osPOBnF0Hcngwrg1IAqwgc+3tuCAKcPdFIWh4TLyV/
-         AFVVxFe/4yIgvbTxQlQZUYLVCIcar0nCor7oBa4/jH/zfrMUyOGDnASfzEOkgOwMXuO3
-         IBdnqENUlUSyKJ/3YbFD/ZClM7VjqRuEb533q5UxPgDj652hePBj1/nUaA2DGLcYy3ZU
-         U7ohpnLoGSSK7GkrLK5VkWfVkW0TLTY3vqkS+cgbIQpN3IN4GyneV8DYchIV9upcKsR4
-         c/aQ==
+        bh=/nK37qoZuXmG/1WERQ+kk6Tq+lD72epX7AD0LdyR7qs=;
+        b=NK3rtPbdvsihKlum1dCqMhDlz+OagDnrOa87zLu4V2HGjffIiuCp3NFO4SMiTCs+AU
+         Wc/iyTxlrjplG0CJOH1jgZ6O9DRJDkdYCMpV2zfYZ0yHA3MRl7euVRQG2AXrkpQKQqeN
+         CtSAGVWVIlZbTxp1/Y5T9dnBzzsrg5ycMH4GpTMeWVu14XHZrgBsbXcTNA+/7QOmaWMJ
+         P9v/ay9IM+SEW6agJOdmcebwITkxVlpy7gw9+4yQ9Brkrsobmzp2Z1VRO2+LeQ0GW8Zw
+         WnADislviWmAzWjHBsdRJc/Hxc7fSxCe/OfGL5FmNbym4YVpJt9VukNqpyHbzdGTQiTU
+         huUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
@@ -49,88 +49,91 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=bUzRcG9fsLnvCfeCgK+4FTrp06XlUIJCgs5NbK0XNkc=;
-        b=W7O/k9FkbXHtkYHUjrQRIOn5jIFePWTxW7eGPS7pkgJkgnDreog2Sz1c3C5pYI1AOg
-         3PSrwk65YxmbKaDwz3H8n7wpuV11QrvlUckyQPhwck27rHegyrT+/oVFNwKHtaS8qHNS
-         ymwhMpLCy6jljvCOI+kH51KChV1QmGGOt/NqTIyEJycR7I2Bv5T3Fsak9sXUNSLVQaZI
-         8L80K3Qv0toQegtRUXjB/c27VPECB3mo2tIwC2CL3hsuKaEDNRlntq13+z42BWpn9mT4
-         ByzY/VHqGhpaYTSVXuwMn7A0YSfsIawDPX726EIhpOaLIdzshhl9PCitobFipidLShTm
-         b4lA==
+        bh=/nK37qoZuXmG/1WERQ+kk6Tq+lD72epX7AD0LdyR7qs=;
+        b=uazCEuf8WjmTJ+Y9wZGFJRccJu/MaC58o0yfDERoXTWcc88HhTeM6nw0wZ1/bT56U2
+         S0gLbTkE41lRZ1wbGR42RrwxAshxbqMD4/clZE+hcJEQyDWoNvSX02M453V6EMZjH/bF
+         G/z6lxx6z4GrYL0MI4k93nUbm7FhXaGZEw0fyjnqhm4w7S7Pngb3op14KkLfhWDYs5XF
+         1fViTjLSmwp/FbFou0jczrNjtlM8uOlpkFcdJGjyWmgP+8FHU2r2UsbJFd8OnygZpVhu
+         Cg2J8upDEUkKiBxTob4igw3WWlCAZUXs91T5ToN2BI7EUCVlmNSgJtEG3Pn/ktHVeLnn
+         wN0w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530zXG8xwXzBlvDuMBX2I9VvmTKicmZDKldIrmmkMMzoYLcMpyhz
-	V751CVRl1JPFMfHJWWV563Y=
-X-Google-Smtp-Source: ABdhPJwaeTtQxuYxuZkVh69SKD+DvuzlVhZK2LisyzLMwP1lsEU+BZjVyyGzEs+ObzHqQGLwIRTLRw==
-X-Received: by 2002:a7b:c841:: with SMTP id c1mr7998088wml.25.1596009211875;
-        Wed, 29 Jul 2020 00:53:31 -0700 (PDT)
+X-Gm-Message-State: AOAM5339OVqcioh8cXeIWF0+yB7NBlaDC/yoCgZw9x9d2QCCPZu6X9p6
+	7LwBPGGL9olDNBbn5AZrbrY=
+X-Google-Smtp-Source: ABdhPJziJrJglN0bPnICAJWITJPj61u8pTw/O2oHL3OsxgCSK/5hxQEOi1HzoPix52+7et3nQ3IZQA==
+X-Received: by 2002:a1c:ab06:: with SMTP id u6mr8298113wme.55.1596015002281;
+        Wed, 29 Jul 2020 02:30:02 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5d:6407:: with SMTP id z7ls1427378wru.0.gmail; Wed, 29 Jul
- 2020 00:53:31 -0700 (PDT)
-X-Received: by 2002:adf:9361:: with SMTP id 88mr24442952wro.403.1596009211072;
-        Wed, 29 Jul 2020 00:53:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1596009211; cv=none;
+Received: by 2002:a5d:6407:: with SMTP id z7ls317364wru.0.gmail; Wed, 29 Jul
+ 2020 02:30:01 -0700 (PDT)
+X-Received: by 2002:adf:80c7:: with SMTP id 65mr29596788wrl.246.1596015001414;
+        Wed, 29 Jul 2020 02:30:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1596015001; cv=none;
         d=google.com; s=arc-20160816;
-        b=ae03MBK4I4xw1CXns1g3+eFSLJ0SyxSYaXdYh89gPlLGaZw3ClzApXBJCxdB0WstsI
-         zmM4H/OjbHq2xaiik/OUHe7c//KypN76wpTFzp7nxBja9o+LK1N/EdLmUb7OZhTY0d9F
-         ZBCFKzm9RQsqKsz6yDGMs4Lpaw0L45kI3tWMiRJReWGVMHWvghfiL6dMr79a+3DnKPPv
-         kWlNzhSgQk1bko1gc8V9FOclSCPEj4aOp2ILSMTnLkagM1cse9AsDV+LDXmssy2m7K8P
-         TlZcNjTcYq00Lxh6av0Fw57Z6rMoGIdQhu2nttgGUoMTRxLSNn2E1wfQfUDR0iXOJBzJ
-         gK8g==
+        b=j5DZ4s77QHcVht4+X1UvyZNrhYBkDmnLrsEtXr8BQtBlwVndPXkG3sd7L9mIX3KFit
+         78kR6DUzQh5ABbBFLsSguQOb9Rc3nMATrrsYiqoCWhpoyQg75btAf+NIg+tna2ucc+AU
+         O7sC9sFuW8ph8xylS7dcxL7eucmeTRK2zTSg4TmoMr2kdKI0jJU8R7JCrdLDT9nVu+sZ
+         JNQLDBJ1/dTjRD45jgkTdHoz7v6PDIUTlh/4/YcdvumurBiHh6m+o5OlMNtM69L3GOTu
+         VTFchUlZUBdXcSYoI1NfyLZfKhD9/E/eM6mtAO6jlbyE0I2RFIWY1dkjKW4cWQnUWOfa
+         c7rA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
          :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=Yrc852IIDK+4EfNCMXvLEFTIcc0Tr+Q7RHpfCLWsOJw=;
-        b=Du/N1DnkseYDYpDF6EDTSKCd8nb788I1LaEJPIoYlzhHXAT8iW5IlvrgyVQq+GnktK
-         udXEozgGEKY5gXyG/Dlm3f75hWJxeGfJiITyxJlW6gUWuAwztxG7oaQIt509KiTPbAtc
-         XFjCVK8yR7cz3dLxs3vrBHqqxxPQ5nfxuxiKPHg086GnOBZQD6/i+Jpdk4lQRONJ5IQi
-         3AnyAJLS4RmyJd8UV1zxQA6ci38FThik54prk899oSAibuWrUcnWwIj5xsfoKIvhbI6s
-         ctAjj/LA3twojWqpqhd2otKjYuydHr+GnU/qviuyRrIVr3haech6cGIeILf7nryfJ9C/
-         LGjg==
+        bh=b0Ad8LakXxAz9DcXsDEdaJ1e5JsVxAzBdj1jeOaFIdQ=;
+        b=CgYspQ5uKUyKqkZf+kaRhRAU3wMD9iQEt4KQ7DjG1XaAEO1hXhOmeF7lErqrboR4iH
+         yf1ye1WnRkoMDTTZd1qxFR9Duoh5mbDNNwI6Le/gYjBqs/JZyxOcqFjzKBdwS+o7DgOQ
+         g7ZpwJWX32zEknWIo1eK0ujttgzcIt/p5AtoIC1rn+vO6kbrXJWlL1Bh4hXjONh++YPH
+         3A8SW9NIHZAfK4R3o+ycYHbw1p3q5926z11sH8s5jc6dAn+J9jpbb8aVxr5HDsKoZoYs
+         BV0N6jqzr8nlqH4d26LleJozV56Aqhkwyg1BNZp6ly3Sv6IcSpDEhA8kUMPqTQHJ/EXJ
+         mDhA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id 92si57435wre.0.2020.07.29.00.53.30
+Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
+        by gmr-mx.google.com with ESMTPS id l18si100938wra.5.2020.07.29.02.30.01
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 29 Jul 2020 00:53:31 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
+        Wed, 29 Jul 2020 02:30:01 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 06T7rUKl018627
+	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 06T9Ts3U001960
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 29 Jul 2020 09:53:30 +0200
+	Wed, 29 Jul 2020 11:29:54 +0200
 Received: from [167.87.13.2] ([167.87.13.2])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 06T7rR4O010715;
-	Wed, 29 Jul 2020 09:53:28 +0200
-Subject: Re: [PATCH v2 0/9] Add cache coloring API and arm64 support
-To: Marco Solieri <marco.solieri@unimore.it>,
-        Nicholas Mc Guire <der.herr@hofr.at>
-Cc: jailhouse-dev@googlegroups.com, marko.bertogna@unimore.it,
-        giulioc@xilinx.com, c.scordino@huawei.com, fabio.federici@utrc.utc.com,
-        Luca Miccio <206497@studenti.unimore.it>,
-        Angelo Ruocco <220530@studenti.unimore.it>
-References: <dad08183-081d-6c31-5be6-305c39a9900a@siemens.com>
- <20200720162639.jsc4o5a7nzinaxwn@carbon.xt3.it>
- <615c92ff-593f-ad69-ea87-1ad439d211e2@siemens.com>
- <76259743-55bf-4d28-f344-1d829e040d00@siemens.com>
- <20200727211308.5mxhkffz5aj27ocb@carbon.xt3.it>
- <8f358d65-eecc-405e-c659-00f501cf5040@siemens.com>
- <20200728091507.35bodtnsvbgcwxvr@carbon.xt3.it>
- <ee0c4b0a-9ea3-4978-43fd-fe38a1321e9c@siemens.com>
- <20200728110945.w4o52pgtq33ic2pv@carbon.xt3.it>
- <d8b12a27-69dd-e47e-a7e2-258192696bc6@siemens.com>
- <20200728224145.qj4ljq2zm76ueo32@carbon.xt3.it>
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 06T9TrXE000711;
+	Wed, 29 Jul 2020 11:29:53 +0200
+Subject: Re: jailhouse jitter?
+To: Peng Fan <peng.fan@nxp.com>, Angelo Ruocco <angelo.ruocco.90@gmail.com>
+Cc: Nikhil Devshatwar <nikhil.nd@ti.com>,
+        Jailhouse <jailhouse-dev@googlegroups.com>,
+        Alice Guo <alice.guo@nxp.com>,
+        Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
+        Jose Martins <jose.martins@bao-project.org>
+References: <DB6PR0402MB2760BE2A66C776875890B5DF886D0@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+ <38ffb4dc-20d6-3404-cc61-ea08ea8066f1@siemens.com>
+ <e0b6c5f5-89a0-6e29-6700-e5d5064d4672@ti.com>
+ <CADiTV-0qHuXt=wrGCp4RbFWcu=WGsZKB-doXOTxjMVZkRiiiCA@mail.gmail.com>
+ <1d5b0ac8-0744-59ab-bb90-8133df4a1525@siemens.com>
+ <d0b0c698-7ee2-97dc-7b6e-685f2f169f39@siemens.com>
+ <CADiTV-1oJBD+SkAT475xD5iODeo24wqwBSFGu2JQATxqpF1W0w@mail.gmail.com>
+ <b96f90ad-23bc-db73-9603-f9eb640804d0@siemens.com>
+ <DB6PR0402MB2760B4463A03D7FC4EE3E4E988780@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+ <DB6PR0402MB2760EA5C808D0A49208E7A9788720@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+ <640c6eb8-07ca-c354-f888-abee87ff49b6@siemens.com>
+ <DB6PR0402MB27609A148CE4F1B5DC105D3088720@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+ <8c4f35ef-1b12-e08a-6d20-85d7c6c0fcad@siemens.com>
+ <DB6PR0402MB276063FAB38B540E81ED7D3288700@DB6PR0402MB2760.eurprd04.prod.outlook.com>
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <3ebac25b-6f04-79c1-f2c1-998fa7ecb308@siemens.com>
-Date: Wed, 29 Jul 2020 09:53:27 +0200
+Message-ID: <1dffaed3-aec7-2bd5-7046-88059813c63f@siemens.com>
+Date: Wed, 29 Jul 2020 11:29:53 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200728224145.qj4ljq2zm76ueo32@carbon.xt3.it>
+In-Reply-To: <DB6PR0402MB276063FAB38B540E81ED7D3288700@DB6PR0402MB2760.eurprd04.prod.outlook.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Language: en-US
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
@@ -145,161 +148,89 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 29.07.20 00:41, Marco Solieri wrote:
-> On Tue, Jul 28, 2020 at 01:30:37PM +0200, Jan Kiszka wrote:
->> On 28.07.20 13:09, Marco Solieri wrote:
->>> On Tue, Jul 28, 2020 at 11:26:45AM +0200, Jan Kiszka wrote:
->>>> On 28.07.20 11:15, Marco Solieri wrote:
->>>>> On Mon, Jul 27, 2020 at 11:39:48PM +0200, Jan Kiszka wrote:
->>>>>> On 27.07.20 23:13, Marco Solieri wrote:
->>>>>>> If we understand correctly your
->>>>>>> implementation, you are mapping the entire memory region and then
->>>>>>> copying blocks of the binary image using what you called "colored
->>>>>>> offset" function.  That was very similar to our first (unpublished)
->>>>>>> attempt to implement "colored loading", and we soon discovered it is not
->>>>>>> very efficient.  Loading time grows considerably and could impede
->>>>>>> scaling up to larger images (e.g. an Ubuntu-like rootfs).  We think that
->>>>>>> a better alternative is closer to what we proposed in the last patchset,
->>>>>>> that is:
->>>>>>> - create a colored mapping,
->>>>>>> - perform a "virtually" contiguous copy of the image.
->>>>>>>
->>>>>>> We understand that this logic has to be moved outside the hypervisor, so
->>>>>>> we would like to move it to the driver, exploiting Linux virtual addres
->>>>>>> space to create the colored mapping.  What do you think about it?
->>>>>>
->>>>>> Did you examine what was causing this slowdown? It seems highly
->>>>>> counter-intuitive to me, given that we are only copying from memory to
->>>>>> memory in 4K chunks, just using different virtual addresses - that' all.
->>>>>
->>>>> I think you are right, indeed.  Doublechecking our old (and slow)
->>>>> prototype, we discovered we were actually not just copying at each
->>>>> iteration step, but we were also been ioremapping.  That was most
->>>>> probably the cause of the slowdown.
->>>>>
->>>>> That leaves only a design point in favour of the contiguous virtual
->>>>> mapping.  It makes the implementation more robust and elegant, since it
->>>>> enables the copy operation to be independent from coloring and thus
->>>>> reusable.  This is enough for us to favour this approach.
->>>>>
->>>>
->>>> To my understanding, the choice is between:
->>>>
->>>> for_each_colored_chunk
->>>>       copy_chunk
->>>>
->>>> and
->>>>
->>>> for_each_colored_chunk
->>>>       remap_chunk
->>>> copy_whole image
->>>> drop_mapping
->>>>
->>>> As the first option can be reused for uncolored images as well, I do not
->>>> really see the value of option 2. Prove me wrong by code ;).
->>>
->>> I see.  I would easily agree with you if we assume to use the
->>> `jailhouse_get_colored_offs` (or something similar), but we rather not
->>> do so.
->>>
->>> Instead, the `next_colored` function should be favored as the
->>> fundamental coloring algorithm implementation, because it is closer to
->>> the hardware meaning of coloring, in the sense that it preserves the
->>> notion of bits in the address, instead of abstracting it away behind the
->>> notion of offsets in the memory space.
+On 29.07.20 05:28, Peng Fan wrote:
+>> Subject: Re: jailhouse jitter?
 >>
->> I disagree here. First, because this abstraction is a benefit - provided I
->> didn't miss a case.
-> 
-> Abstraction is good only until something meaningful for you is hidden.
-> Then, it becomes obfuscation.  Coloring is a concept that cannot be
-> separated from its bitwise nature just because of some additional
-> hypothesis (contiguous color assignment or contiguous color bits) that
-> restricts the generality without bringing value.
-> 
-> 
->> And second, because the algorithm avoids the loop for the calculation
->> and simplifies the loop for the virtual memory copying or mapping (the
->> latter is not implemented yet, so just a claim of me so far).
-> 
-> The loop for calculation is useful when you have to deal with non
-> contiguous color assignments, but it can be removed, of course.  I guess
-> that also the other kinds can be removed, but this looks orthogonal to
-> the chosen approach (next_colored or offset).
-> 
-> 
->>> As a by-product, the implementation is also more flexible and generic,
->>> since it could be applied also to different kind of coloring, e.g. to
->>> bank coloring.  In these cases, nasty placement of useful bits could
->>> make an "offset-oriented" implementation hard to read (and also very
->>> difficult to write :-P).  E.g., consider a case where only 12 and 14
->>> need to be used for a 4-colors platform configuration.
+>> On 27.07.20 08:56, Peng Fan wrote:
+>>>> Subject: Re: jailhouse jitter?
+>>>>
+>>>> On 27.07.20 08:25, Peng Fan wrote:
+>>>>> Hi Jan
+>>>>
+>>>> ...
+>>>>
+>>>>>
+>>>>> I tested the SDEI on i.MX8MM, it shows the jitter became smaller.
+>>>>>
+>>>>> Without SDEI, the gic-demo jitter is 999ns+ With SDEI, the gic-demo
+>>>>> jitter is 124ns~246ns.
+>>>>>
+>>>>> Indeed no more vmexits.
+>>>>>
+>>>>> But the max jitter, some times SDEI bigger only when program start
+>>>>> up,
+>>>> mostly because of CACHE WARM UP I think.
+>>>>
+>>>> That is one source. If you add a warm-up period, they can be
+>>>> mitigated, though.
+>>>>
+>>>> The other source might be last-level cache sharing. If there are
+>>>> cache-miss counters, maybe you can check if those increase along the
+>> peaks.
+>>>
+>>> Yes. When I add stress-ng in root cell, the jitter became larger sometimes.
+>>>
 >>
->> If you can point out concrete platforms/SoCs with such properties, it would
->> help finding the best solution. I dislike design decisions that are based on
->> speculation what could come. Usually, they take costs for "extensibility",
->> and the outcome will still have to be adjusted when the real use case comes
->> along.
+>> I've seen the same on the ultra96. My cache theory should be validated,
+>> though, because I would have assumed that all of the gic demo fits into a
+>> core-local cache.
 > 
-> I agree with your position against unfounded extensibility arguments,
-> but it does not apply here.
+> After thinking more about root cell color, when booting jailhouse before Linux.
 > 
-> - I am not speculating about unreal possibilities, I was referring to
->    real hardware. The first result I found is Intel i7-860, where:
->    - cache coloring is possible on address bits: 12-18;
->    - bank coloring on: 13-15,21-22.
->    A discussion about bank/cache coloring on such platform is in
-> 
->      Lei Liu, Z. Cui, Mingjie Xing, Y. Bao, M. Chen and Chengyong Wu, "A
->      software memory partition approach for eliminating bank-level
->      interference in multicore systems," 2012 21st International
->      Conference on Parallel Architectures and Compilation Techniques
->      (PACT), Minneapolis, MN, 2012, pp. 367-375.
-> 
+> We are not using 1:1 mapping anymore or we could use 1:1 mapping with many
+> pieces of small ram area.
 
-Bank coloring has also been explored in PALLOC in the past 
-(https://github.com/heechul/palloc). I think Nicholas (CC'ed) and his 
-fellows did a prototype with Jailhouse as well. Would be good to collect 
-the requirements from today's CPUs for that (i7-860 is probably 
-predating the needs of Jailhouse).
-
-> - Nor the next_colored proposal brings additional costs, since compared
->    to the offset implementation
->    - it is simpler and more elementary;
->    - it has close or equal performance;
->    - a tested implementation is ready in v2.
-> 
-
-I agree that, if we still face non-contiguous bit ranges, 
-straightforward calculations have to be replaced with a bitmap search 
-algorithm like you did. Maybe then using ffsl.
+I suspect Linux may not like a device tree with hundreds or thousands of 
+memory region entries.
 
 > 
->> How did FreeBSB - or what BSD was it? - model coloring?
-> 
-> FreeBSD supports only a simple form of cache coloring -- I would not
-> consider it as a reference, especially about extensibility beyond cache
-> coloring.
-> 
+> So I think the first 1 is better, but when use kmalloc for dma usage sometimes,
+> it will bring issues, because not 1:1 mapping, unless we let all drivers use
+> dedicated dma area reserved and not colored.
 
-Good to know.
+We will need an SMMU for colored Linux instances. That will make things 
+appear 1:1 mapped again for Linux.
 
 > 
->> Any other reference that may have worked on more that one board?
+>>
+>>>
+>>>>
+>>>>>
+>>>>> Will you move SDEI support to jailhouse mainline?
+>>>>
+>>>> Once the to-dos are addressed. Any contributions?
+>>>
+>>> I'll read more into your patches and check the to-dos you listed in
+>>> the jailhouse commit log to see what I could help there.
+>>>
+>>
+>> Item one (SDEI probing) is almost resolved.
+>>
+>>>>
+>>>> BTW, did you have to patch ATF for your experiment? Will you upstream
+>>>> that patch?
+>>>
+>>> Yes. I'll upstream that. Quite simple, I only enabled one SDEI private event.
+>>>
+>>
+>> Perfect.
 > 
-> We tested the proposed solution on Xilinx ZU9 and ZU7, Nvidia TX2, and
-> NXP i.MX8 QM.  We have tested a very similar implementation logic also
-> in Xen on Arm v8 (Xilinx ZU9) and x86-64 (Intel i5-5xxx).
-> 
-> 
-> Do you have any point in favour of the offset-based alternative
-> implementation?
+> Sent out.
+> https://review.trustedfirmware.org/c/TF-A/trusted-firmware-a/+/5116
 > 
 
-As said above: If we need to handle non-contiguous bitmaps, ie. multiple 
-jailhouse_cache regions per cell, your approach is needed. Then we 
-should improve the implementation (make it arch-agnostic, move to 
-jailhouse/coloring.h, use [__builtin_]ffsl).
+Great! Let's see how the review works out, then I could try getting my 
+patches ready for upstream as well.
 
 Jan
 
@@ -310,4 +241,4 @@ Corporate Competence Center Embedded Linux
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/3ebac25b-6f04-79c1-f2c1-998fa7ecb308%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/1dffaed3-aec7-2bd5-7046-88059813c63f%40siemens.com.
