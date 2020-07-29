@@ -1,115 +1,120 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB455Q34QKGQEXNXABFQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCOKB247TIDBBXG4Q34QKGQEXZCNX7A@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33f.google.com (mail-wm1-x33f.google.com [IPv6:2a00:1450:4864:20::33f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16FFE232227
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 29 Jul 2020 18:08:20 +0200 (CEST)
-Received: by mail-wm1-x33f.google.com with SMTP id u14sf705308wml.0
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 29 Jul 2020 09:08:20 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1596038899; cv=pass;
+Received: from mail-wm1-x33a.google.com (mail-wm1-x33a.google.com [IPv6:2a00:1450:4864:20::33a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 45F6D23233A
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 29 Jul 2020 19:14:05 +0200 (CEST)
+Received: by mail-wm1-x33a.google.com with SMTP id u68sf766855wmu.3
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 29 Jul 2020 10:14:05 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1596042845; cv=pass;
         d=google.com; s=arc-20160816;
-        b=IukCqPZby/u9gYAG+iA40ChtwnaIV8kjQYHnCOkndKl6NUhD5JuhzE6eK34So2u9aU
-         xStM+jkOqxrjra6z4jsxH++LcWRsgF4VtXudACyJjgwF/AmNDwXSVTwhxS7pwcUAhLZE
-         dsy4wME6x7z6DoCj0ShGDstfMxP9ZOzJDVBM6MsdGHr1NWc0bwgdnHxzooh2lz2147cN
-         YHtuHpWoBaDQiJk1XzpAePzRuZqUZVzLSsh+7SNNcnZn4A/5ehQxnmwHJknTE+85UwCo
-         JUESFFvPW0KiMVKl9eIbOQYydYaBHowlKa0v4ZVUDV+jBBK0NMgRIevvRcKo+ignTAmm
-         pWxQ==
+        b=Mdi8lhnT5QevEQ9TOgwuuKu+Tr5hqqu8fBHuGyJy01vvCBGMH+Z+D10aFHih8Ui5pZ
+         6TDHEvalLXWxCBpubGnf543hGFx7+usjKaB2HqJcXEmduZ8MLLuS7eXbMbYu3DP5Yupw
+         x2mlkfxMuVGHkN7bl0vAnUQ7qd+3uJvumTyzMd4MryAprADues2dtKR6RSYtFLMRrFwz
+         rU3q5+nIcW403bEEzVBl+BJH2qOqPLBiuRMITgfoL4mIcUJ8ne5fyPOuivS6/HVqR3vW
+         /0Gu9YfLI79Rmq1reEY6kTBcXwcNOt6TGPFd0VUfIp517Or5UOPYTW5k5qdcFCABCMVU
+         T/6w==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:cc:to
-         :subject:sender:dkim-signature;
-        bh=qh3OVSg2UbpeJBhH1GISfBnvxJz8D2fLU27a8xQ7hjw=;
-        b=UiLRkucdX2a6Ci8crPQuZSCEzrGMLAv8Ze1NZyzxHy+0smTt92z92aa7xccETWqhMy
-         M8MjXc0HdwBCHO/i2P6841ujOKmf6BZqI5c/UTrCdBTrztF+7pdwJHKJmcu45iS9PNBa
-         Py5Z1p6+VRGPJDxWEjQ7YEBTlb/3NIINP19DLfsX7la8rwPlh7dUCtdhEAf4tCrvMXMu
-         jKF06AVkXXMMW5UzevKS6lA9XRvSBARm66fnnzkIsTIn6pbr75Spd5afuDA2KQbBvArT
-         b4XV1QNVJbfzQq3t7QRbgcahn5IUeNhTLf2e57icDKElBw05vObNWWI/yNAtWfdfyXiy
-         vt+w==
+         :list-id:mailing-list:precedence:reply-to:in-reply-to
+         :content-disposition:mime-version:references:message-id:subject:cc
+         :to:from:date:dkim-signature;
+        bh=8ubW6T7axxgg2uHCOtHZzpULhMS8au6CCi8rm2x4TTo=;
+        b=qhiliaIPuE/8z7pLll6cv+MO/NdTZIztkD0GgqnxxisY4baeq17hbFHqr9gZhlKRBy
+         00kPa5WQt+XU2gT12mEMArv8x7E2AY/MZdiMzeJVg85/0ULTAu5n0Qp/v0XpQj2iXx0L
+         YeGngNQpo2czxQ+9uuSNe4/8UyaxMnb9i3M2hzIjmAwijxn1wzr1QGjdCwF4AgFkAAJU
+         reVHOwkOIXYdBEFjzGt7aFvylrDPREGrhCgnxxmqCzDdzS4O53BoJ4XTuxYpA7F1vPDr
+         WKXCR+RsfcjGaQSegT06yEZF65qP1tWfF2jJiq7FdSHU//I5OMGPKcrRSLbCXYSFoVIV
+         O9PQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       dkim=pass header.i=@unimore.it header.s=google header.b="U/jnUDBV";
+       spf=pass (google.com: domain of marco.solieri@unimore.it designates 2a00:1450:4864:20::544 as permitted sender) smtp.mailfrom=marco.solieri@unimore.it;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=unimore.it
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=qh3OVSg2UbpeJBhH1GISfBnvxJz8D2fLU27a8xQ7hjw=;
-        b=pt2M08PMlML4haWzJTXq/Uhj2+s37ujGoIfNIWBjs9/F7QPRkOplcn0LZWp0aGpYFa
-         ynYYKCBWag6HQDLONRqpKSG73Za0JCZSQG1NxVwiDLsTm39HDy+liMmrQ1xaC8FCAU1g
-         QxSMNPO7B/rvj/7KPDkEkRNxGmh3Scu0v9xg7KCZ8wKY/2pqHlUwfhSbIfUStD2ar3A6
-         ab64NAbYt6Du2QCp5z2t47eI+dfE67tZfdPud9Bsm+tX5b+eYMReHXYTNEIOLdqrQ3nc
-         xNdjr8P5a69Dn30Iku+vqRhBCI4B109ERtVQunkYKQD/Bulxz6GipxiU0ZaPqyQz7GpR
-         VM3w==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:x-original-sender
+         :x-original-authentication-results:reply-to:precedence:mailing-list
+         :list-id:list-post:list-help:list-archive:list-subscribe
+         :list-unsubscribe;
+        bh=8ubW6T7axxgg2uHCOtHZzpULhMS8au6CCi8rm2x4TTo=;
+        b=HyIqBH1lWuLjYvQquMa8QEPKdZ38+2lBJQbx9TCR2Wvlzh1Qest5D27tO4Uk43sgnW
+         RiRr8VgircuU5vV8IzLUrX8zLLkt/h+f2lxzgUdf+b9f8yXwvEZmO9Ra3ji4RDPzWQGM
+         xg81XyNjLdv0CtR31FzTx1XORNJ6PWt+tGrscRdGTqp9lLKpusbmaE5mSOUXaYPO54Wm
+         h1kY/FGXF1Xodm5scylggQK6n4Pl1aHZR9ozojCjr29OZ1bX7outOhdO4hjk9mzzJ0K0
+         WI9u/5KGvmc85A7BHnoS+kMzzsvfYuMAThQYLb/gc1BHEjKwKT5afKQLTAFknHiUuDTX
+         epSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=qh3OVSg2UbpeJBhH1GISfBnvxJz8D2fLU27a8xQ7hjw=;
-        b=FPfIl8VAZ3vfY9/X8gRjGQ8zRnJpQ/MwjNByF/BJISY1SeR9wlFBTRKAS1as4JnPNE
-         ytxFFGopw20QXnRKDdDBBwcreTywebvLV4cAYVTJUJ22mFvCGOKCanRol3MDO33j2O3/
-         zYjgBKR9/V64u7w5Sr95NwE8IcWIQ/M3A0GkPphhUzK1l2BRl5XcnebN2f3bQ492oCD/
-         LixXtHD8CT1zaKqW7ySduVJyhkL4ihbREFGNMqeNNJ7c5neipaRFtP57Jg/ixS3c4yJD
-         8MNYKeviDL7NVKbQJJE8f1GUrbn8NL5JwMst7NqIpVzUHxuPToynCR/5zMSIa9FoJt4l
-         N7dg==
-Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533899N+iPQfu8vPK6hN1p5N0UpOi5p8DaiFeDvS6Og5Dlg/HVXx
-	1oTapGAw6qZkjUdeLn64IN8=
-X-Google-Smtp-Source: ABdhPJx9PVsXLO+M/lOx+443vg3lricXMnaas3KZ/S2IZizaQuBo+EkVwibnHmvF3CoKuvCUwYwATA==
-X-Received: by 2002:adf:8061:: with SMTP id 88mr22135750wrk.277.1596038899737;
-        Wed, 29 Jul 2020 09:08:19 -0700 (PDT)
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:x-original-sender
+         :x-original-authentication-results:reply-to:precedence:mailing-list
+         :list-id:x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=8ubW6T7axxgg2uHCOtHZzpULhMS8au6CCi8rm2x4TTo=;
+        b=TYE6mThpwl17pTN4eUqHOdWk3u9DXNyOgATOsPxaKME3170Mlv3ow10ttZsFIemnZQ
+         N5y6lr+QEPl51UBDVTL/JoAQA8IdbCh7Zul6Q4hpoAyDpRgpJTX/NomMHy1ScZpMP5fs
+         iksYyqnuUILvJTIzhZpyMyUPCAze7kTMK2/4tVzH8BbLHIrQU7IFfl4wks+ucfeoJKub
+         n1lwe/FDSn/+E3C6YIsub+RdEPkTftG94oj865NM07fBo8naQc8gbVDzdGubODaNNc3N
+         qfTDF8OJhYOJUWbggB8uEAgw1bQgA5lvRiARpGFUbbqscqQHXE0xZhtFZUPOZZOhoMpw
+         GkHg==
+X-Gm-Message-State: AOAM533QluQm+tYO8dYhlMP8dpuJ25liCv3fQXAaDtIHlemvPNdFLueP
+	GuTGbFm5W8bZBt9Kj2p5xYU=
+X-Google-Smtp-Source: ABdhPJxsQSxDLRgq6/VHQ0UZx7Vy5P0qCJKfQlfczvHGWxafBe7NtPa3Jhe6f1zfHUeNpoPv4xB2Iw==
+X-Received: by 2002:adf:f151:: with SMTP id y17mr24397321wro.179.1596042844925;
+        Wed, 29 Jul 2020 10:14:04 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:b787:: with SMTP id h129ls1302308wmf.3.canary-gmail;
- Wed, 29 Jul 2020 09:08:19 -0700 (PDT)
-X-Received: by 2002:a1c:c256:: with SMTP id s83mr10013483wmf.17.1596038898915;
-        Wed, 29 Jul 2020 09:08:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1596038898; cv=none;
+Received: by 2002:adf:81f4:: with SMTP id 107ls1893386wra.2.gmail; Wed, 29 Jul
+ 2020 10:14:04 -0700 (PDT)
+X-Received: by 2002:adf:fe50:: with SMTP id m16mr13326704wrs.27.1596042844214;
+        Wed, 29 Jul 2020 10:14:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1596042844; cv=none;
         d=google.com; s=arc-20160816;
-        b=DI6WHDXpyv4YY/ZzkZ7kaDsh+QkVHRtYn3ZkIUybxGoGOcwN1V/kzH4BPA96cOUGuE
-         0bXyeQ7SbKkWnXEy+0NRYnxCpQ/Bl6//4vWuwLGmvJ8h3hp2JMqav324sxHL0/pbeeWQ
-         bLJjwjG2EFItiuBaND45gt2ZGJuXD1u7Zn5FrnMoSTulL+VEUzUnQqsUUwDQkbBzo6hE
-         S9x/kautQEbWHYSueyI5Z+SiltOvQAsfhJ17Y+kUOecD1ugBJGYAO+AurPBAA87fyAtF
-         wVF7OvPJxmL6mUrPB8/edK7/dEBFsIcZMmjj6yrYIBcxZSYIjcGVIqHXl7+4hiWAgdA0
-         TL9w==
+        b=IYDSbUl0/2/IZHKo7YTJjOI1NxHNTHcMJjqF47n2mhj8wM/Dk34hnb7gAIvAGLqUSM
+         VvbPOjyOIugK4Vte1tMeccQKMkxP7+ik1kJVXiE2NK4UN82IDy+bbb3do6340H4d0nMk
+         88QgcZCkk23R11a+ab4Y0M7dSLAjjiNJSnqnYUifKPN9GsPA88RzG3AFAxJ46xRFSDdM
+         DFUO2H6OEcP4i6sIeToRPIuZJKBzfVZgkIAy3jSi04xrFkKcLLwbkfUekBJoodpzWPMN
+         DpFFiVHaFzSkBGcv4yz1Qahgoc/iPP+luU9Wl6AEo1yP3xDXgbSq1zw6IE1QFpeQgAzv
+         j0BQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=SRcauTqcLpCbnuFYswTXttkTWxIUZ8trtNq72Cf4zX8=;
-        b=HIgtv2POSnhH13H6CMi1SzxWshAMytf/cEU99lbb97ZcIJQTCJWJkWlyS+gpzLQ9Re
-         ZBSedj6zdLl7MZ0JvrljU47B/14mOzHnHiCqRAjpV3m31OrWrTHhl3EMRMECkxBo8Rr5
-         HMR4oz8gGqU5BAVAM+jnuKJXUrPuciCgGr1gLX8Au9CBXmNoe+8mTJyYVFcE9ekZPafX
-         ntedXmHGQYUbSqGZOB4bmIb+gMuKySELuWrvteMTQhkmQyLn5LvFhR+kuX6J8OFE7jm9
-         KcXvt+GWVgcFfzf0/RfvkNKnyDirZS2qVD8ht6cFyjnM2y/E/LMM9FGFG8YkpIKV1zX9
-         Dtgw==
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:dkim-signature;
+        bh=NJ2fs0wgntnz/QajgHZm72K4V2hwx4b+otWNOU31SdU=;
+        b=daSOobcpPQ6ulPnyYRbdENW7adHFuUoMEWCWSSErQI5S2dcbwF5k4gVWqItRBKEtcE
+         ws7pONlt2lGh1jCoHx/FkMww7UloKv4tufe7sZeF1FJTgEBiSamxdBRtAUvWhJlHWiJi
+         BGOOpId/zV9FklNk3gZJ3WLUbO1/UHKeYo/lKYIHftD30+f3wlU003K6/rZSkmbsdV5s
+         lEay9NilQMSzia4K68CPOz4unWswxbIzoIZqL3M7QErhj68NJwgT+q5UqGEXRFfd/UD/
+         q6KdPxwGxkMedPIQg/lftXtb4W0HpQTRNuAMID5/OIc6GpFV2EIwCMquzYNIinwknGMM
+         FW7w==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id f23si336554wml.3.2020.07.29.09.08.18
+       dkim=pass header.i=@unimore.it header.s=google header.b="U/jnUDBV";
+       spf=pass (google.com: domain of marco.solieri@unimore.it designates 2a00:1450:4864:20::544 as permitted sender) smtp.mailfrom=marco.solieri@unimore.it;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=unimore.it
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com. [2a00:1450:4864:20::544])
+        by gmr-mx.google.com with ESMTPS id i11si161921wra.3.2020.07.29.10.14.04
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 29 Jul 2020 09:08:18 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 06TG8Irq017150
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 29 Jul 2020 18:08:18 +0200
-Received: from [167.87.13.2] ([167.87.13.2])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 06TG8Grk030821;
-	Wed, 29 Jul 2020 18:08:16 +0200
-Subject: Re: [PATCH v2 0/9] Add cache coloring API and arm64 support
-To: Marco Solieri <marco.solieri@unimore.it>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 29 Jul 2020 10:14:04 -0700 (PDT)
+Received-SPF: pass (google.com: domain of marco.solieri@unimore.it designates 2a00:1450:4864:20::544 as permitted sender) client-ip=2a00:1450:4864:20::544;
+Received: by mail-ed1-x544.google.com with SMTP id m20so8483658eds.2
+        for <jailhouse-dev@googlegroups.com>; Wed, 29 Jul 2020 10:14:04 -0700 (PDT)
+X-Received: by 2002:a05:6402:325:: with SMTP id q5mr6649891edw.343.1596042843871;
+        Wed, 29 Jul 2020 10:14:03 -0700 (PDT)
+Received: from localhost (217-133-116-244.static.clienti.tiscali.it. [217.133.116.244])
+        by smtp.gmail.com with ESMTPSA id n2sm2291587edq.73.2020.07.29.10.14.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Jul 2020 10:14:02 -0700 (PDT)
+Date: Wed, 29 Jul 2020 19:13:09 +0200
+From: "'Marco Solieri' via Jailhouse" <jailhouse-dev@googlegroups.com>
+To: Jan Kiszka <jan.kiszka@siemens.com>
 Cc: jailhouse-dev@googlegroups.com, marko.bertogna@unimore.it,
-        giulioc@xilinx.com, c.scordino@huawei.com, fabio.federici@utrc.utc.com,
-        Luca Miccio <206497@studenti.unimore.it>,
-        Angelo Ruocco <220530@studenti.unimore.it>
-References: <dad08183-081d-6c31-5be6-305c39a9900a@siemens.com>
- <20200720162639.jsc4o5a7nzinaxwn@carbon.xt3.it>
- <615c92ff-593f-ad69-ea87-1ad439d211e2@siemens.com>
+	giulioc@xilinx.com, c.scordino@huawei.com,
+	fabio.federici@utrc.utc.com,
+	Luca Miccio <206497@studenti.unimore.it>,
+	Angelo Ruocco <220530@studenti.unimore.it>
+Subject: Re: [PATCH v2 0/9] Add cache coloring API and arm64 support
+Message-ID: <20200729171309.ds5lznjj6xqh37sc@carbon.xt3.it>
+References: <615c92ff-593f-ad69-ea87-1ad439d211e2@siemens.com>
  <76259743-55bf-4d28-f344-1d829e040d00@siemens.com>
  <20200727211308.5mxhkffz5aj27ocb@carbon.xt3.it>
  <8f358d65-eecc-405e-c659-00f501cf5040@siemens.com>
@@ -118,20 +123,20 @@ References: <dad08183-081d-6c31-5be6-305c39a9900a@siemens.com>
  <20200728110945.w4o52pgtq33ic2pv@carbon.xt3.it>
  <d8b12a27-69dd-e47e-a7e2-258192696bc6@siemens.com>
  <20200729153242.f6txtzeqbeqrtcyr@carbon.xt3.it>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <5369cf35-5291-440d-642a-9f23cccc854a@siemens.com>
-Date: Wed, 29 Jul 2020 18:08:16 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <5369cf35-5291-440d-642a-9f23cccc854a@siemens.com>
 MIME-Version: 1.0
-In-Reply-To: <20200729153242.f6txtzeqbeqrtcyr@carbon.xt3.it>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fz5itubxja6gikwj"
+Content-Disposition: inline
+In-Reply-To: <5369cf35-5291-440d-642a-9f23cccc854a@siemens.com>
+X-Original-Sender: marco.solieri@unimore.it
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@unimore.it header.s=google header.b="U/jnUDBV";       spf=pass
+ (google.com: domain of marco.solieri@unimore.it designates
+ 2a00:1450:4864:20::544 as permitted sender) smtp.mailfrom=marco.solieri@unimore.it;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=unimore.it
+X-Original-From: Marco Solieri <marco.solieri@unimore.it>
+Reply-To: Marco Solieri <marco.solieri@unimore.it>
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -144,67 +149,135 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 29.07.20 17:32, Marco Solieri wrote:
-> On Tue, Jul 28, 2020 at 01:30:37PM +0200, Jan Kiszka wrote:
->> On 28.07.20 13:09, Marco Solieri wrote:
->>> Beside the "offset vs next_col" choice.  We would like to stress that we
->>> need it to be aligned with the concept of colored memory that we are
->>> proposing in v2.  This notion is present: in the user configuration and
->>> documentation, and also in the hypervisor code.  Namely, given a color
->>> assignment, a memory region, and a size, we want to map *only* the
->>> needed pages that satisfy the size request.  I.e., not to assign *all*
->>> the pages of the given colors within the given region, possibly
->>> exceeding the size request.  In other words, the size parameter is meant
->>> as the real size to be mapped, not the place where the find it.
->>
->> I didn't finish that part either: I also believe that "size" of a region
->> should reflect the physical size, not the virtually expanded one. That
->> virtual size makes it really hard to read configurations now. Yes, there can
->> be tooling (config checker), but when you start to rearrange regions you
->> will continuously run into those overlap issues because region do not really
->> end where phys_start+size suggests.
-> 
-> I don't think we have very much choice, here.  We need to pick one
-> between:
-> - having a true region size parameter and favour misunderstandings about
->    the end address, since phys_start + size != phys_end (v2 proposal);
-> - ease reasoning about the real end address while using 'size' as the
->    'phys_spanning_size', since end-start != size (v1 proposal and your
->    currently favourite).
-> 
-> The situation is symmetrical, but about one point: v1 make the 'size'
-> semantics explicitly incoherent.  We would avoid that.
 
-So does v2, see below.
+--fz5itubxja6gikwj
+Content-Type: text/plain; charset="UTF-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> 
-> To mitigate the configuration difficulties without the help of the
-> tooling level, we can promote a good configuration habit and comments
-> like this:
-> 
->    size        = CELLSIZE;
->    // phys_end = phys_start + size*(MAXCOLORS/CELLCOLORS)
-> 
+On Wed, Jul 29, 2020 at 06:08:16PM +0200, Jan Kiszka wrote:
+> On 29.07.20 17:32, Marco Solieri wrote:
+> > On Tue, Jul 28, 2020 at 01:30:37PM +0200, Jan Kiszka wrote:
+> > > On 28.07.20 13:09, Marco Solieri wrote:
+> > > > Beside the "offset vs next_col" choice.  We would like to stress th=
+at we
+> > > > need it to be aligned with the concept of colored memory that we ar=
+e
+> > > > proposing in v2.  This notion is present: in the user configuration=
+ and
+> > > > documentation, and also in the hypervisor code.  Namely, given a co=
+lor
+> > > > assignment, a memory region, and a size, we want to map *only* the
+> > > > needed pages that satisfy the size request.  I.e., not to assign *a=
+ll*
+> > > > the pages of the given colors within the given region, possibly
+> > > > exceeding the size request.  In other words, the size parameter is =
+meant
+> > > > as the real size to be mapped, not the place where the find it.
+> > >=20
+> > > I didn't finish that part either: I also believe that "size" of a reg=
+ion
+> > > should reflect the physical size, not the virtually expanded one. Tha=
+t
+> > > virtual size makes it really hard to read configurations now. Yes, th=
+ere can
+> > > be tooling (config checker), but when you start to rearrange regions =
+you
+> > > will continuously run into those overlap issues because region do not=
+ really
+> > > end where phys_start+size suggests.
+> >=20
+> > I don't think we have very much choice, here.  We need to pick one
+> > between:
+> > - having a true region size parameter and favour misunderstandings abou=
+t
+> >    the end address, since phys_start + size !=3D phys_end (v2 proposal)=
+;
+> > - ease reasoning about the real end address while using 'size' as the
+> >    'phys_spanning_size', since end-start !=3D size (v1 proposal and you=
+r
+> >    currently favourite).
+> >=20
+> > The situation is symmetrical, but about one point: v1 make the 'size'
+> > semantics explicitly incoherent.  We would avoid that.
+>=20
+> So does v2, see below.
 
-...which would be only true if you aligned phys_start on way-size. 
-Irrespective of the semantic of size, such an alignment should be a 
-requirement to enforce in fact. Otherwise, things become even more 
-confusing.
+Not completely.  'Size' in v2 correctly means the size of memory
+addressable in that region, both virtually and physically, although the
+such memory spans a much larger memory area.
 
-BTW, another - though massively invasive - option to help clarify the 
-situation is to rename "size" to either "virt_size" or 
-"phys_[spanning_]size" because that is what actually happens 
-semantically in the presence of colors.
+> > To mitigate the configuration difficulties without the help of the
+> > tooling level, we can promote a good configuration habit and comments
+> > like this:
+> >=20
+> >    size        =3D CELLSIZE;
+> >    // phys_end =3D phys_start + size*(MAXCOLORS/CELLCOLORS)
+> >=20
+>=20
+> ...which would be only true if you aligned phys_start on way-size.
 
-Coloring does not go well with manual configuration, I guess that is clear.
+Correct.
 
-Jan
+> Irrespective of the semantic of size, such an alignment should be a
+> requirement to enforce in fact. Otherwise, things become even more
+> confusing.
 
--- 
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+Enforcing the way-size alignment could surely help, but it could be
+quite invasive and expensive -- it could waste several MiB in the case
+of big cache (e.g. 8~16 MiB) and large number (e.g. 2 regions x 8 cells)
+of alignments to do.  I am quite dubious.
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/5369cf35-5291-440d-642a-9f23cccc854a%40siemens.com.
+> BTW, another - though massively invasive - option to help clarify the
+> situation is to rename "size" to either "virt_size" or
+> "phys_[spanning_]size" because that is what actually happens
+> semantically in the presence of colors.
+
+I thought the very same as I was writing my previous comment.
+=20
+> Coloring does not go well with manual configuration, I guess that is
+> clear.
+
+Indeed.  (That is why we previously leant so much towards configuration
+checks and automation.  (Think about the rest of the work -- designing a
+configuration for a specific application, where cache partitioning and
+limiting have performance impacts on interdependent inmates!))
+
+--=20
+Marco Solieri, Ph.D.
+Research Fellow
+
+High-Performance Real-Time Lab
+Universit=C3=A0 degli Studi di Modena e Reggio Emilia
+Ufficio 1.35 - Edificio Matematica - 213/b, via Campi - 41125 Modena
+Tel: +39-059-205-55-10  -- OpenPGP: 0x75822E7E
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/20200729171309.ds5lznjj6xqh37sc%40carbon.xt3.it.
+
+--fz5itubxja6gikwj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOC2XMK2o3tvc3F09Ctn83XWCLn4FAl8hriUACgkQCtn83XWC
+Ln6AgBAAhI1I0HyrToTvzqQhrFFs60iuGsYrd2yCOlTXdxI8JRHbxWdhb4AMtuW1
+swbWgY+O0vYvE7HF+sK9ckwYUVW/1LKu4EaFGJu5vYyMh19E+eilIItXmeSaKACu
+9mmTfBDpB3FqOx8JGSQRc/oSGea/sBzNAEq9wczM6FSQphkXoNNoIDOYN0nzeDrw
+B/txeKLzWF5mfcjeqWIODVwmcetSXIP1vNfz7sK4/p8r8bbfkOCgZnx9J/IG4XV2
+dGuxECfslXLPEnM3xa2KoHhZboIk3WBUS1RWBLO9kzFNo0QysKoCHDpTP0WfY1ts
+942RTKyMxDbS45BmQCr0EFgmMo/PLzIj1DNn0x2XRZyzzqJTH/n+3Ru1oFiVN6pD
+nGTigWbtZ+jiN3D+hcF4nHfIl1m8m2YEEoXRb3erojGVeYwYufN4t9vhP+I5Tfh1
+7wkDX3yfn6G86YFPIvU6M0mitNtSpPSlGwg4gGwBGQQbzk1Y5a3L1Lt0r0szL3Lz
+nB8K9JpRgAkVUkG03SKik1p4sQRf3cxycLGjcdNGVjjAn7rscq3ePV4zU/+cAu82
+1GmCFgh/e9CgauBnYf1CGB9a1iEzQE5irrTZtRvodJClQANGqma6SwTlJ8iPmici
+oUg49Ek6rWrGxjho46rRa0eyG5iHm6zChyAh1a/SsWBgOjQLAuo=
+=F5Zo
+-----END PGP SIGNATURE-----
+
+--fz5itubxja6gikwj--
