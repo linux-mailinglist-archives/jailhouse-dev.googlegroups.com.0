@@ -1,142 +1,188 @@
-Return-Path: <jailhouse-dev+bncBCOKB247TIDBBPOTQL4QKGQEMA4YLEI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDAMFR7JZAEBB3GZQP4QKGQEUM64V3A@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x140.google.com (mail-lf1-x140.google.com [IPv6:2a00:1450:4864:20::140])
-	by mail.lfdr.de (Postfix) with ESMTPS id F32722315AC
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 29 Jul 2020 00:42:05 +0200 (CEST)
-Received: by mail-lf1-x140.google.com with SMTP id x9sf6023894lfa.8
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 28 Jul 2020 15:42:05 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1595976125; cv=pass;
+Received: from mail-ot1-x337.google.com (mail-ot1-x337.google.com [IPv6:2607:f8b0:4864:20::337])
+	by mail.lfdr.de (Postfix) with ESMTPS id 98886231816
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 29 Jul 2020 05:28:46 +0200 (CEST)
+Received: by mail-ot1-x337.google.com with SMTP id n7sf1509998otn.19
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 28 Jul 2020 20:28:46 -0700 (PDT)
+ARC-Seal: i=3; a=rsa-sha256; t=1595993325; cv=pass;
         d=google.com; s=arc-20160816;
-        b=smB9vZeDM3SLYO3urSFWOiLKIsN1a+S3uZ1Zxl5Fg/y+4Bq646KCJEA0hcJubMpXG0
-         0biAqwCpf6xXbXTov1292aRCLLgNAjONe0ky3h2A/19xyruLEmfk+1dzIKP7nIUrgWvC
-         /pmWPWIgQzT4zzwkEyXssXnxWYiU80LBw9CcvHlTIn3GQzK0TbqN6F/9C8CQGqIRYByV
-         Trz45c51HGhfceO9Ai+rO52OINvOjCxSPbhQRuDqdn0e2iqXdf5o9N1jkJt3uibHk+bF
-         AR/G8sEmVF/LYg68hLdD9b5NtRgZGi2qEXB5M3NgaCgm92v9Rv8tk5n5ko0quSYqagR5
-         B6Jg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        b=F47V0reF67OEzLv6mhBfdxyCF63+Qecv06D3b7SnPgLKG9oS461544grh+ni1M+5cb
+         KomYGkf5tEtmNwqkKefAvjR+mX3A/GTVbQaBku4MVSrpPFymFqYO9Kls66khmnPDq6jj
+         Yjna3MZPnGNHtSTVEtJdoAVsxHxtVKTP2Vsqjykta+IdvP0mP9ls/6OIaJ9g5/s+xSLT
+         RYNPw6yTQry1E/6EQ0gk2dM+nBXMIHs4mMY5HRQE6ksyCEsBW05+xz4a8tXSm42qgT8q
+         lBaeoztIGlYqG0p4zDjxM/TRaWyCbxdELCmeYlkcBylwLRFhQ0EybT5lcMso8IVnOWfU
+         KBBw==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to:in-reply-to
-         :content-disposition:mime-version:references:message-id:subject:cc
-         :to:from:date:dkim-signature;
-        bh=VQf6ubY4f6+N7aVVkor1JH1HAeDLmeDafEhQb8vRY9s=;
-        b=VrItCS97tI4THwvOc1DyVwcMAxwDt1Uo1eYHmUM7w3A6IbG9oW37G/dkiRpq/La37U
-         IqeTGQh9ltbIfVV9FY9hwSbOOZIdlU0W06BQzPlXJNIjqCMnKYGZx+5gYeqLlhU6RNIa
-         wJDa35M0I7EU6D6ZeAgRYBJu2xPVJOQefJIYpW1BgCStlKyHeNezjOep6L3uQ30NYTiV
-         TJZcDQBvR5e4pEquYGKwurV4pvB9OHB5T0bXMzCpMnbXG/RluWVudNm96sX61518QorB
-         FVfYo1YEcXOTwEg25YWyokD9hknBqoHcjNXGbgJZh/3g30yeJN+NUke3P6R8J6WcGZDA
-         l0zQ==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@unimore.it header.s=google header.b=lPwtqjgX;
-       spf=pass (google.com: domain of marco.solieri@unimore.it designates 2a00:1450:4864:20::542 as permitted sender) smtp.mailfrom=marco.solieri@unimore.it;
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=unimore.it
+         :list-id:mailing-list:precedence:mime-version:content-language
+         :accept-language:in-reply-to:references:message-id:date:thread-index
+         :thread-topic:subject:cc:to:from:sender:dkim-signature;
+        bh=fRGz3RbpbH1okoYY62PlO4FPadNm+K0mq6ageOp2Qdg=;
+        b=UaQyrblwW0o2h1TnkcGR7NOX9yJo31I0yyXRnntdnFtsUxf5VNx3jyDSXnjVBCgblk
+         yxwCFJCS3BPBcXe8CD2Joh5+C2ezJ/kraJ/X2mSGS6J2LSF1nBSn//IWQfawijQK6c/O
+         AnKGNKcS3OUxdRTXqUqiqB0BXNPLxqzrIN4STE0ky7TmVR6MBC9IaCgBGMMEvMBg+VSu
+         gy86pboOyAI8Ru+e5HEZjzH+qoP+mgGuYy2aDpXv56nqcbgGoGnmD3PcLQTQugHzSBNr
+         WjfiDu9eKp+RktPlJVFMRZ+5IbmL83EjirdMenDKSYQH4Xx0VhBzIeiQ4H8Vlhyqc4Y8
+         vR+Q==
+ARC-Authentication-Results: i=3; gmr-mx.google.com;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=czfpU6M1;
+       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
+       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.22.84 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:x-original-sender
-         :x-original-authentication-results:reply-to:precedence:mailing-list
-         :list-id:list-post:list-help:list-archive:list-subscribe
-         :list-unsubscribe;
-        bh=VQf6ubY4f6+N7aVVkor1JH1HAeDLmeDafEhQb8vRY9s=;
-        b=cR5l5HnZJccBwIWpl7bhwhodp8+UmZ3wmj3L++60l0GLevIsOfbPPy2V+I/i5FgVkx
-         jlCequoTCGQNNN1ZBSywje10mX1IrQWvK5rouWEP/WmZtepkyL7phnm/VxbQEaFWiazy
-         u3AlV/1KUEq2slY91M6XXS9o1EB1PrX2J3caA8dFI9KQbPqkKdoqhGtWTm92BcaWLnDN
-         U0h0FrVziranKR7kS+2iFfAXO1e5Mw+euKdst237zprJzwZLx7MvsJhwGGZqor2ZJ0d4
-         3hEmuWAcIfAuflWIqrzpDPj09+c3YAwuDe1NxnlTSZmTjnGXzd88HMSWZhTaklocK83H
-         WgdQ==
+        h=sender:from:to:cc:subject:thread-topic:thread-index:date:message-id
+         :references:in-reply-to:accept-language:content-language
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=fRGz3RbpbH1okoYY62PlO4FPadNm+K0mq6ageOp2Qdg=;
+        b=knlaR+aWkdjLZmyrTRLhuA8q5cvV6uq9emIocDkgtIOV+p9bB9HKPlfEr7D//W6ZjZ
+         kUkG+Z/+OCbMX61CUTgEJ+ICbZWybaI0kqCndOwcEjC0KHTwZdTNQzSzTM+gUzoSzM0j
+         MtYTUYk2rgf1zfxHsV0T0s3j//la8S+m97DTkZUGQpeX+TCXfdsHYA8ZekcB26AXGW0+
+         GKUPrG20YGs8CP+V26v22p2P7RZsHcdfE3nf+F231v9Z6ez2IejUrgQujzH40J41CdN1
+         BAeeGpvMZ97flmvYWaTjPZYmE2JSh+J9H/XuPrzUscm93ML1YvZDeqQ/bp3romYKXHXA
+         gLGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:x-original-sender
-         :x-original-authentication-results:reply-to:precedence:mailing-list
-         :list-id:x-spam-checked-in-group:list-post:list-help:list-archive
+        h=sender:x-gm-message-state:from:to:cc:subject:thread-topic
+         :thread-index:date:message-id:references:in-reply-to:accept-language
+         :content-language:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=VQf6ubY4f6+N7aVVkor1JH1HAeDLmeDafEhQb8vRY9s=;
-        b=Hq6QUgryvx/y9jpJ1s+zVCgNJPpZSjG67QWuK+5xeqmyj9dIaVPArcEXUcLzU7KyJX
-         5bxbn//RkkwPhvwGHBpx6+zERl6gp4JdQ1S5QLduHgHKZMrUCXZLUUkJJ8V4elbs+R7M
-         QGvF8jmIN91aD7q+TTlGxj5ZxLJJnRDDC/AG4ig//Jix1Zd20yEE2S5h8ScM8iKmxskx
-         wFz8fNyykBgncdVnALrlQDR6ex14qtQRqf+ga7INuab40/SCoMcBHAb/bzxAaihoPFUo
-         r1JqsBYzIFhYuzAz2SfIm/VmeOX5jAJpSS6iftT4CzCfXDnLpkOrJI5j7zJFRLILTjL+
-         f00g==
-X-Gm-Message-State: AOAM530wUSrzP4etywsBTRadwzEj3djihaaTHXDd++2ZGXPjblz2KteY
-	UsRU++HG4sRJ9jXLxv3rQOk=
-X-Google-Smtp-Source: ABdhPJwYVVxmOk4MzEEZqiGDdPqAQhv8J3SpSTarhfB18wX2MsHErvD/J4khbuyo1ykEFo86xANBCg==
-X-Received: by 2002:a2e:8157:: with SMTP id t23mr14089742ljg.417.1595976125413;
-        Tue, 28 Jul 2020 15:42:05 -0700 (PDT)
+        bh=fRGz3RbpbH1okoYY62PlO4FPadNm+K0mq6ageOp2Qdg=;
+        b=QIch6wgtAGjlfeTX4Uj69IHzM+MZglJH0eL+lAEQOmUFWi02hj+W3X9G6h6MizFW5Y
+         OmQKvq08ys9XVS0mL1+xfVOJ/RBgiNvnzPEARdTEUhrVwG+Cn29vGFJxwgogt+7oKrxb
+         TWDNzEDbl2E5nCLwS0NANesfaDU6Q1ZQInqxQYIsS4msXMQmny1S9gbcG2QF5dZDvGTc
+         rzXX30Aa4J3f+GfoyxmI0PnHlK7zPwt3SqoUfdAQ+hXOXHKVA43bo7p1SvgCOEh9hlqO
+         Gaf9siloMhZ3odHm8QpQiDanEitRK43q3oBWkV5rk376wjrTqmMTt/5YLUXvJVlhMC5B
+         S27w==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: AOAM531IaRGChqtg5OJ+aUMxNDqgOj0QG2uHpTq+uHw4AqvFrT4hM/bG
+	VaIgtRisdveKDWN9pUVkgHI=
+X-Google-Smtp-Source: ABdhPJyrINK3kZVTiwwPtJWiYyhDyqBUT3YuMjf2B2iz77BPRAkLis4UvQBc/An+AL+/36b5KPUP7A==
+X-Received: by 2002:aca:5703:: with SMTP id l3mr5945711oib.43.1595993325063;
+        Tue, 28 Jul 2020 20:28:45 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac2:5e33:: with SMTP id o19ls94170lfg.1.gmail; Tue, 28 Jul
- 2020 15:42:04 -0700 (PDT)
-X-Received: by 2002:a19:c68b:: with SMTP id w133mr15236757lff.189.1595976124615;
-        Tue, 28 Jul 2020 15:42:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1595976124; cv=none;
+Received: by 2002:a54:4404:: with SMTP id k4ls159549oiw.8.gmail; Tue, 28 Jul
+ 2020 20:28:44 -0700 (PDT)
+X-Received: by 2002:aca:c057:: with SMTP id q84mr6193120oif.117.1595993324596;
+        Tue, 28 Jul 2020 20:28:44 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1595993324; cv=pass;
         d=google.com; s=arc-20160816;
-        b=cJPS0xkDneS1FhhKotrQX7WjQN99MpJebLPezYNGN3rQVKJbFMVVKAq5zZ+Yu7jF6o
-         S0Du7i57NA9jj+Dw2IlX2f/jctLHUVPRtFGtjpq/34hoH2EgqPTFry9cGMKkgZO6pqRs
-         6KZY2azQ8rQKJLOJS5cvVpMBGiRnkrNqflGl6sQQIBkqOjEHto9uyLr9Zu5rIRXgLKh6
-         7hHd3KSg471iddigtIzTSUU8+OgP5umd/77pg+Vxo7bsbubb8IRJLNMF2w+26LN6Jj43
-         M5aIyMnl5ZxRjqac/2MIES3JBSg3LTU7XSwug2SHRguQTGBxfFjqLxl9+tGQUvzrEdjU
-         4lJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:dkim-signature;
-        bh=Bwy6lsmEof8CvFpHa1RL0+d3yBLspmtKtek0sbM4uWs=;
-        b=f8ji1nILNOnJzWZuiXWgCYdNkjnKLoUnQLiGUPz11vVdImGAr3UQaK/6mnYx85byVu
-         L/vJj770eaIEhItWAn4rxZYhYsXfqmJuI6vH5OG8XB5uJO8AaZMhIHbRyT+ox+e/J6hk
-         ZlFcgoKekYamCsVLm1A25CaBfezC8ditetOiC3aIVb0XPXjD/EFBU/x9vBXO2fVeqdL7
-         WrqGig5mi5kM+fefPhokSGblyk20/sRyg7uoLUtWZrgCZSpto4sl0iHLoy51URImquAG
-         lANVp+AbiC0Hq1x9lgjIBaYyPnXxBM+G+4azJNJtnvnaIg/5LbGlxdBYTtHL+vKUmJkZ
-         8kSA==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@unimore.it header.s=google header.b=lPwtqjgX;
-       spf=pass (google.com: domain of marco.solieri@unimore.it designates 2a00:1450:4864:20::542 as permitted sender) smtp.mailfrom=marco.solieri@unimore.it;
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=unimore.it
-Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com. [2a00:1450:4864:20::542])
-        by gmr-mx.google.com with ESMTPS id c27si14883ljn.3.2020.07.28.15.42.04
+        b=FRkHpdTO9LEGSgE5UHXawc9BszQRtjKcT+ODN5sjzr1kzBOXp31+9eczVDkSZPPI64
+         Xzk48RTtNjUXEvjT90s1BakDwI6dP0p27bt126Ps8qHJTbfQdbNrDsieXfWmiAs1Z+ap
+         /tQRaKwivesCockfH1FamVCvHG6IVKGwHbQYHKL41MrMeqTzxmzfX0HaQH+5imYBrUa6
+         b0uYwjsRc/dFO1rnTfpDYLl7B+vPAIcJ9ifShf+lXx0d4XwzH5EGOqItMnai/54567cL
+         wgJafhn8iZCU6OPdvZzQonrUsiTlZo4ezX7+fA1rsZnjiNxYlA+9i8MgSHhDwnyZZemI
+         A7vA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:content-transfer-encoding:content-language
+         :accept-language:in-reply-to:references:message-id:date:thread-index
+         :thread-topic:subject:cc:to:from:dkim-signature;
+        bh=JuQ+zHRg9/Dsesv+wmHLPmIeML6jS7o4NYA/q1NQ0x8=;
+        b=c8shtoQSqyTtVchgwTQxgtVk7dn6vs+Ii2VNK24DYlSOza8bkAt3wmEWyG7syb51gm
+         CKdfgEXWy7EjhimNTUgmxl6PxkscYdknXixXEZx99H6EIDI8ciQCN2I+WDXoZBOs3WZq
+         3Rud4KDS+ah20c3rSzcTmeuk1C3EMtRh6yWaqzoHVzJQe770WhFJRbMa/X8oCAyxC9gX
+         59xJzy1IKPehVFT+tDTPkuX4GiINYnN69jJwamMyr93RPOKjOaUN8FG7ZI4qlJm4Zv+J
+         Kby1sw+9QvGTOkMqkJ8V10gJlROvtLrQ7R0+b/cGXngriEwz9r152yFuJ26LA3bqmWui
+         sGeA==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=czfpU6M1;
+       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
+       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.22.84 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com (mail-am6eur05on2084.outbound.protection.outlook.com. [40.107.22.84])
+        by gmr-mx.google.com with ESMTPS id n26si88606otk.5.2020.07.28.20.28.44
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Jul 2020 15:42:04 -0700 (PDT)
-Received-SPF: pass (google.com: domain of marco.solieri@unimore.it designates 2a00:1450:4864:20::542 as permitted sender) client-ip=2a00:1450:4864:20::542;
-Received: by mail-ed1-x542.google.com with SMTP id di22so8805204edb.12
-        for <jailhouse-dev@googlegroups.com>; Tue, 28 Jul 2020 15:42:04 -0700 (PDT)
-X-Received: by 2002:a05:6402:7d5:: with SMTP id u21mr11339631edy.235.1595976123874;
-        Tue, 28 Jul 2020 15:42:03 -0700 (PDT)
-Received: from localhost (217-133-116-244.static.clienti.tiscali.it. [217.133.116.244])
-        by smtp.gmail.com with ESMTPSA id u13sm302126eds.10.2020.07.28.15.42.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2020 15:42:02 -0700 (PDT)
-Date: Wed, 29 Jul 2020 00:41:45 +0200
-From: "'Marco Solieri' via Jailhouse" <jailhouse-dev@googlegroups.com>
-To: Jan Kiszka <jan.kiszka@siemens.com>
-Cc: jailhouse-dev@googlegroups.com, marko.bertogna@unimore.it,
-	giulioc@xilinx.com, c.scordino@huawei.com,
-	fabio.federici@utrc.utc.com,
-	Luca Miccio <206497@studenti.unimore.it>,
-	Angelo Ruocco <220530@studenti.unimore.it>
-Subject: Re: [PATCH v2 0/9] Add cache coloring API and arm64 support
-Message-ID: <20200728224145.qj4ljq2zm76ueo32@carbon.xt3.it>
-References: <dad08183-081d-6c31-5be6-305c39a9900a@siemens.com>
- <20200720162639.jsc4o5a7nzinaxwn@carbon.xt3.it>
- <615c92ff-593f-ad69-ea87-1ad439d211e2@siemens.com>
- <76259743-55bf-4d28-f344-1d829e040d00@siemens.com>
- <20200727211308.5mxhkffz5aj27ocb@carbon.xt3.it>
- <8f358d65-eecc-405e-c659-00f501cf5040@siemens.com>
- <20200728091507.35bodtnsvbgcwxvr@carbon.xt3.it>
- <ee0c4b0a-9ea3-4978-43fd-fe38a1321e9c@siemens.com>
- <20200728110945.w4o52pgtq33ic2pv@carbon.xt3.it>
- <d8b12a27-69dd-e47e-a7e2-258192696bc6@siemens.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 28 Jul 2020 20:28:44 -0700 (PDT)
+Received-SPF: pass (google.com: domain of peng.fan@nxp.com designates 40.107.22.84 as permitted sender) client-ip=40.107.22.84;
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KmP+Nt2d/7eGSWIo9X8sNToZPtZENHmzfMYE0FURlEtXJQBqUMstBoPbQu8JyWbGmfsPOYSCV53+qEE7hG2J/vbcvK7kxrDL6KwMaOS63LkxmA3QMaATx6Z+rmEbYMBSYnWeJSR0y9XO6QZucONbxId8Tv88Tj4Sj5XwG933Fy6qjYXh7V9ZzHFx+0i2m6/pP6IoUoGJtQEpbfbYAl6OV4T0g8aNC+NPdHqlQ/apowJ6ETUbvFp6h9nco9riBqVmoMkVCEjNGoU+1NdqlAiNr3GkLU2E7PEWHoCOD6HtVpVIjnFqIJ0+NA15SbGdlUiTyl2b29TlifYsyCMUpUvMMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JuQ+zHRg9/Dsesv+wmHLPmIeML6jS7o4NYA/q1NQ0x8=;
+ b=laR0FSuKX0qaL3jJDvIhJsmW+NE76UqyygfY/yl9amf8el5gUw63GjLEGJ7c8GIm+zp/SpN/vWO5xZZOHaWAUUEKdI0FBebPZowYUsEhzs55l+d3fhRT/Z9s1jJgShpa+TyaAZ4ndQqt/9ILJdbU8sy9l5A55AahxpipOZXzjaffzyNMlikF+ib1z+WR2U+zX536QTCIqPI2SQp/TX5Ad+EJ8Xrk6H36cFYZNBkrCsQEOHliWChd5PYB1UrrKUiRkem5u9G0CoMZRKmcYR2r4DwVM022q3yT9p6txVvJm7IauC9jRaZmGPtX0A8xoi6PdtjTlptpsgmTIVtfZqJouw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com (2603:10a6:4:a1::14)
+ by DB7PR04MB4090.eurprd04.prod.outlook.com (2603:10a6:5:28::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3216.26; Wed, 29 Jul
+ 2020 03:28:42 +0000
+Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com
+ ([fe80::2d36:b569:17c:7701]) by DB6PR0402MB2760.eurprd04.prod.outlook.com
+ ([fe80::2d36:b569:17c:7701%4]) with mapi id 15.20.3216.033; Wed, 29 Jul 2020
+ 03:28:42 +0000
+From: Peng Fan <peng.fan@nxp.com>
+To: Jan Kiszka <jan.kiszka@siemens.com>, Angelo Ruocco
+	<angelo.ruocco.90@gmail.com>
+CC: Nikhil Devshatwar <nikhil.nd@ti.com>, Jailhouse
+	<jailhouse-dev@googlegroups.com>, Alice Guo <alice.guo@nxp.com>, Ralf
+ Ramsauer <ralf.ramsauer@oth-regensburg.de>, Jose Martins
+	<jose.martins@bao-project.org>
+Subject: RE: jailhouse jitter?
+Thread-Topic: jailhouse jitter?
+Thread-Index: AdZQV9Sg2ghlhzPgRlmJb7fpOVsBgwADlDcAAAL01YAAAMZ8gAAGw6oAAAZGpAAALvHKAANegwUAABKcb+ABLTLsQAAAvACAAABJEgAAAlS8AABbEs/w
+Date: Wed, 29 Jul 2020 03:28:42 +0000
+Message-ID: <DB6PR0402MB276063FAB38B540E81ED7D3288700@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+References: <DB6PR0402MB2760BE2A66C776875890B5DF886D0@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+ <38ffb4dc-20d6-3404-cc61-ea08ea8066f1@siemens.com>
+ <e0b6c5f5-89a0-6e29-6700-e5d5064d4672@ti.com>
+ <CADiTV-0qHuXt=wrGCp4RbFWcu=WGsZKB-doXOTxjMVZkRiiiCA@mail.gmail.com>
+ <1d5b0ac8-0744-59ab-bb90-8133df4a1525@siemens.com>
+ <d0b0c698-7ee2-97dc-7b6e-685f2f169f39@siemens.com>
+ <CADiTV-1oJBD+SkAT475xD5iODeo24wqwBSFGu2JQATxqpF1W0w@mail.gmail.com>
+ <b96f90ad-23bc-db73-9603-f9eb640804d0@siemens.com>
+ <DB6PR0402MB2760B4463A03D7FC4EE3E4E988780@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+ <DB6PR0402MB2760EA5C808D0A49208E7A9788720@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+ <640c6eb8-07ca-c354-f888-abee87ff49b6@siemens.com>
+ <DB6PR0402MB27609A148CE4F1B5DC105D3088720@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+ <8c4f35ef-1b12-e08a-6d20-85d7c6c0fcad@siemens.com>
+In-Reply-To: <8c4f35ef-1b12-e08a-6d20-85d7c6c0fcad@siemens.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [119.31.174.71]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 09a7476a-c937-4db4-7266-08d8336f7e62
+x-ms-traffictypediagnostic: DB7PR04MB4090:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DB7PR04MB40908E640461309B01368F9688700@DB7PR04MB4090.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8273;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: /h6iq2a9TxArem2fQWlRLwzRr/tX757CquyZpWlryH1LFMEyiVNBrOVJYKhu1lNdq6sCQOjt/tYpvS+4hQr01UzHPbY8RgjdPnWKW8KHHWhn7nzqjqIZSAbj2CI6nxD2I3rk7ohh3YElCavD3R8rTHKvsU2c7uQ6DI541C6qs17mMgzw3atpjnIYmPZ142CFvSnJoE3/VhaP9PT22ZEcONAOk+UvNFqZfKuBbF4wnMCRxN/OgtYHTT0bCMhurNVd+198S6NdzRF0qdIZz2iLdaj4Mw6O1DlbAQB3uO9JNCDLsB0GLUZo6VLQCdSnPDtSjYgj1Q986soAuVm742H6PilrzyeMBf42DD1uaJeMQCHKUjLOyk8FJ2V8QlICDt7z9GB1ILxQwzAPrDR/8RFxRQ==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB6PR0402MB2760.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFTY:;SFS:(4636009)(396003)(136003)(39860400002)(366004)(346002)(376002)(71200400001)(8936002)(66476007)(66556008)(76116006)(7116003)(2906002)(3480700007)(83380400001)(66946007)(55016002)(64756008)(66446008)(44832011)(4326008)(9686003)(8676002)(316002)(7696005)(33656002)(52536014)(6506007)(53546011)(86362001)(5660300002)(54906003)(478600001)(26005)(186003)(966005)(110136005);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata: xVhHpG0F0ZXwzQh+M6btPVkCKTTlFr0Rd54wKkh5jhuhwkxYk7wRpePIk4dOXiczv7H/vl668QFZncDuGgRocoCvJ/PjkCmk5+Aj6jBrHCkDd7cwqKYA+d5uQ6a0zldsX5JKkQT3PmnX3/kqyQC7frZrTWwXz90Nyq/18tvrLnhCYL1hj7tj3kSwJCI94dK06O7362AACunNM3PopUKg5HKEO9UaSB5NY064v7APOyB61c7V93n32X2SjCcHE09cmQejo5F4lgNVRBFJ+TNCMjz5tzIn2kXyUUJEbJEch6k2gGDsxy82o+wbsVAqkD1kmCGFeIIo23Oyo0d0QVkRDYCyMUqMw1x7ujKSOiXNuKPoWHeyALsKAue6qShX/bZPCf+qtxsq1hHUT18nkGa6lIfsP/o+5R/ClRkpH7u7xVU4nXn4qSAOCE3UTZe10BJsruI9jX/i1w2uGly0X6AiP5tUxIs+x9IqrnPJQDiRtUrjTAmCGhD0Z+VyLG2f9Db2
+Content-Type: text/plain; charset="UTF-8"
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7vejka5bsyvirvxe"
-Content-Disposition: inline
-In-Reply-To: <d8b12a27-69dd-e47e-a7e2-258192696bc6@siemens.com>
-X-Original-Sender: marco.solieri@unimore.it
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB6PR0402MB2760.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09a7476a-c937-4db4-7266-08d8336f7e62
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jul 2020 03:28:42.6383
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: eXP3VE4aaPeMH6b3Vu/uTI7lDpXJ5qLPdz1GcYAJROXWlITxnhLShj9/7CLFEJlxYrv3JBghNaQK65xugDaDsg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB4090
+X-Original-Sender: peng.fan@nxp.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@unimore.it header.s=google header.b=lPwtqjgX;       spf=pass
- (google.com: domain of marco.solieri@unimore.it designates
- 2a00:1450:4864:20::542 as permitted sender) smtp.mailfrom=marco.solieri@unimore.it;
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=unimore.it
-X-Original-From: Marco Solieri <marco.solieri@unimore.it>
-Reply-To: Marco Solieri <marco.solieri@unimore.it>
+ header.i=@nxp.com header.s=selector2 header.b=czfpU6M1;       arc=pass (i=1
+ spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass
+ fromdomain=nxp.com);       spf=pass (google.com: domain of peng.fan@nxp.com
+ designates 40.107.22.84 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -149,225 +195,88 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
+> Subject: Re: jailhouse jitter?
+> 
+> On 27.07.20 08:56, Peng Fan wrote:
+> >> Subject: Re: jailhouse jitter?
+> >>
+> >> On 27.07.20 08:25, Peng Fan wrote:
+> >>> Hi Jan
+> >>
+> >> ...
+> >>
+> >>>
+> >>> I tested the SDEI on i.MX8MM, it shows the jitter became smaller.
+> >>>
+> >>> Without SDEI, the gic-demo jitter is 999ns+ With SDEI, the gic-demo
+> >>> jitter is 124ns~246ns.
+> >>>
+> >>> Indeed no more vmexits.
+> >>>
+> >>> But the max jitter, some times SDEI bigger only when program start
+> >>> up,
+> >> mostly because of CACHE WARM UP I think.
+> >>
+> >> That is one source. If you add a warm-up period, they can be
+> >> mitigated, though.
+> >>
+> >> The other source might be last-level cache sharing. If there are
+> >> cache-miss counters, maybe you can check if those increase along the
+> peaks.
+> >
+> > Yes. When I add stress-ng in root cell, the jitter became larger sometimes.
+> >
+> 
+> I've seen the same on the ultra96. My cache theory should be validated,
+> though, because I would have assumed that all of the gic demo fits into a
+> core-local cache.
 
---7vejka5bsyvirvxe
-Content-Type: text/plain; charset="UTF-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+After thinking more about root cell color, when booting jailhouse before Linux.
 
-On Tue, Jul 28, 2020 at 01:30:37PM +0200, Jan Kiszka wrote:
-> On 28.07.20 13:09, Marco Solieri wrote:
-> > On Tue, Jul 28, 2020 at 11:26:45AM +0200, Jan Kiszka wrote:
-> > > On 28.07.20 11:15, Marco Solieri wrote:
-> > > > On Mon, Jul 27, 2020 at 11:39:48PM +0200, Jan Kiszka wrote:
-> > > > > On 27.07.20 23:13, Marco Solieri wrote:
-> > > > > > If we understand correctly your
-> > > > > > implementation, you are mapping the entire memory region and th=
-en
-> > > > > > copying blocks of the binary image using what you called "color=
-ed
-> > > > > > offset" function.  That was very similar to our first (unpublis=
-hed)
-> > > > > > attempt to implement "colored loading", and we soon discovered =
-it is not
-> > > > > > very efficient.  Loading time grows considerably and could impe=
-de
-> > > > > > scaling up to larger images (e.g. an Ubuntu-like rootfs).  We t=
-hink that
-> > > > > > a better alternative is closer to what we proposed in the last =
-patchset,
-> > > > > > that is:
-> > > > > > - create a colored mapping,
-> > > > > > - perform a "virtually" contiguous copy of the image.
-> > > > > >=20
-> > > > > > We understand that this logic has to be moved outside the hyper=
-visor, so
-> > > > > > we would like to move it to the driver, exploiting Linux virtua=
-l addres
-> > > > > > space to create the colored mapping.  What do you think about i=
-t?
-> > > > >=20
-> > > > > Did you examine what was causing this slowdown? It seems highly
-> > > > > counter-intuitive to me, given that we are only copying from memo=
-ry to
-> > > > > memory in 4K chunks, just using different virtual addresses - tha=
-t' all.
-> > > >=20
-> > > > I think you are right, indeed.  Doublechecking our old (and slow)
-> > > > prototype, we discovered we were actually not just copying at each
-> > > > iteration step, but we were also been ioremapping.  That was most
-> > > > probably the cause of the slowdown.
-> > > >=20
-> > > > That leaves only a design point in favour of the contiguous virtual
-> > > > mapping.  It makes the implementation more robust and elegant, sinc=
-e it
-> > > > enables the copy operation to be independent from coloring and thus
-> > > > reusable.  This is enough for us to favour this approach.
-> > > >=20
-> > >=20
-> > > To my understanding, the choice is between:
-> > >=20
-> > > for_each_colored_chunk
-> > >      copy_chunk
-> > >=20
-> > > and
-> > >=20
-> > > for_each_colored_chunk
-> > >      remap_chunk
-> > > copy_whole image
-> > > drop_mapping
-> > >=20
-> > > As the first option can be reused for uncolored images as well, I do =
-not
-> > > really see the value of option 2. Prove me wrong by code ;).
-> >=20
-> > I see.  I would easily agree with you if we assume to use the
-> > `jailhouse_get_colored_offs` (or something similar), but we rather not
-> > do so.
-> >=20
-> > Instead, the `next_colored` function should be favored as the
-> > fundamental coloring algorithm implementation, because it is closer to
-> > the hardware meaning of coloring, in the sense that it preserves the
-> > notion of bits in the address, instead of abstracting it away behind th=
-e
-> > notion of offsets in the memory space.
->=20
-> I disagree here. First, because this abstraction is a benefit - provided =
-I
-> didn't miss a case.
+We are not using 1:1 mapping anymore or we could use 1:1 mapping with many
+pieces of small ram area.
 
-Abstraction is good only until something meaningful for you is hidden.
-Then, it becomes obfuscation.  Coloring is a concept that cannot be
-separated from its bitwise nature just because of some additional
-hypothesis (contiguous color assignment or contiguous color bits) that
-restricts the generality without bringing value.
+So I think the first 1 is better, but when use kmalloc for dma usage sometimes,
+it will bring issues, because not 1:1 mapping, unless we let all drivers use
+dedicated dma area reserved and not colored.
 
+> 
+> >
+> >>
+> >>>
+> >>> Will you move SDEI support to jailhouse mainline?
+> >>
+> >> Once the to-dos are addressed. Any contributions?
+> >
+> > I'll read more into your patches and check the to-dos you listed in
+> > the jailhouse commit log to see what I could help there.
+> >
+> 
+> Item one (SDEI probing) is almost resolved.
+> 
+> >>
+> >> BTW, did you have to patch ATF for your experiment? Will you upstream
+> >> that patch?
+> >
+> > Yes. I'll upstream that. Quite simple, I only enabled one SDEI private event.
+> >
+> 
+> Perfect.
 
-> And second, because the algorithm avoids the loop for the calculation
-> and simplifies the loop for the virtual memory copying or mapping (the
-> latter is not implemented yet, so just a claim of me so far).
+Sent out.
+https://review.trustedfirmware.org/c/TF-A/trusted-firmware-a/+/5116
 
-The loop for calculation is useful when you have to deal with non
-contiguous color assignments, but it can be removed, of course.  I guess
-that also the other kinds can be removed, but this looks orthogonal to
-the chosen approach (next_colored or offset).
+Thanks,
+Peng.
 
+> 
+> Jan
+> 
+> --
+> Siemens AG, Corporate Technology, CT RDA IOT SES-DE Corporate
+> Competence Center Embedded Linux
 
-> > As a by-product, the implementation is also more flexible and generic,
-> > since it could be applied also to different kind of coloring, e.g. to
-> > bank coloring.  In these cases, nasty placement of useful bits could
-> > make an "offset-oriented" implementation hard to read (and also very
-> > difficult to write :-P).  E.g., consider a case where only 12 and 14
-> > need to be used for a 4-colors platform configuration.
->=20
-> If you can point out concrete platforms/SoCs with such properties, it wou=
-ld
-> help finding the best solution. I dislike design decisions that are based=
- on
-> speculation what could come. Usually, they take costs for "extensibility"=
-,
-> and the outcome will still have to be adjusted when the real use case com=
-es
-> along.
-
-I agree with your position against unfounded extensibility arguments,
-but it does not apply here.
-
-- I am not speculating about unreal possibilities, I was referring to
-  real hardware. The first result I found is Intel i7-860, where:
-  - cache coloring is possible on address bits: 12-18;
-  - bank coloring on: 13-15,21-22.
-  A discussion about bank/cache coloring on such platform is in
-
-    Lei Liu, Z. Cui, Mingjie Xing, Y. Bao, M. Chen and Chengyong Wu, "A
-    software memory partition approach for eliminating bank-level
-    interference in multicore systems," 2012 21st International
-    Conference on Parallel Architectures and Compilation Techniques
-    (PACT), Minneapolis, MN, 2012, pp. 367-375.
-
-- Nor the next_colored proposal brings additional costs, since compared
-  to the offset implementation
-  - it is simpler and more elementary;
-  - it has close or equal performance;
-  - a tested implementation is ready in v2.
-
-
-> How did FreeBSB - or what BSD was it? - model coloring?
-
-FreeBSD supports only a simple form of cache coloring -- I would not
-consider it as a reference, especially about extensibility beyond cache
-coloring.
-
-
-> Any other reference that may have worked on more that one board?
-
-We tested the proposed solution on Xilinx ZU9 and ZU7, Nvidia TX2, and
-NXP i.MX8 QM.  We have tested a very similar implementation logic also
-in Xen on Arm v8 (Xilinx ZU9) and x86-64 (Intel i5-5xxx).
-
-
-Do you have any point in favour of the offset-based alternative
-implementation?
-
-
-> > Beside the "offset vs next_col" choice.  We would like to stress that w=
-e
-> > need it to be aligned with the concept of colored memory that we are
-> > proposing in v2.  This notion is present: in the user configuration and
-> > documentation, and also in the hypervisor code.  Namely, given a color
-> > assignment, a memory region, and a size, we want to map *only* the
-> > needed pages that satisfy the size request.  I.e., not to assign *all*
-> > the pages of the given colors within the given region, possibly
-> > exceeding the size request.  In other words, the size parameter is mean=
-t
-> > as the real size to be mapped, not the place where the find it.
->=20
-> I didn't finish that part either: I also believe that "size" of a region
-> should reflect the physical size, not the virtually expanded one. That
-> virtual size makes it really hard to read configurations now. Yes, there =
-can
-> be tooling (config checker), but when you start to rearrange regions you
-> will continuously run into those overlap issues because region do not rea=
-lly
-> end where phys_start+size suggests.
-
-Good.
-
---=20
-Marco Solieri, Ph.D.
-Research Fellow
-
-High-Performance Real-Time Lab
-Universit=C3=A0 degli Studi di Modena e Reggio Emilia
-Ufficio 1.35 - Edificio Matematica - 213/b, via Campi - 41125 Modena
-Tel: +39-059-205-55-10  -- OpenPGP: 0x75822E7E
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/20200728224145.qj4ljq2zm76ueo32%40carbon.xt3.it.
-
---7vejka5bsyvirvxe
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOC2XMK2o3tvc3F09Ctn83XWCLn4FAl8gqakACgkQCtn83XWC
-Ln6LiQ/9FBGKyfsPSQU8vyabNHbbJL9+7X/hyTlqfbLfuzMzz/fEhuHArgV9qCIk
-KT1lhSolnrnG994598shsFmnoSU5N94wfW0l08f1cb6IEA2JiqsEXTdCzK5Y2imM
-sbp52PwUMuqo8cCSk9XomaviCsmXD2V/eJ9V8hgd5LPBxEvT+MHtCtgwH953f9X5
-23cva82vsOSaE5kufPBrOOHJlZ1HaI4q8iawRB7eTiGFpgXem98S+szngVJXrC+I
-lCBOkmdMYod6lu/9QIEZPP8Fz9d/39D6EY3mY9UeMmB3hL3aAUOc/iKqtmf9UYnT
-oTaYkuSwdk4+X9aXA8d+T77YKHhg8wdkAIyJvYpYNTp/n8gqZsQD1LDvUyoIbbqA
-34OdxG7C+gR9w6z/v8oKo3QAdDHXB32pINzdjvIUctNJOj2yA2v1Zirj85n/yWwu
-KNSUAchXa/dd0r5qLGl4iXB5z7tct5TdJT26qE7133/RDTl9b+PpxowRUkKVv1VV
-Qb0FdTmz1QWKnRpb0n16AVIzb+IOqpL0ic/HUBflmnbKRl0FGfRf5QyUEoNjTKy4
-uqSvGyBUf/lLaauuG6+vGhf71yG+lXxoa6lVCSLJhQhliQddV5grLFbeBEFp5Pb1
-NilpW/UlelR5qXeoHXRLwWTfy9skI4m2Xf1YAGICgCpSDfuA2jk=
-=EBcS
------END PGP SIGNATURE-----
-
---7vejka5bsyvirvxe--
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/DB6PR0402MB276063FAB38B540E81ED7D3288700%40DB6PR0402MB2760.eurprd04.prod.outlook.com.
