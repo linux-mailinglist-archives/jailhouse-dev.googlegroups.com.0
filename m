@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBRMUZH4QKGQEICBATEQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB4MYZH4QKGQERV4YQEY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ej1-x638.google.com (mail-ej1-x638.google.com [IPv6:2a00:1450:4864:20::638])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96FCF24173D
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 11 Aug 2020 09:35:33 +0200 (CEST)
-Received: by mail-ej1-x638.google.com with SMTP id sd23sf4824725ejb.14
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 11 Aug 2020 00:35:33 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1597131333; cv=pass;
+Received: from mail-ed1-x53c.google.com (mail-ed1-x53c.google.com [IPv6:2a00:1450:4864:20::53c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 239CE241783
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 11 Aug 2020 09:44:50 +0200 (CEST)
+Received: by mail-ed1-x53c.google.com with SMTP id l5sf4251913eds.16
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 11 Aug 2020 00:44:50 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1597131890; cv=pass;
         d=google.com; s=arc-20160816;
-        b=za4fps48TfD15Bd6QQcFJK5n8O8Oevv6VNBF0c1AbvmfNKGewNLRHMwUSYzDkkAbEV
-         JGswkfJiGY46avfASahe4O7cArjgNZaP69lfMs9FN4iB/jXqB/RsJQzRfVR3gkvcEGdE
-         IOk8mp/yeNDI3aeh0H/0qLaH5D5bazbiK+q5YilEm+M0QzPFKKmyqgZin3DnsO9uX1X6
-         tRkr/Y5cUx/K2RKSXxObVD6JH6gjFqlZwCaKJ1PLA7GSrHqQ44ZEqeD+yQFCyE3KZ18O
-         wvoU1JXRvPwOch3Z9a++C6X3n+Htks1nVTWusX5dIPsuENqrt96WpgViwcQxes3x9HIY
-         dN+A==
+        b=hoWn5JdUBzcQ3+FoWhLdFPp+aSNm3GodNQydsHpJ/dHY4Uqm1kS5KILRXpYUpN0ISF
+         DKabMtjilm6qcldyAGL0LOFApR88YoGibwJXSwiTtpcqr7nSV+ileJ2Myml6Hp+SHIqm
+         8DTQdj4Npfg3iKku9gW8BTP/5DqVgOX7DczACr0k4oRQ076YdRhcdQ5rjp6eLtPbSPrI
+         OuBKUXPQHJfsorSnf+UyKH80dodkO8iaMHSMN6GwvqYw1D5PdNRMZCZ8KblT1dJWfDlr
+         yZOB3z/hpsx0UPDDcl+yc2w9BnMtp6bNIS0zirc3RnQNelkEHpUSid71BMtBQHksAFVL
+         XokA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-language:in-reply-to
          :mime-version:user-agent:date:message-id:from:references:cc:to
          :subject:sender:dkim-signature;
-        bh=MmujEkE1FpXZtmGAASuoeTg/RUR407Z2zCSPacRwN/U=;
-        b=dJaU7w14TgEQkK78WnYs1HqtJitA0Bbzydya70fbLxjYoo5/DniAGzIdlGQkjFMvqr
-         NmUOn0m0xliKoakMNIK/LtEJ0Bg1Y4XH1QlBeWK3K9738eCWj6kfFK6mi0vCHyUiUgt4
-         cLCcPYpe9NYpiMXhfLaVJ6wHiyM+Zv29dl1f9/MHVko1Un6ie4Cg1mx/l6LwcKx4SZi0
-         7c/L+v6ZEHi04+ux+koWsnL4NMyqBg2J31RHrXGxQhy03uzsz/wgGjtx2kehN7cKyclp
-         yZ6yWC6uCe9A1y7vRdFYtTz3yami4ZH6IrFn+emj0H35FHwp+K3tIDeETy6U41+mt1Pc
-         fCPA==
+        bh=h5wdmSN9NGBYyMYVX5eZVQqJ+xJ1lFC997Avr7+DLQo=;
+        b=D3OBBHv5JKBIxi74PBm+GBc/UjNiRo/Fpe4c5a33/kE+BqstAo/uExAkYQEIsmC4bs
+         hpMxmTc8poA/XrZf0bv8mnHpxSTi/8jFuzt2qGOQFdmRl34DHpvMU4cK0hpawj8IvPmV
+         oQk4NGtE86xF15ckJ9yrSlFa6qMbl6DzMp17oC8Tdfa8svo61lTKwh/pNHXQSY89+VqC
+         1oNmOdRan48qngYxoumYSp8soAXTvf25vXZRWvuyQsBewS9/YxlmkkmQoPawxO89WI3A
+         2+0W6C+qw2HTlhKFlNXRwgdL0GkS61pt06a6cUGPk7jle0iY/kkCOEKK6RbA7xUfsC3A
+         L0Ig==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:in-reply-to:content-language:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=MmujEkE1FpXZtmGAASuoeTg/RUR407Z2zCSPacRwN/U=;
-        b=gp6L4awX5bMGIGBzM3278RvzFDl8/RKFIqGwl8goeGFWXCfw0pfyQl1b4UaLP017P+
-         pMMchhI5A6AheqazvnknXnhtZ75vIj8DMdL7NzNJ0S70UdZS5fCprybRIzQOvs+MmrIu
-         ymlfb+XQpGDmhw/GWryhpdGnLH/kL7/9KPGWL3udEvJRAaeL/hJQEcPgUz/L25N68+CD
-         R+zkwZf8RkIQOh1RPGFRvQQbd4tbPyHVcss8dxCWyd4ebaBQ62vldZqeP9udI7oEuOmP
-         fOWJvq0DW02NylBCJiV5JxgnUsm5kWvbURx/9Mt6q0vEIps3B9kLMcvr5evfJlTdd5Ah
-         4NqA==
+        bh=h5wdmSN9NGBYyMYVX5eZVQqJ+xJ1lFC997Avr7+DLQo=;
+        b=IKBwl8dK5jrUnQv9xCXrSidVqa0990NyBP1VE0U53zuxNDvm1D9lKNsPa12qHUXpHJ
+         MPIFv6N8aFdYHDZYrsszflCamK5NRMsX3UIR4VSF/vvWIF1870FhMAWs+7HpshMkpRs0
+         gtNHZwpduDiRA4LV1uPQ2F5uNijXyRD2A/WVavUPKvGk8+2onM+SlwvDHaJPXiG4xGG5
+         XJR8qzGxJsSoOAZSCs+N/6MDun0Wu+tqqoQc1cN7wHQrjP8Ynf9OHQF95dUu1RaulnHu
+         UH7mALZk/iaigTg96ar1pVnZ8CKfDydC8S2zqH9BbwCEP8uhqBlLEFgPf3kEwAxkJj0y
+         limA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
@@ -49,75 +49,74 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=MmujEkE1FpXZtmGAASuoeTg/RUR407Z2zCSPacRwN/U=;
-        b=rIAmcAVk0gZLP4Gkwb5OtjiCFHOs/0kIlq6GlKr/oBtw/AQ6v69KTrgRGHQi6cXGW7
-         cz6pPYClUqp2oxXMwWZJqs9JXNr6hhqsLq279vLQ7a+z0N3VFPuT2BIu6/t4DLl0qM3i
-         WBrpLewprEtaA7PS58UE/LuaIUf0APysduTXihlEItSRAqsoUz9DvSDr6Y90Ma2zeq0F
-         fh1YkWM2JQB+IezHQVx+pHE1d//dEqhS1IR+FFYErfjPWeqZ2NH9n13Q7RPmd+6NNJdr
-         sydbh8Xk8CWVLxlVm/MFzAE9WKVu4VFo9xakyG5n5/xbUkb19+tC0QQOQfKTHGjbCqe+
-         F/6Q==
+        bh=h5wdmSN9NGBYyMYVX5eZVQqJ+xJ1lFC997Avr7+DLQo=;
+        b=CMlpyW5SVOrmZg3kHfr9U0dLb/oFpaaiEt9LgWmcGYIQib9nZUdpdHnAH0v4gcZAfC
+         0QSA6YND80KTMGeRxIkBMtKWvRdpOMXzv03oSIcDtwFykYPwxSaak53UaFLiQBjZQmuk
+         MPz+yj5fYb8T8966cCVXVvvwB5kKZUnfwizUrb3Y8uEQfPiUgP1D9dpd361vlmYdteKx
+         tWa5FKbMDpdx+XDjlO16oOjQv6BtoxTXgj6VeMe0vIzzuHpuFyE5I5g1/Yp/l7thiPj7
+         +lJls5xNWP9+d4yHEf+io9jT9sYjh1fTwdzCzVl+rvB9BJeqq76CN4zFc9EnpZ8tJJ8+
+         qU1w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532Ic/ZOqGUQsCOy8uELHhb/hdYp2ACao8eDM9OYE63Jjxnfm0Zi
-	GV1zbiG/8hf5Bx46NyjNDQk=
-X-Google-Smtp-Source: ABdhPJwapjYJXXbp40cL6TCGN0JQTk6oUOAtDqV5PhVQGJaozWiNC1LO9kS+U3kQ/85vsVKz1M0X+w==
-X-Received: by 2002:a17:907:204e:: with SMTP id pg14mr26182887ejb.324.1597131333362;
-        Tue, 11 Aug 2020 00:35:33 -0700 (PDT)
+X-Gm-Message-State: AOAM533miD6tdFe+4QgaXSlgO7sB6bR9cpfcBNefs/1XmG2i2tJxfjnW
+	wciRjnMwkOBX+hHM6Pxekao=
+X-Google-Smtp-Source: ABdhPJyR4ZonPdgIg7JJhBODEzsm8CxJVTuvnBBJQTbf2uBJvHbDJgus7wPAH7bbzbMDOiapYZu7kw==
+X-Received: by 2002:a17:907:104a:: with SMTP id oy10mr25283235ejb.267.1597131889821;
+        Tue, 11 Aug 2020 00:44:49 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aa7:c40c:: with SMTP id j12ls1539646edq.2.gmail; Tue, 11 Aug
- 2020 00:35:32 -0700 (PDT)
-X-Received: by 2002:a05:6402:1057:: with SMTP id e23mr24937958edu.11.1597131332693;
-        Tue, 11 Aug 2020 00:35:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1597131332; cv=none;
+Received: by 2002:a17:906:b01a:: with SMTP id v26ls9243419ejy.8.gmail; Tue, 11
+ Aug 2020 00:44:49 -0700 (PDT)
+X-Received: by 2002:a17:906:359b:: with SMTP id o27mr26393109ejb.103.1597131889120;
+        Tue, 11 Aug 2020 00:44:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1597131889; cv=none;
         d=google.com; s=arc-20160816;
-        b=iRjXi4+St83aKpzXKL8FPGU9LgvtOMjF3pfYpx4YYcEBgC2N8LnDZ2Ic9sGdaH3IXD
-         YKy8yH0y72PoN014M+cc46WWkL1Urf3jjCeCO1O5ugbTH6YVVhRY1x1cR4v5v6y3vlv2
-         U2dDBxp6Sze1Gqe8OMbdmcQDeaXcYY/dm+GvR2f01uC1s6rR6BCFXjk4Qll8ThMlFoD6
-         5xwScVqcXu8+5OrBIgtKM1qzXVulTE/qyXBFfJpcfJBO7XGqOZxtqWLs7u1E40+A6ylF
-         w8VSpEfC6EX07w26bHqr+3mnQ8XJHIMYkgxZ3Bvj2PIxKbcEPfuFoGjvo6nom+KIVHoe
-         QQyA==
+        b=wP9tWO1Irn3D6jTllaG1D8peGdS02vCp+uZywXrUVB3m6ZbvRC0lZaFbQj/MQbdVH7
+         gZFVvKT/lx12VHV5V9liG3R0G8AknquGi5y69aUwzWsFK8JG3H2j1Tl8elry6esQShtW
+         My5nWk7cXkMm+DvK/ryE3sNmBZIsdUFxaZYQNNyUBwLf5oeSK8VHMJFhwctM7unk/dOM
+         ICEEeKi4KEFYrMB/GY4MdI+7OozU0/40hfDbt7aVlTEZeCaO3+JGGPsMaOf5zLBJUbf3
+         +md0b8q4R8qYMHmOQLB2FI9JJRlgHyFunxwZEfQJ1iTISeEU8uzMMiqjg/JLNbURVds9
+         ARkg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
          :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=9htoZCqwB5W22BKI8kxPp7rhN6XngiDaKfcicG/LrjY=;
-        b=giSDs9EIWUIZIBXPB8Y1OkJ/ABC+D6GCkSK8t4P+KrAZGlrZSgBdqlOvYWUuBp7Mps
-         DPozGRrxl39FLr5kMvKdHoFvddIQ4Ch4FZEBVHnKTDeYycR6oDqkNP2XCy/CILUeCQly
-         maryrmFndhvWkpB9tBCUt8ZC9NihR9Kn07Qn+ySfJk6pTK+kvcZag45rpXxu0qMMa5HB
-         J1oAHcDCOTmPZtrME3obN4NA9abgW7G3sCsv42IOet8NHxOZOt2C57bh34YpFSK4BUij
-         l28X/hczdE+7Q6MXWXT1y0pQc6UWH/ruihfu9bLFDzhSPf7CpLCc6hXfGdZyclFdwZ/s
-         7ZCA==
+        bh=PYyyiAbte3JvooFU5FXVlYRYrfyBtluZVqTjeakZydQ=;
+        b=mUcGlGoI+63Bqt06IjlMStCDlynLgfq6i27A5nAFhy59scN9IuhH2AtKZNWcy/gr20
+         mzCiI5KoI7JhbUIOK3fOFh8IfR1p6y0LO74qoldhJjndxiIsUSZsDnMJtzpubCQekL97
+         SslbX0GBLtXK2qfc+HNPoMI9s5R1HjdetZWjKZTttjeQCMjfhWft9VXVwc0Y0H50bmIR
+         1uzA2R9eklPnypE0TqyRp8XI9bkeQ7C6tjdrp7QaYSC1StjEujipgugn7Bdpd888r+yq
+         tQJzCOjsQmR8OvszJ0B4GqpRbCgxer1STTGYJEWzCeHnAk4fg7LpNmpVieub1PCVGdXu
+         LQCQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id b5si950518edx.4.2020.08.11.00.35.32
+Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
+        by gmr-mx.google.com with ESMTPS id h10si1146390edn.2.2020.08.11.00.44.49
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 11 Aug 2020 00:35:32 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
+        Tue, 11 Aug 2020 00:44:49 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 07B7ZWWO007944
+	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id 07B7imb7021350
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 11 Aug 2020 09:35:32 +0200
+	Tue, 11 Aug 2020 09:44:48 +0200
 Received: from [167.87.76.230] ([167.87.76.230])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 07B7ZVkO007456;
-	Tue, 11 Aug 2020 09:35:31 +0200
-Subject: Re: [PATCH 08/10] arm64: sysregs: correct SCTLR_EL1_RES
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 07B7ildl015951;
+	Tue, 11 Aug 2020 09:44:48 +0200
+Subject: Re: [PATCH 00/10] ARM64: boot jailhouse before root cell linux
 To: peng.fan@nxp.com
 Cc: jailhouse-dev@googlegroups.com, alice.guo@nxp.com
 References: <20200807030632.28259-1-peng.fan@nxp.com>
- <20200807030632.28259-9-peng.fan@nxp.com>
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <4821d0a0-f8f3-582b-1182-9c5424f68ec3@siemens.com>
-Date: Tue, 11 Aug 2020 09:35:31 +0200
+Message-ID: <891d13c9-6845-ef65-36db-4327d6736361@siemens.com>
+Date: Tue, 11 Aug 2020 09:44:47 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200807030632.28259-9-peng.fan@nxp.com>
+In-Reply-To: <20200807030632.28259-1-peng.fan@nxp.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
@@ -135,34 +134,37 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 On 07.08.20 05:06, peng.fan@nxp.com wrote:
 > From: Peng Fan <peng.fan@nxp.com>
 > 
-> bit23 is SPAN, not reserved bit.
+> This patchset is to support boot jailhouse before Linux.
+> The previous RFC patchset:
+> https://groups.google.com/g/jailhouse-dev/c/IZEFz-e2lh4/m/BBmGI_spIQAJ
+> 
+> Patch 1~6 is to create an new folder libbaremetal to hold
+> files that could shared between inmates and new bootloader.
+> 
+> Patch 9 is the central part to boot jailhouse with a baremetal
+> bootloader, which only support ARM64 + GIC_V3 now. It will use
+> psci to power up secondary cores, do GIC_V3 dist initialization,
+> Then kick inmate cell.
+> 
+> Images/cells loading is done by U-Boot bootm command to boot a fit image.
+> 
+> Patch 10 is to support using jailhouse userspace tool even boot jailhouse
+> before linux, just do as "insmod jailhouse.ko early_loader=1", then
+> it will bypass fw loading and etc, but setup information for linux usage.
 > 
 
-This is not correct, see D7.2.81 in the ARMv8 manual.
+I'm missing the big picture description here:
+ - how is the memory structure that the boot loader needs to set up?
+ - how is the handover between loader and root linux?
+ - how are things configured?
 
-Where did you get this from? What is it trying to fix?
+From a first glance at the code, it seems a lot of things are still
+hard-coded, likely imx8-specific. That may mean we need to work on the
+user story further.
+
+Also, a qemu-arm64 target would be good.
 
 Jan
-
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
->  hypervisor/arch/arm64/include/asm/sysregs.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/hypervisor/arch/arm64/include/asm/sysregs.h b/hypervisor/arch/arm64/include/asm/sysregs.h
-> index 0105b109..a7370373 100644
-> --- a/hypervisor/arch/arm64/include/asm/sysregs.h
-> +++ b/hypervisor/arch/arm64/include/asm/sysregs.h
-> @@ -64,7 +64,7 @@
->  #define SCTLR_EE_BIT	(1 << 25)
->  #define SCTLR_UCI_BIT	(1 << 26)
->  
-> -#define SCTLR_EL1_RES1	((1 << 11) | (1 << 20) | (3 << 22) | (3 << 28))
-> +#define SCTLR_EL1_RES1	((1 << 11) | (1 << 20) | (1 << 22) | (3 << 28))
->  #define SCTLR_EL2_RES1	((3 << 4) | (1 << 11) | (1 << 16) | (1 << 18)	\
->  			| (3 << 22) | (3 << 28))
->  
-> 
 
 -- 
 Siemens AG, Corporate Technology, CT RDA IOT SES-DE
@@ -171,4 +173,4 @@ Corporate Competence Center Embedded Linux
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/4821d0a0-f8f3-582b-1182-9c5424f68ec3%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/891d13c9-6845-ef65-36db-4327d6736361%40siemens.com.
