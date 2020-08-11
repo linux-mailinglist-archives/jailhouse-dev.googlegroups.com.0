@@ -1,107 +1,109 @@
-Return-Path: <jailhouse-dev+bncBDEN32754MOBBLOZYT4QKGQE7IBYPDQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDEN32754MOBBMWZYT4QKGQEGFEJA5A@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33f.google.com (mail-wm1-x33f.google.com [IPv6:2a00:1450:4864:20::33f])
-	by mail.lfdr.de (Postfix) with ESMTPS id C36A924051B
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 10 Aug 2020 13:17:01 +0200 (CEST)
-Received: by mail-wm1-x33f.google.com with SMTP id i15sf2650099wmb.5
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 10 Aug 2020 04:17:01 -0700 (PDT)
-ARC-Seal: i=3; a=rsa-sha256; t=1597058221; cv=pass;
+Received: from mail-lf1-x140.google.com (mail-lf1-x140.google.com [IPv6:2a00:1450:4864:20::140])
+	by mail.lfdr.de (Postfix) with ESMTPS id B03F024051F
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 10 Aug 2020 13:17:07 +0200 (CEST)
+Received: by mail-lf1-x140.google.com with SMTP id p192sf2815634lfa.0
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 10 Aug 2020 04:17:07 -0700 (PDT)
+ARC-Seal: i=3; a=rsa-sha256; t=1597058227; cv=pass;
         d=google.com; s=arc-20160816;
-        b=AJdc+Hl3yd4RLDEmoG5LVv2Gds/vuY3jLBBuILMVwRXenlTKyxGfmg8J7wKaV6zYF1
-         5KRHpeAzXRGDDhLbOUaoXxes7JM32LKdZknay5/bnaUbB5brnzvmnUFQtAmqPZ8h6/v7
-         rcPKFFkVbF7aWhG+f/jjUb3vWphiDQfiuDyvhyBI0mbK1ULaIZETnEASTK2h2Psd+GQV
-         jELa8DWRC0LK7Xjlztb6IDOhdRxQGja4JPIYhTBPfe8CipPykeCKJjGmC13Fnwc7UT09
-         jfDOViETI5SPEIveBmdTD2ISYB0rgBPHEBnbdnJmh02yvAX4uJZiufPs+lez+OwlxvfI
-         NTLQ==
+        b=O6nlz7OeUWSuDM0uH6qOYNkhpCPpQIPwmd8ZdIGR2QN67WMmVDnH57Tmo5u0wlAhHI
+         RIOeXr3ltfRkLSF74ItZzpStDQPFmDOhcUDnbygtf6mJfnVlMiajUnQeGgQTbf797sDV
+         AuhdxAfEGetSUcN0ncoTPJvxTgmnijVSnSfDQJmm9lWiMNHYQ+VvU0LabHOPTninPCvB
+         65oo64pcy39gsX8Vesj33YpNkolMS+B88p/EeVpshBhRkvVG0W1EoIQYPKWkn0woNIxt
+         xSMo3dO0zZ7fCk+St4lglaAzsKttq4psxD2fdDUZHNY4rtI8kDknsToBOt9SyihHUa4p
+         jgPQ==
 ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:message-id:date
-         :subject:cc:to:from:sender:dkim-signature;
-        bh=u6tzVWZjlmmwkQjCWkr0pDLa6RfZJ4h0L4aBuAWJZX4=;
-        b=S9QwBRLFSiVRLVd77lWRabmG73InkK1tJyoo734LsWezERUtqAYB/s7am0NIZ+YW1Q
-         YGPoMg4FLB2NU4Ff+/OEiPKy7YZk8VRvi9+G7PjpcAPTli6/zu/Gx9PdiXXuRMX/Jjw2
-         vocoJcuFVxa2VznBclcTHKlLTeDatBPtQ7Y72Tt9J8AD6k+lyEClldQNO+MM5Np1IW2E
-         u9C/96Y+bv7wVr+uctYk6lrm40ow4hf3zgvjVfFwQJhK7I5qY/9CHP+qrPDedjC0gno1
-         hvYuI484pw3bk6pmlDMoMNCZD01lXPV4Mpot/EASga6Tpt94IXBMFcjXKUR1k8NS171J
-         J8Mw==
+         :list-id:mailing-list:precedence:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:dkim-signature;
+        bh=mMd9Jl5fxF5N9nOBj1H4/6c10DgAcJnUZKcwSIYSXwo=;
+        b=FlNAo2CEoyA6dLxQ/ppgRDctF/pn6S2gvhiZ11JDN0Lmd9KuDw8/YUSEcccYkoz6Kl
+         g0bM+WJyhfDwojNF4WALQmwLA5s8luzjmyM1PqyHQtaqm4rqTPl3W4YLI0Nta/BFavxb
+         bL1Qyw3aSm84isfU6czAXBFPttcj54lljel4WkAVSZPPXFGFKzkbVwFeYL5ARmxLSaKz
+         l5vE6PeHH+1dC53pLmvkUMp0B5zpibE9msUI1vbw3RvChpNmp9RakColk5EGWOd+aPsR
+         AjilKt6048EV/5mNm3sQ4mCtLISkcTyGk2PtvkW/o8rcvsxVWulsyaABtPwEDy+Hv1/V
+         81gQ==
 ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@nxp.com header.s=selector2 header.b=j1QQYBNC;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=dtfdjoPO;
        arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
-       spf=pass (google.com: domain of alice.guo@nxp.com designates 2a01:111:f400:fe0e::605 as permitted sender) smtp.mailfrom=alice.guo@nxp.com;
+       spf=pass (google.com: domain of alice.guo@nxp.com designates 2a01:111:f400:fe0e::62b as permitted sender) smtp.mailfrom=alice.guo@nxp.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:cc:subject:date:message-id:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=u6tzVWZjlmmwkQjCWkr0pDLa6RfZJ4h0L4aBuAWJZX4=;
-        b=kJ+LDwM+2YUprZCGPVaoxAYGqMiiXF7WDdl/pH2bdjSQePh9x1htTzk9OxYQKk3Sm4
-         mnx6dKl4FGrzgiMlraYn2sebieqD1zrJiOnK6O+B7RcNy40VwtCYQ+UxGULwQ5B/ymaO
-         5ZtUgvpuZH0Gxx6pyOF+LV3msyUM4KR73EqnVXTW8eqJOZvbWjO86IdGOEuG7mGoXWoL
-         JWgF4QshKmkYdyiawWEcjGTrK8An1kftIxb4vOuFfmcEGNfElQMBrvjf6nMLXzykAssh
-         kwWIdFoZE6xAFEMty/gmiOiUsX+S5loJf2XT5ovgSGEy3ryv+TCsNvMrplhJpI4/kyHW
-         e0tw==
+        bh=mMd9Jl5fxF5N9nOBj1H4/6c10DgAcJnUZKcwSIYSXwo=;
+        b=GcUcAoi4dhLFesO/CgPdojiAldOgooXX3rmf98rBgm3Y9wnhc85/7G3HyJ5KtHlqVt
+         kcHxt44PrOXS9iEpBSjH+LFZ7o3tF0VzPI6kJoXo668s8iS5NkZ3374uAKQB4U0IgRMG
+         +MTENCSPigdnYSrvshpc48ONxSPxgqkOg2BR4vcO8ERGhEoCVdKQy1UoFWItZ0zi/n40
+         OWYSxlUPBl5D1grB+MDhP4qL2X4U2o4qo45HcpABIKSPYzJ5DY0QCvLiNFObsKS3npaM
+         Lzo+sd4t+NEKs2Jtkjvl46S0W0NpGvo5xgI9kDTf2H5JESx8flYPDsqu1DNm7ro7k3wn
+         bEyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=u6tzVWZjlmmwkQjCWkr0pDLa6RfZJ4h0L4aBuAWJZX4=;
-        b=HlpGW7CaAhwjFhnUrPxKBQhxBCv2nXXC+dw9qGAcPD2A1883XP9ngLItoLADc0LPx7
-         8k7ouVYFCtVTfmU2d2FSmp81EFF1zfLJbH/8Xt4ossWcTUNHDvOI7Ac+QKFzGfRGz9ry
-         QOwZo2obZ8LKtUGjFlFDxIKL7qD6QeyPhe1J/FOi3CnRxm46XoAt+6rWgHLngUzfxzlE
-         7TARCb5qDYCT4o/0I2WnfEvdAHI42ApRWaWePGBoocJmuX94CjKqbaQgy0/R3WaSKH6/
-         74DdaeDmqBrG5PjhdaMgy6sBh7Jse3+gj4veskPMJSXa8coA32zoIctIwBX2J6s6701P
-         8Wxw==
+         :in-reply-to:references:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=mMd9Jl5fxF5N9nOBj1H4/6c10DgAcJnUZKcwSIYSXwo=;
+        b=LsjdqeOyyKalQeLzU8HfMjhR+EO11VHgCsc42USbTkuefa5yVAX7vf8Gz4V3an7rZ/
+         W/xBddhsBk3zZfuDIuOAKFeKT3vtk9ucbYzjaZFqPyZHWqwdz/kpRN8ESujwPi9L563y
+         CRVQiprOIrbcfSE/LOxA2B5Tnl7kBj9E7kT6mOdva9p8ibMcPMw/+9vJvqnWdi6LIHU6
+         EUUXCVGARZxewHbdMVpgl0iHaQaRDXNQYeX4oSHVYTlVKBT88w7wfPybaZJFQTcy78rV
+         hHxaPokArtmZdY6FUTxwsMIwuUMpRCCQPL/PwA1kUKF6MKREH4HiCuiLmRmxjqOhuiPu
+         L+uw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531mfDkXhM3YSRiw4z4p5ywkh3JNakqAWyCQO/SoyjWLZVrAAR+8
-	LshSFqurhJgMH9YUmdHOyUc=
-X-Google-Smtp-Source: ABdhPJxfhM5kR6fSfaL3q1ajg5ddZRkVi5fFzG+nZHfOqpduzF9jLoDLHvTEnarKjb/JXbotbHWA/g==
-X-Received: by 2002:adf:e712:: with SMTP id c18mr25310259wrm.92.1597058221489;
-        Mon, 10 Aug 2020 04:17:01 -0700 (PDT)
+X-Gm-Message-State: AOAM5339O6k50axB8HT5NgaYpdaxhUIkHvaukMEVUE2aB3iGNGpouwgT
+	W0kznnunTcof26nDlQkPRIc=
+X-Google-Smtp-Source: ABdhPJxz3Ivv56MI40wJz00QMPeJJ3u+2MKGB/EpUrKhji9hBZONnbLJOg//9AiFy0Z0rgqq+USIGA==
+X-Received: by 2002:ac2:530e:: with SMTP id c14mr243673lfh.127.1597058226386;
+        Mon, 10 Aug 2020 04:17:06 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:e78f:: with SMTP id n15ls209557wrm.1.gmail; Mon, 10 Aug
- 2020 04:17:00 -0700 (PDT)
-X-Received: by 2002:adf:9526:: with SMTP id 35mr25632316wrs.326.1597058220868;
-        Mon, 10 Aug 2020 04:17:00 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1597058220; cv=pass;
+Received: by 2002:a05:651c:1182:: with SMTP id w2ls1293874ljo.2.gmail; Mon, 10
+ Aug 2020 04:17:05 -0700 (PDT)
+X-Received: by 2002:a2e:4c02:: with SMTP id z2mr294475lja.177.1597058225654;
+        Mon, 10 Aug 2020 04:17:05 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1597058225; cv=pass;
         d=google.com; s=arc-20160816;
-        b=PgAjjzvikhOkTHUrl+JJULBH1KzEy2JU5qWh1oHkkfcYAN4f31oDPEamhfCZ7NSFc6
-         KI7Wlo9zvCi4/4xFtCdv1wamH3B9jWRZKEPK3t+2OLN0s4eg7j9hPPiKtgzrmq8HlG5S
-         4X+UdK8fwC631eKZmZjyU1+e0JMTXoukUU4qNdZUF7KJwXQz4BVVcUqQWDvRW2FDBvzo
-         MJlbTx2lUuWs9XCDeRF3kEHUcn1NtoCFMl20TrUJynTRaNPPdqYD7PixcRC4BnmpP5SV
-         iQDtc0uLwtv3Eq30OA8odN86TVKbBZYlUwZ2zp83jRvVLMh+da57qAGs+Z3UpQDGj52u
-         rz9g==
+        b=J3qG3qlO4Peq+lBxRg/pjvTrpfICu9+s8BA1XMXwl/MJt+Bi96bVXBozpVHD4OfR7Z
+         9uM+Dn/TAGH2fWETi4VqMGAndSIoOAcbip2r5NvpXcebqqINvTWMIUPSDKZLL+k1FIyd
+         e7FTyAg8do8m/X3EDkSc8BzTU9JbXRoyritS+1me6UwtJ46ZtLFZvCYhwFw5LFLyrsSR
+         lJk0oHCqcA8aKtpGKepkA+Nn0gMiFRw2MZq0qLH1+4khFmWxJHb4fIDe6vz1l3J0tDla
+         s5LNhxH253+LcIglQDT6+5SR+baEZNWfNU02k1HZ8hdV1tLcdSSAGXFyDMqJwV3UfM6a
+         Yeww==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:message-id:date:subject:cc:to:from:dkim-signature;
-        bh=yvk8YrXczxA+gLPnlyeYDxhvabzekQ16mI7fQfu46EM=;
-        b=xz8mTea/gyQ0Aab4PeIlKNz0LC9STxuW5SNNnmAOqMK1uwDakT1KSN55DlfGfTCwos
-         L2pU+3sLk7DZRNYjEZgSg2/VDjpddSMwxDZ3MFqygFcRBIu/Vogbt//qbRlGfXGiNpQZ
-         n53cLhBinyitKImZnYNJOc2di5vbjVnyzxcCGFY/lngdRVYCYrGqGW8voJrlBOVDvKFQ
-         fxftV3b/DEoZnjKVQNSfy0GB6BVa7FHyJZndTPveuWYjbxwArf3mK0ALD+97yGhKZBeF
-         LI6VHQIyG51cQ7s49zVPdAt366tLmy93ZwPjKs4RGLTKf4yaBsLSjcd6RX1EV97JO4Ho
-         acuA==
+        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
+         :from:dkim-signature;
+        bh=rrbg3thsUnO74gVKTd0V9quL42xCVynbyPKP8rb+OFQ=;
+        b=YaBZ4KUHkIsRsNeHteV9S5PSjpAiu4TOLVDXhxlauxK6oGJ10xyocNDJM0e6SZvjlP
+         GA6FvDI2qP+IFdImtyfh/rn5O07BARQYSR1hMB2UGXqm+azw+tl7/TSh7SpQzyO0GSBW
+         hUtY/J1BwJz0WHbT27WyXiJG5W4SxUZnZ+uqAY5zK2Rcx6OnljMYNnRnsD+Ya5d5bdS/
+         cb2GyQ5gaXD1mJd0RfWfvlFrnjbowwduo6kdwv1IVhgDDULNmpITNa8i2mUPCMRgXkKt
+         x2nSJ9d7Tmy0Gq8ubAOFM/H6ylifpOsGeXBwE1tUH+WZg5UYKHVdDWq9dYz3uH+xYcol
+         LXaA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@nxp.com header.s=selector2 header.b=j1QQYBNC;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=dtfdjoPO;
        arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
-       spf=pass (google.com: domain of alice.guo@nxp.com designates 2a01:111:f400:fe0e::605 as permitted sender) smtp.mailfrom=alice.guo@nxp.com;
+       spf=pass (google.com: domain of alice.guo@nxp.com designates 2a01:111:f400:fe0e::62b as permitted sender) smtp.mailfrom=alice.guo@nxp.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com (mail-vi1eur04on0605.outbound.protection.outlook.com. [2a01:111:f400:fe0e::605])
-        by gmr-mx.google.com with ESMTPS id m3si906061wme.0.2020.08.10.04.17.00
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com (mail-vi1eur04on062b.outbound.protection.outlook.com. [2a01:111:f400:fe0e::62b])
+        by gmr-mx.google.com with ESMTPS id o13si760592lfc.0.2020.08.10.04.17.05
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 10 Aug 2020 04:17:00 -0700 (PDT)
-Received-SPF: pass (google.com: domain of alice.guo@nxp.com designates 2a01:111:f400:fe0e::605 as permitted sender) client-ip=2a01:111:f400:fe0e::605;
+        Mon, 10 Aug 2020 04:17:05 -0700 (PDT)
+Received-SPF: pass (google.com: domain of alice.guo@nxp.com designates 2a01:111:f400:fe0e::62b as permitted sender) client-ip=2a01:111:f400:fe0e::62b;
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TBV9YI6H1HnAx6BuKu5aBiqUcofGMVnif3bFFXVhEtUI5rUdmK5qQFlQpT1zUZw7cNFXUqHNnhvI8ORp/VDYmwyH78hddU41Niw7wyidN1M1ZT5Eay/ih0yuQ27riGytTdmkrgvqL7bVqf3CgEXni1FpR7M88fI31NOZU/8C0jx9IjC8qP2JYvhQ0n/auOlK2uvfak/+ZAGYhkM+06zjofknRG+FD37x47cYndjk5840DObHZnVVPGVcPIE3jPkr0epydgNORpAp2gPyHIZL8v/mLDTQzBy4Y6mbp04UNbhaT1eXpVTadc7VXL1jR/R1CASqkGxYh4QcFz4p2+F5cA==
+ b=Jr6863qCviibRyBmu5u9pWVQ2FJDh74CaZrQTyKAQM/bw06YO/shmawIQrZrApa9BLN9KW8G4LyRZtGbjRLMCDcZeVOXfbmktRBtmoJL4pmmSGcPS4QhkT9Q8qQGIiuADgvTOP0yzIfCNx3MEv6h88yfNHJM69z+CRUjwAfMszhTfr7fFrmorK5+E7CHTPgZnoHRuzlnQhEBlOTsBEVMH5ZEHVWeL9NDCpTjMOZus1gn5rFIGzYro56+AxKKsQWtTok3VS6QvbjQ1WSq4KczGf6q0cwExarptWcRDnQj9hA2vqM7cgylX+omibqYpiUerHB8/iEQKx+cL5RGPpo5Vw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yvk8YrXczxA+gLPnlyeYDxhvabzekQ16mI7fQfu46EM=;
- b=W9Rq89yvncKhEkr5LBghuIh9x1liggIs5YiP/sLLejnE7l78t9rrMzS8o56Rxf0OFkreIvVQ81c/EmJz5ehKyfRtO6Sa/DMFRbTAx9zEIT3CJp+Qh+akxLSiAU8JiaJTYfsIlN3u8xexbsS3MVYNLTURtU+lywhgx+fEm7Cg39MsvvqW/NluT3m1C2y9kmn3oPwoYDBo81vSqwvE/H3lK5KmCvhI5AnMUQPdHTSvluhMSHEHmpBatwgyvpCnFfAR9wUZ8rmUKYU7ntjVISkyLOa/0F/CC1GVVTe2bmtzCiWHudSnIRYbe/mm0oPs9na7NiqWMSX3wBVaSj090o5hfQ==
+ bh=rrbg3thsUnO74gVKTd0V9quL42xCVynbyPKP8rb+OFQ=;
+ b=LgphlbmiCqGWzN1E+ElGQ7C2Ry41A3bC3VUCzwQSZgooi1h6gkA8B6xlz6VuRMlU3ORZnZ3J5T7CFdTbIO3UcMoc2dhzw/M7To8463GwkqMLNYemu1COl4gMk4rylgNd7qE64r0v4h0Lcq/4yfQYKpQLrAhdB2qO7ofN+GXpP4gxs82DIBDfYnAG2W6FZl4U+W/ZGjaTl8w7+L9Kywoc4FBzzCHckh0LVUYzetnuMKfgvWfcKOu7EpDI9g+8aWBUVTmbqP8fL9XcuhMWRQHG+IdFx0oBP41hfDV8kCN1d0fgvDkEEae4wBEfj8cxex2VnQM5W3g9P6ZtEh0CxvWycg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
@@ -109,58 +111,60 @@ Received: from DB8PR04MB7065.eurprd04.prod.outlook.com (2603:10a6:10:127::9)
  by DB7PR04MB5451.eurprd04.prod.outlook.com (2603:10a6:10:8e::10) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.17; Mon, 10 Aug
- 2020 11:16:59 +0000
+ 2020 11:17:03 +0000
 Received: from DB8PR04MB7065.eurprd04.prod.outlook.com
  ([fe80::8cf6:40ae:36ee:9b42]) by DB8PR04MB7065.eurprd04.prod.outlook.com
  ([fe80::8cf6:40ae:36ee:9b42%9]) with mapi id 15.20.3261.024; Mon, 10 Aug 2020
- 11:16:59 +0000
+ 11:17:03 +0000
 From: Alice Guo <alice.guo@nxp.com>
 To: jailhouse-dev@googlegroups.com,
 	jan.kiszka@siemens.com
 Cc: peng.fan@nxp.com,
 	Alice Guo <alice.guo@nxp.com>
-Subject: [PATCH V1 1/5] imx8: add lpuart support
-Date: Wed, 12 Aug 2020 02:16:37 +0800
-Message-Id: <20200811181641.7282-1-alice.guo@nxp.com>
+Subject: [PATCH V1 2/5] arm64: support inmate cell in AArch32 mode
+Date: Wed, 12 Aug 2020 02:16:38 +0800
+Message-Id: <20200811181641.7282-2-alice.guo@nxp.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200811181641.7282-1-alice.guo@nxp.com>
+References: <20200811181641.7282-1-alice.guo@nxp.com>
 Content-Type: text/plain; charset="UTF-8"
 X-ClientProxiedBy: SG2PR03CA0149.apcprd03.prod.outlook.com
  (2603:1096:4:c8::22) To DB8PR04MB7065.eurprd04.prod.outlook.com
  (2603:10a6:10:127::9)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from nxf55104-OptiPlex-7060.ap.freescale.net (119.31.174.71) by SG2PR03CA0149.apcprd03.prod.outlook.com (2603:1096:4:c8::22) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3283.6 via Frontend Transport; Mon, 10 Aug 2020 11:16:57 +0000
+Received: from nxf55104-OptiPlex-7060.ap.freescale.net (119.31.174.71) by SG2PR03CA0149.apcprd03.prod.outlook.com (2603:1096:4:c8::22) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3283.6 via Frontend Transport; Mon, 10 Aug 2020 11:17:02 +0000
 X-Mailer: git-send-email 2.17.1
 X-Originating-IP: [119.31.174.71]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 340fb2ec-6aa4-44e7-9a0f-08d83d1ee5eb
+X-MS-Office365-Filtering-Correlation-Id: e80ecbee-5573-452f-41e3-08d83d1ee8c0
 X-MS-TrafficTypeDiagnostic: DB7PR04MB5451:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DB7PR04MB5451F86E67C6E9A34DB6B38DE2440@DB7PR04MB5451.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-Microsoft-Antispam-PRVS: <DB7PR04MB5451110E495EC9578B858AAEE2440@DB7PR04MB5451.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: QaANFods/a9kS9U/M5dOO5ThnCSu7qsLyvWF0F5zKWZlbzPUVOAU+9xBVkN92wto78j7yan3iF7hMrXfX6nLFaFiMq7qIzT2Xu47S28rRJjrxGCWWzbxuchU3kOvWH01TZ6xAPHCM1XpvMPt1l2dAFP31Xf0Ttpz46dfRGPzmJZ4zmSaZdh/qcCPYGVl8eX836r/f6UdAcWHzL2p2VfjtpFcpL1NV/tgCsBlk+isiRGpWyYg05+tMPSAxnoca5PQ2QUdITCga3fW2zv7O8EH4Sn5aiO03EeosrLpFlOsYaJmMKrQvUgFAa0F6MMBSSgk+PlOmH1QPwaHNslpluq6JQ==
+X-Microsoft-Antispam-Message-Info: Ka6/gp/10Cwp21FGvV5jDMeKkAsn/s1zv6Cdwd2pp/BmA+m54qwQ3C5VgwLP4jQdv66eAjGvOsplnRWQ2Kmpi5AP11bz9YDGab/LsoTbadlq+TvR2PeZgqfOTkra2Pdg9j3hrM8DtwlBoBwl97K3CODCtFuVayoyN+wlTMUFd2z7mi5H1s9lA3s98KV+tMXGuIA2ENO0ZzCm8EvbMDOzORlVOVCsHdNQUnw2+r24qUJecP+uPv7OCu9ckBHj6mK7bHdam3GP/FWl8xFYZbOh9UnQCHOwd8zdauIVbTlhBXrew6Lsh4A1MSFT8/thTtboVo5oU7NTQnI6mpq26cUegg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB8PR04MB7065.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFTY:;SFS:(4636009)(136003)(396003)(366004)(346002)(39860400002)(376002)(2906002)(956004)(6512007)(8676002)(52116002)(1076003)(8936002)(478600001)(44832011)(86362001)(5660300002)(66476007)(66556008)(2616005)(83380400001)(36756003)(4326008)(316002)(66946007)(6486002)(186003)(16526019)(26005)(6506007)(6666004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: 21QXepMsNrFB2X3Q3W5bnw05LtLKFbjAXFsiO6rT+DUETGx6CAMM6oYoUchW9fwn6dUwsHhNe2kY0s5eV/HdNWQhvpeNBA2YfsgnV9xDEvkOXasLoReJYCd+g7hBebkBPPCKKWhjzrOTs7pW2p2pYgiJVxOk6ZcjmmmPSaWde9Qtb717sRWxiD1hsvLrCcTXrGRVsV0T70s9YWiCQLYWQwM85K7C40GPf13xPTfSi8xso3dQjTkjnBmiyiIDwZ8+bUbsZvdf2TQMgzCJC/dwqSKWFixX6hjSTX3dNhiIiza/qWxJygCYP/KGuScJT17LSN0vZ7tYubjMxm1hRu+orQkDMrCy4AYIlHjNYJ/dONUwvmsPzp1rranvlTliL6niL5Rmf6xv13pCH0GV7wCPfz8ZDRaeRK3kBZ99kbNvyS9djlENBZq2+bR+VHDH0SKOYGmy6dLKO5pKUyb2ub4VgcHaVkEXBc4OLtRwN/FWT4/0NgP59AkhEqc81994Vy7r1SXyrciQxAGNW2CR6iHeQkFQpOx61uwBhLdVS1PdrV83R1nPReywQ8hb1Q/tjPOI45kZCNZySXVwkVHWdQTpYSRG/LtzPLdgaG11/EcJv3VcBsWyKI97jX+XY3mUzP7rTGy9EAfhXiz1hPlXP0LYfA==
+X-MS-Exchange-AntiSpam-MessageData: uPy77Z8rqmT+LBffw6b0qKHs5zhPOena893jDRlWE/9V6OsBowL4aIz8Lh8JnxZR0Jy+ZEq+3WQredF40WGyqOtHSjKw6EM0pGduxmx9hABtXiutgHE/EhH4KcXBXamOBsjohVESDfA5OF6TiINaEU49okh48VGcWa1JZokzjmCUByxPZEuyWgacOw7C/3h82W3lXT9ZTtnS/m2NBQPc/O1/C8asoCRDTbAdNxiMIaFPIITIqqQ51322+Cb/m0s3T7tKij+4dJ+5ejNWz6dEIjZ3DxRKP9vmE10qd6NPDLZxkkVUzXeYAHTZlPFst2x8t//yZ1h5ukA45ChTf+Mi90aTRUsf4uuFRXud4em5mUJmDGo7Jvm3eb6QDuQiC/BuGYWJd1GTvO3nceCTk82XW41cHEB2gulKu+Yo/Qo+t1H6hxuq+70Kk8bw73v+Ltx1Dk93KquWBvQQiX+2WgCg/v9AQyPcRKw7aHC9uhP1epf5XHT60S7Spf1ZW3rLjIbleMIobKaqLe2WUiCLsOY8UGYLBcR38sIfWd9sRfK7P3Uhu/ZptsmoI4EeWUmzazI4FN8OcdwqtJ/JrzhnPeyUgs4hTPQbdPhPqfFSa3dC8qFjLWO9u9msqCwT8Y/UMnNcarsqdV4lNh+tzvGnLaYP5w==
 X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 340fb2ec-6aa4-44e7-9a0f-08d83d1ee5eb
+X-MS-Exchange-CrossTenant-Network-Message-Id: e80ecbee-5573-452f-41e3-08d83d1ee8c0
 X-MS-Exchange-CrossTenant-AuthSource: DB8PR04MB7065.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2020 11:16:59.0483
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2020 11:17:03.7645
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6FNpONfW1vKJvy+cM1wvkHUPbM6agQR/feRfvrxn96XWr2XcNThBeclFl/pA2NYF2lLbRriRu0QUQJaBUd57nw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: qnX46cbwGMFp5TY9RQLSFB6usgCzudlDpRqfvyx7AWZyOTRZqcdt43MN6hEqbZJmFYXDKcSrHqLPwFGKGxpUnA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB5451
 X-Original-Sender: alice.guo@nxp.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@nxp.com header.s=selector2 header.b=j1QQYBNC;       arc=pass (i=1
+ header.i=@nxp.com header.s=selector2 header.b=dtfdjoPO;       arc=pass (i=1
  spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass
  fromdomain=nxp.com);       spf=pass (google.com: domain of alice.guo@nxp.com
- designates 2a01:111:f400:fe0e::605 as permitted sender) smtp.mailfrom=alice.guo@nxp.com;
+ designates 2a01:111:f400:fe0e::62b as permitted sender) smtp.mailfrom=alice.guo@nxp.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -174,219 +178,220 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-From: Peng Fan <peng.fan@nxp.com>
+An AArch64 hypervisor can host both AArch32 and AArch64 virtual machines
+at the same time. If the inmate cell wants to run in AArch32 mode, the
+assigned cpu must change to AArch32. Because AArch64 hypervisor and
+AArch64 root cell are used, when the AArch32 inmate cell is destroyed,
+cpu owned by inmate cell will be reassigned to AArch64 root cell, switch
+the cpu back to AArch64.
 
-On i.MX8/8X family, there is only LPUART. So introduce lpuart support.
+The following is a summary of some of the points when supporting inmate
+cell in AArch32 mode:
+Define a macro "JAILHOUSE_CELL_AARCH32" to indicate AArch32 execution
+state. Add a member variable cpu_mode to struct public_per_cpu, and
+cpu_mode can use this macro to indicate whether the processor is AArch32
+or AArch64 execution state.
 
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
+AArch32 and AArch64 virtual machines use different ARM_PARKING_CODE.
+0xd503207f and 0x17ffffff are used in AArch64 and 0xe320f003 and
+0xeafffffd are used in AArch32. Add ARM_PARKING_CODE which is used by
+AArch32 in arm64/include/asm/processor.h, and then select which one to
+use by cpu_mode and cpu_mode and arm_cpu_reset().
+
+When an exception occurs, the processor must execute handler code which
+corresponds to the exception. When the exception is being taken at a
+lower Exception level, the execution state of the next lower level
+(AArch64 or AArch32) will be used. Fill exception handling functions for
+Lower EL using AArch32 in hypervisor/arch/arm64/entry.S.
+
+Changing to AArch32 happens after the command "jailhouse cell start 1"
+is executed. In arch_cell_reset(), get the mode of cpu owned by inmate
+cell from the member variable .flags which is defined in the configuration
+file of inmate cell. If the inmate cell is AArch32, SPSR_EL2.M[4] will
+be set to 0b1 which means AArch32 execution state, SPSR_EL2.M[3:0] will
+be set to 0b0011 which means Supervisor, and HCR_EL2.RW will be set to
+0b0 which means lower levels are all AArch32. If the inmate cell is
+AArch64, make sure HCR_EL2.RW is 0 and the other registers are configured
+according to the previous code.
+
+Changing to AArch64 happens after the command "jailhouse cell destroy 1"
+is executed. Since the cpu owned by inmate cell will be reassigned to
+root cell, get the mode of cpu from .flags of the root cell configuration
+file by arch_cell_destroy().
+
+After Linux operating system boots up, execute the following commands to
+use AArch32 virtual machine on the i.MX8DXL:
+./jailhouse enable imx8dxl.cell
+./jailhouse cell create imx8dxl-gic-demo-aarch32.cell
+./jailhouse cell load 1 gic-demo.bin (32-bit)
+./jailhouse cell start 1
+
 Signed-off-by: Alice Guo <alice.guo@nxp.com>
 ---
- hypervisor/arch/arm-common/Kbuild             |  2 +-
- hypervisor/arch/arm-common/dbg-write.c        |  2 +
- hypervisor/arch/arm-common/include/asm/uart.h |  3 +-
- hypervisor/arch/arm-common/uart-imx-lpuart.c  | 38 ++++++++++++
- include/jailhouse/console.h                   |  1 +
- inmates/lib/arm-common/Makefile.lib           |  2 +-
- inmates/lib/arm-common/uart-imx-lpuart.c      | 58 +++++++++++++++++++
- inmates/lib/arm-common/uart.c                 |  2 +
- 8 files changed, 105 insertions(+), 3 deletions(-)
- create mode 100644 hypervisor/arch/arm-common/uart-imx-lpuart.c
- create mode 100644 inmates/lib/arm-common/uart-imx-lpuart.c
+ hypervisor/arch/arm-common/control.c          | 10 ++++++++--
+ hypervisor/arch/arm64/control.c               | 13 +++++++++++++
+ hypervisor/arch/arm64/entry.S                 |  8 ++++----
+ hypervisor/arch/arm64/include/asm/processor.h |  4 +++-
+ hypervisor/arch/arm64/include/asm/sysregs.h   |  2 ++
+ hypervisor/include/jailhouse/percpu.h         |  2 ++
+ include/jailhouse/cell-config.h               |  1 +
+ 7 files changed, 33 insertions(+), 7 deletions(-)
 
-diff --git a/hypervisor/arch/arm-common/Kbuild b/hypervisor/arch/arm-common/Kbuild
-index 78b9e512..ab86eca6 100644
---- a/hypervisor/arch/arm-common/Kbuild
-+++ b/hypervisor/arch/arm-common/Kbuild
-@@ -16,7 +16,7 @@ ccflags-$(CONFIG_JAILHOUSE_GCOV) += -fprofile-arcs -ftest-coverage
+diff --git a/hypervisor/arch/arm-common/control.c b/hypervisor/arch/arm-common/control.c
+index 70793432..c0f9f229 100644
+--- a/hypervisor/arch/arm-common/control.c
++++ b/hypervisor/arch/arm-common/control.c
+@@ -32,7 +32,10 @@ void arm_cpu_park(void)
+ 	enter_cpu_off(cpu_public);
+ 	spin_unlock(&cpu_public->control_lock);
  
- objs-y += dbg-write.o lib.o psci.o control.o paging.o mmu_cell.o setup.o
- objs-y += irqchip.o pci.o ivshmem.o uart-pl011.o uart-xuartps.o uart-mvebu.o
--objs-y += uart-hscif.o uart-scifa.o uart-imx.o
-+objs-y += uart-hscif.o uart-scifa.o uart-imx.o uart-imx-lpuart.o
- objs-y += gic-v2.o gic-v3.o smccc.o
+-	arm_cpu_reset(0);
++	if (cpu_public->cpu_mode == JAILHOUSE_CELL_AARCH32)
++		arm_cpu_reset(8);
++	else
++		arm_cpu_reset(0);
+ 	arm_paging_vcpu_init(&parking_pt);
+ }
  
- common-objs-y = $(addprefix ../arm-common/,$(objs-y))
-diff --git a/hypervisor/arch/arm-common/dbg-write.c b/hypervisor/arch/arm-common/dbg-write.c
-index 64dfef20..d4cd4399 100644
---- a/hypervisor/arch/arm-common/dbg-write.c
-+++ b/hypervisor/arch/arm-common/dbg-write.c
-@@ -38,6 +38,8 @@ void arch_dbg_write_init(void)
- 		uart = &uart_scifa_ops;
- 	else if (con_type == JAILHOUSE_CON_TYPE_IMX)
- 		uart = &uart_imx_ops;
-+	else if (con_type == JAILHOUSE_CON_TYPE_IMX_LPUART)
-+		uart = &uart_imx_lpuart_ops;
+@@ -169,6 +172,7 @@ void arch_cell_reset(struct cell *cell)
+ 	 * starts at cpu_reset_address, defined in the cell configuration.
+ 	 */
+ 	public_per_cpu(first)->cpu_on_entry = cell->config->cpu_reset_address;
++	public_per_cpu(first)->cpu_mode = cell->config->flags & JAILHOUSE_CELL_AARCH32;
+ 	for_each_cpu_except(cpu, cell->cpu_set, first)
+ 		public_per_cpu(cpu)->cpu_on_entry = PSCI_INVALID_ADDRESS;
  
- 	if (uart) {
- 		uart->debug_console = &system_config->debug_console;
-diff --git a/hypervisor/arch/arm-common/include/asm/uart.h b/hypervisor/arch/arm-common/include/asm/uart.h
-index 9317446f..f620501d 100644
---- a/hypervisor/arch/arm-common/include/asm/uart.h
-+++ b/hypervisor/arch/arm-common/include/asm/uart.h
-@@ -11,4 +11,5 @@
-  */
+@@ -184,8 +188,10 @@ void arch_cell_destroy(struct cell *cell)
+ 	arm_cell_dcaches_flush(cell, DCACHE_INVALIDATE);
  
- extern struct uart_chip uart_pl011_ops, uart_xuartps_ops, uart_mvebu_ops,
--			uart_hscif_ops, uart_scifa_ops, uart_imx_ops;
-+			uart_hscif_ops, uart_scifa_ops, uart_imx_ops,
-+			uart_imx_lpuart_ops;
-diff --git a/hypervisor/arch/arm-common/uart-imx-lpuart.c b/hypervisor/arch/arm-common/uart-imx-lpuart.c
-new file mode 100644
-index 00000000..29943de7
---- /dev/null
-+++ b/hypervisor/arch/arm-common/uart-imx-lpuart.c
-@@ -0,0 +1,38 @@
-+/*
-+ * Jailhouse, a Linux-based partitioning hypervisor
-+ *
-+ * Copyright 2018 NXP
-+ *
-+ * Authors:
-+ *  Peng Fan <peng.fan@nxp.com>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See
-+ * the COPYING file in the top-level directory.
-+ */
-+
-+#include <jailhouse/mmio.h>
-+#include <jailhouse/uart.h>
-+
-+#define UART_DATA		0x1c
-+#define UART_STAT		0x14
-+#define STAT_TDRE		(1 << 23)
-+
-+static void uart_init(struct uart_chip *chip)
-+{
-+}
-+
-+static bool uart_is_busy(struct uart_chip *chip)
-+{
-+	return !(mmio_read32(chip->virt_base + UART_STAT) & STAT_TDRE);
-+}
-+
-+static void uart_write_char(struct uart_chip *chip, char c)
-+{
-+	mmio_write32(chip->virt_base + UART_DATA, c);
-+}
-+
-+struct uart_chip uart_imx_lpuart_ops = {
-+	.init = uart_init,
-+	.is_busy = uart_is_busy,
-+	.write_char = uart_write_char,
-+};
-diff --git a/include/jailhouse/console.h b/include/jailhouse/console.h
-index a6efd37a..34dd7209 100644
---- a/include/jailhouse/console.h
-+++ b/include/jailhouse/console.h
-@@ -49,6 +49,7 @@
- #define JAILHOUSE_CON_TYPE_HSCIF	0x0006
- #define JAILHOUSE_CON_TYPE_SCIFA	0x0007
- #define JAILHOUSE_CON_TYPE_IMX		0x0008
-+#define JAILHOUSE_CON_TYPE_IMX_LPUART	0x0009
+ 	/* All CPUs are handed back to the root cell in suspended mode. */
+-	for_each_cpu(cpu, cell->cpu_set)
++	for_each_cpu(cpu, cell->cpu_set) {
+ 		public_per_cpu(cpu)->cpu_on_entry = PSCI_INVALID_ADDRESS;
++		public_per_cpu(cpu)->cpu_mode = root_cell.config->flags & JAILHOUSE_CELL_AARCH32;
++	}
  
- /* Flags: bit 0 is used to select PIO (cleared) or MMIO (set) access */
- #define JAILHOUSE_CON_ACCESS_PIO	0x0000
-diff --git a/inmates/lib/arm-common/Makefile.lib b/inmates/lib/arm-common/Makefile.lib
-index 3d7b335d..c13696f3 100644
---- a/inmates/lib/arm-common/Makefile.lib
-+++ b/inmates/lib/arm-common/Makefile.lib
-@@ -40,7 +40,7 @@ objs-y := ../string.o ../cmdline.o ../setup.o ../alloc.o ../uart-8250.o
- objs-y += ../printk.o ../pci.o
- objs-y += printk.o gic.o mem.o pci.o timing.o setup.o uart.o
- objs-y += uart-xuartps.o uart-mvebu.o uart-hscif.o uart-scifa.o uart-imx.o
--objs-y += uart-pl011.o
-+objs-y += uart-pl011.o uart-imx-lpuart.o
- objs-y += gic-v2.o gic-v3.o
+ 	arm_paging_cell_destroy(cell);
+ }
+diff --git a/hypervisor/arch/arm64/control.c b/hypervisor/arch/arm64/control.c
+index 6e1ffebf..661dcd77 100644
+--- a/hypervisor/arch/arm64/control.c
++++ b/hypervisor/arch/arm64/control.c
+@@ -20,6 +20,9 @@
  
- common-objs-y = $(addprefix ../arm-common/,$(objs-y))
-diff --git a/inmates/lib/arm-common/uart-imx-lpuart.c b/inmates/lib/arm-common/uart-imx-lpuart.c
-new file mode 100644
-index 00000000..4e5d43ef
---- /dev/null
-+++ b/inmates/lib/arm-common/uart-imx-lpuart.c
-@@ -0,0 +1,58 @@
-+/*
-+ * Copyright 2018 NXP
-+ *
-+ * Authors:
-+ *  Peng Fan <peng.fan@nxp.com>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See
-+ * the COPYING file in the top-level directory.
-+ *
-+ * Alternatively, you can use or redistribute this file under the following
-+ * BSD license:
-+ *
-+ * Redistribution and use in source and binary forms, with or without
-+ * modification, are permitted provided that the following conditions
-+ * are met:
-+ *
-+ * 1. Redistributions of source code must retain the above copyright
-+ *    notice, this list of conditions and the following disclaimer.
-+ *
-+ * 2. Redistributions in binary form must reproduce the above copyright
-+ *    notice, this list of conditions and the following disclaimer in the
-+ *    documentation and/or other materials provided with the distribution.
-+ *
-+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
-+ * THE POSSIBILITY OF SUCH DAMAGE.
-+ */
+ void arm_cpu_reset(unsigned long pc)
+ {
++	unsigned int cpu_mode = this_cpu_data()->public.cpu_mode;
++	u64 hcr_el2;
 +
-+#include <inmate.h>
-+#include <uart.h>
+ 	/* put the cpu in a reset state */
+ 	/* AARCH64_TODO: handle big endian support */
+ 	arm_write_sysreg(SPSR_EL2, RESET_PSR);
+@@ -67,6 +70,16 @@ void arm_cpu_reset(unsigned long pc)
+ 	/* AARCH64_TODO: handle PMU registers */
+ 	/* AARCH64_TODO: handle debug registers */
+ 	/* AARCH64_TODO: handle system registers for AArch32 state */
++	if (cpu_mode == JAILHOUSE_CELL_AARCH32) {
++		arm_write_sysreg(SPSR_EL2, PSR_32_BIT | PSR_MODE_SVC);
++		arm_read_sysreg(HCR_EL2, hcr_el2);
++		hcr_el2 &= ~HCR_RW_BIT;
++		arm_write_sysreg(HCR_EL2, hcr_el2);
++	} else {
++		arm_read_sysreg(HCR_EL2, hcr_el2);
++		hcr_el2 |= HCR_RW_BIT;
++		arm_write_sysreg(HCR_EL2, hcr_el2);
++	}
+ 
+ 	arm_write_sysreg(ELR_EL2, pc);
+ 
+diff --git a/hypervisor/arch/arm64/entry.S b/hypervisor/arch/arm64/entry.S
+index 27e148c6..4789e933 100644
+--- a/hypervisor/arch/arm64/entry.S
++++ b/hypervisor/arch/arm64/entry.S
+@@ -401,8 +401,8 @@ hyp_vectors:
+ 	ventry	.
+ 	ventry	.
+ 
+-	ventry	.
+-	ventry	.
++	handle_vmexit arch_handle_trap
++	handle_vmexit irqchip_handle_irq
+ 	ventry	.
+ 	ventry	.
+ 
+@@ -425,8 +425,8 @@ hyp_vectors_hardened:
+ 	ventry	.
+ 	ventry	.
+ 
+-	ventry	.
+-	ventry	.
++	handle_abort_fastpath
++	handle_vmexit irqchip_handle_irq
+ 	ventry	.
+ 	ventry	.
+ 
+diff --git a/hypervisor/arch/arm64/include/asm/processor.h b/hypervisor/arch/arm64/include/asm/processor.h
+index b52782b7..e7b048e0 100644
+--- a/hypervisor/arch/arm64/include/asm/processor.h
++++ b/hypervisor/arch/arm64/include/asm/processor.h
+@@ -34,7 +34,9 @@ union registers {
+ 
+ #define ARM_PARKING_CODE		\
+ 	0xd503207f, /* 1: wfi  */	\
+-	0x17ffffff, /*    b 1b */
++	0x17ffffff, /*    b 1b */	\
++	0xe320f003, /* 2: wfi  */	\
++	0xeafffffd, /*    b 2b */
+ 
+ #define dmb(domain)	asm volatile("dmb " #domain "\n" : : : "memory")
+ #define dsb(domain)	asm volatile("dsb " #domain "\n" : : : "memory")
+diff --git a/hypervisor/arch/arm64/include/asm/sysregs.h b/hypervisor/arch/arm64/include/asm/sysregs.h
+index 0105b109..1d68ec54 100644
+--- a/hypervisor/arch/arm64/include/asm/sysregs.h
++++ b/hypervisor/arch/arm64/include/asm/sysregs.h
+@@ -15,11 +15,13 @@
+ 
+ #define PSR_MODE_MASK	0xf
+ #define PSR_MODE_EL0t	0x0
++#define PSR_MODE_SVC	0x3
+ #define PSR_MODE_EL1t	0x4
+ #define PSR_MODE_EL1h	0x5
+ #define PSR_MODE_EL2t	0x8
+ #define PSR_MODE_EL2h	0x9
+ 
++#define PSR_32_BIT	(1 << 4)
+ #define PSR_F_BIT	(1 << 6)
+ #define PSR_I_BIT	(1 << 7)
+ #define PSR_A_BIT	(1 << 8)
+diff --git a/hypervisor/include/jailhouse/percpu.h b/hypervisor/include/jailhouse/percpu.h
+index 344ed65f..ece11bc9 100644
+--- a/hypervisor/include/jailhouse/percpu.h
++++ b/hypervisor/include/jailhouse/percpu.h
+@@ -59,6 +59,8 @@ struct public_per_cpu {
+ 	 *  host physical <-> guest physical memory mappings. */
+ 	bool flush_vcpu_caches;
+ 
++	unsigned int cpu_mode;
 +
-+#define UART_DATA		0x1c
-+#define UART_STAT		0x14
-+#define STAT_TDRE		(1 << 23)
-+
-+static void uart_imx_lpuart_init(struct uart_chip *chip)
-+{
-+}
-+
-+static bool uart_imx_lpuart_is_busy(struct uart_chip *chip)
-+{
-+	return !(mmio_read32(chip->base + UART_STAT) & STAT_TDRE);
-+}
-+
-+static void uart_imx_lpuart_write(struct uart_chip *chip, char c)
-+{
-+	mmio_write32(chip->base + UART_DATA, c);
-+}
-+
-+DEFINE_UART(imx_lpuart, "IMX-LPUART", JAILHOUSE_CON_TYPE_IMX_LPUART);
-diff --git a/inmates/lib/arm-common/uart.c b/inmates/lib/arm-common/uart.c
-index 8855d476..90a322b5 100644
---- a/inmates/lib/arm-common/uart.c
-+++ b/inmates/lib/arm-common/uart.c
-@@ -42,6 +42,7 @@
- DECLARE_UART(8250);
- DECLARE_UART(hscif);
- DECLARE_UART(imx);
-+DECLARE_UART(imx_lpuart);
- DECLARE_UART(mvebu);
- DECLARE_UART(pl011);
- DECLARE_UART(scifa);
-@@ -51,6 +52,7 @@ struct uart_chip *uart_array[] = {
- 	&UART_OPS_NAME(8250),
- 	&UART_OPS_NAME(hscif),
- 	&UART_OPS_NAME(imx),
-+	&UART_OPS_NAME(imx_lpuart),
- 	&UART_OPS_NAME(mvebu),
- 	&UART_OPS_NAME(pl011),
- 	&UART_OPS_NAME(scifa),
+ 	ARCH_PUBLIC_PERCPU_FIELDS;
+ } __attribute__((aligned(PAGE_SIZE)));
+ 
+diff --git a/include/jailhouse/cell-config.h b/include/jailhouse/cell-config.h
+index 6df4a745..2a968dd5 100644
+--- a/include/jailhouse/cell-config.h
++++ b/include/jailhouse/cell-config.h
+@@ -56,6 +56,7 @@
+ 
+ #define JAILHOUSE_CELL_PASSIVE_COMMREG	0x00000001
+ #define JAILHOUSE_CELL_TEST_DEVICE	0x00000002
++#define JAILHOUSE_CELL_AARCH32		0x00000004
+ 
+ /*
+  * The flag JAILHOUSE_CELL_VIRTUAL_CONSOLE_PERMITTED allows inmates to invoke
 -- 
 2.17.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200811181641.7282-1-alice.guo%40nxp.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200811181641.7282-2-alice.guo%40nxp.com.
