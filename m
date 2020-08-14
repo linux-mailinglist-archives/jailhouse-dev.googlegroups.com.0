@@ -1,126 +1,188 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBCNM3L4QKGQEOCIZRVY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRB46Q3L4QKGQETEWGF2I@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43a.google.com (mail-wr1-x43a.google.com [IPv6:2a00:1450:4864:20::43a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6793F244AE8
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 14 Aug 2020 15:47:54 +0200 (CEST)
-Received: by mail-wr1-x43a.google.com with SMTP id f14sf3369444wrm.22
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 14 Aug 2020 06:47:54 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1597412874; cv=pass;
+Received: from mail-wm1-x340.google.com (mail-wm1-x340.google.com [IPv6:2a00:1450:4864:20::340])
+	by mail.lfdr.de (Postfix) with ESMTPS id ECB98244B98
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 14 Aug 2020 17:06:27 +0200 (CEST)
+Received: by mail-wm1-x340.google.com with SMTP id d22sf3403675wmd.2
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 14 Aug 2020 08:06:27 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1597417587; cv=pass;
         d=google.com; s=arc-20160816;
-        b=LHoY8fbnq+KG4Nzj6rTgKhZy3WlCMub+glIUshDY87Pr39u7NmqitcCtCL+VT15Ahd
-         3mrtBTWRv822AF0GNZbVLNWqUo9aWuTAbyXFiIr4nlQXC4lr1EB70RU5kSU4yRRRmHiC
-         MncWUtHLov/FLjZia4h8u3xfP3mWIS/BS+7crj4r2Yu93YkfY4rkkdrXbTG19HZNDnsA
-         0uLAVlwiHasFj198nFQ/wgt4ha36SRlud3YDI7+Ja4NHCZM0G60by07uIspD0X9WG+tX
-         xwzYH+gTvAzKFPh8NJWk4dP/MDsdNvVnVroXXhs4zuO+dztZHBZlrqcwDXl6V/20fkAe
-         iDJQ==
+        b=kH51t+p6VivKWJL/dJYwGIVFwrsYjF+BibcxabKTSx7t5EwWEv5olp0HTvFRFLGCcy
+         cRnnfSj74RCjTSzVaW3xmiLt1iGqAHwMIOX31TG2byH9LDWECe+L3bihrd5Zq8Lyeqnb
+         rkXVJfJEN5Q/YA75CPWrChJH8xDoVHVt7qQ66ITFyk40YltlngA8d7SLhm+4//OPhghn
+         dyaDuQmU6+IUt79su56dCJEZJZ0Iag33slMGJHknFcaYmVEYe4Q7D5aVrecu1xTUe+Ug
+         BkCnEgqLzC4pS4AubBwbEb3lQHHisdEqSaksHefujzvjzPx3nACtRFCligcAmdcqL8GU
+         DQEw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:cc:to
-         :subject:sender:dkim-signature;
-        bh=SV70BJy1bfRg/6GuBJ5/eecPa9ZD/cIsGxxpAHkQoDE=;
-        b=nDjiogvaVBip93uZ/bnZF6kP8jJPmylfS/y0FxWhv9IWFnfFhEyeRnl8o5wVthTW4Q
-         MQEajfbPU03gHp27DFZj+VTgqeQ3Ee4hgtAVskShm05cC+AE/y0NyK9m1nRAM+fXfyh9
-         xy3K5X02/apfVJ701vqRDt+gTUCzM1vRJk1xwMCNeuA5WS7arK8xQ6937At/kcz5LRGA
-         daVjDCL2dS9wKpzBiba9Ip2RtC5YJBemymh7vZQXp7MnzFF/mxOaaZQGYBLfoo84VXZq
-         9go4yrSXvMp3Q2ubB11zIM1q6ulFX4XTbRD7BVnJOKRVT6UI7vQ2rJ67dxSLGO8Dn30S
-         rqNQ==
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:subject:autocrypt:from:references:cc:to:sender
+         :dkim-signature;
+        bh=aUqgzTB2cbmsXgUxpmU1HOm5SHsCeendG/DHhgJo7hg=;
+        b=h5IsxpcsoHvBf+1KKXmkdPnTDj/qMhqeY2lD1JLMiIMoRcHg6Qi9OHBtOWyUbRGYo+
+         t0cGAo3egUZDZH+SOSAIAPWy233PaVNet7ZdQm+44C0DuiV+gu59+KC/XzOWuz5P9HAH
+         7HqgEkZ4mmRevWl3YUYNNJHwuhk71SuAURtzwTyNBNLo0pzJXI3VJ3Z/mB0bdZBdf/6F
+         4M9s/ux45klTn412gTF1Oxdz2rZs4bENeGkFgSY/pZJYqpiliAT69frmyeWD82S56/qs
+         JuDol3st5d2KP9L5uxOXcsG3HwXQYirqGDQGmaH+7D+WJBcUfJuOxVj1WIlAloKBgLB2
+         KFdg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=BXqEPp0P;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
+        h=sender:to:cc:references:from:autocrypt:subject:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=SV70BJy1bfRg/6GuBJ5/eecPa9ZD/cIsGxxpAHkQoDE=;
-        b=VnEAfrGAoBpwW0YreIemcUP/HUu8Die0b15CuhqavW85VvrJoFUKpqJVL00VtmPAld
-         GR9Zb2pWKPaFJ1i20BCNgXgHjFEo9aZil1lTeKqObOleQnoPGmxUl7MOlib8vPFs+LX+
-         ig2dcLQkwfEl2wtiIYZjAhgHa0N7oXN5+iM1e0Qsx29XfkfQbfGHWprkYEDXKQkW3XLS
-         qdE5/0kbv06+6nCjOCTs6+qfkpRdpHTc0C9embACtC0wHPj0v4NGu3tw7bvLJGRgmqTB
-         NAnz9wNkYytNl/ocOU+LEWJUPUIIb7by670KzhG2/XYRYT2eR3VO6KoppVhAuEVAL9oJ
-         pKYw==
+        bh=aUqgzTB2cbmsXgUxpmU1HOm5SHsCeendG/DHhgJo7hg=;
+        b=eq2UwLFgD38hGIJCDZQXP+m+zwjun/RDZV2cwK5WCurhxdmAmEWPlgzkIZeqjMJgbz
+         8WL8eNnvNI1fcGGh48P8QNNVfpB34ZhuZz9zVHAhGIIjbVD3AAmSB2J+HlWTprxheMaU
+         gVU3ej9ZRa56yOzDKkqjHaC9l95QgHPyE4mmmjG3vJaFc3gKIRurLeJ3GzH0bcifq0iB
+         unkpTEVAnbT9F9AOupaAka0ml61MkSmebv/z5mv38DJomjH+4JrXu+rbXjzXrsmsjrM+
+         0WUxuXJHWKAPWVKf7OxTFeP1PGPX2e9Q1X+PX0U3+XFdyQrqjCNTEc1UjnGnbF+DK6C+
+         Kpiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=SV70BJy1bfRg/6GuBJ5/eecPa9ZD/cIsGxxpAHkQoDE=;
-        b=dpOqcni4sbxIg4jj/XjydF1m7QbsJCalFt0ZSjhM41pYWViFvHe83YDlnHXXIUAxW0
-         bnCU4guhvFMzRURSu9WnNxqMCLwCXaioRoGYivE3LNtzVMn5JDAzaq3ZqGidMxlAcNbu
-         mX/UYNgXDUzCMPljkWyyQ6OtJLCaZi7XiIiGyormNxHxheIejJ2jAnFYU/kfy9fltf0C
-         4TDWjAWHwc8XnO8H1IFYTMwgAFkMGbWdmeC49F1/eV9dAVFRcG9+IcmMyTOYs87Ny6Qx
-         GIhz/i12uZxBa/yg/5WlDnRNpcTI01Gj9GUkXMYh9ISpI/pLEgh2vKUKwX+Y01sFqAJ3
-         MhFw==
+        h=sender:x-gm-message-state:to:cc:references:from:autocrypt:subject
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=aUqgzTB2cbmsXgUxpmU1HOm5SHsCeendG/DHhgJo7hg=;
+        b=Rym5QmMdfZ90LgIyLimZXm/B9DUfIHpTYZMX2m6pK5pFnGPbF8clYIav1sTfu2ATYm
+         To27i3LAakfC8IXX/o7BzoLkALemaE+Najivt81RyPYcWB1D3+HO4jRh4ANmxbGv0GAX
+         dTP4tq98EI6pV5siiVjLKh2EUDKye3NkjnNLID0ts/SxkVwgLT8mEUsURYHdC94/8bnM
+         C9BiGe2R+0DMY0qzHJk4IhJm2yfFCpy6+/Ej9qUpz1w4R+dVvpOYCpg7K0Sv8jAKLtzO
+         HcHGCxjw/tjb2CvPfH4qQ22o5VLQ6WMem2QxyW9AOi7Rsy+JAhs7BCPLhH4uyGPW/r/w
+         hM5Q==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533QbEpu4YjhCOhAzpncxS43xN/VJefMD94lnE1eU4dnXq7OME+7
-	SYmpRnN3O7+bbY1UbMS/uNU=
-X-Google-Smtp-Source: ABdhPJxYlBrLXK6gYlxuLW0AXbShVEuwu6APuVr/BGj+fqQ77o9AE6rzbVSTc+0CEkKCu5Yn3eHLSQ==
-X-Received: by 2002:a7b:c0c8:: with SMTP id s8mr2742893wmh.4.1597412874127;
-        Fri, 14 Aug 2020 06:47:54 -0700 (PDT)
+X-Gm-Message-State: AOAM530h81EgS2T7TnEfdOOTP35zJDLZ3O7CFtZfr+s6dv7bcpkpjeiL
+	BMYNnUGJZh7+IBobBlTnPAI=
+X-Google-Smtp-Source: ABdhPJxQRcvfZqjufnkBRL6EvDg+ih1ur7hgB7ARx6UL14uQUPbF+BI5b4c4ALUbyBsb+a31/bqd2w==
+X-Received: by 2002:a1c:e907:: with SMTP id q7mr3068112wmc.155.1597417587682;
+        Fri, 14 Aug 2020 08:06:27 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:e78f:: with SMTP id n15ls80794wrm.1.gmail; Fri, 14 Aug
- 2020 06:47:53 -0700 (PDT)
-X-Received: by 2002:adf:e845:: with SMTP id d5mr2861846wrn.228.1597412873370;
-        Fri, 14 Aug 2020 06:47:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1597412873; cv=none;
+Received: by 2002:a1c:b787:: with SMTP id h129ls4295273wmf.3.canary-gmail;
+ Fri, 14 Aug 2020 08:06:26 -0700 (PDT)
+X-Received: by 2002:a1c:750f:: with SMTP id o15mr3057574wmc.182.1597417586920;
+        Fri, 14 Aug 2020 08:06:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1597417586; cv=none;
         d=google.com; s=arc-20160816;
-        b=V7+JJIyyiAm1UY7o9+DP242j197nxsFhyKmJUDLjSWGFQLzY9lV63jl8N8e0TG3ePy
-         rU8dMJ+9hBlOFsiyGRehhlXTcNoaQR0SWqoosJ9PDY5agAnZatm/B2M9yYYSV9CMnMLj
-         lSbJ+P1/7WzHX4Pme3Sh2DL8I46wOXhkXhmKy0Q1XZ5Bn+9I0seMAN5yIFNmCK57+Jfm
-         TgIYc7stCyEjd6a0PApl9VUV3RYwXe4jlu7lKHntrbxisoMpshjeCTXoPhho9a9TsJ7x
-         q41BCoI3IlisYNRPn82sa9znj53954UxM/yvsVjDXeL86P0sDpruUO6cg4i7Tp/Ar081
-         lzFA==
+        b=jzRrsXZsL5+TyF9rSICGG6CqhoMSVUndFzzw6pPm0azfKDNd1NeaJg/aR4jwV91QA6
+         cXBRRYTThwTzqmoHNW2l46aVRM0yBbB4DRmdkf2OV3w7d1dN4koiQcD2FVVa3C9e1EVs
+         pU62iN656rQPaK5/t+c9Bs29ntsI9ODCqG3eM2klZQUaFgoBfPH36QTtLF4Hbul9G3jC
+         L+G91P7ESjJ1sEiw80I2SpfP7nP77knaL6S362/8hZwx/DAnUNjKVfEdasM1CwzmXnus
+         IeeUjXfu1TcTGPu0vrfAJyCWC322MS2FU4Iu64s/zuF4oKLXN6JQz5SgGQv02WXlVcFx
+         pLGQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=a6/CHJY42o46UmnkM9+rCpXhJE+ig8VlfwBD7msEzV0=;
-        b=guut1ICR8QKOWOpEze+gxQOiEHIYqUBY73lDrDzO61R6B/UxKYNczBlz0OrwBaenM0
-         XCt1m15/cIAQDUTtjUhZ5XmKZPN0jFnC4b1LdD1ud4GkdcMBpcvm4gm4oOyB/w78mn9M
-         uAm7NPupgTB0ye5yZAxnpf+7pqwkQWeFGYtemXhxa+I5Xr2DqxNxo6nkuPGKPbbvRwXM
-         vXm2SIUM5Nq08DXewEIpDJbKl98tufMGlqb4VBzIka483jMkRmlRFCMb6gp4P1FPfIEB
-         IFr2xPxPnJ1vVwVVmDwu8bk7wH3TrX8LaF12/9iEInYyQhHKOIYOnOLca43jCZPeBybH
-         Ijlg==
+         :user-agent:date:message-id:subject:autocrypt:from:references:cc:to
+         :dkim-signature;
+        bh=pr/cUEZ3v9A0MFqEmo4TGkK4fuCQO1VFVIk50cXBiuU=;
+        b=Y4nLz3HrvJSMa3AcJGUQoUe/YEOitjX5shtWry6EgefxY3y8YceA6ZrDAskJa4zoLY
+         DpAJE38Z+px6JwfKQzUScTLLGI4R8G3Yb1L1BgbU+Z5ub6msZu1+eaXY/m/xDxgWh3Ay
+         6S5bzrz0gygoJaPeLnFXOTOhPlPuD36rS2uMAc7QMYSVfvFhsXLf67UU+y6ngtqonalD
+         fW4VJUHYYji78OWYhJ/9pF/1pcAvYXCuPvrVoekL340CuOQBct9TuYrNGxrXYHH2HnjA
+         chKuApo7V7tWrARUq5ia8/yjErTIxuJryEnya3C0iI0V4OlXtNMfA75KT6qvYTlVmEFQ
+         /x1g==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
-        by gmr-mx.google.com with ESMTPS id j16si301808wrs.5.2020.08.14.06.47.53
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=BXqEPp0P;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [194.95.104.12])
+        by gmr-mx.google.com with ESMTPS id h11si449359wrc.2.2020.08.14.08.06.26
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 14 Aug 2020 06:47:53 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id 07EDlqT5029715
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 14 Aug 2020 15:47:52 +0200
-Received: from [167.87.75.232] ([167.87.75.232])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 07EDlqIf018622;
-	Fri, 14 Aug 2020 15:47:52 +0200
-Subject: Re: [PATCH V2 4/4] configs: arm64: imx8dxl: add cell configuration
- files
-To: Alice Guo <alice.guo@nxp.com>, jailhouse-dev@googlegroups.com
-Cc: peng.fan@nxp.com
-References: <20200815190949.6837-1-alice.guo@nxp.com>
- <20200815190949.6837-4-alice.guo@nxp.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <abc77bec-9b59-e56f-a188-18859536ba3f@siemens.com>
-Date: Fri, 14 Aug 2020 15:47:51 +0200
+        Fri, 14 Aug 2020 08:06:26 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) client-ip=194.95.104.12;
+Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S02", Issuer "E16S02" (not verified))
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4BSmwy3ZlQzy8h;
+	Fri, 14 Aug 2020 17:06:26 +0200 (CEST)
+Received: from [172.18.243.198] (194.95.106.138) by E16S02.hs-regensburg.de
+ (2001:638:a01:8013::92) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2044.4; Fri, 14 Aug
+ 2020 17:06:25 +0200
+To: Jan Kiszka <jan.kiszka@siemens.com>, Peng Fan <peng.fan@nxp.com>, Ralf
+ Ramsauer <ralf.ramsauer@oth-regensburg.de>
+CC: "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>, Alice
+ Guo <alice.guo@nxp.com>, Wolfgang Mauerer
+	<wolfgang.mauerer@oth-regensburg.de>
+References: <20200807030632.28259-1-peng.fan@nxp.com>
+ <20200807030632.28259-7-peng.fan@nxp.com>
+ <4bfbd74f-843e-c3b9-47c7-31100d085052@siemens.com>
+ <DB6PR0402MB2760040A34FE70576005395E88400@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+ <deb41f1a-1b87-ebd1-50d2-d7d299d35d8e@siemens.com>
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Autocrypt: addr=ralf.ramsauer@oth-regensburg.de; keydata=
+ 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
+ RncIIYr0LjXAAzY=
+Subject: Re: [PATCH 06/10] Add libbaremetal
+Message-ID: <9e8f00b4-2a2d-8bb8-e92c-8e23e5910af0@oth-regensburg.de>
+Date: Fri, 14 Aug 2020 17:06:24 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200815190949.6837-4-alice.guo@nxp.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+In-Reply-To: <deb41f1a-1b87-ebd1-50d2-d7d299d35d8e@siemens.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US-large
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [194.95.106.138]
+X-ClientProxiedBy: E16S01.hs-regensburg.de (2001:638:a01:8013::91) To
+ E16S02.hs-regensburg.de (2001:638:a01:8013::92)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=BXqEPp0P;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -133,370 +195,111 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 15.08.20 21:09, Alice Guo wrote:
-> Add imx8dxl-gic-demo-aarch32.c to support AArch32 VM on the imx8dxl
-> platform. Distinguish whether it is AArch32 inmate cell by the macro
-> JAILHOUSE_CELL_AARCH32.
-> 
-> Add "imx8dxl-gic-demo-aarch64.c" for AArch64 VM.
-> 
-> "imx8dxl.c" is used for the root cell.
-> 
-> Signed-off-by: Alice Guo <alice.guo@nxp.com>
-> ---
->   configs/arm64/imx8dxl-gic-demo-aarch32.c |  64 +++++++++
->   configs/arm64/imx8dxl-gic-demo-aarch64.c |  64 +++++++++
+(+Cc Wolfgang, we recently had discussion on the boot process of Jailhouse)
 
-Sorry, missed that so far:
+On 8/14/20 11:43 AM, Jan Kiszka wrote:
+> On 14.08.20 11:08, Peng Fan wrote:
+>>> Subject: Re: [PATCH 06/10] Add libbaremetal
+>>>
+>>> On 07.08.20 05:06, peng.fan@nxp.com wrote:
+>>>> From: Peng Fan <peng.fan@nxp.com>
+>>>>
+>>>> Add libbaremetal for sharing code between inmates and jailhouse
+>>>> baremetal loader.
+>>>>
+>>>> The Makefile code is copied from inmates, currently only string.c is
+>>>> moved from inmates to libbaremetal. In future, we might need to share
+>>>> uart/mmu and etc.
+>>>
+>>> Might quickly become confusing to have two libs. What prevents renaming
+>>> inmates/lib completely into libbaremetal? Sure, there are some jailhous=
+e
+>>> specifics in inmates/lib, but those could likely be put in some corner.
+>>
+>> How about rename inmates to baremetal?
+>> And add bootloader stuff under baremetal?
+>=20
+> We could do
+>=20
+> baremetal
 
-Please add a imx8dxl-inmate-demo.c, instead of aarch64, and make sure it 
-is in line with other inmate-demo configs. That will ease using this 
-target with all kinds of inmates, including tests (once we have more...).
+What we provide is a minimalist runtime environment, which is not just
+limited to baremetal applications (depends on the definition of
+baremetal, though). But=E2=80=A6
 
-And for the aarch32 variant: If the only difference is the flag, maybe 
-put that in a define and include the imx8dxl-inmate-demo.c, rather than 
-copying it. Will make maintenance easier.
+> =E2=94=9C=E2=94=80=E2=94=80 demo-inmates
+> =E2=94=9C=E2=94=80=E2=94=80 lib
+> =E2=94=9C=E2=94=80=E2=94=80 tests
+> =E2=94=94=E2=94=80=E2=94=80 tools
+>=20
+> and put the jailhouse loader under tools. Inmates is a "brand" in
+> Jailhouse context, so it should remain in some form. But it's true, some
 
->   configs/arm64/imx8dxl.c                  | 173 +++++++++++++++++++++++
->   3 files changed, 301 insertions(+)
->   create mode 100644 configs/arm64/imx8dxl-gic-demo-aarch32.c
->   create mode 100644 configs/arm64/imx8dxl-gic-demo-aarch64.c
->   create mode 100644 configs/arm64/imx8dxl.c
-> 
-> diff --git a/configs/arm64/imx8dxl-gic-demo-aarch32.c b/configs/arm64/imx8dxl-gic-demo-aarch32.c
-> new file mode 100644
-> index 00000000..80dbd366
-> --- /dev/null
-> +++ b/configs/arm64/imx8dxl-gic-demo-aarch32.c
-> @@ -0,0 +1,64 @@
-> +/*
-> + * iMX8DXL target - gic-demo
-> + *
-> + * Copyright 2020 NXP
-> + *
-> + * Authors:
-> + *  Alice Guo <alice.guo@nxp.com>
-> + *
-> + * This work is licensed under the terms of the GNU GPL, version 2.  See
-> + * the COPYING file in the top-level directory.
-> + */
-> +
-> +#include <jailhouse/types.h>
-> +#include <jailhouse/cell-config.h>
-> +
-> +struct {
-> +	struct jailhouse_cell_desc cell;
-> +	__u64 cpus[1];
-> +	struct jailhouse_memory mem_regions[3];
-> +} __attribute__((packed)) config = {
-> +	.cell = {
-> +		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
-> +		.revision = JAILHOUSE_CONFIG_REVISION,
-> +		.name = "gic-demo-aarch32",
-> +		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG | JAILHOUSE_CELL_AARCH32,
-> +		.cpu_set_size = sizeof(config.cpus),
-> +		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-> +		.num_irqchips = 0,
-> +		.num_pci_devices = 0,
-> +		.console = {
-> +			.address = 0x5a060000,
-> +			.type = JAILHOUSE_CON_TYPE_IMX_LPUART,
-> +			.flags = JAILHOUSE_CON_ACCESS_MMIO |
-> +				 JAILHOUSE_CON_REGDIST_4,
-> +		},
-> +	},
-> +
-> +	.cpus = {
-> +		0x2,
-> +	},
-> +
-> +	.mem_regions = {
-> +		/* UART1 */ {
-> +			.phys_start = 0x5a060000,
-> +			.virt_start = 0x5a060000,
-> +			.size = 0x1000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
-> +		},
-> +		/* RAM: Top at 4GB Space */ {
-> +			.phys_start = 0xa1700000,
-> +			.virt_start = 0,
-> +			.size = 0x00100000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
-> +		},
-> +		/* communication region */ {
-> +			.virt_start = 0x80000000,
-> +			.size = 0x00001000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_COMM_REGION,
-> +		},
-> +	}
-> +};
-> diff --git a/configs/arm64/imx8dxl-gic-demo-aarch64.c b/configs/arm64/imx8dxl-gic-demo-aarch64.c
-> new file mode 100644
-> index 00000000..88d436fe
-> --- /dev/null
-> +++ b/configs/arm64/imx8dxl-gic-demo-aarch64.c
-> @@ -0,0 +1,64 @@
-> +/*
-> + * iMX8DXL target - gic-demo
-> + *
-> + * Copyright 2020 NXP
-> + *
-> + * Authors:
-> + *  Alice Guo <alice.guo@nxp.com>
-> + *
-> + * This work is licensed under the terms of the GNU GPL, version 2.  See
-> + * the COPYING file in the top-level directory.
-> + */
-> +
-> +#include <jailhouse/types.h>
-> +#include <jailhouse/cell-config.h>
-> +
-> +struct {
-> +	struct jailhouse_cell_desc cell;
-> +	__u64 cpus[1];
-> +	struct jailhouse_memory mem_regions[3];
-> +} __attribute__((packed)) config = {
-> +	.cell = {
-> +		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
-> +		.revision = JAILHOUSE_CONFIG_REVISION,
-> +		.name = "gic-demo",
-> +		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
-> +		.cpu_set_size = sizeof(config.cpus),
-> +		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-> +		.num_irqchips = 0,
-> +		.num_pci_devices = 0,
-> +		.console = {
-> +			.address = 0x5a060000,
-> +			.type = JAILHOUSE_CON_TYPE_IMX_LPUART,
-> +			.flags = JAILHOUSE_CON_ACCESS_MMIO |
-> +				 JAILHOUSE_CON_REGDIST_4,
-> +		},
-> +	},
-> +
-> +	.cpus = {
-> +		0x2,
-> +	},
-> +
-> +	.mem_regions = {
-> +		/* UART1 */ {
-> +			.phys_start = 0x5a060000,
-> +			.virt_start = 0x5a060000,
-> +			.size = 0x1000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
-> +		},
-> +		/* RAM: Top at 4GB Space */ {
-> +			.phys_start = 0xa1700000,
-> +			.virt_start = 0,
-> +			.size = 0x00100000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
-> +		},
-> +		/* communication region */ {
-> +			.virt_start = 0x80000000,
-> +			.size = 0x00001000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_COMM_REGION,
-> +		},
-> +	}
-> +};
-> diff --git a/configs/arm64/imx8dxl.c b/configs/arm64/imx8dxl.c
-> new file mode 100644
-> index 00000000..f94692bc
-> --- /dev/null
-> +++ b/configs/arm64/imx8dxl.c
-> @@ -0,0 +1,173 @@
-> +/*
-> + * i.MX8DXL Target
-> + *
-> + * Copyright 2020 NXP
-> + *
-> + * Authors:
-> + *  Alice Guo <alice.guo@nxp.com>
-> + *
-> + * This work is licensed under the terms of the GNU GPL, version 2.  See
-> + * the COPYING file in the top-level directory.
-> + */
-> +
-> +#include <jailhouse/types.h>
-> +#include <jailhouse/cell-config.h>
-> +
-> +struct {
-> +	struct jailhouse_system header;
-> +	__u64 cpus[1];
-> +	struct jailhouse_memory mem_regions[15];
-> +	struct jailhouse_irqchip irqchips[3];
-> +	struct jailhouse_pci_device pci_devices[2];
-> +} __attribute__((packed)) config = {
-> +	.header = {
-> +		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
-> +		.revision = JAILHOUSE_CONFIG_REVISION,
-> +		.flags = JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
-> +		.hypervisor_memory = {
-> +			.phys_start = 0xbfc00000,
-> +			.size =       0x00400000,
-> +		},
-> +		.debug_console = {
-> +			.address = 0x5a060000,
-> +			.size = 0x1000,
-> +			.flags = JAILHOUSE_CON_TYPE_IMX_LPUART |
-> +				 JAILHOUSE_CON_ACCESS_MMIO |
-> +				 JAILHOUSE_CON_REGDIST_4,
-> +			.type = JAILHOUSE_CON_TYPE_IMX_LPUART,
-> +		},
-> +		.platform_info = {
-> +			.pci_mmconfig_base = 0xbf700000,
-> +			.pci_mmconfig_end_bus = 0x0,
-> +			.pci_is_virtual = 1,
-> +			.pci_domain = 0,
-> +			.arm = {
-> +				.gic_version = 3,
-> +				.gicd_base = 0x51a00000,
-> +				.gicr_base = 0x51b00000,
-> +				.maintenance_irq = 25,
-> +			},
-> +		},
-> +		.root_cell = {
-> +			.name = "imx8dxl",
-> +			.num_pci_devices = ARRAY_SIZE(config.pci_devices),
-> +			.cpu_set_size = sizeof(config.cpus),
-> +			.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-> +			.num_irqchips = ARRAY_SIZE(config.irqchips),
-> +			.vpci_irq_base = 2, /* Not include 32 base */
+=E2=80=A6 yep, the branding is the point why we should keep calling them 'i=
+nmates'.
 
-Is SPI 2 actually free on this board? Usually, those low IRQs are all in 
-use. Just to double-check.
+> of the existing demo inmates can already run without jailhouse.
 
-> +		},
-> +	},
-> +
-> +	.cpus = {
-> +		0x3,
-> +	},
-> +
-> +	.mem_regions = {
-> +		/* IVHSMEM shared memory region for 00:00.0 (demo )*/ {
-> +			.phys_start = 0xbf900000,
-> +			.virt_start = 0xbf900000,
-> +			.size = 0x1000,
-> +			.flags = JAILHOUSE_MEM_READ,
-> +		},
-> +		{
-> +			.phys_start = 0xbf901000,
-> +			.virt_start = 0xbf901000,
-> +			.size = 0x9000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE ,
-> +		},
-> +		{
-> +			.phys_start = 0xbf90a000,
-> +			.virt_start = 0xbf90a000,
-> +			.size = 0x2000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE ,
-> +		},
-> +		{
-> +			.phys_start = 0xbf90c000,
-> +			.virt_start = 0xbf90c000,
-> +			.size = 0x2000,
-> +			.flags = JAILHOUSE_MEM_READ,
-> +		},
-> +		{
-> +			.phys_start = 0xbf90e000,
-> +			.virt_start = 0xbf90e000,
-> +			.size = 0x2000,
-> +			.flags = JAILHOUSE_MEM_READ,
-> +		},
-> +		/* IVSHMEM shared memory regions for 00:01.0 (networking) */
-> +		JAILHOUSE_SHMEM_NET_REGIONS(0xbfa00000, 0),
-> +		/* MMIO (permissive): TODO: refine the map */ {
-> +			.phys_start = 0x00000000,
-> +			.virt_start = 0x00000000,
-> +			.size =	      0x80000000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_IO,
-> +		},
-> +		/* RAM */ {
-> +			.phys_start = 0x80200000,
-> +			.virt_start = 0x80200000,
-> +			.size = 0x21d00000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_EXECUTE,
-> +		},
-> +		/* Inmate memory */{
-> +			.phys_start = 0xa1700000,
-> +			.virt_start = 0xa1700000,
-> +			.size = 0x1e000000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-> +		},
-> +		/* Loader */{
-> +			.phys_start = 0xbfb00000,
-> +			.virt_start = 0xbfb00000,
-> +			.size = 0x100000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_EXECUTE,
-> +		},
-> +	},
-> +
-> +	.irqchips = {
-> +		/* GIC */ {
-> +			.address = 0x51a00000,
-> +			.pin_base = 32,
-> +			.pin_bitmap = {
-> +				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,
-> +			},
-> +		},
-> +		/* GIC */ {
-> +			.address = 0x51a00000,
-> +			.pin_base = 160,
-> +			.pin_bitmap = {
-> +				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,
-> +			},
-> +		},
-> +		/* GIC */ {
-> +			.address = 0x51a00000,
-> +			.pin_base = 288,
-> +			.pin_bitmap = {
-> +				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,
-> +			},
-> +		},
-> +	},
-> +
-> +	.pci_devices = {
-> +		{ /* IVSHMEM 0000:00:00.0 (demo) */
-> +			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> +			.domain = 0,
-> +			.bdf = 0 << 3,
-> +			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-> +			.shmem_regions_start = 0,
-> +			.shmem_dev_id = 0,
-> +			.shmem_peers = 3,
-> +			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
-> +		},
-> +		{ /* IVSHMEM 0000:00:01.0 (networking) */
-> +			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> +			.domain = 0,
-> +			.bdf = 1 << 3,
-> +			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-> +			.shmem_regions_start = 5,
-> +			.shmem_dev_id = 0,
-> +			.shmem_peers = 2,
-> +			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
-> +		},
-> +	},
-> +};
-> 
+And that's the second point - we already have some kind of support for
+this kind of use case. However, I agree that I wouldn't expect the
+preloader inside inmates/.
 
-Will a linux inmate config follow?
+>=20
+> Ralf, what do you think?
 
-Jan
+Peng, I just read the code of the loader and I try to understand what
+how it's exactly working. Nice work! Do I see that correctly: You
+basically "imitate" Linux in a way that you manually do the early setup
+(some register setup, GIC init, kick off all CPUs, hv stubs, ...).
 
--- 
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+IOW, you bring the system to the same state, where the Linux driver
+would hand over Jailhouse. You activate Jailhouse, we then return to the
+loader which got lifted to the first cell, the root cell. Now you use
+the loader to partition the system, i.e., to create cells. Therefore,
+you use the hypercall interface, just like Linux would typically do it
+for us. Finally, there's the hand over to Linux.
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/abc77bec-9b59-e56f-a188-18859536ba3f%40siemens.com.
+But do we really need a separate loader? Can't we just place the
+loader-related stuff at, say, the end of jailhouse.bin?
+
+To be more concrete, i think it should be possible to have the full
+preloader-thing located under hypervisor/arch/arm64/. It should also be
+possible to link everything that is required into jailhouse.bin - so we
+would get one universal binary instead of a chain of dependent binaries. [1=
+]
+
+Pro: You can make early use of the UART in your preloader without having
+the need to, for example, duplicate drivers. That's quite useful for
+debugging if something goes wrong very early. Secondly, you can also
+piggyback on existing gic routines, no need to reimplement
+phys_processor_id, =E2=80=A6
+
+The next thing after early boot would be the handover to jailhouse.
+Before the handover, we set a flag that indicates that we do an early
+boot of Jailhouse. We can use this flag to do the full partitioning of
+the system before we return to the guests in one single step. IOW, we
+never return to the preloader once the handover happened. We can do
+that, as u-boot already placed our guests and we just need to start them
+(as we would start regular cells).
+
+The amount of additional logic in the actual hypervisor core should be
+reasonably low.
+
+Did you already consider that strategy? Jan, what do you think?
+
+Thanks
+  Ralf
+
+>=20
+> Jan
+>=20
+[1] E.g., we could group early preloader bootup code to an own section
+that we drop once it's not needed any longer.
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/9e8f00b4-2a2d-8bb8-e92c-8e23e5910af0%40oth-regensburg.de.
