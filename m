@@ -1,148 +1,118 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBKE2334QKGQE3FNQ6IA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBMU2334QKGQEJNXKYEI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23b.google.com (mail-lj1-x23b.google.com [IPv6:2a00:1450:4864:20::23b])
-	by mail.lfdr.de (Postfix) with ESMTPS id A71D42450C0
-	for <lists+jailhouse-dev@lfdr.de>; Sat, 15 Aug 2020 09:22:17 +0200 (CEST)
-Received: by mail-lj1-x23b.google.com with SMTP id a12sf1873744ljn.12
-        for <lists+jailhouse-dev@lfdr.de>; Sat, 15 Aug 2020 00:22:17 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1597476137; cv=pass;
+Received: from mail-vk1-xa37.google.com (mail-vk1-xa37.google.com [IPv6:2607:f8b0:4864:20::a37])
+	by mail.lfdr.de (Postfix) with ESMTPS id 098A42450C1
+	for <lists+jailhouse-dev@lfdr.de>; Sat, 15 Aug 2020 09:22:28 +0200 (CEST)
+Received: by mail-vk1-xa37.google.com with SMTP id n6sf3171784vkm.20
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 15 Aug 2020 00:22:27 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1597476147; cv=pass;
         d=google.com; s=arc-20160816;
-        b=ueuEtQXWHOrKoBubb6WuzRnwERF4qEobJMpPWIscdU6pHsODmJFEpOWk1mPkUme4wT
-         ik/ezynn0/fkt4/m1xcWtwFq/avtpv3QSBsXZ9m7ZxM056pKbidBXaN1eKt1BTbGyg/d
-         gGeDH8boPZMBw3AGQP8958bZB1Z6dRRiQtJbDwtmC2kqZtPszR6Xc5m7gjW3tTfP1rbE
-         uEJdJ4YWic4tqY/PC4UhW8p/GXIpQTg8MiN+vMC13kBy+rEODj23hVtuhJFp2vdf/70f
-         pWD2dfF61nM7BX2pUIzS5xeUeShvlssnbUzoNKO8q12ATkxblXB/1Tb+A5JOes8Lr3RV
-         ORvw==
+        b=BGWqBF2GY+9qrcEK7PvlSffwHl83Alh10GoaQrABWw13ZflppCJqlLMngXZg0mTncT
+         XCGacouNbYkOGWXcTp+2Ot5rUfwI//4vwWnPWneR7MDGyJcJyQ7omtqvxfgFcxosG7iZ
+         ah0Qgl9fEQBGpneawK2twi+gx9qOqhVHH/rVKMldVgIyZj/+SJxj5koqnxZFUojDH7iI
+         pNKelYIO6HLCfUJ6zkRN3/swtX6cZdF2PRGnVUv9Bx5OaUnyv0nHBR13V10FV9jflHSV
+         aRHCWmbFcCvN+EhaKDav4gk3Vkn3bFYkwDam0AOM2FF1cWV7sn87ktXTBjsifc5lS4WG
+         v87g==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:to:subject
-         :sender:dkim-signature;
-        bh=6Zzxkq40qH5bAdke5P39zeb1zVTGSJglGcHvs05qDOY=;
-        b=lhBQ4DjmwE4naLkMcJYCdGrbnyvpZNtu9ZwODlOW/3i/tk5CEFI5e+GfhwUtRDATQb
-         H84yB/XyETPd+6jCPUTddz6jR9N9WqgbTLi5lsGjBXAzWlLWvVaDTeYQ7qW4c7OCfKWX
-         Rg2k0kKT+P1TBNNBN0FwcOEic7lT87NkQZNSIivhFwWqhmqz+IXOtl24Wa9M9R3IpFOv
-         w5nHuv4den4t3J+5TdQEjUnp+9FbfBIHtLFh2eEsAA49YIQNvfnDMoR0FeUreP2BBnpm
-         ehdeaxrNqS1Qyfvqu9GTGRWaNRMoeGgNvDfdXiw3l6af1s42higkI360aAdDO1hm8HFI
-         Jlbw==
+         :list-id:mailing-list:precedence:mime-version:subject:message-id:to
+         :from:date:sender:dkim-signature;
+        bh=YjUYK2OHKa3NEnTlZfML8shdduLKWQbwBjExRQrB4R4=;
+        b=y3VNmjhSJYb8Pn5WZBDlz8HGf4dwRz7tESC9V+yAchZ3/K7thKm8BeqjFa9fgiDeXZ
+         w32JuLjmFYLNyZdrH0iM8CID22KYY5k/ZR41JsUHmhdacCdPU4Q0BYHuXj/iZB+C58BK
+         5RPW0cRiPl61vsdVp3357i8iRp4mgMtqQ50uIWmMZoYNWP/iZJccKez2aYh7papiHBTI
+         4mjwhtIst9IfXQN95UDFOx0mL4kFF93VXuaFKtL3B6N0AvGUijD/SckPh6jcNi28tgk4
+         zr0LiXbIFKeS9BtCnLFMpt2nMDSNNY45cpp4iEH6GAR06Eat3zdQ8iIUFeCszJzknSKZ
+         Nwow==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=Kc8TrSet;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=m094BsYM;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.203 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=6Zzxkq40qH5bAdke5P39zeb1zVTGSJglGcHvs05qDOY=;
-        b=pEWPIffYLOY//edaKFY1mqNn4fQsv0bkqHQWX0Waa/2LhyVZRF1fc3wMAKoFbdwv7f
-         VN2CBT4VPQ6HJ7pkfZqd8tXE7/+BOdaPPUT9sdwtzeJaJBmBuWiKt1ltvGJwqN6NRejs
-         JQxuiAcuZjxRu3gLUFAF+VwCdmwJ77rD4G7qnMeM6/poo1iNk6YyGot8FL0KV8+fRzq0
-         g0GHuJqj3s2W+EM4U5qdnn/lGYFz6j5Ub2CZvIzjqqzfypYDiC+SPh/tFKGcv1GhX1Oj
-         akILn3NqHIFh8dyslCte4JMgPBTBU5eqwlRromI1a5p6FXjBG7UNNCjUhXIIA4c/9yyE
-         HenQ==
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=YjUYK2OHKa3NEnTlZfML8shdduLKWQbwBjExRQrB4R4=;
+        b=Hq3B6tmSBUWJfYLvTZKIAbswY6GSNuXhMP7TWJjefq2ZhirduMCjHFYzP1YBF6qWKh
+         Y83I+w1s8gKbRpPZB7754c4dgWL73XzivhMvYFkzFezdeZ3jE8m0qjNG8qD+dWS5jsYs
+         c2Fn5Uf//oWM7+JcZ1naTXEfynSmE4p4byDbxdtnX0tbC/tsKrYft1lYcfbAlcr1EoYK
+         fuy214k8lDAVDifJepkD0NZ8Mf5348R64W7/kEPdsrGTS9GrOrxVFIOjJXkpdo9QxLll
+         C/Ks3gnm850s1vE6ZM271mvSY04/ilTtHI7WkxBbc1pYgF5QhCS4BDOsvvhtBgFbNAHt
+         BZCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=6Zzxkq40qH5bAdke5P39zeb1zVTGSJglGcHvs05qDOY=;
-        b=VicT3ns3qAgfmSbY33FLcWStXEnegBbxvf4u2eTcEuxgpNVy1ruGOY3pkmMYg5/WUs
-         GFJKBtVThmyj/WOXLgai/vXF+JI80iBivQQHM5OD7KbEyIAF/TPVSXao5VRNjk42S4Dt
-         RuvXMtyDbw4vj0ohkVuTJkR/ImVcnFMWJ6m47v5j6j0BRrc2uJYYzRKPoB0A9igOnbHD
-         00GtZHvGUUdIixykFYZB5GUSbcaJWzmAEQi7z63tzXuefnY8eA+jeZSwI7gE+GmYlpCs
-         JY8JtkyGWIqLX3oFHAEe73rrZKnJwcqbobaxMgjDdOCBEHjGAlHjzFc0gVMDstbvjdMi
-         w6bw==
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=YjUYK2OHKa3NEnTlZfML8shdduLKWQbwBjExRQrB4R4=;
+        b=ah0VDehmgLuYeEfriC3kM4Kzs20BtruukDIvwdzmPeXqUNJ4ORthJ+aS6wgvHxFMdD
+         IWLaCKHHun1Xp4FKubJ5CVS7oYDdnITGGgIF/Oo8RdWgzfNunch7Pp0uSU59JKjeEcsc
+         rWCKUaSHtUbVrB+LdsTWR4xJTHxl3XcQ0BZOrwfBTc2w7ebe6dq7D6PEmMkgU4OO5cA3
+         cznCeRs9uT6Q3fjVNKas6xzPppRw5sUnLdx+4zVcUbGSywc44zt2gQu3n07NAWyQ86To
+         WqG4PqWhMyBqPEkEoue/YiU2j81grBnY6UQrPDzIRdMI2IYGkZefjBoMTCJYWNYrSeb1
+         8Rbg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM5335bpZellCjpdl1EOHjTaIUT9TbseJGHsKVWWkFpINJmnGQtNH4
-	usxgi20pur1ohN0lSOQ7Zdg=
-X-Google-Smtp-Source: ABdhPJx7ft5lDx2cv/m44IlCKjph6gqRTgtuRc6+o+UgKvQWCs0k81tK+3blug5ECebzuJMYhbKDhg==
-X-Received: by 2002:a19:224e:: with SMTP id i75mr2910966lfi.58.1597476137112;
-        Sat, 15 Aug 2020 00:22:17 -0700 (PDT)
+X-Gm-Message-State: AOAM533gBgemki2uPz0u2gq2Mbo4iDRQs9oPKQO9H3t7Q6+C7qzTwBdT
+	Y2mu+jQ39uFG6wSM8YC6Ab4=
+X-Google-Smtp-Source: ABdhPJzSTG23SMIY9yFTICy2MOPIF3E2/SXtvDmw59OJcAmvIMCs5ReM9n27qrjbLCtmRjS+fOmxpQ==
+X-Received: by 2002:a67:fe41:: with SMTP id m1mr3564128vsr.109.1597476146892;
+        Sat, 15 Aug 2020 00:22:26 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:300f:: with SMTP id w15ls407481ljw.1.gmail; Sat, 15 Aug
- 2020 00:22:16 -0700 (PDT)
-X-Received: by 2002:a2e:88c1:: with SMTP id a1mr2934566ljk.425.1597476136236;
-        Sat, 15 Aug 2020 00:22:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1597476136; cv=none;
+Received: by 2002:ab0:1d84:: with SMTP id l4ls778792uak.9.gmail; Sat, 15 Aug
+ 2020 00:22:26 -0700 (PDT)
+X-Received: by 2002:ab0:1390:: with SMTP id m16mr3303425uae.132.1597476146234;
+        Sat, 15 Aug 2020 00:22:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1597476146; cv=none;
         d=google.com; s=arc-20160816;
-        b=NvSyFiOma0ytXDAHn9DJvYE8y/m1sknzpgBl5Gdh3/RsFN3jfcn7HIzmbDXvYpc12O
-         8tGtB242svGIwyikPFbvb58mCvEc0w/uPyDt/9Xa8flj0NndZqY6IzaPjwLA8zlCeWex
-         GzD16/ZZ2z3BmGl5dnhlbguWsRjrM4bcVaB43MxaPQ3d3mDoYXv2SqrxJGmcJAxs1HQB
-         YsbR4wbvXIzj9Owe49ow3DIqQ7BYZym1qPc5UyFNd7hpXPK7LvlDLWrc43mdcmWzTus0
-         Ct7+8mkS9ixi0oe0YPgJLHO41MFS8mf8OyG8cCIMEnsOYa6ruJzHZtbbinfvoOt2oLNH
-         1Jdw==
+        b=d3Jxmvlqd4P48vsS7yXmOBXYozD6rK9UT7dBZHq1i3XyHsJXLFwYv1yjc3KDGP5t/e
+         F7bJX7dAfwA4uTsDfuUVTPrfZrmjpN6uqtXJFY08UiYqeBMRDlywr0jnurg0yQlcB9UX
+         BoAozwWxj6Cj0X+Vluhm1LwU8gUznCqHl5hy80WKaTFWdsU3nMXH9Aku7NBEF6VUanqY
+         BV9bwGH+oL1qE0s4s1OhwZeHTQcSWvtt6yJZmWPek+dvajcnqo8XLtL22OnB5NtKF9Fs
+         6kWMds5+an7GUFlo4jSpVK0pqWd8bswaoF+rFbPP2ig8cgXFeVm5ODczXMPTWlQQ5lnS
+         Gfdg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject
-         :dkim-signature;
-        bh=M9QX6V2SQ9l0t2rxdP6WcYiH6TePhYFahT+ixSV98wA=;
-        b=tCdEGi7PvXn4Lbv6TuBvKZCsIzaNJEgUA1+tuqN0lm+Pl5J6ZeEE3wSDoy0MLB4CPh
-         CS5IKn1bnvNRqQbXUz/5WcHZHWNztwMSqlkVeP2S5G5JAJWonuQqFDVfanpNSG8tX2Ca
-         SfGSLeGlYw/PuwpNZGku0OjEgEmufsEJKHbyp42gpBSL+SLfW/I2VzqKH2CKCIoFw0I8
-         coLiVu5UQLoyvUa+o1snQa3020kKEPSEHTxztET4gyIqvAnT6gjEK2vXBKmPGRfE6W+s
-         AUB8gX2KSxWnwRMpr5twOj+r5yYk2wHCvb8kv+1RhqGlTmO1ep4GOHv1Y9E53+61g8Yp
-         Bmvg==
+        h=content-transfer-encoding:mime-version:subject:message-id:to:from
+         :date:dkim-signature;
+        bh=GQXmpOG99IJcogEQHAS1h+SI1Kfa+8GQmmaio653RrQ=;
+        b=MpXMTzjvZMS9BCC0DjtdlSs36BX0R2NQcmgIbwkVt1DItNCBs10gh48anzgWfeY9KS
+         1UsblQJJpO5Pz2yvYvRc8lanev6dTCDo1no+v9CmZExulzUiUV/dgOrKN5LDYWTGIZBx
+         PcfvvZJDr0HEqnyRDiajjyxpspuSDy2zUkutm/ZayZ65gzEOuAaI7aivUQtGnlMQ8Fz7
+         mEDRR8ix35g0MuVdxB5/H3O8XL3owBJuyWw29YFOIBk2EBmhgfb6F7Gqa5pgGzQrDNiY
+         +0lklcDb0MINtdSceOIgOo1MBtwupl1Ufpzqdlc7crzcCqdqmDQiag0frfC0q6fipWtt
+         aWeA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=Kc8TrSet;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
-Received: from mout.web.de (mout.web.de. [212.227.15.14])
-        by gmr-mx.google.com with ESMTPS id a23si509361lji.7.2020.08.15.00.22.16
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=m094BsYM;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.203 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from out-20.smtp.github.com (out-20.smtp.github.com. [192.30.252.203])
+        by gmr-mx.google.com with ESMTPS id s126si639769vkd.1.2020.08.15.00.22.26
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 15 Aug 2020 00:22:16 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as permitted sender) client-ip=212.227.15.14;
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.10.10] ([88.215.87.113]) by smtp.web.de (mrweb002
- [213.165.67.108]) with ESMTPSA (Nemesis) id 0MF3Nr-1jv48q1sh1-00GM2L; Sat, 15
- Aug 2020 09:22:15 +0200
-Subject: Re: [PATCH v2 7/7] tools: config-check: add CPU overlap and boundary
- check
-To: Andrej Utz <andrej.utz@st.oth-regensburg.de>,
- jailhouse-dev@googlegroups.com
-References: <20200715212119.48052-1-andrej.utz@st.oth-regensburg.de>
- <20200715212119.48052-8-andrej.utz@st.oth-regensburg.de>
-From: Jan Kiszka <jan.kiszka@web.de>
-Message-ID: <0da1d517-ea14-07c7-05ff-9d529108ef87@web.de>
-Date: Sat, 15 Aug 2020 09:22:14 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
-MIME-Version: 1.0
-In-Reply-To: <20200715212119.48052-8-andrej.utz@st.oth-regensburg.de>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: en-US
-X-Provags-ID: V03:K1:ajxaJKI32xJO77wSUXUcATDb5/napxVyAxEyGB+7kd1mi+t+DyC
- Szqjn6x4peN7Rmrp7btbiWBc6nn6G48WG/Zu72Ez70Nu+6z7VnEZg0SnS4R6DxFvAHaiSBH
- iolL1Okkab0SfbnNjYu76YM0WlGp6Dx4zhGd8yZhHnLBFXENbgRDGQM457jVu1VVNDgiQoP
- cIoJ37F95RTyhEVbOi8lw==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:rvHqikSjDK4=:Q51Ah6PbmPruD1196fcFrP
- ol5v6Xd5uLN1R29sAiMtNhsfxoxgn465Kg5ivxK3iFML/bTw1HScAcuI2Uq96AjGahr3ElUmG
- zBV+oGx/q0gakqMKFZZ2rYv0Ix3x13HlDS14SfOHhC2HO8W/re9i+A3HFjKjqGcAhGREMoPG2
- woLq2otZeRaAcO4TK323GM4uV0MBuvra/Uh60SQsI4uYHKHfk5lVCHP0N6WePnjt3RDI9yh77
- Q9c8TNZgAE4WoLRerF4cu3dGwTVbaWbIglCT3fE119hBI+r9DgIeJ0Sil/ka1mBbc7gicBYKX
- zZ3/L3anQL6KJM3jTGCmXdLvvx8uNBfqHYyIBq4z0luJFH3IuoTo6ym3QhVjUd94+mIIURF3I
- PQ9Ozu/IwAhMvVBAMkhfdz4fcMT3M9fBIBo9E1GRMwLoC2rvP6CkGFUbOUU+zfIDaOkKVUv9e
- rTK8B2kIWcNaeYJhFfz9zQxbtMxkAy3TcounPy5xfMUL8rsPz8Nmpa4POX4plkrngUelyLXY7
- At9/fCXIOqp4ybh/lRNzk60igk6YNokcWbOsCndC6HLA2+I5yhtYhvblgVEzSw48GQXYlTgaF
- 9XiAWyzKcPZz5pCWMuJT1Xsf1PFfqQocimBgWO+IvfimWiQeL2UQQM+/AM+EoU9KcVGITQrf8
- clWoXg1Md5SD5twlHJXgU7ThQlNfEXfq3GEyzgpYlBeIvHvMtVaMERQtWJ8Sy3SpHOn2aX4/d
- 2kifNmfA2Y68q7Hl7LKADG+M6b98Bf3nIhrSGsG2fUT/xwNDHh59i1xnQAqdEs2O+NZfx80sv
- Cb7d4VNItq43s7Yx4c2BFAKHkVUM9acc1m0qXMn8ZOmwDOm1A+0wA5QXVIBl2js0aBJx4mNy/
- rGmnQ1cC4OqcBlPWCN0qJFPfZxhqdbnjmJg8ikYcmooxhjfRtFBptBNoBwCEHO5duzanrg3hR
- CFV5pgpyjYKZmhi7B0SGMsg3yPZSIt0AFssaXKgeH4EZ54ZYNr6l93LtGMm5llFPLVK4FNxlm
- +rPKnz6wBVMhn7cartjR//6qQhU71bt10MKfwV0NbJJoILbjRd4nyxpaQjV1zBezdShDOYof5
- KLK7NkHLdkoSo1b7GXm8qWyi9HHCXS8bfCjod7qg7FSkwImlkGhhd+iX8MnUTJDf21RtNgEur
- pNN/6XYrJfyEJCUR+dEkof636nwaV6sHacLnmMnuiWxZ8Zr+bRFr/fNCfZclNZvi1I0pjLU0Q
- feDvwyoBbsyZfyDg+/R2JYQ/nL9lfxf4Y/wuh2w==
-X-Original-Sender: jan.kiszka@web.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b=Kc8TrSet;       spf=pass
- (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as
- permitted sender) smtp.mailfrom=jan.kiszka@web.de
+        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+        Sat, 15 Aug 2020 00:22:26 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.203 as permitted sender) client-ip=192.30.252.203;
+Received: from github-lowworker-1ac52d7.ash1-iad.github.net (github-lowworker-1ac52d7.ash1-iad.github.net [10.56.25.52])
+	by smtp.github.com (Postfix) with ESMTP id EB08EE1E11
+	for <jailhouse-dev@googlegroups.com>; Sat, 15 Aug 2020 00:22:25 -0700 (PDT)
+Date: Sat, 15 Aug 2020 00:22:25 -0700
+From: Andrej <noreply@github.com>
+To: jailhouse-dev@googlegroups.com
+Message-ID: <siemens/jailhouse/push/refs/heads/next/42b1f5-f02a43@github.com>
+Subject: [siemens/jailhouse] c31310: pyjailhouse: config_parser: store binary
+ format sp...
+Mime-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
+X-Auto-Response-Suppress: All
+X-Original-Sender: noreply@github.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
+ mode) header.i=@github.com header.s=pf2014 header.b=m094BsYM;       spf=pass
+ (google.com: domain of noreply@github.com designates 192.30.252.203 as
+ permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass (p=NONE
+ sp=NONE dis=NONE) header.from=github.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -155,137 +125,136 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-No commit message. Could explain what the two checks are about.
+  Branch: refs/heads/next
+  Home:   https://github.com/siemens/jailhouse
+  Commit: c313108807d415ea594f69ad673a57359c927b35
+      https://github.com/siemens/jailhouse/commit/c313108807d415ea594f69ad673a57359c927b35
+  Author: Andrej Utz <andrej.utz@st.oth-regensburg.de>
+  Date:   2020-08-15 (Sat, 15 Aug 2020)
 
-On 15.07.20 23:21, Andrej Utz wrote:
-> Signed-off-by: Andrej Utz <andrej.utz@st.oth-regensburg.de>
-> ---
->   pyjailhouse/config_parser.py | 14 ++++++++++++--
->   tools/jailhouse-config-check | 34 +++++++++++++++++++++++++++++++---
->   2 files changed, 43 insertions(+), 5 deletions(-)
->
-> diff --git a/pyjailhouse/config_parser.py b/pyjailhouse/config_parser.py
-> index 2b47d9b6..2a0e6ec9 100644
-> --- a/pyjailhouse/config_parser.py
-> +++ b/pyjailhouse/config_parser.py
-> @@ -192,17 +192,19 @@ class PIORegion(CStruct):
->
->   class CellConfig(CStruct):
->       # slots with a '_' prefix in name are private
-> -    __slots__ = 'name', '_flags', '_cpu_sets', \
-> +    __slots__ = 'name', '_flags', 'cpu_set', \
->                   'memory_regions', 'cache_regions', 'irqchips', 'pio_regions', \
->                   '_pci_devices', '_pci_caps', '_stream_ids', \
->                   'vpci_irq_base', 'cpu_reset_address',
->       _BIN_FIELD_NUM = len(__slots__)
->       _BIN_FMT = struct.Struct('=32s4xIIIIIIIIIIQ8x32x')
->       _BIN_FMT_HDR = struct.Struct('=6sH')
-> +    _BIN_FMT_CPU = struct.Struct('=Q')
->       _BIN_SIGNATURE = b'JHCELL'
->
->       def __init__(self):
->           self.name = ""
-> +        self.cpu_set = set()
->           self.memory_regions = []
->           self.irqchips = []
->           self.pio_regions = []
-> @@ -213,7 +215,15 @@ class CellConfig(CStruct):
->       def parse(cls, stream):
->           self = cls.parse_class(cls, stream)
->           self.name = self.name.decode().strip('\0')
-> -        stream.seek(self._cpu_sets, io.SEEK_CUR) # skip CPU set
-> +
-> +        cpu_fmt = cls._BIN_FMT_CPU
-> +        cpu_set_num = int(self.cpu_set / cpu_fmt.size)
-> +        self.cpu_set = set()
-> +        for set_idx in range(cpu_set_num):
-> +            cpu_bits = cpu_fmt.unpack_from(stream.read(cpu_fmt.size))
-> +            for bit in range(cpu_fmt.size * 8):
-> +                if cpu_bits[0] & (1 << bit) > 0:
-> +                    self.cpu_set.add(bit)
->
->           self.memory_regions = \
->               cls.parse_array(MemRegion, self.memory_regions, stream)
-> diff --git a/tools/jailhouse-config-check b/tools/jailhouse-config-check
-> index 380f4a77..d7f405fd 100755
-> --- a/tools/jailhouse-config-check
-> +++ b/tools/jailhouse-config-check
-> @@ -66,6 +66,7 @@ for cfg in args.cellcfgs:
->
->   ret=0
->
-> +# Memory checks
->   print("Overlapping memory regions inside cell:", end='')
->   found=False
->   for cell in cells:
-> @@ -79,10 +80,10 @@ for cell in cells:
->               if (mem.virt_overlaps(mem2)):
->                   overlaps.append("virtually")
->               if overlaps:
-> -                print("\n\nIn cell '%s', region %d" % (cell.name, idx))
-> +                print("\nIn cell '%s', region %d" % (cell.name, idx))
+  Changed paths:
+    M pyjailhouse/config_parser.py
 
-Error outputs should start with two newlines. The additional one is
-there to visually separate each error report from to other to improve
-readability. Note that there can be multiple reports per test.
+  Log Message:
+  -----------
+  pyjailhouse: config_parser: store binary format specification in struct.Struct
 
->                   print(str(mem))
-> -                print(" and ".join(overlaps) + \
-> -                    " overlaps with region %d\n" % idx2 + str(mem2), end='')
-> +                print(" and ".join(overlaps) +
-> +                      " overlaps with region %d\n" % idx2 + str(mem2), end='')
+Improves its handling in the code and slightly increases the overall
+performance as well.
 
-Unrelated style changes (though I'm not against them).
+Signed-off-by: Andrej Utz <andrej.utz@st.oth-regensburg.de>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 
->                   found=True
->                   ret=1
->   print("\n" if found else " None")
-> @@ -100,4 +101,31 @@ for cell in cells:
->               ret=1
->   print("\n" if found else " None")
->
-> +# CPU checks
-> +print("Overlapping CPUs between cells:", end='')
-> +found = False
-> +for cell in non_root_cells:
-> +    cell_idx = cells.index(cell)
-> +    for cell2 in cells[cell_idx + 1:]:
-> +        overlap = cell.cpu_set & cell2.cpu_set
-> +        if overlap:
-> +            print("\nIn cell '%s' and '%s' following CPUs overlap: %s" %
 
-Missing second "\n".
+  Commit: c2f3065768bd7fdb40cd95539ede1895c238f553
+      https://github.com/siemens/jailhouse/commit/c2f3065768bd7fdb40cd95539ede1895c238f553
+  Author: Andrej Utz <andrej.utz@st.oth-regensburg.de>
+  Date:   2020-08-15 (Sat, 15 Aug 2020)
 
-> +                  (cell.name, cell2.name, str(overlap)), end='')
-> +            found = True
-> +            ret = 1
-> +print("\n" if found else " None")
-> +
-> +print("CPUs not in root cell CPU set:", end='')
-> +found = False
-> +for cell in non_root_cells:
-> +    diff = cell.cpu_set - root_cell.cpu_set
-> +    if diff:
-> +        print("\nIn cell '%s': %s" % (cell.name, str(diff)), end='')
+  Changed paths:
+    M pyjailhouse/config_parser.py
+    M tools/jailhouse-config-check
 
-Also here.
+  Log Message:
+  -----------
+  pyjailhouse: config_parser: move parsing into class methods
 
-> +        found = True
-> +        ret = 1
-> +if found:
-> +    print("\nNote: root cell CPU set: %s\n" % str(root_cell.cpu_set))
-> +else:
-> +    print(" None")
-> +
->   exit(ret)
->
+... and use constructor for initialization only. This separation
+provides clarity on how to instantiate config components.
 
-Applied up to patch 6 now.
+This commit also serves as preparation for following one.
 
-Thanks,
-Jan
+Signed-off-by: Andrej Utz <andrej.utz@st.oth-regensburg.de>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 8905d5e91ea047b80861e33e3d5b038652edff25
+      https://github.com/siemens/jailhouse/commit/8905d5e91ea047b80861e33e3d5b038652edff25
+  Author: Andrej Utz <andrej.utz@st.oth-regensburg.de>
+  Date:   2020-08-15 (Sat, 15 Aug 2020)
+
+  Changed paths:
+    M pyjailhouse/config_parser.py
+
+  Log Message:
+  -----------
+  pyjailhouse: config_parser: consolidate binary parsing into CStruct class
+
+The class slots define component fields in a more grounded way.
+This greatly simplifies definition of parseable compoments.
+
+The first `__slots__` tuple in each class defines a constant list of
+fields and also the corresponding binary ones in the C struct.
+`_BIN_FIELD_NUM` ensures that subsequent slot additions are ignored by
+CStruct as they must be constructed by the owning class itself.
+
+For complex parsing the class method `parse` needs to be overridden,
+see `CellConfig`.
+
+Signed-off-by: Andrej Utz <andrej.utz@st.oth-regensburg.de>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 1cfb4662c9b681d5cbb242541dca045f548f412e
+      https://github.com/siemens/jailhouse/commit/1cfb4662c9b681d5cbb242541dca045f548f412e
+  Author: Andrej Utz <andrej.utz@st.oth-regensburg.de>
+  Date:   2020-08-15 (Sat, 15 Aug 2020)
+
+  Changed paths:
+    M pyjailhouse/config_parser.py
+    M tools/jailhouse-config-check
+
+  Log Message:
+  -----------
+  pyjailhouse: config_parser: use I/O stream instead slice of bytes
+
+This enables more flexibility in input types as long as they provide
+binary I/O capabilities.
+
+Signed-off-by: Andrej Utz <andrej.utz@st.oth-regensburg.de>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 61ff21fc69999f0e58e3222905c46e4716c9b202
+      https://github.com/siemens/jailhouse/commit/61ff21fc69999f0e58e3222905c46e4716c9b202
+  Author: Andrej Utz <andrej.utz@st.oth-regensburg.de>
+  Date:   2020-08-15 (Sat, 15 Aug 2020)
+
+  Changed paths:
+    M pyjailhouse/config_parser.py
+
+  Log Message:
+  -----------
+  pyjailhouse: config_parser: parse pin_bitman in Irqchip as list
+
+Just like the array of 4 in the C struct.
+
+Signed-off-by: Andrej Utz <andrej.utz@st.oth-regensburg.de>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: f02a43a5fb3c870c80606ced065502211290acab
+      https://github.com/siemens/jailhouse/commit/f02a43a5fb3c870c80606ced065502211290acab
+  Author: Andrej Utz <andrej.utz@st.oth-regensburg.de>
+  Date:   2020-08-15 (Sat, 15 Aug 2020)
+
+  Changed paths:
+    M pyjailhouse/config_parser.py
+    M tools/jailhouse-config-check
+
+  Log Message:
+  -----------
+  pyjailhouse: config_parser: consolidate header parsing
+
+This also enables probing for a configuration type.
+
+Signed-off-by: Andrej Utz <andrej.utz@st.oth-regensburg.de>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+Compare: https://github.com/siemens/jailhouse/compare/42b1f5a55e4e...f02a43a5fb3c
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/0da1d517-ea14-07c7-05ff-9d529108ef87%40web.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/next/42b1f5-f02a43%40github.com.
