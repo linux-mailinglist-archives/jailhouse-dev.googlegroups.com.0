@@ -1,150 +1,152 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBIUC334QKGQEKP4GP4A@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBB5UP334QKGQE6P72IEQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43f.google.com (mail-wr1-x43f.google.com [IPv6:2a00:1450:4864:20::43f])
-	by mail.lfdr.de (Postfix) with ESMTPS id B78292450B8
-	for <lists+jailhouse-dev@lfdr.de>; Sat, 15 Aug 2020 08:30:59 +0200 (CEST)
-Received: by mail-wr1-x43f.google.com with SMTP id d6sf4189186wrv.23
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 14 Aug 2020 23:30:59 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1597473059; cv=pass;
+Received: from mail-lj1-x240.google.com (mail-lj1-x240.google.com [IPv6:2a00:1450:4864:20::240])
+	by mail.lfdr.de (Postfix) with ESMTPS id 737232450BC
+	for <lists+jailhouse-dev@lfdr.de>; Sat, 15 Aug 2020 09:00:07 +0200 (CEST)
+Received: by mail-lj1-x240.google.com with SMTP id d21sf1881824ljg.14
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 15 Aug 2020 00:00:07 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1597474807; cv=pass;
         d=google.com; s=arc-20160816;
-        b=F0qDDm6GhBqTW5WNLX7ndnDs/CZ9qPJINQ1wW1K4yh9/s6MI61TaWOR+iI6guS17H/
-         te5WpG9yuxcdoZbxrFNwXkNdP1cta1mn5dIWEYGQPQjdgU0WyGbB5xrm9Zar86XoI2RZ
-         C6TuOhCXg8OAvb/HsiB5EOmdaeFrhpKBFPFwNpAybe1D9L79qCe+qzGNwhuc4xNn73i8
-         AZ8wLqv3hIfqkK8dbjSY/QOPepNpNryMnSA+XpSbLlVdeXyX9UoanH5Ort6bX7d1vwcJ
-         oOcMpZmNTCgwFQOWGlemqBxtNeSzzPSPIXV4r+pMHS5KjYlu44t/wE+LCIuqnSY9rQe/
-         1v4A==
+        b=Y5GT2boJtJzFvf2CGtLnOAEKSWx8sMvnuOWQiSMkeSdVd+V5bL/LJaz3WamjsG0yEe
+         6/N5VdnnVbPGSxCoZ32RTqZ47IDGr6gWhilWTvEyrp4tM4Yu4x1aeib9BdU1jIjk5laF
+         URBneoe8OwYaEc9/BmwRPpOqeMiXfNsz9zp/BMPtDj5AQmi+VgNxUvcEg5yiiLNURGBT
+         jdm5Nxm6jaR03wm/RHphqt3T0SWoh7Fi6Dz5Cx5bJXZdR7Hxj0uYjfMcWxSWAQyMJtCI
+         S+SG5eINDLDgWctChb0+lM+aUXfZ7S6qOVQCKse/S+7F2T1yYoeghgroa2BZCFubGDe7
+         3DHQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
          :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:references:cc:to:from:subject:sender:dkim-signature;
-        bh=4itMnayZHMK3Tebzicay7qg4B6ftbhmGg+DtdOB3AWo=;
-        b=Y2bH1XTyZlbRqsqCg11bZUlrWtFq7QSIIu2bRq6/fEcbCOHSZbKN0q+WGc2Zj0bYCs
-         D0YnlU76GFXTdXzXd9g8MVLTrruti458OA3MrPCkZLnQOGGHBTQHkgvPWi60AqIYG+Hb
-         qNflUz0kryWgqaxrmfYWrY2lvlVFYhrafnXiwt4lAozwMps0rWjAZLRooH4ZG6xz7LVa
-         q86KrcAKr7KVVs4e0rME8CkfCgGwUKknB2H0KyzpIciIz4bxBZ5e+zQNaq2LRprDTUJT
-         buAnDNgoFYgjAMQKZYUF3RDsrXwja6E5HGjnHtQXKRzqQOBiXFE2F+7kp4sJUCLcfLbm
-         gVnQ==
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=sQEHmS/3YiRSmlq8UjsFgXbSZRYdhYHc3q8Mc3aendY=;
+        b=naghSjKHJt3CJnxqd++4sbkCwtu8F2aSTj/LigMg1Myf2oab9zlQDFPN12C+EMcFFE
+         cacNWtv9f/gwRYOFqnTDBbb9LOiCJL5WEPWU0CeRorCgBa02MI/VC3hWDQsqGNpSOMW6
+         RbGXKpY9EEc+oFU+zsxLDOjx+ILil1QaoshK+hSCVMgpZkE7gHogxPHSqTltcTV7BHQE
+         qCuwLiRW1xWYSczA85jJ3EaiaeCb0HKIugi/WEKw/10r1rQkeFeF+FIVIwn+hHyNCtPt
+         vPBL4aRKMxYM3Mijlccfo9Bn5oQjYF1h3oJ+ZcRjqiNtwwiqW8ZfLuzppk2HCzfDOKI7
+         PACg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=FFNZq2AM;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=GJiKvGjC;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:from:to:cc:references:message-id:date:user-agent
+        h=sender:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=4itMnayZHMK3Tebzicay7qg4B6ftbhmGg+DtdOB3AWo=;
-        b=NA8IOgJ1hnxjOYyuNfAgXTyqxiX9dN2e9EEE1+1Rg/ZphyVC9pnIIhP5ujXh9vyWHY
-         vhWKht8e+ZJmuJRt9ZqJprqnzCzaPwPn8+7ns5/cs+aVa3OJw/JwzmhOee67/i49szIZ
-         YdvuGH0mf7AKv9lU83F6wpMal2MtjpyYq9mrMye+Sughdh9Zi5G9abUQtsEQ5HOHb7GX
-         9yTMKhiEfWfYB7gDkc559ZDhtL4xRsPpucQIV80z4LHN3ax38luiMCkUll+6Jq+dn/Dv
-         fIfxTKAGFBZgtxWajVNCp0lBfc14cbwxLxDQ6xBULoPVUFD2rq6oo2LtTVr7g8jBQ2G3
-         QJ7w==
+        bh=sQEHmS/3YiRSmlq8UjsFgXbSZRYdhYHc3q8Mc3aendY=;
+        b=Ldck2B8uu7rq7/WSieRMXvmlyTrhnFeWzwLvf+g6ob2YHXWtI629lYaENo1CXjv8/a
+         ams58dcJSWwXnhM5oQOUHxrhU1RLCi4Fpw8ZnxDH6QHybJX5HU9Z+1NPUgFqMYPa/U9H
+         K5LVgIVpfX34vc7KFwz2tFyeeJ0VlUuOw48nGSmS+Iu5HNW68lquA3lzVUg9d+LIVPxY
+         E0N1HdurTM+xHbUGmueqXXQfMW6S0gpNo5q4OJr+4O3fmKFSFyTlvw5isA69M4c+m9Ux
+         Nm6mLnRUDGSrA8GDVFALsXQapV3COU4C9zFOTrTXQudKEegGGVy//7SMjUpN4vrTv4+W
+         3TOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:from:to:cc:references:message-id
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
          :date:user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=4itMnayZHMK3Tebzicay7qg4B6ftbhmGg+DtdOB3AWo=;
-        b=R2/Fm/IlvyTNE2rGIJfG6cDUJmy8bI3NB9YCUj1H87m5eqlMfVSd2tWmzjZoW9Baaq
-         lQcTC5Me1Cju2iCwTZrKY1KXAaPOcfF6oNNVKfvZoOU9xCbmhTBrCGuaZhBeCYGaa21u
-         MgB4p8G0C+kiorEciqMlNMgPV2HJPYHP0W/wChEJS//EgWd2SoMNCfV6a8GxQWR9ZbN7
-         9WzZ2m/T2qmRZjx+Yua+AepVAyiUTiCUw+eoy8Q45Y0u2sHWQR4aDjXTYRbgsmaDPndi
-         E2bb0UOxuDWfNJbkFfMO0/mayCGgeM4bBnMzqutfQSM1VlvTbiy4tiWSpR4e6aO/BgHB
-         f7FA==
+        bh=sQEHmS/3YiRSmlq8UjsFgXbSZRYdhYHc3q8Mc3aendY=;
+        b=Wh1DPctcEy+qJMtt/G4+j31BGoShiysag0JaLM1dYZMs5etUojpBsUKqUeyBQnUxGx
+         VDkQZ9ingjqQEYfsy2kne0HGr+Cqq+rACDF8i8W958FcWcSP4S4i9UV2ixH/NFKqUdjk
+         J5QLMjyUlZ2g3UKcDQfvy8TFA9YOT+OpHEVtGIMy4qs2SxZdC1svghN4ELLK4v5r/uc0
+         Im9LEudGPZdfgoj9/JaAapsrzdLQaPaQKh9PnsMS71h6hjwOg0I2wMY3s9vRXKlQ9qZa
+         c5fZCQh3WTdN2mLE4uwBfjLIfyAYgeAvLsbgj52/QmhhVtRs4tlZAbVlR29o4MezaUkF
+         HA0g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531WxwYyR8XU5VGR/d/NsDbRTNQqOVEcs9fndRPUKx5bRf/h3xG8
-	/RytB7917iHcVGFCfLREovU=
-X-Google-Smtp-Source: ABdhPJzbuwOV+BdWvClpE1OLgRPp8dXCuq9h4DAI9FQINTDAohxxlBKSkMPKE1A9ccB3bbDE2DZrwA==
-X-Received: by 2002:adf:cd8f:: with SMTP id q15mr6155306wrj.347.1597473059089;
-        Fri, 14 Aug 2020 23:30:59 -0700 (PDT)
+X-Gm-Message-State: AOAM5315qrE5NpMrbgMzppd2imtYyVHnZYfEX8Q54zIabTfdpLCITRWg
+	r6ggKGYOshVJGX7NUrhDwf0=
+X-Google-Smtp-Source: ABdhPJzrb+fUNEzA1lK9JcHpcHIB4k4veByu5VtccRProJOs7f2c0VqahwcgsPAG1vLfthEH0Umf4g==
+X-Received: by 2002:a2e:918a:: with SMTP id f10mr2948506ljg.78.1597474806843;
+        Sat, 15 Aug 2020 00:00:06 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:2049:: with SMTP id g70ls5049771wmg.0.gmail; Fri, 14 Aug
- 2020 23:30:58 -0700 (PDT)
-X-Received: by 2002:a05:600c:21c2:: with SMTP id x2mr5691346wmj.142.1597473058199;
-        Fri, 14 Aug 2020 23:30:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1597473058; cv=none;
+Received: by 2002:a19:60e:: with SMTP id 14ls590251lfg.0.gmail; Sat, 15 Aug
+ 2020 00:00:05 -0700 (PDT)
+X-Received: by 2002:ac2:5b46:: with SMTP id i6mr2808758lfp.135.1597474805710;
+        Sat, 15 Aug 2020 00:00:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1597474805; cv=none;
         d=google.com; s=arc-20160816;
-        b=Tpc+CsZgEmWyBGrU1WPfayBxoTLJ4mw+gTWrcoxeeKD5yNhkBMKtJcBVAX/J5jC7HV
-         tbPoT8y/sQwcOp1inKJxN7PJdMbrHnf2z+JZb1r2hsVc62qSMGZr/N9ZV3pHDvDPu4v+
-         vDRA+i0Vm2mtAlCZleAb/7CVdZREw5/bUDYgiapoq4ZcL6fsaZPoLWzFpriRvU3CAkUs
-         Yw0FOGGB26U/ViZ0bWHcow+Ls/8DEupro5bLp8YcKSUlLuZ32DlJssTUPGP/HJj6OHxC
-         w8nTVllQz+DrUrp4qD3kHIQmB6csH49vip5ZVVSxeEyRvug9PTlziy5q4pC7CYYEx2Ua
-         AdWw==
+        b=0JBAENn3Zwdw/l2nz5lrlJO8vKQoDBv70pIS1TEkKgbupu7G3Z4UNt7Ba8b1nD7atn
+         TZvx1LUff2NR3GWLV9SLWHeObQPx37B2ByuQHF9sBU8e8XLN2HW3fcKm3IlYkQxsnkJ+
+         c2znLmmTusUiDIlZ6GdcRc0KyRF9Q3RAb5d1kyIp7gIRNYC11HfRqHlkRF9Mj6Epe5xQ
+         HmEgiNXoHHaHC29YB09MshMQwynqKsK2L/e7oo9Wpiwx9ni7EC+5R810J0xycGJC9Tr+
+         rGjkcwoKUlBkCAfEHp6Hdj8UYX3t2tCCpypgloawnA6gCYR2ewoTYC6bq80IUoKhwcNS
+         vgtQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:references:cc:to:from:subject
+         :user-agent:date:message-id:from:references:to:subject
          :dkim-signature;
-        bh=QL+YFApztrMOT8Jjp0pS5u8PsEz7l4xeUVYQojZUwks=;
-        b=Y/RVQSmU+crO4BZYC/DWRXXw7f0Y782ZgeuNuA+LUXN7cPNCWGV/BNbY5vzsFHojTR
-         HHgRLELBGrfmnCNNsPxySKsOjNPOj3DMp9x2XK8teJ2f7dSRZAjpTXkrl+JhEqLyiwJl
-         c2dSsBvcYx859qLIp4vymLWfSmx61o1d+NX1DBeDJ2RAU+RKBujetSi/1Al641IiqV7m
-         fXslkmLvM3fS77s9v+WWGdtq6OJbumrGbxRCpd/127M4bMCtBJny5EAd1oXSupo/MnCG
-         nSva+CkTbTPKR7ntwAdbWeTvpVwgyZrfqqftz5FVmQgjjKJl3NEm1byuPWnBkpn809h+
-         btCQ==
+        bh=jaWHaX0rvfQT6Emn2ovb4MYmWUHOkufuzixc1uMo7qA=;
+        b=AXQgzoe0FObyzB3S52Qfb+LL2ccMJkzKiKLBMD0uyVkqPMZnt1IlR3fDuHv0KYmEqy
+         Dh8aAgXTH3eFlc1IEPrFqVSSq9zeft6YnpwMOPQ+6l3OKc7NHVtSov83NHoikuftcPLV
+         nxyZy7PGhodwUF+ArizjHYAR+6kcpaSA7KJghZ8kqpNKp2fcKnOPQbIALITJpXw7tV6W
+         KoXUXiNz0pdJbqJ3ZsV2tLtDcyAjcXm5EEfaxFPSx24zkra/gCSREKuqKxGPhR8tkhR3
+         DxQsOb7DpgidMBZUViojJmU+7LLGqimuEXygT9Uy0Stx8+p2GD8ppJYKjRQuvWnu/5LZ
+         BYLQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=FFNZq2AM;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
-Received: from mout.web.de (mout.web.de. [212.227.15.4])
-        by gmr-mx.google.com with ESMTPS id y12si407913wrt.1.2020.08.14.23.30.58
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=GJiKvGjC;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Received: from mout.web.de (mout.web.de. [212.227.15.14])
+        by gmr-mx.google.com with ESMTPS id p12si443773ljj.0.2020.08.15.00.00.05
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Aug 2020 23:30:58 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted sender) client-ip=212.227.15.4;
+        Sat, 15 Aug 2020 00:00:05 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as permitted sender) client-ip=212.227.15.14;
 X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
 Received: from [192.168.10.10] ([88.215.87.113]) by smtp.web.de (mrweb006
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1MT7WN-1kG1bK3GDX-00USZj; Sat, 15
- Aug 2020 08:30:57 +0200
-Subject: Re: [PATCH V2 1/4] arm64: support inmate cell in AArch32 mode
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MiuSe-1kaPgm2rWG-00f2UA; Sat, 15
+ Aug 2020 09:00:04 +0200
+Subject: Re: autojail an automatic jailhouse configuration frontend for
+ jailhouse on AARCH64 devices
+To: Christoph Gerum <christoph.gerum@uni-tuebingen.de>,
+ jailhouse-dev@googlegroups.com
+References: <ec8b8710-e966-1abf-0f64-d9e10d7e005c@uni-tuebingen.de>
+ <a588e2a5-b7cd-7df8-7341-2e7f9da79b6f@siemens.com>
+ <2b64a2ef-970b-bc7c-6e7d-8dd3f9fcc5e1@uni-tuebingen.de>
 From: Jan Kiszka <jan.kiszka@web.de>
-To: Alice Guo <alice.guo@nxp.com>, jailhouse-dev@googlegroups.com
-Cc: peng.fan@nxp.com
-References: <20200815190949.6837-1-alice.guo@nxp.com>
- <1b65d312-fc95-72a3-541f-aae43be7a126@siemens.com>
-Message-ID: <fccdea7b-8c96-8387-373e-bc00b163e4f4@web.de>
-Date: Sat, 15 Aug 2020 08:30:56 +0200
+Message-ID: <ef151dec-8123-b296-6a23-4a9827a68874@web.de>
+Date: Sat, 15 Aug 2020 09:00:04 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <1b65d312-fc95-72a3-541f-aae43be7a126@siemens.com>
+In-Reply-To: <2b64a2ef-970b-bc7c-6e7d-8dd3f9fcc5e1@uni-tuebingen.de>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:1mhrcwIy8yhqDcHFhNztdwVwKy/q0GziB3lhZXhLYoHppfpVWNJ
- E8pvku/eX0wRsUJcbixWXS4uOovuFHlIh6QQUgkEb5EQAR23FDHzFNaQdg75bSMdkP2VZur
- L/s771eFZD95Pdi5K7CRbbaH+4sZ3eLjONG+H7j7QSzKsuJ24/8A/rQKt+NvxRnm2dZPrJX
- vT+MDUxwV75h4vCdR7aTQ==
+X-Provags-ID: V03:K1:9VE7MMc40ktUWhUlXGwiUJGGgj8pXtDtlPVHtVd23hPSarIznWz
+ ygN0DQspuiL7KNru6t+5Ph+Stlj6+46FC+c5d/3QpxaEQHr5OVFZjg+Z3M3eruVrmpXqC7C
+ s70nzNc45pn7A4zHUZmY4Lh5RYL6MDZ+jEdSEcrmvsZZztWNnt5yn/hvpc7TknZ2yuHYJ39
+ ALRl+YFrB191uUr3ALsNQ==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:kJqYmPw6ZII=:RvX1A1jd5nB5sSbJSLrqit
- KbACcD/5Fw4uVZZ83d4QPjptWjVwORpNcVvcIZWlHzCQbTNGvM/Zr+7XkHdYAjvcdNYD0S9HN
- wSXxAbHuoXWH8LbEQND8x6Po7O4J0VwZwo7hiUpF6KbQZgEDnGT+ohbqlZ4dwTg0lN7UZ3+jA
- y+knRYWwC2NvWUMiLKVhql6H8FkGuE0fU3Yt67+r4D1cRkOn5OclE/yw9O6PjVK9Jjmc0Y3Y9
- EYWbSouxTFJWkwjFuH9ne11A97XPLSZripdtybKW/UIV5Rh3CMcp4Ehx7fRewWwSFXW1e8k2H
- y0s4T7DAJ3r+yYFuPo9X9maTBL0+GFa/a57NvhC/1T9jb4oOEELXl3yfPJXvk7QRFerb/QIap
- sZcwinq9GW97CMpLyTtAmMzu8QQL+pBn5B3Y6ThCus556MHACfiwGYrDsW/4RZIpaUfaQD7T0
- P70es8Wlyig/CPKjmcaEC8IrJwSzMkSwk8vI55XAip87KnOtwj4/7ow5WBfsH0VdfwLHssNFC
- DZRcCetQwHW/k4wuNdQyrh9clRHiffb5wetBERqUUr4vuPrD08rigYXfRvbrUYV3rq89UEF9/
- pkJ/KBH/dTNyPDX9XgehtHEK065U/vaaiUCD03cENHeouLHGPR9E7pPywkdJghFUVsJR4Fy4K
- 1R3Qmx6BqqyIlIOEzu5Vf52XXpToSYKQsIhujGZP0zd77fkZonkuJhuOkjJnr3KDcVSdUQRcP
- aR72Tf0LbXWhHQ1DA1t8Lc6418b5/REifIrwxOYu3XS0xSaLfXSC336OW1sdz4Wff/Cclw5OX
- iKMs6YhTFQD4AtYX0Zs+5PfB+Iol1EQnbgfhFV/lTisyEzbhw248QHClQOASH4lr3CylFKRU2
- TiIdUIy2Bq9wx3AZJeAoxsluRgnJYR3tgPpNT2jjv3kg+3wPUDGj0NAPU91wHhB6rjAlymiUT
- SUCNOfCgmARb0dYIBrcRb6RCUyxUOo1+IQ9wPhQgbsDIeTSGTXFKXEDIEBYepKJ4jNJdzf2Ae
- xQmBBwGNIFxRnt6mb76g7oUG67vTfPDdDx5HnD7IfX1hA7eyFRLrUoAsWrw9ol6X6z15bWrcD
- 4jKSKLNo6ytnj+JWMwgLGvDo8Pa5MrBTX0uAJeUnkIZnRgwG4PVKZLkHfnqypXlakT/JJTsHh
- FrWlhb6aiPaHPKoBzOzx9hNna8VBD+xAHF98iBnRaMoUQDD10B72nVA5B2JOSPpZ3/IoXE701
- IKqxyjkWmj5mYhhJT
+X-UI-Out-Filterresults: notjunk:1;V03:K0:iJ6xfblGYts=:DCrkKvVUmCQlQuHQH/MzIL
+ c7jVlc4xxVObpGTSgoQIUlXwbnsMaDgGZ6BvLTqdPtcfibTkSTgP8q3E3zdtK1XRzBqJ1sEb3
+ m8QdhwW+lUMOndl24nhcuX+Mla4wdTNCkKMWLShAuQYu1sy+uYdVARH/4TExkH/z2M0FVOwo2
+ MQJvjWKQCp2wsRNBkuZrlLLBlnOV+OSnybSqojsvXVtfTQb2SFkq60qLAy1++cY/+fMRM8OT4
+ V8NSeYeUBy//fXFur1w2fWB3Mfg0gQJg+5wVLDsslH2VuphFTy8xFuQrAKgSPXMLOd+0EmUJR
+ bzKRPhSdkcQT0bliRDEusR2bCXTnkFwx3gdg3vcVY6k3VcIR2GnQNwMrj99DySNN5T1Y0d9nn
+ 1VT53cKxVKYMzNJ6DJl4fETipUCSOCuY3KefS/44jwVXYPX3GqVyBR+ZjfCmM804FizNyAidM
+ Pde1tyjDkACAzXQ+WN5z62+J2ufdsYN2IIvFAzgnMEIKSNSiMuB1r/T4PNFHcPCu2PmEZtNUf
+ aXiLrZ+iPvUu1viERBxePN6W5M45600rPaudfaG4tpaUkIBFdwIS5Wf9tiJ/fMjY5i3t9DxHP
+ NNuEKyApPcLWb0VvFiT8AhZucaFYLt9fnWqsUSRoABRAGHrN0UNuWsS0GdJHIQBeGUiM09USI
+ C97cUDnOjLwajWjr/g9XBKjZErRGomadxMnNcDLYEBOjDBr788aADpqmjaJtHo3UWJzJgH401
+ UAafm3LdnkgKiyQQshPeg7URG2KGgTdZU4SH34R3Qralix0zkKC51iE6fzIvguEe3dbgMgX8G
+ FOS8pzi/AUbbKTo9+gQijGiNAiURl0l5meUDP01nXMkg2mYFXq97fletMDT6Y3VW6xEELb+bl
+ MY0PCudup1wh6mxFz/N4nyv+YoxWhp7c3e8zKVct/f5YBR1kZTlPW7iUO/+ldhbF3UIhSxhun
+ Wr3WU7JWOq6oPxID/zYZqEVlikdWU7fzAtsAjQ7Gv176WMr5h/cBQaRa4viFn5fhOpjCGHjrx
+ axX4PMf8Du4iXCvyFme6YFydnQn3cPV8Vo2zrRLzMmluToT6se2xMUiW+YuYkYAM69JXDg+dX
+ sPtWPxTHTbcrgXnbASLU97EZCVMTOQpnam/FQ08InudNXDFv0Ucd7H742/xwtslYurO9HpsxN
+ aHNnUMp0fUQFCnw6SaLgWmY3TWqYU0Kw5uOeMbDIR6N9yR7Yvv3VFTlc+YBD4yiKrCw6e4Af6
+ iVB5+o/iTPI42H/bV6gr9L05bzAWKWAhbkGk1wQ==
 X-Original-Sender: jan.kiszka@web.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b=FFNZq2AM;       spf=pass
- (google.com: domain of jan.kiszka@web.de designates 212.227.15.4 as permitted
- sender) smtp.mailfrom=jan.kiszka@web.de
+ header.i=@web.de header.s=dbaedf251592 header.b=GJiKvGjC;       spf=pass
+ (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as
+ permitted sender) smtp.mailfrom=jan.kiszka@web.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -157,235 +159,279 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 14.08.20 15:17, Jan Kiszka wrote:
-> On 15.08.20 21:09, Alice Guo wrote:
->> An AArch64 hypervisor can host both AArch32 and AArch64 virtual machines
->> at the same time. If the inmate cell wants to run in AArch32 mode, the
->> assigned cpu must change to AArch32. Because AArch64 hypervisor and
->> AArch64 root cell are used, when the AArch32 inmate cell is destroyed,
->> cpu owned by inmate cell will be reassigned to AArch64 root cell, switch
->> the cpu back to AArch64.
->>
->> The following is a summary of some of the points when supporting inmate
->> cell in AArch32 mode:
->> Define a macro "JAILHOUSE_CELL_AARCH32" to indicate AArch32 execution
->> state. Add this macro to flags of struct jailhouse_cell_desc, and you ca=
-n
->> use it to indicate whether a cell is AArch32.
->>
->> AArch32 and AArch64 virtual machines use different ARM_PARKING_CODE.
->> 0xd503207f and 0x17ffffff are used in AArch64 and 0xe320f003 and
->> 0xeafffffd are used in AArch32. Add ARM_PARKING_CODE which is used by
->> AArch32 in arm64/include/asm/processor.h, and then select which one to
->> use by arm_cpu_reset().
->>
->> When an exception occurs, the processor must execute handler code which
->> corresponds to the exception. When the exception is being taken at a
->> lower Exception level, the execution state of the next lower level
->> (AArch64 or AArch32) will be used. Fill exception handling functions for
->> Lower EL using AArch32 in hypervisor/arch/arm64/entry.S.
->>
->> Changing to AArch32 happens after the command "jailhouse cell start 1"
->> is executed. Changing to AArch64 happens after the command
->> "jailhouse cell destroy 1". If a cell is AArch32, SPSR_EL2.M[4] will be
->> set to 0b1 which means AArch32 execution state, SPSR_EL2.M[3:0] will be
->> set to 0b0011 which means Supervisor, and HCR_EL2.RW will be set to 0b0
->> which means lower levels are all AArch32. If a cell is AArch64, make
->> sure HCR_EL2.RW is 0 and the other registers are configured according to
->> the previous code.
->>
->> After Linux operating system boots up, execute the following commands to
->> use AArch32 virtual machine on the i.MX8DXL:
->> ./jailhouse enable imx8dxl.cell
->> ./jailhouse cell create imx8dxl-gic-demo-aarch32.cell
->> ./jailhouse cell load 1 gic-demo.bin (32-bit)
->> ./jailhouse cell start 1
->>
->> Signed-off-by: Alice Guo <alice.guo@nxp.com>
->> ---
->> =C2=A0 hypervisor/arch/arm-common/control.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 5 ++++-
->> =C2=A0 hypervisor/arch/arm64/control.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 10 ++++++++++
->> =C2=A0 hypervisor/arch/arm64/entry.S=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 8 ++++=
-----
->> =C2=A0 hypervisor/arch/arm64/include/asm/processor.h |=C2=A0 4 +++-
->> =C2=A0 hypervisor/arch/arm64/include/asm/sysregs.h=C2=A0=C2=A0 |=C2=A0 4=
- ++++
->> =C2=A0 include/jailhouse/cell-config.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ++++
->> =C2=A0 6 files changed, 29 insertions(+), 6 deletions(-)
->>
->> diff --git a/hypervisor/arch/arm-common/control.c
->> b/hypervisor/arch/arm-common/control.c
->> index 70793432..bfd9e710 100644
->> --- a/hypervisor/arch/arm-common/control.c
->> +++ b/hypervisor/arch/arm-common/control.c
->> @@ -32,7 +32,10 @@ void arm_cpu_park(void)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 enter_cpu_off(cpu_public);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_unlock(&cpu_public->control_lock);
->> -=C2=A0=C2=A0=C2=A0 arm_cpu_reset(0);
->> +=C2=A0=C2=A0=C2=A0 if (this_cell()->config->flags & JAILHOUSE_CELL_AARC=
-H32)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 arm_cpu_reset(PARKING_ENTRY_=
-ADDR_AARCH32);
->> +=C2=A0=C2=A0=C2=A0 else
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 arm_cpu_reset(PARKING_ENTRY_=
-ADDR_AARCH64);
+On 15.08.20 00:37, Christoph Gerum wrote:
+> Hi Jan,
 >
-> Let's do
+> Am 14.08.2020 um 17:29 schrieb Jan Kiszka:
+>> Hi Christoph,
+>>
+>> On 14.08.20 10:58, Christoph Gerum wrote:
+>>> Over the last few months, our team has been working on an automatic
+>>> configuration utility for jailhouse. As our effort now nears a usable
+>>> state, we would like to present it to the jailhouse community.
+>>>
+>>> Our tooling is available on https://github.com/ekut-es/autojail
+>>>
+>>> The documentation is available on
+>>> https://atreus.informatik.uni-tuebingen.de/~gerum/autojail/
+>>>
+>>> The tooling works by extracting information about the target hardware
+>>> from the Linux runtime system (currently mainly
+>>> /sys/firmware/devicetree/),
+>>
+>> As you are processing a device tree already, can you also consume an
+>> offline dtb?
 >
-> arm_cpu_reset(this_cell()->config->flags & JAILHOUSE_CELL_AARCH32 ?
->  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PARKING_ENTRY_ADD=
-R_AARCH32 : PARKING_ENTRY_ADDR_AARCH64);
+> We currently, are only processing the online device tree, as we want to
+> also know information from device tree overlays and dynamic device tree
+> nodes generated by kernel modules.
+
+Merging an overlay into a dtb while parsing it anyway is no black magic.
+Offline support would be a very valuable feature, like we've seen with
+the current config collector.
+
+But nodes generated by modules are unlikely to be relevant for Jailhouse
+- how should a module know more about the hardware than the device tree
+which is supposed to describe it? Can you give an example?
+
+>
+>> Did you also already have a look at system-dt
+>> (https://elinux.org/Device_tree_future#System_Device_Tree_2019.2C_2020)?
+>> That could become the next logical step for dt-based systems.
+>
+> I have not been aware of system-dt. It might be an interesting
+> possibility to completely avoid autojail specific configurations.
+>>> and then generating jailhouse cell configs
+>>> for root- and guest cells from a minimal configuration file.
+>>
+>> Important "detail": It comes with a new human-processable
+>> configuration format, you YAML schema, right? Is that format as
+>> powerful (or low-level) as the binary format, i.e. a full replacement
+>> of the current C files?
+>
+> The yml files currently are more or less a superset of the low-level
+> format. e.g. a memory region might look like:
+>
+>  =C2=A0=C2=A0=C2=A0 memory_regions:
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "System RAM":
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 physical_start_addr: 0x0
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 virtual_start_addr: 0x0
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 size: 1 GB
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 flags: [MEM_READ, MEM_WRITE, =
+MEM_EXECUTE]
+>
+> With a bit of syntactic sugar e.g. sizes can use human readable units,
+> no counting of memory_regions needed.
+>
+>> Or does it provide abstractions like
+>
+> Abstractions are currently implemented by making most entries optional:
+>
+>> "give me 1GB, I don't care where"
+>
+> would be:
+>
+>  =C2=A0=C2=A0=C2=A0 memory_regions:
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "System RAM":
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 size: 1 GB
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 flags: [MEM_READ, MEM_WRITE, =
+MEM_EXECUTE]
+>
+>
+>> "give me device B, with whatever I/O resources it comes"?
+>
+> This is currently expressed by the=C2=A0 device tree path:
+>
+>  =C2=A0=C2=A0=C2=A0 memory_regions:
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 gpio: /soc/gpiomem
 >
 
-Just thought about again, and I think there is an even better way: Pass
-the mode as second parameter to arm_cpu_reset and park in AARCH64 mode
-unconditionally. Obviously, that parameter will be ignored on 32-bit ARM.
+These are interesting features!
+
+>
+>> How is the (planned) workflow then? Currently on x86, you call "config
+>> create" and then perform manual tuning on the resulting C config for
+>> the root cell to make it work. I suspect that is what "autojail
+>> extract" is about. In your case, tuning would be done on to the yml
+>> file? How would will the workflow be for non-root cell configs?
+>>
+>> Hint: Add a user story to your documents would help getting a big
+>> picture quicker.
+>
+> We have a different workflow and at least one user story per milestone:
+>
+> Assuming that we are able to connect to a target eval board via ssh.
+>
+> Milestone 1: Simplified config.
+>
+> autojail init
+
+I don't get the init step. From a user perspective, it looks useless and
+could be done internally when needed.
+
+> autojail extract
+>
+> manually create cells.yml to specifie the configuration. Guest cells are
+> created in the same cells.yml. e.g.:
+>
+> cells:
+>  =C2=A0=C2=A0 root:
+>  =C2=A0=C2=A0=C2=A0=C2=A0 name: "The Root Cell"
+>  =C2=A0=C2=A0=C2=A0=C2=A0 type: root
+>  =C2=A0=C2=A0=C2=A0=C2=A0 ...
+>
+>  =C2=A0=C2=A0 guest1:
+>  =C2=A0=C2=A0=C2=A0=C2=A0 name: "The first guest celll"
+>  =C2=A0=C2=A0=C2=A0=C2=A0 type: linux
+>
+>
+>
+> autojail config
+>
+> manually test generated *.c configuration, and change cells.yml until it
+> works.
+>
+
+Skip the c-file generation and emit binary configs directly. Way more
+user-friendly.
+
+That reminds me of Andrej's pending patches in my inbox which add that
+feature to pyjailhouse - you could simply use that once merged.
+
+>
+> Milestone 2: "jailhouse config create" on steroids
+>
+> At this milestone we wan't to allow the following use case:
+>
+> autojail init
+> autojail extract
+> autojail config --num-linux-guest 2 --memory-per-guest 128 MB
+> autojail deploy
+>
+> Then you should be able to ssh into the root cell and directly into each
+> guest and the root cell. Ideally with minimal, manual interventions.
+>
+> E.g we will configure ivshmem_net from root to each guest, and configure
+> a bridge device or port forwarding in the root cell.
+>
+> Milestone 3+: Cell config management
+>
+> These have not fully finalized yet, but from Milestone 3 we intend to
+> use an extended cells.yml that supports fine tuning capabilities on par
+> with the current configuration format, while allowing tool support for
+> the fine tuning as well.
+
+If your config format is able express that, that would be a great
+progress. Say, you can request a complete device tree node, but then you
+can additionally define that a specific MMIO range of that device shall
+not be accessible.
+
+Stabilizing the config format for all these use cases will not be
+trivial, but it can be the way forward for Jailhouse.
+
+>
+>>> It differs from the current jailhouse config in the following ways:
+>>>
+>>
+>> I suspect you meant the current config generator
+> Yes, sorry.
+>
+>>> =C2=A0=C2=A0=C2=A0 - It targets aarch64 instead of x86_64.
+>>
+>> A final architecture will have to address all archs, even if the input
+>> for x86 will remain different.
+>
+> We don't have any plans to fully support X86 in autojail at the moment.
+> But I am considering integrating our device tree work into pyjailhouse
+> to allow jailhouse config create for ARM and AARCH64. At least as a
+> first step. But if our configuration file format would prove interesting
+> as well, we might reconsider those plans.
+
+Definitely. Keep also in mind that our binary format is a moving target.
+So, even if you build consequently upon pyjailhouse for parsing and
+generating, you may have to rebase frequently when keeping things
+out-of-tree.
+
+>
+>>> =C2=A0=C2=A0=C2=A0 - It supports configuration of guest and root cells.
+>>> =C2=A0=C2=A0=C2=A0 - It allows a simplified configuration of IVSHMEM_NE=
+T.
+>>>
+>>> The current release has the following limitations, which we would like
+>>> to address in the coming weeks:
+>>>
+>>> =C2=A0=C2=A0=C2=A0 - No generation of configuration for the inmates (ne=
+tworking,
+>>> device-tree)
+>>> =C2=A0=C2=A0=C2=A0 - Dead Simple Memory allocator that will probably gi=
+ve up at a
+>>> relatively low memory pressure.
+>>
+>> Where does the memory allocator come into play?
+>
+> The static memory allocator currently allows us to leave out physical
+> and virtual addresses for the memory regions mapped to RAM. While
+> keeping some additional constraints: e.g. MEM_LOADABLE regions are added
+> to the root cell as well if their physical address range does not
+> overlap with any memory region already specified in the root cell.
+
+Got it - a valuable feature as well! Even more when coloring will come
+into play.
+
+>
+>>> =C2=A0=C2=A0=C2=A0 - Configuration of inter-cell communication is suppo=
+rted for
+>>> IVSHMEM_NET devices only
+>>> =C2=A0=C2=A0=C2=A0 - Only tested on Raspberry=C2=A0 PI 4B
+>>> =C2=A0=C2=A0=C2=A0 - No configuration of SMMU or other IOMMUs
+>>>
+>>> The current release has so far only been tested on Raspberry PI 4B, and
+>>> this announcement mainly is here as a request for comments, and to
+>>> evaluate how our work might fit into the general jailhouse ecosystem.
+>>>
+>>> =C2=A0=C2=A0=C2=A0 - Would there be interest to somehow integrate it mo=
+re closely into
+>>> the jailhouse ecosystem?
+>>> =C2=A0=C2=A0=C2=A0 - We would be very interested, if we could use it as=
+ a configuration
+>>> generator for the current work on memory coloring in jailhouse.
+>>
+>> Specifically coloring is a scenario where more tooling support for
+>> config generation and validation is needed, indeed. You may have seen
+>> that new "jailhouse config check" command which performs the latter
+>> (and should work with your approach as well as it processes binary
+>> configs), but we also need more of the former.
+>
+> One of the next points on my bucket list will be to directly integrate
+> jailhouse config check into our workflow. Would you be willing to accept
+> patches to move the actual checks to pyjailhouse to allow an easier use
+> in external tooling.
+
+That is the purpose of pyjailhouse: Make functionality available for
+different frontends. So, yes.
+
+>
+>> So, yes, there is definitely interest in new ideas and concrete
+>> solutions, specifically for arm64 (though not only). After having to
+>> refactor configs/ recently, more than once, I would appreciate a lot
+>> if we could reduce the manual maintenance.
+>>
+>> What needs careful thoughts are the possible use cases and workflows.
+>> We need a solution that automates what can be safely automated,
+>> ideally warns when user input or validation is needed and does not
+>> stand in the way when manual tweaking must be applied. That is due to
+>> the low abstraction level of the binary config format the hypervisor
+>> consumes.
+>
+> One of our main goals is to be an experimentation field for finding the
+> right abstractions to allow an easy configuration, while still enabling
+> the fine tuning needed for more complex use cases.
+
+Sounds reasonable, also given what I wrote above. We need to find the
+right balance between downstream experimenting and upstream exposing (to
+more use cases), though.
 
 Jan
-
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 arm_paging_vcpu_init(&parking_pt);
->> =C2=A0 }
->> diff --git a/hypervisor/arch/arm64/control.c
->> b/hypervisor/arch/arm64/control.c
->> index 6e1ffebf..71615c04 100644
->> --- a/hypervisor/arch/arm64/control.c
->> +++ b/hypervisor/arch/arm64/control.c
->> @@ -20,6 +20,8 @@
->> =C2=A0 void arm_cpu_reset(unsigned long pc)
->> =C2=A0 {
->> +=C2=A0=C2=A0=C2=A0 u64 hcr_el2;
->> +
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* put the cpu in a reset state */
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* AARCH64_TODO: handle big endian suppor=
-t */
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 arm_write_sysreg(SPSR_EL2, RESET_PSR);
->
-> Please pull this into this AARCH64 branch below to avoid needless
-> duplicate writing.
->
->> @@ -67,6 +69,14 @@ void arm_cpu_reset(unsigned long pc)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* AARCH64_TODO: handle PMU registers */
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* AARCH64_TODO: handle debug registers *=
-/
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* AARCH64_TODO: handle system registers =
-for AArch32 state */
->> +=C2=A0=C2=A0=C2=A0 arm_read_sysreg(HCR_EL2, hcr_el2);
->> +=C2=A0=C2=A0=C2=A0 if (this_cell()->config->flags & JAILHOUSE_CELL_AARC=
-H32) {
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 arm_write_sysreg(SPSR_EL2, R=
-ESET_PSR_AARCH32);
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hcr_el2 &=3D ~HCR_RW_BIT;
->> +=C2=A0=C2=A0=C2=A0 } else {
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hcr_el2 |=3D HCR_RW_BIT;
->> +=C2=A0=C2=A0=C2=A0 }
->> +=C2=A0=C2=A0=C2=A0 arm_write_sysreg(HCR_EL2, hcr_el2);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 arm_write_sysreg(ELR_EL2, pc);
->> diff --git a/hypervisor/arch/arm64/entry.S
->> b/hypervisor/arch/arm64/entry.S
->> index 27e148c6..4789e933 100644
->> --- a/hypervisor/arch/arm64/entry.S
->> +++ b/hypervisor/arch/arm64/entry.S
->> @@ -401,8 +401,8 @@ hyp_vectors:
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ventry=C2=A0=C2=A0=C2=A0 .
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ventry=C2=A0=C2=A0=C2=A0 .
->> -=C2=A0=C2=A0=C2=A0 ventry=C2=A0=C2=A0=C2=A0 .
->> -=C2=A0=C2=A0=C2=A0 ventry=C2=A0=C2=A0=C2=A0 .
->> +=C2=A0=C2=A0=C2=A0 handle_vmexit arch_handle_trap
->> +=C2=A0=C2=A0=C2=A0 handle_vmexit irqchip_handle_irq
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ventry=C2=A0=C2=A0=C2=A0 .
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ventry=C2=A0=C2=A0=C2=A0 .
->> @@ -425,8 +425,8 @@ hyp_vectors_hardened:
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ventry=C2=A0=C2=A0=C2=A0 .
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ventry=C2=A0=C2=A0=C2=A0 .
->> -=C2=A0=C2=A0=C2=A0 ventry=C2=A0=C2=A0=C2=A0 .
->> -=C2=A0=C2=A0=C2=A0 ventry=C2=A0=C2=A0=C2=A0 .
->> +=C2=A0=C2=A0=C2=A0 handle_abort_fastpath
->> +=C2=A0=C2=A0=C2=A0 handle_vmexit irqchip_handle_irq
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ventry=C2=A0=C2=A0=C2=A0 .
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ventry=C2=A0=C2=A0=C2=A0 .
->> diff --git a/hypervisor/arch/arm64/include/asm/processor.h
->> b/hypervisor/arch/arm64/include/asm/processor.h
->> index b52782b7..e7b048e0 100644
->> --- a/hypervisor/arch/arm64/include/asm/processor.h
->> +++ b/hypervisor/arch/arm64/include/asm/processor.h
->> @@ -34,7 +34,9 @@ union registers {
->> =C2=A0 #define ARM_PARKING_CODE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 \
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0xd503207f, /* 1: wfi=C2=A0 */=C2=A0=C2=
-=A0=C2=A0 \
->> -=C2=A0=C2=A0=C2=A0 0x17ffffff, /*=C2=A0=C2=A0=C2=A0 b 1b */
->> +=C2=A0=C2=A0=C2=A0 0x17ffffff, /*=C2=A0=C2=A0=C2=A0 b 1b */=C2=A0=C2=A0=
-=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0 0xe320f003, /* 2: wfi=C2=A0 */=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0 0xeafffffd, /*=C2=A0=C2=A0=C2=A0 b 2b */
->> =C2=A0 #define dmb(domain)=C2=A0=C2=A0=C2=A0 asm volatile("dmb " #domain=
- "\n" : : : "memory")
->> =C2=A0 #define dsb(domain)=C2=A0=C2=A0=C2=A0 asm volatile("dsb " #domain=
- "\n" : : : "memory")
->> diff --git a/hypervisor/arch/arm64/include/asm/sysregs.h
->> b/hypervisor/arch/arm64/include/asm/sysregs.h
->> index 0105b109..62a56743 100644
->> --- a/hypervisor/arch/arm64/include/asm/sysregs.h
->> +++ b/hypervisor/arch/arm64/include/asm/sysregs.h
->> @@ -15,11 +15,13 @@
->> =C2=A0 #define PSR_MODE_MASK=C2=A0=C2=A0=C2=A0 0xf
->> =C2=A0 #define PSR_MODE_EL0t=C2=A0=C2=A0=C2=A0 0x0
->> +#define PSR_MODE_SVC=C2=A0=C2=A0=C2=A0 0x3
->> =C2=A0 #define PSR_MODE_EL1t=C2=A0=C2=A0=C2=A0 0x4
->> =C2=A0 #define PSR_MODE_EL1h=C2=A0=C2=A0=C2=A0 0x5
->> =C2=A0 #define PSR_MODE_EL2t=C2=A0=C2=A0=C2=A0 0x8
->> =C2=A0 #define PSR_MODE_EL2h=C2=A0=C2=A0=C2=A0 0x9
->> +#define PSR_32_BIT=C2=A0=C2=A0=C2=A0 (1 << 4)
->> =C2=A0 #define PSR_F_BIT=C2=A0=C2=A0=C2=A0 (1 << 6)
->> =C2=A0 #define PSR_I_BIT=C2=A0=C2=A0=C2=A0 (1 << 7)
->> =C2=A0 #define PSR_A_BIT=C2=A0=C2=A0=C2=A0 (1 << 8)
->> @@ -28,6 +30,8 @@
->> =C2=A0 #define PSR_SS_BIT=C2=A0=C2=A0=C2=A0 (1 << 21)
->> =C2=A0 #define RESET_PSR=C2=A0=C2=A0=C2=A0 (PSR_D_BIT | PSR_A_BIT | PSR_=
-I_BIT | PSR_F_BIT \
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 | PSR_MODE_EL1h)
->> +#define RESET_PSR_AARCH32=C2=A0=C2=A0=C2=A0 (PSR_A_BIT | PSR_I_BIT | PS=
-R_F_BIT \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | PS=
-R_32_BIT | PSR_MODE_SVC)
->
-> Indention is ugly now, and naming is inconsistent. So let's align
-> everything after RESET_PSR_AARCH32, at least in this block, and rename
-> RESET_PSR to RESET_PSR_AARCH64.
->
->> =C2=A0 #define MPIDR_CPUID_MASK=C2=A0=C2=A0=C2=A0 0xff00ffffffUL
->> =C2=A0 #define MPIDR_CLUSTERID_MASK=C2=A0=C2=A0=C2=A0 0xff00ffff00UL
->> diff --git a/include/jailhouse/cell-config.h
->> b/include/jailhouse/cell-config.h
->> index 6df4a745..6fda32b9 100644
->> --- a/include/jailhouse/cell-config.h
->> +++ b/include/jailhouse/cell-config.h
->> @@ -56,6 +56,10 @@
->> =C2=A0 #define JAILHOUSE_CELL_PASSIVE_COMMREG=C2=A0=C2=A0=C2=A0 0x000000=
-01
->> =C2=A0 #define JAILHOUSE_CELL_TEST_DEVICE=C2=A0=C2=A0=C2=A0 0x00000002
->> +#define JAILHOUSE_CELL_AARCH32=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 0x00000004
->> +
->> +#define PARKING_ENTRY_ADDR_AARCH64=C2=A0=C2=A0=C2=A0 0x0
->> +#define PARKING_ENTRY_ADDR_AARCH32=C2=A0=C2=A0=C2=A0 0x8
->
-> The last two do not belong here. They are internal to the hypervisor.
-> Move them to asm/processor.h where the code block is also defined.
->
-> Jan
->
->> =C2=A0 /*
->> =C2=A0=C2=A0 * The flag JAILHOUSE_CELL_VIRTUAL_CONSOLE_PERMITTED allows =
-inmates
->> to invoke
->>
->
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -393,4 +439,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/fccdea7b-8c96-8387-373e-bc00b163e4f4%40web.de.
+jailhouse-dev/ef151dec-8123-b296-6a23-4a9827a68874%40web.de.
