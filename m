@@ -1,119 +1,194 @@
-Return-Path: <jailhouse-dev+bncBCONRR6ZTUGRBBFE3T4QKGQE6XTZ23A@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBVXV3T4QKGQEMR5AZHA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ej1-x63c.google.com (mail-ej1-x63c.google.com [IPv6:2a00:1450:4864:20::63c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77FE1244FE2
-	for <lists+jailhouse-dev@lfdr.de>; Sat, 15 Aug 2020 00:36:53 +0200 (CEST)
-Received: by mail-ej1-x63c.google.com with SMTP id lg2sf3805463ejb.23
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 14 Aug 2020 15:36:53 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1597444613; cv=pass;
+Received: from mail-wr1-x43c.google.com (mail-wr1-x43c.google.com [IPv6:2a00:1450:4864:20::43c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 52A18245058
+	for <lists+jailhouse-dev@lfdr.de>; Sat, 15 Aug 2020 03:31:03 +0200 (CEST)
+Received: by mail-wr1-x43c.google.com with SMTP id z12sf3966982wrl.16
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 14 Aug 2020 18:31:03 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1597455063; cv=pass;
         d=google.com; s=arc-20160816;
-        b=TJcppji9YejkLDukWrmwTxE98Fap/33Hu+OONzCC7Ss5uY9jCKl1WW2tUuoTYC8IOB
-         Z75ffUSFvFiIIEbGeicrCOUV2cORL6KGEDfac1Ahw8Ad9u4/YxZ44EGpPw2iAqVjTTMh
-         x/REHXeaXoK/Tirw4+5UDutIY/reT4CFF+YFHgd73zzg2fmsbI9f6PKMmZI7srNK9kaK
-         DgWDIL7oAQDjs71TnGqs41lhzReH3PdzYZwj/w+aoLm9HE7HFVM0QTPCiMhuVkc9hhJ7
-         4aR5NJJnO7lX/x+UtKggCCgVTOajLsvuP9fc1Cc+Aoey5qk3Id6Hh6z67txy9RImksti
-         beog==
+        b=Gmb5GlJlJ1ALs4Xmjd7AAiuZwa2rExMYKHcOygMMEd2OIVVHKAnCEevsBMA7Uv7/I7
+         QGoO8Yxe67ZgYznLXNrmaYd/IZ/hbSmnJbzHQ4TkYt4EOhiIINP9BcR8sc9VkWY/tTFG
+         mheXdl2PT0OhKtPux8F5OZAmufnPY/AvOxDKDAjyGHKED6t+Nfs6Fbyl/9FJeL0pHOSq
+         sAOF7A/JKePrqhzxaM2jTVoCrhrGLkWezp7y6EqOVI3o/f8AJ35+PIDb12hIvUAwpe6T
+         YRAYOmaSUmXo2EE+494JnK5TJ7x20E7yiF5jZ2o5atlQAAT65HrgIH46SwqbMk3vO3/k
+         RYJg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :in-reply-to:mime-version:user-agent:date:message-id:from:references
-         :to:subject:sender:dkim-signature;
-        bh=fkSTx66ZWZ5rW874xGUZyEQikS6YsUmhxqdB1HaGxS0=;
-        b=g2Svs1NTrLvUwZMQQKfNTjtvVCo2MULJi5JCLwGhe9h/GQcBw+YdQyU0hP5w3Y8B3+
-         v6IyEWBpLJjKUlifcryeQf0ueXeoeu5N/aMTTioD0u/+w154cpdZAuY4w7KEvgX3uCZM
-         sPInYYbRCKL+8AQh5wM5jupOzb9bSJ4ObZKFA2G27P4AoHqQOLjrVJCInCLjKEDqoRH2
-         a9TirV4nfltD0dewH3fgu00AYm2UwA58gZsrdC6ooLH/62juC1EwRwb3x9gPcZas1rGR
-         2jDFsFDhoYors/UmGXmxla3enlQT6U6K9bXVz82Sm5jdhqleWq0YmOA4R1dAVYm0GSIY
-         Sxqw==
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:subject:autocrypt:from
+         :references:cc:to:sender:dkim-signature;
+        bh=3VU3h7eSzUaMIRfMrAmJTrxDiyx1VEnutG8HjSPcvWw=;
+        b=OJAB75rBLGnLChkkrjWpA2Mbuk7EWq+HAcq6cVys6u4MIb1bYDG0Z/QOp1pO/JH8VQ
+         tRCX4vOy8i1lRhsFf3BvsPaeJTmBGBl+vGXFKI1aP6KJYSnr5KrnnNXM/Hdufxa/F/xz
+         JKw5D25AM2vtat9mOnecZp8vcWsbM09dOmfy/1O5eH76QXYQdmVqKfl/otYWkF8sgrC9
+         /uz81MizXBCnwv/9ar37j0eaojbm1WyDSgsn+THL15Zqt08JLz8poFvLhckSO6Tjth3F
+         T0roQnPLx/bGqYAvXgir4TlnKvIY9ZvZh3+y6NxFBr3Fe4D6acu2RSeIYXrdq/N466gg
+         kiog==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of christoph.gerum@uni-tuebingen.de designates 134.2.5.214 as permitted sender) smtp.mailfrom=christoph.gerum@uni-tuebingen.de
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=OwpMURo3;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding
+        h=sender:to:cc:references:from:autocrypt:subject:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=fkSTx66ZWZ5rW874xGUZyEQikS6YsUmhxqdB1HaGxS0=;
-        b=VorzDc2Uq+toQf8kN1hKCLzyl7MLMI1KShu3YqXg4HFMVcyoeaRF5JJ4XdLiL0eqYr
-         bdN8AKtLWX2ImjuRpz3WnJE5ix0tPo/Og6ZuKRAyrCox5c2hdBb8sl5sepeHwgE19p/Z
-         52hLXXb2WU2OQ7FMygRkSrJTovzp/MQN+7ulvosBaO5L7t4tdjXozmA8evrcguKjzTXe
-         OiNX9cMRnWZOBbRNOkMdNA4M6j/0GTws84sLpCm9dG4wm/X8nfzwaqp/pfuFUKHzbvv0
-         htft1O0b4/Ukx/2GonTzI8Sy2GRgg0cxmXV8FyFZmZ5J/F9SLFbXhIqZ2Q1lpGDeCOWH
-         gKfQ==
+        bh=3VU3h7eSzUaMIRfMrAmJTrxDiyx1VEnutG8HjSPcvWw=;
+        b=PprhdcvJ04CiyJ27zUhv7nedwLauCBT81zefe2VMW1PAzh8MzNju5Z15JTaYgP3KOR
+         ImbOpszFSDXSxgNjnYtt7x/cblO+sA2kj2VOF4RhZkJhxQGEdWg7KvhVl/CsrVqfMRrL
+         qPM5+/mfJC0gzC8otR7lhvhkQKH1qfQONgdxUSWbDjYlobqOgyVgh9yp5a31ZI+trj2l
+         RKTSoz2xQgP0ske/wP9RHGpsn7Pj5GZV/0Mu8bqP1VXBnQaTeafc9aytzlF1m0s+S4Hy
+         r9oZH6H+6sUfFuw8mGNIank+ecRD3sKtiOdTBxPC4iSSx6ZTYMoul6KQYO5aRQYmCRFS
+         Pv7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=fkSTx66ZWZ5rW874xGUZyEQikS6YsUmhxqdB1HaGxS0=;
-        b=XRqa1gb+P36IfXftQnUnU5Y7APps4DXMk6VBl9u4JHfYP27oHMMXb6NJZYoycORgfN
-         /718wEzRgMItqfc/GLgugbthOT/HG//wh+wrpsFTwzHBlT3La/NTFGuMkihir0yinlLj
-         Le3nCFhIz9a/xFaxHdZNj3kOTsOKYTFx1Lum5pnKJ0uofmN2yso2DenPS9Hz3P6HzXPI
-         qn5mS5A7tLYPH/kSYSg+XdNR5143fBmkn0D5ycnKNB96wtsHjLom/u3qQ680HZSe+8iO
-         geYR0a0tE5hpGi+jTd/yRBgUInN8ccoI3zVO5IvxM7rxY2ijnNKDFGIfkp0dr5W68klW
-         87oA==
+        h=sender:x-gm-message-state:to:cc:references:from:autocrypt:subject
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=3VU3h7eSzUaMIRfMrAmJTrxDiyx1VEnutG8HjSPcvWw=;
+        b=Aw3xbf6dpKnWjZlOEor92JenPIa+gxclXVYat1f6Cgg0bekKeYQ89RQRZpSVOYW3Mb
+         qijLkp4lU1td4+6Q6L/vAnnZZPmOeSBqBs76xSz6voxaxWLqpMWNF/remcoZWoM1c+6W
+         BWFP/QVxnno2wb7VPzlHxZlJKwDoq/LaL/efRPpArefNfTmBdoEDBl72xLLVk2ksn+Zu
+         mx6n6a2fFJ1N42UQ90c/NJPzfnR7EL1yQ6ihfjyOOO/NHV8lDUJGRjriF+rYcxX/qsLA
+         +Fk34E6/CifGnQt01eARzRp8HM1kq7WZiTdMazmxl13sNvJgP9qef+TJJrVUCwA+dCCO
+         Pq9Q==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532Q/KIckCMjVSSZrxkHQcAfGs6sEKvOQ3KfNkB8wbgeSNyvCwl0
-	UAqapReQZBL+n8Gy4NzatPY=
-X-Google-Smtp-Source: ABdhPJxhtGBJAZSEmtXfXXVM2z12m8apa2YDTpZsHdtgBuNsfXEQz7Qw2Y3MZGRCDShSswsvPThhkw==
-X-Received: by 2002:a17:906:4157:: with SMTP id l23mr4441901ejk.491.1597444613198;
-        Fri, 14 Aug 2020 15:36:53 -0700 (PDT)
+X-Gm-Message-State: AOAM530x2106qUQJyv5Gbm8Th446xtK616dhgBYuQX4BhzI4BEPkN+q0
+	NBvawLzlhBTuy871J65hGXY=
+X-Google-Smtp-Source: ABdhPJwTz2eVYIGzU37RhhSSLi7Kla5DvVb/dF5a2A4UEpZiJVIe9E9qTChL4NzlpHRliDKuA86qXw==
+X-Received: by 2002:a7b:c95a:: with SMTP id i26mr4948809wml.106.1597455062974;
+        Fri, 14 Aug 2020 18:31:02 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:cb95:: with SMTP id mf21ls4980662ejb.9.gmail; Fri,
- 14 Aug 2020 15:36:52 -0700 (PDT)
-X-Received: by 2002:a17:906:7e0b:: with SMTP id e11mr4811070ejr.540.1597444612233;
-        Fri, 14 Aug 2020 15:36:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1597444612; cv=none;
+Received: by 2002:a7b:c304:: with SMTP id k4ls4861000wmj.1.gmail; Fri, 14 Aug
+ 2020 18:31:02 -0700 (PDT)
+X-Received: by 2002:a1c:1b41:: with SMTP id b62mr4716048wmb.89.1597455062313;
+        Fri, 14 Aug 2020 18:31:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1597455062; cv=none;
         d=google.com; s=arc-20160816;
-        b=QXHF48y4qEaEkhxS9+iNVC7mSymEgZMXv/4/ytNvcw9mzPTpXPC0PLoKnk4cQkfFCY
-         02sGAjsdf9ZgKRsQpFjC/gk6BIRWK4HS68jgIovsLqqR0JigDTUbixBMiRHh3G+wBBl2
-         0C7cOVJqq2wKYqHL9lho+ntwVaQ0EDfHOAyNPMAYnF4jJmhqEPSgTpGQC22jqAgw66py
-         zrcowu0fXSSN+yyYKf5NNoYK9H6970PqJZ94FDAOHqbWtdHGtN0CPTHc6VoWDA1xx+3e
-         gt1Hx+CiZcxsl/koS25/NDhFB4mE2Gs39Qnq7YuCsEI3Qey4Yub3bUja05/05nLoQDPI
-         rs2g==
+        b=ptWmFTmHAh7/smaHr33nsbwp44xznKg6rpbd6oXX0mceNSGlEb51tqwOCFfAmN6z+g
+         NZO9FgMje3PFjEFuHGFXEMT/ExIg4TiEWX7/hS8yAPvMWMcJHa9Xn5EghKeBxC/RbN+g
+         nJ95FAyKA7EHV++vmdJP0jhccJp1hG3i5eT4yLWg4KLWy3O6ILtOJajGnpSnEH7CtE9c
+         5nbSMRJX+V3+13rprhP5tpQKQ8HPD9UN/l2IVSQ/C0H9Z3lKWErZ8clKN9xQ77hZ3k/j
+         ao2cDY5XYiC3+AAns02WccWQkjlJMWuoRs8OZu2xyPqmMqXmcj4ZdUxWpP66JwC0iozJ
+         rvzQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject;
-        bh=34di5jEAFtOrVspB90qArhPBQZswlky4FjFISPv5Rro=;
-        b=chEdH4lyUkW87JZ8uc56RRx3Dq31GVDWIsrBk0W3kkn0siPZe1Ym8ZbhJgUiZ0WqpD
-         F4X7A0ywS/mg1GHR76Ph0vdK+ndwIAEAzscX6y+BR5F1k4WEv6R7jCun/y1BbdXDukdG
-         krgK7py/6KmdXDwz/B5G2tF4RZSbbfd4ECV46SYKb5yNk48nUt+uAktvUQ45IUAz2WfN
-         QmgXxs61wzw4pY3r6dT8f9P5ZjygjEmgYc36WI4o9kDdXx09rqUSyssN3iciyECjWTFo
-         JZfdf56wckweCMSfuES2A6fwW03cth0Y/PKLGFk6FvUiHyyJvQ2nVkHa556JbjnHFKzv
-         12fQ==
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:subject:autocrypt:from:references:cc:to
+         :dkim-signature;
+        bh=EAkfeorHkW5+/UkFQdZsEhF4+VBl8Yy9V+fpOikyvEk=;
+        b=Mlbw488NqQZ098lPTbn2hg4zHvnK9JwBX94DgPl4uyj3YIcZ3dwxt/BqzXosqpnfXb
+         3X+w+W1SGhWbzMjwBIQSs4SttfgjRyvVBt9EAhWEQ8gqUBw6y9esxHbYSZeQlePflkLj
+         FQWyt1Z/j1Q4PbkIViHzSZg2FXkkeiZYWhe9h4pBUI8vRWXspoE8bIf8h4exO8RVTPmO
+         kVUw+Oq6b+sjVWYhzxZKDdNPGZCOXR9euJgzCOTK6Ieqto/WPV3M2blakg80M5nJcLzx
+         2wZY95rSOFMlrOwb75vuaHTVpV8T4Gc8nXhpyiJIVaGuXCcGTk9hmGdcEugzwdgs4jpf
+         IZNA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of christoph.gerum@uni-tuebingen.de designates 134.2.5.214 as permitted sender) smtp.mailfrom=christoph.gerum@uni-tuebingen.de
-Received: from mx04.uni-tuebingen.de (mx04.uni-tuebingen.de. [134.2.5.214])
-        by gmr-mx.google.com with ESMTPS id q14si405472ejo.0.2020.08.14.15.36.52
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=OwpMURo3;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [2001:638:a01:1096::12])
+        by gmr-mx.google.com with ESMTPS id i17si301243wrw.4.2020.08.14.18.31.02
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 14 Aug 2020 15:36:52 -0700 (PDT)
-Received-SPF: pass (google.com: domain of christoph.gerum@uni-tuebingen.de designates 134.2.5.214 as permitted sender) client-ip=134.2.5.214;
-Received: from [192.168.178.43] (x4d0c2054.dyn.telefonica.de [77.12.32.84])
-	by mx04.uni-tuebingen.de (Postfix) with ESMTPSA id C5A824A92A;
-	Sat, 15 Aug 2020 00:36:51 +0200 (CEST)
-Subject: Re: autojail an automatic jailhouse configuration frontend for
- jailhouse on AARCH64 devices
-To: Jan Kiszka <jan.kiszka@siemens.com>, jailhouse-dev@googlegroups.com
-References: <ec8b8710-e966-1abf-0f64-d9e10d7e005c@uni-tuebingen.de>
- <a588e2a5-b7cd-7df8-7341-2e7f9da79b6f@siemens.com>
-From: Christoph Gerum <christoph.gerum@uni-tuebingen.de>
-Message-ID: <2b64a2ef-970b-bc7c-6e7d-8dd3f9fcc5e1@uni-tuebingen.de>
-Date: Sat, 15 Aug 2020 00:37:02 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.1.1
+        Fri, 14 Aug 2020 18:31:02 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) client-ip=2001:638:a01:1096::12;
+Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S02", Issuer "E16S02" (not verified))
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4BT2nd5yMmzyD0;
+	Sat, 15 Aug 2020 03:31:01 +0200 (CEST)
+Received: from [IPv6:2a02:8388:7c3:300:4e34:88ff:fe05:eed9]
+ (2001:638:a01:8013::138) by E16S02.hs-regensburg.de (2001:638:a01:8013::92)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2044.4; Sat, 15 Aug
+ 2020 03:31:01 +0200
+To: Jan Kiszka <jan.kiszka@siemens.com>, Ralf Ramsauer
+	<ralf.ramsauer@oth-regensburg.de>, Peng Fan <peng.fan@nxp.com>
+CC: "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>, Alice
+ Guo <alice.guo@nxp.com>, Wolfgang Mauerer
+	<wolfgang.mauerer@oth-regensburg.de>
+References: <20200807030632.28259-1-peng.fan@nxp.com>
+ <20200807030632.28259-7-peng.fan@nxp.com>
+ <4bfbd74f-843e-c3b9-47c7-31100d085052@siemens.com>
+ <DB6PR0402MB2760040A34FE70576005395E88400@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+ <deb41f1a-1b87-ebd1-50d2-d7d299d35d8e@siemens.com>
+ <9e8f00b4-2a2d-8bb8-e92c-8e23e5910af0@oth-regensburg.de>
+ <5cd1415a-f4d0-b307-e81a-769b7be8eebb@siemens.com>
+ <f81327a9-db37-be4d-4aa3-862b7d0416f3@oth-regensburg.de>
+ <47babf84-565b-db76-7e42-47b0a2d5ed00@siemens.com>
+ <9d551e5e-25fb-4c8f-66a4-934187b9650f@oth-regensburg.de>
+ <4f2c2e19-eba7-6020-5f1c-137f9e8c5efe@siemens.com>
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Autocrypt: addr=ralf.ramsauer@oth-regensburg.de; keydata=
+ mQINBFsT8OUBEADEz1dVva7HkfpQUsAH71/4RzV23kannVpJhTOhy9wLEJclj0cGMvvWFyaw
+ 9lTRxKfmWgDNThCvNziuPgJdaZ3KMlCuF9QOsW/e2ZKvP5N1GoIperljb3+DW3FFGC8mzCDa
+ x6rVeY0MtSa9rdKbWKIwtSOPBgPk7Yg+QkF0gMHyDMjKrNPolnCZjypAIj81MQfG0s6hIwMB
+ 5LXZPl9WL2NwcBWxU71NBhyTvtVMy6eCPTDIT+rDIaIjdqXUbL8QBzaApxSLAgb7Nbatkx7k
+ 3LjqflPMmtQfQ67O1qS/ILe5DrYjGbwZWYb2xmXNwJvEENIDou9Wnusxphh1P1acnn+9DIjQ
+ 9/A+/zCiube3tgCpv5sq8++knQChn2NLMrHlVsRCgGApciO7/0hCvcS9mGE1JM3Nmwfs2wqW
+ vG9vhv3uBJHjH4C8s5UCvF/44E22+bBqsrLUlr5d+YRNtY+LCH1rwNIrzNtfZraq0hPiI8pv
+ P4GpvHDmrsGTyG9YbD33XiI7DD8IaAtwld7wSkMmt07NRhyxVsPc1ZIBQMyS28VvuLbDK4f6
+ WyjQMJmA8EQspEmNcTFG6LnmW+7PGad2Nt7RhHRs4e4JkT8WckWzTCRzlRusyr13SbiFWznt
+ +29Q47elnVUG3nB2h1VGZofX+myYJS0uX4BQ2G7sO+LrBY4HXQARAQABtC9SYWxmIFJhbXNh
+ dWVyIDxyYWxmLnJhbXNhdWVyQG90aC1yZWdlbnNidXJnLmRlPokCVAQTAQgAPhYhBMAttVrc
+ MMGXiLwkKnP5TRHIUlLMBQJbE/EnAhsDBQkFo5qABQsJCAcCBhUKCQgLAgQWAgMBAh4BAheA
+ AAoJEHP5TRHIUlLMICYQALEBOS5+OegeYvi/8qwcXWTtSPu6/L6z2kgh6XCii8zH8Rn9T1mB
+ xzA5h1sBku1wIH+xloRxNNmZlxNyJOML5zMng8cLw/PRTDZ3JdzIFFw7bssAgDiLzr8F0gTq
+ bRrAwFCDuZMNCJgJhxRrPRNSrZovqUeaSUAxw10Dea3NgcvJ1SLtClBaU2+U7dHQdBINBLXm
+ UAg54P6voe/MhkPEwESRHWKsiEWBp4BBPv8AjXnYAth6F9LZksugF4KZMPWnEgXNjw6ObD6C
+ T7qA46/ETXBcxI05lQFs3G9P6YpeOmH1V5pRWb2pS/f9vDudU52QRcAIUir0yjR45tmgJMLV
+ oRR7xRyj/BXqBHbzjilg3GDZMiUtfjg6skr++du79b7xnoEgzHR/ByHW67MCbjcuTmpTeXBK
+ Iq61He/l2NETfy+2ZnWOUNC7/lZHdfrEyHR3Q3S7TQbkm80TXE05Cfb5NXtZxlbCNxFEMtCT
+ UeaUX0NtsHfRDNBzFY6pKSpg8EXDtEFe8+utLekEZ6lFgQ5ZJ1c9NfaOiRJ/NrnQfqAEXUyo
+ uILPmXK+3UiFlWtmIIzSQ/Wd+4pJtM291zt0umnxboOZc1mOU9B2wKT3mnA3HxQ1LiRIT9j8
+ l8iT6TwRB/aiiXa51hN4R7rfSQMxK6a93EAyUZSoWFpZiBo1/5PynB4zuQINBFsT8OUBEAC9
+ HeOKJ/KJ861Q/5C1qwHRK95nJiwCCpASxip68e3ZW9vPTV3VmcQ3tPNRBLPZW1S+IV6DL8/j
+ HnopXyyrFBkSJYEAtKkBI5xO6olYglCJqhJ5GdE2WIxvFfTkKwXf3gYc7zuif/5tS7D4XeEH
+ wScrncFHCxDSUCXyGM/lnLhu3HfQbK49whpel67uteHrXC4tCMzaTy1SOwlXQi4nufxfARBe
+ PT2udi+aZCs4a5bTqvEllPsWRsab4JjTsd831VLYCeRM6siKkzzv9nUjBjTri2cPm0FDS80X
+ vQVHEw4bP+V4EvcrarNh/9VmCypuH23qRsAX33mLhB94aBoE6afCkWG5G2m24pj3NCkdA0MG
+ IleuuD4/I+6+31Dip53AMvx5EDepMrA2b7gsQOKidgDe1fz/j1qkszmQlxlcb/LruXMWWY7L
+ 3NcwGUjNRfH0KiSyQ6GMtU5ECu8/o4fecOee76fHTviI6h7jSL3O0AKJadUXekAfhyVS/zUD
+ iZTv2zI4wAyxIWj3AFVXXeb1T4UG+k4Ea+M7+jtgGUz/K3/mDYXWWRHkT5CMZLiU8BCdfewg
+ Zp94L5KOWDYCeX5LWworOwtkoePd9h5g7L2EBbeINk8Ru018FkEiqALN03vPI8KYNXb6epUg
+ xhdvhaPoSD3aCnQttvU8lN70cKBGMwTZYwARAQABiQI8BBgBCAAmFiEEwC21WtwwwZeIvCQq
+ c/lNEchSUswFAlsT8OUCGwwFCQWjmoAACgkQc/lNEchSUswevA//RM2YQI1Z3QMBRMr/5As0
+ 2zXcJFp+j07wkO9avm8U7GwjPjLHGVvs44rTSc0IKSsIKCJDSqNod9jd2iR39lr5/FpRiRk/
+ 7A1ACZUagASNC+PiyCCjlg34bWulzVmb5ozjqKQqgYww4c6D0P44JDUtedVbKd7HdwjjzP0P
+ cubSgAohnXzrkp3gtVg07KeoQyiZctJqJu9Z84MiXMIQ+G75mFkIJEL4WYIkcJ9pamUHX71Y
+ T1s6qtrqXemn25w87TioHUMcW4wRXhHHJ4gDbe/P9wb9XKS41ks0kiTia1ZcFsf6QQzoCoK1
+ R8ahGzsqvCRHMR7fU5w25qXAPfS5ENZgH0KcAVi1bDjwDyhQk3PfPiraiHmtEz2IlthAPpRD
+ Drr0lqCvDFNtqaC+ZI0eOmTvy6/zfVh7ODmaDq1KqMu5EB9ojHXM7N6XXN8OubY+lNx+q0T5
+ STssqr8EKkrHp6rw2OQHCX7uaEQri2GEJW4HowVvlashmxC4bxR8B4gbm+EB8gR8PD7BSZQG
+ k5NkPOqUZJXq1HO+d5Udk1WdT+mkFGwIMN/U9t3gJNWkab+aAYg1mKwdz7B+10j51vbQbFgY
+ 2/n9jtl/AFgfYQocbJta5+0fOwIJObNFpLAotvtFNF+Q164Bc3E7Njh230nFduU/9BnmCpOQ
+ RncIIYr0LjXAAzY=
+Subject: Dropping code during runtime (was: Re: [PATCH 06/10] Add
+ libbaremetal)
+Message-ID: <314fbb96-7032-ee8f-8926-de3a667bddee@oth-regensburg.de>
+Date: Sat, 15 Aug 2020 03:31:00 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <a588e2a5-b7cd-7df8-7341-2e7f9da79b6f@siemens.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: christoph.gerum@uni-tuebingen.de
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of christoph.gerum@uni-tuebingen.de designates
- 134.2.5.214 as permitted sender) smtp.mailfrom=christoph.gerum@uni-tuebingen.de
+In-Reply-To: <4f2c2e19-eba7-6020-5f1c-137f9e8c5efe@siemens.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US-large
+X-Originating-IP: [2001:638:a01:8013::138]
+X-ClientProxiedBy: E16S02.hs-regensburg.de (2001:638:a01:8013::92) To
+ E16S02.hs-regensburg.de (2001:638:a01:8013::92)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=OwpMURo3;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -126,241 +201,52 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi Jan,
-
-Am 14.08.2020 um 17:29 schrieb Jan Kiszka:
-> Hi Christoph,
->=20
-> On 14.08.20 10:58, Christoph Gerum wrote:
->> Over the last few months, our team has been working on an automatic
->> configuration utility for jailhouse. As our effort now nears a usable
->> state, we would like to present it to the jailhouse community.
+On 8/14/20 8:13 PM, Jan Kiszka wrote:
 >>
->> Our tooling is available on https://github.com/ekut-es/autojail
->>
->> The documentation is available on
->> https://atreus.informatik.uni-tuebingen.de/~gerum/autojail/
->>
->> The tooling works by extracting information about the target hardware
->> from the Linux runtime system (currently mainly
->> /sys/firmware/devicetree/),
->=20
-> As you are processing a device tree already, can you also consume an=20
-> offline dtb?
+>> If we have a universal binary, there will be a jailhouse disable will be
+>> present in the beginning. Once we decide freeze the configuration, drop
+>> it. If we make those things compile-time configurable, then it has
+>> potential to become a variant hell.
+> 
+> Dropping significant code chunks from a root-less jailhouse.bin would be
+> a valuable reason for such a config variant. You do not have to argue
+> over things that are provably not there.
 
-We currently, are only processing the online device tree, as we want to=20
-also know information from device tree overlays and dynamic device tree=20
-nodes generated by kernel modules.
+With my approach, things are (provably) not there in the operative
+phase. It depends when you want to attest your system. In the same way,
+you could also argue that Linux, U-boot, the firmware, whatever has been
+there before you made your attest.
 
-> Did you also already have a look at system-dt=20
-> (https://elinux.org/Device_tree_future#System_Device_Tree_2019.2C_2020)?=
-=20
-> That could become the next logical step for dt-based systems.
+What are the parts you could drop during compile time?
+For system partitioning / cell creation, you definitely need to execute
+the code at least once - you can not drop it during compile time.
 
-I have not been aware of system-dt. It might be an interesting=20
-possibility to completely avoid autojail specific configurations.
->> and then generating jailhouse cell configs
->> for root- and guest cells from a minimal configuration file.
->=20
-> Important "detail": It comes with a new human-processable configuration=
-=20
-> format, you YAML schema, right? Is that format as powerful (or=20
-> low-level) as the binary format, i.e. a full replacement of the current=
-=20
-> C files?
-
-The yml files currently are more or less a superset of the low-level=20
-format. e.g. a memory region might look like:
-
-     memory_regions:
-       "System RAM":
-         physical_start_addr: 0x0
-         virtual_start_addr: 0x0
-         size: 1 GB
-         flags: [MEM_READ, MEM_WRITE, MEM_EXECUTE]
-
-With a bit of syntactic sugar e.g. sizes can use human readable units,=20
-no counting of memory_regions needed.
-
-> Or does it provide abstractions like=20
-
-Abstractions are currently implemented by making most entries optional:
-
-> "give me 1GB, I don't care where"=20
-
-would be:
-
-     memory_regions:
-       "System RAM":
-         size: 1 GB
-         flags: [MEM_READ, MEM_WRITE, MEM_EXECUTE]
+But after execution, you can drop it. In the same way, you can drop
+init_early, ... and others. The only part that you could drop during
+compile time would probably be the whole disabling logic.
 
 
-> "give me device B, with whatever I/O resources it comes"?
+Let me try to show what I had in mind:
 
-This is currently expressed by the  device tree path:
+https://github.com/lfd/jailhouse/tree/detention/rfc
 
-     memory_regions:
-       gpio: /soc/gpiomem
+That's a very early hack of what I was thinking about. The idea is as
+follows: Simply lock access to the hypercall subsystem, after the new
+detention hypercall was issued. With this, we can remove everything,
+that is only reachable from the interface. Runs on Qemu.
 
+For the Intel version of the hypervisor, before that patch, the .text
+section contained 48182 bytes, with that patch, 40616 byte remain in
+.text, the rest can be dropped. 16% less assembly, and I'm sure we can
+find way more routines that can be annotated: init stuff, pagers, ...
 
-> How is the (planned) workflow then? Currently on x86, you call "config=20
-> create" and then perform manual tuning on the resulting C config for the=
-=20
-> root cell to make it work. I suspect that is what "autojail extract" is=
-=20
-> about. In your case, tuning would be done on to the yml file? How would=
-=20
-> will the workflow be for non-root cell configs?
->=20
-> Hint: Add a user story to your documents would help getting a big=20
-> picture quicker.
+Ah by the way, what I realised during my experiments: The .text section
+of Jailhouse is RW mapped. I wondered that I didn't receive an exception
+when I tried to overwrite code. Is that intended?
 
-We have a different workflow and at least one user story per milestone:
+  Ralf
 
-Assuming that we are able to connect to a target eval board via ssh.
-
-Milestone 1: Simplified config.
-
-autojail init
-autojail extract
-
-manually create cells.yml to specifie the configuration. Guest cells are=20
-created in the same cells.yml. e.g.:
-
-cells:
-    root:
-      name: "The Root Cell"
-      type: root
-      ...
-
-    guest1:
-      name: "The first guest celll"
-      type: linux
-
-
-
-autojail config
-
-manually test generated *.c configuration, and change cells.yml until it=20
-works.
-
-
-Milestone 2: "jailhouse config create" on steroids
-
-At this milestone we wan't to allow the following use case:
-
-autojail init
-autojail extract
-autojail config --num-linux-guest 2 --memory-per-guest 128 MB
-autojail deploy
-
-Then you should be able to ssh into the root cell and directly into each=20
-guest and the root cell. Ideally with minimal, manual interventions.
-
-E.g we will configure ivshmem_net from root to each guest, and configure=20
-a bridge device or port forwarding in the root cell.
-
-Milestone 3+: Cell config management
-
-These have not fully finalized yet, but from Milestone 3 we intend to=20
-use an extended cells.yml that supports fine tuning capabilities on par=20
-with the current configuration format, while allowing tool support for=20
-the fine tuning as well.
-
->> It differs from the current jailhouse config in the following ways:
->>
->=20
-> I suspect you meant the current config generator
-Yes, sorry.
-
->> =C2=A0=C2=A0=C2=A0 - It targets aarch64 instead of x86_64.
->=20
-> A final architecture will have to address all archs, even if the input=20
-> for x86 will remain different.
-
-We don't have any plans to fully support X86 in autojail at the moment.=20
-But I am considering integrating our device tree work into pyjailhouse=20
-to allow jailhouse config create for ARM and AARCH64. At least as a=20
-first step. But if our configuration file format would prove interesting=20
-as well, we might reconsider those plans.
-
->> =C2=A0=C2=A0=C2=A0 - It supports configuration of guest and root cells.
->> =C2=A0=C2=A0=C2=A0 - It allows a simplified configuration of IVSHMEM_NET=
-.
->>
->> The current release has the following limitations, which we would like
->> to address in the coming weeks:
->>
->> =C2=A0=C2=A0=C2=A0 - No generation of configuration for the inmates (net=
-working,
->> device-tree)
->> =C2=A0=C2=A0=C2=A0 - Dead Simple Memory allocator that will probably giv=
-e up at a
->> relatively low memory pressure.
->=20
-> Where does the memory allocator come into play?
-
-The static memory allocator currently allows us to leave out physical=20
-and virtual addresses for the memory regions mapped to RAM. While=20
-keeping some additional constraints: e.g. MEM_LOADABLE regions are added=20
-to the root cell as well if their physical address range does not=20
-overlap with any memory region already specified in the root cell.
-
->> =C2=A0=C2=A0=C2=A0 - Configuration of inter-cell communication is suppor=
-ted for
->> IVSHMEM_NET devices only
->> =C2=A0=C2=A0=C2=A0 - Only tested on Raspberry=C2=A0 PI 4B
->> =C2=A0=C2=A0=C2=A0 - No configuration of SMMU or other IOMMUs
->>
->> The current release has so far only been tested on Raspberry PI 4B, and
->> this announcement mainly is here as a request for comments, and to
->> evaluate how our work might fit into the general jailhouse ecosystem.
->>
->> =C2=A0=C2=A0=C2=A0 - Would there be interest to somehow integrate it mor=
-e closely into
->> the jailhouse ecosystem?
->> =C2=A0=C2=A0=C2=A0 - We would be very interested, if we could use it as =
-a configuration
->> generator for the current work on memory coloring in jailhouse.
->=20
-> Specifically coloring is a scenario where more tooling support for=20
-> config generation and validation is needed, indeed. You may have seen=20
-> that new "jailhouse config check" command which performs the latter (and=
-=20
-> should work with your approach as well as it processes binary configs),=
-=20
-> but we also need more of the former.
-
-One of the next points on my bucket list will be to directly integrate=20
-jailhouse config check into our workflow. Would you be willing to accept=20
-patches to move the actual checks to pyjailhouse to allow an easier use=20
-in external tooling.
-
-> So, yes, there is definitely interest in new ideas and concrete=20
-> solutions, specifically for arm64 (though not only). After having to=20
-> refactor configs/ recently, more than once, I would appreciate a lot if=
-=20
-> we could reduce the manual maintenance.
->=20
-> What needs careful thoughts are the possible use cases and workflows. We=
-=20
-> need a solution that automates what can be safely automated, ideally=20
-> warns when user input or validation is needed and does not stand in the=
-=20
-> way when manual tweaking must be applied. That is due to the low=20
-> abstraction level of the binary config format the hypervisor consumes.
-
-One of our main goals is to be an experimentation field for finding the=20
-right abstractions to allow an easy configuration, while still enabling=20
-the fine tuning needed for more complex use cases.
-
-Christoph
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/2b64a2ef-970b-bc7c-6e7d-8dd3f9fcc5e1%40uni-tuebingen.de.
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/314fbb96-7032-ee8f-8926-de3a667bddee%40oth-regensburg.de.
