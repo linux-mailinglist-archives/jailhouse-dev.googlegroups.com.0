@@ -1,119 +1,167 @@
-Return-Path: <jailhouse-dev+bncBCZKRDGF7APRB4EN6T4QKGQEIJ3HQQA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCONRR6ZTUGRBZ4N6T4QKGQESF4UL4Q@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-il1-x137.google.com (mail-il1-x137.google.com [IPv6:2607:f8b0:4864:20::137])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67ED9249B50
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 19 Aug 2020 13:03:14 +0200 (CEST)
-Received: by mail-il1-x137.google.com with SMTP id i66sf16504707ile.6
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 19 Aug 2020 04:03:14 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1597834993; cv=pass;
+Received: from mail-wm1-x33e.google.com (mail-wm1-x33e.google.com [IPv6:2a00:1450:4864:20::33e])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EF53249B4F
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 19 Aug 2020 13:03:04 +0200 (CEST)
+Received: by mail-wm1-x33e.google.com with SMTP id c186sf877254wmd.9
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 19 Aug 2020 04:03:04 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1597834984; cv=pass;
         d=google.com; s=arc-20160816;
-        b=0os7FAJvPA5Au6DfxDpFwvCOIx68iqso11bxqdJZc4PFMnEAIrI2VXe6A0ATOm0lxz
-         FtHG+vHVKsP8j77XtlimbXjClcjhLbULUPqgqPAuu+1lJHDKfCeOOEbsawDV+r2FTmKE
-         ph0dzOp5TawBSTy4jTrECoTcwYayuvpFOcWu200BclOBNH3WWzskRnbbMs6CzpO8Exyy
-         YA+L+cQD9IBcquyK2dOT/kYr1++5ilOe1XZimZ7qxD+GrZn68BqoYXOvTX1kDlaSqSNx
-         mRV8UVfn9T8Wfd1Sm4eo6gapuWjwmYlKkGW672be81Fh/93TW/801G51dxlikrDqj1/o
-         eWnw==
+        b=AMeV4ajb+88V7RzzfgI9vHLLukN4Ashc3doRPmafawYS+NwF+Bd6CJH/XrAWmx8Tc4
+         0TXWJ2Emr/utPH6lP2AGBgARHbTUFAtOM87hlHJxTeJMpLkh3OgPea0dtFohFAH97HZd
+         BA/ItMJuxS9Cr1fH+n6VOLPReSCNnD+rU6sMcDvy2GZFSzjV0EtjpNeAxNrgrXtRJPzG
+         MhxXz4t4ftt8oQxX9l2syDtEmRUili5TZIjEIRTCZc3r4w89Da15ut84y7QGoNJWlk3n
+         lXdWbryAD/zCdrUgWRAdTUucAzCTUnSNLHrAq0mQ6carBmw81Ec1jU+n0f88hPQgW1XA
+         kbBQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:sender:dkim-signature;
-        bh=5qrqwub6LaV0WePTPFWS4GQJoE1CRs15LipT90++Lqw=;
-        b=NSLb7X5eah0Iis8F/ie3tE8Q7ecMvUMIlkWaMnEXf/zk1RhYTfG7vxWWC2hI2fpuCH
-         l8ePM2jE8lVbZHFNFl9+DZX2YgxIuzMnzBbWuOrzfRCy+Yw4gALVvf9VTxUJwP+amIXd
-         EdrEdAt1HHulZA7it5H/zRMHoeiZzD7VmTLYJLvnl+sUPA1BWuTtkMIQ+tBAI4iGTq8T
-         0mqZBAblqarup+mp22/RGnlSyBirDwlD2wcZxazu6OEGn9dkS5oVjskvq6P75bgnfkuP
-         lfytLf3bVKJjOd/5DQUG9eVzljp0QBswvYN1nQbS/U8RP9+tvaHT5YVk7rnEzHKDgdIx
-         Vd9w==
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:autocrypt:from:references:to:subject:sender
+         :dkim-signature;
+        bh=tyQgU+7O8V4pwME53r8z2uYHKzbFUR8eSGcBvHjwHLo=;
+        b=TQFI2A08BbQM0sWPmYNVC9hNvu/ZiJkNMMUc93sbNMwe5PIb16ABEAMgDkpnLgt5Ho
+         s6wTtOBkeNV5hVUESbNC6jPHTZmDSQP/vHU41nT5hlro3CUZm3yFzbU5GvaPbEmWV3tc
+         FRonSKmbKnZdl2sI5mwmQgGiYQ/xOhLAwcjydZ2NBZ6o9cDG0P14F9D4syXdM77Ahc9v
+         gBY9amRwXKFX4+ZHFUd37Vix1UIJEKY2eYLZWWrFnI1HsrFtF7UvEv29vf1za/PCEkE1
+         r03bTRF/zSy0xJs9I//mkWwe1gOjIchHP05z7vdGQsgEhTt1Pocl0HfslblayySdU6am
+         d1wg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@luzny-cz.20150623.gappssmtp.com header.s=20150623 header.b=a1MdKYjj;
-       spf=neutral (google.com: 2607:f8b0:4864:20::343 is neither permitted nor denied by best guess record for domain of jakub@luzny.cz) smtp.mailfrom=jakub@luzny.cz
+       spf=pass (google.com: domain of christoph.gerum@uni-tuebingen.de designates 134.2.5.213 as permitted sender) smtp.mailfrom=christoph.gerum@uni-tuebingen.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:mime-version:references:in-reply-to:from:date:message-id
-         :subject:to:cc:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=5qrqwub6LaV0WePTPFWS4GQJoE1CRs15LipT90++Lqw=;
-        b=KAjjGsIq2JHVIhK1SF8cWsOXE2g16ZH31+Puv+YnTbNK6Q+BAJ8jpxlq1jCWOvH5FT
-         Zhg8AFIf5j6i3rWVt4J5hNscS4HRyZgXTRXxGIrd7NoWltsU0VYeXSRyultbih1cPwdC
-         7vGsDDDIRrl1BoXz9iUBYVWn1GHJBO76J1ldHI2AZImZc9N93qkkBwDGYe63g1nCXjKL
-         KBp6Ix84ZXC5DIfeGSNQ/xmMTo9FEnTEfDcEYcxwrrXk9kYQYRCzeERnVCdpcWbA+kcx
-         sLtJ00fJkXTxrZ2UEKqIlkv7K/3WsqD4graiQO1XD6nBPl3e5c84G/aLx9u3I0s6OJ2p
-         JcnQ==
+        h=sender:subject:to:references:from:autocrypt:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=tyQgU+7O8V4pwME53r8z2uYHKzbFUR8eSGcBvHjwHLo=;
+        b=Agv6UPJE6pgC1hgPbfk48Re0tUMMuoS/ORsjztqsAeN4VIkkDYp/Na3PPBzT4tRyv5
+         GabgDI3QKCdNByfmzoOVUf8p+vB/CwbLWRWkQeeD5UI5JYaGiK0RNq7/7vyqIYqe5FJ/
+         iN43FO/88ogkqKHrCiX/OLXZhmDJaTvqvzfXWBZebyAVbym0LZQqCg+y2j+lcGlMwCuS
+         DTn1XhMSlNOYD+EJ7dSnQDKankUKDwCpeE5tKH8/Ru7FktAufBosHFJBA0VLX42AB9fQ
+         M9U+8WOdUxVssjDBpBRu2y9cKvdk4dLkv0PuUU1C2mSTqRI3cZQuny2D/nqBbbtEepRl
+         4y5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
-         :date:message-id:subject:to:cc:x-original-sender
+        h=sender:x-gm-message-state:subject:to:references:from:autocrypt
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=5qrqwub6LaV0WePTPFWS4GQJoE1CRs15LipT90++Lqw=;
-        b=Pb9mRh15H22ANAdznmBCSBpRio0YRMLWwIJnbZmK6Xv4acC+c/XO5XVi2vl6h8MWzf
-         Slerc8VSgP4Q4NDkNF27opxtXpdyT3fpo1y5l/LS4kn4FPS5bw+D5xgG/BgoA50bKf0a
-         jNQLj+Ljl0gEf7HjbU4thjDI9yj6JrxEBAUWG4QCzNSeIzdmutelZK0rtwJav/1KFvwQ
-         bziSeYH3VsUOR80dB7YImc9CkbHQ5QZlBo9EucwNdxG2HGJf7Ar9Zfdkx29IfSusungN
-         CZbnvexhOMpTWO9qDhCB5Ho7iaD7XGBCmZ0hFy5Phhe5N75DIfTQm2O0vmNA7bE88iMm
-         zAOA==
+        bh=tyQgU+7O8V4pwME53r8z2uYHKzbFUR8eSGcBvHjwHLo=;
+        b=LWSG4h7z4sE3H5wGqdWKVprLXy65UCYRbh0ugU3lwkRuvhv1YrtXPGmNhPK7NMBEh7
+         33u/xAr8oYj0fZb1KSjsRcT5tATCd9yFIbCUJR6t24D1BsbTwlJgFybIfMlsWlQqtavi
+         nKBwa4VJ/yfIKAkb+dAgPmJaLCkXX78qqIjAuPlk+XQZt1ucNhL4hnOP7isP84v+ik1E
+         feFwisbXocU277l0+UFyortmP4IF9ZMrh54lyNjIPWwsN805Sej2B9pZXoa+t8cTu07C
+         nblPpnNBovJBZvLFchxaayrT4gJp9WIQQUPVdSb2MQtic+oMcnfC42EFMxwJ8hyGcoqE
+         Pv4g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM5337ZI9m/3L32a0ozu1Ros8fl6OrRU+8t5P8QSwngk47RqqYUKq9
-	lWbxa0rGd7HzAtVHELLyyU8=
-X-Google-Smtp-Source: ABdhPJxFXJDc6XPFCDzwxdfPsbPDBAHiVrCncVQm3YZNDEzriJNwxgBBij1IXdzNNsPfAhfhbCLplQ==
-X-Received: by 2002:a05:6e02:12a3:: with SMTP id f3mr11636525ilr.83.1597834993061;
-        Wed, 19 Aug 2020 04:03:13 -0700 (PDT)
+X-Gm-Message-State: AOAM531rTC30SQmwTm5KMJVy5FVQ7nBxuMK8LJnKbzxKbamvOBJc5PNQ
+	D+ghBNVBLwZzI7Zj8Ns8fLQ=
+X-Google-Smtp-Source: ABdhPJz+X73fl+HKJbqXZjVOPHgr4jeqAXNjqnnSpHjaKC0HwVPColh8SAOYHV55782azrKmYDgeCA==
+X-Received: by 2002:a7b:c7c6:: with SMTP id z6mr4646477wmk.17.1597834984212;
+        Wed, 19 Aug 2020 04:03:04 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a92:85c4:: with SMTP id f187ls5879953ilh.1.gmail; Wed, 19
- Aug 2020 04:03:12 -0700 (PDT)
-X-Received: by 2002:a92:9e48:: with SMTP id q69mr22718375ili.170.1597834992084;
-        Wed, 19 Aug 2020 04:03:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1597834992; cv=none;
+Received: by 2002:a1c:a50e:: with SMTP id o14ls1610043wme.3.gmail; Wed, 19 Aug
+ 2020 04:03:03 -0700 (PDT)
+X-Received: by 2002:a1c:80c1:: with SMTP id b184mr4666528wmd.121.1597834983365;
+        Wed, 19 Aug 2020 04:03:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1597834983; cv=none;
         d=google.com; s=arc-20160816;
-        b=UESZbZgzPurDNv3mYiEM6Lwje5tLQBuLSJNH5+RLdQ2w2ySjNKpSndezCjaLY1cs7X
-         rrQCIDJ6DPpQWkdQjsFiqurjO5Rj+YQkKwVG5wouIjsU1pbpz4TrflRoWMYD9gtVl6K/
-         GIY1zh0zBRv6zv4kEuLhjr2OgEKR54geiVGvwOC3l67HsUh5m0D/afGDY+Do8QNmtQhu
-         HVgaoApj7oVPuEHERgRJCD4YWRUUxRuyfrN93XarEJ/sGvgjVEssE+FwBY84XhE7YFOq
-         fgEGk2RNdvHjkxQagxCHYnyIfflDYQbZWfrdyXiHUX3A98dvAJLYlDOOVupgJ3pnXBg+
-         2c+Q==
+        b=MCm7d6FlUvRF6p3WURm29B7pHzIVxg6vQRocjcmk9tsTDG9Oz+3+9fl3tg5qB1tAjo
+         ybwdetUdoVXmmx6zfD0ZqIL1vm4kTohbvDIizwD8MxDzTAO9Wd1syr8SjLfVjpc9W4z5
+         i9hhhO7rA7kaKkJa1FJV5zJUnPmdkA3mbV4q72LZ9UZHKWLL7bMR/Ad3Jmj6b6WGChBj
+         8s2IKfLIo5OtTf1CM52dAmmHA6o1+Wo66rfDdFgc8m2DJiz35Sp8U8LhsODVBy9Y/xNo
+         CB0HdRgQ0LjrfXgnnGFqxm4l00+/8pY1GHVqsHbZie3X70DTiMbhHzgfBKqDC/uk6deI
+         zCIw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=Q0yjaWJogmvzpH/0IpY11UngEqMzwco7ra6vKGyUqAM=;
-        b=kKWvcyjTS8L9vduse+Q4iYSxoodVVoH0zJOyE+AHrOb7Wuci0WGlNNQELr0RwhV2wE
-         yk3+n1Ns6ByQjqb2OvV+YmilHXdTPwM4TJBReJ1OOUd4DjvNUzIr94b01Gvne9sMDfuL
-         YVY4/pssqiHGt7o80Cg7PTGxEQAxvisnhTE8z5V+aTfPlVHYBlZ4nw51RK0Q3QbSpRon
-         bl0dq8y7tFT4ihDP0fELAzvsxyDVw46UQ/Sfr5TazDCvUoXo5iYFXMC0k6oh8uusGNUA
-         JRPFGO3ZTtFJQPs7jbYTjaBUbyn2Nhhu3a2fcLnDpu91vCu+W+yNneNVUGSQoF0Y6UUL
-         Q/cQ==
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:autocrypt:from:references:to:subject;
+        bh=e3M5yPbGSNmiRWuKC2+IkkAnoMy117uVCpctp3pf7U0=;
+        b=SQa3Zngod1hnA7NPpX1A2S/PqSDHYywjMz/MTOfCCuTJe4cM6dEm+5hEe52554fOVL
+         9QZsZEtrZkWmfRnyTkUnGEdTvTWerqwsATyWy9O1pjtm/XRozbzNmCXZAVjcBAdtYXJ0
+         S39g74NOExnJhsk1ICzmtyE8BoR/3gHNVsHqUE8yhyoVr1bcw0OS9AAPTWmUbEU8IBI7
+         4WX37Ef5z3t7RkOZVpPBGEgtrZLpn/oDl8whkf6hPFji9mj23a3v7g5aDDEtg2GdqJRU
+         pQFCp3NCHca89ISu1QCEsTUS2d4mx/dcGHoK3PlMgxJF9zaraJiECqFyTRC7DqVFa0WR
+         2ASQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@luzny-cz.20150623.gappssmtp.com header.s=20150623 header.b=a1MdKYjj;
-       spf=neutral (google.com: 2607:f8b0:4864:20::343 is neither permitted nor denied by best guess record for domain of jakub@luzny.cz) smtp.mailfrom=jakub@luzny.cz
-Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com. [2607:f8b0:4864:20::343])
-        by gmr-mx.google.com with ESMTPS id u9si1199436ilg.0.2020.08.19.04.03.11
+       spf=pass (google.com: domain of christoph.gerum@uni-tuebingen.de designates 134.2.5.213 as permitted sender) smtp.mailfrom=christoph.gerum@uni-tuebingen.de
+Received: from mx03.uni-tuebingen.de (mx03.uni-tuebingen.de. [134.2.5.213])
+        by gmr-mx.google.com with ESMTPS id w6si172758wmk.2.2020.08.19.04.03.03
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 19 Aug 2020 04:03:11 -0700 (PDT)
-Received-SPF: neutral (google.com: 2607:f8b0:4864:20::343 is neither permitted nor denied by best guess record for domain of jakub@luzny.cz) client-ip=2607:f8b0:4864:20::343;
-Received: by mail-ot1-x343.google.com with SMTP id v6so18677836ota.13
-        for <jailhouse-dev@googlegroups.com>; Wed, 19 Aug 2020 04:03:11 -0700 (PDT)
-X-Received: by 2002:a05:6830:4c2:: with SMTP id s2mr18345033otd.183.1597834991218;
- Wed, 19 Aug 2020 04:03:11 -0700 (PDT)
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 19 Aug 2020 04:03:03 -0700 (PDT)
+Received-SPF: pass (google.com: domain of christoph.gerum@uni-tuebingen.de designates 134.2.5.213 as permitted sender) client-ip=134.2.5.213;
+Received: from [134.2.14.31] (tichy.Informatik.Uni-Tuebingen.De [134.2.14.31])
+	by mx03.uni-tuebingen.de (Postfix) with ESMTPSA id 1D567832D6
+	for <jailhouse-dev@googlegroups.com>; Wed, 19 Aug 2020 13:03:03 +0200 (CEST)
+Subject: Re: [PATCH] configs: arm64: Add support for RPi4 with more than 1G of
+ memory
+To: jailhouse-dev@googlegroups.com
+References: <20200817171736.78100-1-jakub@luzny.cz>
+ <57c67012-fee7-d7f1-1201-25415e39034a@siemens.com>
+ <CAGdCPwtX9JoP_RocDeB-MF3XTz+yyrXYL2LBCOs_-xa_TVA6Ug@mail.gmail.com>
+ <83d289a5-8928-0fc2-68aa-64df76e8ee16@siemens.com>
+From: Christoph Gerum <christoph.gerum@uni-tuebingen.de>
+Autocrypt: addr=christoph.gerum@uni-tuebingen.de; keydata=
+ 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
+ T29y/VTnmoSXIbqAbOajhVUuOH67EXAD
+Message-ID: <32baa43a-4e84-7f22-230c-bdc5fba33c76@uni-tuebingen.de>
+Date: Wed, 19 Aug 2020 13:03:02 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-References: <20200817171736.78100-1-jakub@luzny.cz> <57c67012-fee7-d7f1-1201-25415e39034a@siemens.com>
- <CAGdCPwtX9JoP_RocDeB-MF3XTz+yyrXYL2LBCOs_-xa_TVA6Ug@mail.gmail.com> <83d289a5-8928-0fc2-68aa-64df76e8ee16@siemens.com>
 In-Reply-To: <83d289a5-8928-0fc2-68aa-64df76e8ee16@siemens.com>
-From: =?UTF-8?B?SmFrdWIgTHXFvm7DvQ==?= <jakub@luzny.cz>
-Date: Wed, 19 Aug 2020 13:03:00 +0200
-Message-ID: <CAGdCPwsyLjLLaPEsnhr6bwO9ioXQRvSz2Vg+48ym-R5kV_V1nA@mail.gmail.com>
-Subject: Re: [PATCH] configs: arm64: Add support for RPi4 with more than 1G of memory
-To: Jan Kiszka <jan.kiszka@siemens.com>
-Cc: jailhouse-dev@googlegroups.com
-Content-Type: multipart/alternative; boundary="0000000000000fc50505ad38f329"
-X-Original-Sender: jakub@luzny.cz
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@luzny-cz.20150623.gappssmtp.com header.s=20150623
- header.b=a1MdKYjj;       spf=neutral (google.com: 2607:f8b0:4864:20::343 is
- neither permitted nor denied by best guess record for domain of
- jakub@luzny.cz) smtp.mailfrom=jakub@luzny.cz
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: christoph.gerum@uni-tuebingen.de
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of christoph.gerum@uni-tuebingen.de designates
+ 134.2.5.213 as permitted sender) smtp.mailfrom=christoph.gerum@uni-tuebingen.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -126,180 +174,84 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---0000000000000fc50505ad38f329
-Content-Type: text/plain; charset="UTF-8"
+Hi Jan,
 
-That PCI MMIO config space is for a virtual host controller that
+On 8/19/20 12:18 PM, Jan Kiszka wrote:
+>>     > + *
+>>     > + * Reservation via device tree: reg =3D <0x0 0x20000000 0x1000000=
+0>;
+>>     > + *=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 reg =3D <0x0 0xe0000000 0x200000>=
+;
+>>
+>>     Why this split-up into two regions?
+>>
+>>     This will also mean I need to add a patch to [1] so that the DT will
+>>     carry the carve out. And drop the mem=3D from [2]. Or can we rearran=
+ge the
+>>     reservation to keep that mem=3D cut-off, at the price of wasting mem=
+ory on
+>>     larger RPi variants?
+>>
+>>
+>> It's because the PCI MMIO address space is mapped to=C2=A00xe0000000 in =
+the
+>> original configuration. I don't know where this address comes from, but
+>> I've had some issues then I moved it somewhere else. I would like it
+>> most if it would be above all the available memory, but I was getting
+>> errors when i tried to do so:
+>>
+>> [ =C2=A0154.161182] pci-host-generic 200000000.pci: host bridge /pci@0 r=
+anges:
+>> [ =C2=A0154.161231] pci-host-generic 200000000.pci: =C2=A0 MEM
+>> 0x200100000..0x200103fff -> 0x200100000
+>> [ =C2=A0154.161354] pci-host-generic 200000000.pci: ECAM at [mem
+>> 0x200000000-0x2000fffff] for [bus 00]
+>> [ =C2=A0154.161525] pci-host-generic 200000000.pci: PCI host bridge to b=
+us
+>> 0001:00
+>> [ =C2=A0154.161540] pci_bus 0001:00: root bus resource [bus 00]
+>> [ =C2=A0154.161553] pci_bus 0001:00: root bus resource [mem
+>> 0x200100000-0x200103fff]
+>> [ =C2=A0154.161620] pci 0001:00:00.0: [110a:4106] type 00 class 0xff0000
+>> [ =C2=A0154.161718] pci 0001:00:00.0: reg 0x10: [mem 0x00000000-0x00000f=
+ff]
+>> [ =C2=A0154.162420] pci 0001:00:01.0: [110a:4106] type 00 class 0xff0001
+>> [ =C2=A0154.162523] pci 0001:00:01.0: reg 0x10: [mem 0x00000000-0x00000f=
+ff]
+>> [ =C2=A0154.166228] pci 0001:00:00.0: BAR 0: no space for [mem size 0x00=
+001000]
+>> [ =C2=A0154.166246] pci 0001:00:00.0: BAR 0: failed to assign [mem size
+>> 0x00001000]
+>> [ =C2=A0154.166259] pci 0001:00:01.0: BAR 0: no space for [mem size 0x00=
+001000]
+>> [ =C2=A0154.166270] pci 0001:00:01.0: BAR 0: failed to assign [mem size
+>> 0x00001000]
+>>
+>> So it seems that only 32-bit addresses are supported. When I tried to
+>> move it somewhere to the reserved space (e.g. to 0x20000000), I was
+>> getting crashes when enabling Jailhouse. So I stuck to the original addr=
+ess.
+> That PCI MMIO config space is for a virtual host controller that
 > Jailhouse provides. If has to be placed into a free range in the
 > physical address space of that target. If you relocate that range in the
 > system config, also update the non-root cell device tree. The root cell
 > will get that information automatically.
->
+>=20
 > Could you share /proc/iomem (without reservations) from your larger RPi?
->
 
-I know, I was just wondering where that address comes from. So it's just a
-randomly chosen address from free space? Or are there any special
-requirements that do not apply for the other memory regions and I might be
-not aware of them? I'll have to check it over again to share the error I
-was getting when I was trying to move it.
+During our work on autojail we also had the assumption that
+.pci_mmconfig_base needed to be below 2^32, but we could not find a
+reason for that in jailhouse. I was think, that this restriction was
+either caused by the linux driver or a misconfigured device tree. But I
+will revisit the problem in the next days.
 
-/proc/iomem from 8G RPi4 with linux-raspberrypi 4.19 and (almost) default
-config.txt:
-enable_uart=1
-dtoverlay=vc4-fkms-v3d
-arm_64bit=1
+Kind Regards, Christoph
 
-00000000-3b3fffff : System RAM
-  00000000-00000fff : reserved
-  00080000-00c5ffff : Kernel code
-  00c60000-00d5ffff : reserved
-  00d60000-00f8ffff : Kernel data
-  1ec00000-2ebfffff : reserved
-  2eff5000-2effffff : reserved
-  373f7000-3b3fefff : reserved
-  3b3ff000-3b3fffff : reserved
-40000000-fbffffff : System RAM
-fd500000-fd50930f : pcie@7d500000
-fd580000-fd58ffff : genet@7d580000
-  fd580e14-fd580e1c : unimac-mdio.-19
-fd5d2200-fd5d222b : thermal@7d5d2200
-fe007000-fe007aff : dma@7e007000
-fe007b00-fe007eff : dma@7e007b00
-fe00a000-fe00a023 : watchdog@7e100000
-fe00b840-fe00b87b : mailbox@7e00b840
-fe00b880-fe00b8bf : mailbox@7e00b880
-fe100000-fe100113 : watchdog@7e100000
-fe101000-fe102fff : cprman@7e101000
-fe104000-fe10400f : rng@7e104000
-fe200000-fe2000b3 : gpio@7e200000
-fe201000-fe2011ff : serial@7e201000
-  fe201000-fe2011ff : serial@7e201000
-fe215000-fe215007 : aux@7e215000
-fe215040-fe21507f : serial@7e215040
-fe300000-fe3000ff : mmcnr@7e300000
-fe340000-fe3400ff : emmc2@7e340000
-fec00000-fec03fff : hub
-fec04000-fec07fff : core0
-fec11000-fec1101f : watchdog@7e100000
-100000000-1ffffffff : System RAM
-  1f7000000-1f7dfffff : reserved
-  1f7fc2000-1ffdfffff : reserved
-  1fff00000-1fff5ffff : reserved
-  1fff60000-1fff60fff : reserved
-  1fff61000-1fffc0fff : reserved
-  1fffc3000-1fffc3fff : reserved
-  1fffc4000-1fffc6fff : reserved
-  1fffc7000-1ffffefff : reserved
-  1fffff000-1ffffffff : reserved
-600000000-603ffffff : pcie@7d500000
-  600000000-6000fffff : PCI Bus 0000:01
-    600000000-600000fff : 0000:01:00.0
-      600000000-600000fff : xhci-hcd
-
-
-> Hmm, do not recall the background for that anymore. Why does the overlay
-> not work with that currently used DT?
->
-> RPi is an (out-of-tree) mess...
->
-
-It's about where the DTBs are taken from. There are two sources, although
-the result should be the same:
-
-1) raspberrypi/firmware GitHub repository, where the prebuilt *dtb and
-*.dtbos are. That's what is used in jailhouse-images.
-2) arch/arm/boot/dts/[overlays] in linux-raspberrypi. That where I can
-easily add them with a patch, but they won't make it to the boot partition.
-
-So the thing is that I can make jailhouse-images to use the dtbs built with
-kernel instead of the prebuilt ones. Doesn't seem like a big deal. I'm just
-aware of the chicken-egg dependency between jailhouse and jailhouse-images,
-so I started with this patch first.
-
-Jakub
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CAGdCPwsyLjLLaPEsnhr6bwO9ioXQRvSz2Vg%2B48ym-R5kV_V1nA%40mail.gmail.com.
-
---0000000000000fc50505ad38f329
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
-left:1px solid rgb(204,204,204);padding-left:1ex">That PCI MMIO config spac=
-e is for a virtual host controller that<br>
-Jailhouse provides. If has to be placed into a free range in the<br>
-physical address space of that target. If you relocate that range in the<br=
->
-system config, also update the non-root cell device tree. The root cell<br>
-will get that information automatically.<br>
-<br>
-Could you share /proc/iomem (without reservations) from your larger RPi?<br=
-></blockquote><div><br>I know, I was just wondering where that address come=
-s from. So it&#39;s just a randomly chosen address from free space? Or are =
-there any special requirements that do not apply for the other memory regio=
-ns and I might be not aware of them? I&#39;ll have to check it over again t=
-o share the error I was getting when I was trying to move it.</div><div><br=
-></div><div>/proc/iomem from 8G RPi4 with linux-raspberrypi 4.19 and (almos=
-t) default config.txt:<br>enable_uart=3D1<br>dtoverlay=3Dvc4-fkms-v3d<br>ar=
-m_64bit=3D1</div><div><br></div><div>00000000-3b3fffff : System RAM<br>=C2=
-=A0 00000000-00000fff : reserved<br>=C2=A0 00080000-00c5ffff : Kernel code<=
-br>=C2=A0 00c60000-00d5ffff : reserved<br>=C2=A0 00d60000-00f8ffff : Kernel=
- data<br>=C2=A0 1ec00000-2ebfffff : reserved<br>=C2=A0 2eff5000-2effffff : =
-reserved<br>=C2=A0 373f7000-3b3fefff : reserved<br>=C2=A0 3b3ff000-3b3fffff=
- : reserved<br>40000000-fbffffff : System RAM<br>fd500000-fd50930f : pcie@7=
-d500000<br>fd580000-fd58ffff : genet@7d580000<br>=C2=A0 fd580e14-fd580e1c :=
- unimac-mdio.-19<br>fd5d2200-fd5d222b : thermal@7d5d2200<br>fe007000-fe007a=
-ff : dma@7e007000<br>fe007b00-fe007eff : dma@7e007b00<br>fe00a000-fe00a023 =
-: watchdog@7e100000<br>fe00b840-fe00b87b : mailbox@7e00b840<br>fe00b880-fe0=
-0b8bf : mailbox@7e00b880<br>fe100000-fe100113 : watchdog@7e100000<br>fe1010=
-00-fe102fff : cprman@7e101000<br>fe104000-fe10400f : rng@7e104000<br>fe2000=
-00-fe2000b3 : gpio@7e200000<br>fe201000-fe2011ff : serial@7e201000<br>=C2=
-=A0 fe201000-fe2011ff : serial@7e201000<br>fe215000-fe215007 : aux@7e215000=
-<br>fe215040-fe21507f : serial@7e215040<br>fe300000-fe3000ff : mmcnr@7e3000=
-00<br>fe340000-fe3400ff : emmc2@7e340000<br>fec00000-fec03fff : hub<br>fec0=
-4000-fec07fff : core0<br>fec11000-fec1101f : watchdog@7e100000<br>100000000=
--1ffffffff : System RAM<br>=C2=A0 1f7000000-1f7dfffff : reserved<br>=C2=A0 =
-1f7fc2000-1ffdfffff : reserved<br>=C2=A0 1fff00000-1fff5ffff : reserved<br>=
-=C2=A0 1fff60000-1fff60fff : reserved<br>=C2=A0 1fff61000-1fffc0fff : reser=
-ved<br>=C2=A0 1fffc3000-1fffc3fff : reserved<br>=C2=A0 1fffc4000-1fffc6fff =
-: reserved<br>=C2=A0 1fffc7000-1ffffefff : reserved<br>=C2=A0 1fffff000-1ff=
-ffffff : reserved<br>600000000-603ffffff : pcie@7d500000<br>=C2=A0 60000000=
-0-6000fffff : PCI Bus 0000:01<br>=C2=A0 =C2=A0 600000000-600000fff : 0000:0=
-1:00.0<br>=C2=A0 =C2=A0 =C2=A0 600000000-600000fff : xhci-hcd<br>=C2=A0<br>=
-</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;b=
-order-left:1px solid rgb(204,204,204);padding-left:1ex">Hmm, do not recall =
-the background for that anymore. Why does the overlay<br>
-not work with that currently used DT?<br>
-<br>
-RPi is an (out-of-tree) mess...<br></blockquote><div><br></div><div>It&#39;=
-s about where the DTBs are taken from. There are two sources, although the =
-result should be the same:<br><br>1)=C2=A0raspberrypi/firmware GitHub repos=
-itory, where the prebuilt *dtb and *.dtbos are. That&#39;s what is used in =
-jailhouse-images.<br>2) arch/arm/boot/dts/[overlays] in linux-raspberrypi. =
-That where I can easily add them with=C2=A0a patch, but they won&#39;t make=
- it to the boot partition.</div><div><br>So the thing is that I can make ja=
-ilhouse-images to use the dtbs built with kernel instead of the prebuilt on=
-es. Doesn&#39;t seem like a big deal. I&#39;m just aware of the chicken-egg=
- dependency between jailhouse and jailhouse-images, so I started with this =
-patch first.</div><div><br></div><div>Jakub</div></div></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/CAGdCPwsyLjLLaPEsnhr6bwO9ioXQRvSz2Vg%2B48ym-R5kV_V=
-1nA%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups=
-.google.com/d/msgid/jailhouse-dev/CAGdCPwsyLjLLaPEsnhr6bwO9ioXQRvSz2Vg%2B48=
-ym-R5kV_V1nA%40mail.gmail.com</a>.<br />
-
---0000000000000fc50505ad38f329--
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/32baa43a-4e84-7f22-230c-bdc5fba33c76%40uni-tuebingen.de.
