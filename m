@@ -1,135 +1,167 @@
-Return-Path: <jailhouse-dev+bncBCW4LL4WQ4PBBL5Z6P4QKGQEULEJUDA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDAMFR7JZAEBB7WJ6P4QKGQEZUUT2KA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qk1-x73a.google.com (mail-qk1-x73a.google.com [IPv6:2607:f8b0:4864:20::73a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FEF12497E4
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 19 Aug 2020 10:02:57 +0200 (CEST)
-Received: by mail-qk1-x73a.google.com with SMTP id 1sf14944372qki.22
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 19 Aug 2020 01:02:57 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1597824176; cv=pass;
+Received: from mail-ej1-x63b.google.com (mail-ej1-x63b.google.com [IPv6:2a00:1450:4864:20::63b])
+	by mail.lfdr.de (Postfix) with ESMTPS id DDE0F249854
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 19 Aug 2020 10:38:22 +0200 (CEST)
+Received: by mail-ej1-x63b.google.com with SMTP id bx27sf8053222ejc.15
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 19 Aug 2020 01:38:22 -0700 (PDT)
+ARC-Seal: i=3; a=rsa-sha256; t=1597826302; cv=pass;
         d=google.com; s=arc-20160816;
-        b=psAq/49tVz2YGERefM5VUxl03eFoWyRlZCnm4YzoLXxiOln1mCi+YHuBkmn4gjo/dS
-         OFod59mxb/Ed4138LjHR+LXsFPEGU+BQfHruLheeqqTNnYnkAjvVssAwjz+GPCRhel20
-         fLiou3c2gakpOvuwaAAzmxp+SYWlLxlgzBVmYpgU/xa7SeiM4+hIsEuKxaCUEvoPt6aB
-         ccajgaMlvGzSGVOiGJHX+cY0w+FgbgsfZRmRqsTCWecy2wwhmwlEJ4SEoAnRHh98nF/l
-         WjuFb7YtaIA+SebXDJlbI7DCGekU9E/zMDAVqkGO8W7jKa7KfOFrtFN5Jo/kXweVAIYa
-         //Gg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        b=vatLbyMbb/O5Qr0rjSx88PvOvH80QrohFS+tdp2kGr7B6JHEXv1XROaKi91D2QkpnX
+         HHthJOBPBk+XNwVoyh330YAdc/Zjjq1uMroBkHCohdNv8lEZWCC70gp5X28ojEaXHAxw
+         mUVS5VHbSHyp0sAUAKmEYDcD7BcMZ3O8L8ixAP2jJoK2A/+9goIhAkq4gUJDTJnlf5LU
+         r7fmuWt8/HYdHl5hY7ppvHamDTkvcj7xv9ceDkOBCjgRICbbTYEXjgopHrKY3fT6wMT4
+         2Rhhg+iX4o3A/M8yux/wCbN4JfRIjiV7azbZxD1xXZkoqs35vz9zZZ554pOU3tvxBxEq
+         kgpg==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:sender:dkim-signature
-         :dkim-signature;
-        bh=yxnkA1ZGh8TDkQ8Io8dWzwRKLgMVetVEMM3FSei9SEk=;
-        b=asZkiGqd6GjtSzFFbojwiatztXIzg69um7VO7ZTYWaN8XS95/MFRqO5vX3RLgJVga3
-         U41Xb1arRQC1WGiSpM6BBoCL/fxwdNVXJGxA4wlRBKAPaR5uYC7fcptPJZy+/kjYcSE9
-         j6ghMN2j8tUB8+w0VeLQYj3gw/xIA5Oz5dlEwe8E6eE6s4TKccEgN3KYH1cCc5R0GXSJ
-         bm9Fhptff7BVOEYoLveIvk7YzOIJXJy5HqqssMiZB+nX9e6PYhKyXhhCDMI5u8MCR9O/
-         AiUJq+FFSpOBapV6wIQYlKN0fnYsskD5TxLvJi/KeLJ3P2H32VSKe7Wn3DkF5enXZ6MY
-         /2hg==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=Npr8hxz6;
-       spf=pass (google.com: domain of van.freenix@gmail.com designates 2607:f8b0:4864:20::233 as permitted sender) smtp.mailfrom=van.freenix@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+         :list-id:mailing-list:precedence:mime-version:message-id:date
+         :subject:cc:to:from:sender:dkim-signature;
+        bh=L6NqABdrZ1NYyHOoWzESADkLOlwjfGxdiSIdUyJjVEQ=;
+        b=lML8PqxxenBcjzgQBKpMwFc70RkHQax+9RvxNVfb495dqmw5fXiNR1Vo28cUSbU21/
+         5vIShDgbqqUQZdTWPLHOJwy2ftGdp8GXWiDqvXzXC1TBuSq6wYbYD7GditTZIqI7Kffc
+         1rH/ZEPy+NqkR9k3CxNXhzfbRMxC0w+5b7p7EpGmkkhgJ55IRrUmtcJuFejTnb/53uAU
+         JF6FwwS1MfoG3nfRz4eUMG94rs1DbN14UN3LtD5LHqbp8t6mG5Sgi7Irh5nXCq3eI/Ur
+         Hd/eM3k8toBIIUpWMOSVT5FjLsOXKRSY/KUPwPtNiTWzwvMcVbyirtKUJtBJHK+7oNYa
+         fMbw==
+ARC-Authentication-Results: i=3; gmr-mx.google.com;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=lIttE+pH;
+       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
+       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.20.89 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:mime-version:references:in-reply-to:from:date:message-id
-         :subject:to:cc:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=yxnkA1ZGh8TDkQ8Io8dWzwRKLgMVetVEMM3FSei9SEk=;
-        b=gz5kj/WaVkn1Kjot7j/1qbuoeuq/9krx9rsi/7p2KM0fUHSOoD9RqT2L7aoPE3ePij
-         9TeJEurfWaK7kCL+gzoFUk+U9jOHePPmRMPbpcGt7L3BRdFSrLJ4r7eZvJ6E17/0742b
-         DXJU4ZxBWL4k5SCrZjnux/As4ZvLE2VH0Ot8PFtX+Vxv3yddELVx2xTMknLAzALv2w1Y
-         w8tUTT9ovfrhxL6uLHle50pw9XToIcGkhD1ntaLoClPhU/8AAjgsUZvcX4VUA7pkka+i
-         2UhRmHsDdtKfUGmJ3V32ee9cYb9zb6uRkeBSvi60YwpRrmbX4n5T/IScDoEmyFsFt9pt
-         hNrg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:x-original-sender:x-original-authentication-results:precedence
+        h=sender:from:to:cc:subject:date:message-id:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=yxnkA1ZGh8TDkQ8Io8dWzwRKLgMVetVEMM3FSei9SEk=;
-        b=YVuTXqFCpwrYt5HUpHysbTljPLIbT2+Mhkx8cbHdScLpNQ54BbgpAlWapfQZdH00qF
-         OV1GSfmKp+wfJQI+4iTQrgdPojszkbBHH0Yc7fUK0fesRFjERrmH6g14gUWtKA51Sb0H
-         bE0k8W9QlhlSQhtke8H0sHuncYaJoRnk8EgR1nmM6kDTtlzSXMoTasH7Bc46erJb7Byt
-         tTjL6wpyspn7QtbxiKiC76ECEx+sY+4IOiAfh83WpMdFmKGemP7+VcFTxuCnptMw+97b
-         W6AQLBoxiaPheeUxldezvJl6HHltP7olPGXXNxXyyK1qG6q1R3jhLU7S+GsA8F4TQVFy
-         IU9g==
+        bh=L6NqABdrZ1NYyHOoWzESADkLOlwjfGxdiSIdUyJjVEQ=;
+        b=CJBoGhK25/JDFT/nbnhUApS1ohNSQ3I6DtzdsmgB7VdZmXTNJNr+WL5RfdSLnn9a1n
+         2TjlecGueUlpq9p/VZaP0QP2JT39ZfHfuHiSrFvUJAOo8spjGk86/lAiDi8oVKb4RLB1
+         dwdDQpDDxnfNsx5zHQZn+CF/FQR3VKbKzfTJTVXmyLA4wIbj4rw0Ww5tt1V5V0NAAEIC
+         lM7T7ce1khqh3yiBwzhc+VHMaKOLD2eErwc1vv5Lq4sHgQQ4J2IB/fjSdJWP0h6x+3xi
+         z6ga+nGPyjepKOgnID3hZvL4pKXYMiNMYR5tREbM3PzP4nG+Fk6LdeB8qZVSxcol/0XE
+         9Edg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
-         :date:message-id:subject:to:cc:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=yxnkA1ZGh8TDkQ8Io8dWzwRKLgMVetVEMM3FSei9SEk=;
-        b=GUWOVUBIwmeIRjuxBgNlaZOGtiTUzlQLSthHlZA3K8QrFyM1C/7z6iNyG3CnsL5P6K
-         eyJtEJMsm4YvG/pH9Q53fL8HajsYnfLMkui1imvN+LzeWjvWVDCizVZY2gPxPvkGIC9s
-         +cn0QVVZW2vV6Kax2KYNJD2AYgyWFHZ1tel8IWpooN9n01Ent3Bi5xcYxNQYYskSMUiw
-         0Fc5j2ejEI97+1B9eS8uVMs72nvAw2BBc3Ni989QLZtHWJSWBb7ahTl5o5d3JP5dl4cr
-         uM0gfUeAKwWVY2nOD40tNjVBmMJ2Q5s89YdqovOqKU/I7mmzu8SrVcfUMljNXQn8f9gu
-         Ip7A==
+        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=L6NqABdrZ1NYyHOoWzESADkLOlwjfGxdiSIdUyJjVEQ=;
+        b=XfJeBFkJ6Iv6g1024TqJIcsPbUug314nlHEqkE5oIJGEvG1SOPcAttOT3s/pkape/O
+         YpqlimNDWbTgDr5FlPCvLp0a67BOvRwjdN/xp9m75RjPG1cniU+5UE4xJ0dAMCb4xd+W
+         FWQrffLTEPlASo1N2bcMq/k4F38ZtuvbTbUeuMmGHGs51gC3+EOBtNvhpZNWZX0Ik0am
+         mV0Z1VVE8jjtNLC/ey5iI31Oc8GQvh4P65TmnT9qYDikItSWTndaQoKEHVYKGw4m1qkm
+         H2Ku85N1ElYVSMH8tPLkt6kmSppnZItCffiMJHoaSBWz+pKAWwLGh3sxL+5HuIgVIHcn
+         ZYHg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530Id7pioMEcji40+rEZMGflHPHfM1HJMtOOIHlN1AV+kjO6Z7aU
-	Me1L6LkbPOuwLIQl5mDssz8=
-X-Google-Smtp-Source: ABdhPJzs5iFkSvZRe6whF6yqPuz+Eedj40SHRXLqGQhhjzO7TCMicuPsijkQakYtVfDez+8GYVbKgw==
-X-Received: by 2002:ac8:6647:: with SMTP id j7mr21064256qtp.335.1597824176249;
-        Wed, 19 Aug 2020 01:02:56 -0700 (PDT)
+X-Gm-Message-State: AOAM531kRTIX5Ef8ZNq5c6opI5mnTBeXqO+1JmGf510PncJOU/KKpHSG
+	nwbEcjUAlsrEdBgySTqjSi4=
+X-Google-Smtp-Source: ABdhPJy05EdfppLvn6cP+NAvoiSD0cROuhxybKVUtdZwQoXx/sdkUF+EjOne+YnDCtfqDCv0yKxQAg==
+X-Received: by 2002:a05:6402:1427:: with SMTP id c7mr24414453edx.245.1597826302633;
+        Wed, 19 Aug 2020 01:38:22 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ad4:5010:: with SMTP id s16ls5730181qvo.9.gmail; Wed, 19 Aug
- 2020 01:02:55 -0700 (PDT)
-X-Received: by 2002:ad4:414b:: with SMTP id z11mr21803669qvp.116.1597824175648;
-        Wed, 19 Aug 2020 01:02:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1597824175; cv=none;
+Received: by 2002:aa7:c40c:: with SMTP id j12ls125538edq.2.gmail; Wed, 19 Aug
+ 2020 01:38:21 -0700 (PDT)
+X-Received: by 2002:aa7:d1cc:: with SMTP id g12mr24263461edp.385.1597826301832;
+        Wed, 19 Aug 2020 01:38:21 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1597826301; cv=pass;
         d=google.com; s=arc-20160816;
-        b=ayHEkFtWBxzu76B8RVdPJaIU3cQwuF5vbC5h8SNy4CkOdPa0yT/5UdwPeAFSMFk8sy
-         Rszx+h4ZNOHswM/or0sP8JSXOBAwZyzqtlxEwRN4yBGkqOd7oFqJgIGHZHUujIjKHAlQ
-         OutE/sLlk033CGzf2rfza4AKLFGAQ/qYWcJEK3ZivwgkI3s+CZcU+Tc0hPsTQLQ4vFOT
-         RA/UYZ0qFrpiy8OS9U1NXr7n0GspwP0DTtsbPTtqm0n1ewAG5Si1/pO1bSjIAZDwv93J
-         QmJZp85Kn29enE+Xt80kslYzUMoZ9+nTBNAnzgnQnc8lxCpqlQYGd7dfenyaRJyAIQTJ
-         B3fg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=MlagJKOZ1mFzjVKwgfjHzQivODHNzZEMLT+sEocBIWs=;
-        b=gTqdeLdPSEtj3PmdJVrEiEpbrRyU1Qn+v/Q2Uq0NRxKPe7FgbJbU0cvY3rBNkPWSon
-         QlFrTnnKMRccv+rJlw6K42viGbyHho17O2FHQMxkJMq8oSayS7HCrcas4ruHjMySe5Hu
-         YRJ9AKq4Hm6bHIVmk4JMJq8JDKjzxumL6q2vsefl+hbBLnfgb7QN2aBYOjz4GCItxv7m
-         +9COnwZbQ/XoDbRRFEGtsv8W3GCxFcZ8Bf/xlMbxmU0xlnxYF6oimPunVsK7A6tBrEha
-         Xi7Q8Z9wbS7SZS6CJ+UdraxAk1U0OvsnhM4TS1Kq6KfHl1HFTTJ7/cNqr/Jav4bqF6yB
-         mc3g==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=Npr8hxz6;
-       spf=pass (google.com: domain of van.freenix@gmail.com designates 2607:f8b0:4864:20::233 as permitted sender) smtp.mailfrom=van.freenix@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com. [2607:f8b0:4864:20::233])
-        by gmr-mx.google.com with ESMTPS id y14si1071160qka.6.2020.08.19.01.02.55
+        b=OAHqF+xjIdMMxK7YCJtAqpyxCT+wC5zNZEEPDqoU6bkJyGTDL35L094VZMcpIFaLV0
+         jrjVpwZfLO9sA9nCMdsBGaA9/ci+nvxUWSM4ifshfGIlTME/yeBI5Ka8aGohNXmvtjJE
+         T/kvK6LN5RAbrQwX1SN51/CXXMZ4BcmgQQHsrRHw8jpg7ixXHoCuDPV7zO4IJUqk0L14
+         iJtfcUU1c0h4Sgt00yLF9V8KKleOKu3BP3rVDRNB5cgMlBpuLekUxMM7l/0vyzjaOEtP
+         JRsTJ6rWXACyLTYyUnGXGBOUxvjC1QbCpmMuPTmarjv4zQcL3IOy/xCq1sw+3UKtnoSC
+         a2oQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:message-id:date:subject:cc:to:from:dkim-signature;
+        bh=FKPaWXIV47ou5VG2gkRE0LLKZL3NVP3G120gg1dfsWs=;
+        b=uE/2a9qwRlnFrMajZMx1tdrNTwG6xf7VhZva2u1cU+y8WC+EjZNtjJ7jBwgjhUgI+O
+         zScOoSh7kJFlp08cnc8Y1IO8tHA6vT2ru8+cgSKLyXxMvEiCQKzO38waWZ2uKSQ4Au/+
+         9lRi0vAXVQT1dbv2ohNXJ+mYg7vYLJTGO0EWgsZWMZ/lg/MybGT60ir+QJdNtzhdp0Mx
+         gzkAw6LWkW3Aeiikmbd0XVEO+kTOPZXJ7ZvMNdMe4DqGMtEkA0peb3VBV1ofHjkGenqi
+         oJoQUj1U1KXnhoTIHet5dBhF2YZlQzhA/vMhKheQokXERY0cX9IiPJMV8olxIK2jJFJB
+         L2xg==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=lIttE+pH;
+       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
+       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.20.89 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com (mail-db8eur05on2089.outbound.protection.outlook.com. [40.107.20.89])
+        by gmr-mx.google.com with ESMTPS id q14si704464ejo.0.2020.08.19.01.38.21
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 19 Aug 2020 01:02:55 -0700 (PDT)
-Received-SPF: pass (google.com: domain of van.freenix@gmail.com designates 2607:f8b0:4864:20::233 as permitted sender) client-ip=2607:f8b0:4864:20::233;
-Received: by mail-oi1-x233.google.com with SMTP id l204so20264864oib.3
-        for <jailhouse-dev@googlegroups.com>; Wed, 19 Aug 2020 01:02:55 -0700 (PDT)
-X-Received: by 2002:aca:4345:: with SMTP id q66mr2362934oia.151.1597824175168;
- Wed, 19 Aug 2020 01:02:55 -0700 (PDT)
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 19 Aug 2020 01:38:21 -0700 (PDT)
+Received-SPF: pass (google.com: domain of peng.fan@nxp.com designates 40.107.20.89 as permitted sender) client-ip=40.107.20.89;
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RSVxYxyge32vffI43t3aLRD8ML8KiiCAQwlH9ZpiZb0dzucMcUo4NFnh5mn7YGpyGqrS1VFbFSGFcpCNTJ7JfNxWdOH2H8zWsiyT3umBqbWKsABbZ1uJ2bF04KKUSO7+tUDxc8UZntHl93gr9CZCmULV94IpHKK3Id5oJG0TN9A0pNhijMfiiRJANBO7WXjVJdxeHF/haqDEcxcHyv+8EDbMaiXhYl9Y94geMWBf+CMfnv+ig/FxhCdXRIBq4h0YyTksd99RGLG2uGwO1scepLm4VGEZRi87Gx38w5wo5njMvRJ1kh7RhTdZoMhtoQMVKNUg08q/aLj71tKLEzgbQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FKPaWXIV47ou5VG2gkRE0LLKZL3NVP3G120gg1dfsWs=;
+ b=eXY/b715qV0b2kRjLCOICnKZkLx6hHY1mF6emjLtSyBFHu3+lYrkQtWKN6R/KcTmvrxzLV8DgcCWndo4P5ELIC0AVZHFyTW4o1jkSvhj+P64WU6vKmjJzNgfdGNnk8Y6BsG+XQkjJlCrFyxIQXT34cbX5jXcMy8OyZruvdDU0UqZXh3HxhBtbCcRN6w3Uf6m+O9vhKF+hn+K11hnig9DLFH+fIHn4Jk401bA/XZNXFZlWBfMviWptHHWXTMhn5nH3rfwVwqm8kWDJIiEKMT/NG0ZvTU8VQyA4849NbEGHu8EuKLgaiE7zsi+mXvVIbRy4OYPohGDZZp80W/sUJXYDQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com (2603:10a6:4:a1::14)
+ by DB7PR04MB4089.eurprd04.prod.outlook.com (2603:10a6:5:1b::29) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3283.22; Wed, 19 Aug
+ 2020 08:38:20 +0000
+Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com
+ ([fe80::24d0:f783:3c7d:e232]) by DB6PR0402MB2760.eurprd04.prod.outlook.com
+ ([fe80::24d0:f783:3c7d:e232%12]) with mapi id 15.20.3283.027; Wed, 19 Aug
+ 2020 08:38:20 +0000
+From: peng.fan@nxp.com
+To: jan.kiszka@siemens.com
+Cc: jailhouse-dev@googlegroups.com,
+	alice.guo@nxp.com,
+	Peng Fan <peng.fan@nxp.com>
+Subject: [PATCH] arm64: mitigate Straight-line Speculation
+Date: Wed, 19 Aug 2020 17:03:50 +0800
+Message-Id: <20200819090350.22368-1-peng.fan@nxp.com>
+X-Mailer: git-send-email 2.16.4
+Content-Type: text/plain; charset="UTF-8"
+X-ClientProxiedBy: SG2PR06CA0104.apcprd06.prod.outlook.com
+ (2603:1096:3:14::30) To DB6PR0402MB2760.eurprd04.prod.outlook.com
+ (2603:10a6:4:a1::14)
 MIME-Version: 1.0
-References: <d5e0edf5-118c-4827-b21e-37975bbddffeo@googlegroups.com>
-In-Reply-To: <d5e0edf5-118c-4827-b21e-37975bbddffeo@googlegroups.com>
-From: Peng Fan <van.freenix@gmail.com>
-Date: Wed, 19 Aug 2020 16:02:43 +0800
-Message-ID: <CAEfxd-_oGgCuE5CH5OaS4RjtbXKFW2vViOfaYVLeqGcJSAK8Tg@mail.gmail.com>
-Subject: Re: imx8: could run linux in non-root cell, how to copy data from
- host system or from root cell to non-root cell.
-To: Vipul Suneja <vsuneja63@gmail.com>
-Cc: Jailhouse <jailhouse-dev@googlegroups.com>
-Content-Type: multipart/alternative; boundary="0000000000005fe1fe05ad366e83"
-X-Original-Sender: Van.Freenix@gmail.com
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from linux-1xn6.ap.freescale.net (119.31.174.71) by SG2PR06CA0104.apcprd06.prod.outlook.com (2603:1096:3:14::30) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.25 via Frontend Transport; Wed, 19 Aug 2020 08:38:18 +0000
+X-Mailer: git-send-email 2.16.4
+X-Originating-IP: [119.31.174.71]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: d3a3efdc-5d18-4a0a-8495-08d8441b39ed
+X-MS-TrafficTypeDiagnostic: DB7PR04MB4089:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DB7PR04MB408998DFEFCBA8CA88E20733885D0@DB7PR04MB4089.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: SpGbuMnWZb0/DinVVyDAu81e7xxXgfWspDGMC1bfjWlnQn/ifHljRYS+t2plTQYu21COQTAhl3XIpDFE6Rn3i4E1wCLNM5Hiae5foetY50W11BRxsgYZnofFcKLTuoFtX/00Hzb5IpTot+zlyZw9Pzx+WAqVuIhPNST47paRxX3U0l0s9cHHMP3GWhrdNycBR0i+nLRNkinnHkFd8Mw7Q7bmOvczKEXEcdB1vsd6zSap1S0STt3b1slzGKMYCnd0dSkdhVwLdbiWM7Vza0TwClrevE8aqoQAQWtWw4gelbQRKBkHZF1IUo9iSeEkPmREsuCHUSOH87rfeHlTrVud/EJ+EooRAojDzo+I2f+RebgqyxsVrrDBMQfKrUSxmXLITEv5BrVPxVQfF+lrPXFs/Q==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB6PR0402MB2760.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(39860400002)(346002)(136003)(376002)(396003)(66476007)(26005)(6486002)(66556008)(83380400001)(52116002)(9686003)(6512007)(36756003)(6916009)(16526019)(186003)(5660300002)(8676002)(316002)(66946007)(86362001)(966005)(4326008)(2616005)(956004)(478600001)(6666004)(2906002)(1076003)(8936002)(6506007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: MNpAfik9Q4Ydc57QcADqkYwxkNBg3fcsjy7JuEPleVyUxJXClj+1Uj1Gpo2+tiPGwebEkik+GqmH8iZX+Wzl+kQuaLS4oKc6PkZtLVlzo9s7CWZGer6n3NMEq945ACHDqnBSvZp/4z9wdXqjJzavxD22OfqNA2YjZHohwA+9QTKqnPgWEyGi2rpjoGoQTWr5rcIiHN8mZtw8jzmmONKHdMZB0D/hxeq3BQgTW60X38elnvhw3K5i2rnMbjRUN5o+68NxBAFJR+jTAXDCJx77YoaT7aPweIxg+QYk8N0JVnd5NvswF3CGo2CvuD+UoVgyjPGpX1R4frunVCBP16L/YJVS2BZlOw7k/t38MT2y82MwSyszG6jqVzXuUQ5I0baSIRDZ234il6Wl5dDp+bm8TGe7PZ9vax+jSmsQgtl2YOE84CnoT0R5zNqz+dMPAVNE9R/kS8QAvNmfkWqn05xnBJg26CK5jeA8bdrLs8y4MCEF7gAu4/49BsfzCCM3FSI93VTOGdHTYc39iGbWb9WD6ydkoA3XJ73+RRFYzqZ3yMzbGRHLY9SUlsQ0CTs+tMRqUTHHPr7uEr5mae1n5pVFf2nBwlYqcO1dqP/W0nZLB1Kw4HcMtGWJzfWUhfEZ6AgaMpmjrZFR6UmF1m2hEdBUuQ==
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d3a3efdc-5d18-4a0a-8495-08d8441b39ed
+X-MS-Exchange-CrossTenant-AuthSource: DB6PR0402MB2760.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2020 08:38:20.2277
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: b6FGol6B4lWOhEr2Njt+iUZ2doEhcnUqXJILP1slF6T/b4VRLXVFBXge1BiU/e+1TOwXPS20SS3nUXJIxTVA3Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB4089
+X-Original-Sender: peng.fan@nxp.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20161025 header.b=Npr8hxz6;       spf=pass
- (google.com: domain of van.freenix@gmail.com designates 2607:f8b0:4864:20::233
- as permitted sender) smtp.mailfrom=van.freenix@gmail.com;       dmarc=pass
- (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+ header.i=@nxp.com header.s=selector2 header.b=lIttE+pH;       arc=pass (i=1
+ spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass
+ fromdomain=nxp.com);       spf=pass (google.com: domain of peng.fan@nxp.com
+ designates 40.107.20.89 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -142,159 +174,79 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---0000000000005fe1fe05ad366e83
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: Peng Fan <peng.fan@nxp.com>
 
-After your booted up the 2nd linux, you could setup virtual network using
-below steps:
-How to setup network for 2nd linux using network
+From Linux Kernel
+commit 679db70801da ("arm64: entry: Place an SB sequence following an ERET instruction")
+"
+Some CPUs can speculate past an ERET instruction and potentially perform
+speculative accesses to memory before processing the exception return.
+Since the register state is often controlled by a lower privilege level
+at the point of an ERET, this could potentially be used as part of a
+side-channel attack.
+"
 
+Use Speculation barrier sequences:
+ - SB
+ - DSB followed by ISB
 
+Since we not have ARMv8.5 with SB extension hardware, so only
+use the 2nd approach now.
 
-   1. After first linux boots up
-      1.
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+---
 
-      sysctl -w net.ipv4.ip_forward=3D1
-      sysctl -p /etc/sysctl.conf
-      2. After root cell enabled
-      1. iptables -A FORWARD -i eth1 -j ACCEPT
+Take from OP-TEE commit: abfd092aa19f9c025
+"
+It was fixed by Linux [1], FreeBSD [2] and OpenBSD [3]. The misbehavior
+is demonstrated in [4] and [5].
 
-      iptables -A FORWARD -o eth1 -j ACCEPT
-      iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-      3.
+Link: [1] torvalds/linux@679db70
+Link: [2] freebsd/freebsd@29fb48a
+Link: [3] openbsd/src@3a08873
+Link: [4] https://github.com/google/safeside/blob/master/demos/eret_hvc_smc_wrapper.cc
+Link: [5] https://github.com/google/safeside/blob/master/kernel_modules/kmod_eret_hvc_smc/eret_hvc_smc_module.c
+"
 
-   After 2nd linux boots up
-   1.
+ hypervisor/arch/arm64/entry.S | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-      ifconfig eth1 or 2 192.168.1.4 for the 1st linux
+diff --git a/hypervisor/arch/arm64/entry.S b/hypervisor/arch/arm64/entry.S
+index 27e148c6..1b6fa696 100644
+--- a/hypervisor/arch/arm64/entry.S
++++ b/hypervisor/arch/arm64/entry.S
+@@ -378,6 +378,14 @@ el1_trap:
+ 	ldr	x4, [sp, #(2 * 16 + 1 * 8)]
+ 	add	sp, sp, #(16 * 16)
+ 	eret
++	/*
++	 * Mitigate Straight-line Speculation.
++	 * Guard against Speculating past an ERET instruction and
++	 * potentially perform speculative accesses to memory before
++	 * processing the exception return
++	 */
++	dsb nsh
++	isb
+ .endm
+ 
+ /*
+@@ -522,4 +530,12 @@ __vmreturn:
+ 	ldr	    x0, [sp, #(1 * 8)]
+ 	add	sp, sp, #(16 * 16)
+ 	eret
++	/*
++	 * Mitigate Straight-line Speculation.
++	 * Guard against Speculating past an ERET instruction and
++	 * potentially perform speculative accesses to memory before
++	 * processing the exception return
++	 */
++	dsb nsh
++	isb
+ 	.popsection
+-- 
+2.16.4
 
-
-      2.
-
-      ifconfig eth0 192.168.1.5 for the 2nd linux
-      3.
-
-      "ip route add default via 192.168.1.4 dev eth0" for the 2nd linux
-      "ip route add 10.193.108.0/24 via 192.168.1.4 dev eth0" for 2nd linux
-      4. Now you could "mount -t nfs 10.193.108.xx:/home/xxx/nfs /mnt"
-
-
-Regards,
-Peng.
-
-Vipul Suneja <vsuneja63@gmail.com> =E4=BA=8E2020=E5=B9=B48=E6=9C=8812=E6=97=
-=A5=E5=91=A8=E4=B8=89 =E4=B8=8B=E5=8D=888:43=E5=86=99=E9=81=93=EF=BC=9A
-
->
-> I could run yocto bsp 5.4.24 image in root cell(SD card) & non root
-> cell(emmc). Trying to copy some binary (from host machine)to run on
-> non-root cell image but unable to copy via ethernet. I found ivshmem in
-> configuration for communication between cells. What are the steps to use =
-it
-> & to share data between cells.
->
-> Thanks
-> Vipul
->
-> --
-> You received this message because you are subscribed to the Google Groups
-> "Jailhouse" group.
-> To unsubscribe from this group and stop receiving emails from it, send an
-> email to jailhouse-dev+unsubscribe@googlegroups.com.
-> To view this discussion on the web visit
-> https://groups.google.com/d/msgid/jailhouse-dev/d5e0edf5-118c-4827-b21e-3=
-7975bbddffeo%40googlegroups.com
-> <https://groups.google.com/d/msgid/jailhouse-dev/d5e0edf5-118c-4827-b21e-=
-37975bbddffeo%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>
-> .
->
-
-
---
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/CAEfxd-_oGgCuE5CH5OaS4RjtbXKFW2vViOfaYVLeqGcJSAK8Tg%40mail.gm=
-ail.com.
-
---0000000000005fe1fe05ad366e83
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>After your booted up the 2nd linux, you could setup v=
-irtual network using below steps:</div><div><span style=3D"color:rgb(23,43,=
-77);font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Robot=
-o,Oxygen,Ubuntu,&quot;Fira Sans&quot;,&quot;Droid Sans&quot;,&quot;Helvetic=
-a Neue&quot;,sans-serif;font-size:14px">How to setup network for 2nd linux =
-using network</span><p style=3D"margin:10px 0px 0px;padding:0px;color:rgb(2=
-3,43,77);font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,=
-Roboto,Oxygen,Ubuntu,&quot;Fira Sans&quot;,&quot;Droid Sans&quot;,&quot;Hel=
-vetica Neue&quot;,sans-serif;font-size:14px"><br></p><ol style=3D"margin:0p=
-x;list-style-type:lower-alpha;color:rgb(23,43,77);font-family:-apple-system=
-,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,Oxygen,Ubuntu,&quot;Fira Sa=
-ns&quot;,&quot;Droid Sans&quot;,&quot;Helvetica Neue&quot;,sans-serif;font-=
-size:14px"><li>After first linux boots up<ol style=3D"margin:0px;list-style=
--type:lower-roman"><li><p style=3D"margin:0px;padding:0px">sysctl -w net.ip=
-v4.ip_forward=3D1<br>sysctl -p /etc/sysctl.conf</p></li></ol></li><li>After=
- root cell enabled<ol style=3D"margin:0px;list-style-type:lower-roman"><li>=
-iptables -A FORWARD -i eth1 -j ACCEPT<p style=3D"margin:0px;padding:0px">ip=
-tables -A FORWARD -o eth1 -j ACCEPT<br>iptables -t nat -A POSTROUTING -o et=
-h0 -j MASQUERADE</p></li></ol></li><li><p style=3D"margin:0px;padding:0px">=
-After 2nd linux boots up</p><ol style=3D"margin:0px;list-style-type:lower-r=
-oman"><li><p style=3D"margin:0px;padding:0px">ifconfig eth1 or 2 192.168.1.=
-4 for the 1st linux</p><p style=3D"margin:10px 0px 0px;padding:0px"><br></p=
-></li><li><p style=3D"margin:0px;padding:0px">ifconfig eth0 192.168.1.5 for=
- the 2nd linux</p></li><li><p style=3D"margin:0px;padding:0px">&quot;ip rou=
-te add default via 192.168.1.4 dev eth0&quot; for the 2nd linux<br>&quot;ip=
- route add <a href=3D"http://10.193.108.0/24">10.193.108.0/24</a> via 192.1=
-68.1.4 dev eth0&quot; for 2nd linux</p></li><li>Now you could &quot;mount -=
-t nfs 10.193.108.xx:/home/xxx/nfs /mnt&quot;</li></ol></li></ol></div><div>=
-<br></div><div>Regards,</div><div>Peng.</div><br><div class=3D"gmail_quote"=
-><div dir=3D"ltr" class=3D"gmail_attr">Vipul Suneja &lt;<a href=3D"mailto:v=
-suneja63@gmail.com">vsuneja63@gmail.com</a>&gt; =E4=BA=8E2020=E5=B9=B48=E6=
-=9C=8812=E6=97=A5=E5=91=A8=E4=B8=89 =E4=B8=8B=E5=8D=888:43=E5=86=99=E9=81=
-=93=EF=BC=9A<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px=
- 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><di=
-v dir=3D"ltr"><div><br></div><div>I could run yocto bsp 5.4.24 image in roo=
-t cell(SD card) &amp; non root cell(emmc). Trying to copy some binary (from=
- host machine)to run on non-root cell image but unable to copy via ethernet=
-. I found ivshmem in configuration for communication between cells. What ar=
-e the steps to use it &amp; to share data between cells.</div><div><br></di=
-v><div>Thanks</div><div>Vipul<br></div></div>
-
-<p></p>
-
--- <br>
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br>
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com" targe=
-t=3D"_blank">jailhouse-dev+unsubscribe@googlegroups.com</a>.<br>
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/d5e0edf5-118c-4827-b21e-37975bbddffeo%40googlegrou=
-ps.com?utm_medium=3Demail&amp;utm_source=3Dfooter" target=3D"_blank">https:=
-//groups.google.com/d/msgid/jailhouse-dev/d5e0edf5-118c-4827-b21e-37975bbdd=
-ffeo%40googlegroups.com</a>.<br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature"><div dir=3D"ltr"><br></div></div></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/CAEfxd-_oGgCuE5CH5OaS4RjtbXKFW2vViOfaYVLeqGcJSAK8T=
-g%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.g=
-oogle.com/d/msgid/jailhouse-dev/CAEfxd-_oGgCuE5CH5OaS4RjtbXKFW2vViOfaYVLeqG=
-cJSAK8Tg%40mail.gmail.com</a>.<br />
-
---0000000000005fe1fe05ad366e83--
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200819090350.22368-1-peng.fan%40nxp.com.
