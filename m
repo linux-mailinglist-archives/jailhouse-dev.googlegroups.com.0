@@ -1,166 +1,170 @@
-Return-Path: <jailhouse-dev+bncBDAMFR7JZAEBBVUK7H4QKGQECFWKGIA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDAMFR7JZAEBBV4K7H4QKGQEURFT5SI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x53e.google.com (mail-ed1-x53e.google.com [IPv6:2a00:1450:4864:20::53e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33B4524B317
+Received: from mail-wr1-x43a.google.com (mail-wr1-x43a.google.com [IPv6:2a00:1450:4864:20::43a])
+	by mail.lfdr.de (Postfix) with ESMTPS id F1C0724B31A
 	for <lists+jailhouse-dev@lfdr.de>; Thu, 20 Aug 2020 11:41:43 +0200 (CEST)
-Received: by mail-ed1-x53e.google.com with SMTP id p7sf664632edm.5
+Received: by mail-wr1-x43a.google.com with SMTP id j2sf457005wrr.14
         for <lists+jailhouse-dev@lfdr.de>; Thu, 20 Aug 2020 02:41:43 -0700 (PDT)
 ARC-Seal: i=3; a=rsa-sha256; t=1597916503; cv=pass;
         d=google.com; s=arc-20160816;
-        b=wHiIQfuCmdULq4bbpJ2Hw24VZ6dKi6LeeCFwUU7vjgGL9xrH0SrWsqhr5yGW21ioRN
-         9g2SUOYUDmIBhGco7N1UjirMdwGvPfXu9vjzPPO68uICndULdQJu/3fNv3TXhyvNiFfJ
-         4TO+xIsH27aPgGHtyeic6Q9wnG8UtAEVzUBU1OTaKOLYJGPCK6KqJL96IUkw0pQZm8no
-         bal+9dLeyiU+7IYVcHx9MpbG7qF/6oQHKJiTZhBVcY58SAdKEghBVI6uZeZ0alhu1F/X
-         /YA72mspkc8V3uwDpi8TT6fMZK2hPAgftrfBnC6+/sSpX3HRn06mM//RwRW5Zphxknah
-         AR2g==
+        b=C3GcgFy5ASkfZ0ngu/wn3GOel18WwYkYoAIbPpI82GO2CdEC69JX1qbsGpiONKWHBB
+         OuCEB0RGS0jNA/3s/I3hcNT9FR4yHMchyNEnDmVli0pTuWLU4g6xTN6xEXR4qhyUvsna
+         4llcqeir1cS4U50qeuXWLb8wImxBLoO8G23HiLEzX49GKaHUgPzCIyImSWRb6pGhXj7Q
+         wzg/mXejaCk1UkkJ7WFc8gxMH0Gu4DmVdUiqqX5rxahW0oGEmmpKHFYR0rRmo2IoAm/A
+         P6NDrCrI8y5EDelAVuk6XkBSLdxN0x6oVJmT+NRixjWkbt8GpgDj8/vZSwo9IKgCnsB6
+         jhwA==
 ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:message-id:date
-         :subject:cc:to:from:sender:dkim-signature;
-        bh=fgEKZFCxaZcXcicueGIICowcfsVxdA/OS9rLesv85fM=;
-        b=0BD0C2WWHAA6j4mCczwFcc3niu99oLkChI+6bm4sBxIo/q3xKQ7PotKb6FJSaY20Yq
-         2Nvrn/v5+YKWo41MisTPMpEP8oumoqsgNznjJN82ovONHpuDPT0N+gYJvDks0696LcRl
-         f8wcFSwGVB/KthZReS2VpHGzM0zRPsKEgGHgVjHrk5DjjFDcGMUnx0yoZeWALDj02BhS
-         bYJz6egxW9K+9WHaPIh0aNLemJmxhgFBX3IVKY5CPIBENKH+bcRAQks1pqTDXFzKK+Bv
-         TTalohDU+nncIZufo+/MvHEOaT1Wi52OE0zj0e1VscKi94hyBbcqMNs18DhADUs2h1Js
-         sdeA==
+         :list-id:mailing-list:precedence:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:dkim-signature;
+        bh=uPMi2HRg1mEug7Oru3+hap/og/lAvjPrsXGdIPhRoa0=;
+        b=Ofnzh2nmjdGDp9cw5q8R/QMT5HlUAT7Mfyt6AYhw420yNpgHKyfsfpMgzKcLfbIDd2
+         RLGCYQsXIP2bEqa4YnEM2soe0hIQR97L3Bufz3qLV4KPc2htcrW1xBvktPZAwlNG+HAT
+         MMH+wLL8RneWUpk8F7hqyvTkNTazuTBj/N7h3xgQ1OggOZy76UyNHV7yoOA9HoSkkUxz
+         tD5WaifOFERWIxXOyyX/7UCQ5F0UWa0dgP4rI9o3BvKt1anVEVujy26P02H/u0fQsewg
+         LRrCtJSwquXtBBUNTSP7W+tottwjtg4RJ9j4XnQLmS/zzlhPgpRddlX5tugvL8EGLkW+
+         R4hg==
 ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@nxp.com header.s=selector2 header.b=sOVzUlW9;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b="N607kO/l";
        arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
-       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.3.81 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.20.58 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:cc:subject:date:message-id:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=fgEKZFCxaZcXcicueGIICowcfsVxdA/OS9rLesv85fM=;
-        b=SbQw/fnrdICJf1WdOpjd0VtGxgr/aYWMqNn/gCMi+f/E3e8glmHgyktCN6/Qih0Qlz
-         FRqminRYo1drDAIipkPdndcRmElqpGOTJQz08tva6/yMlDJdhxyE7BW6AHUj9e6RDe77
-         Wg7Y4brNyjOWEgfvK1cXbzuVP0813fJLEnSIgEFhx0s7Hx/xBLJ818FlR3MBtt62WQzm
-         sfaEscEN+hE5gBDOuQpIWU3exAITnmrpSKEK/CQpA2Pr11dYP+o5NqBlM2ktdBSJtNjh
-         II57Hlq7r33jmhCwRLhR2GoEwAy6uL2N4OJnGT4lgZ6fkD3qR2paCTp+cXLuGIVYO9f1
-         sOZg==
+        bh=uPMi2HRg1mEug7Oru3+hap/og/lAvjPrsXGdIPhRoa0=;
+        b=rWe/RqW7GL/22tmQ6hRPm+0ECtqsUF2ocLiCrxCBMNvTQN4Hu6oIIWuNGLcRzplCmk
+         MGMVOCyflGe0eP8txbYBkcYiv4cqBB7Rr8y+bLypEyrBxRn94+Tw0AwA//g+e+Yg9ajR
+         lBMewhzo4WjVo6GOJP/m74scaBObM5a3rEoCC/t9C2e8OTmFM4SUg1GBnfGi2BVWYXdJ
+         o2fphHDNwkbl276UpxDmNaSKmknxFJvNaQFflPPwM232AoL+A5YxGvzf6vwczU3s1SFy
+         FEZayv7P64x59s8EbYsb9CF8hpr6WMJR3g/LNJcJAgJDcXyg+5n+N8Js6CTqVeNltv/z
+         Krhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=fgEKZFCxaZcXcicueGIICowcfsVxdA/OS9rLesv85fM=;
-        b=iYYEjTGH/CnEA2DtFT725cbQNg/Y47j20L9cbEthF5WBbEq6zXDzl0BmTFzlBfei7p
-         Iv00xe9DCec2dxXStpGwDIn++y9vC0pfR6HCCzP8ck/LmbiHYqWxAil4uLqHq2mujhp3
-         WUDuB0JPwLd7jOyIQ+ewWfI3xXf7u9VCZOdEXCXGTIsKDv0j3feB/oktdDPn+OoOCl09
-         sqf2vBjZTcPzbGC/1u9wxJsBwq0qMP1XDeQy92CnQTdsFwaC432OJUmaEAsLr3ZX5Qx0
-         F8fCfMHCTwlsRnSernULqMh+gMnMpzxAYJwbU4KcWjia4iRO7/9+ny0Sk9/I1FvIbMjY
-         79YA==
+         :in-reply-to:references:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=uPMi2HRg1mEug7Oru3+hap/og/lAvjPrsXGdIPhRoa0=;
+        b=eG5f9sCmPStUmU/rqsznfv9Jr3uxZ25GVZKL8NZsnHLy76MtBaK1YHsTlqBBbFNTEP
+         LihQqHTdwKctDWtWsDcPSEBRPJEMXk/aAVVMBTEmFd8r6JJpqdzGnyLeGOAnnm6dhMMp
+         0vPJ5ypNdJupqVZUQFzalyCqkyUJyVNLeBvU5rc0xxCo2Jh4bN9QtmrJvcACJH1SapAy
+         eJEAFYMsPESeq0dGWSsjEs0bY04MGl0IEXVjUdVGioLfT8eVBsFpPCozZXMphSUvlxrC
+         8za8B05V1AW+BTecM+Lf4jabrrUirgPJUmNGi87d1+9K6UE8BhtQnm651FLEWmxNelTU
+         3VGg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530pEkUr4KkeHk4cNArgZ3lnPy0NgPIErFWOIjJnZQpE1Tgf465t
-	2Ienqa2ZAgK0iIvj8dMdYsU=
-X-Google-Smtp-Source: ABdhPJwlHhfLNDbcrnxGBzqCiYYsE4ww5714z/S5/FxYEX54IH9F3GC8ZhbDjoH1n30BjCL7mqbaJA==
-X-Received: by 2002:aa7:da04:: with SMTP id r4mr2042617eds.265.1597916502888;
-        Thu, 20 Aug 2020 02:41:42 -0700 (PDT)
+X-Gm-Message-State: AOAM532C+3Z7LnKeU/tXyYlfgNMfkAoyxAY8CwoCVg2f6/FmSjIYm2AM
+	GqnyPDjo0ok6D09/jlORrsw=
+X-Google-Smtp-Source: ABdhPJxDmLdoTBb3xYUBYbN2zTci+S5RlkQCslqQAvte14Xy95VIBvpBA8pt7a8hfvqhHIxPxOj/BQ==
+X-Received: by 2002:a1c:7e44:: with SMTP id z65mr2816351wmc.13.1597916503673;
+        Thu, 20 Aug 2020 02:41:43 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aa7:dcda:: with SMTP id w26ls1520426edu.2.gmail; Thu, 20 Aug
+Received: by 2002:adf:b1cf:: with SMTP id r15ls1670745wra.3.gmail; Thu, 20 Aug
  2020 02:41:42 -0700 (PDT)
-X-Received: by 2002:a05:6402:6cc:: with SMTP id n12mr2144634edy.258.1597916502068;
+X-Received: by 2002:adf:9526:: with SMTP id 35mr2442482wrs.326.1597916502788;
         Thu, 20 Aug 2020 02:41:42 -0700 (PDT)
 ARC-Seal: i=2; a=rsa-sha256; t=1597916502; cv=pass;
         d=google.com; s=arc-20160816;
-        b=Mjs7t3DbLB5DsgiLLo3ACg9hUfRNBRSzJGBeIf+k+XlLn2dFyUVkBAEPjAylS/NOy2
-         W5Flf+o3p69zUeIvpQCj70kowIk2bC1joAtVZZ40hZHVZrFF1o0d7i2EZHwBhelLFgny
-         acDzp5U+A2u0MiVaTk84zP4OLnpFib2KWLuF9F2WIYiOOyXZpvd6/ywr7ylNZLD9CFBv
-         9OTXCNAh7SREyIjadEGM6iauHxRIln3q4RgLg0bkrw8XmE6DFQDnRnhqnwH7+PvRRHvJ
-         6b0hwoo9KL3YCYi/Ig8oxko6oJmHTuZFCrJHOdq9eA/8w4KkmlFDvRZCiKHODglyr74+
-         PNYw==
+        b=wy97KI9NC3f+MymvkRb10bt49MSHC+w2gUCr2NsclkY2ajpVncYA3PGrRZBuCYRnvV
+         xp+UiQa1Knnyrzn8HTWTPCV5RBeaeq2cx3ej32KalOKmTrq+ribdr7tPANaWoxB5ICe6
+         SfX5PBVNJH2Rmdzt5J37rD1eYFUwtsbsSRkAlsw8Rzl3Wbj9lIgmrg1tjuB7sMagc7qC
+         aFtLauLzMfbgfPCef6F+2A5f1fPLnKjvPwt59ejOhRvvVITr2zsYqyQUvbJkXDmv9KGN
+         WxG6zoKErdfqRQfiVwutVWYMLTRoX6P4bbXylUyTT063Tl4ltdYov9YxGLPyp7kxs5yC
+         HUBw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:message-id:date:subject:cc:to:from:dkim-signature;
-        bh=lFAtdDNyoCwwhSOHbRlzN+jVmZJXNboomkNllb0CYgU=;
-        b=f3v3otM0Tn32QgzaK0Omn35R347oPFU17bKkqgrSk2PWmkdeSAQTn16Ci9P6RHCfUv
-         6Z7799v9uiZpEpEtwcgmoHlnlgdcWzx+LnTUMM940jMfsFIfRSUgN4L5q8iS7v58VSsC
-         iED4yBinNuocUYML76rgWyuiT3l+UK0yMk++JBn0Q3NKitkQDF9Qg1XwXujZNOe1zfHR
-         nK3lOfMtzKW83SuuxEnGMTAa21JlPMfsmRx8/ToC1h7sZngbYEWgFdgh3WMbeOJXpkJ1
-         wI+DUjbnwvTng+Dm+CYvbkGYZIKctqbQzL6PH6obWIqYYnxQKLQ8ChWKXy/DTGg64ulu
-         eJNQ==
+        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
+         :from:dkim-signature;
+        bh=71smnUKnqzAQXXJlqBdWaHGS7ZYXA/lDTXfP0svBNi8=;
+        b=BiG0hGVBRe2cCFu+hKKwTeeoeYfQIEiPUC6WixdhD4rWlDXs5gazEPjdUCU5ODOKc1
+         1wA47OPrwYRybLh9euW4h/Wwfr4CRptNZVvfPxVbuy3lyyOIC5amCDmU8Uy8Gs6miRiN
+         jPMmcMCiX71L5OdV0+n8ACUOAObMuP8eopI91jHPyJnR7JCCTsld67ZbOAM9nDRmgf0P
+         FAW0LLa39STMrWmDR1E0C1tm3fjjrSTKe1E7p5wr4PiTcCY6+9O3kpe++Rf0XioE44tS
+         QQETV19LT8z0yWHEAFnqNTHDqXoGdMQQ+09z4Wi3aynpGda/VUK06H+vgYZLbgzsdcei
+         eDqg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@nxp.com header.s=selector2 header.b=sOVzUlW9;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b="N607kO/l";
        arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
-       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.3.81 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.20.58 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
-Received: from EUR03-AM5-obe.outbound.protection.outlook.com (mail-eopbgr30081.outbound.protection.outlook.com. [40.107.3.81])
-        by gmr-mx.google.com with ESMTPS id h10si56635edn.2.2020.08.20.02.41.41
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com (mail-db8eur05on2058.outbound.protection.outlook.com. [40.107.20.58])
+        by gmr-mx.google.com with ESMTPS id j83si421718wmj.0.2020.08.20.02.41.42
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
         Thu, 20 Aug 2020 02:41:42 -0700 (PDT)
-Received-SPF: pass (google.com: domain of peng.fan@nxp.com designates 40.107.3.81 as permitted sender) client-ip=40.107.3.81;
+Received-SPF: pass (google.com: domain of peng.fan@nxp.com designates 40.107.20.58 as permitted sender) client-ip=40.107.20.58;
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=N2fvShmtdYPUk/YWoENqkE0VMlKhrMUifW7GMofibBku5pDwHQxXRPIM/g3cedENU5ySf0utyCAv1AYlGNlEHPmquxJfAjErY+0xwhI8a0nZzvxOlt61Xa4RaR4VYIBWdpLnWHOM7DKhX6738GELsB1O7/IAOgRRZrUOqlG8k+JupVQWfuVggABY11hZ8BelF+uiVnUMZQnmkiUrUypNWW/Ci64VvY94pGdwRajQ6IQ11rQEQLfzKGtfb+M9jZ4o8sCAHJeDBNsrI9qpcRIuftASQpp6PKMVpXi2KY7fFaadhk2by9wCpg8QLf7XV/ERxOQUQrPjBvX5rdkpmtJhlQ==
+ b=P5YzqsXJnhQjVb1norLH1u2H2bw3BU/HWecioP+SmdOxDGWAkgWKZElElflW7EUnjQI+YZdj1kCUIULgNc/i/yx1W0PRaCDgFlxSOglwk8226Wv/KffMmXvah5db6IO8K1ytzi8DHsu/zlti/yWhJ4NvdXQ9R9JviTFfL8dfPO5otV/f1Qv7u8H5JNOGwgLtBm20sLV8+fQL39QlUcGf4mP/W46eJ4LH1BEwbo13UQzt71dUWCHL2oC0XSXPYZnqGGD5Nk9Q+3d0qG4amHNgZ4j4ytqO2cV41f7BBC3+4C2hd3yc8kx7RfqrsLkTzxavftYaW5H+NZPK+HKxXp14xg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lFAtdDNyoCwwhSOHbRlzN+jVmZJXNboomkNllb0CYgU=;
- b=QS7ibVh9rD1ARltOBs7btIpBuuU5qoGmiwOyhLI5bMWw3wmzT3ZFMKcQDYGr/uHxrvIPM/Q/M9qqaWkfkprhjah8CXl3LuuuY13mX+elB9rnR1bgWXby0FLtNAGy7t3YUnqZPyAi8aKodQztWNAOv+w1/Q+J/3Wf+Jv+ZXn6fd9OW+HcfOuOkiNKN1n4pd+61BnKFz0nxZAiOziSfCI0xmJu/+S5GJ9XymI/1aVAl0MI5lLbpA8Ao+7Qso6AGEaLVH9ZYcrGFl0zQdPPqx9o6JC3saylLn5/ALzUULwV+7T1a9TlEwasGJ1rQRVsU97rhpLZkoBEmt00rmbAkQnkwQ==
+ bh=71smnUKnqzAQXXJlqBdWaHGS7ZYXA/lDTXfP0svBNi8=;
+ b=V3Mt13z29G1evIuvxlw9uFmAMTPYOLa2BgOofv8+Rm3XVhoZfYtRmtVucfhphKKphFQVCcla5YdjcJ5MM+v7bpzwgmT9jPNGE0WkJWM5zghxo5ArN6PyC5G0w2qxIEyrXYbZlT+hOiMuq9dCDOXKDQgBug8apOeNDJhGmp8FWIovPRe5YVlwgfU93rxAuKDmtOfOsaCRtFSau5ZeERq42Et52AP/4vjFJS34NSd7YDJfO5WNk6lJh8GOQ5URfxQLzxqrO4twZ6Qjk1d5qLydZxWyRP4adUxNvp6rLtUK/Ah8NrncjBE7+pRJYWkRTLL3ar7pgAiKYHJq/wLg/ZEZxw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
 Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com (2603:10a6:4:a1::14)
- by DB3PR0402MB3660.eurprd04.prod.outlook.com (2603:10a6:8:c::21) with
+ by DB7PR04MB4235.eurprd04.prod.outlook.com (2603:10a6:5:22::25) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3283.23; Thu, 20 Aug
- 2020 09:41:39 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.24; Thu, 20 Aug
+ 2020 09:41:41 +0000
 Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com
  ([fe80::24d0:f783:3c7d:e232]) by DB6PR0402MB2760.eurprd04.prod.outlook.com
  ([fe80::24d0:f783:3c7d:e232%12]) with mapi id 15.20.3283.027; Thu, 20 Aug
- 2020 09:41:39 +0000
+ 2020 09:41:41 +0000
 From: peng.fan@nxp.com
 To: jan.kiszka@siemens.com
 Cc: jailhouse-dev@googlegroups.com,
 	alice.guo@nxp.com,
 	Peng Fan <peng.fan@nxp.com>
-Subject: [PATCH 1/5] arm: irqchip/gic: Ensure we have an ISB between ack and ->handle_irq
-Date: Thu, 20 Aug 2020 18:07:03 +0800
-Message-Id: <20200820100707.20013-1-peng.fan@nxp.com>
+Subject: [PATCH 2/5] arm64: no use FPU registers in jailhouse
+Date: Thu, 20 Aug 2020 18:07:04 +0800
+Message-Id: <20200820100707.20013-2-peng.fan@nxp.com>
 X-Mailer: git-send-email 2.16.4
+In-Reply-To: <20200820100707.20013-1-peng.fan@nxp.com>
+References: <20200820100707.20013-1-peng.fan@nxp.com>
 Content-Type: text/plain; charset="UTF-8"
 X-ClientProxiedBy: SG2PR02CA0073.apcprd02.prod.outlook.com
  (2603:1096:4:90::13) To DB6PR0402MB2760.eurprd04.prod.outlook.com
  (2603:10a6:4:a1::14)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from linux-1xn6.ap.freescale.net (119.31.174.71) by SG2PR02CA0073.apcprd02.prod.outlook.com (2603:1096:4:90::13) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.24 via Frontend Transport; Thu, 20 Aug 2020 09:41:37 +0000
+Received: from linux-1xn6.ap.freescale.net (119.31.174.71) by SG2PR02CA0073.apcprd02.prod.outlook.com (2603:1096:4:90::13) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.24 via Frontend Transport; Thu, 20 Aug 2020 09:41:39 +0000
 X-Mailer: git-send-email 2.16.4
 X-Originating-IP: [119.31.174.71]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 4392b51c-368b-45de-df1b-08d844ed3ca9
-X-MS-TrafficTypeDiagnostic: DB3PR0402MB3660:
+X-MS-Office365-Filtering-Correlation-Id: 73740b71-3543-49a2-390c-08d844ed3e04
+X-MS-TrafficTypeDiagnostic: DB7PR04MB4235:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DB3PR0402MB36600BD56A0C41756D50387A885A0@DB3PR0402MB3660.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3383;
+X-Microsoft-Antispam-PRVS: <DB7PR04MB4235B157B0969807CEB802E4885A0@DB7PR04MB4235.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: SpkI9p/Og26pjno78nidg0lKdSiUwwu2aTjMc5VEDiUORLmWbYh/JANwU4eiau3U1ZDdw3bWEHPxjucKbOXI6tVbATvLV7nENMDqXSEkVJGc2gGZBuwhbbvL9+sCkGI0o4UtnSyvcsipOHNMz+vPbTHGPGxMSnJIaUdRo6MpgbE2NjQ/kGSTxDmetK+ca08g+yxxHzmuiSXRBdzehp+CT9vSj8R50cA/7G4MGgi7fk7TfXdDHztRGpHqkJxrs+1q6uTyEvKV7EfNQxna6nhkGANO1FIymMuiJXR9nOvnBKbWI1DYdzXL1BA2xqT/Szm6FhBWdD2pxXIuvG0TtWLo/Q==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB6PR0402MB2760.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(136003)(346002)(366004)(396003)(376002)(6916009)(66946007)(9686003)(6506007)(83380400001)(66476007)(52116002)(186003)(8676002)(66556008)(6512007)(8936002)(6666004)(16526019)(4326008)(36756003)(316002)(5660300002)(2906002)(956004)(478600001)(6486002)(86362001)(1076003)(26005)(2616005);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: J5XDAFvyug0NIfK39ywvlu9bXiwHe8mfTfqvbdNwZaLWjFCSSQE1MmomC8uVRyNNKYz9ShWZheP8kqjLPCFwhH/jAJi9AJC81k5hNrCQHXIEPqtKpy6x3paVZjxQ4plb39KVKMgvTJPaRZ46rYcBlHT7eR3Dk+TJiu571qeBh2K/FTDeUASTg0IqW0l7SrADEhYHT8bYR6HvSTmfUaKJwfIIyQXngRIKvbu1m4bJfhYQ8RiIwNzVfF7mDzpWv+Sr7ZuDKvR0+GTJSfnJaHKn55Gfh66azYKG4TwM6v9nOnhj/ZwrfSjQo7zleWUp5C88he2h+ND0x3fCH78y+ONjtqTiD2Qhptp6hOpeXPZwwu1Ff3vPhnC3BoDTCYF6W4QFMbnJh3HPOabHO2DTDG6VnDPE8G/jsxzuvtbsvRPe33RWAQupsOKrgq5JAIjTSGFjz/yS/y6wcMZs0WHwTLrclYX59u/SlFMan3w1AqLJky8Im2iaHScjS5pYdX4LkgTsGrujX0JoravTk45rKV+f8BotAWZ0oyt0emN5+AIrtm5BVt/uZyhjZh1ElALc8FDm0J5KGA1yllT5S4mGqKYAzTeJ4vt/WH+3HakEXnr1t9eKEayt0u43go0vnumDEN38sme9zKP6HtBXzxj7zV5WGQ==
+X-Microsoft-Antispam-Message-Info: nqSxe8lPgtdbPUsd/gUMnxkD+u/VDW9JUKN25PG7fqOIIihCUc2EVOJtFQnoRirj+G1m7VMCjIhMqsYyGYvYCS+Kw0QrFERCIPGewFwuuTgqdcBjDISeiDIivH+4KX4QJSUQNs+sijq+pPgYF090ZXNfm8jnLfN4/Z1QCW34x1KHfGhJ+cKqxiDIedRQsGaETFU/ABAKOmSyr9tQYBByFzmiSh1fMr6ImJ/QJ9c6owLFsR0Az1qSOFUJoD+AcvhltxbqAysxDl2pqIdlZIB7JOuPnvSZCJspwNABi9ZV8XG/OmYxt5UDHx9uWWhElSRi7aXgKoFRmfp+y71TG0tWyg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB6PR0402MB2760.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(346002)(39860400002)(396003)(366004)(136003)(16526019)(6512007)(66556008)(2906002)(66476007)(6486002)(5660300002)(4744005)(36756003)(8936002)(86362001)(9686003)(2616005)(186003)(52116002)(26005)(8676002)(6916009)(956004)(6506007)(478600001)(316002)(66946007)(1076003)(6666004)(4326008);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: 8ZpNybAsewGmZLsEF7AYDuyLdVTlzKcsn6luk0MW7seqffsHHMiF1JlT2GfKLc0czh6Ka5i/zi5uNJCTUjUhiQ67fP0GDY+trMvEQAnihlz2bGlA0RBAMRbHWw/kI91RpeJBQkvXwxYqUXQe9iKaOtvAIlSCm7+pTkkQez24zOGyteXWD2+ZZ+aWU2akmf97VrMvkms6EXBGl72qgJT0vs9eropcHEj3xhjtheB+tbgTL8lhwAab+SptsW4k7chGh4TI+LNurKEtuLVCIqWgN38Vo/lKxsDIW8CxnpSRK/sQfeigkmuSHs7rPOkLwEt+jL2zh16h0Seo2KqAfD47LPEjekc5V7QNK+bQ70agygZP+vVuU7fl0qTL2ab66MOW89pVkqdBtqGxmmdX0Xxe1/PuuSAzeBWUkpEh3JPmBEjsPo4drsTUu1BAZ2uzPxmtTjedI+WeXOAcPKEYLvE8OeZuHMgz9aKb98J/K4m2dUoRWWVsPj6j2u8kg+pLzy2WPSqe4Ltxbfm/yM6dwkYaRXWwX1lkyA/+XDkSIVVSFp1jWrrifoS7c9xIUu7yrOCd7NhBdcEGi1iKtEFGE2GYUZI83UakKrsyq3BKBTege0LCTelOf/v+EyDMsqtdl1FqdPR5k3OvIdTh6gBXUV63ow==
 X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4392b51c-368b-45de-df1b-08d844ed3ca9
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73740b71-3543-49a2-390c-08d844ed3e04
 X-MS-Exchange-CrossTenant-AuthSource: DB6PR0402MB2760.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2020 09:41:39.2686
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2020 09:41:41.5695
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: daLT7koeZBaj64ExSvenDGLZMSu4eQ3nbZJsZI2TxqKUCROBJyG0G5g14+ypJPk7/T9PtbxWvm1eahvdoAnw6g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB3PR0402MB3660
+X-MS-Exchange-CrossTenant-UserPrincipalName: WgiVT2cttG8U+YXDN8sTm09JMsTJ4TwchD7HUUljfu+uQpMO75pYhsYWLPmR+4VSlq0Z3U6AlHe/ouoKLsfIKg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB4235
 X-Original-Sender: peng.fan@nxp.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@nxp.com header.s=selector2 header.b=sOVzUlW9;       arc=pass (i=1
+ header.i=@nxp.com header.s=selector2 header.b="N607kO/l";       arc=pass (i=1
  spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass
  fromdomain=nxp.com);       spf=pass (google.com: domain of peng.fan@nxp.com
- designates 40.107.3.81 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+ designates 40.107.20.58 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -176,65 +180,33 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Peng Fan <peng.fan@nxp.com>
 
-The whole commit message is from Linux Kernel:
-commit <39a06b67c2c1>("irqchip/gic: Ensure we have an ISB between ack and ->handle_irq")
+Some compilers default use hardfloat to generate instructions,
+so it will use some FPU/NEON registers to do some optimization.
 
-Devices that expose their interrupt status registers via system
-registers (e.g. Statistical profiling, CPU PMU, DynamIQ PMU, arch timer,
-vgic (although unused by Linux), ...) rely on a context synchronising
-operation on the CPU to ensure that the updated status register is
-visible to the CPU when handling the interrupt. This usually happens as
-a result of taking the IRQ exception in the first place, but there are
-two race scenarios where this isn't the case.
+However some inmates might use FPU/NEON registers do some
+calculation such as vector/audio and etc. So we need to disable
+jailhouse use these registers. Use `-march=armv8-a+nofp` for this.
 
-For example, let's say we have two peripherals (X and Y), where Y uses a
-system register for its interrupt status.
-
-Case 1:
-1. CPU takes an IRQ exception as a result of X raising an interrupt
-2. Y then raises its interrupt line, but the update to its system
-   register is not yet visible to the CPU
-3. The GIC decides to expose Y's interrupt number first in the Ack
-   register
-4. The CPU runs the IRQ handler for Y, but the status register is stale
-
-Case 2:
-1. CPU takes an IRQ exception as a result of X raising an interrupt
-2. CPU reads the interrupt number for X from the Ack register and runs
-   its IRQ handler
-3. Y raises its interrupt line and the Ack register is updated, but
-   again, the update to its system register is not yet visible to the
-   CPU.
-4. Since the GIC drivers poll the Ack register, we read Y's interrupt
-   number and run its handler without a context synchronisation
-   operation, therefore seeing the stale register value.
-
-In either case, we run the risk of missing an IRQ. This patch solves the
-problem by ensuring that we execute an ISB in the GIC drivers prior
-to invoking the interrupt handler. This is already the case for GICv3
-and EOIMode 1 (the usual case for the host).
-
+Reported-by: Michal Hanak <michal.hanak@nxp.com>
 Signed-off-by: Peng Fan <peng.fan@nxp.com>
 ---
- hypervisor/arch/arm-common/irqchip.c | 1 +
- 1 file changed, 1 insertion(+)
+ hypervisor/arch/arm64/Makefile | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/hypervisor/arch/arm-common/irqchip.c b/hypervisor/arch/arm-common/irqchip.c
-index 4172934a..c50ea18a 100644
---- a/hypervisor/arch/arm-common/irqchip.c
-+++ b/hypervisor/arch/arm-common/irqchip.c
-@@ -193,6 +193,7 @@ void irqchip_handle_irq(void)
- 			arch_handle_sgi(irq_id, count_event);
- 			handled = true;
- 		} else {
-+			isb();
- 			handled = arch_handle_phys_irq(irq_id, count_event);
- 		}
- 		count_event = 0;
+diff --git a/hypervisor/arch/arm64/Makefile b/hypervisor/arch/arm64/Makefile
+index 1eb961d2..0718994d 100644
+--- a/hypervisor/arch/arm64/Makefile
++++ b/hypervisor/arch/arm64/Makefile
+@@ -11,3 +11,5 @@
+ #
+ 
+ LINUXINCLUDE += -I$(src)/arch/arm-common/include
++
++KBUILD_CFLAGS += -march=armv8-a+nofp
 -- 
 2.16.4
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200820100707.20013-1-peng.fan%40nxp.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200820100707.20013-2-peng.fan%40nxp.com.
