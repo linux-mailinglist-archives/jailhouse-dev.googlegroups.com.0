@@ -1,118 +1,126 @@
-Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBJO57X4QKGQED4RA3ZA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBL667X4QKGQETBOLUKI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pg1-x538.google.com (mail-pg1-x538.google.com [IPv6:2607:f8b0:4864:20::538])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1123224CE3D
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 21 Aug 2020 08:50:15 +0200 (CEST)
-Received: by mail-pg1-x538.google.com with SMTP id p2sf501670pge.20
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 20 Aug 2020 23:50:14 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1597992613; cv=pass;
+Received: from mail-ed1-x539.google.com (mail-ed1-x539.google.com [IPv6:2a00:1450:4864:20::539])
+	by mail.lfdr.de (Postfix) with ESMTPS id 906F224CE47
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 21 Aug 2020 08:52:32 +0200 (CEST)
+Received: by mail-ed1-x539.google.com with SMTP id c16sf382686edt.2
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 20 Aug 2020 23:52:32 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1597992752; cv=pass;
         d=google.com; s=arc-20160816;
-        b=Ss03uB0Izbv7fGCgGP66m/27x/9LRchg4RvCl8w6O9fQyAhDSXpJ9O0Vl5swSuzvAt
-         eXF/B4fRvndZ6qRuvO4ZFDfZrFuZ1O7aqxaaeTFrmul+MMeN2k5BxZqlbc6SdBMzz5Wn
-         cT7lA5ZE5a0qJXcCq2QjLYg1jjJaZCE92grW1SfpvP+YTD0qcv3/2Eqjosv2iVrvcrjg
-         67pzpdMlKTzesj/u97iPLwGQDCJVp22Q4GXJxeRz/z3g2Yz7Dw1gkVtnFtRHsDVoMZ7A
-         Vp2+yxjFsQlMBDVwmWAJO7+pvva/OZRmNkmwz4de+8UFjq906xDCXd9R1X0TWAyb1SPy
-         qrpg==
+        b=lOx2NVY5DP//PR8LFG/51s9OcmQyItNTVoJyHSzdzKJPmBuL5TowDdi+6L30Qw7aQI
+         VWfWjZaP3jVzIn72w0768z9aW4rtIgpBWMY5iiPJKphxvb5ZxG0lEKZKqpNHEwOztmI4
+         3ihdkjn493+LoeO680hS1Xv+POHOpkI4Rg2hivZdQmv6kp3r0vc9g32CGIozmJwYvA3F
+         0KtHTRkw2sibU/JAptIABH3Aq7Gad7qIazheTVsz9eSjWXzaYnBdgdHw5OrJDU6Pz2+n
+         Ynw4GRE569P/l1nr9+iP9up2kRX+DRLB3A1zE9TD5Oa+0vRtg5B0h3SYXJG9DGWKIens
+         weAQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:subject:message-id:to
-         :from:date:sender:dkim-signature;
-        bh=8gtNyp/GY88VWSJ2UaBPNvBgS8C39GSkKoVhHdaCBvs=;
-        b=MDKpQYzDJEQ0DmeYkwAUc/9fbICsgbGfD3RC6el/pYyspFmuxrMKKXDXlFbDZjoa2z
-         4LyJkTGVhCMKsI74yVzXm3h//9/iUSmlz9Db01e5YwaVOASTebRmom2nzGPnzy+lDumB
-         mt10LKf41aRYRUgabyM0brvVqDeXfMsx3zx2lR3k8f5y8vnUKvYvsyAQNOzAeQ3EU7s3
-         f2kGdA/+Rw16VXaTP3aBgekWHNaeme9DIoLQDpYka8/U5JRby1JdHNwQZbsDHlJuWGqR
-         R0f/P8kSuvwBTvJTVcHsp/81GGij7sAGbXl+v7rPOSL/v+R1JEHTJg7sJBnLR/GPdepW
-         twNA==
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:cc:to
+         :subject:sender:dkim-signature;
+        bh=bk7h/Bmt0bNBLSUgek9hDyJg1GZIJRXbEB31PyIWFFs=;
+        b=GO7NUBwVbdLsYka5lmvEB/TP9YCfwsGJebVg9bKL0oe/hxSlG+un55KYLF19Wi22yU
+         lIsm41QYvsu8dhrr0gM4J/sfN0eQsbPfiKuoMmbzuW7OuBH3uQlESQxRZ3KIptOGMbCl
+         DXiLAcb/2ju2ks/Akes+RXfFJJH5nBykUBB1bAxBtiTmzRFwTSI6o8d5J11N/bLobxjo
+         pkwJUPzzvWbVn1cY6QQS6mMUeTXXR7PM8fdkPpY53jbAk8iqfVOEivaoBlk33QprjCXM
+         WqDvghHHeHkALUczP76Y8rwSidb9VgOeH5cJuxmh+yQVpcgRMd/zgi4RwkzrXIStwcaF
+         dGCQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=kZGNzfu5;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.203 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:subject:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=8gtNyp/GY88VWSJ2UaBPNvBgS8C39GSkKoVhHdaCBvs=;
-        b=TVXKQaTh6brzEUSjx/AJ9Jm/e6tYpzmG2ColdXL+9YemBE9AAymtSJAk2BaN/We2fc
-         D7vgbVK9jNGQPKsAAamrbjf3V87l//96TlrdNd1v5XxC9Ot91fowDCh6qKGcXP0Zwdj2
-         2X7j+muLhBW214+meXc0v8rySHH23owDayrntZAXX8Z+isULuH8+6Y1GDRQXimnBlYoG
-         /H0bYAb3Lu+WxOMaNcX/Fa1veZ3brk+DDRL/dNMxDrvJdFuBn8NQP5yuZwC6e2W4muzw
-         2nGnDGt2irC4qY3xC/TyO0jQmOC9Za2Lc0ovjmG0LUji1iYIWbrBKodfwoT++hvX2aBQ
-         iCgg==
+        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=bk7h/Bmt0bNBLSUgek9hDyJg1GZIJRXbEB31PyIWFFs=;
+        b=rwyzea51XF4RMOANMtMyFzGG/mjWoTmZWSj7Ra0vAMjfj+0sGn37MPMv25vkszAhqF
+         8t/AG0gT6f9mYJ1ccv3tCtlL2RawHyvznoJo0rhRm/8IxWPdfj6YcHr6yWMcDQGVKQYm
+         +BaD41V1jH1cMC2Iw6IfJ0B7dd4F8ldAhQEgCcFfGE1yUamJoRyaBxiz/4YK1eHYH/nL
+         7RTyN11ZAwnz8iWCojnKtCaZaFINT0Jlm3SKrAB3ZngLp3DkZlFiCrNE2D9VAJeerj1q
+         EYtfrLkhaf1MQERfhzdsr1JCt+U16X0QOlpBgPDymltPTak2ElaLBGpLyFaC84N/vyBu
+         SV1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=8gtNyp/GY88VWSJ2UaBPNvBgS8C39GSkKoVhHdaCBvs=;
-        b=WClqOV4wBnJT864QpkqjSoB8ut3wdSGQu8fdDL1jVeWhGUenk35OI5WszL/UjS48rl
-         1bjd4h+Dotc7z8N/Rh633APJJILOvDCwXYzQj+osqNMsRJ93yFI4oXi2oWfZjAPpa1nb
-         mAzYH9t9ZkM8w9MnCNdUO+4IivIuBG1Vd5YcN8xQk7av8gIiOEoZMOTJA61Koszjb8SE
-         2oNVErgepPc1cII7WOyCLKc48O/QjafV+ZMivuZqcgGwjcqVhJRM9rRRvbxYLvYRKplY
-         NgJKpQ0QhxY6qE34MJ4KrwMBSkIj1R2UJvVIE4ydAqIdhdrGFhrHM+4Tj+tBUNCAKEqi
-         yplw==
+        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=bk7h/Bmt0bNBLSUgek9hDyJg1GZIJRXbEB31PyIWFFs=;
+        b=UnUEPQrl2sgAF9KnwgYWa1F+Tcmbn60gPcdKJk8D2fSp8ZQ84myHBpzP7esPUglGCq
+         4rsoeRwnxy410uQhFN0lJfKPH5duWyJFpFRB2/P/A7DJ7/R8upqAUUcHtSCJ9JeoDdqT
+         CNUyA2px5Vrvs5RGTDi0NeUrNhTpD7KtG1Df12SjoG+/GCQtbhNUfU1ubm3ab44atA00
+         1b0TVbZry/a83TzP1OKQOdqqo1mwl3wIAH8cuv2Z4FLHj5MWoWABhPXpMPz3IVKfJcgt
+         51oRPmbXE1046FeqO2qQOJYgXN5VZ4HSlqosq+Y69uZ1V5l3oPTya7dy0l2NjA07fJFQ
+         V90Q==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530qXL61/IOxDpLh0dHBlQ0D3+72g8mNASaNt3h2XNQA8DIpU1mM
-	mviq6nFnv+ltbHx51yWY614=
-X-Google-Smtp-Source: ABdhPJwhb95CaoX/P70lZfpLhzrQ1//NxHIOZeHiP4NKQTY5GwNSyTBTpHY37RQhYSaP/NsLc46WHg==
-X-Received: by 2002:a65:480a:: with SMTP id h10mr1312267pgs.304.1597992613382;
-        Thu, 20 Aug 2020 23:50:13 -0700 (PDT)
+X-Gm-Message-State: AOAM531+0CgcNd3mw5ydH5GfCFhuJa6mQZEHcNZi3h9xqOa25G2x2uDZ
+	ErdsSEirqJAZ2kWlyPOAyTI=
+X-Google-Smtp-Source: ABdhPJwMjOFqy9Y9DloAqE7zPue+O1pDVbAb2u5LQakpqvREaeIOT0QagIB1oE7Tnowk1rXC/MiwJw==
+X-Received: by 2002:a17:906:970e:: with SMTP id k14mr998378ejx.417.1597992752283;
+        Thu, 20 Aug 2020 23:52:32 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:902:b602:: with SMTP id b2ls606140pls.11.gmail; Thu, 20
- Aug 2020 23:50:12 -0700 (PDT)
-X-Received: by 2002:a17:90a:d34b:: with SMTP id i11mr1279617pjx.125.1597992612754;
-        Thu, 20 Aug 2020 23:50:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1597992612; cv=none;
+Received: by 2002:a50:bc05:: with SMTP id j5ls863251edh.0.gmail; Thu, 20 Aug
+ 2020 23:52:31 -0700 (PDT)
+X-Received: by 2002:aa7:d596:: with SMTP id r22mr1485005edq.204.1597992751169;
+        Thu, 20 Aug 2020 23:52:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1597992751; cv=none;
         d=google.com; s=arc-20160816;
-        b=qHvUhTqU50kx3j+IiVU3nPi4xxYYOBDYrICuzqnR8Awkhx0nxysRbVT/NoIpFWnPXX
-         xBXAP12T7rBXRQoq3sJ07KRFFWseFPJN1+SKR7sHHJ9KchP1g6IO/y3ErINxiguBhBhe
-         fFPfmbIjJybfsH2KcOGRJI9Adw9TJAh4QxfiMMcOrW9nBif1im0gbA9FjBKEBTDU4laK
-         eCiauEsE0rZfhS0q/TflCULAsmpH7mvF5TQKQzDAQOidnySD7sxKX9SkcIEu/QiKynoA
-         2E7HxHxEEU7Pq9dNUK1f9FmzNX0WAA/TNNaio85uzwUJQqMwm4VEV29dGia083ownq0E
-         Xs/w==
+        b=A9MhbtRO2gyGZartqEY9I4whhGGdEDKnGTWZ2NwzYrDURhTpQKhZ2edoci4fCc5m/k
+         dXMK57jpsQhl39rd9dH1igB3yw+HkWhYw0v83cNKwpVWP9HOd72Go4ldVK8ratyfjMdZ
+         nEqFdiuNAUuw6Pfv7zfZGSKJIivGvkSCsVcdWr9tar663I/x7YB/WZpZe5bYQ4zWfqxC
+         pPHlTiN1BgiPD48umAg/zplXEFPokX8E1q3d22r5Ci5BnhfC1LfCRi/f6Y6NcdRz/icc
+         OrR2fDey0tKKRVo9NEHMnpulSKDH0Rd50dnfPcKispUJvcdWMoSGcsvFXvCUr5oLLAuJ
+         whWA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:subject:message-id:to:from
-         :date:dkim-signature;
-        bh=e2+ciAK3MDROMA5BVhiZq9xEW+fP+O3veQrmZ7mex7Y=;
-        b=cttcjjx9TjxlESW+wRDV0pjkz22FhO2OxecdjE8YnzT9jEGVaX7vlPbDvrEkH9E6dJ
-         7nHAHxRjA6k7GbyHAVS+OPwCcPbvXsmIf8YLR2K4HNTW8nTdgZFTC3nuACbQsxtU0hi7
-         xq85C3qSTKR/UQnD0ZqwyNK2EBkDxihuBBaAy9nGlq6PDDfDEk8rW2PgLbMUVijJMk0f
-         /ZWnYJXOMTa6yZogyzH92xKoYRw3ubkLMgejNdisJCEGBv3M9eqOB28/xNNEN14oleeJ
-         Hn2BKMvWadMuYzhHBjy0hXO6Sp9mv9B65sEFN7ye/pL8TvVfDsyNQDnVk3ezRMOOdt9c
-         +CkA==
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:cc:to:subject;
+        bh=gGkcQTBPDIQa/R9gvTio8cUK6xSHcPDnDMFZF1tmP3g=;
+        b=pK+maTNlL5nLOH28DRFsuHXilUxH0rRjHul4CkOgqIw6mdThgpVKr5Um4MZ9ZBKNis
+         xU3sWGw1x/koEAzBL/RYg6+q91XeAgTF04m9zSxPkr3NzPTL1SUcvgtYSPVUqIpWpkNp
+         lvjQinZX7yj2j4Mu5gDXnwzX6lEHkNXDblblZSWyo3TqVxRhxmRoUdP/sgTAZFIT7Ues
+         WCFE8HW1pOfU5NFSG238UUSmBsoOQjX/po5ueuern7SAP0i4J8whlh8/AkTAZnJsREiy
+         FgMmFH+TQk8NhvDz6cYO4k1VCBHpL6zm45DdewLBY9Ix5Ep+nYB4tatjEn7tSOXfeDFc
+         zfGQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=kZGNzfu5;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.203 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
-Received: from out-20.smtp.github.com (out-20.smtp.github.com. [192.30.252.203])
-        by gmr-mx.google.com with ESMTPS id q137si65253pfc.4.2020.08.20.23.50.12
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
+        by gmr-mx.google.com with ESMTPS id b6si36525edq.1.2020.08.20.23.52.30
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Thu, 20 Aug 2020 23:50:12 -0700 (PDT)
-Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.203 as permitted sender) client-ip=192.30.252.203;
-Received: from github-lowworker-fa7043e.ash1-iad.github.net (github-lowworker-fa7043e.ash1-iad.github.net [10.56.109.45])
-	by smtp.github.com (Postfix) with ESMTP id EE28EE1E94
-	for <jailhouse-dev@googlegroups.com>; Thu, 20 Aug 2020 23:50:11 -0700 (PDT)
-Date: Thu, 20 Aug 2020 23:50:11 -0700
-From: Peng Fan <noreply@github.com>
-To: jailhouse-dev@googlegroups.com
-Message-ID: <siemens/jailhouse/push/refs/heads/next/ce1098-2f0c87@github.com>
-Subject: [siemens/jailhouse] 5bd098: arm: irqchip/gic: Ensure we have an ISB
- between ac...
-Mime-Version: 1.0
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 20 Aug 2020 23:52:31 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 07L6qU1u013412
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 21 Aug 2020 08:52:30 +0200
+Received: from [167.87.31.209] ([167.87.31.209])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 07L6qTY1006582;
+	Fri, 21 Aug 2020 08:52:29 +0200
+Subject: Re: [PATCH V2 3/5] arm64: allow accessing simd/floating-point
+ registers in inmate
+To: peng.fan@nxp.com
+Cc: jailhouse-dev@googlegroups.com, alice.guo@nxp.com
+References: <20200821024921.3075-1-peng.fan@nxp.com>
+ <20200821024921.3075-3-peng.fan@nxp.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <bf6de4b9-053a-b7fb-5cb5-8bead3939315@siemens.com>
+Date: Fri, 21 Aug 2020 08:52:29 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
+MIME-Version: 1.0
+In-Reply-To: <20200821024921.3075-3-peng.fan@nxp.com>
 Content-Type: text/plain; charset="UTF-8"
-X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
-X-Auto-Response-Suppress: All
-X-Original-Sender: noreply@github.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
- mode) header.i=@github.com header.s=pf2014 header.b=kZGNzfu5;       spf=pass
- (google.com: domain of noreply@github.com designates 192.30.252.203 as
- permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass (p=NONE
- sp=NONE dis=NONE) header.from=github.com
+Content-Language: en-US
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -125,154 +133,91 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-  Branch: refs/heads/next
-  Home:   https://github.com/siemens/jailhouse
-  Commit: 5bd098db2e9f591fb5620be4a06b1686e736de50
-      https://github.com/siemens/jailhouse/commit/5bd098db2e9f591fb5620be4a06b1686e736de50
-  Author: Peng Fan <peng.fan@nxp.com>
-  Date:   2020-08-21 (Fri, 21 Aug 2020)
+On 21.08.20 04:49, peng.fan@nxp.com wrote:
+> From: Peng Fan <peng.fan@nxp.com>
+> 
+> Set bit 30 of FPEXC32_EL2 to enables access to the Advanced SIMD and
+> floating-point functionality from all Exception levels.
+> 
+> Set CPACR_EL1.FPEN to not trap accessing to SIMD or floating point
+> registers.
+> 
+> Reported-by: Alice Guo <alice.guo@nxp.com>
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
+> 
+> V2:
+>  Add Macros
+>  Use u64 for fpexc32_el2.
+> 
+>  hypervisor/arch/arm64/control.c             | 7 ++++++-
+>  hypervisor/arch/arm64/include/asm/sysregs.h | 4 ++++
+>  2 files changed, 10 insertions(+), 1 deletion(-)
+> 
+> diff --git a/hypervisor/arch/arm64/control.c b/hypervisor/arch/arm64/control.c
+> index 7bc3cab1..cd90b5fc 100644
+> --- a/hypervisor/arch/arm64/control.c
+> +++ b/hypervisor/arch/arm64/control.c
+> @@ -21,6 +21,7 @@
+>  void arm_cpu_reset(unsigned long pc, bool aarch32)
+>  {
+>  	u64 hcr_el2;
+> +	u64 fpexc32_el2;
+>  
+>  	/* put the cpu in a reset state */
+>  	/* AARCH64_TODO: handle big endian support */
+> @@ -43,7 +44,7 @@ void arm_cpu_reset(unsigned long pc, bool aarch32)
+>  	arm_write_sysreg(AFSR1_EL1, 0);
+>  	arm_write_sysreg(AMAIR_EL1, 0);
+>  	arm_write_sysreg(CONTEXTIDR_EL1, 0);
+> -	arm_write_sysreg(CPACR_EL1, 0);
+> +	arm_write_sysreg(CPACR_EL1, CPACR_EL1_FPEN(3));
+>  	arm_write_sysreg(CSSELR_EL1, 0);
+>  	arm_write_sysreg(ESR_EL1, 0);
+>  	arm_write_sysreg(FAR_EL1, 0);
+> @@ -57,6 +58,10 @@ void arm_cpu_reset(unsigned long pc, bool aarch32)
+>  	arm_write_sysreg(TTBR1_EL1, 0);
+>  	arm_write_sysreg(VBAR_EL1, 0);
+>  
+> +	arm_read_sysreg(FPEXC32_EL2, fpexc32_el2);
+> +	fpexc32_el2 |= FPEXC_EL2_EN_BIT;
+> +	arm_write_sysreg(FPEXC32_EL2, fpexc32_el2);
+> +
+>  	/* wipe timer registers */
+>  	arm_write_sysreg(CNTP_CTL_EL0, 0);
+>  	arm_write_sysreg(CNTP_CVAL_EL0, 0);
+> diff --git a/hypervisor/arch/arm64/include/asm/sysregs.h b/hypervisor/arch/arm64/include/asm/sysregs.h
+> index 56f0ce0a..378fecd8 100644
+> --- a/hypervisor/arch/arm64/include/asm/sysregs.h
+> +++ b/hypervisor/arch/arm64/include/asm/sysregs.h
+> @@ -163,6 +163,10 @@
+>  /* exception level in SPSR_ELx */
+>  #define SPSR_EL(spsr)		(((spsr) & 0xc) >> 2)
+>  
+> +#define CPACR_EL1_FPEN(x)	((x) << 20)
 
-  Changed paths:
-    M hypervisor/arch/arm-common/irqchip.c
+I've replaced that with
 
-  Log Message:
-  -----------
-  arm: irqchip/gic: Ensure we have an ISB between ack and ->handle_irq
+#define CPACR_EL1_FPEN_ALL	(3UL << 20)
 
-The whole commit message is from Linux Kernel:
-commit <39a06b67c2c1>("irqchip/gic: Ensure we have an ISB between ack and ->handle_irq")
+> +
+> +#define FPEXC_EL2_EN_BIT	(1UL << 30)
+> +
+>  #ifndef __ASSEMBLY__
+>  
+>  #include <jailhouse/string.h>
+> 
 
-Devices that expose their interrupt status registers via system
-registers (e.g. Statistical profiling, CPU PMU, DynamIQ PMU, arch timer,
-vgic (although unused by Linux), ...) rely on a context synchronising
-operation on the CPU to ensure that the updated status register is
-visible to the CPU when handling the interrupt. This usually happens as
-a result of taking the IRQ exception in the first place, but there are
-two race scenarios where this isn't the case.
+All 5 applied to next.
 
-For example, let's say we have two peripherals (X and Y), where Y uses a
-system register for its interrupt status.
+Thanks,
+Jan
 
-Case 1:
-1. CPU takes an IRQ exception as a result of X raising an interrupt
-2. Y then raises its interrupt line, but the update to its system
-   register is not yet visible to the CPU
-3. The GIC decides to expose Y's interrupt number first in the Ack
-   register
-4. The CPU runs the IRQ handler for Y, but the status register is stale
-
-Case 2:
-1. CPU takes an IRQ exception as a result of X raising an interrupt
-2. CPU reads the interrupt number for X from the Ack register and runs
-   its IRQ handler
-3. Y raises its interrupt line and the Ack register is updated, but
-   again, the update to its system register is not yet visible to the
-   CPU.
-4. Since the GIC drivers poll the Ack register, we read Y's interrupt
-   number and run its handler without a context synchronisation
-   operation, therefore seeing the stale register value.
-
-In either case, we run the risk of missing an IRQ. This patch solves the
-problem by ensuring that we execute an ISB in the GIC drivers prior
-to invoking the interrupt handler. This is already the case for GICv3
-and EOIMode 1 (the usual case for the host).
-
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 59c13520ca5e7e235d1dc93674e92b23ec89fb4d
-      https://github.com/siemens/jailhouse/commit/59c13520ca5e7e235d1dc93674e92b23ec89fb4d
-  Author: Peng Fan <peng.fan@nxp.com>
-  Date:   2020-08-21 (Fri, 21 Aug 2020)
-
-  Changed paths:
-    M hypervisor/arch/arm64/Makefile
-
-  Log Message:
-  -----------
-  arm64: Do not use FPU registers in jailhouse
-
-Some compilers default use hardfloat to generate instructions,
-so it will use some FPU/NEON registers to do some optimization.
-
-However some inmates might use FPU/NEON registers do some
-calculation such as vector/audio and etc. So we need to disable
-jailhouse use these registers. Use `-march=armv8-a+nofp` for this.
-
-Reported-by: Michal Hanak <michal.hanak@nxp.com>
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: ac290aab988018282f333c6182e271a9fc1e3738
-      https://github.com/siemens/jailhouse/commit/ac290aab988018282f333c6182e271a9fc1e3738
-  Author: Peng Fan <peng.fan@nxp.com>
-  Date:   2020-08-21 (Fri, 21 Aug 2020)
-
-  Changed paths:
-    M hypervisor/arch/arm64/control.c
-    M hypervisor/arch/arm64/include/asm/sysregs.h
-
-  Log Message:
-  -----------
-  arm64: allow accessing simd/floating-point registers in inmate
-
-Set bit 30 of FPEXC32_EL2 to enables access to the Advanced SIMD and
-floating-point functionality from all Exception levels.
-
-Set CPACR_EL1.FPEN to not trap accessing to SIMD or floating point
-registers.
-
-Reported-by: Alice Guo <alice.guo@nxp.com>
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
-[Jan: replaced CPACR_EL1_FPEN(3) with CPACR_EL1_FPEN_ALL]
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: d557c02606ba1f38bb803935da6bffab9cc986ef
-      https://github.com/siemens/jailhouse/commit/d557c02606ba1f38bb803935da6bffab9cc986ef
-  Author: Peng Fan <peng.fan@nxp.com>
-  Date:   2020-08-21 (Fri, 21 Aug 2020)
-
-  Changed paths:
-    M hypervisor/arch/arm/Makefile
-
-  Log Message:
-  -----------
-  arm: pass -march=armv7ve to KBUILD_AFLAGS
-
-Some toolchains might not have this flag default set, so when compiling,
-there will be error that "dsb not supported" in cache.S.
-
-So pass the flag to force toolchain use v7.
-
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 2f0c8774eef8abec46daf7c98ac0057df514c739
-      https://github.com/siemens/jailhouse/commit/2f0c8774eef8abec46daf7c98ac0057df514c739
-  Author: Peng Fan <peng.fan@nxp.com>
-  Date:   2020-08-21 (Fri, 21 Aug 2020)
-
-  Changed paths:
-    M inmates/Makefile
-
-  Log Message:
-  -----------
-  inmates: Makefile: add -march=armv7ve
-
-Add -march=armv7ve to avoid build error
-that ".virt extension not supported".
-
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-Compare: https://github.com/siemens/jailhouse/compare/ce10986e6637...2f0c8774eef8
+-- 
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+Corporate Competence Center Embedded Linux
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/next/ce1098-2f0c87%40github.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/bf6de4b9-053a-b7fb-5cb5-8bead3939315%40siemens.com.
