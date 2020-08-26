@@ -1,119 +1,123 @@
-Return-Path: <jailhouse-dev+bncBCZKRDGF7APRB74VTL5AKGQEN7MVPYQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDXIN2X4YYJBBHOYTP5AKGQE3KFU3IA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x437.google.com (mail-wr1-x437.google.com [IPv6:2a00:1450:4864:20::437])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1422525349D
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 26 Aug 2020 18:17:04 +0200 (CEST)
-Received: by mail-wr1-x437.google.com with SMTP id o10sf684041wrs.21
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 26 Aug 2020 09:17:04 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1598458623; cv=pass;
+Received: from mail-oo1-xc3e.google.com (mail-oo1-xc3e.google.com [IPv6:2607:f8b0:4864:20::c3e])
+	by mail.lfdr.de (Postfix) with ESMTPS id 02691253A93
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 27 Aug 2020 01:11:27 +0200 (CEST)
+Received: by mail-oo1-xc3e.google.com with SMTP id j9sf1870926oom.9
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 26 Aug 2020 16:11:26 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1598483485; cv=pass;
         d=google.com; s=arc-20160816;
-        b=a6j05Tk6XB+miApbRVvCHghQYT4BjrdzRveJLMiNNbcsYCdKPcFJEc5hmPnk+WnMqR
-         KtLJZWzbR/w8K8Yh5GhP/IxAOw4eMTC6IiMqQEYBV2izYxbWeu4qtO9rq/BxksDTNk8E
-         C9tY2cpptPmUjCNqABDPiejdvVxeg41vxczJjBPxQS2PyPtATt3/vArhjy3xRcGMNLyn
-         gF75vMgx3w8CFUWmp+1zXWwKuXVUawD/A7nJ1uH1Tan3k6ghd+HBI4mPC8sp6C1R94JT
-         ta2dI7h5jQNDEPHv1m/NHAeAw8Z1GnaBsllpRArlT+LcALYRP12twwQ2SNZ0RaCtP4z6
-         cqaQ==
+        b=L1PkeWqPaFnnX48SP3vVs8gXQmJHrC1T3D6Ys8oqSMA2ghXdmWHWX2hr06nfGj10xq
+         OLhda9fWK1xeck0Xw4RCaiglq23RMPs1N+fHfuO446aSaAbipv1uYwGxaSwpCfS3nbo8
+         ZuDDUtmF+N39+NJyEAmMZMdzPWiPyqol1iZFJsgVeARuthRZdithwQKdWcBXZg5zGgi6
+         0G2NmYljw1NvvjYOhOAcRrZ1WnF5R3c1a/iN+Ouw4DV3sJGPzKqMGyVyzzDktap0Bocd
+         wRZEZ9TR6Idu6Dmep0A9krT65mHPS9mKybanFqpnryI9vYYvVYK5ZgXijvWQUAyN3CIo
+         72ug==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:message-id:date
          :subject:cc:to:from:sender:dkim-signature;
-        bh=aGEtghhIMxOpsrcQ5qgt0ZVFLk6Do+w4iHEQ75o7kYY=;
-        b=Q7klq3w8+mAbbS5jivgOKWhp13b5xNO+Y+012o+Erx+OdZ/gCXpZ4F5zm46lA0Hlpc
-         eVhfCCJk8wWc9BbDt/ux5GaT+gHyX26vgKFaQWyJB1rgo1skaCKOaAddBy3J74Y+XufV
-         bccBfD1RIZk1ak2QYlBjjjWcVdCzpOHbMPH9hJ3wNjzTV73Le8TizFQvf6skQHyQVORb
-         KFjZGFvU+ntZkg02rIH/FoAeTyqezkMlC0iUFcQrJvBu8Vm+pYf0NqYUKqlFtPOzqJuw
-         POdvMGGA/Y/aiowXXLSjbPji8SX4XjGMKO6MWqk3xqFaJmlgtlzM9Xzuiw2QoeLehySm
-         YIxw==
+        bh=f03g/AX/nhPHa9LkMlfBjJwfwlrHRoFtGM6qdgHjA3s=;
+        b=GcvsaxJvsg2pS2kqpvU6GeGpIFtI+yQI03TP498rf3JFFAkqkLXFtItNMn+V2w4AJb
+         fXkxij3JViY+XmctCvnCizIIrIR78j48iKMW9jmSMw6gJ/fn4IebkVt6+bFtZbw9Ox9Z
+         zoLekhHbKbNZIssEdjyHzK7j8ecjVuB5AcEmo4WymInv5+8Iiv9yKogdokdrqlJEAO1k
+         KIKXX9XIknvAAqvYrwF1LcseC52DrsGRXZ7iAuUrrBgrrgeehsZop135EWp/WPhtoufr
+         zh0W3weHpAX7zfUcMhmZwhj+74vFXMQArp4AMzADuJMzr16nj+grlLrZZryky/IVS8U0
+         JhTQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@luzny-cz.20150623.gappssmtp.com header.s=20150623 header.b=TMulKWw8;
-       spf=neutral (google.com: 2a00:1450:4864:20::343 is neither permitted nor denied by best guess record for domain of jakub@luzny.cz) smtp.mailfrom=jakub@luzny.cz
+       spf=pass (google.com: domain of daniel.sangorrin@toshiba.co.jp designates 210.130.202.157 as permitted sender) smtp.mailfrom=daniel.sangorrin@toshiba.co.jp;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=toshiba.co.jp
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:from:to:cc:subject:date:message-id:mime-version
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=aGEtghhIMxOpsrcQ5qgt0ZVFLk6Do+w4iHEQ75o7kYY=;
-        b=poEPDOq2KJuTSLB4KfHL6MH0TOSrmgy4a8oFpjL9sDnYr0iLERP7YvOAK6dIk0IJaP
-         IiVKIyqHShK0rKCUjhgAcgh3c7JFKNPK9ucio/+mi5zgRlPAdG+D+dyEcojHrLlYFfqX
-         QVqJNzqiC4HHK2Fy+tjilfOoMln4tv/FyBpqZoMTmIzTxp0dhTVB407STM4+SuxjlJ41
-         mSgA9Kv04Vx1XBgiA4AmKhADTFXbMSz7bIDkyUx0UFPnZJkhUZhz0FtDaIg8/2Hr+DPT
-         T8CEkFlcFz8Qd/kOnRLjLCfnMKJlOs1xIwtF6eguVA7pw7E4aqcJWVegqHQmiU7Zo4o/
-         6p8g==
+        bh=f03g/AX/nhPHa9LkMlfBjJwfwlrHRoFtGM6qdgHjA3s=;
+        b=GZxWDqNsCW2PWMKywkawvt7t0sV8pXiO6z7JaXGLEFu8esFoHwNlFp8RyWUfSG3cVI
+         cekvCSsSJp99kt8+vc4/Eea2YQODj5k3M42GrjgLWo3+DUBND2FjXJ8OuxtOqLdHY1Qt
+         a36adfZADfBg1ehS4H7d/+EMtQ3jgC0z2fe9HGV0hmknmd96tHx6nvIx/dAPyaM246o1
+         S/9CXT4blf1W5I57qEoyyCP26SPz2iC/hH7LszWfaOqcOM9cN5BOiKAd0sEF9n9hMMS7
+         E3lZx3jkPCgMtdL9W3bdswFoIHogsAxX44oyu8XauZ3oG/MCWAR0muOae9DK7dlWj0ZF
+         K6cA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=aGEtghhIMxOpsrcQ5qgt0ZVFLk6Do+w4iHEQ75o7kYY=;
-        b=hcAQUQafKxg8TqjFTWoTGPpZN0/ic2w3Zm7OiqA02+p3JgZP6Zf3Qip4Xewd58D9NB
-         o80CNdQju/eE4TX5Rz27tLO3zOd2jjJHmOCLPm0J11VQrZzEEllge/t+CrBth32zSpE6
-         0VgfZH0zYa6z5mK80TJYX/9SIXPBTpnt9J2ajRN7l9Y3fPI6d/fKTxt7uHkh+oDuqHfI
-         OR0zacp9TJ20FwkVXlkfw2BSUIq3lW3vjBcIQfWBqUjYRySOM6H0TECO7skr1OZNMqjn
-         nGjY4c7/+seImFFPuoHqK+1y7IML5AzcCXiz6Qsv4HDu9xnRJd+0hX7+ZDVJzs0NVtNp
-         OVTg==
+        bh=f03g/AX/nhPHa9LkMlfBjJwfwlrHRoFtGM6qdgHjA3s=;
+        b=LbbxQFBqvP3rbMt7fkoJPKT0+9C8/0lZNdHeBA9Uo3Qr1/Uuixkyl/trZVxSZpzDKn
+         tNnYeZEUEmEgpHxFEiuUsd1OwxR9U5lVJBpHX38ZuBOGCEVuoGNJiivlyUADsDye2+dm
+         PFbjeqnMyPbuW6JGS9waabTk4iBswTb6YEMMz4lViVAY4kxve3+9mj0E7wVCxBb/o2F6
+         prtCuBgo5ktweUL29xSqi87rzpNzfdw4zUPWwyXvDrqb83izXUCWeZp34tjqsbKPyI34
+         bIjVr4zyvqGzwi7dR6jZ4Rpxi1mONr/8XEw2PUwO9J+SR9UdORVnoe5iq2Sv7Wrc1oFT
+         SA6w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533c425/eqoCHhN+5eDNMiCB9tI7yskOAuUfjWYLBd/9vUtzOlYG
-	twXJmEtDWlKPOx5w2MisHg0=
-X-Google-Smtp-Source: ABdhPJwsLnaDZsb1Aj97kOaGM+dstUHO+7FIXMfYaH0oypAgWxWHu3hWIfr+n1bAviUni75qfVaSeA==
-X-Received: by 2002:a1c:7dc3:: with SMTP id y186mr8193063wmc.59.1598458623722;
-        Wed, 26 Aug 2020 09:17:03 -0700 (PDT)
+X-Gm-Message-State: AOAM530LfMT1l6z63colfAoBMXyFPdKlfeydjRyzS1Vxc5sdIxs0VhA1
+	rf8u3udEunfadwJhcE9CjVA=
+X-Google-Smtp-Source: ABdhPJxZmrSdEj4hOeqU9gwg6E3xq3Xx9Jkn0uS2im1acDtZJ6PkTHjaGMKIJ8jDlNHEG9KEy/v/ew==
+X-Received: by 2002:a05:6830:1287:: with SMTP id z7mr10820273otp.271.1598483485597;
+        Wed, 26 Aug 2020 16:11:25 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:4c:: with SMTP id 73ls1331675wma.0.canary-gmail; Wed, 26
- Aug 2020 09:17:02 -0700 (PDT)
-X-Received: by 2002:a1c:14e:: with SMTP id 75mr8237308wmb.114.1598458622679;
-        Wed, 26 Aug 2020 09:17:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1598458622; cv=none;
+Received: by 2002:a9d:6a13:: with SMTP id g19ls111357otn.6.gmail; Wed, 26 Aug
+ 2020 16:11:25 -0700 (PDT)
+X-Received: by 2002:a9d:7f89:: with SMTP id t9mr11940587otp.278.1598483484969;
+        Wed, 26 Aug 2020 16:11:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1598483484; cv=none;
         d=google.com; s=arc-20160816;
-        b=Kke65X8Ym8A1Jfi57hA+BaSxoFIFuYbn9btVwyM83u+gld0WqpVa2ntoVaMMY6n5Vs
-         /H68pk5bK0zPG7nmTrzUgg6uMB3t8yrHp6AygolPkhv+BrUa96MCn5tVersaP69XbYot
-         yi9s9ns/2yHLaB21SQZ2rqw2pIxs8zTMrFT/rnp/O1VdLmbK5J/GnX8Ty9Oir8zBvmVJ
-         tPaYFFR9r7WlYXFj9j1nlBF+W4Z5Gvkk+I1F8um8TjfEgLmeIJhgZNqFFtLYLlqvlTb1
-         fy10n3+Vpf3IDBnhE2H6p2kQ/j100UbMdWCsf0wkAmFzc6f+ktiR9+Hig4eXgnD9MfVL
-         tyQw==
+        b=oB+tIyYSjRWmtQN2uXmhgY9EYwv3FwEb4PI0m/04cFToicB2GTHXana24qLltNYhCf
+         9z2Q0Da9PNys4NgPqIINFQrxXDNuAw/2xk9aPsVhej52b5lwNoOgw6Ll3J5qaSmQMYqJ
+         Y3ILzY4Wn0q0pL/ImYKK/Hd1oOE+J0fbA4LEgitdOgNEebgMuAjXVE/eiiE0+ZAkqZR/
+         hscm3libfDHLJ32IQ9SGC2FV8qf/WEqzh2lS3+rhn+5w3Xb72I/PzanJHOWvLk/QNT70
+         j9jMcDh0OXzrtnVzbFJzWlVDvLVdT4erSHj+VczVjx6rq/zwUkBul+XGonvI0uQuz41V
+         x31Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:dkim-signature;
-        bh=cedCfwQp7hiCDFaJH0M0+Hmp/z13xe5o+61KHaR130Q=;
-        b=bH9hdXRMsZ1gFtqPjbvVwoKH4qOmC0qcseUcXhjtPRY6n+17IWRwKLQ6mv91Trrrl+
-         3BwqsQcFeukoU24d8b/pV+UCHcQxk2quDqSwjGPkgabQmPT8n79HdOsFL6Jo7Sq5oNHr
-         RN6ZCFnFt33VYqzU7Yh2WWRN/V7B8BqI14cw+S/YuZwsKKgMFeOb2R8TtGk39QPN5SCF
-         uCeB27ZAPlZp5MsROHaqSjE1LF5/WBmlIsAm6Ltcjh513y8E9Fjpkr4SpPthbg1gTqay
-         wcxPE20CACxfZqn0mq953OoyH+zwnd9pZ9zz/VIcLFPzkPkAxoaB84lBV6UCGpOSr/MX
-         eyEw==
+         :to:from;
+        bh=dvHo1AVbtp1k79/TmU07MMpoqorKjKo78Ds/656aqJU=;
+        b=FVyggmYeiP6SfBBRL9q1ssAjSoGLcVUP4GRuGNdXhDn+DtQwQu9y0887A43r0kI1cm
+         C49leUWbipL16uY6b0kdapTRWZ66KNJtXKziLOh4iUkAocbkINypRl4c/+UQ32uvChAV
+         CxrDPgHTW8AbGZvB1d1YbttY/A/ycxx4MLpVLuFUu2509aUnMJZeIv47ExljhcmkC9pT
+         d9l3r88j0vfOea3FOZrne8uqyMv8kmXyMw1a3PWuWxLEPP73CTG85KufZtwLqoFtVuUT
+         98jdZQHK9DE/Xw3SbZV4GFKs848NcNA1OH8n7cboMl8vvRLXPEsO4Mlrnc0nKaHbg+gy
+         xF3A==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@luzny-cz.20150623.gappssmtp.com header.s=20150623 header.b=TMulKWw8;
-       spf=neutral (google.com: 2a00:1450:4864:20::343 is neither permitted nor denied by best guess record for domain of jakub@luzny.cz) smtp.mailfrom=jakub@luzny.cz
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com. [2a00:1450:4864:20::343])
-        by gmr-mx.google.com with ESMTPS id b20si104562wme.0.2020.08.26.09.17.02
+       spf=pass (google.com: domain of daniel.sangorrin@toshiba.co.jp designates 210.130.202.157 as permitted sender) smtp.mailfrom=daniel.sangorrin@toshiba.co.jp;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=toshiba.co.jp
+Received: from mo-csw.securemx.jp (mo-csw1115.securemx.jp. [210.130.202.157])
+        by gmr-mx.google.com with ESMTPS id b6si20397ooq.2.2020.08.26.16.11.23
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 26 Aug 2020 09:17:02 -0700 (PDT)
-Received-SPF: neutral (google.com: 2a00:1450:4864:20::343 is neither permitted nor denied by best guess record for domain of jakub@luzny.cz) client-ip=2a00:1450:4864:20::343;
-Received: by mail-wm1-x343.google.com with SMTP id t14so2360622wmi.3
-        for <jailhouse-dev@googlegroups.com>; Wed, 26 Aug 2020 09:17:02 -0700 (PDT)
-X-Received: by 2002:a7b:ca4e:: with SMTP id m14mr6758789wml.17.1598458621768;
-        Wed, 26 Aug 2020 09:17:01 -0700 (PDT)
-Received: from kamikaze.localdomain (91-139-8-18.customers.tmcz.cz. [91.139.8.18])
-        by smtp.googlemail.com with ESMTPSA id u17sm8497216wrp.81.2020.08.26.09.17.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2020 09:17:00 -0700 (PDT)
-From: Jakub Luzny <jakub@luzny.cz>
-To: jailhouse-dev@googlegroups.com
-Cc: Jakub Luzny <jakub@luzny.cz>
-Subject: [PATCH v2] configs: arm64: Add support for RPi4 with more than 1G of memory
-Date: Wed, 26 Aug 2020 18:16:42 +0200
-Message-Id: <20200826161642.275038-1-jakub@luzny.cz>
-X-Mailer: git-send-email 2.27.0
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 26 Aug 2020 16:11:24 -0700 (PDT)
+Received-SPF: pass (google.com: domain of daniel.sangorrin@toshiba.co.jp designates 210.130.202.157 as permitted sender) client-ip=210.130.202.157;
+Received: by mo-csw.securemx.jp (mx-mo-csw1115) id 07QNBLsQ010149; Thu, 27 Aug 2020 08:11:21 +0900
+X-Iguazu-Qid: 2wGqu78fjKFZDjQy5x
+X-Iguazu-QSIG: v=2; s=0; t=1598483481; q=2wGqu78fjKFZDjQy5x; m=8veb8z/BdRDxFLHc7drtg1BGcGjjciJO3pfV58Mt0RE=
+Received: from imx12.toshiba.co.jp (imx12.toshiba.co.jp [61.202.160.132])
+	by relay.securemx.jp (mx-mr1110) id 07QNBKLg028192;
+	Thu, 27 Aug 2020 08:11:21 +0900
+Received: from enc02.toshiba.co.jp ([61.202.160.51])
+	by imx12.toshiba.co.jp  with ESMTP id 07QNBKlL004464;
+	Thu, 27 Aug 2020 08:11:20 +0900 (JST)
+Received: from hop101.toshiba.co.jp ([133.199.85.107])
+	by enc02.toshiba.co.jp  with ESMTP id 07QNBKno001559;
+	Thu, 27 Aug 2020 08:11:20 +0900
+From: Daniel Sangorrin <daniel.sangorrin@toshiba.co.jp>
+To: jan.kiszka@siemens.com
+Cc: jailhouse-dev@googlegroups.com
+Subject: [PATCH] Documentation: fix display resolution number
+Date: Thu, 27 Aug 2020 08:11:19 +0900
+X-TSB-HOP: ON
+Message-Id: <20200826231119.1445942-1-daniel.sangorrin@toshiba.co.jp>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Original-Sender: jakub@luzny.cz
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@luzny-cz.20150623.gappssmtp.com header.s=20150623
- header.b=TMulKWw8;       spf=neutral (google.com: 2a00:1450:4864:20::343 is
- neither permitted nor denied by best guess record for domain of
- jakub@luzny.cz) smtp.mailfrom=jakub@luzny.cz
+X-Original-Sender: daniel.sangorrin@toshiba.co.jp
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of daniel.sangorrin@toshiba.co.jp designates
+ 210.130.202.157 as permitted sender) smtp.mailfrom=daniel.sangorrin@toshiba.co.jp;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=toshiba.co.jp
 Content-Type: text/plain; charset="UTF-8"
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -127,306 +131,41 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Add the required memory regions to support 2G, 4G and 8G RAM variants
-of the Raspberry Pi 4. Tested on all the bigger variants, not on 1G, as I don't
-have one on hand and it's not available anymore.
+I was wondering why the configuration size didn't match
+the multiplication and then I realised there was an
+errata.
 
-Also moved the memory used by Jailhouse for the hypervisor and cells from
-0x30000000 to 0x20000000 to avoid conflict with GPU memory. That is fine for
-gpu_mem setting of up to 256. The memory is supposed to be reserved using
-reserved-memory node in the device tree.
-
-To support variants with >2G RAM, the PCI MMIO config space was moved into the
-ARM Local Peripherals address range, into free space behind the GIC.
-
-Signed-off-by: Jakub Luzny <jakub@luzny.cz>
+Signed-off-by: Daniel Sangorrin <daniel.sangorrin@toshiba.co.jp>
 ---
- configs/arm64/dts/inmate-rpi4.dts |  2 +-
- configs/arm64/rpi4-inmate-demo.c  | 22 ++++++------
- configs/arm64/rpi4-linux-demo.c   | 28 ++++++++--------
- configs/arm64/rpi4.c              | 56 +++++++++++++++++++++----------
- 4 files changed, 65 insertions(+), 43 deletions(-)
+ Documentation/debug-output.md | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/configs/arm64/dts/inmate-rpi4.dts b/configs/arm64/dts/inmate-rpi4.dts
-index 52fd3ac2..ac6d4f58 100644
---- a/configs/arm64/dts/inmate-rpi4.dts
-+++ b/configs/arm64/dts/inmate-rpi4.dts
-@@ -96,7 +96,7 @@
- 				<0 0 0 2 &gic GIC_SPI 154 IRQ_TYPE_EDGE_RISING>,
- 				<0 0 0 3 &gic GIC_SPI 155 IRQ_TYPE_EDGE_RISING>,
- 				<0 0 0 4 &gic GIC_SPI 156 IRQ_TYPE_EDGE_RISING>;
--		reg = <0x0 0xe0000000 0x0 0x100000>;
-+		reg = <0x0 0xff900000 0x0 0x100000>;
- 		ranges =
- 			<0x02000000 0x00 0x10000000 0x0 0x10000000 0x00 0x10000>;
- 	};
-diff --git a/configs/arm64/rpi4-inmate-demo.c b/configs/arm64/rpi4-inmate-demo.c
-index 62442e7c..09dfc1f0 100644
---- a/configs/arm64/rpi4-inmate-demo.c
-+++ b/configs/arm64/rpi4-inmate-demo.c
-@@ -51,34 +51,34 @@ struct {
- 	.mem_regions = {
- 		/* IVSHMEM shared memory regions (demo) */
- 		{
--			.phys_start = 0x3faf0000,
--			.virt_start = 0x3faf0000,
-+			.phys_start = 0x2faf0000,
-+			.virt_start = 0x2faf0000,
- 			.size = 0x1000,
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
- 		},
- 		{
--			.phys_start = 0x3faf1000,
--			.virt_start = 0x3faf1000,
-+			.phys_start = 0x2faf1000,
-+			.virt_start = 0x2faf1000,
- 			.size = 0x9000,
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
- 				JAILHOUSE_MEM_ROOTSHARED,
- 		},
- 		{
--			.phys_start = 0x3fafa000,
--			.virt_start = 0x3fafa000,
-+			.phys_start = 0x2fafa000,
-+			.virt_start = 0x2fafa000,
- 			.size = 0x2000,
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
- 		},
- 		{
--			.phys_start = 0x3fafc000,
--			.virt_start = 0x3fafc000,
-+			.phys_start = 0x2fafc000,
-+			.virt_start = 0x2fafc000,
- 			.size = 0x2000,
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
- 				JAILHOUSE_MEM_ROOTSHARED,
- 		},
- 		{
--			.phys_start = 0x3fafe000,
--			.virt_start = 0x3fafe000,
-+			.phys_start = 0x2fafe000,
-+			.virt_start = 0x2fafe000,
- 			.size = 0x2000,
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
- 		},
-@@ -91,7 +91,7 @@ struct {
- 				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_ROOTSHARED,
- 		},
- 		/* RAM */ {
--			.phys_start = 0x3fa00000,
-+			.phys_start = 0x2fa00000,
- 			.virt_start = 0,
- 			.size = 0x00010000,
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-diff --git a/configs/arm64/rpi4-linux-demo.c b/configs/arm64/rpi4-linux-demo.c
-index 9e7fad26..cf36fa22 100644
---- a/configs/arm64/rpi4-linux-demo.c
-+++ b/configs/arm64/rpi4-linux-demo.c
-@@ -52,39 +52,39 @@ struct {
- 	.mem_regions = {
- 		/* IVSHMEM shared memory regions (demo) */
- 		{
--			.phys_start = 0x3faf0000,
--			.virt_start = 0x3faf0000,
-+			.phys_start = 0x2faf0000,
-+			.virt_start = 0x2faf0000,
- 			.size = 0x1000,
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
- 		},
- 		{
--			.phys_start = 0x3faf1000,
--			.virt_start = 0x3faf1000,
-+			.phys_start = 0x2faf1000,
-+			.virt_start = 0x2faf1000,
- 			.size = 0x9000,
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
- 				JAILHOUSE_MEM_ROOTSHARED,
- 		},
- 		{
--			.phys_start = 0x3fafa000,
--			.virt_start = 0x3fafa000,
-+			.phys_start = 0x2fafa000,
-+			.virt_start = 0x2fafa000,
- 			.size = 0x2000,
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
- 		},
- 		{
--			.phys_start = 0x3fafc000,
--			.virt_start = 0x3fafc000,
-+			.phys_start = 0x2fafc000,
-+			.virt_start = 0x2fafc000,
- 			.size = 0x2000,
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
- 		},
- 		{
--			.phys_start = 0x3fafe000,
--			.virt_start = 0x3fafe000,
-+			.phys_start = 0x2fafe000,
-+			.virt_start = 0x2fafe000,
- 			.size = 0x2000,
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
- 				JAILHOUSE_MEM_ROOTSHARED,
- 		},
- 		/* IVSHMEM shared memory region */
--		JAILHOUSE_SHMEM_NET_REGIONS(0x3fb00000, 1),
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x2fb00000, 1),
- 		/* UART */ {
- 			.phys_start = 0xfe215040,
- 			.virt_start = 0xfe215040,
-@@ -94,15 +94,15 @@ struct {
- 				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_ROOTSHARED,
- 		},
- 		/* RAM */ {
--			.phys_start = 0x3f900000,
-+			.phys_start = 0x2f900000,
- 			.virt_start = 0,
- 			.size = 0x10000,
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
- 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
- 		},
- 		/* RAM */ {
--			.phys_start = 0x30000000,
--			.virt_start = 0x30000000,
-+			.phys_start = 0x20000000,
-+			.virt_start = 0x20000000,
- 			.size = 0x8000000,
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
- 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
-diff --git a/configs/arm64/rpi4.c b/configs/arm64/rpi4.c
-index 92463184..7b6a7a02 100644
---- a/configs/arm64/rpi4.c
-+++ b/configs/arm64/rpi4.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Test configuration for Raspberry Pi 4 (32-bit, quad-core Cortex-A72, 1GB RAM)
-+ * Test configuration for Raspberry Pi 4 (quad-core Cortex-A72, 1GB, 2GB, 4GB or 8GB RAM)
-  *
-  * Copyright (c) Siemens AG, 2020
-  *
-@@ -10,6 +10,8 @@
-  *
-  * This work is licensed under the terms of the GNU GPL, version 2.  See
-  * the COPYING file in the top-level directory.
-+ *
-+ * Reservation via device tree: reg = <0x0 0x20000000 0x10000000>;
-  */
+diff --git a/Documentation/debug-output.md b/Documentation/debug-output.md
+index 5bdc412c..c86270eb 100644
+--- a/Documentation/debug-output.md
++++ b/Documentation/debug-output.md
+@@ -41,7 +41,7 @@ Possible register distances (MMIO only, PIO is implicitly 1-byte), to be or'ed:
  
- #include <jailhouse/types.h>
-@@ -18,7 +20,7 @@
- struct {
- 	struct jailhouse_system header;
- 	__u64 cpus[1];
--	struct jailhouse_memory mem_regions[12];
-+	struct jailhouse_memory mem_regions[14];
- 	struct jailhouse_irqchip irqchips[2];
- 	struct jailhouse_pci_device pci_devices[2];
- } __attribute__((packed)) config = {
-@@ -27,7 +29,7 @@ struct {
- 		.revision = JAILHOUSE_CONFIG_REVISION,
- 		.flags = JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
- 		.hypervisor_memory = {
--			.phys_start = 0x3fc00000,
-+			.phys_start = 0x2fc00000,
- 			.size       = 0x00400000,
- 		},
- 		.debug_console = {
-@@ -38,7 +40,7 @@ struct {
- 				 JAILHOUSE_CON_REGDIST_4,
- 		},
- 		.platform_info = {
--			.pci_mmconfig_base = 0xe0000000,
-+			.pci_mmconfig_base = 0xff900000,
- 			.pci_mmconfig_end_bus = 0,
- 			.pci_is_virtual = 1,
- 			.pci_domain = 1,
-@@ -70,37 +72,37 @@ struct {
- 	.mem_regions = {
- 		/* IVSHMEM shared memory regions for 00:00.0 (demo) */
- 		{
--			.phys_start = 0x3faf0000,
--			.virt_start = 0x3faf0000,
-+			.phys_start = 0x2faf0000,
-+			.virt_start = 0x2faf0000,
- 			.size = 0x1000,
- 			.flags = JAILHOUSE_MEM_READ,
- 		},
- 		{
--			.phys_start = 0x3faf1000,
--			.virt_start = 0x3faf1000,
-+			.phys_start = 0x2faf1000,
-+			.virt_start = 0x2faf1000,
- 			.size = 0x9000,
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
- 		},
- 		{
--			.phys_start = 0x3fafa000,
--			.virt_start = 0x3fafa000,
-+			.phys_start = 0x2fafa000,
-+			.virt_start = 0x2fafa000,
- 			.size = 0x2000,
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
- 		},
- 		{
--			.phys_start = 0x3fafc000,
--			.virt_start = 0x3fafc000,
-+			.phys_start = 0x2fafc000,
-+			.virt_start = 0x2fafc000,
- 			.size = 0x2000,
- 			.flags = JAILHOUSE_MEM_READ,
- 		},
- 		{
--			.phys_start = 0x3fafe000,
--			.virt_start = 0x3fafe000,
-+			.phys_start = 0x2fafe000,
-+			.virt_start = 0x2fafe000,
- 			.size = 0x2000,
- 			.flags = JAILHOUSE_MEM_READ,
- 		},
- 		/* IVSHMEM shared memory regions for 00:01.0 (networking) */
--		JAILHOUSE_SHMEM_NET_REGIONS(0x3fb00000, 0),
-+		JAILHOUSE_SHMEM_NET_REGIONS(0x2fb00000, 0),
- 		/* MMIO 1 (permissive) */ {
- 			.phys_start = 0xfd500000,
- 			.virt_start = 0xfd500000,
-@@ -115,10 +117,30 @@ struct {
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
- 				JAILHOUSE_MEM_IO,
- 		},
--		/* RAM */ {
-+		/* RAM (0M-~762M) */ {
- 			.phys_start = 0x0,
- 			.virt_start = 0x0,
--			.size = 0x3fa10000,
-+			.size = 0x2fa10000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_EXECUTE,
-+		},
-+
-+		/* ~2M reserved for shared memory regions */
-+
-+		/* 4M reserved for the hypervisor */
-+
-+		/* RAM (768M-4032M) */ {
-+			.phys_start = 0x30000000,
-+			.virt_start = 0x30000000,
-+			.size = 0xcc000000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_EXECUTE,
-+		},
-+
-+		/* RAM (4096M-8192M) */ {
-+			.phys_start = 0x100000000,
-+			.virt_start = 0x100000000,
-+			.size = 0x100000000,
- 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
- 				JAILHOUSE_MEM_EXECUTE,
- 		},
+ Possible framebuffer formats (EFIFB only);
+ 
+-    - JAILHOUSE_CON_FB_1024x768    /* 1024x786 pixel, 32 bit each */
++    - JAILHOUSE_CON_FB_1024x768    /* 1024x768 pixel, 32 bit each */
+     - JAILHOUSE_CON_FB_1920x1080   /* 1920x1080 pixel, 32 bit each */
+ 
+ ### .address and .size
+@@ -92,7 +92,7 @@ Example configuration for EFI framebuffer debug out on x86:
+ 
+     .debug_console = {
+         .address = 0x80000000, /* framebuffer base address */
+-        .size = 0x300000, /* 1024x786x4 */
++        .size = 0x300000, /* 1024x768x4 */
+         .type = JAILHOUSE_CON_TYPE_EFIFB,  /* choose the EFIFB driver */
+         .flags = JAILHOUSE_CON_MMIO | \    /* access is MMIO */
+                  JAILHOUSE_CON_FB_1024x768 /* format */
 -- 
-2.27.0
+2.25.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200826161642.275038-1-jakub%40luzny.cz.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200826231119.1445942-1-daniel.sangorrin%40toshiba.co.jp.
