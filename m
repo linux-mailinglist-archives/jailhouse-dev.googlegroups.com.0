@@ -1,158 +1,120 @@
-Return-Path: <jailhouse-dev+bncBCONRR6ZTUGRBS5HTD5AKGQE5IRWEEY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCZKRDGF7APRB74VTL5AKGQEN7MVPYQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x13d.google.com (mail-lf1-x13d.google.com [IPv6:2a00:1450:4864:20::13d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CC7D252899
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 26 Aug 2020 09:48:28 +0200 (CEST)
-Received: by mail-lf1-x13d.google.com with SMTP id r30sf379497lfn.9
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 26 Aug 2020 00:48:28 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1598428107; cv=pass;
+Received: from mail-wr1-x437.google.com (mail-wr1-x437.google.com [IPv6:2a00:1450:4864:20::437])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1422525349D
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 26 Aug 2020 18:17:04 +0200 (CEST)
+Received: by mail-wr1-x437.google.com with SMTP id o10sf684041wrs.21
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 26 Aug 2020 09:17:04 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1598458623; cv=pass;
         d=google.com; s=arc-20160816;
-        b=MzaDBZ6jLFh5KUVpYz3yPSqVtaarqLdrblBuxgt3u8ccwyIF7oFTM3egRcDE1i8SWc
-         rLmngsInCbvhTo8U3//doM5H2i0taVOeLg9MiUVeedo15KmVj/32iyR90E31qDqovoxh
-         I0nIC12f7LiC1L5PGluvFE/CYciibPe8cQGr6MwDvx+IYk/4wwGlZEqFfWW80MMgUnyo
-         FBxeSOF1g2+IAXWHScqOKIFz0zZKV46ahTWzqBo/Q+RfHy2SShmOg4vaLGh31zxunOQ5
-         12TumXfHoakdTDR97r/QWhiuVbksXZno45IcV9jst+fEZCUSpNrmMCLqEMKUHo70lGOQ
-         nJ6g==
+        b=a6j05Tk6XB+miApbRVvCHghQYT4BjrdzRveJLMiNNbcsYCdKPcFJEc5hmPnk+WnMqR
+         KtLJZWzbR/w8K8Yh5GhP/IxAOw4eMTC6IiMqQEYBV2izYxbWeu4qtO9rq/BxksDTNk8E
+         C9tY2cpptPmUjCNqABDPiejdvVxeg41vxczJjBPxQS2PyPtATt3/vArhjy3xRcGMNLyn
+         gF75vMgx3w8CFUWmp+1zXWwKuXVUawD/A7nJ1uH1Tan3k6ghd+HBI4mPC8sp6C1R94JT
+         ta2dI7h5jQNDEPHv1m/NHAeAw8Z1GnaBsllpRArlT+LcALYRP12twwQ2SNZ0RaCtP4z6
+         cqaQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:mime-version
-         :user-agent:date:message-id:autocrypt:cc:to:subject:from:sender
-         :dkim-signature;
-        bh=2x5JoHtXTBDaNa0jUl86l43ITqeTx7Vy4p29Hrtko0s=;
-        b=WBe+HqRwJnlgegbuFzlwHq5QMyesnfdw65Pt/5317fzREMetf+gDcZEnwfKQy0Whvx
-         mb/BvqaL2RRa2mMbSYAUR/i9qCcx+tdPz468nDR206YE63QxP1SdmD0CLzy190hQ0azS
-         Ac/27MA2OpK96IVJjizphym9RZJXf8lBxnTAAkEogztvf4CVhdtVnnABe5rpKMjC1YXf
-         pFygLws9yziLsNd6pE1sbJW6sfQNh9Rs9HZ6DFRyC/1EWzTpZ4aK+N8gzNYrn6JgzL2g
-         iXoFdtH9OxRRyj4+eLmPo/kSRTMjP4es7X7orhJVwlxbX/TddB97+RKds8PteyoIHxLq
-         4LQQ==
+         :list-id:mailing-list:precedence:mime-version:message-id:date
+         :subject:cc:to:from:sender:dkim-signature;
+        bh=aGEtghhIMxOpsrcQ5qgt0ZVFLk6Do+w4iHEQ75o7kYY=;
+        b=Q7klq3w8+mAbbS5jivgOKWhp13b5xNO+Y+012o+Erx+OdZ/gCXpZ4F5zm46lA0Hlpc
+         eVhfCCJk8wWc9BbDt/ux5GaT+gHyX26vgKFaQWyJB1rgo1skaCKOaAddBy3J74Y+XufV
+         bccBfD1RIZk1ak2QYlBjjjWcVdCzpOHbMPH9hJ3wNjzTV73Le8TizFQvf6skQHyQVORb
+         KFjZGFvU+ntZkg02rIH/FoAeTyqezkMlC0iUFcQrJvBu8Vm+pYf0NqYUKqlFtPOzqJuw
+         POdvMGGA/Y/aiowXXLSjbPji8SX4XjGMKO6MWqk3xqFaJmlgtlzM9Xzuiw2QoeLehySm
+         YIxw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of christoph.gerum@uni-tuebingen.de designates 134.2.5.213 as permitted sender) smtp.mailfrom=christoph.gerum@uni-tuebingen.de
+       dkim=pass header.i=@luzny-cz.20150623.gappssmtp.com header.s=20150623 header.b=TMulKWw8;
+       spf=neutral (google.com: 2a00:1450:4864:20::343 is neither permitted nor denied by best guess record for domain of jakub@luzny.cz) smtp.mailfrom=jakub@luzny.cz
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:subject:to:cc:autocrypt:message-id:date:user-agent
-         :mime-version:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=2x5JoHtXTBDaNa0jUl86l43ITqeTx7Vy4p29Hrtko0s=;
-        b=M8JtvIlhnMkBm9OA7mluP/RLIlBbTSrNyqJ8wrOAUXeBDrEtVGALDbKINZcTQDESlw
-         loR6oedf1innT81EFBwLy/1pF2hvscBZ8h++imou90Chq57SdveYNObtT3PD/Bac2mPm
-         wigXIDnTAOAieRCXrVGguHNCCQqaENy+evyEuMvtTwi5UCwRsZjPjFa2Vn+efvumUn2E
-         1OhMQVZR3LS0dt3VG3Cg7wkYaTp+WCl2nrhy8InDs/BDQH2GQsG+Yewu19gbCxdlLiyJ
-         VDBmUYdVLFRiD178lhnngx46zimgyHFMhcmLv2G02YpOuk0rnvDldV69DLy+QEE7tOso
-         Herw==
+        h=sender:from:to:cc:subject:date:message-id:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=aGEtghhIMxOpsrcQ5qgt0ZVFLk6Do+w4iHEQ75o7kYY=;
+        b=poEPDOq2KJuTSLB4KfHL6MH0TOSrmgy4a8oFpjL9sDnYr0iLERP7YvOAK6dIk0IJaP
+         IiVKIyqHShK0rKCUjhgAcgh3c7JFKNPK9ucio/+mi5zgRlPAdG+D+dyEcojHrLlYFfqX
+         QVqJNzqiC4HHK2Fy+tjilfOoMln4tv/FyBpqZoMTmIzTxp0dhTVB407STM4+SuxjlJ41
+         mSgA9Kv04Vx1XBgiA4AmKhADTFXbMSz7bIDkyUx0UFPnZJkhUZhz0FtDaIg8/2Hr+DPT
+         T8CEkFlcFz8Qd/kOnRLjLCfnMKJlOs1xIwtF6eguVA7pw7E4aqcJWVegqHQmiU7Zo4o/
+         6p8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:subject:to:cc:autocrypt:message-id
-         :date:user-agent:mime-version:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=2x5JoHtXTBDaNa0jUl86l43ITqeTx7Vy4p29Hrtko0s=;
-        b=CR+/kSC9BAmmEUdwpQEkWecGH4f+Gj+e4arqrut+YO1qcZpSKsxnGo4CpBFmlg28Cv
-         982e1rDtuJKpOSsTfvl6D5uiCl46Wdm+slMzeNMMOw9HjXlieN4JTWGY/c6THAy29F0p
-         efRA4KskDk69zbu/113FqJfHUs+WSnMCubp+qMSPq/0hGJdSRPe6rqVCVK8o2V9KdEZK
-         haIdNBGIbQgHkk693JMi708qM5Uf5SKJ4af9dux9DZ/10HCNOiKwFRhyjezkkNDAEEWu
-         i07wbDj47LO6iteyDMEmuAi6OxD+93SeSrUsqaCvXACtxEuBdGAq8Ay4DzSmBXl0BQWS
-         yEFQ==
+        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=aGEtghhIMxOpsrcQ5qgt0ZVFLk6Do+w4iHEQ75o7kYY=;
+        b=hcAQUQafKxg8TqjFTWoTGPpZN0/ic2w3Zm7OiqA02+p3JgZP6Zf3Qip4Xewd58D9NB
+         o80CNdQju/eE4TX5Rz27tLO3zOd2jjJHmOCLPm0J11VQrZzEEllge/t+CrBth32zSpE6
+         0VgfZH0zYa6z5mK80TJYX/9SIXPBTpnt9J2ajRN7l9Y3fPI6d/fKTxt7uHkh+oDuqHfI
+         OR0zacp9TJ20FwkVXlkfw2BSUIq3lW3vjBcIQfWBqUjYRySOM6H0TECO7skr1OZNMqjn
+         nGjY4c7/+seImFFPuoHqK+1y7IML5AzcCXiz6Qsv4HDu9xnRJd+0hX7+ZDVJzs0NVtNp
+         OVTg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533zxJIEUpzonTg32w6E+ugXCnFiL4/6tsf50QFRT8F2AFTtWdk6
-	w/l6ENUmSCJkVOPTYZf2UuE=
-X-Google-Smtp-Source: ABdhPJwykSjo8T2fn0RIrmpCN3xVYd+9lDZJ3PKo2h2qro7BfyUxdJdHE4+AR8IRMGwc6c+DZVFjtg==
-X-Received: by 2002:ac2:41cc:: with SMTP id d12mr6783425lfi.20.1598428107647;
-        Wed, 26 Aug 2020 00:48:27 -0700 (PDT)
+X-Gm-Message-State: AOAM533c425/eqoCHhN+5eDNMiCB9tI7yskOAuUfjWYLBd/9vUtzOlYG
+	twXJmEtDWlKPOx5w2MisHg0=
+X-Google-Smtp-Source: ABdhPJwsLnaDZsb1Aj97kOaGM+dstUHO+7FIXMfYaH0oypAgWxWHu3hWIfr+n1bAviUni75qfVaSeA==
+X-Received: by 2002:a1c:7dc3:: with SMTP id y186mr8193063wmc.59.1598458623722;
+        Wed, 26 Aug 2020 09:17:03 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a19:82d3:: with SMTP id e202ls102908lfd.0.gmail; Wed, 26 Aug
- 2020 00:48:26 -0700 (PDT)
-X-Received: by 2002:a05:6512:6d6:: with SMTP id u22mr6790103lff.178.1598428106724;
-        Wed, 26 Aug 2020 00:48:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1598428106; cv=none;
+Received: by 2002:a1c:4c:: with SMTP id 73ls1331675wma.0.canary-gmail; Wed, 26
+ Aug 2020 09:17:02 -0700 (PDT)
+X-Received: by 2002:a1c:14e:: with SMTP id 75mr8237308wmb.114.1598458622679;
+        Wed, 26 Aug 2020 09:17:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1598458622; cv=none;
         d=google.com; s=arc-20160816;
-        b=RBPyR4CkzHbqX3dF3dwDe1XRgtVfGUXMtRGB2c3XZdxztowvU4dyi3aQdnXLZL5A7P
-         dYlAqZyOmWh0GLTh/APXDXAwFDgk14EUZzeZJwAtxzlYWzBvtq366FgtPF/OvkcwOa4B
-         clz4BUUynxHb2hYre0ZYW9kCEzqNyd0/tF6sJLpw/nojfPD7vAF0n5jEJ3q7j5h0aJUo
-         QZlxkf7t5LeSaQiyE19eFiZIjdbMR+Xgra+4QyoN90jsercULbb9nMse3VaogqpjOv4e
-         YbTDvEGgWShyKkRE1pxZwW1vCfa7Kj5EebAp6WLnlu25DCFFZWCjRriZBcN8l5HYSJF7
-         807A==
+        b=Kke65X8Ym8A1Jfi57hA+BaSxoFIFuYbn9btVwyM83u+gld0WqpVa2ntoVaMMY6n5Vs
+         /H68pk5bK0zPG7nmTrzUgg6uMB3t8yrHp6AygolPkhv+BrUa96MCn5tVersaP69XbYot
+         yi9s9ns/2yHLaB21SQZ2rqw2pIxs8zTMrFT/rnp/O1VdLmbK5J/GnX8Ty9Oir8zBvmVJ
+         tPaYFFR9r7WlYXFj9j1nlBF+W4Z5Gvkk+I1F8um8TjfEgLmeIJhgZNqFFtLYLlqvlTb1
+         fy10n3+Vpf3IDBnhE2H6p2kQ/j100UbMdWCsf0wkAmFzc6f+ktiR9+Hig4eXgnD9MfVL
+         tyQw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:mime-version:user-agent
-         :date:message-id:autocrypt:cc:to:subject:from;
-        bh=acGCNLWbYIJ9dPd00y2eYvVhq7bFdHRX9lOQF4SAp4o=;
-        b=mSTmjM8QyDAJMj4SfIVxIqu7UOCHLeEQymR+4aWJJ4sAlUD6s8ZnbFUI6l8fQfhhLC
-         4vHE/7579Z3zRP3bQuLNhoTk8VnyWAhzawc58SQOe2OePCbHauIKxCFAEnsm2FHiyC1L
-         nG5o1fo0ySx2eakofv09/iXrk54eGL1pFv2QTRKhLP+JS+ZTgR1rzzD23KrUe6GiiflF
-         nrXZBKsHGwyGvYX71QGhMoZJyUIm9GvvDvkj6tl4L7Kt4oHwzUbgqengeCKcWi+W077c
-         pXt8UXg+ktjma0NPLFsXlqwYwhE4PrIK/4XlpueA7r00AUC7ZxxRq76fhbx39n9b9LSp
-         o88A==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature;
+        bh=cedCfwQp7hiCDFaJH0M0+Hmp/z13xe5o+61KHaR130Q=;
+        b=bH9hdXRMsZ1gFtqPjbvVwoKH4qOmC0qcseUcXhjtPRY6n+17IWRwKLQ6mv91Trrrl+
+         3BwqsQcFeukoU24d8b/pV+UCHcQxk2quDqSwjGPkgabQmPT8n79HdOsFL6Jo7Sq5oNHr
+         RN6ZCFnFt33VYqzU7Yh2WWRN/V7B8BqI14cw+S/YuZwsKKgMFeOb2R8TtGk39QPN5SCF
+         uCeB27ZAPlZp5MsROHaqSjE1LF5/WBmlIsAm6Ltcjh513y8E9Fjpkr4SpPthbg1gTqay
+         wcxPE20CACxfZqn0mq953OoyH+zwnd9pZ9zz/VIcLFPzkPkAxoaB84lBV6UCGpOSr/MX
+         eyEw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of christoph.gerum@uni-tuebingen.de designates 134.2.5.213 as permitted sender) smtp.mailfrom=christoph.gerum@uni-tuebingen.de
-Received: from mx03.uni-tuebingen.de (mx03.uni-tuebingen.de. [134.2.5.213])
-        by gmr-mx.google.com with ESMTPS id c27si67545ljn.3.2020.08.26.00.48.26
+       dkim=pass header.i=@luzny-cz.20150623.gappssmtp.com header.s=20150623 header.b=TMulKWw8;
+       spf=neutral (google.com: 2a00:1450:4864:20::343 is neither permitted nor denied by best guess record for domain of jakub@luzny.cz) smtp.mailfrom=jakub@luzny.cz
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com. [2a00:1450:4864:20::343])
+        by gmr-mx.google.com with ESMTPS id b20si104562wme.0.2020.08.26.09.17.02
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 26 Aug 2020 00:48:26 -0700 (PDT)
-Received-SPF: pass (google.com: domain of christoph.gerum@uni-tuebingen.de designates 134.2.5.213 as permitted sender) client-ip=134.2.5.213;
-Received: from [134.2.14.31] (tichy.Informatik.Uni-Tuebingen.De [134.2.14.31])
-	by mx03.uni-tuebingen.de (Postfix) with ESMTPSA id 28A88831A6;
-	Wed, 26 Aug 2020 09:48:26 +0200 (CEST)
-From: Christoph Gerum <christoph.gerum@uni-tuebingen.de>
-Subject: Sharing GPU mailbox access on raspi4
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 26 Aug 2020 09:17:02 -0700 (PDT)
+Received-SPF: neutral (google.com: 2a00:1450:4864:20::343 is neither permitted nor denied by best guess record for domain of jakub@luzny.cz) client-ip=2a00:1450:4864:20::343;
+Received: by mail-wm1-x343.google.com with SMTP id t14so2360622wmi.3
+        for <jailhouse-dev@googlegroups.com>; Wed, 26 Aug 2020 09:17:02 -0700 (PDT)
+X-Received: by 2002:a7b:ca4e:: with SMTP id m14mr6758789wml.17.1598458621768;
+        Wed, 26 Aug 2020 09:17:01 -0700 (PDT)
+Received: from kamikaze.localdomain (91-139-8-18.customers.tmcz.cz. [91.139.8.18])
+        by smtp.googlemail.com with ESMTPSA id u17sm8497216wrp.81.2020.08.26.09.17.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2020 09:17:00 -0700 (PDT)
+From: Jakub Luzny <jakub@luzny.cz>
 To: jailhouse-dev@googlegroups.com
-Cc: Artur Plischke <artur0997@yahoo.de>
-Autocrypt: addr=christoph.gerum@uni-tuebingen.de; keydata=
- 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
- T29y/VTnmoSXIbqAbOajhVUuOH67EXAD
-Message-ID: <f1889ddb-56e3-abef-87be-dcb2085a0ef0@uni-tuebingen.de>
-Date: Wed, 26 Aug 2020 09:48:25 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+Cc: Jakub Luzny <jakub@luzny.cz>
+Subject: [PATCH v2] configs: arm64: Add support for RPi4 with more than 1G of memory
+Date: Wed, 26 Aug 2020 18:16:42 +0200
+Message-Id: <20200826161642.275038-1-jakub@luzny.cz>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
+X-Original-Sender: jakub@luzny.cz
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@luzny-cz.20150623.gappssmtp.com header.s=20150623
+ header.b=TMulKWw8;       spf=neutral (google.com: 2a00:1450:4864:20::343 is
+ neither permitted nor denied by best guess record for domain of
+ jakub@luzny.cz) smtp.mailfrom=jakub@luzny.cz
 Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-X-Original-Sender: christoph.gerum@uni-tuebingen.de
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of christoph.gerum@uni-tuebingen.de designates
- 134.2.5.213 as permitted sender) smtp.mailfrom=christoph.gerum@uni-tuebingen.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -165,30 +127,306 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hello,
+Add the required memory regions to support 2G, 4G and 8G RAM variants
+of the Raspberry Pi 4. Tested on all the bigger variants, not on 1G, as I don't
+have one on hand and it's not available anymore.
 
-One of our use cases involves running Codesys Control SoftPLC [1] on a
-jailhouse inmate. Unfortunately this software uses the GPU mailbox [2]
-(/dev/char_dev, /dev/vcio) for communication with the raspberry pi
-Firmware. As this device is needed by a lot of subsystems (GPU, power
-management, some GPIOS, ...) it seems undesirable to move all of the
-subsystems into the inmate. For now our plan is to write a simple
-userspace emulation for the few ioctls which are actually used in the
-implementation [3]. But I wanted to know if there might be a Jailhouse
-of handling this situation. Just sharing the device deadlocks
-immediately, due to the shared interrupt I assume.
+Also moved the memory used by Jailhouse for the hypervisor and cells from
+0x30000000 to 0x20000000 to avoid conflict with GPU memory. That is fine for
+gpu_mem setting of up to 256. The memory is supposed to be reserved using
+reserved-memory node in the device tree.
 
-Kind Regards,
-Christoph Gerum
+To support variants with >2G RAM, the PCI MMIO config space was moved into the
+ARM Local Peripherals address range, into free space behind the GIC.
 
+Signed-off-by: Jakub Luzny <jakub@luzny.cz>
+---
+ configs/arm64/dts/inmate-rpi4.dts |  2 +-
+ configs/arm64/rpi4-inmate-demo.c  | 22 ++++++------
+ configs/arm64/rpi4-linux-demo.c   | 28 ++++++++--------
+ configs/arm64/rpi4.c              | 56 +++++++++++++++++++++----------
+ 4 files changed, 65 insertions(+), 43 deletions(-)
 
-[1] https://www.codesys.com/products/codesys-runtime/control.html
-[2]
-https://www.kernel.org/doc/Documentation/devicetree/bindings/mailbox/brcm%2Cbcm2835-mbox.txt
-[3] https://libfuse.github.io/doxygen/example_2cuse_8c.html
-
+diff --git a/configs/arm64/dts/inmate-rpi4.dts b/configs/arm64/dts/inmate-rpi4.dts
+index 52fd3ac2..ac6d4f58 100644
+--- a/configs/arm64/dts/inmate-rpi4.dts
++++ b/configs/arm64/dts/inmate-rpi4.dts
+@@ -96,7 +96,7 @@
+ 				<0 0 0 2 &gic GIC_SPI 154 IRQ_TYPE_EDGE_RISING>,
+ 				<0 0 0 3 &gic GIC_SPI 155 IRQ_TYPE_EDGE_RISING>,
+ 				<0 0 0 4 &gic GIC_SPI 156 IRQ_TYPE_EDGE_RISING>;
+-		reg = <0x0 0xe0000000 0x0 0x100000>;
++		reg = <0x0 0xff900000 0x0 0x100000>;
+ 		ranges =
+ 			<0x02000000 0x00 0x10000000 0x0 0x10000000 0x00 0x10000>;
+ 	};
+diff --git a/configs/arm64/rpi4-inmate-demo.c b/configs/arm64/rpi4-inmate-demo.c
+index 62442e7c..09dfc1f0 100644
+--- a/configs/arm64/rpi4-inmate-demo.c
++++ b/configs/arm64/rpi4-inmate-demo.c
+@@ -51,34 +51,34 @@ struct {
+ 	.mem_regions = {
+ 		/* IVSHMEM shared memory regions (demo) */
+ 		{
+-			.phys_start = 0x3faf0000,
+-			.virt_start = 0x3faf0000,
++			.phys_start = 0x2faf0000,
++			.virt_start = 0x2faf0000,
+ 			.size = 0x1000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+ 		},
+ 		{
+-			.phys_start = 0x3faf1000,
+-			.virt_start = 0x3faf1000,
++			.phys_start = 0x2faf1000,
++			.virt_start = 0x2faf1000,
+ 			.size = 0x9000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ 				JAILHOUSE_MEM_ROOTSHARED,
+ 		},
+ 		{
+-			.phys_start = 0x3fafa000,
+-			.virt_start = 0x3fafa000,
++			.phys_start = 0x2fafa000,
++			.virt_start = 0x2fafa000,
+ 			.size = 0x2000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+ 		},
+ 		{
+-			.phys_start = 0x3fafc000,
+-			.virt_start = 0x3fafc000,
++			.phys_start = 0x2fafc000,
++			.virt_start = 0x2fafc000,
+ 			.size = 0x2000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ 				JAILHOUSE_MEM_ROOTSHARED,
+ 		},
+ 		{
+-			.phys_start = 0x3fafe000,
+-			.virt_start = 0x3fafe000,
++			.phys_start = 0x2fafe000,
++			.virt_start = 0x2fafe000,
+ 			.size = 0x2000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+ 		},
+@@ -91,7 +91,7 @@ struct {
+ 				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_ROOTSHARED,
+ 		},
+ 		/* RAM */ {
+-			.phys_start = 0x3fa00000,
++			.phys_start = 0x2fa00000,
+ 			.virt_start = 0,
+ 			.size = 0x00010000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+diff --git a/configs/arm64/rpi4-linux-demo.c b/configs/arm64/rpi4-linux-demo.c
+index 9e7fad26..cf36fa22 100644
+--- a/configs/arm64/rpi4-linux-demo.c
++++ b/configs/arm64/rpi4-linux-demo.c
+@@ -52,39 +52,39 @@ struct {
+ 	.mem_regions = {
+ 		/* IVSHMEM shared memory regions (demo) */
+ 		{
+-			.phys_start = 0x3faf0000,
+-			.virt_start = 0x3faf0000,
++			.phys_start = 0x2faf0000,
++			.virt_start = 0x2faf0000,
+ 			.size = 0x1000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+ 		},
+ 		{
+-			.phys_start = 0x3faf1000,
+-			.virt_start = 0x3faf1000,
++			.phys_start = 0x2faf1000,
++			.virt_start = 0x2faf1000,
+ 			.size = 0x9000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ 				JAILHOUSE_MEM_ROOTSHARED,
+ 		},
+ 		{
+-			.phys_start = 0x3fafa000,
+-			.virt_start = 0x3fafa000,
++			.phys_start = 0x2fafa000,
++			.virt_start = 0x2fafa000,
+ 			.size = 0x2000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+ 		},
+ 		{
+-			.phys_start = 0x3fafc000,
+-			.virt_start = 0x3fafc000,
++			.phys_start = 0x2fafc000,
++			.virt_start = 0x2fafc000,
+ 			.size = 0x2000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+ 		},
+ 		{
+-			.phys_start = 0x3fafe000,
+-			.virt_start = 0x3fafe000,
++			.phys_start = 0x2fafe000,
++			.virt_start = 0x2fafe000,
+ 			.size = 0x2000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ 				JAILHOUSE_MEM_ROOTSHARED,
+ 		},
+ 		/* IVSHMEM shared memory region */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x3fb00000, 1),
++		JAILHOUSE_SHMEM_NET_REGIONS(0x2fb00000, 1),
+ 		/* UART */ {
+ 			.phys_start = 0xfe215040,
+ 			.virt_start = 0xfe215040,
+@@ -94,15 +94,15 @@ struct {
+ 				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_ROOTSHARED,
+ 		},
+ 		/* RAM */ {
+-			.phys_start = 0x3f900000,
++			.phys_start = 0x2f900000,
+ 			.virt_start = 0,
+ 			.size = 0x10000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+ 		},
+ 		/* RAM */ {
+-			.phys_start = 0x30000000,
+-			.virt_start = 0x30000000,
++			.phys_start = 0x20000000,
++			.virt_start = 0x20000000,
+ 			.size = 0x8000000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+diff --git a/configs/arm64/rpi4.c b/configs/arm64/rpi4.c
+index 92463184..7b6a7a02 100644
+--- a/configs/arm64/rpi4.c
++++ b/configs/arm64/rpi4.c
+@@ -1,7 +1,7 @@
+ /*
+  * Jailhouse, a Linux-based partitioning hypervisor
+  *
+- * Test configuration for Raspberry Pi 4 (32-bit, quad-core Cortex-A72, 1GB RAM)
++ * Test configuration for Raspberry Pi 4 (quad-core Cortex-A72, 1GB, 2GB, 4GB or 8GB RAM)
+  *
+  * Copyright (c) Siemens AG, 2020
+  *
+@@ -10,6 +10,8 @@
+  *
+  * This work is licensed under the terms of the GNU GPL, version 2.  See
+  * the COPYING file in the top-level directory.
++ *
++ * Reservation via device tree: reg = <0x0 0x20000000 0x10000000>;
+  */
+ 
+ #include <jailhouse/types.h>
+@@ -18,7 +20,7 @@
+ struct {
+ 	struct jailhouse_system header;
+ 	__u64 cpus[1];
+-	struct jailhouse_memory mem_regions[12];
++	struct jailhouse_memory mem_regions[14];
+ 	struct jailhouse_irqchip irqchips[2];
+ 	struct jailhouse_pci_device pci_devices[2];
+ } __attribute__((packed)) config = {
+@@ -27,7 +29,7 @@ struct {
+ 		.revision = JAILHOUSE_CONFIG_REVISION,
+ 		.flags = JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
+ 		.hypervisor_memory = {
+-			.phys_start = 0x3fc00000,
++			.phys_start = 0x2fc00000,
+ 			.size       = 0x00400000,
+ 		},
+ 		.debug_console = {
+@@ -38,7 +40,7 @@ struct {
+ 				 JAILHOUSE_CON_REGDIST_4,
+ 		},
+ 		.platform_info = {
+-			.pci_mmconfig_base = 0xe0000000,
++			.pci_mmconfig_base = 0xff900000,
+ 			.pci_mmconfig_end_bus = 0,
+ 			.pci_is_virtual = 1,
+ 			.pci_domain = 1,
+@@ -70,37 +72,37 @@ struct {
+ 	.mem_regions = {
+ 		/* IVSHMEM shared memory regions for 00:00.0 (demo) */
+ 		{
+-			.phys_start = 0x3faf0000,
+-			.virt_start = 0x3faf0000,
++			.phys_start = 0x2faf0000,
++			.virt_start = 0x2faf0000,
+ 			.size = 0x1000,
+ 			.flags = JAILHOUSE_MEM_READ,
+ 		},
+ 		{
+-			.phys_start = 0x3faf1000,
+-			.virt_start = 0x3faf1000,
++			.phys_start = 0x2faf1000,
++			.virt_start = 0x2faf1000,
+ 			.size = 0x9000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+ 		},
+ 		{
+-			.phys_start = 0x3fafa000,
+-			.virt_start = 0x3fafa000,
++			.phys_start = 0x2fafa000,
++			.virt_start = 0x2fafa000,
+ 			.size = 0x2000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+ 		},
+ 		{
+-			.phys_start = 0x3fafc000,
+-			.virt_start = 0x3fafc000,
++			.phys_start = 0x2fafc000,
++			.virt_start = 0x2fafc000,
+ 			.size = 0x2000,
+ 			.flags = JAILHOUSE_MEM_READ,
+ 		},
+ 		{
+-			.phys_start = 0x3fafe000,
+-			.virt_start = 0x3fafe000,
++			.phys_start = 0x2fafe000,
++			.virt_start = 0x2fafe000,
+ 			.size = 0x2000,
+ 			.flags = JAILHOUSE_MEM_READ,
+ 		},
+ 		/* IVSHMEM shared memory regions for 00:01.0 (networking) */
+-		JAILHOUSE_SHMEM_NET_REGIONS(0x3fb00000, 0),
++		JAILHOUSE_SHMEM_NET_REGIONS(0x2fb00000, 0),
+ 		/* MMIO 1 (permissive) */ {
+ 			.phys_start = 0xfd500000,
+ 			.virt_start = 0xfd500000,
+@@ -115,10 +117,30 @@ struct {
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ 				JAILHOUSE_MEM_IO,
+ 		},
+-		/* RAM */ {
++		/* RAM (0M-~762M) */ {
+ 			.phys_start = 0x0,
+ 			.virt_start = 0x0,
+-			.size = 0x3fa10000,
++			.size = 0x2fa10000,
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++				JAILHOUSE_MEM_EXECUTE,
++		},
++
++		/* ~2M reserved for shared memory regions */
++
++		/* 4M reserved for the hypervisor */
++
++		/* RAM (768M-4032M) */ {
++			.phys_start = 0x30000000,
++			.virt_start = 0x30000000,
++			.size = 0xcc000000,
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++				JAILHOUSE_MEM_EXECUTE,
++		},
++
++		/* RAM (4096M-8192M) */ {
++			.phys_start = 0x100000000,
++			.virt_start = 0x100000000,
++			.size = 0x100000000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ 				JAILHOUSE_MEM_EXECUTE,
+ 		},
+-- 
+2.27.0
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/f1889ddb-56e3-abef-87be-dcb2085a0ef0%40uni-tuebingen.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20200826161642.275038-1-jakub%40luzny.cz.
