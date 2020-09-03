@@ -1,118 +1,128 @@
-Return-Path: <jailhouse-dev+bncBCZKRDGF7APRB573YT5AKGQEJ3NHSNA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBOP5YT5AKGQEGWBLK4A@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pf1-x43f.google.com (mail-pf1-x43f.google.com [IPv6:2607:f8b0:4864:20::43f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90E4825C90D
-	for <lists+jailhouse-dev@lfdr.de>; Thu,  3 Sep 2020 21:03:22 +0200 (CEST)
-Received: by mail-pf1-x43f.google.com with SMTP id o184sf2543954pfb.12
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 03 Sep 2020 12:03:22 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1599159801; cv=pass;
+Received: from mail-lj1-x23d.google.com (mail-lj1-x23d.google.com [IPv6:2a00:1450:4864:20::23d])
+	by mail.lfdr.de (Postfix) with ESMTPS id D612825C918
+	for <lists+jailhouse-dev@lfdr.de>; Thu,  3 Sep 2020 21:06:34 +0200 (CEST)
+Received: by mail-lj1-x23d.google.com with SMTP id i9sf1268713ljc.12
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 03 Sep 2020 12:06:34 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1599159994; cv=pass;
         d=google.com; s=arc-20160816;
-        b=dnGwNcB4VtWCk1fquAybCPOcudpqFdYsnJslVQgM8CNAWYT93COZ72dLJW6Yp0xBIY
-         JVEYcsgkXyEQNDN8YKNwTtvIOla7wFQPjIpG1+RaWZarmxE7z5y9WVos2p1F4ml9mie3
-         69m2TqmFt2tmk9psCMq38NkSfJllSPx08McJ7ec5CTSYu5bY1MEntw6QHIZpVbzBYllE
-         pFtr19NSEv8ZPvRHTUjBzIu0oj8D4ZAlPohm3b4aZ/1pH8Pdze6dkGBVdQbzHuQ8QzLq
-         7CDS2GpIgT+M29P4oIKxAK8iQUCkWtWsGuaA6APp3af2DdhpcxXZC1wPrt7vrZNPLGYp
-         YXdQ==
+        b=nC20ftjeFBbPG02AWO6wTSuyk/x8tBso9ACG79hdbmiN6oAMuDhW+aXZs3Fq9wewkG
+         pdfgE62oGCIdaaL0AGcXwnX3BPneWqLEleAj61m1Sa+P3JFg1jYogU6NERf2UOiAKgrn
+         MQYi7xBTWIOP8EhJ6mtsu2jSEdGLAqZDVXdGEfg6c/2Z+XiFdOzGGQ3zDdFHS8+DrVve
+         p3im+jIYretxccDtOE6ViPR19fQLjfRi6nH2NacAXN9M7aEo03NRFJAkQf9u5Yl78Mcw
+         wtmgMybh9mwS8g/2OZi9AW9QEkcDr5w6W+M9EBk5xTxS5O5GBTQsz2l0AtDdZ9nG1jrm
+         IIaw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:sender:dkim-signature;
-        bh=eodkZFrYVzKJ4HUtyRV+QHH0i5bKoVFIsG3MniEvcgM=;
-        b=NKs5X3MHMArC0B0x1AlAVziTGdVrXRzzEWHUpfk4N+mgz6VoAY6tnkgZsVjDDwbKX3
-         SBirSZ+DZRlQE3oZvcgemFDxZHxY9kJGfWSTM1Mw6lRP+2gM8oAz7VJpwPDH2Xl8BxBZ
-         N14eFf8GjK/DHeAJaTT/CKIQ/5pGbqqcUp/9Kv6WVBm7Pdrqwqu5W3iqmgNyaXb3HiSa
-         7OGBbVnSOvvyatOy8RXHPVxdkXyHTXBugDUNcddokLLbypyighaZ74JI8YYVewfdr+c9
-         aCPtLyyKVr3IKrfUguI25My/Mn180qsDXdNevF+et7aqj/E+yWjkwmVz+WkCrqr07AUj
-         JNJw==
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:cc:to:subject:sender:dkim-signature;
+        bh=KXL5BkMWuFCioJ+/51GGR8BApnSW6u++VVmzKrQWftY=;
+        b=NeatFwbTV4wWUCbpiHTxrxs/gdyhAX783nVAakjZwSU8rvJ1BL+krrfGmUddaO1AOV
+         +zs/JGSp4J3zkIHdnL/wglLCtewoQeonWUp9Wf/Lbexgg/RdorAkBmWPuN70STvwGnSu
+         IXopAFJ1N8vEoRMJRAbJsMTPwGEl0QO2n0q4AY0/udylDplxa+ehKJjK3t+dfvQmRfd5
+         4qf5bpYcvsvnFwPX0lPrB1qxfwJXipCNxVOmKmPeAjld/M5oZr1J7gHRmm+354CbDZ+3
+         s/o1fxbKkdA2EP/SN6zYqx8TgSGFL7XQdjQRgNBO/sEKqE5jbVc3Ts/DDGXBiWcS565c
+         v0pw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@luzny-cz.20150623.gappssmtp.com header.s=20150623 header.b=xW9RD3yj;
-       spf=neutral (google.com: 2607:f8b0:4864:20::244 is neither permitted nor denied by best guess record for domain of jakub@luzny.cz) smtp.mailfrom=jakub@luzny.cz
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:mime-version:references:in-reply-to:from:date:message-id
-         :subject:to:cc:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=eodkZFrYVzKJ4HUtyRV+QHH0i5bKoVFIsG3MniEvcgM=;
-        b=LrOAPtyXVDxjA31GMuphvWoNZUnbq895Xw7d/VpnALyPN3/Swt7qqz5wlgxvEQ4e5M
-         BnF7z1DlBbuWjntWQQVl6EHTOb+3+1WUJT9FGpOtrrq31P7OWwJkKIfIGqQIcm1r/7lv
-         TsFC5TXPLLCVDGLTmvVXSdWROH638RNArEpM8mWuVM0Duu3ZyTX69FSOYhxEMyzhGVXv
-         WFs8VHjyXz1Enxhyf0Kq2qILhHar8PX61u8trRN+E9PjUENFZ/w5FmXzM8FZ8f0YcvQA
-         OWSr7V6FfVPLm+wlN5uz0gahcOw8Rq0+fBOSyQp7rhhVWBfiPapeX443aRe2xkV17iwD
-         Yx6w==
+        bh=KXL5BkMWuFCioJ+/51GGR8BApnSW6u++VVmzKrQWftY=;
+        b=Zs9kqh9TSz6psEwpxF2sxAGgtOeuT2SLPWwuSMXa4mls6nk1b+jDkrLURQRy1pnD9+
+         C5mTG7rOoE1L05PoKLOAgCoHduHzmlDalwHKIMletF5ruwYIrGayHu+mpdsdg9xrBbWn
+         n9ezdBdGVE4SqASfmMWbeadsQcqQ9q1Y32BDIHtiVE2gXY3tkSts3QGP95sbR9RA/rFk
+         OxYQAJwe36qojMdCLAVnA03sOMiO8L2yMw1MQRM9X/55M6rkUXIxwwQ7+8KYmgw65XC5
+         mONVrEziFefLEOdxPP+mXM65JIhfYWKlafvNZMwxKKhbvB7qc81Y1/7kBzjSGq7RGF0i
+         FOAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
-         :date:message-id:subject:to:cc:x-original-sender
+        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=eodkZFrYVzKJ4HUtyRV+QHH0i5bKoVFIsG3MniEvcgM=;
-        b=DjVkZpTrpJ8qAS3EmCSuITqbTRwvETWGAmdY7cc2RaEav6LXzkB6fE6R7qhISgMdiW
-         w10PE7JBTX5eqeBfrub4OgAjNPSHV32iUi6uVtC++bYbtBTeF/ZcKc8+MNt4aKv10nn7
-         C6uQRKZa5495EJNXgawIQb6nquxv1vsfM1BlwIa1qhi+pa85Yq9sN0B3BO8TF5EXdT+O
-         1A6bZ6STAKBnqx7zPhMd0MGHBNjmoIHcv5/SY1f23AyogAe99dc88cifoDB/BjoxgviW
-         VT2gq0YP1uvS733ursiuUmuAqD3r0wCeHI4fkrEmmr/szejT58YKD+Iig2FX0xTp8djq
-         BbGA==
+        bh=KXL5BkMWuFCioJ+/51GGR8BApnSW6u++VVmzKrQWftY=;
+        b=LVTKIWrYS1VGX4HEuJwaiDSQHEpdtOk8+bFTQAKeL2upluGnmAXPF48MmajTHdwKO4
+         EF+LloTiGgH9WPEOg/+8GYOhec5MeP7Uf7K7QDJqZmN7tJ7si3xPhRMA2+w7kTMe2EY0
+         5fimKLo8KRMq1hOf4TLVyneVz7zTo/NbCq5X+RSqsZ8UxAMIdN5grGjElgFMgTkDvQ/r
+         LxvJsF+D4nLJGz9BG8hWGZh6BxyDyQ/YWbmkI6tOvTkdvxNGVFlGyWi3UY7xIPkSQXiB
+         9l5D+jWu4nsOOmOGkiaiKTxHYZRxif7aPup7NPKJSmeZfsFOQ5tL+nD8K9f17TuLEKlp
+         Ge+Q==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530IhY4vDLS+BmW5p9bThJvjoIsDaxLqhboaTgssRAGsXCZGiBo/
-	ZfXcXJllSL7acwKwE8Ed1Kc=
-X-Google-Smtp-Source: ABdhPJxnwU/vNoTUQMqLWYpZLscb4F2ho/arGTG1eWSf236B5jCkqWpVJ4kR7LCFsezWnXoEfH7nEw==
-X-Received: by 2002:aa7:864c:0:b029:13c:1611:6591 with SMTP id a12-20020aa7864c0000b029013c16116591mr3381824pfo.14.1599159801158;
-        Thu, 03 Sep 2020 12:03:21 -0700 (PDT)
+X-Gm-Message-State: AOAM531c6EAaynKxYESfRN32o7e6pSknQm6iL0YuVzdstbauSm7yCzHn
+	CMnqAAlXoTw6ZZhK4AH02hg=
+X-Google-Smtp-Source: ABdhPJzQW/dgy+cVn2LuhmB5EvullOIjHrrcvLmWmJMmNx+3pQPGejaiQ2ucuKlJM4ADgRj4TFw5UQ==
+X-Received: by 2002:a2e:7408:: with SMTP id p8mr1854656ljc.451.1599159994435;
+        Thu, 03 Sep 2020 12:06:34 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:902:142:: with SMTP id 60ls3401829plb.9.gmail; Thu, 03
- Sep 2020 12:03:19 -0700 (PDT)
-X-Received: by 2002:a17:90a:9292:: with SMTP id n18mr4743089pjo.159.1599159799047;
-        Thu, 03 Sep 2020 12:03:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1599159799; cv=none;
+Received: by 2002:a2e:2c01:: with SMTP id s1ls289891ljs.10.gmail; Thu, 03 Sep
+ 2020 12:06:33 -0700 (PDT)
+X-Received: by 2002:a2e:9655:: with SMTP id z21mr2012353ljh.410.1599159993494;
+        Thu, 03 Sep 2020 12:06:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1599159993; cv=none;
         d=google.com; s=arc-20160816;
-        b=Le+oog/1WNP1ebJPBwhY5tuEfiK4xM2NqFdynZWmeDeIWr7PlYhaHuvUZGvuYLrcnO
-         prHaeirX13mjb9gI5LXIiwGgYTBSfQMwTPncV4Fhs2jJa4Nku0Wk1qkPze1et0sxOH0J
-         jSRI8MWB6VRPj7jNfi7CqqiKBVKLAnVA1BwPs3vhS2MxAqZVmY5DikydrwZJjuEJxkI3
-         2P5oAz8fXeOVPkWDPmyRu7w/o6a9s8v1hxk07Q1ayshgVdJbMiON2keKhaBwiVZEJOjV
-         c7vkTHiua9zA2q5jHxXpYZAcJ0yBXyB04QFe3eC+97ilHK8hK3qObMRNNrF3kDckRJ00
-         qJlQ==
+        b=DwRKW/7joghDTSgQnuX5cFgiXybrqFUZFvf4JyCrSJ4OB+jRPK/EBOKy9BX2crL6Wu
+         YUvYQLpFLBSMVZ2UmIwvHctWD1DxjWVDup8vyM1V1saxnNlD6NgNup8xPPWBGo8qFbRw
+         BIXfX1KHBJDqmaHWqT5Co3WyLpuPp6MD6S6oVHxbrrb78/EsWU7g1HaHWCUGqE5FCMS/
+         H4T8SlD0OQMA+Gp8tmMP4jna5Nal1F73Lj9DvNlJfpZ1/VldnvEg+42kb8fXUyiPsrLl
+         iqO8A8JstkufxcHyk/BCQE2eHB/+m/8L3H0gKmQ+Ncohdn9A9e9ydG2MDWtrYw00TahK
+         8/LA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=5lLwTeS2BgOqpR4qjclAZniRZFJouxSjl8p1+akdP2w=;
-        b=wYv4EGU0n4Y4hQ7lARvTN2hCUOE2J6yQ+gRO+zIS9DhE2Yi9FefrXf2uOJxtytD8Ie
-         RhJQv++9619B9j3jsQYQkUnp44vz4UmPrEIkycS52P9+6jjUgFDtR6rHtlUNK3vHKtOY
-         0cLVGwP5OlPgDxuri60aLga/O1gMQ76JeiU58ix6phRLOsypc8wi1Eyv+xTMwhMFTpMm
-         g8cjKXc+RUIFYNJ8xhbXk2VGu1GUc1r+MZ6kRizTTH6qWGNjFx81GFLdW0OOkBZwQZeU
-         P3rfPYBgLDALJ0FTSKQlOyswR67klda1lq1C8Xa0HornK1U6Osjqdt6U22vOhPmSjaaF
-         eHhQ==
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:cc:to:subject;
+        bh=ea8wV11BElp84bnnuCnvjWax2UEc/tWb2ACKxpn+Z3c=;
+        b=XMNjFp2EwL3FN3pcaC+csCa5HziU2cAlpqoJiA4eFU8u8ZOQ424C8pqMX9rLOA3GjU
+         a0UTWJPlIAM/3A5lEB8ueQ99gBSpe7mm4ZEJ4akylgEipL3fHcWaqL57lSymSYXlI3PZ
+         VehPRrRvXGXJdwHqUKwiodAsRnbgjZw+YYmecg04p960H7f5F693CzLZbFjdZEt9gii/
+         CaNm0QJdkLyLzQjogxJ7EPFYOMDdc/wH4jGTN5pWrTTFzM7hV2FgT9i+c86iIiiR4dkl
+         gdhMnrvw1890QKOI2EhCMIcc2PcXUVRAXHQqKB1WJe9i7p3xrVf4Kf641ToytImz9ntv
+         unIA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@luzny-cz.20150623.gappssmtp.com header.s=20150623 header.b=xW9RD3yj;
-       spf=neutral (google.com: 2607:f8b0:4864:20::244 is neither permitted nor denied by best guess record for domain of jakub@luzny.cz) smtp.mailfrom=jakub@luzny.cz
-Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com. [2607:f8b0:4864:20::244])
-        by gmr-mx.google.com with ESMTPS id a199si307156pfd.1.2020.09.03.12.03.18
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
+        by gmr-mx.google.com with ESMTPS id a23si172800lji.7.2020.09.03.12.06.33
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2020 12:03:18 -0700 (PDT)
-Received-SPF: neutral (google.com: 2607:f8b0:4864:20::244 is neither permitted nor denied by best guess record for domain of jakub@luzny.cz) client-ip=2607:f8b0:4864:20::244;
-Received: by mail-oi1-x244.google.com with SMTP id x19so4200909oix.3
-        for <jailhouse-dev@googlegroups.com>; Thu, 03 Sep 2020 12:03:18 -0700 (PDT)
-X-Received: by 2002:aca:db42:: with SMTP id s63mr2892719oig.4.1599159797762;
- Thu, 03 Sep 2020 12:03:17 -0700 (PDT)
-MIME-Version: 1.0
-References: <db026424-191f-5fe7-1cd0-d2777e4bbd4c@siemens.com>
-In-Reply-To: <db026424-191f-5fe7-1cd0-d2777e4bbd4c@siemens.com>
-From: =?UTF-8?B?SmFrdWIgTHXFvm7DvQ==?= <jakub@luzny.cz>
-Date: Thu, 3 Sep 2020 21:03:06 +0200
-Message-ID: <CAGdCPwsT+DGtNmS=AvXiRpv2APTLpz=g3MO8meyS-CL9P2BKxw@mail.gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 03 Sep 2020 12:06:33 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id 083J6Wc9018494
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 3 Sep 2020 21:06:32 +0200
+Received: from [167.87.132.24] ([167.87.132.24])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 083J6TCn031148;
+	Thu, 3 Sep 2020 21:06:30 +0200
 Subject: Re: [PATCH] rpi4: Pick up dtbs from self-built kernel
-To: Jan Kiszka <jan.kiszka@siemens.com>
+To: =?UTF-8?B?SmFrdWIgTHXFvm7DvQ==?= <jakub@luzny.cz>
 Cc: Jailhouse <jailhouse-dev@googlegroups.com>
-Content-Type: multipart/alternative; boundary="000000000000af606905ae6d6790"
-X-Original-Sender: jakub@luzny.cz
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@luzny-cz.20150623.gappssmtp.com header.s=20150623
- header.b=xW9RD3yj;       spf=neutral (google.com: 2607:f8b0:4864:20::244 is
- neither permitted nor denied by best guess record for domain of
- jakub@luzny.cz) smtp.mailfrom=jakub@luzny.cz
+References: <db026424-191f-5fe7-1cd0-d2777e4bbd4c@siemens.com>
+ <CAGdCPwsT+DGtNmS=AvXiRpv2APTLpz=g3MO8meyS-CL9P2BKxw@mail.gmail.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <6a058dab-0000-5342-7022-dd06089ae230@siemens.com>
+Date: Thu, 3 Sep 2020 21:06:29 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
+MIME-Version: 1.0
+In-Reply-To: <CAGdCPwsT+DGtNmS=AvXiRpv2APTLpz=g3MO8meyS-CL9P2BKxw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -125,77 +135,110 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---000000000000af606905ae6d6790
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 03.09.20 21:03, Jakub Lu=C5=BEn=C3=BD wrote:
+> Nice, that's the way I wanted to do it, but haven't found room to dive
+> into Isar.
+>=20
 
-Nice, that's the way I wanted to do it, but haven't found room to dive into
-Isar.
+This part is actually fairly similar to OE, though still not identical.
 
-I've just verified this on 2G, 4G & 8G. Boots and runs a Linux cell as
-before.
+> I've just verified this on 2G, 4G & 8G. Boots and runs a Linux cell as
+> before.
 
-Jakub
+Great, thanks!
 
-On Tue, 1 Sep 2020 at 12:04, Jan Kiszka <jan.kiszka@siemens.com> wrote:
+Jan
 
-> From: Jan Kiszka <jan.kiszka@siemens.com>
->
-> This should avoid firmware updates when the only difference is a new dtb
-> or overlay with some adjusted or new bindings. Apparently, the same
-> pattern is used also by meta-raspberrypi on the OE side.
->
-> Suggested-by: Jakub Lu=C5=BEn=C3=BD <jakub@luzny.cz>
-> Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-> ---
->
-> This depends on v2 of "Updates, support for all RPi4 variants".
->
->  conf/machine/rpi4.conf                          |  3 ++-
->  .../files/debian/rpi-firmware.install           | 17 +++++++++--------
->  2 files changed, 11 insertions(+), 9 deletions(-)
->
-> diff --git a/conf/machine/rpi4.conf b/conf/machine/rpi4.conf
-> index a683b7a..8ccef6b 100644
-> --- a/conf/machine/rpi4.conf
-> +++ b/conf/machine/rpi4.conf
-> @@ -23,8 +23,9 @@ IMAGE_BOOT_FILES =3D " \
->      /usr/lib/rpi-firmware/fixup4x.dat;fixup4x.dat \
->      /usr/lib/rpi-firmware/start4.elf;start4.elf \
->      /usr/lib/rpi-firmware/start4x.elf;start4x.elf \
-> -    /usr/lib/rpi-firmware/bcm2711-rpi-4-b.dtb;bcm2711-rpi-4-b.dtb \
->      /usr/lib/rpi-firmware/overlays/*;overlays/ \
-> +    /usr/lib/linux-image-*/broadcom/bcm2711-rpi-4-b.dtb \
-> +    /usr/lib/linux-image-*/overlays/*;overlays/ \
->      /usr/lib/arm-trusted-firmware/rpi4/bl31.bin;bl31.bin \
->      /vmlinuz;kernel8.img \
->      "
-> diff --git a/recipes-bsp/rpi-firmware/files/debian/rpi-firmware.install
-> b/recipes-bsp/rpi-firmware/files/debian/rpi-firmware.install
-> index 701a984..dba3266 100644
-> --- a/recipes-bsp/rpi-firmware/files/debian/rpi-firmware.install
-> +++ b/recipes-bsp/rpi-firmware/files/debian/rpi-firmware.install
-> @@ -1,8 +1,9 @@
-> -boot/bootcode.bin      usr/lib/rpi-firmware/
-> -boot/LICENCE.broadcom  usr/lib/rpi-firmware/
-> -boot/*.dat             usr/lib/rpi-firmware/
-> -boot/*.dtb             usr/lib/rpi-firmware/
-> -boot/*.elf             usr/lib/rpi-firmware/
-> -boot/overlays/*                usr/lib/rpi-firmware/overlays/
-> -debian/cmdline.txt     usr/lib/rpi-firmware/
-> -debian/config.txt      usr/lib/rpi-firmware/
-> +boot/bootcode.bin              usr/lib/rpi-firmware/
-> +boot/LICENCE.broadcom          usr/lib/rpi-firmware/
-> +boot/*.dat                     usr/lib/rpi-firmware/
-> +boot/*.dtb                     usr/lib/rpi-firmware/
-> +boot/*.elf                     usr/lib/rpi-firmware/
-> +boot/overlays/README           usr/lib/rpi-firmware/overlays/
-> +boot/overlays/jailhouse.dtbo   usr/lib/rpi-firmware/overlays/
-> +debian/cmdline.txt             usr/lib/rpi-firmware/
-> +debian/config.txt              usr/lib/rpi-firmware/
-> --
-> 2.26.2
->
+>=20
+> Jakub
+>=20
+> On Tue, 1 Sep 2020 at 12:04, Jan Kiszka <jan.kiszka@siemens.com
+> <mailto:jan.kiszka@siemens.com>> wrote:
+>=20
+>     From: Jan Kiszka <jan.kiszka@siemens.com
+>     <mailto:jan.kiszka@siemens.com>>
+>=20
+>     This should avoid firmware updates when the only difference is a new =
+dtb
+>     or overlay with some adjusted or new bindings. Apparently, the same
+>     pattern is used also by meta-raspberrypi on the OE side.
+>=20
+>     Suggested-by: Jakub Lu=C5=BEn=C3=BD <jakub@luzny.cz <mailto:jakub@luz=
+ny.cz>>
+>     Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com
+>     <mailto:jan.kiszka@siemens.com>>
+>     ---
+>=20
+>     This depends on v2 of "Updates, support for all RPi4 variants".
+>=20
+>     =C2=A0conf/machine/rpi4.conf=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 3 ++-
+>     =C2=A0.../files/debian/rpi-firmware.install=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0| 17 +++++++++--------
+>     =C2=A02 files changed, 11 insertions(+), 9 deletions(-)
+>=20
+>     diff --git a/conf/machine/rpi4.conf b/conf/machine/rpi4.conf
+>     index a683b7a..8ccef6b 100644
+>     --- a/conf/machine/rpi4.conf
+>     +++ b/conf/machine/rpi4.conf
+>     @@ -23,8 +23,9 @@ IMAGE_BOOT_FILES =3D " \
+>     =C2=A0 =C2=A0 =C2=A0/usr/lib/rpi-firmware/fixup4x.dat;fixup4x.dat \
+>     =C2=A0 =C2=A0 =C2=A0/usr/lib/rpi-firmware/start4.elf;start4.elf \
+>     =C2=A0 =C2=A0 =C2=A0/usr/lib/rpi-firmware/start4x.elf;start4x.elf \
+>     -=C2=A0 =C2=A0 /usr/lib/rpi-firmware/bcm2711-rpi-4-b.dtb;bcm2711-rpi-=
+4-b.dtb \
+>     =C2=A0 =C2=A0 =C2=A0/usr/lib/rpi-firmware/overlays/*;overlays/ \
+>     +=C2=A0 =C2=A0 /usr/lib/linux-image-*/broadcom/bcm2711-rpi-4-b.dtb \
+>     +=C2=A0 =C2=A0 /usr/lib/linux-image-*/overlays/*;overlays/ \
+>     =C2=A0 =C2=A0 =C2=A0/usr/lib/arm-trusted-firmware/rpi4/bl31.bin;bl31.=
+bin \
+>     =C2=A0 =C2=A0 =C2=A0/vmlinuz;kernel8.img \
+>     =C2=A0 =C2=A0 =C2=A0"
+>     diff --git
+>     a/recipes-bsp/rpi-firmware/files/debian/rpi-firmware.install
+>     b/recipes-bsp/rpi-firmware/files/debian/rpi-firmware.install
+>     index 701a984..dba3266 100644
+>     --- a/recipes-bsp/rpi-firmware/files/debian/rpi-firmware.install
+>     +++ b/recipes-bsp/rpi-firmware/files/debian/rpi-firmware.install
+>     @@ -1,8 +1,9 @@
+>     -boot/bootcode.bin=C2=A0 =C2=A0 =C2=A0 usr/lib/rpi-firmware/
+>     -boot/LICENCE.broadcom=C2=A0 usr/lib/rpi-firmware/
+>     -boot/*.dat=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0usr/lib/rp=
+i-firmware/
+>     -boot/*.dtb=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0usr/lib/rp=
+i-firmware/
+>     -boot/*.elf=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0usr/lib/rp=
+i-firmware/
+>     -boot/overlays/*=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 usr/lib/rpi-firmware/overlays/
+>     -debian/cmdline.txt=C2=A0 =C2=A0 =C2=A0usr/lib/rpi-firmware/
+>     -debian/config.txt=C2=A0 =C2=A0 =C2=A0 usr/lib/rpi-firmware/
+>     +boot/bootcode.bin=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 us=
+r/lib/rpi-firmware/
+>     +boot/LICENCE.broadcom=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 usr/lib/rpi-=
+firmware/
+>     +boot/*.dat=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0usr/lib/rpi-firmware/
+>     +boot/*.dtb=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0usr/lib/rpi-firmware/
+>     +boot/*.elf=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0usr/lib/rpi-firmware/
+>     +boot/overlays/README=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0usr/lib=
+/rpi-firmware/overlays/
+>     +boot/overlays/jailhouse.dtbo=C2=A0 =C2=A0usr/lib/rpi-firmware/overla=
+ys/
+>     +debian/cmdline.txt=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0us=
+r/lib/rpi-firmware/
+>     +debian/config.txt=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 us=
+r/lib/rpi-firmware/
+>     --=20
+>     2.26.2
+>=20
+>=20
+
+--=20
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+Corporate Competence Center Embedded Linux
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -203,114 +246,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/CAGdCPwsT%2BDGtNmS%3DAvXiRpv2APTLpz%3Dg3MO8meyS-CL9P2BKxw%40m=
-ail.gmail.com.
-
---000000000000af606905ae6d6790
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr">Nice, that&#39;s the way I wanted to do i=
-t, but haven&#39;t found room to dive into Isar.<br><br>I&#39;ve just verif=
-ied this on 2G, 4G &amp; 8G. Boots and runs a Linux cell as before.<br><br>=
-Jakub</div><div dir=3D"ltr"><br><div class=3D"gmail_quote"><div dir=3D"ltr"=
- class=3D"gmail_attr">On Tue, 1 Sep 2020 at 12:04, Jan Kiszka &lt;<a href=
-=3D"mailto:jan.kiszka@siemens.com" target=3D"_blank">jan.kiszka@siemens.com=
-</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
-0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
-From: Jan Kiszka &lt;<a href=3D"mailto:jan.kiszka@siemens.com" target=3D"_b=
-lank">jan.kiszka@siemens.com</a>&gt;<br>
-<br>
-This should avoid firmware updates when the only difference is a new dtb<br=
->
-or overlay with some adjusted or new bindings. Apparently, the same<br>
-pattern is used also by meta-raspberrypi on the OE side.<br>
-<br>
-Suggested-by: Jakub Lu=C5=BEn=C3=BD &lt;<a href=3D"mailto:jakub@luzny.cz" t=
-arget=3D"_blank">jakub@luzny.cz</a>&gt;<br>
-Signed-off-by: Jan Kiszka &lt;<a href=3D"mailto:jan.kiszka@siemens.com" tar=
-get=3D"_blank">jan.kiszka@siemens.com</a>&gt;<br>
----<br>
-<br>
-This depends on v2 of &quot;Updates, support for all RPi4 variants&quot;.<b=
-r>
-<br>
-=C2=A0conf/machine/rpi4.conf=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 3 ++-<br>
-=C2=A0.../files/debian/rpi-firmware.install=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0| 17 +++++++++--------<br>
-=C2=A02 files changed, 11 insertions(+), 9 deletions(-)<br>
-<br>
-diff --git a/conf/machine/rpi4.conf b/conf/machine/rpi4.conf<br>
-index a683b7a..8ccef6b 100644<br>
---- a/conf/machine/rpi4.conf<br>
-+++ b/conf/machine/rpi4.conf<br>
-@@ -23,8 +23,9 @@ IMAGE_BOOT_FILES =3D &quot; \<br>
-=C2=A0 =C2=A0 =C2=A0/usr/lib/rpi-firmware/fixup4x.dat;fixup4x.dat \<br>
-=C2=A0 =C2=A0 =C2=A0/usr/lib/rpi-firmware/start4.elf;start4.elf \<br>
-=C2=A0 =C2=A0 =C2=A0/usr/lib/rpi-firmware/start4x.elf;start4x.elf \<br>
--=C2=A0 =C2=A0 /usr/lib/rpi-firmware/bcm2711-rpi-4-b.dtb;bcm2711-rpi-4-b.dt=
-b \<br>
-=C2=A0 =C2=A0 =C2=A0/usr/lib/rpi-firmware/overlays/*;overlays/ \<br>
-+=C2=A0 =C2=A0 /usr/lib/linux-image-*/broadcom/bcm2711-rpi-4-b.dtb \<br>
-+=C2=A0 =C2=A0 /usr/lib/linux-image-*/overlays/*;overlays/ \<br>
-=C2=A0 =C2=A0 =C2=A0/usr/lib/arm-trusted-firmware/rpi4/bl31.bin;bl31.bin \<=
-br>
-=C2=A0 =C2=A0 =C2=A0/vmlinuz;kernel8.img \<br>
-=C2=A0 =C2=A0 =C2=A0&quot;<br>
-diff --git a/recipes-bsp/rpi-firmware/files/debian/rpi-firmware.install b/r=
-ecipes-bsp/rpi-firmware/files/debian/rpi-firmware.install<br>
-index 701a984..dba3266 100644<br>
---- a/recipes-bsp/rpi-firmware/files/debian/rpi-firmware.install<br>
-+++ b/recipes-bsp/rpi-firmware/files/debian/rpi-firmware.install<br>
-@@ -1,8 +1,9 @@<br>
--boot/bootcode.bin=C2=A0 =C2=A0 =C2=A0 usr/lib/rpi-firmware/<br>
--boot/LICENCE.broadcom=C2=A0 usr/lib/rpi-firmware/<br>
--boot/*.dat=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0usr/lib/rpi-firm=
-ware/<br>
--boot/*.dtb=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0usr/lib/rpi-firm=
-ware/<br>
--boot/*.elf=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0usr/lib/rpi-firm=
-ware/<br>
--boot/overlays/*=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 usr=
-/lib/rpi-firmware/overlays/<br>
--debian/cmdline.txt=C2=A0 =C2=A0 =C2=A0usr/lib/rpi-firmware/<br>
--debian/config.txt=C2=A0 =C2=A0 =C2=A0 usr/lib/rpi-firmware/<br>
-+boot/bootcode.bin=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 usr/lib/=
-rpi-firmware/<br>
-+boot/LICENCE.broadcom=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 usr/lib/rpi-firmwa=
-re/<br>
-+boot/*.dat=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0usr/lib/rpi-firmware/<br>
-+boot/*.dtb=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0usr/lib/rpi-firmware/<br>
-+boot/*.elf=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0usr/lib/rpi-firmware/<br>
-+boot/overlays/README=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0usr/lib/rpi-f=
-irmware/overlays/<br>
-+boot/overlays/jailhouse.dtbo=C2=A0 =C2=A0usr/lib/rpi-firmware/overlays/<br=
->
-+debian/cmdline.txt=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0usr/lib/=
-rpi-firmware/<br>
-+debian/config.txt=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 usr/lib/=
-rpi-firmware/<br>
--- <br>
-2.26.2<br>
-</blockquote></div><div><br></div></div>
-</div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/CAGdCPwsT%2BDGtNmS%3DAvXiRpv2APTLpz%3Dg3MO8meyS-CL=
-9P2BKxw%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://gr=
-oups.google.com/d/msgid/jailhouse-dev/CAGdCPwsT%2BDGtNmS%3DAvXiRpv2APTLpz%3=
-Dg3MO8meyS-CL9P2BKxw%40mail.gmail.com</a>.<br />
-
---000000000000af606905ae6d6790--
+jailhouse-dev/6a058dab-0000-5342-7022-dd06089ae230%40siemens.com.
