@@ -1,176 +1,117 @@
-Return-Path: <jailhouse-dev+bncBDAMFR7JZAEBBZFVY35AKGQEHDJ5Q4Y@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBKVGZL5AKGQE7AYXSBA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23a.google.com (mail-lj1-x23a.google.com [IPv6:2a00:1450:4864:20::23a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7168525CF20
-	for <lists+jailhouse-dev@lfdr.de>; Fri,  4 Sep 2020 03:39:49 +0200 (CEST)
-Received: by mail-lj1-x23a.google.com with SMTP id z18sf1575267lji.9
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 03 Sep 2020 18:39:49 -0700 (PDT)
-ARC-Seal: i=3; a=rsa-sha256; t=1599183589; cv=pass;
+Received: from mail-il1-x13a.google.com (mail-il1-x13a.google.com [IPv6:2607:f8b0:4864:20::13a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 12DF525E1E0
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  4 Sep 2020 21:19:08 +0200 (CEST)
+Received: by mail-il1-x13a.google.com with SMTP id o1sf5535207ilk.6
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 04 Sep 2020 12:19:08 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1599247146; cv=pass;
         d=google.com; s=arc-20160816;
-        b=AccQp+iiuWitfSn1G3u2i2kWG7sLrsDBMaHy0LktJUPXSSD66mqozfxlTZ7Gr6L/mn
-         jQMUOUxULmIgxvYqf8gmU0jZfuBt0UEeKU2jANG3Yw/00ENAaoF7k7Xu8AVoug51zpET
-         zYy5Ow4sVWfcfTZmncuD9qehU/aGCTLpRnk0jfZ7sdcpYKf+Bjz2nt+LqlVQAuXGKGID
-         /71UqlwCXBV9/1RFAEjcSPBrtCeowyMH3mFfR9Sv/YHJZxFIlQqqJSnUmsdREIZZ6SsW
-         lrpCnZ1Di/QQ4oJq+27I3hplU/s3SEjng+VapZtS7YcgzdPFG3dvaBBAELcKj8okhrTr
-         irsQ==
-ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        b=aC4tm9pgqqdR64mqirc2Eu8aw5KK+n8HBBWPP2jVmoxptn9GMwXRMEQ4chmoN4BG/e
+         uILI/AitEEj+KY55703S+EalhMk80Zh1I9q8Wv2y9bNIFnJLrkMfUyPFXXnQdApwOdsf
+         WbAl6RFSjMn3yd/JpHsvcvHtx6U7Idknx6urmmNkRbLJG1g5YlJw1NlAotLr4oG9vkF5
+         73TnbzEeOHDukQ2+bOTA48Tqi+4Y7q4VFX5LvIRTnKBVJGyVv74osQJteYnP3UpoqS/2
+         JVhlWNzHXLR14mn18Iojm0N/CymT+64WiKDL8TUWkJ1Hyi2b7QhC452AQsrmNtBAFGBv
+         EHLQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:cc:to:from:sender:dkim-signature;
-        bh=deQxcTRtYN/xicx6B/RXKHoOEJ0zdClcxkbtm3RHW/I=;
-        b=jShEvIOe3lnhYbWYn4ZcdgKSRC8r5ms7kNMeCiNa1b6Ck2Cs+xMDvPWukYJ+HomS2D
-         W5VkuH5JcQ1Ib8Y73P69U0DxgZMWLBwna+eggTpJFptNj0D+65KbNcEwuXC9g3snh0w/
-         tcT0sFcCv0uY9uN07ty0Gp0b/+WT2k8uZHjVm6vdx6JaOjzqcOGargTA514r4d/pVs1r
-         4RgsMyCKkfltRrG1GKn9g+y3k0gc6Kd6Aoz8I7khrWtpwQA3b+jZBbIyY8jqrFBXDvwN
-         93xznqtI0AnOJjJ8PGeTRIBzv1ybI1UIfV9EsRacy4XGi0h1JFNErQm8Xc9MIJEx7jwH
-         5l4Q==
-ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@nxp.com header.s=selector2 header.b=EUFRwQPn;
-       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
-       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.6.61 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
+         :list-id:mailing-list:precedence:mime-version:subject:message-id:to
+         :from:date:sender:dkim-signature;
+        bh=gR2ZJLeMJC0z1G+hWWC+JWgv/y1ewmXYXEgAVYDcje8=;
+        b=Bc1J7Ht/5J5J3dotqEqaosZtmm8QT5EjcutoVrZmwptTD+ePSzue4a9HeOmxGJgpcO
+         e5A4xlOiX5zh9OxPt1s/+awyCVj56PUtgxyQeB6bmTYY+C0B0EuGkA7oPFWXuswk1aRx
+         eELqY/MoN6ia8+fGE1yz1SckrzQn5PKLMPebLqt66GuF6vCj2IphB3uTa+0vqu/IExlS
+         3H8bhbhgElt/2XrfydRnp0VJCEkFDhgLLX+OqLGBqnTPV1n8nNZI+Oq4JjPb+u3Q0NGy
+         By2sP66cQaPQwRUqktBESsd7PT8Fr9er62Q7Sdb5FZIG0HyoykwxZdhDj7vT9MHf6S0t
+         mSaA==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=ptIKCiOd;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.208 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:cc:subject:thread-topic:thread-index:date:message-id
-         :references:in-reply-to:accept-language:content-language
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=deQxcTRtYN/xicx6B/RXKHoOEJ0zdClcxkbtm3RHW/I=;
-        b=AVehFHRTsZwk4RHjvhreR1dS4HA4QnFxUsrh9Fcp1fGR9vE1yop87FkH29DOJUrkFC
-         btWZU0LI6gikMU6Ps/7qwZM950GYqFMFRvhUfZjOhaaxxdxbes0fGm9dFCu01OvLCtZR
-         5bkO/DWfpPRpuVLw3a0UcURp+U0c2yaWvK3roq4nmBNrZYvJ9yiqTQmjV+p57rs/NoFl
-         8Ni/5gsrIKqiCTJI4ZlipzHCN+Pzo/mhY+yfysicOIlbtvs+uHxvkRqxtHBef2yCvJF2
-         eIQkdEpCXMtApyi3sagAETpQOADk/kTk/A5qiXbgpGGJsdcwXkHYtKGPZarbym6eHHk+
-         UGhQ==
+        bh=gR2ZJLeMJC0z1G+hWWC+JWgv/y1ewmXYXEgAVYDcje8=;
+        b=eup0UkCbIqO3Wo+eJ5b6ACQ7a63OTiikctHHOjs1qzDpRNSvzVri99R7KJ00ZFBMll
+         V9jD/5Re11GUq7hxV1L5ToPWaiOidXzhf/RKC6kFHxH+n8zgqeddrbjNOspvPFspq0ng
+         rYx+bv6gL+Cqerz2njm8BwCnmt1lN1BGS3Rhh6McT7bLWWlFKW4MAPIUoam3cHjoBNMR
+         3tcIFEngBDWkYyXs6gIsFsfVnNTyixNj3YO9sET2f+ZCyrZirMGbWx9pacLIYIV/83QN
+         MjEYtCFPlkwPnXt9YvmlXBwMjyY5yZsqGU/oegiti/i2ZPrdvFgawDt49xa/+SU3iFdU
+         FgZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:cc:subject:thread-topic
-         :thread-index:date:message-id:references:in-reply-to:accept-language
-         :content-language:mime-version:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=deQxcTRtYN/xicx6B/RXKHoOEJ0zdClcxkbtm3RHW/I=;
-        b=LwxBH8E2Q0xeje2aNa6gONjXVQlaIufmwfLgUlyWghu3Nn7eH2uvScLAs8XJXIkBiO
-         d9fvBPGn6LkJYOcsbEPcvLJdL8kHd16QgdNFS69ZrvsBhqgpNA7b8USRMZtLlWd7WyhF
-         uCvF7F9StXlpUqgOw6CP8ByycMGI9dsSvWe8mJllixu/ia8IOj7nJ//kWQJAPRYQA3we
-         CDH81OIo4sbk3wt1nSc53zgehYWc5tEHcHDwAZVXNBMKEsi0FlTHweFL/7Nz8GqfXS18
-         Hy4dLWMN+HQpvoZwODvtsgVSN7LUbjqbnD4qQkWsMknCQy4eZFGdK7YqsTy95ldnM8nw
-         3CPw==
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=gR2ZJLeMJC0z1G+hWWC+JWgv/y1ewmXYXEgAVYDcje8=;
+        b=ttc45a+CmfwQpkNtlqyrGmomJ6Z2fWuxn613poFHNc1Xy3AOcTzK4nOCHinp8BaJ66
+         3e41BNIjlTs4XyliKoZoihkrCRt4eK7yGADDPoCnIhEJavaa/DeDtb+D0As6g3EBv6IZ
+         nZl7uQniBJHMHNmR6aCHobNQQGokL5NRToWVa7DDCJBZPhcC9PeItPO/p0XC/bKHQ3vm
+         Up+lYuJXDrlKnGrmdwrSoDhjh5nGua0hTbQri7eCYTzbcKrb4wsRTTM0VDfiJLmz9/NR
+         ydPtUqktZc3xMipGCeY4DY5FwefmDnrdnw+FV6dWvUdkh0m9fQyu36+0C1lb7Fo3Oaqz
+         m7jA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM53315nyBh/5veJqNwhBkI/JDs3h2Ao5k0985UnETG5z/YWdYKh8M
-	Nr/LcYS1ByM4JcMtyfYBNIY=
-X-Google-Smtp-Source: ABdhPJyiJL4o3ot0rgSFBNTGefAE6TMHMd76nqWe5N90P1a1KNYshlWb/3F6XR36tmmVcKZmsi0pIQ==
-X-Received: by 2002:a2e:910d:: with SMTP id m13mr2896467ljg.240.1599183588911;
-        Thu, 03 Sep 2020 18:39:48 -0700 (PDT)
+X-Gm-Message-State: AOAM533XKlZ5GwAdVQnNNsTEx3lPmdd7I9IVSKLSpDP7ChYM2VlqqCSu
+	NvSgs2nZRk/O1db3+3uKcU8=
+X-Google-Smtp-Source: ABdhPJzRhIWD7tIFu9L5+2Gm8w0PvF2O/wm2pM1RDCaPCSYXb9eTCND7t+WXICoLyY2ro0ksHhPmfQ==
+X-Received: by 2002:a05:6602:22cf:: with SMTP id e15mr2181025ioe.114.1599247146619;
+        Fri, 04 Sep 2020 12:19:06 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:86c8:: with SMTP id n8ls1571653ljj.1.gmail; Thu, 03 Sep
- 2020 18:39:48 -0700 (PDT)
-X-Received: by 2002:a05:651c:1028:: with SMTP id w8mr2658752ljm.131.1599183588085;
-        Thu, 03 Sep 2020 18:39:48 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1599183588; cv=pass;
+Received: by 2002:a6b:f702:: with SMTP id k2ls1754631iog.0.gmail; Fri, 04 Sep
+ 2020 12:19:06 -0700 (PDT)
+X-Received: by 2002:a5e:d514:: with SMTP id e20mr8673600iom.183.1599247146122;
+        Fri, 04 Sep 2020 12:19:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1599247146; cv=none;
         d=google.com; s=arc-20160816;
-        b=Xbyb7/a3aiM8xyjxCouitc1+fZ9mNDSv1K2TWJUuyg0QzYE2zpuJlnjjBojWC+mbf5
-         lV324Rto9PUOerSEr31lnFFSgewGh0EzGA8OJZFJ5y9VWkWLv3crBDROJu4FAalBLeX+
-         pVfA8R0wloJXmLpJguB9NR6PUpJdn2D7pgIFOQ4KQxB5lsm9c3EB3dXya7rI0G2vwV05
-         OSTfV5BnHgFZdU3OPkYhWJD3LEJCJvHbxeRp1biqLlOyzeeWv9BTifBPW1T+BRVNRsyg
-         v30fwxQPOd/qF5XHg2cMGwtabDh1O9RE8p85mR+V1zQHRTP1pk6eLbq56QuH3JOuiXTG
-         HOEg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:content-transfer-encoding:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:cc:to:from:dkim-signature;
-        bh=06tSuZbzb+phxvjU3vBpP1tdHoUTCHi8GbJtq5hHA6U=;
-        b=p8N8ovf2EorVmw+KTj1BCnzPjhpGGzmkjY9nBkg5Es6HC3vkJofmpNrz5WPXl5zKsi
-         PyG6g7CBQpUoGhaXqSUYL4644RChDYph+C7P2d88zTXXWGWcEHGd75T4lo0gRWhzTNF/
-         q1rn4uvv27Izbkfqc0rkGCQMqEnPxuHSg9L6fdWjKL9de5JWd+Lm/XqylLiNUcgDq6Bv
-         bcArV9fx49g3BmL32jN9M45lO8fNlTJZ0Nmh5bvfcY8uJObC/cAwocLkmkdnGmleEIGQ
-         5wenOKZ9FI/RW/9eJE22NOYcDnFkkMHxHE/gJJd6SAZuGLX6PYgVFngIaMzeuXpppRwn
-         GRwQ==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@nxp.com header.s=selector2 header.b=EUFRwQPn;
-       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
-       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.6.61 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com (mail-eopbgr60061.outbound.protection.outlook.com. [40.107.6.61])
-        by gmr-mx.google.com with ESMTPS id a23si213145lji.7.2020.09.03.18.39.47
+        b=es4ZqsREh3pXd/WOjqFfCIr3LAva6EmOzY32Pln3UReZx8nho6J61w1VPwFnGxVZEt
+         Wtgj9mbcvuUBWu2BSrbsBPU113pr7Rxp8bT2EtFsX5P6j3Y6nZiLJkRz6Xu/Quv8+/l/
+         MzWRFGLzwmPUlpA9vTe0mkgI1IXR679Rgxk134umYpIynmcqBkG8r2UT9iXmsb7On9oT
+         b1Lyf7oyRq3IfONIdzLGEKjZ+QvBJCx6YeMpgqDkr4ufkDY+0s7Pxcdwx6MqAMNiZepi
+         hM7+iP1VchvtFaD0KQlsARqIHblYYlXVQWiQjsLdt63FjlIsNWRdj7hSZMmGDGNbhk7e
+         sc7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:mime-version:subject:message-id:to:from
+         :date:dkim-signature;
+        bh=JJH0J8DJHDF/Xygz2kZRAWayFJ/Vdn85tVGfZhhXNMk=;
+        b=nXWMKho/ArAvyhCiZY1eQlHdGPg7v4S7ONTqqnzCF1dTI2hOnT+GT2iTIE+L+XAQTb
+         1F+UogljabOosd6k5IAaEMLnpfku0asOHBVxvmYakuG58gNeXp0s7a4ZL5CJKhU9yqgB
+         jUCyIgR4zgsv2lEyomBdbUcNtRIqH0er1lnNGd2yK4VQ6CC9+KiZDvl5AHNM4lZHipL9
+         0sjxiBHQJc6T9U6QkP1CoFmmY9UWU6tRkY1O7/xvMcIUiAGsNsq/RGiJBJwDQWD3QbH2
+         /yYiSc4d9WmT0a2QUEzAy+2/anpbMxwNSKdoYXNbUo7YwzMySNx3TEz7VorGHuQ240j9
+         RRrA==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=ptIKCiOd;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.208 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Received: from out-25.smtp.github.com (out-25.smtp.github.com. [192.30.252.208])
+        by gmr-mx.google.com with ESMTPS id m2si552345ill.5.2020.09.04.12.19.06
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 03 Sep 2020 18:39:48 -0700 (PDT)
-Received-SPF: pass (google.com: domain of peng.fan@nxp.com designates 40.107.6.61 as permitted sender) client-ip=40.107.6.61;
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L8ZKLaVzeIET4Kkat6ABrAMq1FqgcufiydtLN1VCoTt+ivMGbKNLzzJbDDXosp/bV11o3YkBhOXsmp4ATKGTfz18/PTXCZ5VreMmpTDods8tRdeVCkCZD6mBOV0zn2+BS4JsO/tjaHL0yVwQ+7GIvjUloixrafyxbKQk5yhqnUp243Y3fHqD6JBM4ukhwJlcg9bSYw3RdPar0OfS1O90EKIEkqFNoyWGd02AaEiDO+5idgBHfTem80fHQ9c6PB8FVb/Rfd6302/ZEZswqBr2UE2zlYk/TeVSAOn2wCvyV0KO4+/+jsV68k1z2spsyFOZskxmXsG0k6lZJkOqpau/oQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=06tSuZbzb+phxvjU3vBpP1tdHoUTCHi8GbJtq5hHA6U=;
- b=M9lVHtOtv0MsDpaymDK1c/MNYC8oG+AgbztdvXbDOdRQ0CytLfhvROnnJbrisIXoDQQke1Syy9UO+M6IMG0l8+itWar7pf+zAiHMciSi/AGzaTlEZSCOxgIlWiiHeGgS1XSGBLM3D7EuMEC0o0ej6NsywUS2Ik0qq1RtZ/4QesM/fsVe0cVnNr949wqXCuQvO83JXcYNnKzuQOpAygHQqnMBnQeRMrg3/aOBXoCnM9hC442sUQzLQe0PuNtCjx4t7M4iXKzSkz1HaP9RWUOyvtfMDid2uo/wMzOTaiG0q1qWqZaYRXng0bzcAiNPG8+mb+o1AYDPUhRzR4vKlyKYOw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com (2603:10a6:4:a1::14)
- by DB6PR0402MB2936.eurprd04.prod.outlook.com (2603:10a6:4:9a::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3326.23; Fri, 4 Sep
- 2020 01:39:46 +0000
-Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com
- ([fe80::24d0:f783:3c7d:e232]) by DB6PR0402MB2760.eurprd04.prod.outlook.com
- ([fe80::24d0:f783:3c7d:e232%12]) with mapi id 15.20.3348.016; Fri, 4 Sep 2020
- 01:39:46 +0000
-From: Peng Fan <peng.fan@nxp.com>
-To: Jan Kiszka <jan.kiszka@siemens.com>, "vsun...@gmail.com"
-	<vsuneja63@gmail.com>, Jailhouse <jailhouse-dev@googlegroups.com>
-CC: =?utf-8?B?5L2Z57qi5pif?= <yuhongxing@xiaomi.com>
-Subject: RE: imx8: could load 2nd linux in console but not getting how to get
- the shell up in display screen
-Thread-Topic: imx8: could load 2nd linux in console but not getting how to get
- the shell up in display screen
-Thread-Index: AQHWgg6j0KxgIojpqUeSv20MPZnTw6lXP/eAgABxMTA=
-Date: Fri, 4 Sep 2020 01:39:46 +0000
-Message-ID: <DB6PR0402MB27605252999C5205FE84C44A882D0@DB6PR0402MB2760.eurprd04.prod.outlook.com>
-References: <15b9588b-971c-4664-94ec-42479be2d871n@googlegroups.com>
- <16956cd9-31dd-14c6-7314-d42505dfb9e1@siemens.com>
-In-Reply-To: <16956cd9-31dd-14c6-7314-d42505dfb9e1@siemens.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [119.31.174.71]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 1a0a640c-2d25-43a5-c63d-08d8507367cd
-x-ms-traffictypediagnostic: DB6PR0402MB2936:
-x-microsoft-antispam-prvs: <DB6PR0402MB29364E320587303A500F1CF3882D0@DB6PR0402MB2936.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: de4BOwS+O7RCHwFPX8k/14zn7gnnYr69Vm3ZxcLkbsf9S6Foc4LQF8nR78TvDjfQaDmYbnx48eeDtai48dlj63SGL+ZSW6Z8g6HkEzNygHj7UMlBve8J72MEEbxR23yGBUhKJpY9Lpa35PMyCejVBo5f8c8r6am2Cq+axC6MqwDT2vdHpDzTCvqtsUhzEXbo0rQBTMAbaPCH7tlLbTAI9c4cEtGagZ0xaEBOKku/REsR/RRZlNg+BBRqeHKZ1tlK4D7EdCdtlgicLwSQGpxHr9UpEDMpSeSP+fm8iJD5s2PWfj0n4XymqPCoZwEcyAu8s79M8gijnifUO8Xcl1x8nbCkA8Zm9ySeEB2CNt39ZkYy6/X4td+I0K3x01pCc7gX+q8IvrZWdmZf8LPshyocIA==
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB6PR0402MB2760.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(376002)(39860400002)(346002)(366004)(396003)(64756008)(55016002)(110136005)(9686003)(66446008)(86362001)(7696005)(186003)(53546011)(66556008)(44832011)(66946007)(66476007)(26005)(316002)(6506007)(76116006)(52536014)(33656002)(8676002)(8936002)(478600001)(4326008)(83380400001)(2906002)(5660300002)(71200400001)(15583001)(491001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata: 3rOBwt+u1bRuUswfuwjRF9eUk3Q6bluI66o05JjoXg1Qb5Y4xW1YaQLj/hnu8YhiS1gtQPxmMQUbkcC7y9LJ9bJdEqqcZu0+Y791xQy2CrpcC/qtz6DvN3sLBnXcGso0POEsSB+99DoxZk/rhUTWnJEx6aF0AwA675AW5HUJAvYNTyeHa152RkS/5Hx5OLw6Wiq6LfT2fHRr4OlQoT2GrlkCbMp5hD1iMHO+NWHPfN1YeIwphfZN/mnA9hO9ttB+JqNFDojHZiEVXLhumR0r22kYgB8cUPSD9+IVMG7xqv+vwadQeb57G59XCVCIFhYn8IhgswISnN4ZarwCEdKsMEziPo70XWW63bY5Yvz6MW77eYz8pXt0FDHCVmu3XPHBVOmn0oxvpoOCv93a3GQ0kyLrrUwT76uGy5l4My+jHyD0XEMzGPkxqlr0ZalW0FZlB5+X+SPtaPo0VJ0UEALXnFrb6VhCroJeebjuk3PiulvFimIHr8Jh3G+WT/WdA+a7ZQHFXU/4QDoyNm1kiYg0oxW73uV1c9VlbOrcUzyAHWlInDCQOaHEfy8vWeBc5YI5tXfYxlQuNCXqidOWYMYdUj1NqJQcWghsw6FOXZ86sUe36+FZN0jovAyD7WICwu7kC3I3L29qgJPNcTy1LeEUSg==
-x-ms-exchange-transport-forked: True
+        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+        Fri, 04 Sep 2020 12:19:06 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.208 as permitted sender) client-ip=192.30.252.208;
+Received: from github-lowworker-c53a806.ac4-iad.github.net (github-lowworker-c53a806.ac4-iad.github.net [10.52.23.45])
+	by smtp.github.com (Postfix) with ESMTP id C18B284007D
+	for <jailhouse-dev@googlegroups.com>; Fri,  4 Sep 2020 12:19:05 -0700 (PDT)
+Date: Fri, 04 Sep 2020 12:19:05 -0700
+From: Jan Kiszka <noreply@github.com>
+To: jailhouse-dev@googlegroups.com
+Message-ID: <siemens/jailhouse/push/refs/heads/wip/arm64-zero-exits/e0ef82-980614@github.com>
+Subject: [siemens/jailhouse] 93edbb: arm-common: Reorder gicv2_cpu_init
+Mime-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
-MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB6PR0402MB2760.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a0a640c-2d25-43a5-c63d-08d8507367cd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Sep 2020 01:39:46.5005
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0MswH2jYSanGOa0zsJCRwpQwL9GUf5bBcPkcxwFhWo+Hsue5H4YKOUMNqJxwo0yDPFyAMnjb9McdcDVZT9PCRA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0402MB2936
-X-Original-Sender: peng.fan@nxp.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@nxp.com header.s=selector2 header.b=EUFRwQPn;       arc=pass (i=1
- spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass
- fromdomain=nxp.com);       spf=pass (google.com: domain of peng.fan@nxp.com
- designates 40.107.6.61 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
+X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
+X-Auto-Response-Suppress: All
+X-Original-Sender: noreply@github.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
+ mode) header.i=@github.com header.s=pf2014 header.b=ptIKCiOd;       spf=pass
+ (google.com: domain of noreply@github.com designates 192.30.252.208 as
+ permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass (p=NONE
+ sp=NONE dis=NONE) header.from=github.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -183,50 +124,212 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Thanks for Ccing me.
+  Branch: refs/heads/wip/arm64-zero-exits
+  Home:   https://github.com/siemens/jailhouse
+  Commit: 93edbb6275fa649b061b09ba9c292a0cfde18d16
+      https://github.com/siemens/jailhouse/commit/93edbb6275fa649b061b09ba9c292a0cfde18d16
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-08-29 (Sat, 29 Aug 2020)
 
-> Subject: Re: imx8: could load 2nd linux in console but not getting how to get
-> the shell up in display screen
-> 
-> On 03.09.20 18:23, vsun...@gmail.com wrote:
-> > Hi,
-> >
-> > I could load custom image in emmc & that boot up successfully via
-> > jailhouse non-root cell in console. Root cell image shell getting
-> > displayed on hdmi but not getting how to display 2nd linux shell on
-> > imx8mq evk as "imx8mq-evk-inmate.dtb" doesn't have mipi_dsi port for
-> > OLED. mipi_dsi port is there in "fsl-imx8mq-evk-dcss-rm67191.dtb" only.
-> > imx8mq has 1 hdmi & 1 mipi_dsi display port only. How to achieve this
-> > or any other way for display?
+  Changed paths:
+    M hypervisor/arch/arm-common/gic-v2.c
 
-You could partition display, since there are two display controllers, 
-but you could only leave GPU in one OS because there is only one GPU.
+  Log Message:
+  -----------
+  arm-common: Reorder gicv2_cpu_init
 
-There are lots of trick to achieve display partition, you only have one clock
-control module, you only have one pinctrl module, you have to let the 1st OS
-configure clk/power/pinctrl ready for 2nd OS.
+This pulls CPU ID validation and gicv2_target_cpu_map setup to the
+beginning of gicv2_cpu_init so that we can fail early if needed, before
+any changes to the hardware configuration are made. This will also help
+when introducing SDEI-based management interrupts.
 
-Xiaomi engineers(yuhongxing@xiaomi.com, CCed) did this, but code not public.
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 
-> >
-> 
-> Peng can possibly answer if splitting the display outputs between cells is
-> doable at all. I suspect the answer is "no" as both might be driven by the
-> same, un-partitionable GPU?
 
-Doable, but only 1 OS could have GPU.
+  Commit: 4c3c2f91cef0bcda2f877028a039392ebcb8a931
+      https://github.com/siemens/jailhouse/commit/4c3c2f91cef0bcda2f877028a039392ebcb8a931
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-08-29 (Sat, 29 Aug 2020)
 
-Thanks,
-Peng.
+  Changed paths:
+    M hypervisor/arch/arm-common/smccc.c
+    M hypervisor/arch/arm/include/asm/smc.h
+    M hypervisor/arch/arm64/include/asm/smc.h
 
-> 
-> Jan
-> 
-> --
-> Siemens AG, Corporate Technology, CT RDA IOT SES-DE Corporate
-> Competence Center Embedded Linux
+  Log Message:
+  -----------
+  arm/arm64: Expand return type of smc helpers to long
+
+This allows to evaluate all 64 bits on arm64. Will be needed for SDEI.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 888df7aab8e3af1882d8417525aff5032b329662
+      https://github.com/siemens/jailhouse/commit/888df7aab8e3af1882d8417525aff5032b329662
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-08-29 (Sat, 29 Aug 2020)
+
+  Changed paths:
+    M hypervisor/arch/arm/include/asm/smc.h
+    M hypervisor/arch/arm64/include/asm/smc.h
+
+  Log Message:
+  -----------
+  arm/arm64: Add further smc helpers
+
+Will be used for SDEI. Actually not on ARM, but we add the smc_arg2 to
+please the build and avoid surprises once it is used for real.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 5c2856efa9f37bfa9f266bec6aad543fe07f8478
+      https://github.com/siemens/jailhouse/commit/5c2856efa9f37bfa9f266bec6aad543fe07f8478
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-08-29 (Sat, 29 Aug 2020)
+
+  Changed paths:
+    M hypervisor/arch/arm64/setup.c
+
+  Log Message:
+  -----------
+  arm64: Reorder arch_cpu_init
+
+This will allow to modify the hcr value based on the result of
+arm_cpu_init when SDEI is in play.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 80a69b1ab40cf8849e00ae9604d880c4b5903efe
+      https://github.com/siemens/jailhouse/commit/80a69b1ab40cf8849e00ae9604d880c4b5903efe
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-09-02 (Wed, 02 Sep 2020)
+
+  Changed paths:
+    M hypervisor/arch/arm-common/control.c
+    M hypervisor/arch/arm-common/include/asm/smccc.h
+    M hypervisor/arch/arm-common/irqchip.c
+    M hypervisor/arch/arm-common/smccc.c
+
+  Log Message:
+  -----------
+  arm-common: Add SDEI-based management event injection support
+
+This is the first building block for switching to management interrupts
+using the Software Delegated Exception Interface (SDEI) which will allow
+to pass the GICC to the guest.
+
+In this step, the feature flag is introduced - but not yet set -, and
+arch_send_event is augmented with sending the event via
+SDEI_EVENT_SIGNAL, software event 0.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 60a12f2d2539c78131722d3f91aeb940f76a4555
+      https://github.com/siemens/jailhouse/commit/60a12f2d2539c78131722d3f91aeb940f76a4555
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-09-04 (Fri, 04 Sep 2020)
+
+  Changed paths:
+    M hypervisor/arch/arm-common/gic-v2.c
+    M hypervisor/arch/arm-common/gic-v3.c
+    M hypervisor/arch/arm-common/irqchip.c
+
+  Log Message:
+  -----------
+  arm-common: Pass through GIC CPU interface in SDEI mode
+
+When SDEI is used for management interrupts, we can give the gicc
+completely to the cell. This requires to skip gic-v2 and gic-v3 per-cpu
+initializations and to map the physical gicc-v2 into the cell or to not
+enable ICH_HCR_EN in case of gic-v3. Furthermore, injected interrupts
+now have to be sent as physical SGI to the target, rather than being
+queued for the virtual interface.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 5534d769abb42e33a3e1d4e758c350e6935ec083
+      https://github.com/siemens/jailhouse/commit/5534d769abb42e33a3e1d4e758c350e6935ec083
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-09-04 (Fri, 04 Sep 2020)
+
+  Changed paths:
+    M hypervisor/arch/arm-common/include/asm/smccc.h
+    M hypervisor/arch/arm64/asm-defines.c
+    M hypervisor/arch/arm64/entry.S
+    M hypervisor/arch/arm64/include/asm/entry.h
+    M hypervisor/arch/arm64/include/asm/percpu_fields.h
+    M hypervisor/arch/arm64/setup.c
+    M hypervisor/arch/arm64/traps.c
+
+  Log Message:
+  -----------
+  arm64: Add SDEI-based management interrupt handling
+
+This brings the arm64-specific bits to handle management interrupts sent
+via SDEI.
+
+The pattern for processing them is derived from NMI-based injection on
+x86: The SDEI event can come asynchronously at any time while in EL2,
+EL1 or EL0. To avoid having to synchronize with running EL2, translate
+it into a trap that is triggered on EL1/0 reentry. We use an invalid
+VTCR_EL2 value for this and set the per-cpu sdei_event flag. When EL2
+finds this flag set on handling the trap, it kicks off SGI_EVENT
+handling and restores VTCR_EL2.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 884a9103eaa3f945705b0d1ad9e1a07fef276dcb
+      https://github.com/siemens/jailhouse/commit/884a9103eaa3f945705b0d1ad9e1a07fef276dcb
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-09-04 (Fri, 04 Sep 2020)
+
+  Changed paths:
+    M hypervisor/arch/arm64/setup.c
+
+  Log Message:
+  -----------
+  arm64: Do not trap interrupts when using SDEI
+
+They can (and must) be delivered directly to the cell in that mode. GIC
+CPU interfaces are already passed through.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 98061469d04eacbb764511d3424ba7f866247347
+      https://github.com/siemens/jailhouse/commit/98061469d04eacbb764511d3424ba7f866247347
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2020-09-04 (Fri, 04 Sep 2020)
+
+  Changed paths:
+    M hypervisor/arch/arm-common/include/asm/smccc.h
+    M hypervisor/arch/arm-common/setup.c
+    M hypervisor/arch/arm-common/smccc.c
+
+  Log Message:
+  -----------
+  arm-common: Detect availability of SDEI on arm64
+
+Enhance smccc_discover() to detect if SDEI is available on all CPUs on
+arm64. Fail on inconsistent availability, now returning and error code.
+
+SDEI is practically only available on arm64 and also only implemented
+there in Jailhouse. So skip the probing on 32-bit.
+
+This activates the previously introduced SDEI paths.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+Compare: https://github.com/siemens/jailhouse/compare/e0ef829c8589...98061469d04e
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/DB6PR0402MB27605252999C5205FE84C44A882D0%40DB6PR0402MB2760.eurprd04.prod.outlook.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/wip/arm64-zero-exits/e0ef82-980614%40github.com.
