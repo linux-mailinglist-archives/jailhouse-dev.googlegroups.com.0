@@ -1,32 +1,32 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBU4S3D5AKGQELREPJWA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBUUS3D5AKGQED6T35VA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x240.google.com (mail-lj1-x240.google.com [IPv6:2a00:1450:4864:20::240])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57CC925F7C6
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  7 Sep 2020 12:20:04 +0200 (CEST)
-Received: by mail-lj1-x240.google.com with SMTP id s11sf3746209ljh.8
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 07 Sep 2020 03:20:04 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1599474004; cv=pass;
+Received: from mail-wr1-x43c.google.com (mail-wr1-x43c.google.com [IPv6:2a00:1450:4864:20::43c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BBE625F7C1
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  7 Sep 2020 12:20:03 +0200 (CEST)
+Received: by mail-wr1-x43c.google.com with SMTP id x15sf4695079wrm.7
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 07 Sep 2020 03:20:03 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1599474003; cv=pass;
         d=google.com; s=arc-20160816;
-        b=DxX95Nb1VsvDWIvBj3ME2/e8B3c8AEUTJrlaxLX2jmthxEMTyXMYnzOXHkBsCPHREZ
-         sYEgNS7sIWu2GbGupyA91nhQPNexzV2+PHJ+rNDWHk0Qoh2EgZb6j2nk6f99eRJm87SF
-         UYAwb0gWUAmsV5+09Ten/2GF+oYb2Y81TeZjujZSYW4s8hlspL6CLbwdsto+pKMIwGMD
-         Uid7UOSeTA88c7NyVgoAtO7cBhTRrCH+15CtvaJ7g4Hjg1I8dK0yi+DFXIdDUnELILtB
-         xL16RGmjOEUpjOgGN348eNp1TfWi/We1Mey4qKcnh2Oq1K0Xvl8frCoDA7/MLEODpO+V
-         XVsA==
+        b=naOtawMkR953A2lAwAv0ePl/oNwxWWNvhU3ZprCD8eRH3RVGSOWwo3jmZA3VWx/lkw
+         fZMIbiNQc6VGLl0s9xsxrv8FbCGxa4NqlOpSJMTDvsnymJU/Z+yW2+9Nvo5jUR576SKZ
+         hVYUhdJj7CSQPUSODJagyQnAC7Lt4WuUx7vEBZLgg5k+QAWE2qfeecxCDVQUMqDwcdgE
+         SckXOUypxgHszHagf3W9X3352wSYjMYRculuZa6pY1HynG1xQeviAhwLwtNiT9aQtR/U
+         U3yzXLZknnBwaG4JR7hB+8fBUMBmm4CdnvfQK1EdRVKjgYF/VKyiU5ICdeXLSDnr0wIw
+         8SdA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:sender:dkim-signature;
-        bh=bO0cQzzDois4mLE159cqa7dhnhdaWhng3Y+xMegG9xA=;
-        b=H/Y9Jl9/FHxuyKpw5ubT/QchEMYcKQpnWa2mLtysbvncCduLAqRQRSE9fZUcWbZKGy
-         DgvXlFPHtioy0oQx53zeU5KM2vL70SWKDAYAqabE3ihJMgSTx1AQ1GFWhDwE/blJvrCw
-         a/wQxZMIuVf+NLMLP5C95niauPK/gshYMbGdV9AoK0oYwxbwXwa+1f9QsdtiI3x9X5AK
-         PhwWTaAcDLOU77BZ2YTbZX+kQQgiKvcyp4NF+8AJbEChM2ad7kah7rh0yuvKyOgOgDHd
-         9vSJ28JkMWoNMlSU79KB8xBSmQmOpnq02pjjjZnHpTHKW9XFigJKM8rAYX4eR5f9WErW
-         vJYw==
+        bh=b3gT9FKsgxZk+UqLvs3VpxtQYcSAxbS7UgIPAK2PAok=;
+        b=iKmGUI3NNbNY/8nZOYiSTU07mkKloliMcwWGZMxsbgAmiMP8hlAokGB5OrHb11CKhY
+         ecyoQ/vkKtn1sk63EHvB0N1FsgYFMG+PdpAS2amVzRYVjnRjJ7NSVBhdL9sOymHA9LJO
+         QDd3A3AsI8BD40MfsVkIKwQNynC51PZP6CNqsaWavDx9Uf10SaM8CCx4RhPsUhSPn83w
+         FaS0AMPkgidNJMpyyC+IYA/+LQZAy0QFOU9XGs0xCcTQ4iidhyJawz1LPLASDHzs9rOR
+         r2yCx8WUZDMOpJZt0XgEG4/IDhTnkQ6+n+DPvAkCUeoMoLl53imdEWNzfTPOlroAMKFP
+         7FnA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -34,13 +34,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=bO0cQzzDois4mLE159cqa7dhnhdaWhng3Y+xMegG9xA=;
-        b=qKJmkgC32UXhMlyeynSeYnDuCS0aXYyB+u5/HCHXuQzHOQF7t209wahm3UmYC5nU4D
-         JxvkFVkc+h7hVzV5JVHOn5Np6UTCSIzFw0YUjlMzgv5vmbXmXMUZOkOlN9R0YhCzj0Ec
-         h26c+5h0Ov/eps/PyUYS2QvqBTK/NS/9JqCoVFw+IkaYb+PU4V92yg9ehEIyNhvMIDRl
-         nn9ESkQHfpRBnptbYKgSne+C6M97x2vIofdMJT4ZYsHIBM9IRGQPTjr3fH5wMD/eR42W
-         jkLoKsyS5dmB9yCKgwDx50s4HQ8pAMJyXlavQTyO2YVeDQch+ewNBf8O4BU+vOAcWMrB
-         ZMoQ==
+        bh=b3gT9FKsgxZk+UqLvs3VpxtQYcSAxbS7UgIPAK2PAok=;
+        b=RCWyaz6QUkIZlwG8/rvAHH69xzWhzG/50f2chJXgEBytUzt8858qpzRDtEKs+lnZNy
+         elk30LAajSxidNTGHG/8bkVGKiUp1zm7je90lYZhalyXTr+8fEtEo7iIBfNfk5y4zHfm
+         glDbON4hQntewl6w+HTz7HCFxWzsYL3kRhmZYHEl3FkbrMJwn0MSBSJ3ayFRoeShV7t/
+         88iCt7kaUM4KgYd6ljQuoRvmUdSLWBhmggNrLX75vQBNcW0xKKfyRtQzQCg1tHXGQ7U+
+         t+1RtnEWLxZSf+ciNjwiBs1bN+kSgmkogUMXmWti7VNdSsvtOrSx22N/tCki4bCHLDkT
+         Sopw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:subject:date:message-id
@@ -48,70 +48,70 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=bO0cQzzDois4mLE159cqa7dhnhdaWhng3Y+xMegG9xA=;
-        b=YegxZs1xhdfcIbDH+0pm+vPoRphD5gL/0ovT4DhpFPpVQmmN246ImttGTCHWrKsQk5
-         xMEmOn2Rrpbiv4p/X3YmIWRf3XhVrb9NpCMp6RarNt9Pp58Cv8YIal0idDV09/0Hd7Re
-         FLO9VAVbHf5/d/SsIwrUo2K0XYTT2X8AT/fMV0vFU4xDOkiiv4sh4qiqamvR6dTsAtOm
-         g/6+knEytFzoqU4hfl5YiRs8mP+zYTAmOXtvMQ2HqCMEtDc0utWiCkdztrc+Vz+qyIhB
-         I4aWt0zlg9YJoie8aIgTLW57oD51EXaXXVFrkvF36IQp60nCIsKcNaIMprD0hmfVrfQq
-         V0HA==
+        bh=b3gT9FKsgxZk+UqLvs3VpxtQYcSAxbS7UgIPAK2PAok=;
+        b=qqiaxVYRNHSHurp6L8AYgHZcxwSrQX0JmJSySpgnN1kwAcJwl/r7eqRyif42eKh5oC
+         2qILzZTRpRmiOz78J2TaPlXTPrSPucWVRa4BADZaGXFUYPiIEGyIGxprnaIhIwhu7F9/
+         KlednmTc2rgj+2tcOTzMzbNAdsVZA3P7bcFwHQq9/t0SCMsHDYPNzNTmNJRrtmds7dOw
+         0QnaHM6idCfaAiVjHLdMPP/Hol6XAJoQZEkbPPsfrSRRCvZVy688kA5mH5DSkVicSWFQ
+         li3qoIPM806Kzj2N/5a7q03SJ26ggUdrI9M7nF901C6tePCcmMVrgbb6AJvGW4jxe5c6
+         Uygw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531dqP52NF5hD/4TBC+nMrTG6UQF5nLhk7JFU7cdgxrzgmmWW3Nq
-	lriL29UP2jSKQnXrt/yNXO0=
-X-Google-Smtp-Source: ABdhPJzYgkwNWLy7Gorkl+x3tFqEnqZb2RnhuNaZyMQt5i+j06lcsiBTS1T5HQWGstQJg8uxLuC1wA==
-X-Received: by 2002:a2e:9590:: with SMTP id w16mr1087341ljh.68.1599474003898;
+X-Gm-Message-State: AOAM531e2+Jr93A7Do7HqoOC10fXP+RNM2Sy7koPCQdmBdmdl3XsfqII
+	3c8UvxEq6SRLsKiHKldV6ms=
+X-Google-Smtp-Source: ABdhPJyvLtHXYXEGYMOoYpFd33ymNh4ZUG8Zgr+VKYFfh1ZqzuXLYYshOs5XG+UgzSdyeY+0hOu+TA==
+X-Received: by 2002:a1c:a3c4:: with SMTP id m187mr21184429wme.159.1599474003225;
         Mon, 07 Sep 2020 03:20:03 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a19:6e4d:: with SMTP id q13ls1641393lfk.1.gmail; Mon, 07 Sep
- 2020 03:20:03 -0700 (PDT)
-X-Received: by 2002:a19:7605:: with SMTP id c5mr9815702lff.116.1599474003034;
-        Mon, 07 Sep 2020 03:20:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1599474003; cv=none;
+Received: by 2002:a1c:80d7:: with SMTP id b206ls4155311wmd.1.canary-gmail;
+ Mon, 07 Sep 2020 03:20:02 -0700 (PDT)
+X-Received: by 2002:a1c:dd45:: with SMTP id u66mr20365677wmg.117.1599474002431;
+        Mon, 07 Sep 2020 03:20:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1599474002; cv=none;
         d=google.com; s=arc-20160816;
-        b=nregkXBC/jaIcyBAGIeg/eyfnBRp/kmPlaVREyTbJKgGVCQcB30dTGMIGmqqnH+HvD
-         f9bpmLHKRH7lJjSRGnZKLEwodRwuZzfMdptoypOZPkKAJ3+dPbyoF5ht5KG5oHFv1Olx
-         0bhpAI3+632Ul+dzmquMawJbhRpcRFmafy88gpGzGej3QqY/nGhMZBZ4IMSToSHTNT6H
-         4mju0rdZHGm9Zy8fhDcPGv3IYNSCK3+nodQfokZvt3VYyJ/enf70XFcjRgjfJ9qmHGio
-         096oONTdIZKzo0yRtn5idnC+fTikt6e5TqtPHw+jmqsUiRQ+AOoqDr8wfogmvyU7mMNW
-         cC4A==
+        b=i9XlMQSmx1zzBx+M2DR5iVYpf8+7Ak5g3mP6m6dnV68kHU4Q641mHJFfQs55Z1a3HS
+         JhcFmdU94LId1GmeUhEtXOO4sbESSc1w0g/Amv22jDQUllYXOst/La38AkVmW1jHUgb5
+         nNzQA7xCK6bZGqjR8oaU0c06CjzFcEim7uAev1yf1HMbDNtsWGwSmHwlMN8DXk+dEF/A
+         skwthlaUpQ2+kUVtOuQ9uEwh8E19PGaG3Viym16XVseEzkO0YXEqIywtkPpcI8PO1/Mb
+         Vf2Gkjmoe4WIMmN3OIFbhACZsHZ6BlY68l9ZHQFFfLMVSHxLjeCPOI4jLFhB3lcNv7/3
+         71vQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from;
-        bh=STKlfSUUB3e/LHzsjJjccBuBnm4SXKO5V4sgHotA5Vo=;
-        b=ttObfbj/7Z+1yVGoJSoVQXj912UhlQgMIHzqURWWiVpeGQwMbMJkGGSuptCWDwsEyt
-         TOhTbOkG6MyjAXrdJiiktDLN/7q4f3PGeJT6TAHuDxRHgPijPP555mrlpiKVcaD4HCUM
-         zndk5py4VoWcQInchhPiYwmLoOmmLnfD7NQMDZeawnzoQ3fw68bPGJgt8T06JpVOc6Y8
-         iH9kCIPDUA18/u2GLZ6/EtMbyuVIaC+12sw0Vfr7LudGBcoaubGRccynFWed3umCvcqN
-         Ra82ROrokiqhOHHBHNRhABFrPCg2ch2uuCRTOZ+vVGqV8CCH+SlI0Sg1yeQQ9gYiS8Lw
-         0LTg==
+        bh=3L8JWZIYqK5/4oQkktksFApWgdNpsdtQ5M3YqPL+2zI=;
+        b=0KEunAkYAqOWr9MkhdC2OXpRQt3JqvDD9vd9IQPW/dvDw0JcnV1NKfwZ84LzGNIFVP
+         SQoIkfYgs5Z09aCrwppq0vaoi1iH8iJyHXJgQZeltBMhlst2ZDZuYP85dZ5e4JTbJNB6
+         ysin+VGHMnxA/XhK2Qx72r2X7SWn/C7JpX3sjsqYWUKjsAJdsBL7/QHKcZaX6H9KY0Gt
+         qPHb6jGHhgYDhmuPn2FM9bUuulkot082/83QHQXm8gfgxxODMS2/geEvaoJ1VfShgQQU
+         IbzAfIwQRbyY2JLO/h8bALK30bpFGx7TkABA+M0xMbIMlCxAGXelrrhI7WC/db6VRr/8
+         CUXw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id r13si80140ljm.3.2020.09.07.03.20.02
+Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
+        by gmr-mx.google.com with ESMTPS id w2si486379wrr.5.2020.09.07.03.20.02
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
         Mon, 07 Sep 2020 03:20:02 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 087AK12w016687
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 087AK2HV017456
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
 	for <jailhouse-dev@googlegroups.com>; Mon, 7 Sep 2020 12:20:02 +0200
 Received: from md1f2u6c.ad001.siemens.net ([167.87.17.27])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 087AJx2I024503
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 087AJx2J024503
 	for <jailhouse-dev@googlegroups.com>; Mon, 7 Sep 2020 12:20:01 +0200
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [PATCH 7/8] pyjailhouse: sysfs_parser: Factor out MemRegion.is_ram
-Date: Mon,  7 Sep 2020 12:19:58 +0200
-Message-Id: <c54b26397441ea9e580aba317071f5f98050f194.1599473999.git.jan.kiszka@siemens.com>
+Subject: [PATCH 8/8] pyjailhouse: sysfs_parser: Merge adjacent RAM regions
+Date: Mon,  7 Sep 2020 12:19:59 +0200
+Message-Id: <3e1ae553f995e2b23867e5f58633beabf0760583.1599473999.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <cover.1599473999.git.jan.kiszka@siemens.com>
 References: <cover.1599473999.git.jan.kiszka@siemens.com>
 MIME-Version: 1.0
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
@@ -129,50 +129,37 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-To be reusing for merging RAM regions.
+The kernel tends to report regions that are not page-aligned but
+directly adjacent. Adding them as-is into the config will make accesses
+fail because the regions will end up as incompletely configured sub-page
+regions. Detect such cases and merge the regions.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- pyjailhouse/sysfs_parser.py | 19 ++++++++++---------
- 1 file changed, 10 insertions(+), 9 deletions(-)
+ pyjailhouse/sysfs_parser.py | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py
-index b9e40f65..7067f779 100644
+index 7067f779..19bc16c5 100644
 --- a/pyjailhouse/sysfs_parser.py
 +++ b/pyjailhouse/sysfs_parser.py
-@@ -935,18 +935,19 @@ class MemRegion(IORegion):
-         # round up to full PAGE_SIZE
-         return int((super(MemRegion, self).size() + 0xfff) / 0x1000) * 0x1000
+@@ -207,6 +207,12 @@ def parse_iomem(pcidevices):
+         # filter out AMD IOMMU regions
+         if r.typestr.find('amd_iommu') >= 0:
+             append_r = False
++        # merge adjacent RAM regions
++        if append_r and len(ret) > 0:
++            prev = ret[-1]
++            if prev.is_ram() and r.is_ram() and prev.stop + 1 == r.start:
++                prev.stop = r.stop
++                append_r = False
+         if append_r:
+             ret.append(r)
  
--    def flagstr(self, p=''):
--        if (
--                self.typestr == 'System RAM' or
-+    def is_ram(self):
-+        return (self.typestr == 'System RAM' or
-                 self.typestr == 'Kernel' or
-                 self.typestr == 'RAM buffer' or
-                 self.typestr == 'ACPI DMAR RMRR' or
--                self.typestr == 'ACPI IVRS'
--        ):
--            s = 'JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |\n'
--            s += p + '\t\tJAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA'
--            return s
--        return 'JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE'
-+                self.typestr == 'ACPI IVRS')
-+
-+    def flagstr(self, p=''):
-+        if self.is_ram():
-+            return 'JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |\n' + \
-+                p + '\t\tJAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA'
-+        else:
-+            return 'JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE'
- 
- 
- class PortRegion(IORegion):
 -- 
 2.26.2
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/c54b26397441ea9e580aba317071f5f98050f194.1599473999.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/3e1ae553f995e2b23867e5f58633beabf0760583.1599473999.git.jan.kiszka%40siemens.com.
