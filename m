@@ -1,111 +1,64 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB3443D5AKGQE4IVXBMQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCI7XTXZ6ADBBRVB3D5AKGQEOWWYULI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43d.google.com (mail-wr1-x43d.google.com [IPv6:2a00:1450:4864:20::43d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A8AA25F8A9
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  7 Sep 2020 12:41:52 +0200 (CEST)
-Received: by mail-wr1-x43d.google.com with SMTP id l17sf5528964wrw.11
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 07 Sep 2020 03:41:52 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1599475312; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=oGEwdBLuUs1b1whwkTd3ohmU+RYVSxy348Dq4l7Ro6uOuaxcRcxPBMjYcdFikR+pbJ
-         qY+xvqQm4njB+hfebnNGNeSwGj8WzKqQmR5GF1FGQ9AxNcvHaVKn/W7mpMuOommwBhNm
-         2SuNa7YBfYmnq56pjawIptyjzvgEr1IVPNDgcsiDcfkdpqqgLTb8qr2ydm7Kh1LzPZko
-         nOci3hxpRFD1McOg5S8dvcF7sFAWt/ZxRpna+a4iwGd4ZaMRrK0nATtMDN8mloCxKudU
-         fn9WN/gsSd1cZpbfFkanwkvhbh2FVkRzATmFI9/M7ot6Aj5yn99emhkKMdDiHN+xRIEp
-         rDhA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=LSnKRvMeArmQiwJgiZaX0jVEbJtIU2u74q9KY7/vuo8=;
-        b=gO73RJvTwLZNUmhAMGcX8ui2OudEWXb+qKP7iQFKrg13FJQ6R7kNPnnpxPUZk3L3k2
-         rviYh5nrl9yzazIcXpLfwBs5CznuD1FFsMo/wLVa1EzqJIkadiB+EX5CW8lyGx48ZLYz
-         9CToLf0KmoGsh7DDWuiozdiVLWZKAyeDiQvLl79pPl8HCTcx4X/4U8IZJ/96ZVKz8CZg
-         AeqvKsuMfOEmZvPDzm1braaVary3/2Ze3jXtlaWQZtLgT1zVr8wI+cWPCQa68TvizNH6
-         rCMlLexzDoUH5fvJM7XgKSdzzbQ6AxHkNZGDSLMRX2L9CVqxmPymdXWa3ZUAQhhewiJQ
-         jUZA==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-qv1-xf3f.google.com (mail-qv1-xf3f.google.com [IPv6:2607:f8b0:4864:20::f3f])
+	by mail.lfdr.de (Postfix) with ESMTPS id D561B25F8D9
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  7 Sep 2020 12:51:51 +0200 (CEST)
+Received: by mail-qv1-xf3f.google.com with SMTP id y30sf7454722qvy.9
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 07 Sep 2020 03:51:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=LSnKRvMeArmQiwJgiZaX0jVEbJtIU2u74q9KY7/vuo8=;
-        b=AVSVWtS2+mf26FMmjJTEIR0TaBhZAIpx+z/6+g0+g1tWbdbTa52si2pRcFsR45geEv
-         1qUCkFLYhmLLUVJl7uZ+mdYPM51ag4yelYIiJTNAKZiBUObjwzZZ9I4Ld/9S2TP8x1j4
-         kr2zqKq6p2TiNiLCHPII6RFv7HuoxB+f9yAWNGDuHyn5EYwNxYpNDfosPLY75LugeETm
-         lOABFaA/zkTDxI2gTRU1PSbMjlwFMdLWjuR8I4wrxpdagLGZ4wZK6s9C+KmGt6sGIAUA
-         zGa2VXysils6r7HIdk6xS2f5uLWu9Qan6HC1rdgbxCSvms2wcCjlRJXpfHo0diZqwVz+
-         W4Pw==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=yrwy+ZRppLXWOnG44zvZmOXCSnibJPPl9u99b7+R5h8=;
+        b=YNq4ARp4RCchWbFEnc/trESMRag1do4MPWoGol2xcJ4QXljVvqRPYNytbyaCpMtGTn
+         HEecwwV3STl9ewVTbxkdI+p8goz8UMEleYkg5axYRCyZBn+gkNORTHf9v/5AjXcIOfe/
+         wGPnCK1QX3oLqQXD/7QYPEBajcgISR5bZh+QuvtGoP4yGZo9Z3DTwKfQzytaDyzXxN3P
+         eTgNEmgE2DmaLICdiKND8bkDuZH3pq1C1GKSnLXuywxR6R29PkTXNiRCOt4JzlU/YPQW
+         pkibxptIItAYncvPB357C46xdqvLzpvQs/9NXIviE5cb3Nzh04pMOHj/D+jU0w3oCkxH
+         MnXw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=yrwy+ZRppLXWOnG44zvZmOXCSnibJPPl9u99b7+R5h8=;
+        b=gwLkxMLDQH7SP5gVYfD2835cyf5woSYmVZa9hSSk0FtKGRDZWkhD2qpX9CMracOXz4
+         XFE7FvapsurjUPSWitR5yWp9INpzboxc6sj/gvxCe5kBIVf7FWC1vCQSMw/IM0BpxQy2
+         Whmtx7LcR+JXzeotAFXfUjN4EGpk+jP/nojx9AGaVzJU2e5ScebUdrz1mYwMTKqb18eG
+         BMBvpJL2eZpu1EEzZmnl7M/T858JJwY/7FIMC30xb7n2KUOl+NLOaegaZeOXRihi7o2H
+         ZUXQ+EUdRh6dnc5xRqa5XPjZKoonoZeoOUUJm10pfeswuOPwuezTJOer4zNMxSFZeop8
+         LAig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=LSnKRvMeArmQiwJgiZaX0jVEbJtIU2u74q9KY7/vuo8=;
-        b=cRy3g8m/nL3KChgIuBgT5ZAyTFnkszDHuCVwbPSAX/ZxOP1oKsvF3KKKyDJ3mOw+WZ
-         aHxshrbgyBCSoDw9WKH4wyBvQe6Iw0PnH6689LarOKQft1xfz5gSBfo1P+N8kq6qqYh1
-         dXg7wkXC3/4ujWDW4HoTCGFvNMJQr0EylDkFdQ29j2JdiE+UbG6bT36AmVVnPBc4MIpu
-         RLbcDWSoYnkXqYFrsvUb1UCSozt0Y4QBWTDgYRsArTf5YaZqYoBLrr3lR2fpFpYl+Nkv
-         o14ZAbNtj5dHRA1xxgddefkWGvqeKJFmWOxXL0XAri0B9U3lRYp85CzwqAFj04r+s8n6
-         FlXA==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=yrwy+ZRppLXWOnG44zvZmOXCSnibJPPl9u99b7+R5h8=;
+        b=qwoZsT5qRBSsjTE6gAmUZzes/q1A5jZW1gpjqOTLUAuhAr0XgV6wtG0xaivTfwl4CY
+         o+PqrHJ960qMmTPGKp/0KgIi8NOJku5w41RLMmNuRHBqVpdfQqXALw+rRu2OHr9W/MxW
+         iiIPe/8IOA/rsCM8pSUEN5FHvtjvcyvtFpIcwzi0QHGDwciZiopb1g6oyLvUsEBHi34V
+         fcnM9Gu0P0N6bUtlnDOECiEEb7X5ykDlWcjTxZgtHnY835ENHLHc7We7kY/U1w3pb2iN
+         /EYzrf9DZ8QA/GmZXZF/NWI9RrY5vhWKD4NI7lX4JAE4zQIcBwX7xPOZ9+MkKjNY+iXh
+         lolA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531UEKlA0Jwt3cnaIGl15yjUN22wAVUPgvWsvsrWNRaCQqzknfDT
-	mdxpbHSABmvDdNANxGy4KVc=
-X-Google-Smtp-Source: ABdhPJy/k40q/OuBXIjb1lHXt1uD8TiGB/oY8uXJb3NCAeJ27LUpWkN0FFxQT1pB8xPM3QUTFa01mg==
-X-Received: by 2002:adf:cc8c:: with SMTP id p12mr21749233wrj.92.1599475312316;
-        Mon, 07 Sep 2020 03:41:52 -0700 (PDT)
+X-Gm-Message-State: AOAM530yGOX2u+l1pyRnNjrMF4zy9NoWGzyi4xDQkAma213naDOhW+bA
+	EdlS+nFppfhDBCTNkRin/jw=
+X-Google-Smtp-Source: ABdhPJy/wTercWEKxfhJv7us6I2TGmisxdUjidlphltNTzkfx97U0NU/2tttGHidFNuwosGwpSGAWQ==
+X-Received: by 2002:ac8:7b2c:: with SMTP id l12mr19416704qtu.98.1599475910924;
+        Mon, 07 Sep 2020 03:51:50 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:e3c3:: with SMTP id k3ls9336997wrm.1.gmail; Mon, 07 Sep
- 2020 03:41:51 -0700 (PDT)
-X-Received: by 2002:adf:9591:: with SMTP id p17mr21739252wrp.237.1599475311371;
-        Mon, 07 Sep 2020 03:41:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1599475311; cv=none;
-        d=google.com; s=arc-20160816;
-        b=O3SyHmmh7HEzF+DWddK/8DLYDFmc+o7HEo2l0x2kxDVlkjVZ9odb38TWxPw2Tqc9oR
-         RfJkHBfTvHO8vJAV/qdATfTZ8HVGijm6m6m3lyGa4Nmcxiuby2JPCl/EmXIf6WbfAu0s
-         I7y0VY62OoMFKkQAMOjFqhg2NFaVGQ1Tr0Kn9RpT8sWauVAZmjnpRBI/MhT7ww5nP3Li
-         Ebs42ZWtGDKHoG6lskuzU4Hp36QVflIJY43Ay5XYoOby32+NKmhaedhWxlnLSPzlPz6Z
-         XE3qojr9rKcY02Gaj1eVIj0PmMAtYnl1Ccmss8MvGqJOQVl0x5PEiff6fSX1BsQmybMd
-         q7ig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=jwJ6BtvjXuLJJGVV1+gje1ie2YRLKHItcM+gybC7Ue8=;
-        b=QiZNuhN9sRb94oba5YRYDln8EQWW48IUjQSXQ+Ui/A4iahzctOSql6+UI2E5ZyZ9+n
-         ZHxVHoaFoI+p8KHpqUh0we0G8vCfu6GqzYw+XFZp4AJngsUrccQqi8+SwheDnpVUXBcq
-         G2k/dpOoERcHSo9P3Toq30uNwITAm7bRXHjYu8gJCavOqyqYnfYDBU+L6PWC6qXiUtGT
-         c3cJmRsOYggYNZbAyS85+AA4c65IkkdNaJgg4rzybw67RWT3uMrl+JTI03d8mf9PHCob
-         Q8QioMTClA0T3abed0kgG7Q0U1CDd/RoDa7/RdbCUh9KfozgjUDlbJP1YAyWMI6JPl2S
-         Pu5A==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id v5si174669wrs.0.2020.09.07.03.41.51
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 07 Sep 2020 03:41:51 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 087Afo7w020521
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 7 Sep 2020 12:41:50 +0200
-Received: from [167.87.17.27] ([167.87.17.27])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 087AfnNM007520;
-	Mon, 7 Sep 2020 12:41:49 +0200
-Subject: Re: Build jailhouse on embedded target
-To: Jan-Marc Stranz <stranzjanmarc@gmail.com>,
-        Jailhouse <jailhouse-dev@googlegroups.com>
+Received: by 2002:a05:620a:146b:: with SMTP id j11ls7429479qkl.0.gmail; Mon,
+ 07 Sep 2020 03:51:50 -0700 (PDT)
+X-Received: by 2002:a37:8601:: with SMTP id i1mr19364474qkd.307.1599475910162;
+        Mon, 07 Sep 2020 03:51:50 -0700 (PDT)
+Date: Mon, 7 Sep 2020 03:51:49 -0700 (PDT)
+From: Jan-Marc Stranz <stranzjanmarc@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <de0ebbce-9513-4820-8975-781f816f9841n@googlegroups.com>
+In-Reply-To: <138c5784-6dbd-add0-2364-9fef4b7a9ea6@siemens.com>
 References: <bccfc16d-0fb3-47e7-8a25-9c85ebf4b5e6o@googlegroups.com>
  <629cee36-86a7-4239-a997-baa2d165f08dn@googlegroups.com>
  <716a1db0-3392-40d6-a6ac-051ca2a52ce7n@googlegroups.com>
@@ -123,21 +76,12 @@ References: <bccfc16d-0fb3-47e7-8a25-9c85ebf4b5e6o@googlegroups.com>
  <2924a8c6-5b7f-427a-846e-9fc0e64bad53n@googlegroups.com>
  <6ab98ec9-0255-830c-589d-781da3bd2838@siemens.com>
  <cc674085-e9fe-4bd9-a591-47593459c6f2n@googlegroups.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <138c5784-6dbd-add0-2364-9fef4b7a9ea6@siemens.com>
-Date: Mon, 7 Sep 2020 12:41:49 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ <138c5784-6dbd-add0-2364-9fef4b7a9ea6@siemens.com>
+Subject: Re: Build jailhouse on embedded target
 MIME-Version: 1.0
-In-Reply-To: <cc674085-e9fe-4bd9-a591-47593459c6f2n@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_148_759380331.1599475909295"
+X-Original-Sender: stranzjanmarc@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -150,108 +94,298 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 07.09.20 12:28, Jan-Marc Stranz wrote:
-> The line
-> #!/usr/bin/env python3
-> =C2=A0is already included in script
-> "/usr/libexec/jailhouse/jailhouse-config-create" as first line!
+------=_Part_148_759380331.1599475909295
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_149_93580303.1599475909295"
 
-Was apparently patched by the installation procedure of Yocto. Then you
-should be covered by the python3-mako support of Yocto. If not, it's
-likely a Yocto bug.
+------=_Part_149_93580303.1599475909295
+Content-Type: text/plain; charset="UTF-8"
 
-We effectively just do this:
+Running 
 
+# python 
+>>> from mako.template import Template 
+
+I get a lot of traceback messages.
+The last message is "ModuleNotFoundError: not module named 'json'".
+This message comes from "/usr/lib/python3.7/site-packages/mako/compat.py" 
+(line 140: "import json  # noqa").
+
+
+
+j.kiszka...@gmail.com schrieb am Montag, 7. September 2020 um 12:41:52 
+UTC+2:
+
+> On 07.09.20 12:28, Jan-Marc Stranz wrote:
+> > The line
+> > #!/usr/bin/env python3
+> >  is already included in script
+> > "/usr/libexec/jailhouse/jailhouse-config-create" as first line!
+>
+> Was apparently patched by the installation procedure of Yocto. Then you
+> should be covered by the python3-mako support of Yocto. If not, it's
+> likely a Yocto bug.
+>
+> We effectively just do this:
+>
+> # python
+> >>> from mako.template import Template
+>
+> What does that report when run manually?
+>
+> Jan
+>
+> > 
+> > I can not use a distro form SUSE or Debian.
+> > I have to build our own distro with Yocto (here: "warrior").
+> > And Yocto always installs "python" ("python2") and - as a runtime
+> > dependency of "jailhouse" - "python3" and "python3-mako" also.
+> > 
+> > The is no package "python2-mako" at all; only "python-mako".
+> > And the packages "python-mako" and "python3-mako" clash with the file
+> > "/usr/bin/mako-render".
+> > 
+> > Has anyone already created a BSP with "jailhouse" using "Yocto" and
+> > solved these problems?
+> > 
+> > j.kiszka...@gmail.com schrieb am Montag, 7. September 2020 um 12:01:46
+> > UTC+2:
+> > 
+> > On 07.09.20 11:23, Jan-Marc Stranz wrote:
+> > > I've build a Linux kernel with CONFIG_STRICT_DEVMEM and
+> > > CONFIG_IO_STRICT_DEVMEM deactivate, but the hardware check still
+> > not works.
+> > > From now I'll ignore the hardware check.
+> > >
+> > > I've tried to create the configuration for the root cell on the
+> > > targetwith " jailhouse config create sysconfig.c" without success.
+> > > I get an error message "This script requires the mako library to
+> > run".
+> > >
+> > > My root-fs contains "python3-mako", but "python" ist still "python
+> > 2.7.18".
+> > > What version of python is the script unsing?
+> > >
+> > 
+> > Distro default. Likely still python2.
+> > 
+> > > In my image recipe I can't add the package "python-mako" because
+> > is is
+> > > already provided by package "python3-mako".
+> > > How do I get out of this dilemma again?
+> > 
+> > Try "python2-mako"? Or use a distro that does not have such problems:
+> > 
+> > SUSE:
+> > python3-Mako-1.0.7-lp152.3.3.noarch
+> > python2-Mako-1.0.7-lp152.3.3.noarch
+> > 
+> > Debian:
+> > ii python-mako 1.0.7+ds1-1 all fast and lightweight templating for
+> > the Python platform
+> > ii python3-mako 1.0.7+ds1-1 all fast and lightweight templating for
+> > the Python 3 platform
+> > 
+> > As a workaround, you may also write
+> > 
+> > #!/usr/bin/env python3
+> > 
+> > into tools/jailhouse-config-create.
+> > 
+> > Jan
+> > 
+> > -- 
+> > Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+> > Corporate Competence Center Embedded Linux
+> > 
+> > -- 
+> > You received this message because you are subscribed to the Google
+> > Groups "Jailhouse" group.
+> > To unsubscribe from this group and stop receiving emails from it, send
+> > an email to jailhouse-de...@googlegroups.com
+> > <mailto:jailhouse-de...@googlegroups.com>.
+> > To view this discussion on the web visit
+> > 
+> https://groups.google.com/d/msgid/jailhouse-dev/cc674085-e9fe-4bd9-a591-47593459c6f2n%40googlegroups.com
+> > <
+> https://groups.google.com/d/msgid/jailhouse-dev/cc674085-e9fe-4bd9-a591-47593459c6f2n%40googlegroups.com?utm_medium=email&utm_source=footer
+> >.
+>
+> -- 
+> Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+> Corporate Competence Center Embedded Linux
+>
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/de0ebbce-9513-4820-8975-781f816f9841n%40googlegroups.com.
+
+------=_Part_149_93580303.1599475909295
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div>Running <br></div><div><br></div><div>
 # python
->>> from mako.template import Template
+<br>&gt;&gt;&gt; from mako.template import Template
 
-What does that report when run manually?
 
-Jan
+</div><div><br></div><div>I get a lot of traceback messages.</div><div>The =
+last message is "ModuleNotFoundError: not module named 'json'".</div><div><=
+/div><div>This message comes from "/usr/lib/python3.7/site-packages/mako/co=
+mpat.py" (line 140: "import json&nbsp; # noqa").</div><div><br></div><div><=
+br></div><div><br></div><div class=3D"gmail_quote"><div dir=3D"auto" class=
+=3D"gmail_attr">j.kiszka...@gmail.com schrieb am Montag, 7. September 2020 =
+um 12:41:52 UTC+2:<br/></div><blockquote class=3D"gmail_quote" style=3D"mar=
+gin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: =
+1ex;">On 07.09.20 12:28, Jan-Marc Stranz wrote:
+<br>&gt; The line
+<br>&gt; #!/usr/bin/env python3
+<br>&gt; =C2=A0is already included in script
+<br>&gt; &quot;/usr/libexec/jailhouse/jailhouse-config-create&quot; as firs=
+t line!
+<br>
+<br>Was apparently patched by the installation procedure of Yocto. Then you
+<br>should be covered by the python3-mako support of Yocto. If not, it&#39;=
+s
+<br>likely a Yocto bug.
+<br>
+<br>We effectively just do this:
+<br>
+<br># python
+<br>&gt;&gt;&gt; from mako.template import Template
+<br>
+<br>What does that report when run manually?
+<br>
+<br>Jan
+<br>
+<br>&gt;=20
+<br>&gt; I can not use a distro form SUSE or Debian.
+<br>&gt; I have to build our own distro with Yocto (here: &quot;warrior&quo=
+t;).
+<br>&gt; And Yocto always installs &quot;python&quot; (&quot;python2&quot;)=
+ and - as a runtime
+<br>&gt; dependency of &quot;jailhouse&quot; - &quot;python3&quot; and &quo=
+t;python3-mako&quot; also.
+<br>&gt;=20
+<br>&gt; The is no package &quot;python2-mako&quot; at all; only &quot;pyth=
+on-mako&quot;.
+<br>&gt; And the packages &quot;python-mako&quot; and &quot;python3-mako&qu=
+ot; clash with the file
+<br>&gt; &quot;/usr/bin/mako-render&quot;.
+<br>&gt;=20
+<br>&gt; Has anyone already created a BSP with &quot;jailhouse&quot; using =
+&quot;Yocto&quot; and
+<br>&gt; solved these problems?
+<br>&gt;=20
+<br>&gt; <a href data-email-masked rel=3D"nofollow">j.kiszka...@gmail.com</=
+a> schrieb am Montag, 7. September 2020 um 12:01:46
+<br>&gt; UTC+2:
+<br>&gt;=20
+<br>&gt;     On 07.09.20 11:23, Jan-Marc Stranz wrote:
+<br>&gt;     &gt; I&#39;ve build a Linux kernel with CONFIG_STRICT_DEVMEM a=
+nd
+<br>&gt;     &gt; CONFIG_IO_STRICT_DEVMEM deactivate, but the hardware chec=
+k still
+<br>&gt;     not works.
+<br>&gt;     &gt; From now I&#39;ll ignore the hardware check.
+<br>&gt;     &gt;
+<br>&gt;     &gt; I&#39;ve tried to create the configuration for the root c=
+ell on the
+<br>&gt;     &gt; targetwith &quot; jailhouse config create sysconfig.c&quo=
+t; without success.
+<br>&gt;     &gt; I get an error message &quot;This script requires the mak=
+o library to
+<br>&gt;     run&quot;.
+<br>&gt;     &gt;
+<br>&gt;     &gt; My root-fs contains &quot;python3-mako&quot;, but &quot;p=
+ython&quot; ist still &quot;python
+<br>&gt;     2.7.18&quot;.
+<br>&gt;     &gt; What version of python is the script unsing?
+<br>&gt;     &gt;
+<br>&gt;=20
+<br>&gt;     Distro default. Likely still python2.
+<br>&gt;=20
+<br>&gt;     &gt; In my image recipe I can&#39;t add the package &quot;pyth=
+on-mako&quot; because
+<br>&gt;     is is
+<br>&gt;     &gt; already provided by package &quot;python3-mako&quot;.
+<br>&gt;     &gt; How do I get out of this dilemma again?
+<br>&gt;=20
+<br>&gt;     Try &quot;python2-mako&quot;? Or use a distro that does not ha=
+ve such problems:
+<br>&gt;=20
+<br>&gt;     SUSE:
+<br>&gt;     python3-Mako-1.0.7-lp152.3.3.noarch
+<br>&gt;     python2-Mako-1.0.7-lp152.3.3.noarch
+<br>&gt;=20
+<br>&gt;     Debian:
+<br>&gt;     ii python-mako 1.0.7+ds1-1 all fast and lightweight templating=
+ for
+<br>&gt;     the Python platform
+<br>&gt;     ii python3-mako 1.0.7+ds1-1 all fast and lightweight templatin=
+g for
+<br>&gt;     the Python 3 platform
+<br>&gt;=20
+<br>&gt;     As a workaround, you may also write
+<br>&gt;=20
+<br>&gt;     #!/usr/bin/env python3
+<br>&gt;=20
+<br>&gt;     into tools/jailhouse-config-create.
+<br>&gt;=20
+<br>&gt;     Jan
+<br>&gt;=20
+<br>&gt;     --=20
+<br>&gt;     Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+<br>&gt;     Corporate Competence Center Embedded Linux
+<br>&gt;=20
+<br>&gt; --=20
+<br>&gt; You received this message because you are subscribed to the Google
+<br>&gt; Groups &quot;Jailhouse&quot; group.
+<br>&gt; To unsubscribe from this group and stop receiving emails from it, =
+send
+<br>&gt; an email to <a href data-email-masked rel=3D"nofollow">jailhouse-d=
+e...@googlegroups.com</a>
+<br>&gt; &lt;mailto:<a href data-email-masked rel=3D"nofollow">jailhouse-de=
+...@googlegroups.com</a>&gt;.
+<br>&gt; To view this discussion on the web visit
+<br>&gt; <a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/cc67408=
+5-e9fe-4bd9-a591-47593459c6f2n%40googlegroups.com" target=3D"_blank" rel=3D=
+"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dde&amp;q=
+=3Dhttps://groups.google.com/d/msgid/jailhouse-dev/cc674085-e9fe-4bd9-a591-=
+47593459c6f2n%2540googlegroups.com&amp;source=3Dgmail&amp;ust=3D15995617971=
+52000&amp;usg=3DAFQjCNExRC3fiSwh37FleexuWkkenGXRBw">https://groups.google.c=
+om/d/msgid/jailhouse-dev/cc674085-e9fe-4bd9-a591-47593459c6f2n%40googlegrou=
+ps.com</a>
+<br>&gt; &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/cc6=
+74085-e9fe-4bd9-a591-47593459c6f2n%40googlegroups.com?utm_medium=3Demail&am=
+p;utm_source=3Dfooter" target=3D"_blank" rel=3D"nofollow" data-saferedirect=
+url=3D"https://www.google.com/url?hl=3Dde&amp;q=3Dhttps://groups.google.com=
+/d/msgid/jailhouse-dev/cc674085-e9fe-4bd9-a591-47593459c6f2n%2540googlegrou=
+ps.com?utm_medium%3Demail%26utm_source%3Dfooter&amp;source=3Dgmail&amp;ust=
+=3D1599561797152000&amp;usg=3DAFQjCNElW3RcFP2fd31C65zO7j55aFny7w">https://g=
+roups.google.com/d/msgid/jailhouse-dev/cc674085-e9fe-4bd9-a591-47593459c6f2=
+n%40googlegroups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a>&gt;.
+<br>
+<br>--=20
+<br>Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+<br>Corporate Competence Center Embedded Linux
+<br></blockquote></div>
 
->=20
-> I can not use a distro form SUSE or Debian.
-> I have to build our own distro with Yocto (here: "warrior").
-> And Yocto always installs "python" ("python2") and - as a runtime
-> dependency of "jailhouse" - "python3" and "python3-mako" also.
->=20
-> The is no package "python2-mako" at all; only "python-mako".
-> And the packages "python-mako" and "python3-mako" clash with the file
-> "/usr/bin/mako-render".
->=20
-> Has anyone already created a BSP with "jailhouse" using "Yocto" and
-> solved these problems?
->=20
-> j.kiszka...@gmail.com schrieb am Montag, 7. September 2020 um 12:01:46
-> UTC+2:
->=20
->     On 07.09.20 11:23, Jan-Marc Stranz wrote:
->     > I've build a Linux kernel with CONFIG_STRICT_DEVMEM and
->     > CONFIG_IO_STRICT_DEVMEM deactivate, but the hardware check still
->     not works.
->     > From now I'll ignore the hardware check.
->     >
->     > I've tried to create the configuration for the root cell on the
->     > targetwith " jailhouse config create sysconfig.c" without success.
->     > I get an error message "This script requires the mako library to
->     run".
->     >
->     > My root-fs contains "python3-mako", but "python" ist still "python
->     2.7.18".
->     > What version of python is the script unsing?
->     >
->=20
->     Distro default. Likely still python2.
->=20
->     > In my image recipe I can't add the package "python-mako" because
->     is is
->     > already provided by package "python3-mako".
->     > How do I get out of this dilemma again?
->=20
->     Try "python2-mako"? Or use a distro that does not have such problems:
->=20
->     SUSE:
->     python3-Mako-1.0.7-lp152.3.3.noarch
->     python2-Mako-1.0.7-lp152.3.3.noarch
->=20
->     Debian:
->     ii python-mako 1.0.7+ds1-1 all fast and lightweight templating for
->     the Python platform
->     ii python3-mako 1.0.7+ds1-1 all fast and lightweight templating for
->     the Python 3 platform
->=20
->     As a workaround, you may also write
->=20
->     #!/usr/bin/env python3
->=20
->     into tools/jailhouse-config-create.
->=20
->     Jan
->=20
->     --=20
->     Siemens AG, Corporate Technology, CT RDA IOT SES-DE
->     Corporate Competence Center Embedded Linux
->=20
-> --=20
-> You received this message because you are subscribed to the Google
-> Groups "Jailhouse" group.
-> To unsubscribe from this group and stop receiving emails from it, send
-> an email to jailhouse-dev+unsubscribe@googlegroups.com
-> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
-> To view this discussion on the web visit
-> https://groups.google.com/d/msgid/jailhouse-dev/cc674085-e9fe-4bd9-a591-4=
-7593459c6f2n%40googlegroups.com
-> <https://groups.google.com/d/msgid/jailhouse-dev/cc674085-e9fe-4bd9-a591-=
-47593459c6f2n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>.
+<p></p>
 
---=20
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/138c5784-6dbd-add0-2364-9fef4b7a9ea6%40siemens.com.
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/de0ebbce-9513-4820-8975-781f816f9841n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/de0ebbce-9513-4820-8975-781f816f9841n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_149_93580303.1599475909295--
+
+------=_Part_148_759380331.1599475909295--
