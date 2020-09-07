@@ -1,64 +1,64 @@
-Return-Path: <jailhouse-dev+bncBCI7XTXZ6ADBB5OC275AKGQEZTBRLMI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCI7XTXZ6ADBBHHY275AKGQEPFOE6LQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
 Received: from mail-qk1-x740.google.com (mail-qk1-x740.google.com [IPv6:2607:f8b0:4864:20::740])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A43E25F3FE
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  7 Sep 2020 09:29:58 +0200 (CEST)
-Received: by mail-qk1-x740.google.com with SMTP id j5sf7228753qka.7
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 07 Sep 2020 00:29:58 -0700 (PDT)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69CC325F663
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  7 Sep 2020 11:23:41 +0200 (CEST)
+Received: by mail-qk1-x740.google.com with SMTP id y187sf7324963qka.10
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 07 Sep 2020 02:23:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:date:from:to:message-id:in-reply-to:references:subject
          :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=TKCWgBUMq5DB1edAEacoK0FbDjcul7K7KtIEDYW98DQ=;
-        b=N2c64HbKEmrygze4FVAaebOQ18CfZu3PpELiZo/UT3AnhEFCKlEZiEwIyY9oByFGMt
-         c+NGQJmOtgat1rM4Xlu15R9eSvdN/HoUU72LhCdCQ1/ihTjYImkGuzrj4usPisdrLAzr
-         74fOBZ9GAfcOMkufYpayNrlJwLA3mPWU0K+EfviZATcTZHjJWBxYD3zwdpW1R6NGXofJ
-         5fNH9SvG4eExY2jInOVCRnB8l9Cb0tMF9tC8UQdi26XrWmh+AADN9HYllIrDsIa4Z/Kw
-         H0cMSWVyxqXakLN5/k4d4YG38daCR1sy0+sb9mv9E1/5GvERuMioF6qelkXIKWCcmtHo
-         1Stg==
+        bh=L+pygzEcz4sQgVdqqVYk60+JoxB8ceFHRmhk24QIliw=;
+        b=aKtryGtBOPbJw40y9sF4C/ViPjxZzXQ8m2yDN9jp74qfZqdHItZYnmwxxoFh4ovFbf
+         hqs4q9Dvdw0zwLHnbdwN6wPNDnkrJiDTjalkEVyOmX0Hj9dMlqsFKnAiz2KURRA4ETZE
+         V5q/k9BMiqzvmCRFQQvmLglE6OJzNk9lzuVrtX5QkSIV5KVGzNEGZ6u8ykDRLkbXH6zq
+         ZmTnuGjL47eZytzD4sn11rhXqJfL0NHyKWDc4jpKkicsCzmqsMqMLK0PA5lfNZ5b2laH
+         DV62fDSU4WD/lNGppxlztbO3nRKpHumNbqGUoagEknpzky4XaWzKXvdb9BIzvZcGggYV
+         chMA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:message-id:in-reply-to:references:subject:mime-version
          :x-original-sender:precedence:mailing-list:list-id:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=TKCWgBUMq5DB1edAEacoK0FbDjcul7K7KtIEDYW98DQ=;
-        b=Qm6dyFhOsiMvgsTNQVvPk/sz6zTuoKFpVIBgzl0At/VwpNH3Mw2s5XmYx2B26ywkHy
-         W6a8Zci4aVnDJjLWVzpxnGJKpWtn5Jw28UtgGvl2w7oxpvUkFTatrthEwvE4NMm1wOnm
-         1E5eyi969PpuBCvm9MTAhwRBowAF1lxZz/BWH+LN9FnY28O+qHptI5An+iJj7YxL6z54
-         hDpWKPOvGvqYnFrH4w7mHOsshfoS/vKOvzL8LMiG1AABN/5w9DcKjZsaEgDto4EPboZj
-         vFCR3Ee86sDVIJh46aM9TsV+nhhxAGYsga6WJE3dxHhkvHsXvAPqI2VP5Fu+x2uEEFla
-         ZLxA==
+        bh=L+pygzEcz4sQgVdqqVYk60+JoxB8ceFHRmhk24QIliw=;
+        b=azvXokmwyiiL4V/aMyxgWK0yUQAShzXegchCFjY8M84zCpzQ46PoWuKZ5hj0/MgcV1
+         ziptUzv7pr5KQKa/kiBnYR7fILRNa3vjgNp2FZDtgW91IbCQxBrugPwPB025ClX4xjfq
+         icys0U1Uz58vgCA+C0cf1CAHofgx84wPTlGojbIBFlUQiaoB3oQKFaGiIScsGXZQwquO
+         r6U+kob4ETRlnbpAjq1UOE5/ami4HE8bvUPknBYxWb76kXNmcs+fApTZ+lHYOGNOeeAZ
+         oM8pkUp3bA6u81W02YDx9A7OjSSMWnpymsCTDCj7zmKoEtde426IMVYx1lghcuA3l3Kq
+         Oq9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
          :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=TKCWgBUMq5DB1edAEacoK0FbDjcul7K7KtIEDYW98DQ=;
-        b=YoWTofWHqlanVKUWW9hPNXOexIoP/MH/UMXWK2akU9McZdtreBSCmAUs1SErxtfesN
-         0mu9NwT21gPrFhl8GGQLReBvC7ovXKmHHQntXljSlEVae3G9TPlsIynx7kQplFbJ9XCJ
-         8ZJenlAAm1gpkoKX9qIutWV20H0X16R38R2Vj24GVEXv6nZS1SSmj4kVLIHRIve4jOI2
-         8RTl7bffD9SUkCV1GD51X3lsWJcDn71fSN+h1GXVay23teKxfgWBBLDPWrz4/uelMnSn
-         yBHTy1Ka39uqL/NdAE/Gxx54fk1NWlOAaAS0ZF1YDNcCcS+OStEfHby0IIbqeza2GZKV
-         qZXw==
+        bh=L+pygzEcz4sQgVdqqVYk60+JoxB8ceFHRmhk24QIliw=;
+        b=dLz70Ev+VQ6rupSF1ouDeC/6GZj93kt4uLlVpQWhdiZeiizl6QXMTWthOx3+oVgTkN
+         9PMBbcZnNBTwW0gMVsX6NBZbJ2qTTTA6uY2TDuO3bi/xVhZnsMewbOh3ktePNi0Cu/xg
+         27rti0oSWHiKK3WIjaVVhK20AigvzUHNNPYJbjzTxiVpGTw2eRNqban7+QAuN+Dwmwrz
+         54biDd1tDzmVjV7dRQHzF5L1IYEurthAgQBb54LDL2Q9vCM/MXbwj1Ef1UOrrKlHSTUj
+         YeYLPl0oFQ3H4FW4NB1ix9R4GEFghRmf9XUVyw1oq3+Wi0P50NX1IzUn1LjievcgVBS/
+         3wPg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM5316FjnXYrmqypuRryFrCihnZ57fP/W9ALpa4TREhUkA9vKFbZFq
-	WdZoOZDdF8raNw5sKtl0NwA=
-X-Google-Smtp-Source: ABdhPJx8GM3+Oxs4aee70zpXc+057sUf72RLGG6YZIWj0dzQM7HuBm1vOfc9vDYOgGpkRhuRR7oGAw==
-X-Received: by 2002:aed:36aa:: with SMTP id f39mr6555249qtb.297.1599463797260;
-        Mon, 07 Sep 2020 00:29:57 -0700 (PDT)
+X-Gm-Message-State: AOAM533TxlsmX6hrqGzj4J3Ksr389AFVGQgf9CAC+FHcZv/Edit+csda
+	q2rkmazcYFbe22Hd40HS1oE=
+X-Google-Smtp-Source: ABdhPJwiuzXApKC9A0xyoC/u/qkkaA3XbgJGlwUpm78F0ZGTc1sOVjpsckqOQA5YMHOTYdMkBQEWIA==
+X-Received: by 2002:a37:b806:: with SMTP id i6mr19053879qkf.333.1599470620433;
+        Mon, 07 Sep 2020 02:23:40 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a37:f50b:: with SMTP id l11ls7753671qkk.6.gmail; Mon, 07 Sep
- 2020 00:29:56 -0700 (PDT)
-X-Received: by 2002:a37:897:: with SMTP id 145mr7484629qki.82.1599463796675;
-        Mon, 07 Sep 2020 00:29:56 -0700 (PDT)
-Date: Mon, 7 Sep 2020 00:29:55 -0700 (PDT)
+Received: by 2002:a0c:c584:: with SMTP id a4ls3931932qvj.4.gmail; Mon, 07 Sep
+ 2020 02:23:39 -0700 (PDT)
+X-Received: by 2002:a0c:ab46:: with SMTP id i6mr6303685qvb.140.1599470619681;
+        Mon, 07 Sep 2020 02:23:39 -0700 (PDT)
+Date: Mon, 7 Sep 2020 02:23:38 -0700 (PDT)
 From: Jan-Marc Stranz <stranzjanmarc@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <6765e219-706a-4124-9ac2-d40109d69f7cn@googlegroups.com>
-In-Reply-To: <b501a3d0-70cd-2126-8fa0-fff217caa20c@siemens.com>
+Message-Id: <2924a8c6-5b7f-427a-846e-9fc0e64bad53n@googlegroups.com>
+In-Reply-To: <6765e219-706a-4124-9ac2-d40109d69f7cn@googlegroups.com>
 References: <bccfc16d-0fb3-47e7-8a25-9c85ebf4b5e6o@googlegroups.com>
  <a9dc46fa-7799-879a-11be-b5e3d64a7a12@web.de>
  <629cee36-86a7-4239-a997-baa2d165f08dn@googlegroups.com>
@@ -73,10 +73,11 @@ References: <bccfc16d-0fb3-47e7-8a25-9c85ebf4b5e6o@googlegroups.com>
  <9ff0b838-a854-3ef0-6487-dbda6d488184@siemens.com>
  <CAOOGbpgwq0=B85FFAaPCGC+W3UsFYtp6ROAsCbUdD2=g_Ak1kw@mail.gmail.com>
  <b501a3d0-70cd-2126-8fa0-fff217caa20c@siemens.com>
+ <6765e219-706a-4124-9ac2-d40109d69f7cn@googlegroups.com>
 Subject: Re: Build jailhouse on embedded target
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_1590_1924795540.1599463795867"
+	boundary="----=_Part_1004_1274804220.1599470618901"
 X-Original-Sender: stranzjanmarc@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -90,58 +91,67 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1590_1924795540.1599463795867
+------=_Part_1004_1274804220.1599470618901
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_1591_107726599.1599463795867"
+	boundary="----=_Part_1005_931588803.1599470618901"
 
-------=_Part_1591_107726599.1599463795867
+------=_Part_1005_931588803.1599470618901
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Jan!
 
-Thanks for the kernel configuration!
+I've build a Linux kernel with CONFIG_STRICT_DEVMEM and 
+CONFIG_IO_STRICT_DEVMEM deactivate, but the hardware check still not works.
+From now I'll ignore the hardware check.
 
-Now I try to build a Linux kernel with CONFIG_STRICT_DEVMEM and 
-CONFIG_IO_STRICT_DEVMEM deactivated.
-Maybe the hardware check will work then.
+I've tried to create the configuration for the root cell on the targetwith 
+" jailhouse config create sysconfig.c" without success.
+I get an error message "This script requires the mako library to run".
 
-Regarding the configuration for the root cell:
-I do not build the hypervisor "jailhouse" on the target, but under Yocto on 
-a development PC.
-But then I'll create the configuration for the root cell on the target with 
-"jailhouse config create sysconfig.c".
-Do I now have to copy this configuration and run the build process again 
-under Yocto so that I get the binary form of the configuration?
-What is the best workflow for developing with Yocto?
+My root-fs contains "python3-mako", but "python" ist still "python 2.7.18".
+What version of python is the script unsing?
+
+In my image recipe I can't add the package "python-mako" because is is 
+already provided by package "python3-mako".
+How do I get out of this dilemma again?
 
 Best regards
 Jan.
 
 
+
+
+
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/6765e219-706a-4124-9ac2-d40109d69f7cn%40googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/2924a8c6-5b7f-427a-846e-9fc0e64bad53n%40googlegroups.com.
 
-------=_Part_1591_107726599.1599463795867
+------=_Part_1005_931588803.1599470618901
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div>Hi Jan!</div><div><br></div><div>Thanks for the kernel configuration!<=
-/div><div><br></div><div>Now I try to build a Linux kernel with CONFIG_STRI=
-CT_DEVMEM and CONFIG_IO_STRICT_DEVMEM deactivated.</div><div>Maybe the hard=
-ware check will work then.</div><div><br></div><div>Regarding the configura=
-tion for the root cell:</div><div>I do not build the hypervisor "jailhouse"=
- on the target,=20
-<span><span>but under Yocto on a development PC.</span></span></div><div><s=
-pan><span>But then I'll create the configuration for the root cell on the t=
-arget with "jailhouse config create sysconfig.c".<br></span></span>
+<div></div><div>I've build=20
+a Linux kernel with CONFIG_STRICT_DEVMEM and CONFIG_IO_STRICT_DEVMEM deacti=
+vate, but the hardware check still not works.</div><div>From now I'll ignor=
+e the hardware check.</div><div><br></div><div>I've tried to create the con=
+figuration for the root cell on the targetwith "
+<span><span>jailhouse config create sysconfig.c" without success.</span></s=
+pan></div><div><span><span>I get an error message "This script requires the=
+ mako library to run".</span></span></div><div><span><span><br></span></spa=
+n></div><div><span><span>My root-fs contains "python3-mako", but "python" i=
+st still "python 2.7.18".</span></span></div><div><span><span>What version =
+of python is the script unsing?</span></span></div><div><span><span><br></s=
+pan></span></div><div><span><span>In my image recipe I can't add the packag=
+e "python-mako" because is is already provided by package "python3-mako".</=
+span></span></div><div><span><span>How do I get out of this dilemma again?<=
+/span></span></div><div><span><span><br></span></span></div><div><span><spa=
+n>Best regards</span></span></div><div><span><span>Jan.</span></span></div>=
+<div><span><span><br></span></span></div><div><span><span><br></span></span=
+></div><div><span><span><br></span></span>
 
-</div><div>Do I now have to copy this configuration and run the build proce=
-ss again under Yocto so that I get the binary form of the configuration?</d=
-iv><div>What is the best workflow for developing with Yocto?</div><div><br>=
-</div><div>Best regards</div><div>Jan.<br></div><div><br></div><div><br></d=
-iv>
+</div><div><br>
+
+</div><div><br></div>
 
 <p></p>
 
@@ -152,11 +162,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/6765e219-706a-4124-9ac2-d40109d69f7cn%40googlegrou=
+om/d/msgid/jailhouse-dev/2924a8c6-5b7f-427a-846e-9fc0e64bad53n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/6765e219-706a-4124-9ac2-d40109d69f7cn%40googlegroups.co=
+msgid/jailhouse-dev/2924a8c6-5b7f-427a-846e-9fc0e64bad53n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_1591_107726599.1599463795867--
+------=_Part_1005_931588803.1599470618901--
 
-------=_Part_1590_1924795540.1599463795867--
+------=_Part_1004_1274804220.1599470618901--
