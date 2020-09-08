@@ -1,129 +1,89 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBG7C3T5AKGQE22SNVAQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCI7XTXZ6ADBBFHU3T5AKGQEUOW7NTA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ej1-x638.google.com (mail-ej1-x638.google.com [IPv6:2a00:1450:4864:20::638])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB60D260BDE
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  8 Sep 2020 09:22:03 +0200 (CEST)
-Received: by mail-ej1-x638.google.com with SMTP id gt18sf6276484ejb.16
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 08 Sep 2020 00:22:03 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1599549723; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=qWs9oRkIgIOQ7Soj8Dr1tq6qm8QP6amVArFZHjSu/dmPmOXC+ESuo9U/AcT3ry+Tln
-         2MQUiKypNAN36/IbhvGcOYME8ItfupARjlFNK9IWDOI3Lyyc/2yZ7PH9w9LETpoqKtsF
-         6+M8DLrcwSwpOSOa3zmAjzazsU5Z+hQgDclvWM3+6THmXtZdjSwqTj4BRQINw1v5EDtj
-         J0QVzkPsw8Cew8J6N6FYPimMjQYkeeA/VV6pf+sFvq9p7JMfAbqu6vNcOwL7iktxRdgD
-         kzo4Fq1WoWIZ99eQ+9frJV49B+KX75eL8PZsdWjkkgRJdat4ia9lOJdJryRZJfHquGMN
-         zfrQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=an8gTBfJBvoj4xWAb7vGaPIWekuoIXB4Ej9y2DmCsig=;
-        b=M5sNPa+ZNpASGFwYzvEEObWyAXf0U6LaI+bNcBZpNljA1CmSO4Ic2BgpKTfzqwO+nB
-         AiLaZpFlXZ4jcclJ5eHEqwZQsRHkaY2u3JK1+uFPXLLXqLYEXZBgXwCXGwBW5ar38vxE
-         UgO4sAZex0OebhewpFbm65mNvRqunGSsgNyXQ4vwe/jRZdpIXuyvd05ReA6CSoUJtdaG
-         6pP+9yayRaGGIsgRV+JogVZvLTTgZ5H8zFVozU9Pb2rIHgrj2PTcyktWdQK4SefOZSff
-         v4HTOzMU2dlTSfN86sq/ytRsbBxHD9BUSN5T0yblFIlRv3BvO6BvhqmrPpHVgCqaXAji
-         4vfQ==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-qk1-x73f.google.com (mail-qk1-x73f.google.com [IPv6:2607:f8b0:4864:20::73f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 59262260CD3
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  8 Sep 2020 10:00:22 +0200 (CEST)
+Received: by mail-qk1-x73f.google.com with SMTP id h191sf7117406qke.1
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 08 Sep 2020 01:00:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=an8gTBfJBvoj4xWAb7vGaPIWekuoIXB4Ej9y2DmCsig=;
-        b=KeLtLzqCz6HYYpo8KC+GwVeB+LRsMuKEmCBikcboJiISKWugnRwsvIIrrqXVxun/D5
-         zD2UTsaS9WcNjiKMZ3gaNBvRdeZ7cbM5XMOPKcTALnw2kURMv6EYCGM2Ows0IgkGqT82
-         +pADbrXTTDBKFX4I2ZW2CU9Daz2GPpjj3VE0R364XhZApWTQmap0goT2/sjfzLXDWHwa
-         qcY06g4eJCUxDaia4wDmznYHLWFDksjY/C40IVzwlrshoGQlfk33hb6jF7IVFTva74sh
-         ePDnpoSBV15EpozW6iPWVeWgSnJFh/udmVY9cM+670mOcm0v7+uVEz1JGMI+CzRLeCfH
-         9Y5g==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=LO/2TosmnXIbbpeadInsRQCUGiGz9kdq9dg0LU6PLxo=;
+        b=bA35CmM5KRkJyybLr5+IedCIlcKEl8SFVTHboDroELUabcKgSMZ9h7OU/IwHsq8hus
+         WJiXVlU973lwlLMsG+aFeRk3wmqAVQzWtWt0jA3kDVEe7sYOCHMZssbthTfVcZ0B3civ
+         xY0tcULA1xVKtwlu1snKRkoj8/Y9pXWyY7uNZ69UhS3/breVfCSEtHl4z9jCVpC5AkH5
+         PDwvK++jSyQ+7vkuNtSAz8l+eyw9NrBixThRjbXfVIH42pRfBi6RRkUYNiFiQUOASOCB
+         1XEso0XJwaU9JA7cxIgEj6CGMz+tBTdV7RroVsCQ3pC4XJolHAnlAfi6JnY9rS4YPzRg
+         OUfQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=LO/2TosmnXIbbpeadInsRQCUGiGz9kdq9dg0LU6PLxo=;
+        b=JWjqXOOpVUwHhVou2VGrQwTMueDszXbs/qng4tIm4rGTiAx7flbs9hkfiyDKUhR5po
+         e4IvByNqK/CE79sXWQQAmzjIgXHyRgb23g0NU/W5BnEUlOGcTVOmHp2fIX2mVm7BRHxg
+         I5dQ9o1pOSbHp5TieERVc4UL4Y5cjwsg/H27uhnMrIXMPre6+wNgy6+yrauuBWla2Oln
+         V7ijC5EEg3Fm93TJXstIK+jMr0dlz66U/0V+inbBtDkNPCgbBZjJRPrgYRlXhZGwvAlE
+         PJvepT+UHTzrZUPfU1rpBA4gKZRFvPrq0nSRU5YjIOVTIoes9CqNkzEk+rfVLZ8NTgdI
+         Um4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=an8gTBfJBvoj4xWAb7vGaPIWekuoIXB4Ej9y2DmCsig=;
-        b=SwwB01mq2YwboAfFfVOAiiUf6bqUU1plsRp+cNL9lmOscrOBhr5bjQT1fX3o9A0W2/
-         +fLzk6xPovRXXMIXnIyrrHd6nwv3mzVlhBB1o9CC2TCr4VVSxCUSttVrpgSlYfe9M114
-         W57kQ9h0VO6aUW4gf4QZ6w76ShJRMMThqTiaKQPkcf4IniDSacC/zRDopdMv/39gefkk
-         iNHbbNXWu8L0i9brEbx7cEqBKNkX3uTrXnpiru7PIkP6dN0ng3FdVpIyeJuX9wL9+am8
-         VRQOk7xBDHluG0ObQpPRNZjHsMXZGbZxXIt1E50WpmSNAcHJy9BGE+/Bvo/cIVNZ481b
-         /ANA==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=LO/2TosmnXIbbpeadInsRQCUGiGz9kdq9dg0LU6PLxo=;
+        b=WabGfjOuAN9xs8+e+40CuJL+pAg2924rAp4UkVAXEwnXqs4cO6wlwY6UAuUc7QwJdE
+         SaQ6Pgc/QDOd2hp3upH+py9YTBE3F6puhfMnVupHcsIm2Qq2tMV4OtUakaiV8eLFz7DB
+         HSyWcEjW7EFUQ06Emj/ODV25fyjyIyUKmXfPrk9rIV4kx5YUlzwpIDzDaRVFCBm2j8NW
+         gsCgSeKvMTEPL5bOmGH6qh7NwXtdtCQ+iiVK9rxibRLPUSzDyDpPq/V24lplDig5KHt0
+         0jgxuNLx5n0OuJpA1QsLTwIdF+3yZVjbX2oA8HHRO6qt8f4hQV/jzWUD5Z08F9TRfJm3
+         3CUQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM5316oSBwpIWmFic95bTe/S+y/qOjc7mKUKaAZUVEIWyNUD8B5fNB
-	fUcjtSClwRpBUTq8lxTi8Bw=
-X-Google-Smtp-Source: ABdhPJwIAtiX0wBB4ARd1UycInTrHKfnpkzvSZWzItarBx9WOkTyZ0oPOM788vpY1tdU3744Q6dPNA==
-X-Received: by 2002:aa7:cb0e:: with SMTP id s14mr25083661edt.225.1599549723686;
-        Tue, 08 Sep 2020 00:22:03 -0700 (PDT)
+X-Gm-Message-State: AOAM532KHYoTt2jS+VRWOmUItmf7V8nIgRNG7lSSbcK03ym5s6DAoE3N
+	vqNvv4JcrxFzZiQojvDlWVk=
+X-Google-Smtp-Source: ABdhPJzGiCzVRlWRx9K38EqD7iWMnPg/W44GPlGKcfHDFVjl1m9kliapbkqnnUZ4g7jAbQ2pvj7nOg==
+X-Received: by 2002:aed:3e2e:: with SMTP id l43mr24648784qtf.392.1599552021049;
+        Tue, 08 Sep 2020 01:00:21 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:38c6:: with SMTP id r6ls9456385ejd.9.gmail; Tue, 08
- Sep 2020 00:22:02 -0700 (PDT)
-X-Received: by 2002:a17:906:4b4a:: with SMTP id j10mr19937249ejv.498.1599549722806;
-        Tue, 08 Sep 2020 00:22:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1599549722; cv=none;
-        d=google.com; s=arc-20160816;
-        b=1Ff+FF1dRAx5lrF0RmGuxm8SWSR9rxZ3rSfx3GwuMYPTeKDJwYwTrIE2esLgbPTTRx
-         Nnzprxs526NACFVJhisMlfcPf+psAluZffBL/MoElwwwjJEoadw/LwLk2PJUrtbxbda3
-         eVGhljJ3kfn0+VPSZZRVlJOFxM15LIqcrCgQ/d0ewh/ro8kx9C059MeIHNuIf0hUJ5C8
-         cUJSZBTXEOIiGUpUnvsmP4Zp5WU2lFYsDNYBAkEd6/EFdEvCpJoHAd6yhtH+V26odKyz
-         1E8YbpkR6Dxo91UyfHT9h3K8p2KllEuYikKmH4BHMDx/6MvT49z4PhsS9XAvLWWzJpnG
-         JwAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=Ti3D5rU9xLetvd2s+2xmI7fUqkevI77aa+TH1CY7478=;
-        b=AWpY5fLTcST+gOiqb7+wOSuIJ4F8pQUjTn5G+Kun+PCLxCx0pQCwEaYG5xUw6E4To1
-         EPo2VvkSOHJD01SX1Ny0zq9dxkC+tJkViqvPYhdDSpsCM/4QSu1EZ8Vru7JBt3pAFvdh
-         CKPlYkwV/LWZ3JARvg1L18bTlIlgBnXUwVjNnrvxyHtSsYyTCvvvkSTEgMMYsTO0H5V1
-         UEg6qlJa/XxEoYMhPyiKaZJUGy9GsTHhuC2jfKpgZ8q29jro5r+rwqzhtq7O5eab4nl/
-         a7upQhWhwugpRH/N8cdr8Jst2vjiKMjrKpxAeM8vHHSy2Yok2pye+StH/XV7BQaG15Lr
-         /lQw==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id f17si506467edx.5.2020.09.08.00.22.02
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 08 Sep 2020 00:22:02 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 0887M2Ce004023
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 8 Sep 2020 09:22:02 +0200
-Received: from [139.22.116.238] ([139.22.116.238])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 0887M1UE028184;
-	Tue, 8 Sep 2020 09:22:01 +0200
-Subject: Re: [PATCH v3 0/7] Configuration parser streamlining
-To: Andrej Utz <andrej.utz@st.oth-regensburg.de>,
-        jailhouse-dev@googlegroups.com
-References: <20200825145032.115837-1-andrej.utz@st.oth-regensburg.de>
- <9afe26e3-a7fb-ebae-ea94-7d0ff228ebed@siemens.com>
- <fe12ea0a-d279-1532-099b-e23f0ec822dc@st.oth-regensburg.de>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <7e4900c1-9d76-34de-f7b4-5f396b72cac0@siemens.com>
-Date: Tue, 8 Sep 2020 09:22:01 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+Received: by 2002:a05:6214:16c4:: with SMTP id d4ls858569qvz.5.gmail; Tue, 08
+ Sep 2020 01:00:20 -0700 (PDT)
+X-Received: by 2002:a0c:9d04:: with SMTP id m4mr38501qvf.18.1599552020393;
+        Tue, 08 Sep 2020 01:00:20 -0700 (PDT)
+Date: Tue, 8 Sep 2020 01:00:19 -0700 (PDT)
+From: Jan-Marc Stranz <stranzjanmarc@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <6ad242dd-b69f-4176-a10a-1e84edf3b670n@googlegroups.com>
+In-Reply-To: <6f67008c-1b56-4c4e-9442-d011d178e895n@googlegroups.com>
+References: <bccfc16d-0fb3-47e7-8a25-9c85ebf4b5e6o@googlegroups.com>
+ <0153a372-c0c8-48d7-a595-aa502f81b09bn@googlegroups.com>
+ <f7aa0d56-f1a8-ff95-c565-d1f7edc707a3@siemens.com>
+ <7ce9ec5d-5e58-4b39-ac21-2f6a1d391ce4n@googlegroups.com>
+ <6aaac5b2-1c88-699a-6568-0642e4a1a4a7@siemens.com>
+ <2533b2ec-3ff2-4c01-8899-d1ada8d578e9n@googlegroups.com>
+ <dd5c252f-516e-3758-917f-a0cd5ca0f4c4@siemens.com>
+ <CAOOGbpg5t1ykh1OaS_rKXMzfL2u9F+igLuoA3wSg4boAhxtuWQ@mail.gmail.com>
+ <9ff0b838-a854-3ef0-6487-dbda6d488184@siemens.com>
+ <CAOOGbpgwq0=B85FFAaPCGC+W3UsFYtp6ROAsCbUdD2=g_Ak1kw@mail.gmail.com>
+ <b501a3d0-70cd-2126-8fa0-fff217caa20c@siemens.com>
+ <6765e219-706a-4124-9ac2-d40109d69f7cn@googlegroups.com>
+ <2924a8c6-5b7f-427a-846e-9fc0e64bad53n@googlegroups.com>
+ <6ab98ec9-0255-830c-589d-781da3bd2838@siemens.com>
+ <cc674085-e9fe-4bd9-a591-47593459c6f2n@googlegroups.com>
+ <138c5784-6dbd-add0-2364-9fef4b7a9ea6@siemens.com>
+ <de0ebbce-9513-4820-8975-781f816f9841n@googlegroups.com>
+ <0e52381f-15b2-e833-7717-6335ddcc5f35@siemens.com>
+ <CADja47McPVRWvi8u_fP8z7ZqPGcdW324AKG2e0iK_osTCd=Qkw@mail.gmail.com>
+ <6f67008c-1b56-4c4e-9442-d011d178e895n@googlegroups.com>
+Subject: Re: Build jailhouse on embedded target
 MIME-Version: 1.0
-In-Reply-To: <fe12ea0a-d279-1532-099b-e23f0ec822dc@st.oth-regensburg.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_876_1861895106.1599552019504"
+X-Original-Sender: stranzjanmarc@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -136,92 +96,121 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 08.09.20 01:15, Andrej Utz wrote:
-> Hi Jan,
->=20
-> On 27/08/2020 11:33, Jan Kiszka wrote:
->> On 25.08.20 16:50, Andrej Utz wrote:
->>> Theses patches mostly improve non-functional aspects of the Jailhouse
->>> configuration parser. Logic for unpacking binary data is consolidated
->>> into CStruct class, which all parser classes are inherited from.
->>> To improve input flexibility, data slices are replaced with I/O streams
->>> (see Pythons 'io' package for how to use them).
->>> Finally, a CPU set check is added, which will list conflicting CPUs
->>> between cells and also usage of non-existing ones in the root-cell.
->>>
->>> Changes v2->v3:
->>> =C2=A0=C2=A0 - fix config_parser usage in jailhouse-cell-linux
->>> =C2=A0=C2=A0 - fix output style in "CPU checks" commit
->>>
->>> Changes v1->v2:
->>> =C2=A0=C2=A0 - reference class variables via class object or class name
->>> =C2=A0=C2=A0 - drop implicit PEP8 formatting
->>> =C2=A0=C2=A0 - dropped unused patches
->>>
->>> Andrej Utz (7):
->>> =C2=A0=C2=A0 pyjailhouse: config_parser: store binary format specificat=
-ion in
->>> =C2=A0=C2=A0=C2=A0=C2=A0 struct.Struct
->>> =C2=A0=C2=A0 pyjailhouse: config_parser: move parsing into class method=
-s
->>> =C2=A0=C2=A0 pyjailhouse: config_parser: consolidate binary parsing int=
-o CStruct
->>> =C2=A0=C2=A0=C2=A0=C2=A0 class
->>> =C2=A0=C2=A0 pyjailhouse: config_parser: use I/O stream instead slice o=
-f bytes
->>> =C2=A0=C2=A0 pyjailhouse: config_parser: parse pin_bitman in Irqchip as=
- list
->>> =C2=A0=C2=A0 pyjailhouse: config_parser: consolidate header parsing
->>> =C2=A0=C2=A0 tools: config-check: add CPU overlap and boundary check
->>>
->>> =C2=A0 pyjailhouse/config_parser.py | 296 ++++++++++++++++++++++-------=
-------
->>> =C2=A0 tools/jailhouse-cell-linux=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
->>> =C2=A0 tools/jailhouse-config-check |=C2=A0 33 +++-
->>> =C2=A0 3 files changed, 215 insertions(+), 116 deletions(-)
->>>
->>> --=20
->>> 2.28.0
->>>
->>
->> Still doesn't work - did you test jailhouse cell linux?
->=20
-> I did and it works... with Python 3.
->=20
->> Traceback (most recent call last):
->> =C2=A0=C2=A0 File "jailhouse/tools/jailhouse-cell-linux", line 723, in <=
-module>
->> =C2=A0=C2=A0=C2=A0=C2=A0 config =3D config_parser.parse(args.config, con=
-fig_parser.CellConfig)
->> =C2=A0=C2=A0 File "jailhouse/tools/../pyjailhouse/config_parser.py", lin=
-e 287,
->> in parse
->> =C2=A0=C2=A0=C2=A0=C2=A0 return config_expect.parse(stream)
->> =C2=A0=C2=A0 File "jailhouse/tools/../pyjailhouse/config_parser.py", lin=
-e 220,
->> in parse
->> =C2=A0=C2=A0=C2=A0=C2=A0 cpu_set_num =3D int(self.cpu_set / cpu_fmt.size=
-)
->> TypeError: unsupported operand type(s) for /: 'set' and 'int'
->=20
-> When using Python 2, the slots of the child classes are not updated with
-> cell config data. I'll search for a workaround.
->=20
-> By the way: how long will Jailhouse require Python 2 compatibility?
+------=_Part_876_1861895106.1599552019504
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_877_533806974.1599552019504"
 
-I'm fine with switching ("#!/usr/bin/env python3"), but then someone
-should also scan the git history and/or code for obsolete compat patterns.
+------=_Part_877_533806974.1599552019504
+Content-Type: text/plain; charset="UTF-8"
 
-Jan
+Hello everyone!
 
---=20
-Siemens AG, Corporate Technology, CT RDA IOT SES-DE
-Corporate Competence Center Embedded Linux
+Now I have build the BSP (Linux Kernel 5.4.61, Root-FS with hypervisor 
+"jailhouse") with Yocto/Poky "dunfell".
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
+I'm using an embedded PC with "Intel Core i7-8559U".
+This CPU supports "VT-x" and "VT-d".
+
+Now I don't have the errors with "python" either.
+
+However, I still cannot create a configuration for the root cell!
+
+If I execute the command "jailhouse config create sysconfig.c", I get the 
+following messages:
+
+Traceback (most recent call last):
+  File "/usr/libexec/jailhouse/jailhouse-config-create", line 270, in 
+<module>
+    (iommu_units, extra_memregs) = sysfs_parser.parse_dmar(pcidevices, 
+ioapics,
+  File "/usr/lib/python3.8/site-packages/pyjailhouse/sysfs_parser.py", line 
+377, in parse_dmar
+    raise RuntimeError('DMAR region size cannot be identified.\n'
+RuntimeError: DMAR region size cannot be identified.
+Target Linux must run with Intel IOMMU enabled.
+
+
+These messages are similar to the messages when I run the "jailhouse 
+hardware check" command.
+(I had already reported that.)
+
+What can be the problem?
+What else could I explore or try out?
+
+The kernel command line is:
+BOOT_IMAGE=/boot/bzImage root=PARTUUID=4f8941f9-aabf-4b0e-ae9f-5857dc993a3d 
+rootwait net.ifnames=0 biosdevname=0 ro quiet loglevel=3 console=tty1 
+consoleblank=0 intel_iommu=off
+
+I've tried to read out "/sys/firmware/acpi/tables/DMAR", but this is 
+probably a binary file.
+I suspect that I need to use the "Intel ASL compiler / decompiler".
+However, this is not included in the BSP.
+
+I've tried a lot now, but so far without success.
+I really need help now!
+
+Best regards
+Jan.
+
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/6ad242dd-b69f-4176-a10a-1e84edf3b670n%40googlegroups.com.
+
+------=_Part_877_533806974.1599552019504
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div>Hello everyone!</div><div><br></div><div>Now I have build the BSP (Lin=
+ux Kernel 5.4.61, Root-FS with hypervisor "jailhouse") with Yocto/Poky "dun=
+fell".<br></div><div><div><br></div><div>I'm using an embedded PC with "Int=
+el Core i7-8559U".</div><div>This CPU supports "VT-x" and "VT-d".</div><div=
+><br></div><div>Now I don't have the errors with "python" either.</div><div=
+><br></div><div><span style=3D"background-color: yellow;">However, I still =
+cannot create a configuration for the root cell!</span></div><div><br></div=
+><div>If I execute the command "jailhouse config create sysconfig.c", I get=
+ the following messages:<br></div><div><br></div><div><span style=3D"font-f=
+amily: Courier New;">Traceback (most recent call last):<br>&nbsp; File "/us=
+r/libexec/jailhouse/jailhouse-config-create", line 270, in &lt;module&gt;<b=
+r>&nbsp;&nbsp;&nbsp; (iommu_units, extra_memregs) =3D sysfs_parser.parse_dm=
+ar(pcidevices, ioapics,<br>&nbsp; File "/usr/lib/python3.8/site-packages/py=
+jailhouse/sysfs_parser.py", line 377, in parse_dmar<br>&nbsp;&nbsp;&nbsp; r=
+aise RuntimeError('DMAR region size cannot be identified.\n'<br>RuntimeErro=
+r: DMAR region size cannot be identified.<br>Target Linux must run with Int=
+el IOMMU enabled.</span></div><div><br></div><div><br></div><div>These mess=
+ages are similar to the messages when I run the "jailhouse hardware check" =
+command.</div><div>(I had already reported that.)</div><div><br></div><div>=
+<div><span style=3D"background-color: yellow;">What can be the problem?<br>=
+</span></div><div><div><span style=3D"background-color: yellow;">What else =
+could I explore or try out?</span></div></div><div><span style=3D"backgroun=
+d-color: yellow;"><br></span></div>The kernel command line is:</div><div><s=
+pan style=3D"font-family: Courier New;">BOOT_IMAGE=3D/boot/bzImage root=3DP=
+ARTUUID=3D4f8941f9-aabf-4b0e-ae9f-5857dc993a3d rootwait net.ifnames=3D0 bio=
+sdevname=3D0 ro quiet loglevel=3D3 console=3Dtty1 consoleblank=3D0 intel_io=
+mmu=3Doff</span><br></div><div><br></div><div>I've tried to read out "/sys/=
+firmware/acpi/tables/DMAR", but this is probably a binary file.</div><div>I=
+ suspect that I need to use the "Intel ASL compiler / decompiler".</div><di=
+v>However, this is not included in the BSP.</div><div></div><div><br></div>=
+I've tried a lot now, but so far without success.<br>I really need help now=
+!<br><div><br></div><div>Best regards</div><div>Jan.<br></div><div><br></di=
+v></div><div><br></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/7e4900c1-9d76-34de-f7b4-5f396b72cac0%40siemens.com.
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/6ad242dd-b69f-4176-a10a-1e84edf3b670n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/6ad242dd-b69f-4176-a10a-1e84edf3b670n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_877_533806974.1599552019504--
+
+------=_Part_876_1861895106.1599552019504--
