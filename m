@@ -1,134 +1,129 @@
-Return-Path: <jailhouse-dev+bncBDD5VM7LUMHBBD763L5AKGQEWGQBTKQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBG7C3T5AKGQE22SNVAQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x13f.google.com (mail-lf1-x13f.google.com [IPv6:2a00:1450:4864:20::13f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04B9926071E
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  8 Sep 2020 01:15:28 +0200 (CEST)
-Received: by mail-lf1-x13f.google.com with SMTP id w2sf1820620lff.19
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 07 Sep 2020 16:15:28 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1599520527; cv=pass;
+Received: from mail-ej1-x638.google.com (mail-ej1-x638.google.com [IPv6:2a00:1450:4864:20::638])
+	by mail.lfdr.de (Postfix) with ESMTPS id EB60D260BDE
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  8 Sep 2020 09:22:03 +0200 (CEST)
+Received: by mail-ej1-x638.google.com with SMTP id gt18sf6276484ejb.16
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 08 Sep 2020 00:22:03 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1599549723; cv=pass;
         d=google.com; s=arc-20160816;
-        b=yYt2JWb586hrvEts1DptX8qFX7wJJVX+s0LmG3PNky5A0pBlidK9uF1jV1qMnrgQ23
-         fzFEJp18efTwyuyNLSiVfXaTSmdOaxV4WZF4mIM4JiMDLIjLlPLBRFXXw1AYTNcocgN0
-         f5BKkbNu19CQWWdknnbafMcDR5MHY8icqxvuppwJERLdN+fIk8rMe9ZLaE9v41w0RdEc
-         fqq4WiUgsBl/yrOQAJ3b9uyRW04WPasgT0Va+5sFTIgZD3h29BTXCvvv4gsnLIN20pa5
-         J7I20MmMhs+P5ABNBUEg7CbCRYHjo2V85R5xFWSBKRrIuKMeF1e+b6KYWFUmLWbEwn/W
-         wSUw==
+        b=qWs9oRkIgIOQ7Soj8Dr1tq6qm8QP6amVArFZHjSu/dmPmOXC+ESuo9U/AcT3ry+Tln
+         2MQUiKypNAN36/IbhvGcOYME8ItfupARjlFNK9IWDOI3Lyyc/2yZ7PH9w9LETpoqKtsF
+         6+M8DLrcwSwpOSOa3zmAjzazsU5Z+hQgDclvWM3+6THmXtZdjSwqTj4BRQINw1v5EDtj
+         J0QVzkPsw8Cew8J6N6FYPimMjQYkeeA/VV6pf+sFvq9p7JMfAbqu6vNcOwL7iktxRdgD
+         kzo4Fq1WoWIZ99eQ+9frJV49B+KX75eL8PZsdWjkkgRJdat4ia9lOJdJryRZJfHquGMN
+         zfrQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:references:to:subject:from
-         :sender:dkim-signature;
-        bh=D9bFKRXgR+nmEYs/2SLzh9BTaERnTSVG3h+L6gmlfjo=;
-        b=tprbavNdk1eyAFdJwLpPVCoMLzzgAs4g4f3OGQQIGCHDaLWtLiONejGDClw9rxfnp1
-         GlFl1nP3gQX3AhVc7ZZ1nJOAR1D6C6T0RcxWBvTFLxd9p2g5/m6+I0L+eXZbeNKwj1Nf
-         +f5g49MBO9KfvdpCr54z0IFCmQNgPO3aLw7xobG9hxy40z3SnFqXX25BvwgC8I92FOdm
-         +f3sSqVEH7q8PTnKgRfAFHgRU9rEDLYIF57AuM8jp7ZaFqf0NhH//dtubnXnm2omI0AF
-         v27IbvfVelczSC3PmxRvQmv+zzGhK96RW/Aiz4tN/uTw901BdAGgiF5ZAYDoFTZ00RnG
-         fl9A==
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=an8gTBfJBvoj4xWAb7vGaPIWekuoIXB4Ej9y2DmCsig=;
+        b=M5sNPa+ZNpASGFwYzvEEObWyAXf0U6LaI+bNcBZpNljA1CmSO4Ic2BgpKTfzqwO+nB
+         AiLaZpFlXZ4jcclJ5eHEqwZQsRHkaY2u3JK1+uFPXLLXqLYEXZBgXwCXGwBW5ar38vxE
+         UgO4sAZex0OebhewpFbm65mNvRqunGSsgNyXQ4vwe/jRZdpIXuyvd05ReA6CSoUJtdaG
+         6pP+9yayRaGGIsgRV+JogVZvLTTgZ5H8zFVozU9Pb2rIHgrj2PTcyktWdQK4SefOZSff
+         v4HTOzMU2dlTSfN86sq/ytRsbBxHD9BUSN5T0yblFIlRv3BvO6BvhqmrPpHVgCqaXAji
+         4vfQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@st.oth-regensburg.de header.s=mta01-20160622 header.b=PmTIBqHd;
-       spf=pass (google.com: domain of andrej.utz@st.oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=andrej.utz@st.oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:subject:to:references:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=D9bFKRXgR+nmEYs/2SLzh9BTaERnTSVG3h+L6gmlfjo=;
-        b=mZtPuO1J6XM+0+Kv1AmjUX5kT/f6srPGE2s6TV66AxBldAYKQ32afuomgyzTy4z20h
-         KQ+kg+xufUaHSK7g+4dJu7gkI58Omg6NaVGFDVdDWkAxQryc9opbj9MhUXBPdENTkOwW
-         qg6gfOs8dR+KvsnqyV/5f+z/hhb36M/kLq+vP1XCXx9f0kiAm4jLizWkSltptVbjdzo3
-         YHGy6SXIkYu/I+OuMKaSGtW3nXqcFnk8JhmA2jpI8U0QmALZLEPHsVCjvTr0EHwvwSMj
-         tDisIWD8Od/Y13AElOifrm9/wxVvksTbtCGALTCV/sX8NTwub/GvrqjIpXCSzxFbIIZ/
-         olPg==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=an8gTBfJBvoj4xWAb7vGaPIWekuoIXB4Ej9y2DmCsig=;
+        b=KeLtLzqCz6HYYpo8KC+GwVeB+LRsMuKEmCBikcboJiISKWugnRwsvIIrrqXVxun/D5
+         zD2UTsaS9WcNjiKMZ3gaNBvRdeZ7cbM5XMOPKcTALnw2kURMv6EYCGM2Ows0IgkGqT82
+         +pADbrXTTDBKFX4I2ZW2CU9Daz2GPpjj3VE0R364XhZApWTQmap0goT2/sjfzLXDWHwa
+         qcY06g4eJCUxDaia4wDmznYHLWFDksjY/C40IVzwlrshoGQlfk33hb6jF7IVFTva74sh
+         ePDnpoSBV15EpozW6iPWVeWgSnJFh/udmVY9cM+670mOcm0v7+uVEz1JGMI+CzRLeCfH
+         9Y5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:subject:to:references:message-id
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
          :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=D9bFKRXgR+nmEYs/2SLzh9BTaERnTSVG3h+L6gmlfjo=;
-        b=VYcyCJuCfgXTt/vTaRcDj3wWZlAOGDnKdqQg2TbAV9LTEabxiyXT9x9Hjl7iypSC3o
-         SH4UXydIaqGT+lDsucMVkSKZJC+JrhQgFGRd6gRq3y7IVYuxLpUP/ObapvZ25bU0ebQg
-         OwpyuZZHu9hYoFCZ6g4NFIpGFqM5AwPvRSDtA9HGBV7f8scp6sJj2Sw9wF29Ovv7NcQi
-         TIsCx+gUfG3S2Wqb6BN5X8ralFYT7BMCUzwNPkbKB/FsmliX5LVK7vJE6xl2o81zAQSY
-         nCWGU1mLFqeU960WDTLAA2rxMFN2p6HOoZz97qRuTCyPyfhG02WKar8PRENDjQEWkCfQ
-         1nmw==
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=an8gTBfJBvoj4xWAb7vGaPIWekuoIXB4Ej9y2DmCsig=;
+        b=SwwB01mq2YwboAfFfVOAiiUf6bqUU1plsRp+cNL9lmOscrOBhr5bjQT1fX3o9A0W2/
+         +fLzk6xPovRXXMIXnIyrrHd6nwv3mzVlhBB1o9CC2TCr4VVSxCUSttVrpgSlYfe9M114
+         W57kQ9h0VO6aUW4gf4QZ6w76ShJRMMThqTiaKQPkcf4IniDSacC/zRDopdMv/39gefkk
+         iNHbbNXWu8L0i9brEbx7cEqBKNkX3uTrXnpiru7PIkP6dN0ng3FdVpIyeJuX9wL9+am8
+         VRQOk7xBDHluG0ObQpPRNZjHsMXZGbZxXIt1E50WpmSNAcHJy9BGE+/Bvo/cIVNZ481b
+         /ANA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530xwqCyGvECXgVJKNE+H7sxLacqw15v0AZrIG9au8PUV0ZZoPYT
-	pqMxfYeoNu+TxnCxNApObvw=
-X-Google-Smtp-Source: ABdhPJyZTOyB3HFcKKRV5SXz0u5pxlvs9wsgqoVlhvpC07qaPp8iIN4SYrxw0JJT0gIXEWWaU4+kjQ==
-X-Received: by 2002:a2e:958b:: with SMTP id w11mr12020840ljh.370.1599520527458;
-        Mon, 07 Sep 2020 16:15:27 -0700 (PDT)
+X-Gm-Message-State: AOAM5316oSBwpIWmFic95bTe/S+y/qOjc7mKUKaAZUVEIWyNUD8B5fNB
+	fUcjtSClwRpBUTq8lxTi8Bw=
+X-Google-Smtp-Source: ABdhPJwIAtiX0wBB4ARd1UycInTrHKfnpkzvSZWzItarBx9WOkTyZ0oPOM788vpY1tdU3744Q6dPNA==
+X-Received: by 2002:aa7:cb0e:: with SMTP id s14mr25083661edt.225.1599549723686;
+        Tue, 08 Sep 2020 00:22:03 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac2:544e:: with SMTP id d14ls1644616lfn.2.gmail; Mon, 07 Sep
- 2020 16:15:26 -0700 (PDT)
-X-Received: by 2002:ac2:4318:: with SMTP id l24mr10981632lfh.46.1599520526264;
-        Mon, 07 Sep 2020 16:15:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1599520526; cv=none;
+Received: by 2002:a17:906:38c6:: with SMTP id r6ls9456385ejd.9.gmail; Tue, 08
+ Sep 2020 00:22:02 -0700 (PDT)
+X-Received: by 2002:a17:906:4b4a:: with SMTP id j10mr19937249ejv.498.1599549722806;
+        Tue, 08 Sep 2020 00:22:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1599549722; cv=none;
         d=google.com; s=arc-20160816;
-        b=GXIbXpQm6iY6etI68LU5DZGVyw5lhx8iIrBTY2wF0VDgcEu4EqzUq5lHlS0vMc+Q7L
-         kirfgNxokD7C2gs0AFeOAkBZM5U842mIe2itba9do/RNc32ajUrOjhglESTNzKaOlr+5
-         ryXKJd1d4auwEL1l9WhVFwyH3kIETcGz/p6Vyd2CWKaG5gA/7aKGrNyNglnWs/d4Blf9
-         hIA4gqwl1NemT6ihxHz9N6zLJhMFFx6P8o85bW77OF73WgtVkj+WUYKHYiveVxwH3V6i
-         Nu1XDLatywit+LTpfJ5qjlX7c/Qe54rmAH7j3rQAgdTxd1QzzwMyDeQgpL8VfIBnQIHA
-         IpUA==
+        b=1Ff+FF1dRAx5lrF0RmGuxm8SWSR9rxZ3rSfx3GwuMYPTeKDJwYwTrIE2esLgbPTTRx
+         Nnzprxs526NACFVJhisMlfcPf+psAluZffBL/MoElwwwjJEoadw/LwLk2PJUrtbxbda3
+         eVGhljJ3kfn0+VPSZZRVlJOFxM15LIqcrCgQ/d0ewh/ro8kx9C059MeIHNuIf0hUJ5C8
+         cUJSZBTXEOIiGUpUnvsmP4Zp5WU2lFYsDNYBAkEd6/EFdEvCpJoHAd6yhtH+V26odKyz
+         1E8YbpkR6Dxo91UyfHT9h3K8p2KllEuYikKmH4BHMDx/6MvT49z4PhsS9XAvLWWzJpnG
+         JwAw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:references:to:subject:from
-         :dkim-signature;
-        bh=YnlwVMPk1zrFcAp/vTAsbWI9IZUdHj6FuZd31NMal/8=;
-        b=sHXTSvE7g2zA8PUbks3EcEtFWTAmBFBx9Llk2gYyzX3grR2QeClhbElNT81ZgxVM55
-         EMsL9EIcuf7qbZrmpnQspOuV4QutgmZ4VMnf/Dq6KLkzGfaaTUvUanpFNtPTLav8QeVu
-         6h3kfIJpAeLUrrJ/pUO55A4vrjQsMMw7HYvGL8X2YaYQ6lCONHBZL1iba5HxEXBJvnuD
-         eCPrYjoCh8wYsybL5vDXVlMnJs7vjt0OjU7yYpzPXY0ziMod1qyrazAMC+3nwvcJlWfn
-         wx6eyfG1tHrld+ptAcfTxR4kLMKE2/DLsY+iNGkVLuLPhs+x0WmPUBp1U+1SbJK517T8
-         1rLg==
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=Ti3D5rU9xLetvd2s+2xmI7fUqkevI77aa+TH1CY7478=;
+        b=AWpY5fLTcST+gOiqb7+wOSuIJ4F8pQUjTn5G+Kun+PCLxCx0pQCwEaYG5xUw6E4To1
+         EPo2VvkSOHJD01SX1Ny0zq9dxkC+tJkViqvPYhdDSpsCM/4QSu1EZ8Vru7JBt3pAFvdh
+         CKPlYkwV/LWZ3JARvg1L18bTlIlgBnXUwVjNnrvxyHtSsYyTCvvvkSTEgMMYsTO0H5V1
+         UEg6qlJa/XxEoYMhPyiKaZJUGy9GsTHhuC2jfKpgZ8q29jro5r+rwqzhtq7O5eab4nl/
+         a7upQhWhwugpRH/N8cdr8Jst2vjiKMjrKpxAeM8vHHSy2Yok2pye+StH/XV7BQaG15Lr
+         /lQw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@st.oth-regensburg.de header.s=mta01-20160622 header.b=PmTIBqHd;
-       spf=pass (google.com: domain of andrej.utz@st.oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=andrej.utz@st.oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [2001:638:a01:1096::12])
-        by gmr-mx.google.com with ESMTPS id 11si417843lfl.4.2020.09.07.16.15.25
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
+        by gmr-mx.google.com with ESMTPS id f17si506467edx.5.2020.09.08.00.22.02
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 07 Sep 2020 16:15:26 -0700 (PDT)
-Received-SPF: pass (google.com: domain of andrej.utz@st.oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) client-ip=2001:638:a01:1096::12;
-Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S02", Issuer "E16S02" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4Blkf50XVjzyCc;
-	Tue,  8 Sep 2020 01:15:25 +0200 (CEST)
-Received: from [IPv6:2003:e9:af0d:f200:e9d:92ff:fe75:492b]
- (2001:638:a01:8013::138) by E16S02.hs-regensburg.de (2001:638:a01:8013::92)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2044.4; Tue, 8 Sep 2020
- 01:15:24 +0200
-From: Andrej Utz <andrej.utz@st.oth-regensburg.de>
+        Tue, 08 Sep 2020 00:22:02 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 0887M2Ce004023
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 8 Sep 2020 09:22:02 +0200
+Received: from [139.22.116.238] ([139.22.116.238])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 0887M1UE028184;
+	Tue, 8 Sep 2020 09:22:01 +0200
 Subject: Re: [PATCH v3 0/7] Configuration parser streamlining
-To: Jan Kiszka <jan.kiszka@siemens.com>, <jailhouse-dev@googlegroups.com>
+To: Andrej Utz <andrej.utz@st.oth-regensburg.de>,
+        jailhouse-dev@googlegroups.com
 References: <20200825145032.115837-1-andrej.utz@st.oth-regensburg.de>
  <9afe26e3-a7fb-ebae-ea94-7d0ff228ebed@siemens.com>
-Message-ID: <fe12ea0a-d279-1532-099b-e23f0ec822dc@st.oth-regensburg.de>
-Date: Tue, 8 Sep 2020 01:15:19 +0200
+ <fe12ea0a-d279-1532-099b-e23f0ec822dc@st.oth-regensburg.de>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <7e4900c1-9d76-34de-f7b4-5f396b72cac0@siemens.com>
+Date: Tue, 8 Sep 2020 09:22:01 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <9afe26e3-a7fb-ebae-ea94-7d0ff228ebed@siemens.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+In-Reply-To: <fe12ea0a-d279-1532-099b-e23f0ec822dc@st.oth-regensburg.de>
+Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
-X-Originating-IP: [2001:638:a01:8013::138]
-X-ClientProxiedBy: E16S03.hs-regensburg.de (2001:638:a01:8013::93) To
- E16S02.hs-regensburg.de (2001:638:a01:8013::92)
-X-Original-Sender: andrej.utz@st.oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@st.oth-regensburg.de header.s=mta01-20160622 header.b=PmTIBqHd;
-       spf=pass (google.com: domain of andrej.utz@st.oth-regensburg.de
- designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=andrej.utz@st.oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -141,72 +136,92 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi Jan,
-
-On 27/08/2020 11:33, Jan Kiszka wrote:
-> On 25.08.20 16:50, Andrej Utz wrote:
->> Theses patches mostly improve non-functional aspects of the Jailhouse
->> configuration parser. Logic for unpacking binary data is consolidated
->> into CStruct class, which all parser classes are inherited from.
->> To improve input flexibility, data slices are replaced with I/O streams
->> (see Pythons 'io' package for how to use them).
->> Finally, a CPU set check is added, which will list conflicting CPUs
->> between cells and also usage of non-existing ones in the root-cell.
+On 08.09.20 01:15, Andrej Utz wrote:
+> Hi Jan,
+>=20
+> On 27/08/2020 11:33, Jan Kiszka wrote:
+>> On 25.08.20 16:50, Andrej Utz wrote:
+>>> Theses patches mostly improve non-functional aspects of the Jailhouse
+>>> configuration parser. Logic for unpacking binary data is consolidated
+>>> into CStruct class, which all parser classes are inherited from.
+>>> To improve input flexibility, data slices are replaced with I/O streams
+>>> (see Pythons 'io' package for how to use them).
+>>> Finally, a CPU set check is added, which will list conflicting CPUs
+>>> between cells and also usage of non-existing ones in the root-cell.
+>>>
+>>> Changes v2->v3:
+>>> =C2=A0=C2=A0 - fix config_parser usage in jailhouse-cell-linux
+>>> =C2=A0=C2=A0 - fix output style in "CPU checks" commit
+>>>
+>>> Changes v1->v2:
+>>> =C2=A0=C2=A0 - reference class variables via class object or class name
+>>> =C2=A0=C2=A0 - drop implicit PEP8 formatting
+>>> =C2=A0=C2=A0 - dropped unused patches
+>>>
+>>> Andrej Utz (7):
+>>> =C2=A0=C2=A0 pyjailhouse: config_parser: store binary format specificat=
+ion in
+>>> =C2=A0=C2=A0=C2=A0=C2=A0 struct.Struct
+>>> =C2=A0=C2=A0 pyjailhouse: config_parser: move parsing into class method=
+s
+>>> =C2=A0=C2=A0 pyjailhouse: config_parser: consolidate binary parsing int=
+o CStruct
+>>> =C2=A0=C2=A0=C2=A0=C2=A0 class
+>>> =C2=A0=C2=A0 pyjailhouse: config_parser: use I/O stream instead slice o=
+f bytes
+>>> =C2=A0=C2=A0 pyjailhouse: config_parser: parse pin_bitman in Irqchip as=
+ list
+>>> =C2=A0=C2=A0 pyjailhouse: config_parser: consolidate header parsing
+>>> =C2=A0=C2=A0 tools: config-check: add CPU overlap and boundary check
+>>>
+>>> =C2=A0 pyjailhouse/config_parser.py | 296 ++++++++++++++++++++++-------=
+------
+>>> =C2=A0 tools/jailhouse-cell-linux=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
+>>> =C2=A0 tools/jailhouse-config-check |=C2=A0 33 +++-
+>>> =C2=A0 3 files changed, 215 insertions(+), 116 deletions(-)
+>>>
+>>> --=20
+>>> 2.28.0
+>>>
 >>
->> Changes v2->v3:
->>    - fix config_parser usage in jailhouse-cell-linux
->>    - fix output style in "CPU checks" commit
->>
->> Changes v1->v2:
->>    - reference class variables via class object or class name
->>    - drop implicit PEP8 formatting
->>    - dropped unused patches
->>
->> Andrej Utz (7):
->>    pyjailhouse: config_parser: store binary format specification in
->>      struct.Struct
->>    pyjailhouse: config_parser: move parsing into class methods
->>    pyjailhouse: config_parser: consolidate binary parsing into CStruct
->>      class
->>    pyjailhouse: config_parser: use I/O stream instead slice of bytes
->>    pyjailhouse: config_parser: parse pin_bitman in Irqchip as list
->>    pyjailhouse: config_parser: consolidate header parsing
->>    tools: config-check: add CPU overlap and boundary check
->>
->>   pyjailhouse/config_parser.py | 296 ++++++++++++++++++++++-------------
->>   tools/jailhouse-cell-linux   |   2 +-
->>   tools/jailhouse-config-check |  33 +++-
->>   3 files changed, 215 insertions(+), 116 deletions(-)
->>
->> --
->> 2.28.0
->>
-> 
-> Still doesn't work - did you test jailhouse cell linux?
+>> Still doesn't work - did you test jailhouse cell linux?
+>=20
+> I did and it works... with Python 3.
+>=20
+>> Traceback (most recent call last):
+>> =C2=A0=C2=A0 File "jailhouse/tools/jailhouse-cell-linux", line 723, in <=
+module>
+>> =C2=A0=C2=A0=C2=A0=C2=A0 config =3D config_parser.parse(args.config, con=
+fig_parser.CellConfig)
+>> =C2=A0=C2=A0 File "jailhouse/tools/../pyjailhouse/config_parser.py", lin=
+e 287,
+>> in parse
+>> =C2=A0=C2=A0=C2=A0=C2=A0 return config_expect.parse(stream)
+>> =C2=A0=C2=A0 File "jailhouse/tools/../pyjailhouse/config_parser.py", lin=
+e 220,
+>> in parse
+>> =C2=A0=C2=A0=C2=A0=C2=A0 cpu_set_num =3D int(self.cpu_set / cpu_fmt.size=
+)
+>> TypeError: unsupported operand type(s) for /: 'set' and 'int'
+>=20
+> When using Python 2, the slots of the child classes are not updated with
+> cell config data. I'll search for a workaround.
+>=20
+> By the way: how long will Jailhouse require Python 2 compatibility?
 
-I did and it works... with Python 3.
+I'm fine with switching ("#!/usr/bin/env python3"), but then someone
+should also scan the git history and/or code for obsolete compat patterns.
 
-> Traceback (most recent call last):
->    File "jailhouse/tools/jailhouse-cell-linux", line 723, in <module>
->      config = config_parser.parse(args.config, config_parser.CellConfig)
->    File "jailhouse/tools/../pyjailhouse/config_parser.py", line 287, in parse
->      return config_expect.parse(stream)
->    File "jailhouse/tools/../pyjailhouse/config_parser.py", line 220, in parse
->      cpu_set_num = int(self.cpu_set / cpu_fmt.size)
-> TypeError: unsupported operand type(s) for /: 'set' and 'int'
+Jan
 
-When using Python 2, the slots of the child classes are not updated with 
-cell config data. I'll search for a workaround.
+--=20
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+Corporate Competence Center Embedded Linux
 
-By the way: how long will Jailhouse require Python 2 compatibility?
-
-Thanks,
-Andrej Utz
-
-> Jan
-> 
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/fe12ea0a-d279-1532-099b-e23f0ec822dc%40st.oth-regensburg.de.
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/7e4900c1-9d76-34de-f7b4-5f396b72cac0%40siemens.com.
