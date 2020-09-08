@@ -1,67 +1,110 @@
-Return-Path: <jailhouse-dev+bncBCI7XTXZ6ADBBPXX3X5AKGQEQ4HZEIY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBGEV335AKGQEU67ZV2Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qk1-x73f.google.com (mail-qk1-x73f.google.com [IPv6:2607:f8b0:4864:20::73f])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9D5026117D
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  8 Sep 2020 14:40:31 +0200 (CEST)
-Received: by mail-qk1-x73f.google.com with SMTP id s141sf9043944qka.13
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 08 Sep 2020 05:40:31 -0700 (PDT)
+Received: from mail-lf1-x138.google.com (mail-lf1-x138.google.com [IPv6:2a00:1450:4864:20::138])
+	by mail.lfdr.de (Postfix) with ESMTPS id D731C261220
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  8 Sep 2020 15:43:53 +0200 (CEST)
+Received: by mail-lf1-x138.google.com with SMTP id h17sf1986425lfc.3
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 08 Sep 2020 06:43:53 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1599572633; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=n7y//2c0Ix7GmziKIQ5WPN5n4uR1OEH8NKkVS7W7zoL3Vj/pUDJASwIdHiT0P1XS4m
+         6CSYq/QGZaGtq8y0AzJnRbX0TMIdvhX3t11BvQ/TQ8VhKpbMy/bmn4bQpNnnahddVbR8
+         MCEPxs3Xc0cOTfYKpBH+/NuOdwq/b9rwS5KBXTfAa4YNTBjDzpyV2v2DrhxijlOlPJuh
+         nDwttoOkm72VQXUVGt0MyGQvSTG+87FEIcrFoef13t5qFF567jeEH7iaiIxYPz3Mn5Z2
+         rvk16hKh5o76oYWkwxBfJyvT2fmrfgsZSi7l6agIn9q8W1dLxLOTO02MC6gwXfvFg100
+         Pokg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:to:subject
+         :sender:dkim-signature;
+        bh=iyyAKmH7maonO7GNwJenrGsaWWPvEdZvew4E4hGIotg=;
+        b=j2/0KMmC0EDtKHQZSmPYGjmiIfWkdNaDsRIHPkDbAbL500Kwy1i/BYkoeL9oY4IlSd
+         4bhzdJsmxEdWc4EuN+V9SG+os+02S3kNk2/2s1fA9z3kvUiJXugPEak+/k17gNNZeDzf
+         gRdpEOlTwz1kktmcZsKPQsvrR6qIl3wwUDWBAOyYwdkYP30pP+4JCqhWZd38fQhUD0+l
+         9tO3QyvDPO4HTOYQNCRSiPJ87mQTrR5Mpey/gGu5mX203GgmINfo9xNS3frjgeI4exYt
+         Rj80PvpSwFJu/VjLCmz8j9nsLZaNuEVH84KcAHMTgZrkUsio9G4u5jYWPrs0t2495Rnl
+         cMiQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=zClm4/7E4S0YuEWEVyrcVdYlLPJXaLK2OZUxm6NFc0s=;
-        b=oNl13PBqm1EaE7JEWo9MTiG0yhiIcq4mVFVd3EzdlK1aleQGlQk3Zlt5bIltOZz2eX
-         pphNOQuHvJW9H9lPW1E/YadES6guK+mReCbE8fS0ysDAQC+DM2mxV6bPiEUJCVZS3AaN
-         IM9REYxfl2qbTejd2TK38jijrzA4NbM4215iZOdlXGv1kaHqjuegDQR3GI0juxQ6sLLt
-         p7ABSFNsjfiThEEGdVCDkoEq9ZXrCCcPDiIWR5Bt7d68QDBo8i5j8mfZ9DPpXwtUO7BL
-         Eh/Q5EtCSIaunA2IXQIpidn8gGqDekSPCOsvPo2cOGBmbouznXnk+gnUsSd6I7OqSUEP
-         hOYA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=zClm4/7E4S0YuEWEVyrcVdYlLPJXaLK2OZUxm6NFc0s=;
-        b=NoUR9or8BBPYNzsfKnX0rdOm1CuGfxKwZ5Ouy+Oik7KbgdGHF4PWRzWcDKwR6C40WJ
-         h/BTWFXzr1ce+m8YWHbfq18jsyfJoCjUZjEAP/nkC1iYApNSAGT3jg3FNqA2niF+a7Pv
-         2O3chVyzxvI5gTz5TDccEPD1zbno+9xUaFTOSrmXMaGpMOaJOnxAszNwX/Xe9MSBzp2L
-         WlXziczM2b6j9kSpfKF58WrZhfibfWIU43VnPUJSOlEFT6b4sf8UZmrSoF4dnRLsF4Yz
-         64bewCMJVDQISnplkIYkb6EEixZbuL0e7gqcevzBnJo+pI6CUAlq+yrSFIWBR94sDc1I
-         brKQ==
+        bh=iyyAKmH7maonO7GNwJenrGsaWWPvEdZvew4E4hGIotg=;
+        b=iq0XlBYxFa1vSoC65kVH/Y0RfSnIyfTGC5Id9LBEl+BD8210TOBGymwSeqQg5Y+EM6
+         j637FonW6WC1C7Qmky7EC4NJx2PYqMCWjPplFkgTu/WVul4i+l7nuL+AoVP5ScRMPpoj
+         92ALVrxuubN9Z3gWUyJtLHRNNQnq9DyxuMeX35McrbTJprZ+OUPiYAlbPkrwL+KN+6KZ
+         WwVB+hL0y2sp7YRC+U+PmEWVDGk3MSGy6x8dqbVq78L3GLExn/wHm6f1j+P1WcagWteS
+         Y4mXFav8ko1gWNLWbusnPQJaZO5HU8aHQbUio0GzGiirSU4DfPJe0vUzRAWp8vfMvSTW
+         aI8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=zClm4/7E4S0YuEWEVyrcVdYlLPJXaLK2OZUxm6NFc0s=;
-        b=r84RH1So57EWbYKgvpplIiGVInU0Kytn9Wh2nlOoGEQ3cyZXnezcBP5flRiS+lUfID
-         AQsuHM/8yyEiw7RMIZzBTRx2I4iAwtLqxgHq2wbPKSXQS7lNnwL2MQnfUXT70kcJ1jYs
-         41pevjam58ePvblDqLy9aQ0qftD9/6/dO6VTmsE9pEO41yVb/Nim/9bhdIY85dfEK7UO
-         Oj5D/nJTT1nCdwxmMcUqRG57YcG9nEzcea7odXBbHKwijiFXwMtQom1ggSI8K/pUCSWz
-         Vrx3FN1r3+H26iGmk26ecnt2WIohdFpKnJ/kso3yjXLEic4IMfA7ixFUQcAmX73tkQFV
-         MWmA==
+        bh=iyyAKmH7maonO7GNwJenrGsaWWPvEdZvew4E4hGIotg=;
+        b=BP/mCiOeT/Md74m6ajK05771d5D68YvhfYvADl2+ogBMNbDi22rzciZ0lDE4K5TgIo
+         Gn4UGndy4Dy7jpWl18IebjClnc0tZqMR9aOS8X3S9gYPjI3ddsHPW+AoQCc0fvCyjEoL
+         c7HQ3urNODfF/XvQDGHl0WhWXEW8hl3xe0s0+O94gD0mLlw6njnqgv0hlkTDjvRGXLLE
+         Zr5t9i+PxA2rDujgrseG3hJRbeoKphLlKzIwE72zDviRdHSUHf7eKjGWDOzVR4b8wFe+
+         cz5FfbEOGZ6WTcot8h2xqQ93KSiC38Gv5OJNbYTV5nBmHl6syU1SrQSkeT8+IMilWPrf
+         j5vA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM53019OtdBOHvd6nsTz2OpBPW2ea11oHNYPQIyaOPmP9iBsmJJEOw
-	+aGbhtjOOwmuRpQfUGqziKc=
-X-Google-Smtp-Source: ABdhPJyghrxuxVQt5ZTP1powcRTbPeNGVhLm67aNSERsGIUrqNLFUOJ4DnnofYGdgr8qps05uMDD4Q==
-X-Received: by 2002:a0c:8e4c:: with SMTP id w12mr23057819qvb.3.1599568830782;
-        Tue, 08 Sep 2020 05:40:30 -0700 (PDT)
+X-Gm-Message-State: AOAM532V44vyqM0VM50IxmDp4KR6yLX1bfh1vNgcP7AgezavGQiotnK6
+	LXU16MYK7E5GkzGro2Z4r7A=
+X-Google-Smtp-Source: ABdhPJzjmRruQ2bG2R4s6XlPgXtOzsk/J5Wn6v2iNWnyNxPdQCRsyhZ1FLEokOEy2zA24nmG9P7qVA==
+X-Received: by 2002:a19:c801:: with SMTP id y1mr11859739lff.217.1599572633365;
+        Tue, 08 Sep 2020 06:43:53 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ad4:4c91:: with SMTP id bs17ls1814236qvb.3.gmail; Tue, 08
- Sep 2020 05:40:30 -0700 (PDT)
-X-Received: by 2002:a0c:9142:: with SMTP id q60mr1026772qvq.13.1599568830038;
-        Tue, 08 Sep 2020 05:40:30 -0700 (PDT)
-Date: Tue, 8 Sep 2020 05:40:29 -0700 (PDT)
-From: Jan-Marc Stranz <stranzjanmarc@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <0acc82dc-fbc9-4d81-bcde-69e611aa01b7n@googlegroups.com>
-In-Reply-To: <c31c0a2f-17a4-d970-5f5a-7d26a148a740@siemens.com>
+Received: by 2002:a2e:93c7:: with SMTP id p7ls3869163ljh.11.gmail; Tue, 08 Sep
+ 2020 06:43:52 -0700 (PDT)
+X-Received: by 2002:a05:651c:134a:: with SMTP id j10mr11093830ljb.337.1599572632255;
+        Tue, 08 Sep 2020 06:43:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1599572632; cv=none;
+        d=google.com; s=arc-20160816;
+        b=u8zMbXu1wew4Iy9dQiAxVGrrKDbdV9F1LX7qEwUbS85D1GrfQLONg8vnIOjGcad6j6
+         tbIFdJC4yAbBEbNYtrRDj9lKWWNAI00oDf0+Aogj05TRsqpGn+AAUtvu6Qw/zfIgvKt4
+         OBb54C8pMzwwTA94br0G7ikX1RFfKy7PepH0xstwv/LlQyq4Mofhnak8RnhylStofCfY
+         pJPl4XghHb2ebfqxUaYAcPKD8UGYJ8L6WbizTIro20Bd1wzk5hC5GlvqBh+NcKzLDVFT
+         VAw69u6oUxDxxkxy5m9Wl23OpW2gyHwORMLdz/i69EGciRVRi/LmF6jcc/Dw6tfBUTNR
+         mxyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=Z5khAxkDvhrJVmGxm5/3NjvWdGxhHJTEvWrHmyfZU3I=;
+        b=tAe0AMw90TCH4JHWKobZ4MKJShT+ZP76Q/ZiHwHdbzuR/KVLgr2Xp5d13SfDmEr5DZ
+         WlMtCzGX8a3VYeR7MqLc+VDIf0Uf7RwHsI5Lg3Nm1uXt4rqdsJLC/Lj+cJmvlnFG6bTj
+         gh0DwjUs1M4y7hi6YPaXLyVIpM/1OgAUkKaq/zlH0LhNrd5av1hxc7RHyJUEIPPPDg4L
+         P7B+dm/2zlg1+vAaVZKqi3LAhwFp9SwXugxw2ylmgZNWhMRBZTmWnZ0KhX7ke1dec+pX
+         1Vi+umGe+k3pV6s7OC6F6MKYJOKOlTNvjrCPkBkgYROKTaR6odNdjt1K06wdFOhNqZgT
+         FnoQ==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
+        by gmr-mx.google.com with ESMTPS id f12si696933lfs.1.2020.09.08.06.43.52
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 08 Sep 2020 06:43:52 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id 088DhoOk026605
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 8 Sep 2020 15:43:50 +0200
+Received: from [167.87.132.19] ([167.87.132.19])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 088DhmlQ025660;
+	Tue, 8 Sep 2020 15:43:49 +0200
+Subject: Re: Build jailhouse on embedded target
+To: Jan-Marc Stranz <stranzjanmarc@gmail.com>,
+        Jailhouse <jailhouse-dev@googlegroups.com>
 References: <bccfc16d-0fb3-47e7-8a25-9c85ebf4b5e6o@googlegroups.com>
- <CAOOGbpgwq0=B85FFAaPCGC+W3UsFYtp6ROAsCbUdD2=g_Ak1kw@mail.gmail.com>
- <b501a3d0-70cd-2126-8fa0-fff217caa20c@siemens.com>
  <6765e219-706a-4124-9ac2-d40109d69f7cn@googlegroups.com>
  <2924a8c6-5b7f-427a-846e-9fc0e64bad53n@googlegroups.com>
  <6ab98ec9-0255-830c-589d-781da3bd2838@siemens.com>
@@ -77,11 +120,21 @@ References: <bccfc16d-0fb3-47e7-8a25-9c85ebf4b5e6o@googlegroups.com>
  <199d40f2-9ca3-d618-101d-d7c33d450af9@siemens.com>
  <b7dd4477-cf1a-44e5-9f7d-5c0bb474d26cn@googlegroups.com>
  <c31c0a2f-17a4-d970-5f5a-7d26a148a740@siemens.com>
-Subject: Re: Build jailhouse on embedded target
+ <0acc82dc-fbc9-4d81-bcde-69e611aa01b7n@googlegroups.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <e0cf2959-7653-4fda-93b5-5abfdd188414@siemens.com>
+Date: Tue, 8 Sep 2020 15:43:48 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_3538_299157287.1599568829128"
-X-Original-Sender: stranzjanmarc@gmail.com
+In-Reply-To: <0acc82dc-fbc9-4d81-bcde-69e611aa01b7n@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Language: en-US
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -94,104 +147,61 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_3538_299157287.1599568829128
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_3539_65322834.1599568829128"
+On 08.09.20 14:40, Jan-Marc Stranz wrote:
+> What do I really need in the kernel configuration and kernel command 
+> line for IOMMU support?
+> 
+> If I set
+> CONFIG_IOMMU_SUPPORT=y
+> in the kernel configuration then the system starts.
+> 
+> If I set
+> CONFIG_IOMMU_SUPPORT=y
+> and
+> CONFIG_INTEL_IOMMU=y
+> in the kernel configuration the system does not start!
+> 
 
-------=_Part_3539_65322834.1599568829128
-Content-Type: text/plain; charset="UTF-8"
+This is not a Jailhouse issue. If you found a kernel configuration that 
+does not boot your board, report to the kernel provider (I assume 
+upstream), possibly also board/BIOS vendor. Include the boot log.
 
-What do I really need in the kernel configuration and kernel command line 
-for IOMMU support?
+And also make sure to cross-check with a standard distribution kernel as 
+well (all major distros have INTEL_IOMMU on). You are on x86, booting a 
+standard distro should be no problem.
 
-If I set 
-CONFIG_IOMMU_SUPPORT=y 
-in the kernel configuration then the system starts.
+> Setting
+> CONFIG_INTEL_IOMMU
+> also sets
+> CONFIG_IOMMU_IOVA=y
+> CONFIG_IOMMU_API=y
+> CONFIG_DMAR_TABLE=y
+> CONFIG_INTEL_IOMMU_FLOPPY_WA=y
+> automatically.
+> 
+> For the kernel command line there are two options:
+> iommu=off|noforce|force|...
+> and
+> intel_iommu=on|off|...
+> 
+> What do I really need for the hypervisor "jailhouse"?
+> 
 
-If I set 
-CONFIG_IOMMU_SUPPORT=y
-and
-CONFIG_INTEL_IOMMU=y 
-in the kernel configuration the system does not start!
+For Jailhouse, both turning off the IOMMU support in the root kernel 
+completely and leaving only interrupt remapping on but dmar 
+(intel_iommu=) off will work. The latter gives better performance, though.
 
-Setting 
-CONFIG_INTEL_IOMMU
-also sets
-CONFIG_IOMMU_IOVA=y
-CONFIG_IOMMU_API=y
-CONFIG_DMAR_TABLE=y
-CONFIG_INTEL_IOMMU_FLOPPY_WA=y
-automatically.
+So, if you are using a standard kernel (or the config provided by 
+jailhouse-images), you just need to flip to intel_iommu=off for starting 
+Jailhouse. Leave it on for creating the config only, as I wrote before.
 
-For the kernel command line there are two options:
-iommu=off|noforce|force|...
-and
-intel_iommu=on|off|...
+Jan
 
-What do I really need for the hypervisor "jailhouse"?
-
-
-
-
-
-
-
-
-
-
-
-
+-- 
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+Corporate Competence Center Embedded Linux
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/0acc82dc-fbc9-4d81-bcde-69e611aa01b7n%40googlegroups.com.
-
-------=_Part_3539_65322834.1599568829128
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div>What do I really need in the kernel configuration and kernel command l=
-ine for IOMMU support?</div><div><br></div><div>If I set <br></div><div>CON=
-FIG_IOMMU_SUPPORT=3Dy <br></div><div>in the kernel configuration then the s=
-ystem starts.</div><div><br></div><div><span style=3D"background-color: yel=
-low;">If I set <br></span></div><div><div><span style=3D"background-color: =
-yellow;"><span style=3D"font-family: Courier New;">CONFIG_IOMMU_SUPPORT=3Dy=
-</span></span></div><div><span style=3D"background-color: yellow;"><span st=
-yle=3D"font-family: Courier New;"></span>and</span></div><div><div><span st=
-yle=3D"background-color: yellow;"><span style=3D"font-family: Courier New;"=
->CONFIG_INTEL_IOMMU=3Dy </span><br></span></div><div><span style=3D"backgro=
-und-color: yellow;">in the kernel configuration the system does not start!<=
-/span></div><div><br></div><div>Setting <br></div><div><span style=3D"font-=
-family: Courier New;">CONFIG_INTEL_IOMMU</span></div><div>also sets</div><d=
-iv><span style=3D"font-family: Courier New;">CONFIG_IOMMU_IOVA=3Dy</span></=
-div><div><span style=3D"font-family: Courier New;">CONFIG_IOMMU_API=3Dy</sp=
-an></div><div><span style=3D"font-family: Courier New;">CONFIG_DMAR_TABLE=
-=3Dy</span></div><div><span style=3D"font-family: Courier New;">CONFIG_INTE=
-L_IOMMU_FLOPPY_WA=3Dy</span></div><div>automatically.</div><div><br></div><=
-div>For the kernel command line there are two options:</div><div><span styl=
-e=3D"font-family: Courier New;">iommu=3Doff|noforce|force|...</span></div><=
-div>and</div><div><span style=3D"font-family: Courier New;">intel_iommu=3Do=
-n|off|...</span></div><div><br></div><div>What do I really need for the hyp=
-ervisor "jailhouse"?<br></div><div><br></div><div><br></div><div><br></div>=
-<div><br></div><div><br></div><div><br></div><div><br></div><div><br></div>=
-<div><br></div></div></div><div><br></div><div><br></div><div><br></div><di=
-v><br></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/0acc82dc-fbc9-4d81-bcde-69e611aa01b7n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/0acc82dc-fbc9-4d81-bcde-69e611aa01b7n%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_3539_65322834.1599568829128--
-
-------=_Part_3538_299157287.1599568829128--
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/e0cf2959-7653-4fda-93b5-5abfdd188414%40siemens.com.
