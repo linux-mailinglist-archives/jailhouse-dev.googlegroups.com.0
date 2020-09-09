@@ -1,125 +1,140 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBRM34L5AKGQER3YJ7CQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC6PFNGHZIFBB5NY4L5AKGQEPWZQ6DI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x138.google.com (mail-lf1-x138.google.com [IPv6:2a00:1450:4864:20::138])
-	by mail.lfdr.de (Postfix) with ESMTPS id 920AD262996
-	for <lists+jailhouse-dev@lfdr.de>; Wed,  9 Sep 2020 10:09:42 +0200 (CEST)
-Received: by mail-lf1-x138.google.com with SMTP id v128sf126701lfa.5
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 09 Sep 2020 01:09:42 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1599638982; cv=pass;
+Received: from mail-lj1-x238.google.com (mail-lj1-x238.google.com [IPv6:2a00:1450:4864:20::238])
+	by mail.lfdr.de (Postfix) with ESMTPS id 89D19262B71
+	for <lists+jailhouse-dev@lfdr.de>; Wed,  9 Sep 2020 11:12:22 +0200 (CEST)
+Received: by mail-lj1-x238.google.com with SMTP id b17sf744266ljp.3
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 09 Sep 2020 02:12:22 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1599642742; cv=pass;
         d=google.com; s=arc-20160816;
-        b=LPeYakkRU3mHtLXo5q8K1vPVeeFglKtqbbc0/DZq1o5dRXn4yKGUK4lc9qQ2b5Fjxx
-         J6zFkGRJ4V7x/0d7986xGCe620mXgrjC027EBteb3Bn0uKEq57ArwT4jgyh7F9rGVu38
-         QgdzJBiJnb2drM/I6ycF/1MWp1QE3EsXiSACxgpyrARI5yAB16/AqfBgvI872iL54uoW
-         ndyB50Zb/JZAfdiEFqupa3qGSP192/wzInFI1a6jKfvjyEBtuBznMWHMNRtYa+ZiGA/1
-         tr0xKSW9ercrI5pBrqH8zL5kRiAQgStAoetUrPycw2dz4afYQws+oz7Pq2n/HJaGJNjQ
-         0pug==
+        b=l9b2ZDkP1FjxfT+YgP+3K+MIOghwSK6fdLfzrMIKwFILMmXWuthpoVimgVhVmugTRt
+         BvLECsPoK6wx0PCwCSQ6NvY4rV98Ma95bfjCWtGT17S73Nh8tWKfCxe3AHkUPu+uG2Dl
+         GhbyVvh0eEOtN456bJRZDJ3FofBfaT+GBBU98XwW2OjSskZPSn6v408r9xZszcU56qiB
+         Cu6pOK1EcHYpyUaxADJGkOGF9Pa6QUuQfXVIiYl83n+o6h5lSlEzA1jBIa60GOJVZpFg
+         DJqnxyzx9CSmQhW1Yxccigf82oI9eSSfedw2ZQRRYsIvqgi3S+bycstjD/UjwfU/YtuW
+         nmPQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:references:to:from:subject
-         :sender:dkim-signature;
-        bh=6xPz/soQ8Bh+a+cMmNaEsFe5xXinZcaKIEkXa1DRIJQ=;
-        b=JJpmzr+euIym0GYxmuyyCg8eIkgJYS2IdumHJDxcCphAxX5AB29dJlRbU5bCWrTFYX
-         Mpq4BiIjF5CQyw0UX7Bpp7HaB49sWYYxSuwyP/YUA2t1eRimHJrtZp/MS3su8E9I/04n
-         N5NHg5jcR7Detf/Eny03i51g2MeRoKesHaHs1D4kAoKfqp6VDXHq6vz+0N4FRYF1JUa7
-         8jdQbji8+MR8KrQKeW67koNkAApu4hZNS5GlJDtlhIqUEJ/VpS2EKO7gdNo1mFNHCeTa
-         cuXEf/1pcbes+4t/uJOV6jYu300dsAX/M4KqfyttyvTn2jB1W0A2+6w/c01mDdRxgOtN
-         WshA==
+         :list-id:mailing-list:precedence:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:sender:dkim-signature;
+        bh=Ftfr8nrAZ3JyVEIbpJOZtxkQTO1U0lH+RjiiKGlO78k=;
+        b=BlNQR26b4BjJBgh3DSxXhT3qoksQ7PaiVM4FdAq+/fHTmqGkLa+2xVyTFPX8BfLmFU
+         MWldTng5Ew+VQmCfV8BEMPBN0pWqPLXgjKSJN7zK6MyAxzG6a5G3C5+IId6ctsu0FjqE
+         9vU99D/VP2K34OPI9je/519F6ZxvLge5/KMmY4ygEDsafTjHmvzKpmYXNYMN5nYNa2Ll
+         1awlo6KFFGLl9HMOEC3jRNho2sfWhM8c/WNKLxFIRTXN9aQr/ui/JoOH2k1GmDAEFfAO
+         z2xWAtI3PGuz9pDE8XmTOqsqUnhRGa3BZ8Gy+bV4AQLM6WgqxYlfd2zJzaQHC1J9MvJs
+         aOUw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=bkBM+R77;
+       spf=pass (google.com: domain of dl9pf@gmx.de designates 212.227.17.22 as permitted sender) smtp.mailfrom=dl9pf@gmx.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:from:to:references:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=6xPz/soQ8Bh+a+cMmNaEsFe5xXinZcaKIEkXa1DRIJQ=;
-        b=oZFmk7cdxxWmfSXFs0nLRGOeF6tTDl7m06Gig6QnGBiAuF5bYoflfqTTQnlfIvszDT
-         EvwY12Dwh1lgBMa/RJVHREYST15xmECVkYsGSktxaJLrNx1J5Ib8gqx0IjXh4r9UfqrY
-         bKC1TfVeQClyQRrq0Nw8qm7kqhYyl859S4VLdzrvE93XkdpzVD4OrDMivc2tazyNYDDa
-         KcaEHome2sk1xBDvxxKlwFhkduknu5YjDQ0J4X5ArGQ7tRP7wpxnxC/eo/dVTB19pIC0
-         n8KiaqGsg2OPSIM8WtYy/uOJdbs7Ph2iXEg6bjhzBjuwaqJFVLFOo1fm04L2FmVMP5oj
-         B0hg==
+        h=sender:from:to:subject:date:message-id:in-reply-to:references
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=Ftfr8nrAZ3JyVEIbpJOZtxkQTO1U0lH+RjiiKGlO78k=;
+        b=f6NJhcLD5x+5xJV2ujs4hAaDlRalOrinFPaJsm6P8lBKXW815iOII2MD1oUYx9KvDK
+         Md6rUhUMK/4VJP9tws4AsoQQ2XjkwcRm13yf+C7N4fGuHi4sxIOyMsJ07L/YgGyqm940
+         +HhgZx7NuaafDduS1XBSfVeTVvELrXCBg8VldRbRsm9IMGj42BmGcGHLijJ8NuqcImpn
+         avGbD+MfKbBGzUJYqa9faJEovDT3lSLTZpHCkCgcN4nU3DWNKUM0J3wbKJevqcB4zgCb
+         W5IkaamAaZ18PtL4w5VYh56ZhYSqnKNL7/IrD4nRV8NL9k6XC6EWL7TqkmGWgiaoiErT
+         F4Jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:from:to:references:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=6xPz/soQ8Bh+a+cMmNaEsFe5xXinZcaKIEkXa1DRIJQ=;
-        b=of06gOrBn8nIAQEqkmsHr4HmLhmXpt5cGGrAveowEIYd+7If2vXieeKutVaEi7WX1N
-         kyQ0M4pim4ZTFY/I4zcXe5QNQ2Dg8Qgefi9inmkykPhyl3E6tre8q2rQZ89f+1GJxL2/
-         d99+bYMa7B2oYLBeVREial8MzZRHOIzpyo84vCCXgWQhfxG3tvgXVpNxkJlKrCV0+LI8
-         1gljM2KM6LudE3Mo+btk2z4t9dyJ87zv9ZDgAQi26tVYtokQYYm9d7wmHUlSujsIu29R
-         Ka/2KJi5yZbCwSc2Sth7bM4qHKlimdEEj9mm84X5W96/RVV/FvbFBeABB+ocBOPtcML5
-         SIcw==
+        h=sender:x-gm-message-state:from:to:subject:date:message-id
+         :in-reply-to:references:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=Ftfr8nrAZ3JyVEIbpJOZtxkQTO1U0lH+RjiiKGlO78k=;
+        b=LrTbjg/vE60i6KBsRGKAqljLCKUxb6iMKlImqFrY3LujraKQwDbHl8Ky9ssvNDdhdX
+         MPrBlqJhvtxn8HhkuBzwCYC2Mh6ZQozH8Rvd4H4bWT2LQshR8F6UYdDde4Mcgd4RaRg7
+         fkY5nIUa3r7LT8hI5ozyC4gn70qOtemnLz+venyDF7vXhgq1rlH4IKQ2WzXn08yql3m3
+         RCfXxRd3pI5XrTIXmhFlR+rscN9EBn31kK6M7urZvhsnlfng1v/WktbBSV+FYnz8hxqF
+         AgrR2e3YgbAC8pArJee7tq0j///fAJ0OnSA/ZAiZx1eMBSfOr4IWeTgZhF5XJ5Ux2Rq0
+         qK4g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533FLKToNoVLKbi84m/tgqNkP+r8+a22Gh+/T62HB23AC5qFxsXB
-	Cm6oAFDDlJYzh1hvs+3ZMmU=
-X-Google-Smtp-Source: ABdhPJwrfkAAdYTzJel+beV+TY1Igu4v5eVuxrqaE/klvcUjy1yDLav9lrDTeHxSLbVh0dd3Ot/Xkg==
-X-Received: by 2002:a19:4a88:: with SMTP id x130mr1363153lfa.31.1599638982026;
-        Wed, 09 Sep 2020 01:09:42 -0700 (PDT)
+X-Gm-Message-State: AOAM533zCfpyyfNWirTMvjPxV+Oq5O1xth0HbP9mBT6bZSyxI5aWFNko
+	6UjO30+ze36hYYVHaadD6Po=
+X-Google-Smtp-Source: ABdhPJyXnkBFpf17fiHLgk8LBFMzmncwnMEBsZNwvplYVR7MW4UmxZODa9SLNiZx4cixyxdPo3tU/Q==
+X-Received: by 2002:a2e:b4f7:: with SMTP id s23mr1548381ljm.80.1599642742043;
+        Wed, 09 Sep 2020 02:12:22 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:651c:93:: with SMTP id 19ls422453ljq.4.gmail; Wed, 09
- Sep 2020 01:09:40 -0700 (PDT)
-X-Received: by 2002:a2e:9ad4:: with SMTP id p20mr1278173ljj.456.1599638980055;
-        Wed, 09 Sep 2020 01:09:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1599638980; cv=none;
+Received: by 2002:a2e:7e02:: with SMTP id z2ls463489ljc.2.gmail; Wed, 09 Sep
+ 2020 02:12:20 -0700 (PDT)
+X-Received: by 2002:a2e:86d3:: with SMTP id n19mr1497614ljj.368.1599642740880;
+        Wed, 09 Sep 2020 02:12:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1599642740; cv=none;
         d=google.com; s=arc-20160816;
-        b=x+Tc0PIenf/LKHbw39Ww8UydhAffy/j0DNAHRq13lnwtuGwDyc28pMs/0NIeD9t3+1
-         1U0VLlWx3KmqY8mWjRg93Hh2BcVNciummC/OcAY06wGJ/nG/BcY0qWkZkg5hbKc/K/12
-         QcWi2LtAez+6Q2fP/J1KVXa68/aI3IH64vskUdEZeA2y3AFxN+0RD9801JpUtECrhJ3N
-         vI9k7gfDKPK+lg2mI6vxMbfgPEs5lJKTKyIRVglsldKVQoLEmfiPcYaAyJ/nmoTRopCs
-         Pzk73loX41xdn0WlMqLE2/ZZWV28M1maTWUg1PytHmYxcSA4MIvnj1j/8AG+na+iaqxJ
-         8xoA==
+        b=JB4ZVtwCLozi2FlvuUyVbm6uMGXIg9X0+jZzRiBIsDIcR1rkI3I6Tdips8RkTh9oIl
+         BuQjykFacF8MyddAgMMSeomKMdR+NiZQsqecReFrUJ1lUFZk4JBsDbXknwPNqshtUaAF
+         vhZjvAKZBlEgVRtHpOiYtHZF0baKQDrC0WFpt5oJKP7u8mOHz/SeBOpRjUvW2JW3PXrT
+         mQMej/mk7HBi1AoRcLAJbjh7p/GsB9mp7y+7gZlPLEn6ZniQRJHaTOvjqsoTpiGbImUN
+         wnxbFVQ9Q+f1jZvr6eSbaOPU1jg9Q/IkXXqccNswHVDs5QI8wQV4qtZhCNk36j0p/4Ym
+         l8xQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:references:to:from:subject;
-        bh=i4qTzWZY6w51jnfaJ4+1XJsIhaBK2I0+SWxTmrJk4Q8=;
-        b=yEcE1Sb78vqjmiyR4iPyaR/X40wFMUQlDTgpWdB6/e+kTRJqyfSh3nClOYBZx8OR2x
-         3136TBu759eA1/+86FAMJHW3+vayDiXgEZmHVBT5A0IbMak9d+11hM+ecQ4dvxNqeVDI
-         5Bswm63tfM9iydv4+mqUxZ1BOL9aXIToTZeqfYK27lIdZmotPdauP6McGf6j1tHmFVjD
-         hKupdJoJCgzw0GUx7zzPqO+rC6By9fVDFCOILa5P6ni11ssXZDo2tpKW8yksx/DL0DR1
-         Wmqg+FCaHrHDpSGA6d+VWqEVy67cVE/C0jE79X0GQrj75YwT5hh21o3VgBRRK+tWXxjH
-         1lNw==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:dkim-signature;
+        bh=yFf9pwcx4GHWVIXLAFNlW8HwQIf49ZtavAahgKb9HII=;
+        b=gCn7UZISvUwD1y5zeXHLizuLDHbNRL7HN/WNXqB6D9ysYQqtgcmw3th1zLFEikbUfr
+         jw93OL7QV8vhfcS481WrfbO5uY9Uk4Vm2Eswr2FccmW1r4s66T+WsDLoGMdLfbRoa13G
+         ePZZ/HGIQzro8DFQGzCKzKIfHPebWoaqHHszPlmZtKFHwmb2a73Wwp1wFCxbqeQoqwbK
+         uYTgItS2gxyHkAzOL2YqnGZmUPW2ZEuwCSitko3aoFom7iJF8On90ut30O7Xcl2FGmhp
+         OD8dzVMsFBoy0r5VuTi9u5aN84bqupJiZL80QqI6YSAIz/GsnjDN9FGXtZ2in9+9hXJh
+         GPcw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id h22si58579ljh.7.2020.09.09.01.09.39
+       dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=bkBM+R77;
+       spf=pass (google.com: domain of dl9pf@gmx.de designates 212.227.17.22 as permitted sender) smtp.mailfrom=dl9pf@gmx.de
+Received: from mout.gmx.net (mout.gmx.net. [212.227.17.22])
+        by gmr-mx.google.com with ESMTPS id k10si86675ljj.0.2020.09.09.02.12.20
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 09 Sep 2020 01:09:39 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 08989cHt015436
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
-	for <jailhouse-dev@googlegroups.com>; Wed, 9 Sep 2020 10:09:39 +0200
-Received: from [139.22.116.238] ([139.22.116.238])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 08989crS008989
-	for <jailhouse-dev@googlegroups.com>; Wed, 9 Sep 2020 10:09:38 +0200
-Subject: [PATCH v3 1/8] kbuild: Avoid deprecated 'always'
-From: Jan Kiszka <jan.kiszka@siemens.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2020 02:12:20 -0700 (PDT)
+Received-SPF: pass (google.com: domain of dl9pf@gmx.de designates 212.227.17.22 as permitted sender) client-ip=212.227.17.22;
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from monster.localnet ([95.88.58.204]) by mail.gmx.com (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MOREc-1jtQeQ0SSc-00Pz1I for
+ <jailhouse-dev@googlegroups.com>; Wed, 09 Sep 2020 11:12:20 +0200
+From: Jan-Simon Moeller <dl9pf@gmx.de>
 To: jailhouse-dev@googlegroups.com
-References: <cover.1599473999.git.jan.kiszka@siemens.com>
- <e2b94aed34874271a9ede06bf4521b4f16ea8b86.1599473999.git.jan.kiszka@siemens.com>
- <8a7dcd47-23bb-b52d-f1a5-be3cc7464028@siemens.com>
-Message-ID: <f7137421-2fe7-b274-d191-484d97ecbb91@siemens.com>
-Date: Wed, 9 Sep 2020 10:09:38 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+Subject: Re: Build jailhouse on embedded target
+Date: Wed, 09 Sep 2020 11:12:19 +0200
+Message-ID: <1776338.qqhLftCfjJ@monster>
+In-Reply-To: <c5f91e66-7742-4736-83fc-8565b08989d5n@googlegroups.com>
+References: <bccfc16d-0fb3-47e7-8a25-9c85ebf4b5e6o@googlegroups.com> <992cd8fe-ef09-d0bc-119d-e488de158759@siemens.com> <c5f91e66-7742-4736-83fc-8565b08989d5n@googlegroups.com>
 MIME-Version: 1.0
-In-Reply-To: <8a7dcd47-23bb-b52d-f1a5-be3cc7464028@siemens.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+X-Provags-ID: V03:K1:L8QJ7Rf+5R2DGWxj1+AlR3+PzQpqPjfmSWXIF1JcsTkPVXv+O87
+ gKOvrDyWEGqzOTFxJRRCMBmbZ0opzanMU/35qqbhVMxIm6OIhRWH29MkSe3cThdRKaMqvg8
+ sPqgbVgY367Vkw+M4jQ4koFFfCoRYm7X5uqXxuygaGt7fbpSFivWEzqXkx2p2PsAoA2nhrs
+ XnPGO86cv2yHPTPQxH0Vg==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:cvgiZ+mxwM8=:6v+8i622KYw7NXreiPtL1m
+ vqOz8mS/E6dEKZlIoWedYvymzg70g2jhro2i3EOFA8xAiJfBVwDox4T+IAyZ74vIfX2X8M1tH
+ +DhYry3j/qsx185YCS+wwGmDyyZUspcJT28+vd5E+yYl//SpoEi7yEqV0AWNBLvVtHStub8gp
+ 1bYHXZNapon5oR3v+sp6qygciOitGdXXe9UlRsvgm9s96bXJ31XNylQvMDSGacz5ahlb8bHGf
+ suOwzwO4ihEjV7rJ6B+pMDN1ftHrUnu3eJJwXqnuCvDOq+I4GzsQGy14PZDl8zlfIFdG7Gwwm
+ FqNWJmnIbZb9XCXRVHPMnFmsnMCpKMl7DrkC8Qd/vKP76fKtohkCpBuzda15AtRhkq/qTUXRJ
+ lnrAJ+L0IdyurJaxnJCltrDPweVfh1x25aBTm39p3+eALGDn4OvLk6jFmx6hdFWXwWxEql2/1
+ F/wZob6zoEw8lUv5hY79+q7v5wYZiIkrlOPfl1RwdpBbRtlEAeBmOfroUWls658Zb4McWKUTK
+ g0+f0IHLeEpV4Qu1wUeruMG5y9Xnlbcs0IuMeFlz1L5N7bfxnQyPy+YLdf9zaW5YQVkt5XaID
+ bmoPoGbzcMucY/WiWoHb/jzQNnvKTzVUr/Lrhn/+Q7a2ZH6ULIQ/k0kawG8Bp/M8ESFzvtpl1
+ NiYvcZWY9TRgNbgev4gqTMrsKHZXmX60G1MGOVLtglNoWIqOlObBu12boiZZhZtlzi2GZTDIR
+ XIY9J2TMTGWCQGkPa+4k5AjXkXOZjzoAI5DzQInP2hodb/ftTM2wZj1pr+QNwwRh65fQx1MTB
+ 0yOMDROCUBcUE8Oi0A52/Jhm6WARq7ai2MUvVHW5xS+vVq2iy5RldAfQb3LfddPhG1PdQw1uA
+ F0HlAtLscocCi03whHVDy/SA+QZw5lRSeFtahy85DB7iU1IK1bS8XD4+qbJuNWxRaDD2CHIhN
+ It33rXDHPG7v/VhThJGh7vEpgvQOsH/kUvIol8P1XdQ4C51EF8/1YVm4FXXwuIsMMNWzYgOSP
+ 1rEA1dWZz+twLiHn1Z5EcbitUkC+hBlECkMYhcRAw6keRG+AIDDsGhZarsICTw1qVqbYQsHlp
+ rVCBRSDkNi+CWYkXLAUPBjhrY+3mqFDJPN++25Eh4NjOxq0gGglIATdXGWbR6BVrulpWVFGkl
+ uaQad0YohxC3iJL8fLo9Ttg1RVsVgquWm6lpvMzaciVGBJIENqavXO0nmVYLLRRoO5WMJoV3V
+ BjzP0sRxL73Yz4Fqh
+X-Original-Sender: dl9pf@gmx.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@gmx.net header.s=badeba3b8450 header.b=bkBM+R77;       spf=pass
+ (google.com: domain of dl9pf@gmx.de designates 212.227.17.22 as permitted
+ sender) smtp.mailfrom=dl9pf@gmx.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -132,351 +147,40 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-From: Jan Kiszka <jan.kiszka@siemens.com>
+Hi Jan-Marc,
 
-Switch to 'always-y' as suggested by 5.9.
+Am Mittwoch, 9. September 2020, 07:50:38 CEST schrieb Jan-Marc Stranz:
+> So far we have successfully built all of our Linux BSPs with the help of
+> Yocto.
+> I assumed (wrongly) that if there is the Yocto layer "meta-agl-devel", you
+> will be able to build a Linux system that is suitable for "jailhouse".
+> Jakub has already told me that he has only tested the "meta-agl-devel"
+> layer for RPi4 as a real target (and not for x86).
 
-For older kernels, we need to set 'always' to 'always-y'. This has to
-happen conditionally in order to avoid warnings from 5.9 onward.
+The layer is quite new and was tested against YP dunfell. Jakub did test on
+pi4 and Parth did test X86 against qemux86-64 as (virtual) hardware.
 
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
----
+Jakub has a refreshed version against YP master (gatesgarth) independent of
+meta-agl-devel available here:
+https://github.com/Limoto/meta-jailhouse
+You can check this out against YP master (gatesgarth).
 
-Changes in v3:
- - move 'include $(ALWAYS_COMPAT_MK)' from
-   inmates/lib/arm-common/Makefile.lib to {arm,arm64}/Makefile.lib -
-   only the latter is consistently included
+Wrt the hw check:
+There seems to be a parsing issue in the HW check. Regions parsed in the loop
+can show-up as NULL and thus the parser fails.
 
-Wouldn't be surprised if I managed to leave a reason for v4 behind...
+I think you need to alter your expectations.
+All is Open Source, so if you need it for a particular case:
+patches are welcome!
 
-I think we should eventually migrate anything != driver to our own 
-"kbuild" implementation.
 
- Kbuild                            |  3 +++
- configs/Makefile                  |  6 ++++--
- hypervisor/Makefile               |  6 ++++--
- hypervisor/arch/arm-common/Kbuild |  2 ++
- hypervisor/arch/arm/Kbuild        |  2 +-
- hypervisor/arch/arm64/Kbuild      |  2 +-
- hypervisor/arch/x86/Kbuild        |  4 +++-
- inmates/lib/arm/Makefile          |  2 +-
- inmates/lib/arm/Makefile.lib      |  4 +++-
- inmates/lib/arm64/Makefile        |  2 +-
- inmates/lib/arm64/Makefile.lib    |  4 +++-
- inmates/lib/x86/Makefile          |  2 +-
- inmates/lib/x86/Makefile.lib      |  4 +++-
- scripts/always-compat.mk          | 16 ++++++++++++++++
- tools/Makefile                    | 10 ++++++----
- 15 files changed, 52 insertions(+), 17 deletions(-)
- create mode 100644 scripts/always-compat.mk
 
-diff --git a/Kbuild b/Kbuild
-index 0b25e26e..1808dc77 100644
---- a/Kbuild
-+++ b/Kbuild
-@@ -11,6 +11,9 @@
- # the COPYING file in the top-level directory.
- #
- 
-+ALWAYS_COMPAT_MK := $(src)/scripts/always-compat.mk
-+export ALWAYS_COMPAT_MK
-+
- INC_CONFIG_H = $(src)/include/jailhouse/config.h
- export INC_CONFIG_H
- 
-diff --git a/configs/Makefile b/configs/Makefile
-index 1e59840e..31ca15a3 100644
---- a/configs/Makefile
-+++ b/configs/Makefile
-@@ -10,6 +10,8 @@
- # the COPYING file in the top-level directory.
- #
- 
-+include $(ALWAYS_COMPAT_MK)
-+
- -include $(GEN_CONFIG_MK)
- 
- LINUXINCLUDE := -I$(src)/../hypervisor/arch/$(SRCARCH)/include \
-@@ -25,12 +27,12 @@ OBJCOPYFLAGS := -O binary
- 
- CONFIGS = $(shell cd $(src); ls $(SRCARCH)/*.c)
- 
--always := $(CONFIGS:.c=.cell)
-+always-y := $(CONFIGS:.c=.cell)
- 
- targets += $(CONFIGS:.c=.o) $(CONFIGS:.c=.cell)
- 
- DTS = $(shell cd $(src); ls $(SRCARCH)/dts/*.dts 2>/dev/null)
--always += $(DTS:.dts=.dtb)
-+always-y += $(DTS:.dts=.dtb)
- targets += $(DTS:.dts=.dtb)
- 
- # prevent deleting intermediate files which would cause rebuilds
-diff --git a/hypervisor/Makefile b/hypervisor/Makefile
-index 893ead42..b8377a33 100644
---- a/hypervisor/Makefile
-+++ b/hypervisor/Makefile
-@@ -16,6 +16,8 @@
- # Copyright (c) Linux kernel developers, 2014
- #
- 
-+include $(ALWAYS_COMPAT_MK)
-+
- -include $(GEN_CONFIG_MK)
- 
- LINUXINCLUDE := -I$(src)/arch/$(SRCARCH)/include \
-@@ -87,12 +89,12 @@ ifeq ($(filter %/Makefile.clean,$(MAKEFILE_LIST)),)
- $(obj)/arch/$(SRCARCH): $(obj)/$(ASM_DEFINES_H)
- endif
- 
--always :=
-+always-y :=
- 
- subdir-y := arch/$(SRCARCH)
- 
- define BUILD_JAILHOUSE_template
--always += jailhouse$(1).bin
-+always-y += jailhouse$(1).bin
- 
- $$(obj)/arch/$$(SRCARCH)/lib$(1).a: $$(obj)/arch/$$(SRCARCH)
- 	@true
-diff --git a/hypervisor/arch/arm-common/Kbuild b/hypervisor/arch/arm-common/Kbuild
-index ab86eca6..9ddbc950 100644
---- a/hypervisor/arch/arm-common/Kbuild
-+++ b/hypervisor/arch/arm-common/Kbuild
-@@ -10,6 +10,8 @@
- # the COPYING file in the top-level directory.
- #
- 
-+include $(ALWAYS_COMPAT_MK)
-+
- -include $(GEN_CONFIG_MK)
- 
- ccflags-$(CONFIG_JAILHOUSE_GCOV) += -fprofile-arcs -ftest-coverage
-diff --git a/hypervisor/arch/arm/Kbuild b/hypervisor/arch/arm/Kbuild
-index 2afc09c0..3d7bd614 100644
---- a/hypervisor/arch/arm/Kbuild
-+++ b/hypervisor/arch/arm/Kbuild
-@@ -12,7 +12,7 @@
- 
- include $(src)/../arm-common/Kbuild
- 
--always := lib.a
-+always-y := lib.a
- 
- # units initialization order as defined by linking order:
- # irqchip (common-objs-y), <generic units>
-diff --git a/hypervisor/arch/arm64/Kbuild b/hypervisor/arch/arm64/Kbuild
-index c34b0f32..6773714d 100644
---- a/hypervisor/arch/arm64/Kbuild
-+++ b/hypervisor/arch/arm64/Kbuild
-@@ -14,7 +14,7 @@
- 
- include $(src)/../arm-common/Kbuild
- 
--always := lib.a
-+always-y := lib.a
- 
- # units initialization order as defined by linking order:
- # irqchip (common-objs-y), <generic units>
-diff --git a/hypervisor/arch/x86/Kbuild b/hypervisor/arch/x86/Kbuild
-index eb1910fd..a6badcac 100644
---- a/hypervisor/arch/x86/Kbuild
-+++ b/hypervisor/arch/x86/Kbuild
-@@ -12,11 +12,13 @@
- # the COPYING file in the top-level directory.
- #
- 
-+include $(ALWAYS_COMPAT_MK)
-+
- -include $(GEN_CONFIG_MK)
- 
- ccflags-$(CONFIG_JAILHOUSE_GCOV) += -fprofile-arcs -ftest-coverage
- 
--always := lib-amd.a lib-intel.a
-+always-y := lib-amd.a lib-intel.a
- 
- common-objs-y := apic.o dbg-write.o entry.o setup.o control.o mmio.o iommu.o \
- 		 paging.o pci.o i8042.o vcpu.o efifb.o ivshmem.o
-diff --git a/inmates/lib/arm/Makefile b/inmates/lib/arm/Makefile
-index ac01d89e..d0d00d0d 100644
---- a/inmates/lib/arm/Makefile
-+++ b/inmates/lib/arm/Makefile
-@@ -39,7 +39,7 @@
- include $(INMATES_LIB)/Makefile.lib
- include $(INMATES_LIB)/../arm-common/Makefile.lib
- 
--always := lib.a inmate.lds
-+always-y := lib.a inmate.lds
- 
- lib-y := $(common-objs-y)
- lib-y += header.o
-diff --git a/inmates/lib/arm/Makefile.lib b/inmates/lib/arm/Makefile.lib
-index 0976f894..2ea037cd 100644
---- a/inmates/lib/arm/Makefile.lib
-+++ b/inmates/lib/arm/Makefile.lib
-@@ -38,6 +38,8 @@
- # THE POSSIBILITY OF SUCH DAMAGE.
- #
- 
-+include $(ALWAYS_COMPAT_MK)
-+
- -include $(GEN_CONFIG_MK)
- 
- LINUXINCLUDE += -I$(INMATES_LIB)/include
-@@ -45,7 +47,7 @@ LINUXINCLUDE += -I$(INMATES_LIB)/../arm-common/include
- 
- define DECLARE_TARGETS =
-  _TARGETS = $(1)
-- always := $$(_TARGETS)
-+ always-y := $$(_TARGETS)
-  # $(NAME-y) NAME-linked.o NAME.bin
-  targets += $$(foreach t,$$(_TARGETS:.bin=-y),$$($$t)) \
-             $$(_TARGETS:.bin=-linked.o) $$(_TARGETS)
-diff --git a/inmates/lib/arm64/Makefile b/inmates/lib/arm64/Makefile
-index 2cc0c658..6b6b83b3 100644
---- a/inmates/lib/arm64/Makefile
-+++ b/inmates/lib/arm64/Makefile
-@@ -39,7 +39,7 @@
- include $(INMATES_LIB)/Makefile.lib
- include $(INMATES_LIB)/../arm-common/Makefile.lib
- 
--always := lib.a inmate.lds
-+always-y := lib.a inmate.lds
- 
- lib-y := $(common-objs-y)
- lib-y += header.o
-diff --git a/inmates/lib/arm64/Makefile.lib b/inmates/lib/arm64/Makefile.lib
-index 0976f894..2ea037cd 100644
---- a/inmates/lib/arm64/Makefile.lib
-+++ b/inmates/lib/arm64/Makefile.lib
-@@ -38,6 +38,8 @@
- # THE POSSIBILITY OF SUCH DAMAGE.
- #
- 
-+include $(ALWAYS_COMPAT_MK)
-+
- -include $(GEN_CONFIG_MK)
- 
- LINUXINCLUDE += -I$(INMATES_LIB)/include
-@@ -45,7 +47,7 @@ LINUXINCLUDE += -I$(INMATES_LIB)/../arm-common/include
- 
- define DECLARE_TARGETS =
-  _TARGETS = $(1)
-- always := $$(_TARGETS)
-+ always-y := $$(_TARGETS)
-  # $(NAME-y) NAME-linked.o NAME.bin
-  targets += $$(foreach t,$$(_TARGETS:.bin=-y),$$($$t)) \
-             $$(_TARGETS:.bin=-linked.o) $$(_TARGETS)
-diff --git a/inmates/lib/x86/Makefile b/inmates/lib/x86/Makefile
-index 40d3eba2..35f04161 100644
---- a/inmates/lib/x86/Makefile
-+++ b/inmates/lib/x86/Makefile
-@@ -38,7 +38,7 @@
- 
- include $(INMATES_LIB)/Makefile.lib
- 
--always := lib.a lib32.a
-+always-y := lib.a lib32.a
- 
- TARGETS := cpu-features.o excp.o header-common.o irq.o ioapic.o printk.o
- TARGETS += setup.o uart.o
-diff --git a/inmates/lib/x86/Makefile.lib b/inmates/lib/x86/Makefile.lib
-index 6190315b..872b7ce0 100644
---- a/inmates/lib/x86/Makefile.lib
-+++ b/inmates/lib/x86/Makefile.lib
-@@ -36,6 +36,8 @@
- # THE POSSIBILITY OF SUCH DAMAGE.
- #
- 
-+include $(ALWAYS_COMPAT_MK)
-+
- -include $(GEN_CONFIG_MK)
- 
- KBUILD_CFLAGS += -m64 -mno-red-zone
-@@ -43,7 +45,7 @@ LINUXINCLUDE += -I$(INMATES_LIB)/include
- 
- define DECLARE_TARGETS =
-  _TARGETS = $(1)
-- always := $$(_TARGETS)
-+ always-y := $$(_TARGETS)
-  # $(NAME-y) NAME-linked.o NAME.bin
-  targets += $$(foreach t,$$(_TARGETS:.bin=-y),$$($$t)) \
-             $$(_TARGETS:.bin=-linked.o) $$(_TARGETS)
-diff --git a/scripts/always-compat.mk b/scripts/always-compat.mk
-new file mode 100644
-index 00000000..a74f4df4
---- /dev/null
-+++ b/scripts/always-compat.mk
-@@ -0,0 +1,16 @@
-+#
-+# Jailhouse, a Linux-based partitioning hypervisor
-+#
-+# Copyright (c) Siemens AG, 2020
-+#
-+# Authors:
-+#  Jan Kiszka <jan.kiszka@siemens.com>
-+#  Benjamin Block <bebl@mageta.org>
-+#
-+# This work is licensed under the terms of the GNU GPL, version 2.  See
-+# the COPYING file in the top-level directory.
-+#
-+
-+ifeq ($(shell expr \( $(VERSION) \* $$((0x100)) \+ $(PATCHLEVEL) \) \< $$((0x509))),1)
-+always = $(always-y)
-+endif
-diff --git a/tools/Makefile b/tools/Makefile
-index 8b4ebf14..66e88fac 100644
---- a/tools/Makefile
-+++ b/tools/Makefile
-@@ -10,6 +10,8 @@
- # the COPYING file in the top-level directory.
- #
- 
-+include $(ALWAYS_COMPAT_MK)
-+
- -include $(GEN_CONFIG_MK)
- 
- # includes installation-related variables and definitions
-@@ -33,14 +35,14 @@ KBUILD_CFLAGS += $(call cc-option, -fno-pie)
- KBUILD_CFLAGS += $(call cc-option, -no-pie)
- 
- BINARIES := jailhouse ivshmem-demo
--always := $(BINARIES)
-+always-y := $(BINARIES)
- 
- HAS_PYTHON_MAKO := \
- 	$(shell $(PYTHON) -c "from mako.template import Template" 2>/dev/null \
- 	&& echo yes)
- 
- ifeq ($(strip $(HAS_PYTHON_MAKO)), yes)
--always += jailhouse-config-collect
-+always-y += jailhouse-config-collect
- HELPERS := jailhouse-config-collect
- 
- else  # !HAS_PYTHON_MAKO
-@@ -116,7 +118,7 @@ CFLAGS_jailhouse-gcov-extract.o	:= -I$(src)/../hypervisor/include \
- LDFLAGS_jailhouse-gcov-extract := -lgcov -fprofile-arcs
- 
- targets += jailhouse-gcov-extract.o
--always += jailhouse-gcov-extract
-+always-y += jailhouse-gcov-extract
- 
- $(obj)/jailhouse-gcov-extract: $(obj)/jailhouse-gcov-extract.o
- 	$(call if_changed,ld)
-@@ -125,7 +127,7 @@ $(obj)/jailhouse-config-collect: $(src)/jailhouse-config-create $(src)/jailhouse
- 	$(call if_changed,gen_collect)
- 
- targets += $(MAN8_PAGES)
--always +=  $(MAN8_PAGES)
-+always-y +=  $(MAN8_PAGES)
- 
- $(obj)/%.8: $(src)/%.8.in
- 	$(call if_changed,gen_man)
--- 
-2.26.2
+Best,
+JS
+
+
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/f7137421-2fe7-b274-d191-484d97ecbb91%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/1776338.qqhLftCfjJ%40monster.
