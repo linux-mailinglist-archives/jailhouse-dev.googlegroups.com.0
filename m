@@ -1,140 +1,140 @@
-Return-Path: <jailhouse-dev+bncBDRKPIXWWIFBBF44RD5QKGQEIGCTDUQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDRKPIXWWIFBB4U4RD5QKGQEBDDRQSA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23e.google.com (mail-lj1-x23e.google.com [IPv6:2a00:1450:4864:20::23e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18F3226C319
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 16 Sep 2020 15:07:36 +0200 (CEST)
-Received: by mail-lj1-x23e.google.com with SMTP id o13sf2211512ljp.18
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 16 Sep 2020 06:07:36 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1600261655; cv=pass;
+Received: from mail-ed1-x538.google.com (mail-ed1-x538.google.com [IPv6:2a00:1450:4864:20::538])
+	by mail.lfdr.de (Postfix) with ESMTPS id E28D026C321
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 16 Sep 2020 15:09:06 +0200 (CEST)
+Received: by mail-ed1-x538.google.com with SMTP id r9sf2446631edi.9
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 16 Sep 2020 06:09:06 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1600261746; cv=pass;
         d=google.com; s=arc-20160816;
-        b=LOhMa+id0cSskfl0dTLwgiuJM85A6Ous3y7dowviiQOi8Os4cbMmTCNtkoPcHw/BoL
-         t+Hjn/iFuT0/PYgEvW6jUPl/rWlDknOE3Oy+lvvxup26IXpjH/moTVu18wwfTsyWuv0f
-         VCVmFo68Kr6OK2IXNOSub7CT8+MNBrtpK1PxP3GIsRAioU2DEZ3Au4EA/iC5laDUKFJ3
-         su2X5OXJZDbCGLQ2cSNRLYZSYSLkhulGcJxVHDSpjML31nRSTIJXgiMcnlpACfkk2IXy
-         LGs1W/iDNKyi+FXMKvHXwutHb8dpJHiyFk0taAFW2WtME2V+aoXWL+orTaL9y6iJNYuJ
-         FBxQ==
+        b=WGDMTIrJUjH6UmdpUVPz9P2qM5Tvsiw8gZgwtSjKd/HeiG4+JpSPAbeCM8XUehFKLy
+         IZrDxken+E/Miks57rhOMigcIeVjCkxdF2zEabI5z9WxUrbqXJ2WUqdm61HMZy45Xxwx
+         o4ev7181ClugJ/zTx0jMxyA4Al+tl1Op+m0pKtp2zqsxB0U+8lIXPBTwccJjLSUjJm3+
+         Zlb/R6F4r6PvfKZ8XS/8WEiWJ/YLWh/h1cDxTVKVz8c7RSdPV+TSTw5gkZgjm+hc5K0W
+         GEIxX/uwp5qsa8Q+DSFMfM0kaMv30MgDIQ03iYPYYkD5jTtq/19COUxLda3nqKRxy32i
+         6nqQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:to:cc:date:message-id:subject
          :mime-version:from:sender:dkim-signature;
-        bh=YiSQX+2rJFPnfyHPo/IxKloRwuCBHbfIimQfopRywNM=;
-        b=oRDgfOs6TPlF3++eJJOgP2q7/DBCwzQ/lrCJD7D0KVYLpC2MsfbKu6MJ0QnWrkjelX
-         at+lQTPckgbWEd4rnOUOMNXuD+eN+OfgXP1gPPvuYUnoGjquH2aeVOVvbY4SAnn000zN
-         LiynmNm0+VD53BSaKyvI6DaxWD2D88lVyv29BGP/fnxXigtLB5koc2Iu256jl31KIy4o
-         dBnNVvX+IAR7AauRI+RwjBXwsCKaVC3NaMB0kZvFOLKVwpib8GkzNdczLjhUT90zfWRA
-         5lh1npE9MLK9gLVOLWNokL6rol/+txgHup4uf/uPNduTIL5PEJ7BJNxzDT3YCPlrK6kF
-         SABQ==
+        bh=9pJ+M9LyZPjY+csRm0vTjKGezCjdh50X7xXhMAvkgEQ=;
+        b=umobS1ocl8Dkpy1EfQjUldO8Ny26ejBvDW0DS8xMKKo7GqAE4vI43NKAGaQwPZDeiz
+         No3+3AISg0vYm9ChmGTaCgpZ17sZvYC/+krjTFR8ytGkYM9kIUl5BBAUMKhEZEc7B337
+         4jHeNpeQKrSLj8t1czN2lLPkwlc4GJZ9Rf3szfyJOW0GmkwSbW8/sxlkt/MjVkghZdTY
+         mEAcnm+wIc+fPDzfGn4CqjCbvPMR9BRCh7KWn7hxViV5T0C7gE5XdzXFZbUWKMUiiZI0
+         6ZXiuKtoEsbHYy7jU5qqyWKO3SuKrLvVB9cVPWK5AaOxIOn1TgOoaKDzvFUKDrJLMAW2
+         dhNg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=j16hu+ka;
-       spf=pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.15.19 as permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de
+       dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=UADwCN+X;
+       spf=pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.17.21 as permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:from:mime-version:subject:message-id:date:cc:to
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=YiSQX+2rJFPnfyHPo/IxKloRwuCBHbfIimQfopRywNM=;
-        b=b8useV03tDsLHkS7kFrMnoelFaf5wyLx3Qg9tmzc5rOVnLIhETDp1RL8CdFP1L46k5
-         uM72w48HB4BukzOaQn1Qdb2UgPiRc7c86wyNIXbsGyYxcx2dS42fGIT6ck9x/oa/6VCx
-         BXDLTV5RGUlz+KagvABxCu8FgRFw7acIsrWAJ28zlspPMOIJmClG+92hAqvxkE2xfw81
-         I7LniyP7d+udIp4sZ8FV0n2I9sVyiEnOLxT3Dsf0T0nF2zpydqE9Dx6ao+5bvpx1SAkx
-         MNDcxwMWmS+uR56d8FiRvcBPEioGaJpXsZYbBMbzJ64TfSnpzKTvIgSdHWu9f0xIjCYJ
-         56JQ==
+        bh=9pJ+M9LyZPjY+csRm0vTjKGezCjdh50X7xXhMAvkgEQ=;
+        b=rdZGxOXpnCgy4XoVcTPUfauWCsoe2D6faaPaFyWx4Q34FvU3gFscjZs/tvp4O1CzRZ
+         S13RUlyLu+X16P1STkanxsDkG9iUsVmreB9Nw2GZgGqjSBdawm3OLDR6jffCzJWCFShI
+         5nwyoFO/YssPlBU6uGTfd6JvhvrvqpWER0HezFN2NZexr2njZLkLydkmqf6C/vVJrXlx
+         yn6dDbS2sLtTGU7lzyHM8HL3ByO027R3/aCTtHquB5jm/tuDf/hy+Gofsne4E5t+NZaz
+         n+7CfdijAphZpCefY4CzgEu0aJgI+v+BH8ULLkOSoz94lpz/LZaiE63crmv1sAeVveE9
+         GySQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:mime-version:subject:message-id:date
          :cc:to:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=YiSQX+2rJFPnfyHPo/IxKloRwuCBHbfIimQfopRywNM=;
-        b=gtjmJtNmTqgw9cIQ9p6x17a4IJzEbvtb3km7XvVZKWGAK3sTwoe9UTv1Q87fLiet3O
-         gMVqANVLi5B8grYYQjx6nNMpoCwY66CgI31a8VPPkebcePm8ZjJYj1WRdIKTjbUm+n0R
-         0zCSU3obzVfXvMY1gbquGgB8Bmzu6WlmzLARghGxNaY8ZpeHefrtc2iWtGqdvmp9vbQv
-         F9XjqxHDJxw4CFYL416CsKamFEgP/1fB+/Cpq81m308MpVFaEmU2EpR+HJy9jiP4qSSl
-         HQGyXrTTJ4WnygDEbtgXauP8t3CDH23AU05KjdgAnGZEXoBUY587YSK37vo2KawLRhH4
-         ISDg==
+        bh=9pJ+M9LyZPjY+csRm0vTjKGezCjdh50X7xXhMAvkgEQ=;
+        b=REeprnYhakWO1aL/JPVSV39+hUbcLoyp81l2zUi/l2aM3rrJcdwXc1OZXWGF/ZrHZO
+         JIM2x1t6azM0G9EefYfp2Y82a4NoCuuY1Yj3FnVMU+eHAQGmAzzPbI6D+yzh9/HqfGiK
+         B8iWqsRbIwPQXjXIKwMl3HvEctaW/i+LsNQllG5Wiui7l896loOfE3dNOfA3lqW1j0nj
+         090UNLXx78K/NwdyQFXjO0QToVaKFGx82p4ls69PusvQZFyvgysGwwXJZfCTjoGic8aX
+         LCvw3lcF+zvwr8IhBy0lytescGoFiChW/tomqoyjtgkjXSukhQ3I97gK+FYMvMlHWM0U
+         cOLA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531LXGsbjhdJNsKgE/v/btE7m/XPr6PUkqeUtbZXRX9V+ccx/MU1
-	i67zNZmHtBiIXyAvUx4HaDM=
-X-Google-Smtp-Source: ABdhPJwVYbbnyAPYSEXCp0/cHns1R5pvHV7vCiqGhmi4/KMYqxFlvwQKeRGoZLHBPrX7S9iaqk6A1w==
-X-Received: by 2002:a2e:743:: with SMTP id i3mr8154490ljd.113.1600261655548;
-        Wed, 16 Sep 2020 06:07:35 -0700 (PDT)
+X-Gm-Message-State: AOAM532BA8ODI0qeh/ZaaJHOnAldNafujwqUJdxW6Ku2acV62CuMkM9R
+	+VikVeyrxUjxivO/ArRxASQ=
+X-Google-Smtp-Source: ABdhPJxcoHbMMf57gAfUk07yOpwCdJ7U9dYkQ7MwejaPJhMBDmnv7WTAoCrPILYzcRI4Lp+rO9R6dA==
+X-Received: by 2002:a17:907:70cb:: with SMTP id yk11mr24939875ejb.312.1600261746646;
+        Wed, 16 Sep 2020 06:09:06 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:93c7:: with SMTP id p7ls290479ljh.11.gmail; Wed, 16 Sep
- 2020 06:07:34 -0700 (PDT)
-X-Received: by 2002:a2e:a587:: with SMTP id m7mr8552291ljp.133.1600261654205;
-        Wed, 16 Sep 2020 06:07:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1600261654; cv=none;
+Received: by 2002:a17:906:f996:: with SMTP id li22ls1034889ejb.10.gmail; Wed,
+ 16 Sep 2020 06:09:05 -0700 (PDT)
+X-Received: by 2002:a17:906:3c01:: with SMTP id h1mr26023406ejg.111.1600261745496;
+        Wed, 16 Sep 2020 06:09:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1600261745; cv=none;
         d=google.com; s=arc-20160816;
-        b=PWsiEwfNL97fE6RvaUGlBBDfmXKO4ezbf4CTDNOJlbxLtrqy7K5dl7j2WVbiuxcm+T
-         qcIyDFlfvUr3HTLw9xVvHVgnz2ztovGa4LvKnSiWJnwZLcInyX73RJp/zpMxdNsunQK1
-         JC8a9YixAD6qEyUhVa4+CMvEzE9E7x/AprXIgvs0UZmZYndfgR+yHHtUb0zZFIuqPrD4
-         x77AANQqzagr/5QVYSw5bjmb2yVCS34Ja9CjrJuo09FT5TXzFM0OwLB7i/FjcR6dCxEk
-         LzdTRMnia4b4sUIN2XofI7GPFqkxE6QgKiGFhmWfjtPDuS/JwwN2os59icu8kBL1KVry
-         0zcg==
+        b=pX+/+4yHEB6vmMry/yNkvhgOeRyvW/IXGihTdib6Q1mMTkFFWu+g+0Wiec7C3oxP2b
+         /uSfBPRqzKQDEFlSm4YpLYOUW0w0jG3UCO5XVcMsq9VoeEYJgBGDapz8t1uzpJ9pO6cb
+         6XUYBCwHMSe6QZwxVmMHriVMeoedCgOvBIEy+59rVnlbpEJTTcvLL0qwPsmI9hAH4UKL
+         7RouGj9nYJcSkTgF0DOqa+RfDAfTRJ6SYTvPhmbdPv+xxHo6gCUKYa0jV9Xwg+NQPaJ3
+         Z8T4JeUTXyaZBnWW/MMGLROIAMgUyYQsHFW0K6/JRYDiuHpC9qgODzVPPQTJ8ITNG515
+         Fsmw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=to:cc:date:message-id:subject:mime-version
          :content-transfer-encoding:from:dkim-signature;
-        bh=qjcE6pszkQT8che7QaGl9z8/lepK1/3q9TO1QPkP+88=;
-        b=y5+Pny30YKHHLXyKVDIE3z2TJ/KiS8QsWCxn8E/Khb3D1ZiehHiBVX7Hs5VCzX+vDx
-         IzuypW/FnhQWkXUAjsw0xZCE3LYHR7BYMI74aEhpsjjjtWFEU/bbbsgrjHnaTo4uxPdo
-         B6hni7AtukcoElnK8jqhQ2EfEXkFnk9ZRN2KqbhX1/hHRFxcaZ12YCXWN8EyAVwu4j75
-         HX1ThJAnfxilvkd0LQtfClBlbUR6VYFARF9anPVEyvfNqQkf0yHdnYeJfshAVMDZErI8
-         fcHjrrBeAdPHOuV0xpZuMpmVizaSPlhC732Q8mZrEwOPgJU6dTF00yv7cOm+dZl5hgwe
-         IfQg==
+        bh=yoh8LttxA8sxnK1vc7HY6XC4qLLDYNAobjdZDaSGn+E=;
+        b=AFGk98edOox7F0o0nj79qlAtkNj0JYfNPTq9t1NlRigpuDfAiqh8ZJLmmyxLHrmCZ4
+         g/eTlIQ4nE7ktBMlMQHI7+LSPH7Z/2tRT6M4F6Y23mh2wWfztGeusWH5WB6jaIrcMXvX
+         dEHvg3LYFoZd/Nz1D3G9JHKaMRXn18Q3riPfuXL+1haT8AB1O3PaNiQTf3mQH0L/4g+4
+         FujWCJKQ/6U3Hy1Zn4M0OTMkJMPi3OEpVZPCwoBHrprVtj4h+6jQombUx+bBb5XfQc6l
+         8oxXeZz4e19dts9VlcJZa/QIfU6wH2skU1n5co2oDBUtsIgR7uxoibdqgn6hINiRTKUm
+         pO4g==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=j16hu+ka;
-       spf=pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.15.19 as permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de
-Received: from mout.gmx.net (mout.gmx.net. [212.227.15.19])
-        by gmr-mx.google.com with ESMTPS id 21si519006ljq.5.2020.09.16.06.07.34
+       dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=UADwCN+X;
+       spf=pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.17.21 as permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de
+Received: from mout.gmx.net (mout.gmx.net. [212.227.17.21])
+        by gmr-mx.google.com with ESMTPS id w16si553026edq.4.2020.09.16.06.09.05
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2020 06:07:34 -0700 (PDT)
-Received-SPF: pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.15.19 as permitted sender) client-ip=212.227.15.19;
+        Wed, 16 Sep 2020 06:09:05 -0700 (PDT)
+Received-SPF: pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.17.21 as permitted sender) client-ip=212.227.17.21;
 X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from meter.plexim.com ([212.126.163.234]) by mail.gmx.com (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MvK4Z-1kacEu1uzZ-00rFx4; Wed, 16
- Sep 2020 15:07:33 +0200
+Received: from meter.plexim.com ([212.126.163.234]) by mail.gmx.com (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1Ma20q-1jxkd308cW-00VuFb; Wed, 16
+ Sep 2020 15:09:05 +0200
 From: Oliver Schwartz <Oliver.Schwartz@gmx.de>
 Content-Type: text/plain; charset="UTF-8"
 Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.120.23.2.1\))
-Subject: [PATCH V2 1/2] arch64: Make sure SMC and HVC calls don't have side 
- effects
-Message-Id: <C9905595-F658-4431-AF1D-F9ECDD38A20C@gmx.de>
-Date: Wed, 16 Sep 2020 15:07:33 +0200
+Subject: Subject: [PATCH V2 2/2] arch32: Make sure SMC and HVC calls don't
+ have side  effects
+Message-Id: <BC946534-03C8-4AB3-9473-C6B880E37A88@gmx.de>
+Date: Wed, 16 Sep 2020 15:09:04 +0200
 Cc: Jan Kiszka <jan.kiszka@siemens.com>,
  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
 X-Mailer: Apple Mail (2.3608.120.23.2.1)
-X-Provags-ID: V03:K1:svuWjNZpw3TfuQ4sj+dCYtUZ3Vg19bGyFaWHB4blnN6EZc0WqfU
- VFZWAQj0zm6n1AB3+sJULepx9wupGUofkZsP8KeBTpcCAHqmChVk4V/z3DmN+zzydZLVjW+
- V08CU4L9ZcVzYGFpBDNaQYiAhjq1tysxnZVLX5IUtHLsBj56MVnJ7QGgLjoyhOfOmAShAHA
- uxAldPunsaiBAbKLsx3Lg==
+X-Provags-ID: V03:K1:6bHshcBKYXbbQaxPo5ITj2AeaRv/HiwOYortNXXwv0ILCMCtxJ2
+ kC969UYX+HgDzqE9Y4JVivgNDpjltm+6DehBsVmzI17umsFr3oDbh91PZdTjAFd78/tSV0q
+ WPpetbqkmH4v4h6g9bQ8mWa29gv8cmt7czvp80ELZ9ESqiqxvFg9j4MuylEv72tlue0JeE4
+ Nr86VG3TNQnPkclaezdSA==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:tAqjCFnxIjo=:PXq+yrGSY5vOuo2VUciEwz
- UQpBCkKTztOPGjGoXuJV8Wrr68JdpHPekxfOCoqf2vV//vgVGVT+lMWPiwr7pHIid5lUMB/1p
- TJwxA0pq1JNSaqNzNqVX2LR07U+BN04+5XcQFJvXubMR9Q/vk7l4vzFv9Mxm0EVOHG6vVhj2w
- To2B6mUz4MaobG0IzLpY95e34HdzuENfbvBPeWYjJbS6cF3O3gAfB9WHJbFObylQW00rM4kqb
- VlTbqQyzsQf4+AiLm+C9KkJLT+Tn2M+AyjMY9imJqygjJIqWTAauVShGiuKhDFaoxGV/I8hwa
- 6e6GPkKBzlzHdj9LbZ2OfkWLyrzpUdoPd/aTirScIfMRgy7642Uy4sGiOGzvt2PEoY11NcQCp
- LPACbSHKWtT4NPlX6rT82NzUAT07XGhrOkSXMDTaNxfpVgX3vQjlNxkcnQ7YGBs3UlVPcrc/B
- Z9tveaME2x+KDDFqvehS24el3NAqZD9o6B+04odvhjEdsqPZI7PUG/jkMaBYplfgWnfdFOd1K
- 98S+0qsziz2tHdvOoIJ6XWjKvKtw8ez3FvkvmO8GP/RUIH8bVvhmqhiiLOwprcZ6gnYHp4+yP
- Eof455iRIXrOUQ8jyEPBs0G7VTysUglw2W3GNfQvbIGmiEN7W9a5rT3EKOaRVcz+yvoG4g5Ei
- 2Nnuw8CyEgi/SYC/UbLQejGwzd1x94wqrcJBEfVOhZ5O40PLDIoOHFhYN0Br/JzaQCTYW9Jjq
- F0aqDvDaWqRmnpvyRMT70gvDwVQplx1PJtV1K6ohpZf/eUhgkWh5KPtXgQ0frHWsHpQAg8idF
- HPqQTjFj5Hji3UbAx3bA3DtmblMANQUY/o4TiJf9ebuxGla5yrmHHT/Zg8ZaGodZJr78/PaNm
- 5eawU7r5jRmwFIA4jF4KVZk1sJtTJXRzYuCn+zJG4nTsueDyYxYQTzzjOMy4RnoWMvRzRCenB
- 9plSka1ocL5Um58jVOo5pOOsk8TYzaoNOJqdkUl6rTwbV7K1Z7vsz01r7y/SF/MZFjR+kiU5b
- KUOJSw0byjdfNZ+EtleujSwzuZIKOQcEPcGyG9ZPMxTmrrXCaoDOY/ZqiXa1Am6sDmNbLH9OK
- 6Mp0oGeqny8IYOrlL8ay40OmJT87Hh9NygTUhIiPEiYEADBNgLjj7epN9Spv83Ct+HonoVU5k
- 63lPg2NbSWLXmvOucIC3jhU7cJkyNwvqiYuxTBMvqiRrnkAYEMTQFkcq4AK8VfXoCHzlDRwLg
- RD5KYz75KoTZ3UAjnJOIBaEe9iOHiwFz8wZ3bEw==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:gKjG1S5f3No=:CKfYOK8zBBfA8JSO1D85AR
+ GRX7EMhSD2/lFJ3HfNPpzbXCeP1aYyKczPS2jIRosm3LJgE42MWX65E7qJwLCB7/vyI3HR83L
+ iuxN7aC31Y6oe7LGXb4p7NqbwXQ9c1Q72Eo+JTR/Xq4DzzOpt8yS7qdz4qxnzhIMMcx1ANpFK
+ FidbmGqXxgNBqN1BXWqLTbUNxH2181ixuB0+4GR3vBueVcZRuqUohDrUrIg4djPeQpf0aOHK8
+ cQYvYO+wDbuebRm35GBqTkGjtrm8mWMIYbDwLucT6JyUd4cFKoNID3b0Mh1O12+oYSZ3751/1
+ RLwdGPgod/LsCZ97oVM0DElWhCvWkqPigzTnyybp64maixqB4sFrNxSqscnisYQcBBHol07O8
+ 8Q0wcqkTqw+4ZMTflQa+Rhy977aiyRjiiSWnWu43hNJ7rbLUZYhNHg0JIRXPL4H7B4hepfTSe
+ 5pU6Qz/CRxjN157NRidHEg65pVNXYqhjAFrKdjbJ/zMHet3B8W9N0jPr5W9TLsfltyfxFpPd/
+ 8BYiM3csskS2sd+30ymV9AnctsDjCrwiYVlXKUnMUL6NUOxyTdg5HJ37o+T1OtGv+rcBRcAOl
+ eKVC82xFRWQ16Q2807x+gqKtN/rw/lU6L2Z9xvNqE+9a1ZCNBbp4NKTtJBB9Pv7aRVf6l2jif
+ I5/3qNDyogNybVtEeaXsH9Df38pE2h97Af2yzYpE2HpuKQljEcHzQI+JA+5RpleiiCWxhhLA9
+ QUt7nAgeDW7hkpf+yScKvDJySYXbf6EEdI3tTnW6aedu3RmlOksRYicFAiFslZ7gSQbLdbpcY
+ 3bNJYiQInA6nUZ1qe3tBYsY1JhI2UkBLbZiHPrDz6tpfzKq7KSTcU+/YOMUNhJtvrD7MU8Sxe
+ Ovqt5tCtNoGFw4wd4DImtHwYFeuqvWXPyL4kOYN5lrkqdcwLZFPAILPlXdEtKi2qd8ZOPvz3i
+ teUaFOu9+YI9FIB13W4YeqtYsNEd4dFX8Y1994fOQ5BHiVnMEElLjCcB/pTEwQvi8ch9ilYVE
+ 1TMzk40fogqsC1onuOebMT853938R8I6ou/5IdGdcnxWrXl5J7pTGeS0RtlXLExcbHgsITdu7
+ 3gYsSefBYF8QZGvqLWLXAn+ckT3oUQEuo8xVLKtPFwKyXU26YjfxO2iym/aYHwZBQaANqOFhv
+ /RR0zuCdzjH48oHqzbHBV8nyMWGKpN1vde9EFKxNn7Z8uk+uVjDbugp2Vgj4xfj/1u8P6ZDOY
+ IfxXfXPhDLsaIMQWuZIAyNPQoU5pYT/7N06xH6A==
 X-Original-Sender: oliver.schwartz@gmx.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmx.net header.s=badeba3b8450 header.b=j16hu+ka;       spf=pass
- (google.com: domain of oliver.schwartz@gmx.de designates 212.227.15.19 as
+ header.i=@gmx.net header.s=badeba3b8450 header.b=UADwCN+X;       spf=pass
+ (google.com: domain of oliver.schwartz@gmx.de designates 212.227.17.21 as
  permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -148,21 +148,32 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-SMC/HVC calls may modify registers x0 to x3. To make sure the compiler
+SMC/HVC calls may modify registers r0 to r3. To make sure the compiler
 doesn't assume input registers to be constant, also mark these registers
 as output when used as input.
 
 Signed-off-by: Oliver Schwartz <Oliver.Schwartz@gmx.de>
 ---
- hypervisor/arch/arm64/include/asm/smc.h      | 13 ++++++-------
- include/arch/arm64/asm/jailhouse_hypercall.h | 20 +++++++++++---------
- 2 files changed, 17 insertions(+), 16 deletions(-)
+ hypervisor/arch/arm/include/asm/smc.h      | 12 ++++++------
+ include/arch/arm/asm/jailhouse_hypercall.h | 20 +++++++++++---------
+ 2 files changed, 17 insertions(+), 15 deletions(-)
 
-diff --git a/hypervisor/arch/arm64/include/asm/smc.h b/hypervisor/arch/arm64/include/asm/smc.h
-index 1a5d5c8..c80fe15 100644
---- a/hypervisor/arch/arm64/include/asm/smc.h
-+++ b/hypervisor/arch/arm64/include/asm/smc.h
-@@ -28,8 +28,8 @@ static inline long smc_arg1(unsigned long id, unsigned long par1)
+diff --git a/hypervisor/arch/arm/include/asm/smc.h b/hypervisor/arch/arm/include/asm/smc.h
+index 1e3cdd5..8aba196 100644
+--- a/hypervisor/arch/arm/include/asm/smc.h
++++ b/hypervisor/arch/arm/include/asm/smc.h
+@@ -18,8 +18,8 @@ static inline long smc(unsigned long id)
+ 	register unsigned long __id asm("r0") = id;
+ 
+ 	asm volatile ("smc #0\n\t"
+-		: "=r" (__id)
+-		: "r"(__id)
++		: "+r" (__id)
++		:
+ 		: "memory", "r1", "r2", "r3");
+ 
+ 	return __id;
+@@ -31,8 +31,8 @@ static inline int smc_arg1(unsigned long id, unsigned long par1)
  	register unsigned long __par1 asm("r1") = par1;
  
  	asm volatile ("smc #0\n\t"
@@ -170,10 +181,10 @@ index 1a5d5c8..c80fe15 100644
 -		: "r"(__id), "r"(__par1)
 +		: "+r" (__id), "+r"(__par1)
 +		:
- 		: "memory", "x2", "x3");
+ 		: "memory", "r2", "r3");
  
  	return __id;
-@@ -43,8 +43,8 @@ static inline long smc_arg2(unsigned long id, unsigned long par1,
+@@ -46,8 +46,8 @@ static inline long smc_arg2(unsigned long id, unsigned long par1,
  	register unsigned long __par2 asm("r2") = par2;
  
  	asm volatile ("smc #0\n\t"
@@ -181,34 +192,22 @@ index 1a5d5c8..c80fe15 100644
 -		: "r"(__id), "r"(__par1), "r"(__par2)
 +		: "+r" (__id), "+r"(__par1), "+r"(__par2)
 +		:
- 		: "memory", "x3");
+ 		: "memory", "r3");
  
  	return __id;
-@@ -62,9 +62,8 @@ static inline long smc_arg5(unsigned long id, unsigned long par1,
- 	register unsigned long __par5 asm("r5") = par5;
+diff --git a/include/arch/arm/asm/jailhouse_hypercall.h b/include/arch/arm/asm/jailhouse_hypercall.h
+index aabd66b..894dd5d 100644
+--- a/include/arch/arm/asm/jailhouse_hypercall.h
++++ b/include/arch/arm/asm/jailhouse_hypercall.h
+@@ -43,6 +43,7 @@
+ #define JAILHOUSE_CALL_NUM_RESULT	"r0"
+ #define JAILHOUSE_CALL_ARG1		"r1"
+ #define JAILHOUSE_CALL_ARG2		"r2"
++#define JAILHOUSE_CALL_CLOBBERED	"r3"
  
- 	asm volatile ("smc #0\n\t"
--		: "=r" (__id)
--		: "r"(__id), "r"(__par1), "r"(__par2), "r"(__par3),
--		  "r"(__par4), "r"(__par5)
-+		: "+r" (__id), "+r"(__par1), "+r"(__par2), "+r"(__par3)
-+		: "r"(__par4), "r"(__par5)
- 		: "memory");
- 
- 	return __id;
-diff --git a/include/arch/arm64/asm/jailhouse_hypercall.h b/include/arch/arm64/asm/jailhouse_hypercall.h
-index 108d052..a9d13ee 100644
---- a/include/arch/arm64/asm/jailhouse_hypercall.h
-+++ b/include/arch/arm64/asm/jailhouse_hypercall.h
-@@ -42,6 +42,7 @@
- #define JAILHOUSE_CALL_NUM_RESULT	"x0"
- #define JAILHOUSE_CALL_ARG1		"x1"
- #define JAILHOUSE_CALL_ARG2		"x2"
-+#define JAILHOUSE_CALL_CLOBBERED	"x3"
- 
- /* CPU statistics, arm64-specific part */
- #define JAILHOUSE_NUM_CPU_STATS			JAILHOUSE_GENERIC_CPU_STATS + 5
-@@ -54,9 +55,10 @@ static inline __u64 jailhouse_call(__u64 num)
+ /* CPU statistics, arm-specific part */
+ #define JAILHOUSE_CPU_STAT_VMEXITS_CP15		JAILHOUSE_GENERIC_CPU_STATS + 5
+@@ -56,9 +57,10 @@ static inline __u32 jailhouse_call(__u32 num)
  
  	asm volatile(
  		JAILHOUSE_CALL_INS
@@ -217,12 +216,12 @@ index 108d052..a9d13ee 100644
 -		: "memory");
 +		: "+r" (num_result)
 +		:
-+		: "memory", JAILHOUSE_CALL_ARG1, JAILHOUSE_CALL_ARG2,
++		: "memory", JAILHOUSE_CALL_ARG1, JAILHOUSE_CALL_ARG2, 
 +		  JAILHOUSE_CALL_CLOBBERED);
  	return num_result;
  }
  
-@@ -67,9 +69,9 @@ static inline __u64 jailhouse_call_arg1(__u64 num, __u64 arg1)
+@@ -69,9 +71,9 @@ static inline __u32 jailhouse_call_arg1(__u32 num, __u32 arg1)
  
  	asm volatile(
  		JAILHOUSE_CALL_INS
@@ -235,7 +234,7 @@ index 108d052..a9d13ee 100644
  	return num_result;
  }
  
-@@ -81,9 +83,9 @@ static inline __u64 jailhouse_call_arg2(__u64 num, __u64 arg1, __u64 arg2)
+@@ -83,9 +85,9 @@ static inline __u32 jailhouse_call_arg2(__u32 num, __u32 arg1, __u32 arg2)
  
  	asm volatile(
  		JAILHOUSE_CALL_INS
@@ -255,4 +254,4 @@ index 108d052..a9d13ee 100644
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/C9905595-F658-4431-AF1D-F9ECDD38A20C%40gmx.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/BC946534-03C8-4AB3-9473-C6B880E37A88%40gmx.de.
