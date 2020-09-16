@@ -1,149 +1,121 @@
-Return-Path: <jailhouse-dev+bncBDRKPIXWWIFBBHO4Q75QKGQE2COUJWA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDYOZ7URUIMBBVUXRD5QKGQEFU4ED3Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x140.google.com (mail-lf1-x140.google.com [IPv6:2a00:1450:4864:20::140])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1ECD826C1E5
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 16 Sep 2020 12:51:10 +0200 (CEST)
-Received: by mail-lf1-x140.google.com with SMTP id r6sf1025267lfn.12
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 16 Sep 2020 03:51:10 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1600253469; cv=pass;
+Received: from mail-pj1-x103d.google.com (mail-pj1-x103d.google.com [IPv6:2607:f8b0:4864:20::103d])
+	by mail.lfdr.de (Postfix) with ESMTPS id F356C26C303
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 16 Sep 2020 14:57:59 +0200 (CEST)
+Received: by mail-pj1-x103d.google.com with SMTP id f9sf1511164pjp.1
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 16 Sep 2020 05:57:59 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1600261078; cv=pass;
         d=google.com; s=arc-20160816;
-        b=FRCZpnUzafGmgycf8+ctT3Vo+TRzQJMYFe/JJRqGeLTCBLdIBX+0Dcgxv9UH9pPPnT
-         TgyHjtZcWWIFiHTUA/532sktAsTPh6K0OP0+Ht/oM1UjXq0ghmyZWkihtyiZGZoZ6iFM
-         aBSq4TtmxDn4VHiVvSOBlZpAyDhxZEI4Bh+Ys8jdRAmPNDrJSnuF+X/06CFG/FtRsP/S
-         mfreASPb0dMODe+DfOr7tFpMzogjuXaFsv84rUkMhSQ6lxCa1KMnbTEEwoFTfgqhOwXx
-         2yyPHnE2vP1f9WW1m2/b8MrrGSVrLgymXq9df43/9pKnVtMeKKbI9xuf+G1jYoK4gm48
-         QU2w==
+        b=dMrYVI1b1FVIzG9VA1JQsNTXRQnp5rI8JQuARBIP/gGb980sjmHeSX4xNMdI693txE
+         Llr+ST+2TYY9qYA7cX9WGJLRqFgAYoi5nNdywF4kWufkcvF8DIpb/EcoeXiq7mdpeiEn
+         MRGnoD5dak78yGr6hfEs/MEKA6Z/+KJhTFPCYWyGZPgZClOL9QvYV5eL2PqLurY6jSx3
+         5sgPk3gwIQkutFv0ZC+S+c5kXp5kvRIj+kFMiO8jeVXK5VpEqm8AAzdWJMNm0NJtFa5g
+         Ja2IxwODDdod6VO8hLqoxtLqiiy1t7MrmjjqsBTFbKoVJVBavcloeWZzhjLnFRtbF14V
+         nVQA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:to:references:message-id
-         :content-transfer-encoding:cc:date:in-reply-to:from:subject
-         :mime-version:sender:dkim-signature;
-        bh=4s4bjHYINhR356Iwdjk5iU/icac9OR3sXlqAYE+Das8=;
-        b=kWFHyUm5cqeoVLEK831HKo9Artv2DaiGTfMxb+mqGBx/3TmxfZcWWQRogjheqCNxoS
-         FhmPjMY2qvQJxAELELlJkCA1u569A8MeQOfV8uclanpJs/U8FyICZL7H4CwP9Acz6/Jt
-         2+QMqXdpVINJc9Lw3LtOESVpIpzrHweAMJDD/jvRs4sAIrLtihMlfuDLEZtflUGhW7qZ
-         PGbRbjqGjVtLCgTEgHV0uXQtWv6HJZV7zSaDu7TdfesUMxHiGITIIEai10+PVR9QAIcc
-         larNGy4r/LADcuMlp+03epNN+GtqjaQn5YrhwD5Hu7zR1QnfxJpiXX4oAFAH2LzulA62
-         fvsw==
+         :list-id:mailing-list:precedence:message-id:mime-version:subject:to
+         :from:date:sender:dkim-signature;
+        bh=MPVTVAwH62TKk1Z0EoA+NII+WwfJ/lhiz7yiIDTV/uk=;
+        b=XgSd8hhntMNLzZaUf9KDGfMF+CRvXTJ3EWV/fE8NU+iAwTSVv+OO0Bf5PmaPeiBxed
+         V3D0ygYGPLcfPXfTjCj1rYFrstVo73e2/9oIMMraRxw0/pDCDUZgWb4Nw+ytXoJM0AG3
+         Udovk3mZpqtq1ozLli7AC4bvRpEs+9K1JIpYnlwmPFJlK+b+zmxR0XfLt6rezYaDMgo9
+         4R0v9DnTKR41mubl7g9MK3U8gC8JwY7zLL1DSbn52TXtYBBY9ixXCWC6pvgGhW65bgJ7
+         506wywqrqffHT6qJDcLUzewbQFWaD97mZWI/hbM3vuBjnFGQ77ovyP9y2pIMEXt9zU8x
+         fYHQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=kPqwzd4e;
-       spf=pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.17.21 as permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de
+       spf=pass (google.com: domain of qyresearch.fendi@vip.163.com designates 59.111.176.110 as permitted sender) smtp.mailfrom=qyresearch.fendi@vip.163.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=vip.163.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:mime-version:subject:from:in-reply-to:date:cc
-         :content-transfer-encoding:message-id:references:to
+        h=sender:date:from:to:subject:mime-version:message-id
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=4s4bjHYINhR356Iwdjk5iU/icac9OR3sXlqAYE+Das8=;
-        b=eT8wsIbanfEq6KH0zfCzkkNYbejl0g45BBY66Or1F1iDeBia6vzfBMFw3A/lwjwNKk
-         gPqm3j1nYtwZRMOoN+OeUrg3NmIPmXd4CPQ1kkV0nNHi2DFmZEDTc8wRQ05elzSsgYal
-         X72sUxor3Ja6J6sDKp3TrFisZSGiJBRsdhf5snfwsr2qE3QDSVh6WWgeLmC1J9No2VWn
-         zRR3+6WA/1GpkBFJZB+yEsQOVUX5pxi6CvKjZSdcmEG0JUuZBnJgkV0Qk4Ni6FdABj+7
-         N8MqPgHpJJCP/pOQj1gbbTna9HicK2GVf4oVAoW/PWBx+i31ibXNMB6QOtq4qc6UjGGt
-         6QSQ==
+        bh=MPVTVAwH62TKk1Z0EoA+NII+WwfJ/lhiz7yiIDTV/uk=;
+        b=Uu29ELomx++czEXF0dvSIoU8X9oze2XxcqOpxJMP4pjwnQDtOmubpdUfXjfnZPf9z7
+         WFMzsgOTZVXpXfeusJjqbTyQ8U3pGgPs/wg6BdsEAFiQVjn5CqxBmN1RmFaBbnGmPZtp
+         GIW1g0TtSE9mpsOjsc5DVZflPiYtxv7ZWCVfIOUNnVEiF4aL9apoyhpPqpfQEQ2YXEp6
+         AmqykIcEwtzmVD+LOijgfiAgkH5QZyw2lZd4G7LXr3GyPQt7PgzakYfVu+2tJ0LJVwSl
+         lh/vi3m1OrJYwqoOzSKKCoYiLLqftcvy7u7w4p0oxjIYi3QTodEKX8OJyDIUw+z3uNg1
+         nQVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:mime-version:subject:from:in-reply-to
-         :date:cc:content-transfer-encoding:message-id:references:to
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=4s4bjHYINhR356Iwdjk5iU/icac9OR3sXlqAYE+Das8=;
-        b=Fsq5pCT4qh3BKG/ZwPCBcPQ6LrDx+zW9qoOErdg9+e/dIWN3sQW/SUmSVCQbMOtgMw
-         74iv3ZVdwQa0/HWET5y9DhmTCv2ZzEkws86X/ngec0FjYPqsvc4+UXI9uc/SkWNWB5A6
-         dcjlN78zpgjw+ak+PrlWenXiisWF7bI+5TLxMuTeRlrGRQPncbSTJmoXMZH/dBinptaS
-         sMZoOLIRcx2jLwKiXWesAtyg4Ri43oLQCJAswVcOJisDSzvB+Lzx1v5dD0H8d/vg125B
-         6c+eCsXETkJYzibfHno6dWBNMJBisKgHLRQdibV/XI/cdiRXZBkJBEUWArVcULpa3XFE
-         iL7g==
+        h=sender:x-gm-message-state:date:from:to:subject:mime-version
+         :message-id:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=MPVTVAwH62TKk1Z0EoA+NII+WwfJ/lhiz7yiIDTV/uk=;
+        b=iaSxmkAA+T867AfTovigZCOLuFpKLTydgXA6BuBDcHTeCY0s9ClECa4ixUcWQl4qHM
+         e/z9ca0d9lGCFHapEBG4trifnTrUs8576BAdl1PDaIfuC9mmKZmqgjfjaFWyU2nw66qK
+         bMj5wGQ1aE4hZ9a87mvCJuGNxbRSjh8n8WE8yDTBw5cUexdkFWKrYAKwKGSAT57kx9Vh
+         L+F0kn0D5tz9R6nPTkrOr8x0Pep2ZHLYfuR0am7vhBaLTV1LpDdrlByIVH1uQmiHh0GL
+         aARmtt0zLvysphuOlpeQbN97pQpMtV5PBq0wyblRMp0lrhoLlpsRRdkRHpxCBlCT8Qr9
+         4ZkA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM5335AVDWIBjaLdnaebrW1AdfFmLFGot3lqnGMqXgK9BLQKqtE9+k
-	tck1g5z4r/8afubiuXNj1XA=
-X-Google-Smtp-Source: ABdhPJzqBKLKqkBTHKkoZSPs72g4rT7PvweU/VkUe4PyYDWLWxQzMVW0XENdOQZxjea1VKjsQbJ7Ow==
-X-Received: by 2002:a05:6512:6cd:: with SMTP id u13mr8532759lff.17.1600253469618;
-        Wed, 16 Sep 2020 03:51:09 -0700 (PDT)
+X-Gm-Message-State: AOAM532GXYx9cv4ITwLQg5Ok2ahpk/V3a5Zad7NRO4eKyJn+dmJaERtI
+	I+nkfeBls0ytaLvG6+Ps3Sw=
+X-Google-Smtp-Source: ABdhPJztJFLisILTZnfQZ5ODLtenS4WqANZ0xf2r/tLr9Kp+ZxVV1t5BKS3+MCjwLvWS+vRrz4Ubdw==
+X-Received: by 2002:a63:1a21:: with SMTP id a33mr18882915pga.305.1600261078603;
+        Wed, 16 Sep 2020 05:57:58 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a19:c7c8:: with SMTP id x191ls521868lff.0.gmail; Wed, 16 Sep
- 2020 03:51:08 -0700 (PDT)
-X-Received: by 2002:a19:e57:: with SMTP id 84mr8610895lfo.161.1600253468315;
-        Wed, 16 Sep 2020 03:51:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1600253468; cv=none;
+Received: by 2002:a17:90a:d704:: with SMTP id y4ls1104073pju.3.canary-gmail;
+ Wed, 16 Sep 2020 05:57:58 -0700 (PDT)
+X-Received: by 2002:a17:90b:88d:: with SMTP id bj13mr3828633pjb.80.1600261077964;
+        Wed, 16 Sep 2020 05:57:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1600261077; cv=none;
         d=google.com; s=arc-20160816;
-        b=X4mR65/ISUztSUqcG8xppEWpV117VnxhHc6gxvsxrk8B7e4asgtVu9YI8TzwFkG1ft
-         51O9pp9lkM7goqPT4pdg8gwwg6uNwslK2AGY94z1JeCBGpYpKu/BHSZsV/OwfRI4Btcl
-         RkqIMQaRh93RupGcufSamGvmmkhLrdYNVg9d/hBr4EqPkYQx3B6O8r7GtGSTGLhRidQ0
-         bZdW9Tcz2BvBZIgdcmGz081us/Wjed32BjAsPUT1qE25TS21qnu4uTZPjjaK1YiTAewV
-         fOUnMtEGqmsXM3nVIeAv5Hhj3NAzPeC+/4CaSGOiAlCMD+U7mLRUC0ovq6d7ZIry6uS3
-         W5hw==
+        b=NxrbhRcCBu6M+EoTebJOF57HLsuLB/9hdJLjfpPMUTomH89BOlFj5pfWLUZwzhZAY4
+         TWgwjlRpVRJ65Vh/iC8xLSbiT37QzmYhigNv2MWodqUwKWmLl0+iDzFCA4v7BteVztA+
+         VsMdM70f4t1PFaZvXWh9h5MX+kLd2K4MkVdQ7KTQarXmPE61Yk1i5ZwPBjvZz9ELvqta
+         yxWtWF02z1iHSFIobQJZuDkfkT5ChXMtlVkcXkKE1BeOhBiWpwRZgwOfNpi9WKQ1rD/y
+         ep8MJxu3AEzHV1Hn48G8ctuHDF6v5eJxk3qr11HssTWj2J/37wur3CapEgvKi3JbQydR
+         3bJA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:dkim-signature;
-        bh=2xvmw9GJrYc3nhGK4F/eK7gKMOWSP5SWMILUVpccrLM=;
-        b=BzeKlHQtZ8VjOB6mN/YeUPI6ZEn1bIysuh6O/1osBD8BcE9WUEJosoGjLNei9WeKlR
-         GC3dVCTOSJvsS8qBxqp1fk3gK8W7RjJYZ9IPvFy5+iwATInFg2vGBi62Fh8lvjl+vXFO
-         Oyku8ZtPsssf2QPH88V62QW5XeaoP9sksNOwSR3v+d4ztSSSkmL1S3IghGq7Enj38GZu
-         HaSCOEFYy2oQld/mkHHkdeSJy/GyLSV+6vMBmQxBL0smbP0Ljorh/CL4WdSHQ7y4xnvF
-         IpuapzHi0SxtsO4NFI6ehLYsgB9dpZbYduKtFB4lW+K03LCjA3lnpL+aFdPR31gAJi9d
-         oN7w==
+        h=message-id:mime-version:disposition-notification-to:subject:to:from
+         :date;
+        bh=zyBrmrbwG+SfyU7PAmFfDOHK2q1PaoD0M2nqYfSF9tw=;
+        b=hZG9YqXtnWoWVucyMkmua60lesUM4P8qSC+/zrw2SbgS9w0QjBOOBUvmRSflhf73Gg
+         Sc9OVNdua9aa8FrDkgUafVI7EexTk6kXBLlhkoZiavBeO6jtr0MQeqRv9gdVaIvWlOln
+         ROzbJOf5kaVhH62arn5vvT0cCKPkXFSijiPnwhc7NA7KoyxV2Z/qKiceqqdet29kM6o/
+         iXj3HTJ6GNBg9OYZTZ9m4E/s1HDTH9NcBYwAUwtQuG0usCf0tgmXDk4iEmfFJC4pNxuQ
+         9OzwkBM0iJqxwH6xriZdTLL/aZ3ATc9v6/Ka1oncqOW2n79G68ziEEPrUAGVNSPtsHMb
+         ZHHg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=kPqwzd4e;
-       spf=pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.17.21 as permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de
-Received: from mout.gmx.net (mout.gmx.net. [212.227.17.21])
-        by gmr-mx.google.com with ESMTPS id y17si552128lfg.2.2020.09.16.03.51.08
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2020 03:51:08 -0700 (PDT)
-Received-SPF: pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.17.21 as permitted sender) client-ip=212.227.17.21;
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from meter.plexim.com ([212.126.163.234]) by mail.gmx.com (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MZTmY-1jy3hd2PXa-00WSP7; Wed, 16
- Sep 2020 12:51:07 +0200
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.120.23.2.1\))
-Subject: Re: [PATCH] arm64: Make sure SMC calls don't have side effects
-From: Oliver Schwartz <Oliver.Schwartz@gmx.de>
-In-Reply-To: <9eef795b-8ecd-49de-3e97-1535003ba499@siemens.com>
-Date: Wed, 16 Sep 2020 12:51:07 +0200
-Cc: "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>,
- Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <EF89FA0E-53D2-41E3-977A-43F502410816@gmx.de>
-References: <6B88A347-1633-47E4-A3CF-DC37738FED1E@gmx.de>
- <068286c9-d55d-d259-8243-5dfaf10cba5f@siemens.com>
- <C2B8E562-224D-4B4A-904E-23DA8DE3DFED@gmx.de>
- <9eef795b-8ecd-49de-3e97-1535003ba499@siemens.com>
-To: Jan Kiszka <jan.kiszka@siemens.com>
-X-Mailer: Apple Mail (2.3608.120.23.2.1)
-X-Provags-ID: V03:K1:wZa3qn3t2wtp1D7fpZGzKQ3YyKH2ZrzVT2XPVWcvUaDZ9LJ+Hvx
- 16nn4iaV2JlKx5mJtl0k0dvtjBgTIdJKQG1WQNCwyafiRlYu6qfuIPffZ0h06LACQKJty+o
- jy+EGmEnPeZWgQfAEeBjYA53YsvTKwB17Kaoih1ywadkL12swpVTzMoaflTik5I4rZsl1eD
- MjMmuD5dacg7+uY8pmuOw==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:5o5kPGtNrDg=:8xJvoDT2sucJaroI6qKgH2
- K6YabSZl6bAC3LWQ/MyOWpyz9TpwD5H0G58Y83pjpWud+l6+/EyDaX/IHbsBN8escAZ2y42jp
- RxQT7MEmhKGZuvqR0l7RhuPDM82ut0HMIozNi2kzelHgsZErbJLoHKpSUisEspInJF1rTv/Gq
- ETLVPl68aNpd6SYEtiqGF3mKk9l3wpVj0giAi+5oYdN2QNwEg2xKifMqfSEPsetwWR3xYChsH
- KWEqafVv1afQys5RYKas2X7CiOpkK2/HuhLUWP439Mz68nqvIVyIG1QE2rWa2EEpUyhwk/qUz
- hFoMOcwHt3icMx15yZuosflXhkctI7JDDL8U50GOu4u534gc0OzeTMUw4Y5JfG6Yof3hWa8e+
- SOFj/AfygLYUnkVDhKhacne7rshad5KgEAiwk6FgOj1/engrpqz/MBWA1AowHPhJO5ZuJaFMt
- fe9JAEHSpuLzxqKRf1Ym9HZEeKalh+UoYVQihuXHia7Tlb8R+0339PVZjolkLbmDxt31NaL0g
- qJqD+NUWEDQTxr7vO2RaNBEBQ08ylztovXpX256iQwJpES1NFSIie8tibrIhm6Hh1bcwjAg4m
- Z1vuguIkukSfdDL52tEZoH2MxOwYHpqNdB+XxAuRBjsNCCbbfpVDTUUMoSUU1WtaWE6t+yJS+
- Tib/GuMTl9uUfw9xPIufth/lCtHDXW60TiB7Cgz7MtbSpvhhyEuv5s290ibPvqKYKkezEj7wY
- 9ZDtNhN8KpDURsV/Qc4T1RQd8qBZtF5XlNJloIFwd+ER+1aOceGXeZ8gV3dHWOMZXpcng8coE
- S/oYwe+ZM+fnNvvPUbjE8XBN8WODF0gSGydACFXgbxqs4A7V2LkJQy9voq5VCLBvl5LyLDUAq
- 1hptIl8wKpF+ZFD4ptDvd6gANkUfpA+0d6+IqM8lwVkqGHePocMoPWFaIWq7P8cbXrlYQiqrs
- y3p4K9o8HvCRpgfiCzw8d2sfp/nmEzUntPiWTrQfDa+KYA0b3jP4sR8EQuO62Q7PM4Yenoc3C
- BRuDi0pj8K2Ix4d0I1+OtqfOBTkLNWkgqJWp8cVzo9wmaSfbIbuc+Mp+oRrY500b38fMt1XiS
- LFWKetsb5yoHfBvuzTQaWisNqpFAGGXQ2W7FrHcnYU5lKoDJKywjzAVARCa/JQs8mSxruLvRh
- vUh6qC8AKKtJDy7yBMJxqBu/FcDwHmi+GXRUXbIcyNNPaSmq0iESZcY1I5zvP4zp5aDWg5L0L
- b2RexXKlmQVT1rVXmq5lZbckYK+rWdmKLpDux4w==
-X-Original-Sender: oliver.schwartz@gmx.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmx.net header.s=badeba3b8450 header.b=kPqwzd4e;       spf=pass
- (google.com: domain of oliver.schwartz@gmx.de designates 212.227.17.21 as
- permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de
+       spf=pass (google.com: domain of qyresearch.fendi@vip.163.com designates 59.111.176.110 as permitted sender) smtp.mailfrom=qyresearch.fendi@vip.163.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=vip.163.com
+Received: from mail-176110.vip.163.com (mail-176110.vip.163.com. [59.111.176.110])
+        by gmr-mx.google.com with ESMTP id p15si105927plr.5.2020.09.16.05.57.55
+        for <jailhouse-dev@googlegroups.com>;
+        Wed, 16 Sep 2020 05:57:57 -0700 (PDT)
+Received-SPF: pass (google.com: domain of qyresearch.fendi@vip.163.com designates 59.111.176.110 as permitted sender) client-ip=59.111.176.110;
+Received: from qyresearch.fendi$vip.163.com ( [36.44.97.178] ) by
+ ajax-webmail-wmsvr10 (Coremail) ; Wed, 16 Sep 2020 20:33:08 +0800
+ (GMT+08:00)
+X-Originating-IP: [36.44.97.178]
+Date: Wed, 16 Sep 2020 20:33:08 +0800 (GMT+08:00)
+From: Fendi_Qyresearch <qyresearch.fendi@vip.163.com>
+To: "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
+Subject: New Trends in E-Prescribing System Market August 2020
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version XT5.0.13 build 20200904(c7fce92a)
+ Copyright (c) 2002-2020 www.mailtech.cn 163vip
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1161_1861104014.1600259588577"
+MIME-Version: 1.0
+Message-ID: <16af84c9.184.17496e781e1.Coremail.qyresearch.fendi@vip.163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: bpHICgBXJV0EBmJfBZUAAA--.4137W
+X-CM-SenderInfo: 5t1uv2phduuxgoih0vnl6yx1iorwjhhfrp/1tbiHwSh1l6YHOaSgA
+	AJsL
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+X-Original-Sender: qyresearch.fendi@vip.163.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of qyresearch.fendi@vip.163.com designates 59.111.176.110
+ as permitted sender) smtp.mailfrom=qyresearch.fendi@vip.163.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=vip.163.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -156,100 +128,146 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
+------=_Part_1161_1861104014.1600259588577
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi,
 
-> On 16 Sep 2020, at 11:54, Jan Kiszka <jan.kiszka@siemens.com> wrote:
->=20
-> On 16.09.20 11:19, Oliver Schwartz wrote:
->>> On 16 Sep 2020, at 10:28, Jan Kiszka <jan.kiszka@siemens.com> wrote:
->>>=20
->>> On 16.09.20 09:12, Oliver Schwartz wrote:
->>>> SMC calls may modify registers x0 to x3. To make sure the compiler doe=
-sn't
->>>> assume input registers to be constant, also mark these registers as ou=
-tput
->>>> when used as input.
->>>> Signed-off-by: Oliver Schwartz <Oliver.Schwartz@gmx.de>
->>>> ---
->>>>  hypervisor/arch/arm64/include/asm/smc.h | 6 +++---
->>>>  1 file changed, 3 insertions(+), 3 deletions(-)
->>>> diff --git a/hypervisor/arch/arm64/include/asm/smc.h b/hypervisor/arch=
-/arm64/include/asm/smc.h
->>>> index 1a5d5c8..e7b6723 100644
->>>> --- a/hypervisor/arch/arm64/include/asm/smc.h
->>>> +++ b/hypervisor/arch/arm64/include/asm/smc.h
->>>> @@ -28,7 +28,7 @@ static inline long smc_arg1(unsigned long id, unsign=
-ed long par1)
->>>>  	register unsigned long __par1 asm("r1") =3D par1;
->>>>    	asm volatile ("smc #0\n\t"
->>>> -		: "=3Dr" (__id)
->>>> +		: "=3Dr" (__id), "=3Dr"(__par1)
->>>>  		: "r"(__id), "r"(__par1)
->>>>  		: "memory", "x2", "x3");
->>>>  @@ -43,7 +43,7 @@ static inline long smc_arg2(unsigned long id, unsig=
-ned long par1,
->>>>  	register unsigned long __par2 asm("r2") =3D par2;
->>>>    	asm volatile ("smc #0\n\t"
->>>> -		: "=3Dr" (__id)
->>>> +		: "=3Dr" (__id), "=3Dr"(__par1), "=3Dr"(__par2)
->>>>  		: "r"(__id), "r"(__par1), "r"(__par2)
->>>>  		: "memory", "x3");
->>>>  @@ -62,7 +62,7 @@ static inline long smc_arg5(unsigned long id, unsig=
-ned long par1,
->>>>  	register unsigned long __par5 asm("r5") =3D par5;
->>>>    	asm volatile ("smc #0\n\t"
->>>> -		: "=3Dr" (__id)
->>>> +		: "=3Dr" (__id), "=3Dr"(__par1), "=3Dr"(__par2), "=3Dr"(__par3)
->>>>  		: "r"(__id), "r"(__par1), "r"(__par2), "r"(__par3),
->>>>  		  "r"(__par4), "r"(__par5)
->>>>  		: "memory");
->>>=20
->>> Good catch! We likely have the same issue with our hypercall interface =
-(jailhouse_hypercall.h).
->>>=20
->>> We should probably look carefully again at how Linux expresses these co=
-nstraints: linux/include/linux/arm-smccc.h. That appears to me like we need=
- "+r" for input/output registers and "=3D&r" for those that are just input =
-but might be clobbered on return.
+Hope you are doing well.
 
-Linux uses the =E2=80=9C=3D&r=E2=80=9D values for registers r0 to r3 if the=
-y are _not_ inputs but might be clobbered.
+This is Fendi from QYResearch INC.
 
->> I must admit that I don=E2=80=99t fully understand the =E2=80=9CConstrai=
-nt Modifier Characters=E2=80=9D chapter in the gcc documentation. Please fe=
-el free to modify the patch as needed.
->=20
-> I had to read it 3 times as well, but I think I'm starting to understand.=
- "+" vs. "=3D" is simple, I guess. The relevance of adding "&" to "=3D" may=
- be clearer from this scenario:
->=20
-> Consider you are passing "+"(p1) and "=3D"(p2) to an assembly block. If p=
-2 is only written after p1 was evaluated, the compiler can safely map both =
-to the same register. If p1 is only read after p2 was written (early clobbe=
-r...), that would obviously break - hence that "&" tagging.
+Recently, we published the< Global E-Prescribing System Market Research Rep=
+ort 2020>. We recommend you this report and kindly let us know if you are i=
+nterested in it.
 
-Yes, ok. What I don=E2=80=99t understand is why for the SMC calls the =E2=
-=80=9C=3D&r=E2=80=9D syntax should have any advantage over mentioning the r=
-egister in the clobber list. Doesn=E2=80=99t this have the same effect? Or =
-is this just used in Linux to make the macro expansion easier?
+This report will walk you through the E-Prescribing System market from the =
+following aspects in: Consumption, Sales, Revenue, Price, Cost, Gross Margi=
+n, Market size, Market share, Growth Rate, Trends, etc. In addition, We hav=
+e researched the situation of COVID-19 thoroughly and all the reported data=
+ have considered the impact of COVID-19.
 
-> What I do not understand yet is how our register assignment hints play in=
-to this which map parameters to different registers. Maybe they just create=
- an internal conflict for the compiler and could in some cases cause build =
-errors. See also 2b9a200d6dba.
+If you are interested in getting more details or Sample report, please cont=
+act fendi@qyresearch.com
 
-This is described in chapter "Specifying Registers for Local Variables=E2=
-=80=9D and as far as I understand it takes precedence for assigning argumen=
-ts to registers.
+In case this report is not relevant to you, please forgive me for disturbin=
+g. If you can direct me to the correct contact in your company, that would =
+be most appreciated.
 
-> Right. Basically, we need to mark all callee-saved registers in our inter=
-faces as overwritten or, if not input as well, also early clobbered. If you=
- have the time to write such a patch, that would be great.
+The following manufacturers are covered in this report:
 
-I can prepare a patch for the 32 bit files as well, but I have no means to =
-test them.
+l  Aprima
 
-Oliver
+l  Cerner Corporation
+
+l  eClinicalWorks
+
+l  Practice Fusion
+
+l  eMDs
+
+l  Surescripts
+
+l  Allscripts
+
+l  iMedX
+
+l  Athena health
+
+l  Henry Schein e-prescribe
+
+=E2=80=A6=E2=80=A6
+
+(Other manufacturers Information=E2=80=A6=E2=80=A6)
+
+Main chapters showed:
+
+1 Report Overview
+
+    1.1 Study Scope
+
+    1.2 Market Analysis by Type
+
+        1.2.1 Global E-Prescribing Systems Market Size Growth Rate by Type:=
+ 2020 VS 2026
+
+        1.2.2 Stand-Alone System
+
+        1.2.3 Integrated System
+
+    1.3 Market by Application
+
+        1.3.1 Global E-Prescribing Systems Market Share by Application: 202=
+0 VS 2026
+
+        1.3.2 Hospitals
+
+        1.3.3 Clinics
+
+        1.3.4 Pharmacy
+
+    1.4 Study Objectives
+
+    1.5 Years Considered
+
+=20
+
+2 Global Growth Trends
+
+    2.1 Global E-Prescribing Systems Market Perspective (2015-2026)
+
+    2.2 Global E-Prescribing Systems Growth Trends by Regions
+
+        2.2.1 E-Prescribing Systems Market Size by Regions: 2015 VS 2020 VS=
+ 2026
+
+        2.2.2 E-Prescribing Systems Historic Market Share by Regions (2015-=
+2020)
+
+        2.2.3 E-Prescribing Systems Forecasted Market Size by Regions (2021=
+-2026)
+
+    2.3 Industry Trends and Growth Strategy
+
+        2.3.1 Market Trends
+
+        2.3.2 Market Drivers
+
+        2.3.3 Market Challenges
+
+        2.3.4 Market Restraints
+
+About QYResearch
+QYResearch, established in 2007, focuses on custom research, management con=
+sulting, IPO consulting, industry chain research, and data base &seminar se=
+rvices.
+
+QYResearch has more than 4000 global well-known customers, covering more th=
+an 30 industries including energy, automobiles, pharmaceuticals, chemicals,=
+ agriculture, etc. QYResearch built research or marketing centers in China =
+(Beijing, Shengzhen, Guangzhou, and Hong Kong), USA, Canada, Germany, UK, F=
+rance, etc.
+
+Currently, QYResearch has become the first choice, worthy and trusted consu=
+lting brand in Global business consulting services. As of now, QYResearch h=
+as served the most of Fortune 500 companies.
+
+Thank you for reading.
+
+=20
+
+------------------
+
+Best Regards
+
+Fendi Zhang | Senior Sales Manager
+
+QYResearch INC.
+
+Phone:  +86 13763338542(7*24H)
+
+E-mail:  fendi@qyresearch.com
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -257,4 +275,446 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/EF89FA0E-53D2-41E3-977A-43F502410816%40gmx.de.
+jailhouse-dev/16af84c9.184.17496e781e1.Coremail.qyresearch.fendi%40vip.163.=
+com.
+
+------=_Part_1161_1861104014.1600259588577
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8=
+">
+</head>
+<body>
+<style>
+    font{
+        line-height: 1.6;
+    }
+    ul,ol{
+        padding-left: 20px;
+        list-style-position: inside;
+    }
+</style>
+<div style=3D"font-family:=E5=BE=AE=E8=BD=AF=E9=9B=85=E9=BB=91,Verdana,&quo=
+t;Microsoft Yahei&quot;,SimSun,sans-serif;font-size:14px; line-height:1.6;"=
+>
+    <div></div>
+<style>
+    font{
+        line-height: 1.6;
+    }
+    ul,ol{
+        padding-left: 20px;
+        list-style-position: inside;
+    }
+</style>
+<div style=3D"font-family:=E5=BE=AE=E8=BD=AF=E9=9B=85=E9=BB=91,Verdana,&quo=
+t;Microsoft Yahei&quot;,SimSun,sans-serif;font-size:14px; line-height:1.6;"=
+>
+    <div></div><div>
+    <div><p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;=
+"><span lang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">Hi,<o:p>=
+</o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">Hope you are doin=
+g well.<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">This is Fendi fro=
+m QYResearch INC.<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">Recently, we publ=
+ished the&lt;&nbsp;<b>Global
+E-Prescribing System Market Research Report 2020</b>&gt;.&nbsp;We recommend=
+ you
+this report and kindly let us know if you are interested in it.<o:p></o:p><=
+/span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">This report will =
+walk you through the <b>E-Prescribing
+System </b>market from the following aspects in: Consumption, Sales, Revenu=
+e,
+Price, Cost, Gross Margin, Market size, Market share, Growth Rate, Trends, =
+etc.
+In addition, We have researched the situation of COVID-19 thoroughly and al=
+l
+the reported data have considered the impact of COVID-19.<o:p></o:p></span>=
+</p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">If you are intere=
+sted in <u>getting more details</u> or <u>Sample report</u>,
+please contact <a href=3D"mailto:fendi@qyresearch.com">fendi@qyresearch.com=
+</a><o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">In case this repo=
+rt is not relevant to you, please forgive me for
+disturbing. If you can direct me to the correct contact in your company, th=
+at
+would be most appreciated.<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><b><spa=
+n lang=3D"EN-US" style=3D"mso-bidi-font-size:
+10.5pt;font-family:&quot;Verdana&quot;,&quot;sans-serif&quot;;mso-bidi-font=
+-family:Vijaya;
+mso-font-kerning:0pt;mso-bidi-language:AR">The following manufacturers are
+covered in this report:</span></b><span lang=3D"EN-US" style=3D"mso-bidi-fo=
+nt-size:
+10.5pt;font-family:&quot;Verdana&quot;,&quot;sans-serif&quot;;mso-bidi-font=
+-family:Vijaya"><o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm 10.5pt 21=
+pt; text-indent: -21pt;"><span lang=3D"EN-US" style=3D"mso-bidi-font-size:1=
+0.5pt;font-family:Wingdings;mso-fareast-font-family:
+Wingdings;mso-bidi-font-family:Wingdings;mso-font-kerning:0pt;mso-bidi-lang=
+uage:
+AR">l<span style=3D"font-stretch: normal; font-size: 7pt; line-height: norm=
+al; font-family: 'Times New Roman';">&nbsp;
+</span></span><b><span lang=3D"EN-US" style=3D"mso-bidi-font-size:10.5pt;fo=
+nt-family:&quot;Verdana&quot;,&quot;sans-serif&quot;;
+mso-bidi-font-family:Vijaya;mso-font-kerning:0pt;mso-bidi-language:AR">Apri=
+ma<o:p></o:p></span></b></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm 10.5pt 21=
+pt; text-indent: -21pt;"><span lang=3D"EN-US" style=3D"mso-bidi-font-size:1=
+0.5pt;font-family:Wingdings;mso-fareast-font-family:
+Wingdings;mso-bidi-font-family:Wingdings;mso-font-kerning:0pt;mso-bidi-lang=
+uage:
+AR">l<span style=3D"font-stretch: normal; font-size: 7pt; line-height: norm=
+al; font-family: 'Times New Roman';">&nbsp;
+</span></span><b><span lang=3D"EN-US" style=3D"mso-bidi-font-size:10.5pt;fo=
+nt-family:&quot;Verdana&quot;,&quot;sans-serif&quot;;
+mso-bidi-font-family:Vijaya;mso-font-kerning:0pt;mso-bidi-language:AR">Cern=
+er
+Corporation<o:p></o:p></span></b></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm 10.5pt 21=
+pt; text-indent: -21pt;"><span lang=3D"EN-US" style=3D"mso-bidi-font-size:1=
+0.5pt;font-family:Wingdings;mso-fareast-font-family:
+Wingdings;mso-bidi-font-family:Wingdings;mso-font-kerning:0pt;mso-bidi-lang=
+uage:
+AR">l<span style=3D"font-stretch: normal; font-size: 7pt; line-height: norm=
+al; font-family: 'Times New Roman';">&nbsp;
+</span></span><b><span lang=3D"EN-US" style=3D"mso-bidi-font-size:10.5pt;fo=
+nt-family:&quot;Verdana&quot;,&quot;sans-serif&quot;;
+mso-bidi-font-family:Vijaya;mso-font-kerning:0pt;mso-bidi-language:AR">eCli=
+nicalWorks<o:p></o:p></span></b></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm 10.5pt 21=
+pt; text-indent: -21pt;"><span lang=3D"EN-US" style=3D"mso-bidi-font-size:1=
+0.5pt;font-family:Wingdings;mso-fareast-font-family:
+Wingdings;mso-bidi-font-family:Wingdings;mso-font-kerning:0pt;mso-bidi-lang=
+uage:
+AR">l<span style=3D"font-stretch: normal; font-size: 7pt; line-height: norm=
+al; font-family: 'Times New Roman';">&nbsp;
+</span></span><b><span lang=3D"EN-US" style=3D"mso-bidi-font-size:10.5pt;fo=
+nt-family:&quot;Verdana&quot;,&quot;sans-serif&quot;;
+mso-bidi-font-family:Vijaya;mso-font-kerning:0pt;mso-bidi-language:AR">Prac=
+tice
+Fusion<o:p></o:p></span></b></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm 10.5pt 21=
+pt; text-indent: -21pt;"><span lang=3D"EN-US" style=3D"mso-bidi-font-size:1=
+0.5pt;font-family:Wingdings;mso-fareast-font-family:
+Wingdings;mso-bidi-font-family:Wingdings;mso-font-kerning:0pt;mso-bidi-lang=
+uage:
+AR">l<span style=3D"font-stretch: normal; font-size: 7pt; line-height: norm=
+al; font-family: 'Times New Roman';">&nbsp;
+</span></span><b><span lang=3D"EN-US" style=3D"mso-bidi-font-size:10.5pt;fo=
+nt-family:&quot;Verdana&quot;,&quot;sans-serif&quot;;
+mso-bidi-font-family:Vijaya;mso-font-kerning:0pt;mso-bidi-language:AR">eMDs=
+<o:p></o:p></span></b></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm 10.5pt 21=
+pt; text-indent: -21pt;"><span lang=3D"EN-US" style=3D"mso-bidi-font-size:1=
+0.5pt;font-family:Wingdings;mso-fareast-font-family:
+Wingdings;mso-bidi-font-family:Wingdings;mso-font-kerning:0pt;mso-bidi-lang=
+uage:
+AR">l<span style=3D"font-stretch: normal; font-size: 7pt; line-height: norm=
+al; font-family: 'Times New Roman';">&nbsp;
+</span></span><b><span lang=3D"EN-US" style=3D"mso-bidi-font-size:10.5pt;fo=
+nt-family:&quot;Verdana&quot;,&quot;sans-serif&quot;;
+mso-bidi-font-family:Vijaya;mso-font-kerning:0pt;mso-bidi-language:AR">Sure=
+scripts<o:p></o:p></span></b></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm 10.5pt 21=
+pt; text-indent: -21pt;"><span lang=3D"EN-US" style=3D"mso-bidi-font-size:1=
+0.5pt;font-family:Wingdings;mso-fareast-font-family:
+Wingdings;mso-bidi-font-family:Wingdings;mso-font-kerning:0pt;mso-bidi-lang=
+uage:
+AR">l<span style=3D"font-stretch: normal; font-size: 7pt; line-height: norm=
+al; font-family: 'Times New Roman';">&nbsp;
+</span></span><b><span lang=3D"EN-US" style=3D"mso-bidi-font-size:10.5pt;fo=
+nt-family:&quot;Verdana&quot;,&quot;sans-serif&quot;;
+mso-bidi-font-family:Vijaya;mso-font-kerning:0pt;mso-bidi-language:AR">Alls=
+cripts<o:p></o:p></span></b></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm 10.5pt 21=
+pt; text-indent: -21pt;"><span lang=3D"EN-US" style=3D"mso-bidi-font-size:1=
+0.5pt;font-family:Wingdings;mso-fareast-font-family:
+Wingdings;mso-bidi-font-family:Wingdings;mso-font-kerning:0pt;mso-bidi-lang=
+uage:
+AR">l<span style=3D"font-stretch: normal; font-size: 7pt; line-height: norm=
+al; font-family: 'Times New Roman';">&nbsp;
+</span></span><b><span lang=3D"EN-US" style=3D"mso-bidi-font-size:10.5pt;fo=
+nt-family:&quot;Verdana&quot;,&quot;sans-serif&quot;;
+mso-bidi-font-family:Vijaya;mso-font-kerning:0pt;mso-bidi-language:AR">iMed=
+X<o:p></o:p></span></b></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm 10.5pt 21=
+pt; text-indent: -21pt;"><span lang=3D"EN-US" style=3D"mso-bidi-font-size:1=
+0.5pt;font-family:Wingdings;mso-fareast-font-family:
+Wingdings;mso-bidi-font-family:Wingdings;mso-font-kerning:0pt;mso-bidi-lang=
+uage:
+AR">l<span style=3D"font-stretch: normal; font-size: 7pt; line-height: norm=
+al; font-family: 'Times New Roman';">&nbsp;
+</span></span><b><span lang=3D"EN-US" style=3D"mso-bidi-font-size:10.5pt;fo=
+nt-family:&quot;Verdana&quot;,&quot;sans-serif&quot;;
+mso-bidi-font-family:Vijaya;mso-font-kerning:0pt;mso-bidi-language:AR">Athe=
+na
+health<o:p></o:p></span></b></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm 10.5pt 21=
+pt; text-indent: -21pt;"><span lang=3D"EN-US" style=3D"mso-bidi-font-size:1=
+0.5pt;font-family:Wingdings;mso-fareast-font-family:
+Wingdings;mso-bidi-font-family:Wingdings;mso-font-kerning:0pt;mso-bidi-lang=
+uage:
+AR">l<span style=3D"font-stretch: normal; font-size: 7pt; line-height: norm=
+al; font-family: 'Times New Roman';">&nbsp;
+</span></span><b><span lang=3D"EN-US" style=3D"mso-bidi-font-size:10.5pt;fo=
+nt-family:&quot;Verdana&quot;,&quot;sans-serif&quot;;
+mso-bidi-font-family:Vijaya;mso-font-kerning:0pt;mso-bidi-language:AR">Henr=
+y
+Schein e-prescribe<o:p></o:p></span></b></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">=E2=80=A6=E2=80=
+=A6<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">(Other manufactur=
+ers Information=E2=80=A6=E2=80=A6)<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm; line-hei=
+ght: 17.85pt;"><b><span lang=3D"EN-US" style=3D"font-family: Verdana, sans-=
+serif;">Main chapters showed:<o:p></o:p></span></b></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">1 Report Overview=
+<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">&nbsp;&nbsp;&nbsp=
+; 1.1 Study Scope<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">&nbsp;&nbsp;&nbsp=
+; 1.2 Market Analysis by Type<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; 1.2.1 Global E-Prescribing
+Systems Market Size Growth Rate by Type: 2020 VS 2026<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; 1.2.2 Stand-Alone System<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; 1.2.3 Integrated System<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">&nbsp;&nbsp;&nbsp=
+; 1.3 Market by Application<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; 1.3.1 Global E-Prescribing
+Systems Market Share by Application: 2020 VS 2026<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; 1.3.2 Hospitals<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; 1.3.3 Clinics<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; 1.3.4 Pharmacy<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">&nbsp;&nbsp;&nbsp=
+; 1.4 Study Objectives<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">&nbsp;&nbsp;&nbsp=
+; 1.5 Years Considered<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">&nbsp;</span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">2 Global Growth T=
+rends<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">&nbsp;&nbsp;&nbsp=
+; 2.1 Global E-Prescribing Systems
+Market Perspective (2015-2026)<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">&nbsp;&nbsp;&nbsp=
+; 2.2 Global E-Prescribing Systems
+Growth Trends by Regions<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; 2.2.1 E-Prescribing Systems
+Market Size by Regions: 2015 VS 2020 VS 2026<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; 2.2.2 E-Prescribing Systems
+Historic Market Share by Regions (2015-2020)<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; 2.2.3 E-Prescribing Systems
+Forecasted Market Size by Regions (2021-2026)<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">&nbsp;&nbsp;&nbsp=
+; 2.3 Industry Trends and Growth
+Strategy<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; 2.3.1 Market Trends<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; 2.3.2 Market Drivers<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; 2.3.3 Market Challenges<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; 2.3.4 Market Restraints<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><b><spa=
+n lang=3D"EN-US" style=3D"font-size:14.0pt;font-family:&quot;Verdana&quot;,=
+&quot;sans-serif&quot;;
+mso-fareast-font-family:=E5=BE=AE=E8=BD=AF=E9=9B=85=E9=BB=91;mso-bidi-font-=
+family:=E5=AE=8B=E4=BD=93;color:#002060;mso-font-kerning:
+0pt">About QYResearch</span></b><span lang=3D"EN-US" style=3D"font-size: 11=
+.5pt; font-family: Verdana, sans-serif;"><br>
+</span><span lang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">QYR=
+esearch, established in 2007, focuses on custom research, management
+consulting, IPO consulting, industry chain research, and data base &amp;sem=
+inar
+services.<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">QYResearch has mo=
+re than 4000 global well-known customers, covering more
+than 30 industries including energy, automobiles, pharmaceuticals, chemical=
+s,
+agriculture, etc. QYResearch built research or marketing centers in China (=
+Beijing,
+Shengzhen, Guangzhou, and Hong Kong), USA, Canada, Germany, UK, France, etc=
+.<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">Currently, QYRese=
+arch has become the first choice, worthy and trusted
+consulting brand in Global business consulting services. As of now, QYResea=
+rch
+has served the most of Fortune 500 companies.<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left" style=3D"margin: 10.5pt 0cm;"><span l=
+ang=3D"EN-US" style=3D"font-family: Verdana, sans-serif;">Thank you for rea=
+ding.<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left"><span lang=3D"EN-US" style=3D"font-fa=
+mily: Verdana, sans-serif; background: white;"><o:p>&nbsp;</o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left"><span lang=3D"EN-US" style=3D"font-si=
+ze:9.0pt;font-family:&quot;Verdana&quot;,&quot;sans-serif&quot;;
+mso-bidi-font-family:=E5=AE=8B=E4=BD=93;color:#909090;mso-font-kerning:0pt"=
+>------------------<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
+lt:auto;
+mso-pagination:widow-orphan;background:white"><b><span lang=3D"EN-US" style=
+=3D"font-size: 9pt; font-family: Verdana, sans-serif;">Best Regards<o:p></o=
+:p></span></b></p>
+
+<p class=3D"MsoNormal" align=3D"left"><b><span lang=3D"EN-US" style=3D"font=
+-size: 9pt; font-family: Verdana, sans-serif; background: white;">Fendi Zha=
+ng</span></b><span lang=3D"EN-US" style=3D"font-size: 9pt; font-family: Ver=
+dana, sans-serif; background: white;"> | Senior
+Sales Manager<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left"><span lang=3D"EN-US" style=3D"font-si=
+ze: 9pt; font-family: Verdana, sans-serif; background: white;">QYResearch I=
+NC.<o:p></o:p></span></p>
+
+<p class=3D"MsoNormal" align=3D"left"><b><span lang=3D"EN-US" style=3D"font=
+-size: 9pt; font-family: Verdana, sans-serif; background: white;">Phone:</s=
+pan></b><span lang=3D"EN-US" style=3D"font-size: 9pt; font-family: Verdana,=
+ sans-serif; background: white;">&nbsp; +86 13763338542(7*24H)<o:p></o:p></=
+span></p>
+
+<p class=3D"MsoNormal" align=3D"left"><b><span lang=3D"EN-US" style=3D"font=
+-size: 9pt; font-family: Verdana, sans-serif; background: white;">E-mail:</=
+span></b><span lang=3D"EN-US" style=3D"font-size: 9pt; font-family: Verdana=
+, sans-serif; background: white;">&nbsp; <u><a data-auto-link=3D"1" href=3D=
+"mailto:fendi@qyresearch.com">fendi@qyresearch.com</a></u><o:p></o:p></span=
+></p></div><div id=3D"ntes-pcmac-signature" style=3D"font-family:'=E5=BE=AE=
+=E8=BD=AF=E9=9B=85=E9=BB=91'"><div style=3D"font-size:14px; padding: 0;  ma=
+rgin:0;"><div style=3D"padding-bottom:10px;margin-bottom:10px;display:inlin=
+e-block;"><div style=3D"font-family:&quot;=E5=BE=AE=E8=BD=AF=E9=9B=85=E9=BB=
+=91&quot;; font-size: 14px; color:#000000">
+
+   =20
+</div>
+        </div>
+    </div>
+     </div>
+</div><style>
+        font{
+            line-height: 1.6;
+        }
+    </style>
+</div><!--=F0=9F=98=80-->
+</div>
+</body>
+</html>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/16af84c9.184.17496e781e1.Coremail.qyresearch.fendi=
+%40vip.163.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.googl=
+e.com/d/msgid/jailhouse-dev/16af84c9.184.17496e781e1.Coremail.qyresearch.fe=
+ndi%40vip.163.com</a>.<br />
+
+------=_Part_1161_1861104014.1600259588577--
+
