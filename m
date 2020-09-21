@@ -1,119 +1,132 @@
-Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBDOEUH5QKGQEBYYUWHI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB2OFUH5QKGQECPGJMHI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qk1-x740.google.com (mail-qk1-x740.google.com [IPv6:2607:f8b0:4864:20::740])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CAE3271DBF
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 21 Sep 2020 10:19:27 +0200 (CEST)
-Received: by mail-qk1-x740.google.com with SMTP id j5sf10396993qka.7
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 21 Sep 2020 01:19:27 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1600676366; cv=pass;
+Received: from mail-wr1-x43e.google.com (mail-wr1-x43e.google.com [IPv6:2a00:1450:4864:20::43e])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1761A271DD1
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 21 Sep 2020 10:23:06 +0200 (CEST)
+Received: by mail-wr1-x43e.google.com with SMTP id a10sf5510318wrw.22
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 21 Sep 2020 01:23:06 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1600676585; cv=pass;
         d=google.com; s=arc-20160816;
-        b=EjLXy7reP3OP+CVAOqBcbTqVCvZKr1EVwdUAKLrt11pz+GLFHiOcAM1beU20Noh7/o
-         BItvv8uKD826REBsf6FaGpZAioH/Ds3YfBw0vAcDCoriEv2v1OqqAJfhVONSejaUu5rM
-         BpansLLxFuSfwKr0cD/8x6M23s5Na5WiS8ovqx8X6sCoZUEv7nVAgQBNQiy1d1cCqKSP
-         PBUjku8V0dQzo5IFjWCaJH1EwNBj2b0icjpSWUCZritAGkqryB32qUKkIlDP+z0lt5Ws
-         W94l5K+QW+LH7CZ/ClxJyMOT48HVWlTksHAHa49PjiHzEbkZfXrYridfgI1zOaARHBv3
-         HcIA==
+        b=QoIRSdPrTkr2bq8S5w+H7KZ3yV9KFb6EOFHXGvNftE3GrZPT1HcjrqTY8FtkxPxo8i
+         C/SSVLsTHwIDVx3ZOvV+1AqPUNrZotwXMHiZ7w+uptHgrrhjQecDZ64gqcsvEKkSNptS
+         vM4AiTBtxzD9Hp5uOvZyILH3cXxcbW6ntb94LdjbBXxLqzh50VY4em2DcRsaWYvX9MCd
+         7CInNDTkgtxPD9xkd1f1c2DHSMm3WPwVgN0gDj2w3nXB9TMixqlQZAtC0n2nx6WZcdUo
+         dcYnHPb14iN2OJ9Qdc36M0HxfZpEtg71ah5FNN0SqwMnYJuz0SySGOT7RCpArx3or2Zu
+         1/qA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to:mime-version:subject
-         :message-id:to:from:date:dkim-signature;
-        bh=HHuhxzSBjIHwyHQ6BozEiSkV598dIwHREOMK5w3kCxY=;
-        b=ZFc5DNCqtKpO5FeQmoKj/vM2P1s+JoKzHA9anvTgZ5bYxhNgYWzJPcgsxQxH5axfmq
-         BL23A6VeSg7YHsNZ6C3OSTr2UwlmNgoXMIusRDImpm4rEBXu2Bg/8q9wT6AX2r1+0pGv
-         /GFqUNmkILlqw7tRWYF9zGxutWw01bgc/nZ1i0/vm+1l4DAGROcwDsC01S9s/sL1TBIV
-         EqlNycQU529Z6+LEgX8vYQXWElRPcPQk1DMcCamunrkYdWC5qsdtd1HcY2Qw8OMCvatr
-         fDUcK9Xr4+vN31yOF6RLLUXbXvpIxBqJbn63T4RQumUkhzb5Ev1LaBy9TCLperIYpbmj
-         ozYA==
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:cc:to:subject:sender:dkim-signature;
+        bh=0BTPBvK039AnEkyee49DTR/W0gTqbk2ghLi/CSvYRTo=;
+        b=0AsEYmaToiTymHXPcc2ydCwpllMm7q/heaZH3qHJaZaicBrp8lTDNs3OS1TUv0kxdT
+         BD9CciMm7yYUlY1Y71zWsdKpHuYJ2zr+IUF8HlPKrj2eVEeULsi/XHiEkDklvWRgpSKs
+         3ANzyXPaGWVnubGLS8X/4nSkdXHs2dGttYgx/h9Rc7xNvl/mkwRgnfw0AieYvuVz0Yv+
+         R85yVZqBLXdfHOvDGeVcQZff/nyLlAR4UyWvpb+j8aGXhMIm8Mhffcj3Dp5hrxYzk1cg
+         kG1lkDwRIsPSUIdXTp4bv7QmdARDr5d/YuN4ISmIATzp3mAioDe40RZ+/P7xILie6Djm
+         GsIw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=kJIX2uGO;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.207 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=github.com
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=date:from:to:message-id:subject:mime-version:x-original-sender
-         :x-original-authentication-results:reply-to:precedence:mailing-list
-         :list-id:list-post:list-help:list-archive:list-subscribe
-         :list-unsubscribe;
-        bh=HHuhxzSBjIHwyHQ6BozEiSkV598dIwHREOMK5w3kCxY=;
-        b=DUVQTKpz1U6Z0EYQUN2Bz/+nsOja0E9l5ZIu1tDwsTDf2HbnCLDH5NHSBP0tFst7Pz
-         uWKWkLIKuIoagSEgx0mTkDyA/wjbsPwWxA6CBHN/LtHk2F49oRBsjAfGoaGS8V4wbGZI
-         bHeS0eL7ah6VJejuFvC5dZy0h1dRsJgzXtjsyrUfQnx+IqkXrl5t1Qyit5l5wsssP5Ad
-         al6STHit6josFqo9r9VzWFzJCxTvN7zGyJEVcE3lDOJThVNnjJpvmHzD5jK4eLzi3fYj
-         WFLc5n+CCzOdPhfihk2Xz5R4NmjLwYnLRG562RqgKAnwZXw5WFYB117EihtchqVBqR7Y
-         O/kg==
+        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=0BTPBvK039AnEkyee49DTR/W0gTqbk2ghLi/CSvYRTo=;
+        b=BgPlSyHcrayslvjl8iFaUTIEXVtIS57DqrEH+v6cxBA2LgDcnZxHfRy5fhsBpG6bXg
+         z0uaEI50iTCjjeZGeJnyoAl721rNJRs9PgUppFkGtC0Lb/qImYDeGQXGClk99rpRE9fU
+         tyoXbpzkXfcT2IwQzVLziTUO+MU2bMQHv8REIT3CUhz4hjRlmbrhrRc0XdfMeWX5sgVy
+         jz+8B/7j92p40yV56BroC5DWqQ2Zx2jTGbC4h7UhwX0kEDzMIMHAAHw0pZBkkMVbT27O
+         BT8what5rX9lqXwf9yianfc3+k2PZB4Amt/wNb7k2mhTJaaP7t5rMaoVGdfoqdqlZe1Z
+         NKwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:message-id:subject:mime-version
-         :x-original-sender:x-original-authentication-results:reply-to
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=HHuhxzSBjIHwyHQ6BozEiSkV598dIwHREOMK5w3kCxY=;
-        b=m8CxLhBJZly3hpDHhMVbuLRvKUX5ngiZyDR3R+YgkZEUDCMt1CYULNAGwpVw7nYlGY
-         3IIFS2OS3zC4KJbZu6aZLlAQPJIcdzxaVkWPSTTsUSZptI+SNzXo/7oISUaB4sOF9rSK
-         Wr6EYnV4594vYG4AkCpC6ciLvCtu5B0ThNAnPP8/f+5/VQj7qhILu3w9EM/im1MqWP2O
-         zIQLlt57EsHZ9ZUCQL6Q8Gm7PeMK8vxBjYGPQD9FVb38N5tGRoPrh6I84k7dLfR1O2lA
-         9AugUN7pClSAblq+kWbsMc4Y7G41AmS1Lu6pGFfi4/qukZfHaDbf3ENe33gNxQeJOrY3
-         6zTw==
-X-Gm-Message-State: AOAM5305zetkYusiLSyzQypGBKeOtSn3s7uKepHSisOEgKPsOfAGjeSB
-	bH8vQmhJjruqPDQoJ+D/JOs=
-X-Google-Smtp-Source: ABdhPJy05ytgWKv/COiAOGQqAbHkOYX7KtN6HAYWHPV6tDTceV884ggf6Twjv3nX80uFcZSZN64Nsw==
-X-Received: by 2002:ac8:4d05:: with SMTP id w5mr44522468qtv.339.1600676365732;
-        Mon, 21 Sep 2020 01:19:25 -0700 (PDT)
+        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=0BTPBvK039AnEkyee49DTR/W0gTqbk2ghLi/CSvYRTo=;
+        b=ShuzOgRo7VCALebxiFuySn4sAehTAl6t0kBbIhkl3WKRhpvFbUo1fHj6niGDCqgqw5
+         7bzi4bYa6D3sI5b9rptrANbAKkqLMEP1S4JNjRxIqiQl6H/FakqqXyyYgXSLYUg2Ba3y
+         d2Brr/LbBuxls6cJVZXmNVsUOdk0GyTj4Y6mLXeDgalYOAJR0QjIvZfrTsuiHAEZgIsa
+         9ZpYMBb1NK/dnPv/yI/EfojA7L0j1h7BubvJxlVpiIn8M+rY++M5AOyiaxiyCVIEpiRV
+         KZPJIkUP7uFmFpFbwc9vJFZdgQf2QfRVD60jb2Y0+IF9nDTi8ApbUWa6k5KTRIHsPJrO
+         8P/g==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: AOAM5315z3dhaJQB/uZqoIVN2YUz3F5EM5cVRfzoXVKQTwuwldM6BzZv
+	dEyNBQY0H5UNXForyREgZmg=
+X-Google-Smtp-Source: ABdhPJwEJlFFjRpFdDYwwaKadNOg54IFwu/RYKQCLlNB1gm8TrZJFsle3ecKOhmR3vW/U9uYoIaBEg==
+X-Received: by 2002:adf:8342:: with SMTP id 60mr55920290wrd.158.1600676585807;
+        Mon, 21 Sep 2020 01:23:05 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ad4:42b3:: with SMTP id e19ls3073292qvr.11.gmail; Mon, 21
- Sep 2020 01:19:25 -0700 (PDT)
-X-Received: by 2002:a0c:aa5c:: with SMTP id e28mr29178379qvb.34.1600676365211;
-        Mon, 21 Sep 2020 01:19:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1600676365; cv=none;
+Received: by 2002:a5d:428e:: with SMTP id k14ls192468wrq.0.gmail; Mon, 21 Sep
+ 2020 01:23:04 -0700 (PDT)
+X-Received: by 2002:adf:c3cc:: with SMTP id d12mr52242479wrg.399.1600676584782;
+        Mon, 21 Sep 2020 01:23:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1600676584; cv=none;
         d=google.com; s=arc-20160816;
-        b=FNsd6LbYGIRQUMaIs2YTgoStGWfG39sp2+/Xbo9ne25m7+1EOjVNH0m4GbiU2lxEy5
-         hq5qUO9x7+enPojVTP1QbU/kh1VQmXmc8bkNjylayKceaOF1YZM8HkBSlb0HS/lkBU+4
-         q34ipzkH8iXe2tFf5LcBBK3BjpkpWb7plWoIPaKBpmAFpsS4qlhaC+2ekW79SwBL6Dc1
-         5XUY2ourvtzgyaGl+QpltKlYVNSFCDrJJK9IuTosXtkptpEyGGs2HWCtQBh6EzP8DH3r
-         Nbj0vz+ILYQpN3i5JH/hnRyOcsyc/oMZ0Wky4jcFriMXMsb9GLeePD4HxEvmsh2vCRhH
-         ZXJg==
+        b=QP4JNqEZoDy33aMkotb3LGhLGa8BYqUi5osjCFpfvrJJfjOmHabcGMEHxYnya9ZhID
+         cwm1kQwRLGmXrSVZKDORLerH6CpocqKryxiASX2Psd7FPjdGhIYy0g+SI1AqI0FIqgAt
+         xbWlYLu8XkW7fuf8Nxe4H/fVG1h9RncY38qdugHnf9nvKcBe8gNYeTNY7iDFTjtloMzp
+         7bC4JjJyryF5B8d9Y6HhvZPIkKssdVftkpxz6bmXTdIHxTYVbFnyNyF76mLjj2kp7zML
+         xruFMbGJ8VZi3qsqTzC61+wmk7dwKKITS1e6vsRznUd7nLfNkFz5TLMUrZ7qABnh7zLp
+         9uMQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:subject:message-id:to:from
-         :date:dkim-signature;
-        bh=WcNct+5101QL8swDVrLiT+qA2HjU8MGkCyPjClnDPR8=;
-        b=Fl2TASNyns5lnE2Y+buy9MM2qMDG6OY9hmD8nCla0M5lQSITynPJJLUJ9+EnaQO3RL
-         2DWl3Lg2pgDACU8FJMEgtcSQCa22gai40+sgOr/rA6QC89KGqEAMLZqcjYDXelV247Pu
-         YYicTV6U4VAD4WodIn2/Nf3C34rjvCbrvQCdAXylK/uQEjZ3IpX5QzH0gZYDeod0ZM4q
-         Q89YK+qv8yxmamop+lnomMy67CdW9SllKFHuT8wRBYnB2QrFMyhLify55nQWgS218j0m
-         mxkkdBLw397ukAaaXurIGrUnVJJKdBsozBXEFSiOqTBZtAqshdREeAAMmuRUGwm7iHlp
-         njCA==
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:cc:to:subject;
+        bh=NdEMl2gJphsRZV2KqspKo+6AXsAtDLag+BliDKTMYjA=;
+        b=Ix2eFKQvI3uic6yKbH4lUJRu5J3k6rI6dMFcml/t7vkNuS+oVZC8BRgin9KYXEudHo
+         Zi2p/5xI7kwMbhxUC8vLFizx9Uj3gFc7hhAFDdtFFucc5NCuKJGF7/q21SMsayDbBTeY
+         wMleKoM85uHhfiZ6/IFKLMozTAEJNqMY+M6TakFf0r1LRUQgOPuJK/P05uFu57C8XR1h
+         1SCZ9ZumyQkpJuH6kZV1eCQdjTmkPpouEMyXZ55UEZHb0VHSHAohUEJrl9ty7RXAEnzo
+         E0Bou0hlKdr8OiTsOolphBnpeiqrdwsBtcVvej4gVSRWJbDCYCFNZk4Ow3j27+XSGDTR
+         9HzA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=kJIX2uGO;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.207 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=github.com
-Received: from out-24.smtp.github.com (out-24.smtp.github.com. [192.30.252.207])
-        by gmr-mx.google.com with ESMTPS id a27si600955qtw.4.2020.09.21.01.19.25
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
+        by gmr-mx.google.com with ESMTPS id z11si306705wrp.4.2020.09.21.01.23.04
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Mon, 21 Sep 2020 01:19:25 -0700 (PDT)
-Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.207 as permitted sender) client-ip=192.30.252.207;
-Received: from github-lowworker-39b4a70.va3-iad.github.net (github-lowworker-39b4a70.va3-iad.github.net [10.48.16.66])
-	by smtp.github.com (Postfix) with ESMTP id 0FCDE60002C
-	for <jailhouse-dev@googlegroups.com>; Mon, 21 Sep 2020 01:19:25 -0700 (PDT)
-Date: Mon, 21 Sep 2020 01:19:24 -0700
-From: "'Jan Kiszka' via Jailhouse" <jailhouse-dev@googlegroups.com>
-To: jailhouse-dev@googlegroups.com
-Message-ID: <siemens/jailhouse/push/refs/heads/next/756216-4ae810@github.com>
-Subject: [siemens/jailhouse] b2628e: arm64: Make sure SMC and HVC calls don't
- have side...
-Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
-X-Auto-Response-Suppress: All
-X-Original-Sender: noreply@github.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
- mode) header.i=@github.com header.s=pf2014 header.b=kJIX2uGO;       spf=pass
- (google.com: domain of noreply@github.com designates 192.30.252.207 as
- permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass
- (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=github.com
-X-Original-From: Jan Kiszka <noreply@github.com>
-Reply-To: Jan Kiszka <noreply@github.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 21 Sep 2020 01:23:04 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 08L8N4nl023525
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 21 Sep 2020 10:23:04 +0200
+Received: from [167.87.4.147] ([167.87.4.147])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 08L8N2S2029927;
+	Mon, 21 Sep 2020 10:23:03 +0200
+Subject: Re: [PATCH V2 1/2] arch64: Make sure SMC and HVC calls don't have
+ side effects
+To: Oliver Schwartz <Oliver.Schwartz@gmx.de>,
+        Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Cc: Jailhouse <jailhouse-dev@googlegroups.com>
+References: <C9905595-F658-4431-AF1D-F9ECDD38A20C@gmx.de>
+ <9f124890-9d6f-0fe1-65b9-4a9f5185ed1e@siemens.com>
+ <7ecaf35b-6669-143d-60fb-f7b63fb27d28@oth-regensburg.de>
+ <EADE8BFE-2CA2-4942-80CA-CB40FDEEB71C@gmx.de>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <7fc7e7ce-4bb5-8a9d-7299-63d85db3d256@siemens.com>
+Date: Mon, 21 Sep 2020 10:23:02 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
+MIME-Version: 1.0
+In-Reply-To: <EADE8BFE-2CA2-4942-80CA-CB40FDEEB71C@gmx.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -126,75 +139,88 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-  Branch: refs/heads/next
-  Home:   https://github.com/siemens/jailhouse
-  Commit: b2628eb1b05b04caa100f1d00fd13ff96784e6f3
-      https://github.com/siemens/jailhouse/commit/b2628eb1b05b04caa100f1d00fd13ff96784e6f3
-  Author: Oliver Schwartz <Oliver.Schwartz@gmx.de>
-  Date:   2020-09-21 (Mon, 21 Sep 2020)
+On 17.09.20 20:14, Oliver Schwartz wrote:
+>=20
+>=20
+>> On 17 Sep 2020, at 18:21, Ralf Ramsauer=20
+>> <ralf.ramsauer@oth-regensburg.de=20
+>> <mailto:ralf.ramsauer@oth-regensburg.de>> wrote:
+>>
+>>
+>> On 9/17/20 8:26 AM, Jan Kiszka wrote:
+>>> Subject tag should be "arm64". And the patch should go over next first.
+>>> I can fix up both.
+>>>
+>>> On 16.09.20 15:07, Oliver Schwartz wrote:
+>>>> SMC/HVC calls may modify registers x0 to x3. To make sure the compiler
+>>>> doesn't assume input registers to be constant, also mark these registe=
+rs
+>>>> as output when used as input.
+>>>>
+>>>> Signed-off-by: Oliver Schwartz <Oliver.Schwartz@gmx.de=20
+>>>> <mailto:Oliver.Schwartz@gmx.de>>
+>>>> ---
+>>>> hypervisor/arch/arm64/include/asm/smc.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+| 13 ++++++-------
+>>>> include/arch/arm64/asm/jailhouse_hypercall.h | 20 +++++++++++---------
+>>>> 2 files changed, 17 insertions(+), 16 deletions(-)
+>>>>
+>>>> diff --git a/hypervisor/arch/arm64/include/asm/smc.h
+>>>> b/hypervisor/arch/arm64/include/asm/smc.h
+>>>> index 1a5d5c8..c80fe15 100644
+>>>> --- a/hypervisor/arch/arm64/include/asm/smc.h
+>>>> +++ b/hypervisor/arch/arm64/include/asm/smc.h
+>>>> @@ -28,8 +28,8 @@ static inline long smc_arg1(unsigned long id,
+>>>> unsigned long par1)
+>>>> register unsigned long __par1 asm("r1") =3D par1;
+>>>> asm volatile ("smc #0\n\t"
+>>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : "=3Dr" (__id)
+>>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : "r"(__id), "r"(__par1)
+>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : "+r" (__id), "+r"(__par1=
+)
+>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 :
+>>>> : "memory", "x2", "x3");
+>>>>
+>>>
+>>> For SMCCC, I'm considering to align fully with Linux, i.e. convert the
+>>> remaining register clobberings into early ones, but I also have no
+>>> strong argument for it.
+>>>
+>>> Ralf, thoughts?
+>>
+>> Just had a look at Linux's implementation. And now I recall why I didn't
+>> c&p it from Linux: it's an unreadable macro hell [1] that would benefit
+>> from being open-coded. But trying to follow Linux's __constraint macro,
+>> shouldn't we protect r2 and r3 as well?
+>>
+>> Linux would unroll __constraint_read_1 and __constraint_write_1, and
+>> __constraint_read_1 would protect r2 and r3 as well. We protect x2 and
+>> x3 via the clobber list -- is that enough?
+>=20
+> I=E2=80=99m by no means an expert on arm assembler. However, I=E2=80=99m =
+quite positive=20
+> that there are no physical registers r2 and r3 that can be protected in=
+=20
+> arm64. These are just placeholders that are translated by the compiler=20
+> to x2 and x3. So protecting r2/r3 as dummy arguments or x2/x3 via=20
+> clobber list is in effect the same, just more explicit.
+>=20
 
-  Changed paths:
-    M hypervisor/arch/arm64/include/asm/smc.h
-    M include/arch/arm64/asm/jailhouse_hypercall.h
+I've merged both patches to next now using your pattern. I applied some=20
+massaging though. Please have a look at the result.
 
-  Log Message:
-  -----------
-  arm64: Make sure SMC and HVC calls don't have side effects
+Some consolidation patch for the hypercalls will also follow.
 
-SMC/HVC calls may modify registers x0 to x3. To make sure the compiler
-doesn't assume input registers to be constant, also mark these registers
-as output when used as input.
+Jan
 
-Signed-off-by: Oliver Schwartz <Oliver.Schwartz@gmx.de>
-[Jan: rebased on next, aligned smc to smc_arg1, style]
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+--=20
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+Corporate Competence Center Embedded Linux
 
-
-  Commit: fb9c40c5bbd81aefa0ac1f7d6e4495023026f096
-      https://github.com/siemens/jailhouse/commit/fb9c40c5bbd81aefa0ac1f7d6e4495023026f096
-  Author: Oliver Schwartz <Oliver.Schwartz@gmx.de>
-  Date:   2020-09-21 (Mon, 21 Sep 2020)
-
-  Changed paths:
-    M hypervisor/arch/arm/include/asm/smc.h
-    M include/arch/arm/asm/jailhouse_hypercall.h
-
-  Log Message:
-  -----------
-  arm: Make sure SMC and HVC calls don't have side effects
-
-SMC/HVC calls may modify registers r0 to r3. To make sure the compiler
-doesn't assume input registers to be constant, also mark these registers
-as output when used as input.
-
-Signed-off-by: Oliver Schwartz <Oliver.Schwartz@gmx.de>
-[Jan: rebased on next, style]
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 4ae810e978a14d7db141c35f14303fdacc8885a2
-      https://github.com/siemens/jailhouse/commit/4ae810e978a14d7db141c35f14303fdacc8885a2
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2020-09-21 (Mon, 21 Sep 2020)
-
-  Changed paths:
-    M include/arch/arm-common/asm/jailhouse_hypercall.h
-    M include/arch/arm/asm/jailhouse_hypercall.h
-    M include/arch/arm64/asm/jailhouse_hypercall.h
-
-  Log Message:
-  -----------
-  arm/arm64: Factor out common hypercall stubs
-
-Just the argument types differ. Factoring that out allows to move all
-stub definitions to the common header.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-Compare: https://github.com/siemens/jailhouse/compare/756216b9d1e1...4ae810e978a1
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/next/756216-4ae810%40github.com.
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/7fc7e7ce-4bb5-8a9d-7299-63d85db3d256%40siemens.com.
