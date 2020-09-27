@@ -1,178 +1,174 @@
-Return-Path: <jailhouse-dev+bncBDAMFR7JZAEBBMGOX75QKGQED6XQAOY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDEN32754MOBB65VYH5QKGQEPV2TATA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43d.google.com (mail-wr1-x43d.google.com [IPv6:2a00:1450:4864:20::43d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4309A279D48
-	for <lists+jailhouse-dev@lfdr.de>; Sun, 27 Sep 2020 03:13:21 +0200 (CEST)
-Received: by mail-wr1-x43d.google.com with SMTP id i10sf2946340wrq.5
-        for <lists+jailhouse-dev@lfdr.de>; Sat, 26 Sep 2020 18:13:21 -0700 (PDT)
-ARC-Seal: i=3; a=rsa-sha256; t=1601169201; cv=pass;
+Received: from mail-lf1-x13d.google.com (mail-lf1-x13d.google.com [IPv6:2a00:1450:4864:20::13d])
+	by mail.lfdr.de (Postfix) with ESMTPS id AA13727A025
+	for <lists+jailhouse-dev@lfdr.de>; Sun, 27 Sep 2020 11:27:24 +0200 (CEST)
+Received: by mail-lf1-x13d.google.com with SMTP id u11sf1043733lfk.22
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 27 Sep 2020 02:27:24 -0700 (PDT)
+ARC-Seal: i=3; a=rsa-sha256; t=1601198844; cv=pass;
         d=google.com; s=arc-20160816;
-        b=EU8zlpTtwvqqvifF6uViBnwPVbCI2mLueB2eaz99IUYdivTK/zueZOwibGMRx2i4hB
-         N2mEQtcypLKuENtSFqIeAbJHyTp1dXvd/OggCSw+jrM4pyYhpkOjCeRcvlOHFxemk1dV
-         yw+2DbMcVMLdM8bm9I2j69ENENEfEjjURsLHCn8GhlExQsli1Bu+fKL7A/7EICaoxdQj
-         YGtzBwb135jKWxApX01sUjFY1v9ST/0xu8AmPAMstzFPB6DGPMENkGpyCMxcepE0RpMb
-         zdBbVHSwXkdjUEObujd/IfXUIqFsW1MFZQpT1Nhd+Stmm2Pftal7AnoSDSqnkOvLIesl
-         w5KQ==
+        b=cP3c1kp8R8mymgrgge/ELQUoy4X8xyj2wuyAGtAfjABj99MtD4duCu+NNOGR/EyxVI
+         0YORxaayqJJwWDABpODonmlaUTdKjV2nhWyGIx7JZtFn6eTQdKKmRwmuvN4ajMtySrLl
+         ut1puMw3OdacGcmpMdVACrjZ42z8Z9bL4F7gAJQ6Kh2xmckP2MgvLpuZnYDejVOsTWWV
+         ZdKT+dwjHo/N6ZB+Pf9K0R4A6ka1N522d69q3qp4GKRJiwdYpXvRZKcdW+rzJ0CTwHrF
+         blDYlJC+BFZ8HqO/KWJ+DWkx6v6gKe7E2TxhDCOLseJQdnAxXhG1Z/5mkbDQZtKJwJxv
+         Xrjw==
 ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version
          :content-transfer-encoding:content-language:accept-language
          :in-reply-to:references:message-id:date:thread-index:thread-topic
-         :subject:to:from:sender:dkim-signature;
-        bh=QsJSjVJpZP99wdMiP2Wmrh3l1wUj18x4k8oZWUGCUEw=;
-        b=swdhs/1smwGR17b+9SCqQB9DsiPjb+PdqbL8IyNZhzj7B0Wu7y82TfL8CeJ7WSh0r3
-         HcHr/f9XtllBCv+Twi8boROBgVqrqx0E6jyUbdVdXLybvVwepBqds9zR8+E/egCw739V
-         m8kb9AJbpUZ4cvax2ghCmOBoefLpDPHJ/Z0PRC01K83IF+Ix1za8IgWN52tYkwe+NSL3
-         uq+vIL+74wQqNivJidQ2aHUGOzO204oSGB+d0ByDMTpBUHMhdHBTW3TMwwnpUctOOATO
-         vg/gQ1cuZfKU6E4mprVxLGe2G+gSHRCXXWr1vXAzQrwsTOd6Cl8FcR0DIFQxlPNAYCLT
-         rAwg==
+         :subject:cc:to:from:sender:dkim-signature;
+        bh=1YZYCSkSiKJ0zItkOIQ7kWpXlRNO6evy1ApXxd53HoA=;
+        b=Tx9FlETyrJg/DT+QVbXNbVGilgbpY5M/8DG96QcZkW5zG29UDd3J3kk+qUd3Ccrmsi
+         fQB4EFG5LjteCqFunxtXFyLko4h3FCfOuR2U7psEXdRgiUUaUUKVuUANH2KGoYAf21nl
+         6H1GRZa7SsLlTJ97CXF6UgWKp55IMwbPjrmNvlYRE0skJWakjcAo4W6xwak6jqhGQOxu
+         gkRKrXtxc7hfdndP1skeuGKWgsVYZNW23+nCOk+ywAuGL9nvGZtuA+d7GCcdg1AizA7+
+         O/ZBm7UC19tK+fGFxH8rCcRqLjOo+xALc0WVTng+zjgaVKOMM3KsdHSg6nX1fb7rutpT
+         6tSA==
 ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@nxp.com header.s=selector2 header.b=Qu8SSGtk;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=BoYi+E79;
        arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
-       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.6.43 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       spf=pass (google.com: domain of alice.guo@nxp.com designates 40.107.2.76 as permitted sender) smtp.mailfrom=alice.guo@nxp.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:subject:thread-topic:thread-index:date:message-id
+        h=sender:from:to:cc:subject:thread-topic:thread-index:date:message-id
          :references:in-reply-to:accept-language:content-language
          :content-transfer-encoding:mime-version:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=QsJSjVJpZP99wdMiP2Wmrh3l1wUj18x4k8oZWUGCUEw=;
-        b=P6NdII1lFl6oNU25TRJP0pIP/oNyJe6pnYPMtoWdntC2P+ZLJpCen8uF21LJUzAQbP
-         h4sQaTSk+MS3X4HYAe5ka3EU4svOf+JDRnoTOI16l66BRtNm5TSzM5/jSK8nZWy7OycQ
-         98xirGaIWztEeqLqJdnqQazkceG+thDdQ++YVG4SSkzX29M+zjoWHTGGlJEnDjMdL2NG
-         8WyFerQWZ95/aVQAxD76pajQK35bDsTnqhne3SBlen0ksz6W6YQ6Kh2KEox4ps0Fztfg
-         2ZagpIEYS19mcGOnp4EkDUtdA4iH6kqPwe8aDszaDZ4MXKRuxn80Pg75V1rp+mRJtuxT
-         UVlQ==
+        bh=1YZYCSkSiKJ0zItkOIQ7kWpXlRNO6evy1ApXxd53HoA=;
+        b=HyGppXSUjLyn3Qthhc6Jl64EmweV3vVU8wce26T+XKF5vuf6ys9klKwhjIjEqR7Myf
+         R96+H33kQ/HoiwKhiZHVF886dq5wfzKMunL4EThm3JL15bT+5iqlASHUbkhzaVy4NoOR
+         /pK/WgWoVRCqgtiM9I3AKz93ayjUTLGbxB6sbXckNir2ita3WVxj5RF/QlA4eAlDRskA
+         Bb88e0yb8w2kwdbNeI16XcQ+FMYGlF+P/DLNFVKqJQswk9GBeoJWJ1KGUwoRz7QnD/8F
+         yMw5buM6kpysI/SBjzk2Y2Z2ZmG4BsiwhVMqAZh3HQGE2L6pZh1YH4T2ujEDdLxLbMPG
+         qWVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:subject:thread-topic:thread-index
-         :date:message-id:references:in-reply-to:accept-language
+        h=sender:x-gm-message-state:from:to:cc:subject:thread-topic
+         :thread-index:date:message-id:references:in-reply-to:accept-language
          :content-language:content-transfer-encoding:mime-version
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=QsJSjVJpZP99wdMiP2Wmrh3l1wUj18x4k8oZWUGCUEw=;
-        b=h+MS5rLtdgTpZF3aseX/iPJbrY/R2XEvPyxaZncZZlgerY5yo19UX5cKQ3YL0laJmE
-         ljz5Htn8iZF3mlXEya7z2Ro5LCujTe0s5AVvPKclcvgY5aCClZ8PWsSXve6KS9flEez3
-         +HtL9yCqH30kV08D3ltYz1WRtT+OdLWX9DKQhkDyUdu4CcTJhvrBg+vzztUt5aEP8vqP
-         kwlPUzNS4NA/LHH2KHrN75e34F9z1qxkygNgqXVsL/CRHwxXFVFtvPDiZKIrgbQ7Cacg
-         gzx4xKaW0bn8rZm10Kx5i2mQJEBjMLhEomfM/pn0bS0Tu54zG+BGJ39D14Qlitmzpju3
-         TiIQ==
+        bh=1YZYCSkSiKJ0zItkOIQ7kWpXlRNO6evy1ApXxd53HoA=;
+        b=mBwxRCODF8mCgLuooK2OpIVd1EO1WisAESl3lhVzjZEM2H0xwXtdF737UWS0zeZaYc
+         VFniR+r5VrAfdZJrvO1FwhsgAbKRMQGOgRzG9c403XPdS8UiqGflsCn69C8UMJV3fLZK
+         9ND7XrcE98NkiRVLOvRj7R8vr00eeuE3SExuw1CX2ZpvI8C85XvzlRfe+uuVykVJ4hlp
+         OEY/p4kCedPpWJgjLbEGdNCJ+9Gv6ROLcUgYZWE/lB3a1RhsG0JLDEEb61QyYqFaDUTw
+         5sDFGrwEZ9kwxK1VB4mjQIvKxjdsH7cbm4YMrVSuqa3YFSlF5CtxFtOKmmSibp4Fdu5p
+         pdQQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533RsNpKx5f2j6itVU2/SmoGz1a4PaIWlmtEQO4YXB3EsfV26Njt
-	Bw4t6qRe0jgZDzg9OdmLN2w=
-X-Google-Smtp-Source: ABdhPJwW5swyyzhLI8XwP2C9Z5JHHGB7UAf4VwDMKxRlVBkMqeLQ4LalH8pJHLFRsfDsqeDhs8ZEUg==
-X-Received: by 2002:a05:6000:100c:: with SMTP id a12mr12319957wrx.115.1601169201047;
-        Sat, 26 Sep 2020 18:13:21 -0700 (PDT)
+X-Gm-Message-State: AOAM5322S0FDrRnMzDvDr2M6K6qMhWwZERw5LhQriRbaioYrGB3cjkB5
+	UcL9TIQjHYkYsI55hzgjRfo=
+X-Google-Smtp-Source: ABdhPJzv3Fnjc/q5GrsyP2KWLD61/E7n3TjR0ra6HE0uP5Fq7L70GRSprs4F2wWOGrxmV1jaN9CHwg==
+X-Received: by 2002:a2e:b0fc:: with SMTP id h28mr3812923ljl.114.1601198844114;
+        Sun, 27 Sep 2020 02:27:24 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:80d7:: with SMTP id b206ls1346915wmd.1.canary-gmail;
- Sat, 26 Sep 2020 18:13:20 -0700 (PDT)
-X-Received: by 2002:a1c:31c6:: with SMTP id x189mr4941477wmx.83.1601169200031;
-        Sat, 26 Sep 2020 18:13:20 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1601169200; cv=pass;
+Received: by 2002:a2e:9bc6:: with SMTP id w6ls308837ljj.0.gmail; Sun, 27 Sep
+ 2020 02:27:22 -0700 (PDT)
+X-Received: by 2002:a2e:87c7:: with SMTP id v7mr3862734ljj.13.1601198842728;
+        Sun, 27 Sep 2020 02:27:22 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1601198842; cv=pass;
         d=google.com; s=arc-20160816;
-        b=hqDUhX4KeqgjRSJoSGpURy/rnJNctb1ODWV7Rf5jYYgInM43YtiB/3N4/mCyfgeyNd
-         EOnU3L+e7Hc2V+z22n1VJFOZp1rP2Djw0E3SuqNEaNDWN+L2qtG6BBVzvsfIGCR4sVCG
-         rRaUdq9AF2Y6wsSo7U5ipwXD0HxtT+BjTrsenRTovPpKwK7jMarMEHxZBgOc2hfLAdQO
-         oA7DL0kdQ0asGXmyUixeYfDRWFP9kP7jAVtHEhXUs9nVKdDCDrT5ZxQluifEiB37xX+w
-         83RUicfGJL9f3mYUIijudBFnZ9AJXj7/qBDzDA9oIkXP+zTDGa+rPyjDm6wrYgeaSy0V
-         USXQ==
+        b=NfMdM64TAhhYxv7jjwbBBiTL9JThZWIbrJyngV8cJdoBy1Ub3ofQcLXd2A1A7N0UkF
+         dWMiaB8kjoHwtvTY+DBYpbhmpLKAvfcccD1bN1TxzCe2evTe4gxArWapV51ttauf/gH7
+         TKDWDqDcB9mRNJieLIkYevbLOr5lFS803Ltnntnkbe0bI7hBkxrOGslMVuwx1onB5G4z
+         On0GZ02G4VSLz59yV6dcZ7tyysqnJ0xDZftTTubstmfQ0wiJ2Rm3mFHS0Q5kNG3BkrIB
+         nZbNbdvWZzFS4+b8zHiDhulzat1aLZaQ3a0UDBTC0bqHdPaN959kiSvllgEZhXL7DA21
+         BroQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=mime-version:content-transfer-encoding:content-language
          :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:to:from:dkim-signature;
-        bh=FAz+bwMVztP2kyPsS0VB8MY0gxl/17MwUDLzsT3jgKY=;
-        b=giMMFWfoXXqpaWbqv6eIQlwZQbe6uJAKeixhhCCr2guam3dF4LaTBUrELu49jJ299v
-         WsjS6T18LTghzRiU2Z0DruqEZsasmuyVsjccMKJB3/UUinbHL5QwyUoI2UdaS4jyRCHo
-         tgeUG9Qf8mViwl1qESgo8+ToZQOB16CBDOwrSM5g4Bf+0Lc8WEsusJMr1Kt6MT15DIF+
-         /Vq1g7HPyYuEZc1scJ3d7nN+5rRS0zMfERoV8j0Ee1FBOn9Qq9ZAEVe3jO7pTItezyo9
-         cMMJBu7oiSMsVpaPH9wS5ym0LTy/kFrPivXyBCSNfgD5F9Ohj9sny7OlK1+TyD6TsvdM
-         ihUw==
+         :thread-topic:subject:cc:to:from:dkim-signature;
+        bh=N12Z9cVS+w7ZWnrBTtAQ4Ck4l9Ss2Xu0zoT4/RZZPMI=;
+        b=K92fM7bPwCFGwMZfxVkr0+fW6Tkgkw1RX83pWyvw7QT/xdyiCwyXtrueh2bvUIkeK6
+         a/zk9pARaA0Cuw0CehemJZ+7co47Bu/uRKAOaoTkv0u9DGjLuYyYJzGkqrLUJrMZZBBI
+         J9mz+TDU4i7FJyvu41ARq/UrnjTGfgXgRWocicAfLxBrOPRgBRq9e+PM3eAbriP0F/7Q
+         o5dFly+vhpW2juQaREUF8bb+mDdhr86Q/690WS0dZiRIvRxeeEW84+SFlweGm0EFgUGn
+         Le4DrV1jFl9o1btI4QEPlDKLBSVVFGCs2UwG94tV96YrWNFXyOwXECZcMS34Oi/ovPhh
+         SLWQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@nxp.com header.s=selector2 header.b=Qu8SSGtk;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=BoYi+E79;
        arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
-       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.6.43 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       spf=pass (google.com: domain of alice.guo@nxp.com designates 40.107.2.76 as permitted sender) smtp.mailfrom=alice.guo@nxp.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com (mail-eopbgr60043.outbound.protection.outlook.com. [40.107.6.43])
-        by gmr-mx.google.com with ESMTPS id s79si78603wme.2.2020.09.26.18.13.19
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com (mail-eopbgr20076.outbound.protection.outlook.com. [40.107.2.76])
+        by gmr-mx.google.com with ESMTPS id r16si83177ljg.1.2020.09.27.02.27.22
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Sat, 26 Sep 2020 18:13:20 -0700 (PDT)
-Received-SPF: pass (google.com: domain of peng.fan@nxp.com designates 40.107.6.43 as permitted sender) client-ip=40.107.6.43;
+        Sun, 27 Sep 2020 02:27:22 -0700 (PDT)
+Received-SPF: pass (google.com: domain of alice.guo@nxp.com designates 40.107.2.76 as permitted sender) client-ip=40.107.2.76;
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LEoW6piA4xMQBLY1/JgS1d5qOxh8poc5xkadwKdAnDiaw1EVQXWKBQhMZ3BtBF+yXLWAplVDXcAwGj/xFzSw748bpwV1S+JVO1QIJcHp1jV/GnqpWjx2tWSam/OLejTrRKIIFjtZ9dMuITfwrvxiV4ixspVzmU3sLEZ77kNJ5ct0BdVQCP1R6wVHugtBdXK31itavzcMot/wQB0t013WUz2INtNk1BhAFni2hZrsMUfS3nzIFXsKZaKhoak+jMI8qFcAZmzGIktfJCw1Vru/eN+cujIbcyin4bTbbLVUcO5AHClLlWxFc5Y5GBdyBS9edJ5DK9/Dslnh/B88mqhFLw==
+ b=h87XToNFyVO7s3UzdiH6IuOryYr62NA1qdtIRYWmAM7PQQ+h8HcVpkZW/9kklsMUoae+667NZ3RmfUPWyz7eEkfROW2ANUHRRStx0ZVA5Z56plG09qUWQ0J7eMIlApteBkx9q4Jz8mJF1AXgezysQDIUUz4ZJL8ZF2faeZ71F/qW/YtXCGvxgyG9Tdlwf0X/uplXqvrZFQykFP1AohavxOVzyqhuNkONkyi0+FKJhKa3w9OxyOXCuAq+JphJ5Wxh6bINKHuDq+3rb8RLO/UC6ImwUExOorzHhX6XftJBDrHjTtYm0UNOuh5WnJ/tFthqeUCDizQ8CfYAjDZHeYq2Uw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FAz+bwMVztP2kyPsS0VB8MY0gxl/17MwUDLzsT3jgKY=;
- b=OiLf3Hcwg/ovlworG4cjrzkKg7tQg1hCiQv9bgdO+o2Ks5eXm9atjtxUj0rgcbguHSnRjChfp5mgV4t3R1zu1uASTLhoTYoIz7mOU5+vZlIlsNWk7FCkbxCnP737MOK5xiezyV/xXUvtCU3jQi3K9W7v6fa3zOeR6znYwr8G/+PyBGyZlDbywWk2EZ8NzyAex/lCFCNs8WQ7tsVy4S/3BG2B136ZAw7MXjRXfXMA16VABEfwI5ggwV0FweYzkJvC8YfSc9315kd6aXkxwPdEKwf59vBL4VnPvqA5UVmWIJqjdVUCHp19j/KQugw+0sFcUDjeXyjzGhYH72yyNdB3mA==
+ bh=N12Z9cVS+w7ZWnrBTtAQ4Ck4l9Ss2Xu0zoT4/RZZPMI=;
+ b=JY2F+CRCVy2MAp0aYda8dv2lnklR+CWQM2AdPEqSf/JnG17txjWXGY2tObgGyt6jgLK5Jzg/8V7NuXOvy1JGRjcmGrFk+IN2sazTN6JYKOzJKu4VPYhHA/2eUKV4+XkN/V6ppSODfxssCFWR8MRUcJn7O28BdVo55kZlUmE7yh0/UUm09rzvnDBMqBxzAqmUfBDtyJvxSZFFYBzsP0XkqP6VJ1YO+VYQ6RpVYkgRXda5UHFFS4iEejgTkCGYcX6/swLXzC87Fh5IbViPwg0cdcWwlL4Yo8G2Vk4RRNAeBwyadIxJBywV+G5/JPCilwwRY/O9EEIiQ4XppuAEoHiqSQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
-Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com (2603:10a6:4:a1::14)
- by DB8PR04MB5660.eurprd04.prod.outlook.com (2603:10a6:10:a5::33) with
+Received: from DB8PR04MB7065.eurprd04.prod.outlook.com (2603:10a6:10:127::9)
+ by DB3PR0402MB3833.eurprd04.prod.outlook.com (2603:10a6:8:6::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.23; Sun, 27 Sep
- 2020 01:13:18 +0000
-Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com
- ([fe80::35c5:8c71:91f3:6bc6]) by DB6PR0402MB2760.eurprd04.prod.outlook.com
- ([fe80::35c5:8c71:91f3:6bc6%12]) with mapi id 15.20.3412.028; Sun, 27 Sep
- 2020 01:13:18 +0000
-From: Peng Fan <peng.fan@nxp.com>
-To: Jan Kiszka <jan.kiszka@siemens.com>, Alice Guo <alice.guo@nxp.com>,
-	"jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
-Subject: RE: [PATCH V5 5/5] configs: imx8qm: add configuration files
-Thread-Topic: [PATCH V5 5/5] configs: imx8qm: add configuration files
-Thread-Index: AQHWkKwNK0JWEvsu4kGyPQM5pp+tJal49wyAgAACHmCAAAgQgIAACeoAgAKpIPA=
-Date: Sun, 27 Sep 2020 01:13:18 +0000
-Message-ID: <DB6PR0402MB2760EF8A41AFC17F8571BB5B88340@DB6PR0402MB2760.eurprd04.prod.outlook.com>
-References: <20200922064542.26274-1-alice.guo@nxp.com>
- <20200922064542.26274-5-alice.guo@nxp.com>
- <2f0d667f-68ea-eacf-7b8b-61652bc0d2ce@siemens.com>
- <DB6PR0402MB2760ADEA2D5A37133E5A1D9388360@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <27f73d85-f64c-fa29-0524-1fa360c6385a@siemens.com>
- <88609d72-f571-ad84-78ed-28fcec0198e0@siemens.com>
-In-Reply-To: <88609d72-f571-ad84-78ed-28fcec0198e0@siemens.com>
-Accept-Language: en-US
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.20; Sun, 27 Sep
+ 2020 09:27:17 +0000
+Received: from DB8PR04MB7065.eurprd04.prod.outlook.com
+ ([fe80::ed87:8435:3012:9618]) by DB8PR04MB7065.eurprd04.prod.outlook.com
+ ([fe80::ed87:8435:3012:9618%8]) with mapi id 15.20.3412.028; Sun, 27 Sep 2020
+ 09:27:17 +0000
+From: Alice Guo <alice.guo@nxp.com>
+To: Jan Kiszka <jan.kiszka@siemens.com>, "jailhouse-dev@googlegroups.com"
+	<jailhouse-dev@googlegroups.com>
+CC: Peng Fan <peng.fan@nxp.com>
+Subject: RE: [EXT] [PATCH 0/8] arm64: SMMU500 cleanups
+Thread-Topic: [EXT] [PATCH 0/8] arm64: SMMU500 cleanups
+Thread-Index: AQHWkxjg4CGGRpDnC0mh7yRmq2E+7ql8NFfQ
+Date: Sun, 27 Sep 2020 09:27:17 +0000
+Message-ID: <DB8PR04MB70656B7EDD4163635048C7A2E2340@DB8PR04MB7065.eurprd04.prod.outlook.com>
+References: <cover.1601023807.git.jan.kiszka@siemens.com>
+In-Reply-To: <cover.1601023807.git.jan.kiszka@siemens.com>
+Accept-Language: zh-CN, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-originating-ip: [119.31.174.71]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: ec15b3a3-4761-4459-029c-08d86282848e
-x-ms-traffictypediagnostic: DB8PR04MB5660:
+x-ms-office365-filtering-correlation-id: 375b88fa-b441-4f29-5a8c-08d862c786da
+x-ms-traffictypediagnostic: DB3PR0402MB3833:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DB8PR04MB56603294DB48798AC7F5551188340@DB8PR04MB5660.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-microsoft-antispam-prvs: <DB3PR0402MB38334A48F61AABC9A20F60AEE2340@DB3PR0402MB3833.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6430;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: YFqjnf4oC1EVQvqMjvuWrMPZjmCSsy7oUUWzGmEUvuuJ9uB6H1d0r2hq6IPVAXxMskbimliuNKcku2c18Nop1lNqGV0iQZU3jEvZeSeECangShVY42Vl2gKc+8rq5UDQ2c8aU4gaVFpKkXCAXSbt/LCnrMzlhBPerH6PZRmYOBPCgdxoKVNyL8kmQKyXl+vyZxdgerWVVhri0IkJzuEaDi7UbdDq98EMuPKljm/xQ4e29Bw+p5tE2WBWeA0cDQxL0WklGtKNzm0cb02GCuyMTHPBXaoMT0aRn72rtkURAyVCVZvdS7K1i9Q/DxxVngbdsQRcOkYfUhbyfa+gRkc2J37sWPC8wnv7XmKckJ3ts33XIHXJAzjP6UtGivCNkZ2NhYetDxdS2LlJcRYBQgDdElf07l45BXgrACwGyo82tcc=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB6PR0402MB2760.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(346002)(376002)(136003)(39860400002)(396003)(83380400001)(316002)(186003)(7696005)(2906002)(66476007)(6506007)(44832011)(53546011)(66446008)(64756008)(66556008)(55016002)(110136005)(52536014)(8676002)(8936002)(33656002)(9686003)(86362001)(5660300002)(26005)(71200400001)(478600001)(76116006)(66946007)(32563001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata: 6jjKJl7aiWZK+KN768vIQuXKi8Z5gpdbmkgWAcOC4RB0/CTKleqe/1GvU5QKz93xlt23R2fOqXYTNleimXzG0A3ASnr41To8w8ZhIEU1TvfsxzMznMe/mwZi69PT4NHlOtTQ5gqs5LIV+IeHTX2IY9Fj0jJO6p/rU2pU5zwQTcILmiVkJnecWP1UITJZb4sGQhIFmfUAjlLTpvwdrdG6/siPepjaNwAZ03Ky4HkHPhDGAze9i13lOkr0Ozboo8W7e+EFgzqhZ8ywIcIvGkJurZ/6y4DGoAaW6Vhl+03yTGGnkaGCd7zylAFjcOFkhpy18s4ni5Ax04qV6j3ESt9bInpbtgjMj95vqjImkKVNOUw8eozDc9AopNAClssU2BY9Y+UGEoof7cNyAIPC5jWtCcR84cL9MIeRLn2ron+QA4mtzRvAL4FvKmCKyMgrqQHE6/D6ZZgPPPsKswIjSkxGR6gRPlVbuBjn6zJbdwzn+afPeYQQpQ7tXjE5mLhx8As50P4jrjAWRlyhkqOGs5NAMW12MiEo4iawqaLN2awM0bWoESOjds7YTZW/TTAcm1MRYc5tEEy6CcHqaOJVGFFmGVb42ubsTG3fI2HhBBfWr1yoUAj3E02A+TFoAgs4P4+j7VuSSjFO+7DeLPtcWwPpiQ==
+x-microsoft-antispam-message-info: DgoSlRYsSDvlw08wvWKz8uAN/7ces7hW7dVfZVEBHSRZN71Yo0poSbhLOyYeslJ+D4ndWOt5MA7ULK0ZeOk2rAgaCIBCgGGCDdTQqGx+kx2lAQCqycPWyxQswLgZdYLsdx8Fyjog6NQ8LZBDuHJTkqiPKz5ZJqGJ+ajJ011VSYY2cLs3QaWxKVtSBDvmtHQMatpZ1NeIO5wcAfi/HPMr10QDRMocXGSUuE2cxfOP6kd869bJOvRIj2MSMAPZ+oM6025lswXdzE75AAu34zQctPEZ6Peugtjuy5YfKatzQG4rVcNS+FHe111u5hTmg39NThkF1cS7rZBPnMicSlh3Pvj4F9iMeC37ITPibXpAadOECLz2zZUUMrflVL6oyt/M
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB8PR04MB7065.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(39860400002)(136003)(396003)(376002)(366004)(76116006)(66946007)(4744005)(66446008)(4326008)(2906002)(86362001)(316002)(110136005)(8676002)(8936002)(478600001)(44832011)(33656002)(64756008)(66556008)(66476007)(5660300002)(6506007)(26005)(53546011)(186003)(7696005)(52536014)(83380400001)(55016002)(9686003)(71200400001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata: YLZmnjodgjh8ouYm3HoHqMWuF37BmNkLpFJLiCA3clOlQJpMLl2botIHjCSyCW6ylmQrKUu6553CALQUcV7JwYF8kVSGXVH3dkUFOduHMg7ZBqLyOk4YSXcMr3+HTs+eoOXK2Hg5lmeji+Nci0ok86aJeVDkOn8N68qeEtjwu/AII1o9s+STqgo00lyW+e8PndtI4D0DV1Rwng864twS0LMi1Cnaw1DFNmlsyBeo/Y3+1LCN+8lKXo09OSj5JPXmB2Pb0dcQFA+20aJv/dEQnjiPnfkyzIEe3KknQOASjQgG502GHW9YVdn+6y+iSEiuUmqxHj+SGGJPzML8kSRJjFPPqjMV5BtuW/GI+rw1OYsbZcsZWcGzWvdYGFE8GeUIlZImB0wLJTHRieiYLwxwnGV98S4m1TKKAmaKVzUivwnyzzdzwbTLehaHoLpIkTh6PgP8mt1vy8fVfJ5X2MxWknwasO4d8BqhCLN65zgmT9lIOij1N13sbVwKDnyfLFa+ePrkMMdOeR04Yy0G8GZmUVFYpG3LmG2Bpn9EjUw0DOqrWz42qfAIO7HZz7I7T+PVR2/odtbtfnuRmdvo6BOHXaY/cxEhcbXyaS5OBqkpIGXuQQ8r0Xwbg4HzO3t59pbAWgQTjSIQnhPncygKdEwcrg==
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: nxp.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB6PR0402MB2760.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec15b3a3-4761-4459-029c-08d86282848e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Sep 2020 01:13:18.1195
+X-MS-Exchange-CrossTenant-AuthSource: DB8PR04MB7065.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 375b88fa-b441-4f29-5a8c-08d862c786da
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Sep 2020 09:27:17.2052
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: IXtfFY4vTII8Eh8fVeVZTK2H2l7HAh/5rWxFn4Lmy1RJMdUBlK5JfU8oHHeUZP0XkqaffOFRSoaDp5DEev1wGQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB5660
-X-Original-Sender: peng.fan@nxp.com
+X-MS-Exchange-CrossTenant-userprincipalname: LE4CMK30F+dlz8/pk2CA4qH/CbWvOa0EA/fovGZnsisWHanq8LwcmBb4j5U+34BxVDisCVap3ToZASyMIJILgw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB3PR0402MB3833
+X-Original-Sender: alice.guo@nxp.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@nxp.com header.s=selector2 header.b=Qu8SSGtk;       arc=pass (i=1
+ header.i=@nxp.com header.s=selector2 header.b=BoYi+E79;       arc=pass (i=1
  spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass
- fromdomain=nxp.com);       spf=pass (google.com: domain of peng.fan@nxp.com
- designates 40.107.6.43 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+ fromdomain=nxp.com);       spf=pass (google.com: domain of alice.guo@nxp.com
+ designates 40.107.2.76 as permitted sender) smtp.mailfrom=alice.guo@nxp.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -186,119 +182,38 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-> Subject: Re: [PATCH V5 5/5] configs: imx8qm: add configuration files
->=20
-> On 25.09.20 09:55, Jan Kiszka wrote:
-> > On 25.09.20 09:30, Peng Fan wrote:
-> >>> Subject: Re: [PATCH V5 5/5] configs: imx8qm: add configuration files
-> >>>
-> >>> On 22.09.20 08:45, Alice Guo wrote:
-> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .platform_info =3D {
-> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-/*
-> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 * .pci_mmconfig_base is fixed; if you change it,
-> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 * update the value in mach.h
-> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 * (PCI_CFG_BASE) and regenerate the inmate
-> library
-> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 */
-> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-.pci_mmconfig_base =3D 0xfd700000,
-> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-.pci_mmconfig_end_bus =3D 0x0,
-> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-.pci_is_virtual =3D 1,
-> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-.pci_domain =3D 0,
-> >>>> +
-> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-.iommu_units =3D {
-> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 {
-> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .type =3D
-> JAILHOUSE_IOMMU_ARM_MMU500,
-> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .base =3D 0x51400000,
-> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .size =3D 0x40000,
-> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .arm_mmu500.sid_mask =3D 0=
-x7f80,
-> >>>
-> >>> How is the sid_mask of a platform retrieved? Can this be derived
-> >>> from information in a normal device tree?
-> >>
-> >> This could be get from device tree, to i.MX8QM, iommus =3D <&smmu 0x12
-> >> 0x7f80>;
-> >> 0x12 is sid, 0x7f80 is sid mask.
-> >>
-> >> Sid mask is use to get the extract the exact sid from SOC internal
-> >> BUS, You could think as below:
-> >> Bus signal & 0x7f80 =3D 0x12
-> >>
-> >
-> > Understood - but there seems to be nothing like this on zynqmp, so I
-> > tried both 0 and ~0, so far without any sids assigned to the cell. I
-> > would have expected that something breaks then, MMC e.g. There is no
-> > error reporting in the SMMU code so, thus I will simply see stuck DMA
-> > requests?
-> >
-> > I guess I need to study that SoC to understand what can be expected
-> > there, i.e. which devices are under SMMU regime. Unfortunately, I do
-> > not have the MX8QM running here yet to check your setup.
-> >
->=20
-> I do understand now how the 14-bit IDs on the zynqmp look like and that t=
-hey
-> cover all units, including the SD interfaces that I'm currently using for=
- mmc
-> and wifi. But leaving those stream IDs out generates no apparent error.
->=20
-> The SMMU seems to initialize fine (I've already cleaned up the output):
->=20
-> [...]
-> Initializing unit: ARM SMMU
-> ARM MMU500 at 0xfd800000 with:
->   stream matching with 48 SMR groups
->   16 context banks (0 stage 2 only)
->   supported page sizes: 0x61311000
->   stage-2: 40-bit IPA -> 48-bit PA
-> Initializing unit: PVU IOMMU
-> Initializing unit: PCI
-> Adding virtual PCI device 00:00.0 to cell "Ultra96"
-> Adding virtual PCI device 00:01.0 to cell "Ultra96"
-> Page pool usage after late setup: mem 63/991, remap 37/131072 Activating
-> hypervisor
->=20
-> But that's it. DMA is still happily flowing. What could that mean? What d=
-o you
-> get on the imx8qm when dropping the sids from the root cell?
+Tested-by: Alice Guo < alice.guo@nxp.com>
 
-I am not sure how zynqmp use SMMU and how their bus signal looks like.
-
-To i.MX8QM, if the IP DMA has SID, but without SMMU context programmed,
-the smmu will bypass the translation per the configuration is bypass in smm=
-u
-driver, so if dropping the sids from the root cell, it will work well, no e=
-rror.
-Same to inmate cell.
-
-You could try to not bypass SMMU transition in smmu driver, then the system
-might not work well.
-
-Regards,
-Peng.
-
+> -----Original Message-----
+> From: Jan Kiszka <jan.kiszka@siemens.com>
+> Sent: 2020=E5=B9=B49=E6=9C=8825=E6=97=A5 16:50
+> To: jailhouse-dev@googlegroups.com
+> Cc: Alice Guo <alice.guo@nxp.com>; Peng Fan <peng.fan@nxp.com>
+> Subject: [EXT] [PATCH 0/8] arm64: SMMU500 cleanups
+>=20
+> Caution: EXT Email
+>=20
+> Please review and test carefully as my current setup (Ultra96-v2) does no=
+t seem
+> to be complete yet.
 >=20
 > Jan
 >=20
+> Jan Kiszka (8):
+>   arm64: smmu: Simplify __arm_smmu_tlb_sync
+>   arm64: smmu: Allow arm_smmu_init_context_bank to return an error
+>   arm64: smmu: Clarify that mapping mismatch is just a warning
+>   arm64: smmu: Consolidate translation stage detection and reporting
+>   arm64: smmu: Fold __arm_smmu_tlb_sync into single caller
+>   arm64: smmu: Drop duplicate error messages
+>   arm64: smmu: Handle arm_smmu_find_sme error properly
+>   arm64: smmu: Improve output during setup
+>=20
+>  hypervisor/arch/arm64/smmu.c | 113 +++++++++++++----------------------
+>  1 file changed, 40 insertions(+), 73 deletions(-)
+>=20
 > --
-> Siemens AG, Corporate Technology, CT RDA IOT SES-DE Corporate
-> Competence Center Embedded Linux
+> 2.26.2
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -306,5 +221,5 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/DB6PR0402MB2760EF8A41AFC17F8571BB5B88340%40DB6PR0402MB2760.eu=
-rprd04.prod.outlook.com.
+jailhouse-dev/DB8PR04MB70656B7EDD4163635048C7A2E2340%40DB8PR04MB7065.eurprd=
+04.prod.outlook.com.
