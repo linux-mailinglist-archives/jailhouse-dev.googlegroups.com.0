@@ -1,46 +1,46 @@
 Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBVFHZP5QKGQE454GFYY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ej1-x63e.google.com (mail-ej1-x63e.google.com [IPv6:2a00:1450:4864:20::63e])
-	by mail.lfdr.de (Postfix) with ESMTPS id E74B427BD1C
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 29 Sep 2020 08:27:32 +0200 (CEST)
-Received: by mail-ej1-x63e.google.com with SMTP id d13sf659228ejz.6
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 28 Sep 2020 23:27:32 -0700 (PDT)
+Received: from mail-wr1-x438.google.com (mail-wr1-x438.google.com [IPv6:2a00:1450:4864:20::438])
+	by mail.lfdr.de (Postfix) with ESMTPS id 03E1F27BD1D
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 29 Sep 2020 08:27:33 +0200 (CEST)
+Received: by mail-wr1-x438.google.com with SMTP id l17sf1292553wrw.11
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 28 Sep 2020 23:27:33 -0700 (PDT)
 ARC-Seal: i=2; a=rsa-sha256; t=1601360852; cv=pass;
         d=google.com; s=arc-20160816;
-        b=ekaKuVgNlEvJF+bwykQx/8ohnqAep7FreYPhk0pi6FDnRwV8Ss1OW3o0v2LFIn2E48
-         iY/1x048CHzCyhH7azhCHxS/IZ7fGMHiw0Ha3O0HBnM6jTdZh+EUJAFe/avG9653qh2V
-         8O/8FtXPBFEM71+2SPY4GXl1xXE9Hog9fxN5X3Eniv8O9PYReak4i/kazo8Gl9x58ULN
-         XcRnHP32I7U7RPiPfIeUIiOpHXnaUiSWWQeHv8sQBjzjqfzvt6d44/FWw2MCBPhEvIrE
-         1XSZxyzTmD968C3s9jGJ41br6WmsJURYP3TXECjnkG2V7sdZaqJqqvr/JSp00z3iro7i
-         6Q4w==
+        b=HWWnc1A6zR3TYxvnZGA+BTy1d1l2VMp3rNOdMouvOmHZwmc2SZoko5CEwV3bVShDfb
+         +Nu30P7HFC7QvrZ0R4aKrM7Gu/hI8Aj5O/FDTOIgDaeI5Qyac4NApROAMuTd+S5T53jD
+         05MPgediyP+P+hM4vyZiozal9qKPdIKa/6kZYaemk/C2i4IKz2PP9w9K/qq0IQdt8Fs7
+         /YhCDVVQoVfjxGwIfyOgVrgH8ee+2K+UdUC7lMgp5BYJmCDpFVI45CKdGbLq1YVZPrSz
+         S3oXhfWY8UOg7+zMoDKm2rCPUYK/sUj6bJAVMyLLICm2NF1G9TaUGJFRSN/L5hEE9Eq7
+         0G0w==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:sender:dkim-signature;
-        bh=DkUMn83Ziek00HJ1twGNgc8DdJ84ifrc1EMaFVu25ew=;
-        b=qixKfupByjITRw5hK4zsPMcIuvMsILuAJPLlGgdyX8pYVm+4+2K+zW1itLICEyDiuT
-         Y+owr4dJhx6BFlsQQbifmjlqsSLxfwuUN3/dl16sAmn3o4MOgE+MgxOiWgB4m2G7klnH
-         r9piR2+AbDb/JK2pflEzFw6buIuzBnfUJytTiaAW8gqddb8JHpNBrPUO4j+JthkjmZnX
-         9vcB1CAhkSNkM4HTkLESSzjEAQVzmAc5ZJ6/8N7hQmYs/p64g0GdS+1LyY1rLLAQZagz
-         E5GIay6OTSe5zPWglC/LnGcSw6JT/CBUR15hTBraFDMfa0dKBv95adIPGhMGfZfJ44Ex
-         D80Q==
+        bh=XIkfZk06RX1I39AQFWayK9/hsDUqhKpI98B9FeBxD3U=;
+        b=ixFRf0SdOJHZ8S7fS2or0zOeVPh2RfrTs7YNJ/pFZUhp61zAW6ihgig5JzenrUqQuv
+         N+aPfADUrO43e3/iLuLp/wl5FlrasI4TYhfhF6o6c9cph42KP/itwyz9XRAKSlEVZD3Q
+         P4/qaInXSwuic3unwhlwYbNX17ECaqWZLBAdUWxSBsk2sE1aI8Rzql7cizwiB404Fr+o
+         NWEjlRS2K+TCSjL0QozX0l7YbH7Q/756VO0+DVGXI35MfG/IC2dMcKOcWyWyPEWTkB4q
+         /Z384Mc9YCPV+3rycX3Rwk0fmDcVUiSu+2S6dFpjuvmrNEHvROkDMuyX3/kCGepoYKaS
+         wx2g==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b="ap/DL0R8";
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b="GaGU/BZp";
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.12 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:from:to:subject:date:message-id:in-reply-to:references
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=DkUMn83Ziek00HJ1twGNgc8DdJ84ifrc1EMaFVu25ew=;
-        b=P5C1o3KHEMpuoGH9QPXu2OHi3CRcdkOP3zXT/2EaRKMAR7VYQirH9uDKUlWXscCfgV
-         2Be8UJnYmsLTVtdfrbieLhVUtFdp0wH/HLuI8m+8iKNUFL2gluSAMckmNQztIryyYFre
-         0qeqRhPmLNmaQZ5AFcqS3nyDfjnc407rnpat8MY19SVWdu+DSbVzY3t/1xQyb1jJYuuz
-         2aGhNfcO3WUb2Nt78eqGYtF/42tL2NqhcoQJbOgV+w/fnWdEngFJx8CkBuD4f/kR6qE+
-         5f9Dyb19YViwzHdeWsoD8fVGXwgeid5U3mC57g4qybeME0d38x5ZplNXuBiueBiJJN2B
-         hZNw==
+        bh=XIkfZk06RX1I39AQFWayK9/hsDUqhKpI98B9FeBxD3U=;
+        b=HPJTXBcE3roD4t5b+SCgLXvvLODvLUP18W/UlXvAYU2NwzwERYUPURngouaQ/IvdDv
+         NjEsnJgVt4RznnGCbqhPXFuCPx6vJ9FQ0N99l4VziOgIGOGZRCgrIB9Zg3fpOA56ex6v
+         KeZ0QWaAjTcY3IOJZve5lEr2Nn3ugMqPKA2jVCa1LqIcXVzQcxCMmNYGFYtL0Cxdc/jE
+         OSxfhTFpHwbxg7eM6vVwLTv+Z0JxBGGeadnm1eB+TtSbpGZHn9CM9DOOjdxS1WPbcIAP
+         IsMkUIA3DimIjd0D9p2W82aDU6ToRyyZRT1ja4Some3wMLN4nmUdZeaDLPrPGSsBsMvL
+         KcQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:subject:date:message-id
@@ -48,93 +48,93 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=DkUMn83Ziek00HJ1twGNgc8DdJ84ifrc1EMaFVu25ew=;
-        b=gW+nky3NWgMVxwz0tjTe9GSTmFffBYWRCJ9hznNl2vJ4o0YDaJvxgsvMfgboPl19nd
-         yurZdj3tVh+JsxZhD23WY4SJHpDWpv5+jqh+fmEV87uE36KOG7Tj+w9dS8NZgVtsTtkJ
-         2ygIV7Bo9+N4tsaATrsb99Nc5GQO/yYJ0vuxRcrL5lefQKKPmcL3rETa04uF+ic/Zj68
-         2B6gBEsn8GvKzW/PPaSDdnWL0wf/2x0jjUa2GlcqXHAz02pgBe72bRy75sgc4eAgbhei
-         LSO6hZSV3MNZ424n3kdXQEEwOlhxUyE4lVz+pFDQXkF0/tqcl8snEVwbWQwycpFOmuQy
-         ArzA==
+        bh=XIkfZk06RX1I39AQFWayK9/hsDUqhKpI98B9FeBxD3U=;
+        b=P5uaHRA937vz20WP8CElIpRhmMV+oyXu7sdIhqgE5dTkpETcTfuU8SknQJwlq3dZGS
+         wtxLvEp2mBM3pKQDkMer0TOe2Cm5CNvnhE0zfEb1gwH3H57ojgtMR+TcBgZ0di9eNj0+
+         TaZajVJMcdClZ7/Ohs1PIGoV4e/VXibAGkmqdEVfeq+1XpxKpW3aS2gB2LVYCABo6ce/
+         Vcrgqc+p9/wCtgJ2nNI8rOh4v2PFffdlwMYE9LrpOt85/8l1CHT40yYwH+jE/Ta7HNjs
+         SPeg29KuinCsXnqcAPOj7wSgw5lYGU1OFg1Zpd6hCPL1z9FevN4qSXi6C2frgcyZOrCw
+         eaIw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531qVPld4qMD+tHl0H1cp+nrq52v8mqSQEZL74IukUvbC7G5R3CR
-	XXOhYwlGX3Y8cNxKrLeuskA=
-X-Google-Smtp-Source: ABdhPJznuImI/p5YngK//JynRepyb86vEDWJcFS612tZXp2yH9DziiOLOGo/pYc4aSXb2CoiEnu7EQ==
-X-Received: by 2002:a05:6402:346:: with SMTP id r6mr1565404edw.301.1601360852681;
+X-Gm-Message-State: AOAM530JN6xNh3lAE0VFghIbMY8+sFuC021Ico/LInTUpqdiPD2YObxO
+	QT40Se9x1ek3skV6TgDUyGI=
+X-Google-Smtp-Source: ABdhPJxwyoqHNMav11fxQI1OPKcyX2SaWlI4Nte5wxERRV9Bxk7ru4R4od/3eWgaeRuF1+WN5LUfPQ==
+X-Received: by 2002:a5d:522d:: with SMTP id i13mr2425330wra.296.1601360852709;
         Mon, 28 Sep 2020 23:27:32 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aa7:d40e:: with SMTP id z14ls1560425edq.2.gmail; Mon, 28 Sep
+Received: by 2002:adf:e3c3:: with SMTP id k3ls327623wrm.1.gmail; Mon, 28 Sep
  2020 23:27:31 -0700 (PDT)
-X-Received: by 2002:a50:8e58:: with SMTP id 24mr1621098edx.226.1601360851642;
+X-Received: by 2002:a05:6000:11c5:: with SMTP id i5mr2354418wrx.18.1601360851649;
         Mon, 28 Sep 2020 23:27:31 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; t=1601360851; cv=none;
         d=google.com; s=arc-20160816;
-        b=fCoKPJOKB3E30LZ3dxOp2FhUBQ6+VV+xmEjQaTSl1Dl6XH3lPNus4pDgzli2d6yfN3
-         D6owuGrV1ppVYCAKXPqF0B3Jfm6SJ7Gzz1Q2A0QiW2ypNX/2yA4KWPCLT+Of+f6b9w+7
-         yapGg3y4998ZSBGH3SQNHnhixeCHVTpzkh7bGmA3DCUgd5cA4w+Jzuix0CKIZaVkhXhs
-         hr8zSeVH1mb0Xyvr9MpncP9XCTdrZDQydGVmcQnAktZwyH8kEW/RjI117niiIup2zY+g
-         JdRNarC8vAsWk+e2f05nyzbVe2SiTNob+U9dUD1UmAtHbLJ5ipYJWb1usg+yzGjep7hx
-         p+2Q==
+        b=qs3hxyR5QPrLJowLLKrkciaZS6oBS6v0n/uKqLP6InuE9o6DyqdYqDVQNdUjhJwhWM
+         12mcfd3cZHGIJ6CGKUXWodrNZ7yNvyLrizhUF8Dsm716bhrHyAjUBAc+vuIQS5UspQX1
+         zV21GQN5FNsi34DN3HbrRKgPJ/2ZTaVjcntrc6kjOUkJwpu7vAMLZR7BGVEI6YEggTU5
+         fB4qD0pUX5W8DyK/sN+Vue+kCkqJQAT/sewIUXZuaKmjY5OOc37EsNf6zMc5cRSs8959
+         3gpcqv2IMuKWKuAMVXlEn7FzwPLfx+fI5P5bwyPmjfAc4DDF/yRz+xsbCxBq2n7TlLZx
+         +B0Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:dkim-signature;
-        bh=fsXnD7DZzDb+K+mKg6GB26Benu+iJSeUa54tfyZumss=;
-        b=D0pHg7TanrVlJwTaC5WjulGBGs4LF4Rxb/vNqdpD/DSO9fZP1ot578AAdBG733+Oqg
-         un89hvslPj3n1+hlYGHkUB3SXRlyn9FCJEL/PSKV6Vw8lbjDBYbfnpt/Lhe9Z5LEcqQL
-         Jh65tv0Pt1riQU2iUqEk8vIXy1KglbVKwPNk4WMsYrTlnCpMYxOGf/5BMJnHkdLi9aoR
-         w0vNMRJMkZywzt1wMve5HFGHGNhTZ1S5dpN1t6Xfs2q854wzlqj4Ndw2xSR0j2NQwo2T
-         Q5lTo9sIQ03AOMKjAz0+O7GZa5GJ5qGO8kJzpoi1SH2UMHMgzUKfwzoTOqnG9FmzcMPq
-         282A==
+        bh=IyQq4lih4RfJJx6xCBxigWHzSVhApqMldqaXdavUlgI=;
+        b=c4DT4nVaVLEeJLmJ1NVhyrZp6jCMDQkKn0ZWGU6/W2xLmnj0PeP3PCOca5omZQmLxe
+         WGdx+H2CVw+AvqqZ/Vc5IvLjCaMuLzoaJ5lT1Mhwa1bS25R0Kth4cnPGC//GRWOm5g+z
+         iPYIDwktoO+5iQNGb2sSyPk6GWwmOBOioL9/Qa2eznJP0xdrGZ7ovx521KMKDpXVqh9/
+         MK9qFEPxWQvCPDsrRq39PtvcPDxPfXUCjxRt68l39yRN7RdhUZ4/2+tNoNMr8d/VdiKm
+         d2TulLJZL2ET22coDGx+vJa4melTzLvGmkaruu6RwxLpqg3BcWrLR808uD8AP6gIO5xD
+         Xtvg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b="ap/DL0R8";
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
-Received: from mout.web.de (mout.web.de. [212.227.17.11])
-        by gmr-mx.google.com with ESMTPS id dk15si122513edb.2.2020.09.28.23.27.31
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b="GaGU/BZp";
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.12 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+Received: from mout.web.de (mout.web.de. [212.227.17.12])
+        by gmr-mx.google.com with ESMTPS id w10si110125wma.1.2020.09.28.23.27.31
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Mon, 28 Sep 2020 23:27:31 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) client-ip=212.227.17.11;
+Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.12 as permitted sender) client-ip=212.227.17.12;
 X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
 Received: from md1f2u6c.ww002.siemens.net ([88.215.87.53]) by smtp.web.de
  (mrweb103 [213.165.67.124]) with ESMTPSA (Nemesis) id
- 0LjJH1-1kzEx20dWp-00dZED for <jailhouse-dev@googlegroups.com>; Tue, 29 Sep
+ 0MGicf-1kAEoU1A8X-00DZQB for <jailhouse-dev@googlegroups.com>; Tue, 29 Sep
  2020 08:27:31 +0200
 From: Jan Kiszka <jan.kiszka@web.de>
 To: jailhouse-dev@googlegroups.com
-Subject: [PATCH 2/3] arm-common: Factor out common processor.h parts
-Date: Tue, 29 Sep 2020 08:27:06 +0200
-Message-Id: <eb8343dfc7e3340a67d8ec735d02ded7ef5a6ead.1601360827.git.jan.kiszka@web.de>
+Subject: [PATCH 3/3] arm-common: Drop return code from irqchip_send_sgi
+Date: Tue, 29 Sep 2020 08:27:07 +0200
+Message-Id: <42f0f9dfff8dd09c5fa200495110c7093b9c8dfb.1601360827.git.jan.kiszka@web.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <cover.1601360827.git.jan.kiszka@web.de>
 References: <cover.1601360827.git.jan.kiszka@web.de>
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:FzLQdKgZKFtDy5owSDMLa2NoUmg4eSTki7YTOdIBaGXPJCn533H
- 7TqidnomFESyw7TzkQ0fBY5K3XaOknoSb6n1APSIJC5IFQfqbeQ8rTaauwgLOduRCYTMS9t
- fdVE+M+Vs0ZGrhnD/56YNkrvcSEaN9FbWO/FmiCuCYrNUEjj9KVGup6wEqo3qDesI9SLTtz
- lw83lPBilFoifJ7LCd2Eg==
+X-Provags-ID: V03:K1:b9M+f47rbmPRnqIdeL6SZLxPNDqglVPqpX4jqYNNcAb9j04Tu1C
+ nodPGwsrK2mY0wVMyB8mVBOGDGoRFvd55ml7rKh2ekZVys9zKHePlVsy1ms24m6fwTKUBBK
+ mI4PPeGqhITsAs/jhpHkT/p1JeAJoZ0I7yePyy7ogVb7ChQG02SdmSNFXN46c+EaExh+T+N
+ qkSp1+TY+LFHVf7ynpjTg==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:p6fsw9TMqvU=:vK/8vuHZwGV7A+7iHnZ9a0
- pD+D6b2bD8iRlPOyhUM3GC89Gu5Q9lWR9SjXiBmTLFN7wNz3XUS5jb36+OJLt61P0hekmSJQF
- 26Rggobt6wF3KMIgMyvADwVhkcCiK7t1CCfJSKmftyzsgivMI6T4dEKoK/GUOXLwCsBio1Cuv
- /62x7UGCouF12vnvRiSKO0toIM33qeU9XIBXgQqjmHYWxjxmAfQZLbT8mvsKEXpfIvn3iqiYN
- pBicx2Wzs92oCTM8nskvBMSjlHas41Qr4kcGJ5DHH4wnftozn2lku9zqZLx3Fk7EnVeCVsPhj
- vrg/tPzZ9agfvBWLEDGtMLJ4NXOkGGDzBAXanzZL4GjLWyW8uh8bwLVXfzwvcVFPLozcvEhA6
- +L8LWxwNTYrW5F232MJG6zUVB6bK5YhxMiaeBUDDJvJwGCoPD2g+K3nWh7jXdEiSOhpBwhBQB
- G5wjqXJmzBesVHVhZ7oABVK3Q4FC5sk1zzvQCTB8pFijXyB6rl0mVvrYTm42/tQ8FebOTXXQ8
- nvURt7zzz4tiO13VX0wpSwezCUsRr+YhVxTScHur3BkU2jJxWG7psHAKFNp92wdKBmtl3GQ/R
- oRyH3Jexehcat1SDKy/ixlH9bvCy993uoJ8CY/9EJLMIXe+kXB1UW0YEVpAcEJcCdHgFfLSdr
- cYND+P50TfafPF+81xooxXzn6q4s99EqQis1LAf0lhkFd6wUXmmQa0ZFfqaBfBQhiMDQfMCAf
- 6Ij9ylVz0hz7N0tsFMx6kDNLZ4kp8N7gsCzDMBFE9t2K9acSzPRGAQGnACHt9Li1re5bJiB/7
- K7V9c/thAJI6PwIroCsC/Gwr0BoZ/meEiuiySVmB2zGAZBMPoMonk9qyNWTeS1SOJvonxds3y
- pXvYU6aeff3xcqXpq8xuBpEx/YCY4/92oV3pen5t9mH9IyBNFuoyJTH3tria/zNT/o06xfqtj
- HSO77yuhkISBDuQ7tR9Db9z0Icq0f4cjyGQ48nkI9EQORJ8u70W1dv4o8Rv4Zf6K4YA6vkbNG
- 5ApiJgpwvQ0QW6gsxfaqtWYxiY6SWMOK0v0BJ4DD/zANTDpCj9+D5Xc9Y+jp4qN6ZvzTZA4xh
- AM8YMg8rhgqCwx9YeuKZdE7FWQZnuzpq0NnzS5Vxkd16eTm++XpWv3BxCDjuWVhsdCFgMDu18
- ipXVlNJD1c/mY+Ekg8cF/Iy9CNntwmom6DjrYYkYwwS+RhEVMaT+S51Nuivno5dk5NUgfX1JM
- 965NAhI2E5uk6ifRXOFV0aCr+RdeQRQZAgwsDwg==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:4BKfWybog3o=:fFLkJZboDvNqZpL0sN9nBv
+ m3tFCXUeZr4cxLVTGhA0PPbWd1h1azNbVIdLi0PJUKquVWsqDwo2R0vQpXsWaIetnjqBfY+qp
+ hhJN+ch6YyMA1p4nk6vd2wELg3pZIJBrjb3+3Q/DCdzaEhZaDr4xfT8QxonfxwhSbLNFlh8I/
+ d5CnQp+V8q2fgieKuCVENcpYtab39UGLjcDeAO4rUUXoyFefx6CZD4m0gmR2BzTWkzOumTy3Y
+ U4tqLo5vmafjJ12RDmx8/RU8Azi540FDfz63Sssk29JouHsQ3qs8QQoIljZrf09rJ3g0uxLtW
+ YmDAj7KKSx8pcHDH9ijCSafnylzJajaHqgcfhxT34sJLoKofi7T24JE5jjua1SXdAsslSRiHG
+ Y1XADDM3bYjVnVfp0uDlYHI4Onv83poWLNjfTZub3p1aKDcsxWw6AWf1Mobo6tHeRV1x42YQD
+ l7LlOnqhQj2QuEaXppW1EfmIGLiPhksC0hYPBcTCmwXjRWeGL3bnK3mebHS1m3UXUrbtKW7wy
+ NGTDFyQYnox55CaQ8yz90IzDIfT6xYwSHlM68Y8stir9f7er0PNIZ/9GjiffVFg+GjsxX/hr4
+ 0VOqXM6TlFgljzkXP2jsbTOCdAFLzKGvu0boM1YIg37lkqkqkSjS7UEDVHFkD77oFR4FuQzYn
+ G3ByuULiurAM2sQXLHiKEfThWAyYcXjc5+IFWi9OsGV+szPI8FPq/G59qf29sxaxutp8mLXU2
+ 45mxYTO7lh0gXR13CDUDUbICS1V3Meji2dD9PdPTPlFeNmKLbaHp9/uOVmrDDbdASQGn41Vnu
+ CWd1AcpkUt6m0hTXKpvbeunH0xRxyx7XEQPG0ZDdiBiAZ837PNH8TYRZVcB9WQAaCxncWu/in
+ 7wKErL2pGGVgKF/1qdZEKlbvBosBmSzDLPbYd8fWP8NU5EiRbhoDoXalR92YoVWlR7wBXTWJY
+ 8HIKhBL21+m4FF27TAcebBp1t0P/zrCcjyeWtIaWH4srWa3HbhE5xoV0woQ/kHLKseU1HxG5T
+ CKc8ywnWuP27xKCz28ZyV/Au0Ssh3nXwhnbf4aHWaCRFBuA8ajzuUeSOHtTQsIViALHdAv28O
+ 3rn1ExXCP5+aPQ1hfjIKCMsiMpXFIGHT5+n5ZKrtEusFNeos6t5SPR68/lwpSA7Luwrs7YwxL
+ Id6EImOS72wEaKNEF1WHu4LztCSSX6s9oJ+yT6bnQ4lESlmbXWrpT3pWiKZCY852S1rFG/JCw
+ ax9a24mwCkmcbUckLnL8BdkBx6v8y+g5p3tW70w==
 X-Original-Sender: jan.kiszka@web.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b="ap/DL0R8";       spf=pass
- (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as
+ header.i=@web.de header.s=dbaedf251592 header.b="GaGU/BZp";       spf=pass
+ (google.com: domain of jan.kiszka@web.de designates 212.227.17.12 as
  permitted sender) smtp.mailfrom=jan.kiszka@web.de
 Content-Type: text/plain; charset="UTF-8"
 Precedence: list
@@ -151,170 +151,120 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-No need to duplicate them in the arm/arm64 specific headers.
+None of the callers checks it, and all of the callers ensure that only
+SGI IDs are passed.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- .../arch/arm-common/include/asm/processor.h   | 34 +++++++++++++++++++
- hypervisor/arch/arm/include/asm/processor.h   | 31 ++++-------------
- hypervisor/arch/arm64/include/asm/processor.h | 31 ++++-------------
- 3 files changed, 48 insertions(+), 48 deletions(-)
- create mode 100644 hypervisor/arch/arm-common/include/asm/processor.h
+ hypervisor/arch/arm-common/gic-v2.c              | 7 +------
+ hypervisor/arch/arm-common/gic-v3.c              | 7 +------
+ hypervisor/arch/arm-common/include/asm/irqchip.h | 4 ++--
+ hypervisor/arch/arm-common/irqchip.c             | 4 ++--
+ 4 files changed, 6 insertions(+), 16 deletions(-)
 
-diff --git a/hypervisor/arch/arm-common/include/asm/processor.h b/hypervisor/arch/arm-common/include/asm/processor.h
-new file mode 100644
-index 00000000..710bf197
---- /dev/null
-+++ b/hypervisor/arch/arm-common/include/asm/processor.h
-@@ -0,0 +1,34 @@
-+/*
-+ * Jailhouse, a Linux-based partitioning hypervisor
-+ *
-+ * Copyright (c) Siemens AG, 2013-2020
-+ *
-+ * Authors:
-+ *  Jan Kiszka <jan.kiszka@siemens.com>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See
-+ * the COPYING file in the top-level directory.
-+ */
-+
-+#define dmb(domain)	asm volatile("dmb " #domain ::: "memory")
-+#define dsb(domain)	asm volatile("dsb " #domain ::: "memory")
-+#define isb()		asm volatile("isb")
-+
-+#ifndef __ASSEMBLY__
-+
-+static inline void cpu_relax(void)
-+{
-+	asm volatile("" : : : "memory");
-+}
-+
-+static inline void memory_barrier(void)
-+{
-+	dmb(ish);
-+}
-+
-+static inline void memory_load_barrier(void)
-+{
-+	dmb(ish);
-+}
-+
-+#endif /* !__ASSEMBLY__ */
-diff --git a/hypervisor/arch/arm/include/asm/processor.h b/hypervisor/arch/arm/include/asm/processor.h
-index 79b66f39..cd7c5589 100644
---- a/hypervisor/arch/arm/include/asm/processor.h
-+++ b/hypervisor/arch/arm/include/asm/processor.h
-@@ -14,9 +14,11 @@
- #define _JAILHOUSE_ASM_PROCESSOR_H
+diff --git a/hypervisor/arch/arm-common/gic-v2.c b/hypervisor/arch/arm-common/gic-v2.c
+index b63b0fbc..c5ad0607 100644
+--- a/hypervisor/arch/arm-common/gic-v2.c
++++ b/hypervisor/arch/arm-common/gic-v2.c
+@@ -264,20 +264,15 @@ static void gicv2_adjust_irq_target(struct cell *cell, u16 irq_id)
+ 	mmio_write32(itargetsr, targets);
+ }
 
- #include <jailhouse/types.h>
--#include <jailhouse/utils.h>
- #include <asm/sysregs.h>
-
-+/* also include from arm-common */
-+#include_next <asm/processor.h>
-+
- #define EXIT_REASON_UNDEF	0x1
- #define EXIT_REASON_HVC		0x2
- #define EXIT_REASON_PABT	0x3
-@@ -27,6 +29,10 @@
-
- #define NUM_USR_REGS		14
-
-+#define ARM_PARKING_CODE		\
-+	0xe320f003, /* 1: wfi  */	\
-+	0xeafffffd, /*    b 1b */
-+
- #ifndef __ASSEMBLY__
-
- union registers {
-@@ -37,29 +43,6 @@ union registers {
- 	};
- };
-
--#define ARM_PARKING_CODE		\
--	0xe320f003, /* 1: wfi  */	\
--	0xeafffffd, /*    b 1b */
--
--#define dmb(domain)	asm volatile("dmb " #domain ::: "memory")
--#define dsb(domain)	asm volatile("dsb " #domain ::: "memory")
--#define isb()		asm volatile("isb")
--
--static inline void cpu_relax(void)
--{
--	asm volatile("" : : : "memory");
--}
--
--static inline void memory_barrier(void)
--{
--	dmb(ish);
--}
--
--static inline void memory_load_barrier(void)
--{
--	dmb(ish);
--}
--
- static inline bool is_el2(void)
+-static int gicv2_send_sgi(struct sgi *sgi)
++static void gicv2_send_sgi(struct sgi *sgi)
  {
- 	u32 psr;
-diff --git a/hypervisor/arch/arm64/include/asm/processor.h b/hypervisor/arch/arm64/include/asm/processor.h
-index b52782b7..312214b3 100644
---- a/hypervisor/arch/arm64/include/asm/processor.h
-+++ b/hypervisor/arch/arm64/include/asm/processor.h
-@@ -14,10 +14,16 @@
- #define _JAILHOUSE_ASM_PROCESSOR_H
+ 	u32 val;
 
- #include <jailhouse/types.h>
--#include <jailhouse/utils.h>
-+
-+/* also include from arm-common */
-+#include_next <asm/processor.h>
-
- #define NUM_USR_REGS		31
-
-+#define ARM_PARKING_CODE		\
-+	0xd503207f, /* 1: wfi  */	\
-+	0x17ffffff, /*    b 1b */
-+
- #ifndef __ASSEMBLY__
-
- union registers {
-@@ -32,29 +38,6 @@ union registers {
- 	};
- };
-
--#define ARM_PARKING_CODE		\
--	0xd503207f, /* 1: wfi  */	\
--	0x17ffffff, /*    b 1b */
+-	if (!is_sgi(sgi->id))
+-		return -EINVAL;
 -
--#define dmb(domain)	asm volatile("dmb " #domain "\n" : : : "memory")
--#define dsb(domain)	asm volatile("dsb " #domain "\n" : : : "memory")
--#define isb()		asm volatile("isb\n")
--
--static inline void cpu_relax(void)
--{
--	asm volatile("" : : : "memory");
--}
--
--static inline void memory_barrier(void)
--{
--	dmb(ish);
--}
--
--static inline void memory_load_barrier(void)
--{
--	dmb(ish);
--}
--
- #endif /* !__ASSEMBLY__ */
+ 	val = (sgi->routing_mode & 0x3) << 24
+ 		| (sgi->targets & 0xff) << 16
+ 		| (sgi->id & 0xf);
 
- #endif /* !_JAILHOUSE_ASM_PROCESSOR_H */
+ 	mmio_write32(gicd_base + GICD_SGIR, val);
+-
+-	return 0;
+ }
+
+ static int gicv2_inject_irq(u16 irq_id, u16 sender)
+diff --git a/hypervisor/arch/arm-common/gic-v3.c b/hypervisor/arch/arm-common/gic-v3.c
+index 584c2c79..949c4598 100644
+--- a/hypervisor/arch/arm-common/gic-v3.c
++++ b/hypervisor/arch/arm-common/gic-v3.c
+@@ -414,14 +414,11 @@ static int gicv3_cell_init(struct cell *cell)
+ 	(MPIDR_AFFINITY_LEVEL((cluster_id), (level)) \
+ 	<< ICC_SGIR_AFF## level ##_SHIFT)
+
+-static int gicv3_send_sgi(struct sgi *sgi)
++static void gicv3_send_sgi(struct sgi *sgi)
+ {
+ 	u64 val;
+ 	u16 targets = sgi->targets;
+
+-	if (!is_sgi(sgi->id))
+-		return -EINVAL;
+-
+ 	if (sgi->routing_mode == 2)
+ 		targets = 1 << phys_processor_id();
+
+@@ -442,8 +439,6 @@ static int gicv3_send_sgi(struct sgi *sgi)
+
+ 	arm_write_sysreg(ICC_SGI1R_EL1, val);
+ 	isb();
+-
+-	return 0;
+ }
+
+ #define SGIR_TO_AFFINITY(sgir, level)	\
+diff --git a/hypervisor/arch/arm-common/include/asm/irqchip.h b/hypervisor/arch/arm-common/include/asm/irqchip.h
+index 20e65b62..06401f91 100644
+--- a/hypervisor/arch/arm-common/include/asm/irqchip.h
++++ b/hypervisor/arch/arm-common/include/asm/irqchip.h
+@@ -46,7 +46,7 @@ struct irqchip {
+ 	void	(*cell_exit)(struct cell *cell);
+ 	void	(*adjust_irq_target)(struct cell *cell, u16 irq_id);
+
+-	int	(*send_sgi)(struct sgi *sgi);
++	void	(*send_sgi)(struct sgi *sgi);
+ 	u32	(*read_iar_irqn)(void);
+ 	void	(*eoi_irq)(u32 irqn, bool deactivate);
+ 	int	(*inject_irq)(u16 irq_id, u16 sender);
+@@ -89,7 +89,7 @@ void irqchip_cell_reset(struct cell *cell);
+
+ void irqchip_config_commit(struct cell *cell_added_removed);
+
+-int irqchip_send_sgi(unsigned int cpu_id, u16 sgi_id);
++void irqchip_send_sgi(unsigned int cpu_id, u16 sgi_id);
+ void irqchip_handle_irq(void);
+
+ bool irqchip_has_pending_irqs(void);
+diff --git a/hypervisor/arch/arm-common/irqchip.c b/hypervisor/arch/arm-common/irqchip.c
+index c50ea18a..eb9ac40f 100644
+--- a/hypervisor/arch/arm-common/irqchip.c
++++ b/hypervisor/arch/arm-common/irqchip.c
+@@ -304,7 +304,7 @@ void irqchip_trigger_external_irq(u16 irq_id)
+ 		     1 << (irq_id % 32));
+ }
+
+-int irqchip_send_sgi(unsigned int cpu_id, u16 sgi_id)
++void irqchip_send_sgi(unsigned int cpu_id, u16 sgi_id)
+ {
+ 	struct sgi sgi;
+
+@@ -312,7 +312,7 @@ int irqchip_send_sgi(unsigned int cpu_id, u16 sgi_id)
+ 	sgi.cluster_id = irqchip_get_cluster_target(cpu_id);
+ 	sgi.routing_mode = 0;
+ 	sgi.id = sgi_id;
+-	return irqchip.send_sgi(&sgi);
++	irqchip.send_sgi(&sgi);
+ }
+
+ int irqchip_cpu_init(struct per_cpu *cpu_data)
 --
 2.26.2
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/eb8343dfc7e3340a67d8ec735d02ded7ef5a6ead.1601360827.git.jan.kiszka%40web.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/42f0f9dfff8dd09c5fa200495110c7093b9c8dfb.1601360827.git.jan.kiszka%40web.de.
