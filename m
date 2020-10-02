@@ -1,158 +1,127 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBXX73P5QKGQEJVS6EVA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBRH4335QKGQE322UBGI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ej1-x63a.google.com (mail-ej1-x63a.google.com [IPv6:2a00:1450:4864:20::63a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DD31281089
-	for <lists+jailhouse-dev@lfdr.de>; Fri,  2 Oct 2020 12:24:31 +0200 (CEST)
-Received: by mail-ej1-x63a.google.com with SMTP id y25sf508961ejj.4
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 02 Oct 2020 03:24:31 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1601634271; cv=pass;
+Received: from mail-lf1-x13b.google.com (mail-lf1-x13b.google.com [IPv6:2a00:1450:4864:20::13b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4668F281F70
+	for <lists+jailhouse-dev@lfdr.de>; Sat,  3 Oct 2020 01:56:53 +0200 (CEST)
+Received: by mail-lf1-x13b.google.com with SMTP id a17sf1215348lfl.4
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 02 Oct 2020 16:56:53 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1601683012; cv=pass;
         d=google.com; s=arc-20160816;
-        b=o/N2R4JIuFwV1t71fDPQUJEppK91OAe1WX+JPDIsIUck6ZWl6Yk49o0LaqjHDs47L3
-         XqOPqPL2LecUW/+FjGFLY6pHYFNJYwSa9KMdDaCEFL5PMZ6Gmw8yNYdFb0X0t9b4VXMM
-         4x/ZDrGHDTAZzAyWg0P7OF+iureB+w5Wo8mft8cR6lXbA7JB46CDrEI9WHrmM/pUAFgf
-         h6oCNqOD3cepcAnF7nWZ6ILWQQrssZGumAGw0klZMvuOUY+VGE4dHR/bwpd8OLjS8Msg
-         8tCbvd3X7VBswJUp3lFETpTumF/3qoP1wKEDvx0buMKOcD7S5dfMUv0tvlBau4GyKbFq
-         3QQw==
+        b=MmRSiSBfnsPgrDbzM23ojFU9dFNRZ9lL4SH0Jeq1KHEqPDVcniHNTb3MscAPtR38fT
+         qWnhneO6Xkbevh/dlziVDEb5TCYery3ejILxki8+k+GIjrzUkueLjub/qrcDMPXe4Sst
+         0bXts/aCJEPIJbG7oemJRbKyoDHjY6jzPXkHc1ZEDflu1LgCrIt//9VJ3kq0puT8zG9F
+         PA615UjBJ+Xk4GERVYZYF34DPQkIkn4dGr6Y7FguIcCV3JSYwBfL7mnaH97Y+4AtRK2H
+         YMfpNIFd6DR9yDQwPEicQ0LCmXs07l5HjSXR+ePFWv1ZrdGadYLi7/w+Cu3ZFxVUvtze
+         GZ7Q==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:references:to:from:subject
-         :sender:dkim-signature;
-        bh=Rd6xJHOGsJ3TRRaCH8I0MYiuI7kPhIoKFtGTMd/VSwg=;
-        b=nljJF4Br9YKEog+AG7Bz619XIixQ9vil+IgByTGii2d+xQ2e+TgP12UYC6fVEwdBMn
-         cPBUSPs4c57YUrzdF9qcHo15tirkALqaZ2QK4hjnuds+Epo0R0SPlDlwfTgS4MqjDedk
-         SykNuamZC0/1lwafXEar0FivCX18LYvnrsKoW7AfhWIgD7KQhZYiSVk95wtXXHZBF54Q
-         vzajaNYLSE6wABo8hPQYYkFA4S4PhFVIU+B5CA2KExSIxut8ybzNdotoXQpDPq3kbcks
-         mloDfaGkeGmYHdI87NJ44Q/4A3xll/EW91f2Skt3fTwqBRDJ27CJHrZ+/Q1Yr7K5q1lf
-         F2cg==
+         :list-id:mailing-list:precedence:mime-version:message-id:date
+         :subject:cc:to:from:sender:dkim-signature;
+        bh=kjfOf+A68yWMtaE1r9ioVayw97uwmFC+qNg0RIgIUgw=;
+        b=Rads/02DGMiUS4cDxF2buwl9ewfEyLPddIZQtBGUV7+HMZr+WC6ySoyaoFVFExXJUM
+         xSjo72LnvHMXudDeu1k2qzP0fi6ybyBSOGTBQi+XFZTxnasTMKPxmKkgHIOdnVysXFJ9
+         TP8U1tCCppUD7UO8dpprNVVk/6mn2egMg767xdCtnNDhtXZpgU3V6QnqDNhZ+dWnUka2
+         yPqqmfZ7tFXxadA9hYNogvScfV3cw++PuwGRNu55fXF9W4+WGtSkDuk3x3g0iww4x6zE
+         4SMPlRZftRiP9VhR1TPrWq1lktrGGBJIK3N7bF3xCbi3hOhcPqlOU+zGTF/kShP026hY
+         6BIA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=aceNmsCR;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=QQ67t7jk;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:from:to:references:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=Rd6xJHOGsJ3TRRaCH8I0MYiuI7kPhIoKFtGTMd/VSwg=;
-        b=s1bbso3ereAUvIVRZvlY4HgSyjzZRbNA42ykCFBDSH6p6t1hJjFGBfjdkMwTJlscmt
-         3C7iKHyoHAqTF2QYiD6/qfx8ivtYH1V2ojJH4fo9lDBIS0K0mQbBfUjTfENYLFG/TKul
-         Z0uBy4YKOg0Yqxc3rxZhoUdDs1nZsRk8uucL3goK3Ya5ORYAQ5Jdzy54lZuGPJ8p5f/n
-         BUCM/IWdSDvwJYVqIXKMtXlNULEDR09Mpg3gHu3y6wZpGdYmUnx383fk0iHHMT7blHMX
-         VHD5NDCYvuSs8IOsYRi4f6jAhApfyys+i5NfELs6+/UpQvrK/8wkB/BoX1U6yAATWO6x
-         hKJA==
+        h=sender:from:to:cc:subject:date:message-id:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=kjfOf+A68yWMtaE1r9ioVayw97uwmFC+qNg0RIgIUgw=;
+        b=GRgRB9VKji6Pcu/jIOccqnrlmADSmK74n/5Kn9npc6ea9P9xKZRCmQRz71CksijbEx
+         8iN4EMDb0ieZGayYMCEj+TfCgBK4ULislBHbpKqXqafS13csOKz3IexEyNaZfxjra/lE
+         3+eXPvUappv6UbXNeaAjiAPV59DcQVgDLx4sRH0jOY9UAZmCbD2SICgaAWmBwg95wAH2
+         /1CdvVjLt+X2V1jz1T30KzlyOWbXSk+BXgBPvJV5KL+39UFR/zwTNdgSeAUQsxYx+jos
+         qkI5QEyXoGkH9Y8F5iSKbLrZGdxS7nBLViOkFQeflJrwbM8f6KIlbWuGhvYrpZhFdVYh
+         7BYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:from:to:references:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=Rd6xJHOGsJ3TRRaCH8I0MYiuI7kPhIoKFtGTMd/VSwg=;
-        b=tU+V+oEg3TdSpJzkolOfc8KV4pBQs4d1hHaW8SdGevztKyXA22Eoq6K2iYaw7nFSk+
-         jq7Ct7NaMFssRowFgnaqRTwNdZOmQLlpD06ODcoUtENKuZSeC9lLWpKkjEtCEbIcNJ2A
-         7gYqmIUrJnSHCqxiM9PfmzRggmzQ9+xYFUXkRuXC4U8cHLXwa1ZvFUEc7VUttbKByOXe
-         pxKlZNoFDm015JY3AJGzgB3mgG7CC1SV/zah74m2wH3U+ccNR0bmD8SFqEc6+1hJNH1X
-         Ts6x0QNYVGRM9iPgVeds/PQq264JlNAYB8x8q4ROdSWJ9c/Rxzxczd86ULYiuT7m1XvW
-         P0mg==
+        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=kjfOf+A68yWMtaE1r9ioVayw97uwmFC+qNg0RIgIUgw=;
+        b=Z7hFdrl0D2DL5GSwWUSGOHCphJNCyoGfBQhMMFCvTUGHEho0v9vBOD8Tc9Rr1ky2hC
+         /Kc6DLon1FyVGKknC/UGTATGFYwY5vFEAywPzB69UrGF1HIA0VP9uaYMNdUdT6TGZewJ
+         ybltIpvp9d0rJCYWHRTAwyGeXHRZFI4eLKg6+JG2cvgQeDDyF50jDwsbEaQAbibEnchr
+         yzn1rhytpC+zAJkr421sY5ddPXEPA50VQkeFLZ2ud8PeAeaPdNaaWFQx00FOOJw9O8Sp
+         3vAMi3AUY93bLRoUGX+108j0WNF+XIr6Wy3394ndnHYsiYTJufwTKGHraTfv86XD1c1P
+         7lFQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533NuirPcaPce7emh2XLum8uA6nHFKZy8wJQOffk6UBuNfM0OdO9
-	/DGKoW7qUogMFvAmzqvtkB8=
-X-Google-Smtp-Source: ABdhPJzDJoPukiDNx5O6tnVJr7vVoRwWR9mqrTUL0KTSFqmsGyDHNXGYfaxBp4ZN1qvL3l5ZvpdVEg==
-X-Received: by 2002:a17:907:408d:: with SMTP id nt21mr1456160ejb.355.1601634270897;
-        Fri, 02 Oct 2020 03:24:30 -0700 (PDT)
+X-Gm-Message-State: AOAM533Zi032TDU3qo6KizXrO85PfcLytGx7y7fRHlgVoetn3dLGvGMa
+	4XQzfyUtEBSGDaT2a6UpbSs=
+X-Google-Smtp-Source: ABdhPJxBzr9AZHT1AENexDFNSxvLtL7qObhdJzhWA/0OYhfuJYGuFQ+u+cqmFazbJyBEwk3djzMcGA==
+X-Received: by 2002:a2e:b5b9:: with SMTP id f25mr1461290ljn.61.1601683012723;
+        Fri, 02 Oct 2020 16:56:52 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:f996:: with SMTP id li22ls475669ejb.10.gmail; Fri,
- 02 Oct 2020 03:24:29 -0700 (PDT)
-X-Received: by 2002:a17:906:1cca:: with SMTP id i10mr474526ejh.487.1601634269756;
-        Fri, 02 Oct 2020 03:24:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1601634269; cv=none;
+Received: by 2002:ac2:544e:: with SMTP id d14ls1661215lfn.2.gmail; Fri, 02 Oct
+ 2020 16:56:51 -0700 (PDT)
+X-Received: by 2002:a19:dcb:: with SMTP id 194mr1623022lfn.25.1601683011483;
+        Fri, 02 Oct 2020 16:56:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1601683011; cv=none;
         d=google.com; s=arc-20160816;
-        b=bXUzEn5YNkRRTrvHpBRvnVLhfQ/TCRXBfSmBi9H3naQBtxPrTnjdBR6scUrAVAww2b
-         oDDchVqUcJJIhLmn1aMc/dB/p8vkjOIg26b4H/tYA+28olR7gK8tG5AHLQRxEvMxPck7
-         8Q8OvzZ6UOjuPcYhynrBmQskLpw96u9Fy9GGf9kqx7WyU1fcTFKU5qIxIN6XKUI68Uvk
-         BTf9BXARhJQca8k/xr9xy5/v8EZXbcX712mJhV36p5OZR/MdxWhqqtzEvTHb+RIPJYm4
-         sfhLtA5nYZEmXrtJElBWZTtWzyfm810VS8azcwWAheeEQ5JSRrcmxKaRKvGlFMxb2GQf
-         W3Ow==
+        b=DYt5rAHo2vipuKDE2XxD/6mLTQNf+4YtkHNHeyr9+C1zb+bNzzKlYIZRlE061FN7VA
+         tsdWJagp1G+9Bxj0Az7O91WvTQ0ChK+jl3UOY0aXHZnt0UmOAVQl9y7ICJndEgkCyEwy
+         /r2IHpNI1cQzQ7qqKnAJRNF9kEOfabtZ3os6GkqpRGWELBLPSFRYKOWo9UPobZuLrEKo
+         k1PwuoEQsNaO/8r1HbWXHiK7MWY5K5QxFasbhpPAKQbui2IyXx4Ekt7BDaKB97xmY1Dd
+         4uaRv1yOrHjOLq9u8oId9O7sX9Lph36XOxvHa12yntDVElTQblRdAGqUuZH7flvavwFP
+         d5zg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:references:to:from:subject
-         :dkim-signature;
-        bh=pCOdO/yM1g/m/xxTRplMEq1HWuu1AkO9fsLSkqmsTOo=;
-        b=ax5cSMCqlKB1yUSKFFYjRXNhILjt1vDoJ56gBYZMUGlLTHsG3RxZIFN/SdXciwnx4f
-         M/AJS0Kk3AtMoNdetr6jnrNVYyYjvR1DrgERHONmhQflGrIgwJ/JNQWxvxWrJe/+1dzE
-         9t0YUbYTE0lYfrby93WmqiMpW8sYd089zEEjw2IKlIq52bpx3R97t9t2fEzeMliFmKa2
-         zwt6Llqh19tz+SOq9T5i8scB6Xsan7Fpd6haPbOAp9PsfhcY/AEdh9BMyIIjjZNB0D+C
-         1R/g0rEXC421NeHPBfNJF3YtzImB2eXwjrFXo9DBBGcW7qsv/YqOyj5rG436fTm3NK2K
-         k8VQ==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature;
+        bh=REHgAnODQyRsxbyWf5KdhQFfgqWPjP/vuLdrmNkFYYY=;
+        b=jYafxPaL/OVau47UXMNs66BzncXYINZZL8j4qDhQtYL9lXoXHD4tqQvLuvE2YnjH7E
+         iBKeivNACuzR/30aMhu896dIlJVQRNF3iWnIAWDvn7aQKS54Wvojl05PBWYSNjF4eJHG
+         U3g18lr3o43/NyccYkvmrnYMG/vdRQztBVMwJCNnu07Rv+QEwvhnBdAcmmgAjYTFRp/5
+         pU26xI1kKkpadzHmaBeRDvrsfVUkVSu/iR0wvuksM8vUZFqshlwr9wUu05O7fRbIiC8c
+         wh+unq/gxHXayYJ1WMqvnLyrvTdfQsfMi+N7FFI1sEhJL7OVwnh6WqXEp/bWdTmc1y0n
+         BjlA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=aceNmsCR;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) smtp.mailfrom=jan.kiszka@web.de
-Received: from mout.web.de (mout.web.de. [212.227.15.3])
-        by gmr-mx.google.com with ESMTPS id a16si50963ejk.1.2020.10.02.03.24.29
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=QQ67t7jk;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [194.95.104.12])
+        by gmr-mx.google.com with ESMTPS id d1si100117lfa.11.2020.10.02.16.56.51
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2020 03:24:29 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) client-ip=212.227.15.3;
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.10.10] ([88.215.87.53]) by smtp.web.de (mrweb006
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1MjgT9-1kqQrO0anz-00l3vw; Fri, 02
- Oct 2020 12:24:29 +0200
-Subject: Re: [PATCH V5 5/5] configs: imx8qm: add configuration files
-From: Jan Kiszka <jan.kiszka@web.de>
-To: Peng Fan <peng.fan@nxp.com>, Alice Guo <alice.guo@nxp.com>,
- "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>,
- "Devshatwar, Nikhil" <nikhil.nd@ti.com>, Lokesh Vutla <lokeshvutla@ti.com>
-References: <20200922064542.26274-1-alice.guo@nxp.com>
- <20200922064542.26274-5-alice.guo@nxp.com>
- <2f0d667f-68ea-eacf-7b8b-61652bc0d2ce@siemens.com>
- <DB6PR0402MB2760ADEA2D5A37133E5A1D9388360@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <27f73d85-f64c-fa29-0524-1fa360c6385a@siemens.com>
- <88609d72-f571-ad84-78ed-28fcec0198e0@siemens.com>
- <DB6PR0402MB2760EF8A41AFC17F8571BB5B88340@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <143f5a37-9cdc-d2ef-581e-7f7144b6a709@web.de>
- <AM5PR0402MB2756949C49DAC709F669D7F388350@AM5PR0402MB2756.eurprd04.prod.outlook.com>
- <59ce287e-bcc8-16f4-ead3-ff4bf8211628@web.de>
- <a6a3bf58-20dc-3704-35c7-d97f7bcf9834@web.de>
- <dc3c6437-f508-4632-46ab-6268b948b280@web.de>
-Message-ID: <db19391a-ffbf-ce89-9e4e-f811e501c993@web.de>
-Date: Fri, 2 Oct 2020 12:24:28 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 02 Oct 2020 16:56:51 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) client-ip=194.95.104.12;
+Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S02", Issuer "E16S02" (not verified))
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4C36NL3mTBzy0g;
+	Sat,  3 Oct 2020 01:56:50 +0200 (CEST)
+Received: from omega.home (194.95.106.138) by E16S02.hs-regensburg.de
+ (2001:638:a01:8013::92) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Sat, 3 Oct 2020
+ 01:56:49 +0200
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+To: <jailhouse-dev@googlegroups.com>, Jan Kiszka <jan.kiszka@siemens.com>
+CC: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>, Wolfgang Mauerer
+	<wolfgang.mauerer@oth-regensburg.de>
+Subject: [RFC PATCH] inmates: x86: add cache access time test
+Date: Sat, 3 Oct 2020 01:56:40 +0200
+Message-ID: <20201002235640.196730-1-ralf.ramsauer@oth-regensburg.de>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-In-Reply-To: <dc3c6437-f508-4632-46ab-6268b948b280@web.de>
 Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-X-Provags-ID: V03:K1:a69cLU5mnHbUzPZkb2hU28Z7q37UBJrFrrsAkOpskfmmkOlNiEc
- KiiujWMZBTv4oQ1mwtKqjpSFUjU6Ft0sCRrsYJMCV1YGudY2VfzT3Wmg8NSqzF77YQfkeI7
- GpyEOu87yFXZsBGNoLx4s+LjJYLejECNQ1KoPIjxEBxjET/M3H0qIop/TnJIC0g+1dlrZBN
- iQi9PpoFBAPMXcxi+wTJQ==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:/D4r9MgywzA=:L8P7fZx2hWwA/G2uX8l+51
- BNOKuJ9CLS8M3U2cNDkyGfkwBTahsL5+uPtibRE2LOdoTTFOSbnqJ0hRX7fM1s5FO92M9iiC/
- oyqf2Mc1w9MBNeTvnV7QpiwgxecOPznt9OoXL/S+2EpUICLJMFcZndbhq5dU7B6/R7uWsfeW1
- Si5RzycJutfNtedyIPitt8bnVKsaZ8xFcJJXAWvpv37UtIXGZxMFE5VFbJaFZ5pjVoaLf7LJm
- 9IMtyWxo7BuRVUjp1SRd6JGjE3WChGoPfTORhZdPe9iUSIhHfNsSBaBuLFVQQwddo229zF+Mv
- hE2NjR06gNg+LZKd5MaMjpWL2DH/WspgAdDiFZxiCxMuW8545EkWA5HTZqe8XAmxRq+/WdVTt
- h35/HvCOK8aY0hQfFTFGYgnTf2jFPIe7SWwnm5EE818hgm1oBIAe6JwqmHkVTx7q3E+hPFeOi
- gd+qYiVV1i+T4bYJrahe1janzFUaJAamYcnD4USAsJiXjk+AFwxhKrds3jZap1z/QHRizsRd2
- AroHmPlDmzYOL+1N5slFlX0D0RH/pWhhbdbjsXAckGfh3QR9Qd7MDCvXKigHpHsLElD6qpDK3
- n6Tfh1hc2Wc7y38hfKNdLktLDIPKaecF+37Z/ejq/HVimpNMFYAJR40dai5NfDPw7USuLt7No
- MrI7C3zhvadlSb7Tb0+bCh8ypUwQ09/sjCcQYfooOK4sgPgJcF5fqAj1aU1O7uoBfIySLsGSb
- BOCD3DNdSP/7nNc1oyrEM5umShic2hotzt67bzmKuYg6XvQ4k4lsCqzUUQZW1KIVIWpglS69D
- 9SFiqPLY4jrNnHpf5sEvpzjThe5ZHdP0eSYN+oU0ChWO9K2kZAuMiV3ST3Ivu74NvIYlW2Rai
- tlDigGWn+9q8ncEby8qEvle9yDECOe9NkTVEh9bUmq/4qEcuH/GmNeboyzyqcZuIBXl0UizBP
- l50HNRxUH7WR/Bo8I++XfpmbHNQ5kewLU7xJjOBXFMqKAtIX/e4HCjNZw4gqdzI7r5QJRrKvf
- hGBc7IhtaOB9FutrF5jS/OSEEepH6Xnesvmsz6CtbB6tL0LGBBpx18+hvx2DUVRy2w8Y7VSjh
- dDd/lSgwetSlqxku7tlniPBVEW/5XMZ2ePgvLLBOX+G17O/JTLfOlsnOCc6UCcqTrNuBUeuxZ
- xqMM2O3Xet9i0daIcXsRWsZhn5xfcxNtS9JOFp8XinLTDSpLCS1SpEzeEI/tYfiQYRzSMk/bx
- o87qxgdO3JL5zXK1kv/E7PwcNlGAzK5dwx5ef9w==
-X-Original-Sender: jan.kiszka@web.de
+X-Originating-IP: [194.95.106.138]
+X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
+ E16S02.hs-regensburg.de (2001:638:a01:8013::92)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b=aceNmsCR;       spf=pass
- (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted
- sender) smtp.mailfrom=jan.kiszka@web.de
+ header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=QQ67t7jk;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -165,72 +134,264 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 02.10.20 12:04, Jan Kiszka wrote:
-> On 28.09.20 08:20, Jan Kiszka wrote:
->> On 28.09.20 07:57, Jan Kiszka wrote:
->>>>>>
->>>>>> You could try to not bypass SMMU transition in smmu driver, then the
->>>>>> system might not work well.
->>>>>
->>>>> Where is this bypass controlled? In the SMMU settings? Or is that
->>>>> platform-specific?
->>>>
->>>> S2CR_TYPE_BYPASS, smmu settings currently.
->>>
->>> Just flipping the type does not seem to be enough. Could you tell me
->>> what is needed to switch to "block what is is not permitted"?
->>
->> Looking at the kernel, these two changes are apparently needed:
->>
->> diff --git a/hypervisor/arch/arm64/smmu.c b/hypervisor/arch/arm64/smmu.c
->> index 69374b28..ea58340d 100644
->> --- a/hypervisor/arch/arm64/smmu.c
->> +++ b/hypervisor/arch/arm64/smmu.c
->> @@ -534,7 +534,7 @@ static int arm_smmu_device_reset(struct arm_smmu_device *smmu)
->>
->>  	/* Enable client access, handling unmatched streams as appropriate */
->>  	reg &= ~sCR0_CLIENTPD;
->> -	reg &= ~sCR0_USFCFG;
->> +	reg |= sCR0_USFCFG;
->>
->>  	/* Disable forced broadcasting */
->>  	reg &= ~sCR0_FB;
->> @@ -637,9 +637,8 @@ static int arm_smmu_device_cfg_probe(struct arm_smmu_device *smmu)
->>
->>  	smmu->cfgs = (struct arm_smmu_cfg *)(smmu->s2crs + size);
->>
->> -	/* Configure to Bypass mode */
->>  	for (i = 0; i < size; i++)
->> -		smmu->s2crs[i] = s2cr_init_val;
->> +		smmu->s2crs[i].type = S2CR_TYPE_FAULT;
->>
->>  	smmu->num_mapping_groups = size;
->>
->>
->> However, only if I remove all sids from the root cell config of the
->> zynqmp (num_stream_ids = 0), blocking starts to work. As soon as I have
->> /any/ sid listed, /all/ transfers pass. I'm using 0x3fff as sid_mask
->> which covers all 14 bits that are used by that SOC.
->>
->
-> Could you comment on this? Is this behavior different, more consistent
-> on the i.MX8?
->
+On x86_64 systems, this test inmate measures the time that is required
+to read a value from main memory. Via rdtsc, it measures the CPU cycles
+that are required for the access. Acces can either happen cached, or
+uncached. In case of uncached access, the cache line will be flushed
+before access.
 
-Ah!! Mask bit set means "ignore", not "match". If I clear sid_mask,
-actually just like in the Linux DT, everything starts to behave as
-expected, and I can selectively block devices (streams). Will write some
-config patches for the zynqmp targets.
+This tool repeats the measurement for 10e6 times, and outputs the
+average cycles that were required for the access. Before accessing the
+actual measurement, a dummy test is used to determine the average
+overhead of one single measurement.
 
-BTW, it seems we are missing shutdown logic, thus will leave the SMMU
-active on jailhouse disable (and will not properly disable it on errors
-half-way through init). Also, SID transfer between the root cell and a
-newly created/destroyed one is not available. Both properties are
-apparently shared with the SMMUv3 implementation...
+And that's pretty useful, because this tool gives a lot of insights of
+differences between the root and the non-root cell: With tiny effort, we
+can also run it on Linux.
 
-Jan
+If the 'overhead' time differs between root and non-root cell, this can
+be an indicator that there might be some timing or speed differences
+between the root and non-root cell.
+
+If the 'uncached' or 'cached' average time differs between the non-root
+and root cell, it's an indicator that both might have different hardware
+configurations / setups.
+
+The host tool can be compiled with:
+$ gcc -Os -Wall -Wextra -fno-stack-protector -mno-red-zone -o cache-timing ./inmates/tests/x86/cache-timings-host.c
+
+Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+---
+
+Hi Jan,
+
+what do you think about a test inmate like this one? It's still a RFC patch, as
+I'm not sure if the measurement setup is correct. Especially I might have too
+much fences.
+
+This test could be extended to run permanently and show the results of the last
+1e3, 1e5 and 1e6 runs. Having this, this tool could be used to monitor
+influences of the root cell on the non-root cell's caches.
+
+
+Aaand btw: On a Xeon Gold 5118, we have following values on Linux resp. in the
+non-root cell:
+
+Linux:
+$ ./cache-timing
+Measurement rounds: 10000000
+Determining measurement overhead...
+  -> Average measurement overhead: 37 cycles
+Measuring uncached memory access...
+  -> Average uncached memory access: 222 cycles
+Measuring cached memory access...
+  -> Average cached memory access: 9 cycles
+
+Non-Root:
+Cell "apic-demo" can be loaded
+Started cell "apic-demo"
+CPU 3 received SIPI, vector 100
+Measurement rounds: 10000000
+Determining measurement overhead...
+  -> Average measurement overhead: 82 cycles
+Measuring uncached memory access...
+  -> Average uncached memory access: 247 cycles
+Measuring cached memory access...
+  -> Average cached memory access: 19 cycles
+
+Cached Access on Linux is 2x faster than in the non-root cell - if my test is
+correct. This can - probably - explained by different cache configurations.
+Uncached access happens at almost the same speed.
+
+But do you have an explanation why the overhead measurement is more then 2x
+faster on Linux than in the non-root cell?
+
+Thanks
+  Ralf
+
+ inmates/tests/x86/Makefile               |  3 +-
+ inmates/tests/x86/cache-timings-common.c | 95 ++++++++++++++++++++++++
+ inmates/tests/x86/cache-timings-host.c   | 27 +++++++
+ inmates/tests/x86/cache-timings.c        | 15 ++++
+ 4 files changed, 139 insertions(+), 1 deletion(-)
+ create mode 100644 inmates/tests/x86/cache-timings-common.c
+ create mode 100644 inmates/tests/x86/cache-timings-host.c
+ create mode 100644 inmates/tests/x86/cache-timings.c
+
+diff --git a/inmates/tests/x86/Makefile b/inmates/tests/x86/Makefile
+index 6c8dc0e7..6e529dde 100644
+--- a/inmates/tests/x86/Makefile
++++ b/inmates/tests/x86/Makefile
+@@ -12,8 +12,9 @@
+ 
+ include $(INMATES_LIB)/Makefile.lib
+ 
+-INMATES := mmio-access.bin mmio-access-32.bin sse-demo.bin sse-demo-32.bin
++INMATES := cache-timings.bin mmio-access.bin mmio-access-32.bin sse-demo.bin sse-demo-32.bin
+ 
++cache-timings-y := cache-timings.o
+ mmio-access-y := mmio-access.o
+ 
+ $(eval $(call DECLARE_32_BIT,mmio-access-32))
+diff --git a/inmates/tests/x86/cache-timings-common.c b/inmates/tests/x86/cache-timings-common.c
+new file mode 100644
+index 00000000..0edf65e6
+--- /dev/null
++++ b/inmates/tests/x86/cache-timings-common.c
+@@ -0,0 +1,95 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) OTH Regensburg, 2020
++ *
++ * Authors:
++ *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++#define ROUNDS	(10 * 1000 * 1000)
++
++union tscval {
++	struct {
++		u32 lo;
++		u32 hi;
++	} __attribute__((packed));
++	u64 val;
++} __attribute__((packed));
++
++static u32 victim;
++
++static inline void clflush(void *addr)
++{
++	asm volatile("clflush %0\t\n"
++		     "mfence\t\n"
++		     "lfence\t\n" : "+m" (*(volatile char *)addr));
++}
++
++#define MEASUREMENT_OVERHEAD	"nop\t\n"
++#define MEASUREMENT_COMMAND	"mov (%%rbx), %%ebx\t\n"
++#define DECLARE_MEASUREMENT(name, flush, meas) \
++	static inline u64 measure_##name(u32 *victim)			\
++	{								\
++		union tscval before, after;				\
++									\
++		if (flush)						\
++			clflush(victim);				\
++		asm volatile("mov %4, %%rbx\t\n"			\
++			     "lfence\t\n"				\
++			     "rdtsc\t\n"				\
++			     "lfence\t\n"				\
++									\
++			     meas					\
++									\
++			     "mov %%eax, %%ebx\t\n"			\
++			     "mov %%edx, %%ecx\t\n"			\
++			     "lfence\t\n"				\
++			     "rdtsc\t\n"				\
++			     "lfence\t\n"				\
++			     "mov %%ebx, %0\t\n"			\
++			     "mov %%ecx, %1\t\n"			\
++			     "mov %%eax, %2\t\n"			\
++			     "mov %%edx, %3\t\n"			\
++			     : "=m"(before.lo), "=m" (before.hi),	\
++			       "=m" (after.lo), "=m" (after.hi)		\
++			     : "m" (victim)				\
++			     : "eax", "rbx", "ecx", "edx");		\
++		return after.val - before.val;				\
++	}
++
++DECLARE_MEASUREMENT(overhead, false, MEASUREMENT_OVERHEAD)
++DECLARE_MEASUREMENT(cached, false, MEASUREMENT_COMMAND)
++DECLARE_MEASUREMENT(uncached, true, MEASUREMENT_COMMAND)
++
++static inline u64 avg_measurement(u64 (*meas)(u32*), u32 *victim,
++				  unsigned int rounds, u64 overhead)
++{
++	u64 cycles = 0;
++	unsigned int i;
++
++	for (i = 0; i < rounds; i++)
++		cycles += meas(victim) - overhead;
++	return cycles / rounds;
++}
++
++void inmate_main(void)
++{
++	u64 cycles, overhead;
++
++	printk("Measurement rounds: %u\n", ROUNDS);
++	printk("Determining measurement overhead...\n");
++	overhead = avg_measurement(measure_overhead, &victim, ROUNDS, 0);
++	printk("  -> Average measurement overhead: %llu cycles\n", overhead);
++
++	printk("Measuring uncached memory access...\n");
++	cycles = avg_measurement(measure_uncached, &victim, ROUNDS, overhead);
++	printk("  -> Average uncached memory access: %llu cycles\n", cycles);
++
++	printk("Measuring cached memory access...\n");
++	cycles = avg_measurement(measure_cached, &victim, ROUNDS, overhead);
++	printk("  -> Average cached memory access: %llu cycles\n", cycles);
++}
+diff --git a/inmates/tests/x86/cache-timings-host.c b/inmates/tests/x86/cache-timings-host.c
+new file mode 100644
+index 00000000..229db904
+--- /dev/null
++++ b/inmates/tests/x86/cache-timings-host.c
+@@ -0,0 +1,27 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) OTH Regensburg, 2020
++ *
++ * Authors:
++ *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++#include <stdbool.h>
++#include <stdio.h>
++
++#define printk printf
++
++typedef unsigned int u32;
++typedef unsigned long long u64;
++
++#include "cache-timings-common.c"
++
++int main(void)
++{
++	inmate_main();
++	return 0;
++}
+diff --git a/inmates/tests/x86/cache-timings.c b/inmates/tests/x86/cache-timings.c
+new file mode 100644
+index 00000000..1acc3ee9
+--- /dev/null
++++ b/inmates/tests/x86/cache-timings.c
+@@ -0,0 +1,15 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) OTH Regensburg, 2020
++ *
++ * Authors:
++ *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++#include <inmate.h>
++
++#include "cache-timings-common.c"
+-- 
+2.28.0
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/db19391a-ffbf-ce89-9e4e-f811e501c993%40web.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20201002235640.196730-1-ralf.ramsauer%40oth-regensburg.de.
