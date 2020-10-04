@@ -1,118 +1,125 @@
-Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBB475D5QKGQEC2JLKUY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBNNN5D5QKGQE6BJ6M5Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oo1-xc3d.google.com (mail-oo1-xc3d.google.com [IPv6:2607:f8b0:4864:20::c3d])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9358282C5E
-	for <lists+jailhouse-dev@lfdr.de>; Sun,  4 Oct 2020 20:08:08 +0200 (CEST)
-Received: by mail-oo1-xc3d.google.com with SMTP id g14sf82220oov.19
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 04 Oct 2020 11:08:08 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1601834887; cv=pass;
+Received: from mail-ej1-x639.google.com (mail-ej1-x639.google.com [IPv6:2a00:1450:4864:20::639])
+	by mail.lfdr.de (Postfix) with ESMTPS id 508E9282C94
+	for <lists+jailhouse-dev@lfdr.de>; Sun,  4 Oct 2020 20:38:46 +0200 (CEST)
+Received: by mail-ej1-x639.google.com with SMTP id v9sf2381370ejb.2
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 04 Oct 2020 11:38:46 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1601836726; cv=pass;
         d=google.com; s=arc-20160816;
-        b=NPpsdSpmOzOE+5kcCD4rk7Bd9PwvIuCGh6p6tm8GymgKZhqeFt9GvNpp2IBYzLK48I
-         UrlKkN+bDL+Kjy16RPou5n/lVcIYwwdEFMd2CvgC6o1x//SpDskrmGAr9ML1M8SdPTyM
-         WlVY9gu5pNMgpfgCTKqRgW5uGypur0YWV7lS71PqO3WWmIleqnxoWGPFUt24sFe3ppY4
-         j0NZC7+U6CyOCsQr2JhmuOFUdrX+wlOWWA36BKLhk6VRaDBAnX/gWYDIt0qjx3/XwC1Y
-         Vyrt9uKPxkZPZNsycvKs4o9Tif2gtLTRCYuPM+bH7Kh43O0ZkN6XaCO72o8iwTHdT4AQ
-         EqSw==
+        b=UromXTHku2+4oiIOI/iusUcx7aGkZw4XtmbCoi88/oK53Pgoiz89Y2nT6uCu3I3xz+
+         xFWpTAGG5qdX+lMVSb+8/4XuOVibLSkzsMOoVphoQgtd2aRYZiOB1ymiq0dQpypxPpH7
+         HaVIzLAsZ3UzQd1TClkUqfsfrV3KrLynCuhvXf02lBwGasxUv4Iz0KckQlrvrVjHw9AG
+         aYTRTctrjRfygc/KttYepPoejEnix4R9SjmWk8oms6G4MBJlIjU82uCCLff8qjmpyxkq
+         Ti+JcSFz53ENsbsNXTqVkCZW/kc0jIXCvjVR1tqZDQ2FL8q1TFw8t5tVlBGQxfLGb89i
+         MQqg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to:mime-version:subject
-         :message-id:to:from:date:dkim-signature;
-        bh=q6q2RTZOWfygWMuN6quW4YSJErq3z6ZjNjvNvd+xscs=;
-        b=LoRVac2V3Dnil8mzlU40M/Qdy9NThr4z9zIUznI7LqGFq34ZzKqr/qvZHocCDoZ0Ks
-         iI34qBI+4cWWnHYjsKl/bM9GKgfd3pdQFwjyo3bkRE6uo74nhdPrhtKCo3zbA2P704wq
-         +1zBaLTykifC0hQde2smoLR0n6EfSpn7fTx+3gqgxYdifhKhWi8Y+RY8PQGNbn8oxeCP
-         DJpwO0un3hv2byVVDaBq7bAgnAwO70cS1oYD5GuhZP5HeQbfvzRATxyuytW72gTXLtxS
-         WsAdL5gZRGBYdoJ7Wza/TQGx1JH/dgNIhX1xOY+2zpDReuFQrV4JdXHQ/gYilSLg2uYN
-         apgw==
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:cc:to
+         :subject:sender:dkim-signature;
+        bh=cF0TAvuEpR1I6+aZ7EsBmHbRE4/EfCCY4AfrMQnxE3Q=;
+        b=ZAmMk9bZIksogiIaebe4D/Ro8O4tQkNYt5sdUDXlK/ELlcuc6BABaSOu+fbN+aCCOc
+         tqhHa3XMNwJqN3yCPnuvYWjvupUJ4UonhI9nTiyAB8hq4VDBWRwQ5/lymX8E0nFwVDUO
+         FdeOS2N+SxOTip+btSFdoijLbht4llUPi3x8+2b9jSSj1j3qBb2ou3zI+/cOW4lEmUlL
+         lyebLOxA4pViu87xOZng9azII5x0Us8legymAUJqKIbUy4yN9S/SnzSUapbpxbMAdutE
+         EWrrTd/9NPaVk//Fxs3d3ujC+7ELi38/FI6jztH6dCpNg1+34z6rBhQ6lEtdhe6A53Bb
+         BMxw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=OLxj9K5N;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.207 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=github.com
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=date:from:to:message-id:subject:mime-version:x-original-sender
-         :x-original-authentication-results:reply-to:precedence:mailing-list
-         :list-id:list-post:list-help:list-archive:list-subscribe
-         :list-unsubscribe;
-        bh=q6q2RTZOWfygWMuN6quW4YSJErq3z6ZjNjvNvd+xscs=;
-        b=i+RKcFszZGFycQb3MSjbYr9cCp2hVkxA3IEXV+vqMhubwmLwp8hGrVlh6LldLXEj35
-         0rbcLmBjCQsojd/EuIciiRSSuazvvEJVG3WlVnhQ0oXi/UiRl+n16zk0r5C8Lc/SDbYu
-         4VU74IJ5rtlii8t52fgkusefCfEd4/Skke0B4TzI5ieUYixRxLs9gKsYiKmThGpYWDbW
-         HdMro7jGJSkLhVMkMYelQKkvhpnNUT5yLGTDsjRu0ys4wTNLLPOo1R0dXx4FpTbQVFxK
-         CAiVBFMtAUbMFStE2ODM66nE9hGqXVGU604IOLUvPeMi21lekjzryy+39x2mjwKdh2wi
-         vd3A==
+        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=cF0TAvuEpR1I6+aZ7EsBmHbRE4/EfCCY4AfrMQnxE3Q=;
+        b=Qj0HWxbOssEbN3lSk34EOkitYgDr/NwXmgQwhHUSpXvGqbp76pFjigUpUZ6B1c5L5t
+         R+ZAqFaUVoFPCdIPBPxynLqwM8GF6lsn5+atA85544o/6lTUF+guY5R0Z+qS6+onM66o
+         4fzMdEK5rjuWQ0ai8GHicqPi1x8jLgI7WiwYMpuwQ1z80ke8nWeaY5dQhtYA7oB+H5N4
+         EQ2Pplpw+UqQlx0RYIhlPDjuJ9A34dk8wBYNKToDHe5CwkNt8AttwyOmGU5c0WHLN2hc
+         FCuOvnBbMmCT8e+548woJhhNyb2Yn+TdiemdYr3ubqd84zt3JEStGM7bP3kOKD7eL88B
+         InfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:message-id:subject:mime-version
-         :x-original-sender:x-original-authentication-results:reply-to
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=q6q2RTZOWfygWMuN6quW4YSJErq3z6ZjNjvNvd+xscs=;
-        b=oldKjnXVPXZVzGgyVe2sM3viOxIgsYb2u7jXpO7RQ2Wy0ekh5P/NVlhbk0cD4Zf0sM
-         xXNe3dXBaKy5jZK+obIqbx1hgO8g95GW9pVVjifCyU/3zpzXBtG/InILjOdiHjME8yfG
-         XD+ipNEkq9FwJvCt71maJC/hO1TItY9vyzwA3+JNBPY2ZUkb1DFbJmQa3Fn5y1V69Qmh
-         rO9Eip58Cg5fg+9M+2DKNnIbb0KY9NNhobJyz60zwPI5xM8RgKXOA/paQnX1E+uOBf/y
-         9LgKAeMEDqkXGpvMpWFoo3gZe6+K+nlbT3dBt4EpMsFyM2nXh4c93KYCvwwF/2Sk87HS
-         fxHA==
-X-Gm-Message-State: AOAM5320qPFzP9MesG9CyD+8tzfts4zo6/CGz63hRZwnmz9O4VpaMacw
-	XrDqc6b7OCOtpDVhrKkkhmc=
-X-Google-Smtp-Source: ABdhPJxbX4lWuTOVgFYTCTf/6Neh3gmrX4bQsblLMqKGbzxpOMiaAkrxglMKmwlfziuEPR8cgkEZCg==
-X-Received: by 2002:a05:6830:1e19:: with SMTP id s25mr1308110otr.294.1601834887341;
-        Sun, 04 Oct 2020 11:08:07 -0700 (PDT)
+        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=cF0TAvuEpR1I6+aZ7EsBmHbRE4/EfCCY4AfrMQnxE3Q=;
+        b=hXjcmoNjdZitX7AxqQMXknvDgmw4vtlZGjusaW09wnvmgCZhROkcT9IuYAv7tkrkqo
+         chqN+VxxzEJxzA74fAmzqCbu8Y3HTM8xfShdt2FH4UsHBfR/SqoGGH+T+sFx0tDC8fNX
+         GQ1frAkjqHawHOmrNAlks8xdcWsy7iRqEwQXHE8Y9Qgtsr4nKuZJuhN+lawWgAAlkJOW
+         TkRTBr+pkhhefB2j1Gdq0eCgpDWIbJGr0POKGNogcRtjXCvB/sy1chWxuEpYA2+teC6A
+         dqIL2jVbSbqQb8KvW4+KtFcy4AGlScGkcEpab663cFMrWhlkDV/z+pP/d8D24KCoRWQR
+         zozQ==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: AOAM531EVWegl8XzOmiQcmIP1gjc+GSlEFS9YIXFVPiNOyG3smSsjg2s
+	JQfbsM2XexeHLiAGO7elCgU=
+X-Google-Smtp-Source: ABdhPJyepapF/4euq1lSXnbPHINzCzS9rBkpPY7TlELQD1SH1OeEz9Jmi4N53ThGo48f2zMkPWzUyA==
+X-Received: by 2002:a17:906:e116:: with SMTP id gj22mr2923358ejb.313.1601836725994;
+        Sun, 04 Oct 2020 11:38:45 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aca:e154:: with SMTP id y81ls127722oig.9.gmail; Sun, 04 Oct
- 2020 11:08:06 -0700 (PDT)
-X-Received: by 2002:a05:6808:183:: with SMTP id w3mr6589285oic.176.1601834886579;
-        Sun, 04 Oct 2020 11:08:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1601834886; cv=none;
+Received: by 2002:aa7:c545:: with SMTP id s5ls2854977edr.3.gmail; Sun, 04 Oct
+ 2020 11:38:44 -0700 (PDT)
+X-Received: by 2002:aa7:db47:: with SMTP id n7mr13503582edt.315.1601836724704;
+        Sun, 04 Oct 2020 11:38:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1601836724; cv=none;
         d=google.com; s=arc-20160816;
-        b=P0ZPaA4YKhfXnkojZeyictYZeMS99htEqO7XK5wukYNyPlNbXyPKVPS7kywttXrXHE
-         jhToEKZmVbc/YZaI6wl/lk4coYkoXUyC1O6Xje4+MMA5gEAzmoIaHqsBmgAabN2Cf5A/
-         4p5qKSF9P8RO/kfXUbxJRI2A611/ms2K2PlO/mtF5y1d81cEQUOJQJxLVqVVg29gpb3P
-         sT4VP6y4uu7FiNGodKKiTPcQy8o7KqJQ8pQfkdRe90XId8duAscttzAlMLuD8vp96e6L
-         Zbd1s7E458fo1ZmUCrexn9h7tPg1mebc2v9/QTYolmu6uEMXFH1hp57uM5dFJGGBUmIf
-         yYZA==
+        b=UpkmGioId20iShYi0LI2vhXpur+Fo5Ri9PkpEl2w61pVT2y2IknrfOxLcmbDIIY1Cu
+         vvsDTIBzSx5VVnXK98U0wcl3G0plCKGwx2cfKgT6xXGBpzqeUxp/lFb9H/icGx/aThpz
+         XVSo1pfNip1Gkb4CdMHaEldgmh/4b4qIU9cF38IE8TB/UFZ36oXvMKHnAPWOBW34iF4I
+         FH0geQ8ZxQgmJmRK3NmVmU3V3IRPn4eW6Czan5kZDDp2tScDOpR462oIX/sB5zpy5B2k
+         0QplThvuj1R0kalOR4BHWZRfkIltAQvpPT4kbbvWaWNWvg4yiA1/RYMNDvYoBT5gt/2z
+         Xj6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:subject:message-id:to:from
-         :date:dkim-signature;
-        bh=ksWDK1KjRPVa7vn6q4bMMeqf8Pw+5tYo63XZIntfUj4=;
-        b=lBFffC734KGKmI/LP/lTX/qP1ZsMXPlGwPtcym3bfIfXELSp/CD/c0cv+0l0SbWvYb
-         YrGojEZCYjxlZ9sHwqFKHvXvk6Bic3Bs8PKdLciffuwqv3cO/2OZB1EXxmh1zSKYDoes
-         EX8suWKa9zOAtaQCEDCtfH4GvLynBrvk13C7awTVLYUxi/1eTemGb41azukvEkLeq8Ko
-         seysIB050ko1krW5qplTSxOEDhWHoQSrAxo0OmwggVN+qgOffzxWu3HT8nF1LQXZoKVG
-         FIyUeDOBtCyphLHwv0H0FFgsz/qDlvnrD5TcGANUB/oUeYs9MbWsO88aAxBLqv+jZc4I
-         wTrQ==
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:cc:to:subject;
+        bh=++gkgPMJXMUDOt3C8T4weB3dVSEgzgYpNgntvGBn4yc=;
+        b=XaEa+5RNq0WhZ+ZNQvl0dVZSjoS9XCweFX38cuzJRNxE9iYmZq9G1c0I8+LTYBuxYc
+         CplHt5XJwuMm+mRSp5OwulrTUvp45yfYbfZspnnz+j7s7djGFF7q0V9N/GjbAa7a5/hj
+         Ft76RUHZjZq+bMxEqP72I15Vz1nDz6FcsRokWCQJ2+Bei5z/nYCw6QFRXakDlOKTWpeV
+         owC8SegAbznDTam5YtDV8CMdK5qgZt4FdzGshGX9yi1JuO7ZSV2rVZzRcmnkXq5MVXWs
+         nUMeQMbHsz+gbafd5eTD0U3snR2oTayrwJ5fC0JreuLssKIlB6CeV5Xll8HpLNsvuGue
+         UwgA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=OLxj9K5N;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.207 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=github.com
-Received: from out-24.smtp.github.com (out-24.smtp.github.com. [192.30.252.207])
-        by gmr-mx.google.com with ESMTPS id l15si992665otb.0.2020.10.04.11.08.06
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
+        by gmr-mx.google.com with ESMTPS id u13si140016edb.0.2020.10.04.11.38.44
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Sun, 04 Oct 2020 11:08:06 -0700 (PDT)
-Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.207 as permitted sender) client-ip=192.30.252.207;
-Received: from github.com (hubbernetes-node-641158f.ac4-iad.github.net [10.52.114.55])
-	by smtp.github.com (Postfix) with ESMTPA id 26ECE600761
-	for <jailhouse-dev@googlegroups.com>; Sun,  4 Oct 2020 11:08:06 -0700 (PDT)
-Date: Sun, 04 Oct 2020 11:08:06 -0700
-From: "'Jan Kiszka' via Jailhouse" <jailhouse-dev@googlegroups.com>
-To: jailhouse-dev@googlegroups.com
-Message-ID: <siemens/jailhouse/push/refs/heads/coverity_scan/3e1ae5-e0d420@github.com>
-Subject: [siemens/jailhouse]
-Mime-Version: 1.0
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 04 Oct 2020 11:38:44 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 094IcipQ014790
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sun, 4 Oct 2020 20:38:44 +0200
+Received: from [167.87.242.108] ([167.87.242.108])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 094Ich77001950;
+	Sun, 4 Oct 2020 20:38:43 +0200
+Subject: Re: [RFC PATCH] inmates: x86: add cache access time test
+To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
+        jailhouse-dev@googlegroups.com
+Cc: Wolfgang Mauerer <wolfgang.mauerer@oth-regensburg.de>
+References: <20201002235640.196730-1-ralf.ramsauer@oth-regensburg.de>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <2b5258fb-ff56-c74d-08c8-2cbd22c8478f@siemens.com>
+Date: Sun, 4 Oct 2020 20:38:43 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
+MIME-Version: 1.0
+In-Reply-To: <20201002235640.196730-1-ralf.ramsauer@oth-regensburg.de>
 Content-Type: text/plain; charset="UTF-8"
-X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
-X-Auto-Response-Suppress: All
-X-Original-Sender: noreply@github.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
- mode) header.i=@github.com header.s=pf2014 header.b=OLxj9K5N;       spf=pass
- (google.com: domain of noreply@github.com designates 192.30.252.207 as
- permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass
- (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=github.com
-X-Original-From: Jan Kiszka <noreply@github.com>
-Reply-To: Jan Kiszka <noreply@github.com>
+Content-Language: en-US
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -125,10 +132,100 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-  Branch: refs/heads/coverity_scan
-  Home:   https://github.com/siemens/jailhouse
+On 03.10.20 01:56, Ralf Ramsauer wrote:
+> On x86_64 systems, this test inmate measures the time that is required
+> to read a value from main memory. Via rdtsc, it measures the CPU cycles
+> that are required for the access. Acces can either happen cached, or
+> uncached. In case of uncached access, the cache line will be flushed
+> before access.
+> 
+> This tool repeats the measurement for 10e6 times, and outputs the
+> average cycles that were required for the access. Before accessing the
+> actual measurement, a dummy test is used to determine the average
+> overhead of one single measurement.
+> 
+> And that's pretty useful, because this tool gives a lot of insights of
+> differences between the root and the non-root cell: With tiny effort, we
+> can also run it on Linux.
+> 
+> If the 'overhead' time differs between root and non-root cell, this can
+> be an indicator that there might be some timing or speed differences
+> between the root and non-root cell.
+> 
+> If the 'uncached' or 'cached' average time differs between the non-root
+> and root cell, it's an indicator that both might have different hardware
+> configurations / setups.
+> 
+> The host tool can be compiled with:
+> $ gcc -Os -Wall -Wextra -fno-stack-protector -mno-red-zone -o cache-timing ./inmates/tests/x86/cache-timings-host.c
+> 
+> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+> ---
+> 
+> Hi Jan,
+> 
+> what do you think about a test inmate like this one? It's still a RFC patch, as
+> I'm not sure if the measurement setup is correct. Especially I might have too
+> much fences.
+> 
+> This test could be extended to run permanently and show the results of the last
+> 1e3, 1e5 and 1e6 runs. Having this, this tool could be used to monitor
+> influences of the root cell on the non-root cell's caches.
+
+Such benchmarks aren't bad. However, the current form does not qualify
+for the test folder yet IMHO: no functional test, no easy evaluation of
+benchmark results in order to generate a pass/fail criteria.
+
+> 
+> 
+> Aaand btw: On a Xeon Gold 5118, we have following values on Linux resp. in the
+> non-root cell:
+> 
+> Linux:
+> $ ./cache-timing
+> Measurement rounds: 10000000
+> Determining measurement overhead...
+>   -> Average measurement overhead: 37 cycles
+> Measuring uncached memory access...
+>   -> Average uncached memory access: 222 cycles
+> Measuring cached memory access...
+>   -> Average cached memory access: 9 cycles
+> 
+
+Linux native or Linux in Jailhouse?
+
+> Non-Root:
+> Cell "apic-demo" can be loaded
+> Started cell "apic-demo"
+> CPU 3 received SIPI, vector 100
+> Measurement rounds: 10000000
+> Determining measurement overhead...
+>   -> Average measurement overhead: 82 cycles
+> Measuring uncached memory access...
+>   -> Average uncached memory access: 247 cycles
+> Measuring cached memory access...
+>   -> Average cached memory access: 19 cycles
+
+How does this compare to Linux in Jailhouse (if the above was native)?
+
+> 
+> Cached Access on Linux is 2x faster than in the non-root cell - if my test is
+> correct. This can - probably - explained by different cache configurations.
+> Uncached access happens at almost the same speed.
+> 
+> But do you have an explanation why the overhead measurement is more then 2x
+> faster on Linux than in the non-root cell?
+> 
+
+Not yet, but I need the full picture first.
+
+Jan
+
+-- 
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+Corporate Competence Center Embedded Linux
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/coverity_scan/3e1ae5-e0d420%40github.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/2b5258fb-ff56-c74d-08c8-2cbd22c8478f%40siemens.com.
