@@ -1,127 +1,122 @@
-Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBRH4335QKGQE322UBGI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBAABBJ7D435QKGQECEDQ3NA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x13b.google.com (mail-lf1-x13b.google.com [IPv6:2a00:1450:4864:20::13b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4668F281F70
-	for <lists+jailhouse-dev@lfdr.de>; Sat,  3 Oct 2020 01:56:53 +0200 (CEST)
-Received: by mail-lf1-x13b.google.com with SMTP id a17sf1215348lfl.4
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 02 Oct 2020 16:56:53 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1601683012; cv=pass;
+Received: from mail-lf1-x13d.google.com (mail-lf1-x13d.google.com [IPv6:2a00:1450:4864:20::13d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E758282A65
+	for <lists+jailhouse-dev@lfdr.de>; Sun,  4 Oct 2020 13:27:36 +0200 (CEST)
+Received: by mail-lf1-x13d.google.com with SMTP id v128sf2525473lfa.5
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 04 Oct 2020 04:27:36 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1601810856; cv=pass;
         d=google.com; s=arc-20160816;
-        b=MmRSiSBfnsPgrDbzM23ojFU9dFNRZ9lL4SH0Jeq1KHEqPDVcniHNTb3MscAPtR38fT
-         qWnhneO6Xkbevh/dlziVDEb5TCYery3ejILxki8+k+GIjrzUkueLjub/qrcDMPXe4Sst
-         0bXts/aCJEPIJbG7oemJRbKyoDHjY6jzPXkHc1ZEDflu1LgCrIt//9VJ3kq0puT8zG9F
-         PA615UjBJ+Xk4GERVYZYF34DPQkIkn4dGr6Y7FguIcCV3JSYwBfL7mnaH97Y+4AtRK2H
-         YMfpNIFd6DR9yDQwPEicQ0LCmXs07l5HjSXR+ePFWv1ZrdGadYLi7/w+Cu3ZFxVUvtze
-         GZ7Q==
+        b=xATwb/GXX78i7uUiD3KgzjhVziD6AD8nlOmme6UUl6rzjlhnQdCs8cBAgYA9F0gDQH
+         4kZ8i/tiNQhbWvbFwnmNC3/FR/JmeyPk8QZDsZHSu+JvqO7arUIcPkU5hekqr4TTntGS
+         8YY8t2Ef4ZuEIAYvSOxAgJ4CRTYszzulK4uMZKH0uyWnDO/V8AOQNx6ECc8caz6emsdm
+         mE7ChvVsuTmFI42om1FoFdm0YbH8XzxVdIS/UNEAFGEOU4vaeJKCz7hqA+VmuS/7+VQG
+         MFOcvYwFYfB2E5j1rZ4+bul2YYSQmNi2ZEzJA1fnCceCFrVtm1hmjhLOCFa5Z9HCEXqY
+         z5Gw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:message-id:date
-         :subject:cc:to:from:sender:dkim-signature;
-        bh=kjfOf+A68yWMtaE1r9ioVayw97uwmFC+qNg0RIgIUgw=;
-        b=Rads/02DGMiUS4cDxF2buwl9ewfEyLPddIZQtBGUV7+HMZr+WC6ySoyaoFVFExXJUM
-         xSjo72LnvHMXudDeu1k2qzP0fi6ybyBSOGTBQi+XFZTxnasTMKPxmKkgHIOdnVysXFJ9
-         TP8U1tCCppUD7UO8dpprNVVk/6mn2egMg767xdCtnNDhtXZpgU3V6QnqDNhZ+dWnUka2
-         yPqqmfZ7tFXxadA9hYNogvScfV3cw++PuwGRNu55fXF9W4+WGtSkDuk3x3g0iww4x6zE
-         4SMPlRZftRiP9VhR1TPrWq1lktrGGBJIK3N7bF3xCbi3hOhcPqlOU+zGTF/kShP026hY
-         6BIA==
+        h=list-subscribe:list-archive:list-help:list-post:list-id
+         :mailing-list:precedence:content-transfer-encoding:mime-version
+         :subject:list-unsubscribe:feedback-id:message-id:date:reply-to:from
+         :to:sender:dkim-signature;
+        bh=7V5JjFOOIMiQw4bmUCzMUoisI+TPcxsA5bkJg++/CEg=;
+        b=XVGwg52HRM32HYfyomjGiRn0VJGk0hgo3tFGJvaU6Ht7iwXSfyYDfj+Qq/3UVAz38s
+         wako3AD66G7C4HkENhHViB0CzyiUHiv72/y2GD349TC0P+3w5DVnMNDOE7dSMf29b1v2
+         vUxxyVNoKMeC65+I/RFwyGMKZ/8ki6zqlmIbqUVJAI4d8I3XAySe/sm38+xk/G2rz9fY
+         4Ea3HZoZyaRBXCi5AITc2XbbWGWG0NAMD+3WNSgZpj0/N6A7YE8jVlJKC6DRhc8lMZUX
+         izbqM4V5tp0RGzueac0SbMvu7yCUyqmhISba3/AaFl+aPGRMInwWvsxYszsQ4fc91/Uf
+         +HAQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=QQ67t7jk;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+       dkim=fail header.i=@ics.events header.s=dkim header.b="ef3a/4Qg";
+       spf=softfail (google.com: domain of transitioning conf@ics.events does not designate 93.159.215.162 as permitted sender) smtp.mailfrom=conf@ics.events
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:cc:subject:date:message-id:mime-version
+        h=sender:to:from:reply-to:date:message-id:feedback-id
+         :list-unsubscribe:subject:mime-version:content-transfer-encoding
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=kjfOf+A68yWMtaE1r9ioVayw97uwmFC+qNg0RIgIUgw=;
-        b=GRgRB9VKji6Pcu/jIOccqnrlmADSmK74n/5Kn9npc6ea9P9xKZRCmQRz71CksijbEx
-         8iN4EMDb0ieZGayYMCEj+TfCgBK4ULislBHbpKqXqafS13csOKz3IexEyNaZfxjra/lE
-         3+eXPvUappv6UbXNeaAjiAPV59DcQVgDLx4sRH0jOY9UAZmCbD2SICgaAWmBwg95wAH2
-         /1CdvVjLt+X2V1jz1T30KzlyOWbXSk+BXgBPvJV5KL+39UFR/zwTNdgSeAUQsxYx+jos
-         qkI5QEyXoGkH9Y8F5iSKbLrZGdxS7nBLViOkFQeflJrwbM8f6KIlbWuGhvYrpZhFdVYh
-         7BYw==
+         :list-subscribe;
+        bh=7V5JjFOOIMiQw4bmUCzMUoisI+TPcxsA5bkJg++/CEg=;
+        b=cgNMOLYVCa4zcY1gGFHjK8Sf1Oee0Hkk+N0a9DxURcY8PdxcGVJvZiOVl6o7F1oTBs
+         7SFNaDRlTQ8M9NvxRlZe+8hTFR3bKRr/N2CflfpyUoa/5iJKZEIDLkMrTIA6jddg7KSO
+         mJDY7R2BpRfVWQm+wApM2KEXRRTCfsRBAV/A3WvsC/PuOZ8ymGmjDWCqPEAwZsGm5bd4
+         u7VLprrRX0rLsggcsithh2Dq8p4/LkE1eOH6AN5QueOEk9ms6GMTGw362WoZD8YnA+ix
+         ZbIwAlIDoDcm0o6WVdbulqaswUZVKXKttiDkA1tztJQ1ZmAu4RGWCMZn1IX/VkJ39VGx
+         pLIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=kjfOf+A68yWMtaE1r9ioVayw97uwmFC+qNg0RIgIUgw=;
-        b=Z7hFdrl0D2DL5GSwWUSGOHCphJNCyoGfBQhMMFCvTUGHEho0v9vBOD8Tc9Rr1ky2hC
-         /Kc6DLon1FyVGKknC/UGTATGFYwY5vFEAywPzB69UrGF1HIA0VP9uaYMNdUdT6TGZewJ
-         ybltIpvp9d0rJCYWHRTAwyGeXHRZFI4eLKg6+JG2cvgQeDDyF50jDwsbEaQAbibEnchr
-         yzn1rhytpC+zAJkr421sY5ddPXEPA50VQkeFLZ2ud8PeAeaPdNaaWFQx00FOOJw9O8Sp
-         3vAMi3AUY93bLRoUGX+108j0WNF+XIr6Wy3394ndnHYsiYTJufwTKGHraTfv86XD1c1P
-         7lFQ==
+        h=sender:x-gm-message-state:to:from:reply-to:date:message-id
+         :feedback-id:list-unsubscribe:subject:mime-version
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe;
+        bh=7V5JjFOOIMiQw4bmUCzMUoisI+TPcxsA5bkJg++/CEg=;
+        b=LpH7Ekl7obBLajGIwtAZvqKmxulLPyLYe/lM0h4QiZm5WHuebqp6wJED2f/yWMrVXh
+         nEjAaJcTkX4cnF1ax11so6nOP7b4lyax530zWPdUQOzsktpXOU1cjZxWDMejWuOhuxSn
+         G/zRWj0z6vl6LXRVOvHo/yTi30jCsCYmPa4EB/tfia2btYris1TqQgI1Vy1ex1meTju6
+         i1bO5DBxIyCzt8ci1pee/QIHhQR502xI1w5J4UEgbwhhRAk+S3P7WIhtxtLTZvfQSfbo
+         7PIU87UF8bMoHDAtMmgJ7N9Hbw7AHqjhyn4yn/CzCYlfjS35SRTjGrKUC2F7uMkSukgV
+         rdmA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533Zi032TDU3qo6KizXrO85PfcLytGx7y7fRHlgVoetn3dLGvGMa
-	4XQzfyUtEBSGDaT2a6UpbSs=
-X-Google-Smtp-Source: ABdhPJxBzr9AZHT1AENexDFNSxvLtL7qObhdJzhWA/0OYhfuJYGuFQ+u+cqmFazbJyBEwk3djzMcGA==
-X-Received: by 2002:a2e:b5b9:: with SMTP id f25mr1461290ljn.61.1601683012723;
-        Fri, 02 Oct 2020 16:56:52 -0700 (PDT)
+X-Gm-Message-State: AOAM532zRf4c7C+rSP/YyoB2wBbuo9l8MBDQOUrdw3c/vBMEMRgc3Oto
+	O6WAtAJ03O5Se3lI+74HfYw=
+X-Google-Smtp-Source: ABdhPJw10tm2UFga+kVZTMug8IMUqsC+n/ZGiAwV0SjcI8F4Ggb/WSqZvGDbgatvk6W7XBDwyclIMA==
+X-Received: by 2002:a2e:a318:: with SMTP id l24mr578009lje.170.1601810856028;
+        Sun, 04 Oct 2020 04:27:36 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac2:544e:: with SMTP id d14ls1661215lfn.2.gmail; Fri, 02 Oct
- 2020 16:56:51 -0700 (PDT)
-X-Received: by 2002:a19:dcb:: with SMTP id 194mr1623022lfn.25.1601683011483;
-        Fri, 02 Oct 2020 16:56:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1601683011; cv=none;
+Received: by 2002:ac2:5c44:: with SMTP id s4ls858932lfp.3.gmail; Sun, 04 Oct
+ 2020 04:27:34 -0700 (PDT)
+X-Received: by 2002:a19:915d:: with SMTP id y29mr4215911lfj.371.1601810854899;
+        Sun, 04 Oct 2020 04:27:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1601810854; cv=none;
         d=google.com; s=arc-20160816;
-        b=DYt5rAHo2vipuKDE2XxD/6mLTQNf+4YtkHNHeyr9+C1zb+bNzzKlYIZRlE061FN7VA
-         tsdWJagp1G+9Bxj0Az7O91WvTQ0ChK+jl3UOY0aXHZnt0UmOAVQl9y7ICJndEgkCyEwy
-         /r2IHpNI1cQzQ7qqKnAJRNF9kEOfabtZ3os6GkqpRGWELBLPSFRYKOWo9UPobZuLrEKo
-         k1PwuoEQsNaO/8r1HbWXHiK7MWY5K5QxFasbhpPAKQbui2IyXx4Ekt7BDaKB97xmY1Dd
-         4uaRv1yOrHjOLq9u8oId9O7sX9Lph36XOxvHa12yntDVElTQblRdAGqUuZH7flvavwFP
-         d5zg==
+        b=OMUEZWQjdzrLBJyOmI0mw7rK4pIH8SlHuQ6W05kXmwrG4jfAqw4X+RGDsN3q8A0CHA
+         MREbU1RWgd/yJqs5ToFifWhwChHKfzPePUUye32B5xEbyjfQfdzJtnx/5M/r5OUCYAxy
+         WLNBoKrueiP6GrTkeYoY4l/m8sjnACwosC8pK4/xZCIpF5J1/aqr1Mt9dhHAi/eKADT9
+         7AfnQCmoUUWt0bp+gJyZLPHOrmPW6gHe0bsjRLI9mZUJcMxUWGl6FLJqihD41tT/y3mk
+         mS3rzKJeNTQgE9XmcMYjdgcMnHKWy1ngjqYgWK4+ej1ZhW8kELEh2udP2ctiT9PcjVm/
+         hkhA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:dkim-signature;
-        bh=REHgAnODQyRsxbyWf5KdhQFfgqWPjP/vuLdrmNkFYYY=;
-        b=jYafxPaL/OVau47UXMNs66BzncXYINZZL8j4qDhQtYL9lXoXHD4tqQvLuvE2YnjH7E
-         iBKeivNACuzR/30aMhu896dIlJVQRNF3iWnIAWDvn7aQKS54Wvojl05PBWYSNjF4eJHG
-         U3g18lr3o43/NyccYkvmrnYMG/vdRQztBVMwJCNnu07Rv+QEwvhnBdAcmmgAjYTFRp/5
-         pU26xI1kKkpadzHmaBeRDvrsfVUkVSu/iR0wvuksM8vUZFqshlwr9wUu05O7fRbIiC8c
-         wh+unq/gxHXayYJ1WMqvnLyrvTdfQsfMi+N7FFI1sEhJL7OVwnh6WqXEp/bWdTmc1y0n
-         BjlA==
+        h=content-transfer-encoding:mime-version:subject:list-unsubscribe
+         :feedback-id:message-id:date:reply-to:from:to:dkim-signature;
+        bh=Ojr1+JoGmZKnSnFYMDrr7g9F3pkwjrjp8E5vnlUQdoU=;
+        b=gAKck5x+IPP97yMBw++OsNyMcV6IxOWzvcFL344FFaY82og6xBD3oVfPs44wyGYWxm
+         VBYWkV5LLfGM4f9NXBN+tapHfTOU+eqgW3MORxsSBf4NCQUIa74ixnrf+QAgo5n7iFvk
+         WGzZ/6+lUwQJetHVnxkWcvi59myv01Ahs4C8AcqehDX+59skLuyX98A6tc/mxiWVG+1p
+         qLERVK2sfmwjgThSioBIKtNK3YsxgBsc5EIxE/WVPAS6pqfNUAG7IsOwpYM7CtoIAD+7
+         mW8RIHSbeo7FWQirY65qjHmOrTEv59cOQHgwrcqGUGxj7U7wxUardyn8zb9C7nl9Cq0c
+         pVQw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=QQ67t7jk;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [194.95.104.12])
-        by gmr-mx.google.com with ESMTPS id d1si100117lfa.11.2020.10.02.16.56.51
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 02 Oct 2020 16:56:51 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) client-ip=194.95.104.12;
-Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S02", Issuer "E16S02" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4C36NL3mTBzy0g;
-	Sat,  3 Oct 2020 01:56:50 +0200 (CEST)
-Received: from omega.home (194.95.106.138) by E16S02.hs-regensburg.de
- (2001:638:a01:8013::92) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Sat, 3 Oct 2020
- 01:56:49 +0200
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-To: <jailhouse-dev@googlegroups.com>, Jan Kiszka <jan.kiszka@siemens.com>
-CC: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>, Wolfgang Mauerer
-	<wolfgang.mauerer@oth-regensburg.de>
-Subject: [RFC PATCH] inmates: x86: add cache access time test
-Date: Sat, 3 Oct 2020 01:56:40 +0200
-Message-ID: <20201002235640.196730-1-ralf.ramsauer@oth-regensburg.de>
-X-Mailer: git-send-email 2.28.0
+       dkim=fail header.i=@ics.events header.s=dkim header.b="ef3a/4Qg";
+       spf=softfail (google.com: domain of transitioning conf@ics.events does not designate 93.159.215.162 as permitted sender) smtp.mailfrom=conf@ics.events
+Received: from s5mt162p.consultorpc.com (s5mt162p.consultorpc.com. [93.159.215.162])
+        by gmr-mx.google.com with ESMTP id y12si68891ljc.1.2020.10.04.04.27.34
+        for <jailhouse-dev@googlegroups.com>;
+        Sun, 04 Oct 2020 04:27:34 -0700 (PDT)
+Received-SPF: softfail (google.com: domain of transitioning conf@ics.events does not designate 93.159.215.162 as permitted sender) client-ip=93.159.215.162;
+Received: by s5mt162p.consultorpc.com id hf6oqa16r3gv for <jailhouse-dev@googlegroups.com>; Sun, 4 Oct 2020 13:27:32 +0200 (envelope-from <conf@ics.events>)
+To: <jailhouse-dev@googlegroups.com>
+From: "John Dreamer" <conf@ics.events>
+Reply-To: "John Dreamer" <conf@ics.events>
+Date: Sun, 04 Oct 2020 13:27:13 +0200
+Message-ID: <57500d04020c0b000157550b00095253525401540401545957070e03035352595d5053520a5b0801535e53015054@ics_ip-zone_com-6>
+X-CcmId: 0c0246685a491d495f08046d555d0c5e515704550b070d5200
+Feedback-ID: 218315:218315-33:1:Mailrelay
+X-Report-Abuse: Please report abuse for this campaign here http://ics.mailrelay-v.com/ccm/abuse?a=218315&m=33&s=28238
+X-OriginalSender: conf@ics.events
+List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
+ <https://groups.google.com/group/jailhouse-dev/subscribe>
+Subject: =?UTF-8?Q?=F0=9F=94=97=F0=9F=93=99=F0=9F=93=A5Springer=20?=
+ =?UTF-8?Q?Publication.Q3.Scopus=2C=20WoS=20Indexation.?=
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-X-Originating-IP: [194.95.106.138]
-X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
- E16S02.hs-regensburg.de (2001:638:a01:8013::92)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=QQ67t7jk;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Content-Type: multipart/alternative; boundary="-------5f79b191dfacc"
+Content-Transfer-Encoding: 7bit
+X-Original-Sender: conf@ics.events
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=fail
+ header.i=@ics.events header.s=dkim header.b="ef3a/4Qg";       spf=softfail
+ (google.com: domain of transitioning conf@ics.events does not designate
+ 93.159.215.162 as permitted sender) smtp.mailfrom=conf@ics.events
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -131,267 +126,157 @@ List-Post: <https://groups.google.com/group/jailhouse-dev/post>, <mailto:jailhou
 List-Help: <https://groups.google.com/support/>, <mailto:jailhouse-dev+help@googlegroups.com>
 List-Archive: <https://groups.google.com/group/jailhouse-dev
 List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mailto:jailhouse-dev+subscribe@googlegroups.com>
-List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
- <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On x86_64 systems, this test inmate measures the time that is required
-to read a value from main memory. Via rdtsc, it measures the CPU cycles
-that are required for the access. Acces can either happen cached, or
-uncached. In case of uncached access, the cache line will be flushed
-before access.
+This is a multi-part message in MIME format
 
-This tool repeats the measurement for 10e6 times, and outputs the
-average cycles that were required for the access. Before accessing the
-actual measurement, a dummy test is used to determine the average
-overhead of one single measurement.
-
-And that's pretty useful, because this tool gives a lot of insights of
-differences between the root and the non-root cell: With tiny effort, we
-can also run it on Linux.
-
-If the 'overhead' time differs between root and non-root cell, this can
-be an indicator that there might be some timing or speed differences
-between the root and non-root cell.
-
-If the 'uncached' or 'cached' average time differs between the non-root
-and root cell, it's an indicator that both might have different hardware
-configurations / setups.
-
-The host tool can be compiled with:
-$ gcc -Os -Wall -Wextra -fno-stack-protector -mno-red-zone -o cache-timing ./inmates/tests/x86/cache-timings-host.c
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
----
-
-Hi Jan,
-
-what do you think about a test inmate like this one? It's still a RFC patch, as
-I'm not sure if the measurement setup is correct. Especially I might have too
-much fences.
-
-This test could be extended to run permanently and show the results of the last
-1e3, 1e5 and 1e6 runs. Having this, this tool could be used to monitor
-influences of the root cell on the non-root cell's caches.
+---------5f79b191dfacc
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
 
-Aaand btw: On a Xeon Gold 5118, we have following values on Linux resp. in the
-non-root cell:
+=F0=9F=94=97=F0=9F=93=99=F0=9F=93=A5Springer Publication.Q3.Scopus, WoS Ind=
+exation.
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Dear Author,=C2=A0
+You are cordially invited to the 2021 International Conference on Advances =
+in Digital Science (ICADS 2021), to be held at Salvador, Brazil,=C2=A019 =
+=E2=80=93 21 February 2021, is an international forum for researchers and p=
+ractitioners to present and discuss the most recent innovations, trends, re=
+sults, experiences and concerns in the several advances of Digital Science.
 
-Linux:
-$ ./cache-timing
-Measurement rounds: 10000000
-Determining measurement overhead...
-  -> Average measurement overhead: 37 cycles
-Measuring uncached memory access...
-  -> Average uncached memory access: 222 cycles
-Measuring cached memory access...
-  -> Average cached memory access: 9 cycles
+Conference website https://ics.events/icads-2021/.
 
-Non-Root:
-Cell "apic-demo" can be loaded
-Started cell "apic-demo"
-CPU 3 received SIPI, vector 100
-Measurement rounds: 10000000
-Determining measurement overhead...
-  -> Average measurement overhead: 82 cycles
-Measuring uncached memory access...
-  -> Average uncached memory access: 247 cycles
-Measuring cached memory access...
-  -> Average cached memory access: 19 cycles
+You may submit your paper online via Conference Submissions Form=C2=A0on ht=
+tps://ics.events/icads-2021/. Submitted papers (until 10-12 page limit) mus=
+t be written in English, must not have been published before, not be under =
+review for any other conference or publication, must comply with Template i=
+n .doc/docx format.
 
-Cached Access on Linux is 2x faster than in the non-root cell - if my test is
-correct. This can - probably - explained by different cache configurations.
-Uncached access happens at almost the same speed.
+All submissions will be twice =C2=ABblind=C2=BB reviewed by Scientific Comm=
+ittee Members and invited Reviewers based on relevance, timeliness, origina=
+lity, importance and clarity of expression with convincing argumentative an=
+d a strict paper selection process.
 
-But do you have an explanation why the overhead measurement is more then 2x
-faster on Linux than in the non-root cell?
+Accepted and registered Papers will be published in ICADS 2021 Proceeding b=
+y Springer in a book of the =E2=80=9CAdvances in Intelligent Systems and Co=
+mputing=E2=80=9D (included in Scopus source list, Q3 / JSR 0,184), and then=
+ will be submitted to ISI Proceedings, SCOPUS, Google Scholar and other ind=
+exations.
 
-Thanks
-  Ralf
 
- inmates/tests/x86/Makefile               |  3 +-
- inmates/tests/x86/cache-timings-common.c | 95 ++++++++++++++++++++++++
- inmates/tests/x86/cache-timings-host.c   | 27 +++++++
- inmates/tests/x86/cache-timings.c        | 15 ++++
- 4 files changed, 139 insertions(+), 1 deletion(-)
- create mode 100644 inmates/tests/x86/cache-timings-common.c
- create mode 100644 inmates/tests/x86/cache-timings-host.c
- create mode 100644 inmates/tests/x86/cache-timings.c
+We are prepared to offer virtual participation options, for anyone who cann=
+ot or chooses not to travel due to the situation regarding COVID-19.
 
-diff --git a/inmates/tests/x86/Makefile b/inmates/tests/x86/Makefile
-index 6c8dc0e7..6e529dde 100644
---- a/inmates/tests/x86/Makefile
-+++ b/inmates/tests/x86/Makefile
-@@ -12,8 +12,9 @@
- 
- include $(INMATES_LIB)/Makefile.lib
- 
--INMATES := mmio-access.bin mmio-access-32.bin sse-demo.bin sse-demo-32.bin
-+INMATES := cache-timings.bin mmio-access.bin mmio-access-32.bin sse-demo.bin sse-demo-32.bin
- 
-+cache-timings-y := cache-timings.o
- mmio-access-y := mmio-access.o
- 
- $(eval $(call DECLARE_32_BIT,mmio-access-32))
-diff --git a/inmates/tests/x86/cache-timings-common.c b/inmates/tests/x86/cache-timings-common.c
-new file mode 100644
-index 00000000..0edf65e6
---- /dev/null
-+++ b/inmates/tests/x86/cache-timings-common.c
-@@ -0,0 +1,95 @@
-+/*
-+ * Jailhouse, a Linux-based partitioning hypervisor
-+ *
-+ * Copyright (c) OTH Regensburg, 2020
-+ *
-+ * Authors:
-+ *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See
-+ * the COPYING file in the top-level directory.
-+ */
-+
-+#define ROUNDS	(10 * 1000 * 1000)
-+
-+union tscval {
-+	struct {
-+		u32 lo;
-+		u32 hi;
-+	} __attribute__((packed));
-+	u64 val;
-+} __attribute__((packed));
-+
-+static u32 victim;
-+
-+static inline void clflush(void *addr)
-+{
-+	asm volatile("clflush %0\t\n"
-+		     "mfence\t\n"
-+		     "lfence\t\n" : "+m" (*(volatile char *)addr));
-+}
-+
-+#define MEASUREMENT_OVERHEAD	"nop\t\n"
-+#define MEASUREMENT_COMMAND	"mov (%%rbx), %%ebx\t\n"
-+#define DECLARE_MEASUREMENT(name, flush, meas) \
-+	static inline u64 measure_##name(u32 *victim)			\
-+	{								\
-+		union tscval before, after;				\
-+									\
-+		if (flush)						\
-+			clflush(victim);				\
-+		asm volatile("mov %4, %%rbx\t\n"			\
-+			     "lfence\t\n"				\
-+			     "rdtsc\t\n"				\
-+			     "lfence\t\n"				\
-+									\
-+			     meas					\
-+									\
-+			     "mov %%eax, %%ebx\t\n"			\
-+			     "mov %%edx, %%ecx\t\n"			\
-+			     "lfence\t\n"				\
-+			     "rdtsc\t\n"				\
-+			     "lfence\t\n"				\
-+			     "mov %%ebx, %0\t\n"			\
-+			     "mov %%ecx, %1\t\n"			\
-+			     "mov %%eax, %2\t\n"			\
-+			     "mov %%edx, %3\t\n"			\
-+			     : "=m"(before.lo), "=m" (before.hi),	\
-+			       "=m" (after.lo), "=m" (after.hi)		\
-+			     : "m" (victim)				\
-+			     : "eax", "rbx", "ecx", "edx");		\
-+		return after.val - before.val;				\
-+	}
-+
-+DECLARE_MEASUREMENT(overhead, false, MEASUREMENT_OVERHEAD)
-+DECLARE_MEASUREMENT(cached, false, MEASUREMENT_COMMAND)
-+DECLARE_MEASUREMENT(uncached, true, MEASUREMENT_COMMAND)
-+
-+static inline u64 avg_measurement(u64 (*meas)(u32*), u32 *victim,
-+				  unsigned int rounds, u64 overhead)
-+{
-+	u64 cycles = 0;
-+	unsigned int i;
-+
-+	for (i = 0; i < rounds; i++)
-+		cycles += meas(victim) - overhead;
-+	return cycles / rounds;
-+}
-+
-+void inmate_main(void)
-+{
-+	u64 cycles, overhead;
-+
-+	printk("Measurement rounds: %u\n", ROUNDS);
-+	printk("Determining measurement overhead...\n");
-+	overhead = avg_measurement(measure_overhead, &victim, ROUNDS, 0);
-+	printk("  -> Average measurement overhead: %llu cycles\n", overhead);
-+
-+	printk("Measuring uncached memory access...\n");
-+	cycles = avg_measurement(measure_uncached, &victim, ROUNDS, overhead);
-+	printk("  -> Average uncached memory access: %llu cycles\n", cycles);
-+
-+	printk("Measuring cached memory access...\n");
-+	cycles = avg_measurement(measure_cached, &victim, ROUNDS, overhead);
-+	printk("  -> Average cached memory access: %llu cycles\n", cycles);
-+}
-diff --git a/inmates/tests/x86/cache-timings-host.c b/inmates/tests/x86/cache-timings-host.c
-new file mode 100644
-index 00000000..229db904
---- /dev/null
-+++ b/inmates/tests/x86/cache-timings-host.c
-@@ -0,0 +1,27 @@
-+/*
-+ * Jailhouse, a Linux-based partitioning hypervisor
-+ *
-+ * Copyright (c) OTH Regensburg, 2020
-+ *
-+ * Authors:
-+ *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See
-+ * the COPYING file in the top-level directory.
-+ */
-+
-+#include <stdbool.h>
-+#include <stdio.h>
-+
-+#define printk printf
-+
-+typedef unsigned int u32;
-+typedef unsigned long long u64;
-+
-+#include "cache-timings-common.c"
-+
-+int main(void)
-+{
-+	inmate_main();
-+	return 0;
-+}
-diff --git a/inmates/tests/x86/cache-timings.c b/inmates/tests/x86/cache-timings.c
-new file mode 100644
-index 00000000..1acc3ee9
---- /dev/null
-+++ b/inmates/tests/x86/cache-timings.c
-@@ -0,0 +1,15 @@
-+/*
-+ * Jailhouse, a Linux-based partitioning hypervisor
-+ *
-+ * Copyright (c) OTH Regensburg, 2020
-+ *
-+ * Authors:
-+ *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See
-+ * the COPYING file in the top-level directory.
-+ */
-+
-+#include <inmate.h>
-+
-+#include "cache-timings-common.c"
--- 
-2.28.0
+Due to the restrictions caused this year by COVID-19 Pandemic, authors with=
+ registration in ICCS2020 will have a discount of 50 USD in the ICADS 2021 =
+registration.
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20201002235640.196730-1-ralf.ramsauer%40oth-regensburg.de.
+=C2=A0
+Important Dates
+
+Submission: =C2=A0=C2=A0 November 01, 2020
+
+Notification: =C2=A0 December 11, 2020
+
+Registration:=C2=A0=C2=A0 December 21, 2020
+
+Event Dates:=C2=A0=C2=A0 February 19-21, 2021
+
+=C2=A0
+
+ICADS 2021 Convener.
+https://ics.events/.
+
+=C2=A0
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/57500d04020c0b000157550b00095253525401540401545957070e0303535=
+2595d5053520a5b0801535e53015054%40ics_ip-zone_com-6.
+
+---------5f79b191dfacc
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w=
+3.org/TR/REC-html40/loose.dtd">
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; charset=
+=3Dutf-8"><title>=F0=9F=94=97=F0=9F=93=99=F0=9F=93=A5Springer Publication.Q=
+3.Scopus, WoS Indexation.</title></head><body>
+<div>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0<img alt=3D"" src=3D"http://ic=
+s.ip-zone.com/mailing-manager/domains/ics_ip-zone_com/files/img//changedpro=
+motion.jpg" style=3D"width: 260px; height: 195px;" width=3D"260" height=3D"=
+195">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0<span style=3D"font-size:22px;"><span style=3D"color:#ff0099;"><s=
+trong>Dear Author,</strong></span></span>=C2=A0<br><strong>You are cordiall=
+y invited to</strong> the 2021 International Conference on Advances in Digi=
+tal Science (ICADS 2021), to be held at Salvador, Brazil,=C2=A019 =E2=80=93=
+ 21 February 2021, is an international forum for researchers and practition=
+ers to present and discuss the most recent innovations, trends, results, ex=
+periences and concerns in the several advances of Digital Science.<br>
+Conference website <a href=3D"http://ics.mailrelay-v.com/newslink/311496/24=
+.html" target=3D"_blank">https://ics.events/<strong>icads-2021</strong>/</a=
+>.<br>
+You may submit your paper online via Conference Submissions Form=C2=A0on <a=
+ href=3D"http://ics.mailrelay-v.com/newslink/311496/24.html">https://ics.ev=
+ents/<strong>icads-2021</strong>/</a>. Submitted papers (until 10-12 page l=
+imit) must be written in English, must not have been published before, not =
+be under review for any other conference or publication, must comply with <=
+a href=3D"http://ics.mailrelay-v.com/newslink/311496/14.html" target=3D"_bl=
+ank"><strong>Template</strong></a> in <strong>.doc/docx</strong> format.<br=
+>
+All submissions will be twice =C2=ABblind=C2=BB reviewed by Scientific Comm=
+ittee Members and invited Reviewers based on relevance, timeliness, origina=
+lity, importance and clarity of expression with convincing argumentative an=
+d a strict paper selection process.<br>
+Accepted and registered Papers will be published in ICADS 2021 Proceeding <=
+strong>by Springer in a book of the </strong><strong>=E2=80=9CAdvances in I=
+ntelligent Systems and Computing=E2=80=9D </strong>(<strong>included in Sco=
+pus source list, Q3 / JSR 0,184</strong>), and then will be submitted to <s=
+trong>ISI Proceedings, SCOPUS, Google Scholar and other </strong>indexation=
+s.<br><br>
+We are prepared to offer virtual participation options, for anyone who cann=
+ot or chooses not to travel due to the situation regarding COVID-19.<br>
+Due to the restrictions caused this year by COVID-19 Pandemic, <span style=
+=3D"color:#800080;"><strong>authors with registration in ICCS2020 will have=
+ a discount of 50 USD in the ICADS 2021 registration</strong></span>.<br>
+=C2=A0<br><strong>Important Dates</strong><br>
+Submission: =C2=A0=C2=A0 <span style=3D"color:#FF0000;"><strong>November 01=
+, 2020</strong></span><br>
+Notification: =C2=A0 <strong>December 11, 2020</strong><br>
+Registration:=C2=A0=C2=A0 <strong>December 21, 2020</strong><br>
+Event Dates:=C2=A0=C2=A0 <strong>February 19-21, 2021</strong><br>
+=C2=A0<br>
+ICADS 2021 Convener.<br><a href=3D"http://ics.mailrelay-v.com/newslink/3114=
+96/23.html" target=3D"_blank"><strong>https://ics.events/</strong></a>.<br>
+=C2=A0</div>
+<img src=3D"http://ics.mailrelay-v.com/newsimg/311496/logo.gif" width=3D"1"=
+ height=3D"1" alt=3D"" border=3D"0"></body></html>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/57500d04020c0b000157550b00095253525401540401545957=
+070e03035352595d5053520a5b0801535e53015054%40ics_ip-zone_com-6?utm_medium=
+=3Demail&utm_source=3Dfooter">https://groups.google.com/d/msgid/jailhouse-d=
+ev/57500d04020c0b000157550b00095253525401540401545957070e03035352595d505352=
+0a5b0801535e53015054%40ics_ip-zone_com-6</a>.<br />
+
+---------5f79b191dfacc--
+
