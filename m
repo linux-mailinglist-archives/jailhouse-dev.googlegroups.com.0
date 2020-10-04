@@ -1,32 +1,32 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBO5X5D5QKGQEECOF2TA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBPFX5D5QKGQE3TUQHYY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43d.google.com (mail-wr1-x43d.google.com [IPv6:2a00:1450:4864:20::43d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E316282CB6
-	for <lists+jailhouse-dev@lfdr.de>; Sun,  4 Oct 2020 21:00:12 +0200 (CEST)
-Received: by mail-wr1-x43d.google.com with SMTP id j7sf3137382wro.14
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 04 Oct 2020 12:00:12 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1601838012; cv=pass;
+Received: from mail-lf1-x139.google.com (mail-lf1-x139.google.com [IPv6:2a00:1450:4864:20::139])
+	by mail.lfdr.de (Postfix) with ESMTPS id A0862282CBC
+	for <lists+jailhouse-dev@lfdr.de>; Sun,  4 Oct 2020 21:00:13 +0200 (CEST)
+Received: by mail-lf1-x139.google.com with SMTP id d9sf368748lfe.8
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 04 Oct 2020 12:00:13 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1601838013; cv=pass;
         d=google.com; s=arc-20160816;
-        b=nqo66cDelHRS17TEYBP8A/6ErY3FSe4vYJEO661AET+3fjJ1mfWGAhmrwo/GBJgBnw
-         z/rYKMXSVEXzX2K1KJxMQAgs98ssXnUeQgVdmNexVnSaSSY3RaH8RQL9Tv5UzX/rLfSb
-         T35n0dTt+h/fWGMGiDMzHcmXDRnD63nTyT3gBOzyyMzobSNyJLAsxgHp0ZFQLfQ+Rg87
-         dSZPKnyfIuIq4vj9YfIvefFtcPF6mww5ZlZYhEjrfZUnYTz63PQorwJHVhoVCaO4gs0C
-         OMcdJh3yMaBLVWNAjMTGs3y/bxteqinrZokmuhIgrSPqEE326Bm0ucWkXm3N4A80B498
-         YmTA==
+        b=h02lRt839FEMsWDLnefpsQVtrk6/i9beqNx4Jwfpicvg/4y54Kix6HlTRRxg8gRK4n
+         5sTBC6TgolefN/f2GS4kvGQNXLgLQy1j9snzv0zfknXE9hkVPkwSs1jpyseKSNt83CGk
+         Uga44PyghCSNX2WeHaOtqP4PDtYGe3tDReJ4hZKTwEJe8wYL3EZV0GwSjpcY1qZ0b+Sm
+         l+K+zWkndOnDAWQPfJNAD1C0UQ1j7MXmZydye0pc0t5zTSo7+L7AP952wOuUY+987n5K
+         bO0GndwAd7DzdSmiswA7K9VLvWrYDeVn56oXSBcUpEQRB9/LNvsEDinBLXL7w07lSMXE
+         4BBw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:sender:dkim-signature;
-        bh=TDO6spjNNQYdn3qF3AyDZIea6MmcmrPvUAUqFakWedw=;
-        b=CSK9VOz8isqUPhr3W4moc2pFGV1jR0FVlZBsF3MnoEPCQ3+b7knGE9XlIdBXo6uvCJ
-         53uxlqC/dnMOdVA84KN/DRwGMdo0LCDjqqbp9wqMWQJukrZOG8J6HKufVhDAnknnQXMP
-         Q+WdYGBqPBeK6HHWb/e9HWWDBLFrOHRr8GC7xcpyaZPN4wqbHnYrIxT9bcW7fLT5Q8oN
-         H0c8e10tBU4Yqhkfoy0J8lhrXNU5RWX5Ql5+3dKuYNZes4E/Sk+xHcMESLyPa+bXHoVc
-         rZUB5YMiLmyhLDPeUaEywMJpTnsqoGjxjPH6OjQAUjJiY6J+xi0rrcpgqsA97gd768B0
-         c3jQ==
+        bh=DXm83lUnYlI3bgEZU2OaZzx6GsFmXL/KwqSW4JcgDmw=;
+        b=oniNO6h8ngrBWy61xVBx0I48/NAd/yJYsenH6mIGWJy0niHTCu1Q+yz4WNbPS49k3A
+         NTwUQEl4mEFymLykydtrXq2wNvtlkW6wGU+PkgGxjzVRxCtNEGU9p9r5ZZZCXy1OY+r4
+         J2LpbgpdgmxeZSvuh+smTgyjHzs+ac13DZ6RMQPuazMoMS9sQYIMQvLN0KCj6Igfa4Jc
+         2MYHdNvliyve+kwh3SLnaTIPI1yacsV/ioODkRcAJZ2D6GZo4gUDWsuX3bWLDTzGzt3G
+         gn+HrW2691BO6CsUcvVdZ/GJ8bJ3T7Oj2KX2D1+X01obzGKa9pEhrYszMWx9n22wUtjE
+         lQMQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -34,13 +34,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=TDO6spjNNQYdn3qF3AyDZIea6MmcmrPvUAUqFakWedw=;
-        b=LZdlJAyH8lfx8jIYv5FlkTa4LtMnLV7pUER45VxXXKo1ss+CuC97cCM3amh8+OiKny
-         6zxcWZ3xxh9qr1pK7Ymsq4zR0MVQz71i2qubE2EzFX0b8nXJEaVgdfbXhS0StGmBWufO
-         sbM4E4xIi3TfhoPAHbScj0zVbm2c9+4zoIzmYAMGG5SvuVuGWcvbzRO2FDjbY70Krjju
-         NslimddUC14F+hqO52ZH9RhAT8j6jwR31D3lzxOKgDOhmZBEi5Dbkt7LNLNzW6XgbWU3
-         r85rpKSrUX8TmzFwhYZLwqddv+Lj+dHchsbi9ZIDK7JxCGjVHv+mNMNWyUfS7mujUrdC
-         Pd0Q==
+        bh=DXm83lUnYlI3bgEZU2OaZzx6GsFmXL/KwqSW4JcgDmw=;
+        b=ZEUtBAaD8McSoretKwv5/ceVuiTYuyCPvDHWLGquIKqjwRA5KSu2nr+iNGyXFvF791
+         ltFlXlIuVvLOq61AY/kHvBQPq/yAxbpv1JaILCONeJqsbmoWRvvMQ9oLw5SkB7Zm9cIG
+         OWcx51cMOEVDq97MsWQhCCUTVZdNsR6UnoLe4B8tZ2UN7cFM4m+YxgS91Y8LnLWgIhjF
+         seVTOHwb0y8vVUu/o7V3xyWL0U2z2NC3GPH0djWfQg4Q0u//dNnDgLrutJhgKbi7YtNI
+         FzxeUSxGdILVJKHox2YxJWa/3MYLk+YIRwSMP6/lYSfMR6c66yIqG1MniGs63gHphnPg
+         Yfwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:subject:date:message-id
@@ -48,70 +48,70 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=TDO6spjNNQYdn3qF3AyDZIea6MmcmrPvUAUqFakWedw=;
-        b=ME/4/DPb3rVUcdj+zFafOQUc+TBnWNpEUWCOZOaBYXg8PMswsZaKJUfAQ+301rttgn
-         ZMl4tmF8CyIrySbi0knM/AQrqGfE8TsRUoq0rfupFYGEgaDAOtnGX9uzBj5jOxNafcR4
-         j+i/wrA74BWaP4jCAynF01A8Ukxdd1QnIVFkrWvjbrcLQLNlawbRW3W8xvOMpRmz2iHz
-         HSdy3rufVh+wbTl3dcP4sPRJil+v0BG6wPWmKQOrzjsNEaoPsNidGAZcAq2X9rhcXjmj
-         iebamrNjiGXPWt+fEs9G6HssGC/3By1XMeGtHC+G/q3Th0JtH2H9ujawqUYYagMfe65R
-         uO7Q==
+        bh=DXm83lUnYlI3bgEZU2OaZzx6GsFmXL/KwqSW4JcgDmw=;
+        b=CPBItvDbCrB9sqjiGqWi1aQ3hnn5xT9xQJaeN+rMoo8RFYLdvuVEbs581FePHMyY/D
+         LIvHxzeDqV5dEsK4/eijFBr7lBVfcqzl7Oextr9OuQUKBBsWJQs92c/Nti/tDgmWnQSj
+         fZOMOwwd/3d8mnqiyyI5VIjANsDxtt7aPStBUzDcFEXUe6fA6WORnQZPrPa277WR8/8X
+         DUgsp7Rwlt/R+A/WaqPwmEUFGtjwFw3RHpF65UAhlaTcl3npTDURp7HY+ha3v4KoI8DH
+         J6YUEmUOlsygyyYUQuwBEsa7GO6Zhnd1DE+TmVB1o9ePJreNtFk9h/G10pFzsL3X1psL
+         eIvA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM5339jDE9p+nXSJI/LvaFE3w8CV5u8nct8pJ+AEKSmDItVla6sDIm
-	+Xog2vw8FVTtTt+ipVovTIA=
-X-Google-Smtp-Source: ABdhPJz3NVPJqU/C9Tl3R8awXSZ2FkE9Lo/InXHMhyPjf04sq/rQfoy1Yc2Hqeqr9jndOjMR3/O4CA==
-X-Received: by 2002:a7b:cf04:: with SMTP id l4mr4053015wmg.137.1601838012288;
-        Sun, 04 Oct 2020 12:00:12 -0700 (PDT)
+X-Gm-Message-State: AOAM532/G+w4PSOHFzInrcHw9yKNEDelRFSYPp6Q3rXCrQJKlIOQl7Yc
+	GmSmrTDV97OWGaOMIu4/0KE=
+X-Google-Smtp-Source: ABdhPJx+Zp+fpfLM9UXFo/HT6ezqN8329l3MDjPk5k2pVHZM/k82GNH+NyCWJcs1RaILtCdGVsWaCA==
+X-Received: by 2002:a19:650a:: with SMTP id z10mr4565535lfb.9.1601838013225;
+        Sun, 04 Oct 2020 12:00:13 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5d:428e:: with SMTP id k14ls5162867wrq.0.gmail; Sun, 04 Oct
- 2020 12:00:11 -0700 (PDT)
-X-Received: by 2002:a5d:460e:: with SMTP id t14mr7639172wrq.399.1601838011203;
+Received: by 2002:a05:651c:555:: with SMTP id q21ls749338ljp.3.gmail; Sun, 04
+ Oct 2020 12:00:11 -0700 (PDT)
+X-Received: by 2002:a2e:7c03:: with SMTP id x3mr3029739ljc.190.1601838011866;
         Sun, 04 Oct 2020 12:00:11 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; t=1601838011; cv=none;
         d=google.com; s=arc-20160816;
-        b=xejqLAno8T+x7HcuA+aUtBV8qvgLxk9VcKl5cGlxkHy1dGttiNic/XxCLCmDDJluO8
-         0EnbezXVSZsVSwUscNtqHQRj5zFN8L08dwsQDJdJHkG5WLsngv+4nIdL6AchUVpkB2y9
-         bSF+/m69HWJrE1woL5PCaAyeh67qhwF1lFZtM0BYFPNMf86U/6Ey3Fh0DvqgYjeW16fP
-         F5/VwM7oI6PGwPzbyeUzpVvwmyGBYeC1CpV1vnGkCTQsN51Ma8AyiNJ0E0JUx9hQQIp1
-         Q2ik4vNrEEtOw5xaU8YgIlXGEGz6Km8nxn2i2a1z2/FIlAFouhIOii6XBJchIepLAllQ
-         QxRg==
+        b=W6akRGeGce6JLAW0JLo9T7pPKENUdOzOLfDwgdey9UN+nInEERB5NmJPJ1J3Tqwv47
+         dEIPqPfrYARHLiUbj/0MKdDC0M+t6sp9U4rIk/4zLue3KiWHOOIp9ejxzXsTq2dTEVDX
+         EXBvCFSnwrtZ29cKMGIt0SFAt1cqYDRgTaeCmsLeB6hMd4FmVgkdkxHTzHCA/0P+eazr
+         sdYUozqEX+GiBRWEqxoyMs5lyICWuJ9c9Kg8vXQKAqOH6Xc2/9mMaOT6RLFNqqJlvPJg
+         IyOCiAI2amHaOqRzG/PHNeDR1Y+QwGKxbeWOGdli5BxIlTqrjH2ScX2ggYYbQloP5odn
+         iX2w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from;
-        bh=CQHJ9ozchhP1j8etcrodJH+BkzFcUzD1L1bOfNH852A=;
-        b=aH8Uyiyyo0VRGZ7b2uXPFw1cCvsPKTqdRkFNkXwpfnuRND0oQhOdJm013sYAHfX+bW
-         uDRbmjrdN30J69nt483YFNSsEzxEw6owAL1YQdCvZapdp5l6d+KFweB2swRGPsYk9Eb1
-         qcw1nzROegxdtLYgn/ii9euRWX/NAIS4HImVTN+0wHH0ptXeCfX7SPP8GyC62dLCZo3O
-         BCy6GaP2KyziWV94CWKkAbRf9F3MsO5Qz7ijI4vcfaA2bWW9fktPNZaC7cLLlI0Oi9z7
-         s9G9BykNEWN4cy0kpaQBZUV9q8K71+MX5vYyYp3pRLu4crSQON8PI/dLnCNKEHMzMcJ4
-         v3yQ==
+        bh=86mMHkgdDijSbJQDMHZoI/MJkyYDK0z5P/lfkmuzyDU=;
+        b=TYD5euR1AmyKpXfpPdbgsP94k3hCXwuOAkP/hpdZC5K/CuhpUd5uREuOgVT2WkHc+k
+         0KwoKdv3xxiBcR8FJzSODyIWlcUlBwh7CsFwJyOI0q1VOTqWY1WeDa+m6sETCLC7ky6O
+         6sS7B9tiuLrNbNOMNKfiF+n138LIQK13x8Zoe01owB1ZbRWOQ3J4qzQWm1zmJQiBBGDx
+         uEvS6gJE/gAprVXofAtNUccf4Ng8WKEsM7pMIQ6rJBTYqx/WUdBCmAPIf0JjELzkz/4Q
+         tk1nLeLFjA+6pSUldAmNTgOP6OcujIK7CLZRFRQMni/1mKvU8NnqwJTVMo/2U1CxQpCO
+         bJaQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id 14si45194wmf.4.2020.10.04.12.00.11
+Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
+        by gmr-mx.google.com with ESMTPS id d18si104914lfb.9.2020.10.04.12.00.11
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
         Sun, 04 Oct 2020 12:00:11 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 094J0AdZ029749
+	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id 094J0B5v020380
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
-	for <jailhouse-dev@googlegroups.com>; Sun, 4 Oct 2020 21:00:10 +0200
+	for <jailhouse-dev@googlegroups.com>; Sun, 4 Oct 2020 21:00:11 +0200
 Received: from md1f2u6c.ad001.siemens.net ([167.87.242.108])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 094J060Q017503
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 094J060R017503
 	for <jailhouse-dev@googlegroups.com>; Sun, 4 Oct 2020 21:00:10 +0200
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [PATCH 14/45] arm64: smmu: Remove IRPTNDX traces
-Date: Sun,  4 Oct 2020 20:59:35 +0200
-Message-Id: <0766d8d4d666156edbfc8450b9070f656b59e4e9.1601838005.git.jan.kiszka@siemens.com>
+Subject: [PATCH 15/45] arm64: smmu: Remove bogus Extended StreamID support fragments
+Date: Sun,  4 Oct 2020 20:59:36 +0200
+Message-Id: <3863f10de16f95734e29de1693a323a89715bee2.1601838005.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <cover.1601838005.git.jan.kiszka@siemens.com>
 References: <cover.1601838005.git.jan.kiszka@siemens.com>
 MIME-Version: 1.0
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
@@ -129,45 +129,88 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-Not used with SMMUv2, which is what we focus on.
+We do not use the extended S2CR / SMR registers, but we enabled extended
+StreamID matching when it was found. That would have broken platforms
+carrying this feature. Remove all traces for now. Can be added properly
+when there is a need and full support for more.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- hypervisor/arch/arm64/smmu.c | 3 ---
- 1 file changed, 3 deletions(-)
+ hypervisor/arch/arm64/smmu.c | 21 +++------------------
+ 1 file changed, 3 insertions(+), 18 deletions(-)
 
 diff --git a/hypervisor/arch/arm64/smmu.c b/hypervisor/arch/arm64/smmu.c
-index f17fca09..e39c2264 100644
+index e39c2264..9c10d75c 100644
 --- a/hypervisor/arch/arm64/smmu.c
 +++ b/hypervisor/arch/arm64/smmu.c
-@@ -170,7 +170,6 @@
- #define CBAR_VMID_SHIFT			0
- #define CBAR_TYPE_SHIFT			16
- #define CBAR_TYPE_S2_TRANS		(0 << CBAR_TYPE_SHIFT)
--#define CBAR_IRPTNDX_SHIFT		24
+@@ -42,7 +42,6 @@
+ #define ARM_SMMU_FEAT_FMT_AARCH64_64K	(1 << 9)
+ #define ARM_SMMU_FEAT_FMT_AARCH32_L	(1 << 10)
+ #define ARM_SMMU_FEAT_FMT_AARCH32_S	(1 << 11)
+-#define ARM_SMMU_FEAT_EXIDS		(1 << 12)
+ #define ARM_SMMU_OPT_SECURE_CFG_ACCESS (1 << 0)
  
- #define ARM_SMMU_GR1_CBA2R(n)		(0x800 + ((n) << 2))
- #define CBA2R_RW64_32BIT		(0 << 0)
-@@ -246,7 +245,6 @@ enum arm_smmu_context_fmt {
+ #define ARM_64_LPAE_S2_TCR_RES1		(1 << 31)
+@@ -88,7 +87,6 @@
+ #define sCR0_CLIENTPD			(1 << 0)
+ #define sCR0_GFRE			(1 << 1)
+ #define sCR0_GFIE			(1 << 2)
+-#define sCR0_EXIDENABLE			(1 << 3)
+ #define sCR0_GCFGFRE			(1 << 4)
+ #define sCR0_GCFGFIE			(1 << 5)
+ #define sCR0_USFCFG			(1 << 10)
+@@ -296,10 +294,9 @@ static unsigned long pgsize_bitmap = -1;
+ static void arm_smmu_write_smr(struct arm_smmu_device *smmu, int idx)
+ {
+ 	struct arm_smmu_smr *smr = smmu->smrs + idx;
+-	u32 reg = smr->id << SMR_ID_SHIFT | smr->mask << SMR_MASK_SHIFT;
++	u32 reg = (smr->id << SMR_ID_SHIFT) | (smr->mask << SMR_MASK_SHIFT) |
++		(smr->valid ? SMR_VALID : 0);
  
- struct arm_smmu_cfg {
- 	u8				cbndx;
--	u8				irptndx;
- 	union {
- 		u16			asid;
- 		u16			vmid;
-@@ -809,7 +807,6 @@ static int arm_smmu_cell_init(struct cell *cell)
+-	if (!(smmu->features & ARM_SMMU_FEAT_EXIDS) && smr->valid)
+-		reg |= SMR_VALID;
+ 	mmio_write32(ARM_SMMU_GR0(smmu) + ARM_SMMU_GR0_SMR(idx), reg);
+ }
  
- 		/* We use cell->config->id here, one cell use one context */
- 		cfg->cbndx = cell->config->id;
--		cfg->irptndx = cfg->cbndx;
- 		cfg->vmid = cfg->cbndx + 1;
+@@ -309,9 +306,6 @@ static void arm_smmu_write_s2cr(struct arm_smmu_device *smmu, int idx)
+ 	u32 reg = S2CR_TYPE(s2cr->type) | S2CR_CBNDX(s2cr->cbndx) |
+ 		  S2CR_PRIVCFG(s2cr->privcfg);
  
- 		ret = arm_smmu_init_context_bank(smmu, cfg, cell);
+-	if (smmu->features & ARM_SMMU_FEAT_EXIDS && smmu->smrs &&
+-	    smmu->smrs[idx].valid)
+-		reg |= S2CR_EXIDVALID;
+ 	mmio_write32(ARM_SMMU_GR0(smmu) + ARM_SMMU_GR0_S2CR(idx), reg);
+ }
+ 
+@@ -537,9 +531,6 @@ static int arm_smmu_device_reset(struct arm_smmu_device *smmu)
+ 	if (smmu->features & ARM_SMMU_FEAT_VMID16)
+ 		reg |= sCR0_VMID16EN;
+ 
+-	if (smmu->features & ARM_SMMU_FEAT_EXIDS)
+-		reg |= sCR0_EXIDENABLE;
+-
+ 	/* Push the button */
+ 	ret = arm_smmu_tlb_sync_global(smmu);
+ 	mmio_write32(ARM_SMMU_GR0_NS(smmu) + ARM_SMMU_GR0_sCR0, reg);
+@@ -595,13 +586,7 @@ static int arm_smmu_device_cfg_probe(struct arm_smmu_device *smmu)
+ 	if (cttw_fw != cttw_reg)
+ 		printk(" (IDR0.CTTW is overridden by FW configuration)\n");
+ 
+-	/* Max number of entries we have for stream matching/indexing */
+-	if (id & ID0_EXIDS) {
+-		smmu->features |= ARM_SMMU_FEAT_EXIDS;
+-		size = 1 << 16;
+-	} else {
+-		size = 1 << ((id >> ID0_NUMSIDB_SHIFT) & ID0_NUMSIDB_MASK);
+-	}
++	size = 1 << ((id >> ID0_NUMSIDB_SHIFT) & ID0_NUMSIDB_MASK);
+ 	smmu->streamid_mask = size - 1;
+ 
+ 	if (id & ID0_SMS) {
 -- 
 2.26.2
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/0766d8d4d666156edbfc8450b9070f656b59e4e9.1601838005.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/3863f10de16f95734e29de1693a323a89715bee2.1601838005.git.jan.kiszka%40siemens.com.
