@@ -1,32 +1,32 @@
 Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBPVX5D5QKGQEF5JMHJA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x237.google.com (mail-lj1-x237.google.com [IPv6:2a00:1450:4864:20::237])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96D06282CC3
+Received: from mail-lj1-x23b.google.com (mail-lj1-x23b.google.com [IPv6:2a00:1450:4864:20::23b])
+	by mail.lfdr.de (Postfix) with ESMTPS id AA239282CC4
 	for <lists+jailhouse-dev@lfdr.de>; Sun,  4 Oct 2020 21:00:15 +0200 (CEST)
-Received: by mail-lj1-x237.google.com with SMTP id b17sf798463lji.10
+Received: by mail-lj1-x23b.google.com with SMTP id o13sf796161ljp.18
         for <lists+jailhouse-dev@lfdr.de>; Sun, 04 Oct 2020 12:00:15 -0700 (PDT)
 ARC-Seal: i=2; a=rsa-sha256; t=1601838015; cv=pass;
         d=google.com; s=arc-20160816;
-        b=D0S31jXgacu00RD+DpJSXsvVUhzjrTooZMENJg5wmxUyGeVgqhG6O3807/UqILBxct
-         tQQb3AUj7O5RBD7f5QNRv2H9eD7/wfSq/ZKh1fwKrkAD0yVOIxNN1pve8WS57zoGoJog
-         TwwuureXE3aCnGZyX/skkAl1oVm782D4xnCmZ9AxDOxbjmnbtgtXGHBp8RfB2VSuwXJG
-         Bt6f6zGis4Hyv3FmwU9v3UxMLZQqV/uZ7Cqg9AB3HbRkeRvSxyizkoPIMKNiozJbPjtP
-         SZXzbCd6fsRZnCZsRYGSAfSJsy2TD9t1zDZ2Gqv2zTnekCD5gJN86x7zxIe7J9wb144g
-         LQ4Q==
+        b=X6VTYKWsPXim1bIRiCgBLbgoUV8O67uBShBsyl6Bbw5HvEf1b4qManYjEoe1XKc0t7
+         GnOXtO6vJtuY9Dte0UFaUQk/lPnOG4onUlSP8rAmJ8qISpfK2OoWYopGitIXamc+VYpX
+         +qHMFri/hLcIf/BVc6w5dHe30uLlwCvOrbsxQgHOydj2qce4jZg8y8Rn1EjBmCNLS6iQ
+         8sfPbzySWhUxBkhqQ1y92yxyGXDRCRUeWywVT5tiEgl9fAy7pQpMvZplLIDEynIBHx5g
+         1IO/rLLcoMQcWyA13Q3MnG96bcVjteRogmgyOiRtjI/p/lOM6XR7W25ZqUo7Y5FNs0my
+         P5xg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:sender:dkim-signature;
-        bh=Blweb0zsIKak3f0yaGtZhMnFFHAFkRG0DxcO7MsQU1A=;
-        b=B4cAb0L1S0ErwE5ZYreaQn+dyI/H8XZjdE4uBh1weJ3AenDfz2x6kXFJnlsKKgAT92
-         yVz2nDQaEaf6H8lwzvUgD1kL3aAGEbahGNdp47DLJAlFewcyGDmvGE04fg3ju1M4P3vP
-         SUTRPHkhkO6uVQVTKnNnG+w+L3qC0IjKKtr+4Zn5HbxDNikOOzyDFSW0M0r9McMSF9A+
-         9cTmIurEcr4njk3YqCsTynazLz8FCpoW0KHTTa+PYtLxdOlTkG4P206zeVyyXyBsVrgZ
-         blVtsRJNY3v3h2dmE8/wdcEivnG2hbGADmKv7CMjBQJqqX1iy0CgZP7WBxJ85ZPFUWnR
-         IVkQ==
+        bh=V63e4kad8apuindjWPNOFhcsl6jOviB3eLG8uo4EKBE=;
+        b=PekIiSEAqtRcmAroYWjVa2tozmjHyje4cWo2Fm5REMFzvKbiUPb89pFyDT7GDE/uoP
+         bDEmyJzUm0SeluU/F1Y49GrpnShIwiMxLu+L/f29B8uEGlcheTjxHif4z9HQ95uMX5cj
+         9TyPGeyrxlogt5cZKJSPMhd55eOO3PI4keUPynOLbWH4JTJYFdm24lS8y7vUFUnkLhar
+         0RKUgu9Hm4vuvAjS8DXhEFXn8iGbWLCmq24PetRZMPiiefFh+QtCGbHaVeDNS1MYpcd5
+         MvFnpK11haE2EUiAxdi4+d1aiymedlQojt5VbULIpenS+5leBsS06Y2rVMvzyc254B0j
+         wBsA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -34,13 +34,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=Blweb0zsIKak3f0yaGtZhMnFFHAFkRG0DxcO7MsQU1A=;
-        b=bxiEw23sg0gQb4ecACTxjYL0RHoBX7aM5klJkJpurbitZygSuY/+SpeAZ5+tepYKfL
-         rDWNLKF7EXtzBeqI3DfBlobcY0gJb1smnSY1eS2LTVOH2lT8KkGx0irssaO96taH2mU8
-         bg1YzZ5bQgC1t/PBmVdIASu8PbdL/gvPA0pYw7W8Rh+wYwvHTnGNJ39MbTAvvh0swaCg
-         bZ6bnlFi5wedhcqo+sRcFaV8RoAmlbtvTfMT1NGyZ0jLt6vTas8FCGE9JXO+emHS5yU8
-         HyvdfD3E2AiVPt9u8hNCOEDraWwTPa7rGIQOGJ38sPaLyREOopX/tsekdzsH85aG1b4b
-         yrrA==
+        bh=V63e4kad8apuindjWPNOFhcsl6jOviB3eLG8uo4EKBE=;
+        b=FIsoF3Dc0D4InBqSX0K4jW4ENtVvxXcl7dXIaqARycEShlLpBvZW6M+p+sc3xGIp/x
+         fdZSmocV+dcPq1oE5OQhFIWqP63Igz5WX0Guoz52+L879+pYyU0oVoMTEIHdlmfMh3IL
+         m4Ryn+lI4Hqh8HUDGs8A6U7nh34jRSKpZ/t0nt40Zx8tYM9U+GM5pWleaXbLKAnh/5oR
+         9w7DWvd2PEomBExPnklkXed/wCfHvi9dW1g7MXPMqaxazIPui9B6IdU4Jhb2QuQIOVZd
+         yr9PcSSUQxwAqd1nfSqqyaXfHTxQs2gGWOHh8VRmDaGIU7C50r/kVoQUjnCfuTo62W7r
+         9Drw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:subject:date:message-id
@@ -48,70 +48,70 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=Blweb0zsIKak3f0yaGtZhMnFFHAFkRG0DxcO7MsQU1A=;
-        b=TwSjvft/YnrUndyQO/tq0ZPAiCgXVgxxC1ILnxUO9/T63xAZ0n6Fcu5/r+Qk5FIfUH
-         x9gaqEwTCHsII2lWSxHn6gCONwRLvuabn4j/kFyEuU133HkY4KQNXf4yqy0YPymgKMPz
-         7Sr9FeHQyB+vkB7dwPzrEEQ6MV1ZMi5U6NxFO4DvqIgMINhBRlKOsrycJC2EJXrvYxM3
-         Zcn7VKWwaUHd7QnXWVqAhRbnfed2IP3M8u4ILYJIdKrbSg+lPj5XoqDHfBZCs1erGW3E
-         R0wkUjs6kkYcK3bZUqZO8LpYQ2tpWahxXzKCGB8tTLZl3KKHLFiMq5A992zQ9srHrpdQ
-         nnhQ==
+        bh=V63e4kad8apuindjWPNOFhcsl6jOviB3eLG8uo4EKBE=;
+        b=VKFHy6xfTFDjqZn8bnDwI7TqtgTcdXLyljBuMP/XPny5aWVwXgGWNkLSI7foMwMN6S
+         K9B3Sl2hjaYoGRU2ixUkE5AZ6t9NH8nmwlgmG/BJC82ApUs7QZTtQxQWbsKhZAl7HFom
+         /+Z6NzkFXmW6wmIjIgCJHHeU5cEkdX6VDS85cFzQfQY4SL0T6pblKVyS4Tk5PcHir6NC
+         jyb5PGgOkBGu75CnvEruV7ExzcCkq6rQkWfLr8wVkD+8NINUmWhxbQVBHvRWkGazLMha
+         q1pVvaIaJ+Pr8mp/D4FdGWAx5bY8De7mqf+0YDCzsdjfgaPrF8Q+CfdeNFu13IJ+GszO
+         /hMA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532x6ZFyRc6hd9ghhYIeOzp7h1UzT+ABeYm9Q8Nlr511/X8sVnJT
-	USBYAZGVrG9yIiEF15pr7og=
-X-Google-Smtp-Source: ABdhPJzJ50yLkbcBn3o4a0yTF7l2ZQougjhmel+rzSokvwEdmvjzeokTQbO8CudosC3x0NKDBmyQqA==
-X-Received: by 2002:a2e:2f16:: with SMTP id v22mr3396483ljv.294.1601838015149;
+X-Gm-Message-State: AOAM530JzOIRG5T83secy9TcksQaDaJ3H4LUm0YHhOomcpBuVYSZ2nhg
+	uR4TJUaxji0tj9OeL5BKxp0=
+X-Google-Smtp-Source: ABdhPJxn6onaorNVzfU83W9nmoZF4/jfckhItUEgtPiiy6yQMhfan/BQUpAZ0819H6J5QO5HnFFy7w==
+X-Received: by 2002:a2e:99cc:: with SMTP id l12mr927399ljj.370.1601838015247;
         Sun, 04 Oct 2020 12:00:15 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a19:c7c8:: with SMTP id x191ls1122090lff.0.gmail; Sun, 04
- Oct 2020 12:00:13 -0700 (PDT)
-X-Received: by 2002:a19:504b:: with SMTP id z11mr1111529lfj.182.1601838013717;
-        Sun, 04 Oct 2020 12:00:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1601838013; cv=none;
+Received: by 2002:a2e:804f:: with SMTP id p15ls88959ljg.2.gmail; Sun, 04 Oct
+ 2020 12:00:14 -0700 (PDT)
+X-Received: by 2002:a2e:b5d2:: with SMTP id g18mr3413321ljn.211.1601838014005;
+        Sun, 04 Oct 2020 12:00:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1601838014; cv=none;
         d=google.com; s=arc-20160816;
-        b=xuDV6JlPR3PVcLgUSuaqJBIb6T1WLLJSCW7DY7/GZu8FSzGIwwSmG3uSRKa+9SaxyN
-         BSfz03tREKH+IL3SXSdfxI8dNau8Cx1alrPxAlOVHyiU4rSfwSqbDsIDTamJ2hmXfpgo
-         noxaEXJcywA5A05DuQuXk4myw9sEPlywqJ5hcuRhTjpULLG+C/aRKLmgJheXnLF/DKF6
-         SvzDQnfzinSsj8/3FAHPgRHkuPLqHhFM9exNDSeqfHwsb53AP8qzzKmu3+SqmcgVz7a1
-         PIg0UkJ5zJdkvb+3it1rCSYhGhvvDBAADRSkf/16QENw/71FQ9DyVOLyYKk4DDCjn1ZT
-         lbjA==
+        b=rWDnPCweYK7SO1njUtsuIACvyng62R2uQBFwq/DeFMgVqd55Bvi/BhMVDsDml5/nV0
+         M24c0Sxi5+U5Gcx3684ByzJw/SUKnP0RZcdsGzs3P6hNWw5ZVfxSWSFcERKGLRPazpKV
+         62wb+H2faMzO2fMvQ/0fFW0DJkUXYl9Cfpu5Pga4+8GaQie6CCYIyPmWkrEBYV0JHT9A
+         Sjw4qXhhIvZ3vVUXX/T28xVj7QRXpz2WGNTHAg9jEzOvNAi3wm2W3BjoczWzLrBpL9SG
+         CcHYC/mVV6pitf5ZFoDl4Qo/BKop//45MSQK7ppkyYzOTo9kzihLjDylujl0/UZE23Bj
+         gs/Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from;
-        bh=0qFl/WFE/AZClamAnvDczSEwy7euhq+b0c8nmIby7So=;
-        b=LxJF47PsGvYm6tdgFPhJ7wxSOB5ynsM2xjHwqAt2O41FP4HJQRZPrMerWx2/BjkGAt
-         fufK6KMaRcQSy4PK35aapiI/5BvVft3KkiZHx4FOkXs8VpKvy6KqtJxWEbL1VkkEAuxW
-         zezosVCQ0xXxgNic3+XtJAsTkwKb/u68pdVxaOGhipqFov3sUNUsP+PDeoDwMhXqo3lz
-         rgpI00LrkmtwYP2teO+P3OH18Ci2cnWStxuQ0PoOyOcAvHLmYejb31Fclh+kBjMi15q6
-         1kIluBcNVJSWWvkiz5e0BQiY8G2q9qqhavMwiTb/YbAe78HSrH5coBErTgO6P46/w9XX
-         mGTw==
+        bh=puBFcwPXUalcyYcDukewaKNUtjZB2bjXoDOwl+DZMrY=;
+        b=1H5I6k8zKowoQlvqEl1cbiTQVtRRWmWbxLQ+ts2sBVZpfl2lpPn+Fdq/bNSKfNcG3T
+         zSZSejHFpfIpgi0Inig1tyOfcHJ9LCy7Wfc6jeoTkCv7+v2OPR+NgeSLdu3+rnwqQGfX
+         MH5Yk0iSMCo46rgIsfEHMu/dgOYYabyITT9HvEC+ZX16k/VhKQ0FNPUTlWStOcjnrEzH
+         IMeDN27XRSaRyUmD+Vcvhj3ZLVuehkkX24WtKgfJZRwxbCHUIWPzVWPG3PaWrXxblyOp
+         oqTVcaU9LnUisQQDuewz4eovzrm5gwPeYhhZsFss3p/TS5hL5VVWAMfcSthm4g9AKfgL
+         iHCg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id r7si20958ljc.7.2020.10.04.12.00.13
+Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
+        by gmr-mx.google.com with ESMTPS id y17si250407lfg.2.2020.10.04.12.00.13
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
         Sun, 04 Oct 2020 12:00:13 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 094J0DXg002650
+	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id 094J0DMU020458
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
 	for <jailhouse-dev@googlegroups.com>; Sun, 4 Oct 2020 21:00:13 +0200
 Received: from md1f2u6c.ad001.siemens.net ([167.87.242.108])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 094J060a017503
-	for <jailhouse-dev@googlegroups.com>; Sun, 4 Oct 2020 21:00:12 +0200
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 094J060b017503
+	for <jailhouse-dev@googlegroups.com>; Sun, 4 Oct 2020 21:00:13 +0200
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [PATCH 24/45] arm64: smmu: Fix CBn_TCR initialization
-Date: Sun,  4 Oct 2020 20:59:45 +0200
-Message-Id: <7ee8dd23048980b9e747693e5c72fc158c8abb01.1601838005.git.jan.kiszka@siemens.com>
+Subject: [PATCH 25/45] arm64: smmu: Drop coherency reporting
+Date: Sun,  4 Oct 2020 20:59:46 +0200
+Message-Id: <39f26537be470a31c9f7cd000cffcdac3393f731.1601838005.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <cover.1601838005.git.jan.kiszka@siemens.com>
 References: <cover.1601838005.git.jan.kiszka@siemens.com>
 MIME-Version: 1.0
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
@@ -129,110 +129,55 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-This was simply wrong: We must use the same settings for the SMMU as for
-the MMU because we share the page tables. We can pick up VTCR_CELL for
-this, just like SMMUv3 does, we just need to mask out reserved bits.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+We don't do anything with this because we always flush TLBs after
+changing the mappings.
 ---
- hypervisor/arch/arm64/smmu.c | 63 ++----------------------------------
- 1 file changed, 3 insertions(+), 60 deletions(-)
+ hypervisor/arch/arm64/smmu.c | 14 --------------
+ 1 file changed, 14 deletions(-)
 
 diff --git a/hypervisor/arch/arm64/smmu.c b/hypervisor/arch/arm64/smmu.c
-index 66453b67..ca86eed5 100644
+index ca86eed5..6abaa52a 100644
 --- a/hypervisor/arch/arm64/smmu.c
 +++ b/hypervisor/arch/arm64/smmu.c
-@@ -23,27 +23,6 @@
+@@ -17,7 +17,6 @@
+ 
+ #include <jailhouse/cell-config.h>
+ 
+-#define ARM_SMMU_FEAT_COHERENT_WALK	(1 << 0)
+ #define ARM_SMMU_FEAT_STREAM_MATCH	(1 << 1)
+ /* unused bits 2 and 3 */
  #define ARM_SMMU_FEAT_VMID16		(1 << 6)
- #define ARM_SMMU_OPT_SECURE_CFG_ACCESS (1 << 0)
+@@ -426,7 +425,6 @@ static int arm_smmu_id_size_to_bits(int size)
  
--#define ARM_64_LPAE_S2_TCR_RES1		(1 << 31)
--#define ARM_LPAE_TCR_TG0_4K		(0 << 14)
--#define ARM_LPAE_TCR_TG0_64K		(1 << 14)
--#define ARM_LPAE_TCR_SH0_SHIFT		12
--#define ARM_LPAE_TCR_SH_IS		3
--#define ARM_LPAE_TCR_ORGN0_SHIFT	10
--#define ARM_LPAE_TCR_IRGN0_SHIFT	8
--#define ARM_LPAE_TCR_RGN_WBWA		1
--#define ARM_LPAE_TCR_RGN_WB		3
--#define ARM_LPAE_TCR_SL0_SHIFT		6
--#define ARM_LPAE_TCR_SL0_LVL_1		1
--#define ARM_LPAE_TCR_T0SZ_SHIFT		0
--#define ARM_LPAE_TCR_PS_SHIFT		16
--#define ARM_LPAE_TCR_PS_32_BIT		0x0ULL
--#define ARM_LPAE_TCR_PS_36_BIT		0x1ULL
--#define ARM_LPAE_TCR_PS_40_BIT		0x2ULL
--#define ARM_LPAE_TCR_PS_42_BIT		0x3ULL
--#define ARM_LPAE_TCR_PS_44_BIT		0x4ULL
--#define ARM_LPAE_TCR_PS_48_BIT		0x5ULL
--#define ARM_LPAE_TCR_PS_52_BIT		0x6ULL
+ static int arm_smmu_device_cfg_probe(struct arm_smmu_device *smmu)
+ {
+-	bool cttw_reg, cttw_fw = smmu->features & ARM_SMMU_FEAT_COHERENT_WALK;
+ 	void *gr0_base = ARM_SMMU_GR0(smmu);
+ 	unsigned long size;
+ 	u32 id;
+@@ -440,18 +438,6 @@ static int arm_smmu_device_cfg_probe(struct arm_smmu_device *smmu)
+ 	if (!(id & ID0_S2TS))
+ 		return trace_error(-EIO);
+ 
+-	/*
+-	 * In order for DMA API calls to work properly, we must defer to what
+-	 * the FW says about coherency, regardless of what the hardware claims.
+-	 * Fortunately, this also opens up a workaround for systems where the
+-	 * ID register value has ended up configured incorrectly.
+-	 */
+-	cttw_reg = !!(id & ID0_CTTW);
+-	if (cttw_fw || cttw_reg)
+-		printk(" %scoherent translation table walks\n", cttw_fw ? "" : "non-");
+-	if (cttw_fw != cttw_reg)
+-		printk(" (IDR0.CTTW is overridden by FW configuration)\n");
 -
- #define TLB_LOOP_TIMEOUT		1000000
+ 	size = 1 << ((id >> ID0_NUMSIDB_SHIFT) & ID0_NUMSIDB_MASK);
+ 	smmu->streamid_mask = size - 1;
  
- /* SMMU global address space */
-@@ -162,6 +141,8 @@
- #define SCTLR_TRE			(1 << 1)
- #define SCTLR_M				(1 << 0)
- 
-+#define TCR_RES0			(BIT_MASK(31, 23) | BIT_MASK(20, 19))
-+
- #define FSR_MULTI			(1 << 31)
- #define FSR_SS				(1 << 30)
- #define FSR_UUT				(1 << 8)
-@@ -280,48 +261,10 @@ static int arm_smmu_init_context_bank(struct arm_smmu_device *smmu,
- 	struct arm_smmu_cb *cb = &smmu->cbs[cfg->id];
- 	struct paging_structures *pg_structs;
- 	unsigned long cell_table;
--	u32 reg;
- 
- 	cb->cfg = cfg;
- 
--	/* VTCR */
--	reg = ARM_64_LPAE_S2_TCR_RES1 |
--	     (ARM_LPAE_TCR_SH_IS << ARM_LPAE_TCR_SH0_SHIFT) |
--	     (ARM_LPAE_TCR_RGN_WBWA << ARM_LPAE_TCR_IRGN0_SHIFT) |
--	     (ARM_LPAE_TCR_RGN_WBWA << ARM_LPAE_TCR_ORGN0_SHIFT);
--
--	reg |= (ARM_LPAE_TCR_SL0_LVL_1 << ARM_LPAE_TCR_SL0_SHIFT);
--	reg |= ARM_LPAE_TCR_TG0_4K;
--
--	switch (smmu->pa_size) {
--	case 32:
--		reg |= (ARM_LPAE_TCR_PS_32_BIT << ARM_LPAE_TCR_PS_SHIFT);
--		break;
--	case 36:
--		reg |= (ARM_LPAE_TCR_PS_36_BIT << ARM_LPAE_TCR_PS_SHIFT);
--		break;
--	case 40:
--		reg |= (ARM_LPAE_TCR_PS_40_BIT << ARM_LPAE_TCR_PS_SHIFT);
--		break;
--	case 42:
--		reg |= (ARM_LPAE_TCR_PS_42_BIT << ARM_LPAE_TCR_PS_SHIFT);
--		break;
--	case 44:
--		reg |= (ARM_LPAE_TCR_PS_44_BIT << ARM_LPAE_TCR_PS_SHIFT);
--		break;
--	case 48:
--		reg |= (ARM_LPAE_TCR_PS_48_BIT << ARM_LPAE_TCR_PS_SHIFT);
--		break;
--	case 52:
--		reg |= (ARM_LPAE_TCR_PS_52_BIT << ARM_LPAE_TCR_PS_SHIFT);
--		break;
--	default:
--		return trace_error(-EIO);
--	}
--
--	reg |= (64ULL - smmu->ipa_size) << ARM_LPAE_TCR_T0SZ_SHIFT;
--
--	cb->tcr[0] = reg;
-+	cb->tcr[0] = VTCR_CELL & ~TCR_RES0;
- 
- 	pg_structs = &cell->arch.mm;
- 	cell_table = paging_hvirt2phys(pg_structs->root_table);
 -- 
 2.26.2
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/7ee8dd23048980b9e747693e5c72fc158c8abb01.1601838005.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/39f26537be470a31c9f7cd000cffcdac3393f731.1601838005.git.jan.kiszka%40siemens.com.
