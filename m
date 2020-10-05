@@ -1,32 +1,32 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBK7D5L5QKGQE4NMQOXY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBLHD5L5QKGQEFZV2TZI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x13b.google.com (mail-lf1-x13b.google.com [IPv6:2a00:1450:4864:20::13b])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD4F128302A
+Received: from mail-lf1-x13d.google.com (mail-lf1-x13d.google.com [IPv6:2a00:1450:4864:20::13d])
+	by mail.lfdr.de (Postfix) with ESMTPS id E8F2228302B
 	for <lists+jailhouse-dev@lfdr.de>; Mon,  5 Oct 2020 07:39:56 +0200 (CEST)
-Received: by mail-lf1-x13b.google.com with SMTP id m9sf2801876lfr.11
+Received: by mail-lf1-x13d.google.com with SMTP id 23sf2806350lfy.15
         for <lists+jailhouse-dev@lfdr.de>; Sun, 04 Oct 2020 22:39:56 -0700 (PDT)
 ARC-Seal: i=2; a=rsa-sha256; t=1601876396; cv=pass;
         d=google.com; s=arc-20160816;
-        b=0UAx96sS9vY+AqZ70/g6HwCeMx5bXpxll2nwSn9DjrLzctXXZysWvc7X4fIhq6ClMn
-         yXTFZOOO/2Wqnb3Q4uVfF/+l+kflf1GGH94TbgF8QrvOR7y2XoNx4Wa7L44dlCJhRt7H
-         tEEcbDni9p4jndGJtXsn2cTwaFjXLyLm5S1l+Z9jiFlM1LrD/oX0/iyvKTLiw7/ii8no
-         QosAl6jC/MkOQbXgGCjJNwxr53vzP0895BABw54ALJ+PmRMtclTKSQWNCrEIRDnJ3AuA
-         fDDfIdmOa2+YVF5zxbSVvwipJWphD6b2dz+8LZMn5d/kuwLVdiqUspzpxc/NInXIsgqt
-         AOXQ==
+        b=Py7hEY/92rNk3spR+TRrkwTtYnAH//1w8HcwFsdS6QBB4G6pz8b/So7B9hIXXfzeSV
+         IKYYuhomJ3ax63OfyVq0BlArXBHsHtMdS5s6UcG2FVmVpCnf2yDDz2bKPNeW5ILiGRcu
+         Cka5fkRxZzVMSSjFAT5hS5+P+WJPL1E0JXTE49r/8ViIfHs++M1Ryo94+kiuudhvMvWG
+         /EdulZAiuUgdDU8tcEwbQSBVciJ+bTbTBOEYWQP7k+2kXi9fdeA9RAs3qA9jMCBYl6Lw
+         hMI30sobd5fYgVW1d8mqSj1bbUNU9kPy+LUeauzmtDglxlW1BXXwkgTrV5UlRq2bgNKp
+         xLSQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:sender:dkim-signature;
-        bh=8hB3CJoQY8IE35DhzOqkfQ7o9yksg9iaMEC1l4aG3hI=;
-        b=IBeFLYMdXkJ8lxTxI22Ib6nNoHa4nBLFOauYpZrV6mIL7sWCjKk4bAQT3taTP0oz1C
-         e9A12pCzj5m859+JK0eYw/vo3NUZpkomqdH7StzFvJEa/EO4kcRDZdLZ48G/WuPMWeMS
-         Wacur8Ws8MczDfinIW9CMfUfwOBdyCSdeh+tmZV0K92gATPVjCyStizUBvxdArQkTUMU
-         0pL7VMpWiUyiJH1NVh6T73nzEdD3QcIcHge4eSJit3TA8PZSnB8MLEumwF+D1u20SKfW
-         0v9TYRiAikbeJCpcHBW8nrLRrv1CdQPDKj4r49XJfnh8xIBykoRNGs4g5Vi//KIVURPT
-         y0yQ==
+        bh=LbbnaDI3jbykcmqXiSeRQcmnCDtxF/X1Boj+XkGvTpI=;
+        b=De+Xf2QEaHQAQpuqmT9HwC3B645L+sH1m9c0eLfxgcZsfbxb0PudbMH56Papn0EKKm
+         Lz5QkPkBIajMhKWKV2UeqKNz3scN93XAn92jGQTR63DNqT81CyVEiLbPAPfPSbL9fIqd
+         oAjLJLsCGmjmm7ll6fnTvP7oM+81MuUfQ1ZQ0K8me1Aw7wzHBS5kCYBWh1aGfFBDRpg5
+         purDQjmIpF8cfUuHtsiRTw/dVmp9v8M7q/p+iyrHfQHlBQHy96jOICJ1YmudHtmsAZiZ
+         cSUI6iBW+00yxy6T0J4HAuGgx1AqAw9ilM/ERERE8DO+i/AHm72CpaDAdk4jimKurzSs
+         LOXw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -34,13 +34,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=8hB3CJoQY8IE35DhzOqkfQ7o9yksg9iaMEC1l4aG3hI=;
-        b=R2i1koec6hoG+pIJw6Tq5pnZbTX17MwG2x1RFYX/JFjzcNpHFnOkNwV8sRm/Xx1yUT
-         3Igu8QJCE+qolMPd+lzHpl6b0CmjEPQi00xJMaUSzY3Wg05M8dmxg9BEqA2WwpRFwsBU
-         iUqYP/mT/bTN/Dfj1idDaXIN47a19pTd+b+uUnJmJED6oK7exEMdtAAgKwykPTEyrHcB
-         3cj6tjiKFGo9urSSeEecZ76oKGfXI63W0IlvjQ+SJd4duVPGhAg7/iKBdxyGlLHe+XmB
-         niEGfgEZPpIvXKyeR78YRpLEDZi2cpeM7+Hb7sLqut1/ZVrmATwnB1ZPXFPO/8qI9COT
-         Gvpg==
+        bh=LbbnaDI3jbykcmqXiSeRQcmnCDtxF/X1Boj+XkGvTpI=;
+        b=F/TaJvUP9rfDLY8FgqV4Mb4WahsjuhAudosvYS5KvJowIy/HMzh5MGgnK2XX9fIqyx
+         fvg+Zv8ImKsX6GshqGyh8We1ezOq9VlVuKKHIgIhlPrEUgV+TC+qz7Pps00JgegYIi+M
+         fIU7IOvJYSElHC7bgEAPPxwp5gpeiWLpzcnCNaXYFq5TEkx+ZB5ECH+EWvEyWo2C6B9u
+         dEFfKI1gtfMIFUk+DvCPjdRQ5J77zZyZBTyQx3LHYPN/3suhbjpUpR4V7PTSooGymLH7
+         H9IFSbFXIYODcS4j5cMAc4zDjYopeAHAMhm47JC+F09q6H8sSseK3cLzuIvxLLBspGvu
+         8pgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:subject:date:message-id
@@ -48,70 +48,70 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=8hB3CJoQY8IE35DhzOqkfQ7o9yksg9iaMEC1l4aG3hI=;
-        b=T2CCgRHF7+Eafxb/5XfFaP3YwnUYuao4CVo/bVjMPZylLniqzcyv2SdweWutKTz1LD
-         1iL8Ksb3Bcn5G2QkQ3PxlOnZr3mkjOJgKQ7/FMCIvviNEkm8lupaXPTL+EujbX5vOyry
-         8oXcDjdCUMc99dgMoGmhl98XucRFHN5KQB3PvLxM/e6AEPTIGFUzGZpX5XN34Oayufdz
-         t4AXBTIGfxmDJIdloqf5BQwFyA8s5MM4kbSf/0CG6fkeQLN2ok89yatwY+cjVOiHPKVc
-         Uz18cOHb28X9qjV35sIEHPhacgEk5HsW93iBDhM9bts1ZPaRrfCX+uRynKfdY4K57TRo
-         WlJQ==
+        bh=LbbnaDI3jbykcmqXiSeRQcmnCDtxF/X1Boj+XkGvTpI=;
+        b=WsqoLrE1so4H4QwqJm6Q9tO3BNJT5QQaY/0bASwl8uHSUPgdSwUdSAcV6RKg4X4FqZ
+         5FfGbjc02oqVFRWyyj7diTxRVPfDroVFhDEMZhSIZKqHIiT6IdMpOmu/SBLGKNfzdDk3
+         pG3YL3/u2LOnIAn8ZmY5uhl2NZYTz7++07D59C/0ELjaZTDPcP54BLGI/rdv1M7PIvvW
+         BYMjMkZD2qXIu4ClECybLk9ktKAMMYe2oQp78d1HlqF5lUZRgDw3NotcB8KpbbIRiVJ0
+         23muKZMUy/ZXdvRW5hJTIWwN8FXhiROIMoJQg/kZXDn06QZNQXkIDNZ/QxVQoBX2pjL4
+         4urg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533hWoQMO52TdujhCcL697cXnYY6cF8aREIO5yObMCzFnGVwuGbb
-	SoudUrUvCYjHBNqYmP8GTd4=
-X-Google-Smtp-Source: ABdhPJyXtLtoq8ZF8QCWDtOhlIYjPhTzn2TQYh5IbiU2ANBHHnMyenHm6YRvTV0KwaGXyhk0LLgEeQ==
-X-Received: by 2002:a19:7604:: with SMTP id c4mr5372514lff.132.1601876396250;
+X-Gm-Message-State: AOAM533A/P3mm3yPH38UV8cxqAS6wDWmVDHGviZqYxnk+VaWpX+8Zhh6
+	7s0KYYrsys7TzGA8Z7xHdlg=
+X-Google-Smtp-Source: ABdhPJzdjfNwyEEF4GQys4olihpNInJRCuCPj5fsaGysX+2+a9zriYukqnx7fXOte8Bx3HPqVlTJOw==
+X-Received: by 2002:a2e:3910:: with SMTP id g16mr1072458lja.18.1601876396491;
         Sun, 04 Oct 2020 22:39:56 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a19:84c1:: with SMTP id g184ls361171lfd.3.gmail; Sun, 04 Oct
+Received: by 2002:a2e:7c08:: with SMTP id x8ls871523ljc.6.gmail; Sun, 04 Oct
  2020 22:39:55 -0700 (PDT)
-X-Received: by 2002:ac2:489c:: with SMTP id x28mr5325014lfc.544.1601876394935;
-        Sun, 04 Oct 2020 22:39:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1601876394; cv=none;
+X-Received: by 2002:a05:651c:1023:: with SMTP id w3mr1177226ljm.63.1601876395336;
+        Sun, 04 Oct 2020 22:39:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1601876395; cv=none;
         d=google.com; s=arc-20160816;
-        b=lObDaZ7LKcW8ZHJQu/lmfXidvmdMDBRRPSALTRILaLYJH03EiuZdpjZG9nLrBHVN5e
-         f/4lMiUZwYne7Nki6fn9RGHxAumwKpGIV1AYb1YJFq4/xaA3THUwNaHzeFzHsTlpLuGy
-         mh9Yr+U4Sf/NU78E8meIJQqTVH+paG29eVK52zO3ld5AnV8OHyTh6VxskD6UaeF/6W/X
-         4fB6OIiKpPX6GgGNOvAc3g0oQr8XvYSnVrjPzVTCcO0N/UB2OrLJIDgUoQdKOGPEnjXb
-         1bm/KBcXEFjtRbci0UHMdRy/wNavV+YY9J+Ebmi+KbKrnbsv4wKak84b0Zf/iL/C0893
-         K1HQ==
+        b=GuqDz3wZNBASHUBbNHOmmAZ/chQBzLdhNimef4l8qo0KqO0Vk4xLCSNMSngm5PrbK/
+         7Mz+b6rqIledvZth2nCNJU/KqG71AI//RI5ylYaBX3iuGKNmk4vVdzYNTw65dsjksHCO
+         mcpZQM3uGXYa7EHYAI2bKbqxpFfUqfxxJnLjbyIOrxPNbiQwPARfnW66BLb2ZLSX899s
+         5aHjFiEwldJmbHHsA2Io9AlDiIUpW0C92XVa0GM1Wi6ugHJZbhFeWQ0gwr7s2M0RTeSa
+         UNcf/QD3DNfZXT2hKDUvM/jirv66wSRZloZoTGHX3SwSoCEfPk0SBHl6c6cfwsA0f4xK
+         UMyA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from;
-        bh=EyYAsUapOha5gVQwdCMeVDPCOzi3phDVJQQignWPA8g=;
-        b=qKh7LpXYQSRnKaDOoQ2mMJpw6aR6856uv7V9rBIZZsIPW6Yff+TpUdI6sAkSK4F40U
-         eYuXoD5whplI6GSlFuTuWX9x//zd6n/gF5mhqJCmufJZ1TqKdLv+owfSF9cv5EM5Fl28
-         /ja2ZJ2RyYwf2CglF/Msm6GfMn94xTePUnbssS5fpEWw8uLPK9Kc4SVVTPuwlH8avRT9
-         X47d6XqJomGTIe3AD8WLIhs7wWhgqbuZ5A+JQ0AjMuKiiBqT/nhont0XMP/P+LzsAcx4
-         g+kXBIeHKrVTLHRGzLHh5T5Rzt7R24pHQgF8yVu+DQpthKBwlMOnYJb0DE8Y8A4IFp6X
-         eBAA==
+        bh=3b4xCseBtrcyED4ZlqVBO9MH0wC7Fh01o7emHT+ufy0=;
+        b=RSKOi72zC12L7GI7xfIaXR1EZHOmEBt0Zj1Xm3lBIROctTVrX9aDd5R5hOsSsgRGR4
+         lOTnT2fCwkVuqooGAko0HoiNGSd7Bvm3WDnSiTa3JLsPbVcaU/87B4LqjyjWJaT6iy+h
+         /K9P39/qBhFCfmONKRWXg4h+Sz6/BKoQ85eQayGyRTzxLAQBsJt94FZdaBlgYtoRJGsn
+         XaCyUfX6JX6SdoCAI0Diifu4x35VCovmwxcb0FUDRwY7O49Nf0k5cbCjEPQ7aM0LAe/y
+         hluqBmopbLrqUjcMT1o5gYiMvPzNO0h5dJnevg/JJG3LNFGH5A8g+Xod71qceKd2N3bl
+         BeOA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
-        by gmr-mx.google.com with ESMTPS id 11si210277lfl.4.2020.10.04.22.39.54
+Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
+        by gmr-mx.google.com with ESMTPS id q20si225149lji.2.2020.10.04.22.39.55
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 04 Oct 2020 22:39:54 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
+        Sun, 04 Oct 2020 22:39:55 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 0955dsin000954
+	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 0955dsWE024040
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
 	for <jailhouse-dev@googlegroups.com>; Mon, 5 Oct 2020 07:39:54 +0200
 Received: from md1f2u6c.ad001.siemens.net ([167.87.39.163])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 0955dncN025569
-	for <jailhouse-dev@googlegroups.com>; Mon, 5 Oct 2020 07:39:53 +0200
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 0955dncO025569
+	for <jailhouse-dev@googlegroups.com>; Mon, 5 Oct 2020 07:39:54 +0200
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [jh-images][PATCH 14/19] Add new TF-A build infrastructure
-Date: Mon,  5 Oct 2020 07:39:44 +0200
-Message-Id: <68da147436149de570216ccb11a74489bed1328f.1601876389.git.jan.kiszka@siemens.com>
+Subject: [jh-images][PATCH 15/19] rpi4: Convert to stand-alone TF-A recipe and update to 2.3
+Date: Mon,  5 Oct 2020 07:39:45 +0200
+Message-Id: <928a923e71da182db79e78d38ff9131c33579e85.1601876389.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <cover.1601876389.git.jan.kiszka@siemens.com>
 References: <cover.1601876389.git.jan.kiszka@siemens.com>
 MIME-Version: 1.0
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
@@ -129,185 +129,158 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-This prepares for building Trusted Firmware A always as package, like we
-already do for rpi4. The infrastructure is added as Isar path that will
-be upstreamed soon.
+Use the trusted-firmware-a-custom.inc to model the rpi4 build. This
+comes with a package renaming.
 
-TF-A will will be packaged per-machine, just like U-Boot. So already
-prepare the corresponding PREFERRED_PROVIDER rule.
+It also gives the chance to update to release 2.3 which allows to drop
+patches. They will be removed from the tree later on, when the last user
+of the old arm-trusted-firmware recipes is converted.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- conf/distro/jailhouse-demo.conf               |   1 +
- ...de-for-building-custom-Trusted-Firmw.patch | 127 ++++++++++++++++++
- kas.yml                                       |   4 +
- 3 files changed, 132 insertions(+)
- create mode 100644 isar-patches/0001-Add-recipe-include-for-building-custom-Trusted-Firmw.patch
+ conf/machine/rpi4.conf                        |  4 +--
+ .../arm-trusted-firmware-rpi4_2.2.bb          | 28 -------------------
+ .../arm-trusted-firmware/files/rpi-rules      | 23 ---------------
+ .../trusted-firmware-a-rpi4_2.3.bb            | 14 ++++++++++
+ .../trusted-firmware-a_2.3.inc                | 17 +++++++++++
+ 5 files changed, 33 insertions(+), 53 deletions(-)
+ delete mode 100644 recipes-bsp/arm-trusted-firmware/arm-trusted-firmware-rpi4_2.2.bb
+ delete mode 100644 recipes-bsp/arm-trusted-firmware/files/rpi-rules
+ create mode 100644 recipes-bsp/trusted-firmware-a/trusted-firmware-a-rpi4_2.3.bb
+ create mode 100644 recipes-bsp/trusted-firmware-a/trusted-firmware-a_2.3.inc
 
-diff --git a/conf/distro/jailhouse-demo.conf b/conf/distro/jailhouse-demo.conf
-index eeb5ea3..9f0aa92 100644
---- a/conf/distro/jailhouse-demo.conf
-+++ b/conf/distro/jailhouse-demo.conf
-@@ -17,6 +17,7 @@ WKS_FILE ?= "${MACHINE}.wks"
+diff --git a/conf/machine/rpi4.conf b/conf/machine/rpi4.conf
+index 8ccef6b..b26effa 100644
+--- a/conf/machine/rpi4.conf
++++ b/conf/machine/rpi4.conf
+@@ -12,7 +12,7 @@
+ DISTRO_ARCH = "arm64"
  
- PREFERRED_VERSION_jailhouse-${KERNEL_NAME} ?= "0.12"
+ IMAGE_TYPE = "wic-img"
+-IMAGER_BUILD_DEPS = "rpi-firmware arm-trusted-firmware-rpi4 linux-image-${KERNEL_NAME}"
++IMAGER_BUILD_DEPS = "rpi-firmware trusted-firmware-a-rpi4 linux-image-${KERNEL_NAME}"
+ IMAGER_INSTALL += "${IMAGER_BUILD_DEPS}"
  
-+PREFERRED_PROVIDER_trusted-firmware-a-${MACHINE} ?= "trusted-firmware-a-${MACHINE}"
- PREFERRED_PROVIDER_u-boot-${MACHINE} ?= "u-boot-${MACHINE}"
+ IMAGE_BOOT_FILES = " \
+@@ -26,7 +26,7 @@ IMAGE_BOOT_FILES = " \
+     /usr/lib/rpi-firmware/overlays/*;overlays/ \
+     /usr/lib/linux-image-*/broadcom/bcm2711-rpi-4-b.dtb \
+     /usr/lib/linux-image-*/overlays/*;overlays/ \
+-    /usr/lib/arm-trusted-firmware/rpi4/bl31.bin;bl31.bin \
++    /usr/lib/trusted-firmware-a/rpi4/bl31.bin;bl31.bin \
+     /vmlinuz;kernel8.img \
+     "
  
- USERS += "root"
-diff --git a/isar-patches/0001-Add-recipe-include-for-building-custom-Trusted-Firmw.patch b/isar-patches/0001-Add-recipe-include-for-building-custom-Trusted-Firmw.patch
+diff --git a/recipes-bsp/arm-trusted-firmware/arm-trusted-firmware-rpi4_2.2.bb b/recipes-bsp/arm-trusted-firmware/arm-trusted-firmware-rpi4_2.2.bb
+deleted file mode 100644
+index 2dd180a..0000000
+--- a/recipes-bsp/arm-trusted-firmware/arm-trusted-firmware-rpi4_2.2.bb
++++ /dev/null
+@@ -1,28 +0,0 @@
+-#
+-# Jailhouse, a Linux-based partitioning hypervisor
+-#
+-# Copyright (c) Siemens AG, 2019
+-#
+-# Authors:
+-#  Jan Kiszka <jan.kiszka@siemens.com>
+-#
+-# SPDX-License-Identifier: MIT
+-#
+-
+-inherit dpkg
+-
+-ATF_PV = "${PV}"
+-
+-require arm-trusted-firmware_${PV}.inc
+-
+-SRC_URI += "file://rpi-rules"
+-
+-S = "${WORKDIR}/arm-trusted-firmware-${PV}"
+-
+-do_prepare_build[cleandirs] += "${S}/debian"
+-do_prepare_build() {
+-    cp ${WORKDIR}/rpi-rules ${WORKDIR}/rules
+-    deb_debianize
+-
+-    echo "build/rpi4/release/bl31.bin /usr/lib/arm-trusted-firmware/rpi4/" > ${S}/debian/install
+-}
+diff --git a/recipes-bsp/arm-trusted-firmware/files/rpi-rules b/recipes-bsp/arm-trusted-firmware/files/rpi-rules
+deleted file mode 100644
+index abb65be..0000000
+--- a/recipes-bsp/arm-trusted-firmware/files/rpi-rules
++++ /dev/null
+@@ -1,23 +0,0 @@
+-#!/usr/bin/make -f
+-#
+-# Jailhouse, a Linux-based partitioning hypervisor
+-#
+-# Copyright (c) Siemens AG, 2019
+-#
+-# Authors:
+-#  Jan Kiszka <jan.kiszka@siemens.com>
+-#
+-# SPDX-License-Identifier: MIT
+-#
+-
+-ifneq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
+-export CROSS_COMPILE=$(DEB_HOST_GNU_TYPE)-
+-endif
+-
+-PARALLEL_BUILD=-j $(shell echo $$(($$(nproc) * 2)))
+-
+-override_dh_auto_build:
+-	CFLAGS= LDFLAGS= $(MAKE) $(PARALLEL_BUILD) PLAT=rpi4
+-
+-%:
+-	dh $@
+diff --git a/recipes-bsp/trusted-firmware-a/trusted-firmware-a-rpi4_2.3.bb b/recipes-bsp/trusted-firmware-a/trusted-firmware-a-rpi4_2.3.bb
 new file mode 100644
-index 0000000..72b089f
+index 0000000..2a655a3
 --- /dev/null
-+++ b/isar-patches/0001-Add-recipe-include-for-building-custom-Trusted-Firmw.patch
-@@ -0,0 +1,127 @@
-+From 6754548019e02c1dbf0d336d06dd14508eb1684c Mon Sep 17 00:00:00 2001
-+From: Jan Kiszka <jan.kiszka@siemens.com>
-+Date: Sun, 27 Sep 2020 12:08:45 +0200
-+Subject: [PATCH] Add recipe include for building custom Trusted Firmware A
++++ b/recipes-bsp/trusted-firmware-a/trusted-firmware-a-rpi4_2.3.bb
+@@ -0,0 +1,14 @@
++#
++# Jailhouse, a Linux-based partitioning hypervisor
++#
++# Copyright (c) Siemens AG, 2019-2020
++#
++# Authors:
++#  Jan Kiszka <jan.kiszka@siemens.com>
++#
++# SPDX-License-Identifier: MIT
++#
 +
-+Analogously to U-Boot, this adds an include file to be used in custom
-+TF-A recipes. The typical customization points are TF_A_PLATFORM and
-+possibly a couple of TF_A_EXTRA_BUILDARGS. The to-be-packaged binaries
-+can be defined via TF_A_BINARIES.
++require trusted-firmware-a_${PV}.inc
 +
-+Debian has a binary package called "arm-trusted-firmware", targeting a
-+couple of sunxi boards. We do not follow that legacy naming by intention
-+and rather use the new official one. Debian will probably follow at some
-+point.
++TF_A_PLATFORM = "rpi4"
+diff --git a/recipes-bsp/trusted-firmware-a/trusted-firmware-a_2.3.inc b/recipes-bsp/trusted-firmware-a/trusted-firmware-a_2.3.inc
+new file mode 100644
+index 0000000..8480b0d
+--- /dev/null
++++ b/recipes-bsp/trusted-firmware-a/trusted-firmware-a_2.3.inc
+@@ -0,0 +1,17 @@
++#
++# Jailhouse, a Linux-based partitioning hypervisor
++#
++# Copyright (c) Siemens AG, 2019-2020
++#
++# Authors:
++#  Jan Kiszka <jan.kiszka@siemens.com>
++#
++# SPDX-License-Identifier: MIT
++#
 +
-+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-+---
-+ .../trusted-firmware-a/files/debian/compat    |  1 +
-+ .../files/debian/control.tmpl                 | 10 +++++
-+ .../trusted-firmware-a/files/debian/rules     | 19 ++++++++
-+ .../trusted-firmware-a-custom.inc             | 43 +++++++++++++++++++
-+ 4 files changed, 73 insertions(+)
-+ create mode 100644 meta/recipes-bsp/trusted-firmware-a/files/debian/compat
-+ create mode 100644 meta/recipes-bsp/trusted-firmware-a/files/debian/control.tmpl
-+ create mode 100755 meta/recipes-bsp/trusted-firmware-a/files/debian/rules
-+ create mode 100644 meta/recipes-bsp/trusted-firmware-a/trusted-firmware-a-custom.inc
++require recipes-bsp/trusted-firmware-a/trusted-firmware-a-custom.inc
 +
-+diff --git a/meta/recipes-bsp/trusted-firmware-a/files/debian/compat b/meta/recipes-bsp/trusted-firmware-a/files/debian/compat
-+new file mode 100644
-+index 00000000..f599e28b
-+--- /dev/null
-++++ b/meta/recipes-bsp/trusted-firmware-a/files/debian/compat
-+@@ -0,0 +1 @@
-++10
-+diff --git a/meta/recipes-bsp/trusted-firmware-a/files/debian/control.tmpl b/meta/recipes-bsp/trusted-firmware-a/files/debian/control.tmpl
-+new file mode 100644
-+index 00000000..7ffd189d
-+--- /dev/null
-++++ b/meta/recipes-bsp/trusted-firmware-a/files/debian/control.tmpl
-+@@ -0,0 +1,10 @@
-++Source: ${PN}
-++Section: admin
-++Priority: optional
-++Standards-Version: 3.9.6
-++Build-Depends: ${DEBIAN_BUILD_DEPENDS}
-++Maintainer: ISAR project <isar-users@googlegroups.com>
-++
-++Package: trusted-firmware-a-${TF_A_NAME}
-++Architecture: ${DISTRO_ARCH}
-++Description: ${DESCRIPTION}, firmware binaries
-+diff --git a/meta/recipes-bsp/trusted-firmware-a/files/debian/rules b/meta/recipes-bsp/trusted-firmware-a/files/debian/rules
-+new file mode 100755
-+index 00000000..70e1dd66
-+--- /dev/null
-++++ b/meta/recipes-bsp/trusted-firmware-a/files/debian/rules
-+@@ -0,0 +1,19 @@
-++#!/usr/bin/make -f
-++
-++# Debian rules for custom Trusted Firmware A build
-++#
-++# This software is a part of ISAR.
-++# Copyright (c) Siemens AG, 2020
-++#
-++# SPDX-License-Identifier: MIT
-++
-++ifneq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
-++export CROSS_COMPILE=$(DEB_HOST_GNU_TYPE)-
-++endif
-++
-++override_dh_auto_build:
-++	CFLAGS= LDFLAGS= $(MAKE) $(PARALLEL_MAKE) PLAT=$(TF_A_PLATFORM) \
-++		$(TF_A_EXTRA_BUILDARGS)
-++
-++%:
-++	dh $@
-+diff --git a/meta/recipes-bsp/trusted-firmware-a/trusted-firmware-a-custom.inc b/meta/recipes-bsp/trusted-firmware-a/trusted-firmware-a-custom.inc
-+new file mode 100644
-+index 00000000..a065ce71
-+--- /dev/null
-++++ b/meta/recipes-bsp/trusted-firmware-a/trusted-firmware-a-custom.inc
-+@@ -0,0 +1,43 @@
-++# Custom Trusted Firmware A build
-++#
-++# This software is a part of ISAR.
-++# Copyright (c) Siemens AG, 2020
-++#
-++# SPDX-License-Identifier: MIT
-++
-++inherit dpkg
-++
-++FILESEXTRAPATHS_prepend := "${FILE_DIRNAME}/files:"
-++
-++SRC_URI += "file://debian/"
-++
-++DESCRIPTION ?= "Custom Trusted Firmware A"
-++
-++TF_A_NAME ?= "${MACHINE}"
-++TF_A_PLATFORM ?= "unknown"
-++TF_A_EXTRA_BUILDARGS ?= ""
-++TF_A_BINARIES ?= "bl31.bin"
-++
-++DEBIAN_BUILD_DEPENDS ?= ""
-++
-++PROVIDES += "trusted-firmware-a-${TF_A_NAME}"
-++
-++TEMPLATE_FILES = "debian/control.tmpl"
-++TEMPLATE_VARS += "TF_A_NAME DEBIAN_BUILD_DEPENDS"
-++
-++do_prepare_build() {
-++    cp -r ${WORKDIR}/debian ${S}/
-++
-++    deb_add_changelog
-++
-++    rm -f ${S}/debian/trusted-firmware-a-${TF_A_NAME}.install
-++    for binary in ${TF_A_BINARIES}; do
-++        echo "build/${TF_A_PLATFORM}/release/$binary /usr/lib/trusted-firmware-a/${TF_A_NAME}/" >> \
-++            ${S}/debian/trusted-firmware-a-${TF_A_NAME}.install
-++    done
-++}
-++
-++dpkg_runbuild_prepend() {
-++    export TF_A_PLATFORM="${TF_A_PLATFORM}"
-++    export TF_A_EXTRA_BUILDARGS="${TF_A_EXTRA_BUILDARGS}"
-++}
-+-- 
-+2.26.2
++SRC_URI += "https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/snapshot/trusted-firmware-a-${PV}.tar.gz"
++SRC_URI[sha256sum] = "37f917922bcef181164908c470a2f941006791c0113d738c498d39d95d543b21"
 +
-diff --git a/kas.yml b/kas.yml
-index 6c3c987..8807257 100644
---- a/kas.yml
-+++ b/kas.yml
-@@ -24,6 +24,10 @@ repos:
-     refspec: 93658f7a72679c89e14adc7bbdbf3f5d52b7ac0d
-     layers:
-       meta:
-+    patches:
-+      tf-a:
-+        path: isar-patches/0001-Add-recipe-include-for-building-custom-Trusted-Firmw.patch
-+        repo: jailhouse
- 
- bblayers_conf_header:
-   standard: |
++S = "${WORKDIR}/trusted-firmware-a-${PV}"
 -- 
 2.26.2
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/68da147436149de570216ccb11a74489bed1328f.1601876389.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/928a923e71da182db79e78d38ff9131c33579e85.1601876389.git.jan.kiszka%40siemens.com.
