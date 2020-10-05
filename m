@@ -1,116 +1,117 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBKHD5L5QKGQEUKP5ODI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBJ7D5L5QKGQEQTH2XGI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ej1-x63a.google.com (mail-ej1-x63a.google.com [IPv6:2a00:1450:4864:20::63a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45F2F28301C
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  5 Oct 2020 07:39:53 +0200 (CEST)
-Received: by mail-ej1-x63a.google.com with SMTP id i21sf1805614ejb.5
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 04 Oct 2020 22:39:53 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1601876393; cv=pass;
+Received: from mail-wr1-x43f.google.com (mail-wr1-x43f.google.com [IPv6:2a00:1450:4864:20::43f])
+	by mail.lfdr.de (Postfix) with ESMTPS id A960428301A
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  5 Oct 2020 07:39:52 +0200 (CEST)
+Received: by mail-wr1-x43f.google.com with SMTP id y3sf3538866wrl.21
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 04 Oct 2020 22:39:52 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1601876392; cv=pass;
         d=google.com; s=arc-20160816;
-        b=reqteAzkyU+cDWf7hT1lkziKaKLQigcY3UVF5v6dXAwc+BHhFbl/Ouh2DsKvS9ClwL
-         Fd4w05PGv+DXZvQUMzM/jMCO9IbEe8VMrEt5Gil9v8YH4bDEZUMSPf9KPIXJmAzZL5pD
-         eH3cKXCEMEdC7Dz3EDh7oFgaNnypeQeMrkwU7zinSdAcoLMpe7b91zA4niswvIUaD60B
-         k1dLI8DhGhApmF5MjyUJuKoHE/OBzWdVrttRLfVg5pXhC8YfyTdavhrvmHhRO11+xREq
-         Jw4gzTaM5PEcvGtyFjlIMACCrKJ0huIzY2orj04+tU9YZuqFxf1k6SXMELsV6KhiUOOp
-         4k/A==
+        b=Ki9N1QOEnd1dexMEiaip1S8U1+cvDbRqHWcTxdNsulwEUWahuhBA1lH4kBREHwfn7p
+         g2k+uYy1J7n05F5RfFsqQrepM2SICfdcBM97DGghYkKEnD9+bl5tRfzaxqCNxdBX0aqA
+         Otm8pGc25jM/rFf3TVrabmzRM6Wf1px4IkZvIgNFHFvU4dfHbBLW3KK6+zaF0DH1CWZA
+         e62rgYtoJbSOwXpuMYvgu4fn7UbDPNoeWngep7d71JO83R5ZtO1tYGoU76oBwDc4msef
+         7SqiGEowcNrO908CjB7HgsRmzVNWCC9cnQ/rpCiuPZbzL1sbGfNMxpQSJBor/Ul8V5XJ
+         muCQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:message-id:date
-         :subject:cc:to:from:sender:dkim-signature;
-        bh=cXTQ/l6OM/I1YEtiBWRRDe4ejWShSOJ0ww4kfV8e16g=;
-        b=sT5wi4RkNEknGyluzsVLJLEoUChlBAPsGS3zyPVYhkYyke/JGBdjWNBrIco0WMajck
-         5BKZ6NVDiQqYR8OXsR2+KGX0V0s6LiwF9+C/zwiC7q/MtS3SvRJV1wRUkC5vKG/NnaY1
-         vvv0Dwe7b8XHyzjxRrVAwRbGvTf2h191WVZi7fbpUneI3T1kMrcjyNbHr2zzybhAddKC
-         zK6fX16aXFGmJppjmUrzeVXYtJNaFZeNzh2IGfaoMUeJb+zTKX2lae55V6/OB24idbvM
-         S9WjhkjdEwVFy1M6HK5jAJG7AdhXFl+uUhGaQ8Mf5EwRgSLA3gzmGuhFlLk6dWk4IpTk
-         loMA==
+         :list-id:mailing-list:precedence:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:sender:dkim-signature;
+        bh=7C444M/79WEo971SuGKGv559ANSbkBMNfGyLLSIusl4=;
+        b=ixkTy94JywRS6bjChYFzPShEY5DzH6YZjamPVMtCdYWTXnLQ8ISlQC2nAo8XIGCmq5
+         bhDrJ5PL44Bo3M3XnunaBdKL+jyxFDqUPT0nSW6Mj/gy8HaLXPYxMxIyAinc0AmMvYtL
+         DcEwP3WdKLUW4f2ZzJF9ENuRckm1u4bHqvOh4D7ld7Yxx/uuUhDBj6pMRAoVB9R6ydWQ
+         ErK+DlERcAxFiahcxDzuHAzbvfVj+tHnAZvIMcA3NyMdyCx1o7t27WEuFlJFceXvW/Vs
+         WB28aa1NKAD5eOSvezN0EXzz9mFDYoogjiv05DteGT4Ddlh5WQ0nj+2q+LITTKchmXVx
+         MEeQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:cc:subject:date:message-id:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:from:to:subject:date:message-id:in-reply-to:references
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=cXTQ/l6OM/I1YEtiBWRRDe4ejWShSOJ0ww4kfV8e16g=;
-        b=LoH8yFlZBCMbd4ESsLDq1GVT8EXIeDS0A9+3EIggJXMK33MqUkM+LGsN952z0peZfL
-         57iQ+NcmSEiqkX72XidyJcbSwLKDavfY2TI4nabbs9crITtVZnD8N3JVdXcDWxF73zUK
-         CP26McxXfe6I0aU+sRH/RI6tkGWXczA+RQtyehYjlqdSVvIIaJQx7/ptNqKO3Nx6vwi6
-         Y470Y0SBkSXHT8D55dXTjpWLiR+RaZuC2jFyJFhs6g0UMTzKVlkv8i00hNxZE38QRyAT
-         Ysit0XXlKS3nP645JAFxGq19RmNJ18uH4Fw9k0MBxWuXjwjboybURvcOj+ODODvltijh
-         Cx7g==
+        bh=7C444M/79WEo971SuGKGv559ANSbkBMNfGyLLSIusl4=;
+        b=PmjnlIcqhkotygTo7y1Gn6vZr9uM/an5BVIKJ1Ik/xGqrGl9QTyVD1My4D+JCpxtB7
+         LCSlQhKgFo+9WqRKTiA4SIc+D5H1DVRSSgzFxnVDNH1HbiQHgBWMD98QWJHb7ytFunlv
+         OFXzi5u5nnjStMIY7DLR5pNy/8heB6IUwRF/+hphA+IN4XTCRLr13eroYBeY/e++abSN
+         qiMlthXkwFfvfA++w5fNPsoqKBVTC+L6x9YQI7FdYJ4akh/c9JzZqUtZdcYIFbEt5rHN
+         7CYAj2qBsGrsHiS2XmT7tekMt9mjV3kCoXgpcqEbiw/i5S2dS3/TlLMQ5aViTVLocm/F
+         XdQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=cXTQ/l6OM/I1YEtiBWRRDe4ejWShSOJ0ww4kfV8e16g=;
-        b=pgAjDQLGpgMKI5NDkAkUPnA+LZeH2T4vY2jt/zW/57agwH5eRj0zcLSWckKiLu0bB0
-         JYJmW0ZYVykggycf4Rb5w5goHsGSvHQKjnuhAtEE8oGM/nW7mKW6GpN3qfrq6V4yNSv1
-         4aOjUmnnHDqW1o3fiS3OUbiWSwyzKYmmrsCijBFBGoLrWLlHm0zvFgyOgA2mKogauy+p
-         oJojWapGef0iwYf051KEpG0QgGzgOKbDUqhxNWD3iUPkp5+/noi52PwAbasdmaC4clQc
-         y4Wf5xsuRoqD4h0HzyZN99h0ZYft+IZbjvZi2zc1gMTnulk7/v4QqjbrMDhXaCilK//8
-         N0rQ==
+        h=sender:x-gm-message-state:from:to:subject:date:message-id
+         :in-reply-to:references:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=7C444M/79WEo971SuGKGv559ANSbkBMNfGyLLSIusl4=;
+        b=NYI0nZ8LPwZJD/35SBTyD+0XQZ1a2SWIc3mMK5peOZ7lupe/VL2hFygIbqBeVlVDYa
+         jCBQZM/o7BEO5sIFhTBfXkoWXguSZLPFap+vlVSrJtLDXhDUSlUW/XpMwzZHWEedHOXC
+         SEj9hqGv33/WvTkA+u/gWHkK/lx/ygTpv+7hLCMw4NpPJpZxUJzukWsobbA/li4oB1tL
+         59UPR5LpYFQ4cCjGYTsk9F2LZSkMuGLn5yLTFGCFoOqaeeKqe7j0lY/LZlS0OiBUosKu
+         Z60rC1OMNXUTFoIxkHG2TBkR+qlDYWR3hNoF6cb4oD312ETgvhBEZHN8DF5qFE8UuWei
+         x6Zw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533Op0qdwXUCcX6AtPhtCWUe8oH2mvmxcMHrdERJcJ/In9C8kzaD
-	/4gU7KsJlCrMYDsbfee84os=
-X-Google-Smtp-Source: ABdhPJyko5751yfiwL3f2m41fN+ui/PBrwVDV0tCtszvEY+RMvI50o/E1CNLHmM/1u9l7Q7rr6OLbw==
-X-Received: by 2002:a17:906:cb94:: with SMTP id mf20mr14308462ejb.8.1601876392979;
+X-Gm-Message-State: AOAM530khyhI0E+2mVPMJweXja7yz08d3hsZelhkww9CsP7+AEIA5uUT
+	EzTQcwKus5Mm3viKRmVvSlg=
+X-Google-Smtp-Source: ABdhPJwUtLhBLkRHCgcLVxjD5mqoySntEm5oGhgLpI9iP3h3vtr0whc+daPpq9mIpp0tt58pf8c6uw==
+X-Received: by 2002:adf:f548:: with SMTP id j8mr16087914wrp.114.1601876392374;
         Sun, 04 Oct 2020 22:39:52 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6402:1d3c:: with SMTP id dh28ls3861860edb.0.gmail; Sun,
- 04 Oct 2020 22:39:51 -0700 (PDT)
-X-Received: by 2002:a50:80e3:: with SMTP id 90mr15760393edb.39.1601876391655;
+Received: by 2002:a7b:cbc4:: with SMTP id n4ls4088802wmi.3.gmail; Sun, 04 Oct
+ 2020 22:39:51 -0700 (PDT)
+X-Received: by 2002:a1c:32c6:: with SMTP id y189mr15567589wmy.51.1601876391155;
         Sun, 04 Oct 2020 22:39:51 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; t=1601876391; cv=none;
         d=google.com; s=arc-20160816;
-        b=TTu6xGaogbR7ggUrZWu5Z0bcVF0cIbE6t8QREMPdDGS7awZzWs19HvnCuj2eSz7sol
-         cuxfoLZceJjXzGXgGpp76l4vnDg+Ar4XVDGL+QeGZoR88oIJzIp5xtyVY9UwnlwZ7qFT
-         RXNLeNvGAd93pOeI0ZH8S5DU6BWnX4bBdqfMO3wCisu/XRCzzSSpdnchKvSrok4ayA2m
-         21uDALY1pxm70rFCkA4WR9bPG0TSD3l0N1geY4BL8loiRn6cJ+JdsStUt6z18s8yX2w3
-         mJI6wjYp+Ti1Y2EfiF9pp7Jlx31cmgeY4msvEZn0ZYYl4h0LW8A5rK3/KLsujKefzyXo
-         DIbQ==
+        b=EPQPHK7Fyp1gf/DEPWXVUCo8LiJIorphLI/x27t2HA5paB8TQKkMgfBX/qM2XV4h4a
+         dbfnnzIx0WLI0BrPEUWxiuY2t2S8+TitkTJudD358vTHEYuFp2pV1YpPZTb9Lp0VV/af
+         T/lPziK+UD5i/1FOqYgLwJ4ROuzmrDlMeuANWSB6XWhfv0pWNUx5MjY11MfDfhvmRKIp
+         noJOBHIxQjUwJJtSMPBqr5+bkPLw/zeD+I09RjpwLKcEfIlfjTGU1P4ba7XWdaGxs0Ly
+         ezNm1AFl9c2RZ+jJBe1pdZsbYsuD01nAc69NpAq2+7/eWkj7WJQAB6MdUuINBQesvg1K
+         yvXA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from;
-        bh=1FO8DIWqT1KP2fpOWjlEZ4ydrvioM7isuIsBR6bMPxE=;
-        b=o9co+XFlm6mNmfgM2+mx3k378T5zuSuukVxNTyZGdVZXPZviIpeQtsYSqwbta3lyOA
-         fDYIujUQdoRP+3x9tQjj7vgpBxeWqSa5RXoyU1BnjAnOYfzXkX8/cyk0QkaYSHU+LQMn
-         Cmk11aHJc4R2nxKMPvYVjiwZ9/VpFdBpi5kEnW8Qhc55QDlu7Cj7QlsXaqWUvFTy7aDn
-         piga+3HCJKFJSI/n8SaxuW5QXKewKjZDKcjaZXLVFIzajqEdnoENqMc5KsaBNcDCvS0T
-         vHm3OgSb61PIG66Hp61x0Lpsr557Ok2fao+4syX5I0pbtzE1MqzB7bsdD3Uk7sULP4R0
-         6x8A==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from;
+        bh=5AIKpN2+s5kDvJLZm1kYG2r9NZGN/qkRQN98oweXVU8=;
+        b=PiCeOO/DYHPpwOF5Ih72AuDtgyKPy4mlrBd8UDUrWbAjL4eviF1MONPFN2RzZbnPEu
+         2cdxAkNo1zNK74M1Ed16T8VKuTAV+ykavVWh4GGS5KEnVreGlLb7rTH6e9mSsfeyXKRO
+         9/QDfLKJuHV6DYbXDwRQ/S7VmSKvfDEAegX0WxNzR86AQawRwq+znXNJ+hKna0pHip1T
+         bCv58ClkLKuFBmN5xko6oGy3uziHq/c6oh7mRH/8S+LJ77fhe+Js5rO4zp+a1GpzDA19
+         2QarWIPgliVNWBL7NmI2LdszaUAIrLwK7WR6UN0YoWpXH5yh3BSaR8helDewvt99rME0
+         hIDQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id a16si376650ejk.1.2020.10.04.22.39.51
+Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
+        by gmr-mx.google.com with ESMTPS id b80si196888wme.1.2020.10.04.22.39.51
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
         Sun, 04 Oct 2020 22:39:51 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 0955doZe002204
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 5 Oct 2020 07:39:50 +0200
+	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id 0955doXY000902
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+	for <jailhouse-dev@googlegroups.com>; Mon, 5 Oct 2020 07:39:50 +0200
 Received: from md1f2u6c.ad001.siemens.net ([167.87.39.163])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 0955dnc9025569;
-	Mon, 5 Oct 2020 07:39:50 +0200
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 0955dncA025569
+	for <jailhouse-dev@googlegroups.com>; Mon, 5 Oct 2020 07:39:50 +0200
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
-        Vijai Kumar K <vijaikumar.kanagarajan@gmail.com>
-Subject: [jh-images][PATCH 00/19] Add Ultra96 v2, refactor/update TF-A integration
-Date: Mon,  5 Oct 2020 07:39:30 +0200
-Message-Id: <cover.1601876389.git.jan.kiszka@siemens.com>
+Subject: [jh-images][PATCH 01/19] ultra96: Rename to ultra96-v1
+Date: Mon,  5 Oct 2020 07:39:31 +0200
+Message-Id: <a752463dce9fef2247431da23bd6d5dc8e66f406.1601876389.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.26.2
+In-Reply-To: <cover.1601876389.git.jan.kiszka@siemens.com>
+References: <cover.1601876389.git.jan.kiszka@siemens.com>
 MIME-Version: 1.0
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
@@ -126,179 +127,278 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-The primary functional enhancement of this series is support for the
-newer Ultra96 v2.
+From: Jan Kiszka <jan.kiszka@siemens.com>
 
-In addition, the series refactors the Trusted Firmware A integration,
-using a soon to-be-upstreamed Isar patch. The refactoring also bumps the
-version of TF-A and U-Boot on affected boards, namely Ultra96, RPi4,
-Pine64+, MACCHIATObin. For the last two, I'd need some test feedback as
-I do not have them in reach.
+This prepares for adding support for the v2 which will be widely
+identical, except where not:
+ - fsbl
+ - bitstream
+ - device tree
 
-There is still some room for improvement, but none that should delay the
-first integration:
- - revision-specific PMU firmware for Ultra96 (primarily changes the
-   power button IIUC)
- - wilc3000 wifi driver clean-up (lengthy story, but I'd like to move
-   closerto the official downstream repo, which should move us closer to
-   a potential upstreamed one (wilc1000 is already in 5.9)
+The PMU firmware will be customized later as the current version works
+sufficiently well for both boards.
 
-Jan
-
-
-CC: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-CC: Vijai Kumar K <vijaikumar.kanagarajan@gmail.com>
-
-Jan Kiszka (19):
-  ultra96: Rename to ultra96-v1
-  u-boot-ultra96: Set fsbl config explicitly
-  u-boot: Add specifics for Ultra96-v2
-  linux-jailhouse: Drop unused patch
-  linux-jailhouse: Add patches for Ultra96-v2
-  wilc: Add out-of-tree wifi driver for Ultra96-v2
-  customizations: Add Ultra96-v2
-  Hook up Ultra96-v2 support
-  README: Add Ultra96-v2 support
-  ultra96: Disable initrd usage
-  ultra96: Add rootwait kernel parameter
-  pine64-plus: Disable initrd
-  Consolidate PREFERRED_PROVIDER_u-boot
-  Add new TF-A build infrastructure
-  rpi4: Convert to stand-alone TF-A recipe and update to 2.3
-  pine64: Convert to stand-alone TF-A recipe and update versions
-  ultra96: Convert to stand-alone TF-A recipe and update versions
-  macchiatobin: Convert to stand-alone TF-A recipe and update versions
-  arm-trusted-firmware: Remove now unused artifacts
-
- README.md                                     |  10 +-
- conf/distro/jailhouse-demo.conf               |   5 +-
- conf/machine/macchiatobin.conf                |   6 +-
- conf/machine/pine64-plus.conf                 |   1 -
- conf/machine/rpi4.conf                        |   4 +-
- .../ultra96-v1.conf}                          |   6 +-
- .../ultra96-v2.conf}                          |   8 +-
- conf/machine/{ultra96.conf => ultra96.inc}    |  11 +-
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+---
+ conf/distro/jailhouse-demo.conf               |   2 +-
+ .../ultra96-v1.conf}                          |   6 ++---
+ conf/machine/ultra96.conf                     |  23 -----------------
+ conf/machine/ultra96.inc                      |  24 ++++++++++++++++++
  ...mo.conf => ultra96-v1-jailhouse-demo.conf} |   2 +-
- ...mo.conf => ultra96-v2-jailhouse-demo.conf} |   2 +-
- images.list                                   |   3 +-
- ...de-for-building-custom-Trusted-Firmw.patch | 127 ++++++++
- kas.yml                                       |   4 +
- .../arm-trusted-firmware-rpi4_2.2.bb          |  28 --
- .../arm-trusted-firmware_2.2.inc              |  20 --
- ...-Prepare-for-skipping-initialisation.patch | 127 --------
- ...2-plat-rpi4-Skip-UART-initialisation.patch | 109 -------
- ...pi3-4-Add-support-for-offlining-CPUs.patch |  47 ---
- .../arm-trusted-firmware/files/rpi-rules      |  23 --
- ...se-abspath-to-dereference-BUILD_BASE.patch | 144 ++++++++
- ...-fix-gcc-warning-about-uninitialized.patch |   0
- .../trusted-firmware-a-macchiatobin_2.3.bb    |  34 ++
- .../trusted-firmware-a-pine64-plus_2.3.bb     |   6 +-
- .../trusted-firmware-a-rpi4_2.3.bb            |   6 +-
- .../trusted-firmware-a-ultra96_2.3.bb         |  17 +
- .../trusted-firmware-a_2.3.inc                |  19 ++
- ...efile-fix-HOSTCFLAGS-with-CROSS_BUIL.patch |  31 --
- recipes-bsp/u-boot/files/macchiatobin-rules   |  40 ---
- recipes-bsp/u-boot/files/pine64-plus-rules    |  10 +-
- recipes-bsp/u-boot/files/ultra96-rules        |   5 +-
+ images.list                                   |   2 +-
+ recipes-bsp/u-boot/files/ultra96-rules        |   2 +-
  ...a96-fsbl.elf.xz => ultra96-v1-fsbl.elf.xz} | Bin
  .../{ultra96.bit.xz => ultra96-v1.bit.xz}     | Bin
- .../u-boot/files/ultra96-v2-fsbl.elf.xz       | Bin 0 -> 44040 bytes
- recipes-bsp/u-boot/files/ultra96-v2.bit.xz    | Bin 0 -> 58072 bytes
  ...lf.LICENSE => ultra96-vX-fsbl.elf.LICENSE} |   0
  ...a96.bit.LICENSE => ultra96-vX.bit.LICENSE} |   0
- recipes-bsp/u-boot/files/ultra96.bif.tmpl     |   7 +-
- recipes-bsp/u-boot/u-boot-2020.07.inc         |  17 +
- .../u-boot-macchiatobin_2019.10-atf2.2.bb     |  43 ---
- .../u-boot/u-boot-macchiatobin_2020.07.bb     |   7 +-
- .../u-boot-pine64-plus_2019.10-atf2.2.bb      |  33 --
- .../u-boot/u-boot-pine64-plus_2020.07.bb      |  25 ++
- .../u-boot/u-boot-ultra96-v1_2020.07.bb       |  40 +++
- .../u-boot/u-boot-ultra96-v2_2020.07.bb       |   1 +
- .../u-boot/u-boot-ultra96_2019.10-atf2.2.bb   |  43 ---
+ recipes-bsp/u-boot/files/ultra96.bif.tmpl     |   4 +--
+ ...bb => u-boot-ultra96-v1_2019.10-atf2.2.bb} |  16 ++++++++----
  ...story-ultra96 => .bash_history-ultra96-v1} |   0
- .../files/.bash_history-ultra96-v2            |   1 +
  .../{postinst-ultra96 => postinst-ultra96-v1} |   0
- .../customizations/files/postinst-ultra96-v2  |   1 +
- ...-revC-Give-wifi-some-time-after-powe.patch |  38 ---
- ...san-Separate-out-clk-related-data-to.patch |  99 ++++++
- ...san-Add-sampling-clock-for-a-phy-to-.patch | 232 +++++++++++++
- ...03-arm64-zynqmp-Add-firmware-DT-node.patch |  37 +++
- ...zynqmp-Add-Node-IDs-in-xlnx-zynqmp.h.patch | 109 +++++++
- ...san-Add-support-to-set-clock-phase-d.patch | 160 +++++++++
- ...ware-xilinx-Add-SDIO-Tap-Delay-nodes.patch |  44 +++
- ...san-Add-support-for-ZynqMP-Platform-.patch | 308 ++++++++++++++++++
- ...irmware-xilinx-Add-DLL-reset-support.patch |  57 ++++
- ...san-Add-support-for-DLL-reset-for-Zy.patch |  99 ++++++
- ...p-Add-ZynqMP-SDHCI-compatible-string.patch |  52 +++
- ...san-Modified-SD-default-speed-to-19M.patch |  64 ++++
- ...support-for-Avnet-Ultra96-rev2-board.patch |  83 +++++
- .../linux/files/arm64_defconfig_5.4           |   2 +-
- recipes-kernel/linux/linux-jailhouse_5.4.inc  |  12 +
- recipes-kernel/wilc/files/debian/wilc.install |   1 +
- recipes-kernel/wilc/wilc_15.2-avnet.bb        |  33 ++
- wic/macchiatobin.wks                          |   2 +-
- wic/pine64-plus.wks                           |   2 +-
- wic/ultra96.wks                               |   4 +-
- 69 files changed, 1877 insertions(+), 634 deletions(-)
+ 15 files changed, 44 insertions(+), 37 deletions(-)
  copy conf/{multiconfig/ultra96-jailhouse-demo.conf => machine/ultra96-v1.conf} (64%)
- copy conf/{multiconfig/ultra96-jailhouse-demo.conf => machine/ultra96-v2.conf} (54%)
- rename conf/machine/{ultra96.conf => ultra96.inc} (52%)
- copy conf/multiconfig/{ultra96-jailhouse-demo.conf => ultra96-v1-jailhouse-demo.conf} (89%)
- copy conf/multiconfig/{ultra96-jailhouse-demo.conf => ultra96-v2-jailhouse-demo.conf} (89%)
- create mode 100644 isar-patches/0001-Add-recipe-include-for-building-custom-Trusted-Firmw.patch
- delete mode 100644 recipes-bsp/arm-trusted-firmware/arm-trusted-firmware-rpi4_2.2.bb
- delete mode 100644 recipes-bsp/arm-trusted-firmware/arm-trusted-firmware_2.2.inc
- delete mode 100644 recipes-bsp/arm-trusted-firmware/files/0001-console-16550-Prepare-for-skipping-initialisation.patch
- delete mode 100644 recipes-bsp/arm-trusted-firmware/files/0002-plat-rpi4-Skip-UART-initialisation.patch
- delete mode 100644 recipes-bsp/arm-trusted-firmware/files/0003-rpi3-4-Add-support-for-offlining-CPUs.patch
- delete mode 100644 recipes-bsp/arm-trusted-firmware/files/rpi-rules
- create mode 100644 recipes-bsp/trusted-firmware-a/files/0001-Use-abspath-to-dereference-BUILD_BASE.patch
- rename recipes-bsp/{u-boot => trusted-firmware-a}/files/0001-mv_ddr4_training-fix-gcc-warning-about-uninitialized.patch (100%)
- create mode 100644 recipes-bsp/trusted-firmware-a/trusted-firmware-a-macchiatobin_2.3.bb
- copy conf/multiconfig/ultra96-jailhouse-demo.conf => recipes-bsp/trusted-firmware-a/trusted-firmware-a-pine64-plus_2.3.bb (58%)
- copy conf/multiconfig/ultra96-jailhouse-demo.conf => recipes-bsp/trusted-firmware-a/trusted-firmware-a-rpi4_2.3.bb (59%)
- create mode 100644 recipes-bsp/trusted-firmware-a/trusted-firmware-a-ultra96_2.3.bb
- create mode 100644 recipes-bsp/trusted-firmware-a/trusted-firmware-a_2.3.inc
- delete mode 100644 recipes-bsp/u-boot/files/0001-Revert-tools-Makefile-fix-HOSTCFLAGS-with-CROSS_BUIL.patch
- delete mode 100644 recipes-bsp/u-boot/files/macchiatobin-rules
+ delete mode 100644 conf/machine/ultra96.conf
+ create mode 100644 conf/machine/ultra96.inc
+ rename conf/multiconfig/{ultra96-jailhouse-demo.conf => ultra96-v1-jailhouse-demo.conf} (89%)
  rename recipes-bsp/u-boot/files/{ultra96-fsbl.elf.xz => ultra96-v1-fsbl.elf.xz} (100%)
  rename recipes-bsp/u-boot/files/{ultra96.bit.xz => ultra96-v1.bit.xz} (100%)
- create mode 100644 recipes-bsp/u-boot/files/ultra96-v2-fsbl.elf.xz
- create mode 100644 recipes-bsp/u-boot/files/ultra96-v2.bit.xz
  rename recipes-bsp/u-boot/files/{ultra96-fsbl.elf.LICENSE => ultra96-vX-fsbl.elf.LICENSE} (100%)
  rename recipes-bsp/u-boot/files/{ultra96.bit.LICENSE => ultra96-vX.bit.LICENSE} (100%)
- create mode 100644 recipes-bsp/u-boot/u-boot-2020.07.inc
- delete mode 100644 recipes-bsp/u-boot/u-boot-macchiatobin_2019.10-atf2.2.bb
- rename conf/multiconfig/ultra96-jailhouse-demo.conf => recipes-bsp/u-boot/u-boot-macchiatobin_2020.07.bb (51%)
- delete mode 100644 recipes-bsp/u-boot/u-boot-pine64-plus_2019.10-atf2.2.bb
- create mode 100644 recipes-bsp/u-boot/u-boot-pine64-plus_2020.07.bb
- create mode 100644 recipes-bsp/u-boot/u-boot-ultra96-v1_2020.07.bb
- create mode 120000 recipes-bsp/u-boot/u-boot-ultra96-v2_2020.07.bb
- delete mode 100644 recipes-bsp/u-boot/u-boot-ultra96_2019.10-atf2.2.bb
+ rename recipes-bsp/u-boot/{u-boot-ultra96_2019.10-atf2.2.bb => u-boot-ultra96-v1_2019.10-atf2.2.bb} (71%)
  rename recipes-core/customizations/files/{.bash_history-ultra96 => .bash_history-ultra96-v1} (100%)
- create mode 120000 recipes-core/customizations/files/.bash_history-ultra96-v2
  rename recipes-core/customizations/files/{postinst-ultra96 => postinst-ultra96-v1} (100%)
- create mode 120000 recipes-core/customizations/files/postinst-ultra96-v2
- delete mode 100644 recipes-kernel/linux/files/0001-arm64-dts-zcu100-revC-Give-wifi-some-time-after-powe.patch
- create mode 100644 recipes-kernel/linux/files/0001-mmc-sdhci-of-arasan-Separate-out-clk-related-data-to.patch
- create mode 100644 recipes-kernel/linux/files/0002-mmc-sdhci-of-arasan-Add-sampling-clock-for-a-phy-to-.patch
- create mode 100644 recipes-kernel/linux/files/0003-arm64-zynqmp-Add-firmware-DT-node.patch
- create mode 100644 recipes-kernel/linux/files/0004-firmware-zynqmp-Add-Node-IDs-in-xlnx-zynqmp.h.patch
- create mode 100644 recipes-kernel/linux/files/0005-mmc-sdhci-of-arasan-Add-support-to-set-clock-phase-d.patch
- create mode 100644 recipes-kernel/linux/files/0006-firmware-xilinx-Add-SDIO-Tap-Delay-nodes.patch
- create mode 100644 recipes-kernel/linux/files/0007-mmc-sdhci-of-arasan-Add-support-for-ZynqMP-Platform-.patch
- create mode 100644 recipes-kernel/linux/files/0008-firmware-xilinx-Add-DLL-reset-support.patch
- create mode 100644 recipes-kernel/linux/files/0009-mmc-sdhci-of-arasan-Add-support-for-DLL-reset-for-Zy.patch
- create mode 100644 recipes-kernel/linux/files/0010-arm64-zynqmp-Add-ZynqMP-SDHCI-compatible-string.patch
- create mode 100644 recipes-kernel/linux/files/0011-mmc-sdhci-of-arasan-Modified-SD-default-speed-to-19M.patch
- create mode 100644 recipes-kernel/linux/files/0012-arm64-dts-Add-support-for-Avnet-Ultra96-rev2-board.patch
- create mode 100644 recipes-kernel/wilc/files/debian/wilc.install
- create mode 100644 recipes-kernel/wilc/wilc_15.2-avnet.bb
 
+diff --git a/conf/distro/jailhouse-demo.conf b/conf/distro/jailhouse-demo.conf
+index 887871d..116b253 100644
+--- a/conf/distro/jailhouse-demo.conf
++++ b/conf/distro/jailhouse-demo.conf
+@@ -13,7 +13,7 @@ require conf/distro/debian-buster.conf
+ 
+ KERNEL_NAME ?= "jailhouse"
+ 
+-WKS_FILE = "${MACHINE}.wks"
++WKS_FILE ?= "${MACHINE}.wks"
+ 
+ PREFERRED_VERSION_jailhouse-${KERNEL_NAME} ?= "0.12"
+ 
+diff --git a/conf/multiconfig/ultra96-jailhouse-demo.conf b/conf/machine/ultra96-v1.conf
+similarity index 64%
+copy from conf/multiconfig/ultra96-jailhouse-demo.conf
+copy to conf/machine/ultra96-v1.conf
+index eccb51f..086a154 100644
+--- a/conf/multiconfig/ultra96-jailhouse-demo.conf
++++ b/conf/machine/ultra96-v1.conf
+@@ -1,7 +1,7 @@
+ #
+ # Jailhouse, a Linux-based partitioning hypervisor
+ #
+-# Copyright (c) Siemens AG, 2019
++# Copyright (c) Siemens AG, 2019-2020
+ #
+ # Authors:
+ #  Jan Kiszka <jan.kiszka@siemens.com>
+@@ -9,6 +9,6 @@
+ # SPDX-License-Identifier: MIT
+ #
+ 
+-MACHINE = "ultra96"
++require ultra96.inc
+ 
+-DISTRO = "jailhouse-demo"
++ULTRA96_VERSION = "1"
+diff --git a/conf/machine/ultra96.conf b/conf/machine/ultra96.conf
+deleted file mode 100644
+index 5cdfebc..0000000
+--- a/conf/machine/ultra96.conf
++++ /dev/null
+@@ -1,23 +0,0 @@
+-#
+-# Jailhouse, a Linux-based partitioning hypervisor
+-#
+-# Copyright (c) Siemens AG, 2019
+-#
+-# Authors:
+-#  Jan Kiszka <jan.kiszka@siemens.com>
+-#
+-# SPDX-License-Identifier: MIT
+-#
+-
+-DISTRO_ARCH = "arm64"
+-
+-IMAGE_TYPE = "wic-img"
+-IMAGER_INSTALL += "u-boot-ultra96"
+-IMAGER_BUILD_DEPS += "u-boot-ultra96"
+-IMAGE_INSTALL_append = " u-boot-script"
+-
+-IMAGE_BOOT_FILES = "/usr/lib/u-boot/ultra96/boot.bin;boot.bin"
+-
+-PREFERRED_PROVIDER_u-boot-ultra96 = "u-boot-ultra96"
+-
+-IMAGE_PREINSTALL_append = " firmware-ti-connectivity"
+diff --git a/conf/machine/ultra96.inc b/conf/machine/ultra96.inc
+new file mode 100644
+index 0000000..37637ad
+--- /dev/null
++++ b/conf/machine/ultra96.inc
+@@ -0,0 +1,24 @@
++#
++# Jailhouse, a Linux-based partitioning hypervisor
++#
++# Copyright (c) Siemens AG, 2019-2020
++#
++# Authors:
++#  Jan Kiszka <jan.kiszka@siemens.com>
++#
++# SPDX-License-Identifier: MIT
++#
++
++DISTRO_ARCH = "arm64"
++
++IMAGE_TYPE = "wic-img"
++WKS_FILE = "ultra96.wks"
++IMAGER_INSTALL += "u-boot-ultra96-v${ULTRA96_VERSION}"
++IMAGER_BUILD_DEPS += "u-boot-ultra96-v${ULTRA96_VERSION}"
++IMAGE_INSTALL_append = " u-boot-script"
++
++IMAGE_BOOT_FILES = "/usr/lib/u-boot/ultra96-v${ULTRA96_VERSION}/boot.bin;boot.bin"
++
++PREFERRED_PROVIDER_u-boot-ultra96-v${ULTRA96_VERSION} = "u-boot-ultra96-v${ULTRA96_VERSION}"
++
++IMAGE_PREINSTALL_append = " firmware-ti-connectivity"
+diff --git a/conf/multiconfig/ultra96-jailhouse-demo.conf b/conf/multiconfig/ultra96-v1-jailhouse-demo.conf
+similarity index 89%
+rename from conf/multiconfig/ultra96-jailhouse-demo.conf
+rename to conf/multiconfig/ultra96-v1-jailhouse-demo.conf
+index eccb51f..cb0da85 100644
+--- a/conf/multiconfig/ultra96-jailhouse-demo.conf
++++ b/conf/multiconfig/ultra96-v1-jailhouse-demo.conf
+@@ -9,6 +9,6 @@
+ # SPDX-License-Identifier: MIT
+ #
+ 
+-MACHINE = "ultra96"
++MACHINE = "ultra96-v1"
+ 
+ DISTRO = "jailhouse-demo"
+diff --git a/images.list b/images.list
+index 3d7e12c..4917813 100644
+--- a/images.list
++++ b/images.list
+@@ -6,6 +6,6 @@ ipc127e		SIMATIC IPC127E (2 cores / 2 GB edition)
+ espressobin	Marvell ESPRESSObin (1 GB edition)
+ macchiatobin	Marvell MACCHIATObin
+ hikey620	LeMaker HiKey (Kirin 620 SoC, 2 GB edition)
+-ultra96		Avnet Ultra96
++ultra96-v1	Avnet Ultra96 v1
+ rpi4		Raspberry Pi 4 (1-8 GB editions)
+ pine64-plus	Pine64+ (Allwinner A64, 2 GB edition)
+diff --git a/recipes-bsp/u-boot/files/ultra96-rules b/recipes-bsp/u-boot/files/ultra96-rules
+index c650da9..a21e468 100644
+--- a/recipes-bsp/u-boot/files/ultra96-rules
++++ b/recipes-bsp/u-boot/files/ultra96-rules
+@@ -21,7 +21,7 @@ override_dh_auto_build:
+ 	$(MAKE) $(PARALLEL_BUILD) -C ../arm-trusted-firmware-* \
+ 	        PLAT=zynqmp RESET_TO_BL31=1 bl31
+ 
+-	echo "CONFIG_BOOTCOMMAND=\"setenv fdtfile xilinx/avnet-ultra96-rev1.dtb; run distro_bootcmd\"" \
++	echo "CONFIG_BOOTCOMMAND=\"setenv fdtfile xilinx/avnet-ultra96-rev$(ULTRA96_VERSION).dtb; run distro_bootcmd\"" \
+ 	    >> configs/${U_BOOT_CONFIG}
+ 	echo "CONFIG_WATCHDOG=n" >> configs/${U_BOOT_CONFIG}
+ 	echo "CONFIG_WDT=n" >> configs/${U_BOOT_CONFIG}
+diff --git a/recipes-bsp/u-boot/files/ultra96-fsbl.elf.xz b/recipes-bsp/u-boot/files/ultra96-v1-fsbl.elf.xz
+similarity index 100%
+rename from recipes-bsp/u-boot/files/ultra96-fsbl.elf.xz
+rename to recipes-bsp/u-boot/files/ultra96-v1-fsbl.elf.xz
+diff --git a/recipes-bsp/u-boot/files/ultra96.bit.xz b/recipes-bsp/u-boot/files/ultra96-v1.bit.xz
+similarity index 100%
+rename from recipes-bsp/u-boot/files/ultra96.bit.xz
+rename to recipes-bsp/u-boot/files/ultra96-v1.bit.xz
+diff --git a/recipes-bsp/u-boot/files/ultra96-fsbl.elf.LICENSE b/recipes-bsp/u-boot/files/ultra96-vX-fsbl.elf.LICENSE
+similarity index 100%
+rename from recipes-bsp/u-boot/files/ultra96-fsbl.elf.LICENSE
+rename to recipes-bsp/u-boot/files/ultra96-vX-fsbl.elf.LICENSE
+diff --git a/recipes-bsp/u-boot/files/ultra96.bit.LICENSE b/recipes-bsp/u-boot/files/ultra96-vX.bit.LICENSE
+similarity index 100%
+rename from recipes-bsp/u-boot/files/ultra96.bit.LICENSE
+rename to recipes-bsp/u-boot/files/ultra96-vX.bit.LICENSE
+diff --git a/recipes-bsp/u-boot/files/ultra96.bif.tmpl b/recipes-bsp/u-boot/files/ultra96.bif.tmpl
+index 8281fb0..8c5355b 100644
+--- a/recipes-bsp/u-boot/files/ultra96.bif.tmpl
++++ b/recipes-bsp/u-boot/files/ultra96.bif.tmpl
+@@ -11,8 +11,8 @@
+ 
+ image : {
+ 	[pmufw_image] /usr/share/zynqmp-pmufw/executable.elf
+-	[bootloader, destination_cpu=a5x-0] ../ultra96-fsbl.elf
+-	../ultra96.bit
++	[bootloader, destination_cpu=a5x-0] ../ultra96-v${ULTRA96_VERSION}-fsbl.elf
++	../ultra96-v${ULTRA96_VERSION}.bit
+ 	[destination_cpu=a5x-0, exception_level=el-3,trustzone] ../arm-trusted-firmware-${ATF_PV}/build/zynqmp/release/bl31/bl31.elf
+ 	[destination_cpu=a5x-0, exception_level=el-2] u-boot.elf
+ }
+diff --git a/recipes-bsp/u-boot/u-boot-ultra96_2019.10-atf2.2.bb b/recipes-bsp/u-boot/u-boot-ultra96-v1_2019.10-atf2.2.bb
+similarity index 71%
+rename from recipes-bsp/u-boot/u-boot-ultra96_2019.10-atf2.2.bb
+rename to recipes-bsp/u-boot/u-boot-ultra96-v1_2019.10-atf2.2.bb
+index 57424e5..fd593f7 100644
+--- a/recipes-bsp/u-boot/u-boot-ultra96_2019.10-atf2.2.bb
++++ b/recipes-bsp/u-boot/u-boot-ultra96-v1_2019.10-atf2.2.bb
+@@ -1,7 +1,7 @@
+ #
+ # Jailhouse, a Linux-based partitioning hypervisor
+ #
+-# Copyright (c) Siemens AG, 2019
++# Copyright (c) Siemens AG, 2019-2020
+ #
+ # Authors:
+ #  Jan Kiszka <jan.kiszka@siemens.com>
+@@ -15,18 +15,20 @@ ATF_PV="${@d.getVar('PV').split('-atf')[1]}"
+ require recipes-bsp/u-boot/u-boot-custom.inc
+ require recipes-bsp/arm-trusted-firmware/arm-trusted-firmware_${ATF_PV}.inc
+ 
++ULTRA96_VERSION ?= "1"
++
+ SRC_URI += " \
+     https://ftp.denx.de/pub/u-boot/u-boot-${U_BOOT_PV}.tar.bz2;name=u-boot \
+     file://0001-Revert-tools-Makefile-fix-HOSTCFLAGS-with-CROSS_BUIL.patch \
+-    file://ultra96.bit.xz \
+-    file://ultra96-fsbl.elf.xz \
++    file://ultra96-v${ULTRA96_VERSION}.bit.xz \
++    file://ultra96-v${ULTRA96_VERSION}-fsbl.elf.xz \
+     file://ultra96.bif.tmpl \
+     file://ultra96-rules \
+     "
+ SRC_URI[u-boot.sha256sum] = "8d6d6070739522dd236cba7055b8736bfe92b4fac0ea18ad809829ca79667014"
+ 
+ TEMPLATE_FILES += "ultra96.bif.tmpl"
+-TEMPLATE_VARS += "ATF_PV"
++TEMPLATE_VARS += "ATF_PV ULTRA96_VERSION"
+ 
+ DEPENDS += "zynqmp-pmufw"
+ BUILD_DEPENDS += ", zynqmp-pmufw:native"
+@@ -39,5 +41,9 @@ S = "${WORKDIR}/u-boot-${U_BOOT_PV}"
+ do_prepare_build_append() {
+     cp ${WORKDIR}/ultra96-rules ${S}/debian/rules
+ 
+-    echo "boot.bin /usr/lib/u-boot/ultra96" > ${S}/debian/u-boot-ultra96.install
++    echo "boot.bin /usr/lib/u-boot/ultra96-v${ULTRA96_VERSION}" > ${S}/debian/u-boot-ultra96-v${ULTRA96_VERSION}.install
++}
++
++dpkg_runbuild_prepend() {
++    export ULTRA96_VERSION=${ULTRA96_VERSION}
+ }
+diff --git a/recipes-core/customizations/files/.bash_history-ultra96 b/recipes-core/customizations/files/.bash_history-ultra96-v1
+similarity index 100%
+rename from recipes-core/customizations/files/.bash_history-ultra96
+rename to recipes-core/customizations/files/.bash_history-ultra96-v1
+diff --git a/recipes-core/customizations/files/postinst-ultra96 b/recipes-core/customizations/files/postinst-ultra96-v1
+similarity index 100%
+rename from recipes-core/customizations/files/postinst-ultra96
+rename to recipes-core/customizations/files/postinst-ultra96-v1
 -- 
 2.26.2
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/cover.1601876389.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/a752463dce9fef2247431da23bd6d5dc8e66f406.1601876389.git.jan.kiszka%40siemens.com.
