@@ -1,32 +1,32 @@
 Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBKPD5L5QKGQE3VMKKNQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x438.google.com (mail-wr1-x438.google.com [IPv6:2a00:1450:4864:20::438])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD28428301E
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  5 Oct 2020 07:39:53 +0200 (CEST)
-Received: by mail-wr1-x438.google.com with SMTP id d9sf3543325wrv.16
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 04 Oct 2020 22:39:53 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1601876393; cv=pass;
+Received: from mail-wr1-x43c.google.com (mail-wr1-x43c.google.com [IPv6:2a00:1450:4864:20::43c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CF63283022
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  5 Oct 2020 07:39:54 +0200 (CEST)
+Received: by mail-wr1-x43c.google.com with SMTP id v5sf3570772wrr.0
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 04 Oct 2020 22:39:54 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1601876394; cv=pass;
         d=google.com; s=arc-20160816;
-        b=OSdseShedmqehIDQNhYguoQ+EFnhKqgHJVLuoe4qjjK27ifEmaeFJgj7tdZ5idygeE
-         2tgFxEdFlw+cKW6T93mx0JrmHAdKwxMRFG6KzGovlS+ItiV0dgBzg6dkR0ACKu6pj0Lo
-         7MxXdt7eRkbGtf9nRdwI4jgGM6KDkoaj5ZhRq8Kv8KVjqUCfuX6Sjn3clPF7TWzVx1Cj
-         +B/+O5PBFGR0SN6DmQN1npAUUjb4Yk7O0xN1doDIAd5JCjDOMfmHT4+pM2uEnHO828Tp
-         bX/p2XgxDahBqhqSFpymQe6mCwlDsWrn+aZr9Phin1JBz/BEFtNdnSZzql7yCTwJ/s2x
-         xs4Q==
+        b=nS/3luFC3/+Rsfq1iW0foPGctgoHfIp00LY42H6Vc23dQvKSrRa/+ZFUujINrMgklg
+         HWzVgFN2i8YMQaHIBK6OsqM6TR4EuoVzFoR33RCj/WUfb/LUVEp0wpWGnajVBbKu2GX8
+         ON1aSosSq7fyNSGXhu0qNuUR2aKPdjMA9/wVD8GlaQWXfsXYxCVle0V9Uixqu8rKhcry
+         /OP+04gfzZTlgpI3fmFeOIfYJuKVAHCGXkrJMAORTgHS8XWwNuMjGewt5p5GM4BvDOqN
+         RhbETgAFzCQZu1BJPy9FIX1hpT4kH1xmO5WD928jUpX7XpfA19nm+ZGQr6hpkWrofxBU
+         Q12A==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:sender:dkim-signature;
-        bh=yf4OT3BQvRnrGRBey9VnKyqOdmEqNcPkYG/LWSojMGU=;
-        b=QcJ31cwrwjRI3K2grNjTR8PRKbimWsCtD+3f2LVJU7LwVMsCbLinPSQn5J42hfgTUR
-         vyZfeTYJQwPToFOWZgekt+FndMmuRjo2T9g1On7mNvhqeXx/hLMCQXqUqkx6tH3BuXJ2
-         QdKDGVxTuqTQ5Zs5jX0VIF0skxrQBBs1BGEA0rFvfB2B6y6vRKx5ksIWb8wAtBMWIIUL
-         kNUGxd0xEE4/DNWyHqgbk+5/GMSrTkAWExo9YpvH1MVP8Jea+oLAShp7f6I1SEe1DlOo
-         V6T7JDvtqSy9o/PWoJcdLjYQc6i9KUbHw9Ev0RXLitd2D1/mvynaDiAWlUWh/UEtDJYm
-         Wpkw==
+        bh=Bo2M6+EpQuLAql3np/TGjIu8AigxoSSLuo43IKduvp0=;
+        b=C2l3wL8gwZCFyUxlHtdD97EXZ0H10AWNRaamL1j2jRs1gRHmcYmIoIEFEdBaa3nUhP
+         mZ0HDSQxy++r/CZDG7yclw0Vix6VcH3aLUcf9j8AUyWHxKSCH7+PpNWa3doyapYQ+mW6
+         FQ/ARvch682hBUKA/KkZ8Vqc2/FBstOZd8DIV/mpiDF1k0uti/tuNrS85K7FjSqQNxA2
+         zlPVLa+IUI1TLJ4pb3Hev7G85a70Jq/5wPWD9aYTRJCx1wlFs9qe+YsW8Iy+raM31gET
+         bKo9xDImh54bXdZ5QzrKhstBqruL3WG59j0BIGQqxwwvIFJaeK8h6rUe4AhlN8AsYxLO
+         6gww==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -34,13 +34,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=yf4OT3BQvRnrGRBey9VnKyqOdmEqNcPkYG/LWSojMGU=;
-        b=ZspDJATyrNyf5l8ckAyT2qnBFl8XoudDMEjDPpf7oj0qmSnZvYsKXfAWNHPRLiXJfx
-         HfsdZUWh2n4Tns8Kx8EhF3u3NQnbsKU5WE1YVEOnkFDGNp7DKYIG30/Yp5e9lBnTdQ3C
-         ab3rnbgOiChMYazQ+EC4+S2+M/gs5gSlTCyc0vI7o6eeSM5qElVEBpRaIWRXw7hLvWq5
-         ll8zZDnF7yKUx1eygalSH4Cfs7LWW3xDRPxSwolWQJ9eNvIKqqT4xfslO6jl4vBzrTj+
-         1ABFc/IpWVGqsMV5csWQK7eVfNL+yLGjQgI64PJ75+UTEQUDUpGgL8v3orA21n1R4f+f
-         Q4Kw==
+        bh=Bo2M6+EpQuLAql3np/TGjIu8AigxoSSLuo43IKduvp0=;
+        b=eZQ0L9heo0JFI65hTVYAEogKF8fDsRre8vnTlrvLzQUahrvYacHkH/mW0/XNaDqyff
+         tXdTt8ayi/jsRC1LgJdBvXxWNlDmM2hV24F14oSrMcDM2ixdiMfZrWVsjMGXKRyIG7oI
+         BPyFAkp1Yov03PZCcRUqVZcZk3lD4aGtdDQnfvvf6VXrxD8bbQHQXNtfw+Cx04/1aKtt
+         fmt4VVImHSmbNJ8skMQApw55ylbwaL0Cj/Zs9nBaNWoSkWDmdx0iVyAFvNZ5q51epWux
+         aIGJkH7SZNqVuYHtjLZv7fGKekwzx/kaF0m1mj9MNimpRER9OTz/fLbsi5/RmGOalb+B
+         SLTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:subject:date:message-id
@@ -48,70 +48,70 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=yf4OT3BQvRnrGRBey9VnKyqOdmEqNcPkYG/LWSojMGU=;
-        b=rW/lAkDh1NX53b+7pKnk6fnEwsZNQbnP/IlchYOSTw9Dv+0UQ5VDLTmWqJ7EZgPIX0
-         /bjnGhgm5egP+ks15CzecHJpusuxWhEv7DXrpt/gEBmgZ7hq8Mt3RE98dj2hcGkHEGiS
-         9b7Pk7+A1Btv5aN/WT9yFB5X8bRzR6cUa66mvXoye4glUZWnykebNmix5x/0B+TlNQDb
-         vZ4EWxWWkH+NcNxcom/THhUONPh/0oiarwiYAl+d9lekdyrVDz1PDUrLkXnbbKqUw0Dj
-         s5Kx/Az/tdDAJEusj8mK3RMNA2HCFClxvwU2u5h2uCRb3Bx6t+jwd0IwdVSbIkfvqpRM
-         p7wA==
+        bh=Bo2M6+EpQuLAql3np/TGjIu8AigxoSSLuo43IKduvp0=;
+        b=CXbODlGvdfiE7MxJjUOK7bvcU7YFm+JB9gQA5XNtQZRin/caJT4pQQU/LjJdNlWZe+
+         PmErJcbeRAIgauYqzOpytEMBAlGC876mZQDrn2TRcOYdASy0Z1TULt12Vu9VszKe5Alv
+         +5nWHw2mgzs44V+nc3F6+HYI/Ci7i9FPjVHPayEFP3tQxbs0CpzSNNohLtXSZm7xrCp6
+         EBSOfUM/T8m96UOd3gy8l7sD/TwHjAm2P6LJ2u8frzogvDQVCFCGjhGbKHQliXUlHso/
+         vLeEMoP3K4XNswFjsn4cSEU5va/gJvj1yKyORxP0sDOZDnziEzyJ+wdQzuXqG5G3wKCm
+         M2sA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM5323hB+2FROxBgJWOEal9iwW6UZrxRcBTeYR5zlUg440CvF/AebZ
-	58BQleBVnc85K5xJOE2GkGA=
-X-Google-Smtp-Source: ABdhPJyz4bJZ2Zd5L4M6qo4jYgueD2Oo5LqwcX4ZfzzoXP60UAYTBUthtMttoItXxNONmYv3cm5HlA==
-X-Received: by 2002:adf:e312:: with SMTP id b18mr16431218wrj.372.1601876393461;
-        Sun, 04 Oct 2020 22:39:53 -0700 (PDT)
+X-Gm-Message-State: AOAM532p+6SZicCEd9JO2AyDqQpSbbkt8cCb22oew02YwhMAD3//0FVn
+	32mZlnpW1Dll/gm2VxGy96o=
+X-Google-Smtp-Source: ABdhPJyYUePBINnAEgktbwr4EeS4rUc4EPj584jt0pxwO/Mm4/RyV8frIW2v1IQz25Fjl45BpkGzqQ==
+X-Received: by 2002:a5d:5342:: with SMTP id t2mr9983152wrv.150.1601876394109;
+        Sun, 04 Oct 2020 22:39:54 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:98d8:: with SMTP id a207ls4073060wme.2.canary-gmail;
- Sun, 04 Oct 2020 22:39:52 -0700 (PDT)
-X-Received: by 2002:a7b:c305:: with SMTP id k5mr15512707wmj.102.1601876392387;
-        Sun, 04 Oct 2020 22:39:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1601876392; cv=none;
+Received: by 2002:a1c:4e19:: with SMTP id g25ls4094681wmh.2.gmail; Sun, 04 Oct
+ 2020 22:39:53 -0700 (PDT)
+X-Received: by 2002:a05:600c:410e:: with SMTP id j14mr15693779wmi.13.1601876393028;
+        Sun, 04 Oct 2020 22:39:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1601876393; cv=none;
         d=google.com; s=arc-20160816;
-        b=kYTGb+Bw7QNVvX7kSFgPILCRyLRxGfYD6hc3JMkBo5DbdL0wPSi8kg+Lm7FSGvQzg3
-         cDbEvLA0Yqrx6VhFt6if7ZU5lEHpeFvs+zzfSFaBCeooMw+riXmDU9U1MAXzB267oc2h
-         6Flkl03caXFuUIcMn/vKi2jA9nxiHwWMI/PjE3Xlra/KOVDGToblMsBvYTx03AHqNxSH
-         ul/rS2s+PoW+QC8VViHPTw79HddduxOlaXoLGJ+Uuwku8LfDWPurm+GB2Uz4dVdN9FVN
-         W7kBxNbbxjIp84jitYMGm9lVzOyFbid1WGLzhHoMdnLC0H9CyhC9OFHztUL/Pn56jDRC
-         vRJw==
+        b=swu+d0iibY00uzqqgXOAX+qNsCKh5wrVtfwiLvsfCm2tdbPsnM4CdmWF4Ht2WMP0HQ
+         4gReofCpZlaXeIr4U2NtEPaqJg9dWUMQmaFdXNBe9Bv+z8aVxNSGAJSRCL37yh725Nad
+         VNpl/YKskgiclDsq4X7avJ5yCxtTc3jKahQqdjct/Oxuo9Xs9d0NrfbOBho/P619tLvO
+         REKBar49WlO59sm2/BYBGj1LXCsFAH7mXUTliR6RBqAG9RNI1Mfsi7ijPyrzbyharEJC
+         wLgyII/ve7GNo1kLIiKIY+2fZv2aT63bCNzUCtB3hLnoBc9zaZNsz6unbpfcLLaFhyE+
+         k5UQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from;
-        bh=jOq/OEtlrYC+3wxUV6lb/j0DJQXfGZi7zigpgBFVtzA=;
-        b=S4OMqhwwBsoWIwP8UMlB13bLjo93dacCTux28aQqzUMCTTuoyYLWvVk4SqfPqfBlSV
-         loyO5DPxOBd93NLXv48wbE1AL32gjI/BvstIdleh9m9JJu2RRjIiaAiRJtkencOXUvZA
-         D8VXLIhAGB8SIB3rMcX5MIltydvRRVbKdwrL5MlDtZagy298T192kz/EMlcwlBdHzYOy
-         w7bLznwHMXFTdOPUi0M8EdKcUMQOF1T8ecAH32uaH90QBkb4TsJgdse1VlNqjcAaj4VI
-         8L7RUhyLH2QPGzxYl1fbGYaW82u19s3ipBFhvEWua5Pu/P+PPlVQ45PkY48E01O2qlxX
-         +5pQ==
+        bh=pzXVWL9rAz9T2mFX8E5VtUb3Fz2hKKgHxEEV5mArtHI=;
+        b=GIyTJQ9r99xJd/4JMaWf64xMstcu8smT6JmxI72eqTtltSl4fZCLnP1s/dVjYiGfpg
+         tF7iL2bPBQhnjvcCYOxqOGhi8l80p6ALo6AaS0syZYDb5wj/91bx6m4XgmKRjKAHzmzL
+         edKoxeHn21esJMbt09liJtVxhgpn2OjPcwzy50yvqGbrvohUz20iIFOfI2vahLqBp/7Q
+         xchVZ415kbexKQGcVIsqXxdW3PO635OBX8Pnat+cG9oBaNDT1+yiF4OxCya2/9UKUM/x
+         wcCcI4vXUmINXFce2ZKtld1dclNexOupFDXSw4BfXAEIFeEXpT9utdrk4YzmuympQ4Vv
+         gMfQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id p17si94916wre.2.2020.10.04.22.39.52
+Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
+        by gmr-mx.google.com with ESMTPS id k14si250115wrx.1.2020.10.04.22.39.52
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 04 Oct 2020 22:39:52 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
+        Sun, 04 Oct 2020 22:39:53 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 0955dqaa002211
+	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id 0955dql9000943
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
 	for <jailhouse-dev@googlegroups.com>; Mon, 5 Oct 2020 07:39:52 +0200
 Received: from md1f2u6c.ad001.siemens.net ([167.87.39.163])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 0955dncF025569
-	for <jailhouse-dev@googlegroups.com>; Mon, 5 Oct 2020 07:39:51 +0200
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 0955dncG025569
+	for <jailhouse-dev@googlegroups.com>; Mon, 5 Oct 2020 07:39:52 +0200
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [jh-images][PATCH 06/19] wilc: Add out-of-tree wifi driver for Ultra96-v2
-Date: Mon,  5 Oct 2020 07:39:36 +0200
-Message-Id: <b293faaff3a3d2f6969d7b48013a091212a0ffc1.1601876389.git.jan.kiszka@siemens.com>
+Subject: [jh-images][PATCH 07/19] customizations: Add Ultra96-v2
+Date: Mon,  5 Oct 2020 07:39:37 +0200
+Message-Id: <4488ff5f990a43433274bd8bb1048ec3de774317.1601876389.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <cover.1601876389.git.jan.kiszka@siemens.com>
 References: <cover.1601876389.git.jan.kiszka@siemens.com>
 MIME-Version: 1.0
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
@@ -129,70 +129,36 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-The v2 has a different driver than the v1, which apparently had
-regulatory reasons. The big downside is that the driver is not yet
-mainline. Pick up the fork that Avnet generated for the Ultra96-v2 for
-now. This should be clean up later by moving to the original downstream
-version or to upstream once the wilc1000 support there is expanded.
+Identical to v1, thus simple links.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- recipes-kernel/wilc/files/debian/wilc.install |  1 +
- recipes-kernel/wilc/wilc_15.2-avnet.bb        | 33 +++++++++++++++++++
- 2 files changed, 34 insertions(+)
- create mode 100644 recipes-kernel/wilc/files/debian/wilc.install
- create mode 100644 recipes-kernel/wilc/wilc_15.2-avnet.bb
+ recipes-core/customizations/files/.bash_history-ultra96-v2 | 1 +
+ recipes-core/customizations/files/postinst-ultra96-v2      | 1 +
+ 2 files changed, 2 insertions(+)
+ create mode 120000 recipes-core/customizations/files/.bash_history-ultra96-v2
+ create mode 120000 recipes-core/customizations/files/postinst-ultra96-v2
 
-diff --git a/recipes-kernel/wilc/files/debian/wilc.install b/recipes-kernel/wilc/files/debian/wilc.install
-new file mode 100644
-index 0000000..4a5b92e
+diff --git a/recipes-core/customizations/files/.bash_history-ultra96-v2 b/recipes-core/customizations/files/.bash_history-ultra96-v2
+new file mode 120000
+index 0000000..61f65e0
 --- /dev/null
-+++ b/recipes-kernel/wilc/files/debian/wilc.install
++++ b/recipes-core/customizations/files/.bash_history-ultra96-v2
 @@ -0,0 +1 @@
-+../../*.bin /lib/firmware/mchp/
-diff --git a/recipes-kernel/wilc/wilc_15.2-avnet.bb b/recipes-kernel/wilc/wilc_15.2-avnet.bb
-new file mode 100644
-index 0000000..1a1d680
++.bash_history-ultra96-v1
+\ No newline at end of file
+diff --git a/recipes-core/customizations/files/postinst-ultra96-v2 b/recipes-core/customizations/files/postinst-ultra96-v2
+new file mode 120000
+index 0000000..1bc8b3c
 --- /dev/null
-+++ b/recipes-kernel/wilc/wilc_15.2-avnet.bb
-@@ -0,0 +1,33 @@
-+#
-+# Jailhouse, a Linux-based partitioning hypervisor
-+#
-+# Copyright (c) Siemens AG, 2020
-+#
-+# Authors:
-+#  Jan Kiszka <jan.kiszka@siemens.com>
-+#
-+# SPDX-License-Identifier: MIT
-+#
-+
-+require recipes-kernel/linux-module/module.inc
-+
-+FIRMWARE_REV = "a67c351f9028c7a559330365c649a07721965cd4"
-+
-+SRC_URI += " \
-+    git://github.com/Avnet/u96v2-wilc-driver;protocol=https;branch=v15_2 \
-+    https://github.com/linux4wilc/firmware/raw/${FIRMWARE_REV}/wilc3000_wifi_firmware.bin;name=firmware \
-+    file://debian/wilc.install"
-+SRCREV = "01ab7484e0e6b2191c69d7ec7c6e89da5ca51f0f"
-+SRC_URI[firmware.sha256sum] = "8cc0328e80d8e0e96b295777b58e7f48fea25d29808df6dd0fabd3ea283b3da1"
-+
-+S = "${WORKDIR}/git/wilc"
-+
-+AUTOLOAD = "wilc-sdio"
-+
-+do_prepare_build_append() {
-+    mv ${S}/debian/wilc.install ${S}/debian/wilc-${KERNEL_NAME}.install
-+}
-+
-+dpkg_runbuild_prepend() {
-+    export CONFIG_WILC_SDIO=m
-+}
++++ b/recipes-core/customizations/files/postinst-ultra96-v2
+@@ -0,0 +1 @@
++postinst-ultra96-v1
+\ No newline at end of file
 -- 
 2.26.2
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/b293faaff3a3d2f6969d7b48013a091212a0ffc1.1601876389.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/4488ff5f990a43433274bd8bb1048ec3de774317.1601876389.git.jan.kiszka%40siemens.com.
