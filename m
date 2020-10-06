@@ -1,32 +1,32 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBQ7G575QKGQENM2VZTA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBRPG575QKGQEESJ7F2I@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43f.google.com (mail-wr1-x43f.google.com [IPv6:2a00:1450:4864:20::43f])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFD1B2844EF
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  6 Oct 2020 06:32:03 +0200 (CEST)
-Received: by mail-wr1-x43f.google.com with SMTP id 33sf4829642wrk.12
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 05 Oct 2020 21:32:03 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1601958723; cv=pass;
+Received: from mail-lj1-x23e.google.com (mail-lj1-x23e.google.com [IPv6:2a00:1450:4864:20::23e])
+	by mail.lfdr.de (Postfix) with ESMTPS id E67242844F0
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  6 Oct 2020 06:32:05 +0200 (CEST)
+Received: by mail-lj1-x23e.google.com with SMTP id n24sf2430755ljc.9
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 05 Oct 2020 21:32:05 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1601958725; cv=pass;
         d=google.com; s=arc-20160816;
-        b=zRyZ8+QDIIVygqc5kj+8n5wXydWBV+JY5vvVvfBdI0txQOSIuVve9LqYMGcY4B3AYE
-         giN2aEU3o18miBG01jcZLZIbuezRFVpyOhyHw2HoMlqSIw43b2CuF9E6KJFs5905gNSZ
-         VBNmHnE829VpvTjKQDqkYCerk44VzR26ZMV1VNkEFJl7rocFhTZBKQXs5fqkX00lwnnS
-         xqDB/7C/vgYb3zQYXn9qFo8cisKpWxhkMw7LpYDQM20gaXlVDOkLNGT8BU2/2sOIqrTH
-         Urd7RwlN9Yv0KSABkvW07yhc/7BayZUB2YSasGZ/PXiC6MiL2yX5pqVLAGansl1SUuDD
-         Iwig==
+        b=VmqnApgd2WH5gGUoxpgYUlGjnPjc4lop4UftKwgnr63a0PvM/ltAb+LcIhJlj6Q9kB
+         4Y5Q7+T9sSCFF63dn5KhMmP7NRAU1/NU7vzqIhIPNW257hk8gHGIAH35YNEw/48hYkGh
+         oIblfIQgOclWgc11JUuspKysZE0/RMeXE2epLh5xqHBRCcVReJ1G+foSatylIUhXjph0
+         y3DPSRyTtJ9c4Sf9JoHNLn1heetXTM+h8Xke56Wcp/OozMKKWwCAWzLHHOYtcpDtEdlw
+         nKrtfO3l3nW7DlYYjkn6ypB4vhpayoWL3PXx5WLgWsuwPk9lg0keIXCrhvWUfLucUjzI
+         Cjhw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:sender:dkim-signature;
-        bh=ntoDsZHnsm2Ncl85VLq+z42iLE5Eb5bV8/CDo1Q4GK8=;
-        b=rcqiOOOrab6Rq2SMuWQSOlFEwq9rRsxVWEG5wjUyqgMSC/6PG8+P9XuzSgqi8ssgGf
-         0VMKg1ks7qwQIgF5pvAupyMPX8GYR8H2c+Lr79xEfgUfr4aF0hFv9tWbiemw1DSbJ4c7
-         seZTSi/Gdpnf0gAAcgQTs63eLVu8o3FaPGT7hpD4EQewIm4az7DFVOPOmmwjeJnDr8Un
-         aGNymvOFsvKlml5RenX93i0bFnpeWM8/STfHuJnlcbgHNJHyypxCWCiwMUpY2evLULfz
-         CkH8rn7RpksmLy35uh+ExnDZrsYtw25Qh6oatGRDiKb8XT2xr6ehRvNucJucSEDEX9cz
-         B3aA==
+        bh=dRvKKZgIhihQnIQynj8k2u+JpYICfbYLyLx8cHpKIVU=;
+        b=lnlvuoik/XNb8XJP5OWDx07+IXQe3VZ6osIQKX1ROcQ5pBSCZ9Fdv4W9oJU1SqPnPc
+         iTo+1LoQlnRkaieQgGNZ1bYLss890Z4KsTCnvmUvLYNCTJL9XuGtq4L1UVs/xkl0363W
+         E7dnUKYjF6EGlGRKaOKuaBFN4/ZRq5A571DS210kSEZhjMthd8CUGs0RTG7jhqBeRGDy
+         2YPJlgzVOqqZNXvU/cELc39tf/YAMypXg7gxmUjN4Tn7NUBi1p8TpTy8A1grIVp2hHyD
+         Gb+7bARQ9rvNB+BGRtY3VnyzUfemRGIJmUOGriJB/SW8AbmLpSMXw8gPyCxiWV8eBRHV
+         2Mig==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -34,13 +34,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=ntoDsZHnsm2Ncl85VLq+z42iLE5Eb5bV8/CDo1Q4GK8=;
-        b=PN6eATnaT0sWkud29M4kC/Eo44DH0zdfiAdg1L5DqEAxP5+NOaWnnxBMFnQndmNgJD
-         ALm6sOlOxTSHMGfgkgB5Pz8GLiStLO3q553IQyeI3+X+LEsMUST6zMyHW8lPaKje4lde
-         yrNxAKHFOm/pEb+4SJBnuhe7dWPw3Lc0N7O/gagBTDTrfW7KZLG1jtipWQblk9gN5dI2
-         DzsZKqQScaEeTaUfqxjzu/0cjgz9SkjSjEqhgLuSwX9buG0oQQiEOpsTn8mw14vqP/3G
-         YYAoM2g7RZfy0by7XvuWo68i0LIcKYIac65XJtUMJvpkPIHb0mlNaZMMWiVVZzW9j9YA
-         EUUg==
+        bh=dRvKKZgIhihQnIQynj8k2u+JpYICfbYLyLx8cHpKIVU=;
+        b=p1Aq5fmWkvvJzuNZYzNM1Df6JkOCD9qNlX1hqqB0Yg4P+HnjKRjLEA38PoqPtsO7pc
+         Wqf7YF2boQBjLzuCMXmOcQGNrBk7bDg+Y7t7GajNTENoJ05J6w5iA3jZsnQItNGUiKRS
+         tW/8gFXxBiV4cEAzIB2vKGidautO3LgyGpbv1W1xrgrCX1L7PPopFkF0FHIJdb8A7F/7
+         BnOkz/kjdc6she2sFWJDlYCYQTc6m8+I+fiGoeoFGY4kmCZxXvj72lfA1VnFox9Gkxaa
+         u1xrDPcgKOE/UBA2B1FjW6237bw/y3kEjo3EFwofPzLboiD38XV/3+Rsq0wnqkLPCLln
+         oHog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:subject:date:message-id
@@ -48,70 +48,70 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=ntoDsZHnsm2Ncl85VLq+z42iLE5Eb5bV8/CDo1Q4GK8=;
-        b=Fc12FQ34Fjj0sH/71+SvLBshpvvJLBmz7Y83EtA8sjIVZoGe7/rrgCyxeXSs2KOe3+
-         edxl7DBYazTZg78FW6MYIzJGOTwaOkZ1SbozJmbeRwr/GDP/BWFZ8Oc67Kfy8/W0aKUw
-         THKc/OPyBQaEspH29vTqFgii6gRKwZsaKtbRCSoon5oubEQPN66ZNJw9EvpJ9h9dvfyg
-         hJzWrx7vCr5bPn7HHEYEZ0+3JgEucil4EkI/DhatS3pWAAq3f+wFz9GqPQ3Pn01hIAMY
-         nWjgooy1nd9Ks+aE5sdE5f8693pvYtY2VToV8ETqdjkcWt/fiUx8eomUa60FqwuddXbe
-         MCZQ==
+        bh=dRvKKZgIhihQnIQynj8k2u+JpYICfbYLyLx8cHpKIVU=;
+        b=dxwNi5fLKWFjQRCAU3ph4fg6WTYGs/ZCX6s2ah+EKaBDp/bCPWkkI0HMaRU9lGMIGm
+         pgPG5ELQfkvQqhin0KxyrlxYIgjoijZKY8K34fE1pnsqnGXVlR0YLToIZeoWo9CcJeh7
+         Dm3JGHGm4x3Ykwksag2PcwJo/U7T2cWui28Z8emCemUeoJOI3JWYaJmQX8gJe9TYZJg9
+         8cAJmByiOWBOdMX8ybuyZXa2g+I2Ek/oTqnGlBliNNJyJRCwG0RwCHMu0au4S34tS3Lp
+         t6aUGwgdHNa/Y+lvQcuej40K9aKp6PM6hqj0PSb5PeS15dtdq0AIh5h6dg1ptbmIPJlq
+         +qaw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533msqFpYIwkUJ1DfGx4aEWZeSF0b3p+fxKVyb8QposjyaOHHaKv
-	dwz78tErroxfr2tULQySIS4=
-X-Google-Smtp-Source: ABdhPJwhdz43t6m9GsdYe5odplhFl/CA+9OJFdchLtzYihtyM74tqN40RW85HRXE/1INjwj77sU8jg==
-X-Received: by 2002:adf:cc88:: with SMTP id p8mr1047046wrj.201.1601958723580;
-        Mon, 05 Oct 2020 21:32:03 -0700 (PDT)
+X-Gm-Message-State: AOAM5330ict72C1+Sl0IGiHbIL4MkKILwrUUKv30poyF/txE2ayP9F+q
+	URF2IltmR28GJiZEtihuxx8=
+X-Google-Smtp-Source: ABdhPJwa55XcrrNNjG29kMq94nm36z+G14HTX3dzVL2UvrTZj7wwpKECTJJ3ZXxiKdDJDjJkMCOYJQ==
+X-Received: by 2002:a05:6512:3399:: with SMTP id h25mr885651lfg.524.1601958725405;
+        Mon, 05 Oct 2020 21:32:05 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:9e53:: with SMTP id h80ls526160wme.1.canary-gmail; Mon,
- 05 Oct 2020 21:32:02 -0700 (PDT)
-X-Received: by 2002:a05:600c:2159:: with SMTP id v25mr2681691wml.180.1601958722363;
-        Mon, 05 Oct 2020 21:32:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1601958722; cv=none;
+Received: by 2002:a05:651c:93:: with SMTP id 19ls1439882ljq.4.gmail; Mon, 05
+ Oct 2020 21:32:04 -0700 (PDT)
+X-Received: by 2002:a2e:a306:: with SMTP id l6mr1097453lje.286.1601958724187;
+        Mon, 05 Oct 2020 21:32:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1601958724; cv=none;
         d=google.com; s=arc-20160816;
-        b=hLbxlQRZtwc58FCSGQzfhyelp7sYHrUBDmOkvi2nNUeVZdjSRC17KMeLhNCycskly+
-         KA5b5n0uyZULX9AE0hdcGezRR6y9dVpNn5bxFIrQi5rvwvqURIOzOZ8h7RrNGxlZHYA7
-         88D9Ux8gjHbxv30LoTDZDEPmta5O3+FhBr8v5VDEDsmR2S4dK0NlLBOvOCIs5TSBgLoY
-         6TU4oUIcftwuSf8OBuBMulynC/YZP84DcAcUXl+0eXrOhFiwi9odV/B+rAwht2DjvJEN
-         JX1j+IbmKh1X2Nbx0aSyCJ6vT1Ld7PQdNoYUCAabcq3T4m9IWJElqCRpTdiBdJktaGoD
-         yLAA==
+        b=xODEsb3nMJ3UetJnfKgGxK+Joq8NYdUjDv298VdjPc1WZphRLEjVT45q5Pgd9mhCbC
+         a0t81itBDBVKMgykuFrZ4kR7RJPztYoGfscto4B1iOFxDAX5XMxw1NWHky/R5PPhIWaL
+         YVQOBzoZO/f1PAkG4Fffz/tUvegfMgvdyg+fRo4tpXSlKOlPWW2bxU+jC6KEEC8TFExh
+         z3WlDlj6AEVrZmz28vbvQj6KuVb6wkilQKAYCckoQcNJ97Nq6+2EGoQiu+bpRvrH32W/
+         6CQlWf/oUprM5QQtkc0UM56eAkKYudbvaIGo4l8tInlBm+ttP26OR1thnumIqd4UJZyE
+         RE4g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from;
-        bh=ICcbNjiGoKnUYu74P2hM0/YTs16+EbKuPJZRycju8bU=;
-        b=IXXeZW4FKM1fePK8ayhAkBPFYzpSixdUO4NvG+5PnoLpxF3biif0q4GNrYHPNa0scb
-         kzcBLxte7j75PDdn1STIs3I7ni3593AqOgxN2dLyUujgbVNFCoraxyzBVdATqD2vasHm
-         bfEIEFSsxFI2rend6zFe23553Xs9HDnVqWjO9T5kymp3T0jdB23+VJcYLB5GNSZFPegS
-         2hsG5d4CeqPlCu0mih4PREn6EHY1/ZaDcGDlSs9yuH5w2c9Dd/1CcR3DtSrG3HQFak+H
-         /ofRCfoNot+AT0zh0PuRFAfH2xXk2dAnWUsMYNsb8dQbIuanUAAa4jLVJRD2K0S082Mp
-         HBqA==
+        bh=8kxpC0x6faoeDwUKkPOsdevo2WEbk9AlJiOHmtjh43Y=;
+        b=IegklMjtSs2JcUaaMjXUQG9+39cnXN1c0iaBlyoMt2CEkvOQ+qn6fuC/ZI0u9vLlUH
+         zaCaz9PGvN5ceGftQ+/Jn2CqEgHzFjktxAcbDE+qikuD9Z5E84VTB23Tz/zeuKxINQAH
+         6SFfV504F5TiqO2OsUNzpHIActD/qcC1TqIWh8GxcjHmr/alFBt8V+UQxo5vHHcBsJ1W
+         F8kFyfHiUHrefvz55yU91/wNuO0kw0QpsYyk8L4yi/rMzeDHigJ53Z+iZ3YfThnZAw4s
+         D+ABBeMhHpPrmtsURCSPJGZ7X7bGGDNK5xCK+xyV95SqXoygpw4X6rQrpanhDF6XJJjd
+         CHgQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
-        by gmr-mx.google.com with ESMTPS id z62si42702wmb.0.2020.10.05.21.32.02
+Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
+        by gmr-mx.google.com with ESMTPS id n5si45233lji.5.2020.10.05.21.32.04
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 05 Oct 2020 21:32:02 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
+        Mon, 05 Oct 2020 21:32:04 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 0964W1LG020443
+	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 0964W3Tr029784
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
-	for <jailhouse-dev@googlegroups.com>; Tue, 6 Oct 2020 06:32:02 +0200
+	for <jailhouse-dev@googlegroups.com>; Tue, 6 Oct 2020 06:32:03 +0200
 Received: from md1f2u6c.ad001.siemens.net ([167.87.160.159])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 0964VY84008537
-	for <jailhouse-dev@googlegroups.com>; Tue, 6 Oct 2020 06:32:01 +0200
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 0964VY85008537
+	for <jailhouse-dev@googlegroups.com>; Tue, 6 Oct 2020 06:32:02 +0200
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [jh-images][PATCH v2 18/19] macchiatobin: Convert to stand-alone TF-A recipe and update versions
-Date: Tue,  6 Oct 2020 06:31:33 +0200
-Message-Id: <24b88ddc6512937868778d74673d95b8e7fcf5ad.1601958694.git.jan.kiszka@siemens.com>
+Subject: [jh-images][PATCH v2 19/19] arm-trusted-firmware: Remove now unused artifacts
+Date: Tue,  6 Oct 2020 06:31:34 +0200
+Message-Id: <93a0c5bfcdd39ac277422cf2dbeabac1ae61e624.1601958694.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <cover.1601958694.git.jan.kiszka@siemens.com>
 References: <cover.1601958694.git.jan.kiszka@siemens.com>
 MIME-Version: 1.0
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
@@ -129,267 +129,30 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-Rework the U-Boot recipes to use TF-A as a package, rather than building
-it in an embedded fashion.
-
-This means turning things around: U-Boot is built first as dependency of
-TF-A. IMAGER_INSTALL and IMAGER_BUILD_DEPS are updated to pull TF-A.
-And the TF-A artifacts mv-ddr-marvell and binaries-marvell are moved to
-the new stand-alone recipe.
-
-While at it, bump to TF-A 2.3 and U-Boot 2020.10. TF-A needs one patch
-backported from the development tree in order to fix parallel build for
-the a80x0_mcbin platform.
+Last user converted, let's clean up.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- conf/machine/macchiatobin.conf                |   4 +-
- ...se-abspath-to-dereference-BUILD_BASE.patch | 144 ++++++++++++++++++
- ...-fix-gcc-warning-about-uninitialized.patch |   0
- .../trusted-firmware-a-macchiatobin_2.3.bb    |  34 +++++
- .../trusted-firmware-a_2.3.inc                |   2 +
- recipes-bsp/u-boot/files/macchiatobin-rules   |  40 -----
- .../u-boot-macchiatobin_2019.10-atf2.2.bb     |  43 ------
- .../u-boot/u-boot-macchiatobin_2020.10.bb     |  15 ++
- wic/macchiatobin.wks                          |   2 +-
- 9 files changed, 198 insertions(+), 86 deletions(-)
- create mode 100644 recipes-bsp/trusted-firmware-a/files/0001-Use-abspath-to-dereference-BUILD_BASE.patch
- rename recipes-bsp/{u-boot => trusted-firmware-a}/files/0001-mv_ddr4_training-fix-gcc-warning-about-uninitialized.patch (100%)
- create mode 100644 recipes-bsp/trusted-firmware-a/trusted-firmware-a-macchiatobin_2.3.bb
- delete mode 100644 recipes-bsp/u-boot/files/macchiatobin-rules
- delete mode 100644 recipes-bsp/u-boot/u-boot-macchiatobin_2019.10-atf2.2.bb
- create mode 100644 recipes-bsp/u-boot/u-boot-macchiatobin_2020.10.bb
+ .../arm-trusted-firmware_2.2.inc              |  20 ---
+ ...-Prepare-for-skipping-initialisation.patch | 127 ------------------
+ ...2-plat-rpi4-Skip-UART-initialisation.patch | 109 ---------------
+ ...pi3-4-Add-support-for-offlining-CPUs.patch |  47 -------
+ 4 files changed, 303 deletions(-)
+ delete mode 100644 recipes-bsp/arm-trusted-firmware/arm-trusted-firmware_2.2.inc
+ delete mode 100644 recipes-bsp/arm-trusted-firmware/files/0001-console-16550-Prepare-for-skipping-initialisation.patch
+ delete mode 100644 recipes-bsp/arm-trusted-firmware/files/0002-plat-rpi4-Skip-UART-initialisation.patch
+ delete mode 100644 recipes-bsp/arm-trusted-firmware/files/0003-rpi3-4-Add-support-for-offlining-CPUs.patch
 
-diff --git a/conf/machine/macchiatobin.conf b/conf/machine/macchiatobin.conf
-index 4829500..6a784b8 100644
---- a/conf/machine/macchiatobin.conf
-+++ b/conf/machine/macchiatobin.conf
-@@ -12,7 +12,7 @@
- DISTRO_ARCH = "arm64"
- 
- IMAGE_TYPE = "wic-img"
--IMAGER_INSTALL += "u-boot-macchiatobin"
--IMAGER_BUILD_DEPS += "u-boot-macchiatobin"
-+IMAGER_INSTALL += "trusted-firmware-a-macchiatobin"
-+IMAGER_BUILD_DEPS += "trusted-firmware-a-macchiatobin"
- 
- IMAGE_INSTALL += "u-boot-script"
-diff --git a/recipes-bsp/trusted-firmware-a/files/0001-Use-abspath-to-dereference-BUILD_BASE.patch b/recipes-bsp/trusted-firmware-a/files/0001-Use-abspath-to-dereference-BUILD_BASE.patch
-new file mode 100644
-index 0000000..37b6251
---- /dev/null
-+++ b/recipes-bsp/trusted-firmware-a/files/0001-Use-abspath-to-dereference-BUILD_BASE.patch
-@@ -0,0 +1,144 @@
-+From f62206b4871020506842807b263408e5162b23e9 Mon Sep 17 00:00:00 2001
-+From: Grant Likely <grant.likely@arm.com>
-+Date: Thu, 30 Jul 2020 08:50:10 +0100
-+Subject: [PATCH] Use abspath to dereference $BUILD_BASE
-+
-+If the user tries to change BUILD_BASE to put the build products outside
-+the build tree the compile will fail due to hard coded assumptions that
-+$BUILD_BASE is a relative path. Fix by using $(abspath $(BUILD_BASE))
-+to rationalize to an absolute path every time and remove the relative
-+path assumptions.
-+
-+This patch also adds documentation that BUILD_BASE can be specified by
-+the user.
-+
-+Signed-off-by: Grant Likely <grant.likely@arm.com>
-+Signed-off-by: Manish Pandey <manish.pandey2@arm.com>
-+Change-Id: Ib1af874de658484aaffc672f30029b852d2489c8
-+---
-+ Makefile                               | 6 ++++--
-+ docs/getting_started/build-options.rst | 2 ++
-+ lib/romlib/Makefile                    | 8 ++++----
-+ plat/marvell/a8k/common/ble/ble.mk     | 8 ++++----
-+ plat/nvidia/tegra/platform.mk          | 2 +-
-+ plat/ti/k3/platform.mk                 | 2 +-
-+ tools/sptool/sp_mk_generator.py        | 4 ++--
-+ 7 files changed, 18 insertions(+), 14 deletions(-)
-+
-+diff --git a/Makefile b/Makefile
-+index f01a9ae3e..1290d4ff4 100644
-+--- a/Makefile
-++++ b/Makefile
-+@@ -449,8 +449,10 @@ include common/backtrace/backtrace.mk
-+ 
-+ include ${MAKE_HELPERS_DIRECTORY}plat_helpers.mk
-+ 
-+-BUILD_BASE		:=	./build
-+-BUILD_PLAT		:=	${BUILD_BASE}/${PLAT}/${BUILD_TYPE}
-++ifeq (${BUILD_BASE},)
-++     BUILD_BASE		:=	./build
-++endif
-++BUILD_PLAT		:=	$(abspath ${BUILD_BASE})/${PLAT}/${BUILD_TYPE}
-+ 
-+ SPDS			:=	$(sort $(filter-out none, $(patsubst services/spd/%,%,$(wildcard services/spd/*))))
-+ 
-+diff --git a/docs/getting_started/build-options.rst b/docs/getting_started/build-options.rst
-+index 90fe83feb..c96499020 100644
-+--- a/docs/getting_started/build-options.rst
-++++ b/docs/getting_started/build-options.rst
-+@@ -116,6 +116,8 @@ Common build options
-+ -  ``BUILD_STRING``: Input string for VERSION_STRING, which allows the TF-A
-+    build to be uniquely identified. Defaults to the current git commit id.
-+ 
-++-  ``BUILD_BASE``: Output directory for the build. Defaults to ``./build``
-++
-+ -  ``CFLAGS``: Extra user options appended on the compiler's command line in
-+    addition to the options set by the build system.
-+ 
-+diff --git a/lib/romlib/Makefile b/lib/romlib/Makefile
-+index cec94043d..2ff480bd4 100644
-+--- a/lib/romlib/Makefile
-++++ b/lib/romlib/Makefile
-+@@ -10,14 +10,14 @@ LD          = $(CROSS_COMPILE)ld
-+ OC          = $(CROSS_COMPILE)objcopy
-+ CPP         = $(CROSS_COMPILE)cpp
-+ ROMLIB_GEN  = ./romlib_generator.py
-+-BUILD_DIR   = ../../$(BUILD_PLAT)/romlib
-+-LIB_DIR     = ../../$(BUILD_PLAT)/lib
-+-WRAPPER_DIR = ../../$(BUILD_PLAT)/libwrapper
-++BUILD_DIR   = $(BUILD_PLAT)/romlib
-++LIB_DIR     = $(BUILD_PLAT)/lib
-++WRAPPER_DIR = $(BUILD_PLAT)/libwrapper
-+ LIBS        = -lmbedtls -lfdt -lc
-+ INC         = $(INCLUDES:-I%=-I../../%)
-+ PPFLAGS     = $(INC) $(DEFINES) -P -x assembler-with-cpp -D__LINKER__ -MD -MP -MT $(BUILD_DIR)/romlib.ld
-+ OBJS        = $(BUILD_DIR)/jmptbl.o $(BUILD_DIR)/init.o
-+-MAPFILE     = ../../$(BUILD_PLAT)/romlib/romlib.map
-++MAPFILE     = $(BUILD_PLAT)/romlib/romlib.map
-+ 
-+ ifneq ($(PLAT_DIR),)
-+   WRAPPER_SOURCES   = $(shell $(ROMLIB_GEN) genwrappers -b $(WRAPPER_DIR) --list ../../$(PLAT_DIR)/jmptbl.i)
-+diff --git a/plat/marvell/a8k/common/ble/ble.mk b/plat/marvell/a8k/common/ble/ble.mk
-+index b6a9cd291..12e657581 100644
-+--- a/plat/marvell/a8k/common/ble/ble.mk
-++++ b/plat/marvell/a8k/common/ble/ble.mk
-+@@ -5,9 +5,9 @@
-+ 
-+ MV_DDR_PATH		?=	drivers/marvell/mv_ddr
-+ 
-+-MV_DDR_LIB		= 	$(CURDIR)/$(BUILD_PLAT)/ble/mv_ddr_lib.a
-+-LIBC_LIB		=	$(CURDIR)/$(BUILD_PLAT)/lib/libc.a
-+-BLE_LIBS		= 	$(MV_DDR_LIB) $(LIBC_LIB)
-++MV_DDR_LIB		=	$(BUILD_PLAT)/ble/mv_ddr_lib.a
-++LIBC_LIB		=	$(BUILD_PLAT)/lib/libc.a
-++BLE_LIBS		=	$(MV_DDR_LIB) $(LIBC_LIB)
-+ PLAT_MARVELL		=	plat/marvell
-+ 
-+ BLE_SOURCES		+= 	$(BLE_PATH)/ble_main.c				\
-+@@ -29,4 +29,4 @@ BLE_LINKERFILE		:=	$(BLE_PATH)/ble.ld.S
-+ FORCE:
-+ 
-+ $(MV_DDR_LIB): FORCE
-+-	@+make -C $(MV_DDR_PATH) --no-print-directory PLAT_INCLUDES="$(PLAT_INCLUDES)" PLATFORM=$(PLAT) ARCH=AARCH64 OBJ_DIR=$(CURDIR)/$(BUILD_PLAT)/ble
-++	@+make -C $(MV_DDR_PATH) --no-print-directory PLAT_INCLUDES="$(PLAT_INCLUDES)" PLATFORM=$(PLAT) ARCH=AARCH64 OBJ_DIR=$(BUILD_PLAT)/ble
-+diff --git a/plat/nvidia/tegra/platform.mk b/plat/nvidia/tegra/platform.mk
-+index e03e1f37b..f7221afac 100644
-+--- a/plat/nvidia/tegra/platform.mk
-++++ b/plat/nvidia/tegra/platform.mk
-+@@ -56,7 +56,7 @@ $(eval $(call add_define,ENABLE_TEGRA_WDT_LEGACY_FIQ_HANDLING))
-+ $(eval $(call add_define,RELOCATE_BL32_IMAGE))
-+ 
-+ # modify BUILD_PLAT to point to SoC specific build directory
-+-BUILD_PLAT	:=	${BUILD_BASE}/${PLAT}/${TARGET_SOC}/${BUILD_TYPE}
-++BUILD_PLAT	:=	$(abspath ${BUILD_BASE})/${PLAT}/${TARGET_SOC}/${BUILD_TYPE}
-+ 
-+ # platform cflags (enable signed comparisons, disable stdlib)
-+ TF_CFLAGS	+= -Wsign-compare -nostdlib
-+diff --git a/plat/ti/k3/platform.mk b/plat/ti/k3/platform.mk
-+index 65d5cc2a4..2de21aa7b 100644
-+--- a/plat/ti/k3/platform.mk
-++++ b/plat/ti/k3/platform.mk
-+@@ -11,4 +11,4 @@ include ${PLAT_PATH}/common/plat_common.mk
-+ include ${PLAT_PATH}/board/${TARGET_BOARD}/board.mk
-+ 
-+ # modify BUILD_PLAT to point to board specific build directory
-+-BUILD_PLAT := ${BUILD_BASE}/${PLAT}/${TARGET_BOARD}/${BUILD_TYPE}
-++BUILD_PLAT := $(abspath ${BUILD_BASE})/${PLAT}/${TARGET_BOARD}/${BUILD_TYPE}
-+diff --git a/tools/sptool/sp_mk_generator.py b/tools/sptool/sp_mk_generator.py
-+index 6b6fa1914..68fb82201 100755
-+--- a/tools/sptool/sp_mk_generator.py
-++++ b/tools/sptool/sp_mk_generator.py
-+@@ -53,8 +53,8 @@ with open(sys.argv[2],'r') as in_file:
-+     data = json.load(in_file)
-+ json_file = os.path.abspath(sys.argv[2])
-+ json_dir = os.path.dirname(json_file)
-+-gen_file = sys.argv[1]
-+-out_dir = sys.argv[3][2:]
-++gen_file = os.path.abspath(sys.argv[1])
-++out_dir = os.path.abspath(sys.argv[3])
-+ dtb_dir = out_dir + "/fdts/"
-+ print(dtb_dir)
-+ 
-+-- 
-+2.26.2
-+
-diff --git a/recipes-bsp/u-boot/files/0001-mv_ddr4_training-fix-gcc-warning-about-uninitialized.patch b/recipes-bsp/trusted-firmware-a/files/0001-mv_ddr4_training-fix-gcc-warning-about-uninitialized.patch
-similarity index 100%
-rename from recipes-bsp/u-boot/files/0001-mv_ddr4_training-fix-gcc-warning-about-uninitialized.patch
-rename to recipes-bsp/trusted-firmware-a/files/0001-mv_ddr4_training-fix-gcc-warning-about-uninitialized.patch
-diff --git a/recipes-bsp/trusted-firmware-a/trusted-firmware-a-macchiatobin_2.3.bb b/recipes-bsp/trusted-firmware-a/trusted-firmware-a-macchiatobin_2.3.bb
-new file mode 100644
-index 0000000..2df79c3
---- /dev/null
-+++ b/recipes-bsp/trusted-firmware-a/trusted-firmware-a-macchiatobin_2.3.bb
-@@ -0,0 +1,34 @@
-+#
-+# Jailhouse, a Linux-based partitioning hypervisor
-+#
-+# Copyright (c) Siemens AG, 2019-2020
-+#
-+# Authors:
-+#  Jan Kiszka <jan.kiszka@siemens.com>
-+#
-+# SPDX-License-Identifier: MIT
-+#
-+
-+require trusted-firmware-a_${PV}.inc
-+
-+SRC_URI += " \
-+    git://github.com/MarvellEmbeddedProcessors/mv-ddr-marvell;protocol=https;branch=mv_ddr-armada-atf-mainline;rev=${MV_DDR_REV};destsuffix=mv-ddr-marvell \
-+    git://github.com/MarvellEmbeddedProcessors/binaries-marvell;protocol=https;branch=${MV_BIN_BRANCH};rev=${MV_BIN_REV};destsuffix=binaries-marvell \
-+    file://0001-mv_ddr4_training-fix-gcc-warning-about-uninitialized.patch;patchdir=${WORKDIR}/mv-ddr-marvell \
-+    "
-+
-+MV_DDR_REV="a881467ef0f0185e6570dd0483023fde93cbb5f5"
-+MV_BIN_BRANCH="binaries-marvell-armada-18.12"
-+MV_BIN_REV="c6c529ea3d905a28cc77331964c466c3e2dc852e"
-+
-+DEPENDS += "u-boot-macchiatobin"
-+DEBIAN_BUILD_DEPENDS = "u-boot-macchiatobin, libssl-dev:native"
-+
-+TF_A_PLATFORM = "a80x0_mcbin"
-+TF_A_EXTRA_BUILDARGS = " \
-+    USE_COHERENT_MEM=0 \
-+    MV_DDR_PATH=../mv-ddr-marvell \
-+    SCP_BL2=../binaries-marvell/mrvl_scp_bl2.img \
-+    BL33=/usr/lib/u-boot/macchiatobin/u-boot.bin \
-+    all fip"
-+TF_A_BINARIES = "flash-image.bin"
-diff --git a/recipes-bsp/trusted-firmware-a/trusted-firmware-a_2.3.inc b/recipes-bsp/trusted-firmware-a/trusted-firmware-a_2.3.inc
-index 8480b0d..06794c3 100644
---- a/recipes-bsp/trusted-firmware-a/trusted-firmware-a_2.3.inc
-+++ b/recipes-bsp/trusted-firmware-a/trusted-firmware-a_2.3.inc
-@@ -14,4 +14,6 @@ require recipes-bsp/trusted-firmware-a/trusted-firmware-a-custom.inc
- SRC_URI += "https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/snapshot/trusted-firmware-a-${PV}.tar.gz"
- SRC_URI[sha256sum] = "37f917922bcef181164908c470a2f941006791c0113d738c498d39d95d543b21"
- 
-+SRC_URI += "file://0001-Use-abspath-to-dereference-BUILD_BASE.patch"
-+
- S = "${WORKDIR}/trusted-firmware-a-${PV}"
-diff --git a/recipes-bsp/u-boot/files/macchiatobin-rules b/recipes-bsp/u-boot/files/macchiatobin-rules
+diff --git a/recipes-bsp/arm-trusted-firmware/arm-trusted-firmware_2.2.inc b/recipes-bsp/arm-trusted-firmware/arm-trusted-firmware_2.2.inc
 deleted file mode 100644
-index 6bf28b3..0000000
---- a/recipes-bsp/u-boot/files/macchiatobin-rules
+index 9f75497..0000000
+--- a/recipes-bsp/arm-trusted-firmware/arm-trusted-firmware_2.2.inc
 +++ /dev/null
-@@ -1,40 +0,0 @@
--#!/usr/bin/make -f
+@@ -1,20 +0,0 @@
 -#
 -# Jailhouse, a Linux-based partitioning hypervisor
 -#
--# Copyright (c) Siemens AG, 2018
+-# Copyright (c) Siemens AG, 2019
 -#
 -# Authors:
 -#  Jan Kiszka <jan.kiszka@siemens.com>
@@ -397,121 +160,320 @@ index 6bf28b3..0000000
 -# SPDX-License-Identifier: MIT
 -#
 -
--ifneq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
--export CROSS_COMPILE=$(DEB_HOST_GNU_TYPE)-
--SET_CROSS_BUILD_TOOLS=CROSS_BUILD_TOOLS=y
--endif
--
--PARALLEL_BUILD=-j $(shell echo $$(($$(nproc) * 2)))
--
--U_BOOT_DIR=$(PWD)
--
--override_dh_auto_build:
--	$(MAKE) $(PARALLEL_BUILD) $(U_BOOT_CONFIG)
--	$(MAKE) $(PARALLEL_BUILD) ${U_BOOT_BIN}
--	$(MAKE) $(PARALLEL_BUILD) $(SET_CROSS_BUILD_TOOLS) NO_SDL=1 tools-only envtools
--	cd ../arm-trusted-firmware-*; \
--	$(MAKE) USE_COHERENT_MEM=0 \
--	        PLAT=a80x0_mcbin \
--	        MV_DDR_PATH=../mv-ddr-marvell \
--	        SCP_BL2=../binaries-marvell/mrvl_scp_bl2.img \
--	        BL33=$(U_BOOT_DIR)/u-boot.bin \
--	        all fip
--
--override_dh_auto_install:
--	mv tools/env/lib.a tools/env/libubootenv.a
--
--override_dh_auto_test:
--
--%:
--	CFLAGS= LDFLAGS= dh $@ --parallel
-diff --git a/recipes-bsp/u-boot/u-boot-macchiatobin_2019.10-atf2.2.bb b/recipes-bsp/u-boot/u-boot-macchiatobin_2019.10-atf2.2.bb
-deleted file mode 100644
-index 20271d1..0000000
---- a/recipes-bsp/u-boot/u-boot-macchiatobin_2019.10-atf2.2.bb
-+++ /dev/null
-@@ -1,43 +0,0 @@
--#
--# Jailhouse, a Linux-based partitioning hypervisor
--#
--# Copyright (c) Siemens AG, 2018
--#
--# Authors:
--#  Jan Kiszka <jan.kiszka@siemens.com>
--#
--# SPDX-License-Identifier: MIT
--#
--
--U_BOOT_PV="${@d.getVar('PV').split('-atf')[0]}"
--ATF_PV="${@d.getVar('PV').split('-atf')[1]}"
--
--require recipes-bsp/u-boot/u-boot-custom.inc
--require recipes-bsp/arm-trusted-firmware/arm-trusted-firmware_${ATF_PV}.inc
+-FILESPATH =. "${LAYERDIR_jailhouse}/recipes-bsp/arm-trusted-firmware/files:"
 -
 -SRC_URI += " \
--    https://ftp.denx.de/pub/u-boot/u-boot-${U_BOOT_PV}.tar.bz2;name=u-boot \
--    git://github.com/MarvellEmbeddedProcessors/mv-ddr-marvell;protocol=https;branch=mv_ddr-armada-atf-mainline;rev=${MV_DDR_REV};destsuffix=mv-ddr-marvell \
--    git://github.com/MarvellEmbeddedProcessors/binaries-marvell;protocol=https;branch=${MV_BIN_BRANCH};rev=${MV_BIN_REV};destsuffix=binaries-marvell \
--    file://0001-mv_ddr4_training-fix-gcc-warning-about-uninitialized.patch;patchdir=${WORKDIR}/mv-ddr-marvell \
--    file://macchiatobin-rules \
+-    https://github.com/ARM-software/arm-trusted-firmware/archive/v${ATF_PV}.tar.gz;downloadfilename=atf-v${ATF_PV}.tar.gz;name=atf \
+-    file://0001-console-16550-Prepare-for-skipping-initialisation.patch;patchdir=${WORKDIR}/arm-trusted-firmware-${ATF_PV} \
+-    file://0002-plat-rpi4-Skip-UART-initialisation.patch;patchdir=${WORKDIR}/arm-trusted-firmware-${ATF_PV} \
+-    file://0003-rpi3-4-Add-support-for-offlining-CPUs.patch;patchdir=${WORKDIR}/arm-trusted-firmware-${ATF_PV} \
 -    "
--SRC_URI[u-boot.sha256sum] = "8d6d6070739522dd236cba7055b8736bfe92b4fac0ea18ad809829ca79667014"
+-SRC_URI[atf.sha256sum] = "07e3c058ae2d95c7d516a46fc93565b797e912c3271ddbf29df523b1ab1ee911"
+diff --git a/recipes-bsp/arm-trusted-firmware/files/0001-console-16550-Prepare-for-skipping-initialisation.patch b/recipes-bsp/arm-trusted-firmware/files/0001-console-16550-Prepare-for-skipping-initialisation.patch
+deleted file mode 100644
+index 10ca776..0000000
+--- a/recipes-bsp/arm-trusted-firmware/files/0001-console-16550-Prepare-for-skipping-initialisation.patch
++++ /dev/null
+@@ -1,127 +0,0 @@
+-From 62b9c075700eedbc6d308b51b17e90c031c1a300 Mon Sep 17 00:00:00 2001
+-From: Andre Przywara <andre.przywara@arm.com>
+-Date: Thu, 12 Dec 2019 12:00:15 +0000
+-Subject: [PATCH 1/3] console: 16550: Prepare for skipping initialisation
 -
--BUILD_DEPENDS =. "libssl-dev:native, "
+-On some platforms the UART might have already been initialised, for
+-instance by firmware running before TF-A or by a separate management
+-processor. In this case it would not be need to initialise it again
+-(doing so could create spurious characters). But more importantly this
+-saves us from knowing the right baudrate and the right base clock rate
+-for the UART. This can lead to more robust and versatile firmware builds.
 -
--MV_DDR_REV="a881467ef0f0185e6570dd0483023fde93cbb5f5"
--MV_BIN_BRANCH="binaries-marvell-armada-18.12"
--MV_BIN_REV="c6c529ea3d905a28cc77331964c466c3e2dc852e"
+-Allow to skip the 16550 UART initialisation and baud rate divisor
+-programming, by interpreting an input clock rate of "0" to signify this
+-case. This will just skip the call to console_16550_core_init, but still
+-will register the console properly.
 -
--U_BOOT_CONFIG="mvebu_mcbin-88f8040_defconfig"
--U_BOOT_BIN="u-boot.bin"
+-Users should just pass 0 as the second parameter, the baudrate (third
+-parameter) will then be ignored as well.
 -
--S = "${WORKDIR}/u-boot-${U_BOOT_PV}"
+-Fix copy & paste typos in comments for the console_16550_register()
+-function on the way.
 -
--do_prepare_build_append() {
--    cp ${WORKDIR}/macchiatobin-rules ${S}/debian/rules
+-Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+-Change-Id: I9f8fca5b358f878fac0f31dc411358fd160786ee
+----
+- drivers/ti/uart/aarch32/16550_console.S | 18 +++++++++++++-----
+- drivers/ti/uart/aarch64/16550_console.S |  9 ++++++++-
+- include/drivers/ti/uart/uart_16550.h    |  5 +++++
+- 3 files changed, 26 insertions(+), 6 deletions(-)
 -
--    echo "../arm-trusted-firmware-${ATF_PV}/build/a80x0_mcbin/release/flash-image.bin /usr/lib/u-boot/macchiatobin" > \
--        ${S}/debian/u-boot-macchiatobin.install
--}
-diff --git a/recipes-bsp/u-boot/u-boot-macchiatobin_2020.10.bb b/recipes-bsp/u-boot/u-boot-macchiatobin_2020.10.bb
-new file mode 100644
-index 0000000..2bab197
---- /dev/null
-+++ b/recipes-bsp/u-boot/u-boot-macchiatobin_2020.10.bb
-@@ -0,0 +1,15 @@
-+#
-+# Jailhouse, a Linux-based partitioning hypervisor
-+#
-+# Copyright (c) Siemens AG, 2018-2020
-+#
-+# Authors:
-+#  Jan Kiszka <jan.kiszka@siemens.com>
-+#
-+# SPDX-License-Identifier: MIT
-+#
-+
-+require u-boot-${PV}.inc
-+
-+U_BOOT_CONFIG = "mvebu_mcbin-88f8040_defconfig"
-+U_BOOT_BIN = "u-boot.bin"
-diff --git a/wic/macchiatobin.wks b/wic/macchiatobin.wks
-index 4cb6aed..ead8b14 100644
---- a/wic/macchiatobin.wks
-+++ b/wic/macchiatobin.wks
-@@ -9,7 +9,7 @@
- # SPDX-License-Identifier: MIT
- #
- 
--part u-boot --source rawcopy --sourceparams "file=/usr/lib/u-boot/macchiatobin/flash-image.bin" --no-table --align 2048 --size 2M
-+part u-boot --source rawcopy --sourceparams "file=/usr/lib/trusted-firmware-a/macchiatobin/flash-image.bin" --no-table --align 2048 --size 2M
- 
- part / --source rootfs-u-boot --ondisk mmcblk1 --fstype ext4 --label platform --active --align 1024 --sourceparams "no_initrd=yes"
- 
+-diff --git a/drivers/ti/uart/aarch32/16550_console.S b/drivers/ti/uart/aarch32/16550_console.S
+-index 692188412..5cd9b30cd 100644
+---- a/drivers/ti/uart/aarch32/16550_console.S
+-+++ b/drivers/ti/uart/aarch32/16550_console.S
+-@@ -89,16 +89,19 @@ endfunc console_16550_core_init
+- 	.globl console_16550_register
+- 
+- 	/* -------------------------------------------------------
+--	 * int console_stm32_register(uintptr_t baseaddr,
+-+	 * int console_16550_register(uintptr_t baseaddr,
+- 	 *     uint32_t clock, uint32_t baud,
+--	 *     struct console_stm32 *console);
+--	 * Function to initialize and register a new STM32
+-+	 *     console_16550_t *console);
+-+	 * Function to initialize and register a new 16550
+- 	 * console. Storage passed in for the console struct
+- 	 * *must* be persistent (i.e. not from the stack).
+-+	 * If r1 (UART clock) is 0, initialisation will be
+-+         * skipped, relying on previous code to have done
+-+         * this already. r2 is ignored then as well.
+- 	 * In: r0 - UART register base address
+- 	 *     r1 - UART clock in Hz
+--	 *     r2 - Baud rate
+--	 *     r3 - pointer to empty console_stm32 struct
+-+	 *     r2 - Baud rate (ignored if r1 is 0)
+-+	 *     r3 - pointer to empty console_16550_t struct
+- 	 * Out: return 1 on success, 0 on error
+- 	 * Clobber list : r0, r1, r2
+- 	 * -------------------------------------------------------
+-@@ -110,10 +113,15 @@ func console_16550_register
+- 	beq	register_fail
+- 	str	r0, [r4, #CONSOLE_T_16550_BASE]
+- 
+-+	/* A clock rate of zero means to skip the initialisation. */
+-+	cmp	r1, #0
+-+	beq	register_16550
+-+
+- 	bl	console_16550_core_init
+- 	cmp	r0, #0
+- 	beq	register_fail
+- 
+-+register_16550:
+- 	mov	r0, r4
+- 	pop	{r4, lr}
+- 	finish_console_register 16550 putc=1, getc=1, flush=1
+-diff --git a/drivers/ti/uart/aarch64/16550_console.S b/drivers/ti/uart/aarch64/16550_console.S
+-index dab46e8c5..80c1b8646 100644
+---- a/drivers/ti/uart/aarch64/16550_console.S
+-+++ b/drivers/ti/uart/aarch64/16550_console.S
+-@@ -92,9 +92,12 @@ endfunc console_16550_core_init
+- 	 * Function to initialize and register a new 16550
+- 	 * console. Storage passed in for the console struct
+- 	 * *must* be persistent (i.e. not from the stack).
+-+	 * If w1 (UART clock) is 0, initialisation will be
+-+	 * skipped, relying on previous code to have done
+-+	 * this already. w2 is ignored then as well.
+- 	 * In: x0 - UART register base address
+- 	 *     w1 - UART clock in Hz
+--	 *     w2 - Baud rate
+-+	 *     w2 - Baud rate (ignored if w1 is 0)
+- 	 *     x3 - pointer to empty console_16550_t struct
+- 	 * Out: return 1 on success, 0 on error
+- 	 * Clobber list : x0, x1, x2, x6, x7, x14
+-@@ -106,9 +109,13 @@ func console_16550_register
+- 	cbz	x6, register_fail
+- 	str	x0, [x6, #CONSOLE_T_16550_BASE]
+- 
+-+	/* A clock rate of zero means to skip the initialisation. */
+-+	cbz	w1, register_16550
+-+
+- 	bl	console_16550_core_init
+- 	cbz	x0, register_fail
+- 
+-+register_16550:
+- 	mov	x0, x6
+- 	mov	x30, x7
+- 	finish_console_register 16550 putc=1, getc=1, flush=1
+-diff --git a/include/drivers/ti/uart/uart_16550.h b/include/drivers/ti/uart/uart_16550.h
+-index 32e38f0ac..2b95fa33a 100644
+---- a/include/drivers/ti/uart/uart_16550.h
+-+++ b/include/drivers/ti/uart/uart_16550.h
+-@@ -87,6 +87,11 @@ typedef struct {
+-  * framework. The |console| pointer must point to storage that will be valid
+-  * for the lifetime of the console, such as a global or static local variable.
+-  * Its contents will be reinitialized from scratch.
+-+ * When |clock| has a value of 0, the UART will *not* be initialised. This
+-+ * means the UART should already be enabled and the baudrate and clock setup
+-+ * should have been done already, either by platform specific code or by
+-+ * previous firmware stages. The |baud| parameter will be ignored in this
+-+ * case as well.
+-  */
+- int console_16550_register(uintptr_t baseaddr, uint32_t clock, uint32_t baud,
+- 			   console_16550_t *console);
+--- 
+-2.16.4
+-
+diff --git a/recipes-bsp/arm-trusted-firmware/files/0002-plat-rpi4-Skip-UART-initialisation.patch b/recipes-bsp/arm-trusted-firmware/files/0002-plat-rpi4-Skip-UART-initialisation.patch
+deleted file mode 100644
+index 56cac70..0000000
+--- a/recipes-bsp/arm-trusted-firmware/files/0002-plat-rpi4-Skip-UART-initialisation.patch
++++ /dev/null
+@@ -1,109 +0,0 @@
+-From 0ea846120c1df90cf8cf29ab3f664cf7e3eabc22 Mon Sep 17 00:00:00 2001
+-From: Andre Przywara <andre.przywara@arm.com>
+-Date: Thu, 12 Dec 2019 16:31:11 +0000
+-Subject: [PATCH 2/3] plat: rpi4: Skip UART initialisation
+-
+-So far we have seen two different clock setups for the Raspberry Pi 4
+-board, with the VPU clock divider being different. This was handled by
+-reading the divider register and adjusting the base clock rate
+-accordingly.
+-Recently a new GPU firmware version appeared that changed the clock rate
+-*again*, though this time at a higher level, so the VPU rate (and the
+-apparent PLLC parent clock) did not seem to change, judging by reading
+-the clock registers.
+-So rather than playing cat and mouse with the GPU firmware or going
+-further down the rabbit hole of exploring the whole clock tree, let's
+-just skip the baud rate programming altogether. This works because the
+-GPU firmware actually sets up and programs the debug UART already, so
+-we can just use it.
+-
+-Pass 0 as the base clock rate to let the console driver skip the setup,
+-also remove the no longer needed clock code.
+-
+-Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+-Change-Id: Ica88a3f3c9c11059357c1e6dd8f7a4d9b1f98fd7
+----
+- plat/rpi/rpi4/aarch64/plat_helpers.S |  4 ++--
+- plat/rpi/rpi4/include/rpi_hw.h       |  8 --------
+- plat/rpi/rpi4/rpi4_bl31_setup.c      | 16 +++++-----------
+- 3 files changed, 7 insertions(+), 21 deletions(-)
+-
+-diff --git a/plat/rpi/rpi4/aarch64/plat_helpers.S b/plat/rpi/rpi4/aarch64/plat_helpers.S
+-index 46073b791..083c30e71 100644
+---- a/plat/rpi/rpi4/aarch64/plat_helpers.S
+-+++ b/plat/rpi/rpi4/aarch64/plat_helpers.S
+-@@ -136,8 +136,8 @@ endfunc platform_mem_init
+- 	 */
+- func plat_crash_console_init
+- 	mov_imm	x0, PLAT_RPI3_UART_BASE
+--	mov_imm	x1, PLAT_RPI4_VPU_CLK_RATE
+--	mov_imm	x2, PLAT_RPI3_UART_BAUDRATE
+-+	mov	x1, xzr
+-+	mov	x2, xzr
+- 	b	console_16550_core_init
+- endfunc plat_crash_console_init
+- 
+-diff --git a/plat/rpi/rpi4/include/rpi_hw.h b/plat/rpi/rpi4/include/rpi_hw.h
+-index ed367ee20..b1dd4e92e 100644
+---- a/plat/rpi/rpi4/include/rpi_hw.h
+-+++ b/plat/rpi/rpi4/include/rpi_hw.h
+-@@ -58,13 +58,6 @@
+-  */
+- #define RPI3_PM_RSTS_WRCFG_HALT		U(0x00000555)
+- 
+--/*
+-- * Clock controller
+-- */
+--#define RPI4_IO_CLOCK_OFFSET		ULL(0x00101000)
+--#define RPI4_CLOCK_BASE			(RPI_IO_BASE + RPI4_IO_CLOCK_OFFSET)
+--#define RPI4_VPU_CLOCK_DIVIDER		ULL(0x0000000c)
+--
+- /*
+-  * Hardware random number generator.
+-  */
+-@@ -88,7 +81,6 @@
+-  */
+- #define RPI3_IO_MINI_UART_OFFSET	ULL(0x00215040)
+- #define RPI3_MINI_UART_BASE		(RPI_IO_BASE + RPI3_IO_MINI_UART_OFFSET)
+--#define PLAT_RPI4_VPU_CLK_RATE		ULL(1000000000)
+- 
+- /*
+-  * GPIO controller
+-diff --git a/plat/rpi/rpi4/rpi4_bl31_setup.c b/plat/rpi/rpi4/rpi4_bl31_setup.c
+-index 53ab0c2e2..9e3b53979 100644
+---- a/plat/rpi/rpi4/rpi4_bl31_setup.c
+-+++ b/plat/rpi/rpi4/rpi4_bl31_setup.c
+-@@ -119,8 +119,6 @@ void bl31_early_platform_setup2(u_register_t arg0, u_register_t arg1,
+- 				u_register_t arg2, u_register_t arg3)
+- 
+- {
+--	uint32_t div_reg;
+--
+- 	/*
+- 	 * LOCAL_CONTROL:
+- 	 * Bit 9 clear: Increment by 1 (vs. 2).
+-@@ -136,16 +134,12 @@ void bl31_early_platform_setup2(u_register_t arg0, u_register_t arg1,
+- 
+- 	/*
+- 	 * Initialize the console to provide early debug support.
+--	 * Different GPU firmware revisions set up the VPU divider differently,
+--	 * so read the actual divider register to learn the UART base clock
+--	 * rate. The divider is encoded as a 12.12 fixed point number, but we
+--	 * just care about the integer part of it.
+-+	 * We rely on the GPU firmware to have initialised the UART correctly,
+-+	 * as the baud base clock rate differs across GPU firmware revisions.
+-+	 * Providing a base clock of 0 lets the 16550 UART init routine skip
+-+	 * the initial enablement and baud rate setup.
+- 	 */
+--	div_reg = mmio_read_32(RPI4_CLOCK_BASE + RPI4_VPU_CLOCK_DIVIDER);
+--	div_reg = (div_reg >> 12) & 0xfff;
+--	if (div_reg == 0)
+--		div_reg = 1;
+--	rpi3_console_init(PLAT_RPI4_VPU_CLK_RATE / div_reg);
+-+	rpi3_console_init(0);
+- 
+- 	bl33_image_ep_info.pc = plat_get_ns_image_entrypoint();
+- 	bl33_image_ep_info.spsr = rpi3_get_spsr_for_bl33_entry();
+--- 
+-2.16.4
+-
+diff --git a/recipes-bsp/arm-trusted-firmware/files/0003-rpi3-4-Add-support-for-offlining-CPUs.patch b/recipes-bsp/arm-trusted-firmware/files/0003-rpi3-4-Add-support-for-offlining-CPUs.patch
+deleted file mode 100644
+index 02d0440..0000000
+--- a/recipes-bsp/arm-trusted-firmware/files/0003-rpi3-4-Add-support-for-offlining-CPUs.patch
++++ /dev/null
+@@ -1,47 +0,0 @@
+-From 6368eab6c5129f4ee6679a2daa6f0d5315cfd655 Mon Sep 17 00:00:00 2001
+-From: Jan Kiszka <jan.kiszka@siemens.com>
+-Date: Sun, 8 Dec 2019 20:48:46 +0100
+-Subject: [PATCH 3/3] rpi3/4: Add support for offlining CPUs
+-
+-The hooks were populated but the power down left the CPU in limbo-land.
+-What we need to do - until there is a way to actually power off - is to
+-turn off the MMU and enter the spinning loop as if we were cold-booted.
+-This allows the on-call to pick up the CPU again.
+-
+-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+-Change-Id: Iefc7a58424e3578ad3dd355a7bd6eaba4b412699
+----
+- plat/rpi/common/rpi3_pm.c | 10 ++++++++++
+- 1 file changed, 10 insertions(+)
+-
+-diff --git a/plat/rpi/common/rpi3_pm.c b/plat/rpi/common/rpi3_pm.c
+-index 8c2d070c4..2a6bf076b 100644
+---- a/plat/rpi/common/rpi3_pm.c
+-+++ b/plat/rpi/common/rpi3_pm.c
+-@@ -123,6 +123,15 @@ static void rpi3_pwr_domain_off(const psci_power_state_t *target_state)
+- #endif
+- }
+- 
+-+void __dead2 plat_secondary_cold_boot_setup(void);
+-+
+-+static void __dead2
+-+rpi3_pwr_domain_pwr_down_wfi(const psci_power_state_t *target_state)
+-+{
+-+	disable_mmu_el3();
+-+	plat_secondary_cold_boot_setup();
+-+}
+-+
+- /*******************************************************************************
+-  * Platform handler called when a power domain is about to be turned on. The
+-  * mpidr determines the CPU to be turned on.
+-@@ -224,6 +233,7 @@ static void __dead2 rpi3_system_off(void)
+- static const plat_psci_ops_t plat_rpi3_psci_pm_ops = {
+- 	.cpu_standby = rpi3_cpu_standby,
+- 	.pwr_domain_off = rpi3_pwr_domain_off,
+-+	.pwr_domain_pwr_down_wfi = rpi3_pwr_domain_pwr_down_wfi,
+- 	.pwr_domain_on = rpi3_pwr_domain_on,
+- 	.pwr_domain_on_finish = rpi3_pwr_domain_on_finish,
+- 	.system_off = rpi3_system_off,
+--- 
+-2.16.4
+-
 -- 
 2.26.2
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/24b88ddc6512937868778d74673d95b8e7fcf5ad.1601958694.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/93a0c5bfcdd39ac277422cf2dbeabac1ae61e624.1601958694.git.jan.kiszka%40siemens.com.
