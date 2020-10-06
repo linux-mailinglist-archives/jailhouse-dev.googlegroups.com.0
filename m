@@ -1,32 +1,32 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBQPG575QKGQEBHMPQHA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBQ7G575QKGQENM2VZTA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x339.google.com (mail-wm1-x339.google.com [IPv6:2a00:1450:4864:20::339])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C9632844EE
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  6 Oct 2020 06:32:02 +0200 (CEST)
-Received: by mail-wm1-x339.google.com with SMTP id s12sf646292wmj.0
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 05 Oct 2020 21:32:02 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1601958721; cv=pass;
+Received: from mail-wr1-x43f.google.com (mail-wr1-x43f.google.com [IPv6:2a00:1450:4864:20::43f])
+	by mail.lfdr.de (Postfix) with ESMTPS id EFD1B2844EF
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  6 Oct 2020 06:32:03 +0200 (CEST)
+Received: by mail-wr1-x43f.google.com with SMTP id 33sf4829642wrk.12
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 05 Oct 2020 21:32:03 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1601958723; cv=pass;
         d=google.com; s=arc-20160816;
-        b=H15Eui5IbTuZdVnjZztJqZ9Mjh8Hh2z/tFc/i6e8mg5dd1cpRRKLk0gvDbSIg4ulsF
-         PFSFa2jGNPKrmkc5C0RgcXFcrCKrlYt+NkeQ7ux0phDwG+6CN70kfhtasboX8STIkpxU
-         r4YYiSA/vTdsQyjGyyQ1zp5EPQADp1wWH9PTg5iwlXJhraoyrYuU+OpUn7YQ/jTC6PCM
-         9XFUWQi22iAT3sg3auJRs1YeNtxE/okke3uPPYLzg3qoJquLHD0g1E//NA1KcPdNiEVG
-         RePZxaFXnk/MMjnTUhWEmTO9sLA+nZCh3e8AASWjx7VDWvWPebnQQwXsUYGl+POZijAP
-         myvg==
+        b=zRyZ8+QDIIVygqc5kj+8n5wXydWBV+JY5vvVvfBdI0txQOSIuVve9LqYMGcY4B3AYE
+         giN2aEU3o18miBG01jcZLZIbuezRFVpyOhyHw2HoMlqSIw43b2CuF9E6KJFs5905gNSZ
+         VBNmHnE829VpvTjKQDqkYCerk44VzR26ZMV1VNkEFJl7rocFhTZBKQXs5fqkX00lwnnS
+         xqDB/7C/vgYb3zQYXn9qFo8cisKpWxhkMw7LpYDQM20gaXlVDOkLNGT8BU2/2sOIqrTH
+         Urd7RwlN9Yv0KSABkvW07yhc/7BayZUB2YSasGZ/PXiC6MiL2yX5pqVLAGansl1SUuDD
+         Iwig==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:sender:dkim-signature;
-        bh=zqNlZv2D0bkNZqA48PVJZbwkyLpe1IWY+W/nxyO/H4U=;
-        b=gzopyoYx3/ykcJEAHzVI5aWEmXo0M4gcvsgyekOJQZBdKHOQhKVuQGxfhseMf8j8ij
-         97uB2Mxnp44KqFZg+Lr8XEQadhUQqy5KBmse2GUstgj2/v/Fa5bBBp4bGucoqD2/6KMA
-         7nB+AAPSWo4nOoFu1MSwu1S87fOHoQxPg8X0LXWzXeGkXesz7eo+Pv9EqAbANgO97pfc
-         B0vRxqpdKNdz4b79VPuaApofrS7XB7zjZ/dAxA+d38G+dlRs3mS+O/iBHoZU1PsXDF4Z
-         KI7Cv9JCquvbCr4vCqOSoM4FxSTz7LIbrB3FCSTRu8SW7H9dnkhHZXxcU347iHtV1JZH
-         yW5A==
+        bh=ntoDsZHnsm2Ncl85VLq+z42iLE5Eb5bV8/CDo1Q4GK8=;
+        b=rcqiOOOrab6Rq2SMuWQSOlFEwq9rRsxVWEG5wjUyqgMSC/6PG8+P9XuzSgqi8ssgGf
+         0VMKg1ks7qwQIgF5pvAupyMPX8GYR8H2c+Lr79xEfgUfr4aF0hFv9tWbiemw1DSbJ4c7
+         seZTSi/Gdpnf0gAAcgQTs63eLVu8o3FaPGT7hpD4EQewIm4az7DFVOPOmmwjeJnDr8Un
+         aGNymvOFsvKlml5RenX93i0bFnpeWM8/STfHuJnlcbgHNJHyypxCWCiwMUpY2evLULfz
+         CkH8rn7RpksmLy35uh+ExnDZrsYtw25Qh6oatGRDiKb8XT2xr6ehRvNucJucSEDEX9cz
+         B3aA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -34,13 +34,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=zqNlZv2D0bkNZqA48PVJZbwkyLpe1IWY+W/nxyO/H4U=;
-        b=e804bfvkr5vLXfPkb+XnyF0ibrIDc2l9NtvByZ6xDJnLVW3D8Om3VeUM+UXz2/SVp8
-         RBWsedD8xX1GMj8FZ2ywHwJw9t88nrJs+veQ9OgQuk8G0FK6OaQRYCBxWO/d1NFW18wa
-         bhum/dPMbu/JyU6sivycgDeIfXsuWXFmBD9wD2KV1syUq99E4t5KRLSvwznxGchBOauB
-         wGiG5NRfCbXiYtD2xK27stCI5+IoUBu42UeYEpWBbxSXv6Zv6XLYWFuvVd9vzxIAp8Xz
-         V2RXfVyP58hQn/t/G3jmSzK+Yg5a8koD1X9UtMu+MRmEvnN+K8D31iqawJRScqQA08jW
-         X+Sg==
+        bh=ntoDsZHnsm2Ncl85VLq+z42iLE5Eb5bV8/CDo1Q4GK8=;
+        b=PN6eATnaT0sWkud29M4kC/Eo44DH0zdfiAdg1L5DqEAxP5+NOaWnnxBMFnQndmNgJD
+         ALm6sOlOxTSHMGfgkgB5Pz8GLiStLO3q553IQyeI3+X+LEsMUST6zMyHW8lPaKje4lde
+         yrNxAKHFOm/pEb+4SJBnuhe7dWPw3Lc0N7O/gagBTDTrfW7KZLG1jtipWQblk9gN5dI2
+         DzsZKqQScaEeTaUfqxjzu/0cjgz9SkjSjEqhgLuSwX9buG0oQQiEOpsTn8mw14vqP/3G
+         YYAoM2g7RZfy0by7XvuWo68i0LIcKYIac65XJtUMJvpkPIHb0mlNaZMMWiVVZzW9j9YA
+         EUUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:subject:date:message-id
@@ -48,70 +48,70 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=zqNlZv2D0bkNZqA48PVJZbwkyLpe1IWY+W/nxyO/H4U=;
-        b=VeDxYKiNJKj87qZjbchBSthhjyykhG6h+eh5HP4C+yZHdZQwH6isYVQz7jMhRGa7NF
-         Iy7/Py6D/tMDrbqJc2GLaoUhvVHNDonZy7053aQSaSMozEuGZ264MO/GhGL5Sn4mUrcU
-         YAESZOescIaqgH2vp/D0IZd/s1KA71/4DNM+yh81adajdLBXoB+JMhI8X18yCx1hWS/E
-         DRJJC2hZAJHEdtk1ZeIvu8Vvv41ZBV7GBmPHQYUgkMLRRYPL3zG6+FwVwMvRmX20uFN/
-         SdVxaotIouFw6/2j6It5CyTQlsk/atntndVacjL61WquZjzFcsEeknmL590DUh4hG4LV
-         rEEA==
+        bh=ntoDsZHnsm2Ncl85VLq+z42iLE5Eb5bV8/CDo1Q4GK8=;
+        b=Fc12FQ34Fjj0sH/71+SvLBshpvvJLBmz7Y83EtA8sjIVZoGe7/rrgCyxeXSs2KOe3+
+         edxl7DBYazTZg78FW6MYIzJGOTwaOkZ1SbozJmbeRwr/GDP/BWFZ8Oc67Kfy8/W0aKUw
+         THKc/OPyBQaEspH29vTqFgii6gRKwZsaKtbRCSoon5oubEQPN66ZNJw9EvpJ9h9dvfyg
+         hJzWrx7vCr5bPn7HHEYEZ0+3JgEucil4EkI/DhatS3pWAAq3f+wFz9GqPQ3Pn01hIAMY
+         nWjgooy1nd9Ks+aE5sdE5f8693pvYtY2VToV8ETqdjkcWt/fiUx8eomUa60FqwuddXbe
+         MCZQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530ZfcDde4XBL5MO2Iyh//iuk5oUywhjpRDghkid+vpxErnqhl0V
-	biLcZqPooJStgl/oUmNw1J8=
-X-Google-Smtp-Source: ABdhPJwqYJhJh8kUxW1uY4MCoFXpJlpWWalvW9tY8FhvQcygxmZbaBNnuCXlLVQtM62dE05w6r7qvA==
-X-Received: by 2002:a5d:55c8:: with SMTP id i8mr2589345wrw.331.1601958721822;
-        Mon, 05 Oct 2020 21:32:01 -0700 (PDT)
+X-Gm-Message-State: AOAM533msqFpYIwkUJ1DfGx4aEWZeSF0b3p+fxKVyb8QposjyaOHHaKv
+	dwz78tErroxfr2tULQySIS4=
+X-Google-Smtp-Source: ABdhPJwhdz43t6m9GsdYe5odplhFl/CA+9OJFdchLtzYihtyM74tqN40RW85HRXE/1INjwj77sU8jg==
+X-Received: by 2002:adf:cc88:: with SMTP id p8mr1047046wrj.201.1601958723580;
+        Mon, 05 Oct 2020 21:32:03 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:98d8:: with SMTP id a207ls527843wme.2.canary-gmail; Mon,
- 05 Oct 2020 21:32:00 -0700 (PDT)
-X-Received: by 2002:a1c:3505:: with SMTP id c5mr2665884wma.65.1601958720814;
-        Mon, 05 Oct 2020 21:32:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1601958720; cv=none;
+Received: by 2002:a1c:9e53:: with SMTP id h80ls526160wme.1.canary-gmail; Mon,
+ 05 Oct 2020 21:32:02 -0700 (PDT)
+X-Received: by 2002:a05:600c:2159:: with SMTP id v25mr2681691wml.180.1601958722363;
+        Mon, 05 Oct 2020 21:32:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1601958722; cv=none;
         d=google.com; s=arc-20160816;
-        b=nlA8tGF9M9LvhhPUcNFMt4LtiR5fnnuncB2Uf9f7c1CdcO425cFYNjb8Srs8YjQcXo
-         n/ta1RjgayroEUiHnngndmHym0p/o16s33kurEPof0EJnnv7siSi4rn+2rt0hb7O/oaf
-         mP5iTGZ5dZnO1DAJQ05gj//dYeviRGoGUgYMcxJ3eh1DJgVxaV8h0OCZDQIPrscZrUW4
-         u6GVqT3MxtS0LGG3gRmeQStCWe6XPbWMMMJ4UtfWrLRCcLf/J/SNUP1M8TVhbZCOXuzD
-         CMED3x4ogZSOyzI8wzCzRJ1+ZjeBlmfSZj2bZ92ui1y5YIl5LlPb+DidWnA/pDByhabd
-         SCTg==
+        b=hLbxlQRZtwc58FCSGQzfhyelp7sYHrUBDmOkvi2nNUeVZdjSRC17KMeLhNCycskly+
+         KA5b5n0uyZULX9AE0hdcGezRR6y9dVpNn5bxFIrQi5rvwvqURIOzOZ8h7RrNGxlZHYA7
+         88D9Ux8gjHbxv30LoTDZDEPmta5O3+FhBr8v5VDEDsmR2S4dK0NlLBOvOCIs5TSBgLoY
+         6TU4oUIcftwuSf8OBuBMulynC/YZP84DcAcUXl+0eXrOhFiwi9odV/B+rAwht2DjvJEN
+         JX1j+IbmKh1X2Nbx0aSyCJ6vT1Ld7PQdNoYUCAabcq3T4m9IWJElqCRpTdiBdJktaGoD
+         yLAA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from;
-        bh=18w7VkGPeAY2fHqBt+1sSaw/sqG6sNPnHzvQhX0FCOo=;
-        b=RIQuN3o2GVM64wSGOSk5B++IeXfm+p53OFb+DvFxs0Hzcf0tMY2lUJaqQFp0XGXCBK
-         Ql+Z2qD7oQHp+nrGkZdJ5jTNatmym1sGFr24Dcu4uKHZZyNu65RPjYCa7HLZT627jgsC
-         XEIADSIo+QJn+rkHC9TkN/cJHgZ8t++DGO9m8ohz6JusXrVyVgGmp6ZwAkJK5tGn8wtQ
-         zi0/iH3idj2YPSF+w85QAWKbUFjGtkefeXBN5FsQdDee4fQjgyo3rcw5Fr6tRTvpPTJp
-         FjJ5wEQqrN2G5mpB+hyB3DFACAqOT5I1Wzgye59JgRZICNtTivtKq037sjugTf7xiK1Z
-         50Ag==
+        bh=ICcbNjiGoKnUYu74P2hM0/YTs16+EbKuPJZRycju8bU=;
+        b=IXXeZW4FKM1fePK8ayhAkBPFYzpSixdUO4NvG+5PnoLpxF3biif0q4GNrYHPNa0scb
+         kzcBLxte7j75PDdn1STIs3I7ni3593AqOgxN2dLyUujgbVNFCoraxyzBVdATqD2vasHm
+         bfEIEFSsxFI2rend6zFe23553Xs9HDnVqWjO9T5kymp3T0jdB23+VJcYLB5GNSZFPegS
+         2hsG5d4CeqPlCu0mih4PREn6EHY1/ZaDcGDlSs9yuH5w2c9Dd/1CcR3DtSrG3HQFak+H
+         /ofRCfoNot+AT0zh0PuRFAfH2xXk2dAnWUsMYNsb8dQbIuanUAAa4jLVJRD2K0S082Mp
+         HBqA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id b1si36182wmj.1.2020.10.05.21.32.00
+Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
+        by gmr-mx.google.com with ESMTPS id z62si42702wmb.0.2020.10.05.21.32.02
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 05 Oct 2020 21:32:00 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
+        Mon, 05 Oct 2020 21:32:02 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 0964W0I0028748
+	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 0964W1LG020443
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
-	for <jailhouse-dev@googlegroups.com>; Tue, 6 Oct 2020 06:32:00 +0200
+	for <jailhouse-dev@googlegroups.com>; Tue, 6 Oct 2020 06:32:02 +0200
 Received: from md1f2u6c.ad001.siemens.net ([167.87.160.159])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 0964VY83008537
-	for <jailhouse-dev@googlegroups.com>; Tue, 6 Oct 2020 06:31:59 +0200
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 0964VY84008537
+	for <jailhouse-dev@googlegroups.com>; Tue, 6 Oct 2020 06:32:01 +0200
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [jh-images][PATCH v2 17/19] ultra96: Convert to stand-alone TF-A recipe and update versions
-Date: Tue,  6 Oct 2020 06:31:32 +0200
-Message-Id: <4678a9cb5720c08dce06b4222c0d51a3aa72ab3d.1601958694.git.jan.kiszka@siemens.com>
+Subject: [jh-images][PATCH v2 18/19] macchiatobin: Convert to stand-alone TF-A recipe and update versions
+Date: Tue,  6 Oct 2020 06:31:33 +0200
+Message-Id: <24b88ddc6512937868778d74673d95b8e7fcf5ad.1601958694.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <cover.1601958694.git.jan.kiszka@siemens.com>
 References: <cover.1601958694.git.jan.kiszka@siemens.com>
 MIME-Version: 1.0
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
@@ -132,31 +132,208 @@ From: Jan Kiszka <jan.kiszka@siemens.com>
 Rework the U-Boot recipes to use TF-A as a package, rather than building
 it in an embedded fashion.
 
-While at it, bump to TF-A 2.3 and U-Boot 2020.10. The latter allows to
-drop one patch.
+This means turning things around: U-Boot is built first as dependency of
+TF-A. IMAGER_INSTALL and IMAGER_BUILD_DEPS are updated to pull TF-A.
+And the TF-A artifacts mv-ddr-marvell and binaries-marvell are moved to
+the new stand-alone recipe.
+
+While at it, bump to TF-A 2.3 and U-Boot 2020.10. TF-A needs one patch
+backported from the development tree in order to fix parallel build for
+the a80x0_mcbin platform.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- .../trusted-firmware-a-ultra96_2.3.bb         | 17 ++++++++++
- ...efile-fix-HOSTCFLAGS-with-CROSS_BUIL.patch | 31 -------------------
- recipes-bsp/u-boot/files/ultra96-rules        |  3 --
- recipes-bsp/u-boot/files/ultra96.bif.tmpl     |  2 +-
- ...atf2.2.bb => u-boot-ultra96-v1_2020.10.bb} | 21 ++++---------
- .../u-boot-ultra96-v2_2019.10-atf2.2.bb       |  1 -
- .../u-boot/u-boot-ultra96-v2_2020.10.bb       |  1 +
- 7 files changed, 25 insertions(+), 51 deletions(-)
- create mode 100644 recipes-bsp/trusted-firmware-a/trusted-firmware-a-ultra96_2.3.bb
- delete mode 100644 recipes-bsp/u-boot/files/0001-Revert-tools-Makefile-fix-HOSTCFLAGS-with-CROSS_BUIL.patch
- rename recipes-bsp/u-boot/{u-boot-ultra96-v1_2019.10-atf2.2.bb => u-boot-ultra96-v1_2020.10.bb} (50%)
- delete mode 120000 recipes-bsp/u-boot/u-boot-ultra96-v2_2019.10-atf2.2.bb
- create mode 120000 recipes-bsp/u-boot/u-boot-ultra96-v2_2020.10.bb
+ conf/machine/macchiatobin.conf                |   4 +-
+ ...se-abspath-to-dereference-BUILD_BASE.patch | 144 ++++++++++++++++++
+ ...-fix-gcc-warning-about-uninitialized.patch |   0
+ .../trusted-firmware-a-macchiatobin_2.3.bb    |  34 +++++
+ .../trusted-firmware-a_2.3.inc                |   2 +
+ recipes-bsp/u-boot/files/macchiatobin-rules   |  40 -----
+ .../u-boot-macchiatobin_2019.10-atf2.2.bb     |  43 ------
+ .../u-boot/u-boot-macchiatobin_2020.10.bb     |  15 ++
+ wic/macchiatobin.wks                          |   2 +-
+ 9 files changed, 198 insertions(+), 86 deletions(-)
+ create mode 100644 recipes-bsp/trusted-firmware-a/files/0001-Use-abspath-to-dereference-BUILD_BASE.patch
+ rename recipes-bsp/{u-boot => trusted-firmware-a}/files/0001-mv_ddr4_training-fix-gcc-warning-about-uninitialized.patch (100%)
+ create mode 100644 recipes-bsp/trusted-firmware-a/trusted-firmware-a-macchiatobin_2.3.bb
+ delete mode 100644 recipes-bsp/u-boot/files/macchiatobin-rules
+ delete mode 100644 recipes-bsp/u-boot/u-boot-macchiatobin_2019.10-atf2.2.bb
+ create mode 100644 recipes-bsp/u-boot/u-boot-macchiatobin_2020.10.bb
 
-diff --git a/recipes-bsp/trusted-firmware-a/trusted-firmware-a-ultra96_2.3.bb b/recipes-bsp/trusted-firmware-a/trusted-firmware-a-ultra96_2.3.bb
+diff --git a/conf/machine/macchiatobin.conf b/conf/machine/macchiatobin.conf
+index 4829500..6a784b8 100644
+--- a/conf/machine/macchiatobin.conf
++++ b/conf/machine/macchiatobin.conf
+@@ -12,7 +12,7 @@
+ DISTRO_ARCH = "arm64"
+ 
+ IMAGE_TYPE = "wic-img"
+-IMAGER_INSTALL += "u-boot-macchiatobin"
+-IMAGER_BUILD_DEPS += "u-boot-macchiatobin"
++IMAGER_INSTALL += "trusted-firmware-a-macchiatobin"
++IMAGER_BUILD_DEPS += "trusted-firmware-a-macchiatobin"
+ 
+ IMAGE_INSTALL += "u-boot-script"
+diff --git a/recipes-bsp/trusted-firmware-a/files/0001-Use-abspath-to-dereference-BUILD_BASE.patch b/recipes-bsp/trusted-firmware-a/files/0001-Use-abspath-to-dereference-BUILD_BASE.patch
 new file mode 100644
-index 0000000..7b8b48b
+index 0000000..37b6251
 --- /dev/null
-+++ b/recipes-bsp/trusted-firmware-a/trusted-firmware-a-ultra96_2.3.bb
-@@ -0,0 +1,17 @@
++++ b/recipes-bsp/trusted-firmware-a/files/0001-Use-abspath-to-dereference-BUILD_BASE.patch
+@@ -0,0 +1,144 @@
++From f62206b4871020506842807b263408e5162b23e9 Mon Sep 17 00:00:00 2001
++From: Grant Likely <grant.likely@arm.com>
++Date: Thu, 30 Jul 2020 08:50:10 +0100
++Subject: [PATCH] Use abspath to dereference $BUILD_BASE
++
++If the user tries to change BUILD_BASE to put the build products outside
++the build tree the compile will fail due to hard coded assumptions that
++$BUILD_BASE is a relative path. Fix by using $(abspath $(BUILD_BASE))
++to rationalize to an absolute path every time and remove the relative
++path assumptions.
++
++This patch also adds documentation that BUILD_BASE can be specified by
++the user.
++
++Signed-off-by: Grant Likely <grant.likely@arm.com>
++Signed-off-by: Manish Pandey <manish.pandey2@arm.com>
++Change-Id: Ib1af874de658484aaffc672f30029b852d2489c8
++---
++ Makefile                               | 6 ++++--
++ docs/getting_started/build-options.rst | 2 ++
++ lib/romlib/Makefile                    | 8 ++++----
++ plat/marvell/a8k/common/ble/ble.mk     | 8 ++++----
++ plat/nvidia/tegra/platform.mk          | 2 +-
++ plat/ti/k3/platform.mk                 | 2 +-
++ tools/sptool/sp_mk_generator.py        | 4 ++--
++ 7 files changed, 18 insertions(+), 14 deletions(-)
++
++diff --git a/Makefile b/Makefile
++index f01a9ae3e..1290d4ff4 100644
++--- a/Makefile
+++++ b/Makefile
++@@ -449,8 +449,10 @@ include common/backtrace/backtrace.mk
++ 
++ include ${MAKE_HELPERS_DIRECTORY}plat_helpers.mk
++ 
++-BUILD_BASE		:=	./build
++-BUILD_PLAT		:=	${BUILD_BASE}/${PLAT}/${BUILD_TYPE}
+++ifeq (${BUILD_BASE},)
+++     BUILD_BASE		:=	./build
+++endif
+++BUILD_PLAT		:=	$(abspath ${BUILD_BASE})/${PLAT}/${BUILD_TYPE}
++ 
++ SPDS			:=	$(sort $(filter-out none, $(patsubst services/spd/%,%,$(wildcard services/spd/*))))
++ 
++diff --git a/docs/getting_started/build-options.rst b/docs/getting_started/build-options.rst
++index 90fe83feb..c96499020 100644
++--- a/docs/getting_started/build-options.rst
+++++ b/docs/getting_started/build-options.rst
++@@ -116,6 +116,8 @@ Common build options
++ -  ``BUILD_STRING``: Input string for VERSION_STRING, which allows the TF-A
++    build to be uniquely identified. Defaults to the current git commit id.
++ 
+++-  ``BUILD_BASE``: Output directory for the build. Defaults to ``./build``
+++
++ -  ``CFLAGS``: Extra user options appended on the compiler's command line in
++    addition to the options set by the build system.
++ 
++diff --git a/lib/romlib/Makefile b/lib/romlib/Makefile
++index cec94043d..2ff480bd4 100644
++--- a/lib/romlib/Makefile
+++++ b/lib/romlib/Makefile
++@@ -10,14 +10,14 @@ LD          = $(CROSS_COMPILE)ld
++ OC          = $(CROSS_COMPILE)objcopy
++ CPP         = $(CROSS_COMPILE)cpp
++ ROMLIB_GEN  = ./romlib_generator.py
++-BUILD_DIR   = ../../$(BUILD_PLAT)/romlib
++-LIB_DIR     = ../../$(BUILD_PLAT)/lib
++-WRAPPER_DIR = ../../$(BUILD_PLAT)/libwrapper
+++BUILD_DIR   = $(BUILD_PLAT)/romlib
+++LIB_DIR     = $(BUILD_PLAT)/lib
+++WRAPPER_DIR = $(BUILD_PLAT)/libwrapper
++ LIBS        = -lmbedtls -lfdt -lc
++ INC         = $(INCLUDES:-I%=-I../../%)
++ PPFLAGS     = $(INC) $(DEFINES) -P -x assembler-with-cpp -D__LINKER__ -MD -MP -MT $(BUILD_DIR)/romlib.ld
++ OBJS        = $(BUILD_DIR)/jmptbl.o $(BUILD_DIR)/init.o
++-MAPFILE     = ../../$(BUILD_PLAT)/romlib/romlib.map
+++MAPFILE     = $(BUILD_PLAT)/romlib/romlib.map
++ 
++ ifneq ($(PLAT_DIR),)
++   WRAPPER_SOURCES   = $(shell $(ROMLIB_GEN) genwrappers -b $(WRAPPER_DIR) --list ../../$(PLAT_DIR)/jmptbl.i)
++diff --git a/plat/marvell/a8k/common/ble/ble.mk b/plat/marvell/a8k/common/ble/ble.mk
++index b6a9cd291..12e657581 100644
++--- a/plat/marvell/a8k/common/ble/ble.mk
+++++ b/plat/marvell/a8k/common/ble/ble.mk
++@@ -5,9 +5,9 @@
++ 
++ MV_DDR_PATH		?=	drivers/marvell/mv_ddr
++ 
++-MV_DDR_LIB		= 	$(CURDIR)/$(BUILD_PLAT)/ble/mv_ddr_lib.a
++-LIBC_LIB		=	$(CURDIR)/$(BUILD_PLAT)/lib/libc.a
++-BLE_LIBS		= 	$(MV_DDR_LIB) $(LIBC_LIB)
+++MV_DDR_LIB		=	$(BUILD_PLAT)/ble/mv_ddr_lib.a
+++LIBC_LIB		=	$(BUILD_PLAT)/lib/libc.a
+++BLE_LIBS		=	$(MV_DDR_LIB) $(LIBC_LIB)
++ PLAT_MARVELL		=	plat/marvell
++ 
++ BLE_SOURCES		+= 	$(BLE_PATH)/ble_main.c				\
++@@ -29,4 +29,4 @@ BLE_LINKERFILE		:=	$(BLE_PATH)/ble.ld.S
++ FORCE:
++ 
++ $(MV_DDR_LIB): FORCE
++-	@+make -C $(MV_DDR_PATH) --no-print-directory PLAT_INCLUDES="$(PLAT_INCLUDES)" PLATFORM=$(PLAT) ARCH=AARCH64 OBJ_DIR=$(CURDIR)/$(BUILD_PLAT)/ble
+++	@+make -C $(MV_DDR_PATH) --no-print-directory PLAT_INCLUDES="$(PLAT_INCLUDES)" PLATFORM=$(PLAT) ARCH=AARCH64 OBJ_DIR=$(BUILD_PLAT)/ble
++diff --git a/plat/nvidia/tegra/platform.mk b/plat/nvidia/tegra/platform.mk
++index e03e1f37b..f7221afac 100644
++--- a/plat/nvidia/tegra/platform.mk
+++++ b/plat/nvidia/tegra/platform.mk
++@@ -56,7 +56,7 @@ $(eval $(call add_define,ENABLE_TEGRA_WDT_LEGACY_FIQ_HANDLING))
++ $(eval $(call add_define,RELOCATE_BL32_IMAGE))
++ 
++ # modify BUILD_PLAT to point to SoC specific build directory
++-BUILD_PLAT	:=	${BUILD_BASE}/${PLAT}/${TARGET_SOC}/${BUILD_TYPE}
+++BUILD_PLAT	:=	$(abspath ${BUILD_BASE})/${PLAT}/${TARGET_SOC}/${BUILD_TYPE}
++ 
++ # platform cflags (enable signed comparisons, disable stdlib)
++ TF_CFLAGS	+= -Wsign-compare -nostdlib
++diff --git a/plat/ti/k3/platform.mk b/plat/ti/k3/platform.mk
++index 65d5cc2a4..2de21aa7b 100644
++--- a/plat/ti/k3/platform.mk
+++++ b/plat/ti/k3/platform.mk
++@@ -11,4 +11,4 @@ include ${PLAT_PATH}/common/plat_common.mk
++ include ${PLAT_PATH}/board/${TARGET_BOARD}/board.mk
++ 
++ # modify BUILD_PLAT to point to board specific build directory
++-BUILD_PLAT := ${BUILD_BASE}/${PLAT}/${TARGET_BOARD}/${BUILD_TYPE}
+++BUILD_PLAT := $(abspath ${BUILD_BASE})/${PLAT}/${TARGET_BOARD}/${BUILD_TYPE}
++diff --git a/tools/sptool/sp_mk_generator.py b/tools/sptool/sp_mk_generator.py
++index 6b6fa1914..68fb82201 100755
++--- a/tools/sptool/sp_mk_generator.py
+++++ b/tools/sptool/sp_mk_generator.py
++@@ -53,8 +53,8 @@ with open(sys.argv[2],'r') as in_file:
++     data = json.load(in_file)
++ json_file = os.path.abspath(sys.argv[2])
++ json_dir = os.path.dirname(json_file)
++-gen_file = sys.argv[1]
++-out_dir = sys.argv[3][2:]
+++gen_file = os.path.abspath(sys.argv[1])
+++out_dir = os.path.abspath(sys.argv[3])
++ dtb_dir = out_dir + "/fdts/"
++ print(dtb_dir)
++ 
++-- 
++2.26.2
++
+diff --git a/recipes-bsp/u-boot/files/0001-mv_ddr4_training-fix-gcc-warning-about-uninitialized.patch b/recipes-bsp/trusted-firmware-a/files/0001-mv_ddr4_training-fix-gcc-warning-about-uninitialized.patch
+similarity index 100%
+rename from recipes-bsp/u-boot/files/0001-mv_ddr4_training-fix-gcc-warning-about-uninitialized.patch
+rename to recipes-bsp/trusted-firmware-a/files/0001-mv_ddr4_training-fix-gcc-warning-about-uninitialized.patch
+diff --git a/recipes-bsp/trusted-firmware-a/trusted-firmware-a-macchiatobin_2.3.bb b/recipes-bsp/trusted-firmware-a/trusted-firmware-a-macchiatobin_2.3.bb
+new file mode 100644
+index 0000000..2df79c3
+--- /dev/null
++++ b/recipes-bsp/trusted-firmware-a/trusted-firmware-a-macchiatobin_2.3.bb
+@@ -0,0 +1,34 @@
 +#
 +# Jailhouse, a Linux-based partitioning hypervisor
 +#
@@ -170,141 +347,171 @@ index 0000000..7b8b48b
 +
 +require trusted-firmware-a_${PV}.inc
 +
-+TF_A_NAME = "ultra96"
-+TF_A_PLATFORM = "zynqmp"
-+TF_A_EXTRA_BUILDARGS = "RESET_TO_BL31=1 ZYNQMP_CONSOLE=cadence1"
-+TF_A_BINARIES = "bl31/bl31.elf"
-diff --git a/recipes-bsp/u-boot/files/0001-Revert-tools-Makefile-fix-HOSTCFLAGS-with-CROSS_BUIL.patch b/recipes-bsp/u-boot/files/0001-Revert-tools-Makefile-fix-HOSTCFLAGS-with-CROSS_BUIL.patch
++SRC_URI += " \
++    git://github.com/MarvellEmbeddedProcessors/mv-ddr-marvell;protocol=https;branch=mv_ddr-armada-atf-mainline;rev=${MV_DDR_REV};destsuffix=mv-ddr-marvell \
++    git://github.com/MarvellEmbeddedProcessors/binaries-marvell;protocol=https;branch=${MV_BIN_BRANCH};rev=${MV_BIN_REV};destsuffix=binaries-marvell \
++    file://0001-mv_ddr4_training-fix-gcc-warning-about-uninitialized.patch;patchdir=${WORKDIR}/mv-ddr-marvell \
++    "
++
++MV_DDR_REV="a881467ef0f0185e6570dd0483023fde93cbb5f5"
++MV_BIN_BRANCH="binaries-marvell-armada-18.12"
++MV_BIN_REV="c6c529ea3d905a28cc77331964c466c3e2dc852e"
++
++DEPENDS += "u-boot-macchiatobin"
++DEBIAN_BUILD_DEPENDS = "u-boot-macchiatobin, libssl-dev:native"
++
++TF_A_PLATFORM = "a80x0_mcbin"
++TF_A_EXTRA_BUILDARGS = " \
++    USE_COHERENT_MEM=0 \
++    MV_DDR_PATH=../mv-ddr-marvell \
++    SCP_BL2=../binaries-marvell/mrvl_scp_bl2.img \
++    BL33=/usr/lib/u-boot/macchiatobin/u-boot.bin \
++    all fip"
++TF_A_BINARIES = "flash-image.bin"
+diff --git a/recipes-bsp/trusted-firmware-a/trusted-firmware-a_2.3.inc b/recipes-bsp/trusted-firmware-a/trusted-firmware-a_2.3.inc
+index 8480b0d..06794c3 100644
+--- a/recipes-bsp/trusted-firmware-a/trusted-firmware-a_2.3.inc
++++ b/recipes-bsp/trusted-firmware-a/trusted-firmware-a_2.3.inc
+@@ -14,4 +14,6 @@ require recipes-bsp/trusted-firmware-a/trusted-firmware-a-custom.inc
+ SRC_URI += "https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/snapshot/trusted-firmware-a-${PV}.tar.gz"
+ SRC_URI[sha256sum] = "37f917922bcef181164908c470a2f941006791c0113d738c498d39d95d543b21"
+ 
++SRC_URI += "file://0001-Use-abspath-to-dereference-BUILD_BASE.patch"
++
+ S = "${WORKDIR}/trusted-firmware-a-${PV}"
+diff --git a/recipes-bsp/u-boot/files/macchiatobin-rules b/recipes-bsp/u-boot/files/macchiatobin-rules
 deleted file mode 100644
-index ac20d26..0000000
---- a/recipes-bsp/u-boot/files/0001-Revert-tools-Makefile-fix-HOSTCFLAGS-with-CROSS_BUIL.patch
+index 6bf28b3..0000000
+--- a/recipes-bsp/u-boot/files/macchiatobin-rules
 +++ /dev/null
-@@ -1,31 +0,0 @@
--From 06b5faeb1e6b18c86dc5fcdd1cc764ee49da1fbe Mon Sep 17 00:00:00 2001
--From: Jan Kiszka <jan.kiszka@siemens.com>
--Date: Sun, 25 Aug 2019 13:39:41 +0200
--Subject: [PATCH] Revert "tools/Makefile: fix HOSTCFLAGS with
-- CROSS_BUILD_TOOLS"
+@@ -1,40 +0,0 @@
+-#!/usr/bin/make -f
+-#
+-# Jailhouse, a Linux-based partitioning hypervisor
+-#
+-# Copyright (c) Siemens AG, 2018
+-#
+-# Authors:
+-#  Jan Kiszka <jan.kiszka@siemens.com>
+-#
+-# SPDX-License-Identifier: MIT
+-#
 -
--This reverts commit 72c69ea8d603fd2448dd1d7c399c4f77b77773b7.
+-ifneq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
+-export CROSS_COMPILE=$(DEB_HOST_GNU_TYPE)-
+-SET_CROSS_BUILD_TOOLS=CROSS_BUILD_TOOLS=y
+-endif
 -
--Breaks CROSS_BUILD_TOOLS=y build with CONFIG_FIT and without
--CONFIG_FIT_SIGNATURE.
+-PARALLEL_BUILD=-j $(shell echo $$(($$(nproc) * 2)))
 -
--Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-----
-- tools/Makefile | 1 -
-- 1 file changed, 1 deletion(-)
+-U_BOOT_DIR=$(PWD)
 -
--diff --git a/tools/Makefile b/tools/Makefile
--index 33e90a8025..2717304003 100644
----- a/tools/Makefile
--+++ b/tools/Makefile
--@@ -274,7 +274,6 @@ subdir- += env
-- 
-- ifneq ($(CROSS_BUILD_TOOLS),)
-- override HOSTCC = $(CC)
---override HOSTCFLAGS = $(CFLAGS)
-- 
-- quiet_cmd_crosstools_strip = STRIP   $^
--       cmd_crosstools_strip = $(STRIP) $^; touch $@
---- 
--2.16.4
+-override_dh_auto_build:
+-	$(MAKE) $(PARALLEL_BUILD) $(U_BOOT_CONFIG)
+-	$(MAKE) $(PARALLEL_BUILD) ${U_BOOT_BIN}
+-	$(MAKE) $(PARALLEL_BUILD) $(SET_CROSS_BUILD_TOOLS) NO_SDL=1 tools-only envtools
+-	cd ../arm-trusted-firmware-*; \
+-	$(MAKE) USE_COHERENT_MEM=0 \
+-	        PLAT=a80x0_mcbin \
+-	        MV_DDR_PATH=../mv-ddr-marvell \
+-	        SCP_BL2=../binaries-marvell/mrvl_scp_bl2.img \
+-	        BL33=$(U_BOOT_DIR)/u-boot.bin \
+-	        all fip
 -
-diff --git a/recipes-bsp/u-boot/files/ultra96-rules b/recipes-bsp/u-boot/files/ultra96-rules
-index a21e468..639c9ef 100644
---- a/recipes-bsp/u-boot/files/ultra96-rules
-+++ b/recipes-bsp/u-boot/files/ultra96-rules
-@@ -18,9 +18,6 @@ endif
- PARALLEL_BUILD=-j $(shell echo $$(($$(nproc) * 2)))
- 
- override_dh_auto_build:
--	$(MAKE) $(PARALLEL_BUILD) -C ../arm-trusted-firmware-* \
--	        PLAT=zynqmp RESET_TO_BL31=1 bl31
+-override_dh_auto_install:
+-	mv tools/env/lib.a tools/env/libubootenv.a
 -
- 	echo "CONFIG_BOOTCOMMAND=\"setenv fdtfile xilinx/avnet-ultra96-rev$(ULTRA96_VERSION).dtb; run distro_bootcmd\"" \
- 	    >> configs/${U_BOOT_CONFIG}
- 	echo "CONFIG_WATCHDOG=n" >> configs/${U_BOOT_CONFIG}
-diff --git a/recipes-bsp/u-boot/files/ultra96.bif.tmpl b/recipes-bsp/u-boot/files/ultra96.bif.tmpl
-index e972929..64af516 100644
---- a/recipes-bsp/u-boot/files/ultra96.bif.tmpl
-+++ b/recipes-bsp/u-boot/files/ultra96.bif.tmpl
-@@ -14,6 +14,6 @@ image : {
- 	[pmufw_image] /usr/share/zynqmp-pmufw/executable.elf
- 	[bootloader, destination_cpu=a5x-0] ../ultra96-v${ULTRA96_VERSION}-fsbl.elf
- 	../ultra96-v${ULTRA96_VERSION}.bit
--	[destination_cpu=a5x-0, exception_level=el-3,trustzone] ../arm-trusted-firmware-${ATF_PV}/build/zynqmp/release/bl31/bl31.elf
-+	[destination_cpu=a5x-0, exception_level=el-3,trustzone] /usr/lib/trusted-firmware-a/ultra96/bl31.elf
- 	[destination_cpu=a5x-0, exception_level=el-2] u-boot.elf
- }
-diff --git a/recipes-bsp/u-boot/u-boot-ultra96-v1_2019.10-atf2.2.bb b/recipes-bsp/u-boot/u-boot-ultra96-v1_2020.10.bb
-similarity index 50%
-rename from recipes-bsp/u-boot/u-boot-ultra96-v1_2019.10-atf2.2.bb
-rename to recipes-bsp/u-boot/u-boot-ultra96-v1_2020.10.bb
-index fd593f7..bfee2fe 100644
---- a/recipes-bsp/u-boot/u-boot-ultra96-v1_2019.10-atf2.2.bb
-+++ b/recipes-bsp/u-boot/u-boot-ultra96-v1_2020.10.bb
-@@ -9,34 +9,25 @@
- # SPDX-License-Identifier: MIT
- #
- 
+-override_dh_auto_test:
+-
+-%:
+-	CFLAGS= LDFLAGS= dh $@ --parallel
+diff --git a/recipes-bsp/u-boot/u-boot-macchiatobin_2019.10-atf2.2.bb b/recipes-bsp/u-boot/u-boot-macchiatobin_2019.10-atf2.2.bb
+deleted file mode 100644
+index 20271d1..0000000
+--- a/recipes-bsp/u-boot/u-boot-macchiatobin_2019.10-atf2.2.bb
++++ /dev/null
+@@ -1,43 +0,0 @@
+-#
+-# Jailhouse, a Linux-based partitioning hypervisor
+-#
+-# Copyright (c) Siemens AG, 2018
+-#
+-# Authors:
+-#  Jan Kiszka <jan.kiszka@siemens.com>
+-#
+-# SPDX-License-Identifier: MIT
+-#
+-
 -U_BOOT_PV="${@d.getVar('PV').split('-atf')[0]}"
 -ATF_PV="${@d.getVar('PV').split('-atf')[1]}"
 -
 -require recipes-bsp/u-boot/u-boot-custom.inc
 -require recipes-bsp/arm-trusted-firmware/arm-trusted-firmware_${ATF_PV}.inc
-+require u-boot-${PV}.inc
- 
- ULTRA96_VERSION ?= "1"
- 
- SRC_URI += " \
--    https://ftp.denx.de/pub/u-boot/u-boot-${U_BOOT_PV}.tar.bz2;name=u-boot \
--    file://0001-Revert-tools-Makefile-fix-HOSTCFLAGS-with-CROSS_BUIL.patch \
-     file://ultra96-v${ULTRA96_VERSION}.bit.xz \
-     file://ultra96-v${ULTRA96_VERSION}-fsbl.elf.xz \
-     file://ultra96.bif.tmpl \
-     file://ultra96-rules \
-     "
--SRC_URI[u-boot.sha256sum] = "8d6d6070739522dd236cba7055b8736bfe92b4fac0ea18ad809829ca79667014"
- 
- TEMPLATE_FILES += "ultra96.bif.tmpl"
--TEMPLATE_VARS += "ATF_PV ULTRA96_VERSION"
 -
--DEPENDS += "zynqmp-pmufw"
--BUILD_DEPENDS += ", zynqmp-pmufw:native"
-+TEMPLATE_VARS += "ULTRA96_VERSION"
- 
--U_BOOT_CONFIG="avnet_ultra96_rev1_defconfig"
--U_BOOT_BIN="u-boot.elf"
-+DEPENDS += "zynqmp-pmufw trusted-firmware-a-ultra96"
-+BUILD_DEPENDS += ", zynqmp-pmufw:native, trusted-firmware-a-ultra96"
- 
+-SRC_URI += " \
+-    https://ftp.denx.de/pub/u-boot/u-boot-${U_BOOT_PV}.tar.bz2;name=u-boot \
+-    git://github.com/MarvellEmbeddedProcessors/mv-ddr-marvell;protocol=https;branch=mv_ddr-armada-atf-mainline;rev=${MV_DDR_REV};destsuffix=mv-ddr-marvell \
+-    git://github.com/MarvellEmbeddedProcessors/binaries-marvell;protocol=https;branch=${MV_BIN_BRANCH};rev=${MV_BIN_REV};destsuffix=binaries-marvell \
+-    file://0001-mv_ddr4_training-fix-gcc-warning-about-uninitialized.patch;patchdir=${WORKDIR}/mv-ddr-marvell \
+-    file://macchiatobin-rules \
+-    "
+-SRC_URI[u-boot.sha256sum] = "8d6d6070739522dd236cba7055b8736bfe92b4fac0ea18ad809829ca79667014"
+-
+-BUILD_DEPENDS =. "libssl-dev:native, "
+-
+-MV_DDR_REV="a881467ef0f0185e6570dd0483023fde93cbb5f5"
+-MV_BIN_BRANCH="binaries-marvell-armada-18.12"
+-MV_BIN_REV="c6c529ea3d905a28cc77331964c466c3e2dc852e"
+-
+-U_BOOT_CONFIG="mvebu_mcbin-88f8040_defconfig"
+-U_BOOT_BIN="u-boot.bin"
+-
 -S = "${WORKDIR}/u-boot-${U_BOOT_PV}"
-+U_BOOT_CONFIG = "xilinx_zynqmp_virt_defconfig"
-+U_BOOT_BIN = "u-boot.elf"
- 
- do_prepare_build_append() {
-     cp ${WORKDIR}/ultra96-rules ${S}/debian/rules
-diff --git a/recipes-bsp/u-boot/u-boot-ultra96-v2_2019.10-atf2.2.bb b/recipes-bsp/u-boot/u-boot-ultra96-v2_2019.10-atf2.2.bb
-deleted file mode 120000
-index 69f9e26..0000000
---- a/recipes-bsp/u-boot/u-boot-ultra96-v2_2019.10-atf2.2.bb
-+++ /dev/null
-@@ -1 +0,0 @@
--u-boot-ultra96-v1_2019.10-atf2.2.bb
-\ No newline at end of file
-diff --git a/recipes-bsp/u-boot/u-boot-ultra96-v2_2020.10.bb b/recipes-bsp/u-boot/u-boot-ultra96-v2_2020.10.bb
-new file mode 120000
-index 0000000..32bbb1e
+-
+-do_prepare_build_append() {
+-    cp ${WORKDIR}/macchiatobin-rules ${S}/debian/rules
+-
+-    echo "../arm-trusted-firmware-${ATF_PV}/build/a80x0_mcbin/release/flash-image.bin /usr/lib/u-boot/macchiatobin" > \
+-        ${S}/debian/u-boot-macchiatobin.install
+-}
+diff --git a/recipes-bsp/u-boot/u-boot-macchiatobin_2020.10.bb b/recipes-bsp/u-boot/u-boot-macchiatobin_2020.10.bb
+new file mode 100644
+index 0000000..2bab197
 --- /dev/null
-+++ b/recipes-bsp/u-boot/u-boot-ultra96-v2_2020.10.bb
-@@ -0,0 +1 @@
-+u-boot-ultra96-v1_2020.10.bb
-\ No newline at end of file
++++ b/recipes-bsp/u-boot/u-boot-macchiatobin_2020.10.bb
+@@ -0,0 +1,15 @@
++#
++# Jailhouse, a Linux-based partitioning hypervisor
++#
++# Copyright (c) Siemens AG, 2018-2020
++#
++# Authors:
++#  Jan Kiszka <jan.kiszka@siemens.com>
++#
++# SPDX-License-Identifier: MIT
++#
++
++require u-boot-${PV}.inc
++
++U_BOOT_CONFIG = "mvebu_mcbin-88f8040_defconfig"
++U_BOOT_BIN = "u-boot.bin"
+diff --git a/wic/macchiatobin.wks b/wic/macchiatobin.wks
+index 4cb6aed..ead8b14 100644
+--- a/wic/macchiatobin.wks
++++ b/wic/macchiatobin.wks
+@@ -9,7 +9,7 @@
+ # SPDX-License-Identifier: MIT
+ #
+ 
+-part u-boot --source rawcopy --sourceparams "file=/usr/lib/u-boot/macchiatobin/flash-image.bin" --no-table --align 2048 --size 2M
++part u-boot --source rawcopy --sourceparams "file=/usr/lib/trusted-firmware-a/macchiatobin/flash-image.bin" --no-table --align 2048 --size 2M
+ 
+ part / --source rootfs-u-boot --ondisk mmcblk1 --fstype ext4 --label platform --active --align 1024 --sourceparams "no_initrd=yes"
+ 
 -- 
 2.26.2
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/4678a9cb5720c08dce06b4222c0d51a3aa72ab3d.1601958694.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/24b88ddc6512937868778d74673d95b8e7fcf5ad.1601958694.git.jan.kiszka%40siemens.com.
