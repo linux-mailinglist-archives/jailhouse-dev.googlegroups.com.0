@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBCW2V5WNZMERBGEXYH6AKGQEK3NREJI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCW2V5WNZMERBG4XYH6AKGQEYP2ZNHA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x340.google.com (mail-wm1-x340.google.com [IPv6:2a00:1450:4864:20::340])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A722294F1E
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 21 Oct 2020 16:54:17 +0200 (CEST)
-Received: by mail-wm1-x340.google.com with SMTP id z7sf1719919wmi.3
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 21 Oct 2020 07:54:17 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1603292057; cv=pass;
+Received: from mail-lf1-x13d.google.com (mail-lf1-x13d.google.com [IPv6:2a00:1450:4864:20::13d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0184B294F2A
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 21 Oct 2020 16:54:21 +0200 (CEST)
+Received: by mail-lf1-x13d.google.com with SMTP id 202sf1297891lfh.13
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 21 Oct 2020 07:54:20 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1603292060; cv=pass;
         d=google.com; s=arc-20160816;
-        b=xg3zoQ0p1T0qidTZP5IaWMniHAoLxbG13hhd/jjV1ho4bkAVHNNoU8+CBbklgnKX2i
-         P9Cz1HEcxn4HXIRYG0ftoxvfBDeSz3+1CVve5KwdMOwypgxZANmuxPuKah6kUrHmVp0D
-         EIjb1zc+4p9VNBn8Tk9YbQE3dz7ARURKk5rKZHZ49FeTQ6is8B1egDCOV1kOQiOY8Zg4
-         AsIQLdo9KH4TH2EYm0TOp6x/02bj15rbRgGFPcKt1M/MF1TOj0S6n8ny47s13LA0CGjB
-         9qQ68rl2Ipsww+3UpkpQ1PAhhfqaod6dXTI4/z9eErtTZxPNA1z0tD8fdeiwCSFvkbTt
-         v/JQ==
+        b=Dm/xjl5RD/maV0gT0v88rijl9Gxbtwet5byLYc6vQnjWPSzpzlnP+UWPBmWweth8aw
+         fkoTa6D1axWOau5COWUYp140Y/yR6Kq6M6sVoR6Jr5skskAFSUAAmmtnQ0cccBBve7Q2
+         g9YnNyQByA+Bc9tnBgD2ThYKRM/dbPA9R4h5eJbfVvXqEBnyxcHIf9pOVkmcxY5wGksp
+         7nYMHOIMLY07R5H0TAH+sZKhyosBJRaLjyioj06TCMsm9lGx7vYcNoyOv0ld9V4IHUAf
+         Tc4sNfs0bAQ3plRRvZe5QjHnYDkmvle6qEYoPDhYDxXOoijmwcMjk3mUsGqIJob5j1XZ
+         v3uA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:sender:dkim-signature;
-        bh=u8Q4uoWecH7Uvtqr9z5riPPsuImd7rR+rszNCUqk6gk=;
-        b=ev6gV40kWMzU6seYq2dYT00gAH9K6lZ9jRAFThrXsIN6vE6Q4Mwg7jtc5AMBTFrvMS
-         s1PxzYanbzNtsDqiTthuQUUVkBkW8QHV99WNuV/7gKihEzh4WgOsFQuxccRHmVC+r8CL
-         epW1I3PAQ3asU4Aj8UcX6HdC9WHqhNcvaXIEn9D97zf8oP5Vic7/w1UFk9sCYNNYCpkN
-         vu/2asRtO+VTVqqKN8bcYst/oHrTHBThurXmGbvhF1ChtWg5T2zxMomw0VqzmyG5zzhx
-         s5ZroxejKJfSvrdKVdvIUd9IS0NwamJx9dYFJhlRwfi7c43LGAGlBJCz7SUsxREZVdL6
-         Wt/A==
+        bh=en276OBE8x0p2NjxtY/tlg+8MB7SfxaQPlvgY/O0r7k=;
+        b=tbp8HzlLvj3tlrxmwrbC1qGMOtEdQ2rgSbUKO3FDvJbpAgKWGkjKU2JgWeNOfNSkgu
+         fVRMgxoSggEfwjwYTauslD0bfljzEuT/MBFGoFUE218+lAg7BPEB/KtBlsF6hdUAV97B
+         dj6bHadj0+8XARaajpko6yGuIQHr57HPaXwxpy3yyUA6dtIwKNIHsBzd8zyva5yXyVWk
+         eqGTCFloH7UMt8eoKtXG8ZThkdNCjCWgUrSKWdasQAcwWHvGbGfCAUcc0NXTc9PL0QsM
+         OSeV63nx14AG0RpNXKOpn12hwwAo3+OONj/DqQm//bdyV8I6o+sV6knBDtS3kCMi5+TB
+         Esdw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b="Ew/GcaoM";
-       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
+       dkim=pass header.i=@tum.de header.s=postout header.b=PMeDMGD6;
+       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.138 as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=u8Q4uoWecH7Uvtqr9z5riPPsuImd7rR+rszNCUqk6gk=;
-        b=fA+rluFfmlI4w88lYzUHjCY3t/0Tq/KQ0HyDxOJquDyubfDX3KWY4zZUyQiVAzaTnm
-         2pDSFlNS9bVBRDmJKQxD8KaAP3y+Y11YIsfF29reInSPpUXWMAtVQTO1UhMp88Gn+zqd
-         I3q6ICak++iNIS5MkZU1GdXazT7SQGUrEYsnamxuuNBtWSsB5Lss2ygmhBPws6UEoX05
-         XPKMe88mGE+K/YcY2WDf/Eu5rViFHIo9gZ7NlngO+Z4OGBcfhM7NO8WPIb84rYJvOREI
-         GVot2sRWGinJKL0M477Di7TXor6c3RPkfGaZn+HDObk2eXBlcwdXTt2N6kkgirLYcplc
-         9ZMQ==
+        bh=en276OBE8x0p2NjxtY/tlg+8MB7SfxaQPlvgY/O0r7k=;
+        b=HD+U2zhkm8ImxGm34nlfLFEdr3I1fQ8XbzfVzE+3FqEOLBiw3AxQxpSJdiQH7pfaQt
+         E3FOa8XZtj4k/TtgWNFwb/OJqagI/l1rTFIE5+fI0WNeG8+xAdMAu2MNCALGtpE6OtVe
+         C1niKCceiZU3jVtC5iPELa9W3aSY9Wvo1heRvrkLdaKPQBo+LzkAOdZps/Fvi/Ydqdc2
+         718yT2SfTVUoB7A1kOmvW5S2JNEglB//wGZWsF9AjX/J2VYXbUigO9SXt0Ska8PaGvY1
+         /uZlcGGtOJ0E4bCuKrk/DPiuuCRfH3GVtXdZP2ofAoDEy7chr/dkuSEEB8MtQji30q5H
+         wHnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:subject:date:message-id
@@ -49,54 +49,54 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=u8Q4uoWecH7Uvtqr9z5riPPsuImd7rR+rszNCUqk6gk=;
-        b=RZQsii9/TA/XrIpqX/a5NNop6Sv9xtH14H+Nvzd2RPCvy0KZtUWzPrkK0P1bb93m/7
-         EScrJ3YvEuiciRTXa5tnawa2P7gEOtsQfskHGOZK9ZkBu5OUY4JZEjdSit7bjcPhXmCK
-         0itbEYC29+6WOBWmuEyFsLFWK2GUTkGE4yCi+esZhj3GklrTfEJOGhsW+3C6xiXEYnVl
-         IoOBf6rHMAwOGfqbGulc/9Un0AVHaEngd6T57dCleXlB8vpZ3YWr1hY92UEgnkQJ1wXo
-         hgAxcM9irA2pnUi55cAb7XX7iT4/8gLb8xq5DOyk5O/XtWmbmtYMWfGTf3j0Sr9ZdbTD
-         ETGQ==
+        bh=en276OBE8x0p2NjxtY/tlg+8MB7SfxaQPlvgY/O0r7k=;
+        b=H8C3FTm9nTxuxp8y7kqfgamO0UZlNAOHFm5uEWhmdq/NOggaouTmbHQ/gnN2SItggL
+         gEXOIOLV8pKPHGGTFWawYp2ApiBXXHWMVNLEDFTQc7j0FNaW8jmJbG7squnHIFpVHqtW
+         mZUedHndyNX1D1PkA7MIOzq2r0H6ahOiktiYFAzRMcWG4C8ZCH9Z/7kfZVmGaMWSzQN1
+         j2ST/4MMu5vHk0ub3EIE+WDL7x4ucGgFOuc/KhAKrJx7T2YPktC9lR3+hxUTLoHeJRzS
+         sb21wKXf7FWyEfSyaci9WD35P3NUoCRMPOBB1OXejMRf5wx/zOOLKL7lx5zTsdg0jSGq
+         UHWg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531iW4xh0DvkV3xqCQxFuOnxJCBfR6AXG28wGjEmGRMkqDaapQCm
-	qjaHCU5it0yNHR1lu0crX3c=
-X-Google-Smtp-Source: ABdhPJwQ+IA4oG9P/Ytbzg1tAAYHGzA+5AKSsZwZ3ZRK6JSRMyT/Pei/o7StLJDlJZ9zH2KVL4eYmQ==
-X-Received: by 2002:adf:e88a:: with SMTP id d10mr5512785wrm.247.1603292057169;
-        Wed, 21 Oct 2020 07:54:17 -0700 (PDT)
+X-Gm-Message-State: AOAM531EgNxVZ1K/DoowYDLzOaV5+opM4AJYDWWW3Ax0wTyw0cLby36/
+	me6tQNWVQmR1QstooKYZtG8=
+X-Google-Smtp-Source: ABdhPJzCHuI8DGd+kgMTe/b6Oq0tWdTIOdmT+f1UuZAsUvJUiJHg+aNvdM2nTNt2aetxPR6kWEe24Q==
+X-Received: by 2002:a05:651c:1291:: with SMTP id 17mr1514679ljc.52.1603292059533;
+        Wed, 21 Oct 2020 07:54:19 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:7d02:: with SMTP id y2ls114001wmc.2.canary-gmail; Wed,
- 21 Oct 2020 07:54:16 -0700 (PDT)
-X-Received: by 2002:a1c:32c6:: with SMTP id y189mr4168078wmy.51.1603292056223;
+Received: by 2002:a2e:594:: with SMTP id 142ls1078331ljf.9.gmail; Wed, 21 Oct
+ 2020 07:54:16 -0700 (PDT)
+X-Received: by 2002:a2e:b60e:: with SMTP id r14mr1658174ljn.77.1603292056909;
         Wed, 21 Oct 2020 07:54:16 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; t=1603292056; cv=none;
         d=google.com; s=arc-20160816;
-        b=a9iwc8nHw5ZOV26ywjk9vsnAJV0vinBMT+m4wgenQQEqU8pQgrJtro7HLTGFsXBXTu
-         eBWkAu6vt2lmI+s0c2ZSCuBWGpBQi922GO4zLhMgRn9nG1PuARMKWLfip2en+XTROk4E
-         5HcJR7hFbNJ0b8a7RRrwPH+AQykV6Jz7M6LXSghd0b3zJ8IDnOLX8jgorJVb9uNQbz1h
-         JpdQPmPH76icNusRAv4k7WDpnx0tsjU0TXKRUdTpYUf+q9j7MJ5+H2p42CBTQpJjoDhH
-         r/+vzrJnx6tiVehm1Ijcw9hn4yaSXwpoJrnhGqx1bcEyS6eeTYzTjhbFM/9l8+Kw4k2l
-         q/OQ==
+        b=h4TYVPAPAU+XDj3mKbOQIrg/2TKFGoWdaxrh0xM92Xm+9IKZEJe1fg3XNUMUm/4oG1
+         474jRHvDLd/2lMeYg5ePiP5LfiQNZ5V4qTyZlXpJTnDhzg7ZT+cES7oIIkGS7PEZ3gcU
+         nQlkAtlKM+tUnqaevkmqiR3RXBoDkXm6i0kyQbdS2YuYvScJokYZBrRCUGgTZ6HStVlK
+         odKSZaMD6cUwJfsMNgpwTNR4mFYIrVgNEbt+E912lmX0V/Np75HbOwlx/rwhKXuXOT21
+         xukz+qfbREEz+wDUkL7ZZzIJyIJOk/fFkC2aKLTJoJbW4Dfs9KKlrqkxtgVHnsiifqUD
+         HykA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:dkim-signature;
-        bh=YksJdokMvH9WLGvjiM5u4m+zKn/0MS6cPoKgrtPfn/o=;
-        b=J/hFBThlpocKxqVIYmdCuOcOx0Fycagq8nnS27kZ+5z48Ywmd/IW4U+Xnt5Jg6s7O9
-         sHxX50OLeq1MRBgjHPF/s1Q7IZ2p+Tw/hDzqMfw2Frrdy2/qT84d/v2JpQXcCv7GFG0l
-         niFOihzqOKmk+mb6JJV1qRHKmzFZhJymM0VU9VH6Z5p/f2wlB5G4ZPLAATR+XF0sfYgr
-         0V8XTY4uDbgbxTnKvi18PsZD38w6Yf086Nio7hmi+iVTnvFJWvDjlOsC5DSzz4eyOdQ7
-         5eMtoSyBqKudVTwPbklOVOzrTRvyDdqXGXMGZmVKr07XGrn6yHiy9rV6e0CBLcQ6ygY5
-         kwZQ==
+        bh=y/02nzAtYzzlM2Mb9fDEFvxzHs0vZsxRJYjNcCAN9pE=;
+        b=ZdMQpcX+yAub1eS5BRL4j/XUQCHtJgIpUoFCrVXgDKDuJbje2xlKqknxOXecoOBCJ/
+         0spmAoVb8NgJ9NvZvPAuXzxzMgJ5AArF0On/+AbM/iVyaPhL/kUNceCd/yzcyTWt38lA
+         ugjk2N9KjmzlXm9qrOXlEVZrKiLPmwSV1L2Uam0aVi51e1ndHegr10LN+MS+XDqh2Gi6
+         a0jRsKijHVvVRpGMyOCkbc4Qa+2Gw7L5YMmgcaA3j+kp3+jeiFOnyMgxqJ8bXCClOFZm
+         aTvS4/1Zx1viQ5u8nYewWRBwaBKeGC1LJwh8nnl9fxW6Fm2jd/D4B9k9SZvP3CvjmDC1
+         G+Fw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b="Ew/GcaoM";
-       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
+       dkim=pass header.i=@tum.de header.s=postout header.b=PMeDMGD6;
+       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.138 as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
-Received: from postout2.mail.lrz.de (postout2.mail.lrz.de. [2001:4ca0:0:103::81bb:ff8a])
-        by gmr-mx.google.com with ESMTPS id w62si35317wma.1.2020.10.21.07.54.16
+Received: from postout2.mail.lrz.de (postout2.mail.lrz.de. [129.187.255.138])
+        by gmr-mx.google.com with ESMTPS id h4si73788ljl.1.2020.10.21.07.54.16
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
         Wed, 21 Oct 2020 07:54:16 -0700 (PDT)
-Received-SPF: pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) client-ip=2001:4ca0:0:103::81bb:ff8a;
+Received-SPF: pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.138 as permitted sender) client-ip=129.187.255.138;
 Received: from lxmhs52.srv.lrz.de (localhost [127.0.0.1])
-	by postout2.mail.lrz.de (Postfix) with ESMTP id 4CGYRX0J7jzyWw
+	by postout2.mail.lrz.de (Postfix) with ESMTP id 4CGYRX33nVzyX2
 	for <jailhouse-dev@googlegroups.com>; Wed, 21 Oct 2020 16:54:16 +0200 (CEST)
 X-Virus-Scanned: by amavisd-new at lrz.de in lxmhs52.srv.lrz.de
 X-Spam-Flag: NO
@@ -118,27 +118,27 @@ X-Spam-Status: No, score=-2.877 tagged_above=-999 required=5
 	LRZ_TO_SHORT=0.001] autolearn=no autolearn_force=no
 Received: from postout2.mail.lrz.de ([127.0.0.1])
 	by lxmhs52.srv.lrz.de (lxmhs52.srv.lrz.de [127.0.0.1]) (amavisd-new, port 20024)
-	with LMTP id U2CKufxt1x9l for <jailhouse-dev@googlegroups.com>;
-	Wed, 21 Oct 2020 16:54:15 +0200 (CEST)
+	with LMTP id pnMmiYx9_lU0 for <jailhouse-dev@googlegroups.com>;
+	Wed, 21 Oct 2020 16:54:16 +0200 (CEST)
 Received: from kabal.tum.de (unknown [IPv6:2001:4ca0:2fff:11::2aa])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(Client did not present a certificate)
-	by postout2.mail.lrz.de (Postfix) with ESMTPSA id 4CGYRW3sCKzyVy
+	by postout2.mail.lrz.de (Postfix) with ESMTPSA id 4CGYRW5ldbzyWy
 	for <jailhouse-dev@googlegroups.com>; Wed, 21 Oct 2020 16:54:15 +0200 (CEST)
 From: Andrea Bastoni <andrea.bastoni@tum.de>
 To: jailhouse-dev@googlegroups.com
-Subject: [PATCH 08/26] hypervisor, arm-common: provide an explicit uint INVALID_CPU_ID
-Date: Wed, 21 Oct 2020 16:53:46 +0200
-Message-Id: <20201021145404.100463-9-andrea.bastoni@tum.de>
+Subject: [PATCH 09/26] hypervisor, arm-common, arm64: keep compiler happy about unused parameters.
+Date: Wed, 21 Oct 2020 16:53:47 +0200
+Message-Id: <20201021145404.100463-10-andrea.bastoni@tum.de>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201021145404.100463-1-andrea.bastoni@tum.de>
 References: <20201021145404.100463-1-andrea.bastoni@tum.de>
 MIME-Version: 1.0
 X-Original-Sender: andrea.bastoni@tum.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@tum.de header.s=postout header.b="Ew/GcaoM";       spf=pass
- (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a
- as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;       dmarc=pass
+ header.i=@tum.de header.s=postout header.b=PMeDMGD6;       spf=pass
+ (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.138 as
+ permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=tum.de
 Content-Type: text/plain; charset="UTF-8"
 Precedence: list
@@ -153,132 +153,190 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Substitute the implicit "-1" occurrence for an invalid CPU id with an
-unsigned int INVALID_CPU_ID that can be used in all "uint-related"
-comparisons.
-
-Fix prototypes, and unused param warnings in the same files.
-
 Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
 ---
- hypervisor/arch/arm-common/lib.c       | 2 +-
- hypervisor/arch/arm-common/psci.c      | 4 ++--
- hypervisor/control.c                   | 4 +++-
- hypervisor/include/jailhouse/control.h | 5 +++--
- hypervisor/setup.c                     | 4 ++--
- 5 files changed, 11 insertions(+), 8 deletions(-)
+ hypervisor/arch/arm-common/paging.c          | 2 ++
+ hypervisor/arch/arm-common/uart-imx-lpuart.c | 1 +
+ hypervisor/arch/arm-common/uart-imx.c        | 1 +
+ hypervisor/arch/arm-common/uart-mvebu.c      | 1 +
+ hypervisor/arch/arm-common/uart-xuartps.c    | 1 +
+ hypervisor/arch/arm64/mmio.c                 | 2 ++
+ hypervisor/arch/arm64/traps.c                | 1 +
+ hypervisor/include/jailhouse/unit.h          | 2 +-
+ hypervisor/paging.c                          | 4 ++++
+ hypervisor/pci.c                             | 6 ++++++
+ hypervisor/printk.c                          | 2 +-
+ 11 files changed, 21 insertions(+), 2 deletions(-)
 
-diff --git a/hypervisor/arch/arm-common/lib.c b/hypervisor/arch/arm-common/lib.c
-index 916cd54f..889b3d14 100644
---- a/hypervisor/arch/arm-common/lib.c
-+++ b/hypervisor/arch/arm-common/lib.c
-@@ -31,5 +31,5 @@ unsigned int arm_cpu_by_mpidr(struct cell *cell, unsigned long mpidr)
- 		if (mpidr == (public_per_cpu(cpu)->mpidr & MPIDR_CPUID_MASK))
- 			return cpu;
- 
--	return -1;
-+	return INVALID_CPU_ID;
- }
-diff --git a/hypervisor/arch/arm-common/psci.c b/hypervisor/arch/arm-common/psci.c
-index 6a9abf60..242cad5b 100644
---- a/hypervisor/arch/arm-common/psci.c
-+++ b/hypervisor/arch/arm-common/psci.c
-@@ -27,7 +27,7 @@ static long psci_emulate_cpu_on(struct trap_context *ctx)
- 	long result;
- 
- 	cpu = arm_cpu_by_mpidr(this_cell(), ctx->regs[1] & mask);
--	if (cpu == -1)
-+	if (cpu == INVALID_CPU_ID)
- 		/* Virtual id not in set */
- 		return PSCI_DENIED;
- 
-@@ -63,7 +63,7 @@ static long psci_emulate_affinity_info(struct trap_context *ctx)
+diff --git a/hypervisor/arch/arm-common/paging.c b/hypervisor/arch/arm-common/paging.c
+index 54b86e7d..b05ca508 100644
+--- a/hypervisor/arch/arm-common/paging.c
++++ b/hypervisor/arch/arm-common/paging.c
+@@ -17,6 +17,8 @@ unsigned int cpu_parange = 0;
+ static bool arm_entry_valid( pt_entry_t entry, unsigned long flags)
  {
- 	unsigned int cpu = arm_cpu_by_mpidr(this_cell(), ctx->regs[1]);
- 
--	if (cpu == -1)
-+	if (cpu == INVALID_CPU_ID)
- 		/* Virtual id not in set */
- 		return PSCI_DENIED;
- 
-diff --git a/hypervisor/control.c b/hypervisor/control.c
-index b38ac2e9..81b7614f 100644
---- a/hypervisor/control.c
-+++ b/hypervisor/control.c
-@@ -48,7 +48,7 @@ unsigned long panic_cpu = -1;
-  * @note For internal use only. Use for_each_cpu() or for_each_cpu_except()
-  * instead.
-  */
--unsigned int next_cpu(unsigned int cpu, struct cpu_set *cpu_set, int exception)
-+unsigned int next_cpu(unsigned int cpu, struct cpu_set *cpu_set, unsigned int exception)
- {
- 	do
- 		cpu++;
-@@ -884,6 +884,8 @@ static int hypervisor_disable(struct per_cpu *cpu_data)
- 
- static long hypervisor_get_info(struct per_cpu *cpu_data, unsigned long type)
- {
-+	(void)cpu_data;
+ 	// FIXME: validate flags!
++	(void)flags;
 +
- 	switch (type) {
- 	case JAILHOUSE_INFO_MEM_POOL_SIZE:
- 		return mem_pool.pages;
-diff --git a/hypervisor/include/jailhouse/control.h b/hypervisor/include/jailhouse/control.h
-index 9b94f563..32a1ca2e 100644
---- a/hypervisor/include/jailhouse/control.h
-+++ b/hypervisor/include/jailhouse/control.h
-@@ -17,6 +17,7 @@
+ 	return *entry & 1;
+ }
  
- #define SHUTDOWN_NONE			0
- #define SHUTDOWN_STARTED		1
-+#define INVALID_CPU_ID			~(0U)
+diff --git a/hypervisor/arch/arm-common/uart-imx-lpuart.c b/hypervisor/arch/arm-common/uart-imx-lpuart.c
+index 29943de7..fdab7bd4 100644
+--- a/hypervisor/arch/arm-common/uart-imx-lpuart.c
++++ b/hypervisor/arch/arm-common/uart-imx-lpuart.c
+@@ -19,6 +19,7 @@
  
- extern volatile unsigned long panic_in_progress;
- extern unsigned long panic_cpu;
-@@ -34,7 +35,7 @@ extern unsigned long panic_cpu;
- extern struct jailhouse_system *system_config;
+ static void uart_init(struct uart_chip *chip)
+ {
++	(void)chip;
+ }
  
- unsigned int next_cpu(unsigned int cpu, struct cpu_set *cpu_set,
--		      int exception);
-+		      unsigned int exception);
+ static bool uart_is_busy(struct uart_chip *chip)
+diff --git a/hypervisor/arch/arm-common/uart-imx.c b/hypervisor/arch/arm-common/uart-imx.c
+index 849f8fca..18d16817 100644
+--- a/hypervisor/arch/arm-common/uart-imx.c
++++ b/hypervisor/arch/arm-common/uart-imx.c
+@@ -20,6 +20,7 @@
+ static void uart_init(struct uart_chip *chip)
+ {
+ 	/* Initialization currently done by Linux */
++	(void)chip;
+ }
  
- /**
-  * Get the first CPU in a given set.
-@@ -42,7 +43,7 @@ unsigned int next_cpu(unsigned int cpu, struct cpu_set *cpu_set,
-  *
-  * @return First CPU in set, or max_cpu_id + 1 if the set is empty.
+ static bool uart_is_busy(struct uart_chip *chip)
+diff --git a/hypervisor/arch/arm-common/uart-mvebu.c b/hypervisor/arch/arm-common/uart-mvebu.c
+index 9602ea2c..9f520e76 100644
+--- a/hypervisor/arch/arm-common/uart-mvebu.c
++++ b/hypervisor/arch/arm-common/uart-mvebu.c
+@@ -19,6 +19,7 @@
+ 
+ static void uart_init(struct uart_chip *chip)
+ {
++	(void)chip;
+ }
+ 
+ static bool uart_is_busy(struct uart_chip *chip)
+diff --git a/hypervisor/arch/arm-common/uart-xuartps.c b/hypervisor/arch/arm-common/uart-xuartps.c
+index 66c55472..84d900b1 100644
+--- a/hypervisor/arch/arm-common/uart-xuartps.c
++++ b/hypervisor/arch/arm-common/uart-xuartps.c
+@@ -19,6 +19,7 @@
+ 
+ static void uart_init(struct uart_chip *chip)
+ {
++	(void)chip;
+ }
+ 
+ static bool uart_is_busy(struct uart_chip *chip)
+diff --git a/hypervisor/arch/arm64/mmio.c b/hypervisor/arch/arm64/mmio.c
+index 7fbfef75..2f9bdd80 100644
+--- a/hypervisor/arch/arm64/mmio.c
++++ b/hypervisor/arch/arm64/mmio.c
+@@ -35,6 +35,8 @@ static inline unsigned long sign_extend(unsigned long val, unsigned int size)
+ 
+ static void arch_inject_dabt(struct trap_context *ctx, unsigned long addr)
+ {
++	(void)ctx;
++	(void)addr;
+ 	int err __attribute__((unused)) = trace_error(-EINVAL);
+ 	while (1);
+ }
+diff --git a/hypervisor/arch/arm64/traps.c b/hypervisor/arch/arm64/traps.c
+index 26a58f4d..b2c21e7c 100644
+--- a/hypervisor/arch/arm64/traps.c
++++ b/hypervisor/arch/arm64/traps.c
+@@ -72,6 +72,7 @@ static enum trap_return handle_sysreg(struct trap_context *ctx)
+ static enum trap_return handle_iabt(struct trap_context *ctx)
+ {
+ 	unsigned long hpfar, hdfar;
++	(void)ctx;
+ 
+ 	arm_read_sysreg(HPFAR_EL2, hpfar);
+ 	arm_read_sysreg(FAR_EL2, hdfar);
+diff --git a/hypervisor/include/jailhouse/unit.h b/hypervisor/include/jailhouse/unit.h
+index 40e1cbfe..39dfc056 100644
+--- a/hypervisor/include/jailhouse/unit.h
++++ b/hypervisor/include/jailhouse/unit.h
+@@ -38,7 +38,7 @@ struct unit {
+ 	static void __name##_shutdown(void) { }
+ 
+ #define DEFINE_UNIT_MMIO_COUNT_REGIONS_STUB(__name)			\
+-	static unsigned int __name##_mmio_count_regions(struct cell *cell) \
++	static unsigned int __name##_mmio_count_regions(struct cell *cell __attribute__((unused))) \
+ 	{ return 0; }
+ 
+ extern struct unit __unit_array_start[0], __unit_array_end[0];
+diff --git a/hypervisor/paging.c b/hypervisor/paging.c
+index 93622d9e..1f1d8e10 100644
+--- a/hypervisor/paging.c
++++ b/hypervisor/paging.c
+@@ -56,6 +56,8 @@ struct paging_structures parking_pt;
   */
--#define first_cpu(set)		next_cpu(-1, (set), -1)
-+#define first_cpu(set)		next_cpu(INVALID_CPU_ID, (set), INVALID_CPU_ID)
+ unsigned long paging_get_phys_invalid(pt_entry_t pte, unsigned long virt)
+ {
++	(void)pte;
++	(void)virt;
+ 	return INVALID_PHYS_ADDR;
+ }
  
- /**
-  * Loop-generating macro for iterating over all CPUs in a set.
-diff --git a/hypervisor/setup.c b/hypervisor/setup.c
-index 5db00051..c15d789f 100644
---- a/hypervisor/setup.c
-+++ b/hypervisor/setup.c
-@@ -26,7 +26,7 @@
- static const __attribute__((aligned(PAGE_SIZE))) u8 empty_page[PAGE_SIZE];
+@@ -508,6 +510,8 @@ void *paging_map_device(unsigned long phys, unsigned long size)
+  */
+ void paging_unmap_device(unsigned long phys, void *virt, unsigned long size)
+ {
++	(void)phys;
++
+ 	/* Cannot fail if paired with paging_map_device. */
+ 	paging_destroy(&hv_paging_structs, (unsigned long)virt, size,
+ 		       PAGING_NON_COHERENT);
+diff --git a/hypervisor/pci.c b/hypervisor/pci.c
+index 9274a0b1..553c8588 100644
+--- a/hypervisor/pci.c
++++ b/hypervisor/pci.c
+@@ -205,6 +205,8 @@ pci_find_capability(struct pci_device *device, u16 address)
+ enum pci_access pci_cfg_read_moderate(struct pci_device *device, u16 address,
+ 				      unsigned int size, u32 *value)
+ {
++	(void)size;
++
+ 	const struct jailhouse_pci_capability *cap;
+ 	unsigned int bar_no, cap_offs;
  
- static spinlock_t init_lock;
--static unsigned int master_cpu_id = -1;
-+static unsigned int master_cpu_id = INVALID_CPU_ID;
- static volatile unsigned int entered_cpus, initialized_cpus;
- static volatile int error;
+@@ -253,6 +255,8 @@ enum pci_access pci_cfg_read_moderate(struct pci_device *device, u16 address,
+ static int pci_update_msix(struct pci_device *device,
+ 			   const struct jailhouse_pci_capability *cap)
+ {
++	(void)cap;
++
+ 	unsigned int n;
+ 	int result;
  
-@@ -223,7 +223,7 @@ int entry(unsigned int cpu_id, struct per_cpu *cpu_data)
+@@ -404,6 +408,8 @@ invalid_access:
+ static enum mmio_result pci_mmconfig_access_handler(void *arg,
+ 						    struct mmio_access *mmio)
+ {
++	(void)arg;
++
+ 	u32 reg_addr = mmio->address & 0xfff;
+ 	u16 bdf = mmio->address >> 12;
+ 	struct pci_device *device;
+diff --git a/hypervisor/printk.c b/hypervisor/printk.c
+index c9e22b29..64207591 100644
+--- a/hypervisor/printk.c
++++ b/hypervisor/printk.c
+@@ -46,7 +46,7 @@ static void console_write(const char *msg)
+ 	console.busy = false;
+ }
  
- 	spin_lock(&init_lock);
+-static void dbg_write_stub(const char *msg)
++static void dbg_write_stub(const char *msg __attribute__((unused)))
+ {
+ }
  
--	if (master_cpu_id == -1) {
-+	if (master_cpu_id == INVALID_CPU_ID) {
- 		/* Only the master CPU, the first to enter this
- 		 * function, performs system-wide initializations. */
- 		master = true;
 -- 
 2.28.0
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20201021145404.100463-9-andrea.bastoni%40tum.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20201021145404.100463-10-andrea.bastoni%40tum.de.
