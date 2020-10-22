@@ -1,33 +1,33 @@
 Return-Path: <jailhouse-dev+bncBCW2V5WNZMERBT4QY76AKGQEBXPVRNQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33b.google.com (mail-wm1-x33b.google.com [IPv6:2a00:1450:4864:20::33b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 920CF296438
+Received: from mail-wr1-x43a.google.com (mail-wr1-x43a.google.com [IPv6:2a00:1450:4864:20::43a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 93A56296439
 	for <lists+jailhouse-dev@lfdr.de>; Thu, 22 Oct 2020 19:58:39 +0200 (CEST)
-Received: by mail-wm1-x33b.google.com with SMTP id l23sf641824wmg.6
+Received: by mail-wr1-x43a.google.com with SMTP id 31sf915149wrg.12
         for <lists+jailhouse-dev@lfdr.de>; Thu, 22 Oct 2020 10:58:39 -0700 (PDT)
 ARC-Seal: i=2; a=rsa-sha256; t=1603389519; cv=pass;
         d=google.com; s=arc-20160816;
-        b=ximUpUu/VrGvL7dvUX9jOIpvLyJQbwoy/q2dtRJI6BFD6xH8y9bgY3HZMhfpXQouM6
-         WzBsgD8Vjf9k1658GWd6Uj7ytmqm0StY3E/JurPJCwD53HYwOBmJB2WJ3rxOyPRtzbka
-         0UJCUk2059CM9VP8qsFaMwuZxnspj5JjxdgZOXg4afdnGsdFa9tdxj1+XqEshURCe3+O
-         KJVZmhgBzuIYiI7q8woHeNKhn75rOHZYGUBmDJoSfA0RAg7BegRjlXOwinSg56jygek5
-         K22rqOXgLHsNvu/9Iqfc6VGZxd556CXz+yBKIW4v9Gs1+joQfvq5c85StTbUE5KJ+Jzg
-         lY5g==
+        b=gs4udkHJJ9zHL+rc87dyUIOQqMYghcxJq8pFejBrAZL/gHAEKU8JB4bzUsY4bl56Q0
+         OdhrWyUEz9lFLqrM4rqXkVCdsR3X4u4c+jpzggQ4YG6J0EMGzZCt2v1kl9LqETZ6RrEN
+         vfpSI5ecKNfdKx6FUHT38+lP9NxjJMKEgJhVxcU4jlb3F+/LMkeX1iGzV80GciJiFERc
+         ty3xomDJN0XkW1onEx7Y0mjziuoj1chPa/xRfokEVHnCMbfxdsdtYFuyu0KZb7n9kvzV
+         GWrD1p/DNpsfNug0Ahv/ZVIdr8ClU2Z3PW34cWik2Q+Mecs/DrFHPumv3NSrTCQI7kSp
+         R+kg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:sender:dkim-signature;
-        bh=g42HBNIazKhUL7bTqFwaDIhdTE0+dkfpAXYWjjHAMlk=;
-        b=LHPOpGhV9/IbardAUzHnfNx7NJ4g+OawdQQY628T8y6Mmredm/56qzaSyh/nRg0OGM
-         JpsqPXLekN5N+vNR1GkxZfMTT14cBOaTK4TLRBxfT5SldM2sW0ZLmdFsukefr8QXO2pZ
-         Ke8eRAbLQ8mHAvMFSG4jcDy01m8VD5NM5OFmUE+Q3p9purfmMgLmH1oC3WyTKrT6YZ0C
-         IjGDn4qHY78pWTalVCLm1WDy8ztOPfEBXGspxQ95Bmk7voNvWWttcEVNDHUnZVJEXy9F
-         rWmRw5WJg8kC6TsEzkGu3RjlgZ3oJRPZQQ/DNLbK/n5+G5Ri8R1ekAtgW4TSxkzGJPlO
-         RovQ==
+        bh=UhkdChwB9ZVKUqMaKsE7KRJqIciVxfCzK1mEdsEj1AQ=;
+        b=aFdIb7jbrNncolTrRNJbOvDtPlN6/wIMxWzs91N2cpVOqLxAOmtphfW0GZWTdqAjoJ
+         2FGOdQPRgrJsR4dhDIbozxohiwvuIw+AkfLOQ1bSooc3ojpzFJ/dUP++5QTQregLYfQt
+         umiw25WvcljaXggNzddGTFGvvfxZQ0CC2ltzpP7gr0VT85q6tUrZk0BpEqhn1M1PaoGh
+         50yTM9BsbdfAZKWyi2mrHE/ylJpoFZw25VMRmwhsdItGz0c3+Vdf5LTzJG+lanCNNx/o
+         NBBe8yAo/Nz0wmMK01+7ns6PU2vQV3ulfv/LWsZ73XtdByt8ceEuIBbDjm3B9v4f90in
+         LEoA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b=ljoD9nrH;
-       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff89 as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
+       dkim=pass header.i=@tum.de header.s=postout header.b="SeP/qwOu";
+       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.137 as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=g42HBNIazKhUL7bTqFwaDIhdTE0+dkfpAXYWjjHAMlk=;
-        b=TPErm1NEKd7VsvjJsKt0SnIK5clWEbaR2XVkRYVeiW83P9o7A6p5Y2rV+TZFDiNUIZ
-         iqSbsh3ddstcOIz1Cj2/R5yFuWpMWSutsWp6LJ4FXFM5RqIuog+oz2/t5v5eokB00KOC
-         HQNDFz8X/tr2LyjVEtTX0clDtg7FEOVFlU62buB82eQ7lUf2KWMlAG5xk5rvxg9SrzTZ
-         vx2YMFt0BntipIj33Xp4aHgyy0qcnjnwmUXNYtuyZ7J2So1vubq9mDDAmaNmYXtom3x/
-         QxcTLpfccJj1XdTQsSikozKi6OpMainDxB/YTaAtPeOGsZEXnkoo7AXC+NJEwwvHHdMF
-         jWPw==
+        bh=UhkdChwB9ZVKUqMaKsE7KRJqIciVxfCzK1mEdsEj1AQ=;
+        b=tAPbBecLHhGgGP0h1Ya+X8jAuI69NYiaPtyD+CmYfaoZlILQKqIOsmxoH8okkdJbpU
+         95UIvRiOBHH8Tdc0IyRmoEVCEQe7pueBogwXnwUMg+BdsEPmg/ddu6HiT7NFeEEDDGwn
+         S73tSrpIoH8i1Gjnp3FlZGLy4nvrlv0kC7XLAuY72sXe55JixAeQMzQ1PgX7TTdqTtKx
+         LL2b7tJtXOkYJR4mjop7HV9l+mjG4r3Ooe3lsqsgT4OalCrGaMv8vWhLHVFpvC8ShqjP
+         TtA9awaGiJ/F4sHrMT3b8C5WNJhCiGxTsUpSleW34YCYbl5A11RJ3AQPCfWM5Kp0ZpOm
+         6c6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:subject:date:message-id
@@ -49,54 +49,54 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=g42HBNIazKhUL7bTqFwaDIhdTE0+dkfpAXYWjjHAMlk=;
-        b=YFq+LhBZ/DQlWfomK7/oTetX4PEl/uGbWgu2oraPR1SCNoe9X9M06huVkjLbXXDJP8
-         rXdwvUPyhMx2J//Medu+ANMXOM0Phdfc807RK0V+JBufJsDrco/Jm7IFIoSOsDEluU8N
-         Z/jmlH9thf0nLiWsygkQ6ys6L4jIMNwMs9DzXO3UphheAW2Wrzyo4MFVMoNvhsUPhnKr
-         ze+diwqp1sAEv+R/hlcltXFf5MlgUeKSpz3EHOxP8Pj/pSxh/YLIpxqSbnTlwfd1GbYa
-         XbnA49+S8PsmopcRqgxUbNeDP/KKzx7mNRj/O33DurUeXom1jTISCvoTq3XBRoDQ2I/F
-         918Q==
+        bh=UhkdChwB9ZVKUqMaKsE7KRJqIciVxfCzK1mEdsEj1AQ=;
+        b=R8L1eGyDDHJm6a+UKI6nAVma6aXZm3c9bN7lAhGejuQguwiwNVJKLkVb32L8MqJcij
+         voMPbZdp7Giq13AwFC39OqpHaFiObGVBVIPXtUIOmdl33jEY7yLoUZyZ/qnDuhoZA1aJ
+         tF3yZZ8mkj71Q64d/QOLUp1qQePJxK0dmbB3ZiVd+Qi2j076aFGgOEDqQJzF/TTotyxZ
+         qjoIlS9V75WwxdLHZjt5l3eVZHCOosctj48rhyN9YRt1Hz6LMD8Bmb4SIylMiocNnLI+
+         AcPf5Kbjd/dKVyVGMyiOQjUsBL8f6DmHte/bBbwLYCtXeNer0SHc6uUJDUr6IYAUfTx4
+         R56g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530mG3Wb0WYKVsxeYhXPkKP+5Gn6iRViZkCyrbO0f/E89ghVaRFA
-	D39sXn/4ZlkS+QGRh0gm4HY=
-X-Google-Smtp-Source: ABdhPJxbcBtHS/E9CfZSznB4K4ooO/yhp3y1F5Hb/SPrX1yffPFW1mIAtak2OY+4B//SA713mcQynA==
-X-Received: by 2002:adf:f643:: with SMTP id x3mr4249012wrp.180.1603389519368;
+X-Gm-Message-State: AOAM531ZQVz3MqbMD3/sS/iBFJqqznhlk6ZoCYJoVzq2JftV9pkorM1b
+	gm+NU8Ymxk0FrxYwsa109I0=
+X-Google-Smtp-Source: ABdhPJzbWhmej8St2I+cDHSA4kk94Lck1nlM/D+HA+F6Kk6liXuQWc6PDrl9kSlNvVZa3viYNWe6mQ==
+X-Received: by 2002:a1c:20d0:: with SMTP id g199mr3871615wmg.38.1603389519378;
         Thu, 22 Oct 2020 10:58:39 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:4184:: with SMTP id o126ls198635wma.0.gmail; Thu, 22 Oct
+Received: by 2002:adf:82ab:: with SMTP id 40ls477542wrc.1.gmail; Thu, 22 Oct
  2020 10:58:38 -0700 (PDT)
-X-Received: by 2002:a1c:4306:: with SMTP id q6mr3876110wma.189.1603389518319;
+X-Received: by 2002:adf:9793:: with SMTP id s19mr4085454wrb.139.1603389518461;
         Thu, 22 Oct 2020 10:58:38 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; t=1603389518; cv=none;
         d=google.com; s=arc-20160816;
-        b=sUvvj9UUMsj+uKY6k2ESNpdXwquZeZv4oPSDmd87LM8BWs/1VfqWtlY87PhJkxWDZV
-         p42SAL4Va6Cgw3qNFjKlYzhGWKaoGxhVF3oKeX4gijBD6CT2FOxHyGzucOXit62p9oyU
-         2VJKpPfsX9UFuiJfSJLN3ZGwTYjG94lf7HuXo09Gbtdn0K3GHPCA/E73qyBnULTPYPzX
-         r0V+CPn0hZnc9ogA2g9FBTHD0TpG9zQidcjrM53EittZuEetEhXUmYrcNx0yEj8jXyzg
-         Ng1AxEnEnhtLb6szBUgWHWp3PSVEhpIBOipFVRlzfhLhFLEQPJXr6sjJSuY+GmR5W+LS
-         YqAw==
+        b=b6iC1Wyf2/N+h0w6yzPnPvGW7OueKKbwh+ie9azAxao7jQmILkCa+e9i/uqm7hNBHL
+         0hBGz7CXxuzEf9czGAZdE3YR1w4HmU6jCDVtOKr2jCr1ovk8J/QU3IFGpLBiHVeLDTPY
+         fQ9ir/Bh7QgH+FMi9lW2MhAEh9dz8zBrIsGU9JJ9vDkPF1qQK8nO23rRfoc7HA8v63I8
+         vLCQ4BVe4LMwLNuBaH9gd64aIXh4qysOFI5d1/9feyhsYPRRPqBkgXjLQfI1M5OYBrWz
+         vvuF1apejgZpDm3KUEJxi+dmp1C0n28yJaFD1QKvNuCmb7/ZsycsFDKF8nzjoyPJ+7Sa
+         8lTA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:dkim-signature;
-        bh=gdkZ39xBhBNAqSGezsKs7kbEJDA3dT5WvYdKNJYi/lw=;
-        b=dpyTHJfueEXpi5fkL2Y62Lte2/lDoRENM19VnyZ4DUZswWiC8AYcB4ULBgYpYBY/hy
-         noPqJBAmr8WrJeUT4FHULpXOq7TW2BkUBbqxIYjgjPIYi9QBaaDfKN8HPV7J3pbUUtua
-         EFUHV0OQlcSy3Y9ktjfCcehPqC03ZHPpwQ/p8D9XjvNVtblnco467GR3bcpI6r8rXWs2
-         Y3B/fK2ATAzrakdnCbvb0fQC8CtlEQtoo71c5rl5GnXUuldnvxPElebn+tVWdBN7uoxc
-         hyrPzB1V0YSXKwdrUHS1v/rlj8Hu4DdRBk+expVo1OqGmZXM2vcIgrrGWeK4qcmaeEyy
-         pzKw==
+        bh=9laOJ41OYtWTN1KyM8/ojEWMfHUdCqSm8nEYjXYSjSM=;
+        b=I4Pcx5HwxzuCrPlhHEAi3Bs73kbzmqjIl5c20DXxyrH3uDylpLMju1bFD2kxDQhJY7
+         dH9qs4c/pFoXR6/zukBOsHdueeTpVBacDX40ObaKcHS75u7974YEbRmG42qG01BAf6PI
+         nDyXwyrWoG0/WNQyOUtBM181kDBeA312hiwT0L1s7sa1KOiQoaMy4ulCJhzyAHyPO2Bs
+         3We0jOb7oxbnO92mtkhfdJKsgdf6dKHmbcWxFUjZp0bkhq3+gWHANIPu7Rag0ayhcS2N
+         mLzTvMLcSfdr5g7GQXOQN2kJOYApBAi/uLDZsbbfklYjYRh+MgMQDj9ZnPhNzVwLakFO
+         1tIA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b=ljoD9nrH;
-       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff89 as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
+       dkim=pass header.i=@tum.de header.s=postout header.b="SeP/qwOu";
+       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.137 as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
-Received: from postout1.mail.lrz.de (postout1.mail.lrz.de. [2001:4ca0:0:103::81bb:ff89])
-        by gmr-mx.google.com with ESMTPS id 11si79624wmg.0.2020.10.22.10.58.38
+Received: from postout1.mail.lrz.de (postout1.mail.lrz.de. [129.187.255.137])
+        by gmr-mx.google.com with ESMTPS id f144si51240wmf.0.2020.10.22.10.58.38
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
         Thu, 22 Oct 2020 10:58:38 -0700 (PDT)
-Received-SPF: pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff89 as permitted sender) client-ip=2001:4ca0:0:103::81bb:ff89;
+Received-SPF: pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.137 as permitted sender) client-ip=129.187.255.137;
 Received: from lxmhs51.srv.lrz.de (localhost [127.0.0.1])
-	by postout1.mail.lrz.de (Postfix) with ESMTP id 4CHFTp10ywzyZt
+	by postout1.mail.lrz.de (Postfix) with ESMTP id 4CHFTp22xrzyZp
 	for <jailhouse-dev@googlegroups.com>; Thu, 22 Oct 2020 19:58:38 +0200 (CEST)
 X-Virus-Scanned: by amavisd-new at lrz.de in lxmhs51.srv.lrz.de
 X-Spam-Flag: NO
@@ -118,27 +118,27 @@ X-Spam-Status: No, score=-2.877 tagged_above=-999 required=5
 	LRZ_TO_SHORT=0.001] autolearn=no autolearn_force=no
 Received: from postout1.mail.lrz.de ([127.0.0.1])
 	by lxmhs51.srv.lrz.de (lxmhs51.srv.lrz.de [127.0.0.1]) (amavisd-new, port 20024)
-	with LMTP id 7zQdnccTVdVX for <jailhouse-dev@googlegroups.com>;
-	Thu, 22 Oct 2020 19:58:37 +0200 (CEST)
+	with LMTP id g8NQRxWmuepO for <jailhouse-dev@googlegroups.com>;
+	Thu, 22 Oct 2020 19:58:38 +0200 (CEST)
 Received: from kabal.ads.mwn.de (unknown [10.162.12.242])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(Client did not present a certificate)
-	by postout1.mail.lrz.de (Postfix) with ESMTPSA id 4CHFTn4CXVzyZp
+	by postout1.mail.lrz.de (Postfix) with ESMTPSA id 4CHFTn5ySKzyZr
 	for <jailhouse-dev@googlegroups.com>; Thu, 22 Oct 2020 19:58:37 +0200 (CEST)
 From: Andrea Bastoni <andrea.bastoni@tum.de>
 To: jailhouse-dev@googlegroups.com
-Subject: [PATCH v2 12/33] hypervisor, arm-common: provide an explicit uint INVALID_CPU_ID
-Date: Thu, 22 Oct 2020 19:58:04 +0200
-Message-Id: <20201022175826.199614-13-andrea.bastoni@tum.de>
+Subject: [PATCH v2 13/33] hypervisor: mmio: fix Wsign-compare by casting index to u32.
+Date: Thu, 22 Oct 2020 19:58:05 +0200
+Message-Id: <20201022175826.199614-14-andrea.bastoni@tum.de>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201022175826.199614-1-andrea.bastoni@tum.de>
 References: <20201022175826.199614-1-andrea.bastoni@tum.de>
 MIME-Version: 1.0
 X-Original-Sender: andrea.bastoni@tum.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@tum.de header.s=postout header.b=ljoD9nrH;       spf=pass
- (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff89
- as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;       dmarc=pass
+ header.i=@tum.de header.s=postout header.b="SeP/qwOu";       spf=pass
+ (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.137 as
+ permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=tum.de
 Content-Type: text/plain; charset="UTF-8"
 Precedence: list
@@ -153,121 +153,31 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Substitute the implicit "-1" occurrence for an invalid CPU id with an
-unsigned int INVALID_CPU_ID that can be used in all "uint-related"
-comparisons.
+In the branch, index is 0 or positive, and num_mmio_regions is less than
+max s32.
 
 Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
 ---
- hypervisor/arch/arm-common/lib.c       | 2 +-
- hypervisor/arch/arm-common/psci.c      | 4 ++--
- hypervisor/control.c                   | 2 +-
- hypervisor/include/jailhouse/control.h | 5 +++--
- hypervisor/setup.c                     | 4 ++--
- 5 files changed, 9 insertions(+), 8 deletions(-)
+ hypervisor/mmio.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/hypervisor/arch/arm-common/lib.c b/hypervisor/arch/arm-common/lib.c
-index 916cd54f..889b3d14 100644
---- a/hypervisor/arch/arm-common/lib.c
-+++ b/hypervisor/arch/arm-common/lib.c
-@@ -31,5 +31,5 @@ unsigned int arm_cpu_by_mpidr(struct cell *cell, unsigned long mpidr)
- 		if (mpidr == (public_per_cpu(cpu)->mpidr & MPIDR_CPUID_MASK))
- 			return cpu;
+diff --git a/hypervisor/mmio.c b/hypervisor/mmio.c
+index b7915eae..3747bf6f 100644
+--- a/hypervisor/mmio.c
++++ b/hypervisor/mmio.c
+@@ -209,7 +209,7 @@ void mmio_region_unregister(struct cell *cell, unsigned long start)
+ 		cell->mmio_generation++;
+ 		memory_barrier();
  
--	return -1;
-+	return INVALID_CPU_ID;
- }
-diff --git a/hypervisor/arch/arm-common/psci.c b/hypervisor/arch/arm-common/psci.c
-index 6a9abf60..242cad5b 100644
---- a/hypervisor/arch/arm-common/psci.c
-+++ b/hypervisor/arch/arm-common/psci.c
-@@ -27,7 +27,7 @@ static long psci_emulate_cpu_on(struct trap_context *ctx)
- 	long result;
+-		for (/* empty */; index < cell->num_mmio_regions; index++)
++		for (/* empty */; (u32)index < cell->num_mmio_regions; index++)
+ 			copy_region(cell, index + 1, index);
  
- 	cpu = arm_cpu_by_mpidr(this_cell(), ctx->regs[1] & mask);
--	if (cpu == -1)
-+	if (cpu == INVALID_CPU_ID)
- 		/* Virtual id not in set */
- 		return PSCI_DENIED;
- 
-@@ -63,7 +63,7 @@ static long psci_emulate_affinity_info(struct trap_context *ctx)
- {
- 	unsigned int cpu = arm_cpu_by_mpidr(this_cell(), ctx->regs[1]);
- 
--	if (cpu == -1)
-+	if (cpu == INVALID_CPU_ID)
- 		/* Virtual id not in set */
- 		return PSCI_DENIED;
- 
-diff --git a/hypervisor/control.c b/hypervisor/control.c
-index b38ac2e9..0078ef19 100644
---- a/hypervisor/control.c
-+++ b/hypervisor/control.c
-@@ -48,7 +48,7 @@ unsigned long panic_cpu = -1;
-  * @note For internal use only. Use for_each_cpu() or for_each_cpu_except()
-  * instead.
-  */
--unsigned int next_cpu(unsigned int cpu, struct cpu_set *cpu_set, int exception)
-+unsigned int next_cpu(unsigned int cpu, struct cpu_set *cpu_set, unsigned int exception)
- {
- 	do
- 		cpu++;
-diff --git a/hypervisor/include/jailhouse/control.h b/hypervisor/include/jailhouse/control.h
-index 9b94f563..32a1ca2e 100644
---- a/hypervisor/include/jailhouse/control.h
-+++ b/hypervisor/include/jailhouse/control.h
-@@ -17,6 +17,7 @@
- 
- #define SHUTDOWN_NONE			0
- #define SHUTDOWN_STARTED		1
-+#define INVALID_CPU_ID			~(0U)
- 
- extern volatile unsigned long panic_in_progress;
- extern unsigned long panic_cpu;
-@@ -34,7 +35,7 @@ extern unsigned long panic_cpu;
- extern struct jailhouse_system *system_config;
- 
- unsigned int next_cpu(unsigned int cpu, struct cpu_set *cpu_set,
--		      int exception);
-+		      unsigned int exception);
- 
- /**
-  * Get the first CPU in a given set.
-@@ -42,7 +43,7 @@ unsigned int next_cpu(unsigned int cpu, struct cpu_set *cpu_set,
-  *
-  * @return First CPU in set, or max_cpu_id + 1 if the set is empty.
-  */
--#define first_cpu(set)		next_cpu(-1, (set), -1)
-+#define first_cpu(set)		next_cpu(INVALID_CPU_ID, (set), INVALID_CPU_ID)
- 
- /**
-  * Loop-generating macro for iterating over all CPUs in a set.
-diff --git a/hypervisor/setup.c b/hypervisor/setup.c
-index 6f4e22c5..f0ee0896 100644
---- a/hypervisor/setup.c
-+++ b/hypervisor/setup.c
-@@ -27,7 +27,7 @@ extern u8 __text_start[];
- static const __attribute__((aligned(PAGE_SIZE))) u8 empty_page[PAGE_SIZE];
- 
- static spinlock_t init_lock;
--static unsigned int master_cpu_id = -1;
-+static unsigned int master_cpu_id = INVALID_CPU_ID;
- static volatile unsigned int entered_cpus, initialized_cpus;
- static volatile int error;
- 
-@@ -224,7 +224,7 @@ int entry(unsigned int cpu_id, struct per_cpu *cpu_data)
- 
- 	spin_lock(&init_lock);
- 
--	if (master_cpu_id == -1) {
-+	if (master_cpu_id == INVALID_CPU_ID) {
- 		/* Only the master CPU, the first to enter this
- 		 * function, performs system-wide initializations. */
- 		master = true;
+ 		cell->num_mmio_regions--;
 -- 
 2.28.0
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20201022175826.199614-13-andrea.bastoni%40tum.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20201022175826.199614-14-andrea.bastoni%40tum.de.
