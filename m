@@ -1,124 +1,199 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBZ564H6AKGQEAKC63TY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCW2V5WNZMERBZOS4H6AKGQEAOLWSKQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43b.google.com (mail-wr1-x43b.google.com [IPv6:2a00:1450:4864:20::43b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F3D029C46E
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 18:56:56 +0100 (CET)
-Received: by mail-wr1-x43b.google.com with SMTP id t17sf1041032wrm.13
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 10:56:56 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1603821416; cv=pass;
+Received: from mail-lj1-x23c.google.com (mail-lj1-x23c.google.com [IPv6:2a00:1450:4864:20::23c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 628FC29C795
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 19:39:34 +0100 (CET)
+Received: by mail-lj1-x23c.google.com with SMTP id z8sf1204761lji.0
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 11:39:34 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1603823974; cv=pass;
         d=google.com; s=arc-20160816;
-        b=quq57QGyC/52oh48mbAENlmRLXITPvfvh6/J3eMxz4rvWbjtRPXhhIH2FsIctt8738
-         WCY/xJecc4Iu7D6d80MhZF9tZ2vt9ZC0goMvNZqiQWy+/mOC9fYteZ8yDdtlzmXvZvIE
-         B1Dm9dZB4lLY1lArCF+/cVBRwbISeGFvmFMvIMSpDXgw8FZRDh1V5wtREnMGh1FWuxLM
-         p3ApE4rGZo40BF1LXBVEEXGYj0OAZzrQmDw7RpBk1ddW32bB+qRmCy1w3uW9ex5G2qOe
-         3P4+GZUstUtHHTFnaVrdeGTgeefQ65Qh6q2yWyruPMarOQsRjexW/XHqYmLCQuLPnidV
-         V6oQ==
+        b=OPZVDlTeH9yGQoQe/Q78u5VLLkhaWpHfMBD+rT5CTJdXXfOnkzt+djj1WBgVUETkh4
+         IXBZswaCcn/ICS6rIq1TAS9s/V7391Cfm/8tDlDRqDp28UdFUPkIb+dYaSOQugxk9ixJ
+         qAiUW9N3S0P7etn+xZeaBlm/M4sqFCkfY25ynz1n9rBapdsVBSjhy1qsIGUkqs75BDLO
+         L4ZE1fN86yRm0YLm4jeDw9VffCN/RMFFrrtzvVqodFZRdbvnVP/ce5vo2gjp79bv45RA
+         i/j78AKjoCOw4qdBxnpiobHygwc088llPP5Jl8cBXDjkmalvvih2rfKbwaTWZWJ5MgQT
+         12pQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:to:subject
-         :sender:dkim-signature;
-        bh=N2r6CIzutqZ7qDjt1t2sYEK4zxF4qm9oMFONyNydpKc=;
-        b=EGEDlMK/k6nikzPgXHrAb3DpvaY4SR+OObbxfqDKjFkjmJVtDN0SdsDOZawWYkt/+R
-         nfbJknrT3ICCRr38pYELPbXhurR++LWNK3/qa7mBkdB4akXjzuU+yWEAH7M9nRw6cNum
-         0BP4kfkY+57t25FbFTlZ2xNfRiNjOgrrp5NiqDFYAPB18Ol+KxzSetb3L+eanROhiKyq
-         bEZGpWih2bHp72fgeFHnUEJYNRYxA1if6gkO0+iydHOHQQFM0MhXzmb19GVXmpFDRchH
-         SqPLEa8WhI4mQbtlTePCAHU6Fy8dNTgemqPbB0QiWjdxQV31Gc5QBgV1MMCisYG6lh4h
-         96LQ==
+         :mime-version:user-agent:date:message-id:autocrypt:from:references
+         :to:subject:sender:dkim-signature;
+        bh=Gf+2Umd29H3kxP91sjSV6o+mwkyhwkQ1Rh3RgRqWrZQ=;
+        b=Ufz0V3KIpmSCEQbv5GqnUQzS2wooxdOQaIrzMLIMrS+peKqIoQpO4n6m51gyKhQWy4
+         G2q0RRgEIHKJzik0hobSegGnFDcu/ca3tHxsQ5IhkHDBX/KhG7hiD8S/XkPbCSklG1pQ
+         yT7N/EHg4z1Lf3SuOw8FPu5N+9qB5xgZ/wuulGtPXkw35kZm5U2emKUqQGbl45PA8i9a
+         ey9+9gc4TYGvz4MHM1zhjJYZnGwOL4jF6ZUrQ66w7RTI/76RR6NSJ148zMEkEmsGGyPC
+         fcI0oVcEIKSZY8A7s/dvnmnvi48eb6HY95W96C/lUrd+RRr1MTFMTWJaBhYXmnOlsqhP
+         nVXQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       dkim=pass header.i=@tum.de header.s=postout header.b="dAD1/mBg";
+       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=N2r6CIzutqZ7qDjt1t2sYEK4zxF4qm9oMFONyNydpKc=;
-        b=jnzLJ0td7PCsMznFtFs2INnQGbNXIF9R/dJh/5L3YERpDPcG50h2C7ltucDV9yQOZ4
-         VG7ZDCrT8j8xUmKRZ08BWx4nw8VYYgVIkKk7N0rNtmfgREhkEtL/nd3+wnHgrj6BDbYH
-         q5oxgy9VZFON+SrPuFEZDuQTLZu9BjlYnMpAGvBgM4F1EPVjlq8fegdpjSvsKQEXb0AD
-         YUo3tsYSdw3Pbr3xODgxI0yA6Wkt5ikS9LBQ8dmKGz4D8k29nmeNAXBCkcpNWoBRuKML
-         PRzubu7z4qYt+IY+5qZketLikvP1IFWv4O0iJldcpDmPYg5QdB9I1dxobV39XaPz1zIm
-         Gbdg==
+        h=sender:subject:to:references:from:autocrypt:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=Gf+2Umd29H3kxP91sjSV6o+mwkyhwkQ1Rh3RgRqWrZQ=;
+        b=ODK5qbJB13C8qPcQn+QZqwG+j0JBxaOSqUNKoB7Xe5xnYAc6X0TINxKg2fLrHCgcbs
+         LUQbyxw4Xpi/Fx4UmTh41WEMDc7SV0jt2Jy6EVHEl8e41SeCQ1qT8trL9G0jf+Thtuhv
+         YnenwdelcQ1o9rI+uiQ9pZA+z8Z9peabgZhZb+66sW8r2cxsCQXekkB5M53+VUCF65OH
+         6LhJjioe7XciEBnMCNPvgNgo2X8TUtKRkrlIOXOYlTCZvkh1r++cAOrLquziumuKZYbL
+         zmLQEvH2AMXuxWkE3f8MOXUqhkWTGHSH0tF871iUgItzOmMoo4KldnwbXl60tq7hIvq/
+         Ienw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=N2r6CIzutqZ7qDjt1t2sYEK4zxF4qm9oMFONyNydpKc=;
-        b=OAKtRKWd9aNlQf1luUB7Te55zZx95SZag55Tcix6b+V5adkEDFYK9uGNJnAygzznRk
-         DgJOBAeW3e1/ZGr1giDihBCrtIGG5dYDyQA+KH+hIRcuVJ/oPHfVePvAEz4QdgESaIUG
-         AnJ0SRxxTYdOZb1d6bKTLmOW1xUZqjkatwG+rfSXpJVza2I3iGx6oLM82h/wAbeREMxP
-         YgE6AY4ssdEHCyBnCUJjCnK+pmjD4ePp5b5K2ziqnI4nsmfjbbiGMCiGqdihKfRPJk+S
-         +a5zlNm/leT6Gzxj/5iUsnNrM2FGpLMt+Y67X7aF62WInql1GE5R9WQ98tjZh+tzh2VZ
-         dDGQ==
+        h=sender:x-gm-message-state:subject:to:references:from:autocrypt
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=Gf+2Umd29H3kxP91sjSV6o+mwkyhwkQ1Rh3RgRqWrZQ=;
+        b=i9oTqAs4KzO19SvlToFoUZW70hhueids0eJhoorm6hT77qRASvuyi8+B8/Vlg0HEKx
+         kK6umN29x2NIs4RkkH18fWGcD7rNQTdX+EsINBzDg8qxySQimktnOzX8wKCrfz/wY3bo
+         qfG59auiX+7TVcmtaNb2Hk2AoS5dZhr53hfuQv0UNlXcHemjGU/37jV1OXO0iXE/kYfr
+         5JEZdvs01KINaukVoZocGm0WQDQHX/9HwiZhJA1JGnDhOR/nyx44XLRKP2Y9NQzkLnmt
+         x6WJZ64j8NY2rTl8SP65uM1hsYSi5Ve6O5VbtUflz4pk6KpFyF8pq18QIkeEe49/C+5o
+         fQvw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533o2No0zcxa0IFwbeWUsMBrEqeL8edxkUBVqOsdiFPKcmjheJdS
-	5EEu6b4JooYWGFIQU6AJBOo=
-X-Google-Smtp-Source: ABdhPJwGS5r2b+P9zBhKa0g6k6UpkCaYeQPQ0zV/LCK8gMxf6jxiFEIHRmpnWYgA6onKGXGf+HCHdA==
-X-Received: by 2002:a5d:6345:: with SMTP id b5mr4384730wrw.288.1603821415681;
-        Tue, 27 Oct 2020 10:56:55 -0700 (PDT)
+X-Gm-Message-State: AOAM530GaNNULideXSHeD1Jrg9JBgOC41FSQaTslbBDWKUurfGvJ4mON
+	2IGelLYo24pqoiIImmou9do=
+X-Google-Smtp-Source: ABdhPJwm7tW6h6nH49GLqk+8Ss0dj+Vefyt+2MOh+SJp8XjzEdcjck5sV39yztH6K7wmXi9c/fHgcA==
+X-Received: by 2002:a2e:2ac1:: with SMTP id q184mr1732643ljq.391.1603823973956;
+        Tue, 27 Oct 2020 11:39:33 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:7e4e:: with SMTP id z75ls1317975wmc.0.canary-gmail; Tue,
- 27 Oct 2020 10:56:54 -0700 (PDT)
-X-Received: by 2002:a1c:2108:: with SMTP id h8mr3926317wmh.63.1603821414373;
-        Tue, 27 Oct 2020 10:56:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1603821414; cv=none;
+Received: by 2002:a2e:9a86:: with SMTP id p6ls521006lji.0.gmail; Tue, 27 Oct
+ 2020 11:39:32 -0700 (PDT)
+X-Received: by 2002:a2e:808f:: with SMTP id i15mr1669784ljg.10.1603823972700;
+        Tue, 27 Oct 2020 11:39:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1603823972; cv=none;
         d=google.com; s=arc-20160816;
-        b=If5MftEAO01BO59OdwWqjBFL7qnUgk0AoW39mTy5KcMsYcvmxwgEm81Wd+WjRVEA2i
-         FFuZOd4Xye9Pr8QLiEM1WjeLKPMd27hvQzV5U0zlSMPvfKsiuP9fuzYMw/pAu69hKHKK
-         bCMi0KZI521IQJcK0B6c5qUq3qqBvW2iqaCn3T9kFLMesaaGzhtKJiLBrgmz7VcH/we6
-         eSQF0OraO7hxnYISR+f4UdRVtYTc+kfU86f2tj1QgoDQGVPVvzoTPdoVUekGrk2m3+zn
-         LiYEbQDoDckcQjJVBMRQVA7fzk2a7K6MJMvLmuKH52wKyOR2AElvKj84BKLUICWYGi2c
-         eE0g==
+        b=0YDHvko9kBkZ9IBrTkftTU4JergdDQ71O1+9SV2nhunk1W2UAvIu+ADYvqF3IrqIJu
+         AE7Khe2xicmekj/fVlFY32VTBzQfNO8mZAQAYh+G7gj3DvqvBUThXqupboiJfxb26IhL
+         wto8R2ISXA3lzX0JmHBBCJVnPOK3ipRF5Ld+OHpGayyJNVBjVJz0il69TRjNU7CIkLNd
+         SpwgjWRd59Y5YKgGVdwbOQX0GWYgYJV8gAHT/Dix34PZXXrIyppIBV+07f3BNh6JPQvP
+         LzOmvq39cwc0l1uWOPTqVwotCT0a6+KFb5AmR0ODdWoKGhSob0Noy6KL4v25K8p3n3S2
+         JhLg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=qoZ+8IiHfV7995gfCeOK1tyKrDV20/29Hr2gSoxBzfs=;
-        b=EZ0owXhcXOJ6b1K3CtRRkvKTJa0fThJVzTOEVRNYUZg7YeSr5XIchL6zaCaYE99Dvm
-         oMaWhaCpwB6QJM7fLpJ1dBaF78DzMueh5SkBxwr+uTbHRye6GMS7bHywKTJmjTT4iH/R
-         nRg2UaDfK+AsTuiIuAw5++mHyeMlCzKHMn/Bcx0X0tzPJRSIhzmb2nIR5+fxCN4ATSPQ
-         UVPkxgcbCtIaEFq4G67SNIc7aOsenQN+AwlGNsM1K+vte4MjjW+Yq8f3z2iw31kRE+ad
-         UhVZOk8GH8jwCFslZQYvmLCUUXN55G2zQ8u4rtNgkoyTGFo6WNqCXTAbzb0d1kUMSFEC
-         rgog==
+         :user-agent:date:message-id:autocrypt:from:references:to:subject
+         :dkim-signature;
+        bh=B0FoulPjt6YlXeJ6uCqXhipuLA6n+Z6k/22t6cHJtwM=;
+        b=bItm3mYoViUvFAvdNXMWHUXo9PBsewMAacWFi2fGbcxWrYUl/qJ/AnOCkRAXlCHB+i
+         SWbv7ARiH5MfVYYrHN8N5VFxYsCqPmLVXUVOfNWOkgfoLTZdW8E6lpNebOoZmIdGw9Ej
+         G7PJelcjKQJJ2D4aqorXOLXoKCDSPrPRE6dyWlHJVyWqboYUpJMnkvDB2RfxhW0XLytA
+         kR2mHOzAv0Rg9H2Hu7IOA2vCgCQRF/q0wzy5L8615tPaJWepY4CR1y471eQiKvKCoT1f
+         4TctJBEQZbFXlRKZ0KIlBIoUB3xCN8R4nYo26879Bi/+9Uid1Z1g+iPEs2p7dJ9PAQ0H
+         kp3A==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
-        by gmr-mx.google.com with ESMTPS id k3si49809wrl.5.2020.10.27.10.56.54
+       dkim=pass header.i=@tum.de header.s=postout header.b="dAD1/mBg";
+       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
+Received: from postout2.mail.lrz.de (postout2.mail.lrz.de. [2001:4ca0:0:103::81bb:ff8a])
+        by gmr-mx.google.com with ESMTPS id 8si83280lfm.7.2020.10.27.11.39.32
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 27 Oct 2020 10:56:54 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 09RHuro3013934
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 27 Oct 2020 18:56:53 +0100
-Received: from [139.25.68.37] ([139.25.68.37])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 09RHurho012983;
-	Tue, 27 Oct 2020 18:56:53 +0100
-Subject: Re: [PATCH] inmates: x86: add cache access time test
-To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
-        jailhouse-dev@googlegroups.com
-References: <20201026131107.266498-1-ralf.ramsauer@oth-regensburg.de>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <5edb7ee8-cacd-b658-3511-9a8cb21681c2@siemens.com>
-Date: Tue, 27 Oct 2020 18:56:53 +0100
+        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+        Tue, 27 Oct 2020 11:39:32 -0700 (PDT)
+Received-SPF: pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) client-ip=2001:4ca0:0:103::81bb:ff8a;
+Received: from lxmhs52.srv.lrz.de (localhost [127.0.0.1])
+	by postout2.mail.lrz.de (Postfix) with ESMTP id 4CLL8h0tZHzyW3;
+	Tue, 27 Oct 2020 19:39:32 +0100 (CET)
+X-Virus-Scanned: by amavisd-new at lrz.de in lxmhs52.srv.lrz.de
+X-Spam-Flag: NO
+X-Spam-Score: -5.04
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.04 tagged_above=-999 required=5
+	tests=[ALL_TRUSTED=-1, BAYES_00=-1.9, DMARC_ADKIM_RELAXED=0.001,
+	DMARC_ASPF_RELAXED=0.001, DMARC_POLICY_NONE=0.001,
+	LRZ_CT_PLAIN_UTF8=0.001, LRZ_DMARC_FAIL=0.001,
+	LRZ_DMARC_FAIL_NONE=0.001, LRZ_DMARC_POLICY=0.001,
+	LRZ_DMARC_TUM_FAIL=0.001, LRZ_DMARC_TUM_REJECT=3.5,
+	LRZ_DMARC_TUM_REJECT_PO=-3.5, LRZ_ENVFROM_FROM_ALIGNED_STRICT=0.001,
+	LRZ_ENVFROM_FROM_MATCH=0.001, LRZ_ENVFROM_TUM_S=0.001,
+	LRZ_FROM_HAS_A=0.001, LRZ_FROM_HAS_AAAA=0.001,
+	LRZ_FROM_HAS_MDOM=0.001, LRZ_FROM_HAS_MX=0.001,
+	LRZ_FROM_HOSTED_DOMAIN=0.001, LRZ_FROM_NAME_IN_ADDR=0.001,
+	LRZ_FROM_PHRASE=0.001, LRZ_FROM_PRE_SUR=0.001,
+	LRZ_FROM_PRE_SUR_PHRASE=0.001, LRZ_FROM_TUM_S=0.001,
+	LRZ_HAS_CLANG=0.001, LRZ_HAS_IN_REPLY_TO=0.001, LRZ_HAS_SPF=0.001,
+	LRZ_MSGID_HL8_3HL4_HL12=0.001, LRZ_MSGID_MOZ=0.001, LRZ_UA_MOZ=0.001,
+	NICE_REPLY_A=-2.167] autolearn=no autolearn_force=no
+Received: from postout2.mail.lrz.de ([127.0.0.1])
+	by lxmhs52.srv.lrz.de (lxmhs52.srv.lrz.de [127.0.0.1]) (amavisd-new, port 20024)
+	with LMTP id XNi9UHnb1voB; Tue, 27 Oct 2020 19:39:31 +0100 (CET)
+Received: from [10.162.12.242] (unknown [10.162.12.242])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(Client did not present a certificate)
+	by postout2.mail.lrz.de (Postfix) with ESMTPSA id 4CLL8g43ctzyVR;
+	Tue, 27 Oct 2020 19:39:31 +0100 (CET)
+Subject: Re: [PATCH v2 11/33] hypervisor: introduce uptr_t (depending on the
+ wordsize) and define size_t accordingly
+To: Jan Kiszka <jan.kiszka@siemens.com>, jailhouse-dev@googlegroups.com
+References: <20201022175826.199614-1-andrea.bastoni@tum.de>
+ <20201022175826.199614-12-andrea.bastoni@tum.de>
+ <b8849626-071b-f074-8e8b-b6cada812fae@siemens.com>
+From: Andrea Bastoni <andrea.bastoni@tum.de>
+Autocrypt: addr=andrea.bastoni@tum.de; keydata=
+ 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
+Message-ID: <0c29c249-2a95-26dd-1790-9df1f4fbe2d5@tum.de>
+Date: Tue, 27 Oct 2020 19:39:24 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20201026131107.266498-1-ralf.ramsauer@oth-regensburg.de>
+In-Reply-To: <b8849626-071b-f074-8e8b-b6cada812fae@siemens.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+X-Original-Sender: andrea.bastoni@tum.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@tum.de header.s=postout header.b="dAD1/mBg";       spf=pass
+ (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a
+ as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=tum.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -131,246 +206,103 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 26.10.20 14:11, Ralf Ramsauer wrote:
-> On x86_64 systems, this test inmate measures the time that is required
-> to read a value from main memory. Via rdtsc, it measures the CPU cycles
-> that are required for the access. Acces can either happen cached, or
+On 27/10/2020 13:36, Jan Kiszka wrote:
+> On 22.10.20 19:58, Andrea Bastoni wrote:
+>> This solves warnings due to -Wbuiltin-declaration-mismatch
+>>
+>> Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
+>> ---
+>>  hypervisor/include/jailhouse/string.h | 5 +++--
+>>  hypervisor/include/jailhouse/types.h  | 8 ++++++++
+>>  hypervisor/lib.c                      | 6 +++---
+>>  3 files changed, 14 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/hypervisor/include/jailhouse/string.h b/hypervisor/include/jailhouse/string.h
+>> index 24f0b0b4..7dc3de3b 100644
+>> --- a/hypervisor/include/jailhouse/string.h
+>> +++ b/hypervisor/include/jailhouse/string.h
+>> @@ -12,9 +12,10 @@
+>>   * This work is licensed under the terms of the GNU GPL, version 2.  See
+>>   * the COPYING file in the top-level directory.
+>>   */
+>> +#include <jailhouse/types.h>
+>>  
+>> -void *memcpy(void *d, const void *s, unsigned long n);
+>> -void *memset(void *s, int c, unsigned long n);
+>> +void *memcpy(void *d, const void *s, size_t n);
+>> +void *memset(void *s, int c, size_t n);
+>>  
+>>  int strcmp(const char *s1, const char *s2);
+>>  
+>> diff --git a/hypervisor/include/jailhouse/types.h b/hypervisor/include/jailhouse/types.h
+>> index 828e40f7..f97dc252 100644
+>> --- a/hypervisor/include/jailhouse/types.h
+>> +++ b/hypervisor/include/jailhouse/types.h
+>> @@ -55,6 +55,14 @@ typedef u32 __u32;
+>>  typedef s64 __s64;
+>>  typedef u64 __u64;
+>>  
+>> +#if BITS_PER_LONG == 64
+>> +typedef unsigned long uptr_t;
+>> +#else
+>> +typedef unsigned int uptr_t;
+>> +#endif
+>> +
+>> +typedef uptr_t size_t;
+> 
+> What's the benefit of the indirection via uptr_t?
 
-"Access"
+Since I was adding a size dependent type, I thought to add an equivalent to
+uintptr_t which could be used in other contexts. Probably I should have called
+it uintptr_t directly.
 
-> uncached. In case of uncached access, the cache line will be flushed
-> before access.
+>> +
+>>  #endif /* !__ASSEMBLY__ */
+>>  
+>>  #endif /* !_JAILHOUSE_JAILHOUSE_TYPES_H */
+>> diff --git a/hypervisor/lib.c b/hypervisor/lib.c
+>> index fc9af7aa..e8a9733d 100644
+>> --- a/hypervisor/lib.c
+>> +++ b/hypervisor/lib.c
+>> @@ -10,10 +10,10 @@
+>>   * the COPYING file in the top-level directory.
+>>   */
+>>  
+>> -#include <jailhouse/string.h>
+>>  #include <jailhouse/types.h>
+>> +#include <jailhouse/string.h>
 > 
-> This tool repeats the measurement for 10e6 times, and outputs the
-> average cycles that were required for the access. Before accessing the
-> actual measurement, a dummy test is used to determine the average
-> overhead of one single measurement.
-> 
-> And that's pretty useful, because this tool gives a lot of insights of
-> differences between the root and the non-root cell: With tiny effort, we
-> can also run it on Linux.
-> 
-> If the 'overhead' time differs between root and non-root cell, this can
-> be an indicator that there might be some timing or speed differences
-> between the root and non-root cell.
-> 
-> If the 'uncached' or 'cached' average time differs between the non-root
-> and root cell, it's an indicator that both might have different hardware
-> configurations / setups.
-> 
-> The host tool can be compiled with:
-> $ gcc -Os -Wall -Wextra -fno-stack-protector -mno-red-zone -o cache-timings ./inmates/demos/x86/cache-timings-host.c
+> If string.h needs types.h, it must include it itself - which you do
+> above. So you can drop types.h from here.
 
-Maybe put that in the source code as comment?
+Right.
 
 > 
-> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-> ---
+>>  
+>> -void *memset(void *s, int c, unsigned long n)
+>> +void *memset(void *s, int c, size_t n)
+>>  {
+>>  	u8 *p = s;
+>>  
+>> @@ -33,7 +33,7 @@ int strcmp(const char *s1, const char *s2)
+>>  	return *(unsigned char *)s1 - *(unsigned char *)s2;
+>>  }
+>>  
+>> -void *memcpy(void *dest, const void *src, unsigned long n)
+>> +void *memcpy(void *dest, const void *src, size_t n)
+>>  {
+>>  	const u8 *s = src;
+>>  	u8 *d = dest;
+>>
 > 
-> since RFC:
->   - move the inmate to demos instead of tests
+> Jan
 > 
->  inmates/demos/x86/Makefile               |  4 +-
->  inmates/demos/x86/cache-timings-common.c | 95 ++++++++++++++++++++++++
->  inmates/demos/x86/cache-timings-host.c   | 27 +++++++
->  inmates/demos/x86/cache-timings.c        | 15 ++++
->  4 files changed, 140 insertions(+), 1 deletion(-)
->  create mode 100644 inmates/demos/x86/cache-timings-common.c
->  create mode 100644 inmates/demos/x86/cache-timings-host.c
-
-We already have tools/ivshmem-demo.c which already produce a Linux demo
-binary for a cell. Maybe stick cache-timings together with that
-ivshmem-demo into a tools/demos/ folder? Then you can actually compile
-it (for x86-only, obviously) and can drop my remark above.
-
->  create mode 100644 inmates/demos/x86/cache-timings.c
-> 
-> diff --git a/inmates/demos/x86/Makefile b/inmates/demos/x86/Makefile
-> index f53b739e..47b79869 100644
-> --- a/inmates/demos/x86/Makefile
-> +++ b/inmates/demos/x86/Makefile
-> @@ -13,7 +13,8 @@
->  include $(INMATES_LIB)/Makefile.lib
->  
->  INMATES := tiny-demo.bin apic-demo.bin ioapic-demo.bin 32-bit-demo.bin \
-> -	pci-demo.bin e1000-demo.bin ivshmem-demo.bin smp-demo.bin
-> +	pci-demo.bin e1000-demo.bin ivshmem-demo.bin smp-demo.bin \
-> +	cache-timings.bin
->  
->  tiny-demo-y	:= tiny-demo.o
->  apic-demo-y	:= apic-demo.o
-> @@ -22,6 +23,7 @@ pci-demo-y	:= pci-demo.o
->  e1000-demo-y	:= e1000-demo.o
->  ivshmem-demo-y	:= ../ivshmem-demo.o
->  smp-demo-y	:= smp-demo.o
-> +cache-timings-y := cache-timings.o
->  
->  $(eval $(call DECLARE_32_BIT,32-bit-demo))
->  32-bit-demo-y	:= 32-bit-demo.o
-> diff --git a/inmates/demos/x86/cache-timings-common.c b/inmates/demos/x86/cache-timings-common.c
-> new file mode 100644
-> index 00000000..0edf65e6
-> --- /dev/null
-> +++ b/inmates/demos/x86/cache-timings-common.c
-> @@ -0,0 +1,95 @@
-> +/*
-> + * Jailhouse, a Linux-based partitioning hypervisor
-> + *
-> + * Copyright (c) OTH Regensburg, 2020
-> + *
-> + * Authors:
-> + *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-> + *
-> + * This work is licensed under the terms of the GNU GPL, version 2.  See
-> + * the COPYING file in the top-level directory.
-> + */
-> +
-> +#define ROUNDS	(10 * 1000 * 1000)
-> +
-> +union tscval {
-> +	struct {
-> +		u32 lo;
-> +		u32 hi;
-> +	} __attribute__((packed));
-> +	u64 val;
-> +} __attribute__((packed));
-> +
-> +static u32 victim;
-> +
-> +static inline void clflush(void *addr)
-> +{
-> +	asm volatile("clflush %0\t\n"
-> +		     "mfence\t\n"
-> +		     "lfence\t\n" : "+m" (*(volatile char *)addr));
-> +}
-> +
-> +#define MEASUREMENT_OVERHEAD	"nop\t\n"
-> +#define MEASUREMENT_COMMAND	"mov (%%rbx), %%ebx\t\n"
-> +#define DECLARE_MEASUREMENT(name, flush, meas) \
-> +	static inline u64 measure_##name(u32 *victim)			\
-> +	{								\
-> +		union tscval before, after;				\
-> +									\
-> +		if (flush)						\
-> +			clflush(victim);				\
-> +		asm volatile("mov %4, %%rbx\t\n"			\
-> +			     "lfence\t\n"				\
-> +			     "rdtsc\t\n"				\
-> +			     "lfence\t\n"				\
-> +									\
-> +			     meas					\
-> +									\
-> +			     "mov %%eax, %%ebx\t\n"			\
-> +			     "mov %%edx, %%ecx\t\n"			\
-> +			     "lfence\t\n"				\
-> +			     "rdtsc\t\n"				\
-> +			     "lfence\t\n"				\
-> +			     "mov %%ebx, %0\t\n"			\
-> +			     "mov %%ecx, %1\t\n"			\
-> +			     "mov %%eax, %2\t\n"			\
-> +			     "mov %%edx, %3\t\n"			\
-> +			     : "=m"(before.lo), "=m" (before.hi),	\
-> +			       "=m" (after.lo), "=m" (after.hi)		\
-> +			     : "m" (victim)				\
-> +			     : "eax", "rbx", "ecx", "edx");		\
-> +		return after.val - before.val;				\
-> +	}
-> +
-> +DECLARE_MEASUREMENT(overhead, false, MEASUREMENT_OVERHEAD)
-> +DECLARE_MEASUREMENT(cached, false, MEASUREMENT_COMMAND)
-> +DECLARE_MEASUREMENT(uncached, true, MEASUREMENT_COMMAND)
-> +
-> +static inline u64 avg_measurement(u64 (*meas)(u32*), u32 *victim,
-> +				  unsigned int rounds, u64 overhead)
-> +{
-> +	u64 cycles = 0;
-> +	unsigned int i;
-> +
-> +	for (i = 0; i < rounds; i++)
-> +		cycles += meas(victim) - overhead;
-> +	return cycles / rounds;
-> +}
-> +
-> +void inmate_main(void)
-> +{
-> +	u64 cycles, overhead;
-> +
-> +	printk("Measurement rounds: %u\n", ROUNDS);
-> +	printk("Determining measurement overhead...\n");
-> +	overhead = avg_measurement(measure_overhead, &victim, ROUNDS, 0);
-> +	printk("  -> Average measurement overhead: %llu cycles\n", overhead);
-> +
-> +	printk("Measuring uncached memory access...\n");
-> +	cycles = avg_measurement(measure_uncached, &victim, ROUNDS, overhead);
-> +	printk("  -> Average uncached memory access: %llu cycles\n", cycles);
-> +
-> +	printk("Measuring cached memory access...\n");
-> +	cycles = avg_measurement(measure_cached, &victim, ROUNDS, overhead);
-> +	printk("  -> Average cached memory access: %llu cycles\n", cycles);
-> +}
-> diff --git a/inmates/demos/x86/cache-timings-host.c b/inmates/demos/x86/cache-timings-host.c
-> new file mode 100644
-> index 00000000..229db904
-> --- /dev/null
-> +++ b/inmates/demos/x86/cache-timings-host.c
-> @@ -0,0 +1,27 @@
-> +/*
-> + * Jailhouse, a Linux-based partitioning hypervisor
-> + *
-> + * Copyright (c) OTH Regensburg, 2020
-> + *
-> + * Authors:
-> + *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-> + *
-> + * This work is licensed under the terms of the GNU GPL, version 2.  See
-> + * the COPYING file in the top-level directory.
-> + */
-> +
-> +#include <stdbool.h>
-> +#include <stdio.h>
-> +
-> +#define printk printf
-> +
-> +typedef unsigned int u32;
-> +typedef unsigned long long u64;
-> +
-> +#include "cache-timings-common.c"
-> +
-> +int main(void)
-> +{
-> +	inmate_main();
-> +	return 0;
-> +}
-> diff --git a/inmates/demos/x86/cache-timings.c b/inmates/demos/x86/cache-timings.c
-> new file mode 100644
-> index 00000000..1acc3ee9
-> --- /dev/null
-> +++ b/inmates/demos/x86/cache-timings.c
-> @@ -0,0 +1,15 @@
-> +/*
-> + * Jailhouse, a Linux-based partitioning hypervisor
-> + *
-> + * Copyright (c) OTH Regensburg, 2020
-> + *
-> + * Authors:
-> + *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-> + *
-> + * This work is licensed under the terms of the GNU GPL, version 2.  See
-> + * the COPYING file in the top-level directory.
-> + */
-> +
-> +#include <inmate.h>
-> +
-> +#include "cache-timings-common.c"
-> 
-
-Jan
 
 -- 
-Siemens AG, T RDA IOT
-Corporate Competence Center Embedded Linux
+Thanks,
+Andrea Bastoni
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/5edb7ee8-cacd-b658-3511-9a8cb21681c2%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/0c29c249-2a95-26dd-1790-9df1f4fbe2d5%40tum.de.
