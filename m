@@ -1,132 +1,173 @@
-Return-Path: <jailhouse-dev+bncBDL2JD42SEIBBH6S3T6AKGQEFVDBHZI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDAMFR7JZAEBBGXO3X6AKGQEJZN5ZYA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oi1-x237.google.com (mail-oi1-x237.google.com [IPv6:2607:f8b0:4864:20::237])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11DBC29976A
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 26 Oct 2020 20:53:05 +0100 (CET)
-Received: by mail-oi1-x237.google.com with SMTP id l142sf6141233oig.1
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 26 Oct 2020 12:53:05 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1603741984; cv=pass;
+Received: from mail-lf1-x13b.google.com (mail-lf1-x13b.google.com [IPv6:2a00:1450:4864:20::13b])
+	by mail.lfdr.de (Postfix) with ESMTPS id B9D6C29A230
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 02:25:47 +0100 (CET)
+Received: by mail-lf1-x13b.google.com with SMTP id t3sf4219561lfk.18
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 26 Oct 2020 18:25:47 -0700 (PDT)
+ARC-Seal: i=3; a=rsa-sha256; t=1603761947; cv=pass;
         d=google.com; s=arc-20160816;
-        b=WcUpIv/4lxIzuFiPsgzJmO98UTA2JLjqN9NryMGd8SECh0puiRAgXR3Xk5L/P0YScE
-         urxP+C0pXgJyXKUJYC0gLVjB/9RO/mq9gjnLVhf8vMyg4tBGK2OU8qcxlA6spddiGW+y
-         9ZeMr56DOkSLgzA74eqwTENAgAICzr+2OQuI4ulZD3ys0/9mdtYa90XIElwkSjYLXrMr
-         sBY2AiarXJlZnzJZfeDSeI/LNAcoWLP6nK5671CX3q0Pfa1p6dZDP07vkbdVrGSm8/0G
-         ogwPKomTjHmczTgGQwfy32lvzWuAv9O/OI2WQtHY8AqUzkPe4GxCs/FWp5BqYUSxWQwB
-         E75g==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        b=E2JgmyIWjFrgx7g3Rge6QnYtUUG7lsZOy/u58sLflDVJqGpZ/n6w5IxbsOEMHJoWLx
+         LPlu+cV5+8ceWv3YBlNUFdyVzqHwJw2bsuaSnJyrZ03n6h4t5y8M5RFaSbUTKNtEQCdF
+         lSh0xoNgTMh7mYLxftxHkFxyVaqoLFGAXFT0hCG5Tz42tK6/koSR3JQ/OIigtyF7zED3
+         2Ef6e9w05mVOj6hMJMN0+ncuK6ZHA57kN8B00T0TYX515LdoObKt1WGM9P883mZpcbOX
+         iHo/1NA9DwLtPcgoHi4Lpzy70JGashAwcugXw+NStFtbIBVksZ1ZqVRUgIsczXttLSzo
+         ZPHQ==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to:mime-version:message-id
-         :date:subject:to:from:dkim-signature;
-        bh=XoSahlz7U0k/JfN86FpHLVYcTWlcFD4UhVgCpMa9maY=;
-        b=liwf3cMFjqeqgG1ZJIcvxB6QzIrvz8X+8jzKSorny11nqFeUV4TGAQXqVaxnfokIib
-         2w6T7qq94xVJsTvxXnx0+kXaP+jDD5gC1XzNmNSdg5eOMm5w4wQcRoBEaIL61IVDmdEi
-         W+QwOb7RWpBfj9kDcq9Z7NhX2HD4LxNS9VWCHH5Z6x2s3Hj8ScMHGdiSjT3M//aJdgli
-         Rgs5pnRRGVwRFtnYZIPfnIwIXHhDSIPOup8Wgt46D1RCmqrnBBW5BhM2FHnpS7KGICZy
-         4J74qIv3cihl0LkPxPNFn+iiHN7w/Z0o9FlbWJKt05DhRBOSXby4Qum5u7JD2gKXM2AP
-         Tb5A==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=ScBmvMQc;
-       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.142 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
-       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
+         :list-id:mailing-list:precedence:mime-version:content-language
+         :accept-language:in-reply-to:references:message-id:date:thread-index
+         :thread-topic:subject:to:from:sender:dkim-signature;
+        bh=Edbc6i9vLRlYZRjZEvdXNiJt3IR3Pox3c4FjYRc03Jw=;
+        b=wPedd47XgPy42XzOocbcDYZa2kp36PicvcnEpafK6SwJ7aomGVSfZGwdnszdqMg9/5
+         V4s61vbVZWF8dyYgvhGW8hiiV32LQeCUCDqy7xx4KFR9bK4iYfyhuHsKCRzA9XQNWJUw
+         TBYMf7UM6sukF+gjHR1rSU6ig/0WQNq7P3v1d/dSzvx7PAZ3QgZbsZpX12YReSnYdmfE
+         t5TTNy0svFc1k6hu17+PGA1ufZUGOtURSK9tRrwAoubSDGXAnoXFE+BQgaX6KuAIDEpS
+         x4cyKTqQddmHH0RDFd3yu4uXygiLVUeSozClHnQkn333l6e5xkIaw5O82tGfBNv32Dcd
+         chZw==
+ARC-Authentication-Results: i=3; gmr-mx.google.com;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=sOywesau;
+       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
+       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.22.55 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=from:to:subject:date:message-id:mime-version:x-original-sender
-         :x-original-authentication-results:reply-to:precedence:mailing-list
-         :list-id:list-post:list-help:list-archive:list-subscribe
-         :list-unsubscribe;
-        bh=XoSahlz7U0k/JfN86FpHLVYcTWlcFD4UhVgCpMa9maY=;
-        b=jAkSL7haUojNPUwc4rWaWD6Js+9azim1E7JNH7TZOu4FNzErVhiNu1vtZB2QIlC+JW
-         aLFERthWq0Zy5B8MyCjwfav6BVqy1TWJfh+8K5UgCqJ6g1xt5IwQrVP1kiuQEE2LAYD1
-         lo7lR5riMv/TGdj9dIsKzazxUVwFxrxtp2cSVcEoApVvKv2jel7FJaEaQFdQmc8PL56k
-         kT+HsZ6d/bJYxgHaa1S9PFlvKXG6NOi1M9LgT5Oaw43xQrStKMZhTt/49OmhIIhcYi4t
-         bGpAKWU3BEh721fz1acandjTkiq93w5JqlK/t/1L+dhjhs31/uPMmdstB/wyHbpV+6kf
-         TjQQ==
+        h=sender:from:to:subject:thread-topic:thread-index:date:message-id
+         :references:in-reply-to:accept-language:content-language
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=Edbc6i9vLRlYZRjZEvdXNiJt3IR3Pox3c4FjYRc03Jw=;
+        b=SBiT5p1XsXuCDRi3Y2czXSFmYkFoUPOZ5a5f5DyhbBlLv5hP5B/jwVs2ktInAr353t
+         F1PfHor73+Q+fVq/QHEOYlASiKGSwY6xIWtKyZIgk3pdZIZ0BrcgZES3UJYCT9lIE5Pa
+         AqmV33AtTG9Jn+ssrHaoWsdWH+9+mFWnAgk9O6mXzot6M3lrgCpQj5eiikv+lLSgcQEc
+         MXRkaLcm8F28sHE4O4XNdpZbthRBvA8w127ye/A12M9K7b3SWl9g7XeOezXcGIkBqCVQ
+         FSxnP5mBvObUvpRTvRrHTr6cqOUNDfiXQYi5kTPHAc5UDgoIyyPLGrtnupDju5SozozE
+         lMXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
-         :x-original-sender:x-original-authentication-results:reply-to
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=XoSahlz7U0k/JfN86FpHLVYcTWlcFD4UhVgCpMa9maY=;
-        b=VDtYBVTq78oDRzf8X1QN2Tf/KVWDfaQK96Pgf25L8Wk4kZQJZcoe3f9lh/CY7Hw1fC
-         sVYeEpuvEV3q8lu6kUwA/efMiqaU27jGJi7QVamqdsnR2RKKggWSy7ZdePXR4CgiQPaN
-         MrLLXvKnnKDrbp8y316zrAz/7v66oGNaFJrZwkGCIYkiEGDWLXLdwQkQEvorQYc6xwCb
-         eI73eHVePLpHdAKNMix1/hMX4s35U4BLzx6RLhbOIfHTHZbYcNXIfvqwUc1N0xk67nDu
-         ogcksQ4xaoVP9jLTEA8Sw4j/Db6jFTxszW8Cb/r8hqoAvdjwhIJk/D6npoJE0YoUCfus
-         Y9pQ==
-X-Gm-Message-State: AOAM530TcUqP8wR/3pO+VCorFDKpcAmZw1ogQHM9n/uetubc91bzwM1G
-	B6TAO/rqWNG9L3gtUWhs7YA=
-X-Google-Smtp-Source: ABdhPJyAt/Xt0G+3XxJiugss9azxLOKKcT5zLvDSUGmlTaBpNMWXXWO39wkDXS337Ortk/ZyKZ0UIQ==
-X-Received: by 2002:aca:4257:: with SMTP id p84mr11756826oia.68.1603741983987;
-        Mon, 26 Oct 2020 12:53:03 -0700 (PDT)
+        h=sender:x-gm-message-state:from:to:subject:thread-topic:thread-index
+         :date:message-id:references:in-reply-to:accept-language
+         :content-language:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=Edbc6i9vLRlYZRjZEvdXNiJt3IR3Pox3c4FjYRc03Jw=;
+        b=YAhVuphSa47A0EipGUjLPkpi3ALT8B8Z2sY8xVvXprjq9HOXCDxl+DDfkHCofAGsCc
+         oYy7F1p7i1FPJQt9e6OFusa2ZEbCMwg9P6v2fO23EdVr8KM0VtfgWRKT/BYT1nDdRjJT
+         0BM01gWAtJpRqkooMlC9HCAUtS+EmJvWzAfFuJXWDgJg21d06JjL2Po20hmqx96oEGJj
+         vM0+kQjwTLtaJUKKlFd33zz6+4lp622Ui5HpKJoqBcCnVRDB6GCgFXoIvjMB4nbUa0VC
+         xoeKsPX21WIN8lk+OS01ZoBzUwaOPC5NFFv4ZhbplkwOcLIMMLO82lnHbcKsgEzcxUNZ
+         c/ow==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: AOAM533bpEvHwC5rdwBafAeun2YLaJsWcIE3g3PUTSSytepBkr5ZODoH
+	HK1gy8qsaLgECOTKXIpnNBE=
+X-Google-Smtp-Source: ABdhPJz6AW2F3oX0qvfSFE5TMwupba0MRQWpp7hEmePSDF7rpBb1AsaKv2Ehy1kiBmqsrS2J2/MkZA==
+X-Received: by 2002:a2e:b0c7:: with SMTP id g7mr6886726ljl.433.1603761947277;
+        Mon, 26 Oct 2020 18:25:47 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6830:13d8:: with SMTP id e24ls1415517otq.11.gmail; Mon,
- 26 Oct 2020 12:53:03 -0700 (PDT)
-X-Received: by 2002:a9d:6e17:: with SMTP id e23mr3487907otr.296.1603741983489;
-        Mon, 26 Oct 2020 12:53:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1603741983; cv=none;
+Received: by 2002:a05:651c:14d:: with SMTP id c13ls1777328ljd.8.gmail; Mon, 26
+ Oct 2020 18:25:46 -0700 (PDT)
+X-Received: by 2002:a2e:8986:: with SMTP id c6mr7641862lji.29.1603761945990;
+        Mon, 26 Oct 2020 18:25:45 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1603761945; cv=pass;
         d=google.com; s=arc-20160816;
-        b=FJOoaN9F0nJ2PbiNFjJ7lHwdvC8r3fq6hV+5lVj7WhJTb3ykWxy5mOlcVumyhAjgfQ
-         nLf/n+ZVv/oipp6f5SIVYSjXIeLban2maYW3jWzfaPHsmKBJADO9LM4gsXKNrLFFdd0S
-         L1czzEYTLuslsfv9QJZQBH6vbHf8zuWPVwK+S7pxuWHj4QOYpXQ7/jPdglrlNnik+ReR
-         x4XUgRwRAybbgVmrEmuK1zaJGLQblUksnQmbDH7WNZrpZ7qIQ8VA1H7C85UlY3yTND16
-         k50aJzszgB341WMPhpVTcVQiTmXv803g3vdNqTrqjJ//AZ1BNGt43m3HFt+V4Hh8eIrO
-         SNDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:message-id:date:subject:to:from:dkim-signature;
-        bh=ujAM5qi3+rB+8jBKOu9wPeGli2/k5bDCKfD+rZ8sBLI=;
-        b=Qtc5ddMcL2NB3QICftLhMDaaRBep3ZqJzZ6BGTW3o2w5Lwz1e1a34LFGiFxdsb6eCa
-         /gKdSWsNA9kT7LioIEW8iIHZm1t2fmj75+nX4vWK36Lbc7omgZ/jBrCsOLqxjyJmWp+z
-         QLBzNNLo91a13MHEQRcPOPFS/PTrBZOMWnc1devfmjPwJ6F1e2RAWf8X+m5gP2NVGakb
-         tTWu5kCGQIWhUm/nWfnpgRpf6wxK2Z28dGP3vmFZ1EMezxocbAnlyZPwPAa4t4cb7bQF
-         ScUaUvqY/dyxqkYdCMZIznVkj9tbm58Vb3jOIwF65YJvmZEmI82rX16XcE7OBvaojkRv
-         hJhw==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=ScBmvMQc;
-       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.142 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
-       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
-Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com. [198.47.19.142])
-        by gmr-mx.google.com with ESMTPS id f16si834321otc.0.2020.10.26.12.53.03
+        b=vhJMeNp2fbRQi0Z0iY4EeQFviJCIdlfC68dQyv95JWYutCRm4Swf6uUNtWqgU6+p6P
+         9PqbrYTmXYCbX+swBSZYGdh/+i628rR6OaXtkY8eJalwuTaLzmKqCOKJd1+pSs/iHBlJ
+         4MfGd9KA+HBe0XpOIPG0I/LDvpzTuWfvj6LvLVTLuybQN+d1/tGYvBYVSaQmaOz+wRG8
+         bItGp31aCCMopJo5y+vuI6rTJwwX4IZuhNw4mccmCAhDXlkLAFIV8rvDzixdYsXZpnw3
+         Jt9q8XLttDXAQdNgXliiS48Opafnw6FMIGlF5I3UjIcoZganEeuukPbzOMjU3NXJQNnx
+         U8LA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:content-transfer-encoding:content-language
+         :accept-language:in-reply-to:references:message-id:date:thread-index
+         :thread-topic:subject:to:from:dkim-signature;
+        bh=CNTPHwSTnNm2lPNCFLTZwWBcogfRCC3wixwGQEGViZo=;
+        b=vzjYVw0Pd4cCFmQG/KY7O3wGj35pLB8LTJJVaAIdtaJanYT4fILyp+c+5R7q4fHFKR
+         F+NCIfD0GPU29JZ6chhtGHot2fjQFRTOt92dF0S2GdEcEEsvGIjp/gzyi0ID79jnNbKY
+         rcYFmveIb3cks0jWQqDA3btYRo+ihE0mrTsSHtJeNSHy6Wh2Wiau63r+m/kH64jJJbwn
+         tOMHCbQfo0d6AOnG4ahYyyN+SFc4DDr8fkEgauLVlcnRBeioNNk+dA5TloSw9SMBwKBe
+         ClAKHboPYIyp/iD1hqG4bD/vdV8cLaKWbxg1CEiiwdtQ2UVaBgSaeDqFbItRooyWmEpj
+         Nj9A==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=sOywesau;
+       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
+       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.22.55 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com (mail-am6eur05on2055.outbound.protection.outlook.com. [40.107.22.55])
+        by gmr-mx.google.com with ESMTPS id w28si1646lfq.3.2020.10.26.18.25.45
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 26 Oct 2020 12:53:03 -0700 (PDT)
-Received-SPF: pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.142 as permitted sender) client-ip=198.47.19.142;
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
-	by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 09QJr2Xj076828;
-	Mon, 26 Oct 2020 14:53:02 -0500
-Received: from DFLE109.ent.ti.com (dfle109.ent.ti.com [10.64.6.30])
-	by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 09QJr2RG129232
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 26 Oct 2020 14:53:02 -0500
-Received: from DFLE104.ent.ti.com (10.64.6.25) by DFLE109.ent.ti.com
- (10.64.6.30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Mon, 26
- Oct 2020 14:53:02 -0500
-Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE104.ent.ti.com
- (10.64.6.25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
- Frontend Transport; Mon, 26 Oct 2020 14:53:02 -0500
-Received: from NiksLab.india.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
-	by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 09QJr0Jp071220;
-	Mon, 26 Oct 2020 14:53:01 -0500
-From: "'Nikhil Devshatwar' via Jailhouse" <jailhouse-dev@googlegroups.com>
-To: <jailhouse-dev@googlegroups.com>, Jan Kiszka <jan.kiszka@siemens.com>
-Subject: [PATCH] arm64: pvu: Avoid failure in config_commit
-Date: Tue, 27 Oct 2020 01:22:57 +0530
-Message-ID: <20201026195257.14398-1-nikhil.nd@ti.com>
-X-Mailer: git-send-email 2.17.1
-MIME-Version: 1.0
+        Mon, 26 Oct 2020 18:25:45 -0700 (PDT)
+Received-SPF: pass (google.com: domain of peng.fan@nxp.com designates 40.107.22.55 as permitted sender) client-ip=40.107.22.55;
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NeimaO21Oaptu5z5qAuPeVZwOTVddCUk0CdjAg1y98epjI2lM0KgSNmZEyplOSqVmYMrnF8TM4z9Z7cCXD8/Z6yFNWGOEAaLmsNhskV//Y78ZVWvrj+mdKYg2YaJLoJbF7v995a1xUp9hwckvwWKExCUAaGdiKxhV0tuBKB9AepGdZ/T7jitKDTL16DN4nuaL3TzGAg/FYxm1bzFI3rZHQrU0tPYxnLaGlw9Zai63zMp12rHjbWlgzz9cU917vabQEfMF2QSw1vQtiLDb9HqqlVtJ+9Gn10uYUI8PSGVrjnBdV/D3W7OCItxoBI17iqI3+NyYUecnkcbP0nchB19yw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CNTPHwSTnNm2lPNCFLTZwWBcogfRCC3wixwGQEGViZo=;
+ b=PGH3zkISyIZ8D01+UDf3/CBegn70bnexaj6gBwlX+IKIjRivcmPdjaJvyAV73+qEPFRvVhnnMnyNGiOu0wIs1BV97AnPQJSzaS0+HPaSQim6VglTaOut5+9IB/Zdu2QAbd3jaZTZ5KL2lsI7RxYn9B7WmNGS+mo4ld7DCtSrOqtOOFYwx12m+x1i3J9UnVy3BIF3UPyXSt4uBe5vovVdoinyl4HnxRpjMOU7kqQnlBNFkCepwavYuBIzJ+cbc3+9vJo6wOGg0Eq+E9K2tnS5OROaVHYi5xO4m6JV+UtnizP2pPPUi6q6B0VLtwMpULvv2+RSXgxHj5n/B9XoaRA5Jw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com (2603:10a6:4:a1::14)
+ by DB7PR04MB5244.eurprd04.prod.outlook.com (2603:10a6:10:21::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.24; Tue, 27 Oct
+ 2020 01:25:43 +0000
+Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com
+ ([fe80::ec42:b6d0:7666:19ef]) by DB6PR0402MB2760.eurprd04.prod.outlook.com
+ ([fe80::ec42:b6d0:7666:19ef%8]) with mapi id 15.20.3477.028; Tue, 27 Oct 2020
+ 01:25:43 +0000
+From: Peng Fan <peng.fan@nxp.com>
+To: Jan Kiszka <jan.kiszka@siemens.com>, "jailhouse-dev@googlegroups.com"
+	<jailhouse-dev@googlegroups.com>, Alice Guo <alice.guo@nxp.com>
+Subject: RE: [PATCH v2 00/46] arm64: Rework SMMUv2 support
+Thread-Topic: [PATCH v2 00/46] arm64: Rework SMMUv2 support
+Thread-Index: AQHWogQZCtqK6USfUEmBoA7VLqZXd6mqN+CAgACCyvA=
+Date: Tue, 27 Oct 2020 01:25:43 +0000
+Message-ID: <DB6PR0402MB2760F60895CFBCCAEA5F2F3A88160@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+References: <cover.1602664149.git.jan.kiszka@siemens.com>
+ <78334f5d-b665-8de6-31fc-10599877b3b1@siemens.com>
+In-Reply-To: <78334f5d-b665-8de6-31fc-10599877b3b1@siemens.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [119.31.174.71]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: fd92c10c-02c6-453d-ef8b-08d87a173929
+x-ms-traffictypediagnostic: DB7PR04MB5244:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DB7PR04MB5244B1C02F6F3B0D75E3A41188160@DB7PR04MB5244.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: fzd/G8nqBOX9kARcPDiGivP9CRPmvoOOgcwblIqMYVioaZvTeyiTDpFwQsTZ68PQvy6buf7Yj+yxMejbNicUyDYjaR9E/8aNsS1UhgLTASDS50iiY7cgwWIu+SFJW8GnUR+dMq2jOqb2JXoICRhNMTEk5sWrcnbIf+UbwuH1d7YtuBAepKEdhUvu/WARWlClOdUQOnNt1JhCws+JmUWHBDtfLFCyFv6bMxg0XdhLdLt6wY6JOLTiDWwt+8A8wi2zt4tYm9wa8eT5JuE9Kj37xFRuVc/wUQsEzVurovDUcDoSdiuauwff+CsN9gGOrwOoxxvTXbH9lWvuT8udWmndVA==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB6PR0402MB2760.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(396003)(39860400002)(366004)(346002)(376002)(8676002)(66556008)(6636002)(7696005)(64756008)(478600001)(26005)(8936002)(6506007)(33656002)(44832011)(316002)(186003)(9686003)(76116006)(66476007)(55016002)(2906002)(53546011)(110136005)(83380400001)(5660300002)(71200400001)(86362001)(66446008)(66946007)(52536014);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata: rqzExRJTQFxqDidQQRQtdldgHePj3vZiLeiEsEE1BKRRPAzWCb2FTsLMiNV/PG1QZjX0TTc3qliBDsNcL/TBvXYWIrOu4f3qZGj7L3bd7uzKhLiH/G3ESH/eLQsrVdpkT2U98Lxw3z5TeXgNlCDVnch0ZQaSnWWfgVnsiuanN2ydEJB9U6fpwP7Vj7r0KUn4XCwgrFXcDlaved5knBBip7SyXnA5cNWCeGjavNdPrWC4sUYdHt5FWyIyrKX4cjdeJhrsXtIGCYCINwmWdbffAzJsi00lY6OL8qlXFQq6lpjMs/stEbsMK/TQwMO8LDpozYiMjGxRJ2dDIrFPJrxJb0eI15KQU94SqoLBr/t1ldpEvofHk/+go0ShrNk++suH2uCHn8FhjXDZ1DhjWVcq3i2PsDmC9qKkZZZ4cf+mLWSCk4tNY2MaDZGuwwenUXyAfis4vNb0btpe74l5A3LvfqJ8KDJ2Pq3pvWNusDRqdgUdOQz9d/nSFY5uO9Ovxjahm8TszHAGPFZDvDvWCSeTMghq84cgBWht1OaYFK8cz7e9tAWLSFVKTJ3uQNqHkghOXLpzp6kPbJZ07hROiD7tQ9lyJABDOSnc/JE4vHgnEoEN1EzLpebmHgl+52OkahZxeq4YwqTr2FSGTvkyWEk8XQ==
 Content-Type: text/plain; charset="UTF-8"
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-X-Original-Sender: nikhil.nd@ti.com
+MIME-Version: 1.0
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB6PR0402MB2760.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fd92c10c-02c6-453d-ef8b-08d87a173929
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Oct 2020 01:25:43.3631
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: dOrc+/dpNwZgzUTvS3mgn386kx/L82l60niEm3nxrhM4W8ARRLvU/4zrsfgzdGkeHeC7+V6iXEe6VLHVAGTTCw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB5244
+X-Original-Sender: peng.fan@nxp.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@ti.com header.s=ti-com-17Q1 header.b=ScBmvMQc;       spf=pass
- (google.com: domain of nikhil.nd@ti.com designates 198.47.19.142 as permitted
- sender) smtp.mailfrom=nikhil.nd@ti.com;       dmarc=pass (p=QUARANTINE
- sp=NONE dis=NONE) header.from=ti.com
-X-Original-From: Nikhil Devshatwar <nikhil.nd@ti.com>
-Reply-To: Nikhil Devshatwar <nikhil.nd@ti.com>
+ header.i=@nxp.com header.s=selector2 header.b=sOywesau;       arc=pass (i=1
+ spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass
+ fromdomain=nxp.com);       spf=pass (google.com: domain of peng.fan@nxp.com
+ designates 40.107.22.55 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -139,211 +180,61 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Current PVU iommu implementation ignores possible failures in the
-config_commit part. This would allow inconsistent configuration
-to run and may introduce unknown bugs.
+Jan,
 
-Solve this by making sure that the pvu_iommu_config_commit never
-fails. Catch the errors early in the mapping phase. Use
-"free_tlb_count" to track available no of TLBs for chaining.
-This can be used to check if any mapping causes it to potentially
-use more no of TLBs than that are free. This will ensure that
-the allocationg for chaining will not fail.
+> Subject: Re: [PATCH v2 00/46] arm64: Rework SMMUv2 support
+> 
+> On 14.10.20 10:28, Jan Kiszka wrote:
+> > Changes in v2:
+> >  - map 52-bit parange to 48
+> >
+> > That wasn't the plan when I started, but the more I dug into the
+> > details and started to understand the hardware, the more issues I
+> > found and the more dead code fragments from the Linux usage became
+> visible.
+> >
+> > Highlights of the outcome:
+> >  - Fix stall of SMMU due to unhandled stalled contexts (took me a while
+> >    to understand that...)
+> >  - Fix programming of CBn_TCR and TTBR
+> >  - Fix TLB flush on cell exit
+> >  - Fix bogus handling of Extended StreamID support
+> >  - Do not pass-through unknown streams
+> >  - Disable SMMU on shutdown
+> >  - Reassign StreamIDs to the root cell
+> >  - 225 insertions(+), 666 deletions(-)
+> >
+> > The code works as expected on the Ultra96-v2 here, but due to all the
+> > time that went into the rework, I had no chance to bring up my MX8QM
+> > so far. I'm fairly optimistic that things are not broken there as
+> > well, but if they are, bisecting should be rather simple with this
+> > series. So please test and review.
+> >
+> 
+> Alice, Peng, already had a chance to review or test (ie. next)?
 
-Change the return type to void and remove the error handling in
-the config_commit path.
+I gave a test, sometimes I met SDHC ADMA error when
+`jailhouse enable imx8qm.cell`, sometimes it work well.
 
-Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
----
- hypervisor/arch/arm64/include/asm/ti-pvu.h |  3 +-
- hypervisor/arch/arm64/ti-pvu.c             | 54 +++++++++++++---------
- 2 files changed, 34 insertions(+), 23 deletions(-)
+I suspect when during jailhouse enable phase, there might be
+ongoing sdhc transactions not finished, not sure.
 
-diff --git a/hypervisor/arch/arm64/include/asm/ti-pvu.h b/hypervisor/arch/arm64/include/asm/ti-pvu.h
-index 2c340b3a..62aec7c0 100644
---- a/hypervisor/arch/arm64/include/asm/ti-pvu.h
-+++ b/hypervisor/arch/arm64/include/asm/ti-pvu.h
-@@ -117,6 +117,7 @@ struct pvu_dev {
- 	u16		max_virtid;
- 
- 	u16		tlb_data[PVU_NUM_TLBS];
-+	u16		free_tlb_count;
- };
- 
- int pvu_iommu_map_memory(struct cell *cell,
-@@ -125,6 +126,6 @@ int pvu_iommu_map_memory(struct cell *cell,
- int pvu_iommu_unmap_memory(struct cell *cell,
- 		const struct jailhouse_memory *mem);
- 
--int pvu_iommu_config_commit(struct cell *cell);
-+void pvu_iommu_config_commit(struct cell *cell);
- 
- #endif /* _IOMMMU_PVU_H_ */
-diff --git a/hypervisor/arch/arm64/ti-pvu.c b/hypervisor/arch/arm64/ti-pvu.c
-index 3b9a29ec..d96d01c9 100644
---- a/hypervisor/arch/arm64/ti-pvu.c
-+++ b/hypervisor/arch/arm64/ti-pvu.c
-@@ -15,7 +15,7 @@
-  * There are limitations on the number of available contexts, page sizes,
-  * number of pages that can be mapped, etc.
-  *
-- * PVU is desgined to be programmed with all the memory mapping at once.
-+ * PVU is designed to be programmed with all the memory mapping at once.
-  * Therefore, it defers the actual register programming till config_commit.
-  * Also, it does not support unmapping of the pages at runtime.
-  *
-@@ -110,6 +110,7 @@ static u32 pvu_tlb_alloc(struct pvu_dev *dev, u16 virtid)
- 	for (i = dev->max_virtid + 1; i < dev->num_tlbs; i++) {
- 		if (dev->tlb_data[i] == 0) {
- 			dev->tlb_data[i] = virtid << dev->num_entries;
-+			dev->free_tlb_count--;
- 			return i;
- 		}
- 	}
-@@ -138,10 +139,13 @@ static void pvu_tlb_flush(struct pvu_dev *dev, u16 tlbnum)
- 
- 	mmio_write32(&tlb->chain, 0x0);
- 
--	if (i < dev->max_virtid)
-+	if (i < dev->max_virtid) {
- 		dev->tlb_data[tlbnum] = 0x0 | i << dev->num_entries;
--	else
-+	} else {
-+		/* This was a chained TLB */
- 		dev->tlb_data[tlbnum] = 0x0;
-+		dev->free_tlb_count++;
-+	}
- 
- }
- 
-@@ -198,7 +202,7 @@ static int pvu_entry_write(struct pvu_dev *dev, u16 tlbnum, u8 index,
- 	mmio_write32_field(&entry->reg2, PVU_TLB_ENTRY_PGSIZE_MASK, pgsz);
- 	mmio_write32_field(&entry->reg2, PVU_TLB_ENTRY_FLAG_MASK, ent->flags);
- 
--	/* Do we need "DSB NSH" here to make sure all writes are finised? */
-+	/* Do we need "DSB NSH" here to make sure all writes are finished? */
- 	pvu_entry_enable(dev, tlbnum, index);
- 	return 0;
- }
-@@ -221,6 +225,8 @@ static u32 pvu_init_device(struct pvu_dev *dev, u16 max_virtid)
- 	}
- 
- 	dev->max_virtid = max_virtid;
-+	dev->free_tlb_count = dev->num_tlbs - (max_virtid + 1);
-+
- 	mmio_write32(&cfg->virtid_map1, 0);
- 	mmio_write32_field(&cfg->virtid_map2, PVU_MAX_VIRTID_MASK, max_virtid);
- 
-@@ -328,17 +334,17 @@ static void pvu_entrylist_sort(struct pvu_tlb_entry *entlist, u32 num_entries)
- 	}
- }
- 
--static int pvu_iommu_program_entries(struct cell *cell, u8 virtid)
-+static void pvu_iommu_program_entries(struct cell *cell, u8 virtid)
- {
- 	unsigned int inst, i, tlbnum, idx, ent_count;
- 	struct pvu_tlb_entry *ent, *cell_entries;
- 	struct pvu_dev *dev;
--	int ret, tlb_next;
-+	int tlb_next;
- 
- 	cell_entries = cell->arch.iommu_pvu.entries;
- 	ent_count = cell->arch.iommu_pvu.ent_count;
- 	if (ent_count == 0 || cell_entries == NULL)
--		return 0;
-+		return;
- 
- 	/* Program same memory mapping for all of the instances */
- 	for (inst = 0; inst < pvu_count; inst++) {
-@@ -356,20 +362,15 @@ static int pvu_iommu_program_entries(struct cell *cell, u8 virtid)
- 			if (idx == 0 && i >= dev->num_entries) {
- 				/* Find next available TLB and chain to it */
- 				tlb_next = pvu_tlb_alloc(dev, virtid);
--				if (tlb_next < 0)
--					return -ENOMEM;
- 				pvu_tlb_chain(dev, tlbnum, tlb_next);
- 				pvu_tlb_enable(dev, tlbnum);
- 				tlbnum = tlb_next;
- 			}
- 
--			ret = pvu_entry_write(dev, tlbnum, idx, ent);
--			if (ret)
--				return ret;
-+			pvu_entry_write(dev, tlbnum, idx, ent);
- 		}
- 		pvu_tlb_enable(dev, tlbnum);
- 	}
--	return 0;
- }
- 
- /*
-@@ -380,8 +381,9 @@ int pvu_iommu_map_memory(struct cell *cell,
- 			 const struct jailhouse_memory *mem)
- {
- 	struct pvu_tlb_entry *ent;
-+	struct pvu_dev *dev;
- 	unsigned int size;
--	u32 flags = 0;
-+	u32 tlb_count, flags = 0;
- 	int ret;
- 
- 	if (pvu_count == 0 || (mem->flags & JAILHOUSE_MEM_DMA) == 0)
-@@ -408,7 +410,19 @@ int pvu_iommu_map_memory(struct cell *cell,
- 	if (ret < 0)
- 		return ret;
- 
--	cell->arch.iommu_pvu.ent_count += ret;
-+	/*
-+	 * Check if there are enough TLBs left for *chaining* to ensure that
-+	 * pvu_tlb_alloc called from config_commit never fails
-+	 */
-+	tlb_count = (cell->arch.iommu_pvu.ent_count + ret - 1) / 8;
-+	dev = &pvu_units[0];
-+
-+	if (tlb_count > dev->free_tlb_count) {
-+		printk("ERROR: PVU: Mapping this memory needs more TLBs than that are available\n");
-+		return -EINVAL;
-+	} else {
-+		cell->arch.iommu_pvu.ent_count += ret;
-+	}
- 	return 0;
- }
- 
-@@ -434,13 +448,12 @@ int pvu_iommu_unmap_memory(struct cell *cell,
- 	return 0;
- }
- 
--int pvu_iommu_config_commit(struct cell *cell)
-+void pvu_iommu_config_commit(struct cell *cell)
- {
- 	unsigned int i, virtid;
--	int ret = 0;
- 
- 	if (pvu_count == 0 || !cell)
--		return 0;
-+		return;
- 
- 	/*
- 	 * Chaining the TLB entries adds extra latency to translate those
-@@ -455,13 +468,10 @@ int pvu_iommu_config_commit(struct cell *cell)
- 		if (virtid > MAX_VIRTID)
- 			continue;
- 
--		ret = pvu_iommu_program_entries(cell, virtid);
--		if (ret)
--			return ret;
-+		pvu_iommu_program_entries(cell, virtid);
- 	}
- 
- 	cell->arch.iommu_pvu.ent_count = 0;
--	return ret;
- }
- 
- static int pvu_iommu_cell_init(struct cell *cell)
--- 
-2.17.1
+I have not find time to look into details.
+
+Anyway, you could check in to master I think, we could address
+the issue later when I have time.
+
+Thanks,
+Peng.
+
+> 
+> Jan
+> 
+> --
+> Siemens AG, T RDA IOT
+> Corporate Competence Center Embedded Linux
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20201026195257.14398-1-nikhil.nd%40ti.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/DB6PR0402MB2760F60895CFBCCAEA5F2F3A88160%40DB6PR0402MB2760.eurprd04.prod.outlook.com.
