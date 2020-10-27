@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBCF34H6AKGQEODILB6I@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBZ564H6AKGQEAKC63TY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23f.google.com (mail-lj1-x23f.google.com [IPv6:2a00:1450:4864:20::23f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FA0329C397
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 18:48:57 +0100 (CET)
-Received: by mail-lj1-x23f.google.com with SMTP id f3sf1079817ljc.17
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 10:48:57 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1603820937; cv=pass;
+Received: from mail-wr1-x43b.google.com (mail-wr1-x43b.google.com [IPv6:2a00:1450:4864:20::43b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F3D029C46E
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 18:56:56 +0100 (CET)
+Received: by mail-wr1-x43b.google.com with SMTP id t17sf1041032wrm.13
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 10:56:56 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1603821416; cv=pass;
         d=google.com; s=arc-20160816;
-        b=xllnujqHN7jfYrGt6gDsYux9e/pEYMVHbe+nGF9m8Plp6AwGiquoZoIp66XBYu+NFp
-         QUfbFKzU7a9vhmX25Y8D32ExOLgq0+SGer2hNVXi+Sd4gcn16yPSgpZE++hPoKnnHolb
-         1VpKsmOzGZ2xGhq6hTeHAhrNynFqaAvoKI6e7LfGjU4xgC0jt3XrAI+yh5Kzh0+lfizm
-         TIxFgtfR6JT3tOpXLI3SNEAR7zMUlJ56+PNTSOMtB6WS1IYpBwNOpM83chAh7pLwI061
-         764coVIqgDzBAhkmIfj+w+NK36PDjmMGBqskLKdM53eYgDo7j4MiUA8tvk1GbJwhJglq
-         HSRw==
+        b=quq57QGyC/52oh48mbAENlmRLXITPvfvh6/J3eMxz4rvWbjtRPXhhIH2FsIctt8738
+         WCY/xJecc4Iu7D6d80MhZF9tZ2vt9ZC0goMvNZqiQWy+/mOC9fYteZ8yDdtlzmXvZvIE
+         B1Dm9dZB4lLY1lArCF+/cVBRwbISeGFvmFMvIMSpDXgw8FZRDh1V5wtREnMGh1FWuxLM
+         p3ApE4rGZo40BF1LXBVEEXGYj0OAZzrQmDw7RpBk1ddW32bB+qRmCy1w3uW9ex5G2qOe
+         3P4+GZUstUtHHTFnaVrdeGTgeefQ65Qh6q2yWyruPMarOQsRjexW/XHqYmLCQuLPnidV
+         V6oQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-language:in-reply-to
          :mime-version:user-agent:date:message-id:from:references:to:subject
          :sender:dkim-signature;
-        bh=U4uOODgnzDiSdJsadDMww/DhXjo5G/rBtOSFw5bGk3Q=;
-        b=EY5kWhkbDVc7SiSP9HGYY3ROv7fpv7qIwynMiuoN664mCnzKTQ+V3Shbqq4t4vc83J
-         g3ZoHGWmAlDjOuQj98k7qKbPighSxUZh8aFa/26basJqsko5Xyx7MupWL4Nj3L08CqUt
-         zyUvRy2OJYQ4EQ2vvzHuyqmNGSxxq9j+ulmQHkHD9ykEy0mZhOj1gI3C9COA1yCtsI+F
-         9My1BGZiiz4gbDBEkaelo0iC4tHTCyAfiA+7rdsbe+QwH1qi60M9kGaE47ouVItaIgJs
-         7j2XF3WI4rq6kfZl95l5OF/tvODJ4X1jRu1gZ0jXBJS9aLPBUFnrrFsILcF5tg8d5sN+
-         urmA==
+        bh=N2r6CIzutqZ7qDjt1t2sYEK4zxF4qm9oMFONyNydpKc=;
+        b=EGEDlMK/k6nikzPgXHrAb3DpvaY4SR+OObbxfqDKjFkjmJVtDN0SdsDOZawWYkt/+R
+         nfbJknrT3ICCRr38pYELPbXhurR++LWNK3/qa7mBkdB4akXjzuU+yWEAH7M9nRw6cNum
+         0BP4kfkY+57t25FbFTlZ2xNfRiNjOgrrp5NiqDFYAPB18Ol+KxzSetb3L+eanROhiKyq
+         bEZGpWih2bHp72fgeFHnUEJYNRYxA1if6gkO0+iydHOHQQFM0MhXzmb19GVXmpFDRchH
+         SqPLEa8WhI4mQbtlTePCAHU6Fy8dNTgemqPbB0QiWjdxQV31Gc5QBgV1MMCisYG6lh4h
+         96LQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:in-reply-to:content-language:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=U4uOODgnzDiSdJsadDMww/DhXjo5G/rBtOSFw5bGk3Q=;
-        b=GE2zdnAFIOWX9pBpoWBF4rieBERPiW5y9przvl6q3U32wCJRme7EHz4l2LjJIRWDov
-         eBEpgq6ib9ipzSyN5vjUqAnpoJrfQWUKlz4twil9IrHC7fjrGzMOZAYztRGm7qliHkLa
-         0E3el4Bf5179TXLDyOd/ZVGQtiKrLDlnsjudvKk3NGlF32qB3GyqgcfHS0MnfuUkNLRK
-         wANbYqll//DTA+Xs11UmA08zVDfJ5tdafJBNcd0GXxYK9sp7R0RTl83tqlXwVHThW8gW
-         IpUfIWCwepJQybU7tEPZ2g+d/1si6cAPeKQz9u22ZAYmq0d3djuNIsRgbEnrT4FAH/4k
-         4VBg==
+        bh=N2r6CIzutqZ7qDjt1t2sYEK4zxF4qm9oMFONyNydpKc=;
+        b=jnzLJ0td7PCsMznFtFs2INnQGbNXIF9R/dJh/5L3YERpDPcG50h2C7ltucDV9yQOZ4
+         VG7ZDCrT8j8xUmKRZ08BWx4nw8VYYgVIkKk7N0rNtmfgREhkEtL/nd3+wnHgrj6BDbYH
+         q5oxgy9VZFON+SrPuFEZDuQTLZu9BjlYnMpAGvBgM4F1EPVjlq8fegdpjSvsKQEXb0AD
+         YUo3tsYSdw3Pbr3xODgxI0yA6Wkt5ikS9LBQ8dmKGz4D8k29nmeNAXBCkcpNWoBRuKML
+         PRzubu7z4qYt+IY+5qZketLikvP1IFWv4O0iJldcpDmPYg5QdB9I1dxobV39XaPz1zIm
+         Gbdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:subject:to:references:from:message-id
@@ -49,76 +49,74 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=U4uOODgnzDiSdJsadDMww/DhXjo5G/rBtOSFw5bGk3Q=;
-        b=uRCeL182iFdQ/1H5CzgR5VkxSboo0+D0y2aKZZqGernNohyfQdlQJwA1Ss9PaSd5RR
-         uNF1DI+dss26utUliZJqyoubU4mrz7D+fxY0jwa/dGXDMVKCl577Lu/xeKrGTbpmeb0O
-         7mxm48TOeSfrwA58ulnH1YRckDOOzJu/74hvn9IpMj9AtVmCZ1SWbsPkdnLufrIaGs4X
-         HayVCzQe4NXGyZ60iBHbgU4Doa2C+yk8/k3XTxksp2fN1UPm/+Q16TZkT8IcsV1Ix3PO
-         /arVs0yRLbl4l2Z9t2n54A2QbJLOC1S+UlN+R/qo2hWll/z4Y4zcXuG8HokFEXD4joFP
-         vDCg==
+        bh=N2r6CIzutqZ7qDjt1t2sYEK4zxF4qm9oMFONyNydpKc=;
+        b=OAKtRKWd9aNlQf1luUB7Te55zZx95SZag55Tcix6b+V5adkEDFYK9uGNJnAygzznRk
+         DgJOBAeW3e1/ZGr1giDihBCrtIGG5dYDyQA+KH+hIRcuVJ/oPHfVePvAEz4QdgESaIUG
+         AnJ0SRxxTYdOZb1d6bKTLmOW1xUZqjkatwG+rfSXpJVza2I3iGx6oLM82h/wAbeREMxP
+         YgE6AY4ssdEHCyBnCUJjCnK+pmjD4ePp5b5K2ziqnI4nsmfjbbiGMCiGqdihKfRPJk+S
+         +a5zlNm/leT6Gzxj/5iUsnNrM2FGpLMt+Y67X7aF62WInql1GE5R9WQ98tjZh+tzh2VZ
+         dDGQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530x3JaYoUp00gfIc91JLI/Rwi6YBH+AG4KO+/PwV8TydQP8S3x1
-	PYVV0Z5j5axEjJNMajLX2IE=
-X-Google-Smtp-Source: ABdhPJzLHxjaqNCBexK9rH6TdWgCiqG9pSFiYBlkGMu3zZRqUkORLwFgSD1DmlS3X8gxSZi0BzuL8g==
-X-Received: by 2002:a19:ec2:: with SMTP id 185mr1200513lfo.425.1603820936847;
-        Tue, 27 Oct 2020 10:48:56 -0700 (PDT)
+X-Gm-Message-State: AOAM533o2No0zcxa0IFwbeWUsMBrEqeL8edxkUBVqOsdiFPKcmjheJdS
+	5EEu6b4JooYWGFIQU6AJBOo=
+X-Google-Smtp-Source: ABdhPJwGS5r2b+P9zBhKa0g6k6UpkCaYeQPQ0zV/LCK8gMxf6jxiFEIHRmpnWYgA6onKGXGf+HCHdA==
+X-Received: by 2002:a5d:6345:: with SMTP id b5mr4384730wrw.288.1603821415681;
+        Tue, 27 Oct 2020 10:56:55 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:651c:14d:: with SMTP id c13ls489227ljd.8.gmail; Tue, 27
- Oct 2020 10:48:55 -0700 (PDT)
-X-Received: by 2002:a05:651c:3c2:: with SMTP id f2mr684998ljp.446.1603820935331;
-        Tue, 27 Oct 2020 10:48:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1603820935; cv=none;
+Received: by 2002:a1c:7e4e:: with SMTP id z75ls1317975wmc.0.canary-gmail; Tue,
+ 27 Oct 2020 10:56:54 -0700 (PDT)
+X-Received: by 2002:a1c:2108:: with SMTP id h8mr3926317wmh.63.1603821414373;
+        Tue, 27 Oct 2020 10:56:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1603821414; cv=none;
         d=google.com; s=arc-20160816;
-        b=kKsnLuDxbgTgaRQBsQ0vQwn1M4lMu8CpNENK4+7YxMbkbU5kB2ulq7qiz0oNETPduQ
-         tvqi5vZAnTnYlvs5dO1TUkGr9FDVABNrRNKFOBHmXsnUR82Xxc39PX9tQCiKuA6ANwRP
-         hiCrAlpSb9q9mmDY0AeIyN/k/WFyzBB1hIB/mg47qSKppqkg5pYz1JBwlSKoyaqFPsD+
-         nM5FeVn113vVvO92xNPBNCbNbO2fQTfjDrqZsRj0c4zK0ZpJMlOIVPXnNn3nhNftt1Ux
-         nj0BcfGNqzcc5kCsbmJWlhAjZjUM24jzYmZw2IIvx8rPGVlRFEel6qYpggftPnFJjgOu
-         A1eQ==
+        b=If5MftEAO01BO59OdwWqjBFL7qnUgk0AoW39mTy5KcMsYcvmxwgEm81Wd+WjRVEA2i
+         FFuZOd4Xye9Pr8QLiEM1WjeLKPMd27hvQzV5U0zlSMPvfKsiuP9fuzYMw/pAu69hKHKK
+         bCMi0KZI521IQJcK0B6c5qUq3qqBvW2iqaCn3T9kFLMesaaGzhtKJiLBrgmz7VcH/we6
+         eSQF0OraO7hxnYISR+f4UdRVtYTc+kfU86f2tj1QgoDQGVPVvzoTPdoVUekGrk2m3+zn
+         LiYEbQDoDckcQjJVBMRQVA7fzk2a7K6MJMvLmuKH52wKyOR2AElvKj84BKLUICWYGi2c
+         eE0g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
          :user-agent:date:message-id:from:references:to:subject;
-        bh=k39i6ptusCvPyfubxdFVzhqtPMq2GGt2UMgZFoXEHic=;
-        b=RLoaO+fvvcgnjqt9oHheqtorGrmouMy1xiNMRjb+4kwtpJOz1v7USgXK9KuYnV+tj7
-         7ESKPWK+gP4mwwC8OBrpZiRzivn+TwbP6FXT2mng4BL8cRQzak2WukzrbG8t6kx5wlMf
-         pYROFDK7Ts5sWuQIsEsaFqQgwj77ldYlFPnOUKZaV+y86fkjwvoDqsa5qnpmOPBT23HH
-         dTCuzSrbIIjvNp7NbMtyVMb+rf5gBrICjSUc30l0TvvjRKVWI4dK80Z3TaEdseBMsw9b
-         9i2F0gIsij8AX+aiM3ojNh6X0uhsJt9CrU7jVcykAj/tHVYw9jxGFfDSG69T1UITHIQ9
-         Ifrg==
+        bh=qoZ+8IiHfV7995gfCeOK1tyKrDV20/29Hr2gSoxBzfs=;
+        b=EZ0owXhcXOJ6b1K3CtRRkvKTJa0fThJVzTOEVRNYUZg7YeSr5XIchL6zaCaYE99Dvm
+         oMaWhaCpwB6QJM7fLpJ1dBaF78DzMueh5SkBxwr+uTbHRye6GMS7bHywKTJmjTT4iH/R
+         nRg2UaDfK+AsTuiIuAw5++mHyeMlCzKHMn/Bcx0X0tzPJRSIhzmb2nIR5+fxCN4ATSPQ
+         UVPkxgcbCtIaEFq4G67SNIc7aOsenQN+AwlGNsM1K+vte4MjjW+Yq8f3z2iw31kRE+ad
+         UhVZOk8GH8jwCFslZQYvmLCUUXN55G2zQ8u4rtNgkoyTGFo6WNqCXTAbzb0d1kUMSFEC
+         rgog==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id a16si70984lfr.5.2020.10.27.10.48.55
+Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
+        by gmr-mx.google.com with ESMTPS id k3si49809wrl.5.2020.10.27.10.56.54
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 27 Oct 2020 10:48:55 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
+        Tue, 27 Oct 2020 10:56:54 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 09RHmsIe008277
+	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 09RHuro3013934
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 27 Oct 2020 18:48:54 +0100
+	Tue, 27 Oct 2020 18:56:53 +0100
 Received: from [139.25.68.37] ([139.25.68.37])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 09RHmrBK005068;
-	Tue, 27 Oct 2020 18:48:53 +0100
-Subject: Re: [PATCH] arm64: pvu: Avoid failure in config_commit
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 09RHurho012983;
+	Tue, 27 Oct 2020 18:56:53 +0100
+Subject: Re: [PATCH] inmates: x86: add cache access time test
 To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
-        Nikhil Devshatwar <nikhil.nd@ti.com>, jailhouse-dev@googlegroups.com
-References: <20201026195257.14398-1-nikhil.nd@ti.com>
- <a282f746-9eb7-eb5e-7c45-a45e795a74c3@siemens.com>
- <81494b8f-5a61-ada0-a534-741f087ef191@oth-regensburg.de>
+        jailhouse-dev@googlegroups.com
+References: <20201026131107.266498-1-ralf.ramsauer@oth-regensburg.de>
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <5f11c041-ffb5-18cb-4889-612a18988043@siemens.com>
-Date: Tue, 27 Oct 2020 18:48:53 +0100
+Message-ID: <5edb7ee8-cacd-b658-3511-9a8cb21681c2@siemens.com>
+Date: Tue, 27 Oct 2020 18:56:53 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <81494b8f-5a61-ada0-a534-741f087ef191@oth-regensburg.de>
+In-Reply-To: <20201026131107.266498-1-ralf.ramsauer@oth-regensburg.de>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
@@ -133,252 +131,240 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 27.10.20 18:40, Ralf Ramsauer wrote:
-> 
-> 
-> On 27/10/2020 18:33, Jan Kiszka wrote:
->> On 26.10.20 20:52, 'Nikhil Devshatwar' via Jailhouse wrote:
->>> Current PVU iommu implementation ignores possible failures in the
->>> config_commit part. This would allow inconsistent configuration
->>> to run and may introduce unknown bugs.
->>>
->>> Solve this by making sure that the pvu_iommu_config_commit never
->>> fails. Catch the errors early in the mapping phase. Use
->>> "free_tlb_count" to track available no of TLBs for chaining.
->>> This can be used to check if any mapping causes it to potentially
->>> use more no of TLBs than that are free. This will ensure that
->>> the allocationg for chaining will not fail.
->>>
->>> Change the return type to void and remove the error handling in
->>> the config_commit path.
->>>
->>> Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
->>> ---
->>>  hypervisor/arch/arm64/include/asm/ti-pvu.h |  3 +-
->>>  hypervisor/arch/arm64/ti-pvu.c             | 54 +++++++++++++---------
->>>  2 files changed, 34 insertions(+), 23 deletions(-)
->>>
->>> diff --git a/hypervisor/arch/arm64/include/asm/ti-pvu.h b/hypervisor/arch/arm64/include/asm/ti-pvu.h
->>> index 2c340b3a..62aec7c0 100644
->>> --- a/hypervisor/arch/arm64/include/asm/ti-pvu.h
->>> +++ b/hypervisor/arch/arm64/include/asm/ti-pvu.h
->>> @@ -117,6 +117,7 @@ struct pvu_dev {
->>>  	u16		max_virtid;
->>>  
->>>  	u16		tlb_data[PVU_NUM_TLBS];
->>> +	u16		free_tlb_count;
->>>  };
->>>  
->>>  int pvu_iommu_map_memory(struct cell *cell,
->>> @@ -125,6 +126,6 @@ int pvu_iommu_map_memory(struct cell *cell,
->>>  int pvu_iommu_unmap_memory(struct cell *cell,
->>>  		const struct jailhouse_memory *mem);
->>>  
->>> -int pvu_iommu_config_commit(struct cell *cell);
->>> +void pvu_iommu_config_commit(struct cell *cell);
->>>  
->>>  #endif /* _IOMMMU_PVU_H_ */
->>> diff --git a/hypervisor/arch/arm64/ti-pvu.c b/hypervisor/arch/arm64/ti-pvu.c
->>> index 3b9a29ec..d96d01c9 100644
->>> --- a/hypervisor/arch/arm64/ti-pvu.c
->>> +++ b/hypervisor/arch/arm64/ti-pvu.c
->>> @@ -15,7 +15,7 @@
->>>   * There are limitations on the number of available contexts, page sizes,
->>>   * number of pages that can be mapped, etc.
->>>   *
->>> - * PVU is desgined to be programmed with all the memory mapping at once.
->>> + * PVU is designed to be programmed with all the memory mapping at once.
->>>   * Therefore, it defers the actual register programming till config_commit.
->>>   * Also, it does not support unmapping of the pages at runtime.
->>>   *
->>> @@ -110,6 +110,7 @@ static u32 pvu_tlb_alloc(struct pvu_dev *dev, u16 virtid)
->>>  	for (i = dev->max_virtid + 1; i < dev->num_tlbs; i++) {
->>>  		if (dev->tlb_data[i] == 0) {
->>>  			dev->tlb_data[i] = virtid << dev->num_entries;
->>> +			dev->free_tlb_count--;
->>>  			return i;
->>>  		}
->>>  	}
->> 	return 0;
->>
->> So we will never get here and never return 0? What prevents that is in
->> pvu_iommu_map_memory, right? Should be explained.
->>
->> And maybe we should actually introduce a BUG() macro to crash
->> intentionally when reaching impossible states. Or we simply do
->>
->> while (dev->tlb_data[i] != 0)
->> 	i++;
->>
->> explaining why this loop is always finishing.
-> 
-> If it's about to keep the compiler silent, then a
-> __builtin_unreachable() does both: give a hint in code that there's no
-> way to reach that point, and keep the no return value warning silent.
+On 26.10.20 14:11, Ralf Ramsauer wrote:
+> On x86_64 systems, this test inmate measures the time that is required
+> to read a value from main memory. Via rdtsc, it measures the CPU cycles
+> that are required for the access. Acces can either happen cached, or
 
-I know, though I'd rather like to NOT have the then useless limit check
-written down.
+"Access"
+
+> uncached. In case of uncached access, the cache line will be flushed
+> before access.
+> 
+> This tool repeats the measurement for 10e6 times, and outputs the
+> average cycles that were required for the access. Before accessing the
+> actual measurement, a dummy test is used to determine the average
+> overhead of one single measurement.
+> 
+> And that's pretty useful, because this tool gives a lot of insights of
+> differences between the root and the non-root cell: With tiny effort, we
+> can also run it on Linux.
+> 
+> If the 'overhead' time differs between root and non-root cell, this can
+> be an indicator that there might be some timing or speed differences
+> between the root and non-root cell.
+> 
+> If the 'uncached' or 'cached' average time differs between the non-root
+> and root cell, it's an indicator that both might have different hardware
+> configurations / setups.
+> 
+> The host tool can be compiled with:
+> $ gcc -Os -Wall -Wextra -fno-stack-protector -mno-red-zone -o cache-timings ./inmates/demos/x86/cache-timings-host.c
+
+Maybe put that in the source code as comment?
+
+> 
+> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+> ---
+> 
+> since RFC:
+>   - move the inmate to demos instead of tests
+> 
+>  inmates/demos/x86/Makefile               |  4 +-
+>  inmates/demos/x86/cache-timings-common.c | 95 ++++++++++++++++++++++++
+>  inmates/demos/x86/cache-timings-host.c   | 27 +++++++
+>  inmates/demos/x86/cache-timings.c        | 15 ++++
+>  4 files changed, 140 insertions(+), 1 deletion(-)
+>  create mode 100644 inmates/demos/x86/cache-timings-common.c
+>  create mode 100644 inmates/demos/x86/cache-timings-host.c
+
+We already have tools/ivshmem-demo.c which already produce a Linux demo
+binary for a cell. Maybe stick cache-timings together with that
+ivshmem-demo into a tools/demos/ folder? Then you can actually compile
+it (for x86-only, obviously) and can drop my remark above.
+
+>  create mode 100644 inmates/demos/x86/cache-timings.c
+> 
+> diff --git a/inmates/demos/x86/Makefile b/inmates/demos/x86/Makefile
+> index f53b739e..47b79869 100644
+> --- a/inmates/demos/x86/Makefile
+> +++ b/inmates/demos/x86/Makefile
+> @@ -13,7 +13,8 @@
+>  include $(INMATES_LIB)/Makefile.lib
+>  
+>  INMATES := tiny-demo.bin apic-demo.bin ioapic-demo.bin 32-bit-demo.bin \
+> -	pci-demo.bin e1000-demo.bin ivshmem-demo.bin smp-demo.bin
+> +	pci-demo.bin e1000-demo.bin ivshmem-demo.bin smp-demo.bin \
+> +	cache-timings.bin
+>  
+>  tiny-demo-y	:= tiny-demo.o
+>  apic-demo-y	:= apic-demo.o
+> @@ -22,6 +23,7 @@ pci-demo-y	:= pci-demo.o
+>  e1000-demo-y	:= e1000-demo.o
+>  ivshmem-demo-y	:= ../ivshmem-demo.o
+>  smp-demo-y	:= smp-demo.o
+> +cache-timings-y := cache-timings.o
+>  
+>  $(eval $(call DECLARE_32_BIT,32-bit-demo))
+>  32-bit-demo-y	:= 32-bit-demo.o
+> diff --git a/inmates/demos/x86/cache-timings-common.c b/inmates/demos/x86/cache-timings-common.c
+> new file mode 100644
+> index 00000000..0edf65e6
+> --- /dev/null
+> +++ b/inmates/demos/x86/cache-timings-common.c
+> @@ -0,0 +1,95 @@
+> +/*
+> + * Jailhouse, a Linux-based partitioning hypervisor
+> + *
+> + * Copyright (c) OTH Regensburg, 2020
+> + *
+> + * Authors:
+> + *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+> + *
+> + * This work is licensed under the terms of the GNU GPL, version 2.  See
+> + * the COPYING file in the top-level directory.
+> + */
+> +
+> +#define ROUNDS	(10 * 1000 * 1000)
+> +
+> +union tscval {
+> +	struct {
+> +		u32 lo;
+> +		u32 hi;
+> +	} __attribute__((packed));
+> +	u64 val;
+> +} __attribute__((packed));
+> +
+> +static u32 victim;
+> +
+> +static inline void clflush(void *addr)
+> +{
+> +	asm volatile("clflush %0\t\n"
+> +		     "mfence\t\n"
+> +		     "lfence\t\n" : "+m" (*(volatile char *)addr));
+> +}
+> +
+> +#define MEASUREMENT_OVERHEAD	"nop\t\n"
+> +#define MEASUREMENT_COMMAND	"mov (%%rbx), %%ebx\t\n"
+> +#define DECLARE_MEASUREMENT(name, flush, meas) \
+> +	static inline u64 measure_##name(u32 *victim)			\
+> +	{								\
+> +		union tscval before, after;				\
+> +									\
+> +		if (flush)						\
+> +			clflush(victim);				\
+> +		asm volatile("mov %4, %%rbx\t\n"			\
+> +			     "lfence\t\n"				\
+> +			     "rdtsc\t\n"				\
+> +			     "lfence\t\n"				\
+> +									\
+> +			     meas					\
+> +									\
+> +			     "mov %%eax, %%ebx\t\n"			\
+> +			     "mov %%edx, %%ecx\t\n"			\
+> +			     "lfence\t\n"				\
+> +			     "rdtsc\t\n"				\
+> +			     "lfence\t\n"				\
+> +			     "mov %%ebx, %0\t\n"			\
+> +			     "mov %%ecx, %1\t\n"			\
+> +			     "mov %%eax, %2\t\n"			\
+> +			     "mov %%edx, %3\t\n"			\
+> +			     : "=m"(before.lo), "=m" (before.hi),	\
+> +			       "=m" (after.lo), "=m" (after.hi)		\
+> +			     : "m" (victim)				\
+> +			     : "eax", "rbx", "ecx", "edx");		\
+> +		return after.val - before.val;				\
+> +	}
+> +
+> +DECLARE_MEASUREMENT(overhead, false, MEASUREMENT_OVERHEAD)
+> +DECLARE_MEASUREMENT(cached, false, MEASUREMENT_COMMAND)
+> +DECLARE_MEASUREMENT(uncached, true, MEASUREMENT_COMMAND)
+> +
+> +static inline u64 avg_measurement(u64 (*meas)(u32*), u32 *victim,
+> +				  unsigned int rounds, u64 overhead)
+> +{
+> +	u64 cycles = 0;
+> +	unsigned int i;
+> +
+> +	for (i = 0; i < rounds; i++)
+> +		cycles += meas(victim) - overhead;
+> +	return cycles / rounds;
+> +}
+> +
+> +void inmate_main(void)
+> +{
+> +	u64 cycles, overhead;
+> +
+> +	printk("Measurement rounds: %u\n", ROUNDS);
+> +	printk("Determining measurement overhead...\n");
+> +	overhead = avg_measurement(measure_overhead, &victim, ROUNDS, 0);
+> +	printk("  -> Average measurement overhead: %llu cycles\n", overhead);
+> +
+> +	printk("Measuring uncached memory access...\n");
+> +	cycles = avg_measurement(measure_uncached, &victim, ROUNDS, overhead);
+> +	printk("  -> Average uncached memory access: %llu cycles\n", cycles);
+> +
+> +	printk("Measuring cached memory access...\n");
+> +	cycles = avg_measurement(measure_cached, &victim, ROUNDS, overhead);
+> +	printk("  -> Average cached memory access: %llu cycles\n", cycles);
+> +}
+> diff --git a/inmates/demos/x86/cache-timings-host.c b/inmates/demos/x86/cache-timings-host.c
+> new file mode 100644
+> index 00000000..229db904
+> --- /dev/null
+> +++ b/inmates/demos/x86/cache-timings-host.c
+> @@ -0,0 +1,27 @@
+> +/*
+> + * Jailhouse, a Linux-based partitioning hypervisor
+> + *
+> + * Copyright (c) OTH Regensburg, 2020
+> + *
+> + * Authors:
+> + *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+> + *
+> + * This work is licensed under the terms of the GNU GPL, version 2.  See
+> + * the COPYING file in the top-level directory.
+> + */
+> +
+> +#include <stdbool.h>
+> +#include <stdio.h>
+> +
+> +#define printk printf
+> +
+> +typedef unsigned int u32;
+> +typedef unsigned long long u64;
+> +
+> +#include "cache-timings-common.c"
+> +
+> +int main(void)
+> +{
+> +	inmate_main();
+> +	return 0;
+> +}
+> diff --git a/inmates/demos/x86/cache-timings.c b/inmates/demos/x86/cache-timings.c
+> new file mode 100644
+> index 00000000..1acc3ee9
+> --- /dev/null
+> +++ b/inmates/demos/x86/cache-timings.c
+> @@ -0,0 +1,15 @@
+> +/*
+> + * Jailhouse, a Linux-based partitioning hypervisor
+> + *
+> + * Copyright (c) OTH Regensburg, 2020
+> + *
+> + * Authors:
+> + *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+> + *
+> + * This work is licensed under the terms of the GNU GPL, version 2.  See
+> + * the COPYING file in the top-level directory.
+> + */
+> +
+> +#include <inmate.h>
+> +
+> +#include "cache-timings-common.c"
+> 
 
 Jan
-
-> 
->   Ralf
-> 
->>
->>> @@ -138,10 +139,13 @@ static void pvu_tlb_flush(struct pvu_dev *dev, u16 tlbnum)
->>>  
->>>  	mmio_write32(&tlb->chain, 0x0);
->>>  
->>> -	if (i < dev->max_virtid)
->>> +	if (i < dev->max_virtid) {
->>>  		dev->tlb_data[tlbnum] = 0x0 | i << dev->num_entries;
->>> -	else
->>> +	} else {
->>> +		/* This was a chained TLB */
->>>  		dev->tlb_data[tlbnum] = 0x0;
->>> +		dev->free_tlb_count++;
->>> +	}
->>>  
->>>  }
->>>  
->>> @@ -198,7 +202,7 @@ static int pvu_entry_write(struct pvu_dev *dev, u16 tlbnum, u8 index,
->>>  	mmio_write32_field(&entry->reg2, PVU_TLB_ENTRY_PGSIZE_MASK, pgsz);
->>>  	mmio_write32_field(&entry->reg2, PVU_TLB_ENTRY_FLAG_MASK, ent->flags);
->>>  
->>> -	/* Do we need "DSB NSH" here to make sure all writes are finised? */
->>> +	/* Do we need "DSB NSH" here to make sure all writes are finished? */
->>>  	pvu_entry_enable(dev, tlbnum, index);
->>>  	return 0;
->>>  }
->>> @@ -221,6 +225,8 @@ static u32 pvu_init_device(struct pvu_dev *dev, u16 max_virtid)
->>>  	}
->>>  
->>>  	dev->max_virtid = max_virtid;
->>> +	dev->free_tlb_count = dev->num_tlbs - (max_virtid + 1);
->>> +
->>>  	mmio_write32(&cfg->virtid_map1, 0);
->>>  	mmio_write32_field(&cfg->virtid_map2, PVU_MAX_VIRTID_MASK, max_virtid);
->>>  
->>> @@ -328,17 +334,17 @@ static void pvu_entrylist_sort(struct pvu_tlb_entry *entlist, u32 num_entries)
->>>  	}
->>>  }
->>>  
->>> -static int pvu_iommu_program_entries(struct cell *cell, u8 virtid)
->>> +static void pvu_iommu_program_entries(struct cell *cell, u8 virtid)
->>>  {
->>>  	unsigned int inst, i, tlbnum, idx, ent_count;
->>>  	struct pvu_tlb_entry *ent, *cell_entries;
->>>  	struct pvu_dev *dev;
->>> -	int ret, tlb_next;
->>> +	int tlb_next;
->>>  
->>>  	cell_entries = cell->arch.iommu_pvu.entries;
->>>  	ent_count = cell->arch.iommu_pvu.ent_count;
->>>  	if (ent_count == 0 || cell_entries == NULL)
->>> -		return 0;
->>> +		return;
->>>  
->>>  	/* Program same memory mapping for all of the instances */
->>>  	for (inst = 0; inst < pvu_count; inst++) {
->>> @@ -356,20 +362,15 @@ static int pvu_iommu_program_entries(struct cell *cell, u8 virtid)
->>>  			if (idx == 0 && i >= dev->num_entries) {
->>>  				/* Find next available TLB and chain to it */
->>>  				tlb_next = pvu_tlb_alloc(dev, virtid);
->>> -				if (tlb_next < 0)
->>> -					return -ENOMEM;
->>>  				pvu_tlb_chain(dev, tlbnum, tlb_next);
->>>  				pvu_tlb_enable(dev, tlbnum);
->>>  				tlbnum = tlb_next;
->>>  			}
->>>  
->>> -			ret = pvu_entry_write(dev, tlbnum, idx, ent);
->>> -			if (ret)
->>> -				return ret;
->>> +			pvu_entry_write(dev, tlbnum, idx, ent);
->>
->> But what if pvu_entry_write finds an issue? Are we fine with reporting
->> only and then simply continueing?
->>
->> Please clearify that in-place, i.e. via comments in pvu_entry_write(),
->> and remove ignored return values.
->>
->>>  		}
->>>  		pvu_tlb_enable(dev, tlbnum);
->>>  	}
->>> -	return 0;
->>>  }
->>>  
->>>  /*
->>> @@ -380,8 +381,9 @@ int pvu_iommu_map_memory(struct cell *cell,
->>>  			 const struct jailhouse_memory *mem)
->>>  {
->>>  	struct pvu_tlb_entry *ent;
->>> +	struct pvu_dev *dev;
->>>  	unsigned int size;
->>> -	u32 flags = 0;
->>> +	u32 tlb_count, flags = 0;
->>>  	int ret;
->>>  
->>>  	if (pvu_count == 0 || (mem->flags & JAILHOUSE_MEM_DMA) == 0)
->>> @@ -408,7 +410,19 @@ int pvu_iommu_map_memory(struct cell *cell,
->>>  	if (ret < 0)
->>>  		return ret;
->>>  
->>> -	cell->arch.iommu_pvu.ent_count += ret;
->>> +	/*
->>> +	 * Check if there are enough TLBs left for *chaining* to ensure that
->>> +	 * pvu_tlb_alloc called from config_commit never fails
->>> +	 */
->>> +	tlb_count = (cell->arch.iommu_pvu.ent_count + ret - 1) / 8;
->>> +	dev = &pvu_units[0];
->>> +
->>> +	if (tlb_count > dev->free_tlb_count) {
->>> +		printk("ERROR: PVU: Mapping this memory needs more TLBs than that are available\n");
->>> +		return -EINVAL;
->>> +	} else {
->>
->> No need for "else" here.
->>
->>> +		cell->arch.iommu_pvu.ent_count += ret;
->>> +	}
->>>  	return 0;
->>>  }
->>>  
->>> @@ -434,13 +448,12 @@ int pvu_iommu_unmap_memory(struct cell *cell,
->>>  	return 0;
->>>  }
->>>  
->>> -int pvu_iommu_config_commit(struct cell *cell)
->>> +void pvu_iommu_config_commit(struct cell *cell)
->>>  {
->>>  	unsigned int i, virtid;
->>> -	int ret = 0;
->>>  
->>>  	if (pvu_count == 0 || !cell)
->>> -		return 0;
->>> +		return;
->>>  
->>>  	/*
->>>  	 * Chaining the TLB entries adds extra latency to translate those
->>> @@ -455,13 +468,10 @@ int pvu_iommu_config_commit(struct cell *cell)
->>>  		if (virtid > MAX_VIRTID)
->>>  			continue;
->>>  
->>> -		ret = pvu_iommu_program_entries(cell, virtid);
->>> -		if (ret)
->>> -			return ret;
->>> +		pvu_iommu_program_entries(cell, virtid);
->>>  	}
->>>  
->>>  	cell->arch.iommu_pvu.ent_count = 0;
->>> -	return ret;
->>>  }
->>>  
->>>  static int pvu_iommu_cell_init(struct cell *cell)
->>>
->>
->> Jan
->>
 
 -- 
 Siemens AG, T RDA IOT
@@ -387,4 +373,4 @@ Corporate Competence Center Embedded Linux
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/5f11c041-ffb5-18cb-4889-612a18988043%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/5edb7ee8-cacd-b658-3511-9a8cb21681c2%40siemens.com.
