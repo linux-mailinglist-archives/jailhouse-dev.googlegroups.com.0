@@ -1,31 +1,31 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBVVI4D6AKGQEIYFNJOY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBA5L4D6AKGQEZQYHRPA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x238.google.com (mail-lj1-x238.google.com [IPv6:2a00:1450:4864:20::238])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B49F29AC33
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 13:36:39 +0100 (CET)
-Received: by mail-lj1-x238.google.com with SMTP id a20sf697810ljn.23
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 05:36:39 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1603802198; cv=pass;
+Received: from mail-ed1-x540.google.com (mail-ed1-x540.google.com [IPv6:2a00:1450:4864:20::540])
+	by mail.lfdr.de (Postfix) with ESMTPS id C80EF29AC54
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 13:41:39 +0100 (CET)
+Received: by mail-ed1-x540.google.com with SMTP id 28sf626538edv.9
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 05:41:39 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1603802499; cv=pass;
         d=google.com; s=arc-20160816;
-        b=Qk5f0t63iF2uWmJEfH5lLclG8wIWolEIFmdSXtzZu8/1LmGsXIzr2FgTgmnid7O1UW
-         PEXlYFfTlVAyX/GyTdGYtlHKAmF+yA0wiF7WKgGmdGavhesvOQyHtqIBnxc9lwt1OBon
-         ob4FgnPx2BGZ+actxGGbclUKmt37f/7M7ViI6HZSJBgfkrZDRTj4l49YVx2VJ4Kd1gTG
-         M9Ci8ziupICAlWWoCr2tuWDc0s1zMGaybXpNxwODcz5KqEFcMn68XGKqeaGTi+UT2xvI
-         ivBDoeQqPa0yJn9GB6I79acNVERN7VrDA7IgXM0yZJKnlokYB+l+inMYyARIPrziZyjK
-         z8hA==
+        b=lLFduvT37+/Fi0YwXNe7H1Nb94BetYm+aWM5w3AojVU8NnuXkNIVr1OYK9BUIhdQJs
+         zplZN+7UNJ06EJvMJeciUUq4QGfaYS+dCeejjw8SeFAeSZc0F4gBX4FV027JsFNgShEP
+         duOH9+B93DMVx9cfcefgKcP/oAVWWlHAqZCjiMOqc4EiFJ9hQy5hQj9j1iqHrDPXXUV6
+         gXJxDdJMS5NXj9uW6lCXP9GZlqGpgPJj0aGscpzHbyZ5Zix3WJ7HgW4F6qL84JwTXjni
+         hY5jrel0Xir1I56Ppr+LiuQqWj+SADIlUZlAMK4nVVGfMglr2gpP10lEQ9LiNFOxV+mH
+         Ukfw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-language:in-reply-to
          :mime-version:user-agent:date:message-id:from:references:to:subject
          :sender:dkim-signature;
-        bh=ozrnmjegWonlsBN0Q/uSZ0p9h0rEDXY6BfJyXBw5O/U=;
-        b=CiC2o4qoZ/Sg8C9FcC7fMCjuCv/ILvKNhYNdqBEwewTK+FJYIJgBZtSm9pwdHGeUkI
-         zwgFoKsNHOGN0zpoVxf75Bp77Fn2Q8AvxQlVzWm/N5igTj8S2ElivZ3npF+Ad4OaxsIy
-         +Plk89vDShTArXNCkKbKA6ZAeZjLaAY63DjuQJCZFU3L5SKHs9KEJll6nnZd14111I/h
-         DxPnxPMz8T37sCZ4szjmgehbSCugiSAVE/D8IJlyLnMa02DeK3iX12Ppl9+ixjpPOJpH
-         mTB3dENQDT0S0upECMdn/3kIExVdSLUQWbUyQcwqjUBbBUVLhKIqjAgQlzEhl+UjAPaN
-         Jp6A==
+        bh=4hRiq6/6SE3/cf3jXD6UBn5+S3azURlUfpVmO0kVjCw=;
+        b=r16p3mCfgPAECAA2vWfLwdKwFJ4Jw/cAwFvr8NAjxtc8COgzum705dOBO3Sboh5DP1
+         5Ll3+W5b81WQF8Ljmg9psVnUz/+/tUFyL71slflkY4/mdqXFMm/39DY8Ydt0yIvQ7by9
+         D8UNOo2IYjfbtC+SPg7z+p1Lc/DNzqBbrWODlHwWZS2ACKyyMEk+s+bo93zEcO8eYpkK
+         Oxc/J8Ps9hOskoKYvlTVr0hX8sYp5vpyCmNooRah/axgbzAx1z1SV14atu7s8LURCgeO
+         K2ekTdvIpvv8qMYgShUUHDFuQS2CMQ8lc9tRACkADZ2MHqjrfKG00Z6O9yooZJlXlsQP
+         WGKQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
        spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:in-reply-to:content-language:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=ozrnmjegWonlsBN0Q/uSZ0p9h0rEDXY6BfJyXBw5O/U=;
-        b=pOENEkxBnMEFvFXejei/+2XznLbUU4C9r0tdYD8WBO2V6IqaaYSV252YsEQdabHiO2
-         jIYYN5AX6oUbK5z16XGOtkR0n+8r+sSP3s++5QS53+davic15uN6RQ4o9AVJe9Tf4NrP
-         vXRauAk2zlxlDxdco0BboWwbvvHYzCOyubK3CatZcL4V8JW3VMRCRtO3iup5ka0spGsb
-         KEBhSpzKLUcKPcycnCPhOfB1alMWrqSFRx+hWkQTt2DhFi9f5RTa5Kfh4geOCst+4P3Z
-         n7ZTofV7+L/5lE4bGd8zkPtLqAWivtWqd89mpZvw3XQwaRoC3gGnABizfOS1XoE1iBEQ
-         bzDQ==
+        bh=4hRiq6/6SE3/cf3jXD6UBn5+S3azURlUfpVmO0kVjCw=;
+        b=UGdvgpCNh92PHcWSs4b2fCpfl6MGzoewjzUAIaNF/ADFvXVXFp2LnZmsUuzMM38Uwx
+         lTBmaJvWikM6xBf5qCN8e61iEHqXvPZCSHMatvO7p0LOikWceCI6d/80b+yY6OiOYOw1
+         sSov1dFKv3wKC4azWxSAm9/0zsLSPt1ay2U7ds90X54YIjk2NqaMFBpO2xaZsxOWgbOg
+         5BAwvZohjiK73n7VNUsVjmTGW1Dn2jzax1oLBV6FuJAtCZM4tzeQIWc+U+QKLunm55bp
+         72UsBhkb/w+fAtMoltcm7qB4NppW0Sa9YId/uK9/vzVCPn5qeMg50Vg5AGOL75RHtxIn
+         eYzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:subject:to:references:from:message-id
@@ -49,70 +49,70 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=ozrnmjegWonlsBN0Q/uSZ0p9h0rEDXY6BfJyXBw5O/U=;
-        b=cwNI7g3/4g+Zpw0+BCJoQF8BO63EWpHd7d6E1f+V1N14dJ239N2Wcx6T/LH2OOtCrQ
-         4eMnUqHspAvE1R6SNtM121clg848+QrzpEGt6PPTq+aQRzOFOQjeWDIh7YQ0u5B2PTOO
-         o2nQl3MtJCtJBBozxxzcmmUejIOXZmmInjxC3S4K7rrle6Plv/ydmB0tgZtyFnnT1cwE
-         8jowJlXTqAiz2QSl/6Io525lfWqPYozYtvPA9OXsU/5j5HJ6cDPwv8ilMkFEWj/r12Kh
-         GEiRtr0UhG3ioMJq2yEPp1qoOIYt13JHRdtK6H3wb9Ge8KIGmDJFx8I0VxnswO6cPsp3
-         fYzw==
+        bh=4hRiq6/6SE3/cf3jXD6UBn5+S3azURlUfpVmO0kVjCw=;
+        b=B0pJKZmPxGdzSDSzDpcHRVfWnjiw3+nc7cVsGeYjsogqCrDqhto1jvb7L1Y8jkDON1
+         Gkf0kZglATUt28LU7hlq7rbg8Gt3vjxyrceARLtLi85fxgIufBV06CeZ+Cqlso0xHpTn
+         ALaYpLMee5hl8aQZdqVOofGqh3TTVFSqjfVt6R/BZxCyxVNPpqUQb/lu6egnvwtpNkev
+         fcL0TQSQjd3p+M0hTPsM4bePawb1JIG4qwQ3I0pzZGfaVSH72/nbIe5/VqrZ73xV/PDz
+         jA+cZeCm+vQY5ZCEnJJ9cgkaC9Fqvt2nY7Rra5D9sYWWyR9Xz5A406y+Qhk4GDA1ZA8P
+         R2Sg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531450PefbbM3I8Ui+iVrztzVAxQcujurOGVvsj8X/96XJBFv1O7
-	9RI5haCKDNUTi6Qxk40Bk30=
-X-Google-Smtp-Source: ABdhPJwrcRRpdXa65S+DdSyqSdaUQUYJ37DLrYoi9KXkuVZ2Y9HRpElU0yCMrWV3kmOND0h1/mBstw==
-X-Received: by 2002:a2e:7c03:: with SMTP id x3mr922228ljc.351.1603802198572;
-        Tue, 27 Oct 2020 05:36:38 -0700 (PDT)
+X-Gm-Message-State: AOAM530k7kXS5ipb14b+0O2U0ZTzU3UZu8XbJUfYmv96mb8xMX3ifrCM
+	jCUeXeFaEI3rKWmQ296fNMs=
+X-Google-Smtp-Source: ABdhPJzNxfwds/8TZUOE6fXQtQlw5f1bzw3AZGAE6yetby5/koeSIofKwNjjVunbX3WjHiumvT5UvQ==
+X-Received: by 2002:a17:906:3559:: with SMTP id s25mr2331600eja.376.1603802499532;
+        Tue, 27 Oct 2020 05:41:39 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:8e89:: with SMTP id z9ls262551ljk.11.gmail; Tue, 27 Oct
- 2020 05:36:36 -0700 (PDT)
-X-Received: by 2002:a2e:1614:: with SMTP id w20mr1012853ljd.103.1603802196841;
-        Tue, 27 Oct 2020 05:36:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1603802196; cv=none;
+Received: by 2002:a17:906:38d0:: with SMTP id r16ls740437ejd.2.gmail; Tue, 27
+ Oct 2020 05:41:38 -0700 (PDT)
+X-Received: by 2002:a17:906:3ed0:: with SMTP id d16mr2288686ejj.477.1603802498307;
+        Tue, 27 Oct 2020 05:41:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1603802498; cv=none;
         d=google.com; s=arc-20160816;
-        b=jJHCK9OzEs4yc49tO9bOzRx0/QX//Pr3bB5ELYGrmlF1xhOIOAHnxLwM4KqJF46Hit
-         OULjVEMIX07c1lS4JTEKE6sJY7Wp8vMA1kZjjdtaU/crNBSppXr6ju3+Dlb2NkR4ovBx
-         w1w20J/dXH11+pW5zhbPV9bNyhw4Z8vLQBfpxKvOxdzLgCHCIJLTLD+VB5O6ruyoW3V/
-         VPv9lOvxSA7m/GLGdZ3pbHGGVi4Mena6Kh3fX1Tz5SQTt1kkVVldx6Kq2vXQr6Kc1NTQ
-         fSD/kjoa/7tqk694wJE4IaGvG5Ib8Tn8TeQwsoz1bMpcNiUeJ3I05FM3QwSHd2V0nNOJ
-         bGpQ==
+        b=x+7YgVPOyttMWn8FbWN9pXamh4Suq7u3zdFPYoykEguqa3b1V157VGNrd26pfMEN9D
+         BCX9pYYJWZpW989nCjfbI+ypD3BgdRxfxIsnsozXvyGV6KX32Y5IUwENJQsKy0icU7Su
+         yV1I3yra01rcSNPx6/HnvUlrYJdJpXLnBqG38vaqcvwFbPAomL50r85aN+ymHQhzJj4U
+         WwunBLuyb2GxwJpJOxpiDsui7W81vH1DpHXTxk4nJmFtUst6tiC3DyN2GI+VK55FXc+9
+         J8U8+9WEER1KczEv1yYqJSYBxjcIGRe8kgRJgifSEbfsDcUS+TBWTgGlivOng5lFc5jx
+         i86g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
          :user-agent:date:message-id:from:references:to:subject;
-        bh=cjFVyRNeVGBOzbJtJxhwPsPUYMPlrRItjO2vANDLIs4=;
-        b=esVWFVTTVkq/qziMCtM7Y/0SE8gvXLKBIhpBaPKVh+4bNisUkxeU7xa8hsQ8B5PaFc
-         aL0FeFmjdz6h+2mCAS+UMO/93ujbCjDkDroEIwmqOrCX7s8sk+9AtEOj172aPPGObZpP
-         WYbJnt9jq98byNGYXExPWDZvaXGcVLFS2Sh0cVtYWA1yWdwdndMOIVb17gHBMqxhC4io
-         /7PfrSPkgGW/1qBaW8SQigA0CcivpJUbUMneO3+Q6N/pZxjqQQ9VMEJ9YSA17GLAkP4M
-         zmaVt2O5OhJ0Zc8XjFzkCtc/KJk4LTyVUlhZ2+NpLdl43TrFN1bgYGUwWqQ8Qp+l/Ro7
-         Jaog==
+        bh=+Oj700tWWE1un/kGwt0xqZi/9jtc752xD8K3uLGApsI=;
+        b=Oc51dDZxJ1/xOYLaGqEeA+CsF7r+2d5CCZIZvxya2z+HCu3qN766X4Vh3mf8EPCEae
+         63D8n4nse549+tLhOlfbLlSgUtZHVyv6c0j1nQC2qQ7fm+6qJj3bw/YO1Od6FVGG5j8B
+         8mM4acryMK2fYQijEB+4juYd90/r8dC7iCDjqW0f9uMaW/CW0oyD8NrCQcmlvf0rcth2
+         71L9xWJ0RDR5kMsqKHPAVmRpcxSqBNTuR0w0YgSg3gxnUdW7iO90VbJBtYhXzecOK8UP
+         2zh6s6vFPJXeTMUoQzbmPn9z0BgJT+ylN1v3451rt5ghNITtkA+IDx2uGkxW2hoQta9U
+         Q+mg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
        spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id r7si28141ljc.7.2020.10.27.05.36.36
+        by gmr-mx.google.com with ESMTPS id v18si39687edx.4.2020.10.27.05.41.38
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 27 Oct 2020 05:36:36 -0700 (PDT)
+        Tue, 27 Oct 2020 05:41:38 -0700 (PDT)
 Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 09RCaZhM010785
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 09RCfboN016913
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 27 Oct 2020 13:36:35 +0100
+	Tue, 27 Oct 2020 13:41:38 +0100
 Received: from [139.25.68.37] ([139.25.68.37])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 09RCaZ2n020913;
-	Tue, 27 Oct 2020 13:36:35 +0100
-Subject: Re: [PATCH v2 11/33] hypervisor: introduce uptr_t (depending on the
- wordsize) and define size_t accordingly
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 09RCfbBZ025879;
+	Tue, 27 Oct 2020 13:41:37 +0100
+Subject: Re: [PATCH v2 09/33] hypervisor: Makefile: hook-in -Wdeprecated and
+ -Wundef
 To: Andrea Bastoni <andrea.bastoni@tum.de>, jailhouse-dev@googlegroups.com
 References: <20201022175826.199614-1-andrea.bastoni@tum.de>
- <20201022175826.199614-12-andrea.bastoni@tum.de>
+ <20201022175826.199614-10-andrea.bastoni@tum.de>
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <b8849626-071b-f074-8e8b-b6cada812fae@siemens.com>
-Date: Tue, 27 Oct 2020 13:36:35 +0100
+Message-ID: <1441e472-9291-dcb7-c155-ab4658ba874a@siemens.com>
+Date: Tue, 27 Oct 2020 13:41:37 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20201022175826.199614-12-andrea.bastoni@tum.de>
+In-Reply-To: <20201022175826.199614-10-andrea.bastoni@tum.de>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
 X-Original-Sender: jan.kiszka@siemens.com
@@ -133,85 +133,29 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
 On 22.10.20 19:58, Andrea Bastoni wrote:
-> This solves warnings due to -Wbuiltin-declaration-mismatch
+> Currently, no warnings triggered by these two flags.
 > 
 > Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
 > ---
->  hypervisor/include/jailhouse/string.h | 5 +++--
->  hypervisor/include/jailhouse/types.h  | 8 ++++++++
->  hypervisor/lib.c                      | 6 +++---
->  3 files changed, 14 insertions(+), 5 deletions(-)
+>  hypervisor/Makefile | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> diff --git a/hypervisor/include/jailhouse/string.h b/hypervisor/include/jailhouse/string.h
-> index 24f0b0b4..7dc3de3b 100644
-> --- a/hypervisor/include/jailhouse/string.h
-> +++ b/hypervisor/include/jailhouse/string.h
-> @@ -12,9 +12,10 @@
->   * This work is licensed under the terms of the GNU GPL, version 2.  See
->   * the COPYING file in the top-level directory.
->   */
-> +#include <jailhouse/types.h>
->  
-> -void *memcpy(void *d, const void *s, unsigned long n);
-> -void *memset(void *s, int c, unsigned long n);
-> +void *memcpy(void *d, const void *s, size_t n);
-> +void *memset(void *s, int c, size_t n);
->  
->  int strcmp(const char *s1, const char *s2);
->  
-> diff --git a/hypervisor/include/jailhouse/types.h b/hypervisor/include/jailhouse/types.h
-> index 828e40f7..f97dc252 100644
-> --- a/hypervisor/include/jailhouse/types.h
-> +++ b/hypervisor/include/jailhouse/types.h
-> @@ -55,6 +55,14 @@ typedef u32 __u32;
->  typedef s64 __s64;
->  typedef u64 __u64;
->  
-> +#if BITS_PER_LONG == 64
-> +typedef unsigned long uptr_t;
-> +#else
-> +typedef unsigned int uptr_t;
-> +#endif
-> +
-> +typedef uptr_t size_t;
-
-What's the benefit of the indirection via uptr_t?
-
-> +
->  #endif /* !__ASSEMBLY__ */
->  
->  #endif /* !_JAILHOUSE_JAILHOUSE_TYPES_H */
-> diff --git a/hypervisor/lib.c b/hypervisor/lib.c
-> index fc9af7aa..e8a9733d 100644
-> --- a/hypervisor/lib.c
-> +++ b/hypervisor/lib.c
-> @@ -10,10 +10,10 @@
->   * the COPYING file in the top-level directory.
->   */
->  
-> -#include <jailhouse/string.h>
->  #include <jailhouse/types.h>
-> +#include <jailhouse/string.h>
-
-If string.h needs types.h, it must include it itself - which you do
-above. So you can drop types.h from here.
-
->  
-> -void *memset(void *s, int c, unsigned long n)
-> +void *memset(void *s, int c, size_t n)
->  {
->  	u8 *p = s;
->  
-> @@ -33,7 +33,7 @@ int strcmp(const char *s1, const char *s2)
->  	return *(unsigned char *)s1 - *(unsigned char *)s2;
->  }
->  
-> -void *memcpy(void *dest, const void *src, unsigned long n)
-> +void *memcpy(void *dest, const void *src, size_t n)
->  {
->  	const u8 *s = src;
->  	u8 *d = dest;
+> diff --git a/hypervisor/Makefile b/hypervisor/Makefile
+> index 27dd5dee..eeeca2eb 100644
+> --- a/hypervisor/Makefile
+> +++ b/hypervisor/Makefile
+> @@ -31,6 +31,7 @@ KBUILD_CFLAGS := -g -Os -Werror -Wall -Wstrict-prototypes -Wtype-limits \
+>  		 -Wnested-externs -Wno-error=nested-externs \
+>  		 -Wshadow -Wno-error=shadow \
+>  		 -Wredundant-decls -Wno-error=redundant-decls \
+> +		 -Wundef -Wdeprecated \
+>  		 -fno-strict-aliasing -fno-pic -fno-common \
+>  		 -fno-stack-protector -fno-builtin-ffsl \
+>  		 -D__LINUX_COMPILER_TYPES_H
 > 
+
+Thanks, applied up to here to next, with minor massaging and that new
+version of patch 5.
 
 Jan
 
@@ -222,4 +166,4 @@ Corporate Competence Center Embedded Linux
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/b8849626-071b-f074-8e8b-b6cada812fae%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/1441e472-9291-dcb7-c155-ab4658ba874a%40siemens.com.
