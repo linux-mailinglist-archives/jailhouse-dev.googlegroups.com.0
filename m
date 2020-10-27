@@ -1,119 +1,125 @@
-Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBNVR4D6AKGQEWEL4OVI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBQVY4D6AKGQEPBFHOVA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pf1-x439.google.com (mail-pf1-x439.google.com [IPv6:2607:f8b0:4864:20::439])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49E2629AC8E
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 13:55:20 +0100 (CET)
-Received: by mail-pf1-x439.google.com with SMTP id f15sf857404pfj.19
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 05:55:20 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1603803319; cv=pass;
+Received: from mail-wm1-x340.google.com (mail-wm1-x340.google.com [IPv6:2a00:1450:4864:20::340])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4728629ACE0
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 14:10:27 +0100 (CET)
+Received: by mail-wm1-x340.google.com with SMTP id b23sf571879wmj.6
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 06:10:27 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1603804227; cv=pass;
         d=google.com; s=arc-20160816;
-        b=YHjGpCvbcV5g1EHPs3i2fv3M/zpeuguzbS+vLI7qHCFnLkdlA5L7OjYeFKV/hUu4pG
-         P6EHhTvVzJ1jSJnF4QICf5DpZre+Dzq0yMET278k82zUHVsvPYbE8j2fzodYe5Tb4LYX
-         lkoIUON/xRFuIEe4WGt+ce9DbpiRL92SO8lOQdJGw9WE/voSEmK2+22D5LmEKEXFVhjk
-         iRdCPbizNGKKuZ2RTLSAQSQY/1ArF9StghAs8UhdxL1llKt6U26+B5icDN3ITubpWwgB
-         9YpOSbtPVv8qAJeaSOYUKTIu59WcfeVCY4plngHzRRovxNSJAcm+Toe9oPanhaPT9ziC
-         2/bg==
+        b=paxVZ/HmAWxORWOeYzVv2K6GdDU9cjsxtWS5GpeKQsIshuBQzXFOQ6DoAKro5tF7kp
+         vBGmajI17AlY25Va1/V8XPi//B+fIUrUxskqO7UZhx7P9yVQDaViX0VxK7OWPDzneovz
+         3kWCrfNbL0QS9Q6d2WPdjucZsvxlznDkkBY34LSQ0qVaNCveJFfLruIGJR1d8HbRVptF
+         0Ez8MZhNpFkem5zP0RmgCzn4cwcG6n66bX39gu+MOXltvyMPJDpS0alq32gnAAuGrcfC
+         XTWjDHzPTlMOSdYuVrrvh1AicEK0TjDnVGIyyzgFr+3BlscdtkssSy9N/i9lbtZ7pVgY
+         rkog==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to:mime-version:subject
-         :message-id:to:from:date:dkim-signature;
-        bh=E+GWiEE/0vBea2KZ/SXXyU08RjLLMM9TQClicMpqjbs=;
-        b=IHD8or6Vyl/JzWp9eKmwcB77jEZaFv2EBWQ5xUNtv3ctqXvPTxWIpWgPxRRHe+vpYb
-         APZ0EVzJYS1qWo4b+vxaglHBSX95lWGndKU8K0tpYjiM/9TmJQH3mUWHUHnXtxlJMRfl
-         hNisld8OOiqezwrKGuNApliZkeAtLXfW7+E+kn/+KnDut7LjZQ520l3RmbqUfjdJalXA
-         QOB/OOxrZ9kgISUOH9+eMvMNJj6KnZk4QYniK+uNoqU/xRIASSas4x/DBEPJwYb6tKZ9
-         sIYR0QbRcQEcpzoO2+7z/Rj7L6460xU0pstXriDw+gZqbA2SV1Iv5ZcRjCfwnvKVUSIR
-         3MgQ==
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:to:subject
+         :sender:dkim-signature;
+        bh=Tz4Pz4cvmYhp4CKvd9Hcyp5edxtbpPym0vuDs9LEhFU=;
+        b=dRX5upPadJUPuu+G9XJUFo5H30iGkmucqQKliJlB+Dtq8OzAGhJPAUxJTReiFepOC9
+         U78ZdxQvWN7kRXULx8DzwWrsOuXu2DCmvIO5f3WDqtr/tuGrlnQdODpNk6YICza0Y+/c
+         n0NiI1DMP43ezvQ+ExJhhhAiNz5r3xDCWBN+OkjNnGxaDBo0IADGi4yTyp0R5vJEjlGX
+         Ydyx59SLpCJqmf3zLR9GgWTAB8vhAnTR6Fe6rpKgQyWnGWX2qHaA+VU4bLCOJFA2Uo6o
+         vOCXdOe46S3khNDubruRaJAA0BH7nbNeH25NlYZf69U3P+BDoOPaqCcUD8IDiL+sXkoP
+         2rQQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=Bw5UjTkN;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.211 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=github.com
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=date:from:to:message-id:subject:mime-version:x-original-sender
-         :x-original-authentication-results:reply-to:precedence:mailing-list
-         :list-id:list-post:list-help:list-archive:list-subscribe
-         :list-unsubscribe;
-        bh=E+GWiEE/0vBea2KZ/SXXyU08RjLLMM9TQClicMpqjbs=;
-        b=ganf6l7QsX2SKhwO4P1I8xjOXMKFiOX+nIp1d9KaV+PWhOfxM2In/gTkHTtg9mD9LA
-         I3j7bvHhUANuI/8P7nMR77AG/jKNruhIb94d9AXk+tW+ke+VOZveKwFJ3zsgcQIWnVpM
-         vf4WCKz4202Zc8PLGbedzRrAQ/0DMc+41M42ljxBQ7lpmJsRqYnfDyoRmfOc5T/FdYdc
-         +bdaW+z8fSgXxVAH5jjKNiFyeHxSaJrZ851X0FUvpZOm5LawizlMgkx2/Z2IbTLWYgt9
-         i+iYOMtF/pfrPfgkvfKAtJkfyZqaxKZMEnyJernZ/q4drOw4y9WRhJ+kD/XoOTSQbVqI
-         y8pg==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=Tz4Pz4cvmYhp4CKvd9Hcyp5edxtbpPym0vuDs9LEhFU=;
+        b=OltKE0/NBd7pp+ZDbCbzzdcGm5Tfmu2uWu0bF8YWppDwLTN/arVlgG5ULp+A4Z8M8z
+         gPMfvjDSgOkh2OGFgPDecmvsoqnyNelZ0CiabpiwKdTDHlcm0Oo+rxDLYYzZe480Z5Nr
+         mA0T3A1QTwI5Awve1qIvcJt5B7UrVDdxsVEpOT6XvwLpoA6yj2fJyXQJJMFjkZV6RZhm
+         fwd6iZLopgo1Wk9+vkpr5Of2ph+gsDdoY3g0hquIdfGDjzRvzxIVt5GdSjaRiXWb78XQ
+         F7ZgyW13MrbEOKXxRgqifCBwVjUAwNpJNBkbyar4QCd8mP23k8EhMUtfL2dauhUHAv1C
+         efrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:message-id:subject:mime-version
-         :x-original-sender:x-original-authentication-results:reply-to
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=E+GWiEE/0vBea2KZ/SXXyU08RjLLMM9TQClicMpqjbs=;
-        b=VLiKAX8ziuPPPxEbpdJf4zcrzn+yPUckgeVYopE3Wty67lo2okS7yho6xdNHTMo0ag
-         ZhoFxyxy17JLzly0Nw1w5m+oIOFbg0e42X/eVk/w9WSB1a2PBGQtImdOh9ETOM/Tbkjo
-         F9poRb3C/ao2DE3c++594e7rytoRQz/V+bBHd+At+YKroXJBr4IMW26QidHGnREaM8Cs
-         JauL0igatRs36F1HLyX63OhTeUF95Bf82CCJf81cz6a8AFbV4DvlhLIHNTA8cCe1V9+C
-         iE7dPXYhXpjvfvTzu+k+QNA9ebMh0I376kto+dxj6IdiOpA+OSfgsL4kN85KgJjMsows
-         zmHg==
-X-Gm-Message-State: AOAM5321MW1NjqGw4Ns8JcDWa6hmoh4YJuCNhKFiC+N2hK+ZLsZCZtvs
-	katt/qNzqTIZ6YIFMkMcyQk=
-X-Google-Smtp-Source: ABdhPJySXCnibAngmZmoHdQpSDMO/Z5naOKDQ8O1EUVEY8PGt/J2xE7mDkLcgaGUhvjJcKz9YUH9lg==
-X-Received: by 2002:a62:ac08:0:b029:163:ecb1:ea2b with SMTP id v8-20020a62ac080000b0290163ecb1ea2bmr2158937pfe.63.1603803318753;
-        Tue, 27 Oct 2020 05:55:18 -0700 (PDT)
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=Tz4Pz4cvmYhp4CKvd9Hcyp5edxtbpPym0vuDs9LEhFU=;
+        b=k6vB5Rnvqf00Rrbn9tD2U7tGc9gD4aAYhHfABY1gvFgeAzHkqCbsiPJCT16UbLXNaM
+         mGMythHr+1qHFB6zFVlCuHI0bWSWZy3AGH4llMylPYRO8Em1obDRJrHt5EuK1dHZH++v
+         5jANCRnQm8gP046o+vIR9D6Sfb65EAxcSIX727CiSyzQIx7JIyj2M8hhcvhh1T+YmLaS
+         1OIvNpfgh1ls28Nz5qNuhdGVKVSOqiOVZMRDDwFHsqYzzJM+yDr9yCVSDzOqYePri6Kw
+         PKw1XKvBH+cqYARCML0gi0pKjMRS4JXF2zUGHQRAqC1xOQDmoDKT5GlETgb2A8t6Ugga
+         TLhQ==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: AOAM532QX0BO2L+Yb0PeZjtvRYyGwSOmew5xSNK4uPrmVeJWEh2xyqtM
+	kDBh4k1SXWhw8M6ttIOZHuU=
+X-Google-Smtp-Source: ABdhPJze0yqLkrSDV8UckkM3qCh5wboKDkqe/N8aXqilvqnUQAbQX9QDcg0J+OevM96f0WNSOGF9HQ==
+X-Received: by 2002:a5d:66d2:: with SMTP id k18mr3018737wrw.229.1603804226918;
+        Tue, 27 Oct 2020 06:10:26 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:902:8b8a:: with SMTP id ay10ls702105plb.6.gmail; Tue, 27
- Oct 2020 05:55:18 -0700 (PDT)
-X-Received: by 2002:a17:90a:1181:: with SMTP id e1mr1960554pja.77.1603803318040;
-        Tue, 27 Oct 2020 05:55:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1603803318; cv=none;
+Received: by 2002:a1c:7e4e:: with SMTP id z75ls829869wmc.0.canary-gmail; Tue,
+ 27 Oct 2020 06:10:25 -0700 (PDT)
+X-Received: by 2002:a1c:254:: with SMTP id 81mr2756916wmc.21.1603804225777;
+        Tue, 27 Oct 2020 06:10:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1603804225; cv=none;
         d=google.com; s=arc-20160816;
-        b=V/+8Y4zj0L0BFdib/Kkxwj/8NM3oR6187w5/92waNzIxf46Spj2sC5eEUc/C+7zQjE
-         FNli4cRp4cet3vPB0PhcNO8MpQHUC/wlr8QhxENRVr0T5+Uu3hLG7NK7O8rQUWgkvo0b
-         PioNyMT9RrGyIqQsnYeyU8WTSI2Sq26DuwPdfUFMAIIAnyUwb5/fFmeNJfTochh6Lo16
-         4lraajR2yz2ol/UMsvNTSiRcO1rFmbCaq8wwjQZFRTDH+KkIuWBlYdMBkUYf3+Y4PwU+
-         kj2ifK3c+qIVGFMgpO2I3KYifUhjI50VNISi4i5plYiRi6xbSsKn7XRvB0uUmXBGa1AU
-         9SaQ==
+        b=tJ/sv+W2GbT8nbdwMAqbJYw/nEXMJ6SRn0PDrNM0o+KPkBPVEom/T8ognY7P+ebrsU
+         tLfDVIuuMlpN26c/4USRKMdAINKS/dxNbJyf1MoYULBSrCTeZeL72KPdJo8xC63IleGz
+         Q3KhEAeTO+Rhbg52I+JY9cS/BHGaupewxIp3laVZcn2QZRaxywOzHPA0U++C8ARAxiJJ
+         m9HU1RzRtm5RGqFPIbrX/bqpE7s6bXKfTes688hn+b8mlHaMypqERn7ESFhP2qi4G6rr
+         4fMJRDMKWvn3jnRTEolHkYiUYGWJ0be3JVIA/zfwolEyMaI8NJ5yI42ab8S1zd/UGx8f
+         GmfA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:subject:message-id:to:from
-         :date:dkim-signature;
-        bh=3sNAougnNTXkM0UIVO223f9QBTXxeFcXxm4VIAWDgDY=;
-        b=QDOJ4z8DmifSV7HUn3bDfXdwRO1qJlPFpE7uuLKfvoWtgzaH9Tbtga/El6SAem2FFt
-         JxbmtXtwy1m8Iwqczya1Ole0QrkGfMlCcDUdomyITET3fWEFmmqEVLxHA/owaQ6VQ0/z
-         +WJVA6eQ1BxSuMVh35FR9TqjnYeKtPMgH4HY9manqdaqP5+HEIP6m2si+ADDUDz4pbuh
-         XXiaed8Js29d6qu3BOmrmuRXONjTmufWH3I5OqRAxmUA6tWGp5Xa87OitUJmJh2/aIxE
-         WT8jQEI6fw0vYo0GX8cYVTTOXZ/Tm2qKEGTJRBvBUM0CxKiMrgor6bGO7IOFTnw7NthW
-         jSmg==
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=5B7ZE7Bl8DOK9uJVLuRgKlMHNf4Rz4o52fAb3lcYwkg=;
+        b=nrwzOrjwYIBU8JkhC/bJeXqH8DythIJlXpoPnXZRQHLDQWhg7CVj6wzdHjalhB30iC
+         9/dA5nEl4DmI6LWQ8VqK1ipP6Z5dME4c0L34N8IJj1UFlYS1ecJCO8uggn2tYIOMzqve
+         n0OMJr20EL1D/+Vq5i5BGlpcTqs5Mc6QxILLn2Pji+28hX2tgWKta4TLTG1KQPLloRs5
+         lMf9b0dBnInfS7Ug/lg08D+mV8jguAcel2vHphKxmSkEtYs2sncvEgeBIRw2UUP+EDbY
+         jm0m+L0pvdBXTTdyKDwb/DDslO2+qOwK0yjBbP3wQ7G2SNM+PwTHXnJ2mwvoxrZayXBP
+         goGg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=Bw5UjTkN;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.211 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=github.com
-Received: from out-28.smtp.github.com (out-28.smtp.github.com. [192.30.252.211])
-        by gmr-mx.google.com with ESMTPS id j63si79965pfd.1.2020.10.27.05.55.17
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
+        by gmr-mx.google.com with ESMTPS id 91si31487wrs.2.2020.10.27.06.10.25
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Tue, 27 Oct 2020 05:55:18 -0700 (PDT)
-Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.211 as permitted sender) client-ip=192.30.252.211;
-Received: from github.com (hubbernetes-node-8f1f80c.ash1-iad.github.net [10.56.122.38])
-	by smtp.github.com (Postfix) with ESMTPA id 3A2A8900FD4
-	for <jailhouse-dev@googlegroups.com>; Tue, 27 Oct 2020 05:55:17 -0700 (PDT)
-Date: Tue, 27 Oct 2020 05:55:17 -0700
-From: "'Andrea Bastoni' via Jailhouse" <jailhouse-dev@googlegroups.com>
-To: jailhouse-dev@googlegroups.com
-Message-ID: <siemens/jailhouse/push/refs/heads/next/e75cec-0ba496@github.com>
-Subject: [siemens/jailhouse] 014031: configs: arm64: Add support for
- k3-j7200-evm board
-Mime-Version: 1.0
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 27 Oct 2020 06:10:25 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 09RDAPJ4021455
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 27 Oct 2020 14:10:25 +0100
+Received: from [139.25.68.37] ([139.25.68.37])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 09RDAPQM025916;
+	Tue, 27 Oct 2020 14:10:25 +0100
+Subject: Re: [PATCH v2 12/33] hypervisor, arm-common: provide an explicit uint
+ INVALID_CPU_ID
+To: Andrea Bastoni <andrea.bastoni@tum.de>, jailhouse-dev@googlegroups.com
+References: <20201022175826.199614-1-andrea.bastoni@tum.de>
+ <20201022175826.199614-13-andrea.bastoni@tum.de>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <12a22fcd-2e7c-8d03-195b-b363f8e34019@siemens.com>
+Date: Tue, 27 Oct 2020 14:10:25 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
+MIME-Version: 1.0
+In-Reply-To: <20201022175826.199614-13-andrea.bastoni@tum.de>
 Content-Type: text/plain; charset="UTF-8"
-X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
-X-Auto-Response-Suppress: All
-X-Original-Sender: noreply@github.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
- mode) header.i=@github.com header.s=pf2014 header.b=Bw5UjTkN;       spf=pass
- (google.com: domain of noreply@github.com designates 192.30.252.211 as
- permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass
- (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=github.com
-X-Original-From: Andrea Bastoni <noreply@github.com>
-Reply-To: Andrea Bastoni <noreply@github.com>
+Content-Language: en-US
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -126,241 +132,130 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-  Branch: refs/heads/next
-  Home:   https://github.com/siemens/jailhouse
-  Commit: 0140313c065ddb728d3cfd34463805fd294606d2
-      https://github.com/siemens/jailhouse/commit/0140313c065ddb728d3cfd34463805fd294606d2
-  Author: Nikhil Devshatwar <nikhil.nd@ti.com>
-  Date:   2020-10-26 (Mon, 26 Oct 2020)
-
-  Changed paths:
-    A configs/arm64/k3-j7200-evm.c
-
-  Log Message:
-  -----------
-  configs: arm64: Add support for k3-j7200-evm board
-
-k3-j7200-evm is the new evaluation module from Texas Instruments
-which has the j7200 SoC. It has a dual coreARM Cortex-A72
-CPU cores, 4GiB of RAM, 2x Display ports, 6x UART ports,
-5x ethernet ports, SD and eMMC interfaces for storage and
-many other connectivity and accelerator devices.
-
-J7200 TRM: https://www.ti.com/lit/pdf/spruiu1
-
-Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 33e53952cb180ec02d195c408f3a6fa34d5f0c83
-      https://github.com/siemens/jailhouse/commit/33e53952cb180ec02d195c408f3a6fa34d5f0c83
-  Author: Nikhil Devshatwar <nikhil.nd@ti.com>
-  Date:   2020-10-26 (Mon, 26 Oct 2020)
-
-  Changed paths:
-    A configs/arm64/k3-j7200-evm-inmate-demo.c
-
-  Log Message:
-  -----------
-  configs: arm64: Add inmate demo config for j7200-evm board
-
-Add inmate demo cell config for j7200-evm board.
-This can be used to run the standard jaiilhouse baremetal
-inmate demos like gic-demo, uart-demo and ivshmem-demo.
-
-Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 4fbecb507cd2142dfa7ed413151d5fe1c0e212f1
-      https://github.com/siemens/jailhouse/commit/4fbecb507cd2142dfa7ed413151d5fe1c0e212f1
-  Author: Nikhil Devshatwar <nikhil.nd@ti.com>
-  Date:   2020-10-26 (Mon, 26 Oct 2020)
-
-  Changed paths:
-    A configs/arm64/dts/inmate-k3-j7200-evm.dts
-    A configs/arm64/k3-j7200-evm-linux-demo.c
-
-  Log Message:
-  -----------
-  configs: arm64: Add Linux demo for k3j7200-evm board
-
-Add the linux demo cell config for k3-j7200-evm board.
-Also add the required device tree for booting Linux kernel
-in the inmate cell.
-
-Add mem_regions and enable interrupts for for main_uart1,
-main_sdhci0, gpio interrupt routers and virtual PCI
-
-Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: f06871e080c5b01ca557ef3e81930cf3b1dc802f
-      https://github.com/siemens/jailhouse/commit/f06871e080c5b01ca557ef3e81930cf3b1dc802f
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-10-26 (Mon, 26 Oct 2020)
-
-  Changed paths:
-    M hypervisor/Makefile
-
-  Log Message:
-  -----------
-  hypervisor: Makefile: hook-in -Wnested-externs
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: f112308cc7620e936b776b8e6aafceee9dfd27b1
-      https://github.com/siemens/jailhouse/commit/f112308cc7620e936b776b8e6aafceee9dfd27b1
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-10-26 (Mon, 26 Oct 2020)
-
-  Changed paths:
-    M hypervisor/include/jailhouse/paging.h
-    M hypervisor/include/jailhouse/percpu.h
-    M hypervisor/paging.c
-    M hypervisor/setup.c
-
-  Log Message:
-  -----------
-  hypervisor: move declaration of __page_pool into paging.h
-
-And remove nested declaration.
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 7294e0836316860bf9004b15c8c397d888507f91
-      https://github.com/siemens/jailhouse/commit/7294e0836316860bf9004b15c8c397d888507f91
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-10-26 (Mon, 26 Oct 2020)
-
-  Changed paths:
-    M hypervisor/Makefile
-
-  Log Message:
-  -----------
-  hypervisor: Makefile: hook-in -Wshadow
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 44ddd41175a5f981397314d2843fa4ca7e0d68e9
-      https://github.com/siemens/jailhouse/commit/44ddd41175a5f981397314d2843fa4ca7e0d68e9
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-10-26 (Mon, 26 Oct 2020)
-
-  Changed paths:
-    M hypervisor/arch/x86/iommu.c
-
-  Log Message:
-  -----------
-  x86: iommu: Wshadow, fault_reporting_cpu is global
-
-This prevented consistent updates of the fault report cpu, making the
-error interrupt showing up on the wrong CPU and possibly being filtered
-there.
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-[Jan: add commit message that explains the impact]
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 1864a5a74c557b598d03c98902b414bc5b2da331
-      https://github.com/siemens/jailhouse/commit/1864a5a74c557b598d03c98902b414bc5b2da331
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-10-26 (Mon, 26 Oct 2020)
-
-  Changed paths:
-    M hypervisor/arch/arm64/smmu-v3.c
-
-  Log Message:
-  -----------
-  arm64: smmu-v3: avoid shadowing smmu
-
-The symbol "smmu" is declared and defined only in the smmu-v3
-compilation unit. Give different names and pass a pointer as parameter
-to preserve generality of the accessor functions and avoid shadowing the
-smmu name.
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-[Jan: refactored more aggressively, avoiding redundant array element lookups]
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 048796f6ff6d96a80aa383ef1b214f47682aacc0
-      https://github.com/siemens/jailhouse/commit/048796f6ff6d96a80aa383ef1b214f47682aacc0
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-10-26 (Mon, 26 Oct 2020)
-
-  Changed paths:
-    M hypervisor/Makefile
-
-  Log Message:
-  -----------
-  hypervisor: Makefile: hook-in -Wredundant-decls
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 5689e221ad7e79205594b9f15fd0b0b11e4476bd
-      https://github.com/siemens/jailhouse/commit/5689e221ad7e79205594b9f15fd0b0b11e4476bd
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-10-26 (Mon, 26 Oct 2020)
-
-  Changed paths:
-    M hypervisor/include/jailhouse/string.h
-
-  Log Message:
-  -----------
-  hypervisor: protect inclusion of string.h
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 614c2347ea5528ce9ed42c455c544d3c09219a94
-      https://github.com/siemens/jailhouse/commit/614c2347ea5528ce9ed42c455c544d3c09219a94
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-10-27 (Tue, 27 Oct 2020)
-
-  Changed paths:
-    M hypervisor/include/jailhouse/processor.h
-
-  Log Message:
-  -----------
-  hypervisor: protect inclusion of processor.h
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 0ba496ce87cbb93e6a9f9b2d94766a8b77c8cd9e
-      https://github.com/siemens/jailhouse/commit/0ba496ce87cbb93e6a9f9b2d94766a8b77c8cd9e
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-10-27 (Tue, 27 Oct 2020)
-
-  Changed paths:
-    M hypervisor/Makefile
-
-  Log Message:
-  -----------
-  hypervisor: Makefile: hook-in -Wdeprecated and -Wundef
-
-Currently, no warnings triggered by these two flags.
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-Compare: https://github.com/siemens/jailhouse/compare/e75cec8021ba...0ba496ce87cb
+On 22.10.20 19:58, Andrea Bastoni wrote:
+> Substitute the implicit "-1" occurrence for an invalid CPU id with an
+> unsigned int INVALID_CPU_ID that can be used in all "uint-related"
+> comparisons.
+> 
+> Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
+> ---
+>  hypervisor/arch/arm-common/lib.c       | 2 +-
+>  hypervisor/arch/arm-common/psci.c      | 4 ++--
+>  hypervisor/control.c                   | 2 +-
+>  hypervisor/include/jailhouse/control.h | 5 +++--
+>  hypervisor/setup.c                     | 4 ++--
+>  5 files changed, 9 insertions(+), 8 deletions(-)
+> 
+> diff --git a/hypervisor/arch/arm-common/lib.c b/hypervisor/arch/arm-common/lib.c
+> index 916cd54f..889b3d14 100644
+> --- a/hypervisor/arch/arm-common/lib.c
+> +++ b/hypervisor/arch/arm-common/lib.c
+> @@ -31,5 +31,5 @@ unsigned int arm_cpu_by_mpidr(struct cell *cell, unsigned long mpidr)
+>  		if (mpidr == (public_per_cpu(cpu)->mpidr & MPIDR_CPUID_MASK))
+>  			return cpu;
+>  
+> -	return -1;
+> +	return INVALID_CPU_ID;
+>  }
+> diff --git a/hypervisor/arch/arm-common/psci.c b/hypervisor/arch/arm-common/psci.c
+> index 6a9abf60..242cad5b 100644
+> --- a/hypervisor/arch/arm-common/psci.c
+> +++ b/hypervisor/arch/arm-common/psci.c
+> @@ -27,7 +27,7 @@ static long psci_emulate_cpu_on(struct trap_context *ctx)
+>  	long result;
+>  
+>  	cpu = arm_cpu_by_mpidr(this_cell(), ctx->regs[1] & mask);
+> -	if (cpu == -1)
+> +	if (cpu == INVALID_CPU_ID)
+>  		/* Virtual id not in set */
+>  		return PSCI_DENIED;
+>  
+> @@ -63,7 +63,7 @@ static long psci_emulate_affinity_info(struct trap_context *ctx)
+>  {
+>  	unsigned int cpu = arm_cpu_by_mpidr(this_cell(), ctx->regs[1]);
+>  
+> -	if (cpu == -1)
+> +	if (cpu == INVALID_CPU_ID)
+>  		/* Virtual id not in set */
+>  		return PSCI_DENIED;
+>  
+> diff --git a/hypervisor/control.c b/hypervisor/control.c
+> index b38ac2e9..0078ef19 100644
+> --- a/hypervisor/control.c
+> +++ b/hypervisor/control.c
+> @@ -48,7 +48,7 @@ unsigned long panic_cpu = -1;
+>   * @note For internal use only. Use for_each_cpu() or for_each_cpu_except()
+>   * instead.
+>   */
+> -unsigned int next_cpu(unsigned int cpu, struct cpu_set *cpu_set, int exception)
+> +unsigned int next_cpu(unsigned int cpu, struct cpu_set *cpu_set, unsigned int exception)
+
+Overlong line.
+
+>  {
+>  	do
+>  		cpu++;
+> diff --git a/hypervisor/include/jailhouse/control.h b/hypervisor/include/jailhouse/control.h
+> index 9b94f563..32a1ca2e 100644
+> --- a/hypervisor/include/jailhouse/control.h
+> +++ b/hypervisor/include/jailhouse/control.h
+> @@ -17,6 +17,7 @@
+>  
+>  #define SHUTDOWN_NONE			0
+>  #define SHUTDOWN_STARTED		1
+> +#define INVALID_CPU_ID			~(0U)
+>  
+>  extern volatile unsigned long panic_in_progress;
+>  extern unsigned long panic_cpu;
+> @@ -34,7 +35,7 @@ extern unsigned long panic_cpu;
+>  extern struct jailhouse_system *system_config;
+>  
+>  unsigned int next_cpu(unsigned int cpu, struct cpu_set *cpu_set,
+> -		      int exception);
+> +		      unsigned int exception);
+>  
+>  /**
+>   * Get the first CPU in a given set.
+> @@ -42,7 +43,7 @@ unsigned int next_cpu(unsigned int cpu, struct cpu_set *cpu_set,
+>   *
+>   * @return First CPU in set, or max_cpu_id + 1 if the set is empty.
+>   */
+> -#define first_cpu(set)		next_cpu(-1, (set), -1)
+> +#define first_cpu(set)		next_cpu(INVALID_CPU_ID, (set), INVALID_CPU_ID)
+>  
+>  /**
+>   * Loop-generating macro for iterating over all CPUs in a set.
+> diff --git a/hypervisor/setup.c b/hypervisor/setup.c
+> index 6f4e22c5..f0ee0896 100644
+> --- a/hypervisor/setup.c
+> +++ b/hypervisor/setup.c
+> @@ -27,7 +27,7 @@ extern u8 __text_start[];
+>  static const __attribute__((aligned(PAGE_SIZE))) u8 empty_page[PAGE_SIZE];
+>  
+>  static spinlock_t init_lock;
+> -static unsigned int master_cpu_id = -1;
+> +static unsigned int master_cpu_id = INVALID_CPU_ID;
+>  static volatile unsigned int entered_cpus, initialized_cpus;
+>  static volatile int error;
+>  
+> @@ -224,7 +224,7 @@ int entry(unsigned int cpu_id, struct per_cpu *cpu_data)
+>  
+>  	spin_lock(&init_lock);
+>  
+> -	if (master_cpu_id == -1) {
+> +	if (master_cpu_id == INVALID_CPU_ID) {
+>  		/* Only the master CPU, the first to enter this
+>  		 * function, performs system-wide initializations. */
+>  		master = true;
+> 
+
+Jan
+
+-- 
+Siemens AG, T RDA IOT
+Corporate Competence Center Embedded Linux
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/next/e75cec-0ba496%40github.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/12a22fcd-2e7c-8d03-195b-b363f8e34019%40siemens.com.
