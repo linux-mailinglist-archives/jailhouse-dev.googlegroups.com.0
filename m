@@ -1,199 +1,141 @@
-Return-Path: <jailhouse-dev+bncBCW2V5WNZMERB77A4H6AKGQEZNJBJZI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDL2JD42SEIBBYPH4H6AKGQEGJVFQCI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ej1-x63d.google.com (mail-ej1-x63d.google.com [IPv6:2a00:1450:4864:20::63d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CD2E29C860
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 20:09:52 +0100 (CET)
-Received: by mail-ej1-x63d.google.com with SMTP id d13sf1272539ejz.6
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 12:09:52 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1603825792; cv=pass;
+Received: from mail-vs1-xe38.google.com (mail-vs1-xe38.google.com [IPv6:2607:f8b0:4864:20::e38])
+	by mail.lfdr.de (Postfix) with ESMTPS id AA97629C8BF
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 20:24:18 +0100 (CET)
+Received: by mail-vs1-xe38.google.com with SMTP id s2sf563950vsj.21
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 12:24:18 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1603826657; cv=pass;
         d=google.com; s=arc-20160816;
-        b=r3/1SpWCwoksiEp+rGcGxI3kPHAwAua94OZgqQG136M1UxWcTB89O05ZuWHWgNi4mo
-         j/M604VoJ/7rcNHYRqZAQkiSwAjpi1P0FiDCv4TGZNXm4W+8Sd0m43kPKxuAFGA5DfGV
-         RbzlFK7CYtItS2iqBXDeBxeCz7vMqFuGKs7IOha2E5GkcuLtW6xnuQ0DSeD1E07qEy2n
-         /2Y5J5b1SSeEiiaZAeJ4yXUG5fyQPYiPA7izb7K2pcKb2o4lERXG4k/NOY6HA1qxGiFs
-         QQnB58sZ6dfRtNEMFicPJX436+42GMjL8WLQRpcq2oYsnCBHZxdHk7dQjsAPzdc2CIik
-         s6Qg==
+        b=HU3HBNzju6hJAHEmoiRnHhfFG2LUzQo/q9gH78Y1vqIN20v/Ce0Q1b+8BkyLMnYiGw
+         TmiPiWR/C25mmkr1+DrI03a8V5uCEDrxvVZ58uTl14OjADTppi11bXUBH4A4LTU+BT1r
+         k7+Iebe3BOo7wRvElZGzxiKYGQTxgie1TRwOLZMvoZrloyL9wT4TADg0ZtrrNmMU6itZ
+         Hv/uL00PPAF8aTM+H9qxsDdF9ua5l3cwCDGKED0VXHVdGws+T74cTQxTjal+YxHHUQqs
+         MyasbXJQlQ++YYJbVNMQskdilgAxHNYDuhyHqp9Fyd+jvWjizH8pchoIPgCS+m9D5LUe
+         rf3Q==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:autocrypt:from:references
-         :to:subject:sender:dkim-signature;
-        bh=KD/trB+RzGLYys4qtX695YywEt9UymvGk5EhrayG61w=;
-        b=0dHPKODNaRtXdN6UX186nC+Bm2EcyO6Cpv6nPCaarujF7WFz4SGWHefqR0ngzqad4B
-         JybtnRzAIGSaYpEm2S00ERZqwhXsoUGukMHobuhdM0kiuhlHHc+yh8BSSBu8XNELXOrJ
-         lB8fgxhK2K1ea16YmyZOUKhXepvjs/hPQfTco4pCIV7/0170KRhipGa9+u0J8BJuhlR+
-         lN4oNZsj1QZr+tNHlaB3qwbBLsiTDCXaQxiREJlzChDricWHrMK+0jeUxlw3X0kNAZO/
-         q7xP1FFBzLm3jYJ0E3TKKly8+YAcMLbGIOAl/8ntY7MUjdzykNUSpmw7f3AYGrnsfWeq
-         iOsg==
+         :list-id:mailing-list:precedence:reply-to:user-agent:in-reply-to
+         :content-disposition:mime-version:references:message-id:subject:cc
+         :to:from:date:dkim-signature;
+        bh=wfaOJngVY9R23kWq99hg2MA4oGJTt5vYdJ6KaYkxl10=;
+        b=aDL8PaYB+wb3PNMg84gqlwToU7fbPdTfAMzPcxp3L7xqrVVdsQZ5zLutMKqVoGMN2T
+         dxklta/b6bmCt0xFMGK0CT8JsaXJKr0Bkv3ix7cgHmacD6UFTMFD8e4E4cZDXK7F+vz1
+         IcNJCxL9yp6npqxfQEfp1X1gSETiXNfOJom0dC/zJ622CGJcmhUMaptmQV2/oPDRsoXW
+         v8aKs6nXYaHG2FVZ6EIYsFFjI2QwS/nDJFoVjSEKA+vcTE5QJHtGtYxkwt12DXD/8olR
+         GFjaxxDSq8TyypqNGWrNguNWlhDrfq901wW+I+iPt01qJV5MIpqIDFzuJaYcO53We+kf
+         GO6g==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b=I5yw6owM;
-       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff89 as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=Iokonx7x;
+       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.142 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
+       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:autocrypt:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=KD/trB+RzGLYys4qtX695YywEt9UymvGk5EhrayG61w=;
-        b=kB+kmobLcyxdMv5bcfHKS/d/+4RVo3+ooe9A29rGcOEis10isN7etVIYkuXuDJ1rgq
-         2CXi3Eo0GNLCrqiDVoMfraXswQ8YfIaC3I7A6Ig36mg3sJVPVf3mucLTmjCL23DcI57W
-         Ya6H/NJ5ZsaWluXmGzV/S+WcA8SCgIWxhZsozx37TP8gBsnh/OGa8rGliXwO6+dEi8gi
-         svscFwQYa+P7ygSz+gUeKbtMvKemZBabtg6WQUGXLz0wDSxWsUGVlCl25sdb69PUCVIk
-         LncHRLsSyrs0pGoy5+xVk2ze7hqiM1e+YEX+rYthUy8Ujyeok5wiCdRQp+xHe/EV/JKt
-         Iy1g==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent:x-original-sender
+         :x-original-authentication-results:reply-to:precedence:mailing-list
+         :list-id:list-post:list-help:list-archive:list-subscribe
+         :list-unsubscribe;
+        bh=wfaOJngVY9R23kWq99hg2MA4oGJTt5vYdJ6KaYkxl10=;
+        b=XhkHW9Vf0md4La6JPEgdSwQWeF3SO8b5npgw0ia7ffe7e7N2N278Z0I6K8umsDreWH
+         38yByBAUuFY/G7gFtId8XVtsHQd8z9ZjVJj6KpXgo5sNW5bzVcKu/t7Vf5B51J7b2Bci
+         Tj2YdegVB6lGS8RK6XRNajQit5QZJadsPLQ+mOBeDjCOaA/xts1u3qUo+TK/DUlKH27r
+         swLTZj0wDAtxvqCyM8jvDLDN0BXOn1EVPrwmOO8b7+KX5D3xbQg160CdR6YmpT4eEbcJ
+         ONnwUCoibv0/P5mHxDIW5J1dCTb7csouNxese66EIXdqyfF3TFcZt0j/kbPsBearzzkS
+         3j2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:autocrypt
-         :message-id:date:user-agent:mime-version:in-reply-to
-         :content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=KD/trB+RzGLYys4qtX695YywEt9UymvGk5EhrayG61w=;
-        b=Qb8lgaI1EYZGv1sVW1Zegc428yUtsPsKgZbhORnCZF/3Jj11H0u6WO6jaSdWx4O2pk
-         hYSYQRu1SfI7sMSBrEFOrbTsZ5ZIY9xfxSttZhOvoR785X1yvficnYYwE524BbYSj+vd
-         jpJOVV6DoXM+EfbrYx5u4eIco4Tc15IwMUKV5fYQT2Owf5/EfqnlZ4j4IJxjENt1zXyS
-         IgXoaQuPwRzLZPAsg4FgcYSlJI9OcbaGjdTq+Ty7i+BlijIRgk+tPhokCTWfJpWxUo5g
-         F4xCu4wFPx7WWk/h/wjCPY3GBZ0apMOyOa9ZNn5j4VzvQCyuf7VL7VCVLBwz7yQCYXKy
-         En3A==
-Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531+teUgyZ3PcOwyj9luCX/5xIV0x6OG7FWF9L5khjKxUyC2qjzh
-	h6Eoxni5MybIRnOnW1IqgwA=
-X-Google-Smtp-Source: ABdhPJy8as6eG2Ah1Mot+lGzQMyK20+Ux/AfCUez4zbgeXyJt3eU7YkQ4DB1N/+Hownt3UBiJADGjw==
-X-Received: by 2002:aa7:d6da:: with SMTP id x26mr3755048edr.238.1603825791874;
-        Tue, 27 Oct 2020 12:09:51 -0700 (PDT)
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent
+         :x-original-sender:x-original-authentication-results:reply-to
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=wfaOJngVY9R23kWq99hg2MA4oGJTt5vYdJ6KaYkxl10=;
+        b=W+tYEv4G3ZAc561i2kCq7rEJQ6RF78DhTmzSFprWPT+JfZ3NIhy/z8ArPtjCuINb1c
+         clQcul2+OTtJO0fCRCZNArMn7J9Rie1GpvzZ6eeIGO7K0ZQBI18fG6rT8N7ZD+Bvkc/L
+         xiudmhQRZfxr2HEjxl7sVe9IN4WXpzB6OZ2A82GtwGrFIDlb51ldStY/cfMOYq3V8tzU
+         vn2aJ/nA5QxLhRP8WOmkUOjDmJ1nKRLkC4qv0CCQ8crubdXwRDfUK9KAJ1QnosRDj3li
+         KtPzfa3p57/ZvqXLjYuqptZQ6AhfXPri4k+/VrCFrtuyYR7AP/0YY9nMIcomkTyjJnss
+         S0WQ==
+X-Gm-Message-State: AOAM533qvvv0xyaqbLOL82bqDx3exAV+JXPRpE51bnm7cCw83UKLpOFb
+	U87we8/2LacR1c+aixfGN2s=
+X-Google-Smtp-Source: ABdhPJw2JmJ1P2TrS22xGJSeyhKxDym7jNMEoghDmurQ/5t/771B5B08Qbkj7FQGjMdx8NLFDhQIuQ==
+X-Received: by 2002:a05:6102:2151:: with SMTP id h17mr3199724vsg.22.1603826657657;
+        Tue, 27 Oct 2020 12:24:17 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:3189:: with SMTP id 9ls1275020ejy.10.gmail; Tue, 27
- Oct 2020 12:09:50 -0700 (PDT)
-X-Received: by 2002:a17:906:ca54:: with SMTP id jx20mr4097762ejb.541.1603825790800;
-        Tue, 27 Oct 2020 12:09:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1603825790; cv=none;
+Received: by 2002:ab0:24d7:: with SMTP id k23ls175359uan.5.gmail; Tue, 27 Oct
+ 2020 12:24:17 -0700 (PDT)
+X-Received: by 2002:ab0:614f:: with SMTP id w15mr2440734uan.116.1603826656993;
+        Tue, 27 Oct 2020 12:24:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1603826656; cv=none;
         d=google.com; s=arc-20160816;
-        b=ERKqIwIoaXEGQoHMUUK/IPU//u4wl12uF0PjfX8gg4rYhoC3sd9fh8PJf7CpZc50jq
-         sELEr88GcjSxamH3GzQegCpQAB00TaHP0cvuIfW7c7gZl/+2vUaMG2xKblMoDXW36j8E
-         9s0wmpQkvl0oCdsrNuY4bfyLnX5Nl3XcghlD3ZimBlc7zcgiEaKGnE7g5fHo5+CImOV9
-         efYD/mX2ykFQWQjIrxEsqsp1wWwbk+UiN2kHh39za+kXZrdDIh+rjZ0EiPSqY5tOJObZ
-         IY5VWuVYUOS4+c40hWlaMr1U+fhVUqJY+IFLmQPuIvo29GRFFdoo01+3OCzneRiKjCBH
-         KANQ==
+        b=pRxdNZxo5vyjoNAeRK0xwAZTJf4qV6SiiHpH3zVKAg0EQNo4wiIxxf05oFds5OiUi9
+         FVi7fW83aJN47ghOfomxk1jHPoobdsKOo5VBRMxjbqigPVgEBIFBF7wxYKM1fUEcFnSR
+         46xyePz8KrFRF7ycGL2iEJHdQ0f33rMJV0wotWtQ0wer+mcUNQG0Y0AXitjxV0rF5Ms5
+         jM/hSaRsgpREZe8ApUACxhEpDJL3UUpg+Xw5rzkgLF+Zh8YmnsEh5IDiQ9e6QGoyBlC/
+         JoJs1EN2HYr8Nj16Tcst2hYe6bPzQE3kRDfrMAl0v2pgSqDEWOaxaZ7qHMgC3JLJHRko
+         2c6w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:autocrypt:from:references:to:subject
-         :dkim-signature;
-        bh=V2TF4jm2ATxtkDdbmLRh9twgVo6K4Dv5bLlTw0ZTCus=;
-        b=ouoTj0r4QStOLoPOoI9Ny0lXO+bDywWKyho5nWd2vv03nZvMwnv5cjh0iM2em6qGl0
-         onlLYsVRlKjyEF7GTooKfnfgA8BDyyQ1N+0d9LFBFSHDJ/42KOVcAidNGFvcoD30l9z/
-         7MFd8hXZI2kvHCaANjuiGqPVKgR+5O9dcEoh4hEcN7QJWdaVgACB+YSBKuIJHvVL74yv
-         ps+hTgPcufYFTYAHK5c8664vVPDYO5FLsBqGObTO9ktOwFXQffZUA6uIn4P5P04RE7OE
-         D7HI5o0TFtYTMUTjU7C9oj7scRG99sLq+2EXWm851W75SJT8yHDnxxiz57/unQuR3QL0
-         VEZA==
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:dkim-signature;
+        bh=+NfXyFE1KDVSjAHoBO1RQk31YCQnJUlPv1/mkX+7Ws8=;
+        b=GAk0ms1rhutxJaUZuVomXn6IVqRCGYWZpjPQ+9oqiDdV4w+TTHUjc82bwEAlKfW9wV
+         YrxDWOTRorIVy/UzhX1QvnFdYU1i0rhvI76A6QRYOiqiy+JYtTO+E+xEKKoyjTd2ovxr
+         FOwnatSzm9S9atDwrKR3HuFRdVLQIQsEFJGiSdJGZXGmN7J3MIPLTD+0YtH+yy5EXoz5
+         ShI9IzU217rL8EbC+/E/U7pVU3D4nJo3beUJYjKj6FChYtuCzD3i39XF6XEy88feoPK1
+         S+q1v/5eLWJcBUuwtbUD7C96sd6A6+vlb6QkHqOSV6ZtVXnXFJ2mdD3b9wmfUXp4hkzJ
+         mpZA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b=I5yw6owM;
-       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff89 as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
-Received: from postout1.mail.lrz.de (postout1.mail.lrz.de. [2001:4ca0:0:103::81bb:ff89])
-        by gmr-mx.google.com with ESMTPS id n7si60766edy.3.2020.10.27.12.09.50
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=Iokonx7x;
+       spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.142 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
+       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com. [198.47.19.142])
+        by gmr-mx.google.com with ESMTPS id q192si170180vkb.2.2020.10.27.12.24.16
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Tue, 27 Oct 2020 12:09:50 -0700 (PDT)
-Received-SPF: pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff89 as permitted sender) client-ip=2001:4ca0:0:103::81bb:ff89;
-Received: from lxmhs51.srv.lrz.de (localhost [127.0.0.1])
-	by postout1.mail.lrz.de (Postfix) with ESMTP id 4CLLqf2gWHzyVP;
-	Tue, 27 Oct 2020 20:09:50 +0100 (CET)
-X-Virus-Scanned: by amavisd-new at lrz.de in lxmhs51.srv.lrz.de
-X-Spam-Flag: NO
-X-Spam-Score: -5.04
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.04 tagged_above=-999 required=5
-	tests=[ALL_TRUSTED=-1, BAYES_00=-1.9, DMARC_ADKIM_RELAXED=0.001,
-	DMARC_ASPF_RELAXED=0.001, DMARC_POLICY_NONE=0.001,
-	LRZ_CT_PLAIN_UTF8=0.001, LRZ_DMARC_FAIL=0.001,
-	LRZ_DMARC_FAIL_NONE=0.001, LRZ_DMARC_POLICY=0.001,
-	LRZ_DMARC_TUM_FAIL=0.001, LRZ_DMARC_TUM_REJECT=3.5,
-	LRZ_DMARC_TUM_REJECT_PO=-3.5, LRZ_ENVFROM_FROM_ALIGNED_STRICT=0.001,
-	LRZ_ENVFROM_FROM_MATCH=0.001, LRZ_ENVFROM_TUM_S=0.001,
-	LRZ_FROM_HAS_A=0.001, LRZ_FROM_HAS_AAAA=0.001,
-	LRZ_FROM_HAS_MDOM=0.001, LRZ_FROM_HAS_MX=0.001,
-	LRZ_FROM_HOSTED_DOMAIN=0.001, LRZ_FROM_NAME_IN_ADDR=0.001,
-	LRZ_FROM_PHRASE=0.001, LRZ_FROM_PRE_SUR=0.001,
-	LRZ_FROM_PRE_SUR_PHRASE=0.001, LRZ_FROM_TUM_S=0.001,
-	LRZ_HAS_CLANG=0.001, LRZ_HAS_IN_REPLY_TO=0.001, LRZ_HAS_SPF=0.001,
-	LRZ_MSGID_HL8_3HL4_HL12=0.001, LRZ_MSGID_MOZ=0.001, LRZ_UA_MOZ=0.001,
-	NICE_REPLY_A=-2.167] autolearn=no autolearn_force=no
-Received: from postout1.mail.lrz.de ([127.0.0.1])
-	by lxmhs51.srv.lrz.de (lxmhs51.srv.lrz.de [127.0.0.1]) (amavisd-new, port 20024)
-	with LMTP id 1GwgtLWR6Qex; Tue, 27 Oct 2020 20:09:50 +0100 (CET)
-Received: from [10.162.12.242] (unknown [10.162.12.242])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(Client did not present a certificate)
-	by postout1.mail.lrz.de (Postfix) with ESMTPSA id 4CLLqd4ffFzyVK;
-	Tue, 27 Oct 2020 20:09:49 +0100 (CET)
-Subject: Re: [PATCH v2 28/33] hypervisor: -Wunused-parameter: keep compiler
- happy
-To: Jan Kiszka <jan.kiszka@siemens.com>, jailhouse-dev@googlegroups.com
-References: <20201022175826.199614-1-andrea.bastoni@tum.de>
- <20201022175826.199614-29-andrea.bastoni@tum.de>
- <86268abe-a991-5720-2f3c-a5b883255ea7@siemens.com>
-From: Andrea Bastoni <andrea.bastoni@tum.de>
-Autocrypt: addr=andrea.bastoni@tum.de; keydata=
- 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
-Message-ID: <ad59f8d5-cafa-4aff-bb9b-4a7c3a906378@tum.de>
-Date: Tue, 27 Oct 2020 20:09:49 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 27 Oct 2020 12:24:16 -0700 (PDT)
+Received-SPF: pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.142 as permitted sender) client-ip=198.47.19.142;
+Received: from lelv0265.itg.ti.com ([10.180.67.224])
+	by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 09RJOGi7071449;
+	Tue, 27 Oct 2020 14:24:16 -0500
+Received: from DFLE113.ent.ti.com (dfle113.ent.ti.com [10.64.6.34])
+	by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 09RJOGoh004378
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 27 Oct 2020 14:24:16 -0500
+Received: from DFLE111.ent.ti.com (10.64.6.32) by DFLE113.ent.ti.com
+ (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Tue, 27
+ Oct 2020 14:24:15 -0500
+Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE111.ent.ti.com
+ (10.64.6.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
+ Frontend Transport; Tue, 27 Oct 2020 14:24:15 -0500
+Received: from localhost (ileax41-snat.itg.ti.com [10.172.224.153])
+	by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 09RJOE7q040907;
+	Tue, 27 Oct 2020 14:24:15 -0500
+Date: Wed, 28 Oct 2020 00:54:13 +0530
+From: "'Nikhil Devshatwar' via Jailhouse" <jailhouse-dev@googlegroups.com>
+To: Jan Kiszka <jan.kiszka@siemens.com>
+CC: <jailhouse-dev@googlegroups.com>
+Subject: Re: [PATCH] arm64: pvu: Avoid failure in config_commit
+Message-ID: <20201027192413.kngjt3exc3wesbfy@NiksLab>
+References: <20201026195257.14398-1-nikhil.nd@ti.com>
+ <a282f746-9eb7-eb5e-7c45-a45e795a74c3@siemens.com>
 MIME-Version: 1.0
-In-Reply-To: <86268abe-a991-5720-2f3c-a5b883255ea7@siemens.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-X-Original-Sender: andrea.bastoni@tum.de
+Content-Disposition: inline
+In-Reply-To: <a282f746-9eb7-eb5e-7c45-a45e795a74c3@siemens.com>
+User-Agent: NeoMutt/20171215
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+X-Original-Sender: nikhil.nd@ti.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@tum.de header.s=postout header.b=I5yw6owM;       spf=pass
- (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff89
- as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=tum.de
+ header.i=@ti.com header.s=ti-com-17Q1 header.b=Iokonx7x;       spf=pass
+ (google.com: domain of nikhil.nd@ti.com designates 198.47.19.142 as permitted
+ sender) smtp.mailfrom=nikhil.nd@ti.com;       dmarc=pass (p=QUARANTINE
+ sp=NONE dis=NONE) header.from=ti.com
+X-Original-From: Nikhil Devshatwar <nikhil.nd@ti.com>
+Reply-To: Nikhil Devshatwar <nikhil.nd@ti.com>
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -206,133 +148,261 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 27/10/2020 14:36, Jan Kiszka wrote:
-> On 22.10.20 19:58, Andrea Bastoni wrote:
->> Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
->> ---
->>  hypervisor/control.c                | 2 ++
->>  hypervisor/include/jailhouse/unit.h | 2 +-
->>  hypervisor/paging.c                 | 4 ++++
->>  hypervisor/pci.c                    | 6 ++++++
->>  hypervisor/printk.c                 | 2 +-
->>  5 files changed, 14 insertions(+), 2 deletions(-)
->>
->> diff --git a/hypervisor/control.c b/hypervisor/control.c
->> index 0078ef19..81b7614f 100644
->> --- a/hypervisor/control.c
->> +++ b/hypervisor/control.c
->> @@ -884,6 +884,8 @@ static int hypervisor_disable(struct per_cpu *cpu_data)
->>  
->>  static long hypervisor_get_info(struct per_cpu *cpu_data, unsigned long type)
->>  {
->> +	(void)cpu_data;
->> +
->>  	switch (type) {
->>  	case JAILHOUSE_INFO_MEM_POOL_SIZE:
->>  		return mem_pool.pages;
->> diff --git a/hypervisor/include/jailhouse/unit.h b/hypervisor/include/jailhouse/unit.h
->> index 40e1cbfe..39dfc056 100644
->> --- a/hypervisor/include/jailhouse/unit.h
->> +++ b/hypervisor/include/jailhouse/unit.h
->> @@ -38,7 +38,7 @@ struct unit {
->>  	static void __name##_shutdown(void) { }
->>  
->>  #define DEFINE_UNIT_MMIO_COUNT_REGIONS_STUB(__name)			\
->> -	static unsigned int __name##_mmio_count_regions(struct cell *cell) \
->> +	static unsigned int __name##_mmio_count_regions(struct cell *cell __attribute__((unused))) \
+On 18:33-20201027, Jan Kiszka wrote:
+> On 26.10.20 20:52, 'Nikhil Devshatwar' via Jailhouse wrote:
+> > Current PVU iommu implementation ignores possible failures in the
+> > config_commit part. This would allow inconsistent configuration
+> > to run and may introduce unknown bugs.
+> > 
+> > Solve this by making sure that the pvu_iommu_config_commit never
+> > fails. Catch the errors early in the mapping phase. Use
+> > "free_tlb_count" to track available no of TLBs for chaining.
+> > This can be used to check if any mapping causes it to potentially
+> > use more no of TLBs than that are free. This will ensure that
+> > the allocationg for chaining will not fail.
+> > 
+> > Change the return type to void and remove the error handling in
+> > the config_commit path.
+> > 
+> > Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
+> > ---
+> >  hypervisor/arch/arm64/include/asm/ti-pvu.h |  3 +-
+> >  hypervisor/arch/arm64/ti-pvu.c             | 54 +++++++++++++---------
+> >  2 files changed, 34 insertions(+), 23 deletions(-)
+> > 
+> > diff --git a/hypervisor/arch/arm64/include/asm/ti-pvu.h b/hypervisor/arch/arm64/include/asm/ti-pvu.h
+> > index 2c340b3a..62aec7c0 100644
+> > --- a/hypervisor/arch/arm64/include/asm/ti-pvu.h
+> > +++ b/hypervisor/arch/arm64/include/asm/ti-pvu.h
+> > @@ -117,6 +117,7 @@ struct pvu_dev {
+> >  	u16		max_virtid;
+> >  
+> >  	u16		tlb_data[PVU_NUM_TLBS];
+> > +	u16		free_tlb_count;
+> >  };
+> >  
+> >  int pvu_iommu_map_memory(struct cell *cell,
+> > @@ -125,6 +126,6 @@ int pvu_iommu_map_memory(struct cell *cell,
+> >  int pvu_iommu_unmap_memory(struct cell *cell,
+> >  		const struct jailhouse_memory *mem);
+> >  
+> > -int pvu_iommu_config_commit(struct cell *cell);
+> > +void pvu_iommu_config_commit(struct cell *cell);
+> >  
+> >  #endif /* _IOMMMU_PVU_H_ */
+> > diff --git a/hypervisor/arch/arm64/ti-pvu.c b/hypervisor/arch/arm64/ti-pvu.c
+> > index 3b9a29ec..d96d01c9 100644
+> > --- a/hypervisor/arch/arm64/ti-pvu.c
+> > +++ b/hypervisor/arch/arm64/ti-pvu.c
+> > @@ -15,7 +15,7 @@
+> >   * There are limitations on the number of available contexts, page sizes,
+> >   * number of pages that can be mapped, etc.
+> >   *
+> > - * PVU is desgined to be programmed with all the memory mapping at once.
+> > + * PVU is designed to be programmed with all the memory mapping at once.
+> >   * Therefore, it defers the actual register programming till config_commit.
+> >   * Also, it does not support unmapping of the pages at runtime.
+> >   *
+> > @@ -110,6 +110,7 @@ static u32 pvu_tlb_alloc(struct pvu_dev *dev, u16 virtid)
+> >  	for (i = dev->max_virtid + 1; i < dev->num_tlbs; i++) {
+> >  		if (dev->tlb_data[i] == 0) {
+> >  			dev->tlb_data[i] = virtid << dev->num_entries;
+> > +			dev->free_tlb_count--;
+> >  			return i;
+> >  		}
+> >  	}
+> 	return 0;
 > 
-> Overlong.
+> So we will never get here and never return 0? What prevents that is in
+> pvu_iommu_map_memory, right? Should be explained.
 > 
->>  	{ return 0; }
->>  
->>  extern struct unit __unit_array_start[0], __unit_array_end[0];
->> diff --git a/hypervisor/paging.c b/hypervisor/paging.c
->> index 75d5da59..0573cfd2 100644
->> --- a/hypervisor/paging.c
->> +++ b/hypervisor/paging.c
->> @@ -55,6 +55,8 @@ struct paging_structures parking_pt;
->>   */
->>  unsigned long paging_get_phys_invalid(pt_entry_t pte, unsigned long virt)
->>  {
->> +	(void)pte;
->> +	(void)virt;
->>  	return INVALID_PHYS_ADDR;
->>  }
->>  
->> @@ -507,6 +509,8 @@ void *paging_map_device(unsigned long phys, unsigned long size)
->>   */
->>  void paging_unmap_device(unsigned long phys, void *virt, unsigned long size)
->>  {
->> +	(void)phys;
->> +
->>  	/* Cannot fail if paired with paging_map_device. */
->>  	paging_destroy(&hv_paging_structs, (unsigned long)virt, size,
->>  		       PAGING_NON_COHERENT);
->> diff --git a/hypervisor/pci.c b/hypervisor/pci.c
->> index fe85ae2f..79b6f920 100644
->> --- a/hypervisor/pci.c
->> +++ b/hypervisor/pci.c
->> @@ -205,6 +205,8 @@ pci_find_capability(struct pci_device *device, u16 address)
->>  enum pci_access pci_cfg_read_moderate(struct pci_device *device, u16 address,
->>  				      unsigned int size, u32 *value)
->>  {
->> +	(void)size;
->> +
->>  	const struct jailhouse_pci_capability *cap;
->>  	unsigned int bar_no, cap_offs;
->>  
->> @@ -253,6 +255,8 @@ enum pci_access pci_cfg_read_moderate(struct pci_device *device, u16 address,
->>  static int pci_update_msix(struct pci_device *device,
->>  			   const struct jailhouse_pci_capability *cap)
->>  {
->> +	(void)cap;
->> +
->>  	unsigned int n;
->>  	int result;
->>  
->> @@ -404,6 +408,8 @@ invalid_access:
->>  static enum mmio_result pci_mmconfig_access_handler(void *arg,
->>  						    struct mmio_access *mmio)
->>  {
->> +	(void)arg;
->> +
->>  	u32 reg_addr = mmio->address & 0xfff;
->>  	u16 bdf = mmio->address >> 12;
->>  	struct pci_device *device;
->> diff --git a/hypervisor/printk.c b/hypervisor/printk.c
->> index a32ff8c4..6f149f0f 100644
->> --- a/hypervisor/printk.c
->> +++ b/hypervisor/printk.c
->> @@ -46,7 +46,7 @@ static void console_write(const char *msg)
->>  	console.busy = false;
->>  }
->>  
->> -static void dbg_write_stub(const char *msg)
->> +static void dbg_write_stub(const char *msg __attribute__((unused)))
->>  {
->>  }
->>  
->>
+okay, will add a comment
+
+> And maybe we should actually introduce a BUG() macro to crash
+> intentionally when reaching impossible states. Or we simply do
 > 
-> First, the "solution" looks a bit inconsistent (unused vs. (void)arg).
-> Second, I'm not yet sure there is a lot of value in this. Can you come
-> up with relevant issues that this can reveal?
+> while (dev->tlb_data[i] != 0)
+> 	i++;
+> 
+> explaining why this loop is always finishing.
+> 
+> > @@ -138,10 +139,13 @@ static void pvu_tlb_flush(struct pvu_dev *dev, u16 tlbnum)
+> >  
+> >  	mmio_write32(&tlb->chain, 0x0);
+> >  
+> > -	if (i < dev->max_virtid)
+> > +	if (i < dev->max_virtid) {
+> >  		dev->tlb_data[tlbnum] = 0x0 | i << dev->num_entries;
+> > -	else
+> > +	} else {
+> > +		/* This was a chained TLB */
+> >  		dev->tlb_data[tlbnum] = 0x0;
+> > +		dev->free_tlb_count++;
+> > +	}
+> >  
+> >  }
+> >  
+> > @@ -198,7 +202,7 @@ static int pvu_entry_write(struct pvu_dev *dev, u16 tlbnum, u8 index,
+> >  	mmio_write32_field(&entry->reg2, PVU_TLB_ENTRY_PGSIZE_MASK, pgsz);
+> >  	mmio_write32_field(&entry->reg2, PVU_TLB_ENTRY_FLAG_MASK, ent->flags);
+> >  
+> > -	/* Do we need "DSB NSH" here to make sure all writes are finised? */
+> > +	/* Do we need "DSB NSH" here to make sure all writes are finished? */
+> >  	pvu_entry_enable(dev, tlbnum, index);
+> >  	return 0;
+> >  }
+> > @@ -221,6 +225,8 @@ static u32 pvu_init_device(struct pvu_dev *dev, u16 max_virtid)
+> >  	}
+> >  
+> >  	dev->max_virtid = max_virtid;
+> > +	dev->free_tlb_count = dev->num_tlbs - (max_virtid + 1);
+> > +
+> >  	mmio_write32(&cfg->virtid_map1, 0);
+> >  	mmio_write32_field(&cfg->virtid_map2, PVU_MAX_VIRTID_MASK, max_virtid);
+> >  
+> > @@ -328,17 +334,17 @@ static void pvu_entrylist_sort(struct pvu_tlb_entry *entlist, u32 num_entries)
+> >  	}
+> >  }
+> >  
+> > -static int pvu_iommu_program_entries(struct cell *cell, u8 virtid)
+> > +static void pvu_iommu_program_entries(struct cell *cell, u8 virtid)
+> >  {
+> >  	unsigned int inst, i, tlbnum, idx, ent_count;
+> >  	struct pvu_tlb_entry *ent, *cell_entries;
+> >  	struct pvu_dev *dev;
+> > -	int ret, tlb_next;
+> > +	int tlb_next;
+> >  
+> >  	cell_entries = cell->arch.iommu_pvu.entries;
+> >  	ent_count = cell->arch.iommu_pvu.ent_count;
+> >  	if (ent_count == 0 || cell_entries == NULL)
+> > -		return 0;
+> > +		return;
+> >  
+> >  	/* Program same memory mapping for all of the instances */
+> >  	for (inst = 0; inst < pvu_count; inst++) {
+> > @@ -356,20 +362,15 @@ static int pvu_iommu_program_entries(struct cell *cell, u8 virtid)
+> >  			if (idx == 0 && i >= dev->num_entries) {
+> >  				/* Find next available TLB and chain to it */
+> >  				tlb_next = pvu_tlb_alloc(dev, virtid);
+> > -				if (tlb_next < 0)
+> > -					return -ENOMEM;
+> >  				pvu_tlb_chain(dev, tlbnum, tlb_next);
+> >  				pvu_tlb_enable(dev, tlbnum);
+> >  				tlbnum = tlb_next;
+> >  			}
+> >  
+> > -			ret = pvu_entry_write(dev, tlbnum, idx, ent);
+> > -			if (ret)
+> > -				return ret;
+> > +			pvu_entry_write(dev, tlbnum, idx, ent);
+> 
+> But what if pvu_entry_write finds an issue? Are we fine with reporting
+> only and then simply continueing?
+> 
+The failures in pvu_entry_write are defensive programming.
+To ensure that the hardware constraints are met.
+Here, the caller has ensured the constraints, so this won't fail.
 
-I've thought as well if adding Wno-unused-parameter would be better here.
+I can either get rid of the checks or explain why it is okay to
+ignore the return value
 
-During development it can help refactoring and to avoid leaving unneeded
-functions around.
+> Please clearify that in-place, i.e. via comments in pvu_entry_write(),
+> and remove ignored return values.
+> 
 
-It probably helps the compiler to avoid spilling for extern functions, but I
-have not checked.
+> >  		}
+> >  		pvu_tlb_enable(dev, tlbnum);
+> >  	}
+> > -	return 0;
+> >  }
+> >  
+> >  /*
+> > @@ -380,8 +381,9 @@ int pvu_iommu_map_memory(struct cell *cell,
+> >  			 const struct jailhouse_memory *mem)
+> >  {
+> >  	struct pvu_tlb_entry *ent;
+> > +	struct pvu_dev *dev;
+> >  	unsigned int size;
+> > -	u32 flags = 0;
+> > +	u32 tlb_count, flags = 0;
+> >  	int ret;
+> >  
+> >  	if (pvu_count == 0 || (mem->flags & JAILHOUSE_MEM_DMA) == 0)
+> > @@ -408,7 +410,19 @@ int pvu_iommu_map_memory(struct cell *cell,
+> >  	if (ret < 0)
+> >  		return ret;
+> >  
+> > -	cell->arch.iommu_pvu.ent_count += ret;
+> > +	/*
+> > +	 * Check if there are enough TLBs left for *chaining* to ensure that
+> > +	 * pvu_tlb_alloc called from config_commit never fails
+> > +	 */
+> > +	tlb_count = (cell->arch.iommu_pvu.ent_count + ret - 1) / 8;
+> > +	dev = &pvu_units[0];
+> > +
+> > +	if (tlb_count > dev->free_tlb_count) {
+> > +		printk("ERROR: PVU: Mapping this memory needs more TLBs than that are available\n");
+> > +		return -EINVAL;
+> > +	} else {
+> 
+> No need for "else" here.
+> 
+got it, will remove
 
-Since it's included in Wextra I simply didn't want to suppress it by default.
+> > +		cell->arch.iommu_pvu.ent_count += ret;
+> > +	}
+> >  	return 0;
+> >  }
+> >  
+> > @@ -434,13 +448,12 @@ int pvu_iommu_unmap_memory(struct cell *cell,
+> >  	return 0;
+> >  }
+> >  
+> > -int pvu_iommu_config_commit(struct cell *cell)
+> > +void pvu_iommu_config_commit(struct cell *cell)
+> >  {
+> >  	unsigned int i, virtid;
+> > -	int ret = 0;
+> >  
+> >  	if (pvu_count == 0 || !cell)
+> > -		return 0;
+> > +		return;
+> >  
+> >  	/*
+> >  	 * Chaining the TLB entries adds extra latency to translate those
+> > @@ -455,13 +468,10 @@ int pvu_iommu_config_commit(struct cell *cell)
+> >  		if (virtid > MAX_VIRTID)
+> >  			continue;
+> >  
+> > -		ret = pvu_iommu_program_entries(cell, virtid);
+> > -		if (ret)
+> > -			return ret;
+> > +		pvu_iommu_program_entries(cell, virtid);
+> >  	}
+> >  
+> >  	cell->arch.iommu_pvu.ent_count = 0;
+> > -	return ret;
+> >  }
+> >  
+> >  static int pvu_iommu_cell_init(struct cell *cell)
+> > 
+> 
+> Jan
 
--- 
-Thanks,
-Andrea Bastoni
+Thanks for review
+Nikhil D
+> 
+> -- 
+> Siemens AG, T RDA IOT
+> Corporate Competence Center Embedded Linux
+> 
+> -- 
+> You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+> To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+> To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/a282f746-9eb7-eb5e-7c45-a45e795a74c3%40siemens.com.
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/ad59f8d5-cafa-4aff-bb9b-4a7c3a906378%40tum.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20201027192413.kngjt3exc3wesbfy%40NiksLab.
