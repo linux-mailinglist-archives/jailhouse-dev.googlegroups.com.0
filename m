@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB5F34D6AKGQEPVKKQWQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBMN54D6AKGQEZBQ4N2I@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x539.google.com (mail-ed1-x539.google.com [IPv6:2a00:1450:4864:20::539])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAB7029AD00
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 14:17:40 +0100 (CET)
-Received: by mail-ed1-x539.google.com with SMTP id h6sf654258edt.12
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 06:17:40 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1603804660; cv=pass;
+Received: from mail-ed1-x53e.google.com (mail-ed1-x53e.google.com [IPv6:2a00:1450:4864:20::53e])
+	by mail.lfdr.de (Postfix) with ESMTPS id 683EE29AD1B
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 14:20:50 +0100 (CET)
+Received: by mail-ed1-x53e.google.com with SMTP id t4sf673341edv.7
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 06:20:50 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1603804850; cv=pass;
         d=google.com; s=arc-20160816;
-        b=elPL3EMgIQ0Oi1JGEj5GRvm0F76buYJMqeQYAMZ7FA1Ka0gXicT4df/fZxw8w3me5Z
-         q2nTCQIzjgn34IfV84Rn+N3BDpUcXdCJhg6NJhE5NocfpfRaHZwQRQVXKSVl4ynkhIsP
-         Qo++7pM+i51xc87NRVeAKZFxl/CGaKAhMFhFF7ej26DzEITqR7VGUTtk16flp+R1zmNz
-         dB+KUS2sxEti68brt1AkekoMR/6EexJ9BFcUVb/8EsWtYA2K6jfc6qdqMvdAPqm//ev8
-         h96Qaz7sAWkj/sCckJPxxG8SdxbkcjVw/ZUzcfeYt31gEoWgNB76Nyd3+McTEoRnUrw1
-         zGQg==
+        b=jtbOvaKzVsM1czMuDmdgAzXtFYYBv/yrcO0kVvfFZUV7bbMkaPFahA4UbrgWzhZBPx
+         sonoh0CjvwMiqzuF3GXKy5/9zZCjkcDGzyA3B+dP4Yap4N2CTTh6X6ECYt0h47z2kw0M
+         s/gaNPRNy562KxfzVzaImYopf/AfnK6Jumf7gD7uFNqs7XCRf0eF3EDjdKNNMCOWE1iO
+         wT931PW0g7i7PpdzU2Si8zy4GN1LetRbftmkThsv6oEBsSxYV1VLS0c78PWYKfM869Rg
+         5GLMbvSYG9GRzIBwDSQz2tROhMLNLpqBSqT0CytAstMbHsK2I5q8IDrXthJ9CpyBxYrv
+         H71Q==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-language:in-reply-to
          :mime-version:user-agent:date:message-id:from:references:to:subject
          :sender:dkim-signature;
-        bh=Dwt3sNJlH+Y0kC/pXkGZvblCnaCJ+Z8kAp1VZ0DwboM=;
-        b=LjgIHkLlsqCmlivGaMRgDxEv87shET8bqmwbTNvzxLKLnTKSfjoVC4UWkMkActkHNX
-         pNDbs6r+isbxrfZFuVNqvOvlyIAwnJDB1voBAI0syT0pnk2pxt0/K3Bg9SeXBUnZxGv2
-         sINHuuqruIy0rKu5Rk6F/FynrHw7Nk75Ox2x7W7zoIVrhwg/hU+CQHgNDhLiSq+Ywnj9
-         TCBk70xpWYyAhL02C+lhww/8FoBmAzoeNsTGo/HS2WkRH4eeyF57uvmAUn5rappAOmyc
-         Q2l+/WtIW7iT9a8w8BnJa5RIB3TerLHeAl+DLh14QI5H7yR6gz/LXNRFzkJSCRS0TeDX
-         Qm7g==
+        bh=47+3q4k6Q3ZRJ82DMWLgHM9baB7pgYKThRa3GbcRo2c=;
+        b=lNMoqGHE6xg+Rk58I4vyk1BR8Pw6sfYtvRMebUAbkeiX5tIatFDF2NX/aADpF/D9mf
+         blZwAWWg6rODuUoJvM7mrvhJr1UzzW9ttzQjMKzs2iAvlTWq99wTGql/mOeWzrfo5j5+
+         DaMZogIjMAdYukfmE3RQlrjra5OuNde4whDQxSZWOmmMdW3fi/uzmK3ZxeeG1JQiPDrd
+         yIPTKgML1Kysxu64+mhSdmUbriyGsq35aemw4Nro6ZPl0ud+WEvT8QMUsCEqke5zR9xZ
+         v0YiJfWhVC6susr+xEgwHca8MSPZCxQtRmWm8KGPgN4x1AiGxQoU6ad5DB3lcQ/PlsoH
+         gEfQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:in-reply-to:content-language:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=Dwt3sNJlH+Y0kC/pXkGZvblCnaCJ+Z8kAp1VZ0DwboM=;
-        b=WdR/O7oJkwCxhiS1TydA+L+RsZcU0ygMS19j+ZjClpeCDt7pqCNIid8tCMPBNvaWHX
-         ImvjzkmgcKMGW0IPnFZ3aXtn9bQpuagdAoqva0CYCSpvF3qvHAl5XMrUySx9374QMuSH
-         iQmPlBpsBsGxJdsLcWyUIL9EZ/S6CDjAijorgGrQWdasS0j4r1OBGL5fl8tY7dExlt+a
-         bAsF1OF0XJdNd4ySlO79QStUZpZuqXi8V5TslWbatHWa4cBF2MvbXsH1xd7PAU3ln+6L
-         SfVNKHAsf23Jy7I1w6aD9pWBejkrjLFc6dr8NELWIXGckUovr/KlzI4MsFX33wTgjYuV
-         Uo5Q==
+        bh=47+3q4k6Q3ZRJ82DMWLgHM9baB7pgYKThRa3GbcRo2c=;
+        b=Fep+O3avzkIUKM3TbsTzwiDZ/D85GVkfyXRq6oCjiRHhcNDm5HGc6CCRWISk1XTrtu
+         tITkdf0EmsPLo6cYUZL5gjihyPO35TUrvmgHOu4QQauwXuqDshqoZ7BON2vK/AZWyq/V
+         nUTvW5XgJaUhF37QoMc6oZuHMJR7/0gBDmARfuf6MMHZgdUHZvNhyTtGVTH5YT/gF76P
+         Q8UAS8+bYYIFuavPNnA+Ek0PUqTkkSrglfB32jAbviGfv/1jjDvDKWksxiWzTnPms2lR
+         5U9K3chQKtm4QeY+6i33ATCsvhw2cU1hiHI17S6Yb9TKSxZ9Tz6O5zLTHG21u/RdUgFn
+         XyaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:subject:to:references:from:message-id
@@ -49,75 +49,75 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=Dwt3sNJlH+Y0kC/pXkGZvblCnaCJ+Z8kAp1VZ0DwboM=;
-        b=sgXr3ji0yn9K/GwfOu25HiP9NwLfMgsEruTG7XTVce4nl3wagX62VOLdzzL+3kEkMr
-         6CMCBai5+2PfFn5DBDn05GTdupnEL4E5DwJy//g/LummQdAp1Rqj4QpjcvFKsOJ6PIP5
-         PPc5HpnTGjkFouEgiP+/DlnIGSSdXoCIZDDVuhsr/N5h/U2ifdcGD5mOsjDdnou6LV9B
-         yaIWDId5cIMmLKjXsT6V+Zjv8Pe3nH5sIjrglwF7X0sdEnM3FJ02eRmuiFyjaKMntakx
-         77bEpq/5f81KRLFspC/kNKp99hjq85jVSAhyMQSdHhT9qKIUKHNShZ/YoCWn47nijxf1
-         EG3Q==
+        bh=47+3q4k6Q3ZRJ82DMWLgHM9baB7pgYKThRa3GbcRo2c=;
+        b=GbCpJTLGb9m33V/pi6hgzfTSszs+g+Kbu6w/9fn3cXg2cepAmD1angFFaNiZwNRwVZ
+         aOh/IMzdbv1CWLaAoaJ+1Uind0tHY6sJ6mkgGWa4Yr0KuoJd1gwvN0bF1vJS6XttKRK+
+         8kTpLbuNIF2B1+UZTbzCG2QrrD75lWk8QFf+9zNSjyCnHzleoFyueGmnIoPQlA5XRzKZ
+         CdQOgISOREppCD9MjBtLjLry2GsdL0F74MxqWBa0XGK7QDM1Mb/mKDBkY1Ooa5puYNDo
+         O28gA23b9RAvjMp3I39oMK4TTdgE/ektjabH1Ki3c2ZTfTj6+HJIVzEOw7LDrbmUnm26
+         inww==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531zOqB8RF9siQk+S4UF3ZMHyl2CVHvowSHmZo+WntDoz+r3ETQG
-	FjW0k/nX/dofhWYRj+ptEWE=
-X-Google-Smtp-Source: ABdhPJyVNx11tXk5niDEfIVgRy9qIz0nVJkprkLTsZmMM12KY96lpS9cTfr7ZBLYQXv1GorPUDDMZg==
-X-Received: by 2002:a05:6402:206:: with SMTP id t6mr2131700edv.291.1603804660616;
-        Tue, 27 Oct 2020 06:17:40 -0700 (PDT)
+X-Gm-Message-State: AOAM530LQAcJHrbzRpLqL9N0Mev0KGg4cXlOGzY1YSAY0pQ2j5qoZVOe
+	EF2SFUtWC6BgR7DaJigo+3Q=
+X-Google-Smtp-Source: ABdhPJwgH59Ker+pYcamv+Qf7Rjj0Yl4RoEDP82/hToHXwAaLxdb20XNCuSHonskDHCScCcl8gCvOg==
+X-Received: by 2002:a17:907:366:: with SMTP id rs6mr2389287ejb.352.1603804850131;
+        Tue, 27 Oct 2020 06:20:50 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:35d1:: with SMTP id p17ls776563ejb.8.gmail; Tue, 27
- Oct 2020 06:17:39 -0700 (PDT)
-X-Received: by 2002:a17:906:38d9:: with SMTP id r25mr2506604ejd.8.1603804659296;
-        Tue, 27 Oct 2020 06:17:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1603804659; cv=none;
+Received: by 2002:a17:906:3189:: with SMTP id 9ls776358ejy.10.gmail; Tue, 27
+ Oct 2020 06:20:48 -0700 (PDT)
+X-Received: by 2002:a17:906:48c:: with SMTP id f12mr2505968eja.467.1603804848763;
+        Tue, 27 Oct 2020 06:20:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1603804848; cv=none;
         d=google.com; s=arc-20160816;
-        b=R4QMiPvQBeVPdMeup2bhc1AP8TCMfy58MyA9GmawAXnFcG0bi8ScKpEp2mOqOFoMW7
-         R+IFm7eiOnZm/c524/SwIbolfyxUxYQ9YYh4pJFtYFHwZEbKPSOIsNOziZoaAIlmN/L3
-         S/kDUlTxISDookt1yyqHMWbmH5eNW8qS1tpif/UIN3RoAj6h4kVoTyO4PGrKFTxo7tfv
-         8/AkSxebao35+tGR8ytelu6NKGVVfOI2OQAvzpMw2q9u6sQkaztSaAbIIXy84ka8wA4E
-         vj7XR63VUu9NSHTGyqiwZkGjsZxP7yx1fCaWg44zzkUh2kZ9fq9REy3VWo3X2lcW8I13
-         1o3w==
+        b=pp4awteFLvmrD0pBWl0i2YZSq+cTxWbVO1e2tXLYCljBQonmh6mWWPfAcQGMuKbVJ3
+         UnI906qkgwGWlr+yUnC/MwhrlrEjG+x9aivK8/UdXU8TsT5jsUPbBX4b0o0sIzMERYI2
+         8HI9eeISBi1HYB+UFZQ5P2aDeG2Qrielskd3pCwY7aFrd33/gl/JNjDuRfFInwY+31o3
+         AokIlkWn3kyhIm61af/oj52BqLSL48vtxbKs5UzDrauBbakLey6wy4JhpbQiuMxwGhux
+         5LaZgcJihVgHeYSXxrwBQhNz40286dBYV+gxSX8Ht1+rIJfnffHu0QeODhZ/T6mBXFIb
+         gMGA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
          :user-agent:date:message-id:from:references:to:subject;
-        bh=raehcf0pzTZvNHYKPL6V2l/sfXlGoSLhqNlF1VJHCaw=;
-        b=T4FmdNGUNPAHw2kuW3TMYt+2AhLk7+DOO3/8peA0uSQVa6J1nUKZauojH9lVoYKv0b
-         Ocn+4zM7jkpFqS0ROQngDllIFxMz+E9ZOI3m7hdGtiCutr8KKBbaqOXD9pIRD5YDGjrQ
-         0+EwsfAXOBM73SeKnWjTO0UGzDYxi+8NMn2HE/0HWu+M2DIvtC8bnaloUYuA6+nrJ64a
-         QFj/BrZ0/ktRyOjqgirEonfjzHWrx2CIcCt2qUtXC2aiv5k5eLr2fwWIML+Uexzlj3Ng
-         H43TDz1Se5bRo87OAqqNgb552od1eWtp2cNaRe2gvUBzuNpfuUpoA7M90qEO7KwwnWuk
-         XmHQ==
+        bh=qvf200LhVh6Hj+dVQ7Hd7iU/nOiWoATtmBasQCfgqvk=;
+        b=mJKje6oMPd9SHj6GUMP8GyUkzcxETWeTB7ZrgmaCmkvl9LZRQxWMCLSovAOrCvwTt9
+         E8RSJV9IXhbwQ2ln67wCdhe9lrqgnDXkU0+3mSnA3GpAkcYVEQ6DC84lSp3VsBUZ/3+D
+         NlhlpRrhUquin98yxkbR6GC3RLoN52Afl2753VsCOp2BkSutn0FYbzb4NTXNf4lnqnux
+         KhtZX2a26Mi16RKUEviZfhxMhhHcDJU5MlkNwzuGN0MNamTTKucooIZzzR2LJ9xJfkf4
+         OX+rIaoTBIa/B5nqiXu9LIQmhq9NndwEvjANb67GTxyTbA0IhkhvPNZAkwnbUnAsLoRG
+         iJbA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id lf25si38387ejb.0.2020.10.27.06.17.39
+Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
+        by gmr-mx.google.com with ESMTPS id n7si39450edy.3.2020.10.27.06.20.48
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 27 Oct 2020 06:17:39 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
+        Tue, 27 Oct 2020 06:20:48 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 09RDHcaU031654
+	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 09RDKmNT009979
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 27 Oct 2020 14:17:38 +0100
+	Tue, 27 Oct 2020 14:20:48 +0100
 Received: from [139.25.68.37] ([139.25.68.37])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 09RDHcqI002257;
-	Tue, 27 Oct 2020 14:17:38 +0100
-Subject: Re: [PATCH v2 19/33] arm, arm-common: Wsign-compare:
- arm_dcaches_flush(): take unsigned long as size
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 09RDKm5q006680;
+	Tue, 27 Oct 2020 14:20:48 +0100
+Subject: Re: [PATCH v2 20/33] arm64: smmu-v3: use uint instead of int when
+ needed (Wsign-compare)
 To: Andrea Bastoni <andrea.bastoni@tum.de>, jailhouse-dev@googlegroups.com
 References: <20201022175826.199614-1-andrea.bastoni@tum.de>
- <20201022175826.199614-20-andrea.bastoni@tum.de>
+ <20201022175826.199614-21-andrea.bastoni@tum.de>
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <20bd5369-ba3e-5e6e-8f45-ea5626980cda@siemens.com>
-Date: Tue, 27 Oct 2020 14:17:38 +0100
+Message-ID: <0159b84d-5805-ecc9-e66e-324d883ad15d@siemens.com>
+Date: Tue, 27 Oct 2020 14:20:48 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20201022175826.199614-20-andrea.bastoni@tum.de>
+In-Reply-To: <20201022175826.199614-21-andrea.bastoni@tum.de>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
@@ -133,53 +133,58 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
 On 22.10.20 19:58, Andrea Bastoni wrote:
-> A better overall fix would be to have size always being specified as
-> size_t.
-> 
 > Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
 > ---
->  hypervisor/arch/arm-common/include/asm/dcaches.h | 2 +-
->  hypervisor/arch/arm/mmu_hyp.c                    | 4 ++--
->  2 files changed, 3 insertions(+), 3 deletions(-)
+>  hypervisor/arch/arm64/smmu-v3.c | 11 +++++++----
+>  1 file changed, 7 insertions(+), 4 deletions(-)
 > 
-> diff --git a/hypervisor/arch/arm-common/include/asm/dcaches.h b/hypervisor/arch/arm-common/include/asm/dcaches.h
-> index 73c2722e..87c316dc 100644
-> --- a/hypervisor/arch/arm-common/include/asm/dcaches.h
-> +++ b/hypervisor/arch/arm-common/include/asm/dcaches.h
-> @@ -22,7 +22,7 @@ enum dcache_flush {
->  	DCACHE_CLEAN_AND_INVALIDATE,
->  };
+> diff --git a/hypervisor/arch/arm64/smmu-v3.c b/hypervisor/arch/arm64/smmu-v3.c
+> index 3b5117ba..1f83e389 100644
+> --- a/hypervisor/arch/arm64/smmu-v3.c
+> +++ b/hypervisor/arch/arm64/smmu-v3.c
+> @@ -405,7 +405,7 @@ static void queue_inc_prod(struct arm_smmu_queue *q)
 >  
-> -void arm_dcaches_flush(void *addr, long size, enum dcache_flush flush);
-> +void arm_dcaches_flush(void *addr, unsigned long size, enum dcache_flush flush);
->  void arm_cell_dcaches_flush(struct cell *cell, enum dcache_flush flush);
->  
->  #endif /* !__ASSEMBLY__ */
-> diff --git a/hypervisor/arch/arm/mmu_hyp.c b/hypervisor/arch/arm/mmu_hyp.c
-> index 8a897f2b..676c7fda 100644
-> --- a/hypervisor/arch/arm/mmu_hyp.c
-> +++ b/hypervisor/arch/arm/mmu_hyp.c
-> @@ -47,7 +47,7 @@ static inline unsigned int hvc(unsigned int r0, unsigned int r1)
->  	return __r0;
->  }
->  
-> -static int set_id_map(int i, unsigned long address, unsigned long size)
-> +static int set_id_map(unsigned int i, unsigned long address, unsigned long size)
+>  static void queue_write(u64 *dst, u64 *src, u32 n_dwords)
 >  {
->  	if (i >= ARRAY_SIZE(id_maps))
->  		return -ENOMEM;
-> @@ -368,7 +368,7 @@ void __attribute__((noreturn)) arch_shutdown_mmu(struct per_cpu *cpu_data)
->  	__builtin_unreachable();
->  }
+> -	int i;
+> +	u32 i;
 >  
-> -void arm_dcaches_flush(void *addr, long size, enum dcache_flush flush)
-> +void arm_dcaches_flush(void *addr, unsigned long size, enum dcache_flush flush)
+>  	for (i = 0; i < n_dwords; ++i)
+>  		*dst++ = *src++;
+> @@ -1044,7 +1044,8 @@ static int arm_smmuv3_cell_init(struct cell *cell)
 >  {
->  	while (size > 0) {
->  		/* clean / invalidate by MVA to PoC */
+>  	struct jailhouse_iommu *iommu;
+>  	struct arm_smmu_cmdq_ent cmd;
+> -	int ret, i, j, sid;
+> +	int ret, sid;
+> +	unsigned int i, j;
+>  	struct arm_smmu_device *smmu = the_smmu;
+>  
+>  	if (!iommu_count_units())
+> @@ -1074,7 +1075,8 @@ static void arm_smmuv3_cell_exit(struct cell *cell)
+>  {
+>  	struct jailhouse_iommu *iommu;
+>  	struct arm_smmu_cmdq_ent cmd;
+> -	int i, j, sid;
+> +	int sid;
+> +	unsigned int i, j;
+>  	struct arm_smmu_device *smmu = the_smmu;
+>  
+>  	if (!iommu_count_units())
+> @@ -1099,7 +1101,8 @@ static void arm_smmuv3_cell_exit(struct cell *cell)
+>  static int arm_smmuv3_init(void)
+>  {
+>  	struct jailhouse_iommu *iommu;
+> -	int ret, i;
+> +	int ret;
+> +	unsigned int i;
+>  	struct arm_smmu_device *smmu = the_smmu;
+>  
+>  	iommu = &system_config->platform_info.iommu_units[0];
 > 
 
-Overlong lines.
+Again, I would like to avoid calling an unsigned 'i', rather 'n' (like
+we already do). 'j' could become 's' (stream), or stay 'j'.
 
 Jan
 
@@ -190,4 +195,4 @@ Corporate Competence Center Embedded Linux
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20bd5369-ba3e-5e6e-8f45-ea5626980cda%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/0159b84d-5805-ecc9-e66e-324d883ad15d%40siemens.com.
