@@ -1,32 +1,32 @@
-Return-Path: <jailhouse-dev+bncBCW2V5WNZMERBHV4476AKGQELIVKQWQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCW2V5WNZMERBH54476AKGQEGSZ5M3Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23b.google.com (mail-lj1-x23b.google.com [IPv6:2a00:1450:4864:20::23b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E2CB29D23D
+Received: from mail-lf1-x139.google.com (mail-lf1-x139.google.com [IPv6:2a00:1450:4864:20::139])
+	by mail.lfdr.de (Postfix) with ESMTPS id DCE7529D23F
 	for <lists+jailhouse-dev@lfdr.de>; Wed, 28 Oct 2020 22:09:51 +0100 (CET)
-Received: by mail-lj1-x23b.google.com with SMTP id m11sf275762ljp.21
+Received: by mail-lf1-x139.google.com with SMTP id j1sf76357lfg.2
         for <lists+jailhouse-dev@lfdr.de>; Wed, 28 Oct 2020 14:09:51 -0700 (PDT)
 ARC-Seal: i=2; a=rsa-sha256; t=1603919391; cv=pass;
         d=google.com; s=arc-20160816;
-        b=AhOjjc3C11Qeuc1R3SHrxqqs0M4E//U5a9/nyGdRfspDp+y9F8kwB2pDfW6AOC8o7U
-         70i2PMMG7emcbGsSTF1GIFwTnG1DvonIow/gajxmYpKg4BEX73cMHZV1AOGg37QFEhqp
-         3LIcxe3GN6Nzk74ozFWc8c9rO0besViWDiQb8VzJS59tEPD77sbzxcuYn7OCHulRQBPN
-         H8x8QWR6f5yZobcl/N7GJZuJXmIH8+TtwqJNZp9RdeiCK/cYd07mGjcu3BENmHtiBU5U
-         tfi/LDEctrgzwewnmJKpnxjyRWPKQMq8TlN/qqMmMPNSbLbvDJ0KULNUL3XuT8ZtdNPz
-         SL1w==
+        b=N7ALlnhrRQaNm9mrp1lmNYgdeX6FF75DOjr+NsprLYzelaGSmGuAsFHkjJJFVaCSQQ
+         ab2n6ee0RfC3UcyCzuspeApZtk/5CGSMVZt8GoyiP61mf2IXYDxxCrvRxT+H7uMoobb+
+         6BBhQzTC5BTsZdK67JsEUuaVl7bifkAsWk1bkYjuHV2VK5ZC63VI/8z5RzJuIibhdzKi
+         AhzqjO+D2jbnxWXAPnwvXeM7R6rEa090cjZDQF/EZO+zfMRp7jmdALTe2DbZIK+GtQWK
+         on/hrM6P/8caWn3GcSLnSsmLBB5uH+Oc9QLbPKl+4Ug1ZwVpZpQ0k6TfDVv0nugAIrD5
+         2Y2A==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:sender:dkim-signature;
-        bh=QYYKvi7MrRR6f2FXgm06ar9Xs9OOk+vBKwGcBkIwqmE=;
-        b=fbu9jHecov6YfSX7DVQU8LgdbeQ8UxD7/ePieWirM1PAm7DoluffDoH1ohV8zSmKXV
-         m+fAPZVjbkZwU5M3lzzfcG9+per0U0s+8xcT6xINx2E8yzZiFjMzLurx7/NpbSZ38sbW
-         2qtyBMlEzaHTT2tR0frj9irvfYE7aw6tr/OFfLSVBiLzNHvEBUBfDMi1jFF1P7KzpIWO
-         rUTaoZ42q3Ae2wGmnsjC8FgMrf1v/NAnuscCpdaJKbXnD5urGDCTUipg46AcGhJOeHLU
-         5l73QavYxu2Wif07CYz+6eudBelde/Oo5eipU31FIvRdeslYqEUtXVmp+mPezQZfVXUa
-         87AQ==
+        bh=fheHTq0z9H8yl22Rb5FQ67di/cauqcw7YjEmOmZorvQ=;
+        b=YIwmdzmLQgOqHE48DaonVJftRAER88Cw6Whwlq+wi94+7sQFOF6GSdx4eIyH4C1LPW
+         9jpD+wn0DVt8vC4XoPmhs+feE2WEifwAhH8mYwjsB77sMpSOVXP8kNEUO1jeDGGYgGF+
+         F/T9phCQ1UIub5a56zPgQRcK7TW5kQPYlw9Cu9zfz0CcQRndAfOlti6ywJ7csCVouWSx
+         bYxrJFSQKiS1N09Xq+xhaLEOTQMZdPqKVZrWAEWlfqEJEgUwGYCI0fWZixJ2rE4T+JI3
+         GAGfzK5Fct+4pVA3n5whBSK6GgcnlCjejb6e8byLuXUAgGNlW75xVtHQ9jmANbaPNz7N
+         44+A==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b="D/YmO8zS";
+       dkim=pass header.i=@tum.de header.s=postout header.b=if5A3dQR;
        spf=pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=QYYKvi7MrRR6f2FXgm06ar9Xs9OOk+vBKwGcBkIwqmE=;
-        b=Zjl/PFW6GiNAa5SLfMVlnTsU1uTG8/1JqhfMETgUc16wjBmmeg3Bc2Q/9Wtq3uqf9+
-         rjjeGgDjEdeuZ7pnCTmLYMrYui0drayMMz8YbmyouL2wiuckq4Rr41mWJ0deMOD1WcYu
-         cwEFAUBDmLYk4sRMwSi76DE3dTZVR2nyFD+/Xzfb4Ipdd/xsUp+KYhc6RN16o0c3UuAk
-         wD+l3G8UrWXSJt8doia4ltjRt92UkWImrQ8jgS9O/Xf3XW0IedGcyn39zZrJwEyb+YfN
-         zDkzndFjMvpPu4UiTDUeWbVygemF4/tiToDFoVStAlELQ1DwQ09wwPAcmw0tEzAZ7M02
-         lkEA==
+        bh=fheHTq0z9H8yl22Rb5FQ67di/cauqcw7YjEmOmZorvQ=;
+        b=RO/kYFkTwjqLq0kYbdvX3fFI7u7MGir0P3PQoEXKZh0ev3Jgq29W3tQcPqqvtO80zX
+         27Sy3XZVAOOl1ZnrSXaAx3vJO+zNsCG/gW5GaoG/jUAFslJeaWH+NvxVZ8VVIRFx90aC
+         IA89rHfYkx7qP+QUvOHljAEnVihdOm+AANsmn+TJkS0+27IbfMf2xlPExDMW2orldhXE
+         lmew0xRDriLuJwfghyTD/shehG9S9Gd36spNsNyQ3jldiM5l64fVRZRQJywQU15J1apA
+         oGG/lRkrc/Fo+2HvRg2GifkXCgCuuKfRdaWbK5vIGnYLs7CR8RU0BroYtV7TeJs3B33e
+         xnXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:subject:date:message-id
@@ -49,54 +49,54 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=QYYKvi7MrRR6f2FXgm06ar9Xs9OOk+vBKwGcBkIwqmE=;
-        b=ENj5ZsmrLyLrez3S4dsUAtDbX+RF10utHV/zJwIjHHeGUIVArscUz4pGh1DK7C+WbQ
-         iemt02owydM/Kry5x/o6D6WqomPkq8gchUyNKBr3/Kxo07C+i+PW6XLhkY9j5PIEJW1T
-         JTnwrM+0LR4Gyla1BOuonh68cs00cYb3nfmARn+EU4tuaWTz1H9+/kKP9AQHNWJrImPm
-         NJSVGP9w5u8SVkRv4KNs6Qa5ioPZJQfkLJP5S57jz5d5Scb5nzkq1szoEXAOUfZUzVTn
-         VIUTXQk2A7nRgTUKYoSxNXcv0csunKALzTUSsG8JpB2cUs0kagLIiBHmWPLyS3pZrnQN
-         7e8A==
+        bh=fheHTq0z9H8yl22Rb5FQ67di/cauqcw7YjEmOmZorvQ=;
+        b=tq74U7AgJa7CoBCc3tmMbBkVu63FnHd7xvyaKy3oIBV5vmkbvebLzxvuwZGE6QoH9X
+         t4dn2rkYhs2yKTemm85p1QGQzK/m+rpi646apLtsZuoL1Nt7YBimPhy3mexTzfOwa0Ft
+         67gk5ibcFDoqZODqpruAKewRMo84fRweyshg1XhjOZlf8I7OXBM1bsxr+Na7geXqFM9E
+         651zphZokQUKKwhAhC3KH6IZD6goF/qIWAEd6h1DFb+zYjtz1VD8uMvf1ThxYyr9ROF5
+         7VWr/JFR3C7JQqHq5Efvh61IwoOWSSqnGlYNekqKkeytHmUtkZWmLbQ5w54RfSAExBmf
+         FiMw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533YRG6rP8Vibou+oHGeWEOfQuyDoXhIdb7+LEPxhM11hgnylOA8
-	laxViB+foWL720Q0++nyeSU=
-X-Google-Smtp-Source: ABdhPJzz1mR4pgy8VGe4UgL6Z/M5BilbzTdpYextv2gmrhUjXRgoneXlq79bHZDtVlxBm+04YEr+ww==
-X-Received: by 2002:a2e:b1c2:: with SMTP id e2mr491910lja.282.1603919391145;
+X-Gm-Message-State: AOAM533qGqATxe7koH0/r/08K8arAMkb2okZxkcIuo3XSK0F4NyQio94
+	jncjMz7aTdHAfnS7S9tRExY=
+X-Google-Smtp-Source: ABdhPJzr5pmg2d20uUZFJ8oMVmfx1ze2MKrf31g7LzviinPm9JB/ABNB8mSfJH6+0lGl+4JX6mM7bQ==
+X-Received: by 2002:a2e:8986:: with SMTP id c6mr465327lji.29.1603919391486;
         Wed, 28 Oct 2020 14:09:51 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:890b:: with SMTP id d11ls134176lji.6.gmail; Wed, 28 Oct
+Received: by 2002:a19:84c1:: with SMTP id g184ls265451lfd.3.gmail; Wed, 28 Oct
  2020 14:09:50 -0700 (PDT)
-X-Received: by 2002:a05:651c:2cb:: with SMTP id f11mr500599ljo.40.1603919389912;
-        Wed, 28 Oct 2020 14:09:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1603919389; cv=none;
+X-Received: by 2002:ac2:5b52:: with SMTP id i18mr381839lfp.227.1603919390195;
+        Wed, 28 Oct 2020 14:09:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1603919390; cv=none;
         d=google.com; s=arc-20160816;
-        b=tZWpWUV2WYFjVFpIKILDcdYArtqzO1tqm579kQ3ZkJzkCxeYNGsK6JHgbPFMNxVZtn
-         2y64Oq75hCNMox+c0GPBku/H/4rFGE3o/8Ns6iGqxdT3BA+fjnySv87EkpcdNFCWkp8o
-         nLf5E9cb+zC3bNVwTyP2HeM5AwygssvCoSsYJwLXhB0uHRXFeWWcbK5szMaMx+ExLE7N
-         mjEQiqBYi6JPt0i1DSwfKAjgoIeirgrH3V7kndPjFeIb8ipd7ZlJ1U92kf2z69cVcrDt
-         uvjyhWUaT5AcT/RGzTDEVxV4wXTYGsKHfxznEwd9QC2DqPGiqfNCjaRpPl2NBQYMe+Xe
-         yYxg==
+        b=rdgx7PJYKpKG34aNLqXklU+XWrgLrrREJUwpDSWb7CJ/Eq0sEuraUxG/8OJqtgQwGt
+         ZN48p3cEpvUXQjJhsCaMyvDbVQEenpmaKpzfLnDJbLlkEPthi25dW6v4bIMBdcYi5Lfk
+         XxpY8oqEMITZXiwFHcF0wJDySUpHm/5iAui9lZOkNF/r6V+HA4NQxbufK4GUk5xAmVbr
+         FHnNBz4tz6sm6pEUesNuT2x8++YooLrGfgWi1vEUqiGQfK54Cv8thNk6zuEhGdt5wlLd
+         IzBQ7IjakFDhOwyoVNcp5uzCCWzYWyDtwrSJQccZFKDWcjhXFnZnHTqxNISqnoSZD1Ej
+         cy0Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:dkim-signature;
-        bh=wEOX2K/utRxaK9QwW/DFm1U8HUbZQ2JeIw3845uwhwo=;
-        b=XtYpuxjG2dUdEYEb7rBcgghTIQfLTzT073JFbYj80YYrXRjupMpMvPwVwnB0lbUPO7
-         faCkhivIAoFUmH6da4etzpmVxPx2roxlAsIUUHOzEwvzU4gUulztg75aoxfyJlrCdNnX
-         I8PvTCvoFhO89ECQQx1bPk7jsAsaE2Q6AUnVwWWU22uLAvRMLgHxcV50KyiNon82wi0i
-         bvlbAkga1oX1V9KQUmwOg44I3+lZ6cO86Wi0XnpTj9s0erssbHNnNNBDAgp2wnFHb6Q+
-         QpqRYdr30xFHkIl8V5OMrUGdpVUjt4rJWAiXmaW9cI2oeezvBdJAZEpto70nX05huWIV
-         I3qQ==
+        bh=j0cfjTqN494OlBLaG2oHR0cRpXAJp5JvWMH7LJDE510=;
+        b=z3YqYaalb+ACYoAVu19ShkPiAhStCdfsYlZBMxppf5tpymt9bvQLzhrHmvftJ2rFAR
+         PIXeckw/cHZLOaHzX644UGfHPsXXudShfhfgE1JLex0OGd5T+SBCRTnp5O0xeH9uNiJv
+         Fg+xLGFBH1bHv/KPsTSQp5tw2BIbhEhtmoG/6dIgYw4h7g0PIY8zfYdC8o+H3+XHawd5
+         2sNXPyOjMqUPV/k1cse+db2Z2vFlsxO/uJEtQJUuhyw2OFhYPbX4d2gusQ/dnipwPMjF
+         1qCA7fx5m/kWkK8denG+x+Ic7PhAdv17jTFYwGNNu0z0saa+Auw34qPv7vNXuxT0g5mv
+         zW7A==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b="D/YmO8zS";
+       dkim=pass header.i=@tum.de header.s=postout header.b=if5A3dQR;
        spf=pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
 Received: from postout2.mail.lrz.de (postout2.mail.lrz.de. [2001:4ca0:0:103::81bb:ff8a])
-        by gmr-mx.google.com with ESMTPS id h4si25414ljl.1.2020.10.28.14.09.49
+        by gmr-mx.google.com with ESMTPS id e15si14296lfq.1.2020.10.28.14.09.50
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Wed, 28 Oct 2020 14:09:49 -0700 (PDT)
+        Wed, 28 Oct 2020 14:09:50 -0700 (PDT)
 Received-SPF: pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) client-ip=2001:4ca0:0:103::81bb:ff8a;
 Received: from lxmhs52.srv.lrz.de (localhost [127.0.0.1])
-	by postout2.mail.lrz.de (Postfix) with ESMTP id 4CM1Rd35rDzyWn
+	by postout2.mail.lrz.de (Postfix) with ESMTP id 4CM1Rd50GhzyWr
 	for <jailhouse-dev@googlegroups.com>; Wed, 28 Oct 2020 22:09:49 +0100 (CET)
 X-Virus-Scanned: by amavisd-new at lrz.de in lxmhs52.srv.lrz.de
 X-Spam-Flag: NO
@@ -118,25 +118,25 @@ X-Spam-Status: No, score=-2.877 tagged_above=-999 required=5
 	LRZ_TO_SHORT=0.001] autolearn=no autolearn_force=no
 Received: from postout2.mail.lrz.de ([127.0.0.1])
 	by lxmhs52.srv.lrz.de (lxmhs52.srv.lrz.de [127.0.0.1]) (amavisd-new, port 20024)
-	with LMTP id KPXYYeA31HBs for <jailhouse-dev@googlegroups.com>;
+	with LMTP id oFmZNv2P6l6g for <jailhouse-dev@googlegroups.com>;
 	Wed, 28 Oct 2020 22:09:49 +0100 (CET)
 Received: from kabal.lan (ip5f5ac6d0.dynamic.kabel-deutschland.de [95.90.198.208])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(Client did not present a certificate)
-	by postout2.mail.lrz.de (Postfix) with ESMTPSA id 4CM1Rd07WBzyWq
-	for <jailhouse-dev@googlegroups.com>; Wed, 28 Oct 2020 22:09:48 +0100 (CET)
+	by postout2.mail.lrz.de (Postfix) with ESMTPSA id 4CM1Rd299VzyWR
+	for <jailhouse-dev@googlegroups.com>; Wed, 28 Oct 2020 22:09:49 +0100 (CET)
 From: Andrea Bastoni <andrea.bastoni@tum.de>
 To: jailhouse-dev@googlegroups.com
-Subject: [PATCH v3 06/22] inmates: lib: fix align() in printk similarly to the hypervisor
-Date: Wed, 28 Oct 2020 22:09:17 +0100
-Message-Id: <20201028210933.138379-7-andrea.bastoni@tum.de>
+Subject: [PATCH v3 07/22] hypervisor: Wsign-compare: force the "right" promotion direction
+Date: Wed, 28 Oct 2020 22:09:18 +0100
+Message-Id: <20201028210933.138379-8-andrea.bastoni@tum.de>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201028210933.138379-1-andrea.bastoni@tum.de>
 References: <20201028210933.138379-1-andrea.bastoni@tum.de>
 MIME-Version: 1.0
 X-Original-Sender: andrea.bastoni@tum.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@tum.de header.s=postout header.b="D/YmO8zS";       spf=pass
+ header.i=@tum.de header.s=postout header.b=if5A3dQR;       spf=pass
  (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a
  as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=tum.de
@@ -153,34 +153,31 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
+Only part of the problem, Wconversion would complain as well.
+
 Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
 ---
- inmates/lib/printk.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ hypervisor/pci.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/inmates/lib/printk.c b/inmates/lib/printk.c
-index 45af2730..712a9b44 100644
---- a/inmates/lib/printk.c
-+++ b/inmates/lib/printk.c
-@@ -207,11 +207,12 @@ static char *hex2str(unsigned long long value, char *buf,
- 	return buf;
- }
+diff --git a/hypervisor/pci.c b/hypervisor/pci.c
+index 9274a0b1..6bf5e254 100644
+--- a/hypervisor/pci.c
++++ b/hypervisor/pci.c
+@@ -24,7 +24,8 @@
  
--static char *align(char *p1, char *p0, unsigned long width, char fill)
-+static char *align(char *p1, char *p0, unsigned int width, char fill)
- {
- 	unsigned int n;
+ #define for_each_configured_pci_device(dev, cell)			\
+ 	for ((dev) = (cell)->pci_devices;				\
+-	     (dev) - (cell)->pci_devices < (cell)->config->num_pci_devices; \
++	     ((dev) - (cell)->pci_devices) < 				\
++				(int)((cell)->config->num_pci_devices); \
+ 	     (dev)++)
  
--	if (p1 - p0 >= width)
-+	/* Note: p1 > p0 here */
-+	if ((unsigned int)(p1 - p0) >= width)
- 		return p1;
- 
- 	for (n = 1; p1 - n >= p0; n++)
+ #define for_each_pci_cap(cap, dev, counter)				\
 -- 
 2.28.0
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20201028210933.138379-7-andrea.bastoni%40tum.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20201028210933.138379-8-andrea.bastoni%40tum.de.
