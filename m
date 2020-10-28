@@ -1,129 +1,68 @@
-Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBUVH4L6AKGQEJQOXSMY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJ2NIVKYUNBBDUF4X6AKGQEVCGPX2Q@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ej1-x637.google.com (mail-ej1-x637.google.com [IPv6:2a00:1450:4864:20::637])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD24E29CB5F
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 22:40:34 +0100 (CET)
-Received: by mail-ej1-x637.google.com with SMTP id mm21sf1356341ejb.18
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 27 Oct 2020 14:40:34 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1603834834; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=NVLHT/lSvBDhXfVTtfly/4+zwPB09a8j+NERAGQOWX3hWH05/fvHjZHUGomqLDgKTd
-         7svHwt7gkfjC+oZhf5HYwmVtKqUDP6Wn9LnW8WHOoU/wTnuQKP5Cel5yINcbykTe7l2F
-         /oTfxgiQsCLmu7djkl4V+hKmHBYsEj6+jIm/72UXImkuS34yBlyl2TPAo2hOjEQJeIAc
-         DuXk94ozTMfQBB2tXQp/q5VKgxE1+vhwEZRu3AK3XriiWftiVnpqxfQ0TrkDlBaBUj71
-         X8crVCoS+YP5OW4HUTQ8VfA7V4MS0NOcFf2Q/Y2W8CuOB76QjTovMrLVR64OVe9HNc2x
-         6NkA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=pvvKFTGJQ/m6KyL5hBbnHltHEntRo6U0gySacx/SBO8=;
-        b=hSnAX5aYoRXD4hpi7WdOIQH91C44kPMQazxyybo+bYeDNrFCNA7F+kC496iRU0tYfY
-         tKKU6YAULy3lf3hkPTqSHY/E44aDEd3Ya8jGQFoXkd4ZGoA9OZ1gPK7qzAxWMdG714PX
-         Q7yVyc9zCXRWIlGQmiawf4hJj6jEoIdIOekVIj7Mfj8qU1O7yJRTBNLzGldarqiZ/agk
-         g42bWfuD6L9W5LY/goTx8iO6g2334CJ8EIgw9MnAEI3xQzU38hjLvYheHrEKtAjvvLkC
-         kq3LSY0U/j1Tz+V17732HGI4Trzn9bj/2kT1nEYZSk//Tbcly6LG5TpuneAC9a3SppK5
-         81dQ==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=lleqCcU5;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mail-qv1-xf38.google.com (mail-qv1-xf38.google.com [IPv6:2607:f8b0:4864:20::f38])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9407F29CF62
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 28 Oct 2020 11:06:08 +0100 (CET)
+Received: by mail-qv1-xf38.google.com with SMTP id h12sf2698227qvk.22
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 28 Oct 2020 03:06:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:x-original-sender:x-original-authentication-results
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=Iqb881nkpjp45w2tD1LeuQM4b4/Cz23NydraFct5yMQ=;
+        b=KiMfurfaqib2o30etIA6FHECW0gbw8X4cx+iwNm/4PpuY9lPFQfTUyI7lqO0eOW5AU
+         7sK2FGStLfqksDPyI9i+fgWw/88JFr9WIhqgVEy1N+KY3ONWIDZYfuHwanoTwe967G4i
+         N7F9FDoDIjoQXe3gL0nilEWEK8dDGvAGSI6T17asTZpr5TSsWjg+g2sNmEbV57rhLhjF
+         PiQpOd6jWFGhXBVL99uAudTC1NUMAbM5Mj9I+DHiGAIbcBRJWCmXlOY3anicWefxyrwq
+         fKFfu3oEARo9LcpHNRoT7burUz+GbkqCpiGCTFn0hya8QgY7a/ux5OIx1WX1Bu8stfz6
+         D9JA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=pvvKFTGJQ/m6KyL5hBbnHltHEntRo6U0gySacx/SBO8=;
-        b=mLRBCO/fkFa9x5ZCnfQ0wug6NQxb9x+b0w6cuqFoINjdDppuX7C2Vua7/gH7U2jjjD
-         KZUwwjvU8sB9fHum8TDJqInOvEAoMt2nrAhW+Eb6/LMIV5A9asoz8+uiSDsoQ3sRBphM
-         wwZTyK6Tm7BdMMSaxRryFZFSAkbcr1hfQh+9z14RSEZlW9KRFoXcynyXXPa1Vl42D0x7
-         jm5kpfn98SvZuYFbrQUCJDIxOmCaor3b89PDZ/9qg5G3ChbA1p8X6i3Az7cz/LQILqvw
-         rlQ5w8zCWwxBOt2dDjqUqmSiO1ja+1ZFFTaRiQQgw5aNflf+Cjll4Jp90jRmwzFhXcbD
-         k9cw==
+        bh=Iqb881nkpjp45w2tD1LeuQM4b4/Cz23NydraFct5yMQ=;
+        b=gt8v7u5QBbGhwcu/RWgMOg2tTZ1ZpBTXQRmBv84CwGKMystLciNpzrcxShsj6ADBne
+         CBKBMZqd2XFl/PiBYyGj5CdJVL+VX0g8JXpFzRHZAo2ncOsd+QIZv53e62oBVMcvRneI
+         6qOgBVIwuKaEJ9vf8AtJcSaX3FmnT+1jqGcESLyDmetK5O90IhU976ohMpoBPJSwcfZq
+         yVcj3RScKyP8tbCYiDxpV1xB+1YWqcFmdhiCo3+Ws3kURR3rA9018XOaMwkf7kRgClHu
+         H6tFDmeLqLJd9lwOO/uvNNNwwo2nyBXywcTesFkz1QuqVMFNF6r8QTQcxuvwAIQCw/3p
+         OrVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
-         :in-reply-to:references:mime-version:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=pvvKFTGJQ/m6KyL5hBbnHltHEntRo6U0gySacx/SBO8=;
-        b=YpuRXWJMl6AOJGWlJzOcyj/o7kGAmYY0ijtxrAHcqy9qDt+PS022oC3J+FR5yWJDy2
-         DhAQ5ZIJ3JExKaAE8DkoD+r9Dyso1dSwCNRzS7+eE2rouPiQggD1AeIJ1YdNS64DyVVX
-         Y107TY0sy7RUurJvfWeB3WdaszlioT7Wz35rw3iZ/Nr7dkhc+cvuuqYUuX3ByQePS7BP
-         2J+2rSe2LlPmqMaQnBXEJgkppmz995cXh7arKS3gONufKsFd48nUw6WS+whEioPAr0F4
-         kZ7eaOT/fr/iaDcnNtvLO5CeISbGnInfjc7lptWpM9SteCOJGRpA+X4cuhfvtOfLhMq8
-         IfJw==
+        bh=Iqb881nkpjp45w2tD1LeuQM4b4/Cz23NydraFct5yMQ=;
+        b=QYQTnCz1NgGmh3b/2HINk1ZjvurWjCC/SKdRvOHPq45tFa29E+dtABl95fXpmtQZbr
+         MGowap9BaCqPcrEKCVjbs6yVlNv6npEnq7DMbRZuC0uPvwGHFcw7rN4VOf3QSgtKErXn
+         si53zpigMiU8qM4XoAG/Cg/w2+cL8UxOg7//TvxpDAOlIa244U/G9o7lwY4v743u+Cn5
+         VuHIt0aiL7YSFmS1Nbn0aNHFFEjOA0TgbVHYbRnSCzR10aguiGXJt55a8vmT73sbJP88
+         VDjpPCVInpUHfOo7B3GI8M43cQLOJISh75VFts9sZ0uSMuf1R+dZQ1JFuiTf+7jStzBR
+         5nqQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531isaIAAIZBsFCDJHp7vE1t8JUkcDoq93AF/PhtF0SbWNcXN6bC
-	1ZnrrdGfMlZJVZYuZHyTMRY=
-X-Google-Smtp-Source: ABdhPJy5aLg7T2ome5s10f0uE3dhBmolTpmGAPJYLTXpAX7hKBNn6tOFqhRo7APA6shZM0wv0/njiw==
-X-Received: by 2002:a05:6402:a45:: with SMTP id bt5mr4558754edb.101.1603834834555;
-        Tue, 27 Oct 2020 14:40:34 -0700 (PDT)
+X-Gm-Message-State: AOAM530nqbkhHm2cngATbXYlnZ2K8Rgxb03hwygLoyIlUYGLfChb3ADA
+	adKZlgYu2HK6k9+pUDfS4IQ=
+X-Google-Smtp-Source: ABdhPJwNZWvJ64+gyEpNEqVrgVRnhnW6B1n4ejGHS7QC51a85Qg1W3h7vlIoFKDUew9qan77KSqWBA==
+X-Received: by 2002:a37:7086:: with SMTP id l128mr6548490qkc.64.1603879566909;
+        Wed, 28 Oct 2020 03:06:06 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:4692:: with SMTP id a18ls1482069ejr.0.gmail; Tue, 27
- Oct 2020 14:40:33 -0700 (PDT)
-X-Received: by 2002:a17:906:6cb:: with SMTP id v11mr4584454ejb.31.1603834833527;
-        Tue, 27 Oct 2020 14:40:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1603834833; cv=none;
-        d=google.com; s=arc-20160816;
-        b=FyeM6m4Vdk3Az20coEhP6/RBB7ppEQbF38E44+glmaSeyFP0Q4lBpU0HA+7jf2FDnn
-         o6FoBRERE4p85J9WY0xwl08GwE50lTJy+iy2xnRSY1ZNo3+HPW57ld1peo0QT/F45bWS
-         ulVll0eQTVD+nrapU86avDbOvFsp9Ru1vIWIT6f55zdf3ZPbc6BnFkKIwsUKQOawwQ6f
-         vvKEfZfCu27vQ40Y1BDBs+y/hX0DI0tJaQtzP50ZF5huJivsYg+1vXC4qKxnEDqZvySe
-         P4LGUkc17vnKc2+y3h3KMJeeOJAci/n6UvhhNMsnl38vWwTJws8shfxrWVtTRFc0ZJzD
-         gebg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature;
-        bh=s2Vr13slIAvjsneuPnTvV51LwxY99AahKVXJ0fS2/do=;
-        b=SCNGDKu0ughQLIPUSbLn+d+Z1nOdCEfzRTIAvjTDFZNHz0tcdWRS8xaOiuScPoTaDp
-         9wqmurcG1wdyHG6qVNKBjbaZ3Rq8OR9dMjDxfJnfuxkpag4LRt9/JMyKthu1N9iq+fav
-         RZh5TuqQwWVbdQU9rd6MJp59burog7lHargki1JETcXUKcqeFMI0vOFDt8tNW4gu8Xbo
-         LbaQCRLoUAeRdj3klp1nnnQ39kYm9e02g0jxfldMQrWwFa+6gYccYZlPiAx+dXRbtdcB
-         BQxjwXq+b+LhTKAeWuhjhXb3EiEOUzKQA08PXZp/yFupy90ZYoWycYg3h+xfBtQWUcmN
-         GGAQ==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=lleqCcU5;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [194.95.104.11])
-        by gmr-mx.google.com with ESMTPS id ba3si76022edb.2.2020.10.27.14.40.33
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 27 Oct 2020 14:40:33 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) client-ip=194.95.104.11;
-Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S02", Issuer "E16S02" (not verified))
-	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 4CLQ9Y19cszy6j;
-	Tue, 27 Oct 2020 22:40:33 +0100 (CET)
-Received: from omega.home (194.95.106.138) by E16S02.hs-regensburg.de
- (2001:638:a01:8013::92) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Tue, 27 Oct
- 2020 22:40:32 +0100
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-To: Jan Kiszka <jan.kiszka@siemens.com>, <jailhouse-dev@googlegroups.com>
-CC: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Subject: [PATCH v2 2/2] inmates: x86: add cache access time test
-Date: Tue, 27 Oct 2020 22:40:21 +0100
-Message-ID: <20201027214021.407707-2-ralf.ramsauer@oth-regensburg.de>
-X-Mailer: git-send-email 2.29.1
-In-Reply-To: <20201027214021.407707-1-ralf.ramsauer@oth-regensburg.de>
-References: <20201027214021.407707-1-ralf.ramsauer@oth-regensburg.de>
+Received: by 2002:a05:620a:1248:: with SMTP id a8ls2206246qkl.11.gmail; Wed,
+ 28 Oct 2020 03:06:06 -0700 (PDT)
+X-Received: by 2002:a37:7e42:: with SMTP id z63mr2680582qkc.307.1603879566105;
+        Wed, 28 Oct 2020 03:06:06 -0700 (PDT)
+Date: Wed, 28 Oct 2020 03:06:05 -0700 (PDT)
+From: Peter pan <peter.panjf@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <58057754-ee40-4583-bd44-db19a6706069n@googlegroups.com>
+Subject: Jailhouse hang on NXP ls1046a ARM64 platform
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-X-Originating-IP: [194.95.106.138]
-X-ClientProxiedBy: E16S02.hs-regensburg.de (2001:638:a01:8013::92) To
- E16S02.hs-regensburg.de (2001:638:a01:8013::92)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=lleqCcU5;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_224_886665411.1603879565195"
+X-Original-Sender: peter.panjf@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -136,270 +75,424 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On x86_64 systems, this test inmate measures the time that is required to read
-a value from main memory. Via rdtsc, it measures the CPU cycles that are
-required for the access. Access can either happen cached, or uncached. In case
-of uncached access, the cache line will be flushed before access.
+------=_Part_224_886665411.1603879565195
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_225_999389990.1603879565195"
 
-This tool repeats the measurement for 10e6 times, and outputs the
-average cycles that were required for the access. Before accessing the
-actual measurement, a dummy test is used to determine the average
-overhead of one single measurement.
+------=_Part_225_999389990.1603879565195
+Content-Type: text/plain; charset="UTF-8"
 
-And that's pretty useful, because this tool gives a lot of insights of
-differences between the root and the non-root cell: With tiny effort, we
-can also run it on Linux.
+Hello Jailhouse Community,
 
-If the 'overhead' time differs between root and non-root cell, this can
-be an indicator that there might be some timing or speed differences
-between the root and non-root cell.
+I am trying to enable Jaihouse on NXP ls1046a platform which has four ARM 
+A72 CPU Cores, but now the system hangs after I execute "jailhouse enable 
+ls1046a.cell".
 
-If the 'uncached' or 'cached' average time differs between the non-root
-and root cell, it's an indicator that both might have different hardware
-configurations / setups.
+root@localhost:~/jailhouse/jailhouse# jailhouse enable ls1046a.cell
 
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
----
-
-since v1:
-  - Move host code to tools/
-
-since RFC:
-  - move the inmate to demos instead of tests
-
- .gitignore                               |  1 +
- inmates/demos/x86/Makefile               |  4 +-
- inmates/demos/x86/cache-timings-common.c | 95 ++++++++++++++++++++++++
- inmates/demos/x86/cache-timings.c        | 15 ++++
- tools/Makefile                           |  9 ++-
- tools/cache-timings.c                    | 29 ++++++++
- 6 files changed, 150 insertions(+), 3 deletions(-)
- create mode 100644 inmates/demos/x86/cache-timings-common.c
- create mode 100644 inmates/demos/x86/cache-timings.c
- create mode 100644 tools/cache-timings.c
-
-diff --git a/.gitignore b/.gitignore
-index 4691ff79..89248c17 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -21,6 +21,7 @@ hypervisor/hypervisor.lds
- inmates/lib/arm/inmate.lds
- inmates/lib/arm64/inmate.lds
- pyjailhouse/pci_defs.py
-+tools/cache-timings
- tools/ivshmem-demo
- tools/jailhouse
- tools/jailhouse-gcov-extract
-diff --git a/inmates/demos/x86/Makefile b/inmates/demos/x86/Makefile
-index f53b739e..47b79869 100644
---- a/inmates/demos/x86/Makefile
-+++ b/inmates/demos/x86/Makefile
-@@ -13,7 +13,8 @@
- include $(INMATES_LIB)/Makefile.lib
  
- INMATES := tiny-demo.bin apic-demo.bin ioapic-demo.bin 32-bit-demo.bin \
--	pci-demo.bin e1000-demo.bin ivshmem-demo.bin smp-demo.bin
-+	pci-demo.bin e1000-demo.bin ivshmem-demo.bin smp-demo.bin \
-+	cache-timings.bin
- 
- tiny-demo-y	:= tiny-demo.o
- apic-demo-y	:= apic-demo.o
-@@ -22,6 +23,7 @@ pci-demo-y	:= pci-demo.o
- e1000-demo-y	:= e1000-demo.o
- ivshmem-demo-y	:= ../ivshmem-demo.o
- smp-demo-y	:= smp-demo.o
-+cache-timings-y := cache-timings.o
- 
- $(eval $(call DECLARE_32_BIT,32-bit-demo))
- 32-bit-demo-y	:= 32-bit-demo.o
-diff --git a/inmates/demos/x86/cache-timings-common.c b/inmates/demos/x86/cache-timings-common.c
-new file mode 100644
-index 00000000..0edf65e6
---- /dev/null
-+++ b/inmates/demos/x86/cache-timings-common.c
-@@ -0,0 +1,95 @@
-+/*
-+ * Jailhouse, a Linux-based partitioning hypervisor
-+ *
-+ * Copyright (c) OTH Regensburg, 2020
-+ *
-+ * Authors:
-+ *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See
-+ * the COPYING file in the top-level directory.
-+ */
-+
-+#define ROUNDS	(10 * 1000 * 1000)
-+
-+union tscval {
-+	struct {
-+		u32 lo;
-+		u32 hi;
-+	} __attribute__((packed));
-+	u64 val;
-+} __attribute__((packed));
-+
-+static u32 victim;
-+
-+static inline void clflush(void *addr)
-+{
-+	asm volatile("clflush %0\t\n"
-+		     "mfence\t\n"
-+		     "lfence\t\n" : "+m" (*(volatile char *)addr));
-+}
-+
-+#define MEASUREMENT_OVERHEAD	"nop\t\n"
-+#define MEASUREMENT_COMMAND	"mov (%%rbx), %%ebx\t\n"
-+#define DECLARE_MEASUREMENT(name, flush, meas) \
-+	static inline u64 measure_##name(u32 *victim)			\
-+	{								\
-+		union tscval before, after;				\
-+									\
-+		if (flush)						\
-+			clflush(victim);				\
-+		asm volatile("mov %4, %%rbx\t\n"			\
-+			     "lfence\t\n"				\
-+			     "rdtsc\t\n"				\
-+			     "lfence\t\n"				\
-+									\
-+			     meas					\
-+									\
-+			     "mov %%eax, %%ebx\t\n"			\
-+			     "mov %%edx, %%ecx\t\n"			\
-+			     "lfence\t\n"				\
-+			     "rdtsc\t\n"				\
-+			     "lfence\t\n"				\
-+			     "mov %%ebx, %0\t\n"			\
-+			     "mov %%ecx, %1\t\n"			\
-+			     "mov %%eax, %2\t\n"			\
-+			     "mov %%edx, %3\t\n"			\
-+			     : "=m"(before.lo), "=m" (before.hi),	\
-+			       "=m" (after.lo), "=m" (after.hi)		\
-+			     : "m" (victim)				\
-+			     : "eax", "rbx", "ecx", "edx");		\
-+		return after.val - before.val;				\
-+	}
-+
-+DECLARE_MEASUREMENT(overhead, false, MEASUREMENT_OVERHEAD)
-+DECLARE_MEASUREMENT(cached, false, MEASUREMENT_COMMAND)
-+DECLARE_MEASUREMENT(uncached, true, MEASUREMENT_COMMAND)
-+
-+static inline u64 avg_measurement(u64 (*meas)(u32*), u32 *victim,
-+				  unsigned int rounds, u64 overhead)
-+{
-+	u64 cycles = 0;
-+	unsigned int i;
-+
-+	for (i = 0; i < rounds; i++)
-+		cycles += meas(victim) - overhead;
-+	return cycles / rounds;
-+}
-+
-+void inmate_main(void)
-+{
-+	u64 cycles, overhead;
-+
-+	printk("Measurement rounds: %u\n", ROUNDS);
-+	printk("Determining measurement overhead...\n");
-+	overhead = avg_measurement(measure_overhead, &victim, ROUNDS, 0);
-+	printk("  -> Average measurement overhead: %llu cycles\n", overhead);
-+
-+	printk("Measuring uncached memory access...\n");
-+	cycles = avg_measurement(measure_uncached, &victim, ROUNDS, overhead);
-+	printk("  -> Average uncached memory access: %llu cycles\n", cycles);
-+
-+	printk("Measuring cached memory access...\n");
-+	cycles = avg_measurement(measure_cached, &victim, ROUNDS, overhead);
-+	printk("  -> Average cached memory access: %llu cycles\n", cycles);
-+}
-diff --git a/inmates/demos/x86/cache-timings.c b/inmates/demos/x86/cache-timings.c
-new file mode 100644
-index 00000000..1acc3ee9
---- /dev/null
-+++ b/inmates/demos/x86/cache-timings.c
-@@ -0,0 +1,15 @@
-+/*
-+ * Jailhouse, a Linux-based partitioning hypervisor
-+ *
-+ * Copyright (c) OTH Regensburg, 2020
-+ *
-+ * Authors:
-+ *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See
-+ * the COPYING file in the top-level directory.
-+ */
-+
-+#include <inmate.h>
-+
-+#include "cache-timings-common.c"
-diff --git a/tools/Makefile b/tools/Makefile
-index e6945cd6..33a39d26 100644
---- a/tools/Makefile
-+++ b/tools/Makefile
-@@ -35,6 +35,13 @@ KBUILD_CFLAGS += $(call cc-option, -fno-pie)
- KBUILD_CFLAGS += $(call cc-option, -no-pie)
- 
- BINARIES := jailhouse ivshmem-demo
-+targets += jailhouse.o ivshmem-demo.o
-+
-+ifeq ($(ARCH),x86)
-+BINARIES += cache-timings
-+targets += cache-timings.o
-+endif # $(ARCH),x86
-+
- always-y := $(BINARIES)
- 
- HAS_PYTHON_MAKO := \
-@@ -104,8 +111,6 @@ define cmd_gen_man
- 	sed 's/$${VERSION}/$(shell cat $(src)/../VERSION)/g' $< > $@
- endef
- 
--targets += jailhouse.o ivshmem-demo.o
--
- $(obj)/%: $(obj)/%.o
- 	$(call if_changed,ld)
- 
-diff --git a/tools/cache-timings.c b/tools/cache-timings.c
-new file mode 100644
-index 00000000..2c591dab
---- /dev/null
-+++ b/tools/cache-timings.c
-@@ -0,0 +1,29 @@
-+/*
-+ * Jailhouse, a Linux-based partitioning hypervisor
-+ *
-+ * Copyright (c) OTH Regensburg, 2020
-+ *
-+ * Authors:
-+ *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See
-+ * the COPYING file in the top-level directory.
-+ */
-+
-+#include <stdbool.h>
-+#include <stdio.h>
-+
-+#define printk printf
-+
-+typedef unsigned int u32;
-+typedef unsigned long long u64;
-+
-+void inmate_main(void);
-+
-+#include "../inmates/demos/x86/cache-timings-common.c"
-+
-+int main(void)
-+{
-+	inmate_main();
-+	return 0;
-+}
--- 
-2.29.1
+
+Initializing Jailhouse hypervisor v0.12 (73-gacdc9fcc-dirty) on CPU 2
+
+Code location: 0x0000ffffc0200800
+
+Page pool usage after early setup: mem 39/992, remap 0/131072
+
+Initializing processors:
+
+ CPU 2... OK
+
+ CPU 0... OK
+
+ CPU 1... OK
+
+ CPU 3... OK
+
+Initializing unit: irqchip
+
+Initializing unit: ARM SMMU v3
+
+Initializing unit: ARM SMMU
+
+No SMMU
+
+Initializing unit: PVU IOMMU
+
+Initializing unit: PCI
+
+Adding virtual PCI device 00:00.0 to cell "ls1046"
+
+Adding virtual PCI device 00:01.0 to cell "ls1046"
+
+Page pool usage after late setup: mem 62/992, remap 5/131072
+
+Activating hypervisor
+
+WARN: unknown SGI received 5
+
+WARN: unknown SGI received 5
+
+//Linux hang here.
+
+After did some debuging,  I found the issue is with the followng calling.
+
+on_each_cpu(enter_hypervisor, header, 0);
+
+The following is definition of on_each_cpu.
+
+611 void on_each_cpu(void (*func) (void *info), void *info, int wait)
+
+612 {
+
+613         unsigned long flags;
+
+614
+
+615         preempt_disable();
+
+616         smp_call_function(func, info, wait);
+
+617         local_irq_save(flags);
+
+618         func(info);
+
+//Can panic here if call panic("return from hypervisor\n");
+
+619         local_irq_restore(flags);  
+
+//System hang and can't panic here if call panic("return from 
+hypervisor\n");  
+
+620         preempt_enable();
+
+621 }
+
+622 EXPORT_SYMBOL(on_each_cpu);
+I found the system hangs just after execute  local_irq_restore(flags), 
+because the system can panic if I call panic() just before 
+local_irq_restore(), but can't panic if add panic() just after 
+local_irq_restore().
+
+I attached ls1046a.c. 
+
+I am a newbies of Jailhouse,  how to debug such issue? any comments or 
+suggestion is Welcome, thanks.
+
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20201027214021.407707-2-ralf.ramsauer%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/58057754-ee40-4583-bd44-db19a6706069n%40googlegroups.com.
+
+------=_Part_225_999389990.1603879565195
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hello Jailhouse Community,<div><br></div><div>I am trying to enable Jaihous=
+e on NXP ls1046a platform which has four ARM A72 CPU Cores, but now the sys=
+tem hangs after I execute "jailhouse enable ls1046a.cell".</div><div><br></=
+div><div><p><font color=3D"#ff0000">root@localhost:~/jailhouse/jailhouse#
+jailhouse enable ls1046a.cell</font></p>
+
+<p><font color=3D"#ff0000">&nbsp;</font></p>
+
+<p><font color=3D"#ff0000">Initializing
+Jailhouse hypervisor v0.12 (73-gacdc9fcc-dirty) on CPU 2</font></p>
+
+<p><font color=3D"#ff0000">Code location:
+0x0000ffffc0200800</font></p>
+
+<p><font color=3D"#ff0000">Page pool usage
+after early setup: mem 39/992, remap 0/131072</font></p>
+
+<p><font color=3D"#ff0000">Initializing
+processors:</font></p>
+
+<p><font color=3D"#ff0000">&nbsp;CPU 2... OK</font></p>
+
+<p><font color=3D"#ff0000">&nbsp;CPU 0... OK</font></p>
+
+<p><font color=3D"#ff0000">&nbsp;CPU 1... OK</font></p>
+
+<p><font color=3D"#ff0000">&nbsp;CPU 3... OK</font></p>
+
+<p><font color=3D"#ff0000">Initializing unit:
+irqchip</font></p>
+
+<p><font color=3D"#ff0000">Initializing unit:
+ARM SMMU v3</font></p>
+
+<p><font color=3D"#ff0000">Initializing unit:
+ARM SMMU</font></p>
+
+<p><font color=3D"#ff0000">No SMMU</font></p>
+
+<p><font color=3D"#ff0000">Initializing unit:
+PVU IOMMU</font></p>
+
+<p><font color=3D"#ff0000">Initializing unit:
+PCI</font></p>
+
+<p><font color=3D"#ff0000">Adding virtual PCI
+device 00:00.0 to cell "ls1046"</font></p>
+
+<p><font color=3D"#ff0000">Adding virtual PCI
+device 00:01.0 to cell "ls1046"</font></p>
+
+<p><font color=3D"#ff0000">Page pool usage
+after late setup: mem 62/992, remap 5/131072</font></p>
+
+<p><font color=3D"#ff0000">Activating
+hypervisor</font></p>
+
+<p><font color=3D"#ff0000">WARN: unknown SGI
+received 5</font></p>
+
+<p><font color=3D"#ff0000">WARN: unknown SGI
+received 5</font></p><p>//Linux hang here.</p><p><font color=3D"#000000">Af=
+ter did some debuging,&nbsp; I found the issue is with the followng calling=
+.</font></p><p><font color=3D"#000000">on_each_cpu(enter_hypervisor, header=
+, 0);<br></font></p><p>The following is definition of on_each_cpu.</p><p><f=
+ont color=3D"#000000">611 void on_each_cpu(void (*func) (void *info), void =
+*info, int wait)</font></p><p><font color=3D"#000000">612 {</font></p><p><f=
+ont color=3D"#000000">613&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;unsigned long fl=
+ags;</font></p><p><font color=3D"#000000">614</font></p><p><font color=3D"#=
+000000">615&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;preempt_disable();</font></p><=
+p><font color=3D"#000000">616&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;smp_call_fun=
+ction(func, info, wait);</font></p><p><font color=3D"#000000">617&nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp;local_irq_save(flags);</font></p><p><font color=3D"=
+#000000">618&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;func(info);</font></p><p><fon=
+t color=3D"#000000">//Can panic here if call panic("return from hypervisor\=
+n");</font></p><p><font color=3D"#000000">619&nbsp; &nbsp; &nbsp; &nbsp; </=
+font><font color=3D"#ff0000">&nbsp;local_irq_restore(flags);&nbsp;&nbsp;</f=
+ont></p><p>//System hang and can't panic here if call panic("return from hy=
+pervisor\n");&nbsp;&nbsp;<font color=3D"#ff0000"><br></font></p><p><font co=
+lor=3D"#000000">620&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;preempt_enable();</fon=
+t></p><p><font color=3D"#000000">621 }</font></p><p><font color=3D"#000000"=
+></font></p><p><font color=3D"#000000">622 EXPORT_SYMBOL(on_each_cpu);</fon=
+t></p></div><div>I found the system hangs just after execute&nbsp; local_ir=
+q_restore(flags), because the system can panic if I call panic() just befor=
+e local_irq_restore(), but can't panic if add panic() just after local_irq_=
+restore().</div><div><br></div><div>I attached ls1046a.c.&nbsp;<br></div><d=
+iv><br></div><div>I am a&nbsp;newbies of Jailhouse,&nbsp; how to debug such=
+ issue? any comments or suggestion is Welcome, thanks.</div><div><br></div>=
+<div><br></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/58057754-ee40-4583-bd44-db19a6706069n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/58057754-ee40-4583-bd44-db19a6706069n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_225_999389990.1603879565195--
+
+------=_Part_224_886665411.1603879565195
+Content-Type: text/x-csrc; charset=US-ASCII; name=ls1046a.c
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename=ls1046a.c
+X-Attachment-Id: 37c597cd-056d-4ed1-af43-979325102b8b
+Content-ID: <37c597cd-056d-4ed1-af43-979325102b8b>
+
+/*
+ * ls1046a target - linux-demo
+ *
+ * Copyright 2020 NXP
+ *
+ * Authors:
+ *  Jiafei Pan <jiafei.pan@nxp.com>
+ *
+ * This work is licensed under the terms of the GNU GPL, version 2.  See
+ * the COPYING file in the top-level directory.
+ */
+
+#include <jailhouse/types.h>
+#include <jailhouse/cell-config.h>
+
+struct {
+	struct jailhouse_system header;
+	__u64 cpus[1];
+	struct jailhouse_memory mem_regions[16];
+	struct jailhouse_irqchip irqchips[2];
+	struct jailhouse_pci_device pci_devices[2];
+} __attribute__((packed)) config = {
+	.header = {
+		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
+		.revision = JAILHOUSE_CONFIG_REVISION,
+		.flags = JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
+		.hypervisor_memory = {
+			.phys_start = 0xfba00000,
+			.size =       0x00400000,
+		},
+		.debug_console = {
+			.address = 0x21c0500,
+			.size = 0x100,
+			.type = JAILHOUSE_CON_TYPE_8250,
+			.flags = JAILHOUSE_CON_ACCESS_MMIO |
+				 JAILHOUSE_CON_REGDIST_1,
+		},
+		.platform_info = {
+			.pci_mmconfig_base = 0xfb500000,
+			.pci_mmconfig_end_bus = 0,
+			.pci_is_virtual = 1,
+			.pci_domain = -1,
+
+			.arm = {
+				.gic_version = 2,
+				.gicd_base = 0x1410000,
+				.gicc_base = 0x142f000,
+				.gich_base = 0x1440000,
+				.gicv_base = 0x146f000,
+				.maintenance_irq = 25,
+			},
+		},
+		.root_cell = {
+			.name = "ls1046",
+
+			.num_pci_devices = ARRAY_SIZE(config.pci_devices),
+			.cpu_set_size = sizeof(config.cpus),
+			.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+			.num_irqchips = ARRAY_SIZE(config.irqchips),
+			.vpci_irq_base = 102-32, /* Not include 32 base */
+		},
+	},
+
+	.cpus = {
+		0xf,
+	},
+
+	.mem_regions = {
+		/* IVHSMEM shared memory region for 00:00.0 */ {
+			.phys_start = 0xfb700000,
+			.virt_start = 0xfb700000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ,
+		},
+		{
+			.phys_start = 0xfb701000,
+			.virt_start = 0xfb701000,
+			.size = 0x9000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		{
+			.phys_start = 0xfb70a000,
+			.virt_start = 0xfb70a000,
+			.size = 0x2000,
+			.flags = JAILHOUSE_MEM_READ,
+		},
+		{
+			.phys_start = 0xfb70c000,
+			.virt_start = 0xfb70c000,
+			.size = 0x2000,
+			.flags = JAILHOUSE_MEM_READ,
+		},
+		{
+			.phys_start = 0xfb70e000,
+			.virt_start = 0xfb70e000,
+			.size = 0x2000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* IVSHMEM shared memory regions for 00:01.0 (networking) */
+		JAILHOUSE_SHMEM_NET_REGIONS(0xfb800000, 1),
+		/* RAM - 1GB - root cell */ {
+			.phys_start = 0x80000000,
+			.virt_start = 0x80000000,
+			.size = 0x40000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE,
+		},
+		/* RAM: Inmate */ {
+			.phys_start = 0xc0000000,
+			.virt_start = 0xc0000000,
+			.size = 0x3b500000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE,
+		},
+		/* RAM: loader */ {
+			.phys_start = 0xbf900000,
+			.virt_start = 0xbf900000,
+			.size = 0x00100000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE,
+		},
+
+		/* duart1 */ {
+			.phys_start = 0x021c0000,
+			.virt_start = 0x021c0000,
+			.size = 0x10000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* duart2 */ {
+			.phys_start = 0x021d0000,
+			.virt_start = 0x021d0000,
+			.size = 0x10000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* CCSR */ {
+			.phys_start = 0x01000000,
+			.virt_start = 0x01000000,
+			.size = 0x0f000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* DCSR */ {
+			.phys_start = 0x20000000,
+			.virt_start = 0x20000000,
+			.size = 0x04000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+
+	},
+
+	.irqchips = {
+		/* GIC */ {
+			.address = 0x1410000,
+			.pin_base = 32,
+			.pin_bitmap = {
+				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff
+			},
+		},
+		/* GIC */ {
+			.address = 0x1410000,
+			.pin_base = 160,
+			.pin_bitmap = {
+				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff
+			},
+		},
+	},
+
+	.pci_devices = {
+		{ /* IVSHMEM 00:00.0 (demo) */
+			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+			.domain = 0,
+			.bdf = 0 << 3,
+			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+			.shmem_regions_start = 0,
+			.shmem_dev_id = 0,
+			.shmem_peers = 3,
+			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
+		},
+		{ /* IVSHMEM 00:01.0 (networking) */
+			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+			.domain = 0,
+			.bdf = 1 << 3,
+			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+			.shmem_regions_start = 5,
+			.shmem_dev_id = 0,
+			.shmem_peers = 2,
+			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+		},
+	},
+};
+
+------=_Part_224_886665411.1603879565195--
