@@ -1,119 +1,123 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB6OJ5H6AKGQEKT7O4HA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBUWX5H6AKGQEIMUXMFA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x439.google.com (mail-wr1-x439.google.com [IPv6:2a00:1450:4864:20::439])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05C3529E399
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Oct 2020 07:45:14 +0100 (CET)
-Received: by mail-wr1-x439.google.com with SMTP id 31sf854174wrg.12
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 28 Oct 2020 23:45:13 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1603953913; cv=pass;
+Received: from mail-lf1-x138.google.com (mail-lf1-x138.google.com [IPv6:2a00:1450:4864:20::138])
+	by mail.lfdr.de (Postfix) with ESMTPS id B1D1529E3A6
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Oct 2020 08:14:27 +0100 (CET)
+Received: by mail-lf1-x138.google.com with SMTP id t8sf208950lfp.23
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Oct 2020 00:14:27 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1603955667; cv=pass;
         d=google.com; s=arc-20160816;
-        b=ss3sY5CTmlvFlu4JNZ7MKJmcofycGXSvbwsK1vQn0OIfE1HtKIrNBqQLpRuRs11v+r
-         I5ySHdgRmHbViMUykrQQ9RuPKZIsS8yAhvA2tpiW1XupOl3mx2ufd4lW80q4lpuTsko6
-         th8WGuf3NHRKeZku0KFpyo+v/J8osanQfbY7r10fCNt5M2fHi+E9JnmuVsWflxkmkmrI
-         nrN35AuPQYROTW/yTl1TYXGsAMEpW3LQ1fjhoLvDoDc614dqWLln/0hI4UxHAv8PjqDx
-         l6GjdHKx5Oe19D8/jFZrNkP8okfOUpEkKij7PAlkseTEuA/7caSrX6WOWKVzWe3XMjwM
-         qZEQ==
+        b=vhcnTqpAn/ERHxaE+k5T7Z73McOFDafWRTNW0rzxqTjWM3JadyATQRVy3kSp1Pr4Bx
+         azpyQVVoSuGAwEPModGJM07cjdg0Ms28uHtggvM2DP9No+x4N+Ll/r7iqt+Tzh3+2PNm
+         2sfK9yjZbX5C4QbC7hlLfHUxRplepsyr+D664UCo70/Oi1yz8bvcsUMveCTxacfwqTDV
+         eehf8JyLR+mKkkkNSRpKoGzcpc3VF0NeUP7ZDWUx6RSbyminCYGw64Y5Q7aQtwUsp5JB
+         Hb8AB+08ZUvlDdcjxXeLQS2aFjH8xLXmH6C3J/bXVGGW3FPiAx8srzzH5Jst1EXEwQVi
+         dfzQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:mime-version
-         :user-agent:date:message-id:to:subject:from:sender:dkim-signature;
-        bh=KjsIKafgkLfdBx5aIeHz0a4sJQnhnVY1Y8RSXinOJT4=;
-        b=zijQpBfoNXSN9U/jaoGDD4iHeFNTxS2E6LsDvvggjJmno68YPtERu6/YrO96V510kN
-         3NlTrNy9PPxJQrvNx0JHgCrwgihihU+aZ//0pXDJp53frYuI3P3A+c8WwE9E79Bjp9ba
-         cXySyS1x/pd+NOx+S8wIPF8BfRdW5WUBcQVmdJmOYC+ZpRaZsA7368FZA/yrr0tFfN5p
-         voBYGkuqNXpP8fpsadnBlA6QqmHGalOWj6Lmjca8+Ggdsrpr+AzCkB1mfmu9eqeD9Ug6
-         x/slVwGDrPTomFj/+Z2HI+uJOEQOEdOM+sCraYouHpBHG8fusyUELI7dWwBpiSJ4dS6G
-         br2w==
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:cc:to
+         :subject:sender:dkim-signature;
+        bh=gTtb0jA28UzmxsruRlRutGo4LDkl1efL93L0ZCIc+ZA=;
+        b=IL/SXjgxLPjEJFw6vQRksJB2UMJav8FP3QdSrE3pPZc3Xxo8AlUJvyuE6Adqn7mXax
+         gUhhAkqiU9utTS4rE9Ry0UyWvwt+KnpM1wtjlpu2z4dQHlKeG0DtYFp9N2qpcAAJzWsf
+         pD0vExLWgXM18qYEXZaWIAj96yyv30+OUg5Pq6KbV0mWs8gb08qyQQUTy9WWaaSnsYxd
+         /gb5NGFHiOp/6ku21gJRBeQmpsOJlqQYOEnrrd8VXM8jZaty+ZmomKfxqqqVHGeWmpU1
+         NJ3W4NimCpp5wJJTS5K2pa0sj9UFFT1a/kCWkzqZu/x6QdkVJg84rYum9CcFtjauJBoC
+         3UBg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:subject:to:message-id:date:user-agent:mime-version
-         :content-language:x-original-sender
+        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=KjsIKafgkLfdBx5aIeHz0a4sJQnhnVY1Y8RSXinOJT4=;
-        b=CyB2CRW+c+NcGn67OFpSP7ik8MiAWE0Mx/K/V/hoI8vL6cR10JK09iSVgdzQYlSjM2
-         J+J0wVsSmckYWV22i8hccQNqv8grAg+JqCxF879Wrcd6PgCS+BVq/3JZnlDflhX6JmJY
-         WVSyT81SIGFJkACYHMySH5o2LJrGZ7gHVAUaJg5hsXVh/tTU9WC1tTneKu526lI7lYVi
-         g9Z4SnKIipSw5H9UNUpG7HA6ZO4lksmYJ0R//tOdC1p+sZ5v8YIJO/BXdSvD2z/y0L+s
-         2V4GV/njw3hJAqDKZ8xg65JbdxLKSAvolCjvF3moFUl9DSjAKaeo/LCopozJUHOdRizx
-         jzrQ==
+        bh=gTtb0jA28UzmxsruRlRutGo4LDkl1efL93L0ZCIc+ZA=;
+        b=UAPuQmYFbTX2reBYhj9cue71COswXeJnZw4C8qqRzIV8SVndMVln1p27lu87deg1vL
+         NoY9c59Yssh39Acjm8eqtfC8+nck67vq6xkh7yxoQM22Vmc8qz96ua5Y5J2/M0YcrphX
+         PB839nEUCclo9UpLRJWyf6jKGuGLi7qCquHRMkyufbJn7180Mz8h+daks+zza5z8d1yq
+         xu0WdrQJWgPh7ts2CAL5ifJiZUwPu8OtbSElXp/+yH70Buuf9AVQZm0CNOEeeDEOnpO1
+         Q1WfgUzM2nJM7qlYzAdJbgiJr4s8yPoboY6NThkiqQlNKSMQYDErOY7HVUnqLHMX1tL5
+         VSZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:subject:to:message-id:date
-         :user-agent:mime-version:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=KjsIKafgkLfdBx5aIeHz0a4sJQnhnVY1Y8RSXinOJT4=;
-        b=IuRhaEXDau16XZ73O8xeEa7kcMLk/8tDGvlhb4tVeGEQYrWiM5IAC2YhxaxIYReOqw
-         fkHH1Ldie50o7nh7n+qGXiLIpdZvmFyQrnSqN6lXGQS9ZhDhM4DI/UF+dht548kuHQlx
-         8zdPNja5X6q4+gJCyKvKMr6QnfzL/hWuZjFBqlS+PNgPCOOTp33XM1k1qD4elPgeg8Yy
-         NbOoy8rxxUT+Xb7rctDDHEYph5djIeACBACT3cWiBDHIktCSyyKMEhVuGhLeV+bS1ZpR
-         xGgorP57gMY5n2RKQY3dl3c9jQcP2G03Lo9WbuRf17KlQGYuJbpPOCECmVFbASfnENf6
-         6aKw==
+        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=gTtb0jA28UzmxsruRlRutGo4LDkl1efL93L0ZCIc+ZA=;
+        b=hxs0z4e+G5s0NQHkldS7Kfxsz8WfLf3mB9W5qhGudxsMFORcxamLJyHesAhvygpH6Y
+         nIZ3iZFGpPn/cFvYqTGZtPsk+naB5RsXmtzpkbI5+nMQUKsl24UJzmsj5Aj//O9HifMk
+         kfad35ZYB+tp56OjvdT8gpo5BLkI7dDIID+OegKFYjHXnCeFk2IyYyN8DGQ6RO813HW6
+         vjo5zigahJKT+Dm2cMuaHATiRUUiPYVKsEfCyw8UZGC5Qzwwz4GR1xs5EHNr5O61VqLl
+         csAV3R7nAi8fL/uq680ypS62f55JLsFK5X1r/G1CEqCHV1nUxDbjipHgcT/UeGCavxRT
+         9NGg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM5336AOVgAzGWSKDC/kemxz2su4HsiL1TWtFZI6jf7ZAIM2HrJnDf
-	gFwmo4nnt+2r9GeYd5tzx2o=
-X-Google-Smtp-Source: ABdhPJy0SbySoSGtID+bTBsgEb2zxVTB/8rlCC1ZvIpB0kDtYydpFeD2PrYmMuLdtHdFlhW4pKKaUg==
-X-Received: by 2002:a1c:6843:: with SMTP id d64mr2677756wmc.131.1603953913749;
-        Wed, 28 Oct 2020 23:45:13 -0700 (PDT)
+X-Gm-Message-State: AOAM531kdMmFjjkKv5rMt42LVyMXKy2SpsA/2xC8+MTAiD49PVc3KiGx
+	+hVnd/ASi7gIPn8b1QPnSbI=
+X-Google-Smtp-Source: ABdhPJymjs/KlMBullkWvGwUCaReONpiyPZDXS4T7vrgvZ81D8LT4Fhn6ec+I3yGeBL8DPe5MOnB4w==
+X-Received: by 2002:a2e:b4f5:: with SMTP id s21mr1338139ljm.44.1603955667208;
+        Thu, 29 Oct 2020 00:14:27 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:f7c4:: with SMTP id a4ls1689751wrq.1.gmail; Wed, 28 Oct
- 2020 23:45:12 -0700 (PDT)
-X-Received: by 2002:adf:8544:: with SMTP id 62mr3207689wrh.18.1603953912648;
-        Wed, 28 Oct 2020 23:45:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1603953912; cv=none;
+Received: by 2002:a2e:9cc1:: with SMTP id g1ls98660ljj.0.gmail; Thu, 29 Oct
+ 2020 00:14:25 -0700 (PDT)
+X-Received: by 2002:a2e:7310:: with SMTP id o16mr1333207ljc.42.1603955665801;
+        Thu, 29 Oct 2020 00:14:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1603955665; cv=none;
         d=google.com; s=arc-20160816;
-        b=pOpZdU+D6WsrzHloyZdX9Aox0Rif7HDp05lsXhoqi+WyQlDIxsR/A9TTKohzqyEL8e
-         50kjtWtN1Xy8xnVp/nk3r67JoauvWIYJwDDrVjLZrfvpoY3BxXlC6wO1nZN1d9eSD7sD
-         Tr8RdiQ48rQIdip9CVXeCptInbw4HH9fzawV3NP8FUE0qUJW439H3odtkmZLx3qe+GaZ
-         eRGwGxKdS7VDDaXt/eGu0eF+O26LXHTOK0zFYWWa7B20TNCx+fxaQYtCOqXDSiR040++
-         Lpjn0ifyiMFWmbeG2WkxzKSnbwwhDPa1HghOwACGZEmNoGdhT7G4NGIV31WfsnQoAYRI
-         77zQ==
+        b=y4OsMOyP1PDZ/O4qgqWkCB78EmCQ+BjJSQqs056F3e3gVsylwaVAvy39jyw3cCmosU
+         dRJn0dEEhlLgbos0XZxVNER3ZNkU47IWcrQ5XRIaM84LBhXaex4eWrL9y7F2138FMZX4
+         qG8tsPZ6VhIzSosYLIQ+wE4LswarrkYQMqEvvj8WwtSdWe72fGsvUvEtV7qFY1aMCRxZ
+         LEykX6Q0Kx40LEPqu5KOws9DVKeuW4ARi0cHbchZuhVwXZcd5CXbhktJGlJ6xHBkOVi9
+         25zNKbh8+Y4s1XZI6XtcUTt3kS8r3RQOFgD1ffUaKOME027bDSx2G2w9YsTN043lE4m6
+         QZtA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:mime-version:user-agent
-         :date:message-id:to:subject:from;
-        bh=elfmWyQp/yvgmZGd/+qe67jO/ktUEtO8wIQjAi2v6pE=;
-        b=xbXYsSVwmT5qrpqaQfQxxf909NLsrLXlvIE2puNdYHGxlVZdsjBOln8CSqU/cdmKP9
-         DorWAZdLmXwIXuix1uFZheJAqAeRl7mA/q0pPnEfp4HyF4V/ygky98CGP4eBChn51Hsa
-         TfyzWAeyzHmX0H1WdHLVggKyAfaVoL7ooV7FKLB/nSgr41QqZzN/34hXZcHWqxKWPUTC
-         dRSZviV/JaTwjdnQUwSYJEhiRvf/SSvVRZFM3JSHZpPhCbK9K22Y2y6QtfSStoi5gOW5
-         RxovpeUML8tonNczq63VrwjnvL/VK7osPV3FzfmXY2Id+zqLXrD/1mcORgLGIXLTYxAT
-         EIew==
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:cc:to:subject;
+        bh=X/XBdLrKzwvhrQhWv2zJ3xtGlQtqm7S17fIyHoqGZKY=;
+        b=j+JmPVJFlmknaXSEVANfn3YH9DIVHlkDVUctMM5mRspCbydZO3eLRQ4WK894MKvpYq
+         HbTA4b4zy9hRrB1J+bsxng8MWWwgsmXk4GEC9zhPhPk9q6TBd8LzP/94Pbf+bvD9d9Md
+         wb0SDPiBZaiK007n74AdIUkFe0Edi/u04+QF70HnBI+GBShs2YkwlGBn+dzBch+G1UfB
+         ld5pGfBg/AYW9eFvUkZyoCK1oe20OYgPJCA3suW8oxFlQxvZic8m3v1NalOprywSQZmN
+         HQA30RND00xcYCE9h2tNZYMdKKB1BnBxEdqMRHRw8AnVZVOPK2AVmVNIUU1K9sMoDdli
+         qNqg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
-        by gmr-mx.google.com with ESMTPS id n19si29667wmk.1.2020.10.28.23.45.12
+Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
+        by gmr-mx.google.com with ESMTPS id a1si48265lff.2.2020.10.29.00.14.25
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 28 Oct 2020 23:45:12 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
+        Thu, 29 Oct 2020 00:14:25 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 09T6jCci021729
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
-	for <jailhouse-dev@googlegroups.com>; Thu, 29 Oct 2020 07:45:12 +0100
+	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 09T7EOlB017989
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 29 Oct 2020 08:14:25 +0100
 Received: from [167.87.42.1] ([167.87.42.1])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 09T6j5wT023506
-	for <jailhouse-dev@googlegroups.com>; Thu, 29 Oct 2020 07:45:10 +0100
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 09T7ENm5022266;
+	Thu, 29 Oct 2020 08:14:24 +0100
+Subject: Re: [PATCH v2] arm64: pvu: Avoid failure in config_commit
+To: Nikhil Devshatwar <nikhil.nd@ti.com>, jailhouse-dev@googlegroups.com,
+        Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Cc: Sekhar Nori <nsekhar@ti.com>
+References: <20201028141454.22657-1-nikhil.nd@ti.com>
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Subject: [jh-images][PATCH] customizations: Resolve the securetty issue
- generically
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-ID: <6d96ab6e-d12e-2dbb-beb2-e0cbfb17547c@siemens.com>
-Date: Thu, 29 Oct 2020 07:45:04 +0100
+Message-ID: <372c4fcc-f707-955b-ec3f-c800dc948557@siemens.com>
+Date: Thu, 29 Oct 2020 08:14:23 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
+In-Reply-To: <20201028141454.22657-1-nikhil.nd@ti.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
@@ -128,198 +132,283 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-From: Jan Kiszka <jan.kiszka@siemens.com>
+On 28.10.20 15:14, 'Nikhil Devshatwar' via Jailhouse wrote:
+> Current PVU iommu implementation ignores possible failures in the
+> config_commit part. This would allow inconsistent configuration
+> to run and may introduce unknown bugs.
+> 
+> Solve this by making sure that the pvu_iommu_config_commit never
+> fails. Catch the errors early in the mapping phase. Use
+> "free_tlb_count" to track available no of TLBs for chaining.
+> This can be used to check if any mapping causes it to potentially
+> use more no of TLBs than that are free. This will ensure that
+> the allocationg for chaining will not fail.
 
-In bullseye, this file is gone, and simply removing it from the target
-image helps to deal with missing ttys for all targets.
+allocating
 
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
----
- recipes-core/customizations/customizations.bb       |  5 +----
- .../files/{postinst-common => postinst}             |  5 ++++-
- .../customizations/files/postinst-espressobin       | 13 -------------
- recipes-core/customizations/files/postinst-hikey620 |  1 -
- recipes-core/customizations/files/postinst-ipc127e  |  1 -
- .../customizations/files/postinst-macchiatobin      |  1 -
- recipes-core/customizations/files/postinst-nuc6cay  |  1 -
- .../customizations/files/postinst-orangepi-zero     |  1 -
- .../customizations/files/postinst-pine64-plus       |  1 -
- .../customizations/files/postinst-qemu-amd64        |  1 -
- .../customizations/files/postinst-qemu-arm64        |  1 -
- recipes-core/customizations/files/postinst-rpi4     |  1 -
- .../customizations/files/postinst-ultra96-v1        | 12 ------------
- .../customizations/files/postinst-ultra96-v2        |  1 -
- 14 files changed, 5 insertions(+), 40 deletions(-)
- rename recipes-core/customizations/files/{postinst-common => postinst} (82%)
- delete mode 100644 recipes-core/customizations/files/postinst-espressobin
- delete mode 100644 recipes-core/customizations/files/postinst-hikey620
- delete mode 100644 recipes-core/customizations/files/postinst-ipc127e
- delete mode 100644 recipes-core/customizations/files/postinst-macchiatobin
- delete mode 100644 recipes-core/customizations/files/postinst-nuc6cay
- delete mode 100644 recipes-core/customizations/files/postinst-orangepi-zero
- delete mode 100644 recipes-core/customizations/files/postinst-pine64-plus
- delete mode 100644 recipes-core/customizations/files/postinst-qemu-amd64
- delete mode 100644 recipes-core/customizations/files/postinst-qemu-arm64
- delete mode 100644 recipes-core/customizations/files/postinst-rpi4
- delete mode 100644 recipes-core/customizations/files/postinst-ultra96-v1
- delete mode 120000 recipes-core/customizations/files/postinst-ultra96-v2
+> 
+> Change the return type to void for few functions. Add comments to
+> explain behavior in case of failure.
+> 
+> Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
+> ---
+> 
+> Notes:
+>     Changes from v1:
+>     * Add a comment to descibe why pvu_tlb_alloc will not fail
+>     * Make return type of pvu_entry_write as void and explain the
+>     behavior in case the constraints are not met
+>     * Remove un necessary else block
+> 
+>  hypervisor/arch/arm64/include/asm/ti-pvu.h |  3 +-
+>  hypervisor/arch/arm64/ti-pvu.c             | 68 ++++++++++++++--------
+>  2 files changed, 45 insertions(+), 26 deletions(-)
+> 
+> diff --git a/hypervisor/arch/arm64/include/asm/ti-pvu.h b/hypervisor/arch/arm64/include/asm/ti-pvu.h
+> index 2c340b3a..62aec7c0 100644
+> --- a/hypervisor/arch/arm64/include/asm/ti-pvu.h
+> +++ b/hypervisor/arch/arm64/include/asm/ti-pvu.h
+> @@ -117,6 +117,7 @@ struct pvu_dev {
+>  	u16		max_virtid;
+>  
+>  	u16		tlb_data[PVU_NUM_TLBS];
+> +	u16		free_tlb_count;
+>  };
+>  
+>  int pvu_iommu_map_memory(struct cell *cell,
+> @@ -125,6 +126,6 @@ int pvu_iommu_map_memory(struct cell *cell,
+>  int pvu_iommu_unmap_memory(struct cell *cell,
+>  		const struct jailhouse_memory *mem);
+>  
+> -int pvu_iommu_config_commit(struct cell *cell);
+> +void pvu_iommu_config_commit(struct cell *cell);
+>  
+>  #endif /* _IOMMMU_PVU_H_ */
+> diff --git a/hypervisor/arch/arm64/ti-pvu.c b/hypervisor/arch/arm64/ti-pvu.c
+> index 3b9a29ec..c488ce89 100644
+> --- a/hypervisor/arch/arm64/ti-pvu.c
+> +++ b/hypervisor/arch/arm64/ti-pvu.c
+> @@ -15,7 +15,7 @@
+>   * There are limitations on the number of available contexts, page sizes,
+>   * number of pages that can be mapped, etc.
+>   *
+> - * PVU is desgined to be programmed with all the memory mapping at once.
+> + * PVU is designed to be programmed with all the memory mapping at once.
+>   * Therefore, it defers the actual register programming till config_commit.
+>   * Also, it does not support unmapping of the pages at runtime.
+>   *
+> @@ -110,9 +110,15 @@ static u32 pvu_tlb_alloc(struct pvu_dev *dev, u16 virtid)
+>  	for (i = dev->max_virtid + 1; i < dev->num_tlbs; i++) {
+>  		if (dev->tlb_data[i] == 0) {
+>  			dev->tlb_data[i] = virtid << dev->num_entries;
+> +			dev->free_tlb_count--;
+>  			return i;
+>  		}
+>  	}
+> +
+> +	/*
+> +	 * We should never reach here, tlb_allocation should not fail
+> +	 * pvu_iommu_map_memory ensures that there are enough free TLBs
+> +	 */
 
-diff --git a/recipes-core/customizations/customizations.bb b/recipes-core/customizations/customizations.bb
-index 313c6d2..f71a078 100644
---- a/recipes-core/customizations/customizations.bb
-+++ b/recipes-core/customizations/customizations.bb
-@@ -19,8 +19,7 @@ include local.inc
- DESCRIPTION = "demo image customizations"
- 
- SRC_URI = " \
--    file://postinst-common \
--    file://postinst-${MACHINE} \
-+    file://postinst \
-     file://.bash_history-${MACHINE} \
-     file://e1000e-intx.conf \
-     file://ethernet \
-@@ -50,6 +49,4 @@ do_install() {
- 
- 	install -v -d -m 700 ${D}/root/.ssh
- 	install -v -m 644 ${WORKDIR}/known_hosts ${D}/root/.ssh/
--
--	cat ${WORKDIR}/postinst-common ${WORKDIR}/postinst-${MACHINE} > ${WORKDIR}/postinst
- }
-diff --git a/recipes-core/customizations/files/postinst-common b/recipes-core/customizations/files/postinst
-similarity index 82%
-rename from recipes-core/customizations/files/postinst-common
-rename to recipes-core/customizations/files/postinst
-index 18b9568..cbf451f 100644
---- a/recipes-core/customizations/files/postinst-common
-+++ b/recipes-core/customizations/files/postinst
-@@ -2,7 +2,7 @@
- #
- # Jailhouse, a Linux-based partitioning hypervisor
- #
--# Copyright (c) Siemens AG, 2018
-+# Copyright (c) Siemens AG, 2018-2020
- #
- # Authors:
- #  Jan Kiszka <jan.kiszka@siemens.com>
-@@ -23,3 +23,6 @@ sed -i ':restart /\\$/N;s/\\\n[ ]*//;t restart' /root/.bash_history
- echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
- 
- echo "demo" > /etc/hostname
-+
-+# this helps with ttys not know to this file (removed upstream with bullseye)
-+rm -f /etc/securetty
-diff --git a/recipes-core/customizations/files/postinst-espressobin b/recipes-core/customizations/files/postinst-espressobin
-deleted file mode 100644
-index 4b446a2..0000000
---- a/recipes-core/customizations/files/postinst-espressobin
-+++ /dev/null
-@@ -1,13 +0,0 @@
--#
--# Jailhouse, a Linux-based partitioning hypervisor
--#
--# Copyright (c) Siemens AG, 2018
--#
--# Authors:
--#  Jan Kiszka <jan.kiszka@siemens.com>
--#
--# SPDX-License-Identifier: MIT
--#
--
--# workaround for Debian Bug#879903
--echo "ttyMV0" >> /etc/securetty
-diff --git a/recipes-core/customizations/files/postinst-hikey620 b/recipes-core/customizations/files/postinst-hikey620
-deleted file mode 100644
-index 2dde661..0000000
---- a/recipes-core/customizations/files/postinst-hikey620
-+++ /dev/null
-@@ -1 +0,0 @@
--# Nothing to do
-diff --git a/recipes-core/customizations/files/postinst-ipc127e b/recipes-core/customizations/files/postinst-ipc127e
-deleted file mode 100644
-index 2dde661..0000000
---- a/recipes-core/customizations/files/postinst-ipc127e
-+++ /dev/null
-@@ -1 +0,0 @@
--# Nothing to do
-diff --git a/recipes-core/customizations/files/postinst-macchiatobin b/recipes-core/customizations/files/postinst-macchiatobin
-deleted file mode 100644
-index 2dde661..0000000
---- a/recipes-core/customizations/files/postinst-macchiatobin
-+++ /dev/null
-@@ -1 +0,0 @@
--# Nothing to do
-diff --git a/recipes-core/customizations/files/postinst-nuc6cay b/recipes-core/customizations/files/postinst-nuc6cay
-deleted file mode 100644
-index 2dde661..0000000
---- a/recipes-core/customizations/files/postinst-nuc6cay
-+++ /dev/null
-@@ -1 +0,0 @@
--# Nothing to do
-diff --git a/recipes-core/customizations/files/postinst-orangepi-zero b/recipes-core/customizations/files/postinst-orangepi-zero
-deleted file mode 100644
-index 2dde661..0000000
---- a/recipes-core/customizations/files/postinst-orangepi-zero
-+++ /dev/null
-@@ -1 +0,0 @@
--# Nothing to do
-diff --git a/recipes-core/customizations/files/postinst-pine64-plus b/recipes-core/customizations/files/postinst-pine64-plus
-deleted file mode 100644
-index 2dde661..0000000
---- a/recipes-core/customizations/files/postinst-pine64-plus
-+++ /dev/null
-@@ -1 +0,0 @@
--# Nothing to do
-diff --git a/recipes-core/customizations/files/postinst-qemu-amd64 b/recipes-core/customizations/files/postinst-qemu-amd64
-deleted file mode 100644
-index 2dde661..0000000
---- a/recipes-core/customizations/files/postinst-qemu-amd64
-+++ /dev/null
-@@ -1 +0,0 @@
--# Nothing to do
-diff --git a/recipes-core/customizations/files/postinst-qemu-arm64 b/recipes-core/customizations/files/postinst-qemu-arm64
-deleted file mode 100644
-index 2dde661..0000000
---- a/recipes-core/customizations/files/postinst-qemu-arm64
-+++ /dev/null
-@@ -1 +0,0 @@
--# Nothing to do
-diff --git a/recipes-core/customizations/files/postinst-rpi4 b/recipes-core/customizations/files/postinst-rpi4
-deleted file mode 100644
-index 2dde661..0000000
---- a/recipes-core/customizations/files/postinst-rpi4
-+++ /dev/null
-@@ -1 +0,0 @@
--# Nothing to do
-diff --git a/recipes-core/customizations/files/postinst-ultra96-v1 b/recipes-core/customizations/files/postinst-ultra96-v1
-deleted file mode 100644
-index b23b885..0000000
---- a/recipes-core/customizations/files/postinst-ultra96-v1
-+++ /dev/null
-@@ -1,12 +0,0 @@
--#
--# Jailhouse, a Linux-based partitioning hypervisor
--#
--# Copyright (c) Siemens AG, 2018
--#
--# Authors:
--#  Jan Kiszka <jan.kiszka@siemens.com>
--#
--# SPDX-License-Identifier: MIT
--#
--
--echo "ttyPS0" >> /etc/securetty
-diff --git a/recipes-core/customizations/files/postinst-ultra96-v2 b/recipes-core/customizations/files/postinst-ultra96-v2
-deleted file mode 120000
-index 1bc8b3c..0000000
---- a/recipes-core/customizations/files/postinst-ultra96-v2
-+++ /dev/null
-@@ -1 +0,0 @@
--postinst-ultra96-v1
-\ No newline at end of file
+If we never get here, the test for "i < dev->num_tlbs" is pointless. If
+we could get here, we should not return.
+
+>  	return 0;
+>  }
+>  
+> @@ -138,10 +144,13 @@ static void pvu_tlb_flush(struct pvu_dev *dev, u16 tlbnum)
+>  
+>  	mmio_write32(&tlb->chain, 0x0);
+>  
+> -	if (i < dev->max_virtid)
+> +	if (i < dev->max_virtid) {
+>  		dev->tlb_data[tlbnum] = 0x0 | i << dev->num_entries;
+> -	else
+> +	} else {
+> +		/* This was a chained TLB */
+>  		dev->tlb_data[tlbnum] = 0x0;
+> +		dev->free_tlb_count++;
+> +	}
+>  
+>  }
+>  
+> @@ -159,7 +168,7 @@ static void pvu_entry_enable(struct pvu_dev *dev, u16 tlbnum, u8 index)
+>  	dev->tlb_data[tlbnum] |= (1 << index);
+>  }
+>  
+> -static int pvu_entry_write(struct pvu_dev *dev, u16 tlbnum, u8 index,
+> +static void pvu_entry_write(struct pvu_dev *dev, u16 tlbnum, u8 index,
+>  			   struct pvu_tlb_entry *ent)
+>  {
+>  	struct pvu_hw_tlb_entry *entry;
+> @@ -174,17 +183,21 @@ static int pvu_entry_write(struct pvu_dev *dev, u16 tlbnum, u8 index,
+>  			break;
+>  	}
+>  
+> +	/*
+> +	 * If the hardware constraints for page size and address alignment
+> +	 * are not met, print out an error, return without writing any entry
+> +	 */
+
+That's lacking reasoning *why* we can continue then. Again: Can the user
+trigger this by providing an invalid config? I suspect so. Can we catch
+that earlier?
+
+>  	if (pgsz >= ARRAY_SIZE(pvu_page_size_bytes)) {
+>  		printk("ERROR: PVU: %s: Unsupported page size %llx\n",
+>  			__func__, ent->size);
+> -		return -EINVAL;
+> +		return;
+>  	}
+>  
+>  	if (!is_aligned(ent->virt_addr, ent->size) ||
+>  	    !is_aligned(ent->phys_addr, ent->size)) {
+>  		printk("ERROR: PVU: %s: Address %llx => %llx is not aligned with size %llx\n",
+>  			__func__, ent->virt_addr, ent->phys_addr, ent->size);
+> -		return -EINVAL;
+> +		return;
+>  	}
+>  
+>  	mmio_write32(&entry->reg0, ent->virt_addr & 0xffffffff);
+> @@ -198,9 +211,8 @@ static int pvu_entry_write(struct pvu_dev *dev, u16 tlbnum, u8 index,
+>  	mmio_write32_field(&entry->reg2, PVU_TLB_ENTRY_PGSIZE_MASK, pgsz);
+>  	mmio_write32_field(&entry->reg2, PVU_TLB_ENTRY_FLAG_MASK, ent->flags);
+>  
+> -	/* Do we need "DSB NSH" here to make sure all writes are finised? */
+> +	/* Do we need "DSB NSH" here to make sure all writes are finished? */
+>  	pvu_entry_enable(dev, tlbnum, index);
+> -	return 0;
+>  }
+>  
+>  static u32 pvu_init_device(struct pvu_dev *dev, u16 max_virtid)
+> @@ -221,6 +233,8 @@ static u32 pvu_init_device(struct pvu_dev *dev, u16 max_virtid)
+>  	}
+>  
+>  	dev->max_virtid = max_virtid;
+> +	dev->free_tlb_count = dev->num_tlbs - (max_virtid + 1);
+> +
+>  	mmio_write32(&cfg->virtid_map1, 0);
+>  	mmio_write32_field(&cfg->virtid_map2, PVU_MAX_VIRTID_MASK, max_virtid);
+>  
+> @@ -328,17 +342,17 @@ static void pvu_entrylist_sort(struct pvu_tlb_entry *entlist, u32 num_entries)
+>  	}
+>  }
+>  
+> -static int pvu_iommu_program_entries(struct cell *cell, u8 virtid)
+> +static void pvu_iommu_program_entries(struct cell *cell, u8 virtid)
+>  {
+>  	unsigned int inst, i, tlbnum, idx, ent_count;
+>  	struct pvu_tlb_entry *ent, *cell_entries;
+>  	struct pvu_dev *dev;
+> -	int ret, tlb_next;
+> +	int tlb_next;
+>  
+>  	cell_entries = cell->arch.iommu_pvu.entries;
+>  	ent_count = cell->arch.iommu_pvu.ent_count;
+>  	if (ent_count == 0 || cell_entries == NULL)
+> -		return 0;
+> +		return;
+>  
+>  	/* Program same memory mapping for all of the instances */
+>  	for (inst = 0; inst < pvu_count; inst++) {
+> @@ -356,20 +370,15 @@ static int pvu_iommu_program_entries(struct cell *cell, u8 virtid)
+>  			if (idx == 0 && i >= dev->num_entries) {
+>  				/* Find next available TLB and chain to it */
+>  				tlb_next = pvu_tlb_alloc(dev, virtid);
+> -				if (tlb_next < 0)
+> -					return -ENOMEM;
+>  				pvu_tlb_chain(dev, tlbnum, tlb_next);
+>  				pvu_tlb_enable(dev, tlbnum);
+>  				tlbnum = tlb_next;
+>  			}
+>  
+> -			ret = pvu_entry_write(dev, tlbnum, idx, ent);
+> -			if (ret)
+> -				return ret;
+> +			pvu_entry_write(dev, tlbnum, idx, ent);
+>  		}
+>  		pvu_tlb_enable(dev, tlbnum);
+>  	}
+> -	return 0;
+>  }
+>  
+>  /*
+> @@ -380,8 +389,9 @@ int pvu_iommu_map_memory(struct cell *cell,
+>  			 const struct jailhouse_memory *mem)
+>  {
+>  	struct pvu_tlb_entry *ent;
+> +	struct pvu_dev *dev;
+>  	unsigned int size;
+> -	u32 flags = 0;
+> +	u32 tlb_count, flags = 0;
+>  	int ret;
+>  
+>  	if (pvu_count == 0 || (mem->flags & JAILHOUSE_MEM_DMA) == 0)
+> @@ -408,6 +418,18 @@ int pvu_iommu_map_memory(struct cell *cell,
+>  	if (ret < 0)
+>  		return ret;
+>  
+> +	/*
+> +	 * Check if there are enough TLBs left for *chaining* to ensure that
+> +	 * pvu_tlb_alloc called from config_commit never fails
+> +	 */
+> +	tlb_count = (cell->arch.iommu_pvu.ent_count + ret - 1) / 8;
+
+Can you explain this math? Without reasioning how that prevents the
+overflow exactly, dropping a check from pvu_tlb_alloc() would be hard to
+argue.
+
+> +	dev = &pvu_units[0];
+> +
+> +	if (tlb_count > dev->free_tlb_count) {
+> +		printk("ERROR: PVU: Mapping this memory needs more TLBs than that are available\n");
+> +		return -EINVAL;
+> +	}
+> +
+>  	cell->arch.iommu_pvu.ent_count += ret;
+>  	return 0;
+>  }
+> @@ -434,13 +456,12 @@ int pvu_iommu_unmap_memory(struct cell *cell,
+>  	return 0;
+>  }
+>  
+> -int pvu_iommu_config_commit(struct cell *cell)
+> +void pvu_iommu_config_commit(struct cell *cell)
+>  {
+>  	unsigned int i, virtid;
+> -	int ret = 0;
+>  
+>  	if (pvu_count == 0 || !cell)
+> -		return 0;
+> +		return;
+>  
+>  	/*
+>  	 * Chaining the TLB entries adds extra latency to translate those
+> @@ -455,13 +476,10 @@ int pvu_iommu_config_commit(struct cell *cell)
+>  		if (virtid > MAX_VIRTID)
+>  			continue;
+>  
+> -		ret = pvu_iommu_program_entries(cell, virtid);
+> -		if (ret)
+> -			return ret;
+> +		pvu_iommu_program_entries(cell, virtid);
+>  	}
+>  
+>  	cell->arch.iommu_pvu.ent_count = 0;
+> -	return ret;
+>  }
+>  
+>  static int pvu_iommu_cell_init(struct cell *cell)
+> 
+
+Jan
+
 -- 
-2.26.2
+Siemens AG, T RDA IOT
+Corporate Competence Center Embedded Linux
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/6d96ab6e-d12e-2dbb-beb2-e0cbfb17547c%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/372c4fcc-f707-955b-ec3f-c800dc948557%40siemens.com.
