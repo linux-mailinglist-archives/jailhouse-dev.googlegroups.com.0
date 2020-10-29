@@ -1,133 +1,71 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBCMG5L6AKGQE5SSKLUI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJ2NIVKYUNBBD4P5L6AKGQEV7FD6JQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23c.google.com (mail-lj1-x23c.google.com [IPv6:2a00:1450:4864:20::23c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F7E129E6A5
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Oct 2020 09:53:30 +0100 (CET)
-Received: by mail-lj1-x23c.google.com with SMTP id s25sf997902ljo.13
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Oct 2020 01:53:30 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1603961609; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=tRkSgZK2d3m13L5Phw+4AngelK1SUGeTQo5KMzzKAXX48YQd3jA8vJvfYYDU37wZIw
-         n3k9QIxAE+nJBLmtCNhYBvpFRBjYMzNVMz03O5km9FNmSQ/JD6P0LcE0jrDXAEFDPmSz
-         38lbkYpc4mQ8lmjkFhodS6h43T/NY7y/bsnC23MTJ4cTkyzACncTDQD6nN3JA559IVRX
-         8S3nLO3iJ1RDB5U7x6TMtAOfjWVMs0HJiLaYBzOyChufj1zxz4YK2Ye1BIfq+2MrwTxn
-         E2WTM2RrQLWr/MoTAVjVi5DfOmcZ9+og/vV/Q20iNuCG5BH0UbwxMB1eCgGyx053OsAq
-         YIuA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:cc:to
-         :subject:sender:dkim-signature;
-        bh=uaAZeC+ssRPjS6cs0/g2tqIxTLPg0wtYuLall7j2NcM=;
-        b=1GnHiVkpZO0/Gf2WqPsWZUfGfRHo8MDWa5eIKpzN8+VRSFHPQqNcQ7Ty4I/Lm9y152
-         hBhqsewFZXDLWIm5ZYa6JyGkMQgZszK6isy2BVamNV06ffiuCUPMOdIFdj+Rft+8rk+Q
-         SXN4IUkUIIXoG3J6QMC19gDIQtkl5lOMU1bg1JG0gU/JYg5BQzYhVjF45S345oZjFsBx
-         wgNz3KtBAbrPycoMEfLRh3HxXMVP8DPRRRnyyR6FLRQypOWQdjmEuYP0B1lBzED1Rp7p
-         43Uuks7qgbE93twyI1AAH5uYzxuvKFhRJ0iNdQ/nKDNcMcVtLqqIN9SkFLx+ZAjGkiIy
-         wjCw==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-qk1-x73e.google.com (mail-qk1-x73e.google.com [IPv6:2607:f8b0:4864:20::73e])
+	by mail.lfdr.de (Postfix) with ESMTPS id E03F029E6FF
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Oct 2020 10:12:48 +0100 (CET)
+Received: by mail-qk1-x73e.google.com with SMTP id w189sf1355462qkd.6
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Oct 2020 02:12:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=uaAZeC+ssRPjS6cs0/g2tqIxTLPg0wtYuLall7j2NcM=;
-        b=ia7Ot21jpyMj2mwts600sCVtHiMpr8IL8CzYKXbcENApCl6SsFnP8m2UF1XM7bdwH5
-         CztPHkeROvMUNbyuI3NM5yDgtwGU2n//VTqoZWMjSk99eO2Qxrhmho9lvf9enkOIFUmg
-         ghHz+BKZJsalJKvu4x8UY+S4ex6QH/o18Q2oy4TXCEl2GgMQfH/7+tBzyFRF4pZiV0sv
-         03s8c4C6p75Loqbpj6dM0XnmrTGSE3W4M2WSuGmz9gHhpqAChos/5Iw0phS8Pv7btVzS
-         +PE25vVYxbn+sAOndXQbcP1SVo7Asa5HzBndigZmyQNbMOC7c2kQAwKANcBpOWy1jQfL
-         fqBg==
+        bh=mEhyUZRTeqc69V/g+d49yqJOFhHnKBtmvBDRVm8lrYo=;
+        b=qRMLqVJwFKzKQ+q0QGkdW1NwK0xUGE1FXvqmWy1AhLPXCYEI2C8goZ5CRRacxXGSIx
+         KYbtWk0W+xh/PaAWycIJcdgJ05NGMjBHeOVVIPss3Ik4EAh5xPEpgX0p9Kx3FqhIDK8S
+         PyfXXWCPyTZvNxqH3ja/W9mz1aVHaY7c9vhT0Ot+pNeNDLn8gQxvDpXpXMAmOnJMp/PT
+         TKZxUd9TmcCwRmLos4F6RcWFvAykBiRxJqDjginQfzUc3yiD5tv6wngH0u7ZleCKQ9Ko
+         UaHjqqdIu6FkC5PXztHWPedL1S+5t434qmNmNz9/j1kI2MYwZ927zn46C5LxSM96H2et
+         GZRQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=mEhyUZRTeqc69V/g+d49yqJOFhHnKBtmvBDRVm8lrYo=;
+        b=eO+/K+XRq9FqHyQ4KNIhYKDiK/B3CPlZ+tCyi3yBFOZ5RzEx81dVm2eq4xTh/WP4tO
+         zdk142CWoj8iQhVNiIBzKWgrJw364YFyflWw7BuAgUJdN1BL1GZ8s5CcEhdbPKyA6RZk
+         I+ikuHoZizSSmyqiIFavSqL4J+iQQdXZvKu8a/2JSQdUspwbBS83aIr7ywHI9XVlE5KG
+         PHQ6R5g0Jr1P2Pym8mAFGVHUo7wzNiNlMgEcZLbMizGur9uH0cWRGiR/ep5HPc1U3bj9
+         QySa64q787h4jd9DptaZxTQMKabwQJ3bIpiIvtg7eqjrwBQYN/53pkqPRkeewfwaMHaM
+         SzHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=uaAZeC+ssRPjS6cs0/g2tqIxTLPg0wtYuLall7j2NcM=;
-        b=ljqTL0v636eNMNEB1riHXwe8ueixGvWzhyD0B1GOQlv0t/2djg3RONqyExwSozQEDH
-         I9t7jmuJ6/uyI7O+/h9SBHcktZv2CYMxdtBGYqTPq4diFKBkwYT59k6qQ92+dewrRbwH
-         iyeM2rcoofuSL+nFIy9ww6qOF1p926SigHbXl4isbXPPnTR/WUXG/f+bpKz9N0OXNZun
-         2kOSvjuZMw59JuL/cyOlon2VTvTpMVKuAN0V0l8UpMEsxopkQIbiuCDYnpICD5Fx4fQT
-         COU4wOE4Bp1gc3RPJreGWOiC6kjzzXUZ6h7a03qi1SheLzL00PplthRoN6y+0593xPJC
-         ErgQ==
+        bh=mEhyUZRTeqc69V/g+d49yqJOFhHnKBtmvBDRVm8lrYo=;
+        b=FEzLUtGhUhVlTMEnW2J5B+FQFwnCQYbUrJ0obRc8RaFcGJ/StP1xRWp4GproStPEG9
+         2oijngqUX9Mg0gxogqXKJFn0da/TIG6BGTuOuTevAG8Wl8v59aRTapZtiHbQrfsjmCep
+         Fc0zSADrI/t1H+t9FZ/GTPimRi/npaEO0kJPPBdrF8vQXlJVFX1CIKDHLJ8nBHkwLQBq
+         pcjvLBrN3qhBh5llwQj6fMa4OItansQPJUv11VpzHiQrQ5G0ArbRSB7zP7f7YQ0AMX0T
+         TJR9auRKlI+1435Bf4pKZzalbRIdYoxBHbHECiSCXAl4ZU9b8SG14nT6yH6yC7SVa+EL
+         kcEw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533I/zSVD5WxmJBYxrskH6v6zbqDazS8Bqt+o5emcfMbiH0XFGpg
-	4PCyuJJb0dqG3iDU7peVO+Y=
-X-Google-Smtp-Source: ABdhPJwAGqrMNQ93AcVUJKnlS5lX6EIbrlwECdDa/8PVWu5m6tyoFJGBwXZigyxt2P4SPEbCoeLxEQ==
-X-Received: by 2002:a2e:90a:: with SMTP id 10mr1442974ljj.278.1603961609613;
-        Thu, 29 Oct 2020 01:53:29 -0700 (PDT)
+X-Gm-Message-State: AOAM531YdNk8ttCY2b4oPH7CFey6Nawx/W7fWpOnEs0lfTn/aYxb89l+
+	hB+X08wKrwK8l3aBRHe2vOA=
+X-Google-Smtp-Source: ABdhPJwsIvH+N9VrgLWY7MNEZdoInb9BIVKDuSlx5WOd7wkCAs6v6sZnhGaSS9KJRKubOPiVvxLG7A==
+X-Received: by 2002:ae9:f305:: with SMTP id p5mr2563610qkg.481.1603962767444;
+        Thu, 29 Oct 2020 02:12:47 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a19:84c1:: with SMTP id g184ls1085877lfd.3.gmail; Thu, 29
- Oct 2020 01:53:28 -0700 (PDT)
-X-Received: by 2002:ac2:46cc:: with SMTP id p12mr1083545lfo.283.1603961608197;
-        Thu, 29 Oct 2020 01:53:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1603961608; cv=none;
-        d=google.com; s=arc-20160816;
-        b=DdJ486BAT94fvXkCH3daqHkyZa2EJiwe4Hyj5GeSR5+5Ac2OD6CvdE3q64AYeFp2o3
-         mLRrQWgx/Pi/tRx4G1wBZikzarUQnQ57OYAlHa+dY43NGL5fHsz7uFUYSWb0Gc1mBund
-         qPGtJ27p60cAKQNetKIHB5A6QBtsCQJH+fASEJQjZ7Md8dsPOda25Kpyck6DdPsqdDil
-         23l5yvRr2pm3x6JfzJLmziP5gj4xmeXE2njTNwn14iBurisOPVmkeQ2I1Kcg+IoSa7/4
-         BpQN44aXT+Bp5MKPPLymeZIxjHg6UlkW10GEcDgiFNq1kOFG46z3Cu1TeNSNcEEOQzH2
-         P7jA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=6tjCHcnBDE+K1XONGf08ZbON1tGa2zGyZlMOnnluoHU=;
-        b=JW3cBPZgTgDwf7FAX1G/MtIUHBi3OgxlZ9CPl/aVtVqNY2VfREgk6DenEJFXyR5D6P
-         0I25Xk7NyXudl17XVxmH8Q8ar1ftI1q6mmH5TpscJwD3gTQr/oGke1fLV4zcraBzXUCF
-         /ThMqhqrD1WdqT6AKwqoqwK55xOY+Sxhqt0QLKbpVb5MoXXavjedtEiNnl1gLuLSrUCg
-         DNB71AF7QmBmqksxGDvFoO4B2IY/zZOWYEgkO7rkTbMmMNaoX5+BHtnGf0/ATYVo2HwI
-         Jnswq1Bwv/gneCi9KFTWZkSQxw6coixJKdthfqGYIoxO7BMG4/F46V0bB5MsnuFJccAP
-         CzQA==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id x20si64776lfq.12.2020.10.29.01.53.27
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 29 Oct 2020 01:53:28 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 09T8rPaH023040
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 29 Oct 2020 09:53:25 +0100
-Received: from [167.87.42.1] ([167.87.42.1])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 09T8rNqG028342;
-	Thu, 29 Oct 2020 09:53:23 +0100
-Subject: Re: [PATCH v2 00/46] arm64: Rework SMMUv2 support
-To: Andrea Bastoni <andrea.bastoni@tum.de>, Peng Fan <peng.fan@nxp.com>,
-        "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>,
-        Alice Guo <alice.guo@nxp.com>
-Cc: Renato Mancuso <rmancuso@bu.edu>
-References: <cover.1602664149.git.jan.kiszka@siemens.com>
- <78334f5d-b665-8de6-31fc-10599877b3b1@siemens.com>
- <DB6PR0402MB2760F60895CFBCCAEA5F2F3A88160@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <bee3d688-1c2d-f4d8-f434-b9ff8d50ce10@siemens.com>
- <fd8fe9cc-9e69-4406-21e2-979b282b6d16@siemens.com>
- <8c0cec16-dc86-b316-ef84-af51a15c80aa@tum.de>
- <4b408440-354d-521e-0a88-e1541eaed1d7@siemens.com>
- <fa5b83f2-fa5c-e158-4b99-cc86db20ea43@tum.de>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <eaa35809-1823-9bac-a971-12b9e4a2ec54@siemens.com>
-Date: Thu, 29 Oct 2020 09:53:23 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+Received: by 2002:a05:620a:1248:: with SMTP id a8ls1094019qkl.11.gmail; Thu,
+ 29 Oct 2020 02:12:46 -0700 (PDT)
+X-Received: by 2002:a37:7e42:: with SMTP id z63mr2722095qkc.307.1603962766660;
+        Thu, 29 Oct 2020 02:12:46 -0700 (PDT)
+Date: Thu, 29 Oct 2020 02:12:45 -0700 (PDT)
+From: Peter pan <peter.panjf@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <d66e8b2f-e499-40d2-8257-4d93597bfff9n@googlegroups.com>
+In-Reply-To: <bf532fea-eca9-1c8b-a814-682e34962332@siemens.com>
+References: <58057754-ee40-4583-bd44-db19a6706069n@googlegroups.com>
+ <bf532fea-eca9-1c8b-a814-682e34962332@siemens.com>
+Subject: Re: Jailhouse hang on NXP ls1046a ARM64 platform
 MIME-Version: 1.0
-In-Reply-To: <fa5b83f2-fa5c-e158-4b99-cc86db20ea43@tum.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_182_1885416797.1603962765888"
+X-Original-Sender: peter.panjf@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -140,139 +78,309 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 29.10.20 09:39, Andrea Bastoni wrote:
-> On 29/10/2020 07:36, Jan Kiszka wrote:
->> On 28.10.20 22:29, Andrea Bastoni wrote:
->>> Hi,
->>>
->>> On 28/10/2020 21:14, Jan Kiszka wrote:
->>>> On 27.10.20 10:22, Jan Kiszka wrote:
->>>>> On 27.10.20 02:25, Peng Fan wrote:
->>>>>> Jan,
->>>>>>
->>>>>>> Subject: Re: [PATCH v2 00/46] arm64: Rework SMMUv2 support
->>>>>>>
->>>>>>> On 14.10.20 10:28, Jan Kiszka wrote:
->>>>>>>> Changes in v2:
->>>>>>>>  - map 52-bit parange to 48
->>>>>>>>
->>>>>>>> That wasn't the plan when I started, but the more I dug into the
->>>>>>>> details and started to understand the hardware, the more issues I
->>>>>>>> found and the more dead code fragments from the Linux usage became
->>>>>>> visible.
->>>>>>>>
->>>>>>>> Highlights of the outcome:
->>>>>>>>  - Fix stall of SMMU due to unhandled stalled contexts (took me a while
->>>>>>>>    to understand that...)
->>>>>>>>  - Fix programming of CBn_TCR and TTBR
->>>>>>>>  - Fix TLB flush on cell exit
->>>>>>>>  - Fix bogus handling of Extended StreamID support
->>>>>>>>  - Do not pass-through unknown streams
->>>>>>>>  - Disable SMMU on shutdown
->>>>>>>>  - Reassign StreamIDs to the root cell
->>>>>>>>  - 225 insertions(+), 666 deletions(-)
->>>>>>>>
->>>>>>>> The code works as expected on the Ultra96-v2 here, but due to all the
->>>>>>>> time that went into the rework, I had no chance to bring up my MX8QM
->>>>>>>> so far. I'm fairly optimistic that things are not broken there as
->>>>>>>> well, but if they are, bisecting should be rather simple with this
->>>>>>>> series. So please test and review.
->>>>>>>>
->>>>>>>
->>>>>>> Alice, Peng, already had a chance to review or test (ie. next)?
->>>>>>
->>>>>> I gave a test, sometimes I met SDHC ADMA error when
->>>>>> `jailhouse enable imx8qm.cell`, sometimes it work well.
->>>>>>
->>>>>> I suspect when during jailhouse enable phase, there might be
->>>>>> ongoing sdhc transactions not finished, not sure.
->>>>>>
->>>>>> I have not find time to look into details.
->>>>>>
->>>>>> Anyway, you could check in to master I think, we could address
->>>>>> the issue later when I have time.
->>>>>>
->>>>>
->>>>> Hmm, I would still like to understand this first... Do you have the
->>>>> chance to bisect this effect to a commit? Otherwise, I guess I finally
->>>>> need to get my board running.
->>>>>
->>>>
->>>> It's running now (quite some effort due to the incomplete upstream state
->>>> - e.g. upstream u-boot runs but cannot boot all downstream kernels...),
->>>> but I wasn't able to reproduce startup issues. Shutting down Jailhouse
->>>> often hangs, though, at least restarting does all the time. And that
->>>> even with next. Seems we still do not properly turn off/on something here.
->>>>
->>>> Interestingly, this issue was not present on the zynqmp.
->>>
->>> On a different version of the SMMUv2 developed @ Boston University (Renato in
->>> CC), re-using the same root page table as the cell created problems due to
->>> different attributes (uncached) needed by some devices.
->>
->> Why are so many folks working downstream on such essential things? Not
->> helpful, for everyone, even if the goal should be "only" experimental
->> results.
->>
->>>
->>>> diff --git a/hypervisor/arch/arm64/smmu.c b/hypervisor/arch/arm64/smmu.c
->>>> index 41c0ffb4..60743bc0 100644
->>>> --- a/hypervisor/arch/arm64/smmu.c
->>>> +++ b/hypervisor/arch/arm64/smmu.c
->>>> @@ -220,6 +220,7 @@ static void arm_smmu_setup_context_bank(struct arm_smmu_device *smmu,
->>>>         mmio_write32(cb_base + ARM_SMMU_CB_TCR, VTCR_CELL & ~TCR_RES0);
->>>>  
->>>>         /* TTBR0 */
->>>> +       /* Here */
->>>>         mmio_write64(cb_base + ARM_SMMU_CB_TTBR0,
->>>>                      paging_hvirt2phys(cell->arch.mm.root_table) & TTBR_MASK);
->>>
->>> The issue in the BU version was solved by allocating a new page for this.
->>>
->>
->> Only the root level? How were those entries different?
-> 
-> Only the root level. IIRC, NC by default, instead of Normal.
-> 
->>> I wanted to check this effect for the version on next, but didn't find the time
->>> to do it so far :/
->>>
->>
->> How was the issue triggered?
-> 
-> From the discussions I had, on the ZCU102, devices were randomly triggering
-> erros/ stopped working.
-> 
+------=_Part_182_1885416797.1603962765888
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_183_2115161165.1603962765888"
 
-I just ran a enable/disable loop aside flood-ping + dd on the Ultra96-v2
-(I would expect it to be identical to the ZCU102 in this regard), and
-that did not trigger any (visible) issues yet. I'll retry with lowering
-the enable frequency.
+------=_Part_183_2115161165.1603962765888
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Jan
+Thanks Jan for your help. Now I have fixe the issue, the issue is from I=20
+mapped the whole DCSR space together, after removing it and adding some=20
+memeroy region of IPs,  now I run jailhouse enable without any errors.=20
 
-> 
->>
->>
->> I made some progress meanwhile: Linux was also using the SMMU. I'll send
->> a patch shortly that detects that, like we already in VT-d at least.
->> Interestingly, this should have been broken on the Ultra96 as well, just
->> didn't notice.
->>
->> With that, I'm running enable/disable loops now, but I lose my Ethernet
->> link after a while. Returns after ifdown/up, and the system looks fine
->> otherwise. Seems as if we drop transactions in the transition phase.
->> However, a dd running in parallel was not triggering any issues.
->>
->> Jan
->>
-> 
+One more questions, do we need to map memory regions of all the IPs in=20
+SYSCONFIG?  or only IPs to be used in cells? thanks again.
 
--- 
-Siemens AG, T RDA IOT
-Corporate Competence Center Embedded Linux
+Best Regards,
+Peter P.
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/eaa35809-1823-9bac-a971-12b9e4a2ec54%40siemens.com.
+=E5=9C=A82020=E5=B9=B410=E6=9C=8828=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=89 UTC=
++8 =E4=B8=8B=E5=8D=886:43:10<j.kiszka...@gmail.com> =E5=86=99=E9=81=93=EF=
+=BC=9A
+
+> On 28.10.20 11:06, Peter pan wrote:
+> > Hello Jailhouse Community,
+> >=20
+> > I am trying to enable Jaihouse on NXP ls1046a platform which has four
+> > ARM A72 CPU Cores, but now the system hangs after I execute "jailhouse
+> > enable ls1046a.cell".
+> >=20
+> > root@localhost:~/jailhouse/jailhouse# jailhouse enable ls1046a.cell
+> >=20
+> > =20
+> >=20
+> > Initializing Jailhouse hypervisor v0.12 (73-gacdc9fcc-dirty) on CPU 2
+> >=20
+> > Code location: 0x0000ffffc0200800
+> >=20
+> > Page pool usage after early setup: mem 39/992, remap 0/131072
+> >=20
+> > Initializing processors:
+> >=20
+> >  CPU 2... OK
+> >=20
+> >  CPU 0... OK
+> >=20
+> >  CPU 1... OK
+> >=20
+> >  CPU 3... OK
+> >=20
+> > Initializing unit: irqchip
+> >=20
+> > Initializing unit: ARM SMMU v3
+> >=20
+> > Initializing unit: ARM SMMU
+> >=20
+> > No SMMU
+> >=20
+> > Initializing unit: PVU IOMMU
+> >=20
+> > Initializing unit: PCI
+> >=20
+> > Adding virtual PCI device 00:00.0 to cell "ls1046"
+> >=20
+> > Adding virtual PCI device 00:01.0 to cell "ls1046"
+> >=20
+> > Page pool usage after late setup: mem 62/992, remap 5/131072
+> >=20
+> > Activating hypervisor
+> >=20
+> > WARN: unknown SGI received 5
+> >=20
+> > WARN: unknown SGI received 5
+> >=20
+> > //Linux hang here.
+> >=20
+> > After did some debuging,  I found the issue is with the followng callin=
+g.
+> >=20
+> > on_each_cpu(enter_hypervisor, header, 0);
+> >=20
+> > The following is definition of on_each_cpu.
+> >=20
+> > 611 void on_each_cpu(void (*func) (void *info), void *info, int wait)
+> >=20
+> > 612 {
+> >=20
+> > 613         unsigned long flags;
+> >=20
+> > 614
+> >=20
+> > 615         preempt_disable();
+> >=20
+> > 616         smp_call_function(func, info, wait);
+> >=20
+> > 617         local_irq_save(flags);
+> >=20
+> > 618         func(info);
+> >=20
+> > //Can panic here if call panic("return from hypervisor\n");
+> >=20
+> > 619         local_irq_restore(flags); =20
+> >=20
+> > //System hang and can't panic here if call panic("return from
+> > hypervisor\n"); =20
+> >=20
+> > 620         preempt_enable();
+> >=20
+> > 621 }
+> >=20
+> > 622 EXPORT_SYMBOL(on_each_cpu);
+> >=20
+> > I found the system hangs just after execute  local_irq_restore(flags),
+> > because the system can panic if I call panic() just before
+> > local_irq_restore(), but can't panic if add panic() just after
+> > local_irq_restore().
+> >=20
+> > I attached ls1046a.c.=20
+> >=20
+> > I am a newbies of Jailhouse,  how to debug such issue? any comments or
+> > suggestion is Welcome, thanks.
+> >=20
+>
+> Henning (in CC) did a lot of work on this platform, and IIRC one
+> particular tricky issue was when the GIC was accidentally passed through
+> rather than intercept (not mapped). That's probably worth to check again
+> in your config.
+>
+> Reminds me that we need to enhance "jailhouse config check" in this
+> regard...
+>
+> Jan
+>
+> --=20
+> Siemens AG, T RDA IOT
+> Corporate Competence Center Embedded Linux
+>
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/d66e8b2f-e499-40d2-8257-4d93597bfff9n%40googlegroups.com.
+
+------=_Part_183_2115161165.1603962765888
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Thanks Jan for your help. Now I have fixe the issue, the issue is from I ma=
+pped the whole DCSR space together, after removing it and adding some memer=
+oy region of IPs,&nbsp; now I run jailhouse enable without any errors.&nbsp=
+;<div><br></div><div>One more questions, do we need to map memory regions o=
+f all the IPs in SYSCONFIG?&nbsp; or only IPs to be used in cells? thanks a=
+gain.</div><div><br></div><div>Best Regards,</div><div>Peter P.<br><br></di=
+v><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">=E5=9C=
+=A82020=E5=B9=B410=E6=9C=8828=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=89 UTC+8 =E4=
+=B8=8B=E5=8D=886:43:10&lt;j.kiszka...@gmail.com> =E5=86=99=E9=81=93=EF=BC=
+=9A<br/></div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8e=
+x; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">On 28.10.=
+20 11:06, Peter pan wrote:
+<br>&gt; Hello Jailhouse Community,
+<br>&gt;=20
+<br>&gt; I am trying to enable Jaihouse on NXP ls1046a platform which has f=
+our
+<br>&gt; ARM A72 CPU Cores, but now the system hangs after I execute &quot;=
+jailhouse
+<br>&gt; enable ls1046a.cell&quot;.
+<br>&gt;=20
+<br>&gt; root@localhost:~/jailhouse/jailhouse# jailhouse enable ls1046a.cel=
+l
+<br>&gt;=20
+<br>&gt; =C2=A0
+<br>&gt;=20
+<br>&gt; Initializing Jailhouse hypervisor v0.12 (73-gacdc9fcc-dirty) on CP=
+U 2
+<br>&gt;=20
+<br>&gt; Code location: 0x0000ffffc0200800
+<br>&gt;=20
+<br>&gt; Page pool usage after early setup: mem 39/992, remap 0/131072
+<br>&gt;=20
+<br>&gt; Initializing processors:
+<br>&gt;=20
+<br>&gt; =C2=A0CPU 2... OK
+<br>&gt;=20
+<br>&gt; =C2=A0CPU 0... OK
+<br>&gt;=20
+<br>&gt; =C2=A0CPU 1... OK
+<br>&gt;=20
+<br>&gt; =C2=A0CPU 3... OK
+<br>&gt;=20
+<br>&gt; Initializing unit: irqchip
+<br>&gt;=20
+<br>&gt; Initializing unit: ARM SMMU v3
+<br>&gt;=20
+<br>&gt; Initializing unit: ARM SMMU
+<br>&gt;=20
+<br>&gt; No SMMU
+<br>&gt;=20
+<br>&gt; Initializing unit: PVU IOMMU
+<br>&gt;=20
+<br>&gt; Initializing unit: PCI
+<br>&gt;=20
+<br>&gt; Adding virtual PCI device 00:00.0 to cell &quot;ls1046&quot;
+<br>&gt;=20
+<br>&gt; Adding virtual PCI device 00:01.0 to cell &quot;ls1046&quot;
+<br>&gt;=20
+<br>&gt; Page pool usage after late setup: mem 62/992, remap 5/131072
+<br>&gt;=20
+<br>&gt; Activating hypervisor
+<br>&gt;=20
+<br>&gt; WARN: unknown SGI received 5
+<br>&gt;=20
+<br>&gt; WARN: unknown SGI received 5
+<br>&gt;=20
+<br>&gt; //Linux hang here.
+<br>&gt;=20
+<br>&gt; After did some debuging,=C2=A0 I found the issue is with the follo=
+wng calling.
+<br>&gt;=20
+<br>&gt; on_each_cpu(enter_hypervisor, header, 0);
+<br>&gt;=20
+<br>&gt; The following is definition of on_each_cpu.
+<br>&gt;=20
+<br>&gt; 611 void on_each_cpu(void (*func) (void *info), void *info, int wa=
+it)
+<br>&gt;=20
+<br>&gt; 612 {
+<br>&gt;=20
+<br>&gt; 613=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned long flags;
+<br>&gt;=20
+<br>&gt; 614
+<br>&gt;=20
+<br>&gt; 615=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0preempt_disable();
+<br>&gt;=20
+<br>&gt; 616=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0smp_call_function(func, info,=
+ wait);
+<br>&gt;=20
+<br>&gt; 617=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0local_irq_save(flags);
+<br>&gt;=20
+<br>&gt; 618=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0func(info);
+<br>&gt;=20
+<br>&gt; //Can panic here if call panic(&quot;return from hypervisor\n&quot=
+;);
+<br>&gt;=20
+<br>&gt; 619=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0local_irq_restore(flags);=C2=
+=A0=C2=A0
+<br>&gt;=20
+<br>&gt; //System hang and can&#39;t panic here if call panic(&quot;return =
+from
+<br>&gt; hypervisor\n&quot;);=C2=A0=C2=A0
+<br>&gt;=20
+<br>&gt; 620=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0preempt_enable();
+<br>&gt;=20
+<br>&gt; 621 }
+<br>&gt;=20
+<br>&gt; 622 EXPORT_SYMBOL(on_each_cpu);
+<br>&gt;=20
+<br>&gt; I found the system hangs just after execute=C2=A0 local_irq_restor=
+e(flags),
+<br>&gt; because the system can panic if I call panic() just before
+<br>&gt; local_irq_restore(), but can&#39;t panic if add panic() just after
+<br>&gt; local_irq_restore().
+<br>&gt;=20
+<br>&gt; I attached ls1046a.c.=C2=A0
+<br>&gt;=20
+<br>&gt; I am a=C2=A0newbies of Jailhouse,=C2=A0 how to debug such issue? a=
+ny comments or
+<br>&gt; suggestion is Welcome, thanks.
+<br>&gt;=20
+<br>
+<br>Henning (in CC) did a lot of work on this platform, and IIRC one
+<br>particular tricky issue was when the GIC was accidentally passed throug=
+h
+<br>rather than intercept (not mapped). That&#39;s probably worth to check =
+again
+<br>in your config.
+<br>
+<br>Reminds me that we need to enhance &quot;jailhouse config check&quot; i=
+n this
+<br>regard...
+<br>
+<br>Jan
+<br>
+<br>--=20
+<br>Siemens AG, T RDA IOT
+<br>Corporate Competence Center Embedded Linux
+<br></blockquote></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/d66e8b2f-e499-40d2-8257-4d93597bfff9n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/d66e8b2f-e499-40d2-8257-4d93597bfff9n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_183_2115161165.1603962765888--
+
+------=_Part_182_1885416797.1603962765888--
