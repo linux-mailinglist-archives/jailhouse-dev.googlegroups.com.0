@@ -1,121 +1,207 @@
-Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBVVP5P6AKGQE5V2C4PY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCW2V5WNZMERBRN65P6AKGQEIUD46LA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ej1-x63d.google.com (mail-ej1-x63d.google.com [IPv6:2a00:1450:4864:20::63d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F64C29EEDF
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Oct 2020 15:55:19 +0100 (CET)
-Received: by mail-ej1-x63d.google.com with SMTP id ha4sf1257012ejb.9
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Oct 2020 07:55:19 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1603983319; cv=pass;
+Received: from mail-lf1-x138.google.com (mail-lf1-x138.google.com [IPv6:2a00:1450:4864:20::138])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7905429EFBC
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Oct 2020 16:27:02 +0100 (CET)
+Received: by mail-lf1-x138.google.com with SMTP id 11sf512619lfg.15
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Oct 2020 08:27:02 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1603985222; cv=pass;
         d=google.com; s=arc-20160816;
-        b=XdDklK9vOthvsHvs95KTuJ8WWVnkiv05au0ltQLE/og95a5k8a7Sc3ByP8nawxRzuC
-         AVY2qLGeROed+AdAwWsZPPhF/tX3mFEkrQSXveITJwrq4viYSiHWmEAWaAZ0NIvJuX7l
-         qBHM8zYAwpnuOyCP3Okim+0+/h1MZbpl81BVBDNNFqqf5NFRoLVZ6n5Y598dOQSQgaei
-         GRIKym1fdZBciYrlnS++G0C2Udf+W2pVlka3AsKl14+X4617TlFIYQb7TehJqxMgnlkh
-         ICQH094eNtl4yvZ+R9Fnuu9NQ8nV3miXTKdIbVKctxZ9PHs2hcMf7z+cw4x3tS7IoZBb
-         ct7A==
+        b=mDFw7v3KImaZJwzXyQmLTJHzW7ZaIJx/zq5n6LqdNjwGBa/8qskkZ2j/V3Y3d1eQgu
+         a2uh583fclb77j1t4wI6b6RduHK5Eww2quAh/ZnV7m3BD8Z1FoFIjFU83hTIskRs60ci
+         vESgvDHB9HiNlu3yw/KLKRW2QWxX2QsXahFCkOHsfq66PLhnGybQCjsO1C8XBF6NP7jQ
+         Xcdg2yom1RZFssAckawQ5U2rYGQZZMipMP5fPTczFXIfAt1Oi1RXTHgAHVxEEsnKcqZQ
+         3M6xBlGHxGdl6lyqnlkpmML4mkXUXdMWQtaAVC53dyNRjQYYqNn2/4Jqsmv1PT/wEKJr
+         3C2w==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=BUXz6WFDi6ISbWV6pgkjlucRt/4X7yK/3xf1j+x3ubQ=;
-        b=fjRLzdeBX9NIPGYs5L5JbrpOaRRmsbkmE3VBgEh/LTuB4dnaCp+u0bayANXglyPMAj
-         IS8kysUIQcIDXl/OFRaeEsvw38iFV1KydGaLO9YkMmovUA+6ycsk3FdFNqR3MYSGy61q
-         128UzY61a6HyI6mNb50D+D+e0kUnma7imEsILBB6o0dsQQnZzA7HQsjIFycp2H63ABxW
-         ZbDPg671FgTSxQ8apUT9IPmg8My/YIBAEBf91pSRXqucNquzuAlGt4xb60kJxkZAEtH0
-         7Mb+69suet1KLJLEUSBqml6kFiIh2759DS239O6moPTX+2E+GpXRBEH68MCgfOnxtC1F
-         VlLA==
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:autocrypt:from:references
+         :cc:to:subject:sender:dkim-signature;
+        bh=2m3P+MwiltO5mW9jcyyB4KedgNJO7617Z0ZNQClhmts=;
+        b=WjUiM0UOepbG14eMQy7tkJBmmT3wVHpMVvDxuZTkPbUjzabtfHii5SOyfjI27yd138
+         Vyg4X1meYPwL+7en3TNMT6iNYTRq7labDe2aC7xaUbP5vqbssAC8KgZ5Y51dDM9THJpf
+         0oFb/VDKE6E6RCOituV294l8i4KZeCrqo+dscufKB9jtjrezkbrZFDJI9team4xpsCZQ
+         WhmSJjDlrOZMZrD8IpXzLcER7iwHYB64aKgYZQBTM2iKtsVAUQ6dlMOQY0tqft+aYJLM
+         mgBGASwemRUfJrRpqnSkndeZ52AlG9SZOsDJd18NEYHjRIecB2EAxaHozyvFNPUlEuVV
+         Nf6Q==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+       dkim=pass header.i=@tum.de header.s=postout header.b=M4BJUz2m;
+       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.137 as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:subject:to:cc:references:from:autocrypt:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=BUXz6WFDi6ISbWV6pgkjlucRt/4X7yK/3xf1j+x3ubQ=;
-        b=HHvnwISbmos+ZSQ3hRLclKR0x12l+pwfezad5cUtxRfSbCeiKPzRbRvuupqKty+ymi
-         oLo9wvKmVCLeCu4NS+T1UsxMFstXzvTG3bApnEC6tbMoeIzjFwARJkJ97f5IFv7a/yFv
-         LBAvmW6Y69SdxArlhGdNFPqZhMrWvaz/4FjJxv07M0ZzFaeCJd35IoryD6M7oE4pgQZu
-         HzHLfcWIy6JMypJhT1SCt56oMazc/jRaH97uI8c+kEEZvUC+A9T/r4M8HJdRYsqPUDjY
-         YbMLWa0Cb5y82O8/9edSem5Qmel542+zUH03549k/SdTIuiGCzUONv9EZoa7+6zxO60v
-         +wFQ==
+        bh=2m3P+MwiltO5mW9jcyyB4KedgNJO7617Z0ZNQClhmts=;
+        b=EtM5H6CbCG399MAYzkBTP9yK6/gPKKSfQMQ1e/PofcCxZCzj2YKUY7OYaCAHXOKA0M
+         87BG7dMLR60OhTxpa9CfvvflEBWHmg59eSAq0AhgwRQ0811v6c/KRePg4HSvqVKv1g3s
+         WJOJPZAoF2VuurV75RDOKVrTMejJ8JAkdSn45TLH8JvwNcPj0vxYnOWYknPl2fponJQx
+         JZCRNpXOh2oUetG01yPMts8sshRzCcGVNledpfMshgDiI/zod243+g7PECVR22TSjD7X
+         DX+eQz7Lu5TpgNTQ/dYyxPNNOtzi8JJBSSEV/vAPHQftO9X0lTn+pUVvc1FF5zzlk5lU
+         pD5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
-         :in-reply-to:references:mime-version:x-original-sender
+        h=sender:x-gm-message-state:subject:to:cc:references:from:autocrypt
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=BUXz6WFDi6ISbWV6pgkjlucRt/4X7yK/3xf1j+x3ubQ=;
-        b=bd+MO6CIjHOOPKoklv7/WfhTB5HTXtwW6QfcPmtpVOatwjF3aZLcKErcmeylHSL/T+
-         LDkeW5qbU3EdJ1NxDKwjTSkJoKj5U77jbO1ZiCftJR4ig4F1CA3/3jKgrN1Xroh5CbqV
-         nIpJPy6IaLORMFBBb9cn1N9HhX2bEAEDIMWu1ukxKe/1qR3rO5SGhRVSBdpiUUcBZRh1
-         Fd/CHSkXxop9pYKoGtKQDH2HCc/k5B3qw86KzYihLvFvXXY674xxCucpXnGXoHZJvA6w
-         7Q6802g7uJnOlhpxKBnvetKaADj53YVoidvRDyZmNaAP4XhX4u/EughP4P6kL8CoSiVC
-         Rp3A==
+        bh=2m3P+MwiltO5mW9jcyyB4KedgNJO7617Z0ZNQClhmts=;
+        b=Apf2cCCUsuXcN2shttUC7vJEGmquQIqKAZJcdE3/on+BkdQ20jG/KJQXqUkgd118Ra
+         4CFmQCEwvgWZGPrR5GYYAO5t60HvFQ0TeziOn9r0w0LlBgMNzRy4fZ5AUMlEoIdc2yEr
+         FA8/8cbhH31Kr6mijGokr4DqyThqddTSwpD5QFugvevkhe+CMB7M1PDAQ4+600nPkD/h
+         f2gS3MbP0vZ4knl8bnNCpP23H2+vVxbwMerxjdWRKEdGC+np0Dmra8eaCa0dAQI2KTBo
+         TgzFv0LFg7eVJq1gbZDrcFe1YyFtq/+NgfMA0N5HyFZ/Dn3hyqcqnV1z0CAFgFc3+msb
+         AOBw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530uqsl7ys94Yfr+JkK4BlAwdOSyZoeT3giMWaBvcny1EtHnc8yP
-	P2jnfcEivwQ+klCabk/mhyw=
-X-Google-Smtp-Source: ABdhPJwfOLapw81ZFqvhVHAKCbXW9MJVknIUXdkzhL73LKRFSbFp1G443jmU2IsLVi3QxGkkAlpsPA==
-X-Received: by 2002:aa7:c14a:: with SMTP id r10mr4450550edp.345.1603983319039;
-        Thu, 29 Oct 2020 07:55:19 -0700 (PDT)
+X-Gm-Message-State: AOAM530x4JimTfHeF377OHfaxWgj9WNIuryTEd1KUUei32oLLYcfTw9i
+	I3XxqMxHxTvBuqsUSdOFnOM=
+X-Google-Smtp-Source: ABdhPJxqq+qVHuHUacLO+I2PT+j7u2Psa1lUJXTRiteGFucK3x2Bwq5q320q0dS4MySHDVfou4qAoA==
+X-Received: by 2002:a2e:9657:: with SMTP id z23mr2119307ljh.8.1603985222015;
+        Thu, 29 Oct 2020 08:27:02 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:848:: with SMTP id f8ls1688851ejd.4.gmail; Thu, 29
- Oct 2020 07:55:18 -0700 (PDT)
-X-Received: by 2002:a17:906:19d1:: with SMTP id h17mr4746581ejd.184.1603983317968;
-        Thu, 29 Oct 2020 07:55:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1603983317; cv=none;
+Received: by 2002:a2e:998f:: with SMTP id w15ls200626lji.4.gmail; Thu, 29 Oct
+ 2020 08:27:00 -0700 (PDT)
+X-Received: by 2002:a2e:9ed5:: with SMTP id h21mr1929211ljk.178.1603985220766;
+        Thu, 29 Oct 2020 08:27:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1603985220; cv=none;
         d=google.com; s=arc-20160816;
-        b=Pm1tyJ92k3f9gUvz8dGnLqa5NaCmyo33RRIC9ecoZH0COwat4zBy3TV+CEi8aICwaa
-         pu/cor3JrJJxKzzs7Tq2+/TNuTW/3IKprD1UV7t3H+1q55j5ZjeCAFUPga0l1F5bXf9D
-         c1Yfh8WHFa0btv7zVKiy6qWdWGcaOkZWdnpnonVghTaXdHMsiqEmF8V1mjFLLmVpqzdb
-         PIAKCekdQojlyYlpK688/Y/s1y5PFD0AWe3HGtqC9gj8Ouk/V4cxz2eAMn29lQwKhA7H
-         10Rfn5M9GxCvqiws8Dc0nGgHiJuQoHmSZwdccrpcXJHK/tbGMPHnH/0knnkYHufXPeiO
-         8TdA==
+        b=ejk//C9kNV7gfuVLMywfGObwrYal5h7PyJb5/Pe9yYUpFLhhU+7JsWDjwVh46cyp+o
+         LVnvpJU+IkJ3jkCbPmCM7Aa69/l4Eva2Kv0I6xV1SR/NmpBM5ZVRSvr5+uedBIvBHYxm
+         3yBqZWq8h/jCAg/jW/c8KS4knKuU5VMhb+PFTJ4OWZ0eCF2tAaobkzxG1F0g2VvOTyo1
+         cs6ztH3PtBVIR6jPZGs+kULavT5JAXz2GYE2eUheXJRCOdB/SpOH8xjqeY2upDbyAAAJ
+         SJPcOpkUeLbkMi1jQjBFj7Fcgd+9gB9cibBM61jVEMEVMbUh72ldh8HRk5BX7Zj3BjUK
+         madg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from;
-        bh=o2Eo7SlC43n6rDZKDfvHzW1GM1K1GW7Qw7KGJpJOyJQ=;
-        b=L3cTuo1Jg5zZ77pfGb0fLFdR7xcVsgtL1bie9Jo6JI4IIU+cdN3nJtwzLpIUdUJKkV
-         WGsgKeTq+JrBwCrBi3reTNJ+beR+F+beog1NfGvX9rMGra8aaNn1enPlCQ6Nyc+SAvvn
-         I+qO2bqPWKmxcchegwiY3DwwZMMFOHxMAZOEc7SJN+fr6EP6hR6r0LPREHAHFDfh/PpH
-         xArLSrnfUlWgvg+krVfZ+gKfFyKXd39XWFovJIYWQMoc6cJqmFGXnEZ1kBaa5yDG/AP5
-         8unyWYtGzUyZ4cA+PiexEKelCteul7mPZ1OhqiAitSyYfw2w7ExmItz2uhTN2dRNbwqP
-         EGMw==
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:autocrypt:from:references:cc:to:subject
+         :dkim-signature;
+        bh=3nuvzWN00RYmJVA8AsDkuUSrcEIOJwpL7u/rewjf8ss=;
+        b=0i3Isthb8H3Qls6d0fJxSpvz8sWx9P24/DQ5uQyox+0GPt6QTeFiPiI1+poF2w0wVA
+         ds20yMG03w4TZMb2DQDSQ1A4iJCp93PT1yWUVli4sH+2XBUR70Xg3yeTSU0tpUdglE6P
+         pgYMKkS+GIXYlc/QA/AhZzeX1lv2MJmEzzkfiiCenrC56DMNgsId7bJD6TnpRjXNTjT7
+         DvAC+pQc0OOGhfUPOYR/Rc8XyQopdGJajO00LvOULaa2gXR4DNkqR0KUR7RwkQs104s9
+         XOLsl2oBz5aBdoIVYTa1KhS7Ze9PACEgJf+YDczIni8pC6queqzDDsnh9rNllwHOc0mS
+         GkGw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mtaout.hs-regensburg.de (mtaout.hs-regensburg.de. [2001:638:a01:1096::10])
-        by gmr-mx.google.com with ESMTPS id u13si42443edb.0.2020.10.29.07.55.17
+       dkim=pass header.i=@tum.de header.s=postout header.b=M4BJUz2m;
+       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.137 as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
+Received: from postout1.mail.lrz.de (postout1.mail.lrz.de. [129.187.255.137])
+        by gmr-mx.google.com with ESMTPS id t13si109825lfr.13.2020.10.29.08.27.00
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 29 Oct 2020 07:55:17 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) client-ip=2001:638:a01:1096::10;
-Received: from sd6.hs-regensburg.de (unknown [IPv6:2001:638:a01:8061:5c51:6883:5436:5db])
-	by mtaout.hs-regensburg.de (Postfix) with ESMTP id 4CMT512q2xzyBM;
-	Thu, 29 Oct 2020 15:55:17 +0100 (CET)
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-To: jailhouse-dev@googlegroups.com,
-	Jan Kiszka <jan.kiszka@siemens.com>
-Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Subject: [PATCH v3 2/2] inmates: x86: add cache access time test
-Date: Thu, 29 Oct 2020 15:55:15 +0100
-Message-Id: <20201029145515.386953-2-ralf.ramsauer@oth-regensburg.de>
-X-Mailer: git-send-email 2.29.1
-In-Reply-To: <20201029145515.386953-1-ralf.ramsauer@oth-regensburg.de>
-References: <20201029145515.386953-1-ralf.ramsauer@oth-regensburg.de>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+        Thu, 29 Oct 2020 08:27:00 -0700 (PDT)
+Received-SPF: pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.137 as permitted sender) client-ip=129.187.255.137;
+Received: from lxmhs51.srv.lrz.de (localhost [127.0.0.1])
+	by postout1.mail.lrz.de (Postfix) with ESMTP id 4CMTnc0fKxzyYv;
+	Thu, 29 Oct 2020 16:27:00 +0100 (CET)
+X-Virus-Scanned: by amavisd-new at lrz.de in lxmhs51.srv.lrz.de
+X-Spam-Flag: NO
+X-Spam-Score: -3.134
+X-Spam-Level: 
+X-Spam-Status: No, score=-3.134 tagged_above=-999 required=5
+	tests=[ALL_TRUSTED=-1, BAYES_00=-1.9, DMARC_ADKIM_RELAXED=0.001,
+	DMARC_ASPF_RELAXED=0.001, DMARC_POLICY_NONE=0.001,
+	LRZ_CT_PLAIN_UTF8=0.001, LRZ_DMARC_FAIL=0.001,
+	LRZ_DMARC_FAIL_NONE=0.001, LRZ_DMARC_POLICY=0.001,
+	LRZ_DMARC_TUM_FAIL=0.001, LRZ_DMARC_TUM_REJECT=3.5,
+	LRZ_DMARC_TUM_REJECT_PO=-3.5, LRZ_ENVFROM_FROM_ALIGNED_STRICT=0.001,
+	LRZ_ENVFROM_FROM_MATCH=0.001, LRZ_ENVFROM_TUM_S=0.001,
+	LRZ_FROM_HAS_A=0.001, LRZ_FROM_HAS_AAAA=0.001,
+	LRZ_FROM_HAS_MDOM=0.001, LRZ_FROM_HAS_MX=0.001,
+	LRZ_FROM_HOSTED_DOMAIN=0.001, LRZ_FROM_NAME_IN_ADDR=0.001,
+	LRZ_FROM_PHRASE=0.001, LRZ_FROM_PRE_SUR=0.001,
+	LRZ_FROM_PRE_SUR_PHRASE=0.001, LRZ_FROM_TUM_S=0.001,
+	LRZ_HAS_CLANG=0.001, LRZ_HAS_IN_REPLY_TO=0.001, LRZ_HAS_SPF=0.001,
+	LRZ_MSGID_HL8_3HL4_HL12=0.001, LRZ_MSGID_MOZ=0.001, LRZ_UA_MOZ=0.001,
+	NICE_REPLY_A=-0.261] autolearn=no autolearn_force=no
+Received: from postout1.mail.lrz.de ([127.0.0.1])
+	by lxmhs51.srv.lrz.de (lxmhs51.srv.lrz.de [127.0.0.1]) (amavisd-new, port 20024)
+	with LMTP id kNeTb2VHUtFF; Thu, 29 Oct 2020 16:26:59 +0100 (CET)
+Received: from [10.162.12.242] (unknown [10.162.12.242])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(Client did not present a certificate)
+	by postout1.mail.lrz.de (Postfix) with ESMTPSA id 4CMTnb3R3SzyZ8;
+	Thu, 29 Oct 2020 16:26:59 +0100 (CET)
+Subject: Re: [PATCH v2 00/46] arm64: Rework SMMUv2 support
+To: Jan Kiszka <jan.kiszka@siemens.com>, Peng Fan <peng.fan@nxp.com>,
+ "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>,
+ Alice Guo <alice.guo@nxp.com>
+Cc: Renato Mancuso <rmancuso@bu.edu>
+References: <cover.1602664149.git.jan.kiszka@siemens.com>
+ <78334f5d-b665-8de6-31fc-10599877b3b1@siemens.com>
+ <DB6PR0402MB2760F60895CFBCCAEA5F2F3A88160@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+ <bee3d688-1c2d-f4d8-f434-b9ff8d50ce10@siemens.com>
+ <fd8fe9cc-9e69-4406-21e2-979b282b6d16@siemens.com>
+ <8c0cec16-dc86-b316-ef84-af51a15c80aa@tum.de>
+ <4b408440-354d-521e-0a88-e1541eaed1d7@siemens.com>
+ <fa5b83f2-fa5c-e158-4b99-cc86db20ea43@tum.de>
+ <eaa35809-1823-9bac-a971-12b9e4a2ec54@siemens.com>
+From: Andrea Bastoni <andrea.bastoni@tum.de>
+Autocrypt: addr=andrea.bastoni@tum.de; keydata=
+ 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
+Message-ID: <72e5d7a9-e647-e0c5-62a6-9572cbdeee67@tum.de>
+Date: Thu, 29 Oct 2020 16:26:58 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-X-PMX-Version: 6.4.8.2820816, Antispam-Engine: 2.7.2.2107409, Antispam-Data: 2020.10.29.144817, AntiVirus-Engine: 5.77.0, AntiVirus-Data: 2020.10.29.5770001
-X-PMX-Spam: Gauge=IIIIIIII, Probability=8%, Report='
- HTML_00_01 0.05, HTML_00_10 0.05, BODY_SIZE_4000_4999 0, BODY_SIZE_5000_LESS 0, BODY_SIZE_7000_LESS 0, IN_REP_TO 0, LEGITIMATE_SIGNS 0, MULTIPLE_REAL_RCPTS 0, NO_CTA_URI_FOUND 0, NO_URI_HTTPS 0, RDNS_NXDOMAIN 0, RDNS_SUSP 0, RDNS_SUSP_GENERIC 0, REFERENCES 0, SENDER_NO_AUTH 0, __ANY_URI 0, __BODY_NO_MAILTO 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CTE 0, __FRAUD_MONEY_CURRENCY 0, __FRAUD_MONEY_CURRENCY_DOLLAR 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_REFERENCES 0, __HAS_X_MAILER 0, __IN_REP_TO 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __MULTIPLE_RCPTS_TO_X2 0, __NO_HTML_TAG_RAW 0, __REFERENCES 0, __SANE_MSGID 0, __SUBJ_ALPHA_END 0, __TO_MALFORMED_2 0, __TO_NAME 0, __TO_NAME_DIFF_FROM_ACC 0, __TO_NO_NAME 0, __TO_REAL_NAMES 0, __URI_MAILTO 0, __URI_NO_WWW 0, __URI_NS '
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of ralf.ramsauer@oth-regensburg.de designates
- 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+In-Reply-To: <eaa35809-1823-9bac-a971-12b9e4a2ec54@siemens.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+X-Original-Sender: andrea.bastoni@tum.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@tum.de header.s=postout header.b=M4BJUz2m;       spf=pass
+ (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.137 as
+ permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=tum.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -128,147 +214,172 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On x86_64 systems, this test inmate measures the time that is required to read
-a value from main memory. Via rdtsc, it measures the CPU cycles that are
-required for the access. Access can either happen cached, or uncached. In case
-of uncached access, the cache line will be flushed before access.
+On 29/10/2020 09:53, Jan Kiszka wrote:
+> On 29.10.20 09:39, Andrea Bastoni wrote:
+>> On 29/10/2020 07:36, Jan Kiszka wrote:
+>>> On 28.10.20 22:29, Andrea Bastoni wrote:
+>>>> Hi,
+>>>>
+>>>> On 28/10/2020 21:14, Jan Kiszka wrote:
+>>>>> On 27.10.20 10:22, Jan Kiszka wrote:
+>>>>>> On 27.10.20 02:25, Peng Fan wrote:
+>>>>>>> Jan,
+>>>>>>>
+>>>>>>>> Subject: Re: [PATCH v2 00/46] arm64: Rework SMMUv2 support
+>>>>>>>>
+>>>>>>>> On 14.10.20 10:28, Jan Kiszka wrote:
+>>>>>>>>> Changes in v2:
+>>>>>>>>>  - map 52-bit parange to 48
+>>>>>>>>>
+>>>>>>>>> That wasn't the plan when I started, but the more I dug into the
+>>>>>>>>> details and started to understand the hardware, the more issues I
+>>>>>>>>> found and the more dead code fragments from the Linux usage became
+>>>>>>>> visible.
+>>>>>>>>>
+>>>>>>>>> Highlights of the outcome:
+>>>>>>>>>  - Fix stall of SMMU due to unhandled stalled contexts (took me a while
+>>>>>>>>>    to understand that...)
+>>>>>>>>>  - Fix programming of CBn_TCR and TTBR
+>>>>>>>>>  - Fix TLB flush on cell exit
+>>>>>>>>>  - Fix bogus handling of Extended StreamID support
+>>>>>>>>>  - Do not pass-through unknown streams
+>>>>>>>>>  - Disable SMMU on shutdown
+>>>>>>>>>  - Reassign StreamIDs to the root cell
+>>>>>>>>>  - 225 insertions(+), 666 deletions(-)
+>>>>>>>>>
+>>>>>>>>> The code works as expected on the Ultra96-v2 here, but due to all the
+>>>>>>>>> time that went into the rework, I had no chance to bring up my MX8QM
+>>>>>>>>> so far. I'm fairly optimistic that things are not broken there as
+>>>>>>>>> well, but if they are, bisecting should be rather simple with this
+>>>>>>>>> series. So please test and review.
+>>>>>>>>>
+>>>>>>>>
+>>>>>>>> Alice, Peng, already had a chance to review or test (ie. next)?
+>>>>>>>
+>>>>>>> I gave a test, sometimes I met SDHC ADMA error when
+>>>>>>> `jailhouse enable imx8qm.cell`, sometimes it work well.
+>>>>>>>
+>>>>>>> I suspect when during jailhouse enable phase, there might be
+>>>>>>> ongoing sdhc transactions not finished, not sure.
+>>>>>>>
+>>>>>>> I have not find time to look into details.
+>>>>>>>
+>>>>>>> Anyway, you could check in to master I think, we could address
+>>>>>>> the issue later when I have time.
+>>>>>>>
+>>>>>>
+>>>>>> Hmm, I would still like to understand this first... Do you have the
+>>>>>> chance to bisect this effect to a commit? Otherwise, I guess I finally
+>>>>>> need to get my board running.
+>>>>>>
+>>>>>
+>>>>> It's running now (quite some effort due to the incomplete upstream state
+>>>>> - e.g. upstream u-boot runs but cannot boot all downstream kernels...),
+>>>>> but I wasn't able to reproduce startup issues. Shutting down Jailhouse
+>>>>> often hangs, though, at least restarting does all the time. And that
+>>>>> even with next. Seems we still do not properly turn off/on something here.
+>>>>>
+>>>>> Interestingly, this issue was not present on the zynqmp.
+>>>>
+>>>> On a different version of the SMMUv2 developed @ Boston University (Renato in
+>>>> CC), re-using the same root page table as the cell created problems due to
+>>>> different attributes (uncached) needed by some devices.
+>>>
+>>> Why are so many folks working downstream on such essential things? Not
+>>> helpful, for everyone, even if the goal should be "only" experimental
+>>> results.
+>>>
+>>>>
+>>>>> diff --git a/hypervisor/arch/arm64/smmu.c b/hypervisor/arch/arm64/smmu.c
+>>>>> index 41c0ffb4..60743bc0 100644
+>>>>> --- a/hypervisor/arch/arm64/smmu.c
+>>>>> +++ b/hypervisor/arch/arm64/smmu.c
+>>>>> @@ -220,6 +220,7 @@ static void arm_smmu_setup_context_bank(struct arm_smmu_device *smmu,
+>>>>>         mmio_write32(cb_base + ARM_SMMU_CB_TCR, VTCR_CELL & ~TCR_RES0);
+>>>>>  
+>>>>>         /* TTBR0 */
+>>>>> +       /* Here */
+>>>>>         mmio_write64(cb_base + ARM_SMMU_CB_TTBR0,
+>>>>>                      paging_hvirt2phys(cell->arch.mm.root_table) & TTBR_MASK);
+>>>>
+>>>> The issue in the BU version was solved by allocating a new page for this.
+>>>>
+>>>
+>>> Only the root level? How were those entries different?
+>>
+>> Only the root level. IIRC, NC by default, instead of Normal.
+>>
+>>>> I wanted to check this effect for the version on next, but didn't find the time
+>>>> to do it so far :/
+>>>>
+>>>
+>>> How was the issue triggered?
+>>
+>> From the discussions I had, on the ZCU102, devices were randomly triggering
+>> erros/ stopped working.
+>>
+> 
+> I just ran a enable/disable loop aside flood-ping + dd on the Ultra96-v2
+> (I would expect it to be identical to the ZCU102 in this regard), and
+> that did not trigger any (visible) issues yet. I'll retry with lowering
+> the enable frequency.
 
-This tool repeats the measurement for 10e6 times, and outputs the
-average cycles that were required for the access. Before accessing the
-actual measurement, a dummy test is used to determine the average
-overhead of one single measurement.
+I extended the configuration of the zynqmp-zcu102 to use the SMMU and I've
+started similar tests (enable/disable + flood ping + find /).
 
-And that's pretty useful, because this tool gives a lot of insights of
-differences between the root and the non-root cell: With tiny effort, we
-can also run it on Linux.
+With the flooding ping I can regularly trigger ethernet errors in the diable ->
+enable interval e.g.,:
 
-If the 'overhead' time differs between root and non-root cell, this can
-be an indicator that there might be some timing or speed differences
-between the root and non-root cell.
+[  373.470078] The Jailhouse was closed.
+[  374.957052] macb ff0e0000.ethernet eth0: DMA bus error: HRESP not OK
+[  374.966376] The Jailhouse is opening.
 
-If the 'uncached' or 'cached' average time differs between the non-root
-and root cell, it's an indicator that both might have different hardware
-configurations / setups.
+Maybe just outstanding transactions.
 
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
----
-since v2:
-  - Move host code to tools/demos :-)
+I got once an extended error that included the SD card
 
-since v1:
-  - Move host code to tools/
+[  112.215426] macb ff0e0000.ethernet eth0: DMA bus error: HRESP not OK
+[  112.223243] mmc0: ADMA error: 0x02000000
+... full dump ...
 
-since RFC:
-  - move the inmate to demos instead of tests
+But I cannot detect from the log if it was after the disable or while jailhouse
+was enabled.
+
+I didn't have time to debug much further. I want to double check (also with a
+colleague) my current stream_id configuration because I only covered the LPD
+masters and I want to check the other TBUs. (I'll post the configuration once
+I've checked it.)
+
+Thanks,
+Andrea
 
 
- .gitignore                  |  1 +
- inmates/demos/x86/Makefile  |  4 +++-
- tools/Makefile              |  9 +++++++--
- tools/demos/cache-timings.c | 29 +++++++++++++++++++++++++++++
- 4 files changed, 40 insertions(+), 3 deletions(-)
- create mode 100644 tools/demos/cache-timings.c
+> 
+> Jan
+> 
+>>
+>>>
+>>>
+>>> I made some progress meanwhile: Linux was also using the SMMU. I'll send
+>>> a patch shortly that detects that, like we already in VT-d at least.
+>>> Interestingly, this should have been broken on the Ultra96 as well, just
+>>> didn't notice.
+>>>
+>>> With that, I'm running enable/disable loops now, but I lose my Ethernet
+>>> link after a while. Returns after ifdown/up, and the system looks fine
+>>> otherwise. Seems as if we drop transactions in the transition phase.
+>>> However, a dd running in parallel was not triggering any issues.
+>>>
+>>> Jan
+>>>
+>>
+> 
 
-diff --git a/.gitignore b/.gitignore
-index 1d8905ab..245733cb 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -21,6 +21,7 @@ hypervisor/hypervisor.lds
- inmates/lib/arm/inmate.lds
- inmates/lib/arm64/inmate.lds
- pyjailhouse/pci_defs.py
-+tools/demos/cache-timings
- tools/demos/ivshmem-demo
- tools/jailhouse
- tools/jailhouse-gcov-extract
-diff --git a/inmates/demos/x86/Makefile b/inmates/demos/x86/Makefile
-index f53b739e..47b79869 100644
---- a/inmates/demos/x86/Makefile
-+++ b/inmates/demos/x86/Makefile
-@@ -13,7 +13,8 @@
- include $(INMATES_LIB)/Makefile.lib
- 
- INMATES := tiny-demo.bin apic-demo.bin ioapic-demo.bin 32-bit-demo.bin \
--	pci-demo.bin e1000-demo.bin ivshmem-demo.bin smp-demo.bin
-+	pci-demo.bin e1000-demo.bin ivshmem-demo.bin smp-demo.bin \
-+	cache-timings.bin
- 
- tiny-demo-y	:= tiny-demo.o
- apic-demo-y	:= apic-demo.o
-@@ -22,6 +23,7 @@ pci-demo-y	:= pci-demo.o
- e1000-demo-y	:= e1000-demo.o
- ivshmem-demo-y	:= ../ivshmem-demo.o
- smp-demo-y	:= smp-demo.o
-+cache-timings-y := cache-timings.o
- 
- $(eval $(call DECLARE_32_BIT,32-bit-demo))
- 32-bit-demo-y	:= 32-bit-demo.o
-diff --git a/tools/Makefile b/tools/Makefile
-index 8cf5df84..62585369 100644
---- a/tools/Makefile
-+++ b/tools/Makefile
-@@ -35,6 +35,13 @@ KBUILD_CFLAGS += $(call cc-option, -fno-pie)
- KBUILD_CFLAGS += $(call cc-option, -no-pie)
- 
- BINARIES := jailhouse demos/ivshmem-demo
-+targets += jailhouse.o demos/ivshmem-demo.o
-+
-+ifeq ($(ARCH),x86)
-+BINARIES += demos/cache-timings
-+targets += demos/cache-timings.o
-+endif # $(ARCH),x86
-+
- always-y := $(BINARIES)
- 
- HAS_PYTHON_MAKO := \
-@@ -104,8 +111,6 @@ define cmd_gen_man
- 	sed 's/$${VERSION}/$(shell cat $(src)/../VERSION)/g' $< > $@
- endef
- 
--targets += jailhouse.o demos/ivshmem-demo.o
--
- $(obj)/%: $(obj)/%.o
- 	$(call if_changed,ld)
- 
-diff --git a/tools/demos/cache-timings.c b/tools/demos/cache-timings.c
-new file mode 100644
-index 00000000..2c591dab
---- /dev/null
-+++ b/tools/demos/cache-timings.c
-@@ -0,0 +1,29 @@
-+/*
-+ * Jailhouse, a Linux-based partitioning hypervisor
-+ *
-+ * Copyright (c) OTH Regensburg, 2020
-+ *
-+ * Authors:
-+ *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See
-+ * the COPYING file in the top-level directory.
-+ */
-+
-+#include <stdbool.h>
-+#include <stdio.h>
-+
-+#define printk printf
-+
-+typedef unsigned int u32;
-+typedef unsigned long long u64;
-+
-+void inmate_main(void);
-+
-+#include "../inmates/demos/x86/cache-timings-common.c"
-+
-+int main(void)
-+{
-+	inmate_main();
-+	return 0;
-+}
 -- 
-2.29.1
+Thanks,
+Andrea Bastoni
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20201029145515.386953-2-ralf.ramsauer%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/72e5d7a9-e647-e0c5-62a6-9572cbdeee67%40tum.de.
