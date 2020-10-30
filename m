@@ -1,32 +1,32 @@
-Return-Path: <jailhouse-dev+bncBDL2JD42SEIBBKUN6D6AKGQEM56CUBQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDL2JD42SEIBBHEO6D6AKGQERUCZMEQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-vs1-xe38.google.com (mail-vs1-xe38.google.com [IPv6:2607:f8b0:4864:20::e38])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60F232A054B
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 30 Oct 2020 13:27:23 +0100 (CET)
-Received: by mail-vs1-xe38.google.com with SMTP id j11sf336829vsj.0
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 30 Oct 2020 05:27:23 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1604060842; cv=pass;
+Received: from mail-io1-xd3e.google.com (mail-io1-xd3e.google.com [IPv6:2607:f8b0:4864:20::d3e])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8466A2A055B
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 30 Oct 2020 13:29:17 +0100 (CET)
+Received: by mail-io1-xd3e.google.com with SMTP id q126sf4178243iof.3
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 30 Oct 2020 05:29:17 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1604060956; cv=pass;
         d=google.com; s=arc-20160816;
-        b=nGJRO4i03MSETYZ/KlNaRXUMSC6+hajQdOeY4B/pMxgENId7vIluXrmbBX7CbYGKTY
-         IfADWYF2j+n/646u8hoYnbAHVmWHSv+wbYsj7YPjUqYJjYnJgblmQlz4t0vd6TDvGXBy
-         E6DfCsN40B6fcYa2CE3WhhDZB+s8dIOiXYZ7c534/OaArf2xGlHUtMxI6KL96FXIkxHi
-         SneaFa7GFMdXNp0gwe6n48qziDSJuVbqf+oVuNwJnBxzEasgPmwsb9AqbYu18XdWnh4A
-         4nCeHsl7m4D72Mwa8Nd1mxSguitHJcLVl+NoE97TvF94XmYuM8KT+3+mMj5tkuCf+ItU
-         O4eg==
+        b=vIz7K3suktk1GWLfaIwz0J4bEcWZ5/Z7f5CLgyZ+CAxEJfy3WnxK54WK47MUGdqbpG
+         2UV9vbFflgsGEvpp8pWAsl4fI/0sXVhZOoQ0UUGph7q1a60XjQK2Z4Fqk52yL9U2MkS/
+         25Nc61LlI27WhYLSSZs0IA7pXB1k2fu8p3jxgHyCgFoo1RucO5tc1TxitpAYXhkFmHIN
+         b/ouZE3lCEf4B+i17+k/N29xux5KVXvSVUzNUlLxNHp39GbmJE/yHz7b/vEYOFpVgdru
+         rrda8PRU7JkVN8gJ/KU60FIgFD/Z1WwdEDeJw4ZqWzd9lTf+c9JrU5pWYfzwpBUR8aws
+         D7Sw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:reply-to:mime-version:message-id
          :date:subject:cc:to:from:dkim-signature;
-        bh=eJ/VQbFnaFLy7QdTNwDq4ufP4k3eQA1N9Cxo0WuR+gM=;
-        b=yaGgphOkLAGYjuTndXWwaTNtejYjX49ScBszQdmdoz8jKvC+ScSq8G+y6Lat19cHxR
-         jCSezUPJU2ke82G3ug6K+qLSpiPpKS9eipKApJU/Oqb9f/EKbyidx+KX2Q5LRbzKLWkD
-         nuLz/lVdmAIl554cmyOFbX5EdmoAvoJEKyIwOXmtgytLG642gXTTQXlRHIcI4AIl6IaK
-         Bx3GwCGPHomVvdB/g0eyIP3Oe2a4AOgAwG5tesWoCM8gVXoyXWWwBs680T/1doJ2MOzI
-         2mAq8w6RC4Cbasf8gBBPo17ccHUxjsivu9d1RZs/zLxr6pvMJKZ9e91aECahWcXuMaaM
-         4SPA==
+        bh=QP3X9hETrK1QhUpUqNsZpytN6Dm+LbRd3kg/OEn+6rU=;
+        b=dxwf+YE7micEuWQ1EMDusx+cj02khvT+5CxXOx4AF56IFwGGzwjkxTptyRmKPIbjbj
+         q8ruK60N+RLtullkt9tIt+LordKpoacPQSkPGj2vkTa6KgxxmIfayG4C+OfNWaJxOMV6
+         1zxABfENDRmobEOSiQPZ9XBF77npLEfGcuuEbLj2qN01HQKfKjlw1KHApV12eDr2SPq+
+         KC+pqO5ZWoj80tImSItY953AMx46kwjat7gh5o0cDFm6JBfexj1zhh0Hv2S2qUdzC47O
+         71ZdlRUCvgUhB8I0Jm+gXTfBjfcstXHlNVDjnVtKclgY4AObOD2Oi5jyWMN4OImjWRk+
+         78QQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=ZftmXqOU;
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=kLvs8xRr;
        spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
        dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
@@ -35,95 +35,95 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:reply-to:precedence:mailing-list
          :list-id:list-post:list-help:list-archive:list-subscribe
          :list-unsubscribe;
-        bh=eJ/VQbFnaFLy7QdTNwDq4ufP4k3eQA1N9Cxo0WuR+gM=;
-        b=Gug2r/YtHJQ7eioLx+hN/p1XxKjI/gusY3rQ5zrQfsUSimoFii89ZW7vEbf/N+ac6+
-         Zapov61ppUy9hyKaAnF0xC3PpIC++9Sads2wHeWOBZuOEyRojc43wL5T6pDQi5faXlk5
-         HW9StYaoOAGAj/N8o4qLNkxvC236LZlERD/UgJAaY7gVmRTVhMz+tcWtM5kt/nZOTMnP
-         EseIK4PisJ36h3dt06S+OAKRh7PFcGaqyanxFuij5CoZMmes/9N48sLHWQoTf4W1z6PO
-         zN9tgvlbTIZwT2MkkvGDQF2Erp4HQMyBtmz48JUzZYkEfyC8vj6gBlHRxGn1eZa/EyCX
-         lmrg==
+        bh=QP3X9hETrK1QhUpUqNsZpytN6Dm+LbRd3kg/OEn+6rU=;
+        b=bWOCHrKkwKBvMyQUHE9eXGRE/dw0Ea6IzROIQlsCVOLIYlmeNi2l1t1iCDkMvlLlqZ
+         mFC3lW7z1wTCj0NrmV4wlfXfiaE4X3TJ0q6OVPwNYOBgjD3mW6gc1q6Y1OKGj0Rm3QQx
+         LdnI6Z36Bvct5Z7z6xL7JBY6lm6vR15WSqk6oLOLQfgOQ3q2mCO34CBHGW48uKDoQyQQ
+         irf243GKTla/+MJUNSRakvGhJCnEe9eZTX2BqsZ6UWahom8cktDOp/bDa6vGgrRKN6Hy
+         nI+6pL8aV32VU9cqwjbubMePWnvkoJNE6oH2dhuOIpUFHQG5xdlIbGIXJC4kdUTKzq4O
+         cIig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :x-original-sender:x-original-authentication-results:reply-to
          :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=eJ/VQbFnaFLy7QdTNwDq4ufP4k3eQA1N9Cxo0WuR+gM=;
-        b=nHil73GehQu4bqXQLFZXJzI+vuQHOTnq64tO7gLC806yEjon1pSAAuY7hd5WkqVoi8
-         jKq4HVA7xvO/VapJsAGCaDqnBJfqbwOfUxyMQy0Me1HDGQ4lApIBnQx5W8hmz7ARtqDS
-         7jD1XXubeimbSDW6keamAAX9IVdNkzwbfPcIErhBsIcLd69DBA8WDB3zDLzsKEfQGaGO
-         ooZuxjRpNyNuT6KqD7NNe/Gxa8a/X8qGJ7QGJWoBNlKS4dFQISpkwPjYo7qwh/IncOj4
-         0reIe3ymlSl/w8bUpGfaVZfJCywQB+jUPS49AFdCJY0+0n+mmBwPJH5SN3RpHx725nCo
-         AdCA==
-X-Gm-Message-State: AOAM532YCUhHLaj47e0wO+vl6deIKAgNdFMMKms17nYwLMu/Rbf26SzR
-	JwAFKo7UEIcWytTetcsAXOg=
-X-Google-Smtp-Source: ABdhPJwzP5ZlkDb7Aveu0F+kgMS/sDOfqO5vIpI5S6fXQrnb2oIT+AvZvbWwG68gT6gJz6J+ZXf+DQ==
-X-Received: by 2002:a67:ed48:: with SMTP id m8mr6945810vsp.47.1604060842448;
-        Fri, 30 Oct 2020 05:27:22 -0700 (PDT)
+        bh=QP3X9hETrK1QhUpUqNsZpytN6Dm+LbRd3kg/OEn+6rU=;
+        b=uRBaX++wyE4gj5vG0YIBKd4wkeKIokRB6dU7M7z6jHHoNnv31xhyu28vFIuKmob4ED
+         wee2BCKsbv28DmqgC0fm6AGsQWYSJcVxqfhG6klH9ZD1P5JI4HZ+8jOoBUUTsLZ2GZ4R
+         UJ041vwK5f+U4vKk93ygEira9vRi0+niDm91Q0sOMMyWGAPwVw2cXRMhklbsbjQtjCkb
+         yEIvVMPx43durxU3B/3JyCBkLT0FF2RQ7fZuqAGTxmWzMdzB+hvt3OMd9e4dIMNePOjc
+         oz2fMK0s/GeHpyaiSYaC/EPpJwNkbBITKRl9tlOBlQ1f0+u7J1/hEEV/GqK1jX3H9ol3
+         CBxA==
+X-Gm-Message-State: AOAM531B5C0A3MiY4+aQjq9ZIvAM7JaRmdIoYe0hsUXTkeFRs8khW+lR
+	Xjzo8jnW/EDsRGWsPYGPnaQ=
+X-Google-Smtp-Source: ABdhPJx+HRjjv+AHrjWctgE1WY8FKWOdMxkw19mh5hqtSpA9BiqnAyleWUTsWNuHjBvTurPLB5Z49A==
+X-Received: by 2002:a05:6638:24cc:: with SMTP id y12mr1746542jat.144.1604060956612;
+        Fri, 30 Oct 2020 05:29:16 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1f:4515:: with SMTP id s21ls361264vka.11.gmail; Fri, 30 Oct
- 2020 05:27:21 -0700 (PDT)
-X-Received: by 2002:a05:6122:12a7:: with SMTP id j7mr489133vkp.15.1604060841666;
-        Fri, 30 Oct 2020 05:27:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1604060841; cv=none;
+Received: by 2002:a05:6e02:140f:: with SMTP id n15ls1428822ilo.4.gmail; Fri,
+ 30 Oct 2020 05:29:16 -0700 (PDT)
+X-Received: by 2002:a92:d803:: with SMTP id y3mr1744699ilm.227.1604060956042;
+        Fri, 30 Oct 2020 05:29:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1604060956; cv=none;
         d=google.com; s=arc-20160816;
-        b=yHLplKz5JaCr7DuZa9IKQQgA1mSXHHhiaB9fPBLXZT2Ybynlh6rB2LXfhRX0SGywsi
-         GusOqD1p95J0JduhLkw9aFu3L+en4j1If0zqvLg2xXYhBFFVovNs2H58LhtyL+7d+x7/
-         NUJLGIbqppRefCpEltmtxMijTqskY2Lv1jyjtqbdRtq9tDfdHdKdROb2LZE3aFj35HQP
-         U0DKP5ofDzBLImmMhicRcu58rXcmiHboVBNog0K7kzvFEW0ZOGIRRYqTfQDpnxc30RVg
-         tMxWfEaGD8kkSM71fZlZTbSuipqY5eREZ0whVEXnQ2qHUvszTMJW9owrTeq31cUHFaC6
-         IEqA==
+        b=z+zFUz3TjD5hN5lLeGyied1CEmuEghGprQMwDw3EDjXTI68p5tO4X2vmz7US9n9Rk5
+         tF9M6SwXfMnrs66U7F8AbbeVval9NmYTMcums4Zkzrlw5cuLDZcMen3lIcr8WSK2+t6m
+         Jd2cu3inJmvN/w5kqvY/uuEdFICRucQ3WEdg9q7JaZPGcNDRR1VW0nNqyr1LsDGBaLJc
+         NmV4Tbk7wijYBSpmE53nEloguoXfvMA3AEmQBwEQWBnXUTrpPiIupjMQfAgLFBKd9DsI
+         rsVkppuGTHYyNmCoXWXwv5jY+lGxQs8Y4BeTmJCy7O9y4sUYJxSG1p+ThQjbHFh9BqQW
+         AaYQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=mime-version:message-id:date:subject:cc:to:from:dkim-signature;
-        bh=C6FHODclmdO+7w+fZ7TZggFRXCx/9dn5t24Hp/l9kgY=;
-        b=uABo3YK5Wb1maVrBbBayEiPwovU8p0W+Q31aYFC+tLJSyGAiS3+WAuMmbD/jylIFDH
-         BqaPzcJlav9BB0W8kAdj0cNv7fYQWfFz0nRFE7EaXz/wzdgGe79TfNt5zTqVBaBJ8xmB
-         K6bIdHpd+VF4NwBV6NTNh9OCBvBRoJdebx8jAvr3s35Dqt94HWm4HTRk92cBWhOeG0nY
-         ndNPoM0AD5ZB7tBDxzmFQ9Sq04IwDwghqzslIy8xCMy6SxvXVepAUvkhNF+7v6cBvCXJ
-         Qq6KBI55pPOwZIFK2VEcIFzEuaIxgT4qVFX7RRUV+Q3uYJCeSjn0Mx3ZPQFcbUU3Afvi
-         uP+Q==
+        bh=BS4Vn9F2THH1CJ19QK+An/PLpNG7oSw+JVprw5h+6yk=;
+        b=vKL0k4j9tpmje+zD03rmOd6X+/zNgKLwr77IgEVzNrJHOqqakplYftLsGI6Y8fbKzH
+         ATp6uiLBCg6fvPnDYJ0LtvYA9NOtxthENE2kxDsfLlUJtOCJs/U95I7p+0B2eB9NoEi3
+         ROau++4175IdcMxmDBzzkCr3kk4t/qk8VhMvkSkMZNpRMcZZU5yYY1mC+kmUQZVangK8
+         iK4JMGR84bZSJ+VbhyeVsGiNAv4B6Fn0yVAdco3dbmaDigCfYEWyeq2qrH+TTU6F0BDc
+         GmGsb8x492MPZr2F/XqPiyxZGaXBQXUZG+48deyjqlS6gLauBd8Z17/zIjJuUiMg0FN/
+         gzkg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=ZftmXqOU;
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=kLvs8xRr;
        spf=pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted sender) smtp.mailfrom=nikhil.nd@ti.com;
        dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
 Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com. [198.47.19.141])
-        by gmr-mx.google.com with ESMTPS id n1si10665vsr.2.2020.10.30.05.27.21
+        by gmr-mx.google.com with ESMTPS id p5si348585ilg.3.2020.10.30.05.29.15
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 30 Oct 2020 05:27:21 -0700 (PDT)
+        Fri, 30 Oct 2020 05:29:16 -0700 (PDT)
 Received-SPF: pass (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted sender) client-ip=198.47.19.141;
-Received: from fllv0035.itg.ti.com ([10.64.41.0])
-	by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 09UCRKw7067816;
-	Fri, 30 Oct 2020 07:27:20 -0500
-Received: from DLEE108.ent.ti.com (dlee108.ent.ti.com [157.170.170.38])
-	by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 09UCRKQ8097552
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+	by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 09UCTF33068362;
+	Fri, 30 Oct 2020 07:29:15 -0500
+Received: from DLEE113.ent.ti.com (dlee113.ent.ti.com [157.170.170.24])
+	by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 09UCTFDA113693
 	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 30 Oct 2020 07:27:20 -0500
-Received: from DLEE104.ent.ti.com (157.170.170.34) by DLEE108.ent.ti.com
- (157.170.170.38) with Microsoft SMTP Server (version=TLS1_2,
+	Fri, 30 Oct 2020 07:29:15 -0500
+Received: from DLEE109.ent.ti.com (157.170.170.41) by DLEE113.ent.ti.com
+ (157.170.170.24) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Fri, 30
- Oct 2020 07:27:20 -0500
-Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE104.ent.ti.com
- (157.170.170.34) with Microsoft SMTP Server (version=TLS1_2,
+ Oct 2020 07:29:14 -0500
+Received: from fllv0039.itg.ti.com (10.64.41.19) by DLEE109.ent.ti.com
+ (157.170.170.41) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
- Frontend Transport; Fri, 30 Oct 2020 07:27:20 -0500
+ Frontend Transport; Fri, 30 Oct 2020 07:29:14 -0500
 Received: from NiksLab.india.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
-	by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 09UCRICX028617;
-	Fri, 30 Oct 2020 07:27:18 -0500
+	by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id 09UCTBNR085697;
+	Fri, 30 Oct 2020 07:29:12 -0500
 From: "'Nikhil Devshatwar' via Jailhouse" <jailhouse-dev@googlegroups.com>
 To: <jailhouse-dev@googlegroups.com>, Jan Kiszka <jan.kiszka@siemens.com>,
         Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 CC: Sekhar Nori <nsekhar@ti.com>
-Subject: [PATCH v3] arm64: pvu: Avoid failure in config_commit
-Date: Fri, 30 Oct 2020 17:57:12 +0530
-Message-ID: <20201030122712.4199-1-nikhil.nd@ti.com>
+Subject: [PATCH] hypervisor: include: Add a BUG() macro
+Date: Fri, 30 Oct 2020 17:59:09 +0530
+Message-ID: <20201030122909.12737-1-nikhil.nd@ti.com>
 X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 X-Original-Sender: nikhil.nd@ti.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@ti.com header.s=ti-com-17Q1 header.b=ZftmXqOU;       spf=pass
+ header.i=@ti.com header.s=ti-com-17Q1 header.b=kLvs8xRr;       spf=pass
  (google.com: domain of nikhil.nd@ti.com designates 198.47.19.141 as permitted
  sender) smtp.mailfrom=nikhil.nd@ti.com;       dmarc=pass (p=QUARANTINE
  sp=NONE dis=NONE) header.from=ti.com
@@ -141,264 +141,34 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Current PVU iommu implementation ignores possible failures in the
-config_commit part. This would allow inconsistent configuration
-to run and may introduce unknown bugs.
+Add a new BUG macro in utils which can be used in places
+where you don't expect control to reach.
 
-Solve this by making sure that the pvu_iommu_config_commit never
-fails. Catch the errors early in the mapping phase. Use
-"free_tlb_count" to track available no of TLBs for chaining.
-This can be used to check if any mapping causes it to potentially
-use more no of TLBs than that are free. This will ensure that
-the allocationg for chaining will not fail.
-
-Change the return type to void for few functions. Add comments to
-explain behavior in case of failure. Remove un necessary checks
-that would never trigger.
+Whenever this happens, the code will intentionally crash
+via a null pointer de reference.
 
 Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
 ---
+ hypervisor/include/jailhouse/utils.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Notes:
-    Changes from v2:
-    * Remove additional checks which will always pass
-    * Use a BUG in case control reaches where it should'nt have
-    
-    Changes from v1:
-    * Add a comment to descibe why pvu_tlb_alloc will not fail
-    * Make return type of pvu_entry_write as void and explain the
-    behavior in case the constraints are not met
-    * Remove un necessary else block
-
- hypervisor/arch/arm64/include/asm/ti-pvu.h |  3 +-
- hypervisor/arch/arm64/ti-pvu.c             | 76 ++++++++++++----------
- 2 files changed, 42 insertions(+), 37 deletions(-)
-
-diff --git a/hypervisor/arch/arm64/include/asm/ti-pvu.h b/hypervisor/arch/arm64/include/asm/ti-pvu.h
-index 2c340b3a..62aec7c0 100644
---- a/hypervisor/arch/arm64/include/asm/ti-pvu.h
-+++ b/hypervisor/arch/arm64/include/asm/ti-pvu.h
-@@ -117,6 +117,7 @@ struct pvu_dev {
- 	u16		max_virtid;
+diff --git a/hypervisor/include/jailhouse/utils.h b/hypervisor/include/jailhouse/utils.h
+index 411f6365..39615945 100644
+--- a/hypervisor/include/jailhouse/utils.h
++++ b/hypervisor/include/jailhouse/utils.h
+@@ -21,6 +21,8 @@
+ #define ARRAY_SIZE(array)	(sizeof(array) / sizeof((array)[0]))
+ #endif
  
- 	u16		tlb_data[PVU_NUM_TLBS];
-+	u16		free_tlb_count;
- };
- 
- int pvu_iommu_map_memory(struct cell *cell,
-@@ -125,6 +126,6 @@ int pvu_iommu_map_memory(struct cell *cell,
- int pvu_iommu_unmap_memory(struct cell *cell,
- 		const struct jailhouse_memory *mem);
- 
--int pvu_iommu_config_commit(struct cell *cell);
-+void pvu_iommu_config_commit(struct cell *cell);
- 
- #endif /* _IOMMMU_PVU_H_ */
-diff --git a/hypervisor/arch/arm64/ti-pvu.c b/hypervisor/arch/arm64/ti-pvu.c
-index 3b9a29ec..98c0176b 100644
---- a/hypervisor/arch/arm64/ti-pvu.c
-+++ b/hypervisor/arch/arm64/ti-pvu.c
-@@ -15,7 +15,7 @@
-  * There are limitations on the number of available contexts, page sizes,
-  * number of pages that can be mapped, etc.
-  *
-- * PVU is desgined to be programmed with all the memory mapping at once.
-+ * PVU is designed to be programmed with all the memory mapping at once.
-  * Therefore, it defers the actual register programming till config_commit.
-  * Also, it does not support unmapping of the pages at runtime.
-  *
-@@ -110,9 +110,17 @@ static u32 pvu_tlb_alloc(struct pvu_dev *dev, u16 virtid)
- 	for (i = dev->max_virtid + 1; i < dev->num_tlbs; i++) {
- 		if (dev->tlb_data[i] == 0) {
- 			dev->tlb_data[i] = virtid << dev->num_entries;
-+			dev->free_tlb_count--;
- 			return i;
- 		}
- 	}
++#define BUG()			*(int *)0 = 0xdead
 +
-+	/*
-+	 * We should never reach here, tlb_allocation should not fail.
-+	 * pvu_iommu_map_memory ensures that there are enough free TLBs
-+	 */
-+
-+	BUG();
- 	return 0;
- }
+ /* sizeof() for a structure/union field */
+ #define FIELD_SIZEOF(type, fld)	(sizeof(((type *)0)->fld))
  
-@@ -138,10 +146,13 @@ static void pvu_tlb_flush(struct pvu_dev *dev, u16 tlbnum)
- 
- 	mmio_write32(&tlb->chain, 0x0);
- 
--	if (i < dev->max_virtid)
-+	if (i < dev->max_virtid) {
- 		dev->tlb_data[tlbnum] = 0x0 | i << dev->num_entries;
--	else
-+	} else {
-+		/* This was a chained TLB */
- 		dev->tlb_data[tlbnum] = 0x0;
-+		dev->free_tlb_count++;
-+	}
- 
- }
- 
-@@ -159,7 +170,7 @@ static void pvu_entry_enable(struct pvu_dev *dev, u16 tlbnum, u8 index)
- 	dev->tlb_data[tlbnum] |= (1 << index);
- }
- 
--static int pvu_entry_write(struct pvu_dev *dev, u16 tlbnum, u8 index,
-+static void pvu_entry_write(struct pvu_dev *dev, u16 tlbnum, u8 index,
- 			   struct pvu_tlb_entry *ent)
- {
- 	struct pvu_hw_tlb_entry *entry;
-@@ -174,19 +185,6 @@ static int pvu_entry_write(struct pvu_dev *dev, u16 tlbnum, u8 index,
- 			break;
- 	}
- 
--	if (pgsz >= ARRAY_SIZE(pvu_page_size_bytes)) {
--		printk("ERROR: PVU: %s: Unsupported page size %llx\n",
--			__func__, ent->size);
--		return -EINVAL;
--	}
--
--	if (!is_aligned(ent->virt_addr, ent->size) ||
--	    !is_aligned(ent->phys_addr, ent->size)) {
--		printk("ERROR: PVU: %s: Address %llx => %llx is not aligned with size %llx\n",
--			__func__, ent->virt_addr, ent->phys_addr, ent->size);
--		return -EINVAL;
--	}
--
- 	mmio_write32(&entry->reg0, ent->virt_addr & 0xffffffff);
- 	mmio_write32_field(&entry->reg1, 0xffff, (ent->virt_addr >> 32));
- 	mmio_write32(&entry->reg2, 0x0);
-@@ -198,9 +196,8 @@ static int pvu_entry_write(struct pvu_dev *dev, u16 tlbnum, u8 index,
- 	mmio_write32_field(&entry->reg2, PVU_TLB_ENTRY_PGSIZE_MASK, pgsz);
- 	mmio_write32_field(&entry->reg2, PVU_TLB_ENTRY_FLAG_MASK, ent->flags);
- 
--	/* Do we need "DSB NSH" here to make sure all writes are finised? */
-+	/* Do we need "DSB NSH" here to make sure all writes are finished? */
- 	pvu_entry_enable(dev, tlbnum, index);
--	return 0;
- }
- 
- static u32 pvu_init_device(struct pvu_dev *dev, u16 max_virtid)
-@@ -221,6 +218,8 @@ static u32 pvu_init_device(struct pvu_dev *dev, u16 max_virtid)
- 	}
- 
- 	dev->max_virtid = max_virtid;
-+	dev->free_tlb_count = dev->num_tlbs - (max_virtid + 1);
-+
- 	mmio_write32(&cfg->virtid_map1, 0);
- 	mmio_write32_field(&cfg->virtid_map2, PVU_MAX_VIRTID_MASK, max_virtid);
- 
-@@ -328,17 +327,17 @@ static void pvu_entrylist_sort(struct pvu_tlb_entry *entlist, u32 num_entries)
- 	}
- }
- 
--static int pvu_iommu_program_entries(struct cell *cell, u8 virtid)
-+static void pvu_iommu_program_entries(struct cell *cell, u8 virtid)
- {
- 	unsigned int inst, i, tlbnum, idx, ent_count;
- 	struct pvu_tlb_entry *ent, *cell_entries;
- 	struct pvu_dev *dev;
--	int ret, tlb_next;
-+	int tlb_next;
- 
- 	cell_entries = cell->arch.iommu_pvu.entries;
- 	ent_count = cell->arch.iommu_pvu.ent_count;
- 	if (ent_count == 0 || cell_entries == NULL)
--		return 0;
-+		return;
- 
- 	/* Program same memory mapping for all of the instances */
- 	for (inst = 0; inst < pvu_count; inst++) {
-@@ -356,20 +355,15 @@ static int pvu_iommu_program_entries(struct cell *cell, u8 virtid)
- 			if (idx == 0 && i >= dev->num_entries) {
- 				/* Find next available TLB and chain to it */
- 				tlb_next = pvu_tlb_alloc(dev, virtid);
--				if (tlb_next < 0)
--					return -ENOMEM;
- 				pvu_tlb_chain(dev, tlbnum, tlb_next);
- 				pvu_tlb_enable(dev, tlbnum);
- 				tlbnum = tlb_next;
- 			}
- 
--			ret = pvu_entry_write(dev, tlbnum, idx, ent);
--			if (ret)
--				return ret;
-+			pvu_entry_write(dev, tlbnum, idx, ent);
- 		}
- 		pvu_tlb_enable(dev, tlbnum);
- 	}
--	return 0;
- }
- 
- /*
-@@ -380,8 +374,9 @@ int pvu_iommu_map_memory(struct cell *cell,
- 			 const struct jailhouse_memory *mem)
- {
- 	struct pvu_tlb_entry *ent;
-+	struct pvu_dev *dev;
- 	unsigned int size;
--	u32 flags = 0;
-+	u32 tlb_count, flags = 0;
- 	int ret;
- 
- 	if (pvu_count == 0 || (mem->flags & JAILHOUSE_MEM_DMA) == 0)
-@@ -408,6 +403,19 @@ int pvu_iommu_map_memory(struct cell *cell,
- 	if (ret < 0)
- 		return ret;
- 
-+	/*
-+	 * Check if there are enough TLBs left for *chaining* to ensure that
-+	 * pvu_tlb_alloc called from config_commit never fails
-+	 */
-+	dev = &pvu_units[0];
-+	tlb_count = (cell->arch.iommu_pvu.ent_count + ret - 1) /
-+				dev->num_entries;
-+
-+	if (tlb_count > dev->free_tlb_count) {
-+		printk("ERROR: PVU: Mapping this memory needs more TLBs than that are available\n");
-+		return -EINVAL;
-+	}
-+
- 	cell->arch.iommu_pvu.ent_count += ret;
- 	return 0;
- }
-@@ -434,13 +442,12 @@ int pvu_iommu_unmap_memory(struct cell *cell,
- 	return 0;
- }
- 
--int pvu_iommu_config_commit(struct cell *cell)
-+void pvu_iommu_config_commit(struct cell *cell)
- {
- 	unsigned int i, virtid;
--	int ret = 0;
- 
- 	if (pvu_count == 0 || !cell)
--		return 0;
-+		return;
- 
- 	/*
- 	 * Chaining the TLB entries adds extra latency to translate those
-@@ -455,13 +462,10 @@ int pvu_iommu_config_commit(struct cell *cell)
- 		if (virtid > MAX_VIRTID)
- 			continue;
- 
--		ret = pvu_iommu_program_entries(cell, virtid);
--		if (ret)
--			return ret;
-+		pvu_iommu_program_entries(cell, virtid);
- 	}
- 
- 	cell->arch.iommu_pvu.ent_count = 0;
--	return ret;
- }
- 
- static int pvu_iommu_cell_init(struct cell *cell)
 -- 
 2.17.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20201030122712.4199-1-nikhil.nd%40ti.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20201030122909.12737-1-nikhil.nd%40ti.com.
