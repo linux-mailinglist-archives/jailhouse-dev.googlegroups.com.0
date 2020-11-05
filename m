@@ -1,148 +1,71 @@
-Return-Path: <jailhouse-dev+bncBCW2V5WNZMERBIEVRP6QKGQEQJJQAZA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCALNYGP4YHRBFMFSH6QKGQEHU5KTPQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33e.google.com (mail-wm1-x33e.google.com [IPv6:2a00:1450:4864:20::33e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C7032A67D0
-	for <lists+jailhouse-dev@lfdr.de>; Wed,  4 Nov 2020 16:37:05 +0100 (CET)
-Received: by mail-wm1-x33e.google.com with SMTP id u207sf1363722wmu.4
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 04 Nov 2020 07:37:05 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1604504225; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=OcjR7DdGwBjGT398sjb8DElzmfJhWe4J6jkXdzFWb4Ksy+YtQYNUz7Onu0pqDDFixJ
-         2+Ql/nliRaU4YnxxmwCx/0HuqMSEswZJ4CCsJwkq5rrUMkQ1uJGkuH3xucMX32sQfWDv
-         asVayExWTJYFk55Rg9HWQRmXvzKrjIl1/LpB/Iwhypam94YISevjgquHHCAmZCN+U97T
-         xtNHsP2AbXKMjRs+3/RozIG0L/+80tNdldhSa6lcthgjrY4wx4F6XMRjdiL0xOKY+6r4
-         8KXhmIdfTUtMc7fWr7RVz1TC+9YDXpTeW34Gvy2SvtxTJ3oI0tqYAfnSEUS7V4GZL/uv
-         iXoA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=qeVM0jJKEbv1I2rhRdm/yj5RKTJA+qyhjOKdjWLMOjg=;
-        b=fII0+ZNZqCcYsMYnU3fhiXF40IKHeUB4moeoQdyhF5TmX5rnKRPXJOvx4y+fg+ISZR
-         lV1uQ9YW8AiNMZO5oJUOgCcumrUoqAVMl/lsmnBvCrnp1+zh4S4/IZvc8+IlVTQxDYoJ
-         0n2vqEH5dIWcx8ieMfwpuaBtwhUPdWbw49e6YyNxgGZ//9KEUKJRQav4y/K/ByrE4kNi
-         NR1Q1dI8U5hXWk9zC+iL2qRwEw+b6y8Cfe6/Rc5bxFfd4Fl4JOeKKRDVXTFsjiCbmbqh
-         NE0C2GseK2gSkWNAx2MDtMxvwMsy6xXVyTUXLjLAVBBr73TFYQv5pmfS5AiBNsZbsFZY
-         BRow==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b=EigpXCHp;
-       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff89 as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
+Received: from mail-qt1-x839.google.com (mail-qt1-x839.google.com [IPv6:2607:f8b0:4864:20::839])
+	by mail.lfdr.de (Postfix) with ESMTPS id C7D312A8603
+	for <lists+jailhouse-dev@lfdr.de>; Thu,  5 Nov 2020 19:21:10 +0100 (CET)
+Received: by mail-qt1-x839.google.com with SMTP id d21sf1346482qtp.2
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 05 Nov 2020 10:21:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=qeVM0jJKEbv1I2rhRdm/yj5RKTJA+qyhjOKdjWLMOjg=;
-        b=USYxv2tUYgeucsN6eUj8H3oSLSHG3TYASX4EiAxmT89nlY8Ilmj8+l+WQ6DHfvGZ/W
-         9NMYH6c4o2NwTMk0A+8qN3yOPltPLQrZQaf0xGcgJwyVaqAcCeicJYGSnE+iHyDYSOWd
-         P91bByu+QgFDLu/UEvE6hZnOKOTUTkMXicKbaDHFSSVsks/qkPPQ6wYmO8xS8bChL/F9
-         Ncvfikfk2Uhh8hUQ0rDb/f+lfgw0kh3AKiyP+HUmSt5ax35XwO6J+vOIo+4F1Q/kKF5d
-         5kvFvlb2IFa0pNau1uRN7QPWH92J0iDg8uDNWM6o8sRFFK0KYxjerVXM24kywlJ6MxQy
-         bjww==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=bD8tjyoibuDWRU4Ros+8kU7CCl/ks34qMsD1Ei7MthM=;
+        b=JeON6Mt2v1YCMxCLPY9zI+jUE5JMtbkQQpf6usDHg1zyHm1f6f9NcpDrW0+AoG3fNy
+         /VbG+akWrDmRpIaL+p8Q/8YXpdyo2t1l4A2B6MW4AK5TJjFzfW3klHP+zMN9Eyc0H/cN
+         nmtuqe2+vlL/fcjxsAlZtfcQPfGATojVyN7yo4gWKNTvqSvZilT6m0e1VWbnGanCGJAh
+         jGLaHd1VNdZCt+BafAmPtjGpq7Hrjjnq4a92BlRmxFd7WM1PkvduBeXf+IGcsptvWzsP
+         XIxd6tY58jHIsHBiU0svu8X1Se+8kvEa3poTsw1DIHOVEwG+9sInVdHduT/lGgZY5Qx/
+         YKMA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=bD8tjyoibuDWRU4Ros+8kU7CCl/ks34qMsD1Ei7MthM=;
+        b=TME3G18BlmdnYAmc+vaJcOIIJAxpl2mQQ0HLlF0sLAezSsLfSly78q2s9UJUasz/IG
+         0OpjsKD4Ixrih1BRCIig1RTxfHHp75t5VepiRmNqEYwVCxoQ+J7zb0cQXXW0izZkkgqo
+         rYrFuc6MkZpBPUfzwup4xlft4qTYbaFiabhkpE+ZQTFOaJ5Rh0YJtAZhZulDKhQvoU3L
+         j1YslrJGeNx9Co6gdo+QKgdxH8aG+gRgJ0zJB5qHhWFOM70YJDRLPIUn37ylEvg9TjvR
+         hEhLWb3I+UM3gU4ebabj1FB/r/Cmgtsyn5YOYyvfcZ/nZIGCFPbacbB78r4wqTT6RNCJ
+         OfbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
-         :in-reply-to:references:mime-version:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=qeVM0jJKEbv1I2rhRdm/yj5RKTJA+qyhjOKdjWLMOjg=;
-        b=E/PkDO5W37D2caQrC6PIlWa/g7MhD8Dq5ncybMkRC6LWDUgyLlTEeWswxQwRidrJIL
-         lahmUTp7eP+1rId5Im29sU/MfrIeryqdnJhG4DmCYcfoM3UFDlCoi7nYqMzySGr/+gLZ
-         FUr4bM/kNxNwcz+TKPMgAZZ6EFm0RtKZSyirpGah4THbC77z8VsFpoFuNqgrVFfEHfQc
-         owrV8Otfg8s9hWzn+duiHTlYZko6vlbW6f/HjnEsQ12Ci0HoatLqnTBSxIevObpxF8hp
-         Sczbyh5a/0RtPwUJYJFQZJSzLan7cOJw5z56LBK6g4ERloVoml5PwJn7qJaHAJz/JdcY
-         VJPA==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=bD8tjyoibuDWRU4Ros+8kU7CCl/ks34qMsD1Ei7MthM=;
+        b=tDHVzZHRVOYOXgMiXKOn+eW6E2F8VKIWaiTHQWrCrld6IuWUcbVvnJ6MaH7UmSmobc
+         +c2wvoP9fxWd6Mn6enwaBaS5G1xRN5Dz0qxD1t46O3rCai84ocXV+hrxtWbDxGSGRKxh
+         p665hRNLbLtu2YKn8jF3cBNLmb9ugrGEahtpo7yNWYZLRWG8P1HHca8bP3meCyOUfR3r
+         HqG4FPfCQaFDvqUBKVmFu6fAeB4XtYUnCMUgDPSdnyOlJy8QnkjLYXKtJ7TvrwglI7cm
+         oAhDfifuGhOWNNqPQnDiqGirO70EDzYkXbItOeTkwCL9Df+Ch7Rb4RR5M7W8v6IGKfAa
+         FIrg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531v5xwxyGLb3EN95yaaiSfWEF7OA3CNlxSnkSA442B6BYe9Kp9N
-	oYhT9K7OYO8cKSwwYL5H11k=
-X-Google-Smtp-Source: ABdhPJztnibgPj83jakwJ1x/qsOwXRZcDYbJ2g3WsaK+9IatjoouN8JI/L+7hGQSRtBC8kv5tBpwyA==
-X-Received: by 2002:a1c:6856:: with SMTP id d83mr5489853wmc.13.1604504225005;
-        Wed, 04 Nov 2020 07:37:05 -0800 (PST)
+X-Gm-Message-State: AOAM533/7/lMRygWMTGlRE43+SNKvU0z8GY8WbFti3j6LedRosW2JIAc
+	XVRbZmGq0ppEpQQe4YnM3GY=
+X-Google-Smtp-Source: ABdhPJw08j0CMe94BBFdjWq5t1RABrzMkbe/erDX05EO5RtzLOVvIK6L0bEwHiBdQP6MmZ0TDx+TZA==
+X-Received: by 2002:a0c:f3d0:: with SMTP id f16mr3540836qvm.42.1604600469901;
+        Thu, 05 Nov 2020 10:21:09 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:a544:: with SMTP id j4ls3337847wrb.3.gmail; Wed, 04 Nov
- 2020 07:37:03 -0800 (PST)
-X-Received: by 2002:a5d:6688:: with SMTP id l8mr878959wru.360.1604504223762;
-        Wed, 04 Nov 2020 07:37:03 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1604504223; cv=none;
-        d=google.com; s=arc-20160816;
-        b=VQ/3LaoW0QtHDLva+HnlITqfXzguoIl+StHDNe6akAL1PSApUuSo1x+Lxs3o0RH9e/
-         LSG8pIbZCEF+BG8uRAvEYzQLva37mZvTZUpwNvXg+sY+m/+FYMy18Oz3nICxRQ1ejOGD
-         apmCIJh0SI5lpbAoJSovYlY/Mulwkros1CqHvFYJ5DHQNCbnN+q61yWZjK73RpN+oLJ5
-         eRO2qtLwEgicQf3H3JbZB9Mi2bPQsW/1MdVcy5xHRqkWGyvKEyUI+VOFT+nXd6FomLj7
-         Eae4dCDqlDHd7fnOEuIr8DIbTZbph3FM55dXZ0Z23qvOUjJhHGtsrn1QpQO39aetZm8L
-         OJww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature;
-        bh=HeIJ5miIZg9ZKG5AjOdOyfwsB86ygA+NIJvSf3kofxY=;
-        b=fMdAE8miussOpjHKA+vbS2Nb0LdiwQYQn4+H5C2qzlqLY0GiiIUbO+olHd/q2MrpCX
-         XKh2vjecO4IEcPgWgwltDupEHiWMsLry6B+Wj1tjMrZW4pAR5uH3ZUub7MCHheLLeIgg
-         looj0JphBnbo9QxSeyeJfZy68fQQkVNLhuviM0pA/+3WWYiC3CT0vsFrvagM8GY1WOjY
-         uAkBuS1AIQ1qKBN/EMHVpa8e82XqFS+hywumIBhauT7Feh9xlUaC6I1V8HvKJxvdjKig
-         HRSpJ01Vp8IrYDOHQGlGBHwSYMNB23xApNLb6MKjq0sp10M61G7e5YQ8iNsCW2lZfm7j
-         tR1A==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b=EigpXCHp;
-       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff89 as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
-Received: from postout1.mail.lrz.de (postout1.mail.lrz.de. [2001:4ca0:0:103::81bb:ff89])
-        by gmr-mx.google.com with ESMTPS id c20si141823wmd.2.2020.11.04.07.37.03
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Wed, 04 Nov 2020 07:37:03 -0800 (PST)
-Received-SPF: pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff89 as permitted sender) client-ip=2001:4ca0:0:103::81bb:ff89;
-Received: from lxmhs51.srv.lrz.de (localhost [127.0.0.1])
-	by postout1.mail.lrz.de (Postfix) with ESMTP id 4CR9kR3LcczyS4;
-	Wed,  4 Nov 2020 16:37:03 +0100 (CET)
-X-Virus-Scanned: by amavisd-new at lrz.de in lxmhs51.srv.lrz.de
-X-Spam-Flag: NO
-X-Spam-Score: -2.877
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.877 tagged_above=-999 required=5
-	tests=[ALL_TRUSTED=-1, BAYES_00=-1.9, DMARC_ADKIM_RELAXED=0.001,
-	DMARC_ASPF_RELAXED=0.001, DMARC_POLICY_NONE=0.001,
-	LRZ_DMARC_FAIL=0.001, LRZ_DMARC_FAIL_NONE=0.001,
-	LRZ_DMARC_POLICY=0.001, LRZ_DMARC_TUM_FAIL=0.001,
-	LRZ_DMARC_TUM_REJECT=3.5, LRZ_DMARC_TUM_REJECT_PO=-3.5,
-	LRZ_ENVFROM_FROM_ALIGNED_STRICT=0.001, LRZ_ENVFROM_FROM_MATCH=0.001,
-	LRZ_ENVFROM_TUM_S=0.001, LRZ_FROM_HAS_A=0.001,
-	LRZ_FROM_HAS_AAAA=0.001, LRZ_FROM_HAS_MDOM=0.001,
-	LRZ_FROM_HAS_MX=0.001, LRZ_FROM_HOSTED_DOMAIN=0.001,
-	LRZ_FROM_NAME_IN_ADDR=0.001, LRZ_FROM_PHRASE=0.001,
-	LRZ_FROM_PRE_SUR=0.001, LRZ_FROM_PRE_SUR_PHRASE=0.001,
-	LRZ_FROM_TUM_S=0.001, LRZ_HAS_IN_REPLY_TO=0.001, LRZ_HAS_SPF=0.001,
-	LRZ_TO_SHORT=0.001] autolearn=no autolearn_force=no
-Received: from postout1.mail.lrz.de ([127.0.0.1])
-	by lxmhs51.srv.lrz.de (lxmhs51.srv.lrz.de [127.0.0.1]) (amavisd-new, port 20024)
-	with LMTP id rpnzQuJIcUn4; Wed,  4 Nov 2020 16:37:03 +0100 (CET)
-Received: from kabal.ads.mwn.de (unknown [10.162.12.242])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(Client did not present a certificate)
-	by postout1.mail.lrz.de (Postfix) with ESMTPSA id 4CR9kQ6kKHzyTX;
-	Wed,  4 Nov 2020 16:37:02 +0100 (CET)
-From: Andrea Bastoni <andrea.bastoni@tum.de>
-To: jailhouse-dev@googlegroups.com
-Cc: alice.guo@nxp.com,
-	jan.kiszka@siemens.com,
-	Andrea Bastoni <andrea.bastoni@tum.de>
-Subject: [PATCH 3/3] hypervisor, configs: remove arm_mmu500 sid_mask and update imx8qm config
-Date: Wed,  4 Nov 2020 16:36:48 +0100
-Message-Id: <20201104153648.35076-4-andrea.bastoni@tum.de>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20201104153648.35076-1-andrea.bastoni@tum.de>
-References: <20201104153648.35076-1-andrea.bastoni@tum.de>
+Received: by 2002:a37:543:: with SMTP id 64ls1167346qkf.2.gmail; Thu, 05 Nov
+ 2020 10:21:09 -0800 (PST)
+X-Received: by 2002:a05:620a:14a9:: with SMTP id x9mr3310931qkj.47.1604600468523;
+        Thu, 05 Nov 2020 10:21:08 -0800 (PST)
+Date: Thu, 5 Nov 2020 10:21:07 -0800 (PST)
+From: Kai-Feng Chou <mapleelpam@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <7a9814a6-dd4b-453a-977b-3e2f86119176n@googlegroups.com>
+In-Reply-To: <69a501bc-e164-8ee2-f1a0-dac5f896401e@web.de>
+References: <345ef7c0-f01c-4032-811d-dbd1318da92a@googlegroups.com>
+ <69a501bc-e164-8ee2-f1a0-dac5f896401e@web.de>
+Subject: Re: Jailhouse support on Arrow SoCKit Evaluation Board
 MIME-Version: 1.0
-X-Original-Sender: andrea.bastoni@tum.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@tum.de header.s=postout header.b=EigpXCHp;       spf=pass
- (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff89
- as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=tum.de
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_712_157910563.1604600467670"
+X-Original-Sender: mapleelpam@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -155,78 +78,454 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-I.MX8QM fixed mask is factored-in into the stream_ids.
+------=_Part_712_157910563.1604600467670
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_713_1547387491.1604600467670"
 
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
----
- configs/arm64/imx8qm.c          | 6 ++++--
- hypervisor/arch/arm64/smmu.c    | 3 ---
- include/jailhouse/cell-config.h | 4 ----
- 3 files changed, 4 insertions(+), 9 deletions(-)
+------=_Part_713_1547387491.1604600467670
+Content-Type: text/plain; charset="UTF-8"
 
-diff --git a/configs/arm64/imx8qm.c b/configs/arm64/imx8qm.c
-index d63c73cf..566fd0ad 100644
---- a/configs/arm64/imx8qm.c
-+++ b/configs/arm64/imx8qm.c
-@@ -54,7 +54,6 @@ struct {
- 					.type = JAILHOUSE_IOMMU_ARM_MMU500,
- 					.base = 0x51400000,
- 					.size = 0x40000,
--					.arm_mmu500.sid_mask = 0x7f80,
- 				},
- 			},
- 
-@@ -209,6 +208,9 @@ struct {
- 	},
- 
- 	.stream_ids = {
--		0x11, 0x12, 0x13,
-+		/* bits 30 - 16: SMR MASK
-+		 * bits 14 - 0 : SMR ID
-+		 */
-+		0x7f80011, 0x7f80012, 0x7f80013,
- 	},
- };
-diff --git a/hypervisor/arch/arm64/smmu.c b/hypervisor/arch/arm64/smmu.c
-index 191ff154..d2824985 100644
---- a/hypervisor/arch/arm64/smmu.c
-+++ b/hypervisor/arch/arm64/smmu.c
-@@ -157,7 +157,6 @@ struct arm_smmu_device {
- 	unsigned long			pgshift;
- 	u32				num_context_banks;
- 	u32				num_mapping_groups;
--	u16				arm_sid_mask;
- 	struct arm_smmu_smr		*smrs;
- };
- 
-@@ -564,8 +563,6 @@ static int arm_smmu_init(void)
- 			continue;
- 
- 		smmu = &smmu_device[num_smmu_devices];
--		smmu->arm_sid_mask = iommu->arm_mmu500.sid_mask;
--
- 		smmu->base = paging_map_device(iommu->base, iommu->size);
- 		if (!smmu->base) {
- 			err = -ENOMEM;
-diff --git a/include/jailhouse/cell-config.h b/include/jailhouse/cell-config.h
-index 472cb4bb..d6315489 100644
---- a/include/jailhouse/cell-config.h
-+++ b/include/jailhouse/cell-config.h
-@@ -279,10 +279,6 @@ struct jailhouse_iommu {
- 			__u64 tlb_base;
- 			__u32 tlb_size;
- 		} __attribute__((packed)) tipvu;
--
--		struct {
--			__u32 sid_mask;
--		} __attribute__((packed)) arm_mmu500;
- 	};
- } __attribute__((packed));
- 
--- 
-2.28.0
+Hi, 
+ I'm working on Stratix 10 SoCFPGA and passed the .ko part and loaded it 
+sucessfully.
+But I do have problem with root cell implementation. checked the 
+"Documents" but there's no guidance for new board porting.
+Is it any useful hint?
+
+"
+root@stratix10:~/jailhouse/configs/arm64# jailhouse enable 
+socfpga-s10socdk.cell
+[  163.205096] SError Interrupt on CPU0, code 0xbf400000 -- SError
+[  163.205101] CPU: 0 PID: 0 Comm: swapper/0 Tainted: G           O      
+5.4.23-03461-gb6dad2fd8d54-dirty #1
+[  163.205103] Hardware name: SoCFPGA Stratix 10 SoCDK (DT)
+[  163.205105] pstate: 40000085 (nZcv daIf -PAN -UAO)
+[  163.205107] pc : arch_cpu_idle+0x8/0x18
+[  163.205109] lr : default_idle_call+0x1c/0x38
+[  163.205110] sp : ffff800011803ec0
+[  163.205112] x29: ffff800011803ec0 x28: 0000000003300018
+[  163.205117] x27: 0000000000000000 x26: 0000000000000000
+[  163.205121] x25: 0000000000000000 x24: ffff80001180a21c
+[  163.205124] x23: ffff800011456ab8 x22: ffff800011809000
+[  163.205128] x21: ffff80001180a000 x20: 0000000000000001
+[  163.205132] x19: ffff80001180a120 x18: 0000000000000000
+[  163.205136] x17: 0000000000000000 x16: 0000000000000000
+[  163.205140] x15: 00000000000001d9 x14: 0000000000000002
+[  163.205144] x13: 00000000000001d9 x12: 0000000000000001
+[  163.205148] x11: 0000000000000000 x10: 00000000000009c0
+[  163.205152] x9 : ffff800011803e20 x8 : ffff800011813760
+[  163.205156] x7 : 0000000000000660 x6 : ffff800011f9bdf0
+[  163.205159] x5 : ffff00003dd9bd70 x4 : ffff00003dd9bd70
+[  163.205163] x3 : 4000000000000000 x2 : 0000000000000000
+[  163.205167] x1 : 000000000003f8a4 x0 : 0000000000000028
+[  163.205173] SError Interrupt on CPU1, code 0xbf400000 -- SError
+[  163.205176] CPU: 1 PID: 0 Comm: swapper/1 Tainted: G           O      
+5.4.23-03461-gb6dad2fd8d54-dirty #1
+[  163.205178] Hardware name: SoCFPGA Stratix 10 SoCDK (DT)
+[  163.205180] pstate: 40000085 (nZcv daIf -PAN -UAO)
+[  163.205182] pc : arch_cpu_idle+0x8/0x18
+[  163.205184] lr : default_idle_call+0x1c/0x38
+[  163.205185] sp : ffff800011a53f30
+[  163.205187] x29: ffff800011a53f30 x28: e38b4d4078ae707d
+[  163.205190] x27: 9ecd419d57dce7ef x26: 0000000000000000
+[  163.205195] x25: 0000000000000000 x24: ffff80001180a21c
+[  163.205198] x23: ffff800011456ab8 x22: ffff800011809000
+[  163.205202] x21: ffff80001180a000 x20: 0000000000000002
+[  163.205206] x19: ffff80001180a120 x18: 0000000000000000
+[  163.205210] x17: 0000000000000000 x16: 0000000000000000
+[  163.205214] x15: 0000000000000000 x14: 0000000000000000
+[  163.205218] x13: 0000000000000001 x12: 0000000000004000
+[  163.205222] x11: 0000000000000000 x10: 00000000000009c0
+[  163.205226] x9 : ffff800011a53e90 x8 : ffff00003c4a2620
+[  163.205229] x7 : ffff80002c95d000 x6 : 0000001534120b80
+[  163.205233] x5 : 00ffffffffffffff x4 : 0000000066666666
+[  163.205237] x3 : 4000000000000000 x2 : 0000000000000000
+[  163.205241] x1 : 0000000000004c5c x0 : 0000000000000028
+[  163.205246] Kernel panic - not syncing: Asynchronous SError Interrupt
+[  163.205249] CPU: 1 PID: 0 Comm: swapper/1 Tainted: G           O      
+5.4.23-03461-gb6dad2fd8d54-dirty #1
+[  163.205251] Hardware name: SoCFPGA Stratix 10 SoCDK (DT)
+[  163.205253] Call trace:
+[  163.205254]  dump_backtrace+0x0/0x150
+[  163.205256]  show_stack+0x14/0x20
+[  163.205258]  dump_stack+0xbc/0x100
+[  163.205259]  panic+0x16c/0x37c
+[  163.205261]  __stack_chk_fail+0x0/0x18
+[  163.205263]  arm64_serror_panic+0x74/0x88
+[  163.205264]  do_serror+0x70/0x138
+[  163.205266]  el1_error+0x84/0xf8
+[  163.205267]  arch_cpu_idle+0x8/0x18
+[  163.205269]  do_idle+0x1d0/0x2b0
+[  163.205270]  cpu_startup_entry+0x24/0x40
+[  163.205272]  secondary_start_kernel+0x1b4/0x208
+[  163.205275] SError Interrupt on CPU2, code 0xbf400000 -- SError
+[  163.205278] CPU: 2 PID: 0 Comm: swapper/2 Tainted: G           O      
+5.4.23-03461-gb6dad2fd8d54-dirty #1
+[  163.205280] Hardware name: SoCFPGA Stratix 10 SoCDK (DT)
+[  163.205282] pstate: 40000085 (nZcv daIf -PAN -UAO)
+[  163.205284] pc : arch_cpu_idle+0x8/0x18
+[  163.205286] lr : default_idle_call+0x1c/0x38
+[  163.205287] sp : ffff800011a5bf30
+[  163.205289] x29: ffff800011a5bf30 x28: c8e8555c779f5780
+[  163.205293] x27: 72e681172d0391f0 x26: 0000000000000000
+[  163.205297] x25: 0000000000000000 x24: ffff80001180a21c
+[  163.205300] x23: ffff800011456ab8 x22: ffff800011809000
+[  163.205304] x21: ffff80001180a000 x20: 0000000000000004
+[  163.205308] x19: ffff80001180a120 x18: 0000000000000000
+[  163.205312] x17: 0000000000000000 x16: 0000000000000000
+[  163.205316] x15: 0000000000000000 x14: 0000000000000000
+[  163.205319] x13: 0000000000000001 x12: 0000000000005074
+[  163.205323] x11: 0000000000000000 x10: 00000000000009c0
+[  163.205327] x9 : ffff800011a5be90 x8 : ffff00003c4a3420
+[  163.205331] x7 : ffff80002c973000 x6 : 00000015459e3b80
+[  163.205335] x5 : 00ffffffffffffff x4 : 0000000066666666
+[  163.205339] x3 : 4000000000000000 x2 : 0000000000000000
+[  163.205343] x1 : 000000000000f4b8 x0 : 0000000000000028
+[  163.205348] SError Interrupt on CPU3, code 0xbf400000 -- SError
+[  163.205351] CPU: 3 PID: 1074 Comm: jailhouse Tainted: G           O      
+5.4.23-03461-gb6dad2fd8d54-dirty #1
+[  163.205353] Hardware name: SoCFPGA Stratix 10 SoCDK (DT)
+[  163.205355] pstate: 20000005 (nzCv daif -PAN -UAO)
+[  163.205357] pc : __memcpy+0x134/0x180
+[  163.205359] lr : jailhouse_cmd_enable+0x37c/0x7a0 [jailhouse]
+[  163.205361] sp : ffff800011bcbb10
+[  163.205362] x29: ffff800011bcbb10 x28: 00000000ffffffea
+[  163.205366] x27: ffff800011d65000 x26: ffff800008c97000
+[  163.205370] x25: ffff800008c97000 x24: 0000000000000004
+[  163.205374] x23: 0000000000000400 x22: 000000002d9e52a0
+[  163.205378] x21: 0000000000000000 x20: ffff800011809000
+[  163.205382] x19: 000000002d9e52a0 x18: 0000000000000000
+[  163.205386] x17: 0000000000000000 x16: 0000000000000000
+[  163.205390] x15: 0000000000000000 x14: 0000000000000000
+[  163.205393] x13: 0000000000000000 x12: 0000000000000000
+[  163.205397] x11: 0000000000000000 x10: 0000000000000000
+[  163.205401] x9 : 0000000000000000 x8 : 0000000000000000
+[  163.205405] x7 : 0000000000000000 x6 : ffff8000130001c0
+[  163.205409] x5 : ffff00003dffe4c8 x4 : 0000000000000000
+[  163.205413] x3 : ffff800013016000 x2 : 00000000000165c8
+[  163.205417] x1 : ffff800011d65200 x0 : ffff800013000000
+[  163.205435] Kernel Offset: disabled
+[  163.205437] CPU features: 0x0002,20002004
+[  163.205439] Memory Limit: 1024 MB
+"
+On Monday, 18 June 2018 at 03:07:04 UTC+8 Jan Kiszka wrote:
+
+> On 2018-06-17 20:45, David Pereira wrote:
+> > Hi everybody,
+> > 
+> > I would like to experiment with Jailhouse for implementing a 
+> mixed-criticality solution (FreeRTOS in one core, Linux on the other) over 
+> a Arrow SoCKit Evaluation Board (link for the board description is 
+> https://rocketboards.org/foswiki/Documentation/ArrowSoCKitEvaluationBoard
+> ).
+> > 
+> > Does anyone in the forum had already tried Jailhouse with this board and 
+> made it run successfully? I am looking for some hints which could help with 
+> the process of installing Jailhouse in this board.
+> > 
+> > Thanks a lot in advance for any replies.
+>
+> Unfortunately, that SoC is too old for Jailhouse (same is true for the
+> Xilinx Zynq, BTW).
+>
+> We need at least a Cortex-A7 or A15 on ARMv7, but the Cyclone V only has
+> an A9, and that predates virtualization support. Or ARMv8. You likely
+> need a Stratix 10 (though I haven't heard of anyone enabling Jailhouse
+> on that thing so far) or a Xilinx ZynqMP (known to work).
+>
+> Jan
+>
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20201104153648.35076-4-andrea.bastoni%40tum.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/7a9814a6-dd4b-453a-977b-3e2f86119176n%40googlegroups.com.
+
+------=_Part_713_1547387491.1604600467670
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi,&nbsp;<div>&nbsp;I'm working on Stratix 10 SoCFPGA and passed the .ko pa=
+rt and loaded it sucessfully.</div><div>But I do have problem with root cel=
+l implementation. checked the "Documents" but there's no guidance for new b=
+oard porting.</div><div>Is it any useful hint?</div><div><br></div><div>"</=
+div><div>root@stratix10:~/jailhouse/configs/arm64# jailhouse enable socfpga=
+-s10socdk.cell<br></div><div>[&nbsp; 163.205096] SError Interrupt on CPU0, =
+code 0xbf400000 -- SError</div><div>[&nbsp; 163.205101] CPU: 0 PID: 0 Comm:=
+ swapper/0 Tainted: G&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;O&nbsp; &nbsp=
+; &nbsp; 5.4.23-03461-gb6dad2fd8d54-dirty #1</div><div>[&nbsp; 163.205103] =
+Hardware name: SoCFPGA Stratix 10 SoCDK (DT)</div><div>[&nbsp; 163.205105] =
+pstate: 40000085 (nZcv daIf -PAN -UAO)</div><div>[&nbsp; 163.205107] pc : a=
+rch_cpu_idle+0x8/0x18</div><div>[&nbsp; 163.205109] lr : default_idle_call+=
+0x1c/0x38</div><div>[&nbsp; 163.205110] sp : ffff800011803ec0</div><div>[&n=
+bsp; 163.205112] x29: ffff800011803ec0 x28: 0000000003300018</div><div>[&nb=
+sp; 163.205117] x27: 0000000000000000 x26: 0000000000000000</div><div>[&nbs=
+p; 163.205121] x25: 0000000000000000 x24: ffff80001180a21c</div><div>[&nbsp=
+; 163.205124] x23: ffff800011456ab8 x22: ffff800011809000</div><div>[&nbsp;=
+ 163.205128] x21: ffff80001180a000 x20: 0000000000000001</div><div>[&nbsp; =
+163.205132] x19: ffff80001180a120 x18: 0000000000000000</div><div>[&nbsp; 1=
+63.205136] x17: 0000000000000000 x16: 0000000000000000</div><div>[&nbsp; 16=
+3.205140] x15: 00000000000001d9 x14: 0000000000000002</div><div>[&nbsp; 163=
+.205144] x13: 00000000000001d9 x12: 0000000000000001</div><div>[&nbsp; 163.=
+205148] x11: 0000000000000000 x10: 00000000000009c0</div><div>[&nbsp; 163.2=
+05152] x9 : ffff800011803e20 x8 : ffff800011813760</div><div>[&nbsp; 163.20=
+5156] x7 : 0000000000000660 x6 : ffff800011f9bdf0</div><div>[&nbsp; 163.205=
+159] x5 : ffff00003dd9bd70 x4 : ffff00003dd9bd70</div><div>[&nbsp; 163.2051=
+63] x3 : 4000000000000000 x2 : 0000000000000000</div><div>[&nbsp; 163.20516=
+7] x1 : 000000000003f8a4 x0 : 0000000000000028</div><div>[&nbsp; 163.205173=
+] SError Interrupt on CPU1, code 0xbf400000 -- SError</div><div>[&nbsp; 163=
+.205176] CPU: 1 PID: 0 Comm: swapper/1 Tainted: G&nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp;O&nbsp; &nbsp; &nbsp; 5.4.23-03461-gb6dad2fd8d54-dirty #1</d=
+iv><div>[&nbsp; 163.205178] Hardware name: SoCFPGA Stratix 10 SoCDK (DT)</d=
+iv><div>[&nbsp; 163.205180] pstate: 40000085 (nZcv daIf -PAN -UAO)</div><di=
+v>[&nbsp; 163.205182] pc : arch_cpu_idle+0x8/0x18</div><div>[&nbsp; 163.205=
+184] lr : default_idle_call+0x1c/0x38</div><div>[&nbsp; 163.205185] sp : ff=
+ff800011a53f30</div><div>[&nbsp; 163.205187] x29: ffff800011a53f30 x28: e38=
+b4d4078ae707d</div><div>[&nbsp; 163.205190] x27: 9ecd419d57dce7ef x26: 0000=
+000000000000</div><div>[&nbsp; 163.205195] x25: 0000000000000000 x24: ffff8=
+0001180a21c</div><div>[&nbsp; 163.205198] x23: ffff800011456ab8 x22: ffff80=
+0011809000</div><div>[&nbsp; 163.205202] x21: ffff80001180a000 x20: 0000000=
+000000002</div><div>[&nbsp; 163.205206] x19: ffff80001180a120 x18: 00000000=
+00000000</div><div>[&nbsp; 163.205210] x17: 0000000000000000 x16: 000000000=
+0000000</div><div>[&nbsp; 163.205214] x15: 0000000000000000 x14: 0000000000=
+000000</div><div>[&nbsp; 163.205218] x13: 0000000000000001 x12: 00000000000=
+04000</div><div>[&nbsp; 163.205222] x11: 0000000000000000 x10: 000000000000=
+09c0</div><div>[&nbsp; 163.205226] x9 : ffff800011a53e90 x8 : ffff00003c4a2=
+620</div><div>[&nbsp; 163.205229] x7 : ffff80002c95d000 x6 : 0000001534120b=
+80</div><div>[&nbsp; 163.205233] x5 : 00ffffffffffffff x4 : 000000006666666=
+6</div><div>[&nbsp; 163.205237] x3 : 4000000000000000 x2 : 0000000000000000=
+</div><div>[&nbsp; 163.205241] x1 : 0000000000004c5c x0 : 0000000000000028<=
+/div><div>[&nbsp; 163.205246] Kernel panic - not syncing: Asynchronous SErr=
+or Interrupt</div><div>[&nbsp; 163.205249] CPU: 1 PID: 0 Comm: swapper/1 Ta=
+inted: G&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;O&nbsp; &nbsp; &nbsp; 5.4.=
+23-03461-gb6dad2fd8d54-dirty #1</div><div>[&nbsp; 163.205251] Hardware name=
+: SoCFPGA Stratix 10 SoCDK (DT)</div><div>[&nbsp; 163.205253] Call trace:</=
+div><div>[&nbsp; 163.205254]&nbsp; dump_backtrace+0x0/0x150</div><div>[&nbs=
+p; 163.205256]&nbsp; show_stack+0x14/0x20</div><div>[&nbsp; 163.205258]&nbs=
+p; dump_stack+0xbc/0x100</div><div>[&nbsp; 163.205259]&nbsp; panic+0x16c/0x=
+37c</div><div>[&nbsp; 163.205261]&nbsp; __stack_chk_fail+0x0/0x18</div><div=
+>[&nbsp; 163.205263]&nbsp; arm64_serror_panic+0x74/0x88</div><div>[&nbsp; 1=
+63.205264]&nbsp; do_serror+0x70/0x138</div><div>[&nbsp; 163.205266]&nbsp; e=
+l1_error+0x84/0xf8</div><div>[&nbsp; 163.205267]&nbsp; arch_cpu_idle+0x8/0x=
+18</div><div>[&nbsp; 163.205269]&nbsp; do_idle+0x1d0/0x2b0</div><div>[&nbsp=
+; 163.205270]&nbsp; cpu_startup_entry+0x24/0x40</div><div>[&nbsp; 163.20527=
+2]&nbsp; secondary_start_kernel+0x1b4/0x208</div><div>[&nbsp; 163.205275] S=
+Error Interrupt on CPU2, code 0xbf400000 -- SError</div><div>[&nbsp; 163.20=
+5278] CPU: 2 PID: 0 Comm: swapper/2 Tainted: G&nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp;O&nbsp; &nbsp; &nbsp; 5.4.23-03461-gb6dad2fd8d54-dirty #1</div>=
+<div>[&nbsp; 163.205280] Hardware name: SoCFPGA Stratix 10 SoCDK (DT)</div>=
+<div>[&nbsp; 163.205282] pstate: 40000085 (nZcv daIf -PAN -UAO)</div><div>[=
+&nbsp; 163.205284] pc : arch_cpu_idle+0x8/0x18</div><div>[&nbsp; 163.205286=
+] lr : default_idle_call+0x1c/0x38</div><div>[&nbsp; 163.205287] sp : ffff8=
+00011a5bf30</div><div>[&nbsp; 163.205289] x29: ffff800011a5bf30 x28: c8e855=
+5c779f5780</div><div>[&nbsp; 163.205293] x27: 72e681172d0391f0 x26: 0000000=
+000000000</div><div>[&nbsp; 163.205297] x25: 0000000000000000 x24: ffff8000=
+1180a21c</div><div>[&nbsp; 163.205300] x23: ffff800011456ab8 x22: ffff80001=
+1809000</div><div>[&nbsp; 163.205304] x21: ffff80001180a000 x20: 0000000000=
+000004</div><div>[&nbsp; 163.205308] x19: ffff80001180a120 x18: 00000000000=
+00000</div><div>[&nbsp; 163.205312] x17: 0000000000000000 x16: 000000000000=
+0000</div><div>[&nbsp; 163.205316] x15: 0000000000000000 x14: 0000000000000=
+000</div><div>[&nbsp; 163.205319] x13: 0000000000000001 x12: 00000000000050=
+74</div><div>[&nbsp; 163.205323] x11: 0000000000000000 x10: 00000000000009c=
+0</div><div>[&nbsp; 163.205327] x9 : ffff800011a5be90 x8 : ffff00003c4a3420=
+</div><div>[&nbsp; 163.205331] x7 : ffff80002c973000 x6 : 00000015459e3b80<=
+/div><div>[&nbsp; 163.205335] x5 : 00ffffffffffffff x4 : 0000000066666666</=
+div><div>[&nbsp; 163.205339] x3 : 4000000000000000 x2 : 0000000000000000</d=
+iv><div>[&nbsp; 163.205343] x1 : 000000000000f4b8 x0 : 0000000000000028</di=
+v><div>[&nbsp; 163.205348] SError Interrupt on CPU3, code 0xbf400000 -- SEr=
+ror</div><div>[&nbsp; 163.205351] CPU: 3 PID: 1074 Comm: jailhouse Tainted:=
+ G&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;O&nbsp; &nbsp; &nbsp; 5.4.23-034=
+61-gb6dad2fd8d54-dirty #1</div><div>[&nbsp; 163.205353] Hardware name: SoCF=
+PGA Stratix 10 SoCDK (DT)</div><div>[&nbsp; 163.205355] pstate: 20000005 (n=
+zCv daif -PAN -UAO)</div><div>[&nbsp; 163.205357] pc : __memcpy+0x134/0x180=
+</div><div>[&nbsp; 163.205359] lr : jailhouse_cmd_enable+0x37c/0x7a0 [jailh=
+ouse]</div><div>[&nbsp; 163.205361] sp : ffff800011bcbb10</div><div>[&nbsp;=
+ 163.205362] x29: ffff800011bcbb10 x28: 00000000ffffffea</div><div>[&nbsp; =
+163.205366] x27: ffff800011d65000 x26: ffff800008c97000</div><div>[&nbsp; 1=
+63.205370] x25: ffff800008c97000 x24: 0000000000000004</div><div>[&nbsp; 16=
+3.205374] x23: 0000000000000400 x22: 000000002d9e52a0</div><div>[&nbsp; 163=
+.205378] x21: 0000000000000000 x20: ffff800011809000</div><div>[&nbsp; 163.=
+205382] x19: 000000002d9e52a0 x18: 0000000000000000</div><div>[&nbsp; 163.2=
+05386] x17: 0000000000000000 x16: 0000000000000000</div><div>[&nbsp; 163.20=
+5390] x15: 0000000000000000 x14: 0000000000000000</div><div>[&nbsp; 163.205=
+393] x13: 0000000000000000 x12: 0000000000000000</div><div>[&nbsp; 163.2053=
+97] x11: 0000000000000000 x10: 0000000000000000</div><div>[&nbsp; 163.20540=
+1] x9 : 0000000000000000 x8 : 0000000000000000</div><div>[&nbsp; 163.205405=
+] x7 : 0000000000000000 x6 : ffff8000130001c0</div><div>[&nbsp; 163.205409]=
+ x5 : ffff00003dffe4c8 x4 : 0000000000000000</div><div>[&nbsp; 163.205413] =
+x3 : ffff800013016000 x2 : 00000000000165c8</div><div>[&nbsp; 163.205417] x=
+1 : ffff800011d65200 x0 : ffff800013000000</div><div>[&nbsp; 163.205435] Ke=
+rnel Offset: disabled</div><div>[&nbsp; 163.205437] CPU features: 0x0002,20=
+002004</div><div>[&nbsp; 163.205439] Memory Limit: 1024 MB</div><div>"</div=
+><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">On Monda=
+y, 18 June 2018 at 03:07:04 UTC+8 Jan Kiszka wrote:<br/></div><blockquote c=
+lass=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-left: 1px solid r=
+gb(204, 204, 204); padding-left: 1ex;">On 2018-06-17 20:45, David Pereira w=
+rote:
+<br>&gt; Hi everybody,
+<br>&gt;=20
+<br>&gt; I would like to experiment with Jailhouse for implementing a mixed=
+-criticality solution (FreeRTOS in one core, Linux on the other) over a Arr=
+ow SoCKit Evaluation Board (link for the board description is <a href=3D"ht=
+tps://rocketboards.org/foswiki/Documentation/ArrowSoCKitEvaluationBoard" ta=
+rget=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google=
+.com/url?hl=3Den-GB&amp;q=3Dhttps://rocketboards.org/foswiki/Documentation/=
+ArrowSoCKitEvaluationBoard&amp;source=3Dgmail&amp;ust=3D1604686524460000&am=
+p;usg=3DAFQjCNEMk2WZJOgG-8npTVB4iG0l03oTHQ">https://rocketboards.org/foswik=
+i/Documentation/ArrowSoCKitEvaluationBoard</a>).
+<br>&gt;=20
+<br>&gt; Does anyone in the forum had already tried Jailhouse with this boa=
+rd and made it run successfully? I am looking for some hints which could he=
+lp with the process of installing Jailhouse in this board.
+<br>&gt;=20
+<br>&gt; Thanks a lot in advance for any replies.
+<br>
+<br>Unfortunately, that SoC is too old for Jailhouse (same is true for the
+<br>Xilinx Zynq, BTW).
+<br>
+<br>We need at least a Cortex-A7 or A15 on ARMv7, but the Cyclone V only ha=
+s
+<br>an A9, and that predates virtualization support. Or ARMv8. You likely
+<br>need a Stratix 10 (though I haven&#39;t heard of anyone enabling Jailho=
+use
+<br>on that thing so far) or a Xilinx ZynqMP (known to work).
+<br>
+<br>Jan
+<br></blockquote></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/7a9814a6-dd4b-453a-977b-3e2f86119176n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/7a9814a6-dd4b-453a-977b-3e2f86119176n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_713_1547387491.1604600467670--
+
+------=_Part_712_157910563.1604600467670
+Content-Type: text/x-csrc; charset=US-ASCII; name=socfpga-s10socdk.c
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename=socfpga-s10socdk.c
+X-Attachment-Id: a56fe579-e4eb-415b-b568-9e6b801ecb24
+Content-ID: <a56fe579-e4eb-415b-b568-9e6b801ecb24>
+
+/*
+ * Jailhouse, a Linux-based partitioning hypervisor
+ *
+ * Configuration for Xilinx ZynqMP ZCU102 eval board
+ *
+ * Copyright (c) Siemens AG, 2016
+ *
+ * Authors:
+ *  Jan Kiszka <jan.kiszka@siemens.com>
+ *
+ * This work is licensed under the terms of the GNU GPL, version 2.  See
+ * the COPYING file in the top-level directory.
+ *
+ * Reservation via device tree: 0x800000000..0x83fffffff
+ */
+
+#include <jailhouse/types.h>
+#include <jailhouse/cell-config.h>
+
+struct {
+	struct jailhouse_system header;
+	__u64 cpus[1];
+	struct jailhouse_memory mem_regions[12];
+	struct jailhouse_irqchip irqchips[1];
+	struct jailhouse_pci_device pci_devices[2];
+} __attribute__((packed)) config = {
+	.header = {
+		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
+		.revision = JAILHOUSE_CONFIG_REVISION,
+		.flags = JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
+		.hypervisor_memory = {
+			.phys_start = 0x800000000,
+			.size =       0x000400000,
+		},
+		.debug_console = {
+			.address = 0xffc02000,
+			.size = 0x1000,
+			.type = JAILHOUSE_CON_TYPE_8250,
+			.flags = JAILHOUSE_CON_ACCESS_MMIO |
+				 JAILHOUSE_CON_REGDIST_4,
+		},
+		.platform_info = {
+			/* need to check */
+			.pci_mmconfig_base = 0xfc000000,
+			.pci_mmconfig_end_bus = 0,
+			.pci_is_virtual = 1,
+			.pci_domain = -1,
+			.arm = {
+				.gic_version = 2,
+				.gicd_base = 0xfffc1000,
+				.gicc_base = 0xfffc2000,
+				.gich_base = 0xfffc4000,
+				.gicv_base = 0xfffc6000,
+				.maintenance_irq = 25,
+			},
+		},
+		.root_cell = {
+			.name = "Stratix10-SoCfpga-SoCdk",
+
+			.cpu_set_size = sizeof(config.cpus),
+			.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+			.num_irqchips = ARRAY_SIZE(config.irqchips),
+			.num_pci_devices = ARRAY_SIZE(config.pci_devices),
+
+			.vpci_irq_base = 136-32,
+		},
+	},
+
+	.cpus = {
+		0xf,
+	},
+
+	.mem_regions = {
+		/* IVSHMEM shared memory region for 0001:00:00.0 */
+//		JAILHOUSE_SHMEM_NET_REGIONS(0x800400000, 0),
+		/* IVSHMEM shared memory region for 0001:00:01.0 */
+//		JAILHOUSE_SHMEM_NET_REGIONS(0x800500000, 0),
+		/* MMIO (permissive) */ {
+			.phys_start = 0xff800000,
+			.virt_start = 0xff800000,
+			.size =	      0x00700000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO,
+		},
+		/* RAM */ {
+			.phys_start = 0x0,
+			.virt_start = 0x0,
+			.size = 0x80000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE,
+		},
+		/* RAM */ {
+			.phys_start = 0x800600000,
+			.virt_start = 0x800600000,
+			.size = 0x7fa00000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE,
+		},
+	},
+
+	.irqchips = {
+		/* GIC */ {
+			.address = 0xfffc1000,
+			.pin_base = 32,
+			.pin_bitmap = {
+				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,
+			},
+		},
+	},
+
+};
+
+------=_Part_712_157910563.1604600467670--
