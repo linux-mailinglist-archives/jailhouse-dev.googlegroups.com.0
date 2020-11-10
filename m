@@ -1,150 +1,125 @@
-Return-Path: <jailhouse-dev+bncBDE3XXPWEAIP33FH7UCRUBGAOJEXM@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCMPVWOP6MBRBVNKVH6QKGQEOAVVQ7Q@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23e.google.com (mail-lj1-x23e.google.com [IPv6:2a00:1450:4864:20::23e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86C802ACAE9
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 10 Nov 2020 03:10:06 +0100 (CET)
-Received: by mail-lj1-x23e.google.com with SMTP id h12sf2276266ljc.13
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 09 Nov 2020 18:10:06 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1604974206; cv=pass;
+Received: from mail-oi1-x23b.google.com (mail-oi1-x23b.google.com [IPv6:2607:f8b0:4864:20::23b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 809372AD1E2
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 10 Nov 2020 09:54:47 +0100 (CET)
+Received: by mail-oi1-x23b.google.com with SMTP id z79sf1683884oia.10
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 10 Nov 2020 00:54:47 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1604998486; cv=pass;
         d=google.com; s=arc-20160816;
-        b=BkXHc9nyQQdP5Zp00VSz6xRCpUH4dpr8qx5LPpTtISNEOYLKRs367FRpX2B9PlmyG7
-         5cBVjtksowzaTQZJpzWWg9ALhqo543DUtU+PfCJswCtNFU08qQ77fBR9EapijXM4mKZG
-         47EEITxKTds2HGkra2cYondRALsKd8MC91fPXJMBw8YbLr2GA+ggH5N3hkHNmLlF/k7I
-         IF8W2jTRPPOdImAGozkVMmVmqbQ5GLXNphZPWMkp+NXqDEB2W3IIIMOAtknTF41/Ul9S
-         wlGlr+f/MW534ZmLYNn2AP9pN9CZOF4L3UYfooRNYPN9fIz9aG752vY5B69EFtSGzVYK
-         OvHw==
+        b=lOiSond7wEPf4CwDAFcYfaX9DvPXKFD/4uUMzih+pro9xXSdvZAXV3PjqC2aXnIc8v
+         Ys81nTGilp5BxHIy9s6rSexvskXzoKoRwdlerk6eoBNseH4AX4gekeiFuJjj+pfMPwVe
+         vGyx2BTrsiTiDlPKIYMHW21Tb8HJHrlhqpAIs6RDF1whYHqlG6dIQXQ6sjXqi18PoSDM
+         WNvSb85XM3fzAzk47ghqmwsAFt7zs8vY/vwQYn/mU5cBpv5jeKqR15nmBK+MSEtjJc7s
+         VGyp0MDbp9VdBnq+fOAUADvCHuL/D89hykC/ZS1CER7SnrOlqAkVGuGQY/IhLw68jJ3n
+         2V/Q==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version
-         :content-transfer-encoding:content-language:accept-language
-         :references:message-id:date:thread-index:thread-topic:subject:cc:to
-         :from:sender:dkim-signature;
-        bh=sZwCo0Z+bzJxKQ84YJVlnkmcaV92pddfH0W9Cbazxec=;
-        b=g4bOZVWzHv9Ya2G6RyNAxNvxP8W87Tr9yqlcO91SYCLLNKsXBx3UM6nKcGszxcRJCw
-         PMTRMymNLFd5EghzYgvXRuEUH+4j42eCSfCCGsuujKwp4RNMZflBTMkBFVQ1sTPX+zVT
-         s59X8W9mG6epVYZ8JqamD73zLTJ6xg2IRI1xgDSKyOsQZNuAqjOWXT4w12EYzbi7nv8g
-         NlZcr0shOmL6n/UIn9S9T1gtovP0Unc/ngqzhLn4m22u1h5W9vDSA53OoLQTH+GJfIZX
-         mvUArpN026NTFKori/DDSQsysDBX2b4RL+66KnWR6UDKGoplLMvTlJJJXqGqaW5WqvAm
-         WZ3w==
+         :list-id:mailing-list:precedence:feedback-id:date:auto-submitted
+         :mime-version:message-id:subject:to:reply-to:from:dkim-signature;
+        bh=hB7LHd7V0EkTdUw1oR0edse377qGHhApVddYRRpXB+Y=;
+        b=Ba/i93RNe9sl+rsvz3pmKiBSkzuBJ1hSBO9NVZW7tMpmlPOlo0pikmfMZfjFvFH7S4
+         +Zt79FadUrgjQs42uFOjMlcHa1WsZSL0A2Q0oI9D148djXKYK+zyf5ISRRsd5DcU3zuw
+         HZjihwoOnUy3uAjHdM3HjyoefBl40OPo6ItVQixEJaPrHq/7kCo22ckhcMvu3NDqWIOx
+         W/V3OZOfGM0pmSeOKZUDmwau8CrnZdmGNL5ueBg1IEDJitEn5mIH0ueQHZYHFv8IW9mB
+         pAQ5sax/u1jekkTErcHaxGWaL+6R4wNFk6Amg/YLPxBunBSy5ccswsNNaSADg7KcQaG4
+         Jxxw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jingyan.liang@marelli.com designates 212.123.238.166 as permitted sender) smtp.mailfrom=jingyan.liang@marelli.com
+       dkim=pass header.i=@slack.com header.s=s4xolb5s7tnx6yxtrm4adems7glgsuyf header.b=DEGje0ag;
+       dkim=pass header.i=@amazonses.com header.s=224i4yxa5dv7c2xz3womw6peuasteono header.b=LFhP6gJp;
+       spf=pass (google.com: domain of 01000175b15d52f3-97f15e86-058a-4396-b74d-6634837c5c35-000000@mail.slack.com designates 54.240.37.228 as permitted sender) smtp.mailfrom=01000175b15d52f3-97f15e86-058a-4396-b74d-6634837c5c35-000000@mail.slack.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=slack.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:cc:subject:thread-topic:thread-index:date:message-id
-         :references:accept-language:content-language
-         :content-transfer-encoding:mime-version:x-original-sender
+        h=from:reply-to:to:subject:message-id:mime-version:auto-submitted
+         :date:feedback-id:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=sZwCo0Z+bzJxKQ84YJVlnkmcaV92pddfH0W9Cbazxec=;
-        b=LnXZEaiYQHRVBvkUhz6QQwxtZengjJqaHrrzRmjtHiAWDe7GOmOSjzBk9sNnHm24gs
-         /qfUUPZLtID0lzEoWtHzT8cyY5YaF93SkpWDK0KUjwkbxfWvt0pngPr7ulNJQq8dnOVi
-         HjqBzGB6L9T7O2OabfXjrLirz/Tc7cpNvMHSewN2EtQYw6WY5MRxlld6jf1Q/F30L2s4
-         X+Bfx6pXieHgTLP0xYGmflwCKEt36zE+CdcNO04JD+XJ+613GK2aMqHU3wVz0sNUw0fh
-         5DTXwYe3f9kqeWupm4jAQQAoL9dtjDVc7AwXitCnK6s1/uLhJ+k36JisE8VxtGFpY7+K
-         8SDA==
+        bh=hB7LHd7V0EkTdUw1oR0edse377qGHhApVddYRRpXB+Y=;
+        b=eNC6Y1A/fORDXUaz1KcfbXYZzPgOOUZ+8aCha8PJXLEBPicO5G+Nzi7YM6WbSVP2wY
+         MGegLaPhftFX7StU/UFMFtiUef0xZx+DnWnXeurg2uxJl5AQaeJsexPGP2seERiecpQI
+         uuzu3GbSY44CivR/ZaxC6sb5RNi4BSfA2dDzPE5AeF+aFaBkNpNXrncYSRnMAP+UR0Bi
+         hqm00KQ7Nt1fUO/T1SIPjqpalLf9qO/ZZExt0JSDqI8D6LV2G0Xf7/63bJqCvW9y8qrv
+         wx9aYmIf8WVQNXogKS+9aGfmshw3uoOsdRHua7EReSzYQRG0glRugqT/ckATJFhdMH6O
+         RDZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:cc:subject:thread-topic
-         :thread-index:date:message-id:references:accept-language
-         :content-language:content-transfer-encoding:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=sZwCo0Z+bzJxKQ84YJVlnkmcaV92pddfH0W9Cbazxec=;
-        b=X/tecMfe8BYmB2j9OjeEHxb0FXVHIEawo27ARwHAy5PTXdTJqtjIOFhlhpt9Q4KH38
-         mVUtGJDWtpOIBz9cgzn1F4MNJy2nOV8erilO/xtznFK5Cot/CojA8KjB9fUzW4ND410W
-         YyWiFBCnVELMgodNPU03QKlqayBPPC62Ywu2vJOz/KAVfOrOnj9rN525Jwd9yhg0bgzz
-         ElaAyIypppLCr/elwAxOmnAdDUu0Mjg7crFDmw9urj8uoKyzJuf1VIE+iuHJC/SbjeeV
-         Km6sKIQDTHRLSIzSdItFW5roqglQwQJeHQ5QUHEbnWKfwJaNl3ssWTNkBtCwkDrPUCUC
-         9M7g==
-Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM5303npk2SXVPhTnDZaooU+nHsyG01He7bcvgR6sXUsslUkHsxFJJ
-	D/uyDY19cdw9Z9/0LVBLvus=
-X-Google-Smtp-Source: ABdhPJxwhe0atWYmViL49k/Y/SzQtMjaaFErJpHGxaLXW53qfP6SZ44krJ4Y/SodqDH9KYpt+1GTow==
-X-Received: by 2002:ac2:5638:: with SMTP id b24mr4453053lff.332.1604974206097;
-        Mon, 09 Nov 2020 18:10:06 -0800 (PST)
+        h=x-gm-message-state:from:reply-to:to:subject:message-id:mime-version
+         :auto-submitted:date:feedback-id:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=hB7LHd7V0EkTdUw1oR0edse377qGHhApVddYRRpXB+Y=;
+        b=ao8a5+E43DgjeDnVrVUzmmTzRIuaM78FiQLJYDbRbwg39t32W0CTHHJ8Jt//zKvRpT
+         SU3dIGufv7SUC8mMRVY7wZZJ/sCWDIIDlzW72F4buafNwvnPJ2Kvwe28VBd6kUfrq/MJ
+         51FW6jrq2G4h8sgKgu24iWcmERoKi74n2HSucBn+rKA/WjR76Blh5jpyqmHkODZ5enmn
+         6ONrcCJN+DBvn/sc6HXGylkPPKmGl/RBs7FDCO7lJ/oUa3APQBSKOy02mTtCeAomiLNq
+         Dqiiwz9YByM29dZjYK0+8MvFeBxelt2F6XtLT8OaXmsIGmA2aNWVbmoLfn2y4oggZSah
+         l/hg==
+X-Gm-Message-State: AOAM530pEMnrrl7jOG3hvEJ2OoJveUkDYsFnW0GmGdVUpdd0vjt9ZY4m
+	FMpzY4fyPPNJlHk7IM28qiY=
+X-Google-Smtp-Source: ABdhPJzVEc37aW5c32KfW6k4U0KZ6xyek8ow/xKsYmq0NxdAVeqw2l0/mefGP9akXHCcgfKZ4fr8fw==
+X-Received: by 2002:a9d:2206:: with SMTP id o6mr14292876ota.244.1604998486261;
+        Tue, 10 Nov 2020 00:54:46 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:888a:: with SMTP id k10ls1801325lji.10.gmail; Mon, 09
- Nov 2020 18:10:05 -0800 (PST)
-X-Received: by 2002:a2e:99d7:: with SMTP id l23mr306283ljj.303.1604974204930;
-        Mon, 09 Nov 2020 18:10:04 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1604974204; cv=none;
+Received: by 2002:aca:a843:: with SMTP id r64ls2844193oie.2.gmail; Tue, 10 Nov
+ 2020 00:54:45 -0800 (PST)
+X-Received: by 2002:aca:3687:: with SMTP id d129mr2236190oia.100.1604998485518;
+        Tue, 10 Nov 2020 00:54:45 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1604998485; cv=none;
         d=google.com; s=arc-20160816;
-        b=Pyx87Ez16jYNwffl7cOgxLh3D5fpLbk+olmNAqm9JU3nlUx8g4Amy12mW0rlg8KS1V
-         eF4QGRSg3all/T8gRFO9iyjDWwS5gvnttWkJJm0HraEpkk3n2KlfyZI3b3GjSBQMJjOd
-         hy3CAaEAbUDLTCAcTmEayxDEp8TvkgaE3w4XJ232CSNTIZubIUdh1kecK3GjL2Jb375d
-         HfqUAUoHL1l6OT/+lojX7I5GfaORANJX6taNtCI4j2B6eCWbjjPCd+C/rQJEFMLMbjNt
-         PzWk2Kf0y8Ky/2yfuLOoS3cKrqk24mAdsgw/ycIk1SZDd7zXwingKlxu57gf65a91BlE
-         NiQQ==
+        b=E15pkT8DiFF8vSzB4MGtG8nHdfklRu6gOW3UIvNz1EYZbM5EZ/YH1xxWuFW2gVI6sb
+         cMDv8376+BRjhCESQUR+a/NueBZiWusSf73ieqrCrupq0MwTgAXYMuxOL0oPqsVyjyRB
+         k3Fo4nV/ncFoo6OJhJ+VADWNJqyJybQ3SxfEgsmSVPG/EVLj0ZX45S3VXqxCg9dJzneH
+         qmActG+Ric56dlpk8d3H/0ADlEr2+AYSlKVgCmWEqOkPEp+Ug4dedqwMDjc1sJe9r4Hv
+         7Df4xPNpOsShtV+UO+jj7QOTLDY2/sZpV/6sy4OrEdINSAWT5T2Xq/V7ggtOTOLDnmaB
+         wzog==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:content-transfer-encoding:content-language
-         :accept-language:references:message-id:date:thread-index
-         :thread-topic:subject:cc:to:from;
-        bh=9WvM63F89XBoqZCNltH/Wzq4SVILVkMeL/n+9XSc/As=;
-        b=ozSdZJQpUCMnwcix5S/yulpi4NMVaCTt2Kza31wZeFhWRyD0RSkX1rOG+AZhZ/gGFE
-         cUs2yHOBhdMX9fMSxQFqRErAtG3Sg1HaN2bJJJEziTHrdBPg8JGniUyfMZjZ7UMm6dju
-         AhHPR6vf7dAh0ebIN61iMB+7B5QERUS0OmSecojtRRkGI0n3zMAcHnakReFD+KRYGnFT
-         iKbYdRxvBdotPuPrqd2oTuBJ5d3xWapsUrR4HV0iEYYQqRF4Dzb+tBlKWkMKenjUGewv
-         tgy+fby6ZxBNAqqXJwP2dy00248mpiVf7kMnBFFIpJNXIXcweZ888b0XDGJJeyXDhSgu
-         Bi/w==
+        h=feedback-id:date:auto-submitted:mime-version:message-id:subject:to
+         :reply-to:from:dkim-signature:dkim-signature;
+        bh=9fKG2R3tbzp+myuvq+6zseTvVLMdDlWppISynDhJlFk=;
+        b=PkLvGeifdk+QRYKLKm5ixzMDgpmF+3gjt8PKuq3k/VEIGOdh0FHtGqCGLNyoCz1U3t
+         Dn55VFVARPoJV4qP3kPrtabB2wQN0BvR25FABh6a6rycgWP2no0nR9HHKDcEkLaV/Cs7
+         3XdLpGrrbdCp1KLicxWXjFDd2NcSWSkAN43XjZjPB7Ljy3Q3EfazjsbVWClwjTb2ewIO
+         7BDHpUvN/c8B/taozFLK9iJNF3IEm2hMkxPRGRwXSHU2Ot4IKRdW8cYCa0RkQUhX02T1
+         lRfzN3KTdjQAD2bHTWKj6wmC7qh6OLhlzF5U6zC3eYnJYPDotqkapiFRRXLLGeH7rx7I
+         QRfg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jingyan.liang@marelli.com designates 212.123.238.166 as permitted sender) smtp.mailfrom=jingyan.liang@marelli.com
-Received: from fsasmgp09.fiatgroup.com (mx2fcms.fiatgroup.com. [212.123.238.166])
-        by gmr-mx.google.com with ESMTPS id y12si239831lfb.1.2020.11.09.18.10.04
+       dkim=pass header.i=@slack.com header.s=s4xolb5s7tnx6yxtrm4adems7glgsuyf header.b=DEGje0ag;
+       dkim=pass header.i=@amazonses.com header.s=224i4yxa5dv7c2xz3womw6peuasteono header.b=LFhP6gJp;
+       spf=pass (google.com: domain of 01000175b15d52f3-97f15e86-058a-4396-b74d-6634837c5c35-000000@mail.slack.com designates 54.240.37.228 as permitted sender) smtp.mailfrom=01000175b15d52f3-97f15e86-058a-4396-b74d-6634837c5c35-000000@mail.slack.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=slack.com
+Received: from a37-228.smtp-out.amazonses.com (a37-228.smtp-out.amazonses.com. [54.240.37.228])
+        by gmr-mx.google.com with ESMTPS id o23si710994oic.4.2020.11.10.00.54.45
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 09 Nov 2020 18:10:04 -0800 (PST)
-Received-SPF: pass (google.com: domain of jingyan.liang@marelli.com designates 212.123.238.166 as permitted sender) client-ip=212.123.238.166;
-X-AuditID: d47beea6-749ff70000005c11-36-5fa9f67cdd14
-Received: from MXPP1FGAW.fgremc.it ( [151.92.70.128])
-	by fsasmgp09.fiatgroup.com (ESMTP IBM SMTP Gateway) with SMTP id 7C.EE.23569.C76F9AF5; Tue, 10 Nov 2020 03:10:04 +0100 (CET)
-Received: from MXPO1FGAW.fgremc.it (151.92.70.126) by MXPP1FGAW.fgremc.it
- (151.92.70.128) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Tue, 10 Nov
- 2020 03:10:03 +0100
-Received: from MXPO1FGAW.fgremc.it ([fe80::b4b3:c124:c673:3e00]) by
- MXPO1FGAW.fgremc.it ([fe80::b4b3:c124:c673:3e00%20]) with mapi id
- 15.00.1497.006; Tue, 10 Nov 2020 03:10:03 +0100
-From: "Liang Jingyan (M)" <jingyan.liang@marelli.com>
-To: Nikhil Devshatwar <nikhil.nd@ti.com>
-CC: Jan Kiszka <jan.kiszka@siemens.com>, "jailhouse-dev@googlegroups.com"
-	<jailhouse-dev@googlegroups.com>, "Xiao Jianhao (M)"
-	<jianhao.xiao@marelli.com>, "GAO Zhao (M)" <Zhao.Gao@marelli.com>, "THOMAS
- Deuilhe (M)" <deuilhe.thomas@marelli.com>, "Jiang Depeng (M)"
-	<depeng.jiang@marelli.com>
-Subject: RE: [J7] jailhouse hypervisor in TI J7
-Thread-Topic: [J7] jailhouse hypervisor in TI J7
-Thread-Index: Ada0BUq2fZ+ea6OYTKyzqIhrUlxtBQAGff+AAAK6kYAAtkXtcAAAxvOg
-Date: Tue, 10 Nov 2020 02:10:03 +0000
-Message-ID: <568cc1cefdfe496b8988719f793e1fc2@MXPO1FGAW.fgremc.it>
-References: <e2ab7c14fd244457a1faeb99ff0fe5be@MXPO1FGAW.fgremc.it>
- <20201106102901.i4qk35q4g6eqglhu@NiksLab>
- <484b82e2-8f05-485e-49e0-4e0ddbab989b@siemens.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [151.92.70.225]
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-SHA bits=128/128);
+        Tue, 10 Nov 2020 00:54:45 -0800 (PST)
+Received-SPF: pass (google.com: domain of 01000175b15d52f3-97f15e86-058a-4396-b74d-6634837c5c35-000000@mail.slack.com designates 54.240.37.228 as permitted sender) client-ip=54.240.37.228;
+From: "'Slack' via Jailhouse" <jailhouse-dev@googlegroups.com>
+Reply-To: no-reply@slack.com
+To: "" <jailhouse-dev@googlegroups.com>
+Subject: =?utf-8?Q?peng=2efan_has_invited_you_to_work_with_them_in_Slack?=
+Message-ID: <01000175b15d52f3-97f15e86-058a-4396-b74d-6634837c5c35-000000@email.amazonses.com>
+Content-Type: multipart/alternative;
+ boundary="=_45f9e277-0a91-482e-8663-9919c4dcf4b8"
 MIME-Version: 1.0
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprEIsWRmVeSWpSXmKPExsUyPcatQbfm28p4gxsTOCxeLzCxuHfzJrPF
-	3LMJDsweeyaeZPPYfnISk8fxG9uZApijuGxSUnMyy1KL9O0SuDJaL7czF5zTrVj75RFrA+MO
-	nS5GTg4JAROJlm+7GbsYuTiEBLYwSnRsXckOkhASWMcocbHNFyKxk1Hiz41DjCAJNgFTiU1T
-	O8FsEQENiblXb4J1MwusYpL4dGkfWLewgL7Euld9TBBFBhKbHi1ng7DdJOZeuglmswioSiw4
-	tpYVxOYVcJLYdOo3K8TmJYwSExfYg9iMAmIS30+tAZvDLCAucevJfCaIswUkluw5zwxhi0q8
-	fPyPFcI2kNi6dB8LhK0o8fL3JKBdHEC9mhLrd+lDjFGUmNL9kB1iraDEyZlPWCYwis1CsmEW
-	QscsJB2zkHQsYGRZxSieVpxYnJteYGCpl5aZWJJelF9aoJecn7uJERhTV6rfLdvBeO6C0yFG
-	AQ5GJR7eA69WxguxJpYVV+YeYpTgYFYS4XX6tyJeiDclsbIqtSg/vqg0J7X4EKM0B4uSOO8X
-	JaBqgfTEktTs1NSC1CKYLBMHp1QD4xK7ubLTjNkVtwXZb3zYNm2GGWf18VWbXlq21NyadIsn
-	P3bCcbeJO1oUEv6L8anyTl610tH7bvV6HfvOXR+CAiRWH1ZbVdxWr/Wyab3Cl6jdKTN31wev
-	djz4y/1vs3eD4FU9SR6b9jPbFbfs3fs/kvHj+QUrGrfOTLr426NbbharlhFPjXu0nxJLcUai
-	oRZzUXEiAFe+qcGlAgAA
-X-Original-Sender: jingyan.liang@marelli.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jingyan.liang@marelli.com designates 212.123.238.166
- as permitted sender) smtp.mailfrom=jingyan.liang@marelli.com
+X-Slack-Team-ID: T01EKPMA8FJ
+X-Slack-Email-Template: welcome_email_invite
+Auto-Submitted: auto-generated
+X-Slack-Message-ID: ob-aaaacxce2pddaethgqjzdafuae
+Date: Tue, 10 Nov 2020 08:54:44 +0000
+X-SES-Outgoing: 2020.11.10-54.240.37.228
+Feedback-ID: 1.us-east-1.kwXgUBITdY2w2KyDhc4cKlXKai8tXy8Sx50cu3XZbqE=:AmazonSES
+X-Original-Sender: feedback@slack.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@slack.com header.s=s4xolb5s7tnx6yxtrm4adems7glgsuyf
+ header.b=DEGje0ag;       dkim=pass header.i=@amazonses.com
+ header.s=224i4yxa5dv7c2xz3womw6peuasteono header.b=LFhP6gJp;       spf=pass
+ (google.com: domain of 01000175b15d52f3-97f15e86-058a-4396-b74d-6634837c5c35-000000@mail.slack.com
+ designates 54.240.37.228 as permitted sender) smtp.mailfrom=01000175b15d52f3-97f15e86-058a-4396-b74d-6634837c5c35-000000@mail.slack.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=slack.com
+X-Original-From: Slack <feedback@slack.com>
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -157,123 +132,36 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Sorry, the format have some problem. I Fix It in with this mail.
+--=_45f9e277-0a91-482e-8663-9919c4dcf4b8
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-BR,
-Jingyan
+Join your team on Slack
 
+peng.fan (peng.fan@nxp.com) has invited you to use Slack with them, in a wo=
+rkspace called Jailhouse Hypervsior.
 
------Original Message-----
-From: Liang Jingyan (M)=20
-Sent: 2020=E5=B9=B411=E6=9C=8810=E6=97=A5 10:07
-To: Nikhil Devshatwar <nikhil.nd@ti.com>
-Cc: 'Jan Kiszka' <jan.kiszka@siemens.com>; jailhouse-dev@googlegroups.com; =
-Xiao Jianhao (M) <jianhao.xiao@marelli.com>; GAO Zhao (M) <Zhao.Gao@marelli=
-.com>; THOMAS Deuilhe (M) <deuilhe.thomas@marelli.com>; Jiang Depeng (M) <d=
-epeng.jiang@marelli.com>
-Subject: RE: [J7] jailhouse hypervisor in TI J7
+Workspace name: Jailhouse Hypervsior
 
-Hi Devshatwar, Kiszka
-Thanks for your reply, it's helpful for us.
+J
 
-Also there are some additional questions we want to know.
+jailhousehypervsior.slack.com []
 
-> MM Question:
-> 3.       Does the hypervisor have some KPI data?
->=20
-> such as below info
->=20
-> a.       How Fast boot time when OS mount filesystem;
->=20
-> b.       How Fast boot time to show first image?
->=20
-> c.       How Fast boot time to play audio?
->=20
-> d.       How Fast boot time to show RVC?
->=20
-> e.       How Fast boot time to run second OS filesystem and touch?
->=20
-Devshatwar >> This varies across different platforms. There is no benchmark=
-ing data for the TI platform.
+Join Now [https://join.slack.com/t/jailhousehypervsior/invite/enQtMTUwMjIzM=
+Dk4NDIwOS1kMGVjZGM1MjU3NTExMjUzNTQ1ZGMxNmVlNzI3Mjg3MTIzZTRhMDc3NDgwODMzZmM2=
+OGFmMjYxNThlMGJiMzZj?x=3Dx-p1495803348528-1478122999844-1486512921109]
 
-Jingyan >> If there didn't have the detail data on the J7 platfrom, is OK. =
-However, what we want to know is that does jailhouse has some fastboot solu=
-tion? Because now the jailhouse start is depend on the first Linux(Of cours=
-e, the Linux optimize should done by SoC Vender or Ourselfs). If we want to=
- Show image/audio/RVC(Astern imaging system), but this function is in the n=
-on-root cell OS, how can jailhouse support it.
+peng.fan has already joined
 
+[Profile picture of peng.fan.]
 
-> MM Question
-> 17.   How many resource usage when the hypervisor running? (such as Resou=
-rce usage: CPU, RAM, ROM)
->=20
-Devshatwar >> Currenly, for TI platform, 6MB RAM is reserved for hypervisor=
- There is some CPU usage when enabling hypervisor and using VM management h=
-ypercalls. At runtime, Jailhouse is involved only while handling the interr=
-upt injection part and IVshmem.
+What is Slack?
 
-Jingyan >> In this case, we want to know some detail data about hypervisor =
-resource usage. With upon answer, we know the RAM is 6MB, how about CPU and=
- ROM? We know the CPU use should be very less(Like < 2% or < 1%), Is there =
-a detail theoretical or practical tests results?
-
-
-BR,
-Jingyan
-
------Original Message-----
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Sent: 2020=E5=B9=B411=E6=9C=886=E6=97=A5 19:47
-To: Nikhil Devshatwar <nikhil.nd@ti.com>; Liang Jingyan (M) <jingyan.liang@=
-marelli.com>
-Cc: jailhouse-dev@googlegroups.com; Xiao Jianhao (M) <jianhao.xiao@marelli.=
-com>; GAO Zhao (M) <Zhao.Gao@marelli.com>; THOMAS Deuilhe (M) <deuilhe.thom=
-as@marelli.com>
-Subject: Re: [J7] jailhouse hypervisor in TI J7
-
-On 06.11.20 11:29, 'Nikhil Devshatwar' via Jailhouse wrote:
-> On 06:30-20201106, Liang Jingyan (M) wrote:
->>
->> 14.   What the hypervisor have got Safety certification level?
->>
->> if no safety certification, pls share some introduce how does it make sa=
-fety?
->>
->>
->=20
-> I think the smaller code base, deterministic resource allocation and=20
-> other decisions are taken considering the usage of this hypervisor in=20
-> safety critical systems. This shoud ease in certification.
->=20
-> However, there is no certification done for Jailhouse
->=20
-
-...and that is because of the lack of a suitable hardware platform - up to =
-now - which provides the necessary safety properties in order to use the hy=
-pervisor as a safety element.
-
-Certifying the Jailhouse code base itself would be doable with reasonable e=
-ffort (we actually discussed that with a certification authority, T=C3=9CV,=
- already). However, that alone would not help you if you cannot map it on s=
-ome real hardware. Check, e.g, if you can get a safety manual that covers t=
-he A-core MMU so that Jailhouse can rely on it (and/or check it during runt=
-ime) for establishing spatial partitioning.
-You can also watch [1] on that, namely the discussion at the end of my talk=
-. It's old but - to my best knowledge - still valid in this regard, unfortu=
-nately.
-
-A good share of these issues we are currently trying to address via hardwar=
-e/software co-design in a research project [2].
-
-Jan
-
-[1] https://connect.linaro.org/resources/hkg18/hkg18-115/
-[2] https://www.selene-project.eu/
-
---
-Siemens AG, T RDA IOT
-Corporate Competence Center Embedded Linux
+Slack is a messaging app for teams, a place you can collaborate on projects=
+ and organize conversations =E2=80=94 so you can work together, no matter w=
+here you are. Learn more about Slack [https://jailhousehypervsior.slack.com=
+/x-p1495803348528-1478122999844-1486512921109/?utm_medium=3Demail&utm_sourc=
+e=3Dinvitation-to-join]
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -281,4 +169,562 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/568cc1cefdfe496b8988719f793e1fc2%40MXPO1FGAW.fgremc.it.
+jailhouse-dev/01000175b15d52f3-97f15e86-058a-4396-b74d-6634837c5c35-000000%=
+40email.amazonses.com.
+
+--=_45f9e277-0a91-482e-8663-9919c4dcf4b8
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org=
+/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns=3D"http://www.w3.org/1999/xht=
+ml"><head><meta http-equiv=3D"Content-Type" content=3D"text/html; charset=
+=3Dutf-8"><meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-=
+scale=3D1.0"><link href=3D"https://fonts.googleapis.com/css?family=3DLato:4=
+00,700,900" rel=3D"stylesheet"><title>peng.fan has invited you to work with=
+ them in Slack</title><style type=3D"text/css">/* Global Resets */
+	body, .background_main, p, table, td, div { font-family: 'Lato', 'Helvetic=
+a Neue', Helvetica, Arial, sans-serif; }
+
+	img {
+		border: none;
+		-ms-interpolation-mode: bicubic;
+		max-width: 100%;
+	}
+
+	p {padding-bottom: 2px;}
+
+	body {
+		background: #fff;
+		font-size: 17px;
+		line-height: 24px;
+		margin: 0;
+		padding: 0;
+		-ms-text-size-adjust: 100%;
+		-webkit-text-size-adjust: 100%;
+	}
+
+	table {
+		border-collapse: collapse;
+		mso-table-lspace: 0pt;
+		mso-table-rspace: 0pt;
+		width: 100%;
+	}
+
+	td {
+		font-size: 17px;
+		line-height: 24px;
+		vertical-align: top;
+	}
+
+	/* Footer */
+	.email_footer td, .email_footer p, .email_footer span, .email_footer a {
+		font-size: 15px;
+		text-align: center;
+		color: #434245;
+	}
+
+	.email_footer td {padding-top: 20px;}
+
+	.preheader {
+		display: none;
+		mso-hide: all;
+	}
+
+	/* Typography */
+	h1, h2, h3, h4 {
+		color: #434245;
+		font-weight: 400;
+		line-height: 1.4;
+		margin: 0;
+		margin-bottom: 12px;
+	}
+
+	h1 {
+		font-size: 30px;
+		line-height: 36px;
+		font-weight: 900;
+		letter-spacing: -.75px;
+		text-align: left;
+	}
+
+	p, ul, ol {
+		font-size: 17px;
+		line-height: 24px;
+		font-weight: normal;
+		margin: 0;
+		margin-bottom: 15px;
+	}
+
+	p li, ul li, ol li {
+		list-style-position: inside;
+		margin-left: 5px;
+	}
+
+	a {
+		color: #3498db;
+		text-decoration: none;
+	}
+
+	a:hover {text-decoration: underline;}
+
+	.button_link::after {
+		position: absolute;
+		content: '';
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		border-radius: 4px;
+	}
+
+	.button_link:hover::after {
+		box-shadow: inset 0 -2px #237c4a;
+	}
+
+	.button_link.is_secondary:hover::after {
+		box-shadow: none;
+	}
+
+	.button_link.plum:hover {
+		background-color: #4a154b !important;
+		border-color: #4a154b !important;
+	}
+
+	.button_link_wrapper.plum:hover {
+		background-color: #4a154b !important;
+	}
+
+	.button_link.plum:hover::after {
+		box-shadow: none;
+	}
+
+	.preview_text {
+		color: transparent;
+		display: none;
+		height: 0;
+		max-height: 0;
+		max-width: 0;
+		opacity: 0;
+		overflow: hidden;
+		mso-hide: all;
+		visibility: hidden;
+		width: 0;
+		font-size: 1px;
+		line-height:1px;
+	}
+
+	.preview_text a {
+		color: #3AA3E3 !important;
+		font-weight: bold;
+	}
+
+	/* Responsive and Mobile Friendly Styles */
+	/* Yahoo Mail has a history of rendering all media query styles with class=
+ selectors unless class is used as an attribute */
+	@media only screen and (max-width: 600px) {
+		table[class=3D"background_main"] .sm_full_width {
+			width: 100% !important;
+		}
+		table[class=3D"background_main"] .sm_90_percent_width {
+			width: 90% !important;
+			padding: 16px !important;
+			text-align: center !important;
+			float: none !important;
+		}
+		table[class=3D"background_main"] .sm_side_padding {
+			padding-right: 8px !important;
+			padding-left: 8px !important;
+			float: none !important;
+		}
+		table[class=3D"background_main"] .sm_small_top_padding {
+			padding-top: 8px !important;
+		}
+		table[class=3D"background_main"] .sm_top_padding {
+			padding-top: 16px !important;
+		}
+		table[class=3D"background_main"] .sm_auto_width {
+			width: auto !important;
+		}
+		table[class=3D"background_main"] .sm_auto_height {
+			height: auto !important;
+		}
+
+		table[class=3D"background_main"] .sm_border_box {
+			box-sizing: border-box !important;
+		}
+
+		table[class=3D"background_main"] .sm_block {
+			display: block !important;
+		}
+		table[class=3D"background_main"] .sm_inline_block {
+			display: inline-block !important;
+		}
+		table[class=3D"background_main"] .sm_table {
+			display: table !important;
+		}
+
+		table[class=3D"background_main"] .sm_no_side_padding {
+			padding-right: 0 !important;
+			padding-left: 0 !important;
+		}
+		table[class=3D"background_main"] .sm_no_border_radius {
+			border-radius: 0 !important;
+		}
+		table[class=3D"background_main"] .sm_no_padding {
+			padding-right: 0 !important;
+			padding-left: 0 !important;
+		}
+		table[class=3D"background_main"] .sm_os_icons_height {
+			/* this is to make the parent element the same height as the inline-bloc=
+k img inside */
+			height: 44px;
+		}
+		.social_img_bottom_margin {
+			/*this class is for social_user_outreach email only*/
+			margin-bottom: 20px !important;
+		}
+		.social_p_bottom_margin {
+			/*this class is for social_user_outreach email only*/
+			margin-bottom: 40px !important;
+		}
+	}
+
+	/* More client-specific styles */
+	@media all {
+		.ExternalClass {
+			width: 100%;
+		}
+		.ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass fon=
+t, .ExternalClass td, .ExternalClass div {
+			line-height: 100%;
+		}
+		.email_footer a {
+			color: #434245 !important;
+			font-family: inherit !important;
+			font-size: inherit !important;
+			font-weight: inherit !important;
+			line-height: inherit !important;
+			text-decoration: none !important;
+		}
+	}
+	a:hover {
+		text-decoration: underline !important;
+	}
+
+	pre, code {
+		--saf-0: rgba(var(--sk_foreground_low, 29, 28, 29), 0.13);
+		border: 1px solid var(--saf-0);
+		background: rgba(var(--sk_foreground_min, 29, 28, 29), 0.04);
+		font-family: 'Monaco', 'Menlo', 'Consolas', 'Courier New', monospace !imp=
+ortant;
+		font-size: 12px;
+		line-height: 1.50001;
+		font-variant-ligatures: none;
+		white-space: pre;
+		white-space: pre-wrap;
+		word-wrap: break-word;
+		word-break: normal;
+		-webkit-tab-size: 4;
+		-moz-tab-size: 4;
+		-o-tab-size: 4;
+		tab-size: 4;
+	}
+
+	code {
+		color: #e01e5a;
+		padding: 2px 3px 1px;
+		border-radius: 3px;
+	}
+
+	pre {
+		margin-bottom: 16px;
+		padding: 8px;
+		border-radius: 4px;
+	}
+
+	blockquote {
+		position: relative;
+		margin-bottom: 16px;
+		padding-left: 16px;
+		border-left: rgba(var(--sk_foreground_low_solid, 221, 221, 221), 1);
+		border-left-width: 4px;
+		border-left-style: solid;
+	}
+</style></head><body><div class=3D"preheader plaintext_ignore" style=3D"fon=
+t-size: 1px; display: none !important;">Join your team on Slack. <strong>pe=
+ng.fan</strong> (<a href=3D"mailto:peng.fan@nxp.com">peng.fan@nxp.com</a>) =
+has invited you to use Slack with them, in a workspace called <strong>Jailh=
+ouse Hypervsior</strong>.</div><div class=3D"plaintext_ignore" style=3D"dis=
+play: none; max-height: 0px; overflow: hidden;"> =C2=A0=E2=80=8C=C2=A0=E2=
+=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=
+=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=
+=80=8C=C2=A0=E2=80=8C =C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=
+=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=
+=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C =C2=
+=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=
+=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=
+=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C =C2=A0=E2=80=8C=C2=A0=E2=80=8C=
+=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=
+=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=
+=C2=A0=E2=80=8C =C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=
+=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=
+=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C =C2=A0=E2=
+=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=
+=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=
+=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C =C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=
+=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=
+=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=
+=E2=80=8C =C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=
+=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=
+=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0 =C2=A0=E2=
+=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=
+=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=
+=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C =C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=
+=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=
+=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=
+=E2=80=8C =C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=
+=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=
+=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C =C2=A0=E2=80=8C=
+=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=
+=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=
+=C2=A0=E2=80=8C=C2=A0=E2=80=8C =C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=
+=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=
+=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=
+=8C =C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=
+=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=
+=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0=E2=80=8C=C2=A0 </div><!--[if mso=
+]><style type=3D"text/css">.background_main, table, table td, p, div, h1, h=
+2, h3, h4, h5, h6 {
+								font-family: Arial, sans-serif !important;
+							}</style><![endif]--><table style=3D"background-color: #ffffff; padd=
+ing-top: 20px;color: #434245;width: 100%;-webkit-font-smoothing:antialiased=
+; -moz-osx-font-smoothing:grayscale;   border: 0; text-align: center; borde=
+r-collapse: collapse;" class=3D"background_main"><tr><td style=3D"vertical-=
+align: top; padding: 0"><center><table id=3D"body" class=3D"card" style=3D"=
+border: 0; border-collapse: collapse; margin: 0 auto; background: white; bo=
+rder-radius: 8px; margin-bottom: 16px;"><tr><td style=3D"width: 546px; vert=
+ical-align: top; padding-top: 32px"><div style=3D"max-width: 600px; margin:=
+ 0 auto;"><!--[if mso]>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=3D"padding: 0=
+; margin: 0; width: 100%;">
+    <tr>
+        <td colspan=3D"3" style=3D"padding: 0; margin: 0; font-size: 20px; =
+height: 20px;" height=3D"20">&nbsp;</td>
+    </tr>
+    <tr>
+        <td style=3D"padding: 0; margin: 0;">&nbsp;</td>
+        <td style=3D"padding: 0; margin: 0;" width=3D"540">
+<![endif]--><img width=3D"120" height=3D"36" style=3D"margin-top: 0; margin=
+-right: 0; margin-bottom: 32px; margin-left: 0px; padding-right: 30px; padd=
+ing-left: 30px;" src=3D"https://jailhousehypervsior.slack.com/x-p1495803348=
+528-1478122999844-1486512921109/img/slack_logo_240.png" alt=3D""><!--[if ms=
+o]>
+		</td>
+		<td style=3D"padding: 0; margin: 0; font-size: 20px; height: 20px;">&nbsp=
+;</td>
+	</tr>
+	<tr>
+		<td colspan=3D"3" style=3D"padding: 0; margin: 0; font-size: 20px; height=
+: 20px; height: 20px;">&nbsp;</td>
+	</tr>
+</table>
+<![endif]--><!--[if mso]>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=3D"padding: 0=
+; margin: 0; width: 100%;">
+    <tr>
+        <td colspan=3D"3" style=3D"padding: 0; margin: 0; font-size: 20px; =
+height: 20px;" height=3D"20">&nbsp;</td>
+    </tr>
+    <tr>
+        <td style=3D"padding: 0; margin: 0;">&nbsp;</td>
+        <td style=3D"padding: 0; margin: 0;" width=3D"540">
+<![endif]--><h1 style=3D"font-size: 30px; padding-right: 30px; padding-left=
+: 30px;">Join your team on Slack</h1><p style=3D"font-size: 17px; padding-r=
+ight: 30px; padding-left: 30px;"><strong>peng.fan</strong> (<a href=3D"mail=
+to:peng.fan@nxp.com">peng.fan@nxp.com</a>) has invited you to use Slack wit=
+h them, in a workspace called <strong>Jailhouse Hypervsior</strong>.</p><!-=
+-[if mso]>
+		</td>
+		<td style=3D"padding: 0; margin: 0; font-size: 20px; height: 20px;">&nbsp=
+;</td>
+	</tr>
+	<tr>
+		<td colspan=3D"3" style=3D"padding: 0; margin: 0; font-size: 20px; height=
+: 20px; height: 20px;">&nbsp;</td>
+	</tr>
+</table>
+<![endif]--><!--[if mso]>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=3D"padding: 0=
+; margin: 0; width: 100%;">
+    <tr>
+        <td colspan=3D"3" style=3D"padding: 0; margin: 0; font-size: 20px; =
+height: 20px;" height=3D"20">&nbsp;</td>
+    </tr>
+    <tr>
+        <td style=3D"padding: 0; margin: 0;">&nbsp;</td>
+        <td style=3D"padding: 0; margin: 0;" width=3D"540">
+<![endif]--><div style=3D"padding-right: 30px; padding-left: 30px; padding-=
+bottom: 30px;"><h4 class=3D"plaintext_only" style=3D"display: none">Workspa=
+ce name: Jailhouse Hypervsior</h4><table style=3D"table-layout: fixed; bord=
+er: 1px solid #A0A0A2; border-radius: 8px; padding: 40px 0; margin-top: 20p=
+x; width: 100%; border-collapse: separate; text-align: center"><tr><td styl=
+e=3D"vertical-align: middle;"><!--[if mso]>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=3D"padding: 0=
+; margin: 0; width: 100%;">
+    <tr>
+        <td colspan=3D"3" style=3D"padding: 0; margin: 0; font-size: 20px; =
+height: 20px;" height=3D"20">&nbsp;</td>
+    </tr>
+    <tr>
+        <td style=3D"padding: 0; margin: 0;">&nbsp;</td>
+        <td style=3D"padding: 0; margin: 0;" width=3D"38">
+<![endif]--><div style=3D"margin: auto; height: 38px; width: 38px; min-widt=
+h: 38px; border-radius: 4px; color: #FFFFFF; font-size: 18px; line-height: =
+38px; mso-line-height-rule: exactly; mso-text-raise: 10px; vertical-align: =
+middle; text-align: center; background-color: #0576b9;">J</div><!--[if mso]=
+>
+		</td>
+		<td style=3D"padding: 0; margin: 0; font-size: 20px; height: 20px;">&nbsp=
+;</td>
+	</tr>
+	<tr>
+		<td colspan=3D"3" style=3D"padding: 0; margin: 0; font-size: 20px; height=
+: 20px; height: 20px;">&nbsp;</td>
+	</tr>
+</table>
+<![endif]--><!--[if mso]>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=3D"padding: 0=
+; margin: 0; width: 100%;">
+    <tr>
+        <td colspan=3D"3" style=3D"padding: 0; margin: 0; font-size: 20px; =
+height: 20px;" height=3D"20">&nbsp;</td>
+    </tr>
+    <tr>
+        <td style=3D"padding: 0; margin: 0;">&nbsp;</td>
+        <td style=3D"padding: 0; margin: 0;" width=3D"420">
+<![endif]--><h3 class=3D"plaintext_ignore" style=3D"font-weight: 900; paddi=
+ng-top: 10px; margin-bottom: 7px; font-size: 21px; font-size: 21px; margin-=
+bottom: 2px; width: 70%; margin: auto; text-align: center; margin-top: 0;">=
+Jailhouse Hypervsior</h3><!--[if mso]>
+		</td>
+		<td style=3D"padding: 0; margin: 0; font-size: 20px; height: 20px;">&nbsp=
+;</td>
+	</tr>
+	<tr>
+		<td colspan=3D"3" style=3D"padding: 0; margin: 0; font-size: 20px; height=
+: 20px; height: 20px;">&nbsp;</td>
+	</tr>
+</table>
+<![endif]--><h4 style=3D"margin-bottom: 2px;font-size: 17px; margin-bottom:=
+ 12px;"><a style=3D"white-space: nowrap; color: #717274; text-decoration: n=
+one !important;">jailhousehypervsior.slack.com</a></h4><table style=3D"widt=
+h: 100%; text-align: center;" class=3D"sm_table"><tr style=3D"width: 100%;"=
+><td style=3D"width: 100%;"><span style=3D"display: inline-block; position:=
+relative; border-radius:4px; background-color:#611f69; " class=3D"button_li=
+nk_wrapper plum"><a class=3D"button_link  plum" href=3D"https://join.slack.=
+com/t/jailhousehypervsior/invite/enQtMTUwMjIzMDk4NDIwOS1kMGVjZGM1MjU3NTExMj=
+UzNTQ1ZGMxNmVlNzI3Mjg3MTIzZTRhMDc3NDgwODMzZmM2OGFmMjYxNThlMGJiMzZj?x=3Dx-p1=
+495803348528-1478122999844-1486512921109" style=3D"border-top:13px solid; b=
+order-bottom:13px solid; border-right:24px solid; border-left:24px solid; b=
+order-color:#611f69; border-radius:4px; background-color:#611f69; color:#ff=
+ffff; font-size:16px; line-height:18px; word-break:break-word;  display: in=
+line-block; text-align: center; font-weight: 900; text-decoration: none !im=
+portant;">Join Now</a></span></td></tr></table><div style=3D"margin-top: 16=
+px; display: block; border-top: 1px solid #E1E1E4; padding-top: 16px; paddi=
+ng-bottom: 16px; margin-left: 24px; margin-right: 24px; text-align: center"=
+><h4 style=3D"font-size: 17px;font-weight: 900;">peng.fan has already joine=
+d</h4><img src=3D"https://secure.gravatar.com/avatar/bd1578dc29252dc0fbe135=
+8b4daf5138.jpg?s=3D72&amp;d=3Dhttps%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%=
+2Favatars%2Fava_0007-72.png" height=3D"40" width=3D"40" style=3D"height: 40=
+px; width: 40px; border-radius: 4px; margin-right: 8px; " alt=3D"Profile pi=
+cture of peng.fan." title=3D"Profile picture of peng.fan."></div></td></tr>=
+</table></div><!--[if mso]>
+		</td>
+		<td style=3D"padding: 0; margin: 0; font-size: 20px; height: 20px;">&nbsp=
+;</td>
+	</tr>
+	<tr>
+		<td colspan=3D"3" style=3D"padding: 0; margin: 0; font-size: 20px; height=
+: 20px; height: 20px;">&nbsp;</td>
+	</tr>
+</table>
+<![endif]--><!--[if mso]>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=3D"padding: 0=
+; margin: 0; width: 100%;">
+    <tr>
+        <td colspan=3D"3" style=3D"padding: 0; margin: 0; font-size: 20px; =
+height: 20px;" height=3D"20">&nbsp;</td>
+    </tr>
+    <tr>
+        <td style=3D"padding: 0; margin: 0;">&nbsp;</td>
+        <td style=3D"padding: 0; margin: 0;" width=3D"540">
+<![endif]--><!--[if mso]>
+		</td>
+		<td style=3D"padding: 0; margin: 0; font-size: 20px; height: 20px;">&nbsp=
+;</td>
+	</tr>
+	<tr>
+		<td colspan=3D"3" style=3D"padding: 0; margin: 0; font-size: 20px; height=
+: 20px; height: 20px;">&nbsp;</td>
+	</tr>
+</table>
+<![endif]--><!--[if mso]>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=3D"padding: 0=
+; margin: 0; width: 100%;">
+    <tr>
+        <td colspan=3D"3" style=3D"padding: 0; margin: 0; font-size: 20px; =
+height: 20px;" height=3D"20">&nbsp;</td>
+    </tr>
+    <tr>
+        <td style=3D"padding: 0; margin: 0;">&nbsp;</td>
+        <td style=3D"padding: 0; margin: 0;" width=3D"540">
+<![endif]--><h1 style=3D"font-size: 24px; padding-right: 30px; padding-left=
+: 30px;">What is Slack?</h1><p style=3D"font-size: 17px; padding-right: 30p=
+x; padding-left: 30px;">Slack is a messaging app for teams, a place you can=
+ collaborate on projects and organize conversations =E2=80=94 so you can wo=
+rk together, no matter where you are. <a style=3D"text-decoration: underlin=
+e !important;" href=3D"https://jailhousehypervsior.slack.com/x-p14958033485=
+28-1478122999844-1486512921109/?utm_medium=3Demail&utm_source=3Dinvitation-=
+to-join">Learn more about Slack</a></p><!--[if mso]>
+		</td>
+		<td style=3D"padding: 0; margin: 0; font-size: 20px; height: 20px;">&nbsp=
+;</td>
+	</tr>
+	<tr>
+		<td colspan=3D"3" style=3D"padding: 0; margin: 0; font-size: 20px; height=
+: 20px; height: 20px;">&nbsp;</td>
+	</tr>
+</table>
+<![endif]--></div></td></tr></table></center></td></tr><tr><td class=3D"ema=
+il_footer" style=3D"font-size: 15px;color: #717274;text-align: center;width=
+: 100%;"><table style=3D"margin: 20px auto 0; background-color: white; bord=
+er: 0; text-align: center; border-collapse: collapse;"><tr><td>=C2=A0</td><=
+td><span style=3D"display: block; color: #434245; font-size: 15px;"> Made b=
+y <a href=3D"https://slack.com" style=3D"text-decoration: none; color: #434=
+245;">Slack Technologies, Inc</a>
+                <br/>
+                500 Howard Street&nbsp;|&nbsp;San&nbsp;Francisco,&nbsp;CA&n=
+bsp;94105&nbsp;|&nbsp;United States </span></td><td>=C2=A0</td></tr><tr><td=
+>=C2=A0</td><td style=3D"font-size: 15px; padding: 16px 8px 24px; vertical-=
+align: top; text-align: center;"><span><a href=3D"https://slackhq.com" styl=
+e=3D"color: #434245; text-decoration: underline !important;">Our Blog</a> =
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 <a href=3D"https://slack.com/legal" st=
+yle=3D"color: #434245; text-decoration: underline !important;">Policies</a>=
+</span></td></tr></table></td></tr></table></body></html>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/01000175b15d52f3-97f15e86-058a-4396-b74d-6634837c5=
+c35-000000%40email.amazonses.com?utm_medium=3Demail&utm_source=3Dfooter">ht=
+tps://groups.google.com/d/msgid/jailhouse-dev/01000175b15d52f3-97f15e86-058=
+a-4396-b74d-6634837c5c35-000000%40email.amazonses.com</a>.<br />
+
+--=_45f9e277-0a91-482e-8663-9919c4dcf4b8--
