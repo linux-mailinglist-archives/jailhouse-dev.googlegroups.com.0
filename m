@@ -1,68 +1,127 @@
-Return-Path: <jailhouse-dev+bncBCJ2NIVKYUNBBPHOWP6QKGQEX5JYXQA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBCXGWT6QKGQEDRFPYSA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qv1-xf3b.google.com (mail-qv1-xf3b.google.com [IPv6:2607:f8b0:4864:20::f3b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C8792B0159
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 12 Nov 2020 09:50:05 +0100 (CET)
-Received: by mail-qv1-xf3b.google.com with SMTP id w6sf3353669qvr.15
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 12 Nov 2020 00:50:05 -0800 (PST)
+Received: from mail-ed1-x540.google.com (mail-ed1-x540.google.com [IPv6:2a00:1450:4864:20::540])
+	by mail.lfdr.de (Postfix) with ESMTPS id F3F252B05F1
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 12 Nov 2020 14:05:15 +0100 (CET)
+Received: by mail-ed1-x540.google.com with SMTP id l24sf2261169edt.16
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 12 Nov 2020 05:05:15 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1605186315; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=o8JSvxQs2CqGUSZAzL6dQF+6pFS3kirfX4dM7JY1lasZS4Th3k7PpGp7kHYiBrOsQ2
+         4G/yK7PnL84Dacv58OWyan9/ebA7SdgSOYMvtR1jU7OQyTJB1hDLCGARtDKYAx6USXOl
+         hk18vpIo49NLXz52I+U0Nv2VVvm0vkhd8TbkkDwSe9ZGLnUT2CZzkMSNJIzDdTQ/ZE0N
+         wN6FshZL/QUc4DaARPs9JjORYfzA1xiPr+id/djN2fnPiKENLTLO+wCtekB+Fqn7G3QF
+         2gbIZMmk4e+QU5B954cG8vS3UsQFJ7D2ihBWdtarCCCk1E86w8oJUeyKOotokr5NhoXT
+         tQxg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=uJU/ax5TkCj+f28bW7kyaepxJkxYZhadGk736zm2qIM=;
+        b=Q1P0oOcdd6yQJwdlnkPVU+pGxi1AnnAPT6fjJELft/9FFdmbSRnxbR9Ee4lyRBFRR2
+         ZgnIeekpOn6II+cZT0rRbCqS+pwqoSDeoudafZHPQku0zNpzoFf5Zjyk81vZgXxMmCu0
+         fbNK26sg2/ncUwLyoTVJRo32UvGgYc19VybpitmiKMHGwfH6M84G7pPMAebXmKrGj1RL
+         ab82wo1j8WxuLUG4T76Iu0bwBxf7MReYzcJ7vJ19tT5+nLPvKEXvis1gGDBFJHTUmAC2
+         IukR07kDEz+yFpK9Z0tabs6gysayS+whsrCnCtyWKa70LUVWDjMbq9LzbE5m58EYgkOn
+         rDWg==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=XIZ5nEV8b22mKK6H8gP6fC38Z2bgwsrg67QJ3FRV77U=;
-        b=MlyR6cPxEz857VSxBrt25pZaHOb9l+mwUzq4EzYnTjh7XghxN3JFyxAlYGrNRI2ph7
-         WAKGtWgJhx06qcZhfLBjhVHVTLDTkxSkfloMGhi+AG1kBXAXV/pXFwGP5zyIIr7Oe3wg
-         OeHUKs+1zG4k9UFDCpUak29u8k/9dNMo9BNvy2C3NQyh3rNtjtUMiqKQ78VYqWpbD8NO
-         SoRdOfL/RFSsSbrzTmrC8kRhAOeOvYrznUj0KhVPd8bH5wL0HY/5prF4KQwmaJNwX1U2
-         UgU+GRqQTX6FN2hzD/3LaRjUPtFE+PSdns+IknRJuhxnseZ3iFcztIyL/O+eK8a46rmu
-         q51w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:subject:mime-version:x-original-sender
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=XIZ5nEV8b22mKK6H8gP6fC38Z2bgwsrg67QJ3FRV77U=;
-        b=q9DumC1u4zWeFQxwsAbTq9IMq5zbvz90ae7mq84bY8ILg8v5uiGf+9CByNWLnl1/9C
-         BAxcqzRd/iRfzcfuwwAOmJgh21YDup0SnzqmsViB1gKatz20r5KCozpySHFN0LbaCgVD
-         QPFnyddnD5qGuS14G4G7Q14gPBn1T7tonD2NMoQS0ZXraqLiwEyyQ548/ealK+9HOxxy
-         qKmX0ixe7T6tSRkFVn1nHtD59cRZWlf+yRIQislygRoAmjdoTWmC2JQHmaCjGocMM+tV
-         PyhKunTULa5o5kqmCmU5sm73s2KKjVO0xrN4gK5QsHlVr3nfzDjYDQc0ScsNzN+f7zmO
-         8HVA==
+        bh=uJU/ax5TkCj+f28bW7kyaepxJkxYZhadGk736zm2qIM=;
+        b=VPSp+TJuicpv5TmUe6upuIXRvEBQmxvvjcEAoH4wMOZB9ntpZxROgQnAgG0De9eXft
+         phv0LlN3rBQqgGtP3sTURNqHRaP4kAo2a2z6hnDu0lIik8uRJnam3RswGn/WeAvsYmfF
+         KSv9ILhHMGJGc9ktbeKUz/LEjzZWX4UMixnHVxAQPrvYsS3Rw4hYErO/pO6YqY4sVjuH
+         f0+pKr3KHkaqqwkf94cLjX9xk/xfQS2+65sV1j/OCd1PeuLJGK+lDC4OF1ZHoOyVWeD5
+         3A9DN5s8zG/DvBlfeZwccAQv0p5eba0nsEsgLUbzFiWM/kbQcn/QE2IwfFpQcoCK3sRN
+         A4Bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=XIZ5nEV8b22mKK6H8gP6fC38Z2bgwsrg67QJ3FRV77U=;
-        b=b9507M3/ovxs2sOaj51CRaMLlckRD5rq23FyqfEgJcKPVdFlrdF/1t1cLszxTFKiuD
-         HxjKCj+PZAIWN7juBqg0iBGIp5jNFhf70oDAPzGdHmW3dQKa5ZrVZuqPASNhtxxVLuro
-         bYG5z6b8npWPrCY5cUKmGx833y9IVX9khXjsq+l2SYlLMFTM67P+w7AYbJJXKaVgiW5n
-         aVhfVPXbgSl8zeBwtYRXCfpfOgW//fsUIMLcLElQtshmd/lYU/DCl6JYqxB2M5EYd4Vs
-         QnbLU2u5tULsVWqvo0WEZ52tRKoDGB1xQFe+Qmdih+7m8eyMwsYubvuvYiFe4uUpdiqr
-         2bLA==
+        bh=uJU/ax5TkCj+f28bW7kyaepxJkxYZhadGk736zm2qIM=;
+        b=le2hOtZR0om8FzcxlejJvEKUEE8hc3IDZyY6yY6M04lIj6M5vu/HNg7u44GHeEU/7g
+         wp8TnxEP0lNAlc7Lg97n9bMxUdGOjzogcQqyJaWArGcm4bo7vZQBNh/fj3oV3lHSb4Ax
+         Jla+UVlVUzq9KWRP5rncaq49OAsWBSCBQdb7r0rvOQ5ff8uqootvu83utVaKw4EzDcCj
+         yoTNI7Q/gD4TO/lQ3usjg27u+U5DxAAI4CDQYv0a0PNB6wxtSl60wKcmDu4KshFmRoql
+         FWVaInwjFtEpDnAzIFbd1h8GRzUVyoZabqI+/adTLBlNOQPUMujQ70vpzMJlomd49l+x
+         8OjQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532nFmT4BfzzzCv76/zUNhbdWi6VQKOaVbBCRbeNv/XqY+0nd+x5
-	lfJTfQgoJqeJ/eQWhyUOenI=
-X-Google-Smtp-Source: ABdhPJxv8A9VcbLG5NFCb6qcurWDCxiD1yu53OpiTUphjXs76UutrM43YNow9C1/DW1Ydb5o01nSsA==
-X-Received: by 2002:a0c:e0c9:: with SMTP id x9mr29607306qvk.56.1605171004575;
-        Thu, 12 Nov 2020 00:50:04 -0800 (PST)
+X-Gm-Message-State: AOAM530A1hjVrqdbK8SHOhdMrCnzpIbgyELvFXm3BRLcKQA4ycOb7R9z
+	2ivimUxLIrRqVdyJKUAP0yc=
+X-Google-Smtp-Source: ABdhPJwl49lHpstV0+ewuGLsYrME/yoawWNcmEkD7TAbxIWvZoB0VRhyPUezT3CFvAEa+nHY+OJwwQ==
+X-Received: by 2002:a05:6402:3089:: with SMTP id de9mr5156357edb.100.1605186315626;
+        Thu, 12 Nov 2020 05:05:15 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a0c:b897:: with SMTP id y23ls526020qvf.5.gmail; Thu, 12 Nov
- 2020 00:50:03 -0800 (PST)
-X-Received: by 2002:a05:6214:4e5:: with SMTP id cl5mr1749179qvb.42.1605171003401;
-        Thu, 12 Nov 2020 00:50:03 -0800 (PST)
-Date: Thu, 12 Nov 2020 00:50:02 -0800 (PST)
-From: Peter pan <peter.panjf@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <e223356c-fc2c-4c3b-98c3-6d27fba1099an@googlegroups.com>
-Subject: one question about MSI-X support for vPCI
+Received: by 2002:a17:906:8585:: with SMTP id v5ls1338881ejx.1.gmail; Thu, 12
+ Nov 2020 05:05:14 -0800 (PST)
+X-Received: by 2002:a17:906:14d1:: with SMTP id y17mr30800880ejc.15.1605186313955;
+        Thu, 12 Nov 2020 05:05:13 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1605186313; cv=none;
+        d=google.com; s=arc-20160816;
+        b=JZ4eFtXmarhJF64W/+vI5firlwxhiXZvc3kfnjsnIQLpNB0853aRZ2J67PZyVToxF8
+         6Z6iUQiXP612I750dDAwCA2b0SNyzu55/rASkM+KbZM6f3cgPSKX18DsuvaLL9lm9Sde
+         fL5WW7JYJvJGCIB7yXheO8Rzg410MGsvugrcPxoGNOXHWD44ZVTO1bovstnE0SNwCu6F
+         uzmUDX+INa4vOJRPEm0GBeA9jhNkxLD6egMeFkfRaA6XWprZiSUl/FPJT4ut4ZjEjNaL
+         O2vLMEHg5JyeMsZDsJ/KnnB77QMROhfrtIAdPsDJolyZqYvnAuNFf5gh42o3eGex6rLb
+         hHlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=mMr8WgATzlhyhcwk8EUcfGPoQDwoLBLWCni5dgWu6Yg=;
+        b=TcCJm5ylGyeu0NKxBtW3XC+EW5nvx5eR2009DrrGCdrzG91juXqkMxnLEl3S5GsTCY
+         qAUtsHkD6A70p1c3JG8LJ4w4CXMpPX4KmEhlHAiFa6JinPM8XwaX9xabmUz/Gq+2xpvy
+         sexWbMutcvyG7iIIe5n72qpTSonCgQj+TNg1m2P1cF6G0gqROJ6aDr02Sf9OX4XY3FRs
+         y+pduKmOe71U7wcDWpYW8BXtdqICwbzLjIYL1NpbmaWftvgXe/5GfIvCVm2jVc3aEuxN
+         cFmtQ1Sj+XOziE/eRLkIiPl0ru/3NQ4nDPiR1/7mpT2DmvhYpKqWvIKXES1KiHozmgN6
+         jWXA==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
+        by gmr-mx.google.com with ESMTPS id v7si291422edj.5.2020.11.12.05.05.13
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 12 Nov 2020 05:05:13 -0800 (PST)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id 0ACD5Cia029704
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 12 Nov 2020 14:05:12 +0100
+Received: from [167.87.33.169] ([167.87.33.169])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 0ACD5Bnm020617;
+	Thu, 12 Nov 2020 14:05:12 +0100
+Subject: Re: one question about MSI-X support for vPCI
+To: Peter pan <peter.panjf@gmail.com>,
+        Jailhouse <jailhouse-dev@googlegroups.com>
+References: <e223356c-fc2c-4c3b-98c3-6d27fba1099an@googlegroups.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <7552cacf-519e-9cde-ba5a-c2e2121c5a54@siemens.com>
+Date: Thu, 12 Nov 2020 14:05:11 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_280_2060260567.1605171002273"
-X-Original-Sender: peter.panjf@gmail.com
+In-Reply-To: <e223356c-fc2c-4c3b-98c3-6d27fba1099an@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -75,226 +134,131 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_280_2060260567.1605171002273
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_281_962156904.1605171002273"
-
-------=_Part_281_962156904.1605171002273
-Content-Type: text/plain; charset="UTF-8"
-
-Dear Jailhouse Community,
-
-I am runing Jailhouse on kernel v5.4, and port some ivshmem patches from 
-http://git.kiszka.org/?p=linux.git;a=summary
-
-The issue I have is uio_shmem and ivshmem-net will probe failed when I use 
-MSI-X mode for vPCI after I run Jailhouse enable command.  Please find the 
-folowing log:
-
-[   21.581019] jailhouse: loading out-of-tree module taints kernel.
-
-[   30.000988] pci-host-generic fb500000.pci: host bridge /pci@0 ranges:
-
-[   30.000997] pci-host-generic fb500000.pci:   MEM 0xfb600000..0xfb603fff 
--> 0xfb600000
-
-[   30.001028] pci-host-generic fb500000.pci: ECAM at [mem 
-0xfb500000-0xfb5fffff] for [bus 00]
-
-[   30.001081] pci-host-generic fb500000.pci: PCI host bridge to bus 0003:00
-
-[   30.001085] pci_bus 0003:00: root bus resource [bus 00]
-
-[   30.001087] pci_bus 0003:00: root bus resource [mem 
-0xfb600000-0xfb603fff]
-
-[   30.001105] pci 0003:00:00.0: [110a:4106] type 00 class 0xff0000
-
-[   30.001128] pci 0003:00:00.0: reg 0x10: [mem 0x00000000-0x00000fff]
-
-[   30.001136] pci 0003:00:00.0: reg 0x14: [mem 0x00000000-0x000001ff]
-
-[   30.001340] pci 0003:00:01.0: [110a:4106] type 00 class 0xff0001
-
-[   30.001359] pci 0003:00:01.0: reg 0x10: [mem 0x00000000-0x00000fff]
-
-[   30.001368] pci 0003:00:01.0: reg 0x14: [mem 0x00000000-0x000001ff]
-
-[   30.002389] pci 0003:00:00.0: BAR 0: assigned [mem 0xfb600000-0xfb600fff]
-
-[   30.002397] pci 0003:00:01.0: BAR 0: assigned [mem 0xfb601000-0xfb601fff]
-
-[   30.002403] pci 0003:00:00.0: BAR 1: assigned [mem 0xfb602000-0xfb6021ff]
-
-[   30.002409] pci 0003:00:01.0: BAR 1: assigned [mem 0xfb602200-0xfb6023ff]
-
-[   30.002478] uio_ivshmem 0003:00:00.0: enabling device (0000 -> 0002)
-
-[   30.002505] uio_ivshmem 0003:00:00.0: state_table at 0x00000000fb700000, 
-size 0x0000000000001000
-
-[   30.002512] uio_ivshmem 0003:00:00.0: rw_section at 0x00000000fb701000, 
-size 0x0000000000009000
-
-[   30.002520] uio_ivshmem 0003:00:00.0: input_sections at 
-0x00000000fb70a000, size 0x0000000000006000
-
-[   30.002524] uio_ivshmem 0003:00:00.0: output_section at 
-0x00000000fb70a000, size 0x0000000000002000
-
-[   30.002576] uio_ivshmem: probe of 0003:00:00.0 failed with error -28
-
-[   30.002620] ivshmem-net 0003:00:01.0: enabling device (0000 -> 0002)
-
-[   30.002664] ivshmem-net 0003:00:01.0: TX memory at 0x00000000fb801000, 
-size 0x000000000007f000
-
-[   30.002667] ivshmem-net 0003:00:01.0: RX memory at 0x00000000fb880000, 
-size 0x000000000007f000
-
-[   30.047630] ivshmem-net: probe of 0003:00:01.0 failed with error -28
-
-[   30.047714] The Jailhouse is opening.
-
-After some investigation I found the dts node of vPIC is added to root cell 
-by using vpci_template.dts,  the Jailhouse driver create_vpci_of_overlay() 
-in driver/pci.c can't add the handler of "msi-parent" to this PCI node,  
-but the kernel driver of the virtual PCI device use the following function 
-ret = pci_alloc_irq_vectors(pdev, 1, 2, PCI_IRQ_LEGACY | PCI_IRQ_MSIX);
-So the  driver will probe MSIX irq for the device, because there is no msi 
-controller is speficied to vPCI, the result is no irq-domain is provided to 
-this PCI and irq allocated failed.
-
-so how to fix such issue? Appreciate any comments and suggestions, thanks.
-
-Best Regards,
-Jiafei.
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/e223356c-fc2c-4c3b-98c3-6d27fba1099an%40googlegroups.com.
-
-------=_Part_281_962156904.1605171002273
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Dear Jailhouse Community,<div><br></div><div>I am runing Jailhouse on kerne=
-l v5.4, and port some ivshmem patches from&nbsp;<a href=3D"http://git.kiszk=
-a.org/?p=3Dlinux.git;a=3Dsummary">http://git.kiszka.org/?p=3Dlinux.git;a=3D=
-summary</a></div><div><br></div><div>The issue I have is uio_shmem and ivsh=
-mem-net will probe failed when I use MSI-X mode for vPCI after I run Jailho=
-use enable command.&nbsp; Please find the folowing log:</div><div><br></div=
-><div><p>[&nbsp;&nbsp; 21.581019] jailhouse: loading out-of-tree
-module taints kernel.</p>
-
-<p>[&nbsp;&nbsp; 30.000988] pci-host-generic fb500000.pci:
-host bridge /pci@0 ranges:</p>
-
-<p>[&nbsp;&nbsp; 30.000997] pci-host-generic
-fb500000.pci:&nbsp;&nbsp; MEM
-0xfb600000..0xfb603fff -&gt; 0xfb600000</p>
-
-<p>[&nbsp;&nbsp; 30.001028] pci-host-generic fb500000.pci:
-ECAM at [mem 0xfb500000-0xfb5fffff] for [bus 00]</p>
-
-<p>[&nbsp;&nbsp; 30.001081] pci-host-generic fb500000.pci:
-PCI host bridge to bus 0003:00</p>
-
-<p>[&nbsp;&nbsp; 30.001085] pci_bus 0003:00: root bus
-resource [bus 00]</p>
-
-<p>[&nbsp;&nbsp; 30.001087] pci_bus 0003:00: root bus
-resource [mem 0xfb600000-0xfb603fff]</p>
-
-<p>[&nbsp;&nbsp; 30.001105] pci 0003:00:00.0: [110a:4106]
-type 00 class 0xff0000</p>
-
-<p>[&nbsp;&nbsp; 30.001128] pci 0003:00:00.0: reg 0x10: [mem
-0x00000000-0x00000fff]</p>
-
-<p>[&nbsp;&nbsp; 30.001136] pci 0003:00:00.0: reg 0x14: [mem
-0x00000000-0x000001ff]</p>
-
-<p>[&nbsp;&nbsp; 30.001340] pci 0003:00:01.0: [110a:4106]
-type 00 class 0xff0001</p>
-
-<p>[&nbsp;&nbsp; 30.001359] pci 0003:00:01.0: reg 0x10: [mem
-0x00000000-0x00000fff]</p>
-
-<p>[&nbsp;&nbsp; 30.001368] pci 0003:00:01.0: reg 0x14: [mem
-0x00000000-0x000001ff]</p>
-
-<p>[&nbsp;&nbsp; 30.002389] pci 0003:00:00.0: BAR 0: assigned
-[mem 0xfb600000-0xfb600fff]</p>
-
-<p>[&nbsp;&nbsp; 30.002397] pci 0003:00:01.0: BAR 0: assigned
-[mem 0xfb601000-0xfb601fff]</p>
-
-<p>[&nbsp;&nbsp; 30.002403] pci 0003:00:00.0: BAR 1: assigned
-[mem 0xfb602000-0xfb6021ff]</p>
-
-<p>[&nbsp;&nbsp; 30.002409] pci 0003:00:01.0: BAR 1: assigned
-[mem 0xfb602200-0xfb6023ff]</p>
-
-<p>[&nbsp;&nbsp; 30.002478] uio_ivshmem 0003:00:00.0:
-enabling device (0000 -&gt; 0002)</p>
-
-<p>[&nbsp;&nbsp; 30.002505] uio_ivshmem 0003:00:00.0:
-state_table at 0x00000000fb700000, size 0x0000000000001000</p>
-
-<p>[&nbsp;&nbsp; 30.002512] uio_ivshmem 0003:00:00.0:
-rw_section at 0x00000000fb701000, size 0x0000000000009000</p>
-
-<p>[&nbsp;&nbsp; 30.002520] uio_ivshmem 0003:00:00.0:
-input_sections at 0x00000000fb70a000, size 0x0000000000006000</p>
-
-<p>[&nbsp;&nbsp; 30.002524] uio_ivshmem 0003:00:00.0:
-output_section at 0x00000000fb70a000, size 0x0000000000002000</p>
-
-<p>[&nbsp;&nbsp; 30.002576] <font color=3D"#ff0000">uio_ivshmem: probe of
-0003:00:00.0 failed with error -28</font><br></p>
-
-<p>[&nbsp;&nbsp; 30.002620] ivshmem-net 0003:00:01.0:
-enabling device (0000 -&gt; 0002)</p>
-
-<p>[&nbsp;&nbsp; 30.002664] ivshmem-net 0003:00:01.0: TX
-memory at 0x00000000fb801000, size 0x000000000007f000</p>
-
-<p>[&nbsp;&nbsp; 30.002667] ivshmem-net 0003:00:01.0: RX
-memory at 0x00000000fb880000, size 0x000000000007f000</p>
-
-<p>[&nbsp;&nbsp; 30.047630] <font color=3D"#ff0000">ivshmem-net: probe of
-0003:00:01.0 failed with error -28</font><br></p>
-
-<p>[&nbsp;&nbsp; 30.047714] The Jailhouse is opening.</p></div><div><br></d=
-iv><div>After some investigation I found the dts node of vPIC is added to r=
-oot cell by using vpci_template.dts,&nbsp; the Jailhouse driver&nbsp;create=
-_vpci_of_overlay() in&nbsp;driver/pci.c can't add the handler of "msi-paren=
-t" to this PCI node,&nbsp; but the kernel driver of the virtual PCI device =
-use the following function&nbsp;</div><div>ret =3D pci_alloc_irq_vectors(pd=
-ev, 1, 2, PCI_IRQ_LEGACY | <font color=3D"#ff0000">PCI_IRQ_MSIX)</font>;<br=
-></div><div>So the&nbsp; driver will probe MSIX irq for the device, because=
- there is no msi controller is speficied to vPCI, the result is no irq-doma=
-in is provided to this PCI and irq allocated failed.</div><div><br></div><d=
-iv>so how to fix such issue? Appreciate any comments and suggestions, thank=
-s.</div><div><br></div><div>Best Regards,</div><div>Jiafei.</div><div><br><=
-/div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
+On 12.11.20 09:50, Peter pan wrote:
+> Dear Jailhouse Community,
+>=20
+> I am runing Jailhouse on kernel v5.4, and port some ivshmem patches
+> from=C2=A0http://git.kiszka.org/?p=3Dlinux.git;a=3Dsummary
+> <http://git.kiszka.org/?p=3Dlinux.git;a=3Dsummary>
+>=20
+> The issue I have is uio_shmem and ivshmem-net will probe failed when I
+> use MSI-X mode for vPCI after I run Jailhouse enable command.=C2=A0 Pleas=
+e
+> find the folowing log:
+>=20
+> [=C2=A0=C2=A0 21.581019] jailhouse: loading out-of-tree module taints ker=
+nel.
+>=20
+> [=C2=A0=C2=A0 30.000988] pci-host-generic fb500000.pci: host bridge /pci@=
+0 ranges:
+>=20
+> [=C2=A0=C2=A0 30.000997] pci-host-generic fb500000.pci:=C2=A0=C2=A0 MEM
+> 0xfb600000..0xfb603fff -> 0xfb600000
+>=20
+> [=C2=A0=C2=A0 30.001028] pci-host-generic fb500000.pci: ECAM at [mem
+> 0xfb500000-0xfb5fffff] for [bus 00]
+>=20
+> [=C2=A0=C2=A0 30.001081] pci-host-generic fb500000.pci: PCI host bridge t=
+o bus 0003:00
+>=20
+> [=C2=A0=C2=A0 30.001085] pci_bus 0003:00: root bus resource [bus 00]
+>=20
+> [=C2=A0=C2=A0 30.001087] pci_bus 0003:00: root bus resource [mem
+> 0xfb600000-0xfb603fff]
+>=20
+> [=C2=A0=C2=A0 30.001105] pci 0003:00:00.0: [110a:4106] type 00 class 0xff=
+0000
+>=20
+> [=C2=A0=C2=A0 30.001128] pci 0003:00:00.0: reg 0x10: [mem 0x00000000-0x00=
+000fff]
+>=20
+> [=C2=A0=C2=A0 30.001136] pci 0003:00:00.0: reg 0x14: [mem 0x00000000-0x00=
+0001ff]
+>=20
+> [=C2=A0=C2=A0 30.001340] pci 0003:00:01.0: [110a:4106] type 00 class 0xff=
+0001
+>=20
+> [=C2=A0=C2=A0 30.001359] pci 0003:00:01.0: reg 0x10: [mem 0x00000000-0x00=
+000fff]
+>=20
+> [=C2=A0=C2=A0 30.001368] pci 0003:00:01.0: reg 0x14: [mem 0x00000000-0x00=
+0001ff]
+>=20
+> [=C2=A0=C2=A0 30.002389] pci 0003:00:00.0: BAR 0: assigned [mem 0xfb60000=
+0-0xfb600fff]
+>=20
+> [=C2=A0=C2=A0 30.002397] pci 0003:00:01.0: BAR 0: assigned [mem 0xfb60100=
+0-0xfb601fff]
+>=20
+> [=C2=A0=C2=A0 30.002403] pci 0003:00:00.0: BAR 1: assigned [mem 0xfb60200=
+0-0xfb6021ff]
+>=20
+> [=C2=A0=C2=A0 30.002409] pci 0003:00:01.0: BAR 1: assigned [mem 0xfb60220=
+0-0xfb6023ff]
+>=20
+> [=C2=A0=C2=A0 30.002478] uio_ivshmem 0003:00:00.0: enabling device (0000 =
+-> 0002)
+>=20
+> [=C2=A0=C2=A0 30.002505] uio_ivshmem 0003:00:00.0: state_table at
+> 0x00000000fb700000, size 0x0000000000001000
+>=20
+> [=C2=A0=C2=A0 30.002512] uio_ivshmem 0003:00:00.0: rw_section at
+> 0x00000000fb701000, size 0x0000000000009000
+>=20
+> [=C2=A0=C2=A0 30.002520] uio_ivshmem 0003:00:00.0: input_sections at
+> 0x00000000fb70a000, size 0x0000000000006000
+>=20
+> [=C2=A0=C2=A0 30.002524] uio_ivshmem 0003:00:00.0: output_section at
+> 0x00000000fb70a000, size 0x0000000000002000
+>=20
+> [=C2=A0=C2=A0 30.002576] uio_ivshmem: probe of 0003:00:00.0 failed with e=
+rror -28
+>=20
+> [=C2=A0=C2=A0 30.002620] ivshmem-net 0003:00:01.0: enabling device (0000 =
+-> 0002)
+>=20
+> [=C2=A0=C2=A0 30.002664] ivshmem-net 0003:00:01.0: TX memory at
+> 0x00000000fb801000, size 0x000000000007f000
+>=20
+> [=C2=A0=C2=A0 30.002667] ivshmem-net 0003:00:01.0: RX memory at
+> 0x00000000fb880000, size 0x000000000007f000
+>=20
+> [=C2=A0=C2=A0 30.047630] ivshmem-net: probe of 0003:00:01.0 failed with e=
+rror -28
+>=20
+> [=C2=A0=C2=A0 30.047714] The Jailhouse is opening.
+>=20
+>=20
+> After some investigation I found the dts node of vPIC is added to root
+> cell by using vpci_template.dts,=C2=A0 the Jailhouse
+> driver=C2=A0create_vpci_of_overlay() in=C2=A0driver/pci.c can't add the h=
+andler of
+> "msi-parent" to this PCI node,=C2=A0 but the kernel driver of the virtual=
+ PCI
+> device use the following function=C2=A0
+> ret =3D pci_alloc_irq_vectors(pdev, 1, 2, PCI_IRQ_LEGACY | PCI_IRQ_MSIX);
+> So the=C2=A0 driver will probe MSIX irq for the device, because there is =
+no
+> msi controller is speficied to vPCI, the result is no irq-domain is
+> provided to this PCI and irq allocated failed.
+>=20
+> so how to fix such issue? Appreciate any comments and suggestions, thanks=
+.
+
+The vPCI support in Jailhouse injects interrupts as legacy INTx. For
+that, you need to provide up to 4 (less if you have less ivshmem
+devices) consecutive SPIs that are not in use by real devices (in any
+cell). See other arm64 configs, specifically look for vpci_irq_base.
+
+Jan
+--=20
+Siemens AG, T RDA IOT
+Corporate Competence Center Embedded Linux
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/e223356c-fc2c-4c3b-98c3-6d27fba1099an%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/e223356c-fc2c-4c3b-98c3-6d27fba1099an%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_281_962156904.1605171002273--
-
-------=_Part_280_2060260567.1605171002273--
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/7552cacf-519e-9cde-ba5a-c2e2121c5a54%40siemens.com.
