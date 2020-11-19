@@ -1,74 +1,124 @@
-Return-Path: <jailhouse-dev+bncBCJ2NIVKYUNBBUWI3D6QKGQEDMQAHKI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBPGZ3D6QKGQEQQK3NAQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qv1-xf3d.google.com (mail-qv1-xf3d.google.com [IPv6:2607:f8b0:4864:20::f3d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E0292B8C8F
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 19 Nov 2020 08:52:52 +0100 (CET)
-Received: by mail-qv1-xf3d.google.com with SMTP id d41sf3882260qvc.23
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 18 Nov 2020 23:52:52 -0800 (PST)
+Received: from mail-wr1-x438.google.com (mail-wr1-x438.google.com [IPv6:2a00:1450:4864:20::438])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C6322B8D13
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 19 Nov 2020 09:28:45 +0100 (CET)
+Received: by mail-wr1-x438.google.com with SMTP id e18sf1718440wrs.23
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 19 Nov 2020 00:28:45 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1605774524; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=TGIMCCbeZ91XBBqILiaVAMUfqxHJu+iRpycdrwUPH+v7BqyMpn1jzsvuEWdgZtT6mi
+         SwOdkgvb9vWM5TE/EFSuStNj5QQfL5JvfDOlJ0gGjk+JpFW3wge2OaWl3L0F9xqxtP56
+         bCET3orbngc8rUplratVmPd93vb08UAsPPGDtNrIOqv1sA8nkcu794HrIsCfXBMp1+/m
+         zt2TNzcFnrR3QaW8HrPd+/zj68KScjSpY5azoRC6P4m6Rtg1EDLXThkmWI+k8u9SYavO
+         8NoWnC9UC32XrPAGqtMDKWrNez8cVNaIH97lB9kwsjMVE+Oj7fHjq3q0zfRjnPS+yAhn
+         /7NA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:to:subject
+         :sender:dkim-signature;
+        bh=i4Ln12eoKjc0X1X78EUYg7rsWz8Y8TIiTGnwtWnxqU8=;
+        b=MLUwlNOp2kvcXiJBJr82EDScw+j/pPTot6wdF3xxhSi33CseeNDhxAZsn4ejrKSYnS
+         ZBSEikH6UxJPwu58DKoAB/XqdKMsM3l0RTD+a/JazDGbNmK/BA+LQtPHHx7YdkNfVrzc
+         w/NAo3F6Jasf/gLe8Rh9PCX/c3Ihmutkf09sTY4on+kLDjXXWQFgeOXGKbh3Ne1vP2Ct
+         KxU6rQFKHjYKXmLMKEPvH0PfNQvJf/XA9lHRvSl55FHJkKFHco+LYxr5PLvLyykdu0/n
+         zK9+8RXi6bNlIEzEURWtaWf3Qsl5wim6q0q39FwL/Q0CGPCopz/8xNDiusiVLqNjcgiX
+         mOWQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=KxKDhUPa9Qk/23ktroTyveX872pmMXLTHWytQsAaxkg=;
-        b=fBbCo6IGBrGd+C48d2eW9i/IWjW9Qv+QDKd7v8fppV8X6yqMJ+qHMNGIS7NqBWKS7G
-         H7mHqaU0YycoREa3kXylSjCn1qUWejjEp0YdXAfoK9dqTxobWVcRVU4oC9Y450MghrZb
-         0IkUlH/UNTCrbhWBCEVb/bdKFXKj/eUQd/y1b/TXgdYKRmMESy+wYLId8BEf69+to1mc
-         0cIqfw60wy9bOb9x3V8JpPFUjQjbsu0D0wCHsIuRj1yLM+8RqfXh13lpDbd27XKl7Msy
-         9bMA2bUYSRapotbnQujozFhec7V/eTSamIbJ+Rgo7XkNJDyrWOnI6LEYagTKunJktLnG
-         nlww==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=KxKDhUPa9Qk/23ktroTyveX872pmMXLTHWytQsAaxkg=;
-        b=IKvm12N5Nfs98sILl2ehXn8PvX1UwuUfBDVR8XJlZq8+vWXaZfLGLv2jFeqCQjMZE4
-         OuJHE1FDg/hWhczyZr4T+W4tmP7v59AeLVP4oMZkt3Gt21tLL0oT79SybgtDqLbbnf/R
-         Wm0mpmI4/vP6MEWz9zTFtmvwgyizt1stGTmcOzflOWTF5MEOYAtkQg318GQEVqWbKOVS
-         1xDqahDD2OtkLQwr3B2dUTRl2NLEZ/tqjZew5LINBkeEbk9zUZCUKPNTVFgejjXDwI8k
-         5kOL2w+7hoUQ5dGjUD6RDz8I1RzCjcHzWmyPMy/CjwgzbMLTS4OSfLJNUYTq5qVjbcfc
-         mYeQ==
+        bh=i4Ln12eoKjc0X1X78EUYg7rsWz8Y8TIiTGnwtWnxqU8=;
+        b=faNIQHkHA/MdAjHAcmJu1Vc3XysZXjHRg5CmxvAnPKq0L6NV9MP0jpVD++TCwVpxmq
+         mZGMIESeKc1ujp6tyEyBzcI2gPsyjOEhZw0WQWs1Uj0KR2mloaWOKMQuqL/4iBRL9Zf5
+         +aoE45P8lsfhsj3GORV+vbJnVHdPgVyR07jsHyXpkUujywTRvWdtVfPXHLt4ydoLOAJQ
+         rkfkU/Mmz0QzfQ6kO+5pGCw+wERthIGz4P/SVqjdGiWQf7XPST2oJKtQBCvMSRcpRZVv
+         vqsPs0jye+WT74DATUND08M6ruAaeNEox7RbKVweeIxiaJ8mH2Ia8qIrwWJcGEbhUQJw
+         33cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=KxKDhUPa9Qk/23ktroTyveX872pmMXLTHWytQsAaxkg=;
-        b=E0VZw4TjdYLB0yrX/bkgQsjpIcE4ceW93kfJFGuStl4j0bwcNIPwynE3jodAyP7/r0
-         NFTSJzlLGQvuQrgYCbKhUMbllnujATV/4tSLmY8oCohhZMyjateCJa9gi6sRKHzs+fbI
-         YVw+cz7n31Xpf9aCeXrLw3Znp+M8tCqzEuvH/fBCpGmLpS0AI1uWzmh48vIJg3QhEBTw
-         Vq9bMZV/686GhRziAHsFv64zPHEvER0mrpDhvBBTWB2XiXV3eW1VosK0bwjVHc7AIWR2
-         nUGGryoxn/dQQpA99Qr+HW/g4VWeYqd60gt8r1yE03OCdUCNPGYLjxrlWYI6rHAG9bfa
-         OqXg==
+        bh=i4Ln12eoKjc0X1X78EUYg7rsWz8Y8TIiTGnwtWnxqU8=;
+        b=WCyPeutFpCyg9Zu2VOudAagF6OCtH1tdNkGtZWx4Jw+gKj75c5+ycpPEvvsumv6ya2
+         olAm05YHonlg5OKX6AWkf+O/e3W2xwhUwrSSuIpGqs4k9X3ukCmTA3lfaY+FmiP46NF9
+         ggHNxo7h/P9chg6moDGoZ29uxPntAxvyb7DhnAYKTSX/yph3Kqn0H/kudSnm1LOzooKq
+         fjWSpm+TXan8TkvEZsfjRtJVlI/1vyk2R48+htOMelZM1o7CM2G6CtUO/9qCgiyNHsOa
+         DfvWrdVacAbcEO5K4+8yO/pPOVmG/fIq0JP4C6Ghc5Yds6aYllJICowDOYtmBQdKCl2J
+         wwWw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531S9CqfwIycQR/l70JzIxiTYJyD2Khsk+z+3R2YQHbj+Te7Pykh
-	WFU1lVQz7ky5Sa7f8ly8mtI=
-X-Google-Smtp-Source: ABdhPJzHBGlYQV1nEbanFHOh2aqUFUoZQN8NBkXYsmh2vF5hWaTJoz2V+2yD6CJzQaDzdrpCfqTZMg==
-X-Received: by 2002:a0c:e24e:: with SMTP id x14mr9591334qvl.13.1605772371181;
-        Wed, 18 Nov 2020 23:52:51 -0800 (PST)
+X-Gm-Message-State: AOAM531P67DDEf8G6swl9BkOJ6+N9q5xzfOXEaHzbzj7Z3TPdsq7lmdv
+	VLcLLS0cpVb8t+QYcv+Uf7o=
+X-Google-Smtp-Source: ABdhPJxup9H+kCHT0J8rTNeK7UjG6wCIjvXOZFphiZUGcu7PLOSS+n/pwxB6YVO+0RfJDEmI6oDqzA==
+X-Received: by 2002:a1c:a445:: with SMTP id n66mr3361954wme.51.1605774524763;
+        Thu, 19 Nov 2020 00:28:44 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a37:9bd7:: with SMTP id d206ls967024qke.1.gmail; Wed, 18 Nov
- 2020 23:52:50 -0800 (PST)
-X-Received: by 2002:a37:951:: with SMTP id 78mr9729392qkj.47.1605772370491;
-        Wed, 18 Nov 2020 23:52:50 -0800 (PST)
-Date: Wed, 18 Nov 2020 23:52:49 -0800 (PST)
-From: Peter pan <peter.panjf@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <581e32ac-d032-4108-b4fe-21286e6b2085n@googlegroups.com>
-In-Reply-To: <9ea3bc46-677d-7e23-0bff-70d0218898da@siemens.com>
-References: <e223356c-fc2c-4c3b-98c3-6d27fba1099an@googlegroups.com>
- <7552cacf-519e-9cde-ba5a-c2e2121c5a54@siemens.com>
- <650b2d0f-b721-44a4-9572-28c2a88a7559n@googlegroups.com>
- <aa38bda6-400a-4342-8b72-e033c56fd89dn@googlegroups.com>
- <9ea3bc46-677d-7e23-0bff-70d0218898da@siemens.com>
-Subject: Re: one question about MSI-X support for vPCI
+Received: by 2002:adf:f70d:: with SMTP id r13ls2607031wrp.1.gmail; Thu, 19 Nov
+ 2020 00:28:43 -0800 (PST)
+X-Received: by 2002:adf:e3c9:: with SMTP id k9mr8919820wrm.275.1605774523819;
+        Thu, 19 Nov 2020 00:28:43 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1605774523; cv=none;
+        d=google.com; s=arc-20160816;
+        b=Xc7rOhclpiXZDYco7RJ77q1xOLKEhhYhDbhfdDBnYqZNaeNgeiDkpbJC+CjmAsEczq
+         DC7uVT8oZHhABVx7M1YfJYC6zdECs54/kEdvDPstaImG5vLgZiVZrjtm0PEkX60E+hwX
+         PCDkpvqiWg+7W26y+af0RmTLpeo7XvDy2RfoikMb3Ei9Zclec73ixM5dnkdnyqkd+ODt
+         0Lreq42wb7duVtbu1AHGzB7CGAmE/PoCVxoZ1RovznPN1tCn7u37U0Riif88JcgfAsbe
+         kS9TSrn6p7VuGwzniuNW552jMKLz9P/5l7FKEfPqbkUFWobshLm4uP/cQsRFd62T9jYc
+         GJoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=iSfcpjVdxLVI6PJ5OsKQZJyVQQwSzb5OcmRhB/ANdbQ=;
+        b=PlmBwMeB310nyVUKLxWl2avnKGerE6q13OIs4UbtE39GyU+nipWATbV9j0zjEhRrSL
+         QMuQXZ1x4+1Wc0yz7DSQzmShcK7R7nFn3hIn862IHBZ8a3b8V0zsnMbg7h/Ppc+7dTT8
+         oG/Dr/auhxmsf3/nud37twlhgJnJ0QK8iIl5GuTHJftQUjEL2ctm5moh7E2MwZ6EQPlY
+         EHX0QcVVf/fD3U3hmVO5k2qEUJxUWWLCF/pwpSA71wOkP0co5dlfea1rGiTcWKiNOmFa
+         +My2H1NAr4PVXd9yETRvqtRrarc7LiDfQ/DXD0FVR7KAjzlSWhplciW25h1U/Hn8qmao
+         28nA==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
+        by gmr-mx.google.com with ESMTPS id r21si1186842wra.4.2020.11.19.00.28.43
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 19 Nov 2020 00:28:43 -0800 (PST)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 0AJ8ShmW023678
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 19 Nov 2020 09:28:43 +0100
+Received: from [167.87.38.29] ([167.87.38.29])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 0AJ8SgUA025824;
+	Thu, 19 Nov 2020 09:28:43 +0100
+Subject: Re: zephyr ARM64 SMP runs on Jailhouse
+To: Peng Fan <peng.fan@nxp.com>,
+        "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
+References: <DB6PR0402MB276052104C2CE78B10D2BD5188E00@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <fd4ed87a-58b1-2767-8a28-f1ba335582d3@siemens.com>
+Date: Thu, 19 Nov 2020 09:28:42 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_1976_67493602.1605772369545"
-X-Original-Sender: peter.panjf@gmail.com
+In-Reply-To: <DB6PR0402MB276052104C2CE78B10D2BD5188E00@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -81,188 +131,20 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1976_67493602.1605772369545
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_1977_447589062.1605772369545"
+On 19.11.20 03:50, Peng Fan wrote:
+> Just share info, we have enabled zephyr ARM64 SMP on Jailhouse using i.MX8M
+> 
 
-------=_Part_1977_447589062.1605772369545
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This is great news, indeed! Do you need patches against Zephyr, or is
+upstream ready for this? Would it work in qemuarm64 as well?
 
-Hi, Jan,
+Jan
 
-After some investigation, I found the root cause of the issue: the carrier=
-=20
-is not
-changed to be on if we open virtual NIC in inmate firstly, attached patch=
-=20
-can
-fix this issue, please help to review, by the way where I can upstream this=
-=20
-patch?
-Thanks.
-
-Best Regards,
-Jiafei.
-
-=E5=9C=A82020=E5=B9=B411=E6=9C=8818=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=89 UTC=
-+8 =E4=B8=8B=E5=8D=886:01:51<j.kiszka...@gmail.com> =E5=86=99=E9=81=93=EF=
-=BC=9A
-
-> On 18.11.20 10:50, Peter pan wrote:=20
-> > Hi, Jan,=20
-> >=20
-> > I have one new issue and not sure it is a know issue.=20
-> >=20
-> > The issue is: when I ifconfig up ivshmem-net NIC in root cell firstly=
-=20
-> > and then ifconfig up ivshmem NIC in inmate cell (runing Linux),  I can=
-=20
-> > ping through between two NICs, but if I ifconfig up NIC in inmate cell=
-=20
-> > before ifconfig up the NIC in root cell, I can't ping through between=
-=20
-> > two NICs, and I found NIC in inmate can only receive packet sending fro=
-m=20
-> > root cell NIC, but NIC in root cell can't receive any packet and there=
-=20
-> > is also no irq received for ivshmem NIC.=20
-> >=20
->
-> The link states of both virtual NICs are up (ethtool)? Is there any=20
-> ivshmem-net interrupt received at all on the root side? There should be=
-=20
-> a few during setup at least.=20
->
-> Check that the interrupt line on the root side is really free, and also=
-=20
-> that GICD is properly intercepted by Jailhouse (check mappings).=20
->
-> Jan=20
->
-> --=20
-> Siemens AG, T RDA IOT=20
-> Corporate Competence Center Embedded Linux=20
->
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/581e32ac-d032-4108-b4fe-21286e6b2085n%40googlegroups.com.
-
-------=_Part_1977_447589062.1605772369545
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi, Jan,<div><br></div><div>After some investigation, I found the root caus=
-e of the issue: the carrier is not</div><div>changed to be on if we open vi=
-rtual NIC in inmate firstly, attached patch can</div><div>fix this issue, p=
-lease help to review, by the way where I can upstream this patch?</div><div=
->Thanks.</div><div><br></div><div>Best Regards,</div><div>Jiafei.</div><div=
-><br></div><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr=
-">=E5=9C=A82020=E5=B9=B411=E6=9C=8818=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=89 U=
-TC+8 =E4=B8=8B=E5=8D=886:01:51&lt;j.kiszka...@gmail.com&gt; =E5=86=99=E9=81=
-=93=EF=BC=9A<br></div><blockquote class=3D"gmail_quote" style=3D"margin: 0 =
-0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">O=
-n 18.11.20 10:50, Peter pan wrote:
-<br>&gt; Hi, Jan,
-<br>&gt;=20
-<br>&gt; I have one new issue and not sure it is a know issue.
-<br>&gt;=20
-<br>&gt; The issue is: when I ifconfig up ivshmem-net NIC in root cell firs=
-tly
-<br>&gt; and then ifconfig up ivshmem NIC in inmate cell (runing Linux),&nb=
-sp; I can
-<br>&gt; ping through between two NICs, but if I ifconfig up NIC in inmate =
-cell
-<br>&gt; before ifconfig up the NIC in root cell, I can't ping through betw=
-een
-<br>&gt; two NICs, and I found NIC in inmate can only receive packet sendin=
-g from
-<br>&gt; root cell NIC, but NIC in root cell can't receive any packet and t=
-here
-<br>&gt; is also no irq received for ivshmem NIC.
-<br>&gt;=20
-<br>
-<br>The link states of both virtual NICs are up (ethtool)? Is there any
-<br>ivshmem-net interrupt received at all on the root side? There should be
-<br>a few during setup at least.
-<br>
-<br>Check that the interrupt line on the root side is really free, and also
-<br>that GICD is properly intercepted by Jailhouse (check mappings).
-<br>
-<br>Jan
-<br>
-<br>--=20
-<br>Siemens AG, T RDA IOT
-<br>Corporate Competence Center Embedded Linux
-<br></blockquote></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/581e32ac-d032-4108-b4fe-21286e6b2085n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/581e32ac-d032-4108-b4fe-21286e6b2085n%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_1977_447589062.1605772369545--
-
-------=_Part_1976_67493602.1605772369545
-Content-Type: text/x-diff; charset=US-ASCII; 
-	name=0001-ivshmem-net-set-carrier-on-if-device-has-been-opened.patch
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; 
-	filename=0001-ivshmem-net-set-carrier-on-if-device-has-been-opened.patch
-X-Attachment-Id: 0ac1c116-8323-44d9-9399-87819492667e
-Content-ID: <0ac1c116-8323-44d9-9399-87819492667e>
-
-From 828eecf2c696410a30bfd7c5c7a0d384c4bec7c5 Mon Sep 17 00:00:00 2001
-From: Jiafei Pan <Jiafei.Pan@nxp.com>
-Date: Thu, 19 Nov 2020 15:34:47 +0800
-Subject: [PATCH] ivshmem-net: set carrier on if device has been opened
-
-When virtual NIC is opened in inmate firstly, and then
-open virtual NIC in root cell, virtual NIC in inmate
-can't transmit packets out. The roor cause of this
-issue is although state has been changed to be RUN
-in process of "open", but carrier need to set to be on
-after state of peer is changed to be RUN, otherwise
-network stack will not transmit packet to virtual NIC.
-
-Signed-off-by: Jiafei Pan <Jiafei.Pan@nxp.com>
----
- drivers/net/ivshmem-net.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/net/ivshmem-net.c b/drivers/net/ivshmem-net.c
-index 18d5a15dbec2..8aab21b3febe 100644
---- a/drivers/net/ivshmem-net.c
-+++ b/drivers/net/ivshmem-net.c
-@@ -623,6 +623,12 @@ static void ivshm_net_state_change(struct work_struct *work)
- 			netif_carrier_off(ndev);
- 			ivshm_net_do_stop(ndev);
- 		}
-+		/* In case of it has been already opened, so state is RUN,
-+		 * set Carrier on when remote goes to RUN.
-+		 */
-+		if (peer_state == IVSHM_NET_STATE_RUN)
-+			netif_carrier_on(ndev);
-+
- 		break;
- 	}
- 
 -- 
-2.17.1
+Siemens AG, T RDA IOT
+Corporate Competence Center Embedded Linux
 
-
-------=_Part_1976_67493602.1605772369545--
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/fd4ed87a-58b1-2767-8a28-f1ba335582d3%40siemens.com.
