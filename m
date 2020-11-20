@@ -1,76 +1,173 @@
-Return-Path: <jailhouse-dev+bncBCJ2NIVKYUNBB2HU3T6QKGQE5C675BQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDAMFR7JZAEBBNOX3X6QKGQENYAOJLA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qk1-x73a.google.com (mail-qk1-x73a.google.com [IPv6:2607:f8b0:4864:20::73a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 324102BA144
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 20 Nov 2020 04:39:22 +0100 (CET)
-Received: by mail-qk1-x73a.google.com with SMTP id f9sf6790755qkg.13
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 19 Nov 2020 19:39:22 -0800 (PST)
+Received: from mail-lf1-x13e.google.com (mail-lf1-x13e.google.com [IPv6:2a00:1450:4864:20::13e])
+	by mail.lfdr.de (Postfix) with ESMTPS id 347592BA2D6
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 20 Nov 2020 08:09:42 +0100 (CET)
+Received: by mail-lf1-x13e.google.com with SMTP id n207sf3327375lfa.23
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 19 Nov 2020 23:09:42 -0800 (PST)
+ARC-Seal: i=3; a=rsa-sha256; t=1605856181; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=kdcipYhM+FPPKw+fuveVL4lOfsPIQriRlArjDNg09VvEp/V5nvJTqfY284vZXEvXfW
+         hzUPJWZT4kIaxAKSk274+h1h2j9CJ5rJWceqR6S8FM6/K+bnP8lJ028Ui1PpZ0Z4Mr1S
+         shlJZCJX4CUtgUgzvkCdnyoW1LpTIA2oPW2O6GboRWhj/rI9krFw2QWQl9CxjlzAqFUB
+         q1vjyEvT4M8Nxw8CNkuvo0zqKFcJwRWEkMPF6kr9BTh060OIGWKxtL+JP4BSmQk5wXnI
+         5dwF88jbOiIlRdpL5czGJyp6TAGewbKLGCU3G0CnJVFt60V3hp8xTA0kww4MVLfOROc/
+         lW5g==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:mime-version:content-language
+         :accept-language:in-reply-to:references:message-id:date:thread-index
+         :thread-topic:subject:to:from:sender:dkim-signature;
+        bh=45oQrV4U9LnxK0kAHktgHPOsaLg847tytsMgsYLdPX8=;
+        b=hzkBJrlZQnmLEkB8UXGKDShQ8+QfBR+UC1oGkdy1cnf5gJwpIRqyqajYCxccmbj4RY
+         x9XVqzlty9/W90JfruYqR2YmOSu3ltCTKIvTYbPrM2v9c7Cr8jqgVBJAYbmMFxv0lc6s
+         QgU16z+3eYSy1EgIRj+F1bU1D/npYVUq6k6DftPgIRn+lRMd5y/UM02/FmROGBk2iFwM
+         ASkygoyyxLmSYDFc0DusMf5ruOIUsMKVfsudH1/GcM702dh7CMti4ZLR3X2z61nApywF
+         YvN7iH8xUdc5CX3eOJX6W6qaALMbAR85WRheDg6ZAEh+Ae27DGiihox5gPB33DzeNezX
+         7mww==
+ARC-Authentication-Results: i=3; gmr-mx.google.com;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=Wr3S+bNm;
+       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
+       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.15.81 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=/B7L8AOJKbeS/ayFOPQ/vllJEp630bZ6d6gC5JfVDls=;
-        b=dZUvR7SUnToew1kf181qsG9O19uQZkjV3Et666pMMFqN67HKZwE9h7tUU/ukI2c6j/
-         aOhoVJ/wBBiMqGXa8eM5nAswCl8Z6ncPpZRyec6IsXTXJqbnBf+Lmy7IBt7reB8a/p+K
-         5S6GrV1HrfYzADJyrhhGJy25C+1jbbzzpnycRJCI42PyTFvlFm1dtowJcSz1/HpPA6pi
-         P7SBbStd4gNWk+v0HH9dwrDQpbkm7dw73cLw6f3ZSRG+jFQddWEbBCUF0QjQN5hr6Zfw
-         8x4x+3tioOItsyP4z0u18SlmQS14RQxBSTkOKp62IsX0uFemWPHUNkgFxo85b7BJkP9y
-         yCdw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=/B7L8AOJKbeS/ayFOPQ/vllJEp630bZ6d6gC5JfVDls=;
-        b=m6FYhJVNKA/HFiZn6I5YbQ4NxAfPWVMhOjhzI1V2lMelXncPRQT8uRfBGlZnTBw/YI
-         gcTSwIKZWrrWWO8N5mUrEv5l2SpPNv3dnVxD+nBAvONnz3mwALDysBv782uYXA9ckOJX
-         qwKCmRxDboX+ZKsGdhOCFOvPRDysMnQvhYkl7F/sle83Qm+QnqEb3csxcbgPCDowa/uf
-         KVVJEQ3OozIJ6iwYcuxnhemLBk4ywyUe/IS7MDtQmKsd2GjaGPAzvNzciHsCYl2FZ4VF
-         Rx3BHyz2lYMZbpyhQeGmP+HSo0YVNQkscvW3jxWHhnhiQ+8gCRhZzY0aws6r995bH00i
-         xGbg==
+        h=sender:from:to:subject:thread-topic:thread-index:date:message-id
+         :references:in-reply-to:accept-language:content-language
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=45oQrV4U9LnxK0kAHktgHPOsaLg847tytsMgsYLdPX8=;
+        b=qGH2L8ZOqFiZc6iTc/9r507r5LGCP32REio9EAqcimrBz52ZfyijODq7HAIV6KlNT6
+         vwGUHdTa2LsocWMn/tJuZQ9udQuk5RtncCPc0tR6K8KOLpDObhzCGo/aTYA/EyXEURLs
+         31yt7bjLaj8jeVIn96W+OzZuM7Xbj69wGUAllVZIeNGa6ahK+1IwMPhpw4PX4+4cNgKj
+         SCotB22c81JmIJv1bt9wnZb6L9cXq5zxz0IvBXAXEDRAhrKELE1O3wvTFmHvemke9lT9
+         VjaWEr63tXi8tMqXfHS37gzZMneOlBRN8ViHkG3wfiFoF10MKMU5aBeAjO6ceDl48tOn
+         YlTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=/B7L8AOJKbeS/ayFOPQ/vllJEp630bZ6d6gC5JfVDls=;
-        b=NkrmHK6cFtmWeGMPKhV74th85Me7Kdhi2PKseCnLU1axTRWgdbT5dZ8szwtsZm2tqi
-         Map/D12Jf6zjnrDVENbZgdhNJiLpvmXce16LXUrVprQJy+t366OaVhMmswgA/dAHBYez
-         K7IeK3sg7uNgmvtMowrIrs2rfeos4Oq3wXD77LhRFJl9GQLTVAvAj/fVwJ1fnwJCRBub
-         Toy3Y0yuhqTlGFRv6m3RL4f74R0bckF38ChCHOpeICUxWA/dd5o7HlpkZ6XjAeTbqGA6
-         5sxcoX119SgccpLGOGq08rNrN3m9g4tP3HlLU0GLEZfSuLE5iXYMw8R4cWRDL8RRq3cY
-         jSgQ==
+        h=sender:x-gm-message-state:from:to:subject:thread-topic:thread-index
+         :date:message-id:references:in-reply-to:accept-language
+         :content-language:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=45oQrV4U9LnxK0kAHktgHPOsaLg847tytsMgsYLdPX8=;
+        b=kfe4CcEtTZfyuTv9zVvocHbAxk6A7cNfQN1+Td/qiq6ZlJ/9MVP0YHOakWibDYtb6M
+         v85UjjB/wqrMMYL4oFEju3D12OjrQF9Ch1+Gt+khv82P0WgdaJ2zICuwfl+SjqBxG8VY
+         MmoF/g3T6DX6JBm+ggoOzzXOeA4v2IaPrhewsu1pV2ouP5wM4NvjjuWQZe3/e5o0SKYw
+         q71kUr5vS56NPiSqrJPv9WYsD2DiTQQuADRywdVQvGrZr+qtBZE3i5vwKGBie79N3tNz
+         n4Ewk3jyxba2Z1lW1v6pT+0gJtJhu5QwOZtD5phcbiAHzm1akWguZHo0B5HAjIyqNRjU
+         W11A==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM5335XKw4UTTGtERr3KdCUm/oVUy/8X9gKshyjGd/JJw6qRo8hymT
-	samPADvuEUuTyZD9KKEZFjY=
-X-Google-Smtp-Source: ABdhPJxGDNeBxYe2ozir8sl4cMgHao62aUWaqjFoU6/DBTF0UYQ+IdHs+BlKGTMSUvvi0Tj9Ly4lUw==
-X-Received: by 2002:a37:6412:: with SMTP id y18mr14474303qkb.84.1605843560816;
-        Thu, 19 Nov 2020 19:39:20 -0800 (PST)
+X-Gm-Message-State: AOAM532ayRjF/H8vBzY0Bt5bP1uHi0vyYVqn4sSwoj8SYqUOC82+vbg5
+	SokfhuBaLuUlSto2oumgvIk=
+X-Google-Smtp-Source: ABdhPJwm10LZuHUAHK1ASB+ASci0qe2fRtuo+3dX36sqVILlMV49nN4ZhwAqqYPWcZouh80IeTVCGQ==
+X-Received: by 2002:ac2:4466:: with SMTP id y6mr6970501lfl.304.1605856181625;
+        Thu, 19 Nov 2020 23:09:41 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a37:a3cd:: with SMTP id m196ls2341494qke.9.gmail; Thu, 19
- Nov 2020 19:39:20 -0800 (PST)
-X-Received: by 2002:a37:793:: with SMTP id 141mr14183191qkh.462.1605843560171;
-        Thu, 19 Nov 2020 19:39:20 -0800 (PST)
-Date: Thu, 19 Nov 2020 19:39:19 -0800 (PST)
-From: Peter pan <peter.panjf@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <525f34ef-be0c-451d-b626-43763045008cn@googlegroups.com>
-In-Reply-To: <803d46bb-b51a-6fba-7bfc-3e6d2145a8cd@siemens.com>
-References: <e223356c-fc2c-4c3b-98c3-6d27fba1099an@googlegroups.com>
- <7552cacf-519e-9cde-ba5a-c2e2121c5a54@siemens.com>
- <650b2d0f-b721-44a4-9572-28c2a88a7559n@googlegroups.com>
- <aa38bda6-400a-4342-8b72-e033c56fd89dn@googlegroups.com>
- <9ea3bc46-677d-7e23-0bff-70d0218898da@siemens.com>
- <581e32ac-d032-4108-b4fe-21286e6b2085n@googlegroups.com>
- <803d46bb-b51a-6fba-7bfc-3e6d2145a8cd@siemens.com>
-Subject: Re: one question about MSI-X support for vPCI
+Received: by 2002:a2e:914c:: with SMTP id q12ls933470ljg.8.gmail; Thu, 19 Nov
+ 2020 23:09:40 -0800 (PST)
+X-Received: by 2002:a2e:6f13:: with SMTP id k19mr6745074ljc.74.1605856180432;
+        Thu, 19 Nov 2020 23:09:40 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1605856180; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=CDMx4OuGTpgAMHI/n/qEnXsGr2KRaiXjpC0L4zv2KIyJtSTAfoXryjxJqs9eL3NtvV
+         E4vKx2jjUcu3Dt3Ou6nqEEsTOWYDjv7wEAKg1Y7sdkYGXI7vBSQ4XYNLIrnPu2KXO+/n
+         ROZD5zfmmj4vN47O6DsBbOoeOhOmBepetZBHNcoHBH28leWGHBfKDubDpMxJjZVuC8Af
+         tEj4kXeVZfrWYWShUKF/t8LzvtYDxSGN/Wa09o9Qaw+sohmoMRndqYHbz6k7DwdcZKJ8
+         AqJreOTEODiYpw9kqON9w8StXPFREa+RkPMHGMxEWQyvfULXtgt0dYItlLXrAjN09DYC
+         3WgQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:content-transfer-encoding:content-language
+         :accept-language:in-reply-to:references:message-id:date:thread-index
+         :thread-topic:subject:to:from:dkim-signature;
+        bh=V6uSQ8/to2BRZUPRnRrfIi0KHrB+TMw/gT4YtLLZUBY=;
+        b=U060vihevyT35JjY1uZQCmXQ7keCU91uWm1tuHJ8uNIhgJZr+fu/4k1smKb02WfaHQ
+         bgJjqBHTOWdBuYxYupv6FRdu+xCNKCGczJqJ+NIiGspFYaMoM19LonrTtukrB4ePQwVi
+         azP9SNOGezQYZa5c+vQxazR9a9UkG3+Qt43kzbHII7zv+VtG2mKep0Uzs8v2tNwqDn6v
+         47yjHMitPgKCcigcHnSjSjflcVS6dCLGXmFbd2etHnWBgkCudQdUjeARafXYoB9xfgYT
+         4TDItwxKjXpJgOU27tzExfOZi1ZLSRj2Nm3PF0C4M1F0pX6nrtbF+aaFrsWz90IP+ygo
+         Cj/w==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=Wr3S+bNm;
+       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
+       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.15.81 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com (mail-eopbgr150081.outbound.protection.outlook.com. [40.107.15.81])
+        by gmr-mx.google.com with ESMTPS id j2si34147lfe.9.2020.11.19.23.09.40
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 19 Nov 2020 23:09:40 -0800 (PST)
+Received-SPF: pass (google.com: domain of peng.fan@nxp.com designates 40.107.15.81 as permitted sender) client-ip=40.107.15.81;
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bGEmE8pL3VLCATGxppdQcn/UzbLT9nTqaRPH7sUeb0FxBSL92EXZBIfdj03XSeW36yXE7xhQCWK3u/c/a3brSpsPrtWzSOiFPV5N2CV3FgKXVBFKMuPOINHg4UpoYjp4TqNO37j7tIqHjAsFsw0JxgN8rEBY3q2/KstML36d2QVWYGx0rul7LJ0ds9BwnMS7IxYytOAxPXEUhrQTqSG1CuDV61yBic0RfQkSXohsSis1f+kmZqnzPPldiOwfLg35poDXPmhnGWCPtnKqPWytASaeOFlLxikRHv7R66/R/yPJyUVgFjvQ6dTL+7bTtiCxRHUO7O//6IWkvoHLmhNHVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=V6uSQ8/to2BRZUPRnRrfIi0KHrB+TMw/gT4YtLLZUBY=;
+ b=YFFeSq4kd7WzgPY0zydfAvh53VKLaG7WdmQ6ny5HBlcBAVZnWa6boUIN+V5q+Zb0vkxog9ssaMEASjapXwaGc5KlMAPgvuWn8p4M3ri4HncOE5tXewOlOK1vabSaHXgLfu3RTJsZw1RZmF/XehFGMk09jrWEb3SLzboi9HfW7cLArEMCoad/gkrdlw+EsZ9EdTDhW2HmkrCClFqrfaa9CIweUkbtcG0m1vp97cfc8QBhIvHUXbKGew2JmLHQLjjZFxEJXMSVs2rLyf2LOQ1nhLFj8Iwt3I1jPwAPf6qjtMjutYnxkvGYAytSiz79mHfc4EEDQwPrsY4YBMLOj4creg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com (2603:10a6:4:a1::14)
+ by DBBPR04MB7817.eurprd04.prod.outlook.com (2603:10a6:10:1ef::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.20; Fri, 20 Nov
+ 2020 07:09:39 +0000
+Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com
+ ([fe80::ec42:b6d0:7666:19ef]) by DB6PR0402MB2760.eurprd04.prod.outlook.com
+ ([fe80::ec42:b6d0:7666:19ef%8]) with mapi id 15.20.3564.028; Fri, 20 Nov 2020
+ 07:09:39 +0000
+From: Peng Fan <peng.fan@nxp.com>
+To: Jan Kiszka <jan.kiszka@siemens.com>, "jailhouse-dev@googlegroups.com"
+	<jailhouse-dev@googlegroups.com>
+Subject: RE: zephyr ARM64 SMP runs on Jailhouse
+Thread-Topic: zephyr ARM64 SMP runs on Jailhouse
+Thread-Index: Ada+HotgWPdpOhbSTKucu1X0S1ipHQAL3GYAAC9CoiA=
+Date: Fri, 20 Nov 2020 07:09:39 +0000
+Message-ID: <DB6PR0402MB276009F841DA2D085725319688FF0@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+References: <DB6PR0402MB276052104C2CE78B10D2BD5188E00@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+ <fd4ed87a-58b1-2767-8a28-f1ba335582d3@siemens.com>
+In-Reply-To: <fd4ed87a-58b1-2767-8a28-f1ba335582d3@siemens.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [119.31.174.71]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 87bbe7c2-d88b-46f4-8a9e-08d88d233f14
+x-ms-traffictypediagnostic: DBBPR04MB7817:
+x-microsoft-antispam-prvs: <DBBPR04MB7817329B46B6C7B39EF9FAC788FF0@DBBPR04MB7817.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6790;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 3xrhOgwt0qXj1kyG2SOx2I+T5IIGVJDYXwGDx1dO28ewnGM+MAWxIh9W1ZDG9212MYChBl+txZDw2E34d4oooSBHL/V6OQpIy62raiuZvy4+XpSpwSXRprlgEx3l0CWcwQah/L05AFiC4I9k2lbD2NWVBoocv/QN7a5sqRQGlJHvlzbmTy0H1aT/WV2Vn9KCgGNGv0mQqzMM6Nb2QXu9k62oiRsi9ZmgQ5TE4RwQ9x+THnuBncnie3hdEYVy1U9epKuzqQGN0kXj4Nj3i1dTXNBDyqgmjVXkPR2O60tOTCoTRyJPisJB7PKYzWWiFKL6njAs1sKwHymUuO98DpTdzw==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB6PR0402MB2760.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(136003)(346002)(376002)(366004)(39860400002)(86362001)(2906002)(9686003)(33656002)(5660300002)(71200400001)(44832011)(110136005)(66556008)(316002)(83380400001)(8676002)(8936002)(7696005)(52536014)(55016002)(26005)(76116006)(478600001)(53546011)(66476007)(186003)(6506007)(66946007)(66446008)(64756008);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata: yYazI0uEqbM58+0EMgQKJoHd1R+wkxV9C9NpDIIHJUbgtYbWlcfsVxv/Yzy6BdhaQAe9MNDWqJiq/uxi0PYt3q2I4aPzNW6f7tz0V80jZNgXX3fSslWY0Duwg/ayVpdgNcDtz1B0n+ZNfWmDi3PmLYf0v1AtRtlpy2R1hgDvT1emB1yXX0Ieoy9MoyIF5RpkjOkGRS3vaEQjfOj88h42OMK4CtB0RFm6dOkbyPPf0J5DXVeQ4U0yQbQ3Ymj1cwJ4DE0OQjGjsWsi9/AhRP0w+xEmDj10yueTeQkA2MpO1+PvGPzULrWu2x/0boCZsNJdlVHOoLzTCoUcTg0YMEZX7vMiPStoGWDRKj71RPYEicaHw1mhnggiJytCFN2YsVNw5Cpzxg7u6d4oZbyD3WpNJFnlV2M1VOWn5ASR4zoigWYoXb8Dh186Q80OUMTpYAlVkZra1YXcqSf5HDKApChFp6rz4dJbHYO2FX62IhCVxPT6usy2jr6ahapZrJy8Qfb4dVDmhAdsPkzDDC5IAKnLXKDdBC3JRX14zbQ68PYT4x9u/aLakUbtN1ugCflwDNZnrPs3FBmtf+Wc+rRvH0pna6uk8Fi/jjQG2jKnQveUZUd7o5kT0g0Sg+AsDV3rV0ENFlbY5J9ktmDJAI4FNUqoNQ==
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="UTF-8"
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_1246_1011041752.1605843559387"
-X-Original-Sender: peter.panjf@gmail.com
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB6PR0402MB2760.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87bbe7c2-d88b-46f4-8a9e-08d88d233f14
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Nov 2020 07:09:39.3328
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: HSqF3ae8Zr4EJfxA8JgYFrAVxv4FB3UuZ59AunFTPk7Jm9OD29RSFgPmp9w4tj9j556lZ3cmuLcy5+Nv7Kt+Iw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7817
+X-Original-Sender: peng.fan@nxp.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@nxp.com header.s=selector2 header.b=Wr3S+bNm;       arc=pass (i=1
+ spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass
+ fromdomain=nxp.com);       spf=pass (google.com: domain of peng.fan@nxp.com
+ designates 40.107.15.81 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -83,339 +180,62 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1246_1011041752.1605843559387
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_1247_931475923.1605843559387"
+> Subject: Re: zephyr ARM64 SMP runs on Jailhouse
+> 
+> On 19.11.20 03:50, Peng Fan wrote:
+> > Just share info, we have enabled zephyr ARM64 SMP on Jailhouse using
+> > i.MX8M
+> >
+> 
+> This is great news, indeed! Do you need patches against Zephyr, or is
+> upstream ready for this? Would it work in qemuarm64 as well?
 
-------=_Part_1247_931475923.1605843559387
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Current upstream zephyr not support SMP, and only runs in secure world.
+So I have some patches to make it run in normal world and SMP support.
 
-Hi, Jan,
+I only did this on i.MX8MM EVK board. Qemuarm64 needs some porting
+effort. Jailhouse also needs one minor patch as below:
 
-The following is my debug log:
-
-On root cell, enable root cell:
-[  267.783070] uio_ivshmem 0003:00:00.0: output_section at=20
-0x00000000fb70a000, size 0x0000000000002000
-[  267.792364] ivshmem-net 0003:00:01.0: enabling device (0000 -> 0002)
-[  267.798798] ivshmem-net 0003:00:01.0: TX memory at 0x00000000fb801000,=
-=20
-size 0x000000000007f000
-[  267.807443] ivshmem-net 0003:00:01.0: RX memory at 0x00000000fb880000,=
-=20
-size 0x000000000007f000
-[  267.816408] ********ivshm_net_state_change:state=3D0,peer_state=3D0  // =
-Then=20
-root cell NIC state is changed to be INIT, inmate NIC is RESET
-[  267.816471] The Jailhouse is opening.
-
-Then execute linux inmate cell loading:
-[  673.503776] ********ivshm_net_state_change:state=3D1,peer_state=3D1  // =
-Then=20
-root cell NIC state is changed to be READY, inmate NIC is INIT
-[  673.510338] ********ivshm_net_state_change:state=3D2,peer_state=3D2  // =
-Then=20
-root cell NIC state is changed to be READY, inmate NIC is READY, and then=
-=20
-set carrior on
-[  673.516315] *****set carrier on
-
-For inmate Cell, during kernel boot up and driver probe:
-
-[    1.649054] ivshmem-net 0000:00:01.0: enabling device (0000 -> 0002)
-[    1.655516] ivshmem-net 0000:00:01.0: TX memory at 0x00000000fb880000,=
-=20
-size 0x000000000007f000
-[    1.664142] ivshmem-net 0000:00:01.0: RX memory at 0x00000000fb801000,=
-=20
-size 0x000000000007f000
-[    1.673180] ********ivshm_net_state_change:state=3D0,peer_state=3D1 // T=
-hen=20
-inmate cell NIC state is changed to be INIT, root cell NIC is INIT
-[    1.673579] uio_ivshmem 0000:00:00.0: enabling device (0000 -> 0002)
-[    1.685477] ********ivshm_net_state_change:state=3D1,peer_state=3D2 // T=
-hen=20
-inmate cell NIC state is changed to be READY, root cell NIC is READY, but=
-=20
-after that and before ifconfig NIC up, ivshm_net_state_change is not called=
-=20
-anymore, so carrior is not set to be on.
+@@ -364,15 +365,21 @@ static enum mmio_result gicv3_handle_redist_access(void *arg,
+        case GICR_SYNCR:
+                mmio->value = 0;
+                return MMIO_HANDLED;
+-       case GICR_CTLR:
+-       case GICR_STATUSR:
+-       case GICR_WAKER:
+        case GICR_SGI_BASE + GICR_ISENABLER:
+        case GICR_SGI_BASE + GICR_ICENABLER:
+        case GICR_SGI_BASE + GICR_ISPENDR:
+        case GICR_SGI_BASE + GICR_ICPENDR:
+        case GICR_SGI_BASE + GICR_ISACTIVER:
+        case GICR_SGI_BASE + GICR_ICACTIVER:
++               if (this_cell() != cpu_public->cell) {
++                       /* ignore access to foreign redistributors */
++                       return MMIO_HANDLED;
++               }
++               mmio->value &= ~(SGI_MASK | (1 << mnt_irq));
++               break;
++       case GICR_CTLR:
++       case GICR_STATUSR:
++       case GICR_WAKER:
+        case REG_RANGE(GICR_SGI_BASE + GICR_IPRIORITYR, 8, 4):
+        case REG_RANGE(GICR_SGI_BASE + GICR_ICFGR, 2, 4):
+                if (this_cell() != cpu_public->cell) {
 
 
-We can find that before ifconfig up (open) virtual NIC, although stats both=
-=20
-for NIC in root cell and inmate cell are all READY, but carrior in root=20
-cell is on, but in inmate cell if off.
-So I don't think virtual NIC in root cell and inmate cell is whole symmetri=
-c
+I'll prepare my zephyr patches to zephyr PR.
 
-Thanks.
-Jiafei.
+Regards,
+Peng.
 
-=E5=9C=A82020=E5=B9=B411=E6=9C=8819=E6=97=A5=E6=98=9F=E6=9C=9F=E5=9B=9B UTC=
-+8 =E4=B8=8B=E5=8D=884:28:48<j.kiszka...@gmail.com> =E5=86=99=E9=81=93=EF=
-=BC=9A
+> 
+> Jan
+> 
+> --
+> Siemens AG, T RDA IOT
+> Corporate Competence Center Embedded Linux
 
-> On 19.11.20 08:52, Peter pan wrote:=20
-> > Hi, Jan,=20
-> >=20
-> > After some investigation, I found the root cause of the issue: the=20
-> > carrier is not=20
-> > changed to be on if we open virtual NIC in inmate firstly, attached=20
-> > patch can=20
-> > fix this issue, please help to review, by the way where I can upstream=
-=20
-> > this patch?=20
->
-> Thanks for the patch!=20
->
-> I'm just wondering, given that ivshmem-net is conceptually fully=20
-> symmetric, what is causing this issue to only happen in one way. Guess I=
-=20
-> need to study the scenario in details.=20
->
-> Jan=20
->
-> > Thanks.=20
-> >=20
-> > Best Regards,=20
-> > Jiafei.=20
-> >=20
-> > =E5=9C=A82020=E5=B9=B411=E6=9C=8818=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=89=
- UTC+8 =E4=B8=8B=E5=8D=886:01:51<j.kiszka...@gmail.com> =E5=86=99=E9=81=93=
-=EF=BC=9A=20
-> >=20
-> > On 18.11.20 10:50, Peter pan wrote:=20
-> > > Hi, Jan,=20
-> > >=20
-> > > I have one new issue and not sure it is a know issue.=20
-> > >=20
-> > > The issue is: when I ifconfig up ivshmem-net NIC in root cell firstly=
-=20
-> > > and then ifconfig up ivshmem NIC in inmate cell (runing Linux),  I=20
-> > can=20
-> > > ping through between two NICs, but if I ifconfig up NIC in inmate=20
-> > cell=20
-> > > before ifconfig up the NIC in root cell, I can't ping through between=
-=20
-> > > two NICs, and I found NIC in inmate can only receive packet=20
-> > sending from=20
-> > > root cell NIC, but NIC in root cell can't receive any packet and=20
-> > there=20
-> > > is also no irq received for ivshmem NIC.=20
-> > >=20
-> >=20
-> > The link states of both virtual NICs are up (ethtool)? Is there any=20
-> > ivshmem-net interrupt received at all on the root side? There should be=
-=20
-> > a few during setup at least.=20
-> >=20
-> > Check that the interrupt line on the root side is really free, and also=
-=20
-> > that GICD is properly intercepted by Jailhouse (check mappings).=20
-> >=20
-> > Jan=20
-> >=20
-> > --=20
-> > Siemens AG, T RDA IOT=20
-> > Corporate Competence Center Embedded Linux=20
-> >=20
-> > --=20
-> > You received this message because you are subscribed to the Google=20
-> > Groups "Jailhouse" group.=20
-> > To unsubscribe from this group and stop receiving emails from it, send=
-=20
-> > an email to jailhouse-de...@googlegroups.com=20
-> > <mailto:jailhouse-de...@googlegroups.com>.=20
-> > To view this discussion on the web visit=20
-> >=20
-> https://groups.google.com/d/msgid/jailhouse-dev/581e32ac-d032-4108-b4fe-2=
-1286e6b2085n%40googlegroups.com=20
-> > <
-> https://groups.google.com/d/msgid/jailhouse-dev/581e32ac-d032-4108-b4fe-2=
-1286e6b2085n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>.=20
->
->
-> --=20
-> Siemens AG, T RDA IOT=20
-> Corporate Competence Center Embedded Linux=20
->
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/525f34ef-be0c-451d-b626-43763045008cn%40googlegroups.com.
-
-------=_Part_1247_931475923.1605843559387
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi, Jan,<div><br></div><div>The following is my debug log:</div><div><br></=
-div><div>On <font color=3D"#ff0000">root cell</font>, enable root cell:</di=
-v><div><div>[&nbsp; 267.783070] uio_ivshmem 0003:00:00.0: output_section at=
- 0x00000000fb70a000, size 0x0000000000002000</div><div>[&nbsp; 267.792364] =
-ivshmem-net 0003:00:01.0: enabling device (0000 -&gt; 0002)</div><div>[&nbs=
-p; 267.798798] ivshmem-net 0003:00:01.0: TX memory at 0x00000000fb801000, s=
-ize 0x000000000007f000</div><div>[&nbsp; 267.807443] ivshmem-net 0003:00:01=
-.0: RX memory at 0x00000000fb880000, size 0x000000000007f000</div><div>[&nb=
-sp; 267.816408] ********ivshm_net_state_change:state=3D0,peer_state=3D0&nbs=
-p; /<font color=3D"#ff0000">/ Then root cell NIC state is changed to be INI=
-T, inmate NIC is RESET</font></div><div>[&nbsp; 267.816471] The Jailhouse i=
-s opening.</div><div><br></div><div>Then execute linux inmate cell loading:=
-</div><div><div>[&nbsp; 673.503776] ********ivshm_net_state_change:state=3D=
-1,peer_state=3D1&nbsp; /<font color=3D"#ff0000">/ Then root cell NIC state =
-is changed to be READY, inmate NIC is INIT</font></div><div>[&nbsp; 673.510=
-338] ********ivshm_net_state_change:state=3D2,peer_state=3D2&nbsp; /<font c=
-olor=3D"#ff0000">/ Then root cell NIC state is changed to be READY, inmate =
-NIC is READY, and then set carrior on</font></div><div>[&nbsp; 673.516315] =
-*****set carrier on</div></div><div><br></div><div>For <font color=3D"#ff00=
-00">inmate Cell</font>, during kernel boot up and driver probe:</div><div><=
-br></div><div><div>[&nbsp; &nbsp; 1.649054] ivshmem-net 0000:00:01.0: enabl=
-ing device (0000 -&gt; 0002)<br></div><div>[&nbsp; &nbsp; 1.655516] ivshmem=
--net 0000:00:01.0: TX memory at 0x00000000fb880000, size 0x000000000007f000=
-</div><div>[&nbsp; &nbsp; 1.664142] ivshmem-net 0000:00:01.0: RX memory at =
-0x00000000fb801000, size 0x000000000007f000</div><div>[&nbsp; &nbsp; 1.6731=
-80] ********ivshm_net_state_change:state=3D0,peer_state=3D1 <font color=3D"=
-#ff0000">// Then inmate cell NIC state is changed to be INIT, root cell NIC=
- is INIT</font></div><div>[&nbsp; &nbsp; 1.673579] uio_ivshmem 0000:00:00.0=
-: enabling device (0000 -&gt; 0002)</div><div>[&nbsp; &nbsp; 1.685477] ****=
-****ivshm_net_state_change:state=3D1,peer_state=3D2 <font color=3D"#ff0000"=
->// Then inmate cell NIC state is changed to be READY, root cell NIC is REA=
-DY, but after that and before ifconfig NIC up, ivshm_net_state_change is no=
-t called anymore, so carrior is not set to be on.</font></div></div><div><b=
-r></div><br></div><div>We can find that before ifconfig up (open) virtual N=
-IC, although stats both for NIC in root cell and inmate cell are all READY,=
- but carrior in root cell is on, but in inmate cell if off.</div><div>So I =
-don't think virtual NIC in root cell and inmate cell is whole symmetric</di=
-v><div><br></div><div>Thanks.</div><div>Jiafei.</div><div><br></div><div cl=
-ass=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">=E5=9C=A82020=E5=
-=B9=B411=E6=9C=8819=E6=97=A5=E6=98=9F=E6=9C=9F=E5=9B=9B UTC+8 =E4=B8=8B=E5=
-=8D=884:28:48&lt;j.kiszka...@gmail.com&gt; =E5=86=99=E9=81=93=EF=BC=9A<br><=
-/div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border=
--left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">On 19.11.20 08:52,=
- Peter pan wrote:
-<br>&gt; Hi, Jan,
-<br>&gt;=20
-<br>&gt; After some investigation, I found the root cause of the issue: the
-<br>&gt; carrier is not
-<br>&gt; changed to be on if we open virtual NIC in inmate firstly, attache=
-d
-<br>&gt; patch can
-<br>&gt; fix this issue, please help to review, by the way where I can upst=
-ream
-<br>&gt; this patch?
-<br>
-<br>Thanks for the patch!
-<br>
-<br>I'm just wondering, given that ivshmem-net is conceptually fully
-<br>symmetric, what is causing this issue to only happen in one way. Guess =
-I
-<br>need to study the scenario in details.
-<br>
-<br>Jan
-<br>
-<br>&gt; Thanks.
-<br>&gt;=20
-<br>&gt; Best Regards,
-<br>&gt; Jiafei.
-<br>&gt;=20
-<br>&gt; =E5=9C=A82020=E5=B9=B411=E6=9C=8818=E6=97=A5=E6=98=9F=E6=9C=9F=E4=
-=B8=89 UTC+8 =E4=B8=8B=E5=8D=886:01:51&lt;<a href=3D"" data-email-masked=3D=
-"" rel=3D"nofollow">j.kiszka...@gmail.com</a>&gt; =E5=86=99=E9=81=93=EF=BC=
-=9A
-<br>&gt;=20
-<br>&gt;     On 18.11.20 10:50, Peter pan wrote:
-<br>&gt;     &gt; Hi, Jan,
-<br>&gt;     &gt;
-<br>&gt;     &gt; I have one new issue and not sure it is a know issue.
-<br>&gt;     &gt;
-<br>&gt;     &gt; The issue is: when I ifconfig up ivshmem-net NIC in root =
-cell firstly
-<br>&gt;     &gt; and then ifconfig up ivshmem NIC in inmate cell (runing L=
-inux),&nbsp; I
-<br>&gt;     can
-<br>&gt;     &gt; ping through between two NICs, but if I ifconfig up NIC i=
-n inmate
-<br>&gt;     cell
-<br>&gt;     &gt; before ifconfig up the NIC in root cell, I can't ping thr=
-ough between
-<br>&gt;     &gt; two NICs, and I found NIC in inmate can only receive pack=
-et
-<br>&gt;     sending from
-<br>&gt;     &gt; root cell NIC, but NIC in root cell can't receive any pac=
-ket and
-<br>&gt;     there
-<br>&gt;     &gt; is also no irq received for ivshmem NIC.
-<br>&gt;     &gt;
-<br>&gt;=20
-<br>&gt;     The link states of both virtual NICs are up (ethtool)? Is ther=
-e any
-<br>&gt;     ivshmem-net interrupt received at all on the root side? There =
-should be
-<br>&gt;     a few during setup at least.
-<br>&gt;=20
-<br>&gt;     Check that the interrupt line on the root side is really free,=
- and also
-<br>&gt;     that GICD is properly intercepted by Jailhouse (check mappings=
-).
-<br>&gt;=20
-<br>&gt;     Jan
-<br>&gt;=20
-<br>&gt;     --=20
-<br>&gt;     Siemens AG, T RDA IOT
-<br>&gt;     Corporate Competence Center Embedded Linux
-<br>&gt;=20
-<br>&gt; --=20
-<br>&gt; You received this message because you are subscribed to the Google
-<br>&gt; Groups "Jailhouse" group.
-<br>&gt; To unsubscribe from this group and stop receiving emails from it, =
-send
-<br>&gt; an email to <a href=3D"" data-email-masked=3D"" rel=3D"nofollow">j=
-ailhouse-de...@googlegroups.com</a>
-<br>&gt; &lt;mailto:<a href=3D"" data-email-masked=3D"" rel=3D"nofollow">ja=
-ilhouse-de...@googlegroups.com</a>&gt;.
-<br>&gt; To view this discussion on the web visit
-<br>&gt; <a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/581e32a=
-c-d032-4108-b4fe-21286e6b2085n%40googlegroups.com" target=3D"_blank" rel=3D=
-"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dzh-CN&am=
-p;q=3Dhttps://groups.google.com/d/msgid/jailhouse-dev/581e32ac-d032-4108-b4=
-fe-21286e6b2085n%2540googlegroups.com&amp;source=3Dgmail&amp;ust=3D16059275=
-19483000&amp;usg=3DAFQjCNGYYRGvvL_G7CHS54zP1l6Ts4G-sw">https://groups.googl=
-e.com/d/msgid/jailhouse-dev/581e32ac-d032-4108-b4fe-21286e6b2085n%40googleg=
-roups.com</a>
-<br>&gt; &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/581=
-e32ac-d032-4108-b4fe-21286e6b2085n%40googlegroups.com?utm_medium=3Demail&am=
-p;utm_source=3Dfooter" target=3D"_blank" rel=3D"nofollow" data-saferedirect=
-url=3D"https://www.google.com/url?hl=3Dzh-CN&amp;q=3Dhttps://groups.google.=
-com/d/msgid/jailhouse-dev/581e32ac-d032-4108-b4fe-21286e6b2085n%2540googleg=
-roups.com?utm_medium%3Demail%26utm_source%3Dfooter&amp;source=3Dgmail&amp;u=
-st=3D1605927519483000&amp;usg=3DAFQjCNGBYps2FQ_PLA2DE1L8LKbo6A55dQ">https:/=
-/groups.google.com/d/msgid/jailhouse-dev/581e32ac-d032-4108-b4fe-21286e6b20=
-85n%40googlegroups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a>&gt;.
-<br>
-<br>--=20
-<br>Siemens AG, T RDA IOT
-<br>Corporate Competence Center Embedded Linux
-<br></blockquote></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/525f34ef-be0c-451d-b626-43763045008cn%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/525f34ef-be0c-451d-b626-43763045008cn%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_1247_931475923.1605843559387--
-
-------=_Part_1246_1011041752.1605843559387--
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/DB6PR0402MB276009F841DA2D085725319688FF0%40DB6PR0402MB2760.eurprd04.prod.outlook.com.
