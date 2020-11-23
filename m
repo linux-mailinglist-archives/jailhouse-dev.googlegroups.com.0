@@ -1,118 +1,150 @@
-Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBM6Z5X6QKGQELQLFLEI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCW2V5WNZMERBSV76D6QKGQEJ3ZELTI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pl1-x639.google.com (mail-pl1-x639.google.com [IPv6:2607:f8b0:4864:20::639])
-	by mail.lfdr.de (Postfix) with ESMTPS id 981D82C00F7
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 23 Nov 2020 09:03:01 +0100 (CET)
-Received: by mail-pl1-x639.google.com with SMTP id b4sf10736218plr.15
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 23 Nov 2020 00:03:01 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1606118580; cv=pass;
+Received: from mail-wm1-x338.google.com (mail-wm1-x338.google.com [IPv6:2a00:1450:4864:20::338])
+	by mail.lfdr.de (Postfix) with ESMTPS id A2C1F2C16B0
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 23 Nov 2020 21:47:06 +0100 (CET)
+Received: by mail-wm1-x338.google.com with SMTP id y187sf195341wmy.3
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 23 Nov 2020 12:47:06 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1606164426; cv=pass;
         d=google.com; s=arc-20160816;
-        b=tMKYG3tdtmSOtCve9kt20+xoPE9i4EbLvVi6XuHMQAXB1QFvSOZili7eReAJXyzaCi
-         pZCb92JoL8qqRrTxlJOwLzGzMK/2ZqLNJ8pYVgLkKtkTexJZIfkTy1YuS7lkkYn2EGDS
-         mr9eN9eG8xgru82GPwQdTDIov7d1OzFKVKxb6Lxmu9NCxQz9ShOfbd8LF3r4kzoEMdSp
-         u7z/mvQuZLzKpow25/ISnPLiNUlqY8b61lMoU7NEe3+YEyxVQmFzIqnP1DXxr3UmCzO2
-         LeJu0zarHLO04928X6ru+cSk7LNjxyACOnr9eVfQIXCjKQfQ/h6/2cYehhAe+6sUg0Gt
-         uV8Q==
+        b=01xuDaOFDhl42swfxyDKCWVXsZOr8g9U1Bhm3kNQ3ClS5KY9rsJADwmvAUokq83Xxl
+         NxvC6PvZZm7bIVoGai0Tjsx7Oimk3nAaA1P3LA4T2JDYcZ4IXFXzYCpUsDwplghAASGS
+         6G6uqsMHyOwiVS00fVwijM1W178kWraJPy3jFcf/qRXsegiaAlWFYReqsqXKmTJj3IYI
+         QtHipWMX4nUQ/V/5lZUECn8uIhXLEku4Ik377aaiKU6jJJFTSWyaKIZEUcyRxZeD4onw
+         qCj+0MtfyWHN52TLbK8Gn2zojmo9HtGi5qlGg+JznOFsKa61YxMWFre+4y/WtIip3ZKI
+         i9dQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to:mime-version:subject
-         :message-id:to:from:date:dkim-signature;
-        bh=ytjp48rHWZaRkzlunlytyrR3y1DGkRTBRcqpl58F3XQ=;
-        b=qbdLC4P8Zi7W6X8htV5U1sbgN1KmJXpuJjHgMxenIo2ZlH9WvH8rWyQVy5yv8aSHPr
-         eNE5Fml0PGxzgqWt1vQHsbCtkEfkNKLl3EH/NXFO7nzQ5Uq35PJWS6DddJwl3+FdTMV2
-         ucm/K2pWzWbta0Q2AvELRB4HoSbE7khjmbOVU1ZKG0ZPSriiUJaV4kfObk0FZApMrk9o
-         C9FeTbAf1VDKF87Y6Hwtob/Mvvf1ojG9w9UCCFkN673vcCq0wYj5WslYwsDb9RorPcci
-         pkenI9MWnp0J7WsF6vPPz0yimkZdDP1GDZo3nMuy1FB/hR2oVhcoyvePLUFDA4o/EqL9
-         qp9A==
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :mime-version:message-id:date:subject:cc:to:from:sender
+         :dkim-signature;
+        bh=bVL7RlrBnAroxkcRfxfQONh4i/tIcJgDWfiwgcipN1M=;
+        b=xzeelMh8AiIETeX2m3kiIz3GQGNKPUbFaqDJGwrxtaGgKurN1MHv730p+YSmH6Ph5y
+         z11aYgJ3TEVS9da1zTfPUu/abM1v2BN41KAuR+BQAlB2SqoITXUXrYwQywPmMWw9NsmJ
+         hi1sS8YD7QKh0xoYeeqku4bGL+NKdE2o8AxZXwRWj3i7g3Gp8W5geqrrBuScEwvpPn6w
+         VpWPzHHfgsXvYHbogEW0Nmh9/NnCNhvd7kEgeMDwPJMn4NTsnjvvGWzcT/zRt0IHkx7V
+         wvKuUhYe952VLUdlPPgbJIWlOor3tujSRWef8IOmDooDOBytyDlICSGcJHwBDcus9R0t
+         rnLA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=vtCZckGa;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.209 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=github.com
+       dkim=pass header.i=@tum.de header.s=postout header.b=bz1kksxK;
+       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=date:from:to:message-id:subject:mime-version:x-original-sender
-         :x-original-authentication-results:reply-to:precedence:mailing-list
-         :list-id:list-post:list-help:list-archive:list-subscribe
-         :list-unsubscribe;
-        bh=ytjp48rHWZaRkzlunlytyrR3y1DGkRTBRcqpl58F3XQ=;
-        b=j+Yuu/yHvd01hYKqP6rwCDKFv9bpSTREBRVIW1FDF+oFEypSQ9j321lolTq2qWC1Qq
-         zWetTKoXvL0Ofm2SO4jtCC7b57O2vd5xxoxgYO9DUWsobF0UqU+EIjWlzpjBSGa7i2hP
-         hUtAVRDdfoKz12+BmYbisy7/yzXR7LOAraCYonolmn6vKcBZR3J35Y6PoewQ3PncVMdN
-         6LDVVdMrx2VJNfB+Fvi9ciXlASxG6TPbFZuyMEwtkrdaGP4r0lJ2OoBFl6mVGQvtSujg
-         r9UuIxrhkXfe8NC4OeehUgHcpyr2WDOlJObs739SRX2XN5Pmlz3eNGNdva+AaOYYL+tP
-         uxDA==
+        h=sender:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=bVL7RlrBnAroxkcRfxfQONh4i/tIcJgDWfiwgcipN1M=;
+        b=JSLzXKxLDoWcwBgV6z2CW0z1HXtvtB7DaYptwfGV/8Kef0jqQ6ByMnQnPfqwsnaLre
+         s+InchhINTlXfXySOlTeL73QB2gPt0ozu50Mjw6pq54m7w4I0hyftiddGASdarLURayN
+         5AfBG0+yvljxFGNIdKUkI/5u95hpVClP24suIUZPUIRUbZZLKRHh8fkO/bLzDCWNWiYJ
+         DTHziPC79g3KgcVWMnyT7B8qDoNILUQebKK1geq/sD2XqWiBlu5hdFhg9++FJXEVP6ik
+         KY9BxVA0kGwLtnF2QcerikMxgvwsIU4asKntbpTqHIIhfbAUFapt9nhicYgSjJ/+iXV6
+         XEjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:message-id:subject:mime-version
-         :x-original-sender:x-original-authentication-results:reply-to
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=ytjp48rHWZaRkzlunlytyrR3y1DGkRTBRcqpl58F3XQ=;
-        b=AXRuhBi/nzhAj+YyFN7CKmco5qcUNwxvTMmXeApFGXAoUixZ+D4kKhQPC8APyMEVbD
-         IXQkfs2CkuMB/+R7SCkJ2k5cJ1JlBYSaif63CesJcnR8dC0Wxd/AhF/h9S23sGlBEt+s
-         0j0Bxf0uuxpCr5KQJ9F2KZR2PAvwPdVYJEbCNjruEKPVpfYiBLOMmqdw4bTMs+y0BAyO
-         0zdPyzZtOVkTR/ZMqMgGtGNbBMsGdw8WvppEiZei7jMgbl1HbECZv6ihxe4630ulHhhE
-         YqGYZkxJTKYuwO6j5oFiCPhyc3Gru/XFCQhwXHZyY8wwR1bmUtNi88L0FU6/vQDm3hJH
-         X0tQ==
-X-Gm-Message-State: AOAM530rx63VraPhhWGWr9ArUaOSU2DkCFZTfeH4roqwwGRlyBVtYrCo
-	s0c0DAHdlbS2I9Q+BRJiJm8=
-X-Google-Smtp-Source: ABdhPJxJUjc1Juvd+M/kNgb06Wg6BV0WtgjeW08gjDCEnBCT7YzEak/gk7CEeH5eOE/c50Vigl0lBg==
-X-Received: by 2002:aa7:9606:0:b029:198:14c4:4f44 with SMTP id q6-20020aa796060000b029019814c44f44mr2825404pfg.80.1606118580099;
-        Mon, 23 Nov 2020 00:03:00 -0800 (PST)
+        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
+         :mime-version:content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=bVL7RlrBnAroxkcRfxfQONh4i/tIcJgDWfiwgcipN1M=;
+        b=ex/LrIXt7EoNWn79520MM6sClFEE0kG0a5DpKt808nP4M0z0l1vWAMnFji2ehqP1vN
+         QaG5EIQOVFC6ZwNMukl/bDs8v1Idq/eUv8EN0K7sU06mL43f57JsGWt+sA/w2aGDULtb
+         3mmnlyEhmcxT4Bw6s12tkLSZqytLGxUMWr9N1dvP6OCYVNBdDpj3lxcmdZQpFynk0cf7
+         Q6PXPLGO0R6GeH/jqkU5toePt9+6IMou6tG2lq50DrgiV7spIDVecuJoIG1jSul8ppdf
+         9OudWi0yY8a5UQnwknMAL2itCa8rTqwjLG5gS6YUH/U8T5ceTOm+VabdNuT/00ezfWGt
+         Lnmw==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: AOAM531AZDgeQGaQ6ZkTx4iTdMOiTzcH3Sf02470tNVjRWM6Nx4n+/eK
+	UspCu1HPv9luArwuAAtzQ/g=
+X-Google-Smtp-Source: ABdhPJxh2fQVOxhBp7W3wfazKSTPOyo1rc+kMYFFLo47BAeEjUyUMqxfPJ3vo8o8YjPn1mtu7hA04A==
+X-Received: by 2002:a5d:4408:: with SMTP id z8mr1668195wrq.204.1606164426421;
+        Mon, 23 Nov 2020 12:47:06 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:902:9a47:: with SMTP id x7ls5929307plv.1.gmail; Mon, 23
- Nov 2020 00:02:59 -0800 (PST)
-X-Received: by 2002:a17:90a:e604:: with SMTP id j4mr24528268pjy.19.1606118579104;
-        Mon, 23 Nov 2020 00:02:59 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1606118579; cv=none;
+Received: by 2002:adf:f70d:: with SMTP id r13ls9051218wrp.1.gmail; Mon, 23 Nov
+ 2020 12:47:05 -0800 (PST)
+X-Received: by 2002:a5d:4e0a:: with SMTP id p10mr1590450wrt.358.1606164425513;
+        Mon, 23 Nov 2020 12:47:05 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1606164425; cv=none;
         d=google.com; s=arc-20160816;
-        b=Be7Xvye6OgcOzASYDBHsRY60986jdzjpsk8pvj+lQHpkPzR9EE6i6CcKH6MbhCNYhA
-         uN9W0J0jgpQBMPUt9FDerX7Oae486CFFpVzXA0mJBSeazV1yYNxErI0R9rxxwm6YnUZS
-         nmBKmZJIqAQGPON75DVwXsD5Vn48FPDUOM/9BPGBaMGJfkE3UG3SA6o+O8RB7JnKHEAq
-         SJsUq+mqh2gt+5Py4ORUmaGe4bBpkyBxHtJlwHrM9/8kPbLVlE/GdNS9WJHDwyE9ex+0
-         rQNVlA97DCcP/hqa9N8+h7BIqGaOydyZiC4opV0FhvixmhoxhVvirOR5Gtfk+L2Cvgt4
-         Dj6A==
+        b=zR2Autp1cBGCP3Gkes7ea+JI9ODnkWqOD9sqy/VCwQd+320ocZx3hh48JdiiL+Nno6
+         RBoVm7zz1ukmkvETzmYaTMArgv1wXOnptMp4kOd0FJ0PWfGQNs8+2IH50qEp7hU7ovGA
+         nGMHDZAzu0boE3tR9BQMHKEPBSSF4XfHQZOpQ+SZBQx857VK2xwWyIwdmtP0NTmBH8J6
+         nUksMQWxlalQ4lXl8VSs5x7MYhzkcRX202STNdtaFjcYqhSJ2DCjlkrM3kPG1CZH8iOs
+         Br8agzUrmzkpb5fsGClUF/bR7WSWCOG/xcywZHZA27dA88fqZE3akKBgYsw9y7Cy49JM
+         uuXA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:subject:message-id:to:from
-         :date:dkim-signature;
-        bh=yrnbLUb89haWBzVeh6KTOFYgzHexG3Vyag0sTpPD+MQ=;
-        b=xVUvXNelviwWwjjWS1FnZ6JQ3s4zg/PwkpETkv5zGzQAJlVxOD6H0zLkzantw7saKK
-         2iOVJXIYW+pq1jpT+OuZRrZr6reOPS8kc5x9ei59+0L8VMudg1fUEU+SXzNCMFqBG36Y
-         Hc+R82D/ynTCQaa885yvZ9gX8WdB4vFMFnlTxYI9nQy0JxWx1uVkmqRlMAvRh5GrEGtc
-         vI/odx/zcRHfdGImiJhky4CWOlQ3+WcwY+oBl6FhQmieQPqNdT4ACG2H71591iQgYBAs
-         cpEU+EvLTQednMMVHogrJktPNptfOa3QeuVHq5oizidZDtRTk+M7htsKDrc5tJVBpgcN
-         dZoA==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature;
+        bh=A8zk51+DGCIVG94f2UmCNowTqnVZIwIY0MIUbwXw4uo=;
+        b=cpOmZM5MksMIAKo2XZVJPXXsruQgMuVe19kWlC+PdUKc6S8WclLagJ6S6jKOnp7Uqj
+         Hprc+99NHIORgKPDQWUd07lvScpOhtbYyI6AH1tV5X0io+tk7ki02977c6vdPa2Dnkwv
+         WJfr4IdUj3H2vUNQFJlAVsVrqUsgSlnIwlWlRSZoqnxwLuB7rG/0owIZchFvmntLSO9U
+         SHw4ItxtWN+yv/qYG9FhbrgqQVgRnsZf1n80h8GN39vAOAJhxeO0J0WydrhD2NtQ1Kyh
+         WAc4YXK1nh4sUelftVNxiNBJ6YZzxjhuw6F+s7OVBg90Z9Q8xcn7GSmk0gxcx4uXgK5+
+         8ROg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=vtCZckGa;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.209 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=github.com
-Received: from smtp.github.com (out-26.smtp.github.com. [192.30.252.209])
-        by gmr-mx.google.com with ESMTPS id u133si752751pfc.0.2020.11.23.00.02.58
+       dkim=pass header.i=@tum.de header.s=postout header.b=bz1kksxK;
+       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
+Received: from postout2.mail.lrz.de (postout2.mail.lrz.de. [2001:4ca0:0:103::81bb:ff8a])
+        by gmr-mx.google.com with ESMTPS id y187si32287wmd.1.2020.11.23.12.47.05
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Mon, 23 Nov 2020 00:02:59 -0800 (PST)
-Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.209 as permitted sender) client-ip=192.30.252.209;
-Received: from github.com (hubbernetes-node-d93252b.ash1-iad.github.net [10.56.25.24])
-	by smtp.github.com (Postfix) with ESMTPA id 4DA9A5E07F6
-	for <jailhouse-dev@googlegroups.com>; Mon, 23 Nov 2020 00:02:58 -0800 (PST)
-Date: Mon, 23 Nov 2020 00:02:58 -0800
-From: "'Nikhil Devshatwar' via Jailhouse" <jailhouse-dev@googlegroups.com>
+        Mon, 23 Nov 2020 12:47:05 -0800 (PST)
+Received-SPF: pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) client-ip=2001:4ca0:0:103::81bb:ff8a;
+Received: from lxmhs52.srv.lrz.de (localhost [127.0.0.1])
+	by postout2.mail.lrz.de (Postfix) with ESMTP id 4CfzjP1vsZzyTj;
+	Mon, 23 Nov 2020 21:47:05 +0100 (CET)
+X-Virus-Scanned: by amavisd-new at lrz.de in lxmhs52.srv.lrz.de
+X-Spam-Flag: NO
+X-Spam-Score: -2.877
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.877 tagged_above=-999 required=5
+	tests=[ALL_TRUSTED=-1, BAYES_00=-1.9, DMARC_ADKIM_RELAXED=0.001,
+	DMARC_ASPF_RELAXED=0.001, DMARC_POLICY_NONE=0.001,
+	LRZ_DMARC_FAIL=0.001, LRZ_DMARC_FAIL_NONE=0.001,
+	LRZ_DMARC_POLICY=0.001, LRZ_DMARC_TUM_FAIL=0.001,
+	LRZ_DMARC_TUM_REJECT=3.5, LRZ_DMARC_TUM_REJECT_PO=-3.5,
+	LRZ_ENVFROM_FROM_ALIGNED_STRICT=0.001, LRZ_ENVFROM_FROM_MATCH=0.001,
+	LRZ_ENVFROM_TUM_S=0.001, LRZ_FROM_HAS_A=0.001,
+	LRZ_FROM_HAS_AAAA=0.001, LRZ_FROM_HAS_MDOM=0.001,
+	LRZ_FROM_HAS_MX=0.001, LRZ_FROM_HOSTED_DOMAIN=0.001,
+	LRZ_FROM_NAME_IN_ADDR=0.001, LRZ_FROM_PHRASE=0.001,
+	LRZ_FROM_PRE_SUR=0.001, LRZ_FROM_PRE_SUR_PHRASE=0.001,
+	LRZ_FROM_TUM_S=0.001, LRZ_HAS_SPF=0.001, LRZ_TO_SHORT=0.001,
+	LRZ_URL_PLAIN_SINGLE=0.001] autolearn=no autolearn_force=no
+Received: from postout2.mail.lrz.de ([127.0.0.1])
+	by lxmhs52.srv.lrz.de (lxmhs52.srv.lrz.de [127.0.0.1]) (amavisd-new, port 20024)
+	with LMTP id wf4B_3V1c_25; Mon, 23 Nov 2020 21:47:04 +0100 (CET)
+Received: from kabal.lan (ip5f5ac6d0.dynamic.kabel-deutschland.de [95.90.198.208])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(Client did not present a certificate)
+	by postout2.mail.lrz.de (Postfix) with ESMTPSA id 4CfzjN2hmzzyTf;
+	Mon, 23 Nov 2020 21:47:04 +0100 (CET)
+From: Andrea Bastoni <andrea.bastoni@tum.de>
 To: jailhouse-dev@googlegroups.com
-Message-ID: <siemens/jailhouse/push/refs/heads/master/2f52a1-097bed@github.com>
-Subject: [siemens/jailhouse] 7a3fec: hypervisor: Makefile: hook-in Wextra
-Mime-Version: 1.0
+Cc: jan.kiszka@siemens.com,
+	marco.solieri@unimore.it,
+	rmancuso@bu.edu,
+	lucmiccio@gmail.com,
+	Andrea Bastoni <andrea.bastoni@tum.de>
+Subject: [PATCH 00/14] Cache-coloring for Jailhouse
+Date: Mon, 23 Nov 2020 21:45:59 +0100
+Message-Id: <20201123204613.252563-1-andrea.bastoni@tum.de>
+X-Mailer: git-send-email 2.29.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: andrea.bastoni@tum.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@tum.de header.s=postout header.b=bz1kksxK;       spf=pass
+ (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a
+ as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=tum.de
 Content-Type: text/plain; charset="UTF-8"
-X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
-X-Auto-Response-Suppress: All
-X-Original-Sender: noreply@github.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
- mode) header.i=@github.com header.s=pf2014 header.b=vtCZckGa;       spf=pass
- (google.com: domain of noreply@github.com designates 192.30.252.209 as
- permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass
- (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=github.com
-X-Original-From: Nikhil Devshatwar <noreply@github.com>
-Reply-To: Nikhil Devshatwar <noreply@github.com>
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -125,522 +157,199 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-  Branch: refs/heads/master
-  Home:   https://github.com/siemens/jailhouse
-  Commit: 7a3fecfc146052dd154597a0b9e12545ea67afef
-      https://github.com/siemens/jailhouse/commit/7a3fecfc146052dd154597a0b9e12545ea67afef
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/Makefile
-
-  Log Message:
-  -----------
-  hypervisor: Makefile: hook-in Wextra
-
-Wextra covers multiple warnings including Wunused-parameter, which
-triggers a lot of noise without bringing much benefit for this code.
-
-Completly disable Wunused-parameter and suppress Werror for the warnings
-we still want to fix.
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 9f96f595f954d267389b67c6f4ad43f0c120033f
-      https://github.com/siemens/jailhouse/commit/9f96f595f954d267389b67c6f4ad43f0c120033f
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/include/jailhouse/string.h
-    M hypervisor/include/jailhouse/types.h
-    M hypervisor/lib.c
-
-  Log Message:
-  -----------
-  hypervisor: add wordsize dependent size_t type
-
-This solves warnings due to -Wbuiltin-declaration-mismatch
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: b7f3e4f10081e9ed05850e8190e73b9bae1af460
-      https://github.com/siemens/jailhouse/commit/b7f3e4f10081e9ed05850e8190e73b9bae1af460
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/arch/arm-common/lib.c
-    M hypervisor/arch/arm-common/psci.c
-    M hypervisor/control.c
-    M hypervisor/include/jailhouse/control.h
-    M hypervisor/setup.c
-
-  Log Message:
-  -----------
-  hypervisor, arm-common: provide an explicit uint INVALID_CPU_ID
-
-Substitute the implicit "-1" occurrence for an invalid CPU id with an
-unsigned int INVALID_CPU_ID that can be used in all "uint-related"
-comparisons.
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-[Jan: add extra empty line in control.h]
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 4661a29314a6190517359cb060580e533f42dfbb
-      https://github.com/siemens/jailhouse/commit/4661a29314a6190517359cb060580e533f42dfbb
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/mmio.c
-
-  Log Message:
-  -----------
-  hypervisor: mmio: fix Wsign-compare by casting index to u32.
-
-In the branch, index is 0 or positive, and num_mmio_regions is less than
-max s32.
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 18700dd8bb52935116ba18bb1ec3970b682f8aa6
-      https://github.com/siemens/jailhouse/commit/18700dd8bb52935116ba18bb1ec3970b682f8aa6
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/printk.c
-
-  Log Message:
-  -----------
-  hypervisor: printk: Fix Wsign-compare in align()
-
-This is complicated to fix without a cast. A possible alternative is to
-cast the char* to an unsigned long "address" type, but that is even less
-intuitive. Since p1 > p0, cast the ptrdiff to uint.
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: d40176e686498da108d42075d700327f6d18392f
-      https://github.com/siemens/jailhouse/commit/d40176e686498da108d42075d700327f6d18392f
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M inmates/lib/printk.c
-
-  Log Message:
-  -----------
-  inmates: lib: fix align() in printk similarly to the hypervisor
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 13769274ae884a7a340b9cc89c455f832ddb2b58
-      https://github.com/siemens/jailhouse/commit/13769274ae884a7a340b9cc89c455f832ddb2b58
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/pci.c
-
-  Log Message:
-  -----------
-  hypervisor: Wsign-compare: force the "right" promotion direction
-
-Only part of the problem, Wconversion would complain as well.
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-[Jan: move cast to the left side]
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 58842ef0e2c586a910767f5d00dfb47adc7ac2d3
-      https://github.com/siemens/jailhouse/commit/58842ef0e2c586a910767f5d00dfb47adc7ac2d3
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/arch/arm-common/paging.c
-
-  Log Message:
-  -----------
-  arm-common: paging: fix old style declaration (-Wold-style-declaration)
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 6f8a07bbbd8b5c8e975318ecd7382f3e3c9ccfbc
-      https://github.com/siemens/jailhouse/commit/6f8a07bbbd8b5c8e975318ecd7382f3e3c9ccfbc
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/arch/arm-common/include/asm/psci.h
-
-  Log Message:
-  -----------
-  arm-common: provide unsigned int PSCI_INVALID_ADDRESS
-
-Avoid using "-1" to indicate an invalid address.
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: ca0e7a0a0e0f3527e353ccaa57582e3ba0e8535d
-      https://github.com/siemens/jailhouse/commit/ca0e7a0a0e0f3527e353ccaa57582e3ba0e8535d
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/arch/arm-common/gic-v2.c
-    M hypervisor/arch/arm-common/gic-v3.c
-
-  Log Message:
-  -----------
-  arm-common: gic*: use uint instead of int when needed (Wsign-compare)
-
-And similarly to gicv2_handle_irq_target(), rename "i" to "n" to avoid
-suggesting that "i" is an integer. For gic-v2, fix it consistently also
-in gicv2_read_lr() and gicv2_write_lr().
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: d7fcf4e6b5319e17a21d4bfe5560a13f9ea70f73
-      https://github.com/siemens/jailhouse/commit/d7fcf4e6b5319e17a21d4bfe5560a13f9ea70f73
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/arch/arm-common/include/asm/dcaches.h
-    M hypervisor/arch/arm/mmu_hyp.c
-
-  Log Message:
-  -----------
-  arm, arm-common: Wsign-compare: arm_dcaches_flush(): take unsigned long as size
-
-A better overall fix would be to have size always being specified as
-size_t.
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 58842ffe99b6b476bbab06af2e7c3f5d406a12af
-      https://github.com/siemens/jailhouse/commit/58842ffe99b6b476bbab06af2e7c3f5d406a12af
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/arch/arm64/smmu-v3.c
-
-  Log Message:
-  -----------
-  arm64: smmu-v3: use uint instead of int when needed (Wsign-compare)
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 315f5cb2c05f8bc7a91ba971a69559a019dd3a1f
-      https://github.com/siemens/jailhouse/commit/315f5cb2c05f8bc7a91ba971a69559a019dd3a1f
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/arch/arm64/smmu-v3.c
-
-  Log Message:
-  -----------
-  arm64: smmu-v3: rename 'i' -> 'n', 'j' -> 's'
-
-Consistently use 'n' for unsigned int iterators, and use 's' for stream
-iterator.
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 9a3f1d194487be44774bd92ef2f29a63443028e6
-      https://github.com/siemens/jailhouse/commit/9a3f1d194487be44774bd92ef2f29a63443028e6
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/arch/arm64/ti-pvu.c
-
-  Log Message:
-  -----------
-  arm64: ti-pvu: fix Wsign-compare by casting size to u64.
-
-No information lost in the cast, size is > 0 there and fits u64.
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 3b3673ebd966c4a03efeb9279ef601c16684c23e
-      https://github.com/siemens/jailhouse/commit/3b3673ebd966c4a03efeb9279ef601c16684c23e
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/arch/arm64/smmu.c
-
-  Log Message:
-  -----------
-  arm64: smmu: Wsign-compare: make iterator uint
-
-Partial fix, Wconversion will complain anyway due to the return int.
-Consistently use 'n' for unsigned int iterator.
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 958219c056a08bbcbed05cf53e0505ae091025da
-      https://github.com/siemens/jailhouse/commit/958219c056a08bbcbed05cf53e0505ae091025da
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/arch/x86/paging.c
-    M hypervisor/arch/x86/svm.c
-
-  Log Message:
-  -----------
-  x86: fix simple Wsign-compare warnings
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 1e5f64f6e75cffbb2bc9e287bd83868e351cb3ef
-      https://github.com/siemens/jailhouse/commit/1e5f64f6e75cffbb2bc9e287bd83868e351cb3ef
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/arch/x86/apic.c
-
-  Log Message:
-  -----------
-  x86: apic: Wsign-compare change to uint and update comparison check accordingly
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-[Jan: fix APIC register loop after making n unsigned]
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: eaa4e760d5c0c63fbec00531d335f67ebde64b3d
-      https://github.com/siemens/jailhouse/commit/eaa4e760d5c0c63fbec00531d335f67ebde64b3d
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/arch/x86/cat.c
-
-  Log Message:
-  -----------
-  x86: cat: fix Wsign-compare
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 7746f934d8985d038ca9a1b550dea625bd3606e2
-      https://github.com/siemens/jailhouse/commit/7746f934d8985d038ca9a1b550dea625bd3606e2
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/arch/x86/vtd.c
-
-  Log Message:
-  -----------
-  x86: vtd: fix Wsign-compare
-
-This is still not 100% clean, since the fix generate wrong
-int-conversions on "n" when used as a return value (i.e.,
-Wconversion would complain).
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 931e6b69ccdd3422eee33517f67dd26eb4e81563
-      https://github.com/siemens/jailhouse/commit/931e6b69ccdd3422eee33517f67dd26eb4e81563
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/arch/x86/vcpu.c
-
-  Log Message:
-  -----------
-  x86: vcpu: force cast to prevent Wsign-compare
-
-The cast is just to prevent fallouts due to the Werror.
-rax is really an unsigned value, but int to unsigned promotion is mixed
-too many times to be easily fixed.
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: ec5673c064a317c58a27adc9fdc64feb33f759bd
-      https://github.com/siemens/jailhouse/commit/ec5673c064a317c58a27adc9fdc64feb33f759bd
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/arch/x86/control.c
-    M hypervisor/arch/x86/entry.S
-    M hypervisor/arch/x86/include/asm/processor.h
-
-  Log Message:
-  -----------
-  x86: introduce EXCEPTION_NO_ERROR to avoid int to uint comparison on error frame
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: bd051f287e15dfa254bd45a32eea1f918ace8067
-      https://github.com/siemens/jailhouse/commit/bd051f287e15dfa254bd45a32eea1f918ace8067
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/Makefile
-
-  Log Message:
-  -----------
-  hypervisor: Makefile: remove Wno-error from CFLAGS
-
-Re-enable Werror for all the warnings that have been fixed.
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: b9203413465d4d0de429664b97f55180b6e3732e
-      https://github.com/siemens/jailhouse/commit/b9203413465d4d0de429664b97f55180b6e3732e
-  Author: Andrea Bastoni <andrea.bastoni@tum.de>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M configs/arm64/zynqmp-zcu102.c
-
-  Log Message:
-  -----------
-  configs: arm64: add SMMUv2 configuration for ZCU102
-
-Add SMMU support for: USB, SD, GEM. (See Table 16-3 + 16-11
-Ultrascale+ TRM.)
-
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 856435123457e059327ada14ff559f93f5766b7c
-      https://github.com/siemens/jailhouse/commit/856435123457e059327ada14ff559f93f5766b7c
-  Author: Nikhil Devshatwar <nikhil.nd@ti.com>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/include/jailhouse/utils.h
-
-  Log Message:
-  -----------
-  hypervisor: include: Add a BUG() macro
-
-Add a new BUG macro in utils which can be used in places
-where you don't expect control to reach.
-
-Whenever this happens, the code will intentionally crash
-via a null pointer de reference.
-
-Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 9af75bf69ab9f20f962e880a3abb43c5768d6a59
-      https://github.com/siemens/jailhouse/commit/9af75bf69ab9f20f962e880a3abb43c5768d6a59
-  Author: Nikhil Devshatwar <nikhil.nd@ti.com>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/arch/arm64/include/asm/traps.h
-    M hypervisor/arch/arm64/traps.c
-
-  Log Message:
-  -----------
-  arm64: Report exception link register ELR in the regdump
-
-For an arm64 CPU, when an exception is taken, the PC of the
-CPU is copied in the ELR_ELx. This is useful for debugging which
-code path caused the exception.
-
-Modify fill_trap_context to populate ELR_EL2 and dump it as part
-of the dump_regs
-
-Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 097bed0fa5985cd0ee8099f3d24d3b9c38c2b8c7
-      https://github.com/siemens/jailhouse/commit/097bed0fa5985cd0ee8099f3d24d3b9c38c2b8c7
-  Author: Nikhil Devshatwar <nikhil.nd@ti.com>
-  Date:   2020-11-08 (Sun, 08 Nov 2020)
-
-  Changed paths:
-    M hypervisor/arch/arm64/include/asm/ti-pvu.h
-    M hypervisor/arch/arm64/ti-pvu.c
-
-  Log Message:
-  -----------
-  arm64: pvu: Avoid failure in config_commit
-
-Current PVU iommu implementation ignores possible failures in the
-config_commit part. This would allow inconsistent configuration
-to run and may introduce unknown bugs.
-
-Solve this by making sure that the pvu_iommu_config_commit never
-fails. Catch the errors early in the mapping phase. Use
-"free_tlb_count" to track available no of TLBs for chaining.
-This can be used to check if any mapping causes it to potentially
-use more no of TLBs than that are free. This will ensure that
-the allocationg for chaining will not fail.
-
-Change the return type to void for few functions. Add comments to
-explain behavior in case of failure. Remove un necessary checks
-that would never trigger.
-
-Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-Compare: https://github.com/siemens/jailhouse/compare/2f52a11d7346...097bed0fa598
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/master/2f52a1-097bed%40github.com.
+Hello Jan, hi all,
+
+As discussed a couple of weeks ago, here an updated version of the "cache-c=
+oloring" for Jailhouse.
+
+A short recap on what's coloring (see Documentation/cache-coloring.md):
+> Cache coloring is a software technique that permits LLC partitioning,
+> therefore eliminating mutual core interference, and thus guaranteeing mor=
+e
+> predictable performances for memory accesses.
+
+In this version of the patch, we've tried to keep the changes in the hyperv=
+isor core minimal. Also, since coloring is something that should be transpa=
+rent to inmates/VM (coloring belongs to the IPA/PA hypervisor translations)=
+, the Linux driver has been only minimally modified.
+
+Coloring API
+------------
+
+The patch adds a small architecture API layer that implements coloring. The=
+ API is fully implemented only on arm64.  arm32 could be also a possible ta=
+rget for coloring, x86 already has CAT. Despite being implemented by only o=
+ne architecture, having a small common API layer integrates IMHO better tha=
+n other solutions in the main code (without adding conditionally compiled c=
+ode).
+
+The API is:
+    arch_color_map_memory_region()   // cell_create
+        Color-maps the memory of the cell. Coloring requires multiple passe=
+s to keep a contiguous VA, while "punching holes" in the PA according to th=
+e allocated colors.
+
+    arch_color_unmap_memory_region() // cell_destroy
+        The opposite of create: search and give back each piece of colored =
+PA.
+
+    arch_color_remap_to_root()       // cell_load
+        Given that we don't want to modify the driver (i.e., we don't want =
+the driver to do non-contiguous color-ioremap) we let the root cell believe=
+ that the IPAs it is ioremapping are contiguous, but in reality the PA are =
+non-contiguous (colored). This is currently done by using a very high VA (I=
+PA) address as "base" for the load-remap-to-root-cell operation. This value=
+ is configuration dependent and can be specified in the root cell to avoid =
+(unlikely) conflicts.
+
+    arch_color_unmap_from_root()     // cell_start
+        Returns the mapping setup by the cell_load to the root cell.
+
+Two APIs are implemented only by arm64:
+    arm_color_dcache_flush_memory_region()  // range flushing
+        Also flushing should be done in a "colored way".
+
+    arm_color_init()                        // hook for the initialization =
+of coloring
+        Reads the parameters (size of the LLC way, base offset for the load=
+-remapping operation) needed by coloring. There's also some debugging code =
+to autodetect the cache-geometry and determine the size of the way.
+
+Configuration
+-------------
+
+From the configuration point of view, a colored memory region is a normal m=
+emory region with a color attached. The color is expressed directly in the =
+memory region as color-bitmask and the flag JAILHOUSE_MEM_COLORED is used t=
+o identify such a region. Contiguous bits in the bitmask identify a color (=
+region) to be used for the memory region. The size of the mapping doesn't c=
+hange due to coloring.
+
+For example, with 16 colors, a full way size is selected by 0xffff, while 1=
+/4 of the way size is selected by 0x000f.
+
+(Note: we also experimented with a different version that defined separate =
+"normal" and "colored" memory regions. The approach presented in this versi=
+on is more robust.)
+
+Main coloring "loop"
+--------------------
+
+The coloring APIs basically boil down to a loop that appropriately selects =
+--according to the color-- the physical addresses where to perform a select=
+ed operation. The selection is done efficiently with bit operations on the =
+bitmask.
+
+An alternative approach is to hook coloring deep into the mapping functiona=
+lities of the hypervisor. Basically, all low level mapping functions suppor=
+t coloring, and the non-colored case becomes the "special case."
+This approach was not followed because to be implemented "cleanly", all the=
+ architecture mapping APIs have to be extended to support coloring, but onl=
+y one-architecture then really implement it.
+
+Instead, the implemented approach to have an additional "coloring" API inte=
+grates more nicely. Additionally, coloring will be hopefully only a transit=
+ory techniques (some years?) that could be eventually replaced by hardware-=
+based techniques (e.g., MPAM). When this happens, removing the additional c=
+oloring API requires less rework than the other approach.
+
+
+Debugging Code
+--------------
+
+The patches also provide a "debugging-only" code that can be activated by d=
+efining CONFIG_DEBUG (it sounded more Jailhouse-oriented than NDEBUG). In d=
+ebugging mode, the coloring provides an autodetection for arm64 cache geome=
+try.
+Additionally, I've added an assert() function that can be used at runtime i=
+n debugging only contexts (could be used independently from coloring).
+
+
+Feedback and comments welcome.
+
+Best,
+Andrea
+
+Andrea Bastoni (12):
+  arm-common: bitops: add most-significant-bit operation
+  hypervisor, driver, archs: add basic empty infrastructure for coloring
+  hypervisor: arm64: add cache coloring implementation
+  hypervisor configuration: hook autodetection for coloring_way_size
+  configs: arm64: add example configuration for colored ZCU102 inmate
+  hypervisor: protect inclusion of control.h
+  hypervisor, driver: add platform information to configure coloring
+    params
+  configs: arm64: hook-in coloring parameters for ZCU102
+  hypervisor: provide runtime assert() helper for DEBUG only
+  hypervisor: provide implementation for __assert_fail() and group
+    panic-related functions
+  hypervisor: coloring: use assert instead of "BUG"
+  hypervisor: coloring: make cache autodetection debug-only
+
+Luca Miccio (2):
+  Documentation: add description and usage of cache coloring support
+  pyjailhouse: add support for colored regions
+
+ Documentation/cache-coloring.md               | 198 ++++++++++++++++++
+ configs/arm64/zynqmp-zcu102-inmate-demo-col.c |  75 +++++++
+ configs/arm64/zynqmp-zcu102.c                 |   6 +
+ driver/cell.c                                 |  10 +-
+ driver/cell.h                                 |   1 +
+ driver/main.c                                 |  12 ++
+ hypervisor/Makefile                           |   2 +-
+ hypervisor/arch/arm-common/control.c          |   1 +
+ .../arch/arm-common/include/asm/bitops.h      |  10 +
+ .../arch/arm-common/include/asm/dcaches.h     |   8 +
+ hypervisor/arch/arm-common/mmu_cell.c         |  52 +++--
+ hypervisor/arch/arm/control.c                 |   1 +
+ hypervisor/arch/arm/include/asm/coloring.h    |  59 ++++++
+ hypervisor/arch/arm/traps.c                   |   1 +
+ hypervisor/arch/arm64/Kbuild                  |   5 +
+ hypervisor/arch/arm64/cache_layout.c          | 148 +++++++++++++
+ hypervisor/arch/arm64/coloring.c              | 184 ++++++++++++++++
+ hypervisor/arch/arm64/control.c               |   1 +
+ .../arch/arm64/include/asm/cache_layout.h     |  21 ++
+ hypervisor/arch/arm64/include/asm/coloring.h  | 137 ++++++++++++
+ hypervisor/arch/arm64/setup.c                 |   3 +
+ hypervisor/arch/arm64/traps.c                 |   1 +
+ hypervisor/arch/x86/amd_iommu.c               |   1 +
+ hypervisor/arch/x86/control.c                 |   1 +
+ hypervisor/arch/x86/efifb.c                   |   1 +
+ hypervisor/arch/x86/include/asm/coloring.h    |  45 ++++
+ hypervisor/arch/x86/ioapic.c                  |   1 +
+ hypervisor/arch/x86/svm.c                     |   1 +
+ hypervisor/arch/x86/vmx.c                     |   1 +
+ hypervisor/control.c                          | 111 ++++------
+ hypervisor/include/jailhouse/assert.h         |  37 ++++
+ hypervisor/include/jailhouse/control.h        |  34 +--
+ hypervisor/include/jailhouse/panic.h          |  40 ++++
+ hypervisor/include/jailhouse/printk.h         |   4 +
+ hypervisor/panic.c                            |  86 ++++++++
+ hypervisor/pci.c                              |   1 +
+ hypervisor/printk.c                           |   1 +
+ hypervisor/uart.c                             |   1 +
+ include/jailhouse/cell-config.h               |  11 +
+ pyjailhouse/config_parser.py                  |   9 +-
+ 40 files changed, 1201 insertions(+), 121 deletions(-)
+ create mode 100644 Documentation/cache-coloring.md
+ create mode 100644 configs/arm64/zynqmp-zcu102-inmate-demo-col.c
+ create mode 100644 hypervisor/arch/arm/include/asm/coloring.h
+ create mode 100644 hypervisor/arch/arm64/cache_layout.c
+ create mode 100644 hypervisor/arch/arm64/coloring.c
+ create mode 100644 hypervisor/arch/arm64/include/asm/cache_layout.h
+ create mode 100644 hypervisor/arch/arm64/include/asm/coloring.h
+ create mode 100644 hypervisor/arch/x86/include/asm/coloring.h
+ create mode 100644 hypervisor/include/jailhouse/assert.h
+ create mode 100644 hypervisor/include/jailhouse/panic.h
+ create mode 100644 hypervisor/panic.c
+
+--=20
+2.29.2
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/20201123204613.252563-1-andrea.bastoni%40tum.de.
