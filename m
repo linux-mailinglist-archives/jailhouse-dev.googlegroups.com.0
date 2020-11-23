@@ -1,32 +1,32 @@
-Return-Path: <jailhouse-dev+bncBCW2V5WNZMERBVV76D6QKGQEJSBQDDY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCW2V5WNZMERBWF76D6QKGQEG3ANLYA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x339.google.com (mail-wm1-x339.google.com [IPv6:2a00:1450:4864:20::339])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BEF12C16B8
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 23 Nov 2020 21:47:19 +0100 (CET)
-Received: by mail-wm1-x339.google.com with SMTP id y187sf195581wmy.3
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 23 Nov 2020 12:47:19 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1606164439; cv=pass;
+Received: from mail-ej1-x638.google.com (mail-ej1-x638.google.com [IPv6:2a00:1450:4864:20::638])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6647D2C16B9
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 23 Nov 2020 21:47:21 +0100 (CET)
+Received: by mail-ej1-x638.google.com with SMTP id e22sf6121090ejx.0
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 23 Nov 2020 12:47:21 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1606164441; cv=pass;
         d=google.com; s=arc-20160816;
-        b=tvdMYRmN9436aAqLzhnAWr1uIx0LiyoY99a2wzDBiikUa3zruFDPqApktJsdEiXCAE
-         0zIb7CeuMDcNKjucpeItbzClGMjCXU4UkZ2I8/ar3S72jjO2yB+oLzJ/r5yDXfBSZ+ix
-         XsET/AaKxwFZGx+TYDIlhyy4TigbFbexmgqSDgwnnoVPxFveiOOuO0Q0V6cQDsEk0G5r
-         FWwXw0eKcudyijeCKKy2n27ZYdNcTQU5WAngynaQKsWXsXuQ4nua3C9JdEkxrHRWqGPV
-         6SYvRqcWwcbFrQzN7GhQ6sfiz3ubUKfJxDxg+ykSzjn62wRkpv6ThZc7EqlEem7ThN+B
-         3pIQ==
+        b=BCw8PSeIieKyb8K72E2Q+rLwAMzdjD8nuVYuKPDK8J0f41ZP8R09cmJFzNco9j/x66
+         YU2Rnet467AXWthYNHV529XDEQ6z1gIEa/i8XEZy2ZS3l7fHSpUClZyFB9CT83FzOsX1
+         0GWK15tjdoe4bVn94WJijq6hQPUPsZrYLppL4vskgBQYgaQaPOdW4IO3In5WX7pISasY
+         oh6XwzxmbDRZKdCBbzHjWrYOd1oXsvjM9888+P2lO9H4Y0kgwhbeVYm+dLG91cSH8XI7
+         ZBBdiU68RwUchKr1NG2hs5TGXzYAapr7MLRWsC3PkboV9A316mVAqAM3DnmGXz1CSCiy
+         rz4w==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=0ZG/1rwrVsQ4gB23Cu/FIct4RAFt8SjmORKC9+whNJQ=;
-        b=sGYOoQH3N8VF/3ho1Kt63kk9+dMwWl+2Pv+qF2QKUsNybmV9uhcoD5Pi2RWKFXYWhX
-         02ZNAAy9YnU5CBARgQG6XIKfnffadycYMHH4mS2KPNqDYjUp84Wj9fG8deC7VxGfSmPV
-         6aSjP3H4qkzN5tpnAL2HJo3X0OFjza2K+hjzxdLmVHGK+pDD1pN0itPl6Nui8OYAg79U
-         J1jj/R5RZh3MHtL8B+VLogruQaMtAkx1HcB16qjslq/aokFHDc7z8FaUJLgl6obcg62K
-         G+O/iYuUf/F/VAeUYIgaUvxmyc3pHO/qdzqlJ6VeibdsYPw7cypBKU34o3Q8ZuFAZ4Za
-         2D+g==
+        bh=9ULIOcvPZKSwKAXfBTFB1P3NR4A8LSfZ/PhTF0FvSfA=;
+        b=sxTeEqjt4lNCHGyFHgvz44dgJTchyMFJX2F0ZIDgsZXb9frX6l3sLbP0bLhDhR4KUl
+         dfgDLrkxGdQ+1ICfAl2tD2U7kxixF/H5K7xjUvvdXOVLlxEbyDU0FNpxYROnpjm12RZF
+         HrtYpJEkPJIfKKWpsOOMdHWPKM+EcLp7OV0Hf13fs+1l91sX6pUefMVlsHhHLyFlFAni
+         gmwXrpBRG07TZCP80GJAQpoX3U5miLgQn624dVTsg4+QNP+1zjXzt+3KTp/OHkTouTXv
+         neuZTtZo4xfW1cZQa0RQIXPARsQUChEVeBGBz0T1PrhyHZzERa2yRNuq4Oia7b7srcrx
+         q9AA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b=rb3idGe6;
+       dkim=pass header.i=@tum.de header.s=postout header.b=oVJ4e5ct;
        spf=pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=0ZG/1rwrVsQ4gB23Cu/FIct4RAFt8SjmORKC9+whNJQ=;
-        b=Uhm39CFNCf17L0oi2K1dJs38cdIJ3LSuGKwDBTvGVGJjV4cRm/+rBOFk9L+1B/ZI/g
-         Hh8aObD+1eB/j+c0S7GvkDaFPvvfh2XcBmEdfUDRGTVMIRq4JpqHp88Q6hCPqrwbECVw
-         G9ldjw+q63pS9FlpeNrky20xUi2mpyzYKSBw/ukAanW2yE4RvykmXJR8W7Cve7AWEdQC
-         9v5KsoaW4WYJ25ezwnuRxyWI049coEXKJ2nPShjgjEEdRNJ3Cjsb844AwGHwvTPOtaTG
-         fwo6Wqvvx9xmpdzOPdZdDoPGRy/myEbFfeysYVAZ+emR5E8zyYpPhM927uQNpifJIkBn
-         hgSQ==
+        bh=9ULIOcvPZKSwKAXfBTFB1P3NR4A8LSfZ/PhTF0FvSfA=;
+        b=H1zyfjEPXH7dycW9G+NZIWl22Als3k0sGooXXr+NIESVmj//0WAtD13l+Wr68+W1gQ
+         ++NIfd/ryqy23doqZs7Us6kW9frsbGw8oFjvE5UKc5yVQEzNS6HisOzYGboFkBF5M0Ni
+         2r/4Uv+TixT94zw30FhCymHH/5YHcenPFjNHQJHaP5QbLWPx+IvV+8eSoJueH7JdzY+x
+         7VAdrlrx8kElVn31r5+Rq8uSPJpJE6iHF06pkvgDLRVgRm1CFl6BHMvO6sku58hRqbS2
+         dzBiLrMhVSXyEQFdKnmgWtyMwnfzgDIx5ZK1M/NS7CF/5OsH6zItSMs3+hr6iAhDJzTB
+         wHMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
@@ -49,60 +49,60 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=0ZG/1rwrVsQ4gB23Cu/FIct4RAFt8SjmORKC9+whNJQ=;
-        b=ksIQv3AeuRVE+rBOOTj6/5lZDxJYo/MPa7YLULOp/9GTlpTsfoPZ6ctgRzpajYGRlr
-         vAEyRP+iTI5p94RI4y1pMF5/gN5Hi9o2OAvc8ngPbSdy+or7Pjz2ubEvnGQ5Q/A/9AMt
-         ZDInJpgh/wDjp9MBQoo2dz7HPdfCJrvKxtaiAgx7jxtUgy8vlwut5eIR9Bj1bmAIyfM7
-         4GYP5ZYXKcJT7fEVsB1uGcY9UFiua3aciMBPu7zsTZCaYNv2rH6Wc644V5eaqIGmlHIN
-         UI6Qpa73cpc8Nst5rLOiRGLpGePXCgR0yNM99busEuDU9D60be9k+xcKKyNbgumRpHFI
-         wFZw==
+        bh=9ULIOcvPZKSwKAXfBTFB1P3NR4A8LSfZ/PhTF0FvSfA=;
+        b=intpQT04mxBfHV3eLnwbUgK/dxQazDapgiVNh1cWY4HqsFSRLYe9OB0Lp3fUFrKi48
+         jUrnuy/hTHthqWFbrGcuQL0du7iaNxiPYj2PzF7SC4D3NYFAShgTXRJwlUnTEDQ8lvoW
+         EVtlpn+Xj0Y0SwRhZukRgTSpzpQjIaikaX9V93DIMdN6+uGYfOAFsFCHXOP4jxH1wcnz
+         oZLNWzbS3S4GlkB7lLl39D8BJfhKqsO9yAZBTZqNz1uh13RoOppTL3Y3XG0z+m/btXPk
+         DYl6MIx4lVQ9zNYyftoz5NMPaUq3zxF72qXf5BLO+J/NQsJhVnD95sJQWCNCk4DdDJ4t
+         OW2g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533WoDQkh9eEEkq+Vu7w2Cwiw5OubkF41avyVPuBh9H7XI+RoO9i
-	z/9VjKdH2BYEisrfO0OuxaY=
-X-Google-Smtp-Source: ABdhPJyF9jiJBmqsDo2N20BhJED7XO3ybnChIJGCH6U/TOyIu6qQ8ZCyYMdTVNb9QGKk18KgIvCsrA==
-X-Received: by 2002:a7b:c255:: with SMTP id b21mr763247wmj.72.1606164438960;
-        Mon, 23 Nov 2020 12:47:18 -0800 (PST)
+X-Gm-Message-State: AOAM531IfGH/6+9Wb2NAC9YKLXRbj/mONcSxlsvtiv+OQHnx8v3jvDi+
+	TE5on/5YUFMzDfQGoqhWTPE=
+X-Google-Smtp-Source: ABdhPJxmnfVqJWorcjW8XOql0kH/ISrMOxgP4xN54Is3CEbrLZDfl9S0RBMw+b2kCfgbakKNT8VSzA==
+X-Received: by 2002:a17:907:250c:: with SMTP id y12mr1342907ejl.367.1606164441101;
+        Mon, 23 Nov 2020 12:47:21 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:aa87:: with SMTP id h7ls9061205wrc.2.gmail; Mon, 23 Nov
- 2020 12:47:18 -0800 (PST)
-X-Received: by 2002:adf:f245:: with SMTP id b5mr1541584wrp.354.1606164437996;
-        Mon, 23 Nov 2020 12:47:17 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1606164437; cv=none;
+Received: by 2002:aa7:cc8b:: with SMTP id p11ls9149955edt.3.gmail; Mon, 23 Nov
+ 2020 12:47:20 -0800 (PST)
+X-Received: by 2002:a50:fd8c:: with SMTP id o12mr1030199edt.22.1606164439956;
+        Mon, 23 Nov 2020 12:47:19 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1606164439; cv=none;
         d=google.com; s=arc-20160816;
-        b=YgyT3I1wgAH5nOD4KilUV4D4GbjU424DkOeIQbApBzb6a+OBxv5KAuBV7pFwUU+lF9
-         PHI1V6ApeBGf/jpTLaFWwkNCV8ptZ0Xn+bmEDVhc1CQS5FGXXEdfjEvqZ4/q/B6kwVFM
-         AcrA7deMgURQMGtbt+bQ590LcC3cvPCyTgpXDCI4l66nPCMPLIYxTqiMt958KuDp6c++
-         pm2MyGtxocv6+FFE8PCMVKvHW5dnk0m7kvqJA/BWsRcOiC8zBfzegyLAYckFTPqGg10q
-         VDETPCobFewzakIAcX/RTfnKlC5gO/TAKuBsPphF1tbTRLd8IdvjbPKBzsTN0fWafBBR
-         0v9Q==
+        b=oHxck/+RXHzV482Cd7Y6N3Ass2VPNWUXn3S/vuixilj+8MSKxEp7Z+ffvVJn7ab426
+         1EXIUS1JW3/nQATmBqzh+PR/pAtPb3ObFYs5cPgSS/sWaSVCU5Qhpfaweh+wgzYpVZHu
+         8HUap2B+fYx/LiW8sUfn6ObLQbRdhti9J3MI4ZewHyeGFqirKkcqeJAxx8LcQbFNMmOm
+         g7u2iMkU9zKZC6Tmcexs27mq1vd0nRb2yXOsmaKsBCR+OVa+07Mq3511Shks+3ugpN4d
+         5C/KvYdzvOgJOZgC0G/FgLrMwWIAi93U2UHFLsCuuw0bt0x7jliT9wwZRVYWHG5M9IBY
+         IZog==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature;
-        bh=NuxdxNeR2hoj+TUiK3gV69FUzYv/Bb7duSQRi8KExh4=;
-        b=p3QoT7/bbbG9Ucd4uA92Hnd0EYuiITf2a1an4HWTKp3ih0fpH2VLUM4wIzNSOFEh2d
-         FCRBIdAvq8OeA70+d7fhLN040SMo7zQN4DGV6SlKkFAZXglYVsj9qifOjKulW4Tp38js
-         AmjpcS/Wy7kQh4+sXYDk6L4wUA2P0WTMNM6sjSRaoBIqxBq3ISj9v/2AMKT4Ghi/jh8q
-         68isnAm9qClUTH1dR0kd1sas9doMWgxoxJwQXWb0NDJjFhXKJI8XMvAVa0HVkELWROAv
-         2wo6Maq/9/FJ0wf2p3qVYveUP3h0CPXxfa+nm8Thdjt58207DiWp85sgb3SHefytJbK3
-         PeZQ==
+        bh=RMmuaYSFoKqzViJlrs6A3jsXlplkyWtPJj1P15DXX5k=;
+        b=yEhZHGO28bHJ2+yvV0MX903prIMCdyDeqtDyeR/EDMeOA1+YIc9EaciUeF7QvZpp2E
+         vp0QuhU8tkfk2gTENFJvaQKh3Mx7F0/GygcuivxqsOiQpDWMRJUQLvbdmspNEMdBqToJ
+         Kya8c6HgUvQC2dftsnbFKirjO2N8RH6jptze4/38hgMkghyo9Jd/0f/ChPnyfhzNzzEv
+         8KxVuZyVKPW3WZ5amUCnMFBnJGF+JE2oTtSmvXnKWXxudnV+BcNDmrmre2UrFiZSyI56
+         xlUWDF1pppv7nSWzIgWe1z7CCp7tlrzy3dYolGMfjk3aJI6JgU3G81Y/81MSYXIJ1qgR
+         hRqg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b=rb3idGe6;
+       dkim=pass header.i=@tum.de header.s=postout header.b=oVJ4e5ct;
        spf=pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
 Received: from postout2.mail.lrz.de (postout2.mail.lrz.de. [2001:4ca0:0:103::81bb:ff8a])
-        by gmr-mx.google.com with ESMTPS id w65si11885wmg.1.2020.11.23.12.47.17
+        by gmr-mx.google.com with ESMTPS id a11si257865edq.1.2020.11.23.12.47.19
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Mon, 23 Nov 2020 12:47:17 -0800 (PST)
+        Mon, 23 Nov 2020 12:47:19 -0800 (PST)
 Received-SPF: pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) client-ip=2001:4ca0:0:103::81bb:ff8a;
 Received: from lxmhs52.srv.lrz.de (localhost [127.0.0.1])
-	by postout2.mail.lrz.de (Postfix) with ESMTP id 4Cfzjd5YFYzyTj;
-	Mon, 23 Nov 2020 21:47:17 +0100 (CET)
+	by postout2.mail.lrz.de (Postfix) with ESMTP id 4Cfzjg1dtTzyTf;
+	Mon, 23 Nov 2020 21:47:19 +0100 (CET)
 X-Virus-Scanned: by amavisd-new at lrz.de in lxmhs52.srv.lrz.de
 X-Spam-Flag: NO
-X-Spam-Score: -2.877
+X-Spam-Score: -2.876
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.877 tagged_above=-999 required=5
+X-Spam-Status: No, score=-2.876 tagged_above=-999 required=5
 	tests=[ALL_TRUSTED=-1, BAYES_00=-1.9, DMARC_ADKIM_RELAXED=0.001,
 	DMARC_ASPF_RELAXED=0.001, DMARC_POLICY_NONE=0.001,
 	LRZ_DMARC_FAIL=0.001, LRZ_DMARC_FAIL_NONE=0.001,
@@ -115,32 +115,34 @@ X-Spam-Status: No, score=-2.877 tagged_above=-999 required=5
 	LRZ_FROM_NAME_IN_ADDR=0.001, LRZ_FROM_PHRASE=0.001,
 	LRZ_FROM_PRE_SUR=0.001, LRZ_FROM_PRE_SUR_PHRASE=0.001,
 	LRZ_FROM_TUM_S=0.001, LRZ_HAS_IN_REPLY_TO=0.001, LRZ_HAS_SPF=0.001,
-	LRZ_TO_SHORT=0.001] autolearn=no autolearn_force=no
+	LRZ_TO_SHORT=0.001, LRZ_URL_PLAIN_SINGLE=0.001]
+	autolearn=no autolearn_force=no
 Received: from postout2.mail.lrz.de ([127.0.0.1])
 	by lxmhs52.srv.lrz.de (lxmhs52.srv.lrz.de [127.0.0.1]) (amavisd-new, port 20024)
-	with LMTP id p8j9Mur_H-Mf; Mon, 23 Nov 2020 21:47:17 +0100 (CET)
+	with LMTP id qmzNsgVT6ZRL; Mon, 23 Nov 2020 21:47:18 +0100 (CET)
 Received: from kabal.lan (ip5f5ac6d0.dynamic.kabel-deutschland.de [95.90.198.208])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(Client did not present a certificate)
-	by postout2.mail.lrz.de (Postfix) with ESMTPSA id 4Cfzjd1ZvjzyTl;
-	Mon, 23 Nov 2020 21:47:17 +0100 (CET)
+	by postout2.mail.lrz.de (Postfix) with ESMTPSA id 4Cfzjf2jQPzyTk;
+	Mon, 23 Nov 2020 21:47:18 +0100 (CET)
 From: Andrea Bastoni <andrea.bastoni@tum.de>
 To: jailhouse-dev@googlegroups.com
 Cc: jan.kiszka@siemens.com,
 	marco.solieri@unimore.it,
 	rmancuso@bu.edu,
 	lucmiccio@gmail.com,
+	Marco Solieri <ms@xt3.it>,
 	Andrea Bastoni <andrea.bastoni@tum.de>
-Subject: [PATCH 08/14] configs: arm64: hook-in coloring parameters for ZCU102
-Date: Mon, 23 Nov 2020 21:46:07 +0100
-Message-Id: <20201123204613.252563-9-andrea.bastoni@tum.de>
+Subject: [PATCH 09/14] Documentation: add description and usage of cache coloring support
+Date: Mon, 23 Nov 2020 21:46:08 +0100
+Message-Id: <20201123204613.252563-10-andrea.bastoni@tum.de>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201123204613.252563-1-andrea.bastoni@tum.de>
 References: <20201123204613.252563-1-andrea.bastoni@tum.de>
 MIME-Version: 1.0
 X-Original-Sender: andrea.bastoni@tum.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@tum.de header.s=postout header.b=rb3idGe6;       spf=pass
+ header.i=@tum.de header.s=postout header.b=oVJ4e5ct;       spf=pass
  (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a
  as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=tum.de
@@ -157,32 +159,225 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
+From: Luca Miccio <lucmiccio@gmail.com>
+
+Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
+Signed-off-by: Marco Solieri <ms@xt3.it>
+[Andrea: adapted to reflect the current proposal.]
 Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
 ---
- configs/arm64/zynqmp-zcu102.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ Documentation/cache-coloring.md | 198 ++++++++++++++++++++++++++++++++
+ 1 file changed, 198 insertions(+)
+ create mode 100644 Documentation/cache-coloring.md
 
-diff --git a/configs/arm64/zynqmp-zcu102.c b/configs/arm64/zynqmp-zcu102.c
-index bdcb04b3..5261b15a 100644
---- a/configs/arm64/zynqmp-zcu102.c
-+++ b/configs/arm64/zynqmp-zcu102.c
-@@ -45,6 +45,12 @@ struct {
- 			.pci_mmconfig_end_bus = 0,
- 			.pci_is_virtual = 1,
- 			.pci_domain = -1,
-+			.color = {
-+				/* in debug mode, the way_size is autodetected
-+				 * if it is not specified */
-+				/* .way_size = 0x10000, */
-+				.root_map_offset = 0x0C000000000,
-+			},
- 			.iommu_units = {
- 				{
- 					.type = JAILHOUSE_IOMMU_ARM_MMU500,
+diff --git a/Documentation/cache-coloring.md b/Documentation/cache-coloring.md
+new file mode 100644
+index 00000000..408555ed
+--- /dev/null
++++ b/Documentation/cache-coloring.md
+@@ -0,0 +1,198 @@
++Cache Coloring Support
++======================
++
++Introduction
++------------
++
++### Cache partitioning and coloring
++
++#### Motivation
++
++Cache hierarchies of modern multi-core CPUs typically have first levels dedicated
++to each core (hence using multiple cache units), while the last level cache
++(LLC) is shared among all of them. Such configuration implies that memory
++operations on one core, e.g., running one Jailhouse inmate, are able to generate
++timing *interference* on another core, e.g., hosting another inmate. More
++specifically, data cached by the latter core can be evicted by cache store
++operations performed by the former. In practice, this means that the memory
++latency experienced by one core depends on the other cores (in-)activity.
++
++The obvious solution is to provide hardware mechanisms allowing either: a
++fine-grained control with cache lock-down, as offered on the previous v7
++generation of Arm architectures; or a coarse-grained control with LLC
++partitioning among different cores, as featured on the "Cache Allocation
++Technology" of the high-end segment of recent Intel architecture and supported
++by the Jailhouse hypervisor.
++
++#### Cache coloring
++
++Cache coloring is a *software technique* that permits LLC partitioning,
++therefore eliminating mutual core interference, and thus guaranteeing higher and
++more predictable performances for memory accesses. A given memory space in
++central memory is partitioned into subsets called colors, so that addresses in
++different colors are necessarily cached in different LLC lines. On Arm
++architectures, colors are easily defined by the following circular striding.
++
++```
++          _ _ _______________ _ _____________________ _ _
++               |     |     |     |     |     |     |
++               | c_0 | c_1 |     | c_n | c_0 | c_1 |
++          _ _ _|_____|_____|_ _ _|_____|_____|_____|_ _ _
++                  :                       :
++                  '......         ........'
++                        . color 0 .
++                . ........      ............... .
++                         :      :
++            . ...........:      :..................... .
++```
++
++Cache coloring suffices to define separate domains that are guaranteed to be
++*free from interference* with respect to the mutual evictions, but it does not
++protect from minor interference effects still present on LLC shared
++subcomponents (almost negligible), nor from the major source of contention
++present in central memory.
++
++It is also worth remarking that cache coloring also partitions the central
++memory availability accordingly to the color allocation--assigning, for
++instance, half of the LLC size is possible if and only if half of the DRAM space
++is assigned, too.
++
++
++### Cache coloring in Jailhouse
++
++The *cache coloring support in Jailhouse* allows partitioning the cache by
++simply partitioning the colors available on the specific platform, whose number
++may vary depending on the specific cache implementation. More detail about color
++availability and selection is provided in [Usage](#usage).
++
++#### Supported architectures
++
++Cache coloring is available on Arm64 architectures. In particular, extensive
++testing has been performed on v8 CPUs, namely on the A53 and A57 processors
++equipping Xilinx ZCU102 and ZCU104.
++
++### Further readings
++
++Relevance, applicability, and evaluation results of the Jailhouse cache coloring
++support are reported in several recent works. A non-technical perspective is
++given in [1] together with an overview of the ambitious HERCULES research
++project. A technical and scientific presentation is instead authored in [2],
++where additional experimental techniques on cache and DRAM are introduced.
++
++An enjoyable, comprehensive and up-to-date survey on cache management technique
++for real-time systems is offered by [3].
++
++1. P. Gai, C. Scordino, M. Bertogna, M. Solieri, T. Kloda, L. Miccio. 2019.
++   "Handling Mixed Criticality on Modern Multi-core Systems: the HERCULES
++   Project", Embedded World Exhibition and Conference 2019.
++
++2. T. Kloda, M. Solieri, R. Mancuso, N. Capodieci, P. Valente, M. Bertogna.
++   2019.
++   "Deterministic Memory Hierarchy and Virtualization for Modern Multi-Core
++   Embedded Systems", 25th IEEE Real-Time and Embedded Technology and
++   Applications Symposium (RTAS'19). To appear.
++
++3. G. Gracioli, A. Alhammad, R. Mancuso, A.A. Froehlich, and R. Pellizzoni. 2015.
++   "A Survey on Cache Management Mechanisms for Real-Time Embedded Systems", ACM
++   Comput. Surv. 48, 2, Article 32 (Nov. 2015), 36 pages. DOI:10.1145/2830555
++
++
++
++
++Usage
++-----
++
++### Colors selection
++
++In order to choose a color assignment for a set of inmates, the first thing we
++need to know is... the available color set. The number of available colors can
++be either calculated or read from the output given by Jailhouse once
++we enable the hypervisor.
++
++To compute the number of available colors on the platform one can simply
++divide
++`way_size` by `page_size`, where: `page_size` is the size of the page used
++on the system (usually 4 KiB); `way_size` is size of a LLC way, i.e. the same
++value that has to be provided in the root cell configuration.
++E.g., 16 colors on a platform with LLC ways sizing 64 KiB and 4 KiB pages.
++
++Once the number of available colors (N) is known, the range of colors to be
++associated to a memory region (see [cells configuration](#cells-configuration))
++can be specified as a bitmask where contiguous bits specify a color range.
++E.g., if 16 colors are available, a color bitmask `0xffff` corresponds to the
++full color palette i.e., the full `way_size`, while a color bitmask `0x000f`
++selects only 4 colors for the inmate.
++
++#### Partitioning
++
++We can choose any kind of color configuration we want but in order to have
++mutual cache protection between cells, different colors must be assigned to them.
++Another point to remember is to keep colors as contiguous as possible, so to
++allow caches to exploit the higher performance to central memory controller.
++
++### Root Cell configuration
++
++#### LLC way size
++
++The LLC way size can be specified as parameter `way_size` in the
++`struct jailhouse_coloring` `color` structure of `platform_info`.
++Currently, if `way_size` is not specified, the system will compute its value at
++enable-time.
++
++#### Temporary load-remapping address
++
++When inmates use cache-coloring, a temporary load address is used to facilitate
++coloring of the inmates during load-mapping via the root cell. The start address
++of this temporary region can be provided via the `root_map_offset` parameter
++in the `color` structure of `platform_info`.
++
++For example, a 16-way set associative cache sizing 1 MiB has a way size of
++64 KiB, and the the temporary load-remapping address is set to 0x0C000000000.
++```
++...
++.platform_info = {
++    ...
++    .color = {
++        /* autodetected if not specified */
++        /* .way_size = 0x10000, */
++        .root_map_offset = 0x0C000000000,
++    },
++    ...
++```
++
++### Cells configuration
++
++A colored memory region is identified with the flag `JAILHOUSE_MEM_COLORED`.
++The color bitmask specified in `.colors` identifies the colors associated with
++the region, i.e., the `colors` bitmask applies to the mappings of the
++`mem_region` entry. Different `mem_region` entries in the same cell may have
++different colors. Coloring a `mem_region` doesn't change the specified `size`.
++```
++...
++struct jailhouse_memory mem_regions[12];
++...
++.num_memory_regions = ARRAY_SIZE(config.mem_regions)
++...
++.mem_regions = {
++    ...
++    {
++            .phys_start = 0x801100000,
++            .virt_start = 0,
++            .size = 0x10000,
++            .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++                    JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE |
++                    JAILHOUSE_MEM_COLORED,
++            /* Assigning 1/4 of the colors */
++            .colors=0x000f,
++    },
++    ...
++}
++...
++```
++#### Overlaps and colored memory sizes
++
++When using colored memory regions the rule `phys_end = phys_start + size` is no
++longer true. So the configuration must be written carefully in order to avoid to
++exceed the available memory in the root cell.
++Moreover, since the above rule does not apply, it is very common to have overlaps
++between colored memory regions of different cells if they are sharing colors.
 -- 
 2.29.2
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20201123204613.252563-9-andrea.bastoni%40tum.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20201123204613.252563-10-andrea.bastoni%40tum.de.
