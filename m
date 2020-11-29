@@ -1,146 +1,131 @@
-Return-Path: <jailhouse-dev+bncBCW2V5WNZMERBCOMQP7AKGQEW3COYCY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDC7ZQ52YQBBBYHER77AKGQE7KZAE2I@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x440.google.com (mail-wr1-x440.google.com [IPv6:2a00:1450:4864:20::440])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFA302C6402
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 27 Nov 2020 12:42:01 +0100 (CET)
-Received: by mail-wr1-x440.google.com with SMTP id n13sf3360142wrs.10
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 27 Nov 2020 03:42:01 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1606477321; cv=pass;
+Received: from mail-il1-x138.google.com (mail-il1-x138.google.com [IPv6:2607:f8b0:4864:20::138])
+	by mail.lfdr.de (Postfix) with ESMTPS id 69EA42C7ADB
+	for <lists+jailhouse-dev@lfdr.de>; Sun, 29 Nov 2020 20:11:31 +0100 (CET)
+Received: by mail-il1-x138.google.com with SMTP id j8sf8410716ilr.11
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 29 Nov 2020 11:11:31 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1606677089; cv=pass;
         d=google.com; s=arc-20160816;
-        b=wF1MCbhGTVU0UlU1L4Qv2GnKMSVeekeiQlk7/D77v4sV7uKPwY1x/Q7b3zau/mlwTy
-         h6R4MV8WUtdxRhcv3vrd9ypIM15fgjF3OWV5nu88fw3vA1asEPQypCgZR5PCEtNGym1q
-         WV3Hx0hTe6a8m8NmgBPGOdSjh0hNRCvALEptyz1epleXcEIa7/5fHqGTZfvZ+S/5X3eE
-         GtYASMDU03HrUbuPm4toOTVZBmTwTBfKZxyrFSWCt7al8W7hAugRUFxmBwGc+bl7HYwa
-         JwsYHlvCmhD8AvYPi/rKrk9cqEGkP8gB4B2VbN5EFqFPW9aN/OcCdaCvukt5eyg48ue6
-         fOWQ==
+        b=bwyu/X6DOPGxn9rsVdzDGEALt/gYIdjqYMYEEXPyptN/nU+74fv0uv3m7MiLGzMuwQ
+         vK5eEQ4NvX6XEcegcQIe+O8dkgUIgHql/cvxh8pouLi8QPgWEo+L1NvxywMWIXVfULWm
+         b8/2L0ReJZUgHtJhaFGln1PzHmyV98VmBUjDw/Liag/j8rIZL9BZ4GiWTYAZUhgHqkXM
+         11A7U4ex7Qi9tgwXHzgpB7YLdLVQIxyE0C5SuXfchTItqfsBtw5ydQIQF4aU6dmZfI3D
+         s/zeJHtyAZkiOGbfPTCNDQdka87qkmGcVlNcGmcm3e+71KTz/Jfym6knCEb1vGHOgY2r
+         L7HQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=j0fKZIdIKk9REVMND/44S2Haz1Cb7c5s0eZh0Q44MYE=;
-        b=huHmgrvSPrRfWB6bbNlu46fFmm8C2ChJb4y/7nyvc9Ck9M+5ArNt79QCsz09GcyMBB
-         YllnbSspW4grVKzI65FOqAOyYRvh+x5ktPydVmiCmeHwhXqj30uMLbO8jEHIir/+0Zs2
-         uaJ6uFOaSD1P9h3cVlZyjtzTqlnQJNamWjyTK4YBObAfpdvnmD4jgfN5Qa3m5BSlRUVz
-         9EImV9HJR90N7k8HT1c6m1cATeSan6ef3VsUow/2fOEbnFR0SbwrhkxSCDxINdjvAoHw
-         FPt5PDd6iewUXZxGNTC1LpbKHU9Yebz+pYDJi9Y2Ug5hZUCMgKXv7DyAukVKxajEc8RD
-         HPUQ==
+         :list-id:mailing-list:precedence:to:from:subject:date:message-id
+         :reply-to:mime-version:sender:dkim-signature:dkim-signature;
+        bh=rynZojN/YiAYQPFidSq3qT3kTAiRk1N4etAS2fluPTo=;
+        b=R40XJHy/1eFgmdxLVr0zBGdyxZKqSHQ0FCqXxcGVDl1VtNYNfOwwgQ+nj6GNS+KcwZ
+         1xH5ZgrUxnsKXqkeC8fFmsQQ8PU5/B1cHi4N3Tenw7VZBmJ2sILONZLMP14N/PEsMcpk
+         PWLeQOSu1USVvkWccDapwXohMzH1S4SXnvwD7w+R5SW6Jd2h87tRI4JhguS7VTR8bgpN
+         96N0YpCAwjI57pQx1bmaiFXsNS6g9Lq1c9EZuV4jsQJnCAvaO/LWHChUe9HO8/MG+r/R
+         wjhw9WK/mptS8y0Tiinur5i6Li21rxxYc2azPKVggcaLd1D6Pxo4Zj5kD/d4nAn1MkgK
+         Si4w==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b=yJoyTX9U;
-       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.138 as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=ZPECGJKR;
+       spf=pass (google.com: domain of 3ypldxw4jafk29c1cdfii9jtus7d19c.3fd@trix.bounces.google.com designates 2607:f8b0:4864:20::b47 as permitted sender) smtp.mailfrom=3YPLDXw4JAFk29C1CDFII9JTUS7D19C.3FD@trix.bounces.google.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:mime-version:reply-to:message-id:date:subject:from:to
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=j0fKZIdIKk9REVMND/44S2Haz1Cb7c5s0eZh0Q44MYE=;
-        b=WPzio3lNet1H5t72x3CryViJNzfHunv3Y8J8nLq7a7gmEWkzAzp/Av6fgo7rCvurq0
-         c4fqroLsGATQA3MRfA+/2UQ3ZaKcvtKRhTzahS6eSo00NRfMKIRdtpV2zFI1EEJNHVOR
-         WDcfadh7TypgXxU7oPDayDwtvTX08vqN4V9VbW9M5FLH02mrUoGqbOWKd0gYzBSo5QpA
-         EEGaVOTytTh31mll30dbf4m8T9sFJstJgpYdpsdfd4d0gj9IzOzGnO55f+nKsWVbth6A
-         LYNBf/6xr7Oy6ybtmIDGTw+P7LkGZN+wrzNhMLpwh2UgZyLnDkhWCTL0bvJYyLXeNaP9
-         xCzw==
+        bh=rynZojN/YiAYQPFidSq3qT3kTAiRk1N4etAS2fluPTo=;
+        b=fGG5eMZ9wHWwwb+OA07jWK4LBmsaf4d1b+9jDBS4GAi6wqzHlzBbuh6xQf3XsEEgg9
+         flU0oL7OIlSXjPz9ykQkTdsP3Xlh2M2L8DI9XWIzRj287LqEvKB+ZN9AKYqSdas+v6Xb
+         ZnofGjM8o9oS9GcwABuF1MFDDqFWdYxJEnDLJP/ZlfcEUqcPZBuEdU79fb3I0bB+K95O
+         yPUL8oCvCjD/i1VcclPi81jN/v1rlnE2+gm/GbUbYEdRK4GCMb+1UCrrRGUQ6pjSgiJc
+         WKy4mMVErmQrspcqtnKw/b/jS8vboPQjvEcaw1Yx5esViK6Kz4hhNQBmPqgb0NhcX26O
+         e5OA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:reply-to:message-id:date:subject:from:to
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=rynZojN/YiAYQPFidSq3qT3kTAiRk1N4etAS2fluPTo=;
+        b=k9P1Y+xWeWgyQiDBOGs0oyOajKVDXzJyOTCMgwSrr5UBfsnqb9adGziofzhhacS2ZV
+         35/q9mpEgdhIl6XSy7dwFUYImX00/tqnVT3O6JuXuZ9v/BBrvBwtpZkwIFsKNYOSLv4O
+         v4D2VIZoP5awWeSWlXupasXCTsqOTTGXh2T0N2XMgaSzvbgqdoXU2VaLirMuAhnnI9+o
+         XwqC0HwhJh0JiCiNL90YHAyZS7XVP00njWf5izet/mjopzLGZyBQPnPQGb8TcrfUq8/L
+         Gb4eRC7p/0OtaIktGXZ+qqZTKv738NIL7oV6I+3T2O6E/lllOYh3J3qF7IMedmuSETaj
+         virA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
-         :in-reply-to:references:mime-version:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=j0fKZIdIKk9REVMND/44S2Haz1Cb7c5s0eZh0Q44MYE=;
-        b=BCUMqiLt6R2FXUoYFE7dP5SwGMrJPfpblf8N8K7VoMR+ApY3kQyrQZ7OJJCo+aRLYq
-         Jsm2eA34hdtEQvpxT3Q66DrXW7ifkiqW6juzj5KPkOgXbTHdvZq8GxA3UdCLeHRhVn7f
-         NCrl8mcq3M0gm5SNkQUxMrFrevQWnp2T35QsC+5hkVSk77FvJPhmXpti2FgpnXGpYdP/
-         8y2W1dLwE3UvvbELeCHCmyVxc07v5gUCE1ItKz5VPfY3Fy77lndKvQNHdeGmX1qYfCTR
-         utS30VnbFJssOV5OwF8+s965bEngguy7DB3nZ9tV9urp7hixJwWwUQ419XV0IZIIxiUe
-         zz8g==
+        h=sender:x-gm-message-state:mime-version:reply-to:message-id:date
+         :subject:from:to:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=rynZojN/YiAYQPFidSq3qT3kTAiRk1N4etAS2fluPTo=;
+        b=d4ExN5qLtB1wgL0MW5fHAhQRHeDJbxZn/Ich49i+EdOCvtnhMAdHDZ84O7Oyz7nkFe
+         lyl0FarLDJAoxWkg+4aalE0TTFYWWz8zJHajXtFuSIC8gys/IsWlMWc/8XQZArmAzRdg
+         gOxrs1VTwNw2Mls2vLM7Qml5fqtLCd6D6hvR67m7H/f9q+o36xwHkEt1wwdntq8XZQ59
+         Ml+3GCIF+fUuo8lnxNHIaqkzOuEtV/jI8Ihdqw3QSBII/bFtjI9VRtXGpwObML8EhGfd
+         pvX/8nUX15hMdFhp3YLchsrRhC2o5mkj8EQcyxeikzC9cONBulfsSDr++4EwG2ebn9Ts
+         4Hxg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530W3BuFhCnjCsJeHQdvoC4tNO9W7PqdrjmuesJLbldT4mD944Nm
-	CPnIFWrwrkMIrxa2WtOWKWI=
-X-Google-Smtp-Source: ABdhPJzeM/osRMoOnxxWuje9N/4+L3xFdxKLJktsxBjz4m88MLv/M+hPUKghqbW/V4UClIuUv2wMHg==
-X-Received: by 2002:a5d:654c:: with SMTP id z12mr9898472wrv.46.1606477321601;
-        Fri, 27 Nov 2020 03:42:01 -0800 (PST)
+X-Gm-Message-State: AOAM532KM2FvY99U25650UOOoBw1v56SnIBCH9Pj29249YTQaKwuw+Hl
+	of+6QSyGbByNDh8bcVewMP4=
+X-Google-Smtp-Source: ABdhPJzFIVzWB/ApvRWGgCYwsvlh1TexpBGWwPUviR02zGbKMQRUPe2aChNetlFOOpVdjjhbML4fIA==
+X-Received: by 2002:a02:8387:: with SMTP id z7mr15892921jag.129.1606677088987;
+        Sun, 29 Nov 2020 11:11:28 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:c689:: with SMTP id j9ls879632wrg.0.gmail; Fri, 27 Nov
- 2020 03:42:00 -0800 (PST)
-X-Received: by 2002:a5d:66c3:: with SMTP id k3mr10054020wrw.123.1606477320632;
-        Fri, 27 Nov 2020 03:42:00 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1606477320; cv=none;
+Received: by 2002:a02:a41:: with SMTP id 62ls1298806jaw.1.gmail; Sun, 29 Nov
+ 2020 11:11:28 -0800 (PST)
+X-Received: by 2002:a02:9469:: with SMTP id a96mr1776417jai.86.1606677088382;
+        Sun, 29 Nov 2020 11:11:28 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1606677088; cv=none;
         d=google.com; s=arc-20160816;
-        b=cW+HxEZtWunY+kXjmMTBKCzfuu3iR9J+f15dPNtIwElAL6H19/MX8CzWYHNVuSxRg2
-         muAuxLCgnDCzbcTOJW0OVsPa7TC2/4m9nGP6u+gv13h4rbSRZgObNApJNS4vZW/purOX
-         DINjWX7MxNCjh2Fkua9DbjkGJTyc3lpD7Er+zxYrpTQdcls2atNldCg4sic0ZAMP8dwy
-         66iEa7pIxi/NWUh9axpDHzRJpe3UHRHjPC34hq8EsZ8OuDSW62+t1zr6+4IVfNOvd7Kh
-         b3mr85ZWehO1IN3j5dP2PGrmzQJzmvnD2hpfzJ7o79Bq9UScFMCMbuXabIWJprkAPRFA
-         Musg==
+        b=bGIHQRFwXd3NG/LLJRNbKdKqPYM1wmxdcOkpEW2+pe7bEGPO8X0iYf/GrhzOYWe87p
+         KC+P8Qm7losAhyxTdEYbiWxiW6VnojXG5oIIXj+lDBMUBvfx/F0c5cnqjy0IFNw/nd/g
+         t2Z9kzXA+xBx571cqUsfkX2wso0e6soHYKfOjC8v76O8GOlQkfnWOwKJgPOkMvso3uxp
+         Um68U0FAdw6MRiRQvKyjI0JyFTYbfHQw8n9kBTDWjTz15nDeZ4vMClqqJ0w+elLUn0JU
+         BFR66+qRTMyLGtbfu7mGAT7muR445pEfsFjB7jVH/5OBEheChNkDRT+FQMECli1+j+lE
+         MWYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature;
-        bh=gKRQ4ztzqu/wJj/dHSOW6MmCw/LONEqNSXPQfQyGhxw=;
-        b=lO/yfVjayA6UCqFL3Fbay6yxPM8tXKpmE6wGoY0A5me99eY8bJGs9fyDVrrPHzuEmH
-         9lKB9cHtfeSoHGitVhUJkSxJJeASp3Fj4Elm7SGXmPAQ7W/N/knDTcRPAAEmhjRWOZaI
-         3jX/KghPsur3mOhAplr/grjM726tXStNK3V1EPj/YGyKRfs+Tkj83anuXIP5ZhfxWPEt
-         qZg+4C7k6i3/NS42696GFsoyrmRDfRU3cEKFrv6+Q8LGVHah5Kcfidn8n3X+geLoveif
-         rZHlruaUqBe70fpaWCyrfUXn3i0U7mJ+fhcMyv3nPJswJucXgDnTE1ZXH84evJ1dErGG
-         cUfA==
+        h=to:from:subject:date:message-id:reply-to:mime-version
+         :dkim-signature;
+        bh=iIi6XQ/3xd6Q47YB/TvcpHPQYuwTWg92+hWZYipuGA4=;
+        b=PYt4uDlZbh6/dxM4Nx7lPFtY5OhcfFo2Gt4n06EPyGP/t/hecKb4Rj4rduErgnkvms
+         YK7knRuhPURPS2gJx5vks+4VTAHKIjLHOz0vfaskXXfnr0HmSeHKBLf3/PxPujK/qNyU
+         IkOgrAAo7D63bq+zdSAZPzRMTt5g7zphYFf+j2yWLCs29y3RBl5oVsmdtPXzEQ0EYMIJ
+         Vsue1HcgKDqWv2+C/uvviqMpWLoSeOw5sypc2JkaC6UD3WSgMnYgbveHOke1hzSgiCIK
+         m16hPRVOkEiYWFSQqrEv8gFgYsrQuh0R+Q2TXuZugPkKxfZVDGjHQyz8AZna1TkIjY1o
+         cA2Q==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b=yJoyTX9U;
-       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.138 as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
-Received: from postout2.mail.lrz.de (postout2.mail.lrz.de. [129.187.255.138])
-        by gmr-mx.google.com with ESMTPS id y187si276690wmd.1.2020.11.27.03.42.00
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=ZPECGJKR;
+       spf=pass (google.com: domain of 3ypldxw4jafk29c1cdfii9jtus7d19c.3fd@trix.bounces.google.com designates 2607:f8b0:4864:20::b47 as permitted sender) smtp.mailfrom=3YPLDXw4JAFk29C1CDFII9JTUS7D19C.3FD@trix.bounces.google.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-yb1-xb47.google.com (mail-yb1-xb47.google.com. [2607:f8b0:4864:20::b47])
+        by gmr-mx.google.com with ESMTPS id b14si810685ios.2.2020.11.29.11.11.28
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Fri, 27 Nov 2020 03:42:00 -0800 (PST)
-Received-SPF: pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.138 as permitted sender) client-ip=129.187.255.138;
-Received: from lxmhs52.srv.lrz.de (localhost [127.0.0.1])
-	by postout2.mail.lrz.de (Postfix) with ESMTP id 4CjCQc3Dx7zySw;
-	Fri, 27 Nov 2020 12:42:00 +0100 (CET)
-X-Virus-Scanned: by amavisd-new at lrz.de in lxmhs52.srv.lrz.de
-X-Spam-Flag: NO
-X-Spam-Score: -2.877
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.877 tagged_above=-999 required=5
-	tests=[ALL_TRUSTED=-1, BAYES_00=-1.9, DMARC_ADKIM_RELAXED=0.001,
-	DMARC_ASPF_RELAXED=0.001, DMARC_POLICY_NONE=0.001,
-	LRZ_DMARC_FAIL=0.001, LRZ_DMARC_FAIL_NONE=0.001,
-	LRZ_DMARC_POLICY=0.001, LRZ_DMARC_TUM_FAIL=0.001,
-	LRZ_DMARC_TUM_REJECT=3.5, LRZ_DMARC_TUM_REJECT_PO=-3.5,
-	LRZ_ENVFROM_FROM_ALIGNED_STRICT=0.001, LRZ_ENVFROM_FROM_MATCH=0.001,
-	LRZ_ENVFROM_TUM_S=0.001, LRZ_FROM_HAS_A=0.001,
-	LRZ_FROM_HAS_AAAA=0.001, LRZ_FROM_HAS_MDOM=0.001,
-	LRZ_FROM_HAS_MX=0.001, LRZ_FROM_HOSTED_DOMAIN=0.001,
-	LRZ_FROM_NAME_IN_ADDR=0.001, LRZ_FROM_PHRASE=0.001,
-	LRZ_FROM_PRE_SUR=0.001, LRZ_FROM_PRE_SUR_PHRASE=0.001,
-	LRZ_FROM_TUM_S=0.001, LRZ_HAS_IN_REPLY_TO=0.001, LRZ_HAS_SPF=0.001,
-	LRZ_TO_SHORT=0.001] autolearn=no autolearn_force=no
-Received: from postout2.mail.lrz.de ([127.0.0.1])
-	by lxmhs52.srv.lrz.de (lxmhs52.srv.lrz.de [127.0.0.1]) (amavisd-new, port 20024)
-	with LMTP id KRygSVfKTs2L; Fri, 27 Nov 2020 12:42:00 +0100 (CET)
-Received: from kabal.lan (ip5f5ac6d0.dynamic.kabel-deutschland.de [95.90.198.208])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(Client did not present a certificate)
-	by postout2.mail.lrz.de (Postfix) with ESMTPSA id 4CjCQb6z2VzySf;
-	Fri, 27 Nov 2020 12:41:59 +0100 (CET)
-From: Andrea Bastoni <andrea.bastoni@tum.de>
-To: jailhouse-dev@googlegroups.com
-Cc: Andrea Bastoni <andrea.bastoni@tum.de>
-Subject: [PATCH v3 2/2] configs: add Wall and fix bracketing
-Date: Fri, 27 Nov 2020 12:41:40 +0100
-Message-Id: <20201127114140.37179-2-andrea.bastoni@tum.de>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20201127114140.37179-1-andrea.bastoni@tum.de>
-References: <20201127114140.37179-1-andrea.bastoni@tum.de>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 29 Nov 2020 11:11:28 -0800 (PST)
+Received-SPF: pass (google.com: domain of 3ypldxw4jafk29c1cdfii9jtus7d19c.3fd@trix.bounces.google.com designates 2607:f8b0:4864:20::b47 as permitted sender) client-ip=2607:f8b0:4864:20::b47;
+Received: by mail-yb1-xb47.google.com with SMTP id x129so13074486ybg.12
+        for <jailhouse-dev@googlegroups.com>; Sun, 29 Nov 2020 11:11:28 -0800 (PST)
 MIME-Version: 1.0
-X-Original-Sender: andrea.bastoni@tum.de
+X-Received: by 2002:a25:4c89:: with SMTP id z131mt18213786yba.339.1606677088006;
+ Sun, 29 Nov 2020 11:11:28 -0800 (PST)
+Reply-To: bilalmorris231@gmail.com
+X-No-Auto-Attachment: 1
+Message-ID: <00000000000019778b05b543a944@google.com>
+Date: Sun, 29 Nov 2020 19:11:28 +0000
+Subject: Congratulation! (Mega Millions Lottery)
+From: bilalmorris231@gmail.com
+To: jailhouse-dev@googlegroups.com
+Content-Type: multipart/alternative; boundary="0000000000001af95005b543a981"
+X-Original-Sender: bilalmorris231@gmail.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@tum.de header.s=postout header.b=yJoyTX9U;       spf=pass
- (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.138 as
- permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=tum.de
-Content-Type: text/plain; charset="UTF-8"
+ header.i=@gmail.com header.s=20161025 header.b=ZPECGJKR;       spf=pass
+ (google.com: domain of 3ypldxw4jafk29c1cdfii9jtus7d19c.3fd@trix.bounces.google.com
+ designates 2607:f8b0:4864:20::b47 as permitted sender) smtp.mailfrom=3YPLDXw4JAFk29C1CDFII9JTUS7D19C.3FD@trix.bounces.google.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -153,96 +138,110 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-In combination with Wextra, Wall enables additional checks such as
-Wmissing-braces.
+--0000000000001af95005b543a981
+Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
 
-Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
----
- configs/Makefile                        |  2 +-
- configs/arm64/k3-j7200-evm-linux-demo.c |  2 +-
- configs/arm64/k3-j7200-evm.c            |  2 +-
- configs/arm64/k3-j721e-evm-linux-demo.c |  2 +-
- configs/arm64/k3-j721e-evm.c            | 12 +++++++-----
- 5 files changed, 11 insertions(+), 9 deletions(-)
+I've invited you to fill out the following form:
+Untitled form
 
-diff --git a/configs/Makefile b/configs/Makefile
-index 513b0a9b..5a19621d 100644
---- a/configs/Makefile
-+++ b/configs/Makefile
-@@ -17,7 +17,7 @@ include $(ALWAYS_COMPAT_MK)
- LINUXINCLUDE := -I$(src)/../hypervisor/arch/$(SRCARCH)/include \
- 		-I$(src)/../hypervisor/include \
- 		-I$(src)/../include
--KBUILD_CFLAGS := -Werror -Wextra -D__LINUX_COMPILER_TYPES_H
-+KBUILD_CFLAGS := -Werror -Wall -Wextra -D__LINUX_COMPILER_TYPES_H
- 
- ifneq ($(wildcard $(obj)/../include/jailhouse/config.h),)
- KBUILD_CFLAGS += -include $(obj)/../include/jailhouse/config.h
-diff --git a/configs/arm64/k3-j7200-evm-linux-demo.c b/configs/arm64/k3-j7200-evm-linux-demo.c
-index ace9cd3a..1fc98bf8 100644
---- a/configs/arm64/k3-j7200-evm-linux-demo.c
-+++ b/configs/arm64/k3-j7200-evm-linux-demo.c
-@@ -233,6 +233,6 @@ struct {
- 
- 	.stream_ids = {
- 		/* Non PCIe peripherals */
--		0x0003
-+		{0x0003},
- 	},
- };
-diff --git a/configs/arm64/k3-j7200-evm.c b/configs/arm64/k3-j7200-evm.c
-index d0c8aee3..cc452157 100644
---- a/configs/arm64/k3-j7200-evm.c
-+++ b/configs/arm64/k3-j7200-evm.c
-@@ -354,6 +354,6 @@ struct {
- 
- 	.stream_ids = {
- 		/* Non PCIe peripherals */
--		0x0002,
-+		{0x0002},
- 	},
- };
-diff --git a/configs/arm64/k3-j721e-evm-linux-demo.c b/configs/arm64/k3-j721e-evm-linux-demo.c
-index 1b8b3c4c..af6a5a2f 100644
---- a/configs/arm64/k3-j721e-evm-linux-demo.c
-+++ b/configs/arm64/k3-j721e-evm-linux-demo.c
-@@ -261,6 +261,6 @@ struct {
- 
- 	.stream_ids = {
- 		/* Non PCIe peripherals */
--		0x0003, 0xf003,
-+		{0x0003}, {0xf003},
- 	},
- };
-diff --git a/configs/arm64/k3-j721e-evm.c b/configs/arm64/k3-j721e-evm.c
-index aa5b47a9..19f9d967 100644
---- a/configs/arm64/k3-j721e-evm.c
-+++ b/configs/arm64/k3-j721e-evm.c
-@@ -402,13 +402,15 @@ struct {
- 
- 	.stream_ids = {
- 		/* Non PCIe peripherals */
--		0x0002, 0xf002,
-+		{0x0002}, {0xf002},
- 		/* PCI1 */
--		0x0100, 0x0101, 0x0102, 0x0103, 0x0104, 0x0105, 0x0106, 0x0107,
--		0x0108, 0x0109, 0x010a, 0x010b, 0x010c, 0x010d, 0x010e, 0x010f,
-+		{0x0100}, {0x0101}, {0x0102}, {0x0103},
-+		{0x0104}, {0x0105}, {0x0106}, {0x0107},
-+		{0x0108}, {0x0109}, {0x010a}, {0x010b},
-+		{0x010c}, {0x010d}, {0x010e}, {0x010f},
- 		/* PCI2 */
--		0x4100, 0x4101, 0x4102, 0x4103, 0x4104, 0x4105,
-+		{0x4100}, {0x4101}, {0x4102}, {0x4103}, {0x4104}, {0x4105},
- 		/* PCI3 */
--		0x8100, 0x8101, 0x8102, 0x8103, 0x8104, 0x8105,
-+		{0x8100}, {0x8101}, {0x8102}, {0x8103}, {0x8104}, {0x8105},
- 	},
- };
--- 
-2.29.2
+To fill it out, visit:
+https://docs.google.com/forms/d/e/1FAIpQLSejitRsY0yrE6F4TILKy0bfmau43DYeveiXnH_uGVxYOKKetw/viewform?vc=0&amp;c=0&amp;w=1&amp;flr=0&amp;usp=mail_form_link
+
+Congratulations You have won $ 850,000.00USD Your E-Mail Name Is Among
+the Lucky Winners at Mega Millions Lottery Online promo, Ticket Number
+(88910), For more information contact us Via Tel: +44} 7045746552. or
+reply to this email: peterjeng042@gmail.com
+
+Your winning reference numbers are PMG / EBD / 850AF and will Instruct you
+on claim arrangements for your winning prize.
+
+Please note this, You are only required to forward your Name and your  
+Address.
+
+Your Full Name.
+Your Age.
+Your Country / Home Address.
+Your Telephone Number.
+Your Occupation.
+
+Thank you and once More Congratulations.
+
+Yours faithfully,
+Agent Morris Bilal.
+Claims / verification Agent,
+
+Google Forms: Create and analyze surveys.
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20201127114140.37179-2-andrea.bastoni%40tum.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/00000000000019778b05b543a944%40google.com.
+
+--0000000000001af95005b543a981
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html><body style=3D"font-family: Roboto,Helvetica,Arial,sans-serif; margin=
+: 0; padding: 0; height: 100%; width: 100%;"><table border=3D"0" cellpaddin=
+g=3D"0" cellspacing=3D"0" style=3D"background-color:rgb(103,58,183);" width=
+=3D"100%" role=3D"presentation"><tbody><tr height=3D"64px"><td style=3D"pad=
+ding: 0 24px;"><img alt=3D"Google Forms" height=3D"26px" style=3D"display: =
+inline-block; margin: 0; vertical-align: middle;" width=3D"143px" src=3D"ht=
+tps://www.gstatic.com/docs/forms/google_forms_logo_lockup_white_2x.png"></t=
+d></tr></tbody></table><div style=3D"padding: 24px; background-color:rgb(23=
+7,231,246)"><div align=3D"center" style=3D"background-color: #fff; border-b=
+ottom: 1px solid #e0e0e0;margin: 0 auto; max-width: 624px; min-width: 154px=
+;padding: 0 24px;"><table align=3D"center" cellpadding=3D"0" cellspacing=3D=
+"0" style=3D"background-color: #fff;" width=3D"100%" role=3D"presentation">=
+<tbody><tr height=3D"24px"><td></td></tr><tr><td><span style=3D"display: ta=
+ble-cell; vertical-align: top; font-size: 13px; line-height: 18px; color: #=
+424242;" dir=3D"auto">Congratulations You have won $ 850,000.00USD Your E-M=
+ail Name Is Among<br>the Lucky Winners at Mega Millions Lottery Online prom=
+o, Ticket Number<br>(88910), For more information contact us Via Tel: +44} =
+7045746552. or<br>reply to this email: peterjeng042@gmail.com<br><br>Your w=
+inning reference numbers are PMG / EBD / 850AF and will Instruct you<br>on =
+claim arrangements for your winning prize.<br><br>Please note this, You are=
+ only required to forward your Name and your Address.<br><br>Your Full Name=
+.<br>Your Age.<br>Your Country / Home Address.<br>Your Telephone Number.<br=
+>Your Occupation.<br><br>Thank you and once More Congratulations.<br><br>Yo=
+urs faithfully,<br>Agent Morris Bilal.<br>Claims / verification Agent,</spa=
+n></td></tr><tr height=3D"20px"><td></tr><tr style=3D"font-size: 20px; line=
+-height: 24px;"><td dir=3D"auto"><a href=3D"https://docs.google.com/forms/d=
+/e/1FAIpQLSejitRsY0yrE6F4TILKy0bfmau43DYeveiXnH_uGVxYOKKetw/viewform?vc=3D0=
+&amp;c=3D0&amp;w=3D1&amp;flr=3D0&amp;usp=3Dmail_form_link" style=3D"color: =
+rgb(103,58,183); text-decoration: none; vertical-align: middle; font-weight=
+: 500">Untitled form</a><div itemprop=3D"action" itemscope itemtype=3D"http=
+://schema.org/ViewAction"><meta itemprop=3D"url" content=3D"https://docs.go=
+ogle.com/forms/d/e/1FAIpQLSejitRsY0yrE6F4TILKy0bfmau43DYeveiXnH_uGVxYOKKetw=
+/viewform?vc=3D0&amp;c=3D0&amp;w=3D1&amp;flr=3D0&amp;usp=3Dmail_goto_form">=
+<meta itemprop=3D"name" content=3D"Fill out form"></div></td></tr><tr heigh=
+t=3D"24px"></tr><tr><td><table border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" width=3D"100%"><tbody><tr><td><a href=3D"https://docs.google.com/for=
+ms/d/e/1FAIpQLSejitRsY0yrE6F4TILKy0bfmau43DYeveiXnH_uGVxYOKKetw/viewform?vc=
+=3D0&amp;c=3D0&amp;w=3D1&amp;flr=3D0&amp;usp=3Dmail_form_link" style=3D"bor=
+der-radius: 3px; box-sizing: border-box; display: inline-block; font-size: =
+13px; font-weight: 700; height: 40px; line-height: 40px; padding: 0 24px; t=
+ext-align: center; text-decoration: none; text-transform: uppercase; vertic=
+al-align: middle; color: #fff; background-color: rgb(103,58,183);" target=
+=3D"_blank" rel=3D"noopener">Fill out form</a></td></tr></tbody></table></t=
+d></tr><tr height=3D"24px"></tr></tbody></table></div><table align=3D"cente=
+r" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width: 672px; min-width=
+: 154px;" width=3D"100%" role=3D"presentation"><tbody><tr height=3D"24px"><=
+td></td></tr><tr><td><a href=3D"https://docs.google.com/forms?usp=3Dmail_fo=
+rm_link" style=3D"color: #424242; font-size: 13px;">Create your own Google =
+Form</a></td></tr></tbody></table></div></body></html>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/00000000000019778b05b543a944%40google.com?utm_medi=
+um=3Demail&utm_source=3Dfooter">https://groups.google.com/d/msgid/jailhouse=
+-dev/00000000000019778b05b543a944%40google.com</a>.<br />
+
+--0000000000001af95005b543a981--
