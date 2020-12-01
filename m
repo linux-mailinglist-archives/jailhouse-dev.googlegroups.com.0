@@ -1,193 +1,196 @@
-Return-Path: <jailhouse-dev+bncBCJN5Z66VINBBQUPTD7AKGQEWBJCQPI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJN5Z66VINBBJM5TD7AKGQELMK24PA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
 Received: from mail-lf1-x140.google.com (mail-lf1-x140.google.com [IPv6:2a00:1450:4864:20::140])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF0AD2C9B01
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  1 Dec 2020 10:07:14 +0100 (CET)
-Received: by mail-lf1-x140.google.com with SMTP id r18sf682575lff.18
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 01 Dec 2020 01:07:14 -0800 (PST)
-ARC-Seal: i=3; a=rsa-sha256; t=1606813634; cv=pass;
+	by mail.lfdr.de (Postfix) with ESMTPS id C1F762C9C97
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  1 Dec 2020 10:36:37 +0100 (CET)
+Received: by mail-lf1-x140.google.com with SMTP id o197sf729617lfa.12
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 01 Dec 2020 01:36:37 -0800 (PST)
+ARC-Seal: i=3; a=rsa-sha256; t=1606815397; cv=pass;
         d=google.com; s=arc-20160816;
-        b=txCrC6Y0INS16xMNTecs76R3il6WIknHZDo19d9fDUxAkBSax2kEoS86Be9iAOJjAU
-         QvXv7TFvFUeRX2/qCW4KsFPhQTaQOVTRPS/PjlDIfgejhUW0XkxShPYwOQrlY1C6/n43
-         HDu+AqBh3N3oAxE71mtT5dZzaXNXDeLQVDVTiPG8jVhXWjZRdMnxlGyMZHzuOfT+Ebnu
-         SMrKsh3rlYF/sH5nXkVzvK6cdHQKC2sBKdPdB4ywTu1beQtuVL5uG7YlksAhkpQKv+JD
-         QTeRhyHNTg74hSlMwfSyx8GooqnVH0+ebyQ6aiPRZ3j8YUevq2+8bO4u1+7sUHQXjNai
-         H0jg==
+        b=i5ALL2pC/1ZjeNygXIhPB0N6ABatmdRZcpdaVZ+Kre2t6XArD1lG0bZAYmyyVOxpZa
+         /YQcmA+s574+nP4JHrx0HC+N7gu3oswHZruUVgLfvWtNlfoDhnEZGkccvai8s96kERM9
+         6hc31yNfzYKOb9rMzSJS4+SNwJFj25uefw9p4NwAu1JPEgTQmN83vEYaHWtd9s4LdY+X
+         yXgjQB8i+S93Km0yUhnm5VN1ERTh836iDTphWf+SDtmRXeWc781Gjm9SdzJfsyQRpFEb
+         ZwNrF3jl3X/ttqF1Vk6XsJXgIS/tDC+BTRAf2VVW1XigUS/2YqfhkDjrU50Db0j6Scli
+         t7+g==
 ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:to:from:sender:dkim-signature;
-        bh=ImYuaj2dbFM/uvJnmOfY2StF/a+Iqsm2G3m3NNSJ5Ls=;
-        b=AhM2n1ZJWeY8k43YkyTi5xYZqrYiy3PqTGOSp3wtCcsMdpkp0Ta58+Orww26UuVpUC
-         gVdrdY19+nN5gvdURqErM7uxY3BXaXZObdEQl+B6aGmupQ67TvzSKi1aJGLx+4c1H3JM
-         9ZUEza0ehyKVMxE9oqn6gm0RD/3q8UO8N2vegGTq+Nrfef4RH4Ufnz5Jse9/lsazurDC
-         Jgs+Dvv/uqY15BlZkUpkdhOC/bNFLDeflJQnEPDl4ZaNi3BvNEFWA1DmP0WtTBqZJeUX
-         n+99UkPu97i2F09BFY1WiuNUKwkZhJrAZvZGPsw326OV2hp87KACAUdMapB/gq2Syoq7
-         JSoQ==
+         :list-id:mailing-list:precedence:mime-version
+         :content-transfer-encoding:content-language:accept-language
+         :in-reply-to:references:message-id:date:thread-index:thread-topic
+         :subject:to:from:sender:dkim-signature;
+        bh=7XXZTr4hQlCLueAg2GAUsYeuQBJ1XBAJvfAoKyVEEk0=;
+        b=GRat/R475GFeKFFdjfyzisAz2CweV0c0woaW2Q3Go6bfuAXtX9oggYRRR2eVw2wldf
+         /PcMEcQ3K/w1jy8ONwhF1uiah33VviwO/U9nEIv4SwcWaspxXyf99VrhTpMqiJXF+pDx
+         +LHzCWXLW1YuVjhka/y0wnPsRIymIa/BiOTx8KXmDyys+36RTjYMRrVedvgy1fhp0zFE
+         X2JBQJGzG7RFo+ZnmLRLRkraHQGC619KdM4F0XclYx8B9A3T4YbaifrGYnp2lZ13CKwW
+         ZeOzY5PpL93DYAPxpZb5Cvuh5W6IJoZ/fFSWsOalomq+r8AMAlSUgQ+d+wKXcZp2MLDY
+         EUPQ==
 ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@ikerlan.es header.s=selector2 header.b=Lsbr1HFk;
+       dkim=pass header.i=@ikerlan.es header.s=selector2 header.b=dxKpbp4q;
        arc=pass (i=1 spf=pass spfdomain=ikerlan.es dkim=pass dkdomain=ikerlan.es dmarc=pass fromdomain=ikerlan.es);
-       spf=pass (google.com: domain of msainz@ikerlan.es designates 40.107.9.123 as permitted sender) smtp.mailfrom=Msainz@ikerlan.es;
+       spf=pass (google.com: domain of msainz@ikerlan.es designates 40.107.9.130 as permitted sender) smtp.mailfrom=Msainz@ikerlan.es;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ikerlan.es
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:from:to:subject:thread-topic:thread-index:date:message-id
          :references:in-reply-to:accept-language:content-language
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=ImYuaj2dbFM/uvJnmOfY2StF/a+Iqsm2G3m3NNSJ5Ls=;
-        b=SL6I0nMrABiXcQ5CV4fpysWCfkUYPsonW/seKIseWDiAGNDN6eztzFTIuANFq52rnv
-         S1BGL3ko/NixLNrn8DrzpFCSDFtIGufGLO6nYQHffGHliBP7q5kM0Hz9nb4Q3NjYk+y3
-         rtR1bs+FQWcvHbDf1RWPSvm4z+Z3WPymp6479trOd37Ic2k78PQml1PzXEbOhTtAkCMF
-         p01/hjp4/BJLC8+lqY5dlhf5Yc2ToLuMJkabhIF/i468TVtZuwNStxU8NrArZvXLfdPN
-         nG0XkhtWjqomCVMs2clfUtoA0z5SNYSuekb9FBNgVCzyGKvXzGlneOEl5ynHxq7v6wya
-         bT5w==
+         :content-transfer-encoding:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=7XXZTr4hQlCLueAg2GAUsYeuQBJ1XBAJvfAoKyVEEk0=;
+        b=fvyB3uBJ/Zw3O2QOyCuVw67tG9Tvdn6weYFiXa83+pPrBfMNJG/ghXGVMTGqmM8VYB
+         93oYRR4F1imIrK9DE9yuNrHHKYCz7seMQjwmTyvNFi9CBDnijMXTf9Ix1DrfYqY6e6gS
+         nzVOKyVPgt+WeZR0s5h9RJAEWyQ5aGsfPzzkW8rtcg9ZR21G3f2NpKSpxOewRT0FrWYZ
+         n88iCbs0cpfdplwNRESk1YJVycsP7lCkmjowrJBPIx98p21NObz/AClc8LxA05sEbinj
+         jelz9ShjXopgG/HSNCFcZMrZ5TyTJV5kYUEnTj+XlCroxudRbn1WhTt3RStJEfJBMGX9
+         iZbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:subject:thread-topic:thread-index
          :date:message-id:references:in-reply-to:accept-language
-         :content-language:mime-version:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=ImYuaj2dbFM/uvJnmOfY2StF/a+Iqsm2G3m3NNSJ5Ls=;
-        b=UD2vtDmnAjguyNWBgUW/5mTyjckFrnn8vxG8gdzsKDPxuui+Dr9wHaoqbmH0bqymDt
-         Vp14kTLliAS7D2/cKqOrhlvywc818CJhiNhPfH3CvMRjpjbpoQRS1VWXekhpsGCA75pD
-         FeMmrvZrgXT8njnbMW6GGKxNTlgpikgk+DCQBsQxoFlODEESHAHNUmQyOoUq1EKKdy/C
-         VoeBY7+NoprfZuoerdBvBh9TC6GxCPwLSFYtFIJmUX2vXfsNIVF4K0ffyd842hE6G0vq
-         BzBMpK9k3kGSt865h8YkR+IQQyZZLLlnOSzPuDHSc/b7KwvhYaBNyoLpKuh+JRm2jjU7
-         p58Q==
+         :content-language:content-transfer-encoding:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=7XXZTr4hQlCLueAg2GAUsYeuQBJ1XBAJvfAoKyVEEk0=;
+        b=ZbSYGJvzpS1MGKeySm48UE6fJGoafku7msmH3GNqITRWE6eJvp7ai1h+1FZPUiWsjO
+         KDbCjY66S62bsFgifPJLu67vvpqLCC6rDbP8bIKtgz6WH5h4ZIiq/tFpAiygerJkMmlt
+         ICW2oZBtOsSVRHiTqhPf9yi0f8FhUGiYptBoPqJXEV8iqYSE16E36ATStQAPSSQiK3Do
+         q9fTV7rhJZskoX1I3peoif9/iGZZu5TKn5R2sOJtfJpIA2exv7UGXFyowZKoD5KIYHvw
+         TAOaQkr9YzoCHTynZBlMCzIXwaRcJ+Q2L2PzLf3qttYWThN2ibgaQZ6L8U830bQKAkU0
+         6LNQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532xWGfymdXaanXBRrZq3mtcoNLpOdQiYLH5oJCVR3akyVKnGpAl
-	316qqYuE0tAqDil/BO6uHKo=
-X-Google-Smtp-Source: ABdhPJxteMxemlSlvUXOVC5RC1yexh4LOBvk44jVUpGHCvwGJkFpaliz2CrN+p5idgkGg6siADaQoQ==
-X-Received: by 2002:a2e:84c7:: with SMTP id q7mr807679ljh.415.1606813634314;
-        Tue, 01 Dec 2020 01:07:14 -0800 (PST)
+X-Gm-Message-State: AOAM533vmQLuOF5gdHnykQHJndk7zmJAei2zXDRN/LZR74FgX2uljle+
+	GVePfbroFktRWszuNuvWH28=
+X-Google-Smtp-Source: ABdhPJwnHC6Y98l1pYNmbY5YKyXa2kmLvif4jwgjBFeNIXsePKgloXYtpgB8kE2+kUaVECXV05JiAQ==
+X-Received: by 2002:a05:6512:328b:: with SMTP id p11mr772126lfe.446.1606815397351;
+        Tue, 01 Dec 2020 01:36:37 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:bc2a:: with SMTP id b42ls209284ljf.2.gmail; Tue, 01 Dec
- 2020 01:07:13 -0800 (PST)
-X-Received: by 2002:a2e:9617:: with SMTP id v23mr857138ljh.135.1606813633245;
-        Tue, 01 Dec 2020 01:07:13 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1606813633; cv=pass;
+Received: by 2002:a19:d0e:: with SMTP id 14ls983860lfn.0.gmail; Tue, 01 Dec
+ 2020 01:36:36 -0800 (PST)
+X-Received: by 2002:a19:d14:: with SMTP id 20mr800111lfn.87.1606815396264;
+        Tue, 01 Dec 2020 01:36:36 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1606815396; cv=pass;
         d=google.com; s=arc-20160816;
-        b=kPifmwztlVK9WwN1aqRnYNWfSlLxTClc5hDpBNAry3Bz4CpEjzO0x8jBE1mSIYeQov
-         Qj2OyL39ozmQwYRT+c2OYNU/TXtoAp2iDiw+G0q8kbD53Yzz6cKCh4rw51Ll1ZNx+pR9
-         P66G/3TOK0CXDiNqIp/n9PWndoYCzP0pbYXrCX4tpo2611FvH601OWbonoYh/dqtCiPk
-         O/lKscntc4iF2CowMA3Td34mD0iVnVOzEefSQapQwiO3noRuoEDli5tOKZw494RsDM0V
-         45Ll+TMtXv99XBiKLMKd1xphoRH3hGyIj0WiepYPgduDCWnaohr8koB6k6ilEKn84USw
-         bbCA==
+        b=URMyMXpti9BjMIY/OcW5BqZTqj/rU4fwdpWK7/kssIdFAxlEM+XNzGT3KRNHKibrzL
+         QwzoHU/lxGAXg/cANE0IaT+uxRAnxNKU1AvUERsPzb6rJl7DYVBLuArfPorUU5cI3qri
+         NqmoQzbIXE35K0d4KtC9MT+MjBuC88U1N/l8ezPcxZIVklh78A6TUTPNfoK3jFGs4cFZ
+         2myZFGSNIah6h7GQb+W6KR5nwNSoDVQPfItxRfNLVKM7QRxqaFNvPxjqzSAbcs21ua0B
+         9zIMAwehgKcHCLEpdXC818hnnb147VYsDH6EL6SHEZ8Fgl8dUdNjXi/HzogluZL9Jw07
+         D7tQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=mime-version:content-transfer-encoding:content-language
          :accept-language:in-reply-to:references:message-id:date:thread-index
          :thread-topic:subject:to:from:dkim-signature;
-        bh=9OCxObb+97jr9Oue1cqATBOMJaQplL+C2QQXpIjmQmk=;
-        b=bTj1AW0YRsauTPZxPUCZDmbiGY2CBsRY92nEkQgMyx+ZGQTAOaNo96eYPrbyvKxg9q
-         Jm6arUr/pvoMK32gwfqnWnn6AlvgmU/hPQr9pMnZo8J0/EBgNpbBLQ/l84VtyfFds3Bm
-         3PNGz19jAXwXWgXC7ApnsihTabaHzKigR0HvZlSz2Fskz3/Lg/bEyygavHoXGdyAaAI+
-         D2VNRotIZWYGqqdBu1n4xPKK1PlaAAn873tyZ7ejERz1OiGBlwi/YO8zxV19L+/CDYSE
-         1C4+bAEHQi5ye8eRXpHX6/Vbfl/fvddvMwt1PMxiUoydc5FprvwnSQLpS6yKdzcMIdlp
-         1Iyw==
+        bh=bpEIz+0W7Dghlo7y7zhnFUj0GoWHXWa6Qxp4aSA47hI=;
+        b=csUFxb9CZ0PX4BDyF3fMeKO3C7W0GA9ls/oYFDdt8QuFwtjpwA3aBnLglE3QQC97ZV
+         fcbO66e0W3wpbQSOto4c4tkkdA2sV8OxjT79KOcGqN9ZmWmMGuhkHNzlpO8E/ghaZryL
+         GU1g9K6PjXbUIqCj8NxTF+7h6OI6dALeH8zWv/FogosrdPKcwQJUe2CdcHzgiHaCrvZU
+         1ix+/5zAufhbqQ0mSv4W+fLbT9JYsCx6hb960bw131DDJ1AsP2v+p3CTf3XpR6N2jvJa
+         LPumQGNLzkenDvCCpm4APxviL1Srw9zWLtmbrldNk07eXLUFYZMs0hn4+CcIUdAMKHX3
+         2UTA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@ikerlan.es header.s=selector2 header.b=Lsbr1HFk;
+       dkim=pass header.i=@ikerlan.es header.s=selector2 header.b=dxKpbp4q;
        arc=pass (i=1 spf=pass spfdomain=ikerlan.es dkim=pass dkdomain=ikerlan.es dmarc=pass fromdomain=ikerlan.es);
-       spf=pass (google.com: domain of msainz@ikerlan.es designates 40.107.9.123 as permitted sender) smtp.mailfrom=Msainz@ikerlan.es;
+       spf=pass (google.com: domain of msainz@ikerlan.es designates 40.107.9.130 as permitted sender) smtp.mailfrom=Msainz@ikerlan.es;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ikerlan.es
-Received: from FRA01-MR2-obe.outbound.protection.outlook.com (mail-eopbgr90123.outbound.protection.outlook.com. [40.107.9.123])
-        by gmr-mx.google.com with ESMTPS id h19si58670ljh.7.2020.12.01.01.07.12
+Received: from FRA01-MR2-obe.outbound.protection.outlook.com (mail-eopbgr90130.outbound.protection.outlook.com. [40.107.9.130])
+        by gmr-mx.google.com with ESMTPS id b27si35637ljf.8.2020.12.01.01.36.36
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 01 Dec 2020 01:07:13 -0800 (PST)
-Received-SPF: pass (google.com: domain of msainz@ikerlan.es designates 40.107.9.123 as permitted sender) client-ip=40.107.9.123;
+        Tue, 01 Dec 2020 01:36:36 -0800 (PST)
+Received-SPF: pass (google.com: domain of msainz@ikerlan.es designates 40.107.9.130 as permitted sender) client-ip=40.107.9.130;
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lb5DYSi26oIc8FgkS+dewcLQZgoMTM2jGSM2+1A5jkuTnQn0AwI+YYxsP+xmRIczDXglpR8HBEG191X7IZvrozl8MiRPvcfGKDfnhRZNSbWO12+KPmtIVXDxvxKK0TxCEuLpbu74htvLhGTs5joLMfjUJ7SeAe+Dsp4PMImV0fl6ucoNErg30FWwuGS7fmwTh7Vrv9g174jqDK8brKeaPmRjOz1Z8/jCjUzvG00ycOfiZRDiB0Tj0zmclQTHH/Sfqlll5fO7/wKaWt8MQu0tfLztcuF8Z87i0e+PgS+aE/vfeCN00oSJI8ydFCNWmilQwaSxdg7pVha4mbzEaUgDMA==
+ b=iBRFofKyYbNTnyYsq4+X3xc6C3618zufahDM0j09Ym81bDPO1CeVlRvAOXCjAf2eWtLQV0rQgQacFh2h1AtkcUHIgX8XtoCIajXGpg4936lDimIRjbI+KWlBfuan+NeES+nZwaU2uxRazvTsYv+ahviWS2VDwD9fj9c0qNHhS01PNOtEmeqz/RKPU2n1R80wI/811pF4Ll3lDo6qXpS5wPFC5P8BW50UpAm6eRMEu4XxaUyyJnF9BMKI90/BhEiDa0Z2ObIoRDNLiSPfhStGcUco5DaSgLWlyOVWvcuZBIH8JPv/9tBaxoWv4LsfzL5EOjGCl0XnZMptw72ASCg4ew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9OCxObb+97jr9Oue1cqATBOMJaQplL+C2QQXpIjmQmk=;
- b=IbU1EThlSAc0AAHETODG4hXo98cnZ7WQQ94YmddIzuoVttfi7rjxujOL1Tcc7XaNbNSC34JkvWQr80lVoYnX9m9tG7EXmmgevf1Cm+LZYLBESCLAcKxQJxN6qBdWxV7cJqcUWIUF0hAXks/gK+Qca90Uo4Z8Crg8omgkti3rTPkD1TJa+ocEsNTDmuGpt04CJOXJEKty4GvrfdNZcCW55NcdFMKY+QQw0Y7C43G5CNJ7rm4PM7GMDH1g6/KnLXAIzAdcTjXqZ2VeCubOirYKI5wRpVV6OghK3kqpCU8QhHDnH5b3BXZC1fR3hwC1Vhzu5SFX3Nzu3In6CEywq+jhUw==
+ bh=bpEIz+0W7Dghlo7y7zhnFUj0GoWHXWa6Qxp4aSA47hI=;
+ b=KYyxsGl/Z+HIFGRSnsP4qpJnMwmxb466eOgJdcC5g0wv66KBnncPTR30Rya5vmzURmCXUntzNabjoePqVSzsrhEgI4nGApUbrR/CPmsPA9GGcmC5eAEQssAZCK7Ylriypl375Yh2GFfzhV4QyyR6MtLMd1dt2n3MIVTzcDjrgHs15g1L0ch22u7Z5sUFK20/YYGnv9vAyI05fh4qO4l87BaI3tqi6Yaas5ZHqXEY7L+MY3TEdAvgfPoVlw+ql2qrQsrPhVUMnTfTTXoOK97YOrpbM54sLY6r+HnREKhbg3QS6j1jFfuD02KH2ctBo9nq6zgXBe7jmPawUvUD38xrLQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=ikerlan.es; dmarc=pass action=none header.from=ikerlan.es;
  dkim=pass header.d=ikerlan.es; arc=none
 Received: from PA4PR03MB7184.eurprd03.prod.outlook.com (2603:10a6:102:106::13)
- by PR2PR03MB5339.eurprd03.prod.outlook.com (2603:10a6:101:19::23) with
+ by PR2PR03MB5450.eurprd03.prod.outlook.com (2603:10a6:101:28::23) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.20; Tue, 1 Dec
- 2020 09:07:11 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.25; Tue, 1 Dec
+ 2020 09:36:33 +0000
 Received: from PA4PR03MB7184.eurprd03.prod.outlook.com
  ([fe80::e85e:1f1d:9e71:5cd7]) by PA4PR03MB7184.eurprd03.prod.outlook.com
  ([fe80::e85e:1f1d:9e71:5cd7%6]) with mapi id 15.20.3611.025; Tue, 1 Dec 2020
- 09:07:11 +0000
+ 09:36:33 +0000
 From: Sainz Markel <Msainz@ikerlan.es>
-To: Jan Kiszka <jan.kiszka@siemens.com>, "jailhouse-dev@googlegroups.com"
-	<jailhouse-dev@googlegroups.com>
+To: Sainz Markel <Msainz@ikerlan.es>, Jan Kiszka <jan.kiszka@siemens.com>,
+	"jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
 Subject: RE: JAILHOUSE_ENABLE: Input/output error
 Thread-Topic: JAILHOUSE_ENABLE: Input/output error
-Thread-Index: AdbHtiGRUAQsxEsASE+5aK3baCkPlAACrWCAAAAQERA=
-Date: Tue, 1 Dec 2020 09:07:11 +0000
-Message-ID: <PA4PR03MB718436DFE4DECCCDA1A7DEBAB6F40@PA4PR03MB7184.eurprd03.prod.outlook.com>
+Thread-Index: AdbHtiGRUAQsxEsASE+5aK3baCkPlAACrWCAAAAQERAAARHbIA==
+Date: Tue, 1 Dec 2020 09:36:33 +0000
+Message-ID: <PA4PR03MB7184E05AA2075FBE9EE0F931B6F40@PA4PR03MB7184.eurprd03.prod.outlook.com>
 References: <PA4PR03MB71848B9D591CE51C322E5F9DB6F40@PA4PR03MB7184.eurprd03.prod.outlook.com>
  <e4361d78-779d-dcfa-da6e-fcb8ba4476c9@siemens.com>
-In-Reply-To: <e4361d78-779d-dcfa-da6e-fcb8ba4476c9@siemens.com>
+ <PA4PR03MB718436DFE4DECCCDA1A7DEBAB6F40@PA4PR03MB7184.eurprd03.prod.outlook.com>
+In-Reply-To: <PA4PR03MB718436DFE4DECCCDA1A7DEBAB6F40@PA4PR03MB7184.eurprd03.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: es-ES
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-originating-ip: [193.145.247.253]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 1b801fe9-5b59-43e8-1d37-08d895d87cc6
-x-ms-traffictypediagnostic: PR2PR03MB5339:
-x-microsoft-antispam-prvs: <PR2PR03MB533987F1149811BAE6599A77B6F40@PR2PR03MB5339.eurprd03.prod.outlook.com>
+x-ms-office365-filtering-correlation-id: d0b3b60c-1490-4d64-d8d8-08d895dc9755
+x-ms-traffictypediagnostic: PR2PR03MB5450:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <PR2PR03MB5450AB009B8163E59661F8C6B6F40@PR2PR03MB5450.eurprd03.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:7691;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: o1dqqfpD6n/wBe0S2BvfWwSdDm6IDKcNgZtuuBMNZamdbt2jVDaf5R+gR9RBOZUb++uQEMw4FXdFVCm6yxTXnt09we/1HinGNBpAE4Gkja9T8A46+OWoxpKC6uAnh3VgfewaKk7FwZ31BgXDCTuPMNAFVIV05Wmz/FPP/xRJCSplqH5rRgch2Hd5zziRYun57C9VX+Ce8emZZGgEcVDn89lHWEd0opOx3JiXsOafiCdroDjlnMr8b6nqYnuSoj2XYJlsLjY0zrsJxBolIVcrEEULh67pYtmtNAlvNfBwp/1x+r10Iq0NV+yOVwbPkyes
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR03MB7184.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39840400004)(376002)(346002)(396003)(366004)(136003)(55016002)(5660300002)(66446008)(9686003)(6506007)(53546011)(71200400001)(66476007)(110136005)(66946007)(316002)(8676002)(66556008)(8936002)(64756008)(478600001)(76116006)(186003)(33656002)(86362001)(26005)(52536014)(2906002)(7696005);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata: =?utf-8?B?TkRocU9RNmFSU0p4SG5GdldQSUtBamR2bUpLaXZ6emNlbC94cGlGcDBvT1JH?=
- =?utf-8?B?RWlQaHVBUWUvQUNwY21KbFJqa255MjV6eGFXamE5eGhFM2RnK1o0aXZ0K0NX?=
- =?utf-8?B?OFluQVdQcDduaGRBc1VSbDZlamE3VTFZd3BRZmIvQ21jeURRckNYQ1lQeGo1?=
- =?utf-8?B?MFhudGdlcFRRRmZMVFIvSVdtT2U2UE9pZ0FSWVQzOGM0dWE4dGpCTHhiM29u?=
- =?utf-8?B?Q2NzQVNyTTlBTjQrN09MN0tLSTJjb1hjTnJNMzJHOERzdXlUQjFiZXlYdmlx?=
- =?utf-8?B?blZPNmk5UVV0SHZjZlRUSEp2K3dGQ3dFSHZRRUFTQUNRNWEvSUtsVUdKRVJy?=
- =?utf-8?B?QWJuRXdrZVNqdmh3ZG5yT1ZIc2lQVUg2Wi83Z1AzV1A2ZDhHb0FJODhoV2F3?=
- =?utf-8?B?aEh4VWNHT3pCNzFqNFA4SVBsemhNS2Ivc2RPbU5KZlpITWRYcDI0WkplWTl3?=
- =?utf-8?B?UG1XUnZSQ01wWWNXbTlFSFFad3FDYUVCQ2RVMGZoMFNCRmZHbUR5cVF1MzJP?=
- =?utf-8?B?azI2MlZGVUxOQTVvVHgvM3BLVFFCNE9BSUpIb2hzUVVQMktKTjFkQVZsOGw4?=
- =?utf-8?B?UWNLTGQ4UDJFSk5NWmtGa3R3L3RIeURxQis0aHJiRVFGMk5NaWhSTHRGY25w?=
- =?utf-8?B?azQxU1FiRk9WWit6czJDaGx0L29QelhwVENnLzJZUTg2T1I2NWlUTFI1dWdk?=
- =?utf-8?B?em9rWFJNSVBmRk82WERKVWJoRTNKMlJRTUI0S05LWUpxUi9lUXIvTFlteDQ0?=
- =?utf-8?B?NzRsTnA2SnIvd0lCZjNac3BrOE1NblBRZGUxd0kzQTByeU9ibnlDcDhhSXZD?=
- =?utf-8?B?TytZUVRvK0Rab1pnS3ZFVzZTQnhXcE9QNHZ1RkpBTzdFaTErbHhJNnlvMEZn?=
- =?utf-8?B?azhsSEpzTzJWUXdBSkVRaUhlWTlOWTlYNjhRTEowTVRnTW1UOTQ4cTVmYXdx?=
- =?utf-8?B?SWtOdHVCSnRMaWczTEhRcVJkMzNsbEJwZnlCb0o1eFE5WTJ4Ulk0NjgzQVR6?=
- =?utf-8?B?d1BKdXF6Wk5wa29JN012ZnVqVW0vOHhQWkgxNFlhTTRjRVkxZWdZWVhVVXpF?=
- =?utf-8?B?T3RqTFRHby9vZUdQSThkOWkzMUE0Y0x5OWZOMHdxVmdibjQyR0FPenF2TUNw?=
- =?utf-8?B?OVlvblQyM2hzYjMxNW15QW1ZV2trVXlXM0JsazIzMDEycHJrbC9hSXRzb1po?=
- =?utf-8?B?UGRXTFlHRnE4REp3YUVhcEFCOW1NMktTZlJpWFNqNVNNMDVIZk1GVEF5alU1?=
- =?utf-8?B?aXRXd2tSUEhZVzBQNHpHeWxXTnl2Mkk3Y1hDSFhxNmc4eEVybE56ZW9jRUdZ?=
- =?utf-8?Q?IQId8Nemj7w1I=3D?=
-x-ms-exchange-transport-forked: True
+x-microsoft-antispam-message-info: xVy3Ocn7H7KnMdS69k/HD0cu/6VKQkakKxI1o1YPJnycfHcb0HT2/1ePaLL80JCZ5moOH8nYeZliq8kO9wTEz7+yDTKmHgCrjyrajgOtFw/mo9yTlmY1A8tW7e9r8RiuJvi/SmyRGHA+3wCx3fCQ2RMugayEb16qqOE96Nj+Tnboasxr+lnG+HtTmbNvojBCsSike6BibcztFYmfu3YQJ1fwoD8+tnX1J5or2al/jH3X18CMsLvjUIEn8so/fWIj6Kimc0DYfohJdjg7ijkIm0XVejA1ir1Z4AWVb2qh5FKDjE92thItm4jZQ3sHmgPvdKJxwvA/dhyQKG4KXeti9N2FBuune0BOa9nk/Y4JNT+i+tIRHC6pmi0CCCI1V9/x6pYWXaD1Hbb5iULp1fhRIQ==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR03MB7184.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(376002)(39840400004)(136003)(396003)(366004)(478600001)(8676002)(71200400001)(5660300002)(45080400002)(86362001)(76116006)(66446008)(52536014)(83380400001)(64756008)(66476007)(66946007)(66556008)(966005)(2940100002)(33656002)(7696005)(110136005)(2906002)(6506007)(316002)(53546011)(9686003)(55016002)(186003)(8936002)(26005);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata: =?utf-8?B?UFBCT1Uvamp3YXRnUjN6OVFpK1RKZ041NjgxQ3FDWWNUV1YxZ1hJSWZGUHlU?=
+ =?utf-8?B?bGJPdXZ0ejNNT2Z5NGI2U2xNQzlVSE5pdFpocE1BMVBLUDJmNUQrUko4T3Vs?=
+ =?utf-8?B?c3J3b1hqeC8zMTVzdXpTdWh1VlVyeVVLVFhKUmhOVFE2cWh1TnVWZ01hVG1F?=
+ =?utf-8?B?c3RuWndJWjZ6OHVxNFZIeUgvajg4SmVHV1BORGhzVUhyVXl2ai82Z3dDLzlX?=
+ =?utf-8?B?ZlB1akJqUmZuLytvSHhWclpIeUV4ZW4wdGF2eHBHc1dGU0NiUVB2L1Z6UkNS?=
+ =?utf-8?B?NjdqdkxZYm4zRHpBaXF4aEFSdEFpVG56ZmlvY1dGVUZ1STNkTUdRQ3hiblQy?=
+ =?utf-8?B?WTR2OW1mV1FKcE55QXlpdi8ybXE3eVZpLzVwbTliM3pKSWZFSXV5ZW9Bay8x?=
+ =?utf-8?B?eWR2V3VYbUVma2p0Q1dtdTQ1ZlFHV1hiL0NPRVVxZHgvU0diYWtwellQZnBm?=
+ =?utf-8?B?Mm1qMTM4bVlSMjdjWFpNQTBFRlc4emY4WkVyUlpXV0hsMVJZWmZQaEFJbkRQ?=
+ =?utf-8?B?RUNkcnZVVkJ4QlROMXpKUWNXTGlnVGJKcDNJRGtaYURkYmxBTkN5TUVHWG5J?=
+ =?utf-8?B?V2N5QllHTHFYWVRXV1FQSHNhRXFxSUpkcXlyTzZES2lobkR0dlZWWml5SHVE?=
+ =?utf-8?B?Y3lGNmdqMXRCN0RJV2FpSjhrTXZoVDZYNU5kYndOZUh4Yi9aVmlEait3c241?=
+ =?utf-8?B?eE5aekdzZFpjbkllQUtmM3Y5V3JmQkQ2SnBRZ01RRnFBTERjWmxZbkpKYlhP?=
+ =?utf-8?B?ZEMxM29nS1k5eEI4bUxKdHZ3V1YrR1o2L2FxUmsrZitUdE1nVVNoN0lnYkVa?=
+ =?utf-8?B?MEdCbnM5V3c0VGtvNEJEbEZZSHNuR3JsRm9LQjRLeDZwb1JqUmxRRThXME1S?=
+ =?utf-8?B?TFRnQjZSdWpjWHpacG1HNVRObm5qNEt2WlYzQ0haTWNzOW5VUHRObnNici9k?=
+ =?utf-8?B?YTRiUUgwRnJOdjcrL1BBcERPaTlWOVlpdHJ6cy95T3RnbWM0ZHBzK2NUdkEr?=
+ =?utf-8?B?dVVORnpGL3NCb1J1aDd4bEx4ZmN5eERDcFlwWldHQ0VyWGVtZlBkRmJQTWpI?=
+ =?utf-8?B?VnlTL3Z1dzkzY2Z2RDhvOVFaWU5BSlcrLzFFV2NkR2VPdUtqZ2ozSTduKzZO?=
+ =?utf-8?B?R3VzUkMvcGI4RmN6REpGZGFFWWtreWoyc2hucHdnMkt0YlQwM1U1dDAvaURu?=
+ =?utf-8?B?K2cyZ1BRR3NLZFkvcXFyM1pBay90UUNjMFhFNkwzZ1RQVGQ0NXhCM3BqdllD?=
+ =?utf-8?B?Z2hlTkNwak1qeHhXckhaSjB0R1VCMWlrazlaSExMNWpVbzBZYmFUbUN1K29h?=
+ =?utf-8?Q?mmUSclf2tcVT0=3D?=
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: ikerlan.es
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PA4PR03MB7184.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b801fe9-5b59-43e8-1d37-08d895d87cc6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Dec 2020 09:07:11.0513
+X-MS-Exchange-CrossTenant-Network-Message-Id: d0b3b60c-1490-4d64-d8d8-08d895dc9755
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Dec 2020 09:36:33.6637
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 910ac815-f855-4a08-bf29-90b46552cf11
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: f18/0T7ZAZgzZRGp+1rG65QYOTteL/LpvTpBkmHxtSTltS3q8L5UTF7CCzF8MjkPWwiC+dykspYEnpGK80kRaQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR2PR03MB5339
+X-MS-Exchange-CrossTenant-userprincipalname: MKQnNEHL0UIw7m6kLDjv3lQgede6KcVI0mbJ56TRiiFfEpgd8P53u/Yy06zQTzt9ovIK/VJXE2EhHzDwy0JtoQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR2PR03MB5450
 X-Original-Sender: msainz@ikerlan.es
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@ikerlan.es header.s=selector2 header.b=Lsbr1HFk;       arc=pass
+ header.i=@ikerlan.es header.s=selector2 header.b=dxKpbp4q;       arc=pass
  (i=1 spf=pass spfdomain=ikerlan.es dkim=pass dkdomain=ikerlan.es dmarc=pass
  fromdomain=ikerlan.es);       spf=pass (google.com: domain of
- msainz@ikerlan.es designates 40.107.9.123 as permitted sender)
+ msainz@ikerlan.es designates 40.107.9.130 as permitted sender)
  smtp.mailfrom=Msainz@ikerlan.es;       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ikerlan.es
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -201,33 +204,62 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-I did not. I'm running this on a busybox based Linux. No Python installation possible. I'm going to check the mentioned docs, any other output I could upload for you, not dependant on Python?
+After compiling with the suggested flag, the output of the enable command a=
+dds another line:
+
+~/jailhouse/configs/x86 # jailhouse enable sysconfig.cell=20
+
+Initializing Jailhouse hypervisor v0.12 (197-g2f52a11d) on CPU 1
+Code location: 0xfffffffff0000050
+Using x2APIC
+/home/msainz/Projects/jailhouse/hypervisor/arch/x86/vmx.c:238: returning er=
+ror -EIO
+JAILHOUSE_ENABLE: Input/output error
+
 
 -----Mensaje original-----
-De: Jan Kiszka <jan.kiszka@siemens.com> 
+De: jailhouse-dev@googlegroups.com <jailhouse-dev@googlegroups.com> En nomb=
+re de Sainz Markel
+Enviado el: martes, 1 de diciembre de 2020 10:07
+Para: Jan Kiszka <jan.kiszka@siemens.com>; jailhouse-dev@googlegroups.com
+Asunto: RE: JAILHOUSE_ENABLE: Input/output error
+
+CAUTION: This email originated from outside of the organization. Do not cli=
+ck links or open attachments unless you recognize the sender and know the c=
+ontent is safe.
+
+
+I did not. I'm running this on a busybox based Linux. No Python installatio=
+n possible. I'm going to check the mentioned docs, any other output I could=
+ upload for you, not dependant on Python?
+
+-----Mensaje original-----
+De: Jan Kiszka <jan.kiszka@siemens.com>
 Enviado el: martes, 1 de diciembre de 2020 10:04
 Para: Sainz Markel <Msainz@ikerlan.es>; jailhouse-dev@googlegroups.com
 Asunto: Re: JAILHOUSE_ENABLE: Input/output error
 
-CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you recognize the sender and know the content is safe.
+CAUTION: This email originated from outside of the organization. Do not cli=
+ck links or open attachments unless you recognize the sender and know the c=
+ontent is safe.
 
 
 On 01.12.20 08:48, Sainz Markel wrote:
 > Hi there,
 >
-> After being able to resolve the cmdline issue, the following error 
+> After being able to resolve the cmdline issue, the following error=20
 > comes up when trying to enable the cell:
 >
 > ~/jailhouse/configs/x86 # jailhouse enable sysconfig.cell
 >
-> Initializing Jailhouse hypervisor v0.12 (197-g2f52a11d) on CPU 5 Code 
+> Initializing Jailhouse hypervisor v0.12 (197-g2f52a11d) on CPU 5 Code
 > location: 0xfffffffff0000050 Using x2APIC
 > JAILHOUSE_ENABLE: Input/output error
 >
 
-Did your target pass "jailhouse hardware check"? If so, enable
-CONFIG_TRACE_ERROR (see Documentation/hypervisor-configuration.md) to
-get the origin of this.
+Did your target pass "jailhouse hardware check"? If so, enable CONFIG_TRACE=
+_ERROR (see Documentation/hypervisor-configuration.md) to get the origin of=
+ this.
 
 Jan
 
@@ -235,7 +267,25 @@ Jan
 Siemens AG, T RDA IOT
 Corporate Competence Center Embedded Linux
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/PA4PR03MB718436DFE4DECCCDA1A7DEBAB6F40%40PA4PR03MB7184.eurprd03.prod.outlook.com.
+--
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://eur02.safelinks.protection=
+.outlook.com/?url=3Dhttps%3A%2F%2Fgroups.google.com%2Fd%2Fmsgid%2Fjailhouse=
+-dev%2FPA4PR03MB718436DFE4DECCCDA1A7DEBAB6F40%2540PA4PR03MB7184.eurprd03.pr=
+od.outlook.com&amp;data=3D04%7C01%7Cmsainz%40ikerlan.es%7Cf7e39f95717f40e72=
+10e08d895d87f34%7C910ac815f8554a08bf2990b46552cf11%7C0%7C1%7C63742410507456=
+5645%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik=
+1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=3DuOVN7UEhxwvg6s58IEZex1Yhqy4I%2BLx4M=
+wkQ06YBGT8%3D&amp;reserved=3D0.
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/PA4PR03MB7184E05AA2075FBE9EE0F931B6F40%40PA4PR03MB7184.eurprd=
+03.prod.outlook.com.
