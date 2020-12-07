@@ -1,73 +1,183 @@
-Return-Path: <jailhouse-dev+bncBC2PTC4R4MNBBGNOW77AKGQEW2GHPAA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDAMFR7JZAEBBZ53W77AKGQEOCGZ7HY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qv1-xf3f.google.com (mail-qv1-xf3f.google.com [IPv6:2607:f8b0:4864:20::f3f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CB9D2D0B05
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  7 Dec 2020 08:17:46 +0100 (CET)
-Received: by mail-qv1-xf3f.google.com with SMTP id cu18sf10732807qvb.17
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 06 Dec 2020 23:17:46 -0800 (PST)
+Received: from mail-wr1-x43e.google.com (mail-wr1-x43e.google.com [IPv6:2a00:1450:4864:20::43e])
+	by mail.lfdr.de (Postfix) with ESMTPS id 25F9E2D0B43
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  7 Dec 2020 08:46:48 +0100 (CET)
+Received: by mail-wr1-x43e.google.com with SMTP id o4sf910945wrw.19
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 06 Dec 2020 23:46:48 -0800 (PST)
+ARC-Seal: i=3; a=rsa-sha256; t=1607327208; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=GpaeAEGn0sW7XLwlNq95qaSTPNeexvWrIbMyZPdpkMOuJ8TzLQq2JwAhvKUS/0cotY
+         OWdFkuryCztcb35Q8TaZuaqApN04Y+FEA/+CZqXmnNt9meHC9SyryQEK4nr//TJZFlpF
+         sr5bEmhywgoei1tch0FAN3vBv7PRGMftZ1U8bnkJCduhQf1S3xlEXkFfJIdh3KSUgjVI
+         LEdCjmLA7OpdKE2q2ePrgo/EFxGUYqKOtsfx7L0VlrNnHgcVoxcgBS/57vGGw12KM8Qx
+         yB3r+Aq298bpQtN6KWfY44EvAKsWB5eKXwYjuJtk0FK79h7jrjUKWxiQVInxvbp6mR/q
+         wKtw==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:mime-version:content-language
+         :accept-language:message-id:date:thread-index:thread-topic:subject
+         :to:from:sender:dkim-signature;
+        bh=QGd04eTcEHReKzarFXpGasfxqM+a7ayMOGqFdeoUqgE=;
+        b=X8/+Gf0nRJeV0A9yTvXdO0paTDta/3IiXaFxRXjlK8L5L4m03Dcrx/3n6EPkBTb1zP
+         3XHQVtzrwnAhBYsuYtQh5cRrCHITzRbu/HVMEned48nlAHVomdSZ0okYsheZQCj5Hxtm
+         ckVZ38WnazOH+gCLhW6nvt6c3i+FsMzPgQeU7YgF1B9oQDBohr5UGH3mmCKV1TYs11zi
+         trnOpdyN9MQKW2IdHUM74J1VSUpQMtuWxaaQv8lixw06sskwgWK2loAQ9m6YzY1qttxj
+         S7D4akxtrzbo7qSarBp0wUVyaC8VDrfwRQ8eNvnLnzTU0nvoPgYlIgxbNCURq20QyZQS
+         TKzw==
+ARC-Authentication-Results: i=3; gmr-mx.google.com;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=lBD8Fixd;
+       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
+       spf=pass (google.com: domain of peng.fan@nxp.com designates 2a01:111:f400:fe0d::600 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
+        h=sender:from:to:subject:thread-topic:thread-index:date:message-id
+         :accept-language:content-language:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=oSDclCNjDYNGuQqKbt0ZW8PfmatcKyoGCgjfe3tA7GA=;
-        b=RkmKn1RwDbywJUu/gZ4nsu7G+NcNF5DzgEQXwuy0Fi/M4kYBbea4RIRo5OoAC+V6wI
-         BrfVmEWs0vtt0FV8vmEfbWTT3coZBeAI/NoqQSY4KHQ0BhIswLGCDrTvzwTct1hhj8Cj
-         rcB1KlDj8j+SeXrYxjwSWPO5l0pwRO+NeAxKMUafFrERyiCtabiil5dIiOczDTZOJnhb
-         FjDhcQvdWlhlUoDUAl91y/xhbNyoOFBxNOHo7kuS37UdWzB/wKFuPF+a7y2lBdJ0ltIT
-         cQsQk5hy9EGyvNPYCU9O/T2N99l2DAQkMYHx5oTT+Z/0jpZ3zPLFGg/YDX1ggubBayMC
-         FtxQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=oSDclCNjDYNGuQqKbt0ZW8PfmatcKyoGCgjfe3tA7GA=;
-        b=rZDRa3ksvt/e1VA/sFZx7oGwbJCVVo556rOoxhUCq+aH83u4FLLJgTPfeJevxpiF0Q
-         /UFL9GJAvjRWkzMYQv60A9pTczSUHYKrnUMWdusDl248pBxL0mEHz/+w8CUS3b0yo1Ho
-         y3H1RocO1yke8JLbGyqDJyvtD+ozbQEy099SfGWNWlSm8Ztah/Jla8NOVsMvfkMp+HV9
-         KOvFM82n6Bf4EuEB10PO4E6YKE+zqBDisptobRrD/CLmfL6rwCYxdVr5wOTSO8iAHHci
-         Q25Y75Xc3yJKXszDwNuSpjjf3qmH2NTmSkBY+V4GMljIDQPsjZ0xZVSVkOVcdXh8cr8v
-         Ucxg==
+        bh=QGd04eTcEHReKzarFXpGasfxqM+a7ayMOGqFdeoUqgE=;
+        b=c08hEuz7z2xli3c2lQX/hybAnI/ZYhV9g0ccwEWj+xkXQDGtgF2GDBo5+7HwkEtsaj
+         +B0IJbz/V99aoByntoklBhcDEUUVzB1FsVf97KGUyRlZrWAlSfsmKxPMUmaYb1hg0fTi
+         Sji/hyRaxQokCcViQqNCoZVEuZUISzzDaPtVTNO6homar9xLUxugQBaximtkwzNSgyWA
+         Sgtlx1B9oX/4aW5xc3E7EeVIxdIkgPKjGcsOWqEkBGcooEefOplJwtHq30pH52/UXjsG
+         oqL6SfbUVRh7xPoiqig5PZ5FlsIpWUY4fSiy9oCXY6XNU4rxjr3ZMnyQ/QQQ7KfBvZ3J
+         Mg5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
+        h=sender:x-gm-message-state:from:to:subject:thread-topic:thread-index
+         :date:message-id:accept-language:content-language:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=oSDclCNjDYNGuQqKbt0ZW8PfmatcKyoGCgjfe3tA7GA=;
-        b=Jokh4A5g5Hni07IrlyGVtwNCFCoyDbBFCphVVSvUrxZwIZRuGgANxr8Eg7OgwjLRYx
-         rjFKgV1X/tN94TXeTgguS/q6DA30YdwPnYyAz87RSLqn/xI2qjXgaHa5Qxes7PMnvw7M
-         DHDLQ65IHCk9mIOWDM4v6xXupLnvdzCPHy2RjFlU1V0r4unYzdYi+c2JHfxKEk3LUM0g
-         /6cliQcMaTk8Qmzyu88e/+0rQtyfWRWhxUyS7iCCzdLRMMNddtWwUspymH2g8cuLlfSz
-         GwmjANDZugNrbgmYfHEwPHVcjSSp0lytfAJVv1mjTkw+M2ikUy24J/b55yeCwDW6CyYF
-         R6yg==
+        bh=QGd04eTcEHReKzarFXpGasfxqM+a7ayMOGqFdeoUqgE=;
+        b=GkTyz1ZuXY4coHBorww+dAteK2Wk2DpilF7btZVDgMrSAdnrR9+8ircr0FvxgNV2sA
+         xvVxJdG2Z/mTIdc6JLX0qTLv8uNbeQLfAL0gopAk7YSnrH/ENIm72CqvxTw2DQSgiUQj
+         HAwXamRjFP/4UKfsYZSXJ4q+h9LqS/hEbsZ90Us7eCPWqw5xrwRwaq80MWNSyRxIazm8
+         eSbAQHpVUlM/hKm/PMhpEFg4s1nmcbw6kCs/Ei21G9HM5VUMcy/0D9Sjip1ZqXfbFZ7V
+         AZTsv4oss9jblN3xCERyvr2xQzxWSwX25YUgkSumnVAJSb77MS0tdhX1IW/f7p9VVEw2
+         pGFw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531AKUF3WHCzqw1CSmEgG95dN4Zxlc/AdYNeMZER5cAWpoqwL7M0
-	AQQKUJHQrf1YpkWqj1DoVDk=
-X-Google-Smtp-Source: ABdhPJwMjjlTM25V+2x0PXZe+gIIAOsIBL5mqjD/7Q9rUwBqoOPIZsJp71kY/Zc4piEJKJL/OVCWrQ==
-X-Received: by 2002:a05:6214:15c3:: with SMTP id p3mr9057364qvz.16.1607325465336;
-        Sun, 06 Dec 2020 23:17:45 -0800 (PST)
+X-Gm-Message-State: AOAM530HaxWx1wQqepiUvU+nPaHJadBAAWOcS98WYZS1tfWlDS5ADaup
+	DJR9oDJ7tN9VqT5MgpGUKY4=
+X-Google-Smtp-Source: ABdhPJyHLFoPz8Ms0M9tc+ei0glwDc88yUVT3cXTchQz/sSaVtytV9ehapxZB0hx73/WspgD9IcMCA==
+X-Received: by 2002:a1c:e3c4:: with SMTP id a187mr13107451wmh.58.1607327207848;
+        Sun, 06 Dec 2020 23:46:47 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac8:70ca:: with SMTP id g10ls472281qtp.3.gmail; Sun, 06 Dec
- 2020 23:17:44 -0800 (PST)
-X-Received: by 2002:ac8:724d:: with SMTP id l13mr22426922qtp.373.1607325464560;
-        Sun, 06 Dec 2020 23:17:44 -0800 (PST)
-Date: Sun, 6 Dec 2020 23:17:43 -0800 (PST)
-From: Chung-Fan Yang <sonic.tw.tp@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <313f42e9-5551-4f77-afc1-498f355d3e95n@googlegroups.com>
-In-Reply-To: <b6206c2f-ea42-a3ec-d95c-5e84931ece21@siemens.com>
-References: <f0e8ee0a-e874-428e-a97c-91524477c7e1n@googlegroups.com>
- <CADja47Ob29sD_YXYwnxiauGse4sd8MHqhBRq2hy+94JTW2dgyA@mail.gmail.com>
- <126f7b0c-2fa6-4329-bb95-bddead90c9f7n@googlegroups.com>
- <b6206c2f-ea42-a3ec-d95c-5e84931ece21@siemens.com>
-Subject: Re: Jailhouse on R-Pi4 with Debian rootfs
+Received: by 2002:a1c:2d14:: with SMTP id t20ls7753201wmt.3.canary-gmail; Sun,
+ 06 Dec 2020 23:46:47 -0800 (PST)
+X-Received: by 2002:a1c:96c2:: with SMTP id y185mr17275787wmd.84.1607327206965;
+        Sun, 06 Dec 2020 23:46:46 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1607327206; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=DyYLkjhJM8KIQC9dLXCt7zUk/R3O+JWWWnbAoIYIx1nZ0ZOtc22tJC5dmoYOZ1WWyx
+         8f9Rg0+b1joZO2kAkABbMeHAiY3FNJ+T2Ob6aOjDLlA2rC8nfLPoyg37ovAoVLbFTlMF
+         uagC1a41Jgcu/2PfN7Bjx5S4Tsmnwye9UW+Tw+msDkiCyRPYz49KoC9yAnh+U/HpEpTD
+         m5Y0gARV77n/S8A/j2koV45+7LZSlpILPmgVTNv7qreX7O5BhZgth3BAOKJGne1fGpg+
+         MYAzuTpfxmZIO2usKRUBsWCcuNnUEaTiiuuB4WDipXw2M2f+Ysr00VMq90cbZC+qNk3r
+         JF4A==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:content-transfer-encoding:content-language
+         :accept-language:message-id:date:thread-index:thread-topic:subject
+         :to:from:dkim-signature;
+        bh=X1+KejnH8ij4Lr0mtc8kh2ou01H62MkBGyUKtpl/7Qg=;
+        b=VfBTD/9LJjutCuaYd1xKb7Fz06rzjQqlGT6hZZ0AId4lUat9iNCDFMgCKK1fx+v5ry
+         lSP/qQ/7cw7rQEOevdDdylOAWGiVH+yaitiKKVQD6NcWQ7uzpXAz91o5lxBfEnCv+qGU
+         CcQpnWhO0qE4iqmVAngCvDzk7Rgzac016W26jdRbPJIJB6Nb8IhbrEDvxmj3MdjtXSuG
+         3Vu2O7GHRHtP+nwjCBweru7Jgw1OmHoBspoOjZOiyl0hsKXWiDgHpVZ6gablN1J1HCzW
+         amdf1GPA4wqaRjoMTMOhM5MFdeV6V6YUJmjlCZl5+PTl5JWhoikhGCgNZ2XgW4DO9NRu
+         L0RQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=lBD8Fixd;
+       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
+       spf=pass (google.com: domain of peng.fan@nxp.com designates 2a01:111:f400:fe0d::600 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com (mail-he1eur04on0600.outbound.protection.outlook.com. [2a01:111:f400:fe0d::600])
+        by gmr-mx.google.com with ESMTPS id d17si354933wma.4.2020.12.06.23.46.46
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 06 Dec 2020 23:46:46 -0800 (PST)
+Received-SPF: pass (google.com: domain of peng.fan@nxp.com designates 2a01:111:f400:fe0d::600 as permitted sender) client-ip=2a01:111:f400:fe0d::600;
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AjJJFotLtqqSv/w/MguCp/vCHZhnKm6CL+wIUMTbfUWXJ5HvleQpFHvplA/tN6l2dVS/O/ZZnCNfZBhrwRj3XFMIMTjzLdfFI3Qnv7/BkEb8RZYWYLCgRNXiVyQMpBm6N1QqfR0PDT5TyixdbKzR7lt06QrzLxqsFy6EkcE0qGFDEmQ5+QSNXXfbSVYECUIR4Q08tArLtb3YLags9WYpxNAA90qilfhwB+WN54m2PdJYe8gobVFlx43FsDMqqV1q1W+AGojvt5fQCJEBZLce/5zUkepoWLxAmOu0z0w5Jp2A+1YLxnRHPaECSwFMvAvjQPEHvhtllUVtgLDpZix2Dw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=X1+KejnH8ij4Lr0mtc8kh2ou01H62MkBGyUKtpl/7Qg=;
+ b=ieXSOAd8PsHLkbjfziraIY0vc0CjKevPG0B6NuO/aOleYuGm9Dm2WbQCAbMyz73Vw14DD7ovPtGx+KPjkM6a9OYkl8Rg4bDiaIRnsQAC7FOBxP558cW8823UxpUXI8j7JjaCm8g633IUQHSYR0Um9KbjOBGZt/6HT7vMSp1ShQLHClw/Cq1glpcC/5nqxsjv3qS3Ys+kZH+GZ0Ip79NZhDcEDBj2AigaS0RZOTOMR89ILgn7OuzeC7G7MIBw05wkbD2olyTisXUeAJAA99OyzF885X9MPKQODTRhTgDf7NMrp+npECqp7l1JG8pL6KENZFWEpbyXA9Kmb8Qmm/e2Pw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com (2603:10a6:4:a1::14)
+ by DB7PR04MB4938.eurprd04.prod.outlook.com (2603:10a6:10:1f::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.23; Mon, 7 Dec
+ 2020 07:46:45 +0000
+Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com
+ ([fe80::c964:9:850a:fc5]) by DB6PR0402MB2760.eurprd04.prod.outlook.com
+ ([fe80::c964:9:850a:fc5%10]) with mapi id 15.20.3632.018; Mon, 7 Dec 2020
+ 07:46:45 +0000
+From: Peng Fan <peng.fan@nxp.com>
+To: "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
+Subject: ARM64 MSIX enabling error
+Thread-Topic: ARM64 MSIX enabling error
+Thread-Index: AdbMbLjE+IGjwJH3TguDfS43O45UGQ==
+Date: Mon, 7 Dec 2020 07:46:45 +0000
+Message-ID: <DB6PR0402MB2760E09A5E40B4818663E07D88CE0@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [119.31.174.71]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: b0dea756-e88c-4487-5965-08d89a843ecd
+x-ms-traffictypediagnostic: DB7PR04MB4938:
+x-microsoft-antispam-prvs: <DB7PR04MB4938A4B1043A9920538E8C0088CE0@DB7PR04MB4938.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1186;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: qBO1Qs7s3YkO6UnDjOvf9hAuCi52Bs0NtvoJGBnSpafeBDx1VPTs1KJFq5ZMTKEKIFzVip4LAAcpgBmO5mChgnogQPW3cnUqN5VVoE3xjMvRIokIPyOih0CMsNn95/GgmeoQ4l4IufYP7o0MK1VK4eUvk72uLbLbsB7He6LHLkFIHPj/iVER0oX6MRb/dwOF0aMhqAd5kJ9R5bSRBP+M6gFWWHTzSTnW7jcYTSshhLXtjEGdmqvuMWXk1XeFRB1x8hyzxdCz871uqXTNdesq4TybPw6pleUS2IQ0W84CHw4fP55izjLtZhFjzWdNtmx5vsBkZ+XVmUYF4YFtcaD49Q==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB6PR0402MB2760.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(366004)(376002)(39860400002)(346002)(396003)(8676002)(44832011)(8936002)(86362001)(71200400001)(6506007)(316002)(7696005)(186003)(6916009)(2906002)(52536014)(5660300002)(64756008)(66946007)(66476007)(66556008)(55016002)(76116006)(26005)(33656002)(478600001)(66446008)(9686003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?56qwAOFw2+jssKy5XwhsWp4Mn9qY1ohvRE2VX26UB21Sr0agArnaSCzvbMcl?=
+ =?us-ascii?Q?4RiEpXxidNRcXIL8Kn0CdXPD9C/iZx+5aCyjRM+L8Uu0C5elJhCwgqtaKH4F?=
+ =?us-ascii?Q?4F2ivueYzhehqj2w71QR1JPVnM7CBGsRHAtWE36vgjDntfJvJmve22eYAMn1?=
+ =?us-ascii?Q?J+kVcrn6aZT8Cql89nSHOyNNW7liqY/vQ3ub36rTBZobfrU6pPivi5IVHfVE?=
+ =?us-ascii?Q?iHRbdDcOQGud0gxDR4WWMJ8Rhzkbej4WS2tFzOfli8vyBJlBIgCISnV9e8e+?=
+ =?us-ascii?Q?XqHsT+80OqiXyxj8iVvgcJyXq/8QKYVpdWumAagBo2sEOZblQEZcrcoKLJ2s?=
+ =?us-ascii?Q?wOKWl09OgO46O04uLB3xJ0TPYesSs5pAqVBHH+DnPKofgTyMKEvzxnMNRbe6?=
+ =?us-ascii?Q?213TmPyhhzHGAygTQKlUaPU+Ltv0nCkq+j9BEfMzjfXVc5+xi+VfAtd+KAYM?=
+ =?us-ascii?Q?c5dpWmMTcVv3+f5IC3FRSLLgv+UrL7ALxOtam1BXlnh4qlU/iswh6WKX26e1?=
+ =?us-ascii?Q?aWJhveWgPmdeJomRsSJCXj/VWxtp9jfZ5B059vWd6ub+s5I146WMirOe9h7e?=
+ =?us-ascii?Q?elNW9lM74TK7OV4lPqvaoLL0Nl13il60x8K0RhOs6fM6zlgI2gqjxU6Lv6hq?=
+ =?us-ascii?Q?OxAfgxYotkAo2qfyo6+stRIJ/ugYtr+pumV6aIw9lLE/dpqIoZpE8qdbLF8u?=
+ =?us-ascii?Q?CEGsZ0a6NallS+h0lalHezqaqKZ2ltgbenjmt4ubprLZZZhYaiy73BWLbfuc?=
+ =?us-ascii?Q?Z8WEIjrZCq+5Hv9jrPjxfQ+XWEtHrUEHkev2Zo7j4y9skfDNAesTcAlB/oJz?=
+ =?us-ascii?Q?1eO0JDQHq+yZtRxKUT6MsWhvXTzj6PS93VNvHe6zhzL6Lcybs7xLXBHLwmCv?=
+ =?us-ascii?Q?H+A17saot68T7WuO4x/hFahewqe1xw1QgjW82I0PgR/eTMMUalN5aOmutUmq?=
+ =?us-ascii?Q?3YZ2cPTuduu8ziADQ39pdtAJ26vi1YQ8C2FqOXgM6x0=3D?=
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="UTF-8"
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_1247_1458584981.1607325463824"
-X-Original-Sender: Sonic.tw.tp@gmail.com
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB6PR0402MB2760.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b0dea756-e88c-4487-5965-08d89a843ecd
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Dec 2020 07:46:45.1861
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /dzYXF2hZTEP8fQWVUZyuzHY9IJomkFDxQwCjs3sCvczVuw+f+K7UDJ3FIr6gb6DnSe3apec2cu5z60Q+bPLTQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB4938
+X-Original-Sender: peng.fan@nxp.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@nxp.com header.s=selector2 header.b=lBD8Fixd;       arc=pass (i=1
+ spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass
+ fromdomain=nxp.com);       spf=pass (google.com: domain of peng.fan@nxp.com
+ designates 2a01:111:f400:fe0d::600 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -80,377 +190,80 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1247_1458584981.1607325463824
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_1248_1758378595.1607325463824"
+Hi,
 
-------=_Part_1248_1758378595.1607325463824
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I use MSIX, not INTX in root cell file, but always met the following error.
+uio_ivshmem: probe of 0001:00:00.0 failed with error -28
 
 
+I am trying virtio ivshmem on my board, but seems virtio ivshmem
+vi_find_vqs not work with INTX, so I change to MSIX to see how.
+But met upper error, any suggestions?
 
-2020=E5=B9=B412=E6=9C=887=E6=97=A5=E6=9C=88=E6=9B=9C=E6=97=A5 15:14:50 UTC+=
-9 j.kiszka...@gmail.com:
+Log as below:
+./jailhouse enable imx8mp.cell
 
-> On 07.12.20 02:29, Chung-Fan Yang wrote:=20
-> > Thanks you for the suggestion of using an approved image.=20
-> > I will try it out.=20
-> >=20
-> > However, I really like to know the root cause and get the current Debia=
-n=20
-> > setup working.=20
->
-> [1] officially supports the RPi4 on buster (despite the pain that=20
-> brings, hope 5.10 improves the situation at bit). You should derive from=
-=20
-> that, specifically the DT overlay-based memory reservation which was=20
-> fixed not so long ago.=20
->
+Initializing Jailhouse hypervisor v0.12 (70-ga85860da-dirty) on CPU 2
+Code location: 0x0000ffffc0200800
+Page pool usage after early setup: mem 39/992, remap 0/131072
+Initializing processors:
+ CPU 2... OK
+ CPU 0... OK
+ CPU 1... OK
+ CPU 3... OK
+Initializing unit: irqchip
+Initializing unit: ARM SMMU v3
+Initializing unit: ARM SMMU
+No SMMU
+Initializing unit: PVU IOMMU
+Initializing unit: PCI
+Adding virtual PCI device 00:0c.0 to cell "imx8mp"
+Adding virtual PCI device 00:0d.0 to cell "imx8mp"
+Adding virtual PCI device 00:00.0 to cell "imx8mp"
+Adding virtual PCI device 00:01.0 to cell "imx8mp"
+Page pool usage after late setup: mem 67/992, remap 144/131072
+Activating hypervisor
+[  233.439774] pci-host-generic fd700000.pci: host bridge /pci@0 ranges:
+[  233.446287] pci-host-generic fd700000.pci:   MEM 0xfd800000..0xfd807fff -> 0xfd800000
+[  233.454232] pci-host-generic fd700000.pci: ECAM at [mem 0xfd700000-0xfd7fffff] for [bus 00]
+[  233.468784] pci-host-generic fd700000.pci: PCI host bridge to bus 0001:00
+[  233.475634] pci_bus 0001:00: root bus resource [bus 00]
+[  233.480893] pci_bus 0001:00: root bus resource [mem 0xfd800000-0xfd807fff]
+[  233.487822] pci 0001:00:00.0: [110a:4106] type 00 class 0xff0000
+[  233.493874] pci 0001:00:00.0: reg 0x10: [mem 0x00000000-0x00000fff]
+[  233.500177] pci 0001:00:00.0: reg 0x14: [mem 0x00000000-0x000001ff]
+[  233.506867] pci 0001:00:01.0: [110a:4106] type 00 class 0xff0001
+[  233.512941] pci 0001:00:01.0: reg 0x10: [mem 0x00000000-0x00000fff]
+[  233.519246] pci 0001:00:01.0: reg 0x14: [mem 0x00000000-0x000001ff]
+[  233.526524] pci 0001:00:0c.0: [110a:4106] type 00 class 0xffc002
+[  233.532596] pci 0001:00:0c.0: reg 0x10: [mem 0x00000000-0x00000fff]
+[  233.538916] pci 0001:00:0c.0: reg 0x14: [mem 0x00000000-0x000001ff]
+[  233.545591] pci 0001:00:0d.0: [110a:4106] type 00 class 0xffc003
+[  233.551680] pci 0001:00:0d.0: reg 0x10: [mem 0x00000000-0x00000fff]
+[  233.557990] pci 0001:00:0d.0: reg 0x14: [mem 0x00000000-0x000001ff]
+[  233.565712] pci 0001:00:00.0: BAR 0: assigned [mem 0xfd800000-0xfd800fff]
+[  233.572540] pci 0001:00:01.0: BAR 0: assigned [mem 0xfd801000-0xfd801fff]
+[  233.579371] pci 0001:00:0c.0: BAR 0: assigned [mem 0xfd802000-0xfd802fff]
+[  233.586199] pci 0001:00:0d.0: BAR 0: assigned [mem 0xfd803000-0xfd803fff]
+[  233.593027] pci 0001:00:00.0: BAR 1: assigned [mem 0xfd804000-0xfd8041ff]
+[  233.599851] pci 0001:00:01.0: BAR 1: assigned [mem 0xfd804200-0xfd8043ff]
+[  233.606669] pci 0001:00:0c.0: BAR 1: assigned [mem 0xfd804400-0xfd8045ff]
+[  233.613485] pci 0001:00:0d.0: BAR 1: assigned [mem 0xfd804600-0xfd8047ff]
+[  233.620479] uio_ivshmem 0001:00:00.0: enabling device (0000 -> 0002)
+[  233.626917] uio_ivshmem 0001:00:00.0: state_table at 0x00000000fd9f0000, size 0x0000000000001000
+[  233.635758] uio_ivshmem 0001:00:00.0: rw_section at 0x00000000fd9f1000, size 0x0000000000009000
+[  233.644495] uio_ivshmem 0001:00:00.0: input_sections at 0x00000000fd9fa000, size 0x0000000000006000
+[  233.653564] uio_ivshmem 0001:00:00.0: output_section at 0x00000000fd9fa000, size 0x0000000000002000
+[  233.662693] uio_ivshmem: probe of 0001:00:00.0 failed with error -28
+[  233.669234] ivshmem-net 0001:00:01.0: enabling device (0000 -> 0002)
+[  233.675674] ivshmem-net 0001:00:01.0: TX memory at 0x00000000fda01000, size 0x000000000007f000
+[  233.684333] ivshmem-net 0001:00:01.0: RX memory at 0x00000000fda80000, size 0x000000000007f000
+[  233.756986] ivshmem-net: probe of 0001:00:01.0 failed with error -28
 
-Thank you.
-I see the commit now.
-So basically I have to include an additional dtbo the the boot process, am=
-=20
-I right?
-Will it work only on the device-tree from rpi-firmware or also the in=20
-kernel-tree one?
-I am currently using the in-tree device tree from  kernel 5.9 without any=
-=20
-overlay.
+Thanks,
+Peng.
 
-By the way, by pain, what do you mean?
-
----
-Yang
-=20
-
->
-> For the kernel, I didn't do a rebase of your patch series yet. [2] is=20
-> the latest upstream based queue.=20
->
-> Jan=20
->
-> [1] https://github.com/siemens/jailhouse-images=20
-> [2]=20
-> http://git.kiszka.org/?p=3Dlinux.git;a=3Dshortlog;h=3Drefs/heads/queues/j=
-ailhouse=20
->
-> >=20
-> > Yang=20
-> >=20
-> >=20
-> > 2020=E5=B9=B412=E6=9C=887=E6=97=A5=E6=9C=88=E6=9B=9C=E6=97=A5 5:01:26 U=
-TC+9 jsmo...@linuxfoundation.org:=20
-> >=20
-> > Check our GSoC project on Automotive Grade Linux:=20
-> >=20
-> https://git.automotivelinux.org/AGL/meta-agl-devel/tree/meta-agl-jailhous=
-e=20
-> > <
-> https://git.automotivelinux.org/AGL/meta-agl-devel/tree/meta-agl-jailhous=
-e>=20
->
-> >=20
-> > It can build for PI.=20
-> >=20
-> > An it can serve as inspiration for the values needed.=20
-> >=20
-> >  =20
-> >=20
-> >=20
-> > js=20
-> >=20
-> > Chung-Fan Yang <sonic...@gmail.com> schrieb am So., 6. Dez. 2020,=20
-> 17:34:=20
-> >=20
-> > Hi,=20
-> >=20
-> > I am working to get jailhouse work with my R-Pi4.=20
-> >=20
-> > I have been using a 64bit Debian buster rootfs with=20
-> > a custom compiled 5.9 preempt-rt kernel.=20
-> >=20
-> > I have successful reserved >736M for jailhouse and inserted the=20
-> > jailhouse.ko, but when I do jailhouse enable I got the following=20
-> > error on uart.=20
-> >=20
-> > Any suggestions are appreciated.=20
-> >=20
-> > Initializing Jailhouse hypervisor v0.12 (223-g097bed0f) on CPU 1=20
-> > Code location: 0x0000ffffc0200800=20
-> > Page pool usage after early setup: mem 39/994, remap 0/131072=20
-> > Initializing processors:=20
-> >  CPU 1...=20
-> > FATAL: Unhandled HYP exception: synchronous abort from EL2=20
-> >  pc: 0000ffffc0203864   lr: 0000ffffc0203850 spsr: 200003c9     EL2=20
-> >  sp: 0000ffffc0222e40  elr: 0000ffffc0203864  esr: 00 1 0000000=20
-> >  x0: 0000000084000000   x1: 0000000000000000   x2: 0000000080003580=20
-> >  x3: 0000000000000014   x4: 0000000000000002   x5: 0000000000000001=20
-> >  x6: 0000000000000029   x7: 0000ffffc0219ec0   x8: 000000000000002a=20
-> >  x9: 0000000000000000  x10: 0000000000000000  x11: 0000000000000001=20
-> > x12: 0000000000000015  x13: 0000000000000001  x14: 0000ffffc0219000=20
-> > x15: 0000ffffc0015040  x16: 0000ffffc020da50  x17: ffffaf45951e7518=20
-> > x18: 0000000000000001  x19: 0000ffffc0222000  x20: 0000ffffc0219000=20
-> > x21: 0000ffffc0200000  x22: 0000ffffc0219000  x23: 0000000000000001=20
-> > x24: 0000000000000001  x25: 0000ffffc0222000  x26: 0000ffffc0223000=20
-> > x27: 0000ffffc020f000  x28: 0000ffffc0218000  x29: 0000ffffc0222e40=20
-> >=20
-> > Hypervisor stack before exception Stopping CPU 1 (Cell:=20
-> > "Raspberry-Pi4")=20
-> >=20
-> > PS. I did noticed there is a similar post, but it has no solution.=20
-> >=20
-> > --=20
-> > You received this message because you are subscribed to the=20
-> > Google Groups "Jailhouse" group.=20
-> > To unsubscribe from this group and stop receiving emails from=20
-> > it, send an email to jailhouse-de...@googlegroups.com.=20
-> > To view this discussion on the web visit=20
-> >=20
-> https://groups.google.com/d/msgid/jailhouse-dev/f0e8ee0a-e874-428e-a97c-9=
-1524477c7e1n%40googlegroups.com=20
-> > <
-> https://groups.google.com/d/msgid/jailhouse-dev/f0e8ee0a-e874-428e-a97c-9=
-1524477c7e1n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>.=20
->
-> >=20
-> > --=20
-> > You received this message because you are subscribed to the Google=20
-> > Groups "Jailhouse" group.=20
-> > To unsubscribe from this group and stop receiving emails from it, send=
-=20
-> > an email to jailhouse-de...@googlegroups.com=20
-> > <mailto:jailhouse-de...@googlegroups.com>.=20
-> > To view this discussion on the web visit=20
-> >=20
-> https://groups.google.com/d/msgid/jailhouse-dev/126f7b0c-2fa6-4329-bb95-b=
-ddead90c9f7n%40googlegroups.com=20
-> > <
-> https://groups.google.com/d/msgid/jailhouse-dev/126f7b0c-2fa6-4329-bb95-b=
-ddead90c9f7n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>.=20
->
->
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/313f42e9-5551-4f77-afc1-498f355d3e95n%40googlegroups.com.
-
-------=_Part_1248_1758378595.1607325463824
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<br><br><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">2=
-020=E5=B9=B412=E6=9C=887=E6=97=A5=E6=9C=88=E6=9B=9C=E6=97=A5 15:14:50 UTC+9=
- j.kiszka...@gmail.com:<br></div><blockquote class=3D"gmail_quote" style=3D=
-"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-le=
-ft: 1ex;">On 07.12.20 02:29, Chung-Fan Yang wrote:
-<br>&gt; Thanks you for the suggestion of using an approved image.
-<br>&gt; I will try it out.
-<br>&gt;=20
-<br>&gt; However, I really like to know the root cause and get the current =
-Debian
-<br>&gt; setup working.
-<br>
-<br>[1] officially supports the RPi4 on buster (despite the pain that
-<br>brings, hope 5.10 improves the situation at bit). You should derive fro=
-m
-<br>that, specifically the DT overlay-based memory reservation which was
-<br>fixed not so long ago.
-<br></blockquote><div><br></div><div>Thank you.<br></div><div>I see the com=
-mit now.</div><div>So basically I have to include an additional dtbo the th=
-e boot process, am I right?</div><div>Will it work only on the device-tree =
-from rpi-firmware or also the in kernel-tree one?</div><div>I am currently =
-using the in-tree device tree from&nbsp;
- kernel 5.9
-
- without any overlay.</div><div><br></div><div>By the way, by pain, what do=
- you mean?</div><div><br></div><div>---</div><div>Yang<br></div><div>&nbsp;=
-</div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; borde=
-r-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">
-<br>For the kernel, I didn't do a rebase of your patch series yet. [2] is
-<br>the latest upstream based queue.
-<br>
-<br>Jan
-<br>
-<br>[1] <a href=3D"https://github.com/siemens/jailhouse-images" target=3D"_=
-blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?=
-hl=3Dja&amp;q=3Dhttps://github.com/siemens/jailhouse-images&amp;source=3Dgm=
-ail&amp;ust=3D1607411614548000&amp;usg=3DAFQjCNGLjDA5A41ZcwDyMyvgh35Ik3PmZg=
-">https://github.com/siemens/jailhouse-images</a>
-<br>[2]
-<br><a href=3D"http://git.kiszka.org/?p=3Dlinux.git;a=3Dshortlog;h=3Drefs/h=
-eads/queues/jailhouse" target=3D"_blank" rel=3D"nofollow" data-saferedirect=
-url=3D"https://www.google.com/url?hl=3Dja&amp;q=3Dhttp://git.kiszka.org/?p%=
-3Dlinux.git;a%3Dshortlog;h%3Drefs/heads/queues/jailhouse&amp;source=3Dgmail=
-&amp;ust=3D1607411614549000&amp;usg=3DAFQjCNG2sa3_XgbkZOTPM46x1F2wPO3-Rw">h=
-ttp://git.kiszka.org/?p=3Dlinux.git;a=3Dshortlog;h=3Drefs/heads/queues/jail=
-house</a>
-<br>
-<br>&gt;=20
-<br>&gt; Yang
-<br>&gt;=20
-<br>&gt;=20
-<br>&gt; 2020=E5=B9=B412=E6=9C=887=E6=97=A5=E6=9C=88=E6=9B=9C=E6=97=A5 5:01=
-:26 UTC+9 <a href=3D"" data-email-masked=3D"" rel=3D"nofollow">jsmo...@linu=
-xfoundation.org</a>:
-<br>&gt;=20
-<br>&gt;     Check our GSoC project on Automotive Grade Linux:
-<br>&gt;     <a href=3D"https://git.automotivelinux.org/AGL/meta-agl-devel/=
-tree/meta-agl-jailhouse" target=3D"_blank" rel=3D"nofollow" data-saferedire=
-cturl=3D"https://www.google.com/url?hl=3Dja&amp;q=3Dhttps://git.automotivel=
-inux.org/AGL/meta-agl-devel/tree/meta-agl-jailhouse&amp;source=3Dgmail&amp;=
-ust=3D1607411614549000&amp;usg=3DAFQjCNEZCh0R9NMMqdZ-u7Cc9TnE_xwHhg">https:=
-//git.automotivelinux.org/AGL/meta-agl-devel/tree/meta-agl-jailhouse</a>
-<br>&gt;     &lt;<a href=3D"https://git.automotivelinux.org/AGL/meta-agl-de=
-vel/tree/meta-agl-jailhouse" target=3D"_blank" rel=3D"nofollow" data-safere=
-directurl=3D"https://www.google.com/url?hl=3Dja&amp;q=3Dhttps://git.automot=
-ivelinux.org/AGL/meta-agl-devel/tree/meta-agl-jailhouse&amp;source=3Dgmail&=
-amp;ust=3D1607411614549000&amp;usg=3DAFQjCNEZCh0R9NMMqdZ-u7Cc9TnE_xwHhg">ht=
-tps://git.automotivelinux.org/AGL/meta-agl-devel/tree/meta-agl-jailhouse</a=
->&gt;
-<br>&gt;=20
-<br>&gt;     It can build for PI.
-<br>&gt;=20
-<br>&gt;     An it can serve as inspiration for the values needed.
-<br>&gt;=20
-<br>&gt; &nbsp;
-<br>&gt;=20
-<br>&gt;=20
-<br>&gt;     js
-<br>&gt;=20
-<br>&gt;     Chung-Fan Yang &lt;<a href=3D"" data-email-masked=3D"" rel=3D"=
-nofollow">sonic...@gmail.com</a>&gt; schrieb am So., 6. Dez. 2020, 17:34:
-<br>&gt;=20
-<br>&gt;         Hi,
-<br>&gt;=20
-<br>&gt;         I am working to get jailhouse work with my R-Pi4.
-<br>&gt;=20
-<br>&gt;         I have been using a 64bit Debian buster rootfs with
-<br>&gt;         a custom compiled 5.9 preempt-rt kernel.
-<br>&gt;=20
-<br>&gt;         I have successful reserved &gt;736M for jailhouse and inse=
-rted the
-<br>&gt;         jailhouse.ko, but when I do jailhouse enable I got the fol=
-lowing
-<br>&gt;         error on uart.
-<br>&gt;=20
-<br>&gt;         Any suggestions are appreciated.
-<br>&gt;=20
-<br>&gt;         Initializing Jailhouse hypervisor v0.12 (223-g097bed0f) on=
- CPU 1
-<br>&gt;         Code location: 0x0000ffffc0200800
-<br>&gt;         Page pool usage after early setup: mem 39/994, remap 0/131=
-072
-<br>&gt;         Initializing processors:
-<br>&gt;         &nbsp;CPU 1...
-<br>&gt;         FATAL: Unhandled HYP exception: synchronous abort from EL2
-<br>&gt;         &nbsp;pc: 0000ffffc0203864&nbsp;&nbsp; lr: 0000ffffc020385=
-0 spsr: 200003c9&nbsp;&nbsp;&nbsp;&nbsp; EL2
-<br>&gt;         &nbsp;sp: 0000ffffc0222e40&nbsp; elr: 0000ffffc0203864&nbs=
-p; esr: 00 1 0000000
-<br>&gt;         &nbsp;x0: 0000000084000000&nbsp;&nbsp; x1: 000000000000000=
-0&nbsp;&nbsp; x2: 0000000080003580
-<br>&gt;         &nbsp;x3: 0000000000000014&nbsp;&nbsp; x4: 000000000000000=
-2&nbsp;&nbsp; x5: 0000000000000001
-<br>&gt;         &nbsp;x6: 0000000000000029&nbsp;&nbsp; x7: 0000ffffc0219ec=
-0&nbsp;&nbsp; x8: 000000000000002a
-<br>&gt;         &nbsp;x9: 0000000000000000&nbsp; x10: 0000000000000000&nbs=
-p; x11: 0000000000000001
-<br>&gt;         x12: 0000000000000015&nbsp; x13: 0000000000000001&nbsp; x1=
-4: 0000ffffc0219000
-<br>&gt;         x15: 0000ffffc0015040&nbsp; x16: 0000ffffc020da50&nbsp; x1=
-7: ffffaf45951e7518
-<br>&gt;         x18: 0000000000000001&nbsp; x19: 0000ffffc0222000&nbsp; x2=
-0: 0000ffffc0219000
-<br>&gt;         x21: 0000ffffc0200000&nbsp; x22: 0000ffffc0219000&nbsp; x2=
-3: 0000000000000001
-<br>&gt;         x24: 0000000000000001&nbsp; x25: 0000ffffc0222000&nbsp; x2=
-6: 0000ffffc0223000
-<br>&gt;         x27: 0000ffffc020f000&nbsp; x28: 0000ffffc0218000&nbsp; x2=
-9: 0000ffffc0222e40
-<br>&gt;=20
-<br>&gt;         Hypervisor stack before exception Stopping CPU 1 (Cell:
-<br>&gt;         "Raspberry-Pi4")
-<br>&gt;=20
-<br>&gt;         PS. I did noticed there is a similar post, but it has no s=
-olution.
-<br>&gt;=20
-<br>&gt;         --=20
-<br>&gt;         You received this message because you are subscribed to th=
-e
-<br>&gt;         Google Groups "Jailhouse" group.
-<br>&gt;         To unsubscribe from this group and stop receiving emails f=
-rom
-<br>&gt;         it, send an email to <a href=3D"" data-email-masked=3D"" r=
-el=3D"nofollow">jailhouse-de...@googlegroups.com</a>.
-<br>&gt;         To view this discussion on the web visit
-<br>&gt;         <a href=3D"https://groups.google.com/d/msgid/jailhouse-dev=
-/f0e8ee0a-e874-428e-a97c-91524477c7e1n%40googlegroups.com" target=3D"_blank=
-" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3D=
-ja&amp;q=3Dhttps://groups.google.com/d/msgid/jailhouse-dev/f0e8ee0a-e874-42=
-8e-a97c-91524477c7e1n%2540googlegroups.com&amp;source=3Dgmail&amp;ust=3D160=
-7411614549000&amp;usg=3DAFQjCNFjGxSoo8oJtMB6W1Zk_BdTejor_g">https://groups.=
-google.com/d/msgid/jailhouse-dev/f0e8ee0a-e874-428e-a97c-91524477c7e1n%40go=
-oglegroups.com</a>
-<br>&gt;         &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse=
--dev/f0e8ee0a-e874-428e-a97c-91524477c7e1n%40googlegroups.com?utm_medium=3D=
-email&amp;utm_source=3Dfooter" target=3D"_blank" rel=3D"nofollow" data-safe=
-redirecturl=3D"https://www.google.com/url?hl=3Dja&amp;q=3Dhttps://groups.go=
-ogle.com/d/msgid/jailhouse-dev/f0e8ee0a-e874-428e-a97c-91524477c7e1n%2540go=
-oglegroups.com?utm_medium%3Demail%26utm_source%3Dfooter&amp;source=3Dgmail&=
-amp;ust=3D1607411614550000&amp;usg=3DAFQjCNHFw1bA_FTojnXmi7yFkwFfUWZwEA">ht=
-tps://groups.google.com/d/msgid/jailhouse-dev/f0e8ee0a-e874-428e-a97c-91524=
-477c7e1n%40googlegroups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a>&=
-gt;.
-<br>&gt;=20
-<br>&gt; --=20
-<br>&gt; You received this message because you are subscribed to the Google
-<br>&gt; Groups "Jailhouse" group.
-<br>&gt; To unsubscribe from this group and stop receiving emails from it, =
-send
-<br>&gt; an email to <a href=3D"" data-email-masked=3D"" rel=3D"nofollow">j=
-ailhouse-de...@googlegroups.com</a>
-<br>&gt; &lt;mailto:<a href=3D"" data-email-masked=3D"" rel=3D"nofollow">ja=
-ilhouse-de...@googlegroups.com</a>&gt;.
-<br>&gt; To view this discussion on the web visit
-<br>&gt; <a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/126f7b0=
-c-2fa6-4329-bb95-bddead90c9f7n%40googlegroups.com" target=3D"_blank" rel=3D=
-"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dja&amp;q=
-=3Dhttps://groups.google.com/d/msgid/jailhouse-dev/126f7b0c-2fa6-4329-bb95-=
-bddead90c9f7n%2540googlegroups.com&amp;source=3Dgmail&amp;ust=3D16074116145=
-50000&amp;usg=3DAFQjCNFHx4kCG0nryM5ClIfPT6vg4opk_A">https://groups.google.c=
-om/d/msgid/jailhouse-dev/126f7b0c-2fa6-4329-bb95-bddead90c9f7n%40googlegrou=
-ps.com</a>
-<br>&gt; &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/126=
-f7b0c-2fa6-4329-bb95-bddead90c9f7n%40googlegroups.com?utm_medium=3Demail&am=
-p;utm_source=3Dfooter" target=3D"_blank" rel=3D"nofollow" data-saferedirect=
-url=3D"https://www.google.com/url?hl=3Dja&amp;q=3Dhttps://groups.google.com=
-/d/msgid/jailhouse-dev/126f7b0c-2fa6-4329-bb95-bddead90c9f7n%2540googlegrou=
-ps.com?utm_medium%3Demail%26utm_source%3Dfooter&amp;source=3Dgmail&amp;ust=
-=3D1607411614550000&amp;usg=3DAFQjCNHF6V7xA5Pq3lrEStgiLbR9GFuvxg">https://g=
-roups.google.com/d/msgid/jailhouse-dev/126f7b0c-2fa6-4329-bb95-bddead90c9f7=
-n%40googlegroups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a>&gt;.
-<br></blockquote></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/313f42e9-5551-4f77-afc1-498f355d3e95n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/313f42e9-5551-4f77-afc1-498f355d3e95n%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_1248_1758378595.1607325463824--
-
-------=_Part_1247_1458584981.1607325463824--
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/DB6PR0402MB2760E09A5E40B4818663E07D88CE0%40DB6PR0402MB2760.eurprd04.prod.outlook.com.
