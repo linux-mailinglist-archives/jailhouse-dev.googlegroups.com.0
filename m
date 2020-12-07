@@ -1,72 +1,129 @@
-Return-Path: <jailhouse-dev+bncBCJ2NIVKYUNBBYNAW37AKGQE7QIAEVQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBWMQW77AKGQEGRDI25I@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qv1-xf3f.google.com (mail-qv1-xf3f.google.com [IPv6:2607:f8b0:4864:20::f3f])
-	by mail.lfdr.de (Postfix) with ESMTPS id C02672D0925
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  7 Dec 2020 03:16:02 +0100 (CET)
-Received: by mail-qv1-xf3f.google.com with SMTP id m3sf10252340qvw.5
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 06 Dec 2020 18:16:02 -0800 (PST)
+Received: from mail-lf1-x13a.google.com (mail-lf1-x13a.google.com [IPv6:2a00:1450:4864:20::13a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9731F2D0A91
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  7 Dec 2020 07:14:50 +0100 (CET)
+Received: by mail-lf1-x13a.google.com with SMTP id f16sf2297277lfk.7
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 06 Dec 2020 22:14:50 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1607321690; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=w/df8YcRrARbNg0FN7oSr0XDXWzRfsBCNJX/YxFQf5DS183l0DlevHo5hY3NEuubvi
+         ZK/TrgjCMYnhaGngk/4J2ZMU3FwSw2AwwjY/QaaaQah8hsVac3cZvozdeETKNu44Sbjj
+         0YNtPaNfCeCu5ce8Jw1VQM8vBqDFnhDkV/Nh61VnDimSAEBu6OEhEP2jeJ/ogd9CTZ9E
+         o8PmSHozdr4qMEZ2mbfQO4pxUov4ieuoNAHOw3/xktIaGrhPXKB7jPYHk/73tIPHR+HQ
+         rJnTy98CxalWzeojZKAFwcT2DNi66afF+boG86kF58IPvPnEUXHmzAm5RIvb+TAdX61P
+         aQTA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=lz01sBOyeUmLdhMLhRIzHgmPie3vsjxzsPa/y/I10vA=;
+        b=pUCI827jgNfM+gKK4QfeWoSCMQvLjMJqBolb2gIb8G29J4e6rW/uSkBlUf1kI92Vfi
+         JvzbAZpAJ3O1CKQcKTW6sZlW95srKfKBxKkx2Dg2yq2IijEZ6kCpqvVn62MMt/mc2NV+
+         xIgRb57HjepNhpMubi/7u3+7QwRqjIJq2xsIQrCMZr3j6UYabMnS5yZEEPJPIR9unuZw
+         1F7YwKq2uMUCp+apElXQaWaOeo26oKO2Dx6PZIgcqusdNv3dGN2++Wk28TvOABrixh13
+         9c+0dIw5QZcu/ghbvodiIE2Em4u/Ji8PQcBkcMdkoJLETXVE/Qb9aWQ1M5XnfgL14G4V
+         HyuQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=xnr3W13n+CarybztV+5idJUtEHsK652lgt9jzR6kuyw=;
-        b=ASv4sGaieKceD2yCXYb6c0lmfBhAPqDa9fOdTp4Ft64i1MH0MjlioY4pGnr4AL0sUu
-         X5zsaLy4HLDvXN6AnYkosPKGkR9nRtzba0A0CO5nZomK2Z4DXbDKr1GH9VdzNtoTARPw
-         dh78OcAveqy7YuE55BQEPXI9IaLHuYQx60CiMeopT5k3Plzh4QwYmSIduTia1c7xcQmn
-         3NV5JMrgFWrN8k4PbmHyLxooJzJiRm4cp2WvT1lO0EwvNvTmqgEHIfK/eBh+sFqxCv11
-         sjVcXUKPL0wRaJV+BptCmjeOj9iYAmfI70q2tE1pyUtBWKW9DBQBqOUbKZ9uO0mYL7yl
-         A3Zg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=xnr3W13n+CarybztV+5idJUtEHsK652lgt9jzR6kuyw=;
-        b=GRJzijCuvRTincDFsqmoQyuLS4YEDEQkHAfZ9N9+heUK5kMWxYgyyw1BqIV4ESzrEx
-         eRuK5ptgiyLPR8PfZ0BC4G+fU25as7ct/PseXye6gfRsLLgFwjT/ZH2wmT53cCyiNfBm
-         lnMKsY00I5rk0UmMB3GIyR7532625TwHOYVWTIJE4GhY29cw0cJyh5A63ht+jW0E3UCP
-         NjV3YJHAyt05/VuVtnCdVZh4TL1/57Ibp+6u9MSM8mrFZhKOyUGg/9MtH9CJ0yz7EI3m
-         Z1wth5JgB0XQtScC8xxc8qRewVNqKq07iUC707xsqnNGtW07/XCpk+Ca/YcdC2xOiE8s
-         mHdg==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=lz01sBOyeUmLdhMLhRIzHgmPie3vsjxzsPa/y/I10vA=;
+        b=ZP8nxbKU9nfPEYkXaI4e/ghikUtEeMl00kXRyEREUrRO1ax8cJGx4kHSkaLc090P9m
+         L4maj8wE0n0UezNxH/KI5v7Gzg3O548id3O/bK4Os1NauwvB6qcDEW82qVbjtQxQxfbZ
+         LBXyL/UyKEzUb7KKHFZrREYtjwhbQPFwQqsixHsl4n/DwRho/I78JQilwo+0ohjfJnKL
+         wKJpHdFXfFXVVGd4YfrF/mMaZMkDVCt6HYvLOjUM8mL5Yh3/dSVedaJiUPnk1VuqGXEi
+         XVBdGB4LpHpYJ27+2buCORcpwNfSQ5uGhwVAcXA2BTv1GAATJfWe+1ltLo9WiUfWf1Ph
+         isTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=xnr3W13n+CarybztV+5idJUtEHsK652lgt9jzR6kuyw=;
-        b=KsVwCj95UDgHOveEJ0PErhEnnjpgAa39K9mAVjMtNx+cFtyaQSjXulR2Vv5mnbnt40
-         ivcHhta1w6ovBQb3I75f/zmiKk59raGXUK83iWln9j2FHNpw/bGrInX25zO0fYFkp1T/
-         q8qk/qLcNJxkW60HdEmOIzP0ugDwm8quv/ZQdQOcV6xYTZ1bgZNPxUI/Qge1jDpOCQXC
-         sNJslyy+q8wMxA0anvNvFp4kvf4XxPVMAZc+TPBll4KRysQ9T1GkGb1SM/4QghrkzVKb
-         DGPjkEGvwjA8t+ytKX++6qEvtDOCFxoy564xK2vNVD5f5uu4c2QJFsiP6lHJzi0oczzY
-         8ixA==
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=lz01sBOyeUmLdhMLhRIzHgmPie3vsjxzsPa/y/I10vA=;
+        b=M9Qi10Slhi5DTcFw+hi2JO8dbnQFq8Be7l0/l2l8ulI+oUJPtLL4gaCdFHsFhcmtE+
+         1tbGlQvMZrDsi/qj1J+ZV8+R183PK9LNMOeOZzzhU9rdoGk/WY8vndhe83wW/OsYpUFN
+         XEBf63AtxPhDlOtneWSPTxLIrZMnTNUH2jK3z+mNakMxTm3p2Nh3+icdw+0ahgrxgf7l
+         GnYjaCZsAzLzAUofXRg58IUm9nmROoh5vEstI0zA84PEBIUlIo6RWuAxgyT8akXf9Ncd
+         bQ7JQWOaxAZlAkfzJp1ILin3FnVDlcVBjyR1f4CWCLnY79GufeutY4fdX2/g5VYi0G2W
+         DjlA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531Jy8jrUqJ2i2t6kiFV0hnXxlm4s0ZIQ8Lrc9ggrYf0qRJ1CQPv
-	gJhoyPoFf8ZIPQEvC97mBHc=
-X-Google-Smtp-Source: ABdhPJyEW8qsmSGUgvSE0ObeRPUv48EYLHHJksZyVXIh0R2t90/Y/hIqVuUb+E8jmXwDiw1PEvRrMQ==
-X-Received: by 2002:a05:620a:13a6:: with SMTP id m6mr4971046qki.319.1607307361691;
-        Sun, 06 Dec 2020 18:16:01 -0800 (PST)
+X-Gm-Message-State: AOAM532f2F+FgfiEvBWKSf+gZcYsuA70lK31X1sU09O1nVUTY4cO6a0l
+	XytA4DxqMRa8nD80Z6h4oRw=
+X-Google-Smtp-Source: ABdhPJyPR1nC8kNtYihCZw/cGpAM6Ji4zVFlfJPNbK60O7k8j0K8WSEEM4XVFKOpjde7VxzvZ4SLvA==
+X-Received: by 2002:a05:6512:6c3:: with SMTP id u3mr7918380lff.204.1607321690037;
+        Sun, 06 Dec 2020 22:14:50 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:620a:648:: with SMTP id a8ls7359004qka.2.gmail; Sun, 06
- Dec 2020 18:16:01 -0800 (PST)
-X-Received: by 2002:a37:6189:: with SMTP id v131mr1853422qkb.337.1607307360988;
-        Sun, 06 Dec 2020 18:16:00 -0800 (PST)
-Date: Sun, 6 Dec 2020 18:16:00 -0800 (PST)
-From: Peter pan <peter.panjf@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <88b3f6d5-bbe5-44ae-bb14-639d5a4c5fe5n@googlegroups.com>
-In-Reply-To: <c64e1cb0-0311-67f7-3853-fca75bbfc334@siemens.com>
-References: <20201204034516.20000-1-Jiafei.Pan@nxp.com>
- <20201204034516.20000-2-Jiafei.Pan@nxp.com>
- <c64e1cb0-0311-67f7-3853-fca75bbfc334@siemens.com>
-Subject: Re: [PATCH v3 2/2] configs: ls1046a-rdb: Add linux inmate dts demo
+Received: by 2002:a05:6512:10d4:: with SMTP id k20ls885179lfg.3.gmail; Sun, 06
+ Dec 2020 22:14:48 -0800 (PST)
+X-Received: by 2002:a19:c6c2:: with SMTP id w185mr1169077lff.354.1607321688660;
+        Sun, 06 Dec 2020 22:14:48 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1607321688; cv=none;
+        d=google.com; s=arc-20160816;
+        b=oxmoqCAuT1EiMOPvLTBksafToBtwIr73dtNt9mldEz+pAO4qGNFGk7DAXab2ob8lKY
+         Ky6eEVWE3TP+dtxQN+HIzYLQYze6vvBHT6iXVO/vqYhD2Md0f8sxN0yu+sMRfzFV3eJA
+         3bA6JCplf8rZqcdgCjJwCt6hgdUlbVvIh8K/WzXIshggcsZupVp/Bn/2jZQjVfodw2G6
+         MDmuJ8keQeiYfSSBGZ4yO5Amh8X8Oi9Xqr0B0XGG5SuHUMsYouM6DTCK1ZECmlMU4Aim
+         icGEgyJDu2/mCBbuhC0OlOTF/os5wHimjoS2f9SBfqHb2p3jatWwDwGDu1cBfSL2o9pH
+         04gw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=fbyCOIueK2fGM+bizsK1njw39i9uaIUHxgGhunMsb6s=;
+        b=de2rani1d4YDoAwEnMLZg6CigFs1VOj8OyVuNjNRFspVbxfflv1B96cNLGtcLYOzsZ
+         OVDmMe7WgVa+lTKuIrpKRQjguyHiF1l6WG+g0Nq5N+VR1sYYSoytueshTKVIRmwA2jha
+         v+eOLb+jC1Mdzq1ph0lsikaJwG0zOW8UWcnUjpHmOjhC7/L4KZ7L8vPofDWPek52Gb0R
+         WDHztzZtVBhAAvh9/VLMMTHGHWJYKeK6kZGffwpxRnQl1rsdqEVDLscoADi/kB2G4e5Z
+         d/R8tLmadxi6r/OgEL4zfTuLlfFi/MzhPEG1VXOCw8rrqmc77y0CCu4e5Wx6EHOIJrND
+         REUg==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
+        by gmr-mx.google.com with ESMTPS id b27si224795ljf.8.2020.12.06.22.14.48
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 06 Dec 2020 22:14:48 -0800 (PST)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 0B76EkNo018308
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 7 Dec 2020 07:14:46 +0100
+Received: from [167.87.36.107] ([167.87.36.107])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 0B76EjI1022665;
+	Mon, 7 Dec 2020 07:14:46 +0100
+Subject: Re: Jailhouse on R-Pi4 with Debian rootfs
+To: Chung-Fan Yang <sonic.tw.tp@gmail.com>,
+        Jailhouse <jailhouse-dev@googlegroups.com>
+References: <f0e8ee0a-e874-428e-a97c-91524477c7e1n@googlegroups.com>
+ <CADja47Ob29sD_YXYwnxiauGse4sd8MHqhBRq2hy+94JTW2dgyA@mail.gmail.com>
+ <126f7b0c-2fa6-4329-bb95-bddead90c9f7n@googlegroups.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <b6206c2f-ea42-a3ec-d95c-5e84931ece21@siemens.com>
+Date: Mon, 7 Dec 2020 07:14:45 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_2612_1138709890.1607307360266"
-X-Original-Sender: peter.panjf@gmail.com
+In-Reply-To: <126f7b0c-2fa6-4329-bb95-bddead90c9f7n@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -79,230 +136,126 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_2612_1138709890.1607307360266
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_2613_349598630.1607307360266"
+On 07.12.20 02:29, Chung-Fan Yang wrote:
+> Thanks you for the suggestion of using an approved image.
+> I will try it out.
+>=20
+> However, I really like to know the root cause and get the current Debian
+> setup working.
 
-------=_Part_2613_349598630.1607307360266
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+[1] officially supports the RPi4 on buster (despite the pain that
+brings, hope 5.10 improves the situation at bit). You should derive from
+that, specifically the DT overlay-based memory reservation which was
+fixed not so long ago.
 
-Thanks Jan.
+For the kernel, I didn't do a rebase of your patch series yet. [2] is
+the latest upstream based queue.
 
-Jiafei.
+Jan
 
-=E5=9C=A82020=E5=B9=B412=E6=9C=884=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=94 UTC+=
-8 =E4=B8=8B=E5=8D=882:50:13<j.kiszka...@gmail.com> =E5=86=99=E9=81=93=EF=BC=
-=9A
+[1] https://github.com/siemens/jailhouse-images
+[2]
+http://git.kiszka.org/?p=3Dlinux.git;a=3Dshortlog;h=3Drefs/heads/queues/jai=
+lhouse
 
-> On 04.12.20 04:45, Jiafei Pan wrote:
-> > Add device tree demo for running Linux as an inmate on
-> > NXP ls1046a RDB board.
-> >=20
-> > Signed-off-by: Jiafei Pan <Jiafe...@nxp.com>
-> > ---
-> > Change in v2:
-> > - Added inmate dts
-> >=20
-> > configs/arm64/dts/inmate-ls1046a-rdb.dts | 177 +++++++++++++++++++++++
-> > 1 file changed, 177 insertions(+)
-> > create mode 100644 configs/arm64/dts/inmate-ls1046a-rdb.dts
-> >=20
-> > diff --git a/configs/arm64/dts/inmate-ls1046a-rdb.dts=20
-> b/configs/arm64/dts/inmate-ls1046a-rdb.dts
-> > new file mode 100644
-> > index 00000000..8dcda43c
-> > --- /dev/null
-> > +++ b/configs/arm64/dts/inmate-ls1046a-rdb.dts
-> > @@ -0,0 +1,177 @@
-> > +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> > +/*
-> > + * Device Tree for inmate cell on NXP ls1046a RDB platform
-> > + *
-> > + * Copyright 2020 NXP
-> > + *
-> > + * Jiafei Pan <jiafe...@nxp.com>
-> > + */
-> > +
-> > +/dts-v1/;
-> > +
-> > +#include <dt-bindings/interrupt-controller/arm-gic.h>
-> > +
-> > +/ {
-> > + compatible =3D "fsl,ls1046a-rdb", "fsl,ls1046a";
-> > + model =3D "LS1046A RDB Board";
-> > + interrupt-parent =3D <&gic>;
-> > + #address-cells =3D <2>;
-> > + #size-cells =3D <2>;
-> > +
-> > + aliases {
-> > + serial0 =3D &duart1;
-> > + };
-> > +
-> > + cpus {
-> > + #address-cells =3D <1>;
-> > + #size-cells =3D <0>;
-> > +
-> > + cpu2: cpu@2 {
-> > + device_type =3D "cpu";
-> > + compatible =3D "arm,cortex-a72";
-> > + reg =3D <0x2>;
-> > + clocks =3D <&clockgen 1 0>;
-> > + next-level-cache =3D <&l2>;
-> > + cpu-idle-states =3D <&CPU_PH20>;
-> > + #cooling-cells =3D <2>;
-> > + enable-method =3D "psci";
-> > + };
-> > +
-> > + cpu3: cpu@3 {
-> > + device_type =3D "cpu";
-> > + compatible =3D "arm,cortex-a72";
-> > + reg =3D <0x3>;
-> > + clocks =3D <&clockgen 1 0>;
-> > + next-level-cache =3D <&l2>;
-> > + cpu-idle-states =3D <&CPU_PH20>;
-> > + #cooling-cells =3D <2>;
-> > + enable-method =3D "psci";
-> > + };
-> > +
-> > + l2: l2-cache {
-> > + compatible =3D "cache";
-> > + };
-> > + };
-> > +
-> > + chosen {
-> > + stdout-path =3D "serial0:115200n8";
-> > + };
-> > +
-> > + idle-states {
-> > + entry-method =3D "psci";
-> > +
-> > + CPU_PH20: cpu-ph20 {
-> > + compatible =3D "arm,idle-state";
-> > + idle-state-name =3D "PH20";
-> > + arm,psci-suspend-param =3D <0x0>;
-> > + entry-latency-us =3D <1000>;
-> > + exit-latency-us =3D <1000>;
-> > + min-residency-us =3D <3000>;
-> > + };
-> > + };
-> > +
-> > + sysclk: sysclk {
-> > + compatible =3D "fixed-clock";
-> > + #clock-cells =3D <0>;
-> > + clock-frequency =3D <100000000>;
-> > + clock-output-names =3D "sysclk";
-> > + };
-> > +
-> > + reboot {
-> > + compatible =3D"syscon-reboot";
-> > + regmap =3D <&dcfg>;
-> > + offset =3D <0xb0>;
-> > + mask =3D <0x02>;
-> > + };
-> > +
-> > + timer {
-> > + compatible =3D "arm,armv8-timer";
-> > + interrupts =3D <GIC_PPI 13 (GIC_CPU_MASK_RAW(0xf) |
-> > + IRQ_TYPE_LEVEL_LOW)>,
-> > + <GIC_PPI 14 (GIC_CPU_MASK_RAW(0xf) |
-> > + IRQ_TYPE_LEVEL_LOW)>,
-> > + <GIC_PPI 11 (GIC_CPU_MASK_RAW(0xf) |
-> > + IRQ_TYPE_LEVEL_LOW)>,
-> > + <GIC_PPI 10 (GIC_CPU_MASK_RAW(0xf) |
-> > + IRQ_TYPE_LEVEL_LOW)>;
-> > + };
-> > +
-> > + gic: interrupt-controller@1410000 {
-> > + compatible =3D "arm,gic-400";
-> > + #interrupt-cells =3D <3>;
-> > + interrupt-controller;
-> > + reg =3D <0x0 0x1410000 0 0x10000>, /* GICD */
-> > + <0x0 0x142f000 0 0x1000>, /* GICC */
-> > + <0x0 0x1440000 0 0x20000>, /* GICH */
-> > + <0x0 0x146f000 0 0x1000>; /* GICV */
-> > + interrupts =3D <GIC_PPI 9 (GIC_CPU_MASK_RAW(0xf) |
-> > + IRQ_TYPE_LEVEL_LOW)>;
-> > + };
-> > +
-> > + soc: soc {
-> > + compatible =3D "simple-bus";
-> > + #address-cells =3D <2>;
-> > + #size-cells =3D <2>;
-> > + ranges;
-> > + dma-ranges =3D <0x0 0x0 0x0 0x0 0x10000 0x00000000>;
-> > + dma-coherent;
-> > +
-> > +
-> > + ddr: memory-controller@1080000 {
-> > + compatible =3D "fsl,qoriq-memory-controller";
-> > + reg =3D <0x0 0x1080000 0x0 0x1000>;
-> > + interrupts =3D <GIC_SPI 144 IRQ_TYPE_LEVEL_HIGH>;
-> > + big-endian;
-> > + };
-> > +
-> > + scfg: scfg@1570000 {
-> > + compatible =3D "fsl,ls1046a-scfg", "syscon";
-> > + reg =3D <0x0 0x1570000 0x0 0x10000>;
-> > + big-endian;
-> > + };
-> > +
-> > + dcfg: dcfg@1ee0000 {
-> > + compatible =3D "fsl,ls1046a-dcfg", "syscon";
-> > + reg =3D <0x0 0x1ee0000 0x0 0x1000>;
-> > + big-endian;
-> > + };
-> > +
-> > + clockgen: clocking@1ee1000 {
-> > + compatible =3D "fsl,ls1046a-clockgen";
-> > + reg =3D <0x0 0x1ee1000 0x0 0x1000>;
-> > + #clock-cells =3D <2>;
-> > + clocks =3D <&sysclk>;
-> > + };
-> > +
-> > + duart1: serial@21c0600 {
-> > + compatible =3D "fsl,ns16550", "ns16550a";
-> > + reg =3D <0x00 0x21c0600 0x0 0x100>;
-> > + clocks =3D <&clockgen 4 1>;
-> > + status =3D "okay";
-> > + };
-> > +
-> > + };
-> > +
-> > + pci@fb500000 {
-> > + compatible =3D "pci-host-ecam-generic";
-> > + device_type =3D "pci";
-> > + bus-range =3D <0 0>;
-> > + #address-cells =3D <3>;
-> > + #size-cells =3D <2>;
-> > + #interrupt-cells =3D <1>;
-> > + interrupt-map-mask =3D <0 0 0 7>;
-> > + interrupt-map =3D <0 0 0 1 &gic GIC_SPI 28 IRQ_TYPE_EDGE_RISING>,
-> > + <0 0 0 2 &gic GIC_SPI 29 IRQ_TYPE_EDGE_RISING>,
-> > + <0 0 0 3 &gic GIC_SPI 30 IRQ_TYPE_EDGE_RISING>,
-> > + <0 0 0 4 &gic GIC_SPI 31 IRQ_TYPE_EDGE_RISING>;
-> > + reg =3D <0x0 0xfb500000 0x0 0x100000>;
-> > + ranges =3D <0x02000000 0x00 0x10000000 0x0 0x10000000 0x00 0x10000>;
-> > + };
-> > +
-> > + psci {
-> > + compatible =3D "arm,psci-1.0";
-> > + method =3D "smc";
-> > + };
-> > +
-> > +};
-> > +
-> >=20
->
-> Both merged with minor tweaking.
->
-> Thanks,
-> Jan
->
+>=20
+> Yang
+>=20
+>=20
+> 2020=E5=B9=B412=E6=9C=887=E6=97=A5=E6=9C=88=E6=9B=9C=E6=97=A5 5:01:26 UTC=
++9 jsmo...@linuxfoundation.org:
+>=20
+>     Check our GSoC project on Automotive Grade Linux:
+>     https://git.automotivelinux.org/AGL/meta-agl-devel/tree/meta-agl-jail=
+house
+>     <https://git.automotivelinux.org/AGL/meta-agl-devel/tree/meta-agl-jai=
+lhouse>
+>=20
+>     It can build for PI.
+>=20
+>     An it can serve as inspiration for the values needed.
+>=20
+> =C2=A0
+>=20
+>=20
+>     js
+>=20
+>     Chung-Fan Yang <sonic...@gmail.com> schrieb am So., 6. Dez. 2020, 17:=
+34:
+>=20
+>         Hi,
+>=20
+>         I am working to get jailhouse work with my R-Pi4.
+>=20
+>         I have been using a 64bit Debian buster rootfs with
+>         a custom compiled 5.9 preempt-rt kernel.
+>=20
+>         I have successful reserved >736M for jailhouse and inserted the
+>         jailhouse.ko, but when I do jailhouse enable I got the following
+>         error on uart.
+>=20
+>         Any suggestions are appreciated.
+>=20
+>         Initializing Jailhouse hypervisor v0.12 (223-g097bed0f) on CPU 1
+>         Code location: 0x0000ffffc0200800
+>         Page pool usage after early setup: mem 39/994, remap 0/131072
+>         Initializing processors:
+>         =C2=A0CPU 1...
+>         FATAL: Unhandled HYP exception: synchronous abort from EL2
+>         =C2=A0pc: 0000ffffc0203864=C2=A0=C2=A0 lr: 0000ffffc0203850 spsr:=
+ 200003c9=C2=A0=C2=A0=C2=A0=C2=A0 EL2
+>         =C2=A0sp: 0000ffffc0222e40=C2=A0 elr: 0000ffffc0203864=C2=A0 esr:=
+ 00 1 0000000
+>         =C2=A0x0: 0000000084000000=C2=A0=C2=A0 x1: 0000000000000000=C2=A0=
+=C2=A0 x2: 0000000080003580
+>         =C2=A0x3: 0000000000000014=C2=A0=C2=A0 x4: 0000000000000002=C2=A0=
+=C2=A0 x5: 0000000000000001
+>         =C2=A0x6: 0000000000000029=C2=A0=C2=A0 x7: 0000ffffc0219ec0=C2=A0=
+=C2=A0 x8: 000000000000002a
+>         =C2=A0x9: 0000000000000000=C2=A0 x10: 0000000000000000=C2=A0 x11:=
+ 0000000000000001
+>         x12: 0000000000000015=C2=A0 x13: 0000000000000001=C2=A0 x14: 0000=
+ffffc0219000
+>         x15: 0000ffffc0015040=C2=A0 x16: 0000ffffc020da50=C2=A0 x17: ffff=
+af45951e7518
+>         x18: 0000000000000001=C2=A0 x19: 0000ffffc0222000=C2=A0 x20: 0000=
+ffffc0219000
+>         x21: 0000ffffc0200000=C2=A0 x22: 0000ffffc0219000=C2=A0 x23: 0000=
+000000000001
+>         x24: 0000000000000001=C2=A0 x25: 0000ffffc0222000=C2=A0 x26: 0000=
+ffffc0223000
+>         x27: 0000ffffc020f000=C2=A0 x28: 0000ffffc0218000=C2=A0 x29: 0000=
+ffffc0222e40
+>=20
+>         Hypervisor stack before exception Stopping CPU 1 (Cell:
+>         "Raspberry-Pi4")
+>=20
+>         PS. I did noticed there is a similar post, but it has no solution=
+.
+>=20
+>         --=20
+>         You received this message because you are subscribed to the
+>         Google Groups "Jailhouse" group.
+>         To unsubscribe from this group and stop receiving emails from
+>         it, send an email to jailhouse-de...@googlegroups.com.
+>         To view this discussion on the web visit
+>         https://groups.google.com/d/msgid/jailhouse-dev/f0e8ee0a-e874-428=
+e-a97c-91524477c7e1n%40googlegroups.com
+>         <https://groups.google.com/d/msgid/jailhouse-dev/f0e8ee0a-e874-42=
+8e-a97c-91524477c7e1n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfo=
+oter>.
+>=20
 > --=20
-> Siemens AG, T RDA IOT
-> Corporate Competence Center Embedded Linux
->
+> You received this message because you are subscribed to the Google
+> Groups "Jailhouse" group.
+> To unsubscribe from this group and stop receiving emails from it, send
+> an email to jailhouse-dev+unsubscribe@googlegroups.com
+> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
+> To view this discussion on the web visit
+> https://groups.google.com/d/msgid/jailhouse-dev/126f7b0c-2fa6-4329-bb95-b=
+ddead90c9f7n%40googlegroups.com
+> <https://groups.google.com/d/msgid/jailhouse-dev/126f7b0c-2fa6-4329-bb95-=
+bddead90c9f7n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>.
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -310,248 +263,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/88b3f6d5-bbe5-44ae-bb14-639d5a4c5fe5n%40googlegroups.com.
-
-------=_Part_2613_349598630.1607307360266
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Thanks Jan.<div><br></div><div>Jiafei.<br><br></div><div class=3D"gmail_quo=
-te"><div dir=3D"auto" class=3D"gmail_attr">=E5=9C=A82020=E5=B9=B412=E6=9C=
-=884=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=94 UTC+8 =E4=B8=8B=E5=8D=882:50:13&lt=
-;j.kiszka...@gmail.com> =E5=86=99=E9=81=93=EF=BC=9A<br/></div><blockquote c=
-lass=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-left: 1px solid r=
-gb(204, 204, 204); padding-left: 1ex;">On 04.12.20 04:45, Jiafei Pan wrote:
-<br>&gt; Add device tree demo for running Linux as an inmate on
-<br>&gt; NXP ls1046a RDB board.
-<br>&gt;=20
-<br>&gt; Signed-off-by: Jiafei Pan &lt;<a href data-email-masked rel=3D"nof=
-ollow">Jiafe...@nxp.com</a>&gt;
-<br>&gt; ---
-<br>&gt; Change in v2:
-<br>&gt; 	- Added inmate dts
-<br>&gt;=20
-<br>&gt;  configs/arm64/dts/inmate-ls1046a-rdb.dts | 177 ++++++++++++++++++=
-+++++
-<br>&gt;  1 file changed, 177 insertions(+)
-<br>&gt;  create mode 100644 configs/arm64/dts/inmate-ls1046a-rdb.dts
-<br>&gt;=20
-<br>&gt; diff --git a/configs/arm64/dts/inmate-ls1046a-rdb.dts b/configs/ar=
-m64/dts/inmate-ls1046a-rdb.dts
-<br>&gt; new file mode 100644
-<br>&gt; index 00000000..8dcda43c
-<br>&gt; --- /dev/null
-<br>&gt; +++ b/configs/arm64/dts/inmate-ls1046a-rdb.dts
-<br>&gt; @@ -0,0 +1,177 @@
-<br>&gt; +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-<br>&gt; +/*
-<br>&gt; + * Device Tree for inmate cell on NXP ls1046a RDB platform
-<br>&gt; + *
-<br>&gt; + * Copyright 2020 NXP
-<br>&gt; + *
-<br>&gt; + * Jiafei Pan &lt;<a href data-email-masked rel=3D"nofollow">jiaf=
-e...@nxp.com</a>&gt;
-<br>&gt; + */
-<br>&gt; +
-<br>&gt; +/dts-v1/;
-<br>&gt; +
-<br>&gt; +#include &lt;dt-bindings/interrupt-controller/arm-gic.h&gt;
-<br>&gt; +
-<br>&gt; +/ {
-<br>&gt; +	compatible =3D &quot;fsl,ls1046a-rdb&quot;, &quot;fsl,ls1046a&qu=
-ot;;
-<br>&gt; +	model =3D &quot;LS1046A RDB Board&quot;;
-<br>&gt; +	interrupt-parent =3D &lt;&amp;gic&gt;;
-<br>&gt; +	#address-cells =3D &lt;2&gt;;
-<br>&gt; +	#size-cells =3D &lt;2&gt;;
-<br>&gt; +
-<br>&gt; +	aliases {
-<br>&gt; +		serial0 =3D &amp;duart1;
-<br>&gt; +	};
-<br>&gt; +
-<br>&gt; +	cpus {
-<br>&gt; +		#address-cells =3D &lt;1&gt;;
-<br>&gt; +		#size-cells =3D &lt;0&gt;;
-<br>&gt; +
-<br>&gt; +		cpu2: cpu@2 {
-<br>&gt; +			device_type =3D &quot;cpu&quot;;
-<br>&gt; +			compatible =3D &quot;arm,cortex-a72&quot;;
-<br>&gt; +			reg =3D &lt;0x2&gt;;
-<br>&gt; +			clocks =3D &lt;&amp;clockgen 1 0&gt;;
-<br>&gt; +			next-level-cache =3D &lt;&amp;l2&gt;;
-<br>&gt; +			cpu-idle-states =3D &lt;&amp;CPU_PH20&gt;;
-<br>&gt; +			#cooling-cells =3D &lt;2&gt;;
-<br>&gt; +			enable-method =3D &quot;psci&quot;;
-<br>&gt; +		};
-<br>&gt; +
-<br>&gt; +		cpu3: cpu@3 {
-<br>&gt; +			device_type =3D &quot;cpu&quot;;
-<br>&gt; +			compatible =3D &quot;arm,cortex-a72&quot;;
-<br>&gt; +			reg =3D &lt;0x3&gt;;
-<br>&gt; +			clocks =3D &lt;&amp;clockgen 1 0&gt;;
-<br>&gt; +			next-level-cache =3D &lt;&amp;l2&gt;;
-<br>&gt; +			cpu-idle-states =3D &lt;&amp;CPU_PH20&gt;;
-<br>&gt; +			#cooling-cells =3D &lt;2&gt;;
-<br>&gt; +			enable-method =3D &quot;psci&quot;;
-<br>&gt; +		};
-<br>&gt; +
-<br>&gt; +		l2: l2-cache {
-<br>&gt; +			compatible =3D &quot;cache&quot;;
-<br>&gt; +		};
-<br>&gt; +	};
-<br>&gt; +
-<br>&gt; +	chosen {
-<br>&gt; +		stdout-path =3D &quot;serial0:115200n8&quot;;
-<br>&gt; +	};
-<br>&gt; +
-<br>&gt; +	idle-states {
-<br>&gt; +		entry-method =3D &quot;psci&quot;;
-<br>&gt; +
-<br>&gt; +		CPU_PH20: cpu-ph20 {
-<br>&gt; +			compatible =3D &quot;arm,idle-state&quot;;
-<br>&gt; +			idle-state-name =3D &quot;PH20&quot;;
-<br>&gt; +			arm,psci-suspend-param =3D &lt;0x0&gt;;
-<br>&gt; +			entry-latency-us =3D &lt;1000&gt;;
-<br>&gt; +			exit-latency-us =3D &lt;1000&gt;;
-<br>&gt; +			min-residency-us =3D &lt;3000&gt;;
-<br>&gt; +		};
-<br>&gt; +	};
-<br>&gt; +
-<br>&gt; +	sysclk: sysclk {
-<br>&gt; +		compatible =3D &quot;fixed-clock&quot;;
-<br>&gt; +		#clock-cells =3D &lt;0&gt;;
-<br>&gt; +		clock-frequency =3D &lt;100000000&gt;;
-<br>&gt; +		clock-output-names =3D &quot;sysclk&quot;;
-<br>&gt; +	};
-<br>&gt; +
-<br>&gt; +	reboot {
-<br>&gt; +		compatible =3D&quot;syscon-reboot&quot;;
-<br>&gt; +		regmap =3D &lt;&amp;dcfg&gt;;
-<br>&gt; +		offset =3D &lt;0xb0&gt;;
-<br>&gt; +		mask =3D &lt;0x02&gt;;
-<br>&gt; +	};
-<br>&gt; +
-<br>&gt; +	timer {
-<br>&gt; +		compatible =3D &quot;arm,armv8-timer&quot;;
-<br>&gt; +		interrupts =3D &lt;GIC_PPI 13 (GIC_CPU_MASK_RAW(0xf) |
-<br>&gt; +					  IRQ_TYPE_LEVEL_LOW)&gt;,
-<br>&gt; +			     &lt;GIC_PPI 14 (GIC_CPU_MASK_RAW(0xf) |
-<br>&gt; +					  IRQ_TYPE_LEVEL_LOW)&gt;,
-<br>&gt; +			     &lt;GIC_PPI 11 (GIC_CPU_MASK_RAW(0xf) |
-<br>&gt; +					  IRQ_TYPE_LEVEL_LOW)&gt;,
-<br>&gt; +			     &lt;GIC_PPI 10 (GIC_CPU_MASK_RAW(0xf) |
-<br>&gt; +					  IRQ_TYPE_LEVEL_LOW)&gt;;
-<br>&gt; +	};
-<br>&gt; +
-<br>&gt; +	gic: interrupt-controller@1410000 {
-<br>&gt; +		compatible =3D &quot;arm,gic-400&quot;;
-<br>&gt; +		#interrupt-cells =3D &lt;3&gt;;
-<br>&gt; +		interrupt-controller;
-<br>&gt; +		reg =3D &lt;0x0 0x1410000 0 0x10000&gt;, /* GICD */
-<br>&gt; +		      &lt;0x0 0x142f000 0 0x1000&gt;, /* GICC */
-<br>&gt; +		      &lt;0x0 0x1440000 0 0x20000&gt;, /* GICH */
-<br>&gt; +		      &lt;0x0 0x146f000 0 0x1000&gt;; /* GICV */
-<br>&gt; +		interrupts =3D &lt;GIC_PPI 9 (GIC_CPU_MASK_RAW(0xf) |
-<br>&gt; +					 IRQ_TYPE_LEVEL_LOW)&gt;;
-<br>&gt; +	};
-<br>&gt; +
-<br>&gt; +	soc: soc {
-<br>&gt; +		compatible =3D &quot;simple-bus&quot;;
-<br>&gt; +		#address-cells =3D &lt;2&gt;;
-<br>&gt; +		#size-cells =3D &lt;2&gt;;
-<br>&gt; +		ranges;
-<br>&gt; +		dma-ranges =3D &lt;0x0 0x0 0x0 0x0 0x10000 0x00000000&gt;;
-<br>&gt; +		dma-coherent;
-<br>&gt; +
-<br>&gt; +
-<br>&gt; +		ddr: memory-controller@1080000 {
-<br>&gt; +			compatible =3D &quot;fsl,qoriq-memory-controller&quot;;
-<br>&gt; +			reg =3D &lt;0x0 0x1080000 0x0 0x1000&gt;;
-<br>&gt; +			interrupts =3D &lt;GIC_SPI 144 IRQ_TYPE_LEVEL_HIGH&gt;;
-<br>&gt; +			big-endian;
-<br>&gt; +		};
-<br>&gt; +
-<br>&gt; +		scfg: scfg@1570000 {
-<br>&gt; +			compatible =3D &quot;fsl,ls1046a-scfg&quot;, &quot;syscon&quot=
-;;
-<br>&gt; +			reg =3D &lt;0x0 0x1570000 0x0 0x10000&gt;;
-<br>&gt; +			big-endian;
-<br>&gt; +		};
-<br>&gt; +
-<br>&gt; +		dcfg: dcfg@1ee0000 {
-<br>&gt; +			compatible =3D &quot;fsl,ls1046a-dcfg&quot;, &quot;syscon&quot=
-;;
-<br>&gt; +			reg =3D &lt;0x0 0x1ee0000 0x0 0x1000&gt;;
-<br>&gt; +			big-endian;
-<br>&gt; +		};
-<br>&gt; +
-<br>&gt; +		clockgen: clocking@1ee1000 {
-<br>&gt; +			compatible =3D &quot;fsl,ls1046a-clockgen&quot;;
-<br>&gt; +			reg =3D &lt;0x0 0x1ee1000 0x0 0x1000&gt;;
-<br>&gt; +			#clock-cells =3D &lt;2&gt;;
-<br>&gt; +			clocks =3D &lt;&amp;sysclk&gt;;
-<br>&gt; +		};
-<br>&gt; +
-<br>&gt; +		duart1: serial@21c0600 {
-<br>&gt; +			compatible =3D &quot;fsl,ns16550&quot;, &quot;ns16550a&quot;;
-<br>&gt; +			reg =3D &lt;0x00 0x21c0600 0x0 0x100&gt;;
-<br>&gt; +			clocks =3D &lt;&amp;clockgen 4 1&gt;;
-<br>&gt; +			status =3D &quot;okay&quot;;
-<br>&gt; +		};
-<br>&gt; +
-<br>&gt; +	};
-<br>&gt; +
-<br>&gt; +	pci@fb500000 {
-<br>&gt; +		compatible =3D &quot;pci-host-ecam-generic&quot;;
-<br>&gt; +		device_type =3D &quot;pci&quot;;
-<br>&gt; +		bus-range =3D &lt;0 0&gt;;
-<br>&gt; +		#address-cells =3D &lt;3&gt;;
-<br>&gt; +		#size-cells =3D &lt;2&gt;;
-<br>&gt; +		#interrupt-cells =3D &lt;1&gt;;
-<br>&gt; +		interrupt-map-mask =3D &lt;0 0 0 7&gt;;
-<br>&gt; +		interrupt-map =3D &lt;0 0 0 1 &amp;gic GIC_SPI 28 IRQ_TYPE_EDGE=
-_RISING&gt;,
-<br>&gt; +			&lt;0 0 0 2 &amp;gic GIC_SPI 29 IRQ_TYPE_EDGE_RISING&gt;,
-<br>&gt; +			&lt;0 0 0 3 &amp;gic GIC_SPI 30 IRQ_TYPE_EDGE_RISING&gt;,
-<br>&gt; +			&lt;0 0 0 4 &amp;gic GIC_SPI 31 IRQ_TYPE_EDGE_RISING&gt;;
-<br>&gt; +		reg =3D &lt;0x0 0xfb500000 0x0 0x100000&gt;;
-<br>&gt; +		ranges =3D &lt;0x02000000 0x00 0x10000000 0x0 0x10000000 0x00 0=
-x10000&gt;;
-<br>&gt; +	};
-<br>&gt; +
-<br>&gt; +	psci {
-<br>&gt; +		compatible =3D &quot;arm,psci-1.0&quot;;
-<br>&gt; +		method =3D &quot;smc&quot;;
-<br>&gt; +	};
-<br>&gt; +
-<br>&gt; +};
-<br>&gt; +
-<br>&gt;=20
-<br>
-<br>Both merged with minor tweaking.
-<br>
-<br>Thanks,
-<br>Jan
-<br>
-<br>--=20
-<br>Siemens AG, T RDA IOT
-<br>Corporate Competence Center Embedded Linux
-<br></blockquote></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/88b3f6d5-bbe5-44ae-bb14-639d5a4c5fe5n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/88b3f6d5-bbe5-44ae-bb14-639d5a4c5fe5n%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_2613_349598630.1607307360266--
-
-------=_Part_2612_1138709890.1607307360266--
+jailhouse-dev/b6206c2f-ea42-a3ec-d95c-5e84931ece21%40siemens.com.
