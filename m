@@ -1,202 +1,183 @@
-Return-Path: <jailhouse-dev+bncBDAMFR7JZAEBBT6TYD7AKGQE3RNBWNA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJN5Z66VINBB5V4YL7AKGQEGOTQLEI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x340.google.com (mail-wm1-x340.google.com [IPv6:2a00:1450:4864:20::340])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1333C2D384B
-	for <lists+jailhouse-dev@lfdr.de>; Wed,  9 Dec 2020 02:35:12 +0100 (CET)
-Received: by mail-wm1-x340.google.com with SMTP id u123sf45498wmu.5
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 08 Dec 2020 17:35:12 -0800 (PST)
-ARC-Seal: i=3; a=rsa-sha256; t=1607477711; cv=pass;
+Received: from mail-wm1-x33f.google.com (mail-wm1-x33f.google.com [IPv6:2a00:1450:4864:20::33f])
+	by mail.lfdr.de (Postfix) with ESMTPS id C476D2D3F30
+	for <lists+jailhouse-dev@lfdr.de>; Wed,  9 Dec 2020 10:52:54 +0100 (CET)
+Received: by mail-wm1-x33f.google.com with SMTP id k23sf355794wmj.1
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 09 Dec 2020 01:52:54 -0800 (PST)
+ARC-Seal: i=3; a=rsa-sha256; t=1607507574; cv=pass;
         d=google.com; s=arc-20160816;
-        b=rhjuz1+8nOYrMEaN1u2KY4eTyO6K0f/335wf0GsAQ6qAMHMB3q85K5ybC1crrsxbEN
-         cpQnl1oG9M261DqkvEZVzphvFF8X1Fc696ZK/XLeOrxlGgSG4k7uz8z1op4S6r3zIjVo
-         XdKnb6pg+4pASL5o5KxKOHh6M09xBogb2oUSWsQHFNLRh5Mh+vXHG3LFYmN8izG0qBBp
-         yfOymefrqrGj4hJieWwHHG1rt8keNMtjotD28e3gz0YuANlj/fNdrfv64/GOL3VaH/IP
-         llS7LL3yD9XRQV5VJBYUp0w0Givy8LYw4+l7/PL5cVc8onh0qUczqQj9eE8+TiHrLhzY
-         BWog==
+        b=k0YxRGi/sKO641ItDHK7EK65lw+FHXiFEn1t6Rz+mXyuUTgYcPSMH7Ztjq28zkpzim
+         RzV8k7Vm3r7nq9C1ONwb3hTbx3XCIuWqAieNv9nN566LHPfij+HSTth//iZL/otMbuMc
+         0Rp3kLYX8FNadMr2EkvfQd74itNigZGBR2OrMJgdVSspqYGJbBmP/M2BfwSCOQnkELOm
+         kQEGZ7THadCgTbXwyNIVuS4NJ8mqlIWrA5uIk3FveF8B3AW1+pN+JhDPZIG3k++XB8aT
+         2yVsoGnVuRlrATl/z3hXBHk0Js2Ph2GlQUpnNCq7t5dlWs89NkYn/yNnfMSHH7zco9jO
+         jp9w==
 ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:to:from:sender:dkim-signature;
-        bh=o/ZPdz9fsEh8rgdzUQotGjy4IdgxZ7XVwP8IAn7zLDo=;
-        b=ymdEgmUJwfO9kBR2F3hwb8wsEE7pEuxmoGRgofaRFUmjzOpBmtEefUnLYf203dLbSu
-         DlQ5tC+enz3Xg9s1VA8Mh//YshwJxTp0wftvj0FV6GRmDi4bOOR8cOe95cVXoIy9SEJv
-         VNoyQ1+GKCn9x9Qk87hJPLI9W0O4FYNanM3S6ePiJ7xIJ66yfIK/FIN2Tn2W20xm6Z7/
-         7E7iSrZEl84eG9hNZFmz7J/DfYZUwSqHk3ecmrYf6X+JvKLaIiyMieJJsQiae0oOmJGC
-         mjGbqVCfRUa/ECU0us6EjB1EBew8MVN7iSgtQdTiuQP+urL/DY5bBu2iPmAoBPH5LYOS
-         Nrbw==
+         :accept-language:message-id:date:thread-index:thread-topic:subject
+         :to:from:sender:dkim-signature;
+        bh=WRKWtz0MpsLKVsYC9jib2pXdKCI33jZGnfGO+m3tMLE=;
+        b=aNSd7THm6Yy7t6WdrxZl2MdmNjsXEe1GI7heJBWoyU5RhJesSMtpmT9yeHsW1IQtVx
+         EKtWBzwqgXZdsI7AMo4GYZxYrXCvdCEqc2IslDrQp6DCGl++rmLkfduKP3SDlGZIvIdJ
+         g9zTkv/yKuUUVOk9EDlVGh+rNtIE5sEVDqoQ7zdGRbnqjAQF5RkEafosOOShG0WFtPJb
+         kmDfcUUEmLyMr2wHBDRQqCMx0kAHQsrCLDThMoZcgmFg0hltWJQc1XPqGa//FPCdD8OV
+         4J81HxWuekTCgIX+HHGf+Vy3k9cc6B/hPULBYWpgg4UNeBShKYD7nirUXoOf9kR7Gi8+
+         ykvw==
 ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@nxp.com header.s=selector2 header.b=cCHfVQV+;
-       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
-       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.7.85 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
+       dkim=pass header.i=@ikerlan.es header.s=selector2 header.b=qdFPFxaU;
+       arc=pass (i=1 spf=pass spfdomain=ikerlan.es dkim=pass dkdomain=ikerlan.es dmarc=pass fromdomain=ikerlan.es);
+       spf=pass (google.com: domain of msainz@ikerlan.es designates 40.107.8.131 as permitted sender) smtp.mailfrom=Msainz@ikerlan.es;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ikerlan.es
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:from:to:subject:thread-topic:thread-index:date:message-id
-         :references:in-reply-to:accept-language:content-language
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=o/ZPdz9fsEh8rgdzUQotGjy4IdgxZ7XVwP8IAn7zLDo=;
-        b=p4/wmHFpqUXucwh4nBSIDPcNZmSUksiM5w0cUelBCy/yeYlW1YVjdJnlXBpfsl0IcL
-         mz+WrNSoHhTw7viMPeub4OOdf9/fIRSzq6/FI8bnWv1TcC/NBcljYn/fdgmgJlTHsaTp
-         1/m1fD499ab5qRetlNuG4vj1/BVDNwQsDYoPYgZTj98XAOuoDDR4l8PrwxjMuVOjbaZg
-         S0wWXI17RQiTXioCidt6GTCHC++XPqLAcAP1xBAwwDeZ3zHA3t5u2QvcP2ldxMEQid6d
-         ezo3iLVUagvza5OQQKcVow9S7hrqO9ip1GQ10IZRN9ZcRKXjUsUDChSPI5N/mSlBxirv
-         hzUA==
+         :accept-language:content-language:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=WRKWtz0MpsLKVsYC9jib2pXdKCI33jZGnfGO+m3tMLE=;
+        b=OlE2wWNDIagLgECkXekU2dcdxSdHKn7EleYqmbtARInSmlwvB3G8fTOEtogGxuj6vz
+         NIeTKi4kPsm0/bbLFLCQ7s7Y543QTkyqfGjGJOmM58ygI/ZODyjiJ46hmf79LVHkvWvG
+         wB6Q0sWTj+zU+IXB1foyVcKCVM5djnLzdFSJlvmAhLp/AHnN4d7ziLGukeURCnxiPHiU
+         ejxvWNU80MK+oXtn45xC22aUn0T6sbKemfRRFdOI7BwlE0BJ8pbC5IRHLcqb9qPdk+p4
+         diqKTYtTtcKD41w/jRRZdqcCFdR80r+Fxstqa4VaN4raq78EREfxK5hvfgU1KI9uk36x
+         0tJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:subject:thread-topic:thread-index
-         :date:message-id:references:in-reply-to:accept-language
-         :content-language:mime-version:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=o/ZPdz9fsEh8rgdzUQotGjy4IdgxZ7XVwP8IAn7zLDo=;
-        b=rsbMS6B27XDPp58GeTMX8fYxgIBhh3JVtoGm0Zq9+IwCRLC4ewmYWnt1g2xa8yFpCw
-         DHYYHa1/VkZz3dtaj5E5YZ76wvM9O8XAjNEC8BEewBCF0Dpd/+By9ocOjHisqzV/xI4M
-         at78ZRyKdGPMAryYRG96OMJ93LppIYp4eT7iiW6vZK2fHwh3mkmCS1lnbkOu/phYJJVg
-         dqNq/S4jots1x1uHwEZ+m8MHnMJUt6JV85vGu5bXAZwDAjOQtBRTVpdovd1eTVBGONiy
-         9DHx5mTPfTlA9XSyAvr8NqpZ69dY31D/o2p62p/lxBo/2NYs0AZ8ARZwMfsdM8YcrUM+
-         TdEg==
+         :date:message-id:accept-language:content-language:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=WRKWtz0MpsLKVsYC9jib2pXdKCI33jZGnfGO+m3tMLE=;
+        b=U5tRjVrhRu/WOv/T50sjaTMxQEZ4/ABFsOEsoD748bS6BTcQ8dHjZ17eihZrRiZajK
+         BMuQUP+WUJOpEwOHeGEvXkfStFuTj/IPrFnqXs1IBRr7mxPcElyqMVYeeY5Y4z3dXezQ
+         sOuL4sip6+1nQpW7SfH6wQ4Ed3Hlnnxdq3wEfWQ0e8Wn2JnbtiaGRpUeyuX9nxJC/QXI
+         0qHnf9xF1XxseTQw+h46RycyH7iWjMigOHjUR/1Uffpw7nT6MGbAjfDFMPH7Ip0nUKKq
+         mxw2APWGG75sxcoQt0A7QQfBp8hFNnnh9+7fyVsqQAMbs7WJgmAIUXnhymfg/TqMSyf7
+         NQcg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533OZl7NoYQ23fTYNZ/565OpF8VlpdNVyb71ttA8BZ11Et8LUIOq
-	Th+GHzj/YJYfbJ8BHkwUlww=
-X-Google-Smtp-Source: ABdhPJxmOpQ1nAHpGOovfSXqNPltWOZhW2d7FPYFlxUYfs22qJDI+jLQuf+q0ijHhm+EL9qsNMBRZQ==
-X-Received: by 2002:adf:b359:: with SMTP id k25mr882408wrd.98.1607477711798;
-        Tue, 08 Dec 2020 17:35:11 -0800 (PST)
+X-Gm-Message-State: AOAM532neMLBzpcKcBFk7pa+YuwiSaCKffaZv7tA2edp0KzefsQKhkXn
+	X173HBez0grH1UNSBgbCCJo=
+X-Google-Smtp-Source: ABdhPJytDgvSu8iS8sg02nCifEGX1uKVR3cfxZuTdI36O7agDogcj81n03/iYKa4nADjF0fBovUOhw==
+X-Received: by 2002:a1c:f715:: with SMTP id v21mr1875416wmh.2.1607507574492;
+        Wed, 09 Dec 2020 01:52:54 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5d:6812:: with SMTP id w18ls218901wru.1.gmail; Tue, 08 Dec
- 2020 17:35:10 -0800 (PST)
-X-Received: by 2002:a5d:4a06:: with SMTP id m6mr859113wrq.189.1607477710891;
-        Tue, 08 Dec 2020 17:35:10 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1607477710; cv=pass;
+Received: by 2002:adf:eb0e:: with SMTP id s14ls1652129wrn.2.gmail; Wed, 09 Dec
+ 2020 01:52:53 -0800 (PST)
+X-Received: by 2002:a5d:6386:: with SMTP id p6mr1720012wru.261.1607507573551;
+        Wed, 09 Dec 2020 01:52:53 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1607507573; cv=pass;
         d=google.com; s=arc-20160816;
-        b=LA52S1ertcZ7nmKXadJVB0Q6V0187Tp7iuUdm7iITy0f7BRioQuptzn7KXSH4aYjKt
-         cybW/zH236XBkRsEM4M2DXAH441HZ0JBiea2Kfr+UWuZxGc+QWh/MvyPapwPmqTVYpVz
-         VaENzx7dNDd7hVCLRBaszX/xgHXj6GsiyOAmovL39CL4BBSwap6kzm2mdH5OQ7HMgVMu
-         bXszuxB/Q3tL8J052vWn61D4CTa0bO0tZySypll100O/YqFQzbDYq2mBNQ5M2JCZ2c/M
-         rGW5CrD8AgPq1akxlzLwUa1Xt0jJGsQPBVvlyYvec1c4Ux71zJgC/QfA6guFwx4gpECe
-         M64g==
+        b=IAoCGQc+mnxiAM6KPHVuNCOeDeTc5ki7Bpn46PiX/k18znqtf4HPpQy+VBN0DP4SHw
+         S6IABgisqLcKzdnU48HC3RpsUhIWXHtAKXU5JRLv0Homl8TuZ+2RmsaPi2OicvkuWhB/
+         sZB5R8b17YiuMPdCUaU82o1QmMKHz5xQtO3TKdOL6GJVfzAfUbSRG4zCZe4kFvBgrqD1
+         0VXQH6XOUqJ/PxxtR+Ss0To3aZDRnXUrUHXDkg4Dd/F2nUGvMcc2NOO8fG4dAbMv9EA7
+         JlARe5TGBo/xZszjxkeBqufUJK2wxF2vrz1MXWiq3isAEs2jXYg7+ot7pfJAIqvmzbux
+         Xc+g==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:content-transfer-encoding:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:to:from:dkim-signature;
-        bh=dwNrBn7gCYLvHXumFBKlmiwfqCeD0wJbXjmIhtsQsJk=;
-        b=SvfXfknasiuZq7PfVi+iSegL5asJnn4OJ30GYwb5ByKVOvSWzduS0PszA8W4NxWJM1
-         V1+L1YmYyf7w5Sn6NPqZNUB9IH01Vft1vPFvIL2/Az/kayyWBFtG3HX9JJ+CqcE8UXTF
-         SC3bugEF1dXvWXQ1opM5GfWCQvgSZAcBflym7+NdpOLn1O5uOIxDXOG+lAiKfFcJIFfB
-         Kmp3lxWauVvY8+xrPP5PLsIDteEZOfGfo8xXXfdEvbxFI0r4d8cIBc7Oa/PTGcDtPyVf
-         fcYldKTGrkBJQogiKBAHskiVx+HmXfBmK6SMsUcd3IiySOc0jYs8jUefbkdZo0z3Xlzx
-         DjyQ==
+        h=mime-version:content-language:accept-language:message-id:date
+         :thread-index:thread-topic:subject:to:from:dkim-signature;
+        bh=tY9XS1h/J95J0vhggePTRxXWuBbahs+kePexcIKo9g8=;
+        b=reAA/R405eaZYWa0wW+Pl2YOs0ynSBNjJKxDbu1XW/R2zni77spg/EbcbvxP60FauZ
+         ADRFo6K8fP0uv++fKrUNTyMqjOPSoqRLE8j/QEJSf7bvk+yBnWhd2rhLOAiiIJOF394C
+         ebVo3LLWf+Ruvx1MBtjOAYvVyn/ClHlJHPZ01aTwyeE2cezVNgKJ4nHGebO3F7pXyJb4
+         0GsXFH57CdBXKSPrst8WO2xi782tDn11vrIxZc+fbuxt214g8xaSl19b7Pepr6E+L7hw
+         D6Fqz/GD4Cr2GFOlyjWKjwCtSjMG31fGEsE7q46ejRN1DTs7KBwII/Pn3uCM3MZR4aCO
+         vAJw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@nxp.com header.s=selector2 header.b=cCHfVQV+;
-       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
-       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.7.85 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com (mail-eopbgr70085.outbound.protection.outlook.com. [40.107.7.85])
-        by gmr-mx.google.com with ESMTPS id r21si8229wra.4.2020.12.08.17.35.10
+       dkim=pass header.i=@ikerlan.es header.s=selector2 header.b=qdFPFxaU;
+       arc=pass (i=1 spf=pass spfdomain=ikerlan.es dkim=pass dkdomain=ikerlan.es dmarc=pass fromdomain=ikerlan.es);
+       spf=pass (google.com: domain of msainz@ikerlan.es designates 40.107.8.131 as permitted sender) smtp.mailfrom=Msainz@ikerlan.es;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ikerlan.es
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com (mail-eopbgr80131.outbound.protection.outlook.com. [40.107.8.131])
+        by gmr-mx.google.com with ESMTPS id 18si36239wmg.2.2020.12.09.01.52.53
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 08 Dec 2020 17:35:10 -0800 (PST)
-Received-SPF: pass (google.com: domain of peng.fan@nxp.com designates 40.107.7.85 as permitted sender) client-ip=40.107.7.85;
+        Wed, 09 Dec 2020 01:52:53 -0800 (PST)
+Received-SPF: pass (google.com: domain of msainz@ikerlan.es designates 40.107.8.131 as permitted sender) client-ip=40.107.8.131;
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jgDtGrarBtJdtbuONnE/b457LS0u30aFWE/fHRFfQYtyRemOMvBOKmoasW9sTmxEvZvmwWzw8KQd5oO6iJCMAbjNzg4g9BgiXn3tqRVOCba7AkK2kaOjGw3TV1CuNiKStwNNCfBTbCk2kwEgySrz7biKRoKsCMqghpuQtsIF+jzmN5oi+y1EmwK2FwKeurUrgHFExdqL8AeaC2jNIr0tUJ8yDGf5xZFiXmueNumAwNDzMV3Wn4ZLpgcN4RhHMDmf59jL6Et7G6Uag+QnKWZlbw2ssPFbC5uB/pMNb+gtmcZEBjoezgVLVWlnAssMAH6ugsAbTsxWFNUeA8BvGH+xYg==
+ b=JkFnat354xAS/NWsSNRrOaxlOsA62cgqzFqZXlKVdEHHx34qlSfjcezSgPwCXpm7UW2e8O1/d9/i+w8P4PTPf7QMDEJ7fiMS8BpyB5LEKsG76zBKNALWZAotLSy9/36Y8NwceLDtxrOx6ZpEjsJwUoF2fg3UV8J94mRvxCzUk6bmJX3b5oh/N1yTSl7xlpUpvFrp9n6iy1awrAISkLnhtCT3VQSEw0lnOQBH6B9v3S2SzrQ1XgcT9BCtlVox9zmeYHzpI4zqN+NuL7V74ZzCbFzLDha21QK+NTab4jsnZShB+ycGCGryhYI0lreRKzrHADbTDElToA7T8jRozOJq/Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dwNrBn7gCYLvHXumFBKlmiwfqCeD0wJbXjmIhtsQsJk=;
- b=KEp0/Q+QLm5uRG3JxeFla+A081IDc37P7jh2W8RMCLWbW/0tT367rs0VqWGHW2Gyscvws2Ml8GnzxKligBgsyc4nGxcvAwznCxlL40LVkbWzx2KuuBQFxa6ykmQF9vA7oXNtpIBcUUh6Klo8pV9mtQd3dp1QiCHmq0XOb5ZpuopnjB7AblUqC51z0JzugsX0MGD54ui+G+aIPtvDkSA756NeqbZa1qRF9hWInZ4Uy6++Cal1T94Y5e36LCcvcuM3QDKAtDLDE5CXRcorc0ETBs6bF047WKVsT3zkeCTP3jQJqoWfLF4b90vuVF2AtitRWk0m+72/7ThFT1pWNyFT0g==
+ bh=tY9XS1h/J95J0vhggePTRxXWuBbahs+kePexcIKo9g8=;
+ b=DkYnNmYvn/wIB3PGJfK9I+j/vLZtk/J3rTvQS+MToLi6S/eoq5gf4QMTkqNB5JOy4gA4LGQvuFaTDAtW0T24K1q1Zus1ZhvUeQa/6IGnaBBpf7QdBkcyMB5Ia4MiptLcbeNFfmJ0V4rC464k8XhK3QXlwfxaCecgfdEZkI/Dhwu7ObQGIQDhK5Ptt6cLJC17LNsV/ow9JK3fC0Z9ofRLg/dJG+0B6cfUa6bQtLwvjELMLWxTnTOaHUr3B7tFmp0yWC49/OcxIrDKudArBjFp/m5M530RXfkbGHv7QiljzdNsu9JgxfqE7bososIT3a+AeqUYMrI1ctUoaOnXJ7a+wA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com (2603:10a6:4:a1::14)
- by DB8PR04MB5658.eurprd04.prod.outlook.com (2603:10a6:10:b2::32) with
+ smtp.mailfrom=ikerlan.es; dmarc=pass action=none header.from=ikerlan.es;
+ dkim=pass header.d=ikerlan.es; arc=none
+Received: from PA4PR03MB7184.eurprd03.prod.outlook.com (2603:10a6:102:106::13)
+ by PA4PR03MB7406.eurprd03.prod.outlook.com (2603:10a6:102:10c::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.22; Wed, 9 Dec
- 2020 01:35:09 +0000
-Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com
- ([fe80::c964:9:850a:fc5]) by DB6PR0402MB2760.eurprd04.prod.outlook.com
- ([fe80::c964:9:850a:fc5%10]) with mapi id 15.20.3632.024; Wed, 9 Dec 2020
- 01:35:09 +0000
-From: Peng Fan <peng.fan@nxp.com>
-To: Jan Kiszka <jan.kiszka@siemens.com>, "jailhouse-dev@googlegroups.com"
-	<jailhouse-dev@googlegroups.com>
-Subject: RE: ARM64 MSIX enabling error
-Thread-Topic: ARM64 MSIX enabling error
-Thread-Index: AdbMbLjE+IGjwJH3TguDfS43O45UGQADqiQAACSJ9gAABUGw0AAEHfCAAAEwDFAAApGHAAAAH6zwAAH0v4AAIB0HwA==
-Date: Wed, 9 Dec 2020 01:35:09 +0000
-Message-ID: <DB6PR0402MB27604611BF7DE87E43799E3A88CC0@DB6PR0402MB2760.eurprd04.prod.outlook.com>
-References: <DB6PR0402MB2760E09A5E40B4818663E07D88CE0@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <3bbd059e-632b-da36-1f79-de1731e1352e@siemens.com>
- <DB6PR0402MB2760AF37C2A42481C80249E788CD0@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <DB6PR0402MB2760C14BDE7BECED2A60906488CD0@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <543a61e2-e521-5c89-0d96-9f06946f0aae@siemens.com>
- <DB6PR0402MB27605393AB95974CE4D8944E88CD0@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <35de9824-dc88-dd3a-175f-6db6c086d2a6@siemens.com>
- <DB6PR0402MB2760F7FE11280F9619178C5888CD0@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <5043bde5-fe69-398a-a0c6-9957459f2b57@siemens.com>
-In-Reply-To: <5043bde5-fe69-398a-a0c6-9957459f2b57@siemens.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.18; Wed, 9 Dec
+ 2020 09:52:50 +0000
+Received: from PA4PR03MB7184.eurprd03.prod.outlook.com
+ ([fe80::e85e:1f1d:9e71:5cd7]) by PA4PR03MB7184.eurprd03.prod.outlook.com
+ ([fe80::e85e:1f1d:9e71:5cd7%6]) with mapi id 15.20.3632.023; Wed, 9 Dec 2020
+ 09:52:50 +0000
+From: Sainz Markel <Msainz@ikerlan.es>
+To: "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
+Subject: jailhouse hardware check error
+Thread-Topic: jailhouse hardware check error
+Thread-Index: AdbOEISuarlPAbS2SqyLZ0yti5cZUw==
+Date: Wed, 9 Dec 2020 09:52:50 +0000
+Message-ID: <PA4PR03MB718419E2B512BC70CB7A56C1B6CC0@PA4PR03MB7184.eurprd03.prod.outlook.com>
 Accept-Language: en-US
-Content-Language: en-US
+Content-Language: es-ES
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [92.121.68.129]
+x-originating-ip: [193.145.247.253]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 2380cadf-4bdd-40da-9c3f-08d89be2aa7f
-x-ms-traffictypediagnostic: DB8PR04MB5658:
-x-microsoft-antispam-prvs: <DB8PR04MB56584826E1A7517532D664D288CC0@DB8PR04MB5658.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-office365-filtering-correlation-id: ca84a5c7-4c75-4344-8161-08d89c2830bd
+x-ms-traffictypediagnostic: PA4PR03MB7406:
+x-microsoft-antispam-prvs: <PA4PR03MB740649DA6115635BA42EC3BFB6CC0@PA4PR03MB7406.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8273;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 511K6JOmLjUQmiN5qF1FwR9wOYC6tWJ1o5NnYCCT7y4Gy1YKXavqKCjcf/aoHe9cysmACi6LLnKj+Mcf/xRlD7JL9VYjNIyfqVEhS3zGD2XrRHVG5kvxfdDqTfJ0vvysNkzNdnZaZ9xw1RcqhhvGCAVhpS+sfq6VPSCI3HdqIJHNDYP8eCiym1+KdV2xXHr/fbOPRZ5Nmty2qH6m7amc3O2PW1Efm1Bo/JeuN6iPsYgHgIwrDssfHg3+FYbSdJTROuoWzEP8UKIGCHe4+HgTiZ0d0tKncqyTfl87BsnG7UI2kvajjAphiLrzQT3HDUjaCgBrzgX1iwCVw+ChkDb4wg==
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB6PR0402MB2760.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(346002)(366004)(376002)(2906002)(66446008)(508600001)(5660300002)(44832011)(55016002)(64756008)(6506007)(76116006)(52536014)(7696005)(53546011)(26005)(9686003)(86362001)(66556008)(110136005)(186003)(33656002)(66946007)(71200400001)(8676002)(66476007)(8936002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata: =?utf-8?B?NXA4a3pGM3BaUGxremtsUGJQNWJkKzhObXBJSVRPK1p4MjVxTXRzQUh4YWRi?=
- =?utf-8?B?cjFhcHplOC80TmRzaDFFM1k5SEtYYlNhbG9zMzV2V05yQzZodEU1RFlBN3Nh?=
- =?utf-8?B?RitHU29JdEVTMU9tRkNad1FsTFVBZjViS29MSkkzektwclBZbFZwbFY1RFhV?=
- =?utf-8?B?T05DbGlEZk84ZThPZVlTeHVJNmgzekIraXlhdW1vYUVHUU1KWmM3Z3hLN0sv?=
- =?utf-8?B?bTRsc2h0N0xhMTY1TVVmbm45VCttdjMyQUl5bnRJdDhLRjQxVXR6QS9NOHZK?=
- =?utf-8?B?cng1MFgvR09BQkJHRjJublN5c2tUQ3JUdHpBa29zU1p1Mlk2T2RYSmdQV2tF?=
- =?utf-8?B?K2VVU2gvVzFVVnQ3OGRSQ0RMaUpIblA3QnRvZDlyUzFWWVk3ZnJXbzRMUm1I?=
- =?utf-8?B?dFBTWCtjTC9meDRhaFNaY09BZk9sSlBRTWRHRGlRdHBLREFZYWQyU2t3SVJy?=
- =?utf-8?B?eE9Nc1dMQ3QvSUU2MUI2cmppckFTOE5VWnA1dmdtcGVQc2xpZDVsV3hDVFQx?=
- =?utf-8?B?aTVQblhqc3pSNE9zRHB4QlJzdDlHam5KT05tU3NZZDc2MEt5VDF3VlAzaXVq?=
- =?utf-8?B?Mis4eGVwbTlYRDA3byt0YUhlNEg0T0JjWU8zM04wdm5PWVVqeWpuNTNZaWht?=
- =?utf-8?B?dit0cE9HYWUrdmsxb1ZFaFd1aGVoZHhhMkk5MUQrckVVNWhYVTFHY0l4ajBv?=
- =?utf-8?B?WFZDZmNhM0dadWhET3c0Snhtc1hRM3hGdGZuUXBhZm5Ub2xWMytXV0lubUpi?=
- =?utf-8?B?aXRJMlhkVVNFRnpsOFYya0p0c20zRTliOFdXSTRQdzJJQmZOYU13NkdFbUsv?=
- =?utf-8?B?emRaaW11cTZTQnVUYWVtMTV3VXVUZWVzN2tCK0xUdkUzVC8xNHY5MnpVdVJo?=
- =?utf-8?B?N3hGWmJTbnN2Tkh5ZXRMeEVUODNKbFV4V0w4dENNMTdJYk9YQlhKZkcwYWJx?=
- =?utf-8?B?SElRcHVMbzc5WlFtOFRrU0RBb2hqOGhzdm9ubHVPLzZPUHMrWHdSQXZPTVRk?=
- =?utf-8?B?SWVGM2FGWVJjYm16OEgxanVjRTYwZWxqSTQ3b1lLZldvK3hjMlRZakJmYUF6?=
- =?utf-8?B?U3FtcFlkMWV1c2RIZmRZNVBIKzdQNm5xQnJLMng3WWkxR1ZQaEtGV0JmZUtu?=
- =?utf-8?B?cCtQWUIzMFB2QUxuQ2tEcUtSRW1WNHBhb1VRNjUzc090eEFDT0Z2dHZzbDdR?=
- =?utf-8?B?ZDJQeENvZjJkYkZEeFNJdUdXZzR3Q2Q3ZHV0SXh1UERheEh3ZHFMSVlRSkVI?=
- =?utf-8?B?ZENMSDJVNjRTQWpmTThNTHNkL3N0a1pwWXJjMGYxZm9KWVd4UDY2NXJsNzhG?=
- =?utf-8?Q?fHKW5JA3qT+po=3D?=
+x-microsoft-antispam-message-info: LkMHizAAKOmMajD9ipiEOXuXTkQyDZYb/6cGOb2cYiPrv3I4IJkXsDiY34/B0el/go+WIyQRZ9Tl+hGFXarXvLuFJ7Th3TGpZTve/dJ+OKDMWwaK//5yYtCMA9Risaa9EMmHKsL3JonVroPn3U1pq5Tyojo9Rk1L7tcvt1UYPKxXpzM7uQSI5WiyaCgV2msCEhXE+oW+AcJJdbWppEg4u8Tja731ox8fXBrStEBavc4lSTc5XdEBQNNEavjRvWY1l5OjmppU1cNIaAXidhEolfNjOWV6aJpHSh1VKkCsYgOgnTH2gYWJEEMDFai5Wa0icPCoCpGtSB3nB5eXQ1ttdkXsGvkHyBCBsIRmP+Yj5eeqlU/oIcMa3vHosOjf5E4dCg7ReeDJv/jd7CLh76ezHijLTzv31qun0XStj7yfy44wviR7G2knGUCo/XwJ/KKUdUBih2icwgrUZQ/WO6WihIbC4U6Nc7vlyOO47nZegSw=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR03MB7184.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(366004)(376002)(136003)(3480700007)(7696005)(26005)(86362001)(166002)(9686003)(66946007)(8676002)(55016002)(71200400001)(64756008)(66556008)(66574015)(52536014)(83380400001)(66446008)(76116006)(19627405001)(8936002)(66476007)(5660300002)(6506007)(2906002)(19627235002)(83080400002)(33656002)(6916009)(186003)(508600001)(158833001);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?Lz4oDPWt/969GpQupxBrx5q0JZW/OJ1luSdv6NGO/5a0BLlU9UaBZGE3rG?=
+ =?iso-8859-1?Q?daTfJ/KpkV8mcFUSeTFy5SsBkFXE/JwpMDleBuE7FYHjPvN09u3ACuVYCH?=
+ =?iso-8859-1?Q?M4p2ne2qvKByAJEB/xnAJu5Yg7VYkA2YJwHd5PFBgFld5eqVGyVJj6sKUl?=
+ =?iso-8859-1?Q?FhBLxd1H7pWtr4hYX4Rw7FbH91QhpKQ0mwuv/ZzecufSOTIYdxxJVYY//c?=
+ =?iso-8859-1?Q?X2WKbqVYFPICw8U6Dmk3skzh9n1Jzp24hyLorn0RwNUdDjpFcXrldMCw2u?=
+ =?iso-8859-1?Q?IloGRx9Kg6hUlQyo7EDuGIhi560OdrJQdQf/vL5gn4TCI1PM55ZeQRCeUG?=
+ =?iso-8859-1?Q?biWKG2N1j8Ca73j6KjNx0RNav4QftmF6CZVwEAH7crEkqFdOs/fXLgpTCG?=
+ =?iso-8859-1?Q?9DtUAlqtsZrcZt3UhO7g0VGuU0mUucKK9wSUJZrPTz6I8OmaATzAn+xh4R?=
+ =?iso-8859-1?Q?u+u/dxlSjW70QLio/KnRlSYm0oZWx2Kbg2YwuifzjWThxonzdgrCWaCFNB?=
+ =?iso-8859-1?Q?cHW+0htWE3LFXRqreJdRgJVDLvS+XU6unG6b6aWFTL7zdEsDfFtX7Er6FN?=
+ =?iso-8859-1?Q?g00wqeWzBtMwbJ7oVJr4ntSoOLBnASPNRHtvh4ma34wfRAqQ9luuqYSUV6?=
+ =?iso-8859-1?Q?gbipFC/5XaMGTNxExabLydIGSS2TZj+rjrTHeyoPWcM2nAeIP98o11Myea?=
+ =?iso-8859-1?Q?EA/QnYIZNpDnd/lye9TDq8axwJ7pdVec1DItNbPP8SjJ/giDDSFSw3ziuo?=
+ =?iso-8859-1?Q?uklwW1U17GMrN/nQu72l9jkGZp+ktdDR+V1vX2ZGrirVV5Qqa9LSflLp5I?=
+ =?iso-8859-1?Q?nZUK0eFM9n00O8y7Uypq6AxeN1zyua7YUHtDCetZFnrYx5IYQRCSyD/Zql?=
+ =?iso-8859-1?Q?xM5cyvFDNLs7ufrBEp+vk5jTV4a8S4uOd/Cf1eNtyWUONdYFLBREvQ0RbP?=
+ =?iso-8859-1?Q?iK+21rH5KeTIFB38QoabbZDJl/SQbkUnHz/49LkByb/g9euXSC6Un6nUcS?=
+ =?iso-8859-1?Q?ImHAk0HpEzDOhaFQU=3D?=
 x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/alternative;
+	boundary="_000_PA4PR03MB718419E2B512BC70CB7A56C1B6CC0PA4PR03MB7184eurp_"
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
+X-OriginatorOrg: ikerlan.es
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB6PR0402MB2760.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2380cadf-4bdd-40da-9c3f-08d89be2aa7f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Dec 2020 01:35:09.7319
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR03MB7184.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca84a5c7-4c75-4344-8161-08d89c2830bd
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Dec 2020 09:52:50.0995
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-id: 910ac815-f855-4a08-bf29-90b46552cf11
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: LXoRRDK/sRhm1OBY2O4Ol0tEi2i/I3Xhwy/P2hN5jx3995n95jeXXA6xlhXTPalIWyxUHAc7e2tzrF7Kh2funA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB5658
-X-Original-Sender: peng.fan@nxp.com
+X-MS-Exchange-CrossTenant-userprincipalname: CNMYmsyISNhA//ayoMPJu7VkntYPtCp1EaUANkXisHYIZSsK2GP49JM+MwaSFEQyEHiqbCGc4uwo1SNAlkQU8A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR03MB7406
+X-Original-Sender: msainz@ikerlan.es
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@nxp.com header.s=selector2 header.b=cCHfVQV+;       arc=pass (i=1
- spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass
- fromdomain=nxp.com);       spf=pass (google.com: domain of peng.fan@nxp.com
- designates 40.107.7.85 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
+ header.i=@ikerlan.es header.s=selector2 header.b=qdFPFxaU;       arc=pass
+ (i=1 spf=pass spfdomain=ikerlan.es dkim=pass dkdomain=ikerlan.es dmarc=pass
+ fromdomain=ikerlan.es);       spf=pass (google.com: domain of
+ msainz@ikerlan.es designates 40.107.8.131 as permitted sender)
+ smtp.mailfrom=Msainz@ikerlan.es;       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ikerlan.es
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -209,134 +190,379 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-> Subject: Re: ARM64 MSIX enabling error
-> 
-> On 08.12.20 10:46, Peng Fan wrote:
-> >> Subject: Re: ARM64 MSIX enabling error
-> >>
-> >> On 08.12.20 09:01, Peng Fan wrote:
-> >>>
-> >>>> Subject: Re: ARM64 MSIX enabling error
-> >>>>
-> >>>> On 08.12.20 06:28, Peng Fan wrote:
-> >>>>>> Subject: RE: ARM64 MSIX enabling error
-> >>>>>>
-> >>>>>>> Subject: Re: ARM64 MSIX enabling error
-> >>>>>>>
-> >>>>>>> On 07.12.20 08:46, Peng Fan wrote:
-> >>>>>>>> Hi,
-> >>>>>>>>
-> >>>>>>>> I use MSIX, not INTX in root cell file, but always met the
-> >>>>>>>> following
-> >> error.
-> >>>>>>>> uio_ivshmem: probe of 0001:00:00.0 failed with error -28
-> >>>>>>>>
-> >>>>>>>>
-> >>>>>>>> I am trying virtio ivshmem on my board, but seems virtio
-> >>>>>>>> ivshmem vi_find_vqs not work with INTX, so I change to MSIX to
-> see how.
-> >>>>>>>> But met upper error, any suggestions?
-> >>>>>>>
-> >>>>>>> MSI-X for virtual devices only works when injecting them into a
-> >>>>>>> physical PCI bus which is using MSI-X already. Is that the case here?
-> >>>>>>> If not, you need to debug the INTx case.
-> >>>>>>
-> >>>>>> ok. Thanks.
-> >>>>>>
-> >>>>>> I could see virtio-ivshmem-console /dev/uio1 shows a few lines
-> >>>>>> log,
-> >>>>>>
-> >>>>>> But it responds to input very slow, when I press enter key, it
-> >>>>>> takes long time to respond.
-> >>>>>
-> >>>>> After correct the interrupt number, it responds to enter key fast.
-> >>>>> But if I not press enter key, the virtio-ivshmem-console /dev/uio1
-> >>>>> will show nothing. If I press enter key, it will show one line boot log.
-> >>>>> Press one more time, it will show the other boot log.
-> >>>>> I need press enter always, then could see the boot log printed out.
-> >>>>>
-> >>>>
-> >>>> Still interrupts issues, I would say. The GIC MMIO resources are
-> >>>> not accidentally passed through? Does /proc/interrupts report
-> >>>> events for the virtual device?
-> >>>
-> >>> ivshm_irq_handler is triggered in the beginning, for several times,
-> >>> but after that, there is no interrupt triggered from inmate Linux to
-> >>> root
-> >> Linux.
-> >>>
-> >>> The inmate Linux is dead loop in
-> >>> __send_to_port
-> >>>       ->
-> >>> 644         while (!virtqueue_get_buf(out_vq, &len)
-> >>> 645                 && !virtqueue_is_broken(out_vq))
-> >>> 646                 cpu_relax();
-> >>>
-> >>> If I press enter key in virtio-ivshmem-console /dev/uio1, it could
-> >>> pass the
-> >> loop.
-> >>> But it will run into it again later and not break out.
-> >>>
-> >>
-> >> I bet the "virtqueue_kick" that comes before this loop does not
-> >> trigger an interrupt on the backend side
-> >
-> > Indeed.
-> >
-> > - or we have race that this is consumed without
-> >> delivering the expected answer to the frontend. Didn't recall to see
-> >> this, so I'm afraid you need to debug deeper.
-> >
-> > This change make it work. I am using INTX, so num_vector is 1, however
-> > if device vector is 2 or 1, it will ignore the interrupt inject in
-> > hypervisor/ ivshmem.c
-> >
-> > @@ -361,9 +369,9 @@ int main(int argc, char *argv[])
-> >
-> >                 memset(queue_config, 0, sizeof(queue_config));
-> >                 queue_config[0].size = 8;
-> > -               queue_config[0].device_vector = 1;
-> > +               queue_config[0].device_vector = 0;
-> >                 queue_config[1].size = 8;
-> > -               queue_config[1].device_vector = 2;
-> > +               queue_config[1].device_vector = 0;
-> >                 current_queue = -1;
-> >
-> >                 vc->config.cols = winsize.ws_col;
-> >
-> 
-> OK, we need to explore how many vectors are available and configure the
-> queues accordingly. I thought I did that already but apparently that wasn't for
-> real. Or it was only for ivshmem-net...
+--_000_PA4PR03MB718419E2B512BC70CB7A56C1B6CC0PA4PR03MB7184eurp_
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Please help create a patch, I am a bit new to this.
-For ivshmem-net, do you plan to support virtio network?
+After realizing the inconsistency on VT-x emulation in VMware and switching=
+ to VBox, I get the following error in hardware check command:
 
-> 
-> >
-> > BTW: Do you think using kvmtool to include the virito ivshmemv2
-> > support is a good option? Or you insist standalone tool as your
-> > current design?
-> 
-> kvmtool is for... kvm. I'm not sure I you can easily factor out the device
-> models from the kvm part there.
-> 
-> I fact, I'm rather thinking of something list rustvmm to exploit as device model
-> supplier on the long run.
+mjonian@mjonian-VirtualBox:~/Projects/jailhouse/tools$ sudo jailhouse hardw=
+are check
+Feature                         Availability
+------------------------------  ------------------
+Number of CPUs > 1              ok
+Long mode                       ok
+Traceback (most recent call last):
+  File "./jailhouse-hardware-check", line 147, in <module>
+    iommu, _ =3D sysfs_parser.parse_dmar(pci_devices, ioapics, dmar_regions=
+)
+  File "/home/mjonian/Projects/jailhouse/tools/../pyjailhouse/sysfs_parser.=
+py", line 338, in parse_dmar
+    f =3D input_open('/sys/firmware/acpi/tables/DMAR', 'rb')
+  File "/home/mjonian/Projects/jailhouse/tools/../pyjailhouse/sysfs_parser.=
+py", line 90, in input_open
+    raise e
+IOError: [Errno 2] No such file or directory: '//sys/firmware/acpi/tables/D=
+MAR'
 
-ok. I am not sure which is better currently. Rustvmm might be a good choice.
+I've checked that VT-x is enabled in bios and I've run the VM with the inte=
+l_iommu=3Doff kernel parameter. To get you out of doubt, I've installed Ubu=
+ntu v20.04 with kernel 5.4.77 natively in a machine and checked all the pre=
+vious. The same result when trying to check the hardware... Any ideas?
 
-Thanks,
-Peng.
+Markel.
 
-> 
-> Jan
-> 
-> --
-> Siemens AG, T RDA IOT
-> Corporate Competence Center Embedded Linux
+Markel Sainz Oruna
+HW eta Komunikazio Sistemak
+Sistemas HW y de Comunicaci=C3=B3n
+HW and communication systems
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/DB6PR0402MB27604611BF7DE87E43799E3A88CC0%40DB6PR0402MB2760.eurprd04.prod.outlook.com.
+
+msainz@ikerlan.es <mailto:msainz@ikerlan.es>
+[https://www.ikerlan.es/resize/branding/ikerlan_icono_twitter.gif]<https://=
+twitter.com/IKERLANofficial>
+[https://www.ikerlan.es/resize/branding/ikerlan_icono_linkedin.gif]<https:/=
+/es.linkedin.com/company/ikerlan>
+[https://www.ikerlan.es/resize/branding/ikerlan_icono_youtube.gif]<https://=
+www.youtube.com/c/IKERLANofficial>
+Tel.: +34 943 71 24 00
+P=C2=BA J. M. Arizmendiarrieta, 2 - 20500 Arrasate-Mondrag=C3=B3n (Gipuzkoa=
+)
+www.ikerlan.es<http://www.ikerlan.es>
+[https://www.ikerlan.es/upload/actualidad_noticias/ikerlan_separador.gif]
+[https://www.ikerlan.es/resize/branding/Ikerlan_BRTA.jpg]
+[https://www.ikerlan.es/upload/actualidad_noticias/SINADURA_EKINTZA_BEREZIA=
+K.jpg]
+* Mezu honen informazioa isilpekoa izan daiteke eta indarrean dagoen legedi=
+ak babesten du. Hutsegite baten ondorioz jaso baduzu, bidal iezaiozu berrir=
+o bidaltzaileari eta ezaba ezazu. Milesker zure laguntzagatik. Behar beharr=
+ezkoa baino ez inprimatu, gogoratu zure INGURUMENarekiko konpromisoa.
+* La informaci=C3=B3n de este correo puede ser confidencial y est=C3=A1 pro=
+tegida por la legislaci=C3=B3n vigente. Si ha recibido este correo por erro=
+r, reenv=C3=ADelo a su emisor y elim=C3=ADnelo. Gracias por su ayuda. Impri=
+me s=C3=B3lo lo imprescindible, recuerda tu compromiso con el MEDIO AMBIENT=
+E.
+* This e-mail may contain confidential information that is protected by our=
+ laws. If you have received this e-mail by mistake, please, notify the send=
+er and delete it. Thank you for your help. Before printing think about the =
+ENVIRONMENT.
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/PA4PR03MB718419E2B512BC70CB7A56C1B6CC0%40PA4PR03MB7184.eurprd=
+03.prod.outlook.com.
+
+--_000_PA4PR03MB718419E2B512BC70CB7A56C1B6CC0PA4PR03MB7184eurp_
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-language:EN-US;}
+span.EstiloCorreo17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-language:EN-US;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:70.85pt 3.0cm 70.85pt 3.0cm;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-GB" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">After realizing the inconsistency on VT-x emulation =
+in VMware and switching to VBox, I get the following error in hardware chec=
+k command:<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">mjonian@mjonian-VirtualBox:~/Projects/jailhouse/tool=
+s$ sudo jailhouse hardware check<o:p></o:p></p>
+<p class=3D"MsoNormal">Feature&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; Availability<o:p></o:p></p>
+<p class=3D"MsoNormal">------------------------------&nbsp; ---------------=
+---<o:p></o:p></p>
+<p class=3D"MsoNormal">Number of CPUs &gt; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ok<o:p></o:p></p>
+<p class=3D"MsoNormal">Long mode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; ok<o:p></o:p></p>
+<p class=3D"MsoNormal">Traceback (most recent call last):<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; File &quot;./jailhouse-hardware-check&quot;, =
+line 147, in &lt;module&gt;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; iommu, _ =3D sysfs_parser.parse_d=
+mar(pci_devices, ioapics, dmar_regions)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; File &quot;/home/mjonian/Projects/jailhouse/t=
+ools/../pyjailhouse/sysfs_parser.py&quot;, line 338, in parse_dmar<o:p></o:=
+p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; f =3D input_open('/sys/firmware/a=
+cpi/tables/DMAR', 'rb')<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; File &quot;/home/mjonian/Projects/jailhouse/t=
+ools/../pyjailhouse/sysfs_parser.py&quot;, line 90, in input_open<o:p></o:p=
+></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; raise e<o:p></o:p></p>
+<p class=3D"MsoNormal">IOError: [Errno 2] No such file or directory: '//sys=
+/firmware/acpi/tables/DMAR'<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I&#8217;ve checked that VT-x is enabled in bios and =
+I&#8217;ve run the VM with the intel_iommu=3Doff kernel parameter. To get y=
+ou out of doubt, I&#8217;ve installed Ubuntu v20.04 with kernel 5.4.77 nati=
+vely in a machine and checked all the previous. The same
+ result when trying to check the hardware&#8230; Any ideas?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Markel.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<table class=3D"MsoNormalTable" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0" width=3D"370" style=3D"width:277.5pt">
+<tbody>
+<tr style=3D"height:37.5pt">
+<td colspan=3D"3" style=3D"padding:0cm 0cm 0cm 0cm;height:37.5pt">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.5pt;font-family:&quot=
+;Arial&quot;,sans-serif;color:black;text-transform:uppercase;mso-fareast-la=
+nguage:EN-GB">Markel Sainz Oruna</span></b><span style=3D"mso-fareast-langu=
+age:EN-GB">
+<o:p></o:p></span></p>
+</td>
+</tr>
+<tr>
+<td colspan=3D"3" style=3D"padding:0cm 0cm 0cm 0cm">
+<table class=3D"MsoNormalTable" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0" width=3D"800" style=3D"width:600.0pt">
+<tbody>
+<tr>
+<td width=3D"200" style=3D"width:150.0pt;padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:9.0pt;font-family:&quot;=
+Arial&quot;,sans-serif;color:#333333;mso-fareast-language:EN-GB">HW eta Kom=
+unikazio Sistemak</span></b><span style=3D"mso-fareast-language:EN-GB"><o:p=
+></o:p></span></p>
+</td>
+</tr>
+<tr>
+<td style=3D"padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal"><span lang=3D"ES" style=3D"font-size:9.0pt;font-fami=
+ly:&quot;Arial&quot;,sans-serif;color:#333333;mso-fareast-language:EN-GB">S=
+istemas HW y de Comunicaci=C3=B3n</span><span lang=3D"ES" style=3D"mso-fare=
+ast-language:EN-GB"><o:p></o:p></span></p>
+</td>
+</tr>
+<tr>
+<td style=3D"padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:9.0pt;font-family:&quot;=
+Arial&quot;,sans-serif;color:#333333;mso-fareast-language:EN-GB">HW and com=
+munication systems</span></b><span style=3D"mso-fareast-language:EN-GB"><o:=
+p></o:p></span></p>
+</td>
+</tr>
+<tr>
+<td style=3D"padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-language:EN-GB">&nbsp;<o:=
+p></o:p></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class=3D"MsoNormal"><span style=3D"display:none;mso-fareast-language:EN-=
+GB"><o:p>&nbsp;</o:p></span></p>
+<table class=3D"MsoNormalTable" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0" width=3D"800" style=3D"width:600.0pt">
+<tbody>
+<tr>
+<td style=3D"padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-language:EN-GB"><a href=
+=3D"mailto:msainz@ikerlan.es"><b><span style=3D"font-size:9.0pt;font-family=
+:&quot;Arial&quot;,sans-serif;color:#333333;text-decoration:none">msainz@ik=
+erlan.es
+</span></b></a><o:p></o:p></span></p>
+</td>
+<td width=3D"100" rowspan=3D"2" valign=3D"top" style=3D"width:75.0pt;paddin=
+g:0cm 0cm 0cm 0cm">
+<div align=3D"right">
+<table class=3D"MsoNormalTable" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0" width=3D"75" style=3D"width:56.25pt">
+<tbody>
+<tr>
+<td width=3D"25" style=3D"width:18.75pt;padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal" align=3D"right" style=3D"text-align:right"><a href=
+=3D"https://twitter.com/IKERLANofficial" target=3D"_blank"><span style=3D"c=
+olor:blue;mso-fareast-language:EN-GB;text-decoration:none"><img border=3D"0=
+" width=3D"20" height=3D"20" style=3D"width:.2083in;height:.2083in" id=3D"_=
+x0000_i1030" src=3D"https://www.ikerlan.es/resize/branding/ikerlan_icono_tw=
+itter.gif"></span></a><span style=3D"mso-fareast-language:EN-GB"><o:p></o:p=
+></span></p>
+</td>
+<td width=3D"25" style=3D"width:18.75pt;padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal" align=3D"right" style=3D"text-align:right"><a href=
+=3D"https://es.linkedin.com/company/ikerlan" target=3D"_blank"><span style=
+=3D"color:blue;mso-fareast-language:EN-GB;text-decoration:none"><img border=
+=3D"0" width=3D"20" height=3D"20" style=3D"width:.2083in;height:.2083in" id=
+=3D"_x0000_i1029" src=3D"https://www.ikerlan.es/resize/branding/ikerlan_ico=
+no_linkedin.gif"></span></a><span style=3D"mso-fareast-language:EN-GB"><o:p=
+></o:p></span></p>
+</td>
+<td width=3D"25" style=3D"width:18.75pt;padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal" align=3D"right" style=3D"text-align:right"><a href=
+=3D"https://www.youtube.com/c/IKERLANofficial" target=3D"_blank"><span styl=
+e=3D"color:blue;mso-fareast-language:EN-GB;text-decoration:none"><img borde=
+r=3D"0" width=3D"20" height=3D"20" style=3D"width:.2083in;height:.2083in" i=
+d=3D"_x0000_i1028" src=3D"https://www.ikerlan.es/resize/branding/ikerlan_ic=
+ono_youtube.gif"></span></a><span style=3D"mso-fareast-language:EN-GB"><o:p=
+></o:p></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</td>
+</tr>
+<tr>
+<td style=3D"padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:9.0pt;font-family:&quot;=
+Arial&quot;,sans-serif;color:#333333;mso-fareast-language:EN-GB">Tel.: +34 =
+943 71 24 00</span></b><span style=3D"mso-fareast-language:EN-GB"><o:p></o:=
+p></span></p>
+</td>
+</tr>
+<tr>
+<td style=3D"padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal"><span lang=3D"ES" style=3D"font-size:9.0pt;font-fami=
+ly:&quot;Arial&quot;,sans-serif;color:#333333;mso-fareast-language:EN-GB">P=
+=C2=BA J. M. Arizmendiarrieta, 2 - 20500 Arrasate-Mondrag=C3=B3n (Gipuzkoa)=
+</span><span lang=3D"ES" style=3D"mso-fareast-language:EN-GB"><o:p></o:p></=
+span></p>
+</td>
+<td style=3D"padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal" align=3D"right" style=3D"text-align:right"><span sty=
+le=3D"mso-fareast-language:EN-GB"><a href=3D"http://www.ikerlan.es"><b><spa=
+n style=3D"font-size:9.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#=
+24ED31;text-decoration:none">www.ikerlan.es</span></b></a><o:p></o:p></span=
+></p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr style=3D"height:13.5pt">
+<td colspan=3D"3" style=3D"padding:0cm 0cm 0cm 0cm;height:13.5pt">
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-language:EN-GB"><img bord=
+er=3D"0" width=3D"800" height=3D"44" style=3D"width:8.3333in;height:.4583in=
+" id=3D"_x0000_i1027" src=3D"https://www.ikerlan.es/upload/actualidad_notic=
+ias/ikerlan_separador.gif"></span><span style=3D"mso-fareast-language:EN-GB=
+"><o:p></o:p></span></p>
+</td>
+</tr>
+<tr>
+<td width=3D"366" style=3D"width:274.5pt;padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-language:EN-GB"><img bord=
+er=3D"0" width=3D"200" height=3D"96" style=3D"width:2.0833in;height:1.0in" =
+id=3D"_x0000_i1026" src=3D"https://www.ikerlan.es/resize/branding/Ikerlan_B=
+RTA.jpg"></span><span style=3D"mso-fareast-language:EN-GB"><o:p></o:p></spa=
+n></p>
+</td>
+<td width=3D"400" style=3D"width:300.0pt;padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal" align=3D"right" style=3D"text-align:right"><span sty=
+le=3D"mso-fareast-language:EN-GB"><img border=3D"0" width=3D"357" height=3D=
+"75" style=3D"width:3.7187in;height:.7812in" id=3D"_x0000_i1025" src=3D"htt=
+ps://www.ikerlan.es/upload/actualidad_noticias/SINADURA_EKINTZA_BEREZIAK.jp=
+g"></span><span style=3D"mso-fareast-language:EN-GB"><o:p></o:p></span></p>
+</td>
+<td style=3D"padding:0cm 0cm 0cm 0cm"></td>
+</tr>
+<tr style=3D"height:10.5pt">
+<td colspan=3D"3" style=3D"padding:0cm 0cm 0cm 0cm;height:10.5pt"></td>
+</tr>
+<tr>
+<td colspan=3D"3" style=3D"padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal"><span lang=3D"ES" style=3D"font-size:7.5pt;font-fami=
+ly:&quot;Arial&quot;,sans-serif;color:#333333;mso-fareast-language:EN-GB">&=
+#8226; Mezu honen informazioa isilpekoa izan daiteke eta indarrean dagoen l=
+egediak babesten du. Hutsegite baten ondorioz jaso baduzu,
+ bidal iezaiozu berriro bidaltzaileari eta ezaba ezazu. Milesker zure lagun=
+tzagatik. Behar beharrezkoa baino ez inprimatu, gogoratu zure INGURUMENarek=
+iko konpromisoa.
+<br>
+&#8226; La informaci=C3=B3n de este correo puede ser confidencial y est=C3=
+=A1 protegida por la legislaci=C3=B3n vigente. Si ha recibido este correo p=
+or error, reenv=C3=ADelo a su emisor y elim=C3=ADnelo. Gracias por su ayuda=
+. Imprime s=C3=B3lo lo imprescindible, recuerda tu compromiso con el
+ MEDIO AMBIENTE.<br>
+</span><span style=3D"font-size:7.5pt;font-family:&quot;Arial&quot;,sans-se=
+rif;color:#333333;mso-fareast-language:EN-GB">&#8226; This e-mail may conta=
+in confidential information that is protected by our laws. If you have rece=
+ived this e-mail by mistake, please, notify the sender
+ and delete it. Thank you for your help. Before printing think about the EN=
+VIRONMENT.</span><span style=3D"mso-fareast-language:EN-GB"><o:p></o:p></sp=
+an></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/PA4PR03MB718419E2B512BC70CB7A56C1B6CC0%40PA4PR03MB=
+7184.eurprd03.prod.outlook.com?utm_medium=3Demail&utm_source=3Dfooter">http=
+s://groups.google.com/d/msgid/jailhouse-dev/PA4PR03MB718419E2B512BC70CB7A56=
+C1B6CC0%40PA4PR03MB7184.eurprd03.prod.outlook.com</a>.<br />
+
+--_000_PA4PR03MB718419E2B512BC70CB7A56C1B6CC0PA4PR03MB7184eurp_--
