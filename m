@@ -1,205 +1,188 @@
-Return-Path: <jailhouse-dev+bncBCW2V5WNZMERBCPHZD7AKGQEDTEHT6A@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDGILGE54ELBBRHZZD7AKGQEO7GNVLA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23b.google.com (mail-lj1-x23b.google.com [IPv6:2a00:1450:4864:20::23b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F0202D5E1D
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 10 Dec 2020 15:41:14 +0100 (CET)
-Received: by mail-lj1-x23b.google.com with SMTP id f15sf3397722ljm.20
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 10 Dec 2020 06:41:14 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1607611273; cv=pass;
+Received: from mail-ed1-x537.google.com (mail-ed1-x537.google.com [IPv6:2a00:1450:4864:20::537])
+	by mail.lfdr.de (Postfix) with ESMTPS id B0DDC2D5F5F
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 10 Dec 2020 16:20:39 +0100 (CET)
+Received: by mail-ed1-x537.google.com with SMTP id l33sf2582261ede.1
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 10 Dec 2020 07:20:39 -0800 (PST)
+ARC-Seal: i=3; a=rsa-sha256; t=1607613639; cv=pass;
         d=google.com; s=arc-20160816;
-        b=QVoUaaEISJRWiae2ezKeH+LbiLmQNDjiG9/9/bGzuFqW7AIszsxC84eikR4vMwDCST
-         6aaemLdcMNVpzOzUVNkvh+hxrPW7gkRzAgNfZrbe14oe9hau73bIJj25VI3HVvOGGVS5
-         9rloRvP+QMXfKRE0hpFxzJ+4/rmDGqCzadVw6PBTkgEzqgrBceTddSCdLFkyXYY+eDEl
-         Ddoff/L3hMmzQjgLZDr/Up/snxpA6X8BCyfv837F7na8CyRq+Y7gGb2930FKOViZUyeC
-         8uiKzixvYEnyYYto/eKFQgreTUeVdTdcPjFDWHlxOLSWM1XMKf52FGPlxdiUvuaOoVq2
-         xSYQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        b=TgR63Jpo+Z8HN/28UJqua/qwsq+FYWSGBzNWUkfHm51HwKEW0PuFI+oYgBn68Pwlfv
+         IXx7wa5axdUmwf/p198X4ZDD9Gn6X3BaMPnfvnCPTePQUf7sU90Bb3VpqucO6mygaaG/
+         1Bdz/TQK75MuST4jTr/qun6KGoCVpjrY5jCh9CuN/NBd2U6a3wriGIW1uBWPBPsojto8
+         xcfYY3VrmqxcBXqBSN65x4aUvtj9jTR6lzcp4Ry0K1h+TgxA7OJu0wnp/mx7ejT7aZeZ
+         Y3EO5uEV8e3QMFLTfe6WT3vOyvGeSAbMDtP9WaRVANWl16JGJ4ae1pgx+kMkqdyFkhfz
+         rWCw==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:autocrypt:from:references
-         :cc:to:subject:sender:dkim-signature;
-        bh=nkduZnwqVRqYSU03kntjHSMl/tTtGdzz+tPxEHiVnDw=;
-        b=vB8NiQz0xBRn9JUA7jDser+PPLsbw4H3yAwPerd/DEGXxThS5LmugMfGUWj/JuWTy9
-         Sw7Nl7vq502Mkza5MP0/LQAFrMAUTf7rZWyzCRsW97z8GxFztsfEgI01KYzzfSbp70q8
-         7PyLSSIqYzdzPKh5bxChXZC3DhwFdEtac0CEJHIdFE0LiIwS3rLVfFm9Euqa6NUF5QV+
-         L1tnCn69P/yaRnOPVJ+gM3u0KkSK9SPKazZVo6vds4eEvxpn0o1yOacbzIbd3wWlXyRE
-         5kx6YZ6l3pv0fliy6lb2QSFYBtHzGP5Cuq7D6gc0JergcN6Y34YJfar7X//80Lcz9GvM
-         v5Cw==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b=xqADOUwI;
-       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.137 as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
+         :list-id:mailing-list:precedence:mime-version
+         :content-transfer-encoding:content-language:accept-language
+         :message-id:date:thread-index:thread-topic:subject:to:from:sender
+         :dkim-signature;
+        bh=sMst2zVplkorFYFAwy7yek9r2DhKrajIy+HxhdWIoeI=;
+        b=ZrIsbnGEDKvcaF4yuSWvf+fom0fIHRWZdNhD5tpX2SWZg5udpff7vcOaAu3IU8SQ9x
+         fEKxyE8yV8vINACf1MXbpqGVFXkvsrOdZhFjUs7orhB7JaRgujqWEFA0zBCTTzDaOo88
+         GoFf9RY2H2F9jcEzUXuEg8UInVYmq9lar44NFUy/PCLY0NAQ7pWN71XwHFn5Ch21bUoA
+         ZG+r9KOuJFI0fVhJymnDKvozEw4XsYbKJPeP3y3oOsZGsyDX6rFiZzcig5wo/CieHUYO
+         wBBXDJymHEohzaTOfkkGnBLzDPFygajLGFOI0KZRIqjv1w6bE8rzeFkqcXGePRpQDsnj
+         +RDQ==
+ARC-Authentication-Results: i=3; gmr-mx.google.com;
+       dkim=pass header.i=@prodrive-technologies.com header.s=selector1 header.b=b6qj6i4B;
+       arc=pass (i=1 spf=pass spfdomain=prodrive-technologies.com dkim=pass dkdomain=prodrive-technologies.com dmarc=pass fromdomain=prodrive-technologies.com);
+       spf=pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com designates 40.107.15.133 as permitted sender) smtp.mailfrom=bram.hooimeijer@prodrive-technologies.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=prodrive-technologies.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:autocrypt:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:from:to:subject:thread-topic:thread-index:date:message-id
+         :accept-language:content-language:content-transfer-encoding
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=nkduZnwqVRqYSU03kntjHSMl/tTtGdzz+tPxEHiVnDw=;
-        b=RnonHcKOVBVlzPsyPq8Tne9azW3N6p1rAVaAvLWTmRPrLJ+4aCrlXRLU/JGddg7xpd
-         aPnH5CImyQc8Gf9yBmyTK4WVq1FTqajaJCKOZns/2bEgC7Q8Y8M6nJjq3fLCc3POukD/
-         2dC1GdI9nqrav4IaDVSKO5m2ehO0TCBOvtuNQfJD+nSrXBuGoO95TinEcXvGDVflP7hM
-         5hAfsp7oVa1FiNmntx7lLS0AmHWgQU5agF7z+jaZU3cdPSBg0frcXHBkvedonDMpBq8G
-         FkZEDz9GuJL3pIeUyOn9/8k1w0wt/jw/vmjnPNlx3aNNaIFX9JjbU4XXuJG97ieZX8Cq
-         7H1g==
+        bh=sMst2zVplkorFYFAwy7yek9r2DhKrajIy+HxhdWIoeI=;
+        b=rTda8IwnZXXw7fVw44pn09FkfI7bMqMRFSkqvzo4oJ0nbD3iLf1FddKlx7H1eEITYw
+         eyz91DP1W8yl/qyliOveP5t+K1sIjHzPtjkkDU1xrmWex24PqkePCF5SfYksrCKdg6nS
+         HfYokurU2spMU1GI1nkvZ1aTh0QpCqSzQp+27qY9yoAQIpcpAcqhmHF/lpMafIm9jtMG
+         JjKIaNZ1yAfUhQxWVIXeTlN6cy8q61ruDLDsR4w4mjLhnJ+jzCTwLF8cySB37tnHNVP1
+         De3EdoGSbx2lFJVimRavuKuPjfHHdsTbC5yEz57crviIVRnhwoonR4fB143aBo6twP6P
+         3/fA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:autocrypt
-         :message-id:date:user-agent:mime-version:in-reply-to
-         :content-language:x-original-sender
+        h=sender:x-gm-message-state:from:to:subject:thread-topic:thread-index
+         :date:message-id:accept-language:content-language
+         :content-transfer-encoding:mime-version:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=nkduZnwqVRqYSU03kntjHSMl/tTtGdzz+tPxEHiVnDw=;
-        b=D515aaa9xhMt305EPS+I4X1xnrG4Kd6Cn3ur+/F+rZybfBjmJ2LQD3K3o4RPC79VE0
-         7Xe7WtfHDmhsPC3KOJ6F9uPGeqhLlC266ucoUfXL/1SST2w4MvCSAlqer/GulIoMs5Tl
-         XkUV0JmIIHCYRXRJ0mFPa11NSaP4UXpzECbUN1xoYBIWTr9rQ/Myzaq9ExPj1u2NV/nt
-         hdvyYjqWnjOJ08RyLjurfTLpOIB9tV5cpnWGT0UNLrr4S2cU7dXOg4YnrDlkscSjJVTn
-         iGaxUKHVumWL/B0yhD1m8Hb7OPcr8GGNfJIwVf2blwpNRIRkaO21YZy0Hxzo+Bv+0UBY
-         NvDg==
+        bh=sMst2zVplkorFYFAwy7yek9r2DhKrajIy+HxhdWIoeI=;
+        b=nAcpS7bqjHx7iuVmSY6eDu/eOIPiE1ZP4BxtP7JEccAhQA8ny3ssf1VMNlUz5run19
+         pxfzQhyGwiTbi1JW8pbVrhwPwuFvguA7TE5M9cACJZCT30BJ1bvE8MDpaLBcdScOatlz
+         kBUrXE2Q6rigYm9S9Di5ek4m1tVv+y4iZl1ihHfqGxtNomkCPCWv7ncrGcg0/cBDdK5q
+         hR3IDv+y+MIzLlU9G0UqlwnTKuK9suMY5x9sz9NDRp0g4tbGljL++DD5Jpz8pp65XTMO
+         3AfZIDwVXZo1H+Wu1JFNwx0UDuBJ0GLap6+VTndEYyOlkrI+EFAYuC6MqIzNYWw7pnsj
+         npsQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530hZn+t/BdpBuAYBK58ucmoOp+bcY2QeWM+XqBJWtme1PylJJdR
-	ChZMtwOMkQFfBTm/o5p18wU=
-X-Google-Smtp-Source: ABdhPJwHbCFWUsL9fH5r01+kxOnVbIloxI4oVVHjltZGID7pYSnwpgDmpumlVEdo/twAwVQsNgTVIQ==
-X-Received: by 2002:a2e:740a:: with SMTP id p10mr3373838ljc.409.1607611273830;
-        Thu, 10 Dec 2020 06:41:13 -0800 (PST)
+X-Gm-Message-State: AOAM530m7KcuTmHItBSkuwSGvvHwZyg5wDlOoQeRBzs/jRz4ScGyHS0c
+	eoI8lkk4Vr06ctUhElpeEj4=
+X-Google-Smtp-Source: ABdhPJwwRxwkWK3vSkpCV6v8CbN140vtRLdJIvrlpH9/hgja3WOooqyY9yanqGFc7smxHpKft6csSw==
+X-Received: by 2002:a17:906:eb5b:: with SMTP id mc27mr6796884ejb.163.1607613636988;
+        Thu, 10 Dec 2020 07:20:36 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a19:c1cd:: with SMTP id r196ls382325lff.1.gmail; Thu, 10 Dec
- 2020 06:41:12 -0800 (PST)
-X-Received: by 2002:ac2:514e:: with SMTP id q14mr2983490lfd.130.1607611272659;
-        Thu, 10 Dec 2020 06:41:12 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1607611272; cv=none;
+Received: by 2002:a17:906:cec7:: with SMTP id si7ls244459ejb.2.gmail; Thu, 10
+ Dec 2020 07:20:36 -0800 (PST)
+X-Received: by 2002:a17:906:68c4:: with SMTP id y4mr7039984ejr.332.1607613636055;
+        Thu, 10 Dec 2020 07:20:36 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1607613636; cv=pass;
         d=google.com; s=arc-20160816;
-        b=ojayJx0zoomychItej5kFmAtXsn/c7TKs2HIWBidCUav3jlw/epVFWPOrloIzJ+IJ0
-         rnO5XAUNUG/tZNbKF/9pfw31bFXuzeyLg3/wAarZRdXSQLPOtQYofnUTUywrQ2rpqCOt
-         k5AhTucAjugg5WNaUIVAAQd4xTXo+TInsSFDZkKxXNmJEUK1Ke2H/QpgIdmNRsQlwcRa
-         vRAVmnrZr8LF9mTHLsmMRDEEsdovNjRVBJZFYUwxh9FZoJxpFBATyi9whNksKOoqhUiB
-         PVyOCKIeR2AGFt06HksAAFKT5RYUVtoNbvGjmRCAhEPOkgUxEebJGxAkX9HsRO+GFwiT
-         Wpxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:autocrypt:from:references:cc:to:subject
-         :dkim-signature;
-        bh=vEVsiTaExlxZ0uwuC0f8D34PSw/ivy4lMgiFXc2pgvs=;
-        b=ZtKEinl+fh/NCHg1tqnwlw2DL3D63bLlhkCLgyjD7cuxPe4zQHY5Pfyp+dLtntk1cC
-         8xPjXTKonIWCOs8KNFc2eho+XfJ/x0EC9SYj33QbYMj9baLRrCiWJpOUNCaGIaccvXZ7
-         Erj3DZstF1ALDYbj7vBy+CL0aLqAlNQujvKdLTaWSw7mcKNRwbn4HMDKkSlITZbHMF3r
-         MS4duDDIBooDUuNIgRGFwEc3b0babP/K4WxaUd8lK5YJ05LqILQ+tGaXoWiGMbkaWHGk
-         E995DcvginOaxhceVvle7u60oCTI+oTVCc2ZMlcXe4S3oWhpx8g86RLlPGH6ohCczm1I
-         44Fg==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b=xqADOUwI;
-       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.137 as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
-Received: from postout1.mail.lrz.de (postout1.mail.lrz.de. [129.187.255.137])
-        by gmr-mx.google.com with ESMTPS id d3si182623ljj.4.2020.12.10.06.41.12
+        b=c8TPnjrEKXsprpfN/opAdUHj4NnjKeTmrzf1k0OTdYqBkqTrIJHAJQ0sbOl+F4Q1Wi
+         XdladvMyj4LAad9wnZz3oC5SrfLPHjuGn38P4PCdm00VH8SGnnVB+fkSlkhSSGMH70Qe
+         9/N5pBt90Uwg50lS2Dr0u3P4+3BwfqbRoOKdyVm9g4MLESoWxJ1PBdpcO6URXxJWRe63
+         aCFK0+05UByJgdTaXt3qZ/ykYrUYqS05Wt3CHSxBSmWsAiASd4mjOmzh/RdK5A9N5Qk2
+         USI42lySocYRigZfAuEe+cZc98Iyl0PMnPoNrOBkgIz17m/FmIA7T/Cyt/hTWy3NSUfd
+         bMmQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:content-transfer-encoding:content-language
+         :accept-language:message-id:date:thread-index:thread-topic:subject
+         :to:from:dkim-signature;
+        bh=7U4go/F6XLO7B61K2bOOdlJu0r/x1iQVGWWzIxe+6qI=;
+        b=zcIenGKYecd7gWi3nml8jREucFKsvpmLQTty+DuO4CmWP+FbeYcJoHnYMnmiPzcfhP
+         8GzxxAthr9N6TqZgReh5Js8HhdV7vaFIHcdWeS2isbVXakElJ0KRCiASrKb+UX/VJfbO
+         q82mZgPCW8lN2+/LU9D1rPOp2U9kUWFrCtvOL6m0ORvtdWxe19GFm5qkENBrBiF5JY6g
+         heF+MSaCG1EHjvmXdRFLYZNxS2+4fgsIBUFRYsvp0p6Feoe/N/LV3PF9xyOrfFGfKr+N
+         knkTkBqBY8+szgivlYiyXrjHv0lY0qgTTWbOPtXj+x9ac8rQ9aLknEcvdU1S14YMIwah
+         /qwg==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@prodrive-technologies.com header.s=selector1 header.b=b6qj6i4B;
+       arc=pass (i=1 spf=pass spfdomain=prodrive-technologies.com dkim=pass dkdomain=prodrive-technologies.com dmarc=pass fromdomain=prodrive-technologies.com);
+       spf=pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com designates 40.107.15.133 as permitted sender) smtp.mailfrom=bram.hooimeijer@prodrive-technologies.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=prodrive-technologies.com
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com (mail-eopbgr150133.outbound.protection.outlook.com. [40.107.15.133])
+        by gmr-mx.google.com with ESMTPS id i3si168842edy.3.2020.12.10.07.20.35
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Thu, 10 Dec 2020 06:41:12 -0800 (PST)
-Received-SPF: pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.137 as permitted sender) client-ip=129.187.255.137;
-Received: from lxmhs51.srv.lrz.de (localhost [127.0.0.1])
-	by postout1.mail.lrz.de (Postfix) with ESMTP id 4CsGnM66t4zyZ9;
-	Thu, 10 Dec 2020 15:41:11 +0100 (CET)
-X-Virus-Scanned: by amavisd-new at lrz.de in lxmhs51.srv.lrz.de
-X-Spam-Flag: NO
-X-Spam-Score: -2.873
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.873 tagged_above=-999 required=5
-	tests=[ALL_TRUSTED=-1, BAYES_00=-1.9, DMARC_ADKIM_RELAXED=0.001,
-	DMARC_ASPF_RELAXED=0.001, DMARC_POLICY_NONE=0.001,
-	LRZ_CT_PLAIN_UTF8=0.001, LRZ_DMARC_FAIL=0.001,
-	LRZ_DMARC_FAIL_NONE=0.001, LRZ_DMARC_POLICY=0.001,
-	LRZ_DMARC_TUM_FAIL=0.001, LRZ_DMARC_TUM_REJECT=3.5,
-	LRZ_DMARC_TUM_REJECT_PO=-3.5, LRZ_ENVFROM_FROM_ALIGNED_STRICT=0.001,
-	LRZ_ENVFROM_FROM_MATCH=0.001, LRZ_ENVFROM_TUM_S=0.001,
-	LRZ_FROM_HAS_A=0.001, LRZ_FROM_HAS_AAAA=0.001,
-	LRZ_FROM_HAS_MDOM=0.001, LRZ_FROM_HAS_MX=0.001,
-	LRZ_FROM_HOSTED_DOMAIN=0.001, LRZ_FROM_NAME_IN_ADDR=0.001,
-	LRZ_FROM_PHRASE=0.001, LRZ_FROM_PRE_SUR=0.001,
-	LRZ_FROM_PRE_SUR_PHRASE=0.001, LRZ_FROM_TUM_S=0.001,
-	LRZ_HAS_CLANG=0.001, LRZ_HAS_IN_REPLY_TO=0.001, LRZ_HAS_SPF=0.001,
-	LRZ_MSGID_HL8_3HL4_HL12=0.001, LRZ_MSGID_MOZ=0.001, LRZ_UA_MOZ=0.001,
-	LRZ_URL_PLAIN_SINGLE=0.001, NICE_REPLY_A=-0.001]
-	autolearn=no autolearn_force=no
-Received: from postout1.mail.lrz.de ([127.0.0.1])
-	by lxmhs51.srv.lrz.de (lxmhs51.srv.lrz.de [127.0.0.1]) (amavisd-new, port 20024)
-	with LMTP id 1ywEGMvHCxPt; Thu, 10 Dec 2020 15:41:11 +0100 (CET)
-Received: from [192.168.1.23] (ip5f5ac6d0.dynamic.kabel-deutschland.de [95.90.198.208])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(Client did not present a certificate)
-	by postout1.mail.lrz.de (Postfix) with ESMTPSA id 4CsGnL3FSzzyVh;
-	Thu, 10 Dec 2020 15:41:10 +0100 (CET)
-Subject: Re: [PATCH v3 1/2] arm64, configs: SMMUv2: Separate stream ID's mask
- and id
-To: Nikhil Devshatwar <nikhil.nd@ti.com>, Jan Kiszka <jan.kiszka@siemens.com>
-Cc: jailhouse-dev@googlegroups.com, Peng Fan <peng.fan@nxp.com>
-References: <20201127114140.37179-1-andrea.bastoni@tum.de>
- <cfe00e93-66dd-ad37-e30d-2f4e889e4c56@siemens.com>
- <403b209e-8281-6f0b-409a-bd6dc14862c8@tum.de>
- <6c4ee376-6573-ecc7-2e50-f6a74156fd75@siemens.com>
- <540d5217-5b22-a0a5-d067-304c49e82006@tum.de>
- <9e5869e4-8f93-a0d0-7758-87ba610bd626@siemens.com>
- <20201210143109.qhonsugyef4rs6hf@NiksLab>
-From: Andrea Bastoni <andrea.bastoni@tum.de>
-Autocrypt: addr=andrea.bastoni@tum.de; keydata=
- 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
-Message-ID: <402f6798-2a08-699a-9465-0c29c77a75c8@tum.de>
-Date: Thu, 10 Dec 2020 15:41:03 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
-MIME-Version: 1.0
-In-Reply-To: <20201210143109.qhonsugyef4rs6hf@NiksLab>
-Content-Type: text/plain; charset="UTF-8"
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 10 Dec 2020 07:20:36 -0800 (PST)
+Received-SPF: pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com designates 40.107.15.133 as permitted sender) client-ip=40.107.15.133;
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LzbgfGwhbW+t72XANpBva+DRv8aisDhMvgcrglCDXqrhcgERkVpDDOVL+/D1W4oaizRoiVDKKyCWLnBM7kBtJcEZDM1KrcI6+l9FUO5+2LKKbfJRVtrovL1cANM9FQIIwMr4MbdZtKET3d4BharvCzxeYAK3JqbksgT/ovabwCzJRMOpVKKEJwYGq6mCjhyrz5e6/2eMTkrIAhlhzK17q5UXmKuP4vEPeTqtvn4tGJndNUjIAlPgMt4IZiP/FZNH3A/euKV5GZSgzK70EHSgrJL8W6SlbKupF8HHpmFTmx4nAOVWXzxnN1Fw3MJYOBXZMSpx+HkNcO5kF25W0noaiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7U4go/F6XLO7B61K2bOOdlJu0r/x1iQVGWWzIxe+6qI=;
+ b=g5CbnBH3/PwAC+kThg1YsgP5yILD45niwVaWuKG3PSCYbj8/UPIILyrNUI9FJUc2lO+29tFaLOXKkGSKqGBGuYrGLmjQd/riB+m4FK/9tWDJprCrkZns4mX8kdLEb/0eWy3zo32EOdECXFEsxuivQJALZQwBTOxYN/lxy2AyiDLjEC3Z0sTk9qBuy9vTjO8jzJGzZKnEwnviLaVEcmXFBVU83HKae4MgvRd5G7zAsUS7R9pLthXyc0fBqH1+uDoVj6/5fdSG0Nno/6RINZkrHxBU0sbo8b1ftjGkyinV3DxEX22qnQEY8H9JD+icCR5Ii6xy9yxMHIz5coUUKqwecw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=prodrive-technologies.com; dmarc=pass action=none
+ header.from=prodrive-technologies.com; dkim=pass
+ header.d=prodrive-technologies.com; arc=none
+Received: from AS8PR02MB6663.eurprd02.prod.outlook.com (2603:10a6:20b:257::14)
+ by AM6PR02MB4389.eurprd02.prod.outlook.com (2603:10a6:20b:3e::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.12; Thu, 10 Dec
+ 2020 15:20:35 +0000
+Received: from AS8PR02MB6663.eurprd02.prod.outlook.com
+ ([fe80::8853:89c2:5d61:669a]) by AS8PR02MB6663.eurprd02.prod.outlook.com
+ ([fe80::8853:89c2:5d61:669a%7]) with mapi id 15.20.3632.025; Thu, 10 Dec 2020
+ 15:20:35 +0000
+From: Bram Hooimeijer <bram.hooimeijer@prodrive-technologies.com>
+To: "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
+Subject: Jailhouse Installation Feedback
+Thread-Topic: Jailhouse Installation Feedback
+Thread-Index: AdbPAqXumcu/noOAQZOoHctg4uYP8A==
+Date: Thu, 10 Dec 2020 15:20:34 +0000
+Message-ID: <AS8PR02MB6663A103382B6B698EB2B7EBB6CB0@AS8PR02MB6663.eurprd02.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-Original-Sender: andrea.bastoni@tum.de
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [213.127.64.7]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 7829db57-949f-4730-3379-08d89d1f2447
+x-ms-traffictypediagnostic: AM6PR02MB4389:
+x-microsoft-antispam-prvs: <AM6PR02MB43892957F6B0BCC888BD607CB6CB0@AM6PR02MB4389.eurprd02.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: rwQy/lHottNQ8NIlNYwqrfqZ3mIjGjvh5uZptT3pHuB2lysbS7qsZkPxAeOg2jCqDJlc7kcKRIPlIhKWK0doIlRTuwgHMTB/+hCChdSakagAwqSRFWfJXb8HiAFBfqKOYmSc24ocBq7ZHfXhoAcdkftI7Ep7RmifvpSHYKeDn48boxu3/wi+LFqybF9+n/1karKujkYVe5Ytwxh6E42DQI0yVNVjl3y9mWGq21tt+3CCzoAcM4xZZoDQWTBOBkoFM6p59UqFxi0HveOB6CZx/d7w56amqNt/Jecqg+XjtGaB0RcQYHI5lO0ms4WKciAxUUp5bbjaIcQ/Jadorz8cmQ==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR02MB6663.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(366004)(376002)(136003)(396003)(39840400004)(6506007)(66556008)(55016002)(44832011)(66446008)(66946007)(186003)(9686003)(2906002)(64756008)(86362001)(5660300002)(7116003)(316002)(71200400001)(66476007)(26005)(8936002)(33656002)(45080400002)(76116006)(6916009)(3480700007)(8676002)(7696005)(478600001)(52536014)(83380400001);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?ajFeIvSxmvy7GpPnelkk+hIudT4CTEhbwCIVt7PmzUflUW0fHsxzgeK1un3g?=
+ =?us-ascii?Q?HAWnALNFvcPiBDIndr19AVr253piLPgn0dbr11cQ7RubpV8IgRLxqBl4cJ0T?=
+ =?us-ascii?Q?TdMH9oY5qHMrSvPnx5g9jx0EAWFG8UKNp1Nl9pUkmZTxKVZcL4JRHR9oSGvN?=
+ =?us-ascii?Q?HWYvjhqVAyNGdRliMg6CuSD/jt5OJkstS8zB16uQDstBKdnMYoh4z57mCDp6?=
+ =?us-ascii?Q?cPg/Haq+rYo5vyjeUQa8hGPpZ1LJAqVR+zlZhgc+jPGRDecoAHurflDj2jnp?=
+ =?us-ascii?Q?BMtDfqbD1eBZRo/KFEC5x+5sOOkTrBq2WKE4KIW9ofxReGgLWp1DGfWcUjn4?=
+ =?us-ascii?Q?n5a3NNiyy9Emr4h6rf+cjf/U4xuvsoKlRl50yHubZ17aFxP56+jX5JM9XjN8?=
+ =?us-ascii?Q?xs9pOPDpBFhxbRVVxbAURYiixBgsRNjofyDEN2s7rnmEzA0OMEKpf6hSzdVF?=
+ =?us-ascii?Q?ztbK+vcORf9Tt0W3nJ+9wqs/a+MOWsTRwDz4L2R5XzMhHHPql7z4zFGMD7RD?=
+ =?us-ascii?Q?IT+4DW4BbqkB1WfUPACJTnabd9YGdMiK0q67W0bIo3JsP64sKCS2EVi8aPac?=
+ =?us-ascii?Q?r80FkoxAziGxYwfhDum9/4Gthfn0vFBJIDeNtROT581om5NsZEJJz+Gef4rV?=
+ =?us-ascii?Q?nK+R6rbMR1MvgMq3ITJ+H+w74BqB7w01bJNDs8yX6vxPeczjHcqF2e6Ek3+h?=
+ =?us-ascii?Q?ZqiCryjRElMoVuIBjeMFZuXmLsqUpMcnXLOGevkDsWHoyVBKzUay7hNHRCBJ?=
+ =?us-ascii?Q?hFcFIksQBjuCHNUAUo0fp3mqO4DaLsqgx0w24wpD+wj7/Eejo7ylrizzZGst?=
+ =?us-ascii?Q?0B3/kb6X+9oyc2XMN6FCHD+5fvG6takhbYhyj3ZFzxBlf84BTaOcd5hk3QqL?=
+ =?us-ascii?Q?JOBatI9pqNCwe+4GRPN2ccq5bX7cdTvW0tiJ2wYPFp1h6MnavWG90ZqtAH9F?=
+ =?us-ascii?Q?VCEqxF0A5N4P+kPmYSurxNObuxNAETXoudye3IDEKRI=3D?=
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: prodrive-technologies.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR02MB6663.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7829db57-949f-4730-3379-08d89d1f2447
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Dec 2020 15:20:34.9107
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 612607c9-5af7-4e7f-8976-faf1ae77be60
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: OueqlMM5z15CLf9mPa7RzC67CpxjsaJ5wm8s4JSFbd8TZOVzCHM7y47du5pYj9yZ0hkj7MoVujnr0OJOYb9Yehnx9ADbP5rUT6B/K4oN5ANn8NM0+eqD8emGRWDA8P/wMkWYewjLd0GbX5jzclKNMQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR02MB4389
+X-Original-Sender: bram.hooimeijer@prodrive-technologies.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@tum.de header.s=postout header.b=xqADOUwI;       spf=pass
- (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.137 as
- permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=tum.de
+ header.i=@prodrive-technologies.com header.s=selector1 header.b=b6qj6i4B;
+       arc=pass (i=1 spf=pass spfdomain=prodrive-technologies.com dkim=pass
+ dkdomain=prodrive-technologies.com dmarc=pass fromdomain=prodrive-technologies.com);
+       spf=pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com
+ designates 40.107.15.133 as permitted sender) smtp.mailfrom=bram.hooimeijer@prodrive-technologies.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=prodrive-technologies.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -212,234 +195,101 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 10/12/2020 15:31, 'Nikhil Devshatwar' via Jailhouse wrote:
-> On 17:02-20201203, Jan Kiszka wrote:
->> On 03.12.20 16:23, Andrea Bastoni wrote:
->>> On 03/12/2020 14:44, Jan Kiszka wrote:
->>>> On 03.12.20 13:48, Andrea Bastoni wrote:
->>>>> On 03/12/2020 07:36, Jan Kiszka wrote:
->>>>>> On 27.11.20 12:41, Andrea Bastoni wrote:
->>>>>>> The SMMUv2 allows filtering bits when matching stream IDs before they're
->>>>>>> passed to the TCU. In this way multiple streams legally get the same
->>>>>>> translation.
->>>>>>>
->>>>>>> On boards such as the ZCU Ultrascale+, the master ID needed to identify
->>>>>>> the corresponding SMMU stream ID may be dependent on a specific AXI ID
->>>>>>> that is set by the PL (and could be IP specific).
->>>>>>>
->>>>>>> One single fixed mask to pass to the SMR to compact multiple stream IDs
->>>>>>> before they "hit" the TCU is not flexible enough. The use-case is to
->>>>>>> compact similar PL-originating masters and have the SMMU behaving the
->>>>>>> same for them (e.g., they're assigned to the same inmate). At the
->>>>>>> same time, one needs a full stream_id to assign e.g., different GEM
->>>>>>> ethernets to different inmates.
->>>>>>>
->>>>>>> Update a stream_id to support two different interpretations:
->>>>>>> - for the SMMUv2, provide an explicit mask + ID.
->>>>>>> - for the SMMUv3, keep the current single ID.
->>>>>>>
->>>>>>> This commit updates the SMMUv2 / v3 --including configuration--
->>>>>>> accordingly.
->>>>>>
->>>>>> CC'ing Nikil and Peng on their affected code.
->>>>>>
->>>>>>>
->>>>>>> Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
->>>>>>> ---
->>>>>>>  configs/arm64/imx8qm-linux-demo.c       |  7 ++-
->>>>>>>  configs/arm64/imx8qm.c                  | 16 +++++--
->>>>>>>  configs/arm64/k3-j7200-evm-linux-demo.c |  2 +-
->>>>>>>  configs/arm64/k3-j7200-evm.c            |  2 +-
->>>>>>>  configs/arm64/k3-j721e-evm-linux-demo.c |  2 +-
->>>>>>>  configs/arm64/k3-j721e-evm.c            |  2 +-
->>>>>>>  configs/arm64/ultra96.c                 | 11 ++++-
->>>>>>>  configs/arm64/zynqmp-zcu102.c           | 15 +++++-
->>>>>>>  hypervisor/arch/arm64/smmu-v3.c         |  9 ++--
->>>>>>>  hypervisor/arch/arm64/smmu.c            | 64 ++++++++++++++++---------
->>>>>>>  hypervisor/arch/arm64/ti-pvu.c          | 21 ++++----
->>>>>>>  include/jailhouse/cell-config.h         | 18 ++++---
->>>>>>>  12 files changed, 114 insertions(+), 55 deletions(-)
->>>>>>>
->>>>>>> diff --git a/configs/arm64/imx8qm-linux-demo.c b/configs/arm64/imx8qm-linux-demo.c
->>>>>>> index f13ca7bc..e8e8b217 100644
->>>>>>> --- a/configs/arm64/imx8qm-linux-demo.c
->>>>>>> +++ b/configs/arm64/imx8qm-linux-demo.c
->>>>>>> @@ -19,7 +19,7 @@ struct {
->>>>>>>  	struct jailhouse_memory mem_regions[18];
->>>>>>>  	struct jailhouse_irqchip irqchips[4];
->>>>>>>  	struct jailhouse_pci_device pci_devices[2];
->>>>>>> -	__u32 stream_ids[1];
->>>>>>> +	union jailhouse_stream_id stream_ids[1];
->>>>>>>  } __attribute__((packed)) config = {
->>>>>>>  	.cell = {
->>>>>>>  		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
->>>>>>> @@ -194,6 +194,9 @@ struct {
->>>>>>>  	},
->>>>>>>  
->>>>>>>  	.stream_ids = {
->>>>>>> -		0x10,
->>>>>>> +		{
->>>>>>> +			.mmu500.mask = 0x7f8,
->>>>>>> +			.mmu500.id = 0x10,
->>>>>>
->>>>>> Would list id before the mask.
->>>>>>
->>>>>>> +		},
->>>>>>>  	},
->>>>>>>  };
->>>>>>> diff --git a/configs/arm64/imx8qm.c b/configs/arm64/imx8qm.c
->>>>>>> index d63c73cf..2ec4f4dd 100644
->>>>>>> --- a/configs/arm64/imx8qm.c
->>>>>>> +++ b/configs/arm64/imx8qm.c
->>>>>>> @@ -20,7 +20,7 @@ struct {
->>>>>>>  	struct jailhouse_memory mem_regions[15];
->>>>>>>  	struct jailhouse_irqchip irqchips[3];
->>>>>>>  	struct jailhouse_pci_device pci_devices[2];
->>>>>>> -	__u32 stream_ids[3];
->>>>>>> +	union jailhouse_stream_id stream_ids[3];
->>>>>>>  } __attribute__((packed)) config = {
->>>>>>>  	.header = {
->>>>>>>  		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
->>>>>>> @@ -54,7 +54,6 @@ struct {
->>>>>>>  					.type = JAILHOUSE_IOMMU_ARM_MMU500,
->>>>>>>  					.base = 0x51400000,
->>>>>>>  					.size = 0x40000,
->>>>>>> -					.arm_mmu500.sid_mask = 0x7f80,
->>>>>>>  				},
->>>>>>>  			},
->>>>>>>  
->>>>>>> @@ -209,6 +208,17 @@ struct {
->>>>>>>  	},
->>>>>>>  
->>>>>>>  	.stream_ids = {
->>>>>>> -		0x11, 0x12, 0x13,
->>>>>>> +		{
->>>>>>> +			.mmu500.mask = 0x7f8,
->>>>>>> +			.mmu500.id = 0x11,
->>>>>>> +		},
->>>>>>> +		{
->>>>>>> +			.mmu500.mask = 0x7f8,
->>>>>>> +			.mmu500.id = 0x12,
->>>>>>> +		},
->>>>>>> +		{
->>>>>>> +			.mmu500.mask = 0x7f8,
->>>>>>> +			.mmu500.id = 0x13,
->>>>>>> +		},
->>>>>>>  	},
->>>>>>>  };
->>>>>>> diff --git a/configs/arm64/k3-j7200-evm-linux-demo.c b/configs/arm64/k3-j7200-evm-linux-demo.c
->>>>>>> index 90a0ce4c..ace9cd3a 100644
->>>>>>> --- a/configs/arm64/k3-j7200-evm-linux-demo.c
->>>>>>> +++ b/configs/arm64/k3-j7200-evm-linux-demo.c
->>>>>>> @@ -26,7 +26,7 @@ struct {
->>>>>>>  	struct jailhouse_memory mem_regions[19];
->>>>>>>  	struct jailhouse_irqchip irqchips[3];
->>>>>>>  	struct jailhouse_pci_device pci_devices[2];
->>>>>>> -	__u32 stream_ids[1];
->>>>>>> +	union jailhouse_stream_id stream_ids[1];
->>>>>>>  } __attribute__((packed)) config = {
->>>>>>>  	.cell = {
->>>>>>>  		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
->>>>>>> diff --git a/configs/arm64/k3-j7200-evm.c b/configs/arm64/k3-j7200-evm.c
->>>>>>> index c3ac331d..d0c8aee3 100644
->>>>>>> --- a/configs/arm64/k3-j7200-evm.c
->>>>>>> +++ b/configs/arm64/k3-j7200-evm.c
->>>>>>> @@ -21,7 +21,7 @@ struct {
->>>>>>>  	struct jailhouse_memory mem_regions[32];
->>>>>>>  	struct jailhouse_irqchip irqchips[6];
->>>>>>>  	struct jailhouse_pci_device pci_devices[2];
->>>>>>> -	__u32 stream_ids[1];
->>>>>>> +	union jailhouse_stream_id stream_ids[1];
->>>>>>>  } __attribute__((packed)) config = {
->>>>>>>  	.header = {
->>>>>>>  		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
->>>>>>> diff --git a/configs/arm64/k3-j721e-evm-linux-demo.c b/configs/arm64/k3-j721e-evm-linux-demo.c
->>>>>>> index 5b6aa82e..1b8b3c4c 100644
->>>>>>> --- a/configs/arm64/k3-j721e-evm-linux-demo.c
->>>>>>> +++ b/configs/arm64/k3-j721e-evm-linux-demo.c
->>>>>>> @@ -27,7 +27,7 @@ struct {
->>>>>>>  	struct jailhouse_memory mem_regions[22];
->>>>>>>  	struct jailhouse_irqchip irqchips[4];
->>>>>>>  	struct jailhouse_pci_device pci_devices[2];
->>>>>>> -	__u32 stream_ids[2];
->>>>>>> +	union jailhouse_stream_id stream_ids[2];
->>>>>>>  } __attribute__((packed)) config = {
->>>>>>>  	.cell = {
->>>>>>>  		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
->>>>>>> diff --git a/configs/arm64/k3-j721e-evm.c b/configs/arm64/k3-j721e-evm.c
->>>>>>> index ab13fedd..aa5b47a9 100644
->>>>>>> --- a/configs/arm64/k3-j721e-evm.c
->>>>>>> +++ b/configs/arm64/k3-j721e-evm.c
->>>>>>> @@ -22,7 +22,7 @@ struct {
->>>>>>>  	struct jailhouse_memory mem_regions[40];
->>>>>>>  	struct jailhouse_irqchip irqchips[6];
->>>>>>>  	struct jailhouse_pci_device pci_devices[2];
->>>>>>> -	__u32 stream_ids[30];
->>>>>>> +	union jailhouse_stream_id stream_ids[30];
->>>>>>>  } __attribute__((packed)) config = {
->>>>>>>  	.header = {
->>>>>>>  		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
->>>>>>> diff --git a/configs/arm64/ultra96.c b/configs/arm64/ultra96.c
->>>>>>> index db65ae01..19be84ae 100644
->>>>>>> --- a/configs/arm64/ultra96.c
->>>>>>> +++ b/configs/arm64/ultra96.c
->>>>>>> @@ -21,7 +21,7 @@ struct {
->>>>>>>  	struct jailhouse_memory mem_regions[11];
->>>>>>>  	struct jailhouse_irqchip irqchips[1];
->>>>>>>  	struct jailhouse_pci_device pci_devices[2];
->>>>>>> -	__u32 stream_ids[2];
->>>>>>> +	union jailhouse_stream_id stream_ids[2];
->>>>>>>  } __attribute__((packed)) config = {
->>>>>>>  	.header = {
->>>>>>>  		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
->>>>>>> @@ -161,6 +161,13 @@ struct {
->>>>>>>  	},
->>>>>>>  
->>>>>>>  	.stream_ids = {
->>>>>>> -		0x870, 0x871
->>>>>>> +		{
->>>>>>> +			.mmu500.mask = 0x0,
->>>>>>> +			.mmu500.id = 0x870,
->>>>>>> +		},
->>>>>>> +		{
->>>>>>> +			.mmu500.mask = 0x0,
->>>>>>> +			.mmu500.id = 0x871,
->>>>>>
->>>>>> Only realizing now: That mask is an "ignore mask", right? Bits set there
->>>>>> are NOT matched against the id. That's modeled after the hardware? Is
->>>>>> this really intuitive? This one confused me at least.
->>>>>
->>>>> Yes, it is model after the hardware. Maybe "ignore_mask" or "imask" would be better?
->>>>>
->>>>
->>>> ...r invert it in SMR_GET_MASK? Not sure what is nicer. The latter has
->>>
->>> Not sure what you mean by "...r" ? "maskr"?
->>
->> "...or invert" - I somehow lost the "o".
->>
->>>
->>>> the disadvantage that you then always need to specify a non-zero mask.
->>>
->>> Not sure that inverting it in SMR_GET_MASK is very nice. The mask is 15 bits,
->>> the "consider all" would be 0x7fff (and you start wondering in the configuration
->>> why 7 and not f...)
->>>
->>> What about "mask_out"?
->>>
-> 
-> Is the mask only indicating how many bits of LSB are to be
-> matched/ignored? If so, you can simply put the no of bits instead of the
-> full mask.
+Dear Jailhouse community,
 
-Depending on the configuration the bits can be non-contiguous or they can match
-non-LSB bits.
+Over the last days I have been trying to get Jailhouse running on real hard=
+ware. I ran into quite some issues, but managed to get it running eventuall=
+y.=20
+For some issues, I was able to find a solution somewhere in the mailing arc=
+hives, but not for all of them. So I thought I'd share my experiences here =
+for future references.=20
+There's also some solutions which are not entirely clear. If you have any r=
+eference on that it would be welcome, but I understand these might be very =
+system specific as well.=20
 
--- 
-Thanks,
-Andrea Bastoni
+** Installing Jailhouse **
+* Installing Jailhouse on generic Ubuntu (2.10) gives the following error:=
+=20
+> ERROR: modpost: "lapic_timer_period" [/data/ecseqm/jailhouse/510_siemens_=
+jailhouse/driver/jailhouse.ko] undefined!
+> ERROR: modpost: "__get_vm_area_caller" [/data/ecseqm/jailhouse/510_siemen=
+s_jailhouse/driver/jailhouse.ko] undefined!
+> ERROR: modpost: "ioremap_page_range" [/data/ecseqm/jailhouse/510_siemens_=
+jailhouse/driver/jailhouse.ko] undefined!
+I believe some of the kernel symbols have been renamed in I believe 5.8. As=
+ a solution, I switched to 2.04 LTS (Kernel 5.4), where it installed withou=
+t issues.
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/402f6798-2a08-699a-9465-0c29c77a75c8%40tum.de.
+** Enabling Jailhouse
+* enabling a compiled sysconfig.cell results in:
+> JAILHOUSE_ENABLE: Invalid argument
+with dmesg listing:
+> jailhouse: Not a system configuration
+This issue was already reported on the mailing list, but I'd like to note t=
+hat it was not a singular case. Switching from GCC-9 to GCC-7 solved the is=
+sue for me too. I guess GCC-9 takes the freedom to move the header away fro=
+m the initial memory location, which results in Jailhouse failing to verify=
+ the .cell to be a system configuration description.=20
+
+* enabling results in:=20
+> FATAL: Unhandled MSR write: c8f
+Ubuntu distributions have CONFIG_X86_CPU_RESCTRL=3Dy kernel config set by d=
+efault. I do not know how widespread this is. Apparently, this conflicts wi=
+th jailhouse, as such a Linux kernel tends to write to 0xc8f: IA32_PQR_ASSO=
+C. Disabling rdt over the kernel commandline does not solve the issue. Perh=
+aps it might be useful to extend the hardware check to check for this flag?=
+ Rebuilding the kernel without RESCTRL fixed the issue.
+
+* enabling results in:=20
+> FATAL: Invalid MMIO/RAM read, addr: 0x0000000087a6e070 size: 8
+> FATAL: Invalid MMIO/RAM write, addr: 0x0000000087a6e018 size: 0
+These memory accesses are=20
+> 86dff000-924fefff : Reserved
+>   89f5b018-89f5b06f : APEI ERST
+>   89f5b070-89f5d017 : APEI ERST
+The APEI ERST are included by jailhouse by default, however the remainder o=
+f the reserved region is not. Passing this to jailhouse solves the issue. D=
+oes anybody have any idea where this region could be used for? I expect som=
+e bios driver? Is there a way to detect which driver is interfering here?=
+=20
+
+* Similarly, a violation was found while destroying a non-root cell:=20
+> FATAL: Invalid PIO read, port: 500 size: 2
+Which jailhouse identifies as:=20
+> /* Port I/O: 0510-0515 : ACPI CPU throttle */
+> PIO_RANGE(0x510, 0x6),
+Again, passing the port solves the issue. Does anybody have a clue why the =
+CPU throttle is required to destroy a non-root cell? Is it an idea to inclu=
+de these PIO ports by default in the config creation?
+
+The last issues were described to some extend in Jan's ELCE talk in 2016, "=
+Tutorial: Bootstrapping the Partitioning Hypervisor Jailhouse". I really li=
+ked the introduction and think it is an excellent talk to get started with =
+Jailhouse.=20
+However, it is not linked in e.g. the readme or the FAQ. This might be bene=
+ficial.
+
+If anyone has any ideas about the PIO/Memory requirements, that would be re=
+ally welcome.=20
+
+Thanks for all the efforts put in Jailhouse.=20
+
+Kind regards,
+
+Bram Hooimeijer=20
+
+Disclaimer: The content of this e-mail is intended solely for the use of th=
+e Individual or entity to whom it is addressed. If you have received this c=
+ommunication in error, be aware that forwarding it, copying it, or in any w=
+ay disclosing its content to any other person, is strictly prohibited. If y=
+ou have received this communication in error, please notify the author by r=
+eplying to this e-mail immediately.
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/AS8PR02MB6663A103382B6B698EB2B7EBB6CB0%40AS8PR02MB6663.eurprd=
+02.prod.outlook.com.
