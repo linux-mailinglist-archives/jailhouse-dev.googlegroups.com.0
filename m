@@ -1,140 +1,121 @@
-Return-Path: <jailhouse-dev+bncBCO7LMW7VYMRB2P4WT7QKGQEGX37XHI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBAABBF6OXD7QKGQEEJJKOWQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-vk1-xa3e.google.com (mail-vk1-xa3e.google.com [IPv6:2607:f8b0:4864:20::a3e])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD5DC2E7DCD
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 31 Dec 2020 03:58:50 +0100 (CET)
-Received: by mail-vk1-xa3e.google.com with SMTP id t9sf7991528vkm.12
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 30 Dec 2020 18:58:50 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1609383529; cv=pass;
+Received: from mail-lf1-x140.google.com (mail-lf1-x140.google.com [IPv6:2a00:1450:4864:20::140])
+	by mail.lfdr.de (Postfix) with ESMTPS id F034B2E81D2
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 31 Dec 2020 20:31:36 +0100 (CET)
+Received: by mail-lf1-x140.google.com with SMTP id t194sf12291606lff.15
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 31 Dec 2020 11:31:36 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1609443096; cv=pass;
         d=google.com; s=arc-20160816;
-        b=TYtci8KtYxSTVyKbAor04wnggx0sZQseB3vGiwYKxSlYnv3NOOGFiNSnd/GBHIXt7h
-         Or6AqnEJPIpdzausH72DltGDaxawmDR5Ziy+I1XxVFJQAd3OiA/Ygjf9bUlDXeOVdDoJ
-         Jq5uj5mmf4Dtt438gM+FVWHa3iPCsM4kqvoPB3s5DaSbG2D71qGbxW9simwsz7jgUgA3
-         G24PmQWtaVE5DBWB4Cij4A0Sv7IlC70qtjmI9Xfp64GA7gv21EehQxf4+wMp4G0Ely+H
-         Y0IGL93PEecXzJToJiOxtisMSM15LzjIdgcanasig2tk/V8b3vnefC0bxkQzGrKzpifl
-         JfvQ==
+        b=phKVXH+/r7u3izn0EDBjulELIGTfMNw32JGj48mr4hD0BcQaIBSDFv3E0xQV/4oMcW
+         xVJrO56TwbRhgkM+gvsUceLRK6CFyeIrV3p5RVlQ+/7K+E8zuu4x8KMnqFmR/Z+OMqx2
+         OlEQVlRt0A+CtBYX6xpZQ+Hyee7XH+5cS8tqLh4eVtdQqGCUS9Sk6N5qoSblgvc4V0wx
+         iSO72Ec+UJjW+L8N2HEB2sG/zbj9L/FBBMAPX0+vjisodmh3nRgGSGekHWR8aVerRDPZ
+         +nNM2+NG3maur4GMzh3OWLvFoJSZmdBsagf8LZz8zTsnyLMvm6a0nHLDUnT74kKzvhmo
+         Tj2g==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-subscribe:list-archive:list-help:list-post:list-id
-         :mailing-list:precedence:content-transfer-encoding:subject:to:from
-         :mime-version:list-unsubscribe:date:message-id:sender:dkim-signature
-         :dkim-signature;
-        bh=6T07uHAJAO3aJl48BLEcFQyAJx96sL+ToEFnZINb+oU=;
-        b=FJKe9SVQm8bP//XwDbuknBe0gzHviB9cc6o2huSueOQGzhW6wr69anODN5ETMqw0U1
-         pDQVteg7pE4LQE2DWfz/rIHUrv1ZGvk5dH1F1QHzLQy69Cl3MkUOeJfWEHKrPomZ8rZb
-         k1PKbub/e9FmlkhzQRjJCrnPDMrWvS/zd8SeeFWymAKD1/4QsKD+au3Xtep1iMUFn9p6
-         JN6fWU14BsfW9+dp+Eyt9wuUgaR2mn6pOK4xeLD+gbNbtIOq56thBEZSswDQgrBiiKr9
-         YdqyIBDmAn2o+pdoHggXFPjEB/oWdLs9Hwq1FDw2vdnq+7gEa/gxYB73eScrt05BrRTP
-         yGTw==
+         :mailing-list:precedence:content-transfer-encoding:mime-version
+         :subject:list-unsubscribe:feedback-id:message-id:date:reply-to:from
+         :to:sender:dkim-signature;
+        bh=8pn0D6Pvi/3IkxbKx02n1MGrcxyeDRfe5cl2Y1Y53jg=;
+        b=vxiJYp1vHvd8mJq69LxmSEbIrqEAOlW2tzbIG4MsVB9TabnTwxI5WriMYJjpAt/Zs8
+         Bkbt/+lTlJDNwI2kGXG9Ko2cBpO9GbpcJmylihQSa6llVnH4rDA4RRkVwpJ7ET7atUb+
+         +LMw8BpfKqjwoQW/+dGXn270qgRCysuD5zFqc55iP2X+Gg6d4cYXegoa0yigJ0x0jMXB
+         onTU2HUd8slico11wUitP4/SJaBkyliu/TCyLYBS4IoNU0qbxwZkjgZWAz15Tray1Vho
+         b4f8flrUHOkJQGfbk5rG043CL8IMieUyKLUjHLCKDK3hVGSNy4CSynhNbL6adNyOaV3I
+         427Q==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=jn+TjIh0;
-       spf=pass (google.com: domain of sontruong2646@gmail.com designates 2607:f8b0:4864:20::52d as permitted sender) smtp.mailfrom=sontruong2646@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+       dkim=neutral (bad version) header.i=@ics.events header.s=dkim header.b=Fb7sZA65;
+       spf=softfail (google.com: domain of transitioning conf@ics.events does not designate 93.159.215.162 as permitted sender) smtp.mailfrom=conf@ics.events
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:message-id:date:list-unsubscribe:mime-version:from:to
-         :subject:content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe;
-        bh=6T07uHAJAO3aJl48BLEcFQyAJx96sL+ToEFnZINb+oU=;
-        b=UuhWTB4/TUK1C/GMv1C5y1sdpKE2Jk6ZduGg+/So5ef3+KGWpz//1huDwgr8w0iHog
-         FtuPR3m7jp6fzaTUEGj4kLkplPDv1Xppd973RLoMKTQLuBs19yZkZe7nZ/jk+nV7SQcZ
-         VtlFAdd+3ROLskPotFwqaRzhyXVwiXh5m3qYV1SXSNlYRmOrV5hKRlCzqCzlQYGEVvHJ
-         XUIaJCyaEiTOQJJx6svCMw6UiLYmt+lDewShbmrtsRNc6uHBbzTlK9Ntt47q/pF1kGkG
-         lCEtlFWVDJVZaxb96CvuuJPPWAWeXivN7iJFLTO5s/cWN8KlTi+0ODDfgi3ELhcK7Tp/
-         MnLQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=message-id:date:list-unsubscribe:mime-version:from:to:subject
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe;
-        bh=6T07uHAJAO3aJl48BLEcFQyAJx96sL+ToEFnZINb+oU=;
-        b=MrFM42azvzXiHpvEesDZ7/Lx9XEqtFQFz1SLOaOXyD3wHhfoRyq2tXmua2LanLM603
-         1xbuJY7obzTbpqo/vSk4vtIFh3gBa7tpF2u2LOd+C/nQUn6j+CpXQ3VwHOo2KdtbSpDH
-         T/nFiA/M9XlklaaZ6okrUP/o/tmlr5av/zUJEKvtJkJmxYQ2551g/g5WEuYApISHKMFn
-         8y5jNqqPeUT7Qll1k29+nLWwLUB0OO0cZMyE6cYhcG2wx3TKUPro2qgFBsNkYb+v05CS
-         c/RyZVZLC3aDBwj/UA1E4m/8+q5qTrj5a0Ja5uXBLCQvdH8zGtBCLnGf7MrYC1cMMVIX
-         entw==
+        h=sender:to:from:reply-to:date:message-id:feedback-id
+         :list-unsubscribe:subject:mime-version:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe;
+        bh=8pn0D6Pvi/3IkxbKx02n1MGrcxyeDRfe5cl2Y1Y53jg=;
+        b=rUyRexMU3riAVU1pIfsB6/9gNWUiKIcB4fHRQuRWcSky6ox4I34Rt5h4Yr2k1maKMo
+         MH9MQRGs8Ath2R0yqUZ4fJooVsStLECYSQc3xLIbxvXx6llt1Tc9GLbmDHV66R9qsDkc
+         g3rujlPOnTF5d3nMKoU3AdJ9n7QcYPH0vJHfH27zdQK1p81uIFf58lYkQN+nnbnqdYTB
+         Qk97pLNccV+szOYpLiSvUfZ1c+78Gs8a6D951v36lsVVw39H11pWCbkarr5H8aRe8WrB
+         tEL78P80q0aqapi6ChENi4h7QfmI82tpVgB3ActaRDomsSf0+HYNARKw5bUps9KC9a55
+         Z2VQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:message-id:date:list-unsubscribe
-         :mime-version:from:to:subject:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe;
-        bh=6T07uHAJAO3aJl48BLEcFQyAJx96sL+ToEFnZINb+oU=;
-        b=DYr/CwfQWD9Gqbq6aHLUKRW4OjCiWT/qEOj3o8EqPECexHk/l4ijV301ldn8F2OGpp
-         zaJKe6DxRO2lVwcRvG70xfR/m+Q8w2fWlJ7SpXT6nfS1inUok+efUmyAmHRWU+ywGycO
-         szfAiZmTfUjLvAeKEyA4XsCwtFZP2bDn7l2quNnoeBswAb75evC5kLUTBw2vvPdRRUt/
-         jjQTxXeGEC859aBrpbDzXZ5rRWFnnsRquh9t2IrUoLUqoTso2GEZUPNuteXxfTsaFixY
-         rfqPM5T+QYuk8jesHvpMGCBeSL5Jbbg1WnC2p3CkWX12naDWXK8mMFuukm4lPV87AcCp
-         EEzA==
+        h=sender:x-gm-message-state:to:from:reply-to:date:message-id
+         :feedback-id:list-unsubscribe:subject:mime-version
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe;
+        bh=8pn0D6Pvi/3IkxbKx02n1MGrcxyeDRfe5cl2Y1Y53jg=;
+        b=sua0g4wOwpxzgkK974fYJBQWn/5xnab39Z5Vk4/kZ/P0aOVw2eRl3YlBtpWYqRm9wz
+         nUn3OUsyZnXtG7v5nEWTgQtVvu6XHaHT2yxBOhv8FwYcQpOT4LF0kxlJ6SvTj3q0M994
+         SMHuE5RNtSH11NF+zLRa/HeClaEC/vyX3sttbYjek44oRm5z2q2Z8vSoV5BPTlg2yEDh
+         gCRMU8rhOvBBgtLNEHros5eHXEGvO5QfnVmfJnQAEN2EI8AImr665f8jUqMGwY2iY5d3
+         M6DKFIZ+hZKO60YJeArCMXwy0KvRHSPceR+F1evtjfdN9RUPBw7XIMoSO+jsbgn7Jpik
+         edLQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530Vwq09JY82N0Wu027xtQFQ+0U6OeQCT1XrIES8nvpsVQYnKo81
-	xyrzj4yIKhZ5Si3LoEHo2nA=
-X-Google-Smtp-Source: ABdhPJyv6PewdqTXLdr3NKqIbTH6S7BP6wipTFScT2hW0updPLxiR4+Buh5c6vtgEx0I4qQbF6WZPg==
-X-Received: by 2002:a9f:356b:: with SMTP id o98mr35878947uao.40.1609383529718;
-        Wed, 30 Dec 2020 18:58:49 -0800 (PST)
+X-Gm-Message-State: AOAM533Es2UiwIgR1T8wzcBTeZwx4oi8fq7UcGN2E+2yn3u/luSRHYWy
+	JOieW4JdV842J51eHng08Mg=
+X-Google-Smtp-Source: ABdhPJx/SuqFy513SsNWIiGrWD2qd0av69muMDEshDgwF7DRARfWZkOYXwmprq4wJQ4RnyqXPiJPNQ==
+X-Received: by 2002:a19:4856:: with SMTP id v83mr24404300lfa.583.1609443096514;
+        Thu, 31 Dec 2020 11:31:36 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6102:382:: with SMTP id m2ls7799188vsq.8.gmail; Wed, 30
- Dec 2020 18:58:49 -0800 (PST)
-X-Received: by 2002:a05:6102:d1:: with SMTP id u17mr34809188vsp.8.1609383529128;
-        Wed, 30 Dec 2020 18:58:49 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1609383529; cv=none;
+Received: by 2002:a05:6512:10d4:: with SMTP id k20ls672821lfg.3.gmail; Thu, 31
+ Dec 2020 11:31:35 -0800 (PST)
+X-Received: by 2002:ac2:5f72:: with SMTP id c18mr28413073lfc.34.1609443095290;
+        Thu, 31 Dec 2020 11:31:35 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1609443095; cv=none;
         d=google.com; s=arc-20160816;
-        b=wndqb0+hiZohGh91wd/G9pfiW+KkGJJNplvYwEYsvXeQTlXpIzGiBhEf0h+Y80RpqS
-         DFD4RNC9keSQohHHIFjMAXwRsuyJ8RVnTrU9PMoEaM99CX4cQRfsUxwxfcW1+rwSCZWQ
-         e0VDPe44LvcxGNBOAKt9nsebi1SX+O6WM5nEfNWosy/Fpc34Y2wdZ+UzT4E7SHP0liHY
-         OlZilSFL79d2CeOZsZOpVrq68AoF3GkAilQr00pELCJ6hJbufgUbIGgwuds1+zWdcv3V
-         qNGlvlIzn6/zlzabHNsAyVqPWjFIk8orWvI8lR217Wv1tZma68sB4CzHYB7lwOw/huC+
-         EMUg==
+        b=zCqaUKKH9rlmL+/VNdUN7U8+WCx/2mkwK3F/6bpdEXZQ1Bybaq9xNPN/U8Keu7Ml2K
+         MdIW3vlRwauYO2AGiTmXJp+/brLdnt3R06MO/2fqtCQKfb8MK1nfPRP9nJS8PBDnomy3
+         tRj6ams1Uos+wUd7YIFMcfvseXsOEw7oON81p1D5Fl1bXccXV0wBQKBQvo/nHM811BhK
+         JzIKaYpJE4wzo4u6K9aJ3PLdrU9vrJEmxgg/z8/2UIUyJZwdZp10tFDvPH7N83izqmoL
+         vCJA31KXcKzG7ZPUwTQ+/Oxfb/no6TWFTCZOaT9dSFsv8tygwh5EePn6W8idkkHuKzq2
+         Zcrg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:subject:to:from:mime-version
-         :list-unsubscribe:date:message-id:dkim-signature;
-        bh=Me14urYwBVkvVR2NfnUjn7QFqx2LjbQQPqRs5IIyKKs=;
-        b=grGet3JvpmkCHgMFiMTqXNZuH/xzDHwKM2ZgM975mNZpavNkg7dOE/DR5qFpfwZiC9
-         l0GPTnlKOeyCKmeyyPLk5rzCtbAsESWkwafWHjJLgE4XIfjjuOpsTwQaCflLNqOQc7st
-         RVRlhVUqtSaOIu7mNiLY0cJOkHoBu18YSOfg3B6aiSAWEL5/wBvVSIaVPzmEE/clEPqm
-         uLe8pV1DR2VTB9BnCiLbagydvfS3ceAEvWJjdEL01sEFfV+nwZSiiOuilbIJUG9/4J8l
-         zgY3PqxYVAZYjFt3YQCAWz2cx2MGA6UO9AAS8OtXO/5JISGrQEjuLhZmt5256+7mmy4o
-         WT7g==
+        h=content-transfer-encoding:mime-version:subject:list-unsubscribe
+         :feedback-id:message-id:date:reply-to:from:to:dkim-signature;
+        bh=YjlrQroLRSiviuWSYxJzusXXhKv6DYAbSdWx6sKUOTU=;
+        b=nTM+Jz+BbVxV/7rOgvSPLjfesJvgsd0/tUI965vLRp8J7D+vtD35z+Makq29UJT9rg
+         +X8qr+1RSJnjWuKfFpiyzoVeijwF/v/CpJngwApI4zkHLwL0F2tzZT2xL2KHBFmFXuq0
+         xdRU+5TR+m9KUnB9LKxW80HxoVw7Unrq6p0aFLqK3Rk9JkF1WtSs/LLZw+7dXv02ETp7
+         7MT0ie9lC8PiYqjQUP7GEZMRU+PHCm88mEjVQnIbZwcJ0IDMw78wTwT9NYSEeHfpGs9A
+         0V+rH6qoywLvZPpqsAx0HQA6SgGLn0VYXNy2F3Sh9CjnnpVm2lpN+CxWa95nFr9N9Poe
+         PeYA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=jn+TjIh0;
-       spf=pass (google.com: domain of sontruong2646@gmail.com designates 2607:f8b0:4864:20::52d as permitted sender) smtp.mailfrom=sontruong2646@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com. [2607:f8b0:4864:20::52d])
-        by gmr-mx.google.com with ESMTPS id y8si3588606vko.4.2020.12.30.18.58.49
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Dec 2020 18:58:49 -0800 (PST)
-Received-SPF: pass (google.com: domain of sontruong2646@gmail.com designates 2607:f8b0:4864:20::52d as permitted sender) client-ip=2607:f8b0:4864:20::52d;
-Received: by mail-pg1-x52d.google.com with SMTP id c22so12349634pgg.13
-        for <jailhouse-dev@googlegroups.com>; Wed, 30 Dec 2020 18:58:49 -0800 (PST)
-X-Received: by 2002:a63:804a:: with SMTP id j71mr54496789pgd.307.1609383528166;
-        Wed, 30 Dec 2020 18:58:48 -0800 (PST)
-Received: from DESKTOP-DI4367S ([27.3.184.35])
-        by smtp.gmail.com with ESMTPSA id s33sm8650410pjj.56.2020.12.30.18.58.47
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1 cipher=ECDHE-ECDSA-AES128-SHA bits=128/128);
-        Wed, 30 Dec 2020 18:58:47 -0800 (PST)
-Message-ID: <5fed3e67.1c69fb81.2712c.1c3c@mx.google.com>
-Date: Wed, 30 Dec 2020 18:58:47 -0800 (PST)
+       dkim=neutral (bad version) header.i=@ics.events header.s=dkim header.b=Fb7sZA65;
+       spf=softfail (google.com: domain of transitioning conf@ics.events does not designate 93.159.215.162 as permitted sender) smtp.mailfrom=conf@ics.events
+Received: from s5mt162p.consultorpc.com (s5mt162p.consultorpc.com. [93.159.215.162])
+        by gmr-mx.google.com with ESMTP id 207si1309765lfm.0.2020.12.31.11.31.35
+        for <jailhouse-dev@googlegroups.com>;
+        Thu, 31 Dec 2020 11:31:35 -0800 (PST)
+Received-SPF: softfail (google.com: domain of transitioning conf@ics.events does not designate 93.159.215.162 as permitted sender) client-ip=93.159.215.162;
+Received: by s5mt162p.consultorpc.com id htojha16r3gj for <jailhouse-dev@googlegroups.com>; Thu, 31 Dec 2020 20:31:32 +0100 (envelope-from <conf@ics.events>)
+To: <jailhouse-dev@googlegroups.com>
+From: "John Dreamer" <conf@ics.events>
+Reply-To: "John Dreamer" <conf@ics.events>
+Date: Thu, 31 Dec 2020 20:31:18 +0100
+Message-ID: <57500d04020c0b00085555050409535d035f54550b06000755065a07525355555c54560e0a0b0651045f58530e05@ics_ip-zone_com-6>
+X-CcmId: 0c0246685a491d495f08046d555d0c5e515e065505030d520b
+Feedback-ID: 218315:218315-38:1:Mailrelay
+X-Report-Abuse: Please report abuse for this campaign here http://ics.mailrelay-v.com/ccm/abuse?a=218315&m=38&s=28238
+X-OriginalSender: conf@ics.events
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
+Subject: =?utf-8?Q?=E2=9C=A8=20Happy=20New=20Year=20to=20you=20and=20your=20family?=
 MIME-Version: 1.0
-From: "Lakisha" <sontruong2646@gmail.com>
-To: jailhouse-dev@googlegroups.com
-Subject: =?utf-8?B?amFpbGhvdXNlLWRldj/otbfor4nmsZ/mgbbpppYhRnJvbSBM?=
- =?utf-8?B?YWtpc2hhLg==?=
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: SonTruong2646@gmail.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20161025 header.b=jn+TjIh0;       spf=pass
- (google.com: domain of sontruong2646@gmail.com designates 2607:f8b0:4864:20::52d
- as permitted sender) smtp.mailfrom=sontruong2646@gmail.com;       dmarc=pass
- (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Content-Type: multipart/alternative; boundary="-------5fee27062b176"
+Content-Transfer-Encoding: 7bit
+X-Original-Sender: conf@ics.events
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=neutral (bad
+ version) header.i=@ics.events header.s=dkim header.b=Fb7sZA65;
+       spf=softfail (google.com: domain of transitioning conf@ics.events does
+ not designate 93.159.215.162 as permitted sender) smtp.mailfrom=conf@ics.events
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -145,43 +126,138 @@ List-Help: <https://groups.google.com/support/>, <mailto:jailhouse-dev+help@goog
 List-Archive: <https://groups.google.com/group/jailhouse-dev
 List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mailto:jailhouse-dev+subscribe@googlegroups.com>
 
-<CENTER>
-<p><div style=3D"font-size: 27px; font-family: verdana, arial, helvetica, s=
-ans-serif; background-color: rgb(255, 255, 255)"><font color=3D"#0000cc"><a=
- href=3D"http://theuocxua.com/getdocuments/w0nfBBBB0bNY4sOr9taFKYJziEd5kiJI=
-jnIPZCMtO73mc6GUe4jwglDcKlhWAMb0WBBBBZ3M1DhaqAAAAzluuAAAABb1POg05Q=3D=3D/YI=
-mzivsoURV9KKulu4cHYQ=3D=3D/jailhouse-dev?=E8=B5=B7=E8=AF=89=E6=B1=9F=E6=81=
-=B6=E9=A6=96!From Lakisha." target=3D"_blank" rel=3D"noreferrer">The truth.=
-info</a></font></div>
-<div>
-<img src=3D"http://theuocxua.com/getdocuments/w0nfBBBB0bNY4sOr9taFKYJzqtVi2=
-1JsYVSKkoqM8REqMHTvCLKiGstT3oZytAZN8plguGwhoPPy0mhvJHBMAAAAM5phG7n2cpzWEyhw=
-yJqjBuNPE=3D/8yN5UgFLyEOiNtCb9AAAAniXaeTYLfqY4Zezeazy6hpWGz8iYol8S4wWHpg3Ox=
-1uD16/jailhouse-dev?=E8=B5=B7=E8=AF=89=E6=B1=9F=E6=81=B6=E9=A6=96!From Laki=
-sha.">
-<img src=3D"http://theuocxua.com/getdocuments/w0nfBBBB0bNY4sOr9taFKYJziEd5k=
-iJIjnIPZCMtO73mc6GUe4jwglDcKlhWAMb0WBBBBZ3M1DhaqAAAAzluuAAAABb1POg05Q=3D=3D=
-/DGe5gLSWwZX8gRRSScEeihmV1Ti6fM0pwUMnzHwxWiu5P6nNGUVjPy83RRuBw7dp/jailhouse=
--dev?=E8=B5=B7=E8=AF=89=E6=B1=9F=E6=81=B6=E9=A6=96!From Lakisha.">
-<img src=3D"http://theuocxua.com/getdocuments/w0nfBBBB0bNY4sOr9taFKYJziEd5k=
-iJIjnIPZCMtO73mc6GUe4jwglDcKlhWAMb0WBBBBZ3M1DhaqAAAAzluuAAAABb1POg05Q=3D=3D=
-/hRcTy4WjRXqlBc0n0B59k63Ot3bql5FJAAAA72dQdHAAAAFLv5joiUjAG4UznIrpzcg1Jyyf3k=
-WQgPsDg6SOuaDGkadHEi8nt0Kp5aaxNi604VT4I=3D/jailhouse-dev?=E8=B5=B7=E8=AF=89=
-=E6=B1=9F=E6=81=B6=E9=A6=96!From Lakisha.">
-<img src=3D"http://theuocxua.com/getdocuments/w0nfBBBB0bNY4sOr9taFKYJziEd5k=
-iJIjnIPZCMtO73mc6GUe4jwglDcKlhWAMb0WBBBBZ3M1DhaqAAAAzluuAAAABb1POg05Q=3D=3D=
-/hRcTy4WjRXqlBc0n0B59k63Ot3bql5FJAAAA72dQdHAAAAFLs2lEBBBBOIyY2zBg70zwTFQ42E=
-RzMciQriVXyoYfiiueISb5QnQ6Ci3L5VKqZAqb95XU=3D/jailhouse-dev?=E8=B5=B7=E8=AF=
-=89=E6=B1=9F=E6=81=B6=E9=A6=96!From Lakisha.">
-<img src=3D"http://theuocxua.com/getdocuments/w0nfBBBB0bNY4sOr9taFKYJziEd5k=
-iJIjnIPZCMtO73mc6GUe4jwglDcKlhWAMb0WBBBBZ3M1DhaqAAAAzluuAAAABb1POg05Q=3D=3D=
-/hRcTy4WjRXqlBc0n0B59k63Ot3bql5FJAAAA72dQdHAAAAFLtK7RQEzNlFSnKeYmmsnyeOGXS8=
-aoAREkQbd3mETn9oGaLhyd4tQLCZOSnAAAAzNKOgOI=3D/jailhouse-dev?=E8=B5=B7=E8=AF=
-=89=E6=B1=9F=E6=81=B6=E9=A6=96!From Lakisha.">
-<div>
-<em>*=E5=85=B6=E4=BB=96=E6=96=87=E4=BB=B6:</em><br />
-<em>https://www.mediafire.com/folder/inj2vedwe7cj3</em><br />
-<em>http://coduyen.info/mh/00/9&pi_n.g.pdf</em><br />
+This is a multi-part message in MIME format
+
+---------5fee27062b176
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+
+=E2=9C=A8 Happy New Year to you and your family
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Dear Author,=C2=A0
+You are cordially invited to the 2021 International Conference on Comprehen=
+sible Science (ICCS 2021), to be held at in Eilat, Israel, June 18-20, 2021=
+, is an international forum for researchers and practitioners to present an=
+d discuss the most recent innovations, trends, results, experiences and con=
+cerns in the several advances of Digital Science.
+
+Conference website https://ics.events/iccs-2021/=E2=80=8B.
+
+You may submit your paper online via Conference Submissions Form. Submitted=
+ papers (until 10-12 page limit) must be written in English, must not have =
+been published before, not be under review for any other conference or publ=
+ication, must comply with Template in .doc/docx format.
+
+All submissions will be twice =C2=ABblind=C2=BB reviewed by Scientific Comm=
+ittee Members and invited Reviewers based on relevance, timeliness, origina=
+lity, importance and clarity of expression with convincing argumentative an=
+d a strict paper selection process.
+
+Accepted and registered Papers will be published in ICCS 2021 Proceeding by=
+ Springer in a book of the  the Lecture Notes in Networks and Systems serie=
+s=C2=A0(included in Scopus source list, Q4), and then will be submitted to =
+ISI Proceedings, SCOPUS, Google Scholar and other indexations.
+
+
+We are prepared to offer virtual participation options, for anyone who cann=
+ot or chooses not to travel due to the situation regarding COVID-19.
+
+Due to the restrictions caused this year by COVID-19 Pandemic, authors with=
+ registration in ICADS 2021 will have a discount of 50 USD in the ICCS 2021=
+ registration.
+
+=C2=A0
+Important Deadlines
+
+Submission: =C2=A0=C2=A0 February 21, 2021
+
+Notification: =C2=A0 March 30, 2021
+
+Registration:=C2=A0=C2=A0 April 21, 2021
+
+Event Dates:=C2=A0=C2=A0 June 18-20, 2021
+
+=C2=A0
+
+ICCS 2021 Organizer.
+https://ics.events/.
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/57500d04020c0b00085555050409535d035f54550b06000755065a0752535=
+5555c54560e0a0b0651045f58530e05%40ics_ip-zone_com-6.
+
+---------5fee27062b176
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w=
+3.org/TR/REC-html40/loose.dtd">
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; charset=
+=3Dutf-8"><title>=E2=9C=A8 Happy New Year to you and your family</title></h=
+ead><body>
+<div>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0<img alt=3D"" src=3D"http://ic=
+s.ip-zone.com/mailing-manager/domains/ics_ip-zone_com/files/img//happynewye=
+ar-newsletter.jpg" style=3D"width: 298px; height: 160px;" width=3D"298" hei=
+ght=3D"160">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0<span style=3D"font-size:22px;"><span style=3D"color:#ff00=
+99;"><strong>Dear Author,</strong></span></span>=C2=A0<br><strong>You are c=
+ordially invited to</strong> the 2021 International Conference on Comprehen=
+sible Science (<strong>ICCS 2021)</strong>, to be held at <strong style=3D"=
+box-sizing: inherit; color: rgb(64, 64, 64); font-family: Ubuntu, Tahoma, A=
+rial; font-size: 17px; text-align: justify; background-color: rgb(255, 255,=
+ 255);">in Eilat, Israel, June 18-20, 2021</strong>, is an international fo=
+rum for researchers and practitioners to present and discuss the most recen=
+t innovations, trends, results, experiences and concerns in the several adv=
+ances of Digital Science.<br>
+Conference website <a href=3D"http://ics.mailrelay-v.com/newslink/383472/26=
+.html">https://ics.events/iccs-2021/=E2=80=8B</a>.<br>
+You may submit your paper online via Conference Submissions Form. Submitted=
+ papers (until 10-12 page limit) must be written in English, must not have =
+been published before, not be under review for any other conference or publ=
+ication, must comply with <a href=3D"http://ics.mailrelay-v.com/newslink/38=
+3472/14.html" target=3D"_blank"><strong>Template</strong></a> in <strong>.d=
+oc/docx</strong> format.<br>
+All submissions will be twice =C2=ABblind=C2=BB reviewed by Scientific Comm=
+ittee Members and invited Reviewers based on relevance, timeliness, origina=
+lity, importance and clarity of expression with convincing argumentative an=
+d a strict paper selection process.<br>
+Accepted and registered Papers will be published in ICCS 2021 Proceeding <s=
+trong>by Springer in a book of the </strong> <b><span lang=3D"EN-US" style=
+=3D'font-size:12.0pt;font-family:"Times New Roman",serif;mso-fareast-font-f=
+amily:"Times New Roman";mso-ansi-language:EN-US;mso-fareast-language:RU;mso=
+-bidi-language:AR-SA'>the <span style=3D"color:#A30003">Lecture Notes in Ne=
+tworks and Systems series=C2=A0</span></span></b>(<strong>included in Scopu=
+s source list, Q4</strong>), and then will be submitted to <strong>ISI Proc=
+eedings, SCOPUS, Google Scholar and other </strong>indexations.<br><br>
+We are prepared to offer virtual participation options, for anyone who cann=
+ot or chooses not to travel due to the situation regarding COVID-19.<br>
+Due to the restrictions caused this year by COVID-19 Pandemic, <span style=
+=3D"color:#800080;"><strong>authors with registration in ICADS 2021 will ha=
+ve a discount of 50 USD in the ICCS 2021 registration</strong></span>.<br>
+=C2=A0<br><strong>Important Deadlines</strong><br>
+Submission: =C2=A0=C2=A0 <strong><span style=3D"color:#FF0000;">February 21=
+, 2021</span></strong><br>
+Notification: =C2=A0 <strong>March 30, 2021</strong><br>
+Registration:=C2=A0=C2=A0 <strong>April 21, 2021</strong><br>
+Event Dates:=C2=A0=C2=A0 <strong>June 18-20, 2021</strong><br>
+=C2=A0<br>
+ICCS 2021 Organizer.<br><a href=3D"http://ics.mailrelay-v.com/newslink/3834=
+72/23.html" target=3D"_blank"><strong>https://ics.events/</strong></a>.</di=
+v>
+<img src=3D"http://ics.mailrelay-v.com/newsimg/383472/logo.gif" width=3D"1"=
+ height=3D"1" alt=3D"" border=3D"0"></body></html>
 
 <p></p>
 
@@ -192,6 +268,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/5fed3e67.1c69fb81.2712c.1c3c%40mx.google.com?utm_m=
-edium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/msgid/jailho=
-use-dev/5fed3e67.1c69fb81.2712c.1c3c%40mx.google.com</a>.<br />
+om/d/msgid/jailhouse-dev/57500d04020c0b00085555050409535d035f54550b06000755=
+065a07525355555c54560e0a0b0651045f58530e05%40ics_ip-zone_com-6?utm_medium=
+=3Demail&utm_source=3Dfooter">https://groups.google.com/d/msgid/jailhouse-d=
+ev/57500d04020c0b00085555050409535d035f54550b06000755065a07525355555c54560e=
+0a0b0651045f58530e05%40ics_ip-zone_com-6</a>.<br />
+
+---------5fee27062b176--
+
