@@ -1,120 +1,119 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB4WP3P7QKGQETJHR7EQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBCOQ3P7QKGQEJIO6YWQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ej1-x63a.google.com (mail-ej1-x63a.google.com [IPv6:2a00:1450:4864:20::63a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6023A2ECE30
-	for <lists+jailhouse-dev@lfdr.de>; Thu,  7 Jan 2021 11:52:35 +0100 (CET)
-Received: by mail-ej1-x63a.google.com with SMTP id w6sf2262580ejo.2
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 07 Jan 2021 02:52:35 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1610016755; cv=pass;
+Received: from mail-pj1-x1039.google.com (mail-pj1-x1039.google.com [IPv6:2607:f8b0:4864:20::1039])
+	by mail.lfdr.de (Postfix) with ESMTPS id A520A2ECE32
+	for <lists+jailhouse-dev@lfdr.de>; Thu,  7 Jan 2021 11:52:59 +0100 (CET)
+Received: by mail-pj1-x1039.google.com with SMTP id q10sf4065869pjg.1
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 07 Jan 2021 02:52:59 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1610016778; cv=pass;
         d=google.com; s=arc-20160816;
-        b=PlFV+B9a4GxpMxdzaC9gPxUILu6vgxhInDaPSk8lQmm9cvBeVa+BcWYtrdGWwMVBvF
-         TEh6bMYMxXl6IsiFP7HwlLlYTR/yxDB/e15UTtm7vEWH4SjQQrxphpHaGGi83BWQ0D7b
-         2xpzfMt9XOl5uVmjyejQ3+7Mp5bymVZ4YITp/KmUBnsR2XyhfLrKmR4rkx/fyZ/Ybt+L
-         4vFhQn1LEF2aKoguRpTbSuCLngnE2SpfB/75NDnkrG4L0a/jp9aoYaanRRlpjcENKfLq
-         2NyCMm8Yr96m8QXPAu5F5eKb2N6xLwfbPlY/OZTx6gKOAbnHF3zrpnGzr0iwSxNYcTnW
-         YW2g==
+        b=KxpdhFkGRb1ipUZS9Gf1heyj/hV1KQ28P+WKRURwJYbgPAgk4/eOa1PGZQhtIMVKoM
+         SxTY1Pj+ZDZI1ifPEUqhElbg2EFK9VKRB/EKziyynM9mohwvfjwPea4G3tmLikqojzP/
+         bCBI73YeLmn1R/4S9jq83w/vB06trUg2HGZ+MAwb0FxI+RO3YsEyaPXV0WdILwT3A1Lo
+         ncI6waKgzvxH0rbV1oQfZiBeKu3+9SfPZRNB2+4PDkUgWj9sPa+AfIcakiMXi3c0Qc3m
+         kdnSaEWTtVGn+PyYU1SyFRNbfWxtc8TZsu+QFgcJq4FhEVz6u+Ykk0ZuaU8wLAw/eRSM
+         dq3w==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:sender:dkim-signature;
-        bh=rlXw8A29xftweCzXqJl0pXftNWtgPv0/8JIRoXmQyUg=;
-        b=gVDPeRoKkVBVMGvCS1DGHhwPrhFlbNCJqUQjRjWyALeiiKDsx9VpvirqM2GMGvfnze
-         MzSjKbAUg/dxeLMppQpSDzVGcH4YbioANzsVGVKlNx/a2nSYNJteeY81BrP/Yhmm9ajr
-         mP02hnHSX5gajfav6g/vV9I4bgCIqqrgVWnj0uCU31MMQMM6zF7taDZvoO9b4E+nT6QM
-         VIcHjCmoI1VMhMh6rZZE5YUfetc3uNldsNb9CvuHygTjE9EJLotvCv0O+12PHU8uBP3r
-         O+WjSdhKO5G/59+1I7GmOmY2B+RQf+8LA//o3S/EimeaA/rFScAN2sISC8c58Pr8toCD
-         pqKA==
+         :list-id:mailing-list:precedence:reply-to:mime-version:subject
+         :message-id:to:from:date:dkim-signature;
+        bh=uDjpVdT6eVM0aWbaYURw0NndL8kpGXGdcIOOvqb8q68=;
+        b=OVKEYlamLnRlsscvGnW5uxFAnlQOQtICTFd1CUahl1Xbh14HczTiIvD6+cN8/QjuH8
+         2DqFrTm/QlJEW3sBypzICg2jtpxQF14Y3fWDgVuv4NsJQg793gilx7QueCQTnF4MLAeg
+         lgS8ggmWKUuSKBg8iSlVC4PQAJyomodwWL8Pl2UCYuKsG4cyfFgalS7R594R+xIynZP/
+         GvdoIecZoPj8MqHkmq76oAykQtnoV69K3bh4sSM0toYPqL4wAwX5tx/Xizi3PMRp6mDe
+         +vlwvpQNPVq/iPlPlRn2y4cUMszTHL85XO9AfrUdBtONdy+dgxltz3EPFgP59UnVMwLg
+         ptKQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=XvAkLZlK;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.206 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=github.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:subject:date:message-id:in-reply-to:references
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=rlXw8A29xftweCzXqJl0pXftNWtgPv0/8JIRoXmQyUg=;
-        b=bmKWbiy1XEKCCx2V3ce3zXauk/3+KQLbGjhmCFxPJo1mKNr/+jUBmAnbeuQxbwwaaU
-         J8SfulvttQX542K22f9LCPobp1phCaEii8B5/YIo/1jDM89NrMZOra15sXMstbAh3mum
-         /kA/xRnIlI2DzVZG3H2Ry339j/tagV60bKGEl/oS/8EEKPWjKb51JlCRTCHtPkz6aOt4
-         D4fObVxPgjFvbnwVprhDxyzr7IWyzpio/VbzclPxwLWGUF8US2bSW6GIWCabkStNUZNe
-         uCSjE1j8ft5++qX8mm4GeU2Lon6EGhfMagCdvSHTxIYY8kMaPzC9w1aPp5LUD9FDokRY
-         CSaA==
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
+         :x-original-authentication-results:reply-to:precedence:mailing-list
+         :list-id:list-post:list-help:list-archive:list-subscribe
+         :list-unsubscribe;
+        bh=uDjpVdT6eVM0aWbaYURw0NndL8kpGXGdcIOOvqb8q68=;
+        b=GMm8VOjyE1HtqrZhd+o2ff19EGrBvwozPv4nNZh0oODo3zFSiaFsNjlih6w/x+w9wC
+         putZgtwJ0QSsoGZq5WefWtqeRgio3PWTTBCisqVsNy0ND5aXO5Sp9L2FYeRSXOdUuUdr
+         n9gAI9kCV33EnH6x4YPitTfOdSLhyfPu3RZtiwXDPSiBrC0ann/+rw9x7RbOu7rtiZ/d
+         CyzW2C6uc+i1PCWsiGUZB4BiE2ihdSft1tEUtKvwpRcmqlWtqaY85lfiGhfbPtkvZpKe
+         yWE0x9VXvEUGjsmGllO6vuYXekMmW4EkMGl02ahSiaL1GnLMt2a04BtggI/VrG9uP9gj
+         8W7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:subject:date:message-id
-         :in-reply-to:references:mime-version:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=rlXw8A29xftweCzXqJl0pXftNWtgPv0/8JIRoXmQyUg=;
-        b=uUf2Vm7lddUkuVR0W7IssPNeRSOVhGss3iSiDmJKpM0EtzsaL1PeQmSf9LCXTGdgKh
-         KyxTdmFe4g3XdoDz1FGwIZhyZoX8CLGz8C075zrPEQw2mbNgBAiQen7XMXc8HFNrg4pn
-         jJIgzbQghxq1hPeXQrhU6uSLa7GdNf8XIOzyyLiiytA9CqXvGo8e8fVV4NnvSi1uXODz
-         MoyPiJ8ENpX+lTmVW8QafF/mr98VSnADQmc5ocIKgGqyt0L+QBs93hkp9a+I8NC5h1lU
-         0VJGlUk3jlc3ZSFJWZoXeI0QCP4Nb7s2l9iPVqkzkBM4AoC50M17KZK/Tb5Rv+QjIUrI
-         y1AA==
-Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530oDfZS0JA95yBXbSykEBnXfMHzGP2p36F2ZPj6Tw1hyMBnpvR6
-	8vOhWk+9cZdfrxtD08CvlgI=
-X-Google-Smtp-Source: ABdhPJxBzApcs4bUQzEf7BXz/4PZ1pJirUY0avc4s4CNXQO1M7Nh2wxsiVJdwwbrNBY5KooSpqmX6A==
-X-Received: by 2002:a17:907:1047:: with SMTP id oy7mr5974148ejb.134.1610016755161;
-        Thu, 07 Jan 2021 02:52:35 -0800 (PST)
+        h=x-gm-message-state:date:from:to:message-id:subject:mime-version
+         :x-original-sender:x-original-authentication-results:reply-to
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=uDjpVdT6eVM0aWbaYURw0NndL8kpGXGdcIOOvqb8q68=;
+        b=iwEZTAysiLeT3Yl46sZe1bZIQ2k8ivdONFBuv4+wbHG1y7MaoKtSnaSqsR619nCNku
+         pfiRLqmWbogVRx4WeC46cxP1iv2r/vyYz9LJWcjISIe+0nhfiZ9OkP6Rp7Sqvi1VMgyG
+         MFe/2etkZV7o07vUsgEas1uEKOUcBj+MZCBDRJ+yv29CiaIUnIYGbbVWzs/ZvnY5xnxn
+         5n6bE4JzQmeGt7ByjnICgt7zHSSLs6jJSsshXtXvpO1j1+Iw4PcTYYhYkXq+ZzhN3uv0
+         MEZL3MvZMvxhcK9uYjAf5Kf9ff3UEs98UXhZfjZol76ZcmrL2vv9BMUZ2rUTMK3Npktv
+         WyKw==
+X-Gm-Message-State: AOAM533aYbZgdoKmbHjVnYfm0L1oI6dRqZDjZZISrRvh4ThJ+QhTUlTh
+	VoK2Uurk8HEpJo46Z6pOVec=
+X-Google-Smtp-Source: ABdhPJzeSqpFbrq+S3ssJ+yjhIknuIN5a9jpqurrcJWg4re6uuYs9htpErmpWhNZurNxTyzHooFAbQ==
+X-Received: by 2002:a17:902:7489:b029:da:5aed:8ebf with SMTP id h9-20020a1709027489b02900da5aed8ebfmr1620452pll.35.1610016778200;
+        Thu, 07 Jan 2021 02:52:58 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:360c:: with SMTP id q12ls2662645ejb.3.gmail; Thu, 07
- Jan 2021 02:52:34 -0800 (PST)
-X-Received: by 2002:a17:906:890:: with SMTP id n16mr5975687eje.463.1610016754096;
-        Thu, 07 Jan 2021 02:52:34 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1610016754; cv=none;
+Received: by 2002:a63:4704:: with SMTP id u4ls2631900pga.0.gmail; Thu, 07 Jan
+ 2021 02:52:57 -0800 (PST)
+X-Received: by 2002:a63:1220:: with SMTP id h32mr1262544pgl.309.1610016777381;
+        Thu, 07 Jan 2021 02:52:57 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1610016777; cv=none;
         d=google.com; s=arc-20160816;
-        b=dU1JEobTUKnYKvsPomW2rH3DDoDyPRTxSYY/aVyt5QUuZHJztkaFyLlk5nSjAFDBFl
-         fZt/AGdg+mJYMKOAKv4edlcgvnYGeXU9GxCTROpWw8l+zJyPLujUDlI3/PBiG+zCpNwU
-         92tjKc/qlOaMzfgoDmCkHyM77QOsi1BYKg3o50WSirGgOyE3ex5UTJw2u0rcufQ7mvht
-         fA6ifcfg22mqEiSgbjKY8W+dyXP8MI1yAm7ZQKZHgFEjae7H3Voj0f+ElziLxf4syKj9
-         lCqrPso2zYfhXOBtOB12LwtJ0CqJDu3T7PLOL8hNfokXlNTtGeV2dH0OUQEkqkjDS/5C
-         VHPg==
+        b=CT3Ir03YULP7DN3l2rU91osUa1m6eI3rmrkKq7CJS1RrbL7gt76JGn2zEbu70Q3Gwl
+         Wgk3NdHd6Q5D8h/kGfhw7m3UHi6DvNf/TJfd5/NhX9t+qlLJtdNwgLr1ziP0eTJETChU
+         FdLQ2VAXGv3zIFrGvAfndywzCxIQZTK/6i2wtgx5bgxm6V6mF0cWXXh4K7t8E+BsBT0q
+         MgPWUDpKpwRSSnTOVKHLcVOxBd/OUg5TNrZBktMOfJbNotCQbYqVz6IzSnR+12Q36lA/
+         cAikvlKarhcZm6fIWeD+/WdkYd3S+QWBCdA5QFulWNGuhJjKgIGBYhUonYE+hkzBqeyh
+         Po0A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from;
-        bh=9do0mjyudS8604XIl46mADtMBMycx9R/fwt+aZkKQKU=;
-        b=u8A2kIrxZqrsQq1Lul24YqByf/bj54jLUAthHhN4RB341vv5xHTx0bZ0bmykDNpOmw
-         8PxqNKTGBnW3qz78CaS3GjIB6OYi7PBJ/wET/4dO6BldETtFMe/CnlFaAcbsTDJoOmol
-         EJJXmWYGA5N9dqXwJL0po7zEoWss0N91hGueecnOjsJopBb0BziWgYLx5ucFcZ2npNMC
-         SfGaozr5XAv3gRw2aKNh71EdnKAa3IIx3mLoU8JU9DRG7DONOuiQCSIruTYAax9iZRU7
-         slnbFQLcKQD3s1jTygek6uy6hmRaquNqzOpPU2VWxVmyNsyAdm9MEIOUalNXVF3aw4Xs
-         GqaA==
+        h=content-transfer-encoding:mime-version:subject:message-id:to:from
+         :date:dkim-signature;
+        bh=mCDGIDZBpvhI7VvcknpZxrqpROWzxNkXZ27PraNJ954=;
+        b=H3qUnfIC3EkJX0Q8Jd52VnfshHQD1ZlVewy4DX430tbvkTUzhGRHIZBUB8i/cYjmzh
+         7GfvZu56UgHfxVw3KfAGN8Opr2Z/xUxDLTMOBra+qQcwfw7R7f6SxrrS7EaR0slZg2Nt
+         NhytZ7zj7CyVxopCqseFexNbCmDJgO6+SarcWmXsJgH5u3Vd7/czrHQT+CxZUs8XApMY
+         iQCctGgRGYYBPUKFKYhcfj/IpFlyxBWY6V7JPs8xu1IqQ85SLVPkbZXIUpga63GbLRmD
+         u+U4Hud6iSvCl7nmhWumwnae1N+ZTJSly79RBGGZGStKP6GnkQ4UQs7lt2upNBGal5p3
+         KYvQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
-        by gmr-mx.google.com with ESMTPS id j6si168089edh.0.2021.01.07.02.52.34
+       dkim=pass (test mode) header.i=@github.com header.s=pf2014 header.b=XvAkLZlK;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.206 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=github.com
+Received: from out-23.smtp.github.com (out-23.smtp.github.com. [192.30.252.206])
+        by gmr-mx.google.com with ESMTPS id d2si419255pfr.4.2021.01.07.02.52.57
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 07 Jan 2021 02:52:34 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id 107AqXi0008784
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
-	for <jailhouse-dev@googlegroups.com>; Thu, 7 Jan 2021 11:52:33 +0100
-Received: from md1f2u6c.ad001.siemens.net ([167.87.32.120])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 107AqWdA019377
-	for <jailhouse-dev@googlegroups.com>; Thu, 7 Jan 2021 11:52:33 +0100
-From: Jan Kiszka <jan.kiszka@siemens.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+        Thu, 07 Jan 2021 02:52:57 -0800 (PST)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.206 as permitted sender) client-ip=192.30.252.206;
+Received: from github.com (hubbernetes-node-3d54f4b.ac4-iad.github.net [10.52.113.21])
+	by smtp.github.com (Postfix) with ESMTPA id 91F856004FB
+	for <jailhouse-dev@googlegroups.com>; Thu,  7 Jan 2021 02:52:56 -0800 (PST)
+Date: Thu, 07 Jan 2021 02:52:56 -0800
+From: "'Peng Fan' via Jailhouse" <jailhouse-dev@googlegroups.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [PATCH 3/3] tools: jailhouse-config-check: Detect non-intercepted critical resources
-Date: Thu,  7 Jan 2021 11:52:32 +0100
-Message-Id: <659055b1171ae155e199f3b4b7547864ca1bedc6.1610016752.git.jan.kiszka@siemens.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <cover.1610016752.git.jan.kiszka@siemens.com>
-References: <cover.1610016752.git.jan.kiszka@siemens.com>
-MIME-Version: 1.0
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Message-ID: <siemens/jailhouse/push/refs/heads/next/beb3ae-b91751@github.com>
+Subject: [siemens/jailhouse] e1e43c: pyjailhouse: config_parser: Enhance
+ parsing of sys...
+Mime-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
+X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
+X-Auto-Response-Suppress: All
+X-Original-Sender: noreply@github.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass (test
+ mode) header.i=@github.com header.s=pf2014 header.b=XvAkLZlK;       spf=pass
+ (google.com: domain of noreply@github.com designates 192.30.252.206 as
+ permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass
+ (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=github.com
+X-Original-From: Peng Fan <noreply@github.com>
+Reply-To: Peng Fan <noreply@github.com>
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -127,7 +126,59 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-From: Jan Kiszka <jan.kiszka@siemens.com>
+  Branch: refs/heads/next
+  Home:   https://github.com/siemens/jailhouse
+  Commit: e1e43c088f907c8ce740e046a2d5c573c44eb590
+      https://github.com/siemens/jailhouse/commit/e1e43c088f907c8ce740e046a2d5c573c44eb590
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2021-01-07 (Thu, 07 Jan 2021)
+
+  Changed paths:
+    M pyjailhouse/config_parser.py
+    M tools/jailhouse-config-check
+
+  Log Message:
+  -----------
+  pyjailhouse: config_parser: Enhance parsing of system config
+
+Parse PCI, IOMMU and architecture-specific resources. This will be used
+by the config checker.
+
+The SystemConfig constructor gains an additional argument, the target
+architecture, which is not yet used by the config checker, thus left as
+None.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: dacd5095c75e1b2b35bf1f3706960a7c1019230a
+      https://github.com/siemens/jailhouse/commit/dacd5095c75e1b2b35bf1f3706960a7c1019230a
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2021-01-07 (Thu, 07 Jan 2021)
+
+  Changed paths:
+    M tools/jailhouse-config-check
+
+  Log Message:
+  -----------
+  tools: jailhouse-config-check: Fix error output on hypervisor overlaps
+
+Initialization of idx was missing.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 659055b1171ae155e199f3b4b7547864ca1bedc6
+      https://github.com/siemens/jailhouse/commit/659055b1171ae155e199f3b4b7547864ca1bedc6
+  Author: Jan Kiszka <jan.kiszka@siemens.com>
+  Date:   2021-01-07 (Thu, 07 Jan 2021)
+
+  Changed paths:
+    M tools/jailhouse-config-check
+
+  Log Message:
+  -----------
+  tools: jailhouse-config-check: Detect non-intercepted critical resources
 
 This adds detection for missing interception of PCI mmconfig space,
 IOMMUs as well as interrupt chips on ARM/ARM64 and x86. This helps to
@@ -135,148 +186,54 @@ reveal a broad range of subtle mistakes one can make in creating system
 configurations.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
----
- tools/jailhouse-config-check | 104 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 103 insertions(+), 1 deletion(-)
 
-diff --git a/tools/jailhouse-config-check b/tools/jailhouse-config-check
-index c27dbb8e..5294967e 100755
---- a/tools/jailhouse-config-check
-+++ b/tools/jailhouse-config-check
-@@ -24,10 +24,22 @@ import sys
- sys.path[0] = os.path.dirname(os.path.abspath(__file__)) + "/.."
- import pyjailhouse.config_parser as config_parser
- 
-+
-+class ResourceRegion(config_parser.MemRegion):
-+    def __init__(self, phys_start, size, name=None):
-+        self.phys_start = phys_start
-+        self.virt_start = phys_start
-+        self.size = size
-+        self.flags = 0
-+        self.name = name
-+
-+
- # pretend to be part of the jailhouse tool
- sys.argv[0] = sys.argv[0].replace('-', ' ')
- 
- parser = argparse.ArgumentParser(description='Check system and cell configurations.')
-+parser.add_argument('-a', '--arch', metavar='ARCH',
-+                    help='target architecture')
- parser.add_argument('syscfg', metavar='SYSCONFIG',
-                     type=argparse.FileType('rb'),
-                     help='system configuration file')
-@@ -41,10 +53,25 @@ except IOError as e:
-     print(e.strerror, file=sys.stderr)
-     exit(1)
- 
-+arch = args.arch
-+if not arch:
-+    arch_str = os.uname()[4]
-+    if arch_str in ('i686', 'x86_64'):
-+        arch = 'x86'
-+    elif arch_str == 'armv7l':
-+        arch = 'arm'
-+    elif arch_str == 'aarch64':
-+        arch = 'arm64'
-+    else:
-+        arch = None
-+if not arch in ('x86', 'arm', 'arm64'):
-+    print('Unsupported architecture', file=sys.stderr)
-+    exit(1)
-+
- print("Reading configuration set:")
- 
- try:
--    sysconfig = config_parser.SystemConfig(args.syscfg.read(), None)
-+    sysconfig = config_parser.SystemConfig(args.syscfg.read(), arch)
-     root_cell = sysconfig.root_cell
- except RuntimeError as e:
-     print(str(e) + ": " + args.syscfg.name, file=sys.stderr)
-@@ -100,4 +127,79 @@ for cell in cells:
-             ret=1
- print("\n" if found else " None")
- 
-+if sysconfig.pci_mmconfig_base > 0:
-+    print("Missing PCI MMCONFIG interceptions:", end='')
-+    mmcfg_size = (sysconfig.pci_mmconfig_end_bus + 1) * 256 * 4096
-+    pci_mmcfg = ResourceRegion(sysconfig.pci_mmconfig_base, mmcfg_size)
-+
-+    for cell in cells:
-+        for mem in cell.memory_regions:
-+            idx = cell.memory_regions.index(mem)
-+            if mem.phys_overlaps(pci_mmcfg):
-+                print("\n\nIn cell '%s', region %d" %(cell.name, idx))
-+                print(str(mem))
-+                print("overlaps with MMCONFIG")
-+                print(str(pci_mmcfg), end='')
-+                found=True
-+                ret=1
-+    print("\n" if found else " None")
-+
-+iommu_resources = []
-+for iommu in sysconfig.iommus:
-+    iommu_resources.append(ResourceRegion(iommu.base, iommu.size, "IOMMU"))
-+if len(iommu_resources) > 0:
-+    print("Missing IOMMU interceptions:", end='')
-+    found=False
-+    for cell in cells:
-+        for mem in cell.memory_regions:
-+            idx = cell.memory_regions.index(mem)
-+            for iommu in iommu_resources:
-+                if mem.phys_overlaps(iommu):
-+                    print("\n\nIn cell '%s', region %d" %(cell.name, idx))
-+                    print(str(mem))
-+                    print("overlaps with IOMMU")
-+                    print(str(iommu), end='')
-+                    found=True
-+                    ret=1
-+    print("\n" if found else " None")
-+
-+print("Missing resource interceptions for architecture %s:" % arch, end='')
-+found=False
-+if arch in ('arm', 'arm64'):
-+    arch_resources = []
-+    if sysconfig.arm_gic_version == 2:
-+        arch_resources.append(ResourceRegion(sysconfig.arm_gicd_base, 0x1000,
-+                                             "GICD"))
-+        arch_resources.append(ResourceRegion(sysconfig.arm_gicc_base, 0x2000,
-+                                             "GICC"))
-+        arch_resources.append(ResourceRegion(sysconfig.arm_gich_base, 0x2000,
-+                                             "GICH"))
-+        arch_resources.append(ResourceRegion(sysconfig.arm_gicv_base, 0x2000,
-+                                             "GICV"))
-+    elif sysconfig.arm_gic_version == 3:
-+        arch_resources.append(ResourceRegion(sysconfig.arm_gicd_base, 0x10000,
-+                                             "GICD"))
-+        arch_resources.append(ResourceRegion(sysconfig.arm_gicr_base, 0x20000,
-+                                             "GICR"))
-+    else:
-+        raise RuntimeError("Unknown GIC version: %d" %
-+                           sysconfig.arm_gic_version)
-+elif arch == 'x86':
-+    arch_resources = [ResourceRegion(0xfee00000, 0x1000, "xAPIC")]
-+    for irqchip in root_cell.irqchips:
-+        arch_resources.append(ResourceRegion(irqchip.address, 0x1000,
-+                                             "IOAPIC"))
-+for cell in cells:
-+    for mem in cell.memory_regions:
-+        idx = cell.memory_regions.index(mem)
-+        for arch_resource in arch_resources:
-+            if mem.phys_overlaps(arch_resource):
-+                print("\n\nIn cell '%s', region %d" % (cell.name, idx))
-+                print(str(mem))
-+                print("overlaps with %s" % arch_resource.name)
-+                print(str(arch_resource), end='')
-+                found=True
-+                ret=1
-+print("\n" if found else " None")
-+
- exit(ret)
--- 
-2.26.2
+
+  Commit: 0c2d5000688b5cc4e1da4b37dca48f56ea9a846f
+      https://github.com/siemens/jailhouse/commit/0c2d5000688b5cc4e1da4b37dca48f56ea9a846f
+  Author: Alice Guo <alice.guo@nxp.com>
+  Date:   2021-01-07 (Thu, 07 Jan 2021)
+
+  Changed paths:
+    M configs/arm64/imx8mm.c
+    M configs/arm64/imx8mn.c
+    M configs/arm64/imx8mp.c
+    M configs/arm64/imx8mq.c
+
+  Log Message:
+  -----------
+  configs: imx8m: remove the physical address range contains GICD and GICRs
+
+When enabling Jailhouse on the iMX8M platforms, the stage 2 translation
+about IPA->PA includes the address range contains GICD and GICRs, which
+should not be allowed because GICD or GICRs should not be accessed in
+the root cell. In order to solve this problem, remove the physical
+address range contains GICD and GICRs.
+
+Signed-off-by: Alice Guo <alice.guo@nxp.com>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: b91751cc3ce5f9795d70da2ff198ada1ebe7ab31
+      https://github.com/siemens/jailhouse/commit/b91751cc3ce5f9795d70da2ff198ada1ebe7ab31
+  Author: Peng Fan <peng.fan@nxp.com>
+  Date:   2021-01-07 (Thu, 07 Jan 2021)
+
+  Changed paths:
+    M configs/arm64/imx8mm-linux-demo.c
+
+  Log Message:
+  -----------
+  imx8mm: fix ivshmem flags
+
+The inmate linux should have root shared flag set for ivshmem region
+
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+Compare: https://github.com/siemens/jailhouse/compare/beb3ae8a6435...b91751cc3ce5
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/659055b1171ae155e199f3b4b7547864ca1bedc6.1610016752.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/next/beb3ae-b91751%40github.com.
