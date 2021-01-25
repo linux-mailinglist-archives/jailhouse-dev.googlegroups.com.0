@@ -1,32 +1,32 @@
-Return-Path: <jailhouse-dev+bncBCW2V5WNZMERBNHGXKAAMGQEAJOEVCI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCW2V5WNZMERBNXGXKAAMGQETUL3YSQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23b.google.com (mail-lj1-x23b.google.com [IPv6:2a00:1450:4864:20::23b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0370C30249C
+Received: from mail-lj1-x239.google.com (mail-lj1-x239.google.com [IPv6:2a00:1450:4864:20::239])
+	by mail.lfdr.de (Postfix) with ESMTPS id C33AD30249D
 	for <lists+jailhouse-dev@lfdr.de>; Mon, 25 Jan 2021 13:01:58 +0100 (CET)
-Received: by mail-lj1-x23b.google.com with SMTP id k7sf15105ljj.23
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 25 Jan 2021 04:01:57 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1611576117; cv=pass;
+Received: by mail-lj1-x239.google.com with SMTP id k20sf2393509ljk.19
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 25 Jan 2021 04:01:58 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1611576118; cv=pass;
         d=google.com; s=arc-20160816;
-        b=W6EbzS4AueJQ684eLQ8U2jM83+CRjIPUPYulOJAmwbD7gItzy5RR/xWe7UuPs9bNIL
-         DrcoAM42Dmz0FwMZv2pKdsdWe092kFRjTWXOgOhxJSET5x7E8JK+2heMdVcXZqiap4OA
-         CXz1bxImzYetIGlmhTmV92/8qfJUtXy7tow2MtigbIRhmQORO7lbm0DF8P74qGosCymc
-         RMvNGT/KwWX9orAfzoVGmyyTT8X47huc4tiN66XqfRaY+1ZHvTt+hI9CLaf7TOi0L/n8
-         RYf4KGSumYrMMT33pDO4WW/0toKlWy08k+EpWIxQGRK19HwWReu1THHhQiDR6YNvUQF3
-         H5yQ==
+        b=BCgqtvi1hPqqKq3cV/mHtGlW9evRYUJCBKixfMT5JCVo0ptKn8tjhKIIwSG1+lNk8F
+         jNLasYeRH7RIfago0zLz+dBmHeXtY5QTGqZWflWPKS2ycwp7LV+hqizJZKim82xEJNps
+         ZOG02vAxOhoGp4ePuismCXtHy+iHGG/SQfenUWHVkgSL2ZTlLwDVEy05CsJY3Gl2Q547
+         51wgsp7m+k43sIq0y2qmdxFYMN2cT0mZQtAKTvfTL383cUBAcGJLW6jh608D/CsbktnT
+         gFwFqo+WBUXoVcU9jy4RVv8GSqtJ+KTwbufoNq/Ah7JJUsQujSwO7Xs/mUJY2lHhA+HX
+         72Uw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=5B1aoA3q/xs+2xKEDVF7cM21+JLs9biyGaHPg77z8ck=;
-        b=nnvAZWjf+9vNNwF60fx2DfKWedp8fGLg2JpJIx/MVhlYrXeuOSmv/wC3bsc3Abnghp
-         SEbi4INx0dOGVOBExUQGhfud56WKD8QMEsxoDDPs/HjV/p+Lb8r90yglcwN8eG/UINyS
-         U2t0hRw7tDNDKgOM0qR5O3/9o4R6kDcQF9UrzwOr9fWVP1RyRs6Tc1fXI8nGgaFc4ARy
-         5k5hY+FNIYS4H/WC3d5+Nf8PvPhpB6fwigvdAVD0a+do1jUlEQW6QBWuvGHDx45HY+L1
-         GnZt0wnUrUMeCy3MhY2WLkAK+WvMQf2B7kBH63RhMXEkkBhpSzgow/1gUG7JlEzJ2Isj
-         fuPw==
+        bh=k/UoGYNS5Rbi7y8cBlujaUZ5wIU7nllzJ4h9HSSjVYg=;
+        b=hxJCWK0XC13gKIf27MtZumiASw1oC+6zOauzn3XPMTDnXoF895713x/JCBh9FcZ8GW
+         Db32lioClbHAB0ZeVPGd5PLcubkEwb0XWl26CwlTiL5GFn7EZImUZGP6ncAxnLXviYgK
+         B+5kzIyC9o0upNgQZO6/PtiROvnC1+aMFEMAo4Vyb52xa9PXI06t7iR6budR5KUfVo+5
+         9L49QJpVYUfCRxx1cUK3UfhphZY9xScqi1H9dD+RHaaiWGgM0GTQ/z0SLvyDv1qtPR30
+         3RWZ2L2BXtXnun1L6yRQRPUfQ2bnsREsf12yV2M/pP+KkzG3NagK8/l2fMLturGO5Efe
+         pSdQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b=rh8zGTXl;
+       dkim=pass header.i=@tum.de header.s=postout header.b="c/ACEpUT";
        spf=pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=5B1aoA3q/xs+2xKEDVF7cM21+JLs9biyGaHPg77z8ck=;
-        b=h4vycD6GZddpqxE8HUr3BIpU893i0ZwFPUR2HxpLAdZcIVQ5Ziaqrs9a7Nt9uNVfve
-         jj5JOG7iYTBgo0pEc0pWN6z1zvXAsPen/fvyzZ+Kfo/J1hRIJMygJsoCqdvFa00AO2DI
-         l+CY2L36SScyI/rQ7hnN4ZNVGsj2vdAOQjU6hz+ZsP6wXcA7s6Y1AMAiaxgZndFrarEa
-         vFd69RHcYkIIJsfMH1c9qRH4LHDP5Cu0MPqYIh25FDRKwP8kTPfFVzydyOEWGXtXKm4/
-         afV3wXV0fWlMPtpsN3pKcD3+ez6lX70jFTRoweYw5sA75cMRi9j/Y+bq2uS8FvFJlHK/
-         ejjQ==
+        bh=k/UoGYNS5Rbi7y8cBlujaUZ5wIU7nllzJ4h9HSSjVYg=;
+        b=gUzLeqslrsM767nmEdstLxNBNpION8qpFU5U6rZMT4EjKs829iznhutzFBOc9QIWdL
+         QgQTsKcbi5aATz/15MXEc2qr0z6ft96C5gBL16GpKuBdAjpTQJshvBXVLgkK/Wy7+QZ4
+         g4/9VozvEBJmcSAAjEzc21Xjz4tOCgz7u5oD3V7QQLnhOKFC4ZPTQapntOB7EudxKnNH
+         Nzqs64TnY+/sNJJHqIZFQ1tNFJPiaOvEYE00BEEjnzLSdMJyqvccwYqpmvfriyRpmEis
+         c3xxBQWvsyKRY+D2pZY3xqyUPTcqlAigaUR0XlRmVR6aSjMju4ldTonYDJx8GlXu5dJp
+         kCPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
@@ -49,55 +49,55 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=5B1aoA3q/xs+2xKEDVF7cM21+JLs9biyGaHPg77z8ck=;
-        b=uWKng1rsxWKwSgDU6uQNVHa3gcsP6slRZNLvNppi8XWjP2XuWiDSGwdwf2DI1k9kcf
-         7jifCLc0o01lGUbWlqv+vEUmnKioGNmzUYPnKDpkqUjFLrPhLDt3z6Cft7Hb2QIKLAdi
-         bNJprv29jTKS10OSFNdfvMzmK+zgw0xjV6biDRsf4b0LSndjx4uKr5324WbhT720mp2m
-         r8ww1UUNUwwUnsQK+uPTq8q8i1HAxbKUkakFNy57rnZOuJbmM2jtkY0dApTMlVfJ9hJQ
-         BPXt6SjiD7Erks6ggAW0jg+zHtcUOQwz3oKN0zsyz/Yrdld9IqWwRiNBZ+cHr61DJy7Z
-         NwSw==
+        bh=k/UoGYNS5Rbi7y8cBlujaUZ5wIU7nllzJ4h9HSSjVYg=;
+        b=eurRSchAmDGuCFsMtu8E8jhLQYCHYrCh65nVrFQYIih2f+x4Kqaqq1LN8vl4o1F4Dm
+         oZNNhoGc9PXybhaqvbM6D/UifA4CC4OWqHKSWICndOeahzSESU4M7kGBJRJObCtueazj
+         hXX++Y0xytSdMy3tZ+sxBrs8Nxzf53+sbRvusDFF17C/3j5wHtR2Zwge4Yo1Y3X9ER7E
+         josJRNFJMdGzIi6Yh85WtVZhYdsD0qvXVFlTI8iswKdKtRaZtaI3ij1xQWF5yv4SzuHy
+         RSW3qk6HHVXHgF6cjsxSQd2H1CFBAzAFG8WVVW+KJHoJuwNRjaj/LTPN3WhPsmljgxon
+         Etow==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531tToiOQl+4OZlrh9S40fX9Vp2KJcqvLOasNOX7L+OI0w1ZV9Gm
-	j5d7n6X2CN9DSVW/FS/fX58=
-X-Google-Smtp-Source: ABdhPJzeWNQwqNchOpwd2HX1JiL64MJ15pDDp0PzsENNRpR4saeCIWre9IKBQU3ambaqnnkQ6Fkc3Q==
-X-Received: by 2002:a19:d83:: with SMTP id 125mr91852lfn.651.1611576117548;
-        Mon, 25 Jan 2021 04:01:57 -0800 (PST)
+X-Gm-Message-State: AOAM5329ATDIE3D5OWtH8lNZysnkc6u9YSFZxt2pBpKpdY7l/0SiScMP
+	IQcmKTEcTTqNe+rJAsAQcJ4=
+X-Google-Smtp-Source: ABdhPJzAUWDtSJ2zSC5Z6flygSMxaXqXE1VI6G/bXdql6dsBV+NcviyiSVyK831rbA0+6xQ2UKjuTA==
+X-Received: by 2002:a19:341:: with SMTP id 62mr111173lfd.500.1611576118318;
+        Mon, 25 Jan 2021 04:01:58 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a19:6145:: with SMTP id m5ls48619lfk.2.gmail; Mon, 25 Jan
- 2021 04:01:56 -0800 (PST)
-X-Received: by 2002:a05:6512:52c:: with SMTP id o12mr127259lfc.354.1611576116256;
-        Mon, 25 Jan 2021 04:01:56 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1611576116; cv=none;
+Received: by 2002:a2e:8850:: with SMTP id z16ls2043094ljj.4.gmail; Mon, 25 Jan
+ 2021 04:01:57 -0800 (PST)
+X-Received: by 2002:a2e:5803:: with SMTP id m3mr36256ljb.274.1611576117343;
+        Mon, 25 Jan 2021 04:01:57 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1611576117; cv=none;
         d=google.com; s=arc-20160816;
-        b=kyMPGJaztw3k0oBsbpF3bX5YDczabjrge/dZrDj7mCYCZ0ifnY4QLp9zVA8lBPbgTT
-         lxovq2TIv6DQcbky0QszTMD8yZeWGX9cKu8BrUlfWsGvvrFkPBUd61+oDNgO4hkncIUt
-         iQ8izqeBP+dx/ZwhmczDo8sfXAbDTiXzT3hQojfkz//8YwAPNfSFHZA2qqQaJnQbhW4V
-         oxMosrYro/YhbS60uB7cBQIJfR2rDj6aBHnMan1qd5P+72a2cjXhiIyNN2kQL/dp0l7i
-         ycWfYqEjamTky041osKQZR7TWa7W2xOhT4KASbZDUdzyUlR1r4sVYAGMd2+Nqsu/ahgT
-         MDjQ==
+        b=UrSYviQ7/yta38vki/n+M/we0eDgo2gaBNqc1nti7e5H4XGAuKVlKqQUo90S98hPMt
+         Eoc2ZBEwNTJDzu+HZ4OvrXHBJNldG7Mh6epfFF5eZNLDZoHiGMvmRSx4QPhM4qvQH7ND
+         E6FGFu2EcNIaGd83nuE1mmtEYZSWnmPgBvv10US/0nqiEyTodgZ8obtFIdgPZ8kuv4IS
+         QPrrIIWwT9wMo7qqRMyBDQQNf2PwwR9W6+XOs8I270IKHHW+hR0NO2K5nuAqzwCUEjrL
+         Z6RIGY5DMjeAwwUj230W9nE8khnezjZvNPXJtRKjnr/ESxW9ny3zMzCbgkgRFIxZ7/Nx
+         K/4w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature;
-        bh=oApa6TpkPCFoV4qx0MJ59T9zPWQd60hBUGEvHmo9fPk=;
-        b=VcKx7boHGlthKEpJl7ucPpl/9MWOAJeLMFsdD3m3AuYuAUOcC6MYRSxOfPCg+C5nNg
-         QFnHfSDPvSmEoitjTa9Zomh27LdXOt12qL8InbdEntc53GLR7ldJRDHkKFKmpP1QPDJ7
-         nRdFuE2DfSrh/IvY5tuG5oFsEiN3rqQcKDrGK9iWCwf3F4sNMkMU7INcVoTN11ilS6qN
-         ohB1shCK02mWTb1R5qanB1iYZ43iiZo0lIVZso24wt2Ku55lY0guoOKoWJQSoR4Xl+9v
-         urh6Rz+Fn2nr/qun/C8nOj1wBOFwiXrhsUpWT1KHDk1O7CA6YxbmQHWIeTE0zGmcJuSl
-         GVXw==
+        bh=GKjCYIXCFLOLxsksqf9k3NZguF2sTSzGwdoDU+TEzVE=;
+        b=0GByu0rbgiNO/6T4OM0JuciCBEYZkVjrhRoMUeCZ7CM6IH4waMQQl1v04lMU4zCnwf
+         sR6VNPxGpByzaC4PRo6YH6wwqicauu99hzRw8oLue1QKMPv3+ntzf4afzFy6j7ktxtaj
+         J++q/2I89VBRvhB5QnhiEpm6RvhuG0ZPkl76RPzYoHexmO4XxBt8Mfe9tDWUg6/LbzXU
+         BwrTStd628xHAQSkngq1fI2mO5gkH0CXdDGy5uuorb5zWRX6jEV0wqN+qdrNZn3YjXH2
+         gIH38XCySSn1/624u4y6xFi3DVTSrSHon8f2EN/uKZUAioO22b/09xqufMlIwvVz0GlS
+         SGug==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b=rh8zGTXl;
+       dkim=pass header.i=@tum.de header.s=postout header.b="c/ACEpUT";
        spf=pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
 Received: from postout2.mail.lrz.de (postout2.mail.lrz.de. [2001:4ca0:0:103::81bb:ff8a])
-        by gmr-mx.google.com with ESMTPS id z4si875546lfr.7.2021.01.25.04.01.56
+        by gmr-mx.google.com with ESMTPS id m12si572604lfq.6.2021.01.25.04.01.57
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Mon, 25 Jan 2021 04:01:56 -0800 (PST)
+        Mon, 25 Jan 2021 04:01:57 -0800 (PST)
 Received-SPF: pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) client-ip=2001:4ca0:0:103::81bb:ff8a;
 Received: from lxmhs52.srv.lrz.de (localhost [127.0.0.1])
-	by postout2.mail.lrz.de (Postfix) with ESMTP id 4DPT4M5PyDzydg;
-	Mon, 25 Jan 2021 13:01:55 +0100 (CET)
+	by postout2.mail.lrz.de (Postfix) with ESMTP id 4DPT4N64Jyzydj;
+	Mon, 25 Jan 2021 13:01:56 +0100 (CET)
 X-Virus-Scanned: by amavisd-new at lrz.de in lxmhs52.srv.lrz.de
 X-Spam-Flag: NO
 X-Spam-Score: -2.878
@@ -118,12 +118,12 @@ X-Spam-Status: No, score=-2.878 tagged_above=-999 required=5
 	autolearn=no autolearn_force=no
 Received: from postout2.mail.lrz.de ([127.0.0.1])
 	by lxmhs52.srv.lrz.de (lxmhs52.srv.lrz.de [127.0.0.1]) (amavisd-new, port 20024)
-	with LMTP id frpllyfVit6v; Mon, 25 Jan 2021 13:01:55 +0100 (CET)
+	with LMTP id 9b3kSZKdI9CJ; Mon, 25 Jan 2021 13:01:56 +0100 (CET)
 Received: from kabal.lan (ip5f5ac6e3.dynamic.kabel-deutschland.de [95.90.198.227])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(Client did not present a certificate)
-	by postout2.mail.lrz.de (Postfix) with ESMTPSA id 4DPT4M0tdXzydb;
-	Mon, 25 Jan 2021 13:01:55 +0100 (CET)
+	by postout2.mail.lrz.de (Postfix) with ESMTPSA id 4DPT4N1dqHzydb;
+	Mon, 25 Jan 2021 13:01:56 +0100 (CET)
 From: Andrea Bastoni <andrea.bastoni@tum.de>
 To: jailhouse-dev@googlegroups.com,
 	jan.kiszka@siemens.com
@@ -131,16 +131,16 @@ Cc: marco.solieri@unimore.it,
 	rmancuso@bu.edu,
 	lucmiccio@gmail.com,
 	Andrea Bastoni <andrea.bastoni@tum.de>
-Subject: [PATCH v1 20/23] coloring: extract get_bit_range() logic and remove offset dependency
-Date: Mon, 25 Jan 2021 13:00:41 +0100
-Message-Id: <20210125120044.56794-21-andrea.bastoni@tum.de>
+Subject: [PATCH v1 21/23] configs: remove color offsets for remapping
+Date: Mon, 25 Jan 2021 13:00:42 +0100
+Message-Id: <20210125120044.56794-22-andrea.bastoni@tum.de>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210125120044.56794-1-andrea.bastoni@tum.de>
 References: <20210125120044.56794-1-andrea.bastoni@tum.de>
 MIME-Version: 1.0
 X-Original-Sender: andrea.bastoni@tum.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@tum.de header.s=postout header.b=rh8zGTXl;       spf=pass
+ header.i=@tum.de header.s=postout header.b="c/ACEpUT";       spf=pass
  (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a
  as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=tum.de
@@ -159,137 +159,127 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
 ---
- hypervisor/arch/arm64/coloring.c | 40 +--------------------------
- include/jailhouse/coloring.h     | 46 ++++++++++++++++++++++++++++++++
- 2 files changed, 47 insertions(+), 39 deletions(-)
- create mode 100644 include/jailhouse/coloring.h
+ configs/arm64/qemu-arm64.c                   |  1 -
+ configs/arm64/zynqmp-zcu102.c                |  1 -
+ driver/cell.h                                |  1 -
+ driver/main.c                                | 10 ----------
+ hypervisor/arch/arm64/coloring.c             |  3 ---
+ hypervisor/arch/arm64/include/asm/coloring.h |  6 +-----
+ include/jailhouse/cell-config.h              |  2 --
+ 7 files changed, 1 insertion(+), 23 deletions(-)
 
-diff --git a/hypervisor/arch/arm64/coloring.c b/hypervisor/arch/arm64/coloring.c
-index ff3b5a78..c066ae24 100644
---- a/hypervisor/arch/arm64/coloring.c
-+++ b/hypervisor/arch/arm64/coloring.c
-@@ -21,6 +21,7 @@
- #include <jailhouse/cell.h>
- #include <jailhouse/mmio.h>
- #include <jailhouse/assert.h>
-+#include <jailhouse/coloring.h>
- #include <asm/control.h>
- #include <asm/coloring.h>
- 
-@@ -54,21 +55,11 @@ static inline int coloring_mem_destroy(struct cell *cell,
- 
- static inline int coloring_mem_start(struct jailhouse_memory *mr)
- {
--	assert(mr->flags & JAILHOUSE_MEM_LOADABLE);
--
--	/* Match the address specified during load */
--	mr->virt_start += coloring_root_map_offset;
--
- 	return arch_unmap_memory_region(&root_cell, mr);
+diff --git a/configs/arm64/qemu-arm64.c b/configs/arm64/qemu-arm64.c
+index ff4bcb25..8e6e46fd 100644
+--- a/configs/arm64/qemu-arm64.c
++++ b/configs/arm64/qemu-arm64.c
+@@ -46,7 +46,6 @@ struct {
+ 			.pci_domain = 1,
+ 			.color = {
+ 				.way_size = 0x20000,
+-				.root_map_offset = 0x0C000000000,
+ 			},
+ 			.arm = {
+ 				.gic_version = 3,
+diff --git a/configs/arm64/zynqmp-zcu102.c b/configs/arm64/zynqmp-zcu102.c
+index 0d721e63..2095762a 100644
+--- a/configs/arm64/zynqmp-zcu102.c
++++ b/configs/arm64/zynqmp-zcu102.c
+@@ -47,7 +47,6 @@ struct {
+ 			.pci_domain = -1,
+ 			.color = {
+ 				.way_size = 0x10000,
+-				.root_map_offset = 0x0C000000000,
+ 			},
+ 			.iommu_units = {
+ 				{
+diff --git a/driver/cell.h b/driver/cell.h
+index 51afe6d8..92afbff8 100644
+--- a/driver/cell.h
++++ b/driver/cell.h
+@@ -32,7 +32,6 @@ struct cell {
+ 	cpumask_t cpus_assigned;
+ 	u32 num_memory_regions;
+ 	struct jailhouse_memory *memory_regions;
+-	u64 color_root_map_offset;
+ #ifdef CONFIG_PCI
+ 	u32 num_pci_devices;
+ 	struct jailhouse_pci_device *pci_devices;
+diff --git a/driver/main.c b/driver/main.c
+index 50f7c25c..56955e73 100644
+--- a/driver/main.c
++++ b/driver/main.c
+@@ -362,16 +362,6 @@ console_free_out:
+ 	return ret;
  }
  
- static inline int coloring_mem_load(struct jailhouse_memory *mr)
- {
--	assert(mr->flags & JAILHOUSE_MEM_LOADABLE);
--
--	/* Fix addr to match the driver's IPA ioremap */
--	mr->virt_start += coloring_root_map_offset;
--
- 	/* Create an ad-hoc mapping just to load this image */
- 	return arch_map_memory_region(&root_cell, mr);
- }
-@@ -104,35 +95,6 @@ static int dispatch_op(struct cell *cell, struct jailhouse_memory *mr,
- 	return 0;
- }
- 
--/**
-- *  Get range of contiguous bits in a bitmask.
-- *
-- *  The function returns:
-- *  - bitmask without the extracted bit range.
-- *  - low: original bit position of range start.
-- *  - size: size of the range
-- *
-- *  The function assumes bitmask is not 0.
-- */
--static inline void get_bit_range(
--	u64 *bitmask,
--	unsigned int *low,
--	unsigned int *size)
+-static inline void jailhouse_init_color_params(
+-		struct jailhouse_system *config,
+-		struct cell *root)
 -{
--	unsigned int _range;
--
--	//col_print("mask: 0x%lx ", *bitmask);
--
--	*low = ffsl(*bitmask);
--	_range = *bitmask >> *low;
--	*bitmask = _range & (_range + 1UL);
--
--	_range = _range ^ *bitmask;
--	*size = msbl(_range) + 1;
--
--	//col_print("range: 0x%x, low: %u, size %u\n", _range, *low, *size);
+-	/* coloring temporary load-mapping address */
+-	root->color_root_map_offset =
+-		config->platform_info.color.root_map_offset;
 -}
 -
- int color_cell_op(struct cell *cell,
- 		  const struct jailhouse_memory *col_mem,
- 		  unsigned int op, unsigned int flags)
-diff --git a/include/jailhouse/coloring.h b/include/jailhouse/coloring.h
-new file mode 100644
-index 00000000..3def05d9
---- /dev/null
-+++ b/include/jailhouse/coloring.h
-@@ -0,0 +1,46 @@
-+/*
-+ * Jailhouse Cache Coloring Support
-+ *
-+ * Copyright (C) Technical University of Munich, 2020
-+ *
-+ * Authors:
-+ *  Andrea Bastoni <andrea.bastoni@tum.de>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See the
-+ * COPYING file in the top-level directory.
-+ */
-+
-+/** MSB/LSB function names differs between Jailhouse and Linux */
-+#ifdef LINUX_VERSION_CODE
-+/* NOTE: use [0-63] variants */
-+#define _lsb(x)	__ffs(x)
-+#define _msb(x)	__fls(x)
-+#else
-+#define _lsb(x)	ffsl(x)
-+#define _msb(x)	msbl(x)
-+#endif
-+
-+/**
-+ *  Get range of contiguous bits in a bitmask.
-+ *
-+ *  The function returns:
-+ *  - bitmask without the extracted bit range.
-+ *  - low: original bit position of range start.
-+ *  - size: size of the range
-+ *
-+ *  The function assumes bitmask is not 0.
-+ */
-+static inline void get_bit_range(
-+	u64 *bitmask,
-+	unsigned int *low,
-+	unsigned int *size)
-+{
-+	unsigned int _range;
-+
-+	*low = _lsb(*bitmask);
-+	_range = *bitmask >> *low;
-+	*bitmask = _range & (_range + 1UL);
-+
-+	_range = _range ^ *bitmask;
-+	*size = _msb(_range) + 1;
-+}
+-
+ /* See Documentation/bootstrap-interface.txt */
+ static int jailhouse_cmd_enable(struct jailhouse_system __user *arg)
+ {
+diff --git a/hypervisor/arch/arm64/coloring.c b/hypervisor/arch/arm64/coloring.c
+index c066ae24..cc259aee 100644
+--- a/hypervisor/arch/arm64/coloring.c
++++ b/hypervisor/arch/arm64/coloring.c
+@@ -30,9 +30,6 @@
+  */
+ u64 coloring_way_size = 0;
+ 
+-/** Temporary load-mapping parameter */
+-u64 coloring_root_map_offset = 0;
+-
+ static inline int coloring_mem_destroy(struct cell *cell,
+ 				       struct jailhouse_memory *mr)
+ {
+diff --git a/hypervisor/arch/arm64/include/asm/coloring.h b/hypervisor/arch/arm64/include/asm/coloring.h
+index 9cb50889..7df19acb 100644
+--- a/hypervisor/arch/arm64/include/asm/coloring.h
++++ b/hypervisor/arch/arm64/include/asm/coloring.h
+@@ -42,9 +42,6 @@
+  */
+ extern u64 coloring_way_size;
+ 
+-/** Temporary load-mapping parameter */
+-extern u64 coloring_root_map_offset;
+-
+ /**
+  * Colored operations on a cell / memory region.
+  *
+@@ -73,8 +70,7 @@ static inline void arm_color_init(void)
+ {
+ 	coloring_way_size = system_config->platform_info.color.way_size;
+ 
+-	printk("Init Coloring: Way size: 0x%llx, TMP load addr: 0x%llx\n",
+-	       coloring_way_size, coloring_root_map_offset);
++	printk("Init Coloring: Way size: 0x%llx\n", coloring_way_size);
+ }
+ 
+ /* ------------------------- COLORING API ---------------------------------- */
+diff --git a/include/jailhouse/cell-config.h b/include/jailhouse/cell-config.h
+index af5b5098..6fe2f016 100644
+--- a/include/jailhouse/cell-config.h
++++ b/include/jailhouse/cell-config.h
+@@ -135,8 +135,6 @@ struct jailhouse_memory {
+ struct jailhouse_coloring {
+ 	/* Size of a way to use for coloring, preferred to autoconfig */
+ 	__u64 way_size;
+-	/* Temp offset in the root cell to simplify loading of colored cells */
+-	__u64 root_map_offset;
+ } __attribute__((packed));
+ 
+ #define JAILHOUSE_SHMEM_NET_REGIONS(start, dev_id)			\
 -- 
 2.29.2
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20210125120044.56794-21-andrea.bastoni%40tum.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20210125120044.56794-22-andrea.bastoni%40tum.de.
