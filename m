@@ -1,33 +1,33 @@
 Return-Path: <jailhouse-dev+bncBCW2V5WNZMERBHHGXKAAMGQER5L4QTI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23f.google.com (mail-lj1-x23f.google.com [IPv6:2a00:1450:4864:20::23f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4320630248B
+Received: from mail-wm1-x338.google.com (mail-wm1-x338.google.com [IPv6:2a00:1450:4864:20::338])
+	by mail.lfdr.de (Postfix) with ESMTPS id 75E5D30248C
 	for <lists+jailhouse-dev@lfdr.de>; Mon, 25 Jan 2021 13:01:33 +0100 (CET)
-Received: by mail-lj1-x23f.google.com with SMTP id f30sf5455117ljo.10
+Received: by mail-wm1-x338.google.com with SMTP id j133sf5804068wma.4
         for <lists+jailhouse-dev@lfdr.de>; Mon, 25 Jan 2021 04:01:33 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1611576092; cv=pass;
+ARC-Seal: i=2; a=rsa-sha256; t=1611576093; cv=pass;
         d=google.com; s=arc-20160816;
-        b=Cc2gJRCrRdZnQJ71BK0BvfMHZo1qLkhFJunSFG1l6aanf27Hqq98nQLlmifayUMNzf
-         Ul1WygHEo2eBvTFJ09z8z9/al1x0+TMK7w2kodGqz1B9RQREE16A/fr1x8ggusjk4lsR
-         NYIfjiwB41grtzY3ANLHcFCcvyGHRVH7+fktpjOwIcOn5qVkBWERZCvtke+lA0tgZJ4t
-         GAHk3R3gbPw0GNrC21Wa7RgisMWUZC25sNPGSajBNK5k9lcIYQJzHBGkteVSaKysbRsV
-         GhlIMVf8TjsyYYXwEtlwbJVLwLJCaXB00gv2LdLYy1vkjNcDi0tLg4eHWvXuKrIU3c97
-         JshA==
+        b=fy95Rj/nNVl5YIVH+Z56vvXGE+Zv189aw8Nuqd9LZ0OR6gJFgsoIcr8U3Pt/lpXr4X
+         KCZDZ6WUNC3aZ3LPIuo54nTWtm8PDvVKRNpA1/CbTI3de8PsO9dYVhtXxhYMt3WoikhK
+         a/nFHSJ2UNjBmDipgYKB3DnxaqqcipgYoZhL75hyCwcK193KWm1HQhyZTlHKNKwyKkcm
+         lkjJhM67kYFcPqLBgVLNZQYCsRdzYbXZ5gRN7IfasBO9bwhIpe6cPpEa7m8nUrOXwBdg
+         ulYtRh0skkSEsILBeWHhfESDXg5nuC3/E/buMybbOkWMmN3tH4L++JRaiils/cuvsn/J
+         XXQA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
          :mime-version:references:in-reply-to:message-id:date:subject:cc:to
          :from:sender:dkim-signature;
-        bh=rjCWwWVQgu98QegvnRbC+LXYDsgKUGI0TN1bT9BAKXM=;
-        b=EfwimZo8jaNyXSpts+XBJ67FWvTd8Y21HwjezAgNFyHoU3qt0ZjHEVzoPPKA8ZRLdB
-         09CzgHqd7lq/I/RdZKz5LQUTBUdo2NCRLFfwm2twyHD/4m1fy91+YhN1NReT0dvntI7r
-         3JMicCrLrrWlL9OPiMMS2xV+I+V1PIyWFrSCXaLgNz6XYYR8getXB156JDGXgdFaoCLC
-         fwWnHpNaCo2NGVHrkLbYIh8QS3Y7Ai9JzsSubelq0pWZrHjZ+xuVnnU2RGwhVcdWc93J
-         ftN9s1HmTsIxWPsPfXgwu7QVF6edOu7kvFCBM6J9f48ozV3sg9NpTrPyCpbZ68ACSyxB
-         6iPw==
+        bh=blf6B1HYpHuUCrYhtoSRNeYZw0NgpRJrQx4xVmXhT8s=;
+        b=WNtGMpbtfd1gQRIHKmt8uiTVRLy8jGotLrvGL3VUNPGmyBMchwd77EqnZCBolLPjkb
+         Fpca7qIQIieatQHQLGBngiXMp+8Bd7EAUNvSaENMyK/OYtGeQpsolyCsLkMEa083E9Og
+         yJGo1zTcFsF3BOzQWiVQOD3ZMFUJVmDClHXb0DpO101MtTk29qYmhwqwN+RgiZctc27Y
+         2VXtZjuPl+iJnyJqnfVF8N/fBfE6PtC6Dq8iPjMIkbtt61cwNHQMAAtTF5gmMHn4xSVY
+         HleYwp6bT7yl6PMNOGo/jzIxYvrnWjHiv94wq1yaHuVTkLsUnwMHi9MLSNkVZMzUI/zX
+         nvhQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b=OCahpFXz;
+       dkim=pass header.i=@tum.de header.s=postout header.b=F7IyEKYY;
        spf=pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.138 as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
@@ -36,13 +36,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=rjCWwWVQgu98QegvnRbC+LXYDsgKUGI0TN1bT9BAKXM=;
-        b=hw5FXkp1EAsMFydQhUkQGp9PM6SFS1teR2Y9tT1GQfoUwArxXXqv5k0CfwqRtSb1r5
-         ftdBroDKPwPHI2SNRYJ7UPySynPhZck1jZXXJFpUVUw2vr2lHQhjmL/6xVNhUlI9eUFY
-         GbZ5Y2ZwF+0tiNHWTuG3M3nzYDLRaQb8/B5DCuGRSjOqpSGQgO+liC5uXBLEl+BCcPp1
-         aguFOcUQj83RrP5XPuuNRvQTW+yNhclqEBUUmaulPOv9cizMNHWfDGGvoFZuTsKMxNLE
-         KVWrZdGzmV3w1hlkb0X2Ovu7zATNu1WPMv3fCHAMA6tqr6A5Xd7gZTMSjGu6lVBZZq6O
-         ZPjQ==
+        bh=blf6B1HYpHuUCrYhtoSRNeYZw0NgpRJrQx4xVmXhT8s=;
+        b=COz64e3NpeS/7d5Zj0uFYyQmPTd2SejV2JHTBeCFHfy9v5189+kG27+1SnohD6FDAX
+         qYPhRx4vDlV61958PNEY7CuS5+IEiFTALldt8arcpf0/a5WXC367NU/V8WQgv0eoWH8L
+         ECedjgQwA/0Olb7+msNmLjeGnqy56WYk2q+sdwPzthE2P5o8+ve6ckkGGNgJg+XUkD27
+         LmRaoukGIjXH7DTN/9Gx6DMR0ligbHhmLclr2SyfmtGkm4P5jbuVO2tqXWyEXXl88/WH
+         P7F45gPnyRfxf1lWI1boO6UUy5cQ+D/8I9ktXRfGssLycWS/3d/7fgK6GsneMyTuffzp
+         2iUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
@@ -50,55 +50,55 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=rjCWwWVQgu98QegvnRbC+LXYDsgKUGI0TN1bT9BAKXM=;
-        b=F/L5sXDy2tyScB1P+GJN22kmwfAnbqMYl13/xMgjwRoH29TczLj2WudVFEpgBYN3hh
-         DqifZHCLNQBbvYE6nRw0DUYdkjxIORueDyqJ4Rj7ZiC97qROscTwC+Z/shuMwvK5HPOE
-         Wj2TWw2s2cyTbbkGbMZeV9WzX6vnyHZUceH5bPPUx4CvuxC+YhBBYBiWJhbtFlqtNK2M
-         prZKX9xGfLlHpysS0qiuZlZFvPFN7iTVnvPHGMs/PZ4Z+Mkt3tBNUWOffgFgV3qKS9Rr
-         Ys5f0KhEU/GPKnxP5oJ/8bVQZxZFwYLtUakk8KAhQjdI3DMk7Ea447kOmEAxz9sdYMma
-         IOoQ==
+        bh=blf6B1HYpHuUCrYhtoSRNeYZw0NgpRJrQx4xVmXhT8s=;
+        b=L0Mqw4N1QjwaVSUZpkZ10pPaFSbplRt7TH+EdsfaQBHc26IVEo82B97n1fQvdl+fpo
+         YkFG2SJ2+rUvwQ2KMBMXaF0mGtGQNIBMUZd1Mj4wxaoEu54KZ1n/0X67NUN3uBJ6Q+vz
+         QbF+zDNrQS9OqVJfuQ+Ky3y8VRDIlWd9E+NlUPEa0Lxd0+tEoz3VwKJ7KqAicjBuou4T
+         uiULgs0zr1ng2EDo4qQwsb0Hym+U+PUzoS8cZ6b+O26CUckbZfr4eSwUmGr1flvmUlIh
+         t4I4LeT6+GwKljTQMRgHHOpmmV975QgTKW12ZIAy01T8hrNQtLRwlJn8uKzzZcogZRX/
+         /1Ng==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532hhZr/gzlBGkN1Ly8PeOPJ8hL6ddTwAvwjq4g9zECSHC/D8B54
-	pRKUCNSFu75z4Aj+w5aDAPw=
-X-Google-Smtp-Source: ABdhPJybqo9VyjEyUcgUuSgKAxQfPU1kZToQXL9slTJqs2czV/nb/Hpfiq3GtlYo9P3QqJdepBoJ1Q==
-X-Received: by 2002:ac2:47f8:: with SMTP id b24mr124960lfp.108.1611576092781;
-        Mon, 25 Jan 2021 04:01:32 -0800 (PST)
+X-Gm-Message-State: AOAM532SwiaiWUH8W3ybkKomVBa0iDxqCJP6lQGQVB3XWaxgSw5EscZc
+	qc1p7BA/TfQ7ZhGbT/fONN0=
+X-Google-Smtp-Source: ABdhPJwxBap/YIiCA3wB3XWm2U+NJaXYPGYGNehAacFAP7n4QoOhOpFGqcrJSrSiW1huxtxfP6q1uQ==
+X-Received: by 2002:a7b:c407:: with SMTP id k7mr641234wmi.159.1611576093128;
+        Mon, 25 Jan 2021 04:01:33 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:9ad2:: with SMTP id p18ls2361908ljj.5.gmail; Mon, 25 Jan
- 2021 04:01:31 -0800 (PST)
-X-Received: by 2002:a2e:b543:: with SMTP id a3mr32703ljn.336.1611576091759;
-        Mon, 25 Jan 2021 04:01:31 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1611576091; cv=none;
+Received: by 2002:a5d:4485:: with SMTP id j5ls96458wrq.1.gmail; Mon, 25 Jan
+ 2021 04:01:32 -0800 (PST)
+X-Received: by 2002:a5d:6b89:: with SMTP id n9mr519978wrx.323.1611576092395;
+        Mon, 25 Jan 2021 04:01:32 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1611576092; cv=none;
         d=google.com; s=arc-20160816;
-        b=N9oK6HSwltPMn6p7o8tvKcmPGdcZW14Za1OYSYbsG2SsRegvA5bF0GwW8ovVpHNOqp
-         ijqtRragBwstvtEeQqyQGpuG9Gwu5GZsmsd52BPmCogSlFCGMO8ClpMmi+alWZI2qZaO
-         CphgSVxGEkFXHiAXg3Dr8y1NPvzyNwwwW3D3JtgpvObmVot8+PaXxD1M1bGbfSyWgm81
-         DIiKmCQC//2HSjicwnlQHs0wVUUsEUbV8lXItQIzAcCS2R10o5MjEG2qYVgHW7fecdQL
-         9dSWwz5jqdTfpPnRV+E3aQ0NycQzj2NQuir3zKMb0g9l+L6j5t5KJFlwfZOf++g6WtW0
-         LZkg==
+        b=YftdTq67LHfrpttq/VNGImbaSpy3f7k4sHIlyYi3NHjVFQTlYy9UDnwqH/9pGY6J6K
+         3JdgO24vRlKxFGKUx5KHPNzyt+mv+9kRt/dduKr8N211J8WZ3khuBMP3ED+L4zsMc/sf
+         z5mLbbmOaCdlz+iLDWn57AkpiSVL6RMS3kANUggIDUxNQmeg/mR9Yg8nS6XhfxZV5t4/
+         ERQ1h4piLjW0sULxybeJtW2PcBHW1aRi6hFXewhDdngHjV0M1HF/8SWR+fvETWJ+HZ6W
+         VyXHICJ/7+VQOJE9Rsw/M6Xo4FyV8bZrg6lGCtTaIA03oij8jD0rtL9D/Br/jQkD5CbJ
+         cRTw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature;
-        bh=WNLlzUnufxLzz2qJW1jl0Vl7vYNRK7wqSNw4UQ/6MEk=;
-        b=i5hE/r7L5sroeCYb90yuoXm8Orr+1bC509qR+VE8+y6eyke37LWDtQZqOqAHJAN207
-         sIoTlKvZdHcAPJdmdXtTu1k8r5oPtRasO54ZD6FWAnDMijO9u6Bf7axc1Si4UmFs2Erf
-         csPPq7r07lTHeeGkeEa/cysyVGBpSlwWWK48/ENjsXmq4AH+Y32YCx+Mg4O4AJ/rDXZ8
-         vDRCRxiQeiHBgw4F0cdPudWU2JB8ZqB56YP/L3mJ1X7KHspLGzEGn6NHXT8rc+b45pSF
-         zzWoEy4+7NuzRVZLIelIbkcTUQ/BAlHAMjVnHU5/NdUxkfqs3A99+pvEO0C777VsAhQQ
-         vLOw==
+        bh=URPIelbH8EWDbrPfFhJZ9I5vHWDttHBBrz5FxEymmPQ=;
+        b=jSdJDgykOxX/eN/tFWh+85zNDLRFEYSJERVC4SDNICQkPR31akk4U30wfv9YOrjYpo
+         pBjKZuO6yTOYEHWUGn4JfrSoiyHUZjjEMnNEEbZOrRsUS4TCXso5uP5TuMZOKdqlrXJr
+         a3sjkVNHU9r8ZGs0Er/ZOyxy1BfoHGP1AHT+Rnv+BjO6ZV4I55RnDESwMPDeJY5C3mVn
+         lN+yiWJpngYmO4hUj67siNLgEUfoiuDgrB63qR4uvYIXUi2Ax/Y+pSjv6uWt5V7gzBX3
+         lRn4RO1dnOD1RYFJLGOlJp+j7LWD5e6d0FekL4xewm+dgNBKIVBemTfG+18uVeFWuFX1
+         LwQw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b=OCahpFXz;
+       dkim=pass header.i=@tum.de header.s=postout header.b=F7IyEKYY;
        spf=pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.138 as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
 Received: from postout2.mail.lrz.de (postout2.mail.lrz.de. [129.187.255.138])
-        by gmr-mx.google.com with ESMTPS id i190si416304lfi.8.2021.01.25.04.01.31
+        by gmr-mx.google.com with ESMTPS id i4si993670wml.0.2021.01.25.04.01.32
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Mon, 25 Jan 2021 04:01:31 -0800 (PST)
+        Mon, 25 Jan 2021 04:01:32 -0800 (PST)
 Received-SPF: pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.138 as permitted sender) client-ip=129.187.255.138;
 Received: from lxmhs52.srv.lrz.de (localhost [127.0.0.1])
-	by postout2.mail.lrz.de (Postfix) with ESMTP id 4DPT3v1FXVzydg;
-	Mon, 25 Jan 2021 13:01:31 +0100 (CET)
+	by postout2.mail.lrz.de (Postfix) with ESMTP id 4DPT3w1S69zydj;
+	Mon, 25 Jan 2021 13:01:32 +0100 (CET)
 X-Virus-Scanned: by amavisd-new at lrz.de in lxmhs52.srv.lrz.de
 X-Spam-Flag: NO
 X-Spam-Score: -2.877
@@ -120,12 +120,12 @@ X-Spam-Status: No, score=-2.877 tagged_above=-999 required=5
 	autolearn=no autolearn_force=no
 Received: from postout2.mail.lrz.de ([127.0.0.1])
 	by lxmhs52.srv.lrz.de (lxmhs52.srv.lrz.de [127.0.0.1]) (amavisd-new, port 20024)
-	with LMTP id HL2A7lgBVqtP; Mon, 25 Jan 2021 13:01:30 +0100 (CET)
+	with LMTP id JtxMenesLPI9; Mon, 25 Jan 2021 13:01:31 +0100 (CET)
 Received: from kabal.lan (ip5f5ac6e3.dynamic.kabel-deutschland.de [95.90.198.227])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(Client did not present a certificate)
-	by postout2.mail.lrz.de (Postfix) with ESMTPSA id 4DPT3t2nFmzyd8;
-	Mon, 25 Jan 2021 13:01:30 +0100 (CET)
+	by postout2.mail.lrz.de (Postfix) with ESMTPSA id 4DPT3v2nvTzyd8;
+	Mon, 25 Jan 2021 13:01:31 +0100 (CET)
 From: Andrea Bastoni <andrea.bastoni@tum.de>
 To: jailhouse-dev@googlegroups.com,
 	jan.kiszka@siemens.com
@@ -133,9 +133,9 @@ Cc: marco.solieri@unimore.it,
 	rmancuso@bu.edu,
 	lucmiccio@gmail.com,
 	Andrea Bastoni <andrea.bastoni@tum.de>
-Subject: [PATCH v1 03/23] hypervisor: arm64: add cache coloring implementation
-Date: Mon, 25 Jan 2021 13:00:24 +0100
-Message-Id: <20210125120044.56794-4-andrea.bastoni@tum.de>
+Subject: [PATCH v1 04/23] hypervisor configuration: hook autodetection for coloring_way_size
+Date: Mon, 25 Jan 2021 13:00:25 +0100
+Message-Id: <20210125120044.56794-5-andrea.bastoni@tum.de>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210125120044.56794-1-andrea.bastoni@tum.de>
 References: <20210125120044.56794-1-andrea.bastoni@tum.de>
@@ -144,7 +144,7 @@ Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Original-Sender: andrea.bastoni@tum.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@tum.de header.s=postout header.b=OCahpFXz;       spf=pass
+ header.i=@tum.de header.s=postout header.b=F7IyEKYY;       spf=pass
  (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.138 as
  permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=tum.de
@@ -160,38 +160,190 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Each colored operation has to identify the correct physically colored
-address where to map successive virtual addresses according to
-contiguous coloring regions (expressed as contiguous bits in the color
-bitmask).
-
-Coloring is still disabled since coloring_way_size is not yet
-determined.
-
 Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
 ---
- hypervisor/arch/arm64/Kbuild                 |   1 +
- hypervisor/arch/arm64/coloring.c             | 186 +++++++++++++++++++
- hypervisor/arch/arm64/include/asm/coloring.h |  85 +++++++--
- 3 files changed, 258 insertions(+), 14 deletions(-)
- create mode 100644 hypervisor/arch/arm64/coloring.c
+ hypervisor/arch/arm64/Kbuild                  |   2 +-
+ hypervisor/arch/arm64/cache_layout.c          | 148 ++++++++++++++++++
+ .../arch/arm64/include/asm/cache_layout.h     |  19 +++
+ hypervisor/arch/arm64/include/asm/coloring.h  |   3 +-
+ 4 files changed, 170 insertions(+), 2 deletions(-)
+ create mode 100644 hypervisor/arch/arm64/cache_layout.c
+ create mode 100644 hypervisor/arch/arm64/include/asm/cache_layout.h
 
 diff --git a/hypervisor/arch/arm64/Kbuild b/hypervisor/arch/arm64/Kbuild
-index 4d328021..a5525811 100644
+index a5525811..3f5aebcd 100644
 --- a/hypervisor/arch/arm64/Kbuild
 +++ b/hypervisor/arch/arm64/Kbuild
-@@ -23,3 +23,4 @@ lib-y :=3D $(common-objs-y)
+@@ -23,4 +23,4 @@ lib-y :=3D $(common-objs-y)
  lib-y +=3D entry.o setup.o control.o mmio.o paging.o caches.o traps.o
  lib-y +=3D iommu.o smmu-v3.o ti-pvu.o
  lib-y +=3D smmu.o
-+lib-y +=3D coloring.o
-diff --git a/hypervisor/arch/arm64/coloring.c b/hypervisor/arch/arm64/color=
-ing.c
+-lib-y +=3D coloring.o
++lib-y +=3D coloring.o cache_layout.o
+diff --git a/hypervisor/arch/arm64/cache_layout.c b/hypervisor/arch/arm64/c=
+ache_layout.c
 new file mode 100644
-index 00000000..ea19560c
+index 00000000..0f28a440
 --- /dev/null
-+++ b/hypervisor/arch/arm64/coloring.c
-@@ -0,0 +1,186 @@
++++ b/hypervisor/arch/arm64/cache_layout.c
+@@ -0,0 +1,148 @@
++/*
++ * Jailhouse Cache Coloring Support
++ *
++ * Copyright (C) Universit=C3=A0 di Modena e Reggio Emilia, 2018
++ * Copyright (C) Boston University, 2020
++ * Copyright (C) Technical University of Munich, 2020
++ *
++ * Authors:
++ *  Luca Miccio <lucmiccio@gmail.com>
++ *  Renato Mancuso (BU) <rmancuso@bu.edu>
++ *  Andrea Bastoni <andrea.bastoni@tum.de>
++ *
++ * Autodetection of the cache geometry.
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See t=
+he
++ * COPYING file in the top-level directory.
++ */
++
++#include <jailhouse/printk.h>
++#include <jailhouse/utils.h>
++#include <jailhouse/paging.h>
++#include <asm/cache_layout.h>
++#include <asm/sysregs.h>
++
++#define verb_print(fmt, ...)			\
++	printk("[COL] " fmt, ##__VA_ARGS__)
++
++#define MAX_CACHE_LEVEL		7
++
++#define CLIDR_CTYPE(reg, n)	GET_FIELD((reg), 3*(n)+2, 3*(n))
++#define CLIDR_ICB(reg)		GET_FIELD((reg), 32, 30)
++
++enum clidr_ctype {
++	CLIDR_CTYPE_NOCACHE,
++	CLIDR_CTYPE_IONLY,
++	CLIDR_CTYPE_DONLY,
++	CLIDR_CTYPE_IDSPLIT,
++	CLIDR_CTYPE_UNIFIED,
++};
++
++#define CSSELR_LEVEL(reg)	SET_FIELD((reg), 3, 1)
++#define CSSELR_IND		0x1
++
++/* Assume ARM v8.0, v8.1, v8.2 */
++#define CCSIDR_LINE_SIZE(reg)	GET_FIELD((reg), 2, 0)
++#define CCSIDR_ASSOC(reg)	GET_FIELD((reg), 12, 3)
++#define CCSIDR_NUM_SETS(reg)	GET_FIELD((reg), 27, 13)
++
++const char * cache_types[] =3D {"Not present", "Instr. Only", "Data Only",=
+ "I+D Split", "Unified"};
++
++typedef struct cache {
++	/* Total size of the cache in bytes */
++	u64 size;
++	/* Size of a single way in bytes */
++	u64 line_size;
++	/* Size of each cache line in bytes */
++	u64 way_size;
++	/* Associativity */
++	u32 assoc;
++	/* Max number of colors supported by this cache */
++	u64 colors;
++	/* Which level is this cache at */
++	int level;
++} cache_t;
++
++/** Autodetect cache(s) geometry.
++ *  Return the size of a way or 0 if no cache was detected.
++ */
++u64 arm_cache_layout_detect(void)
++{
++	/* First, parse CLIDR_EL1 to understand how many levels are
++	 * present in the system. */
++	u64 reg, geom;
++	unsigned int max_cache_level;
++
++	unsigned int n;
++	cache_t cache;
++	u64 type, assoc, ls, sets;
++
++	arm_read_sysreg(clidr_el1, reg);
++
++	max_cache_level =3D CLIDR_ICB(reg);
++	if (max_cache_level =3D=3D 0) {
++		max_cache_level =3D MAX_CACHE_LEVEL;
++		verb_print("\tUsing default max cache levels\n");
++	}
++	verb_print("\tmax cache level =3D %u\n", max_cache_level);
++
++	cache.way_size =3D 0;
++	cache.level =3D -1;
++
++	for (n =3D 0; n < max_cache_level; ++n) {
++		type =3D CLIDR_CTYPE(reg, n);
++		verb_print("\tL%d Cache Type: %s\n", n + 1, cache_types[type]);
++
++		if (type =3D=3D CLIDR_CTYPE_NOCACHE)
++			continue;
++
++		/* Fetch additional info about this cache level */
++		arm_write_sysreg(csselr_el1, CSSELR_LEVEL(n));
++		arm_read_sysreg(ccsidr_el1, geom);
++
++		/* Parse info about this level */
++		ls =3D 1 << (4 + CCSIDR_LINE_SIZE(geom));
++		assoc =3D CCSIDR_ASSOC(geom) + 1;
++		sets =3D CCSIDR_NUM_SETS(geom) + 1;
++
++		verb_print("\t\tTotal size: %lld\n", ls * assoc * sets);
++		verb_print("\t\tLine size: %lld\n", ls);
++		verb_print("\t\tAssoc.: %lld\n", assoc);
++		verb_print("\t\tNum. sets: %lld\n", sets);
++
++		if (type =3D=3D CLIDR_CTYPE_IDSPLIT) {
++			arm_write_sysreg(csselr_el1, (CSSELR_LEVEL(n) | CSSELR_IND));
++			arm_read_sysreg(ccsidr_el1, geom);
++
++			ls =3D 1 << (4 + CCSIDR_LINE_SIZE(geom));
++			assoc =3D CCSIDR_ASSOC(geom) + 1;
++			sets =3D CCSIDR_NUM_SETS(geom) + 1;
++
++			verb_print("\t\tTotal size (I): %lld\n", ls * assoc * sets);
++			verb_print("\t\tLine size (I): %lld\n", ls);
++			verb_print("\t\tAssoc. (I): %lld\n", assoc);
++			verb_print("\t\tNum. sets (I): %lld\n", sets);
++
++		}
++
++		/* Perform coloring at the last unified cache level */
++		if (type =3D=3D CLIDR_CTYPE_UNIFIED) {
++			cache.level =3D n + 1;
++
++			cache.size =3D ls * assoc * sets;
++			cache.line_size =3D ls;
++			cache.way_size =3D ls * sets;
++			cache.assoc =3D assoc;
++			cache.colors =3D sets / (PAGE_SIZE / ls);
++
++			/* Compute the max. number of colors */
++			verb_print("\t\tNum. colors: %lld\n", cache.colors);
++		}
++
++	}
++
++	verb_print("\tNOTE: L%d Cache selected for coloring.\n", cache.level);
++
++	return cache.way_size;
++}
++
+diff --git a/hypervisor/arch/arm64/include/asm/cache_layout.h b/hypervisor/=
+arch/arm64/include/asm/cache_layout.h
+new file mode 100644
+index 00000000..959388f5
+--- /dev/null
++++ b/hypervisor/arch/arm64/include/asm/cache_layout.h
+@@ -0,0 +1,19 @@
 +/*
 + * Jailhouse Cache Coloring Support
 + *
@@ -208,318 +360,33 @@ index 00000000..ea19560c
 he
 + * COPYING file in the top-level directory.
 + */
-+#include <jailhouse/control.h>
-+#include <jailhouse/paging.h>
-+#include <jailhouse/printk.h>
-+#include <jailhouse/string.h>
-+#include <jailhouse/unit.h>
-+#include <jailhouse/cell.h>
-+#include <jailhouse/mmio.h>
-+#include <asm/control.h>
-+#include <asm/coloring.h>
-+
-+/**
-+ *  Only parameter needed to determine the coloring.
++/** Autodetect cache(s) geometry.
++ *  Return the size of a way or 0 if no cache was detected.
 + */
-+u64 coloring_way_size =3D 0;
-+
-+static inline int coloring_mem_destroy(struct cell *cell,
-+				       struct jailhouse_memory *mr)
-+{
-+	int err =3D 0;
-+
-+	/* Coloring was not created for subpages */
-+	if (JAILHOUSE_MEMORY_IS_SUBPAGE(mr)) {
-+		BUG();
-+	}
-+
-+	err =3D arch_unmap_memory_region(cell, mr);
-+	if (err)
-+		return err;
-+
-+	if (!(mr->flags & (JAILHOUSE_MEM_COMM_REGION |
-+					JAILHOUSE_MEM_ROOTSHARED))) {
-+		err =3D remap_to_root_cell(mr, WARN_ON_ERROR);
-+	}
-+
-+	return err;
-+}
-+
-+static inline int coloring_mem_start(struct jailhouse_memory *mr)
-+{
-+	if (!(mr->flags & JAILHOUSE_MEM_LOADABLE)) {
-+		BUG();
-+	}
-+
-+	/* Match the address specified during load */
-+	mr->virt_start +=3D ROOT_MAP_OFFSET;
-+
-+	return arch_unmap_memory_region(&root_cell, mr);
-+}
-+
-+static inline int coloring_mem_load(struct jailhouse_memory *mr)
-+{
-+	if (!(mr->flags & JAILHOUSE_MEM_LOADABLE)) {
-+		BUG();
-+	}
-+
-+	/* Fix addr to match the driver's IPA ioremap */
-+	mr->virt_start +=3D ROOT_MAP_OFFSET;
-+
-+	/* Create an ad-hoc mapping just to load this image */
-+	return arch_map_memory_region(&root_cell, mr);
-+}
-+
-+static int dispatch_op(struct cell *cell, struct jailhouse_memory *mr,
-+			      unsigned int op, unsigned int flags)
-+{
-+	if (op & COL_OP_CREATE) {
-+		return arch_map_memory_region(cell, mr);
-+	}
-+
-+	if (op & COL_OP_DESTROY) {
-+		return coloring_mem_destroy(cell, mr);
-+	}
-+
-+	if (op & COL_OP_START) {
-+		return coloring_mem_start(mr);
-+	}
-+
-+	if (op & COL_OP_LOAD) {
-+		return coloring_mem_load(mr);
-+	}
-+
-+	if (op & COL_OP_FLUSH) {
-+		arm_dcache_flush_memory_region(mr->phys_start, mr->size, flags);
-+		return 0;
-+	}
-+
-+	/* shouldn't get here */
-+	BUG();
-+
-+	/* keep compiler happy */
-+	return 0;
-+}
-+
-+/**
-+ *  Get range of contiguous bits in a bitmask.
-+ *
-+ *  The function returns:
-+ *  - bitmask without the extracted bit range.
-+ *  - low: original bit position of range start.
-+ *  - size: size of the range
-+ *
-+ *  The function assumes bitmask is not 0.
-+ */
-+static inline void get_bit_range(
-+	size_t *bitmask,
-+	unsigned int *low,
-+	unsigned int *size)
-+{
-+	unsigned int _range;
-+
-+	//col_print("mask: 0x%lx ", *bitmask);
-+
-+	*low =3D ffsl(*bitmask);
-+	_range =3D *bitmask >> *low;
-+	*bitmask =3D _range & (_range + 1UL);
-+
-+	_range =3D _range ^ *bitmask;
-+	*size =3D msbl(_range) + 1;
-+
-+	//col_print("range: 0x%x, low: %u, size %u\n", _range, *low, *size);
-+}
-+
-+int color_cell_op(struct cell *cell,
-+		  const struct jailhouse_memory *col_mem,
-+		  unsigned int op, unsigned int flags)
-+{
-+	size_t colors;
-+	u64 phys_start =3D col_mem->phys_start;
-+	u64 virt_start =3D col_mem->virt_start;
-+	struct jailhouse_memory mr;
-+	unsigned int start, low, size;
-+	unsigned int n;
-+	int err =3D -EINVAL;
-+
-+	col_print("OP 0x%x: PHYS 0x%08llx -> VIRT 0x%08llx "
-+			"(C: 0x%08lx, F: 0x%x)\n",
-+			op, col_mem->phys_start,
-+			col_mem->virt_start,
-+			col_mem->colors, flags);
-+
-+	n =3D 0;
-+	mr.flags =3D col_mem->flags;
-+	while (virt_start < col_mem->virt_start + col_mem->size) {
-+		start =3D low =3D size =3D 0;
-+		colors =3D col_mem->colors;
-+
-+		while (colors !=3D 0) {
-+			/* update colors with next color-range */
-+			get_bit_range(&colors, &low, &size);
-+			start +=3D low;
-+			mr.size =3D size * PAGE_SIZE;
-+			mr.phys_start =3D phys_start + (start * PAGE_SIZE) +
-+					(n * coloring_way_size);
-+			mr.virt_start =3D virt_start;
-+			/* update next round */
-+			virt_start +=3D mr.size;
-+			n++;
-+#if 0
-+			col_print("V: 0x%08llx -> P: 0x%08llx (size =3D 0x%08llx)\n",
-+					mr.virt_start, mr.phys_start,
-+					mr.size);
-+#endif
-+			err =3D dispatch_op(cell, &mr, op, flags);
-+			if (err)
-+				return err;
-+		}
-+	}
-+
-+	col_print("Result: %d\n", err);
-+	return err;
-+}
++extern u64 arm_cache_layout_detect(void);
 diff --git a/hypervisor/arch/arm64/include/asm/coloring.h b/hypervisor/arch=
 /arm64/include/asm/coloring.h
-index 54bfa9dd..44c1ca38 100644
+index 44c1ca38..61def877 100644
 --- a/hypervisor/arch/arm64/include/asm/coloring.h
 +++ b/hypervisor/arch/arm64/include/asm/coloring.h
-@@ -1,9 +1,13 @@
- /*
-  * Jailhouse Cache Coloring Support
-  *
-+ * Copyright (C) Universit=C3=A0 di Modena e Reggio Emilia, 2018
-+ * Copyright (C) Boston University, 2020
-  * Copyright (C) Technical University of Munich, 2020
-  *
-  * Authors:
-+ *  Luca Miccio <lucmiccio@gmail.com>
-+ *  Renato Mancuso (BU) <rmancuso@bu.edu>
-  *  Andrea Bastoni <andrea.bastoni@tum.de>
-  *
-  * This work is licensed under the terms of the GNU GPL, version 2.  See t=
-he
-@@ -12,13 +16,34 @@
- #ifndef _JAILHOUSE_COLORING_H
+@@ -17,6 +17,7 @@
  #define _JAILHOUSE_COLORING_H
 =20
--#include <asm/dcaches.h>
-+#include <jailhouse/cell.h>
+ #include <jailhouse/cell.h>
++#include <asm/cache_layout.h>
 =20
--/* Initial empty stub for coloring functions. */
--static inline void arm_color_init(void)
--{
+ #define col_print(fmt, ...)			\
+ 	printk("[COL] " fmt, ##__VA_ARGS__)
+@@ -59,7 +60,7 @@ static inline void arm_color_dcache_flush_memory_region(
+  */
+ static inline void arm_color_init(void)
+ {
 -	return;
--}
-+#define col_print(fmt, ...)			\
-+	printk("[COL] " fmt, ##__VA_ARGS__)
-+
-+/** Color operations */
-+#define COL_OP_CREATE	0x1
-+#define COL_OP_DESTROY	0x2
-+#define COL_OP_START	0x4
-+#define COL_OP_LOAD	0x8
-+#define COL_OP_FLUSH	0x10
-+
-+/**
-+ * Only parameter needed to determine the coloring.
-+ */
-+extern u64 coloring_way_size;
-+
-+/**
-+ * Colored operations on a cell / memory region.
-+ *
-+ * Encapsulate the loops needed to iterate through a region and identify
-+ * the color-compatible phys2virt mappings.
-+ */
-+extern int color_cell_op(struct cell *cell,
-+			 const struct jailhouse_memory *mr,
-+			 unsigned int op, unsigned int flags);
-+
-+/* -------------------- COLORING ARCH API --------------------------------=
++	coloring_way_size =3D arm_cache_layout_detect();
+ }
+=20
+ /* ------------------------- COLORING API --------------------------------=
 -- */
-=20
- /* Make sure we catch incorrect calls to these functions for arm */
- static inline void arm_color_dcache_flush_memory_region(
-@@ -26,34 +51,66 @@ static inline void arm_color_dcache_flush_memory_region=
-(
- 		const struct jailhouse_memory *mr,
- 		enum dcache_flush flush_type)
- {
--	BUG();
-+       (void)color_cell_op(cell, mr, COL_OP_FLUSH, flush_type);
-+}
-+
-+/**
-+ * Autodetection of coloring_way_size.
-+ */
-+static inline void arm_color_init(void)
-+{
-+	return;
- }
-=20
-+/* ------------------------- COLORING API --------------------------------=
--- */
-+
- static inline void arch_color_unmap_memory_region(
- 		struct cell *cell,
- 		const struct jailhouse_memory *mr)
- {
--	BUG();
-+	int err;
-+
-+	if (coloring_way_size =3D=3D 0) {
-+		/* TODO: add assert() for debugging jailhouse? */
-+		/* must have mapped before */
-+		BUG();
-+	}
-+
-+	err =3D color_cell_op(cell, mr, COL_OP_DESTROY, 0);
-+	if (err) {
-+		BUG();
-+	}
- }
-=20
- static inline int arch_color_map_memory_region(
- 		struct cell *cell,
- 		const struct jailhouse_memory *mr)
- {
--	BUG();
--	return 0;
-+	if (coloring_way_size =3D=3D 0) {
-+		return -ENODEV;
-+	}
-+
-+	// assert(!JAILHOUSE_MEMORY_IS_SUBPAGE(mr));
-+
-+	return color_cell_op(cell, mr, COL_OP_CREATE, 0);
- }
-=20
- static inline int arch_color_remap_to_root(const struct jailhouse_memory *=
-mr)
- {
--	BUG();
--	return 0;
-+	if (coloring_way_size =3D=3D 0) {
-+		return -ENODEV;
-+	}
-+
-+	return color_cell_op(&root_cell, mr, COL_OP_LOAD, 0);
- }
-=20
- static inline int arch_color_unmap_from_root(const struct jailhouse_memory=
- *mr)
- {
--	BUG();
--	return 0;
-+	if (coloring_way_size =3D=3D 0) {
-+		return -ENODEV;
-+	}
-+
-+	return color_cell_op(&root_cell, mr, COL_OP_START, 0);
- }
-=20
- #endif
 --=20
 2.29.2
 
@@ -529,4 +396,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/20210125120044.56794-4-andrea.bastoni%40tum.de.
+jailhouse-dev/20210125120044.56794-5-andrea.bastoni%40tum.de.
