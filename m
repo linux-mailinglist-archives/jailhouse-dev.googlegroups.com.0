@@ -1,136 +1,125 @@
-Return-Path: <jailhouse-dev+bncBD4JZQXE5UFRBEHEYWAAMGQE74PHYOQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB5MPY2AAMGQE5QNRCTQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33a.google.com (mail-wm1-x33a.google.com [IPv6:2a00:1450:4864:20::33a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D8E1305DB5
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 27 Jan 2021 15:00:49 +0100 (CET)
-Received: by mail-wm1-x33a.google.com with SMTP id q24sf974962wmc.1
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 27 Jan 2021 06:00:49 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1611756048; cv=pass;
+Received: from mail-lj1-x23d.google.com (mail-lj1-x23d.google.com [IPv6:2a00:1450:4864:20::23d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CB0A305FB6
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 27 Jan 2021 16:34:17 +0100 (CET)
+Received: by mail-lj1-x23d.google.com with SMTP id 2sf1440040ljr.17
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 27 Jan 2021 07:34:17 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1611761656; cv=pass;
         d=google.com; s=arc-20160816;
-        b=NHdV4a+N5CwiYO7FPq8N8ToqgaEoRGBI21uHxbryp8unKECaSU0L6KU4MlYuUnoatW
-         MxDwiLM7XyCwQgJqzmEPVLXCJSnZ4v1XyUnQ9BaIf33/Fbc1Xne4Tq37MQLqGbdTbPPG
-         YLTmYqr8VCiCvAFd59FLdibqaWfFB4fSh4rPi0dKoTOS0mo7viboE7FNsxYHw1k0bqjU
-         cUhcT/HcGyREQwvksvZsbsjySXcQEEgPvi/iQ4uXfUOvo1xMZwhLPB1te60Y5+SfNF8y
-         9Yn+zNthOsTt13irpx2Y6nCAqkIq9tqJxdSGw79Ke7I2fvVOE+ZtLXetWNiLjb/Jz+R+
-         2sMw==
+        b=Ki3Px/Fa/I5v5toXuN/V+gWYYpMfLNoBPPf0ggYYgVgCCGwf0GLqXtB2dc2noSemiW
+         aTN3FV3wMgrrmxLtt2errT6k2spGJ5aGYkzElMfMtF7KkRK91/Q5Q+rRmwvd5fltU6EY
+         jC6vYVYKExZaddtUeF7qRFXJv5lPRQN1cvI/5v4yMLURC2ZZ5Bk3sTAPtqNrp32+agtg
+         g7MAAyJQ42SbvMosUZ9yxxMnJAZ6ke5MVqUDPzXkqDHqJBFQQJY5fFrYlPaxnRnLoRtf
+         XPbhX36K+aze0f4ShyGJt9RWNO72e72DecdG/26friGHcthHsaY/htWpwcWt893qyXCf
+         qa7g==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=cO2QYmE17tSjRhNa7461eucIvjPw0PJCI3/pDEgbKN0=;
-        b=E7Y94m1WEDflrUL/NKrmmVTzNX7KecZeyrrd1VXRewJjyj91uQ5sGaEYfmPkAlYBVo
-         xag/wJVhEXbbcJUvOBattcHspOtrJUmCHx/URHYzRA3vRpyaKfPrzPYcKuP863MShFTk
-         olK6xzOOPp8KdGm2LghJtXBECVgkJLzIM0wTRaZxQ9zcQIWti/MN8oQ4yM/+Ax0sr+oF
-         w5hfw+eeOmX4ALBdee64B5iiH7QOoqdTQ8KQtk64r99rLEY3B07iuGGiAM18jlynSgzJ
-         emfQd35ajTtUq+4cKRIbKNqZefFt/htBMYZAIjQ/QloFM21HlIVzCIB/l3TsoKs0BChT
-         dYKQ==
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:cc:to
+         :subject:sender:dkim-signature;
+        bh=PNBLxHCi8j9uOUbQnlTAm6AWCiGJtAi5kqco/x7ZHm4=;
+        b=z9xrnJ/oTXfU9ozRJyESnWXXCOxScgRKcWIIo9a2cwORI+beh3F6LIzg+ib7+liee7
+         5yqiqMRUTDTtSwJAJuqmFBXE1jshJ281Upw83LAj4HxhUu/iogRmi4ep1SN1hivQyklo
+         tPBhZcvJh6EmjrZCjjVMt1ebqIh6nrWYnwOn11Kad1eyofhT8jza9uksNyJj5T7L4OgC
+         HuZhn8X3o9bZ+RxQ23yMxFXCjXtCOr1jF2+uXOAHMYVTvTOP1tajvlwCcVxklri0Moyc
+         1zM+g7xTmejBcEjfOeKVHOQiOKa1fNQzQKJD19M9Scer4rvQLWZZ/f+MiQkwQcJYtRmU
+         FYCA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=AXHPQTLs;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=cO2QYmE17tSjRhNa7461eucIvjPw0PJCI3/pDEgbKN0=;
-        b=gxgjhoGMCoYemqsB2Ur0Ze9AQekNe1vtHYeBDjYbs9sVWGv4xibolLslp5hTh/JVx5
-         5OVrnzsyuy7AoJGGyPdpNhK8YOFYPaAefvXZPl1c6iE4mLcIWKIILdDCrMdnzQhKoCGn
-         KKNhaph21b1rWj1xvlBMJnHNHuWQUZjuJQp0lRWgR4SSu+HMA8QBEntDr8RFsiW8ovW4
-         okbBxzXtoHDS2DjG4h1ijG6CjV/wZswRKCi7pHHPV2enklNhGugABOnjNtSYPvz00wBB
-         BzgDnV4YYFU3u93mvhl4ObFPip39KOvKbRWl6zZH4oQlzrG0dyq+UqtRNku4E2SnC14q
-         uB0w==
+        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=PNBLxHCi8j9uOUbQnlTAm6AWCiGJtAi5kqco/x7ZHm4=;
+        b=D5JWdG+A3r7aFyousGLjn1EQO8LYa6cA57hgGx0tAhyHLuv1jSvkrRCapHeFgavhom
+         q2KfYxxhUnNUK+RPFFuio64jMiXO+3SomxbnUOvvayrCFLvCGfR3W5YJxrqbIWjkhDdQ
+         e81uWAEVVF/bYIl5z72YZRn7u6CMD1YLKcTLyfwLDVigWRkDAxClfZPbQ0e1NBx/WQ2H
+         DCAl/MfYT9GMJ0IlZ1i39WeBoY0ZgkhRGxHYO0xpWs93HZxMZZ9Cd0gkq2LJtfWqhPl0
+         r4iYipxnuait+4VIyia3RfdrLZN8HxI1ZNbluC0iCrHbB+V4+oILCY4iKQ88fmA+Ap5L
+         3vZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
+        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
          :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=cO2QYmE17tSjRhNa7461eucIvjPw0PJCI3/pDEgbKN0=;
-        b=UB+9tUV8ITCyU8DPPmoQu1LMoct5iRuvLrqVuZINN1Zt+HM76aHZitayLB2QZL6Rjt
-         i2J3tBst9MmwneJY54aCzFpVHEn5COj1iQeLLTJ53bA+AbZL5ZcuQGxRBDipm0tS5J5U
-         etAmTXPRxQJ3EE01SkBj19lBydVm9uOmf4ynXs0fKDgCEVgcJ8HyicJFCZp1fAU2SEuQ
-         2vcF9hNM4kDEvj1xgCXKEFcoMxPwYszz41x9NqPosul6i+QWF+3bzc7nbvR5ox/tYdt1
-         DvwiWqtfpzWGzzwR3Jmy2yNQvYoCSZY4BHF6wsjlHLn8yRIc3iMY4AoTsw1XtbYC2jev
-         V9bA==
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=PNBLxHCi8j9uOUbQnlTAm6AWCiGJtAi5kqco/x7ZHm4=;
+        b=qam0zIl+mgoxIawx/Tj5EcqagpzBsVRNGnoFkILOLgRzI8LbC4IJg/u6fnlvFI5UWF
+         z36jc565L3v+iHYsyIgNPfeuIPaGIf8dqpavFLS3hgE5wpK32aU7WWQonHKJJSjyeEdA
+         0/Iaysk5303tF1FSO7+/9Uwi8kesPhYLQgD88QLSYzPsdxQrK/Jjhhzf9WeOlTKn764l
+         sKCFNS0XxTJx3uowfY0i1holK5GOTzXv0R4hWwmL0forNURbVXFrBa5STG7LVy2hiUVR
+         2RySF0orIZCMuSSE6etgfeBzwipKZ/ndApTeMD3L5lrSIUAo/2QbrPS721fEnPu/ovou
+         HFJQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530qmg1rDXDyJY21h8/3TUQ+LXumQP83OoHxA6lanjpPLlOnNzbn
-	ZnP3TwEqC+8h6ZnAVfrk9sk=
-X-Google-Smtp-Source: ABdhPJySSfw9LfZW7W2s9xoDWkVoK07uGKFo7FkKS09jNbg2nbgApx+DPZFtBZgfjFLWwmPzncOxLg==
-X-Received: by 2002:a05:6000:104:: with SMTP id o4mr11291905wrx.419.1611756048769;
-        Wed, 27 Jan 2021 06:00:48 -0800 (PST)
+X-Gm-Message-State: AOAM533m55H5ZqboDLlBKXIWK08unAMKmtCDa7lEaYZHcZcAixkCOenL
+	lOaGYjtmNEtM3UQ2uQp2a9g=
+X-Google-Smtp-Source: ABdhPJxjJ1zhowL8dsTQZ8fROSQM6EUSpwLK8waJariN4n18TQiQsQF0/NZrdwdFj+53rYDiO811JA==
+X-Received: by 2002:a19:c70c:: with SMTP id x12mr5376329lff.222.1611761653725;
+        Wed, 27 Jan 2021 07:34:13 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:208f:: with SMTP id g137ls1030520wmg.1.gmail; Wed, 27
- Jan 2021 06:00:47 -0800 (PST)
-X-Received: by 2002:a1c:f212:: with SMTP id s18mr4369061wmc.107.1611756047874;
-        Wed, 27 Jan 2021 06:00:47 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1611756047; cv=none;
+Received: by 2002:a05:651c:1397:: with SMTP id k23ls444703ljb.11.gmail; Wed,
+ 27 Jan 2021 07:34:12 -0800 (PST)
+X-Received: by 2002:a2e:9f4e:: with SMTP id v14mr6018210ljk.497.1611761652507;
+        Wed, 27 Jan 2021 07:34:12 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1611761652; cv=none;
         d=google.com; s=arc-20160816;
-        b=OjpMWV9U5oSS/R37A4iV6NgE/zLDr+8lGVB1W2f7GaAZcmBcYAun9ywttkjKqu3z27
-         qtXUBe2JjWl0tgep2infJfqgpzWlRYv03AclIBfUeFK+Drsivtbtlf+Yr8A1ncMBoSsV
-         GpiAmf6JHlHbiLN/NGQVUGGf1eUuJaZrtbYUWhv1cjjL/55wk8V36TPfvMnFMYXGoBAY
-         cYsrLJiqWNVxxdy0S83gilIxxXhaS0lh7yfohFRT4CtpK6lqoEZCwdahaiDuqebUNq4p
-         iIn5sZ5FSrSjV4WBWRERcqrdWhfrnKr7Y5TXGOp8lfEoxVH5nYByNw74mOkcf+h5VTZp
-         zSWg==
+        b=E2oUfodFYmPCMh6Boetvix9jJ1i2omVYx/agE/INa4qFpRCq/9tZCvlcQLTdteSVIu
+         +ZxCl/Q+5jefwihvC28SPMeFhOX/wOQG7DWqHJ4MPQihhk/npxdP2OcUgh9FltmcbCzj
+         6KQVPIGiN97ZMr6iYWsnDGiqmNZHXW+0U1iUENKHtuBupzTMhf38wHQG6Dldklc0tgJX
+         MRu/K/u10ps5VRshQO888WB+F/8f2tR8NW00gsQTleichfOFQ7EbOpHocgN22lHZ7Gu7
+         ayAzmtszrC9lMfld1AhUc7f8kdZ/F/yLTBdiI0S519Uw8wrjsmStBEyBgYRGjn3oPuOu
+         hlsw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject
-         :dkim-signature;
-        bh=Oq6jcmL+FdADqHRidSU4GSH3OMFiqKN64uPnpVs+Jxc=;
-        b=O2LzN06xgPTqYilgg5ZIHbRJEdCOvVpFAKBFjbmRQkjfEHkJ5VhjjkI4iYKIK/CJPf
-         GFrXd/cHSqyHAm8+QVyycvRcAydXqxn5zso1ExdlUuU+BdsUL5pCrVbK7R/ju/uziNm+
-         C1CMtePHVUUBcVY9yL5Muspz0MmIy2QOrxIBS/1EaaUhZbCVZu/UURmYoWL+kb8s486c
-         Ld7o+NbWH1ltxWT9eJ4yMEupUi1KxeW6gT1WkdL3scwzO2Kdeu+Wyk+2WK+86lZoe3bF
-         YflJNEqsqslw82IenJNOk2bf8i9kKE0LKVaCeXd6o2PUwVDeCsbtlObxTDm0gkJLXfj4
-         iG+Q==
+         :user-agent:date:message-id:from:references:cc:to:subject;
+        bh=ZGr/oKauD6rvFF8pcNUwtUdJqmFy8aWjn+SjYrx3qvE=;
+        b=DCAW8ctmMlx2e6caeCqXfv4RW00n6rcc4wQmZDo+V5yHenryUpCoQYsBLuJtw5i3C9
+         EWbWqYbHrtXsKgVsdvGx/kZXGoLbEjh+W51+3Z+X/ddv16V3hZPDZmA6OhOKlenPyELl
+         8Ljk2SSW36vaNJONyS9JqHgqiPNzzV0C9NocGSiR3uEQfq6yCJd9ZNSTt2UxWV+Ysde3
+         MUq/5spwxVL6rTTaOeeVY6cPkX8MDWMBBuHX42MwTCWgB1Di9k9hbCF37xJ6ff6PD9A1
+         xiMD87+jCKAoWVmWac7K8LkcugAYzFTs7MMrLvD87TPM2ggxKejlzGDnrfMudwg3bpvD
+         C2Mg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=AXHPQTLs;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [194.95.104.11])
-        by gmr-mx.google.com with ESMTPS id w11si143964wrv.0.2021.01.27.06.00.47
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
+        by gmr-mx.google.com with ESMTPS id t21si108285lfe.3.2021.01.27.07.34.12
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 27 Jan 2021 06:00:47 -0800 (PST)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) client-ip=194.95.104.11;
-Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 4DQlcb3ZGyzxtb;
-	Wed, 27 Jan 2021 15:00:47 +0100 (CET)
-Received: from [192.168.179.73] (194.95.106.138) by E16S03.hs-regensburg.de
- (2001:638:a01:8013::93) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2; Wed, 27 Jan
- 2021 15:00:47 +0100
-Subject: Re: MMIO APEI issues
-To: Bram Hooimeijer <bram.hooimeijer@prodrive-technologies.com>,
-	"jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
-References: <AS8PR02MB6663AEA8ADC5EE631F76496BB6BB0@AS8PR02MB6663.eurprd02.prod.outlook.com>
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Message-ID: <3570d529-ff10-da30-9b23-384a8b30cfe1@oth-regensburg.de>
-Date: Wed, 27 Jan 2021 15:00:46 +0100
+        Wed, 27 Jan 2021 07:34:12 -0800 (PST)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 10RFYBBf025281
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 27 Jan 2021 16:34:11 +0100
+Received: from [167.87.73.55] ([167.87.73.55])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 10RFYAgK025190;
+	Wed, 27 Jan 2021 16:34:11 +0100
+Subject: Re: ivshmem-net issue
+To: Peng Fan <peng.fan@nxp.com>,
+        "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
+Cc: Alice Guo <alice.guo@nxp.com>
+References: <DB6PR0402MB2760C0BAFC4117D229FDD5E888BB0@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <919da75f-be40-9b65-b260-2373403275a6@siemens.com>
+Date: Wed, 27 Jan 2021 16:34:10 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <AS8PR02MB6663AEA8ADC5EE631F76496BB6BB0@AS8PR02MB6663.eurprd02.prod.outlook.com>
+In-Reply-To: <DB6PR0402MB2760C0BAFC4117D229FDD5E888BB0@DB6PR0402MB2760.eurprd04.prod.outlook.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [194.95.106.138]
-X-ClientProxiedBy: E16S02.hs-regensburg.de (2001:638:a01:8013::92) To
- E16S03.hs-regensburg.de (2001:638:a01:8013::93)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=AXHPQTLs;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -143,109 +132,54 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi Bram,
+On 27.01.21 10:08, Peng Fan wrote:
+> Hi Jan,
+> 
+> When booting inmate Linux, I have ivshmem-net configured. In root cell it shows as eth2.
+> 
+> I monitor system network, and see eth2 is assigned a random address.
+> 
+> [ADDR]4: eth2    inet 169.254.232.89/16 brd 169.254.255.255 scope global eth2
+>        valid_lft forever preferred_lft forever
+> [ROUTE]local 169.254.232.89 dev eth2 table local proto kernel scope host src 169.254.232.89
+> [ROUTE]broadcast 169.254.255.255 dev eth2 table local proto kernel scope link src 169.254.232.89
+> [ROUTE]169.254.0.0/16 dev eth2 proto kernel scope link src 169.254.232.89
+> [ROUTE]broadcast 169.254.0.0 dev eth2 table local proto kernel scope link src 169.254.232.89
+> [ROUTE]default dev eth2 scope link
+> 
+> 
+> And also in route table, it added two entries going through eth2, I not understand why
+> it will add one entry that default use eth2 with gateway 0.0.0.0
+> #route
+> Kernel IP routing table
+> Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+> default         0.0.0.0         0.0.0.0         U     0      0        0 eth2
+> default         _gateway        0.0.0.0         UG    0      0        0 eth1
+> 10.193.102.0    0.0.0.0         255.255.255.0   U     0      0        0 eth1
+> 169.254.0.0     0.0.0.0         255.255.0.0     U     0      0        0 eth2
+> 
+> It added the eth2 route table and will break nfsroot if we using 10.193.108.x for nfsroot server,
+> because it will match the 1st entry.
+> 
+> This is not jailhouse hypervisor issue, I just not sure the eth2 behavior, it is systemd does that
+> route change or we need look into ivshmem-net to avoid update route table when creating
+> eth2?
 
-On 27/01/2021 11:46, Bram Hooimeijer wrote:
-> Dear Jailhouse community,=20
->=20
-> Currently I am experiencing issues with the MMIO virtualization in Jailho=
-use, which interacts with the BIOS. I am hoping any of you can shed some li=
-ght on the issue:
->=20
-> Jailhouse reports the following after running for some while:
->> FATAL: unable to get MMIO instruction
+I would suspect that this is something specific to your network
+management system. Is it systemd-networkd?
 
-Where does RIP point to?
+In any case, the only things that should be more special about
+ivshmem-net is that it comes up with random MAC addresses (which is
+unusual but not unique) and that it hotplugs (which is rather common,
+thing of USB WIFI sticks).
 
->=20
-> The region listed has previously reported illegal MMIO accesses. These ha=
-ve been resolved by adding the region to the system config. This requires a=
-ll sub-64 access widths, as the region is apparently byte accessed. The BIO=
-S vendor has indicated that this region implements APEI according to the AC=
-PI specification.=20
+Jan
 
-Could you please try the following region:
-{
-		.phys_start =3D 0x86dff000,
-		.virt_start =3D 0x86dff000,
-		.size =3D       0x0b700000,
-		.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-			 JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA
-},
+-- 
+Siemens AG, T RDA IOT
+Corporate Competence Center Embedded Linux
 
-the size 0x0b700000 will make the page aligned, and the hypervisor
-doesn't need to trap. In that case, JH_MEM_IO_{8,16,32,64} is not required.
-
-Thanks
-  Ralf
-
-
->=20
-> By adding some printk() statements to the hypervisor, I could derive wher=
-e the error exactly originates. Apparently the function ctx_update(&ctx, &p=
-c, 0, pg_structs) returns null. Jan, could you shed any light on what this =
-function does? Could it be that the paging structs for the APEI interface a=
-re incorrect?=20
->=20
-> All snippets are listed below. The system runs Linux Kernel 5.4.73, from =
-Ubuntu 20.04 LTS, modified to remove kernel RDT support (conflicts with Jai=
-lhouse). Any directions are welcome!
->=20
-> Many thanks,=20
->=20
-> Kind regards,
->=20
-> Bram Hooimeijer=20
->=20
-> Issue reported over ipmi (see attached log.txt):
->> FATAL: unable to get MMIO instruction
->> FATAL: Invalid MMIO/RAM read, addr: 0x00000000870a9998 size: 0
->> RIP: 0xfffffffeec8a9998 RSP: 0xffffb52400177d78 FLAGS: 10282
->> RAX: 0x0000000000000246 RBX: 0xffffb5240dc8fe50 RCX: 0xffff9cef966f4000
->> RDX: 0xffff9cef966f4400 RSI: 0xffff9cef966f4000 RDI: 0xfffffffeec8a9998
->> CS: 10 BASE: 0x0000000000000000 AR-BYTES: a09b EFER.LMA 1
->> CR0: 0x0000000080050033 CR3: 0x0000002ff2842001 CR4: 0x00000000007626f0
->> EFER: 0x0000000000000d01
->> Parking CPU 0 (Cell: "RootCell")
->=20
-> Modification required to root cell configuration for APEI ERST region (se=
-e attached sysconfig_dual256M.c)=20
->> {
->> 	.phys_start =3D 0x86dff000,
->> 	.virt_start =3D 0x86dff000,
->> 	.size =3D       0x0b6fffff,
->> 	.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
->> 		JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_UNALIGNED |
->> 		JAILHOUSE_MEM_ROOTSHARED | JAILHOUSE_MEM_IO_8 |
->> 		JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_32 |
->> 		JAILHOUSE_MEM_IO_64 | JAILHOUSE_MEM_EXECUTE
->> },
->=20
-> Point of failure (see hypervisor/arch/x86/mmio.c:108--121)
->> struct mmio_instruction  x86_mmio_parse(const struct guest_paging_struct=
-ures *pg_structs, bool is_write)
->> {
->>           struct parse_context ctx =3D { .remaining =3D X86_MAX_INST_LEN=
-,
->>                                                             .count =3D 1=
- };
->>           union registers *guest_regs =3D &this_cpu_data()->guest_regs;
->>           struct mmio_instruction inst =3D { 0 };
->>           u64 pc =3D vcpu_vendor_get_rip();
->>           unsigned int n, skip_len =3D 0;
->>           union opcode op[4] =3D { };
->>
->>           if (!ctx_update(&ctx, &pc, 0, pg_structs)){
->>                   printk("ctx update failed\n"); 						<<--- FAILS HERE.=
-=20
->>                   goto error_noinst;
->>           }
->=20
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/3570d529-ff10-da30-9b23-384a8b30cfe1%40oth-regensburg.de.
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/919da75f-be40-9b65-b260-2373403275a6%40siemens.com.
