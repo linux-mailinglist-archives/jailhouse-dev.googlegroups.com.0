@@ -1,201 +1,129 @@
-Return-Path: <jailhouse-dev+bncBCW2V5WNZMERBEWL76AAMGQEQ456DIA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBNXQQOAQMGQE47XRN6Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x13e.google.com (mail-lf1-x13e.google.com [IPv6:2a00:1450:4864:20::13e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82F4D31247C
-	for <lists+jailhouse-dev@lfdr.de>; Sun,  7 Feb 2021 14:05:23 +0100 (CET)
-Received: by mail-lf1-x13e.google.com with SMTP id k5sf6423906lfo.19
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 07 Feb 2021 05:05:23 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1612703123; cv=pass;
+Received: from mail-ej1-x640.google.com (mail-ej1-x640.google.com [IPv6:2a00:1450:4864:20::640])
+	by mail.lfdr.de (Postfix) with ESMTPS id EBA07312BE2
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  8 Feb 2021 09:37:10 +0100 (CET)
+Received: by mail-ej1-x640.google.com with SMTP id bx12sf11295391ejc.15
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 08 Feb 2021 00:37:10 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1612773430; cv=pass;
         d=google.com; s=arc-20160816;
-        b=r+2KTzcBiyuYYNo9ZALsyAWJSjH1yyKyV+x+TzXk4tWx/t2q9v+/VWe01dGz0JuB/s
-         PPZ4gha9oDv1RJ01UG5eQ3DBvQWc6ulu+CNSkvHUder9jI6EBXGpwmkcYKRi+4myFBwU
-         7CKZZgE5DyLyHMp7zhwzurTunUbZ1fwRUgxH1Ht8jfeXHTmW/7YmBrFV4AbaHkp+j4fq
-         R+uMUdD3QtKViY6YesiJNkltHLe+zZCT0ENhtxLG+yo8fMT8clHfBo41GVmuYz4eaFRU
-         aWo6pcHswcL5H/2VkvW8wirOgZ9/ZrGIs/nANgt7OziDsjiyhMZ7AkDok1W6qDwTnYiW
-         6/pw==
+        b=Ua+0th9fGSA8R/gy/2XtWrw1XlRxKcpDpf0U/SXpcTbIDwSS5RdSp+5uCLfHjEnAZE
+         29/A/+gMWWycsMcHC6UlrZniIZm4fx925aKwhn/VRYKISXuPx0mZcPfpH8aWNNSamlmH
+         TMlAG7dZ82gk8js9XZjZqXxwMuGqyCLBpYWy+gmVoWkbOWGpitrg8/ea0yH1OrT7w/gH
+         76Zaa7bhR75fHxLcOaHgAvMSTZJm4I4AFkiRICyAqJkMTRwyym+FQaYZPPFLdjsDrRkS
+         ua9cLyCMw/s7RwLFHMMhxbPHbqMhCl+KrjHZVnvy4CnMS9Wv3jWWfkGrzzOjTRltJav7
+         gPbQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:autocrypt:from:references
-         :cc:to:subject:sender:dkim-signature;
-        bh=Yls4SXaMAzz1H52GyhtGim0j1zwzOn3w57nKKj7YXtU=;
-        b=G3fWP8TrMGwKBR463bH+8781lF4d4qQH+LW2uj0G5/ZiaSIWGmXpKDFuU4x/7hRHpl
-         aa9+18m6TjezsOhYJXvIzyTTx54LBMBWdJiMPxUetFuHHqDF7w6e5n9xUNFhRRVvmTBW
-         Y5m2UTfDuFq3kPQml/4QYgjkocStUFlgjNyI6uzMADcMGc+DmkBsY61F78bHgEfgdNZD
-         0u0gtGEzx3gFAOLvDcWBFEHwDvwoOPSt6h3z/CCHfeC7QCUNMllyFL+CwGBrGmdzHeeU
-         RNOuPu7r02v1DRfI/MdHsysXbuGFgd/QLmr6ywHil4xYSYngA+LJa7zrX2Kh+oQaBY+s
-         yqBw==
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:cc:to:subject:sender:dkim-signature;
+        bh=NT/6fyuPDviAnH6XyrKqshcoxf8EGY7QUhUx0S24yW4=;
+        b=gTR/WfZb/rePHOsOtrLn4k2NeMUt89Pvl+fSBeZ1rPNMTq2Yz/y2HRn027KqZofGri
+         LS6R2B1zGPr9+cf/JldzYRM6+3l2z/cFzM+beqhn9UzG8m5UPUk+29C4skkTxizrzMa8
+         ZeCQh4CnlIz9ikrhR7WC1bFWNDy32zRiXEsWMc4Ds+VJaCUY9LDpLcanUCpsBAD4WiIx
+         YY27jJgHu2WIuP0E3HpfzQTGZ41lYpOME5C1SABFMK20WBVUV3kM1KWDTnn/ry4pHq1u
+         Nf9u7onb3xPgNbgmxLfEJxPSAF2ZufCVlUwifDDVlntAm/8ZZH7oSJLEfJ/Pv5pgfi3J
+         o13A==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b=RAH80XeL;
-       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:autocrypt:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=Yls4SXaMAzz1H52GyhtGim0j1zwzOn3w57nKKj7YXtU=;
-        b=CbmKgSGAVNhbPUidhndU6Z1LyUwqIPq3pqJBI0pfA1Ul6ZE1vFcauzev6bPE5oDaih
-         0GfAP1LeQp2QQvEyBa3zE5SvxjmQLW902WbrhfRB/MNZNPsGuznZqUbTh9+H1SY1/2gV
-         f/DDqDlNXTM9aPVdSw7DX3ssKpGNRT5N06sryJZSUkFcjGlzkxz0unAihYGKj6uxUcXS
-         t6S2xUaUShHbGJd7qN1h1a9+mWwXonI7MjCyJdUsGJbWJPgEolb5dFkdA59HRs0GFH1t
-         PeO8mSmoTyQzHtjXp6rLpWRwrrDW3sJOy9LNZ0G9hyrFcIi4KNJ8hxwpOq3WoxcfTH59
-         U9OA==
+        bh=NT/6fyuPDviAnH6XyrKqshcoxf8EGY7QUhUx0S24yW4=;
+        b=huF3T6Fz9kEGrGJiSkVt9zSi4Gw+T57SAGfMXxHkynH9Jcq5P1YN1iv4xnbL9k7yhA
+         8OI+GHfFko9cRE06hvr75nnna+I9n73I4OzQMbncJU0N+jsO11meep24TVSY0apIBBRy
+         g1IynkHbf2mQuBdUYZDE2MDYj10CCw3p8NIZ4jKwHk56mT/HlZebwXUP7c5xZ77S+lLu
+         W5yTqxx9/q/3syfrBwzoAiD4Gkeg4oV+sFvdTU5t241I4ZFzO5+9u5dvT+GVx280fdkM
+         bTbTmf7wyHrXyhQEcAcW54OiTg3AN7dDbCEvB78gkST3JCEIWuzW9C/E8yn0kAT7r4cd
+         erHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:autocrypt
-         :message-id:date:user-agent:mime-version:in-reply-to
-         :content-language:x-original-sender
+        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=Yls4SXaMAzz1H52GyhtGim0j1zwzOn3w57nKKj7YXtU=;
-        b=Da7/jEE4h5bGoenYI5JHh6mvw0eWPyYlRakhzpBsnrARIwGeSoBMIdU09SJM7aFtQi
-         eBVy2DlZMJe/N+X7yGarss5bEYbh8mIGNdeNA1pdOmLbxsjuZVuNzEqRYgRzjxIgURpO
-         AiVlWV+zJB38B2Gahq9qzkX/0A5P33Ez3IdHeEebJe61NLcN+utqf4YMBEvuNQB/lgka
-         jtq1zxPazJuBipI4EYmGjwT54LditR3OS/aIn3KZ2XJtuXUukvYlDiI3oI4a9rNAJz2a
-         JEMrjHSkxcHDEQxL62R7idRdfGTMQEdrVEM30V3J4zJrg9Akb2E9gq1joxhMSMQc5SJT
-         4sqQ==
+        bh=NT/6fyuPDviAnH6XyrKqshcoxf8EGY7QUhUx0S24yW4=;
+        b=FPieESQemyBu1uDGal7lKDPTPEs39fH5oW0CoTKF891j4bUxnVtymPP5CfrkHhGvVu
+         H4MY8f/wZ4wCZ74SeNeFPjccQoO6VWQeCq+12ofMOW5ZIQ28E03tokJKcqDdCoU6pNDs
+         Jri5Hgi5CZMsbgnBcwQOfbyWbWMxleqVFrL/G6aYjajgMiN1kPxV103U0+A4GLepsxVp
+         tl1M1l/7y94QpleVSEB2dTPdFFmkb5Z7x1QVSPKy13Twk3bkOIxByfjPxV3Kvh2Urn+D
+         8Zd8EMAJbfjAPbxfGnst0BBlyh+dDetxEvTF6bb7j62o6QSIQwL2HjGcs9EKH07FJiet
+         TGSw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533Czw38BqXx5cJSpcoYZ9jzkBs1xRWLnLvvtTSHZw36+NkusNqe
-	uW+69MalJcl9pF3r9LIh5ZY=
-X-Google-Smtp-Source: ABdhPJxghmzqVmKFHYMt0IHtw6fQKFC4CMu5CtluR/5EfGNKT9IXO8Pa5u6iR0yOVs5Le8pVjlUcqQ==
-X-Received: by 2002:a2e:9b90:: with SMTP id z16mr156060lji.168.1612703123051;
-        Sun, 07 Feb 2021 05:05:23 -0800 (PST)
+X-Gm-Message-State: AOAM533CDjydy68oKy0Q0lbwFBWxoYRW6Nzqe8sIJC8b/3p3F5pP26He
+	0ZkdIvsuUTMVRvh+fG92EkE=
+X-Google-Smtp-Source: ABdhPJxCqudeMtYo7bJqLWfr5gT32bvFlFg24cWGqnCYvEfmB4VxvxTw8jy35fpd2bdTx5H04H+Y2A==
+X-Received: by 2002:aa7:d5c1:: with SMTP id d1mr15884629eds.359.1612773430659;
+        Mon, 08 Feb 2021 00:37:10 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:97c5:: with SMTP id m5ls2365459ljj.10.gmail; Sun, 07 Feb
- 2021 05:05:22 -0800 (PST)
-X-Received: by 2002:a2e:b8c7:: with SMTP id s7mr7495348ljp.397.1612703122118;
-        Sun, 07 Feb 2021 05:05:22 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1612703122; cv=none;
+Received: by 2002:a17:906:edce:: with SMTP id sb14ls7444180ejb.0.gmail; Mon,
+ 08 Feb 2021 00:37:09 -0800 (PST)
+X-Received: by 2002:a17:906:eb88:: with SMTP id mh8mr15704579ejb.150.1612773429675;
+        Mon, 08 Feb 2021 00:37:09 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1612773429; cv=none;
         d=google.com; s=arc-20160816;
-        b=BOGriSwtjUZaLy5OuYzHvFgKeueiyKnBQ4p2NSsRZQfRJiaFcGdATrBfqVB6Ud8KoR
-         xd5mEZLEvh9G44EyVF+h/1PsfBzYFEtaVgnzDpNna7mD8yXJWZ1Zc59wJeqnvXuLZnnU
-         zb0psizRHmx5FWbduC9+0zJn6cXTmwMWDwZZ8uGJph2/cXwZrJGf3R3kndw3Dv5prSbh
-         BIBo4eKcTDlpItxQapmYT4BXyGRrQJjDxFAvwetkXN5ZLq6hHnwIpauz/wdbm6xeYMKc
-         roIlTMdY8mm1PB4aNetCXw/iEoCKpWyEC5TIesCnccxR/JG4IDgBOqATCgHadlAIH1UI
-         WlRg==
+        b=mYSswcJYmXX7BpoSkYKqRfG5f1rpv+4JBBGLUoAj9W4N/Ydeqzus0U82dx7vC4DTGC
+         +ZSgYVAYTfxxAzkVDI2/douHt0xOitR8Ul9AXTTlO/PpJC2cQb/xwMlbBX6AhyCjcXO9
+         m2wy0FIrXhaIvYWMB6XqMmFZztrPLjdindkB9D19t8MFchobC+DEzOghOr6dPH9Bx+YT
+         X8wR/glO5NsRKUWuzRI+V2/cuLuCABnFcBwY8ooPayJFp3ECkbkIpWvBP70tTxHqJ2v9
+         jLiXVMYN2J+Z5nIUPQgJI8Y5QKi+kK1BuSpfuAM+2LymmU+FGYL6ImDTStuP3ScfDbYH
+         i5ZQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:autocrypt:from:references:cc:to:subject
-         :dkim-signature;
-        bh=zzGFWrkViDV2xwrjxz0E1Huussf86hsMIL496aFO504=;
-        b=c0YhZAag89N8zJ+DRZqy0G/hVd7beXbQXd13a/eZ/j87hS9f8e+F/VihRXOgsTo9Ds
-         +IbnB619zzIbr6Yi6rrV4cnSs6fJMgGERIwO47zmILIUnmovJrMp/ttV4RTRaETuZywI
-         cXOsHA4VMHVfv9gMeq19DetgwYClkqMyDx9D3t97nX7EXkmK4dONe4NxKAdTFoyGbbuO
-         fbfqXIJDpNYb+dKFKUOZNh/vaggI91VCv1Er6VokVLx+LAHSUrOHwQv8Xwdq0I7/inQs
-         bPGVW7ff7gSsehUAp0DphRcuoCy4acgs0MkmbIdyyLIs/Tu7MLsbGn5BbMOaPjJgexhh
-         fqsA==
+         :user-agent:date:message-id:from:references:cc:to:subject;
+        bh=WeDVcDQA1q5/Tm2Ehc0Ju2a0u2j/dmHB+KhuogZUaEk=;
+        b=w3gAkBzLudXa1WgyhKBWaqjMKBeHFK8T7ed34mXSUKfJfoLbGmKWQPANjGJxhOJ1A2
+         cPgQBO4ulbNE/yc++uyQHLHWENuB91SfNtoY4o/I7GSnBGYlCDg558XK7DeE0823a3pl
+         E9yOAnCIMZBRMoerXhLmOawWEGO1tYMgzuB9EHxc8AR4z7AMIWm3pxHsmWDFpYw9pZE2
+         DrEZClxZKh8i5Mj7JDhNZwJA94jBaZI9xg6jpd3zEaqeFAEJUo9RyqpAez4qw9Q2M4MC
+         cLzEbOauKOFzYsQYPzJVfWH7ctOtzB1LNazb9WmTIrYx9RSy7oGDiK/LThy7dVvWA60H
+         cwIQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b=RAH80XeL;
-       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
-Received: from postout2.mail.lrz.de (postout2.mail.lrz.de. [2001:4ca0:0:103::81bb:ff8a])
-        by gmr-mx.google.com with ESMTPS id b4si57409lfp.11.2021.02.07.05.05.22
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
+        by gmr-mx.google.com with ESMTPS id jz19si1221897ejb.0.2021.02.08.00.37.09
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 Feb 2021 05:05:22 -0800 (PST)
-Received-SPF: pass (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a as permitted sender) client-ip=2001:4ca0:0:103::81bb:ff8a;
-Received: from lxmhs52.srv.lrz.de (localhost [127.0.0.1])
-	by postout2.mail.lrz.de (Postfix) with ESMTP id 4DYTsY34LKzyWZ;
-	Sun,  7 Feb 2021 14:05:21 +0100 (CET)
-X-Virus-Scanned: by amavisd-new at lrz.de in lxmhs52.srv.lrz.de
-X-Spam-Flag: NO
-X-Spam-Score: -2.874
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.874 tagged_above=-999 required=5
-	tests=[ALL_TRUSTED=-1, BAYES_00=-1.9, DMARC_ADKIM_RELAXED=0.001,
-	DMARC_ASPF_RELAXED=0.001, DMARC_POLICY_NONE=0.001,
-	LRZ_CT_PLAIN_UTF8=0.001, LRZ_DMARC_FAIL=0.001,
-	LRZ_DMARC_FAIL_NONE=0.001, LRZ_DMARC_POLICY=0.001,
-	LRZ_DMARC_TUM_FAIL=0.001, LRZ_DMARC_TUM_REJECT=3.5,
-	LRZ_DMARC_TUM_REJECT_PO=-3.5, LRZ_ENVFROM_FROM_ALIGNED_STRICT=0.001,
-	LRZ_ENVFROM_FROM_MATCH=0.001, LRZ_ENVFROM_TUM_S=0.001,
-	LRZ_FROM_HAS_A=0.001, LRZ_FROM_HAS_AAAA=0.001,
-	LRZ_FROM_HAS_MDOM=0.001, LRZ_FROM_HAS_MX=0.001,
-	LRZ_FROM_HOSTED_DOMAIN=0.001, LRZ_FROM_NAME_IN_ADDR=0.001,
-	LRZ_FROM_PHRASE=0.001, LRZ_FROM_PRE_SUR=0.001,
-	LRZ_FROM_PRE_SUR_PHRASE=0.001, LRZ_FROM_TUM_S=0.001,
-	LRZ_HAS_CLANG=0.001, LRZ_HAS_IN_REPLY_TO=0.001, LRZ_HAS_SPF=0.001,
-	LRZ_MSGID_HL8_3HL4_HL12=0.001, LRZ_MSGID_MOZ=0.001, LRZ_UA_MOZ=0.001,
-	NICE_REPLY_A=-0.001] autolearn=no autolearn_force=no
-Received: from postout2.mail.lrz.de ([127.0.0.1])
-	by lxmhs52.srv.lrz.de (lxmhs52.srv.lrz.de [127.0.0.1]) (amavisd-new, port 20024)
-	with LMTP id gMlSHxu01OFj; Sun,  7 Feb 2021 14:05:04 +0100 (CET)
-Received: from [192.168.1.23] (ip5f5ac6e3.dynamic.kabel-deutschland.de [95.90.198.227])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by postout2.mail.lrz.de (Postfix) with ESMTPSA id 4DYTsC6CPCzyVh;
-	Sun,  7 Feb 2021 14:05:03 +0100 (CET)
-Subject: Re: [PATCH v1 10/23] hypervisor: provide runtime assert() helper for
- DEBUG only
-To: Jan Kiszka <jan.kiszka@siemens.com>, jailhouse-dev@googlegroups.com
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 08 Feb 2021 00:37:09 -0800 (PST)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 1188b5qe032706
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 8 Feb 2021 09:37:05 +0100
+Received: from [139.22.33.193] ([139.22.33.193])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 1188b5e9015287;
+	Mon, 8 Feb 2021 09:37:05 +0100
+Subject: Re: [PATCH v1 00/23] Cache-coloring for Jailhouse
+To: Andrea Bastoni <andrea.bastoni@tum.de>, jailhouse-dev@googlegroups.com
 Cc: marco.solieri@unimore.it, rmancuso@bu.edu, lucmiccio@gmail.com
 References: <20210125120044.56794-1-andrea.bastoni@tum.de>
- <20210125120044.56794-11-andrea.bastoni@tum.de>
- <26da777c-4140-d916-e8f9-3c86b171f3f5@siemens.com>
-From: Andrea Bastoni <andrea.bastoni@tum.de>
-Autocrypt: addr=andrea.bastoni@tum.de; keydata=
- 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
-Message-ID: <a3814e9b-ec64-cc51-54fc-2f9fd61d1b34@tum.de>
-Date: Sun, 7 Feb 2021 14:05:03 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ <8e7872cb-ea47-9c9d-3240-f687b1ab698c@siemens.com>
+ <7d28fae1-29b1-7957-5219-11b11a572681@tum.de>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <25d9e564-50f4-4cee-a8ca-b932752a3254@siemens.com>
+Date: Mon, 8 Feb 2021 09:37:05 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.0
 MIME-Version: 1.0
-In-Reply-To: <26da777c-4140-d916-e8f9-3c86b171f3f5@siemens.com>
+In-Reply-To: <7d28fae1-29b1-7957-5219-11b11a572681@tum.de>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
-X-Original-Sender: andrea.bastoni@tum.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@tum.de header.s=postout header.b=RAH80XeL;       spf=pass
- (google.com: domain of andrea.bastoni@tum.de designates 2001:4ca0:0:103::81bb:ff8a
- as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=tum.de
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -208,96 +136,101 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 07/02/2021 11:20, Jan Kiszka wrote:
-> On 25.01.21 13:00, Andrea Bastoni wrote:
->> Debugging is enabled by adding CONFIG_DEBUG in config.h
+On 07.02.21 14:03, Andrea Bastoni wrote:
+> Hi Jan,
+>=20
+> On 07/02/2021 11:17, Jan Kiszka wrote:
+>> On 25.01.21 13:00, Andrea Bastoni wrote:
+>>> Hi Jan,
+>>>
+>>> Here a proof of concept for the cache-coloring with/without driver appr=
+oach (works, but hasn't been tested as much as the old version, and we have=
+ seen at least one crash in our tests, but it should be sufficient to have =
+a discussion about the direction).
+>>>
+>>> The patches until 0018-configs-arm64-add-coloring-example-for-qemu-arm6=
+4.patch implement the previous coloring approach (+ bugfixing + qemu-arm64 =
+integration). The patches from 0019-config-always-rely-on-the-availability-=
+of-way_size.patch are the proof of concept to realize a colored jailhouse i=
+oremap in the driver, keeping the same logic between the hypervisor and the=
+ driver.
+>>>
+>>> The "get_bit_range()" is refactored in a single place already (0020-col=
+oring-extract-get_bit_range-logic-and-remove-offs.patch), but the main logi=
+c needs to be replicated between hypervisor and driver [*], coloring.c does=
+n't get considerably shorter, and control.c gets more complicated because w=
+e need to distinguish when the remapping is colored and when it's not.
+>>>
+>>> Most of the code reduction comes from the removal of the cache_layout a=
+utodetection, which is "debug only" (and could have been removed in the pre=
+vious version as well).
+>>>
+>>> Overall I count for the previous approach (patches 01 - 18):
+>>>  42 files changed, 1337 insertions(+), 121 deletions(-)
+>>> For the new one (patches 01 - 23):
+>>>  41 files changed, 1233 insertions(+), 127 deletions(-)
+>>>
 >>
->> Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
->> ---
->>  hypervisor/include/jailhouse/assert.h | 37 +++++++++++++++++++++++++++
->>  1 file changed, 37 insertions(+)
->>  create mode 100644 hypervisor/include/jailhouse/assert.h
+>> Thanks for the update. I think we are moving forward. The diffstat for
+>> the hypervisor (with include/) is getting closer to an interesting range=
+:
 >>
->> diff --git a/hypervisor/include/jailhouse/assert.h b/hypervisor/include/jailhouse/assert.h
->> new file mode 100644
->> index 00000000..eedb1b9f
->> --- /dev/null
->> +++ b/hypervisor/include/jailhouse/assert.h
->> @@ -0,0 +1,37 @@
->> +/*
->> + * Runtime assert.
->> + *
->> + * Copyright (C) Technical University of Munich, 2020
->> + *
->> + * Authors:
->> + *  Andrea Bastoni <andrea.bastoni@tum.de>
->> + *
->> + * This work is licensed under the terms of the GNU GPL, version 2.  See
->> + * the COPYING file in the top-level directory.
->> + */
->> +#ifndef _ASSERT_H
->> +#define _ASSERT_H
->> +
->> +#ifndef CONFIG_DEBUG
->> +/* runtime assert does nothing in non-debug configurations */
->> +#define assert(e) do { } while(0)
->> +
->> +#else
->> +extern void __assert_fail(
->> +		const char *file,
->> +		unsigned int line,
->> +		const char *func,
->> +		const char *expr) __attribute__((noreturn));
->> +
->> +#define assert(e) \
->> +	do { \
->> +		if (e) { \
->> +			/* empty */ \
->> +		} else { \
-> 
-> Just if (!(e)) ...
-> 
-> Or are you trying to emulate unlikely()?
-> 
->> +			__assert_fail(__FILE__, __LINE__, __FUNCTION__, #e); \
-> 
-> assertion_failed(), and underscores aren't really needed.
-> 
-> __FUNCTION__ is overkill.
-> 
->> +		} \
->> +	} while (0)
->> +
->> +#endif /* CONFIG_DEBUG */
->> +
->> +#endif
+>>  32 files changed, 721 insertions(+), 122 deletions(-)
+>=20
+> Thanks for checking the differences between the versions.
+>=20
+> Which one do you mean here? The previous version (01 - 18) without cache_=
+layout*
+> is smaller, roughly
+>=20
+>  30 files changed, 710 insertions(+), 117 deletions(-)
+>=20
+> IIRC we discussed already that cache_layout was to be removed (not even
+> "DEBUG/NDEBUG").
+>=20
+>> But we can still do better:
 >>
-> 
-> I'm including to make assert() work unconditional. People should not
-> throw them mindlessly at the code but really at places where things
-> could go subtly wrong and we better fail in a controlled manner. If
-> assert() worked in debug mode only, the barrier to add it could be too low.
+>>  - make non-colored operations the special case of colored ones (e.g.
+>>    map_uncolored(...) =3D map_colored(all_colors)), that should further
+>>    reduce duplications, both in the hypervisor and the driver
+>>  - make sure that only the calculation of color bars' start and size
+>>    is arch-specific (where I still think it belongs to arm-common...) so
+>>    that iteration & Co. can stay in the generic core
+>=20
+> I think this is a larger design decision than just coloring. I can integr=
+ate
+> coloring into the paging and have the non-colored version be a special ca=
+se, but
+> this means extra complexity for all situations that do not require colori=
+ng. I'm
+> not talking about runtime complexity here (paging is likely irrelevant at
+> runtime), but documenting the code for a possible certification (if this =
+is of
+> interest) becomes more costly, for something that e.g., on x86, you don't=
+ need.
+>=20
+> The first version provided a way to identify a coloring-feature (and the
+> corresponding API) you may want to exclude from the scope of a certificat=
+ion and
+> from a possible pre-certification cleanup. If we integrate the coloring i=
+nto the
+> paging, this is no longer possible.
 
-I agree on not just throwing assert() mindlessly in the code, but I favor the
-use of assert() as specification of a contract that can be checked at runtime.
+You have that extra complexity already because you have the
+differentiation of colored vs. non-colored in a lot of code paths. Now
+you will replace with "contiguous vs. colored steps" while dropping a
+lot of code. I suspect a net gain.
 
-If e.g., due to restructuring in other parts of the code you cause a contract to
-be violated, you realize it quickly. In normal cases you want to have the
-assertion only in testing, but, if you have an analysis phase of the code, you
-could automatically transform the assertions into something that can be checked
-at analysis-time.
+Jan
 
-> 
-> Also, it would permit true BUG() == assert(0).
-> 
-> Jan
-> 
+--=20
+Siemens AG, T RDA IOT
+Corporate Competence Center Embedded Linux
 
--- 
-Thanks,
-Andrea Bastoni
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/a3814e9b-ec64-cc51-54fc-2f9fd61d1b34%40tum.de.
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/25d9e564-50f4-4cee-a8ca-b932752a3254%40siemens.com.
