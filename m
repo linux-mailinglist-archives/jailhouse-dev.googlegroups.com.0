@@ -1,68 +1,127 @@
-Return-Path: <jailhouse-dev+bncBC65DHEH7QOBBP64XCAQMGQES62Y5ZQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBFXKXCAQMGQEDH2RKHY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qk1-x738.google.com (mail-qk1-x738.google.com [IPv6:2607:f8b0:4864:20::738])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4043931E7C1
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 18 Feb 2021 10:07:14 +0100 (CET)
-Received: by mail-qk1-x738.google.com with SMTP id h185sf868613qkd.4
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 18 Feb 2021 01:07:13 -0800 (PST)
+Received: from mail-lf1-x13c.google.com (mail-lf1-x13c.google.com [IPv6:2a00:1450:4864:20::13c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 69D7031E80D
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 18 Feb 2021 10:36:23 +0100 (CET)
+Received: by mail-lf1-x13c.google.com with SMTP id c22sf480543lfh.20
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 18 Feb 2021 01:36:23 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1613640983; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=IkIh7GmeBSIXTwDwFM5SszloInOUU3Xi8a8siuLShM34YcTrLmXBiR1eIJr/L1a0/i
+         va4A1vBGx658ajyGjWjw8bb3SRfy6fOdA263mcWEPIs1OIs3T0M7KVzh7BkF9jXaUFzy
+         v7v2T5EtcOjI48S3CJeehUJxneUP9XL+exk36flFmSBYePCf20lwnKA0+lRbT/MUk2Fo
+         Z9UcsS8oC3L1VBvH4vuM1WTIJOgFIulGE93APNP6np7n6hAGLiaBXjocjLV6BwqqMGWV
+         L6SFa+Y7gVjE/UnJz9J7t+AXsc/KwuV2T5X+0Aspt7XleLfl3sf5sBcyepaswxFVYM7t
+         CVIA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=wS3zNC7uGkDebi9RonHYPE+rrFEXWTjiCkcBGpG1VS8=;
+        b=mvuqssZqGMiGwq6APOeZmRZw2bgK9D/c26NQ/uA04skKHYIhd3a1o0EpvA4zKINSBi
+         PTiAqkFlMiajrG7iFxwav+AnQOxcI0hsAhsXhoUkoaNMK6DAyZLrXfqOSOW4qMgtQLEd
+         oMaWItBZD/F/w9wqCJPz/ebNTzpKBDlGz0Vss8ln+X6LHWCC8bh1HDyeYHq8hjd9BNT7
+         xY/hIXFL67jLBORjZarEmQfWNqxCcoU3Y6niEj1JLfTqqeL0J63V2J6MI3uDZCt0pKg1
+         Y0D1lRCpepMOgHbxd2Onduwq3ToeoKEbdEEVh27q33MqFApxjDINx8WMXub2jxas9SEG
+         Eb0g==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=neutral (google.com: 194.138.37.39 is neither permitted nor denied by best guess record for domain of jan.kiszka@siemens.com) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=fail (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=Hv/OZd2NJegl5xYd603I3KoDxoCf6Pl/Rdahb1SqIiE=;
-        b=UklGBN/Axb7maS+tMhb3hrOT+XaGz1YX8EesMTGqcR4V+29QsYmcg1g0LzDw2SXyqA
-         rloaeqBYeyzwsC4bbc3oNV+B8UUOVct/a6MceJsM//k0Mayas6SfV0qQSm4zRLq+r8xX
-         fnpx278XCO/HfobuxR2OekYyUY46f8I+0XUGcc1kC5huP5LseJaSpVLK+DXGQm2nEXSr
-         n1c7q1jaGF4dgMXRxPbmYwW4oojkPskHlN+gZ+2/NGOk7PMU0+edq524J31P1mNt9akp
-         8r1HelYRS7E0O+gdfATOmOGVARmxo7dduLV9fiY68L01A6oF8yfGMJxMJeMcYFtTcnLe
-         jm4w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=unikie-com.20150623.gappssmtp.com; s=20150623;
-        h=date:from:to:message-id:subject:mime-version:x-original-sender
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=Hv/OZd2NJegl5xYd603I3KoDxoCf6Pl/Rdahb1SqIiE=;
-        b=klRK15m+tNV6hZyKVCYoqWWURG1XjMCkyBG781/GSLVY9QnVu6v3XPvqbZ3Ks5RCvH
-         UaMkuNFqCW2+exl4VjFEq2OdTzEi5PVDwHLGX+Q7uqrE7LkSSQ6muL0SS1lPr/TZdA91
-         JfUgcZY8hHRlFCTzdNgV2KuKxh5bwscYo+V1iEg/aLu/NEBSQTFbEmwJQE4Zn+999Dnh
-         nywN2ujFTXMYbJ0kAtIDXOGk1gw7CI6GNIWV0nBxvWotOZco9ZzNYys1ErEl0Du51Oit
-         hmjAbUIUtDngdaG9xjNYV5co1naXdlly6ge0Z2tf30LQNeyc3tBRWUB1eBPvVd2MPZV1
-         z3mA==
+        bh=wS3zNC7uGkDebi9RonHYPE+rrFEXWTjiCkcBGpG1VS8=;
+        b=sYFwwQ4/hPr42DY9yyX4wHIdOpi1gtQcQNHCC+Whzdm/nzWpPjLGdwXblo0zxA3o2w
+         F3YmX1rG0/AX0xGQZ8WwCf2sdDgd2uC1gv5Zcw8rlDV1TN2cdsA+9A51ncRRECqRXb6y
+         bQcXBROHV6yR7BhLlfjo0X2E0Hmx6znY2iy6mbO5P6MjhqGVpWacDV0zrc9iD26sclwP
+         Eu7yApIV/jizOWWuETUHlzOWZZmvEf+jZ52s20hNHcaTA2Lt6uZPQf72Z7VTJEEhLByI
+         adUTTNoFYqQrLJRKToQ0ZKVtcNKXIGDMRK/ZbLgykCg5qQpgkBhgokEcuWIZJo5vst1/
+         72Ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=Hv/OZd2NJegl5xYd603I3KoDxoCf6Pl/Rdahb1SqIiE=;
-        b=lQd8U6VkVER1yF81+Fd9hwdMeJN19jLxGbgP1d9bAripFEeoQK9hfU2ljUBP0/nPbr
-         wGV9r7NfXpk6MtxcwAx+EBbKAUTvWwi/ZwtP8GsxOdqUgL6tmqCEY6K/FBEb748n1t5H
-         wadA9p8cxgnfD94p9di7dFOtRocWmROemZEOD7gup/4R8KB4GkFfFQgqJX2GxF82e+91
-         Y8eLvz5INlKqonDCBzsZzBpcC5ZgfOuUljWdmAT5atkeYQviMWggyJosVmRxzLvW53n2
-         WaLPU1vJFAJbf5Zi8GnZvIxGDu6AJgrvJYMGGpNl9KV/CpqrJt06156cmgY0Lg1fxvxs
-         jMIQ==
+        bh=wS3zNC7uGkDebi9RonHYPE+rrFEXWTjiCkcBGpG1VS8=;
+        b=KOT7bbzQ2j+DQgNU976IfVKmF1fn8ooB0U4yIAt2v9hw5klYuwqlW94gpocg10S3hd
+         hpsImrPuFQBk3u8E/HdO+up9H9glD/z+aeiwuBjBo0liaDdtpH6uKzGsLy6WLcyO9eIf
+         ZKudI25SgJQdwhSb3Yk8Iha6h7pNgpcGC+YdjE8SMtP9OWH1sCGHEHCd5IDQCB6wYOJ4
+         On+5zkq+IQ4m/ztIiKh2ZOCKwuszVVYWyZ//6pijx8IBqQZUk/K11msJQMuipbDtJTtR
+         dP+WLPlKbIWyVNe8u8YMVRH2Pb1tFgrBYqQP0qo0F8Dcvxcxj9EmeHz4q3y+bkCRzmjq
+         /bqw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533SKB7ZL3ltm6ugX2f68Fa/8GTMY8NJGhrno8LvdHmfa66Q5F53
-	PJbF1yLzL5rzAi70EPr/zkE=
-X-Google-Smtp-Source: ABdhPJydhTOQ0qb+y3Ff/nMcwZk7/ujtVI4ivr89dP62zavEKtYbA7LlQL5kOzW33/qD6Q27yfVtdw==
-X-Received: by 2002:aed:30a3:: with SMTP id 32mr678925qtf.130.1613639231971;
-        Thu, 18 Feb 2021 01:07:11 -0800 (PST)
+X-Gm-Message-State: AOAM532JqG0NvlNyf9b50Tlu0k40S7OiYxIBZ+V/XeNT5qMNafhTpQRG
+	G+3kSAd6M8UN18AwBb/PZcI=
+X-Google-Smtp-Source: ABdhPJyPsgCkKmg0yX8tW+7DxZW7hZWM5nbYf8yKrsehHU4o21KzHeeYEzTdaNl5+7qSnvUqcXkfvw==
+X-Received: by 2002:a2e:9019:: with SMTP id h25mr2016805ljg.467.1613640982906;
+        Thu, 18 Feb 2021 01:36:22 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a37:684e:: with SMTP id d75ls2425257qkc.9.gmail; Thu, 18 Feb
- 2021 01:07:11 -0800 (PST)
-X-Received: by 2002:a05:620a:204b:: with SMTP id d11mr3245940qka.429.1613639231407;
-        Thu, 18 Feb 2021 01:07:11 -0800 (PST)
-Date: Thu, 18 Feb 2021 01:07:10 -0800 (PST)
-From: Jari Ronkainen <jari.ronkainen@unikie.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <6944c92b-5a96-48fd-a74d-0d8fb0c0d3ean@googlegroups.com>
-Subject: Jailhouse hanging
+Received: by 2002:a19:480d:: with SMTP id v13ls2781892lfa.0.gmail; Thu, 18 Feb
+ 2021 01:36:21 -0800 (PST)
+X-Received: by 2002:a05:6512:971:: with SMTP id v17mr2098126lft.580.1613640981745;
+        Thu, 18 Feb 2021 01:36:21 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1613640981; cv=none;
+        d=google.com; s=arc-20160816;
+        b=bdie3I9VHwYGlyU/h+4WuUKHOmkoNma8mItHDhEIloOzQ61Z/84i2wzYsSW9CAzXy/
+         dlBartEF+urgWHh0oUpVbJPFrAZBpUFOJuPVxwIHgCEz4xfbd/ETUkDunkuxC/zRmXFs
+         ToJh6zav7j/s+Yl5j+2+K5C316lucRvj97cIVKN8PgxYTvE40qjkeZrg6RdLZR62Pul9
+         dR55/oMUoOcU3O9DXKCc87sslpc+GnDvMHtYisAI/S60gEEO35oYQGMaSPwhXSAZTnH8
+         /D05XaJAFc0DgCebeUYH5Q/0/KLQdeF5dccNTmC2S4P/7lVDJpNQYdXM+hCZPZBX9N9i
+         wU7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=A76ehagDbD3X2pS4T8+C58N0V8NrHYA7/YG/+KzNpps=;
+        b=ulv/QYqRWKc4zYUIXKUEtKuLFky+PfgpgcjIWPiFtoK2SZye5qR+xVw7kwNtXbkmxw
+         0XAHv+0cdJMQU8FugEI8gAs+6vQZLIuN6J8ZvNIQ2VJ1pF9ht4QS9iE2g6lRp0zASKVo
+         Ws0dxP+D3GTndiCxaDf9BrBnrnCf1q4CGRzuSgo2lWJA7Ar2Ol5w4oV7SnkRagG9bdYM
+         2GO1ZWCNXIh0OLUToXVCDeZkGwOWkdC/qfeTU0WIcbLOHXHOullhqAYZG0jSHAf+X7oK
+         2ZOcjqB9e46RnIFuczmCuTj2AcY75TMn8b7rKjENJTZ11pL+rvxhoUQQX5mn3q6uKRkx
+         NBaA==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=neutral (google.com: 194.138.37.39 is neither permitted nor denied by best guess record for domain of jan.kiszka@siemens.com) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=fail (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
+        by gmr-mx.google.com with ESMTPS id m17si162469lfg.0.2021.02.18.01.36.21
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 18 Feb 2021 01:36:21 -0800 (PST)
+Received-SPF: neutral (google.com: 194.138.37.39 is neither permitted nor denied by best guess record for domain of jan.kiszka@siemens.com) client-ip=194.138.37.39;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 11I9aK8h031646
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 18 Feb 2021 10:36:20 +0100
+Received: from [139.22.135.163] ([139.22.135.163])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 11I9VJSu006463;
+	Thu, 18 Feb 2021 10:31:20 +0100
+Subject: Re: Jailhouse hanging
+To: Jari Ronkainen <jari.ronkainen@unikie.com>,
+        Jailhouse <jailhouse-dev@googlegroups.com>
+References: <6944c92b-5a96-48fd-a74d-0d8fb0c0d3ean@googlegroups.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <1f674212-e966-3ce4-c2ea-e601a015c19c@siemens.com>
+Date: Thu, 18 Feb 2021 10:31:19 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_5116_578149884.1613639230873"
-X-Original-Sender: jari.ronkainen@unikie.com
+In-Reply-To: <6944c92b-5a96-48fd-a74d-0d8fb0c0d3ean@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=neutral
+ (google.com: 194.138.37.39 is neither permitted nor denied by best guess
+ record for domain of jan.kiszka@siemens.com) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=fail (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -75,98 +134,77 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_5116_578149884.1613639230873
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_5117_520621703.1613639230873"
+On 18.02.21 10:07, Jari Ronkainen wrote:
+> I have tried to get jailhouse running on=C2=A0 UP xtreme board with an LT=
+E
+> module attached.
+> However, running into some problems, and this one is one I couldn't
+> solve myself:=C2=A0 The entire system hangs quite fast after getting this
+> message:
+>=20
+> =C2=A0 =C2=A0 VT-d fault event reported by IOMMU 1:
+> =C2=A0 =C2=A0 =C2=A0 Source Identifier (bus:dev.func): 01:00.0
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0Fault Reason: 0x22 Fault Info: 2d000000000 Typ=
+e 0
+>=20
+> The 01:00.0 is the PCI address for the LTE module.
+>=20
+> Cross-referencing with Linux kernel, I figured that 0x22 is
+> "Present bit in context entry is clear"
+>=20
+> Don't know how to figure out what to do with "fault info" or "type"
+> here either.
+>=20
+> Root cell configuration can be found in
+>=20
+> =C2=A0https://pastebin.com/armiRjH9
+>=20
+> Setting iommu =3D 0 for the LTE modem prevents system from hanging
+> instantly, but the failure message is still there.=C2=A0 Issuing "jailhou=
+se
+> disable"
+> still hangs the system reliably with no extra messages.
+>=20
 
-------=_Part_5117_520621703.1613639230873
-Content-Type: text/plain; charset="UTF-8"
+Yeah, the error message already indicate the IOMMU 1 is the right one
+(otherwise the message would have come from unit 0).
 
-I have tried to get jailhouse running on  UP xtreme board with an LTE 
-module attached.
-However, running into some problems, and this one is one I couldn't
-solve myself:  The entire system hangs quite fast after getting this
-message:
+The issue might be around the guest enabling (or not disabling)
+interrupts in the modem before properly programming the MSI registers.
+Or that Jailhouse considers the programming invalid for some reason and,
+thus, does not arm the entry. Places you want to inspect/instrument are in
 
-    VT-d fault event reported by IOMMU 1:
-      Source Identifier (bus:dev.func): 01:00.0
-       Fault Reason: 0x22 Fault Info: 2d000000000 Type 0
+    arch_pci_update_msi
+        -> x86_pci_translate_msi
+            -> iommu_get_remapped_root_int
+        -> iommu_map_interrupt
 
-The 01:00.0 is the PCI address for the LTE module.
+>=20
+> relevant lspci:
+> =C2=A0 =C2=A001:00.0 Network controller: Qualcomm Atheros QCA6174 802.11a=
+c
+> Wireless Network Adapter
+>=20
+>=20
+> Thanks all for the previous help, and thanks in advance for helping.
+>=20
+> Also, I got this from jailhouse console -f, I don't get anything from the
+> UART, does that mean misconfiguration there in this case?
+>=20
 
-Cross-referencing with Linux kernel, I figured that 0x22 is
-"Present bit in context entry is clear"
+Likely. Can be as simple as the wrong divider. Where did you get the
+parameters from?
 
-Don't know how to figure out what to do with "fault info" or "type"
-here either.
+Jan
 
-Root cell configuration can be found in
+--=20
+Siemens AG, T RDA IOT
+Corporate Competence Center Embedded Linux
 
- https://pastebin.com/armiRjH9
-
-Setting iommu = 0 for the LTE modem prevents system from hanging
-instantly, but the failure message is still there.  Issuing "jailhouse 
-disable"
-still hangs the system reliably with no extra messages.
-
-
-relevant lspci:
-   01:00.0 Network controller: Qualcomm Atheros QCA6174 802.11ac Wireless 
-Network Adapter
-
-
-Thanks all for the previous help, and thanks in advance for helping.
-
-Also, I got this from jailhouse console -f, I don't get anything from the
-UART, does that mean misconfiguration there in this case?
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/6944c92b-5a96-48fd-a74d-0d8fb0c0d3ean%40googlegroups.com.
-
-------=_Part_5117_520621703.1613639230873
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div>I have tried to get jailhouse running on&nbsp; UP xtreme board with an=
- LTE module attached.<br></div><div>However, running into some problems, an=
-d this one is one I couldn't</div><div>solve myself:&nbsp; The entire syste=
-m hangs quite fast after getting this</div><div>message:</div><div><br></di=
-v><div>&nbsp; &nbsp; VT-d fault event reported by IOMMU 1:<br>&nbsp; &nbsp;=
- &nbsp; Source Identifier (bus:dev.func): 01:00.0<br>&nbsp; &nbsp; &nbsp; &=
-nbsp;Fault Reason: 0x22 Fault Info: 2d000000000 Type 0<br></div><div><br></=
-div><div>The 01:00.0 is the PCI address for the LTE module.</div><div><br><=
-/div><div>Cross-referencing with Linux kernel, I figured that 0x22 is</div>=
-<div>"Present bit in context entry is clear"</div><div><br></div><div>Don't=
- know how to figure out what to do with "fault info" or "type"<br></div><di=
-v>here either.</div><div><br></div><div>Root cell configuration can be foun=
-d in</div><div><br></div><div>&nbsp;https://pastebin.com/armiRjH9<br></div>=
-<div><br></div><div>Setting iommu =3D 0 for the LTE modem prevents system f=
-rom hanging</div><div>instantly, but the failure message is still there.&nb=
-sp; Issuing "jailhouse disable"</div><div>still hangs the system reliably w=
-ith no extra messages.</div><div><br></div><div><br></div><div>relevant lsp=
-ci:</div><div>&nbsp; &nbsp;01:00.0 Network controller: Qualcomm Atheros QCA=
-6174 802.11ac Wireless Network Adapter</div><div><br></div><div><br></div><=
-div>Thanks all for the previous help, and thanks in advance for helping.</d=
-iv><div><br></div><div>Also, I got this from jailhouse console -f, I don't =
-get anything from the</div><div>UART, does that mean misconfiguration there=
- in this case?</div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/6944c92b-5a96-48fd-a74d-0d8fb0c0d3ean%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/6944c92b-5a96-48fd-a74d-0d8fb0c0d3ean%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_5117_520621703.1613639230873--
-
-------=_Part_5116_578149884.1613639230873--
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/1f674212-e966-3ce4-c2ea-e601a015c19c%40siemens.com.
