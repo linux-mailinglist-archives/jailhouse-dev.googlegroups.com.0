@@ -1,144 +1,123 @@
-Return-Path: <jailhouse-dev+bncBCA7ZIXV4AJBBG5B2SAQMGQE53XKVQI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBAABBQ5C3CAQMGQEFFFZZ4A@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x340.google.com (mail-wm1-x340.google.com [IPv6:2a00:1450:4864:20::340])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84800322C33
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Feb 2021 15:26:35 +0100 (CET)
-Received: by mail-wm1-x340.google.com with SMTP id f185sf720688wmf.8
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Feb 2021 06:26:35 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1614090395; cv=pass;
+Received: from mail-lf1-x13c.google.com (mail-lf1-x13c.google.com [IPv6:2a00:1450:4864:20::13c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B8513238D6
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 24 Feb 2021 09:41:40 +0100 (CET)
+Received: by mail-lf1-x13c.google.com with SMTP id z22sf536042lfd.23
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 24 Feb 2021 00:41:40 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1614156099; cv=pass;
         d=google.com; s=arc-20160816;
-        b=XghIva4Rx+RdxUhANFJG4erHinOmWjE/L6xLJghJOkoHH1cZazEn0aZeiEahykpANr
-         HQVTR/efKCQ8/UkxnVXrnIe9cAxR7rJPwZtOCzYcEKbUkbB9tURZnVePx1VWJ74Mg+68
-         RTZDakerQrTJHg6P2LMzblwK1jIm1uvFlriK/Ts8KVWDYK/fJj+up/SNYZ7f9EpHwsZ7
-         aa9HfvSmh7QUIcmFiElEoPoASgLsyt3cVMgFd5pm16RtKRwa6G6fB5xr199x7TIkBF/l
-         RZBwDFH/jqxgkcYbrCY0nVx3KQnE+Y0BlEvCbawR9dqHkpm0RH7Map5Sk4TTvoOExbOd
-         CHYQ==
+        b=sugs0T2Id3dyCgTnTgPP2zV8COPFlL59pVW8wn7s6OWZkmE4VKJxX1xJN0zwfuGoFv
+         NN/qk55JZDwqooA5Fr+NfdfSr58BfglhOeYL2ArAyQzYlZIluMyfi2d5jsvPof/SeQV+
+         P8FnjfTtCNnXIibWe39Wjei7oQ7LM9GYoaYihTFu+/HuCnrHx+8ZUx8iyX8XU3I1lt+T
+         Lwj1yNeUXc/F/c9I92BQCyYGlYHlkUcKgNDLnEUc1cM1Uy6tM+O2dZB+3nEJq+PNk85P
+         O/UjXhuUxBoOyt1nCm2LSW7Hk243HSVesZxl+fTTDxNrM1AOcnoKE8dcAJ2AAyJ0VY/2
+         aPAQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:to:from:ironport-sdr:sender:dkim-signature;
-        bh=JaXvoyB2dfQjt0bKmJeR64hmX5L6gFXa/jzGoXzNMf8=;
-        b=X8tzjU/WUPHunHjfIhogyjqzd4BP2Wz6Orxp0/0VpXza7udszBFBRs/Bhcl2vBfN7e
-         HKwg9OqtpX2GZudrw0RUbh6TESv4Ni+4ld7BANgMGyfXSAyEmLuKrfLE83zffAZ4fFaS
-         5yXEVvC1wn1e7WiLXk5Lw46+QIq2rvvoqAQP7RaKnyVu5Qo5KfLbYymvlo4fXBlWxVcD
-         umERXwEPbwUB0Isy2VrJebMQVz2PBInlwdvHfQtVWPj04IM5CLEHOISm783LvupHkTic
-         PwYh4vyaM8JRIMTKlZ7bGdVHZa73qSiYqBJmemuFEVyLsZ9s7HiPGylmyv+CxqzbHUEx
-         kZXg==
+        h=list-subscribe:list-archive:list-help:list-post:list-id
+         :mailing-list:precedence:date:list-unsubscribe:mime-version:subject
+         :message-id:to:from:sender:dkim-signature;
+        bh=IzqunXMqhQ0E8pPhRmWAul8/m8qE4ir+Vj06v6PA1u8=;
+        b=C1EJYCanljjpFYKSLuzHd9Bo4nq+ib/rrkJhGdx/bNG/z2AbNL6eMEycKu8QKsgXur
+         Kt+8uzn4rNovnSpPUws+LSsWtR9MViU8v0G53rek/hZpRblBSjzmIA5BBnEEC4uBUfLM
+         QKbs/Ic00+0h8gVFXyIES2UzIMTG84lurMulgKbjRF6i0l2xAWScJhjori+y3qr70NWG
+         HZo2Qqc+Zubnm5B+tBBQ10Um0TVHk4PJ4HE89/A3CdjPKA3vJ5n06KKgwY+dsGJZG4pm
+         FmsW7+zM4kYMhK0xoXpGXv9sVr5nzbNBz4SziaseRB5FWHGWsarTE25D1VmnLm7KHW83
+         gr0Q==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@ulmapackaging.com header.s=secumail header.b=XxgMsy7D;
-       spf=pass (google.com: domain of rsagarzazu@ulmapackaging.com designates 212.8.121.109 as permitted sender) smtp.mailfrom=rsagarzazu@ulmapackaging.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ulmapackaging.com
+       dkim=pass header.i=@digscience.org header.s=us header.b=TopUL8HB;
+       dkim=pass header.i=@topeml.com header.s=jul2015 header.b=hyzUu3Oj;
+       spf=pass (google.com: domain of postman3670461@email.tb.ru designates 185.147.82.156 as permitted sender) smtp.mailfrom=postman3670461@email.tb.ru;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=digscience.org
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:ironport-sdr:from:to:subject:thread-topic:thread-index:date
-         :message-id:references:in-reply-to:accept-language:content-language
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=JaXvoyB2dfQjt0bKmJeR64hmX5L6gFXa/jzGoXzNMf8=;
-        b=D2e9GWbXUGSkmdRIAjcUAjRlA/N43lfUEh8hp49eFMDVGG/ZM/wzf4PdcPiGGGcrqp
-         6dhzjGt7m8OjWQDAOLy5NJIbgNx+N31KDeS9a1sZdd2TTXJMY9G3CE2S3Frr4myHFtO/
-         K/HBCJEjHKDjeFgktwCppqZ1a7WNxUJnb4e/ECL/T193olldeIhQNz3qB3BL2D4/JC9R
-         FZ4pN7ViQcoixB49DEDHNuGU+qrOjJCv6hh2jfd4ia6nJP6cHu/jTKykXJ7i/Pdaj1C7
-         TpJSmmX5R5gdEsp9iEU6nJ4HDqApgT+szyvIp3Y9iXleFRYlDv3BLsMx3/FMCrUPTUGf
-         DIiQ==
+        h=sender:from:to:message-id:subject:mime-version:list-unsubscribe
+         :date:x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe;
+        bh=IzqunXMqhQ0E8pPhRmWAul8/m8qE4ir+Vj06v6PA1u8=;
+        b=NXp1RfpsnE+d0c285CbJNsVWqdGqaW96+ohtPENQTGvPdfPQm/JofJcKW+T4vaNsPs
+         BPRaL1fwTSBpAplc6Mvc6w7AWltljz5XQVFqturaPtn5tkURLvIaROF7tK0WL2IWcu/D
+         V50KbvWdiP3h6Z0l9WVwhZRNvMf4MZx+RYiXgoakJfn0UIScrQY/5m3t3VCW5Nin0ys1
+         5zLgdv29iMumSbgWKPni/GbNsIz0REsxb0Wgwnlk/ogQ06CoEdD5z20pJ7h+ZDslw0Sb
+         +RYbkbRgUe95qjr7dzyhZz631ANBXXnJBDULD50o5mCyIJ+Y65uvrjIujuuc7hrTVriR
+         OhiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:ironport-sdr:from:to:subject:thread-topic
-         :thread-index:date:message-id:references:in-reply-to:accept-language
-         :content-language:mime-version:x-original-sender
+        h=sender:x-gm-message-state:from:to:message-id:subject:mime-version
+         :list-unsubscribe:date:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=JaXvoyB2dfQjt0bKmJeR64hmX5L6gFXa/jzGoXzNMf8=;
-        b=qKSZm+Ri4UC9Y67vIoc1N/8yi5AVExicsAxubP5kpKSyuI7GypVrML6TTiAy+iZKql
-         e1rwEpgRp5R6zr18VMfQauQT1T0ESOkYwOe09yHhwBLUWkPNRG+wDznPnXlndP/jAWao
-         rKd0r9RMBNff+wFolvjSZC4/tIFpQjayTF20neZOJ/VPlGslH/aaoDSCv5v+AGEvpLIW
-         3J+ilKW88D8r7+o/uKA7uNHNd8zAw/BQwkRhJIFArgAoPYBjkgYyLlxPdCPAzDotQLn4
-         nZhO7iTyyHU7z7mnDKc5fyYuX21m64aXhkWfowZimyKXMsFVOoRmn6haYKO77XgURRoX
-         6uVA==
+         :list-subscribe;
+        bh=IzqunXMqhQ0E8pPhRmWAul8/m8qE4ir+Vj06v6PA1u8=;
+        b=kmk34SPzcyuNA0Hri/nJCU/jqVz4pPr4QwwCNeTOTj/bj2ppvW+3mDHPupVj8HC1vE
+         GQ5obe6wf4EweQ8fL690UUM+zvgFrmBE2lZbVAlDmUjtdNICTWAEk+IDYawvuMTzA9tG
+         IqO+CM8LKYVuGVGlB1Uk/PJ9HJPgFRWhWMtyvELJ4mRwq/MXXRcI5aHjj4COO0gg8K9r
+         q3n1WqSdB2FYqoSqBi6qMTaSfu+1UDI4jdbbxR6EoNWfJ7ZU3VB+hjPaUa4Xo+t0jd+4
+         5W+BuY/l+JLVepHz0cLXeWtSqcQRgtleP4TvBxUBDuxarUzNdnOJ+X6Zksb4HZ3G2FJz
+         PTrA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM5312C4uwjGoE6wIFdIXJTZlDB4fkxDoNGJL/Seou+q2Y59N3A/1V
-	vDGY9HJ5PH9ze8VBz+KYbp4=
-X-Google-Smtp-Source: ABdhPJzqhhv8cZhVyGEjuGcEQbEXrmqAcb2/GO4cAIUSPk7PKFq5teOigGkLse9I/Prt2dJV+kmaMA==
-X-Received: by 2002:adf:dcd2:: with SMTP id x18mr2606187wrm.361.1614090395248;
-        Tue, 23 Feb 2021 06:26:35 -0800 (PST)
+X-Gm-Message-State: AOAM5327BYb8sZDFKtjz40BS1pulsYQzbp9yst8hmHQtjKB06TB+SE7z
+	2q9K4SkvprQ2BGqTTPYGkz8=
+X-Google-Smtp-Source: ABdhPJziefd4hMwN9+Dw2XGf6WPBQyoAtEwoQpYSDzW4e/XrxwvD4/FReDsh3UfN7nLZf+K1M2eC3g==
+X-Received: by 2002:a2e:8e6e:: with SMTP id t14mr1829712ljk.23.1614156099356;
+        Wed, 24 Feb 2021 00:41:39 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:f207:: with SMTP id p7ls5813774wro.0.gmail; Tue, 23 Feb
- 2021 06:26:34 -0800 (PST)
-X-Received: by 2002:a5d:6951:: with SMTP id r17mr25898160wrw.279.1614090394409;
-        Tue, 23 Feb 2021 06:26:34 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1614090394; cv=none;
+Received: by 2002:a2e:b4d1:: with SMTP id r17ls238241ljm.10.gmail; Wed, 24 Feb
+ 2021 00:41:38 -0800 (PST)
+X-Received: by 2002:a2e:505d:: with SMTP id v29mr18256878ljd.393.1614156098418;
+        Wed, 24 Feb 2021 00:41:38 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1614156098; cv=none;
         d=google.com; s=arc-20160816;
-        b=BCqUyufaYTXQNZWgX2sB1Q4LYYMEi3OJoBEgJ5IK7hObk4e3Z//zACF/IADhZlMDkC
-         SvkJbpz6soEhhPigoTD4lOrT/LDRqUGhrFUJuQkUi5bt2npUXS2/4OD65KYAS8HoRjNq
-         Z9MeKkyukGjsiLhFc65fd3/O8yAM7cPlUnYw8kgF0jRlpapKseRnCjg1mUkqq1mFiDni
-         BFuqf/AuxtQLTii7llTIx6FS81VanKzkXm7ofA7ihWz1KouEBJLfHfaiIvZ/w4XjuXla
-         VYrbT3fl4m37VBzgNDvgcf31CfO0ahibNNH7KV3v0SHc+cQa7qE5HDpFhnLetvsqqbVw
-         Na+Q==
+        b=YFSRAN24CpiSxcV+7yl/Zu24nptSMbDc/x00C1z5yx+/oGE+mojfP00n4quH3PVrCJ
+         WmT28EdNsdbjI1GGJWzFaW3rHSb++9IyANdnMHjR1D2+bwdoX0hWT4OOe6m6+sl7mkzY
+         gDzIyQ3rNINWxAEJlIF4jp4eFkX7pbbtGVAaD+gZfNh3EyyhSd9tuA5P3F/ZGP9TbZXU
+         Qm2DH88/lpPC8UZ3z9ulLGoyxrl2QAiK/IT/NqVpGl+lX0NwQWqABB/LKqsNbw0Uqesv
+         uiytTLRkZVJU7ApmyfaANQ52NDhwxzEbmk6QHiAxATLd6Q9hNEgUm5vwg7XaR24CSVv1
+         3iCg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:content-language:accept-language:in-reply-to
-         :references:message-id:date:thread-index:thread-topic:subject:to
-         :from:ironport-sdr:dkim-signature;
-        bh=K0DGKS5NKDS8/f7/GyiJHfWIqyHknaSb4aZq32fYi+E=;
-        b=k+f+yB7yBsmvfhM0m9tbYfMOVZEe/suh8SrrkNdrmXgIt73etcVvbcu2MwVNhbWBFo
-         utQrYtza9VTdZW7xtcTs8EtYIzpWijBtZZ9hBo67g1VHZ/Yk9WW3QrexcdW+g+dA/L1U
-         G1q5bdpCSimx3OdWzSQFoI2Bpd1DGzMRluIQvhC1BMMlH0FytbV0t+BXMOdpcDbHVZWo
-         dNJENhGBDoSNds/lEXm0tHJm3OknKvQ38iAgeeebZrPW+GuW7Zsf2CMrKJYHZRKXj/3L
-         1MU1bKujqa2DZFNOPn0aPV8yD0by3faFKYDSr5Gnm9C0JnFV+5QKZsHM7X54jcgm96Zs
-         YkJw==
+        h=date:list-unsubscribe:mime-version:subject:message-id:to:from
+         :dkim-signature:dkim-signature;
+        bh=2Rhw7R1K90GSbbT3mzz4NxpaMRwiHGEgWtJrZi50RTI=;
+        b=mboQsPGkNW2UOMFm8U0dWvjAGflIIgp/KxULTjHn+8xL1IRoMKihJ821gOxl+3j+n5
+         a2wRZ/MqFvVcNc6y/U3wNKs6dsghnQtXB9i87qWTMehi8EJCEG7eSmDO4xaxB352OAE3
+         JCpCZcYhckptUcYu4nIikHwaeKYdiPDbl4byKnsxLscop9HzQJFYX+mFQbKPe8OexlKN
+         ydip5W+qaIN2ROJ9YYfPYVBootBNoTFaZHhMxAwbnH1OWtWbKkr8zScjCUVICfKlzUKY
+         yDG65eLf+cAJddu8B451QxjFn2EWxzmmdU/y5gUNCRUpMZ0SEsEorVO9l0gQLe3zTH7P
+         kddg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@ulmapackaging.com header.s=secumail header.b=XxgMsy7D;
-       spf=pass (google.com: domain of rsagarzazu@ulmapackaging.com designates 212.8.121.109 as permitted sender) smtp.mailfrom=rsagarzazu@ulmapackaging.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ulmapackaging.com
-Received: from mx2.ulmapackaging.com (mx2.ulmapackaging.com. [212.8.121.109])
-        by gmr-mx.google.com with ESMTPS id m3si206083wme.0.2021.02.23.06.26.34
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 23 Feb 2021 06:26:34 -0800 (PST)
-Received-SPF: pass (google.com: domain of rsagarzazu@ulmapackaging.com designates 212.8.121.109 as permitted sender) client-ip=212.8.121.109;
-X-Ironport-Dmarc-Check-Result: validskip
-IronPort-SDR: rPL8hfNiz3u0XMe1s2mTVAfud53NRjccDNmI/3UxQveDjoki9f0IVxTsy6sVWjI1GbziW5Ivzg
- eV54ry7vNnAg==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from unknown (HELO spc015.packaging.ulma.es) ([172.16.1.15])
-  by mx2.ulmapackaging.com with ESMTP/TLS/ECDHE-RSA-AES128-SHA256; 23 Feb 2021 15:26:33 +0100
-Received: from spc015.packaging.ulma.es (172.16.1.11) by
- spc015.packaging.ulma.es (172.16.1.11) with Microsoft SMTP Server (TLS) id
- 15.0.1395.4; Tue, 23 Feb 2021 15:26:33 +0100
-Received: from spc015.packaging.ulma.es ([::1]) by spc015.packaging.ulma.es
- ([::1]) with mapi id 15.00.1395.000; Tue, 23 Feb 2021 15:26:33 +0100
-From: Raimundo Sagarzazu <rsagarzazu@ulmapackaging.com>
-To: Jan Kiszka <jan.kiszka@siemens.com>, "jailhouse-dev@googlegroups.com"
-	<jailhouse-dev@googlegroups.com>
-Subject: RE: Invalid PCI config write, port cfc, size 1, address port:
- 8000f940
-Thread-Topic: Invalid PCI config write, port cfc, size 1, address port:
- 8000f940
-Thread-Index: AdcI8aG+TEF5nlT4SISzW15xAgZbOQA7LcuAAARTbBA=
-Date: Tue, 23 Feb 2021 14:26:32 +0000
-Message-ID: <4f378475d9cb4393a902160f0da81f7f@spc015.packaging.ulma.es>
-References: <4b6f864a20164d4884425ea87059a92f@spc015.packaging.ulma.es>
- <0d6ec3fd-adf2-d54e-57c9-99244f280538@siemens.com>
-In-Reply-To: <0d6ec3fd-adf2-d54e-57c9-99244f280538@siemens.com>
-Accept-Language: es-ES, en-US
-Content-Language: es-ES
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [192.168.87.89]
-Content-Type: multipart/alternative;
-	boundary="_000_4f378475d9cb4393a902160f0da81f7fspc015packagingulmaes_"
+       dkim=pass header.i=@digscience.org header.s=us header.b=TopUL8HB;
+       dkim=pass header.i=@topeml.com header.s=jul2015 header.b=hyzUu3Oj;
+       spf=pass (google.com: domain of postman3670461@email.tb.ru designates 185.147.82.156 as permitted sender) smtp.mailfrom=postman3670461@email.tb.ru;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=digscience.org
+Received: from smtp1.email.tb.ru (smtp1.email.tb.ru. [185.147.82.156])
+        by gmr-mx.google.com with ESMTP id a26si62900lff.2.2021.02.24.00.41.38
+        for <jailhouse-dev@googlegroups.com>;
+        Wed, 24 Feb 2021 00:41:38 -0800 (PST)
+Received-SPF: pass (google.com: domain of postman3670461@email.tb.ru designates 185.147.82.156 as permitted sender) client-ip=185.147.82.156;
+Received: by smtp1.email.tb.ru id h6o8k42erpkd for <jailhouse-dev@googlegroups.com>; Wed, 24 Feb 2021 08:41:37 +0000 (envelope-from <postman3670461@email.tb.ru>)
+From: "John Dreamer" <smart@digscience.org>
+To: jailhouse-dev@googlegroups.com
+Message-Id: <E1lEpjl-eBwrOT-MZ@ucs203-ucs-13.msgpanel.com>
+Subject: 8th Conference with Springer. Scopus, WoS Indexation - Deadline
+ EXTENDED - March 10, 2021
 MIME-Version: 1.0
-X-Original-Sender: rsagarzazu@ulmapackaging.com
+Content-Type: multipart/mixed; boundary="MWxFcGpsLWVCd3JPVC1NWg=="
+List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
+ <https://groups.google.com/group/jailhouse-dev/subscribe>
+X-Complaints-To: abuse@email.tb.ru
+X-EnvId: eu1production.tr_3670461:1lEpjh-00001w-GUuT:1_amFpbGhvdXNlLWRldkBnb29nbGVncm91cHMuY29t_2_3027617
+X-Feedback-ID: 3670461:transact:UO
+X-ReplyTo: smart@digscience.org
+Date: Wed, 24 Feb 2021 08:41:37 +0000
+X-Original-Sender: smart@digscience.org
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@ulmapackaging.com header.s=secumail header.b=XxgMsy7D;
-       spf=pass (google.com: domain of rsagarzazu@ulmapackaging.com designates
- 212.8.121.109 as permitted sender) smtp.mailfrom=rsagarzazu@ulmapackaging.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ulmapackaging.com
+ header.i=@digscience.org header.s=us header.b=TopUL8HB;       dkim=pass
+ header.i=@topeml.com header.s=jul2015 header.b=hyzUu3Oj;       spf=pass
+ (google.com: domain of postman3670461@email.tb.ru designates 185.147.82.156
+ as permitted sender) smtp.mailfrom=postman3670461@email.tb.ru;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=digscience.org
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -148,125 +127,90 @@ List-Post: <https://groups.google.com/group/jailhouse-dev/post>, <mailto:jailhou
 List-Help: <https://groups.google.com/support/>, <mailto:jailhouse-dev+help@googlegroups.com>
 List-Archive: <https://groups.google.com/group/jailhouse-dev
 List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mailto:jailhouse-dev+subscribe@googlegroups.com>
-List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
- <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---_000_4f378475d9cb4393a902160f0da81f7fspc015packagingulmaes_
+--MWxFcGpsLWVCd3JPVC1NWg==
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_222668_1878947493.1614156097969"
+
+------=_Part_222668_1878947493.1614156097969
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Yes, I was trying it and it seems that it works.
+Dear Author,
 
-Thankyou,
+The submission deadline has been extended till
+10th March 2021 as we understand many are facing unexpected challenges at t=
+his time.
+Grab the opportunity to submit your full research paper of 6 - 12 pages.
 
-Rai.
+The 2021 International Conference on Comprehensible Science (ICCS 2021) wil=
+l be held in Eilat, Israel, on June 18-20, 2021. Conference website is http=
+s://ics.events/iccs-2021/ (https://email.tb.ru/ru/eu1_link_tracker?hash=3D6=
+tw14x9o8fz18yriep6ujhqbzhz5tf96h5x58wx7kshzfpnytry4dhoop9cuqfrqi4xob588fmih=
+ruycqwb599j39zsughm69zrtznswjewmbbkddeydyrwa7f9cqe1eib7sce5aaze8otfh4ohtfn1=
+eti8pc57uckn5pk34xmhosu17x5pci81kjt1ns1fu3fwgs8pyrs6m14x4ct8rbcwoi743ehtry8=
+nc4xwgpsoiifhbqotjzd4saxh9wo819uma4n888b6rchqw6b7sxqk78pc&url=3DaHR0cHM6Ly9=
+pY3MuZXZlbnRzL2ljY3MtMjAyMS8~&uid=3DMzY3MDQ2MQ~~&ucs=3D875aa839861819b946ca=
+64157ac91752).
+Early submissions are greatly appreciated. A single attending author may pr=
+esent a maximum of two papers onsite/online. The presentation, award submis=
+sion and proceedings submission for a paper must all be in English.
+You may submit your paper online via Online Submission and Review System. S=
+ubmitted papers (until 12-page limit) must comply with the requested format=
+ Template, be written in English, must not have been published before, not =
+be under review for any other conference or publication. Authors might also=
+ consider running their paper through an unoriginal text detection software=
+ such as www.turnitin.com.
+All submissions will be twice =C2=ABblind=C2=BB reviewed based on relevance=
+, timeliness, originality, importance and clarity of expression with convin=
+cing argumentative. Besides globally relevant meetings with internationally=
+ representative program/scientific committees guaranteeing a strict peer-re=
+viewing and paper selection process. After that you will receive an email n=
+otification containing an acceptance or rejection letter. This letter will =
+contain a submission number that you should include in all further correspo=
+ndences.
 
-De: jailhouse-dev@googlegroups.com <jailhouse-dev@googlegroups.com> En nomb=
-re de Jan Kiszka
-Enviado el: martes, 23 de febrero de 2021 14:21
-Para: Raimundo Sagarzazu <rsagarzazu@ulmapackaging.com>; jailhouse-dev@goog=
-legroups.com
-Asunto: Re: Invalid PCI config write, port cfc, size 1, address port: 8000f=
-940
+Publication and Indexation
+Accepted and registered Papers will be published in the 2021 International =
+Conference on Comprehensible Science Proceeding by Springer in a book of th=
+e Lecture Notes in Networks and Systems series, and then will be submitted =
+to ISI Proceedings, SCOPUS, and other indexations.
 
-On 22.02.21 09:27, Raimundo Sagarzazu wrote:
-Hi all,
+We are prepared to offer virtual participation options, for anyone who cann=
+ot or chooses not to travel due to the situation regarding COVID-19. Due to=
+ the restrictions caused this year by COVID-19 Pandemic, corresponding auth=
+ors with registration in ICADS2021 will have a discount of 50 USD in the IC=
+CS 2021 registration.
 
-I'm trying to give SMbus access to an inmate cell but the system hangs on t=
-his error: =E2=80=9CInvalid PCI config write, port cfc, size 1, address por=
-t: 8000f940=E2=80=9D when I try to load the cell.
+Important Deadlines:
 
-It=E2=80=99s a x86 host and we already have jailhouse running with two inma=
-te cells giving access to net devices, sharing memory, etc.
+01
 
-From "lspci", I have:
+Submission: February 21, March 10 2021
 
-              00:1f.1 SMBus: Intel Corporation Celeron N3350/Pentium N4200/=
-Atom E3900 Series SMBus Controller (rev 0b)
-                            DeviceName: Onboard - Other
-                            Subsystem: Intel Corporation Device 7270
-                            Flags: medium devsel, IRQ 20
-                            Memory at 91616000 (64-bit, non-prefetchable) [=
-size=3D256]
-                            I/O ports at f040 [size=3D32]
-                            Kernel driver in use: i801_smbus
+02
 
-From "jailhouse config create ...":
+Notification: March 30, 2020
 
-              /* MemRegion: 91516000-915160ff : 0000:00:1f.1 */
-              {
-                            .phys_start =3D 0x91516000,
-                            .virt_start =3D 0x91516000,
-                            .size =3D 0x1000,
-                            .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_W=
-RITE,
-              },
-...
-              /* Port I/O: f040-f05f : 0000:00:1f.1 */
-              PIO_RANGE(0xf040, 0x20),
-...
-              /* PCIDevice: 00:1f.1 */
-              {
-                            .type =3D JAILHOUSE_PCI_TYPE_DEVICE,
-                            .iommu =3D 1,
-                            .domain =3D 0x0,
-                            .bdf =3D 0xf9,
-                            .bar_mask =3D {
-                                          0xffffff00, 0xffffffff, 0x0000000=
-0,
-                                          0x00000000, 0xffffffe0, 0x0000000=
-0,
-                            },
-                            .caps_start =3D 0,
-                            .num_caps =3D 0,
-                            .num_msi_vectors =3D 0,
-                            .msi_64bits =3D 0,
-                            .msi_maskable =3D 0,
-                            .num_msix_vectors =3D 0,
-                            .msix_region_size =3D 0x0,
-                            .msix_address =3D 0x0,
-              },
+03
 
-First thing I can see is that lspci shows that device's memory region is:
-              Memory at 91616000 (64-bit, non-prefetchable) [size=3D256]
+Registration: April 21, 2021
 
-While "jailhouse config create ..." shows:
-              MemRegion: 91516000-915160ff : 0000:00:1f.1
+ICCS 2021 Convener
 
-Is that correct?
-
-Anyway, digging in the code I can see that the error comes on "hypervisor/p=
-ci.c, pci_cfg_write_moderate() ...", when trying to access address 0x40 but=
- device has no capabilities.
-
-Giving access to this device is not a big issue for us because we can share=
- "/dev/i2c-0" status over IVshmem but I'd like to known if there's somethin=
-g else I can do or it just can't be done.
-
-
-This config space register might be a side-band register. You could permit =
-access by modelling it like a capability, ie. create one at 0x04 of the nee=
-ded size (at least 1 byte) and with write permissions. Cap ID can be 0 or a=
-nything else invalid.
-
-Jan
-
-
---
-
-Siemens AG, T RDA IOT
-
-Corporate Competence Center Embedded Linux
---
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com<mailto:jailhouse-dev+uns=
-ubscribe@googlegroups.com>.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/0d6ec3fd-adf2-d54e-57c9-99244f280538%40siemens.com<https://gr=
-oups.google.com/d/msgid/jailhouse-dev/0d6ec3fd-adf2-d54e-57c9-99244f280538%=
-40siemens.com?utm_medium=3Demail&utm_source=3Dfooter>.
+=D0=AD=D1=82=D0=BE =D1=81=D0=BE=D0=BE=D0=B1=D1=89=D0=B5=D0=BD=D0=B8=D0=B5 =
+=D0=B1=D1=8B=D0=BB=D0=BE =D0=BE=D1=82=D0=BF=D1=80=D0=B0=D0=B2=D0=BB=D0=B5=
+=D0=BD=D0=BE jailhouse-dev@googlegroups.com =D0=BE=D1=82:
+John Dreamer | smart@digscience.org
+=D0=9E=D1=82=D0=BF=D0=B8=D1=81=D0=B0=D1=82=D1=8C=D1=81=D1=8F =D0=BE=D1=82 =
+=D1=80=D0=B0=D1=81=D1=81=D1=8B=D0=BB=D0=BA=D0=B8 (https://email.tb.ru/ru/eu=
+1_unsubscribe?hash=3D6eyp5h4rbs9usenq4nktinga1955tf96h5x58wx7kshzfpnytry4dh=
+oop9cuqfrqi4xob588fmihruycqwb599j39zsughm69zrtznswjewmbbkddeydyrwa7f9cqe1ei=
+b7sce5aaze8otfh4ohtfn1eti8pc57uckn5pk34xmhosu17x5pci81kjt1ns1fu3fwgs8pyrs6m=
+14x4ct8rbcwoi743ehtry8nc4xwfh1u3bqzxfmddqfmsx5hbh6th7ybhawoxweajcatehbkdbib=
+rp5u67rqxst6o58tjb753gj37gf4ocffy3ckufwmdzwzj85h9jm3ffgpqfdh857mhtyqoz748ho=
+qnzcdrdqxaqmrj8e1arg85dyxkgg4z7k19pq6xtwg5gxjoc4dbnp3qa5nuinxw435bcondqjpwp=
+kqcdtanfcyi8ra735bxb8kxy658zfquss)
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -274,337 +218,519 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/4f378475d9cb4393a902160f0da81f7f%40spc015.packaging.ulma.es.
+jailhouse-dev/E1lEpjl-eBwrOT-MZ%40ucs203-ucs-13.msgpanel.com.
 
---_000_4f378475d9cb4393a902160f0da81f7fspc015packagingulmaes_
+------=_Part_222668_1878947493.1614156097969
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www=
+.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8">
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:Consolas;
-	panose-1:2 11 6 9 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-language:EN-US;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-p
-	{mso-style-priority:99;
-	mso-margin-top-alt:auto;
-	margin-right:0cm;
-	mso-margin-bottom-alt:auto;
-	margin-left:0cm;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;}
-pre
-	{mso-style-priority:99;
-	mso-style-link:"HTML con formato previo Car";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:10.0pt;
-	font-family:"Courier New";}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	mso-margin-top-alt:auto;
-	margin-right:0cm;
-	mso-margin-bottom-alt:auto;
-	margin-left:0cm;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;}
-span.EstiloCorreo18
-	{mso-style-type:personal;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-span.HTMLconformatoprevioCar
-	{mso-style-name:"HTML con formato previo Car";
-	mso-style-priority:99;
-	mso-style-link:"HTML con formato previo";
-	font-family:"Consolas",serif;
-	mso-fareast-language:EN-US;}
-span.EstiloCorreo22
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:#1F497D;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:70.85pt 3.0cm 70.85pt 3.0cm;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8=
+">
+    <meta http-equiv=3D"X-UA-Compatible" content=3D"IE=3Dedge">
+    <meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-scale=
+=3D1, maximum-scale=3D1, user-scalable=3D0">
+    <meta name=3D"format-detection" content=3D"telephone=3Dno">
+    <title></title>
+    <!--[if (gte mso 9)|(IE)]>
+    <style type=3D"text/css">
+        table {border-collapse: collapse;}
+    </style>
+    <![endif]-->
+
 </head>
-<body lang=3D"ES" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">Yes, I =
-was trying it and it seems that it works.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D"><o:p>&n=
-bsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">Thankyo=
-u,<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D"><o:p>&n=
-bsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">Rai.<o:=
-p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D"><o:p>&n=
-bsp;</o:p></span></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0cm =
-0cm 0cm">
-<p class=3D"MsoNormal"><b><span style=3D"mso-fareast-language:ES">De:</span=
-></b><span style=3D"mso-fareast-language:ES"> jailhouse-dev@googlegroups.co=
-m &lt;jailhouse-dev@googlegroups.com&gt;
-<b>En nombre de </b>Jan Kiszka<br>
-<b>Enviado el:</b> martes, 23 de febrero de 2021 14:21<br>
-<b>Para:</b> Raimundo Sagarzazu &lt;rsagarzazu@ulmapackaging.com&gt;; jailh=
-ouse-dev@googlegroups.com<br>
-<b>Asunto:</b> Re: Invalid PCI config write, port cfc, size 1, address port=
-: 8000f940<o:p></o:p></span></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<p class=3D"MsoNormal">On 22.02.21 09:27, Raimundo Sagarzazu wrote:<span st=
-yle=3D"font-size:12.0pt;mso-fareast-language:ES"><o:p></o:p></span></p>
-</div>
-<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Hi all,</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">I'm trying to give SMbus access=
- to an inmate cell but the system hangs on this error: =E2=80=9CInvalid PCI=
- config write, port cfc, size 1, address port: 8000f940=E2=80=9D when I try=
- to load the cell.</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">It=E2=80=99s a x86 host and we =
-already have jailhouse running with two inmate cells giving access to net d=
-evices, sharing memory, etc.</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">From &quot;lspci&quot;, I have:=
-</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 00:1f.1 SMBus: Intel Corpor=
-ation Celeron N3350/Pentium N4200/Atom E3900 Series SMBus Controller (rev 0=
-b)</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DeviceName: Onboar=
-d - Other</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Subsystem: Intel C=
-orporation Device 7270</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Flags: medium devs=
-el, IRQ 20</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Memory at 91616000=
- (64-bit, non-prefetchable) [size=3D256]</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I/O ports at f040 =
-[size=3D32]</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Kernel driver in u=
-se: i801_smbus</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">From &quot;jailhouse config cre=
-ate ...&quot;:</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* MemRegion: 91516000-9151=
-60ff : 0000:00:1f.1 */</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .phys_start =3D 0x=
-91516000,</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .virt_start =3D 0x=
-91516000,</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .size =3D 0x1000,<=
-/span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .flags =3D JAILHOU=
-SE_MEM_READ | JAILHOUSE_MEM_WRITE,</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; },</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">...</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Port I/O: f040-f05f : 00=
-00:00:1f.1 */</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PIO_RANGE(0xf040, 0x20),</s=
-pan><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">...</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* PCIDevice: 00:1f.1 */</s=
-pan><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .type =3D JAILHOUS=
-E_PCI_TYPE_DEVICE,</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .iommu =3D 1,</spa=
-n><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .domain =3D 0x0,</=
-span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .bdf =3D 0xf9,</sp=
-an><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .bar_mask =3D {</s=
-pan><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0xffffff0=
-0, 0xffffffff, 0x00000000,</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x0000000=
-0, 0xffffffe0, 0x00000000,</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; },</span><o:p></o:=
-p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .caps_start =3D 0,=
-</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .num_caps =3D 0,</=
-span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .num_msi_vectors =
-=3D 0,</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .msi_64bits =3D 0,=
-</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .msi_maskable =3D =
-0,</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .num_msix_vectors =
-=3D 0,</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .msix_region_size =
-=3D 0x0,</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .msix_address =3D =
-0x0,</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; },</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">First thing I can see is that l=
-spci shows that device's memory region is:</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Memory at 91616000 (64-bit,=
- non-prefetchable) [size=3D256]</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">While &quot;jailhouse config cr=
-eate ...&quot; shows:</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MemRegion: 91516000-915160f=
-f : 0000:00:1f.1</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Is that correct?</span><o:p></o=
-:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Anyway, digging in the code I c=
-an see that the error comes on &quot;hypervisor/pci.c, pci_cfg_write_modera=
-te() ...&quot;, when trying to access address 0x40 but device has no capabi=
-lities.</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Giving access to this device is=
- not a big issue for us because we can share &quot;/dev/i2c-0&quot; status =
-over IVshmem but I'd like to known if there's something else I can do or it=
- just can't be done.</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;</span><o:p></o:p></p>
-</blockquote>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:&quot;Ti=
-mes New Roman&quot;,serif;mso-fareast-language:ES"><br>
-This config space register might be a side-band register. You could permit =
-access by modelling it like a capability, ie. create one at 0x04 of the nee=
-ded size (at least 1 byte) and with write permissions. Cap ID can be 0 or a=
-nything else invalid.<br>
-<br>
-Jan<br>
-<br>
-<o:p></o:p></span></p>
-<pre>-- <o:p></o:p></pre>
-<pre>Siemens AG, T RDA IOT<o:p></o:p></pre>
-<pre>Corporate Competence Center Embedded Linux<o:p></o:p></pre>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:&quot;Ti=
-mes New Roman&quot;,serif;mso-fareast-language:ES">--
-<br>
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br>
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to
-<a href=3D"mailto:jailhouse-dev&#43;unsubscribe@googlegroups.com">jailhouse=
--dev&#43;unsubscribe@googlegroups.com</a>.<br>
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/0d6ec3fd-adf2-d54e-57c9-99244f280538%40siemens.com=
-?utm_medium=3Demail&amp;utm_source=3Dfooter">
-https://groups.google.com/d/msgid/jailhouse-dev/0d6ec3fd-adf2-d54e-57c9-992=
-44f280538%40siemens.com</a>.<o:p></o:p></span></p>
-</div>
-</body>
+
+<body style=3D"min-width: 100%; padding: 0; background-color: #eeefef; marg=
+in: 0;">
+    <center class=3D"sb-wrapper" style=3D"width: 100%; table-layout: fixed;=
+ -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
+        <div class=3D"sb-webkit" style=3D"max-width: 560px; border-radius: =
+4px; overflow: hidden;">
+            <!--[if (gte mso 9)|(IE)]>
+                <table width=3D"560" align=3D"center" cellpadding=3D"0" cel=
+lspacing=3D"0" border=3D"0" style=3D"border-spacing: 0; font-family: sans-s=
+erif; color: #333;">
+                    <tr>
+                        <td style=3D"padding: 0;">
+            <![endif]-->
+                <table class=3D"sb-block s-image" style=3D"border-spacing: =
+0; font-family: sans-serif; color: #333; background-color: #fff; position: =
+relative; width: 100%; max-width: 560px; background-position: 50% 50%; marg=
+in: 0 auto; word-break: break-word;" width=3D"100%" bgcolor=3D"#fff"><tr><t=
+d class=3D"s-image__wrapper sb-full-width" style=3D"padding: 24px 0; width:=
+ 100%;" width=3D"100%"><!--[if !mso]><!-- --> <img class=3D"s-image__elemen=
+t" src=3D"https://s.tb.ru/uploads/mailings/t/b8eb1bf9-9740-4607-a664-a60330=
+35bd1f/1d6b90f5-423e-4664-a53e-043a17e4a558.jpeg" alt=3D"text image" style=
+=3D"border: 0; width: 100%; max-width: 560px; height: auto;"><!--<![endif]-=
+-><!--[if (gte mso 9)|(IE)]>
+                                 <img class=3D"s-image__element" width=3D"5=
+60" src=3D"https://s.tb.ru/uploads/mailings/t/b8eb1bf9-9740-4607-a664-a6033=
+035bd1f/1d6b90f5-423e-4664-a53e-043a17e4a558.jpeg" alt=3D"text image" style=
+=3D"border: 0; max-width: 560px; height: auto; width: 560px;">
+                            <![endif]--></td></tr></table>                <=
+table class=3D"sb-block s-text sb-text-dark" style=3D"border-spacing: 0; fo=
+nt-family: sans-serif; position: relative; width: 100%; max-width: 560px; b=
+ackground-position: 50% 50%; margin: 0 auto; word-break: break-word; color:=
+ #111; background-color: #ffffff;" cellspacing=3D"0" width=3D"100%" bgcolor=
+=3D"#ffffff"><tr><td style=3D"padding: 0;">
+                                            <table class=3D"s-text__wrapper=
+ sb-full-width" style=3D"border-spacing: 0; font-family: sans-serif; positi=
+on: relative; z-index: 2; width: 100%; color: #111;" width=3D"100%"><tr>  <=
+td class=3D"s-text__row" style=3D"padding: 14px; font-size: 0; text-align: =
+left;" align=3D"left">  <div class=3D"s-text__text-wrapper" style=3D"displa=
+y: inline-block; width: 100%; vertical-align: top; max-width: 100%;"><table=
+ style=3D"border-spacing: 0; font-family: sans-serif; color: #111;"><tr><td=
+ class=3D"s-text__text-cell" style=3D"padding: 10px;"><table class=3D"s-tex=
+t__list sb-table-layout-fixed" style=3D"border-spacing: 0; font-family: san=
+s-serif; table-layout: fixed; color: #111;">  <tr>  <td class=3D"s-text__it=
+em" style=3D"padding: 0;"><!--[if (gte mso 9)|(IE)]> <p class=3D"s-text__ov=
+erhead sb-font-p2 sb-break-all" style=3D"margin: 0; color: #909090; font-si=
+ze: 14px; line-height: 20px; word-break: break-all;"></p> <![endif]--><!--[=
+if !mso]><!-- --> <p class=3D"s-text__overhead sb-font-p2 sb-break-word" st=
+yle=3D"margin: 0; color: #909090; font-size: 14px; line-height: 20px; word-=
+break: break-word;"></p> <!--<![endif]--></td></tr>   <tr>  <td class=3D"s-=
+text__item  s-text__item_with-padding_small" style=3D"padding: 0; padding-t=
+op: 4px;"><!--[if (gte mso 9)|(IE)]> <p class=3D"s-text__title sb-break-all=
+ sb-align-center" style=3D"margin: 0; font-size: 28px; line-height: 36px; t=
+ext-align: center; word-break: break-all;"><b><font style=3D"color: #c44569=
+;">Dear Author</font></b>, </p> <![endif]--><!--[if !mso]><!-- --> <p class=
+=3D"s-text__title sb-break-word sb-align-center" style=3D"margin: 0; font-s=
+ize: 28px; line-height: 36px; text-align: center; word-break: break-word;">=
+<b><font style=3D"color: #c44569;">Dear Author</font></b>, </p> <!--<![endi=
+f]--></td></tr>   <tr>  <td class=3D"s-text__item  s-text__item_with-paddin=
+g" style=3D"padding: 0; padding-top: 16px;"><!--[if (gte mso 9)|(IE)]> <p c=
+lass=3D"s-text__subtitle sb-break-all sb-align-center" style=3D"margin: 0; =
+font-size: 20px; line-height: 28px; text-align: center; word-break: break-a=
+ll;"><b><font style=3D"color: #574b90;"><font style></font>The submission d=
+eadline has been extended till <br>10th March 2021 as we understand many ar=
+e facing unexpected challenges at this time.<br>Grab the opportunity to sub=
+mit your full research paper of 6 - 12 pages.</font></b><br><b><font style=
+=3D"color: #904b90;"></font></b></p> <![endif]--><!--[if !mso]><!-- --> <p =
+class=3D"s-text__subtitle sb-break-word sb-align-center" style=3D"margin: 0=
+; font-size: 20px; line-height: 28px; text-align: center; word-break: break=
+-word;"><b><font style=3D"color: #574b90;"><font style></font>The submissio=
+n deadline has been extended till <br>10th March 2021 as we understand many=
+ are facing unexpected challenges at this time.<br>Grab the opportunity to =
+submit your full research paper of 6 - 12 pages.</font></b><br><b><font sty=
+le=3D"color: #904b90;"></font></b></p> <!--<![endif]--></td></tr>   <tr>  <=
+td class=3D"s-text__item  s-text__item_with-padding" style=3D"padding: 0; p=
+adding-top: 16px;"><!--[if (gte mso 9)|(IE)]> <p class=3D"sb-font-p1 sb-bre=
+ak-all sb-align-left" style=3D"margin: 0; font-size: 16px; line-height: 24p=
+x; text-align: left; word-break: break-all;">The 2021 International Confere=
+nce on Comprehensible Science (ICCS 2021) will be held in Eilat, Israel, on=
+ June 18-20, 2021. Conference website is <font color=3D"#546de5"><a href=3D=
+"https://ics.events/iccs-2021/" target=3D"_blank" class=3D"sb-link" data-li=
+nk-id=3D"0" style=3D"color: inherit; text-decoration: underline;">https://i=
+cs.events/iccs-2021/</a></font>.<br>Early submissions are greatly appreciat=
+ed. A single attending author may present a maximum of two papers onsite/on=
+line. The presentation, award submission and proceedings submission for a p=
+aper must all be in English. <br>You may submit your paper online via Onlin=
+e Submission and Review System. Submitted papers (until 12-page limit) must=
+ comply with the requested format Template, be written in English, must not=
+ have been published before, not be under review for any other conference o=
+r publication. Authors might also consider running their paper through an u=
+noriginal text detection software such as www.turnitin.com. <br>All submiss=
+ions will be twice =C2=ABblind=C2=BB reviewed based on relevance, timelines=
+s, originality, importance and clarity of expression with convincing argume=
+ntative. Besides globally relevant meetings with internationally representa=
+tive program/scientific committees guaranteeing a strict peer-reviewing and=
+ paper selection process. After that you will receive an email notification=
+ containing an acceptance or rejection letter. This letter will contain a s=
+ubmission number that you should include in all further correspondences.<br=
+><br><b><font style=3D"color: #c44569;">Publication and Indexation</font></=
+b><br>Accepted and registered Papers will be published in the 2021 Internat=
+ional Conference on Comprehensible Science Proceeding by <b><font style=3D"=
+color: #c44569;">Springer in a book of the Lecture Notes in Networks and Sy=
+stems</font></b> series, and then will be submitted to <b><font style=3D"co=
+lor: #f19066;">ISI Proceedings, SCOPUS</font></b>, and other indexations.<b=
+r><br>We are prepared to offer virtual participation options, for anyone wh=
+o cannot or chooses not to travel due to the situation regarding COVID-19. =
+Due to the restrictions caused this year by COVID-19 Pandemic, correspondin=
+g authors with registration in ICADS2021 will have a <b><font style=3D"colo=
+r: #c44569;">discount of 50 USD</font></b> in the ICCS 2021 registration.<b=
+r></p> <![endif]--><!--[if !mso]><!-- --> <p class=3D"sb-font-p1 sb-break-w=
+ord sb-align-left" style=3D"margin: 0; font-size: 16px; line-height: 24px; =
+text-align: left; word-break: break-word;">The 2021 International Conferenc=
+e on Comprehensible Science (ICCS 2021) will be held in Eilat, Israel, on J=
+une 18-20, 2021. Conference website is <font color=3D"#546de5"><a href=3D"h=
+ttps://email.tb.ru/ru/eu1_link_tracker?hash=3D6tw14x9o8fz18yriep6ujhqbzhz5t=
+f96h5x58wx7kshzfpnytry4dhoop9cuqfrqi4xob588fmihruycqwb599j39zsughm69zrtznsw=
+jewmbbkddeydyrwa7f9cqe1eib7sce5aaze8otfh4ohtfn1eti8pc57uckn5pk34xmhosu17x5p=
+ci81kjt1ns1fu3fwgs8pyrs6m14x4ct8rbcwoi743ehtry8nc4xwgpsoiifhbqotjzd4saxh9wo=
+819uma4n888b6rchqw6b7sxqk78pc&url=3DaHR0cHM6Ly9pY3MuZXZlbnRzL2ljY3MtMjAyMS8=
+~&uid=3DMzY3MDQ2MQ~~&ucs=3D875aa839861819b946ca64157ac91752" target=3D"_bla=
+nk" class=3D"sb-link" data-link-id=3D"0" style=3D"color: inherit; text-deco=
+ration: underline;">https://ics.events/iccs-2021/</a></font>.<br>Early subm=
+issions are greatly appreciated. A single attending author may present a ma=
+ximum of two papers onsite/online. The presentation, award submission and p=
+roceedings submission for a paper must all be in English. <br>You may submi=
+t your paper online via Online Submission and Review System. Submitted pape=
+rs (until 12-page limit) must comply with the requested format Template, be=
+ written in English, must not have been published before, not be under revi=
+ew for any other conference or publication. Authors might also consider run=
+ning their paper through an unoriginal text detection software such as www.=
+turnitin.com. <br>All submissions will be twice =C2=ABblind=C2=BB reviewed =
+based on relevance, timeliness, originality, importance and clarity of expr=
+ession with convincing argumentative. Besides globally relevant meetings wi=
+th internationally representative program/scientific committees guaranteein=
+g a strict peer-reviewing and paper selection process. After that you will =
+receive an email notification containing an acceptance or rejection letter.=
+ This letter will contain a submission number that you should include in al=
+l further correspondences.<br><br><b><font style=3D"color: #c44569;">Public=
+ation and Indexation</font></b><br>Accepted and registered Papers will be p=
+ublished in the 2021 International Conference on Comprehensible Science Pro=
+ceeding by <b><font style=3D"color: #c44569;">Springer in a book of the Lec=
+ture Notes in Networks and Systems</font></b> series, and then will be subm=
+itted to <b><font style=3D"color: #f19066;">ISI Proceedings, SCOPUS</font><=
+/b>, and other indexations.<br><br>We are prepared to offer virtual partici=
+pation options, for anyone who cannot or chooses not to travel due to the s=
+ituation regarding COVID-19. Due to the restrictions caused this year by CO=
+VID-19 Pandemic, corresponding authors with registration in ICADS2021 will =
+have a <b><font style=3D"color: #c44569;">discount of 50 USD</font></b> in =
+the ICCS 2021 registration.<br></p> <!--<![endif]--></td></tr>   </table></=
+td></tr></table></div>  </td></tr></table>=20
+                                        </td>
+                                    </tr>
+                                </table>
+                                            <table class=3D"sb-block s-adva=
+ntages sb-text-dark" style=3D"border-spacing: 0; font-family: sans-serif; p=
+osition: relative; width: 100%; max-width: 560px; background-position: 50% =
+50%; margin: 0 auto; word-break: break-word; color: #111; background-color:=
+ #ffffff;" cellspacing=3D"0" width=3D"100%" bgcolor=3D"#ffffff"><tr><td sty=
+le=3D"padding: 0;">
+                                            <table class=3D"s-advantages__w=
+rapper sb-full-width sb-table-layout-fixed" style=3D"border-spacing: 0; fon=
+t-family: sans-serif; position: relative; z-index: 2; min-height: 48px; wid=
+th: 100%; table-layout: fixed; color: #111;" width=3D"100%">  <tr>  <td cla=
+ss=3D"s-advantages__heading sb-full-width" style=3D"padding: 24px 24px 20px=
+; width: 100%;" width=3D"100%">   <!--[if (gte mso 9)|(IE)]> <p class=3D"s-=
+advantages__main-title sb-break-all sb-align-left" style=3D"margin: 0; font=
+-size: 28px; line-height: 36px; text-align: left; word-break: break-all;"><=
+b><font style=3D"color: #c44569;">Important Deadlines:</font></b></p> <![en=
+dif]--><!--[if !mso]><!-- --> <p class=3D"s-advantages__main-title sb-align=
+-left" style=3D"margin: 0; font-size: 28px; line-height: 36px; text-align: =
+left;"><b><font style=3D"color: #c44569;">Important Deadlines:</font></b></=
+p> <!--<![endif]--></td></tr>    <tr>  <td class=3D"s-advantages__row" styl=
+e=3D"padding: 0 20px 24px; font-size: 0; text-align: left;" align=3D"left">=
+<!--[if (gte mso 9)|(IE)]>
+                                            <table class=3D"sb-full-width s=
+b-table-layout-fixed" style=3D"border-spacing: 0; font-family: sans-serif; =
+width: 100%; table-layout: fixed; color: #111;" width=3D"100%">
+                                                <tr>
+                                        <![endif]-->  <!--[if (gte mso 9)|(=
+IE)]>
+                                                <td width=3D"64" valign=3D"=
+top" style=3D"padding: 0;">
+                                            <![endif]--><div class=3D"s-adv=
+antages__number-wrapper" style=3D"display: inline-block; width: 100%; max-w=
+idth: 64px; vertical-align: top;"><table class=3D"sb-full-width sb-table-la=
+yout-fixed" style=3D"border-spacing: 0; font-family: sans-serif; width: 100=
+%; table-layout: fixed; color: #111;" width=3D"100%"><tr><td class=3D"s-adv=
+antages__number-cell" style=3D"padding: 0 4px 4px;"> <p class=3D"s-advantag=
+es__number sb-font-arial" style=3D"margin: 0; font-size: 32px; line-height:=
+ 40px; color: #e3e4e6; white-space: nowrap; overflow: hidden; font-family: =
+Arial,sans-serif;">01</p> </td></tr></table></div><!--[if (gte mso 9)|(IE)]=
+>
+                                                </td>
+                                            <![endif]-->   <!--[if (gte mso=
+ 9)|(IE)]>
+                                            <td width=3D"456" valign=3D"top=
+" style=3D"padding: 0;">
+                                        <![endif]--><div class=3D"s-advanta=
+ges__text" style=3D"display: inline-block; width: 100%; max-width: 456px; v=
+ertical-align: top;"><table class=3D"sb-full-width" style=3D"border-spacing=
+: 0; font-family: sans-serif; width: 100%; color: #111;" width=3D"100%"><tr=
+><td class=3D"s-advantages__text-cell" style=3D"padding: 8px 4px 0;"><table=
+ class=3D"sb-full-width sb-table-layout-fixed" style=3D"border-spacing: 0; =
+font-family: sans-serif; width: 100%; table-layout: fixed; color: #111;" wi=
+dth=3D"100%">  <tr><td class=3D"s-advantages__text-row" style=3D"padding: 0=
+;"><!--[if (gte mso 9)|(IE)]> <p class=3D"s-advantages__title sb-break-all =
+sb-align-left" style=3D"margin: 0; font-size: 20px; line-height: 28px; text=
+-align: left; word-break: break-all;"><b><font style=3D"color: #c44569;">Su=
+bmission: 	<strike>February 21</strike>, March 10 2021</font></b></p> <![en=
+dif]--><!--[if !mso]><!-- --> <p class=3D"s-advantages__title sb-align-left=
+" style=3D"margin: 0; font-size: 20px; line-height: 28px; text-align: left;=
+"><b><font style=3D"color: #c44569;">Submission: 	<strike>February 21</stri=
+ke>, March 10 2021</font></b></p> <!--<![endif]--></td></tr>   <tr><td clas=
+s=3D"s-advantages__text-row  s-advantages__text-row_with-padding" style=3D"=
+padding: 0; padding-top: 8px;"><!--[if (gte mso 9)|(IE)]> <p class=3D"s-adv=
+antages__subtitle sb-font-p2 sb-break-all sb-align-left" style=3D"margin: 0=
+; color: #959ba4; font-size: 14px; line-height: 20px; text-align: left; wor=
+d-break: break-all;"></p> <![endif]--><!--[if !mso]><!-- --> <p class=3D"s-=
+advantages__subtitle sb-font-p2 sb-align-left" style=3D"margin: 0; color: #=
+959ba4; font-size: 14px; line-height: 20px; text-align: left;"></p> <!--<![=
+endif]--></td></tr>  </table></td></tr></table></div><!--[if (gte mso 9)|(I=
+E)]>
+                                            </td>
+                                        <![endif]-->  <!--[if (gte mso 9)|(=
+IE)]>
+                                                </tr>
+                                            </table>
+                                        <![endif]--></td></tr>  <tr>  <td c=
+lass=3D"s-advantages__row" style=3D"padding: 0 20px 24px; font-size: 0; tex=
+t-align: left;" align=3D"left"><!--[if (gte mso 9)|(IE)]>
+                                            <table class=3D"sb-full-width s=
+b-table-layout-fixed" style=3D"border-spacing: 0; font-family: sans-serif; =
+width: 100%; table-layout: fixed; color: #111;" width=3D"100%">
+                                                <tr>
+                                        <![endif]-->  <!--[if (gte mso 9)|(=
+IE)]>
+                                                <td width=3D"64" valign=3D"=
+top" style=3D"padding: 0;">
+                                            <![endif]--><div class=3D"s-adv=
+antages__number-wrapper" style=3D"display: inline-block; width: 100%; max-w=
+idth: 64px; vertical-align: top;"><table class=3D"sb-full-width sb-table-la=
+yout-fixed" style=3D"border-spacing: 0; font-family: sans-serif; width: 100=
+%; table-layout: fixed; color: #111;" width=3D"100%"><tr><td class=3D"s-adv=
+antages__number-cell" style=3D"padding: 0 4px 4px;"> <p class=3D"s-advantag=
+es__number sb-font-arial" style=3D"margin: 0; font-size: 32px; line-height:=
+ 40px; color: #e3e4e6; white-space: nowrap; overflow: hidden; font-family: =
+Arial,sans-serif;">02</p> </td></tr></table></div><!--[if (gte mso 9)|(IE)]=
+>
+                                                </td>
+                                            <![endif]-->   <!--[if (gte mso=
+ 9)|(IE)]>
+                                            <td width=3D"456" valign=3D"top=
+" style=3D"padding: 0;">
+                                        <![endif]--><div class=3D"s-advanta=
+ges__text" style=3D"display: inline-block; width: 100%; max-width: 456px; v=
+ertical-align: top;"><table class=3D"sb-full-width" style=3D"border-spacing=
+: 0; font-family: sans-serif; width: 100%; color: #111;" width=3D"100%"><tr=
+><td class=3D"s-advantages__text-cell" style=3D"padding: 8px 4px 0;"><table=
+ class=3D"sb-full-width sb-table-layout-fixed" style=3D"border-spacing: 0; =
+font-family: sans-serif; width: 100%; table-layout: fixed; color: #111;" wi=
+dth=3D"100%">  <tr><td class=3D"s-advantages__text-row" style=3D"padding: 0=
+;"><!--[if (gte mso 9)|(IE)]> <p class=3D"s-advantages__title sb-break-all =
+sb-align-left" style=3D"margin: 0; font-size: 20px; line-height: 28px; text=
+-align: left; word-break: break-all;"><b><font style=3D"color: #c44569;">No=
+tification: 	March 30, 2020</font></b></p> <![endif]--><!--[if !mso]><!-- -=
+-> <p class=3D"s-advantages__title sb-align-left" style=3D"margin: 0; font-=
+size: 20px; line-height: 28px; text-align: left;"><b><font style=3D"color: =
+#c44569;">Notification: 	March 30, 2020</font></b></p> <!--<![endif]--></td=
+></tr>   <tr><td class=3D"s-advantages__text-row  s-advantages__text-row_wi=
+th-padding" style=3D"padding: 0; padding-top: 8px;"><!--[if (gte mso 9)|(IE=
+)]> <p class=3D"s-advantages__subtitle sb-font-p2 sb-break-all sb-align-lef=
+t" style=3D"margin: 0; color: #959ba4; font-size: 14px; line-height: 20px; =
+text-align: left; word-break: break-all;"></p> <![endif]--><!--[if !mso]><!=
+-- --> <p class=3D"s-advantages__subtitle sb-font-p2 sb-align-left" style=
+=3D"margin: 0; color: #959ba4; font-size: 14px; line-height: 20px; text-ali=
+gn: left;"></p> <!--<![endif]--></td></tr>  </table></td></tr></table></div=
+><!--[if (gte mso 9)|(IE)]>
+                                            </td>
+                                        <![endif]-->  <!--[if (gte mso 9)|(=
+IE)]>
+                                                </tr>
+                                            </table>
+                                        <![endif]--></td></tr>  <tr>  <td c=
+lass=3D"s-advantages__row" style=3D"padding: 0 20px 24px; font-size: 0; tex=
+t-align: left;" align=3D"left"><!--[if (gte mso 9)|(IE)]>
+                                            <table class=3D"sb-full-width s=
+b-table-layout-fixed" style=3D"border-spacing: 0; font-family: sans-serif; =
+width: 100%; table-layout: fixed; color: #111;" width=3D"100%">
+                                                <tr>
+                                        <![endif]-->  <!--[if (gte mso 9)|(=
+IE)]>
+                                                <td width=3D"64" valign=3D"=
+top" style=3D"padding: 0;">
+                                            <![endif]--><div class=3D"s-adv=
+antages__number-wrapper" style=3D"display: inline-block; width: 100%; max-w=
+idth: 64px; vertical-align: top;"><table class=3D"sb-full-width sb-table-la=
+yout-fixed" style=3D"border-spacing: 0; font-family: sans-serif; width: 100=
+%; table-layout: fixed; color: #111;" width=3D"100%"><tr><td class=3D"s-adv=
+antages__number-cell" style=3D"padding: 0 4px 4px;"> <p class=3D"s-advantag=
+es__number sb-font-arial" style=3D"margin: 0; font-size: 32px; line-height:=
+ 40px; color: #e3e4e6; white-space: nowrap; overflow: hidden; font-family: =
+Arial,sans-serif;">03</p> </td></tr></table></div><!--[if (gte mso 9)|(IE)]=
+>
+                                                </td>
+                                            <![endif]-->   <!--[if (gte mso=
+ 9)|(IE)]>
+                                            <td width=3D"456" valign=3D"top=
+" style=3D"padding: 0;">
+                                        <![endif]--><div class=3D"s-advanta=
+ges__text" style=3D"display: inline-block; width: 100%; max-width: 456px; v=
+ertical-align: top;"><table class=3D"sb-full-width" style=3D"border-spacing=
+: 0; font-family: sans-serif; width: 100%; color: #111;" width=3D"100%"><tr=
+><td class=3D"s-advantages__text-cell" style=3D"padding: 8px 4px 0;"><table=
+ class=3D"sb-full-width sb-table-layout-fixed" style=3D"border-spacing: 0; =
+font-family: sans-serif; width: 100%; table-layout: fixed; color: #111;" wi=
+dth=3D"100%">  <tr><td class=3D"s-advantages__text-row" style=3D"padding: 0=
+;"><!--[if (gte mso 9)|(IE)]> <p class=3D"s-advantages__title sb-break-all =
+sb-align-left" style=3D"margin: 0; font-size: 20px; line-height: 28px; text=
+-align: left; word-break: break-all;"><b><font style=3D"color: #c44569;">Re=
+gistration:	April 21, 2021</font></b></p> <![endif]--><!--[if !mso]><!-- --=
+> <p class=3D"s-advantages__title sb-align-left" style=3D"margin: 0; font-s=
+ize: 20px; line-height: 28px; text-align: left;"><b><font style=3D"color: #=
+c44569;">Registration:	April 21, 2021</font></b></p> <!--<![endif]--></td><=
+/tr>   <tr><td class=3D"s-advantages__text-row  s-advantages__text-row_with=
+-padding" style=3D"padding: 0; padding-top: 8px;"><!--[if (gte mso 9)|(IE)]=
+> <p class=3D"s-advantages__subtitle sb-font-p2 sb-break-all sb-align-left"=
+ style=3D"margin: 0; color: #959ba4; font-size: 14px; line-height: 20px; te=
+xt-align: left; word-break: break-all;"></p> <![endif]--><!--[if !mso]><!--=
+ --> <p class=3D"s-advantages__subtitle sb-font-p2 sb-align-left" style=3D"=
+margin: 0; color: #959ba4; font-size: 14px; line-height: 20px; text-align: =
+left;"></p> <!--<![endif]--></td></tr>  </table></td></tr></table></div><!-=
+-[if (gte mso 9)|(IE)]>
+                                            </td>
+                                        <![endif]-->  <!--[if (gte mso 9)|(=
+IE)]>
+                                                </tr>
+                                            </table>
+                                        <![endif]--></td></tr>   </table>=
+=20
+                                        </td>
+                                    </tr>
+                                </table>
+                                            <table class=3D"sb-block s-head=
+er sb-text-dark" style=3D"border-spacing: 0; font-family: sans-serif; posit=
+ion: relative; width: 100%; max-width: 560px; background-position: 50% 50%;=
+ margin: 0 auto; word-break: break-word; color: #111; background-color: #ff=
+ffff;" cellspacing=3D"0" width=3D"100%" bgcolor=3D"#ffffff"><tr><td style=
+=3D"padding: 0;">
+                                            <table class=3D"s-header__wrapp=
+er sb-full-width" style=3D"border-spacing: 0; font-family: sans-serif; posi=
+tion: relative; z-index: 2; width: 100%; color: #111;" width=3D"100%"><tr> =
+ <td class=3D"s-header__row" style=3D"padding: 10px 14px; font-size: 0; tex=
+t-align: left;" align=3D"left"><!--[if (gte mso 9)|(IE)]>
+                                    <table class=3D"sb-full-width" style=3D=
+"border-spacing: 0; font-family: sans-serif; width: 100%; color: #111;" wid=
+th=3D"100%">
+                                        <tr>
+                                <![endif]-->  <!--[if (gte mso 9)|(IE)]>
+                                        <td width=3D"100%" valign=3D"top" s=
+tyle=3D"padding: 0;">
+                                    <![endif]--><div class=3D"s-header__log=
+o" style=3D"display: inline-block; width: 100%; max-width: 100%; vertical-a=
+lign: middle;"><table class=3D"sb-full-width" style=3D"border-spacing: 0; f=
+ont-family: sans-serif; width: 100%; color: #111;" width=3D"100%"><tr>  <td=
+ class=3D"s-header__logo-cell  s-header__logo-cell_centered" style=3D"paddi=
+ng: 10px; text-align: center;" align=3D"center">  <img class=3D"s-header__l=
+ogo-image" src=3D"https://s.tb.ru/uploads/mailings/t/1fa30742-fafc-4152-a4f=
+f-127b1fc3a819/feed057f-b6aa-4ec2-8dbf-a92e1b3fc46a.jpeg" alt=3D"=D0=A2=D0=
+=B5=D0=BA=D1=81=D1=82 =D0=BB=D0=BE=D0=B3=D0=BE=D1=82=D0=B8=D0=BF=D0=B0" sty=
+le=3D"border: 0; display: inline-block; width: 246px; height: auto;" width=
+=3D"246">  </td></tr></table></div><!--[if (gte mso 9)|(IE)]>
+                                        </td>
+                                    <![endif]-->   <!--[if (gte mso 9)|(IE)=
+]>
+                                        </tr>
+                                    </table>
+                                <![endif]--></td></tr></table>=20
+                                        </td>
+                                    </tr>
+                                </table>
+                                            <table class=3D"sb-block s-butt=
+ons sb-text-dark" style=3D"border-spacing: 0; font-family: sans-serif; posi=
+tion: relative; width: 100%; max-width: 560px; background-position: 50% 50%=
+; margin: 0 auto; word-break: break-word; color: #111; background-color: #f=
+fffff;" cellspacing=3D"0" width=3D"100%" bgcolor=3D"#ffffff"><tr><td style=
+=3D"padding: 0;">
+                                            <table class=3D"s-buttons__wrap=
+per sb-full-width" style=3D"border-spacing: 0; font-family: sans-serif; pos=
+ition: relative; z-index: 2; width: 100%; color: #111;" width=3D"100%"><tr>=
+  <td class=3D"s-buttons__content" style=3D"padding: 18px; text-align: left=
+; font-size: 0;" align=3D"left"><!--[if (gte mso 9)|(IE)]>
+                                    <table style=3D"border-spacing: 0; font=
+-family: sans-serif; color: #111;">
+                                        <tr>
+                                <![endif]-->    <!--[if (gte mso 9)|(IE)]>
+                                        <td style=3D"padding: 0;">
+                                    <![endif]-->    <!--[if (gte mso 9)|(IE=
+)]>
+                    <v:roundrect xmlns:v=3D"urn:schemas-microsoft-com:vml" =
+xmlns:w=3D"urn:schemas-microsoft-com:office:word" href=3D"https://ics.event=
+s" style=3D"v-text-anchor: middle; mso-wrap-style: none; mso-position-horiz=
+ontal: center; height: 40px;" arcsize=3D"53%" strokecolor=3D"hsla(0,0%,7%,.=
+16)" strokeweight=3D"2px">
+                        <v:fill opacity=3D"0%"></v:fill>
+                        <v:textbox style=3D"mso-fit-shape-to-text:true">
+                            <center class=3D"sb-button-outlook sb-font-aria=
+l" style=3D"padding: 0 20px; font-size: 14px; line-height: 20px; text-align=
+: center; font-family: Arial,sans-serif; color: #111111;"> ICCS 2021 Conven=
+er </center>
+                        </v:textbox>
+                    </v:roundrect>
+                    <![endif]--><!--[if !mso]><!-- -->  <a class=3D"sb-butt=
+on sb-button_flat s-buttons__button pointer-events-auto  sb-button-scheme-d=
+ark" style=3D"display: inline-block; vertical-align: top; margin: 6px; font=
+-size: 14px; line-height: 20px; text-align: center; padding: 8px 20px; bord=
+er-radius: 21px; text-decoration: none; word-break: break-all; color: #111;=
+ border-color: #fff; border: 2px solid hsla(0,0%,7%,.16);" href=3D"https://=
+email.tb.ru/ru/eu1_link_tracker?hash=3D64d3n5onj8tr7hriep6ujhqbzhz5tf96h5x5=
+8wx7kshzfpnytry4dhoop9cuqfrqi4xob588fmihruycqwb599j39zsughm69zrtznswjewmbbk=
+ddeydyrwa7f9cqe1eib7sce5aaze8otfh4ohtfn1eti8pc57uckn5pk34xmhosu17x5pci81kjt=
+1ns1fu3fwgs8pyrs6m14x4ct8rbcwoi743ehtry8nc4xwbu9h5hcwerw9a8ppp7ctee39hdcauy=
+5khjgmnckqw6b7sxqk78pc&url=3DaHR0cHM6Ly9pY3MuZXZlbnRz&uid=3DMzY3MDQ2MQ~~&uc=
+s=3D52310fa0f313d3356c7fa1a697933d9e"><!--[if (gte mso 9)|(IE)]>
+                        <i style=3D"letter-spacing: 20px; mso-font-width: -=
+100%; mso-text-raise: 4pt;">&nbsp;</i>
+                        <span style=3D"mso-text-raise: 4pt;">
+                    <!--<![endif]--> ICCS 2021 Convener <!--[if (gte mso 9)=
+|(IE)]>
+                        </span>
+                        <i style=3D"letter-spacing: 20px; mso-font-width: -=
+100%">&nbsp;</i>
+                    <!--<![endif]--> </a>  <!--<![endif]-->   <!--[if (gte =
+mso 9)|(IE)]>
+                                        </td>
+                                    <![endif]-->  <!--[if (gte mso 9)|(IE)]=
+>
+                                        </tr>
+                                    </table>
+                                <![endif]--></td></tr></table>=20
+                                        </td>
+                                    </tr>
+                                </table>
+                                             <table class=3D"sb-block s-foo=
+ter-type-2 sb-text-dark" style=3D"border-spacing: 0; font-family: sans-seri=
+f; position: relative; width: 100%; max-width: 560px; background-position: =
+50% 50%; margin: 0 auto; word-break: break-word; color: #111; background-co=
+lor: #ffffff;" cellspacing=3D"0" width=3D"100%" bgcolor=3D"#ffffff"><tr><td=
+ style=3D"padding: 0;">
+                                            <table class=3D"s-footer-type-2=
+__wrapper sb-full-width" style=3D"border-spacing: 0; font-family: sans-seri=
+f; position: relative; z-index: 2; width: 100%; color: #111;" width=3D"100%=
+"><tr>  <td class=3D"s-footer-type-2__row" style=3D"width: 100%; padding: 2=
+4px 24px 20px; text-align: center;" width=3D"100%" align=3D"center">    </t=
+d></tr></table>=20
+                                        </td>
+                                    </tr>
+                                </table>
+                                         <!--[if (gte mso 9)|(IE)]>
+                        </td>
+                    </tr>
+                </table>
+            <![endif]-->
+        </div>
+    </center>
+<table bgcolor=3D"white" align=3D"center" width=3D"100%"><tr><td align=3D"c=
+enter">
+ <span style=3D"font-family: arial,helvetica,sans-serif; color: black; font=
+-size: 12px;">
+  =D0=AD=D1=82=D0=BE =D1=81=D0=BE=D0=BE=D0=B1=D1=89=D0=B5=D0=BD=D0=B8=D0=B5=
+ =D0=B1=D1=8B=D0=BB=D0=BE =D0=BE=D1=82=D0=BF=D1=80=D0=B0=D0=B2=D0=BB=D0=B5=
+=D0=BD=D0=BE jailhouse-dev@googlegroups.com =D0=BE=D1=82: <br/>
+    John Dreamer | smart@digscience.org <br/>
+    <a href=3D"https://email.tb.ru/ru/eu1_unsubscribe?hash=3D6eyp5h4rbs9use=
+nq4nktinga1955tf96h5x58wx7kshzfpnytry4dhoop9cuqfrqi4xob588fmihruycqwb599j39=
+zsughm69zrtznswjewmbbkddeydyrwa7f9cqe1eib7sce5aaze8otfh4ohtfn1eti8pc57uckn5=
+pk34xmhosu17x5pci81kjt1ns1fu3fwgs8pyrs6m14x4ct8rbcwoi743ehtry8nc4xwfh1u3bqz=
+xfmddqfmsx5hbh6th7ybhawoxweajcatehbkdbibrp5u67rqxst6o58tjb753gj37gf4ocffy3c=
+kufwmdzwzj85h9jm3ffgpqfdh857mhtyqoz748hoqnzcdrdqxaqmrj8e1arg85dyxkgg4z7k19p=
+q6xtwg5gxjoc4dbnp3qa5nuinxw435bcondqjpwpkqcdtanfcyi8ra735bxb8kxy658zfquss" =
+style=3D"color: black;">=D0=9E=D1=82=D0=BF=D0=B8=D1=81=D0=B0=D1=82=D1=8C=D1=
+=81=D1=8F =D0=BE=D1=82 =D1=80=D0=B0=D1=81=D1=81=D1=8B=D0=BB=D0=BA=D0=B8</a>
+ </span>
+</td></tr></table><center><table><tr><td><img src=3D"https://email.tb.ru/ru=
+/eu1_read_tracker/3670461?hash=3D6ddqujjpzwpx7xpqa78tagai94u5tf96h5x58wx7ks=
+hzfpnytry4dhoop9cuqfrqi4xob588fmihruycqwb599j39zsughm69zrtznswjewmbbkddeydy=
+rwa7f9cqe1eib7sce5aaze8otfh4ohtfn1eti8pc57uckn5pk34xmhosu17x5pci81kjt1ns1fu=
+3fwgs8pyrs6m14x4ct8rbcwoi743ehtry8nc4xwdxkkiknw7ibbncuec7dbcew6ic" width=3D=
+"1" height=3D"1" alt=3D"" title=3D"" border=3D"0"></td></tr></table></cente=
+r></body>
 </html>
 
 <p></p>
@@ -616,9 +742,10 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/4f378475d9cb4393a902160f0da81f7f%40spc015.packagin=
-g.ulma.es?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com=
-/d/msgid/jailhouse-dev/4f378475d9cb4393a902160f0da81f7f%40spc015.packaging.=
-ulma.es</a>.<br />
+om/d/msgid/jailhouse-dev/E1lEpjl-eBwrOT-MZ%40ucs203-ucs-13.msgpanel.com?utm=
+_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/msgid/jail=
+house-dev/E1lEpjl-eBwrOT-MZ%40ucs203-ucs-13.msgpanel.com</a>.<br />
 
---_000_4f378475d9cb4393a902160f0da81f7fspc015packagingulmaes_--
+------=_Part_222668_1878947493.1614156097969--
+
+--MWxFcGpsLWVCd3JPVC1NWg==--
