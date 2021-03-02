@@ -1,126 +1,71 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBHWF6SAQMGQEGXZOOTA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC7PTOEB2ALRBTOF62AQMGQEHIN3W2Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33e.google.com (mail-wm1-x33e.google.com [IPv6:2a00:1450:4864:20::33e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52C2C328726
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  1 Mar 2021 18:21:35 +0100 (CET)
-Received: by mail-wm1-x33e.google.com with SMTP id m17sf826346wml.3
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 01 Mar 2021 09:21:35 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1614619295; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=xLkJzPSp7wDp5XT4o+RCHlkBMeCyjzRzUHT5lDgVhc8zEBYQW38a3QVrW6G3DtgH55
-         69nn8/OQ9/AkRb6XTfI0jUuzsfJNF0FhMgWcoM/fV/3MimdBlkOIyeRQPWtzOZBIqAu0
-         YA1tL1VhnSKb+IdAQj0wNBKM7Zix8MlWUZoSGscUemf/FDVwWHtUjKYGnhQ22fdt+59U
-         82fsPKNiMhStjUI0OU0QkfFNc7lYI/lRcGuNxvuTFJapdwPjfzLfHyf9zKe1WD3Msboi
-         GL1CzcNdrh9srjkLNsV9A3/5zVBRWuEn4EkaRhOnIY4fpieAX9yEgA7ypiPsacZjjeTP
-         oTeA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=jiXlIgHfeC4vUgGIsG7jpXzWOrJBlnuwpfUCCsXLzTc=;
-        b=zlAPt3USn+VT/z/NE5DEK8RhsXvV+kwquOWAisByxMcmUCkwf/bBo3xtYYaYQIyXUZ
-         1NFBUHs6YKKbJOeZDGRxaIQ2yuiyvZoLPDlCQR5wIAFl9zbnEfrv/xHpevubIFeP10FL
-         0e8QyWmyIIuThUHj9FJvSbILuuYzDN/htf9s3jWtMf1BLgalAYFzFb/nUbSrEECx5M1G
-         BcHdAn1wmxm047RrdMIsAlAwSkJPzzZRAIbx2rzcrF++Fdvlrdjo+nQ2XRho2oxQ/7Ux
-         b6F3ovdfWafzIQ/vjJaxcJgWjyC7NONd5ZYbZnjEpFeAPbhJ46XDa1AgjtnH8OkmKDCa
-         jEog==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-qk1-x73c.google.com (mail-qk1-x73c.google.com [IPv6:2607:f8b0:4864:20::73c])
+	by mail.lfdr.de (Postfix) with ESMTPS id E366C3295A7
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  2 Mar 2021 03:28:30 +0100 (CET)
+Received: by mail-qk1-x73c.google.com with SMTP id v184sf15645896qkd.22
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 01 Mar 2021 18:28:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=jiXlIgHfeC4vUgGIsG7jpXzWOrJBlnuwpfUCCsXLzTc=;
-        b=FbfwtUWuS+ELndwmUmyHWRntNlf4Q6wAsQ3xybp7X/OMeW0wpQWY/2BVvVa7qYIjki
-         lJ2CJn4lmNg78nMzj3wq6RYx4WZm7E6xtmnv22/zxmuxZiaeUxE7CVO8UnPbUGR1oJr6
-         8CNwZloTwI+cr3YQTzl4nknPnfkV6XnCbGCdlQ/yTQ4S0Tqk2a6LzXl4za9yBA+joaGN
-         E7MqQiEGRhKiu0Gxs5/u36BVBeI6mrJrS5H6jF/ek1V8V7kDOGmuBEi7xEsfYL0JUTJS
-         xU6uXJDilBdxfaOmq2B6myV0Vk6f+3KABlal6KGGzRGTesfaMJD6LdRiF/+owprIcf6r
-         MbpQ==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=LFeKTyPigg2LEl16WYCOVN4sdXLPmZdp+d8N57zEGbo=;
+        b=OIdnjyWfv7hW01P3DijlVislnoygHpVsuoJ/4x3l0mDfzSPm7FRUOC8iSz8S8MnJF8
+         t1JokwkfP4oD+XEOrFZGY+wfSmUYJ8RXMxBqrwbJahk+H2pZB6irsij57teSWvz/Tx0v
+         XrLKBl1pFGkC64WVY0sW1eId6ag8JlDMv5I3vyf1PoxeZWRQMhKF9GUq8ifEdSXfyi7T
+         gyURR/79KQQSYApYoHi75X5jUpgYnJNuzhyUU/NMN7iiAlUUqfZqQXuqS0blFzcVlfSI
+         EzdsjpMPc8SmKNFYhH5V6eLq6xuRbx3wxaiO3DEfrZQYbLriEyO4qCpOyIa50BBQQdaV
+         n5hw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=LFeKTyPigg2LEl16WYCOVN4sdXLPmZdp+d8N57zEGbo=;
+        b=kfkmMoxFJLWG/rGyXpnbbMqM+PSEm4OFyWbm9Jih43ubJ7XLBRyuZdWAHg2dL2w1eE
+         OA291EqZc3p3UqodmjfJvsK/1As0grt7AnjkQDwF6YchUB1zPX70v27wujqDYjsyQ1DW
+         fEg03m4oxeKNCgR51c9hdatL8V/RTHBEjhyFB5eyB8jF+2DX0Ub5sRK00Iw851uq2pEN
+         TRxrlRJz3weHEboktTPVjrHZ8Z9Ii1M5ce5jZiGLWx39rsG/rbmIy2EbuCDuCAw0+w2C
+         07L1IWQi4F1Ibelvf3MKsE3l7BxVHXTY8/LilofWoyoa2nIQWRrdEgDka7XcCfJxetHD
+         kgKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=jiXlIgHfeC4vUgGIsG7jpXzWOrJBlnuwpfUCCsXLzTc=;
-        b=KM4I6vETAhf4ma4fXWZxQyBP56c3XA20/fTJxPOgESOiFsyU4UUHaScFSUSr+sLegC
-         F580dFW5o7HGH3c3efuRR42TuLNFpiPtilivx5jbUASE8gbAyAlisepTsVSyfn2JLBul
-         RLMnj8H1gw4h8Ex6fH+7o4mBGs5T9RMh2I8KF1ccoJGE42hT6AHctCznzg2mtfMrwiyO
-         Yr5EY6AZGSJE4nW/ZssikkblBZP2VPEL4932NnKqRDvF+z8WHLkMA8J4uwflDU/Tijkt
-         hxTXeY3/n79FsrVR8OMuaCvDlZszZqcOFfQN0xXepl1KB081tPF3cV0TuILeMCAnLSBB
-         o+rA==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=LFeKTyPigg2LEl16WYCOVN4sdXLPmZdp+d8N57zEGbo=;
+        b=rDw27Lj1S8xwweZw8Pxlp9zt8kktXOi4ry1mxsy+SmE3zORmMJ2Jn6mFelfpYnCrrF
+         GY4vM1RzSUTZgRCF5prmfES9qPbZJqcIwTcDw9GBagtZcFJMRGO7/sKYHO6okRJeFzGd
+         L+N10d1MORYAtNiGH+24W0Hk7db5yV5mB5SOFyoxyRKapLqFdKyjVG3sGGCI9OAmQ7MV
+         uEnPxO/Fd001Z59Ki5ebG4C/QDkIPXRCwTV1yEmiE5QldKN2X6ydCwELUODmY5Dl1lAY
+         vlnKGiSfkEnBBNS5ALYRip/pfUZjpAmPczevzuXGDpSqdfzFiuPPSZx9cpQ3eWQDkYOC
+         zdxQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532cauGjwgBLh+IHauD/Iw5gAQENJ8/MtkWbipXfpJmOOCBbbrYc
-	npbvALK6hFhvm42cHliJbUY=
-X-Google-Smtp-Source: ABdhPJxEDzvtwpzAVVU1heAaZ9Y3iqSYrdumopX71+xQCN0ewEldxEDx9HC4MbXiPLXNfnTGJZaBKw==
-X-Received: by 2002:a7b:c75a:: with SMTP id w26mr11934759wmk.49.1614619295093;
-        Mon, 01 Mar 2021 09:21:35 -0800 (PST)
+X-Gm-Message-State: AOAM530ErFzsP4RRDFaM+52VdlZ9bH5dR/0f1ixx4DyHG+nfk7O/ZagD
+	e4ivEBI8yUR0BZNPhol2zWc=
+X-Google-Smtp-Source: ABdhPJxSZZXPjuazFwyGER5M3KI85f6ALLV7E6h9XIxXzFdBPiMES1rGUNLnDrhB+44Oh7CQ2KWRiA==
+X-Received: by 2002:ac8:5809:: with SMTP id g9mr7003021qtg.97.1614652109631;
+        Mon, 01 Mar 2021 18:28:29 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5d:58f0:: with SMTP id f16ls12378826wrd.0.gmail; Mon, 01
- Mar 2021 09:21:34 -0800 (PST)
-X-Received: by 2002:adf:f941:: with SMTP id q1mr18343941wrr.189.1614619294113;
-        Mon, 01 Mar 2021 09:21:34 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1614619294; cv=none;
-        d=google.com; s=arc-20160816;
-        b=e79GfrlV/bPSk3FY/xGp6KhCvXWAUV4t9Ma4nS2cBjdJL18Ce3492pWpVW1OwXU4AM
-         xlwElZW6X6mxAqk0Me0zgZszpWWXU+pvGKTq8g1bif1e5QywCp0zF3OyOEEqc8iaVtR5
-         GCIDFwJ2hvLPZtWx5wr2sD9blwhEyH0RoEczorhjn1mhv89sjn6wrXlQ+ztCgPZ8Y0uA
-         P0+KN/B9iuuv9MwQYH8qOeNn5We55QhREmbVP+XoZmmEte8L8bEjpxKKlAKQx5Qs289n
-         iRRlU1pA3Hob8djTxyP429s7hu9vBwVJKDxtIh5z1IbwPcn4X7IDa4qpq9we9D8c+BhE
-         p9yw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=iO/PiNZNCDh4wv343IPkfkOa+4VPcLICkoiZs68ZFDc=;
-        b=Qt4IOBd4bGZhhHZBMoMBPSPQ8fNtJytzYWp2/PU2b1pDy7RjORwngjjVbTvfg0WDyL
-         5NtsPvXUAwckfvKmocK6ULHlmGZ6sikI25iALO47QI6SfVN0j7qNBrlrS1Pu5FLc6Bfp
-         s8ExGmKOCCwYh74YMUOszQ8ERirOErh2FvwhHU2oFP7DFVq9jT4Kd173LsWAGzHCsoiJ
-         DsVRt3dOVpZh1YRx212LzI15RzDzR3k73AyhOTTEdTHH6IxX/CeVvTiYT4OooHUa0kgC
-         vofk0wlSDoy7EXyTOy+MtQI9XT9/22fomjcWZkXVYfGo29S5u6VL7MBEsJ92GUoG+HX+
-         95Ng==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id m3si27784wme.0.2021.03.01.09.21.34
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 01 Mar 2021 09:21:34 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 121HLXEm014120
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 1 Mar 2021 18:21:33 +0100
-Received: from [167.87.94.143] ([167.87.94.143])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 121HGWLh006394;
-	Mon, 1 Mar 2021 18:16:32 +0100
-Subject: Re: How to run freeRTOS for RaspBerry 4B in cell ?
-To: Smith li <v6543210@gmail.com>, Jailhouse <jailhouse-dev@googlegroups.com>
-References: <be230d1c-42c1-4a49-9a85-1d30c6fb613cn@googlegroups.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <818b7e62-807d-d86d-2ebf-b74d144ee56e@siemens.com>
-Date: Mon, 1 Mar 2021 18:16:32 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+Received: by 2002:a0c:f202:: with SMTP id h2ls4982902qvk.4.gmail; Mon, 01 Mar
+ 2021 18:28:29 -0800 (PST)
+X-Received: by 2002:a05:6214:1624:: with SMTP id e4mr10194297qvw.58.1614652109028;
+        Mon, 01 Mar 2021 18:28:29 -0800 (PST)
+Date: Mon, 1 Mar 2021 18:28:28 -0800 (PST)
+From: Smith li <v6543210@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <6efcb671-5747-4572-804e-631319b44b9fn@googlegroups.com>
+In-Reply-To: <20a0834c-e41a-855c-71b3-2fea4ff89d14@siemens.com>
+References: <254a573f-0b4a-4c6e-a5d5-19d0734cf6ebn@googlegroups.com>
+ <20a0834c-e41a-855c-71b3-2fea4ff89d14@siemens.com>
+Subject: Re: how to run linux with root in none root cell ?
 MIME-Version: 1.0
-In-Reply-To: <be230d1c-42c1-4a49-9a85-1d30c6fb613cn@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_3920_1237611737.1614652108420"
+X-Original-Sender: v6543210@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -133,23 +78,60 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 25.02.21 13:35, Smith li wrote:
->=20
-> jailhouse has support RaspBerry 4B hardware.=C2=A0
->=20
-> Are there some=C2=A0 pages about build and=C2=A0 run=C2=A0 freeRTOS=C2=A0=
- =C2=A0in cell ?
->=20
+------=_Part_3920_1237611737.1614652108420
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_3921_1930752282.1614652108420"
 
-There is https://github.com/siemens/freertos-cell, but that will likely
-not fit as is because it was developed for a cortex-a7 and some
-allwinner chips.
+------=_Part_3921_1930752282.1614652108420
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Jan
+thank you for your advice.
 
---=20
-Siemens AG, T RDA IOT
-Corporate Competence Center Embedded Linux
+=E5=9C=A82021=E5=B9=B43=E6=9C=882=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=8C UTC+8=
+ =E4=B8=8A=E5=8D=881:30:15<j.kiszka...@gmail.com> =E5=86=99=E9=81=93=EF=BC=
+=9A
+
+> On 25.02.21 13:32, Smith li wrote:
+> > Dear Community,
+> >         I have compile the jailhouse-images repository, and run the dem=
+o.
+> >=20
+> >   the command to start linux in a cell is like this:
+> >=20
+> > #jailhouse cell linux /etc/jailhouse/rpi4-linux-demo.cell \
+> >                         /boot/vmlinuz* \
+> >                         -d /etc/jailhouse/dts/inmate-rpi4.dtb \
+> >                         -i /usr/libexec/jailhouse/demos/rootfs.cpio \
+> >                         -c "console=3DttyS0,115200 ip=3D192.168.19.2"
+> >=20
+> > What I want to know is : how to set the root to a dir or disk ?
+> >=20
+> > I see some   use   root=3D/dev/nfs   ip=3D192.168.1.1::****** :eth0  in=
+ this
+> > page.
+> > [1]
+> https://groups.google.com/g/jailhouse-dev/c/vXD4tzCPDG4/m/zX_hHNxJAgAJ
+> >=20
+> > Can't we set the linux root to a disk partition or a dir ?
+> > Will somebody tell me ?
+> > Thanks very much !
+>
+>
+> Jailhouse does not provide regular virtual devices like other
+> hypervisors. Everything is mapped to shared memory devices.
+>
+> You may use network-based storage for the non-root cell, nfs as
+> suggested above or nbd. There is also experimental virtio-block, backed
+> by a simplistic process in the root cell. But integration into
+> jailhouse-images is missing, so trying that out can be tough.
+>
+> Jan
+>
+> --=20
+> Siemens AG, T RDA IOT
+> Corporate Competence Center Embedded Linux
+>
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -157,4 +139,80 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/818b7e62-807d-d86d-2ebf-b74d144ee56e%40siemens.com.
+jailhouse-dev/6efcb671-5747-4572-804e-631319b44b9fn%40googlegroups.com.
+
+------=_Part_3921_1930752282.1614652108420
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+thank you for your advice.<br><br><div class=3D"gmail_quote"><div dir=3D"au=
+to" class=3D"gmail_attr">=E5=9C=A82021=E5=B9=B43=E6=9C=882=E6=97=A5=E6=98=
+=9F=E6=9C=9F=E4=BA=8C UTC+8 =E4=B8=8A=E5=8D=881:30:15&lt;j.kiszka...@gmail.=
+com> =E5=86=99=E9=81=93=EF=BC=9A<br/></div><blockquote class=3D"gmail_quote=
+" style=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); =
+padding-left: 1ex;">On 25.02.21 13:32, Smith li wrote:
+<br>&gt; Dear Community,
+<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 I have compile the jailhouse-images re=
+pository, and run the demo.
+<br>&gt;=20
+<br>&gt; =C2=A0 the command to start linux in a cell is like this:
+<br>&gt;=20
+<br>&gt; #jailhouse cell linux /etc/jailhouse/rpi4-linux-demo.cell \
+<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 /boot/vmlinuz* \
+<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 -d /etc/jailhouse/dts/inmate-rpi4.dtb \
+<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 -i /usr/libexec/jailhouse/demos/rootfs.cpio \
+<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 -c &quot;console=3DttyS0,115200 ip=3D192.168.19.2&quot;
+<br>&gt;=20
+<br>&gt; What I want to know is : how to set the root to a dir or disk ?
+<br>&gt;=20
+<br>&gt; I see some=C2=A0 =C2=A0use=C2=A0 =C2=A0root=3D/dev/nfs=C2=A0 =C2=
+=A0ip=3D192.168.1.1::****** :eth0=C2=A0 in this
+<br>&gt; page.
+<br>&gt; [1]<a href=3D"https://groups.google.com/g/jailhouse-dev/c/vXD4tzCP=
+DG4/m/zX_hHNxJAgAJ" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=
+=3D"https://www.google.com/url?hl=3Dzh-CN&amp;q=3Dhttps://groups.google.com=
+/g/jailhouse-dev/c/vXD4tzCPDG4/m/zX_hHNxJAgAJ&amp;source=3Dgmail&amp;ust=3D=
+1614738405785000&amp;usg=3DAFQjCNHFkdphwTgEiO3QauyehJomladjrw">https://grou=
+ps.google.com/g/jailhouse-dev/c/vXD4tzCPDG4/m/zX_hHNxJAgAJ</a>
+<br>&gt;=20
+<br>&gt; Can&#39;t we set the linux root to a disk partition or a dir ?
+<br>&gt; Will somebody tell me ?
+<br>&gt; Thanks very much !
+<br>
+<br>
+<br>Jailhouse does not provide regular virtual devices like other
+<br>hypervisors. Everything is mapped to shared memory devices.
+<br>
+<br>You may use network-based storage for the non-root cell, nfs as
+<br>suggested above or nbd. There is also experimental virtio-block, backed
+<br>by a simplistic process in the root cell. But integration into
+<br>jailhouse-images is missing, so trying that out can be tough.
+<br>
+<br>Jan
+<br>
+<br>--=20
+<br>Siemens AG, T RDA IOT
+<br>Corporate Competence Center Embedded Linux
+<br></blockquote></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/6efcb671-5747-4572-804e-631319b44b9fn%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/6efcb671-5747-4572-804e-631319b44b9fn%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_3921_1930752282.1614652108420--
+
+------=_Part_3920_1237611737.1614652108420--
