@@ -1,197 +1,197 @@
-Return-Path: <jailhouse-dev+bncBCJN5Z66VINBBJXOY2BAMGQE3D27FRI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDGILGE54ELBBW7ZY2BAMGQEWU6E4XI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-io1-xd3b.google.com (mail-io1-xd3b.google.com [IPv6:2607:f8b0:4864:20::d3b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B4F833EAF6
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 17 Mar 2021 09:00:39 +0100 (CET)
-Received: by mail-io1-xd3b.google.com with SMTP id y2sf24903770ioa.23
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 17 Mar 2021 01:00:39 -0700 (PDT)
-ARC-Seal: i=3; a=rsa-sha256; t=1615968038; cv=pass;
+Received: from mail-ed1-x53a.google.com (mail-ed1-x53a.google.com [IPv6:2a00:1450:4864:20::53a])
+	by mail.lfdr.de (Postfix) with ESMTPS id C955833EB5C
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 17 Mar 2021 09:24:59 +0100 (CET)
+Received: by mail-ed1-x53a.google.com with SMTP id bm8sf5833527edb.4
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 17 Mar 2021 01:24:59 -0700 (PDT)
+ARC-Seal: i=3; a=rsa-sha256; t=1615969499; cv=pass;
         d=google.com; s=arc-20160816;
-        b=BbVJvHsRHCoY0PXEIdvegTT504CC4yWHXbbYpeAu1tZjF5OdPjQU7X9gvGHlx2V3fK
-         YoawdyIwGn2OM1QA+WALIEA3Yvc0HCPR2tT2LD+3Okm93YVc24zI571eHJE9h5pjEzxi
-         QGfCbHQmG4ey9kK5OkwNb5nEju0gyBQ8wL5MYoNtatlelGDWwIiV8fMZ5R/s1qbz+fqD
-         owy8Xyzm+ivjzHrKKKrMg+Szl48vI4zetBlz3wWXThQ6WBlxPWAK0YmcsVCeLljEssMW
-         64XG+BQU6DUPYh7ahpqVOG2YxzphdkEvTzVedZ37Yb4ezA4jhj4jwEh533oo81PP+tLe
-         zv0A==
+        b=IOvzeFqlxYMDWb6bcZWddUTE83hMaOJN4g7VgN188VvoesKatmaRXCQfqieIJc0/nm
+         ERm6spcskTGkgD91HvOgIff3liJLbYfGZ8Ao/GexSdqTlws19nWXz2kmIGNsLu/teVo5
+         VEbTycoOq53b+Fdda75TPAosELplnR4Mje+UgacJ2F4kVKt8bH3k8Pxz7lfYF3G9q6gB
+         a/3urOsRD52TONE+DldYhSeKk4jCUVg635MdemxQCYA00cXOKxOa+kp0hp//1DjFtVF/
+         QLVB75vwVlp2ql3SONUc+KYpUlQeBR5a/6bNReFi3eLzKbnLH50eQJSfQBR04MO0STkR
+         UuCg==
 ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version
-         :content-transfer-encoding:content-language:accept-language
-         :in-reply-to:references:message-id:date:thread-index:thread-topic
-         :subject:to:from:sender:dkim-signature;
-        bh=JPku88i8TZyFkWwtRS2aIRaIhs9Tk0VvLjQSyWRdux0=;
-        b=tZrY9xpJiVreyuuJD5lM9trACgQ0xJlxaJ/g2pX0AYaHfGwjVkXfxf9Qpk+HGf1qYH
-         ZWJOWPePskXIDPlr7E1jIB8TPZv5T630IP99vZxb9hvxoC+hkPdFt73JecieshzBAPJG
-         y02W9bxmmqM+m5R1Tt8igx1rgXpMI+1edqgm/AzAshxiWJpne8Oom9HO46gaAaPSWoYg
-         vH7tTVrMS8bCpU6+pDXHyG0x8gV2RZPTQ/O9z3XMb+Vw1aUQv7AKakgX+DePRXCH6Kh2
-         BEX00v6Q0x9Tr3G08lCAX4IAE3pEz50DR7mCp4pV3O66w4M1GXTVvnIC3iphTl3enQ+V
-         1hsg==
+         :list-id:mailing-list:precedence:mime-version:content-language
+         :accept-language:in-reply-to:references:message-id:date:thread-index
+         :thread-topic:subject:to:from:sender:dkim-signature;
+        bh=RtuQaONmZf27kxCh9h5qNYwklLz3QM1RJbRNNUmzp1s=;
+        b=eOxwnzCGBD51+uhCpPIUyRHi1On6jFXNAmClG5tK4spu+JPyArQ4+/5631uSHR/39w
+         ZAaWtzxEcwaA7B2LRK19vBCqLE3NtsiJSpeV2j++KOJW8OgzjAQA+nMLgDIqOiTKMdd+
+         bMDYxMtiQBOGN7DAvxirrdFlv1b2JK/9vs7nf/js24SWIVjktjro4gKzhLamVzVQjgXY
+         YQpP4bsjCzh+AViPgN6JjWdPLd1qS6QvY+/DHmenuP4A2VOJfWYyxU1CDo1aFCxCyTWZ
+         aRrm0y4Q8CCokpjPAQpmdHuIOkx8zNSL6J5jBDN/4vUudcm4rLFtmdOO6t3fzN/1WMBg
+         PYLg==
 ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@ikerlan.es header.s=selector2 header.b=llZyRAry;
-       arc=pass (i=1 spf=pass spfdomain=ikerlan.es dkim=pass dkdomain=ikerlan.es dmarc=pass fromdomain=ikerlan.es);
-       spf=pass (google.com: domain of msainz@ikerlan.es designates 40.107.1.98 as permitted sender) smtp.mailfrom=Msainz@ikerlan.es;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ikerlan.es
+       dkim=pass header.i=@prodrive-technologies.com header.s=selector1 header.b=H4rJKjTv;
+       arc=pass (i=1 spf=pass spfdomain=prodrive-technologies.com dkim=pass dkdomain=prodrive-technologies.com dmarc=pass fromdomain=prodrive-technologies.com);
+       spf=pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com designates 2a01:111:f400:fe0d::729 as permitted sender) smtp.mailfrom=bram.hooimeijer@prodrive-technologies.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=prodrive-technologies.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:from:to:subject:thread-topic:thread-index:date:message-id
          :references:in-reply-to:accept-language:content-language
-         :content-transfer-encoding:mime-version:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=JPku88i8TZyFkWwtRS2aIRaIhs9Tk0VvLjQSyWRdux0=;
-        b=avU/Z/ou/lw4/8ZrA2L0etaVemKblFk1CrZj8NKiYsXRbKDu6xUth4cuJzbqvvE7kk
-         sHrIHEte+9Li7KrTiiuD8WOvyCJWJ/xeuhrhoJOkRWFMeh2iKoRh7n9OGzhXjQcUDc1R
-         +HUcs9WtaGixnkuDK9ecJjPFP+K7T2wfQsWpQ6zWL3Elze8zzyuA1A+0Dln5DHavQIDS
-         FPZHO93U/rcSJgYm5lBbZMoENjN75fzY2MwkqfHrIl3gBJkwWl+dJIoVimffIss4Pmxl
-         mcxlUVG2CGfdU+PzLGQQY/MQ0VQhWE56zvXtotZnI9BcEa+lqRd3V8hwxu3ffawwlwAW
-         HSWA==
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=RtuQaONmZf27kxCh9h5qNYwklLz3QM1RJbRNNUmzp1s=;
+        b=IZ7bZdesXk8xiPLeWMTPpqDE6BZO/rFdiMpJAvH5xMPFG8IVP/dnYMfjmQfV51m3Za
+         3++TzCCICaSRsSMBStQvvrTn3ZlK4YcVp6nal/oi25bj0YC+MN2vbWjs11hmY9Ja6B4d
+         RgCsddLHVWTEiCz7dbPykigwEpB0Pk3BDC4igwpxOy6cSqNLmkEMV7np+n9717Ff86u4
+         DydluQtIv31CN8yqG8yZqbwmmhfKCRn7Gb9dhophL9NZT0eFiU0euXe2rDMjNpO1U+kb
+         RKAIJNEfDNQa3veHL5Chj7Mc5B/Scjzkj1cwKWeYijXnRQZ7tppSZuQGjj6NBTW8qMVj
+         tORw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:subject:thread-topic:thread-index
          :date:message-id:references:in-reply-to:accept-language
-         :content-language:content-transfer-encoding:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=JPku88i8TZyFkWwtRS2aIRaIhs9Tk0VvLjQSyWRdux0=;
-        b=sKAhTLb1ybgIxPZf9WCFG17cO4kbArrBQftZ+MovYUYSr46dYFn7rsFTD4ErdWPiM1
-         Vz2oeuyN865YyJewEdFAd49OGDQSU6nUnTSjjslWXIj2gOcvQfFb0wwJy00i0shiuKx1
-         whl/f2kxVAGzKlvrjiLmMMlVgwLSqOfu/mDMRgNmQg/SfQYzCBdSbTYQSrXVAPdAt6qr
-         2T8Z1rpCNPRXiKV9P9kQ8OHKTyPTYAvpsM8c9fYt5KdYznx3M9BdR8Wdgw/2E4/W9KoR
-         HcQGJsIh4E8svw/pEGKVDkldLH0H+aJIAmIO6tp0jVSyxGmhf9ODxnm/jAeTmmuABUyn
-         kPeQ==
+         :content-language:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=RtuQaONmZf27kxCh9h5qNYwklLz3QM1RJbRNNUmzp1s=;
+        b=M/qSfcihNaI5aidQxB9nx9IhNByFLZOTTT8ZUsyeyg25jYygGmpcEW0ggLtmn7XDhn
+         iYvZghrhSU5LQEtKddyrSBIWNvEZQMmcLFjiZo3tj+8KY2k85tC1/zpQ9sMkCAJdp0mo
+         aWNmPIYTsBWawtZQvfVnIRPT/oLDgPRIuoyyBYJAbx8KIUULroQiKopoL2eB8R7wakKi
+         PCqWMICdKlu2YSKXisDMbewjwjxHj1J6reVZhnxRnuahsxQvauapHlJxJIzQe7Zu4U26
+         XT2FHDj9G3cRQZxFBS5spRMv7MgE4UZ5U9rEEVWHlH9uD3Wpr9iE9nlxjZiEF5NScI8o
+         VnYA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM53142q8RwXumyz+4zw/f1tZqzhmzA83FjbWktpk3MhhY4yZJTprD
-	u1rCk2l/u541uppORLrfAvc=
-X-Google-Smtp-Source: ABdhPJx+lNjfeDSGzJnojCoFCANnlE/no1Lq1K3OdE4CB1lUiG85zSfIYsgUFfNMrM9M+up3EE19Gw==
-X-Received: by 2002:a92:2a04:: with SMTP id r4mr6268469ile.56.1615968038300;
-        Wed, 17 Mar 2021 01:00:38 -0700 (PDT)
+X-Gm-Message-State: AOAM532mvP21nH2xUVLD1thWvreyhne1eLeFehlkgmIQoLNl190octWB
+	HOyjEOfiLfgTpkrsc/egX9Q=
+X-Google-Smtp-Source: ABdhPJwVIglpIGz/HW1DWdiJU5MBtOjcsSmZ+MdTz69g7Lk6cPCk82kSbJZjBkuDjJ8cnIWnh1VZ6A==
+X-Received: by 2002:a17:906:cc89:: with SMTP id oq9mr33806892ejb.258.1615969499546;
+        Wed, 17 Mar 2021 01:24:59 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6602:22d6:: with SMTP id e22ls3090895ioe.0.gmail; Wed,
- 17 Mar 2021 01:00:37 -0700 (PDT)
-X-Received: by 2002:a6b:7112:: with SMTP id q18mr6079051iog.174.1615968037744;
-        Wed, 17 Mar 2021 01:00:37 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1615968037; cv=pass;
+Received: by 2002:a17:907:3f15:: with SMTP id hq21ls9918349ejc.9.gmail; Wed,
+ 17 Mar 2021 01:24:58 -0700 (PDT)
+X-Received: by 2002:a17:906:4150:: with SMTP id l16mr34432568ejk.90.1615969498607;
+        Wed, 17 Mar 2021 01:24:58 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1615969498; cv=pass;
         d=google.com; s=arc-20160816;
-        b=j7fHuaMXj0KE2wb92PB4Ncy3QijWmEQyZZBM0ZaBJ3lqER+qtVu/UUiJRS9QPYjBrb
-         Qblu0e75oEmFl53EBGmvhz6rW2MkHf/LXPSRdSBVSrO5BB/pTqT335VEjV9pLjwPF21Q
-         8ssUNgB6I7Fa6urfyJ+0eRc1jwaoCxNcCrEQnHDpdOWXp5Bd7WkowE/ADGRDSpRvxCTc
-         hDl8nJWUV43uOMyR04HF4ZpS34I7l3dVyyVEFxmQEUaoFRN344jQaquIqV6VsIwTsMPe
-         UjXBgpnr3jFs7djg/zX0CEjHVGr6e5yQx/GKcg7fR8hk30eGq6DaE5Oi8qS54GvC73Gp
-         q2YA==
+        b=m86qZMq5rnfuc0+WTh1pWBjMsFKpb5f0XrVq8WLKY6azSh5VRNb8RAlqVqwBL2MMJY
+         fdMv5NhRmFWYgtkRoBlTb7UTgarGp/KqYacprZBQ6GV/lYlVSVbCmPl8/MXCCjPtQJGd
+         k2joaMoVg93OXVG9WeMcHJpda+STRXMDo/mt/LPsDke7xs9T8PK1CUx0RbPbneMmhbIg
+         ll2Y8oQ21KtkgzixM8oRqdxFwavk6tXWtr6RPdUOHUpWBOMMkji4mljbL9zklWUuOxkr
+         bNnraM3MU/1p87zy9Wmwxfsfzqg8H4LmSnyx/j4Wlza9ZhVOA/R0/JtdUOBCPNuoeDIz
+         yQ0A==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=mime-version:content-transfer-encoding:content-language
          :accept-language:in-reply-to:references:message-id:date:thread-index
          :thread-topic:subject:to:from:dkim-signature;
-        bh=BLgB0XgpewF9v1XPhXag10o1YLLHv9Hxo1IlKWWDxtM=;
-        b=aZK2ihYCtunLFrY0ErmSiaCE/0c6E8SBQJ5LyJQXqvRsuBMwOG1aRAUEz6uBlBBOfw
-         woMp9A5wBc2YULl+RMc1UoXqjOHHsu+354WMYhgXHNDKJvhF2+FMRKRp5DjAJePzic66
-         Bta8mKEnbDLt0C13ew9UGumNRJDXlm5Mo8wk/mepQnqsbhDkxi8Yu3j7uOdxInMBDaZO
-         4xAsRhDphSdNI7ynOstmlQeaJrBuJArIugh4H/qApC33UrFVp6ZY1IHyM6FcxEL4AEzO
-         XekKtmCXkedZS31RdDqoRqpPKK5xI2Z6CAEuYADcInJtMfBXNlu5EPfxvE16uCCG7hiF
-         ld9g==
+        bh=ll/oiBru+QWIZ25ReJUTAmvKsc2g3tQae2A/ZF5Tt/8=;
+        b=O/BsDhfSszInYWH5tdAOEcejhNy5M0XObv/3Kkm/9djW5U03/YquyQcxIBIUyB3CxE
+         VxVRztMzIe7ALqnKYxsCAZW/3ZyCYzoJt8IT/qwrhz+pGanqvi1yyitt27PZfldioWEv
+         SGA+gJaFq5TM00wu5NkGmSkeVrNJvA2zbNRgNXLZsRsRpLVryCio77sdEAQCt8EzDkNL
+         nx/YlE7T4lFuy2Y2mRh7YgFMtuL6PgsrzCMUBt/YIbLdhvKc2HoR3NYoJcd2jAZ5YBy9
+         Fochz0xwWIjB9hxs4L+HsIJroYagqRoXYqXq2y0kwNh2IolDczruaw+fFO36LZY422T9
+         +vMw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@ikerlan.es header.s=selector2 header.b=llZyRAry;
-       arc=pass (i=1 spf=pass spfdomain=ikerlan.es dkim=pass dkdomain=ikerlan.es dmarc=pass fromdomain=ikerlan.es);
-       spf=pass (google.com: domain of msainz@ikerlan.es designates 40.107.1.98 as permitted sender) smtp.mailfrom=Msainz@ikerlan.es;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ikerlan.es
-Received: from EUR02-HE1-obe.outbound.protection.outlook.com (mail-eopbgr10098.outbound.protection.outlook.com. [40.107.1.98])
-        by gmr-mx.google.com with ESMTPS id i28si58131ila.3.2021.03.17.01.00.37
+       dkim=pass header.i=@prodrive-technologies.com header.s=selector1 header.b=H4rJKjTv;
+       arc=pass (i=1 spf=pass spfdomain=prodrive-technologies.com dkim=pass dkdomain=prodrive-technologies.com dmarc=pass fromdomain=prodrive-technologies.com);
+       spf=pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com designates 2a01:111:f400:fe0d::729 as permitted sender) smtp.mailfrom=bram.hooimeijer@prodrive-technologies.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=prodrive-technologies.com
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com (mail-he1eur04on0729.outbound.protection.outlook.com. [2a01:111:f400:fe0d::729])
+        by gmr-mx.google.com with ESMTPS id f25si733154edx.4.2021.03.17.01.24.58
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 17 Mar 2021 01:00:37 -0700 (PDT)
-Received-SPF: pass (google.com: domain of msainz@ikerlan.es designates 40.107.1.98 as permitted sender) client-ip=40.107.1.98;
+        Wed, 17 Mar 2021 01:24:58 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com designates 2a01:111:f400:fe0d::729 as permitted sender) client-ip=2a01:111:f400:fe0d::729;
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TPNWOdoj95X7eqkZwv/l1GyLolCav4lhx2uY+p11Yj+uI09Roos5M+aZUuJaTBiHB0IxgAh4wzU/PfweS8BCz2XKiJk770quARi8AaVTtoyPAue/0NnLs+uLjhti33UBLieiM52FO5u+t4T/u1Q06MVCGMxEnaPyYhmb3M90ikBrjqmW9QgMcWpymJcQAT/zfcqVHeaWYYtN6Uavf/Buoi0Q+Dz5N/ykMKcXRKA5FAaFhDq9zEJIzhhxwGct/GbM3CuvMhcespqeB3sWHkpD80QmO3HtMbr1As3Sza9HkyOLNY3qQUxvDO5tLaRUOqXNRc1p2+NjqEb+T9T9504aiA==
+ b=QBZ4gA8ke26HXENiHp2V3dglH6+Y3yMlnh8PUbDB87iVpT6rEMk75Tddb45GPtPiaXrLitxIKamRWwQ9J6Gk4ZqNA8F868NZimPfPZHDQf01xQ+DZJ002Dmt7tRCKlEB0dF27KXubcm8xEsyMqdDbuatbpg9VvZBpkQIdJBQFNG0HrwwLtoSZEjyNM6BC/zrimH9Xg88u/4fBHryobPtGrCURwDKkKC8nrBF7kXJRI4x9C8Eo1JsRf7ebkVWTAJ/rNsl75Gh0Ok5uBvxvhnHHzeFMIOqFpq2mk7WCsfVXMWp6dxzI0psrbua8fbR4i/WsnZwPCmOQFcJ1/33P93STw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BLgB0XgpewF9v1XPhXag10o1YLLHv9Hxo1IlKWWDxtM=;
- b=i2WuDYUgt+I+gfKui7v9X/KTm4xJEOSHX5zgOkgi1bUc302ylJtvTQ0Gr3+t+Tv1wY0YPyoEMmRQgzK+M8Z52lBNZeJWnlJHQkxz2Uhsjn9Roe1HNHqGuDjIU624w+xBeLzgQntR5Vp7XM0dmJofEeHhosDKvMSMLCxy3rBYBPtZx0+6YrkJwdeR2ekcuT14U1oZSskwGKbu92Mo8234RGosysmqX+Db+/azGFD/CElthrAaNyvNNsi70Mvt7YDYcnsnBTrs+THRdJf2P9SP78PGIN/iNBx7+puNV3RASZ7H2pSlsruZ4r3kr+GggsQRxYs8MaFKaIKuDfeqCI6/Hw==
+ bh=ll/oiBru+QWIZ25ReJUTAmvKsc2g3tQae2A/ZF5Tt/8=;
+ b=KXsfLAMODVb4al1NA78M9HbJV2vnwTkmWybvnmrMFrJirtxKExtSc2sjBv66xBdNlU0QtMyTMhgmcJxVC6KrIqPMokeP8QFauWEiP59ylaGEA3ySkoTPULm0sD0pJVE0XnPEIGe0H/oFZEEjw5lHnCpnT3yxu/SwFK6KOWgw5k1mGmUCpOKCFSgI18rlfMu+PeyVYT4tEkBR2+WcjnHnk8S+35Gd0xYaf6cqF3AwKMPADoAqVKgVuox9V9BEsUwtuI0g/PZNDDlswJVP+AtUUsCV2i2EVopiiRv101whgj8bjFYT4KRVvlJKr5sVo15s7wyqNcz7SfIHAeI2Zqc7vg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=ikerlan.es; dmarc=pass action=none header.from=ikerlan.es;
- dkim=pass header.d=ikerlan.es; arc=none
-Received: from AM0PR03MB4450.eurprd03.prod.outlook.com (2603:10a6:208:ca::33)
- by AM9PR03MB6691.eurprd03.prod.outlook.com (2603:10a6:20b:2d7::19) with
+ smtp.mailfrom=prodrive-technologies.com; dmarc=pass action=none
+ header.from=prodrive-technologies.com; dkim=pass
+ header.d=prodrive-technologies.com; arc=none
+Received: from AS8PR02MB6663.eurprd02.prod.outlook.com (2603:10a6:20b:257::14)
+ by AM6PR0202MB3336.eurprd02.prod.outlook.com (2603:10a6:209:18::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.32; Wed, 17 Mar
- 2021 08:00:29 +0000
-Received: from AM0PR03MB4450.eurprd03.prod.outlook.com
- ([fe80::3007:83e8:91ca:2b8f]) by AM0PR03MB4450.eurprd03.prod.outlook.com
- ([fe80::3007:83e8:91ca:2b8f%5]) with mapi id 15.20.3933.032; Wed, 17 Mar 2021
- 08:00:29 +0000
-From: Sainz Markel <Msainz@ikerlan.es>
-To: Jan Kiszka <jan.kiszka@siemens.com>, Smith li <v6543210@gmail.com>,
-	Jailhouse <jailhouse-dev@googlegroups.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18; Wed, 17 Mar
+ 2021 08:24:44 +0000
+Received: from AS8PR02MB6663.eurprd02.prod.outlook.com
+ ([fe80::448b:147f:5ab4:b402]) by AS8PR02MB6663.eurprd02.prod.outlook.com
+ ([fe80::448b:147f:5ab4:b402%4]) with mapi id 15.20.3955.018; Wed, 17 Mar 2021
+ 08:24:44 +0000
+From: Bram Hooimeijer <bram.hooimeijer@prodrive-technologies.com>
+To: Sainz Markel <Msainz@ikerlan.es>, Jan Kiszka <jan.kiszka@siemens.com>,
+	Smith li <v6543210@gmail.com>, Jailhouse <jailhouse-dev@googlegroups.com>
 Subject: RE: where can I get configuration document ?
 Thread-Topic: where can I get configuration document ?
-Thread-Index: AQHXGwLegvUwVQtp5kaKjLbc9MIQ76qH0Iww
-Date: Wed, 17 Mar 2021 08:00:29 +0000
-Message-ID: <AM0PR03MB44504D2242854324D3B00F16B66A9@AM0PR03MB4450.eurprd03.prod.outlook.com>
+Thread-Index: AQHXGWcYGJH+zhV4pUuJZTy1DG1+D6qH0QiAgAADW4CAAAYwkA==
+Date: Wed, 17 Mar 2021 08:24:43 +0000
+Message-ID: <AS8PR02MB6663D7B254E27AAD507D3C34B66A9@AS8PR02MB6663.eurprd02.prod.outlook.com>
 References: <0a370a48-b0d4-4f90-aed8-70da23638afan@googlegroups.com>
  <b736e651-8add-7e49-f103-728173b0b751@siemens.com>
-In-Reply-To: <b736e651-8add-7e49-f103-728173b0b751@siemens.com>
+ <AM0PR03MB44504D2242854324D3B00F16B66A9@AM0PR03MB4450.eurprd03.prod.outlook.com>
+In-Reply-To: <AM0PR03MB44504D2242854324D3B00F16B66A9@AM0PR03MB4450.eurprd03.prod.outlook.com>
 Accept-Language: en-US
-Content-Language: es-ES
+Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [193.145.247.253]
+x-originating-ip: [212.61.153.66]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 25907f22-30cc-4008-5179-08d8e91abb89
-x-ms-traffictypediagnostic: AM9PR03MB6691:
-x-microsoft-antispam-prvs: <AM9PR03MB669101A39C2D135BC637FA09B66A9@AM9PR03MB6691.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-office365-filtering-correlation-id: 8f5e7018-0a2a-4daa-2a35-08d8e91e1e5f
+x-ms-traffictypediagnostic: AM6PR0202MB3336:
+x-microsoft-antispam-prvs: <AM6PR0202MB333678A1E86EFA2DEFE6B131B66A9@AM6PR0202MB3336.eurprd02.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 8mdtRxFJILjPSadTQvwbIHQI70cibv2Gv5kylyuMvvvl6v8MA5LkvVj+LwTNsM46lIaPDq2E8AnyLXudBibOyPDLFJQWz8v8JjkSEjBvc1XrXysMI0z+zIAomdMFQjRyIKnVKoa4nbILbsmttLlC947fr7PBXHfvXYo86RRIfYcCwOkkqZk134YHk5N3LYe5S0q5ty/EKlenB9dCynWWPaB4LapBSZv4NmCGnmbczFcK7FmU5+3jvZrQquSH3occPxn1I+AyTfQ6nzgpySEH/bJ89uNObM9OWPNl5lWSY4kNWd8qeEHHUJtkpo5fbvHWPznLf6mABBrHErEyz2m7dL5LaPAN9Y4eag3p645ymaBpmSU4dGpqrDGhCgUS9iZQJO/rztp2Gz34nq2I1NfsITTRlTuZTf6ZL4eTCeOyRBVVbRTEbcf169u+jYwXJh2kc2zfVH3j1icCfDPeg1QUdfhs3xwXP04mVCcNL1FuIoKur7IwrsN34s2xwKmD9wIswTjinhrhlYZPYZW2IazfehSVAM3IAGuumJLzyqMtmos/HKEAl+1glT3LzfH+oFiXiJzEdW+E37DVn1jPzGxwDP+HjsYysc/0WiQyY/3xG2qRez5Y6d5lRV3J9pFmmklN
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB4450.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39840400004)(376002)(396003)(136003)(346002)(366004)(966005)(316002)(55016002)(110136005)(9686003)(33656002)(478600001)(2906002)(66574015)(45080400002)(8676002)(52536014)(76116006)(64756008)(66556008)(66946007)(66476007)(7696005)(71200400001)(86362001)(26005)(8936002)(66446008)(5660300002)(6506007)(186003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?d6rabtVwBNoPpKAwGuBslONLlaipmvjrSBaX13WNfzT3GhWFYRc7TLwV0T?=
- =?iso-8859-1?Q?gCE/KbqRngIvB5oyYuNi+adqZwM8Th8+fo7b82U5KXiZLUj01EHnJKSxO+?=
- =?iso-8859-1?Q?GeC692nj57rY620LYTkohpvZqc+b0KM7KEfi9NoNewmfGPA4jnVUa3eWZZ?=
- =?iso-8859-1?Q?7W9cMlj/o1kImPzT2U2hyTC6v5eQ+Nd45cF5oc2q52dITHd5pccawj1qE3?=
- =?iso-8859-1?Q?iHQpN0FdaInMiMwuqfuETZDPmkQSP+1zU7BXR1l1DLe+lEAE6/HsHCPjkK?=
- =?iso-8859-1?Q?rhobq0zATWyZV7lHljujST0TSRICns7O0aqld823b6xKeAFgCap8t/SV1R?=
- =?iso-8859-1?Q?C5TwDxZbJf3l6miYawtHWYzqQpY4SphPa9y0kq45SmoeBMbs8JoOK/Xp4f?=
- =?iso-8859-1?Q?XcC2RNXYJA3TC3iY+5c0boKqXHN4HOe6WmPG8crDk7oRQcLJJT+BduGqy5?=
- =?iso-8859-1?Q?RZTBwmM1NWelMgYqfVMYueDPixzKadvNG3tEA7+FF7JsPEjMwk3Rtdw+nQ?=
- =?iso-8859-1?Q?iLpAZzrF/WYV9FRmCKMGFteQapBjV0czW/Ce4Ci7Mgyg+iza84O9V9foLu?=
- =?iso-8859-1?Q?Bm+N1wtLlW8z5T4guXdJddRRa7Y8oJw8Ches5pOTPloS70a1rhJ/pgOrsh?=
- =?iso-8859-1?Q?2NVku3ZvUCtzuJemmmTlmMAv4jHrHlYlhh0d5VPWapYWU+9uHemrL1Lv1C?=
- =?iso-8859-1?Q?nMIl+cfwH8FMxL/BW2+vgclqXouEUuEuehZsOTKCwuw3Gvv6uJ+F5Hm0cF?=
- =?iso-8859-1?Q?L+EG+5H2K3Qc6jh4eAWPBEL8z4da1PjArgXx7ltemhsOsKzZZmQjbrW/j6?=
- =?iso-8859-1?Q?fHXD4Aw/yqyduHL3ArtC1fe5UgG7z2eYg+oZeaGewH2RECP9BZ07sZ4ySu?=
- =?iso-8859-1?Q?0Jpigcaiko0Q17WN1WQve5QbO9kiNCztKNoPAHP0XufQ/4gNYvAF+Ag9JY?=
- =?iso-8859-1?Q?73SSf+lB5wtNTrsZIApppkgigkh8lD1+/gdXqNk5mtFpT+zacFxOAuOC5m?=
- =?iso-8859-1?Q?KoNdbWaj8690LJ86FWmKPiensT0MNLN7lpi1hLb1EnxxA3iJihF6W3/8CL?=
- =?iso-8859-1?Q?4Fvm/CFEPQaDZJ6ZDNbyT73oS5QEL/BX3D9kl95lUkaGyUAvLtRoFGT/Er?=
- =?iso-8859-1?Q?AXqaEQa1IjmYhiw7C5cWG2ALzHFFnqkf2wLT3ivXhNb6m//6rgjw702beV?=
- =?iso-8859-1?Q?bj2QB/pCzmvj2b/RzQQIFADS841I/mMAE2bEcW02JJZl11ixKgGQ1kgT9I?=
- =?iso-8859-1?Q?/URyICnJoCVNT3LzYpNnBEA7VowKuSYUcIV5ffkwlA+38VL09XMqp24CMz?=
- =?iso-8859-1?Q?Aq7V8R4SCyF5eHuaOzUS8PLd2yhFXPCfbdaTkrNc5VGNeqNmvXnO4ozBOk?=
- =?iso-8859-1?Q?hH7qZG/p1a?=
+x-microsoft-antispam-message-info: 1pTJbWXwKKQhg5MpNp2AduIUcXF2fArGgDfF4fqLAWIa9w+PcsyTvGfaSEN61EI/jmlPzwuhOxR/vCclC6C6pyg+HZgq6FBfnm+wuEUQh6Z0/gmyPyaoqm4qf0a1xsPgNuJVpGuUUrPtrIpw8/+qDOtxvVzSOhob4ieUSHkp9INQI6ysE18LG4Tm9KKwjyCEYICXR/umYckw8DO2fjtjWJTMcsTJX6Ew83Wa7AaXdnelRA0W61VxLzg3tQKoTHfwfR9IId6egNCWmJD1U1GtTrcXFSVN2B7NmPswPeJ0Il6kG3TpwXJeWNIGeXuQsxce5x+UwWQxR0sSpYUSQ0tB9WNJ1jIxlb/tu2pA2hv5omU5MtuYVLGzomTf4NXYo40nGrVDXKtBJhvDW2K4pu68J2J17fY1DZ308DzFiIvfq7nD2TVyLAoC0iP7z6aRQo77DnGcaLEW3/d7UJE9+FVFtuZ5kKGgyt4KRjWKouQTUnf1pfwRqwU9ywNdcbFLFVbeDwikhzqkLWDsnjewXPRbdqff2sgRQvuGUaZYvcowWFo9IOFHUoFtf7SkBztk416jZKPbROaSWTJQXj8cTGXwFia7O5jdJf9AmgE3SMhteSnEmnoTfhEF7wDQg6Vuj896CF1ZDMaGsrVBZtAUMkaDMw==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR02MB6663.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39840400004)(376002)(396003)(136003)(346002)(366004)(966005)(44832011)(9686003)(45080400002)(110136005)(2906002)(33656002)(478600001)(316002)(5660300002)(55016002)(8676002)(52536014)(66946007)(76116006)(66556008)(26005)(66446008)(64756008)(66476007)(86362001)(71200400001)(6506007)(7696005)(8936002)(186003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?tTiyOHMyW7Bfe/nyL6yCXHz7J8KV5EUDA3JcASbollqPVq0UmxLhPlC3RooQ?=
+ =?us-ascii?Q?ID4/qoFkiobqRE4gVXvILslCgjrR/+6Pl4ylja06+JEqovDigrd9cpuqSGtg?=
+ =?us-ascii?Q?+YwJ2px4dyjc3Jf3JokyAUFvA9h8JcNIspZkOG+JIe7XcBtBdWqm+kpzUSAU?=
+ =?us-ascii?Q?XyKhZHd9UwFJQ5SMUgrLzrzaOSsdoFYgImm5/5OZNZxLf00QIAwD4tPozb9c?=
+ =?us-ascii?Q?uwsEvgd0dN+P+Z3KthUpMEut8yfcRdyjdFAU+dkIgpRWzRpdTvgW47Yq2xcD?=
+ =?us-ascii?Q?uTT48CotGCgXymRaQOOdaqqJLsxI9gviLnsaymxAmBW5GYfpGZ7+GmA4vC0+?=
+ =?us-ascii?Q?xvF4veYuw/1+6lwmfM47XhlIl7BdVFHKNv4mJ/yKO+OnhXWAKXTBqFm/Q2eb?=
+ =?us-ascii?Q?l3c2ZkVjz9Ho9QS/QSgsEXUa/EUunbMiw+6bgrDNP9Kz6S60VqklG2B67naD?=
+ =?us-ascii?Q?SwWNPYfv6vX4Zn/il3zoyXjNOwNuRVv59rU0JUweHtfBnrO3Bb7tALJg5lQB?=
+ =?us-ascii?Q?CIxnJxBvxQ9gp621gyFYvS2ZPPEibDxXSfMVnEWmOVAWBG1cZrGcc1H9HHgE?=
+ =?us-ascii?Q?jnZvu7UszH3ihfCoHfnHh5zR8Rg0sVHTLVIn6S16TS34CbGwqrssDsPmanRu?=
+ =?us-ascii?Q?P+cYegCYqmYD3RhfCvqeI3exAM+ZSxDYR7XF8kKAK/2bRDufJNxRGRYuP1hw?=
+ =?us-ascii?Q?QBU6oAmlkxvyUM6Nr5sVyNKah0PR6u/ncb1cjhdKpT5onE3cvDwAX611taO9?=
+ =?us-ascii?Q?5apQhUr3N2Eau31K9hqJhNmWCmQsMGgLZqJBoK2LI+oq/s/uNY8ozxKn5XfY?=
+ =?us-ascii?Q?uZvU61BeuvZIaFdoJFyOJanR3Wj25sXbXytjjjo8Uo04eyK7eRKcO4hUI4IV?=
+ =?us-ascii?Q?iFdp8ItkQ4Vsv4c9JgtGFec59KKPdJgl9cEisEn90w/ngWoulyRSap0UJQsh?=
+ =?us-ascii?Q?orH+NZBfW2BVxYN8eJRhxUfaxX36IpZABO6tLfptSrthPIRHuepQDQ/X8DnI?=
+ =?us-ascii?Q?TwZnEwoLEsJle/DpPjsbelQCNo5txTVArw9n0DPg078DmXLel85PU2vBo3hR?=
+ =?us-ascii?Q?NNN+/vLzZxd6GEbpKrHwrXmu2BFG2RHLpeUqeaSWZIOaiW8TQcPMRynIJkgl?=
+ =?us-ascii?Q?Wr4c9IEUGYtKI3ldJ01dJfH3/Bt4NVKuuTd6h2SqkPy5NkyMUXIuGvK7ppZn?=
+ =?us-ascii?Q?FIsoruDtBu45eQOOqeDrkZrKAdI7En1vLbtqYGiAWesr/W+tsVAlt+5KJB3Q?=
+ =?us-ascii?Q?5f6eLJCWEllILwxIJbUmqcEsnp+C/2cPQR4+KidjFX1i1eFkxd4fXKDjgzPt?=
+ =?us-ascii?Q?JeQUhzwztiWyn80ShhRGf4WD?=
 x-ms-exchange-transport-forked: True
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-OriginatorOrg: ikerlan.es
+X-OriginatorOrg: prodrive-technologies.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB4450.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 25907f22-30cc-4008-5179-08d8e91abb89
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Mar 2021 08:00:29.6835
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR02MB6663.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f5e7018-0a2a-4daa-2a35-08d8e91e1e5f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Mar 2021 08:24:43.9942
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 910ac815-f855-4a08-bf29-90b46552cf11
+X-MS-Exchange-CrossTenant-id: 612607c9-5af7-4e7f-8976-faf1ae77be60
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: RPHxKI5MCOZcq7uMdRw5C1yoQQUO73aNaX9MNiskVuwB2/vluz1kAKTjAXb3YwBJ5a2Ifqzrv7VdrfgtW6Wf+w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB6691
-X-Original-Sender: msainz@ikerlan.es
+X-MS-Exchange-CrossTenant-userprincipalname: VNFEfWkEjz+G54ReQ86js+V3xgWYzov/XCO8g2EBP+KJjMnIf3/8rlSUWJvSEOw51P0daL9b5AEqH8sxo8fZfm6mRCJANZJYxjLkdu2+1oIAIp0fWqcxZBEstM4Uzjy1qjLlAN2hq2iNl5e1YZq3PQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR0202MB3336
+X-Original-Sender: bram.hooimeijer@prodrive-technologies.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@ikerlan.es header.s=selector2 header.b=llZyRAry;       arc=pass
- (i=1 spf=pass spfdomain=ikerlan.es dkim=pass dkdomain=ikerlan.es dmarc=pass
- fromdomain=ikerlan.es);       spf=pass (google.com: domain of
- msainz@ikerlan.es designates 40.107.1.98 as permitted sender)
- smtp.mailfrom=Msainz@ikerlan.es;       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ikerlan.es
+ header.i=@prodrive-technologies.com header.s=selector1 header.b=H4rJKjTv;
+       arc=pass (i=1 spf=pass spfdomain=prodrive-technologies.com dkim=pass
+ dkdomain=prodrive-technologies.com dmarc=pass fromdomain=prodrive-technologies.com);
+       spf=pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com
+ designates 2a01:111:f400:fe0d::729 as permitted sender) smtp.mailfrom=bram.hooimeijer@prodrive-technologies.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=prodrive-technologies.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -204,84 +204,94 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
+> >On 15.03.21 07:47, Smith li wrote:
+> >> In
+> >> https://eur02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgit
+> >> h
+> >>
+> ub.com%2Fsiemens%2Fjailhouse%2Fblob%2Fmaster%2FDocumentation%2F
+> config
+> >> u
+> >> ration-
+> format.md&amp;data=04%7C01%7Cmsainz%40ikerlan.es%7Ce416bf160f3
+> >> 4
+> >>
+> 43ea28df08d8e919c2b7%7C910ac815f8554a08bf2990b46552cf11%7C0%7C0%7
+> C637
+> >> 5
+> >>
+> 15645170386416%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiL
+> CJQIjoiV2
+> >> l
+> >>
+> uMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=wldQEArIJ%2
+> FcFxG
+> >> w
+> >> 4x6SskbaxOJyVdBLeDuM1vOMWO%2Bc%3D&amp;reserved=0
+> >> It only shows "To be written..." .
+> >>
+> >> I found how to write  right .c configuration is very important .
+> >> For example , I want  add a new inmate,   a new inmate to run linux,  I
+> >> don't know how to set the value in the document.
+> >>
+> >> The result is I can't   easily run a new  inmate.
+> >> I think it's not good.
+> >>
+> >> Will  the document be written ?
+> >> or
+> >> Where  can  I found some  good tips  about  how to write a  right  .c
+> >> configuration?
+> >> Thanks very much!
+> 
+> >Eventually, this document needs to be written, at least to describe the
+> binary format (which is expected to stay). The way we generate it >right now
+> via C may change, though.
+> 
+> >For the time being, have a look at existing configurations, in the main tree
+> as well as in jailhouse-images (depending on your target) and >also study the
+> tutorial I gave a long time ago [1][2]. Some aspects have changed since then
+> but not essential concepts.
+> 
+> >When details are unclear, ask questions here.
+> 
+> >Jan.
+> 
+> >[1]
+> https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Feven
+> ts.linuxfoundation.org%2Fsites%2Fevents%2Ffiles%2Fslides%2FELCE2016-
+> Jailhouse-
+> Tutorial.pdf&amp;%7Cf659d6914e00464a59b708d8e91ac167%7C612607c95af7
+> 4e7f8976faf1ae77be60%7C0%7C0%7C637515648567686059%7CUnknown%7C
+> TWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiL
+> CJXVCI6Mn0%3D%7C3000&amp;sdata=fbtmKSRCItgbPj3rg6cFP2de64%2BFtY
+> ZR3oH5DPQKJJs%3D&amp;reserved=0
+> >[2]
+> >https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fyou
+> tu
+> >.be%2F7fiJbwmhnRw%3Flist%3DPLbzoR-
+> pLrL6pRFP6SOywVJWdEHlmQE51q&amp;data=
+> >04%7C01%%7Cf659d6914e00464
+> >a59b708d8e91ac167%7C612607c95af74e7f8976faf1ae77be60%7C0%7C0%7C
+> 63751564
+> >8567686059%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQ
+> IjoiV2luMzIi
+> >LCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=USe2ZeUgtpxLon
+> lBl2yHA7e
+> >8KwnnwM0ehIlLNtYzm50%3D&amp;reserved=0
+> 
+> Hi Jan,
+> 
+> First link is down. Can you check it?
+If I am guessing correctly, it is now found at https://events.static.linuxfound.org/sites/events/files/slides/ELCE2016-Jailhouse-Tutorial.pdf
 
------Mensaje original-----
-De: jailhouse-dev@googlegroups.com <jailhouse-dev@googlegroups.com> En nomb=
-re de Jan Kiszka
-Enviado el: mi=C3=A9rcoles, 17 de marzo de 2021 8:48
-Para: Smith li <v6543210@gmail.com>; Jailhouse <jailhouse-dev@googlegroups.=
-com>
-Asunto: Re: where can I get configuration document ?
+> 
+> Markel.
+> 
+> --
 
-CAUTION: This email originated from outside of the organization. Do not cli=
-ck links or open attachments unless you recognize the sender and know the c=
-ontent is safe.
+Best, Bram
 
-
->On 15.03.21 07:47, Smith li wrote:
->> In
->> https://eur02.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgith
->> ub.com%2Fsiemens%2Fjailhouse%2Fblob%2Fmaster%2FDocumentation%2Fconfigu
->> ration-format.md&amp;data=3D04%7C01%7Cmsainz%40ikerlan.es%7Ce416bf160f34
->> 43ea28df08d8e919c2b7%7C910ac815f8554a08bf2990b46552cf11%7C0%7C0%7C6375
->> 15645170386416%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2l
->> uMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=3DwldQEArIJ%2FcFxGw
->> 4x6SskbaxOJyVdBLeDuM1vOMWO%2Bc%3D&amp;reserved=3D0
->> It only shows "To be written..." .
->>
->> I found how to write  right .c configuration is very important .
->> For example , I want  add a new inmate,   a new inmate to run linux,  I
->> don't know how to set the value in the document.
->>
->> The result is I can't   easily run a new  inmate.
->> I think it's not good.
->>
->> Will  the document be written ?
->> or
->> Where  can  I found some  good tips  about  how to write a  right  .c=20
->> configuration?
->> Thanks very much!
-
->Eventually, this document needs to be written, at least to describe the bi=
-nary format (which is expected to stay). The way we generate it >right now =
-via C may change, though.
-
->For the time being, have a look at existing configurations, in the main tr=
-ee as well as in jailhouse-images (depending on your target) and >also stud=
-y the tutorial I gave a long time ago [1][2]. Some aspects have changed sin=
-ce then but not essential concepts.
-
->When details are unclear, ask questions here.
-
->Jan.
-
->[1]
-https://eur02.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fevents.=
-linuxfoundation.org%2Fsites%2Fevents%2Ffiles%2Fslides%2FELCE2016-Jailhouse-=
-Tutorial.pdf&amp;data=3D04%7C01%7Cmsainz%40ikerlan.es%7Ce416bf160f3443ea28d=
-f08d8e919c2b7%7C910ac815f8554a08bf2990b46552cf11%7C0%7C0%7C6375156451703864=
-16%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1h=
-aWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=3Deli3PRBWeg4PUcrt%2BU6XJdukfxxwwqNjilc=
-8h1YzrRY%3D&amp;reserved=3D0
->[2] https://eur02.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fyo=
-utu.be%2F7fiJbwmhnRw%3Flist%3DPLbzoR-pLrL6pRFP6SOywVJWdEHlmQE51q&amp;data=
-=3D04%7C01%7Cmsainz%40ikerlan.es%7Ce416bf160f3443ea28df08d8e919c2b7%7C910ac=
-815f8554a08bf2990b46552cf11%7C0%7C0%7C637515645170386416%7CUnknown%7CTWFpbG=
-Zsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C=
-3000&amp;sdata=3Dnm0vus3DsupHfxZ7sDPu4yhbVKkQbRHNtBcMezsykzk%3D&amp;reserve=
-d=3D0
-
-Hi Jan,
-
-First link is down. Can you check it?
-
-Markel.
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/AM0PR03MB44504D2242854324D3B00F16B66A9%40AM0PR03MB4450.eurprd=
-03.prod.outlook.com.
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/AS8PR02MB6663D7B254E27AAD507D3C34B66A9%40AS8PR02MB6663.eurprd02.prod.outlook.com.
