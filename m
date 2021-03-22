@@ -1,148 +1,149 @@
-Return-Path: <jailhouse-dev+bncBDRKPIXWWIFBB4UO4GBAMGQEJQJ5JTI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCW2V5WNZMERBHHH4OBAMGQEFRS2CHY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43d.google.com (mail-wr1-x43d.google.com [IPv6:2a00:1450:4864:20::43d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 826CE343A92
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Mar 2021 08:29:55 +0100 (CET)
-Received: by mail-wr1-x43d.google.com with SMTP id i5sf25564720wrp.8
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Mar 2021 00:29:55 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1616398195; cv=pass;
+Received: from mail-lj1-x23f.google.com (mail-lj1-x23f.google.com [IPv6:2a00:1450:4864:20::23f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 36F4234501F
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Mar 2021 20:44:29 +0100 (CET)
+Received: by mail-lj1-x23f.google.com with SMTP id p4sf57817ljj.1
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Mar 2021 12:44:29 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1616442268; cv=pass;
         d=google.com; s=arc-20160816;
-        b=Cf7ZVP3JqANmTF0l6pmq2Uxa66VCwscOtDGhm48KZ5ncFFNkrTjpK9Hjg4PWO67EcH
-         p/e7Mgh8eROu5fDo23lwZdyjHKJfARXKFaFux/minNZBNKsSeK5/fphnaXRb7tMYhBCG
-         5Jgetzwuj3Kw1h+inEKdCRuNsHtcgqXwPjxD7y8akEYfbR+rU7Na4sG1yuoNO2q1OjIR
-         /hIGtzk7eAYrthXMpjtCH8TAZqJaibXCveU5LtW+nTHXXbg7I8xqtHewTtskiFQ20C14
-         9UwInK3IfxVZg1yu6A6bW5jE5EnFH7pHCR7FU8OogWZO+2Wj45cSabRlHKSAKRrM6Un5
-         98cg==
+        b=bDRhrxTmOM7pThBExzoac+14TFZdKq8tKgaUnN6Vt6Xvu5/+Jwf22j4D5Q8rxiHUwE
+         wO58IaIUjMwFeGEea4SwWNvNCxGWpI8uJtZ7Ee7oIBtaEelayXfFf4IDGznR7nauO998
+         uAhdnWWea0n2tXQizQWHlYSBX+/PFhoSvpMZRioa3uwD5e30G4Vfys0msKmDwjnCVksd
+         kKinVgBn+xXmCpWMRRx33ffe4JL54cjFbOo9aCGwGUnPsVfbN5MyU1Ornid8heITXzOh
+         wH/5jwa9znQQTVxMF8gEm8C2TLCcfMI+THU9a425aeelpR9JNMfnzD2U8Cp2ZD5h20sE
+         cKiw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:to:cc:date:message-id:subject
-         :mime-version:content-transfer-encoding:from:sender:dkim-signature;
-        bh=aFY5aHNpT+DrW7zC8GY6W1/MYehKGdL+9Axpk8GJfKU=;
-        b=UcV3MOBWvB70FnE3wRObT9COoMGnZoKaV2JjjWPb2emZcbavN/qKisqmiHueR0iUuc
-         3+joOy4s4yO5mCN+wt3giEo/X+xiC7uY1NIfnfZl9q4hFL1SbXdD3ad2d4wHpDiX7iZA
-         HHfRMjrvUteeVf0LO/2JViH3lnd98yZQXkYnidLJntdfQOzjBGZCtrUARnk0neCnmdMj
-         wcJeuc/EcQOBBKU/UjA7LeEdpJgBuL0BmhEdkxUTReywb5rSjlJaLC43ZhfQGCF5wMxB
-         ahM49O3mNWj72WhQiRy8h7D5vf7DgGhw9bFOA4V+M9LuZyJl3PpP9rTfUoMKX3lJ5g6i
-         wHiw==
+         :list-id:mailing-list:precedence:mime-version:message-id:date
+         :subject:cc:to:from:sender:dkim-signature;
+        bh=SPNyzsKEHEVcl56HwRQcGi+yqqiMvD6KN08o9Yk2zpc=;
+        b=HshJMj0WV3HSCe51NRn75Zc3J23fKJfE3he894iCgtahH22whP5N7wevtPH71iNBWL
+         KL4xwRsBWzfH7PAknKy9brkC57ejwn9MPDMTqna5FRC6C9oWxibvGjMW0CJGm7ua4+/9
+         8EnmD4c9NZCYoWW1r9Sul6TrXob8vQ3+T7nzaiVLvNncvl6LNsZQY8viESy00bzDrMZf
+         HlSboNdpjyQqImL1fVfHpxS0aiKYSwdFAH2Eh0EeEltQl3QrmGM2eVsS28/X+nt+iyYd
+         f1mF0fdJgMr4PUKm0qjpQwgpNXj6VdZw4j9l1lBbUKW5SPMjaWYS2g7H6zfc4fboc/69
+         hH4Q==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=deRt9Xl+;
-       spf=pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.17.20 as permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=gmx.de
+       dkim=pass header.i=@tum.de header.s=postout header.b=Ze6l0EOY;
+       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.138 as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:content-transfer-encoding:mime-version:subject
-         :message-id:date:cc:to:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=aFY5aHNpT+DrW7zC8GY6W1/MYehKGdL+9Axpk8GJfKU=;
-        b=ka/sX2Ee+w6Jq47N1eUQaYGe32aiKubpr1vYjOAxSKyRub815HcWaqZQRvGS/6eQVw
-         MoupE7IaGbNJG5d1A4PuizepHu735RZ14YUqXktip/0TYsx/x7vk6CWtyZk9KEDrRN5D
-         MkSQuewNtDAzdhj3SVbokLw6airL/Aeqv3gC+6NdaTaT2bGFyIv8orXzdZQeN/aZLAHH
-         +oIp2w4RXC+SdvX1TOYg29P0RnXUlejSg0jqE1idXFo65BHzl2yg5hwuXeCR4RKz7lC5
-         x/CWCDz6qAnVgCVgMU3rTjwXmclIY1Ge3TA//yTE5jRcIySo0fjeaRtw+msk9weOc7TZ
-         9rZQ==
+        h=sender:from:to:cc:subject:date:message-id:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=SPNyzsKEHEVcl56HwRQcGi+yqqiMvD6KN08o9Yk2zpc=;
+        b=AOc96KitwctATuD5ZWbmopDOHWAWOohxdVd2eTNQD0Uv2mY9mtAggRacj4/LfWi+0T
+         vR82ywUSVZ/+WLUJ2vhRduGRxr1iWr9NUo1vvdh0l4SPhlffOYTzsjga1qohZoe628+A
+         GZXTt/3j8TkPFNOYzHEi6SSd8r/qDDxJ9o1J0ZSZb2qAhyzVEDclKhymS/K8yMYN/o8N
+         5fjH0xcKKQu0BiEacMyi9D2XBQctLb4m/OZ3EZz8mcbKbdO53+fcI0vMOtImZTLPlvGL
+         Zp2Ji4cD4rzKf66lBJD4nURSRPzBQ9omhmN7uVMdQZGsHW06LmlwQudkbGLlOqfiCZEJ
+         BThw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:content-transfer-encoding
-         :mime-version:subject:message-id:date:cc:to:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=aFY5aHNpT+DrW7zC8GY6W1/MYehKGdL+9Axpk8GJfKU=;
-        b=Hr+kqEMPMHJzzlwI3EwOr/Tfj3AKy0VLmTswAijMZoff5ibHs1C/WH7RA1Lqu8GDzL
-         wserk27ZkjElAriyYnguxxHRFV/ekFZSsXPQl407dUxwOeVGZj6cE77r+95W1v0t8SYP
-         oTsfD95Tgehdr+5GGcl+tiKe5giA3lQcn4NokDqJBYM2Hu/hDKRn8TIK4fKaqFNa8kqm
-         NUrtDwAbvf6Un5c4HgkyRDww7RgoDXQtln8nyoWD5ruMOVc5JbS6E8jfAYdYcN2TwiJG
-         FM0WAeC1H+zsj8mh/W57h3fpDtEtDeYSB+q83Xw54yRJy6y+UR/ErH8QTEPla68T2n4L
-         PwDw==
+        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=SPNyzsKEHEVcl56HwRQcGi+yqqiMvD6KN08o9Yk2zpc=;
+        b=OrMP43FttXnTz/Vo46xCJWkIzUorpACXlV+NhYaN2BvUokrvQLtddfraUNCV5eM9Wo
+         zHHfXMbUMTP2n7JG/Z+9xFhoDjo+7c/DnF0D/i50V0rH0cvmqMYi0A4GNqaMyaaUaP3l
+         JEOzK4b8MlJZ1kZd0bBFvPh3V45P6dsWPICs8iLYtwEAqnYKnEtFD92Mz6UcUbEZrGON
+         t4RziFmS5DZquV6bAAnswclrXQyH5GE7/JfE8t9BGe/GZUBCTUqMBbc00Kohaomoglox
+         XeixJXYxeD7f+o4lJlaK0ofqGK986vnzSTbrgwJbo1LrvDaUDSavkRw3vLSOFNIVySti
+         AItQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530PtJ5yrW/kpn/1r2neBznuz/8C/1YIBLxEt4UTLsJA+whS2BtA
-	fEaZGZXotNFJs+MAhObxTKo=
-X-Google-Smtp-Source: ABdhPJxCma4QzJA9ZZUZVhacMKcSJVIG5b5LHmNfHxqPOVDZ4rxkxShkDvlxXJ/qK+2Tprgll74r1g==
-X-Received: by 2002:a1c:32ca:: with SMTP id y193mr14437305wmy.56.1616398195182;
-        Mon, 22 Mar 2021 00:29:55 -0700 (PDT)
+X-Gm-Message-State: AOAM533RedLEMpk6/rdpcpPh3TtyTqqQZLoOrVi/96t8dobjQqQ9yEjF
+	8a5SpywwzhwHkHGoMJpgmOI=
+X-Google-Smtp-Source: ABdhPJxPNu25wNuPdPyh6mXRhlOC6lG1+P9oUSY2KlU9bzV+5/ANvGcScDwwDqkAiS/ZDgOAuQPZ3A==
+X-Received: by 2002:ac2:5e21:: with SMTP id o1mr507351lfg.435.1616442268594;
+        Mon, 22 Mar 2021 12:44:28 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a7b:ce14:: with SMTP id m20ls5578579wmc.3.gmail; Mon, 22 Mar
- 2021 00:29:54 -0700 (PDT)
-X-Received: by 2002:a1c:7714:: with SMTP id t20mr14363834wmi.107.1616398194222;
-        Mon, 22 Mar 2021 00:29:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1616398194; cv=none;
+Received: by 2002:a2e:9a48:: with SMTP id k8ls2658314ljj.10.gmail; Mon, 22 Mar
+ 2021 12:44:27 -0700 (PDT)
+X-Received: by 2002:a2e:b52e:: with SMTP id z14mr720259ljm.124.1616442267432;
+        Mon, 22 Mar 2021 12:44:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1616442267; cv=none;
         d=google.com; s=arc-20160816;
-        b=a2a/obHMONlspGXBHLy5ylDA85BIJQULm9yynaSJlG4gxKbiGCecQx4BNeH6DJeQpg
-         kUzv2Rf4MmnsHstyCrDhf8qh2jupjJDb6zs6x5YyTZ4IjppP/rdsco1gvU14nYM7Dxq4
-         vvNJC51KA/ua8Fs4lH9869aSZiXouKguiHD7cwWl/YSluF8wxM0sI7HrV94EtahWJnOe
-         XAxPnMFP8X6c/lgoEi/1Pl1i57IerDuB4ZHPu48GETJw20VXuGwcsHkfVU7E08sn8X+e
-         n4JiZoy1mK2/hJC165HjG4XzMVHH+dhCKh3jT41rZ3+EJeBB68cz9mFApnn53BJexTX/
-         xElQ==
+        b=fr3pW7Is6l5D1GwWkUG+7EkELxRCu/3l8DcL/5gORDXYc+GmL1v5DKBqVBZBp0rl5Q
+         c1xtnLBvhQ3il9a+r+guczARtfN6bjcebfPCVv04vkcZhzCOTOnYOOnRXgMl+l/sS87j
+         iMP3T1Q2EHR67ql3O29CfiidrVeylmVRAlmL4LmWw2YmXiFwti/Q703oQ3noArQt8/4Q
+         S2cTB4TKXmvEa2itgp5GQ0xRNTDu336Ldn5oTgUsGI1G1lxieEqtQDnzS/HMiyvra+Gs
+         lAw1lTG8dtB7GtCSbhAjYrOGRP/6GCOxIzIamTpkDOMJcM9XjRpK7BbJqitwqB/tbOBO
+         6NSQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=to:cc:date:message-id:subject:mime-version
-         :content-transfer-encoding:from:dkim-signature;
-        bh=hOFBfp/TXS9O6E4i7DSuaS2gE11uQGYerAo/1C78xiA=;
-        b=BNjVcdwv7OCWH0f2GktT00htFU9l+2K7z6Y3WdbqwNh3zcrc+ewoBCG+fCrhgN3MmF
-         nh+C9mz1DA/H/RNPByHyc5mojsWQXUp9CJ4PENBRFmxMQQP5sMm4URnBIKxQLtmOUHwn
-         WnR1REnfm89G/9iMVxT7QlDJ93gazf224uPH5AFuJNJw/Nzu5/Kiz4+1rLItrTt6jg7O
-         T3ys30tepnYVpoaynbLdU0uj0lcJYt/wZMknINXgyz+prE+p7UMme04adF26itBQIdkq
-         Zd8aHGGJjqdo3zT4peG4UMXZFo9KyBeck0xY1FhkhG0wb7dHxsMGEVFmK+yVI5baNp6G
-         aF0Q==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature;
+        bh=Lzi2JsA6ZtW8oGeBzn0iB3lITF25rt/D+5fcxv2ek7g=;
+        b=SKE1BLmT2ZVXL2+1Lm5AZ8QI11HSEWA3a+g2wULP6ZARUFCawxG1S61qIgwDeirFH2
+         z7jvkDGy5JzuzuOLmwPdKXhB6lnUNpLEMjlR5wy15HnYoTk6xAodr03OrRLB5R0vq3Qz
+         PC58HgvtofFMCmKcwwsFcJGGxL10vnBevxiGLbbm96OlUMyWb0dxbEgcg1RHvtm6Zh9E
+         6fgTv0PoBchzkm0OVg1vlChFsMeLhErKj8mwzaaIqN1K29w8V/zLns0R9IhvsDXb4GcU
+         7h2p2aVGFDPTpriZR2f3S4MABtCiC700dksjw5aq0Ea+/FEe3HU5NHPmISwKyXNTZYN3
+         +Jug==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=deRt9Xl+;
-       spf=pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.17.20 as permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=gmx.de
-Received: from mout.gmx.net (mout.gmx.net. [212.227.17.20])
-        by gmr-mx.google.com with ESMTPS id w2si476587wmb.4.2021.03.22.00.29.54
+       dkim=pass header.i=@tum.de header.s=postout header.b=Ze6l0EOY;
+       spf=pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.138 as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
+Received: from postout2.mail.lrz.de (postout2.mail.lrz.de. [129.187.255.138])
+        by gmr-mx.google.com with ESMTPS id z5si484506ljj.5.2021.03.22.12.44.27
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 22 Mar 2021 00:29:54 -0700 (PDT)
-Received-SPF: pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.17.20 as permitted sender) client-ip=212.227.17.20;
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from nethserver.fritz.box ([5.149.16.213]) by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MFbVu-1lS90x3Inm-00H6SZ; Mon, 22
- Mar 2021 08:29:53 +0100
-Received: from [192.168.2.26] (unknown [192.168.2.26])
-	(Authenticated sender: oliver)
-	by nethserver.fritz.box (Postfix) with ESMTPSA id 47EF3213AA9B;
-	Mon, 22 Mar 2021 08:29:53 +0100 (CET)
-From: Oliver Schwartz <Oliver.Schwartz@gmx.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.120.23.2.4\))
-Subject: Root cell cache coloring in jailhouse
-Message-Id: <24D2D568-5334-4B88-9430-86F84E576E35@gmx.de>
-Date: Mon, 22 Mar 2021 08:29:52 +0100
-Cc: jailhouse-dev@googlegroups.com
-To: Andrea Bastoni <andrea.bastoni@tum.de>
-X-Mailer: Apple Mail (2.3608.120.23.2.4)
-X-Provags-ID: V03:K1:4zQ+NFtK32qW7fDAqObskeN7Tv5BMVHyFnYIS/76s/Zq8hVgQGZ
- uozv8BmQCcb4e1a/Uwb9ZmPTrNEUawOWa7W4dcuZKsFJI47cBs5sMfM/gK7Li06qZ8eV1US
- +OuLq1DF8zrx0gk7npToBJTLPwGyIQ016NCBY4PZtcc6avJbozUp4K6Cq9qH3PvoocRfsnb
- Wr8CUi5AEUUUqWgH35khw==
+        Mon, 22 Mar 2021 12:44:27 -0700 (PDT)
+Received-SPF: pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.138 as permitted sender) client-ip=129.187.255.138;
+Received: from lxmhs52.srv.lrz.de (localhost [127.0.0.1])
+	by postout2.mail.lrz.de (Postfix) with ESMTP id 4F44hB3dWHzyXh;
+	Mon, 22 Mar 2021 20:44:26 +0100 (CET)
+X-Virus-Scanned: by amavisd-new at lrz.de in lxmhs52.srv.lrz.de
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:bci6UQFkYtI=:FrWaJ7V/88Wvjm1qlpypfP
- At0tVbwUZ6gk5UVhy+KLTAARAo8k1PDG/vnFHEvIZke9ukrB7AjSp2YK7fWUlrROVNgT7KnW5
- XlnJMi+4t/D7Pam7Oz4BVrJOjPxvhJdP0CyAqTNbL/zyjr+2/7F2tvpV1jl490Zg6qfTQzd99
- dvTiY7dIiI1in19wkpBhlFLV7H64aFMW1zcAxwIKcO1A4mfoVdP0Zhf1m/VFQEQ9NMJ1nliK6
- I9YGpKxiiukgz6LVVhYiQPE0IYPKoOYsn59QexNaIH4FcRWcy+dgSmenfBYjViCAFmq6wsh50
- rBstx7siwJz43NT2sDs5ovm+aGYWYnYkGD54d0v7eNlLhH9rIKsj8gum2vm/qKn0CiG4YhBQ+
- YzdjuEBtdGH9jCzhNN5IRmbweUhOPyRon4X93KcQ0nVugOodHPK8Y4rmoKzgw8qKwCc2/tvJo
- 9+we0ZclpLHMmVlf3mSOqGi5bbCQD5PNnxYpUhAX/888C8Os+RtBP7iVB8O4/qIHJy/37vMjZ
- a98oIh1nUXF7gHKS3BTKzI06vdWe6qwPlJF90bAa3L8Hnvr7k2Ebx6pPFv3JoSOabPcZjUFpu
- Rlf+Tc7rqPjp6urIo9jz2lYlFWqqlUGMtmgPK8DdX0p/ylyLKYKRR49pBZHYQaxoqYt8K5Ann
- Yff6ftHVLcL4m8+2ZSjmHYPm9Wpb4UxqUSQas3LPuEJzaK67UC8ErSjEGX/JrTxcPdPropf9R
- MzKK1LQVxDVitSOhVbOtj2qqfbABEqYwU7GzwyojqfDVpVuMFsnkjB9WIugNaAD94VN66Vh6M
- OGyFIkC+nccqo0Q0r91KiN9iXwprwEmX0Bzr61k46bK26EgIu4rKjNHYyMR3mFpSZVT/ouqvp
- S25mslrFFG7rznlhXDrDzWhFTEXLlQvKuBS1xCdQ28Y+LXAECG0Vv6N/RQH+hbxyIVv16EUSU
- AVFtvivD9wzWTzH3jm3Rzbl+6T1eqcQz4yIzJnJl4yYy1Y2aYbzxVKPrdqyBKtZWD7Sji9NDf
- gntOHrvXpw13lRAyCfTOB65RQBaPDLDLw0r48X2np3JQ973yQVqekEECof/c74y2WDjQvf2A3
- h/Q0BApEVWkKMQqHk51mhPI/+q8OpuORG9lfaeMITU0WAyYzgkUnAuunSwwQQ3UOpArg/Wgb1
- +zOgRk4f58qj1WuC1+bNvSdAFOoBm/Ru5Wibm+b4Ou3IDaqBLs6f9RDxvWXw9WLL4Gh7RX07m
- Ywj2sFe7UsfLLCsfu
-X-Original-Sender: oliver.schwartz@gmx.de
+X-Spam-Score: -2.876
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.876 tagged_above=-999 required=5
+	tests=[ALL_TRUSTED=-1, BAYES_00=-1.9, DMARC_ADKIM_RELAXED=0.001,
+	DMARC_ASPF_RELAXED=0.001, DMARC_POLICY_NONE=0.001,
+	LRZ_DMARC_FAIL=0.001, LRZ_DMARC_FAIL_NONE=0.001,
+	LRZ_DMARC_POLICY=0.001, LRZ_DMARC_TUM_FAIL=0.001,
+	LRZ_DMARC_TUM_REJECT=3.5, LRZ_DMARC_TUM_REJECT_PO=-3.5,
+	LRZ_ENVFROM_FROM_ALIGNED_STRICT=0.001, LRZ_ENVFROM_FROM_MATCH=0.001,
+	LRZ_ENVFROM_TUM_S=0.001, LRZ_FROM_HAS_A=0.001,
+	LRZ_FROM_HAS_AAAA=0.001, LRZ_FROM_HAS_MDOM=0.001,
+	LRZ_FROM_HAS_MX=0.001, LRZ_FROM_HOSTED_DOMAIN=0.001,
+	LRZ_FROM_NAME_IN_ADDR=0.001, LRZ_FROM_PHRASE=0.001,
+	LRZ_FROM_PRE_SUR=0.001, LRZ_FROM_PRE_SUR_PHRASE=0.001,
+	LRZ_FROM_TUM_S=0.001, LRZ_HAS_SPF=0.001, LRZ_HAS_URL_HTTP=0.001,
+	LRZ_URL_HTTP_DOUBLE=0.001, LRZ_URL_PLAIN_SINGLE=0.001]
+	autolearn=no autolearn_force=no
+Received: from postout2.mail.lrz.de ([127.0.0.1])
+	by lxmhs52.srv.lrz.de (lxmhs52.srv.lrz.de [127.0.0.1]) (amavisd-new, port 20024)
+	with LMTP id 84AdV2WilCFl; Mon, 22 Mar 2021 20:44:25 +0100 (CET)
+Received: from kabal.lan (ip5f5ac6b3.dynamic.kabel-deutschland.de [95.90.198.179])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by postout2.mail.lrz.de (Postfix) with ESMTPSA id 4F44h90FGYzyWn;
+	Mon, 22 Mar 2021 20:44:24 +0100 (CET)
+From: Andrea Bastoni <andrea.bastoni@tum.de>
+To: jailhouse-dev@googlegroups.com,
+	jan.kiszka@siemens.com
+Cc: marco.solieri@unimore.it,
+	rmancuso@bu.edu,
+	lucmiccio@gmail.com,
+	Andrea Bastoni <andrea.bastoni@tum.de>
+Subject: [PATCH v2.1 0/9] Cache-coloring (ioremap_colored version)
+Date: Mon, 22 Mar 2021 20:44:01 +0100
+Message-Id: <20210322194411.82520-1-andrea.bastoni@tum.de>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
+X-Original-Sender: andrea.bastoni@tum.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmx.net header.s=badeba3b8450 header.b=deRt9Xl+;       spf=pass
- (google.com: domain of oliver.schwartz@gmx.de designates 212.227.17.20 as
- permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=gmx.de
+ header.i=@tum.de header.s=postout header.b=Ze6l0EOY;       spf=pass
+ (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.138 as
+ permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=tum.de
+Content-Type: text/plain; charset="UTF-8"
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -155,42 +156,78 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Andrea,
+Hi,
 
-I=E2=80=99m currently evaluating the benefits of cache coloring in jailhous=
-e.
+Didn't have much time to work at it in the last period, so it took a while.
 
-In my application I have a setup with two cells, the root cell for communic=
-ation purposes and an inmate cell for a realtime application. The system is=
- running on a Xilinx ZynqMP. With the arm64-zero-exits patches the realtime=
- cell runs without hypervisor exits after startup.
+There are two similar patch batches: PATCH v2.1 and PATCH v2.2.
 
-If io load in the root cell increases (e.g. with network traffic) I can see=
- some impact on the performance of the realtime cell. Possible reasons migh=
-t be bus congestion or cache conflicts. Since I=E2=80=99d like to minimize =
-the effect, cache coloring is an obvious choice.
+v2.1 is the version with the colored ioremapping in the Linux driver. I've tried to keep the replication of the code to a minimum, but the main coloring loop has to be replicated in both driver and hypervisor.
 
-The current set of patches for cache coloring doesn=E2=80=99t help a lot in=
- my case, since only the inmate cell can be colored. In fact, the performan=
-ce is worse than without cache coloring (presumably because less cache is a=
-vailable for the inmate).
+v2.2 is the version with the temporary "root mapping offset" that allows reusing the plain Linux ioremap.
 
-My question is this: Is there some prototype code available for root cell c=
-ache coloring? You mentioned on the list that you had done some experiments=
- with this. I=E2=80=99m aware of the limitations that this may have and the=
- concerns that Jan has voiced for this approach - however, at the present s=
-tage I=E2=80=99d be happy even with some hacky approach (be it in Linux, U-=
-Boot or Jailhouse) to investigate whether cache coloring provides a benefit=
- to my setup.
+I've removed all other "additional" patches and just focused on the bulk of the coloring implementation.
 
-Kind regards,
+Overall the changes are:
+git diff --stat siemens/master driver/ hypervisor/ include/
+v2.1) 15 files changed, 515 insertions(+), 22 deletions(-)
+v2.2) 15 files changed, 468 insertions(+), 24 deletions(-)
 
-Oliver
+PATCH v2.1 is also here https://gitlab.com/bastoni/jailhouse/-/tree/for_upstream/202103_coloring_driver
+PATCH v2.2 is also here https://gitlab.com/bastoni/jailhouse/-/tree/for_upstream/202103_coloring
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/24D2D568-5334-4B88-9430-86F84E576E35%40gmx.de.
+Feedback/comment welcome,
+
+Thanks,
+Andrea
+
+Andrea Bastoni (7):
+  arm-common: bitops: add most-significant-bit operation
+  include: cache-partitioning via coloring, add configuration
+  hypervisor: arm64, arm-common: add cache-partitioning via coloring
+  driver: provide colored ioremap operation
+  configs: arm64: add example configuration for colored ZCU102 inmate
+  configs: arm64: add coloring example for qemu-arm64
+  configs: arm64: hook-in coloring parameters for ZCU102
+
+Luca Miccio (2):
+  pyjailhouse: add support for colored regions
+  Documentation: add description and usage of cache coloring support
+
+ Documentation/cache-coloring.md               | 177 ++++++++++++++++++
+ configs/arm64/qemu-arm64-inmate-demo-col.c    | 134 +++++++++++++
+ configs/arm64/qemu-arm64.c                    |   3 +
+ configs/arm64/zynqmp-zcu102-inmate-demo-col.c |  75 ++++++++
+ configs/arm64/zynqmp-zcu102.c                 |   3 +
+ driver/cell.c                                 |  11 +-
+ driver/main.c                                 |  75 ++++++++
+ driver/main.h                                 |   3 +
+ .../arch/arm-common/include/asm/bitops.h      |  10 +
+ .../arch/arm-common/include/asm/coloring.h    |  45 +++++
+ .../arch/arm-common/include/asm/dcaches.h     |   8 +
+ hypervisor/arch/arm-common/mmu_cell.c         |  68 +++++--
+ hypervisor/arch/arm64/Kbuild                  |   1 +
+ hypervisor/arch/arm64/coloring.c              | 109 +++++++++++
+ hypervisor/arch/arm64/include/asm/coloring.h  | 140 ++++++++++++++
+ hypervisor/arch/arm64/setup.c                 |   3 +
+ hypervisor/control.c                          |   6 +
+ hypervisor/include/jailhouse/control.h        |   4 +
+ include/jailhouse/cell-config.h               |   9 +
+ include/jailhouse/coloring.h                  |  45 +++++
+ pyjailhouse/config_parser.py                  |   9 +-
+ 21 files changed, 913 insertions(+), 25 deletions(-)
+ create mode 100644 Documentation/cache-coloring.md
+ create mode 100644 configs/arm64/qemu-arm64-inmate-demo-col.c
+ create mode 100644 configs/arm64/zynqmp-zcu102-inmate-demo-col.c
+ create mode 100644 hypervisor/arch/arm-common/include/asm/coloring.h
+ create mode 100644 hypervisor/arch/arm64/coloring.c
+ create mode 100644 hypervisor/arch/arm64/include/asm/coloring.h
+ create mode 100644 include/jailhouse/coloring.h
+
+-- 
+2.30.2
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20210322194411.82520-1-andrea.bastoni%40tum.de.
