@@ -1,119 +1,125 @@
-Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBYV54SBAMGQEWJ5C37Y@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBS6A4SBAMGQEXBHKD6Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb3a.google.com (mail-yb1-xb3a.google.com [IPv6:2607:f8b0:4864:20::b3a])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF71734528B
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Mar 2021 23:49:07 +0100 (CET)
-Received: by mail-yb1-xb3a.google.com with SMTP id u26sf777491ybd.4
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Mar 2021 15:49:07 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1616453346; cv=pass;
+Received: from mail-ed1-x53f.google.com (mail-ed1-x53f.google.com [IPv6:2a00:1450:4864:20::53f])
+	by mail.lfdr.de (Postfix) with ESMTPS id EF6513452A2
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Mar 2021 23:55:07 +0100 (CET)
+Received: by mail-ed1-x53f.google.com with SMTP id h2sf203532edw.10
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Mar 2021 15:55:07 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1616453707; cv=pass;
         d=google.com; s=arc-20160816;
-        b=J5qII8ePm8CfcDKCG2fqqdr9Aqhej6Y953brstiAVjc+kPMKcWnJP3xUGdn/UkpAzP
-         6dPKR+Ux+airRf1p1kt3d5S19tr06TLFhLr4UKvKjLaV67wKhTYxsX6uCBYgFzpy1Wau
-         anXcC90t87SrsQBHtx+fJAVZ4GZwv8JrZYO5xFUOVVfVTXxe9mZRwa1JWvU9mNgD98gY
-         Ru/QpWxfpTiZkRHT5WxMB/k2bsXD4poyU9ZuukTeCSYfwSCm/oTP7OxZ8aYP3WZIHqBV
-         AM5yVdSTtWnYdZMbuiaS9lYOtTCHW719TIKsohY45w2eOnmslCVPMWz72Fw3c5oKtn01
-         RL6g==
+        b=k1/rdy+L7NYCVZIQaxJbEv/qf289+faKmzSF7XVO7c3qIwV8RqTptJErPCmYlZ6fzY
+         MItyBhGBOY3QqvpAORZIWD4R6smMxPCewg7mg5Bpo2BZIiR2GMysQDgnrkPKcBIcE5ae
+         iHHxxt5yT/onu3kPyOqjhmgPpLiJfYGCdq1lTXe2d4CBuohH+HvAohn6u0oNE7eWBXJv
+         AwzfVh7y+2cmIqG8ZuDA7SUMB6BnisW7cw9W1+kSpfp6UkyHzRWU7+xPGjOYpKI3kfxo
+         8tM8nzCLp6n5LBEQmqPwmktZqX6R5GYr2o8EtiCeNwPezhACaF1IYMzV5z+d/08bvns1
+         4Asg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to:mime-version:subject
-         :message-id:to:from:date:dkim-signature;
-        bh=wRzCoG/YY9jhgH/2JD+7ANZENcR4nyq4+5MQwS/mhTE=;
-        b=wHHdvAqzS54pG55niJXgUOyaWiiqo/CVqQxjx9/ytFLG8HG5p6AxuPZ434IkDkMWjt
-         t/+ElY+LQt84U7QfJ5WHfUZsbRF+oB14TWmslmaxJ1rgTcxJm4XudjW2F+OGoeZ0hXzf
-         g/0FWG0t01QnWrs2o5cJT/0ISnaxv45lfzlNOqkr5BQm7Dr4dIlZr3hI0lF72V9eG48v
-         QYi+gxv4DmxVQzbPkQiEyZH246oPuS+6dLocBbVwQLiqRCSC4fpvoraaS1nsuQmDeiF0
-         PdtDfBBk63/jD+bFHZ/YFpRyQ1VbcC8xVA36a7yEi3+qttrMh84e0TRNUBhu6JqZTrX1
-         kNuw==
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:to:subject
+         :sender:dkim-signature;
+        bh=iVSUmXrnn9iRGFHB42b8ZyexwDD3LnSyvBPopRD/7+U=;
+        b=ubCQJCNSWo9l43AYNNgBdMPz0jXYsYpBmtVnZ6/+JLa4AA29y7CPM8U00xUN+EDI5+
+         Kqvy3I93IYNxlqZAYGdRjIXYBl7G9ie2FwSAkU3HyeKMGYkRChE5kdIHbs2uEDY76X/z
+         KdIQ4hyBkGakKRIg4hMy8p3UK5ANoBtFy2UfHKH6YRP3lAfuPV5zfLN7odeHcGF55uJu
+         5CfGZp0BvZMOmCxQa78WzXuQOkFl3Nza56DleNDJX3z+VSoqPsCQvGnFF/5aFa4Ax9cM
+         gDkNDqMYhnMn/uyFkApVVTg7JLD4peteyT2n3aENYxkxVoGmos0S+jqqIdferdx0L8Tf
+         HsBA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@github.com header.s=pf2014 header.b=VtUDw1Th;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.201 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=github.com
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=date:from:to:message-id:subject:mime-version:x-original-sender
-         :x-original-authentication-results:reply-to:precedence:mailing-list
-         :list-id:list-post:list-help:list-archive:list-subscribe
-         :list-unsubscribe;
-        bh=wRzCoG/YY9jhgH/2JD+7ANZENcR4nyq4+5MQwS/mhTE=;
-        b=PKmHPvcKwMUm8NoI5PwXX1Z5HHdUUn4uWBGRwdX2GKLoFN7YXMW4JIGe25CBSPQyaS
-         ClBekw/i56s19BJyZdjpyaRIl2v0s6oGrIZWwi94ehahtfJlnm5P/nbQDmpADORaeV+g
-         30nwUDtmU+G7JEjWPUcYtDCYuf6Hvfog+UTCzwQZVd3ZDVl7bln+wLr3hfWnsA2TD6Ki
-         bdiGc74PsXbwj6Dpc+VP9iyfI3/e6dSUS6mNZwYuCd1ySbCAgIvr6oF2sFOjnu14rQUb
-         WIuX8KrGQke/Rq9dyMW3UzGwEYfIjNnoKzSOyYfYqeK+OCSbzS/2V6FK3vG75OfqlSJg
-         6WSA==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=iVSUmXrnn9iRGFHB42b8ZyexwDD3LnSyvBPopRD/7+U=;
+        b=OfnOJ3chmbLpMnTEiqfgvs78pSE1kc9RGU3ZnxDnFsGUQ+/8MZudLnmN8bonWFjl52
+         r45d5xhpYdEKcyH055BhL2uQUjnKC5Bl7dZfEEtpOT60oXcmO9TqqPhOq1sJ9annQ7Hr
+         K1UzdTGNyTD9dcGIPs2MqkWEnQXru1qJpysfNc0gk65BEtcM4emLNkauuBaPlQmmSxMS
+         KLkHJoVafsdufkX4LDysKoaQ/1mSOdFqOdg7rhvjEXv6ve3oKCM1TDXbx+e2hXXBSwQA
+         vElbPlxA7qbPe2lIXPFwmPxg0jK4IevazGYMBfESJdujleiDe+LC61XNHmj5F1xR39U8
+         sfQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:message-id:subject:mime-version
-         :x-original-sender:x-original-authentication-results:reply-to
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=wRzCoG/YY9jhgH/2JD+7ANZENcR4nyq4+5MQwS/mhTE=;
-        b=mubXtxx8iPKn4hOTpumyNY+TmhmhDnGw3Djj1MeuQ38EVny0H+KoAiWuvFWJJyMDf2
-         0eurehAKrbsKO6pGZ3UmcJY9id6gNeY9AokHwwweSB5WWBjzDdA/5/f5oXVnyiozb4Hj
-         jcvlPKyvgXGYx2rtIRufmvqkoPeN4I6b/uE5vWl+CjaCMyehJZjo8Gvxj00JwilcIeal
-         n208j9UbxmmpBcSm8kTfPblO+ZSUCSHGy7gMzeBWTdzBZ4Gwu9rcWPumejPobWSZCosJ
-         wjSEv0GYwx0AgW5BoWftj0FER0bdfK5D9pnXWfjmcoubE4Jc9SNrD/6rT7VYRzu/E0xV
-         t1Vg==
-X-Gm-Message-State: AOAM531aUSyg+3Sdk8Fk9oe9BFdLCMRrcmxXmJHx577Ft4Vv7kstaV5x
-	19SdSUprOdsQ389vhjur1Ng=
-X-Google-Smtp-Source: ABdhPJxBLy9K3L/rlyR+stzNmq7OQgif1OHLa7WtrsHfTR1auBTCKyhSqWTppLqq4XjrErxL62YCdg==
-X-Received: by 2002:a25:5888:: with SMTP id m130mr1131321ybb.415.1616453346652;
-        Mon, 22 Mar 2021 15:49:06 -0700 (PDT)
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=iVSUmXrnn9iRGFHB42b8ZyexwDD3LnSyvBPopRD/7+U=;
+        b=LbGQhcsMJv8vFZaCRyimYqb+00o8St9whCawnJyqjkQR8naGFtkOjC5RBMr7SW9USU
+         bdeVj55nWOJw+yHu5KWeuyer7HH38me6LlqRtsA0OA5SjmJDhy5iyE7f9tDxbwjgaQXg
+         oBQ2Ba35cO1mUzUASEydh9UdD6GtnWEDCTAqTf49uz9lXL+Dh6cOGYZC4bvDZ42e03fY
+         fHssnXmYPAJcuL0ppppIMhcHqIK/u4uOsU5jds/PGqxn/AXClpxN8Nvul6VAr37edWa5
+         z52++cxw0w2wX39sZDBqriC7USFtJcY6fdJo4WINBnkwdTtbradlMG+FtfB7dcNRbDo/
+         M5/w==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: AOAM530Et3469GeDGOy4x4wCbtXi1FF1pWq4pHA74yUQDsRDgy7SLR6N
+	jgXxMblUxZDpG/DbjjN/x74=
+X-Google-Smtp-Source: ABdhPJydWdnkfd428fyEJCGniWopq9XmBw3V6d0fUZGHY6Me/TkYc/yWNpdSM+SlNIOGlg/9wL9FfA==
+X-Received: by 2002:a17:906:9515:: with SMTP id u21mr2065252ejx.86.1616453707681;
+        Mon, 22 Mar 2021 15:55:07 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:1ed7:: with SMTP id e206ls5091414ybe.7.gmail; Mon, 22
- Mar 2021 15:49:06 -0700 (PDT)
-X-Received: by 2002:a05:6902:102c:: with SMTP id x12mr1115559ybt.421.1616453346159;
-        Mon, 22 Mar 2021 15:49:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1616453346; cv=none;
+Received: by 2002:aa7:d788:: with SMTP id s8ls3309773edq.1.gmail; Mon, 22 Mar
+ 2021 15:55:06 -0700 (PDT)
+X-Received: by 2002:a50:8524:: with SMTP id 33mr1905716edr.110.1616453706655;
+        Mon, 22 Mar 2021 15:55:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1616453706; cv=none;
         d=google.com; s=arc-20160816;
-        b=GLu0yB3BSN7VLCkfIp7FNvV50tTZT54EYIsyEg9JSJVB3tQg+rBGMxxCaNHKYMoqpA
-         Q5cH+6mlIw9xaYdMbFMYkm/kCMc/40izIesn/LuZdayn0rNXCZtNe6fL+w0BUY5DTw9N
-         9HbFa08NF/D7tuT2YSjRwifsWnaMrS6Y0GyQqZxlj0vi7qB7Z253JmgVUe39tDVuSEAP
-         Sy//gbwUxIoSR8gEpA3S/likR8bA4G3R/TrbRdtd2r+++i5tsBJKgtV0msqp1GiIu7Uc
-         pSVerRMGQiS+vjEs9Uu3Os4WaB5AjhJUNOWcExfV6Dc0TXxGnEO5gOg9JS2Q8lEcOKRo
-         KTXg==
+        b=d1CfNahPVTkl6bikt/dZkkoHZjuipQ0x9ikLbhrPG44DO9WRY3kqCAnsj74BTNd0mo
+         SauzSJ+fOZIsE2JFzsIYBKEHrGdLgIiSp9893RsR2Dz3Aq85T3xB2rENaSlYnz7oG3Yj
+         3cpT3JZX/MgPPBw+Rv24yef/+UVXZggUchaRaXmURTyYnoaeLhIN6pPwFK6BQ3OZQG4n
+         vyFt6c+HRH3jkM4EfVC6xgK67umi5ZsCOwfq8qRDt+PhHsyz7urnkgjibhohr3M48Qi2
+         WJc7oDw0uCMU5BlGbf5xblJlpc4YaFaNUICyCjhr0HxzY87hQPqTM5orRWKC3rIcNlH8
+         0MPw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:subject:message-id:to:from
-         :date:dkim-signature;
-        bh=M1ivA5eUcTKq4477j5+rNPWs0ReR5h/ZLT//sZxcUrM=;
-        b=U++B9ahPeeDYt9dGudqtzJqUiIZlYdqVgoM+YjhJHnV+45bBHKXMP8pL33lSiVUj8/
-         TRJCxtEcsDGaC2MT0lJ6Yr1XHWOrAIME69Q1HfQxO+aQTmBpG15t1nK5/xCi27PLeXwd
-         9CG5Ai0PKkyciWT7qsjZPeQvp0nBrBsZDsX8FksGXN5a9l9byy7TxpZvG+XojuSvkmhE
-         HmCXDCBPbELHTXiB+vsOvpJCP9HwhFAw8oNtLpN4aP3fe7oVT92OJqyvqVG74daZRO5p
-         NxMzZOAIwyAYf8xTosQ+y2BWzFLaC33GTZs7pZ6wKw9ISlWuhKELYq8RLyCCjuzncsNl
-         c20g==
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=sxXVXbYo5iW/3VteUeBtRcKV2OKQh+kwmy1VuiMQxnA=;
+        b=DXsIDTlM9gk2wjCZDRbzHAqjWxrUfdkEWWw5FB0GLNnCjL0U6PrzfKc4Jf66zk/vHo
+         hKP+Bo1RvOudW9uPnEdAg/SJ1sz4OgC4542WhVy1JUW52/jbL4lfZvpcAuZ1SatAhjjs
+         aVZmfsNuI3KdFmrcrkH3D4Yordpe5xqtM+Y6cY1cj/l1li8D1bAcM8INXPsKFoOuEM7F
+         23APEI6Qwewxl86O/Yt+hHcSsKRRxLWWB6oX09ot8+C2yo1NoBVNIkUKHY/MX2u93H5h
+         CDDb5LZ0sA5TP3eEl5TGQVWbJJXJDee5d0cuqtR6zj6m1kXecgv6q1qMcfCVUq3xYUqZ
+         E3Tg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@github.com header.s=pf2014 header.b=VtUDw1Th;
-       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.201 as permitted sender) smtp.mailfrom=noreply@github.com;
-       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=github.com
-Received: from smtp.github.com (out-18.smtp.github.com. [192.30.252.201])
-        by gmr-mx.google.com with ESMTPS id x7si790940ybm.0.2021.03.22.15.49.06
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
+        by gmr-mx.google.com with ESMTPS id r21si671276ejo.0.2021.03.22.15.55.06
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Mon, 22 Mar 2021 15:49:06 -0700 (PDT)
-Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.201 as permitted sender) client-ip=192.30.252.201;
-Received: from github.com (hubbernetes-node-dba308b.va3-iad.github.net [10.48.122.47])
-	by smtp.github.com (Postfix) with ESMTPA id E58F23406AE
-	for <jailhouse-dev@googlegroups.com>; Mon, 22 Mar 2021 15:49:05 -0700 (PDT)
-Date: Mon, 22 Mar 2021 15:49:05 -0700
-From: "'Jan Kiszka' via Jailhouse" <jailhouse-dev@googlegroups.com>
-To: jailhouse-dev@googlegroups.com
-Message-ID: <siemens/jailhouse/push/refs/heads/next/ee0e5c-ecd3cf@github.com>
-Subject: [siemens/jailhouse] 623476: configs: arm64: rpi4: Move RAM
- reservation down by...
-Mime-Version: 1.0
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 22 Mar 2021 15:55:06 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 12MMt6aA013696
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 22 Mar 2021 23:55:06 +0100
+Received: from [167.87.240.35] ([167.87.240.35])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 12MMo5xh030036;
+	Mon, 22 Mar 2021 23:50:05 +0100
+Subject: Re: [PATCH v2 0/2] Add configuration files and dts for NXP LS1028ARDB
+ platform
+To: Anda-Alexandra Dorneanu <anda-alexandra.dorneanu@nxp.com>,
+        jailhouse-dev@googlegroups.com
+References: <20210319164024.4060-1-anda-alexandra.dorneanu@nxp.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <105ac6bc-7144-a0bb-0952-d2e5cc38b861@siemens.com>
+Date: Mon, 22 Mar 2021 23:50:05 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
+MIME-Version: 1.0
+In-Reply-To: <20210319164024.4060-1-anda-alexandra.dorneanu@nxp.com>
 Content-Type: text/plain; charset="UTF-8"
-X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
-X-Auto-Response-Suppress: All
-X-Original-Sender: noreply@github.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@github.com header.s=pf2014 header.b=VtUDw1Th;       spf=pass
- (google.com: domain of noreply@github.com designates 192.30.252.201 as
- permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass
- (p=REJECT sp=REJECT dis=NONE) header.from=github.com
-X-Original-From: Jan Kiszka <noreply@github.com>
-Reply-To: Jan Kiszka <noreply@github.com>
+Content-Language: en-US
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -126,97 +132,35 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-  Branch: refs/heads/next
-  Home:   https://github.com/siemens/jailhouse
-  Commit: 6234762737513985d5de14d860773ca3257f858c
-      https://github.com/siemens/jailhouse/commit/6234762737513985d5de14d860773ca3257f858c
-  Author: Jan Kiszka <jan.kiszka@siemens.com>
-  Date:   2021-03-22 (Mon, 22 Mar 2021)
+On 19.03.21 17:40, Anda-Alexandra Dorneanu wrote:
+> Changes in v2:
+> - remove overlapping region from root cell configuration file
+> - remove gic empty entries from inmate cells configuration files
+> 
+> Anda-Alexandra Dorneanu (2):
+>   configs: arm64: Add support for NXP LS1028ARDB platform
+>   configs: arm64: Add Linux inmate DTS demo for NXP LS1028ARDB platform
+> 
+>  configs/arm64/dts/inmate-ls1028a-rdb.dts | 139 ++++++
+>  configs/arm64/ls1028a-rdb-inmate-demo.c  | 122 +++++
+>  configs/arm64/ls1028a-rdb-linux-demo.c   | 142 ++++++
+>  configs/arm64/ls1028a-rdb.c              | 609 +++++++++++++++++++++++
+>  4 files changed, 1012 insertions(+)
+>  create mode 100644 configs/arm64/dts/inmate-ls1028a-rdb.dts
+>  create mode 100644 configs/arm64/ls1028a-rdb-inmate-demo.c
+>  create mode 100644 configs/arm64/ls1028a-rdb-linux-demo.c
+>  create mode 100644 configs/arm64/ls1028a-rdb.c
+> 
 
-  Changed paths:
-    M configs/arm64/dts/inmate-rpi4.dts
-    M configs/arm64/rpi4-inmate-demo.c
-    M configs/arm64/rpi4-linux-demo.c
-    M configs/arm64/rpi4.c
+Thanks, applied to 'next'.
 
-  Log Message:
-  -----------
-  configs: arm64: rpi4: Move RAM reservation down by 256 MB
+Jan
 
-This is needed in order to switch to upstream 5.10 kernel. It refuses to
-reserve the formerly used region, apparently due to conflicts with
-pre-existing reservations.
-
-Beside adjusting the cell configs, we also need to update the inmate DT
-because it now has an overlap with the physical inmate RAM.
-
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: 9850d614a2fd97c902dadef4d20217e17ace24dc
-      https://github.com/siemens/jailhouse/commit/9850d614a2fd97c902dadef4d20217e17ace24dc
-  Author: Anda-Alexandra Dorneanu <anda-alexandra.dorneanu@nxp.com>
-  Date:   2021-03-22 (Mon, 22 Mar 2021)
-
-  Changed paths:
-    A configs/arm64/ls1028a-rdb-inmate-demo.c
-    A configs/arm64/ls1028a-rdb-linux-demo.c
-    A configs/arm64/ls1028a-rdb.c
-
-  Log Message:
-  -----------
-  configs: arm64: Add support for NXP LS1028ARDB platform
-
-Add root cell, inmate cell and Linux demo cell configuration files for NXP
-LS1028ARDB platform.
-
-Signed-off-by: Anda-Alexandra Dorneanu <anda-alexandra.dorneanu@nxp.com>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: d8076d8bce49842558cad154b43f6f5c59192bc4
-      https://github.com/siemens/jailhouse/commit/d8076d8bce49842558cad154b43f6f5c59192bc4
-  Author: Anda-Alexandra Dorneanu <anda-alexandra.dorneanu@nxp.com>
-  Date:   2021-03-22 (Mon, 22 Mar 2021)
-
-  Changed paths:
-    A configs/arm64/dts/inmate-ls1028a-rdb.dts
-
-  Log Message:
-  -----------
-  configs: arm64: Add Linux inmate DTS demo for NXP LS1028ARDB platform
-
-Add device tree demo for Linux inmate running on NXP LS1028ARDB platform
-
-Signed-off-by: Anda-Alexandra Dorneanu <anda-alexandra.dorneanu@nxp.com>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-  Commit: ecd3cf0ae00e3dc3e122b730f53752180df9393b
-      https://github.com/siemens/jailhouse/commit/ecd3cf0ae00e3dc3e122b730f53752180df9393b
-  Author: Alice Guo <alice.guo@nxp.com>
-  Date:   2021-03-22 (Mon, 22 Mar 2021)
-
-  Changed paths:
-    M configs/arm64/dts/inmate-imx8mm-evk.dts
-    M configs/arm64/dts/inmate-imx8mn-ddr4-evk.dts
-    M configs/arm64/dts/inmate-imx8mp-evk.dts
-    M configs/arm64/dts/inmate-imx8mq-evk.dts
-
-  Log Message:
-  -----------
-  arm64: dts: imx8m: add pmu node
-
-Adding pmu node supports to use perf tool to monitor the CPU performance
-of the inmate cell when enabling Jailhouse and running dual Linux OS.
-
-Signed-off-by: Alice Guo <alice.guo@nxp.com>
-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-
-
-Compare: https://github.com/siemens/jailhouse/compare/ee0e5c42c9ba...ecd3cf0ae00e
+-- 
+Siemens AG, T RDA IOT
+Corporate Competence Center Embedded Linux
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/next/ee0e5c-ecd3cf%40github.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/105ac6bc-7144-a0bb-0952-d2e5cc38b861%40siemens.com.
