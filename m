@@ -1,107 +1,108 @@
-Return-Path: <jailhouse-dev+bncBCW2V5WNZMERBHHH4OBAMGQEFRS2CHY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCW2V5WNZMERBIHH4OBAMGQEK6G7DSI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23f.google.com (mail-lj1-x23f.google.com [IPv6:2a00:1450:4864:20::23f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36F4234501F
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Mar 2021 20:44:29 +0100 (CET)
-Received: by mail-lj1-x23f.google.com with SMTP id p4sf57817ljj.1
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Mar 2021 12:44:29 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1616442268; cv=pass;
+Received: from mail-wr1-x43a.google.com (mail-wr1-x43a.google.com [IPv6:2a00:1450:4864:20::43a])
+	by mail.lfdr.de (Postfix) with ESMTPS id A5DD0345020
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Mar 2021 20:44:32 +0100 (CET)
+Received: by mail-wr1-x43a.google.com with SMTP id 9sf11053865wrb.16
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Mar 2021 12:44:32 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1616442272; cv=pass;
         d=google.com; s=arc-20160816;
-        b=bDRhrxTmOM7pThBExzoac+14TFZdKq8tKgaUnN6Vt6Xvu5/+Jwf22j4D5Q8rxiHUwE
-         wO58IaIUjMwFeGEea4SwWNvNCxGWpI8uJtZ7Ee7oIBtaEelayXfFf4IDGznR7nauO998
-         uAhdnWWea0n2tXQizQWHlYSBX+/PFhoSvpMZRioa3uwD5e30G4Vfys0msKmDwjnCVksd
-         kKinVgBn+xXmCpWMRRx33ffe4JL54cjFbOo9aCGwGUnPsVfbN5MyU1Ornid8heITXzOh
-         wH/5jwa9znQQTVxMF8gEm8C2TLCcfMI+THU9a425aeelpR9JNMfnzD2U8Cp2ZD5h20sE
-         cKiw==
+        b=fCfbymaTBR24jnt3kuib6nwovUxpmTLiytEN5Rxc5Ima+fB03nkhft4c5mJer9Ljpt
+         NrxnYxXtbfJVzGoGeMbEurTiG4WOra6Vg5hAYNF7wT4UGD4BtyO6ILm1J925K6SeWJFH
+         Zuj98SsLe9jX4p4lW3yDM8xsXB60rux4/fWrOFpdImmafH5Uuf2MM21q5dx20KCpmVni
+         gc8DkyffvM1FP8dlyhJ+rERc0b6V6EdiNAcX7OrDXeNh6Qv2NEcoHsAy8Y+g9GeKMFwZ
+         +74VBjSJFthkpOP39Qep+6ZZJl3JEo2yboMpMgJ9BUc1KdzqkIK2hpI5biwI1zYaf3CX
+         OBgw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:message-id:date
-         :subject:cc:to:from:sender:dkim-signature;
-        bh=SPNyzsKEHEVcl56HwRQcGi+yqqiMvD6KN08o9Yk2zpc=;
-        b=HshJMj0WV3HSCe51NRn75Zc3J23fKJfE3he894iCgtahH22whP5N7wevtPH71iNBWL
-         KL4xwRsBWzfH7PAknKy9brkC57ejwn9MPDMTqna5FRC6C9oWxibvGjMW0CJGm7ua4+/9
-         8EnmD4c9NZCYoWW1r9Sul6TrXob8vQ3+T7nzaiVLvNncvl6LNsZQY8viESy00bzDrMZf
-         HlSboNdpjyQqImL1fVfHpxS0aiKYSwdFAH2Eh0EeEltQl3QrmGM2eVsS28/X+nt+iyYd
-         f1mF0fdJgMr4PUKm0qjpQwgpNXj6VdZw4j9l1lBbUKW5SPMjaWYS2g7H6zfc4fboc/69
-         hH4Q==
+         :list-id:mailing-list:precedence:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:dkim-signature;
+        bh=WKDV9w88DknioeDLOYnXmuD5JvXdOno44Lp8CRTWZgE=;
+        b=dKq37t1QN4aR+Z2deHGd1zYT1IzRq2qsKeECe0SHp/Rg6gu4jBlfRKnAS8AigI9xf+
+         vt//u6yCA2zs1RhH66N10Qm9fbnrlCxw9clrLc9SYlZjd3qIj70ikuSZiSOY/qk3daHF
+         0gJKVAVkWnWIoP7O3BxjSlysEDODMkWuxaqP+xRZwb9Cnbp1kAqgMDHS9bM0ZpGo5A2w
+         inywwNpGqVlDCYeFU1NTVKPt3ePlCaxYzxYTcObpB7LYUV8cInmxsjYOkY79PFu4mKT/
+         YqTKeb3xOPXCH61/k7GesNkLq3Sm9SjbBkXOpXBKlYGAzLKyo8oIJxPqsMDH81xS4F2c
+         kFrA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b=Ze6l0EOY;
+       dkim=pass header.i=@tum.de header.s=postout header.b=IiGHtoqt;
        spf=pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.138 as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:cc:subject:date:message-id:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=SPNyzsKEHEVcl56HwRQcGi+yqqiMvD6KN08o9Yk2zpc=;
-        b=AOc96KitwctATuD5ZWbmopDOHWAWOohxdVd2eTNQD0Uv2mY9mtAggRacj4/LfWi+0T
-         vR82ywUSVZ/+WLUJ2vhRduGRxr1iWr9NUo1vvdh0l4SPhlffOYTzsjga1qohZoe628+A
-         GZXTt/3j8TkPFNOYzHEi6SSd8r/qDDxJ9o1J0ZSZb2qAhyzVEDclKhymS/K8yMYN/o8N
-         5fjH0xcKKQu0BiEacMyi9D2XBQctLb4m/OZ3EZz8mcbKbdO53+fcI0vMOtImZTLPlvGL
-         Zp2Ji4cD4rzKf66lBJD4nURSRPzBQ9omhmN7uVMdQZGsHW06LmlwQudkbGLlOqfiCZEJ
-         BThw==
+        bh=WKDV9w88DknioeDLOYnXmuD5JvXdOno44Lp8CRTWZgE=;
+        b=mrb9f7i6BcA95kMAdiCP5b4pPSjpd4ly/fnRMGfVgqZnE3mdBiha6CEoHQyWtz7ezB
+         Oo1r0orqHl0f/dK/WeuFhvoDvemz7G7I85ari8O+58TAw+Iy0W4w7mOaQZ4utRQitALx
+         YbgI4GYunc+RpoXWxFt0T+QxZuIjg2Fbni4qT//8ir/wBvJKlTixg9rsXt8u+k3n8V4a
+         WWkGkicLO//MjJYKPnrxgx5f8KsO2xMB360Cy/wXgjLRw57kPZ+IQm6dPLn4cd5XpqkD
+         9zmGtY/a6B4UxEx6bUUMkUN4L9li2/LTUOl0AoM+VkjVUFrK9ZCaTRIff08xkhOtgZA2
+         7zFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=SPNyzsKEHEVcl56HwRQcGi+yqqiMvD6KN08o9Yk2zpc=;
-        b=OrMP43FttXnTz/Vo46xCJWkIzUorpACXlV+NhYaN2BvUokrvQLtddfraUNCV5eM9Wo
-         zHHfXMbUMTP2n7JG/Z+9xFhoDjo+7c/DnF0D/i50V0rH0cvmqMYi0A4GNqaMyaaUaP3l
-         JEOzK4b8MlJZ1kZd0bBFvPh3V45P6dsWPICs8iLYtwEAqnYKnEtFD92Mz6UcUbEZrGON
-         t4RziFmS5DZquV6bAAnswclrXQyH5GE7/JfE8t9BGe/GZUBCTUqMBbc00Kohaomoglox
-         XeixJXYxeD7f+o4lJlaK0ofqGK986vnzSTbrgwJbo1LrvDaUDSavkRw3vLSOFNIVySti
-         AItQ==
+         :in-reply-to:references:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=WKDV9w88DknioeDLOYnXmuD5JvXdOno44Lp8CRTWZgE=;
+        b=GXmmwB24fjZUFTckK692ySZ0aFS7A2O8v/mXOIeW0zGs3qWX2qIXZPXq919WrRHE61
+         2Z0Zwcs1DKemNezFyM29mBckcY2YHe5oXim0M7bGUq6tSDEPcOxu0XtgQ7NxKuKqEaGo
+         6ETAsUDkSiDOsDyc1qwaPB7JaGbwm1vCQUEdjFLrM1zIF+OjZ767aW9gAlbBf/Se1cMN
+         LtpU0lYiN8VypZYjT4dLPqESO5/416q8JqnsxsX13iyPbdcuWNWdJS105yUcYwF8h9bD
+         IvrdNqpfjMQkXWaR7nFZkoMO1D5bB/SVmNHQMFQp8OClmB3GKRuRg2XTwLsPYmdHzwEC
+         X2uA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533RedLEMpk6/rdpcpPh3TtyTqqQZLoOrVi/96t8dobjQqQ9yEjF
-	8a5SpywwzhwHkHGoMJpgmOI=
-X-Google-Smtp-Source: ABdhPJxPNu25wNuPdPyh6mXRhlOC6lG1+P9oUSY2KlU9bzV+5/ANvGcScDwwDqkAiS/ZDgOAuQPZ3A==
-X-Received: by 2002:ac2:5e21:: with SMTP id o1mr507351lfg.435.1616442268594;
-        Mon, 22 Mar 2021 12:44:28 -0700 (PDT)
+X-Gm-Message-State: AOAM532bGBHN9T+cCBKhgau5Ccu/9lK1bclMvgK2kuO6aE0VTldKW2fJ
+	WuqogDWriRpyY8DHRriGtmg=
+X-Google-Smtp-Source: ABdhPJx0qcS3Ykndu+rHkP8KwEB0ts9Bxyurtrt7U2WBbMNL8NTq6Lg+GAMKg88fXaQVUmYR8Edj2g==
+X-Received: by 2002:a5d:4ecf:: with SMTP id s15mr220588wrv.222.1616442272363;
+        Mon, 22 Mar 2021 12:44:32 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:9a48:: with SMTP id k8ls2658314ljj.10.gmail; Mon, 22 Mar
- 2021 12:44:27 -0700 (PDT)
-X-Received: by 2002:a2e:b52e:: with SMTP id z14mr720259ljm.124.1616442267432;
-        Mon, 22 Mar 2021 12:44:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1616442267; cv=none;
+Received: by 2002:a1c:bd84:: with SMTP id n126ls182402wmf.2.canary-gmail; Mon,
+ 22 Mar 2021 12:44:31 -0700 (PDT)
+X-Received: by 2002:a1c:1f4c:: with SMTP id f73mr81184wmf.25.1616442271452;
+        Mon, 22 Mar 2021 12:44:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1616442271; cv=none;
         d=google.com; s=arc-20160816;
-        b=fr3pW7Is6l5D1GwWkUG+7EkELxRCu/3l8DcL/5gORDXYc+GmL1v5DKBqVBZBp0rl5Q
-         c1xtnLBvhQ3il9a+r+guczARtfN6bjcebfPCVv04vkcZhzCOTOnYOOnRXgMl+l/sS87j
-         iMP3T1Q2EHR67ql3O29CfiidrVeylmVRAlmL4LmWw2YmXiFwti/Q703oQ3noArQt8/4Q
-         S2cTB4TKXmvEa2itgp5GQ0xRNTDu336Ldn5oTgUsGI1G1lxieEqtQDnzS/HMiyvra+Gs
-         lAw1lTG8dtB7GtCSbhAjYrOGRP/6GCOxIzIamTpkDOMJcM9XjRpK7BbJqitwqB/tbOBO
-         6NSQ==
+        b=yNGaIrlq6nLW5iH6LYn4zgBK3MilOb1T6UhEjm/UCp9TVvDyvCyYG4ecfAiu0a2oOh
+         1/efbEZ7VPm9wD845dMefoaEneub+I3/Y6lFJai+lwdaVb0TdA8Q4+wviKSIEpVxJ5Ox
+         HrZ8WBqWHNPN+tIAOBEIcBJeWMBgikWuO3Vqh06wg2RkaZ9PoUwQ1OTnvlJremB7VO6V
+         bKCYONuLJ0jmXuoncfr72Jd3i9Me/dFRFfo4WMetKTb4nnNT1GUuVwWhOo+tndgoKrsq
+         7A6O5lQyNVtQE5l26L0FcW84OPPmi0g29NNbgHAPZ3159iAhu9SVkzqpyeub48LasuSA
+         r1DQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:dkim-signature;
-        bh=Lzi2JsA6ZtW8oGeBzn0iB3lITF25rt/D+5fcxv2ek7g=;
-        b=SKE1BLmT2ZVXL2+1Lm5AZ8QI11HSEWA3a+g2wULP6ZARUFCawxG1S61qIgwDeirFH2
-         z7jvkDGy5JzuzuOLmwPdKXhB6lnUNpLEMjlR5wy15HnYoTk6xAodr03OrRLB5R0vq3Qz
-         PC58HgvtofFMCmKcwwsFcJGGxL10vnBevxiGLbbm96OlUMyWb0dxbEgcg1RHvtm6Zh9E
-         6fgTv0PoBchzkm0OVg1vlChFsMeLhErKj8mwzaaIqN1K29w8V/zLns0R9IhvsDXb4GcU
-         7h2p2aVGFDPTpriZR2f3S4MABtCiC700dksjw5aq0Ea+/FEe3HU5NHPmISwKyXNTZYN3
-         +Jug==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature;
+        bh=XjhtRDJVbg4Rs8FxaxFsyyuzCQZxSid6528O5JdWTPI=;
+        b=eoDR7lFo/1qWBXpFGd5xVdy4V6FcIQug6MTxEocbAWdm3pRWGZKZbp1JyqZcH1ziz1
+         MXQ/bAqtzK6WySHHCCwCYZZlUl9gpkaGGGZnvUqh3NN/P56JSJXrEO/5K9gb+L7vJ/7P
+         SFRCUROv2eQ1RsbH/qK6FcArmRkgtyiA5C3kV0A0Rub9nML1rFRM1Geulxv1HzWLeaQb
+         o7iXQ/Qp7jP8msHSghaR9UoNYk+cus4jH2fdOSvMVMZo5xkyFc08USBJl0lZGpeP1nAR
+         UrP5Gzz0N2fyVopdQ9IeM7TgqSl6OGaBowJPl44+xRaCObcxtze4u3D99LZ00/O2XVE2
+         tgbQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@tum.de header.s=postout header.b=Ze6l0EOY;
+       dkim=pass header.i=@tum.de header.s=postout header.b=IiGHtoqt;
        spf=pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.138 as permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=tum.de
 Received: from postout2.mail.lrz.de (postout2.mail.lrz.de. [129.187.255.138])
-        by gmr-mx.google.com with ESMTPS id z5si484506ljj.5.2021.03.22.12.44.27
+        by gmr-mx.google.com with ESMTPS id p65si43595wmp.0.2021.03.22.12.44.31
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 22 Mar 2021 12:44:27 -0700 (PDT)
+        Mon, 22 Mar 2021 12:44:31 -0700 (PDT)
 Received-SPF: pass (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.138 as permitted sender) client-ip=129.187.255.138;
 Received: from lxmhs52.srv.lrz.de (localhost [127.0.0.1])
-	by postout2.mail.lrz.de (Postfix) with ESMTP id 4F44hB3dWHzyXh;
-	Mon, 22 Mar 2021 20:44:26 +0100 (CET)
+	by postout2.mail.lrz.de (Postfix) with ESMTP id 4F44hH1mfPzyXW;
+	Mon, 22 Mar 2021 20:44:31 +0100 (CET)
 X-Virus-Scanned: by amavisd-new at lrz.de in lxmhs52.srv.lrz.de
 X-Spam-Flag: NO
-X-Spam-Score: -2.876
+X-Spam-Score: -2.878
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.876 tagged_above=-999 required=5
+X-Spam-Status: No, score=-2.878 tagged_above=-999 required=5
 	tests=[ALL_TRUSTED=-1, BAYES_00=-1.9, DMARC_ADKIM_RELAXED=0.001,
 	DMARC_ASPF_RELAXED=0.001, DMARC_POLICY_NONE=0.001,
 	LRZ_DMARC_FAIL=0.001, LRZ_DMARC_FAIL_NONE=0.001,
@@ -113,18 +114,17 @@ X-Spam-Status: No, score=-2.876 tagged_above=-999 required=5
 	LRZ_FROM_HAS_MX=0.001, LRZ_FROM_HOSTED_DOMAIN=0.001,
 	LRZ_FROM_NAME_IN_ADDR=0.001, LRZ_FROM_PHRASE=0.001,
 	LRZ_FROM_PRE_SUR=0.001, LRZ_FROM_PRE_SUR_PHRASE=0.001,
-	LRZ_FROM_TUM_S=0.001, LRZ_HAS_SPF=0.001, LRZ_HAS_URL_HTTP=0.001,
-	LRZ_URL_HTTP_DOUBLE=0.001, LRZ_URL_PLAIN_SINGLE=0.001]
+	LRZ_FROM_TUM_S=0.001, LRZ_HAS_IN_REPLY_TO=0.001, LRZ_HAS_SPF=0.001]
 	autolearn=no autolearn_force=no
 Received: from postout2.mail.lrz.de ([127.0.0.1])
 	by lxmhs52.srv.lrz.de (lxmhs52.srv.lrz.de [127.0.0.1]) (amavisd-new, port 20024)
-	with LMTP id 84AdV2WilCFl; Mon, 22 Mar 2021 20:44:25 +0100 (CET)
+	with LMTP id GuB_yY2scy_a; Mon, 22 Mar 2021 20:44:31 +0100 (CET)
 Received: from kabal.lan (ip5f5ac6b3.dynamic.kabel-deutschland.de [95.90.198.179])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(Client did not present a certificate)
-	by postout2.mail.lrz.de (Postfix) with ESMTPSA id 4F44h90FGYzyWn;
-	Mon, 22 Mar 2021 20:44:24 +0100 (CET)
+	by postout2.mail.lrz.de (Postfix) with ESMTPSA id 4F44hG4jvBzyWm;
+	Mon, 22 Mar 2021 20:44:30 +0100 (CET)
 From: Andrea Bastoni <andrea.bastoni@tum.de>
 To: jailhouse-dev@googlegroups.com,
 	jan.kiszka@siemens.com
@@ -132,14 +132,16 @@ Cc: marco.solieri@unimore.it,
 	rmancuso@bu.edu,
 	lucmiccio@gmail.com,
 	Andrea Bastoni <andrea.bastoni@tum.de>
-Subject: [PATCH v2.1 0/9] Cache-coloring (ioremap_colored version)
-Date: Mon, 22 Mar 2021 20:44:01 +0100
-Message-Id: <20210322194411.82520-1-andrea.bastoni@tum.de>
+Subject: [PATCH v2.1 1/9] arm-common: bitops: add most-significant-bit operation
+Date: Mon, 22 Mar 2021 20:44:02 +0100
+Message-Id: <20210322194411.82520-2-andrea.bastoni@tum.de>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210322194411.82520-1-andrea.bastoni@tum.de>
+References: <20210322194411.82520-1-andrea.bastoni@tum.de>
 MIME-Version: 1.0
 X-Original-Sender: andrea.bastoni@tum.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@tum.de header.s=postout header.b=Ze6l0EOY;       spf=pass
+ header.i=@tum.de header.s=postout header.b=IiGHtoqt;       spf=pass
  (google.com: domain of andrea.bastoni@tum.de designates 129.187.255.138 as
  permitted sender) smtp.mailfrom=andrea.bastoni@tum.de;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=tum.de
@@ -156,78 +158,40 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi,
+Signed-off-by: Andrea Bastoni <andrea.bastoni@tum.de>
+---
+ hypervisor/arch/arm-common/include/asm/bitops.h | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-Didn't have much time to work at it in the last period, so it took a while.
-
-There are two similar patch batches: PATCH v2.1 and PATCH v2.2.
-
-v2.1 is the version with the colored ioremapping in the Linux driver. I've tried to keep the replication of the code to a minimum, but the main coloring loop has to be replicated in both driver and hypervisor.
-
-v2.2 is the version with the temporary "root mapping offset" that allows reusing the plain Linux ioremap.
-
-I've removed all other "additional" patches and just focused on the bulk of the coloring implementation.
-
-Overall the changes are:
-git diff --stat siemens/master driver/ hypervisor/ include/
-v2.1) 15 files changed, 515 insertions(+), 22 deletions(-)
-v2.2) 15 files changed, 468 insertions(+), 24 deletions(-)
-
-PATCH v2.1 is also here https://gitlab.com/bastoni/jailhouse/-/tree/for_upstream/202103_coloring_driver
-PATCH v2.2 is also here https://gitlab.com/bastoni/jailhouse/-/tree/for_upstream/202103_coloring
-
-Feedback/comment welcome,
-
-Thanks,
-Andrea
-
-Andrea Bastoni (7):
-  arm-common: bitops: add most-significant-bit operation
-  include: cache-partitioning via coloring, add configuration
-  hypervisor: arm64, arm-common: add cache-partitioning via coloring
-  driver: provide colored ioremap operation
-  configs: arm64: add example configuration for colored ZCU102 inmate
-  configs: arm64: add coloring example for qemu-arm64
-  configs: arm64: hook-in coloring parameters for ZCU102
-
-Luca Miccio (2):
-  pyjailhouse: add support for colored regions
-  Documentation: add description and usage of cache coloring support
-
- Documentation/cache-coloring.md               | 177 ++++++++++++++++++
- configs/arm64/qemu-arm64-inmate-demo-col.c    | 134 +++++++++++++
- configs/arm64/qemu-arm64.c                    |   3 +
- configs/arm64/zynqmp-zcu102-inmate-demo-col.c |  75 ++++++++
- configs/arm64/zynqmp-zcu102.c                 |   3 +
- driver/cell.c                                 |  11 +-
- driver/main.c                                 |  75 ++++++++
- driver/main.h                                 |   3 +
- .../arch/arm-common/include/asm/bitops.h      |  10 +
- .../arch/arm-common/include/asm/coloring.h    |  45 +++++
- .../arch/arm-common/include/asm/dcaches.h     |   8 +
- hypervisor/arch/arm-common/mmu_cell.c         |  68 +++++--
- hypervisor/arch/arm64/Kbuild                  |   1 +
- hypervisor/arch/arm64/coloring.c              | 109 +++++++++++
- hypervisor/arch/arm64/include/asm/coloring.h  | 140 ++++++++++++++
- hypervisor/arch/arm64/setup.c                 |   3 +
- hypervisor/control.c                          |   6 +
- hypervisor/include/jailhouse/control.h        |   4 +
- include/jailhouse/cell-config.h               |   9 +
- include/jailhouse/coloring.h                  |  45 +++++
- pyjailhouse/config_parser.py                  |   9 +-
- 21 files changed, 913 insertions(+), 25 deletions(-)
- create mode 100644 Documentation/cache-coloring.md
- create mode 100644 configs/arm64/qemu-arm64-inmate-demo-col.c
- create mode 100644 configs/arm64/zynqmp-zcu102-inmate-demo-col.c
- create mode 100644 hypervisor/arch/arm-common/include/asm/coloring.h
- create mode 100644 hypervisor/arch/arm64/coloring.c
- create mode 100644 hypervisor/arch/arm64/include/asm/coloring.h
- create mode 100644 include/jailhouse/coloring.h
-
+diff --git a/hypervisor/arch/arm-common/include/asm/bitops.h b/hypervisor/arch/arm-common/include/asm/bitops.h
+index 808c9a0f..e099b560 100644
+--- a/hypervisor/arch/arm-common/include/asm/bitops.h
++++ b/hypervisor/arch/arm-common/include/asm/bitops.h
+@@ -31,6 +31,7 @@ static inline unsigned long clz(unsigned long word)
+ /* Returns the position of the least significant 1, MSB=31, LSB=0*/
+ static inline unsigned long ffsl(unsigned long word)
+ {
++	// FIXME: the ffsl on x86 isn't robust.
+ 	if (!word)
+ 		return 0;
+ 	asm volatile ("rbit %0, %0" : "+r" (word));
+@@ -41,3 +42,12 @@ static inline unsigned long ffzl(unsigned long word)
+ {
+ 	return ffsl(~word);
+ }
++
++static inline unsigned long msbl(unsigned long word)
++{
++#if BITS_PER_LONG == 64
++	return 63 - clz(word);
++#else
++	return 31 - clz(word);
++#endif
++}
 -- 
 2.30.2
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20210322194411.82520-1-andrea.bastoni%40tum.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20210322194411.82520-2-andrea.bastoni%40tum.de.
