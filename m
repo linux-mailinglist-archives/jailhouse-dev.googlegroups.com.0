@@ -1,35 +1,35 @@
-Return-Path: <jailhouse-dev+bncBDAMFR7JZAEBBSH542BAMGQEH5JU7GQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDAMFR7JZAEBBXH642BAMGQEJWWKKUQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43b.google.com (mail-wr1-x43b.google.com [IPv6:2a00:1450:4864:20::43b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32D4B345BB5
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Mar 2021 11:11:26 +0100 (CET)
-Received: by mail-wr1-x43b.google.com with SMTP id o11sf889400wrc.4
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Mar 2021 03:11:26 -0700 (PDT)
-ARC-Seal: i=3; a=rsa-sha256; t=1616494281; cv=pass;
+Received: from mail-ed1-x538.google.com (mail-ed1-x538.google.com [IPv6:2a00:1450:4864:20::538])
+	by mail.lfdr.de (Postfix) with ESMTPS id BA214345BBD
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Mar 2021 11:13:49 +0100 (CET)
+Received: by mail-ed1-x538.google.com with SMTP id i19sf715961edy.18
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Mar 2021 03:13:49 -0700 (PDT)
+ARC-Seal: i=3; a=rsa-sha256; t=1616494429; cv=pass;
         d=google.com; s=arc-20160816;
-        b=MaWIkWACUSb0GoFJxZsF95gFEVHVehPETXxU90NWk7nriIROqgbdVpF2pL1n9X6sfI
-         ENoGhG2GtRsYzwKxby2dDxsNFou5cd3Cl0ZrrsaRB5zCh2axRyz9oa8npj4gnd0+Zw42
-         RbWDmRlfQhEBB7eZ8Vi8wfbsjeBEXds/UVhjlryU/buuIcjsU+2zs6ctNOKMH8gckvAB
-         YOlnCgBIic/+ZP2v++n/x9hd1X9qe9Ibi32UfRAPC73qlgt3BA5VH8RimnSphq8ml6SX
-         CWEsyUnjpUIXbLiDzZbZ7qSMZLGk/1xfIInZ9fSKXFpRXLlC+mr+AlYts/t2t3Az+N76
-         leEQ==
+        b=JFntVurZIRf+cyzjRyuIREzjbL830KvEDm3Nja1d+MlV/m9zDcOHWA8CAFGmQCF9lI
+         LMqWwLpFhpepB7C8D3KdxcazHOELj/Bd2KBl1XL5x8BLsgIth2ncslxmOUTynxbuJB8i
+         JTNNunLPohkxI8QSqHG4CkWEa7Wp17lbcaMdTYxlmcs0UzrxMKGgJmH1jdZyRSj8pyr4
+         Su7ufYFQgZ/vBTOXHU7xFB8ALHN5EElEucN7BNY+2SjGoLGTigQIAiFPuT1a2KQlhaOx
+         7bLGkI7ZzMgh3nmdNnpMfrWYgbcBkEir4LCBRbPjkddZRKPxESrj2GKcEooHVOpeMFR5
+         Lrjg==
 ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:content-language
          :accept-language:in-reply-to:references:message-id:date:thread-index
          :thread-topic:subject:to:from:sender:dkim-signature;
-        bh=2ukSA+nwU8ziNgiMvxup2WKkg37vdiJvmwYmqMZAwjo=;
-        b=zG19YMOer8BR3VGJwF3fegcWM8+cAFo1llqFGGqas/DEkkjbizCgq6QbZ5JlQh0zi9
-         0jpP58aOeY/omAJxpYsJs5y/7KSyDPqYOxH4j/xintgRhnDsOvCjUGN+2KwLahYIlyTZ
-         lYafiGIPUFp17iOYnCqnPCiSExjh4hzpo5ZGJGNgxi161znnoADcfLOLfd1BDnknRRHv
-         RTXfBRPtGL8No/YYQ7bYs7MuR9MfpNk8DWFgGX1aJb+Y545mJrv7Z+JbDX7j430wq24F
-         A0C7HxZW440g4VZzWhnX8fNhCmBEeJn0frPW7Gi6ssQ4n3zshsghq/RXIclnj1MVOpFL
-         BpZQ==
+        bh=L+AEjU7u3/4dVbBGgUtovbV7xR/ZVEEXq9TxjeNzuro=;
+        b=nMUWZW/UmcnNhCi0e4ajG1HflhIpilq9ru7Ae8Ead4gN8OcF3f8Thk7jiobrs1UVJc
+         X2J7dds3kA2x9VfTB8oYvuI8FTKF5b0mPAxzUWQQ6CGh2SwdH+EcBNePPSEjNgs0f2lo
+         qiwwRdzYf25QB6nOXkr7VD6OK6w4Acqt+NeO7oCYLJGZBobm+y0MgS/5+1ElBAaAvZCw
+         xfKzsLAGAcaMEDH97HABKM2TvmpGzUqZHcx7x6QCCU4XGPDx6/wb82ASvutZiNxsL/X9
+         6OI1WQSbBYGwgpKWoXifvcsqwx6ZhCZKeqrxCLzu/k2BPUeIKk6L0v5PLjk/U249FUkk
+         daUA==
 ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@nxp.com header.s=selector2 header.b=p3m7uR0H;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=fj7v54wk;
        arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
-       spf=pass (google.com: domain of peng.fan@nxp.com designates 2a01:111:f400:fe0e::604 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.21.55 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -38,13 +38,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=2ukSA+nwU8ziNgiMvxup2WKkg37vdiJvmwYmqMZAwjo=;
-        b=rOdIz8kT65sDBk4k0V7p+AC+y1js5hmABjJ4Fmp4qJp4Yri1Wrlj/GRzoSvrRaVE+0
-         PFSWt+siOJ5x87DwOxWtmdWx8MFhLDvgLvyWrnNTzrm71iotW5F3BTlaPhTlHz3l8W8x
-         OO1sqZXaWKHvKBwCqlTA/wu8YUdYlw0SuIlFd9IAZ5x/waZqFYRCXJEWRhxuNCjycHSh
-         3GvLHPE/hgexQ+yDNo20i5fU3o43SR3vJCUvIJpH9p52p0mHr5b6zOD01kpVWkuKmCO/
-         ncPFsAOveCP8k5Yjr6JChgeZotYUlG/KitW/pUrtSr5RpVksqQBdN46/vtFs3DW45mvM
-         9WcQ==
+        bh=L+AEjU7u3/4dVbBGgUtovbV7xR/ZVEEXq9TxjeNzuro=;
+        b=Si6tbBcij8qKojXv9hp9pMv4g5RuVM39uNByO8Go8Tq3Jlb/2CvEJ9L8Earlczu3GF
+         bgfxGW2DkU0fcgVFtsWF3XBhOYORUKIxxobMlaEBLtKGSx/4D0F4seud5yWS8ygcIhnR
+         9MmwzjKQthAQGLiUWBoGy/p5Jvr3yYl9mpXrut28RQg2TmJGql2vX7kpwNDdkU3I81gw
+         Jh8mSi2LCZllf5MDje1KsLG0VHDS+C0FrY2Lu9Wklptx9iyagROCBSxAfqsezhXhlPui
+         RTcYxNZ5Sf882ruQ+sggxe+JNe2+jcqtsFIcbb4RJdD3wS6Rao++shpvbkLy4TW0lyS7
+         7rUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:subject:thread-topic:thread-index
@@ -53,85 +53,85 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=2ukSA+nwU8ziNgiMvxup2WKkg37vdiJvmwYmqMZAwjo=;
-        b=CBgRHSB/Ff412RP8w50GQL5adpfdEQcm1QW++HCoO0+2eBf4ixbZ6zFvSTIfyK/STk
-         odtUnppkl+RNE52RC+7QWOEI+iXMcgmytN23j7CdQ9jm2yz+0+jWzv7ieH+xIzwq044T
-         F//Y8UIX08yySwsiqeBATmfV1PzOD+xHeQNZwYGIzhrfIe/JJvAckxIjMO1QAlch4yGN
-         xAV0GkdZjXmKOfrOrT5P1dSAVclLsJtRZqgNcLTI3dy9FhTjbZkGBJOkPFo+LfNE54sr
-         J93/3+I9fHHJN9Uku77kXMpauxln+DLP/SNm2rUC0xa8Fz4N6xKX3dHYncb72SxoMHSA
-         ZUlQ==
+        bh=L+AEjU7u3/4dVbBGgUtovbV7xR/ZVEEXq9TxjeNzuro=;
+        b=DZo6URCrK5ZE9HAWjmrM1CS3CwEpxlrYPQ9VZEL02OINJxBdTyg/9i/SlKADpZ0Hfg
+         Ye9p9u1d+OtGM+Px4tWrEBuNImcZM2aCqfZBV7E8pXuBgheFVF7kGnHiv+eJDNq/CAI4
+         6urOdM6D0hJaKgsAjvffrKE/Kc8tZKXdRa4h6wIPThTRjQpdH6DaLd5uTC91rBaDDvuS
+         wTA2Cl5d2Va425x/KoS4TRDRqda25DyWHs/QkNnjjKQoq0q/VQgw5HpPODlZtAh01CXt
+         jRbA3mQiBmU3SrEcMmTJp/50M2U7QEDSYCKgE735ATQEucx/Fgk+4pTUvDOtlbjUirSq
+         Sc+w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM5319Ws+bXMARc8G39lY8c/jgHUyRIJsXpfOljFFYAsh1ek3J1E+T
-	vbW1qngdhjcLX7CW+6EJeQI=
-X-Google-Smtp-Source: ABdhPJyVaYZJTvpIHc4km5W8nq5ldK9Hh5Ra3aoDaBft4OC4wG1GEsf0Tx6r4mQevEQ4m6zXH02TMg==
-X-Received: by 2002:adf:ee0a:: with SMTP id y10mr2991687wrn.177.1616494280948;
-        Tue, 23 Mar 2021 03:11:20 -0700 (PDT)
+X-Gm-Message-State: AOAM530EhTiC7UX11rGs9LxyMxftFNfcEXgLq2Kj23zHo3N9qCuH+R12
+	ex0cKCwc5iQNHNQO653Gyiw=
+X-Google-Smtp-Source: ABdhPJwefP1JcFVxW96vBBnQeVFrKE8yhlkwQFDc9gjYnl1vXkpdqA1/BHZGS9GLC3fGaEy19z4zhw==
+X-Received: by 2002:a17:906:3f87:: with SMTP id b7mr4142958ejj.139.1616494429265;
+        Tue, 23 Mar 2021 03:13:49 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:d1c8:: with SMTP id b8ls2094261wrd.3.gmail; Tue, 23 Mar
- 2021 03:11:20 -0700 (PDT)
-X-Received: by 2002:a5d:5256:: with SMTP id k22mr3239087wrc.162.1616494280029;
-        Tue, 23 Mar 2021 03:11:20 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1616494280; cv=pass;
+Received: by 2002:a17:906:16d7:: with SMTP id t23ls8760618ejd.7.gmail; Tue, 23
+ Mar 2021 03:13:48 -0700 (PDT)
+X-Received: by 2002:a17:907:20e4:: with SMTP id rh4mr4170161ejb.369.1616494428292;
+        Tue, 23 Mar 2021 03:13:48 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1616494428; cv=pass;
         d=google.com; s=arc-20160816;
-        b=TWqPqgPFUUGgWq62yHfUEoy+VS94n+5LOvA6YOXQW7dg9H3Ar2EuYkr79TyE3dWWBD
-         /5EsaotQQCmaN7b/5sN1JHz/593GoTO8OWTNaNx9NLe7TMn75OMvTcXnSIALB0ZGwYn1
-         mCaqX36mB/mzGHfhRTR4e9NUZ+xxvMioZ/bXdB1OpMFVrGU1KNu7YGX7oFtCywY3DY0P
-         dn8+rgIlt+/aGfokh1ZsxpnUPTxhNjWrCwnVzFK5e3ot3EQdFmKAGTBKHDqL8k4CnP0P
-         1+YR+fDcptmby/nSZSe8cYk0OX2dQ7FUQxv8MdzSDZ5M1pVi8Cryt+Xxyky6mqyLpoXh
-         D2qQ==
+        b=MPMFo2gUwRh3hL03qnHsRpYwSDl/8oMEidROQ/fJ0yAcHKD/O7RJTrYU8IoH1DkjCa
+         LvHqF/Mma4EuFkUCYPIAq7qR5Kn24V83K2pWZPHuCZpxD3qPHg1PQs7UBPnyKGoyna+G
+         iZeK/L9ALXkELyU0ODw2u6Afp00dFOG05OqUSHALeMEacre1xynVqKZPU1vKrlooyr4v
+         tP3i2abwcTSttOcXml/0hEP84pYAo4ALAv4favB/nHTEJFTKNtbYsNK8j3PKaRq/WBy1
+         AYH9yTP9ypbBo7kGH/TCHyMDJDKYANsq2rwlmePDgn+KhuorLAKSoGzb6Ckq+00layfD
+         3A7Q==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=mime-version:content-transfer-encoding:content-language
          :accept-language:in-reply-to:references:message-id:date:thread-index
          :thread-topic:subject:to:from:dkim-signature;
-        bh=4dq4ljTqO7wzaOBuuyuyqeyFMW0/jv/o0mAmWpDTBQs=;
-        b=YTCPNYun6hE5qgrZEWBPl9cV+815w18V4R49k2MgCVVtgGCPA3B0ZEh9CJwSJWUhXN
-         gSB8jS8ZrxUq2krDGvTO94Jq4le/81SZMrhONJCcmlZw145GWG/z9Dj2gAYoMJ37VgID
-         5KlQgepbHvRsV4DRByvDb5KQVSomuHaDfpksWJ+GMzCmq96o0Bqr/HzqBZJ9f5N+NT18
-         93SeusGaMvAo+KMX8v3zcfNeaonLVmTAB3qdBNL8RlpEjGZjV5SRmGAUW9rv784HqNJG
-         6ki7JZyFn2lmor7gGXz/03NXXv+Dj8Zzw5otIJgBAl13st69aze40SxeO5J/aJ+m4pwB
-         SPWw==
+        bh=myCCY5IMQ3urVKgx7RE/jM5pboKgSkmaL51K/kDAJ7E=;
+        b=B4CU9erH4/WbUNTFd+/DnZZFlVwlMIq4d+QXQU0ZwR4D8LCCUwyfpS9OjL4/fgy8Le
+         fSzNn3+upahY1BuQYR7NWL46CGnzFIMuzCEFdUwbfj7hyHG4aJHX9Jj75t7x/5HF3p9P
+         +Ps7YtZxEffqC/Kp2ok4fy54QftAm72uImrQkkSf+Wt1CuuS7fmEKeoKJdjXjFkVbXSg
+         DhzgoEwI+NRJNZj7tlOKRxtzofBzAvflf0anYvMelDbWDKJT6Gt744uPKvzYtjVvDyRm
+         9lLdDOU0yNwRRJcfW3zzOkBCIVxRCa4o+hkva7jjkWn5QD/Q38YY/yXeB76WmdTkzKEy
+         Fhwg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@nxp.com header.s=selector2 header.b=p3m7uR0H;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=fj7v54wk;
        arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
-       spf=pass (google.com: domain of peng.fan@nxp.com designates 2a01:111:f400:fe0e::604 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       spf=pass (google.com: domain of peng.fan@nxp.com designates 40.107.21.55 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com (mail-vi1eur04on0604.outbound.protection.outlook.com. [2a01:111:f400:fe0e::604])
-        by gmr-mx.google.com with ESMTPS id b6si131793wmc.2.2021.03.23.03.11.19
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com (mail-vi1eur05on2055.outbound.protection.outlook.com. [40.107.21.55])
+        by gmr-mx.google.com with ESMTPS id w5si563010edv.1.2021.03.23.03.13.48
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 23 Mar 2021 03:11:20 -0700 (PDT)
-Received-SPF: pass (google.com: domain of peng.fan@nxp.com designates 2a01:111:f400:fe0e::604 as permitted sender) client-ip=2a01:111:f400:fe0e::604;
+        Tue, 23 Mar 2021 03:13:48 -0700 (PDT)
+Received-SPF: pass (google.com: domain of peng.fan@nxp.com designates 40.107.21.55 as permitted sender) client-ip=40.107.21.55;
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=C3L5rFMy9QOxoB9d8yN6LnUtPCP9gxJbIFzXgkR3Tq+jV0nEnZ2AhyEi9EkyGhReIYd0+CE44KOp2QokFnTSjbaJ4PdZGaf2QuhLPFDlJfMxbATTIG7pmP6TkcO48rGgFy346UMxuliIQfWXoXKlWHE2V/KNF3S31LrgJfMgmW/LY11GtN6hjldL3z89TFtvQ+I5Bq/zSgC3kqwiCY/lzZprqSvDD57eWbhOIlZPPalbeX2bJl5uuBCEqs0OphSu72TfgCcgYasO1YH3TH4qV6JuI0zC8zRzA7URrPzp7yaQw73RpWGZp7Wru1y5Ma+VopsZNFXdhCgdXQP04LQg+g==
+ b=GTIBHhuHRxHqWzkEM35GzBP186OsWrL6w7wwQo7rJy0DC2IAMsHpeKc1E7bWTwow7BfqI2cl0dNiIxAruNmG/6CmDQDPWK7OurtFvZk7HV0HROuz4i21szYwhqjDkIP4akxJLZSTUR324jK5IUlRixiqoDomjDiFTPKxgCVBg4XMRhc81W+xSwVCI1hSiMK1HyPI0G0TexXbdlJvhuTdLkM56orYNejGveb3y5WsTWuz0oZwj/5I5f1Pr6v8fnOdks5nmsAOhXPnhtNyBzlmfDEkseU4ISgISKC4jbBhSn6DDd4C749DmOmjRz8ZwcBxukVma3lXkf8StZm53+1Krw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4dq4ljTqO7wzaOBuuyuyqeyFMW0/jv/o0mAmWpDTBQs=;
- b=dMTOoRUADZzr/9VFcA9Vzz20Kd79m4hvtBl9MZ+MhajJuHMo2dOcNrk3jBK2en6oLuOUEscZjHcBJAwTO/TJnPw5lq0+RYMrCeCtRN9o6z5+OtfzYEGoiHwUDZFv/BisNRhENlUGRV2QPHgyPn/PxQ3ey9v3Hmh5Kg8G1w0NnluFZxN8YpbS96Vcb2eOFIgLLyFIqB9qoYpwK5nxfsRuHq2wv7L/RX41sHC+Vu3BCXEygMU8m9gQ8Uvgbiz7tji+llxaJoFzERjqc3hyS1jfyPrY91Lk7ntBsEgqODQ4RcN8MdOMXdAgqQLVXj7lig/K0ZA+VVdUw7G0T2mISgUh2g==
+ bh=myCCY5IMQ3urVKgx7RE/jM5pboKgSkmaL51K/kDAJ7E=;
+ b=h+95copNabdg9ukQIaT6iCfbn92yYLuGOf+KZS8DZYvODSgowuPBCS9ZSGqsHLsiaWyqDxFEANnhNSxbIgRDZz7qUKuQL151ptzYhEsXPiRnDV+sFg3p2EIuwmf8CSBXHRO88SX6QhN3xTvE6xGHbCl+2H4V34f5EHtIddZNamXGT5zLu5FiyyfCSv+5LuvgBqhlhuJ6Cw27KUIJ6eJom0A642QEmzVp2/BklElw0Tm0gq7PortNHgLHuih+Z3Rrrflbez+zPjDc3J+xxU/51SZVeP87ypyUBlelQCJNrligVHwCcOlyO9mn2YiEmfX0k5dzp4WGd30Isb8apOw1Rg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
 Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com (2603:10a6:4:a1::14)
- by DBBPR04MB6028.eurprd04.prod.outlook.com (2603:10a6:10:c1::17) with
+ by DB8PR04MB7178.eurprd04.prod.outlook.com (2603:10a6:10:12e::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18; Tue, 23 Mar
- 2021 10:11:18 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.24; Tue, 23 Mar
+ 2021 10:13:46 +0000
 Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com
  ([fe80::d58c:d479:d094:43d0]) by DB6PR0402MB2760.eurprd04.prod.outlook.com
  ([fe80::d58c:d479:d094:43d0%9]) with mapi id 15.20.3955.025; Tue, 23 Mar 2021
- 10:11:18 +0000
+ 10:13:46 +0000
 From: Peng Fan <peng.fan@nxp.com>
 To: Jan Kiszka <jan.kiszka@siemens.com>, "jailhouse-dev@googlegroups.com"
 	<jailhouse-dev@googlegroups.com>
-Subject: RE: [PATCH 4/5] imx8mp: support virtio console
-Thread-Topic: [PATCH 4/5] imx8mp: support virtio console
-Thread-Index: AQHXH6j7FjWvhSxNgkWm9hWSJD2zf6qROXoAgAAgDNA=
-Date: Tue, 23 Mar 2021 10:11:18 +0000
-Message-ID: <DB6PR0402MB276052F96B3F2A0F956E0EAE88649@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+Subject: RE: [PATCH 2/5] Check UART UCR1_UARTEN bit before writing data
+Thread-Topic: [PATCH 2/5] Check UART UCR1_UARTEN bit before writing data
+Thread-Index: AQHXH6j5GEVticSj+kyg0459SAbqyaqRM0qAgAAnNmA=
+Date: Tue, 23 Mar 2021 10:13:46 +0000
+Message-ID: <DB6PR0402MB27606C1FA79A5B33C6E6052388649@DB6PR0402MB2760.eurprd04.prod.outlook.com>
 References: <20210323062536.3888-1-peng.fan@nxp.com>
- <20210323062536.3888-4-peng.fan@nxp.com>
- <181c45a5-3c2f-4244-7681-119bdab4be5b@siemens.com>
-In-Reply-To: <181c45a5-3c2f-4244-7681-119bdab4be5b@siemens.com>
+ <20210323062536.3888-2-peng.fan@nxp.com>
+ <69cf89e6-dc86-a3d7-01fa-1e5abee7f1e8@siemens.com>
+In-Reply-To: <69cf89e6-dc86-a3d7-01fa-1e5abee7f1e8@siemens.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -139,64 +139,64 @@ X-MS-TNEF-Correlator:
 x-originating-ip: [119.31.174.71]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: b06382b7-5072-481c-5275-08d8ede40002
-x-ms-traffictypediagnostic: DBBPR04MB6028:
-x-microsoft-antispam-prvs: <DBBPR04MB6028B0C827BF80348CC1800888649@DBBPR04MB6028.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-ms-office365-filtering-correlation-id: ec329d8a-cb25-432c-b356-08d8ede4589b
+x-ms-traffictypediagnostic: DB8PR04MB7178:
+x-microsoft-antispam-prvs: <DB8PR04MB71782271BE379C382954CE5888649@DB8PR04MB7178.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: gVLdc7/DJAo6N63UTPlSOD+waswp+byywz+1Y3zCJdXnEgWqk/bXdtRuGuso5VIbnzggZVK/YoFI/vJYx+CStHiYqxXvWAw7JZKxp1JXs1z3G2rA26tT2lyyTpjVDcQN+coFCG0DM32Aeb73UHsa9WjFiex8x1/iZxgaAZKI3buEDuavmUbPbzl+7kIjoNSY+O5DUibUZSrtUHNjfc9+2gE/28XPzEiea+hnyjuQdlM5lUcrxWEE9taZhxRB0b1Pirhcpr1i+4kTk1iPjj2y7RQeEgNVVRr3nvTI/rFeOLdn1g1zdhnaOkqyw3GDWSu77xLLlTYQvWtYQrYifB6WVmSYnYJjRJnJ6Ibk8ECseShzcx1ptWn+OQ73j9QE59quaApAFvBPj84ENPzaxsdyUSHfC69+7TSf4mTVWbgx3w97YgBw893qbv7LutOy6ajwnx15fPddVtBS/e0nwzxHP2lQ3B+7taQMeIGDeMNBw9PU1ffhb8bLXIOcapbZvkhqME9bUeP4UIEL+6ZgL8qpB87OM1yMllI73UjC9uBX0yWwe4UvSDRLa1Yje/e+cDCG6AmpXb8xAY9ttxJPGcw66ya2DxPRGVhRgXqTqJJ7HA72fyAY5y6lo3A1m1hzz+hNrCOGjh3+ye1riauHDpjj92Pw4y2dJ8hrs6UwCPPmmjpB8EixcokpxQRNui2LJfAJ
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB6PR0402MB2760.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(66476007)(76116006)(66446008)(66556008)(2906002)(33656002)(83380400001)(6506007)(38100700001)(71200400001)(9686003)(55016002)(110136005)(8936002)(64756008)(7696005)(52536014)(44832011)(26005)(5660300002)(53546011)(186003)(8676002)(66946007)(498600001)(86362001)(32563001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata: =?utf-8?B?emhPY1U3dVBsNTB4dEV6YUxMeWxCVkk5akVRYnhPTXR5dW9tUFZFNHdhSkx0?=
- =?utf-8?B?RllBUzFzZkllZThDNWpyUktMNHR0UHRFajJReGFsajl4Q1NINnBuLzFhTEtD?=
- =?utf-8?B?cy9xZXhnNTYzRFZSMGhycnhZaFc5WlRndUgyenEzVVMvdU9xYkRhK1IyVGdH?=
- =?utf-8?B?Rjl0SDAyTnRVdzNWcFJMY3orVk5IR3NKeUVRRHlYQUNBZjU4TnJYQk13dWdi?=
- =?utf-8?B?QWE2YmpVRGxiUml2SzJIcFl3ajVZRm1jQ3lqNG9BSUgxdDlBb0FKa2c2dXZF?=
- =?utf-8?B?SlBDOUlTaVBvV0l4a25JYkJGbmMrcVhaMkFEdk9hZUhUQng5NFRoL3BBcnAx?=
- =?utf-8?B?bHBRMlhRNDhQbFcrN1NyS2p0bkVuWUZSMm0rM2tERjVUR1RjWTh2UGFQMTFP?=
- =?utf-8?B?bUdkd2dXQUx5SFpWUUc4YisyaVdkYTRTQkNsZ041Q1o4V0F0cWJ0MGRuOFdC?=
- =?utf-8?B?Ny9WUmMxRjNPWWpaU3hEdGVzaHBCMDhkOE5rb2R3WjBMQlcxN3BhYzB4TGts?=
- =?utf-8?B?cmN5cHU4WUFMMzdrWlh5N2V6N015N0djbG0ycWRpWlQvaUJCVHc5WWN0czVC?=
- =?utf-8?B?YXphSllrWDNKQ3l6bTlSMGlBSWk3dmx3d25NYWhyZ0FseHYxdk4vU3J4eUlo?=
- =?utf-8?B?NFdpd2xnRlhBV28ySFFlYW90eUhaajFXRkRHcG4rNVdGQmR5V3RDY1BhMXJ0?=
- =?utf-8?B?MGc5ZS9uTTVWTDcrWEN5SDRVbXJESmJzc0N1eEVXRUFIYkRFbk1uam5XSlQ0?=
- =?utf-8?B?SkRoaFZEengrcXhhWGRYRHZSTndRK2IwZTgxeVhzcjNmOTl0c04vYUhOais5?=
- =?utf-8?B?U3pjcHNOQ2lkbUNEZGZtNFFaTUFqNGNGNzJWVDUyMGVOTVhheHd6dzhGanVn?=
- =?utf-8?B?NVliUlBacnoyRWtveU5jVnpOaUVLKzdTTG4wUk1QQzBqRUo1RkorMHBjazcy?=
- =?utf-8?B?UUpKZ3lya3NSNDBVeWZsZ3NRTFF1Z1J3aGJzQVIxWU83UlF6RTV5TWdCQ01m?=
- =?utf-8?B?TEhxN3lRY3dleWFDZTRjbElSQlo3TWRodzY1emlRZFNTRXZtNUxDNDg5MjVw?=
- =?utf-8?B?NUpVTGJ4b0pBM2VyNG0zRy9FZy80ZFFKbGhXMGp6dnBjS1YzaGRZWnVvUWU5?=
- =?utf-8?B?WnFXaHZVZUJ4WDVjMndLR0krQmVXbGlnVGoxVDN2T1FTNVZvNmxFNWNiS1NB?=
- =?utf-8?B?My9lTy9wSmc2dUphT0czcWVSWVRJaEtCUkl5dmJzek1Ha3owTUZGTXFiM1Ev?=
- =?utf-8?B?VVhoaW9Qd3JoVDI4WDZCRGZTSHBPZDRJY21SdGNMYjlaN2VWU1g1amxMS1N4?=
- =?utf-8?B?bTdiMnNib0hzQnQyRGRIT2V5SHMxMEg1SXhvYmRoOUJYSVBqbWd1TDI1U1lQ?=
- =?utf-8?B?ZU4zRFREbTFrOGJwWW5tYUtWL00rVXI3ZC9waHlTZjFkbDZFMks5cHg3SEda?=
- =?utf-8?B?WGlKdmh0ODV5MCtvYXlrK0MyOGpieWhmOWo5alhNUW9hQU0xOUw1N2VpeXJC?=
- =?utf-8?B?eTRXdzljdUpIVWNsMUpvUllXV0NrNVFIT3FTT1VEOEdEUlA5aHluTkl6Vi9x?=
- =?utf-8?B?MFFQNWl1TFpieHp1NmYwZ00xZUN5U1Y5Q010MnkvUXNudVA1ZjdXRCs0TUl1?=
- =?utf-8?B?ZEhveHpVWjRUWUo3UisveU1IdWIwc0V5czh5d0wzc3djWGg3RHZvWnN2dTdm?=
- =?utf-8?B?QzU4L2RqRmh5UEE0dDJublhjbEx6b3NqdWVjQXkwZ3k4Q2pQcTdVUEcyaHl0?=
- =?utf-8?Q?SzOoPQ2FJL3GN/RsW5dGe7zpyo4uAOyMzHR+Did?=
+x-microsoft-antispam-message-info: 7hWNogWu1EUPzjhjaPAz8rQQc1Tq8imevVmJDkGDQBNn64m9PgIzDpS0WYLRm2jEu5MRuYdBz7mhpNL29A2wnhtGNxq8m3+knoXYNlpbBAf825VjbYkZdq8s33YYaLnPZtgw2QBBwA9xR0H2xMo/bV076cmIvH7NL+lbX8ObIMckmaMJI3w0RHRbi4jZ/npGxKTHI3EN6AQoZnKSmx0Fnk8VMuBQi52EXBc9cRRN8Qejpx8uAqA18eRyze4m1pBPMTEJro87nXLo36OwDUEBZ8hjsQ8eXrAvZX66T79vB7ftiT9TR9utOGV4qSk5LKT2RkuYG+r4iLxlGIwmfzXzGExLmIQEmmmthkPpqLTSR4l9U+EGydIc4e7o9Q7Oeus3EDjG0OMhVVgK0i2x9b/GjDVz3JxoCwWIY0iE57RlDPLBUwCvXHIhAK7n4Z6ccpze3tnnoLZZYdmerKsbST3/l/kTxAFZ+1KB78FpvsVmR749+Orbpyas59ndY4xFDHGPxRJPJ2pNO7z0osxDF47EYiCz3HPy0FoH31PgO7ONcbtI8RsYCsiI4KlLsE5N6IaewEejQFuaz4sSqDGTbALyX93wwdYvkf8NRD0vsTt9yi8Ww6t/Y6EYuQmuRG0uFSBwN78SUUuCYIv7jAvVNn738/oTGB3iPA4vhSGtnyFlWQc=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB6PR0402MB2760.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(33656002)(66946007)(8936002)(9686003)(110136005)(498600001)(64756008)(53546011)(66476007)(66556008)(76116006)(6506007)(66446008)(7696005)(26005)(86362001)(5660300002)(38100700001)(83380400001)(186003)(2906002)(52536014)(44832011)(8676002)(55016002)(71200400001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata: =?utf-8?B?bkhaSDVaRHdQTmNFTmF0QW9aMStQL1R0MHR6WXFxYlZZUTRNT2dYaVhEUUFl?=
+ =?utf-8?B?cTZ5MUNEK2pBbzcyZFM0VlcvVGRWYSs5ZWJnZDlTSzdQNFBMcnBEQVQ0aVMw?=
+ =?utf-8?B?enZSSTlKL291YjYrRnh6eHFSTE1KOFYwWVpXRkpzWUpEeUZTSTh0dHdDci9y?=
+ =?utf-8?B?cXhTN05UYTJnQkZmNWVRcUtVdVpVYTRpUzdPVGRBOC8rSkdoZ1NCUnFqSmhC?=
+ =?utf-8?B?ZG9NRjV4Z0daWC9BWjFUUUZJZTZ5czB2cHp2bzFEcjVQeHhJZllYcHA1dVBi?=
+ =?utf-8?B?Z1NGS3VHTFFTQTlJKzNrNVUzdG5ZOGIxTmJZYnJaaU44R0NHVi82ekVUZFAw?=
+ =?utf-8?B?bHhaa2s4T05xenFKK1JucVF5djdmazVreE5SeW5CdXhCNkpNVDRlRzlUcDlE?=
+ =?utf-8?B?ZnhlN1hrblRTOVBHc3BzdTJ1ZTIzckh4TC9HNnp0Y01hTm9jTENDVjFYMDJy?=
+ =?utf-8?B?dWx5ekRLekZoeXUwWnRGT0tGUjZCTTV5dWpQTkxkQzJwQXJSTnRyTldRQnJV?=
+ =?utf-8?B?b2d3ckFHSGVpTmFEQmlBSUVtQnl2a3ZFTmJjZXhWQ0JqOFQ3NHRQaEJuWEg3?=
+ =?utf-8?B?dlViMWd1QU54RjFOcmlBSktCMkJTU1ZqamJoRjlDYmZaRHFFZmZGTnVsSVUw?=
+ =?utf-8?B?TkYyWGJYOGpSbWFaeGwzaGt6VEdsbWJaTzZEaEFCQzFNSXN5bjRtQUhrQTRD?=
+ =?utf-8?B?eTUzTGZhcU5ncTkyTVFGa01hRGFoVDhyZFpBVGllN3h6TVhaMW1USm9VSjZ0?=
+ =?utf-8?B?N0dxdkxXY0tMdVdJZmlReTRRMlJpVVdnYzFNOGo2MGszRUVFblRraEczZkJi?=
+ =?utf-8?B?QWJRTUlSSkZmdjBYemxGeExnUlRWK2YvM3UyZDF3Vld3SWNyaU5HZnRYdFNP?=
+ =?utf-8?B?TzFmYklMNlF3STR3ajAwTUQ4VmhHbzdRd0IvTWNUTS9LREtQUENDYXdnNnY1?=
+ =?utf-8?B?d2l3b1pCSnkwMm50dHUycE9HRzFOTEt4ZEJGUUZ5NUtDTlV6UVBUOGtMU2RE?=
+ =?utf-8?B?N2wzZTcwQWNqMUxFdWF5UlZaZ2NYeThJRHNuKzA0c0dYUjIzZ0s5MWFnWFFk?=
+ =?utf-8?B?dy9wN3Z6dzRrVW5YM1FEaHMxQTBwMVVzY1lpN2w2V016aXNkMlB0WkJQWnA2?=
+ =?utf-8?B?MUlDanczM2RiODhXVWhESEgzTGxLYVdhd2kwaTVYdFNKWG1tQzlJUVNTSkJR?=
+ =?utf-8?B?MGtlNkxSSVFGb0xRd1M3cDhYcVNWRXBPNStjTytqQ3ZTWG45dnlISVliN3V1?=
+ =?utf-8?B?TFpHKzdBWStvc2NuYmF6RVZLTGlacEM4S0JRSHdQWGpmYURTc3kvUmZTZlE5?=
+ =?utf-8?B?M1RiaE9GU2REUGU3c0c2ZmdGZk0vTTVMa3Bsb0JVV3R2M2VmTGdpdlYwTzR0?=
+ =?utf-8?B?WlgraDN2b0tlRVQ3R280MzJZM1dsTi95OFRnNDZmZWVJQVEwVXI2ZFA2Zk1V?=
+ =?utf-8?B?L3JEcnFvNHpSTDVVRnU3aWxSSU1vRXdwNElPVHJOZ2s3QjNqY3ZEYlBGckx3?=
+ =?utf-8?B?aHdnc1JUZHRIR0Z0RmNTTWRBSkVMZVc4bWdzcnNxNTF1MzVUUTY0RWZJZkFO?=
+ =?utf-8?B?RFdnc0R2MW1rTkhhZkdpODFPcU81WjFjSTl1WWJOK0NITHNGRE0wSEdpcVAz?=
+ =?utf-8?B?SmRyNVBXK0F1RzZzWmRXd0habC8xZEVmbC9Lc043T1Awc3hPZlNCclBvcEJZ?=
+ =?utf-8?B?dzAvendRUlNjUjVPekVxUmhrSUdhNHVCY09rKytEY05FWG5YMEU5RVptNVBI?=
+ =?utf-8?Q?67H/+ZWOuhBhiJUocOYJXOeBLgttNwV1RFoFKcE?=
 x-ms-exchange-transport-forked: True
 Content-Type: text/plain; charset="UTF-8"
 MIME-Version: 1.0
 X-OriginatorOrg: nxp.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DB6PR0402MB2760.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b06382b7-5072-481c-5275-08d8ede40002
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Mar 2021 10:11:18.0334
+X-MS-Exchange-CrossTenant-Network-Message-Id: ec329d8a-cb25-432c-b356-08d8ede4589b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Mar 2021 10:13:46.7150
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: gdkZbml+R6snssARGGUQiRbDxuB4AA1uYEEZs7QPc7xXZVFcU0BHcWCWX7Md7rQ7F1newUvDqyqDSmULYdQ1pg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB6028
+X-MS-Exchange-CrossTenant-userprincipalname: WbhtOJ62/fXDnhf9euG/v48VpfuOuLaFu8DdiuY6Ee7zwN1VeTcRcZfYWurXKF6zdyryMsyD8NVmy1NXxV8HGQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB7178
 X-Original-Sender: peng.fan@nxp.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@nxp.com header.s=selector2 header.b=p3m7uR0H;       arc=pass (i=1
+ header.i=@nxp.com header.s=selector2 header.b=fj7v54wk;       arc=pass (i=1
  spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass
  fromdomain=nxp.com);       spf=pass (google.com: domain of peng.fan@nxp.com
- designates 2a01:111:f400:fe0e::604 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+ designates 40.107.21.55 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -210,341 +210,112 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-> Subject: Re: [PATCH 4/5] imx8mp: support virtio console
+> Subject: Re: [PATCH 2/5] Check UART UCR1_UARTEN bit before writing data
 > 
 > On 23.03.21 07:25, peng.fan@nxp.com wrote:
 > > From: Peng Fan <peng.fan@nxp.com>
 > >
-> > Support virtio console
+> > There is frequent start/shutdown operation in kernel reboot process.
+> > And at the end of kernel reboot, kernel will switch to use console
+> > output,saying imx_console_write on i.MX8MM.
+> >
+> > imx_console_write will save/restore uart configuration.
+> > However before imx_console_write the UCR1_UARTEN already set to 0.
+> > when restore, it is also 0. Then when we runs into jailhouse disable,
+> > jailhouse write to uart will trigger errors.
 > 
-> Not accurate: You also add virtio-blk devices.
-> 
-> Where do you take the memory from? 
+> What kind of errors? Hardware exceptions or what?
 
-We reserved 2MB ivshmem in the very beginning, so no need reserve
-more for virtio.
-
-Some words on how you rearrange
-> things would be good.
-> 
-> And there is no impact on the demo-inmate config?
-
-Not check that, I'll check.
+Hardware exceptions.
 
 > 
 > >
-> > Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> > ---
-> >  configs/arm64/imx8mp-linux-demo.c | 81
-> ++++++++++++++++++++++++++-----
-> >  configs/arm64/imx8mp.c            | 80
-> ++++++++++++++++++++++++------
-> >  2 files changed, 134 insertions(+), 27 deletions(-)
+> > So let's add a check.
 > >
-> > diff --git a/configs/arm64/imx8mp-linux-demo.c
-> > b/configs/arm64/imx8mp-linux-demo.c
-> > index ff0cdffb..1e0a9f1c 100644
-> > --- a/configs/arm64/imx8mp-linux-demo.c
-> > +++ b/configs/arm64/imx8mp-linux-demo.c
-> > @@ -21,9 +21,9 @@
-> >  struct {
-> >  	struct jailhouse_cell_desc cell;
-> >  	__u64 cpus[1];
-> > -	struct jailhouse_memory mem_regions[15];
-> > +	struct jailhouse_memory mem_regions[23];
-> >  	struct jailhouse_irqchip irqchips[2];
-> > -	struct jailhouse_pci_device pci_devices[2];
-> > +	struct jailhouse_pci_device pci_devices[4];
-> >  } __attribute__((packed)) config = {
-> >  	.cell = {
-> >  		.signature = JAILHOUSE_CELL_DESC_SIGNATURE, @@ -43,7 +43,8
-> @@
-> > struct {
-> >  	},
+> > However to hypervisor itself, there is still risk that kernel disable
+> > uart, whenh jailhouse is going to write data registers even with this
+> > patch applied.
 > >
-> >  	.mem_regions = {
-> > -		/* IVHSMEM shared memory region for 00:00.0 (demo )*/ {
-> > +		/* IVSHMEM shared memory region (virtio-blk front) */
-> > +		{
-> >  			.phys_start = 0xfd900000,
-> >  			.virt_start = 0xfd900000,
-> >  			.size = 0x1000,
-> > @@ -52,25 +53,57 @@ struct {
-> >  		{
-> >  			.phys_start = 0xfd901000,
-> >  			.virt_start = 0xfd901000,
-> > +			.size = 0xdf000,
-> > +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> > +				JAILHOUSE_MEM_ROOTSHARED,
-> > +		},
-> > +		{ 0 },
-> > +		{ 0 },
-> > +		/* IVSHMEM shared memory region (virtio-con front) */
-> > +		{
-> > +			.phys_start = 0xfd9e0000,
-> > +			.virt_start = 0xfd9e0000,
-> > +			.size = 0x1000,
-> > +			.flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_ROOTSHARED,
-> > +		},
-> > +		{
-> > +			.phys_start = 0xfd9e1000,
-> > +			.virt_start = 0xfd9e1000,
-> > +			.size = 0xf000,
-> > +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> > +				JAILHOUSE_MEM_ROOTSHARED,
-> > +		},
-> > +		{ 0 },
-> > +		{ 0 },
-> > +		/* IVHSMEM shared memory region for 00:00.0 (demo )*/
-> > +		{
-> > +			.phys_start = 0xfd9f0000,
-> > +			.virt_start = 0xfd9f0000,
-> > +			.size = 0x1000,
-> > +			.flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_ROOTSHARED,
-> > +		},
-> > +		{
-> > +			.phys_start = 0xfd9f1000,
-> > +			.virt_start = 0xfd9f1000,
-> >  			.size = 0x9000,
-> >  			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> >  				JAILHOUSE_MEM_ROOTSHARED,
-> >  		},
-> >  		{
-> > -			.phys_start = 0xfd90a000,
-> > -			.virt_start = 0xfd90a000,
-> > +			.phys_start = 0xfd9fa000,
-> > +			.virt_start = 0xfd9fa000,
-> >  			.size = 0x2000,
-> >  			.flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_ROOTSHARED,
-> >  		},
-> >  		{
-> > -			.phys_start = 0xfd90c000,
-> > -			.virt_start = 0xfd90c000,
-> > +			.phys_start = 0xfd9fc000,
-> > +			.virt_start = 0xfd9fc000,
-> >  			.size = 0x2000,
-> >  			.flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_ROOTSHARED,
-> >  		},
-> >  		{
-> > -			.phys_start = 0xfd90e000,
-> > -			.virt_start = 0xfd90e000,
-> > +			.phys_start = 0xfd9fe000,
-> > +			.virt_start = 0xfd9fe000,
-> >  			.size = 0x2000,
-> >  			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> >  				JAILHOUSE_MEM_ROOTSHARED,
-> > @@ -143,22 +176,44 @@ struct {
-> >  	},
+> > There is no good way to avoid such contention, the best way to avoid
+> > such issue is that use a different uart from Linux or remove `.type =
+> > JAILHOUSE_CON_TYPE_IMX,` from configs/arm64/imx8mm.c.
 > >
-> >  	.pci_devices = {
-> > +		{
-> > +			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> > +			.domain = 1,
-> > +			.bdf = 2 << 3,
-> > +			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-> > +			.shmem_regions_start = 0,
-> > +			.shmem_dev_id = 1,
-> > +			.shmem_peers = 2,
-> > +			.shmem_protocol =
-> JAILHOUSE_SHMEM_PROTO_VIRTIO_FRONT +
-> > +				VIRTIO_DEV_BLOCK,
-> > +		},
-> > +		{
-> > +			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> > +			.domain = 1,
-> > +			.bdf = 3 << 3,
-> > +			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-> > +			.shmem_regions_start = 4,
-> > +			.shmem_dev_id = 1,
-> > +			.shmem_peers = 2,
-> > +			.shmem_protocol =
-> JAILHOUSE_SHMEM_PROTO_VIRTIO_FRONT +
-> > +				VIRTIO_DEV_CONSOLE,
-> > +		},
-> >  		{ /* IVSHMEM 00:00.0 (demo) */
-> >  			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> > -			.domain = 0,
-> > +			.domain = 1,
+> > Remove `.type = JAILHOUSE_CON_TYPE_IMX,` means jailhouse hypervisor
+> > will not output to uart, but you still could see jailhouse log by `cat
+> > /dev/jailhouse`
 > 
-> Please pull patch 5 before this one and do all the domain adjustments in one
-> place.
+> There is no separate UART available, to have kernel and Jailhouse on different
+> channels?
 
-Sure.
+It depends on board design.
+
+> 
+> Another alternative is to avoid using the UART as console under Linux, right?
+
+Yes. But in case jailhouse is sharing the uart with Linux.
 
 Thanks,
 Peng.
 
 > 
-> >  			.bdf = 0 << 3,
-> >  			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-> > -			.shmem_regions_start = 0,
-> > +			.shmem_regions_start = 8,
-> >  			.shmem_dev_id = 2,
-> >  			.shmem_peers = 3,
-> >  			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
-> >  		},
-> >  		{ /* IVSHMEM 00:01.0 (networking) */
-> >  			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> > -			.domain = 0,
-> > +			.domain = 1,
-> >  			.bdf = 1 << 3,
-> >  			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-> > -			.shmem_regions_start = 5,
-> > +			.shmem_regions_start = 13,
-> >  			.shmem_dev_id = 1,
-> >  			.shmem_peers = 2,
-> >  			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH, diff
-> --git
-> > a/configs/arm64/imx8mp.c b/configs/arm64/imx8mp.c index
-> > a1e221f9..3f758980 100644
-> > --- a/configs/arm64/imx8mp.c
-> > +++ b/configs/arm64/imx8mp.c
-> > @@ -18,9 +18,9 @@
-> >  struct {
-> >  	struct jailhouse_system header;
-> >  	__u64 cpus[1];
-> > -	struct jailhouse_memory mem_regions[15];
-> > +	struct jailhouse_memory mem_regions[23];
-> >  	struct jailhouse_irqchip irqchips[3];
-> > -	struct jailhouse_pci_device pci_devices[2];
-> > +	struct jailhouse_pci_device pci_devices[4];
-> >  } __attribute__((packed)) config = {
-> >  	.header = {
-> >  		.signature = JAILHOUSE_SYSTEM_SIGNATURE, @@ -42,7 +42,7 @@
-> struct {
-> >  			.pci_mmconfig_base = 0xfd700000,
-> >  			.pci_mmconfig_end_bus = 0,
-> >  			.pci_is_virtual = 1,
-> > -			.pci_domain = 0,
-> > +			.pci_domain = 1,
 > >
-> >  			.arm = {
-> >  				.gic_version = 3,
-> > @@ -68,7 +68,8 @@ struct {
-> >  	},
+> > Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> > ---
+> >  hypervisor/arch/arm-common/uart-imx.c | 4 ++++
+> >  inmates/lib/arm-common/uart-imx.c     | 4 ++++
+> >  2 files changed, 8 insertions(+)
 > >
-> >  	.mem_regions = {
-> > -		/* IVHSMEM shared memory region for 00:00.0 (demo )*/ {
-> > +		/* IVSHMEM shared memory region (virtio-blk back-end) */
-> > +		{
-> >  			.phys_start = 0xfd900000,
-> >  			.virt_start = 0xfd900000,
-> >  			.size = 0x1000,
-> > @@ -77,24 +78,53 @@ struct {
-> >  		{
-> >  			.phys_start = 0xfd901000,
-> >  			.virt_start = 0xfd901000,
-> > +			.size = 0xdf000,
-> > +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-> > +		},
-> > +		{ 0 },
-> > +		{ 0 },
-> > +		/* IVSHMEM shared memory region (virtio-con back-end) */
-> > +		{
-> > +			.phys_start = 0xfd9e0000,
-> > +			.virt_start = 0xfd9e0000,
-> > +			.size = 0x1000,
-> > +			.flags = JAILHOUSE_MEM_READ,
-> > +		},
-> > +		{
-> > +			.phys_start = 0xfd9e1000,
-> > +			.virt_start = 0xfd9e1000,
-> > +			.size = 0xf000,
-> > +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-> > +		},
-> > +		{ 0 },
-> > +		{ 0 },
-> > +		/* IVHSMEM shared memory region for 00:00.0 (demo )*/ {
-> > +			.phys_start = 0xfd9f0000,
-> > +			.virt_start = 0xfd9f0000,
-> > +			.size = 0x1000,
-> > +			.flags = JAILHOUSE_MEM_READ,
-> > +		},
-> > +		{
-> > +			.phys_start = 0xfd9f1000,
-> > +			.virt_start = 0xfd9f1000,
-> >  			.size = 0x9000,
-> >  			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE ,
-> >  		},
-> >  		{
-> > -			.phys_start = 0xfd90a000,
-> > -			.virt_start = 0xfd90a000,
-> > +			.phys_start = 0xfd9fa000,
-> > +			.virt_start = 0xfd9fa000,
-> >  			.size = 0x2000,
-> >  			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE ,
-> >  		},
-> >  		{
-> > -			.phys_start = 0xfd90c000,
-> > -			.virt_start = 0xfd90c000,
-> > +			.phys_start = 0xfd9fc000,
-> > +			.virt_start = 0xfd9fc000,
-> >  			.size = 0x2000,
-> >  			.flags = JAILHOUSE_MEM_READ,
-> >  		},
-> >  		{
-> > -			.phys_start = 0xfd90e000,
-> > -			.virt_start = 0xfd90e000,
-> > +			.phys_start = 0xfd9fe000,
-> > +			.virt_start = 0xfd9fe000,
-> >  			.size = 0x2000,
-> >  			.flags = JAILHOUSE_MEM_READ,
-> >  		},
-> > @@ -167,22 +197,44 @@ struct {
-> >  	},
+> > diff --git a/hypervisor/arch/arm-common/uart-imx.c
+> > b/hypervisor/arch/arm-common/uart-imx.c
+> > index 849f8fca..6485f36e 100644
+> > --- a/hypervisor/arch/arm-common/uart-imx.c
+> > +++ b/hypervisor/arch/arm-common/uart-imx.c
+> > @@ -15,6 +15,8 @@
 > >
-> >  	.pci_devices = {
-> > +		{
-> > +			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> > +			.domain = 1,
-> > +			.bdf = 2 << 3,
-> > +			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-> > +			.shmem_regions_start = 0,
-> > +			.shmem_dev_id = 0,
-> > +			.shmem_peers = 2,
-> > +			.shmem_protocol =
-> JAILHOUSE_SHMEM_PROTO_VIRTIO_BACK +
-> > +				VIRTIO_DEV_BLOCK,
-> > +		},
-> > +		{
-> > +			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> > +			.domain = 1,
-> > +			.bdf = 3 << 3,
-> > +			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-> > +			.shmem_regions_start = 4,
-> > +			.shmem_dev_id = 0,
-> > +			.shmem_peers = 2,
-> > +			.shmem_protocol =
-> JAILHOUSE_SHMEM_PROTO_VIRTIO_BACK +
-> > +				VIRTIO_DEV_CONSOLE,
-> > +		},
-> >  		{ /* IVSHMEM 0000:00:00.0 (demo) */
-> >  			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> > -			.domain = 0,
-> > +			.domain = 1,
-> >  			.bdf = 0 << 3,
-> >  			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-> > -			.shmem_regions_start = 0,
-> > +			.shmem_regions_start = 8,
-> >  			.shmem_dev_id = 0,
-> >  			.shmem_peers = 3,
-> >  			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
-> >  		},
-> >  		{ /* IVSHMEM 0000:00:01.0 (networking) */
-> >  			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> > -			.domain = 0,
-> > +			.domain = 1,
-> >  			.bdf = 1 << 3,
-> >  			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-> > -			.shmem_regions_start = 5,
-> > +			.shmem_regions_start = 13,
-> >  			.shmem_dev_id = 0,
-> >  			.shmem_peers = 2,
-> >  			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+> >  #define UTS			0xb4
+> >  #define UTXD			0x40
+> > +#define UCR1			0x80
+> > +#define UCR1_UARTEN		(1<<0)
+> >  #define UTS_TXEMPTY		(1 << 6)
+> >
+> >  static void uart_init(struct uart_chip *chip) @@ -29,6 +31,8 @@
+> > static bool uart_is_busy(struct uart_chip *chip)
+> >
+> >  static void uart_write_char(struct uart_chip *chip, char c)  {
+> > +	if ((mmio_read32(chip->virt_base + UCR1) & UCR1_UARTEN) !=
+> > +UCR1_UARTEN)
+> 
+> if (mmio_read32(chip->virt_base + UCR1) & UCR1_UARTEN)
+> 	mmio_write32(chip->virt_base + UTXD, c);
+> 
+> And a comment on the "why" here would be good.
+> 
+> > +		return;
+> >  	mmio_write32(chip->virt_base + UTXD, c);  }
+> >
+> > diff --git a/inmates/lib/arm-common/uart-imx.c
+> > b/inmates/lib/arm-common/uart-imx.c
+> > index 984dc218..9cdf9089 100644
+> > --- a/inmates/lib/arm-common/uart-imx.c
+> > +++ b/inmates/lib/arm-common/uart-imx.c
+> > @@ -39,6 +39,8 @@
+> >
+> >  #define UTS			0xb4
+> >  #define UTXD			0x40
+> > +#define UCR1			0x80
+> > +#define UCR1_UARTEN		(1<<0)
+> >  #define UTS_TXEMPTY		(1 << 6)
+> >
+> >  static void uart_imx_init(struct uart_chip *chip) @@ -53,6 +55,8 @@
+> > static bool uart_imx_is_busy(struct uart_chip *chip)
+> >
+> >  static void uart_imx_write(struct uart_chip *chip, char c)  {
+> > +	if ((mmio_read32(chip->base + UCR1) & UCR1_UARTEN) !=
+> UCR1_UARTEN)
+> > +		return;
+> >  	mmio_write32(chip->base + UTXD, c);
+> >  }
+> >
 > >
 > 
 > Jan
@@ -556,4 +327,4 @@ Peng.
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/DB6PR0402MB276052F96B3F2A0F956E0EAE88649%40DB6PR0402MB2760.eurprd04.prod.outlook.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/DB6PR0402MB27606C1FA79A5B33C6E6052388649%40DB6PR0402MB2760.eurprd04.prod.outlook.com.
