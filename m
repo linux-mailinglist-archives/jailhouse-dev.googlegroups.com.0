@@ -1,32 +1,32 @@
 Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBRXF46BAMGQECGT3STI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23c.google.com (mail-lj1-x23c.google.com [IPv6:2a00:1450:4864:20::23c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22D15346037
+Received: from mail-lj1-x237.google.com (mail-lj1-x237.google.com [IPv6:2a00:1450:4864:20::237])
+	by mail.lfdr.de (Postfix) with ESMTPS id 54FB3346038
 	for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Mar 2021 14:53:11 +0100 (CET)
-Received: by mail-lj1-x23c.google.com with SMTP id u4sf1459460ljo.6
+Received: by mail-lj1-x237.google.com with SMTP id v9sf1460711ljc.9
         for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Mar 2021 06:53:11 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1616507590; cv=pass;
+ARC-Seal: i=2; a=rsa-sha256; t=1616507591; cv=pass;
         d=google.com; s=arc-20160816;
-        b=M3RFNAZ8oW75NSVSXqmJS5tTTdly5Hb96AaogK4JFgto/L9LUP918sfZJQM7NdVoNF
-         9XzlS+B0coxk96Yiie7jr1kC4vSyEsoxzeWWHqdrKgpi+ARmhsx5ABXnC6CUYdTDIWrX
-         sXVXxvRkVoZREiZ7cC9WfK3kDZtqhZgDbwRym2frI4//77c9XiV5Prbi05Nvp5EhTp0e
-         xxRpmPg7iQw3AhMuP636EI/Umx3RcfrIo9IHyfloKWvo4o/K4gDtdWxTkvvegGRLO7sO
-         c+a3cAM7UXmpbqVIk7EnlDJU+Q9KCEkq2Rghor73Y6RJuSoNEgzSXFfOHxtQctTTu4Yo
-         0khw==
+        b=G5w1ul8mgE74jUI4/P6jeNND+PKwx4jPdYT5YDgB0OkZhzm+BzMqh1aUMZzKIUuqTv
+         an7SE0tqT+Keezv2k6CCWx2GIOlion3eoqYuk7Dm9X4CHkiZDSAAfKliM5BzEhaAa/bJ
+         WmcmOg7KTFSLfQXAO75eY2/DtWYZZcUdvvpwE0bdnFZnVClz+CSaHomXMmApYzAKxhms
+         hy+KHyJh3rbE3Ph+DwbANXd9aCaFxQbH5JR8rX4FVlP+y2GFBpToaaEFplv3014sWW9k
+         gSonXUDpAVAKOg2m3U7M8dhrrw6upnrBAUNKkIX2rmY6sv9BZ6yUMgpCxqV2fsnF2Cfs
+         qUkg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:sender:dkim-signature;
-        bh=WdCHwYh1cird61ZxuYxJya0WNRE7akbpotuBWxIHOqQ=;
-        b=VK4X1LD30T/TnqmLbBLedYGojCIhYcuOOGeDHNmI5sJ4TC1nbop4BykIrv6MmoMUGk
-         52qOZLW24EtohHoWGOf6qPFf/i3KnK8ymiT768m/rNWu98sNGykP69fRzBaZ/2Kp61fN
-         Ey+hnPL+RglHX3s8ikh6sZ7R2uCWwQYVfnU4DeQFwY/vfdq5mFVj6QiGgUqTr4Sr8KGy
-         SQASsya9RjRFpe34YIeWKM4vYLiHSybjJTTA2qwNr2wqVR7oxZQvZYvakPV/IRuwHbBK
-         lwt1bp7jtz1G6zMe1CIJqYt2gbHMykXPnEhFXIA6y6TaS7g0bAW1dXjVW+wPz9a7dkJN
-         nsGw==
+        bh=06Yai0nqBV2HGpxpxu4dobCuedUnayqgrfC/YTSE6fQ=;
+        b=SP1xKByF3LHDKe/qOBVaxv1OPACYPo/eZOwN7EXTC+tDvCv4bDfNhSZsUioCeoAIZy
+         L8J1R2UzEnj4foUBJ8jNeOlRddvneImQXVA4OcQR5BeX0eEKlYJzALsViei5ydyRjSkU
+         I53L2WZo0TVhqa4oZxmbxccssx9BdKNTACqaH6jy65b/ibRkWTyHr7atlp+b7XUVlFsd
+         k6xxwmkPxBzP5CUJH4qMBIk+0OFDB60IyTAM7AnGaWSSlI6Mzw2NaBtJo9j2SGI9ytok
+         x9Kzo37woZKdJpNTWyj7+UM8H20+OOqMtvnrcaa8pXrUHMhUFxde7V/VA1yG/0gLz/yR
+         8CUw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -34,13 +34,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=WdCHwYh1cird61ZxuYxJya0WNRE7akbpotuBWxIHOqQ=;
-        b=Gq8z10RgXNu/1vip+MUiuXNUd2RFYRl+u8aYM5sNMmdWGVyOYdk44wDuOTwSPTxdG3
-         dV5tku2mtzBaXXRQPIlyddgl4tPjeBePX9zyNfycZ/uzcR2odSvXo9thnPNz4OqD8+wL
-         nadc/uGsDKZ63A0m5F5eFC0HMXnaxBSJsgM2c9JBa3Hyf+cguta0vtBY3DMWHtRxkXfi
-         gSx1cGsDwxMNTzjlBuEA0/BFeJdExNX+aHrpzIfVVJpTB9MfA5YehgVAfj0SKwfXKVlv
-         m0Awyqh6cvcqd1PN3HA8cuXtocxI8UZUE/8qde8bb8NR2Q/vUaxJtLe8CqnAVYB5msPd
-         OUDA==
+        bh=06Yai0nqBV2HGpxpxu4dobCuedUnayqgrfC/YTSE6fQ=;
+        b=QrD8xZp6IztGqb+Nx7H42Kaaz9bG5kYTo//ZboZK0uPbadqjwhzBlDYvaxnzLck4qg
+         B/2ImsD1YoJo8ZrszuYiBHnyNMGZXzyJ2YOvEq3tPHVTOyQIOGzia10lKoykETx6E8sI
+         HYQTrG400Y44du7ntVU8gHBpcTkuWoSyrzrhHtZgT5Wdx7o/uC2PPZA8BQIK75RX4wI+
+         F9SCpyhnZe1wF8GfoAiAKjkKaTH0h0a+eYYtvZQiQIQjFKXgjrT1ni2F6w2L3m2x6olL
+         fjhUHBlGqUDDc7qO6U4xXUi+AsSOacHQWWy1NAWcSJpkub1pvd6gU0J1H6bjedU6BtR3
+         vfaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:subject:date:message-id
@@ -48,70 +48,70 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=WdCHwYh1cird61ZxuYxJya0WNRE7akbpotuBWxIHOqQ=;
-        b=H/IJQw1a0sQYNLee3mkIM14y1AMWC6WvCPbY8+NYt+yyYSMEZQSHwDcx7TbS2RXIY7
-         bIsNKx0kGhoWEo+qP0KOmmV+TdTIiiTHjcBVTqFLd4gmL++cxTUdmRJ8BAFrZL2G8W6N
-         6mV1OqJWM1mDNgEyVupPpGBsPHCuL6w+bhYTsfKcdH4XJHThXJZYeK6QSD6fS7cq5gSe
-         +wl0a4CMYYP3BEH0YA3cu5wJDRrbU7MV6OoGG59o9lKc4qRpXhkalVcgcc2WXKbHEZA6
-         D8xhhh2FKcif3iF4yKK8/qF3mSkUsvXOEP+/LnI7pmx8AnfA01JxhmikiO3lNhIrdBDU
-         nR3w==
+        bh=06Yai0nqBV2HGpxpxu4dobCuedUnayqgrfC/YTSE6fQ=;
+        b=R3YuLsMERcjMVN4nJEDjrXAeg6WGLCjlgpeNtXQxSESiRL+yo/XX9wt49H0HgUwFQA
+         LcttO9hEmO4qhN5bZ1tHSFGPU9vjqf9SDH7AZviIUS8+XlZ/4oq/SvP/FrRuBI3Yx41B
+         SuxkN9S2+9s4/f4tPMUQ4jgHY4BmIPnMLPg79KCFXuRBLD7sy3TvYq3Bz0XnPzw0m6Mu
+         ktbEzYnFmf8NoYOAS0ovjx6hxlPcSDYb008tRQ9zccLlt/G0uesVKCnJsgLQykDl8vZs
+         snDZNMXpvMGrJSYeiZKKuADcKZSDiVtQ3osSlMomQ3g6AUljmUKIpJhBejhh91GArRpD
+         3Ysw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533UVNYa3d1yL9Ac7dB156R2zwE2Gexr0NdNP+8R5kl3GE22N9UZ
-	XQXDUGK/nBoKUwN1f4y7/ig=
-X-Google-Smtp-Source: ABdhPJxB28osWHVUB4io4w0HFSac4aq73y13t5FI6Re/3QkvLWRJex1lH8iFHWqMw3FUrZ4vTkh5Jw==
-X-Received: by 2002:a2e:9101:: with SMTP id m1mr3254565ljg.378.1616507590697;
+X-Gm-Message-State: AOAM532sR0WghzJe+dz4q4nV9le3VZGpKG3Pit5wZJm8wModkA4XcIJR
+	pLCJ/qTosBw2QfoqsnU6Qs4=
+X-Google-Smtp-Source: ABdhPJy8Hi8G1fqVXxadBE+N0aQN6HjxllY2/04kIuAyRbjPYmfq5CZS9XRzo2Dxcq+PkAmXv3mxRw==
+X-Received: by 2002:ac2:4298:: with SMTP id m24mr2776090lfh.429.1616507590877;
         Tue, 23 Mar 2021 06:53:10 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:651c:2050:: with SMTP id t16ls3175448ljo.4.gmail; Tue,
- 23 Mar 2021 06:53:09 -0700 (PDT)
-X-Received: by 2002:a2e:5710:: with SMTP id l16mr3151398ljb.228.1616507589457;
+Received: by 2002:a05:6512:6c2:: with SMTP id u2ls4750664lff.3.gmail; Tue, 23
+ Mar 2021 06:53:09 -0700 (PDT)
+X-Received: by 2002:ac2:53a7:: with SMTP id j7mr2893318lfh.305.1616507589808;
         Tue, 23 Mar 2021 06:53:09 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; t=1616507589; cv=none;
         d=google.com; s=arc-20160816;
-        b=xK3Wu/BG43OlGzDA9fE4EhU75mfX44Q+vJmjMcobhphEnh2PmO59xuW4QOouk+smi9
-         K3tFcFgDdxLePGrVYqw8imTrHsBTyQJBxezEpf7aeFyNuQO/TPWuU9TJDBdvr/1rO88A
-         FK0zEJWzdjdAV+z6qUb3yokebk4bz0STviiTGmMDB6oi9lAdwiZo4s1YuIsjtUF62lEs
-         Nn7HoYrdafEhsDoay/0AkDg5YsnRtbrNvZWfFO7eHPnXmztDake3R2Ftq9YoVpcKfRii
-         7GRBnizY8jsAspV47WzEy8nZPOUAwwyA1yFbjH5/V+pyYdjeCeA1VpbXSHdyPspdz+Gz
-         uroA==
+        b=Ze40UqjY8tkUFRvNMb76uESSmAhhsu+vG2cuENZTtDYXgEdmURw1OOKDBXwfDo2LYw
+         zC1O82DsKnQUauWQEIg3YXeRbs8rq4WFIbIvJRdIw1r+JyK35UTVZjqPjEcYAhCk7iVJ
+         DauD8rsiP+DaJ69HHiXCSgjwQHbU/e3pQdP8OkZkcHcC6aK4bIYb9w8J6RpL5LpfBbo2
+         VExc1dhA0aauMt41Ggf+zf88asCOGxAIpH2e3UHUXx5c4Q66lpYxJ9nuNNSaLmnRmARI
+         xVOEUGmbI57ax2cQdtAOYkEP/XDzObDt5z4rO3aXTNIVABoieryPfUBERydHdg10pn6d
+         egpw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from;
-        bh=+Y9MaWH7hHKfJquXko3Huyo2yY8kip/SNgSYUzL/IBI=;
-        b=RdL7XNRH/y9Je9ZxBwkbT9M+PQgkTA+LBAFuSp1tn4V1DJhS0v6pb4n7w6850g+d2y
-         UnuuZZlapsMTl6XnU6mdODdK8Vrgn+QR+6zKkwiFxTEnkTOcKm5SXnSKE1U6vkhI3O9W
-         g9Js/gLvFHOOPckqFtCgEfzzlLlaXv0S/A9SFUmayStHovfxMHKsBsi0N/2vpD6udbT4
-         BMjhsvsYUc/pe6mWspDXl2UxYLlN5N7U940RVOmAO7vhzvL1jgpdPoYVGc0wl6CGU4ba
-         OOwtYNd5wykvpNr6UnPC6+WwJhj1whxT/19GCbU7KIiID0LHE5TcaxKJb5SzCHn0N/5W
-         bFyw==
+        bh=agpinA9jMusKw0FrxjVizUAc13uKBTI54+SsigrSIGI=;
+        b=d9jxgPz/TsS7F1ZpVO3mvsR2f03PZLXOj/8NxOazbIXhtR3boAxHe0l19eOtK/V8Ar
+         N1QDjy1gEb/WxghxF+/jXImyMZT7rHHu8GK6a5WwU/ePt5QANBCJF64wICti1T7+4DOm
+         dZlzDbV0cOX8f10qZ9L0lvHbQbiw3GUtGWw46ls9vAELIn9Fc9RAnvX3MaVMP8RkeG2+
+         Ucw9z+D1e00/POonw4kqbekHtMUAOWsRefrfdJz2sCYwADoOzy6ni0jFx8CkxHqUgv2g
+         sKt7nsg+Hel0TBeY0O/ZwHALZaKE9YOGPO4JwipSg0mTLF96glVgy2OWMlycAn4Looey
+         HgeA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id v26si749333lfo.2.2021.03.23.06.53.09
+Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
+        by gmr-mx.google.com with ESMTPS id v3si698179lfd.4.2021.03.23.06.53.09
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
         Tue, 23 Mar 2021 06:53:09 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 12NDr8WH004196
+	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 12NDr9nv026274
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
-	for <jailhouse-dev@googlegroups.com>; Tue, 23 Mar 2021 14:53:08 +0100
+	for <jailhouse-dev@googlegroups.com>; Tue, 23 Mar 2021 14:53:09 +0100
 Received: from md1f2u6c.ad001.siemens.net ([167.87.18.33])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 12NDm2Mj029573
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 12NDm2Mk029573
 	for <jailhouse-dev@googlegroups.com>; Tue, 23 Mar 2021 14:48:03 +0100
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [jh-images][PATCH 03/11] Address shellcheck reports
-Date: Tue, 23 Mar 2021 14:47:54 +0100
-Message-Id: <861534c4bd0ea309f641c6b0687c56c5ef5bb2d2.1616507282.git.jan.kiszka@siemens.com>
+Subject: [jh-images][PATCH 04/11] linux-jailhouse: Generalize armhf config
+Date: Tue, 23 Mar 2021 14:47:55 +0100
+Message-Id: <d69ec0f04421c15c02effe8417f863bb8785e3bb.1616507282.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <cover.1616507282.git.jan.kiszka@siemens.com>
 References: <cover.1616507282.git.jan.kiszka@siemens.com>
 MIME-Version: 1.0
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
@@ -129,166 +129,113 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
+Add support for a qemu-arm target to the so far orangepi-zero only
+kernel config. This requires lifting the number of CPUs to 8, enabling
+vexpress in order to get pl011 UART and turning on a couple of virtio
+drivers.
+
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- build-images.sh      | 33 +++++++++++++++++----------------
- scripts/make_release | 10 +++++-----
- start-qemu.sh        | 18 ++++++++++--------
- 3 files changed, 32 insertions(+), 29 deletions(-)
+ ...pi-zero_defconfig_5.4 => armhf_defconfig_5.4} | 16 ++++++++++++----
+ recipes-kernel/linux/linux-jailhouse_5.4.inc     |  1 -
+ 2 files changed, 12 insertions(+), 5 deletions(-)
+ rename recipes-kernel/linux/files/{orangepi-zero_defconfig_5.4 => armhf_defconfig_5.4} (96%)
 
-diff --git a/build-images.sh b/build-images.sh
-index 772bdbd..7b5d071 100755
---- a/build-images.sh
-+++ b/build-images.sh
-@@ -12,16 +12,17 @@
+diff --git a/recipes-kernel/linux/files/orangepi-zero_defconfig_5.4 b/recipes-kernel/linux/files/armhf_defconfig_5.4
+similarity index 96%
+rename from recipes-kernel/linux/files/orangepi-zero_defconfig_5.4
+rename to recipes-kernel/linux/files/armhf_defconfig_5.4
+index 4895867..fafdebb 100644
+--- a/recipes-kernel/linux/files/orangepi-zero_defconfig_5.4
++++ b/recipes-kernel/linux/files/armhf_defconfig_5.4
+@@ -30,8 +30,8 @@ CONFIG_ARCH_SUNXI=y
+ # CONFIG_MACH_SUN6I is not set
+ # CONFIG_MACH_SUN7I is not set
+ # CONFIG_MACH_SUN9I is not set
++CONFIG_ARCH_VEXPRESS=y
+ CONFIG_ARM_ERRATA_430973=y
+-CONFIG_ARM_ERRATA_720789=y
+ CONFIG_ARM_ERRATA_754322=y
+ CONFIG_ARM_ERRATA_754327=y
+ CONFIG_ARM_ERRATA_764369=y
+@@ -45,6 +45,7 @@ CONFIG_ARM_ERRATA_852421=y
+ CONFIG_ARM_ERRATA_852423=y
+ CONFIG_SMP=y
+ CONFIG_HAVE_ARM_ARCH_TIMER=y
++CONFIG_NR_CPUS=8
+ CONFIG_ARM_PSCI=y
+ # CONFIG_ARM_MODULE_PLTS is not set
+ # CONFIG_ATAGS is not set
+@@ -70,13 +71,17 @@ CONFIG_CFG80211_DEBUGFS=y
+ CONFIG_CFG80211_WEXT=y
+ CONFIG_MAC80211=y
+ CONFIG_MAC80211_LEDS=y
++CONFIG_NET_9P=y
++CONFIG_NET_9P_VIRTIO=y
+ CONFIG_PCI=y
+ CONFIG_PCIEPORTBUS=y
+ CONFIG_PCI_HOST_GENERIC=y
+ CONFIG_DEVTMPFS=y
+ CONFIG_DEVTMPFS_MOUNT=y
+ CONFIG_OF_OVERLAY=y
++CONFIG_VIRTIO_BLK=y
+ CONFIG_NETDEVICES=y
++CONFIG_VIRTIO_NET=y
+ # CONFIG_NET_VENDOR_3COM is not set
+ # CONFIG_NET_VENDOR_ADAPTEC is not set
+ # CONFIG_NET_VENDOR_AGERE is not set
+@@ -150,6 +155,9 @@ CONFIG_SERIAL_8250_NR_UARTS=8
+ CONFIG_SERIAL_8250_RUNTIME_UARTS=8
+ CONFIG_SERIAL_8250_DW=y
+ CONFIG_SERIAL_OF_PLATFORM=y
++CONFIG_SERIAL_AMBA_PL011=y
++CONFIG_SERIAL_AMBA_PL011_CONSOLE=y
++CONFIG_VIRTIO_CONSOLE=y
+ # CONFIG_HW_RANDOM is not set
+ CONFIG_I2C=y
+ CONFIG_I2C_CHARDEV=y
+@@ -157,15 +165,12 @@ CONFIG_I2C_MV64XXX=y
+ CONFIG_SPI=y
+ CONFIG_SPI_SUN6I=y
+ CONFIG_GPIO_SYSFS=y
+-CONFIG_POWER_RESET=y
+-CONFIG_POWER_SUPPLY=y
+ # CONFIG_HWMON is not set
+ CONFIG_WATCHDOG=y
+ CONFIG_SUNXI_WATCHDOG=y
+ CONFIG_MFD_SUN4I_GPADC=m
+ CONFIG_MFD_AXP20X_I2C=y
+ CONFIG_REGULATOR=y
+-CONFIG_REGULATOR_FIXED_VOLTAGE=y
+ CONFIG_REGULATOR_GPIO=y
+ # CONFIG_HID_A4TECH is not set
+ # CONFIG_HID_APPLE is not set
+@@ -201,6 +206,9 @@ CONFIG_UIO=y
+ CONFIG_UIO_IVSHMEM=y
+ CONFIG_VIRT_DRIVERS=y
+ CONFIG_JAILHOUSE_DBGCON=y
++CONFIG_VIRTIO_PCI=y
++CONFIG_VIRTIO_BALLOON=y
++CONFIG_VIRTIO_MMIO=y
+ # CONFIG_SUN8I_A23_CCU is not set
+ # CONFIG_SUN8I_A33_CCU is not set
+ # CONFIG_SUN8I_A83T_CCU is not set
+diff --git a/recipes-kernel/linux/linux-jailhouse_5.4.inc b/recipes-kernel/linux/linux-jailhouse_5.4.inc
+index 5b4bb19..c703839 100644
+--- a/recipes-kernel/linux/linux-jailhouse_5.4.inc
++++ b/recipes-kernel/linux/linux-jailhouse_5.4.inc
+@@ -12,7 +12,6 @@
+ require recipes-kernel/linux/linux-custom.inc
  
- usage()
- {
--	echo "Usage: $0 [OPTIONS]"
--	echo -e "\nOptions:"
--	echo -e "--latest\tBuild latest Jailhouse version from next branch."
--	echo -e "--all\t\tBuild all available images (may take hours...)."
--	echo -e "--shell\t\tDrop into a shell to issue bitbake commands" \
--		"manually."
-+	printf "%b" "Usage: $0 [OPTIONS]\n"
-+	printf "%b" "\nOptions:\n"
-+	printf "%b" "--latest\tBuild latest Jailhouse version from next" \
-+		    "branch.\n"
-+	printf "%b" "--all\t\tBuild all available images (may take hours...).\n"
-+	printf "%b" "--shell\t\tDrop into a shell to issue bitbake commands" \
-+		    "manually.\n"
- 	exit 1
- }
+ KERNEL_DEFCONFIG = "${DISTRO_ARCH}_defconfig_5.4"
+-KERNEL_DEFCONFIG_orangepi-zero = "orangepi-zero_defconfig_5.4"
+ KERNEL_DEFCONFIG_rpi4 = "rpi4_defconfig_5.4"
  
--JAILHOUSE_IMAGES=$(dirname $0)
-+JAILHOUSE_IMAGES=$(dirname "$0")
- KAS_CONTAINER=${KAS_CONTAINER:-${JAILHOUSE_IMAGES}/kas-container}
- KAS_FILES="${JAILHOUSE_IMAGES}/kas.yml"
- CMD="build"
-@@ -38,9 +39,9 @@ while [ $# -gt 0 ]; do
- 		;;
- 	--all)
- 		KAS_TARGET=
--		while read MACHINE DESCRIPTION; do
-+		while read -r MACHINE DESCRIPTION; do
- 			KAS_TARGET="${KAS_TARGET} mc:${MACHINE}-jailhouse-demo:demo-image"
--		done < ${JAILHOUSE_IMAGES}/images.list
-+		done < "${JAILHOUSE_IMAGES}/images.list"
- 		shift 1
- 		;;
- 	--shell)
-@@ -58,22 +59,22 @@ if [ -z "${KAS_TARGET}" ]; then
- 	IFS="	"
- 	MACHINES=
- 	NUM_MACHINES=0
--	while read MACHINE DESCRIPTION; do
-+	while read -r MACHINE DESCRIPTION; do
- 		MACHINES="${MACHINES} ${MACHINE}"
- 		NUM_MACHINES=$((NUM_MACHINES + 1))
- 		echo " ${NUM_MACHINES}: ${DESCRIPTION}"
--	done < ${JAILHOUSE_IMAGES}/images.list
-+	done < "${JAILHOUSE_IMAGES}/images.list"
- 	echo " 0: all (may take hours...)"
- 	echo ""
- 
--	echo -n "Select images to build (space-separated index list): "
--	read SELECTION
-+	printf "Select images to build (space-separated index list): "
-+	read -r SELECTION
- 	[ -z "${SELECTION}" ] && exit 0
- 
- 	IFS=" "
- 	KAS_TARGET=
- 	for IDX in ${SELECTION}; do
--		if [ ${IDX} -eq 0 ] 2>/dev/null; then
-+		if [ "${IDX}" -eq 0 ] 2>/dev/null; then
- 			KAS_TARGET=
- 			for MACHINE in ${MACHINES}; do
- 				KAS_TARGET="${KAS_TARGET} mc:${MACHINE}-jailhouse-demo:demo-image"
-@@ -83,7 +84,7 @@ if [ -z "${KAS_TARGET}" ]; then
- 
- 		N=1
- 		for MACHINE in ${MACHINES}; do
--			if [ ${N} -eq ${IDX} ] 2>/dev/null; then
-+			if [ ${N} -eq "${IDX}" ] 2>/dev/null; then
- 				KAS_TARGET="${KAS_TARGET} mc:${MACHINE}-jailhouse-demo:demo-image"
- 				break
- 			fi
-@@ -97,4 +98,4 @@ if [ -z "${KAS_TARGET}" ]; then
- fi
- export KAS_TARGET
- 
--${KAS_CONTAINER} ${CMD} ${KAS_FILES}
-+${KAS_CONTAINER} ${CMD} "${KAS_FILES}"
-diff --git a/scripts/make_release b/scripts/make_release
-index dfa2048..e1927ca 100755
---- a/scripts/make_release
-+++ b/scripts/make_release
-@@ -26,17 +26,17 @@ if [ ! -d .git ]; then
- 	exit 1
- fi
- 
--if [ -n "`git status -s -uno`" ]; then
-+if [ -n "$(git status -s -uno)" ]; then
- 	echo "Working directory is dirty!"
- 	exit 1
- fi
- 
--echo -e "Tag commit\n\n    `git log -1 --oneline`"
--echo -e "\nof branch\n\n    `git branch | sed -n 's/^\* //p'`"
-+echo -e "Tag commit\n\n    $(git log -1 --oneline)"
-+echo -e "\nof branch\n\n    $(git branch | sed -n 's/^\* //p')"
- echo -ne "\nas $name? (y/N) "
--read answer
-+read -r answer
- if [ "$answer" != "y" ]; then
- 	exit 1
- fi
- 
--git tag -as $name -m "Release $name"
-+git tag -as "$name" -m "Release $name"
-diff --git a/start-qemu.sh b/start-qemu.sh
-index 1472b99..65385a7 100755
---- a/start-qemu.sh
-+++ b/start-qemu.sh
-@@ -12,9 +12,9 @@
- 
- usage()
- {
--	echo "Usage: $0 ARCHITECTURE [QEMU_OPTIONS]"
--	echo -e "\nSet QEMU_PATH environment variable to use a locally " \
--		"built QEMU version"
-+	printf "%b" "Usage: $0 ARCHITECTURE [QEMU_OPTIONS]\n"
-+	printf "%b" "\nSet QEMU_PATH environment variable to use a locally " \
-+		    "built QEMU version\n"
- 	exit 1
- }
- 
-@@ -64,13 +64,15 @@ case "$1" in
- 		;;
- esac
- 
--IMAGE_PREFIX="$(dirname $0)/build/tmp/deploy/images/qemu-${DISTRO_ARCH}/demo-image-jailhouse-demo-qemu-${DISTRO_ARCH}"
--IMAGE_FILE=$(ls ${IMAGE_PREFIX}.ext4.img)
-+IMAGE_PREFIX="$(dirname "$0")/build/tmp/deploy/images/qemu-${DISTRO_ARCH}/demo-image-jailhouse-demo-qemu-${DISTRO_ARCH}"
-+IMAGE_FILE=$(ls "${IMAGE_PREFIX}.ext4.img")
- 
- shift 1
- 
--${QEMU_PATH}${QEMU} \
--	-drive file=${IMAGE_FILE},discard=unmap,if=none,id=disk,format=raw \
-+# SC2086: Double quote to prevent globbing and word splitting.
-+# shellcheck disable=2086
-+"${QEMU_PATH}${QEMU}" \
-+	-drive file="${IMAGE_FILE}",discard=unmap,if=none,id=disk,format=raw \
- 	-m 1G -serial mon:stdio -netdev user,id=net \
- 	-kernel "${IMAGE_PREFIX}-${KERNEL_SUFFIX}" -append "${KERNEL_CMDLINE}" \
--	-initrd ${IMAGE_PREFIX}-initrd.img ${QEMU_EXTRA_ARGS} "$@"
-+	-initrd "${IMAGE_PREFIX}-initrd.img" ${QEMU_EXTRA_ARGS} "$@"
+ SRC_URI += " \
 -- 
 2.26.2
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/861534c4bd0ea309f641c6b0687c56c5ef5bb2d2.1616507282.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/d69ec0f04421c15c02effe8417f863bb8785e3bb.1616507282.git.jan.kiszka%40siemens.com.
