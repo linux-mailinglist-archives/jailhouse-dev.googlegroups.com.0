@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBI5642BAMGQEGN4Y2GQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB76D42BAMGQEOR3KF6Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x240.google.com (mail-lj1-x240.google.com [IPv6:2a00:1450:4864:20::240])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84B0734591D
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Mar 2021 08:56:20 +0100 (CET)
-Received: by mail-lj1-x240.google.com with SMTP id p4sf978131ljj.1
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Mar 2021 00:56:20 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1616486180; cv=pass;
+Received: from mail-lj1-x23f.google.com (mail-lj1-x23f.google.com [IPv6:2a00:1450:4864:20::23f])
+	by mail.lfdr.de (Postfix) with ESMTPS id D00CA345942
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Mar 2021 09:08:31 +0100 (CET)
+Received: by mail-lj1-x23f.google.com with SMTP id o8sf978426ljp.15
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Mar 2021 01:08:31 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1616486911; cv=pass;
         d=google.com; s=arc-20160816;
-        b=N8KyamxHiuiXactr9DeJb1TTeHqEi/RXbO2dtQTo5HslygMVJ1lD8nxFg65AhxocyD
-         OHjZvekZuZT2w8av/W0JDV6ffY4+fjy5LACTIUpVVKgqYvR9ddEMgpYiiWfK3lAXof69
-         1PKOl+xLoxdElyy/zn3DBwqFuiBIMsxlU92UmjDeBxCHHdWdfnZ21IScSLrjoWnOXgfq
-         zwEGgAwFYoMv0wTgtwbinlpZL46aN4QJlO6u3cSbFg1whRyKNg1eRVO2sdc8VUfX6b6z
-         UVlyRsAZ8u5Y5eU2dXR4NTJLIaZO/QZKlNtYPr/3ATiDyV3k87Jk6krib3S2Ov3gytDj
-         LdUA==
+        b=YSGsC2FLNnv5xgifqKRSdrYJ8p8OJnQMYWNtHT9E9hmzc4rrnjmQZzukjsfhgNxotk
+         s55z2P/xA08uIGYCyG1Jpk5y84DMIAbClh0ygJt7fjJTCojDWDRss3W36nkpDNaUOHQW
+         i4ejTe2KvqsS1H4VrK+dp2P3OKlrUV212Ds/jewlUmj4IW4TEklfTgEk0G11E7wobjRn
+         y5Wv/o9wrurUVHsSEYhPOXOfzopiFzaReQsRVRpdXq+Lgl9FnojXHwBvgAT7uXXVstz5
+         QeVDZDKjeb8m8y1r5l6qAbVX+9qYToWya6lZgBLW90jMxbtpehWqAPY+E3LKv7jUqvEb
+         PhGA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-language:in-reply-to
          :mime-version:user-agent:date:message-id:from:references:to:subject
          :sender:dkim-signature;
-        bh=n5jsZqtkNjBJkEPJExl68Sd4LVXrRWEi09GJfvuJGjo=;
-        b=wWBLU3qpMptZ/acewyXRdoTmyZ/IcPiK7Ffz4PurQ0LU+KZtCPqRcS0O08GkzbgVUv
-         XfuQsSuH0VgdHUTjbsLWD1eJGSd5im9GztkF53Z93bRl6NE5g1HRSzo7UWvuCA6GTL9Y
-         teo631fNxOeaWM/YRl28s6oOe7XgZiyIAJfGmrGTZxH2uzN/r6woxJJB5SV35shA2Oa5
-         7DBRczRj8KEH0T8lW9Re+I0Y0lD/Z35Jb1W/FWt09ghv75c6WJ4aT2vqqP5fCxUVtO/3
-         mHs3VIMhOMaY4IjFSBGbkBUNILvSNckhqBfutosOyhs3/7cpXwCPhmUNROIOb6PUHXeo
-         3lCQ==
+        bh=fUDbkUgsFvNGcR96yjLqsltA1NT4KNtGaMiYXYmLpm0=;
+        b=xsxvH3lHSyURzPaAFuTEsd0ramzgmXPB/7Uqgrxv8TIkX7vfKaMkPUjzAnxuJ5eQZ4
+         5xcA/O9xJ6DZOzLTYHS5fAYE4fD4qWJ+8J/zP1g9w8yhLoXij1wG7gBiqwxqpH/DMIim
+         f77kNra7gpNDEObiW2v3o+DDCtY3JSIgPTZUlMc+haL6GV2xML+SixMXuvg+gH5n8jO6
+         B4mVtlGMitBpkWE/IrGp2H2HjJaIBUjJ+r13wRNsBVdyxweqmKCwPAg24aRZK0L296px
+         V0VuUN3TDb/u5S7tWvCi9xj80JZnQmZI6iyO3fysC7cdZ6aDTNo2uGR6Ez1hiaM1Y099
+         4m9g==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:in-reply-to:content-language:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=n5jsZqtkNjBJkEPJExl68Sd4LVXrRWEi09GJfvuJGjo=;
-        b=PhavQy5SA0soH3dYOmfQ7L5ofcfEVyL8mFkneX5tNVz6qkqFbZPAGMzO/U1E0hKDQ6
-         Sk4s0Hqp4Xs84sEp3tK7GjMYGd4o5w1IhsuCp/GetSp6unlZtJgqgP3yAo0MThU26OPI
-         Iv3wHHYHr4b5pcdBX52Iimo3JuedFurwmBREuMPbCKKhChQw/jmB0SfPKn2gRcSp7lhy
-         w6d2xt00WuFRa6Uk+BvsPK0FabK9vuNIIRJ+K8ySe8KyjIlLbB+vX88tG7VAUD6qMTkE
-         E/rNQVpE8xJ9wEvVqDURVmedlXK+aLN0e6Ub9jq41LJCDVzaagoR//7wxKEoPv6w9rT4
-         nNLg==
+        bh=fUDbkUgsFvNGcR96yjLqsltA1NT4KNtGaMiYXYmLpm0=;
+        b=oNJLihDNBHV7o2fIRF5jyim7Awv3Cx2HVceZLvLlgu7otLbDBRurrD002anYGDU9Ko
+         H6CyOSGPmtrqnoFLRT8vLakdUKY8AgAe/T5d8fRCAzmZSaF8RcQgzm34KpPwud5Lxm94
+         z4vVi1sLzAhcCzOmCkuN/bDaHVAj+jxri83iaZ01iL+eVcfeP+TVOPRRQPk+iWDL69Z1
+         40Lq8WfsPDTO2eYXKktdfqvojMzccsm0QUzq+6namcqn1enI9dcdL6t+KI/rRFZ8HdQc
+         b7dUUhODTsjFb6fD88k7aSfXDp0NeLgEt254IGMcvl/4Ow8CUrs01Fk3XEdn/VLijjBy
+         Bhaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:subject:to:references:from:message-id
@@ -49,74 +49,75 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=n5jsZqtkNjBJkEPJExl68Sd4LVXrRWEi09GJfvuJGjo=;
-        b=EunRTeqrqUsMGXSEczK7BSZ0dx6deEmkoh8vUENIP9uttvl5dQ70kyzZ2au147LhPi
-         2fkRoOkKyWNEYExvcoT/SpiFAZIyn10j5LeGwuazvZDy2apuy+VmEGqgroyKo7e+335j
-         GI1pwMBZ5sqAa/oUPMiX/Nr08th5d4NZvS3ca9/mp3u5Cm+5weAVm5Bp/haJf/HRX4QK
-         giKTLvYfyaf7btcoNP+l3hzF6XniPPsork/sAnoHesRivbH2YpIvr2Idxmd2MtzR3dZG
-         BASQGQWw8CZvUX4H1DWxxyAajEzTilJUCY8FHmZ4F1kCcOilYrUVM+8WZ+Ajy/DQukLj
-         bj9g==
+        bh=fUDbkUgsFvNGcR96yjLqsltA1NT4KNtGaMiYXYmLpm0=;
+        b=UB0coP5EIWmsUYvYL2jO/nzj7O2X5UXtmJA+zAplImg3U4nZdIcGS0WQlRUXYffDGq
+         IZWMTW3tbBtLXQtfjSPirp+sYyhe5qTcFh/Uv652re9CUOFBRm/ITsonzJYyael3Ccnt
+         1zkci+reRb8JTBbtxgt6jenKdpJ5Bso0iidbFOeEcLcF6FhxwCnzscFoAn30W4rMpYq6
+         56xHwy62EM/QZlH+SW+zm79/+8xeMuZGi61pdxdj4D6MirxNeCyiFT+gDIR5TdFUE3K2
+         prfLk0UwlPPItLn7LjY4JOd3NRjJ5/m7+v2l4nvd19VB24edeOe97r1dddL4ReedVOWm
+         3+eA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530K8VL7cIib3TYHKNYWekI6fxXjlyTQrLmlbUvM5x3K1xpuW+V1
-	uLN6QvPKu1CKZ/A8VSUrxuA=
-X-Google-Smtp-Source: ABdhPJwV8ne1IhqQRSASt1vGPB+OMxYAefkfcxmsiH15ih+Ut4LKYWWInzOtRv4qZ00yFbRey60dCA==
-X-Received: by 2002:a19:9109:: with SMTP id t9mr1947021lfd.49.1616486180072;
-        Tue, 23 Mar 2021 00:56:20 -0700 (PDT)
+X-Gm-Message-State: AOAM532z1RsVZx1+Ky7rUPrfnZZkq73DRoGRr/9W0Ex5FcD2zRgTkd0C
+	5bP+rJSpE4v3ovXE5bI5XKQ=
+X-Google-Smtp-Source: ABdhPJxPQMjI2ZfWUHHXpRU3vP3LEqb41EyM0VII5PvOiPsI9DzHUrSVq/xN2dDH/KriJjuw2vX03w==
+X-Received: by 2002:a2e:8e37:: with SMTP id r23mr2414618ljk.269.1616486911374;
+        Tue, 23 Mar 2021 01:08:31 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:9a48:: with SMTP id k8ls2942674ljj.10.gmail; Tue, 23 Mar
- 2021 00:56:18 -0700 (PDT)
-X-Received: by 2002:a2e:8084:: with SMTP id i4mr2427573ljg.122.1616486178906;
-        Tue, 23 Mar 2021 00:56:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1616486178; cv=none;
+Received: by 2002:a05:6512:6c2:: with SMTP id u2ls4040531lff.3.gmail; Tue, 23
+ Mar 2021 01:08:30 -0700 (PDT)
+X-Received: by 2002:a05:6512:10c5:: with SMTP id k5mr2091148lfg.320.1616486910210;
+        Tue, 23 Mar 2021 01:08:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1616486910; cv=none;
         d=google.com; s=arc-20160816;
-        b=Z0UsIF5J72mQ1evmcye2D8izLyCYfOt3KIfPMB68Ax3326vOs9EzEJg1PbeODY5bqm
-         ltM/vILVvX6Wqw4PhwGD9i0uTZisIb6cwHMIj+eLz37NYPfbCfpI+74wUvUxDRULW/h2
-         ZMhbkG8nFSO2KLLxIHPKWRrWXzkcvHXU8qPjInz4/BEeWMUUE9Sq1rXulKoUtS57DzvK
-         CGsRevzZtPP5ln2dBRNGWPPA9/xN5kr3oLuAUXJiV8kuuPVKj7uj8j5Urp4E82GfMjQ1
-         gKKn0VvgHQZfklgqKPbTxy+OAIK18o4jK4A+60XNtw+oBvfjK6AtPA8RrmV1bVW913Pw
-         E9yw==
+        b=whCNS7I7eW4gnNZkqxbFBO5wCybiPoHl41Y2RzCqmNDSyP+FGALqWl3nNe5U89ZG3s
+         jV8Qs/MHjo8SYvJF0tO2j4RU0mUNCyU/ADUpjdO1m6YPhhGK5wb5ip/orAYm7tOW4ZjS
+         C59yp3VKLcDlfDPTLOWgikvNcZmycfdzldZoplmqKlXJXmqovwlVa4fdwy1PhmnjdFxG
+         UzAQWbHhX7Xpqg/6qnEomLwSg6l/zFw7mrzhHh13hC+aGgkaLSBPGMLfcG5xNKzxuUmO
+         /wDAW990K+cPLHCyqT+dLamycxajtzGVVUn/J0ySxZCkprGSl8UezWoKQEwcsmZdMDzW
+         nVHw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
          :user-agent:date:message-id:from:references:to:subject;
-        bh=wckGjUAkVNnpaPaOHBKUHsRIWTULx+9bf6UtQk8GSrY=;
-        b=QlYgfgxv7O8su8o1gmwQNC6FRO/oXb4/a4X4xtE6JP2b7SYiZ66TUgWYKnOzxW79on
-         cCeXqABxSvU4f0DW91tQHOBs8Rb+TWprhNvrJs/4jDLnWPIBhNPhK9uy+qUoZDx0BgXF
-         C1nfnxsEHR98J+F6f7JaQ5UCg+ucg5j+hLWMNEzrPmC2fpWlXx4B/fYUcYcVUx4Oa+Lq
-         dMf5dydn0KO9VisJkVEHZNx18jRffytG8ZmMyRjZqQdhX2i+isvW9EWQx54NUIXnIQAi
-         LtXCD2M/DrOaQ5UzTkZfQbptfyrC6j/RlO5nVkeWRVWnn3kHvMrZIvTDhUhzoS9YTpkL
-         4dSw==
+        bh=BGquhT/EplcG6pLjowTYTMr71N1KA9rqjIsgLmQPiUM=;
+        b=phQ+WH9DKQffW0BuiOGdWJWDdEG22PgH9aSEGav8AwQRojLVQnDTC/Ea6ttO2qNCMA
+         bnkg7cjn/5upxEZ4UlKBeP8mI7mjAZ7MBOIixlsM0FWUsfbPbvlU2U2QpQM925tyHwTU
+         +5llaLgbmbCYCHCWCUDjnjsJUVawc3NkN8KweeALneeR3wTpbjrJgTUU9NKvpCAVpnHG
+         FLgJ35vy9c+MSDtRaziGvqTssd26LFndQAfDh8yRCa6wIXD5T5PtFUEeDbbq+ArKjMwm
+         DHhSNKE28/tfBh6kxaG6ov0z/y6PXqWk+GSzdt7mZXZQ4rqbLNJARzGRbWGFKHu89ssD
+         adog==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id n13si174271lfi.5.2021.03.23.00.56.18
+Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
+        by gmr-mx.google.com with ESMTPS id i30si757996lfj.6.2021.03.23.01.08.30
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 23 Mar 2021 00:56:18 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
+        Tue, 23 Mar 2021 01:08:30 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 12N7uI0F020857
+	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 12N88TDB012158
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 23 Mar 2021 08:56:18 +0100
+	Tue, 23 Mar 2021 09:08:29 +0100
 Received: from [167.87.18.33] ([167.87.18.33])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 12N7pHNr026562;
-	Tue, 23 Mar 2021 08:51:17 +0100
-Subject: Re: [PATCH 2/5] Check UART UCR1_UARTEN bit before writing data
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 12N83SoB005958;
+	Tue, 23 Mar 2021 09:03:28 +0100
+Subject: Re: [PATCH 3/5] arm: gic-v3: not overwrite interrupt settings needed
+ by EL2
 To: peng.fan@nxp.com, jailhouse-dev@googlegroups.com
 References: <20210323062536.3888-1-peng.fan@nxp.com>
- <20210323062536.3888-2-peng.fan@nxp.com>
+ <20210323062536.3888-3-peng.fan@nxp.com>
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <69cf89e6-dc86-a3d7-01fa-1e5abee7f1e8@siemens.com>
-Date: Tue, 23 Mar 2021 08:51:17 +0100
+Message-ID: <8f80ddff-7131-2a43-3d53-e06860a181da@siemens.com>
+Date: Tue, 23 Mar 2021 09:03:28 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <20210323062536.3888-2-peng.fan@nxp.com>
+In-Reply-To: <20210323062536.3888-3-peng.fan@nxp.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
@@ -134,97 +135,82 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 On 23.03.21 07:25, peng.fan@nxp.com wrote:
 > From: Peng Fan <peng.fan@nxp.com>
 > 
-> There is frequent start/shutdown operation in kernel reboot process.
-> And at the end of kernel reboot, kernel will switch to use console
-> output,saying imx_console_write on i.MX8MM.
+> SGI_INJECT, SGI_EVENT, and maint interrupt are needed by Jailhouse,
+> should not allow cells to overwrite the settings, otherwise inmate
+> cells might not respond to root cell command 'jailhouse cell destroy [x]'.
 > 
-> imx_console_write will save/restore uart configuration.
-> However before imx_console_write the UCR1_UARTEN already set to 0.
-> when restore, it is also 0. Then when we runs into jailhouse
-> disable, jailhouse write to uart will trigger errors.
 
-What kind of errors? Hardware exceptions or what?
+Uhh, this is a nasty whole...
 
-> 
-> So let's add a check.
-> 
-> However to hypervisor itself, there is still risk that
-> kernel disable uart, whenh jailhouse is going to write
-> data registers even with this patch applied.
-> 
-> There is no good way to avoid such contention,
-> the best way to avoid such issue is that
-> use a different uart from Linux or remove
-> `.type = JAILHOUSE_CON_TYPE_IMX,` from configs/arm64/imx8mm.c.
-> 
-> Remove `.type = JAILHOUSE_CON_TYPE_IMX,` means
-> jailhouse hypervisor will not output to uart, but you still
-> could see jailhouse log by `cat /dev/jailhouse`
+Let's rephrase a bit:
 
-There is no separate UART available, to have kernel and Jailhouse on
-different channels?
+"SGI_INJECT, SGI_EVENT, and maint interrupt are needed by Jailhouse and
+must not be controlled by the inmate. E.g., we allowed the inmate to
+disabled those interrupts, stalling Jailhouse on management operations."
 
-Another alternative is to avoid using the UART as console under Linux,
-right?
-
-> 
 > Signed-off-by: Peng Fan <peng.fan@nxp.com>
 > ---
->  hypervisor/arch/arm-common/uart-imx.c | 4 ++++
->  inmates/lib/arm-common/uart-imx.c     | 4 ++++
->  2 files changed, 8 insertions(+)
+>  hypervisor/arch/arm-common/gic-v3.c              | 13 ++++++++++---
+>  hypervisor/arch/arm-common/include/asm/control.h |  1 +
+>  2 files changed, 11 insertions(+), 3 deletions(-)
 > 
-> diff --git a/hypervisor/arch/arm-common/uart-imx.c b/hypervisor/arch/arm-common/uart-imx.c
-> index 849f8fca..6485f36e 100644
-> --- a/hypervisor/arch/arm-common/uart-imx.c
-> +++ b/hypervisor/arch/arm-common/uart-imx.c
-> @@ -15,6 +15,8 @@
->  
->  #define UTS			0xb4
->  #define UTXD			0x40
-> +#define UCR1			0x80
-> +#define UCR1_UARTEN		(1<<0)
->  #define UTS_TXEMPTY		(1 << 6)
->  
->  static void uart_init(struct uart_chip *chip)
-> @@ -29,6 +31,8 @@ static bool uart_is_busy(struct uart_chip *chip)
->  
->  static void uart_write_char(struct uart_chip *chip, char c)
+> diff --git a/hypervisor/arch/arm-common/gic-v3.c b/hypervisor/arch/arm-common/gic-v3.c
+> index 2293f844..8778f919 100644
+> --- a/hypervisor/arch/arm-common/gic-v3.c
+> +++ b/hypervisor/arch/arm-common/gic-v3.c
+> @@ -348,6 +348,7 @@ static enum mmio_result gicv3_handle_redist_access(void *arg,
+>  						   struct mmio_access *mmio)
 >  {
-> +	if ((mmio_read32(chip->virt_base + UCR1) & UCR1_UARTEN) != UCR1_UARTEN)
+>  	struct public_per_cpu *cpu_public = arg;
+> +	unsigned int mnt_irq = system_config->platform_info.arm.maintenance_irq;
+>  
+>  	switch (mmio->address) {
+>  	case GICR_TYPER:
+> @@ -368,15 +369,21 @@ static enum mmio_result gicv3_handle_redist_access(void *arg,
+>  	case GICR_SYNCR:
+>  		mmio->value = 0;
+>  		return MMIO_HANDLED;
+> -	case GICR_CTLR:
+> -	case GICR_STATUSR:
+> -	case GICR_WAKER:
+>  	case GICR_SGI_BASE + GICR_ISENABLER:
+>  	case GICR_SGI_BASE + GICR_ICENABLER:
+>  	case GICR_SGI_BASE + GICR_ISPENDR:
+>  	case GICR_SGI_BASE + GICR_ICPENDR:
+>  	case GICR_SGI_BASE + GICR_ISACTIVER:
+>  	case GICR_SGI_BASE + GICR_ICACTIVER:
+> +		if (this_cell() != cpu_public->cell) {
+> +			/* ignore access to foreign redistributors */
+> +			return MMIO_HANDLED;
+> +		}
+> +		mmio->value &= ~(SGI_MASK | (1 << mnt_irq));
+> +		break;
 
-if (mmio_read32(chip->virt_base + UCR1) & UCR1_UARTEN)
-	mmio_write32(chip->virt_base + UTXD, c);
+If we fall through here, we can save the "this_cell() !=
+cpu_public->cell" check and reuse the one below.
 
-And a comment on the "why" here would be good.
-
-> +		return;
->  	mmio_write32(chip->virt_base + UTXD, c);
->  }
+> +	case GICR_CTLR:
+> +	case GICR_STATUSR:
+> +	case GICR_WAKER:
+>  	case REG_RANGE(GICR_SGI_BASE + GICR_IPRIORITYR, 8, 4):
+>  	case REG_RANGE(GICR_SGI_BASE + GICR_ICFGR, 2, 4):
+>  		if (this_cell() != cpu_public->cell) {
+> diff --git a/hypervisor/arch/arm-common/include/asm/control.h b/hypervisor/arch/arm-common/include/asm/control.h
+> index acebef32..e48269d1 100644
+> --- a/hypervisor/arch/arm-common/include/asm/control.h
+> +++ b/hypervisor/arch/arm-common/include/asm/control.h
+> @@ -15,6 +15,7 @@
 >  
-> diff --git a/inmates/lib/arm-common/uart-imx.c b/inmates/lib/arm-common/uart-imx.c
-> index 984dc218..9cdf9089 100644
-> --- a/inmates/lib/arm-common/uart-imx.c
-> +++ b/inmates/lib/arm-common/uart-imx.c
-> @@ -39,6 +39,8 @@
+>  #define SGI_INJECT	0
+>  #define SGI_EVENT	1
+> +#define SGI_MASK	((1 << SGI_EVENT) | (1 << SGI_INJECT))
 >  
->  #define UTS			0xb4
->  #define UTXD			0x40
-> +#define UCR1			0x80
-> +#define UCR1_UARTEN		(1<<0)
->  #define UTS_TXEMPTY		(1 << 6)
->  
->  static void uart_imx_init(struct uart_chip *chip)
-> @@ -53,6 +55,8 @@ static bool uart_imx_is_busy(struct uart_chip *chip)
->  
->  static void uart_imx_write(struct uart_chip *chip, char c)
->  {
-> +	if ((mmio_read32(chip->base + UCR1) & UCR1_UARTEN) != UCR1_UARTEN)
-> +		return;
->  	mmio_write32(chip->base + UTXD, c);
->  }
+>  #ifndef __ASSEMBLY__
 >  
 > 
+
+Good catch! Hope there isn't more in the GICv3 path. v2 should have been
+reviewed better.
 
 Jan
 
@@ -235,4 +221,4 @@ Corporate Competence Center Embedded Linux
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/69cf89e6-dc86-a3d7-01fa-1e5abee7f1e8%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/8f80ddff-7131-2a43-3d53-e06860a181da%40siemens.com.
