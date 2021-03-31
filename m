@@ -1,117 +1,71 @@
-Return-Path: <jailhouse-dev+bncBDJ7ZUWTT4DBBA5KRSBQMGQEBTNMHOA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC7PTOEB2ALRBQ5ER6BQMGQEOW2OWHQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oi1-x23c.google.com (mail-oi1-x23c.google.com [IPv6:2607:f8b0:4864:20::23c])
-	by mail.lfdr.de (Postfix) with ESMTPS id D32CB34E726
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 30 Mar 2021 14:09:40 +0200 (CEST)
-Received: by mail-oi1-x23c.google.com with SMTP id b1sf6557838oib.15
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 30 Mar 2021 05:09:40 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1617106179; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=rNRSs8oIHgW8DHnDEYRFXh2RlhL8iaiD8gp2SZHgFlGzhQLt/n9ZxtjFn/DQZBGCmZ
-         2z5HwDtF3gX9lJ1QjmC9X/yohCzZAgUWEOuk9qSLc8STPneSWhXN9JEnNiIRADX/Q/qZ
-         zUB8pbeFylqhozxolFZHzdPtXI+Y8WVM5V+7FXr+nQCkkLkV64uP2hKM8FxyzlKaYYUU
-         MsD6VqRA97uXRIHkQCPogHNxPNBFcQL9Zn0HoAHZf6ivHK9aLksTGD5xww3xkVxe44A6
-         6NI85eYjFEtp6ILOmGm2Wu4qsxVT968xRQN95lFbno3jLkxnsqXvnh/hW/TfPc/t2GAf
-         y8DQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:message-id:date
-         :subject:cc:to:from:sender:dkim-signature;
-        bh=7VsHicXNwIUmFt3w8BkDhAAklDy+dScJEEwBf22JkDE=;
-        b=jdjM1gdGgUKwMsbM1FMHCEa4RMvsCv/B6sr7FiJkY00NyXXMUI6MLLDg3dLCfhpPYS
-         cgr26yDHEd0A9HcAOqskcY1fIab339xrIIUtgFTVS6nojW1uFC/bOQ3xE/8eva7hivNr
-         srKXbrZ3AIPV56p/NTwgPud3sUBi282arCnqZK98puMXaMHgRgVOYCYE9SMQaKSu3VuT
-         LHrsnT8BQ5Pb6mUhkAPKXSvV73ciPwFqerwPGDJgD1egj2wNwJ5n21mpROMpVOvD58G4
-         FqXskexlyGwiwFyXQYwfJeuM4kmshLUKb5goVvoZYUhEd41rO3kgu7TPnfIqamVSJDhP
-         YI3A==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of chase.conklin@arm.com designates 217.140.110.172 as permitted sender) smtp.mailfrom=chase.conklin@arm.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=arm.com
+Received: from mail-qk1-x73b.google.com (mail-qk1-x73b.google.com [IPv6:2607:f8b0:4864:20::73b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 33CA834F647
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 31 Mar 2021 03:37:09 +0200 (CEST)
+Received: by mail-qk1-x73b.google.com with SMTP id j14sf399599qka.7
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 30 Mar 2021 18:37:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:cc:subject:date:message-id:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=7VsHicXNwIUmFt3w8BkDhAAklDy+dScJEEwBf22JkDE=;
-        b=kTKs2yIBY/IZx/6UkeeM13s+8rK68qAGtr+ZNSjFCQR/mRSsojSzY3Say7kCNftrib
-         s9j2+gdyEEJBsIzaByTk/JtePj25P90vaSCGlOZCMAcJaJC0HNW/pr+gLkdNh3boUgZE
-         MDPB56kLqXgJcdDKUmw902oDa701po0jiSxGs042ooMRckhY5yiU9CLD2sjsNtsWy9Kd
-         4EDryFJeCrI7Fx6t73Pn9jF7WsqOh/2jQ/lxXkyrfZoK8tVFnYa+JhF9HQfdc3MvucWp
-         7Xxktcvx+Sffm6LVTJSRt+0O+lgmbAZLne8SbWllNCN4M9mgB4FX7BcaqWHqibZfd2Xp
-         pyOA==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=1OTqvY5F9XqLxDSw0kwVrkE0cfQYgMg6I87KUaZGuxU=;
+        b=CUf+q3rxj4/GhKKUhrv54UeCQXLrDVkca/NahPgjunziwSZnnLs6lUhlEo+bQze8Kq
+         CFz9ZFwI1ALAxX7Gl0CIVBJQHINg+J1kclXZvqHW1p76UGLftUmdWiwIfL9m8TCsEN6N
+         SqULe8RUuq4EHGt50d/T6/FuioXTPYC5qdvqq6/+Qw0R2fsSJG+I18ia2UXlYpJ6Opdq
+         JNFRAioGYeRdO/yRBr9DOoT5q0u7HDymocmLZL4M5mDwYx9Lc3bgOcDskottWLiAGtKJ
+         TSNcRTpBbZkuOKvi5op36eiL4A2P/MeQirCMw/VerVg2ksnvFGBnKhWEdhMSjoX9mYju
+         oWdA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=1OTqvY5F9XqLxDSw0kwVrkE0cfQYgMg6I87KUaZGuxU=;
+        b=IFeRd0qIbj1+ryXLdpw9rL0YKP08zKJ0g8NZaQeB5nU3XFEzl3HcoacPJKfyzrLxat
+         Gx3Er42XJvjv+Hi0FUr2jjY9fpM+purbd+fONZrnstUWO62+1E6uP1LCTLRplxEg6iSj
+         B/IoPPvn+BIoNlkl5lLBm+eadt4G4paAMTkC3UpnXqNduP7++bkk6lAkg4X5uZVvSQEj
+         /EPKnRwdLZY+W22nU/tlQHStfwOvySSaP1OXHaK/dPxNrZyJo1gLQMiHXs7wV93/Z8o4
+         qqVevi9AH7x/lrfMICW6OQ0OvV8QBKZuz3p0DUXiLjC07vI3rz4d9h0gv88+dqzQDYkK
+         qp2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=7VsHicXNwIUmFt3w8BkDhAAklDy+dScJEEwBf22JkDE=;
-        b=i2A5bh4JnKnEjDvgN49pWN8BgRDfNxhNe5jMuhRehTf2xLwTmefx28G/chnM7L4YK1
-         WcoDZ893n8RKoWuBDejbE+3P29hm0mdaESMa2R4JcgshG1wawcw2BnfS6QDE4r8fij4I
-         BsFWzg23arEDprucjH72ZovbUnb/o1HZv+p/ey5PHisxch2hmWlmXKD4DaCPcW6LDFq0
-         0XWNQPviFyVOBpVhRnx6leUKcM8Ncpp9AdtL/BgcXTIU/ZVkxi3JEK81Ns2QqF3TRz1S
-         yGp4UV8HuwABYqIA2QhoB9AccMB4oKHltJOBVDTkqsb1YbU9U0ULOpIrtwwfTJrI0XF6
-         uyyg==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=1OTqvY5F9XqLxDSw0kwVrkE0cfQYgMg6I87KUaZGuxU=;
+        b=eRXPB8X8zhPo8XF6tmJQ4GcoGgwrze5JIWbOniLC7sTaBBA4rQVZDIlwL6Sxu/GrJD
+         pMBNabcrtr5gEdPR9o0CMd6APlEa/LlzimmlrjR/wHtgKy8I4NQU5ihFolw7P+FL8Nsf
+         DWra9M5SUSF4nij6Si0jY5u6nn/pSIZc87mu2ufYhwysLAQ+EAqADIKMEh39aKacjXQb
+         dIebA/O+f3mH4QRFxJS54OWrqlxbPhe6BFgtsPRuyKxMLC2awRDvGMUCUsx8lsyRweej
+         lThF0jM01OUjHTGO3GDWkgwollwdWJrf7rsDay0QMASZFabm0T4Ra1BNI5djzvwrdFGK
+         mg4A==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531JejmUodeV/igaz9Yjp8j/IGVkMnxIj7s3XQlLpE1klw4OqD7S
-	3LL5gJyiCgwVMqVVaCC2P90=
-X-Google-Smtp-Source: ABdhPJxNPc6y12W/PmYlzKXuvjSYYgoSaqAmliyz4NAlm4/tLA1ZIK0BX+Fe9wn8fsyV7Omy/iB2gw==
-X-Received: by 2002:aca:d941:: with SMTP id q62mr3017170oig.119.1617106179299;
-        Tue, 30 Mar 2021 05:09:39 -0700 (PDT)
+X-Gm-Message-State: AOAM531nxtIz9Sspnt7KsUsYwzzUcMd6E5TBfZLFA1sihe0pai3tSnfv
+	JzeMC/DeHjktIY7/1JQBKK4=
+X-Google-Smtp-Source: ABdhPJwyFnDrPAUOAE1KnmKFYj4aa5qPFuPvnVlGKfgcw89HZnIywFoDrHGIP30rkbeMeZsVYcj1fQ==
+X-Received: by 2002:a05:6214:523:: with SMTP id x3mr763485qvw.27.1617154628079;
+        Tue, 30 Mar 2021 18:37:08 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a9d:6a47:: with SMTP id h7ls4824957otn.9.gmail; Tue, 30 Mar
- 2021 05:09:38 -0700 (PDT)
-X-Received: by 2002:a05:6830:3497:: with SMTP id c23mr26026703otu.344.1617106178877;
-        Tue, 30 Mar 2021 05:09:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1617106178; cv=none;
-        d=google.com; s=arc-20160816;
-        b=lO9mq2mm6dLoUkRODqQHvX9uX0IoPdqeQsJ6c2xXoTI5fcuOETqTwX9H2kYi7mF8Xn
-         7HC2Owkfh8ebNr47Ja4dQWQIivrplYWkwQEIQ049OTKLbnuB0SyO/OsxG9sNq4KyYJao
-         aKcbVfZo/hKzffSVHIfxl+rB04FmrrAvXnLr1VDNwS+lWXg83L00u9lyNxoaTjQESl2A
-         zDwSd4Bry6rBYAF47nr4tS9EA8RKNWC27XwYjzLobEw5VJLQTym1/fuq3RJmzrSG8FVw
-         MnVWuoxFaQ3MRj27lcQy86X2QtXrdRAGZ9PxGqHyhLB2bN7fffHBR1eBTXU8XzrYb72g
-         6l6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from;
-        bh=yMr9+WK2w5gOp5tpbD2nIeLnJbKgfut5hS/Al8PgsTg=;
-        b=mVrPL0qGmf30+caMs/ewz11pzA20J18zgWHsBCUIK2R32UzD+XU38oEPrkcTttVDpH
-         aZv89cqeVVzMtRdCV/OkZYP9oE2zXEP8I1Yja5nI0pxYM7cNDwUCM6YBAK2Y+9cJc1rs
-         efJKp6ge1HZV1GyepTn7JLhLqx/30bDRdZbDntr/5mm17rdmnBlZb6XslCT1/wnYR+PX
-         iqf3VdqGHD2a7tAUlKhLUR0XVCwdwWwtamxeNGtrhPBNc7QfgZkexSVaCB8iPMFkBXO6
-         A1rxNZbN4YN0eUIRAG0iTU4aRYuhCm7SdhN4NU96Mfi5E3bQ05liDFnGELE3cjPuw/v5
-         UKow==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of chase.conklin@arm.com designates 217.140.110.172 as permitted sender) smtp.mailfrom=chase.conklin@arm.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=arm.com
-Received: from foss.arm.com (foss.arm.com. [217.140.110.172])
-        by gmr-mx.google.com with ESMTP id w4si981488oiv.4.2021.03.30.05.09.38
-        for <jailhouse-dev@googlegroups.com>;
-        Tue, 30 Mar 2021 05:09:38 -0700 (PDT)
-Received-SPF: pass (google.com: domain of chase.conklin@arm.com designates 217.140.110.172 as permitted sender) client-ip=217.140.110.172;
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9C1C731B;
-	Tue, 30 Mar 2021 05:09:38 -0700 (PDT)
-Received: from localhost.localdomain (unknown [10.119.35.120])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 66D363F694;
-	Tue, 30 Mar 2021 05:09:38 -0700 (PDT)
-From: Chase Conklin <chase.conklin@arm.com>
-To: jailhouse-dev@googlegroups.com
-Cc: jan.kiszka@siemens.com,
-	Chase Conklin <chase.conklin@arm.com>
-Subject: [PATCH] core: avoid overflow in paging_destroy
-Date: Tue, 30 Mar 2021 07:06:32 -0500
-Message-Id: <20210330120632.23496-1-chase.conklin@arm.com>
-X-Mailer: git-send-email 2.23.0
+Received: by 2002:a05:620a:a98:: with SMTP id v24ls468551qkg.6.gmail; Tue, 30
+ Mar 2021 18:37:07 -0700 (PDT)
+X-Received: by 2002:a37:9c51:: with SMTP id f78mr1088348qke.228.1617154627443;
+        Tue, 30 Mar 2021 18:37:07 -0700 (PDT)
+Date: Tue, 30 Mar 2021 18:37:06 -0700 (PDT)
+From: Smith li <v6543210@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <288eb03e-f986-4890-8ad6-6102aef44904n@googlegroups.com>
+In-Reply-To: <20210329104747.2f396831@md1za8fc.ad001.siemens.net>
+References: <53464ac4.9478.17879314390.Coremail.caohp19@lzu.edu.cn>
+ <20210329104747.2f396831@md1za8fc.ad001.siemens.net>
+Subject: Re: HELP
 MIME-Version: 1.0
-X-Original-Sender: chase.conklin@arm.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of chase.conklin@arm.com designates 217.140.110.172 as
- permitted sender) smtp.mailfrom=chase.conklin@arm.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=arm.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_6234_1285345584.1617154626876"
+X-Original-Sender: v6543210@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -124,52 +78,206 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-It is possible for the ending address in paging_destroy to overflow to
-exactly 0. For example, in a build with 32-bit addresses, a request to
-unmap 512MB at 0xe0000000 will result in an overflow (0xe0000000 +
-0x20000000 = 0x100000000 which exceeds 32 bits).
+------=_Part_6234_1285345584.1617154626876
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_6235_114854975.1617154626876"
 
-This overflow can be avoided by comparing the last address in the
-region to be unmapped rather than the first address to not be
-unmapped.
+------=_Part_6235_114854975.1617154626876
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: 7cffb9b7d54d ("core: fix hugepage splitting in paging_destroy")
-Signed-off-by: Chase Conklin <chase.conklin@arm.com>
----
- hypervisor/paging.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+hello Cao.
+This how to access baidu.com in inmate
+execute it in root cell.
 
-diff --git a/hypervisor/paging.c b/hypervisor/paging.c
-index 75d5da59..e77fac30 100644
---- a/hypervisor/paging.c
-+++ b/hypervisor/paging.c
-@@ -399,8 +399,21 @@ int paging_destroy(const struct paging_structures *pg_structs,
- 					paging->page_size : PAGE_SIZE;
- 				page_start = virt & ~(page_size-1);
- 
-+				/*
-+				 * It's possible that virt + size overflows to
-+				 * exactly 0 (e.g. a 512MB region starting at
-+				 * 0xe0000000 with 32-bit addresses) during
-+				 * normal execution. Any overflow beyond that is
-+				 * a programming error.
-+				 *
-+				 * To handle this case, subtract 1 from the size
-+				 * when comparing both sides. Note that
-+				 * page_size is always > 0, so there's no risk
-+				 * of underflow.
-+				 */
- 				if (virt <= page_start &&
--				    virt + size >= page_start + page_size)
-+				    virt + (size - 1) >=
-+				    page_start + (page_size - 1))
- 					break;
- 
- 				err = split_hugepage(pg_structs->hv_paging,
--- 
-2.16.1
+enable forward
+echo 1 > /proc/sys/net/ipv4/ip_forward
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20210330120632.23496-1-chase.conklin%40arm.com.
+iptables setup  ,select one of them
+/sbin/iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE  =20
+/sbin/iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+---------------------------------------------------------------------------=
+---------------------------------------
+
+
+
+
+
+
+=E5=9C=A82021=E5=B9=B43=E6=9C=8829=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=80 UTC+=
+8 =E4=B8=8B=E5=8D=885:02:57<Henning Schild> =E5=86=99=E9=81=93=EF=BC=9A
+
+> Am Sun, 28 Mar 2021 22:16:14 +0800 (GMT+08:00)
+> schrieb =E6=9B=B9=E5=AE=8F=E9=B9=8F <cao...@lzu.edu.cn>:
+>
+> > Dear sir:
+> >=20
+> > As we all know, the cell could communicate with root cell by ivshmem
+> > in Jailhouse. And there is a virtual Network Interface Card(NIC) on
+> > non-root cell. When I run Jailhouse on my raspberry Pi 4 model b, I
+> > was successful to create a cell and assigned a address to it. The
+> > root cell can communicate with non-root cell , I know this is based
+> > on ivshmem. But I want to know=20
+> >=20
+> > 1. Whether the virtual NIC support other protocols.
+>
+> It is a virtual ethernet connection, on top you can use anything that
+> can be done on top of "network". It is probably best to build whatever
+> you need on top of Ethernet, maybe nfs, remote desktop ... but if you
+> really need a custom protocol at the base you can write your own driver
+> and choose another ".shmem_protocol"
+> There is ivshmem-demo giving a simple raw usage example of
+> JAILHOUSE_SHMEM_PROTO_UNDEFINED.
+>
+> > 2. What is difference between virtual NIC in non-root cell and NIC in
+> > root cell.
+>
+> There is none. Once running under jailhouse a cell might see the PCI
+> device for shared memory communication on the bus (depending on the
+> cell config). If that PCI device is of type JAILHOUSE_SHMEM_PROTO_VETH
+> and the cell has a driver ... you will see a new ethernet interface
+> becoming available.
+>
+> > 3. Why the virtual NIC cannot ping baidu.com(in China ) or
+> > google.com.
+>
+> You essentially have an isolated network between the two cells. To
+> connect the inmate to the internet, the root cell will have to become a
+> network router. So you would set up i.e. NAT to connect on layer3
+>
+> The most simple solution could be to create a network bridge where you
+> attach the real physical network interface and later the virtual one.
+> (in the root cell)
+> After doing that the non-root should be in the same Layer2 network and
+> can use DHCP to get a network configuration that will allow internet
+> access just like the root-cell has.
+>
+> All that is basic networking and has nothing to do with jailhouse.
+>
+> regards,
+> Henning
+>
+> > If I get your help, I will appreciate =EF=BC=81
+> >=20
+> >=20
+> > Yours sincerely,
+> > HOngpeng Cao.
+> >=20
+>
+>
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/288eb03e-f986-4890-8ad6-6102aef44904n%40googlegroups.com.
+
+------=_Part_6235_114854975.1617154626876
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+hello Cao.<div>This how to access baidu.com in inmate</div><div>execute it =
+in root cell.</div><div><br></div><div><div>enable forward</div><div>echo 1=
+ &gt; /proc/sys/net/ipv4/ip_forward</div><div><br></div><div>iptables setup=
+&nbsp; ,select one of them</div><div>/sbin/iptables -t nat -A POSTROUTING -=
+o wlan0 -j MASQUERADE&nbsp; &nbsp;</div><div>/sbin/iptables -t nat -A POSTR=
+OUTING -o eth0  -j MASQUERADE</div></div><div>-----------------------------=
+---------------------------------------------------------------------------=
+----------</div><div><br></div><div><br></div><div><br></div><div><br></div=
+><div><br><br></div><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"g=
+mail_attr">=E5=9C=A82021=E5=B9=B43=E6=9C=8829=E6=97=A5=E6=98=9F=E6=9C=9F=E4=
+=B8=80 UTC+8 =E4=B8=8B=E5=8D=885:02:57&lt;Henning Schild> =E5=86=99=E9=81=
+=93=EF=BC=9A<br/></div><blockquote class=3D"gmail_quote" style=3D"margin: 0=
+ 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">=
+Am Sun, 28 Mar 2021 22:16:14 +0800 (GMT+08:00)
+<br>schrieb =E6=9B=B9=E5=AE=8F=E9=B9=8F &lt;<a href data-email-masked rel=
+=3D"nofollow">cao...@lzu.edu.cn</a>&gt;:
+<br>
+<br>&gt; Dear sir:
+<br>&gt;=20
+<br>&gt; As we all know, the cell could communicate with root cell by ivshm=
+em
+<br>&gt; in Jailhouse. And there is a virtual Network Interface Card(NIC) o=
+n
+<br>&gt; non-root cell. When I run Jailhouse on my raspberry Pi 4 model b, =
+I
+<br>&gt; was successful to create a cell and assigned a address to it. The
+<br>&gt; root cell can communicate with non-root cell , I know this is base=
+d
+<br>&gt; on ivshmem. But I want to know=20
+<br>&gt;=20
+<br>&gt; 1. Whether the virtual NIC support other protocols.
+<br>
+<br>It is a virtual ethernet connection, on top you can use anything that
+<br>can be done on top of &quot;network&quot;. It is probably best to build=
+ whatever
+<br>you need on top of Ethernet, maybe nfs, remote desktop ... but if you
+<br>really need a custom protocol at the base you can write your own driver
+<br>and choose another &quot;.shmem_protocol&quot;
+<br>There is ivshmem-demo giving a simple raw usage example of
+<br>JAILHOUSE_SHMEM_PROTO_UNDEFINED.
+<br>
+<br>&gt; 2. What is difference between virtual NIC in non-root cell and NIC=
+ in
+<br>&gt; root cell.
+<br>
+<br>There is none. Once running under jailhouse a cell might see the PCI
+<br>device for shared memory communication on the bus (depending on the
+<br>cell config). If that PCI device is of type JAILHOUSE_SHMEM_PROTO_VETH
+<br>and the cell has a driver ... you will see a new ethernet interface
+<br>becoming available.
+<br>
+<br>&gt; 3. Why the virtual NIC cannot ping <a href=3D"http://baidu.com" ta=
+rget=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google=
+.com/url?hl=3Dzh-CN&amp;q=3Dhttp://baidu.com&amp;source=3Dgmail&amp;ust=3D1=
+617240701220000&amp;usg=3DAFQjCNE6pz6TyNrREkoUwt3woRUVDEVqGw">baidu.com</a>=
+(in China ) or
+<br>&gt; <a href=3D"http://google.com" target=3D"_blank" rel=3D"nofollow" d=
+ata-saferedirecturl=3D"https://www.google.com/url?hl=3Dzh-CN&amp;q=3Dhttp:/=
+/google.com&amp;source=3Dgmail&amp;ust=3D1617240701221000&amp;usg=3DAFQjCNG=
+I7uAEAtCgSgQ92LzMzldkBO9CeA">google.com</a>.
+<br>
+<br>You essentially have an isolated network between the two cells. To
+<br>connect the inmate to the internet, the root cell will have to become a
+<br>network router. So you would set up i.e. NAT to connect on layer3
+<br>
+<br>The most simple solution could be to create a network bridge where you
+<br>attach the real physical network interface and later the virtual one.
+<br>(in the root cell)
+<br>After doing that the non-root should be in the same Layer2 network and
+<br>can use DHCP to get a network configuration that will allow internet
+<br>access just like the root-cell has.
+<br>
+<br>All that is basic networking and has nothing to do with jailhouse.
+<br>
+<br>regards,
+<br>Henning
+<br>
+<br>&gt; If I get your help, I will appreciate =EF=BC=81
+<br>&gt;=20
+<br>&gt;=20
+<br>&gt; Yours sincerely,
+<br>&gt; HOngpeng Cao.
+<br>&gt;=20
+<br>
+<br></blockquote></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/288eb03e-f986-4890-8ad6-6102aef44904n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/288eb03e-f986-4890-8ad6-6102aef44904n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_6235_114854975.1617154626876--
+
+------=_Part_6234_1285345584.1617154626876--
