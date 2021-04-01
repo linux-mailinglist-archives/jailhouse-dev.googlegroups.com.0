@@ -1,71 +1,120 @@
-Return-Path: <jailhouse-dev+bncBC7PTOEB2ALRBQ5ER6BQMGQEOW2OWHQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBAABBEEGS6BQMGQEDRZOWYI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qk1-x73b.google.com (mail-qk1-x73b.google.com [IPv6:2607:f8b0:4864:20::73b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33CA834F647
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 31 Mar 2021 03:37:09 +0200 (CEST)
-Received: by mail-qk1-x73b.google.com with SMTP id j14sf399599qka.7
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 30 Mar 2021 18:37:09 -0700 (PDT)
+Received: from mail-lj1-x23c.google.com (mail-lj1-x23c.google.com [IPv6:2a00:1450:4864:20::23c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D88E3514F0
+	for <lists+jailhouse-dev@lfdr.de>; Thu,  1 Apr 2021 14:56:49 +0200 (CEST)
+Received: by mail-lj1-x23c.google.com with SMTP id t28sf2108787ljo.11
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 01 Apr 2021 05:56:49 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1617281808; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=ERZPbtX4CovvTK3/ze93QxR5ehbyebNb/IghfGjOmXlF3vkn4GuCm72/xMqrTmlVZA
+         jR+McOFDOWT7bbJn03hJaXvvp71xZdthRI9zt6TvjOS8U+nsdnjHZW+5Y//kr9IsRDjA
+         2qfWrLY+xoHE4n4/k75HcG6fH0vr47n6Px3bbpXiqqVXA5qAZjKu+nJ2ATtQ7hPo/YGX
+         IlPJTfwHSGdCFWdKzsYFLu7eHdmEE8nx/d1/hUMtl9ojy/z7j4h+NDwA2vPaLnjPoBTs
+         Kq8ZhMd5HEntBpV1uFgyiQokGIgFIx0ZTmtimmqJMJ8rSHUARCfVB9Y5v1B9MJZ/q4zi
+         vEKQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:message-id:mime-version:subject:cc
+         :to:from:date:sender:dkim-signature;
+        bh=a1vZ7+wZFZrB2lPYOfIriU9MSD39EUlob5oL0GzF4W0=;
+        b=fd6To12nCh+PIrd+nmj0GJ23y5GBHFsVpf2UiPcryRJNakDYfy4H0UA1Mrybt/Y2Fw
+         TpIqhLXPRFWzz+Ao6mZwgMGgRaKZM5UyuiH5Qib8RW/0A0rUp1QQ/FyoeSBEgngbzqlX
+         xMGobMPKWNtNUqgm6gYfZKdQaM7SaoYiBYS7p6U02hRQyxP5KK9NSoHQlft1Dscy/qoU
+         Mvavi4A+weaeGP5ogwzGI5v83FeICs6FgVSVDN9YTLqnQR7aVXkEpdEqa60bmgbNx5XX
+         jhZ6k4P55AAA4MA6dQYLgIat8yy4lr6wCnzlM0hPMuMs38Q3E+taGmynU1b94j44kTdz
+         R0lw==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of caohp19@lzu.edu.cn designates 165.227.154.27 as permitted sender) smtp.mailfrom=caohp19@lzu.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=1OTqvY5F9XqLxDSw0kwVrkE0cfQYgMg6I87KUaZGuxU=;
-        b=CUf+q3rxj4/GhKKUhrv54UeCQXLrDVkca/NahPgjunziwSZnnLs6lUhlEo+bQze8Kq
-         CFz9ZFwI1ALAxX7Gl0CIVBJQHINg+J1kclXZvqHW1p76UGLftUmdWiwIfL9m8TCsEN6N
-         SqULe8RUuq4EHGt50d/T6/FuioXTPYC5qdvqq6/+Qw0R2fsSJG+I18ia2UXlYpJ6Opdq
-         JNFRAioGYeRdO/yRBr9DOoT5q0u7HDymocmLZL4M5mDwYx9Lc3bgOcDskottWLiAGtKJ
-         TSNcRTpBbZkuOKvi5op36eiL4A2P/MeQirCMw/VerVg2ksnvFGBnKhWEdhMSjoX9mYju
-         oWdA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=1OTqvY5F9XqLxDSw0kwVrkE0cfQYgMg6I87KUaZGuxU=;
-        b=IFeRd0qIbj1+ryXLdpw9rL0YKP08zKJ0g8NZaQeB5nU3XFEzl3HcoacPJKfyzrLxat
-         Gx3Er42XJvjv+Hi0FUr2jjY9fpM+purbd+fONZrnstUWO62+1E6uP1LCTLRplxEg6iSj
-         B/IoPPvn+BIoNlkl5lLBm+eadt4G4paAMTkC3UpnXqNduP7++bkk6lAkg4X5uZVvSQEj
-         /EPKnRwdLZY+W22nU/tlQHStfwOvySSaP1OXHaK/dPxNrZyJo1gLQMiHXs7wV93/Z8o4
-         qqVevi9AH7x/lrfMICW6OQ0OvV8QBKZuz3p0DUXiLjC07vI3rz4d9h0gv88+dqzQDYkK
-         qp2g==
+        h=sender:date:from:to:cc:subject:mime-version:message-id
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=a1vZ7+wZFZrB2lPYOfIriU9MSD39EUlob5oL0GzF4W0=;
+        b=lcGHL0/wd74+wsXHoXYRtXHKb5+Iy7qPhPtfOLcioooXGKZ1TUp+WBqbNv4PvmT/e+
+         OjtgXaRWM7I4aZLwf5AvBkIIMNdSkmSh2nusM/rzg7wI/bfo/1YGEqjVY7CyJs2N+CeU
+         bpGqUaUIKA0jikiOUa3owHG2tUeMZnKKJHB1vbBzbwZgUqTDMQQcMbAOaJdaJG2xYJX8
+         rTwpPcHGjvI7LcpmBDcz2sGLZV86tvZBaNh+qkFPFM8pQ8TmznGaU3/cyYy/gVZH92vQ
+         2YsbS3oHN54oEs2JcM8Kl4wHqxeZTiJDNG5AdErX/d97mpO5BeV+5KhIAEKFpAvsp8Mk
+         805w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=1OTqvY5F9XqLxDSw0kwVrkE0cfQYgMg6I87KUaZGuxU=;
-        b=eRXPB8X8zhPo8XF6tmJQ4GcoGgwrze5JIWbOniLC7sTaBBA4rQVZDIlwL6Sxu/GrJD
-         pMBNabcrtr5gEdPR9o0CMd6APlEa/LlzimmlrjR/wHtgKy8I4NQU5ihFolw7P+FL8Nsf
-         DWra9M5SUSF4nij6Si0jY5u6nn/pSIZc87mu2ufYhwysLAQ+EAqADIKMEh39aKacjXQb
-         dIebA/O+f3mH4QRFxJS54OWrqlxbPhe6BFgtsPRuyKxMLC2awRDvGMUCUsx8lsyRweej
-         lThF0jM01OUjHTGO3GDWkgwollwdWJrf7rsDay0QMASZFabm0T4Ra1BNI5djzvwrdFGK
-         mg4A==
+        h=sender:x-gm-message-state:date:from:to:cc:subject:mime-version
+         :message-id:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=a1vZ7+wZFZrB2lPYOfIriU9MSD39EUlob5oL0GzF4W0=;
+        b=GDY/pYsxDXd4bvh2nFn1vzfXp2RsEArmRPTJOUKOP0uTzxGkN05Vi71w+6Cde4OhWY
+         XYqR1UsAEsjhZZQBQkHeVVIizPzP6BVb73CEo9giUf0FmLUJMCI3geBMqHB61biATMNS
+         GRZD8QFRAApJ97bYT3Rju5Z1YkuqjeVJBRnTcvflEu9RVqCJH7ACQfLm8SdTbvtWq0P1
+         6RmxpKPwzkim0x7XYz1fFaE11BZIMn15JYQf9/EOMqxIXIwjmzsQyrX4z6kOMlBwrojX
+         KosRfvEZf1UVvbvb5indDf/cat/lP+BWPuShRmk8GOjEJLcJy+rLucr+SMsM02h4pMdY
+         9/Ow==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531nxtIz9Sspnt7KsUsYwzzUcMd6E5TBfZLFA1sihe0pai3tSnfv
-	JzeMC/DeHjktIY7/1JQBKK4=
-X-Google-Smtp-Source: ABdhPJwyFnDrPAUOAE1KnmKFYj4aa5qPFuPvnVlGKfgcw89HZnIywFoDrHGIP30rkbeMeZsVYcj1fQ==
-X-Received: by 2002:a05:6214:523:: with SMTP id x3mr763485qvw.27.1617154628079;
-        Tue, 30 Mar 2021 18:37:08 -0700 (PDT)
+X-Gm-Message-State: AOAM532vXriCSB8Ud/4gAe6Zp8j1MpEv3e7libs3oD12zCbvFDlMJVBL
+	z6Iv6jFcP9317zRBlH/nXMM=
+X-Google-Smtp-Source: ABdhPJzd2o8iDf+LJi2Za+j0XHkODWH/oZy5sXFclPmTww8K1C82bqbBvPsBwvTpfcSnnoKpzeqMpA==
+X-Received: by 2002:a19:b81:: with SMTP id 123mr5313519lfl.553.1617281808805;
+        Thu, 01 Apr 2021 05:56:48 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:620a:a98:: with SMTP id v24ls468551qkg.6.gmail; Tue, 30
- Mar 2021 18:37:07 -0700 (PDT)
-X-Received: by 2002:a37:9c51:: with SMTP id f78mr1088348qke.228.1617154627443;
-        Tue, 30 Mar 2021 18:37:07 -0700 (PDT)
-Date: Tue, 30 Mar 2021 18:37:06 -0700 (PDT)
-From: Smith li <v6543210@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <288eb03e-f986-4890-8ad6-6102aef44904n@googlegroups.com>
-In-Reply-To: <20210329104747.2f396831@md1za8fc.ad001.siemens.net>
-References: <53464ac4.9478.17879314390.Coremail.caohp19@lzu.edu.cn>
- <20210329104747.2f396831@md1za8fc.ad001.siemens.net>
-Subject: Re: HELP
+Received: by 2002:a19:e86:: with SMTP id 128ls362459lfo.0.gmail; Thu, 01 Apr
+ 2021 05:56:47 -0700 (PDT)
+X-Received: by 2002:ac2:5963:: with SMTP id h3mr5473734lfp.636.1617281807899;
+        Thu, 01 Apr 2021 05:56:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1617281807; cv=none;
+        d=google.com; s=arc-20160816;
+        b=oLTG10sFyG5hcIR7T2V0TIA4eiqUYyuUEGGSxoCkRnhzS568cFFN/E2waPckq1tXpZ
+         n0Y6Ea59EQuXK0BOFZ8Rewc48qVmmBHHClkqepgtPHma3oQ1raS/B5lPiNEYf6QCFWD5
+         aRHJTpPGEo+CbgvTLqru1V/kcdljzR8a28rg0sdR9GHQ1tftz0LKe7Rn4Ui8B4ECtKYa
+         0sloENILkW61irnuLMxpjm1p+DDUh6BGopWw5d1XffgufSy9sp1KAmHSScSHOdHxFFhO
+         HoNopwo5uV9WLHWQ3C+wtDt+1+87cuMuHOaIIRlfzTX2R3sypEKG5+Gf50fTkvYWxjXH
+         3kpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=message-id:mime-version:content-transfer-encoding:subject:cc:to
+         :from:date;
+        bh=i8ZGNj02C0XUEzdo3ba3Wk8llTVgQbWm7whwIymcrV0=;
+        b=a6ck3v40us4MjveV9EASE2U7VppFHEksX39EzOJKDKHmT1AnLPA0wDU6PCHQJiLUAl
+         Qbfr2ADB4R0lErchne6ouaqXXQAJHoF7CBwD+d0YRoxgiC4LepNF7JzdQqcM4tfr7l+L
+         Kl7Sz4ha267+lQJTFSD/iu5go+XaPELV0bcLWIlNF4AQVWXjJUcJq5Kh2bq6gQC5OGzl
+         Ow6XqPeah+QI68+jKIKKa4yYOLjFjhiH6KeGZCFDSSvg9wLq8Nlyx6nqI2YQWz3NnLMu
+         nPReH5kZ539N1Dv0jFZXKShne8zqn3WRTXYs9ZhEDZlGD5zJ22zTx/n8yl/jFGh3yfUg
+         7W3w==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of caohp19@lzu.edu.cn designates 165.227.154.27 as permitted sender) smtp.mailfrom=caohp19@lzu.edu.cn
+Received: from zg8tmty1ljiyny4xntqumjca.icoremail.net (zg8tmty1ljiyny4xntqumjca.icoremail.net. [165.227.154.27])
+        by gmr-mx.google.com with SMTP id l11si291736lfg.13.2021.04.01.05.56.46
+        for <jailhouse-dev@googlegroups.com>;
+        Thu, 01 Apr 2021 05:56:46 -0700 (PDT)
+Received-SPF: pass (google.com: domain of caohp19@lzu.edu.cn designates 165.227.154.27 as permitted sender) client-ip=165.227.154.27;
+Received: by ajax-webmail-app2 (Coremail) ; Thu, 1 Apr 2021 20:56:17 +0800
+ (GMT+08:00)
+X-Originating-IP: [210.26.59.142]
+Date: Thu, 1 Apr 2021 20:56:17 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?5pu55a6P6bmP?= <caohp19@lzu.edu.cn>
+To: jailhouse-dev@googlegroups.com, nikhildevshatwar@gmail.com, 
+	ralf@binary-kitchen.de
+Cc: "Jan kiszka" <jan.kiszka@siemens.com>
+Subject: HELP
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version XT5.0.12 build 20200616(0f5d8152)
+ Copyright (c) 2002-2021 www.mailtech.cn lzu.edu.cn
+Content-Type: text/plain; charset="UTF-8"
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_6234_1285345584.1617154626876"
-X-Original-Sender: v6543210@gmail.com
+Message-ID: <321eddc.40ef8.1788d817ec9.Coremail.caohp19@lzu.edu.cn>
+X-Coremail-Locale: en_US
+X-CM-TRANSID: zQmowACnlYjywmVg_jA4AQ--.22220W
+X-CM-SenderInfo: hfdrx1arz6z6vxohv3gofq/1tbiAQ0SBl2vOvI5FgAEsJ
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
+X-Original-Sender: caohp19@lzu.edu.cn
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of caohp19@lzu.edu.cn designates 165.227.154.27 as
+ permitted sender) smtp.mailfrom=caohp19@lzu.edu.cn
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -78,206 +127,93 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_6234_1285345584.1617154626876
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_6235_114854975.1617154626876"
+Dear sir,
 
-------=_Part_6235_114854975.1617154626876
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I wanted to know how to write my own config files about non-root cell. By the way, I tried to alter the 
+rpi4-linux-demo.c and compiled it. Of course, it was successful in that way. 
 
-hello Cao.
-This how to access baidu.com in inmate
-execute it in root cell.
+1. But I don't understand why there are several memory regions definitions.
+2. How to know the memory addresses.
+3. How many memory regions should be defined. 
 
-enable forward
-echo 1 > /proc/sys/net/ipv4/ip_forward
+Whether should I reference the Raspberry Pi 4 model B's manual to resolve three questions.
+Here is the part of rpi4-linux-demo.c about memory definitions.(I didn't why there are 5 memory regions, 2 RAM definitions).
+ 
+.mem_regions = {
+ /* IVSHMEM shared memory regions (demo) */
+ {
+ .phys_start = 0x3faf0000,
+ .virt_start = 0x3faf0000,
+ .size = 0x1000,
+ .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+ },
+ {
+ .phys_start = 0x3faf1000,
+ .virt_start = 0x3faf1000,
+ .size = 0x9000,
+ .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ JAILHOUSE_MEM_ROOTSHARED,
+ },
+ {
+ .phys_start = 0x3fafa000,
+ .virt_start = 0x3fafa000,
+ .size = 0x2000,
+ .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+ },
+ {
+ .phys_start = 0x3fafc000,
+ .virt_start = 0x3fafc000,
+ .size = 0x2000,
+ .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+ },
+ {
+ .phys_start = 0x3fafe000,
+ .virt_start = 0x3fafe000,
+ .size = 0x2000,
+ .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ JAILHOUSE_MEM_ROOTSHARED,
+ },
+ /* IVSHMEM shared memory region */
+ JAILHOUSE_SHMEM_NET_REGIONS(0x3fb00000, 1),
+ /* UART */ {
+ .phys_start = 0xfe215040,
+ .virt_start = 0xfe215040,
+ .size = 0x40,
+ .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_8 |
+ JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_ROOTSHARED,
+ },
+ /* RAM */ {
+ .phys_start = 0x3f900000,
+ .virt_start = 0,
+ .size = 0x10000,
+ .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+ },
+ /* RAM */ {
+ .phys_start = 0x30000000,
+ .virt_start = 0x30000000,
+ .size = 0x8000000,
+ .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+ JAILHOUSE_MEM_LOADABLE,
+ },
+ /* communication region */ {
+ .virt_start = 0x80000000,
+ .size = 0x00001000,
+ .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ JAILHOUSE_MEM_COMM_REGION,
+ },
+ }
 
-iptables setup  ,select one of them
-/sbin/iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE  =20
-/sbin/iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
----------------------------------------------------------------------------=
----------------------------------------
+By the way, what information should I obtained so that I can  write my own cell config.
+If I can get your generous help, I will appreciate.
+Thank you again !
 
+Yours sincerely,
+Hongpeng Cao.
 
-
-
-
-
-=E5=9C=A82021=E5=B9=B43=E6=9C=8829=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=80 UTC+=
-8 =E4=B8=8B=E5=8D=885:02:57<Henning Schild> =E5=86=99=E9=81=93=EF=BC=9A
-
-> Am Sun, 28 Mar 2021 22:16:14 +0800 (GMT+08:00)
-> schrieb =E6=9B=B9=E5=AE=8F=E9=B9=8F <cao...@lzu.edu.cn>:
->
-> > Dear sir:
-> >=20
-> > As we all know, the cell could communicate with root cell by ivshmem
-> > in Jailhouse. And there is a virtual Network Interface Card(NIC) on
-> > non-root cell. When I run Jailhouse on my raspberry Pi 4 model b, I
-> > was successful to create a cell and assigned a address to it. The
-> > root cell can communicate with non-root cell , I know this is based
-> > on ivshmem. But I want to know=20
-> >=20
-> > 1. Whether the virtual NIC support other protocols.
->
-> It is a virtual ethernet connection, on top you can use anything that
-> can be done on top of "network". It is probably best to build whatever
-> you need on top of Ethernet, maybe nfs, remote desktop ... but if you
-> really need a custom protocol at the base you can write your own driver
-> and choose another ".shmem_protocol"
-> There is ivshmem-demo giving a simple raw usage example of
-> JAILHOUSE_SHMEM_PROTO_UNDEFINED.
->
-> > 2. What is difference between virtual NIC in non-root cell and NIC in
-> > root cell.
->
-> There is none. Once running under jailhouse a cell might see the PCI
-> device for shared memory communication on the bus (depending on the
-> cell config). If that PCI device is of type JAILHOUSE_SHMEM_PROTO_VETH
-> and the cell has a driver ... you will see a new ethernet interface
-> becoming available.
->
-> > 3. Why the virtual NIC cannot ping baidu.com(in China ) or
-> > google.com.
->
-> You essentially have an isolated network between the two cells. To
-> connect the inmate to the internet, the root cell will have to become a
-> network router. So you would set up i.e. NAT to connect on layer3
->
-> The most simple solution could be to create a network bridge where you
-> attach the real physical network interface and later the virtual one.
-> (in the root cell)
-> After doing that the non-root should be in the same Layer2 network and
-> can use DHCP to get a network configuration that will allow internet
-> access just like the root-cell has.
->
-> All that is basic networking and has nothing to do with jailhouse.
->
-> regards,
-> Henning
->
-> > If I get your help, I will appreciate =EF=BC=81
-> >=20
-> >=20
-> > Yours sincerely,
-> > HOngpeng Cao.
-> >=20
->
->
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/288eb03e-f986-4890-8ad6-6102aef44904n%40googlegroups.com.
-
-------=_Part_6235_114854975.1617154626876
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-hello Cao.<div>This how to access baidu.com in inmate</div><div>execute it =
-in root cell.</div><div><br></div><div><div>enable forward</div><div>echo 1=
- &gt; /proc/sys/net/ipv4/ip_forward</div><div><br></div><div>iptables setup=
-&nbsp; ,select one of them</div><div>/sbin/iptables -t nat -A POSTROUTING -=
-o wlan0 -j MASQUERADE&nbsp; &nbsp;</div><div>/sbin/iptables -t nat -A POSTR=
-OUTING -o eth0  -j MASQUERADE</div></div><div>-----------------------------=
----------------------------------------------------------------------------=
-----------</div><div><br></div><div><br></div><div><br></div><div><br></div=
-><div><br><br></div><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"g=
-mail_attr">=E5=9C=A82021=E5=B9=B43=E6=9C=8829=E6=97=A5=E6=98=9F=E6=9C=9F=E4=
-=B8=80 UTC+8 =E4=B8=8B=E5=8D=885:02:57&lt;Henning Schild> =E5=86=99=E9=81=
-=93=EF=BC=9A<br/></div><blockquote class=3D"gmail_quote" style=3D"margin: 0=
- 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">=
-Am Sun, 28 Mar 2021 22:16:14 +0800 (GMT+08:00)
-<br>schrieb =E6=9B=B9=E5=AE=8F=E9=B9=8F &lt;<a href data-email-masked rel=
-=3D"nofollow">cao...@lzu.edu.cn</a>&gt;:
-<br>
-<br>&gt; Dear sir:
-<br>&gt;=20
-<br>&gt; As we all know, the cell could communicate with root cell by ivshm=
-em
-<br>&gt; in Jailhouse. And there is a virtual Network Interface Card(NIC) o=
-n
-<br>&gt; non-root cell. When I run Jailhouse on my raspberry Pi 4 model b, =
-I
-<br>&gt; was successful to create a cell and assigned a address to it. The
-<br>&gt; root cell can communicate with non-root cell , I know this is base=
-d
-<br>&gt; on ivshmem. But I want to know=20
-<br>&gt;=20
-<br>&gt; 1. Whether the virtual NIC support other protocols.
-<br>
-<br>It is a virtual ethernet connection, on top you can use anything that
-<br>can be done on top of &quot;network&quot;. It is probably best to build=
- whatever
-<br>you need on top of Ethernet, maybe nfs, remote desktop ... but if you
-<br>really need a custom protocol at the base you can write your own driver
-<br>and choose another &quot;.shmem_protocol&quot;
-<br>There is ivshmem-demo giving a simple raw usage example of
-<br>JAILHOUSE_SHMEM_PROTO_UNDEFINED.
-<br>
-<br>&gt; 2. What is difference between virtual NIC in non-root cell and NIC=
- in
-<br>&gt; root cell.
-<br>
-<br>There is none. Once running under jailhouse a cell might see the PCI
-<br>device for shared memory communication on the bus (depending on the
-<br>cell config). If that PCI device is of type JAILHOUSE_SHMEM_PROTO_VETH
-<br>and the cell has a driver ... you will see a new ethernet interface
-<br>becoming available.
-<br>
-<br>&gt; 3. Why the virtual NIC cannot ping <a href=3D"http://baidu.com" ta=
-rget=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google=
-.com/url?hl=3Dzh-CN&amp;q=3Dhttp://baidu.com&amp;source=3Dgmail&amp;ust=3D1=
-617240701220000&amp;usg=3DAFQjCNE6pz6TyNrREkoUwt3woRUVDEVqGw">baidu.com</a>=
-(in China ) or
-<br>&gt; <a href=3D"http://google.com" target=3D"_blank" rel=3D"nofollow" d=
-ata-saferedirecturl=3D"https://www.google.com/url?hl=3Dzh-CN&amp;q=3Dhttp:/=
-/google.com&amp;source=3Dgmail&amp;ust=3D1617240701221000&amp;usg=3DAFQjCNG=
-I7uAEAtCgSgQ92LzMzldkBO9CeA">google.com</a>.
-<br>
-<br>You essentially have an isolated network between the two cells. To
-<br>connect the inmate to the internet, the root cell will have to become a
-<br>network router. So you would set up i.e. NAT to connect on layer3
-<br>
-<br>The most simple solution could be to create a network bridge where you
-<br>attach the real physical network interface and later the virtual one.
-<br>(in the root cell)
-<br>After doing that the non-root should be in the same Layer2 network and
-<br>can use DHCP to get a network configuration that will allow internet
-<br>access just like the root-cell has.
-<br>
-<br>All that is basic networking and has nothing to do with jailhouse.
-<br>
-<br>regards,
-<br>Henning
-<br>
-<br>&gt; If I get your help, I will appreciate =EF=BC=81
-<br>&gt;=20
-<br>&gt;=20
-<br>&gt; Yours sincerely,
-<br>&gt; HOngpeng Cao.
-<br>&gt;=20
-<br>
-<br></blockquote></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/288eb03e-f986-4890-8ad6-6102aef44904n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/288eb03e-f986-4890-8ad6-6102aef44904n%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_6235_114854975.1617154626876--
-
-------=_Part_6234_1285345584.1617154626876--
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/321eddc.40ef8.1788d817ec9.Coremail.caohp19%40lzu.edu.cn.
