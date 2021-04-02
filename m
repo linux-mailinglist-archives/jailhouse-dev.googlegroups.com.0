@@ -1,120 +1,70 @@
-Return-Path: <jailhouse-dev+bncBAABBEEGS6BQMGQEDRZOWYI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC7PTOEB2ALRBHPNTKBQMGQEO6WHZSA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23c.google.com (mail-lj1-x23c.google.com [IPv6:2a00:1450:4864:20::23c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D88E3514F0
-	for <lists+jailhouse-dev@lfdr.de>; Thu,  1 Apr 2021 14:56:49 +0200 (CEST)
-Received: by mail-lj1-x23c.google.com with SMTP id t28sf2108787ljo.11
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 01 Apr 2021 05:56:49 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1617281808; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=ERZPbtX4CovvTK3/ze93QxR5ehbyebNb/IghfGjOmXlF3vkn4GuCm72/xMqrTmlVZA
-         jR+McOFDOWT7bbJn03hJaXvvp71xZdthRI9zt6TvjOS8U+nsdnjHZW+5Y//kr9IsRDjA
-         2qfWrLY+xoHE4n4/k75HcG6fH0vr47n6Px3bbpXiqqVXA5qAZjKu+nJ2ATtQ7hPo/YGX
-         IlPJTfwHSGdCFWdKzsYFLu7eHdmEE8nx/d1/hUMtl9ojy/z7j4h+NDwA2vPaLnjPoBTs
-         Kq8ZhMd5HEntBpV1uFgyiQokGIgFIx0ZTmtimmqJMJ8rSHUARCfVB9Y5v1B9MJZ/q4zi
-         vEKQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:message-id:mime-version:subject:cc
-         :to:from:date:sender:dkim-signature;
-        bh=a1vZ7+wZFZrB2lPYOfIriU9MSD39EUlob5oL0GzF4W0=;
-        b=fd6To12nCh+PIrd+nmj0GJ23y5GBHFsVpf2UiPcryRJNakDYfy4H0UA1Mrybt/Y2Fw
-         TpIqhLXPRFWzz+Ao6mZwgMGgRaKZM5UyuiH5Qib8RW/0A0rUp1QQ/FyoeSBEgngbzqlX
-         xMGobMPKWNtNUqgm6gYfZKdQaM7SaoYiBYS7p6U02hRQyxP5KK9NSoHQlft1Dscy/qoU
-         Mvavi4A+weaeGP5ogwzGI5v83FeICs6FgVSVDN9YTLqnQR7aVXkEpdEqa60bmgbNx5XX
-         jhZ6k4P55AAA4MA6dQYLgIat8yy4lr6wCnzlM0hPMuMs38Q3E+taGmynU1b94j44kTdz
-         R0lw==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of caohp19@lzu.edu.cn designates 165.227.154.27 as permitted sender) smtp.mailfrom=caohp19@lzu.edu.cn
+Received: from mail-qk1-x73f.google.com (mail-qk1-x73f.google.com [IPv6:2607:f8b0:4864:20::73f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5137335267F
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  2 Apr 2021 08:15:58 +0200 (CEST)
+Received: by mail-qk1-x73f.google.com with SMTP id o70sf5231990qke.16
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 01 Apr 2021 23:15:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:cc:subject:mime-version:message-id
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=a1vZ7+wZFZrB2lPYOfIriU9MSD39EUlob5oL0GzF4W0=;
-        b=lcGHL0/wd74+wsXHoXYRtXHKb5+Iy7qPhPtfOLcioooXGKZ1TUp+WBqbNv4PvmT/e+
-         OjtgXaRWM7I4aZLwf5AvBkIIMNdSkmSh2nusM/rzg7wI/bfo/1YGEqjVY7CyJs2N+CeU
-         bpGqUaUIKA0jikiOUa3owHG2tUeMZnKKJHB1vbBzbwZgUqTDMQQcMbAOaJdaJG2xYJX8
-         rTwpPcHGjvI7LcpmBDcz2sGLZV86tvZBaNh+qkFPFM8pQ8TmznGaU3/cyYy/gVZH92vQ
-         2YsbS3oHN54oEs2JcM8Kl4wHqxeZTiJDNG5AdErX/d97mpO5BeV+5KhIAEKFpAvsp8Mk
-         805w==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=4GpYCqBGqsYD/l4L5779T1bg697Y204XHz1lfHVn3+o=;
+        b=LrjaYTTft5HM/NexuhKdp5nL3YVBdcc5cmRNJNfpLa318R4SUPLcc71Ngy6KG1u5xE
+         k2vZGLzaeUZxO+VbW4hHoIxoo7CIItk5A28Mp0EfPmMG5P/yDPvwsT1jnrW+qXEgDrTR
+         aPBUXiCv/JjwEQh213eSnnqCkliavL+HBbMJ6Nt94K7BpChU1F0sxYdXtX/jifs8qfB4
+         BKHzMXHbCyR+2WwU4b8YWzx3CgbemzB48LKiO918X+2YzKVZmTvxwYOfEw2Vsx/e65Qj
+         fvMVXJM3ekchHEEZVBNrS/h4jYoJh3Vk8k6fIMa87xaHxR4zmyrxAOFCAmeMEOLajyTa
+         x21Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=4GpYCqBGqsYD/l4L5779T1bg697Y204XHz1lfHVn3+o=;
+        b=NU8TJ5bLxzEFuya5Kyq5jdHePJZRbMzYORHHeq0u/XK9HGh8pPT0CDBdgnFp9Aa+7+
+         3OpzOWqk6PzXtWWGLBiEUAfzISNTE11Kp/j2An9rs1UBL8bIcvFWsSFGNHn38+oDerCW
+         TxXybwp8dPlDSueVCGfZvByMiZEbdfwW3B2WxWZILHByROKQcYhOXlKI4W4yiNKn157t
+         ZYTj6uGuA+gub3yZ4pEAPMkCnH4uYHAYSy5gzp2u4n6fzSuv9OdKpyzQkSH8nQrLfgNi
+         xrk7OApIQMlvfFcNZLvXQq1ocJjlXqwas1sWsbAWwOPk83BLRww8ORhML4sn9Z2lcedN
+         qD3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:cc:subject:mime-version
-         :message-id:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=a1vZ7+wZFZrB2lPYOfIriU9MSD39EUlob5oL0GzF4W0=;
-        b=GDY/pYsxDXd4bvh2nFn1vzfXp2RsEArmRPTJOUKOP0uTzxGkN05Vi71w+6Cde4OhWY
-         XYqR1UsAEsjhZZQBQkHeVVIizPzP6BVb73CEo9giUf0FmLUJMCI3geBMqHB61biATMNS
-         GRZD8QFRAApJ97bYT3Rju5Z1YkuqjeVJBRnTcvflEu9RVqCJH7ACQfLm8SdTbvtWq0P1
-         6RmxpKPwzkim0x7XYz1fFaE11BZIMn15JYQf9/EOMqxIXIwjmzsQyrX4z6kOMlBwrojX
-         KosRfvEZf1UVvbvb5indDf/cat/lP+BWPuShRmk8GOjEJLcJy+rLucr+SMsM02h4pMdY
-         9/Ow==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=4GpYCqBGqsYD/l4L5779T1bg697Y204XHz1lfHVn3+o=;
+        b=njG0KvVpEsR+q3R7EfXLnliU2+hNAwyemZdDkDtBCfJ44sTT4DE88X8yzpT8VCNB2e
+         TnKyc+eAxZctgeZ7XBHmmbZYfTo80yOhQbJ4BjDhxAinoKd1rkqbMkR//FvDn+fOZPRe
+         M5t5+obE7FTvbM4zxMHlpBaKXxhfiEDc1BkkWAJaeV2pdSAJDTuzVNwHoPuJ6FpLckH5
+         3+kEqXELz7lp9hS/9vrrj3B/IO1mmIE0I7FkuusRXfL+Gw9eu4sVYPiQgzltRwyaY/T3
+         SxykZEtuvavF+tm0CyY7a5Nx2OrsYvy4vVZwLf3mkDGrRaghwCFmQV6gz4ACPAHsqBPk
+         +uQw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532vXriCSB8Ud/4gAe6Zp8j1MpEv3e7libs3oD12zCbvFDlMJVBL
-	z6Iv6jFcP9317zRBlH/nXMM=
-X-Google-Smtp-Source: ABdhPJzd2o8iDf+LJi2Za+j0XHkODWH/oZy5sXFclPmTww8K1C82bqbBvPsBwvTpfcSnnoKpzeqMpA==
-X-Received: by 2002:a19:b81:: with SMTP id 123mr5313519lfl.553.1617281808805;
-        Thu, 01 Apr 2021 05:56:48 -0700 (PDT)
+X-Gm-Message-State: AOAM531hjI9Lf7nI9dzKcQ/q1uBzu53mTa6vuNQGnfXWMzgGzQ0nn9uF
+	jxmU3a1UldvtKglOrniG3p4=
+X-Google-Smtp-Source: ABdhPJwDbtBK67Yq1c/QtNtjPb7hhW3KY7pCvMazitVJhWvRpf1e4AayAIpVHLPxpYmd4QYm8UqIrQ==
+X-Received: by 2002:ae9:f706:: with SMTP id s6mr12208820qkg.163.1617344157325;
+        Thu, 01 Apr 2021 23:15:57 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a19:e86:: with SMTP id 128ls362459lfo.0.gmail; Thu, 01 Apr
- 2021 05:56:47 -0700 (PDT)
-X-Received: by 2002:ac2:5963:: with SMTP id h3mr5473734lfp.636.1617281807899;
-        Thu, 01 Apr 2021 05:56:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1617281807; cv=none;
-        d=google.com; s=arc-20160816;
-        b=oLTG10sFyG5hcIR7T2V0TIA4eiqUYyuUEGGSxoCkRnhzS568cFFN/E2waPckq1tXpZ
-         n0Y6Ea59EQuXK0BOFZ8Rewc48qVmmBHHClkqepgtPHma3oQ1raS/B5lPiNEYf6QCFWD5
-         aRHJTpPGEo+CbgvTLqru1V/kcdljzR8a28rg0sdR9GHQ1tftz0LKe7Rn4Ui8B4ECtKYa
-         0sloENILkW61irnuLMxpjm1p+DDUh6BGopWw5d1XffgufSy9sp1KAmHSScSHOdHxFFhO
-         HoNopwo5uV9WLHWQ3C+wtDt+1+87cuMuHOaIIRlfzTX2R3sypEKG5+Gf50fTkvYWxjXH
-         3kpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=message-id:mime-version:content-transfer-encoding:subject:cc:to
-         :from:date;
-        bh=i8ZGNj02C0XUEzdo3ba3Wk8llTVgQbWm7whwIymcrV0=;
-        b=a6ck3v40us4MjveV9EASE2U7VppFHEksX39EzOJKDKHmT1AnLPA0wDU6PCHQJiLUAl
-         Qbfr2ADB4R0lErchne6ouaqXXQAJHoF7CBwD+d0YRoxgiC4LepNF7JzdQqcM4tfr7l+L
-         Kl7Sz4ha267+lQJTFSD/iu5go+XaPELV0bcLWIlNF4AQVWXjJUcJq5Kh2bq6gQC5OGzl
-         Ow6XqPeah+QI68+jKIKKa4yYOLjFjhiH6KeGZCFDSSvg9wLq8Nlyx6nqI2YQWz3NnLMu
-         nPReH5kZ539N1Dv0jFZXKShne8zqn3WRTXYs9ZhEDZlGD5zJ22zTx/n8yl/jFGh3yfUg
-         7W3w==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of caohp19@lzu.edu.cn designates 165.227.154.27 as permitted sender) smtp.mailfrom=caohp19@lzu.edu.cn
-Received: from zg8tmty1ljiyny4xntqumjca.icoremail.net (zg8tmty1ljiyny4xntqumjca.icoremail.net. [165.227.154.27])
-        by gmr-mx.google.com with SMTP id l11si291736lfg.13.2021.04.01.05.56.46
-        for <jailhouse-dev@googlegroups.com>;
-        Thu, 01 Apr 2021 05:56:46 -0700 (PDT)
-Received-SPF: pass (google.com: domain of caohp19@lzu.edu.cn designates 165.227.154.27 as permitted sender) client-ip=165.227.154.27;
-Received: by ajax-webmail-app2 (Coremail) ; Thu, 1 Apr 2021 20:56:17 +0800
- (GMT+08:00)
-X-Originating-IP: [210.26.59.142]
-Date: Thu, 1 Apr 2021 20:56:17 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?5pu55a6P6bmP?= <caohp19@lzu.edu.cn>
-To: jailhouse-dev@googlegroups.com, nikhildevshatwar@gmail.com, 
-	ralf@binary-kitchen.de
-Cc: "Jan kiszka" <jan.kiszka@siemens.com>
-Subject: HELP
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version XT5.0.12 build 20200616(0f5d8152)
- Copyright (c) 2002-2021 www.mailtech.cn lzu.edu.cn
-Content-Type: text/plain; charset="UTF-8"
+Received: by 2002:ad4:5189:: with SMTP id b9ls2172769qvp.7.gmail; Thu, 01 Apr
+ 2021 23:15:56 -0700 (PDT)
+X-Received: by 2002:ad4:5629:: with SMTP id cb9mr11601696qvb.62.1617344156644;
+        Thu, 01 Apr 2021 23:15:56 -0700 (PDT)
+Date: Thu, 1 Apr 2021 23:15:56 -0700 (PDT)
+From: Smith li <v6543210@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <b1ae52ed-bea8-4be2-9fd4-766506db6133n@googlegroups.com>
+In-Reply-To: <321eddc.40ef8.1788d817ec9.Coremail.caohp19@lzu.edu.cn>
+References: <321eddc.40ef8.1788d817ec9.Coremail.caohp19@lzu.edu.cn>
+Subject: Re: HELP
 MIME-Version: 1.0
-Message-ID: <321eddc.40ef8.1788d817ec9.Coremail.caohp19@lzu.edu.cn>
-X-Coremail-Locale: en_US
-X-CM-TRANSID: zQmowACnlYjywmVg_jA4AQ--.22220W
-X-CM-SenderInfo: hfdrx1arz6z6vxohv3gofq/1tbiAQ0SBl2vOvI5FgAEsJ
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
-X-Original-Sender: caohp19@lzu.edu.cn
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of caohp19@lzu.edu.cn designates 165.227.154.27 as
- permitted sender) smtp.mailfrom=caohp19@lzu.edu.cn
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_8430_1435532207.1617344156159"
+X-Original-Sender: v6543210@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -127,93 +77,194 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Dear sir,
+------=_Part_8430_1435532207.1617344156159
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_8431_1285237943.1617344156159"
 
-I wanted to know how to write my own config files about non-root cell. By the way, I tried to alter the 
-rpi4-linux-demo.c and compiled it. Of course, it was successful in that way. 
+------=_Part_8431_1285237943.1617344156159
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-1. But I don't understand why there are several memory regions definitions.
-2. How to know the memory addresses.
-3. How many memory regions should be defined. 
+I have asked a  question about document.=20
+https://groups.google.com/g/jailhouse-dev/c/cP_CdvN2uw0
 
-Whether should I reference the Raspberry Pi 4 model B's manual to resolve three questions.
-Here is the part of rpi4-linux-demo.c about memory definitions.(I didn't why there are 5 memory regions, 2 RAM definitions).
- 
-.mem_regions = {
- /* IVSHMEM shared memory regions (demo) */
- {
- .phys_start = 0x3faf0000,
- .virt_start = 0x3faf0000,
- .size = 0x1000,
- .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
- },
- {
- .phys_start = 0x3faf1000,
- .virt_start = 0x3faf1000,
- .size = 0x9000,
- .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
- JAILHOUSE_MEM_ROOTSHARED,
- },
- {
- .phys_start = 0x3fafa000,
- .virt_start = 0x3fafa000,
- .size = 0x2000,
- .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
- },
- {
- .phys_start = 0x3fafc000,
- .virt_start = 0x3fafc000,
- .size = 0x2000,
- .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
- },
- {
- .phys_start = 0x3fafe000,
- .virt_start = 0x3fafe000,
- .size = 0x2000,
- .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
- JAILHOUSE_MEM_ROOTSHARED,
- },
- /* IVSHMEM shared memory region */
- JAILHOUSE_SHMEM_NET_REGIONS(0x3fb00000, 1),
- /* UART */ {
- .phys_start = 0xfe215040,
- .virt_start = 0xfe215040,
- .size = 0x40,
- .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
- JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_8 |
- JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_ROOTSHARED,
- },
- /* RAM */ {
- .phys_start = 0x3f900000,
- .virt_start = 0,
- .size = 0x10000,
- .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
- JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
- },
- /* RAM */ {
- .phys_start = 0x30000000,
- .virt_start = 0x30000000,
- .size = 0x8000000,
- .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
- JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
- JAILHOUSE_MEM_LOADABLE,
- },
- /* communication region */ {
- .virt_start = 0x80000000,
- .size = 0x00001000,
- .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
- JAILHOUSE_MEM_COMM_REGION,
- },
- }
+The .pdf is the best doc.
+Jailhouse is a "jailhouse" for everyone who want to know more about it.
+=E5=9C=A82021=E5=B9=B44=E6=9C=881=E6=97=A5=E6=98=9F=E6=9C=9F=E5=9B=9B UTC+8=
+ =E4=B8=8B=E5=8D=888:56:48<=E6=9B=B9=E5=AE=8F=E9=B9=8F> =E5=86=99=E9=81=93=
+=EF=BC=9A
 
-By the way, what information should I obtained so that I can  write my own cell config.
-If I can get your generous help, I will appreciate.
-Thank you again !
+> Dear sir,
+>
+> I wanted to know how to write my own config files about non-root cell. By=
+=20
+> the way, I tried to alter the=20
+> rpi4-linux-demo.c and compiled it. Of course, it was successful in that=
+=20
+> way.=20
+>
+> 1. But I don't understand why there are several memory regions definition=
+s.
+> 2. How to know the memory addresses.
+> 3. How many memory regions should be defined.=20
+>
+> Whether should I reference the Raspberry Pi 4 model B's manual to resolve=
+=20
+> three questions.
+> Here is the part of rpi4-linux-demo.c about memory definitions.(I didn't=
+=20
+> why there are 5 memory regions, 2 RAM definitions).
+>
+> .mem_regions =3D {
+> /* IVSHMEM shared memory regions (demo) */
+> {
+> .phys_start =3D 0x3faf0000,
+> .virt_start =3D 0x3faf0000,
+> .size =3D 0x1000,
+> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+> },
+> {
+> .phys_start =3D 0x3faf1000,
+> .virt_start =3D 0x3faf1000,
+> .size =3D 0x9000,
+> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> JAILHOUSE_MEM_ROOTSHARED,
+> },
+> {
+> .phys_start =3D 0x3fafa000,
+> .virt_start =3D 0x3fafa000,
+> .size =3D 0x2000,
+> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+> },
+> {
+> .phys_start =3D 0x3fafc000,
+> .virt_start =3D 0x3fafc000,
+> .size =3D 0x2000,
+> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+> },
+> {
+> .phys_start =3D 0x3fafe000,
+> .virt_start =3D 0x3fafe000,
+> .size =3D 0x2000,
+> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> JAILHOUSE_MEM_ROOTSHARED,
+> },
+> /* IVSHMEM shared memory region */
+> JAILHOUSE_SHMEM_NET_REGIONS(0x3fb00000, 1),
+> /* UART */ {
+> .phys_start =3D 0xfe215040,
+> .virt_start =3D 0xfe215040,
+> .size =3D 0x40,
+> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_8 |
+> JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_ROOTSHARED,
+> },
+> /* RAM */ {
+> .phys_start =3D 0x3f900000,
+> .virt_start =3D 0,
+> .size =3D 0x10000,
+> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+> },
+> /* RAM */ {
+> .phys_start =3D 0x30000000,
+> .virt_start =3D 0x30000000,
+> .size =3D 0x8000000,
+> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+> JAILHOUSE_MEM_LOADABLE,
+> },
+> /* communication region */ {
+> .virt_start =3D 0x80000000,
+> .size =3D 0x00001000,
+> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> JAILHOUSE_MEM_COMM_REGION,
+> },
+> }
+>
+> By the way, what information should I obtained so that I can write my own=
+=20
+> cell config.
+> If I can get your generous help, I will appreciate.
+> Thank you again !
+>
+> Yours sincerely,
+> Hongpeng Cao.
+>
 
-Yours sincerely,
-Hongpeng Cao.
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/b1ae52ed-bea8-4be2-9fd4-766506db6133n%40googlegroups.com.
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/321eddc.40ef8.1788d817ec9.Coremail.caohp19%40lzu.edu.cn.
+------=_Part_8431_1285237943.1617344156159
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div>I have asked a&nbsp; question about document.&nbsp;</div>https://group=
+s.google.com/g/jailhouse-dev/c/cP_CdvN2uw0<br><br><div>The .pdf is the best=
+ doc.</div><div>Jailhouse is a "jailhouse" for everyone who want to know mo=
+re about it.<br></div><div class=3D"gmail_quote"><div dir=3D"auto" class=3D=
+"gmail_attr">=E5=9C=A82021=E5=B9=B44=E6=9C=881=E6=97=A5=E6=98=9F=E6=9C=9F=
+=E5=9B=9B UTC+8 =E4=B8=8B=E5=8D=888:56:48&lt;=E6=9B=B9=E5=AE=8F=E9=B9=8F> =
+=E5=86=99=E9=81=93=EF=BC=9A<br/></div><blockquote class=3D"gmail_quote" sty=
+le=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); paddi=
+ng-left: 1ex;">Dear sir,<p>I wanted to know how to write my own config file=
+s about non-root cell. By the way, I tried to alter the <br>rpi4-linux-demo=
+.c and compiled it. Of course, it was successful in that way. <p>1. But I d=
+on&#39;t understand why there are several memory regions definitions.<br>2.=
+ How to know the memory addresses.<br>3. How many memory regions should be =
+defined. <p>Whether should I reference the Raspberry Pi 4 model B&#39;s man=
+ual to resolve three questions.<br>Here is the part of rpi4-linux-demo.c ab=
+out memory definitions.(I didn&#39;t why there are 5 memory regions, 2 RAM =
+definitions).<br> <br>.mem_regions =3D {<br> /* IVSHMEM shared memory regio=
+ns (demo) */<br> {<br> .phys_start =3D 0x3faf0000,<br> .virt_start =3D 0x3f=
+af0000,<br> .size =3D 0x1000,<br> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE=
+_MEM_ROOTSHARED,<br> },<br> {<br> .phys_start =3D 0x3faf1000,<br> .virt_sta=
+rt =3D 0x3faf1000,<br> .size =3D 0x9000,<br> .flags =3D JAILHOUSE_MEM_READ =
+| JAILHOUSE_MEM_WRITE |<br> JAILHOUSE_MEM_ROOTSHARED,<br> },<br> {<br> .phy=
+s_start =3D 0x3fafa000,<br> .virt_start =3D 0x3fafa000,<br> .size =3D 0x200=
+0,<br> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,<br> },<br>=
+ {<br> .phys_start =3D 0x3fafc000,<br> .virt_start =3D 0x3fafc000,<br> .siz=
+e =3D 0x2000,<br> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,=
+<br> },<br> {<br> .phys_start =3D 0x3fafe000,<br> .virt_start =3D 0x3fafe00=
+0,<br> .size =3D 0x2000,<br> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_=
+WRITE |<br> JAILHOUSE_MEM_ROOTSHARED,<br> },<br> /* IVSHMEM shared memory r=
+egion */<br> JAILHOUSE_SHMEM_NET_REGIONS(0x3fb00000, 1),<br> /* UART */ {<b=
+r> .phys_start =3D 0xfe215040,<br> .virt_start =3D 0xfe215040,<br> .size =
+=3D 0x40,<br> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |<br> JAI=
+LHOUSE_MEM_IO | JAILHOUSE_MEM_IO_8 |<br> JAILHOUSE_MEM_IO_32 | JAILHOUSE_ME=
+M_ROOTSHARED,<br> },<br> /* RAM */ {<br> .phys_start =3D 0x3f900000,<br> .v=
+irt_start =3D 0,<br> .size =3D 0x10000,<br> .flags =3D JAILHOUSE_MEM_READ |=
+ JAILHOUSE_MEM_WRITE |<br> JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,<=
+br> },<br> /* RAM */ {<br> .phys_start =3D 0x30000000,<br> .virt_start =3D =
+0x30000000,<br> .size =3D 0x8000000,<br> .flags =3D JAILHOUSE_MEM_READ | JA=
+ILHOUSE_MEM_WRITE |<br> JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |<br> JAI=
+LHOUSE_MEM_LOADABLE,<br> },<br> /* communication region */ {<br> .virt_star=
+t =3D 0x80000000,<br> .size =3D 0x00001000,<br> .flags =3D JAILHOUSE_MEM_RE=
+AD | JAILHOUSE_MEM_WRITE |<br> JAILHOUSE_MEM_COMM_REGION,<br> },<br> }<p>By=
+ the way, what information should I obtained so that I can  write my own ce=
+ll config.<br>If I can get your generous help, I will appreciate.<br>Thank =
+you again !<p>Yours sincerely,<br>Hongpeng Cao.</p></p></p></p></p></blockq=
+uote></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/b1ae52ed-bea8-4be2-9fd4-766506db6133n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/b1ae52ed-bea8-4be2-9fd4-766506db6133n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_8431_1285237943.1617344156159--
+
+------=_Part_8430_1435532207.1617344156159--
