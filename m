@@ -1,150 +1,137 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBB2VKTSBQMGQEIR3PIKY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBAF2WGBQMGQEZD4RNRQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43f.google.com (mail-wr1-x43f.google.com [IPv6:2a00:1450:4864:20::43f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86CD4352AE5
-	for <lists+jailhouse-dev@lfdr.de>; Fri,  2 Apr 2021 15:00:27 +0200 (CEST)
-Received: by mail-wr1-x43f.google.com with SMTP id f3sf4315684wrt.14
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 02 Apr 2021 06:00:27 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1617368427; cv=pass;
+Received: from mail-lj1-x23d.google.com (mail-lj1-x23d.google.com [IPv6:2a00:1450:4864:20::23d])
+	by mail.lfdr.de (Postfix) with ESMTPS id EF57935548E
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  6 Apr 2021 15:07:14 +0200 (CEST)
+Received: by mail-lj1-x23d.google.com with SMTP id f24sf4423059ljm.15
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 06 Apr 2021 06:07:14 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1617714434; cv=pass;
         d=google.com; s=arc-20160816;
-        b=y0AAoVLRvJ9Hbo7H2a5B9YO64BTdVg5h0aZlC80xa0LtsBCGdvrZ5Xl8ZdxoPfsK1g
-         +90TXfj+87iFxG3AuJ81e3hSE5p+nPZbkJdO12s+xnTT/85Iv68b4H98BFyaue1iIgZw
-         COxoxvK8hgOAks0/DPIv8f2g1rQGw2uyPz1gqB3Mx66YfNuJq/TIcybQXF2HyUsRxzHa
-         KCtZLVbMGCTRhSAvEV0LniaF0G/KCpLqmzOEACy1AFZfylT/TkSn7wU+r8d9N7NxrfPb
-         mux2ShLs0wyB3Knr3j7u4yhsD1taQYIvaMdII6BEyGIlDjVIDQmmVeufN3THMOp2Stj5
-         8XCg==
+        b=vmO+d+LDGfh9xe9pXsRHEdjw1hr9plIkDfdiX2iLW0D72LMKJjaiblfb68oDrXgsAw
+         WRYvOCKQHUJ7UPDFHh3wdCpbIZFRuiWjC8AJ4f3b9RD5n5sKTUJlFYz7f1l7IBiyz60k
+         uxhldzAVDI3mtzik/gJi1C9Oh9DcKD80+wlMlQsTS1RQLfMfNeYPSbTczkZbwttR7SXt
+         fMgNNCUFMg5zsdJl5zyp3GPvH+62MQOPojyGIo/fA0t4Zs4gWioVK085WnfD28jYjzu1
+         uJ/mHAibqaAnmnY2EyTbYwEUhfuN/RK6Go9ue4pCBWu6/DW8RRKzbSVNEchYN8PX3HC6
+         unnA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
          :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=ApF0GuxdBSB72IE3FPcnd49Rxi2eSXQ1wJXs5AXo8O4=;
-        b=A7vhJJfvz4BRvGhynkjnZeiJPG+TC2cXbA3BLQ9aGZnfvDtu/9CR1tMR7gcAS+Y3Xh
-         Xti3jzemcrqqvfS4eyTV/0DSpjrNQoGF9y1JmoliB1Tcuw3gTCXuARh/nozAytPo8xsu
-         ABZAS+GfycywdkTZWMjyI60noqTkQrvZNbxisp11uJ6w8O/7L5EFerCP5i4uLlrFFfXG
-         Y+tRn5Q1P7VLZQ5Xggr3lh95nSmSKX1vGT8JRcAoMTE+iVsGuLrtKlP68Z7VGacpo/Qi
-         WSobvLTTnu3PggS1x+aVQVPGyBAKw5HKFqOyI3hHPR62cbJT94LgAjrmM5FRM9nqtPQj
-         dn0g==
+         :message-id:from:references:cc:to:subject:sender:dkim-signature;
+        bh=kIQWHXp3ABrPQXppndXXEur32DzmfKzBuHk5mnac7kA=;
+        b=Kxtt0bXBFFiCP7ItpOPTwkYWLxbXliUO7NZsF1ki4hqUtRiLOaW5kMHXnEL0wJs6K8
+         ZS5xWRCsLCRUJWRe5MapbYTCfYVwTlR3uT2rNHcvttJpMvMyq7Ix4JPZNfU8rYdQys9u
+         q0AyiEut6fggGFrTMwcmzRgk5B5exOKbjex2Fx6DOCDxY61cWOSpeQiT+SEQcrKRZM3t
+         ulx240mR4uChzx2LEmGmsFS0GrjvFrcXfhebJgQR6Uvd2ZBVDFaWTqBa122FZxgMX1SX
+         +6rf6FjsDDGc3XrjAkY76AIY0iPDk2NObnpYjhXyU0zIQTHGK7EXDdb43Ec1tNpzl2sS
+         ynHQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=TMYlawre;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as permitted sender) smtp.mailfrom=jan.kiszka@web.de;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=web.de
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=Ls04L8Ns;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
+        h=sender:subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=ApF0GuxdBSB72IE3FPcnd49Rxi2eSXQ1wJXs5AXo8O4=;
-        b=k6WvIFNeiJzNaAqzwur/46Q4pRUm7Y/+XmRF5ckoQbRRElY2rnJ2eGUPjfvzalNHw8
-         HA4O95kLdDHsqla3B211Dinw72bLEYAqzTQoYFKzTFUzQJKKCOQJgb2q7MfC3ixZHJMn
-         /7Lt0pvSqZTt9AofBdIop/HmL7zV/xUZHrV4NuwnNu25jnhY/+CxKeCpjKzJg41HYDxi
-         F0TO3kAwqeKQFhlr1w4PjJUHyzf84cd84dyWfwgMVbeQx4SVRCozIIKQN1Zis3not3CI
-         6oDvb96s8/52WnuakC5y0bpfipdpAjUEk7rG8nl8/lBy6ztMl0j0VjMF+QMVxYieMXmT
-         UepA==
+        bh=kIQWHXp3ABrPQXppndXXEur32DzmfKzBuHk5mnac7kA=;
+        b=A+4+HNzbVMTgS3JHRZEQIdtnX++cNk3x/2Nrzv78oAyNIEP+m8oeuoJIBUpPf52Sis
+         Mokm9qY9B9tDXDZSaHmpY1+dWOTqymr3ilHaSNZM43sPyEANMNPcKPT4dsvj8zVh1r26
+         xNxGJ0tq0j4crer8l3rTudrQlJ1bea1SN6wF7HEbJ/Wfw1BB6a+uPuXLvjvWgRzOry/d
+         q9FArtSVMg6w0glwXqHVxebokA0UVTnvFhb2MhzgHN6UsTp/TpocB3gsaWa0NVav824c
+         PUJRT9rGq74E5q2WddODMyXFp1deNbZxkcjZIL6/FhN7/feIFUb2QI5lVvcm9XXNaDu9
+         7nyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
+        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
          :date:user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=ApF0GuxdBSB72IE3FPcnd49Rxi2eSXQ1wJXs5AXo8O4=;
-        b=TbwbcRjd7RUrRVr15b0ghrgHtabA333g3BKKfCxjO5aMdjwvrwNC9jEzGYjENNuxXX
-         9zfU+OeUmmB5u2eNcckWEu2FMELLbEiR8a6NqJzxLMPls4pCKU8RWEaFrWFJ6/0nETTG
-         xGor4h3EFpGqsnVVGcRl/ynC5/4IgIiCAntkIMMm9iJv8PuFwhtanr9pJWpSO/Z6i0hG
-         X7z6kE7IVdCUrn9n3G6z8sW8sWWugJhye6nVxUlXD0ykE0078KwQFzrZ3phfKO0RvNLH
-         csp+Rl+GSfu7duhx3jZwVM65WGiaCXyPRyQIqxNn/LPjn4QL8a4nhSaVI8YoS+vGIF0o
-         46Jg==
+        bh=kIQWHXp3ABrPQXppndXXEur32DzmfKzBuHk5mnac7kA=;
+        b=gf65sHHzo4/x28ijrDfFV3KcVKe3hj7afDtNagoL+ACT198rGO/+dyBiJzZ1VPhZf4
+         K9I95IzXy8asFFLgDCZaFkfClf2+ZqHrchyOAjjxMlZeMZhu7d7Sn33U4OYkeSwlLTDU
+         MQLWS2WNnDh/a+vsp7gG4fcgRdI/3b0Dffqzj2J/y3UuC7pBs7UQ8I9ncW/JVfJajCTt
+         5Zm2EvLkN3T0jH/SvaGUmef4B9Lb7sa+jQvJXpKXdO7TflHB6BT8iiaoLyyHJWd6vDCX
+         pjKX51korxuhdT6x9RjCptkU3HZtAY2s3faIcPSpABiFVFni4hiZijfPknpC4uP9K1Fz
+         JuUA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530FKFvrmQlpTCNmYluueb7+XpchO8M3hCXmKd4fmhLJG2rAt+wh
-	Rl47Rn+IEVvvlLp9ZnxNrSo=
-X-Google-Smtp-Source: ABdhPJwkeKwUraROJDe0HCDY7suVkJIUXN3XnqJKEJ6TBHhZXsjNBLhDGPWmj6euL3Z/oP5ZHhWQvw==
-X-Received: by 2002:a5d:54c8:: with SMTP id x8mr2172128wrv.353.1617368427329;
-        Fri, 02 Apr 2021 06:00:27 -0700 (PDT)
+X-Gm-Message-State: AOAM533M2feiSFqL/w0ovcIJMzMJLs/nNjhIJ24pSr9Vten65MYyRc0M
+	HkXZeVsnDEdEoAzavpjCF+w=
+X-Google-Smtp-Source: ABdhPJz1gCAIVrCGOhxr08wa6aKQNyLGkRg1ThSunW8qk9mr3CgxZqLapvSTgitSDj0AG1gl5gGSKg==
+X-Received: by 2002:a2e:b043:: with SMTP id d3mr19567197ljl.280.1617714432924;
+        Tue, 06 Apr 2021 06:07:12 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5d:58f0:: with SMTP id f16ls4871692wrd.0.gmail; Fri, 02 Apr
- 2021 06:00:26 -0700 (PDT)
-X-Received: by 2002:adf:ea8b:: with SMTP id s11mr15733781wrm.413.1617368426306;
-        Fri, 02 Apr 2021 06:00:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1617368426; cv=none;
+Received: by 2002:a2e:8915:: with SMTP id d21ls3580454lji.1.gmail; Tue, 06 Apr
+ 2021 06:07:11 -0700 (PDT)
+X-Received: by 2002:a2e:8950:: with SMTP id b16mr19232829ljk.345.1617714431031;
+        Tue, 06 Apr 2021 06:07:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1617714431; cv=none;
         d=google.com; s=arc-20160816;
-        b=bmu9O/VqTdk6yNU/63DUmNf99i3WNxX8FfHiDS5uh84qL3Ab7yo3sf2GSUimeyaDbj
-         SKJ+HKRVtO12wq/cQPGkzq7doG08FlnFTJ9StCWnLt17fbUHez3AZaWNyOBqyZ58djOV
-         zC8vsXyhHdtwJ4pkBxjthKRE/mh7a6tONqOEx2Bkdi7UrmP3L/IsktgsR0eQ4+Akjvz5
-         gGDL9oEdK8XbieEnqzDhJrCMQVa4eBIVQ4AHuDIK4xoY4kKaN56Thhu40ZcYibTk1c7F
-         1OE4z8z1a4c33vKkwvbbzHzU1vuDXgEkog7Z7eNUB/ryHEKi3Llak5MeHdzlyQ7TtRNY
-         l7RQ==
+        b=TVdqh2GioZhTnZYBd5XMXWzpUTl364Kt3jfVI8Z/+4WXMgts/0RJ/MEMBmYOUwFdpy
+         4w8/6KHqiwbqdMAqYIkynFoqIkkXP640/kjEh/2Tm3gnjYHGowiq9rPnvrVx0qi4HPTI
+         g7jC3Zwu1jCufMdLrbrw0xjnfJ2sLSAyDufxrXmzjUrVjaaN9r/EO7yu0CqIjadLzO1Y
+         UAEg/lDG/3EhFq/yIvvI7cJvSXeBidvNyoq4lbW6yGY92LdfjjcBsIZYzKvPbXAwX9hY
+         crt0ede2TS2H1OjQzCGGs4EDOLLARpyH5WU/+zM0HhPyzSmfztzSSPrJb3YtFiHf9zjI
+         fXBg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject
+         :user-agent:date:message-id:from:references:cc:to:subject
          :dkim-signature;
-        bh=E821m4Sig4BUJ5CD8F4GuYWsSGP/GF8DyslnXFGSnHQ=;
-        b=SUgFTJTIZsFZD8BobPwtJI+PI4fIPKzXNRHyUUlNP9tSb5i4E2B/xP1qgN5fXF0QGv
-         WHgITcQlIUbbgL2yGV6ZsCd4yR9Zp6uuWw6pqNcO1G1V3CqaJR+EC/GR2sb5OR0zaVlQ
-         zwsG9CXOCWrqSIN6gViado4oyPJKkwiaGwxACETONlGzOTNhp4He/zVwRTSvpuCfEUyR
-         iH9ffbi3SUiqVP+SbRXaWswIwAgjCOz1Y0uVuXi2HXS+eMuAFtJnA2IhpN1SvkHWtMAl
-         w8XDUlIlh2kRXwix/YwYHE5kpNTaXgpcqmnG2mn1UM45x8aZvIdtDF2ffrd/GuW00aCU
-         kOAA==
+        bh=YdH+HupCBMvKqhDU4qD/4SRoOQ1DSaVZ3USNtUDVvyg=;
+        b=XzHD2O0cQklaIdOH8PgM0ZoBJ1yV+JA+kx8QFRBB+LlJ++kJQ9K5pY0QukIgOTlbvh
+         NaTd2lrABafoXNBppe/Ohb8aQ2WosM4cpVG2d1w+BDs/3vNA4gEOKF3HIAD1vN4L4e35
+         psku5+GP/uOB5J6d0mnolAgqWqgZ4MosdNwr7G/s64opK5uurbDJMPdlUkza9p9bTsxN
+         L63ACyg7tylJwGHlDdYQ0CoQ6XNxS8J78sFQV5egC7foAR7hlaL1sHc7ctFtowhGNcPc
+         q5d8CqeFNuhP/RpCprrxMQwm+BUIn5316wziHLIOn1659t5e9L2v2GNi5os8jkSvFgrA
+         u3+Q==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=TMYlawre;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as permitted sender) smtp.mailfrom=jan.kiszka@web.de;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=web.de
-Received: from mout.web.de (mout.web.de. [212.227.15.14])
-        by gmr-mx.google.com with ESMTPS id z202si863701wmc.0.2021.04.02.06.00.26
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=Ls04L8Ns;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [194.95.104.11])
+        by gmr-mx.google.com with ESMTPS id v26si1712121lfo.2.2021.04.06.06.07.09
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Apr 2021 06:00:26 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as permitted sender) client-ip=212.227.15.14;
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.178.20] ([84.61.93.130]) by smtp.web.de (mrweb003
- [213.165.67.108]) with ESMTPSA (Nemesis) id 0Lo0YS-1m8Es42rea-00g3NT; Fri, 02
- Apr 2021 15:00:25 +0200
-Subject: Re: how to partation GPIO into non-root cell in Raspberry Pi 4B ?
-To: Smith li <v6543210@gmail.com>, Jailhouse <jailhouse-dev@googlegroups.com>
-References: <ef3ebe2e-a55e-4166-8d6c-0fbad03f0b54n@googlegroups.com>
-From: Jan Kiszka <jan.kiszka@web.de>
-Message-ID: <cc6b6824-8c48-6461-2804-350d70701e67@web.de>
-Date: Fri, 2 Apr 2021 15:00:24 +0200
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 06 Apr 2021 06:07:09 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) client-ip=194.95.104.11;
+Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S03", Issuer "E16S03" (not verified))
+	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 4FF78r74V5zxwH;
+	Tue,  6 Apr 2021 15:07:08 +0200 (CEST)
+Received: from [172.16.2.102] (194.95.106.138) by E16S03.hs-regensburg.de
+ (2001:638:a01:8013::93) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Tue, 6 Apr 2021
+ 15:07:08 +0200
+Subject: Re: HELP
+To: =?UTF-8?B?5pu55a6P6bmP?= <caohp19@lzu.edu.cn>,
+	<jailhouse-dev@googlegroups.com>, <nikhildevshatwar@gmail.com>
+CC: Jan kiszka <jan.kiszka@siemens.com>
+References: <321eddc.40ef8.1788d817ec9.Coremail.caohp19@lzu.edu.cn>
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Message-ID: <c8d5c803-7d1d-b0fa-d11a-4ad3826e7f4a@oth-regensburg.de>
+Date: Tue, 6 Apr 2021 15:07:08 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+ Thunderbird/78.9.0
 MIME-Version: 1.0
-In-Reply-To: <ef3ebe2e-a55e-4166-8d6c-0fbad03f0b54n@googlegroups.com>
+In-Reply-To: <321eddc.40ef8.1788d817ec9.Coremail.caohp19@lzu.edu.cn>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:/vMzDRkS04Wgmm9yBy0a/gughXf7jSzN7fWqaEoYK+cY+bHYoVV
- KKxxC38TUo3Y6os+jzCZ2iM2mTtC2Heytn2kv2XNm1PklxmnpNV7TX0297uHQvz9bDdpomD
- +ZMZXXHBZLly3Y0mCNUg4Fy7Sjtn0PULq6boLS9Q2vEvn1zs4uoZ4LVuae5IPyggI6AANcQ
- Yw4llx0Pq3no2vZ5QAx4w==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:ww1tgYa/GTI=:XuMdPZKLRKB6XDWGKt9aEn
- baKebeLIKt05tR4qLYv+8oq7uogX4k1/DuWY1dLY+kUUuCM6DGkbJE5lZ5ujvuldOEGQ+tEA7
- 1g/rNjyhSi+PBbB78TdZ6AnlaBbNh1/prLm/lP0IPGkPxCu13AMCjgaQnk/V0kbZjszEdLRyZ
- CZtGibr6kYryxE6zTvQ4eVzC5de8vbFQovwF5H1pkk3wkQV+g0M+FsmZpsTfmznG7uN2FEJJ6
- trcEJFz/ugjoPG5dENxnYh55wj1EbGDeDqKGzcAzDi1GIujBsbZVDsSnCBqketDzwvmi8yINu
- r6dvCzro4rXshF6T/W7ob5baQqSXbz7Yu+c81tav/0kTGKf7bED4o0qGcvzeTSF6tKhqBx0Ie
- GVUOPkyV7X3NZXaG0kaJwiqq8W7W02ykBUzikxFRUrUg+Yv6T4VkgzabYyaRnRQ5+q+71w7WK
- aZ9B3TcjRSAVtVbnkcraytUUpy4U5i7FOO69ZYORrrPK3WjyzFA8OVDAm6t+iK32yK/vzDz1F
- +vnMG6mbTQKltpEHdxcLOPxMVRhl5Wflx2Nk4n0mN7sGZH5SQIEhszZtvmOXdKe5Un9QsHp0J
- scXnxP+qsGUSzzsJh4l+L3j9hNlntOkPpqDQ7mREy3PfLUWrJVLJe2k8cSDPA1qZSveToVYoE
- ddsdXUiBTom4iU8hWSYwrVzqixYUtCNSr2I3xtpLX99Pweif8IGugWOv3m0wHD7ERQjoC9pYr
- PHrhAkKwca25qAxEXpvbRO5X6QHXBD0V+YqFU9NuIBD1zq1jzTrfNtrwPakfFQTyQ5eX8Bv60
- aF71ItFpedMYDGDDzj+Mreayk63GhwnV0+FlR17m7XNbwB09cNLQ44bgE01jZIg7P3gb7TPjg
- uLocQrsDg1JSu4CWlFQq21KbqcC4FajNe7RC5YcHz3oxHbJhznf7tfVliuleSeh0QoKTyU5fu
- mmr+QY49A1+VD9P9oUMn8x/ELwQbwJPfDHTFSFh2XRgdLE8qq0DM5RmiMze3nt5F+lvfO1MRw
- DshJGNDOlL6sRr91ZItBbHuK0CMyH+AgCEHHsYto/LJykkqpnGviXCMubf0hxyz0CChdA+60W
- QqQgKy9lBCvKypWw7o7akDEw8Ru7ko97wjoolhfo25aJ0EsojwgXxa1SVtDWfG+h7IX94pHPP
- v/P3J5yi0qmIj6C3VLM/EgjrvG3QDhBJ4AqaA2uHnXWKD4CX/FWxqMVPurRxo+34ADxLI=
-X-Original-Sender: jan.kiszka@web.de
+X-Originating-IP: [194.95.106.138]
+X-ClientProxiedBy: E16S02.hs-regensburg.de (2001:638:a01:8013::92) To
+ E16S03.hs-regensburg.de (2001:638:a01:8013::93)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b=TMYlawre;       spf=pass
- (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as
- permitted sender) smtp.mailfrom=jan.kiszka@web.de;       dmarc=pass (p=NONE
- sp=QUARANTINE dis=NONE) header.from=web.de
+ header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=Ls04L8Ns;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -157,28 +144,119 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 29.03.21 12:33, Smith li wrote:
-> jailhouse-images=C2=A0 is=C2=A0 a good demo.
-> It can run very good in=C2=A0 rpi4.
-> But how to=C2=A0 use GPIO=C2=A0 in non-root cell .
-> Can some one=C2=A0 help me ?=C2=A0 Thanks very much!
+Hi Hongpeng,
 
-I didn't look into the details of the rpi4 yet but the general approach
-is first of all to organize the GPIO usage in a way that you can at
-least isolate register accesses per cell. That means, you should assign
-all GPIO pins managed by one separately accessible register to one
-inmate only. A register (can be 32-bit wide, can be smaller - depends on
-the hardware) can then be exclusively assigned to one cell via sub-page
-memory regions.
+On 01/04/2021 14:56, =E6=9B=B9=E5=AE=8F=E9=B9=8F wrote:
+> Dear sir,
+>=20
+> I wanted to know how to write my own config files about non-root cell. By=
+ the way, I tried to alter the=20
+> rpi4-linux-demo.c and compiled it. Of course, it was successful in that w=
+ay.=20
+>=20
+> 1. But I don't understand why there are several memory regions definition=
+s.
 
-You can find an example of such a split-up in the
-configs/arm/orangepi0*.c file. The configuration relies on the root cell
-not using the GPIO port assigned to a non-root cell anymore and the
-non-root cell knowing the address of that assigned port already. If you
-also need to reflect the change in device trees, things may become more
-tricky, depending on the DT binding of the given GPIO hardware.
+Different memory regions address different aspects of the system (e.g.,
+RAM, peripherals, platform devices, =E2=80=A6).
 
-Jan
+> 2. How to know the memory addresses.
+
+You could start by looking into your device-tree or /proc/iomem.
+
+> 3. How many memory regions should be defined.=20
+
+Depends on the topology of your system and on what you are trying to
+achieve. And it's not just all about memory regions: Keep in mind that
+you also need to consider PCI devices or interrupts.
+
+You could start by having a look into Jan's tutorial:
+  https://www.youtube.com/watch?v=3D7fiJbwmhnRw
+
+Hope that helps,
+  Ralf
+
+>=20
+> Whether should I reference the Raspberry Pi 4 model B's manual to resolve=
+ three questions.
+> Here is the part of rpi4-linux-demo.c about memory definitions.(I didn't =
+why there are 5 memory regions, 2 RAM definitions).
+> =20
+> .mem_regions =3D {
+>  /* IVSHMEM shared memory regions (demo) */
+>  {
+>  .phys_start =3D 0x3faf0000,
+>  .virt_start =3D 0x3faf0000,
+>  .size =3D 0x1000,
+>  .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+>  },
+>  {
+>  .phys_start =3D 0x3faf1000,
+>  .virt_start =3D 0x3faf1000,
+>  .size =3D 0x9000,
+>  .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+>  JAILHOUSE_MEM_ROOTSHARED,
+>  },
+>  {
+>  .phys_start =3D 0x3fafa000,
+>  .virt_start =3D 0x3fafa000,
+>  .size =3D 0x2000,
+>  .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+>  },
+>  {
+>  .phys_start =3D 0x3fafc000,
+>  .virt_start =3D 0x3fafc000,
+>  .size =3D 0x2000,
+>  .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+>  },
+>  {
+>  .phys_start =3D 0x3fafe000,
+>  .virt_start =3D 0x3fafe000,
+>  .size =3D 0x2000,
+>  .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+>  JAILHOUSE_MEM_ROOTSHARED,
+>  },
+>  /* IVSHMEM shared memory region */
+>  JAILHOUSE_SHMEM_NET_REGIONS(0x3fb00000, 1),
+>  /* UART */ {
+>  .phys_start =3D 0xfe215040,
+>  .virt_start =3D 0xfe215040,
+>  .size =3D 0x40,
+>  .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+>  JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_8 |
+>  JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_ROOTSHARED,
+>  },
+>  /* RAM */ {
+>  .phys_start =3D 0x3f900000,
+>  .virt_start =3D 0,
+>  .size =3D 0x10000,
+>  .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+>  JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+>  },
+>  /* RAM */ {
+>  .phys_start =3D 0x30000000,
+>  .virt_start =3D 0x30000000,
+>  .size =3D 0x8000000,
+>  .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+>  JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+>  JAILHOUSE_MEM_LOADABLE,
+>  },
+>  /* communication region */ {
+>  .virt_start =3D 0x80000000,
+>  .size =3D 0x00001000,
+>  .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+>  JAILHOUSE_MEM_COMM_REGION,
+>  },
+>  }
+>=20
+> By the way, what information should I obtained so that I can  write my ow=
+n cell config.
+> If I can get your generous help, I will appreciate.
+> Thank you again !
+>=20
+> Yours sincerely,
+> Hongpeng Cao.
+>=20
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -186,4 +264,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/cc6b6824-8c48-6461-2804-350d70701e67%40web.de.
+jailhouse-dev/c8d5c803-7d1d-b0fa-d11a-4ad3826e7f4a%40oth-regensburg.de.
