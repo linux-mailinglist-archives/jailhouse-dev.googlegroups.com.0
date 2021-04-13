@@ -1,139 +1,136 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBDEB22BQMGQEY5S2EOQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCF23YV2QAERB66P22BQMGQEOVBL47Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33b.google.com (mail-wm1-x33b.google.com [IPv6:2a00:1450:4864:20::33b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BBF535DDB6
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 13 Apr 2021 13:29:17 +0200 (CEST)
-Received: by mail-wm1-x33b.google.com with SMTP id g21-20020a1c4e150000b0290125a227e5bbsf993868wmh.0
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 13 Apr 2021 04:29:17 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1618313356; cv=pass;
+Received: from mail-ej1-x63a.google.com (mail-ej1-x63a.google.com [IPv6:2a00:1450:4864:20::63a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2650435E136
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 13 Apr 2021 16:17:32 +0200 (CEST)
+Received: by mail-ej1-x63a.google.com with SMTP id bn26sf5093375ejb.20
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 13 Apr 2021 07:17:32 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1618323452; cv=pass;
         d=google.com; s=arc-20160816;
-        b=X4eCwc4/VmGlGzLyXdDJ6llVHp8Vob7IdPatun7pldFDXujn/L1gOmzTr9KFdj2srl
-         eVpMyFk+vzDOVbTuux0L651dkoYWZA+PVucHwtXBRLDxIudiKwzvgjaXESe91NqQsiAN
-         dZhoIjE4ONHcjJcy2pYKu8ijEzMpDVG+v2SUwHEfmHxIaKggNxlG/WpC7nEFSKb9bX7W
-         5H0iVVnViZmMt7JzCPIgVWvdbD805g3qhJtL8le5+uvv9gLNbOZdxcJUjyWxWYLiNOlj
-         TWThJ+6GTRz2Ug1QYCQ9/zZ0lbm6Rbo2GpMXbSoPhry+XTwnWTQ6gJ1kqkht9KuU+XLL
-         PizA==
+        b=dRo0Tqre03H5vu/c+//eNKYe+XHK/GNO+87mVFdqZzSRZ9pL1oGzL3nb9L99ewbWbf
+         ePrshMWD3PdDAWXeUbjEs4USW6Na6WjTS5KQxf0K0Tmg/OH4/5j5Xp4ClwYzpRunqnpZ
+         ReAoObmwXK/ERWDHqP+XvhAkvqjdNbpWTChTvHas4tBp+j/I7rh2ZVRXO09wNkUfKV0Q
+         Ca/Sslq1UYyPKu+s6/6grBB5HPGD/ZEJ6DtGyYxwiCAyFzSFGYHjokYrlwnbzY0p0CEO
+         PGS6SIJiDLULEa5bIJFeiF+YQaEm5ErdQKXjA1Lo7vemvX2wbCgcaaVCoHn58KLC18HD
+         fUvQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=+rAzZIPpNZHsWUT57fm1rSwaykrWDHJilJFPVPwNGNM=;
-        b=X1bDbRFuXApun1q0LU1NKOTOlgRMVHZE+M8UpR4BhuHCnp6wlPKbMMPlE8FNNIw6kJ
-         5md+t1kXR+5pbPSa4EP/2a/DG070w0DQjkdMMYIrtjDsld4QHD0NfSTOuZ3svE/w0NLx
-         c5gMahHjmNalj1eLK6Qbg2UwzCtQTTQ+I1bhGnsEsXW+HKE7IcEKdM44qLbgNsKUkEKV
-         jhmdhv1p9+1/7IhW39xtT9V4mEz4Qpjj7j83aOYKHMP2hEib1UefvQ0Gtwx8gGbFXx2u
-         40dNzhETPJF3Uofg350Vh/phT9o56ekxSCDpQIg0jkCqVXIf6/y+I0pOB5VN8cNJ7vOk
-         k6Ew==
+         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:sender:dkim-signature
+         :dkim-signature;
+        bh=xIsuTWkpq/KWVJC8FR5GSWLtozPDcou42ejbHfdy/YM=;
+        b=Hr3EqFUIavoNqkxSC8xWgCoLAjFTk0fTf4FDlARfHHhGWMCSvqqbcXcnh8u2ncT3Cl
+         2R/atId3bQFNgOB3xvBiquT+ginZph8hYzaMLiFs1Pwst6UKUGSTU+vBMss0pCNA8C32
+         O1bxMx6O3aQz39ojR2QUq3DbafHzoAyCd1dFtry36N+dAkvdahcMl+D7yYJt/Frh/bmO
+         ehDF2vfYJgV2HWhlwAG9Xm68tWTVAK7pzOygMqlZnrRn+lRtcGTEaRd3kVXhsMygVKi1
+         q+FhAcZQ3sawrsyhMbBjX3HItBxiLfUliMKj/J7LOVoFy1UinIj/Z3IlbdmJzcuEJWb4
+         ETCw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=YIcBYwNY;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=eaOa56Nb;
+       spf=pass (google.com: domain of zhuzhuzhuzai@gmail.com designates 2a00:1450:4864:20::42c as permitted sender) smtp.mailfrom=zhuzhuzhuzai@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
+        h=sender:mime-version:references:in-reply-to:from:date:message-id
+         :subject:to:cc:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=xIsuTWkpq/KWVJC8FR5GSWLtozPDcou42ejbHfdy/YM=;
+        b=RJ7NO2r1pbHGT9f73wa+8Kmx3aYQglMSPLuKK8I6dWAjbY0QgzihLEPe1Eepj0wbn3
+         qJWeRCTl/G/yfQb6KPK8ctryjmXo4oZTgENQVbHXLucyvMiBUkvYZ5PZQzPMn2DXflft
+         L9y6W/Wq5k7rjl97n7Jiu35NEOOtoF+qPG3PAyICrobukS8QgJzzaUXIkYIYFAYWIsBY
+         ki7sj4r7egnh2VqRtbraIvgs5HlxO0yehZwiYji7X1FXJ+GNSfQ37u0A6yh07Z35EsXg
+         7n4gm5tWUeG5QS5CZCR8AOwaotVS9QO9OHYWDqdrDcT1HcejqjMNficyiSg/tglpNDJm
+         2jKg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=+rAzZIPpNZHsWUT57fm1rSwaykrWDHJilJFPVPwNGNM=;
-        b=P6RQNBBePLGHO2wGSiyBKGxkIr5PiMsjTDOj9Qc2zJQBYue8lGY5tbA1q+Vvm+ZylX
-         wpRULPPfcuQmYay7GjnQxpXxEbqPQidmRymLv45Fy9DCsk1Dp6nVzYKtM8kW5BUJ9MFL
-         Wt3yB9HNUirPy+6cJYivWvfQSpB69NulIwVPMdg3B9wVwV+3+pgp1dLGXm4nj0pGSk9w
-         AwSU2Qv+k7eFwef8WvzeJnnjnDWkYgZ86HCHepTURF01+PJ+APMijz5f2lPu8RSCUVTs
-         7h0kJnjwd6xOcqhkd0B8ECnJNpjYpcCHf48QxZMOXcCZTaUOdeQ+ljQpftR83AUhktgF
-         jd2Q==
+        bh=xIsuTWkpq/KWVJC8FR5GSWLtozPDcou42ejbHfdy/YM=;
+        b=f3jtkDOCRU58uv8JH3qYtU7EJ5B10iKy4SpzqAgok/C0ZV4BCnJrC/PKdCBwmege96
+         5t4zD6aZw4cdwilnFKWWaPZgHxKQkIB1AbKx9FlZeH8vfO5LPWg8KWBhC2FDcckENWN6
+         KC3dkHM0EqucUJo6CL4LNpbFo2+Tqex5OrOBeZr+B8hA31X61s38FTBW+cYf8RbImYJW
+         Rzs9EnOjTD7ZkVYMpYxs5rTPb7f+FKzWbunBBXfTvQIwo904d1NuNH7wpvau0Rp9dM8x
+         a/F2pfMxBCKc50ZTbpI4o7Ew0PWWksJvJgXFMPrV86bW/b7Jy0HqJM6q7vaB+3lcbTcW
+         zHvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
+        h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
+         :date:message-id:subject:to:cc:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=+rAzZIPpNZHsWUT57fm1rSwaykrWDHJilJFPVPwNGNM=;
-        b=fFMPWu9pEeeBDJH6VQpe0zB1uJwLDxGK17JidV32CJ3E7Ly1iNpUi1bDrTg/ulZtjq
-         4a5qvaqNOSc+TgRSXr8DOg8VMgFSN8RJXqoAKdMxQh1H2crbYGWIqu8+AcMY0f6Eqe1D
-         K5mg1rXmqMC4NHGPOS30tOML8v/O7M50WpJENcLs2c5wr8ENTJ5taj6nDtt/v+TNYIj1
-         jR9Zy4w9N81fdttYYwFMqo4gGuU48xFbKgRE54A9ni35aaOZLflBqubLpnPhjtS5/gnE
-         sVNn6TjQdLX/WCktmy7kO+3ycuYw3tqgBxOipOBlbUTK3WULsJecmleex2jAekqE6A4I
-         7rOA==
+        bh=xIsuTWkpq/KWVJC8FR5GSWLtozPDcou42ejbHfdy/YM=;
+        b=OKFf2Daa4Mx5O8bTwvif/KW+i4wcffmhDwuqQaVCWX50YGTntDGNA2Xj4eZmgtFg3B
+         v27HFq54Yw0eVEhgWP61OV7oQwA+G/b4adaVZ8d/uBSCTQXFL4oIyhrMHDIuRr/hdojK
+         tcqOiwvGsQS0DBg1XE6Pzti/2dSPeV51Rg10hb1NeRytIzsBqxtiVdB3fU6fiWHF9Fte
+         nilcNX4dl81Bn6+qJE3Pyh/HXU4FnLcGR8S5t+ApZ70W50iRbDrmXKYWKsCfT5gyGGRx
+         ZWj8ZI6PMlqHh2a4jIaVnIhWWQ2Q9jupgBXDZ3kfJhi8shRQN9+h0aRktOncWb4j6ZE/
+         jfiA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530yDBy2kzLuR77lWNdyTaLy6pknhCVW4VlbXr8E09TADH/alDOQ
-	qrlqzuIn5WhI8N0YI2Nen1s=
-X-Google-Smtp-Source: ABdhPJy0EbwmLdgJm1dBnTkF3vIOiCYjpsa/nuz/u+Skjmgte+TZAqfiGnTYuIeqcLvJwiAblZIylQ==
-X-Received: by 2002:adf:f44b:: with SMTP id f11mr37144626wrp.345.1618313356791;
-        Tue, 13 Apr 2021 04:29:16 -0700 (PDT)
+X-Gm-Message-State: AOAM532M9Jh4ZfYTzBY4jK0yP07NaIv4dss7qD6I3A/MTuK6z3rkhbtT
+	+a2TYVCk5W46c1JbUcY2kBM=
+X-Google-Smtp-Source: ABdhPJyrAJmoBuAj8wwA1kP7ox4Urejba0qdYej+iiuKfI2Bbns48HS8kWEVYEScHI7p8mNo7m1USQ==
+X-Received: by 2002:a05:6402:2744:: with SMTP id z4mr35395038edd.347.1618323451901;
+        Tue, 13 Apr 2021 07:17:31 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a7b:c1c3:: with SMTP id a3ls1206298wmj.0.gmail; Tue, 13 Apr
- 2021 04:29:15 -0700 (PDT)
-X-Received: by 2002:a7b:c948:: with SMTP id i8mr932209wml.107.1618313355775;
-        Tue, 13 Apr 2021 04:29:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1618313355; cv=none;
+Received: by 2002:a17:906:4d10:: with SMTP id r16ls6816837eju.8.gmail; Tue, 13
+ Apr 2021 07:17:30 -0700 (PDT)
+X-Received: by 2002:a17:907:d15:: with SMTP id gn21mr31558925ejc.337.1618323450741;
+        Tue, 13 Apr 2021 07:17:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1618323450; cv=none;
         d=google.com; s=arc-20160816;
-        b=Fz8gTfzRuCTmgTygJcu/X/O7f1Qy7w4hSJmvJfEDrTJTnhkVXYzBe/7/S04QUsRJgT
-         Og4Gz8JIt2dqxoA5CQjT8sT9z/9qKziE/oJyztzlfRTo2wjFG1OugAVlR9TamUmwBsIg
-         kZvQXqxNIOSV3B0MrYZDD8nuscu3FeQodbGnMht1uyUqPgHA1VtpnNcwdZHCagjF/XTk
-         gIfq9Img7d/Xg0GVuSd5crugw+1YBlikl2+cHD2qDSq4NTf4RNtMrP09/9onWCyUNwPu
-         Eh3kIa42j1zs0rim4+Z77q2BcQyNAJq7J/n5Z3UTpQvHb4fgESG8wppBy4i0OyLiNk7f
-         ch7A==
+        b=ZRmCZFz87P6UACyfptsp7NUyCwTWQ6UZjpeHUTXGlEDChntmqj0mGD3lOdYdvLFTuM
+         hGgefb/MGTVPm/0uMXhZUVQpxcVL0+zKe/AXCgEx4umSixf4a1iCOx1ymcsqJZ/tI8hG
+         n8Cpfg98iX6aGjPAZ+WMC6Yg9RCD0HyJCd2Bw4a7qg9yhcqTV62lmx3sNaHjGVDg/i5A
+         4NwYj3H1ixN2Z2ElFnnm6COZsJE1UJlmpUl4ywLfJlmuHsVc9+rT+taQHXxHI7QHE4fu
+         A89z1uqIEtNbneWkLtKDv3z7PEJy7KixvWn5UHUWpeHfW5LLxRj52MZ4kZ0lm1WWzBlY
+         DxyA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject
-         :dkim-signature;
-        bh=8KMVjbGi5fRpFMs0W6eh9uLhF1m2sJFoLBwHd64/6Nw=;
-        b=ylNdB63PjAP74+ZHvbCuIeiA/3r82JlGMyRhLjzT70jQUALPhpCuDocAq9GmcNj6Ts
-         mGS7CZKAhnY2rodBlFOdtcZXXNEYUSYI94+WmPnH3m0L/5NcQ/synMKxH7lS+eFJerSj
-         jrmYiAAHTGQRoj+dlwviY8V+8bw67tW4Vu0KD1BLCLv/XJBH2P1zG1W4MmVRYTkzKgZ/
-         pRYMrgGxwIohlv9aId8REDj+fqe4b3STHU100yKV6A34BqFyeiNV2NP5R9hzezh0F15V
-         U1XcuignG0RhDTyZbPOGSgBrYbtd50vILw3uiM5C5hRFTQ/bvBYhQVB8lkNHs+JZ2Xv1
-         6vRw==
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=sfuTLLk2Xx/kgBuPQs+rFajPG4eYl8M4+pj7swovfDM=;
+        b=dJg9uh7nmBP1dxw0ihzFzrwQUl/ulWNYJwtnocHFUt+DrQPhXBkSwpkPotJjSxrO38
+         JUz1kBsDRb1K7hDwGaxjUjB8O6DTBF5xSZxLfKUF3mrQ48P3lc4srMEPEDgrDqEQwQxb
+         aIQMChg3av+onQU7SOEc6nxPQTc6sG5jEuSjPiezV2zSgsQNS56zRST7yIWqXkTOIHiM
+         xx2GALt4u9EBeZ1/XcVOOxhyngA9/L/STJqdVa54RoTV4y6aqYn2ynr3she5+YZExpGk
+         cn2pv9fjvc/ZvAlEnBG5jcm11sdSBXRrw+zLG/xXTAymU0iFiw4Yi/HfgF43qxtS3PBy
+         3v3A==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=YIcBYwNY;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [194.95.104.12])
-        by gmr-mx.google.com with ESMTPS id a4si1123183wrc.0.2021.04.13.04.29.15
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=eaOa56Nb;
+       spf=pass (google.com: domain of zhuzhuzhuzai@gmail.com designates 2a00:1450:4864:20::42c as permitted sender) smtp.mailfrom=zhuzhuzhuzai@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com. [2a00:1450:4864:20::42c])
+        by gmr-mx.google.com with ESMTPS id df6si1106378edb.3.2021.04.13.07.17.30
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 13 Apr 2021 04:29:15 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) client-ip=194.95.104.12;
-Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4FKNfg2rSSzy1c;
-	Tue, 13 Apr 2021 13:29:15 +0200 (CEST)
-Received: from [IPv6:2001:638:a01:8061:5c51:6883:5436:5db]
- (2001:638:a01:8013::138) by E16S03.hs-regensburg.de (2001:638:a01:8013::93)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Tue, 13 Apr
- 2021 13:29:15 +0200
-Subject: Re: How to build jailhouse in Raspberry Pi 4b
-To: =?UTF-8?B?5pyx6Iul5Yeh?= <zhuzhuzhuzai@gmail.com>, Jailhouse
-	<jailhouse-dev@googlegroups.com>
-References: <96f74988-49c2-45b7-be31-67bf46c75cedn@googlegroups.com>
- <680669ce-69bb-1403-1c2f-8ccaa317baa9@web.de>
- <447e0050-c0a1-48b2-8390-2dcfba0fca5dn@googlegroups.com>
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Message-ID: <a33be9b1-5704-26ad-9a75-e7523600d8ab@oth-regensburg.de>
-Date: Tue, 13 Apr 2021 13:29:14 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Apr 2021 07:17:30 -0700 (PDT)
+Received-SPF: pass (google.com: domain of zhuzhuzhuzai@gmail.com designates 2a00:1450:4864:20::42c as permitted sender) client-ip=2a00:1450:4864:20::42c;
+Received: by mail-wr1-x42c.google.com with SMTP id r7so4649212wrm.1
+        for <jailhouse-dev@googlegroups.com>; Tue, 13 Apr 2021 07:17:30 -0700 (PDT)
+X-Received: by 2002:adf:b1d3:: with SMTP id r19mr16916167wra.97.1618323450419;
+ Tue, 13 Apr 2021 07:17:30 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <447e0050-c0a1-48b2-8390-2dcfba0fca5dn@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [2001:638:a01:8013::138]
-X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
- E16S03.hs-regensburg.de (2001:638:a01:8013::93)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+References: <96f74988-49c2-45b7-be31-67bf46c75cedn@googlegroups.com>
+ <680669ce-69bb-1403-1c2f-8ccaa317baa9@web.de> <447e0050-c0a1-48b2-8390-2dcfba0fca5dn@googlegroups.com>
+ <a33be9b1-5704-26ad-9a75-e7523600d8ab@oth-regensburg.de>
+In-Reply-To: <a33be9b1-5704-26ad-9a75-e7523600d8ab@oth-regensburg.de>
+From: =?UTF-8?B?5pyx6Iul5Yeh?= <zhuzhuzhuzai@gmail.com>
+Date: Tue, 13 Apr 2021 22:17:19 +0800
+Message-ID: <CA+nU6V_igzQA+pQ49Ge42zy4ztTB0XkpLa1TZbGGvV-y-BPjZA@mail.gmail.com>
+Subject: Re: How to build jailhouse in Raspberry Pi 4b
+To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Cc: Jailhouse <jailhouse-dev@googlegroups.com>
+Content-Type: multipart/alternative; boundary="00000000000064dcc805bfdb4ada"
+X-Original-Sender: zhuzhuzhuzai@gmail.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=YIcBYwNY;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+ header.i=@gmail.com header.s=20161025 header.b=eaOa56Nb;       spf=pass
+ (google.com: domain of zhuzhuzhuzai@gmail.com designates 2a00:1450:4864:20::42c
+ as permitted sender) smtp.mailfrom=zhuzhuzhuzai@gmail.com;       dmarc=pass
+ (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -146,61 +143,84 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi =E6=9C=B1=E8=8B=A5=E5=87=A1,
+--00000000000064dcc805bfdb4ada
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 13/04/2021 09:18, =E6=9C=B1=E8=8B=A5=E5=87=A1 wrote:
->=20
-> Hello!
-> I success build it now with linux jailhouse-enabling-5.4-rpi kernel. But
-> I can't enable the jailhouse . dmesg tells I didn't reserve
-> mem_regions,=C2=A0 while I did use mem=3D768M in cmdline .
+thanks a lot!
+I have finished my work. I build on RPI4 successfully!! that's what you
+mean ,via device-tree.
 
-I never used jailhouse in RPi, but as far as i can see, the reservation
-comes via device tree and not via cmdline [1, 2].
+Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de> =E4=BA=8E2021=E5=B9=B44=E6=
+=9C=8813=E6=97=A5=E5=91=A8=E4=BA=8C =E4=B8=8B=E5=8D=887:29=E5=86=99=E9=81=
+=93=EF=BC=9A
 
-  Ralf
-
-[1] https://github.com/siemens/jailhouse/blob/master/configs/arm64
-/rpi4.c#L14
-[2]
-https://github.com/siemens/jailhouse-images/blob/master/recipes-bsp/rpi-fir=
-mware/files/debian/jailhouse.dts#L15
-
->=20
-> =E5=9C=A82021=E5=B9=B44=E6=9C=8812=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=80 UT=
-C+8 =E4=B8=8B=E5=8D=889:25:54<Jan Kiszka> =E5=86=99=E9=81=93=EF=BC=9A
->=20
->     On 11.04.21 05:20, =E6=9C=B1=E8=8B=A5=E5=87=A1 wrote:
->     > I just want to build jailhouse in my=C2=A0Raspberry Pi 4b which is
->     supported
->     > arm64. If jailhouse is support Raspberry Pi 4b arm board now? If
->     there
->     > is any page for how to build it in Raspberry Pi? Can some one help
->     me ?
->     > Thanks very much!
->     >
->=20
->     You mean use 32-bit ARM on the RPi4 with Jailhouse. Might work with t=
-he
->     existing configurations as well, never tried. But what would that be
->     good for? 32-bit is slowly fading out, arm64 is standard on hardware
->     that supports it (downstream raspi does 32-bit only for legacy reason=
-s,
->     some images for old hardware).
->=20
->     Jan
->=20
-> --=20
-> You received this message because you are subscribed to the Google
-> Groups "Jailhouse" group.
-> To unsubscribe from this group and stop receiving emails from it, send
-> an email to jailhouse-dev+unsubscribe@googlegroups.com
-> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
-> To view this discussion on the web visit
+> Hi =E6=9C=B1=E8=8B=A5=E5=87=A1,
+>
+> On 13/04/2021 09:18, =E6=9C=B1=E8=8B=A5=E5=87=A1 wrote:
+> >
+> > Hello!
+> > I success build it now with linux jailhouse-enabling-5.4-rpi kernel. Bu=
+t
+> > I can't enable the jailhouse . dmesg tells I didn't reserve
+> > mem_regions,  while I did use mem=3D768M in cmdline .
+>
+> I never used jailhouse in RPi, but as far as i can see, the reservation
+> comes via device tree and not via cmdline [1, 2].
+>
+>   Ralf
+>
+> [1] https://github.com/siemens/jailhouse/blob/master/configs/arm64
+> /rpi4.c#L14
+> <https://github.com/siemens/jailhouse/blob/master/configs/arm64/rpi4.c#L1=
+4>
+> [2]
+>
+> https://github.com/siemens/jailhouse-images/blob/master/recipes-bsp/rpi-f=
+irmware/files/debian/jailhouse.dts#L15
+>
+> >
+> > =E5=9C=A82021=E5=B9=B44=E6=9C=8812=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=80 =
+UTC+8 =E4=B8=8B=E5=8D=889:25:54<Jan Kiszka> =E5=86=99=E9=81=93=EF=BC=9A
+> >
+> >     On 11.04.21 05:20, =E6=9C=B1=E8=8B=A5=E5=87=A1 wrote:
+> >     > I just want to build jailhouse in my Raspberry Pi 4b which is
+> >     supported
+> >     > arm64. If jailhouse is support Raspberry Pi 4b arm board now? If
+> >     there
+> >     > is any page for how to build it in Raspberry Pi? Can some one hel=
+p
+> >     me ?
+> >     > Thanks very much!
+> >     >
+> >
+> >     You mean use 32-bit ARM on the RPi4 with Jailhouse. Might work with
+> the
+> >     existing configurations as well, never tried. But what would that b=
+e
+> >     good for? 32-bit is slowly fading out, arm64 is standard on hardwar=
+e
+> >     that supports it (downstream raspi does 32-bit only for legacy
+> reasons,
+> >     some images for old hardware).
+> >
+> >     Jan
+> >
+> > --
+> > You received this message because you are subscribed to the Google
+> > Groups "Jailhouse" group.
+> > To unsubscribe from this group and stop receiving emails from it, send
+> > an email to jailhouse-dev+unsubscribe@googlegroups.com
+> > <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
+> > To view this discussion on the web visit
+> >
 > https://groups.google.com/d/msgid/jailhouse-dev/447e0050-c0a1-48b2-8390-2=
 dcfba0fca5dn%40googlegroups.com
-> <https://groups.google.com/d/msgid/jailhouse-dev/447e0050-c0a1-48b2-8390-=
-2dcfba0fca5dn%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>.
+> > <
+> https://groups.google.com/d/msgid/jailhouse-dev/447e0050-c0a1-48b2-8390-2=
+dcfba0fca5dn%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter
+> >.
+>
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -208,4 +228,112 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/a33be9b1-5704-26ad-9a75-e7523600d8ab%40oth-regensburg.de.
+jailhouse-dev/CA%2BnU6V_igzQA%2BpQ49Ge42zy4ztTB0XkpLa1TZbGGvV-y-BPjZA%40mai=
+l.gmail.com.
+
+--00000000000064dcc805bfdb4ada
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">thanks a lot!<div>I have finished my work. I build on RPI4=
+ successfully!! that&#39;s what you mean ,via device-tree.</div></div><br><=
+div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">Ralf Ramsau=
+er &lt;<a href=3D"mailto:ralf.ramsauer@oth-regensburg.de">ralf.ramsauer@oth=
+-regensburg.de</a>&gt; =E4=BA=8E2021=E5=B9=B44=E6=9C=8813=E6=97=A5=E5=91=A8=
+=E4=BA=8C =E4=B8=8B=E5=8D=887:29=E5=86=99=E9=81=93=EF=BC=9A<br></div><block=
+quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1=
+px solid rgb(204,204,204);padding-left:1ex">Hi =E6=9C=B1=E8=8B=A5=E5=87=A1,=
+<br>
+<br>
+On 13/04/2021 09:18, =E6=9C=B1=E8=8B=A5=E5=87=A1 wrote:<br>
+&gt; <br>
+&gt; Hello!<br>
+&gt; I success build it now with linux jailhouse-enabling-5.4-rpi kernel. B=
+ut<br>
+&gt; I can&#39;t enable the jailhouse . dmesg tells I didn&#39;t reserve<br=
+>
+&gt; mem_regions,=C2=A0 while I did use mem=3D768M in cmdline .<br>
+<br>
+I never used jailhouse in RPi, but as far as i can see, the reservation<br>
+comes via device tree and not via cmdline [1, 2].<br>
+<br>
+=C2=A0 Ralf<br>
+<br>
+[1] <a href=3D"https://github.com/siemens/jailhouse/blob/master/configs/arm=
+64/rpi4.c#L14" rel=3D"noreferrer" target=3D"_blank">https://github.com/siem=
+ens/jailhouse/blob/master/configs/arm64<br>
+/rpi4.c#L14</a><br>
+[2]<br>
+<a href=3D"https://github.com/siemens/jailhouse-images/blob/master/recipes-=
+bsp/rpi-firmware/files/debian/jailhouse.dts#L15" rel=3D"noreferrer" target=
+=3D"_blank">https://github.com/siemens/jailhouse-images/blob/master/recipes=
+-bsp/rpi-firmware/files/debian/jailhouse.dts#L15</a><br>
+<br>
+&gt; <br>
+&gt; =E5=9C=A82021=E5=B9=B44=E6=9C=8812=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=80=
+ UTC+8 =E4=B8=8B=E5=8D=889:25:54&lt;Jan Kiszka&gt; =E5=86=99=E9=81=93=EF=BC=
+=9A<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0On 11.04.21 05:20, =E6=9C=B1=E8=8B=A5=E5=87=A1 wrot=
+e:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt; I just want to build jailhouse in my=C2=A0Rasp=
+berry Pi 4b which is<br>
+&gt;=C2=A0 =C2=A0 =C2=A0supported<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt; arm64. If jailhouse is support Raspberry Pi 4b=
+ arm board now? If<br>
+&gt;=C2=A0 =C2=A0 =C2=A0there<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt; is any page for how to build it in Raspberry P=
+i? Can some one help<br>
+&gt;=C2=A0 =C2=A0 =C2=A0me ?<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt; Thanks very much!<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0You mean use 32-bit ARM on the RPi4 with Jailhouse.=
+ Might work with the<br>
+&gt;=C2=A0 =C2=A0 =C2=A0existing configurations as well, never tried. But w=
+hat would that be<br>
+&gt;=C2=A0 =C2=A0 =C2=A0good for? 32-bit is slowly fading out, arm64 is sta=
+ndard on hardware<br>
+&gt;=C2=A0 =C2=A0 =C2=A0that supports it (downstream raspi does 32-bit only=
+ for legacy reasons,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0some images for old hardware).<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0Jan<br>
+&gt; <br>
+&gt; -- <br>
+&gt; You received this message because you are subscribed to the Google<br>
+&gt; Groups &quot;Jailhouse&quot; group.<br>
+&gt; To unsubscribe from this group and stop receiving emails from it, send=
+<br>
+&gt; an email to <a href=3D"mailto:jailhouse-dev%2Bunsubscribe@googlegroups=
+.com" target=3D"_blank">jailhouse-dev+unsubscribe@googlegroups.com</a><br>
+&gt; &lt;mailto:<a href=3D"mailto:jailhouse-dev%2Bunsubscribe@googlegroups.=
+com" target=3D"_blank">jailhouse-dev+unsubscribe@googlegroups.com</a>&gt;.<=
+br>
+&gt; To view this discussion on the web visit<br>
+&gt; <a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/447e0050-c0=
+a1-48b2-8390-2dcfba0fca5dn%40googlegroups.com" rel=3D"noreferrer" target=3D=
+"_blank">https://groups.google.com/d/msgid/jailhouse-dev/447e0050-c0a1-48b2=
+-8390-2dcfba0fca5dn%40googlegroups.com</a><br>
+&gt; &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/447e005=
+0-c0a1-48b2-8390-2dcfba0fca5dn%40googlegroups.com?utm_medium=3Demail&amp;ut=
+m_source=3Dfooter" rel=3D"noreferrer" target=3D"_blank">https://groups.goog=
+le.com/d/msgid/jailhouse-dev/447e0050-c0a1-48b2-8390-2dcfba0fca5dn%40google=
+groups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a>&gt;.<br>
+</blockquote></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/CA%2BnU6V_igzQA%2BpQ49Ge42zy4ztTB0XkpLa1TZbGGvV-y-=
+BPjZA%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://grou=
+ps.google.com/d/msgid/jailhouse-dev/CA%2BnU6V_igzQA%2BpQ49Ge42zy4ztTB0XkpLa=
+1TZbGGvV-y-BPjZA%40mail.gmail.com</a>.<br />
+
+--00000000000064dcc805bfdb4ada--
