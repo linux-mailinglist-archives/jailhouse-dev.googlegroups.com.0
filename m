@@ -1,147 +1,145 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBC6Y5KBQMGQE5OEI47A@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBVGY5KBQMGQEV2W3QBA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x440.google.com (mail-wr1-x440.google.com [IPv6:2a00:1450:4864:20::440])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E343362EE7
-	for <lists+jailhouse-dev@lfdr.de>; Sat, 17 Apr 2021 11:36:12 +0200 (CEST)
-Received: by mail-wr1-x440.google.com with SMTP id t14-20020adff04e0000b0290103307c23e1sf5821602wro.8
-        for <lists+jailhouse-dev@lfdr.de>; Sat, 17 Apr 2021 02:36:12 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1618652171; cv=pass;
+Received: from mail-wr1-x43a.google.com (mail-wr1-x43a.google.com [IPv6:2a00:1450:4864:20::43a])
+	by mail.lfdr.de (Postfix) with ESMTPS id B433A362EE9
+	for <lists+jailhouse-dev@lfdr.de>; Sat, 17 Apr 2021 11:37:24 +0200 (CEST)
+Received: by mail-wr1-x43a.google.com with SMTP id s7-20020adfc5470000b0290106eef17cbdsf2406781wrf.11
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 17 Apr 2021 02:37:24 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1618652244; cv=pass;
         d=google.com; s=arc-20160816;
-        b=MOqRDTv0UyRKV2tAKhbApYh8lTJ6GWyuRHpxexmIivbxjhZcbyOWVhTe9vTKh3/uRY
-         Uov/NadGXGTGbfZ/GsBbiw93NKlfOyio78ehG0yu6j6JIIY8oDAFfPuIgJmvG39iQg0g
-         Us2WY73Yh9NAy+IMBARJ+DMiaeAd6+UXUvgWfykdGGo6CTIpE6jzPO8k3CLsIUVOF9lb
-         Ae1r6FIt/RhzoNQdboupA4LVrDHLEwMkdrDpMICFWFEecnttu34TJu+t1YOgJlE38wSQ
-         7O67P5rQHsAr2puSopkHbkGHK5ItZax4RhdrBTb8TP4x2lyjqxN1mkGlYEM85tzA8+Ci
-         H1ag==
+        b=okPiwz8WVrveK6fHDiGckfJzthog7rrSgT1OeOj0zJgnKuBmm4NltXSKHKtoZyVDQK
+         cjY6ibKg8sHocvOxzpj7z5TQ8Z4GLJfScp7U6eQSD6SZ/gb9LSfb3ELBp2rW+w5dWyuX
+         ZouP1vLrAz23yrYmJsHrn8caVBjxB7nvKSqA5TsCTs2LgrdjgLT15NuaH21ZsEzwCj3v
+         R88i90GIRJqtNrvD/P8ZSTnnfVPevqA84zJlWzY2zQO7rB8PCbPCRcptjdJuYpe27aR+
+         h0lr4PGgpb+o7mLt/mEGrIShfNvo7nXV9PV8o63hVyYLZeyO0kaRqU+8zZfOTtGBBxnT
+         efGw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:cc:to
-         :subject:sender:dkim-signature;
-        bh=tBQRWvWb10AuVyRtvKeq1pq1a0+utLi9M/t+5wbfFn0=;
-        b=iJfq8Y6gmgExtEaOSG31DDtt3+NGRAfyHYS3ad1N5M6CVJbywzWhCG7PGQr4h2xqLo
-         DcRk1vc7Zed3C9Hid9FmUWDcjt/TbKWFzKcrZTo7DcWiW5uTwUZF3g6YO21mS3AkscQW
-         kgNESIlzY0UpAVzDaJcNp+CWs8+UtM4oG+IF+wrm80fhCChLoLUjZpvW3C5tXucr2O9w
-         ihkM+aB6GWdiCG98Ik7Zrn0l3QQSh3/FNFlyCwJE33Nhx+jol8cxmAYEbUcQzRjlLf/h
-         xo2swJMl5z4gbHKIaRGKOI2GaN8TtVltD0LLOcz+khnrpKshSW5AlVM0B82/CnIfhF10
-         Ppig==
+         :mime-version:user-agent:date:message-id:from:references:to:subject
+         :sender:dkim-signature;
+        bh=8kWfEjaCCS3ITSu1oMl/h5oHIWZheeBSoX8BasGwV/U=;
+        b=0X6Ygw2G2nUbf5Qk0XQaQDU/5jDKVUmaxfB4CsntRa+b5WlCU77UHZpu/6s9tEYlaF
+         gj8oCll3XFA7r/2A2VQikRXfUsKdgOWRdB76RW3FhHiJuwoL1ameqGsvRpiqG5t+xbDJ
+         Kb1mzqHGhEv597Zf3jLd0gCrezIFC86lFayC4jfsHwVzhVqQ2p3dltXjTzASwZZP3L9d
+         rbezoMpzVSkwIXLDY6sTZtBUveNFqVTqds1AvcGOSc00S8Rglvfr3TjDbTA7idLeT0u2
+         lLX8qm8ElFEHW5BTFiDu7t4lhyyQvXDZ4yw6XsFhDyKSC/rLaYhdnmaidPdMUkkYxC1B
+         dV8Q==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=jzGAVnP5;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 217.72.192.78 as permitted sender) smtp.mailfrom=jan.kiszka@web.de;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=KHUY7YzH;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de;
        dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+        h=sender:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=tBQRWvWb10AuVyRtvKeq1pq1a0+utLi9M/t+5wbfFn0=;
-        b=Sv329rFqANuz/06RNdUTDD8qw9YW+ImJLATFx8iLFCi66UsfpqdDipZ306i1hG7RnY
-         bZ71b+uPmOUDTzyanoumvu75oBal7hrGPyN0DYr2bvbspFKT4gTB2d8M/sMDErFcKL9H
-         yZzoaCUAqxpY+TfUrFuVWxvNxGJXZe+08/NO79c9XnOuMP++PenrzQlbMz2VZtkwCI8B
-         Dl8vHxGCscju39bKDvAqBXswXhP55WSmFEzppQR3sDNTHo2o0m2XIb79UVv9WfO4FmaY
-         NCqd5fhguwIvyh6e6KGfU2tz+oUw22YrDz60bbsu0E66SxZkNq0iDaEhYrO7LLNsIsvf
-         u7vQ==
+        bh=8kWfEjaCCS3ITSu1oMl/h5oHIWZheeBSoX8BasGwV/U=;
+        b=FEMTrgzzB9eXihCW2vejsmlngHdaC7vYdMz5OylvAxjeoVcPuMX28o0GxlrxDu4f7M
+         I1F1rGFyjdt3jxUE9eIsjpa9J02r4+06GOHNXF2WRDcvXYheCdWUSnqci67GVoe4NJH3
+         W+ESUxrkgk6xu2bwL8eFfowO0BQcETxCmuRi56JVozd6K2tO6b749xEHjUvcjudQqJ5r
+         HpJRxtqTIet+Zh/gP0dWjqC2ZpQ/2voCJbIX4yegV3AOINLQXixrPflTTBk0Nu/EjB8d
+         s1gMvsWqYu/EDYbCsjBELyY5O59/jI0afgwDzUVhthX3d//BKG6opfuYol7g0mw1w7+N
+         B48A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
          :date:user-agent:mime-version:in-reply-to:content-language
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=tBQRWvWb10AuVyRtvKeq1pq1a0+utLi9M/t+5wbfFn0=;
-        b=m/TP0nJ20vWvvjYCOA+94M8tFQ9zwcjk8yRWsmMp7AjuWcwVySUDWvtio4BjM8I1Wt
-         ei0/L3LM5Z9qtyCK/9cEcKdn6dNwvG5MGKUhsSBftmlqI7SrKj40Yry1g3GCpEW7m6Qr
-         yzmNKgi9KP6AOHl21dkryNl9yLeHHNrei1+RD6P6RAP8MUluG/0LwYopYf13CAVgbk2d
-         RX7dD15Li5gnQEpzy9mVjIL6E0QH0IZ2arA7FZmCXevc0eLmTcOMFRJFOLz//OS5Mn4V
-         RIPzsdh3lmygrN66R9dc9wdihOP9mu5LspmyIJYGFRPEny65KFUJ+c3CVUigkE+bt/zK
-         zVOQ==
+        bh=8kWfEjaCCS3ITSu1oMl/h5oHIWZheeBSoX8BasGwV/U=;
+        b=pXXuX3dplpBOcCstk639qcGy9+nH6Izo526PKVK/5M26VjV7B7dBwLtgNR5KDI/Gog
+         W6z31eCRN4l2/N/ucTgUG+PJSEVQngKPekTjPRBzdnc1CH9R0hjN8IRVhZAC/VsCO6RQ
+         WoIT+EDaWEiWwvfHe4R3JfQ/nZZRNPt7IhzCmoUdLnxAfclRpBuqqpPuK78ddBMqzttK
+         YotONLtI/YNIdvvEIwq1dt4B/8LjDBl7L2P47bqMHgfFDbBOH9lXnvzbF3pY8Dg0siEq
+         Au+OPvJBLhFdNMQPe2n13ufScKPnzQyE0/C01KxbIGt4BBRMaW73oaX4Q8Lh+g3zfOE+
+         LLaw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530ShJN9sRq2tI7r3Ii7qaEvnLs12tLKoVl+L6s3o1nzdgYrG1sA
-	r+jBpcXfBF7MWuknSd6rzoM=
-X-Google-Smtp-Source: ABdhPJx1xfKI+Ydc7h5qvRqqNS9S3X1bFj1mfsswr0/OEG5RwhRytgHQO3fKWAKFgDQupNEtEalmsQ==
-X-Received: by 2002:a05:6000:2c4:: with SMTP id o4mr3418747wry.232.1618652171708;
-        Sat, 17 Apr 2021 02:36:11 -0700 (PDT)
+X-Gm-Message-State: AOAM531IDWDEPB+UqnhZXlvXUBThBBa4TIh1WjpepTgjIEyVmHsJjfUK
+	GNUN8CcDFdOYe5foy87Rd3U=
+X-Google-Smtp-Source: ABdhPJx69eC9bup1P4z6SZ0TIqDLY1qfNdvTUE8ZqeOTtrHlmbsw1zwXE6JLJu8jslVhhoKV3BDtxw==
+X-Received: by 2002:adf:f410:: with SMTP id g16mr3536017wro.345.1618652244480;
+        Sat, 17 Apr 2021 02:37:24 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5d:6804:: with SMTP id w4ls1419127wru.2.gmail; Sat, 17 Apr
- 2021 02:36:10 -0700 (PDT)
-X-Received: by 2002:a5d:4312:: with SMTP id h18mr3484746wrq.193.1618652170893;
-        Sat, 17 Apr 2021 02:36:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1618652170; cv=none;
+Received: by 2002:a7b:c1c3:: with SMTP id a3ls5502105wmj.0.gmail; Sat, 17 Apr
+ 2021 02:37:23 -0700 (PDT)
+X-Received: by 2002:a1c:771a:: with SMTP id t26mr12005448wmi.96.1618652243634;
+        Sat, 17 Apr 2021 02:37:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1618652243; cv=none;
         d=google.com; s=arc-20160816;
-        b=seBaU7RdCP2jytaPiM14b31GgC58eB6VCbkWHeJ8Ab2uEh5nB4CiOHQinoTKMEucWn
-         Ky2dTUfW+PCvsHXpJo/N04nk43a4d7vOMm/L0rQInDhh7EX9CgY5nALgmx1kC/tjIj4A
-         r3K4Mv3tzKHEOHADzGe9ApVpDBe+2trQtjXUKEIGB5h83/8wtuQ0eaEolyBsq5qW2iD+
-         FR4Q3ATvavqChpYX3CdFCri5QSShI8wRAjBIyn7sHJUKG031l5S7OxZK+NM6kR12PqqM
-         nxI+X57C/K4epShnfT2q/qkwOoHcmfj9Tnb1od4O9XiAd6mxudk8CukrMYcON/B9NsSf
-         nGPw==
+        b=FKQBbDRBPBLUlKwNMbeP4mWwzeC7ExOlX7tca7fncwtsaJRotIujuFyFhj1VqNKiqy
+         kHosEFVimu4MBmKwyVnQolBFFRAmD4oBq7d/LHqeJGGk+zGKle7xwg/2VyOjUUwvA5jH
+         X4Tm7rqYupdbsEvuiAJPhS3NP7yNWeQH+Ln3SgNNlawoQCg2FokEJPKKTgismKKmZ/4b
+         TMRoyWD0zi+aDETe4tE1saQsBKVoWZWJBRccTCm52EKjfKYN+wPelvFDioRxVO8aCj19
+         EulH7oGA1gsLVe1Bpas3DOrWBgkdCLSMd6afup61D3XWdkXKjjYzOX0IXFa/A/xsSBP/
+         Fytg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject
+         :user-agent:date:message-id:from:references:to:subject
          :dkim-signature;
-        bh=ux0x9XLFeHCEOGQPgsdGC1l08JnpY9LvfWxGzUrzLkI=;
-        b=tQ443YRNwfM2ICIZJEs4LT/RzZJ9fiwoWVq6ubrlkdQxmUKxBlHoen4OIJbkUbc+hu
-         +Ua1Gzg4iHyi0/O5SPp2XIPG7LcRPW6/5zd7hcr0rwtpEKH4XuvMpGcRB070hsqCk/tP
-         7FNJKjr2wtVh2wMvQ2B9Lfg5a1uVBr3Rv78BeqtOUQDLzvVMOP++/4chIAgkhusVqnil
-         /dUEqXIcU7JBAl/4AdtI++6C2aS0IzsK7SFDbsYygUU0o9HccEw0/wHmxd7YCjuTM2Wc
-         M8C1rY3zG/01ZgceXkjG7WXbR07jqtp2ahKzUoeQKyDZkhT2gSOVxQnH+CG+acwfY8Zz
-         u4Bg==
+        bh=G9o97CA5MiP0DgokI2/tiQFCEMycIWmBnmK3GhRtME8=;
+        b=XgcCCjlptqONDkYZmhRJX0BXwZ3ib52LWLMsENeb1fEbeE8QarN3BOkcWiYiaFet3+
+         NcIW50MfTaXwWk7zq2tIjOEdyehBYNs9kwWOG6emPIu547JG1zguni72kzGDmItgd/JV
+         35c8KdYlV5vRETvJ+oj5yQwCQRxtcKPiEF+Xncnsxf7e6oEoMN0QeWvC1UBT94QIpYIR
+         ZzVC4WAvHG/u7/fgDMtyFZUxfQaAz4t4Gwg7Z6pXCfZabX4+m/Jmdng79SGIlf1pgnnO
+         NxXQopPJSwIerIrLHxooOneesXfNdGAffdA1uegY9FJg7ess0RSn6H/UtH4oCcXxhHl3
+         +ozQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=jzGAVnP5;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 217.72.192.78 as permitted sender) smtp.mailfrom=jan.kiszka@web.de;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=KHUY7YzH;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de;
        dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=web.de
-Received: from mout.web.de (mout.web.de. [217.72.192.78])
-        by gmr-mx.google.com with ESMTPS id c6si429677wmr.2.2021.04.17.02.36.10
+Received: from mout.web.de (mout.web.de. [212.227.17.11])
+        by gmr-mx.google.com with ESMTPS id w2si605993wmb.4.2021.04.17.02.37.23
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Apr 2021 02:36:10 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 217.72.192.78 as permitted sender) client-ip=217.72.192.78;
+        Sat, 17 Apr 2021 02:37:23 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) client-ip=212.227.17.11;
 X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
 Received: from [192.168.10.10] ([88.215.87.53]) by smtp.web.de (mrweb101
- [213.165.67.124]) with ESMTPSA (Nemesis) id 0McWj6-1lGAWI1Lvc-00HcK7; Sat, 17
- Apr 2021 11:36:10 +0200
-Subject: Re: [PATCH V2 4/4] arm64: imx8m: correct pci domain
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: jailhouse-dev@googlegroups.com, Peng Fan <peng.fan@nxp.com>
-References: <20210330105658.16676-1-peng.fan@oss.nxp.com>
- <20210330105658.16676-4-peng.fan@oss.nxp.com>
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 0LtFYd-1lduoa0at9-012nUh; Sat, 17
+ Apr 2021 11:37:23 +0200
+Subject: Re: [PATCH] core: avoid overflow in paging_destroy
+To: Chase Conklin <chase.conklin@arm.com>, jailhouse-dev@googlegroups.com
+References: <20210330120632.23496-1-chase.conklin@arm.com>
 From: Jan Kiszka <jan.kiszka@web.de>
-Message-ID: <5df1659c-3eff-6444-c028-569d50bb695b@web.de>
-Date: Sat, 17 Apr 2021 11:36:09 +0200
+Message-ID: <4b848060-fae4-0f46-8d47-34a55cff16a7@web.de>
+Date: Sat, 17 Apr 2021 11:37:22 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <20210330105658.16676-4-peng.fan@oss.nxp.com>
+In-Reply-To: <20210330120632.23496-1-chase.conklin@arm.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
-X-Provags-ID: V03:K1:ri9EgDVT3ypXW0gsnX8h/KksTCV5rgubEfH2WKav/zxhuK57vV2
- N9AefM6e69LJrFLb2WuogazOl0zM83EGJ1cxtJwXWr3N/GUCQNeE07HryXWDXvyXG4S+d25
- /CKCRnV442w7jWlkZTC+yQA18ceEy7dKxwzCJmYYmvOXjxpFLJxaPsm1MwLojsWn3rKxnTH
- /w4NiEeZYf3dLB9SRZmJg==
+X-Provags-ID: V03:K1:0vmXpTDPf5mTDXsNIrHP6PpiIhwzntuKrUg13NHU5rz5/vwRbSa
+ Dla5sRdxBdBd9/Qli5sJu4strbN7WhrXJYGJU7al+jA5KYWRfCPl6EQ6mZvLhT47vUgMhnh
+ iCqwTUPzw7PgGF9roesk7rHNKvpHgACAJ9+ZawpYbdbqGdzZ4P4Sypb/T4sS334h5bm/FAr
+ VQx8kC30wE3JmO3fsEpng==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:S/ZUzsdPpK0=:sJ9QopIS53PHFmDUiX2tMO
- boVoORwwXBdScY7ffflTdCnLFNFhTSIQHZITcv+sOCCDvrZ/ATI0y2gnClRY96yLtPXr0t5bu
- vAM0M+MVUHcrli1SScDrtqEfmV7f+s9qTmJi3lgdqF7fCXt7ivZp+lJbfd1agmjiNHWTeNU+i
- tQdAlisrGyGXV5IvIu+4jr0D61Cy8t5lY2DduThlcjwO7GgzNkGgTFjNKdebER4O5q/YxVVWa
- AkXJ9P9dzthpA0srNSTksGFGofkR75dTI0V8g6oGEQDfUSki9Kb8S5BFO8NqXtSy3r7sfiB8H
- 85chGyeGBRDAKrBHMANG3wMrzkAjoNCRq7VorRbqTv9/qTyIZAUFzqsIQ1/UD7COTlnAdHYTm
- clWCBSJXAl2WvpuMA1nDo4H+MvsUw1bd6/G6FSn1yBNBPbxKCL3hd6ubarwL+NbmveUksTzrK
- 6qwsli3zVKAcAzc89Q0fpLOij0CJU6TQrVLwqE0Q9N1GBgYM+Gbq+kvTWHbK7l+ZxWPqeoIf4
- fdMBDYISh9OQBvgErMlT0e4CNker2zx/rtcUcNvUAQdB2UsSXJII4QsUAq4Ok6WcS3aHyOeVh
- /5Yq2K687UO2QcZKk1+7BXiTsMMTvQykLILsJKmlLFh86W967GCoti/oeEGt+gIDStsJVy4w6
- KcSa+5TuKKM0lqYt8l8D+q7xoyo8uPEbgiyL25+5w31q2APVdGbrO2NNh4/gk4hnYt4Cy3qQh
- ekMdR84Fg/camnqJejj3YyHi+MAGKzyZ4nKG4YEb/YN8tQAl1bS7YQCSa0xJZqHVdjw9/470A
- z9tFYe9/I2S/84B39fFe4JCl0T2fkHJzIQpCo6kab3VJ15i+Ywu0Cy6f9TRS0OEEZqRyntQBW
- C4Tl0u2cZ0RzMlegvEEg5jrz3xoIFjyEIWwBQYRvq9Iru/2wqB+dUgNuvT3SbKOhSLJGhrg+T
- GYd/5PlVvlwNbHo5oFuMl2mI4cA/dL0MG4kdjab/nNVuYDrZZAzB67Blb/4tiQOj2ZDF1jqoG
- R2Cg1o5G1LGjWH3MWRdz4N/D9xEpH1pNSHJLNWH5/Ld5LNrHihcSLs/kDEm3RepmArpnqPEG6
- UIRVdLDr6jEuEyDLheFDrE9cT1gcJOWAt/jvt+UWW+Flt+gjNzkwrFqpGyB5Ykozruu1XsDTo
- K0eo6SRBepo/OjrEAQRNqzcAUTE+83rbWg7qHMz/lZe9F/7DDSDO5F1iQD/itINoIvyyU=
+X-UI-Out-Filterresults: notjunk:1;V03:K0:ACYkIRaqqIY=:dsiRuUu1sidVAW1yzp8f/a
+ IC8BFeouMqXwjvnltJPkggQ/cRt2dK+0Qd7Y2RTUc0w8TUoAPxC9e87mlC2AiZkBNZDVMUve2
+ lzBR2ow5aG34oJh/x5O3b8n2ngMkuTG7VzHesdQrWgPjUDgPAbLsGkfHeuxsRHRv4/JmX1G2P
+ XZ48KjCDwrZB92JGxqFDEyNxT0HvGdWvR8pRjbC5KOIBh0IwSW5gVh1yWyU3dcS+wH/6z+2Dt
+ Ih0oIQmiybXEc4HyGzE3C5jj6LEJssR5bKX0fhXyWJwm7szAPkxyyqAA+cwYIJjay30NBbjih
+ Ql7WKeunAT7coVqzSJQ+2nnuLt5PLzVHTP5BhctJJMnz1KPf9X6bFUhEPxpctQzKop3tWLB4s
+ HSgEIL8eR1J6WK7HsSgeMth/wTN4Letgql+uuP3GrDZqy4fWT1+3kKixidys530J8aG0UGhGT
+ E9bh6DPS8guKIDCMcl3wRtQksn1zDJcTiIRH5STd9j7zNJwfTYKta61bYFJjBst0mylgnRLqp
+ kend7gXOV0Fi8gAaZU+R/lR1e4ldFHJeQlnjI3YIfLEbPL3Z7acEY8KgqABVvn4rlWle6H2tf
+ EHfuqNX7MxsCTN6bRLMgkaGQ3WgzxSIHVv/cExnD99R39ghonIyQIXic1l7QaFiyD8zHpcI6C
+ ydQGjAPm9QwIV40Aff7RpvcOx/fjRQze8akLEnDyEs1vu6S/7jxowKuKaA+ekbvZYHHMTOrSw
+ GZmPZssw67M4jJOYt1nswN6AetCoDEWXc/ujtp8RFsmy9bOfMGUhSednX8n39NIa7pz0CMgDl
+ EfUpp2mHN0rsJfVAh4E8yDKGpM7iXB3P+2cHX3bz8gH4GRtPmb2ZVi5u0N8Shp3xgj77IEExc
+ sNkjlCDCo9oX7cO9NPRqFbqofaaiaPO87niDiYpTaaDqi+JE6BgWm55aQNf4WNU4O6fQwIDdK
+ QXwyuCMzGkdIQCw7xs1AWuC5C7eJMnBRNlNYNXTVPuy8fIfwGIXtTuSwTnJUn+MBSbV+z30f1
+ 4LFykkz72m0nkprX2wh43PPmgLHsa97exZsDUnKE6Fshp/VenZ0oAMYzxR/8P90hs5+N53MTc
+ zXpilRKiIT07yEeAM30UUuhLnSXmzH1/PCSUhjEKvf9RqZR1mwOXDilS+5XeFi1YeK3lSIVD2
+ iy/gVTDuDINiCee4n7qTS/QND4MJrKu29+HvuQY3hneUz4tUbLzk48HhiEAlxXDylteqY=
 X-Original-Sender: jan.kiszka@web.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b=jzGAVnP5;       spf=pass
- (google.com: domain of jan.kiszka@web.de designates 217.72.192.78 as
+ header.i=@web.de header.s=dbaedf251592 header.b=KHUY7YzH;       spf=pass
+ (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as
  permitted sender) smtp.mailfrom=jan.kiszka@web.de;       dmarc=pass (p=NONE
  sp=QUARANTINE dis=NONE) header.from=web.de
 Precedence: list
@@ -156,245 +154,59 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 30.03.21 12:56, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
+On 30.03.21 14:06, Chase Conklin wrote:
+> It is possible for the ending address in paging_destroy to overflow to
+> exactly 0. For example, in a build with 32-bit addresses, a request to
+> unmap 512MB at 0xe0000000 will result in an overflow (0xe0000000 +
+> 0x20000000 = 0x100000000 which exceeds 32 bits).
 >
-> After linux moved to use linux,pci-domain, we update to
-> correct pci domain here to use a domain not used by pci hardware.
+> This overflow can be avoided by comparing the last address in the
+> region to be unmapped rather than the first address to not be
+> unmapped.
 >
-> i.MX8MQ: 2
-> i.MX8MM: 1
-> i.MX8MN: 0
-> i.MX8MP: 2
->
-> Working with NXP vendor tree is 5.10.
-> Upstream tree only has i.MX8MQ pcie, since 5.11.
->
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> Fixes: 7cffb9b7d54d ("core: fix hugepage splitting in paging_destroy")
+> Signed-off-by: Chase Conklin <chase.conklin@arm.com>
 > ---
->  configs/arm64/imx8mm-linux-demo.c  |  4 ++--
->  configs/arm64/imx8mm.c             |  6 +++---
->  configs/arm64/imx8mp-inmate-demo.c |  2 +-
->  configs/arm64/imx8mp-linux-demo.c  |  8 ++++----
->  configs/arm64/imx8mp.c             | 10 +++++-----
->  configs/arm64/imx8mq-linux-demo.c  |  4 ++--
->  configs/arm64/imx8mq.c             |  5 +++--
->  7 files changed, 20 insertions(+), 19 deletions(-)
+>  hypervisor/paging.c | 15 ++++++++++++++-
+>  1 file changed, 14 insertions(+), 1 deletion(-)
 >
-> diff --git a/configs/arm64/imx8mm-linux-demo.c b/configs/arm64/imx8mm-linux-demo.c
-> index 196740cf..49272607 100644
-> --- a/configs/arm64/imx8mm-linux-demo.c
-> +++ b/configs/arm64/imx8mm-linux-demo.c
-> @@ -145,7 +145,7 @@ struct {
->  	.pci_devices = {
->  		{ /* IVSHMEM 00:00.0 (demo) */
->  			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> -			.domain = 0,
-> +			.domain = 1,
->  			.bdf = 0 << 3,
->  			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
->  			.shmem_regions_start = 0,
-> @@ -155,7 +155,7 @@ struct {
->  		},
->  		{ /* IVSHMEM 00:01.0 (networking) */
->  			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> -			.domain = 0,
-> +			.domain = 1,
->  			.bdf = 1 << 3,
->  			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
->  			.shmem_regions_start = 5,
-> diff --git a/configs/arm64/imx8mm.c b/configs/arm64/imx8mm.c
-> index ebc2d294..acb9fd5e 100644
-> --- a/configs/arm64/imx8mm.c
-> +++ b/configs/arm64/imx8mm.c
-> @@ -47,7 +47,7 @@ struct {
->  			.pci_mmconfig_base = 0xbb800000,
->  			.pci_mmconfig_end_bus = 0,
->  			.pci_is_virtual = 1,
-> -			.pci_domain = 0,
-> +			.pci_domain = 1,
+> diff --git a/hypervisor/paging.c b/hypervisor/paging.c
+> index 75d5da59..e77fac30 100644
+> --- a/hypervisor/paging.c
+> +++ b/hypervisor/paging.c
+> @@ -399,8 +399,21 @@ int paging_destroy(const struct paging_structures *pg_structs,
+>  					paging->page_size : PAGE_SIZE;
+>  				page_start = virt & ~(page_size-1);
 >
->  			.arm = {
->  				.gic_version = 3,
-> @@ -181,7 +181,7 @@ struct {
->  	.pci_devices = {
->  		{ /* IVSHMEM 0000:00:00.0 (demo) */
->  			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> -			.domain = 0,
-> +			.domain = 1,
->  			.bdf = 0 << 3,
->  			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
->  			.shmem_regions_start = 0,
-> @@ -191,7 +191,7 @@ struct {
->  		},
->  		{ /* IVSHMEM 0000:00:01.0 (networking) */
->  			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> -			.domain = 0,
-> +			.domain = 1,
->  			.bdf = 1 << 3,
->  			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
->  			.shmem_regions_start = 5,
-> diff --git a/configs/arm64/imx8mp-inmate-demo.c b/configs/arm64/imx8mp-inmate-demo.c
-> index 795c616f..127392df 100644
-> --- a/configs/arm64/imx8mp-inmate-demo.c
-> +++ b/configs/arm64/imx8mp-inmate-demo.c
-> @@ -114,7 +114,7 @@ struct {
->  	.pci_devices = {
->  		{
->  			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> -			.domain = 1,
-> +			.domain = 2,
->  			.bdf = 0 << 3,
->  			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
->  			.shmem_regions_start = 0,
-> diff --git a/configs/arm64/imx8mp-linux-demo.c b/configs/arm64/imx8mp-linux-demo.c
-> index 1e0a9f1c..22793c2a 100644
-> --- a/configs/arm64/imx8mp-linux-demo.c
-> +++ b/configs/arm64/imx8mp-linux-demo.c
-> @@ -178,7 +178,7 @@ struct {
->  	.pci_devices = {
->  		{
->  			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> -			.domain = 1,
-> +			.domain = 2,
->  			.bdf = 2 << 3,
->  			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
->  			.shmem_regions_start = 0,
-> @@ -189,7 +189,7 @@ struct {
->  		},
->  		{
->  			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> -			.domain = 1,
-> +			.domain = 2,
->  			.bdf = 3 << 3,
->  			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
->  			.shmem_regions_start = 4,
-> @@ -200,7 +200,7 @@ struct {
->  		},
->  		{ /* IVSHMEM 00:00.0 (demo) */
->  			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> -			.domain = 1,
-> +			.domain = 2,
->  			.bdf = 0 << 3,
->  			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
->  			.shmem_regions_start = 8,
-> @@ -210,7 +210,7 @@ struct {
->  		},
->  		{ /* IVSHMEM 00:01.0 (networking) */
->  			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> -			.domain = 1,
-> +			.domain = 2,
->  			.bdf = 1 << 3,
->  			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
->  			.shmem_regions_start = 13,
-> diff --git a/configs/arm64/imx8mp.c b/configs/arm64/imx8mp.c
-> index 3f758980..9654a764 100644
-> --- a/configs/arm64/imx8mp.c
-> +++ b/configs/arm64/imx8mp.c
-> @@ -42,7 +42,7 @@ struct {
->  			.pci_mmconfig_base = 0xfd700000,
->  			.pci_mmconfig_end_bus = 0,
->  			.pci_is_virtual = 1,
-> -			.pci_domain = 1,
-> +			.pci_domain = 2,
+> +				/*
+> +				 * It's possible that virt + size overflows to
+> +				 * exactly 0 (e.g. a 512MB region starting at
+> +				 * 0xe0000000 with 32-bit addresses) during
+> +				 * normal execution. Any overflow beyond that is
+> +				 * a programming error.
+> +				 *
+> +				 * To handle this case, subtract 1 from the size
+> +				 * when comparing both sides. Note that
+> +				 * page_size is always > 0, so there's no risk
+> +				 * of underflow.
+> +				 */
+>  				if (virt <= page_start &&
+> -				    virt + size >= page_start + page_size)
+> +				    virt + (size - 1) >=
+> +				    page_start + (page_size - 1))
+>  					break;
 >
->  			.arm = {
->  				.gic_version = 3,
-> @@ -199,7 +199,7 @@ struct {
->  	.pci_devices = {
->  		{
->  			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> -			.domain = 1,
-> +			.domain = 2,
->  			.bdf = 2 << 3,
->  			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
->  			.shmem_regions_start = 0,
-> @@ -210,7 +210,7 @@ struct {
->  		},
->  		{
->  			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> -			.domain = 1,
-> +			.domain = 2,
->  			.bdf = 3 << 3,
->  			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
->  			.shmem_regions_start = 4,
-> @@ -221,7 +221,7 @@ struct {
->  		},
->  		{ /* IVSHMEM 0000:00:00.0 (demo) */
->  			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> -			.domain = 1,
-> +			.domain = 2,
->  			.bdf = 0 << 3,
->  			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
->  			.shmem_regions_start = 8,
-> @@ -231,7 +231,7 @@ struct {
->  		},
->  		{ /* IVSHMEM 0000:00:01.0 (networking) */
->  			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> -			.domain = 1,
-> +			.domain = 2,
->  			.bdf = 1 << 3,
->  			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
->  			.shmem_regions_start = 13,
-> diff --git a/configs/arm64/imx8mq-linux-demo.c b/configs/arm64/imx8mq-linux-demo.c
-> index 1177f596..03e67a94 100644
-> --- a/configs/arm64/imx8mq-linux-demo.c
-> +++ b/configs/arm64/imx8mq-linux-demo.c
-> @@ -136,7 +136,7 @@ struct {
->  	.pci_devices = {
->  		{ /* IVSHMEM 00:00.0 (demo) */
->  			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> -			.domain = 1,
-> +			.domain = 2,
->  			.bdf = 0 << 3,
->  			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
->  			.shmem_regions_start = 0,
-> @@ -146,7 +146,7 @@ struct {
->  		},
->  		{ /* IVSHMEM 00:01.0 (networking) */
->  			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> -			.domain = 0,
-> +			.domain = 2,
->  			.bdf = 1 << 3,
->  			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
->  			.shmem_regions_start = 5,
-> diff --git a/configs/arm64/imx8mq.c b/configs/arm64/imx8mq.c
-> index 9f9c6071..145a36e4 100644
-> --- a/configs/arm64/imx8mq.c
-> +++ b/configs/arm64/imx8mq.c
-> @@ -42,6 +42,7 @@ struct {
->  			.pci_mmconfig_base = 0xbfb00000,
->  			.pci_mmconfig_end_bus = 0,
->  			.pci_is_virtual = 1,
-> +			.pci_domain = 2,
->
->  			.arm = {
->  				.gic_version = 3,
-> @@ -161,7 +162,7 @@ struct {
->  	.pci_devices = {
->  		{ /* IVSHMEM 0000:00:00.0 (demo) */
->  			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> -			.domain = 0,
-> +			.domain = 2,
->  			.bdf = 0 << 3,
->  			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
->  			.shmem_regions_start = 0,
-> @@ -171,7 +172,7 @@ struct {
->  		},
->  		{ /* IVSHMEM 0000:00:01.0 (networking) */
->  			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> -			.domain = 0,
-> +			.domain = 2,
->  			.bdf = 1 << 3,
->  			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
->  			.shmem_regions_start = 5,
+>  				err = split_hugepage(pg_structs->hv_paging,
 >
 
-Thanks, all applied.
+Good catch!. Applied - with a minor comment tweak:
 
+"Note that size and page_size are always > 0..."
+
+Thanks,
 Jan
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/5df1659c-3eff-6444-c028-569d50bb695b%40web.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/4b848060-fae4-0f46-8d47-34a55cff16a7%40web.de.
