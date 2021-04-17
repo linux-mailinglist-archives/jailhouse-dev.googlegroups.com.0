@@ -1,147 +1,119 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBVGY5KBQMGQEV2W3QBA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC76BKUBWEKRBGOZ5KBQMGQEXVWT3GY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43a.google.com (mail-wr1-x43a.google.com [IPv6:2a00:1450:4864:20::43a])
-	by mail.lfdr.de (Postfix) with ESMTPS id B433A362EE9
-	for <lists+jailhouse-dev@lfdr.de>; Sat, 17 Apr 2021 11:37:24 +0200 (CEST)
-Received: by mail-wr1-x43a.google.com with SMTP id s7-20020adfc5470000b0290106eef17cbdsf2406781wrf.11
-        for <lists+jailhouse-dev@lfdr.de>; Sat, 17 Apr 2021 02:37:24 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1618652244; cv=pass;
+Received: from mail-vk1-xa3b.google.com (mail-vk1-xa3b.google.com [IPv6:2607:f8b0:4864:20::a3b])
+	by mail.lfdr.de (Postfix) with ESMTPS id EC85C362EEB
+	for <lists+jailhouse-dev@lfdr.de>; Sat, 17 Apr 2021 11:38:34 +0200 (CEST)
+Received: by mail-vk1-xa3b.google.com with SMTP id c62-20020a1f4e410000b02901d01fb39972sf3537790vkb.13
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 17 Apr 2021 02:38:34 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1618652314; cv=pass;
         d=google.com; s=arc-20160816;
-        b=okPiwz8WVrveK6fHDiGckfJzthog7rrSgT1OeOj0zJgnKuBmm4NltXSKHKtoZyVDQK
-         cjY6ibKg8sHocvOxzpj7z5TQ8Z4GLJfScp7U6eQSD6SZ/gb9LSfb3ELBp2rW+w5dWyuX
-         ZouP1vLrAz23yrYmJsHrn8caVBjxB7nvKSqA5TsCTs2LgrdjgLT15NuaH21ZsEzwCj3v
-         R88i90GIRJqtNrvD/P8ZSTnnfVPevqA84zJlWzY2zQO7rB8PCbPCRcptjdJuYpe27aR+
-         h0lr4PGgpb+o7mLt/mEGrIShfNvo7nXV9PV8o63hVyYLZeyO0kaRqU+8zZfOTtGBBxnT
-         efGw==
+        b=dHa74YsEfxGte6+G53pqkk7NUW1eswvwGyv9tSSbkqCv304c/XMyn8MjOZ5VdoptyY
+         KxUXVSu09lnirhthWgmD+tMzwbORM/hosGZoSip2Y70NlXtUbmMqf6zdmFDxB+r5OMXe
+         8NB5bSb7moAzAlLDKRYhWwa1zBr44nwUcmXZxwCYe6ucwHHM+qxNqVYsF4TI3Hzl3IE5
+         uqXc459Roi6uh+5K2Oq4UfnHHjGmtTb5YM2TRu08AuTAbA6eEY5/f8UAXskW+VlRSZpB
+         ueXcxTT3wcDao9wfFjFJlsQvELiTgAIuZc0aeLOvpWzs6JBQjtlO6U7xqDyy9P6VXDQ3
+         wUIA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:to:subject
-         :sender:dkim-signature;
-        bh=8kWfEjaCCS3ITSu1oMl/h5oHIWZheeBSoX8BasGwV/U=;
-        b=0X6Ygw2G2nUbf5Qk0XQaQDU/5jDKVUmaxfB4CsntRa+b5WlCU77UHZpu/6s9tEYlaF
-         gj8oCll3XFA7r/2A2VQikRXfUsKdgOWRdB76RW3FhHiJuwoL1ameqGsvRpiqG5t+xbDJ
-         Kb1mzqHGhEv597Zf3jLd0gCrezIFC86lFayC4jfsHwVzhVqQ2p3dltXjTzASwZZP3L9d
-         rbezoMpzVSkwIXLDY6sTZtBUveNFqVTqds1AvcGOSc00S8Rglvfr3TjDbTA7idLeT0u2
-         lLX8qm8ElFEHW5BTFiDu7t4lhyyQvXDZ4yw6XsFhDyKSC/rLaYhdnmaidPdMUkkYxC1B
-         dV8Q==
+         :list-id:mailing-list:precedence:reply-to:mime-version:subject
+         :message-id:to:from:date:dkim-signature;
+        bh=JTTvAmyGEuifmBHWlQzHJ/Ez3OgOnJLGoANK2aJGLUk=;
+        b=zmi+uWmY5qgMJU67/crhpkAlCf6k9/V3ceQocPof5fr40b9smBsKNUEtWXIwQ5+1PV
+         bOYxaF55Pk2vMjp37OOYyn7ZZ0Pq+5g0mAafw+guwuhBCMNSZ0FjMcPl+VbfPY+ld7TY
+         puyamLkZRHNps3ahVVBhIft+dvQ81Q0DWVDp/F2BGTsSWkrFlvvq83VHTFMLdr/WFcPr
+         fex2RTKpVdyfx8piqUySUxuUoKlSFYUkGoLCzIIiGttN7HJAtDp5skcNVf+HffctvGLK
+         bxaQ4AjxjUGT8ugNOLM2f8jrDO+QNuKc2z4IQSHOwBNqhmzuJp9MU3nmMIGNsTh+rNbB
+         B4mg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=KHUY7YzH;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=web.de
+       dkim=pass header.i=@github.com header.s=pf2014 header.b=nVXK456u;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.209 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=github.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=8kWfEjaCCS3ITSu1oMl/h5oHIWZheeBSoX8BasGwV/U=;
-        b=FEMTrgzzB9eXihCW2vejsmlngHdaC7vYdMz5OylvAxjeoVcPuMX28o0GxlrxDu4f7M
-         I1F1rGFyjdt3jxUE9eIsjpa9J02r4+06GOHNXF2WRDcvXYheCdWUSnqci67GVoe4NJH3
-         W+ESUxrkgk6xu2bwL8eFfowO0BQcETxCmuRi56JVozd6K2tO6b749xEHjUvcjudQqJ5r
-         HpJRxtqTIet+Zh/gP0dWjqC2ZpQ/2voCJbIX4yegV3AOINLQXixrPflTTBk0Nu/EjB8d
-         s1gMvsWqYu/EDYbCsjBELyY5O59/jI0afgwDzUVhthX3d//BKG6opfuYol7g0mw1w7+N
-         B48A==
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
+         :x-original-authentication-results:reply-to:precedence:mailing-list
+         :list-id:list-post:list-help:list-archive:list-subscribe
+         :list-unsubscribe;
+        bh=JTTvAmyGEuifmBHWlQzHJ/Ez3OgOnJLGoANK2aJGLUk=;
+        b=JU5Z2ccqgiIqPfhGTN6dv5AwHLWvTYHDB/6+VZnwGYuRa4qNTV6GCuWlhNJJ+EPQtV
+         9w68uk3cxFPckSrsvwCjinlyP9lv4BLr6QuUHTRG1gKhp7IpcuK5q9FwguYn0Yp3nto+
+         fglx73O0NIgp6yt2Wd4ZxUQG1Zcvp5iyVRAi+yKqlSY0ch8VAwoHhxpCOS+XZLru7PAw
+         3DtqoATQDNPJHWv7u45lex0B7MPut/jsByNiyPf6kTfNDqg0xf1g2ECkQvwKJnVh+a+J
+         j8TYtK01vNIwwQBPO8gZhmoa/9gHZAO/ngTN8kuaUXuoXN2nj49ZTDmDIwIql0MPKyPY
+         VRNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=8kWfEjaCCS3ITSu1oMl/h5oHIWZheeBSoX8BasGwV/U=;
-        b=pXXuX3dplpBOcCstk639qcGy9+nH6Izo526PKVK/5M26VjV7B7dBwLtgNR5KDI/Gog
-         W6z31eCRN4l2/N/ucTgUG+PJSEVQngKPekTjPRBzdnc1CH9R0hjN8IRVhZAC/VsCO6RQ
-         WoIT+EDaWEiWwvfHe4R3JfQ/nZZRNPt7IhzCmoUdLnxAfclRpBuqqpPuK78ddBMqzttK
-         YotONLtI/YNIdvvEIwq1dt4B/8LjDBl7L2P47bqMHgfFDbBOH9lXnvzbF3pY8Dg0siEq
-         Au+OPvJBLhFdNMQPe2n13ufScKPnzQyE0/C01KxbIGt4BBRMaW73oaX4Q8Lh+g3zfOE+
-         LLaw==
-Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531IDWDEPB+UqnhZXlvXUBThBBa4TIh1WjpepTgjIEyVmHsJjfUK
-	GNUN8CcDFdOYe5foy87Rd3U=
-X-Google-Smtp-Source: ABdhPJx69eC9bup1P4z6SZ0TIqDLY1qfNdvTUE8ZqeOTtrHlmbsw1zwXE6JLJu8jslVhhoKV3BDtxw==
-X-Received: by 2002:adf:f410:: with SMTP id g16mr3536017wro.345.1618652244480;
-        Sat, 17 Apr 2021 02:37:24 -0700 (PDT)
+        h=x-gm-message-state:date:from:to:message-id:subject:mime-version
+         :x-original-sender:x-original-authentication-results:reply-to
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=JTTvAmyGEuifmBHWlQzHJ/Ez3OgOnJLGoANK2aJGLUk=;
+        b=c3PQjwJhc+wXfStwfZA6cIFq3QwYWjr7qh3jph/WrE/qvEjZTx4cEP3eIYA93jq9wE
+         SztzrDhF61W+OybdAyJ6y41u3BjLwc+XKBSKFvgzHYxIlrgUMnDj3DLMOeZvRKQhjuVQ
+         e73UOiP19AmF2CqZALz+GMub04Lo2Ph/e8PzdEDg/lv9fslcpdSrvxGgpE/C6XZknUzd
+         jrJW4Zl3VLj6EwiP8Qj7w6SXaz1TD0u2QKSHw+ORjiYMfGZ+XnR1ff39cefOBOszSZBx
+         eRWMFJ+spO5Tjc2ltk+cKfru7JSnPcM/uKCrkmDSqMCeHJXBmndSckEqinYd+RA/u95p
+         LZaA==
+X-Gm-Message-State: AOAM530twAV/t5ePUbZx6CGWRnIOg9LgGx7/M8auxxtg62O1y4sFa/Eu
+	G1tR5slWEZZ4N8GxNe496NM=
+X-Google-Smtp-Source: ABdhPJwY/uQKuEuVVdIFv2EG7vIMvYgzBLoXdjyromSSKZPbfzCK9WUC77oIHFcqvMwrrYtYd6Jzxg==
+X-Received: by 2002:a1f:1649:: with SMTP id 70mr398814vkw.4.1618652313845;
+        Sat, 17 Apr 2021 02:38:33 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a7b:c1c3:: with SMTP id a3ls5502105wmj.0.gmail; Sat, 17 Apr
- 2021 02:37:23 -0700 (PDT)
-X-Received: by 2002:a1c:771a:: with SMTP id t26mr12005448wmi.96.1618652243634;
-        Sat, 17 Apr 2021 02:37:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1618652243; cv=none;
+Received: by 2002:a67:3346:: with SMTP id z67ls1723210vsz.7.gmail; Sat, 17 Apr
+ 2021 02:38:33 -0700 (PDT)
+X-Received: by 2002:a67:1e04:: with SMTP id e4mr9780664vse.52.1618652313195;
+        Sat, 17 Apr 2021 02:38:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1618652313; cv=none;
         d=google.com; s=arc-20160816;
-        b=FKQBbDRBPBLUlKwNMbeP4mWwzeC7ExOlX7tca7fncwtsaJRotIujuFyFhj1VqNKiqy
-         kHosEFVimu4MBmKwyVnQolBFFRAmD4oBq7d/LHqeJGGk+zGKle7xwg/2VyOjUUwvA5jH
-         X4Tm7rqYupdbsEvuiAJPhS3NP7yNWeQH+Ln3SgNNlawoQCg2FokEJPKKTgismKKmZ/4b
-         TMRoyWD0zi+aDETe4tE1saQsBKVoWZWJBRccTCm52EKjfKYN+wPelvFDioRxVO8aCj19
-         EulH7oGA1gsLVe1Bpas3DOrWBgkdCLSMd6afup61D3XWdkXKjjYzOX0IXFa/A/xsSBP/
-         Fytg==
+        b=qQl9M+pEDl+V4ruMDLYiRqsGuM2tbkjETiyVLEhca9YCizI7XhSHxsk9j1vHJ2WjPw
+         Am1MWaQdVdjl3nKzJauQUzP0TgJzrzHtLKgx5asrG/yuyqb9f/dYq72FF8pmEzYl+LJf
+         GqJBcxtbS/KEG/58UnsSaUnDF1+c50s0k+JzSq9/KWgSsurCFA9LXcuH/fvYR7Kyn7uY
+         QzXHFDEjIId3hilIrF65PPkrAqxLtefN3tgdhgo9BC+cfInXjSTbJ9n40P5TI2FlJSvy
+         YITkuqxV1P8YAKWGmR/t7akwX7JuV5vjhEY25D1lr5e1XoSZsiNrVqDQhO1oi6XE/X2Z
+         KMBw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject
-         :dkim-signature;
-        bh=G9o97CA5MiP0DgokI2/tiQFCEMycIWmBnmK3GhRtME8=;
-        b=XgcCCjlptqONDkYZmhRJX0BXwZ3ib52LWLMsENeb1fEbeE8QarN3BOkcWiYiaFet3+
-         NcIW50MfTaXwWk7zq2tIjOEdyehBYNs9kwWOG6emPIu547JG1zguni72kzGDmItgd/JV
-         35c8KdYlV5vRETvJ+oj5yQwCQRxtcKPiEF+Xncnsxf7e6oEoMN0QeWvC1UBT94QIpYIR
-         ZzVC4WAvHG/u7/fgDMtyFZUxfQaAz4t4Gwg7Z6pXCfZabX4+m/Jmdng79SGIlf1pgnnO
-         NxXQopPJSwIerIrLHxooOneesXfNdGAffdA1uegY9FJg7ess0RSn6H/UtH4oCcXxhHl3
-         +ozQ==
+        h=content-transfer-encoding:mime-version:subject:message-id:to:from
+         :date:dkim-signature;
+        bh=J4lU0pKO6BRz6j5MyoLA8/lYI73HLLVIQYEmw0x1Uxc=;
+        b=aorDNNJZ74dReqlbQNIVN2cNnwNH0TTjLhrwVn6tu3Sz4Q0WYWdJ4ps8qjp5aiKPIm
+         6gy/Tt6pWEDbgpe6Dk6rME4W3Lh2JQXjUwi7yeLEPRFgwOr+t41zz5pAl+58FXluJjhK
+         Io6WowQTX8uBeWcgFFPvx5eqU2niVfJnkpx3a2u3qd5/QgRnq0vBbS1628GrMZphCwO2
+         2vSsWKN6Wh1IYq7F5igGzKz632dSYuHcZ0WrW485Il8p3XyOaz8eqz48QiPwf0nhEgpN
+         faOcTES3/Un0qR5uq/MjH6R8Aobh0bVrUHWczRUd0s5WVtv8b50XH38x5nse4mem33Zy
+         EkbA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=KHUY7YzH;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=web.de
-Received: from mout.web.de (mout.web.de. [212.227.17.11])
-        by gmr-mx.google.com with ESMTPS id w2si605993wmb.4.2021.04.17.02.37.23
+       dkim=pass header.i=@github.com header.s=pf2014 header.b=nVXK456u;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.209 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=github.com
+Received: from smtp.github.com (out-26.smtp.github.com. [192.30.252.209])
+        by gmr-mx.google.com with ESMTPS id w4si175529vkm.3.2021.04.17.02.38.32
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Apr 2021 02:37:23 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) client-ip=212.227.17.11;
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.10.10] ([88.215.87.53]) by smtp.web.de (mrweb101
- [213.165.67.124]) with ESMTPSA (Nemesis) id 0LtFYd-1lduoa0at9-012nUh; Sat, 17
- Apr 2021 11:37:23 +0200
-Subject: Re: [PATCH] core: avoid overflow in paging_destroy
-To: Chase Conklin <chase.conklin@arm.com>, jailhouse-dev@googlegroups.com
-References: <20210330120632.23496-1-chase.conklin@arm.com>
-From: Jan Kiszka <jan.kiszka@web.de>
-Message-ID: <4b848060-fae4-0f46-8d47-34a55cff16a7@web.de>
-Date: Sat, 17 Apr 2021 11:37:22 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
-MIME-Version: 1.0
-In-Reply-To: <20210330120632.23496-1-chase.conklin@arm.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+        Sat, 17 Apr 2021 02:38:32 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.209 as permitted sender) client-ip=192.30.252.209;
+Received: from github.com (hubbernetes-node-d588c94.ash1-iad.github.net [10.56.113.18])
+	by smtp.github.com (Postfix) with ESMTPA id 923F25E08EC
+	for <jailhouse-dev@googlegroups.com>; Sat, 17 Apr 2021 02:38:32 -0700 (PDT)
+Date: Sat, 17 Apr 2021 02:38:32 -0700
+From: "'chacon01' via Jailhouse" <jailhouse-dev@googlegroups.com>
+To: jailhouse-dev@googlegroups.com
+Message-ID: <siemens/jailhouse/push/refs/heads/next/ecd3cf-87aa37@github.com>
+Subject: [siemens/jailhouse] d22033: Check UART UCR1_UARTEN bit before writing
+ data
+Mime-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-X-Provags-ID: V03:K1:0vmXpTDPf5mTDXsNIrHP6PpiIhwzntuKrUg13NHU5rz5/vwRbSa
- Dla5sRdxBdBd9/Qli5sJu4strbN7WhrXJYGJU7al+jA5KYWRfCPl6EQ6mZvLhT47vUgMhnh
- iCqwTUPzw7PgGF9roesk7rHNKvpHgACAJ9+ZawpYbdbqGdzZ4P4Sypb/T4sS334h5bm/FAr
- VQx8kC30wE3JmO3fsEpng==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:ACYkIRaqqIY=:dsiRuUu1sidVAW1yzp8f/a
- IC8BFeouMqXwjvnltJPkggQ/cRt2dK+0Qd7Y2RTUc0w8TUoAPxC9e87mlC2AiZkBNZDVMUve2
- lzBR2ow5aG34oJh/x5O3b8n2ngMkuTG7VzHesdQrWgPjUDgPAbLsGkfHeuxsRHRv4/JmX1G2P
- XZ48KjCDwrZB92JGxqFDEyNxT0HvGdWvR8pRjbC5KOIBh0IwSW5gVh1yWyU3dcS+wH/6z+2Dt
- Ih0oIQmiybXEc4HyGzE3C5jj6LEJssR5bKX0fhXyWJwm7szAPkxyyqAA+cwYIJjay30NBbjih
- Ql7WKeunAT7coVqzSJQ+2nnuLt5PLzVHTP5BhctJJMnz1KPf9X6bFUhEPxpctQzKop3tWLB4s
- HSgEIL8eR1J6WK7HsSgeMth/wTN4Letgql+uuP3GrDZqy4fWT1+3kKixidys530J8aG0UGhGT
- E9bh6DPS8guKIDCMcl3wRtQksn1zDJcTiIRH5STd9j7zNJwfTYKta61bYFJjBst0mylgnRLqp
- kend7gXOV0Fi8gAaZU+R/lR1e4ldFHJeQlnjI3YIfLEbPL3Z7acEY8KgqABVvn4rlWle6H2tf
- EHfuqNX7MxsCTN6bRLMgkaGQ3WgzxSIHVv/cExnD99R39ghonIyQIXic1l7QaFiyD8zHpcI6C
- ydQGjAPm9QwIV40Aff7RpvcOx/fjRQze8akLEnDyEs1vu6S/7jxowKuKaA+ekbvZYHHMTOrSw
- GZmPZssw67M4jJOYt1nswN6AetCoDEWXc/ujtp8RFsmy9bOfMGUhSednX8n39NIa7pz0CMgDl
- EfUpp2mHN0rsJfVAh4E8yDKGpM7iXB3P+2cHX3bz8gH4GRtPmb2ZVi5u0N8Shp3xgj77IEExc
- sNkjlCDCo9oX7cO9NPRqFbqofaaiaPO87niDiYpTaaDqi+JE6BgWm55aQNf4WNU4O6fQwIDdK
- QXwyuCMzGkdIQCw7xs1AWuC5C7eJMnBRNlNYNXTVPuy8fIfwGIXtTuSwTnJUn+MBSbV+z30f1
- 4LFykkz72m0nkprX2wh43PPmgLHsa97exZsDUnKE6Fshp/VenZ0oAMYzxR/8P90hs5+N53MTc
- zXpilRKiIT07yEeAM30UUuhLnSXmzH1/PCSUhjEKvf9RqZR1mwOXDilS+5XeFi1YeK3lSIVD2
- iy/gVTDuDINiCee4n7qTS/QND4MJrKu29+HvuQY3hneUz4tUbLzk48HhiEAlxXDylteqY=
-X-Original-Sender: jan.kiszka@web.de
+X-GitHub-Recipient-Address: jailhouse-dev@googlegroups.com
+X-Auto-Response-Suppress: All
+X-Original-Sender: noreply@github.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b=KHUY7YzH;       spf=pass
- (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as
- permitted sender) smtp.mailfrom=jan.kiszka@web.de;       dmarc=pass (p=NONE
- sp=QUARANTINE dis=NONE) header.from=web.de
+ header.i=@github.com header.s=pf2014 header.b=nVXK456u;       spf=pass
+ (google.com: domain of noreply@github.com designates 192.30.252.209 as
+ permitted sender) smtp.mailfrom=noreply@github.com;       dmarc=pass
+ (p=REJECT sp=REJECT dis=NONE) header.from=github.com
+X-Original-From: chacon01 <noreply@github.com>
+Reply-To: chacon01 <noreply@github.com>
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -154,59 +126,155 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 30.03.21 14:06, Chase Conklin wrote:
-> It is possible for the ending address in paging_destroy to overflow to
-> exactly 0. For example, in a build with 32-bit addresses, a request to
-> unmap 512MB at 0xe0000000 will result in an overflow (0xe0000000 +
-> 0x20000000 = 0x100000000 which exceeds 32 bits).
->
-> This overflow can be avoided by comparing the last address in the
-> region to be unmapped rather than the first address to not be
-> unmapped.
->
-> Fixes: 7cffb9b7d54d ("core: fix hugepage splitting in paging_destroy")
-> Signed-off-by: Chase Conklin <chase.conklin@arm.com>
-> ---
->  hypervisor/paging.c | 15 ++++++++++++++-
->  1 file changed, 14 insertions(+), 1 deletion(-)
->
-> diff --git a/hypervisor/paging.c b/hypervisor/paging.c
-> index 75d5da59..e77fac30 100644
-> --- a/hypervisor/paging.c
-> +++ b/hypervisor/paging.c
-> @@ -399,8 +399,21 @@ int paging_destroy(const struct paging_structures *pg_structs,
->  					paging->page_size : PAGE_SIZE;
->  				page_start = virt & ~(page_size-1);
->
-> +				/*
-> +				 * It's possible that virt + size overflows to
-> +				 * exactly 0 (e.g. a 512MB region starting at
-> +				 * 0xe0000000 with 32-bit addresses) during
-> +				 * normal execution. Any overflow beyond that is
-> +				 * a programming error.
-> +				 *
-> +				 * To handle this case, subtract 1 from the size
-> +				 * when comparing both sides. Note that
-> +				 * page_size is always > 0, so there's no risk
-> +				 * of underflow.
-> +				 */
->  				if (virt <= page_start &&
-> -				    virt + size >= page_start + page_size)
-> +				    virt + (size - 1) >=
-> +				    page_start + (page_size - 1))
->  					break;
->
->  				err = split_hugepage(pg_structs->hv_paging,
->
+  Branch: refs/heads/next
+  Home:   https://github.com/siemens/jailhouse
+  Commit: d22033b6367bedcc2890260fc23be3d5934df95b
+      https://github.com/siemens/jailhouse/commit/d22033b6367bedcc2890260fc23be3d5934df95b
+  Author: Peng Fan <peng.fan@nxp.com>
+  Date:   2021-04-17 (Sat, 17 Apr 2021)
 
-Good catch!. Applied - with a minor comment tweak:
+  Changed paths:
+    M hypervisor/arch/arm-common/uart-imx.c
+    M inmates/lib/arm-common/uart-imx.c
 
-"Note that size and page_size are always > 0..."
+  Log Message:
+  -----------
+  Check UART UCR1_UARTEN bit before writing data
 
-Thanks,
-Jan
+There is frequent start/shutdown operation in kernel reboot process.
+And at the end of kernel reboot, kernel will switch to use console
+output,saying imx_console_write on i.MX8MM.
+
+imx_console_write will save/restore uart configuration.
+However before imx_console_write the UCR1_UARTEN already set to 0.
+when restore, it is also 0. Then when we runs into jailhouse
+disable, jailhouse write to uart will trigger hardware exceptions.
+
+So let's add a check.
+
+However to hypervisor itself, there is still risk that
+kernel disable uart, whenh jailhouse is going to write
+data registers even with this patch applied.
+
+There is no good way to avoid such contention,
+the best way to avoid such issue is that
+use a different uart from Linux or remove
+`.type = JAILHOUSE_CON_TYPE_IMX,` from configs/arm64/imx8mm.c.
+
+Remove `.type = JAILHOUSE_CON_TYPE_IMX,` means
+jailhouse hypervisor will not output to uart, but you still
+could see jailhouse log by `cat /dev/jailhouse`
+
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 8a82d38ee12c3ab64b0cc95bee35a74ac9bdd391
+      https://github.com/siemens/jailhouse/commit/8a82d38ee12c3ab64b0cc95bee35a74ac9bdd391
+  Author: Peng Fan <peng.fan@nxp.com>
+  Date:   2021-04-17 (Sat, 17 Apr 2021)
+
+  Changed paths:
+    M hypervisor/arch/arm-common/gic-v3.c
+    M hypervisor/arch/arm-common/include/asm/control.h
+
+  Log Message:
+  -----------
+  arm: gic-v3: not overwrite interrupt settings needed by EL2
+
+SGI_INJECT, SGI_EVENT, and maint interrupt are needed by Jailhouse and
+must not be controlled by the inmate. E.g., we allowed the inmate to
+disabled those interrupts, stalling Jailhouse on management operations.
+
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 1423b55d303d0f27b97b0ee223a451c3e50cda91
+      https://github.com/siemens/jailhouse/commit/1423b55d303d0f27b97b0ee223a451c3e50cda91
+  Author: Peng Fan <peng.fan@nxp.com>
+  Date:   2021-04-17 (Sat, 17 Apr 2021)
+
+  Changed paths:
+    M configs/arm64/imx8mp-linux-demo.c
+    M configs/arm64/imx8mp.c
+
+  Log Message:
+  -----------
+  imx8mp: support virtio console/block
+
+Support virtio console/block, the reserved memory
+has already been reserved in linux dts, we reserved 2MB when
+initially support ivshmem which 1MB is not used at that time,
+but now the left 1MB is well fit for virtio console/block.
+
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: b8f4aebd7ae665dc8011dc7070e8f978acb0de55
+      https://github.com/siemens/jailhouse/commit/b8f4aebd7ae665dc8011dc7070e8f978acb0de55
+  Author: Peng Fan <peng.fan@nxp.com>
+  Date:   2021-04-17 (Sat, 17 Apr 2021)
+
+  Changed paths:
+    M configs/arm64/imx8mm-linux-demo.c
+    M configs/arm64/imx8mm.c
+    M configs/arm64/imx8mp-inmate-demo.c
+    M configs/arm64/imx8mp-linux-demo.c
+    M configs/arm64/imx8mp.c
+    M configs/arm64/imx8mq-linux-demo.c
+    M configs/arm64/imx8mq.c
+
+  Log Message:
+  -----------
+  arm64: imx8m: correct pci domain
+
+After linux moved to use linux,pci-domain, we update to
+correct pci domain here to use a domain not used by pci hardware.
+
+i.MX8MQ: 2
+i.MX8MM: 1
+i.MX8MN: 0
+i.MX8MP: 2
+
+Working with NXP vendor tree is 5.10.
+Upstream tree only has i.MX8MQ pcie, since 5.11.
+
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+  Commit: 87aa37d4236dedd81c1c9219ef3f5e6713d42d52
+      https://github.com/siemens/jailhouse/commit/87aa37d4236dedd81c1c9219ef3f5e6713d42d52
+  Author: Chase Conklin <chase.conklin@arm.com>
+  Date:   2021-04-17 (Sat, 17 Apr 2021)
+
+  Changed paths:
+    M hypervisor/paging.c
+
+  Log Message:
+  -----------
+  core: avoid overflow in paging_destroy
+
+It is possible for the ending address in paging_destroy to overflow to
+exactly 0. For example, in a build with 32-bit addresses, a request to
+unmap 512MB at 0xe0000000 will result in an overflow (0xe0000000 +
+0x20000000 = 0x100000000 which exceeds 32 bits).
+
+This overflow can be avoided by comparing the last address in the
+region to be unmapped rather than the first address to not be
+unmapped.
+
+Fixes: 7cffb9b7d54d ("core: fix hugepage splitting in paging_destroy")
+Signed-off-by: Chase Conklin <chase.conklin@arm.com>
+[Jan: tweak comment to address also size == 0 case]
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+
+
+Compare: https://github.com/siemens/jailhouse/compare/ecd3cf0ae00e...87aa37d4236d
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/4b848060-fae4-0f46-8d47-34a55cff16a7%40web.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/siemens/jailhouse/push/refs/heads/next/ecd3cf-87aa37%40github.com.
