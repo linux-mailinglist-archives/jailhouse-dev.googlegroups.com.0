@@ -1,133 +1,191 @@
-Return-Path: <jailhouse-dev+bncBDIO7H5HXQBBBNXM62BQMGQE67HQNZA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDGILGE54ELBBVXS62BQMGQE255HVGQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb3c.google.com (mail-yb1-xb3c.google.com [IPv6:2607:f8b0:4864:20::b3c])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB42136489B
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 19 Apr 2021 18:56:23 +0200 (CEST)
-Received: by mail-yb1-xb3c.google.com with SMTP id f7-20020a5b0c070000b02904e9a56ee7e7sf8328128ybq.9
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 19 Apr 2021 09:56:23 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1618851383; cv=pass;
+Received: from mail-lf1-x137.google.com (mail-lf1-x137.google.com [IPv6:2a00:1450:4864:20::137])
+	by mail.lfdr.de (Postfix) with ESMTPS id 356A93648C5
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 19 Apr 2021 19:09:43 +0200 (CEST)
+Received: by mail-lf1-x137.google.com with SMTP id v23-20020a05651203b7b02901abd47176ffsf6429647lfp.9
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 19 Apr 2021 10:09:43 -0700 (PDT)
+ARC-Seal: i=3; a=rsa-sha256; t=1618852182; cv=pass;
         d=google.com; s=arc-20160816;
-        b=bZYqNiEfdvCrVBZBdNwTZqYqEFjsMDGn0D2n0AKnDFnEksawx9RVNa4rvqxhzxDqIR
-         7V5jKaBjB9+6fj5XbEyH4ZpwvI5H76Z70Kk9N9YlCKxemg01ec7Y0o5T7KXm+acmWp1U
-         3OYlZaiWILmTxxh9ozCaF4QoFmYIGhTdr7GbLOMCGxGfa/RrpgY1KVgwZD0XfbHbYvAC
-         TB2GON8iws4v1gci+Jw6LcMAw4EJ4u/vHjZH9i7gsxDR6pR0uKDtcj3FwmKtlU3dWrc5
-         dPIIXb7Eyj5EFfoFsBugrBmbD3+6LlMUVUDAJlYJRQQtsy1F+NALPDVM23t5KTwDzpIe
-         ujSg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-subscribe:list-archive:list-help:list-post:list-id
-         :mailing-list:precedence:list-unsubscribe:subject:message-id:to
-         :reply-to:mime-version:from:date:sender:dkim-signature;
-        bh=LNypn0nGeQ2ytBZTFrFZ7T8G76KbaFYk52vG2bHsWWk=;
-        b=m3wLEPyQjezVvx4R8U7fvmo2CV5F7pc81lQDlzK4h7zLpHo/pm6SBuajEyz4w3v/pE
-         85p0ov7iu81loxhVk6vjZBsvhaUWhyQc/GLgKmT1eaA8Z3esbPHoTqif2zkvF5Wnkvec
-         WA4bxLtwG37D2YkdLWPrHU18v6NC/tgdZMymsRp4yQU71wa2tXatUeJ5eWSHDTIq0eoo
-         tLQA3PknLbpGTdB6A30pjKOZXvD8y920rD9mT5NLqdM60JdYyLxKhLRKtxnOqxfl9lwQ
-         5Y7kBDunqOhMg0R1L/kv4sB+Mk3jlwlKn7F4LA6KmdRe/FOM1iFlGAsbANk8hXcIc+rW
-         iPhA==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@sendgrid.net header.s=smtpapi header.b=y3J+rele;
-       spf=pass (google.com: domain of bounces+21271858-e85e-jailhouse-dev=googlegroups.com@sendgrid.net designates 149.72.181.178 as permitted sender) smtp.mailfrom="bounces+21271858-e85e-jailhouse-dev=googlegroups.com@sendgrid.net"
+        b=PGNXtjBv1DAwcHuY3e0rN8tbkRarHOwN+BxqZvWKpepqEQPorbfXv6oY3gPXVQMysH
+         ausqpHYpo6Yn8h0lcaVIb/X8VCfteBhu43+W3hVbUGfWhjPDW2hddS4EWG0xfpuTJe2i
+         GFyv4IA2mED/e+ewp//t1jZavSxCVowPJYzMASUgfPmTgl9ikOvAl6vk7bQbmzMNi4Ve
+         puImSUhBWqxjhKrspsTf4jA/f78pDEnClK4zZxLLVYvKnGkMK0YPV720brfDyf3cT0lu
+         JC2slQBBTOH+Ed6PGRaXPK4oPMqvvQvhxeJ+bpCFSbh/qP4CwNU245EGKZZK+U88C4je
+         IS/Q==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:mime-version:content-language
+         :accept-language:message-id:date:thread-index:thread-topic:subject
+         :to:from:sender:dkim-signature;
+        bh=zOhOc5XFSbqAekjsel5xsJzTSUDkjRhhRgNHdWOUnN8=;
+        b=cp5ks4dQllyb3E4jJK5aY7Lm+rKMwA9SxAL5yM3nHCjQXp94kPth6Q1GMvFMticImX
+         n84amjDpwZ1vOwf/WA7n/lYGNzU+247eB2pYWDSTHz0jIE2uoZoPJUf+ywxhWZa6W0rj
+         MQmMqUpGBj2WCKlfcVFgqzOXM+07AlK/c3rbCAb6Ek5yi3VmYnWU+NT3AK8lyQZaHloA
+         TgZ4/9nzU89mx7W62hQoejb8rdryxpyG5Z+zGz1CX0mdWN3II+CyLF+rusKwPexQ8Ndj
+         Ca33dKyZ+/rJreowemtypvMHt4f8CwWIH9+BtAWXIEsCuacYen8XW62JhocG2NGJ9ykD
+         DuaQ==
+ARC-Authentication-Results: i=3; gmr-mx.google.com;
+       dkim=pass header.i=@prodrive-technologies.com header.s=selector1 header.b=D8Sx5XdE;
+       arc=pass (i=1 spf=pass spfdomain=prodrive-technologies.com dkim=pass dkdomain=prodrive-technologies.com dmarc=pass fromdomain=prodrive-technologies.com);
+       spf=pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com designates 40.107.6.116 as permitted sender) smtp.mailfrom=bram.hooimeijer@prodrive-technologies.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=prodrive-technologies.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:mime-version:reply-to:to:message-id:subject
-         :list-unsubscribe:x-original-sender
+        h=sender:from:to:subject:thread-topic:thread-index:date:message-id
+         :accept-language:content-language:mime-version:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe;
-        bh=LNypn0nGeQ2ytBZTFrFZ7T8G76KbaFYk52vG2bHsWWk=;
-        b=bM7xD1NPwnAYp1OucsWGhjHAkZq2sZcF/fnCxd3aTcP2MhUNWQVqWzb7tEPsUufgxk
-         ChOv7n5HqNhaZ5tCwTH+oP1EYc/+6/VsD8DR7RQ/k6mqHhx2Ta8IX4rLRVZvVHMpqM4W
-         WC2Ajy+gxlyISDA3loA5t2gaLcuZ/9OroFrHz1e3vZYwY1Jmvam/AAz4CUAjtZJVNjmp
-         szhOdnn9Z4Ag6RKTuoIFCsXOvwVHyF4LCmjXX3Vpz56lz9DHtupS3TIyM8qWDl7sMIrS
-         YXvSU0zxMwdG1fGPp0VK/p3joAiSqS8efWy1bRmaHAB1DMsantHTDq9PkmJ2PPW9G2BX
-         kKbA==
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=zOhOc5XFSbqAekjsel5xsJzTSUDkjRhhRgNHdWOUnN8=;
+        b=R5gypO7NtOTNT85fCE00UO3v0W98xgJa6BKm1YiygXia5Ah5wCTnnvMF2W4Bfx8c0T
+         g6xBYC3yD0WY7BDl7iek4zt4fP4TJAmKAzs+rz1n0NtM3pmzlpZPP/jTl3VXOGA7gRrF
+         ySabQZl0fA6hWHWSunWms61iSPjVBcwj1Bw1PMb7iSq0VlM5hmAohvsk1cfrrxZYXHSR
+         Qug3vuERT6DtGsPo9bkXe8Aza5hMca6vfKfFxiHyjsrETUbR5Yh7pyn7GWV3hDLlneza
+         6WNJwRDZoCSJF4cVtE/5uvrr89ELT4F1OrvGAyIlxMZMtCrLC1CLHSQ4ySzmBPhRnhLL
+         EsXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:mime-version:reply-to:to
-         :message-id:subject:list-unsubscribe:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe;
-        bh=LNypn0nGeQ2ytBZTFrFZ7T8G76KbaFYk52vG2bHsWWk=;
-        b=dmsTXu62xz2LbAiAw3BIOmuj9cWLFo8Vs+LGbu8Z2PXGMhvu7h10idQfgIkiSH1IGh
-         KBrAKe7kf7Dq16GJkmEcfXidkKVB+7GYUpKiso91X0aj6ZkIs8k3i1FTpBsv+ziJJlXs
-         W1SNrECCPJlksWBAyfAxzpUoZdKAzQFv4UJnPnO5QIzVFZ7koDw6hpjXYTErrrILOgQ+
-         cu6UgepB4W8Gat9r17VDzo/RAxskGDVkF+zI0aufo8UXoRh3mJuo9npTNLjD+qSrbpLb
-         R0K6iHZmoC/4c++GM6tJTVsC/jJZz3s+0oOGd6Tp962zN8DE+34oC47drByHTWu/hxpJ
-         bHrQ==
+        h=sender:x-gm-message-state:from:to:subject:thread-topic:thread-index
+         :date:message-id:accept-language:content-language:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=zOhOc5XFSbqAekjsel5xsJzTSUDkjRhhRgNHdWOUnN8=;
+        b=qLRR+u7ue+Yxnmka4NdLR8CvH1FfeXo2RwFXRoEOjiZSQt2iDJSwsCfIWwOwsGrlqQ
+         JjG1i2sGefvlZz5r42BMD1CvUmdtP2YocTcfwY5gU0N1WgSDYJC57dnxu6E+Wz8ZypLr
+         LjfM0fN/mm8quE1HMV9v5cUSCWw4tuYLYB8GZFEfACEeozbbEbENiQTCinD1a+cWYDnF
+         28r4NjNmEm3uoKe2uP1H9WIfxfdwd1g8wLeCTJjkAmED37Hq3poUTA5rQQY/3F7QP2Me
+         XfmEr3n7hYW+5ctJZkE76GC4/+alQwg5rqLPCj8e9yO+uREJaN0BFGpzpvlQD9RrDjB5
+         1sDg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531Aj9BTATXKSFV85PV3Cs2/pa9mfvmTSiJotleGza5ZdgdE462t
-	PHvvmkWaBvxVSen7OKZt4So=
-X-Google-Smtp-Source: ABdhPJybEI7asXC18C2xJxV9BIjSGj3paVYfXPbixGC4EsZBu/tUs+Vv4GZE91cfw7pxmwBqSw64Kw==
-X-Received: by 2002:a05:6902:68a:: with SMTP id i10mr18362819ybt.0.1618851382827;
-        Mon, 19 Apr 2021 09:56:22 -0700 (PDT)
+X-Gm-Message-State: AOAM532XwJdPc7Ra6JLcE3o7pqieJ3gz2CoEy/LWG/bmrqkiA33tPFmy
+	bgfllJkUfdzRozteY8/QWT4=
+X-Google-Smtp-Source: ABdhPJxcGX/lgEnhz1NFymM+Q5GhVqMh2/xDKm+bDXANfbYjNJ2//TS8gnEnnxS0dnaEzg4NMZxOQw==
+X-Received: by 2002:a2e:87c9:: with SMTP id v9mr12022828ljj.321.1618852182783;
+        Mon, 19 Apr 2021 10:09:42 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:7bc7:: with SMTP id w190ls5367696ybc.2.gmail; Mon, 19
- Apr 2021 09:56:22 -0700 (PDT)
-X-Received: by 2002:a25:2a0d:: with SMTP id q13mr18601547ybq.10.1618851382305;
-        Mon, 19 Apr 2021 09:56:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1618851382; cv=none;
+Received: by 2002:ac2:5624:: with SMTP id b4ls1201752lff.0.gmail; Mon, 19 Apr
+ 2021 10:09:41 -0700 (PDT)
+X-Received: by 2002:ac2:54b5:: with SMTP id w21mr12950587lfk.427.1618852181450;
+        Mon, 19 Apr 2021 10:09:41 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1618852181; cv=pass;
         d=google.com; s=arc-20160816;
-        b=tVXYJKXVk26XXIe51f2Rriw1IMXy8E5WpKkVReWkYXsEOOigpJWQ1twG9cSTL9AmH2
-         5c66LaY+OwIIicCH46Qp4YZuY/ypl0QrHoiwlitvne5l9JvcWhX3vJdFn6hsuKXpTut4
-         4gloLTFjPVPXjyYCc3r0FI7n802FnVLKhLX0uuk90WS98OwhR6T9suno3SwDMU8tXjgA
-         1U4U2m0Q3KZsFN89i6BLDMm01TM9d2lf2wHYSTTLOJ1Lu7QyK1rXdgJF0tw6X9Y0QCdZ
-         Wv62vZZDAJnoYFkMMRmGm43t2/U0eV9lNVd8YlPHRhFFkufToJDd0sn4hwJT/qX5h85Q
-         XJ/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:subject:message-id:to:reply-to:mime-version:from
-         :date:dkim-signature;
-        bh=MOvUPvpzl/MyX1jLQGxUCjdTEuhIQjj+TAyQCuODMNM=;
-        b=UUYAf2p9GwqIzGY6EC1cQis1uVCylIesiDZAHbvfXiWasnLTj/SpKJHxboHux1VKdS
-         jlyZa7pNZ78TS8eunaOvtXbpc6qTaNNnR8AuxTRns4tfJer/W+01jXNu/v7gWCPCpfpK
-         E6iy5rQUHPFAW6Ri5RaR0e5H3o3cDXCcwjwpMUh2HCF9FN2XB0XHBAaTtAD/1d6NBTHj
-         hh/XOz40qBRzViCtSB9jNGb9NmzMxznpOwMG0PL+s10wj2HMHXOe0oLVM++l36RiXOdY
-         8KJlOA8bQ2Xpkd5uYi0h9j2Oj5zKM6JinJ0ilNsAtmYKxQZr5L+BK9lhDYoC1a+LceGB
-         wedg==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@sendgrid.net header.s=smtpapi header.b=y3J+rele;
-       spf=pass (google.com: domain of bounces+21271858-e85e-jailhouse-dev=googlegroups.com@sendgrid.net designates 149.72.181.178 as permitted sender) smtp.mailfrom="bounces+21271858-e85e-jailhouse-dev=googlegroups.com@sendgrid.net"
-Received: from wrqvbrbn.outbound-mail.sendgrid.net (wrqvbrbn.outbound-mail.sendgrid.net. [149.72.181.178])
-        by gmr-mx.google.com with ESMTPS id f13si784201ybp.0.2021.04.19.09.56.21
+        b=rQF6Xe1rLeNVYboTbV1SUz1SJ1sRWXTTpmare2W7lnj8N0UFb2aTymKV+03l4WD71e
+         Mz8Ii/q6NW9d1dQHHiinOlMBc3IpkQXZRJIIEmzCPN67CuMeWuiUlzdx70ln4Lj9oWGK
+         E5SdAI/9m50N2xGo1pYKJXaJqPRAEgGPQFiX2zK+tdHm3qDw0LRqYBwcWe5dVXet9GZt
+         QVHc2fcKdFHIEyjtMnNkRijwdh+6skVdB2IyEYfa2nDHPceisj7zkcS5WIs75zwwSzeW
+         RwaZapFRJCxl5b3KS+tBBiDDh/3C89wrxhR6qBtX+J4ZS71TrHH0FI0BOjj88LhUbOge
+         YGKw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:content-transfer-encoding:content-language
+         :accept-language:message-id:date:thread-index:thread-topic:subject
+         :to:from:dkim-signature;
+        bh=BniLAiJUnq19uj7CCuokMO26kUZuUorR9jAH4BVZEaI=;
+        b=Q+zKqG4f2z1K5iyiSSRJm9LQB8usWlEo6bsI0B7niOHKETU/03CAife1SbujQwJ4tg
+         4bf21R0xvHJPx5APgSSsgmmzqDj/zHiklZVCjbtCbrpIqT+f9oFASAxt9olhc/U5lfBk
+         FzYDNp1FNIh/xpHtIravBRGEAxKxM/WOC0ybKJrUMIqM3mljcuoxpECqkISMQ+gTE5Cn
+         LbXsQ1g4IUl1h3rkt/jMnTkWiPoh38M7UCPBZbIOzfFkTgG6DlkkVsMiyXT4vm2F2O7P
+         L6r7T0Kpo3fhBgI287et18IeDn1ZcWDfl/kVcVN6TvUCM22Ino5F1YgGUD1JPIn4K6IS
+         N2aw==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@prodrive-technologies.com header.s=selector1 header.b=D8Sx5XdE;
+       arc=pass (i=1 spf=pass spfdomain=prodrive-technologies.com dkim=pass dkdomain=prodrive-technologies.com dmarc=pass fromdomain=prodrive-technologies.com);
+       spf=pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com designates 40.107.6.116 as permitted sender) smtp.mailfrom=bram.hooimeijer@prodrive-technologies.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=prodrive-technologies.com
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com (mail-eopbgr60116.outbound.protection.outlook.com. [40.107.6.116])
+        by gmr-mx.google.com with ESMTPS id l11si680980lfg.13.2021.04.19.10.09.41
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 19 Apr 2021 09:56:22 -0700 (PDT)
-Received-SPF: pass (google.com: domain of bounces+21271858-e85e-jailhouse-dev=googlegroups.com@sendgrid.net designates 149.72.181.178 as permitted sender) client-ip=149.72.181.178;
-Received: by filter2070p1las1.sendgrid.net with SMTP id filter2070p1las1-21436-607DB630-32
-        2021-04-19 16:56:16.524226276 +0000 UTC m=+328236.336830125
-Received: from MjEyNzE4NTg (unknown)
-	by ismtpd0171p1mdw1.sendgrid.net (SG) with HTTP id Z0Xm0HUGSRm87JAyw6RCdA
-	Mon, 19 Apr 2021 16:56:16.319 +0000 (UTC)
-Content-Type: multipart/alternative; boundary=5c9d63d1b4f208247a2edc9cfed9a0809b3abbb863b83e6d4b4be0b09fa5
-Date: Mon, 19 Apr 2021 16:56:19 +0000 (UTC)
-From: "Jessa Walter" <jessa.walter@emailsprout.com>
-Mime-Version: 1.0
-Reply-To: jessa.walter@emailsprout.com
-To: jailhouse-dev@googlegroups.com
-Message-ID: <Z0Xm0HUGSRm87JAyw6RCdA@ismtpd0171p1mdw1.sendgrid.net>
-Subject: Follow up on Aquire Red Hat Users
-List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
- <https://groups.google.com/group/jailhouse-dev/subscribe>
-X-SG-EID: pPXi/rPJQPi62kCfLxCWuZgGuBKOrlmtAko8KHFyNL4g3DSINqZUCeFiwr+z338mD62c4baaQNINxx
- DrU4+XTQlc6iI4sHN69LTpUGW9klmDjBrK+u2VegEmxnach+77KSjoWuNH83rNLZFOqGGUfqdoYpZ3
- MyK2gXoKu535smDs6q/kmmbiX7bBRm/trymaCzCZ30RKozoqwWvVFvDQWAuePff3nWse1HQufEHslK
- 1TrLbYRRmXPDGi6ysVKSjJ
-X-SG-ID: mcTyqcYTtmn56LU3ATD1fwbX+4+3Of3TZmHbuKR1xs02NkmmxuGvJW4k4tzlWsCnl+xScwkGVpjUHV
- 6Z8/AeDUfX54JDraIj9oF7RVFvQz0lRuDBPBxRKVKEeo0VLqLoLr5ustaMYwKTtNo0dSdgoMUmi+bR
- G2ROcMnp0nGZztlWYgam1KLinV/VA/uV6ldnsLENBHIDcim6x/5yGJ3VIaWGI+AIDFAPpgKVn+2TDk
- qRYP3acFhzWHslfMPeCAqLfkeny24ODV3WxLE6N0ub7wZuLp1xaMb/yzHKRP7+trc3u2SIbeVAqwdq
- MuqCT5DdIB/UXBJdHlAiTUm1QalE7/rc6jodnpWDD3hRGg6b8uTjb9MLNJE8ERDC7fih7i1pyqln5k
- ajbtYjufr0iO9hP3eS3Mm9dy6R2aGc8tNsOv8wI0Ob8uUB2f5wSttHDUovqqMMK32OusGCLvshCujv
- fB6vVrg8L/Z/3s0IIuArM7/u9c5jSth78AhzgH4CfSIy+rgCGIcT81/j/Nsz11UBVvFCqWH5ej6VXc
- sk3akvinoA/f0OpCcMMJsqJPgNqOtS2n6gH1LHm5BGMKuvKsFPDzhKj+y01201j3+sU0bQ+FTG5Mle
- XIqla0pPb+SQYefM2CGvuvQrXdHwwG08oDYoM0iYroitgFXQxK77esngk/fktgT5nSwzLteLFB54gX
- H3
-X-Entity-ID: iqBoCwjxWcX3ZhfJcdnXBg==
-X-Original-Sender: jessa.walter@emailsprout.com
+        Mon, 19 Apr 2021 10:09:41 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com designates 40.107.6.116 as permitted sender) client-ip=40.107.6.116;
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KRo8ApupCsQFUPMy86CW7gYi3bf96FxTUXMVRGMSH9NvEf+/JoepEYcAzDgPlk7ErqVL27cTegv738M5K71TjPRAbBONsiksMfIGLDP0aCHNaWAcLysDOJNVD3cwl1/ne6oAUnilycclX8bSOtTz7WxveltWWPd+4BL3BOhY8vYUD4QF6XamSWE9/qpGZtM3SwgawIWgpQBufFbaGfZzI3ARg+RuiH8GwL/ny1Rzj1Fg7TDn3mEhH/Khq3T9YUE857pTly5Siex44EAKxu9sc7pOv+4WxH8MS/DL8WGuQ5UDlWSOx/n4VEAN2KJLAE2s4n4qNdM0Q29bt+4ITch1UA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BniLAiJUnq19uj7CCuokMO26kUZuUorR9jAH4BVZEaI=;
+ b=MANWXnPIJpcJIeZmsXVYKb3jcFNQUbC8+aRrclYHjts4sZUcH4Fm+Xlwa27I4WvdlnjCSA+fvAvMZWKRqZgN2zoZ6ko1RRsIzdPWa5eP6DmrbDVcXfPfaXXP9V2m44eXtLFXy5qG+YQqWAhFbxz33VsKnFEq9v/tz/RzivFpI5VCwVt5XqG1LNHgtzwkQgaRSgriLOb4G5JxzLB1yl76CJ+Ac+fvThWpSyjCHN+LvHCMQvYuEUZsTZ1kdVcz5Gr+5vjr5vgbY5tbayog2ZUoFolHbLcNz2ndAXku5WBOdepAHNQbajPT+K5ChJV+O/EUqqCVUbSUvgRBwl//8COFvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=prodrive-technologies.com; dmarc=pass action=none
+ header.from=prodrive-technologies.com; dkim=pass
+ header.d=prodrive-technologies.com; arc=none
+Received: from AS8PR02MB6663.eurprd02.prod.outlook.com (2603:10a6:20b:257::14)
+ by AM6PR02MB4519.eurprd02.prod.outlook.com (2603:10a6:20b:6a::32) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.16; Mon, 19 Apr
+ 2021 17:09:40 +0000
+Received: from AS8PR02MB6663.eurprd02.prod.outlook.com
+ ([fe80::69b5:15e2:476c:e151]) by AS8PR02MB6663.eurprd02.prod.outlook.com
+ ([fe80::69b5:15e2:476c:e151%3]) with mapi id 15.20.4042.024; Mon, 19 Apr 2021
+ 17:09:39 +0000
+From: Bram Hooimeijer <bram.hooimeijer@prodrive-technologies.com>
+To: Jan Kiszka <jan.kiszka@siemens.com>, Ralf Ramsauer
+	<ralf.ramsauer@oth-regensburg.de>, Jailhouse <jailhouse-dev@googlegroups.com>
+Subject: [PATCH V2 0/1] Fix memory mapping x86
+Thread-Topic: [PATCH V2 0/1] Fix memory mapping x86
+Thread-Index: Adc1PUTzG9/OsJnIScmX2V2A2zEZRg==
+Date: Mon, 19 Apr 2021 17:09:39 +0000
+Message-ID: <AS8PR02MB666316084F377A507F418699B6499@AS8PR02MB6663.eurprd02.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [213.127.64.7]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: f374013d-fddb-4c05-4d22-08d90355eb08
+x-ms-traffictypediagnostic: AM6PR02MB4519:
+x-microsoft-antispam-prvs: <AM6PR02MB45195E62FF73734F4DF47873B6499@AM6PR02MB4519.eurprd02.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: cM2MtGbxSeUkdzGYYOXEVehBMGsS9gJ2lI4QQBFZgu9o7h2PvKnUfJZ37dQkMvYAqeMPf3WlxV5JUjQb82OyVKb/L8zG/liY32YGYqmBQAuCmLgiMSvRm/1RUE2gzEhx2ydkpe86ajwpt+Y7IN1d/5DdgzpQFgiqKLCuTCWwSLvBFLTsXzsS4m0IYMrN08iU8FoZEePfVwylcBA2WNhgEzrfLZKt41faKZY/J+DUbkWPiBB2slGf3tTrBHtH1E71o3Wka2UaVg9+MOmU1CczwGJQZqFN/d2awEOWFvJrxCD3wUM8nv6ltEJnCBn2fz76zqFw0HRHfnJ61PtqLD+AJYpoUei29XwZAvPUrydbE363u5EMx4Wv/YP8Yd8q+iJOIphBNXsSg3i5xm+esePJHNvlIx+sFgQ3z7u+wleQ+nLrdJJ3/uHbUdKUiYs/1M/CeEkA7razQSTESCBjdprq0O1ea1K+wAPPHuYUgBtLNSbJtuUVC753QMBbkBZ/5avcWbx4Y4PgNfMl5i/Ef/YsFC0XFFpTnbmlyMg3cnLfAPNwQCIzi6OqbAMetlKshWhHkvGEnSzNC7TBUevjjWhcS6Bvs4cNwqXELDWCkToUfrs=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR02MB6663.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(39840400004)(376002)(366004)(346002)(396003)(66446008)(2906002)(64756008)(7696005)(66556008)(478600001)(122000001)(38100700002)(4744005)(9686003)(66946007)(5660300002)(83380400001)(86362001)(76116006)(66476007)(110136005)(55016002)(52536014)(33656002)(44832011)(8936002)(8676002)(186003)(71200400001)(316002)(6506007)(26005);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?t2bBy9swM5JxosIo4WGIKcsNfWHU5xB0q1+GmDfqpuD9ZDIZ5QVos/oySAYb?=
+ =?us-ascii?Q?IK+Gl2acrNOsw5WIbD+/1uF3PU8GAG+HYIahugFHmfw8br9S7x3GIriNVWOI?=
+ =?us-ascii?Q?gA6GAVSgulekhTKOjwmH+DL24uWbE1N4c3sBC/CORcW+ppYqdJ2Sd1yXcnfk?=
+ =?us-ascii?Q?vFM5MLP37H4Jz+rNwE3xNypnOl8g4wjcfEqLY7NU5J9nFRGMEdt8MPmjWJWJ?=
+ =?us-ascii?Q?t/6bzwGaO54X+5p+sS8q370nEqByLNxeKjsK+qhcEjWq3VZYRmmh3JkjWWXi?=
+ =?us-ascii?Q?gQ4C7SeNs3zxRnozjplPciUEQBucqn5Z/7jQP4nbHU4eZlCUDkAw1L3KDEMy?=
+ =?us-ascii?Q?F1iceQwinBUEfjUQ0W/fVSChsC71GERcTh0dta5frZmWXqLReU7pkv/SrhBF?=
+ =?us-ascii?Q?b//w9Sf3aUW7sLM48itCFXzd55o+gV3XfWpxNHTg77bzBe6gdXrGDgNomZpt?=
+ =?us-ascii?Q?d+ZkKj7OWzHL8vJQYvZtpQ/QxnlH/3jUYE0kiUhIiHbs9/b++cCGpBSBisbT?=
+ =?us-ascii?Q?0nJtK9hPlY5bzatFd4YpSv6LAzk+GxtD85/wk2tNl0kVH/XwGTTNg75SBsLF?=
+ =?us-ascii?Q?T/1P4x97I1jthdH6V8mKwkyHJuwYGy2jRnW24jqqopaA50GnGrm/aVV9Mjwe?=
+ =?us-ascii?Q?FdQWesbizX1R+j/k0Z8+3jPhruQqBhKSzIjkSZeom5DY2GariXntV8ZxsjEP?=
+ =?us-ascii?Q?stF45FBENyCmQEV+DZX6rI8q+1PBcHd/oGgL1+Hb89APCOcxv5DlbOr09+ko?=
+ =?us-ascii?Q?r45sT2MHaOfkY76+/7vZd06y8SanjJG95SKOi1Sl8B42LdH7OTccQi0tBI2z?=
+ =?us-ascii?Q?qw+nLdZYNdOwWSQZ3ooXAPOolLaeGFnhWR8Qq992O5vPfXC9hZDLuLNqZjJY?=
+ =?us-ascii?Q?tpUsKEoiAAnaHcSLS/SjB/9COsLuVgqVyTCu6zCL/bp9DvsA00p3lKXJ04JN?=
+ =?us-ascii?Q?z8Z0flnSgBFXPXeMjHmrSgNtg490SEPafzURCZLi5fgTUiOst46hZAa4KeBV?=
+ =?us-ascii?Q?Sufpk+AWVb3lmOkZaNSzRyY3m2po/HBkab5nPqfAT1ctUpCoNnibn5uNcr0C?=
+ =?us-ascii?Q?BpWKMcZ5QFqjUocgjo+uZbm9nXTd6eTondWXm5BuFB5IZ6lhjb/s5zppNGl4?=
+ =?us-ascii?Q?bBq+KYIF1ttv4bQRZHjdYLyb0fmxFjYUEei/QPjIWo9awSlrt6eo9fDSpIMA?=
+ =?us-ascii?Q?gIynipKHj++rai6SEAmQlRN5v8ljFO5iMPthvz1OyuDEIV6aOP/w8xgxLkAB?=
+ =?us-ascii?Q?DOzH0f60UOd85jOsEWVDW3F0nQcvTcbyihXuPFZxOP4xmJ+UoLKRdv0HY6PP?=
+ =?us-ascii?Q?5BA=3D?=
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-OriginatorOrg: prodrive-technologies.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR02MB6663.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f374013d-fddb-4c05-4d22-08d90355eb08
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Apr 2021 17:09:39.8913
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 612607c9-5af7-4e7f-8976-faf1ae77be60
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 54ezKCqepby64RZBolXnP8CLdDcCY926cz5C1koBAkFxzze3CBX6Cd8G0ZYntFWUC9nm/cIugTN5WPQ4mP8aZNgLa27yo2/jgySL929/T2bQaxiI38hZMlwdLPH81ShALdyJ5MADlNX9eMntXGllIg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR02MB4519
+X-Original-Sender: bram.hooimeijer@prodrive-technologies.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@sendgrid.net header.s=smtpapi header.b=y3J+rele;       spf=pass
- (google.com: domain of bounces+21271858-e85e-jailhouse-dev=googlegroups.com@sendgrid.net
- designates 149.72.181.178 as permitted sender) smtp.mailfrom="bounces+21271858-e85e-jailhouse-dev=googlegroups.com@sendgrid.net"
+ header.i=@prodrive-technologies.com header.s=selector1 header.b=D8Sx5XdE;
+       arc=pass (i=1 spf=pass spfdomain=prodrive-technologies.com dkim=pass
+ dkdomain=prodrive-technologies.com dmarc=pass fromdomain=prodrive-technologies.com);
+       spf=pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com
+ designates 40.107.6.116 as permitted sender) smtp.mailfrom=bram.hooimeijer@prodrive-technologies.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=prodrive-technologies.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -137,448 +195,38 @@ List-Post: <https://groups.google.com/group/jailhouse-dev/post>, <mailto:jailhou
 List-Help: <https://groups.google.com/support/>, <mailto:jailhouse-dev+help@googlegroups.com>
 List-Archive: <https://groups.google.com/group/jailhouse-dev
 List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mailto:jailhouse-dev+subscribe@googlegroups.com>
+List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
+ <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---5c9d63d1b4f208247a2edc9cfed9a0809b3abbb863b83e6d4b4be0b09fa5
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
+Dear Jan, Ralf,
 
-Hi,
+A new version of the patch, which now relies on a wrapper around alloc, zalloc(). 
+I replaced usage of alloc in inmates/lib, as indicated by Ralf.
 
-I am following up with my previous email to of *Red Hat Users data* which c=
-an be used for prospecting, qualifying and generating new sales leads to su=
-pport the Enterprise Account Managers.
+I was able to test this on x86, but I didn't have an Arm platform available.
+Though I don't expect anything weird, giving a test might be good.
 
-This data will help you to communicate with target audiences and build and =
-develop customer relationships and higher revenue for your organization.
+The zalloc implementation should traverse a natural word of the CPU. 
+Other than that, I am not familiar with any optimization tricks. 
 
-Would you like to partner with a Technographics data company like us?
+Any feedback is welcome, 
 
-We as a database compiler manage, own, and maintain 80 million business exe=
-cutives database worldwide. The unique USP which separates us from the rest=
- is our guarantee of 90% plus email deliverability and contact accuracy whi=
-ch is the highest of all data market standards.
+Thanks, Bram
 
-I will look forward to your response.
+Bram Hooimeijer (1):
+  inmates/lib: Add zeroed alloc, and update usage
 
-Thanks,
+ inmates/lib/alloc.c                 | 13 +++++++++++++
+ inmates/lib/arm-common/mem.c        |  3 +--
+ inmates/lib/include/inmate_common.h |  1 +
+ inmates/lib/x86/mem.c               |  4 ++--
+ inmates/lib/x86/smp.c               |  2 +-
+ 5 files changed, 18 insertions(+), 5 deletions(-)
 
-Jessa Walter
+-- 
+2.25.1
 
----------------------------------------------------------------------------=
-----------------------------------------------------
-
-Hi,
-
-I have researched on LinkedIn that you are responsible for Sales operations=
- at your company =C2=A0for creating and managing the end-to-end enterprise =
-sales process, including leading the implementation of pipeline reporting, =
-sales forecasting, and sales analytics.
-
-This data will help your sales team to execute on the account plan to deliv=
-er maximum revenue potential, generate new business in new accounts and exp=
-and footprint of Red Hat customers.
-
-Would you like to *acquire Red Hat Users* for your sales and marketing team=
-s?
-
-We as a database compiler manage, own, and maintain 80 million business exe=
-cutives database worldwide. The unique USP which separates us from the rest=
- is our guarantee of 90% plus email deliverability and contact accuracy whi=
-ch is the highest of all data market standards.
-
-I will look forward to your response.
-
-Thanks,
-
-*Jessa Walter*
-Global Lead Generation
-Email Sprout, Inc
-North America
-
-Jessa Walter
-
-885 Watson Street , Camden , NJ 08102
-
-Unsubscribe ( https://u21271858.ct.sendgrid.net/wf/unsubscribe?upn=3DVU2koN=
-EWgSKMLPFeqEdbNI9jCap0gyh-2FlSpXi9qCyhTBcX6PA5-2FoCvlZEaOPsPJfFcqrQhM-2F5O-=
-2B1Io8-2BjTZz5B0iTMz8-2FLC6lIy3em-2BexngNEbEpkgEZ72DcoX3gT4QslHQpSGlWeLoVOT=
-IF69Q69WGU4k-2BVD925D7dGajmOPqa-2BcQbSxFU905uvEc9EkarhJ7JFW4zAcyRMUrWPe24IX=
-lxx3pWqK1dJrWrGCHXdHCMYmnSaV2TRAgN8KiYxFQ3mjnN8N45KyKs6-2FOdfdJlikIF2LMCQKo=
-LoK4iwYh2A221Q-2BmckP1FLsvNPQUoCQbGKRUXLLL1MKZSJUszl0RIod8fX9FT7s-2FqIdL7b4=
-smwTKkl18pGsA2ahKqA4Xr67QOaILnkazMxM-2BxTY2ahUVVoyzFG-2FfwIdmrgVT2vsT9O2BxL=
-zyAwfIQWnZy66Z8HIOyxLiszxIYUE-2F3ps6F-2BBBUVrvl3owBVP0B-2BpbQuK8sP4eeCQ2LN6=
-JP7tuz94FbQPL-2BjbJ0lL4sjPeLqiosjPwf6gE8CJtmk-2FmkEOlvc0C8vq4aj7jbC-2F1bgXY=
-3BTGbc3jRMG125QFShXnvl9g-2Frx5POJc822oU31ptbOAsACi9QCwkSLQeUwFuiEageOMUTUjy=
-xcVDZ4rfJ4oL9xervayBOUghkyzR6DVuQI8cBXXlS1sTb3x2k3Gjbc4xSLXVzt4ipW2iRMg50wb=
-fAPB3uS35HTw0mgAmhLj-2FFtJ3FFjcaiUxRlM3hBhCTOuFhzR1-2F7NgtXW2RxV3CwIlu6cVAP=
-gaEmOlO3wL3WSyN6vg9x44cph5DaVP3GmkOc25d2mRToK-2BBhYXRoN6d2K-2FDRQMu4LM2AYb0=
-soOS34M48k7qCLV8DqLbxNmrFRLMMHC5kGwh8qu-2FY6jY3wH7AkKhAkYunbzx4wfVMSINL-2FF=
-TubGU2A9dJPM-3D )
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/Z0Xm0HUGSRm87JAyw6RCdA%40ismtpd0171p1mdw1.sendgrid.net.
-
---5c9d63d1b4f208247a2edc9cfed9a0809b3abbb863b83e6d4b4be0b09fa5
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html; charset="UTF-8"
-Mime-Version: 1.0
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org=
-/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html data-editor-version=3D"2" class=3D"sg-campaigns" xmlns=3D"http://www.=
-w3.org/1999/xhtml">
-    <head>
-      <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf=
--8">
-      <meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-scal=
-e=3D1, minimum-scale=3D1, maximum-scale=3D1">
-      <!--[if !mso]><!-->
-      <meta http-equiv=3D"X-UA-Compatible" content=3D"IE=3DEdge">
-      <!--<![endif]-->
-      <!--[if (gte mso 9)|(IE)]>
-      <xml>
-        <o:OfficeDocumentSettings>
-          <o:AllowPNG/>
-          <o:PixelsPerInch>96</o:PixelsPerInch>
-        </o:OfficeDocumentSettings>
-      </xml>
-      <![endif]-->
-      <!--[if (gte mso 9)|(IE)]>
-  <style type=3D"text/css">
-    body {width: 600px;margin: 0 auto;}
-    table {border-collapse: collapse;}
-    table, td {mso-table-lspace: 0pt;mso-table-rspace: 0pt;}
-    img {-ms-interpolation-mode: bicubic;}
-  </style>
-<![endif]-->
-      <style type=3D"text/css">
-    body, p, div {
-      font-family: arial,helvetica,sans-serif;
-      font-size: 14px;
-    }
-    body {
-      color: #000000;
-    }
-    body a {
-      color: #1188E6;
-      text-decoration: none;
-    }
-    p { margin: 0; padding: 0; }
-    table.wrapper {
-      width:100% !important;
-      table-layout: fixed;
-      -webkit-font-smoothing: antialiased;
-      -webkit-text-size-adjust: 100%;
-      -moz-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-    }
-    img.max-width {
-      max-width: 100% !important;
-    }
-    .column.of-2 {
-      width: 50%;
-    }
-    .column.of-3 {
-      width: 33.333%;
-    }
-    .column.of-4 {
-      width: 25%;
-    }
-    ul ul ul ul  {
-      list-style-type: disc !important;
-    }
-    ol ol {
-      list-style-type: lower-roman !important;
-    }
-    ol ol ol {
-      list-style-type: lower-latin !important;
-    }
-    ol ol ol ol {
-      list-style-type: decimal !important;
-    }
-    @media screen and (max-width:480px) {
-      .preheader .rightColumnContent,
-      .footer .rightColumnContent {
-        text-align: left !important;
-      }
-      .preheader .rightColumnContent div,
-      .preheader .rightColumnContent span,
-      .footer .rightColumnContent div,
-      .footer .rightColumnContent span {
-        text-align: left !important;
-      }
-      .preheader .rightColumnContent,
-      .preheader .leftColumnContent {
-        font-size: 80% !important;
-        padding: 5px 0;
-      }
-      table.wrapper-mobile {
-        width: 100% !important;
-        table-layout: fixed;
-      }
-      img.max-width {
-        height: auto !important;
-        max-width: 100% !important;
-      }
-      a.bulletproof-button {
-        display: block !important;
-        width: auto !important;
-        font-size: 80%;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-      }
-      .columns {
-        width: 100% !important;
-      }
-      .column {
-        display: block !important;
-        width: 100% !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-      }
-      .social-icon-column {
-        display: inline-block !important;
-      }
-    }
-  </style>
-      <!--user entered Head Start--><!--End Head user entered-->
-    </head>
-    <body>
-      <center class=3D"wrapper" data-link-color=3D"#1188E6" data-body-style=
-=3D"font-size:14px; font-family:arial,helvetica,sans-serif; color:#000000; =
-background-color:#FFFFFF;">
-        <div class=3D"webkit">
-          <table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"=
-100%" class=3D"wrapper" bgcolor=3D"#FFFFFF">
-            <tr>
-              <td valign=3D"top" bgcolor=3D"#FFFFFF" width=3D"100%">
-                <table width=3D"100%" role=3D"content-container" class=3D"o=
-uter" align=3D"center" cellpadding=3D"0" cellspacing=3D"0" border=3D"0">
-                  <tr>
-                    <td width=3D"100%">
-                      <table width=3D"100%" cellpadding=3D"0" cellspacing=
-=3D"0" border=3D"0">
-                        <tr>
-                          <td>
-                            <!--[if mso]>
-    <center>
-    <table><tr><td width=3D"600">
-  <![endif]-->
-                                    <table width=3D"100%" cellpadding=3D"0"=
- cellspacing=3D"0" border=3D"0" style=3D"width:100%; max-width:600px;" alig=
-n=3D"center">
-                                      <tr>
-                                        <td role=3D"modules-container" styl=
-e=3D"padding:0px 0px 0px 0px; color:#000000; text-align:left;" bgcolor=3D"#=
-FFFFFF" width=3D"100%" align=3D"left"><table class=3D"module preheader preh=
-eader-hide" role=3D"module" data-type=3D"preheader" border=3D"0" cellpaddin=
-g=3D"0" cellspacing=3D"0" width=3D"100%" style=3D"display: none !important;=
- mso-hide: all; visibility: hidden; opacity: 0; color: transparent; height:=
- 0; width: 0;">
-    <tr>
-      <td role=3D"module-content">
-        <p></p>
-      </td>
-    </tr>
-  </table><table class=3D"module" role=3D"module" data-type=3D"text" border=
-=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" style=3D"table-la=
-yout: fixed;" data-muid=3D"bf4e0fe6-2ad6-4fd7-9623-060eb5e77187" data-mc-mo=
-dule-version=3D"2019-10-22">
-    <tbody>
-      <tr>
-        <td style=3D"padding:18px 0px 18px 0px; line-height:22px; text-alig=
-n:inherit;" height=3D"100%" valign=3D"top" bgcolor=3D"" role=3D"module-cont=
-ent"><div><div style=3D"font-family: inherit; text-align: inherit">Hi,<br>
-<br>
-I am following up with my previous email to of<strong> Red Hat Users data</=
-strong> which can be used for prospecting, qualifying and generating new sa=
-les leads to support the Enterprise Account Managers.<br>
-<br>
-This data will help you to communicate with target audiences and build and =
-develop customer relationships and higher revenue for your organization.<br=
->
-<br>
-Would you like to partner with a Technographics data company like us?<br>
-<br>
-We as a database compiler manage, own, and maintain 80 million business exe=
-cutives database worldwide. The unique USP which separates us from the rest=
- is our guarantee of 90% plus email deliverability and contact accuracy whi=
-ch is the highest of all data market standards.<br>
-<br>
-I will look forward to your response.<br>
-<br>
-Thanks,</div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit"><span style=3D"color: #000000; font-fam=
-ily: arial, helvetica, sans-serif; font-size: 14px; font-style: normal; fon=
-t-variant-ligatures: normal; font-variant-caps: normal; font-weight: 700; l=
-etter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; tex=
-t-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -we=
-bkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-dec=
-oration-thickness: initial; text-decoration-style: initial; text-decoration=
--color: initial; float: none; display: inline">Jessa Walter</span>&nbsp;</d=
-iv>
-<div style=3D"font-family: inherit"><br></div>
-<div style=3D"font-family: inherit">---------------------------------------=
----------------------------------------------------------------------------=
--------------</div>
-<div style=3D"font-family: inherit"><br></div>
-<div style=3D"font-family: inherit"><br></div>
-<div style=3D"font-family: inherit">Hi,<br>
-<br>
-I have researched on LinkedIn that you are responsible for Sales operations=
- at your company &nbsp;for creating and managing the end-to-end enterprise =
-sales process, including leading the implementation of pipeline reporting, =
-sales forecasting, and sales analytics.<br>
-<br>
-This data will help your sales team to execute on the account plan to deliv=
-er maximum revenue potential, generate new business in new accounts and exp=
-and footprint of Red Hat customers.<br>
-<br>
-Would you like to <strong>acquire Red Hat Users</strong> for your sales and=
- marketing teams?<br>
-<br>
-We as a database compiler manage, own, and maintain 80 million business exe=
-cutives database worldwide. The unique USP which separates us from the rest=
- is our guarantee of 90% plus email deliverability and contact accuracy whi=
-ch is the highest of all data market standards.<br>
-<br>
-I will look forward to your response.<br>
-<br>
-Thanks,<br>
-<br>
-<strong>Jessa Walter</strong><br>
-Global Lead Generation<br>
-Email Sprout, Inc<br>
-North America</div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div>
-<div style=3D"font-family: inherit; text-align: inherit"><br></div><div></d=
-iv></div></td>
-      </tr>
-    </tbody>
-  </table><div data-role=3D"module-unsubscribe" class=3D"module" role=3D"mo=
-dule" data-type=3D"unsubscribe" style=3D"color:#444444; font-size:12px; lin=
-e-height:20px; padding:16px 16px 16px 16px; text-align:Center;" data-muid=
-=3D"4e838cf3-9892-4a6d-94d6-170e474d21e5"><div class=3D"Unsubscribe--addres=
-sLine"><p class=3D"Unsubscribe--senderName" style=3D"font-size:12px; line-h=
-eight:20px;">Jessa Walter</p><p style=3D"font-size:12px; line-height:20px;"=
-><span class=3D"Unsubscribe--senderAddress">885 Watson Street</span>, <span=
- class=3D"Unsubscribe--senderCity">Camden</span>, <span class=3D"Unsubscrib=
-e--senderState">NJ</span> <span class=3D"Unsubscribe--senderZip">08102</spa=
-n></p></div><p style=3D"font-size:12px; line-height:20px;"><a class=3D"Unsu=
-bscribe--unsubscribeLink" href=3D"https://u21271858.ct.sendgrid.net/wf/unsu=
-bscribe?upn=3DVU2koNEWgSKMLPFeqEdbNI9jCap0gyh-2FlSpXi9qCyhTBcX6PA5-2FoCvlZE=
-aOPsPJfFcqrQhM-2F5O-2B1Io8-2BjTZz5B0iTMz8-2FLC6lIy3em-2BexngNEbEpkgEZ72DcoX=
-3gT4QslHQpSGlWeLoVOTIF69Q69WGU4k-2BVD925D7dGajmOPqa-2BcQbSxFU905uvEc9EkarhJ=
-7JFW4zAcyRMUrWPe24IXlxx3pWqK1dJrWrGCHXdHCMYmnSaV2TRAgN8KiYxFQ3mjnN8N45KyKs6=
--2FOdfdJlikIF2LMCQKoLoK4iwYh2A221Q-2BmckP1FLsvNPQUoCQbGKRUXLLL1MKZSJUszl0RI=
-od8fX9FT7s-2FqIdL7b4smwTKkl18pGsA2ahKqA4Xr67QOaILnkazMxM-2BxTY2ahUVVoyzFG-2=
-FfwIdmrgVT2vsT9O2BxLzyAwfIQWnZy66Z8HIOyxLiszxIYUE-2F3ps6F-2BBBUVrvl3owBVP0B=
--2BpbQuK8sP4eeCQ2LN6JP7tuz94FbQPL-2BjbJ0lL4sjPeLqiosjPwf6gE8CJtmk-2FmkEOlvc=
-0C8vq4aj7jbC-2F1bgXY3BTGbc3jRMG125QFShXnvl9g-2Frx5POJc822oU31ptbOAsACi9QCwk=
-SLQeUwFuiEageOMUTUjyxcVDZ4rfJ4oL9xervayBOUghkyzR6DVuQI8cBXXlS1sTb3x2k3Gjbc4=
-xSLXVzt4ipW2iRMg50wbfAPB3uS35HTw0mgAmhLj-2FFtJ3FFjcaiUxRlM3hBhCTOuFhzR1-2F7=
-Ngtn520t34k1OKig0jQQcyqCBdG6kmrqPwWfTTdBQ1E-2Ff1hANQYsYes7xLLL2OxFRDhQ-2Bc9=
--2FfKEi5ibY6DZgknvgvFHeQYOOLna2cJ4u-2BE0wBT5o-2FXRxnbD-2FswJjq9RjlAOU1ms4i4=
-9yFzfoKpkE0iflUDfIjHjHC6TFiM4Kwg8kEw-3D" target=3D"_blank" style=3D"">Unsub=
-scribe</a></p></div></td>
-                                      </tr>
-                                    </table>
-                                    <!--[if mso]>
-                                  </td>
-                                </tr>
-                              </table>
-                            </center>
-                            <![endif]-->
-                          </td>
-                        </tr>
-                      </table>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
-        </div>
-      </center>
-   =20
-<img src=3D"https://u21271858.ct.sendgrid.net/wf/open?upn=3DVU2koNEWgSKMLPF=
-eqEdbNI9jCap0gyh-2FlSpXi9qCyhTBcX6PA5-2FoCvlZEaOPsPJfFcqrQhM-2F5O-2B1Io8-2B=
-jTZz5B0iTMz8-2FLC6lIy3em-2BexngNEbEpkgEZ72DcoX3gT4QslHQpSGlWeLoVOTIF69Q69WG=
-U4k-2BVD925D7dGajmOPqa-2BcQbSxFU905uvEc9EkarhJ7JFW4zAcyRMUrWPe24IXlxx3pWqK1=
-dJrWrGCHXdHCMYmnSaV2TRAgN8KiYxFQ3mjnN8N45KyKs6-2FOdfdJlikIF2LMCQKoLoK4iwYh2=
-A221Q-2BmckP1FLsvNPQUoCQbGKRUXLLL1MKZSJUszl0RIod8fX9FT7s-2FqIdL7b4smwTKkl18=
-pGsA2ahKqA4Xr67QOaILnkazMxM-2BxTY2ahUVVoyzFG-2FfwIdmrgVT2vsT9O2BxLzyAwfIQWn=
-Zy66Z8HIOyxLiszxIYUE-2F3ps6F-2BBBUVrvl3owBVP0B-2BpbQuK8sP4eeCQ2LN6JP7tuz94F=
-bQPL-2BjbJ0lL4sjPeLqiosjPwf6gE8CJtmk-2FmkEOlvc0C8vq4aj7jbC-2F1bgXY3BTGbc3jR=
-MG125QFShXnvl9g-2Frx5POJc822oU31ptbOAsACi9QCwkSLQeUwFuiEageOMUTUjyxcVDZ4rfJ=
-4oL9xervayBOUghkyzR6DVuQI8cBXXlS1sTb3x2k3Gjbc4xSLXVzt4ipW2iRMg50wbfAPB3uS35=
-HTw0mgAmhLj-2FFtJ3FFjcaiUxRlM3hBhCTOuFhzR1-2F7NgtMMn51hum-2FddjeCved-2BNg77=
-FeculZ6PNWo4XJnla-2BNKb18qLknpgSHxWrWVnQX-2FGG1XlIIHveQCdl4a00oNQjqKS3PlJ-2=
-FzOPVxNDoN6JJdEBIEMMApU-2BHKVX0ACWusTrkWYSP2yc4iqH6Pa4xDENQdhxamlehU-2FIG-2=
-B5FiLqFg5Lc-3D" alt=3D"" width=3D"1" height=3D"1" border=3D"0" style=3D"hei=
-ght:1px !important;width:1px !important;border-width:0 !important;margin-to=
-p:0 !important;margin-bottom:0 !important;margin-right:0 !important;margin-=
-left:0 !important;padding-top:0 !important;padding-bottom:0 !important;padd=
-ing-right:0 !important;padding-left:0 !important;"/>
-</body>
-  </html>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/Z0Xm0HUGSRm87JAyw6RCdA%40ismtpd0171p1mdw1.sendgrid=
-.net?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/ms=
-gid/jailhouse-dev/Z0Xm0HUGSRm87JAyw6RCdA%40ismtpd0171p1mdw1.sendgrid.net</a=
->.<br />
-
---5c9d63d1b4f208247a2edc9cfed9a0809b3abbb863b83e6d4b4be0b09fa5--
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/AS8PR02MB666316084F377A507F418699B6499%40AS8PR02MB6663.eurprd02.prod.outlook.com.
