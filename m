@@ -1,134 +1,191 @@
-Return-Path: <jailhouse-dev+bncBCW4LL4WQ4PBB2VG6WBQMGQE2QDSOFA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDGILGE54ELBBSHJ6WBQMGQEDRVMB3Q@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pj1-x103a.google.com (mail-pj1-x103a.google.com [IPv6:2607:f8b0:4864:20::103a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8632E363F36
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 19 Apr 2021 11:54:51 +0200 (CEST)
-Received: by mail-pj1-x103a.google.com with SMTP id b17-20020a17090a5511b029014e3da15071sf15758120pji.9
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 19 Apr 2021 02:54:51 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1618826090; cv=pass;
+Received: from mail-wm1-x339.google.com (mail-wm1-x339.google.com [IPv6:2a00:1450:4864:20::339])
+	by mail.lfdr.de (Postfix) with ESMTPS id 006B036415F
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 19 Apr 2021 14:17:13 +0200 (CEST)
+Received: by mail-wm1-x339.google.com with SMTP id d78-20020a1c1d510000b0290132794b7801sf1291175wmd.1
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 19 Apr 2021 05:17:12 -0700 (PDT)
+ARC-Seal: i=3; a=rsa-sha256; t=1618834632; cv=pass;
         d=google.com; s=arc-20160816;
-        b=l0Qk6lLPiDVmOsoH3RcKW8O4yMQknIdafCqaWZGrFIHtF6Fay10gaIF3qSkolmi0hX
-         CVztbk0VqnE4os0XoPx1D/ftrexm01BVf5T2/pz5hw2QG9tyxtQ0OfMcdkQ3uxDriiHf
-         CdRVQ/yC8ddwWHq54aCbHxnyqlrRPzh3nZ/s3Yr2wiJ31gzDX+KQkBO64rQJvGodtRpJ
-         dw4knWPGDdXmo6YMQn/TEkbjYJuju80lKyxNTuJs0e3p/Zp9O9nMU4m+k9AHCdNe/HZb
-         20/4LmNHQgmTesCL5s6AL0igK08olxrzGSQjp3/Mo8MOHol53zQH3kvwdvgMOp9enM+A
-         QIBQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        b=Ama7W1A3+xvcbTCFgpbe85KjB9JWpA8kmhXTwzc0MegAWqywz5dTirBnY4LrpNGXoa
+         2mG5L0C3QP1WkpyhRoDHZ+C1KqdapeeH65B4IX9YI6+4GzwhC84255QGtEnSXlDiiODe
+         mCGsaOmLieU/k6T9iAUo4v4fpzet/E2OenEpPzwp1zy/xfrYK1G05OgAXxDibmM8sr46
+         tKaPaw0G2e5fNfNvknYir+pzFufx2E7A/xYe0jB6V99J+7KxbkI/JBojVxwhj+9L9v4d
+         A90Re8SIZ+HnhgS0EHYBB6wMTN5O5GoMt+AkHfVkrGazBU9x2h6cEkzejKOkufzlrl+l
+         gPVQ==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:sender:dkim-signature
-         :dkim-signature;
-        bh=cafV5qbpTw2AXjkDkgSuovXCRiVwSztj3U/B98Yg75o=;
-        b=RdfFdvDVB56zkdoEP65s6S11ixW1/Fc/aCDVeNXto3aMF2biNC/BDq/lNk3cfmayRG
-         FG/jIgTGTGNR6iBUl9Q70aPulmuKP+3nte2nYYKhyt9CNTDwdvpjMpvw69jAGivHZqqn
-         diwXu9lx8TOYW6KDLXN3PQDzAwbeO9b3jPHafRO3FcmBGeEfkFyeQhMXQdMUqsDDzO90
-         mO5lUg4E3PHdOixlP0K9tSjtAcRshCNPbYbHtI5tu25EBzZn8RdmMvH3fHkzsVNe8Rfa
-         Be2Jye8/lhqSz1ltz2QNNHc5iw9C0tYXJZGyFfqMMCbuC9PC1PrWHsNWRA14sbbkUAlK
-         7nbA==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=WFZiBnto;
-       spf=pass (google.com: domain of van.freenix@gmail.com designates 2607:f8b0:4864:20::334 as permitted sender) smtp.mailfrom=van.freenix@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+         :list-id:mailing-list:precedence:mime-version:content-language
+         :accept-language:message-id:date:thread-index:thread-topic:subject
+         :cc:to:from:sender:dkim-signature;
+        bh=2/ZHrDjI8qCViTUYy2emGoA3AreDOJI24I6/KH1Epb0=;
+        b=D1+XPWJRiayty57vvrI95/0Tb+UJZSXJd04WT/9oJIJrTQqJ/x1FStaAP1NWCIo4BV
+         z40KnJkCobpRReEqj4On5fRVZs5IUMqze3DO/ttI60DGA5JpSa87rjl/BJBfwWpQ8JA/
+         dd1ch3bJZLO6p0UUXlvfjPXvxqVRo4m4/kRdjoV/yVDteHJhiEPz70VfpCEfB9bEvGnN
+         P3KaymKFzG0fTrTQkM4WniXTL8ylrNW+lnB5GiHF0DO6zFVSX+AjizLWFX4cc2xIgZXz
+         J+DiT6uXb++XhDajVTO22s+i/t0lqZ4GbCSaLYwbBF6cohKcA2Nqyq0mi0Wl/RKpJook
+         lxmw==
+ARC-Authentication-Results: i=3; gmr-mx.google.com;
+       dkim=pass header.i=@prodrive-technologies.com header.s=selector1 header.b=O6o5Tnou;
+       arc=pass (i=1 spf=pass spfdomain=prodrive-technologies.com dkim=pass dkdomain=prodrive-technologies.com dmarc=pass fromdomain=prodrive-technologies.com);
+       spf=pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com designates 40.107.21.95 as permitted sender) smtp.mailfrom=bram.hooimeijer@prodrive-technologies.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=prodrive-technologies.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:mime-version:references:in-reply-to:from:date:message-id
-         :subject:to:cc:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=cafV5qbpTw2AXjkDkgSuovXCRiVwSztj3U/B98Yg75o=;
-        b=HmqmbrOpmKIfDAO7QVhkycmVLQSC4b6jwGAZQay9FBf3Wj+3jnAXsDjlhWwzQP7TAX
-         cmKTba5CFPnly5mO3T2tOhJhrNaNq3uu1MU1qzYxoeUa17CLyqPNIE22lN4w5SitUSuz
-         F7BJVol+maTr7nIQZwwiSp3Uf+XsNPISiM5g6rW5sqAQHH5oqS/RQgbb62lKGh2ea+9y
-         nOYoB2YdwoXQEwAYynfY7FFj/AoiZsPEBtmHlqX4rEhrjjoUpWIRuDCg8K9smOjL/Igc
-         LBqjoUxUqiEdwDxs0RvH6lhHL9IE0rcz4Oph9aF+socXlwtX4xLmU+1PH/9bhl+hDT4B
-         Hh6g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=cafV5qbpTw2AXjkDkgSuovXCRiVwSztj3U/B98Yg75o=;
-        b=BXphXDa0u6YMRmDW/nHFhDWQOFTy9vDAebrKvhIxWn8aSoGCKFmblKfyh/btL/QNyP
-         I+ENqzLK4VUMndKEgUYs9inD8qOa530plpCBOXc35Oe9VnUgiQvFLYHNKxvaUSlX3iNA
-         LksuNyiydlvNv9ExkCBlehJ5rRxHwAiQWuVujiE6K26Q0gKStUCD34b3PVT5hF6ar+70
-         Zv3bj0YnZHKzm1FB1+6PdUKxw4/fbtwEKSvr4mSTw/fa3a0kdDmfQkyL/9mDxbSY3MNx
-         iPvo4bgsoiBDqBUQVn/Pd3AJECRZaDfoHghtGcSp8IaXdwoYdoIJhGjWfwK2BpJkOuIC
-         0NFg==
+        h=sender:from:to:cc:subject:thread-topic:thread-index:date:message-id
+         :accept-language:content-language:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=2/ZHrDjI8qCViTUYy2emGoA3AreDOJI24I6/KH1Epb0=;
+        b=Sho2HzqeAG9uqVBieU/RuE6lVKQfrlkvfGleqIyv46NF+FKtrwj8v0vQ9gY84LhDUv
+         5EOpf+3dy/oxdUYXLyAdBjYmRX5vqUy/wU07PmECFIGAxamU9fUW+S9gifOeLzLsvC0p
+         b1Go2t6jtwWImlX3m9gYyq7+JsU5jTAAtljyufQNSoLYoFLxttvmThvTJ/IdOFkMd/0U
+         wFaDfMJOL2bjXEXxbSgACkjNZtz7mpNJTPukR5pA+t3h7fAB8G8lVYDghzXpSp27RCkR
+         bcLD7udPloI5a4sxNSUt3gm4xSJmRXMLdaynVPkQQqaRkEBgR70uP6MsySWTFR5l2x6R
+         Nsow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
-         :date:message-id:subject:to:cc:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=cafV5qbpTw2AXjkDkgSuovXCRiVwSztj3U/B98Yg75o=;
-        b=lAPU08yatRMi565ubABykJU3zg1lwufYp0dW7OOLZmDBjdSpd2xwDksddDOnM/qe86
-         UmeZTSHHYYlSG+u/7TJhUjBURRIeamIH5rUtkmUzb8ElU0eYj5SHdiR712l9KGB8ALBh
-         wMXZInH6BbmxxjRNl7m/6BJN4QQTDsSwEsZMfLZUmh8cd9kSw2hpLYn5cHlmdwB7xQgr
-         yfIqqfQmEb7Zhq6F2N5KUz2/7PoyrNyKFlLrm8fbWwnkpbfZaJPK3JllvQPCc8iJeK3M
-         duEbaZr0QsGA+mWtxu+MYsHT5BH30PzkSY8buE2iuH5pljCXJxaHSdjEo+4QbC/Mrx8L
-         7cgQ==
+        h=sender:x-gm-message-state:from:to:cc:subject:thread-topic
+         :thread-index:date:message-id:accept-language:content-language
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=2/ZHrDjI8qCViTUYy2emGoA3AreDOJI24I6/KH1Epb0=;
+        b=likbW37izJm0Jbb8pN0SoaeBQhv+fOGVA76ScgFGuSkGoVOIqxK9fuG9wESJzZhwWr
+         U4q6dI1C+LrV9CQxBLKb1MFhKDPM63JqIa03sGzdLb79iSZS9oBxkce/zmAh8wXbM4CO
+         ShwSrXtFgaBC5Os7GJpSvaHSNelS/Z9Df2s7Lm1TeDCcVYDo2QqWZXZOV/FMF5RijLtf
+         KFUnc64Zhz9atY3sUkdUCAMTPO5NhdqMQeXg59Di26pPvn2zuLbsdER2ayfmdqtna88z
+         moKXDakpHqjw0RqpRBEia0/Z6zseFm/PbL70JUqULsNQlsiuvfUOZen7eV6A4Aoc1kz7
+         RQ6Q==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533Dno494cEap1lB/UX52cxB4y/7aVZjpBC94luyO7WcZuaNivd2
-	Y6r5H0d3Bc8nyUkCnHshrh0=
-X-Google-Smtp-Source: ABdhPJxmsMBkO1E66WCBzMhItNpnwnV3KjP5V9TPKJx1MYiRYnE5YL+pf2/ZGqqMSadxRwVJbmSV6A==
-X-Received: by 2002:a17:902:e886:b029:e7:386b:1b30 with SMTP id w6-20020a170902e886b02900e7386b1b30mr22241490plg.42.1618826090215;
-        Mon, 19 Apr 2021 02:54:50 -0700 (PDT)
+X-Gm-Message-State: AOAM531lrGEeQzPWqsWaOSLvol+/VvRuxNYBl5nlBYnr6t+FU3TqdvTJ
+	4isc8OD5ZyWhiXhwDCtoZg8=
+X-Google-Smtp-Source: ABdhPJybFdsYb5aBm0fIJaX/QG0WcPKk04XH/GnOARfJqNlSC/hYHLL9ukDRMNqx6/4dxpPS5lP3ZQ==
+X-Received: by 2002:a05:6000:82:: with SMTP id m2mr14113784wrx.139.1618834632765;
+        Mon, 19 Apr 2021 05:17:12 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:903:22ca:: with SMTP id y10ls1453928plg.8.gmail; Mon, 19
- Apr 2021 02:54:49 -0700 (PDT)
-X-Received: by 2002:a17:902:a585:b029:e7:3d46:660d with SMTP id az5-20020a170902a585b02900e73d46660dmr21699596plb.12.1618826089622;
-        Mon, 19 Apr 2021 02:54:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1618826089; cv=none;
+Received: by 2002:adf:fb47:: with SMTP id c7ls7523913wrs.0.gmail; Mon, 19 Apr
+ 2021 05:17:12 -0700 (PDT)
+X-Received: by 2002:adf:ba54:: with SMTP id t20mr14422938wrg.353.1618834631987;
+        Mon, 19 Apr 2021 05:17:11 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1618834631; cv=pass;
         d=google.com; s=arc-20160816;
-        b=d3dyXWn69jP5dyQdtz0vH/F7mp56XnJHJ0Tm56qCTQX5J16eDL98AQUHJhPJAKp+Dw
-         J9RJCYvNp/hJshr1CgaxEAOJgcastzKOnBCZ8Z2aGMEKF1IQK6WOeI419ZEB6sSyKP4A
-         Bjksxhi69o7Xiw7RWWZDLEijPHm/FOlj8MZ0wrYEJBTpg4ZOZUtPbgAckS3L8rCTN+/L
-         lmt2xoW+fjkylafJr+rd5R5FQi9X3+/74sJdcmOGB8bXCL+G1/uyYDA/1KvaDPWtjwak
-         8UqGvh6ALnTmThKGJ/ubaR/LY73rp+Lx3mcRtwmTyn7wmqDSdDJ59dncSTdvVq8wKRqR
-         RSBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=MzPor8Jk8gZ8DgVqVXqX6x+oeftvRtwwwYqGfEKt5/g=;
-        b=zlIX2GmCoPrnT12/jFIfZAs3jlmPr9GftBahysCscHZvHeSH4UndYH0hoiCfe4+gJ/
-         SX8I+5w8NsTvTy5dEUnvQbn4S7kIyyMtdfiPTQCNCdXyydFBK4oj4XI4D3uayhaU2Erl
-         Hlk/Z9xeufTbrKNdOAHt/ehOQZndUmRd+Bke4u+LFbisxqBWH0jyf0p48DJ2oKVHnfFv
-         zHQwz8UiEWSqrTDWP9WYWWrya741YM8x8D7fh4Sz1mbav0v8DIDCpnlkR63xXpv/BcqZ
-         CQC211L9CWh73dLqk5UyD5DcAw+lFtsiJJ9xsbWavVHxA6Fj4gUZiarY1Oo1ORJHGSnf
-         vO+g==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=WFZiBnto;
-       spf=pass (google.com: domain of van.freenix@gmail.com designates 2607:f8b0:4864:20::334 as permitted sender) smtp.mailfrom=van.freenix@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com. [2607:f8b0:4864:20::334])
-        by gmr-mx.google.com with ESMTPS id i10si386197pjv.1.2021.04.19.02.54.49
+        b=A1TB0zeRX/ZEU3guc/iwtRZnWnJMmw7NsRYfIE9pMyNmZikuwSEiAtR0BVM5HvFGiQ
+         It2FxQQaxkJah1bs/YPyBBulGo4D3DnhD0fnwtxP7GKjaVRLrlyxULA4epX+MuPsQgEc
+         ZRH/HcBzzIQOsEKQNeA9kVaI+xpfmAppnivmKXe85X+QTbNQDTxjVvTVdoQoW+tV1O33
+         QdXRTce9ByXp88k/ANvqEAGmoqLyEQdrIfm5LIFN18zun0EQEW3wS2J0FCHE6oVepzNE
+         a2r73u1PicSubdsWt1VbyK8hf/OzsKNyHHCE/nNXz6RY3bDqB4q6YbuBamMTguW6VU6t
+         TY1w==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:content-transfer-encoding:content-language
+         :accept-language:message-id:date:thread-index:thread-topic:subject
+         :cc:to:from:dkim-signature;
+        bh=3LDcwmsIbk0hH1hXJDqNCq159Dw1Hp3RgsuNbxi6q0Q=;
+        b=IaKQ5zVuWhPNNkeHb+O1lGUBCXUzaCYNtjckO9FmlHuXurbE0IxyvtiiFFQ4xoK/7b
+         TZ4FG+jFD7CIDnP4XSZmVFjfEaZRGuhrKCBz4WuSmGpcUC9kdo/h0oOnN44xiRkWlPqA
+         x7tcynzerraIMSKdJFDsJ3FxjwDbNlF0XFAr6XMS95kgZ/AIGEIZgbIcWt6uhVGh2CAq
+         eoCoUMLcTshQJiy8z/fPlhOS3Ill6yy9THyKqh9UE0OiKhesF2aBy1dBVf00NjEfjihF
+         OmLBZsCbVUti42bnQaaAyF0hg4XtgILJsCoTR/m4m1oaZ6aNaYdDC+JWNiBlkpBhrbD4
+         fgEA==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@prodrive-technologies.com header.s=selector1 header.b=O6o5Tnou;
+       arc=pass (i=1 spf=pass spfdomain=prodrive-technologies.com dkim=pass dkdomain=prodrive-technologies.com dmarc=pass fromdomain=prodrive-technologies.com);
+       spf=pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com designates 40.107.21.95 as permitted sender) smtp.mailfrom=bram.hooimeijer@prodrive-technologies.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=prodrive-technologies.com
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com (mail-vi1eur05on2095.outbound.protection.outlook.com. [40.107.21.95])
+        by gmr-mx.google.com with ESMTPS id k6si1067988wrm.2.2021.04.19.05.17.11
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Apr 2021 02:54:49 -0700 (PDT)
-Received-SPF: pass (google.com: domain of van.freenix@gmail.com designates 2607:f8b0:4864:20::334 as permitted sender) client-ip=2607:f8b0:4864:20::334;
-Received: by mail-ot1-x334.google.com with SMTP id c8-20020a9d78480000b0290289e9d1b7bcso17949382otm.4
-        for <jailhouse-dev@googlegroups.com>; Mon, 19 Apr 2021 02:54:49 -0700 (PDT)
-X-Received: by 2002:a9d:694a:: with SMTP id p10mr2706228oto.141.1618826088994;
- Mon, 19 Apr 2021 02:54:48 -0700 (PDT)
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 19 Apr 2021 05:17:11 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com designates 40.107.21.95 as permitted sender) client-ip=40.107.21.95;
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dFfIneAHif0lDtqGkbb6pDdCcyXrt08HjlYsRjIJeuRPDdvgEIzJhNgcIiox83pwMgedsXzLQygn/eiTkNKKSK42LhBi6aE3CvFr9i7tTl5rg2Gn7ewZ3M6Ebt/NkMNLWJClrwzPtOnyLKVphVvPFFPEj06qLWwxFjDP7kh4cLb91B/2hTJtXy1D0c75ONfP40VZwJeD8GB4FiDEEsSc772vS28JYGsQOe4NWGuU5HtMNe/Fek0vtPejfiKZXI9ZMaF1NyCQ3SquQyOWfgNI5bhfckiFPuon1woINxbg+M4nQ4oVlLQ+yeUig2XB8LKUuDoSn8dmsx5FPqW9jDX79A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3LDcwmsIbk0hH1hXJDqNCq159Dw1Hp3RgsuNbxi6q0Q=;
+ b=gOj2MTmUgPcQ7fS3zthitWOkjsb/0UOdhYXTL3VKdhmJitEpukejHfaScAJehFbHEXnuDOzuqV0arICa07erUNSJfqRVTt5vEekAolwOwGwZrmp/KbCYXeeMpfQodw/+ja3/lw5CtCG/KDFDHNfeYkhqVWpD3GEq306kK1+YeFjTnKLtfkMxhUvgOqcUgK2oihZP/o5xSoV/8tSfRIGLPVXL0kSZerHSK71RZEFPnI/y1tTF9l2LovtcCMGahuSbhoS1Id3Zjn0pmCEgorjDWTTTTpnTFWWt0SDZPu/NDfC+Nw8fJbjPpyTGEVJ0L6eD4oyt3VPqcHgQYrK0ET4qaw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=prodrive-technologies.com; dmarc=pass action=none
+ header.from=prodrive-technologies.com; dkim=pass
+ header.d=prodrive-technologies.com; arc=none
+Received: from AS8PR02MB6663.eurprd02.prod.outlook.com (2603:10a6:20b:257::14)
+ by AS8PR02MB6968.eurprd02.prod.outlook.com (2603:10a6:20b:2b6::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.16; Mon, 19 Apr
+ 2021 12:17:11 +0000
+Received: from AS8PR02MB6663.eurprd02.prod.outlook.com
+ ([fe80::69b5:15e2:476c:e151]) by AS8PR02MB6663.eurprd02.prod.outlook.com
+ ([fe80::69b5:15e2:476c:e151%3]) with mapi id 15.20.4042.024; Mon, 19 Apr 2021
+ 12:17:11 +0000
+From: Bram Hooimeijer <bram.hooimeijer@prodrive-technologies.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+CC: Jan Kiszka <jan.kiszka@siemens.com>
+Subject: [PATCH 0/1] Fix memory mapping x86
+Thread-Topic: [PATCH 0/1] Fix memory mapping x86
+Thread-Index: Adc1FW6fHn/FBFZSS92Xu+SKtPNN1A==
+Date: Mon, 19 Apr 2021 12:17:11 +0000
+Message-ID: <AS8PR02MB6663A9CC53D81FE82365EEEFB6499@AS8PR02MB6663.eurprd02.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [213.127.64.7]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 56213bfc-f95c-4813-ecd3-08d9032d0f12
+x-ms-traffictypediagnostic: AS8PR02MB6968:
+x-microsoft-antispam-prvs: <AS8PR02MB6968E8C641D8C39C29EE494DB6499@AS8PR02MB6968.eurprd02.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3968;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 1MWwDssoA6NNyE39AOBFvGL5Zlk7jL5/6/9DjiYKxw82mjHgaHADSwCKArFbv6B7USLRPY3hpX/suv3TfHmnSvRocMrzCzQOvAFMi8fw3cqlxpQF5aD5DB+kdOmWtwpHFR1DUpnTuNpDLKBXq2fKqEBLZAi6FI8JNcpY7j2bCbbYLkY40nFd/6eqR3agnHIYvdhyrGlKsRBf+XEVw99+DC/SWm9Vp7kAOokX7MfAbQObX7KNiItbnQwkQh5FnyKH7DlnJpAUhAJ/TjQyVSYVjcaiKvcs4t71awBjAGNYpqcyuOEZgQdaPhchUrxsfiOImUCQBkxFz3JoA1lJDT465oLmVU+4sN4xsikQH84DJ+a5Ve/IA13FbFIrConEU+wmexzY17VUv8WEqOgBH+8ndA1Wld5sUF4+TMVw3PlXXVAn+p0PoYedRm0DsWOs7mb38fdcq+HiWIKBP4LptMhgJzLquy62z9V1PsLBNUNi4g4WiR9kSVtAtV/JhMix9M6SEC6uCo70NWSadFEbuVxCY5+WHAq/MmR9gK+DedqgiAs5EtS+c7azRV8ZjCjRmPjsM7Zw8W8ZYsTBQs2ilxvowhi88IB8aIYSd0jsRUqzn7w=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR02MB6663.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(366004)(136003)(396003)(376002)(39850400004)(55016002)(6506007)(4326008)(86362001)(38100700002)(316002)(66946007)(71200400001)(52536014)(2906002)(4744005)(76116006)(7696005)(66476007)(33656002)(44832011)(5660300002)(83380400001)(66556008)(9686003)(8676002)(8936002)(122000001)(186003)(66446008)(64756008)(6916009)(26005)(478600001);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?U9/COIPWfqEfRm6/HscKHOOEUJmj5Owyl5ZiPNb1h/JE//3gl5APxL8JBFzx?=
+ =?us-ascii?Q?QQC9UbwZZgQFJS2MBcPW2csEoOotIqC7vej7+I/klkSd6CKYDPaxIEZOwmHd?=
+ =?us-ascii?Q?RVCBeHE6ykh4LBDaUihC1SwPBhIj2IoeGw1OuREj5o/KQ6sqhdHj7kIV+E5v?=
+ =?us-ascii?Q?V3K+KpdasDVbgMXlivHbAGWrB/s7xGQZ6bXu3lGHjnbAKRq2sDE+Rn0O2OV+?=
+ =?us-ascii?Q?vmJzt6CQQLY7xxKU1TbHM2VIZZ1eCax54BZ0A3NzKaOAU2cXhKo28+sjnCPV?=
+ =?us-ascii?Q?6b76L5w/8s9D31vNDh24knaF4aVdnjysRWYOTmnZkuHYpNJ2q7UufZa0ZIVU?=
+ =?us-ascii?Q?KiCNeXlEwIkLrfgCygU7e3N7yRJc/xyL7FOGuGbLpem2mG9lCHVdlPRLK/Lb?=
+ =?us-ascii?Q?IqSTE27AqX2Ri2G+B8HUo+F17Y24kKeS0HZ5wfeMaanzwhu6Z2rjvyOgNyAm?=
+ =?us-ascii?Q?uTnLuAq0dG9hky9miCH+n4io1+QJm8fWfuER+zUDKvxd3EMXe53otsi/xl43?=
+ =?us-ascii?Q?7A6p1nftmmrPKah/GoZCp1xtdPOU8iIJQIrAX+Lr+aQyF208uu4vNauw6ivJ?=
+ =?us-ascii?Q?i1pmQBJIkFMExAUQ8Jg5PqG6Imt4U1GpKe9YFvRC6Nek7pNXRXgiikwR7VAC?=
+ =?us-ascii?Q?VDzOVx74Ss2pXBlUjh1JIXcrEUxg1r2E/+gx8gr8V1ThnCwuG3LlZiU55AQ6?=
+ =?us-ascii?Q?3xfImQTPbtJrjipmdpQwCkCw2IW/8d68WtKOkonXyOKyn3k5GSMbqPA9Mnik?=
+ =?us-ascii?Q?V13VPE7O1VFvkpqU0oIYOrIJkP7Ci+JKcMLS2rzqUbhcZ6Iea2Wc+IRnZl/q?=
+ =?us-ascii?Q?/TBxKhckZ1eAeLcpz1HdZOUkN6jJhMFzScg87N/ygg3Tjpc5oNj7Jvsg+g/y?=
+ =?us-ascii?Q?RYVm/LIHkhQxsD1RM4TLXDe3BDtrMnuGXPHpvSMQQ+SfaVM305Ryf4TOdus7?=
+ =?us-ascii?Q?YeWj0p+ojgbqe7h8jGk0NOTmBk5WaEenGac3xBAQOk4qhLVJytXlW+Q2LqZY?=
+ =?us-ascii?Q?4O3SY71LisP+UrcRTDGqp8QYwKVlYa+h0B1WjOVhibJxzaZqCFDRGEoXRo02?=
+ =?us-ascii?Q?5YchzO0BaB7HsCnFDMu5ywks57+BrgVKyLoV5UkcwmqqDpSMCvBDJkMjQvRJ?=
+ =?us-ascii?Q?OAwW1Mbx/67HS2LUBXDneLmz680uUY4gJoyOxOOtO4qpgOkQ3t0wrLNXeqrJ?=
+ =?us-ascii?Q?EY4KBR5ktoPMUAfyAl2IO6A5ZvtksMm8lEadcsgGL/5E7o1xyEAEZY00czek?=
+ =?us-ascii?Q?83wqAXMhoSYgm2p5CxIHL1Y0rguDnuQ82db2AK9NluJAMFlu4jwJslYi0loi?=
+ =?us-ascii?Q?nRM=3D?=
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="UTF-8"
 MIME-Version: 1.0
-References: <7b5cf1d5-aef0-41bb-bedc-4350046e53c1n@googlegroups.com>
-In-Reply-To: <7b5cf1d5-aef0-41bb-bedc-4350046e53c1n@googlegroups.com>
-From: Peng Fan <van.freenix@gmail.com>
-Date: Mon, 19 Apr 2021 17:54:36 +0800
-Message-ID: <CAEfxd-9smW4cjT3HfX=Cuogd7GDNQjN2aixoMqP5ZNSkJaeAvQ@mail.gmail.com>
-Subject: Re: high latency in inmate linux on imx8mm evk
-To: liandao <liandao@gmail.com>
-Cc: Jailhouse <jailhouse-dev@googlegroups.com>
-Content-Type: multipart/alternative; boundary="000000000000fcdc5d05c050516d"
-X-Original-Sender: Van.Freenix@gmail.com
+X-OriginatorOrg: prodrive-technologies.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR02MB6663.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56213bfc-f95c-4813-ecd3-08d9032d0f12
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Apr 2021 12:17:11.0507
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 612607c9-5af7-4e7f-8976-faf1ae77be60
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: nGowUrkXaInKnxfrrQVXkyHw3mZRCbBbb3wFyrrDN6GUfhG41sV3J/wQ1CucurUV7/tftzcIEFpVE7SFzFZi+gUEGUHrqiv6b0V5G5u7FLRfL9gMCV6MjMS6WYQNuR1qnjpTNWHKciR8zTZcdI9L6A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR02MB6968
+X-Original-Sender: bram.hooimeijer@prodrive-technologies.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20161025 header.b=WFZiBnto;       spf=pass
- (google.com: domain of van.freenix@gmail.com designates 2607:f8b0:4864:20::334
- as permitted sender) smtp.mailfrom=van.freenix@gmail.com;       dmarc=pass
- (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+ header.i=@prodrive-technologies.com header.s=selector1 header.b=O6o5Tnou;
+       arc=pass (i=1 spf=pass spfdomain=prodrive-technologies.com dkim=pass
+ dkdomain=prodrive-technologies.com dmarc=pass fromdomain=prodrive-technologies.com);
+       spf=pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com
+ designates 40.107.21.95 as permitted sender) smtp.mailfrom=bram.hooimeijer@prodrive-technologies.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=prodrive-technologies.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -141,152 +198,23 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---000000000000fcdc5d05c050516d
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Dear Jan, dear Jailhouse community,
 
-liandao <liandao@gmail.com> =E4=BA=8E2021=E5=B9=B44=E6=9C=8819=E6=97=A5=E5=
-=91=A8=E4=B8=80 =E4=B8=8B=E5=8D=884:07=E5=86=99=E9=81=93=EF=BC=9A
+A small patch to ensure newly allocated page tables are zeroed upon creation. 
+Jan, apologies for not using the mailing list first time round, and thanks for your quick reply on my inquiries. 
 
-> i try jailhouse on NXP IMX8MM LPDDR4 EVK, and i test latency on root and
-> inmate.
-> most instructions are according i.MX_Linux_Users_Guide.pdf
-> (ver:L5.4.70_2.3.0) from NXP.
-> i build 3 type linux kernels:
-> 1)normal kernel
-> 2)kernel with PREEMPT-RT
-> 3)kernel with xenomai
-> we get the PREEMPT-RT patch and xenomai'Ipipe patch form an blog on i.MX
-> Forums/i.MX Processors Knowledge Base.
-> these linux config has turn off: CONFIG_CPU_FREQ/CONFIG_CPU_IDLE.
->
-> a)when the root is an normal kernel or kernel with PREEMPT-RT, inmate is
-> gic-demo.bin,
-> do "stress-ng --cpu 4 --io 8 --vm 8 --vm-bytes 8M --fork 4 --udp 4
-> --timeout 1h" in root linux
-> and within an hourse gic-demo can hit max 14us jitter.
->
-> a)when the root is kernel with PREEMPT-RT, inmate is the kernel with
-> PREEMPT-RT,
-> run "cyclictest -l100000  -p99" in inmate linux,then max latency is about
-> 80us
->
-> a)when the root is kernel with PREEMPT-RT, inmate is the kernel with
-> xenomai,
-> run "/usr/xenomai/bin/latency -t 0 -h -g ./202100419_01.log" in inmate
-> linux,
-> then max latency is about 50us-100us,
-> if root linux do nothing, the latency in inmate is better,
-> if do "stress-ng --cpu 4 --io 8 --vm 8 --vm-bytes 8M --fork 4 --udp 4
-> --timeout 100s" in root linux,
-> the latency in inmate can hit 89us.
->
-> my question is: while the latency in inmate linux is still so high?what
-> impact the inmate linux? how to get better latency in inmate?
-> run RTOS(not linux) in inmate?
->
+Best, Bram
 
-Well. I think it is cache contention and DRAM bandwidth. Mostly it should
-be cache contention. Cache color should be a possible solution, but hard to
-support DMA.
+Bram Hooimeijer (1):
+  x86/mem.c: Fix allocation bug
 
-Regards,
-Peng.
+ inmates/lib/x86/mem.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
+-- 
+2.25.1
 
-> --
-> You received this message because you are subscribed to the Google Groups
-> "Jailhouse" group.
-> To unsubscribe from this group and stop receiving emails from it, send an
-> email to jailhouse-dev+unsubscribe@googlegroups.com.
-> To view this discussion on the web visit
-> https://groups.google.com/d/msgid/jailhouse-dev/7b5cf1d5-aef0-41bb-bedc-4=
-350046e53c1n%40googlegroups.com
-> <https://groups.google.com/d/msgid/jailhouse-dev/7b5cf1d5-aef0-41bb-bedc-=
-4350046e53c1n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>
-> .
->
-
-
---
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/CAEfxd-9smW4cjT3HfX%3DCuogd7GDNQjN2aixoMqP5ZNSkJaeAvQ%40mail.=
-gmail.com.
-
---000000000000fcdc5d05c050516d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">liandao &lt;<a href=3D"mailto:liandao=
-@gmail.com">liandao@gmail.com</a>&gt; =E4=BA=8E2021=E5=B9=B44=E6=9C=8819=E6=
-=97=A5=E5=91=A8=E4=B8=80 =E4=B8=8B=E5=8D=884:07=E5=86=99=E9=81=93=EF=BC=9A<=
-br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
-x;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div>i try jailh=
-ouse on NXP IMX8MM LPDDR4 EVK, and i test latency on root and inmate.</div>=
-<div>most instructions are according i.MX_Linux_Users_Guide.pdf (ver:L5.4.7=
-0_2.3.0) from NXP.</div><div>i build 3 type linux kernels:</div><div>1)norm=
-al kernel</div><div>2)kernel with PREEMPT-RT</div><div>3)kernel with xenoma=
-i</div><div>we get the PREEMPT-RT patch and xenomai&#39;Ipipe patch form an=
- blog on i.MX Forums/i.MX Processors Knowledge Base.</div><div>these linux =
-config has turn off: CONFIG_CPU_FREQ/CONFIG_CPU_IDLE.</div><div><br></div><=
-div>a)when the root is an normal kernel or kernel with PREEMPT-RT, inmate i=
-s gic-demo.bin,=C2=A0</div><div>do &quot;stress-ng --cpu 4 --io 8 --vm 8 --=
-vm-bytes 8M --fork 4 --udp 4 --timeout 1h&quot; in root linux</div><div>and=
- within an hourse gic-demo can hit max 14us jitter.</div><div><br></div><di=
-v>a)when the root is kernel with PREEMPT-RT, inmate is the kernel with PREE=
-MPT-RT,=C2=A0</div><div>run &quot;cyclictest -l100000=C2=A0 -p99&quot; in i=
-nmate linux,then max latency is about 80us</div><div><br></div><div>a)when =
-the root is kernel with PREEMPT-RT, inmate is the kernel with xenomai,=C2=
-=A0</div><div>run &quot;/usr/xenomai/bin/latency -t 0 -h -g ./202100419_01.=
-log&quot; in inmate linux,</div><div>then max latency is about 50us-100us,<=
-/div><div>if root linux do nothing, the latency in inmate is better,</div><=
-div>if do &quot;stress-ng --cpu 4 --io 8 --vm 8 --vm-bytes 8M --fork 4 --ud=
-p 4 --timeout 100s&quot; in root linux,</div><div>the latency in inmate can=
- hit 89us.</div><div><br></div><div>my question is: while the latency in in=
-mate linux is still so high?what impact the inmate linux? how to get better=
- latency in inmate?</div><div>run RTOS(not linux) in inmate?</div></blockqu=
-ote><div><br></div><div>Well. I think it is cache contention and DRAM bandw=
-idth. Mostly it should be cache contention. Cache color should be a possibl=
-e solution, but hard to support DMA.</div><div><br></div><div>Regards,</div=
-><div>Peng.</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex">
-
-<p></p>
-
--- <br>
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br>
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com" targe=
-t=3D"_blank">jailhouse-dev+unsubscribe@googlegroups.com</a>.<br>
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/7b5cf1d5-aef0-41bb-bedc-4350046e53c1n%40googlegrou=
-ps.com?utm_medium=3Demail&amp;utm_source=3Dfooter" target=3D"_blank">https:=
-//groups.google.com/d/msgid/jailhouse-dev/7b5cf1d5-aef0-41bb-bedc-4350046e5=
-3c1n%40googlegroups.com</a>.<br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature"><div dir=3D"ltr"><br></div></div></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/CAEfxd-9smW4cjT3HfX%3DCuogd7GDNQjN2aixoMqP5ZNSkJae=
-AvQ%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups=
-.google.com/d/msgid/jailhouse-dev/CAEfxd-9smW4cjT3HfX%3DCuogd7GDNQjN2aixoMq=
-P5ZNSkJaeAvQ%40mail.gmail.com</a>.<br />
-
---000000000000fcdc5d05c050516d--
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/AS8PR02MB6663A9CC53D81FE82365EEEFB6499%40AS8PR02MB6663.eurprd02.prod.outlook.com.
