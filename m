@@ -1,32 +1,32 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBW7B66BQMGQEAXFHBYI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBXPB66BQMGQEY3HEFPI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33c.google.com (mail-wm1-x33c.google.com [IPv6:2a00:1450:4864:20::33c])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECFE8364CC9
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 19 Apr 2021 23:06:35 +0200 (CEST)
-Received: by mail-wm1-x33c.google.com with SMTP id z135-20020a1c7e8d0000b02901297f50f20dsf49797wmc.0
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 19 Apr 2021 14:06:35 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1618866395; cv=pass;
+Received: from mail-lf1-x139.google.com (mail-lf1-x139.google.com [IPv6:2a00:1450:4864:20::139])
+	by mail.lfdr.de (Postfix) with ESMTPS id 29B7C364CCC
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 19 Apr 2021 23:06:38 +0200 (CEST)
+Received: by mail-lf1-x139.google.com with SMTP id a19-20020a194f530000b02901ae58050516sf2074642lfk.20
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 19 Apr 2021 14:06:38 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1618866397; cv=pass;
         d=google.com; s=arc-20160816;
-        b=y7r66rLBO1GIi+SA85YoCwlf3LuHjGtOXQHLHX1EQKw1nc5C0/rqDvxZXF5vlpdsMp
-         SAbtQQcCaRIifvjuLP8I/BZ9DZmRZgu5Sa7/OrFOIhCASYXjFiLfvqob6VelERWyqeoB
-         QO1diD5e7Wr4QbIcNzeziiCfJeajZgVAS0mdpDvM2z1SDXv9td6LuByDCvLpgADjiubg
-         pTUbcCqWbqyDnHlP0uC+t/lN01eZB4NoOkyftcSL9hsWNl9cJOc7E3/glACX+DIb1P5T
-         kGnpU7vFVq/XTAxIaDqzMBSNjACzEvUUTFMbu0NfUg4X+nM+exEubqsMf4N5DM5OjAvq
-         jMvQ==
+        b=b2Ie2fnZPzH4dlpv5w3HEYb68YC4N/64vbFXJ8jIvZQs3I7vMoIskfNPS2FP57Dgur
+         UUZ6dy7TEVWSryN5v3v0EDTfZcwfj/c5nnAA7VBhor/CXUL94etGQNiqE7ZPyD5PErbA
+         TiCAf8tQUKc7uYSparhGfAFvvCnUmeatotgtWIrS6/YkkZxSSj7pMAYTE5FdoMzdda+6
+         3yIMX9UPH/VL8hzasy9BEtZjOXhMrIsxuThSHHjgFS7m2dFYBOS1IY1FPXLsnJfQiAa+
+         cZ+4uDwOVK2xR3oQVWP4hbfLpu4oOAGLg7qShzaO5Q5T9lhmHZFPuNQFf669AfHzDVd+
+         mXJQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:sender:dkim-signature;
-        bh=V/nkDiVPfOefpBgYqIOtlD8SE3mueXTyTHjyuRrzD74=;
-        b=rGEW0XsrVi5bBvs8TKcjInYlCBHEQYvqWETEBFase2k/8dEe4eFiPe1pto8uMXbIvv
-         CQSp1SGQy0UFKTgho8ndSBPcpNjWw4qNF8MaMtvHQ0+7+2ajqaqCxwkqwywbjc62Gr7C
-         xjhUfRWZ5PiKTSZK3xJfAxY21m2N0QqzUYpxGGOMiWuRvLx8jXD88bVEanqqNHBNADIF
-         QcA4LiekHVWFPaL7TkjGydUhOK9JfuChNamvG16OXUa0oV+QZ3izYWc4Oqn7p3xq1Sm9
-         +zR6CIIFv/Bwkl/4iFk/9EcyfSjHiVR3g43J+YD5BDdIEHnzRY2UKbGElLa9k15DW0Wd
-         GyXQ==
+        bh=DvgX+EapBBJ3SU6y/AS9JokuSvzMCgKYQKzuttUOMjc=;
+        b=l1cBmSKpOQkxWwH91vkhOxBKWKG3FZJTkCIKba0zzmghzyzubdn1K6Cnb8cMCwSWg2
+         7DmBZ42ezRLNtjxxoWqZtuwQkcBBHOzf+7nEptCAhp3hWBq57Vv4cJqOizcEac3qtXyN
+         3sqS04l5Bd6st+/6gmqn1fzRMg7bIVF9z5YSCdoM5RLOx/0Prxk5UpTB4LNOaj3PoNJE
+         XuY+UkiNgYR9Ur3Ch7sEtoIRG4lCDu2JMSxq2QYGSzEH4/7QU8rU2JXiYru4X8/Qj9up
+         J2PZHew8yNes6iGTCO3hj5M8AfdKrkXt4d1xKO5eaI2X1Tr9wXAOv/f+uG26YKFFC9B3
+         z8aQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -34,13 +34,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=V/nkDiVPfOefpBgYqIOtlD8SE3mueXTyTHjyuRrzD74=;
-        b=qpf36czQj83EgFgCHyZh//76nsY7AkkhGwAA3Mq2gZpehGJFYq5Wv6k200UTF6O2FR
-         Gig0QcgXoybNSTEJCMiCSI8OIvhY+066/9N61BOABGUVQJO724vy4yEoevz/Cx8PDqXy
-         1Z5bh8NT2emLQL/0ZQ/ufP5bfQJJsMIVUpQrRqpRMnK/8yXLoNHiUsYvHF1KcQwDbIH1
-         8nPtXeFKc8GcfCy9S7CbLtkcJ65dR1fjDqIMIydJy6XrBMekT19w6UNwr//TbO4L+rpZ
-         2ajy6eG0cgazs6AICzS6hKLO+HUgXb0XGdBQ0CpiWfzckiIAhaVRP3bB5pG3/4XJK08k
-         O8sw==
+        bh=DvgX+EapBBJ3SU6y/AS9JokuSvzMCgKYQKzuttUOMjc=;
+        b=eG1L5Te+H/FOtL2IY7uod/zrEzxtl7kesREB1Jpa0JLvrd/uVWZKU7+Fofe75F0lDf
+         9+6mJpte1DVchBgyaEk29QgjgMglAb5gxRyDkoOJbu5wEJi8EzLRbpGFCmByaBndhgYD
+         0m/8oGuFaHUHNmn0XHEhEDrlca4noYTtSopgf/PQwesFX4erXeE7A/spI99NV5B6YB7Z
+         X/3UPX6Nkmxif8lFtINEesaQr2clUVrhiXng/DmDlrvFBTc/yzg8j7libwZY7cZlU9cM
+         uoHD+Sxow/Em3RUC0Eb2okZKmck4ECbN8lVnCMzIo6bjthSSaep8sVwB3PcYI6frhOse
+         4Awg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:subject:date:message-id
@@ -48,70 +48,70 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=V/nkDiVPfOefpBgYqIOtlD8SE3mueXTyTHjyuRrzD74=;
-        b=uc8JcMPKu1585NHUTrX94LOQcCJHlT2EllFVWAs6FjpeL64NT4cNq/fTeDgrJj8XPx
-         7TspF1Z9lMOrlkLw49OJm1IA3YXXMoUh6rDrIaBw8ssSjiEdxFKMXQ23F7/qhVTI9dJ3
-         IDz9FgyxjJNsqqHwfGP+QxZgt+j/A6GQbWxRDU15AUI2DkGx2OCGh4Ug1E+FqYy7jMg3
-         neppS7m2yc86bOtJYf4IfbaxVXVwoHOde+Cyg23lWMpzlZE9F3A3ieW15NPRn+jvrkQm
-         uY70nG4NRqUP1SCLBhg6vLAgJc7pABylyY9QEY9HuKWjW56yaGjVIUbsERagfNPqWM6k
-         kLXA==
+        bh=DvgX+EapBBJ3SU6y/AS9JokuSvzMCgKYQKzuttUOMjc=;
+        b=rmawiegn9REM92vSObhW5Eqv0rMKslwDtqPU4EA5YA5XeTAccYqylMur5dOI4OAtF7
+         rINmu4Ic+BU3SB+0GGvdIp4MhAjNEfl4TjG+54IxBl/M59l6yFhf+dEwy23Xvp8beYjN
+         l3/S98wDNOOvcAGbTyfYe7GCLvutcdmP6frc10M0dgnC4dv6TDvdLhEMm+Iq0cR97u1W
+         kLL+nwB4Z5XS+DjcBnoA4daflaKh9T3XSp8Fa1J/Ld+wCmMe0mi1+63gBw/uauAU300a
+         bIic3EdsD6rgZtKXInEqaz14RaDFxON8Wi9Wbet5jQyPwTvyJ6cSjHNg4f6cMI9S9mt7
+         9A1A==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530LnCAaFaL+3Cg521D0s5vizIhxSoZX2vb6mM+r9idRkbsHGbkW
-	GjFX9sOTz/NkwDLhyKX0EpA=
-X-Google-Smtp-Source: ABdhPJxSULc/xxuaMLrijBAvQT0lS4p2g60MPdfj0zAN0qkFSTSdnn5AeKJqHxGy6i1Za+vrKWgQaw==
-X-Received: by 2002:a5d:4a86:: with SMTP id o6mr16736528wrq.192.1618866395719;
-        Mon, 19 Apr 2021 14:06:35 -0700 (PDT)
+X-Gm-Message-State: AOAM531Yv5QqmMCVJy6ghNbZ8BCwh1ZuMyWTL/u4mG21rKTzYOIhJfop
+	S6nFmElPAowEgCZeIXLg9Ok=
+X-Google-Smtp-Source: ABdhPJxWZeawUgjJ0ncCYl2B52wE5mkKn0Nl/BmT7WDw4bJxtkU5mDS/1v0/FNp29j+lDRuUxjER+g==
+X-Received: by 2002:ac2:5399:: with SMTP id g25mr7540580lfh.433.1618866397653;
+        Mon, 19 Apr 2021 14:06:37 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:c205:: with SMTP id s5ls295144wmf.3.canary-gmail; Mon,
- 19 Apr 2021 14:06:34 -0700 (PDT)
-X-Received: by 2002:a7b:cb55:: with SMTP id v21mr941384wmj.188.1618866394712;
-        Mon, 19 Apr 2021 14:06:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1618866394; cv=none;
+Received: by 2002:a19:f815:: with SMTP id a21ls468928lff.1.gmail; Mon, 19 Apr
+ 2021 14:06:36 -0700 (PDT)
+X-Received: by 2002:a05:6512:24f:: with SMTP id b15mr14057379lfo.51.1618866396386;
+        Mon, 19 Apr 2021 14:06:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1618866396; cv=none;
         d=google.com; s=arc-20160816;
-        b=xLv2ZHIotXOzckPmXIl4WhnD7B13oTzYyDiSVtfbZc2g7lrPD4jomEQJgnCsQ1AsNh
-         xSVtpfAM2mpKqUQFDICzYjAYMVmtU0jqA/Hqso+WmgHZusY6vADYr751f+RRNeMRSZkC
-         nnWB9pTk2cFmH3FIlqzJoYPY6PT1n118mAvz52zanRqHHd0w1j//uEHd7shbv+PF5gOw
-         cCLQ5e9/EP5Po3xgL6P/HDvhY4IM2lQRBHzXh7ag2isbvlyItFyq46gmzOe0IA3D3SAg
-         7MQlAESewtIUeMTyuy+WC3+v6iCsrkLU05g7droS4Sgad8zzXyKHvriD5VDRFXnxdmX1
-         lr4w==
+        b=UsKNOaAmMNJ8NfbPHt059z5E/1EpLRYNNH1A2gOBsDTy30ivXD8OqVWkcS8ZpkC/u/
+         RhJIDOXyi2gI5YEWKHH2ZeZhmsp01GcYJpRspk6D9RkOyjJ9FChZiGoOF+BeWvkd5T7V
+         YZCeXg1EFhhYIGIk+21+xAQKdVzERbCkj8GnbYrYh99ERnGav0kJr1Xr0A7GZ/FSZhu+
+         KPJbpnnAp5mJ2sroG3g0X53zs9lcu4uyg0hhGkiJmX7LTj771+WqsqsOozAOvhlSFtgg
+         vxu1CVecwhIdv+pPOH99dSneauoFbvBpt8bjSh4NEFLxv0nLLHPVW9Fr/j/Fb8p29YMV
+         8bSw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from;
-        bh=+NeteLB0mZGbig77FtRu9ScTA/s0wdKoasjF8yHmLWE=;
-        b=Aw0vqN9I0/W1trD68Rt92WBQSJrHlrGAfdpO/1pqWSyvaXopA4H6pcVwxDuOY5Gfne
-         nesN0va1dcQ31CTjUWyRNN1hZ72jNbSu+9kF1bL5VlBYpInvN0weBIaE5T2Clhlsry/a
-         WSoQcsrIbKDiH4JX8OHeWt2KGqyVz6DqFI97gIcaQRy+duljYP2ElfSsBFEVgx/rcK5H
-         70uTmxRmZrwGwQienSA3tOOhsvHE9y/bgia9eW3pFVkN9TmtiMRTEVFqoVA1ap3oc3tK
-         72QTaUOfGxU9QDqx5OHRlu/S51Dnk5pQVQO2rv+DHr80GJb6bUaoczX8MaF3QnAmaNf1
-         V2AQ==
+        bh=6ajXud5xY739vpun3l96ReAoNmcVc9jAtQIQO8ptUOw=;
+        b=cmSQRlFa5JZZ2EOdgJot2jJy3Kp7X6eYHQaqqp48hOsfQkfVvPZkMzJMz2RPzZX6er
+         rH0uHtIC7ij/IdivTLLU8jsR9aMkwkIPBqnp2zhH/QBxMDiBJoqUfPv14TJXevftjY5/
+         6IBCS6KsyXnp30rRTUFCcN+R3gW7Xv6m3s+FEaDSNK6QzGN2BEM5DPiZejmDQY+8gote
+         0L9AsuP5WDkkmuKAoaIaOmUIkAe51hG63Xy0NldgSgGGmWGj95riRgrsK5VFBUA+iduK
+         KtRT+k66GL7BQJmyqgRlAoW51zvg6ASaBNwyD5fvCn7Itel/gcD873ChzschEjlWgkr5
+         luUA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id a191si129009wme.3.2021.04.19.14.06.34
+Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
+        by gmr-mx.google.com with ESMTPS id j7si1038965ljc.6.2021.04.19.14.06.35
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 19 Apr 2021 14:06:34 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
+        Mon, 19 Apr 2021 14:06:35 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 13JL6YRJ022652
+	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 13JL6Y3H022132
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
 	for <jailhouse-dev@googlegroups.com>; Mon, 19 Apr 2021 23:06:34 +0200
 Received: from md1f2u6c.ad001.siemens.net ([167.87.240.116])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 13JL6Tpk015242
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 13JL6Tpl015242
 	for <jailhouse-dev@googlegroups.com>; Mon, 19 Apr 2021 23:06:34 +0200
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [jh-images][PATCH v2 17/20] trusted-firmware-a-rpi4: Add patch to improve memory reservation
-Date: Mon, 19 Apr 2021 23:06:26 +0200
-Message-Id: <80221c6ee7f1c91a321d4549bf0f41ccab57572b.1618866389.git.jan.kiszka@siemens.com>
+Subject: [jh-images][PATCH v2 18/20] rpi4: Move jailhouse reservation
+Date: Mon, 19 Apr 2021 23:06:27 +0200
+Message-Id: <e38dd12746bbba6fa3cca1dcae930931f7eb383e.1618866389.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <cover.1618866389.git.jan.kiszka@siemens.com>
 References: <cover.1618866389.git.jan.kiszka@siemens.com>
 MIME-Version: 1.0
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
@@ -129,251 +129,311 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-Will be needed for supporting upstream kernels.
+This is needed for using the upstream kernel and is part of the
+Jailhouse development branch already.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- ...memreserve-pattern-for-rpi3-and-rpi4.patch | 214 ++++++++++++++++++
- .../trusted-firmware-a-rpi4_2.4.bb            |   3 +
- 2 files changed, 217 insertions(+)
- create mode 100644 recipes-bsp/trusted-firmware-a/files/0001-rpi-Use-common-memreserve-pattern-for-rpi3-and-rpi4.patch
+ .../rpi-firmware/files/debian/jailhouse.dts   |   4 +-
+ ...i4-Move-RAM-reservation-down-by-256-.patch | 257 ++++++++++++++++++
+ recipes-jailhouse/jailhouse/jailhouse_0.12.bb |   1 +
+ 3 files changed, 260 insertions(+), 2 deletions(-)
+ create mode 100644 recipes-jailhouse/jailhouse/files/0001-configs-arm64-rpi4-Move-RAM-reservation-down-by-256-.patch
 
-diff --git a/recipes-bsp/trusted-firmware-a/files/0001-rpi-Use-common-memreserve-pattern-for-rpi3-and-rpi4.patch b/recipes-bsp/trusted-firmware-a/files/0001-rpi-Use-common-memreserve-pattern-for-rpi3-and-rpi4.patch
+diff --git a/recipes-bsp/rpi-firmware/files/debian/jailhouse.dts b/recipes-bsp/rpi-firmware/files/debian/jailhouse.dts
+index 1a4f8ab..b51163e 100644
+--- a/recipes-bsp/rpi-firmware/files/debian/jailhouse.dts
++++ b/recipes-bsp/rpi-firmware/files/debian/jailhouse.dts
+@@ -11,8 +11,8 @@
+ 				#size-cells = <1>;
+ 				ranges;
+ 
+-				jailhouse@20000000 {
+-					reg = <0 0x20000000 0x10000000>;
++				jailhouse@10000000 {
++					reg = <0 0x10000000 0x10000000>;
+ 					no-map;
+ 				};
+ 			};
+diff --git a/recipes-jailhouse/jailhouse/files/0001-configs-arm64-rpi4-Move-RAM-reservation-down-by-256-.patch b/recipes-jailhouse/jailhouse/files/0001-configs-arm64-rpi4-Move-RAM-reservation-down-by-256-.patch
 new file mode 100644
-index 0000000..fe7ac43
+index 0000000..dff3f15
 --- /dev/null
-+++ b/recipes-bsp/trusted-firmware-a/files/0001-rpi-Use-common-memreserve-pattern-for-rpi3-and-rpi4.patch
-@@ -0,0 +1,214 @@
-+From 84bb39be8756f655e3882bbe529ac9921525fdb5 Mon Sep 17 00:00:00 2001
++++ b/recipes-jailhouse/jailhouse/files/0001-configs-arm64-rpi4-Move-RAM-reservation-down-by-256-.patch
+@@ -0,0 +1,257 @@
++From 6234762737513985d5de14d860773ca3257f858c Mon Sep 17 00:00:00 2001
 +From: Jan Kiszka <jan.kiszka@siemens.com>
-+Date: Mon, 22 Mar 2021 19:58:58 +0100
-+Subject: [PATCH] rpi: Use common memreserve pattern for rpi3 and rpi4
++Date: Mon, 22 Mar 2021 23:18:05 +0100
++Subject: [PATCH] configs: arm64: rpi4: Move RAM reservation down by 256 MB
 +
-+This fixes the issue that recent kernels already have a memreserve for
-+the startup stubs at address 0 and dislike adding another reservation at
-+the same address.
++This is needed in order to switch to upstream 5.10 kernel. It refuses to
++reserve the formerly used region, apparently due to conflicts with
++pre-existing reservations.
++
++Beside adjusting the cell configs, we also need to update the inmate DT
++because it now has an overlap with the physical inmate RAM.
 +
 +Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
-+Change-Id: I275194ba59405728f1a7913cb0fea0d02e75fc50
 +---
-+ plat/rpi/common/include/rpi_shared.h |  2 +
-+ plat/rpi/common/rpi3_common.c        | 62 ++++++++++++++++++++++++
-+ plat/rpi/rpi3/rpi3_bl31_setup.c      | 70 +---------------------------
-+ plat/rpi/rpi4/rpi4_bl31_setup.c      |  3 +-
-+ 4 files changed, 66 insertions(+), 71 deletions(-)
++ configs/arm64/dts/inmate-rpi4.dts |  2 +-
++ configs/arm64/rpi4-inmate-demo.c  | 22 +++++++++----------
++ configs/arm64/rpi4-linux-demo.c   | 28 ++++++++++++------------
++ configs/arm64/rpi4.c              | 36 +++++++++++++++----------------
++ 4 files changed, 44 insertions(+), 44 deletions(-)
 +
-+diff --git a/plat/rpi/common/include/rpi_shared.h b/plat/rpi/common/include/rpi_shared.h
-+index ddf239eb5..858bff2eb 100644
-+--- a/plat/rpi/common/include/rpi_shared.h
-++++ b/plat/rpi/common/include/rpi_shared.h
-+@@ -38,4 +38,6 @@ int rpi3_vc_hardware_get_board_revision(uint32_t *revision);
++diff --git a/configs/arm64/dts/inmate-rpi4.dts b/configs/arm64/dts/inmate-rpi4.dts
++index ac6d4f58..305ac22f 100644
++--- a/configs/arm64/dts/inmate-rpi4.dts
+++++ b/configs/arm64/dts/inmate-rpi4.dts
++@@ -98,6 +98,6 @@
++ 				<0 0 0 4 &gic GIC_SPI 156 IRQ_TYPE_EDGE_RISING>;
++ 		reg = <0x0 0xff900000 0x0 0x100000>;
++ 		ranges =
++-			<0x02000000 0x00 0x10000000 0x0 0x10000000 0x00 0x10000>;
+++			<0x02000000 0x00 0x20000000 0x0 0x20000000 0x00 0x10000>;
++ 	};
++ };
++diff --git a/configs/arm64/rpi4-inmate-demo.c b/configs/arm64/rpi4-inmate-demo.c
++index 09dfc1f0..1bc244f5 100644
++--- a/configs/arm64/rpi4-inmate-demo.c
+++++ b/configs/arm64/rpi4-inmate-demo.c
++@@ -51,34 +51,34 @@ struct {
++ 	.mem_regions = {
++ 		/* IVSHMEM shared memory regions (demo) */
++ 		{
++-			.phys_start = 0x2faf0000,
++-			.virt_start = 0x2faf0000,
+++			.phys_start = 0x1faf0000,
+++			.virt_start = 0x1faf0000,
++ 			.size = 0x1000,
++ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
++ 		},
++ 		{
++-			.phys_start = 0x2faf1000,
++-			.virt_start = 0x2faf1000,
+++			.phys_start = 0x1faf1000,
+++			.virt_start = 0x1faf1000,
++ 			.size = 0x9000,
++ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++ 				JAILHOUSE_MEM_ROOTSHARED,
++ 		},
++ 		{
++-			.phys_start = 0x2fafa000,
++-			.virt_start = 0x2fafa000,
+++			.phys_start = 0x1fafa000,
+++			.virt_start = 0x1fafa000,
++ 			.size = 0x2000,
++ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
++ 		},
++ 		{
++-			.phys_start = 0x2fafc000,
++-			.virt_start = 0x2fafc000,
+++			.phys_start = 0x1fafc000,
+++			.virt_start = 0x1fafc000,
++ 			.size = 0x2000,
++ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++ 				JAILHOUSE_MEM_ROOTSHARED,
++ 		},
++ 		{
++-			.phys_start = 0x2fafe000,
++-			.virt_start = 0x2fafe000,
+++			.phys_start = 0x1fafe000,
+++			.virt_start = 0x1fafe000,
++ 			.size = 0x2000,
++ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
++ 		},
++@@ -91,7 +91,7 @@ struct {
++ 				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_ROOTSHARED,
++ 		},
++ 		/* RAM */ {
++-			.phys_start = 0x2fa00000,
+++			.phys_start = 0x1fa00000,
++ 			.virt_start = 0,
++ 			.size = 0x00010000,
++ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++diff --git a/configs/arm64/rpi4-linux-demo.c b/configs/arm64/rpi4-linux-demo.c
++index cf36fa22..f93c564a 100644
++--- a/configs/arm64/rpi4-linux-demo.c
+++++ b/configs/arm64/rpi4-linux-demo.c
++@@ -52,39 +52,39 @@ struct {
++ 	.mem_regions = {
++ 		/* IVSHMEM shared memory regions (demo) */
++ 		{
++-			.phys_start = 0x2faf0000,
++-			.virt_start = 0x2faf0000,
+++			.phys_start = 0x1faf0000,
+++			.virt_start = 0x1faf0000,
++ 			.size = 0x1000,
++ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
++ 		},
++ 		{
++-			.phys_start = 0x2faf1000,
++-			.virt_start = 0x2faf1000,
+++			.phys_start = 0x1faf1000,
+++			.virt_start = 0x1faf1000,
++ 			.size = 0x9000,
++ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++ 				JAILHOUSE_MEM_ROOTSHARED,
++ 		},
++ 		{
++-			.phys_start = 0x2fafa000,
++-			.virt_start = 0x2fafa000,
+++			.phys_start = 0x1fafa000,
+++			.virt_start = 0x1fafa000,
++ 			.size = 0x2000,
++ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
++ 		},
++ 		{
++-			.phys_start = 0x2fafc000,
++-			.virt_start = 0x2fafc000,
+++			.phys_start = 0x1fafc000,
+++			.virt_start = 0x1fafc000,
++ 			.size = 0x2000,
++ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
++ 		},
++ 		{
++-			.phys_start = 0x2fafe000,
++-			.virt_start = 0x2fafe000,
+++			.phys_start = 0x1fafe000,
+++			.virt_start = 0x1fafe000,
++ 			.size = 0x2000,
++ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++ 				JAILHOUSE_MEM_ROOTSHARED,
++ 		},
++ 		/* IVSHMEM shared memory region */
++-		JAILHOUSE_SHMEM_NET_REGIONS(0x2fb00000, 1),
+++		JAILHOUSE_SHMEM_NET_REGIONS(0x1fb00000, 1),
++ 		/* UART */ {
++ 			.phys_start = 0xfe215040,
++ 			.virt_start = 0xfe215040,
++@@ -94,15 +94,15 @@ struct {
++ 				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_ROOTSHARED,
++ 		},
++ 		/* RAM */ {
++-			.phys_start = 0x2f900000,
+++			.phys_start = 0x1f900000,
++ 			.virt_start = 0,
++ 			.size = 0x10000,
++ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++ 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
++ 		},
++ 		/* RAM */ {
++-			.phys_start = 0x20000000,
++-			.virt_start = 0x20000000,
+++			.phys_start = 0x10000000,
+++			.virt_start = 0x10000000,
++ 			.size = 0x8000000,
++ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++ 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
++diff --git a/configs/arm64/rpi4.c b/configs/arm64/rpi4.c
++index 7b6a7a02..68bb1a24 100644
++--- a/configs/arm64/rpi4.c
+++++ b/configs/arm64/rpi4.c
++@@ -29,7 +29,7 @@ struct {
++ 		.revision = JAILHOUSE_CONFIG_REVISION,
++ 		.flags = JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
++ 		.hypervisor_memory = {
++-			.phys_start = 0x2fc00000,
+++			.phys_start = 0x1fc00000,
++ 			.size       = 0x00400000,
++ 		},
++ 		.debug_console = {
++@@ -72,37 +72,37 @@ struct {
++ 	.mem_regions = {
++ 		/* IVSHMEM shared memory regions for 00:00.0 (demo) */
++ 		{
++-			.phys_start = 0x2faf0000,
++-			.virt_start = 0x2faf0000,
+++			.phys_start = 0x1faf0000,
+++			.virt_start = 0x1faf0000,
++ 			.size = 0x1000,
++ 			.flags = JAILHOUSE_MEM_READ,
++ 		},
++ 		{
++-			.phys_start = 0x2faf1000,
++-			.virt_start = 0x2faf1000,
+++			.phys_start = 0x1faf1000,
+++			.virt_start = 0x1faf1000,
++ 			.size = 0x9000,
++ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
++ 		},
++ 		{
++-			.phys_start = 0x2fafa000,
++-			.virt_start = 0x2fafa000,
+++			.phys_start = 0x1fafa000,
+++			.virt_start = 0x1fafa000,
++ 			.size = 0x2000,
++ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
++ 		},
++ 		{
++-			.phys_start = 0x2fafc000,
++-			.virt_start = 0x2fafc000,
+++			.phys_start = 0x1fafc000,
+++			.virt_start = 0x1fafc000,
++ 			.size = 0x2000,
++ 			.flags = JAILHOUSE_MEM_READ,
++ 		},
++ 		{
++-			.phys_start = 0x2fafe000,
++-			.virt_start = 0x2fafe000,
+++			.phys_start = 0x1fafe000,
+++			.virt_start = 0x1fafe000,
++ 			.size = 0x2000,
++ 			.flags = JAILHOUSE_MEM_READ,
++ 		},
++ 		/* IVSHMEM shared memory regions for 00:01.0 (networking) */
++-		JAILHOUSE_SHMEM_NET_REGIONS(0x2fb00000, 0),
+++		JAILHOUSE_SHMEM_NET_REGIONS(0x1fb00000, 0),
++ 		/* MMIO 1 (permissive) */ {
++ 			.phys_start = 0xfd500000,
++ 			.virt_start = 0xfd500000,
++@@ -117,10 +117,10 @@ struct {
++ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++ 				JAILHOUSE_MEM_IO,
++ 		},
++-		/* RAM (0M-~762M) */ {
+++		/* RAM (0M-~506M) */ {
++ 			.phys_start = 0x0,
++ 			.virt_start = 0x0,
++-			.size = 0x2fa10000,
+++			.size = 0x1fa10000,
++ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++ 				JAILHOUSE_MEM_EXECUTE,
++ 		},
++@@ -129,10 +129,10 @@ struct {
 + 
-+ int plat_rpi_get_model(void);
++ 		/* 4M reserved for the hypervisor */
 + 
-++void rpi3_dtb_add_mem_rsv(void *dtb, uint64_t rsc_base, uint64_t rsv_size);
-++
-+ #endif /* RPI3_PRIVATE_H */
-+diff --git a/plat/rpi/common/rpi3_common.c b/plat/rpi/common/rpi3_common.c
-+index ef88bf10e..77cd90b8b 100644
-+--- a/plat/rpi/common/rpi3_common.c
-++++ b/plat/rpi/common/rpi3_common.c
-+@@ -6,6 +6,8 @@
-+ 
-+ #include <assert.h>
-+ 
-++#include <libfdt.h>
-++
-+ #include <platform_def.h>
-+ 
-+ #include <arch_helpers.h>
-+@@ -245,3 +247,63 @@ uint32_t plat_interrupt_type_to_line(uint32_t type, uint32_t security_state)
-+ 	/* Secure interrupts are signalled on the FIQ line always. */
-+ 	return  __builtin_ctz(SCR_FIQ_BIT);
-+ }
-++
-++#if defined(RPI3_PRELOADED_DTB_BASE) || PLAT == rpi4
-++void rpi3_dtb_add_mem_rsv(void *dtb, uint64_t rsv_base, uint64_t rsv_size)
-++{
-++	int i, regions, rc;
-++	uint64_t addr, size;
-++
-++	INFO("rpi3: Checking DTB...\n");
-++
-++	/* Return if no device tree is detected */
-++	if (fdt_check_header(dtb) != 0)
-++		return;
-++
-++	regions = fdt_num_mem_rsv(dtb);
-++
-++	VERBOSE("rpi3: Found %d mem reserve region(s)\n", regions);
-++
-++	/* We expect to find one reserved region that we can modify */
-++	if (regions < 1)
-++		return;
-++
-++	/*
-++	 * Look for the region that corresponds to the default boot firmware. It
-++	 * starts at address 0, and it is not needed when the default firmware
-++	 * is replaced by this port of the Trusted Firmware.
-++	 */
-++	for (i = 0; i < regions; i++) {
-++		if (fdt_get_mem_rsv(dtb, i, &addr, &size) != 0)
-++			continue;
-++
-++		if (addr != 0x0)
-++			continue;
-++
-++		VERBOSE("rpi3: Firmware mem reserve region found\n");
-++
-++		rc = fdt_del_mem_rsv(dtb, i);
-++		if (rc != 0) {
-++			INFO("rpi3: Can't remove mem reserve region (%d)\n", rc);
-++		}
-++
-++		break;
-++	}
-++
-++	if (i == regions) {
-++		VERBOSE("rpi3: Firmware mem reserve region not found\n");
-++	}
-++
-++	/*
-++	 * Reserve all SRAM. As said in the documentation, this isn't actually
-++	 * secure memory, so it is needed to tell BL33 that this is a reserved
-++	 * memory region. It doesn't guarantee it won't use it, though.
-++	 */
-++	rc = fdt_add_mem_rsv(dtb, rsv_base, rsv_size);
-++	if (rc != 0) {
-++		WARN("rpi3: Can't add mem reserve region (%d)\n", rc);
-++	}
-++
-++	INFO("rpi3: Reserved 0x%llx - 0x%llx in DTB\n", rsv_base, rsv_base + rsv_size);
-++}
-++#endif
-+diff --git a/plat/rpi/rpi3/rpi3_bl31_setup.c b/plat/rpi/rpi3/rpi3_bl31_setup.c
-+index 59157536b..959694e77 100644
-+--- a/plat/rpi/rpi3/rpi3_bl31_setup.c
-++++ b/plat/rpi/rpi3/rpi3_bl31_setup.c
-+@@ -6,8 +6,6 @@
-+ 
-+ #include <assert.h>
-+ 
-+-#include <libfdt.h>
-+-
-+ #include <platform_def.h>
-+ 
-+ #include <common/bl_common.h>
-+@@ -151,76 +149,10 @@ void bl31_plat_arch_setup(void)
-+ 	enable_mmu_el3(0);
-+ }
-+ 
-+-#ifdef RPI3_PRELOADED_DTB_BASE
-+-/*
-+- * Add information to the device tree (if any) about the reserved DRAM used by
-+- * the Trusted Firmware.
-+- */
-+-static void rpi3_dtb_add_mem_rsv(void)
-+-{
-+-	int i, regions, rc;
-+-	uint64_t addr, size;
-+-	void *dtb = (void *)RPI3_PRELOADED_DTB_BASE;
-+-
-+-	INFO("rpi3: Checking DTB...\n");
-+-
-+-	/* Return if no device tree is detected */
-+-	if (fdt_check_header(dtb) != 0)
-+-		return;
-+-
-+-	regions = fdt_num_mem_rsv(dtb);
-+-
-+-	VERBOSE("rpi3: Found %d mem reserve region(s)\n", regions);
-+-
-+-	/* We expect to find one reserved region that we can modify */
-+-	if (regions < 1)
-+-		return;
-+-
-+-	/*
-+-	 * Look for the region that corresponds to the default boot firmware. It
-+-	 * starts at address 0, and it is not needed when the default firmware
-+-	 * is replaced by this port of the Trusted Firmware.
-+-	 */
-+-	for (i = 0; i < regions; i++) {
-+-		if (fdt_get_mem_rsv(dtb, i, &addr, &size) != 0)
-+-			continue;
-+-
-+-		if (addr != 0x0)
-+-			continue;
-+-
-+-		VERBOSE("rpi3: Firmware mem reserve region found\n");
-+-
-+-		rc = fdt_del_mem_rsv(dtb, i);
-+-		if (rc != 0) {
-+-			INFO("rpi3: Can't remove mem reserve region (%d)\n", rc);
-+-		}
-+-
-+-		break;
-+-	}
-+-
-+-	if (i == regions) {
-+-		VERBOSE("rpi3: Firmware mem reserve region not found\n");
-+-	}
-+-
-+-	/*
-+-	 * Reserve all SRAM. As said in the documentation, this isn't actually
-+-	 * secure memory, so it is needed to tell BL33 that this is a reserved
-+-	 * memory region. It doesn't guarantee it won't use it, though.
-+-	 */
-+-	rc = fdt_add_mem_rsv(dtb, SEC_SRAM_BASE, SEC_SRAM_SIZE);
-+-	if (rc != 0) {
-+-		WARN("rpi3: Can't add mem reserve region (%d)\n", rc);
-+-	}
-+-
-+-	INFO("rpi3: Reserved 0x%llx - 0x%llx in DTB\n", SEC_SRAM_BASE,
-+-	     SEC_SRAM_BASE + SEC_SRAM_SIZE);
-+-}
-+-#endif
-+-
-+ void bl31_platform_setup(void)
-+ {
-+ #ifdef RPI3_PRELOADED_DTB_BASE
-+ 	/* Only modify a DTB if we know where to look for it */
-+-	rpi3_dtb_add_mem_rsv();
-++	rpi3_dtb_add_mem_rsv((void *)RPI3_PRELOADED_DTB_BASE, SEC_SRAM_BASE, SEC_SRAM_SIZE);
-+ #endif
-+ }
-+diff --git a/plat/rpi/rpi4/rpi4_bl31_setup.c b/plat/rpi/rpi4/rpi4_bl31_setup.c
-+index cfacd1fe1..bd3c28fef 100644
-+--- a/plat/rpi/rpi4/rpi4_bl31_setup.c
-++++ b/plat/rpi/rpi4/rpi4_bl31_setup.c
-+@@ -228,8 +228,7 @@ static void rpi4_prepare_dtb(void)
-+ 	}
-+ 
-+ 	/* Reserve memory used by Trusted Firmware. */
-+-	if (fdt_add_reserved_memory(dtb, "atf@0", 0, 0x80000))
-+-		WARN("Failed to add reserved memory nodes to DT.\n");
-++	rpi3_dtb_add_mem_rsv(dtb, 0, 0x80000);
-+ 
-+ 	offs = fdt_node_offset_by_compatible(dtb, 0, "arm,gic-400");
-+ 	gic_int_prop[0] = cpu_to_fdt32(1);		// PPI
++-		/* RAM (768M-4032M) */ {
++-			.phys_start = 0x30000000,
++-			.virt_start = 0x30000000,
++-			.size = 0xcc000000,
+++		/* RAM (512M-4032M) */ {
+++			.phys_start = 0x20000000,
+++			.virt_start = 0x20000000,
+++			.size = 0xdc000000,
++ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++ 				JAILHOUSE_MEM_EXECUTE,
++ 		},
 +-- 
 +2.26.2
 +
-diff --git a/recipes-bsp/trusted-firmware-a/trusted-firmware-a-rpi4_2.4.bb b/recipes-bsp/trusted-firmware-a/trusted-firmware-a-rpi4_2.4.bb
-index 2a655a3..98d6904 100644
---- a/recipes-bsp/trusted-firmware-a/trusted-firmware-a-rpi4_2.4.bb
-+++ b/recipes-bsp/trusted-firmware-a/trusted-firmware-a-rpi4_2.4.bb
-@@ -11,4 +11,7 @@
+diff --git a/recipes-jailhouse/jailhouse/jailhouse_0.12.bb b/recipes-jailhouse/jailhouse/jailhouse_0.12.bb
+index a4a5d9d..d11959a 100644
+--- a/recipes-jailhouse/jailhouse/jailhouse_0.12.bb
++++ b/recipes-jailhouse/jailhouse/jailhouse_0.12.bb
+@@ -18,6 +18,7 @@ SRC_URI += " \
+     file://0003-configs-arm64-Add-Linux-demo-for-pine64-plus.patch \
+     file://0001-inmates-x86-Add-LED-blinking-support-to-apic-demo.patch \
+     file://0001-configs-arm64-Add-support-for-RPi4-with-more-than-1G.patch \
++    file://0001-configs-arm64-rpi4-Move-RAM-reservation-down-by-256-.patch \
+     file://0002-arm-common-gicv2-Fix-byte-access-to-ITARGETR.patch \
+     "
  
- require trusted-firmware-a_${PV}.inc
- 
-+SRC_URI += " \
-+    file://0001-rpi-Use-common-memreserve-pattern-for-rpi3-and-rpi4.patch"
-+
- TF_A_PLATFORM = "rpi4"
 -- 
 2.26.2
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/80221c6ee7f1c91a321d4549bf0f41ccab57572b.1618866389.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/e38dd12746bbba6fa3cca1dcae930931f7eb383e.1618866389.git.jan.kiszka%40siemens.com.
