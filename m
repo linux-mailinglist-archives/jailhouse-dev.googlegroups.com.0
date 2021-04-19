@@ -1,131 +1,133 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBGXD62BQMGQE57EMNQA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDIO7H5HXQBBBNXM62BQMGQE67HQNZA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x337.google.com (mail-wm1-x337.google.com [IPv6:2a00:1450:4864:20::337])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90C25364854
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 19 Apr 2021 18:36:42 +0200 (CEST)
-Received: by mail-wm1-x337.google.com with SMTP id x20-20020a7bc2140000b029012bb4d2b5d6sf4679458wmi.1
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 19 Apr 2021 09:36:42 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1618850202; cv=pass;
+Received: from mail-yb1-xb3c.google.com (mail-yb1-xb3c.google.com [IPv6:2607:f8b0:4864:20::b3c])
+	by mail.lfdr.de (Postfix) with ESMTPS id EB42136489B
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 19 Apr 2021 18:56:23 +0200 (CEST)
+Received: by mail-yb1-xb3c.google.com with SMTP id f7-20020a5b0c070000b02904e9a56ee7e7sf8328128ybq.9
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 19 Apr 2021 09:56:23 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1618851383; cv=pass;
         d=google.com; s=arc-20160816;
-        b=OPTdYhnkcaZg/SnFtDsDpdNS/4codz+zyo6yO7leGLEQpYE7JFY5erIWYGBhGqIHGt
-         gUnp608mGx+4F1M1/5AdkLORXQsxaIxFKePogkBB36KAGS5sCPugdmz+eWTJnT6Rqt31
-         31HGfrlbWAPEGlHYS7jK2x/bJ4Ygyt+QkfvZr8WU1gm1uCSpFYm4bZdcw/+p4FiGIwUs
-         xnD+WX4PRoBZKj3gLlOsqP8ZcUhaee0ACF2zUdOxtoD0gM60aYY3cUrrAcinMi4uJe8I
-         Cl//wGeFASPlVmurFmIgpltH++rFxXnFjMg/QmvYOaYg+DP/NejdpyTxExzIEOO9qbl3
-         aqxw==
+        b=bZYqNiEfdvCrVBZBdNwTZqYqEFjsMDGn0D2n0AKnDFnEksawx9RVNa4rvqxhzxDqIR
+         7V5jKaBjB9+6fj5XbEyH4ZpwvI5H76Z70Kk9N9YlCKxemg01ec7Y0o5T7KXm+acmWp1U
+         3OYlZaiWILmTxxh9ozCaF4QoFmYIGhTdr7GbLOMCGxGfa/RrpgY1KVgwZD0XfbHbYvAC
+         TB2GON8iws4v1gci+Jw6LcMAw4EJ4u/vHjZH9i7gsxDR6pR0uKDtcj3FwmKtlU3dWrc5
+         dPIIXb7Eyj5EFfoFsBugrBmbD3+6LlMUVUDAJlYJRQQtsy1F+NALPDVM23t5KTwDzpIe
+         ujSg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=mMim82ni29n6t/s1aDkSzLgZOPRJ1UpT07W2ux2DBg4=;
-        b=1EhpIxTcNTU4hS5OH1Swwzdh9Qly/P9ilVCz1WFMPWfGLmDOpDF+bD1zkbUTRmLuO2
-         5CtfZqOpwJQCiBWCKbXnGgcTYor3hie0ha0fgmScF0gYJWyzyw8O775hGn53SfNzXZeN
-         M8+oMARpBmaBWMSm8Vq+7bXIgfrj22eoN8delXugcAWnghZ3BMqX9TK2KZQokklCScKb
-         XICNgIiPMDc4Ez1Dn8rNR9/prOyfd6rFsvl1bsCluoF+k5D1qp3OFbv9tJl2V3qh6hh6
-         5+4M9ZnGJjuyP2PJUQV/Tv3+U417G1BBQ9o/WqnuMdJDSsvmtSRUTTETtUURV1HpHne6
-         rreQ==
+        h=list-subscribe:list-archive:list-help:list-post:list-id
+         :mailing-list:precedence:list-unsubscribe:subject:message-id:to
+         :reply-to:mime-version:from:date:sender:dkim-signature;
+        bh=LNypn0nGeQ2ytBZTFrFZ7T8G76KbaFYk52vG2bHsWWk=;
+        b=m3wLEPyQjezVvx4R8U7fvmo2CV5F7pc81lQDlzK4h7zLpHo/pm6SBuajEyz4w3v/pE
+         85p0ov7iu81loxhVk6vjZBsvhaUWhyQc/GLgKmT1eaA8Z3esbPHoTqif2zkvF5Wnkvec
+         WA4bxLtwG37D2YkdLWPrHU18v6NC/tgdZMymsRp4yQU71wa2tXatUeJ5eWSHDTIq0eoo
+         tLQA3PknLbpGTdB6A30pjKOZXvD8y920rD9mT5NLqdM60JdYyLxKhLRKtxnOqxfl9lwQ
+         5Y7kBDunqOhMg0R1L/kv4sB+Mk3jlwlKn7F4LA6KmdRe/FOM1iFlGAsbANk8hXcIc+rW
+         iPhA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       dkim=pass header.i=@sendgrid.net header.s=smtpapi header.b=y3J+rele;
+       spf=pass (google.com: domain of bounces+21271858-e85e-jailhouse-dev=googlegroups.com@sendgrid.net designates 149.72.181.178 as permitted sender) smtp.mailfrom="bounces+21271858-e85e-jailhouse-dev=googlegroups.com@sendgrid.net"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=mMim82ni29n6t/s1aDkSzLgZOPRJ1UpT07W2ux2DBg4=;
-        b=qRGvVBIpZZP4Hkseoo/CWuRyr2LHf687Dg+7soe2NKn3Vt7kpXaBIrA409W4bXEgJM
-         sseBpOBtKCwq98LEAdWl8G76cba5EuFht0QAmTLdtLY2IZE1CV7iIGrv0xNJKQve2hHq
-         x2Mu3ZbUuV5dRjtC3QB+oFuj75OHS+8553FJZGinrWXqma03G/A+SlKRV5PpeWn9d9Ej
-         8T/tohnguO8dgxk8lyiZiQqZAphZrTa4HISb20YaWt9r+vLPaRSrX9xRnduD1iFS+nwC
-         PHCyG4nQjX56IW5fhBLNJqcOJ+RqEk/L7F1JGx5kX7AqEkatifFEpfIa18KhSy9hZUkS
-         BNXg==
+        h=sender:date:from:mime-version:reply-to:to:message-id:subject
+         :list-unsubscribe:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe;
+        bh=LNypn0nGeQ2ytBZTFrFZ7T8G76KbaFYk52vG2bHsWWk=;
+        b=bM7xD1NPwnAYp1OucsWGhjHAkZq2sZcF/fnCxd3aTcP2MhUNWQVqWzb7tEPsUufgxk
+         ChOv7n5HqNhaZ5tCwTH+oP1EYc/+6/VsD8DR7RQ/k6mqHhx2Ta8IX4rLRVZvVHMpqM4W
+         WC2Ajy+gxlyISDA3loA5t2gaLcuZ/9OroFrHz1e3vZYwY1Jmvam/AAz4CUAjtZJVNjmp
+         szhOdnn9Z4Ag6RKTuoIFCsXOvwVHyF4LCmjXX3Vpz56lz9DHtupS3TIyM8qWDl7sMIrS
+         YXvSU0zxMwdG1fGPp0VK/p3joAiSqS8efWy1bRmaHAB1DMsantHTDq9PkmJ2PPW9G2BX
+         kKbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
+        h=sender:x-gm-message-state:date:from:mime-version:reply-to:to
+         :message-id:subject:list-unsubscribe:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=mMim82ni29n6t/s1aDkSzLgZOPRJ1UpT07W2ux2DBg4=;
-        b=K8TqwlIluGVfq1BtUvb8D0QLE9aeJPYIX0L5eMLXuD2sfP+VC16TW3PUrFH8p67L1X
-         qXobtJATiPI+qp6+OL6LOKrC8kqE+yvHS7WdWyPF3byU/Csw+ZFQGBI68SxAhn5Wa997
-         dgMJPze5Yni3E+P5RBPdo0O1aI31MdgOWQXU2aLe3rClbGx19dkOA6oB/cARGHrckdWk
-         t4TrkiYm24cEqqkvw3Kq3wwK8D2PgPvs1UGQ/N/fy4LKYPZn9kU9ieV5iJ0AuiohPs+l
-         lgsehVvdWKZ47Df9cL/5lzI7gB09OHTaDxOze3BC7myrD5Lq6rZg98MjqpjMzygeSIIY
-         Lm/Q==
+         :list-subscribe;
+        bh=LNypn0nGeQ2ytBZTFrFZ7T8G76KbaFYk52vG2bHsWWk=;
+        b=dmsTXu62xz2LbAiAw3BIOmuj9cWLFo8Vs+LGbu8Z2PXGMhvu7h10idQfgIkiSH1IGh
+         KBrAKe7kf7Dq16GJkmEcfXidkKVB+7GYUpKiso91X0aj6ZkIs8k3i1FTpBsv+ziJJlXs
+         W1SNrECCPJlksWBAyfAxzpUoZdKAzQFv4UJnPnO5QIzVFZ7koDw6hpjXYTErrrILOgQ+
+         cu6UgepB4W8Gat9r17VDzo/RAxskGDVkF+zI0aufo8UXoRh3mJuo9npTNLjD+qSrbpLb
+         R0K6iHZmoC/4c++GM6tJTVsC/jJZz3s+0oOGd6Tp962zN8DE+34oC47drByHTWu/hxpJ
+         bHrQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM5315e0nbEz5OII3O1iQ/8luaK2CH5Ve46V8BLxIrFeeJibPNG/IO
-	Ny6BOC1irsPitZ5T1tNPb/Q=
-X-Google-Smtp-Source: ABdhPJw2+UsVn2L7C6Zsyn/ZV01feoAAN2zI6+wEZnn1CctYucBiylZeHmfJUD+UVOaaouopy6t5NQ==
-X-Received: by 2002:adf:cc89:: with SMTP id p9mr14994198wrj.223.1618850202369;
-        Mon, 19 Apr 2021 09:36:42 -0700 (PDT)
+X-Gm-Message-State: AOAM531Aj9BTATXKSFV85PV3Cs2/pa9mfvmTSiJotleGza5ZdgdE462t
+	PHvvmkWaBvxVSen7OKZt4So=
+X-Google-Smtp-Source: ABdhPJybEI7asXC18C2xJxV9BIjSGj3paVYfXPbixGC4EsZBu/tUs+Vv4GZE91cfw7pxmwBqSw64Kw==
+X-Received: by 2002:a05:6902:68a:: with SMTP id i10mr18362819ybt.0.1618851382827;
+        Mon, 19 Apr 2021 09:56:22 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:600c:4a04:: with SMTP id c4ls8225172wmp.1.gmail; Mon, 19
- Apr 2021 09:36:41 -0700 (PDT)
-X-Received: by 2002:a1c:7315:: with SMTP id d21mr22894273wmb.155.1618850201405;
-        Mon, 19 Apr 2021 09:36:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1618850201; cv=none;
+Received: by 2002:a25:7bc7:: with SMTP id w190ls5367696ybc.2.gmail; Mon, 19
+ Apr 2021 09:56:22 -0700 (PDT)
+X-Received: by 2002:a25:2a0d:: with SMTP id q13mr18601547ybq.10.1618851382305;
+        Mon, 19 Apr 2021 09:56:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1618851382; cv=none;
         d=google.com; s=arc-20160816;
-        b=Ti9qd+oOnc1U0UdJYXo6dG8KebLGShAaZSwz5ja0SHhfZj4Tnv//lS0h3dcvlBxrpM
-         6aCXC5yfL2ezxEGfo//nmESIG/3gVXHbh23pH+LgLA9ixXzpJxB2xcLTbF3xfLJ6yWs9
-         7yqOW6wc38YN94KFAOS8OD8WPHfFqKaHqlUouvVt+b/Uvfvs74Bbf4qmzRCPod+EUL5u
-         Bm1bgVnDvxHfZSC7GGRhHfen7XuRR7NY9xFc3HTnB+L6/B3g+7pQ77v4p5kBTSw/sHzF
-         95LhGo2AnSPWliU/PX+4l/CwsMJjc40YgKZw/bU3SNwciB+kC65ATivZNtclInroisXR
-         firA==
+        b=tVXYJKXVk26XXIe51f2Rriw1IMXy8E5WpKkVReWkYXsEOOigpJWQ1twG9cSTL9AmH2
+         5c66LaY+OwIIicCH46Qp4YZuY/ypl0QrHoiwlitvne5l9JvcWhX3vJdFn6hsuKXpTut4
+         4gloLTFjPVPXjyYCc3r0FI7n802FnVLKhLX0uuk90WS98OwhR6T9suno3SwDMU8tXjgA
+         1U4U2m0Q3KZsFN89i6BLDMm01TM9d2lf2wHYSTTLOJ1Lu7QyK1rXdgJF0tw6X9Y0QCdZ
+         Wv62vZZDAJnoYFkMMRmGm43t2/U0eV9lNVd8YlPHRhFFkufToJDd0sn4hwJT/qX5h85Q
+         XJ/Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=2VOTp6xU7nClx/sJziirxMCyyuJQBgVExVi0oofs1/8=;
-        b=Y6VnLUgZ9tOq7C9i9kQ8ak4hCnhD9srGLHchcDCrV2jpIZ7/+i5zNlugWLgex54ZSK
-         J8g7UBdj3ME3XTSBNZh4zei21cnuG3p6TIEflLadQkPnA5SWY564EoWgjpd4DgGpfW/9
-         MQzq08RERfDLVVpgqwGc8+YLUBeJs66faQmovEzfMPmuClf6Wb/9OkVbFXrlkrRIWlrv
-         m3DXErSNu+wwH9GnepxNwZsiYFEYVTzbnOMX2g64cMA5w2PD5jBnbsRxy7UTXcsB45yX
-         iOB6h34MOt1PsORY/oZ27p9iJG18I3HX/h4yw1mcrdZy14WgInqYdDoCWh+WcjWSPOld
-         0TtA==
+        h=list-unsubscribe:subject:message-id:to:reply-to:mime-version:from
+         :date:dkim-signature;
+        bh=MOvUPvpzl/MyX1jLQGxUCjdTEuhIQjj+TAyQCuODMNM=;
+        b=UUYAf2p9GwqIzGY6EC1cQis1uVCylIesiDZAHbvfXiWasnLTj/SpKJHxboHux1VKdS
+         jlyZa7pNZ78TS8eunaOvtXbpc6qTaNNnR8AuxTRns4tfJer/W+01jXNu/v7gWCPCpfpK
+         E6iy5rQUHPFAW6Ri5RaR0e5H3o3cDXCcwjwpMUh2HCF9FN2XB0XHBAaTtAD/1d6NBTHj
+         hh/XOz40qBRzViCtSB9jNGb9NmzMxznpOwMG0PL+s10wj2HMHXOe0oLVM++l36RiXOdY
+         8KJlOA8bQ2Xpkd5uYi0h9j2Oj5zKM6JinJ0ilNsAtmYKxQZr5L+BK9lhDYoC1a+LceGB
+         wedg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id k6si1201193wrm.2.2021.04.19.09.36.41
+       dkim=pass header.i=@sendgrid.net header.s=smtpapi header.b=y3J+rele;
+       spf=pass (google.com: domain of bounces+21271858-e85e-jailhouse-dev=googlegroups.com@sendgrid.net designates 149.72.181.178 as permitted sender) smtp.mailfrom="bounces+21271858-e85e-jailhouse-dev=googlegroups.com@sendgrid.net"
+Received: from wrqvbrbn.outbound-mail.sendgrid.net (wrqvbrbn.outbound-mail.sendgrid.net. [149.72.181.178])
+        by gmr-mx.google.com with ESMTPS id f13si784201ybp.0.2021.04.19.09.56.21
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 19 Apr 2021 09:36:41 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 13JGaf7N030495
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 19 Apr 2021 18:36:41 +0200
-Received: from [167.87.240.116] ([167.87.240.116])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 13JGTPMo000361;
-	Mon, 19 Apr 2021 18:29:25 +0200
-Subject: Re: [PATCH 1/1] x86/mem.c: Fix allocation bug
-To: Bram Hooimeijer <bram.hooimeijer@prodrive-technologies.com>,
-        Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
-        Jailhouse <jailhouse-dev@googlegroups.com>
-References: <AS8PR02MB6663B55522C63851C338E6A8B6499@AS8PR02MB6663.eurprd02.prod.outlook.com>
- <08a134a0-778b-6b78-1b24-9214ecde5f3b@oth-regensburg.de>
- <31b95b80-a2da-09cc-a6bc-a89f51bb0a1e@oth-regensburg.de>
- <AS8PR02MB666320D586D371E642EEC562B6499@AS8PR02MB6663.eurprd02.prod.outlook.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <a91a6b11-6bb4-fcc8-fd9a-bcbc36332d29@siemens.com>
-Date: Mon, 19 Apr 2021 18:29:25 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
-MIME-Version: 1.0
-In-Reply-To: <AS8PR02MB666320D586D371E642EEC562B6499@AS8PR02MB6663.eurprd02.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+        Mon, 19 Apr 2021 09:56:22 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounces+21271858-e85e-jailhouse-dev=googlegroups.com@sendgrid.net designates 149.72.181.178 as permitted sender) client-ip=149.72.181.178;
+Received: by filter2070p1las1.sendgrid.net with SMTP id filter2070p1las1-21436-607DB630-32
+        2021-04-19 16:56:16.524226276 +0000 UTC m=+328236.336830125
+Received: from MjEyNzE4NTg (unknown)
+	by ismtpd0171p1mdw1.sendgrid.net (SG) with HTTP id Z0Xm0HUGSRm87JAyw6RCdA
+	Mon, 19 Apr 2021 16:56:16.319 +0000 (UTC)
+Content-Type: multipart/alternative; boundary=5c9d63d1b4f208247a2edc9cfed9a0809b3abbb863b83e6d4b4be0b09fa5
+Date: Mon, 19 Apr 2021 16:56:19 +0000 (UTC)
+From: "Jessa Walter" <jessa.walter@emailsprout.com>
+Mime-Version: 1.0
+Reply-To: jessa.walter@emailsprout.com
+To: jailhouse-dev@googlegroups.com
+Message-ID: <Z0Xm0HUGSRm87JAyw6RCdA@ismtpd0171p1mdw1.sendgrid.net>
+Subject: Follow up on Aquire Red Hat Users
+List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
+ <https://groups.google.com/group/jailhouse-dev/subscribe>
+X-SG-EID: pPXi/rPJQPi62kCfLxCWuZgGuBKOrlmtAko8KHFyNL4g3DSINqZUCeFiwr+z338mD62c4baaQNINxx
+ DrU4+XTQlc6iI4sHN69LTpUGW9klmDjBrK+u2VegEmxnach+77KSjoWuNH83rNLZFOqGGUfqdoYpZ3
+ MyK2gXoKu535smDs6q/kmmbiX7bBRm/trymaCzCZ30RKozoqwWvVFvDQWAuePff3nWse1HQufEHslK
+ 1TrLbYRRmXPDGi6ysVKSjJ
+X-SG-ID: mcTyqcYTtmn56LU3ATD1fwbX+4+3Of3TZmHbuKR1xs02NkmmxuGvJW4k4tzlWsCnl+xScwkGVpjUHV
+ 6Z8/AeDUfX54JDraIj9oF7RVFvQz0lRuDBPBxRKVKEeo0VLqLoLr5ustaMYwKTtNo0dSdgoMUmi+bR
+ G2ROcMnp0nGZztlWYgam1KLinV/VA/uV6ldnsLENBHIDcim6x/5yGJ3VIaWGI+AIDFAPpgKVn+2TDk
+ qRYP3acFhzWHslfMPeCAqLfkeny24ODV3WxLE6N0ub7wZuLp1xaMb/yzHKRP7+trc3u2SIbeVAqwdq
+ MuqCT5DdIB/UXBJdHlAiTUm1QalE7/rc6jodnpWDD3hRGg6b8uTjb9MLNJE8ERDC7fih7i1pyqln5k
+ ajbtYjufr0iO9hP3eS3Mm9dy6R2aGc8tNsOv8wI0Ob8uUB2f5wSttHDUovqqMMK32OusGCLvshCujv
+ fB6vVrg8L/Z/3s0IIuArM7/u9c5jSth78AhzgH4CfSIy+rgCGIcT81/j/Nsz11UBVvFCqWH5ej6VXc
+ sk3akvinoA/f0OpCcMMJsqJPgNqOtS2n6gH1LHm5BGMKuvKsFPDzhKj+y01201j3+sU0bQ+FTG5Mle
+ XIqla0pPb+SQYefM2CGvuvQrXdHwwG08oDYoM0iYroitgFXQxK77esngk/fktgT5nSwzLteLFB54gX
+ H3
+X-Entity-ID: iqBoCwjxWcX3ZhfJcdnXBg==
+X-Original-Sender: jessa.walter@emailsprout.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@sendgrid.net header.s=smtpapi header.b=y3J+rele;       spf=pass
+ (google.com: domain of bounces+21271858-e85e-jailhouse-dev=googlegroups.com@sendgrid.net
+ designates 149.72.181.178 as permitted sender) smtp.mailfrom="bounces+21271858-e85e-jailhouse-dev=googlegroups.com@sendgrid.net"
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -135,121 +137,84 @@ List-Post: <https://groups.google.com/group/jailhouse-dev/post>, <mailto:jailhou
 List-Help: <https://groups.google.com/support/>, <mailto:jailhouse-dev+help@googlegroups.com>
 List-Archive: <https://groups.google.com/group/jailhouse-dev
 List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mailto:jailhouse-dev+subscribe@googlegroups.com>
-List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
- <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 19.04.21 18:03, Bram Hooimeijer wrote:
->>
->> On 19/04/2021 17:37, Ralf Ramsauer wrote:
->>> Hi Bram,
->>>
->>> On 19/04/2021 14:17, Bram Hooimeijer wrote:
->>>> When creating a new page table, the table should be filled with
->>>> zeroes to prevent decoding invalid entries as valid in the future.
->>>> Given that in the inmate memory space no assumptions can be made on
->>>> the contents of unallocated heapspace, zeroing needs to be done explic=
-itly.
->>>
->>> Don't we already zero pages when reloading a guest? (I'm not sure)
->>> IOW: Did you really experience dirty pages?
->>
->> Just cross-checked: Looks like we don't zero inmate memory on cell reloa=
-d.
->> Now I wonder why I never experienced a similar bug=E2=80=A6 But we haven=
-'t many
->> inmates that make excessive use of the heap.
->=20
-> I was just writing that I got to the same conclusion. Before sending in t=
-he patch,=20
-> I was seriously considering what I overlooked, given that I never ran int=
-o this=20
-> before either, even when doing memory latency experiments. This occasion =
-it=20
-> was a single MMIO address, and thus I didn't move the heap_pos to an addr=
-ess=20
-> beyond the communication region, if that might influence something. I gue=
-ss not,
-> and sheer luck is involved so far.
->=20
->>
->>>
->>> Anyway, if we don't, then we should think if we should zero them. The
->>> question is, if it is acceptable to leave artefacts of previously
->>> running inmates in memory.
->>
->> I think we should rather implement a zalloc() wrapper around alloc(), wh=
-ich
->> gives us guarantees to return zeroed pages. We have some other spots in
->> libinmate where we could substitute alloc/memset-sequences in libinmate,=
- e.g.
->> in lib/arm-common/mem.c and lib/x86/smp.c.
->=20
-> I would also prefer zalloc(), as memset clears the area per byte which se=
-ems=20
-> inefficient. Though I expect the store-buffer in the CPU to combine the w=
-rites.
->=20
+--5c9d63d1b4f208247a2edc9cfed9a0809b3abbb863b83e6d4b4be0b09fa5
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 
-We don't have optimized memset/copy implementations in the inmate lib.
-If there is a need, someone would have to write them first.
+Hi,
 
-Jan
+I am following up with my previous email to of *Red Hat Users data* which c=
+an be used for prospecting, qualifying and generating new sales leads to su=
+pport the Enterprise Account Managers.
 
-> Actually, the alloc/memset sequence in arm-common/mem.c prevents the issu=
-e
-> from arising on Arm platforms, and this patch uses memset just to be cons=
-istent=20
-> with the Arm implementation.=20
->=20
-> I'll send a new proposal.=20
->=20
-> Thanks, Bram=20
->=20
->>
->>   Ralf
->>
->>>
->>> Thanks
->>>   Ralf
->>>
->>>>
->>>> Signed-off-by: Bram Hooimeijer
->>>> <bram.hooimeijer@prodrive-technologies.com>
->>>> ---
->>>>  inmates/lib/x86/mem.c | 2 ++
->>>>  1 file changed, 2 insertions(+)
->>>>
->>>> diff --git a/inmates/lib/x86/mem.c b/inmates/lib/x86/mem.c index
->>>> 7e1c8b83..45424ea1 100644
->>>> --- a/inmates/lib/x86/mem.c
->>>> +++ b/inmates/lib/x86/mem.c
->>>> @@ -58,6 +58,7 @@ void map_range(void *start, unsigned long size, enum
->> map_type map_type)
->>>>                      pt =3D (unsigned long *)(*pt_entry & PAGE_MASK);
->>>>              } else {
->>>>                      pt =3D alloc(PAGE_SIZE, PAGE_SIZE);
->>>> +                    memset(pt, 0, PAGE_SIZE);
->>>>                      *pt_entry =3D (unsigned long)pt | PAGE_DEFAULT_FL=
-AGS;
->>>>              }
->>>>
->>>> @@ -66,6 +67,7 @@ void map_range(void *start, unsigned long size, enum
->> map_type map_type)
->>>>                      pt =3D (unsigned long *)(*pt_entry & PAGE_MASK);
->>>>              } else {
->>>>                      pt =3D alloc(PAGE_SIZE, PAGE_SIZE);
->>>> +                    memset(pt, 0, PAGE_SIZE);
->>>>                      *pt_entry =3D (unsigned long)pt | PAGE_DEFAULT_FL=
-AGS;
->>>>              }
->>>>
->>>>
->>>
->=20
+This data will help you to communicate with target audiences and build and =
+develop customer relationships and higher revenue for your organization.
 
---=20
-Siemens AG, T RDA IOT
-Corporate Competence Center Embedded Linux
+Would you like to partner with a Technographics data company like us?
+
+We as a database compiler manage, own, and maintain 80 million business exe=
+cutives database worldwide. The unique USP which separates us from the rest=
+ is our guarantee of 90% plus email deliverability and contact accuracy whi=
+ch is the highest of all data market standards.
+
+I will look forward to your response.
+
+Thanks,
+
+Jessa Walter
+
+---------------------------------------------------------------------------=
+----------------------------------------------------
+
+Hi,
+
+I have researched on LinkedIn that you are responsible for Sales operations=
+ at your company =C2=A0for creating and managing the end-to-end enterprise =
+sales process, including leading the implementation of pipeline reporting, =
+sales forecasting, and sales analytics.
+
+This data will help your sales team to execute on the account plan to deliv=
+er maximum revenue potential, generate new business in new accounts and exp=
+and footprint of Red Hat customers.
+
+Would you like to *acquire Red Hat Users* for your sales and marketing team=
+s?
+
+We as a database compiler manage, own, and maintain 80 million business exe=
+cutives database worldwide. The unique USP which separates us from the rest=
+ is our guarantee of 90% plus email deliverability and contact accuracy whi=
+ch is the highest of all data market standards.
+
+I will look forward to your response.
+
+Thanks,
+
+*Jessa Walter*
+Global Lead Generation
+Email Sprout, Inc
+North America
+
+Jessa Walter
+
+885 Watson Street , Camden , NJ 08102
+
+Unsubscribe ( https://u21271858.ct.sendgrid.net/wf/unsubscribe?upn=3DVU2koN=
+EWgSKMLPFeqEdbNI9jCap0gyh-2FlSpXi9qCyhTBcX6PA5-2FoCvlZEaOPsPJfFcqrQhM-2F5O-=
+2B1Io8-2BjTZz5B0iTMz8-2FLC6lIy3em-2BexngNEbEpkgEZ72DcoX3gT4QslHQpSGlWeLoVOT=
+IF69Q69WGU4k-2BVD925D7dGajmOPqa-2BcQbSxFU905uvEc9EkarhJ7JFW4zAcyRMUrWPe24IX=
+lxx3pWqK1dJrWrGCHXdHCMYmnSaV2TRAgN8KiYxFQ3mjnN8N45KyKs6-2FOdfdJlikIF2LMCQKo=
+LoK4iwYh2A221Q-2BmckP1FLsvNPQUoCQbGKRUXLLL1MKZSJUszl0RIod8fX9FT7s-2FqIdL7b4=
+smwTKkl18pGsA2ahKqA4Xr67QOaILnkazMxM-2BxTY2ahUVVoyzFG-2FfwIdmrgVT2vsT9O2BxL=
+zyAwfIQWnZy66Z8HIOyxLiszxIYUE-2F3ps6F-2BBBUVrvl3owBVP0B-2BpbQuK8sP4eeCQ2LN6=
+JP7tuz94FbQPL-2BjbJ0lL4sjPeLqiosjPwf6gE8CJtmk-2FmkEOlvc0C8vq4aj7jbC-2F1bgXY=
+3BTGbc3jRMG125QFShXnvl9g-2Frx5POJc822oU31ptbOAsACi9QCwkSLQeUwFuiEageOMUTUjy=
+xcVDZ4rfJ4oL9xervayBOUghkyzR6DVuQI8cBXXlS1sTb3x2k3Gjbc4xSLXVzt4ipW2iRMg50wb=
+fAPB3uS35HTw0mgAmhLj-2FFtJ3FFjcaiUxRlM3hBhCTOuFhzR1-2F7NgtXW2RxV3CwIlu6cVAP=
+gaEmOlO3wL3WSyN6vg9x44cph5DaVP3GmkOc25d2mRToK-2BBhYXRoN6d2K-2FDRQMu4LM2AYb0=
+soOS34M48k7qCLV8DqLbxNmrFRLMMHC5kGwh8qu-2FY6jY3wH7AkKhAkYunbzx4wfVMSINL-2FF=
+TubGU2A9dJPM-3D )
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -257,4 +222,363 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/a91a6b11-6bb4-fcc8-fd9a-bcbc36332d29%40siemens.com.
+jailhouse-dev/Z0Xm0HUGSRm87JAyw6RCdA%40ismtpd0171p1mdw1.sendgrid.net.
+
+--5c9d63d1b4f208247a2edc9cfed9a0809b3abbb863b83e6d4b4be0b09fa5
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="UTF-8"
+Mime-Version: 1.0
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org=
+/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html data-editor-version=3D"2" class=3D"sg-campaigns" xmlns=3D"http://www.=
+w3.org/1999/xhtml">
+    <head>
+      <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf=
+-8">
+      <meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-scal=
+e=3D1, minimum-scale=3D1, maximum-scale=3D1">
+      <!--[if !mso]><!-->
+      <meta http-equiv=3D"X-UA-Compatible" content=3D"IE=3DEdge">
+      <!--<![endif]-->
+      <!--[if (gte mso 9)|(IE)]>
+      <xml>
+        <o:OfficeDocumentSettings>
+          <o:AllowPNG/>
+          <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+      </xml>
+      <![endif]-->
+      <!--[if (gte mso 9)|(IE)]>
+  <style type=3D"text/css">
+    body {width: 600px;margin: 0 auto;}
+    table {border-collapse: collapse;}
+    table, td {mso-table-lspace: 0pt;mso-table-rspace: 0pt;}
+    img {-ms-interpolation-mode: bicubic;}
+  </style>
+<![endif]-->
+      <style type=3D"text/css">
+    body, p, div {
+      font-family: arial,helvetica,sans-serif;
+      font-size: 14px;
+    }
+    body {
+      color: #000000;
+    }
+    body a {
+      color: #1188E6;
+      text-decoration: none;
+    }
+    p { margin: 0; padding: 0; }
+    table.wrapper {
+      width:100% !important;
+      table-layout: fixed;
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-size-adjust: 100%;
+      -moz-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+    img.max-width {
+      max-width: 100% !important;
+    }
+    .column.of-2 {
+      width: 50%;
+    }
+    .column.of-3 {
+      width: 33.333%;
+    }
+    .column.of-4 {
+      width: 25%;
+    }
+    ul ul ul ul  {
+      list-style-type: disc !important;
+    }
+    ol ol {
+      list-style-type: lower-roman !important;
+    }
+    ol ol ol {
+      list-style-type: lower-latin !important;
+    }
+    ol ol ol ol {
+      list-style-type: decimal !important;
+    }
+    @media screen and (max-width:480px) {
+      .preheader .rightColumnContent,
+      .footer .rightColumnContent {
+        text-align: left !important;
+      }
+      .preheader .rightColumnContent div,
+      .preheader .rightColumnContent span,
+      .footer .rightColumnContent div,
+      .footer .rightColumnContent span {
+        text-align: left !important;
+      }
+      .preheader .rightColumnContent,
+      .preheader .leftColumnContent {
+        font-size: 80% !important;
+        padding: 5px 0;
+      }
+      table.wrapper-mobile {
+        width: 100% !important;
+        table-layout: fixed;
+      }
+      img.max-width {
+        height: auto !important;
+        max-width: 100% !important;
+      }
+      a.bulletproof-button {
+        display: block !important;
+        width: auto !important;
+        font-size: 80%;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+      .columns {
+        width: 100% !important;
+      }
+      .column {
+        display: block !important;
+        width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+      }
+      .social-icon-column {
+        display: inline-block !important;
+      }
+    }
+  </style>
+      <!--user entered Head Start--><!--End Head user entered-->
+    </head>
+    <body>
+      <center class=3D"wrapper" data-link-color=3D"#1188E6" data-body-style=
+=3D"font-size:14px; font-family:arial,helvetica,sans-serif; color:#000000; =
+background-color:#FFFFFF;">
+        <div class=3D"webkit">
+          <table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"=
+100%" class=3D"wrapper" bgcolor=3D"#FFFFFF">
+            <tr>
+              <td valign=3D"top" bgcolor=3D"#FFFFFF" width=3D"100%">
+                <table width=3D"100%" role=3D"content-container" class=3D"o=
+uter" align=3D"center" cellpadding=3D"0" cellspacing=3D"0" border=3D"0">
+                  <tr>
+                    <td width=3D"100%">
+                      <table width=3D"100%" cellpadding=3D"0" cellspacing=
+=3D"0" border=3D"0">
+                        <tr>
+                          <td>
+                            <!--[if mso]>
+    <center>
+    <table><tr><td width=3D"600">
+  <![endif]-->
+                                    <table width=3D"100%" cellpadding=3D"0"=
+ cellspacing=3D"0" border=3D"0" style=3D"width:100%; max-width:600px;" alig=
+n=3D"center">
+                                      <tr>
+                                        <td role=3D"modules-container" styl=
+e=3D"padding:0px 0px 0px 0px; color:#000000; text-align:left;" bgcolor=3D"#=
+FFFFFF" width=3D"100%" align=3D"left"><table class=3D"module preheader preh=
+eader-hide" role=3D"module" data-type=3D"preheader" border=3D"0" cellpaddin=
+g=3D"0" cellspacing=3D"0" width=3D"100%" style=3D"display: none !important;=
+ mso-hide: all; visibility: hidden; opacity: 0; color: transparent; height:=
+ 0; width: 0;">
+    <tr>
+      <td role=3D"module-content">
+        <p></p>
+      </td>
+    </tr>
+  </table><table class=3D"module" role=3D"module" data-type=3D"text" border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" style=3D"table-la=
+yout: fixed;" data-muid=3D"bf4e0fe6-2ad6-4fd7-9623-060eb5e77187" data-mc-mo=
+dule-version=3D"2019-10-22">
+    <tbody>
+      <tr>
+        <td style=3D"padding:18px 0px 18px 0px; line-height:22px; text-alig=
+n:inherit;" height=3D"100%" valign=3D"top" bgcolor=3D"" role=3D"module-cont=
+ent"><div><div style=3D"font-family: inherit; text-align: inherit">Hi,<br>
+<br>
+I am following up with my previous email to of<strong> Red Hat Users data</=
+strong> which can be used for prospecting, qualifying and generating new sa=
+les leads to support the Enterprise Account Managers.<br>
+<br>
+This data will help you to communicate with target audiences and build and =
+develop customer relationships and higher revenue for your organization.<br=
+>
+<br>
+Would you like to partner with a Technographics data company like us?<br>
+<br>
+We as a database compiler manage, own, and maintain 80 million business exe=
+cutives database worldwide. The unique USP which separates us from the rest=
+ is our guarantee of 90% plus email deliverability and contact accuracy whi=
+ch is the highest of all data market standards.<br>
+<br>
+I will look forward to your response.<br>
+<br>
+Thanks,</div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit"><span style=3D"color: #000000; font-fam=
+ily: arial, helvetica, sans-serif; font-size: 14px; font-style: normal; fon=
+t-variant-ligatures: normal; font-variant-caps: normal; font-weight: 700; l=
+etter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; tex=
+t-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -we=
+bkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-dec=
+oration-thickness: initial; text-decoration-style: initial; text-decoration=
+-color: initial; float: none; display: inline">Jessa Walter</span>&nbsp;</d=
+iv>
+<div style=3D"font-family: inherit"><br></div>
+<div style=3D"font-family: inherit">---------------------------------------=
+---------------------------------------------------------------------------=
+-------------</div>
+<div style=3D"font-family: inherit"><br></div>
+<div style=3D"font-family: inherit"><br></div>
+<div style=3D"font-family: inherit">Hi,<br>
+<br>
+I have researched on LinkedIn that you are responsible for Sales operations=
+ at your company &nbsp;for creating and managing the end-to-end enterprise =
+sales process, including leading the implementation of pipeline reporting, =
+sales forecasting, and sales analytics.<br>
+<br>
+This data will help your sales team to execute on the account plan to deliv=
+er maximum revenue potential, generate new business in new accounts and exp=
+and footprint of Red Hat customers.<br>
+<br>
+Would you like to <strong>acquire Red Hat Users</strong> for your sales and=
+ marketing teams?<br>
+<br>
+We as a database compiler manage, own, and maintain 80 million business exe=
+cutives database worldwide. The unique USP which separates us from the rest=
+ is our guarantee of 90% plus email deliverability and contact accuracy whi=
+ch is the highest of all data market standards.<br>
+<br>
+I will look forward to your response.<br>
+<br>
+Thanks,<br>
+<br>
+<strong>Jessa Walter</strong><br>
+Global Lead Generation<br>
+Email Sprout, Inc<br>
+North America</div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div>
+<div style=3D"font-family: inherit; text-align: inherit"><br></div><div></d=
+iv></div></td>
+      </tr>
+    </tbody>
+  </table><div data-role=3D"module-unsubscribe" class=3D"module" role=3D"mo=
+dule" data-type=3D"unsubscribe" style=3D"color:#444444; font-size:12px; lin=
+e-height:20px; padding:16px 16px 16px 16px; text-align:Center;" data-muid=
+=3D"4e838cf3-9892-4a6d-94d6-170e474d21e5"><div class=3D"Unsubscribe--addres=
+sLine"><p class=3D"Unsubscribe--senderName" style=3D"font-size:12px; line-h=
+eight:20px;">Jessa Walter</p><p style=3D"font-size:12px; line-height:20px;"=
+><span class=3D"Unsubscribe--senderAddress">885 Watson Street</span>, <span=
+ class=3D"Unsubscribe--senderCity">Camden</span>, <span class=3D"Unsubscrib=
+e--senderState">NJ</span> <span class=3D"Unsubscribe--senderZip">08102</spa=
+n></p></div><p style=3D"font-size:12px; line-height:20px;"><a class=3D"Unsu=
+bscribe--unsubscribeLink" href=3D"https://u21271858.ct.sendgrid.net/wf/unsu=
+bscribe?upn=3DVU2koNEWgSKMLPFeqEdbNI9jCap0gyh-2FlSpXi9qCyhTBcX6PA5-2FoCvlZE=
+aOPsPJfFcqrQhM-2F5O-2B1Io8-2BjTZz5B0iTMz8-2FLC6lIy3em-2BexngNEbEpkgEZ72DcoX=
+3gT4QslHQpSGlWeLoVOTIF69Q69WGU4k-2BVD925D7dGajmOPqa-2BcQbSxFU905uvEc9EkarhJ=
+7JFW4zAcyRMUrWPe24IXlxx3pWqK1dJrWrGCHXdHCMYmnSaV2TRAgN8KiYxFQ3mjnN8N45KyKs6=
+-2FOdfdJlikIF2LMCQKoLoK4iwYh2A221Q-2BmckP1FLsvNPQUoCQbGKRUXLLL1MKZSJUszl0RI=
+od8fX9FT7s-2FqIdL7b4smwTKkl18pGsA2ahKqA4Xr67QOaILnkazMxM-2BxTY2ahUVVoyzFG-2=
+FfwIdmrgVT2vsT9O2BxLzyAwfIQWnZy66Z8HIOyxLiszxIYUE-2F3ps6F-2BBBUVrvl3owBVP0B=
+-2BpbQuK8sP4eeCQ2LN6JP7tuz94FbQPL-2BjbJ0lL4sjPeLqiosjPwf6gE8CJtmk-2FmkEOlvc=
+0C8vq4aj7jbC-2F1bgXY3BTGbc3jRMG125QFShXnvl9g-2Frx5POJc822oU31ptbOAsACi9QCwk=
+SLQeUwFuiEageOMUTUjyxcVDZ4rfJ4oL9xervayBOUghkyzR6DVuQI8cBXXlS1sTb3x2k3Gjbc4=
+xSLXVzt4ipW2iRMg50wbfAPB3uS35HTw0mgAmhLj-2FFtJ3FFjcaiUxRlM3hBhCTOuFhzR1-2F7=
+Ngtn520t34k1OKig0jQQcyqCBdG6kmrqPwWfTTdBQ1E-2Ff1hANQYsYes7xLLL2OxFRDhQ-2Bc9=
+-2FfKEi5ibY6DZgknvgvFHeQYOOLna2cJ4u-2BE0wBT5o-2FXRxnbD-2FswJjq9RjlAOU1ms4i4=
+9yFzfoKpkE0iflUDfIjHjHC6TFiM4Kwg8kEw-3D" target=3D"_blank" style=3D"">Unsub=
+scribe</a></p></div></td>
+                                      </tr>
+                                    </table>
+                                    <!--[if mso]>
+                                  </td>
+                                </tr>
+                              </table>
+                            </center>
+                            <![endif]-->
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </center>
+   =20
+<img src=3D"https://u21271858.ct.sendgrid.net/wf/open?upn=3DVU2koNEWgSKMLPF=
+eqEdbNI9jCap0gyh-2FlSpXi9qCyhTBcX6PA5-2FoCvlZEaOPsPJfFcqrQhM-2F5O-2B1Io8-2B=
+jTZz5B0iTMz8-2FLC6lIy3em-2BexngNEbEpkgEZ72DcoX3gT4QslHQpSGlWeLoVOTIF69Q69WG=
+U4k-2BVD925D7dGajmOPqa-2BcQbSxFU905uvEc9EkarhJ7JFW4zAcyRMUrWPe24IXlxx3pWqK1=
+dJrWrGCHXdHCMYmnSaV2TRAgN8KiYxFQ3mjnN8N45KyKs6-2FOdfdJlikIF2LMCQKoLoK4iwYh2=
+A221Q-2BmckP1FLsvNPQUoCQbGKRUXLLL1MKZSJUszl0RIod8fX9FT7s-2FqIdL7b4smwTKkl18=
+pGsA2ahKqA4Xr67QOaILnkazMxM-2BxTY2ahUVVoyzFG-2FfwIdmrgVT2vsT9O2BxLzyAwfIQWn=
+Zy66Z8HIOyxLiszxIYUE-2F3ps6F-2BBBUVrvl3owBVP0B-2BpbQuK8sP4eeCQ2LN6JP7tuz94F=
+bQPL-2BjbJ0lL4sjPeLqiosjPwf6gE8CJtmk-2FmkEOlvc0C8vq4aj7jbC-2F1bgXY3BTGbc3jR=
+MG125QFShXnvl9g-2Frx5POJc822oU31ptbOAsACi9QCwkSLQeUwFuiEageOMUTUjyxcVDZ4rfJ=
+4oL9xervayBOUghkyzR6DVuQI8cBXXlS1sTb3x2k3Gjbc4xSLXVzt4ipW2iRMg50wbfAPB3uS35=
+HTw0mgAmhLj-2FFtJ3FFjcaiUxRlM3hBhCTOuFhzR1-2F7NgtMMn51hum-2FddjeCved-2BNg77=
+FeculZ6PNWo4XJnla-2BNKb18qLknpgSHxWrWVnQX-2FGG1XlIIHveQCdl4a00oNQjqKS3PlJ-2=
+FzOPVxNDoN6JJdEBIEMMApU-2BHKVX0ACWusTrkWYSP2yc4iqH6Pa4xDENQdhxamlehU-2FIG-2=
+B5FiLqFg5Lc-3D" alt=3D"" width=3D"1" height=3D"1" border=3D"0" style=3D"hei=
+ght:1px !important;width:1px !important;border-width:0 !important;margin-to=
+p:0 !important;margin-bottom:0 !important;margin-right:0 !important;margin-=
+left:0 !important;padding-top:0 !important;padding-bottom:0 !important;padd=
+ing-right:0 !important;padding-left:0 !important;"/>
+</body>
+  </html>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/Z0Xm0HUGSRm87JAyw6RCdA%40ismtpd0171p1mdw1.sendgrid=
+.net?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/ms=
+gid/jailhouse-dev/Z0Xm0HUGSRm87JAyw6RCdA%40ismtpd0171p1mdw1.sendgrid.net</a=
+>.<br />
+
+--5c9d63d1b4f208247a2edc9cfed9a0809b3abbb863b83e6d4b4be0b09fa5--
