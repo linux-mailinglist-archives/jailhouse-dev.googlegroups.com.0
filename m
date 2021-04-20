@@ -1,133 +1,165 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBB75T7KBQMGQEHB6YUIQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBAABB7F67KBQMGQEZ6SWRGY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x139.google.com (mail-lf1-x139.google.com [IPv6:2a00:1450:4864:20::139])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DE523654D6
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 20 Apr 2021 11:08:16 +0200 (CEST)
-Received: by mail-lf1-x139.google.com with SMTP id r16-20020ac25f900000b02901ae74bbfd43sf853547lfe.10
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 20 Apr 2021 02:08:16 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1618909695; cv=pass;
+Received: from mail-wr1-x43c.google.com (mail-wr1-x43c.google.com [IPv6:2a00:1450:4864:20::43c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 662E136556E
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 20 Apr 2021 11:31:41 +0200 (CEST)
+Received: by mail-wr1-x43c.google.com with SMTP id 32-20020adf84230000b029010705438fbfsf5463843wrf.21
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 20 Apr 2021 02:31:41 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1618911101; cv=pass;
         d=google.com; s=arc-20160816;
-        b=bRW37cNM6V7JUYigssmIdP3NcJZrCwXdYRveMhL7Newl+KiYJ2T9DFtoxhD3y6Ow7r
-         mos7LdYEdIRlZ65VQuMJPXnmnCJXlZsNBgv3CKnQccn7XZJfzYRWTanbRhFY3xR98Z0K
-         yMHH4YrXCYzY744D+27nmNsk5xA6coMIBfsKcEA7vvxxkVVxCjYGRq9UpdzQpvxOLLZn
-         4AhDBQskco8qUnI2MxyREgk8Q8XVsb1oW+qfJj2WtF715Jk8V+HgR/etabdZPX6q0NpY
-         wKbAyQ7/5YvIFHkghYXeKm2D56UsOHXZMOxA6JbxI00dTiWnaO0V85MmxSrRjjXYEriQ
-         1CKQ==
+        b=APsqhVgxqh7zAQlCxz74AnDzaSXuT3gCOG/Yklhqf+E7oT255g4harKwxviQt9FyhR
+         /LmlX+G2KXA7rSpmOZRf7Donl4/B92hTobI01IXwPIvWBZ0vS1mgvLZXv7kpbXbdzPOU
+         JW5ra/KeuoLeeXd6hm6UsEt4pgm2KM5+3EUL6u0fCNA/8i3c4NBOjm7hDG1+le0fshTW
+         i310DntGKSqNgMb2FZHY/9fvFPGbf/sVITVG3P7qHKBuipuGWY/uvCT+t4dIQRh4WOUD
+         XcRcl8N4fMfD391Qa/Jh3SFA+DKtTGdbS/S2yg4FV/j5mx2sM3j/bT8gE9TH7Ycz0xm0
+         R4Mg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:to:subject
-         :sender:dkim-signature;
-        bh=K2DBnkOfOvqsgydrBPB/Ykh9MkH1R6l5AfJrt4VcQDw=;
-        b=UrUyPWwrUeOaSU+WS77XP7rMXcr24OQNqQ4o9HrXGgE+4Hx19UmydORwcDMAXxXSSn
-         /UMG1V+bQ2cxKOFylolWAjZXXXUtlVfRW0msdAwEnetPyH153WMCR0F2eQuZjpbQHydA
-         CX5YUrRYinZWxatbYn5l7okvtoADqn82kCiw75yoU7B+IBgsrYrjnBoDsOpv397HPq55
-         cs1iQv7CnkU0rAm0LcLArRtl9ubsEVsx6fB6RbKqzvTpTe7il9UINOe7iOXKfGyPYBHi
-         opO3O9bOgKJzheBdWGPy/OBm9NGL/LJ1PlXflO7LdTWAqdNoORIheJbafyjzWlTNfum5
-         2OFQ==
+         :list-id:mailing-list:precedence:mime-version
+         :content-transfer-encoding:content-language:accept-language
+         :in-reply-to:references:message-id:date:thread-index:thread-topic
+         :subject:to:from:sender:dkim-signature;
+        bh=88n6oO1eXSGSsMUVeb4iXsQGaJY/vvmUN1lAu5Q3A6o=;
+        b=aaWH+4tBJ729mryPviCoZ7fsMk//ldse+QwCsO7UjAnyXqHhgEBawk0Hygj1WJB/JR
+         FIxQUg76n5O3rk2DZtX+2KvSH4XGtXjNRKgfsZoRt+Di/nHvtt2ni0011mKqrMv4feOr
+         MvBemv7q2uj6CWdkKTLVKBPNfb26Q1tfDwcJinoUKdxX39qTU4540s4DMdMljLxkQZi5
+         K+GbknLCkORewluFXqt2zvduzC6JTIeWcQtC8OgnYnfSTI+0CvyKDRufCjwpisP8IWrH
+         kG0mrl/A1zpPZcOLOxEix3ZhMrd/Cb22zz1Ch3QFdMrZY93GovZrRapMACO+ZeG2Gi78
+         DIJg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=Z917FBxW;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+       dkim=neutral (no key) header.i=@uni-rostock.de;
+       dkim=pass header.i=@uni-rostock.de header.s=itmz header.b=HR0dFyvG;
+       spf=pass (google.com: domain of moustafa.noufale@uni-rostock.de designates 139.30.22.71 as permitted sender) smtp.mailfrom=moustafa.noufale@uni-rostock.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=uni-rostock.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
+        h=sender:from:to:subject:thread-topic:thread-index:date:message-id
+         :references:in-reply-to:accept-language:content-language
+         :content-transfer-encoding:mime-version:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=K2DBnkOfOvqsgydrBPB/Ykh9MkH1R6l5AfJrt4VcQDw=;
-        b=VB20lmV7j9WsoqwrJ+zxzKmIpXDuIJLaoJCpnSFsPv91cFOM2Pa+sq2pc2/9Xom741
-         tRiSBRvoAUFMWv+v2NHHaqIM+XqbzDCX3WmoZGLPKGQGt9FwVPxr1Sb588PlZ5ubylef
-         aBaTqDYC4lzAdPKyB+7YrESgZ6f/pLn6bsvycSyIz8xJA1lI/hGEuob8vhU5Rj3c8SSe
-         vKFVafITHTcuv/OncZmzHuh9rA+2g1Mgu+fik6ltOcItdVuojSIXQPPl0H/tdWizuSAV
-         cfBNAePU350W+JevV7bYRTT7lQSuvRiFAWTEGHXjTvOiOVqcEidSWFYO89ARzUQLIEqq
-         QwRw==
+        bh=88n6oO1eXSGSsMUVeb4iXsQGaJY/vvmUN1lAu5Q3A6o=;
+        b=AcAvelejzc4Jf6GYsWk6c8WtHNRpUlHJmSveBpRzRFwLsWP71rBQjAI/fD7690VZ56
+         X4BCUEkRwDEFSTZZB6qv4GYEBkWbmpsxQEOMY+cMOoeOyHRkYgqPpe/iuBmethhMmxHc
+         2LpCBTzt4f/TgutpLRUPtVqvGJ1cQTgmM3hc22ZebCM0npO5X1FurbLIu+24+8XtsmbL
+         UiyTJuTLTFofD2NmLy2iPuKiJl2kiBwmPGeHcbzZr0fxVI4ItZfmgoI7NGCjjNnQQnDV
+         lKV+hjWxYSOVc2Efqny/6Mhg+97yMhoY60NsGEIw1k2UZ3LzhazLJ7tGeL+DJhSKI5vG
+         czpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
+        h=sender:x-gm-message-state:from:to:subject:thread-topic:thread-index
+         :date:message-id:references:in-reply-to:accept-language
+         :content-language:content-transfer-encoding:mime-version
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=K2DBnkOfOvqsgydrBPB/Ykh9MkH1R6l5AfJrt4VcQDw=;
-        b=jnlsGxqr+I1WT+B8OV/UWvxy8MPlVusFfMcpZ6S1aAyFUh/jTau4j/XXkpQxnkqdka
-         aYFM5/yfiOgYbtXPbABj99tHI699aEKdj3dzl7oWC8tFf+ml3gRtCc9nU8jUcwkN08vY
-         unIEfawIzVKoReAqEEtSbxRe72uMmr32vESTROF2kJv8oDB2vCjiCuZ4PgzQQLwz+qOz
-         277wdHZOMEjsg/VVbrQpf8QOgJY7g1n9GMRi/aVXpmOzgEgQMkftP3UjsMCcO9JyIZt+
-         Amgq0Zcit0NxxoGsElYfTTuEUwoPbW4xBODeCIjZ3tdivohgzEEeBMB4M8XjkrJwGPyp
-         YqWQ==
+        bh=88n6oO1eXSGSsMUVeb4iXsQGaJY/vvmUN1lAu5Q3A6o=;
+        b=Ng+oatDkQHilZhODx0SxTSKR19ZOYRlqyFwwnJHZdbvmrkbwCu7pVg+j0FxYQoIFdX
+         /kqGASCwiaduo3Ld9bz14jIiq8xomEMaVvNdCyKNJJSA7DZC67sAQTPWDbvHIM+Q5MES
+         NqAxs2nAZoWGTo4QvZS+YPu42qjQiZnZMRm1aU/oVuYw/K4dmHXOEYP9i4G8bpxxL/S0
+         VxQoI+Y/tJovWLuat6m0KfZfpJOep1qRd+NHdSYrZ5BQTi+yKGRA8/LLgZM9hANWwof8
+         MgPhGgd42YZqLtH7tGGV0zI92t85txHp53rJRLjAa7Dncyc9BVjIwDWGdV2tyJsXIp4P
+         dcXw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531V7pGrUY3CVoD1SEwHLp10p+OcHJide+PZtXyf+5QxcvtyTVdz
-	tr21AV33zm4/53RSXUT9pT4=
-X-Google-Smtp-Source: ABdhPJysAW31oeEtFtp+wXLEZp0qkAO4S644VuLMBtnwohniesGoGowqZndm9G0eQrsjlNb3pGSteg==
-X-Received: by 2002:a2e:90d1:: with SMTP id o17mr14038519ljg.92.1618909695814;
-        Tue, 20 Apr 2021 02:08:15 -0700 (PDT)
+X-Gm-Message-State: AOAM532AiWJ7Wigkxk59G7W/vtpGrySLaf5u9JqGKcHJ4uZI97KxQpwk
+	w42e4gEi4+5UmUHrazB75VU=
+X-Google-Smtp-Source: ABdhPJwp6JPK80+OOqqju0Pn1h9LbB33tbONP6boKSKqwZ06wauMFR5NpBHEo8MAWpNxJLXWUpkVcQ==
+X-Received: by 2002:adf:e8c3:: with SMTP id k3mr19855529wrn.400.1618911101182;
+        Tue, 20 Apr 2021 02:31:41 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac2:5624:: with SMTP id b4ls3367049lff.0.gmail; Tue, 20 Apr
- 2021 02:08:14 -0700 (PDT)
-X-Received: by 2002:a05:6512:3f27:: with SMTP id y39mr9777972lfa.166.1618909694564;
-        Tue, 20 Apr 2021 02:08:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1618909694; cv=none;
+Received: by 2002:a5d:6804:: with SMTP id w4ls11725534wru.2.gmail; Tue, 20 Apr
+ 2021 02:31:40 -0700 (PDT)
+X-Received: by 2002:a5d:68c3:: with SMTP id p3mr20404336wrw.62.1618911100273;
+        Tue, 20 Apr 2021 02:31:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1618911100; cv=none;
         d=google.com; s=arc-20160816;
-        b=eZIjhYry0fJobZNHgS0DDgFJeVkq12cf89cEE4dkiVp8Xb+8OuxmbsoXCCWb1VC7s4
-         fGJjRESxeZpah+cfJd7OAm7jyX/OvdB3+hgZkzh19/5dfVUwDfVu5HJg9J+WhedxYWeq
-         LQWpx+ZIww4bGe9gLedjt3LaV8hS8vnxQdJgJDMlBShibGU2RdwOmlTPt3/9LkHNVXwE
-         +y7Y6ENxP0vQHl7qESFMAz0QQBvhhDbpGpmA4vruLdIOJiD7PoOiDpVRDhu7kjXSlREK
-         bv3/2KwdIQNNHtNPJYQ2cyslgrsGj+HZiQQTLb6ZV+/ZSKYYJ8Cis1GwFxbqLERkKby0
-         5xyA==
+        b=mBOL2SrzSQZjP4wpZQUL7MdVcuPXR4O/Iu3WSD3lxerA2NturqDqWK5F0nvr9WbMN+
+         N/gDkWhnqAQdgTYTDnLo+jLx/Xb5PAcA5Cv4rkvkblF0dh/lfHn2+HlLemZ2dLgox8Ld
+         91WhbyEU9ysIKaFgffFoklfWUPkiOnGbrGGSTmQ4imc9lga3A3mDX9jX7BUztKHdLUk7
+         y6EMaVKSMun78CZHjRifEaMHFbyZmwDzzOFZUYcWX256/Ng9z31Hju7sTi97IAMZaGn4
+         6mK9W8BXhOaGrecb0kCK1DE5T5l6EATlV2Ps0jOXYXmli61/7FtknCav7g7BQ+Dq4gG+
+         IeWQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject
-         :dkim-signature;
-        bh=z9W8g1tyK9lV732f9TbNmfnByXStdxKQQLKoPNHgTOk=;
-        b=ZzlwrXw/4G5QsvxV5YGZKdz2xP/j6OvHibAFPvzUCUURm16wMqfZ4aWjQ/+pEZ7cDK
-         hU4J6CrxOA8JzZ1bSPIFvuPmN2wG4E6BOBai4esrNN+KdmQ4PX+5l3a+b+/LRrSswhbw
-         RZL0vcq3Vz3ZkFf0enI7qbDg03U2pK6rKWNoNsoA0adEJlITzSKFItTSopAfpWl8CJhb
-         lCUgPNCWP+HeguVaH41q+Dm2XY4QS20aKpKHG3qHei9dEcEPZySRK4z5UEDWhmV7KRk8
-         tgLNPQS3tpckfANaDgvKVmRjQ/xyv3cOqNvsuQ5T3ddC/2+YAm/6ZDi1UuGBFplZrfyc
-         tddg==
+        h=mime-version:content-transfer-encoding:content-language
+         :accept-language:in-reply-to:references:message-id:date:thread-index
+         :thread-topic:subject:to:from:dkim-signature:dkim-signature;
+        bh=5iLwySBKfBjnIuHzr/Ak8wbURVhmznbYYKMhOomRN40=;
+        b=YdKoYqn1elf7Bn1x115I9EuGAdXVsPSkl/0uCBIZSQv9/NVlkJLaO/CBSWUxoU8y+h
+         EWFN5aOu+t1whgD2EUnRs0V+hAOrc7AecgwimSWiOWNPlsH85GMkm48msgv4hPNsXDSb
+         0qwO+keVNJ38L1unLdcha8n8uUyYR+DqzR/qnXvebi7ANVQce3cQwcZeO16Mhu8bpwco
+         jQybVw+6DcJckFKn0tdmwjxIc8+AmpfUod0+YVj3dHhwAGXh+mMbh1PLGuOYYjI1/hbm
+         fv808hsgCkgFwR2KfmveCzYYRRStMeQJ8fJH2ohnyBBDWZZUdjBLXU3lpvn/W8nNJ6+8
+         TLWw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=Z917FBxW;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [194.95.104.12])
-        by gmr-mx.google.com with ESMTPS id q26si748510ljj.4.2021.04.20.02.08.14
+       dkim=neutral (no key) header.i=@uni-rostock.de;
+       dkim=pass header.i=@uni-rostock.de header.s=itmz header.b=HR0dFyvG;
+       spf=pass (google.com: domain of moustafa.noufale@uni-rostock.de designates 139.30.22.71 as permitted sender) smtp.mailfrom=moustafa.noufale@uni-rostock.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=uni-rostock.de
+Received: from mx1.uni-rostock.de (mx1.uni-rostock.de. [139.30.22.71])
+        by gmr-mx.google.com with ESMTPS id s21si183179wmh.2.2021.04.20.02.31.40
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 20 Apr 2021 02:08:14 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) client-ip=194.95.104.12;
-Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4FPdBj41mBzxtD;
-	Tue, 20 Apr 2021 11:08:13 +0200 (CEST)
-Received: from [172.16.2.102] (194.95.106.138) by E16S03.hs-regensburg.de
- (2001:638:a01:8013::93) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Tue, 20 Apr
- 2021 11:08:13 +0200
-Subject: Re: [PATCH V3 1/1] inmates/lib: Add zeroed alloc, and update usage
-To: Bram Hooimeijer <bram.hooimeijer@prodrive-technologies.com>, Jailhouse
+        Tue, 20 Apr 2021 02:31:40 -0700 (PDT)
+Received-SPF: pass (google.com: domain of moustafa.noufale@uni-rostock.de designates 139.30.22.71 as permitted sender) client-ip=139.30.22.71;
+Received: from 139.30.22.83 by mx1.uni-rostock.de (Tls12, Aes256, Sha384,
+ DiffieHellmanEllipticKey384); Tue, 20 Apr 2021 09:31:32 GMT
+Received: from Pickup by email3.uni-rostock.de with Microsoft SMTP Server id
+ 15.2.792.3; Tue, 20 Apr 2021 09:31:29 +0000
+Received: from email1.uni-rostock.de (139.30.22.81) by email3.uni-rostock.de
+ (139.30.22.83) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.792.3; Tue, 20 Apr 2021
+ 11:29:23 +0200
+Received: from email1.uni-rostock.de ([139.30.22.81]) by email1.uni-rostock.de
+ ([139.30.22.81]) with mapi id 15.02.0792.013; Tue, 20 Apr 2021 11:29:23 +0200
+From: Moustafa Noufale <moustafa.noufale@uni-rostock.de>
+To: Jan Kiszka <jan.kiszka@web.de>, "jailhouse-dev@googlegroups.com"
 	<jailhouse-dev@googlegroups.com>
-References: <AS8PR02MB66632030F576308C52270C07B6489@AS8PR02MB6663.eurprd02.prod.outlook.com>
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Message-ID: <2c45f24a-4c6e-2988-edf0-bdf35d269dec@oth-regensburg.de>
-Date: Tue, 20 Apr 2021 11:08:12 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.1
-MIME-Version: 1.0
-In-Reply-To: <AS8PR02MB66632030F576308C52270C07B6489@AS8PR02MB6663.eurprd02.prod.outlook.com>
+Subject: AW: Inquiry
+Thread-Topic: Inquiry
+Thread-Index: Adcx+AFw6wu1ws16QgaPAGku5ayIpgBZYRUAAJpN+xA=
+Date: Tue, 20 Apr 2021 09:29:22 +0000
+Message-ID: <879f50f352e14aa8b45e9aff399c2b02@uni-rostock.de>
+References: <0631a4941db6453491ffecf6c08b1cf7@uni-rostock.de>
+ <61de29b4-45a2-8f3b-5937-5cac7dfc2b21@web.de>
+In-Reply-To: <61de29b4-45a2-8f3b-5937-5cac7dfc2b21@web.de>
+Accept-Language: de-DE, en-US
+Content-Language: de-DE
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [139.30.74.209]
+x-tm-smex-dtas-header-wtp-uuid: F3DE75371F8A9A35A48682DE3756F72EC0581441
+x-tm-smex-dtas-header-wtp-flag: BC4A395C517E27D5DC5D9D61FE921023AB71153C0004
+	8e5ba2a6-e91f-4f3e-b04d-e25a8cd63d2f:E86D7FA298E5BF5C91B1B1620E328B6A9CBADD
+	E50000b52e8d27-e59a-4551-9688-12e6cff9e6a6:9757F9333200B88B432CC5ECB85BCACD
+	4D93403D000089862346-c74f-40fe-a7e7-969fb4d401c4
+x-tm-as-product-ver: SMEX-14.0.0.3080-8.6.1012-26102.007
+x-tm-as-result: No-10--5.483600-8.000000
+x-tmase-matchedrid: L9skVKoV36QMPDZrnvcM98CxC+PryYbTgdkHykGcMpl65yXsx03DxJ2r
+	Mja6KQ+LCZLXVYFvBRtRgM2MVcov01PnI9A/227jp7rgqkxHgFSr3d1rmRdCgKZwleT7xjO5ANd
+	Y+fMa4IxoS9ubs3d1V8s4S67NXPLDFp2/4Xy5xIgQ04M5KAO0HBPyfIr+AdT7Pikg0Pc7Za2Cwg
+	lX01Zi1prshU0ckp3urCdBvt04JcZ0OTdOu6KfB2vDT+wC7pqFWpjCJBXWSUgwT6ESs+hBMOJ1Z
+	55wDcxTJh27a3wSE+/GRpJJVkXFnnNs6LXGLuv48eSmTJSmEv1+S5m2/8VLmhm/VYg8VWVI87uO
+	H1xxCQMAq68tMMmAMe+isLD2iP85DvekyNY9b6gAhUzEvZ6RY3+ogtHzaKWZFujNgNeS9UCm+lP
+	JkxlYSLj+FTPGFTGw/nbdPfYWr3ISGqiY07lJdvbta0OAYFzyGfJU88iQ+wSGe7jsBPE0h7KZV9
+	X59AsgXctUjghPOIBnmJ3xheok3uel5KJlNpuVdFIm3orOnRA/pOSL72dTf0SVpnjjB2vkOWTFg
+	QkoLGr8cMHDDZ2zT/SMSNSI4ECbgljF8fKL2gnnzlXMYw4XMFlmYwhSwhAaC24oEZ6SpSk6XEE7
+	Yhw4Fv+8bV0dDNKOO0ohQpASWdbbR6XeQffd1kGA0d+RMfnigqDyi6/AVNU=
+x-tm-as-user-approved-sender: Yes
+x-tm-as-user-blocked-sender: No
+x-tmase-result: 10--5.483600-8.000000
+x-tmase-version: SMEX-14.0.0.3080-8.6.1012-26102.007
+x-tm-snts-smtp: 75592776FA42898E32F03B21DE51735BE78CF6E5B4E777EB67DDE0E6279DA7192002:8
 Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-X-Originating-IP: [194.95.106.138]
-X-ClientProxiedBy: E16S03.hs-regensburg.de (2001:638:a01:8013::93) To
- E16S03.hs-regensburg.de (2001:638:a01:8013::93)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=Z917FBxW;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-Original-Sender: moustafa.noufale@uni-rostock.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=neutral (no
+ key) header.i=@uni-rostock.de;       dkim=pass header.i=@uni-rostock.de
+ header.s=itmz header.b=HR0dFyvG;       spf=pass (google.com: domain of
+ moustafa.noufale@uni-rostock.de designates 139.30.22.71 as permitted sender)
+ smtp.mailfrom=moustafa.noufale@uni-rostock.de;       dmarc=pass (p=NONE
+ sp=NONE dis=NONE) header.from=uni-rostock.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -140,118 +172,73 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
+Hi Mr. Kiszka,=20
+I have tried to  build an image through running "build-images.sh" with and =
+without root access:
 
+without root access:
 
-On 20/04/2021 10:49, Bram Hooimeijer wrote:
-> Adds zalloc(size, align) which allocates memory and fills it with zeros.
-> Replaces usage of alloc() in inmates/lib with zalloc().
-> 
-> Motivation is that use of alloc without zeroing mem.c:map_range()
-> results in illegal page tables if memory contains artefacts.
-> 
-> Signed-off-by: Bram Hooimeijer <bram.hooimeijer@prodrive-technologies.com>
+Select images to build (space-separated index list): 1
+docker: Got permission denied while trying to connect to the Docker daemon =
+socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.so=
+ck/v1.24/containers/create: dial unix /var/run/docker.sock: connect: permis=
+sion denied.
+See 'docker run --help'.
 
-Reviewed-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+With root access:
 
-Thanks
-  Ralf
+Select images to build (space-separated index list): 1
+Error: Running as root - may break certain recipes.
+Better give a regular user docker access. Set KAS_ALLOW_ROOT=3Dyes to overr=
+ide.
 
-> ---
->  inmates/lib/alloc.c                 | 9 +++++++++
->  inmates/lib/arm-common/mem.c        | 3 +--
->  inmates/lib/include/inmate_common.h | 1 +
->  inmates/lib/x86/mem.c               | 4 ++--
->  inmates/lib/x86/smp.c               | 2 +-
->  5 files changed, 14 insertions(+), 5 deletions(-)
-> 
-> diff --git a/inmates/lib/alloc.c b/inmates/lib/alloc.c
-> index e68e6cc1..5da6828a 100644
-> --- a/inmates/lib/alloc.c
-> +++ b/inmates/lib/alloc.c
-> @@ -5,6 +5,7 @@
->   *
->   * Authors:
->   *  Jan Kiszka <jan.kiszka@siemens.com>
-> + *  Bram Hooimeijer <bram.hooimeijer@prodrive-technologies.com>
->   *
->   * This work is licensed under the terms of the GNU GPL, version 2.  See
->   * the COPYING file in the top-level directory.
-> @@ -47,3 +48,11 @@ void *alloc(unsigned long size, unsigned long align)
->  	heap_pos = base + size;
->  	return (void *)base;
->  }
-> +
-> +void *zalloc(unsigned long size, unsigned long align)
-> +{
-> +	void *base = alloc(size, align);
-> +	memset(base, 0, size);
-> +
-> +	return base;
-> +}
-> diff --git a/inmates/lib/arm-common/mem.c b/inmates/lib/arm-common/mem.c
-> index 5951fafc..5064b002 100644
-> --- a/inmates/lib/arm-common/mem.c
-> +++ b/inmates/lib/arm-common/mem.c
-> @@ -56,8 +56,7 @@ void map_range(void *start, unsigned long size, enum map_type map_type)
->  	while (size) {
->  		pgd_index = PGD_INDEX(vaddr);
->  		if (!(page_directory[pgd_index] & LONG_DESC_TABLE)) {
-> -			pmd = alloc(PAGE_SIZE, PAGE_SIZE);
-> -			memset(pmd, 0, PAGE_SIZE);
-> +			pmd = zalloc(PAGE_SIZE, PAGE_SIZE);
->  			/* ensure the page table walker will see the zeroes */
->  			synchronization_barrier();
->  
-> diff --git a/inmates/lib/include/inmate_common.h b/inmates/lib/include/inmate_common.h
-> index 5af1213a..1c20a0af 100644
-> --- a/inmates/lib/include/inmate_common.h
-> +++ b/inmates/lib/include/inmate_common.h
-> @@ -103,6 +103,7 @@ void __attribute__((format(printf, 1, 2))) printk(const char *fmt, ...);
->  extern unsigned long heap_pos;
->  
->  void *alloc(unsigned long size, unsigned long align);
-> +void *zalloc(unsigned long size, unsigned long align);
->  
->  void *memset(void *s, int c, unsigned long n);
->  void *memcpy(void *d, const void *s, unsigned long n);
-> diff --git a/inmates/lib/x86/mem.c b/inmates/lib/x86/mem.c
-> index 7e1c8b83..764bdb4b 100644
-> --- a/inmates/lib/x86/mem.c
-> +++ b/inmates/lib/x86/mem.c
-> @@ -57,7 +57,7 @@ void map_range(void *start, unsigned long size, enum map_type map_type)
->  		if (*pt_entry & PAGE_FLAG_PRESENT) {
->  			pt = (unsigned long *)(*pt_entry & PAGE_MASK);
->  		} else {
-> -			pt = alloc(PAGE_SIZE, PAGE_SIZE);
-> +			pt = zalloc(PAGE_SIZE, PAGE_SIZE);
->  			*pt_entry = (unsigned long)pt | PAGE_DEFAULT_FLAGS;
->  		}
->  
-> @@ -65,7 +65,7 @@ void map_range(void *start, unsigned long size, enum map_type map_type)
->  		if (*pt_entry & PAGE_FLAG_PRESENT) {
->  			pt = (unsigned long *)(*pt_entry & PAGE_MASK);
->  		} else {
-> -			pt = alloc(PAGE_SIZE, PAGE_SIZE);
-> +			pt = zalloc(PAGE_SIZE, PAGE_SIZE);
->  			*pt_entry = (unsigned long)pt | PAGE_DEFAULT_FLAGS;
->  		}
->  
-> diff --git a/inmates/lib/x86/smp.c b/inmates/lib/x86/smp.c
-> index 94ce2913..625ddaf0 100644
-> --- a/inmates/lib/x86/smp.c
-> +++ b/inmates/lib/x86/smp.c
-> @@ -54,7 +54,7 @@ void smp_start_cpu(unsigned int cpu_id, void (*entry)(void))
->  	u64 base_val = ((u64)cpu_id << 32) | APIC_LVL_ASSERT;
->  
->  	ap_entry = entry;
-> -	stack = alloc(PAGE_SIZE, PAGE_SIZE) + PAGE_SIZE;
-> +	stack = zalloc(PAGE_SIZE, PAGE_SIZE) + PAGE_SIZE;
->  
->  	write_msr(X2APIC_ICR, base_val | APIC_DM_INIT);
->  	delay_us(10000);
-> 
+I have installed QEMU version 5, KVM 2.2 and enabled nested virtualization.=
+=20
+I would really appreciate it, if you could me a hint.=20
+Thanks in advance,=20
+Moustafa Noufale
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/2c45f24a-4c6e-2988-edf0-bdf35d269dec%40oth-regensburg.de.
+-----Urspr=C3=BCngliche Nachricht-----
+Von: Jan Kiszka <jan.kiszka@web.de>=20
+Gesendet: Samstag, 17. April 2021 11:45
+An: Moustafa Noufale <moustafa.noufale@uni-rostock.de>; jailhouse-dev@googl=
+egroups.com
+Betreff: Re: Inquiry
+
+Hi Moustafa,
+
+On 16.04.21 10:29, Moustafa Noufale wrote:
+>
+> To whom it may concern,
+> I am a Master student in Rostock University and I am studying=20
+> Jailhouse this semester as a Master project and I would like to gather=20
+> information about this Hypervisor, as well as I would like to ask,=20
+> whether it is possible to install it on an Ubuntu Virtual Machine? I=20
+> just need an outline, how I can learn it. I spent today reading the=20
+> code on GitHub, but I need more information and appreciate it if you can =
+help me.
+>
+
+A good starting point for experiments can be the images generated by [1], b=
+oth for KVM VMs, pure QEMU emulation target or also real boards.
+Note that emulating target inside a VM will work but using KVM (for x86) ma=
+y not or is at least fairly slow. I would recommend a native Linux host.
+
+Then you will find a lot of presentations on Jailhouse on the internet as w=
+ell as an (aging) tutorial on how to bring it up on new hardware.
+
+Jan
+
+[1] https://github.com/siemens/jailhouse-images
+[2]
+https://events.static.linuxfound.org/sites/events/files/slides/ELCE2016-Jai=
+lhouse-Tutorial.pdf
+[2] https://www.youtube.com/watch?v=3D7fiJbwmhnRw
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/879f50f352e14aa8b45e9aff399c2b02%40uni-rostock.de.
