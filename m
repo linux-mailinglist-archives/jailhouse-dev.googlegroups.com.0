@@ -1,151 +1,68 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBTPSU2CAMGQEBTXNT6Y@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDPODWHAYYOBBKXEVGCAMGQEEZT6TAY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x439.google.com (mail-wr1-x439.google.com [IPv6:2a00:1450:4864:20::439])
-	by mail.lfdr.de (Postfix) with ESMTPS id A560F36DF95
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 28 Apr 2021 21:36:45 +0200 (CEST)
-Received: by mail-wr1-x439.google.com with SMTP id 91-20020adf94640000b029010b019075afsf5992404wrq.17
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 28 Apr 2021 12:36:45 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1619638605; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=b5W6cfWP92Y4gAKHsLnVeQcHrj+sj7xiFplAYy7GAHq3PiRXhTJSR28IhNI3nv/see
-         JgFigc2lcd4s+Lxkvy4qLF6YzmpuzskPHaKaugXHdAtJs9l/hD0AGtq6l/b4SYpqGphx
-         cevd7Am3BPXiZ/uEWK85ZxHK+voPMpmYsTFxtwX7XWdiZWzKn5vrnz+sjn4xNEo6OfGz
-         OU5Ld6zu84slLgShgfuxyZx4e4tEJ4irbDIy2BxR2U1R5DF7nfL4s9l1fcV1nm/XDel0
-         VJCAAbWirSBUPMQ11hqm2Vwfg0CxHHrpjJ9lQ+XP6fHKdihyqG3WyKMzxv4kLO+8LN6Q
-         i2qQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=AK8ACeql9ybFWx6y2lEVTWPzSDtrLRlo2+96pIMefS0=;
-        b=EJq1IoVg0fR2PC4FbzxTffwJkjb8ULz+fxJvkiLwBjr4WD2GmATJLYZhV8cC85iHB1
-         Zkqy7k7CuR2mqItd3ZPcQ2BsGonp1FwLpq62gGEgc/Kj3TmPuNwq+/uDJ9/+yNl53E4G
-         0r1g1xNauvw9lD1wxBqJ8O5Jt/YU/BZ9u8R38b2fXCjxWZy9hFdG6XKTlCx5VSs7wc3F
-         gDc/bC4I2QgxL9R7sspO1zspX7Yllz29ZNDkl5ZeTnbhPwgO6K/EnlTwVsjZs/eOSDKJ
-         ubzL2d1R6aI166sLo0G1p9vCkkx7X9uyu/WaWKqXTUzh8JaKoH+k42xIpP0zRE87024w
-         709A==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=iQKwmWi1;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as permitted sender) smtp.mailfrom=jan.kiszka@web.de;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=web.de
+Received: from mail-qk1-x73c.google.com (mail-qk1-x73c.google.com [IPv6:2607:f8b0:4864:20::73c])
+	by mail.lfdr.de (Postfix) with ESMTPS id E315136E740
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Apr 2021 10:45:41 +0200 (CEST)
+Received: by mail-qk1-x73c.google.com with SMTP id e4-20020a37b5040000b02902df9a0070efsf27435041qkf.18
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Apr 2021 01:45:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=UTbAZGzwPXNpVGupmzS0lwzgo5BTAQPJyBbj3HmU404=;
+        b=N9WHJjCSPgpq/k/lpw3xzmitGlwAuidH0757exs7E00YX9Ff81EOW6gbikpIDqDbco
+         7QK8nB5muDl9vtwdwGFA3vmOKM7fhLYPjJPMrgoHTGGHbaSoDWZxma27LUPuBrnfOQum
+         DrzyBDFIBrDPY55AJ96djBEuH8k5HKWWAdAASYQ0i+B6pG7+SObWCiRAd/Kro+focb4F
+         U5bU9pM7w/WLZRYcMjne1RP8DlpVvZVftDIpWysTLoBL5ZWXEupBRtXaEljRlw/uBUAp
+         wdYtOV+DS30VcFsMCQ5A24Al1NZ8YGRE1KvumfRQq2/6ZriTFL9i5G9FtOmgdIUGP36z
+         QuCQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=AK8ACeql9ybFWx6y2lEVTWPzSDtrLRlo2+96pIMefS0=;
-        b=Q5u+JWQaq5TwqglCJ9WR9QlU+j8mDpLFTf6Zr7/ykWR/RTPHS7ImYkwO5SHpJS0lWl
-         wN0bsrhpjkiMMLAcxjPUZTHHbvyiA7NNJ/YykMZx/cEIqLfQku6nqDAWAiCl7Yvf8qiK
-         jALhkatDa9t9Jj4TXnX4Cza8VVgg78cxrmcf2g7GL8kEGqL4M+9o7pyRztGYXFMF2m+X
-         uUc2tAqxdGx9oJ5tG7gxKT3o/IXL3KiU4Pyw7twMZZUmJ2qndz49PxIjIxbIjlqf5wTf
-         W98ypE2CcZUxVbEpnjptl/gD6C8+9S1CM4HHCO/jMcIcttSvmuM8ZE6Rkj6Q59m7R7hV
-         rYRg==
+        bh=UTbAZGzwPXNpVGupmzS0lwzgo5BTAQPJyBbj3HmU404=;
+        b=hsLePYfqhfl46qR77dC+v29gC+iGruUjj73W207zZDp9nz8kmxPDhGRG4cyrhTBERe
+         v+CT8lk56K+HQRGHizKFFgh/RqYRnXr5aUN9kgJeza0gst++MEjq4tf1gnNmL4MEJcQL
+         AkC+RPssUqq4ySixtH/q3oG62/h0qaef2maH75bWoNwv5MXETlEmaRfJWIcv2fIXTqbF
+         ksQ7UanPDe5ezLWynNwiAf762BkkkM5qdbgfR+so3vAs/EzMUEn82WLnjnDutWFMtnUi
+         s16xRzFbbV54OZD01su9F9upMHFBgL74RRTf9qhB08u8Eb09RKYD8/RQEspG7niNEm9m
+         Oh/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=AK8ACeql9ybFWx6y2lEVTWPzSDtrLRlo2+96pIMefS0=;
-        b=GP11GdO0zOgoScd6T9o3FCQx9ML1NpluXmHNUNh/GPPGUUsJa6VTuAs8A75t8qn/+P
-         WOA4BrVcRWfeq72wQrTtFWEep5E4SoWHIhV2FvUvIvKaPBbIHtvLP/xv7o9wvgNOcFYJ
-         KyQCTcNSgEDGRfqP4ZusXdHbiE/Cu31TFAYRofxWyMeiIlYZUJc1IGdFuxtB964MmUle
-         PzJVACfRXrExMeLmuVmPNWhRMVMiU7y7vF+LOjhU2CFHVKcNlLslmPcr3y1NRfNuc2dC
-         4mpE4xE5cHUwoN5H+sVcl4FxETZcafVFUdYd0iSLXR9HBzVsEHhOVDvzsdlOQwg++Itd
-         /wYw==
+        bh=UTbAZGzwPXNpVGupmzS0lwzgo5BTAQPJyBbj3HmU404=;
+        b=Q8x1pc2lj/7MO5SoAbV9ck9GvRiht+XIo1jbX3mPBSvPJSBo2Vh63yag+WpWWlkoA5
+         XgxAeIMS71DgbgYnposaLHBuq+5KUDhnDZ8RSx49eW7pwq4YoIMHqZwGCAALSy/sOSys
+         8sqxhQLugTJkCBw7pHWa+NsfBS4gavo+bYfJ2oPQdp2+LjH0wmeCdAbOz3wZH52TwHvb
+         EMzE245AYB3Rh61H3GRzpJYaOTHqm1SjbWw8FObHaxqe1Tj3HKfxLis3XE1bvUgqVPql
+         9DoQgzkBm6w28Q+nP0iXB9UEZPDtrVfcJ2pe9ExhOeC4Sgk7N9wVQIXsd8vlGTEmKrp6
+         P+0A==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533PW8XeZWHm+hjFHvSZdf1eotIRcAB1q7V3TLsvj9bjiiaoAMVT
-	rz6f8qsM1fh5LdIqWeu+Rdo=
-X-Google-Smtp-Source: ABdhPJwpBs19F03K9Ko/Sy2ZnsYlZWDv+AIzT69faeT+fLUirg6NOA4/H5fBicDsHiJBIErXI91Mrw==
-X-Received: by 2002:adf:e552:: with SMTP id z18mr17066245wrm.226.1619638605382;
-        Wed, 28 Apr 2021 12:36:45 -0700 (PDT)
+X-Gm-Message-State: AOAM531Q0KliyeZ2o7w8xYvCtd3uWeM0dx88Tx8gvvjAie5hZRibr/yR
+	5MKatkqKAFkILlg46bEARWw=
+X-Google-Smtp-Source: ABdhPJwNORNm1VQGNTwcTaFpyd6yxBJEo71qjk5b8dk+xlCkN7lrWac3pvV+YLJfJl2NJ3kAcOVCtg==
+X-Received: by 2002:a37:6196:: with SMTP id v144mr33880616qkb.128.1619685930380;
+        Thu, 29 Apr 2021 01:45:30 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:fb47:: with SMTP id c7ls678643wrs.0.gmail; Wed, 28 Apr
- 2021 12:36:44 -0700 (PDT)
-X-Received: by 2002:adf:cf0f:: with SMTP id o15mr11441367wrj.181.1619638604627;
-        Wed, 28 Apr 2021 12:36:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1619638604; cv=none;
-        d=google.com; s=arc-20160816;
-        b=FmcvuTTFvGuqoAcgTQH/55AgJMhwo610gHVbNvOS4XrHLWLjUic1f4lGe8rZQL+OfS
-         PSKJKST/g8TnFotB8IlUwi/ND0Qdp7R0m9C2CNx5RKFRQo0nPVWK9MyodG09gPOAt5Zd
-         YhFY/GOpdvE1AQeEJYIXjzpClyj/ltENd4qdym+kh0JginmO7bhzupsH+VLialM0grw/
-         f74nIRAmYYdaQfytJICK3IuZ/U5CqEZM32MsdWz1joIZtBKnpTT305Hj9TxzMGQDYe92
-         /Ti+RUuwLTGy89B8UjAXBUJ3uNtRSBQErXcukfuIemMKnzoWnMOv6zxSd6YpM1DSCMiW
-         CntA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject
-         :dkim-signature;
-        bh=rEFd6bJG+gDGGnP+TCP84RkxZyOevuITmHgr+K1cvKE=;
-        b=p74P8j2u01giqpISMHm8judY341Pee0W0Dbd0NFQPd1i9ijf98b9vL1aP4fX35hwOa
-         YQKUpHMMcsHaohmSRE54rV2UarHg/1rxz/UUJn2UpECxQ+WovOGWo5/jRpliZnOQDpQg
-         QtKYhLl9cncLoYEScRJxLkDTisNKev2eHrRWlSOPpRd8Hmxf29aDU7HgJkX44qrd1XRP
-         564E0RBT4pGXe7K4gIARZnZbkox4HCoUJJj79E4bstqt/nw1kycpFF8aPfLNY3hNM74n
-         UAZSRZbidtZQ4SttkzfepYpKz2ASl2Lq/b9JqmzIcAbOiloZ+9vGtN0xGZdKWCrwTfce
-         3pVQ==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=iQKwmWi1;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as permitted sender) smtp.mailfrom=jan.kiszka@web.de;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=web.de
-Received: from mout.web.de (mout.web.de. [212.227.15.14])
-        by gmr-mx.google.com with ESMTPS id p189si268721wmp.1.2021.04.28.12.36.44
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Apr 2021 12:36:44 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as permitted sender) client-ip=212.227.15.14;
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.10.10] ([88.215.87.53]) by smtp.web.de (mrweb005
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1MMGu2-1lvA3M2py2-00Jfjb; Wed, 28
- Apr 2021 21:36:38 +0200
-Subject: Re: HELP about Jailhouse
-To: =?UTF-8?B?5pu55a6P6bmP?= <caohp19@lzu.edu.cn>,
- jailhouse-dev@googlegroups.com
-References: <743a492d.2b32.179176b845e.Coremail.caohp19@lzu.edu.cn>
-From: Jan Kiszka <jan.kiszka@web.de>
-Message-ID: <fa16458f-8b1b-8a08-f3f9-82a37ead5389@web.de>
-Date: Wed, 28 Apr 2021 21:36:36 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.1
+Received: by 2002:ac8:6756:: with SMTP id n22ls1049047qtp.1.gmail; Thu, 29 Apr
+ 2021 01:45:29 -0700 (PDT)
+X-Received: by 2002:a05:622a:164a:: with SMTP id y10mr2088364qtj.373.1619685929644;
+        Thu, 29 Apr 2021 01:45:29 -0700 (PDT)
+Date: Thu, 29 Apr 2021 01:45:28 -0700 (PDT)
+From: Stefano Gurrieri <gurrieristefano@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <dd1ffb4f-3c78-4a8d-9982-7b589e0f3754n@googlegroups.com>
+Subject: use uart3 from inmate cell
 MIME-Version: 1.0
-In-Reply-To: <743a492d.2b32.179176b845e.Coremail.caohp19@lzu.edu.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:DIpGD9SivUM0rCp/YmBJqTlhUUB9PrHpS1R1TtIvznUFbrNusCV
- pZh+Vtlffk1FVjuea8+RGXc7bmu2/vxdhA7hBN1Yq6c1UFLAzfk1ZBCLm+kCvHjpxv4khLL
- OgWooGxAL4U5/SaIJ2FNGMkKcJSp3132LVJXNYX6n6gmku84vYFSGoFpji7C7fZ6GR5Jqxj
- 4WkDR9j62+DwFWhrhbDBw==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:Z7ClToG8Boc=:N7olJogBeufpzSNiZi7gZM
- NeLIwJP7ej1H5rYwmud624Z+aM6joVJG0ddZMawynxoeccXRW67eWcL4ltsTpS0Khn0b3XrRB
- SWJi0nDju49qImfK1WwX5uuQS4HKKNurBHSmEscQ5tYzDTMKePmda2oPJY0BtkMyFOWkqgp6m
- oJgGUqv7PGruZnIIGSdY60/nrLl13wJS3Q2TmGYd0T3axtwSQYClOBJwgH2JaB5eT+YUhup9Y
- tYKFLYcotFchxwUoeHDM6cxWHnpDl6tqkNcB5yl4rZTIDuEOyKvdqx9zKA074udvZEFiTN4sV
- tpdRBB6ooKcziA5AURXQAbblDobZB3mJgMt7yNeFA+9/WVkkOT+Fsa9rwoBRon3TI41mCYv6P
- bsVBojlmU+D3XJLJn8JkGdT+zB5WlY74PYKYw2L/ocU4fw5HDIcqPfFMw/xyt/NrBO8/ZaUN7
- Xi6BNHFvlu/Ka7IWhmWHnP64G0QxvzWneBrqmN24ZjZ1CfA73imESwQYYWWQ50apDVb9h3miZ
- PkdIx61ipqvR0hIIYkPDX57vr7WwPvOwfAnx5rZc7NnohOcdbCcz1njetYW2pdj/6wzzreK9o
- /HyVULu/aS8joGjqHKDcgPrySpzfG1kQawx2PK2jz1ziJyw/5iXAt0lXQVtKFrnkWTCmoY1JE
- Pn4uY+vgvjhtaJi8JUMWoU2R7wgrnQboqtyItTv8wYpnPzkDT1woLYKlyfRdoz2TL8Uz1I9tq
- RbEWSWQGzuYTkcG/m1CDdgyZuYWki53vXHhKAJh1098n8/23YKGP54jXJj3YGqeGqBNhYmnXM
- V3pK0IBV7cOTjfjQISV2jhYjC6ssIySl9HNgD/EISvHAcSKJw4US77ufjdaqM2/WZfQfibJ8A
- fr3Biv+MBjAPCKEY2AlMNscHNS7VuZ9B22RyhdMyIOLdaxUmgZRYRyDVmlXELDdaMYFCYqg9U
- Z7pNmlxURkn/zu6wflyGY57+ormDDBgStuyLZsQiLUPZVEMMjBMixXWlhl52OO8MrxrMUEzCy
- owdHl5MOSORi8QQ/7QCClKbuvQ6sws+3A4xbivP6zVdvcADfXuq/9LxcJ4Voh1ktjrKkpnJN2
- rKRrCMSiHnXSqeeseENisF7wprXXnnz4AYl7nrhKTlor4DZ4xLwGNQiXjt+WKnN17RUuEuU8h
- PlNruyAmYwkJgKvwzayGvItAboqEl6pmBL8oJ2yAcVFgwn0lYcFATyNLVa2MG+sTwY7Gk=
-X-Original-Sender: jan.kiszka@web.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b=iQKwmWi1;       spf=pass
- (google.com: domain of jan.kiszka@web.de designates 212.227.15.14 as
- permitted sender) smtp.mailfrom=jan.kiszka@web.de;       dmarc=pass (p=NONE
- sp=QUARANTINE dis=NONE) header.from=web.de
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_534_1416784873.1619685928818"
+X-Original-Sender: gurrieristefano@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -158,52 +75,67 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 28.04.21 09:39, =E6=9B=B9=E5=AE=8F=E9=B9=8F wrote:
-> Dear sir,
-> Last year, I used the rapi-linux-demo.cell to launch a second cell on my =
-Raspberry Pi 4 model B. And the memory size of second cell was about 184M.
-> However, that is not enough to me to execute some test on it. So I try to=
- change the size of the cell in the rpi-linux-demo.c, but it failed (maybe =
-occupied
->  other's memory, I don't know). A good news is, someone fixed this proble=
-m. The demo can provide 1G memory size=EF=BC=8C and I git clone the new pro=
-ject.
->
-> BUT when I executed the operations same with before, I can not build the =
-jailhouse
->
-> my operations is:
-> 1. git clone https://github.com/siemens/jailhouse.git
-> 2. sudo make &amp;&amp; make modules_install &amp;&amp; make install
-> 3. sudo insmod driver/jailhouse.ko
-> 4. sudo jailhouse enable configs/arm64/rpi4.cell
->
-> The 4th step is failed, the error is:
-> JAILHOUSE_ENABLE: Invalid argument
->
-> I don't know why it occurs. Because there are two project on my Raspberry=
- (one is new, the other is cloned in last year ), the old one can run prope=
-rly.
-> If I can get your generous help, I will appreciate.
->
+------=_Part_534_1416784873.1619685928818
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_535_1499963551.1619685928818"
 
-First thing to check if you modified the configs:
+------=_Part_535_1499963551.1619685928818
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-jailhouse config check configs/arm64/rpi4.cell
 
-Also check if Jailhouse issues any error on the kernel console.
 
-Then you may try setting CONFIG_TRACE_ERROR (see [1]) to get a pointer
-to root of the problem - if it is found by the hypervisor.
+Hello,
 
-Without seeing all your changes, it's hard to give more concrete
-suggestions.
+I=E2=80=99ve experimented succefully jailhouse on my target (var-som-mx8m-m=
+ini +=20
+symphony carrier board); specifically I=E2=80=99ve tested a second linux an=
+d other=20
+demos (ivshmem-demo, gic-demo...).=20
 
-Jan
+Furthermore, I=E2=80=99ve cross-compiled a very easy bare-metal application=
+, but=20
+I=E2=80=99m not able to use UART3 (second uart) from this cell (linux root =
+cell=20
+send correctly debug messages on UART4 -first uart-). Attached you can find=
+:
 
-[1]
-https://github.com/siemens/jailhouse/blob/master/Documentation/hypervisor-c=
-onfiguration.md
+- *imx8mm-uart-demo.c*                  my config cell
+
+- *uart-demo.c*                                   demo loaded into inmate=
+=20
+cell
+
+Runtime, after enabling jailhouse, I enter:
+
+jailhouse cell create /usr/share/jailhouse/cells/imx8mm-uart-demo.cell
+
+jailhouse cell load 1 /usr/share/jailhouse/inmates/uart-demo.bin
+
+jailhouse cell start 1
+
+In theory, I should be able to see =E2=80=9C*printk(=E2=80=9Dblablabla=E2=
+=80=9D)* messages on my=20
+uart3 console (the second serial console), but I don=E2=80=99t see anything=
+.
+
+***
+
+Questions:
+
+1. Have you some idea? What I got wrong?
+
+2. The config cell seems correct, but I=E2=80=99m asking who initialize uar=
+t3=20
+serial? Linux? Because if it=E2=80=99s linux, the uart3 is disabled in the =
+dtb. Is=20
+it possible initialize uart3 serial also into jailhouse?
+
+Thanks a lot for your help in advance!
+
+Kind regards.
+
+Stefano
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -211,4 +143,159 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/fa16458f-8b1b-8a08-f3f9-82a37ead5389%40web.de.
+jailhouse-dev/dd1ffb4f-3c78-4a8d-9982-7b589e0f3754n%40googlegroups.com.
+
+------=_Part_535_1499963551.1619685928818
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<p>Hello,</p><p>I=E2=80=99ve experimented succefully jailhouse on my target=
+ (var-som-mx8m-mini + symphony carrier board); specifically I=E2=80=99ve te=
+sted a second linux and other demos (ivshmem-demo, gic-demo...).&nbsp;</p><=
+p>Furthermore, I=E2=80=99ve cross-compiled a very easy bare-metal applicati=
+on, but I=E2=80=99m not able to use UART3 (second uart) from this cell (lin=
+ux root cell send correctly debug messages on UART4 -first uart-). Attached=
+ you can find:</p><p>-&nbsp;<b>imx8mm-uart-demo.c</b>&nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; my&nbsp;config cell</p><p>-&nbsp;<=
+b>uart-demo.c</b>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dem=
+o loaded into inmate cell</p><p>Runtime, after enabling jailhouse, I enter:=
+<br></p><p>jailhouse cell create /usr/share/jailhouse/cells/imx8mm-uart-dem=
+o.cell</p><p>jailhouse cell load 1 /usr/share/jailhouse/inmates/uart-demo.b=
+in</p><p>jailhouse cell start 1</p><p>In theory, I should be able to see =
+=E2=80=9C<i>printk(=E2=80=9Dblablabla=E2=80=9D)</i>&nbsp;messages on my uar=
+t3 console (the second serial console), but I don=E2=80=99t see anything.</=
+p><p>***</p><p>Questions:</p><p>1. Have you some idea? What I got wrong?</p=
+><p>2. The config cell seems correct, but I=E2=80=99m asking who initialize=
+ uart3 serial? Linux? Because if it=E2=80=99s linux, the uart3 is disabled =
+in the dtb. Is it possible initialize uart3 serial also into jailhouse?</p>=
+<p>Thanks a lot for your help in advance!</p><p>Kind regards.</p><p>Stefano=
+</p>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/dd1ffb4f-3c78-4a8d-9982-7b589e0f3754n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/dd1ffb4f-3c78-4a8d-9982-7b589e0f3754n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_535_1499963551.1619685928818--
+
+------=_Part_534_1416784873.1619685928818
+Content-Type: text/plain; charset=US-ASCII; name=imx8mm-uart-demo.c
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename=imx8mm-uart-demo.c
+X-Attachment-Id: 63d3e5ea-be77-4158-932d-5fd22e403727
+Content-ID: <63d3e5ea-be77-4158-932d-5fd22e403727>
+
+/*
+ * iMX8MM target - uart-demo
+ *
+ * Copyright 2018-2019 NXP
+ *
+ * Authors:
+ *  Peng Fan <peng.fan@nxp.com>
+ *
+ * This work is licensed under the terms of the GNU GPL, version 2.  See
+ * the COPYING file in the top-level directory.
+ */
+
+#include <jailhouse/types.h>
+#include <jailhouse/cell-config.h>
+
+struct {
+	struct jailhouse_cell_desc cell;
+	__u64 cpus[1];
+	struct jailhouse_memory mem_regions[3];
+} __attribute__((packed)) config = {
+	.cell = {
+		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
+		.revision = JAILHOUSE_CONFIG_REVISION,
+		.name = "uart-demo",
+		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+
+		.cpu_set_size = sizeof(config.cpus),
+		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+		.num_irqchips = 0,
+		.num_pci_devices = 0,
+
+		.console = {
+			.address = 0x30880000,
+			.type = JAILHOUSE_CON_TYPE_IMX,
+			.flags = JAILHOUSE_CON_ACCESS_MMIO |
+				 JAILHOUSE_CON_REGDIST_4,
+		},
+	},
+
+	.cpus = {
+		0x8,
+	},
+
+	.mem_regions = {
+		/* UART3 */ {
+			.phys_start = 0x30880000,
+			.virt_start = 0x30880000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
+		},
+		/* RAM: start from the bottom of inmate memory */ {
+			.phys_start = 0xb3c00000,
+			.virt_start = 0,
+			.size = 0x00010000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+		},
+		/* communication region */ {
+			.virt_start = 0x80000000,
+			.size = 0x00001000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_COMM_REGION,
+		},
+	}
+};
+
+------=_Part_534_1416784873.1619685928818
+Content-Type: text/plain; charset=US-ASCII; name=uart-demo.c
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename=uart-demo.c
+X-Attachment-Id: b29c6910-c7d3-4353-b753-756cc94c9cf5
+Content-ID: <b29c6910-c7d3-4353-b753-756cc94c9cf5>
+
+/*
+ * Jailhouse, a Linux-based partitioning hypervisor
+ *
+ * Copyright (c) ARM Limited, 2014
+ *
+ * Authors:
+ *  Jean-Philippe Brucker <jean-philippe.brucker@arm.com>
+ *
+ * This work is licensed under the terms of the GNU GPL, version 2.  See
+ * the COPYING file in the top-level directory.
+ */
+
+#include <inmate.h>
+
+void inmate_main(void)
+{
+	unsigned int i = 0, j;
+	/*
+	 * The cell config can set up a mapping to access UARTx instead of UART0
+	 */
+	while(++i) {
+		for (j = 0; j < 100000000; j++);
+		printk("Hello Stefano from baremetal cell!\n");
+	}
+
+	/* lr should be 0, so a return will go back to the reset vector */
+}
+
+------=_Part_534_1416784873.1619685928818--
