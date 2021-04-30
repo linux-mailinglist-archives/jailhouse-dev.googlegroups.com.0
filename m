@@ -1,70 +1,121 @@
-Return-Path: <jailhouse-dev+bncBC7PTOEB2ALRB4W4VWCAMGQE7BERJCQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBAABBP7HVWCAMGQE5BV5URA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qk1-x73a.google.com (mail-qk1-x73a.google.com [IPv6:2607:f8b0:4864:20::73a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1820636F41B
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 30 Apr 2021 04:41:55 +0200 (CEST)
-Received: by mail-qk1-x73a.google.com with SMTP id m1-20020a05620a2201b02902e5493ba894sf5160794qkh.17
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Apr 2021 19:41:55 -0700 (PDT)
+Received: from mail-ed1-x53b.google.com (mail-ed1-x53b.google.com [IPv6:2a00:1450:4864:20::53b])
+	by mail.lfdr.de (Postfix) with ESMTPS id AEDDD36F436
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 30 Apr 2021 05:04:32 +0200 (CEST)
+Received: by mail-ed1-x53b.google.com with SMTP id s20-20020a0564025214b029038752a2d8f3sf10429683edd.2
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Apr 2021 20:04:32 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1619751872; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=g62oZe/Wpec/n4gAbbqaKIJK1a0f4jqnZNQwpgChnQXWKBSftHXHSNfSbh5tfapwkS
+         1qMXdu+O/T15LFBcZzRVa6PBRotbYCukpq1wKRp2YzOLZMtKoYLEh3pD8fl5ttH8wOOA
+         LW2gu7MP7YJzlzteKmoMZDc71p1SK66/P3PmSMIQxNLFN+njUSgyhuDnLguqDCJ77Jf2
+         8+VivhmB7+TyEhLyJzAlH4f7TsxyYm5uj/MexfSpBoEpeV8FITarTloWr/jkdaKhm5S2
+         DzThB/mwaq8yb0f6GNGVng0kTdpCZ2AL4qfEpZ22irzTamH+/14tKEB6Gm7xPnc3mMCE
+         JvQA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:message-id:mime-version
+         :content-transfer-encoding:subject:to:from:date:sender
+         :dkim-signature;
+        bh=15m7zyLuzxAIsJ2KSxjeyc7ZyHjyFpimScGT3AfLlsY=;
+        b=OYKi57+7+Y1u/EgBfIoXXedfXMdLgmiWYcfZTmZDBNasv2xVgdR4jV+Ysh5uFBQQKH
+         DdPWNSlfKFrs2SugKP3dk+DtgiyCt4qWjqNq1m1x3Y5XfuVAO8Dy+z7tfUDkMa3ZeR32
+         KBikkbFAEeHgfl8ypdFTQK9eQ5W9TGwE5O1pYEMo1OqKMP+heeD9EsZUPWdy/Shw2cMo
+         8LiHPIfH+8Vm/dMCcINzbCT6iQjHJJqpyma5JMchssnXHzFbvJ4VwrVO2mhau1QlmazF
+         1CiscFvS0RONY5ztED9c8XnIwdUG9E6Kq3jgTDSQ+VP4Daew3lRQ7Anl717dHt4LuLJM
+         +OlQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of caohp19@lzu.edu.cn designates 165.227.154.27 as permitted sender) smtp.mailfrom=caohp19@lzu.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=HoPK+PcdWdp/u/Zv7Gnyz5DdzZ9r6OIA1/CmRwoQ8Cs=;
-        b=f0RGTJ7u4oSkJXkfpUgqHdxtt9Q7fAmWlGifaP7hUfC9/vEaABwFWubsayyX1nPMCm
-         YPpk7i6X+R+KES8IX48lDi+0RnCEJu65+46IdTYUpy0XDlyKR5mUogT0fQQfTTbbTGJd
-         d07LihhQj7gqjIdbxyL+mpGmUruSdSetYuK6j6V9LA/H24vTtReszBvEnRh3jgS2apEM
-         IA8YXpXfpM326lAZkQlqL9EK/MHucRueNVlq+jLg+PcLTrIaN4n2p8sKf9hM8wqSYxOC
-         hfb9AOb/2ATd8gAkMdTD/PoWnFsgmlm2I8o2TV7UF4yMV79/RdlWdx6ui/q8dOoHFCMU
-         Ax0g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=HoPK+PcdWdp/u/Zv7Gnyz5DdzZ9r6OIA1/CmRwoQ8Cs=;
-        b=X6cIwM7iq8Z+IPr0Xucf1Gtn8+tm+lRsfg/Q2BYGCVvbuEkx6VzR8z2uaoeNwFcqI4
-         e82LVjnUDbLHfG+6szCfimlyJXqRnJ36OtrGGVdl9nJkzLv2KachX/Gy4NeqwLI9fnzU
-         Qk6q24XCsHePcGqo3tktrJQaw8qTG5Hn6mj441wiem/bf7VxWCGCQJxwEr6Mmy32T5j7
-         WTzmWvjUWibCj+nTe64qpvg/KSLhHawkT4BMJykGikXuj2puCWrw2B5YCuViDdNUnAfU
-         wQMFye5oQB9P8IToG6Zpus4rIVlFVwVNFEv6koX/tBwGZADXPP5Qbn5nUQKd7vsHRgDd
-         E12Q==
+        h=sender:date:from:to:subject:content-transfer-encoding:mime-version
+         :message-id:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=15m7zyLuzxAIsJ2KSxjeyc7ZyHjyFpimScGT3AfLlsY=;
+        b=i1G4y5DGatl+z0IR22/17fj8qwl7C0jiraFVsGqF0UY6Jhy11z5FucO0FRZPSMtqLx
+         x5bcObG/Iefa2LYVRB/mHa+HOmNgt/me1B64+OHSq10kHMKGtyS6CbO6pWl9x73MhRms
+         X4ypD+V6TsURkySUZTTvcxvTVQqWLi7k24JMUf+U9DPeyJdvJb/zLKGmd+R0mAaD+ltx
+         onL1rw+/SZBZfJH2AqB2lMxAPP4S3ZqRrg/CQKqL20mMoUT+lT15M4nxCRKx1GBoxYb6
+         KB3rmc4jwYCKDqeE5MXo4U5bhy2eO5HYU8OdcINf3zW9yAZcDB8vqJkCya/bzCWGU8oY
+         Ab/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=HoPK+PcdWdp/u/Zv7Gnyz5DdzZ9r6OIA1/CmRwoQ8Cs=;
-        b=P4KqWkTQ613wmt7XVbCn+6kHFqm3rmCE1WnqqCeUtIQWzARGXzDhfoLXZHtWNewznd
-         Gs7u/b6Hk5YJ9WA3WzhtZys1OchVo06/70OwRygz8ysP00m9oVbxKEcQFQJQT4xc+cVo
-         VKXquQrwOL0qTVeN5CPEShISyOXUIKzicO6mVfFUt5g/jeFOJeRaOsOEmSrwvaVnwtUo
-         ghekhHo8GkjXSh5lK1Var6Gn/hJuaEN6pAu8pqMv4LJAwEKo33pY2PNsCoKnzb+cd5/n
-         r5u8esPtygs0Lk/Te4H3VC2pWnrUeen2RdU17kSKiSL99zarCM6LEyVhQZgoCA4rx9UU
-         i+Gw==
+        h=sender:x-gm-message-state:date:from:to:subject
+         :content-transfer-encoding:mime-version:message-id:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=15m7zyLuzxAIsJ2KSxjeyc7ZyHjyFpimScGT3AfLlsY=;
+        b=hlZU2AdG1B58hH4bYUYejXGUb0yUOLbMljrWZhBB9XuFoYpX90m/XGKpQE1eVtUEj4
+         1rKj9XcgmsMCFmietaDleJzD7i3XHOW4BhodDEw6pPwAH9n0foOlX64w+6m95zjf6uwK
+         EloyN2KWiQt7r7/R+v+jHiOkn8CGphRWipsyLhTXgFSB4192Sp1BsAlUN5MMWTEZeTrc
+         7pblmBlLk+wRdF0mG2xAg1+928RDyTC3jOQXXPzuaX6OVdGEN25+OLsomGmvKbrGkI68
+         DUdOv72hsUyAe81mhkrFjB68VK/Xx/RMY+eSjYio4T65NNHopnw+u3yxcwJ1GNWJ2y1X
+         Xhtg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530LGMpwEP2raL37d7ESZBc5b7fV3zgrAw9EkXT4U9Bzs+S4RkRv
-	YZFevNdodrLZyeKOT/PBd8s=
-X-Google-Smtp-Source: ABdhPJzXkdc7vh8vaL4YVX/yp1oZmn5j4fhoBIZsLhemHb4bRMswRMkRnFJ3qv5btQDbbuGIdcw51w==
-X-Received: by 2002:a37:8bc2:: with SMTP id n185mr3021074qkd.320.1619750514172;
-        Thu, 29 Apr 2021 19:41:54 -0700 (PDT)
+X-Gm-Message-State: AOAM531rcstTzAndV8vog1KFbvDLlS/IQb63EIFmLD35fBuvD5QNbHhk
+	0ut97yqmwBlpdl4J2FiuGDk=
+X-Google-Smtp-Source: ABdhPJxbbwKOpZEB45Oa+2FFlNT0zm3cRAkg5iT3HA7W628vyufg7Heu6q7+WMT6ajazno3Vrfm3dw==
+X-Received: by 2002:aa7:c7da:: with SMTP id o26mr3139768eds.244.1619751872401;
+        Thu, 29 Apr 2021 20:04:32 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ad4:4a34:: with SMTP id n20ls1483658qvz.11.gmail; Thu, 29
- Apr 2021 19:41:53 -0700 (PDT)
-X-Received: by 2002:ad4:4eaa:: with SMTP id ed10mr2915752qvb.22.1619750513614;
-        Thu, 29 Apr 2021 19:41:53 -0700 (PDT)
-Date: Thu, 29 Apr 2021 19:41:53 -0700 (PDT)
-From: along li <v6543210@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <a83de6d2-e84f-42f3-a1e7-84a782ffb28fn@googlegroups.com>
-In-Reply-To: <743a492d.2b32.179176b845e.Coremail.caohp19@lzu.edu.cn>
-References: <743a492d.2b32.179176b845e.Coremail.caohp19@lzu.edu.cn>
-Subject: Re: HELP about Jailhouse
+Received: by 2002:a50:fa90:: with SMTP id w16ls3008706edr.1.gmail; Thu, 29 Apr
+ 2021 20:04:31 -0700 (PDT)
+X-Received: by 2002:a50:fc91:: with SMTP id f17mr3104164edq.23.1619751871364;
+        Thu, 29 Apr 2021 20:04:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1619751871; cv=none;
+        d=google.com; s=arc-20160816;
+        b=oelbSSJZWELPXfaXd8WRyQdeVxgfZpP4ARl1rFXWCnCVo1mQ7rAWq4KcvXAO7tihL3
+         MvULTrBEOXlD7pi2kCzumLNrFlYA7ek3R29BTux5T811kXCJ1NwPkHxr+TyG7HNeRf1B
+         q6qS5tHvkF9ihf5KIkIvsfwmljpYub64V0F52ahrn93DL10VweCEY21KFIc6FH25n9JB
+         +e8VZc5pltVqrVuIYPnbGgwQ2yawqmn5UqvTP+1HXwTRLdac3/0JGnZl0bXR1BJqDO2j
+         5CJFjz8ZRvSP/60WWcLuXM5Yxv5EfGoYpRhYB6lhB8UyGFimmrsHeVxCQDvlgqEboDqI
+         cZsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=message-id:mime-version:content-transfer-encoding:subject:to:from
+         :date;
+        bh=H4PPNzBOYW4ZenUda0uOfo+EfrFh6oEUtSXDlhh6/qI=;
+        b=K6Sh2Rvsx9gVn8ELusf7AAwTlgvZLffWYQPdVBVfo4F8/veyeZ3HguLQL9I3IJCnBW
+         TS8E//KXpiViuj8d2EU14p4L9U97BcSY8rEhENimrYyluIWH1uqn8rMdSvqccEqpIF4I
+         xx9TpuoyRTUZIn0s/bYgqXMC1CnCDpmcz7S7Z1QnJRX0rWOZ3Utqap6xmkSuXAi4eHeM
+         uYTSDhcoNsiDL42sDkNXTYrJupsZ4/wPCnewY8UMo5wyN/vqWeRnj+iaNBDixANkQmY/
+         fW189AcupXi25SDYDkTDEJhDHJBSWIHYJ2eQhnD463jQtFAHNQMCLPiX50/aq5BXFrRm
+         q9/A==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of caohp19@lzu.edu.cn designates 165.227.154.27 as permitted sender) smtp.mailfrom=caohp19@lzu.edu.cn
+Received: from zg8tmty1ljiyny4xntqumjca.icoremail.net (zg8tmty1ljiyny4xntqumjca.icoremail.net. [165.227.154.27])
+        by gmr-mx.google.com with SMTP id c11si320840edy.4.2021.04.29.20.04.30
+        for <jailhouse-dev@googlegroups.com>;
+        Thu, 29 Apr 2021 20:04:31 -0700 (PDT)
+Received-SPF: pass (google.com: domain of caohp19@lzu.edu.cn designates 165.227.154.27 as permitted sender) client-ip=165.227.154.27;
+Received: by ajax-webmail-app1 (Coremail) ; Fri, 30 Apr 2021 11:04:27 +0800
+ (GMT+08:00)
+X-Originating-IP: [210.26.59.142]
+Date: Fri, 30 Apr 2021 11:04:27 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?5pu55a6P6bmP?= <caohp19@lzu.edu.cn>
+To: jailhouse-dev@googlegroups.com
+Subject: HELP about Jailhouse
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version XT5.0.12 build 20200616(0f5d8152)
+ Copyright (c) 2002-2021 www.mailtech.cn lzu.edu.cn
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_66_166577537.1619750513010"
-X-Original-Sender: v6543210@gmail.com
+Message-ID: <3f44dbbd.3c81.17920bc1642.Coremail.caohp19@lzu.edu.cn>
+X-Coremail-Locale: en_US
+X-CM-TRANSID: ygmowADHU_m8c4tgkekQAA--.5427W
+X-CM-SenderInfo: hfdrx1arz6z6vxohv3gofq/1tbiAQsHBl2vOvUlHgAAsN
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
+X-Original-Sender: caohp19@lzu.edu.cn
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of caohp19@lzu.edu.cn designates 165.227.154.27 as
+ permitted sender) smtp.mailfrom=caohp19@lzu.edu.cn
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -77,61 +128,63 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_66_166577537.1619750513010
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_67_24294404.1619750513010"
+Dear sir,
+&gt; Dear sir,
+&gt; Last year, I used the rapi-linux-demo.cell to launch a second cell on =
+my Raspberry Pi 4 model B. And the memory size of second cell was about 184=
+M.
+&gt; However, that is not enough to me to execute some test on it. So I try=
+ to change the size of the cell in the rpi-linux-demo.c, but it failed (may=
+be occupied
+&gt;  other's memory, I don't know). A good news is, someone fixed this pro=
+blem. The demo can provide 1G memory size=EF=BC=8C and I git clone the new =
+project.
+&gt;
+&gt; BUT when I executed the operations same with before, I can not build t=
+he jailhouse
+&gt;
+&gt; my operations is:
+&gt; 1. git clone https://github.com/siemens/jailhouse.git
+&gt; 2. sudo make &amp;&amp; make modules_install &amp;&amp; make install
+&gt; 3. sudo insmod driver/jailhouse.ko
+&gt; 4. sudo jailhouse enable configs/arm64/rpi4.cell
+&gt;
+&gt; The 4th step is failed, the error is:
+&gt; JAILHOUSE_ENABLE: Invalid argument
+&gt;
+&gt; I don't know why it occurs. Because there are two project on my Raspbe=
+rry (one is new, the other is cloned in last year ), the old one can run pr=
+operly.
+&gt; If I can get your generous help, I will appreciate.
+&gt;
 
-------=_Part_67_24294404.1619750513010
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+First of all, thanks for Jan give me advice. I accept his advice and obtain=
+ some information.
+(NOTE: I just used the new project and I never changed the configs/arm64/rp=
+i4.c)
+when I execute=20
+jailhouse enable rpi4.c
+the error is=20
+ JAILHOUSE_ENABLE: Invalid argument
+and then I see some information from the putty
+jailhouse:request_mem_region failed for hypervisor memory=20
+I don't know whether this error caused or not. Because I can run successful=
+ly using old project and it also warn this problem. And I execute the follo=
+wed command
+sudo jailhouse config check configs/arm64/rpi4.cell=20
+the message is:
 
-the jailhouse from  jailhouse-images is   github.com/simens/jailhouse =20
-"next" branch. =20
-not the  master branch.
-maybe it's different.
+Reading configuration set:
+  Root cell:     Raspberry-Pi4 (configs/arm64/rpi4.cell)
+Overlapping memory regions inside cell: None
+Overlapping memory regions with hypervisor: None
+Missing PCI MMCONFIG interceptions: None
+Missing resource interceptions for architecture arm64: None
 
+So what should I do ? If I can get your generous help , I will appreciate.
 
-=E5=9C=A82021=E5=B9=B44=E6=9C=8828=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=89 UTC+=
-8 =E4=B8=8B=E5=8D=883:39:57<=E6=9B=B9=E5=AE=8F=E9=B9=8F> =E5=86=99=E9=81=93=
-=EF=BC=9A
-
-> Dear sir,
-> Last year, I used the rapi-linux-demo.cell to launch a second cell on my=
-=20
-> Raspberry Pi 4 model B. And the memory size of second cell was about 184M=
-.
-> However, that is not enough to me to execute some test on it. So I try to=
-=20
-> change the size of the cell in the rpi-linux-demo.c, but it failed (maybe=
-=20
-> occupied
-> other's memory, I don't know). A good news is, someone fixed this problem=
-.=20
-> The demo can provide 1G memory size=EF=BC=8C and I git clone the new proj=
-ect.
->
-> BUT when I executed the operations same with before, I can not build the=
-=20
-> jailhouse
->
-> my operations is:
-> 1. git clone https://github.com/siemens/jailhouse.git
-> 2. sudo make &amp;&amp; make modules_install &amp;&amp; make install
-> 3. sudo insmod driver/jailhouse.ko
-> 4. sudo jailhouse enable configs/arm64/rpi4.cell=20
->
-> The 4th step is failed, the error is:
-> JAILHOUSE_ENABLE: Invalid argument
->
-> I don't know why it occurs. Because there are two project on my Raspberry=
-=20
-> (one is new, the other is cloned in last year ), the old one can run=20
-> properly.
-> If I can get your generous help, I will appreciate.
->
-> Yours sincerely,
-> Hongpeng Cao.=20
->
+Yours,
+Hongpeng Cao.=20
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -139,55 +192,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/a83de6d2-e84f-42f3-a1e7-84a782ffb28fn%40googlegroups.com.
-
-------=_Part_67_24294404.1619750513010
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-the jailhouse from&nbsp; jailhouse-images is&nbsp; &nbsp;github.com/simens/=
-jailhouse&nbsp; "next" branch.&nbsp;&nbsp;<div>not the&nbsp; master branch.=
-</div><div>maybe it's different.<br><div><br></div><div><br></div></div><di=
-v class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">=E5=9C=A8202=
-1=E5=B9=B44=E6=9C=8828=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=89 UTC+8 =E4=B8=8B=
-=E5=8D=883:39:57&lt;=E6=9B=B9=E5=AE=8F=E9=B9=8F> =E5=86=99=E9=81=93=EF=BC=
-=9A<br/></div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8e=
-x; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">Dear sir,=
-<br>Last year, I used the rapi-linux-demo.cell to launch a second cell on m=
-y Raspberry Pi 4 model B. And the memory size of second cell was about 184M=
-.<br>However, that is not enough to me to execute some test on it. So I try=
- to change the size of the cell in the rpi-linux-demo.c, but it failed (may=
-be occupied<br> other&#39;s memory, I don&#39;t know). A good news is, some=
-one fixed this problem. The demo can provide 1G memory size=EF=BC=8C and I =
-git clone the new project.<p>BUT when I executed the operations same with b=
-efore, I can not build the jailhouse<p>my operations is:<br>1. git clone <a=
- href=3D"https://github.com/siemens/jailhouse.git" target=3D"_blank" rel=3D=
-"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dzh-CN&am=
-p;q=3Dhttps://github.com/siemens/jailhouse.git&amp;source=3Dgmail&amp;ust=
-=3D1619836653367000&amp;usg=3DAFQjCNGsgNMZn_pfnEo4Z_8_IVqL3gL30w">https://g=
-ithub.com/siemens/jailhouse.git</a><br>2. sudo make &amp;amp;&amp;amp; make=
- modules_install &amp;amp;&amp;amp; make install<br>3. sudo insmod driver/j=
-ailhouse.ko<br>4. sudo jailhouse enable configs/arm64/rpi4.cell <p>The 4th =
-step is failed, the error is:<br>JAILHOUSE_ENABLE: Invalid argument<p>I don=
-&#39;t know why it occurs. Because there are two project on my Raspberry (o=
-ne is new, the other is cloned in last year ), the old one can run properly=
-.<br>If I can get your generous help, I will appreciate.<p>Yours sincerely,=
-<br>Hongpeng Cao. </p></p></p></p></p></blockquote></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/a83de6d2-e84f-42f3-a1e7-84a782ffb28fn%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/a83de6d2-e84f-42f3-a1e7-84a782ffb28fn%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_67_24294404.1619750513010--
-
-------=_Part_66_166577537.1619750513010--
+jailhouse-dev/3f44dbbd.3c81.17920bc1642.Coremail.caohp19%40lzu.edu.cn.
