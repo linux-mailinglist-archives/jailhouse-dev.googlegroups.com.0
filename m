@@ -1,117 +1,121 @@
-Return-Path: <jailhouse-dev+bncBDS77PFL3YERBXGM3CCAMGQEUCCXDHY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBAABBTHR4OCAMGQEJN6EFEY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x238.google.com (mail-lj1-x238.google.com [IPv6:2a00:1450:4864:20::238])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E7FD376FD5
-	for <lists+jailhouse-dev@lfdr.de>; Sat,  8 May 2021 07:49:17 +0200 (CEST)
-Received: by mail-lj1-x238.google.com with SMTP id m13-20020a2ea58d0000b02900befedba4e4sf5801500ljp.11
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 07 May 2021 22:49:17 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1620452956; cv=pass;
+Received: from mail-ed1-x53a.google.com (mail-ed1-x53a.google.com [IPv6:2a00:1450:4864:20::53a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F839377F27
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 10 May 2021 11:11:40 +0200 (CEST)
+Received: by mail-ed1-x53a.google.com with SMTP id c21-20020a0564021015b029038c3f08ce5asf3205398edu.18
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 10 May 2021 02:11:40 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1620637900; cv=pass;
         d=google.com; s=arc-20160816;
-        b=QkAOxRrDgbmujyPf9FeQB6tP80ab3g8UTg/7EWkMqYZoS3XBl36LVdAMf4jFFru7Bx
-         meNUOcb5JaKtSE7FxXp32uev1+EaNEoQvbe2D4Hh0Iu+K237bBQf1udvXsaIu62fDprK
-         0oJ8jnvYYNY3OH2kj9WwC+8MMbqy3rxhGoRdj1GW1YwHYUN4baYkjzGNA3Tq6VQoJW1c
-         2CwFbipWMSjSnMOl21+D+45mQrVGHA0HI5XNO+/bnChSczGQaYoGYcen9qL/EY7jT/NZ
-         M02YBpaM9Z77p8kSHOnvTFcaLSfaFdHT8hMlzEFjWbtR87vG8hNflUIxMtCwDpKrObJJ
-         tWeA==
+        b=dKaWD6o5oapJVqbm4lpNuI5dnXRumYBARp2KOh+V0KO4O5UKjlTMaJCfJIruEzb3hJ
+         EhZQr2Xe9xbAfZ/V1bU0yW8dlGGt916n5eC4McPgbXuI82cRPsw3CmSxPgFnpH8BzMIj
+         BVutHLIT7r4M/wZ+MveJqPJDDiZHHVV2UpmRazSMooVzJG2gsHAkablSqbM5b/73mz2J
+         /cJohqhl9UImS9OLXrnnSFdHhB/76u2NvSmRzjjcqxcTTW5l8I/wuXr+UhMI5RrJIA/7
+         /4jDIl+RXKVBZrA4DHRP0IIUTUUgzfZm//lXZzvuJWZYuehKHyAKinYgPi2e5sAgvr+7
+         Cd+g==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:sender:dkim-signature;
-        bh=mkI2JYvTG6ravmMuNwIJpkhrUjEGGcSpgFL8CK8SIJk=;
-        b=zcX6EkoZKPFxMOPPwLBV0Zt3o7Z/G2ESecPLJYBjP79XpM+VCPCMAZU+1Ks2dh4EGf
-         jw/m245P+sLskg30VnXplRfTezcB8APErOAAptDBZ43Tn45iTKZW98Vjs/UEDnKEWCvq
-         RjYx5jCMXs9Zxi0sb+IkL3djRSQ3fK4Tj9wmDsuCwb9g2KNKQWHY2s+/z7IQ4wLDi74X
-         TbdUqu6CZbpsNjmvDFOvCqn6hizXS0YvkcWnvcMd3MKtRnbX7vjQxJPb0ytrOcOfIqBn
-         dW9udlaH3Jg6/tMh8nljTX7rIkP1rouj+x/HJkprc00A7MoLg8sOdTWPCW2GvvFURrn1
-         ZxXg==
+         :list-id:mailing-list:precedence:message-id:mime-version
+         :content-transfer-encoding:subject:to:from:date:sender
+         :dkim-signature;
+        bh=1rMyZ/EX49J+Fn6cR2qz9gFwjBZUG6TfGdZ+fcJAKQQ=;
+        b=DSNqZXIwfAc5n35EE2gRl3HKo7g1Q5vhPnIXEYIvJTRPowhm2Rba3230Gn4YTOPVaV
+         03l0TZKdKBHnkPE+AcIBIqN611RRJck8APg77m9EHzJcHMJLme/AnOawMxb/3e6ptoYW
+         LbX7XYOitjpjIpoxZ5yeieijx/SyeK5dS+E03m+WoT39zFWiygmtVR7/lUA/hAUEHZaU
+         pBvIC907DdKmLaz31ikHir4bsCjkN6BMYaHOoaqTwwlaSy1ynt0/QlesbKGsYQsHkin6
+         2Xwn56FBgQB29FGVcQCZAwPk+fgjPjD1m7Jenv3RK8b+HYnphXhbTsyzHSPnHt8QboK0
+         GxHA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@cimware-in.20150623.gappssmtp.com header.s=20150623 header.b=InsBxOy6;
-       spf=pass (google.com: domain of pkali@cimware.in designates 2a00:1450:4864:20::132 as permitted sender) smtp.mailfrom=pkali@cimware.in
+       spf=pass (google.com: domain of caohp19@lzu.edu.cn designates 165.227.154.27 as permitted sender) smtp.mailfrom=caohp19@lzu.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:mime-version:references:in-reply-to:from:date:message-id
-         :subject:to:cc:x-original-sender:x-original-authentication-results
+        h=sender:date:from:to:subject:content-transfer-encoding:mime-version
+         :message-id:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=mkI2JYvTG6ravmMuNwIJpkhrUjEGGcSpgFL8CK8SIJk=;
-        b=dG9bVysJl63oUz6RZfIAaR08ecJbxH6pdSaP2cCDpeCaXC0veCxR4JbfJnE9UGrLHV
-         W+Ml/SqeQuy8U6axxGZMrb2mNWsqmQwSmRKrvL5ROKtUQfwmGU3YjiSTTyF5e1PqVlKK
-         cYttk7f5rbH4fhTUsTuRGvwIqZkl9QbptPkB1gGw4fMu01CAQ9eZIzFfbZap0hqk9n68
-         ip5Gb5Z5UJbgt15lB7a4sbycCQJvNC77DBHz/1wp4L73w5zl3bTwdbQTeuXSR0G2hBYI
-         Opb1MZbmODnhqTbwf3mwhVHf++q9BxXWiJ7PgxU0i4jOupZX+N+D7XiHPZKwMjW8bh/O
-         H55Q==
+        bh=1rMyZ/EX49J+Fn6cR2qz9gFwjBZUG6TfGdZ+fcJAKQQ=;
+        b=Vx6/Kq0Ktf5qc8E+RvFLmtmUSj94uWF8rNoCL4Xu/vXN1IfCEAohdyr6cB5d/HIo24
+         l/XjKtxveHu1qoNs0RJ+LuZrTrhyVIAx7ITEHnpdr7RY2CEFj7DTrXQsWvfIpoxvyaS1
+         WSB/SsoWN5v8/u/U5w1XZs4twxjUK7JU/w9jAUymO1FUCs0yaF4kHtCKtaK5BEQxlKZU
+         ZsyPXk6Rgt2h6iPFPJ9DZTMmKrlTqmeN70yf9BNyzzSm61sBhedn1Ck9+F/toX+RkKnn
+         CBkEu5KQHTFwwCgUBGcqE/uM+bmOfhjGYTRBfiMNdC4ZTI3/IlExM913AVC3UQJcTCLO
+         KuCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
-         :date:message-id:subject:to:cc:x-original-sender
+        h=sender:x-gm-message-state:date:from:to:subject
+         :content-transfer-encoding:mime-version:message-id:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=mkI2JYvTG6ravmMuNwIJpkhrUjEGGcSpgFL8CK8SIJk=;
-        b=siE6choYzbHIUBCEeZKiwsUSzMKWQeHWtieqNgMh7+i8MVhKQwfASqA6y3Y/z5GT7L
-         tZeJurGrYp3x/BMjOW+jfjm6U59zb1zH+sp9bFFQbjAy6lSgZVp4Do7mDE/GBhTKBHNo
-         eyeFI8ZfKiQzUQLR3Lf4MMq6oshuTtI9gCosEuk+zu7bsG3hACqmvYwbaj4fD+Cw0uUl
-         wvxTjOKnpQDmRfiV9GYDZN/h/dBWj8LfmvfArN0P4paqm5FfNjidXB1QaPR3q/Bfhhs8
-         kQhuV2DYoj1Ed9VKDaUPRs+qyBtbfZw2n7LGfX1MB9Sg/S8XzRiDnOq3+olDXeJT8GqG
-         YlIQ==
+        bh=1rMyZ/EX49J+Fn6cR2qz9gFwjBZUG6TfGdZ+fcJAKQQ=;
+        b=hF5bPmruwWm7FFdnN70cOQvwlK/qes3oBaTrtKL+PG3UUEnvqD9bjvc0uA/4ex1GHF
+         WgyOLXn7WxMT9vnDwLXNVF/SSUhoDxAfsDX5T53DCFEhvx3GJTgkPPIcyYtoUBGFRu0S
+         DYY1iVV+HnV1kprMDGy0jBqf0Ora0/Fm5xgNbrb1YeXrfwAA0M2ZKpjEbIVOXLH0Ug6j
+         qJJvlP1nqae4KvftrkAT4n/wdbQ7DPlW1G6pD6GFXvtfZNcvtz6BX4XPtao2JIy484CM
+         Prhj7P2pDpQt0zi/1Z+TgwFzJelf5KgapR7v1vsq+RPXHI/Vn+LG0liRnLyv3KnAAPIH
+         ihcQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531pHDWs98ttaFzrTDpbZfQucDDLAnKt0JomswRz5rcb/AKgRuSL
-	Muggrj9R8CNjk0va9LergEE=
-X-Google-Smtp-Source: ABdhPJwbC4JRV5SWhTB8WhPWBelI+MSi07M7mltJLUClwGvoaqhQL9qP47n3+kCV8rmWGGXd21u5oA==
-X-Received: by 2002:a19:f707:: with SMTP id z7mr8836855lfe.653.1620452956831;
-        Fri, 07 May 2021 22:49:16 -0700 (PDT)
+X-Gm-Message-State: AOAM531B+e0POLymlJwjlNO+EkMAHPiOP7DW4dgMc8E4JdSdjESmfJor
+	65nyfq4reF1kRA2lE9Da0dY=
+X-Google-Smtp-Source: ABdhPJyMs0d581bli7oc1JIv5TRRI1aYUXEyIRvoVYI4UiD0VimP90Z6REBj4hJ9DA4rSGB1tnzvnA==
+X-Received: by 2002:a05:6402:36d:: with SMTP id s13mr28508037edw.103.1620637900307;
+        Mon, 10 May 2021 02:11:40 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac2:5e2c:: with SMTP id o12ls5803567lfg.2.gmail; Fri, 07 May
- 2021 22:49:15 -0700 (PDT)
-X-Received: by 2002:a19:7dc1:: with SMTP id y184mr9118394lfc.96.1620452955218;
-        Fri, 07 May 2021 22:49:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1620452955; cv=none;
+Received: by 2002:a17:906:1901:: with SMTP id a1ls6143896eje.0.gmail; Mon, 10
+ May 2021 02:11:39 -0700 (PDT)
+X-Received: by 2002:a17:906:7f8e:: with SMTP id f14mr7491302ejr.510.1620637899464;
+        Mon, 10 May 2021 02:11:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1620637899; cv=none;
         d=google.com; s=arc-20160816;
-        b=Jn57btRlUeNhzWBEd+lP+yXm010pd7VKqd6oQVcpiB7+DsfqEhbQGM7FpClvF53HUR
-         ad18JdHxXu2gIS8zj5ubHiicjnaTOU4q8+Yi/IkoBa3lb5q67P3RLZ8C2F7q1swiGbrT
-         riihdhMSA3ZbYfO90KpgGdaAocvWFwaxySgBonVT7z4F5C+b96Ehr8+R+F/jXLxNap4T
-         sVDsUE/mqggu1EgXumw9VLAF6B2zu/kJ/lGlyQ5I6ZIYMNKNPpshZcaTjXpoGYqcruc+
-         uJmCSBUCWOtQkMVn4Yd0SIO/pNYKx6XgnMIcg+f/LMLjVcQjfThtPEZco2hFqSINvH88
-         w21Q==
+        b=CPt0QdUZ5yj41zNuQkc4l7rR065/D5C7d23VHpC0MdXAx79/OOeRqgBGOvQPONcKBy
+         qK0w03Imxpdk6RJmy3WK+wyNufVqxhr17wBrfKGwrSy8Y26eKRHlda6imQCglEN8CnKN
+         cIRUsy1034ahFCjMWPJtLGHadqccqnumOHJQfT05hlGVfjuGgBmb/oMe1BcwfgD5jsYc
+         cxDQrCkNw6xBA2K3LOLnXjNV0s/azSJmX4IqROz7XFAWZpCex0pdT+e3d/Ovr1hfzbcb
+         1+5c3ejSAql/wxGJscqf7NlkjXlHNcyVkKdGZiLEqK1+u6P6eodwwGZOWWX/ybxvkueB
+         TN3g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ziYwGmxYqTAslu/rfXC4GkxHkcQ3EPT7AulAKN1ufKA=;
-        b=aVl8T+aJ8lryLRJaG/2vY+dNL+5B29vRPM8bQX+NRoxcZ/XdKF5eD4NVpVysUmeGkX
-         xM+MFmLutYBB983mNGvLWBPo6QIaD0vBkgg5WN7hcGJVfCq28D1O3qOedvZYcvEC2aEd
-         6fkMMlWMMCifsEQIDrbk8EoRBxBSoDID+fQCXljqnPeYBqlDkbLI0SmETU+xOoBYb0xe
-         CdUKjFm4mYlfqJ4F6fKB2DU3asJ/0UGwN1pVPL880l07UkVm9Y4/mp4ENq5Y72f01/rI
-         r370RGTC4JPjz+Yh9qvjPXLPLcfw2qsGG/LBkBdaXek0kckOvzYpjDExDMjTUVC04m1c
-         ianA==
+        h=message-id:mime-version:content-transfer-encoding:subject:to:from
+         :date;
+        bh=So+18XvGpoJXC/h0UIVg73jXQZqXvtZQRpYUrxGAKBo=;
+        b=IhpQTpEnLNOtG4Cgt5/Fos66LQL3NZDDmRS/9LimWZBOUVCeNDOJacknM9T2hZFplS
+         qqbQ6JRW21CYKEnHyYs3FznUoLKQLOPuloZZdfGa53qbqRvLIVjmMtCMzEX/BAE0ywOY
+         Wuc/5hYCWHZmehkueqfKLecS/G3rFQp1xU9y8ZW5Rln4dyGZA+W6wLRdT80Yu/a4b8T9
+         tBa0F5EEZMyp++IH5XQQ2EMhjJqZYCZLNsNgyJmI+CKp48UcGjOF1d6WJGJiB//C2ead
+         Iw8thi4cbsLodBv9AxFql++lMm2B22eZwqhwJN7u3Tf2UAvVsGxM2wJNkZP/aOrZHhxN
+         v07g==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@cimware-in.20150623.gappssmtp.com header.s=20150623 header.b=InsBxOy6;
-       spf=pass (google.com: domain of pkali@cimware.in designates 2a00:1450:4864:20::132 as permitted sender) smtp.mailfrom=pkali@cimware.in
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com. [2a00:1450:4864:20::132])
-        by gmr-mx.google.com with ESMTPS id u22si364223lfu.7.2021.05.07.22.49.14
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 07 May 2021 22:49:14 -0700 (PDT)
-Received-SPF: pass (google.com: domain of pkali@cimware.in designates 2a00:1450:4864:20::132 as permitted sender) client-ip=2a00:1450:4864:20::132;
-Received: by mail-lf1-x132.google.com with SMTP id z9so15737284lfu.8
-        for <jailhouse-dev@googlegroups.com>; Fri, 07 May 2021 22:49:14 -0700 (PDT)
-X-Received: by 2002:ac2:4a8d:: with SMTP id l13mr8884279lfp.493.1620452954208;
- Fri, 07 May 2021 22:49:14 -0700 (PDT)
+       spf=pass (google.com: domain of caohp19@lzu.edu.cn designates 165.227.154.27 as permitted sender) smtp.mailfrom=caohp19@lzu.edu.cn
+Received: from zg8tmty1ljiyny4xntqumjca.icoremail.net (zg8tmty1ljiyny4xntqumjca.icoremail.net. [165.227.154.27])
+        by gmr-mx.google.com with SMTP id di23si570482edb.0.2021.05.10.02.11.38
+        for <jailhouse-dev@googlegroups.com>;
+        Mon, 10 May 2021 02:11:39 -0700 (PDT)
+Received-SPF: pass (google.com: domain of caohp19@lzu.edu.cn designates 165.227.154.27 as permitted sender) client-ip=165.227.154.27;
+Received: by ajax-webmail-app1 (Coremail) ; Mon, 10 May 2021 17:11:36 +0800
+ (GMT+08:00)
+X-Originating-IP: [210.26.59.142]
+Date: Mon, 10 May 2021 17:11:36 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?5pu55a6P6bmP?= <caohp19@lzu.edu.cn>
+To: jailhouse-dev@googlegroups.com, jan.kiszka@web.de
+Subject: HELP about Jailhouse
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version XT5.0.12 build 20200616(0f5d8152)
+ Copyright (c) 2002-2021 www.mailtech.cn lzu.edu.cn
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
 MIME-Version: 1.0
-References: <299a190c-72fb-1027-0efc-7a45b98bffe0@cimware.in> <AS8PR02MB666300B8BE60E746F395D53DB6579@AS8PR02MB6663.eurprd02.prod.outlook.com>
-In-Reply-To: <AS8PR02MB666300B8BE60E746F395D53DB6579@AS8PR02MB6663.eurprd02.prod.outlook.com>
-From: Prashant Kalikotay <pkali@cimware.in>
-Date: Sat, 8 May 2021 11:19:01 +0530
-Message-ID: <CACNW3nS7kc-PwpimTmWFtF-MpFar+3Hsx7RFgOCtfpOOdxFszw@mail.gmail.com>
-Subject: Re: Can Jailhouse work with CentOS
-To: Bram Hooimeijer <bram.hooimeijer@prodrive-technologies.com>
-Cc: jailhouse-dev@googlegroups.com
-Content-Type: multipart/alternative; boundary="000000000000b60a4105c1cb1a96"
-X-Original-Sender: pkali@cimware.in
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@cimware-in.20150623.gappssmtp.com header.s=20150623
- header.b=InsBxOy6;       spf=pass (google.com: domain of pkali@cimware.in
- designates 2a00:1450:4864:20::132 as permitted sender) smtp.mailfrom=pkali@cimware.in
+Message-ID: <2d145c5.8415.179558bd06b.Coremail.caohp19@lzu.edu.cn>
+X-Coremail-Locale: en_US
+X-CM-TRANSID: ygmowAAHRfrI+JhgM+coAA--.10971W
+X-CM-SenderInfo: hfdrx1arz6z6vxohv3gofq/1tbiAQwRBl2vOvZLbQAAsC
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
+X-Original-Sender: caohp19@lzu.edu.cn
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of caohp19@lzu.edu.cn designates 165.227.154.27 as
+ permitted sender) smtp.mailfrom=caohp19@lzu.edu.cn
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -124,126 +128,74 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---000000000000b60a4105c1cb1a96
-Content-Type: text/plain; charset="UTF-8"
+Dear sir,
+&gt; Dear sir,
+&gt; &gt; Dear sir,
+&gt; &gt; Last year, I used the rapi-linux-demo.cell to launch a second cel=
+l on my Raspberry Pi 4 model B. And the memory size of second cell was abou=
+t 184M.
+&gt; &gt; However, that is not enough to me to execute some test on it. So =
+I try to change the size of the cell in the rpi-linux-demo.c, but it failed=
+ (maybe occupied
+&gt; &gt;  other's memory, I don't know). A good news is, someone fixed thi=
+s problem. The demo can provide 1G memory size=EF=BC=8C and I git clone the=
+ new project.
+&gt; &gt;
+&gt; &gt; BUT when I executed the operations same with before, I can not bu=
+ild the jailhouse
+&gt; &gt;
+&gt; &gt; my operations is:
+&gt; &gt; 1. git clone https://github.com/siemens/jailhouse.git
+&gt; &gt; 2. sudo make &amp;&amp; make modules_install &amp;&amp; make inst=
+all
+&gt; &gt; 3. sudo insmod driver/jailhouse.ko
+&gt; &gt; 4. sudo jailhouse enable configs/arm64/rpi4.cell
+&gt; &gt;
+&gt; &gt; The 4th step is failed, the error is:
+&gt; &gt; JAILHOUSE_ENABLE: Invalid argument
+&gt; &gt;
+&gt; &gt; I don't know why it occurs. Because there are two project on my R=
+aspberry (one is new, the other is cloned in last year ), the old one can r=
+un properly.
+&gt; &gt; If I can get your generous help, I will appreciate.
+&gt; &gt;
+&gt; This means that the hypervisor memory region configured in rpi4.cell
+&gt; does not match a memory reservation done via the device tree. It likel=
+y
+&gt; overlaps RAM that is in use by Linux, thus can't be taken by the hyper=
+visor.
 
-Thank you so much for your reply. While my installation I run sudo make and
-that fails with the error : /path/to/build no such file or directory is
-present. I checked the path/to/build and it exists and i have also given
-superuser privileges to the user.
-Could anyone get me anything on this. I am using CentOS 8.
+&gt; If you move the hypervisor memory region, make sure to adjust
+&gt; https://github.com/siemens/jailhouse-images/blob/master/recipes-bsp/rp=
+i-firmware/files/debian/jailhouse.dts
+&gt; as well.
 
-Regards,
-Prashant K
+Thanks for your advice again! From my perspective, whether it was caused by=
+ Linux version or not.
+And I execute
 
-On Fri, 7 May 2021, 14:37 Bram Hooimeijer, <
-bram.hooimeijer@prodrive-technologies.com> wrote:
+1.git clone https://github.com/siemens/linux.git
+2.git checkout -b jailhouse-enabling/5.4-rpi
+3.git reset --hard 57e5db56e9c9511c4371c61065334a689af60a72  //I want to cl=
+one this version=20
+4.make menuconfig
+5.make &amp;&amp; make modules_install &amp;&amp; make install
 
->
-> > Dear Sir/Madam,
-> >
-> >                              I am trying to install jailhouse in CentOS
-> but the installation did
-> > not work or it did not get installed. Whereas when I tried to install in
-> Ubuntu
-> > it readily installed. My query is does Jailhouse install in CentOS or is
-> there any
-> > additional things to be done to install it?.
->
-> What errors do you get? Maybe there's someone on the list who encountered
-> those before.
->
-> As far as I know, Jailhouse should run given that the kernel is properly
-> configured.
-> For newer Linux kernels, you might need some patches:
-> http://git.kiszka.org/?p=linux.git;a=summary
-> I have it running with minimal modifications on Linux 5.4
->
-> Best, Bram Hooimeijer
->
->
-> >
-> > Thanking you in advance.
-> >
-> >
-> > Regards,
-> >
-> > Prashant K
-> >
-> > --
->
+However it is failed and still not to enable rpi4.cell. My solutions is rig=
+ht or not.=20
+By the way, according to your advice, I need to alter the jailhouse.dts rig=
+ht?
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CACNW3nS7kc-PwpimTmWFtF-MpFar%2B3Hsx7RFgOCtfpOOdxFszw%40mail.gmail.com.
+If I can get your generous help, I will appreciate !
 
---000000000000b60a4105c1cb1a96
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Yours sincerely,
+Hongpeng Cao.
+  =20
 
-<div dir=3D"auto">Thank you so much for your reply. While my installation I=
- run sudo make and that fails with the error : /path/to/build no such file =
-or directory is present. I checked the=C2=A0<span style=3D"font-family:sans=
--serif">path/to/build and it exists and i have also given superuser privile=
-ges to the user.</span><div dir=3D"auto"><span style=3D"font-family:sans-se=
-rif">Could anyone get me anything on this. I am using CentOS 8.</span></div=
-><div dir=3D"auto"><span style=3D"font-family:sans-serif"><br></span></div>=
-<div dir=3D"auto"><span style=3D"font-family:sans-serif">Regards,</span></d=
-iv><div dir=3D"auto"><span style=3D"font-family:sans-serif">Prashant K</spa=
-n></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmai=
-l_attr">On Fri, 7 May 2021, 14:37 Bram Hooimeijer, &lt;<a href=3D"mailto:br=
-am.hooimeijer@prodrive-technologies.com">bram.hooimeijer@prodrive-technolog=
-ies.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"=
-margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">=C2=A0<br>
-&gt; Dear Sir/Madam,<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 I am trying to install jailhouse in Cent=
-OS but the installation did<br>
-&gt; not work or it did not get installed. Whereas when I tried to install =
-in Ubuntu<br>
-&gt; it readily installed. My query is does Jailhouse install in CentOS or =
-is there any<br>
-&gt; additional things to be done to install it?.<br>
-<br>
-What errors do you get? Maybe there&#39;s someone on the list who encounter=
-ed those before. <br>
-<br>
-As far as I know, Jailhouse should run given that the kernel is properly co=
-nfigured. <br>
-For newer Linux kernels, you might need some patches: <br>
-<a href=3D"http://git.kiszka.org/?p=3Dlinux.git;a=3Dsummary" rel=3D"norefer=
-rer noreferrer" target=3D"_blank">http://git.kiszka.org/?p=3Dlinux.git;a=3D=
-summary</a><br>
-I have it running with minimal modifications on Linux 5.4<br>
-<br>
-Best, Bram Hooimeijer<br>
-<br>
-<br>
-&gt; <br>
-&gt; Thanking you in advance.<br>
-&gt; <br>
-&gt; <br>
-&gt; Regards,<br>
-&gt; <br>
-&gt; Prashant K<br>
-&gt; <br>
-&gt; --<br>
-</blockquote></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/CACNW3nS7kc-PwpimTmWFtF-MpFar%2B3Hsx7RFgOCtfpOOdxF=
-szw%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups=
-.google.com/d/msgid/jailhouse-dev/CACNW3nS7kc-PwpimTmWFtF-MpFar%2B3Hsx7RFgO=
-CtfpOOdxFszw%40mail.gmail.com</a>.<br />
-
---000000000000b60a4105c1cb1a96--
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/2d145c5.8415.179558bd06b.Coremail.caohp19%40lzu.edu.cn.
