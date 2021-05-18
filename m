@@ -1,130 +1,127 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBUM27GCAMGQE76C2XUA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDWK5VGE4EPBBBHJRWCQMGQEFRYO3IY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x337.google.com (mail-wm1-x337.google.com [IPv6:2a00:1450:4864:20::337])
-	by mail.lfdr.de (Postfix) with ESMTPS id E50B23806F9
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 14 May 2021 12:13:37 +0200 (CEST)
-Received: by mail-wm1-x337.google.com with SMTP id b16-20020a7bc2500000b029014587f5376dsf1651177wmj.1
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 14 May 2021 03:13:37 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1620987217; cv=pass;
+Received: from mail-pl1-x63a.google.com (mail-pl1-x63a.google.com [IPv6:2607:f8b0:4864:20::63a])
+	by mail.lfdr.de (Postfix) with ESMTPS id E2A673873B5
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 18 May 2021 10:02:19 +0200 (CEST)
+Received: by mail-pl1-x63a.google.com with SMTP id l9-20020a1709030049b02900f184d9d878sf2697200pla.16
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 18 May 2021 01:02:19 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1621324933; cv=pass;
         d=google.com; s=arc-20160816;
-        b=jNoF8gep/lyvvKOczvTG+eDcnGV5HVxiU3R82jbsWQhNObbrHRLFPNU8eJjBSiffim
-         wxaf7roEhkLERMM0Ou/37oANB8Nwz1v6DOqgH4HZon5Ajhesjg6jNf4hR7/XfD6Eq0r7
-         gjaFjH2eB05MSWAhhvp0KnFZKsv9YQatixQ1bUahtcTVZx+kzc1uO4xZOGY18/tsUipM
-         x+rFpN5nLnVK833vHNFm4gnlShKqzT8U/MQu0UadKNe/Nhax40QOkcP3ACkBv27pzgha
-         hza+IGuA8Ev9my8NPDOv13I1OqOmqkrJEGPxBummDAZeOZdjkkXQw4WEyyQzajuBthUP
-         QWDw==
+        b=rfiFESIVz8oI0Evs5ljLIUliZi9FkemvpoPcROazaZo83/FRWYWkcTCIsMTZ0LCILO
+         Z+BOndnP1N9xgoXrY+qVgRv/iwrojI4Pw97zhdpu7YJOldytjXTH9YntEc4wUqmDZszp
+         wP5MafaGS+ZwhJwN6BVS9RXDWmgl+0Gq/XvQ+5J1qn2RYyUIvX5pK5MfSldBtIXzTKY4
+         cZQqsOyJRZmf6g5SWfIXTPxyvr8ZoQt0N41YDch8sVMQS6SRhMvhTa3AUi13U3ongLQM
+         +qjDhEN+lJwb0Xm+zksyow0s7USyoscK4NEWKZtkprhc2XfKTsFSDlbq+y752edjx5Zd
+         0uYw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=Ic8ACtKZsWgdidDmPEzQz9RWft+QPEh/K5ycyH8gVwo=;
-        b=HvyxCBtKNHdyVer3QxK4rR5p41lMTN2RkqYfPdrLgEfR2YDIlUr1LWFy2fNoP55Tkd
-         Mqval15p6A/0gk3tGTRwMTNUEaUBXGuMJOcajWdlFMzVdCFGUKPmPnwo+YMfVpt5H2Zk
-         VEDjruYe+oZCzq00YhOOXsOIEJ3dCrJ9ZrgqG21FuxtjiCdubvRwbGixf0vq/V/jz1Xt
-         9UvJEZ2QhqQOaV4ffQoI6CZ21L/3kjdFViDKoHuMNMIjAFQSGdtKo2Pqyk4HaXUqTjij
-         itkRcXlel3wlh1b74dS509ibtbXlmURX+Cv477gVaczVJUF1zU7xcto8sSnWzZxjUi7u
-         0Pbg==
+         :list-id:mailing-list:precedence:to:subject:message-id:date:from
+         :mime-version:sender:dkim-signature:dkim-signature;
+        bh=UuucOcXijdbtNrp/T5SvYk0XdhQGcltiAZ4mPwOT43U=;
+        b=N1xW2gyZKXmUsnSlADPMDtw8DJaf9YyhKXvDy+Fu+XD2pK0Rjry5lMNSwQYjtvY7+b
+         29b5PzDkbN7YLrvmoekh/ZBaTtaT0Ybcj3G2TkZScBEJCyzlre7qwnclBzZya9ypgipr
+         R2Ka7IFU50AuaJA7SMjkKwwWeqh22hIaXi4yQUqO14kQzeoMokXqtrozHp0M9sgHx/IQ
+         0qVJtnYV/8HVT8ry5VoNb06+1W5CD+AocMwrYL8tcn6+Y4QjmtO3FqRt3/6vqrX3vC53
+         93usFCLSLP4wPy3TZcnbT2wCxUrD4AV+fVcy2dYKCZR+uMHZ6ODvp+55fwe1ET4QQ8e8
+         vhdg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=VJEfREgZ;
+       spf=pass (google.com: domain of prashantkalikotay1995@gmail.com designates 2607:f8b0:4864:20::229 as permitted sender) smtp.mailfrom=prashantkalikotay1995@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
+        h=sender:mime-version:from:date:message-id:subject:to
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=Ic8ACtKZsWgdidDmPEzQz9RWft+QPEh/K5ycyH8gVwo=;
-        b=iCcORHAyloGihMv4dCru8VrDPXi02+T70r5rhLvOVD2IYdAE8YOuQODC1Xy4Nh9oFS
-         AYnAXIXY3zHG87Ky8YN1grtcTIFZSDbeejWnGu0x8A3/tOt1JU4EtITovqG+BHe/msaI
-         3m+OEFmHlaDZUq/90g2L0kGAyJgoubwCLs5Qbte9ZwAUCKueerEho8/dKaB5nIDFbGEM
-         Ilm7SVU9+PvMrChjpzAnKJynjS2at4eGI2D6+dWRPkokC5UEJca8P8O6feNIQtXBuuzy
-         T01xVGCF8z/3djwh6pb/e1aEGJ8cjQ7BBWmzF6nqZLXON96jmA3+MZouPXeHSXLRPCkZ
-         GrnA==
+        bh=UuucOcXijdbtNrp/T5SvYk0XdhQGcltiAZ4mPwOT43U=;
+        b=DcUTNvzpaWClIZHWIHqGJZlhpXowSDbXSr1iEZf9T9MCU0X+YYgg7HFtej9dTGfwxf
+         gQFI/Xo05RidHvHviAki+9nbeYADCs+KdlyPrhenXCLGxifzmQdosXLG8xuL+0iJBjUa
+         gC7og6EW7onpvi/zg6viAcKbxiBsOYEEFeFrTo5mRo5LK2keQhdHavPQBBBtil7ryEi/
+         6Pn7JBXEv1Ci1oBjkq5E1APumbnMNZ5wX0bOGz425qbXnGY0hj1yjZD26C+eOHSqIUvW
+         +Y5ZD3OtFOTAu6XJNGIZsudoQxcz32nfNe9vxW9eWTJVgzc65cGhhsu9f9PdlsM9VW0f
+         Nejg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=UuucOcXijdbtNrp/T5SvYk0XdhQGcltiAZ4mPwOT43U=;
+        b=MFVfTQ3VNJiI17CogUQgfdLJUtxcQPlCXxXZqCxo3oeiqlZYpQh1dZeh/3vSYs2oQh
+         JOpXT+uTyo49DQ87woCG/LITGjOb+BXJ+Eg5WQQOAvXS3OyKv3DkXr8phBty4meq6QCU
+         YIOti15KN0Vx9Yarl5wUp+i/8n+9zGBaLM76lYGBuD1HQw+J6mBcyMUAgHXQg3Y5RnuU
+         c6Nr+sz5vCN631VGblC6JE9V+U4t4bcazPxerKYAjMF1vaOFWaIHILYfc5n7mWMGxaJO
+         D7yae3ReqMjRxLFMXQP65BwVouw6McBoVq9EdR6Ubt9gCG8ThOi6lwTzsTibAr9Y9M0K
+         33gQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=Ic8ACtKZsWgdidDmPEzQz9RWft+QPEh/K5ycyH8gVwo=;
-        b=aEsJvFroEkcGk1jiIiO1ES2W89DiF+DcITkcTWL7FzYF25K3of3ZgRYfobvEe4nndH
-         ahDdePsS5K+9tr4yWI9uzUarUgppNtLhQDlbu8nQGyB1fpcjyFgJDMNq2r25tjiOL6cz
-         DTQ01fS9Tq/17NNIEKm6kTwvOJluGl2Y+Bt0M1aA6Gay6wTVhqfppe9A0uQNX2Ly+z3z
-         PlkcSW/un5MadhYHTc3S/hGfezUczUfAOcg4uj1ulbPJ1I98cRigHE7ZamaD0TzfrAFy
-         s2rn/C+hqL837Fr7wPPxZks3R0ybW1FyplDBHs2zDOV47ZRo9+dTS5lZDep1zi3DghQt
-         PZww==
+        h=sender:x-gm-message-state:mime-version:from:date:message-id:subject
+         :to:x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=UuucOcXijdbtNrp/T5SvYk0XdhQGcltiAZ4mPwOT43U=;
+        b=MpQ4xe5Xt4M7Tn+0K6SSBDpuYocsOAZOHp9NeJ/4eUHxyA4vZoMoThnvjKgkOPZYzt
+         iLYfDbqmmW+OvAj5lZLI1Y75R3QdB3IX1biGyczYY/r5eegmTNuDC1ka5d82NU/tmM5/
+         x867sbuKBovuDXvcJhsMQtc1VT7Df1PIGV55fqAIoR91CEAMHLkUyQooVmQRBOo4H0OV
+         593x0NYJMRDmGO4X8uO32xr9GBpmXi8WtxGKQU7DaN0Cqo9muY2Tz75S8ooVJMN6e5Mx
+         MalJSvkUUW6MiCC3awJ7UJ0v9VQKN+ZPF6cS9mTVtj6B0EuXII8TU1JYiaUtbnSS7yQb
+         6hKg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531NOPAKyHjcMEFTeJNIyHCbSfFewTL+kc8zNbOEQDwkYjGuIBqu
-	kRuZNnQVOJJF4oTAHtbovG8=
-X-Google-Smtp-Source: ABdhPJz+H2Uzf0TmHiTSVtpN4FPhT7Tn3bCe/5l1MVo2fqUR7N3LMqOKCbuE7Wr7p9rSvOb3xm9L4w==
-X-Received: by 2002:a05:600c:322a:: with SMTP id r42mr8850015wmp.187.1620987217632;
-        Fri, 14 May 2021 03:13:37 -0700 (PDT)
+X-Gm-Message-State: AOAM533MIzz8Dq+Uyu3TJtwSMis5K/Mr7yZzD+Axf7BxxLnWd69Kr7+5
+	nxi7iQOJlKFe2CJF431jCYE=
+X-Google-Smtp-Source: ABdhPJyfxgFXiveXrzTXgBkosCCscHFbL3gd6qtXWNJH8MXw0/TmuG1H7H+XgC9nQZAfpXReQTL7cA==
+X-Received: by 2002:a63:521a:: with SMTP id g26mr950404pgb.279.1621324933132;
+        Tue, 18 May 2021 01:02:13 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:600c:11:: with SMTP id g17ls3665215wmc.3.gmail; Fri, 14
- May 2021 03:13:36 -0700 (PDT)
-X-Received: by 2002:a1c:6754:: with SMTP id b81mr48662374wmc.16.1620987216605;
-        Fri, 14 May 2021 03:13:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1620987216; cv=none;
+Received: by 2002:a65:6183:: with SMTP id c3ls8885933pgv.6.gmail; Tue, 18 May
+ 2021 01:02:12 -0700 (PDT)
+X-Received: by 2002:a62:7885:0:b029:2d5:941e:f574 with SMTP id t127-20020a6278850000b02902d5941ef574mr3825554pfc.80.1621324932543;
+        Tue, 18 May 2021 01:02:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1621324932; cv=none;
         d=google.com; s=arc-20160816;
-        b=XiWFpseO8qmgq9QX+TRePX7gFpuLmdrJn8Lo9iJbB5aCLYL03zveUyIPmHXBBTBK0l
-         2ARnZFPRyGHRS59/2wW24pb9uaiD81qygugZqDtSmlZD6qEZjeQRv4yqKGLCh6wz5kW7
-         NJprMiojQFM6o1xAqvvQ2EFZEDPGQ7VAaNH2187qpRytdB0SXoeDDq/L0vUAZqUqbvuK
-         X0IupCA2X3QgXrf1y5k4vEQJqk4Q/KHdDWmw0NucxiSmfQNUY2dQAQj6knMEV9yU3I+E
-         USBTGj9MbYFgknwGkJ5fBKWe1v1sh4//TtO0W32Dky1iSGGq9pn/VtIlEHv87RcxNF4D
-         ONqA==
+        b=pbEZZixX4kDJP4654LOCHBP7AnWG7oLo6xZDUtwnks+vrjArlnvfPGTVONduupJobY
+         5fklGukqq/VxJBpqA4Z4zBvZei69atCntfH/ID5EB+yugfEXdh60AdW9AgBN76BGeVop
+         QhD5vpaxruzMK12cmZ3s6wC6W+bVokLTQDnB0xEqgMWIwIF4mLBWkQLW9OjFnI7erlKy
+         R5j5r83typyYbl17WBi+fPmt33MXUHjUvgav/620WAaCooDMOZBlEqzV24KGKX4NPbe9
+         8yIEMRC4hS+y0CBl4g7FyjylE3Vu11ir8KVUvvr8gaAvQpFXx5vQyDrnnwLH0NiSAmbo
+         GgxQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=N2LYYLmy/o0qjx/wNUUeUJmrQ2oBpD809QJ6M501LsE=;
-        b=f8AmYGAZWNG+hACqddlpTc4DwjZ+vYT+wrsY9mQUNiW/64dn3yjS6jYrH5sq5fQ1N/
-         9HpjfyLRjsKuXPjbPsXYYhbza/Gs+0KyPLvlL3L4RvgUojCNdTJanngdHkdiDR93/LPc
-         C7crrJaTdIIEgW2Uq1WQndrvHbAptR6leA4BNqGf4Mzj01PTiqValiubqJKcxcvAP0yS
-         /sSRzfIECz3z+L5rvSb6OWLNgIVcTmfsgsx3/H3ZFXUvlpM8MaCFzQIcJVf7h4rM1K7K
-         cyaZYBT9P0+zDG2Zg4nFiS8XNpxQNzZ8Zy9ji18scix911AIEiP1geHpm/8H41brVNd6
-         lWag==
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=cJwzNvVpfJnJM7kcda3oRNPMS+e1tI2dX/cEPqD9VyI=;
+        b=t9dV48VRyKKAZZb3Lq0eYEKwfKsPcZSXaPItFXKJL2yMPPDzQmfFy854jfcCMcSPDS
+         ENFgoYS8ijfAV0EZviq7PU8PIxGoBUmv5ZOxIXMYQ3OkFsklY/3KxTWvDJ198gIMgs4F
+         0rqQoY5hWKr2a/c9gU+fMKjemp+T1GHQGdFvi4heKYXqIuLUj7vZhdLXk28x1OIDN57E
+         QTjfUAen71JEO/HZVjAcdWCP8BepeugGGnWasiXbUV4uqfJsujhkbQqz1/Dk4ouPl/nT
+         mMgv0EKXLr8l3COTLP9bb4U8cYnXoY0cPVcGEmXqUxcnSW53O6agvGbTxK650PM1RsIO
+         fQRg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id s185si1304wmf.4.2021.05.14.03.13.36
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=VJEfREgZ;
+       spf=pass (google.com: domain of prashantkalikotay1995@gmail.com designates 2607:f8b0:4864:20::229 as permitted sender) smtp.mailfrom=prashantkalikotay1995@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com. [2607:f8b0:4864:20::229])
+        by gmr-mx.google.com with ESMTPS id n22si552765pfu.0.2021.05.18.01.02.12
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 14 May 2021 03:13:36 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 14EADZpa025287
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 14 May 2021 12:13:35 +0200
-Received: from [167.87.89.54] ([167.87.89.54])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 14EA6KSS016119;
-	Fri, 14 May 2021 12:06:20 +0200
-Subject: Re: Can Jailhouse work with CentOS
-To: along li <v6543210@gmail.com>, Jailhouse <jailhouse-dev@googlegroups.com>
-References: <299a190c-72fb-1027-0efc-7a45b98bffe0@cimware.in>
- <AS8PR02MB666300B8BE60E746F395D53DB6579@AS8PR02MB6663.eurprd02.prod.outlook.com>
- <CACNW3nS7kc-PwpimTmWFtF-MpFar+3Hsx7RFgOCtfpOOdxFszw@mail.gmail.com>
- <20210510123616.15344255@md1za8fc.ad001.siemens.net>
- <22bbb8a9-2af9-4e79-9a71-81f20e8f564an@googlegroups.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <b0caae36-ca7a-f6e8-5ea9-d612b6d00d40@siemens.com>
-Date: Fri, 14 May 2021 12:06:20 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 18 May 2021 01:02:12 -0700 (PDT)
+Received-SPF: pass (google.com: domain of prashantkalikotay1995@gmail.com designates 2607:f8b0:4864:20::229 as permitted sender) client-ip=2607:f8b0:4864:20::229;
+Received: by mail-oi1-x229.google.com with SMTP id u11so9007096oiv.1
+        for <jailhouse-dev@googlegroups.com>; Tue, 18 May 2021 01:02:12 -0700 (PDT)
+X-Received: by 2002:aca:4887:: with SMTP id v129mr2874096oia.137.1621324931722;
+ Tue, 18 May 2021 01:02:11 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <22bbb8a9-2af9-4e79-9a71-81f20e8f564an@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+From: Prashant Kalikotay <prashantkalikotay1995@gmail.com>
+Date: Tue, 18 May 2021 13:32:00 +0530
+Message-ID: <CAEoyBwCDWM=+iUXzXtECTpugFprTkMSj-P+goS0R8yOizZTYdg@mail.gmail.com>
+Subject: Installation error in Fedora
+To: jailhouse-dev@googlegroups.com
+Content-Type: multipart/alternative; boundary="0000000000009eeffa05c29620f0"
+X-Original-Sender: prashantkalikotay1995@gmail.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@gmail.com header.s=20161025 header.b=VJEfREgZ;       spf=pass
+ (google.com: domain of prashantkalikotay1995@gmail.com designates
+ 2607:f8b0:4864:20::229 as permitted sender) smtp.mailfrom=prashantkalikotay1995@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -137,141 +134,206 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 14.05.21 11:11, along li wrote:
-> It's very easy to build jailhouse in Ubuntu 18.04.=C2=A0 But not ubuntu
-> 20.04( produce link error)
->=20
+--0000000000009eeffa05c29620f0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Newer kernels no longer support retrieving missing symbols via kallsyms.
-So you need to patch and recompile them. That's what you need to do
-anyway when you want to use ivshmem devices.
+Hello All,
+              I am trying to install Jailhouse in Fedora, X86 system. While
+running make I run into these errors:
+[prashant@fedora jailhouse]$ make
+  CC [M]  /home/prashant/jailhouse/driver/cell.o
+  CC [M]  /home/prashant/jailhouse/driver/main.o
+  CC [M]  /home/prashant/jailhouse/driver/sysfs.o
+  CC [M]  /home/prashant/jailhouse/driver/pci.o
+  LD [M]  /home/prashant/jailhouse/driver/jailhouse.o
+  CC      /home/prashant/jailhouse/configs/x86/apic-demo.o
+  OBJCOPY /home/prashant/jailhouse/configs/x86/apic-demo.cell
+  CC      /home/prashant/jailhouse/configs/x86/e1000-demo.o
+  OBJCOPY /home/prashant/jailhouse/configs/x86/e1000-demo.cell
+  CC      /home/prashant/jailhouse/configs/x86/f2a88xm-hd3.o
+  OBJCOPY /home/prashant/jailhouse/configs/x86/f2a88xm-hd3.cell
+  CC      /home/prashant/jailhouse/configs/x86/imb-a180.o
+  OBJCOPY /home/prashant/jailhouse/configs/x86/imb-a180.cell
+  CC      /home/prashant/jailhouse/configs/x86/ioapic-demo.o
+  OBJCOPY /home/prashant/jailhouse/configs/x86/ioapic-demo.cell
+  CC      /home/prashant/jailhouse/configs/x86/ivshmem-demo.o
+  OBJCOPY /home/prashant/jailhouse/configs/x86/ivshmem-demo.cell
+  CC      /home/prashant/jailhouse/configs/x86/linux-x86-demo.o
+  OBJCOPY /home/prashant/jailhouse/configs/x86/linux-x86-demo.cell
+  CC      /home/prashant/jailhouse/configs/x86/pci-demo.o
+  OBJCOPY /home/prashant/jailhouse/configs/x86/pci-demo.cell
+  CC      /home/prashant/jailhouse/configs/x86/qemu-x86.o
+  OBJCOPY /home/prashant/jailhouse/configs/x86/qemu-x86.cell
+  CC      /home/prashant/jailhouse/configs/x86/smp-demo.o
+  OBJCOPY /home/prashant/jailhouse/configs/x86/smp-demo.cell
+  CC      /home/prashant/jailhouse/configs/x86/tiny-demo.o
+  OBJCOPY /home/prashant/jailhouse/configs/x86/tiny-demo.cell
+  CC      /home/prashant/jailhouse/hypervisor/arch/x86/asm-defines.s
+  GEN
+/home/prashant/jailhouse/hypervisor/arch/x86/include/generated/asm/asm-defi=
+nes.h
+  CC      /home/prashant/jailhouse/hypervisor/arch/x86/svm.o
+  CC      /home/prashant/jailhouse/hypervisor/arch/x86/amd_iommu.o
+  AS      /home/prashant/jailhouse/hypervisor/arch/x86/svm-vmexit.o
+  CC      /home/prashant/jailhouse/hypervisor/arch/x86/apic.o
+  CC      /home/prashant/jailhouse/hypervisor/arch/x86/dbg-write.o
+  AS      /home/prashant/jailhouse/hypervisor/arch/x86/entry.o
+  CC      /home/prashant/jailhouse/hypervisor/arch/x86/setup.o
+  CC      /home/prashant/jailhouse/hypervisor/arch/x86/control.o
+  CC      /home/prashant/jailhouse/hypervisor/arch/x86/mmio.o
+  CC      /home/prashant/jailhouse/hypervisor/arch/x86/iommu.o
+  CC      /home/prashant/jailhouse/hypervisor/arch/x86/paging.o
+  CC      /home/prashant/jailhouse/hypervisor/arch/x86/pci.o
+  CC      /home/prashant/jailhouse/hypervisor/arch/x86/i8042.o
+  CC      /home/prashant/jailhouse/hypervisor/arch/x86/vcpu.o
+/home/prashant/jailhouse/hypervisor/arch/x86/vcpu.c: In function
+=E2=80=98vcpu_reset=E2=80=99:
+/home/prashant/jailhouse/hypervisor/arch/x86/vcpu.c:429:9: warning:
+=E2=80=98memset=E2=80=99 offset [0, 127] is out of the bounds [0, 0] [-Warr=
+ay-bounds]
+  429 |         memset(&cpu_data->guest_regs, 0,
+sizeof(cpu_data->guest_regs));
+      |
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CC      /home/prashant/jailhouse/hypervisor/arch/x86/efifb.o
+  CC      /home/prashant/jailhouse/hypervisor/arch/x86/ivshmem.o
+  CC      /home/prashant/jailhouse/hypervisor/arch/x86/ioapic.o
+  AR      /home/prashant/jailhouse/hypervisor/arch/x86/lib-amd.a
+  CC      /home/prashant/jailhouse/hypervisor/arch/x86/vmx.o
+  CC      /home/prashant/jailhouse/hypervisor/arch/x86/vtd.o
+  AS      /home/prashant/jailhouse/hypervisor/arch/x86/vmx-vmexit.o
+  CC      /home/prashant/jailhouse/hypervisor/arch/x86/cat.o
+  AR      /home/prashant/jailhouse/hypervisor/arch/x86/lib-intel.a
+  LDS     /home/prashant/jailhouse/hypervisor/hypervisor.lds
+  CC      /home/prashant/jailhouse/hypervisor/setup.o
+  CC      /home/prashant/jailhouse/hypervisor/printk.o
+  CC      /home/prashant/jailhouse/hypervisor/paging.o
+  CC      /home/prashant/jailhouse/hypervisor/control.o
+  CC      /home/prashant/jailhouse/hypervisor/lib.o
+  CC      /home/prashant/jailhouse/hypervisor/mmio.o
+  CC      /home/prashant/jailhouse/hypervisor/pci.o
+  CC      /home/prashant/jailhouse/hypervisor/ivshmem.o
+  CC      /home/prashant/jailhouse/hypervisor/uart.o
+  CC      /home/prashant/jailhouse/hypervisor/uart-8250.o
+  LD      /home/prashant/jailhouse/hypervisor/hypervisor-amd.o
+  OBJCOPY /home/prashant/jailhouse/hypervisor/jailhouse-amd.bin
+  LD      /home/prashant/jailhouse/hypervisor/hypervisor-intel.o
+  OBJCOPY /home/prashant/jailhouse/hypervisor/jailhouse-intel.bin
+  CC      /home/prashant/jailhouse/inmates/lib/x86/../alloc.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/../cmdline.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/../pci.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/../printk.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/../setup.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/../string.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/../test.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/../uart-8250.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/cpu-features.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/excp.o
+  AS      /home/prashant/jailhouse/inmates/lib/x86/header-64.o
+  AS      /home/prashant/jailhouse/inmates/lib/x86/header-common.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/ioapic.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/irq.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/mem.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/pci.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/printk.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/setup.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/smp.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/timing.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/uart.o
+  AR      /home/prashant/jailhouse/inmates/lib/x86/lib.a
+  CC      /home/prashant/jailhouse/inmates/lib/x86/cpu-features-32.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/excp-32.o
+  AS      /home/prashant/jailhouse/inmates/lib/x86/header-common-32.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/irq-32.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/ioapic-32.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/printk-32.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/setup-32.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/uart-32.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/../alloc-32.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/../pci-32.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/../string-32.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/../cmdline-32.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/../setup-32.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/../test-32.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/../uart-8250-32.o
+  CC      /home/prashant/jailhouse/inmates/lib/x86/../printk-32.o
+  AS      /home/prashant/jailhouse/inmates/lib/x86/header-32.o
+  AR      /home/prashant/jailhouse/inmates/lib/x86/lib32.a
+  CC      /home/prashant/jailhouse/inmates/demos/x86/tiny-demo.o
+  LD      /home/prashant/jailhouse/inmates/demos/x86/tiny-demo-linked.o
+  OBJCOPY /home/prashant/jailhouse/inmates/demos/x86/tiny-demo.bin
+  CC      /home/prashant/jailhouse/inmates/demos/x86/apic-demo.o
+  LD      /home/prashant/jailhouse/inmates/demos/x86/apic-demo-linked.o
+  OBJCOPY /home/prashant/jailhouse/inmates/demos/x86/apic-demo.bin
+  CC      /home/prashant/jailhouse/inmates/demos/x86/ioapic-demo.o
+  LD      /home/prashant/jailhouse/inmates/demos/x86/ioapic-demo-linked.o
+  OBJCOPY /home/prashant/jailhouse/inmates/demos/x86/ioapic-demo.bin
+  CC      /home/prashant/jailhouse/inmates/demos/x86/32-bit-demo.o
+  LD      /home/prashant/jailhouse/inmates/demos/x86/32-bit-demo-linked.o
+  OBJCOPY /home/prashant/jailhouse/inmates/demos/x86/32-bit-demo.bin
+  CC      /home/prashant/jailhouse/inmates/demos/x86/pci-demo.o
+  LD      /home/prashant/jailhouse/inmates/demos/x86/pci-demo-linked.o
+  OBJCOPY /home/prashant/jailhouse/inmates/demos/x86/pci-demo.bin
+  CC      /home/prashant/jailhouse/inmates/demos/x86/e1000-demo.o
+  LD      /home/prashant/jailhouse/inmates/demos/x86/e1000-demo-linked.o
+  OBJCOPY /home/prashant/jailhouse/inmates/demos/x86/e1000-demo.bin
+  CC      /home/prashant/jailhouse/inmates/demos/x86/../ivshmem-demo.o
+  LD      /home/prashant/jailhouse/inmates/demos/x86/ivshmem-demo-linked.o
+  OBJCOPY /home/prashant/jailhouse/inmates/demos/x86/ivshmem-demo.bin
+  CC      /home/prashant/jailhouse/inmates/demos/x86/smp-demo.o
+  LD      /home/prashant/jailhouse/inmates/demos/x86/smp-demo-linked.o
+  OBJCOPY /home/prashant/jailhouse/inmates/demos/x86/smp-demo.bin
+  CC      /home/prashant/jailhouse/inmates/demos/x86/cache-timings.o
+  LD      /home/prashant/jailhouse/inmates/demos/x86/cache-timings-linked.o
+  OBJCOPY /home/prashant/jailhouse/inmates/demos/x86/cache-timings.bin
+  CC      /home/prashant/jailhouse/inmates/tests/x86/mmio-access.o
+  LD      /home/prashant/jailhouse/inmates/tests/x86/mmio-access-linked.o
+  OBJCOPY /home/prashant/jailhouse/inmates/tests/x86/mmio-access.bin
+  CC      /home/prashant/jailhouse/inmates/tests/x86/mmio-access-32.o
+  LD      /home/prashant/jailhouse/inmates/tests/x86/mmio-access-32-linked.=
+o
+  OBJCOPY /home/prashant/jailhouse/inmates/tests/x86/mmio-access-32.bin
+  CC      /home/prashant/jailhouse/inmates/tests/x86/sse-demo.o
+  LD      /home/prashant/jailhouse/inmates/tests/x86/sse-demo-linked.o
+  OBJCOPY /home/prashant/jailhouse/inmates/tests/x86/sse-demo.bin
+  CC      /home/prashant/jailhouse/inmates/tests/x86/sse-demo-32.o
+  LD      /home/prashant/jailhouse/inmates/tests/x86/sse-demo-32-linked.o
+  OBJCOPY /home/prashant/jailhouse/inmates/tests/x86/sse-demo-32.bin
+  CC      /home/prashant/jailhouse/inmates/tools/x86/linux-loader.o
+  LD      /home/prashant/jailhouse/inmates/tools/x86/linux-loader-linked.o
+  OBJCOPY /home/prashant/jailhouse/inmates/tools/x86/linux-loader.bin
+  GEN     /home/prashant/jailhouse/pyjailhouse/pci_defs.py
+  CC      /home/prashant/jailhouse/tools/jailhouse.o
+  LD      /home/prashant/jailhouse/tools/jailhouse
+  CC      /home/prashant/jailhouse/tools/demos/ivshmem-demo.o
+  LD      /home/prashant/jailhouse/tools/demos/ivshmem-demo
+  CC      /home/prashant/jailhouse/tools/demos/cache-timings.o
+  LD      /home/prashant/jailhouse/tools/demos/cache-timings
+  GEN     /home/prashant/jailhouse/tools/jailhouse-config-collect
+  CC      /home/prashant/jailhouse/tools/jailhouse-gcov-extract.o
+  LD      /home/prashant/jailhouse/tools/jailhouse-gcov-extract
+  GEN     /home/prashant/jailhouse/tools/jailhouse.8
+  GEN     /home/prashant/jailhouse/tools/jailhouse-cell.8
+  GEN     /home/prashant/jailhouse/tools/jailhouse-enable.8
+  MODPOST /home/prashant/jailhouse/Module.symvers
+ERROR: modpost: "lapic_timer_period"
+[/home/prashant/jailhouse/driver/jailhouse.ko] undefined!
+ERROR: modpost: "__get_vm_area_caller"
+[/home/prashant/jailhouse/driver/jailhouse.ko] undefined!
+ERROR: modpost: "ioremap_page_range"
+[/home/prashant/jailhouse/driver/jailhouse.ko] undefined!
+make[2]: *** [scripts/Makefile.modpost:111:
+/home/prashant/jailhouse/Module.symvers] Error 1
+make[2]: *** Deleting file '/home/prashant/jailhouse/Module.symvers'
+make[1]: *** [Makefile:1714: modules] Error 2
+make: *** [Makefile:40: modules] Error 2
+[prashant@fedora jailhouse]$
 
-Patch queues are available at [1] and [2].
-
-Jan
-
-[1] https://github.com/siemens/linux/commits/jailhouse-enabling/5.10
-[2]
-http://git.kiszka.org/?p=3Dlinux.git;a=3Dshortlog;h=3Drefs/heads/queues/jai=
-lhouse
-
-> 1.install kernel-header
-> 2.build jailhouse
-> =C2=A0 make KDIR=3D/usr/src/linux-5.4.0=C2=A0 =C2=A0 =C2=A0 =C2=A0#KDIR i=
-s set to the linux src dir
-> or=C2=A0 header dir
->=20
-> 3. install python and pip etc.
-> apt install python-pip
-> pip install wheel
-> pip install setuptools
-> pip install Flask
-> pip install mako
->=20
->=20
-> 4. install jailhouse=C2=A0
-> sudo make install=C2=A0
->=20
-> jailhouse should be install sucess.
-> How to use ?=C2=A0
-> 1.insmod=C2=A0 =C2=A0driver/jailhouse.ko
-> 2.jailhouse enable configs/x86/machine.cell
->=20
-> --------------------------------------------------
-> The most=C2=A0 diffcult is how to write=C2=A0 good=C2=A0 machine.c to pro=
-duce machine.cell.
-> May this help you !
->=20
->=20
->=20
->=20
->=20
-> =E5=9C=A82021=E5=B9=B45=E6=9C=8810=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=80 UT=
-C+8 =E4=B8=8B=E5=8D=886:40:00<Henning Schild> =E5=86=99=E9=81=93=EF=BC=9A
->=20
->     There is no reason for "sudo" for a simple "make". It is likely you a=
-re
->     missing kernel sources, or tools that the build process needs. Or -
->     given that distro - things are outdated. Jailhouse does not need much=
-,
->     but also centos does not offer much ;)
->=20
->     try a fresh clone, no "sudo", "make V=3D1 -j1"
->=20
->     Henning
->=20
->     Am Sat, 8 May 2021 11:19:01 +0530
->     schrieb Prashant Kalikotay <pk...@cimware.in>:
->=20
->     > Thank you so much for your reply. While my installation I run sudo
->     > make and that fails with the error : /path/to/build no such file or
->     > directory is present. I checked the path/to/build and it exists and=
- i
->     > have also given superuser privileges to the user.
->     > Could anyone get me anything on this. I am using CentOS 8.
->     >
->     > Regards,
->     > Prashant K
->     >
->     > On Fri, 7 May 2021, 14:37 Bram Hooimeijer, <
->     > bram.ho...@prodrive-technologies.com> wrote:
->     >
->     > >
->     > > > Dear Sir/Madam,
->     > > >
->     > > > I am trying to install jailhouse in
->     > > > CentOS
->     > > but the installation did
->     > > > not work or it did not get installed. Whereas when I tried to
->     > > > install in
->     > > Ubuntu
->     > > > it readily installed. My query is does Jailhouse install in
->     > > > CentOS or is
->     > > there any
->     > > > additional things to be done to install it?.
->     > >
->     > > What errors do you get? Maybe there's someone on the list who
->     > > encountered those before.
->     > >
->     > > As far as I know, Jailhouse should run given that the kernel is
->     > > properly configured.
->     > > For newer Linux kernels, you might need some patches:
->     > >
->     http://git.kiszka.org/?p=3Dlinux.git;a=3Dsummary
->     <http://git.kiszka.org/?p=3Dlinux.git;a=3Dsummary>
->=20
->     > > I have it running with minimal modifications on Linux 5.4
->     > >
->     > > Best, Bram Hooimeijer
->     > >
->     > >
->     > > >
->     > > > Thanking you in advance.
->     > > >
->     > > >
->     > > > Regards,
->     > > >
->     > > > Prashant K
->     > > >
->     > > > --
->     > >
->     >
->=20
-> --=20
-> You received this message because you are subscribed to the Google
-> Groups "Jailhouse" group.
-> To unsubscribe from this group and stop receiving emails from it, send
-> an email to jailhouse-dev+unsubscribe@googlegroups.com
-> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
-> To view this discussion on the web visit
-> https://groups.google.com/d/msgid/jailhouse-dev/22bbb8a9-2af9-4e79-9a71-8=
-1f20e8f564an%40googlegroups.com
-> <https://groups.google.com/d/msgid/jailhouse-dev/22bbb8a9-2af9-4e79-9a71-=
-81f20e8f564an%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>.
-
---=20
-Siemens AG, T RDA IOT
-Corporate Competence Center Embedded Linux
+I could see the issue is with the kernel. Could I get necessary steps to
+fix this? How to apply patches if I have? Pointing to any resource also
+might be very helpful.
+Thank you
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -279,4 +341,230 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/b0caae36-ca7a-f6e8-5ea9-d612b6d00d40%40siemens.com.
+jailhouse-dev/CAEoyBwCDWM%3D%2BiUXzXtECTpugFprTkMSj-P%2BgoS0R8yOizZTYdg%40m=
+ail.gmail.com.
+
+--0000000000009eeffa05c29620f0
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hello All,</div><div>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 I am trying to install Jai=
+lhouse in Fedora, X86 system. While running make I run into these errors:</=
+div><div>[prashant@fedora jailhouse]$ make<br>=C2=A0 CC [M] =C2=A0/home/pra=
+shant/jailhouse/driver/cell.o<br>=C2=A0 CC [M] =C2=A0/home/prashant/jailhou=
+se/driver/main.o<br>=C2=A0 CC [M] =C2=A0/home/prashant/jailhouse/driver/sys=
+fs.o<br>=C2=A0 CC [M] =C2=A0/home/prashant/jailhouse/driver/pci.o<br>=C2=A0=
+ LD [M] =C2=A0/home/prashant/jailhouse/driver/jailhouse.o<br>=C2=A0 CC =C2=
+=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/configs/x86/apic-demo.o<br>=C2=A0=
+ OBJCOPY /home/prashant/jailhouse/configs/x86/apic-demo.cell<br>=C2=A0 CC =
+=C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/configs/x86/e1000-demo.o<br>=
+=C2=A0 OBJCOPY /home/prashant/jailhouse/configs/x86/e1000-demo.cell<br>=C2=
+=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/configs/x86/f2a88xm-hd3=
+.o<br>=C2=A0 OBJCOPY /home/prashant/jailhouse/configs/x86/f2a88xm-hd3.cell<=
+br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/configs/x86/imb-a=
+180.o<br>=C2=A0 OBJCOPY /home/prashant/jailhouse/configs/x86/imb-a180.cell<=
+br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/configs/x86/ioapi=
+c-demo.o<br>=C2=A0 OBJCOPY /home/prashant/jailhouse/configs/x86/ioapic-demo=
+.cell<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/configs/x86=
+/ivshmem-demo.o<br>=C2=A0 OBJCOPY /home/prashant/jailhouse/configs/x86/ivsh=
+mem-demo.cell<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/con=
+figs/x86/linux-x86-demo.o<br>=C2=A0 OBJCOPY /home/prashant/jailhouse/config=
+s/x86/linux-x86-demo.cell<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/j=
+ailhouse/configs/x86/pci-demo.o<br>=C2=A0 OBJCOPY /home/prashant/jailhouse/=
+configs/x86/pci-demo.cell<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/j=
+ailhouse/configs/x86/qemu-x86.o<br>=C2=A0 OBJCOPY /home/prashant/jailhouse/=
+configs/x86/qemu-x86.cell<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/j=
+ailhouse/configs/x86/smp-demo.o<br>=C2=A0 OBJCOPY /home/prashant/jailhouse/=
+configs/x86/smp-demo.cell<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/j=
+ailhouse/configs/x86/tiny-demo.o<br>=C2=A0 OBJCOPY /home/prashant/jailhouse=
+/configs/x86/tiny-demo.cell<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant=
+/jailhouse/hypervisor/arch/x86/asm-defines.s<br>=C2=A0 GEN =C2=A0 =C2=A0 /h=
+ome/prashant/jailhouse/hypervisor/arch/x86/include/generated/asm/asm-define=
+s.h<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/hypervisor/ar=
+ch/x86/svm.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/hype=
+rvisor/arch/x86/amd_iommu.o<br>=C2=A0 AS =C2=A0 =C2=A0 =C2=A0/home/prashant=
+/jailhouse/hypervisor/arch/x86/svm-vmexit.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=
+=A0/home/prashant/jailhouse/hypervisor/arch/x86/apic.o<br>=C2=A0 CC =C2=A0 =
+=C2=A0 =C2=A0/home/prashant/jailhouse/hypervisor/arch/x86/dbg-write.o<br>=
+=C2=A0 AS =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/hypervisor/arch/x86/=
+entry.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/hyperviso=
+r/arch/x86/setup.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhous=
+e/hypervisor/arch/x86/control.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/pras=
+hant/jailhouse/hypervisor/arch/x86/mmio.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0=
+/home/prashant/jailhouse/hypervisor/arch/x86/iommu.o<br>=C2=A0 CC =C2=A0 =
+=C2=A0 =C2=A0/home/prashant/jailhouse/hypervisor/arch/x86/paging.o<br>=C2=
+=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/hypervisor/arch/x86/pci=
+.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/hypervisor/arc=
+h/x86/i8042.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/hyp=
+ervisor/arch/x86/vcpu.o<br>/home/prashant/jailhouse/hypervisor/arch/x86/vcp=
+u.c: In function =E2=80=98vcpu_reset=E2=80=99:<br>/home/prashant/jailhouse/=
+hypervisor/arch/x86/vcpu.c:429:9: warning: =E2=80=98memset=E2=80=99 offset =
+[0, 127] is out of the bounds [0, 0] [-Warray-bounds]<br>=C2=A0 429 | =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 memset(&amp;cpu_data-&gt;guest_regs, 0, sizeof(cpu=
+_data-&gt;guest_regs));<br>=C2=A0 =C2=A0 =C2=A0 | =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>=C2=
+=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/hypervisor/arch/x86/efi=
+fb.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/hypervisor/a=
+rch/x86/ivshmem.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse=
+/hypervisor/arch/x86/ioapic.o<br>=C2=A0 AR =C2=A0 =C2=A0 =C2=A0/home/prasha=
+nt/jailhouse/hypervisor/arch/x86/lib-amd.a<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=
+=A0/home/prashant/jailhouse/hypervisor/arch/x86/vmx.o<br>=C2=A0 CC =C2=A0 =
+=C2=A0 =C2=A0/home/prashant/jailhouse/hypervisor/arch/x86/vtd.o<br>=C2=A0 A=
+S =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/hypervisor/arch/x86/vmx-vmex=
+it.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/hypervisor/a=
+rch/x86/cat.o<br>=C2=A0 AR =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/hyp=
+ervisor/arch/x86/lib-intel.a<br>=C2=A0 LDS =C2=A0 =C2=A0 /home/prashant/jai=
+lhouse/hypervisor/hypervisor.lds<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/pra=
+shant/jailhouse/hypervisor/setup.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/p=
+rashant/jailhouse/hypervisor/printk.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/hom=
+e/prashant/jailhouse/hypervisor/paging.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/=
+home/prashant/jailhouse/hypervisor/control.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=
+=A0/home/prashant/jailhouse/hypervisor/lib.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=
+=A0/home/prashant/jailhouse/hypervisor/mmio.o<br>=C2=A0 CC =C2=A0 =C2=A0 =
+=C2=A0/home/prashant/jailhouse/hypervisor/pci.o<br>=C2=A0 CC =C2=A0 =C2=A0 =
+=C2=A0/home/prashant/jailhouse/hypervisor/ivshmem.o<br>=C2=A0 CC =C2=A0 =C2=
+=A0 =C2=A0/home/prashant/jailhouse/hypervisor/uart.o<br>=C2=A0 CC =C2=A0 =
+=C2=A0 =C2=A0/home/prashant/jailhouse/hypervisor/uart-8250.o<br>=C2=A0 LD =
+=C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/hypervisor/hypervisor-amd.o<br=
+>=C2=A0 OBJCOPY /home/prashant/jailhouse/hypervisor/jailhouse-amd.bin<br>=
+=C2=A0 LD =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/hypervisor/hyperviso=
+r-intel.o<br>=C2=A0 OBJCOPY /home/prashant/jailhouse/hypervisor/jailhouse-i=
+ntel.bin<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/=
+lib/x86/../alloc.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhous=
+e/inmates/lib/x86/../cmdline.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prash=
+ant/jailhouse/inmates/lib/x86/../pci.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/ho=
+me/prashant/jailhouse/inmates/lib/x86/../printk.o<br>=C2=A0 CC =C2=A0 =C2=
+=A0 =C2=A0/home/prashant/jailhouse/inmates/lib/x86/../setup.o<br>=C2=A0 CC =
+=C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/lib/x86/../string.o<br=
+>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/lib/x86/../=
+test.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/li=
+b/x86/../uart-8250.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailho=
+use/inmates/lib/x86/cpu-features.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/p=
+rashant/jailhouse/inmates/lib/x86/excp.o<br>=C2=A0 AS =C2=A0 =C2=A0 =C2=A0/=
+home/prashant/jailhouse/inmates/lib/x86/header-64.o<br>=C2=A0 AS =C2=A0 =C2=
+=A0 =C2=A0/home/prashant/jailhouse/inmates/lib/x86/header-common.o<br>=C2=
+=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/lib/x86/ioapic.=
+o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/lib/x86=
+/irq.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/li=
+b/x86/mem.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmat=
+es/lib/x86/pci.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/=
+inmates/lib/x86/printk.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/ja=
+ilhouse/inmates/lib/x86/setup.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/pras=
+hant/jailhouse/inmates/lib/x86/smp.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home=
+/prashant/jailhouse/inmates/lib/x86/timing.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=
+=A0/home/prashant/jailhouse/inmates/lib/x86/uart.o<br>=C2=A0 AR =C2=A0 =C2=
+=A0 =C2=A0/home/prashant/jailhouse/inmates/lib/x86/lib.a<br>=C2=A0 CC =C2=
+=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/lib/x86/cpu-features-32.o=
+<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/lib/x86/=
+excp-32.o<br>=C2=A0 AS =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates=
+/lib/x86/header-common-32.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant=
+/jailhouse/inmates/lib/x86/irq-32.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/=
+prashant/jailhouse/inmates/lib/x86/ioapic-32.o<br>=C2=A0 CC =C2=A0 =C2=A0 =
+=C2=A0/home/prashant/jailhouse/inmates/lib/x86/printk-32.o<br>=C2=A0 CC =C2=
+=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/lib/x86/setup-32.o<br>=C2=
+=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/lib/x86/uart-32=
+.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/lib/x8=
+6/../alloc-32.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/i=
+nmates/lib/x86/../pci-32.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/=
+jailhouse/inmates/lib/x86/../string-32.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/=
+home/prashant/jailhouse/inmates/lib/x86/../cmdline-32.o<br>=C2=A0 CC =C2=A0=
+ =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/lib/x86/../setup-32.o<br>=C2=
+=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/lib/x86/../test=
+-32.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/lib=
+/x86/../uart-8250-32.o<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jail=
+house/inmates/lib/x86/../printk-32.o<br>=C2=A0 AS =C2=A0 =C2=A0 =C2=A0/home=
+/prashant/jailhouse/inmates/lib/x86/header-32.o<br>=C2=A0 AR =C2=A0 =C2=A0 =
+=C2=A0/home/prashant/jailhouse/inmates/lib/x86/lib32.a<br>=C2=A0 CC =C2=A0 =
+=C2=A0 =C2=A0/home/prashant/jailhouse/inmates/demos/x86/tiny-demo.o<br>=C2=
+=A0 LD =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/demos/x86/tiny-=
+demo-linked.o<br>=C2=A0 OBJCOPY /home/prashant/jailhouse/inmates/demos/x86/=
+tiny-demo.bin<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inm=
+ates/demos/x86/apic-demo.o<br>=C2=A0 LD =C2=A0 =C2=A0 =C2=A0/home/prashant/=
+jailhouse/inmates/demos/x86/apic-demo-linked.o<br>=C2=A0 OBJCOPY /home/pras=
+hant/jailhouse/inmates/demos/x86/apic-demo.bin<br>=C2=A0 CC =C2=A0 =C2=A0 =
+=C2=A0/home/prashant/jailhouse/inmates/demos/x86/ioapic-demo.o<br>=C2=A0 LD=
+ =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/demos/x86/ioapic-demo=
+-linked.o<br>=C2=A0 OBJCOPY /home/prashant/jailhouse/inmates/demos/x86/ioap=
+ic-demo.bin<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmat=
+es/demos/x86/32-bit-demo.o<br>=C2=A0 LD =C2=A0 =C2=A0 =C2=A0/home/prashant/=
+jailhouse/inmates/demos/x86/32-bit-demo-linked.o<br>=C2=A0 OBJCOPY /home/pr=
+ashant/jailhouse/inmates/demos/x86/32-bit-demo.bin<br>=C2=A0 CC =C2=A0 =C2=
+=A0 =C2=A0/home/prashant/jailhouse/inmates/demos/x86/pci-demo.o<br>=C2=A0 L=
+D =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/demos/x86/pci-demo-l=
+inked.o<br>=C2=A0 OBJCOPY /home/prashant/jailhouse/inmates/demos/x86/pci-de=
+mo.bin<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/de=
+mos/x86/e1000-demo.o<br>=C2=A0 LD =C2=A0 =C2=A0 =C2=A0/home/prashant/jailho=
+use/inmates/demos/x86/e1000-demo-linked.o<br>=C2=A0 OBJCOPY /home/prashant/=
+jailhouse/inmates/demos/x86/e1000-demo.bin<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=
+=A0/home/prashant/jailhouse/inmates/demos/x86/../ivshmem-demo.o<br>=C2=A0 L=
+D =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/demos/x86/ivshmem-de=
+mo-linked.o<br>=C2=A0 OBJCOPY /home/prashant/jailhouse/inmates/demos/x86/iv=
+shmem-demo.bin<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/in=
+mates/demos/x86/smp-demo.o<br>=C2=A0 LD =C2=A0 =C2=A0 =C2=A0/home/prashant/=
+jailhouse/inmates/demos/x86/smp-demo-linked.o<br>=C2=A0 OBJCOPY /home/prash=
+ant/jailhouse/inmates/demos/x86/smp-demo.bin<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=
+=A0/home/prashant/jailhouse/inmates/demos/x86/cache-timings.o<br>=C2=A0 LD =
+=C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/demos/x86/cache-timing=
+s-linked.o<br>=C2=A0 OBJCOPY /home/prashant/jailhouse/inmates/demos/x86/cac=
+he-timings.bin<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/in=
+mates/tests/x86/mmio-access.o<br>=C2=A0 LD =C2=A0 =C2=A0 =C2=A0/home/prasha=
+nt/jailhouse/inmates/tests/x86/mmio-access-linked.o<br>=C2=A0 OBJCOPY /home=
+/prashant/jailhouse/inmates/tests/x86/mmio-access.bin<br>=C2=A0 CC =C2=A0 =
+=C2=A0 =C2=A0/home/prashant/jailhouse/inmates/tests/x86/mmio-access-32.o<br=
+>=C2=A0 LD =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/tests/x86/m=
+mio-access-32-linked.o<br>=C2=A0 OBJCOPY /home/prashant/jailhouse/inmates/t=
+ests/x86/mmio-access-32.bin<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant=
+/jailhouse/inmates/tests/x86/sse-demo.o<br>=C2=A0 LD =C2=A0 =C2=A0 =C2=A0/h=
+ome/prashant/jailhouse/inmates/tests/x86/sse-demo-linked.o<br>=C2=A0 OBJCOP=
+Y /home/prashant/jailhouse/inmates/tests/x86/sse-demo.bin<br>=C2=A0 CC =C2=
+=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/tests/x86/sse-demo-32.o<b=
+r>=C2=A0 LD =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/inmates/tests/x86/=
+sse-demo-32-linked.o<br>=C2=A0 OBJCOPY /home/prashant/jailhouse/inmates/tes=
+ts/x86/sse-demo-32.bin<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jail=
+house/inmates/tools/x86/linux-loader.o<br>=C2=A0 LD =C2=A0 =C2=A0 =C2=A0/ho=
+me/prashant/jailhouse/inmates/tools/x86/linux-loader-linked.o<br>=C2=A0 OBJ=
+COPY /home/prashant/jailhouse/inmates/tools/x86/linux-loader.bin<br>=C2=A0 =
+GEN =C2=A0 =C2=A0 /home/prashant/jailhouse/pyjailhouse/pci_defs.py<br>=C2=
+=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/tools/jailhouse.o<br>=
+=C2=A0 LD =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/tools/jailhouse<br>=
+=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/tools/demos/ivshmem-=
+demo.o<br>=C2=A0 LD =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/tools/demo=
+s/ivshmem-demo<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/to=
+ols/demos/cache-timings.o<br>=C2=A0 LD =C2=A0 =C2=A0 =C2=A0/home/prashant/j=
+ailhouse/tools/demos/cache-timings<br>=C2=A0 GEN =C2=A0 =C2=A0 /home/prasha=
+nt/jailhouse/tools/jailhouse-config-collect<br>=C2=A0 CC =C2=A0 =C2=A0 =C2=
+=A0/home/prashant/jailhouse/tools/jailhouse-gcov-extract.o<br>=C2=A0 LD =C2=
+=A0 =C2=A0 =C2=A0/home/prashant/jailhouse/tools/jailhouse-gcov-extract<br>=
+=C2=A0 GEN =C2=A0 =C2=A0 /home/prashant/jailhouse/tools/jailhouse.8<br>=C2=
+=A0 GEN =C2=A0 =C2=A0 /home/prashant/jailhouse/tools/jailhouse-cell.8<br>=
+=C2=A0 GEN =C2=A0 =C2=A0 /home/prashant/jailhouse/tools/jailhouse-enable.8<=
+br>=C2=A0 MODPOST /home/prashant/jailhouse/Module.symvers<br>ERROR: modpost=
+: &quot;lapic_timer_period&quot; [/home/prashant/jailhouse/driver/jailhouse=
+.ko] undefined!<br>ERROR: modpost: &quot;__get_vm_area_caller&quot; [/home/=
+prashant/jailhouse/driver/jailhouse.ko] undefined!<br>ERROR: modpost: &quot=
+;ioremap_page_range&quot; [/home/prashant/jailhouse/driver/jailhouse.ko] un=
+defined!<br>make[2]: *** [scripts/Makefile.modpost:111: /home/prashant/jail=
+house/Module.symvers] Error 1<br>make[2]: *** Deleting file &#39;/home/pras=
+hant/jailhouse/Module.symvers&#39;<br>make[1]: *** [Makefile:1714: modules]=
+ Error 2<br>make: *** [Makefile:40: modules] Error 2<br>[prashant@fedora ja=
+ilhouse]$ <br><br></div><div>I could see the issue is with the kernel. Coul=
+d I get necessary steps to fix this? How to apply patches if I have? Pointi=
+ng to any resource also might be very helpful. <br></div><div>Thank you <br=
+></div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/CAEoyBwCDWM%3D%2BiUXzXtECTpugFprTkMSj-P%2BgoS0R8yO=
+izZTYdg%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://gr=
+oups.google.com/d/msgid/jailhouse-dev/CAEoyBwCDWM%3D%2BiUXzXtECTpugFprTkMSj=
+-P%2BgoS0R8yOizZTYdg%40mail.gmail.com</a>.<br />
+
+--0000000000009eeffa05c29620f0--
