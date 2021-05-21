@@ -1,119 +1,117 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBJ46T2CQMGQENYJDWWI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBTM4T2CQMGQEYQNR33I@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x13a.google.com (mail-lf1-x13a.google.com [IPv6:2a00:1450:4864:20::13a])
-	by mail.lfdr.de (Postfix) with ESMTPS id D507F38C52D
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 21 May 2021 12:44:55 +0200 (CEST)
-Received: by mail-lf1-x13a.google.com with SMTP id p10-20020a19f10a0000b02901d675ef8fb8sf5035248lfh.16
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 21 May 2021 03:44:55 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1621593895; cv=pass;
+Received: from mail-wr1-x440.google.com (mail-wr1-x440.google.com [IPv6:2a00:1450:4864:20::440])
+	by mail.lfdr.de (Postfix) with ESMTPS id 45DFA38C51B
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 21 May 2021 12:41:18 +0200 (CEST)
+Received: by mail-wr1-x440.google.com with SMTP id u5-20020adf9e050000b029010df603f280sf9247162wre.18
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 21 May 2021 03:41:18 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1621593678; cv=pass;
         d=google.com; s=arc-20160816;
-        b=0vOb6+qy8Li112JUAFrbIRB4XRh1wcLksHppVMtit5X5+sVGXtwjLNzPJnH3X/6994
-         iVOeNGmP1kAUYOHbk8GHkM0bceWhl7q4XlE99q6WlcyM3SJnDtgsvINIPLfpbMSKkKLq
-         wTiCh8pjprhbxAJSsks94zjl2is9Aq+dcSQetMSdP6uPR/wwCYBduGTqO4Naow5Jm7Mw
-         5MdC7tDQl6FGEFxlmch0y81TpXtzwC8M6b7O+8vbrxFZ6LnnHZN5LCdp3GchjiJAFggz
-         nrXc/aUubIV9ADu7eJsYhUeIfHiAv+q5xQgT5+CNZ/Wabfj0//Fu6XV632m4GVHrWdSj
-         l32w==
+        b=id1zT/Xf1qtahw5xyMkz/lpFXoHPgsEBwVftsW9wLyC8vW4iAQUK7bLeovLD8GzcZO
+         gSykgY38YHf7UAptMuuotfqysHeX5vS8HUj8+GDxnbi0TRo172m0SHtYoHa9ItytQM8V
+         RSpCoKcZkoCxirqAwshpUN3Xi6Y3EsWwqm+vI9NXrFfqR+ef1sIzpfx4MwwFRrxq9pii
+         rsGOogM2i/yuOCSIpS+QSmHldvy49/mcgwJyEp30dFmJ3wkPKtzHFbWOdE2byojejBdq
+         //J/DMgyPMajAo7TMRjkxZru1uJKbPbY3C30FQKzVw0UYDaCivw1/v/oiMT/nPxa+ae4
+         leUg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :mime-version:references:in-reply-to:message-id:date:subject:to:from
-         :sender:dkim-signature;
-        bh=VUlfZmh9J61b2dsUHza7vbnaLhWkFhHiqTTWMQp3iLk=;
-        b=Aw49So9CqTMKHCb1zLT9IUERcespsb0yt0/q+E42DX8Z7ZLIi202EgQq35OivV9ruo
-         C8/D8S0jb0j6MOfy4bpXqrL/NRqpZyMDD2wsW3I3PgJpwBWLId7NIX2SdFj+veyTOZHK
-         PWfIFlzjzmKwTEAb3lXKYlBEN2HnDvpvz3nkjtiswBiOUSHT4L29CiuDG3malEYpXY90
-         KVK3f42zQ/oTzWsNZJpPdGziuvievJEMPihRl5Vzw+2mM9SZZ8oxWOrKGvWujVEMrBTK
-         1bBf2QvQepMSAUNvwheo7EnXNOa+tHwoJ72KrZGrd5HC6PYU/X3nipibKLy1OnSpGoF6
-         7z7w==
+         :list-id:mailing-list:precedence:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:sender:dkim-signature;
+        bh=lAOaBCo0W7bKFOEAL+Aq7QUbPKvKq4ahORwZOC3+Ol8=;
+        b=osg/whEgXCl6EYBdeVa0gXB632U5ylQ+yb81rLkkvF4SGGkvo3zvow2H8FCAKKCdKa
+         H03JwqGu5eTk5z90lCoLfPcpusuSiqjHdDkMopf75lAZO5JDTMp6eGwlB08nA5C7/A5V
+         dd+S8Hmm2+SUkPdL5+4JsgsvmgFmea/tr+mGr7b7zXMOahKdDBw7eluc5zxVMAKqEK6l
+         QQtAxPodfNxrCWCCRhIXjDr/d/ajPAnozk8qfNkcbE5UZ69OJNnuTuTUm7rYtfKuwEou
+         AIk4hMT9eFG1TgDcijxiYKjsQccdrZPrftWpX5kMms/5web6DOC/Q4HvWSrX4C7qih0Q
+         oegQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:from:to:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=VUlfZmh9J61b2dsUHza7vbnaLhWkFhHiqTTWMQp3iLk=;
-        b=BUeEz2pLI+Rll812cPu/SQlThRY1/xPGLd8UEdFSdVYi7MQ7ACbKDTfJv3d/6at9HI
-         rb6b9Z4LseRKA1S0vzcQi5xvP3Y11bHHhpIJJn0V7oaQ7rS2Ga5kqHcx+QTC6C3gOWEp
-         ilPP/qtm3g52wrIbJ1WEBc5ePRQX9bC8H3q68KQhVO+spBRr3X5EPqmWkUr0s14Ue8yS
-         YhDiJuLtwkHABEXvtNCGioXDL9JvYycoRqg25LLxmZtpJJgAnrwNJttPBzYdGWBPQABB
-         eECTlubU20q8cgFF/gCBjNFfaPyPhkpLTDdB1ZMoNBW6mzbFvt0BkTmdcb0+YXKuD3K2
-         vkxg==
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=lAOaBCo0W7bKFOEAL+Aq7QUbPKvKq4ahORwZOC3+Ol8=;
+        b=bheElU73x8e0KtcZsxAlBg1vFaUFOAurXVgGqoyZixMHTK5Zfhy5VHRZtwvd4RFmh8
+         ENge6QzKQZIX4XvDz6L3G0sryyM4t5c0n8ea3KktCoi4deOi4hvNTgj7Y+uWZ632mzJD
+         /roCA7EMd/q6dOzMyaI52N8D8w6FnTLvzPNWA0GKDe0KRzSxGk3XEDFK4YS4hhQSbocx
+         uCQylhqB7BRyX98mTYDdHE7M++7x7LkyM/nP4tRrN88tOsBWch6K5RplnvDJXmszTfOu
+         EVIN0QBIJadOArkmAi7zFJ2NmiOZCinAe+wruB7GP2nX+G90FIjg8ulQQv1MYce5ygsA
+         Yygg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:subject:date:message-id
-         :in-reply-to:references:mime-version:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=VUlfZmh9J61b2dsUHza7vbnaLhWkFhHiqTTWMQp3iLk=;
-        b=UVozK1uvFvJpYk2hy3dbAZbhqYhl4F4PrvOl3ltwc/5kFx5IWBSngIbW/ahLA5hedq
-         vlXtsei4zVzpSGwMwdbq+nTM3j34KIewcQneoA9sYA7G+tlJaWUu6X49NYtwBfOKoUAF
-         1b60DTTLFiQzAChbe31EEPhrKKuCspsZHWjxSpUB6nfwU1xPtfpvvmeap9r9D24jNlfZ
-         vbpgBhjNYew62lNudDJhAhQch/hJiL4YXDYMsv04j4uczbrxyGhOci1xe49nVnLOlYI5
-         AqGxvoCcJRTYgDB5R2MyWCj/+X05TPyCfHmvWZ7JsenSgwC1IZpTSp53hbMhmKidTUHu
-         i03Q==
+         :in-reply-to:references:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=lAOaBCo0W7bKFOEAL+Aq7QUbPKvKq4ahORwZOC3+Ol8=;
+        b=p2YwyNaU+my7RFLoxEGMjKZ5xbeeeHGAWf2JxoK35nhR56QOjveRL+juSpUfYFAA9t
+         i5h5kQcgFLUN8hACfyWy5YJZpJ35VtiYgd7THZfh6vRPAkrCSr3bQdVA/B2emB2wdzu3
+         4hJry2QlwM1TPSH7MzKAmCPRy94uam0tYnamSjqHS3RZh5woLJEGOtN1wAW00qeVom+d
+         XrN7fdNYKMaohqEko/x2fFUoOm4RV0zpYl2361KpXaWywVk9ZITYc7pJ/PzQ45u+WgBf
+         lG17rhOxGFe9coEr/3/XaUgoEHTCPxM39wSrFVFQMOIwyyT82ubD9PxO5LHU+zniHhwF
+         araA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531Zn0j34So2dafqMkvnDkUExDzKINdcRTv45hmQbnVhL45dx4ZG
-	DV/K8i9LRZQzlbLvik7PXgw=
-X-Google-Smtp-Source: ABdhPJyN1KIEFnpjn+kfqvGcnUS6PR1+5jB2bz51KkcptdQrE03HebhM7Zr9EtGCxZRPUG3r9ChxXw==
-X-Received: by 2002:a19:7416:: with SMTP id v22mr1785495lfe.13.1621593895448;
-        Fri, 21 May 2021 03:44:55 -0700 (PDT)
+X-Gm-Message-State: AOAM532lQkk/JQaDYnx4R6ayvHVyzkN8YSDxkg/5xtrdVH2t2see1uDE
+	VRY3q+QKfMAps+vj9iiciFk=
+X-Google-Smtp-Source: ABdhPJyrKX6uYX+sQ7qnfFpou06XBc2ZkrRPV49cuPiwQJvy3KKqQ9uVdgJDti9DCxRhLwdHsxH7zg==
+X-Received: by 2002:a1c:e912:: with SMTP id q18mr8624862wmc.59.1621593677955;
+        Fri, 21 May 2021 03:41:17 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:6d09:: with SMTP id i9ls1147055ljc.2.gmail; Fri, 21 May
- 2021 03:44:54 -0700 (PDT)
-X-Received: by 2002:a2e:808a:: with SMTP id i10mr6536422ljg.288.1621593894253;
-        Fri, 21 May 2021 03:44:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1621593894; cv=none;
+Received: by 2002:adf:f844:: with SMTP id d4ls172450wrq.3.gmail; Fri, 21 May
+ 2021 03:41:16 -0700 (PDT)
+X-Received: by 2002:adf:fb87:: with SMTP id a7mr8988135wrr.58.1621593676793;
+        Fri, 21 May 2021 03:41:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1621593676; cv=none;
         d=google.com; s=arc-20160816;
-        b=SvA1JA6rDHT1uUScslsiXIRErlLugS9kVZK0iErh0awWUKvj/qEOAFFJEfvbV2w7SR
-         eqLR7kvVwhiFiUOSkKieKCsYEMrALD352tJjHY/UHV8z0/lc8T8kRqiB5Q3zd66nk0Qq
-         mYImH4eGRq3UpXuoi0m9pFCPQMCxQ5XCg6zbUu5wUEXKsv0UdTgB0r5WnB7d8QP5el10
-         mh7s6yf7No5l/miaNJ9Uc63MLmtBAAw4xFYit/vprivCmPZrRRABivP395l3Jh1KJ5QX
-         O8AY03fNjTYIpJEUzDZ9RE8h4aIT0yKcxFW5zupSLWukMWiUJCtfSEVlf7cihuFT7en8
-         1DCQ==
+        b=DWN37dCz6ZpoQStF4JTtCMm+p+tgFKkW4HhacDAlm5w+Qezh+h/1LYuRdMyS1vE2L1
+         ZbQSj+PaSO7mrWTeP5kgKF66E1R2Xqy/kc6G8kawnSTV8ElsReg9rFKjGssvlGx2cpa6
+         SH7Z3Mhw5O0dt4zPCTLsHNtsU8KYET9d5WTwWr5lvn1Ez/cooyaqyRXnsW31LQqzm7F8
+         nf6a6AdX87AOwjWDBZ5Sfzl+EGh5rwInyM/pcFaAyYSeWxbPZZ81DMyoHNS1KRQIz831
+         JojFC6pmQGRgYuHey2HLUArBo5pEO/wYimNdKzzVZor2LRmZNVcUYgcmQaZygTB94eQ7
+         S14A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from;
-        bh=0XBwSMt4Sx9ZoIESOGCsx4Z9g3QGSXP2KCs+O1Gky4Q=;
-        b=n600wv8K+ZlIz9LADMg08y+jQACC4F72t9XCWVy2+3kXw2XU6an4jyFi3RbIVHlhrq
-         tk38fF2tqDctdClAACvo6GX/HqxOFhb7jzR15p0DEz/VWLtq7DW55zELBy4+2HgAfs1L
-         gRIWCrRX8aNb4CdhLUqh7JR4xU8e17RahK/mGNGCCiz9id4ZjfTpO4+L+03VxqBPUZH/
-         sBjJSmzooeyiOFyhkEZpdS+4Q/LQIn9q3Vak7OD8bCe9n2URbg+tB1XVAHfO15HDaKz9
-         lkusOoaBjPy+k8wBCtjXtqOKtxN2AQcTfCBuMmIDyRLolMt4XVJ0VoIFF6CRJvErYDdm
-         gS2Q==
+        bh=f1wnLrpEyCaBb3COZHH/31JaXfJC1FVGOPx+s7ruiZ4=;
+        b=t8q/psuBml4dgI14kwFwYEwDzuThX7tg2/oJWAlPk3rIaGa5bA3botQ0BRyTer7ySO
+         tXONxYnQZqdLjroGgAOk9V6etmD6T3vpJHpQ8HxVq+MSlc8p++WDj7dyRqJpdNbwtQXV
+         35SI02qc7r3uhcZbRfSBLzpvTmjgOausk9hCsVh4Ov0ViKAKvZ53tFIelA7tYRYg+Jkx
+         33U/GIg3LU4xTX9EN5CYkTBpnAx+F1QOzqHGwqxMq+DCDHSNpX1Nn0UrvVMEeXnhQ97e
+         kozAuSq5lzRH81/FmElkcjFqncbq+POxtDy8M2iDyPN85TZ27NoSg/TstwlBlyDbcwo/
+         HV+Q==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id f14si238307lfv.2.2021.05.21.03.44.54
+Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
+        by gmr-mx.google.com with ESMTPS id t1si83435wrn.4.2021.05.21.03.41.16
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 21 May 2021 03:44:54 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
+        Fri, 21 May 2021 03:41:16 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 14LAiriv024422
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 14LAfGba006731
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
-	for <jailhouse-dev@googlegroups.com>; Fri, 21 May 2021 12:44:53 +0200
+	for <jailhouse-dev@googlegroups.com>; Fri, 21 May 2021 12:41:16 +0200
 Received: from md1f2u6c.ad001.siemens.net ([167.87.240.49])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 14LAbYcI032504
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 14LAbYcJ032504
 	for <jailhouse-dev@googlegroups.com>; Fri, 21 May 2021 12:37:38 +0200
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [jh-images][PATCH v3 13/22] wks files: Tune ext4 file systems to not be affected by y2038 issue
-Date: Fri, 21 May 2021 12:37:25 +0200
-Message-Id: <458c46922e2d618e69799be74a6ec70e91c88022.1621593454.git.jan.kiszka@siemens.com>
+Subject: [jh-images][PATCH v3 14/22] trusted-firmware-a: Update to release 2.4
+Date: Fri, 21 May 2021 12:37:26 +0200
+Message-Id: <a6c70883a6dae441a9d28fc0240198a53637f075.1621593454.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <cover.1621593454.git.jan.kiszka@siemens.com>
 References: <cover.1621593454.git.jan.kiszka@siemens.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
@@ -131,180 +129,340 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-As we are generating minimal images, their rootfs sizes may be below the
-threshold that requires 256-byte or larger inodes. But those are
-required to carry 64-bit time values, needed to avoid the y2038 problem.
-Latest wic warns about this, so account for it.
+Allows to drop the backport patch.
+
+For the MACCHIATObin, this requires to update the mv-ddr dependency and
+select a different build target but allows to remove another patch. We
+need a new one to fix a build dependency bug, otherwise bl1.bin is not
+included in the image.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- wic/espressobin.wks   | 2 +-
- wic/hikey620.wks      | 2 +-
- wic/ipc127e.wks       | 2 +-
- wic/macchiatobin.wks  | 2 +-
- wic/nuc6cay.wks       | 2 +-
- wic/orangepi-zero.wks | 2 +-
- wic/pine64-plus.wks   | 2 +-
- wic/rpi4.wks          | 2 +-
- wic/ultra96.wks       | 2 +-
- 9 files changed, 9 insertions(+), 9 deletions(-)
+ ...se-abspath-to-dereference-BUILD_BASE.patch | 144 ------------------
+ ...-fix-gcc-warning-about-uninitialized.patch |  40 -----
+ ...ada-Add-missing-dependency-of-mrvl_f.patch |  33 ++++
+ ...=> trusted-firmware-a-macchiatobin_2.4.bb} |   8 +-
+ ... => trusted-firmware-a-pine64-plus_2.4.bb} |   0
+ ..._2.3.bb => trusted-firmware-a-rpi4_2.4.bb} |   0
+ ...3.bb => trusted-firmware-a-ultra96_2.4.bb} |   0
+ ...e-a_2.3.inc => trusted-firmware-a_2.4.inc} |   6 +-
+ 8 files changed, 39 insertions(+), 192 deletions(-)
+ delete mode 100644 recipes-bsp/trusted-firmware-a/files/0001-Use-abspath-to-dereference-BUILD_BASE.patch
+ delete mode 100644 recipes-bsp/trusted-firmware-a/files/0001-mv_ddr4_training-fix-gcc-warning-about-uninitialized.patch
+ create mode 100644 recipes-bsp/trusted-firmware-a/files/0001-plat-marvell-armada-Add-missing-dependency-of-mrvl_f.patch
+ rename recipes-bsp/trusted-firmware-a/{trusted-firmware-a-macchiatobin_2.3.bb => trusted-firmware-a-macchiatobin_2.4.bb} (77%)
+ rename recipes-bsp/trusted-firmware-a/{trusted-firmware-a-pine64-plus_2.3.bb => trusted-firmware-a-pine64-plus_2.4.bb} (100%)
+ rename recipes-bsp/trusted-firmware-a/{trusted-firmware-a-rpi4_2.3.bb => trusted-firmware-a-rpi4_2.4.bb} (100%)
+ rename recipes-bsp/trusted-firmware-a/{trusted-firmware-a-ultra96_2.3.bb => trusted-firmware-a-ultra96_2.4.bb} (100%)
+ rename recipes-bsp/trusted-firmware-a/{trusted-firmware-a_2.3.inc => trusted-firmware-a_2.4.inc} (65%)
 
-diff --git a/wic/espressobin.wks b/wic/espressobin.wks
-index 330d70f..3b2ca07 100644
---- a/wic/espressobin.wks
-+++ b/wic/espressobin.wks
-@@ -9,6 +9,6 @@
- # SPDX-License-Identifier: MIT
+diff --git a/recipes-bsp/trusted-firmware-a/files/0001-Use-abspath-to-dereference-BUILD_BASE.patch b/recipes-bsp/trusted-firmware-a/files/0001-Use-abspath-to-dereference-BUILD_BASE.patch
+deleted file mode 100644
+index 37b6251..0000000
+--- a/recipes-bsp/trusted-firmware-a/files/0001-Use-abspath-to-dereference-BUILD_BASE.patch
++++ /dev/null
+@@ -1,144 +0,0 @@
+-From f62206b4871020506842807b263408e5162b23e9 Mon Sep 17 00:00:00 2001
+-From: Grant Likely <grant.likely@arm.com>
+-Date: Thu, 30 Jul 2020 08:50:10 +0100
+-Subject: [PATCH] Use abspath to dereference $BUILD_BASE
+-
+-If the user tries to change BUILD_BASE to put the build products outside
+-the build tree the compile will fail due to hard coded assumptions that
+-$BUILD_BASE is a relative path. Fix by using $(abspath $(BUILD_BASE))
+-to rationalize to an absolute path every time and remove the relative
+-path assumptions.
+-
+-This patch also adds documentation that BUILD_BASE can be specified by
+-the user.
+-
+-Signed-off-by: Grant Likely <grant.likely@arm.com>
+-Signed-off-by: Manish Pandey <manish.pandey2@arm.com>
+-Change-Id: Ib1af874de658484aaffc672f30029b852d2489c8
+----
+- Makefile                               | 6 ++++--
+- docs/getting_started/build-options.rst | 2 ++
+- lib/romlib/Makefile                    | 8 ++++----
+- plat/marvell/a8k/common/ble/ble.mk     | 8 ++++----
+- plat/nvidia/tegra/platform.mk          | 2 +-
+- plat/ti/k3/platform.mk                 | 2 +-
+- tools/sptool/sp_mk_generator.py        | 4 ++--
+- 7 files changed, 18 insertions(+), 14 deletions(-)
+-
+-diff --git a/Makefile b/Makefile
+-index f01a9ae3e..1290d4ff4 100644
+---- a/Makefile
+-+++ b/Makefile
+-@@ -449,8 +449,10 @@ include common/backtrace/backtrace.mk
+- 
+- include ${MAKE_HELPERS_DIRECTORY}plat_helpers.mk
+- 
+--BUILD_BASE		:=	./build
+--BUILD_PLAT		:=	${BUILD_BASE}/${PLAT}/${BUILD_TYPE}
+-+ifeq (${BUILD_BASE},)
+-+     BUILD_BASE		:=	./build
+-+endif
+-+BUILD_PLAT		:=	$(abspath ${BUILD_BASE})/${PLAT}/${BUILD_TYPE}
+- 
+- SPDS			:=	$(sort $(filter-out none, $(patsubst services/spd/%,%,$(wildcard services/spd/*))))
+- 
+-diff --git a/docs/getting_started/build-options.rst b/docs/getting_started/build-options.rst
+-index 90fe83feb..c96499020 100644
+---- a/docs/getting_started/build-options.rst
+-+++ b/docs/getting_started/build-options.rst
+-@@ -116,6 +116,8 @@ Common build options
+- -  ``BUILD_STRING``: Input string for VERSION_STRING, which allows the TF-A
+-    build to be uniquely identified. Defaults to the current git commit id.
+- 
+-+-  ``BUILD_BASE``: Output directory for the build. Defaults to ``./build``
+-+
+- -  ``CFLAGS``: Extra user options appended on the compiler's command line in
+-    addition to the options set by the build system.
+- 
+-diff --git a/lib/romlib/Makefile b/lib/romlib/Makefile
+-index cec94043d..2ff480bd4 100644
+---- a/lib/romlib/Makefile
+-+++ b/lib/romlib/Makefile
+-@@ -10,14 +10,14 @@ LD          = $(CROSS_COMPILE)ld
+- OC          = $(CROSS_COMPILE)objcopy
+- CPP         = $(CROSS_COMPILE)cpp
+- ROMLIB_GEN  = ./romlib_generator.py
+--BUILD_DIR   = ../../$(BUILD_PLAT)/romlib
+--LIB_DIR     = ../../$(BUILD_PLAT)/lib
+--WRAPPER_DIR = ../../$(BUILD_PLAT)/libwrapper
+-+BUILD_DIR   = $(BUILD_PLAT)/romlib
+-+LIB_DIR     = $(BUILD_PLAT)/lib
+-+WRAPPER_DIR = $(BUILD_PLAT)/libwrapper
+- LIBS        = -lmbedtls -lfdt -lc
+- INC         = $(INCLUDES:-I%=-I../../%)
+- PPFLAGS     = $(INC) $(DEFINES) -P -x assembler-with-cpp -D__LINKER__ -MD -MP -MT $(BUILD_DIR)/romlib.ld
+- OBJS        = $(BUILD_DIR)/jmptbl.o $(BUILD_DIR)/init.o
+--MAPFILE     = ../../$(BUILD_PLAT)/romlib/romlib.map
+-+MAPFILE     = $(BUILD_PLAT)/romlib/romlib.map
+- 
+- ifneq ($(PLAT_DIR),)
+-   WRAPPER_SOURCES   = $(shell $(ROMLIB_GEN) genwrappers -b $(WRAPPER_DIR) --list ../../$(PLAT_DIR)/jmptbl.i)
+-diff --git a/plat/marvell/a8k/common/ble/ble.mk b/plat/marvell/a8k/common/ble/ble.mk
+-index b6a9cd291..12e657581 100644
+---- a/plat/marvell/a8k/common/ble/ble.mk
+-+++ b/plat/marvell/a8k/common/ble/ble.mk
+-@@ -5,9 +5,9 @@
+- 
+- MV_DDR_PATH		?=	drivers/marvell/mv_ddr
+- 
+--MV_DDR_LIB		= 	$(CURDIR)/$(BUILD_PLAT)/ble/mv_ddr_lib.a
+--LIBC_LIB		=	$(CURDIR)/$(BUILD_PLAT)/lib/libc.a
+--BLE_LIBS		= 	$(MV_DDR_LIB) $(LIBC_LIB)
+-+MV_DDR_LIB		=	$(BUILD_PLAT)/ble/mv_ddr_lib.a
+-+LIBC_LIB		=	$(BUILD_PLAT)/lib/libc.a
+-+BLE_LIBS		=	$(MV_DDR_LIB) $(LIBC_LIB)
+- PLAT_MARVELL		=	plat/marvell
+- 
+- BLE_SOURCES		+= 	$(BLE_PATH)/ble_main.c				\
+-@@ -29,4 +29,4 @@ BLE_LINKERFILE		:=	$(BLE_PATH)/ble.ld.S
+- FORCE:
+- 
+- $(MV_DDR_LIB): FORCE
+--	@+make -C $(MV_DDR_PATH) --no-print-directory PLAT_INCLUDES="$(PLAT_INCLUDES)" PLATFORM=$(PLAT) ARCH=AARCH64 OBJ_DIR=$(CURDIR)/$(BUILD_PLAT)/ble
+-+	@+make -C $(MV_DDR_PATH) --no-print-directory PLAT_INCLUDES="$(PLAT_INCLUDES)" PLATFORM=$(PLAT) ARCH=AARCH64 OBJ_DIR=$(BUILD_PLAT)/ble
+-diff --git a/plat/nvidia/tegra/platform.mk b/plat/nvidia/tegra/platform.mk
+-index e03e1f37b..f7221afac 100644
+---- a/plat/nvidia/tegra/platform.mk
+-+++ b/plat/nvidia/tegra/platform.mk
+-@@ -56,7 +56,7 @@ $(eval $(call add_define,ENABLE_TEGRA_WDT_LEGACY_FIQ_HANDLING))
+- $(eval $(call add_define,RELOCATE_BL32_IMAGE))
+- 
+- # modify BUILD_PLAT to point to SoC specific build directory
+--BUILD_PLAT	:=	${BUILD_BASE}/${PLAT}/${TARGET_SOC}/${BUILD_TYPE}
+-+BUILD_PLAT	:=	$(abspath ${BUILD_BASE})/${PLAT}/${TARGET_SOC}/${BUILD_TYPE}
+- 
+- # platform cflags (enable signed comparisons, disable stdlib)
+- TF_CFLAGS	+= -Wsign-compare -nostdlib
+-diff --git a/plat/ti/k3/platform.mk b/plat/ti/k3/platform.mk
+-index 65d5cc2a4..2de21aa7b 100644
+---- a/plat/ti/k3/platform.mk
+-+++ b/plat/ti/k3/platform.mk
+-@@ -11,4 +11,4 @@ include ${PLAT_PATH}/common/plat_common.mk
+- include ${PLAT_PATH}/board/${TARGET_BOARD}/board.mk
+- 
+- # modify BUILD_PLAT to point to board specific build directory
+--BUILD_PLAT := ${BUILD_BASE}/${PLAT}/${TARGET_BOARD}/${BUILD_TYPE}
+-+BUILD_PLAT := $(abspath ${BUILD_BASE})/${PLAT}/${TARGET_BOARD}/${BUILD_TYPE}
+-diff --git a/tools/sptool/sp_mk_generator.py b/tools/sptool/sp_mk_generator.py
+-index 6b6fa1914..68fb82201 100755
+---- a/tools/sptool/sp_mk_generator.py
+-+++ b/tools/sptool/sp_mk_generator.py
+-@@ -53,8 +53,8 @@ with open(sys.argv[2],'r') as in_file:
+-     data = json.load(in_file)
+- json_file = os.path.abspath(sys.argv[2])
+- json_dir = os.path.dirname(json_file)
+--gen_file = sys.argv[1]
+--out_dir = sys.argv[3][2:]
+-+gen_file = os.path.abspath(sys.argv[1])
+-+out_dir = os.path.abspath(sys.argv[3])
+- dtb_dir = out_dir + "/fdts/"
+- print(dtb_dir)
+- 
+--- 
+-2.26.2
+-
+diff --git a/recipes-bsp/trusted-firmware-a/files/0001-mv_ddr4_training-fix-gcc-warning-about-uninitialized.patch b/recipes-bsp/trusted-firmware-a/files/0001-mv_ddr4_training-fix-gcc-warning-about-uninitialized.patch
+deleted file mode 100644
+index 9daa485..0000000
+--- a/recipes-bsp/trusted-firmware-a/files/0001-mv_ddr4_training-fix-gcc-warning-about-uninitialized.patch
++++ /dev/null
+@@ -1,40 +0,0 @@
+-From 1e4cd057a61000cf7d29f7047b68c2cade604465 Mon Sep 17 00:00:00 2001
+-From: philhofer <phofer@umich.edu>
+-Date: Mon, 1 Jul 2019 16:09:28 -0700
+-Subject: [PATCH] mv_ddr4_training: fix gcc warning about uninitialized data
+-
+-ATF builds with -Wuninitialized -Werror, which causes a build
+-failure with gcc 8.3.0 on line 455 of mv_ddr4_training_leveling.c
+-
+-Also, fix some nearby inconsistent indentation.
+-
+-Signed-off-by: philhofer <phofer@umich.edu>
+----
+- mv_ddr4_training_leveling.c | 4 ++--
+- 1 file changed, 2 insertions(+), 2 deletions(-)
+-
+-diff --git a/mv_ddr4_training_leveling.c b/mv_ddr4_training_leveling.c
+-index 144e21a..4c0c0ab 100644
+---- a/mv_ddr4_training_leveling.c
+-+++ b/mv_ddr4_training_leveling.c
+-@@ -368,7 +368,7 @@ static int mv_ddr4_dynamic_pb_wl_supp(u32 dev_num, enum mv_wl_supp_mode ecc_mode
+- 	u32 subphy_num = ddr3_tip_dev_attr_get(dev_num, MV_ATTR_OCTET_PER_INTERFACE);
+- 	u8 compare_result = 0;
+- 	u32 orig_phase;
+--	u32 rd_data, wr_data;
+-+	u32 rd_data, wr_data = 0;
+- 	u32 flag, step;
+- 	struct mv_ddr_topology_map *tm = mv_ddr_topology_map_get();
+- 	u32 ecc_phy_access_id;
+-@@ -450,7 +450,7 @@ static int mv_ddr4_dynamic_pb_wl_supp(u32 dev_num, enum mv_wl_supp_mode ecc_mode
+- 						if (orig_phase > 1)
+- 							wr_data = (rd_data & ~0x1c0) | ((orig_phase - 2) << 6);
+- 						else if (orig_phase == 1)
+--								wr_data = (rd_data & ~0x1df);
+-+							wr_data = (rd_data & ~0x1df);
+- 						if (orig_phase >= 1)
+- 							ddr3_tip_bus_write(dev_num, ACCESS_TYPE_UNICAST, if_id,
+- 									   ACCESS_TYPE_UNICAST, subphy_num,
+--- 
+-2.16.4
+-
+diff --git a/recipes-bsp/trusted-firmware-a/files/0001-plat-marvell-armada-Add-missing-dependency-of-mrvl_f.patch b/recipes-bsp/trusted-firmware-a/files/0001-plat-marvell-armada-Add-missing-dependency-of-mrvl_f.patch
+new file mode 100644
+index 0000000..45491c1
+--- /dev/null
++++ b/recipes-bsp/trusted-firmware-a/files/0001-plat-marvell-armada-Add-missing-dependency-of-mrvl_f.patch
+@@ -0,0 +1,33 @@
++From 389e7aa2c97c0faa79d59dbf8fce1394db05cb62 Mon Sep 17 00:00:00 2001
++From: Jan Kiszka <jan.kiszka@siemens.com>
++Date: Thu, 13 May 2021 10:48:22 +0200
++Subject: [PATCH] plat/marvell/armada: Add missing dependency of mrvl_flash
++
++Allows building only this target.
++
++Not for upstream, they fixed this implicitly while refactoring the
++build.
++
++Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
++Change-Id: I4901fa238a29842e03e34d0e0cb52816eea39183
++---
++ plat/marvell/armada/a8k/common/a8k_common.mk | 3 +--
++ 1 file changed, 1 insertion(+), 2 deletions(-)
++
++diff --git a/plat/marvell/armada/a8k/common/a8k_common.mk b/plat/marvell/armada/a8k/common/a8k_common.mk
++index c8273265e..9ac86a117 100644
++--- a/plat/marvell/armada/a8k/common/a8k_common.mk
+++++ b/plat/marvell/armada/a8k/common/a8k_common.mk
++@@ -160,8 +160,7 @@ ${DOIMAGETOOL}: mrvl_clean
++ 	@$(DOIMAGE_LIBS_CHECK)
++ 	${Q}${MAKE} --no-print-directory -C ${DOIMAGEPATH}
++ 
++-mrvl_flash: ${BUILD_PLAT}/${FIP_NAME} ${DOIMAGETOOL} ${BUILD_PLAT}/ble.bin
+++mrvl_flash: ${BUILD_PLAT}/${FIP_NAME} ${DOIMAGETOOL} ${BUILD_PLAT}/ble.bin ${BUILD_PLAT}/bl1.bin
++ 	$(shell truncate -s %128K ${BUILD_PLAT}/bl1.bin)
++ 	$(shell cat ${BUILD_PLAT}/bl1.bin ${BUILD_PLAT}/${FIP_NAME} > ${BUILD_PLAT}/${BOOT_IMAGE})
++ 	${DOIMAGETOOL} ${DOIMAGE_FLAGS} ${BUILD_PLAT}/${BOOT_IMAGE} ${BUILD_PLAT}/${FLASH_IMAGE}
++-
++-- 
++2.26.2
++
+diff --git a/recipes-bsp/trusted-firmware-a/trusted-firmware-a-macchiatobin_2.3.bb b/recipes-bsp/trusted-firmware-a/trusted-firmware-a-macchiatobin_2.4.bb
+similarity index 77%
+rename from recipes-bsp/trusted-firmware-a/trusted-firmware-a-macchiatobin_2.3.bb
+rename to recipes-bsp/trusted-firmware-a/trusted-firmware-a-macchiatobin_2.4.bb
+index d5dced9..02a9234 100644
+--- a/recipes-bsp/trusted-firmware-a/trusted-firmware-a-macchiatobin_2.3.bb
++++ b/recipes-bsp/trusted-firmware-a/trusted-firmware-a-macchiatobin_2.4.bb
+@@ -12,12 +12,12 @@
+ require trusted-firmware-a_${PV}.inc
+ 
+ SRC_URI += " \
+-    git://github.com/MarvellEmbeddedProcessors/mv-ddr-marvell;protocol=https;branch=mv_ddr-armada-atf-mainline;rev=${MV_DDR_REV};destsuffix=mv-ddr-marvell \
++    git://github.com/MarvellEmbeddedProcessors/mv-ddr-marvell;protocol=https;rev=${MV_DDR_REV};destsuffix=mv-ddr-marvell \
+     git://github.com/MarvellEmbeddedProcessors/binaries-marvell;protocol=https;branch=${MV_BIN_BRANCH};rev=${MV_BIN_REV};destsuffix=binaries-marvell \
+-    file://0001-mv_ddr4_training-fix-gcc-warning-about-uninitialized.patch;patchdir=${WORKDIR}/mv-ddr-marvell \
++    file://0001-plat-marvell-armada-Add-missing-dependency-of-mrvl_f.patch \
+     "
+ 
+-MV_DDR_REV="a881467ef0f0185e6570dd0483023fde93cbb5f5"
++MV_DDR_REV="7c351731d19645f64d2826a47e8f4d9cd1c74db3"
+ MV_BIN_BRANCH="binaries-marvell-armada-18.12"
+ MV_BIN_REV="c6c529ea3d905a28cc77331964c466c3e2dc852e"
+ 
+@@ -30,5 +30,5 @@ TF_A_EXTRA_BUILDARGS = " \
+     MV_DDR_PATH=../mv-ddr-marvell \
+     SCP_BL2=../binaries-marvell/mrvl_scp_bl2.img \
+     BL33=/usr/lib/u-boot/macchiatobin/u-boot.bin \
+-    all fip"
++    mrvl_flash"
+ TF_A_BINARIES = "release/flash-image.bin"
+diff --git a/recipes-bsp/trusted-firmware-a/trusted-firmware-a-pine64-plus_2.3.bb b/recipes-bsp/trusted-firmware-a/trusted-firmware-a-pine64-plus_2.4.bb
+similarity index 100%
+rename from recipes-bsp/trusted-firmware-a/trusted-firmware-a-pine64-plus_2.3.bb
+rename to recipes-bsp/trusted-firmware-a/trusted-firmware-a-pine64-plus_2.4.bb
+diff --git a/recipes-bsp/trusted-firmware-a/trusted-firmware-a-rpi4_2.3.bb b/recipes-bsp/trusted-firmware-a/trusted-firmware-a-rpi4_2.4.bb
+similarity index 100%
+rename from recipes-bsp/trusted-firmware-a/trusted-firmware-a-rpi4_2.3.bb
+rename to recipes-bsp/trusted-firmware-a/trusted-firmware-a-rpi4_2.4.bb
+diff --git a/recipes-bsp/trusted-firmware-a/trusted-firmware-a-ultra96_2.3.bb b/recipes-bsp/trusted-firmware-a/trusted-firmware-a-ultra96_2.4.bb
+similarity index 100%
+rename from recipes-bsp/trusted-firmware-a/trusted-firmware-a-ultra96_2.3.bb
+rename to recipes-bsp/trusted-firmware-a/trusted-firmware-a-ultra96_2.4.bb
+diff --git a/recipes-bsp/trusted-firmware-a/trusted-firmware-a_2.3.inc b/recipes-bsp/trusted-firmware-a/trusted-firmware-a_2.4.inc
+similarity index 65%
+rename from recipes-bsp/trusted-firmware-a/trusted-firmware-a_2.3.inc
+rename to recipes-bsp/trusted-firmware-a/trusted-firmware-a_2.4.inc
+index 06794c3..bd1e48e 100644
+--- a/recipes-bsp/trusted-firmware-a/trusted-firmware-a_2.3.inc
++++ b/recipes-bsp/trusted-firmware-a/trusted-firmware-a_2.4.inc
+@@ -1,7 +1,7 @@
  #
-=20
--part / --source rootfs-u-boot --ondisk mmcblk0 --fstype ext4 --label platf=
-orm --align 1024 --sourceparams "no_initrd=3Dyes,script_prepend=3Dsetenv de=
-vtype mmc;setenv devnum 0;setenv distro_bootpart 1;setenv fdt_addr_r 0x4f00=
-000;setenv fdtfile marvell/armada-3720-espressobin.dtb;setenv kernel_addr_r=
- 0x5000000"
-+part / --source rootfs-u-boot --ondisk mmcblk0 --fstype ext4 --mkfs-extrao=
-pts "-T default" --label platform --align 1024 --sourceparams "no_initrd=3D=
-yes,script_prepend=3Dsetenv devtype mmc;setenv devnum 0;setenv distro_bootp=
-art 1;setenv fdt_addr_r 0x4f00000;setenv fdtfile marvell/armada-3720-espres=
-sobin.dtb;setenv kernel_addr_r 0x5000000"
-=20
- bootloader --append "rw rootwait mem=3D768M"
-diff --git a/wic/hikey620.wks b/wic/hikey620.wks
-index e91fd99..9fe9e70 100644
---- a/wic/hikey620.wks
-+++ b/wic/hikey620.wks
-@@ -11,6 +11,6 @@
-=20
- part /boot --source bootimg-efi-isar --sourceparams "loader=3Dgrub-efi" --=
-ondisk mmcblk1 --label efi --part-type EF00 --align 1024
-=20
--part / --source rootfs --ondisk mmcblk1 --fstype ext4 --label platform --a=
-lign 1024 --use-uuid
-+part / --source rootfs --ondisk mmcblk1 --fstype ext4 --mkfs-extraopts "-T=
- default" --label platform --align 1024 --use-uuid
-=20
- bootloader --ptable gpt --timeout=3D3 --append "mem=3D1820M"
-diff --git a/wic/ipc127e.wks b/wic/ipc127e.wks
-index c11f9d1..777d446 100644
---- a/wic/ipc127e.wks
-+++ b/wic/ipc127e.wks
-@@ -11,6 +11,6 @@
-=20
- part /boot --source bootimg-efi-isar --sourceparams "loader=3Dgrub-efi" --=
-ondisk sda --label efi --part-type EF00 --align 1024
-=20
--part / --source rootfs --ondisk sda --fstype ext4 --label platform --align=
- 1024 --use-uuid
-+part / --source rootfs --ondisk sda --fstype ext4 --mkfs-extraopts "-T def=
-ault" --label platform --align 1024 --use-uuid
-=20
- bootloader --ptable gpt --timeout 3 --append "intel_iommu=3Doff memmap=3D8=
-2M\$0x3a000000"
-diff --git a/wic/macchiatobin.wks b/wic/macchiatobin.wks
-index ead8b14..021abbe 100644
---- a/wic/macchiatobin.wks
-+++ b/wic/macchiatobin.wks
-@@ -11,6 +11,6 @@
-=20
- part u-boot --source rawcopy --sourceparams "file=3D/usr/lib/trusted-firmw=
-are-a/macchiatobin/flash-image.bin" --no-table --align 2048 --size 2M
-=20
--part / --source rootfs-u-boot --ondisk mmcblk1 --fstype ext4 --label platf=
-orm --active --align 1024 --sourceparams "no_initrd=3Dyes"
-+part / --source rootfs-u-boot --ondisk mmcblk1 --fstype ext4 --mkfs-extrao=
-pts "-T default" --label platform --active --align 1024 --sourceparams "no_=
-initrd=3Dyes"
-=20
- bootloader --append "rw rootwait cma=3D32M mem=3D3840M"
-diff --git a/wic/nuc6cay.wks b/wic/nuc6cay.wks
-index 341e948..a8cbff9 100644
---- a/wic/nuc6cay.wks
-+++ b/wic/nuc6cay.wks
-@@ -11,6 +11,6 @@
-=20
- part /boot --source bootimg-efi-isar --sourceparams "loader=3Dgrub-efi" --=
-ondisk sda --label efi --part-type EF00 --align 1024
-=20
--part / --source rootfs --ondisk sda --fstype ext4 --label platform --align=
- 1024 --use-uuid
-+part / --source rootfs --ondisk sda --fstype ext4 --mkfs-extraopts "-T def=
-ault" --label platform --align 1024 --use-uuid
-=20
- bootloader --ptable gpt --timeout 3 --append "rootwait intel_iommu=3Doff m=
-emmap=3D82M\$0x3a000000"
-diff --git a/wic/orangepi-zero.wks b/wic/orangepi-zero.wks
-index df0b6d2..9482e13 100644
---- a/wic/orangepi-zero.wks
-+++ b/wic/orangepi-zero.wks
-@@ -11,6 +11,6 @@
-=20
- part u-boot --source rawcopy --sourceparams "file=3D/usr/lib/u-boot/orange=
-pi_zero/u-boot-sunxi-with-spl.bin" --no-table --align 8
-=20
--part / --source rootfs-u-boot --ondisk mmcblk0 --fstype ext4 --label platf=
-orm --align 1024 --sourceparams "no_initrd=3Dyes,script_prepend=3Dsetenv fd=
-t_high 0xffffffff"
-+part / --source rootfs-u-boot --ondisk mmcblk0 --fstype ext4 --mkfs-extrao=
-pts "-T default" --label platform --align 1024 --sourceparams "no_initrd=3D=
-yes,script_prepend=3Dsetenv fdt_high 0xffffffff"
-=20
- bootloader --append "mem=3D128M vmalloc=3D512M"
-diff --git a/wic/pine64-plus.wks b/wic/pine64-plus.wks
-index 307e355..ca077e9 100644
---- a/wic/pine64-plus.wks
-+++ b/wic/pine64-plus.wks
-@@ -11,6 +11,6 @@
-=20
- part u-boot --source rawcopy --sourceparams "file=3D/usr/lib/u-boot/pine64=
--plus/u-boot-sunxi-with-spl.bin" --no-table --align 8
-=20
--part / --source rootfs-u-boot --ondisk mmcblk0 --fstype ext4 --label platf=
-orm --align 1024 --active --sourceparams "no_initrd=3Dyes"
-+part / --source rootfs-u-boot --ondisk mmcblk0 --fstype ext4 --mkfs-extrao=
-pts "-T default" --label platform --align 1024 --active --sourceparams "no_=
-initrd=3Dyes"
-=20
- bootloader --append "rootwait mem=3D1792M"
-diff --git a/wic/rpi4.wks b/wic/rpi4.wks
-index 2d10b99..d895eec 100644
---- a/wic/rpi4.wks
-+++ b/wic/rpi4.wks
-@@ -11,7 +11,7 @@
-=20
- part --source bootimg-partition --ondisk mmcblk0 --fstype vfat --label boo=
-t --align 1 --size 32 --overhead-factor 1 --extra-space 0
-=20
--part / --source rootfs --ondisk mmcblk0 --fstype ext4 --label platform --a=
-lign 1024 --active
-+part / --source rootfs --ondisk mmcblk0 --fstype ext4 --mkfs-extraopts "-T=
- default" --label platform --align 1024 --active
-=20
- # silence wic
- bootloader
-diff --git a/wic/ultra96.wks b/wic/ultra96.wks
-index 41d092e..06db02a 100644
---- a/wic/ultra96.wks
-+++ b/wic/ultra96.wks
-@@ -11,6 +11,6 @@
-=20
- part --source bootimg-partition --ondisk mmcblk0 --fstype vfat --label boo=
-t --align 1 --size 16 --overhead-factor 1 --extra-space 0
-=20
--part / --source rootfs-u-boot --ondisk mmcblk0 --fstype ext4 --label platf=
-orm --align 1024 --active --sourceparams "no_initrd=3Dyes"
-+part / --source rootfs-u-boot --ondisk mmcblk0 --fstype ext4 --mkfs-extrao=
-pts "-T default" --label platform --align 1024 --active --sourceparams "no_=
-initrd=3Dyes"
-=20
- bootloader --append "rootwait mem=3D1820M"
---=20
+ # Jailhouse, a Linux-based partitioning hypervisor
+ #
+-# Copyright (c) Siemens AG, 2019-2020
++# Copyright (c) Siemens AG, 2019-2021
+ #
+ # Authors:
+ #  Jan Kiszka <jan.kiszka@siemens.com>
+@@ -12,8 +12,6 @@
+ require recipes-bsp/trusted-firmware-a/trusted-firmware-a-custom.inc
+ 
+ SRC_URI += "https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/snapshot/trusted-firmware-a-${PV}.tar.gz"
+-SRC_URI[sha256sum] = "37f917922bcef181164908c470a2f941006791c0113d738c498d39d95d543b21"
+-
+-SRC_URI += "file://0001-Use-abspath-to-dereference-BUILD_BASE.patch"
++SRC_URI[sha256sum] = "bf3eb3617a74cddd7fb0e0eacbfe38c3258ee07d4c8ed730deef7a175cc3d55b"
+ 
+ S = "${WORKDIR}/trusted-firmware-a-${PV}"
+-- 
 2.26.2
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/458c46922e2d618e69799be74a6ec70e91c88022.1621593454.git.jan.k=
-iszka%40siemens.com.
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/a6c70883a6dae441a9d28fc0240198a53637f075.1621593454.git.jan.kiszka%40siemens.com.
