@@ -1,114 +1,117 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB4E2T2CQMGQE7TXU75Y@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB4M2T2CQMGQES7B3IGA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x340.google.com (mail-wm1-x340.google.com [IPv6:2a00:1450:4864:20::340])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF10B38C50D
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 21 May 2021 12:37:36 +0200 (CEST)
-Received: by mail-wm1-x340.google.com with SMTP id r15-20020a05600c35cfb029017cc4b1e9fasf1789956wmq.8
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 21 May 2021 03:37:36 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1621593456; cv=pass;
+Received: from mail-lf1-x138.google.com (mail-lf1-x138.google.com [IPv6:2a00:1450:4864:20::138])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2016738C50F
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 21 May 2021 12:37:38 +0200 (CEST)
+Received: by mail-lf1-x138.google.com with SMTP id s23-20020a1977170000b02901fc6bd7b408sf5036868lfc.1
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 21 May 2021 03:37:38 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1621593457; cv=pass;
         d=google.com; s=arc-20160816;
-        b=p7wt2WOJAo9NQFAGQQfs2ZiQN3+JfKB+CulvZnrqhJjxur0IN5yuxV/vEdtukX25eJ
-         SLeQU18krySResj1pP926R1c5ciAQYWz4Lg1jdf8rq1AdoJdYV2NiC7mKQcBQlgEMD01
-         R2NtQ87VbOZDLvI08TPYNTJx2TZaR3mhg4uZT+EfDwTYL5T7YeBfpkZppTqViBtg6Th9
-         wD1R1hbYd/2BB5pw9npCuBfWKUojRrU6oNhL88y8O3RPKKondeAKcTZrVphOhwuinmZ4
-         bfhGWn7EV0OWZqDGlxMVBkXvguau5MBplwcTpIaIlz9RlgjKO7CSPtVJz6/JwfhpuwZM
-         0PgQ==
+        b=uS5djEMCd0mpHYU1ZL5xGdqkIHpuIzJgTHrKjpWqNO7oYdX2/UvDOnFuI0g/5mlj9j
+         6+uvat4w0+P3BRhIPgNEM26NQcsqC0A4TATdA/HIuD2dVhE5DJoIzFN1UO7gCqFufz41
+         OXgCc6bRS5r+dJF/7lOb4cBVrJaVKbkqERrxUXOG6gNp5aR40eGw4hZt1TGlrLnwaG0a
+         XaN45Y1/GNPTuYNimGjagGlsfac3VhUJfMtut+NRdrU3E4VsTHleoxDkWd9aJkvcj5rT
+         UoNNMhMU9FjERsdsdYYzwNUQYYPsarcENli4AQ9Y8ddZ3POqjdsPQ2QTACOJsbAL7ej/
+         nccg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:message-id:date
-         :subject:to:from:sender:dkim-signature;
-        bh=7S851hVXFzG6Oz7jWNOcjwSrkp7gDcKtCoA5GhgPrXo=;
-        b=KkrFNhyxivkEqW3wk1krE3i73yK6/vjVkfcfqRzlpR8FpA+E5eAvcUAWFGf2tstpxS
-         UyZsYW5maPAde0Fo+UhxP+VQtMZvJEIDwhDYksCRSX60he2pPMB5tl8/eQWShVzGvMEf
-         ZtOLYn0wy5GCikIP8RLsgtWZg2HdPYy3LXB8jcuvDZXTwaXyfHerPfuONRxap2eqbqKD
-         OEBjsJxxr7RWkUOIilgG9DtbuT8GzTbsnM8i9mZxToK0TRAtVzlykMbqJl9Zhf7FUkQ3
-         kZcrRVkYNTUV1rCQb9Gii2mPV97LpvrgSwSQy6Q3+J/D+Aw9GRpaSFWrajsPZa/zs/Gl
-         WdTw==
+         :list-id:mailing-list:precedence:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:sender:dkim-signature;
+        bh=YOdraqVwcUhKoqcNnpGFcBKnZtyixHK4PG6N2IB9jf4=;
+        b=CJ1CuGhhl/K/qjemgh7Mh4jrI+Jh8Yq+YsqAHfEfE2gzgMpKjTsdF1lRox4NAj31sa
+         xL4P59Z11oxnUNoUEBYwn2qER1fIfP2qO/DMMlX2abvbIrEoZJPwzfCu/Edik97SWDK+
+         8H6pUNIgEG5gfjvrFWW6Sl+EfZDok5G0sv3M8vd/wXT2VhgeHJe8jrpLfl0mlp/ll2rA
+         80ton20TR8V4WdfLQRX/9PwO4ZdizyLFZOwowQ9BlhNu8saxNMwwqO0FXQBQ8szDoLW9
+         GmnBye0z/cq+AtmSQAYiM+QrSdPTEHEreFUJcfeJe5s0v5U1bxow+asxkrUjxWokcYZm
+         GTMA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:subject:date:message-id:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:from:to:subject:date:message-id:in-reply-to:references
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=7S851hVXFzG6Oz7jWNOcjwSrkp7gDcKtCoA5GhgPrXo=;
-        b=sog+2zGHWJAmp6nr4p+JqmK13xATseirZVdgoyc7pR0j7g5cdZ3T9DqgF/Rx1hOdZg
-         h6LoVSwUrTgl6n/xyT8hXxVQqC+LhhXuzF7dZbEDO8GD2qLj90ZaBkHHL9tcWwQ80G1J
-         3kWdrfnXDddVZ3FCq7XK2NAaRLQk45klPfEyTZqjfWUuon5iDE3ON87IwZWDXwdmlysM
-         K/RQOTfZ3NcKbkH970DnEIoKASiTQZzlccTdz7Abkuyb6gTZC4S70NpBM2iy/OHaGUtb
-         tsRnt15w8Lury2NOk1ZbOCmDfsxEQSQMPEJdMm0N5/R+oZgeebcvcF7qflOjfeDyfMgA
-         N6HA==
+        bh=YOdraqVwcUhKoqcNnpGFcBKnZtyixHK4PG6N2IB9jf4=;
+        b=YVEYIWzNFki7R9NieT6X0AVXVF7xpa9vVj5TwMwhAizSde3LBUHcSi1onEHYxRdoWo
+         R59xaHdD053WPrdpiPGj9BrNGQicC6E0wvo6YPT21oADXGV8Bnfe+jLTVUvVjgO1g5cv
+         ZG5xWmfDq1V9fb0t1GSU6UgAghBKmL6gDJmxKX+KDY/3z5otgqR96XRgR8PqfPOffjHh
+         Aw3vHpFZ2wxnfw3Uc8/M+ppHToZFDkLneQaJCT9kku2F3P18CLbzfIi3+c32Kfcze3Xm
+         2eQ2quJ9sgbPAzrezZu600sUYdAKpg0DcRaijQeMB3Jm5x4RiPzZbNoMgS6pj5T3ylI7
+         I2kQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:from:to:subject:date:message-id
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=7S851hVXFzG6Oz7jWNOcjwSrkp7gDcKtCoA5GhgPrXo=;
-        b=lzs7oYoUkjKp7nOVGaWOEGXeghPjePtZy0WJ9Rlptag8/+M94+GBYczTHo8VkOP0sN
-         xwm5D4oxd4PyWiwrd2r9taJsb7E7afsbKGqRWabVc5zIEsiykK6i3GjhlslNjM9IBrPW
-         eKJMpNs2GeluOuH7rrZKjvVoH2NeCHfr85tZp6tdooXHW1AutEAeSbVtvmhW6NJfrmD6
-         KvKFQthw2LlIvhSBZAml9Kpt87iPFYoqmnpCiIaAzN3bOUa1Wa4B5j4K7+VZMGrMWxEo
-         d2hRXPNFQcJgngnqGceUM0ymkY/1PkMR7lBoriwUbqIIAdtgnSAJnOoHoGRi1E9XDHhC
-         R/mQ==
+         :in-reply-to:references:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=YOdraqVwcUhKoqcNnpGFcBKnZtyixHK4PG6N2IB9jf4=;
+        b=N3pWmJO/e18rwz7yAW3AMuPKO4l2vBlkmyUIs7wdMcI5DCWQed1mKeyJWZInznzxhA
+         Or35tc+j8OwDkdxRiwQcLlCjf8aGuey5eDv8qWQZyvzK6WnrIco9kH4ycftAU92HyetJ
+         wzIBPN+hcPIp2fbf99fphd29YHshXPFm+0x15OamNwXg//xlARJJMfClo30zAoGWZLn/
+         dZC7Ruf/DGbXWHzA9zBGzPpbLEFq96mvpmRR4hStvY2ieH0XPMHtqi0axJr8OMwpSSuZ
+         3dPc3pgCMqF5AfuFOCZbzyKmF20lP7+6yvMq8iS1a9QW7YUZUY7U89tZ6pIWhI5beuP3
+         bFEA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531BB136M3PXAPPf+VI+31y+0HYdTueiR/Xtn/FpVDtmuUWuBd0n
-	/R+OYw3+V8L4BMQpvW47Z18=
-X-Google-Smtp-Source: ABdhPJyi6RpWI6cYfwashlmeZzHIwN/rIEL00EFA8u6Cbf4VbyrqZWYVF+xhE/RA5GVOWgV/brPUMQ==
-X-Received: by 2002:a1c:7702:: with SMTP id t2mr8841656wmi.115.1621593456596;
-        Fri, 21 May 2021 03:37:36 -0700 (PDT)
+X-Gm-Message-State: AOAM530Auwx9/8i6hh+oQEhCZaLgy2IE8xYe/MLnS0dcYUGa3gSz9b2c
+	kz0pEqnLnp1Ump/XUg8f4Dw=
+X-Google-Smtp-Source: ABdhPJxkxw8WaN9gnsv7tMkMHR6lAZy5fbLzR4Rb4wgm1H3xob7b36MwXZfO4eZ9NxuSIHXsYz/NAQ==
+X-Received: by 2002:a05:6512:3ba5:: with SMTP id g37mr1781264lfv.453.1621593457596;
+        Fri, 21 May 2021 03:37:37 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6000:2a8:: with SMTP id l8ls160175wry.1.gmail; Fri, 21
- May 2021 03:37:35 -0700 (PDT)
-X-Received: by 2002:adf:f386:: with SMTP id m6mr9120502wro.111.1621593455610;
-        Fri, 21 May 2021 03:37:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1621593455; cv=none;
+Received: by 2002:a05:6512:3f94:: with SMTP id x20ls323961lfa.0.gmail; Fri, 21
+ May 2021 03:37:36 -0700 (PDT)
+X-Received: by 2002:a19:5018:: with SMTP id e24mr935135lfb.608.1621593456268;
+        Fri, 21 May 2021 03:37:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1621593456; cv=none;
         d=google.com; s=arc-20160816;
-        b=kXLg0bvehm69wY5+8KX9+44jarEY6YsWc+21/CwbqpfNFCX345A4FTHmFFciX99Pwy
-         7qAK9V+eMnLuICwtCrj1Y/Kr2dfIzXFmI3Z12goEdaRlApwIzA9Dw/rC1ujGKfNsr6nS
-         RchyM36Q4AleDUwHWxSAVnr1ghq/BSSwc3pbfPnPQohgFcLgZEUU+TRSdU2mIHSJQ/aI
-         JJvCuInPv7hzpksMqDBZzwrPFx2DFuDJI6ufUxbgqJZHH9sYju3txRPqQpRSNdtTtHmD
-         JwJ2Kuza16rJoh+GsBHqZXAZTRmC+aGC89fuEzk0xlxDXBCmJRWfuoaO+0Zj5VsI4eCN
-         O0jg==
+        b=TTSFUgwAN0VLE/r4dY1B1b8sxqkegLEhO4gqqIsYvD95Tv3DjmVOfWkB5lIYcbcZHI
+         nYPuUsqk2BaWTPbmBVZ/loy3WXLoapkn9Uud7aEMSrVqkylXOPIaPosESCJULzwYsG7e
+         5dgRznuo0qe3tM/i+YRO+E5bGzN+Pn3VEV75wgYaZlgJ5WBsyQs5gv1b/UzF0H19GuVE
+         SB3j75A9PBb2KsoeatfLdy08AHI0+KLD7RbgbXvTDYq1pDLExiK6539h3RPRAde8W0v/
+         L4PYmMKAGJsKf6oASs0hsGr598bDui4fpfQOfRoJFnZS9djL7UpQeUumUWg0XjifPRZP
+         PTHA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from;
-        bh=8V0+7IQXQXxpy89yIzmAARkSoZ1+UCOaFvF1nIqmyo8=;
-        b=dKCsbvAFcVV0OPN6qtYJ6ER7Pmmw2nbwyxvKriYPJ5AdpSkh1xDYpVTn48AFrr6SV2
-         PNkcjgbwBo+SCI+RyyBtRtVNbLVFBEPVbH9XzEwJU10vVEvGo3a8m1Bs9H5crlS5m6eb
-         t/i1oCPSipMUdDEfNBWNzLpn8JBgNNU46z6dyn9O8tRrZJYrFoQsUASkpqAM3BqZE09n
-         rPN5vdEEky2T9rzIStePuYZaIPIv2zZOmNxoujXX/70PjMKIu4UL4nppIqWT4JbRwfHk
-         GbFhK0PQcD/smpLaIyy+keBLqqpWawQ0AVhMwXpxUMO8vpbqPubyTS9qo1H0S+BN+shC
-         WQsQ==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from;
+        bh=0JCJqCIIG00JMU+YIH5zCSm/6RA4YfccBXDDwJ4NS08=;
+        b=UfFI+a8R1ygpIAIPOfKXU+xuDcNJb2Ib84lwSh4oUfDpZUwgDnTRr2M4zrjru7IoxZ
+         9Z2iCkBOwAkVJOJFjy0HMwnBE37AIbDbsfhklG4TvrRujSHxBmDW5C7u9tCRcWnwUf5l
+         +sQ6cLC9QI9HZYYjoj/Gr3D4O1SUIIFht06PJ9AvZucLWJz6wbWPKXCeMLGD6VqCoKJi
+         rbrYDQvaeR4q8DfEeHrcYG7SWTNx7sd1j54NoQki2PMbHlRH3WwzsEV50P2iAOcclQZK
+         CJTwuMKePrRYMqEdX3XRJtN5Im3Mf5roea5l1S5CjGDIQtXxUsnqE/12PJhlaOKG5wwl
+         AyaQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id d11si560882wmb.0.2021.05.21.03.37.35
+Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
+        by gmr-mx.google.com with ESMTPS id k35si160026lfv.3.2021.05.21.03.37.36
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 21 May 2021 03:37:35 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
+        Fri, 21 May 2021 03:37:36 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 14LAbZ6n002678
+	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 14LAbZnq017850
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
 	for <jailhouse-dev@googlegroups.com>; Fri, 21 May 2021 12:37:35 +0200
 Received: from md1f2u6c.ad001.siemens.net ([167.87.240.49])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 14LAbYc5032504
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 14LAbYc6032504
 	for <jailhouse-dev@googlegroups.com>; Fri, 21 May 2021 12:37:35 +0200
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [jh-images][PATCH v3 00/22] Updates, consolidations, QEMU 32-bit ARM support
-Date: Fri, 21 May 2021 12:37:12 +0200
-Message-Id: <cover.1621593454.git.jan.kiszka@siemens.com>
+Subject: [jh-images][PATCH v3 01/22] Update Isar revision
+Date: Fri, 21 May 2021 12:37:13 +0200
+Message-Id: <2081733cde49420cbc8e6e87a05376550f8f7757.1621593454.git.jan.kiszka@siemens.com>
 X-Mailer: git-send-email 2.26.2
+In-Reply-To: <cover.1621593454.git.jan.kiszka@siemens.com>
+References: <cover.1621593454.git.jan.kiszka@siemens.com>
 MIME-Version: 1.0
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
@@ -124,174 +127,392 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hopefully the final round. Changes since v2:
-- fixed MACCHIATObin boot (TF-A regression in last release)
-- Isar update
-- build-images usage update
-- fix for mounting /boot on efi images
+From: Jan Kiszka <jan.kiszka@siemens.com>
 
-Jan
+TF-A patch is upstream, time to update. For that, we need to tune
+TF_A_BINARIES, switch to DEBIAN_BUILD_DEPENDS in u-boot recipes and set
+DISTRO_APT_SOURCES.
 
-Jan Kiszka (22):
-  Update Isar revision
-  Update to kas 2.4
-  Address shellcheck reports
-  jailhouse: Enforce selection of latest version
-  linux-jailhouse: Generalize armhf config
-  customizations: Add QEMU ARM
-  Hook up QEMU ARM support
-  README: Add QEMU ARM support
-  xradio: Update source and firmware
-  non-root-initramfs: Update to buildroot 2021.02
-  non-root-initramfs: Update ivshmem-demo
-  non-root-initramfs: Purge buildroot download cache on cleanall
-  wks files: Tune ext4 file systems to not be affected by y2038 issue
-  trusted-firmware-a: Update to release 2.4
-  trusted-firmware-a-ultra96: Add patches needed for 5.10 kernel
-  linux-jailhouse[-rt], wilc: Switch to 5.10
-  trusted-firmware-a-rpi4: Add patch to improve memory reservation
-  rpi4: Move jailhouse reservation
-  rpi4: Switch to upstream 5.10 kernel
-  rpi-firmware-brcm80211: Update to latest revision 1:20190114-1+rpt10
-  nuc6cay, ipc127e, hikey620: Fix wks files for newer Isar versions
-  build-images: Document --rt
+Isar renamed the deployed kernel image of arm64, so we need to account
+for differences now.
 
- .gitignore                                    |    1 -
- .gitlab-ci.yml                                |    2 +-
- README.md                                     |    4 +-
- build-images.sh                               |   44 +-
- conf/distro/jailhouse-demo.conf               |    4 +-
- .../machine/qemu-arm.conf                     |    6 +-
- conf/machine/rpi4.conf                        |    2 -
- .../multiconfig/qemu-arm-jailhouse-demo.conf  |    6 +-
- images.list                                   |    1 +
- ...de-for-building-custom-Trusted-Firmw.patch |  127 -
- kas-container                                 |  372 ++
- kas.yml                                       |   12 +-
- opt-latest.yml                                |    2 +-
- opt-rt.yml                                    |    2 +-
- .../rpi-firmware-brcm80211.bb                 |    4 +-
- .../rpi-firmware/files/debian/aliases.dts     |   30 +
- .../rpi-firmware/files/debian/cmdline.txt     |    2 +-
- .../rpi-firmware/files/debian/config.txt      |    2 +-
- .../rpi-firmware/files/debian/jailhouse.dts   |   17 +-
- .../files/debian/rpi-firmware.install         |    1 +
- recipes-bsp/rpi-firmware/files/rules          |    1 +
- ...20200819.bb => rpi-firmware_1.20210303.bb} |    2 +-
- ...se-abspath-to-dereference-BUILD_BASE.patch |  144 -
- ...-fix-gcc-warning-about-uninitialized.patch |   40 -
- ...ada-Add-missing-dependency-of-mrvl_f.patch |   33 +
- ...memreserve-pattern-for-rpi3-and-rpi4.patch |  214 +
- ...-errors-related-to-clock-gate-permis.patch |   45 +
- ...-error-codes-to-match-Linux-and-PMU-.patch |   71 +
- ...=> trusted-firmware-a-macchiatobin_2.4.bb} |   10 +-
- ... => trusted-firmware-a-pine64-plus_2.4.bb} |    0
- ..._2.3.bb => trusted-firmware-a-rpi4_2.4.bb} |    3 +
- ...3.bb => trusted-firmware-a-ultra96_2.4.bb} |    7 +-
- ...e-a_2.3.inc => trusted-firmware-a_2.4.inc} |    6 +-
- .../u-boot/u-boot-pine64-plus_2020.10.bb      |    2 +-
- .../u-boot/u-boot-ultra96-v1_2020.10.bb       |    2 +-
- .../files/.bash_history-espressobin           |    2 +-
- .../files/.bash_history-hikey620              |    2 +-
- .../files/.bash_history-macchiatobin          |    2 +-
- .../files/.bash_history-pine64-plus           |    2 +-
- ...istory-hikey620 => .bash_history-qemu-arm} |    8 +-
- .../files/.bash_history-qemu-arm64            |    2 +-
- .../customizations/files/.bash_history-rpi4   |    2 +-
- .../files/.bash_history-ultra96-v1            |    2 +-
- .../non-root-initramfs/files/amd64-config     | 3799 +---------------
- .../non-root-initramfs/files/arm64-config     | 3756 +---------------
- .../non-root-initramfs/files/armhf-config     | 3885 +----------------
- ....11.1.bb => non-root-initramfs_2021.02.bb} |   10 +-
- ...i4-Move-RAM-reservation-down-by-256-.patch |  257 ++
- recipes-jailhouse/jailhouse/jailhouse_0.12.bb |    1 +
- ...s-xilinx-Remove-dtsi-for-fixed-clock.patch |  237 +
- ...san-Separate-out-clk-related-data-to.patch |   99 -
- ...-xilinx-Add-the-clock-nodes-for-zynq.patch |  581 +++
- ...san-Add-sampling-clock-for-a-phy-to-.patch |  232 -
- ...03-arm64-zynqmp-Add-firmware-DT-node.patch |   37 -
- ...zynqmp-Add-Node-IDs-in-xlnx-zynqmp.h.patch |  109 -
- ...san-Add-support-to-set-clock-phase-d.patch |  160 -
- ...ware-xilinx-Add-SDIO-Tap-Delay-nodes.patch |   44 -
- ...san-Add-support-for-ZynqMP-Platform-.patch |  308 --
- ...irmware-xilinx-Add-DLL-reset-support.patch |   57 -
- ...san-Add-support-for-DLL-reset-for-Zy.patch |   99 -
- ...p-Add-ZynqMP-SDHCI-compatible-string.patch |   52 -
- ...san-Modified-SD-default-speed-to-19M.patch |   64 -
- ...d64_defconfig_5.4 => amd64_defconfig_5.10} |   18 +-
- ...m64_defconfig_5.4 => arm64_defconfig_5.10} |   36 +-
- ...ero_defconfig_5.4 => armhf_defconfig_5.10} |   24 +-
- .../linux/linux-jailhouse-rpi_5.4.59.bb       |   15 -
- .../linux/linux-jailhouse-rt_5.10.27-rt36.bb  |   17 +
- .../linux/linux-jailhouse-rt_5.4.58-rt35.bb   |   17 -
- .../linux/linux-jailhouse_5.10.31.bb          |   15 +
- recipes-kernel/linux/linux-jailhouse_5.10.inc |   27 +
- .../linux/linux-jailhouse_5.4.61.bb           |   15 -
- recipes-kernel/linux/linux-jailhouse_5.4.inc  |   38 -
- ...001-Make-compatible-with-5.8-kernels.patch |  191 +
- recipes-kernel/wilc/wilc_15.2-avnet.bb        |    1 +
- recipes-kernel/xradio/xradio.bb               |    6 +-
- scripts/make_release                          |   10 +-
- start-qemu.sh                                 |   37 +-
- wic/espressobin.wks                           |    2 +-
- wic/hikey620.wks                              |    6 +-
- wic/ipc127e.wks                               |    4 +-
- wic/macchiatobin.wks                          |    2 +-
- wic/nuc6cay.wks                               |    4 +-
- wic/orangepi-zero.wks                         |    2 +-
- wic/pine64-plus.wks                           |    2 +-
- wic/rpi4.wks                                  |    5 +-
- wic/ultra96.wks                               |    2 +-
- 86 files changed, 2269 insertions(+), 13257 deletions(-)
- copy recipes-bsp/trusted-firmware-a/trusted-firmware-a-rpi4_2.3.bb => conf/machine/qemu-arm.conf (59%)
- copy recipes-bsp/trusted-firmware-a/trusted-firmware-a-rpi4_2.3.bb => conf/multiconfig/qemu-arm-jailhouse-demo.conf (59%)
+Then Isar now forwards wic warnings. So we need to add an empty
+bootloader line to the rpi4 wks file to avoid (harmless) complaints.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+---
+ conf/distro/jailhouse-demo.conf               |   2 +
+ ...de-for-building-custom-Trusted-Firmw.patch | 127 ------------------
+ kas.yml                                       |   8 +-
+ .../trusted-firmware-a-macchiatobin_2.3.bb    |   2 +-
+ .../trusted-firmware-a-ultra96_2.3.bb         |   2 +-
+ .../u-boot/u-boot-pine64-plus_2020.10.bb      |   2 +-
+ .../u-boot/u-boot-ultra96-v1_2020.10.bb       |   2 +-
+ .../files/.bash_history-espressobin           |   2 +-
+ .../files/.bash_history-hikey620              |   2 +-
+ .../files/.bash_history-macchiatobin          |   2 +-
+ .../files/.bash_history-pine64-plus           |   2 +-
+ .../files/.bash_history-qemu-arm64            |   2 +-
+ .../customizations/files/.bash_history-rpi4   |   2 +-
+ .../files/.bash_history-ultra96-v1            |   2 +-
+ start-qemu.sh                                 |   4 +-
+ wic/rpi4.wks                                  |   3 +
+ 16 files changed, 21 insertions(+), 145 deletions(-)
  delete mode 100644 isar-patches/0001-Add-recipe-include-for-building-custom-Trusted-Firmw.patch
- create mode 100755 kas-container
- create mode 100644 recipes-bsp/rpi-firmware/files/debian/aliases.dts
- rename recipes-bsp/rpi-firmware/{rpi-firmware_1.20200819.bb => rpi-firmware_1.20210303.bb} (86%)
- delete mode 100644 recipes-bsp/trusted-firmware-a/files/0001-Use-abspath-to-dereference-BUILD_BASE.patch
- delete mode 100644 recipes-bsp/trusted-firmware-a/files/0001-mv_ddr4_training-fix-gcc-warning-about-uninitialized.patch
- create mode 100644 recipes-bsp/trusted-firmware-a/files/0001-plat-marvell-armada-Add-missing-dependency-of-mrvl_f.patch
- create mode 100644 recipes-bsp/trusted-firmware-a/files/0001-rpi-Use-common-memreserve-pattern-for-rpi3-and-rpi4.patch
- create mode 100644 recipes-bsp/trusted-firmware-a/files/0001-zynqmp-pm-Filter-errors-related-to-clock-gate-permis.patch
- create mode 100644 recipes-bsp/trusted-firmware-a/files/0002-zynqmp-pm-update-error-codes-to-match-Linux-and-PMU-.patch
- rename recipes-bsp/trusted-firmware-a/{trusted-firmware-a-macchiatobin_2.3.bb => trusted-firmware-a-macchiatobin_2.4.bb} (74%)
- rename recipes-bsp/trusted-firmware-a/{trusted-firmware-a-pine64-plus_2.3.bb => trusted-firmware-a-pine64-plus_2.4.bb} (100%)
- rename recipes-bsp/trusted-firmware-a/{trusted-firmware-a-rpi4_2.3.bb => trusted-firmware-a-rpi4_2.4.bb} (72%)
- rename recipes-bsp/trusted-firmware-a/{trusted-firmware-a-ultra96_2.3.bb => trusted-firmware-a-ultra96_2.4.bb} (60%)
- rename recipes-bsp/trusted-firmware-a/{trusted-firmware-a_2.3.inc => trusted-firmware-a_2.4.inc} (65%)
- copy recipes-core/customizations/files/{.bash_history-hikey620 => .bash_history-qemu-arm} (62%)
- rename recipes-core/non-root-initramfs/{non-root-initramfs_2019.11.1.bb => non-root-initramfs_2021.02.bb} (64%)
- create mode 100644 recipes-jailhouse/jailhouse/files/0001-configs-arm64-rpi4-Move-RAM-reservation-down-by-256-.patch
- create mode 100644 recipes-kernel/linux/files/0001-Revert-arm64-dts-xilinx-Remove-dtsi-for-fixed-clock.patch
- delete mode 100644 recipes-kernel/linux/files/0001-mmc-sdhci-of-arasan-Separate-out-clk-related-data-to.patch
- create mode 100644 recipes-kernel/linux/files/0002-Revert-arm64-dts-xilinx-Add-the-clock-nodes-for-zynq.patch
- delete mode 100644 recipes-kernel/linux/files/0002-mmc-sdhci-of-arasan-Add-sampling-clock-for-a-phy-to-.patch
- delete mode 100644 recipes-kernel/linux/files/0003-arm64-zynqmp-Add-firmware-DT-node.patch
- delete mode 100644 recipes-kernel/linux/files/0004-firmware-zynqmp-Add-Node-IDs-in-xlnx-zynqmp.h.patch
- delete mode 100644 recipes-kernel/linux/files/0005-mmc-sdhci-of-arasan-Add-support-to-set-clock-phase-d.patch
- delete mode 100644 recipes-kernel/linux/files/0006-firmware-xilinx-Add-SDIO-Tap-Delay-nodes.patch
- delete mode 100644 recipes-kernel/linux/files/0007-mmc-sdhci-of-arasan-Add-support-for-ZynqMP-Platform-.patch
- delete mode 100644 recipes-kernel/linux/files/0008-firmware-xilinx-Add-DLL-reset-support.patch
- delete mode 100644 recipes-kernel/linux/files/0009-mmc-sdhci-of-arasan-Add-support-for-DLL-reset-for-Zy.patch
- delete mode 100644 recipes-kernel/linux/files/0010-arm64-zynqmp-Add-ZynqMP-SDHCI-compatible-string.patch
- delete mode 100644 recipes-kernel/linux/files/0011-mmc-sdhci-of-arasan-Modified-SD-default-speed-to-19M.patch
- rename recipes-kernel/linux/files/{amd64_defconfig_5.4 => amd64_defconfig_5.10} (98%)
- rename recipes-kernel/linux/files/{arm64_defconfig_5.4 => arm64_defconfig_5.10} (92%)
- rename recipes-kernel/linux/files/{orangepi-zero_defconfig_5.4 => armhf_defconfig_5.10} (95%)
- delete mode 100644 recipes-kernel/linux/linux-jailhouse-rpi_5.4.59.bb
- create mode 100644 recipes-kernel/linux/linux-jailhouse-rt_5.10.27-rt36.bb
- delete mode 100644 recipes-kernel/linux/linux-jailhouse-rt_5.4.58-rt35.bb
- create mode 100644 recipes-kernel/linux/linux-jailhouse_5.10.31.bb
- create mode 100644 recipes-kernel/linux/linux-jailhouse_5.10.inc
- delete mode 100644 recipes-kernel/linux/linux-jailhouse_5.4.61.bb
- delete mode 100644 recipes-kernel/linux/linux-jailhouse_5.4.inc
- create mode 100644 recipes-kernel/wilc/files/0001-Make-compatible-with-5.8-kernels.patch
 
+diff --git a/conf/distro/jailhouse-demo.conf b/conf/distro/jailhouse-demo.conf
+index 9f0aa92..032efe3 100644
+--- a/conf/distro/jailhouse-demo.conf
++++ b/conf/distro/jailhouse-demo.conf
+@@ -11,6 +11,8 @@
+ 
+ require conf/distro/debian-buster.conf
+ 
++DISTRO_APT_SOURCES = "conf/distro/debian-buster.list"
++
+ KERNEL_NAME ?= "jailhouse"
+ 
+ WKS_FILE ?= "${MACHINE}.wks"
+diff --git a/isar-patches/0001-Add-recipe-include-for-building-custom-Trusted-Firmw.patch b/isar-patches/0001-Add-recipe-include-for-building-custom-Trusted-Firmw.patch
+deleted file mode 100644
+index 72b089f..0000000
+--- a/isar-patches/0001-Add-recipe-include-for-building-custom-Trusted-Firmw.patch
++++ /dev/null
+@@ -1,127 +0,0 @@
+-From 6754548019e02c1dbf0d336d06dd14508eb1684c Mon Sep 17 00:00:00 2001
+-From: Jan Kiszka <jan.kiszka@siemens.com>
+-Date: Sun, 27 Sep 2020 12:08:45 +0200
+-Subject: [PATCH] Add recipe include for building custom Trusted Firmware A
+-
+-Analogously to U-Boot, this adds an include file to be used in custom
+-TF-A recipes. The typical customization points are TF_A_PLATFORM and
+-possibly a couple of TF_A_EXTRA_BUILDARGS. The to-be-packaged binaries
+-can be defined via TF_A_BINARIES.
+-
+-Debian has a binary package called "arm-trusted-firmware", targeting a
+-couple of sunxi boards. We do not follow that legacy naming by intention
+-and rather use the new official one. Debian will probably follow at some
+-point.
+-
+-Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+----
+- .../trusted-firmware-a/files/debian/compat    |  1 +
+- .../files/debian/control.tmpl                 | 10 +++++
+- .../trusted-firmware-a/files/debian/rules     | 19 ++++++++
+- .../trusted-firmware-a-custom.inc             | 43 +++++++++++++++++++
+- 4 files changed, 73 insertions(+)
+- create mode 100644 meta/recipes-bsp/trusted-firmware-a/files/debian/compat
+- create mode 100644 meta/recipes-bsp/trusted-firmware-a/files/debian/control.tmpl
+- create mode 100755 meta/recipes-bsp/trusted-firmware-a/files/debian/rules
+- create mode 100644 meta/recipes-bsp/trusted-firmware-a/trusted-firmware-a-custom.inc
+-
+-diff --git a/meta/recipes-bsp/trusted-firmware-a/files/debian/compat b/meta/recipes-bsp/trusted-firmware-a/files/debian/compat
+-new file mode 100644
+-index 00000000..f599e28b
+---- /dev/null
+-+++ b/meta/recipes-bsp/trusted-firmware-a/files/debian/compat
+-@@ -0,0 +1 @@
+-+10
+-diff --git a/meta/recipes-bsp/trusted-firmware-a/files/debian/control.tmpl b/meta/recipes-bsp/trusted-firmware-a/files/debian/control.tmpl
+-new file mode 100644
+-index 00000000..7ffd189d
+---- /dev/null
+-+++ b/meta/recipes-bsp/trusted-firmware-a/files/debian/control.tmpl
+-@@ -0,0 +1,10 @@
+-+Source: ${PN}
+-+Section: admin
+-+Priority: optional
+-+Standards-Version: 3.9.6
+-+Build-Depends: ${DEBIAN_BUILD_DEPENDS}
+-+Maintainer: ISAR project <isar-users@googlegroups.com>
+-+
+-+Package: trusted-firmware-a-${TF_A_NAME}
+-+Architecture: ${DISTRO_ARCH}
+-+Description: ${DESCRIPTION}, firmware binaries
+-diff --git a/meta/recipes-bsp/trusted-firmware-a/files/debian/rules b/meta/recipes-bsp/trusted-firmware-a/files/debian/rules
+-new file mode 100755
+-index 00000000..70e1dd66
+---- /dev/null
+-+++ b/meta/recipes-bsp/trusted-firmware-a/files/debian/rules
+-@@ -0,0 +1,19 @@
+-+#!/usr/bin/make -f
+-+
+-+# Debian rules for custom Trusted Firmware A build
+-+#
+-+# This software is a part of ISAR.
+-+# Copyright (c) Siemens AG, 2020
+-+#
+-+# SPDX-License-Identifier: MIT
+-+
+-+ifneq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
+-+export CROSS_COMPILE=$(DEB_HOST_GNU_TYPE)-
+-+endif
+-+
+-+override_dh_auto_build:
+-+	CFLAGS= LDFLAGS= $(MAKE) $(PARALLEL_MAKE) PLAT=$(TF_A_PLATFORM) \
+-+		$(TF_A_EXTRA_BUILDARGS)
+-+
+-+%:
+-+	dh $@
+-diff --git a/meta/recipes-bsp/trusted-firmware-a/trusted-firmware-a-custom.inc b/meta/recipes-bsp/trusted-firmware-a/trusted-firmware-a-custom.inc
+-new file mode 100644
+-index 00000000..a065ce71
+---- /dev/null
+-+++ b/meta/recipes-bsp/trusted-firmware-a/trusted-firmware-a-custom.inc
+-@@ -0,0 +1,43 @@
+-+# Custom Trusted Firmware A build
+-+#
+-+# This software is a part of ISAR.
+-+# Copyright (c) Siemens AG, 2020
+-+#
+-+# SPDX-License-Identifier: MIT
+-+
+-+inherit dpkg
+-+
+-+FILESEXTRAPATHS_prepend := "${FILE_DIRNAME}/files:"
+-+
+-+SRC_URI += "file://debian/"
+-+
+-+DESCRIPTION ?= "Custom Trusted Firmware A"
+-+
+-+TF_A_NAME ?= "${MACHINE}"
+-+TF_A_PLATFORM ?= "unknown"
+-+TF_A_EXTRA_BUILDARGS ?= ""
+-+TF_A_BINARIES ?= "bl31.bin"
+-+
+-+DEBIAN_BUILD_DEPENDS ?= ""
+-+
+-+PROVIDES += "trusted-firmware-a-${TF_A_NAME}"
+-+
+-+TEMPLATE_FILES = "debian/control.tmpl"
+-+TEMPLATE_VARS += "TF_A_NAME DEBIAN_BUILD_DEPENDS"
+-+
+-+do_prepare_build() {
+-+    cp -r ${WORKDIR}/debian ${S}/
+-+
+-+    deb_add_changelog
+-+
+-+    rm -f ${S}/debian/trusted-firmware-a-${TF_A_NAME}.install
+-+    for binary in ${TF_A_BINARIES}; do
+-+        echo "build/${TF_A_PLATFORM}/release/$binary /usr/lib/trusted-firmware-a/${TF_A_NAME}/" >> \
+-+            ${S}/debian/trusted-firmware-a-${TF_A_NAME}.install
+-+    done
+-+}
+-+
+-+dpkg_runbuild_prepend() {
+-+    export TF_A_PLATFORM="${TF_A_PLATFORM}"
+-+    export TF_A_EXTRA_BUILDARGS="${TF_A_EXTRA_BUILDARGS}"
+-+}
+--- 
+-2.26.2
+-
+diff --git a/kas.yml b/kas.yml
+index 8807257..8982373 100644
+--- a/kas.yml
++++ b/kas.yml
+@@ -1,7 +1,7 @@
+ #
+ # Jailhouse, a Linux-based partitioning hypervisor
+ #
+-# Copyright (c) Siemens AG, 2018-2019
++# Copyright (c) Siemens AG, 2018-2021
+ #
+ # Authors:
+ #  Jan Kiszka <jan.kiszka@siemens.com>
+@@ -21,13 +21,9 @@ repos:
+ 
+   isar:
+     url: https://github.com/ilbers/isar
+-    refspec: 93658f7a72679c89e14adc7bbdbf3f5d52b7ac0d
++    refspec: dbb9df67c1321aa7f6020948a964a2bcf636684a
+     layers:
+       meta:
+-    patches:
+-      tf-a:
+-        path: isar-patches/0001-Add-recipe-include-for-building-custom-Trusted-Firmw.patch
+-        repo: jailhouse
+ 
+ bblayers_conf_header:
+   standard: |
+diff --git a/recipes-bsp/trusted-firmware-a/trusted-firmware-a-macchiatobin_2.3.bb b/recipes-bsp/trusted-firmware-a/trusted-firmware-a-macchiatobin_2.3.bb
+index 2df79c3..d5dced9 100644
+--- a/recipes-bsp/trusted-firmware-a/trusted-firmware-a-macchiatobin_2.3.bb
++++ b/recipes-bsp/trusted-firmware-a/trusted-firmware-a-macchiatobin_2.3.bb
+@@ -31,4 +31,4 @@ TF_A_EXTRA_BUILDARGS = " \
+     SCP_BL2=../binaries-marvell/mrvl_scp_bl2.img \
+     BL33=/usr/lib/u-boot/macchiatobin/u-boot.bin \
+     all fip"
+-TF_A_BINARIES = "flash-image.bin"
++TF_A_BINARIES = "release/flash-image.bin"
+diff --git a/recipes-bsp/trusted-firmware-a/trusted-firmware-a-ultra96_2.3.bb b/recipes-bsp/trusted-firmware-a/trusted-firmware-a-ultra96_2.3.bb
+index 7b8b48b..d4fac2c 100644
+--- a/recipes-bsp/trusted-firmware-a/trusted-firmware-a-ultra96_2.3.bb
++++ b/recipes-bsp/trusted-firmware-a/trusted-firmware-a-ultra96_2.3.bb
+@@ -14,4 +14,4 @@ require trusted-firmware-a_${PV}.inc
+ TF_A_NAME = "ultra96"
+ TF_A_PLATFORM = "zynqmp"
+ TF_A_EXTRA_BUILDARGS = "RESET_TO_BL31=1 ZYNQMP_CONSOLE=cadence1"
+-TF_A_BINARIES = "bl31/bl31.elf"
++TF_A_BINARIES = "release/bl31/bl31.elf"
+diff --git a/recipes-bsp/u-boot/u-boot-pine64-plus_2020.10.bb b/recipes-bsp/u-boot/u-boot-pine64-plus_2020.10.bb
+index b813ae8..c3c1a06 100644
+--- a/recipes-bsp/u-boot/u-boot-pine64-plus_2020.10.bb
++++ b/recipes-bsp/u-boot/u-boot-pine64-plus_2020.10.bb
+@@ -17,7 +17,7 @@ SRC_URI += "file://pine64-plus-rules"
+ U_BOOT_CONFIG = "pine64_plus_defconfig"
+ U_BOOT_BIN = "u-boot-sunxi-with-spl.bin"
+ 
+-BUILD_DEPENDS += ", libssl-dev, swig:native, python3-dev:native, trusted-firmware-a-pine64-plus"
++DEBIAN_BUILD_DEPENDS += ", libssl-dev, swig:native, python3-dev:native, trusted-firmware-a-pine64-plus"
+ DEPENDS += "trusted-firmware-a-pine64-plus"
+ 
+ do_prepare_build_append() {
+diff --git a/recipes-bsp/u-boot/u-boot-ultra96-v1_2020.10.bb b/recipes-bsp/u-boot/u-boot-ultra96-v1_2020.10.bb
+index bfee2fe..2f284b2 100644
+--- a/recipes-bsp/u-boot/u-boot-ultra96-v1_2020.10.bb
++++ b/recipes-bsp/u-boot/u-boot-ultra96-v1_2020.10.bb
+@@ -24,7 +24,7 @@ TEMPLATE_FILES += "ultra96.bif.tmpl"
+ TEMPLATE_VARS += "ULTRA96_VERSION"
+ 
+ DEPENDS += "zynqmp-pmufw trusted-firmware-a-ultra96"
+-BUILD_DEPENDS += ", zynqmp-pmufw:native, trusted-firmware-a-ultra96"
++DEBIAN_BUILD_DEPENDS += ", zynqmp-pmufw:native, trusted-firmware-a-ultra96"
+ 
+ U_BOOT_CONFIG = "xilinx_zynqmp_virt_defconfig"
+ U_BOOT_BIN = "u-boot.elf"
+diff --git a/recipes-core/customizations/files/.bash_history-espressobin b/recipes-core/customizations/files/.bash_history-espressobin
+index 09fdb24..6d59f3e 100644
+--- a/recipes-core/customizations/files/.bash_history-espressobin
++++ b/recipes-core/customizations/files/.bash_history-espressobin
+@@ -6,7 +6,7 @@ jailhouse cell start inmate-demo
+ jailhouse cell stats inmate-demo
+ jailhouse cell destroy inmate-demo
+ jailhouse cell linux /etc/jailhouse/espressobin-linux-demo.cell \
+-                     /boot/vmlinuz* \
++                     /boot/vmlinux* \
+                      -d /etc/jailhouse/dts/inmate-espressobin.dtb \
+                      -i /usr/libexec/jailhouse/demos/rootfs.cpio \
+                      -c "console=ttyMV0 ip=192.168.19.2"
+diff --git a/recipes-core/customizations/files/.bash_history-hikey620 b/recipes-core/customizations/files/.bash_history-hikey620
+index 41729a9..a25ee26 100644
+--- a/recipes-core/customizations/files/.bash_history-hikey620
++++ b/recipes-core/customizations/files/.bash_history-hikey620
+@@ -6,7 +6,7 @@ jailhouse cell start inmate-demo
+ jailhouse cell stats inmate-demo
+ jailhouse cell destroy inmate-demo
+ jailhouse cell linux /etc/jailhouse/hikey-linux-demo.cell \
+-                     /boot/vmlinuz* \
++                     /boot/vmlinux* \
+                      -d /etc/jailhouse/dts/inmate-hikey.dtb \
+                      -i /usr/libexec/jailhouse/demos/rootfs.cpio \
+                      -c "console=ttyAMA0 ip=192.168.19.2"
+diff --git a/recipes-core/customizations/files/.bash_history-macchiatobin b/recipes-core/customizations/files/.bash_history-macchiatobin
+index 57a19cc..493aa1f 100644
+--- a/recipes-core/customizations/files/.bash_history-macchiatobin
++++ b/recipes-core/customizations/files/.bash_history-macchiatobin
+@@ -6,7 +6,7 @@ jailhouse cell start inmate-demo
+ jailhouse cell stats inmate-demo
+ jailhouse cell destroy inmate-demo
+ jailhouse cell linux /etc/jailhouse/macchiatobin-linux-demo.cell \
+-                     /boot/vmlinuz* \
++                     /boot/vmlinux* \
+                      -d /etc/jailhouse/dts/inmate-macchiatobin.dtb \
+                      -i /usr/libexec/jailhouse/demos/rootfs.cpio \
+                      -c "console=ttyS0,115200 ip=192.168.19.2"
+diff --git a/recipes-core/customizations/files/.bash_history-pine64-plus b/recipes-core/customizations/files/.bash_history-pine64-plus
+index 8e8b246..a3f4c1b 100644
+--- a/recipes-core/customizations/files/.bash_history-pine64-plus
++++ b/recipes-core/customizations/files/.bash_history-pine64-plus
+@@ -6,7 +6,7 @@ jailhouse cell load inmate-demo \
+ jailhouse cell start inmate-demo
+ jailhouse cell stats inmate-demo
+ jailhouse cell destroy inmate-demo
+-jailhouse cell linux /etc/jailhouse/pine64-plus-linux-demo.cell /boot/vmlinuz* \
++jailhouse cell linux /etc/jailhouse/pine64-plus-linux-demo.cell /boot/vmlinux* \
+                      -d /etc/jailhouse/dts/inmate-pine64-plus.dtb \
+                      -i /usr/libexec/jailhouse/demos/rootfs.cpio \
+                      -c "console=ttyS0,115200 ip=192.168.19.2"
+diff --git a/recipes-core/customizations/files/.bash_history-qemu-arm64 b/recipes-core/customizations/files/.bash_history-qemu-arm64
+index 73c5562..5e4ddcb 100644
+--- a/recipes-core/customizations/files/.bash_history-qemu-arm64
++++ b/recipes-core/customizations/files/.bash_history-qemu-arm64
+@@ -6,7 +6,7 @@ jailhouse cell start inmate-demo
+ jailhouse cell stats inmate-demo
+ jailhouse cell destroy inmate-demo
+ jailhouse cell linux /etc/jailhouse/qemu-arm64-linux-demo.cell \
+-                     /boot/vmlinuz* \
++                     /boot/vmlinux* \
+                      -d /etc/jailhouse/dts/inmate-qemu-arm64.dtb \
+                      -i /usr/libexec/jailhouse/demos/rootfs.cpio \
+                      -c "console=ttyAMA0 ip=192.168.19.2"
+diff --git a/recipes-core/customizations/files/.bash_history-rpi4 b/recipes-core/customizations/files/.bash_history-rpi4
+index 3595205..bacbab3 100644
+--- a/recipes-core/customizations/files/.bash_history-rpi4
++++ b/recipes-core/customizations/files/.bash_history-rpi4
+@@ -6,7 +6,7 @@ jailhouse cell start inmate-demo
+ jailhouse cell stats inmate-demo
+ jailhouse cell destroy inmate-demo
+ jailhouse cell linux /etc/jailhouse/rpi4-linux-demo.cell \
+-                     /boot/vmlinuz* \
++                     /boot/vmlinux* \
+                      -d /etc/jailhouse/dts/inmate-rpi4.dtb \
+                      -i /usr/libexec/jailhouse/demos/rootfs.cpio \
+                      -c "console=ttyS0,115200 ip=192.168.19.2"
+diff --git a/recipes-core/customizations/files/.bash_history-ultra96-v1 b/recipes-core/customizations/files/.bash_history-ultra96-v1
+index f73aec1..e06923a 100644
+--- a/recipes-core/customizations/files/.bash_history-ultra96-v1
++++ b/recipes-core/customizations/files/.bash_history-ultra96-v1
+@@ -6,7 +6,7 @@ jailhouse cell start inmate-demo
+ jailhouse cell stats inmate-demo
+ jailhouse cell destroy inmate-demo
+ jailhouse cell linux /etc/jailhouse/ultra96-linux-demo.cell \
+-                     /boot/vmlinuz* \
++                     /boot/vmlinux* \
+                      -d /etc/jailhouse/dts/inmate-zynqmp.dtb \
+                      -i /usr/libexec/jailhouse/demos/rootfs.cpio \
+                      -c "console=ttyPS0,115200 ip=192.168.19.2"
+diff --git a/start-qemu.sh b/start-qemu.sh
+index abf2537..1472b99 100755
+--- a/start-qemu.sh
++++ b/start-qemu.sh
+@@ -35,6 +35,7 @@ case "$1" in
+ 			-device intel-iommu,intremap=on,x-buggy-eim=on \
+ 			-device intel-hda,addr=1b.0 -device hda-duplex \
+ 			-device e1000e,addr=2.0,netdev=net"
++		KERNEL_SUFFIX=vmlinuz
+ 		KERNEL_CMDLINE=" \
+ 			root=/dev/sda intel_iommu=off memmap=82M\$0x3a000000 \
+ 			vga=0x305"
+@@ -50,6 +51,7 @@ case "$1" in
+ 			-device virtconsole,chardev=con -chardev vc,id=con \
+ 			-device virtio-blk-device,drive=disk \
+ 			-device virtio-net-device,netdev=net"
++		KERNEL_SUFFIX=vmlinux
+ 		KERNEL_CMDLINE=" \
+ 			root=/dev/vda mem=768M"
+ 		;;
+@@ -70,5 +72,5 @@ shift 1
+ ${QEMU_PATH}${QEMU} \
+ 	-drive file=${IMAGE_FILE},discard=unmap,if=none,id=disk,format=raw \
+ 	-m 1G -serial mon:stdio -netdev user,id=net \
+-	-kernel ${IMAGE_PREFIX}-vmlinuz -append "${KERNEL_CMDLINE}" \
++	-kernel "${IMAGE_PREFIX}-${KERNEL_SUFFIX}" -append "${KERNEL_CMDLINE}" \
+ 	-initrd ${IMAGE_PREFIX}-initrd.img ${QEMU_EXTRA_ARGS} "$@"
+diff --git a/wic/rpi4.wks b/wic/rpi4.wks
+index 12a8509..2d10b99 100644
+--- a/wic/rpi4.wks
++++ b/wic/rpi4.wks
+@@ -12,3 +12,6 @@
+ part --source bootimg-partition --ondisk mmcblk0 --fstype vfat --label boot --align 1 --size 32 --overhead-factor 1 --extra-space 0
+ 
+ part / --source rootfs --ondisk mmcblk0 --fstype ext4 --label platform --align 1024 --active
++
++# silence wic
++bootloader
 -- 
 2.26.2
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/cover.1621593454.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/2081733cde49420cbc8e6e87a05376550f8f7757.1621593454.git.jan.kiszka%40siemens.com.
