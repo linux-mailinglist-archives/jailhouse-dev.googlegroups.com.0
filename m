@@ -1,197 +1,123 @@
-Return-Path: <jailhouse-dev+bncBCY4NF5G6YJBB3HMT2CQMGQE7OIOO3Q@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBAABBU4LVGCQMGQEXIRFSDA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23f.google.com (mail-lj1-x23f.google.com [IPv6:2a00:1450:4864:20::23f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 794D538C82C
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 21 May 2021 15:32:29 +0200 (CEST)
-Received: by mail-lj1-x23f.google.com with SMTP id f4-20020a2e97440000b02900e0cf71110dsf8864173ljj.14
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 21 May 2021 06:32:29 -0700 (PDT)
-ARC-Seal: i=3; a=rsa-sha256; t=1621603949; cv=pass;
+Received: from mail-lj1-x239.google.com (mail-lj1-x239.google.com [IPv6:2a00:1450:4864:20::239])
+	by mail.lfdr.de (Postfix) with ESMTPS id 686DC38DB1B
+	for <lists+jailhouse-dev@lfdr.de>; Sun, 23 May 2021 14:08:52 +0200 (CEST)
+Received: by mail-lj1-x239.google.com with SMTP id a23-20020a05651c2117b02900e9751e7410sf10778691ljq.6
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 23 May 2021 05:08:52 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1621771731; cv=pass;
         d=google.com; s=arc-20160816;
-        b=ghNJfSLPLWyGDeiJZZP0mTkEW1XkVozu2MnOPGPnU86b/hMLNVu0csKd72yUNkWoyJ
-         F1xzZ1eR2oIFhaNeJ30kS2XItvpVJfn/ytSCBMGvKcP7zabNfihAdM/woL9sylQIEwpY
-         WX/JFWt29jcK4X+dlhREAL58Ig5TvNK3RU50DO6jRgG0I0LsFoaBI1qv8P1SIEEt4oFB
-         +JhhrsAq+dpA44n0OiftGComz3E48NdPeHVu5rus3GQmzqVtLk+N8qILCd6VyAxa6pqd
-         +LrUdSQJot3SUfwJzmMyaFB2+F4/hw0CE64pqzLJiox7G740oGwwHxf8vV6ED0sOz05a
-         2Hvw==
-ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:cc:to:from:sender:dkim-signature;
-        bh=MWzLCIoja7LfXLJ3Pe0J+KW8wzm89FyqIGxC8I9tLoI=;
-        b=mnBA1a4Gxj/y5M4dDwRpqU+NOE9XSPrn88/fQDSPwbqROG3wawmIXL6annoykxPq5m
-         h2t3CVIqJRGfrLYtiXk9JCMGuC679qJirVRyzGl9UoNriPw7TOZo331vVJdgaUiekiFZ
-         i5DZ8k9NtL6ppvOCDtsPepuOA+Td+cLmCbEsEH+u39Rhub6IJt7joerrYQ9Q4j/8ODQc
-         TpjJ9+xWbk1MWDTLeV6IV1Ds2NTYJWW8m+NxGqp3BaGnPVoLnyiwMSGGLe7REarBtIaY
-         4/b7rN6Bda7Un6hUIvtPvs4gkXO7C7yKNBFGyNPDE2N6IMNBcajrS45e2A4RqMhtmQ3t
-         kZSQ==
-ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@nxp.com header.s=selector2 header.b=TjxuuO4t;
-       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
-       spf=pass (google.com: domain of jiafei.pan@nxp.com designates 40.107.21.80 as permitted sender) smtp.mailfrom=jiafei.pan@nxp.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
+        b=Qj5rcKnWnLk4wy5jK5TIE7IJIg0xOS7zDvAeOiCyCDOzpaA6rQHPFxGuKeM0eF/7H4
+         8aO5d2B/5WCfNrYrqodDgJyp70IEVW4b51GbYurjncyPO0+81zFvFTANNFah/Y7rS/rk
+         ulSHfGGBtoO+8F7Cj/aVxZQ0GBwpZ0hnzTjzONrG7L3YjjNsiWWEafyWpo0wSKtKRMra
+         QUm2hpTtl32uUUdmREbttsZYG6QimqoBLHk1L86EkVErFeVwoGpGUR7ypJ4fSn7611kN
+         xEM5ItrWGzU0i4wTzp/88d8/PijUVV3OKiq7Efrnhc1vZM+7LnMEst3khoRxS5tp0Ytr
+         GPlg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-subscribe:list-archive:list-help:list-post:list-id
+         :mailing-list:precedence:date:list-unsubscribe:mime-version:subject
+         :message-id:to:from:sender:dkim-signature;
+        bh=zpmaW8K5kvAhkKzw4vE5i/fxWiyQPbyu3ZdWl12x7T8=;
+        b=ASZgOLgtthoy+v6vFCb/mi/RBV8f+NHTVwVJPPuRRbvNga/lwobFqLo+Jsec+PlYjJ
+         Keott7n8fxOCiIxQOJg+TckuF22EKBe/TsmEQopJtzQOctUl6jJ78Q9+/xhtHF9REoII
+         0HXFSilIyBsKSzA6oxT7axpE1OJa7QQgt+WIUFbQ94R6eHfcw1gF1wXDXbJ910/KprHF
+         8yC0EpogqZgHn4qFDQMa6LZJgSb6LrQMJadCFyj0+CV0Oi85IVkyLWiCfDcZzBinBFGw
+         vI8LGB/kwzOCGCtSq5gQHWVmKC4WQxm5Yf6VTl4A3cEAA6GhAcpYUu94FpVziZRiD+4o
+         EJlQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@digscience.org header.s=us header.b=YNQXG8qz;
+       dkim=pass header.i=@topeml.com header.s=jul2015 header.b=aYeamsLR;
+       spf=pass (google.com: domain of postman3670461@email.tb.ru designates 185.147.82.156 as permitted sender) smtp.mailfrom=postman3670461@email.tb.ru;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=digscience.org
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:cc:subject:thread-topic:thread-index:date:message-id
-         :references:in-reply-to:accept-language:content-language
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=MWzLCIoja7LfXLJ3Pe0J+KW8wzm89FyqIGxC8I9tLoI=;
-        b=i16n0rGYzbQ741wb0905mqTTlFpKneTuXcaFgCLyCYlOis9QGxlUguB0Lr7+ZHiGMk
-         EyZ6XppjzE9PBx5LrD1Wq8Ausu8qkRjxGokHQ32z30iO0/xVd19DuPyGmWz0g/Flo/w8
-         cD5bK2IKJFRuGp2q2fTa7i061l0BKzuHlowMpkcdb/utEXaR9sJZPHGWZ29+rniAXbpP
-         n09tkcKWUzgxuj/eXJwYDXzt72GT6LTgJs9pW0JyJ517JAGQV8GuU3A/mf+oqJjvBelK
-         dnj6xPY9UEt8Bs98sN9J+F+oAknWhUiqQnA6ALrTnlcXASs4T70C1HzV8VGhkFN9pYKU
-         vgUw==
+        h=sender:from:to:message-id:subject:mime-version:list-unsubscribe
+         :date:x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe;
+        bh=zpmaW8K5kvAhkKzw4vE5i/fxWiyQPbyu3ZdWl12x7T8=;
+        b=MTbNIlY0ATISDs0dfyq3Zds4Bjszr4BLRKeiHlIJbOX/T99t9vPk9Z7QO+xsgwZiA3
+         qsmoRj6QTGytSDlh4nEn/GwhwovE/3FLyuWDmT22xJFTZHXj+YfoDgrIEAMumZiTQPep
+         wVm9Zc/bYbw92kWYj8wkAFivMuVEnsA49ZFoqIe48VdwrsW2LR+5WgMEEI9LBuFLsN7j
+         8IBshIt2hsXnO5fv6UddWOuhMiIvBGg3VuaxFUhZ7oRY79wHXMaHsoAJOAjUqb7Sk6/+
+         72GYaxSGyzwf3bf5i3/whqJsSjytxxhL7lNLZWOIQBxoUloWoNJt3xQEdFlfMwwiPuTU
+         zimQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:cc:subject:thread-topic
-         :thread-index:date:message-id:references:in-reply-to:accept-language
-         :content-language:mime-version:x-original-sender
+        h=sender:x-gm-message-state:from:to:message-id:subject:mime-version
+         :list-unsubscribe:date:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=MWzLCIoja7LfXLJ3Pe0J+KW8wzm89FyqIGxC8I9tLoI=;
-        b=l43qSNJK0hCc+XHr5m4RlHKPW/CGROhJQxFywjEduuvKtIzbwjTDjkgXtnePFiJ/Ny
-         xCVv8psSumMU3cLYuEJU9pUJB63GO6+uwVFJb350XLX2ozcOJs/s7MPIT3eDEj1Rw6/f
-         1PFIcOA9RFz+V/uRx8Zz4w/jodNFBbnAfewsf8vW5cvVZTxDn7HnLrVIc+u0LEamWPkE
-         bQylZh4MZQD4HAlh0T4uU6gHTSTi5TK/2dBa0dtliYKmI0YFNPal95222MYUPv9Di1qD
-         pPxKeZ7dKwYONIjVFVyc3SKwTAoCyTLOidrEbRKGitl0ct+iXkLdqcv1S935kSEiEqg/
-         3u8g==
+         :list-subscribe;
+        bh=zpmaW8K5kvAhkKzw4vE5i/fxWiyQPbyu3ZdWl12x7T8=;
+        b=SYZtY3Y6XOAh+3HL1FJ5/TzCO6lMMHTfYVmr4jrUpg+Nf04X2u9gEG1FCx9BUBYjyD
+         jLzu0UNFxVdm/Hqv3Ip6mvcnzse6sxiapzynBE3D7AoO9SfTzBiIb6yQtUp4EQFX47E5
+         yF+V7FT0PlP57GMRwrbJWVUHsBV3lzZ8Cb5hyJXK1B2oAjXaCViXCB/E/zc1PXabJgEJ
+         yqdQtv27mqcWwFpBsft27Si1T2P1W0wo8+uicodsKoe2758VPplRGKFr16euIpyzYwJN
+         hSmpAlOyVReLLGwo8oXX+dOU+x2f2RJ2fEqQgwS7rhBSJYvI82vcufeVdEmmcxu9KF3O
+         uYbQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532DHYKVRpf8KSwO6aBTjy/xRDr5kJRmdevXLvquj+g/E0QXyzll
-	rlgi/w2OCcH2t5oHsSpjiAo=
-X-Google-Smtp-Source: ABdhPJzM136EsZoXr9lhOG53SoMg6wF/hDmzyGugAH78Cdu1dCKB/EI0a2/jyCAz9/Vh23nlDlkQFw==
-X-Received: by 2002:a2e:bc1f:: with SMTP id b31mr7465630ljf.2.1621603949009;
-        Fri, 21 May 2021 06:32:29 -0700 (PDT)
+X-Gm-Message-State: AOAM530x0PjBZORt9jQ+0Vf492hKHMolDIGhM+OgNrWdDIiyQVOgaVJB
+	ybnoHimJqiZE+AwXnawksUI=
+X-Google-Smtp-Source: ABdhPJz4lg6V5OBP1GF3G9KOHymdZ5/EJWUcoUQ4FqWAJQDv2HT3Q6y6cvPQi5LNHPx0kBkle5ZEtA==
+X-Received: by 2002:ac2:5a0e:: with SMTP id q14mr7658596lfn.506.1621771731728;
+        Sun, 23 May 2021 05:08:51 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6512:6c2:: with SMTP id u2ls698674lff.3.gmail; Fri, 21
- May 2021 06:32:27 -0700 (PDT)
-X-Received: by 2002:ac2:55a8:: with SMTP id y8mr2248399lfg.211.1621603947904;
-        Fri, 21 May 2021 06:32:27 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1621603947; cv=pass;
+Received: by 2002:a05:651c:1409:: with SMTP id u9ls1922165lje.1.gmail; Sun, 23
+ May 2021 05:08:50 -0700 (PDT)
+X-Received: by 2002:a05:651c:1068:: with SMTP id y8mr13377294ljm.59.1621771730752;
+        Sun, 23 May 2021 05:08:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1621771730; cv=none;
         d=google.com; s=arc-20160816;
-        b=0ybDLNf9sAX2V6muVBbdrmHEVWKByOM/I8NAclAlTogqw6sygTZzeiAmsvndFp+gYs
-         pfCi8FHYNy0xExsvgGVFbY6kHLjjEjGpXajhunL1l7FKUpD4HAx0pB5TElpBjoHRGwr/
-         zErWXcZ0m8Vtq+VWSF0aqAHK/y2SQzgc/IhErvsvmB0fbL62N0SmKaP2tk3K8s8gZL3L
-         BdpkySkCj1OSfsqoQJxFP/maqf/LOpP1HQuld/aSEMN0ip+Pw580RuFC8u5CSqgcPTWo
-         vIJytEfKQ5ebTB2qqf11KZ0c6fO4Va9c422mUZFIJK5W20HwqTQojwllMxEgDubPOghJ
-         yz3g==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:content-transfer-encoding:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:cc:to:from:dkim-signature;
-        bh=IX23uZ4rg1eD2RyOl/Fz5y/a/DfpkSmzL/whXT1090M=;
-        b=vM9BRbHPO4bTcRBoDlhjxjE/5qgSyU6LyLzRfRGAaUuUlMW+RYFpu8Ejm09hVymKuc
-         nyX1m3Bqaq1aGRUWopy2XYV0pPR+jKeqzOADXTNqXcsdo5/hwQZkeB5Ipn8M3Gunk5sj
-         cwg5poW4DSlzsPxCV4XpL1tsoxaLL8W7rvP4clFxkpSJHIDvm6vSjilPfsGBFABWsYsf
-         UetdBfdfp6BigIjwTzTt26XE7G1iy461Ovtr8Njag46XE4CsWph2j4uU8Eb54y6NN7pU
-         UspQ1RvL96wP255qYOzwNkxU8KoQvKmATAyrnfpqR6MmcvjXFq+FUT4e6Fb1cpg6hS0i
-         tgCg==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@nxp.com header.s=selector2 header.b=TjxuuO4t;
-       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
-       spf=pass (google.com: domain of jiafei.pan@nxp.com designates 40.107.21.80 as permitted sender) smtp.mailfrom=jiafei.pan@nxp.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com (mail-vi1eur05on2080.outbound.protection.outlook.com. [40.107.21.80])
-        by gmr-mx.google.com with ESMTPS id b39si259450lfv.1.2021.05.21.06.32.27
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 21 May 2021 06:32:27 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jiafei.pan@nxp.com designates 40.107.21.80 as permitted sender) client-ip=40.107.21.80;
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DBGaM4jZVK/rXZvgRd51Fkej6i6jBvZWjpT4U/djzm6keg31O3Zfz+h18tv65uJ4VYcIrLosHgxIye3cBqHEXakhg2pGwzUS+reY1ceFvLKfuUyoheqv5r3+oKq5Kaik5E85VIdL2zbatOPbXNPBrPNGiWZbNb0d8nn0/U+G1TEm4xx7sspdQCbEJTJWcWC5jh8gb9MJhJ5D0lUXSxd2ce7Gz+Do2A57utsVxnctsje04LVs4MnBB/zufBYArbwFVPPpL2Nz6vr9FLcBaXDHtsy3Ek1Tg6HDrw59SbgACogHfgHPrvy29V6xJOUuapfQhOeNrETZb3QXTRPDw7+/9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IX23uZ4rg1eD2RyOl/Fz5y/a/DfpkSmzL/whXT1090M=;
- b=fRtiHiH71ZtXLU8EfCh7fa8nyeyEPR28xCgii5/lz9z3DfCw1EUafnN6xQKbGwgD9qijQnPAeAl/pfc6CN/aOIjhjIwZ7wn9sQszwM6noC27Vkn9uEy2ece2nJliSBEcjWyiUMWScbg6PvRAtZXoGzWB1iDIZE07SiNRiaoHlgnhGw4tVv88nF0x/3rdYhX0D+3iMDYPPXAARlRz961mtLU0sVQwjB/BLNxvVMj1Abxbl11iNaZD1mzhjeidNmjgXxPutbWj16ZrFy6wiziembjAFgHUEM+mQxg5eTxwUgu/2tO7OA3zxDAixtd3x7IVSfiNFpgsLizK/UUVc3WE1Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-Received: from AS8PR04MB8182.eurprd04.prod.outlook.com (2603:10a6:20b:3b2::5)
- by AM6PR04MB5144.eurprd04.prod.outlook.com (2603:10a6:20b:a::32) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.28; Fri, 21 May
- 2021 13:32:26 +0000
-Received: from AS8PR04MB8182.eurprd04.prod.outlook.com
- ([fe80::94cb:bd5d:6daa:1f0a]) by AS8PR04MB8182.eurprd04.prod.outlook.com
- ([fe80::94cb:bd5d:6daa:1f0a%9]) with mapi id 15.20.4150.023; Fri, 21 May 2021
- 13:32:26 +0000
-From: Jiafei Pan <jiafei.pan@nxp.com>
-To: liandao <liandao@gmail.com>
-CC: "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>, Jiafei
- Pan <jiafei.pan@nxp.com>
-Subject: RE: [EXT] Re: [PATCH] nxp: ls1046ardb: add configure file for running
- zephyr inmate
-Thread-Topic: [EXT] Re: [PATCH] nxp: ls1046ardb: add configure file for
- running zephyr inmate
-Thread-Index: AQHXTggbSMynffR8ukeaB2USg9pqCKrtzSgAgAAiAfA=
-Date: Fri, 21 May 2021 13:32:26 +0000
-Message-ID: <AS8PR04MB818293A8AD7EE178D696E0F38A299@AS8PR04MB8182.eurprd04.prod.outlook.com>
-References: <20210521062144.11659-1-Jiafei.Pan@nxp.com>
- <CAMC3Yu3LC1b1yhgMOA1Vp2Vt7Wuu=O--qNWPE+cHOWrJXpUy7Q@mail.gmail.com>
-In-Reply-To: <CAMC3Yu3LC1b1yhgMOA1Vp2Vt7Wuu=O--qNWPE+cHOWrJXpUy7Q@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [124.64.122.111]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 78fa44cf-02ba-4491-9727-08d91c5cdf7d
-x-ms-traffictypediagnostic: AM6PR04MB5144:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <AM6PR04MB5144A9A1AA78BD8617437B558A299@AM6PR04MB5144.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7219;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Z509PH9XV15gOYgAxH4jPq3whaRXfrk5Ep+P7G/iJQEYpCO3zAGs7tf4D9EBVmlH/ydwKRJ76k6u/45ZT0Ga1xFRmBefHMPFR2BgFUE0CKuwA41r1Ibxe+DMFlhNdxsqWNkAn7gRPIpn0YD5YqhEDxSy9MJy0RguJgjmMxJ/nXpjYR2okdhXBD3jIYCAxcLzGJMpEuyG183JMBPEorEX+LbUjhjw5hZC6aJIHngx8imJRIx8nJMlv+NgE7sx6IgXMSBwfSi3Y30y7fHoMOimryxby/fmFOZlwR66MBbCaLAw8pYihuCG+WElswiELEGoA2N1vANxkvlsF/guUOPkEOnl+VHf4NFrKy5WtPWCvlr82Jhmp0SuFWv53zXv0N7RJgPSr2EE2wTH71mfk2op/zDvjd1xsA6V9TsE3pbC3+zgJM+8I+mog5dWMNA1NP7BKANj+zoaVgZhgDYVwQCjGRhmQ2uOX7wDw2Q74zwqMBNzrrBMAmSrMBqPSU3IUj6vVd/D6DNFK3c90a9YJ2ZIlinPXYVgLXPFz2YzLC7WVwnZhP62Ct8KLeXZKj19ATdcEOCrhpi4r3cKJvqVAHMxhWrQt3GmhQhpPyKNfp/OviIMTwW90RRQUCKaBR5LDstgybVykqNowSPu4K9ifLf1ChIOT2Gpx7JEErr4oezmS4GgDGjud/HRYepvHrXteXZIGgnlOR9oSwRrjZ5vGkPflIwYtIH0vNryuYiYxZAqO4E=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR04MB8182.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(39860400002)(136003)(346002)(366004)(376002)(64756008)(66476007)(66946007)(7696005)(66446008)(44832011)(66556008)(38100700002)(2906002)(8676002)(55016002)(86362001)(53546011)(71200400001)(54906003)(478600001)(76116006)(8936002)(316002)(45080400002)(26005)(6916009)(33656002)(4326008)(186003)(966005)(5660300002)(52536014)(6506007)(122000001)(83380400001)(9686003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?5o84K3V4G4ULp2hb9vxQzp40dhptkQFhcZ43RHQhZcVzzeE2kqJAumcqZQUZ?=
- =?us-ascii?Q?Fmyi/hREzKjkEHbcaiBDuaYa75IkAPhmBrb07DXIKFMDbDFWaqk6SGP+DTqt?=
- =?us-ascii?Q?CyMKHkgu+IbOutWLHZ6ME0v1zlYCWtGXCDkssiwZjE/v0DHBzPeQboCTFT/b?=
- =?us-ascii?Q?YJk8HmM1LPbzHws7QIiBGDI3OZfrcf8NTcOBh8uVd/gQIxb0LEQyeDZ/qk4s?=
- =?us-ascii?Q?MT8hSpic4TlWSlqmG1sl1woZbCF7xUjP4N954bIbONUjJgpRTeHjO4mMYHQX?=
- =?us-ascii?Q?UuVLKZXR6wkjYmlWCwBMk6U4FQBHDGIF7/o5SgRW1/GMqawx6rRjHsz6uc1f?=
- =?us-ascii?Q?FHUHZocR5IMytXKktycBLgc0nEY0Bi5OTv4o9Myf1UmxAWe0wWWII1m8j0B6?=
- =?us-ascii?Q?v9s1w6iRzNtsmyT4nSNBI9iaZEQHQFUQ2w+XKSFswah7PtuyeWf9s2UQWLml?=
- =?us-ascii?Q?APMutorRL2hkdP6LCtNtLkM+/vQ5Kre/2PsohL2fLapufcNpcCV6JghC44oM?=
- =?us-ascii?Q?FMtumzp9gxiR81QI8u2XVenFK+ZzImeaofa7WQ/pYvJxz75sXozEr0yz2r06?=
- =?us-ascii?Q?tqwiAxqK6EiGND05oMjBanK0vgFMgWGF/q6Y7+jafhX2njLxRFHz45vtbtuE?=
- =?us-ascii?Q?FTARgV5LHyTuBH+gEpzSSmUgfTPMwcqNE0NNKlmopPHCBONddKtqO9/BtzGa?=
- =?us-ascii?Q?xFDiW+SXU77FfCfCj5GAY3UWQ9VL+inByEtm8st3fu4jWgaJnCDKr+lfAxd+?=
- =?us-ascii?Q?deh4Byhnt584PsVUVHAvm4wcPVWrtDHoP1d0AH2b+K05gTndr0WQS4u4cETa?=
- =?us-ascii?Q?jiLpFXGHr0zJJ9Etir8zSNTQBoln9jsWstfHdNjfIz9Rtd9vlFw2QUwCCt/2?=
- =?us-ascii?Q?6QQ9QVtUlUFwOnAhRAgdGqsd73b90th3ZgSDm3OOhx8ZBtNdAc+W05+80/AG?=
- =?us-ascii?Q?cZHntIUb7HC0ggy3OxHDzB0o6/bmI5tQc5uICrZGJRgFvXtKmpyODXWly9fc?=
- =?us-ascii?Q?xINbUMGrE86d2KDrfys19+tkbqJspYTkjsIxXYyUbzudq66iJfX0o/nVEXPK?=
- =?us-ascii?Q?PPX+4qBhJAgRJ4iRj5PTclEAZwxW9OY5qtqTJm77I1ppAP7YIE4bJb56emxk?=
- =?us-ascii?Q?EYkiBdFRdNdY0bAKdpi7OhcKMsWj3C58w6PtdAvjH/9vyuzNT7oPcquKzUDT?=
- =?us-ascii?Q?a+X0pH0gCQZMuoABEi2VKcrk++A/TWvtqP9LZj5R3hEVximBJjfIlqpTmVbK?=
- =?us-ascii?Q?5a6hidq4Da/jQp1hv1WGUjndDVFv//BoQubnF5d95lTlP9hB56K/bJI97oZN?=
- =?us-ascii?Q?CuwISXhkLPp416+gA5/6k7O3?=
-Content-Type: text/plain; charset="UTF-8"
+        b=H+I4UxQBvb8gG7YY8kFVqVgB2DR3pSg0OZTQ18S7qvKX3w8R4DoDnWzebkgiCml7y4
+         xHMCVY9bDA+Z6Jx30RRjgX4/r0Fe1dts1swiyl1C+aEkKAOGYYVNafnAs8y0EhiSxWXG
+         fr+bhlY4RYuThfxvI2zzYqEdEgfULX4TPH94og3RUkeOT2JAA5+fpFwVDtwUqwGmJ5cz
+         qi+7Ljd4nuMZt6sFjamh80z1oQRODvP7Q0QTRveryXz0hxbntp21HWxz8VZDrnlfGcPY
+         ldqYJg8ErgbFei7/iEQEiOf4ptGY+kTz95toUj7HSE9WIsoZ5Oi2ZSlV+YmViQPiK8rw
+         LACQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=date:list-unsubscribe:mime-version:subject:message-id:to:from
+         :dkim-signature:dkim-signature;
+        bh=AePJHDuxH9C5mFXJAJdsiR2+VMHtNtCxRg48/2DsGAA=;
+        b=HqWsUFjqFgqCBV8sdli6KFNPM/k7gU/iwiB2GJlKCj1Y+sCn+mkOhOlotULU/37Cq9
+         MkzlLs37l2ruzYC2nWX6/F3KoWWIJcNVwmpFg1isLxzKSpcDlt00J0p8TmgLetsA7SyA
+         tuxNNm0lHV7JKM+9FnrD2D38iCOoGXJx0V0PkTFIrXC0uriFdqFRrUo806T0TeTQDAuv
+         QAJkO7ghxnuigWnf1ai2DztUzadGCsdLRc7E5fOzQ68ZGdemqsTwrvgJdyKi2YzieiPT
+         7DKzaruE72yj9uKG5gIJhhXLm2hQm7wcRwKSy/nXAE+Wi/8edytOdL1TRPN8Wp/mDwjv
+         tk5g==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@digscience.org header.s=us header.b=YNQXG8qz;
+       dkim=pass header.i=@topeml.com header.s=jul2015 header.b=aYeamsLR;
+       spf=pass (google.com: domain of postman3670461@email.tb.ru designates 185.147.82.156 as permitted sender) smtp.mailfrom=postman3670461@email.tb.ru;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=digscience.org
+Received: from smtp1.email.tb.ru (smtp1.email.tb.ru. [185.147.82.156])
+        by gmr-mx.google.com with ESMTP id o3si669120lfg.7.2021.05.23.05.08.50
+        for <jailhouse-dev@googlegroups.com>;
+        Sun, 23 May 2021 05:08:50 -0700 (PDT)
+Received-SPF: pass (google.com: domain of postman3670461@email.tb.ru designates 185.147.82.156 as permitted sender) client-ip=185.147.82.156;
+Received: by smtp1.email.tb.ru id hl92t42erm8v for <jailhouse-dev@googlegroups.com>; Sun, 23 May 2021 12:08:50 +0000 (envelope-from <postman3670461@email.tb.ru>)
+From: "Tatiana Antipova" <smart@digscience.org>
+To: jailhouse-dev@googlegroups.com
+Message-Id: <E1lkmuY-tcT9Fo-Mg@ucs203-ucs-4.msgpanel.com>
+Subject: 9th International Conference with Springer. Scopus, WoS Indexation
+ - Submission Deadline - August 11, 2021
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB8182.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 78fa44cf-02ba-4491-9727-08d91c5cdf7d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 May 2021 13:32:26.0878
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: fBZChQKADrjfJAJyzTAtTiwnuao8EVcC0hEt7iwD5G7p64Wp6GgxnPPfhZbSPWXv/g04ng/P1T9ITfknqo8pXg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR04MB5144
-X-Original-Sender: jiafei.pan@nxp.com
+Content-Type: multipart/mixed; boundary="MWxrbXVZLXRjVDlGby1NZw=="
+List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
+ <https://groups.google.com/group/jailhouse-dev/subscribe>
+X-Complaints-To: abuse@email.tb.ru
+X-EnvId: eu1production.tr_3670461:1lkmuV-00002G-K3u0:1_amFpbGhvdXNlLWRldkBnb29nbGVncm91cHMuY29t_2_3027617
+X-Feedback-ID: 3670461:transact:UO
+X-ReplyTo: smart@digscience.org
+Date: Sun, 23 May 2021 12:08:50 +0000
+X-Original-Sender: smart@digscience.org
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@nxp.com header.s=selector2 header.b=TjxuuO4t;       arc=pass (i=1
- spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass
- fromdomain=nxp.com);       spf=pass (google.com: domain of jiafei.pan@nxp.com
- designates 40.107.21.80 as permitted sender) smtp.mailfrom=jiafei.pan@nxp.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
+ header.i=@digscience.org header.s=us header.b=YNQXG8qz;       dkim=pass
+ header.i=@topeml.com header.s=jul2015 header.b=aYeamsLR;       spf=pass
+ (google.com: domain of postman3670461@email.tb.ru designates 185.147.82.156
+ as permitted sender) smtp.mailfrom=postman3670461@email.tb.ru;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=digscience.org
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -201,222 +127,614 @@ List-Post: <https://groups.google.com/group/jailhouse-dev/post>, <mailto:jailhou
 List-Help: <https://groups.google.com/support/>, <mailto:jailhouse-dev+help@googlegroups.com>
 List-Archive: <https://groups.google.com/group/jailhouse-dev
 List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mailto:jailhouse-dev+subscribe@googlegroups.com>
-List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
- <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Ls1046a-rdb platform support in Zephyr has been upstreamed to Zephyr community.
+--MWxrbXVZLXRjVDlGby1NZw==
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_9835537_1707846388.1621771730445"
 
-Best Regards,
-Jiafei.
+------=_Part_9835537_1707846388.1621771730445
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> -----Original Message-----
-> From: liandao <liandao@gmail.com>
-> Sent: Friday, May 21, 2021 7:30 PM
-> To: Jiafei Pan <jiafei.pan@nxp.com>
-> Cc: jailhouse-dev@googlegroups.com
-> Subject: [EXT] Re: [PATCH] nxp: ls1046ardb: add configure file for running
-> zephyr inmate
-> 
-> Caution: EXT Email
-> 
-> where is Zephyr demo source code for ls1046a-rdb?
-> 
-> On 5/21/21, Jiafei Pan <Jiafei.Pan@nxp.com> wrote:
-> > 1. Use virt_addr to be same with phys_addr for memory 2. Loading
-> > inmate binary from start of virt_addr 3. Use 1M bytes memory in order
-> > to load Zephyr 4. Using CPU Core2 and Core3 to demo Zephyr SMP
-> >
-> > Signed-off-by: Jiafei Pan <Jiafei.Pan@nxp.com>
-> > ---
-> >  configs/arm64/ls1046a-rdb-zephyr-demo.c | 141
-> > ++++++++++++++++++++++++
-> >  1 file changed, 141 insertions(+)
-> >  create mode 100644 configs/arm64/ls1046a-rdb-zephyr-demo.c
-> >
-> > diff --git a/configs/arm64/ls1046a-rdb-zephyr-demo.c
-> > b/configs/arm64/ls1046a-rdb-zephyr-demo.c
-> > new file mode 100644
-> > index 00000000..55c0e78f
-> > --- /dev/null
-> > +++ b/configs/arm64/ls1046a-rdb-zephyr-demo.c
-> > @@ -0,0 +1,141 @@
-> > +/*
-> > + * ls1046a RDB - inmate demo
-> > + *
-> > + * Copyright NXP 2020
-> > + *
-> > + * Authors:
-> > + *  Jiafei Pan <jiafei.pan@nxp.com>
-> > + *
-> > + * This work is licensed under the terms of the GNU GPL, version 2.
-> > +See
-> > + * the COPYING file in the top-level directory.
-> > + */
-> > +
-> > +#include <jailhouse/types.h>
-> > +#include <jailhouse/cell-config.h>
-> > +
-> > +struct {
-> > +     struct jailhouse_cell_desc cell;
-> > +     __u64 cpus[1];
-> > +     struct jailhouse_memory mem_regions[8];
-> > +     struct jailhouse_irqchip irqchips[2];
-> > +     struct jailhouse_pci_device pci_devices[1]; }
-> > +__attribute__((packed)) config = {
-> > +     .cell = {
-> > +             .signature = JAILHOUSE_CELL_DESC_SIGNATURE,
-> > +             .revision = JAILHOUSE_CONFIG_REVISION,
-> > +             .name = "inmate-demo",
-> > +             .flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
-> > +
-> > +             .cpu_set_size = sizeof(config.cpus),
-> > +             .num_memory_regions =
-> ARRAY_SIZE(config.mem_regions),
-> > +             .num_irqchips = ARRAY_SIZE(config.irqchips),
-> > +             .num_pci_devices = ARRAY_SIZE(config.pci_devices),
-> > +             .vpci_irq_base = 60 - 32,       /* vPCI INTx */
-> > +
-> > +             .cpu_reset_address = 0xc0000000,
-> > +
-> > +             .console = {
-> > +                     .address = 0x21c0600,   /* Uart1 in DUART1
-> */
-> > +                     .divider = 0xbd, /* baudrate: 115200 */
-> > +                     .type = JAILHOUSE_CON_TYPE_8250,
-> > +                     .flags = JAILHOUSE_CON_ACCESS_MMIO |
-> > +                             JAILHOUSE_CON_REGDIST_1,
-> > +             },
-> > +     },
-> > +
-> > +     .cpus = {
-> > +             0xc,
-> > +     },
-> > +
-> > +     .mem_regions = {
-> > +             /* IVSHMEM shared memory region for 00:00.0 */ {
-> > +                     .phys_start = 0xfb700000,
-> > +                     .virt_start = 0xfb700000,
-> > +                     .size = 0x1000,
-> > +                     .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_ROOTSHARED,
-> > +             },
-> > +             {
-> > +                     .phys_start = 0xfb701000,
-> > +                     .virt_start = 0xfb701000,
-> > +                     .size = 0x9000,
-> > +                     .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                             JAILHOUSE_MEM_ROOTSHARED,
-> > +             },
-> > +             {
-> > +                     .phys_start = 0xfb70a000,
-> > +                     .virt_start = 0xfb70a000,
-> > +                     .size = 0x2000,
-> > +                     .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_ROOTSHARED,
-> > +             },
-> > +             {
-> > +                     .phys_start = 0xfb70c000,
-> > +                     .virt_start = 0xfb70c000,
-> > +                     .size = 0x2000,
-> > +                     .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                             JAILHOUSE_MEM_ROOTSHARED,
-> > +             },
-> > +             {
-> > +                     .phys_start = 0xfb70e000,
-> > +                     .virt_start = 0xfb70e000,
-> > +                     .size = 0x2000,
-> > +                     .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_ROOTSHARED,
-> > +             },
-> > +             /* DUART1 */ {
-> > +                     .phys_start = 0x21c0000,
-> > +                     .virt_start = 0x21c0000,
-> > +                     .size = 0x10000,
-> > +                     .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                             JAILHOUSE_MEM_IO |
-> JAILHOUSE_MEM_ROOTSHARED,
-> > +             },
-> > +             /* RAM: Top at 2GB DRAM1 Space */ {
-> > +                     .phys_start = 0xc0000000,
-> > +                     .virt_start = 0xc0000000,
-> > +                     .size = 0x00100000,
-> > +                     .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                             JAILHOUSE_MEM_EXECUTE |
-> JAILHOUSE_MEM_LOADABLE,
-> > +             },
-> > +             /* communication region */ {
-> > +                     .virt_start = 0x80000000,
-> > +                     .size = 0x00001000,
-> > +                     .flags = JAILHOUSE_MEM_READ |
-> JAILHOUSE_MEM_WRITE |
-> > +                             JAILHOUSE_MEM_COMM_REGION,
-> > +             },
-> > +     },
-> > +
-> > +     .irqchips = {
-> > +             /* GIC-400 */ {
-> > +                     .address = 0x1410000,
-> > +                     .pin_base = 32,
-> > +                     .pin_bitmap = {
-> > +                             1 << (60 - 32), /* vPCI */
-> > +                             0,
-> > +                             0,
-> > +                             0,
-> > +                     },
-> > +             },
-> > +             /* GIC-400 */ {
-> > +                     .address = 0x1410000,
-> > +                     .pin_base = 160,
-> > +                     .pin_bitmap = {
-> > +                             0,
-> > +                             0,
-> > +                             0,
-> > +                             0,
-> > +                     },
-> > +             },
-> > +     },
-> > +
-> > +     .pci_devices = {
-> > +             { /* IVSHMEM 00:00.0 (demo) */
-> > +                     .type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> > +                     .domain = 0,
-> > +                     .bdf = 0 << 3,
-> > +                     .bar_mask =
-> JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-> > +                     .shmem_regions_start = 0,
-> > +                     .shmem_dev_id = 1,
-> > +                     .shmem_peers = 1,
-> > +                     .shmem_protocol =
-> JAILHOUSE_SHMEM_PROTO_UNDEFINED,
-> > +             },
-> > +     },
-> > +
-> > +};
-> > --
-> > 2.17.1
-> >
-> > --
-> > You received this message because you are subscribed to the Google
-> > Groups "Jailhouse" group.
-> > To unsubscribe from this group and stop receiving emails from it, send
-> > an email to jailhouse-dev+unsubscribe@googlegroups.com.
-> > To view this discussion on the web visit
-> >
-> https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgroups
-> .google.com%2Fd%2Fmsgid%2Fjailhouse-dev%2F20210521062144.11659-1-Ji
-> afei.Pan%2540nxp.com&amp;data=04%7C01%7CJiafei.Pan%40nxp.com%7C5
-> ebb6ac421734ff1e81608d91c4bc0ea%7C686ea1d3bc2b4c6fa92cd99c5c3016
-> 35%7C0%7C1%7C637571933949905985%7CUnknown%7CTWFpbGZsb3d8ey
-> JWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D
-> %7C3000&amp;sdata=%2BenZUziveuQ2rXXZ26vosUTS29X3p7KXjgDjcLOX5dA
-> %3D&amp;reserved=0.
-> >
+Dear Author,
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/AS8PR04MB818293A8AD7EE178D696E0F38A299%40AS8PR04MB8182.eurprd04.prod.outlook.com.
+You are cordially invited to submit your full paper of 6 - 12 pages.
+
+The 2021 International Conference on Digital Science (DSIC 2021) will be he=
+ld in Luxembourg, Luxembourg, on October 15 =E2=80=93 17, 2021. Conference =
+website is https://ics.events/dsic-2021/ (https://email.tb.ru/ru/eu1_link_t=
+racker?hash=3D6ciy9s1q8oqxuoriep6ujhqbzhz5tf96h5x58wx7kshzfpnytry4dhoop9cuq=
+frqi4xob588fmihruycqwb599j39zsughm69zrtznswjewmbbkddeydb6izzayyu63m3p15ta67=
+c6ier7w8rbti3o7emmupc57uckn5pk34xmhosu17x5pci81kjt1ns1fu3fwgs8pyrs6m14x4ct8=
+rbcwoi743ehtry8nc4xwgpsoiifhbqotja6jfpgwtyauebgmwahk5t41f8etz1qrnda5t3fr&ur=
+l=3DaHR0cHM6Ly9pY3MuZXZlbnRzL2RzaWMtMjAyMS8~&uid=3DMzY3MDQ2MQ~~&ucs=3D2f208=
+adbb288416d7ed0ad0aa9f2bf3b).
+
+Early submissions are greatly appreciated. A single attending author may pr=
+esent a maximum of two papers onsite/online. The presentation, award submis=
+sion and proceedings submission for a paper must all be in English.
+You may submit your paper via DSIC 2021 Submission Form on https://ics.even=
+ts/dsic-2021/ (https://email.tb.ru/ru/eu1_link_tracker?hash=3D66nhxjaf7fz5o=
+1riep6ujhqbzhz5tf96h5x58wx7kshzfpnytry4dhoop9cuqfrqi4xob588fmihruycqwb599j3=
+9zsughm69zrtznswjewmbbkddeydb6izzayyu63m3p15ta67c6ier7w8rbti3o7emmupc57uckn=
+5pk34xmhosu17x5pci81kjt1ns1fu3fwgs8pyrs6m14x4ct8rbcwoi743ehtry8nc4xwbu9h5hc=
+werw9ae6jfpgwtyauebgmwahk5t41f8etz1qrnda5t3fr&url=3DaHR0cHM6Ly9pY3MuZXZlbnR=
+zL2RzaWMtMjAyMS8~&uid=3DMzY3MDQ2MQ~~&ucs=3D2f208adbb288416d7ed0ad0aa9f2bf3b=
+). Submitted papers (until 12-page limit) must comply with the requested fo=
+rmat Template, be written in English, must not have been published before, =
+not be under review for any other conference or publication.
+All submissions will be twice =C2=ABblind=C2=BB reviewed based on relevance=
+, timeliness, originality, importance and clarity of expression with convin=
+cing argumentative. Besides globally relevant meetings with internationally=
+ representative program/scientific committees guaranteeing a strict peer-re=
+viewing and paper selection process. In case your paper=E2=80=99s acceptanc=
+e you will receive a notification letter. This letter will contain your pap=
+er ID that you should include in all further correspondences.
+
+Publication and Indexation
+Accepted and registered Papers will be published in the 2021 International =
+Conference on Digital Science Proceeding by Springer in a book series "Lect=
+ure Notes in Networks and Systems" (SJR 0,17; Q4 according to https://www.s=
+cimagojr.com/journalrank.php, 2020) , and then will be submitted to Web of =
+Science (CPCI), SCOPUS, and other indexations.
+All of our previous seven Proceedings have been indexed by Scopus and three=
+ of seven indexed by WoS!
+Due to the restrictions caused this year by COVID-19 Pandemic, correspondin=
+g authors with ICCS2021 registration would have a discount of 50 USD in the=
+ DSIC 2021 registration.
+
+Important Deadlines:
+
+01
+
+Submission: August 11, 2021
+
+02
+
+Notification: September 17, 2021
+
+03
+
+Registration: September 23, 2021
+
+ICCS 2021 Convener
+
+=D0=AD=D1=82=D0=BE =D1=81=D0=BE=D0=BE=D0=B1=D1=89=D0=B5=D0=BD=D0=B8=D0=B5 =
+=D0=B1=D1=8B=D0=BB=D0=BE =D0=BE=D1=82=D0=BF=D1=80=D0=B0=D0=B2=D0=BB=D0=B5=
+=D0=BD=D0=BE jailhouse-dev@googlegroups.com =D0=BE=D1=82:
+Tatiana Antipova | smart@digscience.org
+=D0=9E=D1=82=D0=BF=D0=B8=D1=81=D0=B0=D1=82=D1=8C=D1=81=D1=8F =D0=BE=D1=82 =
+=D1=80=D0=B0=D1=81=D1=81=D1=8B=D0=BB=D0=BA=D0=B8 (https://email.tb.ru/ru/eu=
+1_unsubscribe?hash=3D6xgajn57zd4p5qnq4nktinga1955tf96h5x58wx7kshzfpnytry4dh=
+oop9cuqfrqi4xob588fmihruycqwb599j39zsughm69zrtznswjewmbbkddeydb6izzayyu63m3=
+p15ta67c6ier7w8rbti3o7emmupc57uckn5pk34xmhosu17x5pci81kjt1ns1fu3fwgs8pyrs6m=
+14x4ct8rbcwoi743ehtry8nc4xw8z1ju83gd5djxz89u8mntsd9eizs97jsrbddbegx1t8t75zc=
+ggi8gaj7gn58xbrmsd6hiaeypwqkmptoscdrr3s31km5xerz8owr5mkykejzs8bwembsu5jy36f=
+haukqf6sbhia41u7p9js353ffks5qw3pzqudb85jeg8u1xc388egitkrhey49bpn5wze8fwsxw8=
+y6bkrmigimno6abdt75y81kpy3ecpjwy5dxutaunmztuuqd17r4xdziwawfgbx4nsnw1k6jy)
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/E1lkmuY-tcT9Fo-Mg%40ucs203-ucs-4.msgpanel.com.
+
+------=_Part_9835537_1707846388.1621771730445
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www=
+.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8=
+">
+    <meta http-equiv=3D"X-UA-Compatible" content=3D"IE=3Dedge">
+    <meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-scale=
+=3D1, maximum-scale=3D1, user-scalable=3D0">
+    <meta name=3D"format-detection" content=3D"telephone=3Dno">
+    <title></title>
+    <!--[if (gte mso 9)|(IE)]>
+    <style type=3D"text/css">
+        table {border-collapse: collapse;}
+    </style>
+    <![endif]-->
+
+</head>
+
+<body style=3D"min-width: 100%; padding: 0; background-color: #eeefef; marg=
+in: 0;">
+    <center class=3D"sb-wrapper" style=3D"width: 100%; table-layout: fixed;=
+ -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
+        <div class=3D"sb-webkit" style=3D"max-width: 560px; border-radius: =
+4px; overflow: hidden;">
+            <!--[if (gte mso 9)|(IE)]>
+                <table width=3D"560" align=3D"center" cellpadding=3D"0" cel=
+lspacing=3D"0" border=3D"0" style=3D"border-spacing: 0; font-family: sans-s=
+erif; color: #333;">
+                    <tr>
+                        <td style=3D"padding: 0;">
+            <![endif]-->
+                <table class=3D"sb-block s-image" style=3D"border-spacing: =
+0; font-family: sans-serif; color: #333; background-color: #fff; position: =
+relative; width: 100%; max-width: 560px; background-position: 50% 50%; marg=
+in: 0 auto; word-break: break-word;" width=3D"100%" bgcolor=3D"#fff"><tr><t=
+d class=3D"s-image__wrapper sb-full-width" style=3D"padding: 24px 0; width:=
+ 100%;" width=3D"100%"><!--[if !mso]><!-- --> <img class=3D"s-image__elemen=
+t" src=3D"https://s.tb.ru/uploads/mailings/t/ced01440-4db2-4ea1-a9ab-55b54e=
+72cf1f/3de8a994-b2ab-49ac-ada9-e41479bca47a.jpeg" alt=3D"text image" style=
+=3D"border: 0; width: 100%; max-width: 560px; height: auto;"><!--<![endif]-=
+-><!--[if (gte mso 9)|(IE)]>
+                                 <img class=3D"s-image__element" width=3D"5=
+60" src=3D"https://s.tb.ru/uploads/mailings/t/ced01440-4db2-4ea1-a9ab-55b54=
+e72cf1f/3de8a994-b2ab-49ac-ada9-e41479bca47a.jpeg" alt=3D"text image" style=
+=3D"border: 0; max-width: 560px; height: auto; width: 560px;">
+                            <![endif]--></td></tr></table>                <=
+table class=3D"sb-block s-text sb-text-dark" style=3D"border-spacing: 0; fo=
+nt-family: sans-serif; position: relative; width: 100%; max-width: 560px; b=
+ackground-position: 50% 50%; margin: 0 auto; word-break: break-word; color:=
+ #111; background-color: #ffffff;" cellspacing=3D"0" width=3D"100%" bgcolor=
+=3D"#ffffff"><tr><td style=3D"padding: 0;">
+                                            <table class=3D"s-text__wrapper=
+ sb-full-width" style=3D"border-spacing: 0; font-family: sans-serif; positi=
+on: relative; z-index: 2; width: 100%; color: #111;" width=3D"100%"><tr>  <=
+td class=3D"s-text__row" style=3D"padding: 14px; font-size: 0; text-align: =
+left;" align=3D"left">  <div class=3D"s-text__text-wrapper" style=3D"displa=
+y: inline-block; width: 100%; vertical-align: top; max-width: 100%;"><table=
+ style=3D"border-spacing: 0; font-family: sans-serif; color: #111;"><tr><td=
+ class=3D"s-text__text-cell" style=3D"padding: 10px;"><table class=3D"s-tex=
+t__list sb-table-layout-fixed" style=3D"border-spacing: 0; font-family: san=
+s-serif; table-layout: fixed; color: #111;">  <tr>  <td class=3D"s-text__it=
+em" style=3D"padding: 0;"><!--[if (gte mso 9)|(IE)]> <p class=3D"s-text__ov=
+erhead sb-font-p2 sb-break-all" style=3D"margin: 0; color: #909090; font-si=
+ze: 14px; line-height: 20px; word-break: break-all;"></p> <![endif]--><!--[=
+if !mso]><!-- --> <p class=3D"s-text__overhead sb-font-p2 sb-break-word" st=
+yle=3D"margin: 0; color: #909090; font-size: 14px; line-height: 20px; word-=
+break: break-word;"></p> <!--<![endif]--></td></tr>   <tr>  <td class=3D"s-=
+text__item  s-text__item_with-padding_small" style=3D"padding: 0; padding-t=
+op: 4px;"><!--[if (gte mso 9)|(IE)]> <p class=3D"s-text__title sb-break-all=
+ sb-align-center" style=3D"margin: 0; font-size: 28px; line-height: 36px; t=
+ext-align: center; word-break: break-all;"><b><font style=3D"color: #c44569=
+;">Dear Author</font></b>, </p> <![endif]--><!--[if !mso]><!-- --> <p class=
+=3D"s-text__title sb-break-word sb-align-center" style=3D"margin: 0; font-s=
+ize: 28px; line-height: 36px; text-align: center; word-break: break-word;">=
+<b><font style=3D"color: #c44569;">Dear Author</font></b>, </p> <!--<![endi=
+f]--></td></tr>   <tr>  <td class=3D"s-text__item  s-text__item_with-paddin=
+g" style=3D"padding: 0; padding-top: 16px;"><!--[if (gte mso 9)|(IE)]> <p c=
+lass=3D"s-text__subtitle sb-break-all sb-align-center" style=3D"margin: 0; =
+font-size: 20px; line-height: 28px; text-align: center; word-break: break-a=
+ll;"></p> <![endif]--><!--[if !mso]><!-- --> <p class=3D"s-text__subtitle s=
+b-break-word sb-align-center" style=3D"margin: 0; font-size: 20px; line-hei=
+ght: 28px; text-align: center; word-break: break-word;"></p> <!--<![endif]-=
+-></td></tr>   <tr>  <td class=3D"s-text__item  s-text__item_with-padding" =
+style=3D"padding: 0; padding-top: 16px;"><!--[if (gte mso 9)|(IE)]> <p clas=
+s=3D"sb-font-p1 sb-break-all sb-align-left" style=3D"margin: 0; font-size: =
+16px; line-height: 24px; text-align: left; word-break: break-all;"><font st=
+yle=3D"color: #c44569;">You are cordially invited to submit your full paper=
+ of 6 - 12 pages.</font><br><br>The 2021 International Conference on Digita=
+l Science (DSIC 2021) will be held in Luxembourg, Luxembourg, on October 15=
+ =E2=80=93 17, 2021. Conference website is <a href=3D"https://ics.events/ds=
+ic-2021/" target=3D"_blank" class=3D"sb-link" data-link-id=3D"0" style=3D"c=
+olor: inherit; text-decoration: underline;">https://ics.events/dsic-2021/</=
+a>.<br><br>Early submissions are greatly appreciated. A single attending au=
+thor may present a maximum of two papers onsite/online. The presentation, a=
+ward submission and proceedings submission for a paper must all be in Engli=
+sh. <br>You may submit your paper via DSIC 2021 Submission Form on <a href=
+=3D"https://ics.events/dsic-2021/" target=3D"_blank" class=3D"sb-link" data=
+-link-id=3D"1" style=3D"color: inherit; text-decoration: underline;">https:=
+//ics.events/dsic-2021/</a>. Submitted papers (until 12-page limit) must co=
+mply with the requested format Template, be written in English, must not ha=
+ve been published before, not be under review for any other conference or p=
+ublication.&nbsp;<br>All submissions will be twice =C2=ABblind=C2=BB review=
+ed based on relevance, timeliness, originality, importance and clarity of e=
+xpression with convincing argumentative. Besides globally relevant meetings=
+ with internationally representative program/scientific committees guarante=
+eing a strict peer-reviewing and paper selection process. In case your pape=
+r=E2=80=99s acceptance you will receive a notification letter. This letter =
+will contain your paper ID that you should include in all further correspon=
+dences.<br><br><br><font style=3D"color: rgb(196, 69, 105);"><b>Publication=
+ and Indexation</b></font><br>Accepted and registered Papers will be publis=
+hed in the 2021 International Conference on Digital Science Proceeding by <=
+b><font style=3D"color: #c44569;">Springer in a book series "Lecture Notes =
+in Networks and Systems" (SJR 0,17; Q4 according to https://www.scimagojr.c=
+om/journalrank.php, 2020) </font></b>, and then will be submitted to <b><fo=
+nt style=3D"color: #f19066;">Web of Science (CPCI), SCOPUS</font></b>, and =
+other indexations.<br><b><font style=3D"color: #c44569;">All of our previou=
+s seven Proceedings have been indexed by Scopus and three of seven indexed =
+by WoS!</font></b><br>Due to the restrictions caused this year by COVID-19 =
+Pandemic, corresponding authors with ICCS2021 registration would have a <b>=
+<font style=3D"color: #c44569;">discount of 50 USD</font></b> in the DSIC 2=
+021 registration.<br></p> <![endif]--><!--[if !mso]><!-- --> <p class=3D"sb=
+-font-p1 sb-break-word sb-align-left" style=3D"margin: 0; font-size: 16px; =
+line-height: 24px; text-align: left; word-break: break-word;"><font style=
+=3D"color: #c44569;">You are cordially invited to submit your full paper of=
+ 6 - 12 pages.</font><br><br>The 2021 International Conference on Digital S=
+cience (DSIC 2021) will be held in Luxembourg, Luxembourg, on October 15 =
+=E2=80=93 17, 2021. Conference website is <a href=3D"https://email.tb.ru/ru=
+/eu1_link_tracker?hash=3D6ciy9s1q8oqxuoriep6ujhqbzhz5tf96h5x58wx7kshzfpnytr=
+y4dhoop9cuqfrqi4xob588fmihruycqwb599j39zsughm69zrtznswjewmbbkddeydb6izzayyu=
+63m3p15ta67c6ier7w8rbti3o7emmupc57uckn5pk34xmhosu17x5pci81kjt1ns1fu3fwgs8py=
+rs6m14x4ct8rbcwoi743ehtry8nc4xwgpsoiifhbqotja6jfpgwtyauebgmwahk5t41f8etz1qr=
+nda5t3fr&url=3DaHR0cHM6Ly9pY3MuZXZlbnRzL2RzaWMtMjAyMS8~&uid=3DMzY3MDQ2MQ~~&=
+ucs=3D2f208adbb288416d7ed0ad0aa9f2bf3b" target=3D"_blank" class=3D"sb-link"=
+ data-link-id=3D"0" style=3D"color: inherit; text-decoration: underline;">h=
+ttps://ics.events/dsic-2021/</a>.<br><br>Early submissions are greatly appr=
+eciated. A single attending author may present a maximum of two papers onsi=
+te/online. The presentation, award submission and proceedings submission fo=
+r a paper must all be in English. <br>You may submit your paper via DSIC 20=
+21 Submission Form on <a href=3D"https://email.tb.ru/ru/eu1_link_tracker?ha=
+sh=3D66nhxjaf7fz5o1riep6ujhqbzhz5tf96h5x58wx7kshzfpnytry4dhoop9cuqfrqi4xob5=
+88fmihruycqwb599j39zsughm69zrtznswjewmbbkddeydb6izzayyu63m3p15ta67c6ier7w8r=
+bti3o7emmupc57uckn5pk34xmhosu17x5pci81kjt1ns1fu3fwgs8pyrs6m14x4ct8rbcwoi743=
+ehtry8nc4xwbu9h5hcwerw9ae6jfpgwtyauebgmwahk5t41f8etz1qrnda5t3fr&url=3DaHR0c=
+HM6Ly9pY3MuZXZlbnRzL2RzaWMtMjAyMS8~&uid=3DMzY3MDQ2MQ~~&ucs=3D2f208adbb28841=
+6d7ed0ad0aa9f2bf3b" target=3D"_blank" class=3D"sb-link" data-link-id=3D"1" =
+style=3D"color: inherit; text-decoration: underline;">https://ics.events/ds=
+ic-2021/</a>. Submitted papers (until 12-page limit) must comply with the r=
+equested format Template, be written in English, must not have been publish=
+ed before, not be under review for any other conference or publication.&nbs=
+p;<br>All submissions will be twice =C2=ABblind=C2=BB reviewed based on rel=
+evance, timeliness, originality, importance and clarity of expression with =
+convincing argumentative. Besides globally relevant meetings with internati=
+onally representative program/scientific committees guaranteeing a strict p=
+eer-reviewing and paper selection process. In case your paper=E2=80=99s acc=
+eptance you will receive a notification letter. This letter will contain yo=
+ur paper ID that you should include in all further correspondences.<br><br>=
+<br><font style=3D"color: rgb(196, 69, 105);"><b>Publication and Indexation=
+</b></font><br>Accepted and registered Papers will be published in the 2021=
+ International Conference on Digital Science Proceeding by <b><font style=
+=3D"color: #c44569;">Springer in a book series "Lecture Notes in Networks a=
+nd Systems" (SJR 0,17; Q4 according to https://www.scimagojr.com/journalran=
+k.php, 2020) </font></b>, and then will be submitted to <b><font style=3D"c=
+olor: #f19066;">Web of Science (CPCI), SCOPUS</font></b>, and other indexat=
+ions.<br><b><font style=3D"color: #c44569;">All of our previous seven Proce=
+edings have been indexed by Scopus and three of seven indexed by WoS!</font=
+></b><br>Due to the restrictions caused this year by COVID-19 Pandemic, cor=
+responding authors with ICCS2021 registration would have a <b><font style=
+=3D"color: #c44569;">discount of 50 USD</font></b> in the DSIC 2021 registr=
+ation.<br></p> <!--<![endif]--></td></tr>   </table></td></tr></table></div=
+>  </td></tr></table>=20
+                                        </td>
+                                    </tr>
+                                </table>
+                                            <table class=3D"sb-block s-adva=
+ntages sb-text-dark" style=3D"border-spacing: 0; font-family: sans-serif; p=
+osition: relative; width: 100%; max-width: 560px; background-position: 50% =
+50%; margin: 0 auto; word-break: break-word; color: #111; background-color:=
+ #ffffff;" cellspacing=3D"0" width=3D"100%" bgcolor=3D"#ffffff"><tr><td sty=
+le=3D"padding: 0;">
+                                            <table class=3D"s-advantages__w=
+rapper sb-full-width sb-table-layout-fixed" style=3D"border-spacing: 0; fon=
+t-family: sans-serif; position: relative; z-index: 2; min-height: 48px; wid=
+th: 100%; table-layout: fixed; color: #111;" width=3D"100%">  <tr>  <td cla=
+ss=3D"s-advantages__heading sb-full-width" style=3D"padding: 24px 24px 20px=
+; width: 100%;" width=3D"100%">   <!--[if (gte mso 9)|(IE)]> <p class=3D"s-=
+advantages__main-title sb-break-all sb-align-left" style=3D"margin: 0; font=
+-size: 28px; line-height: 36px; text-align: left; word-break: break-all;"><=
+b><font style=3D"color: #c44569;">Important Deadlines:</font></b></p> <![en=
+dif]--><!--[if !mso]><!-- --> <p class=3D"s-advantages__main-title sb-align=
+-left" style=3D"margin: 0; font-size: 28px; line-height: 36px; text-align: =
+left;"><b><font style=3D"color: #c44569;">Important Deadlines:</font></b></=
+p> <!--<![endif]--></td></tr>    <tr>  <td class=3D"s-advantages__row" styl=
+e=3D"padding: 0 20px 24px; font-size: 0; text-align: left;" align=3D"left">=
+<!--[if (gte mso 9)|(IE)]>
+                                            <table class=3D"sb-full-width s=
+b-table-layout-fixed" style=3D"border-spacing: 0; font-family: sans-serif; =
+width: 100%; table-layout: fixed; color: #111;" width=3D"100%">
+                                                <tr>
+                                        <![endif]-->  <!--[if (gte mso 9)|(=
+IE)]>
+                                                <td width=3D"64" valign=3D"=
+top" style=3D"padding: 0;">
+                                            <![endif]--><div class=3D"s-adv=
+antages__number-wrapper" style=3D"display: inline-block; width: 100%; max-w=
+idth: 64px; vertical-align: top;"><table class=3D"sb-full-width sb-table-la=
+yout-fixed" style=3D"border-spacing: 0; font-family: sans-serif; width: 100=
+%; table-layout: fixed; color: #111;" width=3D"100%"><tr><td class=3D"s-adv=
+antages__number-cell" style=3D"padding: 0 4px 4px;"> <p class=3D"s-advantag=
+es__number sb-font-arial" style=3D"margin: 0; font-size: 32px; line-height:=
+ 40px; color: #e3e4e6; white-space: nowrap; overflow: hidden; font-family: =
+Arial,sans-serif;">01</p> </td></tr></table></div><!--[if (gte mso 9)|(IE)]=
+>
+                                                </td>
+                                            <![endif]-->   <!--[if (gte mso=
+ 9)|(IE)]>
+                                            <td width=3D"456" valign=3D"top=
+" style=3D"padding: 0;">
+                                        <![endif]--><div class=3D"s-advanta=
+ges__text" style=3D"display: inline-block; width: 100%; max-width: 456px; v=
+ertical-align: top;"><table class=3D"sb-full-width" style=3D"border-spacing=
+: 0; font-family: sans-serif; width: 100%; color: #111;" width=3D"100%"><tr=
+><td class=3D"s-advantages__text-cell" style=3D"padding: 8px 4px 0;"><table=
+ class=3D"sb-full-width sb-table-layout-fixed" style=3D"border-spacing: 0; =
+font-family: sans-serif; width: 100%; table-layout: fixed; color: #111;" wi=
+dth=3D"100%">  <tr><td class=3D"s-advantages__text-row" style=3D"padding: 0=
+;"><!--[if (gte mso 9)|(IE)]> <p class=3D"s-advantages__title sb-break-all =
+sb-align-left" style=3D"margin: 0; font-size: 20px; line-height: 28px; text=
+-align: left; word-break: break-all;"><b><font style=3D"color: #c44569;">Su=
+bmission: August&nbsp;11, 2021</font></b></p> <![endif]--><!--[if !mso]><!-=
+- --> <p class=3D"s-advantages__title sb-align-left" style=3D"margin: 0; fo=
+nt-size: 20px; line-height: 28px; text-align: left;"><b><font style=3D"colo=
+r: #c44569;">Submission: August&nbsp;11, 2021</font></b></p> <!--<![endif]-=
+-></td></tr>   <tr><td class=3D"s-advantages__text-row  s-advantages__text-=
+row_with-padding" style=3D"padding: 0; padding-top: 8px;"><!--[if (gte mso =
+9)|(IE)]> <p class=3D"s-advantages__subtitle sb-font-p2 sb-break-all sb-ali=
+gn-left" style=3D"margin: 0; color: #959ba4; font-size: 14px; line-height: =
+20px; text-align: left; word-break: break-all;"></p> <![endif]--><!--[if !m=
+so]><!-- --> <p class=3D"s-advantages__subtitle sb-font-p2 sb-align-left" s=
+tyle=3D"margin: 0; color: #959ba4; font-size: 14px; line-height: 20px; text=
+-align: left;"></p> <!--<![endif]--></td></tr>  </table></td></tr></table><=
+/div><!--[if (gte mso 9)|(IE)]>
+                                            </td>
+                                        <![endif]-->  <!--[if (gte mso 9)|(=
+IE)]>
+                                                </tr>
+                                            </table>
+                                        <![endif]--></td></tr>  <tr>  <td c=
+lass=3D"s-advantages__row" style=3D"padding: 0 20px 24px; font-size: 0; tex=
+t-align: left;" align=3D"left"><!--[if (gte mso 9)|(IE)]>
+                                            <table class=3D"sb-full-width s=
+b-table-layout-fixed" style=3D"border-spacing: 0; font-family: sans-serif; =
+width: 100%; table-layout: fixed; color: #111;" width=3D"100%">
+                                                <tr>
+                                        <![endif]-->  <!--[if (gte mso 9)|(=
+IE)]>
+                                                <td width=3D"64" valign=3D"=
+top" style=3D"padding: 0;">
+                                            <![endif]--><div class=3D"s-adv=
+antages__number-wrapper" style=3D"display: inline-block; width: 100%; max-w=
+idth: 64px; vertical-align: top;"><table class=3D"sb-full-width sb-table-la=
+yout-fixed" style=3D"border-spacing: 0; font-family: sans-serif; width: 100=
+%; table-layout: fixed; color: #111;" width=3D"100%"><tr><td class=3D"s-adv=
+antages__number-cell" style=3D"padding: 0 4px 4px;"> <p class=3D"s-advantag=
+es__number sb-font-arial" style=3D"margin: 0; font-size: 32px; line-height:=
+ 40px; color: #e3e4e6; white-space: nowrap; overflow: hidden; font-family: =
+Arial,sans-serif;">02</p> </td></tr></table></div><!--[if (gte mso 9)|(IE)]=
+>
+                                                </td>
+                                            <![endif]-->   <!--[if (gte mso=
+ 9)|(IE)]>
+                                            <td width=3D"456" valign=3D"top=
+" style=3D"padding: 0;">
+                                        <![endif]--><div class=3D"s-advanta=
+ges__text" style=3D"display: inline-block; width: 100%; max-width: 456px; v=
+ertical-align: top;"><table class=3D"sb-full-width" style=3D"border-spacing=
+: 0; font-family: sans-serif; width: 100%; color: #111;" width=3D"100%"><tr=
+><td class=3D"s-advantages__text-cell" style=3D"padding: 8px 4px 0;"><table=
+ class=3D"sb-full-width sb-table-layout-fixed" style=3D"border-spacing: 0; =
+font-family: sans-serif; width: 100%; table-layout: fixed; color: #111;" wi=
+dth=3D"100%">  <tr><td class=3D"s-advantages__text-row" style=3D"padding: 0=
+;"><!--[if (gte mso 9)|(IE)]> <p class=3D"s-advantages__title sb-break-all =
+sb-align-left" style=3D"margin: 0; font-size: 20px; line-height: 28px; text=
+-align: left; word-break: break-all;"><b><font style=3D"color: #c44569;">No=
+tification: 	September 17, 2021</font></b></p> <![endif]--><!--[if !mso]><!=
+-- --> <p class=3D"s-advantages__title sb-align-left" style=3D"margin: 0; f=
+ont-size: 20px; line-height: 28px; text-align: left;"><b><font style=3D"col=
+or: #c44569;">Notification: 	September 17, 2021</font></b></p> <!--<![endif=
+]--></td></tr>   <tr><td class=3D"s-advantages__text-row  s-advantages__tex=
+t-row_with-padding" style=3D"padding: 0; padding-top: 8px;"><!--[if (gte ms=
+o 9)|(IE)]> <p class=3D"s-advantages__subtitle sb-font-p2 sb-break-all sb-a=
+lign-left" style=3D"margin: 0; color: #959ba4; font-size: 14px; line-height=
+: 20px; text-align: left; word-break: break-all;"></p> <![endif]--><!--[if =
+!mso]><!-- --> <p class=3D"s-advantages__subtitle sb-font-p2 sb-align-left"=
+ style=3D"margin: 0; color: #959ba4; font-size: 14px; line-height: 20px; te=
+xt-align: left;"></p> <!--<![endif]--></td></tr>  </table></td></tr></table=
+></div><!--[if (gte mso 9)|(IE)]>
+                                            </td>
+                                        <![endif]-->  <!--[if (gte mso 9)|(=
+IE)]>
+                                                </tr>
+                                            </table>
+                                        <![endif]--></td></tr>  <tr>  <td c=
+lass=3D"s-advantages__row" style=3D"padding: 0 20px 24px; font-size: 0; tex=
+t-align: left;" align=3D"left"><!--[if (gte mso 9)|(IE)]>
+                                            <table class=3D"sb-full-width s=
+b-table-layout-fixed" style=3D"border-spacing: 0; font-family: sans-serif; =
+width: 100%; table-layout: fixed; color: #111;" width=3D"100%">
+                                                <tr>
+                                        <![endif]-->  <!--[if (gte mso 9)|(=
+IE)]>
+                                                <td width=3D"64" valign=3D"=
+top" style=3D"padding: 0;">
+                                            <![endif]--><div class=3D"s-adv=
+antages__number-wrapper" style=3D"display: inline-block; width: 100%; max-w=
+idth: 64px; vertical-align: top;"><table class=3D"sb-full-width sb-table-la=
+yout-fixed" style=3D"border-spacing: 0; font-family: sans-serif; width: 100=
+%; table-layout: fixed; color: #111;" width=3D"100%"><tr><td class=3D"s-adv=
+antages__number-cell" style=3D"padding: 0 4px 4px;"> <p class=3D"s-advantag=
+es__number sb-font-arial" style=3D"margin: 0; font-size: 32px; line-height:=
+ 40px; color: #e3e4e6; white-space: nowrap; overflow: hidden; font-family: =
+Arial,sans-serif;">03</p> </td></tr></table></div><!--[if (gte mso 9)|(IE)]=
+>
+                                                </td>
+                                            <![endif]-->   <!--[if (gte mso=
+ 9)|(IE)]>
+                                            <td width=3D"456" valign=3D"top=
+" style=3D"padding: 0;">
+                                        <![endif]--><div class=3D"s-advanta=
+ges__text" style=3D"display: inline-block; width: 100%; max-width: 456px; v=
+ertical-align: top;"><table class=3D"sb-full-width" style=3D"border-spacing=
+: 0; font-family: sans-serif; width: 100%; color: #111;" width=3D"100%"><tr=
+><td class=3D"s-advantages__text-cell" style=3D"padding: 8px 4px 0;"><table=
+ class=3D"sb-full-width sb-table-layout-fixed" style=3D"border-spacing: 0; =
+font-family: sans-serif; width: 100%; table-layout: fixed; color: #111;" wi=
+dth=3D"100%">  <tr><td class=3D"s-advantages__text-row" style=3D"padding: 0=
+;"><!--[if (gte mso 9)|(IE)]> <p class=3D"s-advantages__title sb-break-all =
+sb-align-left" style=3D"margin: 0; font-size: 20px; line-height: 28px; text=
+-align: left; word-break: break-all;"><b><font style=3D"color: #c44569;">Re=
+gistration:	September 23, 2021</font></b></p> <![endif]--><!--[if !mso]><!-=
+- --> <p class=3D"s-advantages__title sb-align-left" style=3D"margin: 0; fo=
+nt-size: 20px; line-height: 28px; text-align: left;"><b><font style=3D"colo=
+r: #c44569;">Registration:	September 23, 2021</font></b></p> <!--<![endif]-=
+-></td></tr>   <tr><td class=3D"s-advantages__text-row  s-advantages__text-=
+row_with-padding" style=3D"padding: 0; padding-top: 8px;"><!--[if (gte mso =
+9)|(IE)]> <p class=3D"s-advantages__subtitle sb-font-p2 sb-break-all sb-ali=
+gn-left" style=3D"margin: 0; color: #959ba4; font-size: 14px; line-height: =
+20px; text-align: left; word-break: break-all;"></p> <![endif]--><!--[if !m=
+so]><!-- --> <p class=3D"s-advantages__subtitle sb-font-p2 sb-align-left" s=
+tyle=3D"margin: 0; color: #959ba4; font-size: 14px; line-height: 20px; text=
+-align: left;"></p> <!--<![endif]--></td></tr>  </table></td></tr></table><=
+/div><!--[if (gte mso 9)|(IE)]>
+                                            </td>
+                                        <![endif]-->  <!--[if (gte mso 9)|(=
+IE)]>
+                                                </tr>
+                                            </table>
+                                        <![endif]--></td></tr>   </table>=
+=20
+                                        </td>
+                                    </tr>
+                                </table>
+                                            <table class=3D"sb-block s-head=
+er sb-text-dark" style=3D"border-spacing: 0; font-family: sans-serif; posit=
+ion: relative; width: 100%; max-width: 560px; background-position: 50% 50%;=
+ margin: 0 auto; word-break: break-word; color: #111; background-color: #ff=
+ffff;" cellspacing=3D"0" width=3D"100%" bgcolor=3D"#ffffff"><tr><td style=
+=3D"padding: 0;">
+                                            <table class=3D"s-header__wrapp=
+er sb-full-width" style=3D"border-spacing: 0; font-family: sans-serif; posi=
+tion: relative; z-index: 2; width: 100%; color: #111;" width=3D"100%"><tr> =
+ <td class=3D"s-header__row" style=3D"padding: 10px 14px; font-size: 0; tex=
+t-align: left;" align=3D"left"><!--[if (gte mso 9)|(IE)]>
+                                    <table class=3D"sb-full-width" style=3D=
+"border-spacing: 0; font-family: sans-serif; width: 100%; color: #111;" wid=
+th=3D"100%">
+                                        <tr>
+                                <![endif]-->  <!--[if (gte mso 9)|(IE)]>
+                                        <td width=3D"100%" valign=3D"top" s=
+tyle=3D"padding: 0;">
+                                    <![endif]--><div class=3D"s-header__log=
+o" style=3D"display: inline-block; width: 100%; max-width: 100%; vertical-a=
+lign: middle;"><table class=3D"sb-full-width" style=3D"border-spacing: 0; f=
+ont-family: sans-serif; width: 100%; color: #111;" width=3D"100%"><tr>  <td=
+ class=3D"s-header__logo-cell  s-header__logo-cell_centered" style=3D"paddi=
+ng: 10px; text-align: center;" align=3D"center">  <img class=3D"s-header__l=
+ogo-image" src=3D"https://s.tb.ru/uploads/mailings/t/1fa30742-fafc-4152-a4f=
+f-127b1fc3a819/feed057f-b6aa-4ec2-8dbf-a92e1b3fc46a.jpeg" alt=3D"=D0=A2=D0=
+=B5=D0=BA=D1=81=D1=82 =D0=BB=D0=BE=D0=B3=D0=BE=D1=82=D0=B8=D0=BF=D0=B0" sty=
+le=3D"border: 0; display: inline-block; width: 246px; height: auto;" width=
+=3D"246">  </td></tr></table></div><!--[if (gte mso 9)|(IE)]>
+                                        </td>
+                                    <![endif]-->   <!--[if (gte mso 9)|(IE)=
+]>
+                                        </tr>
+                                    </table>
+                                <![endif]--></td></tr></table>=20
+                                        </td>
+                                    </tr>
+                                </table>
+                                            <table class=3D"sb-block s-butt=
+ons sb-text-dark" style=3D"border-spacing: 0; font-family: sans-serif; posi=
+tion: relative; width: 100%; max-width: 560px; background-position: 50% 50%=
+; margin: 0 auto; word-break: break-word; color: #111; background-color: #f=
+fffff;" cellspacing=3D"0" width=3D"100%" bgcolor=3D"#ffffff"><tr><td style=
+=3D"padding: 0;">
+                                            <table class=3D"s-buttons__wrap=
+per sb-full-width" style=3D"border-spacing: 0; font-family: sans-serif; pos=
+ition: relative; z-index: 2; width: 100%; color: #111;" width=3D"100%"><tr>=
+  <td class=3D"s-buttons__content" style=3D"padding: 18px; text-align: left=
+; font-size: 0;" align=3D"left"><!--[if (gte mso 9)|(IE)]>
+                                    <table style=3D"border-spacing: 0; font=
+-family: sans-serif; color: #111;">
+                                        <tr>
+                                <![endif]-->    <!--[if (gte mso 9)|(IE)]>
+                                        <td style=3D"padding: 0;">
+                                    <![endif]-->    <!--[if (gte mso 9)|(IE=
+)]>
+                    <v:roundrect xmlns:v=3D"urn:schemas-microsoft-com:vml" =
+xmlns:w=3D"urn:schemas-microsoft-com:office:word" href=3D"https://ics.event=
+s" style=3D"v-text-anchor: middle; mso-wrap-style: none; mso-position-horiz=
+ontal: center; height: 40px;" arcsize=3D"53%" strokecolor=3D"hsla(0,0%,7%,.=
+16)" strokeweight=3D"2px">
+                        <v:fill opacity=3D"0%"></v:fill>
+                        <v:textbox style=3D"mso-fit-shape-to-text:true">
+                            <center class=3D"sb-button-outlook sb-font-aria=
+l" style=3D"padding: 0 20px; font-size: 14px; line-height: 20px; text-align=
+: center; font-family: Arial,sans-serif; color: #111111;"> ICCS 2021 Conven=
+er </center>
+                        </v:textbox>
+                    </v:roundrect>
+                    <![endif]--><!--[if !mso]><!-- -->  <a class=3D"sb-butt=
+on sb-button_flat s-buttons__button pointer-events-auto  sb-button-scheme-d=
+ark" style=3D"display: inline-block; vertical-align: top; margin: 6px; font=
+-size: 14px; line-height: 20px; text-align: center; padding: 8px 20px; bord=
+er-radius: 21px; text-decoration: none; word-break: break-all; color: #111;=
+ border-color: #fff; border: 2px solid hsla(0,0%,7%,.16);" href=3D"https://=
+email.tb.ru/ru/eu1_link_tracker?hash=3D6jx9jps8wrhzkyriep6ujhqbzhz5tf96h5x5=
+8wx7kshzfpnytry4dhoop9cuqfrqi4xob588fmihruycqwb599j39zsughm69zrtznswjewmbbk=
+ddeydb6izzayyu63m3p15ta67c6ier7w8rbti3o7emmupc57uckn5pk34xmhosu17x5pci81kjt=
+1ns1fu3fwgs8pyrs6m14x4ct8rbcwoi743ehtry8nc4xw8frmiyipuzji38ppp7ctee39hdo9f5=
+myrkmpxc6tz1qrnda5t3fr&url=3DaHR0cHM6Ly9pY3MuZXZlbnRz&uid=3DMzY3MDQ2MQ~~&uc=
+s=3D52310fa0f313d3356c7fa1a697933d9e"><!--[if (gte mso 9)|(IE)]>
+                        <i style=3D"letter-spacing: 20px; mso-font-width: -=
+100%; mso-text-raise: 4pt;">&nbsp;</i>
+                        <span style=3D"mso-text-raise: 4pt;">
+                    <!--<![endif]--> ICCS 2021 Convener <!--[if (gte mso 9)=
+|(IE)]>
+                        </span>
+                        <i style=3D"letter-spacing: 20px; mso-font-width: -=
+100%">&nbsp;</i>
+                    <!--<![endif]--> </a>  <!--<![endif]-->   <!--[if (gte =
+mso 9)|(IE)]>
+                                        </td>
+                                    <![endif]-->  <!--[if (gte mso 9)|(IE)]=
+>
+                                        </tr>
+                                    </table>
+                                <![endif]--></td></tr></table>=20
+                                        </td>
+                                    </tr>
+                                </table>
+                                        <!--[if (gte mso 9)|(IE)]>
+                        </td>
+                    </tr>
+                </table>
+            <![endif]-->
+        </div>
+    </center>
+<table bgcolor=3D"white" align=3D"center" width=3D"100%"><tr><td align=3D"c=
+enter">
+ <span style=3D"font-family: arial,helvetica,sans-serif; color: black; font=
+-size: 12px;">
+  =D0=AD=D1=82=D0=BE =D1=81=D0=BE=D0=BE=D0=B1=D1=89=D0=B5=D0=BD=D0=B8=D0=B5=
+ =D0=B1=D1=8B=D0=BB=D0=BE =D0=BE=D1=82=D0=BF=D1=80=D0=B0=D0=B2=D0=BB=D0=B5=
+=D0=BD=D0=BE jailhouse-dev@googlegroups.com =D0=BE=D1=82: <br/>
+    Tatiana Antipova | smart@digscience.org <br/>
+    <a href=3D"https://email.tb.ru/ru/eu1_unsubscribe?hash=3D6xgajn57zd4p5q=
+nq4nktinga1955tf96h5x58wx7kshzfpnytry4dhoop9cuqfrqi4xob588fmihruycqwb599j39=
+zsughm69zrtznswjewmbbkddeydb6izzayyu63m3p15ta67c6ier7w8rbti3o7emmupc57uckn5=
+pk34xmhosu17x5pci81kjt1ns1fu3fwgs8pyrs6m14x4ct8rbcwoi743ehtry8nc4xw8z1ju83g=
+d5djxz89u8mntsd9eizs97jsrbddbegx1t8t75zcggi8gaj7gn58xbrmsd6hiaeypwqkmptoscd=
+rr3s31km5xerz8owr5mkykejzs8bwembsu5jy36fhaukqf6sbhia41u7p9js353ffks5qw3pzqu=
+db85jeg8u1xc388egitkrhey49bpn5wze8fwsxw8y6bkrmigimno6abdt75y81kpy3ecpjwy5dx=
+utaunmztuuqd17r4xdziwawfgbx4nsnw1k6jy" style=3D"color: black;">=D0=9E=D1=82=
+=D0=BF=D0=B8=D1=81=D0=B0=D1=82=D1=8C=D1=81=D1=8F =D0=BE=D1=82 =D1=80=D0=B0=
+=D1=81=D1=81=D1=8B=D0=BB=D0=BA=D0=B8</a>
+ </span>
+</td></tr></table><center><table><tr><td><img src=3D"https://email.tb.ru/ru=
+/eu1_read_tracker/3670461?hash=3D6iwm4raegph7k8pqa78tagai94u5tf96h5x58wx7ks=
+hzfpnytry4dhoop9cuqfrqi4xob588fmihruycqwb599j39zsughm69zrtznswjewmbbkddeydb=
+6izzayyu63m3p15ta67c6ier7w8rbti3o7emmupc57uckn5pk34xmhosu17x5pci81kjt1ns1fu=
+3fwgs8pyrs6m14x4ct8rbcwoi743ehtry8nc4xwn81a63fjh6mnohi15gqm97yth1" width=3D=
+"1" height=3D"1" alt=3D"" title=3D"" border=3D"0"></td></tr></table></cente=
+r></body>
+</html>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/E1lkmuY-tcT9Fo-Mg%40ucs203-ucs-4.msgpanel.com?utm_=
+medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/msgid/jailh=
+ouse-dev/E1lkmuY-tcT9Fo-Mg%40ucs203-ucs-4.msgpanel.com</a>.<br />
+
+------=_Part_9835537_1707846388.1621771730445--
+
+--MWxrbXVZLXRjVDlGby1NZw==--
