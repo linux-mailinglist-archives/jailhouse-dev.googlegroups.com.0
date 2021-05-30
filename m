@@ -1,123 +1,174 @@
-Return-Path: <jailhouse-dev+bncBDS77PFL3YERBUV3YOCQMGQE6DAF5GQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBAABBJ7PZWCQMGQED65SIZA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pj1-x103e.google.com (mail-pj1-x103e.google.com [IPv6:2607:f8b0:4864:20::103e])
-	by mail.lfdr.de (Postfix) with ESMTPS id E164C394252
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 28 May 2021 14:10:59 +0200 (CEST)
-Received: by mail-pj1-x103e.google.com with SMTP id ot13-20020a17090b3b4db029015d9ead4bc5sf2623747pjb.7
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 28 May 2021 05:10:59 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1622203858; cv=pass;
+Received: from mail-wr1-x43a.google.com (mail-wr1-x43a.google.com [IPv6:2a00:1450:4864:20::43a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 37BFC3950AB
+	for <lists+jailhouse-dev@lfdr.de>; Sun, 30 May 2021 13:31:52 +0200 (CEST)
+Received: by mail-wr1-x43a.google.com with SMTP id h104-20020adf90710000b029010de8455a3asf3128228wrh.12
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 30 May 2021 04:31:52 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1622374311; cv=pass;
         d=google.com; s=arc-20160816;
-        b=kzV9dDbLxqap8L1NOCy4fxCdSKq0F4NU1PsqDWvPbS3a+mEfvYFQVuIDuqw/r/6gfN
-         IW05OkKEC3NCGnaWHSaDQ89MWryOgwPt8k+CpM9TwDD7l9vfq55tJD456eL6RRAh47Q5
-         Yc36H2/SsQH8RI/CTj2GvL6jIwhSybOl2lk71C4xTIB8W8wCQPLsTBnKvbt4cOXyDSuZ
-         e+G61yB+qv+aMmzW18PIbzy1C6m+WVNmI+NLPJtAB7bW+pajdvVqaqoZ/1Xilj8J0ihC
-         JokL4ATGgAXtJYTArt27dOExDU84S3n+YO9bfJPBGQhSSirYVb2Sx+n1Qk2M5squVgIu
-         qA9Q==
+        b=ThTDSW6V19vxJRevvPy2RxmbDRCctZXgcgzRUaloc9rtCvfMtOcfHHZyPf/w2/di0V
+         5mzZNRKX4cfS+nMsZEJatqzQmDU/pJ7OOdqTnR0cEEgM89HTz0b2nkp9qyV0AlB0beF1
+         q2N4hK+RjRHx8U7WUhg9QkhycQzDN/rosAljPFVNYltbk8QTHCuqnuJntuK+ubPn0Ly7
+         VlnUIcxzSCktxcOa4hwVmDJ+/49eLavu/v9b4/+7+iR4LWKCrfICpxIKICpFri7gz9rj
+         N19BkvW6XepZZlBhWw+ou55nyvJExCYHtseAAc4I2+5p77952Q6aN+27f2uIk8irOlTK
+         3Rbg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:mime-version
-         :user-agent:date:message-id:subject:from:to:sender:dkim-signature;
-        bh=uebtgMWA81p9Rpzx/v4sOS3yfbB7EvpBIbILEmldPDc=;
-        b=kX/quCZ8R1dPkFGdod2JNS01fuePMM9rQvo6pv3zDT1b5DxM6bsKl0cVnen8AoMlTV
-         mEzfwo1rOUzo47NRJR1QQx7SnvzQ60Os8bYbi30U3IK/eWYLhqqszrraaDB1oKkVp7XE
-         XBTfJcPvrsFKvcM4DFzvVKqXQVZsBEk0BgOIqDlc16K6mzs/mX55y3uwkmGFRsFSdEXn
-         B2TZ0qEr3t0UJk9gheTfiMmV5iJmf9kfAfmgNA9hMtAE63krqm7ULNjmvwNJAM81QxrE
-         LwfTLVc9nkWi2YMSZzjiz5usZdghi7zyrASW5mvrtRCzu36sXTRoaVlBTYFMOkeqYi42
-         7GtQ==
+         :list-id:mailing-list:precedence:mime-version
+         :content-transfer-encoding:content-language:accept-language
+         :in-reply-to:references:message-id:date:thread-index:thread-topic
+         :subject:to:from:sender:dkim-signature;
+        bh=FBTEdtozoCUJUVuVYH6PSj6RFQ5AWckwfHtVLUTaUt4=;
+        b=eGeCkvYS/PlXlusD7hdVdrSjXHuoTn1HBovGrrSjB/9+fRZ5TG/bq1F4y5TcOY3m9x
+         s1tg1cmXAyp+dRUh28gXMjNyJve3Ar/7js8rwIVt/BUPGhASnmDW29fQbKzyiXrUfunR
+         rrPtDB9QfVmYzUzvlxA/9a9szm+BJ1pgbyRRk3dmSbEpFhwqbMfsTVFO30yXbkl/TKeZ
+         1fc1h7qC4EqxTUkS6ni2p/xXvsXZfbyqOwiv0llT8iC2ZmIcy+1PjoJoO4ypLQu7Op0j
+         2+1zeUL7c7p4ugmq8xvZn/TJYoroxNBOWiMy5qC5x19qdplmuz95myvC0fuLJVXXURIn
+         v8Yg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@cimware-in.20150623.gappssmtp.com header.s=20150623 header.b=usf0OgSo;
-       spf=pass (google.com: domain of pkali@cimware.in designates 2607:f8b0:4864:20::633 as permitted sender) smtp.mailfrom=pkali@cimware.in
+       dkim=neutral (no key) header.i=@uni-rostock.de header.s=itmze header.b=hNPASoDe;
+       dkim=pass header.i=@uni-rostock.de header.s=itmz header.b=rS0PKVHs;
+       spf=pass (google.com: domain of moustafa.noufale@uni-rostock.de designates 139.30.22.72 as permitted sender) smtp.mailfrom=moustafa.noufale@uni-rostock.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=uni-rostock.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:to:from:subject:message-id:date:user-agent:mime-version
-         :content-language:x-original-sender
+        h=sender:from:to:subject:thread-topic:thread-index:date:message-id
+         :references:in-reply-to:accept-language:content-language
+         :content-transfer-encoding:mime-version:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=uebtgMWA81p9Rpzx/v4sOS3yfbB7EvpBIbILEmldPDc=;
-        b=XOjgL11lmO7EDxtbdyqiCwkUPrxo3PSCGxyCgvheYcnVETDHggIVwbbR7ILti3cpPX
-         q7tyIcG7k4eMq+zwcamfA02YIM2P/sAN93Xq4U7h+ndga6pOxfPIxuX30CNevlmezG5A
-         Bg/hGA39ykQvy0eKxcG9KoSAir2vKAp+8hFxRz33u1Y44OruOky07MjUo4DRw4xy/DzN
-         Y9zZwRMmDdrm2wGtFxKLToyxRsEz3gHrdTxtTqBWJAWr37rwr/Jel3oXE2liy5F07Zqo
-         edarPELrgk4aIgty9+cLDL9PSkViq8GsN9gWSu5Fa3nT9zRn3kqEOKxAAsSG3g5RmlyM
-         omhQ==
+        bh=FBTEdtozoCUJUVuVYH6PSj6RFQ5AWckwfHtVLUTaUt4=;
+        b=kVtXzMAtra/a1+f+Otum7p5tPyOSk6Zoi/iOTKiV51XMzfAW7bdfLA2Icjuf1unmOR
+         mY89/Y0IBzvHrt3cwQOd4eqkGX7zCkoD9QzBBhFHNo7V7s/EBfaTh7JinnFhUPTEbDmY
+         q0kV9sWfXJVSgSb62ZcAYlpR9HyX1d1hFk7HJ8npo3DdSkRODskEH3eDHMd4FBez5A0c
+         ubq0mpnBmUVIedKXt0URIeoGow/p5gQkKxNtM+KPIQCvM79n3JajJWzKDCfuB3P0cgJf
+         x1tM6NglipYrffDIO/KM0USp/CqhgXWSZbfuEHcyeCB7JIaseHtvDiwOtdrOx+yGSjyR
+         4mBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:to:from:subject:message-id:date
-         :user-agent:mime-version:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=uebtgMWA81p9Rpzx/v4sOS3yfbB7EvpBIbILEmldPDc=;
-        b=CCOaSQjKES59GsG14lQryEpIVbVrdr27aFHzrtbJUaqSNK9p+brwalCGSadJ36EMg9
-         ls8krT6p+dVVcAyWYk52skqakuZPX36MeeGyZM2uhmKGwyDonpEtzpKjtQsTOM5Aawgf
-         LbqrluMPqWGfKjWC238J8dqsiNKOLH3SzB3UGsz4wWJbim2LqIkwBBEv9G9PNwEMkeTj
-         MLHYxpwt/pedr0azKgyDzZL710+zfaXZ3ZTrV2PnBZ/Ir54Fk/jk5wuiWfbXw9d3srBW
-         b6IfOOmS+jTI+CBbO+fKhlvH5rxt+QBOyKx5KJ/H9QvregNyYOXXayuPFCqMQaKmXSIR
-         ZnQA==
+        h=sender:x-gm-message-state:from:to:subject:thread-topic:thread-index
+         :date:message-id:references:in-reply-to:accept-language
+         :content-language:content-transfer-encoding:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=FBTEdtozoCUJUVuVYH6PSj6RFQ5AWckwfHtVLUTaUt4=;
+        b=OVGzjHRzS7MWgLPTvlVWzcC3bt9N27E6S9dpYSZikpbTHvXILxKcls731h+1i+8HVR
+         HkXL3c1Ot8e4r2bRCA0j6+1A+3FTkTpLQIbTqAsS128jSWcJW/zv/Zr2y1B6BTvnjdyI
+         cZGco+8zfLpHuWUfi9x/Mx4T3/5TrJL82K1U1mC+ppLHZ4Ure4nRcZ27G+2+P4DA8BEP
+         tYvs0QLvJ7KAYWXS55Xzi+/8tzHmQk+AcgLs1F98zS5FiK1zLJUz0eCrXu10YKUAEXxw
+         q8w5UvRBXxr1TUmIi0X9IVicxVGUbuTpnA4i224Rpp8sFJ3cL4XIof6Tu0FKT2ucS1IR
+         bf0Q==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532+D0cCU/ZVip1/f29IiPbQm21JeqTV/NN++HCuu/ap6MPcoMI6
-	4thj0mnmc4R06m7T0uJ2Klo=
-X-Google-Smtp-Source: ABdhPJwcwyPB26hcG99a6V84NimAeCIDKYbDeMU1aHVe9S9R5KVJbC70jlbikXuweJRgcKkr1WWA3w==
-X-Received: by 2002:a17:90a:5d18:: with SMTP id s24mr817340pji.188.1622203858358;
-        Fri, 28 May 2021 05:10:58 -0700 (PDT)
+X-Gm-Message-State: AOAM532OqltYJcinWXw3GKE97vv16q8zOoW/zha1E3kMFJO6MCSl+JwS
+	YGf86kUpu6y3WhCZ0OJA6b0=
+X-Google-Smtp-Source: ABdhPJwsCJtc4zOQiQGJxkEJr4Z+eJtPRTZJxCJm2nW5yZpHr0hMtvZF+trc8hT6WjjrGHDpanylcw==
+X-Received: by 2002:a7b:c0da:: with SMTP id s26mr21115360wmh.83.1622374311689;
+        Sun, 30 May 2021 04:31:51 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a63:5f09:: with SMTP id t9ls3183276pgb.0.gmail; Fri, 28 May
- 2021 05:10:57 -0700 (PDT)
-X-Received: by 2002:a62:8705:0:b029:2d9:5420:a1b5 with SMTP id i5-20020a6287050000b02902d95420a1b5mr3518169pfe.45.1622203857739;
-        Fri, 28 May 2021 05:10:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1622203857; cv=none;
+Received: by 2002:a05:600c:4f52:: with SMTP id m18ls4131486wmq.0.canary-gmail;
+ Sun, 30 May 2021 04:31:50 -0700 (PDT)
+X-Received: by 2002:a1c:a184:: with SMTP id k126mr6083934wme.82.1622374310857;
+        Sun, 30 May 2021 04:31:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1622374310; cv=none;
         d=google.com; s=arc-20160816;
-        b=YBHvT54i6gcquPHI0E5/ZL2V3k5o2GKp9Cr3QWAt16XNKt18atGBRUV4dcM/wb3nye
-         DSZiLYw9dJ6EGnqof1FXkTYZ60vLMeiIxFtXYpwvI2fYWiUCsXk/hZraLFfuw1OwwJIM
-         P9lhz7xGIcmSv8MPap/dhiy56qWHcOwhQevaSfZbjdmteSVV2mywfEEG31fr1618W1Hh
-         BVafngHPBtYqxPM9t4uTIGCusC/F5Tn3+djCXVMBe5Yl9telKBXs4uN+1yvIvDQR6LzQ
-         KqE7DnLVwRZarv/YkyWgeVIGYst9PGimY11j5cXrGt7HOh0sMK8MydT7atIRGahz5XhK
-         kOKA==
+        b=IlmZ+SEdQ0qbGAKcn1Yx1YsQXyGWNsGcLgYuYw9AchSXsM5256GAcqLk+Dx+zt50qs
+         +GfkrpN+wbuCfirYCpaFjoXB/4AnMBbveMfAJn7qduzzXwSg25qBMhyOyxzdTYhqPoHd
+         f96kGNV9Fndf+ySjER93ZXrj6/NyJeoaYNHin7q0znzEYatFU3Aa3mOjijJuaK5LgS2u
+         VtOq/U1gr4s3/RMJAyf9SK5VSDzsj0yzHb05uM/CrsB2eS+qQPrXUvU8PvkhEBMlrzeO
+         mAmW4WMhClaGlkSvySmSPnA5fG0IKPX8YaPT4J7WY8BGFMr+LgQhiGp9zrmhHu9d7SOy
+         ZuWg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-language:mime-version:user-agent:date:message-id:subject
-         :from:to:dkim-signature;
-        bh=TfTkwvdAEDG7iA6Vtgvu7ncu200csu1pQ5xBzHjVJXA=;
-        b=fRoBSAmuZ+CJV+YoCBZ759LLxQ19V3p7uWFF1rqV1B6xfdW58zx4lwNU4JWUuApLKA
-         sVwrXlaklf+0KKmfltQVKUk+wxvaoLNNzPZsWH76q91JPQxcpfOYd7SplKo6JUpaWNtQ
-         ZDaTOZKq5xmmverJEO/DMpyqeFGZk6fLWivX47rMkufN9A/rc3Go1TnqJb/HhxNxTk/e
-         UE560v8MVVVSHoOcv4UPhnypPjcX4byKwef6AEEEwNeIJ3oXGfOnN5+4CD+GNV0dFl96
-         +iBEfSELlazRtG3axuOx80Oz+DPmzXvCF/HrGsxHovTBLxVUiNiscXpjaMzYDJ+ma+to
-         d9yg==
+        h=mime-version:content-transfer-encoding:content-language
+         :accept-language:in-reply-to:references:message-id:date:thread-index
+         :thread-topic:subject:to:from:dkim-signature:dkim-signature;
+        bh=T94euDi8hOsoOICCG4h/zhzpt+PyAg+aPlOcTgeD38o=;
+        b=MVb82RCORqM1zlDtH/1pZbjtDeQqhz21plewZWnkniOG2V+1jSv07WTf92RJT7wfJV
+         qFbYpTRMndrTtfvB7f2VrSwOrt+7aVmFs9CnAXK6/8qJtxUgMvROzjZps/u1Aqgqtgxt
+         MOQmCR2ncTEamtQPjTFhVmtIoxZgCIGIs/fPKwl0e9jI3PfT4pM9MoiGTlIZg7ErUbMS
+         OH4Nty52NuffTa859yT2ZrdRPu4Od+rxi/8n8IeDulf4/17mcNr8PJKuSQzKFQuJFAb7
+         FQQoTMzMQljH1MY4vPjB//8TtcRGyvWlvn+0uWOF93YVmudZCaCLWvJJbXYEDgCOh/f+
+         12pQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@cimware-in.20150623.gappssmtp.com header.s=20150623 header.b=usf0OgSo;
-       spf=pass (google.com: domain of pkali@cimware.in designates 2607:f8b0:4864:20::633 as permitted sender) smtp.mailfrom=pkali@cimware.in
-Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com. [2607:f8b0:4864:20::633])
-        by gmr-mx.google.com with ESMTPS id p50si431736pfw.4.2021.05.28.05.10.56
+       dkim=neutral (no key) header.i=@uni-rostock.de header.s=itmze header.b=hNPASoDe;
+       dkim=pass header.i=@uni-rostock.de header.s=itmz header.b=rS0PKVHs;
+       spf=pass (google.com: domain of moustafa.noufale@uni-rostock.de designates 139.30.22.72 as permitted sender) smtp.mailfrom=moustafa.noufale@uni-rostock.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=uni-rostock.de
+Received: from mx2.uni-rostock.de (mx2.uni-rostock.de. [139.30.22.72])
+        by gmr-mx.google.com with ESMTPS id u131si656250wmg.1.2021.05.30.04.31.50
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 28 May 2021 05:10:56 -0700 (PDT)
-Received-SPF: pass (google.com: domain of pkali@cimware.in designates 2607:f8b0:4864:20::633 as permitted sender) client-ip=2607:f8b0:4864:20::633;
-Received: by mail-pl1-x633.google.com with SMTP id z4so1524929plg.8
-        for <jailhouse-dev@googlegroups.com>; Fri, 28 May 2021 05:10:56 -0700 (PDT)
-X-Received: by 2002:a17:902:ea0c:b029:f0:af3d:c5d6 with SMTP id s12-20020a170902ea0cb02900f0af3dc5d6mr7679035plg.45.1622203856233;
-        Fri, 28 May 2021 05:10:56 -0700 (PDT)
-Received: from Administrators-MacBook-Pro.local ([115.99.119.32])
-        by smtp.gmail.com with ESMTPSA id 13sm4390400pfz.91.2021.05.28.05.10.54
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 28 May 2021 05:10:55 -0700 (PDT)
-To: jailhouse-dev@googlegroups.com
-From: Prashant Kalikotay <pkali@cimware.in>
-Subject: Writing configuration files
-Message-ID: <989156a0-b5d6-7672-a109-9860c5f94867@cimware.in>
-Date: Fri, 28 May 2021 17:40:57 +0530
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:78.0)
- Gecko/20100101 Thunderbird/78.10.2
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 30 May 2021 04:31:50 -0700 (PDT)
+Received-SPF: pass (google.com: domain of moustafa.noufale@uni-rostock.de designates 139.30.22.72 as permitted sender) client-ip=139.30.22.72;
+Received: from 139.30.22.82 by mx2.uni-rostock.de (Tls12, Aes256, Sha384,
+ DiffieHellmanEllipticKey384); Sun, 30 May 2021 11:31:44 GMT
+Received: from Pickup by email2.uni-rostock.de with Microsoft SMTP Server id
+ 15.2.858.5; Sun, 30 May 2021 11:31:39 +0000
+Received: from email1.uni-rostock.de (139.30.22.81) by email2.uni-rostock.de
+ (139.30.22.82) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.858.12; Sun, 30 May
+ 2021 13:30:36 +0200
+Received: from email1.uni-rostock.de ([139.30.22.81]) by email1.uni-rostock.de
+ ([139.30.22.81]) with mapi id 15.02.0858.012; Sun, 30 May 2021 13:30:36 +0200
+From: Moustafa Noufale <moustafa.noufale@uni-rostock.de>
+To: Jan Kiszka <jan.kiszka@web.de>, Ralf Ramsauer
+	<ralf.ramsauer@oth-regensburg.de>, "jailhouse-dev@googlegroups.com"
+	<jailhouse-dev@googlegroups.com>
+Subject: AW: [EXT] AW: AW: Inquiry
+Thread-Topic: [EXT] AW: AW: Inquiry
+Thread-Index: Adcx+AFw6wu1ws16QgaPAGku5ayIpgBZYRUAAJpN+xD//+LWgP/67wQwgApfIwD//qzLwIAD6CkA///bZqAABW1CgP/0//LQ/+neqwD/qQmIwA==
+Date: Sun, 30 May 2021 11:30:35 +0000
+Message-ID: <0f730442242846238f7a5695a4a04f2f@uni-rostock.de>
+References: <0631a4941db6453491ffecf6c08b1cf7@uni-rostock.de>
+ <61de29b4-45a2-8f3b-5937-5cac7dfc2b21@web.de>
+ <879f50f352e14aa8b45e9aff399c2b02@uni-rostock.de>
+ <0b2f286b-b5ed-8de9-e0a2-73af9f9cbedf@oth-regensburg.de>
+ <aa35f9463dd64b96a3998e9fe84da04a@uni-rostock.de>
+ <d6df4ded-1fb9-f75d-1a1b-0cef2513acf9@oth-regensburg.de>
+ <857f4a45c58d4a85b336ac6f3028e5be@uni-rostock.de>
+ <688b5cc9-6150-dab1-0a0f-a7b5cb8d54cf@web.de>
+ <c029ad37ed324934b2e0aa3f05ad1713@uni-rostock.de>
+ <34742299-7898-adb3-30b8-760bc4596e92@web.de>
+ <c53790d5ecf3411cb1990106e9663ecc@uni-rostock.de>
+ <b53ac6b9-013d-f9b5-1543-4bef294914bd@web.de>
+In-Reply-To: <b53ac6b9-013d-f9b5-1543-4bef294914bd@web.de>
+Accept-Language: de-DE, en-US
+Content-Language: de-DE
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [139.30.78.246]
+x-tm-smex-dtas-header-wtp-uuid: 6FA5AC462EC90ED6C846430364831F83CA8C985C
+x-tm-smex-dtas-header-wtp-flag: B61A37579996047758DE0A85552D06C907061C860000
+	e6322fb2-4c55-4656-8fda-c15814855d5b
+x-tm-as-product-ver: SMEX-14.0.0.3080-8.6.1012-26188.007
+x-tm-as-result: No-10--5.507400-8.000000
+x-tmase-matchedrid: ZTET7BtpkhkMPDZrnvcM98CxC+PryYbT7cb2TOoXceKqvcIF1TcLYJku
+	GCuUDsaHF5diznbYrvvnIJz4hekJOdMJ3l35fcUpynaq9UJcJkEiJN3aXuV/ob59Yrw3aQCHgDr
+	XRO35/gbm4xTugZJvP4e0LwAgHzGgQEsl4ThJXcXPeYa4q0cTH/g/s23WPBIpDSG7dmYh9boRRL
+	fe6UPgvB0dD3DSmCtcxwHCsyp4R2vCRcihcuauMgzrPeIO/OIH3SkTY86NiDi8rUtbtWe8+m6wM
+	qaUrL2tlTxd3yByzoy6zrcReRqlTkX2eeYt6mYTj0drvddoWESbYJTL8pwAnhcVsFZuLx0Uqbyq
+	2B0AqsY9iqoxJbBtQPwcnP9OIj5440Q/mI9g4La0sO72q2op4axT+JfQDbCPBph69XjMbdnSF9S
+	LfU7QRzoy00h+TFuZThknSgzVzTyZlYl0tsn/4znU1V+NaXs9ZZ5HkRNGNgMXBKqmu4VmoAk9qI
+	PJpVA7NlhmIv+6YV7ZGGE6hr7LupsO9o0mINopa87CDXaKRVLESSxPxTa9gyDpMjxdYZ9XwpY6x
+	Woyv5d2of1NbcqgU8dlt0F1b9WtGYT8Jom9JI3nzlXMYw4XMD3Al4zalJpFwrbXMGDYqV+J8YJg
+	RrgXF369ZVaxF9H4BDKfxKXPebyTvx2yYHsWe3O6Qy4zVanR
+x-tm-as-user-approved-sender: Yes
+x-tm-as-user-blocked-sender: No
+x-tmase-result: 10--5.507400-8.000000
+x-tmase-version: SMEX-14.0.0.3080-8.6.1012-26188.007
+x-tm-snts-smtp: DACDEAD36975EC58A73458AE8E060133AD25EB82397CC8DCF33B93A8C0953F902002:8
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="------------F1B44F791221DCCB503AEB65"
-Content-Language: en-US
-X-Original-Sender: pkali@cimware.in
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@cimware-in.20150623.gappssmtp.com header.s=20150623
- header.b=usf0OgSo;       spf=pass (google.com: domain of pkali@cimware.in
- designates 2607:f8b0:4864:20::633 as permitted sender) smtp.mailfrom=pkali@cimware.in
+X-Original-Sender: moustafa.noufale@uni-rostock.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=neutral (no
+ key) header.i=@uni-rostock.de header.s=itmze header.b=hNPASoDe;
+       dkim=pass header.i=@uni-rostock.de header.s=itmz header.b=rS0PKVHs;
+       spf=pass (google.com: domain of moustafa.noufale@uni-rostock.de
+ designates 139.30.22.72 as permitted sender) smtp.mailfrom=moustafa.noufale@uni-rostock.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=uni-rostock.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -130,84 +181,83 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-This is a multi-part message in MIME format.
---------------F1B44F791221DCCB503AEB65
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Hi Mr. Kiszka,=20
+>To enable Jailhouse on the Coral board as well, you likely have three
+>options:
+>- ad-hoc compilation on the board, using their "Mendel Linux" (also
+>  Debian)
+>- integrating Jailhouse into Mendel Linux
+> - defining a new target "Coral dev board" in jailhouse-images, porting
+>  the integration from Mendel Linux over
+I have just got the Coral board and I think I would go with the first optio=
+n. The planed workflow is:
+1- duplicate imx8mm.c /imx8mm-inmate-demo.c/ imx8mm-linux-demo.c and edit i=
+t with the memory addresses in Coral Board, which is also using an imx8m.
+2- compile jailhouse on the board.
+3- insemod jailhouse and run.
+I am only asking, whether I am going in the right path.
+Thanks in Advance
+Moustafa Noufale
 
-Dear all,
+-----Urspr=C3=BCngliche Nachricht-----
+Von: Jan Kiszka <jan.kiszka@web.de>=20
+Gesendet: Sonntag, 2. Mai 2021 14:28
+An: Moustafa Noufale <moustafa.noufale@uni-rostock.de>; Ralf Ramsauer <ralf=
+.ramsauer@oth-regensburg.de>; jailhouse-dev@googlegroups.com
+Betreff: Re: [EXT] AW: AW: Inquiry
 
- =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 I am tr=
-ying to write configuration files for the root and=20
-the non-root cells for an arm64 based system. I have checked the video=20
-https://youtu.be/7fiJbwmhnRw and also the pdf. I could just infer from=20
-these that I have to write the config files using the already existing=20
-ones eg: amd-seatle.c and other files. But what I am not able to=20
-understand is how do I come up with the different values in the config=20
-files as in other files.
+On 02.05.21 10:40, Moustafa Noufale wrote:
+> Hi Mr. Kiszka and Mr. Ramsauer,
+> I would like to thank you for your previous support. We are planning to t=
+ry jailhouse on a Coral Dev Board with i.MX quad-core Arm Cortex A53. I hav=
+e some questions and some conclusions, you can ignore my conclusions if it =
+is correct:
+> 1- Docker group is only required to build jailhouse-images in case of vir=
+tual-machine demo, the reason is avoiding running start-image.sh with root =
+privileges. Am I right?
 
-For Example:
+Docker is needed on the host for the Isar build system that jailhouse-image=
+s uses, irrespective of the selected target image.
 
-This is small portion of amd-seattle.c how do we come up with the values=20
-in the mem_regions[] as 20, irqchips[] as 3, hypervisor_memory.=20
-phys_start =3D 0x83e0000000, and all othe r values in the config files.=20
-Which document has been used. Any pointer to any of the documents of the=20
-various config files listed in the configs would be a lot helpful.
+To enable Jailhouse on the Coral board as well, you likely have three
+options:
 
+ - ad-hoc compilation on the board, using their "Mendel Linux" (also
+   Debian)
+ - integrating Jailhouse into Mendel Linux
+ - defining a new target "Coral dev board" in jailhouse-images, porting
+   the integration from Mendel Linux over
 
-#include <jailhouse/types.h>
+Simplest approach will likely be the first (but possibly not easy to reprod=
+uce). Cleanest would be one of the other two. Which of them will be simpler=
+ I cannot predict.
 
-	#include <jailhouse/cell-config.h>
+> 2- Communication between cells is possible, but how? Can you recommend me=
+ any reading about this part.
 
-=09
+https://github.com/siemens/jailhouse/blob/master/Documentation/inter-cell-c=
+ommunication.md
 
-	struct {
+> 3- How can I build the inmate or the .cell file? I found in /jailhouse-ma=
+ster/configs/x86 c files, object files and .cell files but the procedure to=
+ build a customised image is not still clear to me. I read your reply on ja=
+ilhouse-dev.narkive.com and I think I should use "jailhouse config create" =
+to build an inmate. I would appreciate any help or any information regardin=
+g this question.
 
-	struct jailhouse_system header;
+I've already shared the tutorial with you. That describes the principles.
 
-	__u64 cpus[1];
+The config generator so far only supports x86. For ARM/ARM64, study or deri=
+ve from existing configs (configs/arm64/imx8mm* might be helpful for the Co=
+ral dev board). Any own config source file (*.c) placed in the configs/<arc=
+h>/ folders will be built along the rest of Jailhouse.
 
-	struct jailhouse_memory mem_regions[20];
+If you want a non-root Linux inmate, also check configs/arm64/dts/imate-*.d=
+ts. Maybe inmate-imx8mm-evk.dts will be of help as well. And also here: any=
+ *.dts file in those dts/ folders will be automatically picked up by the bu=
+ild system.
 
-	struct jailhouse_irqchip irqchips[3];
-
-	struct jailhouse_pci_device pci_devices[3];
-
-	} __attribute__((packed)) config =3D {
-
-	.header =3D {
-
-	.signature =3D JAILHOUSE_SYSTEM_SIGNATURE,
-
-	.revision =3D JAILHOUSE_CONFIG_REVISION,
-
-	.flags =3D JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
-
-	.hypervisor_memory =3D {
-
-	.phys_start =3D 0x83e0000000,
-
-	.size =3D 0x4000000,
-
-	},
-
-	.debug_console =3D {
-
-	.address =3D 0xe1010000,
-
-	.size =3D 0x1000,
-
-	.type =3D JAILHOUSE_CON_TYPE_PL011,
-
-	.flags =3D JAILHOUSE_CON_ACCESS_MMIO |
-
-	JAILHOUSE_CON_REGDIST_4,
-
-	},
-
-=09
-
-=09
+Jan
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -215,557 +265,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/989156a0-b5d6-7672-a109-9860c5f94867%40cimware.in.
-
---------------F1B44F791221DCCB503AEB65
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-  <head>
-
-    <meta http-equiv=3D"content-type" content=3D"text/html; charset=3DUTF-8=
-">
-  </head>
-  <body>
-    <p>Dear all,</p>
-    <p>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 I=
- am trying to write configuration files for the root
-      and the non-root cells for an arm64 based system. I have checked
-      the video <a class=3D"moz-txt-link-freetext" href=3D"https://youtu.be=
-/7fiJbwmhnRw">https://youtu.be/7fiJbwmhnRw</a> and also the pdf. I could
-      just infer from these that I have to write the config files using
-      the already existing ones eg: amd-seatle.c and other files. But
-      what I am not able to understand is how do I come up with the
-      different values in the config files as in other files. <br>
-    </p>
-    <p>For Example:</p>
-    <p>This is small portion of amd-seattle.c how do we come up with the
-      values in the mem_regions[] as 20, irqchips[] as 3,
-      hypervisor_memory. phys_start =3D <span class=3D"pl-c1"
-        style=3D"box-sizing: border-box; color:
-        var(--color-prettylights-syntax-constant);">0x83e0000000, and
-        all othe r values in the config files. Which document has been
-        used. Any pointer to any of the documents of the various config
-        files listed in the configs would be a lot helpful.</span></p>
-    <p><span class=3D"pl-c1" style=3D"box-sizing: border-box; color:
-        var(--color-prettylights-syntax-constant);"> <br>
-      </span></p>
-    <table class=3D"highlight tab-size js-file-line-container"
-      data-tab-size=3D"8" data-paste-markdown-skip=3D"" style=3D"box-sizing=
-:
-      border-box; border-spacing: 0px; border-collapse: collapse; color:
-      rgb(36, 41, 46); font-family: -apple-system, system-ui,
-      &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple
-      Color Emoji&quot;, &quot;Segoe UI Emoji&quot;; font-size: 14px;
-      font-style: normal; font-variant-ligatures: normal;
-      font-variant-caps: normal; font-weight: 400; letter-spacing:
-      normal; text-align: start; text-transform: none; white-space:
-      normal; word-spacing: 0px; -webkit-text-stroke-width: 0px;
-      background-color: rgb(255, 255, 255); text-decoration-thickness:
-      initial; text-decoration-style: initial; text-decoration-color:
-      initial;" width=3D"561" height=3D"432">
-      <tbody style=3D"box-sizing: border-box;">
-        <tr style=3D"box-sizing: border-box;">
-          <td id=3D"LC15" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">#<span class=3D"pl-k" style=3D"box-sizing: border-box; color: var=
-(--color-prettylights-syntax-keyword);">include</span> <span class=3D"pl-s"=
- style=3D"box-sizing: border-box; color: var(--color-prettylights-syntax-st=
-ring);"><span class=3D"pl-pds" style=3D"box-sizing: border-box; color: var(=
---color-prettylights-syntax-string);">&lt;</span>jailhouse/types.h<span cla=
-ss=3D"pl-pds" style=3D"box-sizing: border-box; color: var(--color-prettylig=
-hts-syntax-string);">&gt;</span></span></td>
-        </tr>
-        <tr style=3D"box-sizing: border-box; background-color: initial;">
-          <td id=3D"L16" class=3D"blob-num js-line-number"
-            data-line-number=3D"16" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC16" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">#<span class=3D"pl-k" style=3D"box-sizing: border-box; color: var=
-(--color-prettylights-syntax-keyword);">include</span> <span class=3D"pl-s"=
- style=3D"box-sizing: border-box; color: var(--color-prettylights-syntax-st=
-ring);"><span class=3D"pl-pds" style=3D"box-sizing: border-box; color: var(=
---color-prettylights-syntax-string);">&lt;</span>jailhouse/cell-config.h<sp=
-an class=3D"pl-pds" style=3D"box-sizing: border-box; color: var(--color-pre=
-ttylights-syntax-string);">&gt;</span></span></td>
-        </tr>
-        <tr style=3D"box-sizing: border-box;">
-          <td id=3D"L17" class=3D"blob-num js-line-number"
-            data-line-number=3D"17" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC17" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">
-</td>
-        </tr>
-        <tr style=3D"box-sizing: border-box; background-color: initial;">
-          <td id=3D"L18" class=3D"blob-num js-line-number"
-            data-line-number=3D"18" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC18" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;"><span class=3D"pl-k" style=3D"box-sizing: border-box; color: var(=
---color-prettylights-syntax-keyword);">struct</span> {</td>
-        </tr>
-        <tr style=3D"box-sizing: border-box;">
-          <td id=3D"L19" class=3D"blob-num js-line-number"
-            data-line-number=3D"19" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC19" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">	<span class=3D"pl-k" style=3D"box-sizing: border-box; color: var=
-(--color-prettylights-syntax-keyword);">struct</span> jailhouse_system head=
-er;</td>
-        </tr>
-        <tr style=3D"box-sizing: border-box; background-color: initial;">
-          <td id=3D"L20" class=3D"blob-num js-line-number"
-            data-line-number=3D"20" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC20" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">	__u64 cpus[<span class=3D"pl-c1" style=3D"box-sizing: border-box=
-; color: var(--color-prettylights-syntax-constant);">1</span>];</td>
-        </tr>
-        <tr style=3D"box-sizing: border-box;">
-          <td id=3D"L21" class=3D"blob-num js-line-number"
-            data-line-number=3D"21" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC21" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">	<span class=3D"pl-k" style=3D"box-sizing: border-box; color: var=
-(--color-prettylights-syntax-keyword);">struct</span> jailhouse_memory mem_=
-regions[<span class=3D"pl-c1" style=3D"box-sizing: border-box; color: var(-=
--color-prettylights-syntax-constant);">20</span>];</td>
-        </tr>
-        <tr style=3D"box-sizing: border-box; background-color: initial;">
-          <td id=3D"L22" class=3D"blob-num js-line-number"
-            data-line-number=3D"22" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC22" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">	<span class=3D"pl-k" style=3D"box-sizing: border-box; color: var=
-(--color-prettylights-syntax-keyword);">struct</span> jailhouse_irqchip irq=
-chips[<span class=3D"pl-c1" style=3D"box-sizing: border-box; color: var(--c=
-olor-prettylights-syntax-constant);">3</span>];</td>
-        </tr>
-        <tr style=3D"box-sizing: border-box;">
-          <td id=3D"L23" class=3D"blob-num js-line-number"
-            data-line-number=3D"23" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC23" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">	<span class=3D"pl-k" style=3D"box-sizing: border-box; color: var=
-(--color-prettylights-syntax-keyword);">struct</span> jailhouse_pci_device =
-pci_devices[<span class=3D"pl-c1" style=3D"box-sizing: border-box; color: v=
-ar(--color-prettylights-syntax-constant);">3</span>];</td>
-        </tr>
-        <tr style=3D"box-sizing: border-box; background-color: initial;">
-          <td id=3D"L24" class=3D"blob-num js-line-number"
-            data-line-number=3D"24" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC24" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">} __attribute__((packed)) config =3D {</td>
-        </tr>
-        <tr style=3D"box-sizing: border-box;">
-          <td id=3D"L25" class=3D"blob-num js-line-number"
-            data-line-number=3D"25" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC25" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">	.<span class=3D"pl-smi" style=3D"box-sizing: border-box; color: =
-var(--color-prettylights-syntax-storage-modifier-import);">header</span> =
-=3D {</td>
-        </tr>
-        <tr style=3D"box-sizing: border-box; background-color: initial;">
-          <td id=3D"L26" class=3D"blob-num js-line-number"
-            data-line-number=3D"26" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC26" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">		.<span class=3D"pl-smi" style=3D"box-sizing: border-box; color:=
- var(--color-prettylights-syntax-storage-modifier-import);">signature</span=
-> =3D JAILHOUSE_SYSTEM_SIGNATURE,</td>
-        </tr>
-        <tr style=3D"box-sizing: border-box;">
-          <td id=3D"L27" class=3D"blob-num js-line-number"
-            data-line-number=3D"27" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC27" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">		.<span class=3D"pl-smi" style=3D"box-sizing: border-box; color:=
- var(--color-prettylights-syntax-storage-modifier-import);">revision</span>=
- =3D JAILHOUSE_CONFIG_REVISION,</td>
-        </tr>
-        <tr style=3D"box-sizing: border-box; background-color: initial;">
-          <td id=3D"L28" class=3D"blob-num js-line-number"
-            data-line-number=3D"28" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC28" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">		.<span class=3D"pl-smi" style=3D"box-sizing: border-box; color:=
- var(--color-prettylights-syntax-storage-modifier-import);">flags</span> =
-=3D JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,</td>
-        </tr>
-        <tr style=3D"box-sizing: border-box;">
-          <td id=3D"L29" class=3D"blob-num js-line-number"
-            data-line-number=3D"29" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC29" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">		.<span class=3D"pl-smi" style=3D"box-sizing: border-box; color:=
- var(--color-prettylights-syntax-storage-modifier-import);">hypervisor_memo=
-ry</span> =3D {</td>
-        </tr>
-        <tr style=3D"box-sizing: border-box; background-color: initial;">
-          <td id=3D"L30" class=3D"blob-num js-line-number"
-            data-line-number=3D"30" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC30" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">			.<span class=3D"pl-smi" style=3D"box-sizing: border-box; color=
-: var(--color-prettylights-syntax-storage-modifier-import);">phys_start</sp=
-an> =3D <span class=3D"pl-c1" style=3D"box-sizing: border-box; color: var(-=
--color-prettylights-syntax-constant);">0x83e0000000</span>,</td>
-        </tr>
-        <tr style=3D"box-sizing: border-box;">
-          <td id=3D"L31" class=3D"blob-num js-line-number"
-            data-line-number=3D"31" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC31" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">			.<span class=3D"pl-smi" style=3D"box-sizing: border-box; color=
-: var(--color-prettylights-syntax-storage-modifier-import);">size</span> =
-=3D          <span class=3D"pl-c1" style=3D"box-sizing: border-box; color: =
-var(--color-prettylights-syntax-constant);">0x4000000</span>,</td>
-        </tr>
-        <tr style=3D"box-sizing: border-box; background-color: initial;">
-          <td id=3D"L32" class=3D"blob-num js-line-number"
-            data-line-number=3D"32" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC32" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">		},</td>
-        </tr>
-        <tr style=3D"box-sizing: border-box;">
-          <td id=3D"L33" class=3D"blob-num js-line-number"
-            data-line-number=3D"33" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC33" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">		.<span class=3D"pl-smi" style=3D"box-sizing: border-box; color:=
- var(--color-prettylights-syntax-storage-modifier-import);">debug_console</=
-span> =3D {</td>
-        </tr>
-        <tr style=3D"box-sizing: border-box; background-color: initial;">
-          <td id=3D"L34" class=3D"blob-num js-line-number"
-            data-line-number=3D"34" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC34" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">			.<span class=3D"pl-smi" style=3D"box-sizing: border-box; color=
-: var(--color-prettylights-syntax-storage-modifier-import);">address</span>=
- =3D <span class=3D"pl-c1" style=3D"box-sizing: border-box; color: var(--co=
-lor-prettylights-syntax-constant);">0xe1010000</span>,</td>
-        </tr>
-        <tr style=3D"box-sizing: border-box;">
-          <td id=3D"L35" class=3D"blob-num js-line-number"
-            data-line-number=3D"35" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC35" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">			.<span class=3D"pl-smi" style=3D"box-sizing: border-box; color=
-: var(--color-prettylights-syntax-storage-modifier-import);">size</span> =
-=3D <span class=3D"pl-c1" style=3D"box-sizing: border-box; color: var(--col=
-or-prettylights-syntax-constant);">0x1000</span>,</td>
-        </tr>
-        <tr style=3D"box-sizing: border-box; background-color: initial;">
-          <td id=3D"L36" class=3D"blob-num js-line-number"
-            data-line-number=3D"36" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC36" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">			.<span class=3D"pl-smi" style=3D"box-sizing: border-box; color=
-: var(--color-prettylights-syntax-storage-modifier-import);">type</span> =
-=3D JAILHOUSE_CON_TYPE_PL011,</td>
-        </tr>
-        <tr style=3D"box-sizing: border-box;">
-          <td id=3D"L37" class=3D"blob-num js-line-number"
-            data-line-number=3D"37" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC37" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">			.<span class=3D"pl-smi" style=3D"box-sizing: border-box; color=
-: var(--color-prettylights-syntax-storage-modifier-import);">flags</span> =
-=3D JAILHOUSE_CON_ACCESS_MMIO |</td>
-        </tr>
-        <tr style=3D"box-sizing: border-box; background-color: initial;">
-          <td id=3D"L38" class=3D"blob-num js-line-number"
-            data-line-number=3D"38" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC38" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">				 JAILHOUSE_CON_REGDIST_4,</td>
-        </tr>
-        <tr style=3D"box-sizing: border-box;">
-          <td id=3D"L39" class=3D"blob-num js-line-number"
-            data-line-number=3D"39" style=3D"box-sizing: border-box;
-            padding: 0px 10px; width: 50px; min-width: 50px;
-            font-family: SFMono-Regular, Consolas, &quot;Liberation
-            Mono&quot;, Menlo, monospace; font-size: 12px; line-height:
-            20px; color: var(--color-diff-blob-num-text); text-align:
-            right; white-space: nowrap; vertical-align: top; cursor:
-            pointer; user-select: none;"><br>
-          </td>
-          <td id=3D"LC39" class=3D"blob-code blob-code-inner js-file-line" =
-style=3D"box-sizing: border-box; padding: 0px 10px; position: relative; lin=
-e-height: 20px; vertical-align: top; overflow: visible; font-family: SFMono=
--Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; font-siz=
-e: 12px; color: var(--color-text-primary); overflow-wrap: normal; white-spa=
-ce: pre;">		},
-
-</td>
-        </tr>
-        <tr>
-          <td valign=3D"top"><br>
-          </td>
-          <td valign=3D"top"><br>
-          </td>
-        </tr>
-        <tr>
-          <td valign=3D"top"><br>
-          </td>
-          <td valign=3D"top"><br>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </body>
-</html>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/989156a0-b5d6-7672-a109-9860c5f94867%40cimware.in?=
-utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/msgid/j=
-ailhouse-dev/989156a0-b5d6-7672-a109-9860c5f94867%40cimware.in</a>.<br />
-
---------------F1B44F791221DCCB503AEB65--
+jailhouse-dev/0f730442242846238f7a5695a4a04f2f%40uni-rostock.de.
