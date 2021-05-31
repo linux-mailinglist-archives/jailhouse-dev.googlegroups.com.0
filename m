@@ -1,174 +1,69 @@
-Return-Path: <jailhouse-dev+bncBAABBJ7PZWCQMGQED65SIZA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC7PTOEB2ALRBYO22GCQMGQEV3CLF3Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43a.google.com (mail-wr1-x43a.google.com [IPv6:2a00:1450:4864:20::43a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37BFC3950AB
-	for <lists+jailhouse-dev@lfdr.de>; Sun, 30 May 2021 13:31:52 +0200 (CEST)
-Received: by mail-wr1-x43a.google.com with SMTP id h104-20020adf90710000b029010de8455a3asf3128228wrh.12
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 30 May 2021 04:31:52 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1622374311; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=ThTDSW6V19vxJRevvPy2RxmbDRCctZXgcgzRUaloc9rtCvfMtOcfHHZyPf/w2/di0V
-         5mzZNRKX4cfS+nMsZEJatqzQmDU/pJ7OOdqTnR0cEEgM89HTz0b2nkp9qyV0AlB0beF1
-         q2N4hK+RjRHx8U7WUhg9QkhycQzDN/rosAljPFVNYltbk8QTHCuqnuJntuK+ubPn0Ly7
-         VlnUIcxzSCktxcOa4hwVmDJ+/49eLavu/v9b4/+7+iR4LWKCrfICpxIKICpFri7gz9rj
-         N19BkvW6XepZZlBhWw+ou55nyvJExCYHtseAAc4I2+5p77952Q6aN+27f2uIk8irOlTK
-         3Rbg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version
-         :content-transfer-encoding:content-language:accept-language
-         :in-reply-to:references:message-id:date:thread-index:thread-topic
-         :subject:to:from:sender:dkim-signature;
-        bh=FBTEdtozoCUJUVuVYH6PSj6RFQ5AWckwfHtVLUTaUt4=;
-        b=eGeCkvYS/PlXlusD7hdVdrSjXHuoTn1HBovGrrSjB/9+fRZ5TG/bq1F4y5TcOY3m9x
-         s1tg1cmXAyp+dRUh28gXMjNyJve3Ar/7js8rwIVt/BUPGhASnmDW29fQbKzyiXrUfunR
-         rrPtDB9QfVmYzUzvlxA/9a9szm+BJ1pgbyRRk3dmSbEpFhwqbMfsTVFO30yXbkl/TKeZ
-         1fc1h7qC4EqxTUkS6ni2p/xXvsXZfbyqOwiv0llT8iC2ZmIcy+1PjoJoO4ypLQu7Op0j
-         2+1zeUL7c7p4ugmq8xvZn/TJYoroxNBOWiMy5qC5x19qdplmuz95myvC0fuLJVXXURIn
-         v8Yg==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=neutral (no key) header.i=@uni-rostock.de header.s=itmze header.b=hNPASoDe;
-       dkim=pass header.i=@uni-rostock.de header.s=itmz header.b=rS0PKVHs;
-       spf=pass (google.com: domain of moustafa.noufale@uni-rostock.de designates 139.30.22.72 as permitted sender) smtp.mailfrom=moustafa.noufale@uni-rostock.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=uni-rostock.de
+Received: from mail-qv1-xf3f.google.com (mail-qv1-xf3f.google.com [IPv6:2607:f8b0:4864:20::f3f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B95D3954E3
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 31 May 2021 07:00:19 +0200 (CEST)
+Received: by mail-qv1-xf3f.google.com with SMTP id v19-20020a0ce1d30000b02902187ed4452esf1704951qvl.6
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 30 May 2021 22:00:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:subject:thread-topic:thread-index:date:message-id
-         :references:in-reply-to:accept-language:content-language
-         :content-transfer-encoding:mime-version:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=FBTEdtozoCUJUVuVYH6PSj6RFQ5AWckwfHtVLUTaUt4=;
-        b=kVtXzMAtra/a1+f+Otum7p5tPyOSk6Zoi/iOTKiV51XMzfAW7bdfLA2Icjuf1unmOR
-         mY89/Y0IBzvHrt3cwQOd4eqkGX7zCkoD9QzBBhFHNo7V7s/EBfaTh7JinnFhUPTEbDmY
-         q0kV9sWfXJVSgSb62ZcAYlpR9HyX1d1hFk7HJ8npo3DdSkRODskEH3eDHMd4FBez5A0c
-         ubq0mpnBmUVIedKXt0URIeoGow/p5gQkKxNtM+KPIQCvM79n3JajJWzKDCfuB3P0cgJf
-         x1tM6NglipYrffDIO/KM0USp/CqhgXWSZbfuEHcyeCB7JIaseHtvDiwOtdrOx+yGSjyR
-         4mBQ==
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=M6CrBfXm47EvQfFU5EsQB8Ui0Keo9zaMQ6Dc7527oNQ=;
+        b=MfwiyoOEPsl4CqXvLlsPYHqfFGb+IXlUot07pgEwYUiVEVIeMiNbXiPDtSNjAAFzw+
+         F0xfUvM//HvPAeeOemyFf74VJqmJgEKTlFCe8mObvMp0F0VBcHG7C0HqvC2MjNTRKp9q
+         l4b20Tz+fJMO6PrvsSvU553zuzIseRcVzJOxnquL4arjw6M3MD+K+tepHnTRpqN6BjxV
+         cfTHmzN68tqm5EqlUbMkLjRRNDCRvlN9HbVAUoJe3f1cmSUwZD5UbmimX8UySz/2diJy
+         rmfy+K72Qbx5ZbKdw4DgT7zp061sjDoSoXduOsirzFS2bNGJyK7VGE9HB4jIzlF4SJQh
+         qu1w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=M6CrBfXm47EvQfFU5EsQB8Ui0Keo9zaMQ6Dc7527oNQ=;
+        b=frEFXgp+VQAXCv6vTayrjHG4VZFMPKVxALjUgP954I6sWLOZ62d5lJqxTdns5VAcxa
+         MPebUPwNtjY4ECKoADtEowqXTq24V7F9XRIZDISmU1R8yLBS8mZIWoi9gAPfQDbH0ZrA
+         KvR/GEbwzJXlK0E2sGS4hAruGhiKWcgptCdwrEv//c/hQRD/dT8rqPB5EWu/+4OsJ+SE
+         wZG6xFE68QCwSx/LkLglGiIxIBrxczBASNGugioeLCKH1ipZ65fhp+hNrgjxWeh91Vd+
+         hxa/GiSAi6I7X6XC4c6NTfqIvXek6Nkv51Qysb3y7kzV1rZ6xJW1wPB9nK8LOrukqTrY
+         FG/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:subject:thread-topic:thread-index
-         :date:message-id:references:in-reply-to:accept-language
-         :content-language:content-transfer-encoding:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=FBTEdtozoCUJUVuVYH6PSj6RFQ5AWckwfHtVLUTaUt4=;
-        b=OVGzjHRzS7MWgLPTvlVWzcC3bt9N27E6S9dpYSZikpbTHvXILxKcls731h+1i+8HVR
-         HkXL3c1Ot8e4r2bRCA0j6+1A+3FTkTpLQIbTqAsS128jSWcJW/zv/Zr2y1B6BTvnjdyI
-         cZGco+8zfLpHuWUfi9x/Mx4T3/5TrJL82K1U1mC+ppLHZ4Ure4nRcZ27G+2+P4DA8BEP
-         tYvs0QLvJ7KAYWXS55Xzi+/8tzHmQk+AcgLs1F98zS5FiK1zLJUz0eCrXu10YKUAEXxw
-         q8w5UvRBXxr1TUmIi0X9IVicxVGUbuTpnA4i224Rpp8sFJ3cL4XIof6Tu0FKT2ucS1IR
-         bf0Q==
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=M6CrBfXm47EvQfFU5EsQB8Ui0Keo9zaMQ6Dc7527oNQ=;
+        b=gPcF3VkkgN3YuoN5H+qBL/s6nm4Phyeu4Epgfp+EooHdUaIB43D0xHSb++1SfPB/U3
+         rDwJZS80U1Q4nA6OxZg6mCd5PF0ncEHaD7LvH/lo36dsCMyXxzDFCnbXeyqeTzrKUWzT
+         4ivDPdodl3bE+YI4W/7EJMiZWt6FmKL5TQLiWs3a6AIyo5eHdD0GKBnUsgTKWBWFZtzi
+         4kvdhhSYbSeWTZUIMFKn2EqIQIjh7kdprklau6/nYmdzO0UuLfp68cHx0/K9T058ccXz
+         dlEd9aRiFa5UKDnPzfC3NSBAR08yNfW5XKX6elEsPahWutMptRd0moIJ+X+BFhF71UWO
+         WDeg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532OqltYJcinWXw3GKE97vv16q8zOoW/zha1E3kMFJO6MCSl+JwS
-	YGf86kUpu6y3WhCZ0OJA6b0=
-X-Google-Smtp-Source: ABdhPJwsCJtc4zOQiQGJxkEJr4Z+eJtPRTZJxCJm2nW5yZpHr0hMtvZF+trc8hT6WjjrGHDpanylcw==
-X-Received: by 2002:a7b:c0da:: with SMTP id s26mr21115360wmh.83.1622374311689;
-        Sun, 30 May 2021 04:31:51 -0700 (PDT)
+X-Gm-Message-State: AOAM530fUiP89KVaunchA2gIiwQ8Bbd9mVLtiqpsQmKaXCZdsiT7xPd4
+	h+IghxHj4rnzBcS6kDQ0Pl8=
+X-Google-Smtp-Source: ABdhPJzanlhV9FpG+AlNRTPLtNMsLfnWGy89zviGJ4i5lSe1Y9X47gJsqk8gS7LLOcGZW4+aVAeyuA==
+X-Received: by 2002:a0c:c345:: with SMTP id j5mr149427qvi.26.1622437218091;
+        Sun, 30 May 2021 22:00:18 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:600c:4f52:: with SMTP id m18ls4131486wmq.0.canary-gmail;
- Sun, 30 May 2021 04:31:50 -0700 (PDT)
-X-Received: by 2002:a1c:a184:: with SMTP id k126mr6083934wme.82.1622374310857;
-        Sun, 30 May 2021 04:31:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1622374310; cv=none;
-        d=google.com; s=arc-20160816;
-        b=IlmZ+SEdQ0qbGAKcn1Yx1YsQXyGWNsGcLgYuYw9AchSXsM5256GAcqLk+Dx+zt50qs
-         +GfkrpN+wbuCfirYCpaFjoXB/4AnMBbveMfAJn7qduzzXwSg25qBMhyOyxzdTYhqPoHd
-         f96kGNV9Fndf+ySjER93ZXrj6/NyJeoaYNHin7q0znzEYatFU3Aa3mOjijJuaK5LgS2u
-         VtOq/U1gr4s3/RMJAyf9SK5VSDzsj0yzHb05uM/CrsB2eS+qQPrXUvU8PvkhEBMlrzeO
-         mAmW4WMhClaGlkSvySmSPnA5fG0IKPX8YaPT4J7WY8BGFMr+LgQhiGp9zrmhHu9d7SOy
-         ZuWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:content-transfer-encoding:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:to:from:dkim-signature:dkim-signature;
-        bh=T94euDi8hOsoOICCG4h/zhzpt+PyAg+aPlOcTgeD38o=;
-        b=MVb82RCORqM1zlDtH/1pZbjtDeQqhz21plewZWnkniOG2V+1jSv07WTf92RJT7wfJV
-         qFbYpTRMndrTtfvB7f2VrSwOrt+7aVmFs9CnAXK6/8qJtxUgMvROzjZps/u1Aqgqtgxt
-         MOQmCR2ncTEamtQPjTFhVmtIoxZgCIGIs/fPKwl0e9jI3PfT4pM9MoiGTlIZg7ErUbMS
-         OH4Nty52NuffTa859yT2ZrdRPu4Od+rxi/8n8IeDulf4/17mcNr8PJKuSQzKFQuJFAb7
-         FQQoTMzMQljH1MY4vPjB//8TtcRGyvWlvn+0uWOF93YVmudZCaCLWvJJbXYEDgCOh/f+
-         12pQ==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=neutral (no key) header.i=@uni-rostock.de header.s=itmze header.b=hNPASoDe;
-       dkim=pass header.i=@uni-rostock.de header.s=itmz header.b=rS0PKVHs;
-       spf=pass (google.com: domain of moustafa.noufale@uni-rostock.de designates 139.30.22.72 as permitted sender) smtp.mailfrom=moustafa.noufale@uni-rostock.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=uni-rostock.de
-Received: from mx2.uni-rostock.de (mx2.uni-rostock.de. [139.30.22.72])
-        by gmr-mx.google.com with ESMTPS id u131si656250wmg.1.2021.05.30.04.31.50
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 30 May 2021 04:31:50 -0700 (PDT)
-Received-SPF: pass (google.com: domain of moustafa.noufale@uni-rostock.de designates 139.30.22.72 as permitted sender) client-ip=139.30.22.72;
-Received: from 139.30.22.82 by mx2.uni-rostock.de (Tls12, Aes256, Sha384,
- DiffieHellmanEllipticKey384); Sun, 30 May 2021 11:31:44 GMT
-Received: from Pickup by email2.uni-rostock.de with Microsoft SMTP Server id
- 15.2.858.5; Sun, 30 May 2021 11:31:39 +0000
-Received: from email1.uni-rostock.de (139.30.22.81) by email2.uni-rostock.de
- (139.30.22.82) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.858.12; Sun, 30 May
- 2021 13:30:36 +0200
-Received: from email1.uni-rostock.de ([139.30.22.81]) by email1.uni-rostock.de
- ([139.30.22.81]) with mapi id 15.02.0858.012; Sun, 30 May 2021 13:30:36 +0200
-From: Moustafa Noufale <moustafa.noufale@uni-rostock.de>
-To: Jan Kiszka <jan.kiszka@web.de>, Ralf Ramsauer
-	<ralf.ramsauer@oth-regensburg.de>, "jailhouse-dev@googlegroups.com"
-	<jailhouse-dev@googlegroups.com>
-Subject: AW: [EXT] AW: AW: Inquiry
-Thread-Topic: [EXT] AW: AW: Inquiry
-Thread-Index: Adcx+AFw6wu1ws16QgaPAGku5ayIpgBZYRUAAJpN+xD//+LWgP/67wQwgApfIwD//qzLwIAD6CkA///bZqAABW1CgP/0//LQ/+neqwD/qQmIwA==
-Date: Sun, 30 May 2021 11:30:35 +0000
-Message-ID: <0f730442242846238f7a5695a4a04f2f@uni-rostock.de>
-References: <0631a4941db6453491ffecf6c08b1cf7@uni-rostock.de>
- <61de29b4-45a2-8f3b-5937-5cac7dfc2b21@web.de>
- <879f50f352e14aa8b45e9aff399c2b02@uni-rostock.de>
- <0b2f286b-b5ed-8de9-e0a2-73af9f9cbedf@oth-regensburg.de>
- <aa35f9463dd64b96a3998e9fe84da04a@uni-rostock.de>
- <d6df4ded-1fb9-f75d-1a1b-0cef2513acf9@oth-regensburg.de>
- <857f4a45c58d4a85b336ac6f3028e5be@uni-rostock.de>
- <688b5cc9-6150-dab1-0a0f-a7b5cb8d54cf@web.de>
- <c029ad37ed324934b2e0aa3f05ad1713@uni-rostock.de>
- <34742299-7898-adb3-30b8-760bc4596e92@web.de>
- <c53790d5ecf3411cb1990106e9663ecc@uni-rostock.de>
- <b53ac6b9-013d-f9b5-1543-4bef294914bd@web.de>
-In-Reply-To: <b53ac6b9-013d-f9b5-1543-4bef294914bd@web.de>
-Accept-Language: de-DE, en-US
-Content-Language: de-DE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [139.30.78.246]
-x-tm-smex-dtas-header-wtp-uuid: 6FA5AC462EC90ED6C846430364831F83CA8C985C
-x-tm-smex-dtas-header-wtp-flag: B61A37579996047758DE0A85552D06C907061C860000
-	e6322fb2-4c55-4656-8fda-c15814855d5b
-x-tm-as-product-ver: SMEX-14.0.0.3080-8.6.1012-26188.007
-x-tm-as-result: No-10--5.507400-8.000000
-x-tmase-matchedrid: ZTET7BtpkhkMPDZrnvcM98CxC+PryYbT7cb2TOoXceKqvcIF1TcLYJku
-	GCuUDsaHF5diznbYrvvnIJz4hekJOdMJ3l35fcUpynaq9UJcJkEiJN3aXuV/ob59Yrw3aQCHgDr
-	XRO35/gbm4xTugZJvP4e0LwAgHzGgQEsl4ThJXcXPeYa4q0cTH/g/s23WPBIpDSG7dmYh9boRRL
-	fe6UPgvB0dD3DSmCtcxwHCsyp4R2vCRcihcuauMgzrPeIO/OIH3SkTY86NiDi8rUtbtWe8+m6wM
-	qaUrL2tlTxd3yByzoy6zrcReRqlTkX2eeYt6mYTj0drvddoWESbYJTL8pwAnhcVsFZuLx0Uqbyq
-	2B0AqsY9iqoxJbBtQPwcnP9OIj5440Q/mI9g4La0sO72q2op4axT+JfQDbCPBph69XjMbdnSF9S
-	LfU7QRzoy00h+TFuZThknSgzVzTyZlYl0tsn/4znU1V+NaXs9ZZ5HkRNGNgMXBKqmu4VmoAk9qI
-	PJpVA7NlhmIv+6YV7ZGGE6hr7LupsO9o0mINopa87CDXaKRVLESSxPxTa9gyDpMjxdYZ9XwpY6x
-	Woyv5d2of1NbcqgU8dlt0F1b9WtGYT8Jom9JI3nzlXMYw4XMD3Al4zalJpFwrbXMGDYqV+J8YJg
-	RrgXF369ZVaxF9H4BDKfxKXPebyTvx2yYHsWe3O6Qy4zVanR
-x-tm-as-user-approved-sender: Yes
-x-tm-as-user-blocked-sender: No
-x-tmase-result: 10--5.507400-8.000000
-x-tmase-version: SMEX-14.0.0.3080-8.6.1012-26188.007
-x-tm-snts-smtp: DACDEAD36975EC58A73458AE8E060133AD25EB82397CC8DCF33B93A8C0953F902002:8
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: by 2002:ae9:f017:: with SMTP id l23ls8293098qkg.2.gmail; Sun, 30 May
+ 2021 22:00:17 -0700 (PDT)
+X-Received: by 2002:a37:67c9:: with SMTP id b192mr14974217qkc.144.1622437217440;
+        Sun, 30 May 2021 22:00:17 -0700 (PDT)
+Date: Sun, 30 May 2021 22:00:16 -0700 (PDT)
+From: along li <v6543210@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <31493abc-ae9a-42d9-996c-edf630f2456dn@googlegroups.com>
+Subject: The right  configuration to  partition pci  device into inmate for
+  QEMU
 MIME-Version: 1.0
-X-Original-Sender: moustafa.noufale@uni-rostock.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=neutral (no
- key) header.i=@uni-rostock.de header.s=itmze header.b=hNPASoDe;
-       dkim=pass header.i=@uni-rostock.de header.s=itmz header.b=rS0PKVHs;
-       spf=pass (google.com: domain of moustafa.noufale@uni-rostock.de
- designates 139.30.22.72 as permitted sender) smtp.mailfrom=moustafa.noufale@uni-rostock.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=uni-rostock.de
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_2904_276981060.1622437216628"
+X-Original-Sender: v6543210@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -181,88 +76,860 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi Mr. Kiszka,=20
->To enable Jailhouse on the Coral board as well, you likely have three
->options:
->- ad-hoc compilation on the board, using their "Mendel Linux" (also
->  Debian)
->- integrating Jailhouse into Mendel Linux
-> - defining a new target "Coral dev board" in jailhouse-images, porting
->  the integration from Mendel Linux over
-I have just got the Coral board and I think I would go with the first optio=
-n. The planed workflow is:
-1- duplicate imx8mm.c /imx8mm-inmate-demo.c/ imx8mm-linux-demo.c and edit i=
-t with the memory addresses in Coral Board, which is also using an imx8m.
-2- compile jailhouse on the board.
-3- insemod jailhouse and run.
-I am only asking, whether I am going in the right path.
-Thanks in Advance
-Moustafa Noufale
+------=_Part_2904_276981060.1622437216628
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_2905_1994499796.1622437216628"
 
------Urspr=C3=BCngliche Nachricht-----
-Von: Jan Kiszka <jan.kiszka@web.de>=20
-Gesendet: Sonntag, 2. Mai 2021 14:28
-An: Moustafa Noufale <moustafa.noufale@uni-rostock.de>; Ralf Ramsauer <ralf=
-.ramsauer@oth-regensburg.de>; jailhouse-dev@googlegroups.com
-Betreff: Re: [EXT] AW: AW: Inquiry
+------=_Part_2905_1994499796.1622437216628
+Content-Type: text/plain; charset="UTF-8"
 
-On 02.05.21 10:40, Moustafa Noufale wrote:
-> Hi Mr. Kiszka and Mr. Ramsauer,
-> I would like to thank you for your previous support. We are planning to t=
-ry jailhouse on a Coral Dev Board with i.MX quad-core Arm Cortex A53. I hav=
-e some questions and some conclusions, you can ignore my conclusions if it =
-is correct:
-> 1- Docker group is only required to build jailhouse-images in case of vir=
-tual-machine demo, the reason is avoiding running start-image.sh with root =
-privileges. Am I right?
+When I run  qemu demo. try to partition pci device into inmate.
+I failed.
 
-Docker is needed on the host for the Isar build system that jailhouse-image=
-s uses, irrespective of the selected target image.
+After some lone time trying , I sucess.
+The PCI device  e1000e  is partitioned into inmate and ping sucess in 
+inmate.
+what the defference is:
+1. I  add this into root.c(qemu-x86.c) and  qemu-linux-demo.c
+{
+.phys_start = 0xb0000000,//mmconfig
+.virt_start = 0xb0000000,
+.size = 0x10000000,
+.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+},
+or It will show   "Invalid PCI MMCONFIG write, device 02:00:0, reg:110, 
+size:4"
 
-To enable Jailhouse on the Coral board as well, you likely have three
-options:
 
- - ad-hoc compilation on the board, using their "Mendel Linux" (also
-   Debian)
- - integrating Jailhouse into Mendel Linux
- - defining a new target "Coral dev board" in jailhouse-images, porting
-   the integration from Mendel Linux over
+2. use qemu-6.0 to run the qemu demo.
+When use qemu -2..11.1 to run the demo the network  card cann't run sucess.
+It  turns off  after I turn  on it use  ifconfig  up  command.
 
-Simplest approach will likely be the first (but possibly not easy to reprod=
-uce). Cleanest would be one of the other two. Which of them will be simpler=
- I cannot predict.
+well, may it help someone.  whe to try the qemu demo for pci partition.
 
-> 2- Communication between cells is possible, but how? Can you recommend me=
- any reading about this part.
 
-https://github.com/siemens/jailhouse/blob/master/Documentation/inter-cell-c=
-ommunication.md
 
-> 3- How can I build the inmate or the .cell file? I found in /jailhouse-ma=
-ster/configs/x86 c files, object files and .cell files but the procedure to=
- build a customised image is not still clear to me. I read your reply on ja=
-ilhouse-dev.narkive.com and I think I should use "jailhouse config create" =
-to build an inmate. I would appreciate any help or any information regardin=
-g this question.
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/31493abc-ae9a-42d9-996c-edf630f2456dn%40googlegroups.com.
 
-I've already shared the tutorial with you. That describes the principles.
+------=_Part_2905_1994499796.1622437216628
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The config generator so far only supports x86. For ARM/ARM64, study or deri=
-ve from existing configs (configs/arm64/imx8mm* might be helpful for the Co=
-ral dev board). Any own config source file (*.c) placed in the configs/<arc=
-h>/ folders will be built along the rest of Jailhouse.
+When I run&nbsp; qemu demo. try to partition pci device into inmate.<div>I =
+failed.</div><div><br></div><div>After some lone time trying , I sucess.</d=
+iv><div>The PCI device&nbsp;&nbsp;e1000e&nbsp; is partitioned into inmate a=
+nd ping sucess in inmate.</div><div>what the defference is:</div><div>1. I&=
+nbsp; add this into root.c(qemu-x86.c) and&nbsp; qemu-linux-demo.c<br></div=
+><div><div><span style=3D"white-space:pre">		</span>{</div><div><span style=
+=3D"white-space:pre">			</span>.phys_start =3D 0xb0000000,//mmconfig</div><=
+div><span style=3D"white-space:pre">			</span>.virt_start =3D 0xb0000000,</=
+div><div><span style=3D"white-space:pre">			</span>.size =3D 0x10000000,</d=
+iv><div><span style=3D"white-space:pre">			</span>.flags =3D JAILHOUSE_MEM_=
+READ | JAILHOUSE_MEM_WRITE,</div><div><span style=3D"white-space:pre">		</s=
+pan>},</div></div><div>or It will show&nbsp; &nbsp;"Invalid PCI MMCONFIG wr=
+ite, device 02:00:0, reg:110, size:4"</div><div><br></div><div><br></div><d=
+iv>2. use qemu-6.0 to run the qemu demo.</div><div>When use qemu -2..11.1 t=
+o run the demo the network&nbsp; card cann't run sucess.</div><div>It&nbsp;=
+ turns off&nbsp; after I&nbsp;turn&nbsp; on it use&nbsp; ifconfig&nbsp; up&=
+nbsp; command.</div><div><br></div><div>well, may it help someone.&nbsp; wh=
+e to try the qemu demo for pci partition.</div><div><br></div><div><br></di=
+v><div><br></div>
 
-If you want a non-root Linux inmate, also check configs/arm64/dts/imate-*.d=
-ts. Maybe inmate-imx8mm-evk.dts will be of help as well. And also here: any=
- *.dts file in those dts/ folders will be automatically picked up by the bu=
-ild system.
+<p></p>
 
-Jan
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/0f730442242846238f7a5695a4a04f2f%40uni-rostock.de.
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/31493abc-ae9a-42d9-996c-edf630f2456dn%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/31493abc-ae9a-42d9-996c-edf630f2456dn%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_2905_1994499796.1622437216628--
+
+------=_Part_2904_276981060.1622437216628
+Content-Type: text/plain; charset=US-ASCII; name=qemu-linux-demo.c
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename=qemu-linux-demo.c
+X-Attachment-Id: 07fa90e5-1b0a-4b42-8d36-827bb31fdf1a
+Content-ID: <07fa90e5-1b0a-4b42-8d36-827bb31fdf1a>
+
+/*
+ * Jailhouse, a Linux-based partitioning hypervisor
+ *
+ * Configuration for Linux inmate, 1 CPU, 74 MB RAM, ~1MB shmem, serial ports
+ *
+ * Copyright (c) Siemens AG, 2013-2015
+ *
+ * Authors:
+ *  Jan Kiszka <jan.kiszka@siemens.com>
+ *
+ * This work is licensed under the terms of the GNU GPL, version 2.  See
+ * the COPYING file in the top-level directory.
+ */
+
+#include <jailhouse/types.h>
+#include <jailhouse/cell-config.h>
+
+#define CONFIG_QEMU_E1000E_ASSIGNMENT
+
+
+
+
+struct {
+	struct jailhouse_cell_desc cell;
+	__u64 cpus[1];
+#ifdef CONFIG_QEMU_E1000E_ASSIGNMENT
+	struct jailhouse_memory mem_regions[25];
+#else
+	struct jailhouse_memory mem_regions[20];
+#endif
+	struct jailhouse_cache cache_regions[1];
+	struct jailhouse_irqchip irqchips[1];
+	struct jailhouse_pio pio_regions[4];
+#ifdef CONFIG_QEMU_E1000E_ASSIGNMENT
+	struct jailhouse_pci_device pci_devices[5];
+#else
+	struct jailhouse_pci_device pci_devices[4];
+#endif
+	struct jailhouse_pci_capability pci_caps[6];
+} __attribute__((packed)) config = {
+	.cell = {
+		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
+		.revision = JAILHOUSE_CONFIG_REVISION,
+		.name = "linux-x86-demo",
+		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG |
+			 JAILHOUSE_CELL_VIRTUAL_CONSOLE_PERMITTED,
+
+		.cpu_set_size = sizeof(config.cpus),
+		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+		.num_cache_regions = ARRAY_SIZE(config.cache_regions),
+		.num_irqchips = ARRAY_SIZE(config.irqchips),
+		.num_pio_regions = ARRAY_SIZE(config.pio_regions),
+		.num_pci_devices = ARRAY_SIZE(config.pci_devices),
+		.num_pci_caps = ARRAY_SIZE(config.pci_caps),
+	},
+
+	.cpus = {
+		0b1100,
+	},
+
+	.mem_regions = {
+		/* IVSHMEM shared memory region (virtio-blk front) */
+		{
+			.phys_start = 0x3f000000,
+			.virt_start = 0x3f000000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+		},
+		{
+			.phys_start = 0x3f001000,
+			.virt_start = 0x3f001000,
+			.size = 0xdf000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_ROOTSHARED,
+		},
+		{ 0 },
+		{ 0 },
+		/* IVSHMEM shared memory region (virtio-con front) */
+		{
+			.phys_start = 0x3f0e0000,
+			.virt_start = 0x3f0e0000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+		},
+		{
+			.phys_start = 0x3f0e1000,
+			.virt_start = 0x3f0e1000,
+			.size = 0xf000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_ROOTSHARED,
+		},
+		{ 0 },
+		{ 0 },
+		/* IVSHMEM shared memory regions (demo) */
+		{
+			.phys_start = 0x3f0f0000,
+			.virt_start = 0x3f0f0000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+		},
+		{
+			.phys_start = 0x3f0f1000,
+			.virt_start = 0x3f0f1000,
+			.size = 0x9000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_ROOTSHARED,
+		},
+		{
+			.phys_start = 0x3f0fa000,
+			.virt_start = 0x3f0fa000,
+			.size = 0x2000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+		},
+		{
+			.phys_start = 0x3f0fc000,
+			.virt_start = 0x3f0fc000,
+			.size = 0x2000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+		},
+		{
+			.phys_start = 0x3f0fe000,
+			.virt_start = 0x3f0fe000,
+			.size = 0x2000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_ROOTSHARED,
+		},
+		/* IVSHMEM shared memory regions (networking) */
+		JAILHOUSE_SHMEM_NET_REGIONS(0x3f100000, 1),
+		/* low RAM */ {
+			.phys_start = 0x3a600000,
+			.virt_start = 0,
+			.size = 0x00100000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+				JAILHOUSE_MEM_LOADABLE,
+		},
+		/* communication region */ {
+			.virt_start = 0x00100000,
+			.size = 0x00001000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_COMM_REGION,
+		},
+		/* high RAM */ {
+			.phys_start = 0x3a700000,
+			.virt_start = 0x00200000,
+			.size = 0x4700000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+				JAILHOUSE_MEM_LOADABLE,
+		},
+#ifdef CONFIG_QEMU_E1000E_ASSIGNMENT
+		/* MemRegion: feb40000-feb7ffff : 0000:00:02.0 */
+		{
+			.phys_start = 0xfeb40000,
+			.virt_start = 0xfeb40000,
+			.size = 0x40000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: feb80000-feb9ffff : e1000e */
+		{
+			.phys_start = 0xfeb80000,
+			.virt_start = 0xfeb80000,
+			.size = 0x20000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: feba0000-febbffff : e1000e */
+		{
+			.phys_start = 0xfeba0000,
+			.virt_start = 0xfeba0000,
+			.size = 0x20000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: febd1000-febd3fff : e1000e */
+		{
+			.phys_start = 0xfebd1000,
+			.virt_start = 0xfebd1000,
+			.size = 0x3000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		{
+			.phys_start = 0xb0000000,//mmconfig
+			.virt_start = 0xb0000000,
+			.size = 0x10000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+#endif
+	},
+
+	.cache_regions = {
+		{
+			.start = 0,
+			.size = 2,
+			.type = JAILHOUSE_CACHE_L3,
+		},
+	},
+
+	.irqchips = {
+		/* IOAPIC */ {
+			.address = 0xfec00000,
+			.id = 0xff00,
+			.pin_bitmap = {
+				(1 << 3) | (1 << 4),
+			},
+		},
+	},
+
+	.pio_regions = {
+		PIO_RANGE(0x2f8, 8), /* serial 2 */
+		PIO_RANGE(0x3f8, 8), /* serial 1 */
+		PIO_RANGE(0xe010, 8), /* OXPCIe952 serial1 */
+		PIO_RANGE(0xc040,0x20),/* e1000e */
+	},
+
+	.pci_devices = {
+		{
+			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+			.domain = 0x0,
+			.bdf = 0x0c << 3,
+			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+			.num_msix_vectors = 2,
+			.shmem_regions_start = 0,
+			.shmem_dev_id = 1,
+			.shmem_peers = 2,
+			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VIRTIO_FRONT +
+				VIRTIO_DEV_BLOCK,
+		},
+		{
+			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+			.domain = 0x0,
+			.bdf = 0x0d << 3,
+			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+			.num_msix_vectors = 3,
+			.shmem_regions_start = 4,
+			.shmem_dev_id = 1,
+			.shmem_peers = 2,
+			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VIRTIO_FRONT +
+				VIRTIO_DEV_CONSOLE,
+		},
+		{
+			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+			.domain = 0x0,
+			.bdf = 0x0e << 3,
+			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+			.num_msix_vectors = 16,
+			.shmem_regions_start = 8,
+			.shmem_dev_id = 2,
+			.shmem_peers = 3,
+			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
+		},
+		{
+			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+			.domain = 0x0,
+			.bdf = 0x0f << 3,
+			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+			.num_msix_vectors = 2,
+			.shmem_regions_start = 13,
+			.shmem_dev_id = 1,
+			.shmem_peers = 2,
+			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+		},
+#ifdef CONFIG_QEMU_E1000E_ASSIGNMENT
+		{ /* e1000e */
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.domain = 0x0000,
+			.bdf = 0x0010,
+			.bar_mask = {
+				0xfffe0000, 0xfffe0000, 0xffffffe0,
+				0xffffc000, 0x00000000, 0x00000000,
+			},
+			.caps_start = 0,
+			.num_caps = 6,
+			.num_msi_vectors = 1,
+			.msi_64bits = 1,
+			.num_msix_vectors = 5,
+			.msix_region_size = 0x1000,
+			.msix_address = 0xfebd0000,
+		},
+#endif
+	},
+
+	.pci_caps = {
+		{ /* e1000e */
+			.id = PCI_CAP_ID_PM,
+			.start = 0xc8,
+			.len = 8,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_MSI,
+			.start = 0xd0,
+			.len = 14,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_EXP,
+			.start = 0xe0,
+			.len = 20,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_MSIX,
+			.start = 0xa0,
+			.len = 12,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_EXT_CAP_ID_ERR | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x100,
+			.len = 4,
+			.flags = 0,
+		},
+		{
+			.id = PCI_EXT_CAP_ID_DSN | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x140,
+			.len = 4,
+			.flags = 0,
+		},
+	}
+};
+
+------=_Part_2904_276981060.1622437216628
+Content-Type: text/plain; charset=US-ASCII; name=qemu.c
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename=qemu.c
+X-Attachment-Id: 713f8383-c1ae-4970-a463-d7bedc3ddb64
+Content-ID: <713f8383-c1ae-4970-a463-d7bedc3ddb64>
+
+ /* NOTE: This config expects the following to be appended to your kernel cmdline
+ *       "memmap=0x5200000$0x3a000000"
+ */
+
+#include <jailhouse/types.h>
+#include <jailhouse/cell-config.h>
+
+struct {
+	struct jailhouse_system header;
+	__u64 cpus[1];
+	struct jailhouse_memory mem_regions[17];
+	struct jailhouse_irqchip irqchips[1];
+	struct jailhouse_pio pio_regions[8];
+	struct jailhouse_pci_device pci_devices[7];
+	struct jailhouse_pci_capability pci_caps[9];
+} __attribute__((packed)) config = {
+	.header = {
+		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
+		.revision = JAILHOUSE_CONFIG_REVISION,
+		.flags = JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
+		.hypervisor_memory = {
+			.phys_start = 0x3a000000,
+			.size = 0x600000,
+		},
+		.debug_console = {
+			.address = 0x3f8,
+			.type = JAILHOUSE_CON_TYPE_8250,
+			.flags = JAILHOUSE_CON_ACCESS_PIO |
+				 JAILHOUSE_CON_REGDIST_1,
+		},
+		.platform_info = {
+			.pci_mmconfig_base = 0xb0000000,
+			.pci_mmconfig_end_bus = 0xff,
+			.x86 = {
+				.pm_timer_address = 0x608,
+				.vtd_interrupt_limit = 128,
+				.iommu_units = {
+					{
+						.type = JAILHOUSE_IOMMU_INTEL,
+						.base = 0xfed90000,
+						.size = 0x1000,
+					},
+				},
+			},
+		},
+		.root_cell = {
+			.name = "RootCell",
+			.cpu_set_size = sizeof(config.cpus),
+			.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+			.num_irqchips = ARRAY_SIZE(config.irqchips),
+			.num_pio_regions = ARRAY_SIZE(config.pio_regions),
+			.num_pci_devices = ARRAY_SIZE(config.pci_devices),
+			.num_pci_caps = ARRAY_SIZE(config.pci_caps),
+		},
+	},
+
+	.cpus = {
+		0x000000000000000f,
+	},
+
+	.mem_regions = {
+		/* MemRegion: 00000000-0009fbff : System RAM */
+		{
+			.phys_start = 0x0,
+			.virt_start = 0x0,
+			.size = 0xa0000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+		/* MemRegion: 00100000-00ffffff : System RAM */
+		{
+			.phys_start = 0x100000,
+			.virt_start = 0x100000,
+			.size = 0xf00000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+		/* MemRegion: 01000000-02ffffff : Kernel */
+		{
+			.phys_start = 0x1000000,
+			.virt_start = 0x1000000,
+			.size = 0x2000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+		/* MemRegion: 03000000-39ffffff : System RAM */
+		{
+			.phys_start = 0x3000000,
+			.virt_start = 0x3000000,
+			.size = 0x37000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+		/* MemRegion: 3f200000-3ffdefff : System RAM */
+		{
+			.phys_start = 0x3f200000,
+			.virt_start = 0x3f200000,
+			.size = 0xddf000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
+		},
+		/* MemRegion: fd000000-fdffffff : vesafb */
+		{
+			.phys_start = 0xfd000000,
+			.virt_start = 0xfd000000,
+			.size = 0x1000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: feb40000-feb7ffff : 0000:00:02.0 */
+		{
+			.phys_start = 0xfeb40000,
+			.virt_start = 0xfeb40000,
+			.size = 0x40000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: feb80000-feb9ffff : 0000:00:02.0 */
+		{
+			.phys_start = 0xfeb80000,
+			.virt_start = 0xfeb80000,
+			.size = 0x20000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: feba0000-febbffff : 0000:00:02.0 */
+		{
+			.phys_start = 0xfeba0000,
+			.virt_start = 0xfeba0000,
+			.size = 0x20000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: febd1000-febd3fff : 0000:00:02.0 */
+		{
+			.phys_start = 0xfebd1000,
+			.virt_start = 0xfebd1000,
+			.size = 0x3000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: febd4000-febd7fff : ICH HD audio */
+		{
+			.phys_start = 0xfebd4000,
+			.virt_start = 0xfebd4000,
+			.size = 0x4000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: febd8000-febd8fff : 0000:00:01.0 */
+		{
+			.phys_start = 0xfebd8000,
+			.virt_start = 0xfebd8000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: febd9000-febd9fff : ahci */
+		{
+			.phys_start = 0xfebd9000,
+			.virt_start = 0xfebd9000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: fed00000-fed003ff : PNP0103:00 */
+		{
+			.phys_start = 0xfed00000,
+			.virt_start = 0xfed00000,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: 000c0000-000dffff : ROMs */
+		{
+			.phys_start = 0xc0000,
+			.virt_start = 0xc0000,
+			.size = 0x20000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: 3a600000-3f1fffff : JAILHOUSE Inmate Memory */
+		{
+			.phys_start = 0x3a600000,
+			.virt_start = 0x3a600000,
+			.size = 0x4c00000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+
+		{
+			.phys_start = 0xb0000000,//mmconfig
+			.virt_start = 0xb0000000,
+			.size = 0x10000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+	},
+
+	.irqchips = {
+		/* IOAPIC 0, GSI base 0 */
+		{
+			.address = 0xfec00000,
+			.id = 0xff00,
+			.pin_bitmap = {
+				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff
+			},
+		},
+	},
+
+	.pio_regions = {
+		/* Port I/O: 0000-001f : dma1 */
+		/* PIO_RANGE(0x0, 0x20), */
+		/* Port I/O: 0020-0021 : pic1 */
+		/* PIO_RANGE(0x20, 0x2), */
+		/* Port I/O: 0040-0043 : timer0 */
+		PIO_RANGE(0x40, 0x4),
+		/* Port I/O: 0050-0053 : timer1 */
+		/* PIO_RANGE(0x50, 0x4), */
+		/* Port I/O: 0060-0060 : keyboard */
+		PIO_RANGE(0x60, 0x1),
+		/* Port I/O: 0064-0064 : keyboard */
+		PIO_RANGE(0x64, 0x1),
+		/* Port I/O: 0080-008f : dma page reg */
+		/* PIO_RANGE(0x80, 0x10), */
+		/* Port I/O: 00a0-00a1 : pic2 */
+		/* PIO_RANGE(0xa0, 0x2), */
+		/* Port I/O: 00c0-00df : dma2 */
+		/* PIO_RANGE(0xc0, 0x20), */
+		/* Port I/O: 00f0-00ff : fpu */
+		/* PIO_RANGE(0xf0, 0x10), */
+		/* Port I/O: 02f8-02ff : serial */
+		PIO_RANGE(0x2f8, 0x8),
+		/* Port I/O: 03c0-03df : vesafb */
+		PIO_RANGE(0x3c0, 0x20),
+		/* Port I/O: 03f8-03ff : serial */
+		PIO_RANGE(0x3f8, 0x8),
+		/* Port I/O: 0510-051b : QEMU0002:00 */
+		/* PIO_RANGE(0x510, 0xc), */
+		/* Port I/O: 0600-0603 : ACPI PM1a_EVT_BLK */
+		/* PIO_RANGE(0x600, 0x4), */
+		/* Port I/O: 0604-0605 : ACPI PM1a_CNT_BLK */
+		/* PIO_RANGE(0x604, 0x2), */
+		/* Port I/O: 0608-060b : ACPI PM_TMR */
+		/* PIO_RANGE(0x608, 0x4), */
+		/* Port I/O: 0620-062f : ACPI GPE0_BLK */
+		/* PIO_RANGE(0x620, 0x10), */
+		/* Port I/O: 0630-0633 : iTCO_wdt.0.auto */
+		/* PIO_RANGE(0x630, 0x4), */
+		/* Port I/O: 0660-067f : iTCO_wdt.0.auto */
+		/* PIO_RANGE(0x660, 0x20), */
+		/* Port I/O: 0700-073f : i801_smbus */
+		/* PIO_RANGE(0x700, 0x40), */
+		/* Port I/O: c040-c05f : 0000:00:02.0 */
+		PIO_RANGE(0xc040, 0x20),
+		/* Port I/O: c060-c07f : 0000:00:1f.2 */
+		PIO_RANGE(0xc060, 0x20),
+	},
+
+	.pci_devices = {
+		/* PCIDevice: 00:00.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 0,
+			.domain = 0x0,
+			.bdf = 0x0,
+			.bar_mask = {
+				0x00000000, 0x00000000, 0x00000000,
+				0x00000000, 0x00000000, 0x00000000,
+			},
+			.caps_start = 0,
+			.num_caps = 0,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+			.msi_maskable = 0,
+			.num_msix_vectors = 0,
+			.msix_region_size = 0x0,
+			.msix_address = 0x0,
+		},
+		/* PCIDevice: 00:01.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 0,
+			.domain = 0x0,
+			.bdf = 0x8,
+			.bar_mask = {
+				0xff000000, 0x00000000, 0xfffff000,
+				0x00000000, 0x00000000, 0x00000000,
+			},
+			.caps_start = 0,
+			.num_caps = 0,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+			.msi_maskable = 0,
+			.num_msix_vectors = 0,
+			.msix_region_size = 0x0,
+			.msix_address = 0x0,
+		},
+		/* PCIDevice: 00:02.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 0,
+			.domain = 0x0,
+			.bdf = 0x10,
+			.bar_mask = {
+				0xfffe0000, 0xfffe0000, 0xffffffe0,
+				0xffffc000, 0x00000000, 0x00000000,
+			},
+			.caps_start = 0,
+			.num_caps = 6,
+			.num_msi_vectors = 1,
+			.msi_64bits = 1,
+			.msi_maskable = 0,
+			.num_msix_vectors = 5,
+			.msix_region_size = 0x1000,
+			.msix_address = 0xfebd0000,
+		},
+		/* PCIDevice: 00:1b.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 0,
+			.domain = 0x0,
+			.bdf = 0xd8,
+			.bar_mask = {
+				0xffffc000, 0x00000000, 0x00000000,
+				0x00000000, 0x00000000, 0x00000000,
+			},
+			.caps_start = 6,
+			.num_caps = 1,
+			.num_msi_vectors = 1,
+			.msi_64bits = 1,
+			.msi_maskable = 0,
+			.num_msix_vectors = 0,
+			.msix_region_size = 0x0,
+			.msix_address = 0x0,
+		},
+		/* PCIDevice: 00:1f.0 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 0,
+			.domain = 0x0,
+			.bdf = 0xf8,
+			.bar_mask = {
+				0x00000000, 0x00000000, 0x00000000,
+				0x00000000, 0x00000000, 0x00000000,
+			},
+			.caps_start = 0,
+			.num_caps = 0,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+			.msi_maskable = 0,
+			.num_msix_vectors = 0,
+			.msix_region_size = 0x0,
+			.msix_address = 0x0,
+		},
+		/* PCIDevice: 00:1f.2 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 0,
+			.domain = 0x0,
+			.bdf = 0xfa,
+			.bar_mask = {
+				0x00000000, 0x00000000, 0x00000000,
+				0x00000000, 0xffffffe0, 0xfffff000,
+			},
+			.caps_start = 7,
+			.num_caps = 2,
+			.num_msi_vectors = 1,
+			.msi_64bits = 1,
+			.msi_maskable = 0,
+			.num_msix_vectors = 0,
+			.msix_region_size = 0x0,
+			.msix_address = 0x0,
+		},
+		/* PCIDevice: 00:1f.3 */
+		{
+			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+			.iommu = 0,
+			.domain = 0x0,
+			.bdf = 0xfb,
+			.bar_mask = {
+				0x00000000, 0x00000000, 0x00000000,
+				0x00000000, 0xffffffc0, 0x00000000,
+			},
+			.caps_start = 0,
+			.num_caps = 0,
+			.num_msi_vectors = 0,
+			.msi_64bits = 0,
+			.msi_maskable = 0,
+			.num_msix_vectors = 0,
+			.msix_region_size = 0x0,
+			.msix_address = 0x0,
+		},
+	},
+
+	.pci_caps = {
+		/* PCIDevice: 00:02.0 */
+		{
+			.id = PCI_CAP_ID_PM,
+			.start = 0xc8,
+			.len = 0x8,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_MSI,
+			.start = 0xd0,
+			.len = 0xe,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_EXP,
+			.start = 0xe0,
+			.len = 0x14,
+			.flags = 0,
+		},
+		{
+			.id = PCI_CAP_ID_MSIX,
+			.start = 0xa0,
+			.len = 0xc,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_EXT_CAP_ID_ERR | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x100,
+			.len = 0x40,
+			.flags = 0,
+		},
+		{
+			.id = PCI_EXT_CAP_ID_DSN | JAILHOUSE_PCI_EXT_CAP,
+			.start = 0x140,
+			.len = 0xc,
+			.flags = 0,
+		},
+		/* PCIDevice: 00:1b.0 */
+		{
+			.id = PCI_CAP_ID_MSI,
+			.start = 0x60,
+			.len = 0xe,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		/* PCIDevice: 00:1f.2 */
+		{
+			.id = PCI_CAP_ID_MSI,
+			.start = 0x80,
+			.len = 0xe,
+			.flags = JAILHOUSE_PCICAPS_WRITE,
+		},
+		{
+			.id = PCI_CAP_ID_SATA,
+			.start = 0xa8,
+			.len = 0x2,
+			.flags = 0,
+		},
+	},
+};
+
+------=_Part_2904_276981060.1622437216628--
