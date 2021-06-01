@@ -1,71 +1,70 @@
-Return-Path: <jailhouse-dev+bncBC7PTOEB2ALRBLEM3CCQMGQEYZ5CVSY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC7PTOEB2ALRBJ453CCQMGQEYMG3PFI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qv1-xf37.google.com (mail-qv1-xf37.google.com [IPv6:2607:f8b0:4864:20::f37])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6B4A3970DA
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  1 Jun 2021 12:04:29 +0200 (CEST)
-Received: by mail-qv1-xf37.google.com with SMTP id k6-20020a0cd6860000b029021936c6e8ffsf3368227qvi.7
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 01 Jun 2021 03:04:29 -0700 (PDT)
+Received: from mail-qt1-x837.google.com (mail-qt1-x837.google.com [IPv6:2607:f8b0:4864:20::837])
+	by mail.lfdr.de (Postfix) with ESMTPS id 72E913971B8
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  1 Jun 2021 12:40:40 +0200 (CEST)
+Received: by mail-qt1-x837.google.com with SMTP id a12-20020ac8108c0000b029023c90fba3dcsf1541890qtj.7
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 01 Jun 2021 03:40:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
         h=sender:date:from:to:message-id:in-reply-to:references:subject
          :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=Al/1T/ACNdhYlMTgPiuUfNShNVxnCCCFdOHZTl27Yso=;
-        b=BDj1b3aI+78NEYUDsEqzGolXzKqvPFIwwj4FT5HQXqsHtdjvUf8sYYWa/8QEirQ+ec
-         ovQ3KO9koQiVH0fV/b3XpSylFlEaMb1P4aLQfz7lhy9aJq4hIuivVIQQtAp9UCR4qDVU
-         1NMvEDVIlT5/NeEaZ8Eie7GOL/23qj0RNRBFwy+9eal3s6fZWZauLkLp4s8bGj12An1F
-         BpVF6Hv99DlhZI9L02Pz2pTAYichOITwpEn9gCFF/eR0qEdQpVTL+pkxtw1imbvh0MOm
-         ec5141IctchmMdZtXUf3sBUx4R2kbAfAYT9yWmXCiFN6oDfaCZg8ZNOZYhSzBQel89fx
-         nMkQ==
+        bh=pntmNDMy3nfdj+5aGwvO3A8hSqHH4s3un/YkLViie68=;
+        b=pMabVM7mQNhGgmnzh48wTN8O2t20r8/jubhCN6gst5MYHI7MVu6m0p6GybxWbiNu+6
+         mM/67RRSrmuHxDwI+5bjQa8gARfFsxmOixyLIdSc12uKqh7FvgQTkchQww5LemmyMRHZ
+         Jnj8PMhGUwrXtKppJiwO4B0Ep11APs1Sq/qPMzVJ8OCYQhWeeHq2vIl0UzG6gMBbKEHi
+         Ddg/Rx+ogdssWNUmVJwVIXJw3BEGnK8qMeIpKA+mK805r5OWfk1fWhsQ8T+k7n8XXfcN
+         v6WGIEqFuvh3dkMZ95FmUmpbDGoF4KZzvg22xmARoYFpP4Cta/Ugdt1o5pUVRK/0TnOe
+         bnvg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:message-id:in-reply-to:references:subject:mime-version
          :x-original-sender:precedence:mailing-list:list-id:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=Al/1T/ACNdhYlMTgPiuUfNShNVxnCCCFdOHZTl27Yso=;
-        b=nQosQZctZaB1ZerjaRi7P4bUqpfhJS2W6anF3eyrhq/zqhLCp2Li7aGGqeXejqwFJp
-         +4dsOgxPMLrzGgQLqFRmlKDQ4Tidh+9MuGTu7DlXTiGrqLvtkBrBgUh9WW5ZcvI3H9B6
-         KSjMzPPmCvPxChIkSOpA1LcU5RYsd2bl0orTJ0SXPgNibB/2yiOjUI1XJbO3/M/7h+vH
-         U7G5t1Q8qmICDlRmu3is00MBbGgKeTznf9fJQ1y3GXgIHBvQ1kyXnCw9/jItzju+0Wyr
-         jGJmOKnIW6CPan5s+WW4fW3Y/Udv2hZN3yg5yGwDDJA8BIDyhwGxrQMIKz5+sv1RCdEg
-         79Dw==
+        bh=pntmNDMy3nfdj+5aGwvO3A8hSqHH4s3un/YkLViie68=;
+        b=bNF/KZvv4W3/MU2fvUtg4GHcwQlKXOqEiZhgc6cBdwxr66GVM/i2AJXJCboy4HH62X
+         jwdNZ9EbbWvl0FhKiwgX4sW4SBSqR1ySqQQSqmAaqVa+yvj+I1WCsiw02jGQBC1iPwrr
+         j1JihSCJZYHgAdeynndJbCgM91Oc0jiIisNdG9Qu1JlRnH5d/u276zNrGWWB+Spwvdbr
+         vnKuY+X9rsxJOOv0IDGqP8AHPcsQe8miBmrO0qjFmoKhTawHVWyd+oS2wIeqbIk/NxMZ
+         N9BS/LS3evAOB2jYSpWn69Ru8lSCcoHqrVZ2vlOdKMznODLePk6bs2jai8EAJ5h/fr5w
+         N4/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
          :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=Al/1T/ACNdhYlMTgPiuUfNShNVxnCCCFdOHZTl27Yso=;
-        b=UYWqa0zszSBjzgSQOVHCddoMVQ5UL5RBJR6sRBNvC0K/NRcmnLCDPirKcHLyRjJ8T2
-         UOa3DxsLhexzRzqkgY5+Fgcav7GC7GFAbgtHD+FAiozqKyDIeZlNlllL6iPUTtaJWHjO
-         aDYPSMRNsLSWStvqeuY+XCqOjzXisSVUewJmMcjll9zlkDaSswS8kReRnamTLHB/ueDy
-         dLTl+IVoXtYMtu3ytgBSifQtw6fSex6HI756+9qQrUv7RPvxZycre4NrnyqeB3vzbQx5
-         SOaubumGx+QzIG5efztFy47wdqXSIUD/5GuyqcTs2DPeVGnmZf5fE2toHQqVfU8+aKsB
-         ULyg==
+        bh=pntmNDMy3nfdj+5aGwvO3A8hSqHH4s3un/YkLViie68=;
+        b=LBVqHGeqe6Vi5RIKcuIvYDSJ8cgJjkphKzlnFN2u2wpdZHJAB5HIgq56eY4Jpv7hm+
+         xPttvWQds4EaUwWiLFeBdkaOVj+jRcIJv83Iug+2zTZ/JGVJ7cay9uKsu8MXTGmjAhv3
+         2FKSLHP1d8ydToH1CbUfC4sYKLjZJvAXLFohLMCDPcuhxqSLAxer7Gkbm8Ux8XUb8zKh
+         +vxK4lK3n4xm1hfhYG7VJRGRTMZGUo/pNnygi7qYLGpRA1s9wv1MFUIYhTsq6PLnIzvE
+         a5SQg3soG8ARBFLA3DTUde0HyelLImOt/z9pwnEXkE1cwt1zP0sz0y9fHfcXuL0jQdBS
+         Hv1g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531DEIXBNy9lXKrOo8xAmLhf2o4eMMwC3ifojxa3GisMSwuG5pEF
-	b4IDfP7DS4qXV1FckDjLTys=
-X-Google-Smtp-Source: ABdhPJz0NdpWI1syol3JR8VsHrb1CuZo5NbkG9oGQDZ7TauN7/MYfqfJu8zunKTqDINk/dGJZFCTbg==
-X-Received: by 2002:ae9:ef82:: with SMTP id d124mr9425516qkg.433.1622541868301;
-        Tue, 01 Jun 2021 03:04:28 -0700 (PDT)
+X-Gm-Message-State: AOAM531ldq7hHpAVHd83PFTkV60+rDxEJi5aDtPQQgnW6lOrxAKZA4v7
+	o9pS1VYpj5Eg8n1KE4dhgY4=
+X-Google-Smtp-Source: ABdhPJwz9n9DGC+qJvTgWe1Bt/HZMVxJHShuDpZliOOXm62QuyBP7NaVQs5LivW9XPdmyEqSDcLWXg==
+X-Received: by 2002:a05:622a:648:: with SMTP id a8mr19135194qtb.176.1622544039237;
+        Tue, 01 Jun 2021 03:40:39 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ae9:ea15:: with SMTP id f21ls10526728qkg.7.gmail; Tue, 01
- Jun 2021 03:04:27 -0700 (PDT)
-X-Received: by 2002:a05:620a:15e3:: with SMTP id p3mr21069659qkm.115.1622541867737;
-        Tue, 01 Jun 2021 03:04:27 -0700 (PDT)
-Date: Tue, 1 Jun 2021 03:04:27 -0700 (PDT)
+Received: by 2002:a37:5f44:: with SMTP id t65ls10594816qkb.0.gmail; Tue, 01
+ Jun 2021 03:40:38 -0700 (PDT)
+X-Received: by 2002:a05:620a:4084:: with SMTP id f4mr9927081qko.337.1622544038712;
+        Tue, 01 Jun 2021 03:40:38 -0700 (PDT)
+Date: Tue, 1 Jun 2021 03:40:38 -0700 (PDT)
 From: along li <v6543210@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <f572fb5e-9d0a-4b8d-abc5-7aab1590aa58n@googlegroups.com>
-In-Reply-To: <a829b501-b59d-d9f6-531b-6ad07667d2a7@siemens.com>
-References: <31493abc-ae9a-42d9-996c-edf630f2456dn@googlegroups.com>
- <a829b501-b59d-d9f6-531b-6ad07667d2a7@siemens.com>
-Subject: Re: The right configuration to partition pci device into inmate for
- QEMU
+Message-Id: <0520cade-198a-4f89-95e4-cd5fbc6c1ae2n@googlegroups.com>
+In-Reply-To: <d5e6079c-5cf5-ce18-45c0-d0eaa7d60350@siemens.com>
+References: <09c2642b-ba89-4226-8452-534393dc6a33n@googlegroups.com>
+ <d5e6079c-5cf5-ce18-45c0-d0eaa7d60350@siemens.com>
+Subject: Re: How to partition PCI devices to none-root cells in rpi4b?
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_1368_1313751605.1622541867132"
+	boundary="----=_Part_4414_1419716745.1622544038169"
 X-Original-Sender: v6543210@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -79,78 +78,55 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1368_1313751605.1622541867132
+------=_Part_4414_1419716745.1622544038169
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_1369_426199910.1622541867132"
+	boundary="----=_Part_4415_3780134.1622544038169"
 
-------=_Part_1369_426199910.1622541867132
+------=_Part_4415_3780134.1622544038169
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-1.  about  Invalid PCI MMCONFIG write, device 02:00:0, reg:110, size:4"
-I don't know why show this when use original  .c configuration.
-After I added this, it  doesn't  show error.  I don't know why.
- {
- .phys_start =3D 0xb0000000,//mmconfig
- .virt_start =3D 0xb0000000,
- .size =3D 0x10000000,
- .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-},
+Is UART different from other  devices? I see some uart-8250.c  code.  The =
+=20
+uart is  especially   treated ?
 
-2.  about qemu version
-The qemu on  ubuntu 18.04 default is 2.11.1 =EF=BC=8C it run failed.    The=
- network=20
-card e1000e  will go down after ifup  eth1.
-I change to qemu-6.0.0 , it sucess. Maybe qemu-4.2.1 is also ok.=20
+Will some demos which show  how to  partition  network devices or some=20
+other devices into   inmates   be done?
+I have tryed  in rpi4b.  like  zynqmp-zcu102-linux-demo.c ,   I added the=
+=20
+mem regions and irq.  But, the  network cann't seen in inmate.
+=20
 
-
-=E5=9C=A82021=E5=B9=B46=E6=9C=881=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=8C UTC+8=
- =E4=B8=8A=E5=8D=881:49:08<j.kiszka...@gmail.com> =E5=86=99=E9=81=93=EF=BC=
+=E5=9C=A82021=E5=B9=B45=E6=9C=8814=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=94 UTC+=
+8 =E4=B8=8B=E5=8D=886:10:37<j.kiszka...@gmail.com> =E5=86=99=E9=81=93=EF=BC=
 =9A
 
-> On 31.05.21 07:00, along li wrote:
-> > When I run  qemu demo. try to partition pci device into inmate.
-> > I failed.
+> On 14.05.21 05:08, along li wrote:
+> > Dear community,
 > >=20
-> > After some lone time trying , I sucess.
-> > The PCI device  e1000e  is partitioned into inmate and ping sucess in
-> > inmate.
-> > what the defference is:
-> > 1. I  add this into root.c(qemu-x86.c) and  qemu-linux-demo.c
-> > {
-> > .phys_start =3D 0xb0000000,//mmconfig
-> > .virt_start =3D 0xb0000000,
-> > .size =3D 0x10000000,
-> > .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-> > },
->
-> This is wrong, "jailhouse config check" should also complain. You will
-> eventually loose interrupts or get even worse behaviour.
->
-> > or It will show   "Invalid PCI MMCONFIG write, device 02:00:0, reg:110,
-> > size:4"
+> > For X86 platform, the  tutorial  pdf talks some about  how to partition
+> > pci device into none-root cells.    =20
+> > tutorial:=20
+> > =20
+> https://events.static.linuxfound.org/sites/events/files/slides/ELCE2016-J=
+ailhouse-Tutorial.pdf
+> > <
+> https://events.static.linuxfound.org/sites/events/files/slides/ELCE2016-J=
+ailhouse-Tutorial.pdf
+> >
+> >=20
+> > But how to do this in arm64 platforms, there is no  document.
+> >=20
+> > Well how to do this, Are there  some configuration demos ?
 > >=20
 >
-> You need to address the root cause: The guest tries to access a PCI
-> config registers, likely related to PCI capability that has no write
-> permission in your config yet. See also the good-old Jailhouse tutorial.
->
-> >=20
-> > 2. use qemu-6.0 to run the qemu demo.
-> > When use qemu -2..11.1 to run the demo the network  card cann't run=20
-> sucess.
-> > It  turns off  after I turn  on it use  ifconfig  up  command.
-> >=20
-> > well, may it help someone.  whe to try the qemu demo for pci partition.
-> >=20
->
-> I'm on 4.2.1 to 6.0 here, those seem to have no issue with changing
-> resource layout. Possibly, we have to lift the lower version boundary by
-> now, though.
->
-> Can you be more specific in regards to what didn't work? Did you try to
-> compare if /proc/iomem in the root cell is comparable across those qemu
-> versions?
+> Plenty, though understanding the details requires a bit knowledge about
+> the respective platforms. If you look at
+> configs/arm64/zynqmp-zcu102-linux-demo.c, e.g., you can see that it gets
+> a UART assigned by handing over the MMIO region and (IIRC) GIC IRQ 54.
+> But, as I already explained, there can be more complex challenges when
+> you also need to enable / clock the respective device, and those
+> controls are shared with the root cell.
 >
 > Jan
 >
@@ -165,80 +141,60 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/f572fb5e-9d0a-4b8d-abc5-7aab1590aa58n%40googlegroups.com.
+jailhouse-dev/0520cade-198a-4f89-95e4-cd5fbc6c1ae2n%40googlegroups.com.
 
-------=_Part_1369_426199910.1622541867132
+------=_Part_4415_3780134.1622544038169
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-1.&nbsp; about&nbsp; Invalid PCI MMCONFIG write, device 02:00:0, reg:110,&n=
-bsp;size:4"<br>I don't know why show this when use original&nbsp; .c config=
-uration.<div>After I added this, it&nbsp; doesn't&nbsp; show error.&nbsp; I=
- don't know why.</div><div>&nbsp;{<br>&nbsp;.phys_start =3D 0xb0000000,//mm=
-config<br>&nbsp;.virt_start =3D 0xb0000000,<br>&nbsp;.size =3D 0x10000000,<=
-br>&nbsp;.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,<br>},<br></di=
-v><div><br></div><div>2.&nbsp; about qemu version</div><div>The qemu on&nbs=
-p; ubuntu 18.04 default is 2.11.1 =EF=BC=8C it run failed.&nbsp; &nbsp; The=
- network card e1000e&nbsp; will go down after ifup&nbsp; eth1.</div><div>I =
-change to qemu-6.0.0 , it sucess. Maybe qemu-4.2.1 is also ok.&nbsp;</div><=
-div><br></div><div><br></div><div class=3D"gmail_quote"><div dir=3D"auto" c=
-lass=3D"gmail_attr">=E5=9C=A82021=E5=B9=B46=E6=9C=881=E6=97=A5=E6=98=9F=E6=
-=9C=9F=E4=BA=8C UTC+8 =E4=B8=8A=E5=8D=881:49:08&lt;j.kiszka...@gmail.com> =
-=E5=86=99=E9=81=93=EF=BC=9A<br/></div><blockquote class=3D"gmail_quote" sty=
-le=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); paddi=
-ng-left: 1ex;">On 31.05.21 07:00, along li wrote:
-<br>&gt; When I run=C2=A0 qemu demo. try to partition pci device into inmat=
-e.
-<br>&gt; I failed.
+Is UART different from other&nbsp; devices? I see some uart-8250.c&nbsp; co=
+de.&nbsp; The&nbsp; uart is&nbsp;
+
+especially&nbsp; &nbsp;treated ?<div><br></div><div>Will some demos which s=
+how&nbsp; how to&nbsp; partition&nbsp; network devices or some other device=
+s into&nbsp; &nbsp;inmates&nbsp; &nbsp;be done?</div><div>I have tryed&nbsp=
+; in rpi4b.&nbsp; like&nbsp; zynqmp-zcu102-linux-demo.c ,&nbsp; &nbsp;I add=
+ed the mem regions and irq.&nbsp; But, the&nbsp; network cann't seen in inm=
+ate.</div><div><div>&nbsp;<br><br></div></div><div class=3D"gmail_quote"><d=
+iv dir=3D"auto" class=3D"gmail_attr">=E5=9C=A82021=E5=B9=B45=E6=9C=8814=E6=
+=97=A5=E6=98=9F=E6=9C=9F=E4=BA=94 UTC+8 =E4=B8=8B=E5=8D=886:10:37&lt;j.kisz=
+ka...@gmail.com> =E5=86=99=E9=81=93=EF=BC=9A<br/></div><blockquote class=3D=
+"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204,=
+ 204, 204); padding-left: 1ex;">On 14.05.21 05:08, along li wrote:
+<br>&gt; Dear community,
 <br>&gt;=20
-<br>&gt; After some lone time trying , I sucess.
-<br>&gt; The PCI device=C2=A0=C2=A0e1000e=C2=A0 is partitioned into inmate =
-and ping sucess in
-<br>&gt; inmate.
-<br>&gt; what the defference is:
-<br>&gt; 1. I=C2=A0 add this into root.c(qemu-x86.c) and=C2=A0 qemu-linux-d=
-emo.c
-<br>&gt; {
-<br>&gt; .phys_start =3D 0xb0000000,//mmconfig
-<br>&gt; .virt_start =3D 0xb0000000,
-<br>&gt; .size =3D 0x10000000,
-<br>&gt; .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-<br>&gt; },
-<br>
-<br>This is wrong, &quot;jailhouse config check&quot; should also complain.=
- You will
-<br>eventually loose interrupts or get even worse behaviour.
-<br>
-<br>&gt; or It will show=C2=A0 =C2=A0&quot;Invalid PCI MMCONFIG write, devi=
-ce 02:00:0, reg:110,
-<br>&gt; size:4&quot;
+<br>&gt; For X86 platform, the=C2=A0 tutorial=C2=A0 pdf talks some about=C2=
+=A0 how to partition
+<br>&gt; pci device into none-root cells.=C2=A0 =C2=A0 =C2=A0
+<br>&gt; tutorial:=C2=A0
+<br>&gt; =C2=A0<a href=3D"https://events.static.linuxfound.org/sites/events=
+/files/slides/ELCE2016-Jailhouse-Tutorial.pdf" target=3D"_blank" rel=3D"nof=
+ollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dzh-CN&amp;q=
+=3Dhttps://events.static.linuxfound.org/sites/events/files/slides/ELCE2016-=
+Jailhouse-Tutorial.pdf&amp;source=3Dgmail&amp;ust=3D1622630046250000&amp;us=
+g=3DAFQjCNHNiDajNlZvCYth86pCt2QquHbixA">https://events.static.linuxfound.or=
+g/sites/events/files/slides/ELCE2016-Jailhouse-Tutorial.pdf</a>
+<br>&gt; &lt;<a href=3D"https://events.static.linuxfound.org/sites/events/f=
+iles/slides/ELCE2016-Jailhouse-Tutorial.pdf" target=3D"_blank" rel=3D"nofol=
+low" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dzh-CN&amp;q=3D=
+https://events.static.linuxfound.org/sites/events/files/slides/ELCE2016-Jai=
+lhouse-Tutorial.pdf&amp;source=3Dgmail&amp;ust=3D1622630046250000&amp;usg=
+=3DAFQjCNHNiDajNlZvCYth86pCt2QquHbixA">https://events.static.linuxfound.org=
+/sites/events/files/slides/ELCE2016-Jailhouse-Tutorial.pdf</a>&gt;
+<br>&gt;=20
+<br>&gt; But how to do this in arm64 platforms, there is no=C2=A0 document.
+<br>&gt;=20
+<br>&gt; Well how to do this, Are there=C2=A0 some configuration demos ?
 <br>&gt;=20
 <br>
-<br>You need to address the root cause: The guest tries to access a PCI
-<br>config registers, likely related to PCI capability that has no write
-<br>permission in your config yet. See also the good-old Jailhouse tutorial=
-.
-<br>
-<br>&gt;=20
-<br>&gt; 2. use qemu-6.0 to run the qemu demo.
-<br>&gt; When use qemu -2..11.1 to run the demo the network=C2=A0 card cann=
-&#39;t run sucess.
-<br>&gt; It=C2=A0 turns off=C2=A0 after I=C2=A0turn=C2=A0 on it use=C2=A0 i=
-fconfig=C2=A0 up=C2=A0 command.
-<br>&gt;=20
-<br>&gt; well, may it help someone.=C2=A0 whe to try the qemu demo for pci =
-partition.
-<br>&gt;=20
-<br>
-<br>I&#39;m on 4.2.1 to 6.0 here, those seem to have no issue with changing
-<br>resource layout. Possibly, we have to lift the lower version boundary b=
-y
-<br>now, though.
-<br>
-<br>Can you be more specific in regards to what didn&#39;t work? Did you tr=
-y to
-<br>compare if /proc/iomem in the root cell is comparable across those qemu
-<br>versions?
+<br>Plenty, though understanding the details requires a bit knowledge about
+<br>the respective platforms. If you look at
+<br>configs/arm64/zynqmp-zcu102-linux-demo.c, e.g., you can see that it get=
+s
+<br>a UART assigned by handing over the MMIO region and (IIRC) GIC IRQ 54.
+<br>But, as I already explained, there can be more complex challenges when
+<br>you also need to enable / clock the respective device, and those
+<br>controls are shared with the root cell.
 <br>
 <br>Jan
 <br>
@@ -256,11 +212,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/f572fb5e-9d0a-4b8d-abc5-7aab1590aa58n%40googlegrou=
+om/d/msgid/jailhouse-dev/0520cade-198a-4f89-95e4-cd5fbc6c1ae2n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/f572fb5e-9d0a-4b8d-abc5-7aab1590aa58n%40googlegroups.co=
+msgid/jailhouse-dev/0520cade-198a-4f89-95e4-cd5fbc6c1ae2n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_1369_426199910.1622541867132--
+------=_Part_4415_3780134.1622544038169--
 
-------=_Part_1368_1313751605.1622541867132--
+------=_Part_4414_1419716745.1622544038169--
