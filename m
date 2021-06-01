@@ -1,128 +1,72 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBK6N26CQMGQEJMVRWPI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC7PTOEB2ALRBLEM3CCQMGQEYZ5CVSY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb38.google.com (mail-yb1-xb38.google.com [IPv6:2607:f8b0:4864:20::b38])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB9D9396E34
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  1 Jun 2021 09:50:04 +0200 (CEST)
-Received: by mail-yb1-xb38.google.com with SMTP id m194-20020a2526cb0000b02905375d41acd7sf6294618ybm.22
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 01 Jun 2021 00:50:04 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1622533803; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=C8U4xTGMzaLi9smRGfkm+bAQ9u0VRcdD/ELZ9cf7e4xNzWj0JSiMQaZP7QcMJ1Whnw
-         l7al4lghiUPgxqrLzNDxIc+lZi4Ns4a4OlXrYFDgHV36S9Sk30GMZfhqB6+8sn2pzze1
-         gXzKDUnwUg56aToEb+kOZDPGa99pTrTx4MCVDL3edPieqF5G5PYg8pC3/4JNdXMS16VV
-         9GuUww4Nqm8pvbgLwhARqueFbTJexSFQEHDGI3hFktJXuU2UplFHl6sS0ROAZQnxgv82
-         89/AJCixOLfsjbtXpyZfrgj+fROj8g1Qj4v5sp+fJUFPM9XGGpXb4JD0KReLkj26t7SY
-         gQcg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=e3IDmV/URUOdfe3cTe3n9gsquW8msEC/UBnGsvg2vyc=;
-        b=BVKyLwN/iywPZVtvmiZF1SBiUSXIsSd9SGNZqEMWelsf92pA2MqsHpwVx+wYzPyFnU
-         RgEMe9WRppNd8v1CUREWw+nGjMGgYNOOCEbAvuCW6uqat5lMAplGzp/A0MD1GDJZPMPX
-         7wNWyYzABpcTpVB3fHFqdUyp3BYMrrPlWEvDN3J09fU4oomp2JpbLdA82s27nHSgk4C9
-         /Z5FeV3Qbe2qTD0zh8noo8lg8J2nuZGYPdA9MSoZMr6k34VQPqdjHfiR4K1/a9iq3xzN
-         P/gKlItb+5ILBfmygSpFmL6YXSXB5ogBwDSAf/I2df6PvPvGLLz8UOQvZ9+LkpCZ44xx
-         5QaQ==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-qv1-xf37.google.com (mail-qv1-xf37.google.com [IPv6:2607:f8b0:4864:20::f37])
+	by mail.lfdr.de (Postfix) with ESMTPS id A6B4A3970DA
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  1 Jun 2021 12:04:29 +0200 (CEST)
+Received: by mail-qv1-xf37.google.com with SMTP id k6-20020a0cd6860000b029021936c6e8ffsf3368227qvi.7
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 01 Jun 2021 03:04:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=e3IDmV/URUOdfe3cTe3n9gsquW8msEC/UBnGsvg2vyc=;
-        b=Ytu2enM6JgmZjJdCUyfLjmR6AjGc5NT+qw9ZebyH39g+hahS1HV9EX3OEmuhlFyUok
-         XS4M7lCggzI+FsnZcuh5kcn2NIjKk5bW7VKlkzFVEeEkvvShrcdMpYUTBinOHAjRKUF/
-         J8W13kN9PKlTdje4L8RQJr2axU5anNVfB3czMZgB1musvIh22p+FhySBz/LmnoRU/daS
-         0504KJEVyQTBa5XZfN+L3CkCSvynrc09vGN7KNWmB7qjRcAO1dni+CQnCMCKqro/uDz5
-         VoQXSzfnYSmtmWZ5LWfeWZAnZVkuF01hS8fh+mE785h7v9tgNcU7Ok+gd5GWtvzRsfBY
-         zGHQ==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=Al/1T/ACNdhYlMTgPiuUfNShNVxnCCCFdOHZTl27Yso=;
+        b=BDj1b3aI+78NEYUDsEqzGolXzKqvPFIwwj4FT5HQXqsHtdjvUf8sYYWa/8QEirQ+ec
+         ovQ3KO9koQiVH0fV/b3XpSylFlEaMb1P4aLQfz7lhy9aJq4hIuivVIQQtAp9UCR4qDVU
+         1NMvEDVIlT5/NeEaZ8Eie7GOL/23qj0RNRBFwy+9eal3s6fZWZauLkLp4s8bGj12An1F
+         BpVF6Hv99DlhZI9L02Pz2pTAYichOITwpEn9gCFF/eR0qEdQpVTL+pkxtw1imbvh0MOm
+         ec5141IctchmMdZtXUf3sBUx4R2kbAfAYT9yWmXCiFN6oDfaCZg8ZNOZYhSzBQel89fx
+         nMkQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=Al/1T/ACNdhYlMTgPiuUfNShNVxnCCCFdOHZTl27Yso=;
+        b=nQosQZctZaB1ZerjaRi7P4bUqpfhJS2W6anF3eyrhq/zqhLCp2Li7aGGqeXejqwFJp
+         +4dsOgxPMLrzGgQLqFRmlKDQ4Tidh+9MuGTu7DlXTiGrqLvtkBrBgUh9WW5ZcvI3H9B6
+         KSjMzPPmCvPxChIkSOpA1LcU5RYsd2bl0orTJ0SXPgNibB/2yiOjUI1XJbO3/M/7h+vH
+         U7G5t1Q8qmICDlRmu3is00MBbGgKeTznf9fJQ1y3GXgIHBvQ1kyXnCw9/jItzju+0Wyr
+         jGJmOKnIW6CPan5s+WW4fW3Y/Udv2hZN3yg5yGwDDJA8BIDyhwGxrQMIKz5+sv1RCdEg
+         79Dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=e3IDmV/URUOdfe3cTe3n9gsquW8msEC/UBnGsvg2vyc=;
-        b=SVKfRq5uqm7G9e6heHuDyAhR0ae1suDcr+gzcO4sfb61Hu92Qv0n4EBRcUBrujTdvq
-         BL2ozhiNS1+maK29fPxQAmlByuKD96udODSYEdje+aBqAVCW7V+aGXlUHPrdACFoYQdp
-         9259i7nESkqR7CUF1XgRXHcdvqkitdHjM3AbziYKLi0+ME/s0Cj5dQUr6SVgHOS0KIj5
-         wtRvfdNj26DAB/vo6sQ5yx2Ql3OYObqWaFSiyNahO1nSzhNubfG2bkwj8Jzi2kGyXdLz
-         uU3bakEi3YBRV49Pp+o4NX+Y3OBYgWvdkzNZEMtc5XgPxG7jPjKanxJ9kWNcXqOpC93b
-         bFwQ==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=Al/1T/ACNdhYlMTgPiuUfNShNVxnCCCFdOHZTl27Yso=;
+        b=UYWqa0zszSBjzgSQOVHCddoMVQ5UL5RBJR6sRBNvC0K/NRcmnLCDPirKcHLyRjJ8T2
+         UOa3DxsLhexzRzqkgY5+Fgcav7GC7GFAbgtHD+FAiozqKyDIeZlNlllL6iPUTtaJWHjO
+         aDYPSMRNsLSWStvqeuY+XCqOjzXisSVUewJmMcjll9zlkDaSswS8kReRnamTLHB/ueDy
+         dLTl+IVoXtYMtu3ytgBSifQtw6fSex6HI756+9qQrUv7RPvxZycre4NrnyqeB3vzbQx5
+         SOaubumGx+QzIG5efztFy47wdqXSIUD/5GuyqcTs2DPeVGnmZf5fE2toHQqVfU8+aKsB
+         ULyg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530XbUr6c7U7fa3L5YhjyX77yIOReeZ8u6582nisOivPL6u8feh9
-	PbtpZVTWoq24IgeqCcQNaqg=
-X-Google-Smtp-Source: ABdhPJyIUY2mfejVpcDlv5Xq/l8GdY5MVJNZ8dXCAKta9GIhLWKX7H/X8slNlDqKiSzY/mZHMVNheA==
-X-Received: by 2002:a25:ed01:: with SMTP id k1mr19295135ybh.144.1622533803515;
-        Tue, 01 Jun 2021 00:50:03 -0700 (PDT)
+X-Gm-Message-State: AOAM531DEIXBNy9lXKrOo8xAmLhf2o4eMMwC3ifojxa3GisMSwuG5pEF
+	b4IDfP7DS4qXV1FckDjLTys=
+X-Google-Smtp-Source: ABdhPJz0NdpWI1syol3JR8VsHrb1CuZo5NbkG9oGQDZ7TauN7/MYfqfJu8zunKTqDINk/dGJZFCTbg==
+X-Received: by 2002:ae9:ef82:: with SMTP id d124mr9425516qkg.433.1622541868301;
+        Tue, 01 Jun 2021 03:04:28 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5b:3c3:: with SMTP id t3ls7968986ybp.4.gmail; Tue, 01 Jun
- 2021 00:50:03 -0700 (PDT)
-X-Received: by 2002:a05:6902:1548:: with SMTP id r8mr7037750ybu.103.1622533802960;
-        Tue, 01 Jun 2021 00:50:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1622533802; cv=none;
-        d=google.com; s=arc-20160816;
-        b=UbvbKDUgwO5ixdebT87uf7LmK8G0EiRKNqXSBL0EDuUClMXEUcML+9qxLw08oJ7fBH
-         lqspST1OMfSSAXfyYK5+/920IVkHGDE9+zuQg/6V7QnD6O/k/8C8ZDwbZx5MwJzejEcG
-         2EOVPxP47CrBj2ig63psdvzkuceqVO8fJqsISaHlnMO7FzZu8QfBep9uO0nup1ZUk+LJ
-         S7OkQRd6AWeYgemWqGVyLV1gZn4LutW4Nc4kWKD8JBIzddhX5sTLND9BPm5fVdi3BaCc
-         WbhPEoYSPDHLbhGa/DCqzde6vEIlE/M2EB/UIn70zFo/A1YHoa96vYj68NdSHnUJ6ZXh
-         IIOA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=WgR9+t0/zgrcH+61aP/sc8xjf9BbcJj/AcbTV32pfUc=;
-        b=urMwZO5/wPuIg1qZrmuqghj84T5cjWVZIkNtB+bY1MmybYI1XuC7S6Onbgat2yiLfc
-         fVGj42qYQcC6vU5EOrM5HDBw3GAF+8ixMRBzAOAQE64HEWnsVeFRcC8fE4ZhuZf1KsTm
-         f04cqdC2M8hRZkwhPwpIEOkZH5hth/ies65ZmSVoeN0lmuyV03w0YUl81L9fDlsirV6J
-         jrMSnwbnKtJ3wDzRTubFTlpf5bw/pOql5s6Pp+C8Fd9rwf+dJqdisXSBoOZIurYkPyx0
-         lxG86BKWeeN8SoOvEzSNv3jMWRFAIW6lvoNGrO04kR6dNOHzcd7voIXLcJjD3Un8WOD0
-         nRyA==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id 2si709006ybc.5.2021.06.01.00.50.02
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 01 Jun 2021 00:50:02 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 1517nwWU026969
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 1 Jun 2021 09:49:59 +0200
-Received: from [167.87.91.190] ([167.87.91.190])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 1517gc6x017354;
-	Tue, 1 Jun 2021 09:42:39 +0200
-Subject: Re: Writing configuration files
-To: Prashant Kalikotay <pkali@cimware.in>, jailhouse-dev@googlegroups.com
-References: <989156a0-b5d6-7672-a109-9860c5f94867@cimware.in>
- <ce3b4401-63c8-bd97-64f0-8a14682f70ec@siemens.com>
- <914726a1-7178-321f-42fb-012ec241266a@cimware.in>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <90615fdb-97e3-a700-936b-9e348e859880@siemens.com>
-Date: Tue, 1 Jun 2021 09:42:38 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+Received: by 2002:ae9:ea15:: with SMTP id f21ls10526728qkg.7.gmail; Tue, 01
+ Jun 2021 03:04:27 -0700 (PDT)
+X-Received: by 2002:a05:620a:15e3:: with SMTP id p3mr21069659qkm.115.1622541867737;
+        Tue, 01 Jun 2021 03:04:27 -0700 (PDT)
+Date: Tue, 1 Jun 2021 03:04:27 -0700 (PDT)
+From: along li <v6543210@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <f572fb5e-9d0a-4b8d-abc5-7aab1590aa58n@googlegroups.com>
+In-Reply-To: <a829b501-b59d-d9f6-531b-6ad07667d2a7@siemens.com>
+References: <31493abc-ae9a-42d9-996c-edf630f2456dn@googlegroups.com>
+ <a829b501-b59d-d9f6-531b-6ad07667d2a7@siemens.com>
+Subject: Re: The right configuration to partition pci device into inmate for
+ QEMU
 MIME-Version: 1.0
-In-Reply-To: <914726a1-7178-321f-42fb-012ec241266a@cimware.in>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_1368_1313751605.1622541867132"
+X-Original-Sender: v6543210@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -135,87 +79,85 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 01.06.21 09:32, Prashant Kalikotay wrote:
->=20
-> On 31/05/21 10:16 PM, Jan Kiszka wrote:
->> On 28.05.21 14:10, Prashant Kalikotay wrote:
->>> Dear all,
->>>
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 I am=
- trying to write configuration files for the root and
->>> the non-root cells for an arm64 based system. I have checked the video
->>> https://youtu.be/7fiJbwmhnRw and also the pdf. I could just infer from
->>> these that I have to write the config files using the already existing
->>> ones eg: amd-seatle.c and other files. But what I am not able to
->>> understand is how do I come up with the different values in the config
->>> files as in other files.
->>>
->>> For Example:
->>>
->>> This is small portion of amd-seattle.c how do we come up with the value=
-s
->>> in the mem_regions[] as 20, irqchips[] as 3, hypervisor_memory.
->> These a C-structures - the array sizes derive from the number of
->> elements we fill in below.
->>
->>> phys_start =3D 0x83e0000000, and all othe r values in the config files.
->>> Which document has been used. Any pointer to any of the documents of th=
-e
->>> various config files listed in the configs would be a lot helpful.
->>>
->> Concepts should have been explained in the tutorial you cited, details
->> are unfortunately not specified. Therefore, you need to study existing
->> configs and translate that knowledge to your specific target.
->>
->> If you understand that partitioning concepts and mechanisms in
->> Jailhouse, doing so should be possible (you can always ask for concrete
->> details here). If not, even a detailed specification of the config
->> format would likely not help because you always have to apply that to
->> your concrete case, and the abstraction level of Jailhouse is fairly low=
-.
->>
->> Jan
->>
-> Thanks for your reply Jan,
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 I am trying to write
-> configuration file for a arm64 based system. My doubt is how to go about
-> allocating memory regions for the root and non-root cells. How do I come
-> up with these addresses
->=20
-> phys_start =3D _/0x83e0000000 /_.=20
->=20
+------=_Part_1368_1313751605.1622541867132
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1369_426199910.1622541867132"
 
-Memory regions describe portions of the physical address space, mapped
-into a cell (guest).
+------=_Part_1369_426199910.1622541867132
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-For the root cell, study how the real system looks like (device tree,
-/proc/iomem of a booted Linus). On x86, the latter is what "jailhouse
-config create" does as well. For other archs, we are lacking comparable
-support, but the task is often simpler.
+1.  about  Invalid PCI MMCONFIG write, device 02:00:0, reg:110, size:4"
+I don't know why show this when use original  .c configuration.
+After I added this, it  doesn't  show error.  I don't know why.
+ {
+ .phys_start =3D 0xb0000000,//mmconfig
+ .virt_start =3D 0xb0000000,
+ .size =3D 0x10000000,
+ .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+},
 
-If you want to hand out a certain amount of RAM to a non-root cell, you
-need to
+2.  about qemu version
+The qemu on  ubuntu 18.04 default is 2.11.1 =EF=BC=8C it run failed.    The=
+ network=20
+card e1000e  will go down after ifup  eth1.
+I change to qemu-6.0.0 , it sucess. Maybe qemu-4.2.1 is also ok.=20
 
- - make sure that the root cell does not use that (mem=3D... or device
-   tree reservation)
- - define a memory region in the non-root cell config with the
-   corresponding phys_start and size values
- - decide whether to map it 1:1 (virt_start =3D=3D phys_start) or to make i=
-t
-   appear in the cell at a different address
- - tell the cell where to find it (e.g. via device tree -> jailhouse
-   cell linux ... will do that on startup)
 
-HTH,
-Jan
+=E5=9C=A82021=E5=B9=B46=E6=9C=881=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=8C UTC+8=
+ =E4=B8=8A=E5=8D=881:49:08<j.kiszka...@gmail.com> =E5=86=99=E9=81=93=EF=BC=
+=9A
 
---=20
-Siemens AG, T RDA IOT
-Corporate Competence Center Embedded Linux
+> On 31.05.21 07:00, along li wrote:
+> > When I run  qemu demo. try to partition pci device into inmate.
+> > I failed.
+> >=20
+> > After some lone time trying , I sucess.
+> > The PCI device  e1000e  is partitioned into inmate and ping sucess in
+> > inmate.
+> > what the defference is:
+> > 1. I  add this into root.c(qemu-x86.c) and  qemu-linux-demo.c
+> > {
+> > .phys_start =3D 0xb0000000,//mmconfig
+> > .virt_start =3D 0xb0000000,
+> > .size =3D 0x10000000,
+> > .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+> > },
+>
+> This is wrong, "jailhouse config check" should also complain. You will
+> eventually loose interrupts or get even worse behaviour.
+>
+> > or It will show   "Invalid PCI MMCONFIG write, device 02:00:0, reg:110,
+> > size:4"
+> >=20
+>
+> You need to address the root cause: The guest tries to access a PCI
+> config registers, likely related to PCI capability that has no write
+> permission in your config yet. See also the good-old Jailhouse tutorial.
+>
+> >=20
+> > 2. use qemu-6.0 to run the qemu demo.
+> > When use qemu -2..11.1 to run the demo the network  card cann't run=20
+> sucess.
+> > It  turns off  after I turn  on it use  ifconfig  up  command.
+> >=20
+> > well, may it help someone.  whe to try the qemu demo for pci partition.
+> >=20
+>
+> I'm on 4.2.1 to 6.0 here, those seem to have no issue with changing
+> resource layout. Possibly, we have to lift the lower version boundary by
+> now, though.
+>
+> Can you be more specific in regards to what didn't work? Did you try to
+> compare if /proc/iomem in the root cell is comparable across those qemu
+> versions?
+>
+> Jan
+>
+> --=20
+> Siemens AG, T RDA IOT
+> Corporate Competence Center Embedded Linux
+>
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -223,4 +165,102 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/90615fdb-97e3-a700-936b-9e348e859880%40siemens.com.
+jailhouse-dev/f572fb5e-9d0a-4b8d-abc5-7aab1590aa58n%40googlegroups.com.
+
+------=_Part_1369_426199910.1622541867132
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+1.&nbsp; about&nbsp; Invalid PCI MMCONFIG write, device 02:00:0, reg:110,&n=
+bsp;size:4"<br>I don't know why show this when use original&nbsp; .c config=
+uration.<div>After I added this, it&nbsp; doesn't&nbsp; show error.&nbsp; I=
+ don't know why.</div><div>&nbsp;{<br>&nbsp;.phys_start =3D 0xb0000000,//mm=
+config<br>&nbsp;.virt_start =3D 0xb0000000,<br>&nbsp;.size =3D 0x10000000,<=
+br>&nbsp;.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,<br>},<br></di=
+v><div><br></div><div>2.&nbsp; about qemu version</div><div>The qemu on&nbs=
+p; ubuntu 18.04 default is 2.11.1 =EF=BC=8C it run failed.&nbsp; &nbsp; The=
+ network card e1000e&nbsp; will go down after ifup&nbsp; eth1.</div><div>I =
+change to qemu-6.0.0 , it sucess. Maybe qemu-4.2.1 is also ok.&nbsp;</div><=
+div><br></div><div><br></div><div class=3D"gmail_quote"><div dir=3D"auto" c=
+lass=3D"gmail_attr">=E5=9C=A82021=E5=B9=B46=E6=9C=881=E6=97=A5=E6=98=9F=E6=
+=9C=9F=E4=BA=8C UTC+8 =E4=B8=8A=E5=8D=881:49:08&lt;j.kiszka...@gmail.com> =
+=E5=86=99=E9=81=93=EF=BC=9A<br/></div><blockquote class=3D"gmail_quote" sty=
+le=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); paddi=
+ng-left: 1ex;">On 31.05.21 07:00, along li wrote:
+<br>&gt; When I run=C2=A0 qemu demo. try to partition pci device into inmat=
+e.
+<br>&gt; I failed.
+<br>&gt;=20
+<br>&gt; After some lone time trying , I sucess.
+<br>&gt; The PCI device=C2=A0=C2=A0e1000e=C2=A0 is partitioned into inmate =
+and ping sucess in
+<br>&gt; inmate.
+<br>&gt; what the defference is:
+<br>&gt; 1. I=C2=A0 add this into root.c(qemu-x86.c) and=C2=A0 qemu-linux-d=
+emo.c
+<br>&gt; {
+<br>&gt; .phys_start =3D 0xb0000000,//mmconfig
+<br>&gt; .virt_start =3D 0xb0000000,
+<br>&gt; .size =3D 0x10000000,
+<br>&gt; .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+<br>&gt; },
+<br>
+<br>This is wrong, &quot;jailhouse config check&quot; should also complain.=
+ You will
+<br>eventually loose interrupts or get even worse behaviour.
+<br>
+<br>&gt; or It will show=C2=A0 =C2=A0&quot;Invalid PCI MMCONFIG write, devi=
+ce 02:00:0, reg:110,
+<br>&gt; size:4&quot;
+<br>&gt;=20
+<br>
+<br>You need to address the root cause: The guest tries to access a PCI
+<br>config registers, likely related to PCI capability that has no write
+<br>permission in your config yet. See also the good-old Jailhouse tutorial=
+.
+<br>
+<br>&gt;=20
+<br>&gt; 2. use qemu-6.0 to run the qemu demo.
+<br>&gt; When use qemu -2..11.1 to run the demo the network=C2=A0 card cann=
+&#39;t run sucess.
+<br>&gt; It=C2=A0 turns off=C2=A0 after I=C2=A0turn=C2=A0 on it use=C2=A0 i=
+fconfig=C2=A0 up=C2=A0 command.
+<br>&gt;=20
+<br>&gt; well, may it help someone.=C2=A0 whe to try the qemu demo for pci =
+partition.
+<br>&gt;=20
+<br>
+<br>I&#39;m on 4.2.1 to 6.0 here, those seem to have no issue with changing
+<br>resource layout. Possibly, we have to lift the lower version boundary b=
+y
+<br>now, though.
+<br>
+<br>Can you be more specific in regards to what didn&#39;t work? Did you tr=
+y to
+<br>compare if /proc/iomem in the root cell is comparable across those qemu
+<br>versions?
+<br>
+<br>Jan
+<br>
+<br>--=20
+<br>Siemens AG, T RDA IOT
+<br>Corporate Competence Center Embedded Linux
+<br></blockquote></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/f572fb5e-9d0a-4b8d-abc5-7aab1590aa58n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/f572fb5e-9d0a-4b8d-abc5-7aab1590aa58n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_1369_426199910.1622541867132--
+
+------=_Part_1368_1313751605.1622541867132--
