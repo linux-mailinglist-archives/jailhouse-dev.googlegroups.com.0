@@ -1,133 +1,126 @@
-Return-Path: <jailhouse-dev+bncBCR3L36NTQEBBAXR2SCQMGQEGF4E4TI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDS77PFL3YERBHOF26CQMGQE6T4DQEA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qk1-x73b.google.com (mail-qk1-x73b.google.com [IPv6:2607:f8b0:4864:20::73b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61371396854
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 31 May 2021 21:27:00 +0200 (CEST)
-Received: by mail-qk1-x73b.google.com with SMTP id k125-20020a3788830000b02903a65618d46csf10106364qkd.3
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 31 May 2021 12:27:00 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1622489219; cv=pass;
+Received: from mail-io1-xd3c.google.com (mail-io1-xd3c.google.com [IPv6:2607:f8b0:4864:20::d3c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BCCF396DF5
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  1 Jun 2021 09:32:47 +0200 (CEST)
+Received: by mail-io1-xd3c.google.com with SMTP id w17-20020a6b4a110000b0290492680338ecsf6413156iob.2
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 01 Jun 2021 00:32:47 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1622532766; cv=pass;
         d=google.com; s=arc-20160816;
-        b=WluEeCg3d2UaCwXyM7pV8lxTScOW3+/7wjliaxnGqGg3xD+yS0WZL6WxQSFXRFo2sU
-         mZaRSQyCjWYwFiBt6fDgbPF0gDGM6KCdFDABfTL44nNJu2fgpS5J6r2p/i2b/twsxFtw
-         Xv43xSy3r2UUIzrU9PzOTCSsBNWXfoknc3eFdEhwspNfrsV/M8fMwPNURfawyv+y0xml
-         rs2xDsIZTidwjqZuGvpaVURuKzMhTDJJVoBeJFLtBfGakFe19AYRVuHONWW4Goxw01U/
-         +CEoDjioJSbgfoMXNVgE62zRFcLOgh+bJLtsYZ0o5r7WusnEfzqp7TBqExyBxcgjgNzG
-         GJaQ==
+        b=i6pgC1zUigK31fHPUyGOgwmNE+ysQ2PZNouZL1zGa/LJCHQCjk62nyaySqd1wzvsZI
+         WJ9GlvZ//boMbq9tyvymphmlDBCNpxgIQ6CzQSYUHGb2rAbds2PdAr6rke2daNs73dvn
+         bzODHMkKiqNLRHKcyc+xA1IPgIQHEFUnwpUUVz8eiuxy+OkfX+GFwiXnFQOTUVo+DZ8H
+         x/UdZizaSrh1S3Qs301VZuNdyaOfej5t9czzqC6tzoo8TnTN5zuGRQNHJVePV32DhGkW
+         wSs2xU8SmaJFT4cqSYR6D6GhIUfIcZG9aILauOgeqFSgEpH5D+yJY0NRXd5bHW0CAtMS
+         j5gg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:to:subject:message-id:date:from
-         :reply-to:mime-version:sender:dkim-signature:dkim-signature;
-        bh=YLYdK7e3hN759rmTpQ4knQ82Rkyyb1dJ0E++mzyZ9rQ=;
-        b=y9X7y8AWVZBegNSLLQCKb1efFoFV9I5cCu7QoCG825CQ8pni9Bfh3JkZtcwdijOzIJ
-         m/Dj6XZW7cuVALGC/Z4MeaFoBjgk98ljhSdgLdhFqH0+44lp+daTdkBbiG5lHdEZPTBW
-         MDxDPTbsFfjY1JPxppfZpBqfeVV0TmOQoaVuV1jGrAo1baJ/y3UmwHOBwpsY0/0JDWVz
-         +8QdKVHSg5UZnihH6fwIyWbzSjJ7uzCY3gU8JSrtbqLY6+SNtjKw/KrNYZnGKEGu85DS
-         DAYZLnHLIPQJ9qwM9LEgDC8QHzZ4Ge6w0Ef2HGKAIUWrWILxcswpu79UkTRYDKg0knBH
-         TwVQ==
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:to:subject
+         :sender:dkim-signature;
+        bh=kgfhXPYV245m4tv5HfzYqhRl5TAtMjRYuxVMtdUL1Rw=;
+        b=CccSTqEwqyW/5xSzK/XrOY/6ckKQ905qv75aAGMXEU8VH0DX38BjVaexKrlSSCCVdT
+         wcWd6CG5o+HSTVPn0G2mnXkLhZzw0Vm9EovJv51eAhArKfj6pwQ70hGkFDD1Qg96fuaD
+         HRBw0kWCUNXlLeupltsOgq2l4NtOPHAe3kViV/ZxAbxFYh87Q0Bz/1Mh4vh9PavLd52J
+         DGlMFI1WlN9OeXRQLOFyJOI8s9GVByDHH3yW1bj4pVyRO78H9NABv4aezsIkZMvYRT6l
+         BUZJXrjEays/PEoSoTb7vHXlRuqG3SXkZLHl9baSKZ2/NfvgwYnbnGaTJ2a7HP73pBE8
+         beog==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=pGyaLyva;
-       spf=pass (google.com: domain of nuruelyag@gmail.com designates 2607:f8b0:4864:20::134 as permitted sender) smtp.mailfrom=nuruelyag@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+       dkim=pass header.i=@cimware-in.20150623.gappssmtp.com header.s=20150623 header.b=oyXfsf+m;
+       spf=pass (google.com: domain of pkali@cimware.in designates 2607:f8b0:4864:20::1036 as permitted sender) smtp.mailfrom=pkali@cimware.in
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:mime-version:reply-to:from:date:message-id:subject:to
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=YLYdK7e3hN759rmTpQ4knQ82Rkyyb1dJ0E++mzyZ9rQ=;
-        b=oBi7fUdXOb5VhA8QS11N3mVAbFNkvcPsfjfgmAH6Rhe25j66I4PEAsvs/q+hPFrf9+
-         jzisWFrix4xVUidequhgJfeEuwly0Tq3fhG0hON7qEUNaTCFqCD59VPN9JKDjRBozsSh
-         eqv1q6XZ9ULfmFGRrez/m1y3tO5QtpaS1a8b6vsp/LZqfm3vTMWmALjFksqDef5g1wtv
-         fyln/iRJ+t2TU7huf1wNHJOi6qfoaIWgnnh6VckHhXP510Ptp/oo6Q8MdIK7TT/aT1Cf
-         HuHseAuCwLZ4wLgLneesbq+At7YZRZm+44B/5UTd1KIZtymt3wYSCBlJwlGpn5Y8+btE
-         5ywA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=YLYdK7e3hN759rmTpQ4knQ82Rkyyb1dJ0E++mzyZ9rQ=;
-        b=tcaGJwXzJtaFQunrSkdyp1DleUZSMjYJ9pEihwqFCaluSFcM1aQg7DokMJxMPpNZ3n
-         3r/YGo0gLui44Qxq6mW9HaG4oxfbcVfsiujcLmsbPXogP5LOVVsUUh07luNXWkKVK9Y5
-         5Jwi7+r9Sdn9eKvi8c4eguIlVqYLfk1lvFh2Ifpt9DHKzC76r3/DW7igwbbmCIUq4sqG
-         NTTFDPScWxZ5afZ7eFhrkCi0jwbjBrg/c1q1/jWmHI5btFqT7mrDdT2L7LQJuEcPA1Ua
-         du9RKnqY4VfLhBsYu2b0dJr+UwgnBVU/DSphYpxIju/RfjUYE/Hzn2yWf82DiBbr9F8U
-         vSng==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=kgfhXPYV245m4tv5HfzYqhRl5TAtMjRYuxVMtdUL1Rw=;
+        b=PKaclEStnOv5bHaI3lAtMh6tXOUmEp6LadStEZ7uZDX93OW2cX5ZU55mKn9H07gq7R
+         pQMRxA+Hw4b6QJ2rR7oiYVRjTgqReztm/fsXNd8Y5b7imWmnQNfcUBkaVbf+TcdONXgb
+         bYbBRlsKWp2YvL8uxF6PRodGyoU/rSrrrMXfPyThDlMvQ8Z2lwrOO/uJiY/HUcrOBe7S
+         5WrOa7751tOiPf518YIq48woWYvjc2rCzXjfSHCfBkiZTkz7CoWA4jg276fevcBe+wFP
+         /yoSPk1Tzk8WpvBb4+n9uze4Vr10fBurpsloryCR6P1uGoiNs0BogcHt7aMVbBJjTiaP
+         vFVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:mime-version:reply-to:from:date
-         :message-id:subject:to:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=YLYdK7e3hN759rmTpQ4knQ82Rkyyb1dJ0E++mzyZ9rQ=;
-        b=DQMrQDHSlXMlXZPT0BHJ8B6x+LfVcbo65PJ1qp0SysfRmDeJU5K4gTm9S7NMUKe5LW
-         cD10n69HRwouTtNQYEzoruRtfEGNqJAR4PLWqp2d/z4EKgTgHbmJESdkE8hnq/J13NBo
-         hfCRXaQHeKwP8M3o88IgK7Yr46TFFawjRcColdIlGs9+epyIjVjN7Vh/IYoDUydXBNgi
-         Geu68eGRCVwbsSD7m+ehdbyuqsOuIv5iIFxrYUg7x0gCeJxQZEKJMiTI1OoSki4LURcA
-         UZAM7x8XblIj/TPA3ohOSIycWO442r6ROeHe0C7YBYlxbuHN1JYEWM4s3Xbi4Ln29sVo
-         xNXQ==
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=kgfhXPYV245m4tv5HfzYqhRl5TAtMjRYuxVMtdUL1Rw=;
+        b=FuY0izctlHAbMDjWODhhDbQUbHmVpDhwtPE8AY6Xs3RxiacvJvYC3SHo0o+zW+fosu
+         A14N9mYMq5mkxzvdjqdIe/va+zSc6kNxeBzDEbBUuzoMXXDK5JaGWlVnzySMNu+O14y+
+         khppG/VacErgVerSha499JMr1xSIoJk3P9hs4uoTOC2G/GfLRieIk04XDIdMXsWfO0hH
+         NnzYbymIWQiv9vVHlpF/M0Jm+/LJNNXId2bVXLCk+o4Fcfdu5tLnA60qKa9CFScLOvww
+         CP2ky+UB8NTWs96J9KB0BpglikHvbEXk95kktNpFH+BoVGKQSugEVJrSKdckJA00nzha
+         cTng==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533n+pnAVAjPJCE7MnnQ4gf6aG6E4ijFF6u2ktFCeBtOESwSo3+i
-	zWqO2hUm0gIQomS275paUMo=
-X-Google-Smtp-Source: ABdhPJw+AYqjXuj3fUp5jS+Z+WHygsUx5FB1uH4ucyDuPLcqYBBGamDCDBgnGtA+orSCF2wrugHIcA==
-X-Received: by 2002:a05:620a:158a:: with SMTP id d10mr17632053qkk.268.1622489219101;
-        Mon, 31 May 2021 12:26:59 -0700 (PDT)
+X-Gm-Message-State: AOAM530RsHrmlzIEnq2LyW2SqHdGCUYo78+PSDhP65ok2X8lmjv3YhSq
+	BPoaud0+Ail9h9Osx/wDwco=
+X-Google-Smtp-Source: ABdhPJzK+rEP/utNhOdJZPmjBkN4sG2tWmZqRw5fEKOxim0+EhVsgujoO0wboPAlMn7gfOWUHrJGPg==
+X-Received: by 2002:a05:6e02:1085:: with SMTP id r5mr14059732ilj.276.1622532765961;
+        Tue, 01 Jun 2021 00:32:45 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac8:50d:: with SMTP id u13ls6807885qtg.3.gmail; Mon, 31 May
- 2021 12:26:58 -0700 (PDT)
-X-Received: by 2002:ac8:7a65:: with SMTP id w5mr16156153qtt.370.1622489218668;
-        Mon, 31 May 2021 12:26:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1622489218; cv=none;
+Received: by 2002:a02:cc7b:: with SMTP id j27ls2193975jaq.10.gmail; Tue, 01
+ Jun 2021 00:32:45 -0700 (PDT)
+X-Received: by 2002:a02:c04c:: with SMTP id u12mr24032587jam.129.1622532765253;
+        Tue, 01 Jun 2021 00:32:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1622532765; cv=none;
         d=google.com; s=arc-20160816;
-        b=BVj7DCxwyVPTw0r6d9THFSqaMxlJhOKHC5SEM2hHZeMrVnh5BGeXltUjWqKml6+RAh
-         iSU2iyHr76YJvq3TjqwcBhxSdRYwLMIksK8L1VzeitMnSvCJplTEvAo3fonCtxgABgGW
-         BlzCX0VC72DMOKrgArszNw5aTu4OlAeJLYqkIyNHp5R+oRHZkw4lC+NotcgEjKb4+Es3
-         zq6t4hnWzUoxD54YW8I9cGZxc+SlJDh2WxQjodCXq0S8oZUhRChJH8XwIrDuFbmo32DO
-         Fss1aI7g3/Qi1P/TM5lfwEkS+EAM4jsuvhdVqdj6xgx5Evs352CUGrDNCoAH5a3Zw15d
-         kYeA==
+        b=EA4zpS1csw+fllerERiuGFLL8leKII3SHQuBPqJBbv3oi7LBfS05AbNhPbSvu2K/1D
+         upSjkG1ASK4OF+cs0q23IBhASsygicaH9mv7XustfjyAk/cxGlEsN1/OVkLqxbvuWNva
+         hUIv3/7p+Ef1D8eCvXi/YK717iMcsOQmGRRtqnIm9WAA6Fn1NiSg1k0nt3WxFf4Uanq6
+         T5Sxiky1uvDgEY81f5Tys0ESa3WtRrolNhIcQbYkh8vQmZlcfSOgLtRq39KL2PhTjnlF
+         9Nc6NHJyGeXCQt4W/VCRiLwK49M+DScTKUhORBV8/MTmzmxzDc34kdYwpFHZHiIHq0/t
+         qpkA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=to:subject:message-id:date:from:reply-to:mime-version
-         :dkim-signature;
-        bh=pDFxG7VQh8w/j0MQ9kb5g324X46YhyItfelyMryxj/Y=;
-        b=oEVfhWGQ4/ddfn/7i6EKdLQ5EkBPTYDtSY4vNomzQYITdGgpFqAPv5ZmsHHX32wxnj
-         KDtV+WqAkSljM8nktxEIxIZqg94T17Gd8z01Ll237fuHTD4dcMCCjL/aPSj+97rI47Gu
-         d4T3p30y4dbiTyEJmNu9QfdYZygbQglqtVpJJfBNftfBWuTc9Nuv6AS5ehKR4hO0gosf
-         XbGkPsy8ZgorKixCbIVio5TpLuFCWOTUjLnXnMDMvYjD5llPTd8MDFfRca8ZTbS0n+dn
-         bTPFBWA7NrdKE9EbUpSr6HBdocBJK6v2DNqQrph6RJz+HMBma5VR2n1tYpPqMJEIKv1d
-         xS/g==
+        h=content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:dkim-signature;
+        bh=ymsBE3wfXFw8NoxLGNLTpa3z/O3dCX2Y8terGdFvaSI=;
+        b=btxRmFp3qW39g0r5r8wWij7mZSI8I+8QKEZSuj8/JEx4U6gGZJeF8MiYLvsshuM5pm
+         xjoSwRFjBxvUlpBUbUTTK8a4lS24mOU+cNKktzlKrp7HSfMheJyOZaKVAfZPr/wD62PL
+         6uQycoIZ7BUV2NmQz99ZHVluMCzqYd6yHDtm+sqpd/Qs9tjyXL0R7uDjcaLDMd2JnYds
+         jRYu5DIWG6g6ygnuvhifviMpRiViAXQjq5M0uAMGUD9oS9Iwlx7vC+Q3iT5xTubbwfzN
+         9N1eglNftK9er4JpNOpGqiFJhZ06epuk7ey0rbEKCPwrHosZr7JQPM6DrrA9OGuaFKQm
+         mFSQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=pGyaLyva;
-       spf=pass (google.com: domain of nuruelyag@gmail.com designates 2607:f8b0:4864:20::134 as permitted sender) smtp.mailfrom=nuruelyag@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-il1-x134.google.com (mail-il1-x134.google.com. [2607:f8b0:4864:20::134])
-        by gmr-mx.google.com with ESMTPS id d207si1287528qkg.5.2021.05.31.12.26.58
+       dkim=pass header.i=@cimware-in.20150623.gappssmtp.com header.s=20150623 header.b=oyXfsf+m;
+       spf=pass (google.com: domain of pkali@cimware.in designates 2607:f8b0:4864:20::1036 as permitted sender) smtp.mailfrom=pkali@cimware.in
+Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com. [2607:f8b0:4864:20::1036])
+        by gmr-mx.google.com with ESMTPS id f13si1506743iog.3.2021.06.01.00.32.44
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 May 2021 12:26:58 -0700 (PDT)
-Received-SPF: pass (google.com: domain of nuruelyag@gmail.com designates 2607:f8b0:4864:20::134 as permitted sender) client-ip=2607:f8b0:4864:20::134;
-Received: by mail-il1-x134.google.com with SMTP id x18so5278627ila.10
-        for <jailhouse-dev@googlegroups.com>; Mon, 31 May 2021 12:26:58 -0700 (PDT)
-X-Received: by 2002:a05:6e02:92a:: with SMTP id o10mr18403698ilt.270.1622489218014;
- Mon, 31 May 2021 12:26:58 -0700 (PDT)
+        Tue, 01 Jun 2021 00:32:44 -0700 (PDT)
+Received-SPF: pass (google.com: domain of pkali@cimware.in designates 2607:f8b0:4864:20::1036 as permitted sender) client-ip=2607:f8b0:4864:20::1036;
+Received: by mail-pj1-x1036.google.com with SMTP id k5so7867321pjj.1
+        for <jailhouse-dev@googlegroups.com>; Tue, 01 Jun 2021 00:32:44 -0700 (PDT)
+X-Received: by 2002:a17:90a:ae11:: with SMTP id t17mr3509573pjq.85.1622532763845;
+        Tue, 01 Jun 2021 00:32:43 -0700 (PDT)
+Received: from Administrators-MacBook-Pro.local ([27.7.95.25])
+        by smtp.gmail.com with ESMTPSA id y1sm12707072pfn.13.2021.06.01.00.32.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Jun 2021 00:32:43 -0700 (PDT)
+Subject: Re: Writing configuration files
+To: Jan Kiszka <jan.kiszka@siemens.com>, jailhouse-dev@googlegroups.com
+References: <989156a0-b5d6-7672-a109-9860c5f94867@cimware.in>
+ <ce3b4401-63c8-bd97-64f0-8a14682f70ec@siemens.com>
+From: Prashant Kalikotay <pkali@cimware.in>
+Message-ID: <914726a1-7178-321f-42fb-012ec241266a@cimware.in>
+Date: Tue, 1 Jun 2021 13:02:41 +0530
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:78.0)
+ Gecko/20100101 Thunderbird/78.10.2
 MIME-Version: 1.0
-Received: by 2002:a6b:7802:0:0:0:0:0 with HTTP; Mon, 31 May 2021 12:26:56
- -0700 (PDT)
-Reply-To: kath.rafael2020@yahoo.com
-From: Katherine Rafael <nuruelyag@gmail.com>
-Date: Mon, 31 May 2021 19:26:56 +0000
-Message-ID: <CABFMN1FJb5K4Vh+r2JKznSJOMENT39fkhWK2NJd5NK7ZVpA-5A@mail.gmail.com>
-Subject: Yang paling kusayangi,
-To: undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-X-Original-Sender: nuruelyag@gmail.com
+In-Reply-To: <ce3b4401-63c8-bd97-64f0-8a14682f70ec@siemens.com>
+Content-Type: multipart/alternative;
+ boundary="------------C8C3F7AB6A1AA1659BA78974"
+Content-Language: en-US
+X-Original-Sender: pkali@cimware.in
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20161025 header.b=pGyaLyva;       spf=pass
- (google.com: domain of nuruelyag@gmail.com designates 2607:f8b0:4864:20::134
- as permitted sender) smtp.mailfrom=nuruelyag@gmail.com;       dmarc=pass
- (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+ header.i=@cimware-in.20150623.gappssmtp.com header.s=20150623
+ header.b=oyXfsf+m;       spf=pass (google.com: domain of pkali@cimware.in
+ designates 2607:f8b0:4864:20::1036 as permitted sender) smtp.mailfrom=pkali@cimware.in
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -140,26 +133,167 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
--- 
-My dearest in Mind,
-
-My name is Mrs. Katherine Rafael, a business woman an Ivorian Citizen
-and born in 1961. I have a mission for you worth $ 2 500, 000, 00 (Two
-Million Five Hundred Thousand United State Dollars) which I intend
-using for CHARITY.
-
-I am a breast cancer woman and have told by doctor that I will die in
-no distance future, now and want to donate this money for charity
-through you by transferring this money to your account, to enable
-people in your area benefit from it.
-
-Could you be the one I will use in this noble transaction before I
-will go for my surgery?
+This is a multi-part message in MIME format.
+--------------C8C3F7AB6A1AA1659BA78974
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
 
-Mrs. Katherine.
+On 31/05/21 10:16 PM, Jan Kiszka wrote:
+> On 28.05.21 14:10, Prashant Kalikotay wrote:
+>> Dear all,
+>>
+>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 I am=
+ trying to write configuration files for the root and
+>> the non-root cells for an arm64 based system. I have checked the video
+>> https://youtu.be/7fiJbwmhnRw and also the pdf. I could just infer from
+>> these that I have to write the config files using the already existing
+>> ones eg: amd-seatle.c and other files. But what I am not able to
+>> understand is how do I come up with the different values in the config
+>> files as in other files.
+>>
+>> For Example:
+>>
+>> This is small portion of amd-seattle.c how do we come up with the values
+>> in the mem_regions[] as 20, irqchips[] as 3, hypervisor_memory.
+> These a C-structures - the array sizes derive from the number of
+> elements we fill in below.
+>
+>> phys_start =3D 0x83e0000000, and all othe r values in the config files.
+>> Which document has been used. Any pointer to any of the documents of the
+>> various config files listed in the configs would be a lot helpful.
+>>
+> Concepts should have been explained in the tutorial you cited, details
+> are unfortunately not specified. Therefore, you need to study existing
+> configs and translate that knowledge to your specific target.
+>
+> If you understand that partitioning concepts and mechanisms in
+> Jailhouse, doing so should be possible (you can always ask for concrete
+> details here). If not, even a detailed specification of the config
+> format would likely not help because you always have to apply that to
+> your concrete case, and the abstraction level of Jailhouse is fairly low.
+>
+> Jan
+>
+Thanks for your reply Jan,
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CABFMN1FJb5K4Vh%2Br2JKznSJOMENT39fkhWK2NJd5NK7ZVpA-5A%40mail.gmail.com.
+ =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 I am trying to write=20
+configuration file for a arm64 based system. My doubt is how to go about=20
+allocating memory regions for the root and non-root cells. How do I come=20
+up with these addresses
+
+phys_start =3D_/0x83e0000000 /_.
+
+Regards,
+Prashant K
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/914726a1-7178-321f-42fb-012ec241266a%40cimware.in.
+
+--------------C8C3F7AB6A1AA1659BA78974
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+  <head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8=
+">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class=3D"moz-cite-prefix">On 31/05/21 10:16 PM, Jan Kiszka wrote:<=
+br>
+    </div>
+    <blockquote type=3D"cite"
+      cite=3D"mid:ce3b4401-63c8-bd97-64f0-8a14682f70ec@siemens.com">
+      <pre class=3D"moz-quote-pre" wrap=3D"">On 28.05.21 14:10, Prashant Ka=
+likotay wrote:
+</pre>
+      <blockquote type=3D"cite">
+        <pre class=3D"moz-quote-pre" wrap=3D"">Dear all,
+
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 I am try=
+ing to write configuration files for the root and
+the non-root cells for an arm64 based system. I have checked the video
+<a class=3D"moz-txt-link-freetext" href=3D"https://youtu.be/7fiJbwmhnRw">ht=
+tps://youtu.be/7fiJbwmhnRw</a> and also the pdf. I could just infer from
+these that I have to write the config files using the already existing
+ones eg: amd-seatle.c and other files. But what I am not able to
+understand is how do I come up with the different values in the config
+files as in other files.
+
+For Example:
+
+This is small portion of amd-seattle.c how do we come up with the values
+in the mem_regions[] as 20, irqchips[] as 3, hypervisor_memory.
+</pre>
+      </blockquote>
+      <pre class=3D"moz-quote-pre" wrap=3D"">
+These a C-structures - the array sizes derive from the number of
+elements we fill in below.
+
+</pre>
+      <blockquote type=3D"cite">
+        <pre class=3D"moz-quote-pre" wrap=3D"">phys_start =3D 0x83e0000000,=
+ and all othe r values in the config files.
+Which document has been used. Any pointer to any of the documents of the
+various config files listed in the configs would be a lot helpful.
+
+</pre>
+      </blockquote>
+      <pre class=3D"moz-quote-pre" wrap=3D"">
+Concepts should have been explained in the tutorial you cited, details
+are unfortunately not specified. Therefore, you need to study existing
+configs and translate that knowledge to your specific target.
+
+If you understand that partitioning concepts and mechanisms in
+Jailhouse, doing so should be possible (you can always ask for concrete
+details here). If not, even a detailed specification of the config
+format would likely not help because you always have to apply that to
+your concrete case, and the abstraction level of Jailhouse is fairly low.
+
+Jan
+
+</pre>
+    </blockquote>
+    <p>Thanks for your reply Jan,</p>
+    <p>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 I am trying to write
+      configuration file for a arm64 based system. My doubt is how to go
+      about allocating memory regions for the root and non-root cells.
+      How do I come up with these addresses <br>
+    </p>
+    <pre class=3D"moz-quote-pre" wrap=3D"">phys_start =3D <u><i>0x83e000000=
+0 </i></u>.=20
+
+Regards,=20
+Prashant K
+</pre>
+  </body>
+</html>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/914726a1-7178-321f-42fb-012ec241266a%40cimware.in?=
+utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/msgid/j=
+ailhouse-dev/914726a1-7178-321f-42fb-012ec241266a%40cimware.in</a>.<br />
+
+--------------C8C3F7AB6A1AA1659BA78974--
