@@ -1,134 +1,70 @@
-Return-Path: <jailhouse-dev+bncBDOKTXXSZADRBL4C72CQMGQE7L5O3II@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDCYRLU33MNBBVFKQGDAMGQEOA7VR5I@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pg1-x53e.google.com (mail-pg1-x53e.google.com [IPv6:2607:f8b0:4864:20::53e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1231639F95A
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  8 Jun 2021 16:39:46 +0200 (CEST)
-Received: by mail-pg1-x53e.google.com with SMTP id k5-20020a63ba050000b029021ab84617c0sf9335323pgf.14
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 08 Jun 2021 07:39:45 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1623163184; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=U5s7dA4SR5iyFoLYoCNIrIizrJ150ZH80vUJMGGjNMfBDphvmIvNgfOcFGw9jdp1oy
-         dBYxt8Kfe4xzL3DMv54jJid8VXXq7n2NTi3d7ZshSRLoz1M18D2e1/L+QDR5NExuMo9T
-         t9wCxby5YOyhNJKVVmfhEvopOW2AFiZ9mJufG/ss/V2zz6j+2U+2A3ARLRtxOJ4CtH6e
-         aWp5ytm6wdQoEhCy1XbTtRUAeN3dm2LI1Djv5LWKsB4iDP0Anfw27yCE77ekBgeWhyOw
-         pKOJDDnlakadKUmWSr+/8CWC5vtJUOki+sGXNc57XtHmQMzYeDc+JCFrGRTeOjG6gmC3
-         ZBYg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:message-id:date:subject:cc:to:from
-         :mime-version:sender:dkim-signature:dkim-signature;
-        bh=UF1dkQ4/Kty1tq8TAukTMFrvgYT+c2JbYWfyewb0b+I=;
-        b=gopQ1MTO/t2XZUFwSvYj8T7L/GfTVnd4s+ThNJF7elJsEMahyQQzyPOlT2DXEO4+6k
-         F0BTzD1YOxECRe3+w5uHMypyTlagMVJKnNu35+WT01pDBE7Zgc0TRCUVvqhbf4QF4+X5
-         dmXI0tZ9JkkK/nWj4HM7YxnShzhVGGtCDTMXbyMD6J57nFybwhM6E6uRomCF5XJbRbRz
-         Z+dy/MAxQXql4cnHGjOveatDO2Dipl1BO5XntG2Ay29mCl/HIUIbSxD7aQh68G8AxAOp
-         gqwbg5zma+KNYYndWsya9X2Qpm59kcLt7lJ6WzcckRytvKQg9UApzkRfoPaykedQar6t
-         MvMA==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=ACuj0oJ5;
-       spf=pass (google.com: domain of gengdongjiu1@gmail.com designates 2607:f8b0:4864:20::1043 as permitted sender) smtp.mailfrom=gengdongjiu1@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-qv1-xf3a.google.com (mail-qv1-xf3a.google.com [IPv6:2607:f8b0:4864:20::f3a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 175E23A0BED
+	for <lists+jailhouse-dev@lfdr.de>; Wed,  9 Jun 2021 07:44:54 +0200 (CEST)
+Received: by mail-qv1-xf3a.google.com with SMTP id h10-20020a0cab0a0000b029020282c64ecfsf17304423qvb.19
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 08 Jun 2021 22:44:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:mime-version:from:to:cc:subject:date:message-id
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=UF1dkQ4/Kty1tq8TAukTMFrvgYT+c2JbYWfyewb0b+I=;
-        b=LDwzPVTq9+xKlWf8tWgYCJxoaWzGqpvdKGu5e5hGIkIglSVtslmBCw4XOduartPx9N
-         e4fQVdz2BFa7BfoWdg3cdrcwYFZZVvsBxG2aAJUsLsJfGAYxKHfcZgL76VexCjs2wjgV
-         8APA+w4C0M56JFYHZT+lmoIKlGtDn5ARqpL70rI2tjA1wbx/NeEBq2RsJ/mD8Xha2IFn
-         fQjMxV8DagUnxDdXHcnLZXwCn+pkABmClBftoOLFnNlHV5e4292UkrKc5+dUk5mSdKHF
-         bDI+INAen7gUxDqJiM5Xr3EMRte15GLwRsIciEi9nddm55WP6WzY72CSZpqy1QiWNVRN
-         PS0w==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=5FRA3GzIuaEvK2wAMyZppDU4Bh9eh9OcxXWiSOve8Ro=;
+        b=HpYKIHnC5dkSg0oeYGy6Kvg/f1UbPF8gYwZ3mk5o3SgQTfMnWhXhBUI8oFGEGk4JLi
+         3iacc3jyYoDX40JCm048LxAVYGXSKDjYset0IMYsKIw19BpCxPdbeZp5eng2mrGUMp9V
+         mboMWz8o6650AiNFMYHLHgTSV1FN4SBlLdwYA+J/R+pZkXdULf7+dwANFSl442H81ZcI
+         6C85Zhafg9pYt4kYwxlIXp1Ns0OEI0ASPNj0ti4yuJbyXP6nA6Fmv3chOjOvdXL59Ckr
+         0xG1tyxkr+l3I1LGwG2gWTRrvO06xgu/XFWq3/hjeViQi4ohSmB+knOuBoqvNSICJiFc
+         GvPA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:from:to:cc:subject:date:message-id:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=UF1dkQ4/Kty1tq8TAukTMFrvgYT+c2JbYWfyewb0b+I=;
-        b=nwaZYeMf1LZ4X0iBH89J7/azak+SfNmrooTPQNJYhxqquRod5ibdiOWaQQSvAh9vRi
-         dTUHIvvtsysnYsGxJSJKLYNl4ipTDxDl/STrKv/wynbN0NeTx3lYyXeozf1cHS8So2Nr
-         8lHMERIz8H4ZqBzs38SFdJdXqU0dxumswZSzYNcBt3Uoh72U+KpM2juoZ4s1hEUSxZ9X
-         9kcfKqhsaRx1jvcuUGPT+we1A50tCT43EiSFzYVNrndKABA7zd787r3rfLNa2RWy5op/
-         KzuOQliwXzjmS8ysYyVQPFqyCk0qfEC8FGaXABsyMMWqdUWqHdahyJN6fyzvB+OXCSap
-         as4g==
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=5FRA3GzIuaEvK2wAMyZppDU4Bh9eh9OcxXWiSOve8Ro=;
+        b=f/Kuz7Wnw4gjoJK1I6LohnXrZOsUjrRCyG9U625GfIFvzO4NNK3jCQE21Vg9Hcvns0
+         0rRTvexs3uw/5LBuXGLBunG8fxG5JyfayxPrik6ar+45erbeX4m4amSrBXpEkZODmqZC
+         ItfcvhBrJgSDrvy7obOPWEU84cySowLr9g/EFL0t4v2ofXwXW8ZeGnYcGLMYh06nywjM
+         v3I7Y84bqSNdeCpuEQPGpTVe8BPytrUhrljxd1gO/24wrfanSutzbrggy0RjvQG9UyBX
+         DmxEr8uuelh8xCjuforQX5hP5pkn7CnJok0PguIvRMH0e2cTaCqm6mroPp/ZszzKYg7Z
+         U7Uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:mime-version:from:to:cc:subject:date
-         :message-id:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=UF1dkQ4/Kty1tq8TAukTMFrvgYT+c2JbYWfyewb0b+I=;
-        b=k5zOCMYQdssh97qoJTvlXTzBtDMt3xuaO1S5v6zRfrsBdKR+IEcj/nou1MsWWft6GV
-         sPuKWOfGo7cDAb5A+Sm44KDorJafYj0FM+42p+FrDKfM0Qhb2Tnl6ZCz4PkwRh7hON67
-         ukFdSdFf2i17w00mrT1+yXQEv+Gkf7RGVt8iJzZfMXUQ2YmZjMBvpk//FQmamPKUdtZo
-         1Ne71yAqEYONEEcVonWs+AFsj8rAAT/5D1hQ3oXOXMVw0q++YvSJ/E+JKXjUOtrXJRpi
-         WMNpmVuery1FBx6ybhdeaJ9cGW+5OrIwbgCnCbRLy3qA69x1Bo5/J9npCNyZ+dNEFvp5
-         9uxw==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=5FRA3GzIuaEvK2wAMyZppDU4Bh9eh9OcxXWiSOve8Ro=;
+        b=FY0rkk7lptkPmObmGz7hUVrKmIElKe9vaIsCv/RVtmx5E+MwmDQI9UWjbDR4Q8unHP
+         W8wIYv310QjIlGDgu/cjnsTsSye5FluWjga1FFocfYKap0SjbhPey3i7FrdrdPlUFmq4
+         JU30XNXDs6PrhVnwO6bRzB0k8xuigfJyQ7GLpIRzRDcfrn5SLO95zAstZGGxagdmhAny
+         mGLwiYT5d2uuqEwQFtiWcr3BBcdjKU2LAhbUmDVeB802JkMqmI0cwqH0KKiZJ+m4mj91
+         mpJseHSTylWAt4DnqnViLz6wDdVDSTOfo+LaQYJoelbspUK/aR+3RmtMzm1VErUdpD06
+         vwCw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532MOm/i2ndEasMNnHNdl4pQoz5/RmPljR3uWfteUD9rOGATWSMU
-	nalJ3DBvk4nVU9LFI4f1Qh0=
-X-Google-Smtp-Source: ABdhPJyi5WxzL88Gh9auCE46lqWgqHSDEwZaIX54521D5mkyLDvKXgbQjXAOdPrBAZvYkCZrGcAmWg==
-X-Received: by 2002:a63:ef4c:: with SMTP id c12mr23213733pgk.441.1623163184038;
-        Tue, 08 Jun 2021 07:39:44 -0700 (PDT)
-MIME-Version: 1.0
+X-Gm-Message-State: AOAM532EF4OUkZm0tXK0atWIWL/AblmxWHBIlRR4wtG6OWtJXn9DcJbI
+	CZPAd3cOITNRKQlxt0Xii7o=
+X-Google-Smtp-Source: ABdhPJwgZmcDfrGgIcTOF0zg8Zseu99ECcxecUJhuUFlSLZX11V9l5LSCbMXYAvzfqlT994e/Y/uwQ==
+X-Received: by 2002:a37:485:: with SMTP id 127mr24774503qke.278.1623217492880;
+        Tue, 08 Jun 2021 22:44:52 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a65:51cc:: with SMTP id i12ls9191204pgq.4.gmail; Tue, 08 Jun
- 2021 07:39:43 -0700 (PDT)
-X-Received: by 2002:aa7:8f3a:0:b029:2e9:c63a:312e with SMTP id y26-20020aa78f3a0000b02902e9c63a312emr223783pfr.73.1623163183398;
-        Tue, 08 Jun 2021 07:39:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1623163183; cv=none;
-        d=google.com; s=arc-20160816;
-        b=WeyOwZKcktOhJLEOP/uVE4JVz9J85199g4cgbtsq5UZ2ULjNLnbZEtzVRE1Si5HY0M
-         fcXssLiJTOFaStK785F7LXHwuEWMnr3woLnI/dgYgZB4Nd1md+tHrRQEAFEKKNNUDeqP
-         0IEcMmdMtOEp52XYZoobO578HPHT5rMSYD32a9W3cN32ST3KbGOOb14Gf/JNBWRidrBZ
-         8aKRwgCMIjrO2sVZ8F83MxQ5IyxfTxKtx3M7JNpLZhk7Z6LTCvquqrfP0pmpmHNJcdjP
-         LmhDZTcCgVsR8nDABrrU+V+mO/A1g1tydjOCY7vgva4AaXt0+kiKxJza5HR+gxbOT/CS
-         xJhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=message-id:date:subject:cc:to:from:dkim-signature;
-        bh=22yHdKYAzi2xF2sdXReKpv3OWopT15/+HxZ/gXoGhv4=;
-        b=Sf6S8OYCeFL3XV6r0XlTt9dPutq2r3E/IRmSvgTHf7fDhMyxauBgksSZq9IxbBfmKr
-         kqSuozu2+BueZ4P/gWNHYkN1rEdiJTs2K5ttsiwXuI3wbc0X4M7TyZ9h8MmFbH9/P1FC
-         YptiuqGIpHhldKeKx6WdEpC8AcxMFxOpkTtOUQHVZ4PwcSXpQC4EDBQZHToXMA+SciYQ
-         y1GadBPOet6YKKms+tp943oCPVlJfV3BhZGYRBuSz4fQWt5XiBKQBZ6IFB2p0Oklxz6Y
-         j/AJ/t0xh3Gi2l64BbszioExhmQuvgtw8GnwB02UIZf673bjAC/L2DNcmkbc+/K1UKlm
-         5wDA==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=ACuj0oJ5;
-       spf=pass (google.com: domain of gengdongjiu1@gmail.com designates 2607:f8b0:4864:20::1043 as permitted sender) smtp.mailfrom=gengdongjiu1@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com. [2607:f8b0:4864:20::1043])
-        by gmr-mx.google.com with ESMTPS id t6si117359pgc.4.2021.06.08.07.39.43
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Jun 2021 07:39:43 -0700 (PDT)
-Received-SPF: pass (google.com: domain of gengdongjiu1@gmail.com designates 2607:f8b0:4864:20::1043 as permitted sender) client-ip=2607:f8b0:4864:20::1043;
-Received: by mail-pj1-x1043.google.com with SMTP id mp5-20020a17090b1905b029016dd057935fso6028590pjb.5
-        for <jailhouse-dev@googlegroups.com>; Tue, 08 Jun 2021 07:39:43 -0700 (PDT)
-X-Received: by 2002:a17:902:728e:b029:101:c3b7:a47f with SMTP id d14-20020a170902728eb0290101c3b7a47fmr331493pll.21.1623163182844;
-        Tue, 08 Jun 2021 07:39:42 -0700 (PDT)
-Received: from localhost.localdomain ([47.89.83.12])
-        by smtp.gmail.com with ESMTPSA id u13sm14544053pjr.29.2021.06.08.07.39.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Jun 2021 07:39:42 -0700 (PDT)
-From: Dongjiu Geng <gengdongjiu1@gmail.com>
-To: jailhouse-dev@googlegroups.com
-Cc: gengdongjiu.gdj@alibaba-inc.com,
-	Dongjiu Geng <gengdongjiu1@gmail.com>
-Subject: [PATCH] paging: correct a comment to bitmap of used pages
-Date: Tue,  8 Jun 2021 14:39:37 +0000
-Message-Id: <20210608143937.17263-1-gengdongjiu1@gmail.com>
-X-Mailer: git-send-email 2.17.1
-X-Original-Sender: gengdongjiu1@gmail.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20161025 header.b=ACuj0oJ5;       spf=pass
- (google.com: domain of gengdongjiu1@gmail.com designates 2607:f8b0:4864:20::1043
- as permitted sender) smtp.mailfrom=gengdongjiu1@gmail.com;       dmarc=pass
- (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Content-Type: text/plain; charset="UTF-8"
+Received: by 2002:ad4:438f:: with SMTP id s15ls430206qvr.3.gmail; Tue, 08 Jun
+ 2021 22:44:52 -0700 (PDT)
+X-Received: by 2002:ad4:5fc7:: with SMTP id jq7mr4126216qvb.41.1623217492451;
+        Tue, 08 Jun 2021 22:44:52 -0700 (PDT)
+Date: Tue, 8 Jun 2021 22:44:51 -0700 (PDT)
+From: Simon Sun <simonsungm@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <0cff4aad-e317-4c0f-a3fb-d24ac122cf4fn@googlegroups.com>
+In-Reply-To: <10331404-4fab-410c-ba3f-77f4ed6ccbebn@googlegroups.com>
+References: <10331404-4fab-410c-ba3f-77f4ed6ccbebn@googlegroups.com>
+Subject: Re: install and run jailhouse on rpi4 board
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_996_615062920.1623217491928"
+X-Original-Sender: simonsungm@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -141,31 +77,98 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-The used_bitmap member in struct page_pool is a base address,
-so correct the comment to make it is easily understood.
+------=_Part_996_615062920.1623217491928
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_997_2060325480.1623217491928"
 
-Signed-off-by: Dongjiu Geng <gengdongjiu1@gmail.com>
----
- hypervisor/include/jailhouse/paging.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+------=_Part_997_2060325480.1623217491928
+Content-Type: text/plain; charset="UTF-8"
 
-diff --git a/hypervisor/include/jailhouse/paging.h b/hypervisor/include/jailhouse/paging.h
-index 8a6ff374..d592abad 100644
---- a/hypervisor/include/jailhouse/paging.h
-+++ b/hypervisor/include/jailhouse/paging.h
-@@ -64,7 +64,7 @@ struct page_pool {
- 	unsigned long pages;
- 	/** Number of currently used pages. */
- 	unsigned long used_pages;
--	/** Bitmap of used pages. */
-+	/** Base address for bitmap of used pages. */
- 	unsigned long *used_bitmap;
- 	/** Set @c PAGE_SCRUB_ON_FREE to zero-out pages on release. */
- 	unsigned long flags;
--- 
-2.17.1
+
+hello, I have an document for rpi4b board to install jailhouse with its own 
+kernel, where I can change some code of jailhouse .  I try a lot and 
+finally install it. But I only use deconfig of rpi4.cell for no auto tools 
+to build root cell config . What's more, unfortunately the document is in 
+chinese .  If you need it , mail me.
+On Friday, June 4, 2021 at 6:24:49 PM UTC+8 nmiliak...@gmail.com wrote:
+
+> Dear all, 
+>
+> I am student in ECE NTUA and I am studying Jailhouse for my diploma 
+> thesis. So far I managed to install and run jailhouse in virtual 
+> environment (QEMU) in x86 and use ready-to-use jailhouse images for virt 
+> environment for both x86 and arm architecture. Now I am assigned to install 
+> it on rpi4 board. 
+>
+> I know there is this repo https://github.com/siemens/jailhouse-images 
+> with ready to use image for rpi4, but I would like to install it manually 
+> to explore better all the options provided, write some code on my own and 
+> test it. 
+>
+> I have already explored the internet and this google group for further 
+> information, and apart from some general guidance, I didnt find anything 
+> specific/(or maybe I coudn't understand some key points). 
+>
+>
+> I would really appreciate it if someone could give me some advice/guidance 
+> on this subject.
+>
+> Thank you all in advance. 
+>
+> Nikoleta Iliakopoulou
+>
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20210608143937.17263-1-gengdongjiu1%40gmail.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/0cff4aad-e317-4c0f-a3fb-d24ac122cf4fn%40googlegroups.com.
+
+------=_Part_997_2060325480.1623217491928
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<br>hello, I have an document for rpi4b board to install jailhouse with its=
+ own kernel, where I can change some code of jailhouse .&nbsp; I try a lot =
+and finally install it. But I only use deconfig of rpi4.cell for no auto to=
+ols to build root cell config . What's more, unfortunately the document is =
+in chinese .&nbsp; If you need it , mail me.<div class=3D"gmail_quote"><div=
+ dir=3D"auto" class=3D"gmail_attr">On Friday, June 4, 2021 at 6:24:49 PM UT=
+C+8 nmiliak...@gmail.com wrote:<br/></div><blockquote class=3D"gmail_quote"=
+ style=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); p=
+adding-left: 1ex;">Dear all,=C2=A0<div><br></div><div>I am student in ECE N=
+TUA and I am studying Jailhouse for my diploma thesis. So far I managed to =
+install and run jailhouse in virtual environment (QEMU) in x86 and use read=
+y-to-use jailhouse images for virt environment for both x86 and arm archite=
+cture. Now I am assigned to install it on rpi4 board.=C2=A0</div><div><br><=
+/div><div>I know there is this repo=C2=A0<a href=3D"https://github.com/siem=
+ens/jailhouse-images" target=3D"_blank" rel=3D"nofollow" data-saferedirectu=
+rl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://github.com/siemens=
+/jailhouse-images&amp;source=3Dgmail&amp;ust=3D1623303495828000&amp;usg=3DA=
+FQjCNEYVSYo7NbU0VS9mqoAt2pOKVpxRg">https://github.com/siemens/jailhouse-ima=
+ges</a> with ready to use image for rpi4, but I would like to install it ma=
+nually to explore better all the options provided, write some code on my ow=
+n and test it.=C2=A0</div><div><br></div><div>I have already explored the i=
+nternet and this google group for further information, and apart from some =
+general guidance, I didnt find anything specific/(or maybe I coudn&#39;t un=
+derstand some key points).=C2=A0</div><div><br></div><div><br></div><div>I =
+would really appreciate it if someone could give me some advice/guidance on=
+ this subject.</div><div><br></div><div>Thank you all in advance.=C2=A0</di=
+v><div><br></div><div>Nikoleta Iliakopoulou</div></blockquote></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/0cff4aad-e317-4c0f-a3fb-d24ac122cf4fn%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/0cff4aad-e317-4c0f-a3fb-d24ac122cf4fn%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_997_2060325480.1623217491928--
+
+------=_Part_996_615062920.1623217491928--
