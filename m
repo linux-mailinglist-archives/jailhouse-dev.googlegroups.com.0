@@ -1,113 +1,111 @@
-Return-Path: <jailhouse-dev+bncBDGILGE54ELBBLMCRGDAMGQEPSZQLWQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDGILGE54ELBBLUCRGDAMGQE3UE632I@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x437.google.com (mail-wr1-x437.google.com [IPv6:2a00:1450:4864:20::437])
-	by mail.lfdr.de (Postfix) with ESMTPS id 697273A3127
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 10 Jun 2021 18:43:25 +0200 (CEST)
-Received: by mail-wr1-x437.google.com with SMTP id k11-20020adfe3cb0000b0290115c29d165csf1227103wrm.14
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 10 Jun 2021 09:43:25 -0700 (PDT)
-ARC-Seal: i=3; a=rsa-sha256; t=1623343405; cv=pass;
+Received: from mail-lj1-x23a.google.com (mail-lj1-x23a.google.com [IPv6:2a00:1450:4864:20::23a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4233A3A3128
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 10 Jun 2021 18:43:27 +0200 (CEST)
+Received: by mail-lj1-x23a.google.com with SMTP id o5-20020a05651c0505b02900e5a95dd51esf1355892ljp.10
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 10 Jun 2021 09:43:27 -0700 (PDT)
+ARC-Seal: i=3; a=rsa-sha256; t=1623343406; cv=pass;
         d=google.com; s=arc-20160816;
-        b=tWNTOHW5t1JsH24tEMrwxBBBdhbh65qUpWItFXIWV2rExWTPcwuz99osI/4SEHq3EA
-         zTwTwTTlu1lYadMrbEN+kYfjVmz8QTmPFMc+xSuoQTnJXiyVXse1H2c6juNXW4a54LvK
-         6bnuKbf+zJ9sNO60UPIggaiOyo3qkq5nnI7ZHldY2kUKP4XiQ4UYARlGsgvsfjVmiiaX
-         ZtRedR1FDV+CfOVoPi63s4t1mRUUI6Zksji6QJY4EhERZfPM7BWahCIAlIvNARpbJRLQ
-         rbrwk4WAYjzCmcOBcCViz8ersj8ap1Kt3n6tG43XmrwDEX83FAHPn4ZwB7/eGRhGDzW8
-         BXTg==
+        b=PmsSU38D/aqIWl7XspyYcM2BPuIMPMmSdhM4LHvK3szL35UjfD3jJdP3bQjJ4eFiiu
+         6I6X6bE/eD/gG8ks90T/BbF1HmZbBpnbwkiE3Z7l1gJUGlcC4skcAkavMl9D6QFuYn7U
+         L2p4PnX4oNcnwJv/ve3g/Clk6Il7hADD+ZlEISq4GOdVeRd9MiMJ1OkRNjJ81XFo+Vr9
+         ioSO8v3uxp8jQXaVZqOOBKLrJ9DhedFo4bi1sAQxmocvh0IU/dPEE6u7gKvQw+h2oU5a
+         FJFd+R31FD/oK/Q+4fT1C9hLVWQ0uK7B1zgQONyfuZEajLt8CLGdLvmF4KA5+vFay14F
+         eYwA==
 ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:to:from:sender:dkim-signature;
-        bh=HZd7UolyFygdzzt3ZHiOZAuiKO+TYeQU1WRh4PdG2OE=;
-        b=Sc2Vdq2sdGboTrAvCy5aFiQ4lA2dFzpFNZQ5H6dCOVOc2OElTlTGuKjK3ATJewq3Uq
-         vfpYVce9rV+wJPQ4FgQtrM9AedG0FHhqnQSWNWmFUybJUpndp8eMUSQBV5Lg6wymP4uU
-         MKS3YPHCjCHUdQqSWNYnSbcDRwMZl9ZwI/XCuB2J0X9cyaKt1+675r6V5Bt06+s0xjPk
-         bLc/N2hCYA4+Yz50jbWff9t6gC7fpePa1U7eqr+mX5UThe6itAbkuFgHydaDtsFlhD+N
-         I/1aGT2y1c7Hx7HuGAUDRgxvxnAdGtM7SjFoLbW9JKtktzsFFr6r9jlFAVdUjMYssqNY
-         ZxzA==
+         :accept-language:message-id:date:thread-index:thread-topic:subject
+         :cc:to:from:sender:dkim-signature;
+        bh=Um1yOlPLpCNJE10b0TVgCkIcWZqQMPO0r8GV/07mYWo=;
+        b=bFoUoty/ejVwu5kqj2nEJDrSM8Vz+wDYz/XFZrSVAtHFi0GLVM9MR15EVC4RTtoAMk
+         FD0y7ZWOLuHWNPg7x9n+cCC1VaTTnS/pi/fVQzsgFIdmK+fT45yCn3W8RcRFaB0DV0CB
+         qaxHy5OB0OGk9TcCq3WhxTzwX4da9sFtkUofNlR5/lfytLwd+OGoKOv279GicaIuSzVI
+         eOy2TC3Zb5Bov2eCUThtfHE0OByzodwO2SipBMdk+8N483waMdH3X+4hZoqAHtbp8NyW
+         rx9JtM2wihqFOYs5Dfwj8dI89YP1mObn8umnBXFyNOM/zlKWl2VnvEYMm5OtMRfI8CMw
+         Q9Dg==
 ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@prodrive-technologies.com header.s=selector1 header.b=KmB8mYE9;
+       dkim=pass header.i=@prodrive-technologies.com header.s=selector1 header.b=iFVskn6J;
        arc=pass (i=1 spf=pass spfdomain=prodrive-technologies.com dkim=pass dkdomain=prodrive-technologies.com dmarc=pass fromdomain=prodrive-technologies.com);
-       spf=pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com designates 40.107.6.106 as permitted sender) smtp.mailfrom=bram.hooimeijer@prodrive-technologies.com;
+       spf=pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com designates 40.107.6.92 as permitted sender) smtp.mailfrom=bram.hooimeijer@prodrive-technologies.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=prodrive-technologies.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:from:to:subject:thread-topic:thread-index:date:message-id
-         :references:in-reply-to:accept-language:content-language
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=HZd7UolyFygdzzt3ZHiOZAuiKO+TYeQU1WRh4PdG2OE=;
-        b=ETfxTj7nyN9PwaXQ8UCaPkeZguZU03NGoyNyfnTh88w9ciGObrHfYu+JcwHOakwjEd
-         or4SiXzF7MceQMyCB+EYE556b5fuwfK4yi8XZgsgVc86b806xx7uKwRaXgdSCBRpXfUU
-         yhaRwlL3Eqzpv7fsBLCkoA3XIR7yEEP3noDSsO+MTt0Mi39kf9mKuMdF8zDmiV+bSeh0
-         kUlwq8gTShkdcpA8XXTVbtieER6xelKE+XlBVdEH4MpuAZNpiBtLv7VT9Ir1s8YVhWKh
-         w+fIEFPqw42Dp0e5Gfp7gToswqIlp4BAnjaNqrCSjuZ4RbQrv+Ycpe/JX+zlpZD5nd0T
-         p7wg==
+        h=sender:from:to:cc:subject:thread-topic:thread-index:date:message-id
+         :accept-language:content-language:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=Um1yOlPLpCNJE10b0TVgCkIcWZqQMPO0r8GV/07mYWo=;
+        b=ljoT0WvsXrrOzyeA3jf1DKneMQUVMT0yzja1jSi+XU44gUGkvll0PYr+W+qP1kprZs
+         KkKIGh9lg3zCI9tNFNIlxULFFUaWImq+CchpMyCc+LcWBlI1tpmAOP1/Fh6CW1WChivE
+         Xw0/nui3jow/AiNz2O2RH84U7XvyUJ7J8koh9b+h1o3CYCdr+tZhoBEmKpMT83Q3iMFv
+         eyCNhwMmnBjMzbAAf6A2QnfuiwsCUOZth0E4LFex9pdveXj8J3nBhPb991b40U3mDX3u
+         KuIBMUU6AXd4IUyU2MD0Kyslmc7C5WynjNdciR7iOxxWeMRWTzxXhxpns/9uMyH+RxL5
+         FfpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:subject:thread-topic:thread-index
-         :date:message-id:references:in-reply-to:accept-language
-         :content-language:mime-version:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=HZd7UolyFygdzzt3ZHiOZAuiKO+TYeQU1WRh4PdG2OE=;
-        b=SxwHjGdNVo4j/RQf4NffJEDTLe/FTUaTJte9OwynNDVXSYVSoFZyIlwT9noLw9WXOw
-         L8PzntE8sYC4MTQUMxKSQ3PtbgojNLyBU+bk7FfwQ9LamhYpXfBmuizPlIvhKpcxBycN
-         /c2cK6uw69T+lB/5qSAE+tfbYhjFQxp17gyxgXNNUINsrYhIfuVO3EDS7+hCMRikukrh
-         hLSEZdawxPDx5JjJuFut/vO7YjYDkmqwhmu+Tz2+SK97ckMNSaawOY6WR1jUp1FwD63K
-         CdiogquffhGsWu05xyr/WpylQk6x8SIaCLAHfOl/EjimfTk9GDpZZ6A1aFloAeu6Z821
-         b6mQ==
+        h=sender:x-gm-message-state:from:to:cc:subject:thread-topic
+         :thread-index:date:message-id:accept-language:content-language
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=Um1yOlPLpCNJE10b0TVgCkIcWZqQMPO0r8GV/07mYWo=;
+        b=WO2IP6Sqd8PTnBDJDrMrQShr8h3W6bSEVcJ+C5w5geMFojjlD1jnAjn3YkW4VhJp1g
+         zQme764uErurR1MmBvLm9dPyVRfQqkl3fLFD8YDt4eNjk3CC5/oMlkHZ6hvX+F9CMMrY
+         WgN7ZESlpK6j9bEBCzdichLbF5SYuMU+PV3e3XPOSCnTPZqITZX/wVz3sfHLMnnhXsVR
+         deCBjXKQIw429jIoJWHhusXvRoo01fVt/nORJbV0dk//bBJw5tg930VO4ShgptsZiMaS
+         TrqG9SYjmO0FhPXVSQcxT1UMqUE/VlZnktcCrPVWLACtgf//wgh+UqF+MCyv13srpv4g
+         haGA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530FDuS2o1FebPuFxazwvdrQZ0zTdVlKLZgopyMQmnYmcSDF7J8r
-	/VLNHt5t6gu3JZ8CwN17VPo=
-X-Google-Smtp-Source: ABdhPJyPlSIVlbY4ym8BvyarvJATRgpEIuJxXCUIxPNFapWxArZZU8F4UnKIhcwLOJ7tcnfVTgZLSw==
-X-Received: by 2002:a5d:46c4:: with SMTP id g4mr6768262wrs.308.1623343405215;
-        Thu, 10 Jun 2021 09:43:25 -0700 (PDT)
+X-Gm-Message-State: AOAM533a3Ab9AI8opRUvzVSGMQjcPoZc0osGNS5GE0/eOxkbC0zwOauH
+	lJianot70N3vnkUYtgaDvao=
+X-Google-Smtp-Source: ABdhPJwihnTPu702kiwrltglSrSdsBnd5h87GHMHtRqht1tYUOlkUxuM2xY2bI0U0Q2hpBKDg6zMZA==
+X-Received: by 2002:a2e:9f06:: with SMTP id u6mr2996152ljk.460.1623343406824;
+        Thu, 10 Jun 2021 09:43:26 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:eac1:: with SMTP id o1ls2010371wrn.2.gmail; Thu, 10 Jun
- 2021 09:43:24 -0700 (PDT)
-X-Received: by 2002:adf:c38a:: with SMTP id p10mr6477679wrf.138.1623343404393;
-        Thu, 10 Jun 2021 09:43:24 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1623343404; cv=pass;
+Received: by 2002:a19:6a03:: with SMTP id u3ls4707067lfu.1.gmail; Thu, 10 Jun
+ 2021 09:43:25 -0700 (PDT)
+X-Received: by 2002:a05:6512:1152:: with SMTP id m18mr2535941lfg.559.1623343405763;
+        Thu, 10 Jun 2021 09:43:25 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1623343405; cv=pass;
         d=google.com; s=arc-20160816;
-        b=Q6Zr0w3CHxK1a4P1ibzdEnk2QRvm3rhZMXHO7iHpR/4gz4HyLBouQwdYUhBw5zVciJ
-         Si3Xf8xVSjqay1Njk1mKTRCS0VWgYSVJfjmUQM6kJDN4V4G0LUVOSQGzU/Nrlhua5v7d
-         YDVU06An515+xL3jO2Sl1Pfe5SG/qRhbAhp30IKEXDL3Tr8hznx6wEEHtFf+blufeJwW
-         1ysPLOhg1RltvFfVJJNKLpyCUEJjWnAoc2W7FXzgtUnEQL20J8eBk4sR12Sexxn2Y38m
-         29i0TvwmWf6TbOSEjXcuQX+LjohCFOKAjpSIsp5Yzn77LR7shCLpQei04S9zIkfvqQJC
-         V6vg==
+        b=qGuH+mKN11DPqtvwZj5kuJL5551lChszQqZBnmEaQdbBniQiwDnFTcUBEfncpZJGS5
+         DBbpbsSB7TJ684QTvmyTanYojOjrIi1n2e/B3KO23L4q+YVQd76Qc2Ew9b7TTuHl6X+i
+         US87MBeEpb5JG4h72nbeVOldZUihXT+SB1wAF2/WcTr3PnTAblwCK/Dmtxnk2M2Ssfj5
+         nnSFA88+JtCOKjISOIVtrOYAZw0z4Pl0dICm+wdz6kTkA7fbzp63g132oCjKKGAFcIsX
+         aVPW7AKv2zd91t9PNlQHt7lOe8F02uhuIpDPt3dhYFYEP40Q+do+dBKwVbLGV8oyeZuy
+         h4rg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=mime-version:content-transfer-encoding:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:to:from:dkim-signature;
-        bh=WbWiT6E17xzrmY038pPxnkiAlHQ0ffd8ScuyTgBDmWc=;
-        b=IDmpjMr4dy5iQUEQxvlMikOkLy53Qj9u1oOg9t8MMrwTznOT/kzQRRDQ/eznE1UHhc
-         OpZBIujQLVaGFe8PUN4HEPBiBMOJmGg5dzIdthAbNsVMhglNibbS1+6+6q0tenYJ60bw
-         5WCuU4/wWpcM8aFWBn4BFU2fzdPqfHv4Y7C53JnpKx18YW1AO6rT4ZczUzSwJWeKjAYt
-         jQTfSHu3m8XasWx+wP8h7Ak009yB2eZVK5vGqDMVvcPyGYRz8S4pwdl8z79ZFe4ZZuM9
-         XF0QFdex+X7vCHpzSdH1+9PRSjH2GqmgqZMqvOzxL/LUraJuyUuop8PMmvSZOE0eIBNj
-         IYmA==
+         :accept-language:message-id:date:thread-index:thread-topic:subject
+         :cc:to:from:dkim-signature;
+        bh=0crr4Kpl8A6k/ztOeQ4h0o1VJrhlReekMbBkcElc3r4=;
+        b=J0Er2joCtHySNRnitObKf010/0onRtWXQgBz9Kmn8XodVB7WBsUlG7rXOkn9rkGAQX
+         tfB/+mpJJgcxWgkfBUiTQkG/ccuITtfle2CNmDUTMPwJ4WLr0uNUaUR74cBxfXybZBcM
+         nhqbDxMbq5W7kdlGzdu9SFSxvS3NA/yqSt3VK2xHJ2tjJrg+jI2stLJ+pZXnhMVKmJ1N
+         nCUf+jOKGc5mu8Y39lRjYFc1B/ovxO66jqvBVQJ7cNQxP/XY8q19paEsffxMU9G15/Pb
+         20fQQkoS3opnEzzHwMLuUWC7VLV4PW384wcPF1IZarRvRiJnOt3a0eBnwMfcPfopNgNu
+         Pn4Q==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@prodrive-technologies.com header.s=selector1 header.b=KmB8mYE9;
+       dkim=pass header.i=@prodrive-technologies.com header.s=selector1 header.b=iFVskn6J;
        arc=pass (i=1 spf=pass spfdomain=prodrive-technologies.com dkim=pass dkdomain=prodrive-technologies.com dmarc=pass fromdomain=prodrive-technologies.com);
-       spf=pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com designates 40.107.6.106 as permitted sender) smtp.mailfrom=bram.hooimeijer@prodrive-technologies.com;
+       spf=pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com designates 40.107.6.92 as permitted sender) smtp.mailfrom=bram.hooimeijer@prodrive-technologies.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=prodrive-technologies.com
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com (mail-eopbgr60106.outbound.protection.outlook.com. [40.107.6.106])
-        by gmr-mx.google.com with ESMTPS id h7si517727wml.3.2021.06.10.09.43.24
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com (mail-eopbgr60092.outbound.protection.outlook.com. [40.107.6.92])
+        by gmr-mx.google.com with ESMTPS id j2si121985lfe.8.2021.06.10.09.43.25
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 10 Jun 2021 09:43:24 -0700 (PDT)
-Received-SPF: pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com designates 40.107.6.106 as permitted sender) client-ip=40.107.6.106;
+        Thu, 10 Jun 2021 09:43:25 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com designates 40.107.6.92 as permitted sender) client-ip=40.107.6.92;
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DAWM4UQDJkhUiXH5BKfO//xeldrLu147R3BzrFh72myMegcbjOxYaR2n7FrqR2DF3/oqs5VlBwqXQFkRzXgq+gd4cRp6B40NlUQ6VLkB7ENaKEK9jKlF4Z9s7CsrmOkq+i35l+FcYe+zykia5CcwFzjFVTuveIeXLoiF6iYsc32arDjHFOXs2L1tmMrcygQ8FbJq7Gt65sI+KP8748rgpLnEC25p8QbbYd+o/TnI6bEzF3hIjjyLw7Br4cAo/+MDKW8o/0v2VjI0zoCj2YvMbWjGVCmhKtmCYeNI+qGc5eyDe/11lGn2y/8dld7hxuP7uwlF4O2yU9WZUMHn2AxVaQ==
+ b=MMXwBxJ5y60+uWG1aYPL2OqYEeURzUVU2munTcALU/byMBwqaWThxx1T4IdNjOwHRYW0FPz4Mvk8cTP9MO/8jpF6/ekCk56Vm7P1gT1cI4V9SGApvVTEVWVethTxT1dmCxwn8nD4Nq5Mbn9HiDanj5uRzAAwLe5+UfSH0X2ufdfj0zXt+lw9zImzhCoj/ZsVj6IoIaHj/RUXVnlBDM0s/EJYkOukJnBE8FOw7A6PBcjTwR7HPkInFpjmB4GxC2rDFfxOGf7+8RQH45q2ewMgh3DG8U6/OAcZIa5yQc5tnIXsdMtP2zy/JwHVgI84O1s5ob3u6nGkINE9Cfhvxd9HZQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WbWiT6E17xzrmY038pPxnkiAlHQ0ffd8ScuyTgBDmWc=;
- b=gn72LBeG2CYOv6ygOLJuFGYlzzt5eo1YsYpD+NXtVKZrF/ClLzD5vzHn/SGL0DvuHAcORz4nYd+NXc3HCoDU0QakpBCgrt1AOGmDtwdnWsrTUGTPfbPlWcyzwtum3bK2LEDPslxdbtdUZKJbA/IXqIWRoxV0wvGtDofK7uKFPkuBLoZfxG1+R0fHHb+eoRMw2oPBy35kUQfuSisRNctVPKOXHzfrNPrj8Y9C9kc39P1jzpUVdR+wJf3oKTQEiyWtryrHIk7Op+VgJ6vK2eR/rkqRfir6vmBMCoetJnEDDueFl5q5kxEXZ9Z2UKl32FIeSJ6eY1MBcwCpS07nPhohRg==
+ bh=0crr4Kpl8A6k/ztOeQ4h0o1VJrhlReekMbBkcElc3r4=;
+ b=HhJg8akA9NCVVjLBi7Z5hisjAJEEyMd2EVYg51e7pcbCtmAZHziVVb/UgVF+uXgr3HZD8SWq7/H5TXhymjLkTp29e9V87aX2rTeppusZfetwmmxtgVe4DdJ5B00XB9S4s6qlyrVfAWDy4XxD852Fne0TWkSGg9GVrm7ASAszfb/BRWlG1s+Al/WcJUcPfeYoFnY5yv/PJrABIYtjQv8x1I8QPcP2E75AA5x0tfoFRIZmYIh+q/oq3Yl42yofMF1oI+zvy2grhuF7SIwY/NgpBiDrmD7M5a+/iOO5j94D5i1nAvdeytUTgQSXGV/m59uE74toWvG6skPJEKzeb+F0gQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=prodrive-technologies.com; dmarc=pass action=none
  header.from=prodrive-technologies.com; dkim=pass
@@ -116,88 +114,78 @@ Received: from AS8PR02MB6663.eurprd02.prod.outlook.com (2603:10a6:20b:257::14)
  by AS8PR02MB7368.eurprd02.prod.outlook.com (2603:10a6:20b:3b1::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.23; Thu, 10 Jun
- 2021 16:43:23 +0000
+ 2021 16:43:24 +0000
 Received: from AS8PR02MB6663.eurprd02.prod.outlook.com
  ([fe80::f197:f089:10bf:b446]) by AS8PR02MB6663.eurprd02.prod.outlook.com
  ([fe80::f197:f089:10bf:b446%9]) with mapi id 15.20.4195.030; Thu, 10 Jun 2021
- 16:43:22 +0000
+ 16:43:24 +0000
 From: Bram Hooimeijer <bram.hooimeijer@prodrive-technologies.com>
-To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
-	"jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
-Subject: RE: [PATCH 1/1] inmates/lib: Set cell-state to shutdown in stop()
-Thread-Topic: [PATCH 1/1] inmates/lib: Set cell-state to shutdown in stop()
-Thread-Index: AddeD63ehohA24KrRpu3L3HRhVf/CAABPlyAAACfw3A=
-Date: Thu, 10 Jun 2021 16:43:22 +0000
-Message-ID: <AS8PR02MB66636AC2A9ACB84FB97589FFB6359@AS8PR02MB6663.eurprd02.prod.outlook.com>
-References: <AS8PR02MB666395F0E1F80DF99676D9B7B6359@AS8PR02MB6663.eurprd02.prod.outlook.com>
- <4173b69d-f0db-e651-db90-9a654fd3fde0@oth-regensburg.de>
-In-Reply-To: <4173b69d-f0db-e651-db90-9a654fd3fde0@oth-regensburg.de>
+To: "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
+CC: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Subject: [PATCH V2 1/1] inmates/lib: Set cell-state to shutdown in stop()
+Thread-Topic: [PATCH V2 1/1] inmates/lib: Set cell-state to shutdown in stop()
+Thread-Index: AddeF5T5HE9bmdlrS1iCACliLynlxA==
+Date: Thu, 10 Jun 2021 16:43:24 +0000
+Message-ID: <AS8PR02MB66634B43A4070BFE4AEEB902B6359@AS8PR02MB6663.eurprd02.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-originating-ip: [213.127.65.146]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: ac506cb8-1efa-481a-868c-08d92c2edc83
+x-ms-office365-filtering-correlation-id: 7dd91119-f094-44d5-8521-08d92c2edd64
 x-ms-traffictypediagnostic: AS8PR02MB7368:
-x-microsoft-antispam-prvs: <AS8PR02MB7368F9C87EE896FF01240A13B6359@AS8PR02MB7368.eurprd02.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:241;
+x-microsoft-antispam-prvs: <AS8PR02MB736825A8DFABD750D49EF86AB6359@AS8PR02MB7368.eurprd02.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:184;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: PRskAksbBBg6nc7HR8vKcHmw6MnEEyc1VeFDf1syW/4ssnuedC+WKqFYyxHLHu8oBxkNr6U+rqO8WGkhaQibYxTXk5Mhw1ksTNu6J8ytJMssverAGG2LLtbgPxtdb6Fx6mTk32zggT/rCVdOGqS4WyVtHPLBL4ymbNNaRkPKCZp4dYRQiw+MAm+jLfHyyD0dFSr0i/v6bJeseZFm8hG4p9uk8AC2pEwx6TBOLM6wlj2qPBctS8SHAsjTL2+SwcmxJGXgpYQ5eJUY1yqBM98acSxrj2TM7kKDhJPSxLJf4Jz6ooJFGRWGVZblvFWZ5OhmUvw0Z3MbLlTlMyx3KJ4zk68B6f5dtuIOlR1afVkDcEIJma8V2mhWop3qjdCH2nUAnnU/e52r2sDXa3W1WWGezItd3A6pArnIcvq5DVylQZUZMKukxpdLym0UxMbFqH/VTbVpxe29yYJqeYOuMMDVn6kHQ8RtvSNaXOKBx3tZmiqXA6BQr1GQhqwedf12dJKXEmS6wt1pib3Mbr1FKBP/RtCJPAhK6v2p3U3e4sinvvsRiAaMLhuPI3TWxKqh5D1+QfZx4mG4kV2cRCf+zfhs6HJTrSKXuYNTpN32EJ0VqL8=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR02MB6663.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(366004)(346002)(39830400003)(396003)(376002)(110136005)(316002)(53546011)(33656002)(83380400001)(71200400001)(6506007)(7696005)(2906002)(26005)(478600001)(186003)(8676002)(8936002)(66556008)(44832011)(66946007)(76116006)(122000001)(66476007)(52536014)(66446008)(5660300002)(38100700002)(55016002)(9686003)(86362001)(64756008);DIR:OUT;SFP:1102;
+x-microsoft-antispam-message-info: Mrc8llOxlvAQHnHVdNh20wrnH8iwtdsOR+v4BJ8ShMMiq3d64ysAzdthnU6GIxckzBk3z0hqYH0dsl10OyQQy7py9b2ieCey2RwFjrC9fgGOydP7sGBamLctF9ohrzH+fMp5YQiMfR+rwpse3a8mP1M4+9Pog5pPsIctf8agwrWuDw9TS5qqNTv4oFIreJzsmlbFkvZJlgAlym3U2rPsGGucq+y5eMQk22ACkxBwTNXkAcc0VGoTMJoNLEQxJQDN1h0wEd8HYno5mbzTaYfoLS5RVASDLb0d0k8DxdECu0oEL7QDM7IlSCSGVI6WR7adLd1vxoc6k/Lt8Jii720uFy1BYGyWv1ct82EInMaxZ6NCrriD3i+/yPsQ1sM8Bh1RNtGgIekSNKYF0Bb9owVQc/jE3fteLLG/hr4BM/OTRW/qk01e0qQt5LonoQrRPlkwvRxGanZOf6HEJ0kvwfhWhNaSky52KRhqYhHgOdXj3A2if/PZD8xnC/iPnoZXKmNXrm0p8x5QoHy6uhcIcXG4Tzcy80B6TTPNRO6LwQCnfsMBhZtTyAqc98jMR6A1QcFqmEZ7pZh2dHp0rD/1LID0N6sKP7+1UXyw2pi1n+qsCuE=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR02MB6663.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(366004)(346002)(39830400003)(396003)(376002)(4326008)(316002)(53546011)(33656002)(83380400001)(71200400001)(6506007)(7696005)(2906002)(26005)(478600001)(186003)(8676002)(8936002)(66556008)(44832011)(66946007)(76116006)(122000001)(6916009)(4744005)(66476007)(52536014)(66446008)(5660300002)(38100700002)(55016002)(9686003)(86362001)(64756008);DIR:OUT;SFP:1102;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?TmRUMXVaZEVQK2V6TjJNSTVqQ1pXK3hjVjV1MUZlVEVXN0VweUtUdWIxWG04?=
- =?utf-8?B?ZDdNdzg2Wk9ObUlrT2JFMjVQMUFJWnhueFVXQlRiaVJGbXI0cU9xaldnL1ZR?=
- =?utf-8?B?R2luN29lR3lGcDRtMkZBUUVaWXFWdE9nU3BZVlVEZ3ZHQXVQeTM1SXVSNXl0?=
- =?utf-8?B?K2VWbTh3WVVUY3JVUGhJSTVOdGhpZlEwWXFlRkxqR3o5dTFTY2VlbnhCQ2hS?=
- =?utf-8?B?ZGRUZXY4dUZNbXNyQUpTUSt0UlpxcG12R2Y0NjJNV3FkcmEwaVZkcG00Wk1D?=
- =?utf-8?B?QWd4STkzUTlHVU1DRFl2VVZlSXNQZ0VaeEVuZHFPWVpvaFpjODVLMTdNaElQ?=
- =?utf-8?B?S1FsM0x4S1B5bld4OVBEOGhnUXdTMmJrb0lCNFJ5aGh3OE8vSFRLNUp6QW45?=
- =?utf-8?B?Q0tOMHhtdXRwdHJRRWg2SGV3WnpCRzBLK25qdnVWbTJZVVRPTm5JWlhPV1dO?=
- =?utf-8?B?aHJoR2V3QUNPU1lhN045VW8yTWRtL0h4M2V2YVgzWnNkZGFremtWZGNhd09s?=
- =?utf-8?B?SXl0dkwwL1FMNURHRkRhSU1jbjNUK3hzVFdVQk8xM0M3S090SzZGOG1MVFEz?=
- =?utf-8?B?TDFYUVp0UnN3K1E2N0drNFFsUzl3ZFpGdkpSNHY3cHkrQy9Kb2VUYllSNGR5?=
- =?utf-8?B?amlJWTlkODBOYnhBdldON3pqeldvRnNqdFRScEpqdldGNzVXWGxlTjJ3YTN4?=
- =?utf-8?B?MlErS2p1RTVrdWorcHNtUENDTC9CS29KYnp4V2QvWUR0bkN4U25wbCtMSG9Z?=
- =?utf-8?B?ZlFpcnorZHEwMXB1UmRLM3RMbzBqUFduUDRGcTNBcE1pd1h5MGJ3cWJkK1Yr?=
- =?utf-8?B?NDRjcE9QVklYRS9DMEdKK0pOUWpmYTBzeEZiQ1dPYUFScFprbzhmRitNSWxW?=
- =?utf-8?B?L1dQNkFGb2w1NUUxeitCalREZWEwNTBNQ0xSSmhXeGNQMUp6RHptUUliU0tU?=
- =?utf-8?B?dmlkc0V5aE5NbkZva0d0WkltR0txV1ZhNjRIZGc1Q3BaR00zU01kMEJCUlV1?=
- =?utf-8?B?WVVwNzFKWlBrZUVVdTBkdFZYcTdPV0NCYjRwZ21Gd3NjUlZXRlFLTnR2QWJG?=
- =?utf-8?B?R3lxZkNqMlBHM21JU08vVm9ITDIyT2twUnh3WXhIanBVbzZoalF6amtsMXA1?=
- =?utf-8?B?M3Zha0pwZ29iWXA4TjlMeWJhYUhRcnZFUVJheW9XNHlOUFpxZGF5WFowanNW?=
- =?utf-8?B?ZVdxeEdvZnMvSFdHVTdVSzFCci9VZ3U0TEd2ZDV5VFpSQnRQb2tFb2NYRldh?=
- =?utf-8?B?OFpoeXh5TC9ieEkzZG94TmQ5cHRSaVgxaGxmOTBkUFhUamFjKzVWbHNXV1Qx?=
- =?utf-8?B?Qy9MVjVPRVNwb2NtbWtJTHdyMGUzYWRzSUUyTWk4R0k0SWVkVHFRWjJzNDVr?=
- =?utf-8?B?VGloYnFaZklrd2dzVGdyV1ZHYnBhSE1QcjArTDRrbW5LTm9VYzFzbFBxa3Y2?=
- =?utf-8?B?d3VzekNxd3pDc3cwbkxYWkpQQnZxdDJaclAyR3pmcU5wa2wrNXFGRWhndThG?=
- =?utf-8?B?VnR5VWlkZGgrMDhKMlpmOWNSNzgzVlBzS2ZHMWFUZkVXcHFURXhtVjV6YWFW?=
- =?utf-8?B?cXpWWVB1RitJUURPVklFVE1jMUZwemYyNlE4OGQ1cThINy9SSGd4RlkrT3Bu?=
- =?utf-8?B?Qmpaa3gyMFZocS9sdytzalB0SzlGVitIeDI5akxXZmtDZFNSZm1DeiswWCto?=
- =?utf-8?B?bmtaTjZYMjN2SENlalBpRWErODltQ1UwRTVVOUs5ZkFnc25JWlZGSUxscVVG?=
- =?utf-8?Q?cfck20plx7lL+2xbufddHoT1rsSDdY+wwe3DcCS?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?rmiwRditVTS9d1iD5sfvOcWc2lRj+B8rcA42b3EjP6yT/GHsinUBubcpWtc6?=
+ =?us-ascii?Q?WkvU2rLlYGGreMPT0rRESVBxo1w7Ew5riY0Xev7iUYScl9JrVoV1TdWdZJJP?=
+ =?us-ascii?Q?kzwNrCaEb48qynUHsaxcFMQ4dpkexKK7vFp+TZQJLjYgxOGSs+wJIKpzfHJl?=
+ =?us-ascii?Q?9bROO+ouL3wI4vE5EkYVKa9BQljJ7WF+6FhMKAM3g736vPMEv9iH5vvpR8e9?=
+ =?us-ascii?Q?Ll4jF0pF5AUbo6dtHUA7DlwY2FFKW7GMi4gDRb4gQTZdtdlfNGC2l5fJxmA9?=
+ =?us-ascii?Q?VqM73Nes3sR6Emjxjh+1unNqguEyADZXwQXDdWrHqMj1OwSDH84Ke67MAk6Z?=
+ =?us-ascii?Q?2F0aaT61e6oeH2qirU+IGSmWuICkOnIYKpYfIahyfDOx93DNL8PXYHwVpn+O?=
+ =?us-ascii?Q?M+QOvdBL3DMo5eBfnP6dLXfha4reC0Az+pZPRPMc2ojEujo5dkVFxfUIpYTm?=
+ =?us-ascii?Q?8CqTD9UVoA/GvH14bs0L7iJf5gtsOpXYCjnXqo5bXsFViY96qoE1cTWiAG/o?=
+ =?us-ascii?Q?JmEyjl75ogaaXIUxcWBViv4dHAYUz5aLO9bSW/ATaLCKsGLOEThsfleVdW61?=
+ =?us-ascii?Q?A9V0HkABzVUvH6th4a7ZKaDwYo465aCUTVyYlqn2JkzmfM4JkjEj8sEhrBGo?=
+ =?us-ascii?Q?afe3XT/5KLyL9OXt81jt8DwDbtzW5CA5/1BtnKict2Q+fu2beG/uI+6vwWM2?=
+ =?us-ascii?Q?rfjlDD9Rf9r4eHPUKoIejgzhF31rUvCOMOVyI6X5dNsdEe2pXQHQ+rHPM4U2?=
+ =?us-ascii?Q?82kgBcZ138CsIhsmIEtE/6Xf3m/JVbr+zuLm1R/j23Ht0Fp2FEUv+EugG6b7?=
+ =?us-ascii?Q?GRB+nxunrt+CSFC3csvZ13WJSZs2V8Nb4cc5JoiRSiLgUmfSzOY4e5c3ekXg?=
+ =?us-ascii?Q?/VVeVJEw/Olv2qAVSKQIFIlSYVTiuT1Mv9+Ol0u8hMiti0MmbJfnl8RfaEAS?=
+ =?us-ascii?Q?uD7ZxVd2VAPDgn7XV5I2oOu4jnD9XnuytiHv+3RZI4+q+4UZDONNBWxYWVlq?=
+ =?us-ascii?Q?hn5ATay+75QhRAbi8azVZCKivok4IrH8TydKOppPNZX/8AETGidGyEDHHix3?=
+ =?us-ascii?Q?aHg+OeOyr/ARr9ob6wg3vd5w/RU7tfdn+PlRi1Qb1NUJl2reo2MzmoiCvAVK?=
+ =?us-ascii?Q?v1m5Bl/XM7FgKUI4n14jHIBsBwL3VGVjaalL0jnNeoUX8Nc3q2NDC4w+jPuy?=
+ =?us-ascii?Q?xunKumVhkLrgz4qjp1u4Crj1TWJGbCSyPTWNx1HXO9WKCM3hkNOs098kvzDb?=
+ =?us-ascii?Q?GZJyfWZ/51qQap2dWthN+icgCzmZWw6LpVS52NSKh6CHwf9NzXFuzdeI1i9X?=
+ =?us-ascii?Q?60WmGgOje6WAnlR4ZxiYKP+C?=
 x-ms-exchange-transport-forked: True
 Content-Type: text/plain; charset="UTF-8"
 MIME-Version: 1.0
 X-OriginatorOrg: prodrive-technologies.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: AS8PR02MB6663.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac506cb8-1efa-481a-868c-08d92c2edc83
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jun 2021 16:43:22.7897
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7dd91119-f094-44d5-8521-08d92c2edd64
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jun 2021 16:43:24.2572
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 612607c9-5af7-4e7f-8976-faf1ae77be60
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: J7E5JnQWhfHJFkfFjATA7p9co51WMzw+Z+E8xgBolrxtzbYq7e8qehfA/KeCCIadnzD8OYLmcvwOvWM6QJzoZREcp+wl02C0DpdgPgPaWUIC+cOgNnczANSmCMEZo1SZcWKardwW+CfM8Th9zlB+ow==
+X-MS-Exchange-CrossTenant-userprincipalname: NsHY6OGUcIrC80fGBf/MxuBdgSq/6F9Uk+IbL6IqaP6lMxWG+G2XVWSUAEP3JUEBXCmBfjrTFRatbg6U/LHhcAWTiCnXwbQ3SPfYvlCxhSa0a7uPSm4kg+ZrsiPcA5G2KKAbnAGJdDt2Izw3w1GyoQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR02MB7368
 X-Original-Sender: bram.hooimeijer@prodrive-technologies.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@prodrive-technologies.com header.s=selector1 header.b=KmB8mYE9;
+ header.i=@prodrive-technologies.com header.s=selector1 header.b=iFVskn6J;
        arc=pass (i=1 spf=pass spfdomain=prodrive-technologies.com dkim=pass
  dkdomain=prodrive-technologies.com dmarc=pass fromdomain=prodrive-technologies.com);
        spf=pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com
- designates 40.107.6.106 as permitted sender) smtp.mailfrom=bram.hooimeijer@prodrive-technologies.com;
+ designates 40.107.6.92 as permitted sender) smtp.mailfrom=bram.hooimeijer@prodrive-technologies.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=prodrive-technologies.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -211,76 +199,39 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi Ralf, 
+From c310558edba8441fcb017592d55cb0a09f7f196a Mon Sep 17 00:00:00 2001
+From: Bram Hooimeijer <bram.hooimeijer@prodrive-technologies.com>
+Date: Thu, 10 Jun 2021 17:27:57 +0200
+Subject: [PATCH V2 1/1] inmates/lib: Set cell-state to shutdown in stop()
 
-Thanks for the quick reply.
+Ensures that calls to stop(), defined in the inmate library, set the
+cell-state to shutdown.
 
-> -----Original Message-----
-> From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-> Sent: donderdag 10 juni 2021 18:21
-> To: Bram Hooimeijer <bram.hooimeijer@prodrive-technologies.com>;
-> jailhouse-dev@googlegroups.com
-> Subject: Re: [PATCH 1/1] inmates/lib: Set cell-state to shutdown in stop()
-> 
-> [EXTERNAL]
-> 
-> 
-> On 10/06/2021 17:56, Bram Hooimeijer wrote:
-> > From 6d0539fdcc4734cd0ae54df4b89df5a2664ac83f Mon Sep 17 00:00:00
-> 2001
-> > From: Bram Hooimeijer <bram.hooimeijer@prodrive-technologies.com>
-> > Date: Thu, 10 Jun 2021 17:27:57 +0200
-> > Subject: [PATCH 1/1] inmates/lib: Set cell-state to shutdown in stop()
-> >
-> > Ensures that calls to stop(), defined in the inmate library, set the
-> > cell-state to shutdown.
-> >
-> > This prevents the cell to be locked but unable to respond due to being
-> > stuck in the halt() loop. It also ensures that returning in
-> > inmate_main() shuts down the cell.
-> >
-> > Signed-off-by: Bram Hooimeijer
-> > <bram.hooimeijer@prodrive-technologies.com>
-> > ---
-> >  inmates/lib/include/inmate_common.h | 3 +++
-> >  1 file changed, 3 insertions(+)
-> >
-> > diff --git a/inmates/lib/include/inmate_common.h
-> > b/inmates/lib/include/inmate_common.h
-> > index 1c20a0af..250531ea 100644
-> > --- a/inmates/lib/include/inmate_common.h
-> > +++ b/inmates/lib/include/inmate_common.h
-> > @@ -92,6 +92,9 @@ typedef enum { true = 1, false = 0 } bool;
-> >
-> >  static inline void __attribute__((noreturn)) stop(void)  {
-> > +     if(comm_region){
-> 
-> I think you don't have to check that. Generally, you can disable the
-> communication region. But have a look at inmates/lib/setup.c: If you're using
-> libinmate, the communication region must be present.
+This prevents the cell to be locked but unable to respond due to being
+stuck in the halt() loop. It also ensures that a return to inmate_main()
+shuts down the cell.
 
-Good point, you'd always use the library completely. 
-> 
-> > +             comm_region->cell_state = JAILHOUSE_CELL_SHUT_DOWN;
-> > +     }
-> >       disable_irqs();
-> 
-> I'd do it right after disable_irqs().
+Signed-off-by: Bram Hooimeijer <bram.hooimeijer@prodrive-technologies.com>
+---
+ inmates/lib/include/inmate_common.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-I should have caught that one. 
-Thanks for the feedback :).
-
-Bram
-
-> 
-> Thanks
->   Ralf
-> 
-> >       halt();
-> >  }
-> >
+diff --git a/inmates/lib/include/inmate_common.h b/inmates/lib/include/inmate_common.h
+index 1c20a0af..56cef77d 100644
+--- a/inmates/lib/include/inmate_common.h
++++ b/inmates/lib/include/inmate_common.h
+@@ -93,6 +93,7 @@ typedef enum { true = 1, false = 0 } bool;
+ static inline void __attribute__((noreturn)) stop(void)
+ {
+ 	disable_irqs();
++	comm_region->cell_state = JAILHOUSE_CELL_SHUT_DOWN;
+ 	halt();
+ }
+ 
+-- 
+2.25.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/AS8PR02MB66636AC2A9ACB84FB97589FFB6359%40AS8PR02MB6663.eurprd02.prod.outlook.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/AS8PR02MB66634B43A4070BFE4AEEB902B6359%40AS8PR02MB6663.eurprd02.prod.outlook.com.
