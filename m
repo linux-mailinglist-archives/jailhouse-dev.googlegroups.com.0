@@ -1,68 +1,112 @@
-Return-Path: <jailhouse-dev+bncBD53DGEPXUCRBDG5UKDAMGQEWU3WHWQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDS77PFL3YERBDEHUODAMGQESWXVT2Q@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qk1-x740.google.com (mail-qk1-x740.google.com [IPv6:2607:f8b0:4864:20::740])
-	by mail.lfdr.de (Postfix) with ESMTPS id 078013A8118
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 15 Jun 2021 15:43:42 +0200 (CEST)
-Received: by mail-qk1-x740.google.com with SMTP id y5-20020a37af050000b02903a9c3f8b89fsf28032693qke.2
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 15 Jun 2021 06:43:41 -0700 (PDT)
+Received: from mail-il1-x13f.google.com (mail-il1-x13f.google.com [IPv6:2607:f8b0:4864:20::13f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 844F53A83B9
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 15 Jun 2021 17:13:18 +0200 (CEST)
+Received: by mail-il1-x13f.google.com with SMTP id z6-20020a92cd060000b02901eb52fdfd60sf10453628iln.14
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 15 Jun 2021 08:13:18 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1623769997; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=hA30frCUUcSbDTySnszLJk6BeJAVsGvHJqkT2akdgmEXfdr1TQKPBa2BFo67cztyF6
+         mwROi59j2cB26NUnHlCklWplH8GV7l5a18pp3To53WI5S1Bkera2W1ysphkRnj3uyJil
+         NhP1Y6Ku400kNxMdyjsXjWzS+mWeUKZviL3wbTGHOhmF1mCpnYZTTyiKml5WwU4JgHmS
+         V9MSa4x2CXjbh5T1zIV0IM+xpm273N2OK4nk5hvw0NY5c+eJnh1deynC4g5XANQsEWfl
+         pDsfplDRo7FbrI8FjXdaVGsOSWW2dby5kGsS9on1XMF4UEUCyRztIeDtXhZ3Okq71CVX
+         /1ww==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:to:subject:message-id:date:from
+         :mime-version:sender:dkim-signature;
+        bh=baozrE4var998CpMNg1h7d3BF9GkBGhWByWtKsgyxdg=;
+        b=mhT4823xkmf9z/Ncpazq9WlUxvyl+yzEYCxKIQBl5TAw3t3hgydM0qobk9yorZM5C/
+         sZ5xrSpXjHZgutbGEuJQPigJU31UFcUISGYfc43xxsm5+o8quDrLx5pjl4iebf8y7HyX
+         0kmQwly8Wt3ZVg/nMs8A2YZT/KxdVk9gavjXyaXOdWW9tR7BzwOxIxjI7OZICRjYm6L/
+         UQKMNE7dfzj5sSM3I1ktG0xZA3qzZoz9LSxWfI0QMn9t8P0xjJgBs6p7ZDQBwL0m6urX
+         cSlWwt38HXsPOjK6NlOoq6GawHvZGDW+B70jPtU9cYh+qrnDGnnQj8lBEKEEQSL3lAtP
+         MXKQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@cimware-in.20150623.gappssmtp.com header.s=20150623 header.b=bKHRasLW;
+       spf=pass (google.com: domain of pkali@cimware.in designates 2607:f8b0:4864:20::135 as permitted sender) smtp.mailfrom=pkali@cimware.in
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:date:from:to:message-id:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=DP9KYHIWabph6DeswxFZlDuow/8ZO6jjXjgAkVGZmLs=;
-        b=CR7HhwcWFSsAAJE4TMY3d/9ka50bG+MV4cUpmyHMWpWOdBMI6dPUBz0iy2+sEOPGbj
-         /hGSqha5COrnuLkIHKXbmzw5E0lbm07WNoI4MKimwOMlU0Bh5OJQ17TiBpKwuEpnZfxo
-         c7UGdbfMXZtISmj3RUXLo3zh1oG7IX/IDvYKW9asON6zkIfyk+oCUrB1b+B7R2WNogb7
-         KZn/4rGvMZFZSjnOdBLconnk/to8bZVpekAtUgH2uP3s4B4oXM0+5QnJe86Y5fzsf1+l
-         m82/MHBUEvKkO0y77+M2NmLWTuADbCaZU+rwhEfE6St2rI8GvLbX1q4unAnTssIp39wR
-         kSKA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:subject:mime-version:x-original-sender
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:mime-version:from:date:message-id:subject:to
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=DP9KYHIWabph6DeswxFZlDuow/8ZO6jjXjgAkVGZmLs=;
-        b=J7gRbZVFgCMyAXiQNaaoDBm1Ai51CMB5oLVmw5Zh5Lwtx2epqESAYOHEfKXkJHFb7h
-         yibnvddFJ32BfzvNoW27c1MWvnT/XHH8hY5YMJTRaCdC/EN0UR6Vb4ee4FOBMisfuSWs
-         gJ3v3OjylftlTm4bVQ/75hEEfafYSJjPmZp57rcGnS9i59XZ9/8pgssQnE+DhDabAIt8
-         tA7zsYMHINLiNNG0lCN2mjMeVxZhaL6VFq0cW7WfFkG7KuN+1FqliIAA7pBGk6H+7eVO
-         W9iCOQZw9WvRU0J/Wu0HdInYgyO4mYh7is371Nn/Cj0MPXSlj3etV4QnWqT78IF9iRz3
-         Td2A==
+        bh=baozrE4var998CpMNg1h7d3BF9GkBGhWByWtKsgyxdg=;
+        b=HHv/9z3dyi6FJMTKyLAPWxs3fRBs621FdSGLCSAhysrNCAzR6QTBAhSbS5TGpodIOn
+         Uer38z7lc8gzZhbFglTgLlNGlqUNc/tapPg8mS4BYMHLgh7N5DEeyRDYuYQ2iTaRqVlf
+         WvKcWnv6f4bKv2KIznTbzxFBdrvtr0v1xP+Q+2Rhqp89iiS3xIGi/4CyEuNWfprOXTMU
+         gTpaSqmMrVY7tyqz6b/DoiZWJvvA8ZAqYM6bzE8cmqcpoy1jnJX1SPTJJvTD4c2oWbRa
+         cGhT5ryaiSdBEhPnzLaihsLM7/zjn1yBVAn9ZMh/WTOEzHAC+ff2MrcJmOvwOuLjKtfc
+         cXlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=DP9KYHIWabph6DeswxFZlDuow/8ZO6jjXjgAkVGZmLs=;
-        b=RUf83oTiVI49l0RKA6t+L5SJ5yWVtfUQqZek/ADVdCxGv9zj2RM7zzOEP0Lo8bU5Qa
-         l5ECOiboN1372WUmo/ftp9RJgOdtvCxzdxGMQnowwcc3YVVLFnijodpymqUhRzWf6sEi
-         wWI2/JxC7Ha8y57aLsVhroIwu6cl6Ix9aeemKVki8C/3583hPRKSv+0cFumQalaZUvE6
-         o1HvgwN4+Ld/bkOFj/PotYVCMO0smbjj3aYvJpJ6+wYQhohBfrwoYCINQlLB82vVR0pc
-         nbWsMEpq3N43QY3ECFKiBX3w7gbXMZsIOepOjH01DkuoDI+DcTegtwI/l+F1pdI4+AkA
-         Sbeg==
+        h=sender:x-gm-message-state:mime-version:from:date:message-id:subject
+         :to:x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=baozrE4var998CpMNg1h7d3BF9GkBGhWByWtKsgyxdg=;
+        b=MY8pSENu8196WhyNaFUdtYRPihhb5atQc6/LQ+AuxoxHtksjE5+CO7Gcg5hSBzXr4r
+         gn3rbObntbUW91MDL6xrSaPAPSWFRThZb8BhFofLeG0aa2qjgHVn5NhPEsfR3VTrdzfM
+         LUZeCtNb0KUF9Pl6h2ZTN1XeniABjk4HrF+8PEm7ULsFMTNATh9dfvgx+KxE8c95x83N
+         7cpkP/AYd8F5J8SNBjCqSx+X/ynVC02KPfdS2aoU2VQ+r9fnxaT0HQgGBC2CbqBxp6HU
+         gUyzI5RnWOdiZQjgH+sC2mbCGNB+Aug12u1+LuNDtVeYKCBJMirytgRIH+MXRL334jLG
+         lLYw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530Pkjj/uReHPTEXLuJO3Y0GBPVufnhQF6+aVU9ej9qVEQgkDtAb
-	Jl2dxNzEJw4DbjfgwpKSiB0=
-X-Google-Smtp-Source: ABdhPJw+LXG41m+g92YeHkbgcAMm+qhEpkv1s/7OLS5iC0XItODVe6kj5hmP0YssiUQfWNjC3iNgXg==
-X-Received: by 2002:a05:620a:1644:: with SMTP id c4mr22054077qko.247.1623764621146;
-        Tue, 15 Jun 2021 06:43:41 -0700 (PDT)
+X-Gm-Message-State: AOAM5337UYOw8JtpFa9RSTYhvDibXIpdtkdQ1gmSQaxcZ26XSJtlWhrw
+	mmeyMoieowixskYcyMH3c1Q=
+X-Google-Smtp-Source: ABdhPJwjFHOeRiO2V6XR9lFvRr+YJejwPM28dpUoKmB0FQGCrARXN0Ph/tq/0gDb40fdzgfD2uKd6g==
+X-Received: by 2002:a92:750c:: with SMTP id q12mr17919128ilc.303.1623769997343;
+        Tue, 15 Jun 2021 08:13:17 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac8:5cd5:: with SMTP id s21ls2984241qta.10.gmail; Tue, 15
- Jun 2021 06:43:40 -0700 (PDT)
-X-Received: by 2002:ac8:71d9:: with SMTP id i25mr21949883qtp.385.1623764620532;
-        Tue, 15 Jun 2021 06:43:40 -0700 (PDT)
-Date: Tue, 15 Jun 2021 06:43:40 -0700 (PDT)
-From: laurent gauty <lgauty@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <d88492f5-3780-4f6e-8fd3-53a609ec4133n@googlegroups.com>
-Subject: cell using rootfs on an external USB key
+Received: by 2002:a92:b703:: with SMTP id k3ls556425ili.9.gmail; Tue, 15 Jun
+ 2021 08:13:16 -0700 (PDT)
+X-Received: by 2002:a05:6e02:b49:: with SMTP id f9mr16926908ilu.287.1623769996562;
+        Tue, 15 Jun 2021 08:13:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1623769996; cv=none;
+        d=google.com; s=arc-20160816;
+        b=bCLuWUY+4HRX/Tp7TME+PP+tXxb6IoyI60qSemYUlSNLRx9peL2s31AM5juFwpFvc3
+         9SGBUg7tv7oeW42qBI4oocEj9vGlFDqg669GWJKuqf/ql0zQFx6YRQ4822lIj52jVzK7
+         s8ZeAMA5MJnrKHXPef6OeRDUYwC4bzK0LldyuXYDaQbnIKdYOQfZQsK0mV8ElOp21IiK
+         vHOwv2OZzlzow2ZIDX/9nQUH7CjTW+eajBIB3PfuOX8x7mL5+B64thxo0Q283RSU+T1X
+         J27JRENvXrL9S5pJoQFFDmFMxuMmiPaAyZ+FAmSkJGbAzuR14BgQ0dNE4kaUC2rwMOjp
+         Hsyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=TlvRle0Wi4cmN4bzOZeTJ3hsnsmQXC1hj/j8bh3gVpc=;
+        b=TaPZWKZWd2HNWBY4hmP9hpgxPliIX09MLnss3DUP2BaKRw/VXL+oB4a57zo7d6tAVq
+         r3r1jw05uKVVFhahDvTYsFdtQaUgldcUSI/+AW9/AlZExyIBxm+3Mqv4rhvQ0jjAIzDR
+         R23kwqUBNNnZZ+m1oABCqAdnnjBYSekPjgspeNArGR9x02SoyGOICqbA0iT7/mHwt0Uz
+         4CRkkIcNg83JPZesn57mVvZhnGaBdqn7aSMRMD0715D4nfBpVGCKTldnhDGYmZygx/Dt
+         hNAHjUtkaw8dkllpJQyCpG+80E/Jbr4JFUTnkciN780yuiXkoM5nlMAe0NiFVpj/xZBs
+         5eSw==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@cimware-in.20150623.gappssmtp.com header.s=20150623 header.b=bKHRasLW;
+       spf=pass (google.com: domain of pkali@cimware.in designates 2607:f8b0:4864:20::135 as permitted sender) smtp.mailfrom=pkali@cimware.in
+Received: from mail-il1-x135.google.com (mail-il1-x135.google.com. [2607:f8b0:4864:20::135])
+        by gmr-mx.google.com with ESMTPS id g16si317243ion.0.2021.06.15.08.13.15
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Jun 2021 08:13:15 -0700 (PDT)
+Received-SPF: pass (google.com: domain of pkali@cimware.in designates 2607:f8b0:4864:20::135 as permitted sender) client-ip=2607:f8b0:4864:20::135;
+Received: by mail-il1-x135.google.com with SMTP id h3so15593080ilc.9
+        for <jailhouse-dev@googlegroups.com>; Tue, 15 Jun 2021 08:13:15 -0700 (PDT)
+X-Received: by 2002:a92:dd0c:: with SMTP id n12mr7394ilm.236.1623769994983;
+ Tue, 15 Jun 2021 08:13:14 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_1120_1678047409.1623764620022"
-X-Original-Sender: lgauty@gmail.com
+From: Prashant Kalikotay <pkali@cimware.in>
+Date: Tue, 15 Jun 2021 20:43:03 +0530
+Message-ID: <CACNW3nT9NMqDwmvpryPoBLkp9okcLbKu3r1WbDnJkGKcqtawtw@mail.gmail.com>
+Subject: COMMAND ERROR : Unsupported Architecture
+To: jailhouse-dev@googlegroups.com
+Content-Type: multipart/alternative; boundary="000000000000bf980a05c4cf6977"
+X-Original-Sender: pkali@cimware.in
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@cimware-in.20150623.gappssmtp.com header.s=20150623
+ header.b=bKHRasLW;       spf=pass (google.com: domain of pkali@cimware.in
+ designates 2607:f8b0:4864:20::135 as permitted sender) smtp.mailfrom=pkali@cimware.in
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -75,51 +119,40 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1120_1678047409.1623764620022
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_1121_379984211.1623764620022"
-
-------=_Part_1121_379984211.1623764620022
+--000000000000bf980a05c4cf6977
 Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+Dear all,
+               I have successfully installed Jailhouse in arm64 based
+CentOS machine.  Make and Make install did not fail. However when I run the
+command
+$jailhouse hardware check
+Output is
+Unsupported architecture
 
-I'm planning to have the linux root cell on an MMC card of my board and a 
-linux non-root cell on a USB key plugged into the board. The rootfs of the 
-inmate for non-root will be stored on a partition of the USB key. So here 
-is my question:
-- Do you confirm that i need to declare into the dts of the inmate the USB 
-port that will receive the USB key ?
-- Do you confirm that i need to declare the USB port (memory mapped) inside 
-the inmate cell ?
-- Did i forget any other steps ?
+Does this mean jailhouse does not work with my hardware platform? Or how do
+I resolve it?
 
-Or am i totally wrong ?
-
-Thanks,
-
-regards
-
+Thank you
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/d88492f5-3780-4f6e-8fd3-53a609ec4133n%40googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CACNW3nT9NMqDwmvpryPoBLkp9okcLbKu3r1WbDnJkGKcqtawtw%40mail.gmail.com.
 
-------=_Part_1121_379984211.1623764620022
+--000000000000bf980a05c4cf6977
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div>Hi,</div><div><br></div><div>I'm planning to have the linux root cell =
-on an MMC card of my board and a linux non-root cell on a USB key plugged i=
-nto the board. The rootfs of the inmate for non-root will be stored on a pa=
-rtition of the USB key. So here is my question:</div><div>- Do you confirm =
-that i need to declare into the dts of the inmate the USB port that will re=
-ceive the USB key ?</div><div>- Do you confirm that i need to declare the U=
-SB port (memory mapped) inside the inmate cell ?</div><div>- Did i forget a=
-ny other steps ?</div><div><br></div><div>Or am i totally wrong ?</div><div=
-><br></div><div>Thanks,</div><div><br></div><div>regards<br></div><div><br>=
-</div><div><br></div>
+<div dir=3D"auto">Dear all,<div dir=3D"auto">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0I have successfully installed Jailhouse in arm64=
+ based CentOS machine.=C2=A0 Make and Make install did not fail. However wh=
+en I run the command</div><div dir=3D"auto">$jailhouse hardware check=C2=A0=
+</div><div dir=3D"auto">Output is</div><div dir=3D"auto">Unsupported archit=
+ecture=C2=A0</div><div dir=3D"auto"><br></div><div dir=3D"auto">Does this m=
+ean jailhouse does not work with my hardware platform? Or how do I resolve =
+it?</div><div dir=3D"auto"><br></div><div dir=3D"auto">Thank you</div></div=
+>
 
 <p></p>
 
@@ -130,11 +163,9 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/d88492f5-3780-4f6e-8fd3-53a609ec4133n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/d88492f5-3780-4f6e-8fd3-53a609ec4133n%40googlegroups.co=
-m</a>.<br />
+om/d/msgid/jailhouse-dev/CACNW3nT9NMqDwmvpryPoBLkp9okcLbKu3r1WbDnJkGKcqtawt=
+w%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.g=
+oogle.com/d/msgid/jailhouse-dev/CACNW3nT9NMqDwmvpryPoBLkp9okcLbKu3r1WbDnJkG=
+Kcqtawtw%40mail.gmail.com</a>.<br />
 
-------=_Part_1121_379984211.1623764620022--
-
-------=_Part_1120_1678047409.1623764620022--
+--000000000000bf980a05c4cf6977--
