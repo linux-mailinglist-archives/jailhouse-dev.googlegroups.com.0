@@ -1,135 +1,130 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBAFJUODAMGQE2M44PZY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBQ5MUODAMGQETGXPO6A@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x138.google.com (mail-lf1-x138.google.com [IPv6:2a00:1450:4864:20::138])
-	by mail.lfdr.de (Postfix) with ESMTPS id A04E53A8666
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 15 Jun 2021 18:25:37 +0200 (CEST)
-Received: by mail-lf1-x138.google.com with SMTP id q26-20020a19a41a0000b029030eb7c42df3sf3891200lfc.18
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 15 Jun 2021 09:25:37 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1623774337; cv=pass;
+Received: from mail-wm1-x338.google.com (mail-wm1-x338.google.com [IPv6:2a00:1450:4864:20::338])
+	by mail.lfdr.de (Postfix) with ESMTPS id AF6643A868C
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 15 Jun 2021 18:33:07 +0200 (CEST)
+Received: by mail-wm1-x338.google.com with SMTP id f22-20020a1c6a160000b029018f49a7efb7sf734279wmc.1
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 15 Jun 2021 09:33:07 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1623774787; cv=pass;
         d=google.com; s=arc-20160816;
-        b=B/jyPpcXooVV8G4LmCTyQvEDkI+KwKXZO9etqimkkUTdgl+bLfhOJ69Kv4mWkOu+2u
-         +glYC37DzkqDQ8sWsOJciupxOnJWw8p5DunofBKwNZ0JMHPoplb/HVHabFR+1yYBQA4/
-         K8O92VisbY5qU3elmwb6NVuR8o8PPiIxBucH65H1j5niJBycQD9EKQHKSn9P1G36JPMp
-         BJczFAFIxE7tiAV4jHH3oFZHuAhcmZtb7lcaY2XDke8ddzFtR48JiKtG1v5Z2DcHf7Fk
-         tiljq1VIGfulCtnPxoGzUSJOGuDlvrmb/oLf1cUSh6i7vdRvEj2BXO1Cu5hLFs57R4hU
-         tBTQ==
+        b=ch/t663RtTEQ6HFWN4pe+Rt0RLHXZNdU0dQrwybsZCggevdLCbCF+cL0RQrplfv/+a
+         8Mbj5CCe+agFDDfhmSJJAZOYbRWYMeb5frpR2+yID169+EOmMuZHi/pRi9cFeERCDzGI
+         9bSri2V7rRwez8x02zKvPj6uwdDudh4jag/mhwlwhoi/UdfcB9M6EZIBt/mZ90XYw/0R
+         9A82tQr9VgBqyNEONieEbQ425QbnFluofmb246dSXSqoAcwMcpBCK4Kzxr7GfrPRuBWO
+         2IIzFkAy6Qte7upb9QObIk+xNNNQVuq+p/Y0qIPDE9b5DEzcr4cfAmV/lJyHwlSboUlN
+         8MZg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:cc:to
-         :subject:sender:dkim-signature;
-        bh=A/zDv3dqFTCvSCOP5ifL18dTt2HgwjbRtHSv5qUg02Y=;
-        b=BOgkFTkhPDFcFd4U0w19ABcVTbgHLAYL/vDJnJqsU1/wj+lJT8IzdIqbvM8o5Ht6dY
-         /OGxDoJu6QXiHhW4yOFyNmek5beikCL6laWmtgWpmEgHZxJIzxZO1HS97+qpBvUjIu88
-         nLQvNPC2I5RwAKdPKoviYD0BESJZ7dTG7dmzgbZpkvBYn3ancoU8eWx8zf+Ryvk/qMZb
-         l6C2Wcqj7czFGTfsUJmm4SOWmldDcTEuRQFZzjMnbB4KAJ2nydi3M1JyB522LifEIiAb
-         pEagaMbSUYR3ikNyFSW+0oZopwPzcLSOyrqtjsaLYaGO7Jjl9HTnla59JwkKcj9JueFY
-         tTRQ==
+         :mime-version:user-agent:date:message-id:from:references:to:subject
+         :sender:dkim-signature;
+        bh=KBDzEX+8GGu0y6i5uHm9d4+R+YzMcmSLRmaJPoFkcWQ=;
+        b=Yoeso2Tksa40OhBgTxb4/XdD28D/08vHstBOMqVdsfNk90kk4JJVYK0Xkj5jwt/aXi
+         7DQPgvNnoBZXLkIPJefLYSfKsZ6vCd0ossKT8TtLfrXjxV5KmEbmcupIuJUgqM0i/8uw
+         HoxT3K6nW/jdNoMZFMG1eGIYbNEAcmte3q+3vSz872ZQqZ2ISdY6RLk236minCVc6XLd
+         yxyyKOdIhR10lQYvJLnU81snws4ZDZpzAi+L0bBiinLD/8TnIEq6jBSVZ+qJ0XqcfWh8
+         oO3sNmtNr2AVuHgABTZC8yJQyjeIRv5mHaXCZhSbnmqFS6qR6kV4y2Ghp1ukFmlObsfm
+         h/4g==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=UChfQxGZ;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b="ln/ncSLw";
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+        h=sender:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=A/zDv3dqFTCvSCOP5ifL18dTt2HgwjbRtHSv5qUg02Y=;
-        b=O+Bed6TghOntGMF3Cg3MlCRl7myLgNhhOLrZbqYKVPqyoM8fDU7ZsPc0YrIaI8ipb5
-         GRJIeJFWSbn7Nskn4kwQCVzus41hI986BISU9NxZy3Spt6igyLmlH/UVnd7omUQJrhlX
-         6EIevhCM1Lx7ZXr505HaphelPJRDwj2S+2GpXQAiikv5xKHF67JjzqI/CfeAOX9T7JWR
-         DFow1rbx5q06QW0l0dwbOCqiNvEiEqvQvgqv01aHycFc37zbky3jwzl/M+Hu2RtScchN
-         qik5ETn0H+Ipl5qxKcuUb8NW78AJSQJTuWVG0He9ZaxkEsh5GkhR40yx932Vp7dsQYzP
-         /VQg==
+        bh=KBDzEX+8GGu0y6i5uHm9d4+R+YzMcmSLRmaJPoFkcWQ=;
+        b=jVFpnFqXsGdjmDO4OuGCFEq/qC95XuXtkkaoS41r+JxaOonPb25NCryEIj9BoDLm3H
+         RyQ+s+rxJdVwl3r7aZNluKoV6KYRlcrNBKxpzIzVlPwRihMWzaoqvw8BJaAmwckXZcOQ
+         M5wHKvX0Wl5UyFH9d2LgsETKqsYubx7JdPT+47CLjGghcf+EzHXquLMlMW1Hq0FAht/Z
+         sYTmwd5YzzUIWw+LUHVhrQzidzwTyS03kZtOvoiBLnpvDmOd81jCJn7ZHfF2NdzO/Q21
+         U8kD8IbBHfGi3TQPE6FCmOscwrgdXwyxBX7xlO8jC1JfgnSTw4CDJZwIZiBN8fcK2Fsq
+         Scuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
          :date:user-agent:mime-version:in-reply-to:content-language
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=A/zDv3dqFTCvSCOP5ifL18dTt2HgwjbRtHSv5qUg02Y=;
-        b=ni2OdtX0Oe4ibLL2UPcgz6szEKTVWSkLTcIEwzs0ydX+Y/etlVEAw22ZCUOmuwnD8c
-         iFce065DVn+wrxx/RyZzfcXDTKU5ax4PSM5xSrD0bjVndJjywhl85Bs4EQqR1m6olFNN
-         SjTutkWatFH6e4PgnSeQvVpjtja5tzYyf7o+LzCmGxMTD1u7A7PFllJ/q2dHRhOg12l9
-         M3kj4a4kSVLc+dTd0ui7enO0NLh8bKQPPen8qHX5/7MLFhAC8aUXkXL47FT0sA9Iq0kB
-         DNBD2Cx/Lz1HefVvTS6d+3Rea329jsrXtGBNIgxmRZG+Zz8ncgVt1DXYtAMAj77C489i
-         L5tQ==
+        bh=KBDzEX+8GGu0y6i5uHm9d4+R+YzMcmSLRmaJPoFkcWQ=;
+        b=fXW/nB8LvVoilBfJcmssElyYgFRoz8mmDRP5rAhk0cUa8qkc4x9pA78qceISihYF+E
+         D+aa0yG5A862gQbXnbEE+2ssGMz6AsvMUBWkXYtjOlp+dxl8TYs9GeV3OSV3FLmUod6W
+         iWCx8vwLnS+OYYlmOuw676EKm663Wk+bIp06PpCQZO3V9Ir1LNCDHsNC44+WJ32vk/jJ
+         1m86hFt5UgVe4yTIGSIz+CojHLTPnU+Ta4i+HImLtgL9kNstIHGmU1zEQzJU93CC23VQ
+         XSTO6T+IG7rfKt0TQ2zzmrjWx0mfbwktRBs0dP9ZP3BXsCqqxVKBjDK613ChZVS+B7MW
+         /3XQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530J14NPLY1Qw5vw2vszuyJwamD+3ZcdNHtgMKM1f40VpchcK2ax
-	vhaAuZUgjBTDCrLfXeBiC/o=
-X-Google-Smtp-Source: ABdhPJxWSwP8TcT0i5+T3qoMSKTE0HhRalbSuh6sYm/aFZJkjtqJx4iAD4SV1omzQYKZRhdVPxXFgQ==
-X-Received: by 2002:a05:6512:c23:: with SMTP id z35mr139116lfu.549.1623774337109;
-        Tue, 15 Jun 2021 09:25:37 -0700 (PDT)
+X-Gm-Message-State: AOAM531s0X46bA95bBiVv+KnRtpKIsm9x59kAR/y7RiLhCV44/lnzA20
+	T2D9d2PH1y+2tVg+HOh7dI4=
+X-Google-Smtp-Source: ABdhPJyvyLgs8HJmWiKjtWawyW2gMao4D3sHS/2VplwZHYhlc9AEGiy/B3XdZzPeNkw+TsZvqvrwYw==
+X-Received: by 2002:a7b:c8ce:: with SMTP id f14mr176105wml.88.1623774787390;
+        Tue, 15 Jun 2021 09:33:07 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:651c:39d:: with SMTP id e29ls4650855ljp.1.gmail; Tue, 15
- Jun 2021 09:25:35 -0700 (PDT)
-X-Received: by 2002:a2e:908a:: with SMTP id l10mr381747ljg.160.1623774335873;
-        Tue, 15 Jun 2021 09:25:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1623774335; cv=none;
+Received: by 2002:a7b:c0d1:: with SMTP id s17ls9868254wmh.0.gmail; Tue, 15 Jun
+ 2021 09:33:06 -0700 (PDT)
+X-Received: by 2002:a7b:c097:: with SMTP id r23mr195053wmh.30.1623774786398;
+        Tue, 15 Jun 2021 09:33:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1623774786; cv=none;
         d=google.com; s=arc-20160816;
-        b=0LdiXZv6bcsnnejzdcTDhg+vJHlAk5mNELnbtthQ0TvsNKsSO1uCiQoQefqQBvLWSi
-         O0gV0tKFELT8rWxlqr8gGn3862yUwl3IRCaueUWqlqcNQkiofQ/fCl47jQzT9L1/5XIe
-         PROzSqnENXDCdLxSO6GnevX2eiio7SOZn/2I33+h9Jgwhp8zMxJ7d/xB54lW2hkIe7o+
-         FoWMo7ALsdZuEz50a+uhqG0+5ZQSsmahIBKrrH1m/fqLoVM+Vn0Y6LTtrpnTlShNwsoa
-         RraljACEn4lGotILGrDTsOVc2nI72UCi6Wk8SE8jASG3R4SQKTCLoLBhVXanpqSx94IG
-         RbIw==
+        b=OQcv9Zcb+bj7NcO7EHB///kO2tXaB0ri44sVb3vKN7g9dJWK+XVgofgfdUxiulln13
+         LT3tEBnc8H65HEILUw4T6MtsVMsPqvh7ys01rl/o73q8jL4kebM/wbhzRQAxJRogMnBJ
+         dhq0yw810RwlFmiQsofJe2HR+ODONOOAXyYD8UQxoMq32NjeCUVSyrXIFuMsDK2lwwii
+         CAD1uvgV/hmavxzZCtB6rMSsAKgtVqO7MvcYNdFljT3/dmzC+nodIrmc0k+3FPGpkZD4
+         NvbXi1XxNh6jc92KaOZ3BcZpYsAsJ6B2e/DPZNtnRGWwUA95GuQrQEzqSTy493nDlmru
+         d4lA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject
+         :user-agent:date:message-id:from:references:to:subject
          :dkim-signature;
-        bh=KJ+nAPn/ueBTH8ylxtNidrSXW55OHblv9IUu3X+JI9Q=;
-        b=SNZXJkneT+E0VLwOWNy0Y3OhvyqsU5nx1BGXuduoxgIbNplqaAPlYD9Ef3Md3SQljY
-         33NOGxc8GA80YQvI5kTisPCb7VDVyU3+DMQGLRlnnps0dXaI2+vFbzJ8qGgrEBYm83qb
-         k/64k/7NLusc9Pr/6pcVKF7WjXvjM4EO4gE3NSS+bmeY7k8NwCl9bdIqy1qXlecIMS24
-         zkJ881ba5FWo615u2Ivb5E3aVoK0nTSovn3BjrKlcuLkvT2Qpbf+IMxmQj7U79R8zWdL
-         QzT3O3WN97bdD5ZoMAbDEXoEfZa+jcBK7H8cd8MWDfl/g9lzkTdQZ0A3Mwf54MRTGiN1
-         Bctg==
+        bh=1LS4PyOCfydSzN5g1KMlyy0NV1VV6eTXw+gwlHbn6mk=;
+        b=y4/e+uuFLsWHo7BSy2t+PSdkUbOZrIjKW1R79cL2vFhROA4TwK9XYAGprSrVw+dd6N
+         lBgo6cX2MUwnINYlW/ERdhhCZLQ8dnsGtWsEkxRRkGt19grG5YPiGFfWLURaWjquNHMT
+         Mh63uxHiZWHhJEN1u0C5IrIckmHVEN4KA0qK2Qj+HdRBM/z5655c4hdVUeg7FhguMoTy
+         pNW2FKx/iJtcAZjof9HBFk9Rxnaxx4a2BED6ezo4joqSHBqZRT4oZGDpetrWmcQ2WSht
+         722Ow5hxYbtPP9TrjH7wumO+pbzD3pnWR3Uu4ZSkGXgD9Q0CO7jFohQgEjzpk5jWQxoO
+         YiGw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=UChfQxGZ;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b="ln/ncSLw";
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [2001:638:a01:1096::11])
-        by gmr-mx.google.com with ESMTPS id b23si130618ljk.2.2021.06.15.09.25.35
+        by gmr-mx.google.com with ESMTPS id o24si89609wms.2.2021.06.15.09.33.06
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 15 Jun 2021 09:25:35 -0700 (PDT)
+        Tue, 15 Jun 2021 09:33:06 -0700 (PDT)
 Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) client-ip=2001:638:a01:1096::11;
 Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 4G4DFV0l8Szy0M;
-	Tue, 15 Jun 2021 18:25:34 +0200 (CEST)
+	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 4G4DQB0K3szxtH;
+	Tue, 15 Jun 2021 18:33:06 +0200 (CEST)
 Received: from [IPv6:2a02:810d:8fc0:44bc::d104] (2001:638:a01:8013::138) by
  E16S03.hs-regensburg.de (2001:638:a01:8013::93) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.10; Tue, 15 Jun 2021 18:25:33 +0200
-Subject: Re: [EXT] Re: [PATCH v2 3/4] tools/scripts: Remove python2 specific
- code
-To: Florian Bezdeka <florian.bezdeka@siemens.com>,
+ 15.1.2242.10; Tue, 15 Jun 2021 18:33:05 +0200
+Subject: Re: cell using rootfs on an external USB key
+To: laurent gauty <lgauty@gmail.com>, Jailhouse
 	<jailhouse-dev@googlegroups.com>
-CC: Jan Kiszka <jan.kiszka@siemens.com>
-References: <20210615093225.162909-1-florian.bezdeka@siemens.com>
- <20210615093225.162909-4-florian.bezdeka@siemens.com>
- <365e8552-76ae-f78c-d786-de6d41ecf161@oth-regensburg.de>
- <3f18f978-83c3-d9af-f8dc-0f00bb1e2bd7@siemens.com>
+References: <d88492f5-3780-4f6e-8fd3-53a609ec4133n@googlegroups.com>
 From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Message-ID: <89c6f195-39b9-557e-761f-d12e6f3fbf60@oth-regensburg.de>
-Date: Tue, 15 Jun 2021 18:25:33 +0200
+Message-ID: <eca49e52-675e-a8b0-37af-19d5c6b363bb@oth-regensburg.de>
+Date: Tue, 15 Jun 2021 18:33:05 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <3f18f978-83c3-d9af-f8dc-0f00bb1e2bd7@siemens.com>
+In-Reply-To: <d88492f5-3780-4f6e-8fd3-53a609ec4133n@googlegroups.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
 X-Originating-IP: [2001:638:a01:8013::138]
-X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
+X-ClientProxiedBy: E16S01.hs-regensburg.de (2001:638:a01:8013::91) To
  E16S03.hs-regensburg.de (2001:638:a01:8013::93)
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=UChfQxGZ;
+ header.i=@oth-regensburg.de header.s=mta01-20160622 header.b="ln/ncSLw";
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
  designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
@@ -145,224 +140,53 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
+Hi,
 
-On 15/06/2021 14:24, Florian Bezdeka wrote:
-> On 15.06.21 12:44, Ralf Ramsauer wrote:
->>
->>
->> On 15/06/2021 11:32, Florian Bezdeka wrote:
->>> We are now calling pyhton3 via shebang, so no need to care about
->>
->> python3
+On 15/06/2021 15:43, laurent gauty wrote:
+> Hi,
 > 
-> Thanks!
+> I'm planning to have the linux root cell on an MMC card of my board and
+> a linux non-root cell on a USB key plugged into the board. The rootfs of
+> the inmate for non-root will be stored on a partition of the USB key. So
+> here is my question:
+> - Do you confirm that i need to declare into the dts of the inmate the
+> USB port that will receive the USB key ?
+> - Do you confirm that i need to declare the USB port (memory mapped)
+> inside the inmate cell ?
+> - Did i forget any other steps ?
 > 
->>
->>> python2 anymore.
->>>
->>> Signed-off-by: Florian Bezdeka <florian.bezdeka@siemens.com>
->>> ---
->>>  pyjailhouse/config_parser.py   |  1 -
->>>  pyjailhouse/extendedenum.py    | 12 ------------
->>>  scripts/arm64-parsedump.py     |  1 -
->>>  tools/jailhouse-cell-linux     |  1 -
->>>  tools/jailhouse-cell-stats     |  1 -
->>>  tools/jailhouse-config-check   |  1 -
->>>  tools/jailhouse-config-create  |  1 -
->>>  tools/jailhouse-hardware-check |  5 -----
->>>  8 files changed, 23 deletions(-)
->>>
->>> diff --git a/pyjailhouse/config_parser.py b/pyjailhouse/config_parser.py
->>> index cad761a5..7a7f48a3 100644
->>> --- a/pyjailhouse/config_parser.py
->>> +++ b/pyjailhouse/config_parser.py
->>> @@ -14,7 +14,6 @@
->>>  # information about the system. For more advanced scenarios you will have
->>>  # to change the generated C-code.
->>>  
->>> -from __future__ import print_function
->>>  import struct
->>>  
->>>  from .extendedenum import ExtendedEnum
->>> diff --git a/pyjailhouse/extendedenum.py b/pyjailhouse/extendedenum.py
->>> index f3dd1bb9..9d6043a4 100644
->>> --- a/pyjailhouse/extendedenum.py
->>> +++ b/pyjailhouse/extendedenum.py
->>> @@ -9,18 +9,6 @@
->>>  # This work is licensed under the terms of the GNU GPL, version 2.  See
->>>  # the COPYING file in the top-level directory.
->>>  
->>> -# Python 2 and 3 have different ways of handling metaclasses. This decorator
->>> -# is a support layer for both and can be removed once Python 2 is no longer
->>> -# supported.
->>> -def with_metaclass(meta):
->>> -    def decorator(cls):
->>> -        body = vars(cls).copy()
->>> -        body.pop('__dict__', None)
->>> -        body.pop('__weakref__', None)
->>> -        return meta(cls.__name__, cls.__bases__, body)
->>> -    return decorator
->>> -
->>> -
->>
->> Did you actually test and run jailhouse-config-create? I guess this
->> should fail, because there are users of with_metaclass that need to be
->> addressed.
-> 
-> Yes, that was tested. But as it turned out there seems to be something
-> wrong with my local test env. Generation "works" but output looks quite
-> funny.
-> 
-> As I'm running out of time I will no longer take care of that strange
-> Enum type. I will resend v3 without touching ExtendedEnum.
+> Or am i totally wrong ?
 
-It's not that strange, it got strange, when dealing with python2
-compatibility. Using Metaclasses have diffent syntax in Python[23]. The
-dance was required to have one common piece of code that does the same
-thing under both versions.
+We had a similar discussion a short while ago on persistent memory. Ah,
+that was you! :)
 
-Could you please check the following patch:
+An USB Port belongs to an USB host controller. The host controller can,
+for example, be a PCI device. In that case, the PCI device can be
+assigned to cell, but Jailhouse doesn't care what's behind the PCI
+device, that's the finest granularity.
 
+The same basically goes for the MMC cards, as Jan explained in the other
+thread.
 
-
-diff --git a/pyjailhouse/extendedenum.py b/pyjailhouse/extendedenum.py
-index f3dd1bb9..799f8c62 100644
---- a/pyjailhouse/extendedenum.py
-+++ b/pyjailhouse/extendedenum.py
-@@ -9,25 +9,13 @@
- # This work is licensed under the terms of the GNU GPL, version 2.  See
- # the COPYING file in the top-level directory.
-
--# Python 2 and 3 have different ways of handling metaclasses. This
-decorator
--# is a support layer for both and can be removed once Python 2 is no longer
--# supported.
--def with_metaclass(meta):
--    def decorator(cls):
--        body = vars(cls).copy()
--        body.pop('__dict__', None)
--        body.pop('__weakref__', None)
--        return meta(cls.__name__, cls.__bases__, body)
--    return decorator
--
-
- class ExtendedEnumMeta(type):
-     def __getattr__(cls, key):
-         return cls(cls._ids[key])
-
-
--@with_metaclass(ExtendedEnumMeta)
--class ExtendedEnum:
-+class ExtendedEnum(metaclass=ExtendedEnumMeta):
-     def __init__(self, value):
-         self.value = value
-
-
-I think that should work. Feel free to add my Signed-off.
-
-Thanks
   Ralf
 
 > 
-> Stared some minutes on that "Enum" but unable to figure out why it is
-> implemented this way and where the difference to plain "Enum" is. I
-> guess there are some python2 specifics I simply dont't know.
+> Thanks,
 > 
->>
->> Thanks
->>   Ralf
->>
->>>  class ExtendedEnumMeta(type):
->>>      def __getattr__(cls, key):
->>>          return cls(cls._ids[key])
->>> diff --git a/scripts/arm64-parsedump.py b/scripts/arm64-parsedump.py
->>> index c695706f..54f4fd66 100755
->>> --- a/scripts/arm64-parsedump.py
->>> +++ b/scripts/arm64-parsedump.py
->>> @@ -14,7 +14,6 @@
->>>  # the COPYING file in the top-level directory.
->>>  
->>>  
->>> -from __future__ import print_function
->>>  import subprocess
->>>  import sys
->>>  import fileinput
->>> diff --git a/tools/jailhouse-cell-linux b/tools/jailhouse-cell-linux
->>> index 6d1743f3..a1650912 100755
->>> --- a/tools/jailhouse-cell-linux
->>> +++ b/tools/jailhouse-cell-linux
->>> @@ -10,7 +10,6 @@
->>>  # This work is licensed under the terms of the GNU GPL, version 2.  See
->>>  # the COPYING file in the top-level directory.
->>>  
->>> -from __future__ import print_function
->>>  import argparse
->>>  import gzip
->>>  import os
->>> diff --git a/tools/jailhouse-cell-stats b/tools/jailhouse-cell-stats
->>> index 4c5289fb..7a634212 100755
->>> --- a/tools/jailhouse-cell-stats
->>> +++ b/tools/jailhouse-cell-stats
->>> @@ -10,7 +10,6 @@
->>>  # This work is licensed under the terms of the GNU GPL, version 2.  See
->>>  # the COPYING file in the top-level directory.
->>>  
->>> -from __future__ import print_function
->>>  import curses
->>>  import datetime
->>>  import os
->>> diff --git a/tools/jailhouse-config-check b/tools/jailhouse-config-check
->>> index 62db24c3..d6ea7079 100755
->>> --- a/tools/jailhouse-config-check
->>> +++ b/tools/jailhouse-config-check
->>> @@ -15,7 +15,6 @@
->>>  # information about the system. For more advanced scenarios you will have
->>>  # to change the generated C-code.
->>>  
->>> -from __future__ import print_function
->>>  import argparse
->>>  import os
->>>  import sys
->>> diff --git a/tools/jailhouse-config-create b/tools/jailhouse-config-create
->>> index 2095f4e2..c2cd5952 100755
->>> --- a/tools/jailhouse-config-create
->>> +++ b/tools/jailhouse-config-create
->>> @@ -18,7 +18,6 @@
->>>  # information about the system. For more advanced scenarios you will have
->>>  # to change the generated C-code.
->>>  
->>> -from __future__ import print_function
->>>  import sys
->>>  import os
->>>  import math
->>> diff --git a/tools/jailhouse-hardware-check b/tools/jailhouse-hardware-check
->>> index 7a41b48e..fc8ce4f1 100755
->>> --- a/tools/jailhouse-hardware-check
->>> +++ b/tools/jailhouse-hardware-check
->>> @@ -10,7 +10,6 @@
->>>  # This work is licensed under the terms of the GNU GPL, version 2.  See
->>>  # the COPYING file in the top-level directory.
->>>  
->>> -from __future__ import print_function
->>>  import mmap
->>>  import os
->>>  import struct
->>> @@ -20,10 +19,6 @@ import sys
->>>  sys.path[0] = os.path.dirname(os.path.abspath(__file__)) + "/.."
->>>  import pyjailhouse.sysfs_parser as sysfs_parser
->>>  
->>> -# just a dummy to make python2 happy
->>> -if sys.version_info[0] < 3:
->>> -    class PermissionError(OSError):
->>> -        pass
->>>  
->>>  check_passed = True
->>>  ran_all = True
->>>
+> regards
 > 
 > 
+> -- 
+> You received this message because you are subscribed to the Google
+> Groups "Jailhouse" group.
+> To unsubscribe from this group and stop receiving emails from it, send
+> an email to jailhouse-dev+unsubscribe@googlegroups.com
+> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
+> To view this discussion on the web visit
+> https://groups.google.com/d/msgid/jailhouse-dev/d88492f5-3780-4f6e-8fd3-53a609ec4133n%40googlegroups.com
+> <https://groups.google.com/d/msgid/jailhouse-dev/d88492f5-3780-4f6e-8fd3-53a609ec4133n%40googlegroups.com?utm_medium=email&utm_source=footer>.
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/89c6f195-39b9-557e-761f-d12e6f3fbf60%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/eca49e52-675e-a8b0-37af-19d5c6b363bb%40oth-regensburg.de.
