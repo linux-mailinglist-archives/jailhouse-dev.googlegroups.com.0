@@ -1,133 +1,131 @@
-Return-Path: <jailhouse-dev+bncBCF23YV2QAERBN6KUGDAMGQEMKQ3J7Y@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBAABBYHAUGDAMGQEPYW365I@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x137.google.com (mail-lf1-x137.google.com [IPv6:2a00:1450:4864:20::137])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75FD83A7908
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 15 Jun 2021 10:30:48 +0200 (CEST)
-Received: by mail-lf1-x137.google.com with SMTP id bt32-20020a0565122620b029030e2ef98a19sf3508716lfb.22
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 15 Jun 2021 01:30:48 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1623745848; cv=pass;
+Received: from mail-wr1-x43b.google.com (mail-wr1-x43b.google.com [IPv6:2a00:1450:4864:20::43b])
+	by mail.lfdr.de (Postfix) with ESMTPS id F15843A7A0A
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 15 Jun 2021 11:18:24 +0200 (CEST)
+Received: by mail-wr1-x43b.google.com with SMTP id f9-20020a5d64c90000b029011a3c2a0337sf5070014wri.0
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 15 Jun 2021 02:18:24 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1623748704; cv=pass;
         d=google.com; s=arc-20160816;
-        b=HGsaKLO0/hNlbth3QbCoYOvhS+UPRDknR+hMS2Z8Wh8STve9HAM0j0nec58vIM2ZzH
-         j8BUAk5uhM2lWcZW6v8osVBq0rgGvzGcXDITrQdDP3pAkMZ/s3BD2xxdmvXT4v0CYqyB
-         O1Vp/k0s09cWVI1aac9hFl4j1eH1trFci9UqFCD/7sCs04d9OJ2oEJH5PdJEBH1yVNDP
-         r0K9VHgQjMp60Odk4MWsSzSwCX0iDV9Jxxsa7YhIxXYQbR7lebWoqskm1LWKvmVl3asC
-         3Pixy5Q8m66zz4HmM+VX8wiTQv5RjJ5B4T+nPJsd3XESf1Q8I3l0SVpCZfmy2BVfuaiM
-         b0uw==
+        b=F2FcfEB5o2zQH24ui0EQy3tKP42qGRZnIosZWlDBZi3aMdeZRYtmnmusnz/s45f7p9
+         9dko8nb0HtSN4QXnO/A0VMqK8T0vCGaTP8Yp7JrDtn00CunDe0BW0aq3WvV70ElEXkVL
+         IFhP5b2hVSXUUc+iNNJFpt5ctFikXnf/ZcW1B93dUe4B/EfRTG20uJaJdwx6B4qD9kpY
+         cgdofp3HJHrrrOrwTPtUqsuNry+Dn/NS1rflnS7nP1P061L91iRKsAvUJGR1pF9ISaNr
+         7q/0/9iYNAnTUP6eflefRNOiidMyaBo7/923BoPPQ7YsfNaPtdQA+uHq4Y7HdofPcu+c
+         Ee4w==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:sender:dkim-signature
-         :dkim-signature;
-        bh=RwBBdBpLyvUocoylU9cDqd1sXdBq09lLZkW2YQvB3RU=;
-        b=uAKKQ8vA7ep1b7iWXqMMDmV25SQmh9THWk/wt3mxacgskt9cdUPb6zgjcwo+T2Jayl
-         4smViJvKwYtkdgQgQpuoeSbBiC8MVBAcHXBdgpdJnE+lmioaGH3UqIJHLXele3QhmOpY
-         6FnfI62BJwdL2U3sLgbjQRPXdWblwKY9aMxsDyc4BnDK9xAkRz7JFwkHIUaE9VlQl0wc
-         RYpJLguBic6e30fvbZxsdBVQ9ZNtPH5QWJZSzZqcorrTYPg3thZVCE6NKJ2dvLagShTZ
-         sXH/pep+t3+faGe5ctD9iPkhc1F58RpNzfKnO16Snty65YqO8p9shGio1bc3v+JzHFB9
-         +U2w==
+        h=list-subscribe:list-archive:list-help:list-post:list-id
+         :mailing-list:precedence:date:feedback-id:list-unsubscribe-post
+         :list-unsubscribe:content-transfer-encoding:mime-version:subject
+         :message-id:to:from:sender:dkim-signature;
+        bh=q6YmuTtNVwOzX80out8P05nvs9WbuCcKOVNK5wqP6W8=;
+        b=Rd18cME9WhWfiDvJDjSzoQC5ZnfbceVb3ob0fkVIddHmIMDYQvw7CphbvM0BD0OZdP
+         UycwwRPPGNHhOq3+5tTyPfv1FpvfTHjQlpoesiAwu4URTLguZFPVps1o4kgwQY8bbul4
+         5hv28Yuhm+6LfXo+mv+8KTpFOw0HsBOhQWuUvA9oi/ylKs7YI8ppLaa1unnhQ0PtWBf7
+         4H3aha39ZyMN//VptiitcEpEA2pfP/LeBa9zSUaQmtMQkxr7H8UduRUF1QRFii6l/Toy
+         m9S5qZ0K0WObMCY4X716mIauhQjIRUpybn5T5U3tiwG8+cwRWDdneEXC0I3PS9sr3gtA
+         sTEQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=DUiUuvaA;
-       spf=pass (google.com: domain of zhuzhuzhuzai@gmail.com designates 2a00:1450:4864:20::434 as permitted sender) smtp.mailfrom=zhuzhuzhuzai@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+       dkim=pass header.i=@ics.events header.s=ipz header.b=qPpwtMQL;
+       dkim=pass header.i=@mrelayip.com header.s=ipzs1 header.b=ErBctWBS;
+       spf=pass (google.com: domain of conf@ics.events designates 82.199.156.135 as permitted sender) smtp.mailfrom=conf@ics.events;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ics.events
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:mime-version:references:in-reply-to:from:date:message-id
-         :subject:to:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=RwBBdBpLyvUocoylU9cDqd1sXdBq09lLZkW2YQvB3RU=;
-        b=guhTUvw8sMyDJaz0a74rlBEDka3UIUMy7MPyYLJ4viPwt53h/7Uw5LPDsF4D5RB8gz
-         jH/rguGDWl+2H6F/st+BSdyiAwt1XANTNTKePfPW3txSjHKxK/TTUzcXxWEtW0x+H39O
-         8rWRlwQuuQzy2aeUqEmYB0SnwHYBpLCl9GqtBF9x2S6F+K5Jc56if+LmAmBUBXzcEUD4
-         58Y45yYxIT3xN5LIGrZvtcE24/jInMXM5Mkws5KWA1zyU0ouz51SdXNUHTzqr9ptHuyX
-         gDr1v9hfcBtihcgKxzc8AWfNbmiuS/E0m/21dL2UuU7Ld2TN0IrKfLMgnrww0zxH+/bl
-         NCJQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=RwBBdBpLyvUocoylU9cDqd1sXdBq09lLZkW2YQvB3RU=;
-        b=MHJ8D4w1D/t/cO/XuHdkeb0EuVCGbSpaT8owgYOObSO7U7OTqzZ0m5Sa6tML4R0Ct1
-         PGJqdwaB7GUCODGH+WtHFRIstdyUa0Ha8RfwhG4k2r8PfRYmsAdxOgO59EX85wDromEi
-         dQVExb1bcOJPQ0dYFTam8jLVjczuzsqoBTGKu4GI7NUAxsBvioEVXte46fKlNTEwPCBi
-         pE37AViqii7qK5NcxcxeFLdARCeBPBy/UInDi0qRC6bsBPd06aBgrpNkXNg+M9RqEGJ0
-         SyNmCMwBFk1CRtnf/Ic115KEHHZFFurouTPWZoHkMGdsA7iOvxbkjgkSNnPgjy34nMAa
-         wZmA==
+        h=sender:from:to:message-id:subject:mime-version
+         :content-transfer-encoding:list-unsubscribe:list-unsubscribe-post
+         :feedback-id:date:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe;
+        bh=q6YmuTtNVwOzX80out8P05nvs9WbuCcKOVNK5wqP6W8=;
+        b=QF03AzXFkoP/B6ik5kZPdMkjR3oA5yYYQUCvCUKR8zxL6v8tu1QLg2Ayym+DLIX8K3
+         O7nR4iM6lHPQErvOq+DZIKKY+rAikVd+6Fksk1LmJJsBtgt9vR+VVR5eU2/wNdAnIk31
+         xveaC1IZWUVZwSt/n21LxMZmDzcPn+8CwPDzn2CkveXVPd6kiSxpeW6MNJtiQ6wCrexg
+         oqx8u2n2Yn7XZHv1n7XLyLYEEaAWLD1SOzK4xk0RqdJuUf5FgDU1WXv2vHWTx0+KFfWN
+         x0hnLdH5Cz+Vn0E6KBEfCR6fmuE96q2IA4jfY0g5mGsaqvAdGMgz4UnNCpMw+oXWBM/c
+         qMmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
-         :date:message-id:subject:to:x-original-sender
+        h=sender:x-gm-message-state:from:to:message-id:subject:mime-version
+         :content-transfer-encoding:list-unsubscribe:list-unsubscribe-post
+         :feedback-id:date:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=RwBBdBpLyvUocoylU9cDqd1sXdBq09lLZkW2YQvB3RU=;
-        b=L8Dc4msOIySBbc2SOUaNlq/WPyspWjZ7Xd5qvuC5ywNfTI1lDyaBqToXYg4EHu6PQy
-         IXLCTQb1MQ4cyPnQ3EF9Sar0VKzIbc7Cp72Xk2hwB3HxW5l4QrWnkYX7M1dhBNX59quh
-         tWNyZkXqma8QGDF99DtrDhgYsC1LRDTBQ++7Xc9yTPLPkJOr1j0mz/Nd278uOUej5I50
-         otF6KSuNLcPKnE/rY30LCajuT4rEVJl5xa4bINQEF4UBBQ+ibQy6V8xBIV5c0KXQKaO1
-         /EDJPeRsOxgaL0eV9ciMCjVBsOYo/dMB9evbPz4A6CR7sBTJNz8kjMLIlRlElBrhWuDw
-         mEWA==
+         :list-subscribe;
+        bh=q6YmuTtNVwOzX80out8P05nvs9WbuCcKOVNK5wqP6W8=;
+        b=iiPW8sX0FM18ZDy/zPXyrbcAEU89nQBHfBgs9vBH04Pa4lEGmgpWzNqJH92Ek+1Pu9
+         SjVjxPgkSFhUmNvwhvunk+fFhYfxfb7OVret+4UGzfTv1q/lwKGmTc541ETP33TWeLKS
+         odzW0BIjzJNxtSrBiplbp3j8ZdLCeC9OQTE0U5VFs97aYiFOGsjDZ/q5Up79/utpgh35
+         Hu80GYK2zPmRY8ec28j5Nd1Tb04n77RvPfVcH2+FrRTZJxz/lqs1Rci8CMaE6xE4K8IC
+         k8QD82VgkaH757SsxwRjLM7+G2OY+BXE6LvJtU94pyOzNHU67WtVEi0MLAyo1c+++HjD
+         KtrQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531XjeYpQLsIWpD8Gg4EzWLiqMEIBprAp2vuo9WegG3IJ5Z0UWjI
-	F1gMSKmf2gJxfwGhg8qWe0A=
-X-Google-Smtp-Source: ABdhPJzk5HFtEH2YgLfOQHRvbmKvSAcXjovnDdRrz/DyHMZzHS8vYbCWjoVphL1P9ohseogK6qmhPw==
-X-Received: by 2002:ac2:5f72:: with SMTP id c18mr14616926lfc.81.1623745847907;
-        Tue, 15 Jun 2021 01:30:47 -0700 (PDT)
+X-Gm-Message-State: AOAM532EHHDEhFQAYKRg1Uoy0axp4YErX0LYrb8EONkKuzvoNKKTfWZ5
+	ovCFT91bP1UZR2lPHeFKvC0=
+X-Google-Smtp-Source: ABdhPJyo6oDFsCAC8g6mPghKcS5U2LHd8D0YLWa6VBef0Rm1uI60hsawmMkBAbdKb0cRAmFhFed0Ew==
+X-Received: by 2002:adf:df88:: with SMTP id z8mr1446281wrl.330.1623748704590;
+        Tue, 15 Jun 2021 02:18:24 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:651c:1025:: with SMTP id w5ls4205348ljm.0.gmail; Tue, 15
- Jun 2021 01:30:46 -0700 (PDT)
-X-Received: by 2002:a05:651c:20c:: with SMTP id y12mr17004969ljn.428.1623745846861;
-        Tue, 15 Jun 2021 01:30:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1623745846; cv=none;
+Received: by 2002:adf:fe4c:: with SMTP id m12ls2713344wrs.0.gmail; Tue, 15 Jun
+ 2021 02:18:23 -0700 (PDT)
+X-Received: by 2002:adf:f28b:: with SMTP id k11mr23066789wro.89.1623748703809;
+        Tue, 15 Jun 2021 02:18:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1623748703; cv=none;
         d=google.com; s=arc-20160816;
-        b=r8L1oJk+N56TR3u9/0579xi8bMGnkDPeFhDx0luPPXig81qwnMzCIdtLvNMSUKquAB
-         vxSTpxrDHPhh+G5fZQBxBmxL7TdW6eSlfLwVACjevLKGbF3r0nVPavT3+Da9qGIvK5Lx
-         f9ZYalRgFYG+xnVR+rJc14GCawprbvei8wokLaQQJ3mm4GjQFCDfpzR2+rn+X2W05bbS
-         wmsyNAM+vUNbmr1pn5BM783AbBtm/XK0IHQ39+vBeIQ4vsatihkNbKL1/ENxsDqxDTdJ
-         lcepKYoqRZ6ER4zgdkCxuHy3Uz61XX9CU6hb5OTa93H+TleMj3tp0lSVm2Y/1qOnuW6q
-         4RRQ==
+        b=ndusJhKzgmKObNOngjAfr2keHTNBjrMY4r5nNK0XUOmn1Wyd0FrHvHBVpXaWuNR5pd
+         AsluscINFxVfydtnkzEWqP6WUv6JRRxV06pYvcsyXvx9BxEteINHX4N+pDWraEaxuQnO
+         dxSCz6DNEWzy0X4EAbzt6n4/ZF0kSMaNdHNBFNkjAsA+89HuioEYMrJRB/8kHvLM9EYy
+         YG74qkmiBggS5LefQqDTwlfzCJxrOUBBUGIrCwPn4VlIdamh0UWF9v60tUxVHBjIQhSI
+         c70OYjgj2J65fO8GYEWuStCRXscppT3/LXTxDGYC4LzxxXDcv9wyG9pYKvE9cMPaKE1+
+         x/mQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
-         :dkim-signature;
-        bh=n4pM/G0tNheEz5tfnR1uO5IKVd/Al6xT9UcodJx1R9o=;
-        b=L6dboa29sOsqJhJUw2v4kse/ADHIoHIOJT31Uj/1DgwKqYW107uWOhDhllrASZjaP2
-         j6C5X6hJKCsvroYC4jeVHI3id2hIyINSJscY1IQUPHiw8u4T8RewGZPb49Y2N/wPWfhi
-         DO5If3HrCnd8F5iRKdSsU7ntpEV4W9g90Io9OHDHA8VzowOeA5zNU5rVENyZHc+26l9f
-         4tKiZ9XQ3FW69xN9CzF10eejfSqtl4iDDDfEplOh+Ou9MXka3kWhDBr4dW4/5KrqGUQO
-         U82sx0mm8SD2Ar1C9sNUqFVOlQWumiPPEWLMqxPUUOl9YswWYS5FZNnxEZJZrvajlmjd
-         toSg==
+        h=date:feedback-id:list-unsubscribe-post:list-unsubscribe
+         :content-transfer-encoding:mime-version:subject:message-id:to:from
+         :dkim-signature:dkim-signature;
+        bh=pgA6PeCFFSCEgYIYLEbOtwqTr1FRj/gC5Mbz0ZwTec8=;
+        b=TxuiT5++Nl3Mr1RPXu0X7IzURjqHwIHqD2vQeAXD0TT/e788oqkjk60U9VufcPNqZv
+         ysSPPaDRZBsOidthpM/YeMtQZNK0l7BLjiFSzKbNk5B7++x4Y+G3+T1vHbwSfO+GLZ3K
+         MW9rgVl/YNEyNZrf6INKmbbnhJHtUYp3T9a0ly9BNJEUX+k9tklfJlITFMF5WxC6bi+I
+         E9q2bhopLrY0srciRn8aVLj1QyzU0PcN08tnJduK+Ht3w6Bgvq78FhYuUOd4PwBsCO/F
+         AI8EVLFaZfnK9gUhy+dHvxKsqwOfHeGb3nVkCJ4TM0UK/B0Oa+KOU1ZkFmk0Z6IY08ns
+         cV4g==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=DUiUuvaA;
-       spf=pass (google.com: domain of zhuzhuzhuzai@gmail.com designates 2a00:1450:4864:20::434 as permitted sender) smtp.mailfrom=zhuzhuzhuzai@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com. [2a00:1450:4864:20::434])
-        by gmr-mx.google.com with ESMTPS id f6si70171ljo.1.2021.06.15.01.30.46
+       dkim=pass header.i=@ics.events header.s=ipz header.b=qPpwtMQL;
+       dkim=pass header.i=@mrelayip.com header.s=ipzs1 header.b=ErBctWBS;
+       spf=pass (google.com: domain of conf@ics.events designates 82.199.156.135 as permitted sender) smtp.mailfrom=conf@ics.events;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ics.events
+Received: from core2-135-server.dyd.es (core2-135-server.dyd.es. [82.199.156.135])
+        by gmr-mx.google.com with ESMTPS id f23si92439wmh.2.2021.06.15.02.18.23
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Jun 2021 01:30:46 -0700 (PDT)
-Received-SPF: pass (google.com: domain of zhuzhuzhuzai@gmail.com designates 2a00:1450:4864:20::434 as permitted sender) client-ip=2a00:1450:4864:20::434;
-Received: by mail-wr1-x434.google.com with SMTP id c5so17308650wrq.9
-        for <jailhouse-dev@googlegroups.com>; Tue, 15 Jun 2021 01:30:46 -0700 (PDT)
-X-Received: by 2002:a5d:564a:: with SMTP id j10mr23720686wrw.171.1623745845984;
- Tue, 15 Jun 2021 01:30:45 -0700 (PDT)
-MIME-Version: 1.0
-References: <cff6a936-9db1-4edd-bf86-236b7277dea9n@googlegroups.com>
-In-Reply-To: <cff6a936-9db1-4edd-bf86-236b7277dea9n@googlegroups.com>
-From: =?UTF-8?B?5pyx6Iul5Yeh?= <zhuzhuzhuzai@gmail.com>
-Date: Tue, 15 Jun 2021 16:30:35 +0800
-Message-ID: <CA+nU6V87Gav167NNkHbiZ4zx=rwd7F1xskpSv5tiBacQ6Rnqmw@mail.gmail.com>
-Subject: Re: arm64 config of jailhouse
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Content-Type: multipart/alternative; boundary="0000000000005b040805c4c9ca76"
-X-Original-Sender: zhuzhuzhuzai@gmail.com
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Jun 2021 02:18:23 -0700 (PDT)
+Received-SPF: pass (google.com: domain of conf@ics.events designates 82.199.156.135 as permitted sender) client-ip=82.199.156.135;
+From: Tatiana Antipova <conf@ics.events>
+To: jailhouse-dev@googlegroups.com
+Message-ID: <1_YvjE4Hy5nD@ics.ipzmarketing.com>
+Subject: 9th International Conference. Springer publication. Scopus, Web of
+ Science Indexation. Deadline - August 11, 2021
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_60c8705f8d085_1f0813ff1e813945c847062d";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SEID: 1_YvjE4Hy5nD
+List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
+ <https://groups.google.com/group/jailhouse-dev/subscribe>
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+X-Report-Abuse: Please report abuse for this campaign here:
+ https://ics.mx-router-ii.com/abuse_reports/new?id=wxjp0k&token=gbyci9r2
+Feedback-ID: 149880:149880-48:campaign:IPZMR
+Date: Tue, 15 Jun 2021 09:18:23 +0000
+X-Original-Sender: conf@ics.events
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20161025 header.b=DUiUuvaA;       spf=pass
- (google.com: domain of zhuzhuzhuzai@gmail.com designates 2a00:1450:4864:20::434
- as permitted sender) smtp.mailfrom=zhuzhuzhuzai@gmail.com;       dmarc=pass
- (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+ header.i=@ics.events header.s=ipz header.b=qPpwtMQL;       dkim=pass
+ header.i=@mrelayip.com header.s=ipzs1 header.b=ErBctWBS;       spf=pass
+ (google.com: domain of conf@ics.events designates 82.199.156.135 as permitted
+ sender) smtp.mailfrom=conf@ics.events;       dmarc=pass (p=NONE sp=NONE
+ dis=NONE) header.from=ics.events
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -137,47 +135,84 @@ List-Post: <https://groups.google.com/group/jailhouse-dev/post>, <mailto:jailhou
 List-Help: <https://groups.google.com/support/>, <mailto:jailhouse-dev+help@googlegroups.com>
 List-Archive: <https://groups.google.com/group/jailhouse-dev
 List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mailto:jailhouse-dev+subscribe@googlegroups.com>
-List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
- <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---0000000000005b040805c4c9ca76
+
+----==_mimepart_60c8705f8d085_1f0813ff1e813945c847062d
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-For example :
-Every entry in /proc/iomem , should I add a memory region in config?  or
-just need that entry flagged with System RAM?  And how to define a region's
-permission?
+SevenBooksJpgs.jpg=20
+( https://ics.mx-router-ii.com/c/wxjp0k/gbyci9r2/llgmckvwsdq )
 
-Should I get the every reserved-memory in device-tree and add a relevant
-memory region in config? And how to define the region's permission?
+Dear Author,
 
-Then where can I get irqchip field and parameter of it in config file?
+You are cordially invited to submit your full paper of 6 - 12
+pages!
 
-Thank a lot.
+The 2021 International Conference on Digital Science (DSIC 2021)
+will be held in Luxembourg, Luxembourg, on October 15 =E2=80=93 17, 2021.
+-----------------------------------------------------------------
 
-=E6=9C=B1=E8=8B=A5=E5=87=A1 <zhuzhuzhuzai@gmail.com> =E4=BA=8E2021=E5=B9=B4=
-6=E6=9C=8815=E6=97=A5=E5=91=A8=E4=BA=8C =E4=B8=8A=E5=8D=8811:16=E5=86=99=E9=
-=81=93=EF=BC=9A
+-
 
-> Can someone have ability to write the config of dragonboard 845c or via
-> the /proc/iomem and dts .I use the autojail to get the config
-> automatically=EF=BC=8Cbut fail to enable jailhouse .
->
-> --
-> You received this message because you are subscribed to a topic in the
-> Google Groups "Jailhouse" group.
-> To unsubscribe from this topic, visit
-> https://groups.google.com/d/topic/jailhouse-dev/Tah6FQVcg0I/unsubscribe.
-> To unsubscribe from this group and all its topics, send an email to
-> jailhouse-dev+unsubscribe@googlegroups.com.
-> To view this discussion on the web visit
-> https://groups.google.com/d/msgid/jailhouse-dev/cff6a936-9db1-4edd-bf86-2=
-36b7277dea9n%40googlegroups.com
-> <https://groups.google.com/d/msgid/jailhouse-dev/cff6a936-9db1-4edd-bf86-=
-236b7277dea9n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>
-> .
->
+Conference website is https://ics.events/dsic-2021/=20
+( https://ics.mx-router-ii.com/c/wxjp0k/gbyci9r2/b8-yqd69dvg ).
+-----------------------------------------------------------------
+
+Early submissions are greatly appreciated. A single attending
+author may present a maximum of two papers onsite/online. The
+presentation, award submission and proceedings submission for a
+paper must all be in English.
+
+You may submit your paper via DSIC 2021 Submission Form on
+https://ics.events/dsic-2021/=20
+( https://ics.mx-router-ii.com/c/wxjp0k/gbyci9r2/dpqjfubwby0 ).
+Submitted papers (until 12-page limit; including figures and
+references) must comply with the requested format Template=20
+( https://ics.mx-router-ii.com/c/wxjp0k/gbyci9r2/zfeymvayom8 ), be
+written in English, must not have been published before, not be
+under review for any other conference or publication.
+
+All submissions will be twice =C2=ABblind=C2=BB reviewed based on
+relevance, timeliness, originality, importance and clarity of
+expression with convincing argumentative. Besides globally
+relevant meetings with internationally representative
+program/scientific committees guaranteeing a strict
+peer-reviewing and paper selection process. In case your paper=E2=80=99s
+acceptance you will receive a notification letter. This letter
+will contain your paper ID that you should include in all further
+correspondences.
+
+--------------------------
+Publication and Indexation
+--------------------------
+
+Accepted, registered, and oral/virtual presented Papers will be
+published in the 2021 International Conference on Digital Science
+Proceeding by Springer in a book series "Lecture Notes in
+Networks and Systems" (SJR 0,17; Q4 according to
+https://www.scimagojr.com/journalrank.php=20
+( https://ics.mx-router-ii.com/c/wxjp0k/gbyci9r2/zh3wtw0zftu ),
+2020) and then will be submitted to SCOPUS, Web of Science
+(CPCI), Google Scholar and other indexations.
+
+Submit your paper=20
+( https://ics.mx-router-ii.com/c/wxjp0k/gbyci9r2/zvxeqhnfd_e )
+
+Due to the restrictions caused this year by COVID-19
+Pandemic, corresponding authors with ICCS2021 registration will
+have a discount of 50 USD in the DSIC 2021 registration.
+
+En cumplimiento de lo dispuesto en la Protecci=C3=B3n de
+Datos, para el ejercicio de sus derechos de acceso,
+rectificaci=C3=B3n, cancelaci=C3=B3n y oposici=C3=B3n al tratamiento de sus
+datos personales, contenidos en nuestras condiciones de
+protecci=C3=B3n de datos, solamente tiene que responder a este e-mail
+indicando su email en el asunto, o bien a trav=C3=A9s del env=C3=ADo de un
+correo ordinario a la direcci=C3=B3n: INCLUIR DIRECCI=C3=93N. Si desea
+darse de baja tambi=C3=A9n puede hacer clic aqu=C3=AD=20
+( https://ics.mx-router-ii.com/unsubscribe/wxjp0k/click?token=3Dgbyci9r2 )
+.
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -185,50 +220,1028 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/CA%2BnU6V87Gav167NNkHbiZ4zx%3Drwd7F1xskpSv5tiBacQ6Rnqmw%40mai=
-l.gmail.com.
+jailhouse-dev/1_YvjE4Hy5nD%40ics.ipzmarketing.com.
 
---0000000000005b040805c4c9ca76
+----==_mimepart_60c8705f8d085_1f0813ff1e813945c847062d
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">For example :<div>Every entry in /proc/iomem , should I ad=
-d a memory region in config?=C2=A0 or just need that entry flagged=C2=A0wit=
-h System RAM?=C2=A0 And how to define a region&#39;s permission?</div><div>=
-<br></div><div>Should I get the every reserved-memory in device-tree and ad=
-d a relevant memory region in config?
+<!DOCTYPE html>
+<html xmlns=3D"http://www.w3.org/1999/xhtml" xmlns:v=3D"urn:schemas-microso=
+ft-com:vml" xmlns:o=3D"urn:schemas-microsoft-com:office:office">
+      <head>
+        <title>9th International Conference. Springer publication. Scopus, =
+Web of Science Indexation. Deadline - August 11, 2021</title>
+        <!--[if !mso]><!-- -->
+        <meta http-equiv=3D"X-UA-Compatible" content=3D"IE=3Dedge">
+        <!--<![endif]-->
+        <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DU=
+TF-8">
+        <meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-sc=
+ale=3D1">
+        <style type=3D"text/css">
+          #outlook a { padding:0; }
+          .ReadMsgBody { width:100%; }
+          .ExternalClass { width:100%; }
+          .ExternalClass * { line-height:100%; }
+          body { margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-=
+size-adjust:100%; }
+          table, td { border-collapse:collapse;mso-table-lspace:0pt;mso-tab=
+le-rspace:0pt; }
+          img { border:0;height:auto;line-height:100%; outline:none;text-de=
+coration:none;-ms-interpolation-mode:bicubic; }
+          p { display:block;margin:13px 0; }
+        </style>
+        <!--[if !mso]><!-->
+        <style type=3D"text/css">
+          @media only screen and (max-width:480px) {
+            @-ms-viewport { width:320px; }
+            @viewport { width:320px; }
+          }
+        </style>
+        <!--<![endif]-->
+        <!--[if mso]>
+        <xml>
+        <o:OfficeDocumentSettings>
+          <o:AllowPNG/>
+          <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+        </xml>
+        <![endif]-->
+        <!--[if lte mso 11]>
+        <style type=3D"text/css">
+          .outlook-group-fix { width:100% !important; }
+        </style>
+        <![endif]-->
+       =20
+      <!--[if !mso]><!-->
+        <link href=3D"https://fonts.googleapis.com/css?family=3DUbuntu:300,=
+400,500,700" rel=3D"stylesheet" type=3D"text/css">
+        <style type=3D"text/css">
+          @import url(https://fonts.googleapis.com/css?family=3DUbuntu:300,=
+400,500,700);
+        </style>
+      <!--<![endif]-->
 
-And how to define the region&#39;s permission?
+   =20
+       =20
+    <style type=3D"text/css">
+      @media only screen and (min-width:480px) {
+        .mj-column-per-100 { width:100% !important; max-width: 100%; }
+      }
+    </style>
+   =20
+ =20
+        <style type=3D"text/css">
+       =20
+       =20
 
-</div><div><br></div><div>Then where can I get irqchip field and=C2=A0param=
-eter of it in config file?=C2=A0</div><div><br></div><div>Thank a lot.</div=
-></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr"=
->=E6=9C=B1=E8=8B=A5=E5=87=A1 &lt;<a href=3D"mailto:zhuzhuzhuzai@gmail.com">=
-zhuzhuzhuzai@gmail.com</a>&gt; =E4=BA=8E2021=E5=B9=B46=E6=9C=8815=E6=97=A5=
-=E5=91=A8=E4=BA=8C =E4=B8=8A=E5=8D=8811:16=E5=86=99=E9=81=93=EF=BC=9A<br></=
-div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bor=
-der-left:1px solid rgb(204,204,204);padding-left:1ex">Can someone have abil=
-ity to write the config of dragonboard 845c or via the /proc/iomem and dts =
-.I use the autojail to get the config automatically=EF=BC=8Cbut fail to ena=
-ble jailhouse .=C2=A0
+    @media only screen and (max-width:480px) {
+      table.full-width-mobile { width: 100% !important; }
+      td.full-width-mobile { width: auto !important; }
+    }
+ =20
+        </style>
+       =20
+       =20
+      </head>
+      <body style=3D"background-color:#cfebff;">
+       =20
+       =20
+      <div style=3D"background-color:#cfebff;">
+       =20
+     =20
+      <!--[if mso | IE]>
+      <table
+         align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" =
+class=3D"ed-section-outlook ed-section-header-outlook" style=3D"width:700px=
+;" width=3D"700"
+      >
+        <tr>
+          <td style=3D"line-height:0px;font-size:0px;mso-line-height-rule:e=
+xactly;">
+      <![endif]-->
+   =20
+     =20
+      <div class=3D"ed-section ed-section-header" style=3D"background:#ffff=
+ff;background-color:#ffffff;Margin:0px auto;max-width:700px;">
+       =20
+        <table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" role=3D"presentation" style=3D"background:#ffffff;background-color:#=
+ffffff;width:100%;">
+          <tbody>
+            <tr>
+              <td style=3D"direction:ltr;font-size:0px;padding:20px 0;paddi=
+ng-bottom:0px;padding-top:0px;text-align:center;vertical-align:top;">
+                <!--[if mso | IE]>
+                  <table role=3D"presentation" border=3D"0" cellpadding=3D"=
+0" cellspacing=3D"0">
+               =20
+            <tr>
+              <td
+                 class=3D"ed-block-outlook ed-block-7-outlook" width=3D"700=
+px"
+              >
+         =20
+      <table
+         align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" =
+class=3D"ed-block-outlook ed-block-7-outlook" style=3D"width:700px;" width=
+=3D"700"
+      >
+        <tr>
+          <td style=3D"line-height:0px;font-size:0px;mso-line-height-rule:e=
+xactly;">
+      <![endif]-->
+   =20
+     =20
+      <div class=3D"ed-block ed-block-7" style=3D"Margin:0px auto;max-width=
+:700px;">
+       =20
+        <table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" role=3D"presentation" style=3D"width:100%;">
+          <tbody>
+            <tr>
+              <td style=3D"direction:ltr;font-size:0px;padding:20px 0;paddi=
+ng-bottom:20px;padding-top:20px;text-align:center;vertical-align:top;">
+                <!--[if mso | IE]>
+                  <table role=3D"presentation" border=3D"0" cellpadding=3D"=
+0" cellspacing=3D"0">
+               =20
+        <tr>
+     =20
+            <td
+               class=3D"" style=3D"vertical-align:top;width:700px;"
+            >
+          <![endif]-->
+           =20
+      <div class=3D"mj-column-per-100 outlook-group-fix" style=3D"font-size=
+:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top=
+;width:100%;">
+       =20
+      <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"prese=
+ntation" style=3D"vertical-align:top;" width=3D"100%">
+       =20
+            <tr>
+              <td align=3D"center" style=3D"font-size:0px;padding:0 10px;wo=
+rd-break:break-word;">
+               =20
+      <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"prese=
+ntation" style=3D"border-collapse:collapse;border-spacing:0px;">
+        <tbody>
+          <tr>
+            <td style=3D"width:680px;">
+             =20
+        <a href=3D"https://ics.mx-router-ii.com/c/wxjp0k/gbyci9r2/llgmckvws=
+dq" target=3D"_blank">
+         =20
+      <img alt=3D"SevenBooksJpgs.jpg" height=3D"auto" src=3D"https://ics.mx=
+-router-ii.com/data/a215ed8f2a4fd8bb23d59d3d23f4b3c92d9936ac/media_files/1/=
+original/SevenBooksJpgs.jpg" style=3D"border:0;display:block;outline:none;t=
+ext-decoration:none;height:auto;width:100%;" width=3D"680">
+   =20
+        </a>
+     =20
+            </td>
+          </tr>
+        </tbody>
+      </table>
+   =20
+              </td>
+            </tr>
+         =20
+      </table>
+   =20
+      </div>
+   =20
+          <!--[if mso | IE]>
+            </td>
+         =20
+        </tr>
+     =20
+                  </table>
+                <![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+       =20
+      </div>
+   =20
+     =20
+      <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+     =20
+              </td>
+            </tr>
+         =20
+            <tr>
+              <td
+                 class=3D"ed-block-outlook ed-block-1-outlook" width=3D"700=
+px"
+              >
+         =20
+      <table
+         align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" =
+class=3D"ed-block-outlook ed-block-1-outlook" style=3D"width:700px;" width=
+=3D"700"
+      >
+        <tr>
+          <td style=3D"line-height:0px;font-size:0px;mso-line-height-rule:e=
+xactly;">
+      <![endif]-->
+   =20
+     =20
+      <div class=3D"ed-block ed-block-1" style=3D"background:#ffffff;backgr=
+ound-color:#ffffff;Margin:0px auto;max-width:700px;">
+       =20
+        <table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" role=3D"presentation" style=3D"background:#ffffff;background-color:#=
+ffffff;width:100%;">
+          <tbody>
+            <tr>
+              <td style=3D"direction:ltr;font-size:0px;padding:20px 0;paddi=
+ng-bottom:20px;padding-top:20px;text-align:center;vertical-align:top;">
+                <!--[if mso | IE]>
+                  <table role=3D"presentation" border=3D"0" cellpadding=3D"=
+0" cellspacing=3D"0">
+               =20
+        <tr>
+     =20
+            <td
+               class=3D"" style=3D"vertical-align:top;width:700px;"
+            >
+          <![endif]-->
+           =20
+      <div class=3D"mj-column-per-100 outlook-group-fix" style=3D"font-size=
+:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top=
+;width:100%;">
+       =20
+      <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"prese=
+ntation" style=3D"vertical-align:top;" width=3D"100%">
+       =20
+            <tr>
+              <td align=3D"center" class=3D"ed-text-container ed-column-num=
+ber-0" style=3D"color: #c79e2e; font-family: Verdana, Geneva, sans-serif; t=
+ext-align: center; font-size: 0px; padding: 0 10px; word-break: break-word;=
+">
+               =20
+      <div style=3D"font-family:Verdana;font-size:16px;line-height:normal;t=
+ext-align:center;color:#c79e2e;">
+        <div>
+<p style=3D"margin: 0 0 10px; text-indent: 35.45pt;"><span style=3D"color:#=
+f1c40f"><strong><span style=3D"font-size:20px"><span style=3D'font-family:"=
+Times New Roman",serif'>Dear Author, </span></span></strong></span></p>
 
-<p></p>
+<p style=3D"margin: 0 0 10px; text-indent: 0cm;"><span style=3D"color:#f1c4=
+0f"><strong><span style=3D"font-size:20px"><span style=3D'font-family:"Time=
+s New Roman",serif'><span lang=3D"EN-US">You are cordially invited to submi=
+t your full paper of 6 - 12 pages</span></span>!</span></strong></span></p>
+</div>
+      </div>
+   =20
+              </td>
+            </tr>
+         =20
+      </table>
+   =20
+      </div>
+   =20
+          <!--[if mso | IE]>
+            </td>
+         =20
+        </tr>
+     =20
+                  </table>
+                <![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+       =20
+      </div>
+   =20
+     =20
+      <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+     =20
+              </td>
+            </tr>
+         =20
+                  </table>
+                <![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+       =20
+      </div>
+   =20
+     =20
+      <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+     =20
+      <table
+         align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" =
+class=3D"ed-section-outlook ed-section-content-outlook" style=3D"width:700p=
+x;" width=3D"700"
+      >
+        <tr>
+          <td style=3D"line-height:0px;font-size:0px;mso-line-height-rule:e=
+xactly;">
+      <![endif]-->
+   =20
+     =20
+      <div class=3D"ed-section ed-section-content" style=3D"background:#fff=
+fff;background-color:#ffffff;Margin:0px auto;max-width:700px;">
+       =20
+        <table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" role=3D"presentation" style=3D"background:#ffffff;background-color:#=
+ffffff;width:100%;">
+          <tbody>
+            <tr>
+              <td style=3D"direction:ltr;font-size:0px;padding:20px 0;paddi=
+ng-bottom:0px;padding-top:0px;text-align:center;vertical-align:top;">
+                <!--[if mso | IE]>
+                  <table role=3D"presentation" border=3D"0" cellpadding=3D"=
+0" cellspacing=3D"0">
+               =20
+            <tr>
+              <td
+                 class=3D"ed-block-outlook ed-block-2-outlook" width=3D"700=
+px"
+              >
+         =20
+      <table
+         align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" =
+class=3D"ed-block-outlook ed-block-2-outlook" style=3D"width:700px;" width=
+=3D"700"
+      >
+        <tr>
+          <td style=3D"line-height:0px;font-size:0px;mso-line-height-rule:e=
+xactly;">
+      <![endif]-->
+   =20
+     =20
+      <div class=3D"ed-block ed-block-2" style=3D"Margin:0px auto;max-width=
+:700px;">
+       =20
+        <table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" role=3D"presentation" style=3D"width:100%;">
+          <tbody>
+            <tr>
+              <td style=3D"direction:ltr;font-size:0px;padding:20px 0;paddi=
+ng-bottom:20px;padding-top:20px;text-align:center;vertical-align:top;">
+                <!--[if mso | IE]>
+                  <table role=3D"presentation" border=3D"0" cellpadding=3D"=
+0" cellspacing=3D"0">
+               =20
+        <tr>
+     =20
+            <td
+               class=3D"" style=3D"vertical-align:top;width:700px;"
+            >
+          <![endif]-->
+           =20
+      <div class=3D"mj-column-per-100 outlook-group-fix" style=3D"font-size=
+:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top=
+;width:100%;">
+       =20
+      <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"prese=
+ntation" style=3D"vertical-align:top;" width=3D"100%">
+       =20
+            <tr>
+              <td align=3D"left" class=3D"ed-text-container ed-column-numbe=
+r-0" style=3D"color: #111111; font-family: 'Helvetica Neue', Helvetica, Ari=
+al, sans-serif; font-size: 0px; padding: 0 10px; word-break: break-word;">
+               =20
+      <div style=3D"font-family:Helvetica;font-size:16px;line-height:normal=
+;text-align:left;color:#111111;">
+        <h4 style=3D"font-family: 'Helvetica Neue', Helvetica, Arial, sans-=
+serif; font-size: 18px; text-align: justify;"><span style=3D"font-size:18px=
+"><span style=3D'font-family:"Times New Roman",serif'><strong>The 2021 Inte=
+rnational Conference on Digital Science</strong> (DSIC 2021) will be held i=
+n <a name=3D"_Hlk67213822" target=3D"_blank" style=3D"color: #337ab7; text-=
+decoration: underline;">Luxembourg</a>, Luxembourg, on <a name=3D"_Hlk67214=
+091" target=3D"_blank" style=3D"color: #337ab7; text-decoration: underline;=
+">October 15 =E2=80=93 17</a>, 2021. </span></span></h4>
 
--- <br>
-You received this message because you are subscribed to a topic in the Goog=
-le Groups &quot;Jailhouse&quot; group.<br>
-To unsubscribe from this topic, visit <a href=3D"https://groups.google.com/=
-d/topic/jailhouse-dev/Tah6FQVcg0I/unsubscribe" target=3D"_blank">https://gr=
-oups.google.com/d/topic/jailhouse-dev/Tah6FQVcg0I/unsubscribe</a>.<br>
-To unsubscribe from this group and all its topics, send an email to <a href=
-=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com" target=3D"_blank">ja=
-ilhouse-dev+unsubscribe@googlegroups.com</a>.<br>
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/cff6a936-9db1-4edd-bf86-236b7277dea9n%40googlegrou=
-ps.com?utm_medium=3Demail&amp;utm_source=3Dfooter" target=3D"_blank">https:=
-//groups.google.com/d/msgid/jailhouse-dev/cff6a936-9db1-4edd-bf86-236b7277d=
-ea9n%40googlegroups.com</a>.<br>
-</blockquote></div>
+<h4 style=3D"font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; f=
+ont-size: 18px; text-align: justify;">=C2=A0</h4>
+
+<h4 style=3D"font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; f=
+ont-size: 18px; text-align: justify;"><span style=3D"font-size:18px"><span =
+style=3D'font-family:"Times New Roman",serif'>Conference website is <a href=
+=3D"https://ics.mx-router-ii.com/c/wxjp0k/gbyci9r2/b8-yqd69dvg" style=3D"co=
+lor: #0563c1; text-decoration: underline;" target=3D"_blank">https://ics.ev=
+ents/dsic-2021/</a>.</span></span></h4>
+      </div>
+   =20
+              </td>
+            </tr>
+         =20
+      </table>
+   =20
+      </div>
+   =20
+          <!--[if mso | IE]>
+            </td>
+         =20
+        </tr>
+     =20
+                  </table>
+                <![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+       =20
+      </div>
+   =20
+     =20
+      <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+     =20
+              </td>
+            </tr>
+         =20
+            <tr>
+              <td
+                 class=3D"ed-block-outlook ed-block-5-outlook" width=3D"700=
+px"
+              >
+         =20
+      <table
+         align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" =
+class=3D"ed-block-outlook ed-block-5-outlook" style=3D"width:700px;" width=
+=3D"700"
+      >
+        <tr>
+          <td style=3D"line-height:0px;font-size:0px;mso-line-height-rule:e=
+xactly;">
+      <![endif]-->
+   =20
+     =20
+      <div class=3D"ed-block ed-block-5" style=3D"Margin:0px auto;max-width=
+:700px;">
+       =20
+        <table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" role=3D"presentation" style=3D"width:100%;">
+          <tbody>
+            <tr>
+              <td style=3D"direction:ltr;font-size:0px;padding:20px 0;paddi=
+ng-bottom:20px;padding-top:20px;text-align:center;vertical-align:top;">
+                <!--[if mso | IE]>
+                  <table role=3D"presentation" border=3D"0" cellpadding=3D"=
+0" cellspacing=3D"0">
+               =20
+        <tr>
+     =20
+            <td
+               class=3D"" style=3D"vertical-align:top;width:700px;"
+            >
+          <![endif]-->
+           =20
+      <div class=3D"mj-column-per-100 outlook-group-fix" style=3D"font-size=
+:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top=
+;width:100%;">
+       =20
+      <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"prese=
+ntation" style=3D"vertical-align:top;" width=3D"100%">
+       =20
+            <tr>
+              <td align=3D"left" class=3D"ed-text-container ed-column-numbe=
+r-0" style=3D"color: #111111; font-family: 'Helvetica Neue', Helvetica, Ari=
+al, sans-serif; font-size: 0px; padding: 0 10px; word-break: break-word;">
+               =20
+      <div style=3D"font-family:Helvetica;font-size:16px;line-height:1.1;te=
+xt-align:left;color:#111111;">
+        <div>
+<p style=3D"margin: 0 0 10px; text-indent: 14.2pt; text-align: justify;"><s=
+trong><span style=3D"font-size:16px"><span style=3D'font-family:"Times New =
+Roman",serif'>Early submissions are greatly appreciated. A single attending=
+ author may present a maximum of two papers onsite/online. The presentation=
+, award submission and proceedings submission for a paper must all be in En=
+glish. </span></span></strong></p>
+
+<p style=3D"margin: 0 0 10px; text-indent: 14.2pt; text-align: justify;"><s=
+trong><span style=3D"font-size:16px"><span style=3D'font-family:"Times New =
+Roman",serif'>You may submit your paper via DSIC 2021 Submission Form on <a=
+ href=3D"https://ics.mx-router-ii.com/c/wxjp0k/gbyci9r2/dpqjfubwby0" style=
+=3D"color: #0563c1; text-decoration: underline;" target=3D"_blank">https://=
+ics.events/dsic-2021/</a>. Submitted papers (until 12-page limit<span style=
+=3D"background-color:white"><span style=3D"color:#404040">; including figur=
+es and references</span></span>) must comply<span style=3D"background-color=
+:white"><span style=3D"color:#404040"> with the requested format=C2=A0</spa=
+n></span><a href=3D"https://ics.mx-router-ii.com/c/wxjp0k/gbyci9r2/zfeymvay=
+om8" style=3D"color: #0563c1; text-decoration: underline;" target=3D"_blank=
+"><span lang=3D"EN-US" style=3D"color:blue">Template</span></a>, be written=
+ in English, must not have been published before, not be under review for a=
+ny other conference or publication. </span></span></strong></p>
+
+<p style=3D"margin: 0 0 10px; text-indent: 14.2pt; text-align: justify;"><s=
+trong><span style=3D"font-size:16px"><span style=3D'font-family:"Times New =
+Roman",serif'>All submissions will be twice =C2=ABblind=C2=BB reviewed base=
+d on relevance, timeliness, originality, importance and clarity of expressi=
+on with convincing argumentative. Besides globally relevant meetings with i=
+nternationally representative program/scientific committees guaranteeing a =
+strict peer-reviewing and paper selection process. In case your paper=E2=80=
+=99s acceptance you will receive a notification letter. This letter will co=
+ntain your paper ID that you should include in all further correspondences.=
+</span></span></strong></p>
+</div>
+      </div>
+   =20
+              </td>
+            </tr>
+         =20
+      </table>
+   =20
+      </div>
+   =20
+          <!--[if mso | IE]>
+            </td>
+         =20
+        </tr>
+     =20
+                  </table>
+                <![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+       =20
+      </div>
+   =20
+     =20
+      <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+     =20
+              </td>
+            </tr>
+         =20
+            <tr>
+              <td
+                 class=3D"ed-block-outlook ed-block-03af983a-8b6c-4fdf-8dde=
+-c384f018a17b-outlook" width=3D"700px"
+              >
+         =20
+      <table
+         align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" =
+class=3D"ed-block-outlook ed-block-03af983a-8b6c-4fdf-8dde-c384f018a17b-out=
+look" style=3D"width:700px;" width=3D"700"
+      >
+        <tr>
+          <td style=3D"line-height:0px;font-size:0px;mso-line-height-rule:e=
+xactly;">
+      <![endif]-->
+   =20
+     =20
+      <div class=3D"ed-block ed-block-03af983a-8b6c-4fdf-8dde-c384f018a17b"=
+ style=3D"Margin:0px auto;max-width:700px;">
+       =20
+        <table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" role=3D"presentation" style=3D"width:100%;">
+          <tbody>
+            <tr>
+              <td style=3D"direction:ltr;font-size:0px;padding:20px 0;paddi=
+ng-bottom:20px;padding-top:20px;text-align:center;vertical-align:top;">
+                <!--[if mso | IE]>
+                  <table role=3D"presentation" border=3D"0" cellpadding=3D"=
+0" cellspacing=3D"0">
+               =20
+        <tr>
+     =20
+            <td
+               class=3D"" style=3D"vertical-align:top;width:700px;"
+            >
+          <![endif]-->
+           =20
+      <div class=3D"mj-column-per-100 outlook-group-fix" style=3D"font-size=
+:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top=
+;width:100%;">
+       =20
+      <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"prese=
+ntation" style=3D"vertical-align:top;" width=3D"100%">
+       =20
+            <tr>
+              <td align=3D"left" class=3D"ed-text-container ed-column-numbe=
+r-0" style=3D"color: #111111; font-family: 'Helvetica Neue', Helvetica, Ari=
+al, sans-serif; font-size: 0px; padding: 0 10px; word-break: break-word;">
+               =20
+      <div style=3D"font-family:Helvetica;font-size:16px;line-height:normal=
+;text-align:left;color:#111111;">
+        <h2 style=3D"font-family: 'Helvetica Neue', Helvetica, Arial, sans-=
+serif; font-size: 30px; text-indent: 0cm; text-align: center;"><span style=
+=3D"font-size:20px"><strong><span style=3D"color:#e74c3c"><span style=3D'fo=
+nt-family:"Times New Roman",serif'>Publication and Indexation</span></span>=
+</strong></span></h2>
+
+<p style=3D"margin: 0 0 10px; text-indent: 14.2pt; text-align: justify;"><s=
+trong><span style=3D"font-size:16px"><span style=3D'font-family:"Times New =
+Roman",serif'>Accepted, registered, and oral/virtual presented Papers will =
+be published in the 2021 International Conference on Digital Science Procee=
+ding <span style=3D"color:#e74c3c">by Springer in a book series "Lecture No=
+tes in Networks and Systems"</span> (SJR 0,17; Q4 according to <a href=3D"h=
+ttps://ics.mx-router-ii.com/c/wxjp0k/gbyci9r2/zh3wtw0zftu" target=3D"_blank=
+" style=3D"color: #337ab7; text-decoration: underline;">https://www.scimago=
+jr.com/journalrank.php</a>, 2020) and then will be submitted to <span style=
+=3D"color:#e74c3c">SCOPUS, Web of Science (CPCI)</span>, Google Scholar and=
+ other indexations.</span></span></strong></p>
+      </div>
+   =20
+              </td>
+            </tr>
+         =20
+      </table>
+   =20
+      </div>
+   =20
+          <!--[if mso | IE]>
+            </td>
+         =20
+        </tr>
+     =20
+                  </table>
+                <![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+       =20
+      </div>
+   =20
+     =20
+      <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+     =20
+              </td>
+            </tr>
+         =20
+            <tr>
+              <td
+                 class=3D"ed-block-outlook ed-block-d680dc28-1ad9-4725-86e8=
+-f5f04fe84a66-outlook" width=3D"700px"
+              >
+         =20
+      <table
+         align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" =
+class=3D"ed-block-outlook ed-block-d680dc28-1ad9-4725-86e8-f5f04fe84a66-out=
+look" style=3D"width:700px;" width=3D"700"
+      >
+        <tr>
+          <td style=3D"line-height:0px;font-size:0px;mso-line-height-rule:e=
+xactly;">
+      <![endif]-->
+   =20
+     =20
+      <div class=3D"ed-block ed-block-d680dc28-1ad9-4725-86e8-f5f04fe84a66"=
+ style=3D"Margin:0px auto;max-width:700px;">
+       =20
+        <table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" role=3D"presentation" style=3D"width:100%;">
+          <tbody>
+            <tr>
+              <td style=3D"direction:ltr;font-size:0px;padding:20px 0;paddi=
+ng-bottom:20px;padding-top:20px;text-align:center;vertical-align:top;">
+                <!--[if mso | IE]>
+                  <table role=3D"presentation" border=3D"0" cellpadding=3D"=
+0" cellspacing=3D"0">
+               =20
+        <tr>
+     =20
+            <td
+               class=3D"" style=3D"vertical-align:top;width:700px;"
+            >
+          <![endif]-->
+           =20
+      <div class=3D"mj-column-per-100 outlook-group-fix" style=3D"font-size=
+:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top=
+;width:100%;">
+       =20
+      <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"prese=
+ntation" style=3D"vertical-align:top;" width=3D"100%">
+       =20
+            <tr>
+              <td align=3D"center" vertical-align=3D"middle" style=3D"font-=
+size:0px;padding:0 10px;word-break:break-word;">
+               =20
+      <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"prese=
+ntation" style=3D"border-collapse:separate;line-height:100%;">
+        <tr>
+          <td align=3D"center" bgcolor=3D"#c9c21d" role=3D"presentation" st=
+yle=3D"border:6px solid #c9b81d;border-radius:9px;cursor:auto;padding:27px;=
+text-align:center;background:#c9c21d;" valign=3D"middle">
+            <a href=3D"https://ics.mx-router-ii.com/c/wxjp0k/gbyci9r2/zvxeq=
+hnfd_e" style=3D"background:#c9c21d;color:#080101;font-family:Ubuntu, Helve=
+tica, Arial, sans-serif;font-size:30px;font-weight:normal;line-height:120%;=
+Margin:0;text-decoration:none;text-transform:none;" target=3D"_blank">
+              Submit your paper
+            </a>
+          </td>
+        </tr>
+      </table>
+   =20
+              </td>
+            </tr>
+         =20
+      </table>
+   =20
+      </div>
+   =20
+          <!--[if mso | IE]>
+            </td>
+         =20
+        </tr>
+     =20
+                  </table>
+                <![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+       =20
+      </div>
+   =20
+     =20
+      <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+     =20
+              </td>
+            </tr>
+         =20
+            <tr>
+              <td
+                 class=3D"ed-block-outlook ed-block-e6507c24-aa54-46fc-98f9=
+-828b9404dfd6-outlook" width=3D"700px"
+              >
+         =20
+      <table
+         align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" =
+class=3D"ed-block-outlook ed-block-e6507c24-aa54-46fc-98f9-828b9404dfd6-out=
+look" style=3D"width:700px;" width=3D"700"
+      >
+        <tr>
+          <td style=3D"line-height:0px;font-size:0px;mso-line-height-rule:e=
+xactly;">
+      <![endif]-->
+   =20
+     =20
+      <div class=3D"ed-block ed-block-e6507c24-aa54-46fc-98f9-828b9404dfd6"=
+ style=3D"Margin:0px auto;max-width:700px;">
+       =20
+        <table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" role=3D"presentation" style=3D"width:100%;">
+          <tbody>
+            <tr>
+              <td style=3D"direction:ltr;font-size:0px;padding:20px 0;paddi=
+ng-bottom:20px;padding-top:20px;text-align:center;vertical-align:top;">
+                <!--[if mso | IE]>
+                  <table role=3D"presentation" border=3D"0" cellpadding=3D"=
+0" cellspacing=3D"0">
+               =20
+        <tr>
+     =20
+            <td
+               class=3D"" style=3D"vertical-align:top;width:700px;"
+            >
+          <![endif]-->
+           =20
+      <div class=3D"mj-column-per-100 outlook-group-fix" style=3D"font-size=
+:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top=
+;width:100%;">
+       =20
+      <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"prese=
+ntation" style=3D"vertical-align:top;" width=3D"100%">
+       =20
+            <tr>
+              <td align=3D"left" class=3D"ed-text-container ed-column-numbe=
+r-0" style=3D"color: #111111; font-family: 'Helvetica Neue', Helvetica, Ari=
+al, sans-serif; font-size: 0px; padding: 0 10px; word-break: break-word;">
+               =20
+      <div style=3D"font-family:Helvetica;font-size:16px;line-height:normal=
+;text-align:left;color:#111111;">
+        <p style=3D"margin: 0 0 10px; text-align: justify;"><span style=3D"=
+font-size:18px"><span style=3D'font-family:"Times New Roman",serif'>Due to =
+the restrictions caused this year by COVID-19 Pandemic, <span style=3D"colo=
+r:#e74c3c"><strong>corresponding authors with ICCS2021 registration</strong=
+></span> will have a <span style=3D"color:#e74c3c"><strong>discount of 50 U=
+SD</strong></span> in the DSIC 2021 registration.</span></span></p>
+      </div>
+   =20
+              </td>
+            </tr>
+         =20
+      </table>
+   =20
+      </div>
+   =20
+          <!--[if mso | IE]>
+            </td>
+         =20
+        </tr>
+     =20
+                  </table>
+                <![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+       =20
+      </div>
+   =20
+     =20
+      <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+     =20
+              </td>
+            </tr>
+         =20
+                  </table>
+                <![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+       =20
+      </div>
+   =20
+     =20
+      <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+      <![endif]-->
+   =20
+   =20
+      <table align=3D"center" class=3D"ed-section ed-section-footer" border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"b=
+ackground:#333333;background-color:#333333;width:100%;">
+        <tbody>
+          <tr>
+            <td>
+             =20
+       =20
+      <!--[if mso | IE]>
+      <table
+         align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" =
+class=3D"ed-section-outlook ed-section-footer-outlook" style=3D"width:700px=
+;" width=3D"700"
+      >
+        <tr>
+          <td style=3D"line-height:0px;font-size:0px;mso-line-height-rule:e=
+xactly;">
+      <![endif]-->
+   =20
+       =20
+      <div style=3D"Margin:0px auto;max-width:700px;">
+       =20
+        <table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" role=3D"presentation" style=3D"width:100%;">
+          <tbody>
+            <tr>
+              <td style=3D"direction:ltr;font-size:0px;padding:20px 0;paddi=
+ng-bottom:0px;padding-top:0px;text-align:center;vertical-align:top;">
+                <!--[if mso | IE]>
+                  <table role=3D"presentation" border=3D"0" cellpadding=3D"=
+0" cellspacing=3D"0">
+               =20
+            <tr>
+              <td
+                 class=3D"ed-block-outlook ed-block-6-outlook" width=3D"700=
+px"
+              >
+         =20
+      <table
+         align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" =
+class=3D"ed-block-outlook ed-block-6-outlook" style=3D"width:700px;" width=
+=3D"700"
+      >
+        <tr>
+          <td style=3D"line-height:0px;font-size:0px;mso-line-height-rule:e=
+xactly;">
+      <![endif]-->
+   =20
+     =20
+      <div class=3D"ed-block ed-block-6" style=3D"Margin:0px auto;max-width=
+:700px;">
+       =20
+        <table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" role=3D"presentation" style=3D"width:100%;">
+          <tbody>
+            <tr>
+              <td style=3D"direction:ltr;font-size:0px;padding:20px 0;paddi=
+ng-bottom:20px;padding-top:20px;text-align:center;vertical-align:top;">
+                <!--[if mso | IE]>
+                  <table role=3D"presentation" border=3D"0" cellpadding=3D"=
+0" cellspacing=3D"0">
+               =20
+        <tr>
+     =20
+            <td
+               class=3D"" style=3D"vertical-align:top;width:700px;"
+            >
+          <![endif]-->
+           =20
+      <div class=3D"mj-column-per-100 outlook-group-fix" style=3D"font-size=
+:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top=
+;width:100%;">
+       =20
+      <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"prese=
+ntation" style=3D"vertical-align:top;" width=3D"100%">
+       =20
+            <tr>
+              <td align=3D"left" class=3D"ed-text-container ed-column-numbe=
+r-0" style=3D"color: #ffffff; font-family: 'Helvetica Neue', Helvetica, Ari=
+al, sans-serif; font-size: 0px; padding: 0 10px; word-break: break-word;">
+               =20
+      <div style=3D"font-family:Helvetica;font-size:15px;line-height:normal=
+;text-align:left;color:#ffffff;">
+        <div>En cumplimiento de lo dispuesto en la Protecci=C3=B3n de Datos=
+, para el ejercicio de sus derechos de acceso, rectificaci=C3=B3n, cancelac=
+i=C3=B3n y oposici=C3=B3n al tratamiento de sus datos personales, contenido=
+s en nuestras condiciones de protecci=C3=B3n de datos, solamente tiene que =
+responder a este e-mail indicando su email en el asunto, o bien a trav=C3=
+=A9s del env=C3=ADo de un correo ordinario a la direcci=C3=B3n: INCLUIR DIR=
+ECCI=C3=93N. Si desea darse de baja tambi=C3=A9n puede hacer clic=C2=A0<a h=
+ref=3D"https://ics.mx-router-ii.com/unsubscribe/wxjp0k/click?token=3Dgbyci9=
+r2" target=3D"_blank" style=3D"color: #337ab7; text-decoration: underline;"=
+>aqu=C3=AD</a>.</div>
+      </div>
+   =20
+              </td>
+            </tr>
+         =20
+      </table>
+   =20
+      </div>
+   =20
+          <!--[if mso | IE]>
+            </td>
+         =20
+        </tr>
+     =20
+                  </table>
+                <![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+       =20
+      </div>
+   =20
+     =20
+      <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+     =20
+              </td>
+            </tr>
+         =20
+                  </table>
+                <![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+       =20
+      </div>
+   =20
+       =20
+      <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+      <![endif]-->
+   =20
+     =20
+            </td>
+          </tr>
+        </tbody>
+      </table>
+   =20
+      </div>
+   =20
+      <img src=3D"https://ics.mx-router-ii.com/i/wxjp0k/gbyci9r2.gif" width=
+=3D"1" height=3D"1" alt=3D"">
+</body>
+    </html>
 
 <p></p>
 
@@ -239,9 +1252,8 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/CA%2BnU6V87Gav167NNkHbiZ4zx%3Drwd7F1xskpSv5tiBacQ6=
-Rnqmw%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://grou=
-ps.google.com/d/msgid/jailhouse-dev/CA%2BnU6V87Gav167NNkHbiZ4zx%3Drwd7F1xsk=
-pSv5tiBacQ6Rnqmw%40mail.gmail.com</a>.<br />
+om/d/msgid/jailhouse-dev/1_YvjE4Hy5nD%40ics.ipzmarketing.com?utm_medium=3De=
+mail&utm_source=3Dfooter">https://groups.google.com/d/msgid/jailhouse-dev/1=
+_YvjE4Hy5nD%40ics.ipzmarketing.com</a>.<br />
 
---0000000000005b040805c4c9ca76--
+----==_mimepart_60c8705f8d085_1f0813ff1e813945c847062d--
