@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBDXO4CDQMGQEDDG7CLI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBTXR4CDQMGQE7OYCJEI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x439.google.com (mail-wr1-x439.google.com [IPv6:2a00:1450:4864:20::439])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FCCF3D11C9
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 21 Jul 2021 17:02:39 +0200 (CEST)
-Received: by mail-wr1-x439.google.com with SMTP id t8-20020a05600001c8b029013e2027cf9asf1117691wrx.9
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 21 Jul 2021 08:02:39 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1626879759; cv=pass;
+Received: from mail-lj1-x23e.google.com (mail-lj1-x23e.google.com [IPv6:2a00:1450:4864:20::23e])
+	by mail.lfdr.de (Postfix) with ESMTPS id B02D63D11FB
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 21 Jul 2021 17:10:07 +0200 (CEST)
+Received: by mail-lj1-x23e.google.com with SMTP id q123-20020a2e2a810000b02901990f5ca735sf1298071ljq.22
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 21 Jul 2021 08:10:07 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1626880207; cv=pass;
         d=google.com; s=arc-20160816;
-        b=pvV74mMaS+WtCazWHqWYirS1p9EKXj46plk9NeqLm3QSmvpdP4qn7v2Hb58ObQNuXH
-         tCO36JbDqsdaLkQgDMfDPu6USOC/+hNKiry1pV0XkrOGM9rmbYZwJj6RpTX/JOSwSl6h
-         L1ye9JyEaBwe4fC6NpzJ+fVpxLiDVgtb15swIUZVu1+ynn/jEgJyEO2Rd8LxMCIfPoX7
-         fMTPTqn+75q2RUAV3f3WAuyipcm1F43bHABdlcdgbd/Sk5YYCi5sZ/Ads5peUJvEbUMK
-         ofBukvNQMG3GlMxnsTeqTjQqJnrFNPrzWxGti/wqVjP9ENeKqfZtq4xt8plUVTgJ4T+7
-         aH8A==
+        b=EfqiDPUAluuO7m2f+mBk2YeTJp2ugN7miNoF7BeP7zJifWlywSIkQo2Mg1y/XhWfG+
+         jAtSyatHGtqL++NU+VMkSytaGlWHl69kTIpstuSjyCEKKrBWvF9k4yPzhv1NW2RdbxTo
+         Yq4CblCu4FUgx4xGYk386wLqWggiiNgyrtb29c5mqCkYM/y8SZbyz4WOcLmAVbfOSBep
+         XxqFKnmv5TWtvzZRpxrRnBC++rQwOQdoVNVe3I/uvZwpqeFDfmiOk9L6ZkDkysyeD6ht
+         k54ApITwpTy0Qw53bfTr9Zco7vPEcFz3XXrhVAVPFqgRkScxQBB8rqNHMEmFF4tL/xWB
+         ff8w==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-language:in-reply-to
          :mime-version:user-agent:date:message-id:from:references:to:subject
          :sender:dkim-signature;
-        bh=V7s71o7vdPATTnLvTfqfmdwWd+1/n+ZQbzZBJZxeT6Y=;
-        b=GxtdnmSxymucdNEVPYFBM4qcQOyBLTSaw1WuAzjSGqM6gwzjFCnJ/LPfrhLV1q6P2l
-         utOdttUuuMRD8OBGqAQJy2V+m9eSxvcPRFHQcEf5oZRQb1kTWB5HWvS8Dzd3j1QEIFN8
-         TbsydGYuYcieQzpN+EUo7fYhTp/xerAIR4VkTzRPMBV6TxdrKMtIgYZBPkjZzlAEw2IK
-         vkOUaT8Dgousn2yihlD6Gr7WI6dgYI5jAVYvB7aKo4maazsVoSwNszS+n+wygHP5SXVJ
-         /u0bz7nAfQ5Fo8XttLcJaV2tHvwsR8HI/VUU+Z/6URIYhbrK52FJZkjYQZhWNgFTGhq6
-         /zLQ==
+        bh=+GITSFjU0Iho2LcyX+7B9m3lWfbWdPmzqcfKjWFtMx0=;
+        b=hzXkbd3rZY7qN3ps9Whvhty0wrkTKqw6K96lfcJxLEm3YHLVe7yzcOw5d/+pv7r4v7
+         4uckV7AQGtAwnOs/JYXm6rnMGBjQgZtCORwBC0QZ45jEzVqQevtIQP1+Irznuui8Jh8u
+         qAN0UoE0cbplJvLNhbdPa1Sz0T/YblC2I8VSfYhRahev8rc8t5YDa/pyVcfwY2u+mzGP
+         yJ8HHpxN+OZtljnCl8yKjxh9CZFEYapxE5FsPmfR9mVpPjk/jnPhk2HoKJGgHD4NmPHe
+         cEy0/rRPvFI4bGyNVU1Xr1HqiHWIuzQt0cPMvPpBxvjW5M++AX5Rn9/BsA9G1Z8HfNWm
+         AybA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:in-reply-to:content-language:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=V7s71o7vdPATTnLvTfqfmdwWd+1/n+ZQbzZBJZxeT6Y=;
-        b=pwCs4SZk1MZy6WlD9U4S5u6yUDYCfi7PCmj0zX+W+rch95n9N7Zf5eA03AlxdP11Kh
-         qEACjxNO9YH5UmbTO9Yl86pVmsU/RbBb7TNYbyjd39BnzSnZm6J9qFN55V8V9vIJtt4p
-         qSQer8VMQFmf2+JqG3Crn4U+2HkXyJXaLRP3RZ2epEUEqz7GyzQ+HjK9VzcZMS1J9yON
-         ZVUM+mktB18QTZYOtEe8yVSZ3TiXAByz0FEkZValhoKaUqCYnPW/Nl0A8i8cv9tG5dmP
-         Y7paYiLm0h6Vq7qcba440+AhedI9PZGqkY2PWfWcXFWgTw7GOGA7LwwCSnXZuK7NVBVN
-         jC8w==
+        bh=+GITSFjU0Iho2LcyX+7B9m3lWfbWdPmzqcfKjWFtMx0=;
+        b=hJPQpC8L7l+WxcgDRSW4B2EaFXDvi3RsexJCc1q4ATPq6DS0C1mJmOmeCA82xbyrqu
+         pzYUbJtUxh/l8scLsX7bXKiDnGCDli+8z3vizno76QSgBlyVZn8NLYBhyJTahts6j63x
+         HfYWkrSIoi9G/aqqPzxV2fcKAjPXtz+AukihgJCYEGIVNRGAFDbDbF/h9t8ppNK2aF2Q
+         wwQ4yQE0NZZk9XnYSQVn2ljWlQLtkRcpywCp+Hd2Ln7VDbS6T2XgMYErmvcX9fgVx1Z7
+         bHtEHya/LmUWQX2m596KgqFqy0SeIfkxf15mDcj2avprsPzzpn9IA/EZYLBU/wWpl3p6
+         Nfxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:subject:to:references:from:message-id
@@ -49,74 +49,73 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=V7s71o7vdPATTnLvTfqfmdwWd+1/n+ZQbzZBJZxeT6Y=;
-        b=RGAt3pRWbKNBIl4NLb7XWIcm3O8Jk7sDV6Cckcp5mNvmVAE7wrSOoDTKlCNocpkwWY
-         e/ZseI9cmSqbRU6nxUQ15uHJaEAZ8VkFFeE8XK/PXWYl8wzWnvp2d1Fd95zTTpTmDD4N
-         pkwWpT2C9sQqh9WC3BHSfREqrt7CFVbuymoX2eZIJlyre3zpgX5asMh6q4S07bd9lVpO
-         0imPo5DSmDd/54suWIl0HuwXPe92tplg1OwgPvw9BekJPW+t51flyniXphc848eoits6
-         XMJvRX6sG+2i3xWtYWcmPVSQMTXRwFOsaidnKAwKkjq7BzXJJlDDqgGHBdEL1p9WvnLA
-         0n2A==
+        bh=+GITSFjU0Iho2LcyX+7B9m3lWfbWdPmzqcfKjWFtMx0=;
+        b=CCLJVoHyRRQNwN6KFrERF0xZz2QmEZJp3k6xZIM/bCOSAsyboMyP5uvcjALSg9Krld
+         C5gBoNUktneyisH7cqZK/xWq3HhOYC7eyn2eUBX3N89O/WBQBW/AhbTqO/BcgR5nRkSG
+         Ocq7Co8hvPuiAECuZvW3GBf7kZ1LijQ/JrM8rreOdJCeUyTxIyRvQ9dQD5INw4f4+0FB
+         JoYyUNp/TtF0QiFTcK9OtECdcNEBaZKe9kq2cmg2tz2aGdqu025R9yJOBC0IOh1LVtdb
+         wwX+WKj1qs+0ccku0aqxG3bS9uAzwCZF65OyIsm0OUTz0+uhb5MCNbC1P2C+ricfpqRz
+         gyuQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532/Wif7Gu6EVSrg1nbEVICaZGP1MFU9o0DM7kcfEDSnwHzMEIwQ
-	tCMS77si7IZBYspGA7T657c=
-X-Google-Smtp-Source: ABdhPJxSnHs2vF99iozF/vIMEml1TDMUPXkyu+F9cVKQqm9KnmKlwHcB4pLZU2iP3v6rSDciQ1R1VQ==
-X-Received: by 2002:a1c:f414:: with SMTP id z20mr4659971wma.94.1626879759158;
-        Wed, 21 Jul 2021 08:02:39 -0700 (PDT)
+X-Gm-Message-State: AOAM533hN0gZMEBDLfD5t/jz3vEG88sE51e/A9zKZa92os1molhRVkrK
+	A5asMYd1tmNNgWPKgJG2G2M=
+X-Google-Smtp-Source: ABdhPJzm6PF9hiKVdH56tQl39WuTNayABVFRdQD1qS2YqZH8jJmzti+7/7FVOUHC54g9hcqeddq7fg==
+X-Received: by 2002:a2e:834e:: with SMTP id l14mr31430848ljh.458.1626880206942;
+        Wed, 21 Jul 2021 08:10:06 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:600c:198b:: with SMTP id t11ls1199904wmq.2.gmail; Wed,
- 21 Jul 2021 08:02:37 -0700 (PDT)
-X-Received: by 2002:a05:600c:3595:: with SMTP id p21mr30610622wmq.105.1626879757205;
-        Wed, 21 Jul 2021 08:02:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1626879757; cv=none;
+Received: by 2002:ac2:4146:: with SMTP id c6ls1227881lfi.2.gmail; Wed, 21 Jul
+ 2021 08:10:05 -0700 (PDT)
+X-Received: by 2002:a05:6512:1390:: with SMTP id p16mr3016552lfa.39.1626880205774;
+        Wed, 21 Jul 2021 08:10:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1626880205; cv=none;
         d=google.com; s=arc-20160816;
-        b=w1mvPwfthvD17D3elLhKlf1/LUnmuBZzXUYpiGMuHL5241IHQr9asl3gEdojC16S0m
-         KQF04UX9LQyFhsKJjZb/nrbAEuXDO4uk8IOgNQw0n8jHjAmNq14cq5GKbsXtwqzto+Cn
-         QhQngh90t69EwG1HNI7Nl7VyoBVsEGvPIYa39LahRzKCWW9m7clPFFFTKvXOzQUQ8xLz
-         KjPlGtYFGhsIXE7DzaFl+N2x19TZm5eYHgk7JxDbsfWiU0+THYDraDmk9mSjY88velkC
-         Xly6wd5Od++N7/8M+59JyP/kIfnnagWRNzLmqTXh7OofpQEUExnk2loLh5bc2iOFmDa4
-         bcrA==
+        b=vIN605+67tHcdVm17T8u2tM1irAL60d1XwtgW1udWjEUtbkfnzYpfO3XoUjE/DPkCB
+         gDZYlC6RWplu0WE+kcbZO+wYGOzD9GUWyU1ce5BQRdxudreC/0h6hw3Yc6oSjPH+aOaI
+         WoItVdriTe8ic9aSAN4U/Cxf+30HRTkGKJNA2mG/VhJ+sleDMegKPTjQLhzM4pWyZyAS
+         nI/aEf7RByWIfS2nX10vYOh514PzVZ6/q2niOR/Dvb6jwFsnsYawWEPTfIm4g0Dj/9pB
+         D2g1OVb7hrvvFVa/YCznMjR2O0xcfSrTtKCl9qrUJtwf96tg/BgeCI/zJ8RyJlX7zOWk
+         A1rQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
          :user-agent:date:message-id:from:references:to:subject;
-        bh=PB0jYaJvh7CJVYOWqO7ZLu9+Bl9l99HP4kIfZe71S2k=;
-        b=iPsAYZ6DNR3wllncKSx0bb++0h4XppNE2YyncHsrOhuyfHxFRnI7EGtIxSjqtrUkui
-         O+vorr4PWb3GaD48sgjVF5y+btF6Ijev+zVEzCOu5NnXDwSmSSFSORuqipdUAH/nHMnw
-         MI1YSfER+suYa3YJuiqppJ95V7EfyT2mHihevxxS6Wg5mZkZOBF/ED7c0mExxCS4j//H
-         7JsjwXbvj9xrlc39H/1auPqsHsBKGB5cJPnjENYB2PgJ4ZySiLs9tqCXv9pN/5phmVxs
-         LYEEZ7hRx9LOThaLucO1D8DY8Yx6oAq48ZYeXsYBRE+dnLg3dxfTQe2BkWBHMZX/7P4D
-         aekQ==
+        bh=dqKlLhTLA+sZFHRwKn12l0Gr3grgZn/L2Cbf4KGTJAA=;
+        b=UKDcivtv0cfBlSTgoBuFQBArLW4c10/wPMBg1tgbtt1ZdFjP6rTjyfI8XYuKrqpUAP
+         3+tDNtGBFcdLNTeKs+aiWjK/v83rr9pEgobvDW3qZ+YAexdO31fb+TTdoD6K5w3+C2hd
+         PxcK8XDEQN1eIvt/DWoat4uItjqHGAT/VjKVPsw7m6JVth41uvwTEuJp5gJEGcuTxafW
+         Q8BgM/iB+JxnhomfXl2TvNNL7/hzH1ab/DJ5gpW6x7RUkJC9RHL8EfEEYuDeZOVCRx3y
+         Rtvspe02hoMQ2TpKCcyr25hEzltjcDRw/LwJVCC05wQGHHel0CkRQdFYHF0yoEGbBVlf
+         Q9zA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
-        by gmr-mx.google.com with ESMTPS id k14si931181wrx.1.2021.07.21.08.02.37
+Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
+        by gmr-mx.google.com with ESMTPS id b15si149197ljf.6.2021.07.21.08.10.05
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 21 Jul 2021 08:02:37 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
+        Wed, 21 Jul 2021 08:10:05 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 16LF2auJ012021
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
-	for <jailhouse-dev@googlegroups.com>; Wed, 21 Jul 2021 17:02:36 +0200
+	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 16LFA4d4014937
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 21 Jul 2021 17:10:04 +0200
 Received: from [139.25.68.37] ([139.25.68.37])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 16LF2aeN020231;
-	Wed, 21 Jul 2021 17:02:36 +0200
-Subject: Re: [PATCH v4 0/4] Support building and running on Debian 11
-To: Florian Bezdeka <florian.bezdeka@siemens.com>,
-        jailhouse-dev@googlegroups.com
-References: <20210622090502.231179-1-florian.bezdeka@siemens.com>
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 16LFA4ZT025058;
+	Wed, 21 Jul 2021 17:10:04 +0200
+Subject: Re: [PATCH] irqchip: Avoid set irq target twice for root cell
+To: Dongjiu Geng <gengdongjiu1@gmail.com>, jailhouse-dev@googlegroups.com
+References: <20210624142731.30102-1-gengdongjiu1@gmail.com>
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <045c5b59-11fc-019b-4bdd-2cb79ee5de19@siemens.com>
-Date: Wed, 21 Jul 2021 17:02:36 +0200
+Message-ID: <7d4f42c1-b947-df2e-d189-f51b081d73cf@siemens.com>
+Date: Wed, 21 Jul 2021 17:10:04 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210622090502.231179-1-florian.bezdeka@siemens.com>
+In-Reply-To: <20210624142731.30102-1-gengdongjiu1@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
@@ -131,56 +130,107 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 22.06.21 11:04, Florian Bezdeka wrote:
-> Hi!
+Thanks for the patch and sorry for the late reply.
+
+On 24.06.21 16:27, Dongjiu Geng wrote:
+> When enable hypervisor, it is no need to set irq
+> target twice for root cell, otherwise it will waste time.
 > 
-> This are the necessary changes for building and running Jailhouse on a
-> Debian 11 system. As Debian 11 will no longer support Python 2, most of
-> the changes are related to the Python2 -> Python3 migration.
+> Signed-off-by: Dongjiu Geng <gengdongjiu1@gmail.com>
+> ---
+> How to re-produce this issue
+> 1. Make below modification as shown below[1]
+> 2. Run the hypervisor as shown in the log[2]
+> 3. You will see the added log "cell_added_removed == &root_cell".
+> 4. That is to say irqchip.adjust_irq_target() will be called two
+>    times in [4] and [5] for root cell when hypervisor initializes.
 > 
-> Testing was done on x86 only so far.
+> [1]:
+> diff --git a/hypervisor/arch/arm-common/irqchip.c b/hypervisor/arch/arm-common/irqchip.c
+> index a3245846..48973d06 100644
+> --- a/hypervisor/arch/arm-common/irqchip.c
+> +++ b/hypervisor/arch/arm-common/irqchip.c
+> @@ -510,6 +510,9 @@ void irqchip_config_commit(struct cell *cell_added_removed)
+>  {
+>         unsigned int n;
 > 
-> Best regards,
-> Florian
+> +       if (cell_added_removed == &root_cell)
+> +               printk("cell_added_removed == &root_cell\n");
+> +
+>         if (!cell_added_removed)
+>                 return;
 > 
-> Changes in v4:
->   - patch 3: Take care of python2 specifics in sysfs_parser.py
+>         for (n = 32; n < sizeof(cell_added_removed->arch.irq_bitmap) * 8; n++) {
+>                 if (irqchip_irq_in_cell(cell_added_removed, n)) {
+> [4]:                    irqchip.adjust_irq_target(cell_added_removed, n);
+>                 }
+>                 if (irqchip_irq_in_cell(&root_cell, n)) {
+> [5]:                    irqchip.adjust_irq_target(&root_cell, n);
+>                 }
+>         }
+> }
 > 
-> Changes in v3:
->  - patch 3: Fix typo in commit msg
->  - patch 3: Retest, correct ExtendedEnum(metaclass=...)
+> [2]:
+> Initializing Jailhouse hypervisor v0.12 (273-g6d9c51d0-dirty) on CPU 6
+> Code location: 0x0000ffffc0200800
+> Page pool usage after early setup: mem 87/994, remap 0/131072
+> Initializing processors:
+>  CPU 6... OK
+>  CPU 3... OK
+>  CPU 10... OK
+>  CPU 8... OK
+>  CPU 0... OK
+>  CPU 4... OK
+>  CPU 11... OK
+>  CPU 12... OK
+>  CPU 7... OK
+>  CPU 1... OK
+>  CPU 9... OK
+>  CPU 2... OK
+>  CPU 5... OK
+>  CPU 14... OK
+>  CPU 13... OK
+>  CPU 15... OK
+> Initializing unit: irqchip
+> Initializing unit: ARM SMMU v3
+> Initializing unit: ARM SMMU
+> Initializing unit: PVU IOMMU
+> Initializing unit: PCI
+> Adding virtual PCI device 00:00.0 to cell "qemu-arm64"
+> Adding virtual PCI device 00:01.0 to cell "qemu-arm64"
+> cell_added_removed == &root_cell
+> Page pool usage after late setup: mem 144/994, remap 528/131072
+> Activating hypervisor
+
+Thanks for the detailed explanation. While git should ignore everything
+after the "---" separator until the patch, it does not ignore comments
+that are a patch of it own :). Anyway, resolved that once I understood this.
+
+> ---
+>  hypervisor/arch/arm-common/irqchip.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> Changes in v2:
->  - Address review comments from Jan and Ralf
->    - Cleanup ExtendedEnum
->    - Remove "from __future__ import print_function"
->    - Migrate shebang of scripts/arm64-parsedump.py to python3 as well
->    - Update CONTRIBUTING.md to mention python3 only
-> 
-> Florian Bezdeka (4):
->   Makefile: Update build dependency from python to python3
->   tools: Update shebang from python to python3
->   tools/scripts: Remove python2 specific code
->   doc: Migrate docs from python 2 to python 3
-> 
->  CONTRIBUTING.md                               |  2 +-
->  Documentation/setup-on-banana-pi-arm-board.md |  2 +-
->  pyjailhouse/config_parser.py                  |  1 -
->  pyjailhouse/extendedenum.py                   | 15 +--------------
->  pyjailhouse/sysfs_parser.py                   |  7 ++-----
->  scripts/arm64-parsedump.py                    |  3 +--
->  scripts/include.mk                            |  4 ++--
->  tools/Makefile                                |  2 +-
->  tools/jailhouse-cell-linux                    |  3 +--
->  tools/jailhouse-cell-stats                    |  3 +--
->  tools/jailhouse-config-check                  |  3 +--
->  tools/jailhouse-config-create                 |  3 +--
->  tools/jailhouse-hardware-check                |  7 +------
->  13 files changed, 14 insertions(+), 41 deletions(-)
+> diff --git a/hypervisor/arch/arm-common/irqchip.c b/hypervisor/arch/arm-common/irqchip.c
+> index a3245846..256af114 100644
+> --- a/hypervisor/arch/arm-common/irqchip.c
+> +++ b/hypervisor/arch/arm-common/irqchip.c
+> @@ -514,8 +514,10 @@ void irqchip_config_commit(struct cell *cell_added_removed)
+>  		return;
+>  
+>  	for (n = 32; n < sizeof(cell_added_removed->arch.irq_bitmap) * 8; n++) {
+> -		if (irqchip_irq_in_cell(cell_added_removed, n))
+> +		if (irqchip_irq_in_cell(cell_added_removed, n) &&
+> +			(cell_added_removed != &root_cell))
+>  			irqchip.adjust_irq_target(cell_added_removed, n);
+> +
+>  		if (irqchip_irq_in_cell(&root_cell, n))
+>  			irqchip.adjust_irq_target(&root_cell, n);
+>  	}
 > 
 
-Thanks, applied to next - finally (sorry).
+Applied to next.
 
+Thanks,
 Jan
 
 -- 
@@ -190,4 +240,4 @@ Corporate Competence Center Embedded Linux
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/045c5b59-11fc-019b-4bdd-2cb79ee5de19%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/7d4f42c1-b947-df2e-d189-f51b081d73cf%40siemens.com.
