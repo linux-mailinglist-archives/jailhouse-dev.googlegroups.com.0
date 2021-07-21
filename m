@@ -1,31 +1,31 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBRP24CDQMGQEH2JI6SQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBPX64CDQMGQEPNDJNRY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23a.google.com (mail-lj1-x23a.google.com [IPv6:2a00:1450:4864:20::23a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C64D3D1265
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 21 Jul 2021 17:29:10 +0200 (CEST)
-Received: by mail-lj1-x23a.google.com with SMTP id v10-20020a2ea60a0000b029017fd05dc0aasf1357432ljp.1
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 21 Jul 2021 08:29:10 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1626881349; cv=pass;
+Received: from mail-wr1-x43f.google.com (mail-wr1-x43f.google.com [IPv6:2a00:1450:4864:20::43f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F9413D1294
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 21 Jul 2021 17:37:35 +0200 (CEST)
+Received: by mail-wr1-x43f.google.com with SMTP id o10-20020a05600002cab02901426384855asf1163921wry.11
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 21 Jul 2021 08:37:35 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1626881855; cv=pass;
         d=google.com; s=arc-20160816;
-        b=XGVvZAMWuLjfyYQYie725oLwo8G9ZIB1971NO+Ax5wO0fbn8D8zJZlKomfdFpA0HmE
-         k5GhGX5bVFUs2Myi4NQwZ24xAQ4AJ4LyPte5IrL+/uPobnzPhUMRgRAwLeX1Z1n2TaCG
-         KUCFfqmgzKZO3J7cnSsxLnORk6fCn5iFdDjJ2nIDYYo9DioauftEzDsnhlLEISmT+g9w
-         qWu592zLmdzLc9pQkVbcunWC5j0ngq3kQhtoacG4H3hYwcWR7B//xRMAXwgEd4ePSkLl
-         i//lGpm1hQtMhOhCT6euXCDme6he+HCPJeWv++GMSWbLW7vfby4IBvYahCR0nyLZtfK3
-         io5A==
+        b=IPmwQy9UoBld5e5AGU0gdy717+L16dleMyFF+F67ydngyxU1EBpg2MsY62C0jXjAqD
+         9wjM989z6+bapM2UMS5jqzkWwdj744eXugB9yGNyFoJ0GtWeZUeBYN7FzQsBqDwu8HrY
+         gx1AvSyHeZyY2WdKVgCX7RjRcEpTXcpD4jomH3RMjgYxr9buo90THmSapvHM7xgpvP4A
+         JZ4VJ11DUDohiS2c3+GSlXp53b3ns+CFV/sYkkt2Uxyg4Ex2lzz3FWCyuNcmnBr1DDjM
+         WmXfVFyiDiUtOZGAvk1VwiRU1Ggdf8OrRT9gAf19FVkQGlj23F12yt5PTufxeTxcU6JA
+         VVMQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
          :content-language:in-reply-to:mime-version:user-agent:date
          :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=gmWKzQiKPSUTCwD6dvmQ05gVzvmPikwUOrNogxN+0kc=;
-        b=a9eNIZHNVxG5JlwNz+HbAhN8VWSR3TSeHSimGbjbB/p8d5gpGy85J3Nl2YQo4GsGM8
-         UpIPipfYECFyiJdsKgLz6ErGLdpcdDZZCeGYQ9+l5RzvMbUPFAOUkJP88O1ceF7exlK3
-         ZxIBeN5+jTONGTRS99vqd1EhpnzaKrCW+XaBasp2zBIS90CNEEtEm7/07MXdy7aes6YW
-         EBQv/Qn9/DQZBDNIkon1mNG9DzF4pvCdb0/CDG2pNqM1MAzWEhYsZTebygNqf2jSoDqJ
-         JrILxRIPLn4C6MbqRhj0Wlh8SM4tit2zP3bQNQAMK+tUVQDUj2NQJDocy+bM27iv91/t
-         Lfjg==
+        bh=Wg9l28cLW/7ia4mvwTyY1RKUhubW74Tm7AsZCzNbHSg=;
+        b=D9wGP9eP+i2fUCeHng/EZD6Fg8CjXoiyRZ1JAzyA/cgWHfecFVf6LuC6lxk/+Eop84
+         u6g2Yqmn6QgfkrFPuvSOVMBcHZ9fmSLkLA4agbKD/I72q54pjqJYnatlmoF2r5bxoN/I
+         myzUHrslTZUa4YjvZjSsUs9d786IEOPjI6YTcC8qLUnNonw7tfwRJN7Xd5WAJQuB/erm
+         ECquWUGNYTRMwZm84ysudGQ1bbXQ/eSKCIuqxnl1CQMvAdQLikXIIcO5C9PFuRpdkkld
+         FEO+7UxZgIctZ1YP2oWvPS5rOq23RP05pNljAcuAULvCWxrnwN5utIHsPjaZeOZ7qTkD
+         zg/A==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
        spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
@@ -36,13 +36,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=gmWKzQiKPSUTCwD6dvmQ05gVzvmPikwUOrNogxN+0kc=;
-        b=eGKtejO8vwuLWbGgpzNH5B0HdSS1Ccd71Mdx1wzYAECdKKP0dgn+wuzWEivvYQ/ZTm
-         5XIOnDTDuqoyMWPAFHgoLqAE9bmQrPCQeWGq9Y9jw6xo2F533UfgrvIY0Ff2sZo/aoMf
-         DDYRHRiTFfZ4hcWYga5KAf8SfVQrEOYKe7QQKjVMG4GwUDeFZ2wniyKl0Fcm2NMwqEqa
-         zTbfF+fHLejF9NCDcmjx3ipMdbta4rM0bd92du5Qgcmu3cL3PgtsCnd5El+ZgwXBGZtN
-         OzKpXnxpPX8oqRUBiqGwvz3+m1k0THxZf9m37UYEGbzKvOj27H0bdiV9avv/DPyfeDbu
-         N66g==
+        bh=Wg9l28cLW/7ia4mvwTyY1RKUhubW74Tm7AsZCzNbHSg=;
+        b=dP/mUQOF1TE7WwqErMTFxoEb7/16sNrjBLigToqpf1SV9FdFYahDLlDkkYdaCLBeaj
+         2bTfwDJUx+4H5247h2S0u74/ZcbjJSqxGyJNdgHCUMjgSkhntm0LYxpxC+dSieevhjSM
+         98m0pFsT5jaov5wq0z9/Q9yCw5QVr0iPCIIPgaeBJNX7xXpYlmz0PaieESy9I2KD/sII
+         p/qg4tALzxDnX1Y6h1YrU93bfiIFNSbY3iywtQRvpoe0echr82MibH+9MjwsY0hulZOY
+         PBv6THdbCYj5dGt60uBDeXMGpjhwMVokouleKsyGyPDyYn6cl+iUJzMEub9NB0MLKRiB
+         2p2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:subject:to:references:from:message-id
@@ -51,69 +51,69 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=gmWKzQiKPSUTCwD6dvmQ05gVzvmPikwUOrNogxN+0kc=;
-        b=OeK96piJsRU53lKGW3kAQ6WEPUBJty103ZFMKi/Ji7rOY14I4i1DLO4XKVc0K4OjxK
-         sQZNVvdhPUesRG06tLgF1xN51an3JIC6rfc4uZajhFR+6VuieRNv74OCXMnymsM3hptf
-         GTfwTSTYksGqUVVdB7IFZ2aTQc0jk0zd1jdzkLqqS2oFgwlopo2aovGVwQqd9xVA8rU+
-         VtM1ru5kNEG/2GNH7gJw4dw7BXgxDeGQVUDnHv29PvJ1sap380L380G0K8Oh7BMz1gBd
-         En2fhlBO6w+G5SfBwvQtR6t/QvhBOeGuIj+HV2emmBDqX4BK4Tyq6hrpqedTi7cf6koj
-         YdvA==
+        bh=Wg9l28cLW/7ia4mvwTyY1RKUhubW74Tm7AsZCzNbHSg=;
+        b=IPMqUGtZCWtjUSMNEtvXJHnitU4B8MtGOuXh88nMZpikKDorhj9rB0+eVEiox7bTIG
+         9mS1fg3Nl31jDmko06028hJMjcyps7mTVLdnf7vwFmEDTKaCN4UkdaoU7kHC2ZV0xHj4
+         Fbq+gAp8VvPkmigw2eukB1+IStNXlrVkCnVby8q0Frrhv6WzIeVFy9xfhpAFkEXiyS2W
+         xi5rYr3FFCzG0ZMKxyffOJv0W/7EiSDxoRdG35gYKKW5aQlVM3FcPfnKCrH1c42nZo0E
+         AfE7DICy/y7vheD2CQJ8wZ/Q8OljynK4PPZsdJSmv0lGi73szulbbxQkZw4p+jieVRKC
+         BuAA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530H4yCFO7kXbzKTjALSEucP3Q3uAD+celKZtFxeLrLs4ILqD6UA
-	929SllPXxPgpkmb0+Q3q/Ho=
-X-Google-Smtp-Source: ABdhPJymZx1Ackq/C4PRhcT62n6WWi2I9PNhEpJVsAZ2ZFlCsfo/6zTTkcKAAwDavBsV+9rZwPyRFA==
-X-Received: by 2002:ac2:50c3:: with SMTP id h3mr26665179lfm.126.1626881349675;
-        Wed, 21 Jul 2021 08:29:09 -0700 (PDT)
+X-Gm-Message-State: AOAM532mPFLdu/6XMdWZyho6EC5TtOM5xRogHGOxymHyPR9rAYXxXuWO
+	dRxQCaeyMXI5xy+m11LW67M=
+X-Google-Smtp-Source: ABdhPJzk43Kg9jpjvBUo+d9W+kHLfPgskZnFNKthx/JOzkMKnBvxPDxzzc/FtGNMC2B555Ao/8at8g==
+X-Received: by 2002:a05:600c:364c:: with SMTP id y12mr4690940wmq.78.1626881854849;
+        Wed, 21 Jul 2021 08:37:34 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac2:4146:: with SMTP id c6ls1271569lfi.2.gmail; Wed, 21 Jul
- 2021 08:29:08 -0700 (PDT)
-X-Received: by 2002:a19:c795:: with SMTP id x143mr11486223lff.42.1626881348610;
-        Wed, 21 Jul 2021 08:29:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1626881348; cv=none;
+Received: by 2002:a05:600c:4786:: with SMTP id k6ls3209081wmo.0.canary-gmail;
+ Wed, 21 Jul 2021 08:37:33 -0700 (PDT)
+X-Received: by 2002:a05:600c:35d1:: with SMTP id r17mr4745217wmq.98.1626881853826;
+        Wed, 21 Jul 2021 08:37:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1626881853; cv=none;
         d=google.com; s=arc-20160816;
-        b=Bi38xWHi/5DAlK7kYnVL/JThjqBIPAJwW5p4MLtYD0OBsXuNZ/zMqAjAO6LjnlliGv
-         vMBpxsXycKzzX6EurIPW2ZplGvLaBFSjYjK/b/unCGexjo4MEAgYzEIQwZRHx0+Lr0qN
-         Set5g3ut0HelsRtWAIm/wV2zAC0DO0ZNcnnvpEPZJjFcTrfg9inkQ4ejK1LGcESEvwLU
-         GwNYocB6+UCg1WfI+1k5FVrfUiFqWaXWrZcn9S7GROFVj578zKcK1HCDfzXyiwj7pnc7
-         gekXGBq5JQU/d9ekGbM3vS8TfaADydPGtoxn2AskGvsfcW9U6TqXWT9AAj+QG6VQNc1y
-         b2aw==
+        b=HW1uNuE7jYfoTK3SJ0OTxuLqFCx+wh6FFMIbCx+M4ZYUa1fnlng8BD1ZYvUCA4peo5
+         jaqseLgTj+J30JzeeQqbN9Orab5ZXo4WIgt/ZTafjfouOEfKNX6sKH4MmYxeF2wZFBVi
+         G3ZRpd/48li7gvsP6QxuXPtk0wRTDbppV6ggrtYCCswlCpUE5bRfCcgr9aZagcfp4VJ0
+         hk8s+EezqMageeK2vF7h8g65bneYloUb3q4EvsYRIUAjvjjyvQtt7rDsztpsRX7vm8qE
+         2xJfaXDftNBA+b9fYm96gJ0vcwmoB87fISJE/yWZnmao9D5+BRFNo3bAE6vwJbeM43C1
+         026g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
          :user-agent:date:message-id:from:references:to:subject;
-        bh=+eNBqcFM52RmaTfz9jz5rWpmcyQKtgtL9xis2hLmpR0=;
-        b=CSs9iF9RghqkF0omyo2yKXdtkt0fYVKu5ThJN11tux5bMTXvi6ObmaAxyJCIVBzs6r
-         mIegbPjDOtZ2EBuh8169BYxZpg2zeL0oO2yag140ZyKQnhFq38EqRNgYWte0QlEM5gT+
-         FNBy75L2ZIHAND6N49EqrhiY9dJyxk7lBzkhX1WcK6f/z/XFb82GwpOUidBSgUHzGMjr
-         ebQ8qVauYfUqBRDiDTGeHtAj7MQFLl/QZW5qlMegZaqGXdL04SidzZtZ22ANofGa31ue
-         1XQ/OXexmgnyMsP00Z+LJlMwL30BoHHBFcovDe8Id0MVeiOBqgw3rV5p4piPccoCkPNL
-         j7Fg==
+        bh=JMgJ1ljnB7S6TbvoKzDsnsctWNYDaCkw5Beqc80cdm8=;
+        b=cdhnRMwPAA0ILq0tvnMibq7iV88E5U7mpuMn23SgXw5hkaV5+r/8mim1f2qj7GVGWR
+         0tU+87dBL9/MGVHWSw+Mm3/zkrs67McoVBh7p4vEIRLpPI9aRPEzTKEBe6z0u3T1MKOg
+         CvH7eiLnIFIvPrXdRkmqeLwG2mqau/PXCesObxDfW11Z8i9G8Gmh5/SkT5ELMx8cRi3K
+         i8sM+1Vo6RySBAFZv/RQX659NqOEjuMbot3WYLr0QAUVa/6cd2NJx1HQHAr40tfPj+bs
+         tZaKkiTuZkBkjOOTCeo+xPjfHcqGFSzR0ZTZut8MZDf0DTpxZzjOWtj/RL7Ak3ZND/j2
+         ujSA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
        spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
-        by gmr-mx.google.com with ESMTPS id g5si343706lfj.3.2021.07.21.08.29.08
+        by gmr-mx.google.com with ESMTPS id v4si1190968wrg.2.2021.07.21.08.37.33
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 21 Jul 2021 08:29:08 -0700 (PDT)
+        Wed, 21 Jul 2021 08:37:33 -0700 (PDT)
 Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 16LFT77G006584
+	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 16LFbWjK017329
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 21 Jul 2021 17:29:07 +0200
+	Wed, 21 Jul 2021 17:37:32 +0200
 Received: from [139.25.68.37] ([139.25.68.37])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 16LFT75j016152;
-	Wed, 21 Jul 2021 17:29:07 +0200
-Subject: Re: custom non-root linux cell doesn't boot on rpi4 board
-To: Nikoleta Markela Iliakopoulou <nmiliakopoulou@gmail.com>,
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 16LFbWsE020675;
+	Wed, 21 Jul 2021 17:37:32 +0200
+Subject: Re: MSIX Enabling Error on TX2
+To: yohenn perrot <yohenn.perrot@gmail.com>,
         Jailhouse <jailhouse-dev@googlegroups.com>
-References: <CAMPOHC=t3oRS=EU+9PoLY--R_8d4V3nhGH0DaEUgJy0AF0U7dg@mail.gmail.com>
+References: <6d11e4f6-9619-4f1f-8fff-ac5c8409ea70n@googlegroups.com>
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <c4e3071d-cef7-fdec-10f0-255af63ead2e@siemens.com>
-Date: Wed, 21 Jul 2021 17:29:07 +0200
+Message-ID: <5affd5e9-79aa-96c2-c78a-bfd67cc2a7fd@siemens.com>
+Date: Wed, 21 Jul 2021 17:37:32 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <CAMPOHC=t3oRS=EU+9PoLY--R_8d4V3nhGH0DaEUgJy0AF0U7dg@mail.gmail.com>
+In-Reply-To: <6d11e4f6-9619-4f1f-8fff-ac5c8409ea70n@googlegroups.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
@@ -134,240 +134,74 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 01.07.21 10:49, Nikoleta Markela Iliakopoulou wrote:
-> Dear all,=C2=A0
->=20
-> I have jailhouse running on my rpi4 board (jailhouse-enabling/5.4-rpi
-> kernel) and I want to boot a non-root linux cell. At first I tried with
+On 09.07.21 10:09, yohenn perrot wrote:
+> Hi,
+> I'm working with Jailhouse for linux version 4.4 on Nvidia TX2. I have
+> currently 5 cells that communicate with each other.=C2=A0
+> In order to communicate with linux root, I implemented 5 vPCI devices in
+> the linux-root. After some researches I found that a cell cannot have
+> more than 4 IRQs, so I'm trying to implement msi-x.
 
-Switch to jailhouse-enabling/5.10 - 5.4-rpi is dead, and 5.10 now nicely
-works via upstream on the RPi4.
+Well, you can IRQ sharing when using legacy INTx, that should work.
 
-> the vmlinuz (5.10.31 )and the rootfs.cpio file produced with
-> jailhouse-images ( I attach the config-5.10.31 , default-rootfs-config
-> files ) and they seem to run fine. I wanted to customize my rootfs and
-> put more packages, so I modified the config file and built it again with
-> buildroot-2021.02.3. My rootfs.cpio file is about 210M (I attach the
-> custom-config file ), so I tried to modify the memory reservations=C2=A0i=
-n
-> the necessary files (jailhouse.dts , rpi4-linux-demo.c ).
 >=20
-> *_rpi4-linux-demo.c
-> _*
-> /*
-> =C2=A0* Jailhouse, a Linux-based partitioning hypervisor
-> =C2=A0*
-> =C2=A0* Configuration for linux-demo inmate on Raspberry Pi 4:
-> =C2=A0* 2 CPUs, 128M RAM, serial port=C2=A0 =C2=A0 =C2=A0 // I just doubl=
-ed it=C2=A0
-> =C2=A0*
-> =C2=A0* Copyright (c) Siemens AG, 2014-2020
-> =C2=A0*
-> =C2=A0* Authors:
-> =C2=A0* =C2=A0Jan Kiszka <jan.kiszka@siemens.com <mailto:jan.kiszka@sieme=
-ns.com>>
-> =C2=A0*
-> =C2=A0* This work is licensed under the terms of the GNU GPL, version 2.=
-=C2=A0 See
-> =C2=A0* the COPYING file in the top-level directory.
-> =C2=A0*/
+> Currently, I have *ENOSPC *error during the *msix enabling=C2=A0 function=
+*.=C2=A0
 >=20
-> #include <jailhouse/types.h>
-> #include <jailhouse/cell-config.h>
+> With *sudo lspci -v* command , I can see that a memory space is
+> allocated for the MSI-X.
 >=20
-> struct {
-> struct jailhouse_cell_desc cell;
-> __u64 cpus[1];
-> struct jailhouse_memory mem_regions[13];
-> struct jailhouse_irqchip irqchips[2];
-> struct jailhouse_pci_device pci_devices[2];
-> } __attribute__((packed)) config =3D {
-> .cell =3D {
-> .signature =3D JAILHOUSE_CELL_DESC_SIGNATURE,
-> .revision =3D JAILHOUSE_CONFIG_REVISION,
-> .name =3D "rpi4-linux-demo",
-> .flags =3D JAILHOUSE_CELL_PASSIVE_COMMREG |
-> JAILHOUSE_CELL_VIRTUAL_CONSOLE_PERMITTED,
+> /00:04.0 Unassigned class [ff00]: Red Hat, Inc. Inter-VM shared memory/
+> /Subsystem: Red Hat, Inc. Inter-VM shared memory/
+> /Flags: fast devsel/
+> /Memory at 40104000 (64-bit, non-prefetchable) [size=3D4K]/
+> /Memory at 40105000 (64-bit, non-prefetchable) [size=3D256]/
+> /Capabilities: [50] MSI-X: Enable- Count=3D1 Masked-/
+> /Kernel driver in use: uio_ivshmem/
 >=20
-> .cpu_set_size =3D sizeof(config.cpus),
-> .num_memory_regions =3D ARRAY_SIZE(config.mem_regions),
-> .num_irqchips =3D ARRAY_SIZE(config.irqchips),
-> .num_pci_devices =3D ARRAY_SIZE(config.pci_devices),
+> I set up the linux root cell like this :
 >=20
-> .vpci_irq_base =3D 185-32,
->=20
-> .console =3D {
-> .address =3D 0xfe215040,
-> .type =3D JAILHOUSE_CON_TYPE_8250,
-> .flags =3D JAILHOUSE_CON_ACCESS_MMIO |
-> JAILHOUSE_CON_REGDIST_4,
-> },
-> },
->=20
-> .cpus =3D {
-> 0b1100,
-> },
->=20
-> .mem_regions =3D {
-> /* IVSHMEM shared memory regions (demo) */
-> {
-> .phys_start =3D 0x2faf0000,
-> .virt_start =3D 0x2faf0000,
-> .size =3D 0x1000,
-> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-> },
-> {
-> .phys_start =3D 0x2faf1000,
-> .virt_start =3D 0x2faf1000,
-> .size =3D 0x9000,
-> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> JAILHOUSE_MEM_ROOTSHARED,
-> },
-> {
-> .phys_start =3D 0x2fafa000,
-> .virt_start =3D 0x2fafa000,
-> .size =3D 0x2000,
-> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-> },
-> {
-> .phys_start =3D 0x2fafc000,
-> .virt_start =3D 0x2fafc000,
-> .size =3D 0x2000,
-> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-> },
-> {
-> .phys_start =3D 0x2fafe000,
-> .virt_start =3D 0x2fafe000,
-> .size =3D 0x2000,
-> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> JAILHOUSE_MEM_ROOTSHARED,
-> },
-> /* IVSHMEM shared memory region */
-> JAILHOUSE_SHMEM_NET_REGIONS(0x2fb00000, 1),
-> /* UART */ {
-> .phys_start =3D 0xfe215040,
-> .virt_start =3D 0xfe215040,
-> .size =3D 0x40,
-> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_8 |
-> JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_ROOTSHARED,
-> },
-> /* RAM */ {
-> .phys_start =3D 0x2f900000,
-> .virt_start =3D 0,
-> .size =3D 0x10000,
-> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
-> },
-> /* RAM */ {
-> .phys_start =3D 0x18000000,
-> .virt_start =3D 0x18000000,
-> .size =3D 0x10000000,
-> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
-> JAILHOUSE_MEM_LOADABLE,
-> },
-> /* communication region */ {
-> .virt_start =3D 0x80000000,
-> .size =3D 0x00001000,
-> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> JAILHOUSE_MEM_COMM_REGION,
-> },
-> },
->=20
-> .irqchips =3D {
-> /* GIC */ {
-> .address =3D 0xff841000,
-> .pin_base =3D 32,
-> .pin_bitmap =3D {
-> 0,
-> 0,
-> 1 << (125 - 96),
-> 0,
-> },
-> },
-> /* GIC */ {
-> .address =3D 0xff841000,
-> .pin_base =3D 160,
-> .pin_bitmap =3D {
-> (1 << (185 - 160)) | (1 << (186 - 160)),
-> 0,
-> 0,
-> 0
-> },
-> },
-> },
->=20
-> .pci_devices =3D {
-> { /* IVSHMEM 00:00.0 (demo) */
-> .type =3D JAILHOUSE_PCI_TYPE_IVSHMEM,
-> .domain =3D 1,
-> .bdf =3D 0 << 3,
-> .bar_mask =3D JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-> .shmem_regions_start =3D 0,
-> .shmem_dev_id =3D 2,
-> .shmem_peers =3D 3,
-> .shmem_protocol =3D JAILHOUSE_SHMEM_PROTO_UNDEFINED,
-> },
-> { /* IVSHMEM 00:01.0 (networking) */
-> .type =3D JAILHOUSE_PCI_TYPE_IVSHMEM,
-> .bdf =3D 1 << 3,
-> .bar_mask =3D JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-> .shmem_regions_start =3D 5,
-> .shmem_dev_id =3D 1,
-> .shmem_peers =3D 2,
-> .shmem_protocol =3D JAILHOUSE_SHMEM_PROTO_VETH,
-> },
-> },
-> };
->=20
-> *_jailhouse.dts
-> _*
-> /dts-v1/;
-> /plugin/;
-> / {
-> compatible =3D "brcm,bcm2835";
->=20
-> fragment@0 {
-> target-path =3D "/";
-> __overlay__ {
-> reserved-memory {
-> #address-cells =3D <2>;
-> #size-cells =3D <1>;
-> ranges;
->=20
-> jailhouse@18000000 {
-> reg =3D <0 0x18000000 0x18000000>;
-> no-map;
-> };
-> };
-> };
-> };
->=20
-> fragment@1 {
-> target =3D <&pcie0>;
-> __overlay__ {
-> linux,pci-domain =3D <0x00000000>;
-> };
-> };
-> };
->=20
-> I adjusted them to be paged aligned. There seems no crashing as the cell
-> starts, but the linux doesn't boot at all. I tried again with the
-> modifications in memory and the old rootfs.cpio file , as well as with
-> the vmlinuz only and they run fine, so I guess there is a problem with
-> my new custom rootfs.cpio=C2=A0
->=20
-> I'd be grateful if you provided me with some further guidance.
->=20
+> /=C2=A0.type =3D JAILHOUSE_PCI_TYPE_IVSHMEM,/
+> /=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 .bdf =3D 0x4 << 3,/
+> /=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 .bar_mask =3D {/
+> /0xfffff000,=C2=A0 =C2=A0/
+> /0xffffffff,=C2=A0=C2=A0/
+> /0x00000000,=C2=A0/
+> /=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 0x00000000,/
+> /0xffffff00,=C2=A0/
+> /0xffffffff,=C2=A0/
+> /=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 },/
+> /
+> /
+> /=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 .num_msix_vectors =3D 1,=C2=A0/
+> /=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 .shmem_region =3D 68,=C2=A0/
+> /.iommu =3D 1,/
+> /=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 .shmem_protocol =3D JAILHOUSE_SHMEM_PROTO_UNDEFINED,/
+> /.domain =3D 0x0,/
+> /=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 },/
+> /Do you have any suggestions on the problem encountered ?/
+> /It seems that=C2=A0 MSI-X are different for virtual devices is that righ=
+t ?/
+> /
 
-Debugging this can be tedious as you likely already saw. The general
-recommendation for starters therefore is to derive from the reference
-image (jailhouse-images) and configuration (this is likely what you did
-already), and then slowly adjust what you would like to do differently.
+In order to user MSI-X on an ARM platform, you need one that at least
+provides that for its physical devices already. In the best case, there
+is generic PCI host controller that supports MSI/MSI-X and Jailhouse
+could simply plug into it to inject the virtual devices. But that only
+worked once so far, for the old AMD Seattle platform.
 
-So, do you have a diff between your setting and jailhouse-images? The
-above is not quickly to grasp and to manually diff for me.
+Our current virtual PCI host controller does not yet support MSI/MSI-X.
+That is primarily due to the tricky binding between it and the
+(non-pluggable) IRQ controllers of the platform that have to support
+message-based interrupts. And there might be more complications that I
+forgot about.
 
 Jan
 
@@ -381,4 +215,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/c4e3071d-cef7-fdec-10f0-255af63ead2e%40siemens.com.
+jailhouse-dev/5affd5e9-79aa-96c2-c78a-bfd67cc2a7fd%40siemens.com.
