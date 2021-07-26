@@ -1,129 +1,59 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBRMN7ODQMGQETQBDZZQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDR6BW4XXEARB3W27ODQMGQEQ2JMFMY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43f.google.com (mail-wr1-x43f.google.com [IPv6:2a00:1450:4864:20::43f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F30F3D5B91
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 26 Jul 2021 16:29:26 +0200 (CEST)
-Received: by mail-wr1-x43f.google.com with SMTP id p12-20020a5d68cc0000b02901426384855asf4794620wrw.11
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 26 Jul 2021 07:29:26 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1627309765; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=LDdL2S6zEGesNAAhr4/OlCApnY+XKZek7xzTz0uI9bUOebGYpKLeQWMDIiIhMwj5X6
-         zGvFj7N24UZsPkbJjr07LiKSS9XxaDQtJ65MuPO9nG9dHgcVZXdqFw9+eku93rNtpf3y
-         gxzPJikH2sG7Gdc/H9zNOc2pZn8sszsBWAjy93mhe7wJ2HhWg7JLZ9SugiNTbTDqSo6K
-         gwZrOIb5Zg89ljEk4FTq5lwqm98BIGwWTFK8nqsplem24mRhJFpuNKxJQV6/HS3dhZzq
-         o6lMErm8Cm02Cf2r5OO2PxCb2/dAfzVpGoiUhoUAqZZqKs+gnp3rxgRCSX2yFbIVUTGn
-         ruww==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:cc:to:subject:sender:dkim-signature;
-        bh=MuQVJY7jWBlQwyEHeEAyaVlpNz5CsJJt3j4EspdDboc=;
-        b=Kio6xcbzJZKs9W33VDTKyxT4am+PRRLTxYuudbTMQ7zaGf6zZMHpwqRzrXTIvsB/aM
-         q6jJ63dW61JEhyaYaFJP4mykLpajjrCoH3H02glP9mi56/EOTwopZvbDZnxq8uz4tEO3
-         j5oJm9mIASeHT0PrGonbkKaHG05xL9OhGp0+ZrZ4j4Yyn6w3Q3/6zWkAlMMcB3qKOWiT
-         UwsK5u9W0/3umr71o2o7byHLdSi+Cc/TbhibgzQ82MOevAv2RgWBlGQdtHdQYMIJcKcN
-         NQWdggeKXFZnKfnau5dhfiIOzXU0xB8HBCBKHtRA2/CGqZMqXaTmYaCohEps9AHfI0FH
-         Tbcw==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-qv1-xf3e.google.com (mail-qv1-xf3e.google.com [IPv6:2607:f8b0:4864:20::f3e])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B2CF3D6545
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 26 Jul 2021 19:14:24 +0200 (CEST)
+Received: by mail-qv1-xf3e.google.com with SMTP id m15-20020a0cbf0f0000b02902e60d75210esf8709168qvi.19
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 26 Jul 2021 10:14:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=MuQVJY7jWBlQwyEHeEAyaVlpNz5CsJJt3j4EspdDboc=;
-        b=hM27P3Z3b5sIbi/OFCunE5VeYFhsb8zsuX4+CVBjyZ0zK3JGPXsmqWGuS+5kcYBUSH
-         UNvANNkUhyMJbDnWF0+MSq0jJkdkkwgIylECfl++4Tx8b7RYxfPGyrCVkX9kE6rnxApb
-         iY3lNEikSNUWWRGLC/GP8kxiamMCVPz+kwpgrxIvrgP7b1BNh8tGU6XoaHQSuG4FhA/z
-         PgPttNJgHoLyO4RfuLLHictuZ6HfPj8UQ8IV24Pp+6tPmjoNfX7yavb2/bDCFUvXUING
-         gGGzHWrwo+ZY9ZNm9DN1b1Vb7TQ+eoc47pUhmuM7nALQmQ9A0EC4p77x9CqHbR6uvE/p
-         CdWw==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=E5Sf+OGNIZohowAWIxTKy9AeQc327KH55ugCHfrOnbk=;
+        b=IpXGXJ+YTrqaP8Jnbsx2Kez6e6OziReiusV/DHK8jrih4wfNcP++l0FYx6CN6vk4s8
+         HuSYC1LeZFZYXZppqlkcFfShq0H1izCjKJTQ8jPixktuS8v909Xhy+oP6kX3D8SmE31A
+         k0Xo9NXJHuuSoNk5JEjhB/3C7SC3P9LgTEhfAhVx2H7iL10bC+3PB6RS/YMBWGUGk8DA
+         h86u/RbCUk3G2MmtcXWL4zyGY5Yr+TPNwsQOe256PWzXV9ukwVNeAqAXIzjhxbDtXttD
+         AK91YqW4UQVdeW5JjrVnQfqF3f585o/C5TY55dJoEQG0loKhrNpMdLjCQuSxMuRVYJ1D
+         pD+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=MuQVJY7jWBlQwyEHeEAyaVlpNz5CsJJt3j4EspdDboc=;
-        b=gV2lzkH6NyFsytCAwz82JnEUjBbk3IwvNF+WoaL4cdDL61iTPYDdZFZ2+DNRohzBAw
-         fM5XsPzwIQjNtutCtrWD9FIWbRUufPem77qv6l+4HHhm419GKm3B5y3oqi94H/Bmvr4/
-         gOIsKkvwFrGdl/EjVEe1H9vp7NE74v50RdjRtClRIxNyl4R/8tdq1wY9V1SYnW+p/FPQ
-         K0c7xVI623ZilMSd9WRZ6Vyz3+8l1yeX2Rdf1xfa4irHlVVtpt+qrbMlVdnJpV2CC64Q
-         8/TfJTV9/7efl63ZN+AHW8RnVzVbMqE5iIGzmiCWKd6lNhayMdPyC150Zv/qptKqp0eP
-         wR/g==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=E5Sf+OGNIZohowAWIxTKy9AeQc327KH55ugCHfrOnbk=;
+        b=fRZkDOUrvLBTuJwvDzw2ZGo3jbxDh/3oAniJ7vCo3RLVkooEBmthNs2dpUdVJjoK5w
+         4DLSuRrc9URCIenjcH99JeNQLuUyAU9So5EtlSuwo93KA95By7IhXB2uGFcpcLHv1Zto
+         xcfVk9LaME5CqkppGvMVbRulsVdJT+Izb6zfar4NhlnbvcA8zarhwhhLSLxI832qn6HD
+         Oj70sZv3kyBKpKjN2HKy5o1YyyxjL+OnH7fsmBhEeElmdVmKWSp7eX0LPU88C8pMRsY7
+         AMPE9MNQP6SXa9CbUymWyaLvGTmN4D4kt+P0n8nC7ZXSFEEfD67EkFgNuNewfZumO4bc
+         I+ZA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530/k9RTSZsSDwM7S1/bjGc1pklmcxLS7jgdicBEk5rosNSBG6og
-	nNwbypNzPE8jcRpnaSVVC/Q=
-X-Google-Smtp-Source: ABdhPJzXRFjxqePo/nt+DTV1UplLapXk2t9gKqU9QYR+8wXdSoXqEi+gN0aaAtAa/rA6L8xku8vTfg==
-X-Received: by 2002:a7b:ca59:: with SMTP id m25mr26896358wml.74.1627309765827;
-        Mon, 26 Jul 2021 07:29:25 -0700 (PDT)
+X-Gm-Message-State: AOAM532+z/ZDy5EEcxf6zv9zGrbvEqR7yIzSZoz8X8+raAB8UO2rKxX2
+	yK+BDhVa0lGnvU216L14xUM=
+X-Google-Smtp-Source: ABdhPJyJ6OUUossOC6PtscckkEuU2xie4ZkSri8YEXAtGt9N71QYkRrojeL+mNH5d6fanT41Ky/2vg==
+X-Received: by 2002:a05:620a:1398:: with SMTP id k24mr1952846qki.12.1627319662816;
+        Mon, 26 Jul 2021 10:14:22 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a7b:cc8a:: with SMTP id p10ls3007116wma.1.canary-gmail; Mon,
- 26 Jul 2021 07:29:24 -0700 (PDT)
-X-Received: by 2002:a05:600c:511d:: with SMTP id o29mr26471474wms.26.1627309764627;
-        Mon, 26 Jul 2021 07:29:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1627309764; cv=none;
-        d=google.com; s=arc-20160816;
-        b=oRW0J/jNdGhha5xOdMLLd6jiKmMpqDBG3VH73oRx9LG7x93FE3ibpSBy1Y8A1rJBxb
-         a/Xk2jdWwM3IJLoVnws2os9oxLLJzZ3oZxOnNNw8wzS05tS0KgEhPpQeM+E8Cni6lH6x
-         M3MLaHymxOS/bYhjX3K1u5MuHwCCCnHr2L4mNeBRtYh2aAggJYPkoUDrFtQqKgDWHmVT
-         vLjvi1qi6k+7NUwvIAXy/bruZBa8Uh1g5hCDIZ8sKZt3JneI/Z70zhvyQ2b3A0oXfnZ+
-         XfEnpjaZEsdZz+VAAPVJeKnSYkNBL7Gh/YBE/qONl3yZKnJfOBdiRSXcgkgeH8AnpcUC
-         BBxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=fw/rFn0V5wiKFGSn6zBsVgjxh+hpw6pUqKW0cJn4Tc4=;
-        b=MxPqwVHQXcHdqQNh/F91Mppe1ipYETNgNaEqBzr+W8oxSI8vVq7C3Df6Ry5h+6/5mI
-         MK6+b+OdesUnis0vfiQCRVlI55j52lon1O5puvNyAK15UU/9J/zU19Mhk7dTZX3Rb66Q
-         /iVuKcWSceuKEA/jQMCMPnshlDWFHKLrHNGrJP5VkuegPFw7KJc7e9g7Pm/MH8tYXoA/
-         lL4pMHYgxdMDZDEV4DDXUHnNCOSXZHd4ZzYozJU+QpO7K+Z78GQ7oRAEAW7v06sIMzVK
-         tCtVj3oXPMuDlx7BCmgv1/Qj9lq6mqMPGpP7snrnX0fkhhpxN0EqEFbRrr3ULzDCizFu
-         NIQQ==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id y16si5975wmq.3.2021.07.26.07.29.24
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 26 Jul 2021 07:29:24 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 16QETNMo005174
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 26 Jul 2021 16:29:23 +0200
-Received: from [167.87.33.191] ([167.87.33.191])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 16QETMx0025205;
-	Mon, 26 Jul 2021 16:29:23 +0200
-Subject: Re: [PATCH] ARM64: Set the right set TCR.(I)PS value
-To: Dongjiu Geng <gengdongjiu1@gmail.com>
-Cc: jailhouse-dev@googlegroups.com
-References: <20210726100546.30332-1-gengdongjiu1@gmail.com>
- <07afe6db-18e4-8dce-a4f2-434bde1afe44@siemens.com>
- <CABSBigSq2QbUbQjNyd=t=71i3cianys_EreCVBCP2dzfqqR+eA@mail.gmail.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <ea765444-4e6c-66f6-15c6-1ffc9b0bd130@siemens.com>
-Date: Mon, 26 Jul 2021 16:29:22 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+Received: by 2002:a05:620a:e01:: with SMTP id y1ls12826846qkm.9.gmail; Mon, 26
+ Jul 2021 10:14:22 -0700 (PDT)
+X-Received: by 2002:a05:620a:90c:: with SMTP id v12mr18221890qkv.190.1627319662073;
+        Mon, 26 Jul 2021 10:14:22 -0700 (PDT)
+Date: Mon, 26 Jul 2021 10:14:21 -0700 (PDT)
+From: Huang Shihua <shihua.huang@prodrive-technologies.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <6f3f0b24-cfee-4c08-86c4-8a0cc9183a2fn@googlegroups.com>
+In-Reply-To: <3372d9be-7223-0713-50bd-8db705d4f0e5@siemens.com>
+References: <e52ea42b-f7ac-4f70-b23f-717c5d530dc5n@googlegroups.com>
+ <3372d9be-7223-0713-50bd-8db705d4f0e5@siemens.com>
+Subject: Re: Ivshmem-demo: root cell failed to receive interrupts
 MIME-Version: 1.0
-In-Reply-To: <CABSBigSq2QbUbQjNyd=t=71i3cianys_EreCVBCP2dzfqqR+eA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_2562_433418793.1627319661490"
+X-Original-Sender: shihua.huang@prodrive-technologies.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -136,117 +66,233 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 26.07.21 14:45, Dongjiu Geng wrote:
-> Jan Kiszka <jan.kiszka@siemens.com> =E4=BA=8E2021=E5=B9=B47=E6=9C=8826=E6=
-=97=A5=E5=91=A8=E4=B8=80 =E4=B8=8B=E5=8D=886:22=E5=86=99=E9=81=93=EF=BC=9A
->>
->> On 26.07.21 12:05, Dongjiu Geng wrote:
->>> According to spec, the {I}PS should be never larger
->>> than the CPU hardware implemented physical address
->>> size(ID_AA64MMFR0_EL1.PARange). Otherwise, it
->>> may lead to some unexpected issues.
->>>
->>> we can refer to DDI0487G_a_armv8_arm's description below:
->>> If {I}PS is programmed to a value larger than the
->>> implemented PA size, then the PE behaves as if programmed
->>> with the implemented PA size, but software must not rely
->>> on this behavior. That is, the output address size is never
->>> largerthan the implemented PA size.
->>>
->>> Signed-off-by: Dongjiu Geng <gengdongjiu1@gmail.com>
->>> ---
->>> DDI0487G_a_armv8_arm: Physical address size implementation options
->>> ID_AA64MMFR0_EL1.PARange Total  PA size PA address size
->>>         0000                     4GB    32 bits, PA[31:0]
->>>         0001                     64GB   36 bits, PA[35:0]
->>>         0010                     1TB    40 bits, PA[39:0]
->>>         0011                     4TB    42 bits, PA[41:0]
->>>         0100                     16TB   44 bits, PA[43:0]
->>>         0101                     256TB  48 bits, PA[47:0]
->>>         0110                     4PB    52 bits, PA[51:0]
->>> ---
->>>  hypervisor/arch/arm64/entry.S              | 14 +++++++++++++-
->>>  hypervisor/arch/arm64/include/asm/paging.h |  5 +++++
->>>  2 files changed, 18 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/hypervisor/arch/arm64/entry.S b/hypervisor/arch/arm64/entr=
-y.S
->>> index 3f4ee871..99738f28 100644
->>> --- a/hypervisor/arch/arm64/entry.S
->>> +++ b/hypervisor/arch/arm64/entry.S
->>> @@ -388,6 +388,16 @@ el1_trap:
->>>       isb
->>>  .endm
->>>
->>> +/*
->>> + * set TCR.(I)PS to the highest supported ID_AA64MMFR0_EL1.PARange val=
-ue
->>> + */
->>> +.macro tcr_compute_pa_size, tcr
->>> +     mrs     x9, id_aa64mmfr0_el1
->>> +     // Narrow PARange to fit the PS field in TCR_ELx
->>> +     ubfx    x9, x9, #ID_AA64MMFR0_PARANGE_SHIFT, #3
->>> +     bfi     \tcr, x9, #TCR_PS_SHIFT, #3
->>> +.endm
->>> +
->>
->> Why a macro, why not inlined?
->=20
-> Thanks very much for your point out, yes, It's best to inline rather
-> than macro definitions
->=20
->>
->>>  /*
->>>   * These are the default vectors. They are used on early startup and i=
-f no
->>>   * Spectre v2 mitigation is available.
->>> @@ -460,8 +470,10 @@ enable_mmu_el2:
->>>       ldr     x1, =3D(T0SZ(48) | (TCR_RGN_WB_WA << TCR_IRGN0_SHIFT)    =
- \
->>>                              | (TCR_RGN_WB_WA << TCR_ORGN0_SHIFT)     \
->>>                              | (TCR_INNER_SHAREABLE << TCR_SH0_SHIFT) \
->>> -                            | (PARANGE_48B << TCR_PS_SHIFT)          \
->>>                              | TCR_EL2_RES1)
->>> +
->>> +     tcr_compute_pa_size x1
->>> +
->>
->> So this is aiming at devices that have less than 48 bits parange, right?
->> Did you stumble over such a hardware? Or is this rather about devices
->> having more than 48 bits? Sorry, still trying to understand the details.
->=20
-> Yes, I have a board with ARMv8 Cortex-A53 CPU, the Cortex-A53 CPU only
-> supports 40 bits[1],
-> not 48 bits=E3=80=82 And even some ARMv8 CPU support  53 bits parange, al=
-so not 48 bits.
->=20
+------=_Part_2562_433418793.1627319661490
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_2563_318825764.1627319661490"
 
-But the problem is around parange < 48, right?
+------=_Part_2563_318825764.1627319661490
+Content-Type: text/plain; charset="UTF-8"
 
->=20
-> [1] https://montcs.bloomu.edu/Information/RaspberryPi-ARMv8/technical-ref=
-erence-manual.DDI0500J_cortex_a53_trm.pdf
-> Table 4-56 ID_AA64MMFR0_EL1 bit assignments
->=20
->     [3:0] PARange Physical address range supported:
->     0b0010 40 bits, 1 TB.
->=20
 
-OK - but the raspi was apparently still working, although out of spec.
-Or did you see something breaking? Looking for a classification of this
-issue ("ugly, but we were lucky so far" vs. "never worked with X / when
-doing Y").
 
-Jan
+On Wednesday, 21 July 2021 at 17:50:53 UTC+2 j.kiszka...@gmail.com wrote:
 
---=20
-Siemens AG, T RDA IOT
-Corporate Competence Center Embedded Linux
+> On 13.07.21 18:09, Huang Shihua wrote: 
+> > HI, 
+> > 
+> > Currently, I'm trying to run the ivshmem-demo to establish communication 
+> > between Linux root cell and one non-root cell. Configuration files are 
+> > attached. 
+> > 
+> > Two cases were tested: 
+> > 
+> > 1. Let the non-root cell load the ivshmem-demo and then target at 
+> > itself (target=1). _All interrupts can be sent and received correctly_. 
+> > 2. Let the root cell and the non-root cell send interrupts to each 
+> > other. I.e., root cell runs /./tools/demos/ivshmem-demo -t 1, /while 
+> > the non-root cell load /inmates/demos/x86/ivshmem-demo.bin -s 
+> > "target=0" -a 0x1000 /and then run. The result turned out to be,  
+> > * the non-root cell got the interrupts from the root cell, 
+> > * _while the root cell did not receive any interrupt._ 
+> > 
+> > As Jan mentioned 
+> > in 
+> https://groups.google.com/g/jailhouse-dev/c/GRCWFzNaHX8/m/ht8z51BOCgAJ, 
+> > tuning the iommu index should do the trick. 
+> > However, unfortunately, it did not work for me :c 
+> > 
+> > There are 8 iommu units on the hardware, I tuned the iommu index in the 
+>
+> Wow, 8 units... 
+>
+> > root cell configuration from 0 to 7. The same behavior, no interrupts 
+> > were received by the root cell, remains when tuning the index from 0 to 
+> > 6. When the iommu is set to 7, the kernel crashed immediately when the 
+> > demo was started on the non-root cell.  
+> > 
+> > Any idea regarding why the root cell always failed to receive 
+> interrupts? 
+>
+> This may require in-detail debugging. For that, you would have to 
+> instrument the hypervisor along its virtual IRQ injection path. That 
+> starts in ivshmem_trigger_interrupt() (hypervisor/ivshmem.c). The 
+> sending side will call it on writing the doorbell registers. Check along 
+> this call path if conditions to actually send the IRQ are not met. 
+>
+> If all are met, the hypervisor sends an IPI to a target cell CPU (will 
+> be directly delivered to the guest) that should cause the normal IRQ 
+> processing there. But usually, we do not get so far in such cases. 
+>
+> Another function of interest here is arch_ivshmem_update_msix() when 
+> called for the root cell while it defines where ivshmem IRQs should go 
+> to. Possibly, Jailhouse decides that the programming Linux issued is not 
+> valid and therefore leaves the irq_cache that 
+> arch_ivshmem_trigger_interrupt() uses invalid. You can also check that 
+> via instrumentations (printk). 
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
+
+Indeed, when .iommu is assigned as 0,1,..6,  irq_cache is invalid. I suspect
+the reason is that their correpsonding VT-d interrupt remappting table 
+entries
+are not for ivshmem devices, i.e., unmatched device ID.
+When .iommu is tuned to 7, irq_cache becomes valid.
+
+(BTW, as I mentioned before, the kernel crashed immediately when the
+demo was started on the non-root cell. *One missing detail here is*, on the 
+root-cell side,  ./tools/demos/ivshmem-demo is running/has run, i.e., 
+init_control has been set to 1. If ./tools/demos/ivshmem-demo has not been
+run on the root cell yet, then starting the demo on the non-root cell will 
+not
+kill the kernel.)
+
+To avoid the kernel crashing situation, I only ran the demo on the
+non-root cell. With .iommu being set validly, I will expect at least seeing 
+the
+interrupt count increases,  when grep ivshmem /proc/interrupts.
+But nope, *still no interrupts received on the root cell*.
+
+
+> We likely need better tooling (tracing) for these hairy cases... 
+>
+> Jan 
+>
+> -- 
+> Siemens AG, T RDA IOT 
+> Corporate Competence Center Embedded Linux
+
+
+Any more hints?
+
+Kind regards,
+Shihua
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/6f3f0b24-cfee-4c08-86c4-8a0cc9183a2fn%40googlegroups.com.
+
+------=_Part_2563_318825764.1627319661490
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<br><br><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">O=
+n Wednesday, 21 July 2021 at 17:50:53 UTC+2 j.kiszka...@gmail.com wrote:<br=
+></div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; bord=
+er-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">On 13.07.21 18:0=
+9, Huang Shihua wrote:
+<br>&gt; HI,
+<br>&gt;=20
+<br>&gt; Currently, I'm trying to run the ivshmem-demo to establish communi=
+cation
+<br>&gt; between Linux root cell and one non-root cell. Configuration files=
+ are
+<br>&gt; attached.
+<br>&gt;=20
+<br>&gt; Two cases were tested:
+<br>&gt;=20
+<br>&gt;  1. Let the non-root cell load the ivshmem-demo and then target at
+<br>&gt;     itself (target=3D1). _All interrupts can be sent and received =
+correctly_.
+<br>&gt;  2. Let the root cell and the non-root cell send interrupts to eac=
+h
+<br>&gt;     other. I.e., root cell runs&nbsp;/./tools/demos/ivshmem-demo -=
+t 1, /while
+<br>&gt;     the non-root cell load /inmates/demos/x86/ivshmem-demo.bin -s
+<br>&gt;     "target=3D0" -a 0x1000 /and then run. The result turned out to=
+ be,&nbsp;
+<br>&gt;       * the non-root cell got the interrupts from the root cell,
+<br>&gt;       * _while the root cell did not receive any interrupt._
+<br>&gt;=20
+<br>&gt; As Jan mentioned
+<br>&gt; in&nbsp;<a href=3D"https://groups.google.com/g/jailhouse-dev/c/GRC=
+WFzNaHX8/m/ht8z51BOCgAJ" target=3D"_blank" rel=3D"nofollow" data-saferedire=
+cturl=3D"https://www.google.com/url?hl=3Den-GB&amp;q=3Dhttps://groups.googl=
+e.com/g/jailhouse-dev/c/GRCWFzNaHX8/m/ht8z51BOCgAJ&amp;source=3Dgmail&amp;u=
+st=3D1627398511925000&amp;usg=3DAFQjCNFS6SDXI-AaWDmYx11EvtR54sWunw">https:/=
+/groups.google.com/g/jailhouse-dev/c/GRCWFzNaHX8/m/ht8z51BOCgAJ</a>,
+<br>&gt; tuning the iommu index should do the trick.
+<br>&gt; However, unfortunately, it did not work for me :c
+<br>&gt;=20
+<br>&gt; There are 8 iommu units on the hardware, I tuned the iommu index i=
+n the
+<br>
+<br>Wow, 8 units...
+<br>
+<br>&gt; root cell configuration from 0 to 7. The same behavior, no interru=
+pts
+<br>&gt; were received by the root cell, remains when tuning the index from=
+ 0 to
+<br>&gt; 6. When the iommu is set to 7, the kernel crashed immediately when=
+ the
+<br>&gt; demo was started on the non-root cell.&nbsp;
+<br>&gt;=20
+<br>&gt; Any idea regarding why the root cell always failed to receive inte=
+rrupts?
+<br>
+<br>This may require in-detail debugging. For that, you would have to
+<br>instrument the hypervisor along its virtual IRQ injection path. That
+<br>starts in ivshmem_trigger_interrupt() (hypervisor/ivshmem.c). The
+<br>sending side will call it on writing the doorbell registers. Check alon=
+g
+<br>this call path if conditions to actually send the IRQ are not met.
+<br>
+<br>If all are met, the hypervisor sends an IPI to a target cell CPU (will
+<br>be directly delivered to the guest) that should cause the normal IRQ
+<br>processing there. But usually, we do not get so far in such cases.
+<br>
+<br>Another function of interest here is arch_ivshmem_update_msix() when
+<br>called for the root cell while it defines where ivshmem IRQs should go
+<br>to. Possibly, Jailhouse decides that the programming Linux issued is no=
+t
+<br>valid and therefore leaves the irq_cache that
+<br>arch_ivshmem_trigger_interrupt() uses invalid. You can also check that
+<br>via instrumentations (printk).&nbsp;</blockquote><div><br></div><div>In=
+deed, when .iommu is assigned as 0,1,..6,&nbsp; irq_cache is invalid. I sus=
+pect</div><div>the reason is that their correpsonding VT-d interrupt remapp=
+ting table entries</div><div>are not for ivshmem devices, i.e., unmatched d=
+evice ID.</div><div>When .iommu is tuned to 7, irq_cache becomes valid.</di=
+v><div><br></div><div>(BTW, as I mentioned before, the kernel crashed immed=
+iately when the</div>demo was started on the non-root cell. <u>One missing =
+detail here is</u>, on the&nbsp;</div><div class=3D"gmail_quote">root-cell =
+side,&nbsp;
+
+./tools/demos/ivshmem-demo is running/has run, i.e.,&nbsp;</div><div class=
+=3D"gmail_quote">init_control has been set to 1. If ./tools/demos/ivshmem-d=
+emo&nbsp;has not been</div><div class=3D"gmail_quote">run on the root cell =
+yet, then starting the demo on the non-root cell will not</div><div class=
+=3D"gmail_quote">kill the kernel.)</div><div class=3D"gmail_quote"><br></di=
+v><div class=3D"gmail_quote">To avoid the kernel crashing situation, I only=
+ ran the demo on the</div><div class=3D"gmail_quote">non-root cell. With .i=
+ommu being set validly, I will expect at least seeing the</div><div class=
+=3D"gmail_quote">interrupt count increases,&nbsp; when&nbsp;grep ivshmem /p=
+roc/interrupts.</div><div class=3D"gmail_quote">But nope, <u>still no inter=
+rupts received on the root cell</u>.</div><div class=3D"gmail_quote"><div><=
+br></div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; bo=
+rder-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">
+<br>We likely need better tooling (tracing) for these hairy cases...
+<br>
+<br>Jan
+<br>
+<br>--=20
+<br>Siemens AG, T RDA IOT
+<br>Corporate Competence Center Embedded Linux</blockquote><div><br></div><=
+div>Any more hints?</div><div><br></div><div>Kind regards,</div><div>Shihua=
+</div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/ea765444-4e6c-66f6-15c6-1ffc9b0bd130%40siemens.com.
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/6f3f0b24-cfee-4c08-86c4-8a0cc9183a2fn%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/6f3f0b24-cfee-4c08-86c4-8a0cc9183a2fn%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_2563_318825764.1627319661490--
+
+------=_Part_2562_433418793.1627319661490--
