@@ -1,34 +1,34 @@
-Return-Path: <jailhouse-dev+bncBDJNTSETSIORBUESQWEAMGQEIWZG4WI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDJNTSETSIORBF4WQWEAMGQELKHVXIA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pl1-x63d.google.com (mail-pl1-x63d.google.com [IPv6:2607:f8b0:4864:20::63d])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEBF93D8D80
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 28 Jul 2021 14:10:58 +0200 (CEST)
-Received: by mail-pl1-x63d.google.com with SMTP id u4-20020a170902e804b029012c4b467095sf1849193plg.9
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 28 Jul 2021 05:10:58 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1627474257; cv=pass;
+Received: from mail-oi1-x23d.google.com (mail-oi1-x23d.google.com [IPv6:2607:f8b0:4864:20::23d])
+	by mail.lfdr.de (Postfix) with ESMTPS id B6B773D8D97
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 28 Jul 2021 14:18:32 +0200 (CEST)
+Received: by mail-oi1-x23d.google.com with SMTP id n64-20020acabd430000b029025a4350857esf1328599oif.8
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 28 Jul 2021 05:18:32 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1627474711; cv=pass;
         d=google.com; s=arc-20160816;
-        b=scO0xOtVt1+MyArinvGqtDfywEpCS3Bm4truEGCH/CK4zCBaBboxp6L5jil5ZO86sn
-         1Qdn3INFpK7UsanC52VmOVPWfWgYyhudswFINf3qhYb/i4VTIguAnbYfEO5lgsqLkS8U
-         0Pag73fQi/H9zQ05hA7UV5tLi/JIs2quZ8wv9Wdxz+371HUbGV8+YzKBCbVkiM5ynbpi
-         r5B0e05Kww6FS+ok/oPJ3azQFCieSxTTjS7qYK/eDNC9yX5gFU8556ORiP9fxOxKMpgm
-         JUHi/hwH9YtISBa+93arJI9oolZoKyX0k7Be0tZIN30X6z9uzZnKh3d9LRypP4f+jOrU
-         lsyA==
+        b=sn6KmP32cnKa+Sy2z98ME10R4NsR6utXuY0rqcjSTZHjZQwMW2hEGHSyRaSemdMjFi
+         kkjuhh0OFU2+VfPNaSqVJapcz4NVHvQFwq/3keI8jtTS/DJLa6DNfvFiDY7CVjN7ji0g
+         hCGiizm5KPHbLBu7YTjakpPX16y8M7mqkrVHMk/d34kbfY81NcOE7K7IcRap+32cXqLK
+         yGibJdD1vDGHo+WHQaRpaJpR49yZpRIoBcWY8cIvKO8m7SE0nHxPHJFQg9xmUeOSfJC1
+         p9G72qVxjQtRcc9BQObMPx/qy1BlWAMLTXPiJNNpGwKZZktzXsgcdWBfMWjPZzbLs0HH
+         BR4Q==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:sender:dkim-signature
          :dkim-signature;
-        bh=nn8W811piM3bHh8dPqGMhK2ilNv3JEjUdVEu8gDxnYo=;
-        b=bbpJacfWUvlSRu71MmqWVwnQQOhjUbzi4NMiV83XHgzA0g6TVeYEMnCrjbDXTgwMnr
-         HgoM0hSAgDElSlrTWmBey7LIG4QNE/8aoFl1Z0LyC3/W27gnlGNe0zaWJ8Sh5v0ktaMd
-         trJlObeWiD9+Ig1g6xxQQYqWpOHAxaISWmTbY6OAVqU+zIuVi3e/Ly8yszbyAiao4Bmj
-         DYJz8o9kebeqFMj3sHQTMe4PhLfGlqFl+wPEVEwiilzodrLwpgJlpgbZzt8Yox3Fil41
-         /6K2Ie9cGzd/LrHTvqhmEhpRNL2MR0y4mynfFGHLBpzcIRWkTfJ36910fyT11hDGbdtV
-         fcag==
+        bh=WTunrq/YCb9NlLE3PSt29WYLcPYeW4f4fm6nTxvRg6w=;
+        b=VuEUvcfNyUnGGGdwsXXv7WiWFLNwTDCjun/z0KYtnqFnFkc1C9ZmDxXuk5aNJbFDbw
+         UrbFpSWrUYmnseDnyM6VgeiGFZ96qVeaVPhrb88FE8mZ+DE/+NSS6ZaY0SjNIMf8cp6V
+         C+3TnYjQHa+6f/BMljKjq/9okj1a0rEFFBvtTIhKqJb4++fhqaWFk0L3Sy2Lb+jxDgeY
+         BhbYCX99E+a3IfZJ37DiWe4U31u+cO3UakzPV6KuFVcoh2/+FbtEKjxZqtRXQe7L2Z1d
+         +0bDIo6AKo091RYCN8bOZ4d7N9o+c5mXdtF7iq5IA9lrpaqy9QXJq8gTCkzhC/+SxrrH
+         XJ5g==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=ZkOijQmP;
-       spf=pass (google.com: domain of shihuahuang94@gmail.com designates 2607:f8b0:4864:20::102c as permitted sender) smtp.mailfrom=shihuahuang94@gmail.com;
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b="E4O/e3iM";
+       spf=pass (google.com: domain of shihuahuang94@gmail.com designates 2607:f8b0:4864:20::636 as permitted sender) smtp.mailfrom=shihuahuang94@gmail.com;
        dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20161025;
@@ -36,26 +36,26 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :subject:to:cc:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=nn8W811piM3bHh8dPqGMhK2ilNv3JEjUdVEu8gDxnYo=;
-        b=Cb12EWaUcBiSm+WgbIWmQYtRFk4q8iBxJouAFjy4+SmaK4YJztWHJ4czSjlGd/pipv
-         mM6ZWojK3yB6EXT1DGzNXuioq0SHT+cg9Bb4OWgBVSEtKjecS7fMVDNMwPbNFvjXc/X7
-         IHqQTKraFghaXNGVmXXeti9/5NHT+QiG8Jb2nU8B4/8xGIydHrHapeQZdSMNzQMEF+Mu
-         pqxdOcdhJpM1eHw341oLME0WX1hGCTkePtX+JD14sclGoY/iyzoAm1t0RQ/qFj03ifZ2
-         SfCnkdhXrdCdXbcpf8C9782SLQm7tych/tdbiGKHOnbLbcnOuLP8WJMJyq98c+kber6l
-         hEZQ==
+        bh=WTunrq/YCb9NlLE3PSt29WYLcPYeW4f4fm6nTxvRg6w=;
+        b=Uq1Kwy/veCKqWgNZNseoDT8IED8jNnqmlTPn86drX017DzdQlURMg6J4mJ7fw09ljQ
+         FaKjTxTZxJJ2QSLfQ+Qi3AeNIZMEdy1mB50iLpB8FN8F3CA9C8gazuQV0ZaVqqHRrTMy
+         4IGToCJSXbRCdjHZsYRnA16S398GHfsFos8h5Yhi/IfakrJFgYn4pWLIlrZWnw/ifv/V
+         R5Su7AWmLc2DnvQ0owWQ2d1LOsZBC9vtamxwEaIhNlhPxBxn/nDDcv62Swq45eoyuUVC
+         s7jk16lVebW8Y5wLT/rAkyC3giNBxsaTY53a5BFfpqJdvttWDISeTdBnMs/aKG2F/hYN
+         TPZQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
          :cc:x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=nn8W811piM3bHh8dPqGMhK2ilNv3JEjUdVEu8gDxnYo=;
-        b=ECPZTPNpJKlVf4A7daFKXR3dAz6iPXVm3wqDm/i2sggSgS0ZAhg/oNOHG3ZcY2l5Jr
-         dVOJbypl/DXbDE9HvjdoYkHtjdHdLbvwgvjL/0sl9KUmliLK63zqfTzmIyVEJOR209Wv
-         rf/1vc8E2GvzyuIavB+IEu0Wnh0xg3JNiqFos+Fa1acoSBQKeI76VzulT7Bju1y/y+Nv
-         kTcejaqWfHABXAlLedbcYBJ+RFuJQ1D4PoT6eYuRG4igvzbzhESQJTmkr/E7/RuJ4m6S
-         wZoOLshRLlxxo4IP6iJKQBEjkckK5pUf3/9J+FptJfCmZM+FAsDxgLME2S+dkbX2SqfJ
-         WpDQ==
+        bh=WTunrq/YCb9NlLE3PSt29WYLcPYeW4f4fm6nTxvRg6w=;
+        b=oumJyuScWItdinT+ee2ZEpGkweCY1bdG6lJAtG9sD9umqPcEunjba/ULKwvIAAToOW
+         WYIJMBMMMHdbLE9z/wqt7aXzD468CmKYP4buxlpXRpZ6U/gdeZNec2rl9yQG79utsmvk
+         VRlH7hp4N0Bo54XKkspvyTP5+bT1vLKFjj4Ykgotilu5WdTxih7imgpJdoalQs9qjHVC
+         xLJ/HBHg2LU/6/rnJy9RobyTpyY5DNH2f0V5hYrZBT+JRL1QKpMhjaZJIfwuQ3jL/jQu
+         nMbcP8nFwWu4CNLUCv5+VTt6+uG5S6c57zqp/wAzk8CCoOsg8+Vi9XD2banzyQUUqxQG
+         KnGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
@@ -63,73 +63,74 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=nn8W811piM3bHh8dPqGMhK2ilNv3JEjUdVEu8gDxnYo=;
-        b=mxIVqtUc4R3dJuK5jdRBPyYxDyUHkczG28qhvvadAcoKtoLN1cKsJh2BzO/xUSvD4r
-         9opWVpY3r5AdwZkqNr+FfwAGA/wLFHuk0YLkGxGOrcbkGbyptKrBojD4uPbjgfVQftl1
-         KYxakaccPBE5J/0qWC3/taHPAY4a5ix6i4Y8a93USnvvvVM033wIDtgknxl1UOIEwHlk
-         IIuFjpiUnvE3aU7W+zUn3YyoGEfz2AHBEMom+RAsFoAmmxKH9AQUXdsL9wWH+xG+567v
-         W8vQh0RXko57RqMpQNsu2b/OfDGTiI66ZCpVqXpY2qQawLEhsuxLdmRR09zgwIT5nhnW
-         xvNg==
+        bh=WTunrq/YCb9NlLE3PSt29WYLcPYeW4f4fm6nTxvRg6w=;
+        b=Mgm2KI90dZ5JxSQPLtyyUWiZuepNsF/fvWieh3J0qg5IsCfkG754YeG5rRxqf70Eq+
+         oHtm4TWUc+kYHnnOi45MhJ/we8604pXbcrJ8Nbule3XQybis/i9IqzsnoGjALLWhtjxr
+         QQPM+RsgHBMxpuH0YZN+JUYIZqvuIuEsOJQuCKHyuMsTnmUYvKfLYnc0LLrKM7fsorcj
+         IJnMPRIMgChzRQ6EuUlE9rnpim24nyXbxi/nOQEzzdG8vQgxeCxWpBoGwyYTTxq1hwgF
+         KG19tGAU+r5YEztJKspSwayELw5Q9KPU92YGVRjoFYuRfGM172QejsRvYjuD6MkkZ7yG
+         vSXQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533MiOfwAhep+tQZAg4dzSToiuV7f95CLzxpyXzzvaw9BdJv9umv
-	EEwczNaN+/9U9tOt6IuPoJc=
-X-Google-Smtp-Source: ABdhPJzdGuo8VF8bxmveIY3ZBmNM4nI00l0jKGi/PVfOx5NimVqiFNoPXSguybS2+wXFW6qdmZWWww==
-X-Received: by 2002:a63:110c:: with SMTP id g12mr28467683pgl.139.1627474256961;
-        Wed, 28 Jul 2021 05:10:56 -0700 (PDT)
+X-Gm-Message-State: AOAM533ACr8ebRttGLx2tx/lvOcSl9ndcfLSDiiMpTfoJuO3OOP39+/h
+	zu0HB3VVazKOEd+/MBp4ve0=
+X-Google-Smtp-Source: ABdhPJyO4hNMWvfJYNhVFKUG0WcEHI+OgYCcTzKdRaEDB489V7XuSm8LPBrMXgNFuiAvKD8ZhVolRw==
+X-Received: by 2002:aca:c204:: with SMTP id s4mr6267578oif.49.1627474711339;
+        Wed, 28 Jul 2021 05:18:31 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a62:144:: with SMTP id 65ls698560pfb.3.gmail; Wed, 28 Jul
- 2021 05:10:56 -0700 (PDT)
-X-Received: by 2002:aa7:8b07:0:b029:2f7:d38e:ff1 with SMTP id f7-20020aa78b070000b02902f7d38e0ff1mr28403986pfd.72.1627474256212;
-        Wed, 28 Jul 2021 05:10:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1627474256; cv=none;
+Received: by 2002:aca:641:: with SMTP id 62ls602301oig.0.gmail; Wed, 28 Jul
+ 2021 05:18:31 -0700 (PDT)
+X-Received: by 2002:a05:6808:1523:: with SMTP id u35mr18254232oiw.132.1627474710872;
+        Wed, 28 Jul 2021 05:18:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1627474710; cv=none;
         d=google.com; s=arc-20160816;
-        b=qma5hb1OruSbT5KpMA39VEVUd/fmF3KxdHyzTuaaJkxA6DtCDDJBVbQHpVapPWnSjg
-         /Mrsn/Ijfh2UBWa3ilo6Ie3Y0/RNLU/FTwjCCGpiAz/pOKwqKXPa38X55GDbffsszvmj
-         QGtdcD3fFfSsBiUE9NNhcOtFtcR8DnwyKOfeJlKCWxRJzYbDMHXEDZHkHXsCWeqz50F8
-         pFFxx9kKm16dze341thNNXSgBC6uXmLeZPm78yOuZkmo2zC3KrDJfUHW+Ztup5q+B4A4
-         YhfKqhJ52r0rAgn1UpDFvwZP9ULE8VKiM9nToPEUA3Z4m1cfKa1gd1GMdRyZZyKpai/W
-         jQDw==
+        b=bAHd4AeZGJpUM99ACA/byyUaPcagDTimvLfxm16E7r0KFuMDPIxZE9t2KY8n4Uu9Dx
+         005HH8oDzYznB5p0s/RAc1MPLSeav6TC2OXerSPKRCsKYoTCFZyrzstrpHGVfWJyQzVD
+         jHF9whMinN3UkdS6GVH/x6V+M4ivP2Bp5CRDVyZoFQxmICOod5HAD8d/PZZfpczTeWA1
+         sgq6G8GmOC1YI234yWrRIgXQI785n2mnPZ4y1RUaEI839iQ3Hcfofc88U1Sh9gSwBB29
+         wGKm9I66+T+gtMkfA1IraVkSZu7kIi4CuRMuzgFe1yQv6xHWXg8rkMEDypLLO50rEf83
+         aolA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=1U96b96jkYd1JnmZneDd9OZYl6uCT/2uoOmW+NKysPY=;
-        b=WdFcqp1AjY19P+Q3aTfvTLwZrc90OXMtRUaGiYv/E6e/JOGY3HX9AJ2NRodW5dv5wG
-         qxGhRXbtinGKhvxadqKbHmsAkB5KOFIkhj1QXLb7wT3FuUshHc9fNP85smvEFGqqqGqs
-         1pUre033WkN0G7CCSKm3kKOnN4TER4i4MKoFjlBFByTpXybOFcquzcYdYximdO0c6sye
-         knkF94wf91g9XBtXys1aw8IGanq0UrpFwUyo5dTM0n/7YKYXjaHHMW5vPWmPIpW6foIG
-         L7JR4Bxuw4LPK+GYVCqwgjMZY9QH6cxdjWIwe5oUzgeQAvJzHm43lNTm61w17/BjVElg
-         fo0Q==
+        bh=OxjfgDdO4h5tPwo7w7AToUQy49rPj7f4xIyLP8fNJJk=;
+        b=vGVIl2PC+YlWjBCIlpsUtWpfKmqbdiE2RaEWXAJ354ElEiwyAxfdaZZAXUQaF5Z8K1
+         X53w1ktSyzkPGRrP54aW2wr1zz/S/9l7gHGh2w/Ara+JckSFeO8fQtiX66ab+dx/ouTW
+         TL4JW9FVUi30DJMsWUmgq3v9AKT7fJLfqA40U3Va0+eCMsUyYZ3ZXJMsngaEXlt12CbV
+         ccdW04dYubfWb1d5pPpPbHq4TESA7hd6zKGuIlxqu0zOz8bddRYOzHrSzPDUl7HfwOOd
+         TwMsdzD1oUrGti3AnJKHafjAe964tbL26uWnsj2Xl7LKngef8IIA5L5lHwwAmiyUVKRS
+         XHtg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=ZkOijQmP;
-       spf=pass (google.com: domain of shihuahuang94@gmail.com designates 2607:f8b0:4864:20::102c as permitted sender) smtp.mailfrom=shihuahuang94@gmail.com;
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b="E4O/e3iM";
+       spf=pass (google.com: domain of shihuahuang94@gmail.com designates 2607:f8b0:4864:20::636 as permitted sender) smtp.mailfrom=shihuahuang94@gmail.com;
        dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com. [2607:f8b0:4864:20::102c])
-        by gmr-mx.google.com with ESMTPS id h20si195889pgm.4.2021.07.28.05.10.56
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com. [2607:f8b0:4864:20::636])
+        by gmr-mx.google.com with ESMTPS id m22si520942oie.5.2021.07.28.05.18.30
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Jul 2021 05:10:56 -0700 (PDT)
-Received-SPF: pass (google.com: domain of shihuahuang94@gmail.com designates 2607:f8b0:4864:20::102c as permitted sender) client-ip=2607:f8b0:4864:20::102c;
-Received: by mail-pj1-x102c.google.com with SMTP id ds11-20020a17090b08cbb0290172f971883bso9683817pjb.1
-        for <jailhouse-dev@googlegroups.com>; Wed, 28 Jul 2021 05:10:56 -0700 (PDT)
-X-Received: by 2002:a65:6a09:: with SMTP id m9mr28870628pgu.149.1627474255922;
- Wed, 28 Jul 2021 05:10:55 -0700 (PDT)
+        Wed, 28 Jul 2021 05:18:30 -0700 (PDT)
+Received-SPF: pass (google.com: domain of shihuahuang94@gmail.com designates 2607:f8b0:4864:20::636 as permitted sender) client-ip=2607:f8b0:4864:20::636;
+Received: by mail-pl1-x636.google.com with SMTP id e5so2424981pld.6
+        for <jailhouse-dev@googlegroups.com>; Wed, 28 Jul 2021 05:18:30 -0700 (PDT)
+X-Received: by 2002:aa7:978c:0:b029:32a:403e:88cc with SMTP id
+ o12-20020aa7978c0000b029032a403e88ccmr28288248pfp.7.1627474710163; Wed, 28
+ Jul 2021 05:18:30 -0700 (PDT)
 MIME-Version: 1.0
 References: <e52ea42b-f7ac-4f70-b23f-717c5d530dc5n@googlegroups.com>
  <3372d9be-7223-0713-50bd-8db705d4f0e5@siemens.com> <6f3f0b24-cfee-4c08-86c4-8a0cc9183a2fn@googlegroups.com>
- <2d2c72b6-cae0-e210-8db2-630b33180335@siemens.com>
-In-Reply-To: <2d2c72b6-cae0-e210-8db2-630b33180335@siemens.com>
+ <2d2c72b6-cae0-e210-8db2-630b33180335@siemens.com> <CAPKBGcn=m5f_3RGzhZ+=BF9_-v-SAN8y=xOCk5Zf8RgEm7Jz_Q@mail.gmail.com>
+In-Reply-To: <CAPKBGcn=m5f_3RGzhZ+=BF9_-v-SAN8y=xOCk5Zf8RgEm7Jz_Q@mail.gmail.com>
 From: Huang Shihua <shihuahuang94@gmail.com>
-Date: Wed, 28 Jul 2021 14:10:44 +0200
-Message-ID: <CAPKBGcn=m5f_3RGzhZ+=BF9_-v-SAN8y=xOCk5Zf8RgEm7Jz_Q@mail.gmail.com>
+Date: Wed, 28 Jul 2021 14:18:19 +0200
+Message-ID: <CAPKBGc==ELN+6Ws==mH=tCc=NqrJfSxvrEF3ey56VwWFsmS_3w@mail.gmail.com>
 Subject: Re: Ivshmem-demo: root cell failed to receive interrupts
 To: Jan Kiszka <jan.kiszka@siemens.com>
 Cc: Huang Shihua <shihua.huang@prodrive-technologies.com>, 
 	Jailhouse <jailhouse-dev@googlegroups.com>
-Content-Type: multipart/alternative; boundary="000000000000e7c81105c82de038"
+Content-Type: multipart/alternative; boundary="000000000000faf44d05c82dfb4e"
 X-Original-Sender: ShihuaHuang94@gmail.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20161025 header.b=ZkOijQmP;       spf=pass
- (google.com: domain of shihuahuang94@gmail.com designates 2607:f8b0:4864:20::102c
+ header.i=@gmail.com header.s=20161025 header.b="E4O/e3iM";       spf=pass
+ (google.com: domain of shihuahuang94@gmail.com designates 2607:f8b0:4864:20::636
  as permitted sender) smtp.mailfrom=shihuahuang94@gmail.com;       dmarc=pass
  (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
@@ -144,294 +145,316 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---000000000000e7c81105c82de038
+--000000000000faf44d05c82dfb4e
 Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Jul 26, 2021 at 8:08 PM Jan Kiszka <jan.kiszka@siemens.com> wrote:
-
-> On 26.07.21 19:14, Huang Shihua wrote:
-> >
-> >
-> > On Wednesday, 21 July 2021 at 17:50:53 UTC+2 j.kiszka...@gmail.com
-> wrote:
-> >
-> >     On 13.07.21 18:09, Huang Shihua wrote:
-> >     > HI,
-> >     >
-> >     > Currently, I'm trying to run the ivshmem-demo to establish
-> >     communication
-> >     > between Linux root cell and one non-root cell. Configuration files
-> >     are
-> >     > attached.
-> >     >
-> >     > Two cases were tested:
-> >     >
-> >     > 1. Let the non-root cell load the ivshmem-demo and then target at
-> >     > itself (target=1). _All interrupts can be sent and received
-> >     correctly_.
-> >     > 2. Let the root cell and the non-root cell send interrupts to each
-> >     > other. I.e., root cell runs /./tools/demos/ivshmem-demo -t 1,
-> /while
-> >     > the non-root cell load /inmates/demos/x86/ivshmem-demo.bin -s
-> >     > "target=0" -a 0x1000 /and then run. The result turned out to be,
-> >     > * the non-root cell got the interrupts from the root cell,
-> >     > * _while the root cell did not receive any interrupt._
-> >     >
-> >     > As Jan mentioned
-> >     >
-> >     in
-> https://groups.google.com/g/jailhouse-dev/c/GRCWFzNaHX8/m/ht8z51BOCgAJ
-> >     <
-> https://groups.google.com/g/jailhouse-dev/c/GRCWFzNaHX8/m/ht8z51BOCgAJ>,
-> >
-> >     > tuning the iommu index should do the trick.
-> >     > However, unfortunately, it did not work for me :c
-> >     >
-> >     > There are 8 iommu units on the hardware, I tuned the iommu index
-> >     in the
-> >
-> >     Wow, 8 units...
-> >
-> >     > root cell configuration from 0 to 7. The same behavior, no
-> interrupts
-> >     > were received by the root cell, remains when tuning the index from
-> >     0 to
-> >     > 6. When the iommu is set to 7, the kernel crashed immediately when
-> >     the
-> >     > demo was started on the non-root cell.
-> >     >
-> >     > Any idea regarding why the root cell always failed to receive
-> >     interrupts?
-> >
-> >     This may require in-detail debugging. For that, you would have to
-> >     instrument the hypervisor along its virtual IRQ injection path. That
-> >     starts in ivshmem_trigger_interrupt() (hypervisor/ivshmem.c). The
-> >     sending side will call it on writing the doorbell registers. Check
-> >     along
-> >     this call path if conditions to actually send the IRQ are not met.
-> >
-> >     If all are met, the hypervisor sends an IPI to a target cell CPU
-> (will
-> >     be directly delivered to the guest) that should cause the normal IRQ
-> >     processing there. But usually, we do not get so far in such cases.
-> >
-> >     Another function of interest here is arch_ivshmem_update_msix() when
-> >     called for the root cell while it defines where ivshmem IRQs should
-> go
-> >     to. Possibly, Jailhouse decides that the programming Linux issued is
-> >     not
-> >     valid and therefore leaves the irq_cache that
-> >     arch_ivshmem_trigger_interrupt() uses invalid. You can also check
-> that
-> >     via instrumentations (printk).
-> >
-> >
-> > Indeed, when .iommu is assigned as 0,1,..6,  irq_cache is invalid. I
-> suspect
-> > the reason is that their correpsonding VT-d interrupt remappting table
-> > entries
-> > are not for ivshmem devices, i.e., unmatched device ID.
-> > When .iommu is tuned to 7, irq_cache becomes valid.
-> >
->
-> OK, then we know what needs to be set. I will have to check eventually
-> if we can read out that information also from sysfs so that this
-> guessing can end.
->
-> > (BTW, as I mentioned before, the kernel crashed immediately when the
-> > demo was started on the non-root cell. _One missing detail here is_, on
-> the
-> > root-cell side,  ./tools/demos/ivshmem-demo is running/has run, i.e.,
-> > init_control has been set to 1. If ./tools/demos/ivshmem-demo has not
-> been
-> > run on the root cell yet, then starting the demo on the non-root cell
-> > will not
-> > kill the kernel.)
->
-> Now we need to understand the crash. The root cell kernel oopses, right?
-> Any logs from that?
->
-
-Activating hypervisor
-CAT: Using COS 0 with bitmask 000007ff for cell ivshmem-demo
-Adding virtual PCI device 00:0e.0 to cell "ivshmem-demo"
-Shared memory connection established, peer cells:
- "RootCell"
-Created cell "ivshmem-demo"
-Page pool usage after cell creation: mem 938/3534, remap 65603/131072
-Cell "ivshmem-demo" can be loaded
-CPU 1 received SIPI, vector 100
-Started cell "ivshmem-demo"
-IVSHMEM: Found device at 00:0e.0
-IVSHMEM: bar0 is at 0x00000000ff000000
-IVSHMEM: bar1 is at 0x00000000ff001000
-IVSHMEM: ID is 1
-IVSHMEM: max. peers is 3
-IVSHMEM: state table is at 0x000000003f0f0000
-IVSHMEM: R/W section is at 0x000000003f0f1000
-IVSHMEM: input sections start at 0x000000003f0fa000
-IVSHMEM: output section is at 0x000000003f0fc000
-IVSHMEM: initialized device
-state[0] = 0
-state[1] = 2
-state[2] = 0
-rw[0] = -1347440721
-rw[1] = 0
-rw[2] = -1347440721
-in@0x0000 = -1347440721
-in@0x2000 = 0
-in@0x4000 = -1347440721
-
-IVSHMEM: sending IRQ 2 to peer 2
-
-IVSHMEM: sending IRQ 2 to peer 2
-<---------- ./tools/demos/ivshmem-demo -t 1 (root cell)
-IVSHMEM: got interrupt 0 (#1)
-state[0] = 0
-state[1] = 2
-state[2] = 3
-rw[0] = -1347440721
-rw[1] = 0
-rw[2] = 0
-in@0x0000 = -1347440721
-in@0x2000 = 0
-in@0x4000 = 0
-
-IVSHMEM: sending IRQ 2 to peer 2
-FATAL: Unhandled VM-Exit, reason 26
-qualification 0
-vectoring info: 0 interrupt info: 0
-RIP: 0xffffffff8d05f6ae RSP: 0xffffafa9c0003fc0 FLAGS: 2
-RAX: 0x00000000007626f0 RBX: 0x0000000000000000 RCX: 0x000000007ffefbff
-RDX: 0x00000000bfebfbff RSI: 0xffffafa9c0003fc8 RDI: 0xffffafa9c0003fc4
-CS: 10 BASE: 0x0000000000000000 AR-BYTES: a09b EFER.LMA 1
-CR0: 0x0000000080050033 CR3: 0x0000001fbd80a004 CR4: 0x00000000007626f0
-EFER: 0x0000000000000d01
-Parking CPU 0 (Cell: "RootCell")
-
-IVSHMEM: sending IRQ 2 to peer 2
-Ignoring NMI IPI to CPU 0
-Ignoring NMI IPI to CPU 2
-Ignoring NMI IPI to CPU 3
-Ignoring NMI IPI to CPU 5
-Ignoring NMI IPI to CPU 6
-Ignoring NMI IPI to CPU 7
-Ignoring NMI IPI to CPU 8
-Ignoring NMI IPI to CPU 9
-Ignoring NMI IPI to CPU 10
-Ignoring NMI IPI to CPU 11
-Ignoring NMI IPI to CPU 12
-Ignoring NMI IPI to CPU 13
-Ignoring NMI IPI to CPU 14
-Ignoring NMI IPI to CPU 15
-
-IVSHMEM: sending IRQ 2 to peer 2
-
+On Wed, Jul 28, 2021 at 2:10 PM Huang Shihua <shihuahuang94@gmail.com>
+wrote:
 
 >
-> And what do yo mean with init_control?
+>
+> On Mon, Jul 26, 2021 at 8:08 PM Jan Kiszka <jan.kiszka@siemens.com> wrote:
+>
+>> On 26.07.21 19:14, Huang Shihua wrote:
+>> >
+>> >
+>> > On Wednesday, 21 July 2021 at 17:50:53 UTC+2 j.kiszka...@gmail.com
+>> wrote:
+>> >
+>> >     On 13.07.21 18:09, Huang Shihua wrote:
+>> >     > HI,
+>> >     >
+>> >     > Currently, I'm trying to run the ivshmem-demo to establish
+>> >     communication
+>> >     > between Linux root cell and one non-root cell. Configuration files
+>> >     are
+>> >     > attached.
+>> >     >
+>> >     > Two cases were tested:
+>> >     >
+>> >     > 1. Let the non-root cell load the ivshmem-demo and then target at
+>> >     > itself (target=1). _All interrupts can be sent and received
+>> >     correctly_.
+>> >     > 2. Let the root cell and the non-root cell send interrupts to each
+>> >     > other. I.e., root cell runs /./tools/demos/ivshmem-demo -t 1,
+>> /while
+>> >     > the non-root cell load /inmates/demos/x86/ivshmem-demo.bin -s
+>> >     > "target=0" -a 0x1000 /and then run. The result turned out to be,
+>> >     > * the non-root cell got the interrupts from the root cell,
+>> >     > * _while the root cell did not receive any interrupt._
+>> >     >
+>> >     > As Jan mentioned
+>> >     >
+>> >     in
+>> https://groups.google.com/g/jailhouse-dev/c/GRCWFzNaHX8/m/ht8z51BOCgAJ
+>> >     <
+>> https://groups.google.com/g/jailhouse-dev/c/GRCWFzNaHX8/m/ht8z51BOCgAJ>,
+>> >
+>> >     > tuning the iommu index should do the trick.
+>> >     > However, unfortunately, it did not work for me :c
+>> >     >
+>> >     > There are 8 iommu units on the hardware, I tuned the iommu index
+>> >     in the
+>> >
+>> >     Wow, 8 units...
+>> >
+>> >     > root cell configuration from 0 to 7. The same behavior, no
+>> interrupts
+>> >     > were received by the root cell, remains when tuning the index from
+>> >     0 to
+>> >     > 6. When the iommu is set to 7, the kernel crashed immediately when
+>> >     the
+>> >     > demo was started on the non-root cell.
+>> >     >
+>> >     > Any idea regarding why the root cell always failed to receive
+>> >     interrupts?
+>> >
+>> >     This may require in-detail debugging. For that, you would have to
+>> >     instrument the hypervisor along its virtual IRQ injection path. That
+>> >     starts in ivshmem_trigger_interrupt() (hypervisor/ivshmem.c). The
+>> >     sending side will call it on writing the doorbell registers. Check
+>> >     along
+>> >     this call path if conditions to actually send the IRQ are not met.
+>> >
+>> >     If all are met, the hypervisor sends an IPI to a target cell CPU
+>> (will
+>> >     be directly delivered to the guest) that should cause the normal IRQ
+>> >     processing there. But usually, we do not get so far in such cases.
+>> >
+>> >     Another function of interest here is arch_ivshmem_update_msix() when
+>> >     called for the root cell while it defines where ivshmem IRQs should
+>> go
+>> >     to. Possibly, Jailhouse decides that the programming Linux issued is
+>> >     not
+>> >     valid and therefore leaves the irq_cache that
+>> >     arch_ivshmem_trigger_interrupt() uses invalid. You can also check
+>> that
+>> >     via instrumentations (printk).
+>> >
+>> >
+>> > Indeed, when .iommu is assigned as 0,1,..6,  irq_cache is invalid. I
+>> suspect
+>> > the reason is that their correpsonding VT-d interrupt remappting table
+>> > entries
+>> > are not for ivshmem devices, i.e., unmatched device ID.
+>> > When .iommu is tuned to 7, irq_cache becomes valid.
+>> >
+>>
+>> OK, then we know what needs to be set. I will have to check eventually
+>> if we can read out that information also from sysfs so that this
+>> guessing can end.
+>>
+>> > (BTW, as I mentioned before, the kernel crashed immediately when the
+>> > demo was started on the non-root cell. _One missing detail here is_, on
+>> the
+>> > root-cell side,  ./tools/demos/ivshmem-demo is running/has run, i.e.,
+>> > init_control has been set to 1. If ./tools/demos/ivshmem-demo has not
+>> been
+>> > run on the root cell yet, then starting the demo on the non-root cell
+>> > will not
+>> > kill the kernel.)
+>>
+>> Now we need to understand the crash. The root cell kernel oopses, right?
+>> Any logs from that?
+>>
+>
+> Activating hypervisor
+> CAT: Using COS 0 with bitmask 000007ff for cell ivshmem-demo
+> Adding virtual PCI device 00:0e.0 to cell "ivshmem-demo"
+> Shared memory connection established, peer cells:
+>  "RootCell"
+> Created cell "ivshmem-demo"
+> Page pool usage after cell creation: mem 938/3534, remap 65603/131072
+> Cell "ivshmem-demo" can be loaded
+> CPU 1 received SIPI, vector 100
+> Started cell "ivshmem-demo"
+> IVSHMEM: Found device at 00:0e.0
+> IVSHMEM: bar0 is at 0x00000000ff000000
+> IVSHMEM: bar1 is at 0x00000000ff001000
+> IVSHMEM: ID is 1
+> IVSHMEM: max. peers is 3
+> IVSHMEM: state table is at 0x000000003f0f0000
+> IVSHMEM: R/W section is at 0x000000003f0f1000
+> IVSHMEM: input sections start at 0x000000003f0fa000
+> IVSHMEM: output section is at 0x000000003f0fc000
+> IVSHMEM: initialized device
+> state[0] = 0
+> state[1] = 2
+> state[2] = 0
+> rw[0] = -1347440721
+> rw[1] = 0
+> rw[2] = -1347440721
+> in@0x0000 = -1347440721
+> in@0x2000 = 0
+> in@0x4000 = -1347440721
+>
+> IVSHMEM: sending IRQ 2 to peer 2
+>
+> IVSHMEM: sending IRQ 2 to peer 2
+> <---------- ./tools/demos/ivshmem-demo -t 1 (root cell)
+> IVSHMEM: got interrupt 0 (#1)
+> state[0] = 0
+> state[1] = 2
+> state[2] = 3
+> rw[0] = -1347440721
+> rw[1] = 0
+> rw[2] = 0
+> in@0x0000 = -1347440721
+> in@0x2000 = 0
+> in@0x4000 = 0
+>
+> IVSHMEM: sending IRQ 2 to peer 2
+> FATAL: Unhandled VM-Exit, reason 26
+> qualification 0
+> vectoring info: 0 interrupt info: 0
+> RIP: 0xffffffff8d05f6ae RSP: 0xffffafa9c0003fc0 FLAGS: 2
+> RAX: 0x00000000007626f0 RBX: 0x0000000000000000 RCX: 0x000000007ffefbff
+> RDX: 0x00000000bfebfbff RSI: 0xffffafa9c0003fc8 RDI: 0xffffafa9c0003fc4
+> CS: 10 BASE: 0x0000000000000000 AR-BYTES: a09b EFER.LMA 1
+> CR0: 0x0000000080050033 CR3: 0x0000001fbd80a004 CR4: 0x00000000007626f0
+> EFER: 0x0000000000000d01
+> Parking CPU 0 (Cell: "RootCell")
+>
+> IVSHMEM: sending IRQ 2 to peer 2
+> Ignoring NMI IPI to CPU 0
+> Ignoring NMI IPI to CPU 2
+> Ignoring NMI IPI to CPU 3
+> Ignoring NMI IPI to CPU 5
+> Ignoring NMI IPI to CPU 6
+> Ignoring NMI IPI to CPU 7
+> Ignoring NMI IPI to CPU 8
+> Ignoring NMI IPI to CPU 9
+> Ignoring NMI IPI to CPU 10
+> Ignoring NMI IPI to CPU 11
+> Ignoring NMI IPI to CPU 12
+> Ignoring NMI IPI to CPU 13
+> Ignoring NMI IPI to CPU 14
+> Ignoring NMI IPI to CPU 15
+>
+> IVSHMEM: sending IRQ 2 to peer 2
+>
+>
+>>
+>> And what do yo mean with init_control?
+>>
+>
+> oops, typo, should be int_control...
+> the int_control of struct ivshm_regs in ivshmem-demo/c
+> struct ivshm_regs {
+>          uint32_t id;
+>          uint32_t max_peer;
+>          uint32_t int_control;
+>          .....
+> }
+> *so when root cell mimo_write 1 to regs->int_control while non-root cell
+> has been running, then the kernel crashes.*
+>
+>>
+>> >
+>> > To avoid the kernel crashing situation, I only ran the demo on the
+>> > non-root cell. With .iommu being set validly, I will expect at least
+>> > seeing the
+>> > interrupt count increases,  when grep ivshmem /proc/interrupts.
+>> > But nope, _still no interrupts received on the root cell_.
+>> >
+>>
+>> If there is no driver registered on the root side or not opened (by the
+>> demo app), then the interrupt reception is disabled. We need to debug
+>> the "hot" case.
+>>
+>
+> Right, after diving into the source code, I did see that as when
+> ive->int_ctrl_reg=0,
+> no interrupt will be triggered, i.e., arch_ivshmem_trigger_interrupt is
+> skipped.
+>
+> I have a question regarding the code below.
+> static void ivshmem_trigger_interrupt(struct ivshmem_endpoint *ive,
+>      unsigned int vector)
+> {
+>
+> /*
+> * Hold the IRQ lock while sending the interrupt so that ivshmem_exit
+> * and ivshmem_register_mmio can synchronize on the completion of the
+> * delivery.
+> */
+> spin_lock(&ive->irq_lock);
+>
+>
+> if (ive->int_ctrl_reg & IVSHMEM_INT_ENABLE) {
+>
+> if (ive->cspace[IVSHMEM_CFG_VNDR_CAP/4] &
+>
+>    IVSHMEM_CFG_ONESHOT_INT)
+>
+> ive->int_ctrl_reg = 0;
+>
+>
+> arch_ivshmem_trigger_interrupt(ive, vector);
+>
+> }
+>
+>
+> spin_unlock(&ive->irq_lock);
+>
+> }
+>
+> Q1: IVSHMEM_CFG_ONESHOT_INT means?
+> Q2: What does meeting this condition mean,
+> ive->cspace[IVSHMEM_CFG_VNDR_CAP/4] & IVSHMEM_CFG_ONESHOT_INT?
+> Q3: Why trigger_interrupt when ive->int_ctrl_reg = 0?
+> Q4: I tried to add "else" a line above arch_ivshmem_trigger_interrupt,
+> i.e.,  arch_ivshmem_trigger_interrupt is skipped when
 >
 
-oops, typo, should be int_control...
-the int_control of struct ivshm_regs in ivshmem-demo/c
-struct ivshm_regs {
-         uint32_t id;
-         uint32_t max_peer;
-         uint32_t int_control;
-         .....
-}
-*so when root cell mimo_write 1 to regs->int_control while non-root cell
-has been running, then the kernel crashes.*
+pff.....by mistake the incomplete email was sent.....
+anyway, let me continue ....
 
->
-> >
-> > To avoid the kernel crashing situation, I only ran the demo on the
-> > non-root cell. With .iommu being set validly, I will expect at least
-> > seeing the
-> > interrupt count increases,  when grep ivshmem /proc/interrupts.
-> > But nope, _still no interrupts received on the root cell_.
-> >
->
-> If there is no driver registered on the root side or not opened (by the
-> demo app), then the interrupt reception is disabled. We need to debug
-> the "hot" case.
->
-
-Right, after diving into the source code, I did see that as when
-ive->int_ctrl_reg=0,
-no interrupt will be triggered, i.e., arch_ivshmem_trigger_interrupt is
-skipped.
-
-I have a question regarding the code below.
-static void ivshmem_trigger_interrupt(struct ivshmem_endpoint *ive,
-     unsigned int vector)
-{
-
-/*
-* Hold the IRQ lock while sending the interrupt so that ivshmem_exit
-* and ivshmem_register_mmio can synchronize on the completion of the
-* delivery.
-*/
-spin_lock(&ive->irq_lock);
+ Q4: I tried to add "else" a line above arch_ivshmem_trigger_interrupt,
+i.e.,  arch_ivshmem_trigger_interrupt was skipped when
+./tools/demos/ivshmem-demo -t 1 was executed on the root cell, thus no
+kernel crash,
+non-root can later receive interrupt #*!*0 from the root cell, and :) yeah
+the root cell still receives nothing.
 
 
-if (ive->int_ctrl_reg & IVSHMEM_INT_ENABLE) {
-
-if (ive->cspace[IVSHMEM_CFG_VNDR_CAP/4] &
-
-   IVSHMEM_CFG_ONESHOT_INT)
-
-ive->int_ctrl_reg = 0;
-
-
-arch_ivshmem_trigger_interrupt(ive, vector);
-
-}
-
-
-spin_unlock(&ive->irq_lock);
-
-}
-
-Q1: IVSHMEM_CFG_ONESHOT_INT means?
-Q2: What does meeting this condition mean,
-ive->cspace[IVSHMEM_CFG_VNDR_CAP/4] & IVSHMEM_CFG_ONESHOT_INT?
-Q3: Why trigger_interrupt when ive->int_ctrl_reg = 0?
-Q4: I tried to add "else" a line above arch_ivshmem_trigger_interrupt,
-i.e.,  arch_ivshmem_trigger_interrupt is skipped when
-
->
-> Jan
->
-> --
-> Siemens AG, T RDA IOT
-> Corporate Competence Center Embedded Linux
->
-> --
-> You received this message because you are subscribed to the Google Groups
-> "Jailhouse" group.
-> To unsubscribe from this group and stop receiving emails from it, send an
-> email to jailhouse-dev+unsubscribe@googlegroups.com.
-> To view this discussion on the web visit
-> https://groups.google.com/d/msgid/jailhouse-dev/2d2c72b6-cae0-e210-8db2-630b33180335%40siemens.com
-> .
+>> Jan
+>>
+>> --
+>> Siemens AG, T RDA IOT
+>> Corporate Competence Center Embedded Linux
+>>
+>> --
+>> You received this message because you are subscribed to the Google Groups
+>> "Jailhouse" group.
+>> To unsubscribe from this group and stop receiving emails from it, send an
+>> email to jailhouse-dev+unsubscribe@googlegroups.com.
+>> To view this discussion on the web visit
+>> https://groups.google.com/d/msgid/jailhouse-dev/2d2c72b6-cae0-e210-8db2-630b33180335%40siemens.com
+>> .
+>>
 >
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CAPKBGcn%3Dm5f_3RGzhZ%2B%3DBF9_-v-SAN8y%3DxOCk5Zf8RgEm7Jz_Q%40mail.gmail.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CAPKBGc%3D%3DELN%2B6Ws%3D%3DmH%3DtCc%3DNqrJfSxvrEF3ey56VwWFsmS_3w%40mail.gmail.com.
 
---000000000000e7c81105c82de038
+--000000000000faf44d05c82dfb4e
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Mon, Jul 26, 2021 at 8:08 PM Jan K=
-iszka &lt;<a href=3D"mailto:jan.kiszka@siemens.com">jan.kiszka@siemens.com<=
-/a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
-px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">O=
-n 26.07.21 19:14, Huang Shihua wrote:<br>
+<div dir=3D"ltr" class=3D"gmail_attr">On Wed, Jul 28, 2021 at 2:10 PM Huang=
+ Shihua &lt;<a href=3D"mailto:shihuahuang94@gmail.com">shihuahuang94@gmail.=
+com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"marg=
+in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
+x"><div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quot=
+e"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Jul 26, 2021 at 8:08 PM Ja=
+n Kiszka &lt;<a href=3D"mailto:jan.kiszka@siemens.com" target=3D"_blank">ja=
+n.kiszka@siemens.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quo=
+te" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204=
+);padding-left:1ex">On 26.07.21 19:14, Huang Shihua wrote:<br>
 &gt; <br>
 &gt; <br>
 &gt; On Wednesday, 21 July 2021 at 17:50:53 UTC+2 <a href=3D"mailto:j.kiszk=
@@ -631,45 +654,58 @@ diving into the source code, I did see that as when ive-&gt;int_ctrl_reg=3D=
 errupt is skipped.</div><div><br></div><div>I have a question regarding the=
  code below.</div><div>static void ivshmem_trigger_interrupt(struct ivshmem=
 _endpoint *ive,</div>				 =C2=A0 =C2=A0 =C2=A0unsigned int vector)<br>{<br>=
-</div><blockquote style=3D"margin:0 0 0 40px;border:none;padding:0px"><div =
-class=3D"gmail_quote">	/*</div><div class=3D"gmail_quote">	 * Hold the IRQ =
-lock while sending the interrupt so that ivshmem_exit</div><div class=3D"gm=
-ail_quote">	 * and ivshmem_register_mmio can synchronize on the completion =
-of the</div><div class=3D"gmail_quote">	 * delivery.</div><div class=3D"gma=
-il_quote">	 */</div><div class=3D"gmail_quote">	spin_lock(&amp;ive-&gt;irq_=
-lock);</div></blockquote><div class=3D"gmail_quote"><br></div><blockquote s=
-tyle=3D"margin:0 0 0 40px;border:none;padding:0px"><div class=3D"gmail_quot=
-e">	if (ive-&gt;int_ctrl_reg &amp; IVSHMEM_INT_ENABLE) {</div></blockquote>=
-<blockquote style=3D"margin:0 0 0 40px;border:none;padding:0px"><blockquote=
- style=3D"margin:0 0 0 40px;border:none;padding:0px"><div class=3D"gmail_qu=
-ote">		if (ive-&gt;cspace[IVSHMEM_CFG_VNDR_CAP/4] &amp;</div></blockquote><=
-/blockquote><blockquote style=3D"margin:0 0 0 40px;border:none;padding:0px"=
-><blockquote style=3D"margin:0 0 0 40px;border:none;padding:0px"><blockquot=
-e style=3D"margin:0 0 0 40px;border:none;padding:0px"><div class=3D"gmail_q=
-uote">		 =C2=A0 =C2=A0IVSHMEM_CFG_ONESHOT_INT)</div></blockquote></blockquo=
-te></blockquote><blockquote style=3D"margin:0 0 0 40px;border:none;padding:=
-0px"><blockquote style=3D"margin:0 0 0 40px;border:none;padding:0px"><block=
-quote style=3D"margin:0 0 0 40px;border:none;padding:0px"><div class=3D"gma=
-il_quote">			ive-&gt;int_ctrl_reg =3D 0;</div></blockquote></blockquote></b=
-lockquote><div class=3D"gmail_quote"><br></div><blockquote style=3D"margin:=
-0 0 0 40px;border:none;padding:0px"><blockquote style=3D"margin:0 0 0 40px;=
-border:none;padding:0px"><div class=3D"gmail_quote">		arch_ivshmem_trigger_=
-interrupt(ive, vector);</div></blockquote></blockquote><blockquote style=3D=
-"margin:0 0 0 40px;border:none;padding:0px"><div class=3D"gmail_quote">	}</=
-div></blockquote><div class=3D"gmail_quote"><br></div><blockquote style=3D"=
-margin:0 0 0 40px;border:none;padding:0px"><div class=3D"gmail_quote">	spin=
-_unlock(&amp;ive-&gt;irq_lock);</div></blockquote><div class=3D"gmail_quote=
-">}</div><div class=3D"gmail_quote"><br></div><div class=3D"gmail_quote">Q1=
-: IVSHMEM_CFG_ONESHOT_INT means?</div><div class=3D"gmail_quote">Q2: What d=
-oes meeting this condition mean, ive-&gt;cspace[IVSHMEM_CFG_VNDR_CAP/4] &am=
-p; IVSHMEM_CFG_ONESHOT_INT?=C2=A0</div><div class=3D"gmail_quote">Q3: Why t=
-rigger_interrupt when=C2=A0ive-&gt;int_ctrl_reg =3D 0?</div><div class=3D"g=
-mail_quote">Q4: I tried to add &quot;else&quot; a line above=C2=A0arch_ivsh=
-mem_trigger_interrupt,</div><div class=3D"gmail_quote">i.e.,=C2=A0
+</div><blockquote style=3D"margin:0px 0px 0px 40px;border:none;padding:0px"=
+><div class=3D"gmail_quote">	/*</div><div class=3D"gmail_quote">	 * Hold th=
+e IRQ lock while sending the interrupt so that ivshmem_exit</div><div class=
+=3D"gmail_quote">	 * and ivshmem_register_mmio can synchronize on the compl=
+etion of the</div><div class=3D"gmail_quote">	 * delivery.</div><div class=
+=3D"gmail_quote">	 */</div><div class=3D"gmail_quote">	spin_lock(&amp;ive-&=
+gt;irq_lock);</div></blockquote><div class=3D"gmail_quote"><br></div><block=
+quote style=3D"margin:0px 0px 0px 40px;border:none;padding:0px"><div class=
+=3D"gmail_quote">	if (ive-&gt;int_ctrl_reg &amp; IVSHMEM_INT_ENABLE) {</div=
+></blockquote><blockquote style=3D"margin:0px 0px 0px 40px;border:none;padd=
+ing:0px"><blockquote style=3D"margin:0px 0px 0px 40px;border:none;padding:0=
+px"><div class=3D"gmail_quote">		if (ive-&gt;cspace[IVSHMEM_CFG_VNDR_CAP/4]=
+ &amp;</div></blockquote></blockquote><blockquote style=3D"margin:0px 0px 0=
+px 40px;border:none;padding:0px"><blockquote style=3D"margin:0px 0px 0px 40=
+px;border:none;padding:0px"><blockquote style=3D"margin:0px 0px 0px 40px;bo=
+rder:none;padding:0px"><div class=3D"gmail_quote">		 =C2=A0 =C2=A0IVSHMEM_C=
+FG_ONESHOT_INT)</div></blockquote></blockquote></blockquote><blockquote sty=
+le=3D"margin:0px 0px 0px 40px;border:none;padding:0px"><blockquote style=3D=
+"margin:0px 0px 0px 40px;border:none;padding:0px"><blockquote style=3D"marg=
+in:0px 0px 0px 40px;border:none;padding:0px"><div class=3D"gmail_quote">			=
+ive-&gt;int_ctrl_reg =3D 0;</div></blockquote></blockquote></blockquote><di=
+v class=3D"gmail_quote"><br></div><blockquote style=3D"margin:0px 0px 0px 4=
+0px;border:none;padding:0px"><blockquote style=3D"margin:0px 0px 0px 40px;b=
+order:none;padding:0px"><div class=3D"gmail_quote">		arch_ivshmem_trigger_i=
+nterrupt(ive, vector);</div></blockquote></blockquote><blockquote style=3D"=
+margin:0px 0px 0px 40px;border:none;padding:0px"><div class=3D"gmail_quote"=
+>	}</div></blockquote><div class=3D"gmail_quote"><br></div><blockquote styl=
+e=3D"margin:0px 0px 0px 40px;border:none;padding:0px"><div class=3D"gmail_q=
+uote">	spin_unlock(&amp;ive-&gt;irq_lock);</div></blockquote><div class=3D"=
+gmail_quote">}</div><div class=3D"gmail_quote"><br></div><div class=3D"gmai=
+l_quote">Q1: IVSHMEM_CFG_ONESHOT_INT means?</div><div class=3D"gmail_quote"=
+>Q2: What does meeting this condition mean, ive-&gt;cspace[IVSHMEM_CFG_VNDR=
+_CAP/4] &amp; IVSHMEM_CFG_ONESHOT_INT?=C2=A0</div><div class=3D"gmail_quote=
+">Q3: Why trigger_interrupt when=C2=A0ive-&gt;int_ctrl_reg =3D 0?</div><div=
+ class=3D"gmail_quote">Q4: I tried to add &quot;else&quot; a line above=C2=
+=A0arch_ivshmem_trigger_interrupt,</div><div class=3D"gmail_quote">i.e.,=C2=
+=A0
 
-arch_ivshmem_trigger_interrupt is skipped when=C2=A0<br><blockquote class=
-=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
-b(204,204,204);padding-left:1ex">
+arch_ivshmem_trigger_interrupt is skipped when=C2=A0<br></div></div></block=
+quote><div>=C2=A0</div><div>pff.....by mistake the incomplete email was sen=
+t.....</div><div>anyway, let me continue ....</div><div><br></div><div>=C2=
+=A0Q4: I tried to add &quot;else&quot; a line above=C2=A0arch_ivshmem_trigg=
+er_interrupt,</div><div class=3D"gmail_quote">i.e.,=C2=A0 arch_ivshmem_trig=
+ger_interrupt was skipped when ./tools/demos/ivshmem-demo -t 1 was executed=
+ on the root cell, thus no kernel crash,</div><div class=3D"gmail_quote">no=
+n-root can later receive interrupt #<b>!</b>0 from the root cell, and :) ye=
+ah the root cell still receives nothing.</div><div class=3D"gmail_quote"><b=
+r></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
+;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr">=
+<div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margi=
+n:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex=
+">
 <br>
 Jan<br>
 <br>
@@ -688,6 +724,7 @@ om/d/msgid/jailhouse-dev/2d2c72b6-cae0-e210-8db2-630b33180335%40siemens.com=
 " rel=3D"noreferrer" target=3D"_blank">https://groups.google.com/d/msgid/ja=
 ilhouse-dev/2d2c72b6-cae0-e210-8db2-630b33180335%40siemens.com</a>.<br>
 </blockquote></div></div>
+</blockquote></div></div>
 
 <p></p>
 
@@ -698,9 +735,9 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/CAPKBGcn%3Dm5f_3RGzhZ%2B%3DBF9_-v-SAN8y%3DxOCk5Zf8=
-RgEm7Jz_Q%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://=
-groups.google.com/d/msgid/jailhouse-dev/CAPKBGcn%3Dm5f_3RGzhZ%2B%3DBF9_-v-S=
-AN8y%3DxOCk5Zf8RgEm7Jz_Q%40mail.gmail.com</a>.<br />
+om/d/msgid/jailhouse-dev/CAPKBGc%3D%3DELN%2B6Ws%3D%3DmH%3DtCc%3DNqrJfSxvrEF=
+3ey56VwWFsmS_3w%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">ht=
+tps://groups.google.com/d/msgid/jailhouse-dev/CAPKBGc%3D%3DELN%2B6Ws%3D%3Dm=
+H%3DtCc%3DNqrJfSxvrEF3ey56VwWFsmS_3w%40mail.gmail.com</a>.<br />
 
---000000000000e7c81105c82de038--
+--000000000000faf44d05c82dfb4e--
