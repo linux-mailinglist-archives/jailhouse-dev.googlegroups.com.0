@@ -1,160 +1,141 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBB6WX72EAMGQENDH4W3Y@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDLLFRUURMIBBRXH72EAMGQE2IXWKKI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33b.google.com (mail-wm1-x33b.google.com [IPv6:2a00:1450:4864:20::33b])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6D3F3F2D06
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 20 Aug 2021 15:19:54 +0200 (CEST)
-Received: by mail-wm1-x33b.google.com with SMTP id 204-20020a1c04d5000000b002e70859ef00sf2657294wme.4
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 20 Aug 2021 06:19:54 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1629465594; cv=pass;
+Received: from mail-lj1-x237.google.com (mail-lj1-x237.google.com [IPv6:2a00:1450:4864:20::237])
+	by mail.lfdr.de (Postfix) with ESMTPS id 34A9D3F2D6F
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 20 Aug 2021 15:53:16 +0200 (CEST)
+Received: by mail-lj1-x237.google.com with SMTP id o5-20020a2ebd850000b02901b783135369sf3200921ljq.23
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 20 Aug 2021 06:53:16 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1629467590; cv=pass;
         d=google.com; s=arc-20160816;
-        b=zLPI85sQ/TDm7uRRdUNxPiPPmW3wcjrMshp2iRjECDOOVvlo3jY8V11w/splC2Sk1o
-         YLkTqUUb1pJ4ZYhrXM5ZfPblRuUub6eFsuZwm2o7elttHubjTDqiSsdWeWj4UINbAOhZ
-         Yof0f0aZe0T5Mo0cqXgZeYh6ThjZyuO4CoCFSdwFDcrkRDOaB7+ANKJfm+qsj7DWKDFf
-         H1RoQct1uwI9tD61uIO4/dbFgc2kmLN6Igd1ReYZg8GhfA9X/QF99VERQejqGvyniHyR
-         oK7mZtZZMTW+EIURfNO3/Gu7SgU8IVrv5UroVh3BpNpaACdj7TMf79e9xG1xXIG7ijW8
-         KhFQ==
+        b=jVs6QZNBXmHI68Siy6c857OYV5A/M0sX7kWI3J9rQpMhcT0H+k5i/INTozWn5e4127
+         4vcS2j5GiFs8MTxGp7jQjeS0sJ8CiMQg4G7i9VNtmM1GQZ3w7fq4ZcKDYmOkF5ykFKWx
+         vJe3yr1XeLYfHreyaGLKUj8IiFhYCKyTbAmZyqoQdVEhvAPM0zYee5Yv3dKhC/7rtzUK
+         1KERA/byZXBDkeuOauYmqRDwu6/Tj7dR4fzuNHh2/8L0RQ1BN/O7fP+gfVM0bwo3vwJr
+         4ef+ND+s9cVX/qpF/RnLTuEjRdafj4Q904raxY/Xx+s7Jv/ISMmeLvXTJVgc6aLCCNKI
+         DaAQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:cc:to:subject:sender:dkim-signature;
-        bh=p8RjJgBqnjNs8+740flcHu6lAzvAc8nH2wisFXhayVE=;
-        b=Lb0tpxIqcSCQwq4Q77BrjCc+7qHn9UWLIWCHqXY8iWh0xg3TazwxHgwbETTOUzlCeR
-         Pe591tMV0YugKV+rkPE4qouO8vCdX/Wd3oiSpx0jxYApf2IyONELE/dLDct08nucAG6h
-         Lo6n96O8Qi3VTIgj/GeesvehEGwOpPsiaQbfHpJ+kXHO6IQN8TLM18Igi6PfB0LieaEr
-         Cm3W7vJlbDmsETihU0emk6IW8LvZtMmz7AhPp/8ZUY+Qsz5tdDZCPngcvB6DkTzwcn+0
-         Vh5c8V6v9ir0OaD4EqeKTFnoinSynU+k4UeVMvwG5aIXYFVOjX07fKfCqrHbNOSNTqB7
-         6Hsg==
+         :list-id:mailing-list:precedence:content-transfer-encoding:cc:to
+         :subject:message-id:date:from:in-reply-to:references:mime-version
+         :sender:dkim-signature:dkim-signature;
+        bh=yEDi7hYX8gmimEeSwCSGVaifP+mTOsonPFMtvMhMcFc=;
+        b=UR1aK3Y2s+/R8z6f+pJ7vMeKKBa0ldiDiGSQ8fiST2MfQza/dUPSezvmhH48MT6f4R
+         WmsYoBDry429bvjI4KaC/C08mYqOJUyiUyP0IEYpwA1hkCXFZrFaq4u3k7q6li5tfAXJ
+         ihqizIULwv4ulsDDinlL5Kd2Yv/3VkhmrZW1D7fB91rm5ACsLyNJz8x9sUxBsRSS+mcp
+         PzeNI/aEJtBZq07fUSWf9fp8pIYQ0UR7RCLRqICWuwla+BARApucCSKg68TaJqbNoLTn
+         H6gfysC1hE63XhGvVJblcAU4GJ3M+P3FxPOw3giFTLUUOp/8WedeKbleS3RC5dSa5BpZ
+         6aiQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=kd1xUmBe;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) smtp.mailfrom=jan.kiszka@web.de;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=web.de
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=bGLfus6t;
+       spf=pass (google.com: domain of anmol.karan123@gmail.com designates 2a00:1450:4864:20::12f as permitted sender) smtp.mailfrom=anmol.karan123@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=p8RjJgBqnjNs8+740flcHu6lAzvAc8nH2wisFXhayVE=;
-        b=GSbnG2IctLNow/zHDpyBfSYfSlubzjIk66kJfKSiBG2awxDIzqckpLQoCny+THeAOM
-         a6xfX51VDzs/eIoS89vcdcQ/HEH7tXWKdV7aap/2nB8RzOoF1Hq1on0uS8rA22xGKVH7
-         41AN7D0LyaC4/f4+QtbjBVc+OhYNWdenEYF9Usg236OhyuMInN3Ig/e9FnIJGxmtAALf
-         vwBp7ibyShl5jNjIVCjsN4mxJBfzKAFUdaqffpIX3s6mDevEd3UjpNjKk/D75BjrJCsM
-         VaVMCAb96QhBmHEg/qYsVifkOjR39cHkhn19tpEO9f+ILRE3JOCxdvpcaM2NrdPE1z5F
-         tn4g==
+        h=sender:mime-version:references:in-reply-to:from:date:message-id
+         :subject:to:cc:content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=yEDi7hYX8gmimEeSwCSGVaifP+mTOsonPFMtvMhMcFc=;
+        b=a2UqU7hOIGbW3Oad+iY5QRTOrkRNqnlnqVrUMItU++Axb2nkswVI0976wX8FRUuCYU
+         sH7N45yGrb0X9hB0a9cAu/dtFcJ/ThZ4BwtvK/MHLL2EQ+E+WO0jJsgzRUZ4ndxEJk72
+         yCYmHvBJw2cKmX+WGKuQX9R/k0AHh/sfh200YzhaU/GvR51SkvmYptmHy23D2sD/fnjK
+         ppDU5rmZWgk82YPChyVhOzVAuqdVAGaQdPdkttPuRN6A5tMWeXYv1lZSi3yQxZIPRhYJ
+         YQAl2DQUw6x4sjrWMkpZ6hyZjUR27YM2O4fFNG94iONrmE4M7UAcaF7lhf0100tNXaCu
+         WOYQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=yEDi7hYX8gmimEeSwCSGVaifP+mTOsonPFMtvMhMcFc=;
+        b=KzEfdRQpF6nHTBluXjEbynw5iOyEpL23/DGItJdbWVGdDUySYUMOJ3N14hmzIBMGgK
+         PdSLMfvip5L55UXyXjkVa94sPDbkaQu6Hyu7U7FlBfhUv/GQtsKNJ7SGjrAXbTCQzXpN
+         WQaIY9W6Uch6bcxKuhubBBxUBJQELVNYlizYJWu+yg1A9GsPlQsZTbMLrq3CHqcRdC8o
+         bdO2OMvuCdA1Tqlm+xiT0DY5n0yUECU4PNTfWcr84/Ru0a6kZodwZPR8eTBPAdNn7tbo
+         w541q6cbSvSQhd9h0mu/Dn7Lf9C5kZdYyfGa4DKon4pNrtzFCDD1OE/bxR0+jN9AW9wZ
+         TKOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=p8RjJgBqnjNs8+740flcHu6lAzvAc8nH2wisFXhayVE=;
-        b=G5ciIx9f6j2975ttN3LQKUjDUA7EvPiQlxz5C5CxMIylSUeKukvIE7a9/by8c3NhPv
-         38elyty9MV+Fr3znIwb/5tddx0rXknvWS+HRAhLMRoGboYwnPfQUGkSJFHRZRai3K31V
-         AtEdsFpPK0gjaCiUNpRypFPAMsmXrSwxhWuvVU+vZeEyTZubyEuuaNQo3rcO/FDi7EsI
-         P5wkI+lC7RpYM0Dxza7C7uyrOvOa/ZVxUfH4uJryMTF0MpqYUMpCt1vLMitjZ66Bk9tM
-         XpbxuMT6EETpShLHc39sGxeaL4BF+58QW0CQpd/iu0CoPlnpHqhNIeZlFT4s+KaNsQeU
-         BU1g==
+        h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
+         :date:message-id:subject:to:cc:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=yEDi7hYX8gmimEeSwCSGVaifP+mTOsonPFMtvMhMcFc=;
+        b=WAijYqiRSU6x8WZcPcYwmNG+zv7oEfCg43l+EDeST/CQWZON6HbKCyxPCPhJ2pWhuD
+         niKIxqIvmTGsgwirFSUa3uUHfKJ767964hTwOVI+DwtcIBIkx2ErqINp8J/QdrbGTZVm
+         i4WVOoxU71/OaKRUZuXQFIXa0m8Hu6gasBeSHbfBtVDyTgM4BAEPQpUaZ0f96TDjLVrX
+         2LvnVqUXhPpIxnDL+lGXg2XpeBNXu+oHJjTUb8UC9rmYYIywPO9jsQtjYJlPImDmk9wX
+         8pC1uQdHt8r1Pr5RIl2s7NO1dSoFMevyDZO9YPTFQ8fNO0d2Opfs3rqYe/0qkCW943/W
+         FsNw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM5321+Y4h7m4D2NzFPo8Ir/qAdueC5oRN2eO2FrejDvxeDytCtvoV
-	7J2RpNINsAe6UyLb7IZziB8=
-X-Google-Smtp-Source: ABdhPJywPS/+i54xNammjzbl5uFGUsKjtTCEqhStf9IiL9JVe89p4TTGNy0TMgojPKijn+zXr9DXLg==
-X-Received: by 2002:a1c:2547:: with SMTP id l68mr4119185wml.23.1629465594550;
-        Fri, 20 Aug 2021 06:19:54 -0700 (PDT)
+X-Gm-Message-State: AOAM533TnVHhezZjMgQWBqMo0qZG6x5XqJnh5HdnnZoQGnfu6GNfkxIN
+	Tufj9Kz0mEEbYB9GB+LT9DU=
+X-Google-Smtp-Source: ABdhPJz67wGVhMvoGNEF57d0kZf6auybyR2vGWANovj7T3dZ5rMwY/D+ZvcwACi55qDD7BEvmDUSAQ==
+X-Received: by 2002:a05:6512:118c:: with SMTP id g12mr15178406lfr.143.1629467590669;
+        Fri, 20 Aug 2021 06:53:10 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a7b:cb09:: with SMTP id u9ls3906393wmj.1.gmail; Fri, 20 Aug
- 2021 06:19:53 -0700 (PDT)
-X-Received: by 2002:a05:600c:3b15:: with SMTP id m21mr4037545wms.186.1629465593619;
-        Fri, 20 Aug 2021 06:19:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1629465593; cv=none;
+Received: by 2002:a05:6512:3f02:: with SMTP id y2ls334434lfa.3.gmail; Fri, 20
+ Aug 2021 06:53:09 -0700 (PDT)
+X-Received: by 2002:a19:c207:: with SMTP id l7mr1373764lfc.604.1629467589226;
+        Fri, 20 Aug 2021 06:53:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1629467589; cv=none;
         d=google.com; s=arc-20160816;
-        b=mI5S2ejR9UUKxlv6/bLkZaLA/MBmVMbKg/CWmPJwxiH48GzO5QQemicKNVGfK22Fyp
-         H8XRetji34hBD1NVtbCUyj6Njb1ZenVcDZI70DQCthHsqBdv1sojJggcaOUXHPmmh0ph
-         0a6DOawuhJfYExEa0NyueYSB6jnllofGZCETHdH2SIwXJlQ17FPt47wZOKoc52gvtuLC
-         unheT2FcupoFEDVgiqL4M0iXKZLJT03ZcC1wplTgGyxkRUQRIhFad+PrjAdp+HHWmjOa
-         zk4ynHCCmcDe23UH0nKQ7T2CBhNxKsZalN9QFqORYH5F4azOP6oUUkOJ2MNN/9RTjtfT
-         UMdg==
+        b=DvI2F6IiZbVj35N8HG5g5223Hs/VXTmjhf1B56pKHMHNVKWZjbwX0/zZeCTdI3xLuR
+         z8B997sp7lKoouA1wNh3xm3PZlyG2zj5rPnxo5WhJKSPgHwF6y8pTNmB5/ws3peeA38v
+         psfco3UKo/XofdI2eVlvLYa0xt2UmaHeu2TD8/jMA8fwQXETr4C2h71T5g4CQ6fh+zhn
+         ZRws4yd674DdB8/sncuq1TeiiSVzMH0r8bdM/wW2waZcD7cuszyTm5dqaypEggmtUt6x
+         9e/tcjDbx/JPk6mSH/f6O1Q+Oz+obP87LMNEjteGlsof+QoJgZL0y2GPsTZwHXT1lO57
+         fMxQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject
-         :dkim-signature;
-        bh=Cn6tF7GQzcqx1+udECGJcBfJWFsQWwqmayV3noxDcb8=;
-        b=tWouWXtRt/rjSUUMdwO/CqeAsZ/FGMSqWkvr3Ztv618mlYge0almpBcFC1m8dPX5yK
-         biqbIj1MRUqqNnnfzp+QfPzUegsYVwssTZa0qaHKDjmnERSdlBEzto6DQ6IqRaqzO2vJ
-         nUxFu2Nvotg597lh4vakLjn59n30KTgFhi9qJWkmo7G1TsyyW8BQ1tHWvyar5AKquw/l
-         Lc4cF4lNOB/C9QKE2LZ6x8AJPusKbGKByM5tuqaB72Dg0+DRVIZeoPNQwCiLCSecM52l
-         FD2+5SbIuP4nV2UC4nU4PdcyFUDH14KDeupFFh1MY/cDue99IM2Kt9Hat7oZmuSjFotn
-         JKxA==
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=irujRI0LOE21eeQGI/RqSAzG8vkLj3TJZsvpY3L5YwY=;
+        b=kkeeno7PaXcvv4AuFPz0qZ9XpdAbf+rAmLu2cXgip1qk7+IJHgrlhokpgp5zhtQmgM
+         CUhSfnCGdFPs1+j35Cjk3xgWC+GTDU2ZXEVmA9/n4Z3jlj1Xi2MAAFm3vbXDl37LYSCg
+         PEhUpJGHhM98JshjWuqqhYnIKHUdCrVafmv/Y3FWsHO8T1qb4nEAgEi+pyt4yNvahkDP
+         KEgpoQH7BMP6I+ChHg4YqV26Cwx0tJ7WHGUPtQwglNPaW9b6R1a2WcSgfy5wVwbCrZ9T
+         Vd3/IQF4uW2+R7+m6uSOl3TV/Z2hYvIPpjQxswa+VRLEyZ6OjehZuoJcAaOohUR5wiqk
+         qiaQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=kd1xUmBe;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) smtp.mailfrom=jan.kiszka@web.de;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=web.de
-Received: from mout.web.de (mout.web.de. [212.227.15.3])
-        by gmr-mx.google.com with ESMTPS id u2si555233wro.0.2021.08.20.06.19.53
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=bGLfus6t;
+       spf=pass (google.com: domain of anmol.karan123@gmail.com designates 2a00:1450:4864:20::12f as permitted sender) smtp.mailfrom=anmol.karan123@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com. [2a00:1450:4864:20::12f])
+        by gmr-mx.google.com with ESMTPS id j7si555573ljc.1.2021.08.20.06.53.09
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Aug 2021 06:19:53 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) client-ip=212.227.15.3;
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [167.87.0.29] ([88.215.87.227]) by smtp.web.de (mrweb002
- [213.165.67.108]) with ESMTPSA (Nemesis) id 0LpwIR-1mjp8x2Pod-00feyp; Fri, 20
- Aug 2021 15:19:52 +0200
-Subject: Re: Help needed regarding AGL with Jailhouse
-To: Anmol <anmol.karan123@gmail.com>
-Cc: Jailhouse <jailhouse-dev@googlegroups.com>
-References: <c07e7f82-2a69-44e6-bbba-aa270d60917en@googlegroups.com>
- <089c15bf-194d-c84b-431c-461cc8a608e1@siemens.com>
- <83beed08-7e85-4607-bdf8-e4ec983912f8n@googlegroups.com>
- <d2dcdcc4-cba6-40a7-859b-25b1bfc685cbn@googlegroups.com>
- <3f00a102-357e-de0e-3ea3-f338f00ca793@web.de>
- <CAC+yH-YxAb+qaCRds7TZHazFXCgLqYwhJTx8W-0bxrmcXpUbBA@mail.gmail.com>
- <7244017d-6e9f-544e-9dfa-fefcb4827cd3@web.de>
- <CAC+yH-aewTCrKXB=QOM_h=n2umO9p2nvpTmBmbwaVjmKuBQWmw@mail.gmail.com>
- <2d727a12-5fc2-1400-3b72-cb21366b47ba@web.de>
- <CAC+yH-Zj8aPePQSLa3GL2TicXWMa_nOXTEEV2Agyjx3zJbZOLA@mail.gmail.com>
-From: Jan Kiszka <jan.kiszka@web.de>
-Message-ID: <457f3a55-732d-15a6-8e4b-d4a86202e302@web.de>
-Date: Fri, 20 Aug 2021 15:19:51 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 20 Aug 2021 06:53:09 -0700 (PDT)
+Received-SPF: pass (google.com: domain of anmol.karan123@gmail.com designates 2a00:1450:4864:20::12f as permitted sender) client-ip=2a00:1450:4864:20::12f;
+Received: by mail-lf1-x12f.google.com with SMTP id o10so20751877lfr.11
+        for <jailhouse-dev@googlegroups.com>; Fri, 20 Aug 2021 06:53:09 -0700 (PDT)
+X-Received: by 2002:a05:6512:104b:: with SMTP id c11mr11362910lfb.201.1629467588985;
+ Fri, 20 Aug 2021 06:53:08 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAC+yH-Zj8aPePQSLa3GL2TicXWMa_nOXTEEV2Agyjx3zJbZOLA@mail.gmail.com>
+References: <c07e7f82-2a69-44e6-bbba-aa270d60917en@googlegroups.com>
+ <089c15bf-194d-c84b-431c-461cc8a608e1@siemens.com> <83beed08-7e85-4607-bdf8-e4ec983912f8n@googlegroups.com>
+ <d2dcdcc4-cba6-40a7-859b-25b1bfc685cbn@googlegroups.com> <3f00a102-357e-de0e-3ea3-f338f00ca793@web.de>
+ <CAC+yH-YxAb+qaCRds7TZHazFXCgLqYwhJTx8W-0bxrmcXpUbBA@mail.gmail.com>
+ <7244017d-6e9f-544e-9dfa-fefcb4827cd3@web.de> <CAC+yH-aewTCrKXB=QOM_h=n2umO9p2nvpTmBmbwaVjmKuBQWmw@mail.gmail.com>
+ <2d727a12-5fc2-1400-3b72-cb21366b47ba@web.de> <CAC+yH-Zj8aPePQSLa3GL2TicXWMa_nOXTEEV2Agyjx3zJbZOLA@mail.gmail.com>
+ <457f3a55-732d-15a6-8e4b-d4a86202e302@web.de>
+In-Reply-To: <457f3a55-732d-15a6-8e4b-d4a86202e302@web.de>
+From: Anmol <anmol.karan123@gmail.com>
+Date: Fri, 20 Aug 2021 19:22:56 +0530
+Message-ID: <CAC+yH-beQxOE-Wdwe+ESFjM3Mw5KeS=kKpda1RZ6rrZ5bQLxuw@mail.gmail.com>
+Subject: Re: Help needed regarding AGL with Jailhouse
+To: Jan Kiszka <jan.kiszka@web.de>
+Cc: Jailhouse <jailhouse-dev@googlegroups.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:/iDQENi4PN7NQ5CpdKO7CIIEAPj7fb10KX73Get0dl/5uhSgh5f
- b9RjxazVAEKXrD36eyP3ROzieTnRLYp7CEfRgtZW71Qcg6NwIcPUl111SRa++D4GbXE8JCa
- fN8A2xcgZkSkw+dwZJNRclue46pRKmaOJZ8PF6eu5ZDcJpK1qnTMH0JE4e6LQBOpslrG3iR
- h3F2JeHEMwTNJlHwuZAHw==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:5rN775DKYjQ=:sH9sAG4PLl2AJIG/uvqAkd
- EV23x7kv969AH4+J78o6KRDsnWjpsc7X+pD4dC2X0044WPe8KT+2negQ18YhV0aeJ81iG33i4
- Xt2o4vtqRmNFdJKN4ILOUFL9p7PHXYzOASdgHgbVvDXT921XCf6eDYWCNzmENZI6FoWYjIBCh
- MnVEP5eSAiStIVZXVMBo58fSIvYvFT3s/p2SnVw072PkDaqkqvTQDrT7N1HncM/xqTb+RvjuB
- MGB4NynOKbityKpr8FASlzeP0Bzxl0AA4yYLrV1geNGfvGyy1y8flDdTCxlCljvCtbbHC6a8H
- a0AjevPqsJeHCWGc2ougKMZybrZI+Nd7nK2URInOuBkNk7OKms2QE2FMrX9aHBvVc+avMirUk
- OjvVgH39R8wAGWoXSYZmFIiCzbQE/WnHm4xoJ5ujQLYoyX9XRd+9OJYnn7Ul398RPP4kGLn8N
- q7pMlbXMq+aYtv+ow7DmlQ2Al7cFDjNg/dq+n97L7ZmycDmuE+TGTgZ4flhy6sJV3nuS6He6X
- kwGGThP6vARN4SfSh/ExolR30nmFks0LMkAQ99jeS5Pno1ym4IIthii7dQzhjvGvgmLfh5Xe0
- yhJ6JyiQDpT/9RTGBqlVOxCWdJ79kJyZaL7WtWsgwiWr1TSVP30E6/Pqvn/TbudOpxRnbhM3L
- ERbhzl9KjOjfvMf3Ahb/1G3W9gGSq6ENU3Dhcsi67uTWxzo6iF04YD0tSrd9yx4lW1M87EvGi
- s9S3v6fklrkguBiChmyArVdc+VJcS77eGrDHwDz7EuNn+WkbI8GVvbEPHttmwzBJk1ODZC0iO
- LDR+M5TVGE8bpbAmi42tGv9JB6v0ebBqTJ8yfCo43h4eGJ9GsmEx+a0eKsvhZ/G0Oqcs8vlPj
- e09t1kKQjdfIBRWmx7Xd/EdbPYnPV9pZTSjKMfgCJUQGnp5nR7luSE8D8u8aMr+SW6kfGnOvn
- NkGmm9UYWXqqEfiYM/Z6pytfZqViUQgZ6etwh98q/WV6hMpg8O0AXag073Pz15yDrauyZUg7y
- Zb2Tc47YGx3Wz0h4I6NpXPjIr7vqzzuJPAygsM+rK7YiCeKqI6bSfl042XD6muUouv/SJfvYF
- lsgkj7q6k+F3QmoRr3Ks92GsHiIYDE9cn4nHsyxVI+geLNuxGSh1sOsvkEpEit83b1ScvpqZu
- 0TWN91xzEdl2uGjepbPPtMVw3u9K6X+hbd5NI9UmwvUkZ27ejiEuHJ6sCN9jreR4zG7Uw=
-X-Original-Sender: jan.kiszka@web.de
+X-Original-Sender: anmol.karan123@gmail.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b=kd1xUmBe;       spf=pass
- (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted
- sender) smtp.mailfrom=jan.kiszka@web.de;       dmarc=pass (p=NONE
- sp=QUARANTINE dis=NONE) header.from=web.de
+ header.i=@gmail.com header.s=20161025 header.b=bGLfus6t;       spf=pass
+ (google.com: domain of anmol.karan123@gmail.com designates
+ 2a00:1450:4864:20::12f as permitted sender) smtp.mailfrom=anmol.karan123@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -167,147 +148,159 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 20.08.21 14:46, Anmol wrote:
-> On Fri, Aug 20, 2021 at 5:53 PM Jan Kiszka <jan.kiszka@web.de> wrote:
->>
->> On 20.08.21 14:02, Anmol wrote:
->>> Hello,
->>>
->>> On Thu, Aug 19, 2021 at 7:22 PM Jan Kiszka <jan.kiszka@web.de> wrote:
->>>>
->>>> On 19.08.21 15:42, Anmol wrote:
->>>>> Hello,
->>>>>
->>>>> On Sat, Aug 14, 2021 at 8:20 PM Jan Kiszka <jan.kiszka@web.de> wrote:
->>>>>>
->>>>>> On 11.08.21 20:36, Anmol wrote:
->>>>>>
->>>>>> The echo should not show any response, but when you do an lspci -k, =
-you
->>>>>> should see that the targeting devices are now driven by uio_ivshmem.=
- If
->>>>>> not, the IDs might not be correct yet, or the devices are missing.
->>>>>>
->>>>>> Also check the kernel console of the cell where you issued this echo=
-.
->>>>>>
->>>>>
->>>>> I have added the PCI devices to both the cells and set the
->>>>> `.shmem_dev_id` accordingly, please have a look at the cell config.
->>>>> files I have sent.
->>>>>
->>>>> here's the `lspci -k` output:
->>>>> qemux86-64:~# lspci -k
->>>>> 00:00.0 Host bridge: Intel Corporation 82G33/G31/P35/P31 Express DRAM=
- Controller
->>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
->>>>> 00:01.0 VGA compatible controller: Red Hat, Inc. Virtio GPU (rev 01)
->>>>> Subsystem: Red Hat, Inc. Virtio GPU
->>>>> Kernel driver in use: virtio-pci
->>>>> 00:02.0 Ethernet controller: Red Hat, Inc. Virtio network device
->>>>> Subsystem: Red Hat, Inc. Virtio network device
->>>>> Kernel driver in use: virtio-pci
->>>>> 00:03.0 Unclassified device [00ff]: Red Hat, Inc. Virtio RNG
->>>>> Subsystem: Red Hat, Inc. Virtio RNG
->>>>> Kernel driver in use: virtio-pci
->>>>> 00:04.0 SCSI storage controller: Red Hat, Inc. Virtio block device
->>>>> Subsystem: Red Hat, Inc. Virtio block device
->>>>> Kernel driver in use: virtio-pci
->>>>> 00:1b.0 Audio device: Intel Corporation 82801FB/FBM/FR/FW/FRW (ICH6
->>>>> Family) High Definition Audio Controller (rev 01)
->>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
->>>>> Kernel driver in use: snd_hda_intel
->>>>> 00:1d.0 USB controller: Intel Corporation 82801I (ICH9 Family) USB
->>>>> UHCI Controller #1 (rev 03)
->>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
->>>>> Kernel driver in use: uhci_hcd
->>>>> 00:1d.1 USB controller: Intel Corporation 82801I (ICH9 Family) USB
->>>>> UHCI Controller #2 (rev 03)
->>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
->>>>> Kernel driver in use: uhci_hcd
->>>>> 00:1d.2 USB controller: Intel Corporation 82801I (ICH9 Family) USB
->>>>> UHCI Controller #3 (rev 03)
->>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
->>>>> Kernel driver in use: uhci_hcd
->>>>> 00:1d.7 USB controller: Intel Corporation 82801I (ICH9 Family) USB2
->>>>> EHCI Controller #1 (rev 03)
->>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
->>>>> Kernel driver in use: ehci-pci
->>>>> 00:1f.0 ISA bridge: Intel Corporation 82801IB (ICH9) LPC Interface
->>>>> Controller (rev 02)
->>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
->>>>> 00:1f.2 SATA controller: Intel Corporation 82801IR/IO/IH (ICH9R/DO/DH=
+It's working :)
+
+qemux86-64:~# ./virtio-ivshmem-block /dev/uio0 disk.img
+Waiting for peer to be ready...
+
+Thanks and Regards,
+Anmol
+
+On Fri, Aug 20, 2021 at 6:49 PM Jan Kiszka <jan.kiszka@web.de> wrote:
+>
+> On 20.08.21 14:46, Anmol wrote:
+> > On Fri, Aug 20, 2021 at 5:53 PM Jan Kiszka <jan.kiszka@web.de> wrote:
+> >>
+> >> On 20.08.21 14:02, Anmol wrote:
+> >>> Hello,
+> >>>
+> >>> On Thu, Aug 19, 2021 at 7:22 PM Jan Kiszka <jan.kiszka@web.de> wrote:
+> >>>>
+> >>>> On 19.08.21 15:42, Anmol wrote:
+> >>>>> Hello,
+> >>>>>
+> >>>>> On Sat, Aug 14, 2021 at 8:20 PM Jan Kiszka <jan.kiszka@web.de> wrot=
+e:
+> >>>>>>
+> >>>>>> On 11.08.21 20:36, Anmol wrote:
+> >>>>>>
+> >>>>>> The echo should not show any response, but when you do an lspci -k=
+, you
+> >>>>>> should see that the targeting devices are now driven by uio_ivshme=
+m. If
+> >>>>>> not, the IDs might not be correct yet, or the devices are missing.
+> >>>>>>
+> >>>>>> Also check the kernel console of the cell where you issued this ec=
+ho.
+> >>>>>>
+> >>>>>
+> >>>>> I have added the PCI devices to both the cells and set the
+> >>>>> `.shmem_dev_id` accordingly, please have a look at the cell config.
+> >>>>> files I have sent.
+> >>>>>
+> >>>>> here's the `lspci -k` output:
+> >>>>> qemux86-64:~# lspci -k
+> >>>>> 00:00.0 Host bridge: Intel Corporation 82G33/G31/P35/P31 Express DR=
+AM Controller
+> >>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
+> >>>>> 00:01.0 VGA compatible controller: Red Hat, Inc. Virtio GPU (rev 01=
 )
->>>>> 6 port SATA Controller [AHCI mode] (rev 02)
->>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
->>>>> Kernel driver in use: ahci
->>>>> 00:1f.3 SMBus: Intel Corporation 82801I (ICH9 Family) SMBus Controlle=
-r (rev 02)
->>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
->>>>> Kernel driver in use: i801_smbus
->>>>>
->>>>
->>>> Is this taken while Jailhouse was enabled? It's missing your ivshmem
->>>> devices (00:0c.0 - 00:0f.0).
->>>>
->>>
->>> I did some changes to the root-cell config files, and now it=E2=80=99s =
-showing
->>> the PCI device 00:0c.0 (I have added defined macro for VIRTIO_BLK
->>> only):
->>>
->>> qemux86-64:~# lspci -k
->>> .
->>> .
->>> .
->>> 00:0c.0 Unassigned class [ff80]: Siemens AG Device 4106
->>> Subsystem: Siemens AG Device 4106
->>> .
->>> .
->>> .
->>>
->>> But it=E2=80=99s not showing any association with the `uio_ivshmem`, an=
-d also
->>> I am still not able to find the `/dev/uio0`.
->>>
->>
->> And now
->>
->> echo "110a 4106 110a 4106 ffc002 ffffff" > /sys/bus/pci/drivers/uio_ivsh=
-mem/new_id
->>
->> again.
->>
+> >>>>> Subsystem: Red Hat, Inc. Virtio GPU
+> >>>>> Kernel driver in use: virtio-pci
+> >>>>> 00:02.0 Ethernet controller: Red Hat, Inc. Virtio network device
+> >>>>> Subsystem: Red Hat, Inc. Virtio network device
+> >>>>> Kernel driver in use: virtio-pci
+> >>>>> 00:03.0 Unclassified device [00ff]: Red Hat, Inc. Virtio RNG
+> >>>>> Subsystem: Red Hat, Inc. Virtio RNG
+> >>>>> Kernel driver in use: virtio-pci
+> >>>>> 00:04.0 SCSI storage controller: Red Hat, Inc. Virtio block device
+> >>>>> Subsystem: Red Hat, Inc. Virtio block device
+> >>>>> Kernel driver in use: virtio-pci
+> >>>>> 00:1b.0 Audio device: Intel Corporation 82801FB/FBM/FR/FW/FRW (ICH6
+> >>>>> Family) High Definition Audio Controller (rev 01)
+> >>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
+> >>>>> Kernel driver in use: snd_hda_intel
+> >>>>> 00:1d.0 USB controller: Intel Corporation 82801I (ICH9 Family) USB
+> >>>>> UHCI Controller #1 (rev 03)
+> >>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
+> >>>>> Kernel driver in use: uhci_hcd
+> >>>>> 00:1d.1 USB controller: Intel Corporation 82801I (ICH9 Family) USB
+> >>>>> UHCI Controller #2 (rev 03)
+> >>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
+> >>>>> Kernel driver in use: uhci_hcd
+> >>>>> 00:1d.2 USB controller: Intel Corporation 82801I (ICH9 Family) USB
+> >>>>> UHCI Controller #3 (rev 03)
+> >>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
+> >>>>> Kernel driver in use: uhci_hcd
+> >>>>> 00:1d.7 USB controller: Intel Corporation 82801I (ICH9 Family) USB2
+> >>>>> EHCI Controller #1 (rev 03)
+> >>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
+> >>>>> Kernel driver in use: ehci-pci
+> >>>>> 00:1f.0 ISA bridge: Intel Corporation 82801IB (ICH9) LPC Interface
+> >>>>> Controller (rev 02)
+> >>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
+> >>>>> 00:1f.2 SATA controller: Intel Corporation 82801IR/IO/IH (ICH9R/DO/=
+DH)
+> >>>>> 6 port SATA Controller [AHCI mode] (rev 02)
+> >>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
+> >>>>> Kernel driver in use: ahci
+> >>>>> 00:1f.3 SMBus: Intel Corporation 82801I (ICH9 Family) SMBus Control=
+ler (rev 02)
+> >>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
+> >>>>> Kernel driver in use: i801_smbus
+> >>>>>
+> >>>>
+> >>>> Is this taken while Jailhouse was enabled? It's missing your ivshmem
+> >>>> devices (00:0c.0 - 00:0f.0).
+> >>>>
+> >>>
+> >>> I did some changes to the root-cell config files, and now it=E2=80=99=
+s showing
+> >>> the PCI device 00:0c.0 (I have added defined macro for VIRTIO_BLK
+> >>> only):
+> >>>
+> >>> qemux86-64:~# lspci -k
+> >>> .
+> >>> .
+> >>> .
+> >>> 00:0c.0 Unassigned class [ff80]: Siemens AG Device 4106
+> >>> Subsystem: Siemens AG Device 4106
+> >>> .
+> >>> .
+> >>> .
+> >>>
+> >>> But it=E2=80=99s not showing any association with the `uio_ivshmem`, =
+and also
+> >>> I am still not able to find the `/dev/uio0`.
+> >>>
+> >>
+> >> And now
+> >>
+> >> echo "110a 4106 110a 4106 ffc002 ffffff" > /sys/bus/pci/drivers/uio_iv=
+shmem/new_id
+> >>
+> >> again.
+> >>
+> >
+> > Here's the full log:
+> >
+> > qemux86-64:~# jailhouse enable /usr/share/jailhouse/cells/qemu-agl.cell
+> > qemux86-64:~# modprobe uio_ivshmem
+> > qemux86-64:~# lsmod
+> > Module                  Size  Used by
+> > virtio_gpu             65536  0
+> > virtio_dma_buf         16384  1 virtio_gpu
+> > virtio_net             53248  0
+> > net_failover           16384  1 virtio_net
+> > failover               16384  1 net_failover
+> > jailhouse              36864  1
+> > qemux86-64:~# echo "110a 4106 110a 4106 ffc002 ffffff" >
+> > /sys/bus/pci/drivers/uio_ivshmem/new_id
 >
-> Here's the full log:
+> ffc0... -> back-end device
 >
-> qemux86-64:~# jailhouse enable /usr/share/jailhouse/cells/qemu-agl.cell
-> qemux86-64:~# modprobe uio_ivshmem
-> qemux86-64:~# lsmod
-> Module                  Size  Used by
-> virtio_gpu             65536  0
-> virtio_dma_buf         16384  1 virtio_gpu
-> virtio_net             53248  0
-> net_failover           16384  1 virtio_net
-> failover               16384  1 net_failover
-> jailhouse              36864  1
-> qemux86-64:~# echo "110a 4106 110a 4106 ffc002 ffffff" >
-> /sys/bus/pci/drivers/uio_ivshmem/new_id
-
-ffc0... -> back-end device
-
-> qemux86-64:~# lspci -k
-> .
-> .
-> .
-> 00:0c.0 Unassigned class [ff80]: Siemens AG Device 4106
-
-ff80 -> you have a front-end device here
-
-You are either running that in the non-root cell or you misconfigured
-the root cell (JAILHOUSE_SHMEM_PROTO_VIRTIO_BACK is needed).
-
-Jan
+> > qemux86-64:~# lspci -k
+> > .
+> > .
+> > .
+> > 00:0c.0 Unassigned class [ff80]: Siemens AG Device 4106
+>
+> ff80 -> you have a front-end device here
+>
+> You are either running that in the non-root cell or you misconfigured
+> the root cell (JAILHOUSE_SHMEM_PROTO_VIRTIO_BACK is needed).
+>
+> Jan
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -315,4 +308,5 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/457f3a55-732d-15a6-8e4b-d4a86202e302%40web.de.
+jailhouse-dev/CAC%2ByH-beQxOE-Wdwe%2BESFjM3Mw5KeS%3DkKpda1RZ6rrZ5bQLxuw%40m=
+ail.gmail.com.
