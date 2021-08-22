@@ -1,70 +1,68 @@
-Return-Path: <jailhouse-dev+bncBCDKXZOSXMDRBJWEQSEQMGQEVMS5QYI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC653PXTYYERBOGVRCEQMGQE4WAOZCI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qt1-x839.google.com (mail-qt1-x839.google.com [IPv6:2607:f8b0:4864:20::839])
-	by mail.lfdr.de (Postfix) with ESMTPS id 226A93F3B49
-	for <lists+jailhouse-dev@lfdr.de>; Sat, 21 Aug 2021 17:56:24 +0200 (CEST)
-Received: by mail-qt1-x839.google.com with SMTP id e3-20020ac80b030000b029028ac1c46c2asf6586674qti.2
-        for <lists+jailhouse-dev@lfdr.de>; Sat, 21 Aug 2021 08:56:24 -0700 (PDT)
+Received: from mail-qk1-x73d.google.com (mail-qk1-x73d.google.com [IPv6:2607:f8b0:4864:20::73d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 043CB3F3F00
+	for <lists+jailhouse-dev@lfdr.de>; Sun, 22 Aug 2021 12:45:14 +0200 (CEST)
+Received: by mail-qk1-x73d.google.com with SMTP id v21-20020a05620a0a9500b003d5c1e2f277sf8961138qkg.13
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 22 Aug 2021 03:45:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=CYremgD6TjlqLiCr/JOuXrUHJ8h/HEbM6fApeD81E/0=;
-        b=EdlJwgbMKgt5L/SQNfmm8d6tIVJvzLoHOT0Dkdvp510GFkGB7II5aD3qUvkQ8dBBjI
-         6r6PTr/kXeOyd4AO1Zn934lSv87cmp1Xr60AfrYe9433WxRqtakdYOW+Bf9vsEait30y
-         VC5QHvrgDoVr1nxGt0ktCcN3nxUSzUcixdt3DKuEC2puwg63daHFq3/u/Grftjoz1ywW
-         MzEUN322irZJWnhDBRDhr8TIESb2WQ/JIxl2m/JW1v+aPYI+vitJ+SxGljc6LRHvzFza
-         MR3jDchsD6SXmKqAplbiB0oZc5Dny8jmu0xPkBdpOl07lZjb3TDeTEX+PXJPlA0Tl8MU
-         rTUQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+        h=sender:date:from:to:message-id:subject:mime-version
          :x-original-sender:precedence:mailing-list:list-id:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=CYremgD6TjlqLiCr/JOuXrUHJ8h/HEbM6fApeD81E/0=;
-        b=Vryv5lProdjibttfr3orCzm0IvtbhrlSu97H0sxCkwjALJRsJ8eI1bC9xZQPhi0I0l
-         gGtJKpM8GSx/4zo7qMK+ZtKfHTOcJEjJbU+a1C/nQbI4q1j0uyinb2FcKY1VmyFuaRYK
-         Y9X8BVtM9nXzd10S/CD7lWTQTnX23SFCejPbHoVJGuV28LuTQW2Tjl2dYeiitNyhrYXj
-         y/F5+pYjG5bqt7UjxZRYJMFfty/iPNbMAGJqri0b+5ppVFHazBpW3aIG+MRqLIW1BhbQ
-         VxHtvHeHyNrzHe9nRP5TV3ZXVsnyL8i73tfI+j/zo+HzEfcuECbx3SuOP/jvtpbO14lG
-         EEJA==
+        bh=Q4fja6QoppsSsjuEDTMk6IAbUFyDrcu8FI7phECXdKA=;
+        b=Mw/ESzfoDprFupPk/Hl+EycjFs8+7iu7OEXnQkgllupocj7UoOJm7yEmaB5WuyymW1
+         4WwJImN5Fa7FJlUw4C5Aw8edK/HTAsTnimZitDCO8kZGQWbiVEbg2U3cO1boTROXk8Xj
+         38luBzd18Dii2FEApCDxbEFfq+oji8p7MtcAxqm4/kaCBFOhHgJR0AJ8AKSaB+pD5Sg4
+         N6f3nl9YRsco5EeUcf5oLJHFo4CnKIrJGAHob6lf64We0VTjd4USARela+6sz2PbB6CM
+         FbAH7P+S14YojstzFfAUhj7iLdlHrPKzCbkNrky9oUvKV590iw8liRAqtAOLyp5DrQS6
+         xiWw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=Q4fja6QoppsSsjuEDTMk6IAbUFyDrcu8FI7phECXdKA=;
+        b=Zj7FodGC/ODfGE7H/9QePkUODKATo/eHhyte8xMO1nDkTOVwnBJaG5BgnwWup9PoM3
+         od4P5FvmO3cjyGFTtNtF+Z3RyVVIOApi/H0sJvxUbXMM4NS7Yt4TSv9JEyY0RpEobiPV
+         3d+jLsUs5sG5idYasWLvoilqTjr1eqQGbLY37ZQffx0Ps6KBesePG1AWFGHy7V/KT46f
+         IcktkKPcZHeO7YXG7whgI1xCMVcQ97HcJ2nKR0WOUq0EWbaKzEuiCgX6pH5+4XkXoI4b
+         NWqHTgtoKbg6S/3NTJUnKbyq0ylGnzk1oDQc9FmvEDYxbzAxyBQwrIKEcNfU/O107lmL
+         TkTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=CYremgD6TjlqLiCr/JOuXrUHJ8h/HEbM6fApeD81E/0=;
-        b=GJWye+42l5/Qgwn1xBS3/FxxhPhbKtP+V08TuA0T6XrxhX5j1z/pMNd0OVzZukr2be
-         ExNlkxfUOHxlWHATugKJoR45/p5dCL2HNjRybFvvYOx884prVDmDiRwJfL2zpq935oro
-         GAk+jVcu3yMCtbbTuqyLxh23o0RDEo96kZtWYi4xP95CAMkAMrqZhgrfTKNMaS1uRYKB
-         cBmaISo6gqnMtU378sKHwn5rox6HUbp9Sc+WW3XeKR6dn46DYnAlDGA1ciGFpQksCGfJ
-         diBI7YNahPguxxV/LJzRU1qODvaJEfEbN18DvbdzEH2TJACgMYJso2UEbrnDSY/IGs/t
-         6nMg==
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=Q4fja6QoppsSsjuEDTMk6IAbUFyDrcu8FI7phECXdKA=;
+        b=c6lUIkbMUmaC5lC64HWRog5jDz1CwmvPtFH36TBzkq74TA5sVzFXM47gaQUVB1PPC/
+         LH66xbaub4GyGmpkdswAOkdbYH37RUS1RI375f7gcKlJVUGq9tDnsYuksvxDXMZLUpwY
+         Y/K37pV72jrgTh4hIJ6leyEfFanWbl3VLoJF9TFh4OMCqrnomg7oa4TxxMCpFVohyL8a
+         hHP/iojWQLp50wwxnGfoyCsUIKjhDDt3b9auTS/9LtWNXvhEXL4wf6qgI9A2d1YsI1Hl
+         iZl/Tgd7qCPDx5QxcPjhrtgeoci4DN5hEDzafl0E+NOyqtNNzFhIBvFYCFgYYsDUTGAa
+         lOzQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530UhHxqGD22wGQ9IVHgVeyYK1I6E3GtwL+0Qdtds7sodn2E2vuv
-	xMjq+kgmRgJDOS7EIgLVCHI=
-X-Google-Smtp-Source: ABdhPJxuoqafMg55JQ0uhSY60+jxDJOX5x+mM0fW/OXVtw2Np6WZC2y/pHxO3GW7fvPMuC4eCP7CSQ==
-X-Received: by 2002:ad4:5f06:: with SMTP id fo6mr1709844qvb.32.1629561382929;
-        Sat, 21 Aug 2021 08:56:22 -0700 (PDT)
+X-Gm-Message-State: AOAM533fFy7mIhG19JAtfF2fJQnCaOymEhmOAECcvlZzReGoPoOcLwKP
+	umhMBpVXlR/wD2I9Xrw/tIM=
+X-Google-Smtp-Source: ABdhPJyufaCWSSFC1gAhYPLlvEWaTzqHbAHt9bNGMXWPPGXc//nViLkQMWX7j+Uh2lGnrsPfC9iQtQ==
+X-Received: by 2002:a37:2754:: with SMTP id n81mr16451653qkn.297.1629629112989;
+        Sun, 22 Aug 2021 03:45:12 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac8:c5:: with SMTP id d5ls4040088qtg.1.gmail; Sat, 21 Aug
- 2021 08:56:22 -0700 (PDT)
-X-Received: by 2002:a05:622a:81:: with SMTP id o1mr22438737qtw.361.1629561382194;
-        Sat, 21 Aug 2021 08:56:22 -0700 (PDT)
-Date: Sat, 21 Aug 2021 08:56:21 -0700 (PDT)
-From: Cri Vitali <cccrrriii95@gmail.com>
+Received: by 2002:ad4:4c12:: with SMTP id bz18ls3936864qvb.6.gmail; Sun, 22
+ Aug 2021 03:45:12 -0700 (PDT)
+X-Received: by 2002:a05:6214:23c6:: with SMTP id hr6mr27775436qvb.22.1629629112210;
+        Sun, 22 Aug 2021 03:45:12 -0700 (PDT)
+Date: Sun, 22 Aug 2021 03:45:11 -0700 (PDT)
+From: Moustafa Nofal <mustafa13e09940@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <43217b5d-b38f-40ac-91f3-b28178514356n@googlegroups.com>
-In-Reply-To: <7b26fdc8-3ea6-4275-9c1e-bc8de873f906n@googlegroups.com>
-References: <7b26fdc8-3ea6-4275-9c1e-bc8de873f906n@googlegroups.com>
-Subject: Re: Share Memory beetween Linux & FreeRTOS
+Message-Id: <cd1adc59-e867-4ce1-a6ea-371ae1754cdan@googlegroups.com>
+Subject: Editing Inmate to add GPIO for Raspberry Pi4
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_5094_878838749.1629561381677"
-X-Original-Sender: cccrrriii95@gmail.com
+	boundary="----=_Part_6010_588848759.1629629111578"
+X-Original-Sender: mustafa13e09940@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -77,25 +75,53 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_5094_878838749.1629561381677
+------=_Part_6010_588848759.1629629111578
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_5095_1093939736.1629561381677"
+	boundary="----=_Part_6011_94065911.1629629111578"
 
-------=_Part_5095_1093939736.1629561381677
+------=_Part_6011_94065911.1629629111578
 Content-Type: text/plain; charset="UTF-8"
 
-Anyone have an idea?
+
+Hi, 
+I build Jailhouse on RPi4 using 5.3 Kernel and it is working nice. I need 
+to toggle a GPIO pin. I tried baremetal code but I figured out, that I must 
+map the peripheral using specifically this function:
+p->mem_fd = open("/dev/mem", O_RDWR|O_SYNC);
+So, I need the following headers to be included:
+/*For munmap, MAP_FAILED, MAP_SHARED, PROT_READ, PROT_WRITE*/
+#include <sys/mman.h>
+/* For open(), creat() */
+#include <unistd.h>
+/* For O_RDWR */
+#include <fcntl.h>
+What could be a clean way, to add such headers into jailhouse, I have my 
+own header-which describes addresses of GPIO registers- added to 
+/inmates/lib/include, but is there any possible way to add these headers?
+
+Thanks in advance
+Moustafa Noufale
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/43217b5d-b38f-40ac-91f3-b28178514356n%40googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/cd1adc59-e867-4ce1-a6ea-371ae1754cdan%40googlegroups.com.
 
-------=_Part_5095_1093939736.1629561381677
+------=_Part_6011_94065911.1629629111578
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Anyone have an idea?<br>
+<br>Hi, <br>I build Jailhouse on RPi4 using 5.3 Kernel and it is working ni=
+ce. I need to toggle a GPIO pin. I tried baremetal code but I figured out, =
+that I must map the peripheral using specifically this function:<br>p-&gt;m=
+em_fd =3D open("/dev/mem", O_RDWR|O_SYNC);<br>So, I need the following head=
+ers to be included:<br>/*For munmap, MAP_FAILED, MAP_SHARED, PROT_READ, PRO=
+T_WRITE*/<br>#include &lt;sys/mman.h&gt;<br><div>/* For open(), creat() */<=
+/div><div>#include &lt;unistd.h&gt;</div>/* For O_RDWR */<br>#include &lt;f=
+cntl.h&gt;<br>What could be a clean way, to add such headers into jailhouse=
+, I have my own header-which describes addresses of GPIO registers- added t=
+o /inmates/lib/include, but is there any possible way to add these headers?=
+<br><br>Thanks in advance<br>Moustafa Noufale<br>
 
 <p></p>
 
@@ -106,11 +132,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/43217b5d-b38f-40ac-91f3-b28178514356n%40googlegrou=
+om/d/msgid/jailhouse-dev/cd1adc59-e867-4ce1-a6ea-371ae1754cdan%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/43217b5d-b38f-40ac-91f3-b28178514356n%40googlegroups.co=
+msgid/jailhouse-dev/cd1adc59-e867-4ce1-a6ea-371ae1754cdan%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_5095_1093939736.1629561381677--
+------=_Part_6011_94065911.1629629111578--
 
-------=_Part_5094_878838749.1629561381677--
+------=_Part_6010_588848759.1629629111578--
